@@ -1,86 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C2346AEE2
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFE5466B5D
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778842325; cv=none; b=Qd71qfus//Yh+uOQWFBnmm7RCDPRk/lpTmoco/ysVBNT+o3AMS+Imw3sX3b0bcMFlHwnONdgnDhG0jJVnT9En1HJ+JW1Cgbx56MP9mtZxWRfZKlU7J/Kp5k4tr62u5CcfFgzKEXB2Z3+Du/y+1YQWut2Jt6Ic4lWHB1+hRhh9ak=
+	t=1778842377; cv=none; b=O5RqfcVxmFTNM38C36Jgsl+KWYiGSXwhs8cZtwMWOcYmxvzxOIdrDx8vEYZ47a8zIvFF6MFipvtZ6TnB1YQCvEkJtPa6YPFMOjqv5SjyIuTwa3abt5DumTPTU1LxrQezXVyS3I7xs1qHjzP8NATd2xYTVCAjZ8aScyYifAp4mrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778842325; c=relaxed/simple;
-	bh=EkWP4MQXRsxUe7DwYNJKZnTlyJkySaF5yIh8AiOKcH8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qzXEFe6UD24Mcc1He9lacFu6DynvLlMW/6fBI3BWrOHJK+mSrsWIJXS0rPWqzATb7p/W/ALVJSLb2PBtb/PHD5jVFrKjCajtvms2zgvhQm3nR6i3fPtXN3fFcxxxlgyJ2VfS4ZLHPDpc8tEbdUe3vE6ninnF3RSGLD8o52JfjUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tfrD7YWe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778842377; c=relaxed/simple;
+	bh=GYRqtEFORIGvBXtjHRIEjsIKBIBEvrSiUzkUEEbUTL0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kFCs3KOG9jMm98/SKAqUpp4SESeuteZqoN4hH6LEy4D6fVl+O89w1RQJaVQU19udRcyboIQCNAHjytTbx/8oAGn61+YQsro1fcSjXzc/Wlm5XxQGP7d1mdvscx8KxDaHQArI8G6is4qqWkzQH7Yg1KuVUmL3CuN47hUkXSoEcY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HY2l0Gaa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dy6qCKYu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tfrD7YWe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572DCC2BCB0;
-	Fri, 15 May 2026 10:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778842324;
-	bh=EkWP4MQXRsxUe7DwYNJKZnTlyJkySaF5yIh8AiOKcH8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=tfrD7YWel4byQer4Me+IncdaVdOdzb6CBW767Q6R//9uVpcXz2haV8tGJkOrsGddb
-	 9zSBLc/TuwVr7lskmwE0tf+fiVU4d044NCOP6GaASpdBGSPAl1LerBxgwPTHTL2rw8
-	 X4jwLazud/ZWVLyOwXzjjPZrmwPqsSgEiFWUPz3Ea+6MHDblw7HedoBR4J8ZQWfIok
-	 7eVCxEXkgfl9ErpNIJNCWU/74v6WRlu+rvpyt/RmTGhbeyFua4QrRX1KZufRrkmXP3
-	 lT8fUuodeagUsVowYQA9gvDr/kYY014lRnYdzMnDInrKj/LGnOL7BERfKzRYnpHLL7
-	 ObdDFFielVVDA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/11] dt-bindings: mfd: add documentation for
- S2MU005 PMIC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260515-s2mu005-pmic-v6-3-1979106992d4@disroot.org>
-References: <20260515-s2mu005-pmic-v6-3-1979106992d4@disroot.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 10:52:03 +0000
-Message-Id: <20260515105204.572DCC2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HY2l0Gaa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dy6qCKYu"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64F4rcs13197662
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:52:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	q74vIe1vHtsQlNs4raX5h9oaRxwa1dTxwCCq8Ygatgk=; b=HY2l0GaaIOTOInh/
+	lFpvlr8nwTsjS56jmB7h0lPRnvOanPA/m/eV3BcO6oG5eMK2vPQdUEp4gJNnF38m
+	XPzngmatmyIHiMrJLkxDkdoF9xrC+Zt57rUipSc9dzWg2ZtPCDLvK5z2inJTgk2s
+	BFF7u53xBs69A24v+0fL4xvXgxXQcmj56gtNh+ADEYvzie4wRTuJhfo9WLqiSLgO
+	x8ipv9BeW8TNAncwLGXl93rgMkV7kSccbsmAqP4Ue8JoLqb4C2iEXvBF+MW2wHRG
+	vKb/vFWvPtSn0sXc9zf/MKjZnIkGMQB8PScv4STA2Qj+xP1qY6j9oorZJBfepGDW
+	/gDJBQ==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1qawvg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:52:54 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-95f71049508so274830241.0
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 03:52:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778842374; x=1779447174; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=q74vIe1vHtsQlNs4raX5h9oaRxwa1dTxwCCq8Ygatgk=;
+        b=Dy6qCKYu1gTJSyr4LtWIPQP1jaVOpQNHWWlJPvt4VGpvc3hM1AeulShAAdHtl5VWXj
+         BXoDt1A4oSXHl0zuBQsr798O/t+63Zv+bDM83D8d86kZ06kB5g/ACDnkoCWozsKZWNWM
+         MvVqrSTUlNXoFFfrQMZMGYJZraJo6FO4BTH7FfIxSfFWc6J/l2FHsYXreK92OhUDbg2S
+         KKzmkDBPL8x8xzF1u2cB7EDDiWXfZ954sa+Vik7yeygDKJ2/VQv9zsG0E0e7y3LjPT78
+         6iZnJ4CxPSN1AeaY6Fn/k4JVPS8Xi9Bteh9SrhKc3dFHQhdIbi3g6cSqE1XixuYLPOWU
+         tQMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778842374; x=1779447174;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=q74vIe1vHtsQlNs4raX5h9oaRxwa1dTxwCCq8Ygatgk=;
+        b=WOWKdCJvCMzetUvfc77Jx8lph0crMOJzQx4KPSy69oJT3EmmgAOwV+UGys/Om5Rz4l
+         x6aSuJ08gCnQQsZkdPBWrBNKfVJyYfTQAKx5Qxwb01VIQ5B2KsnZfhcDd6FAz+VsmpJG
+         ZRfF433fmL/E2LfyNIvX3eExQ5g1F4T8rYa9FxLc/Xv+G9obPMzP/LWbtIvWCiWofPr1
+         he/C3rAIocVEd9JO20bGUoORiIHsk2V396XhwwahBUbrllNuaENcIcR4mjdVl9EsNVNE
+         bcDVLhl6sacABl9OvR7EwbIXf9sIILo8ChPU0jiMaSTO71PdrJzWebIGUE5/SMvY7GN9
+         h6EA==
+X-Forwarded-Encrypted: i=1; AFNElJ+XPakhxjQPy94UEBh4HsHt7io8Poln6yxp/hcX0itVtP3KTJBVZ+CCAYBX2b98XE6fUmN4lPJb2/nw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEbi9t6hv7NQ1VhEuulVXYdLfWxL9ZgYH3ZVSMTeRR+ZlkMUWx
+	jCeqQRAchohD1nnvfEawOCjZ7DtLB6SVE3yenwqd+gDOtFaKg3Zu9XYRBS8jHiynfhxKHsxsUdN
+	oqMRhlr3Wkg/eR3W6Kb+BTn+lHK4j/POK5ToKOgTdmNFq7PUi/JEQ34SHfzAcVkFF
+X-Gm-Gg: Acq92OEKKzHjmkz1xw4BExdLEQV+GRxVgEK2KSynw21yHXfMLL0OWiAfNWw2TyByTBM
+	T/KIesMr2BzHC7vAhhNsZLqVN9TJ/efezMqSw0385F0OJp/ZB5wRj8ss2T8TfrkyTsagVeUlfJi
+	cTyEbmC7H8uKDiejcRVmGqNRnysVbuxSKl5bCVFk4OFGXj24wdOgUQJzz2tE5YBhQHFQnA+sd6x
+	PvPMKkssLkWfNvAUs96XfFJr8npdwR3BpubTO60uqnHWddMuu7uUO3gr6brbemuyRe9QcPN291w
+	Hts8hWMuMSO3u/9kHkMOvTrasUMqVT7ehTDzB9Q+PNJ2sXvSeB3+McY+SACm6C1ic3tO9b7NejW
+	PK6s3rcFpOzIll3meyxgd1vg426Se04TcPoiDh2/NgYNZnDV5EpPQgXaRUalz+TsUh7FbBQlW1P
+	CDUro=
+X-Received: by 2002:a05:6122:6117:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5760bc49d2emr517880e0c.0.1778842373932;
+        Fri, 15 May 2026 03:52:53 -0700 (PDT)
+X-Received: by 2002:a05:6122:6117:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5760bc49d2emr517858e0c.0.1778842373403;
+        Fri, 15 May 2026 03:52:53 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4bd1bc9sm212603566b.9.2026.05.15.03.52.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 03:52:52 -0700 (PDT)
+Message-ID: <bad20423-de93-416e-896f-002e7c05e4ec@oss.qualcomm.com>
+Date: Fri, 15 May 2026 12:52:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: milos-fairphone-fp6: Enable WiFi
+To: Luca Weiss <luca.weiss@fairphone.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+        Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Alexander Koskovich <AKoskovich@pm.me>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann
+ <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson
+ <jjohnson@kernel.org>,
+        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org
+References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+ <20260403-milos-fp6-bt-wifi-v2-7-393322b27c5f@fairphone.com>
+ <4fbs4arx6sez6fffy75ctmzecfvitr6aocau3cczlr2ps2ptld@v7wpa2irsihl>
+ <2514523f-a43f-4470-a69b-3d5175d10385@oss.qualcomm.com>
+ <DI789NOBWJHK.1V3SFQLCFLS4P@fairphone.com>
+ <870d16bb-b426-4285-a299-deb09ae90243@oss.qualcomm.com>
+ <DI9X9D3TTIRE.1CGHQI2LEZ1UL@fairphone.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <DI9X9D3TTIRE.1CGHQI2LEZ1UL@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Z9QP4zF8rf7ICGkaBColocj_GZ4SbgsL
+X-Authority-Analysis: v=2.4 cv=GulyPE1C c=1 sm=1 tr=0 ts=6a06fb06 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=jmRdrQK5CiodBuYeE2YA:9
+ a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDExMCBTYWx0ZWRfX+gbBGiyD9KFA
+ 65ng91FAFoXsglmfzXdiXLSXgKqKJlUDwKI7YpLHwsJfBxRbqz1K+/ch5I/00kyNVexbWfQEukL
+ QX5PXTJdUdU9hHwe7gStN6PbYkY+BMiOUJUULvdP7Vxbfti+7exhB44RTK7aj0muGSlRGVEJNOH
+ 8MSr5uCahoxQ8yXfG0AQYpPoJJq+37YlndFeFkWSyTaI+RSMHa0P3wmbY9b8iPP6E+B3yMiGJAw
+ NlZaNQHbOZxFKAle0tBqiM+c5Uikdw76ko3WT6Pxw5MxbC7d4AiqTOHN6C1nIHQNW9piVxFbssi
+ h6/+aVHoLnrK19lTOKfDqaSjRzueIqI4vnWKuXvDNBuNyF5STtizOb5Vd+Zed7E9223AYUpyM2x
+ kmcB2dj5/uzixmqZwYTJtegGQZQt/2YZhHRXp99US+Pg36525H6wUWitZKwuLHDMxtEh1gq99UO
+ Dpb7bzuZOmL5VRCjJ4g==
+X-Proofpoint-ORIG-GUID: Z9QP4zF8rf7ICGkaBColocj_GZ4SbgsL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150110
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `$ref` for the `flash` child node schema is missing a trailing =
-`#`.
---
+On 5/4/26 3:21 PM, Luca Weiss wrote:
+> On Mon May 4, 2026 at 3:10 PM CEST, Konrad Dybcio wrote:
+>> On 5/1/26 11:20 AM, Luca Weiss wrote:
+>>> Hi Konrad,
+>>>
+>>> On Tue Apr 7, 2026 at 3:16 PM CEST, Konrad Dybcio wrote:
+>>>> On 4/3/26 9:35 PM, Dmitry Baryshkov wrote:
+>>>>> On Fri, Apr 03, 2026 at 03:52:53PM +0200, Luca Weiss wrote:
+>>>>>> Configure and enable the WiFi node, and add the required pinctrl to
+>>>>>> provide the sleep clock from the PMK8550 (PMK7635) to WCN6755.
+>>>>>>
+>>>>>> Thanks to Alexander Koskovich for helping with the bringup, adding
+>>>>>> the missing pinctrl to make the WPSS stop crashing.
+>>>>>>
+>>>>>> Link: https://lore.kernel.org/linux-arm-msm/DBF7OWAWQ94M.FSCP4DPF8ZJY@fairphone.com/
+>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>>>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>>>>>> ---
+>>>>>>  arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 19 ++++++++++++++++++-
+>>>>>>  1 file changed, 18 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+>>>>>> index db72418b7195..d8ac495ca7c8 100644
+>>>>>> --- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+>>>>>> +++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+>>>>>> @@ -242,7 +242,7 @@ wcn6750-pmu {
+>>>>>>  
+>>>>>>  		clocks = <&rpmhcc RPMH_RF_CLK1>;
+>>>>>>  
+>>>>>> -		pinctrl-0 = <&bluetooth_enable_default>;
+>>>>>> +		pinctrl-0 = <&bluetooth_enable_default>, <&pmk8550_sleep_clk_default>;
+>>>>>>  		pinctrl-names = "default";
+>>>>>>  
+>>>>>>  		regulators {
+>>>>>> @@ -766,6 +766,17 @@ &pmiv0104_eusb2_repeater {
+>>>>>>  	qcom,tune-usb2-preem = /bits/ 8 <0x6>;
+>>>>>>  };
+>>>>>>  
+>>>>>> +&pmk8550_gpios {
+>>>>>> +	pmk8550_sleep_clk_default: sleep-clk-default-state {
+>>>>>> +		pins = "gpio5";
+>>>>>> +		function = "func1";
+>>>>>> +		input-disable;
+>>>>>> +		output-enable;
+>>>>>
+>>>>> Hmm, if it's a sleep_clk, should it not be handled via the power
+>>>>> sequencer?
+>>>>
+>>>> If you mean that it may be needed to toggle it with specific timings,
+>>>> possibly..  seems that WCN6855 has a "xo-clk" GPIO defined. I requested
+>>>> access to some docs that I think should have the answer, hopefully should
+>>>> get it soon.
+>>>
+>>> Did you manage to get anything there yet?
+>>
+>> Yeah, sorry, it got lost in the sea of emails..
+>>
+>> The PDF talks about the electrical requirements of the clock signal and
+>> the section titled "Power-up sequence timing" doesn't mention it at all,
+>> so my assumption would be "OK so long as it's ticking before you power
+>> up the WCN"
+> 
+> Thanks for checking!
+> 
+> Is this an R-b then?
 
-commit af977d3436c72dabe8294eb2a16ebaa919887d37
-Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+Yes
 
-dt-bindings: mfd: add documentation for S2MU005 PMIC
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Samsung's S2MU005 PMIC includes subdevices for a charger, an MUIC, and
-flash and RGB LED controllers. This commit adds the device tree binding
-documentation for the S2MU005 PMIC and its supported sub-devices.
-
-> diff --git a/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.y=
-aml b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
-> new file mode 100644
-> index 0000000000000..0e6afb7d2017b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    const: samsung,s2mu005-pmic
-> +
-> +  flash:
-> +    $ref: /schemas/leds/samsung,s2mu005-flash.yaml
-
-Is this missing a trailing `#`?
-
-Device tree schema conventions and tooling expect file references to end
-with `#` to explicitly reference the root of the target schema document.=20
-Other references in this file, such as the muic node, include it.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-s2mu005-pm=
-ic-v6-0-1979106992d4@disroot.org?part=3D3
+Konrad
