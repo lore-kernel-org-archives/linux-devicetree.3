@@ -1,161 +1,231 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE5540629F
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2B0407588
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778834883; cv=none; b=ENZrgkof0fR3tkdXTj4t8IIfxaMt5pEuL3mz7yjixtVSdEIzvpP2DjDD8Fa35jy8F+Q5M633TvdRbeIIWPxbhOJdT6xRQPBww+b5XKlxzHsYaVMNyUE2E8UH9Faz76adkqkhwePMNzuQTHPq2p/Ut8VdG3LpqH1R0iVPrOBGnho=
+	t=1778835016; cv=none; b=sibDz+Xy6UjTkapXEKIaFL6N6ZQuF5IOkgGNY4tX6C15SSwRq/yAt5FEAh2LvzkDCfixRVP1W12sOpRzzRzLlJNX990cz0z9Lla5Cc2QT35UwcKzMpkLUwjr7sevd8/vsHVafqp89NfMWIDmLMZJiiR3/Y5x1T5RAiPb9Z30QMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778834883; c=relaxed/simple;
-	bh=5yHoGKC4E/Rf7XOzxXWV+p/WVrFvuJccWmdeQGZVtoM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bdTvd2dmblhhsO8vUDc0VS8Orxxc9+B5311CgvWrpbAxHMPEzDF4MaG/JdETkGI8sJL4QuuLVJDuYvAdPHJkkVlvqSZW1zNFZD6KdpN15HlphRLc67bn0vdZkeyKewf/i8TxNwDuHC1cjlEIu6fX3h6o6hXn/f4imPca8HsUKBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-631b313e3d0so2241629137.3
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 01:47:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778834878; x=1779439678;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VVgJPqzdVEsAMlVw8p1sldLEqlhvUsFX5k1afv6GStQ=;
-        b=cja5QndmHrmAniUQpfWjwi6WYlbxYv0hcETTtJK0oOdqQ7KpzpJjY/FsTjyMfa4YOF
-         VUL6j+3DKY112yfHdSRoWqPHGFE9u2Y+AFR9ceK0KFyXQ0ryY2qHg/ws2bJ4sTIQ22Ni
-         WkszHQ9IcvN0O5SI10EviI+PRNxcXY6ZP382QtgqedfCvCvU60+CdNKhLYPEZOQHCJVs
-         fUIBQKPMlosRRLpC4PtfooveE6Eyakq7lBrW4/Ybtko4tCbHLG6o8umq/NIzW77XlZ7i
-         xpRxh6FUVsU0INs91hMXhn7WbSidNKufowrS7Ph7tzXHES/ElZy3RlwDmjDJ2pjokBaR
-         OZMw==
-X-Forwarded-Encrypted: i=1; AFNElJ+OGz7o8SD8yTYIIixkxS2Qkw87ak03ZMG3xSggkn3ASrtbrHb1O6Gxd+opSlJeSwCt/cylvy0lf+u1@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyEi8WOhZFDD6G7Z8HjoRu8x4kVvmvpA0qGkCVGA557Kv/yY6k
-	zmnEcUaDNn4tCaFot8eM1fkQyC6TDSDmrOfMn+vRh9dxdgqD+tBZJWC8tKH6VFBw
-X-Gm-Gg: Acq92OGe7KHnP+/cI28q1INXvjRqBClez4esCvdhqSpLObnGVzQAwCoRX+rzK0I1xOc
-	o5Pp+0lubgh/gf7ql3d9vz2XBNnD/8Ll5ENaq4yvuR1RZZRAE5sPI8BNi3hLn9WwgOIOOBXI7+i
-	q6E5djXMV2vAN6dEfrUEIcIhCWTqh+YyGfoV1CjiTttApYeUfyUKvAN+vo1b58P1L0DU7RFPx/g
-	Jg3gBTJz390ixpkr4K77vMf/r7HCRkw3mjhaLSIt7FFxTXal/OKE6QfH8coQJfPzy2Q41XZ2GIs
-	oaF8iCE38Pc/S4eBl3GiKZdjWf6EybnW0P4MMRrPbLJiHQgkQhguWdyQdMe8GwoWTPzDvsYBggC
-	atEr4NPk6XkGMxbw2/HDYR/PF5xKo3MIbjHX5dU8AYG3W649RwFmGypSrADk1sqQQZWSloOEV3I
-	D1DdUGzbv+nWS8sOl65JGg8E4gJeJZTfLwMbkzQNgNWSDoF2vnH+VCbgZ3hdUYBlKK
-X-Received: by 2002:a05:6102:fa6:b0:631:6953:f036 with SMTP id ada2fe7eead31-63a3c709cfdmr1514611137.1.1778834878435;
-        Fri, 15 May 2026 01:47:58 -0700 (PDT)
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-95fc2f874easm692732241.9.2026.05.15.01.47.58
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 01:47:58 -0700 (PDT)
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-56a9c5cb48bso3239738e0c.0
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 01:47:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9Blyf2L8EW4DCN7v/0GLkljhCxVcOyXg311QsgMybuNqUD3YbNorhyhh3ktLjhQMYJ29dIPmrtitm6@vger.kernel.org
-X-Received: by 2002:a05:6102:358e:b0:62f:34db:9474 with SMTP id
- ada2fe7eead31-63a3ee86884mr1297663137.20.1778834878086; Fri, 15 May 2026
- 01:47:58 -0700 (PDT)
+	s=arc-20240116; t=1778835016; c=relaxed/simple;
+	bh=G5+5fodb3WGYNhnA47j3X09tsXhL6UFSysN6XJgwc/k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uTSP+kWOMd6Dfxg1bxqwTEPvdpGQ4DhsRm3VLpGJ6aYdAb5xxlhwPs2l9O/Q7yIgxVv6aLEidXS3U8oD71GfJLVcrRXF4gLWoGLTJtrnKBLrVbJgQABWgWl4mTnAkGz+hnmj3xi3Bin9B5RIQArow2Yvd4AAPrQMMi/cenoUnfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9BesGAC; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9BesGAC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4746AC2BCB8;
+	Fri, 15 May 2026 08:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778835015;
+	bh=G5+5fodb3WGYNhnA47j3X09tsXhL6UFSysN6XJgwc/k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=W9BesGACIRRyVMiggwEUhN6THApV/xLFpNrXoEL9ftls40nsUSQV5z/ZrjQX4uQx6
+	 YhgguHjnUEYBp1o4SfU3ihQl/fOSKu38YkNlyHdnpJRPsb0w1NDODgMd4guHCObmna
+	 e2/taJTbhTusfufKM4WPaxEqbIs0Sz/lK5LcrT5u0T69U62XydX8spxvch4Wl/QTsD
+	 vpSVg+FqUl0eDHgesg1e1MFYiYosvbBQ/YT2g7D+taaU/3Tj0MSHpXDN9wmSMyAYG9
+	 PCLoKzfIOrxqTHE7aA2WTIDn2Pipnwt4DI6IzdGJk3tDRoMZWa315iNi8AXQuCZCaM
+	 4WnNWSxVBRK/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
+ DSI bridge
+Reply-To: sashiko-reviews@lists.linux.dev
+To: syyang@lontium.com
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260515080934.9870-3-syyang@lontium.com>
+References: <20260515080934.9870-3-syyang@lontium.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 08:50:14 +0000
+Message-Id: <20260515085015.4746AC2BCB8@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260514-rcar-du-dsc-v1-0-d65f7a9e9841@ideasonboard.com>
- <20260514-rcar-du-dsc-v1-3-d65f7a9e9841@ideasonboard.com> <CAMuHMdVTgQp9WRiFpLX+pP7kOGF2v6oButALPu1B8QkYhVyvJA@mail.gmail.com>
- <6db159d9-56af-4d79-a1f1-9d5a6349b5ac@ideasonboard.com> <CAMuHMdVL9s=EHbw38kBzEVGa5-LawVY4YBUfSMA-6U+i3OSrbw@mail.gmail.com>
- <d7447f51-c2f7-4947-9fd0-ac0d45027c59@ideasonboard.com>
-In-Reply-To: <d7447f51-c2f7-4947-9fd0-ac0d45027c59@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 15 May 2026 10:47:46 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUS9jrsjqqPRKXJa9978kj1aYZ9aPrepv5kueiHGGLkCg@mail.gmail.com>
-X-Gm-Features: AVHnY4JCOAjr3bsj3LmrYGms2JUgvp1AhIShwYqx91e-BUfZ61J5zvr2A9mA72E
-Message-ID: <CAMuHMdUS9jrsjqqPRKXJa9978kj1aYZ9aPrepv5kueiHGGLkCg@mail.gmail.com>
-Subject: Re: [PATCH 3/5] drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H
- DSC driver
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Tomi,
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] DSI transfer callback returns success for reads without populating=
+ the receive buffer, leaking uninitialized memory.
+- [High] DSI transfer callback polls for eDP video readiness before the ups=
+tream encoder is enabled, guaranteeing a timeout.
+- [High] The driver attempts I2C transfers while the hardware is held in ph=
+ysical reset.
+- [High] Missing DRM_MIPI_DSI Kconfig dependency causes linker errors.
+- [High] request_firmware is called while holding the hardware lock and hal=
+ting the MCU, risking a system pipeline stall.
+- [High] Sleeping functions are called from atomic context in the DRM bridg=
+e callbacks.
+- [Medium] lt7911exc_dsi_host_transfer bypasses the required MCU hardware h=
+alt sequence.
+--
 
-On Fri, 15 May 2026 at 10:17, Tomi Valkeinen
-<tomi.valkeinen@ideasonboard.com> wrote:
-> On 15/05/2026 11:05, Geert Uytterhoeven wrote:
-> > On Fri, 15 May 2026 at 10:03, Tomi Valkeinen
-> > <tomi.valkeinen@ideasonboard.com> wrote:
-> >> On 15/05/2026 10:49, Geert Uytterhoeven wrote:
-> >>> On Thu, 14 May 2026 at 14:25, Tomi Valkeinen
-> >>> <tomi.valkeinen+renesas@ideasonboard.com> wrote:
-> >>>> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >>>>
-> >>>> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> >>>> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> >>>> 8k or 400 Mpixel/s . Add rudimentary driver, which currently acts as a
-> >>>> pass-through bridge and allows DSI1 to be operational on R-Car V4H.
-> >>>>
-> >>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >>>> [tomi.valkeinen: use bridge->next_bridge, minor changes]
-> >>>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> >>>
-> >>> Thanks for your patch!
-> >>>
-> >>>> --- /dev/null
-> >>>> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-> >>>
-> >>>> +
-> >>>> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
-> >>>> +                                  struct drm_atomic_state *state)
-> >>>> +{
-> >>>> +       struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-> >>>> +
-> >>>> +       WARN_ON(clk_prepare_enable(dsc->clk));
-> >>
-> >> Ah, just missed your comment and sent the v2.
-> >>
-> >>> Who don't you use pm_runtime_resume_and_get() instead, like
-> >>> rcar_cmm.c? Then you don't need to get the clock at all, and the driver
-> >>
-> >> Hmm, why wouldn't I need to get the clock? What does the runtime PM do
-> >> on Renesas?
-> >
-> > Runtime PM powers on the power domain (if present), and starts
-> > the device by enabling its module clock.
-> >
-> >>> will keep on working if the DSC ever ends up in a power domain.
-> >> I can add runtime PM. I just felt that it was overcomplicating a "dummy"
-> >> driver that just needs to enable the clock when the video pipeline is
-> >> enabled.
-> >
-> > Funny, I would say you are overcomplicating a dummy driver by adding
-> > explicit clock control ;-)
-> Well, now that I know the runtime PM does magics behind the scenes, you
-> are right =).
->
-> How's "module clock" defined? Is it the first clock in the clocks DT
-> property?
+commit ac42b7d6e1a6501b8416d964b8bbfde4d4b376bc
+Author: Sunyun Yang <syyang@lontium.com>
+Subject: drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
 
-It's the clock pointing to the cpg device node, and having "CPG_MOD"
-as its first cell.  Usually it's the first clock.  Note that e.g. the
-DU is special, as it' is represented by a single device node with
-multiple module clocks (and multiple (but less) resets), due to the
-tight integration between the individual channels.
+This commit adds support for the Lontium LT7911EXC bridge chip, converting =
+eDP
+input to MIPI DSI output. It includes I2C firmware upgrade mechanisms, GPIO
+management, and DRM bridge integration.
 
-Gr{oetje,eeting}s,
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
+fig
+> index c3209b0f46786..cb74730c6ef44 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -132,6 +132,21 @@ config DRM_ITE_IT6505
+>  	help
+>  	  ITE IT6505 DisplayPort bridge chip driver.
+> =20
+> +config DRM_LONTIUM_LT7911EXC
+> +	tristate "Lontium eDP/MIPI DSI bridge"
+> +	depends on OF
+> +	depends on I2C
+> +	select CRC32
+> +	select FW_LOADER
+> +	select DRM_PANEL
+> +	select DRM_KMS_HELPER
+> +	select REGMAP_I2C
 
-                        Geert
+Is a select DRM_MIPI_DSI missing here?=20
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+The driver unconditionally uses MIPI DSI core APIs such as
+mipi_dsi_host_register() and mipi_dsi_host_unregister(), so building without
+the MIPI DSI core enabled might result in undefined reference build failure=
+s.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[ ... ]
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
+/bridge/lontium-lt7911exc.c
+> new file mode 100644
+> index 0000000000000..e7b8a22b2e29b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+[ ... ]
+> +static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
+> +{
+> +	struct device *dev =3D lt7911exc->dev;
+> +	const struct firmware *fw;
+> +	u8 *buffer;
+> +	size_t total_size =3D FW_SIZE - 4;
+> +	u32 crc32;
+> +	int ret;
+> +
+> +	/* 1. load firmware */
+> +	ret =3D request_firmware(&fw, FW_FILE, dev);
+
+Could calling request_firmware() here block concurrent DRM atomic commits a=
+nd=20
+freeze the display pipeline?=20
+
+This function is called by lt7911exc_firmware_store(), which acquires=20
+ocm_lock and halts the MCU via lt7911exc_lock() before invoking it. If the=
+=20
+firmware file is missing or takes time to load, request_firmware() can=20
+block waiting for the userspace fallback mechanism while the mutex is held.
+
+[ ... ]
+> +static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struc=
+t drm_atomic_state *state)
+> +{
+> +	struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
+> +
+> +	guard(mutex)(&lt7911exc->ocm_lock);
+> +
+> +	lt7911exc_reset(lt7911exc);
+> +}
+
+Is it safe to use sleeping functions like guard(mutex) and msleep() inside=
+=20
+lt7911exc_reset(), as well as gpiod_set_value_cansleep() here?=20
+
+The DRM subsystem guide specifies that encoder atomic enable/disable=20
+callbacks execute in an atomic context where sleeping is forbidden, which=20
+could lead to kernel warnings, system instability, or deadlocks.
+
+> +
+> +static void lt7911exc_atomic_disable(struct drm_bridge *bridge, struct d=
+rm_atomic_state *state)
+> +{
+> +	/* Delay after panel is disabled */
+> +	msleep(20);
+> +}
+
+Similar to the above, does calling msleep() here violate atomic context=20
+constraints?
+
+> +
+> +static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, str=
+uct drm_atomic_state *state)
+> +{
+> +	struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
+> +
+> +	guard(mutex)(&lt7911exc->ocm_lock);
+> +
+> +	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
+> +}
+
+If the chip is placed in hardware reset here via gpiod_set_value_cansleep()=
+,=20
+will subsequent I2C transfers in lt7911exc_dsi_host_transfer() fail?
+
+During the next display enable sequence, the panel's pre_enable will=20
+likely send DCS commands before the bridge's atomic_pre_enable deasserts=20
+the reset, leaving the chip physically in reset during I2C communication.
+
+[ ... ]
+> +static ssize_t lt7911exc_dsi_host_transfer(struct mipi_dsi_host *host,
+> +					   const struct mipi_dsi_msg *msg)
+> +{
+> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	guard(mutex)(&lt7911exc->ocm_lock);
+
+Should this use lt7911exc_lock() instead of guarding ocm_lock directly?
+
+lt7911exc_lock() is explicitly defined to protect register accesses by=20
+halting the on-chip MCU. Bypassing this sequence might lead to I2C=20
+collisions with the running firmware.
+
+> +
+> +	/* ensure eDP input video ready */
+> +	ret =3D regmap_read_poll_timeout(lt7911exc->regmap, 0xe084, val, (val &=
+ 0x01), 5000, 50000);
+> +	if (ret) {
+> +		dev_warn(lt7911exc->dev, "Video source not ready within 50ms\n");
+> +		return -EBUSY;
+> +	}
+
+Will this polling loop always time out during panel initialization?
+
+The downstream panel typically sends initialization DCS commands during its=
+=20
+pre_enable phase, which runs before the upstream eDP encoder's enable=20
+callback. Since the eDP video source is inactive at this stage, this=20
+might permanently break the display initialization pipeline.
+
+> +
+> +	/* enable mipi dsi output stream and firmware will send dcs */
+> +	ret =3D regmap_write(lt7911exc->regmap, 0xe0b0, 0x01);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return msg->tx_len;
+> +}
+
+Could returning msg->tx_len for DCS read operations (where msg->rx_len > 0)=
+=20
+lead to uninitialized memory being used by the caller?
+
+Because the function returns a positive success value without actually=20
+populating msg->rx_buf, the calling panel driver might assume the read was=
+=20
+successful and consume uninitialized stack or heap memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515080934.9870=
+-1-syyang@lontium.com?part=3D2
