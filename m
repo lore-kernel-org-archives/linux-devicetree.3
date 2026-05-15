@@ -1,172 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFB3267B89;
-	Fri, 15 May 2026 12:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3312D0622
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778849540; cv=none; b=Q7vgv0ldr5it/79ano/GvyDmQ2++iVDToxbJKWAP6YXjfzlULbmCYavCTUt4afycDWhY7Yr5xg4w9Hp/IJykmjxIb5YmCWBTp+SIjJSys4qOa8hdjaRRXbkjttLxIrsrhqpR55uPp9aB4j+yrqYPLpo8XxKBPTsRbfzzCg39Esw=
+	t=1778849856; cv=none; b=bUgHMp3JaoUHUIwrNiywNga4oolPuweTW67gcBfqI8bl5o2UFk35giUj54SI4a6VarI6hrwnRq5gJ/9JPAYwP4/QUTz519jK963l2R/qqM7dTnzEnlQTJg118EyPGn9Lwk1K/cnA92NaR7uWLWqQxTHi1PPlgkqeP8w3vxc165c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778849540; c=relaxed/simple;
-	bh=5o6LcG/vxhfqiQV9se/iRFOt5vrH9A9e5YPVJb41mtw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cAO0gpb10lwF0fO7vtFL4uopjQI6tzR3D4GeF//WQupNC21JDl7yZaelZx/kZ8ywtjvbBjryObBP4rNmO3UH3t3qlQnMz87aZb6jgEld6P2zWjzuuzgQ50yJU5VIde7l5SdlH473aqqrZ1DKrgEUAr7FRWhuTSAvsNxaRCTBCkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UXNXeVPz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778849856; c=relaxed/simple;
+	bh=6jZeY3fFm/RWu46vschP8gHQy+Evtx8dFt3HodsRJEI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sRshU1jIzk7vejiXfSrjdw03O8jDTSoUrq4ixLUjkgEhOeudzct5yQct9VoA+zctygiLqE+LR+Kt8Z5m9TIujq/2VFvCarOFVHBHb7uE5KRs0BG2nhJxNaMKRb5F/IEwJBDLhAj0MiaPrtTMioaVR2nEygSJiTKN8Ott3QykT0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eZkJLlBl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RseFilte; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UXNXeVPz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40FBC2BCB0;
-	Fri, 15 May 2026 12:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778849539;
-	bh=5o6LcG/vxhfqiQV9se/iRFOt5vrH9A9e5YPVJb41mtw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UXNXeVPzBEGfGCmQ6Zh9balsm9/02tDjxIvzcZ74o357Kj3TLMs5Xfcb9ZDKWUHZs
-	 ig7KXiHw98Zc3EGJ78sJw2h326fCayz5R/+BRUwjc5/6zwFqc9FuG7MRZUMBo97aXs
-	 m41dbxwzJ11MrhVgLwvHa/mYCcdwkV9SlTVec9IKa99pdqnAIgvOIQzkqNQmw6H8Oq
-	 WysXyObH5DQ32PZJn0Zpwcwr5HSwpT4UwCutUx1cqseRCfhexogpZ36ByUxcGZF3VY
-	 McM+sIfpFi/ln6F0XyLSohKlvmXH4fV41RMlYusKqxXUhqaOsn2rdi2KpJVCNGjQn+
-	 UqTD9IdYw4Mrg==
-Date: Fri, 15 May 2026 13:52:10 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	Lars Persson <lars.persson@axis.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Michal Simek <michal.simek@amd.com>
-Subject: Re: [PATCH v2 01/17] ACPI: GTDT: Account for GTDTv3 size when
- walking the platform timer descriptors
-Message-ID: <20260515-crafty-thundering-frigatebird-ea6db0@sudeepholla>
-References: <20260514150945.3917510-1-maz@kernel.org>
- <20260514150945.3917510-2-maz@kernel.org>
- <20260515-prudent-vagabond-beetle-cad34b@sudeepholla>
- <864ik8ykzd.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eZkJLlBl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RseFilte"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FC0dfw1847994
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:57:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PdkIR6RMfY5OxV5lPVO4LlZZZ2NLTbP3dRMQlqgS3FU=; b=eZkJLlBljMbyAyQr
+	TgNgygTHkLS0ix+U9krjIhm/mFnhYTguxqxgyrQYUaEkPRS2woekwR1HkcueC2j3
+	ru4Cb5g/HSqYHEao/G4OqUgZP9zbt3C+qc7SSyhwf9aFHRl19DzniO9OiSH+O9/t
+	I9zsoCWL270oBXW0xi1n77WO6LUBmwNIF9pN00iVSajFd9Hcq5rMmty80ND5iJpd
+	1bEw2A5mxrHSieHNylYINM0M5SU6BfQKFjK/mtAgBymSjC7KLa2M/H7C7j7KDPbz
+	NKXcfUU+FmbYeI1JvyIA73CxX8B5k8GBIfbo4ny6zdfKTsQC7myuPDnv/UygjSWN
+	XqPc5g==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1t38ss-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:57:33 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-631bec27874so435511137.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:57:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778849853; x=1779454653; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PdkIR6RMfY5OxV5lPVO4LlZZZ2NLTbP3dRMQlqgS3FU=;
+        b=RseFilteNn+qPff2YG/aUtw81drJSMqs+HSKFGoaf1GskyLuVnZXVsmTyyanQVDN4Q
+         MdN/uAIv8mQEkZpB98Ej34zJuVQb99/fFpVN9Z9BnNLbVgGhSRFnvfRdT4BbQFBWWfL7
+         nc025NMIsg5EBD4R9y0w0pNm0fVDw9ohdZYIjrpYvuGjLmksTz/KGsMottR5Egxgx6Zh
+         T2ING6TTyqxhr/ic/YzfbEvQKBEH7Gb9M22cNN5gsMAVLknecNiYC5MpvrmMJ07MwcH/
+         ELgCpWfOo8hBivm23WSRPa/MQGMITM19fpW4svLG2ZenpebxF9TFKTL5q59Il5unmdol
+         8PhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778849853; x=1779454653;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PdkIR6RMfY5OxV5lPVO4LlZZZ2NLTbP3dRMQlqgS3FU=;
+        b=BxS2+LUyEq6vC+2KM3bRU8ALBAjRGpkp3QXcwBGjueS9/p6eo7HNWAWEK2pOorRssf
+         Y+IUnwTx736G1YM2y8xUE19v15EwQ5gtfzzOTX8yUKhhPPFP/J3XK9idzDoMaMnEpaXS
+         H+fDXRI1Flq1dtDFehh4CI3pq46fKEyFbvu+Cz2DeP2NbtcsOIzZskoMozX5QflVKdFC
+         eblT8ehdR2P3PFLYWJcPbWRJeQpO1YK7qHZ/nkw1uzxpZg0wkskjQe/52V9BImF3vCyN
+         kEWjlNpKoWgjm2SaWIVHLRetnJPETHwLsTI/0Z7byS5C5higASWBGsB4pmqBPXAT4jsr
+         MUWg==
+X-Forwarded-Encrypted: i=1; AFNElJ9ZDYrt7heNx1OD1Lm3GqU/RPOZmUr0mrJJKfx+yBCzhkzoMu53OmfG3Cs9GhDQQKLz+S+zKoTqpHUj@vger.kernel.org
+X-Gm-Message-State: AOJu0YyoyVqk76BAZLxOCvqrEKAXBozMohKHaVoN30LEVzEGZzavzBF2
+	dkegAp8gA+Qjp5PSebxi03Io06u9oHqRRLAbLmlj50RdUyp/UwNiTVWYXXLaNuuxpYaCsejiu4l
+	G2GRJbuMnKbALxyeK/Dh0/67vqR0xFMAvIOynIA4xFX8QHYpMzKmo0mnWJXd+g7Nu
+X-Gm-Gg: Acq92OHA5NmlHENPCmxNLYFAZQwa6JQ9tuQYYgxDk3TPe4VIfAzKpWLi0kC4I3UTyVH
+	6vecqq2SvANIAmgAhs0jSX+Z8NyrjQ1xwH96Fv+pg30Bz6SnpsxeW+oEgnKd5Q75X2iGT2IVX1+
+	l+i5pu0Eqgx+TcOOAw1Bb2LF6QDqFXYn4zreyX8Frb2fqtRE5ha/51IKr8ndlwPCvGunsBdjrFP
+	IiwDopxMRK7fqO0eeZXGhafxD9jq7f7cZaFs3RAWskuLyup3rQqLTd+lINOf3iTVBLJ9pnLvJwh
+	9AlkA71ScYTDlodAwDrz3uewtbYvzAtiZBBH5V7ByI23mCOt56iw2IUo5FX7lSG1P+FOzCSryPq
+	nVpMyYSrRCPintRDCTVe9eoCkgzDIOeSpBg3JC3I5BOmjLumsHYXvRtCB1w0pWTvvp1Htgh8ZWU
+	kHjk4=
+X-Received: by 2002:a05:6102:126b:b0:632:5db8:f656 with SMTP id ada2fe7eead31-63c002c3749mr339405137.4.1778849853069;
+        Fri, 15 May 2026 05:57:33 -0700 (PDT)
+X-Received: by 2002:a05:6102:126b:b0:632:5db8:f656 with SMTP id ada2fe7eead31-63c002c3749mr339390137.4.1778849852436;
+        Fri, 15 May 2026 05:57:32 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4dea93dsm221177266b.38.2026.05.15.05.57.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 05:57:31 -0700 (PDT)
+Message-ID: <bd4e93dd-5293-4cbc-bfbe-314b3f348d31@oss.qualcomm.com>
+Date: Fri, 15 May 2026 14:57:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/14] dt-bindings: media: qcom: Add CAMSS Offline
+ Processing Engine (OPE)
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
+        laurent.pinchart@ideasonboard.com, kieran.bingham@ideasonboard.com
+References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
+ <20260427-camss-isp-ope-v2-10-f430e7485009@oss.qualcomm.com>
+ <aead10a8-45be-4f7a-ac6c-35a99a716b3c@oss.qualcomm.com>
+ <CAFEp6-38=hcUOvW1yd+hRZ2nHV8sLxiLeB18uu-au=LgA2bQTw@mail.gmail.com>
+ <0c6c9366-a190-4143-a0fb-2aff38ed8804@oss.qualcomm.com>
+ <CAFEp6-1uDO7UzYm+5ejRH0fCtnFZSA3z_Xa+4ibDEbXBh38ueA@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAFEp6-1uDO7UzYm+5ejRH0fCtnFZSA3z_Xa+4ibDEbXBh38ueA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <864ik8ykzd.wl-maz@kernel.org>
+X-Authority-Analysis: v=2.4 cv=D7Z37PRj c=1 sm=1 tr=0 ts=6a07183d cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=MDVsdYFiAoUeNHFhHhoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDEzMSBTYWx0ZWRfX55lOqVojELVP
+ d/8Vo/xovDSKykJSuvaHZgL2lqemp4Qr8Op3gNpRZtBJVrYc62lVD/0+Kyt/p5T/e5ECa6AWxAe
+ Ov67oxSa4JWOXjDjQKMiI5V23+U7rcXzDF2JwBV8QFRVSWnbyNFAUeMYACR6lZ8JLMDjiiV+qan
+ fnEHDA6dKZmFd5iCJ8o7l7A6XEIP2OOdf8MqbMKDSW1Y1+v0VDzQty+24zMoRwnbvo/EDl2EjBC
+ Ne1v+3glhsVkWCtkao8zSnhIgGNUjjstNHwdmYWHca35rOl0kBLYk4HP3yKAa1HwqayCWHxDUfE
+ FOBxyoZtjzau1Tp0UaxtjcSl6Iv/oz3d59M0UbtILMTTTYTW1pKlICXO7hG5bq2h7wkDU5PcstI
+ iQvAaaOTzCutGUu98J1UgWeFa2iheHGo3LzIwKwnAe+C10W6O0vkAR4VYZG6p70H5TjOdnx3QGO
+ JM/aeR1/z2oYEY6yiFA==
+X-Proofpoint-ORIG-GUID: WK_vEV6oRIOfO8wSufy77NBD9QyWbrHp
+X-Proofpoint-GUID: WK_vEV6oRIOfO8wSufy77NBD9QyWbrHp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_03,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ adultscore=0 phishscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605150131
 
-On Fri, May 15, 2026 at 12:23:50PM +0100, Marc Zyngier wrote:
-> On Fri, 15 May 2026 10:51:52 +0100,
-> Sudeep Holla <sudeep.holla@kernel.org> wrote:
-> > 
-> > On Thu, May 14, 2026 at 04:09:29PM +0100, Marc Zyngier wrote:
-> > > Since ARMv8.1, the architecture has grown an EL2-private virtual
-> > > timer. This has been described in ACPI since ACPI v6.3 and revision
-> > > 3 of the GTDT table.
-> > > 
-> > > An aditional structure was added in ACPICA, though in a rather
-> > > bizarre way, and merged in v5.1 as 8f5a14d053100 ("ACPICA: ACPI 6.3:
-> > > add GTDT Revision 3 support").
-> > > 
-> > > Finally plug the table parsing in GTDT, and correct the parsing of
-> > > the platform timer subtables to account for the expanded size of
-> > > the base table.
-> > > 
-> > > Suggested-by: Sudeep Holla <sudeep.holla@kernel.org>
-> > > Signed-off-by: Marc Zyngier <maz@kernel.org>
-> > > ---
-> > >  drivers/acpi/arm64/gtdt.c | 15 ++++++++++++++-
-> > >  1 file changed, 14 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/acpi/arm64/gtdt.c b/drivers/acpi/arm64/gtdt.c
-> > > index ffc867bac2d60..b9d9b8edf2df7 100644
-> > > --- a/drivers/acpi/arm64/gtdt.c
-> > > +++ b/drivers/acpi/arm64/gtdt.c
-> > > @@ -32,6 +32,12 @@ struct acpi_gtdt_descriptor {
-> > >  	struct acpi_table_gtdt *gtdt;
-> > >  	void *gtdt_end;
-> > >  	void *platform_timer;
-> > > +	bool v3;
-> > > +};
-> > > +
-> > > +struct gtdt_v3 {
-> > > +	struct acpi_table_gtdt	gtdt_v2;
-> > > +	struct acpi_gtdt_el2	el2_vtimer;
-> > >  };
-> > >  
-> > >  static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
-> > > @@ -39,8 +45,14 @@ static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
-> > >  static __init bool platform_timer_valid(void *platform_timer)
-> > >  {
-> > >  	struct acpi_gtdt_header *gh = platform_timer;
-> > > +	void *platform_timer_begin;
-> > > +
-> > > +	if (acpi_gtdt_desc.v3)
-> > > +		platform_timer_begin = container_of(acpi_gtdt_desc.gtdt, struct gtdt_v3, gtdt_v2) + 1;
-> > > +	else
-> > > +		platform_timer_begin = acpi_gtdt_desc.gtdt + 1;
-> > >
-> > > -	return (platform_timer >= (void *)(acpi_gtdt_desc.gtdt + 1) &&
-> > > +	return (platform_timer >= platform_timer_begin &&
-> > >  		platform_timer < acpi_gtdt_desc.gtdt_end &&
-> > >  		gh->length != 0 &&
-> > >  		platform_timer + gh->length <= acpi_gtdt_desc.gtdt_end);
-> > > @@ -169,6 +181,7 @@ int __init acpi_gtdt_init(struct acpi_table_header *table,
-> > >  	acpi_gtdt_desc.gtdt = gtdt;
-> > >  	acpi_gtdt_desc.gtdt_end = (void *)table + table->length;
-> > >  	acpi_gtdt_desc.platform_timer = NULL;
-> > > +	acpi_gtdt_desc.v3 = gtdt->header.revision >= 3 && gtdt->header.length >= sizeof(struct gtdt_v3);
-> > 
-> > Regarding Sashiko’s comment about the missing length validation for GTDT v2, I
-> > realised that the current check could cause a malformed v3 table to be
-> > interpreted as v2 if its length does not match the expected v3
-> > length.
+On 5/5/26 3:16 PM, Loic Poulain wrote:
+> On Tue, Apr 28, 2026 at 12:16 PM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>
+>> On 4/27/26 10:33 PM, Loic Poulain wrote:
+>>> On Mon, Apr 27, 2026 at 4:22 PM Konrad Dybcio
+>>> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>>>
+>>>> On 4/27/26 2:43 PM, Loic Poulain wrote:
+>>>>> Add Devicetree binding documentation for the Qualcomm Camera Subsystem
+>>>>> Offline Processing Engine (OPE) found on platforms such as Agatti.
+>>>>> The OPE is a memory-to-memory image processing block which operates
+>>>>> on frames read from and written back to system memory.
+>>>>>
+>>>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>>>>> ---
+>>>>
+>>>> [...]
+>>>>
+>>>>> +        clocks = <&gcc GCC_CAMSS_OPE_CLK>,
+>>>>> +                 <&gcc GCC_CAMSS_OPE_AHB_CLK>,
+>>>>> +                 <&gcc GCC_CAMSS_NRT_AXI_CLK>;
+>>>>
+>>>> Should the two AXI clocks be aggregated by camss-top instead?
+>>>>
+>>>> Otherwise we run the risk of the OPE driver setting a rate of A
+>>>> and another sub-device setting a rate of B
+>>>
+>>> On qcm2290, OPE appears to be the only consumer of the NRT AXI clock,
+>>> while the capture path (VFE/TFE) relies on the RT AXI clock. That
+>>> said, this may not always be the case and these clocks (AXI / NRT‑AXI
+>>> / RT‑AXI) seem like they could reasonably be managed at the
+>>> camss-bus/top level.
+>>>
+>>> The open question is how the NRT AXI clock should be enabled when
+>>> required? enabling them unconditionally (similar to other camss PM
+>>> clocks), introducing a dedicated CAMSS top‑level interface for voting,
+>>> or leveraging an existing framework to handle this?
+>>
+>> So, interconnect, or some internal, smaller version of it?
 > 
-> Yeah, that's overall dodgy. As much as I hate having to write a
-> validating parser for ACPI, we need to be prepared for the worst.
-> 
-> > It would be better to fail early and return an error rather than allow
-> > processing to continue with the table incorrectly interpreted as v2.
-> 
-> How about something like the hack below?
+> Downstream, there is a CPAS driver that handles these clocks in
+> conjunction with the internal CAMNOC block. Dmitry also mentioned the
+> existing icc_clock mechanism, but we likely need to investigate this
+> further to support proper dynamic scaling of the required clocks.
+> However, I don’t plan to address this as part of the current series,
+> as it would significantly increase its scope.
 >
+> I believe the current approach is acceptable for now because:
+> - This NRT clock is required by this specific sub-block, but not by
+> all CAMSS sub-blocks (unlike, for example, camss-ahb), so referencing
+> it makes sense here.
+> - At the moment, the OPE only enables this clock without setting its
+> rate (i.e., it uses the default), so this should not conflict with
+> introducing a more complete scaling framework later.
+> 
+> Does this sound good?
 
-LGTM and might please Sashiko too.
+Depends how you're going to want to tackle this debt in the future.
+If you go through the icc framework, you'll end up needing to alter
+the DT
 
-Reviewed-by:  Sudeep Holla <sudeep.holla@kernel.org>
+If you bake in something internal to the camss family, say
+camss_foo_bar_request_bandwidth(u32 val), you may get it done
+without that. But I don't know what practical challenges that will
+entail
 
--- 
-Regards,
-Sudeep
+Konrad
