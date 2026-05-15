@@ -1,244 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A8E2F7EFD;
-	Fri, 15 May 2026 17:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4569A3D6471
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 17:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778865292; cv=none; b=BL1LtRc4YBdxUY4lptuaZDobuSsl5BG0yx8A6OpL9g4ldftI6ranIghi2z08A3OsWTUes7nk5WrVUmwpVfBCRWL2cmPcq45P3jIYMShDKIxPeYUB7b2NzNLuEqcyFZ8N4nQ1sQ7KwvolI/0NIqjJzPElq/67W5HimAyQEDJ08WY=
+	t=1778865345; cv=none; b=VcjY9AQtXZvEw1r59Sva29gmo740P+FPwml2cGGpj3lDXhqeEnq08VFjb4IFJ988ZIvaC6pr45O5JmnNaB9yequuDGu7WU9EArniO64UHRQLgd0XgxMWYmyRK4z4o/C5vRacUQHhIHmyPJxHOwjcPx/6QAX2j7lBux4Rqs3SzAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778865292; c=relaxed/simple;
-	bh=CtDfgDqnfSE+2T16bU11fTNtbRMQMBr75uetjnKvV+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=krKPEMyZQOm0wlexaNz610lP1SwPFOQMiNRVdpjWcmdIV3aM8U+EmUhxlpBHL3yTeMqGqxsZdtLDvBjKBcWECATVtkdxNPsAIXgPHDLuOEqt/N1mrFLOntOYjRz970IpfgrZZ9Hnwjel0KLzyBPHpAPYfQ2wvRX1kAG1BvSjP+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bg4qjdF5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778865345; c=relaxed/simple;
+	bh=9K2h/TOwneDo2V+8IMRKN8704tebpv222lXgzRfs6us=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=TDmqtVvd2mOUKdIArVijLVcy3ebXnnsVXv1stXumRwTfw2mdzx3ewb6QWRqhfnB16tes+uK163TqV/lVNr8X4WW7kYIU1PttuOlo1VNtdM3j2DeqIDd/hh5EaWkmBUAukQz7VzGEC90QXcN3R+oStTlV7+wNHP0z9afPKZvQmSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ReeeR2Kc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A0lNEwjO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bg4qjdF5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53F6BC2BCB0;
-	Fri, 15 May 2026 17:14:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778865291;
-	bh=CtDfgDqnfSE+2T16bU11fTNtbRMQMBr75uetjnKvV+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Bg4qjdF5ocEF5GUSFUJ33VvqKPCY0vB5UZkWQSJzTTWpwwUnPh/62U2qYQATBWNXx
-	 IZBlUACG3Gh/ZcMuRouIZpdGthND4AjOKo45w889WFAPT8MeV/V14RhQkfTgEK1CBb
-	 14MOMJSKtsZ3fLUW46BV6IPJOfE81xXvrzm5FmdRiqUaxGO77Odgw0SQ1ZPgZ09WGS
-	 yJ34MhIA9Z5LzRgU3/mQa81lnOE/RnT+yof5qX+o4iT0s8X4nG5KsaSAw57daezUDJ
-	 JOzkZ0+qW2E01yyXa0ud9PAantD5m7Ms/BuND21fnbn4a8Sc9Z1cybQsrmpEwV7jGd
-	 BOQTJ3hraLQ2A==
-Date: Fri, 15 May 2026 18:14:45 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Nam Tran <trannamatk@gmail.com>,
-	=?utf-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?= <kernel@lvkasz.us>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 03/11] dt-bindings: mfd: add documentation for S2MU005
- PMIC
-Message-ID: <20260515-justly-recite-6028f4bfb24a@spud>
-References: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
- <20260515-s2mu005-pmic-v6-3-1979106992d4@disroot.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ReeeR2Kc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A0lNEwjO"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FGkpqZ1353831
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 17:15:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	maIQim2k/5k9GdsUOAUiZ7MicWGQxeUUIRH3OStLOXc=; b=ReeeR2KckqUsYRYr
+	S/1Ug2T807YHoA6Yp99lPslIBIv9naTFJYhvbW8EASM6k+YR9m7LJuszIDQUzB23
+	IC/Lyr8mi+3t6w/+M233I/o1JPhPSseJ5Si2OgL9ck53j0+9E9fyAg2puI6NpD1t
+	0tyELgNbNXjzY1ixYMlapJNsFT6AgU6WuPuMClFvD5ea8ncG93ZZDiLpix1LJN+V
+	fT5qrVvm+vAHIMUFrL3d5IIjvpBIa0FALgEFfqRgzJsWDoyu7rIJRFfjjmxwBo5w
+	kj1MEo/rkqz2/4MsAoZIyLicdJaiu85ZMyyO7On4buiEvKPtFIC/CJUYaLedcOuh
+	sLGHSA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e67ac8315-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 17:15:30 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3692f395339so2822923a91.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:15:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778865330; x=1779470130; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=maIQim2k/5k9GdsUOAUiZ7MicWGQxeUUIRH3OStLOXc=;
+        b=A0lNEwjO7+cfnL0EKZ1xu8QNn/EonpGh+2J4dbqO8TOCo7W64BJ02B1i+bTLpeTcYU
+         Fi+XQ4CNCxcc+WBQjPXxHaVfkENqAJ9yvMfMW8Sin893TI3ScC/uTRLU/dKj+BpSWHLt
+         ChBA6RarpJtDJDuB9scJf1wePqyQ0oz0faKwye2MWjDmRhp+fhkLpAXyZhwMd/rvcxtx
+         Ef/8wfiTbG5IfY7pcRPW5nkaizPmI2bkrGLzh1NZB4TWEYHhd2hGBsxN7oRSkxaTR/d6
+         rUVKicx/OjC5+AFDy/WYY+fGQLDOgwwLisouDHCwPdFh1ffebwdgdFToFZ9bVLWC59FV
+         4law==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778865330; x=1779470130;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=maIQim2k/5k9GdsUOAUiZ7MicWGQxeUUIRH3OStLOXc=;
+        b=NyEm6Uzrigtdt9clxRNiyxWOI5GdtxLYvDaNZRSeKHzv2u/RZPWhwvb8RMCPTpPGtT
+         PgJIkrL41MBL8zsvmSyckuMBmADx7QfiYczdNvGk+j4bjvZsZ4y8V4fze7fvAVD3+SL3
+         C/8SqX52UelGl8DqDEpzCcSKwY0MA0DcrJwg28wINPNsAQ1tBYATjnkIuxAHQMu5nSkn
+         M9zpbGw47JzvAem+8FjqA3iQZpgtVk2ZG6erbZt8jqejt+Hx3tsmbTZh/o4laOSg1H6J
+         RAuRluk0QA2bauV4TWE4FozY3UoCg6Mw8h3M8smfMGEzfE2xaw5YPGUlX41yhj6VZxCk
+         +Mjw==
+X-Forwarded-Encrypted: i=1; AFNElJ9ajoHPSSI6NoEkTBOW4KaOWoz7dcnI2hgWjrap2LUtM8qQtjltswG4nESiK+8pK3qQ6BarBOJMDL6G@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrPz3hRZXiw4nN5yws/Pozr5f4TQkJpS7TleWTD1m4WzP/HPxr
+	YmkU4I0BIFt7bAFXF3nvC7P9bN2SIlUvT5nEZ5QbdmVbp48b4wV8D5ANORXfuklr214aidTBulM
+	f61Y0nxZ4CFjqpBTIXnzf1ineAOsLupF/0LjiXEwMgxaAyOKAD6wolcfTPvVfgLU0
+X-Gm-Gg: Acq92OFdp52oXcMARIYfmswUCFWwzaG3bl2PgCaS8tn0opBWQ9rxWVS30EFVlml6/CZ
+	UZvqe4n8qjnR6+7ZsRuADLVf0XklQALjsJ5N1r5ksZIZmiiygMPgLJXE+N+bSixT6ACTUelxbrJ
+	TrWqUQLHTtgrBH7XrHgVvdWwEqwRqKg0ZHm46RYbX9NmwIIbQZzL1FSJAV+4mUlO8VRWPaTrPLW
+	9f4RQR/OmEhDhOEOfEN5w5efcPHmiHLWOjG1t6OkhrmDo8ReW+9u31rbX4+jsr/gQ/dPnVPvAdl
+	1arlJ/uxp+apnyNQNEW8GOKCObaKFnv9NnA6zFmN2sVPJxKEJIGTkqM9A79FC4gYot3eD+pIAmF
+	9mziFpJUy3qaBM9gKRZSV
+X-Received: by 2002:a17:90b:260b:b0:365:f8fc:3846 with SMTP id 98e67ed59e1d1-36951b87209mr5703923a91.22.1778865329663;
+        Fri, 15 May 2026 10:15:29 -0700 (PDT)
+X-Received: by 2002:a17:90b:260b:b0:365:f8fc:3846 with SMTP id 98e67ed59e1d1-36951b87209mr5703864a91.22.1778865329094;
+        Fri, 15 May 2026 10:15:29 -0700 (PDT)
+Received: from [192.168.1.11] ([120.60.141.122])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3695148c3d7sm4057064a91.14.2026.05.15.10.15.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 15 May 2026 10:15:28 -0700 (PDT)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Google-Original-From: Manivannan Sadhasivam <mani@kernel.org>
+To: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>, linux-pci@vger.kernel.org,
+        Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+        Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+        Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260501102407.29462-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260501102407.29462-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v2] dt-bindings: PCI: renesas,r9a08g045-pcie: Add
+ RZ/V2N support
+Message-Id: <177886532379.11424.6841122855911505844.b4-ty@kernel.org>
+Date: Fri, 15 May 2026 22:45:23 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BicabgsLIYBYKY7x"
-Content-Disposition: inline
-In-Reply-To: <20260515-s2mu005-pmic-v6-3-1979106992d4@disroot.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: IITBqhVeZUhbr-A79A1K-cgB0Rxz-u8o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDE3NSBTYWx0ZWRfXxEUd8eG5tRwA
+ +dHJT6L3v5D2yQ8oZVjwLSxW/tMQvVpNx8p955Txn8JJNw72i+cXujzGBE5j9M7OSHe/e9wtqWh
+ 1xD1Fkatf2CNxWQdsPfg282GSWM0rB83rb5cKPRhfSeDGU6cLoEAuHWvpQw48MSGQLFGSvwOyZ6
+ N6DpQLc++8/FGARpIk9BwxbD+IUXS7oyRcC6sPMkbH8qg+d+XM1WIMamS+3Hu2UEV0yso8+Yc6+
+ z9+GLVv41AM4843hxL/nEUuhLWZBCPefohXIjD8K9cHKBit1v9lcSozk/aZ1iPWEhzXFvDyj7Ws
+ Zp49acIKPjBVbdc1QTp4fkCwYFMbPirzDrMTY72qx0Al81xAoEqR+8t8rf3dMY5Wdx8hCXEd4Ra
+ 3UDdi7iyam5SzZM4dTW/5ldDrMvwkLseAKEopLQOAFeuPTzIXyWMnFoo5FHErFfPS8rW5p7Qk4Q
+ xmZNA+0NdH7rusnfBTw==
+X-Authority-Analysis: v=2.4 cv=SuWgLvO0 c=1 sm=1 tr=0 ts=6a0754b2 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=8TBCxnFsifAbGBbxUCxq8g==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=nEI45t7MqVOh0zsBhjcA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: IITBqhVeZUhbr-A79A1K-cgB0Rxz-u8o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_04,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ impostorscore=0 clxscore=1015 suspectscore=0 phishscore=0 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605150175
 
 
---BicabgsLIYBYKY7x
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 01 May 2026 11:24:07 +0100, Prabhakar wrote:
+> Document the Renesas RZ/V2N PCIe host controller, which is compatible with
+> the RZ/G3E PCIe IP and therefore uses it as a fallback compatible. The
+> only difference is that it uses device ID 0x003B.
+> 
+> Make the binding title generic to avoid extending the title for each new
+> SoC, and update the description to list the supported SoCs and their
+> capabilities.
+> 
+> [...]
 
-On Fri, May 15, 2026 at 04:08:59PM +0530, Kaustabh Chakraborty wrote:
-> Samsung's S2MU005 PMIC includes subdevices for a charger, an MUIC (Micro
-> USB Interface Controller), and flash and RGB LED controllers.
->=20
-> Add the compatible and documentation for the S2MU005 PMIC. Also, add an
-> example for nodes for supported sub-devices, i.e. MUIC, flash LEDs, and
-> RGB LEDs. Charger sub-device uses the node of the parent.
->=20
-> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
-> ---
->  .../bindings/mfd/samsung,s2mu005-pmic.yaml         | 120 +++++++++++++++=
-++++++
->  1 file changed, 120 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.y=
-aml b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
-> new file mode 100644
-> index 0000000000000..0e6afb7d2017b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
-> @@ -0,0 +1,120 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/samsung,s2mu005-pmic.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Samsung S2MU005 Power Management IC
-> +
-> +maintainers:
-> +  - Kaustabh Chakraborty <kauschluss@disroot.org>
-> +
-> +description: |
-> +  The S2MU005 is a companion power management IC which includes subdevic=
-es for
-> +  a charger controller, an MUIC (Micro USB Interface Controller), and fl=
-ash and
-> +  RGB LED controllers.
-> +
-> +allOf:
-> +  - $ref: /schemas/power/supply/power-supply.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: samsung,s2mu005-pmic
-> +
-> +  flash:
-> +    $ref: /schemas/leds/samsung,s2mu005-flash.yaml
-> +    description:
-> +      Child node describing flash LEDs.
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  muic:
-> +    $ref: /schemas/extcon/samsung,s2mu005-muic.yaml#
-> +    description:
-> +      Child node describing MUIC device.
-> +
-> +  multi-led:
-> +    type: object
-> +
-> +    allOf:
-> +      - $ref: /schemas/leds/leds-class-multicolor.yaml#
+Applied, thanks!
 
-Does this need to be an allOf when the other refs are not?
+[1/1] dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2N support
+      commit: d2fc550dfe13eef91b065af7a12348ba4162ac04
 
-> +
-> +    properties:
-> +      compatible:
-> +        const: samsung,s2mu005-rgb
-> +
-> +    required:
-> +      - compatible
-> +
-> +    unevaluatedProperties: false
-> +
-> +  reg:
-> +    maxItems: 1
+Best regards,
+-- 
+Manivannan Sadhasivam <mani@kernel.org>
 
-Move this above the child nodes please.
-
-Otherwise, I think this looks good.
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/leds/common.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        pmic@3d {
-> +            compatible =3D "samsung,s2mu005-pmic";
-> +            reg =3D <0x3d>;
-> +            interrupt-parent =3D <&gpa2>;
-> +            interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +            monitored-battery =3D <&battery>;
-> +
-> +            flash {
-> +                compatible =3D "samsung,s2mu005-flash";
-> +                #address-cells =3D <1>;
-> +                #size-cells =3D <0>;
-> +
-> +                led@0 {
-> +                    reg =3D <0>;
-> +                    color =3D <LED_COLOR_ID_WHITE>;
-> +                    function =3D LED_FUNCTION_FLASH;
-> +                };
-> +
-> +                led@1 {
-> +                    reg =3D <1>;
-> +                    color =3D <LED_COLOR_ID_WHITE>;
-> +                    function =3D LED_FUNCTION_FLASH;
-> +                    function-enumerator =3D <1>;
-> +                };
-> +            };
-> +
-> +            muic {
-> +                compatible =3D "samsung,s2mu005-muic";
-> +
-> +                connector {
-> +                    compatible =3D "usb-b-connector";
-> +                    label =3D "micro-USB";
-> +                    type =3D "micro";
-> +                };
-> +
-> +                port {
-> +                    muic_to_usb: endpoint {
-> +                        remote-endpoint =3D <&usb_to_muic>;
-> +                    };
-> +                };
-> +            };
-> +
-> +            multi-led {
-> +                compatible =3D "samsung,s2mu005-rgb";
-> +                color =3D <LED_COLOR_ID_RGB>;
-> +                function =3D LED_FUNCTION_INDICATOR;
-> +                linux,default-trigger =3D "pattern";
-> +            };
-> +        };
-> +    };
->=20
-> --=20
-> 2.53.0
->=20
-
---BicabgsLIYBYKY7x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagdUhQAKCRB4tDGHoIJi
-0n5rAP967mHX7SEKc4HenoyiF+90zXGlTKi1jFFe8mJ5Mu7VNgD9GcMBGU4IFdCj
-uG66DaZrujqEElpBL/3tW71nwb4XvA8=
-=9VUh
------END PGP SIGNATURE-----
-
---BicabgsLIYBYKY7x--
