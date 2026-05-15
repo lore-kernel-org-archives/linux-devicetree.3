@@ -1,35 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C4E3FAE15;
-	Fri, 15 May 2026 07:56:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA05D3FA5C2;
+	Fri, 15 May 2026 07:56:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778831811; cv=none; b=OZo34p0Tt/pBLywtkcKBBX1tP0M9yjpa7i3RFtne1GaD+GDBG50+9VVikc5xJAX6hPpDdGP5kWbj4NPy70c1g8VxpWlbK4hkl4STB/KpyuK+BX3nV9Wq3jtErYVMFtHc0nkQo3yYKPJC2tbkwU7aUAnzeLE86rNNTLfIrOKbo84=
+	t=1778831814; cv=none; b=HQ6d2rar7oANjwkqeBJlLBHq2sDMduFo0A0JTv2Y2q+A7eDFbdxn2Djxs/s/Wy1jHfRf+gTSf+XNbJBOQsrQ0F6LCqWEwIEItmmRNIztHx2Pja70Drs29R54F2auUTAlDit0YPQ1EnO1rVUd+tf22mVq6K8WbFhxlpN7ucTvC+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778831811; c=relaxed/simple;
-	bh=epDgLDQTOQLsxSIGm1FoiCtmVkVYkjcH+hGsLBHI0Wg=;
+	s=arc-20240116; t=1778831814; c=relaxed/simple;
+	bh=CIep6fJfVAhn74HMjDE/V/v4KeGkg+5aWPNFXSJzT0U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K4igIaYb16qgVtVmlRMErdoEDanlAG0i9bR+ywix7lbGMKg3v0qPyIF4p/yPTs83In4IO47z87riQsB5usvXn6a/y382nGKlpTi9etsMYyw+X0QWgGlyvMPZmFzxNhIP0qUiPLqcYyBCQTw+G+9bbWMCxudckbcFoGmNmDLfjJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Zrsgextj; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=mTXgCZNNodf7eYhm5ZnH/GuvCsT1vCgDEzu331rLmscrW3vrrlz6FF51qI7LV67x4iZauDnkBH5UJ3BNRJommGPpPZNq/Y8C/KHdKTzZ3OywZYau1EuMIPDuvQHzl1MfMFQtKFXfPx22Bjt6dUhAyFufddmjHyZogJuzXLQj8ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=aCZlCXTk; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Zrsgextj"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="aCZlCXTk"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 315BF1123;
-	Fri, 15 May 2026 09:56:35 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3F793149B;
+	Fri, 15 May 2026 09:56:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778831796;
-	bh=epDgLDQTOQLsxSIGm1FoiCtmVkVYkjcH+hGsLBHI0Wg=;
+	s=mail; t=1778831799;
+	bh=CIep6fJfVAhn74HMjDE/V/v4KeGkg+5aWPNFXSJzT0U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ZrsgextjoUNnoUpCMrxOazFsNP92NjglB4S+Kh4sDclLL2vS0hrx1xls6s2Iyn79c
-	 czFyFy1v2m5Cm/B7L2ffE2zcqEE3MMKM+hgDHHaW3ALhj2DXqMsBUyh+0xoLmZBmJD
-	 vnM9oYmaYTdhzvd3/MrTnH5Li0/97PH/1Uxbc9us=
+	b=aCZlCXTk+ribB7Tk1Q7yeYzLxt6LMShlYBE0PNZyH9MfLrLLjqizIWyfcyltTjwDV
+	 1DLhqzDIDgRs4NgeIhzut3F5OI4rDJzfrxxShbry3GyU++jFgWt0OsTOXc10uNIN4B
+	 yRd5Z0NO6euV75McqAheWzuiMQH5UyL5RF8uCtVE=
 From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Fri, 15 May 2026 10:56:16 +0300
-Subject: [PATCH v2 3/5] drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H
- DSC driver
+Date: Fri, 15 May 2026 10:56:18 +0300
+Subject: [PATCH v2 5/5] arm64: dts: renesas: Add Renesas R-Car V4H DSC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-rcar-du-dsc-v2-3-f6b9240a1240@ideasonboard.com>
+Message-Id: <20260515-rcar-du-dsc-v2-5-f6b9240a1240@ideasonboard.com>
 References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
 In-Reply-To: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>, 
@@ -61,244 +60,103 @@ Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, 
  Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6866;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2322;
  i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=lZXV9zDNtBcZP1iYgupaF2p7YJZFHlVyrRbo4zRvwrY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBtG2n2K6+ESQiGuf0Z3InZuqI6KHNMFDCQ+B/
- 2Dowh+mpyyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbRtgAKCRD6PaqMvJYe
- 9bgzD/4wEz1xGMjXTLYI1GUAeT4MMtOLEa6SY2rLJRE6sTkjbwrPkTdYBGNTJY6tNbN6AZEB6yL
- vJVWLBy45ocWk86Xg8fuTJ2BSD0fVy+C8s5Wd7NIp4GmCR3tmfa1S7igIdZ1UrXC7EAnsu4IatA
- oV4W71wvD2PgvSYgH1nMMHMOZevd4jX8ixvZ3BRn6jfKLviaUD5WwYxcv+5g9u93a6ClzhhJer+
- /4TgSHWRJ7NvdNrjqsos/ONW816M4fUaLDIYOBbxDnQN8PVas0u415zVwnDBayGL4qzFPcBgO7a
- Y+Papj5mF4xUw3jqJAZ4yEQKtkS0e8ZLhRjdUzG23OQzojjRSeRCs/7MK/s7zTms8R4Tz8LlQfC
- uB1C8TtJatQYJSQERQlqmPLmWSjqgauwfsUs0qlCGlpO7CpsHLOk9SFhGjNyZvq3Bap4wcsX9fD
- wgzyo+BHNPMhlt8O4w6/iPbYvAP3RpAToFvOALuFbaWIWaw66E6wEC4vNqwf3wJczYidMVW9BCU
- ja49vlw9Ip9VdkdQyvmblQxq7kOr1TweuseH6vANHKEbPZvCMGD8wy/oBWJD5VSepWFYt8bbqoL
- Z/3H6Uv20uNGwkxNwaq6N2/SH4Uh9xEyNHvch0mC3BBN7wtRKSDV+I7C3Jy3Xzb8GIg5cpRN7Af
- PPxW4SviNYBhXLw==
+ bh=zG6hvH8cY6/FnPokxtHg066A+36wEiN+1/jJynaivt4=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBtG3V2D0sCuzzvIDDLjNaQOoP5/uI2Jk+MiI7
+ i6zYEAqkLiJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbRtwAKCRD6PaqMvJYe
+ 9bquEACSnIb46pwik25cjMRUVn+aEm5XkfmxwAfDli3vvEHCOplKE58rCCuu1iBkYV12VEljdC5
+ aonBbYx+AAJIIugqaOtB4nklDSvTbb8y9m6Fr5kF/dFF74tFGwjqSve0GlRjOxrAc09fu5RptjK
+ eYvWzAT8ANlqiK4brTDpGjict2pfpzIb5uNCwAtGGc0sdZova7Lj4gHMyJfXoR/8YNTrhSq7ApB
+ 8lyTIE7z8jzWDTXmSkCYgTnVDU4GZoVVATVihaTyIwtGGFwCQL/TIG0WXP3XjocZ00KRKRnhTAH
+ LLBSbLOi2+NwgLqJElDhZljOh4dmd5KwE7aUyDbMIVd4GQI5Hle7IPR2365cr6K91QgGwffRRji
+ LV/1BVeH0nydxP3R6l6ECkP4GAJV/5yGJy4GMFazsxUbuzWY84dO5orNBvN+d8Px+CC9pCE7pov
+ Je8tSEp97vbZ5bLkjqVYdM5hpaW75jpFJvcZEuRq3A6kkEAEUsDPByHEc2sPeoMPIYK46LucW8v
+ WEd7gudjM1p0hWx7Rbik39hPuuxeuNxQX9HFV9UNpB4Ta89eenZKMF1BVYY+ilPK75Cg3thi/gk
+ 7Woz7WZpEWQ6hshKvfMvyBcMEfswnVKNHPuzVJlGCxPfRBk/2ok/q30rttslGLZgmJbIjquIsge
+ uE0ssPXJUla4i9Q==
 X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
 From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
 The Renesas DSC Display Stream Compression is a bridge embedded in the
-Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-8k or 400 Mpixel/s . Add rudimentary driver, which currently acts as a
-pass-through bridge and allows DSI1 to be operational on R-Car V4H.
+Renesas R-Car V4H SoC. The bridge is placed between DU and DSI1 units.
+Describe the bridge in DT and enable it on Retronix Sparrow Hawk board
+to keep DSI1 operational on this board.
 
 Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-[tomi.valkeinen: use bridge->next_bridge, minor changes]
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 ---
- drivers/gpu/drm/renesas/rcar-du/Kconfig    |  13 +++
- drivers/gpu/drm/renesas/rcar-du/Makefile   |   1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c | 163 +++++++++++++++++++++++++++++
- 3 files changed, 177 insertions(+)
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi          | 31 +++++++++++++++++++++-
+ .../boot/dts/renesas/r8a779g3-sparrow-hawk.dts     |  5 ++++
+ 2 files changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-index 840305fdeb49..a51f996d3537 100644
---- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
-+++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-@@ -33,6 +33,19 @@ config DRM_RCAR_DW_HDMI
- 	help
- 	  Enable support for R-Car Gen3 or RZ/G2 internal HDMI encoder.
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+index 82a7278836e5..52a6176f9fd0 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+@@ -2298,6 +2298,35 @@ du_out_dsi0: endpoint {
+ 				port@1 {
+ 					reg = <1>;
+ 					du_out_dsi1: endpoint {
++						remote-endpoint = <&dsc_in_dsi1>;
++					};
++				};
++			};
++		};
++
++		dsc: dsc@feb8d000 {
++			compatible = "renesas,r8a779g0-dsc";
++			reg = <0 0xfeb8d000 0 0x400>;
++			interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cpg CPG_MOD 2819>;
++			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
++			resets = <&cpg 2819>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					dsc_in_dsi1: endpoint {
++						remote-endpoint = <&du_out_dsi1>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++					dsc_out_dsi1: endpoint {
+ 						remote-endpoint = <&dsi1_in>;
+ 					};
+ 				};
+@@ -2534,7 +2563,7 @@ ports {
+ 				port@0 {
+ 					reg = <0>;
+ 					dsi1_in: endpoint {
+-						remote-endpoint = <&du_out_dsi1>;
++						remote-endpoint = <&dsc_out_dsi1>;
+ 					};
+ 				};
  
-+config DRM_RCAR_USE_DSC
-+	bool "R-Car DU DSC Encoder Support"
-+	depends on DRM_BRIDGE && OF
-+	depends on DRM_RCAR_DU || COMPILE_TEST
-+	default DRM_RCAR_DU
-+	help
-+	  Enable support for the R-Car Display Unit embedded DSC encoder.
-+
-+config DRM_RCAR_DSC
-+	def_tristate DRM_RCAR_DU
-+	depends on DRM_RCAR_USE_DSC
-+	select RESET_CONTROLLER
-+
- config DRM_RCAR_USE_LVDS
- 	bool "R-Car DU LVDS Encoder Support"
- 	depends on DRM_BRIDGE && OF
-diff --git a/drivers/gpu/drm/renesas/rcar-du/Makefile b/drivers/gpu/drm/renesas/rcar-du/Makefile
-index 6f132325c8b7..cc27b2265d94 100644
---- a/drivers/gpu/drm/renesas/rcar-du/Makefile
-+++ b/drivers/gpu/drm/renesas/rcar-du/Makefile
-@@ -12,5 +12,6 @@ rcar-du-drm-$(CONFIG_DRM_RCAR_WRITEBACK) += rcar_du_writeback.o
- obj-$(CONFIG_DRM_RCAR_CMM)		+= rcar_cmm.o
- obj-$(CONFIG_DRM_RCAR_DU)		+= rcar-du-drm.o
- obj-$(CONFIG_DRM_RCAR_DW_HDMI)		+= rcar_dw_hdmi.o
-+obj-$(CONFIG_DRM_RCAR_DSC)		+= rcar_dsc.o
- obj-$(CONFIG_DRM_RCAR_LVDS)		+= rcar_lvds.o
- obj-$(CONFIG_DRM_RCAR_MIPI_DSI)		+= rcar_mipi_dsi.o
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-new file mode 100644
-index 000000000000..2ab5a4bb099c
---- /dev/null
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-@@ -0,0 +1,163 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * R-Car DSC Encoder
-+ *
-+ * Copyright (C) 2025 Marek Vasut <marek.vasut+renesas@mailbox.org>
-+ * Copyright (C) 2025 Renesas Electronics Corporation
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_of.h>
-+
-+struct rcar_dsc {
-+	struct drm_bridge bridge;
-+
-+	struct device *dev;
-+	void __iomem *mmio;
-+	struct clk *clk;
-+	struct reset_control *rst;
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
+index 812b133cf29e..f418998c6b05 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
+@@ -288,6 +288,11 @@ channel4 {
+ 	};
+ };
+ 
++/* Page 27 / DSI to Display */
++&dsc {
++	status = "okay";
 +};
 +
-+static inline struct rcar_dsc *bridge_to_rcar_dsc(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct rcar_dsc, bridge);
-+}
-+
-+/* -----------------------------------------------------------------------------
-+ * Bridge
-+ */
-+
-+static int rcar_dsc_attach(struct drm_bridge *bridge,
-+			   struct drm_encoder *encoder,
-+			   enum drm_bridge_attach_flags flags)
-+{
-+	struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-+
-+	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
-+		return -EINVAL;
-+
-+	return drm_bridge_attach(encoder, dsc->bridge.next_bridge, bridge,
-+				 DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+}
-+
-+static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
-+				   struct drm_atomic_state *state)
-+{
-+	struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-+
-+	WARN_ON(clk_prepare_enable(dsc->clk));
-+	WARN_ON(reset_control_deassert(dsc->rst));
-+}
-+
-+static void rcar_dsc_atomic_disable(struct drm_bridge *bridge,
-+				    struct drm_atomic_state *state)
-+{
-+	struct rcar_dsc *dsc = bridge_to_rcar_dsc(bridge);
-+
-+	reset_control_assert(dsc->rst);
-+	clk_disable_unprepare(dsc->clk);
-+}
-+
-+static enum drm_mode_status
-+rcar_dsc_bridge_mode_valid(struct drm_bridge *bridge,
-+			   const struct drm_display_info *info,
-+			   const struct drm_display_mode *mode)
-+{
-+	if (mode->hdisplay < 320 || mode->hdisplay > 8190)
-+		return MODE_BAD_HVALUE;
-+
-+	if (mode->vdisplay < 160 || mode->vdisplay > 8190)
-+		return MODE_BAD_VVALUE;
-+
-+	if (mode->clock > 400000) /* Really 400 Mpixel/s */
-+		return MODE_CLOCK_HIGH;
-+
-+	return MODE_OK;
-+}
-+
-+static const struct drm_bridge_funcs rcar_dsc_bridge_ops = {
-+	.attach = rcar_dsc_attach,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_enable = rcar_dsc_atomic_enable,
-+	.atomic_disable = rcar_dsc_atomic_disable,
-+	.mode_valid = rcar_dsc_bridge_mode_valid,
-+};
-+
-+/* -----------------------------------------------------------------------------
-+ * Probe & Remove
-+ */
-+
-+static int rcar_dsc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *remote;
-+	struct rcar_dsc *dsc;
-+
-+	dsc = devm_drm_bridge_alloc(dev, struct rcar_dsc, bridge,
-+				    &rcar_dsc_bridge_ops);
-+	if (IS_ERR(dsc))
-+		return PTR_ERR(dsc);
-+
-+	platform_set_drvdata(pdev, dsc);
-+
-+	dsc->dev = &pdev->dev;
-+
-+	/* Acquire resources. */
-+	dsc->mmio = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(dsc->mmio))
-+		return PTR_ERR(dsc->mmio);
-+
-+	dsc->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(dsc->clk))
-+		return dev_err_probe(dev, PTR_ERR(dsc->clk),
-+				     "Failed to get CPG clock\n");
-+
-+	dsc->rst = devm_reset_control_get(dev, NULL);
-+	if (IS_ERR(dsc->rst))
-+		return dev_err_probe(dev, PTR_ERR(dsc->rst),
-+				     "Failed to get CPG reset\n");
-+
-+	remote = of_graph_get_remote_node(dev->of_node, 1, 0);
-+	if (!remote)
-+		return -EINVAL;
-+
-+	dsc->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
-+	of_node_put(remote);
-+	if (!dsc->bridge.next_bridge)
-+		return -EPROBE_DEFER;
-+
-+	dsc->bridge.of_node = dev->of_node;
-+
-+	return devm_drm_bridge_add(dev, &dsc->bridge);
-+}
-+
-+static const struct of_device_id rcar_dsc_of_table[] = {
-+	{ .compatible = "renesas,r8a779g0-dsc" },
-+	{}
-+};
-+
-+MODULE_DEVICE_TABLE(of, rcar_dsc_of_table);
-+
-+static struct platform_driver rcar_dsc_platform_driver = {
-+	.probe          = rcar_dsc_probe,
-+	.driver         = {
-+		.name   = "rcar-dsc",
-+		.of_match_table = rcar_dsc_of_table,
-+	},
-+};
-+
-+module_platform_driver(rcar_dsc_platform_driver);
-+
-+MODULE_DESCRIPTION("Renesas R-Car DSC Encoder Driver");
-+MODULE_LICENSE("GPL");
+ /* Page 27 / DSI to Display */
+ &dsi1 {
+ 	status = "okay";
 
 -- 
 2.43.0
