@@ -1,339 +1,407 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013004.outbound.protection.outlook.com [52.101.72.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8968839E6F5
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778856951; cv=none; b=RozEZK7iD8tLF1ankT2qZaTx+lzlw/AkQUZhXy13aeaWaTzMSQI/cgitCXKJsLramkiFONbOarhOI/6noOLusd6XegXzW19kvPT1a4StEBICc0HtAGZ8uvgS0fsKNoQDPl2CunYHRVfDfwS6doNQgOly2ldI6D909y/Aqx3k35o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778856951; c=relaxed/simple;
-	bh=gMn0PcZhWB9Nitk679pMaQC7si2dRCLBt46i9FS3+qA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T17SXrvUvYDrYDse5dMJrCcsZ1chIpWtO9fb0XENOa3sh0gAuQZsp0cx64CNb+FS1aXmkgbH6Rqj2C7PBbRLyihhRBnHHiDTPFm3e2XdKCjHBO/KnHqtysK3kaH1J9DHtFEbtffmgi2rKSWplqm+HZuRjQJ+Cy4qGGazOaC2pSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uvoZPKDD; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCD33002A9;
+	Fri, 15 May 2026 15:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778857629; cv=fail; b=eOAncRb+bw+pevniYzdx9Q4B+vOqLD8yj5/1rz+HMSaK7CkentbeW4CWqCo3en0WXN/roXinZceKxswsNPuqpgjBOYXkhuEFRsnORyMrLh5cbpNpUnh7rpKhyTPuQf+kCzySOqubXuMi9Ltm1TAJuDUgIA/nnmiXHxlCpNy51ic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778857629; c=relaxed/simple;
+	bh=/EMdTJ5+L2gtcwzBXvUd6MQW7XEUHKUD9eJu9BcirH8=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=NDAWuqb04NWWd3iXiFsiCQ+Fa8cJ9nS76oh6LUhug9AfFYdyIF1VMR2/dUyqCIEer4maTTOhOaZgoX7ILHOFc6XJpVk4AILD2y6MZkWNi+VG3vilAj8IdHlAKUidKyYPyKnKbsIfRqmuHm4Fwy7zWvXoUVEAfH+64masxdDzc3M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=tV1Z3hBn; arc=fail smtp.client-ip=52.101.72.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uvoZPKDD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31784C2BCB0;
-	Fri, 15 May 2026 14:55:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778856951;
-	bh=gMn0PcZhWB9Nitk679pMaQC7si2dRCLBt46i9FS3+qA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=uvoZPKDDjREK0ALe+bPdv+iSi+bKtBpnbpqahjbBnsGm0bKwZT94mngleF9fm07Vn
-	 QM+fHVhpfO5txmshSr2pyxtnE0wlLzuwd5vP4N9kL0YZajuRXk+mzkMzvNBd39mW54
-	 ZPQotbtnGBie0pvHikhEIhcCb0AjmYyTqVBseEpGeWLfl4RwvOzd3lC1WYx84f5ag8
-	 pMTh6EoHxZiPhOemSOnAwxnHb/vKiSUSLUY2IdnUZfT0So8am8Zy3FTB3Bc3v8Zm+T
-	 N8WgIqz5XZC6rH6SYLmoBUS9KOXWG4a3duY4/7gt+z3iZxRQjNOK/xbAJ2ZxetNVN5
-	 hZsXtOVuS9nOA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/6] iio: adc: ad4691: add triggered buffer support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260515-ad4692-multichannel-sar-adc-driver-v11-3-eab27d852ac2@analog.com>
-References: <20260515-ad4692-multichannel-sar-adc-driver-v11-3-eab27d852ac2@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 14:55:50 +0000
-Message-Id: <20260515145551.31784C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="tV1Z3hBn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YiD9UB3nLWJpIyVMB/1BYbWLVsEJLn5oPP/Huj0LnJGBYWiNkePJ6FevoOG/8VCIVZ86FBZP3BZSJ3dSxQwz2i7oQ0bVYPsGyTM7bGKBwUy9cm7zJm/TSjMRuj4WnIogfJCS3Bp5pEE2cephWIkgxYA8BZKSSxbUSr8X5enqN+xkp9NmUIl9ozngLt1XSxin+y9tTXt9Vspl8/obfNFhNHxmW2MyeZFB1aNJw3VRpz8PzytPHj4X9nBicyt4LtzhNBtJcvOGylKy+bF1+I89OKSRdInePWeo4d7oNkGk9GiHCKodagyXTB5BsrJizDfLZYrWZ6K+BESuRjAGG4WE6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4fqn98K0Hz8FOz+wY7zW9osg5Zl0v0IpphaDp62qkow=;
+ b=gUhxSC0Y2FsrUhi0Os6YHV2/vyMRILkiiYsqsPlBQ2iCg0O/IzOLevCdm0rlZtahh3b4rN88CqsyVI7xcv/TZguxl/mjNQcI8fgnNcjSNyRf5iiV+rKasqcYrX/GJr3NxdPw9clFY4PVqRZPYm1CBFbii/y6SUMfMHV3dmFLL2Mar8xuVCeuu/iVv4wb3RJscBPVwIF8CekqTOhsAnW7vnsk+N8riwTnAuxO06avTt6b5fgNCNpOi2kyvyI39pn5L+DLemKeEPHLcKhXse6E7NcgJcYZnFGD6Bz/DGEsYvtlki22Pw0MQJmkMIgo8ExlHW9Iq1GORQyvaNgQQWvKwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4fqn98K0Hz8FOz+wY7zW9osg5Zl0v0IpphaDp62qkow=;
+ b=tV1Z3hBnPTnko9l4P/lZJP21/W7efChpytyAcnLNMgdI11m/lS+cmuCwvGQSiHHvWqVtlBfLp3yC/aI31VLwkfKT8dw1gAQDSezXfpn/94Lsyj5kBU6tLNGI+6jqcO2kTZHAxOhDnDZzOvfDefmoIuxwWu2po6jUOgK6vnS6aBm1Rtm/qSELg6J9efihP2hUGyRtkp/AT3lP+MXnIVqDcZSIobxz0ompN49UKqlzFfoZT8zHVQvTjy0yrzIR+e3Crtsx7d6LILEMyq+RNRuUy0i/bgEEVvFOABwHZ524JwBBr73fN3q6dkcNbx5lCjv8k+TbKTfYM6NsdBmx7/+ACg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB10512.eurprd04.prod.outlook.com (2603:10a6:800:213::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
+ 2026 15:07:03 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
+ 15:07:03 +0000
+From: Frank.Li@oss.nxp.com
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org (open list:VOLTAGE AND CURRENT REGULATOR FRAMEWORK),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Cc: imx@lists.linux.dev
+Subject: [PATCH v2 1/1] regulator: dt-bindings: convert ltc3589 to yaml format
+Date: Fri, 15 May 2026 11:06:54 -0400
+Message-ID: <20260515150657.1731008-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA1PR02CA0017.namprd02.prod.outlook.com
+ (2603:10b6:806:2cf::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB10512:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c8df099-dac0-40b1-7399-08deb2939ef9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|19092799006|366016|56012099003|11063799003|3023799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	iNU3lhiS7z0Ejqtd1dYjfc+fp4Iia3o3QQKd7OON3Gz9Ryhjc72U7c1fIMngR/W4VCrS50aji+GnOFXd2IpuGnzk5gVOR2d2lVwUYk7Kc/+hdRCVtjmmb4DttIuDelTxirO5FMobenpCkJgESRGMHOjQfKJgXtkonNPtPgGx070uzde5Y+N5qDyLQw8o2OR/2y/o+pyxOw+E488DUBf7erXmxYumIiiCJlPCKHUrWQZBXoZEzcrCGMBpIO63KpRjJ7zb/LVwsPhRQMipDqw3/QAl7yxZKP8jwUBIKuAeazfS9dFpR2EiI/vwXDdIKWYGKVnD4APy+GAUGG11YY/Umm24LfT0AU5lxuzukwFRxYjnuYlivp08oRDiSc0iRS+88vC7Wp74IqPkziaK0WeuM3aSOm1CjSahgGdfIlhSGmSSti4ykCOS4CicDKvj4Jn54F4ni//NJGe0K1d77BV7iTQcAzKJSLRyxPTB7GFiIZ6mcsN0dVvFPbaNANVOKVm82Yvi66zX9ijL6JeSAkTMtcbvGm3czKtCVsWiV1eEU40VqxBTdhl1F3uxCqYhPV446n4wB9JaKTiNsDOYgZvK8s3qMXoSenZ3CRLpsOfqza6ylZrNelM8JTFS8OOyKqpdjqp7WJyMYsI+P1dZnf7jTg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(19092799006)(366016)(56012099003)(11063799003)(3023799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?CpnbDNu9sJoc+9f9ssdNcEjhI3MmvbbnDf7kkn2GVcGM32lCx6j4KpRtHib1?=
+ =?us-ascii?Q?P+Z74L9hr8Q2nV0L1bGoDquf82hBaLOWKOvyXDriAu6xhBbDQgl7QefSN6jb?=
+ =?us-ascii?Q?I+OF5uvG3Cs7rCBXCMK6hr2ZQVoQuVnwTYpC05dVWAx4nXqOzqwYATGHGULo?=
+ =?us-ascii?Q?x8lC2HGbCP1hnMX0eRcU57WdWOBJAaWWp0S3q5ax5J26mmJkwgk1yL+G/7jO?=
+ =?us-ascii?Q?/ikoyj2pPu/Fulhs3nxvHIwduxSCqPtgIUSXXqLkaXlTYeCB/02yHLlQELcV?=
+ =?us-ascii?Q?TvfQtp+PocjZvy5Is7pJLDrN2J8Oq7RmYDZiraJKZXjYs5IK6KHwwCC/1mt1?=
+ =?us-ascii?Q?Z98fY/DWgPZyaumVIz1soROrKCGsAq0q/0EOUGEc7N+hIlTSYitMlR/IzVyn?=
+ =?us-ascii?Q?Fc6WQEq7KOGvrPgFfU7zGfa3XhL2RbK41g+0p6o0lOHL8J+9h+jU+hbLzeuE?=
+ =?us-ascii?Q?5MXQPoWBSftQlQ+npnOB4YqDWi22PnNxbN3u9Z3HMTPrVZLvjG8NusWx13OE?=
+ =?us-ascii?Q?mGGBb3dngiARDgB+i/TvtUSWdPfOQfQFwiCH2mTIWg+qJEjD/1p4E7cOR5dv?=
+ =?us-ascii?Q?6vgMxgEdilLg2PvaXvAgLFzFEXPU0n3JMk7eqS7iU71QSVURJXLwhnPJzi6W?=
+ =?us-ascii?Q?bCloGVqlG1ftMTFG4iIg6UOqW6Buq2GGcEo8gV063Z5JH8SJbbSnUi0qtaLM?=
+ =?us-ascii?Q?6G17Kr3oYDWTGQ/Z2IiNHxFpjx1nDoVk+4kxglrRbwrv07Uorosy/lZUYk00?=
+ =?us-ascii?Q?nl540aJqrh9g0UfoJ4n59vZetQpAKQwCRX0hndVOnH0DX4HZtRkE0dmFDjHd?=
+ =?us-ascii?Q?zohxx2XDmo3jx9U1bMU62Jw/VP/wb0BnSGBNov8rpWlPJ40uIjYH3YyU1+vW?=
+ =?us-ascii?Q?D9MiZFRPjZIhzzkTKqfracryHHvj/dx0XEJS0jiWUXppxGz+EEgCus3/fIRD?=
+ =?us-ascii?Q?T05dvTn0Nh7sZuYKO1IZ4PRhPzZkLIHx0gWPcgqpM1HG2OMqZ3GVEGUvWjuX?=
+ =?us-ascii?Q?X+Oi2Um8kORrtt1YrQSm1bK4YdZphAfBA2hzOBLtcB7YOCtCqK7I4xG24xmS?=
+ =?us-ascii?Q?hUIU2hlDr27Znh50gfEoiJ+TM2m5uuvjDuuNioVrl5GSqy6Cvc3GKPJJEp+y?=
+ =?us-ascii?Q?KCunqYLU6ZqiMam7CilCWl+KU+LfRvPSNORkkVZyK4bCyl+dsGIrDhz4A7DX?=
+ =?us-ascii?Q?dyJY8XEJbvjYzQ9yPPOGKugJyLeN8tJ1gBygsxtjOep98x+XGrWy7hz6ikTb?=
+ =?us-ascii?Q?oxEWssfjRIVI/p/aKqmCIB8r2upiir9J7ujE30mwT1S8IlFiklmhNu8Raflx?=
+ =?us-ascii?Q?fT/juQXo/ewdrQkQok9WpCDDYIEOV1EHujBfWJ/mQv4THUf22l99roL1ZqKD?=
+ =?us-ascii?Q?iaCwNM/n7Z2Rba382Mt4RzdrJstOW/z8t+NYlFRWaAtqaNCEZ9tWBNVBzqqc?=
+ =?us-ascii?Q?6MMyb2oToIavVonLbO3OcKlLuYtUKn36mgb77N2kJB/W/uLdNse8SyomNuDw?=
+ =?us-ascii?Q?bBNm1AvGaBLNMzRXgndmzVZhakZDKk6KM6O84LAQlSP21vRr4WET71Z00CUt?=
+ =?us-ascii?Q?MKjUxbcYCy3rfSTvE1iv2ajC8eaYgYt7Z/k2mC3C9E9uWQxqqMUnkftU+6HV?=
+ =?us-ascii?Q?PY8lQS1BwsNkCgf0rIbj2j1sZZugjMWdcIAsXzxQzfZrHnHcjjZaOGp6+qJZ?=
+ =?us-ascii?Q?dJ7C/V42UIQGRo9WgpVSYz1t7hohAdZ+WlguxaLxK+JRp2Z5D1ydtPH5n0TH?=
+ =?us-ascii?Q?AZFFgnoUjpoE5O6pcijNS/FgBGd8WS2weas2t3W+cOZ2cBSLhzny?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c8df099-dac0-40b1-7399-08deb2939ef9
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 15:07:03.2067
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sFBNyON4cTLoNeNllMEVYKR/3T8Iptq6VwS8dxoxz0U55xUvLqfqp2elEYfIt6AXPoSTbqi8fP/ld/3S1QOVvn0VQtIBldCV+m9OVAYtLUihi/LOSAsE8izw22mX51oU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10512
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [Critical] Out-of-bounds array access in manual mode if only the timestam=
-p channel is enabled.
-- [High] Incorrect buffer size passed to `iio_push_to_buffers_with_ts()` ca=
-uses captures to be dropped.
-- [High] Unbalanced `disable_irq()` if buffer `postenable` fails permanentl=
-y disables the hardware IRQ.
-- [High] DMA cacheline sharing violation between `scan_tx_reset` and `vals`=
- buffers.
-- [High] Software timestamp bit is incorrectly written to the hardware sequ=
-encer register for AD4693.
-- [High] Unconditional registration of an internal IIO trigger in manual mo=
-de exposes a broken default trigger.
-- [High] Missing bounds validation in `sampling_frequency_store` allows use=
-rspace to break the PWM configuration.
-- [Medium] Stale ADC values are leaked to userspace via buffer padding.
-- [Medium] DATA_READY interrupt is registered as a threaded handler, degrad=
-ing timestamp accuracy.
---
+From: Frank Li <Frank.Li@nxp.com>
 
-commit e2702ccefb71a64072ac587c8f0f328a2a198b5a
-Author: Radu Sabau <radu.sabau@analog.com>
+Convert the Linear Technology LTC3589/LTC3589-1/LTC3589-2 regulator
+binding from text to yaml format.
 
-iio: adc: ad4691: add triggered buffer support
+Additional changes:
+- Add existing optional interrupt (drivers/regulator/ltc3589.c).
 
-Add buffered capture support using the IIO triggered buffer framework.
-It supports CNV Burst Mode via a PWM and DATA_READY IRQ, and a Manual
-Mode using SPI N+1 pipelined transfers.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+change in v2
+- use regulator: dt-bindings:
+- add optional interrupt according to sashiko ai result.
+---
+ .../bindings/regulator/lltc,ltc3589.yaml      | 150 ++++++++++++++++++
+ .../devicetree/bindings/regulator/ltc3589.txt |  99 ------------
+ 2 files changed, 150 insertions(+), 99 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+ delete mode 100644 Documentation/devicetree/bindings/regulator/ltc3589.txt
 
-> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
-> index ba77e1bfef166..bf27d5f33a49f 100644
-> --- a/drivers/iio/adc/ad4691.c
-> +++ b/drivers/iio/adc/ad4691.c
-[ ... ]
-> @@ -212,8 +246,56 @@ struct ad4691_state {
-[ ... ]
-> +	u8 scan_tx_reset[4] __aligned(IIO_DMA_MINALIGN);
-> +	/*
-> +	 * Scan buffer: one BE16 slot per active channel, plus timestamp.
-> +	 * DMA-aligned because scan_xfers point rx_buf directly into vals[].
-> +	 */
-> +	IIO_DECLARE_DMA_BUFFER_WITH_TS(__be16, vals, 16);
->  };
+diff --git a/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+new file mode 100644
+index 0000000000000..a95449055bba5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+@@ -0,0 +1,150 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/lltc,ltc3589.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Linear Technology LTC3589, LTC3589-1, and LTC3589-2 8-output regulators
++
++maintainers:
++  - Frank Li <Frank.Li@nxp.com>
++
++description:
++  Regulators sw1, sw2, sw3, and ldo2 can regulate the feedback reference from
++  0.3625 V to 0.75 V in 12.5 mV steps. The output voltage thus ranges between
++  0.3625 * (1 + R1/R2) V and 0.75 * (1 + R1/R2) V. Regulators bb-out and ldo1
++  have a fixed 0.8 V reference and thus output 0.8 * (1 + R1/R2) V. The ldo3
++  regulator is fixed to 1.8 V on LTC3589 and to 2.8 V on LTC3589-1,2. The ldo4
++  regulator can output between 1.8 V and 3.3 V on LTC3589 and between 1.2 V
++  and 3.2 V on LTC3589-1,2 in four steps. The ldo1 standby regulator can not
++  be disabled and thus should have the regulator-always-on property set.
++
++properties:
++  compatible:
++    enum:
++      - lltc,ltc3589
++      - lltc,ltc3589-1
++      - lltc,ltc3589-2
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  regulators:
++    type: object
++    description:
++      Contains eight regulator child nodes sw1, sw2, sw3, bb-out,
++      ldo1, ldo2, ldo3, and ldo4.
++
++    patternProperties:
++      "^(sw[1-3]|bb-out|ldo[1-2])$":
++        type: object
++        $ref: regulator.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          lltc,fb-voltage-divider:
++            description:
++              An array of two integers containing the resistor values R1 and R2
++              of the feedback voltage divider in ohms.
++            $ref: /schemas/types.yaml#/definitions/uint32-array
++            items:
++              - description: R1 resistor value in ohms
++              - description: R2 resistor value in ohms
++
++        required:
++          - lltc,fb-voltage-divider
++
++      "^ldo[3-4]$":
++        type: object
++        $ref: regulator.yaml#
++        unevaluatedProperties: false
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - regulators
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@34 {
++            compatible = "lltc,ltc3589-1";
++            reg = <0x34>;
++
++            regulators {
++                sw1 {
++                    regulator-min-microvolt = <591930>;
++                    regulator-max-microvolt = <1224671>;
++                    lltc,fb-voltage-divider = <100000 158000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                sw2 {
++                    regulator-min-microvolt = <704123>;
++                    regulator-max-microvolt = <1456803>;
++                    lltc,fb-voltage-divider = <180000 191000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                sw3 {
++                    regulator-min-microvolt = <1341250>;
++                    regulator-max-microvolt = <2775000>;
++                    lltc,fb-voltage-divider = <270000 100000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                bb-out {
++                    regulator-min-microvolt = <3387341>;
++                    regulator-max-microvolt = <3387341>;
++                    lltc,fb-voltage-divider = <511000 158000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                ldo1 {
++                    regulator-min-microvolt = <1306329>;
++                    regulator-max-microvolt = <1306329>;
++                    lltc,fb-voltage-divider = <100000 158000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                ldo2 {
++                    regulator-min-microvolt = <704123>;
++                    regulator-max-microvolt = <1456806>;
++                    lltc,fb-voltage-divider = <180000 191000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                ldo3 {
++                    regulator-min-microvolt = <2800000>;
++                    regulator-max-microvolt = <2800000>;
++                    regulator-boot-on;
++                };
++
++                ldo4 {
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <3200000>;
++                };
++            };
++        };
++    };
++
+diff --git a/Documentation/devicetree/bindings/regulator/ltc3589.txt b/Documentation/devicetree/bindings/regulator/ltc3589.txt
+deleted file mode 100644
+index 8010530361465..0000000000000
+--- a/Documentation/devicetree/bindings/regulator/ltc3589.txt
++++ /dev/null
+@@ -1,99 +0,0 @@
+-Linear Technology LTC3589, LTC3589-1, and LTC3589-2 8-output regulators
+-
+-Required properties:
+-- compatible: "lltc,ltc3589", "lltc,ltc3589-1" or "lltc,ltc3589-2"
+-- reg: I2C slave address
+-
+-Required child node:
+-- regulators: Contains eight regulator child nodes sw1, sw2, sw3, bb-out,
+-  ldo1, ldo2, ldo3, and ldo4, specifying the initialization data as
+-  documented in Documentation/devicetree/bindings/regulator/regulator.txt.
+-
+-Each regulator is defined using the standard binding for regulators. The
+-nodes for sw1, sw2, sw3, bb-out, ldo1, and ldo2 additionally need to specify
+-the resistor values of their external feedback voltage dividers:
+-
+-Required properties (not on ldo3, ldo4):
+-- lltc,fb-voltage-divider: An array of two integers containing the resistor
+-  values R1 and R2 of the feedback voltage divider in ohms.
+-
+-Regulators sw1, sw2, sw3, and ldo2 can regulate the feedback reference from
+-0.3625 V to 0.75 V in 12.5 mV steps. The output voltage thus ranges between
+-0.3625 * (1 + R1/R2) V and 0.75 * (1 + R1/R2) V. Regulators bb-out and ldo1
+-have a fixed 0.8 V reference and thus output 0.8 * (1 + R1/R2) V. The ldo3
+-regulator is fixed to 1.8 V on LTC3589 and to 2.8 V on LTC3589-1,2. The ldo4
+-regulator can output between 1.8 V and 3.3 V on LTC3589 and between 1.2 V
+-and 3.2 V on LTC3589-1,2 in four steps. The ldo1 standby regulator can not
+-be disabled and thus should have the regulator-always-on property set.
+-
+-Example:
+-
+-	ltc3589: pmic@34 {
+-		compatible = "lltc,ltc3589-1";
+-		reg = <0x34>;
+-
+-		regulators {
+-			sw1_reg: sw1 {
+-				regulator-min-microvolt = <591930>;
+-				regulator-max-microvolt = <1224671>;
+-				lltc,fb-voltage-divider = <100000 158000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			sw2_reg: sw2 {
+-				regulator-min-microvolt = <704123>;
+-				regulator-max-microvolt = <1456803>;
+-				lltc,fb-voltage-divider = <180000 191000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			sw3_reg: sw3 {
+-				regulator-min-microvolt = <1341250>;
+-				regulator-max-microvolt = <2775000>;
+-				lltc,fb-voltage-divider = <270000 100000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			bb_out_reg: bb-out {
+-				regulator-min-microvolt = <3387341>;
+-				regulator-max-microvolt = <3387341>;
+-				lltc,fb-voltage-divider = <511000 158000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			ldo1_reg: ldo1 {
+-				regulator-min-microvolt = <1306329>;
+-				regulator-max-microvolt = <1306329>;
+-				lltc,fb-voltage-divider = <100000 158000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			ldo2_reg: ldo2 {
+-				regulator-min-microvolt = <704123>;
+-				regulator-max-microvolt = <1456806>;
+-				lltc,fb-voltage-divider = <180000 191000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			ldo3_reg: ldo3 {
+-				regulator-min-microvolt = <2800000>;
+-				regulator-max-microvolt = <2800000>;
+-				regulator-boot-on;
+-			};
+-
+-			ldo4_reg: ldo4 {
+-				regulator-min-microvolt = <1200000>;
+-				regulator-max-microvolt = <3200000>;
+-			};
+-		};
+-	};
+-- 
+2.43.0
 
-The scan_tx_reset buffer is marked __aligned(IIO_DMA_MINALIGN) but is only
-4 bytes long. The subsequent field, the anonymous struct created by
-IIO_DECLARE_DMA_BUFFER_WITH_TS, lacks this alignment attribute.
-
-Could this place the vals buffer immediately after scan_tx_reset (at offset
-8) within the exact same cacheline?
-
-During a SPI transfer, scan_tx_reset is mapped as DMA_TO_DEVICE while vals
-is mapped as DMA_FROM_DEVICE. Does this bidirectional cacheline sharing vio=
-late
-the DMA API and risk memory corruption on architectures with non-coherent
-caches?
-
-[ ... ]
-> +static int ad4691_manual_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int k, i;
-> +	int ret;
-[ ... ]
-> +	k =3D 0;
-> +	iio_for_each_active_channel(indio_dev, i) {
-> +		if (i >=3D indio_dev->num_channels - 1)
-> +			break; /* skip soft timestamp */
-[ ... ]
-> +		k++;
-> +	}
-> +
-> +	/* Final NOOP transfer retrieves the last channel's result. */
-> +	st->scan_xfers[k].tx_buf =3D &st->scan_tx[k]; /* scan_tx[k] =3D=3D 0 =
-=3D=3D NOOP */
-> +	st->scan_xfers[k].rx_buf =3D &st->vals[k - 1];
-
-If only the software timestamp channel is enabled, the loop above breaks
-immediately and k remains 0. Since k is unsigned, does k - 1 underflow
-to UINT_MAX?
-
-Could this result in a pointer massively out-of-bounds, causing a kernel pa=
-nic
-or memory corruption when spi_sync executes a DMA write to this address?
-
-[ ... ]
-> +static int ad4691_cnv_burst_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int acc_mask, std_seq_config;
-> +	unsigned int k, i;
-> +	int ret;
-[ ... ]
-> +	std_seq_config =3D bitmap_read(indio_dev->active_scan_mask, 0,
-> +				     iio_get_masklength(indio_dev)) & GENMASK(15, 0);
-> +	ret =3D regmap_write(st->regmap, AD4691_STD_SEQ_CONFIG, std_seq_config);
-
-For the AD4693 chip, the software timestamp channel is located at index 8. =
-If
-the user enables the timestamp, will bit 8 be included in the mask and writ=
-ten
-to the hardware sequencer?
-
-Since the timestamp is a software-only construct, does passing its bit to t=
-he
-hardware sequencer misconfigure the ADC and cause it to sample an extra
-non-existent channel?
-
-[ ... ]
-> +static int ad4691_cnv_burst_buffer_postenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-[ ... ]
-> +	ret =3D ad4691_sampling_enable(st, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	enable_irq(st->irq);
-> +	return 0;
-> +}
-> +
-> +static int ad4691_cnv_burst_buffer_predisable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +
-> +	disable_irq(st->irq);
-> +	return ad4691_sampling_enable(st, false);
-> +}
-
-If ad4691_sampling_enable() fails in postenable, the function returns an
-error before calling enable_irq().
-
-When the IIO core unwinds the failure, it will call predisable(), which
-unconditionally calls disable_irq(). Since the IRQ was never enabled, does
-this increase the IRQ disable depth to 2?
-
-Could this leave the IRQ permanently masked and halt all future data captur=
-es,
-as subsequent successful buffer enables will only decrement the depth to 1?
-
-[ ... ]
-> +static ssize_t sampling_frequency_store(struct device *dev,
-> +					struct device_attribute *attr,
-> +					const char *buf, size_t len)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int freq;
-> +	int ret;
-> +
-> +	ret =3D kstrtouint(buf, 10, &freq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-> +	ret =3D ad4691_set_pwm_freq(st, freq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return len;
-> +}
-
-Does this function need bounds validation for the user-provided frequency?
-
-If userspace writes a frequency that exceeds st->info->max_rate (500 kHz),
-the computed period in ad4691_set_pwm_freq() could be smaller than the
-hardcoded 380 ns duty cycle.
-
-Since this store function will silently return success, will the subsequent
-buffer enable permanently fail when pwm_apply_might_sleep() rejects the
-invalid PWM state?
-
-[ ... ]
-> +static void ad4691_trigger_reenable(struct iio_trigger *trig)
-> +{
-> +	struct ad4691_state *st =3D iio_trigger_get_drvdata(trig);
-> +
-> +	enable_irq(st->irq);
-> +}
-[ ... ]
-> +static int ad4691_read_scan(struct iio_dev *indio_dev, s64 ts)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret =3D spi_sync(st->spi, &st->scan_msg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * rx_buf pointers in scan_xfers point directly into scan.vals, so no
-> +	 * copy is needed. The scan_msg already includes a STATE_RESET at the
-> +	 * end (appended in preenable), so no explicit reset is needed here.
-> +	 */
-> +	iio_push_to_buffers_with_ts(indio_dev, st->vals, sizeof(st->vals), ts);
-> +	return 0;
-> +}
-
-The size passed here is sizeof(st->vals), which evaluates only to the size =
-of
-the array (32 bytes) and does not include the 8-byte timestamp.
-
-If all channels and the timestamp are active, indio_dev->scan_bytes is 40.
-Since the IIO core strictly checks if data_total_len < scan_bytes, will this
-cause iio_push_to_buffers_with_ts() to return -ENOSPC and drop the valid
-capture?
-
-Additionally, the st->vals array does not appear to be cleared between buff=
-er
-captures. If a user reduces the number of active channels, could the IIO co=
-re
-push uninitialized padding (containing stale ADC values from previous captu=
-res)
-to userspace?
-
-[ ... ]
-> +static int ad4691_setup_triggered_buffer(struct iio_dev *indio_dev,
-> +					 struct ad4691_state *st)
-> +{
-> +	struct device *dev =3D regmap_get_device(st->regmap);
-> +	struct iio_trigger *trig;
-> +	unsigned int i;
-> +	int irq, ret;
-> +
-> +	indio_dev->channels =3D st->info->sw_info->channels;
-> +	indio_dev->num_channels =3D st->info->sw_info->num_channels;
-> +	indio_dev->info =3D st->manual_mode ? &ad4691_manual_info : &ad4691_cnv=
-_burst_info;
-> +
-> +	trig =3D devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
-> +				      iio_device_id(indio_dev));
-> +	if (!trig)
-> +		return -ENOMEM;
-> +
-> +	trig->ops =3D &ad4691_trigger_ops;
-> +	iio_trigger_set_drvdata(trig, st);
-> +
-> +	ret =3D devm_iio_trigger_register(dev, trig);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "IIO trigger register failed\n");
-> +
-> +	indio_dev->trig =3D iio_trigger_get(trig);
-> +
-> +	if (st->manual_mode)
-> +		return devm_iio_triggered_buffer_setup(dev, indio_dev,
-> +						       &iio_pollfunc_store_time,
-> +						       &ad4691_trigger_handler,
-> +						       &ad4691_manual_buffer_setup_ops);
-
-The internal trigger is unconditionally allocated, registered, and set as
-indio_dev->trig before checking for manual mode.
-
-Since st->irq remains 0 in manual mode, does exposing this trigger to users=
-pace
-allow a broken configuration where the trigger never fires?
-
-If userspace polls this broken trigger and it is subsequently disabled, the=
- IIO
-core will invoke the .reenable callback which executes enable_irq(st->irq).
-Can calling enable_irq(0) cause system instability or kernel warnings?
-
-[ ... ]
-> +	/*
-> +	 * IRQ is kept disabled until the buffer is enabled to prevent
-> +	 * spurious DATA_READY events before the SPI message is set up.
-> +	 */
-> +	ret =3D devm_request_threaded_irq(dev, irq, NULL,
-> +					&ad4691_irq,
-> +					IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> +					indio_dev->name, indio_dev);
-> +	if (ret)
-> +		return ret;
-
-This registers the DATA_READY interrupt with a NULL primary handler, causing
-ad4691_irq to run as a threaded function.
-
-Since ad4691_irq() just calls disable_irq_nosync() and iio_trigger_poll()
-(which are both hardirq safe), should this handler run in hardirq context
-instead? Running it in process context might delay the software timestamp
-capture by the length of a thread scheduling latency, introducing unnecessa=
-ry
-jitter.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-ad4692-mul=
-tichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com?part=3D3
