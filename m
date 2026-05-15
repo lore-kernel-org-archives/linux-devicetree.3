@@ -1,105 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62EDA46AF06
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:29:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B095A47887F;
+	Fri, 15 May 2026 11:33:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778844591; cv=none; b=R4bHpeBs/ZBsq+9YeD8jTpB1m+14oFWQHmWvFjbkhlv/txHUJf6XNwEgrpQn+nsHFe5TqaxR4gE+FchT2t40z7hDhf9bDG8hIt62LsG5cShpPz4P1XFyD/I3l/BlISxDStFiy9TWi6fj/MyYEPLOa7BncVMLn6C9q2PWaopcQiA=
+	t=1778844798; cv=none; b=HmFQ5HceEZAWaHCQmjZ+0xCpF9uPZe4+SpmN/FNUPowvjEq8Du8pXDNVQaSbw3pCkLNto65jTM19JyP3vh8Nr1eSmFolvz2DztlfSCuHYVIb6OYc5ynfxFkv0r6BAdITUhmt9ZtehO4gniQwyi7BW8P5/MOXAX15u2bZC5JC1/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778844591; c=relaxed/simple;
-	bh=txlxUr5DJVEFtM3LpEoJTYszKxgADy7JI8PLX2y91Ig=;
+	s=arc-20240116; t=1778844798; c=relaxed/simple;
+	bh=IW8xaqT5tRomWWYj+Hg02oe1gCWLajIYfCPhaENxwXE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m9Jq4wYpoPAZohDYPhaNekGa8lNVFm6KBFg+yLWnPwPAo4Fzm2mGMPuQCu+Vy2whh8OxrBw6q7fyV8FWmQ2uA1HEZ+V5717eMZpLBEUKT0oIwqwqM+H2W1qeo/hmyi/Liy8vxCaN4m6tNWXKI3BV3KiIwk1vQELW9ll2atzB6mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fg3u34xy; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=jvNtxaqKHwh3aQ1fBPZlpw8TzEKvGCQmRIUwBzD35x+lL9G0jh1Hzau39ZRrQNSqZODNa1ClibR1GCH00M6OuU+lZhXmNoCcO3U4gG8R+ZU94AQ32Et0eS5noEkgCRlflgU3H1rwnkYpdQAYEeGdx+/TecOfQ/btqGa0jsDPtIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uXwXBNl0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fg3u34xy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D66C2BCB0;
-	Fri, 15 May 2026 11:29:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uXwXBNl0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A02EC2BCB0;
+	Fri, 15 May 2026 11:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778844591;
-	bh=txlxUr5DJVEFtM3LpEoJTYszKxgADy7JI8PLX2y91Ig=;
+	s=k20201202; t=1778844798;
+	bh=IW8xaqT5tRomWWYj+Hg02oe1gCWLajIYfCPhaENxwXE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=fg3u34xyLyjtlWCLeSFpoKUteN58aWYwywG5/jsKX0t4M1cGGsmtXbhASTYrKNHF7
-	 Ov2cOsPBbD1N2YV1f4O7LY3BqCWJwnWSNDPORudsp7oKxprS6CcGPRb7en8MRaqOmx
-	 zZ9p0A9nUA8LfGo3TTpNEKc+lCJgSXUZfW3d6m8caqFcxcTy8txba3CG//OVBbJiXr
-	 c1peJGHNrx+XBPw5r414C1K5/GkysyCrNDaoTIBnw5q/sPdhhToY3h152kZ3D/2roj
-	 Qb/r67b65QLfTNTx70xzMfUbYm5nQTkVLB3hgY3g71D3S2QGcE9Txd97tBF9Uh/Enh
-	 4eNyq78ykSo+Q==
+	b=uXwXBNl0+1L/9fle97JALcfVqogfKQ3vDco3hJ6eBXbDEtV7x7Ir5chwkjD8AO4ZT
+	 NUorR1GAUwTyZW8a1ZoQzQlBPOLiqmTvJ8t6BJyO5k6Ky2SBrSR93pBWmKQooGJjy5
+	 o3zYi9ghPzUihCK1sNmvz8GJwXFBlTH5QcvvKq7+wt1g7y5w+ujhUIp4A4+dAPnczC
+	 HR4FZfSuL5NDsrNT6Kg7UjU9dac7KTxpAMsJxhYIxTpdtyq6CZy1jeXHXe2FR6on2h
+	 ib0LRUzWasKee32uHOsa9UjcUFcR5QVsdBeWLaSLdBZyqBRx+OUeLEU/ZaNH4pyzzY
+	 +L8NlUy0fQENQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: qcom: Document Eliza CQM and CQS EVK
- boards
+Subject: Re: [PATCH v2 1/1] arm64: dts: imx8mq-evk: Enable MIPI CSI and dual
+ OV5640 cameras
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260515-eliza-bindings-evk-v1-1-8deb81ed86dd@oss.qualcomm.com>
-References: <20260515-eliza-bindings-evk-v1-1-8deb81ed86dd@oss.qualcomm.com>
+To: "Robby Cai" <robby.cai@nxp.com>
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260515111143.2980956-1-robby.cai@nxp.com>
+References: <20260515111143.2980956-1-robby.cai@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 11:29:50 +0000
-Message-Id: <20260515112950.C4D66C2BCB0@smtp.kernel.org>
+Date: Fri, 15 May 2026 11:33:17 +0000
+Message-Id: <20260515113318.2A02EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The compatible strings strictly enforce a 2-element list that om=
-its the intermediate System-on-Module (SoM) and the specific SoC variant co=
-mpatibles.
-- [Medium] The compatible strings and commit message introduce typographica=
-l errors by using "CQM", "CQS", "CQ7790M", and "CQ7790S" instead of Qualcom=
-m's standard "QCM" and "QCS" product naming convention.
+- [High] The proposed device tree configuration intends to use software res=
+et by omitting `reset-gpios`, but the upstream OV5640 driver skips the soft=
+ware reset sequence if `powerdown-gpios` is present.
 --
 
-commit 5133e80c24b03ea2551cf3393bae586847e425a8
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit d18d0c4c95f98f3312c777b828bf09c413169ce3
+Author: Robby Cai <robby.cai@nxp.com>
 
-dt-bindings: arm: qcom: Document Eliza CQM and CQS EVK boards
+arm64: dts: imx8mq-evk: Enable MIPI CSI and dual OV5640 cameras
 
-This commit documents the compatible strings for the Qualcomm Eliza CQM and
-CQS EVK boards, which are built from a base board paired with a SoM that is
-populated with either CQ7790M or CQ7790S, PMICs, LPDDR, eMMC and UFS.
+Enable the MIPI CSI bridges and corresponding CSI-2 host interfaces
+on the i.MX8MQ EVK, and add two OV5640 camera sensors.
 
-> dt-bindings: arm: qcom: Document Eliza CQM and CQS EVK boards
->
-> Document the compatible strings for the Qualcomm Eliza CQM and CQS EVK
-> boards. Both boards are built from a base board paired with a SoM which
-> is populated with either CQ7790M or CQ7790S (Eliza variants), PMICs,
-> LPDDR, eMMC and UFS.
+> Both OV5640 sensors share a single reset GPIO on this board,
+> which prevents independent hardware reset when both cameras
+> are enabled. As a result, the reset line is kept deasserted
+> via a GPIO hog, and sensor reset is performed via software.
 
-This isn't a bug, but there appear to be typos in the product names here.
-Should CQM, CQS, CQ7790M, and CQ7790S be QCM, QCS, QCM7790, and QCS7790 to
-match standard Qualcomm naming conventions?
+Will the software reset actually occur if powerdown-gpios is provided?
 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
-ion/devicetree/bindings/arm/qcom.yaml
-> index 2741c07e9f416..28a18254b4b75 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -63,6 +63,8 @@ properties:
-> =20
->        - items:
->            - enum:
-> +              - qcom,eliza-cqm-evk
-> +              - qcom,eliza-cqs-evk
+Looking at the ov5640 driver's power up sequence, the software reset is
+skipped if the powerdown gpio is present:
 
-If the typo mentioned above is confirmed, will these compatible strings
-permanently bake the misspelled cqm and cqs names into the device tree ABI?
+drivers/media/i2c/ov5640.c:ov5640_powerup_sequence() {
+	if (sensor->pwdn_gpio) {
+		gpiod_set_value_cansleep(sensor->reset_gpio, 1);
+		...
+		gpiod_set_value_cansleep(sensor->reset_gpio, 0);
+	} else {
+		/* software reset */
+		ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0,
+				 OV5640_REG_SYS_CTRL0_SW_RST);
+		...
+	}
+}
 
-Additionally, does this 2-element list correctly represent the hardware
-hierarchy? The commit message notes these EVK boards are composed of a base
-board paired with a SoM populated with specific SoC variants. Placing these
-compatibles in this block restricts the list to exactly two elements, which
-omits the intermediate SoM and SoC variant compatibles. This might cause
-validation to fail on a device tree that attempts to include the SoM
-compatible string.
+Since the device tree nodes define powerdown-gpios, does this mean the
+driver will skip the software reset branch entirely?
 
->                - qcom,eliza-mtp
->            - const: qcom,eliza
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts b/arch/arm64/bo=
+ot/dts/freescale/imx8mq-evk.dts
+> index d48f901487d49..2311a05b88c50 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
+
+[ ... ]
+
+> @@ -330,12 +367,101 @@ vgen6_reg: vgen6 {
+>  			};
+>  		};
+>  	};
+> +
+> +	camera@3c {
+> +		compatible =3D "ovti,ov5640";
+> +		reg =3D <0x3c>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_camera2_pwdn>;
+> +		clocks =3D <&clk IMX8MQ_CLK_CLKO2>;
+> +		clock-names =3D "xclk";
+> +		assigned-clocks =3D <&clk IMX8MQ_CLK_CLKO2>;
+> +		assigned-clock-parents =3D <&clk IMX8MQ_SYS2_PLL_200M>;
+> +		assigned-clock-rates =3D <20000000>;
+> +		powerdown-gpios =3D <&gpio1 5 GPIO_ACTIVE_HIGH>;
+
+Since the reset gpio is omitted here and is kept deasserted by a hog
+elsewhere, does providing powerdown-gpios result in both hardware
+and software resets being bypassed?
+
+> +		DOVDD-supply =3D <&sw4_reg>;
+> +		AVDD-supply =3D <&reg_2v8>;
+> +		DVDD-supply =3D <&reg_1v5>;
+> +
+> +		port {
+> +			camera2_ep: endpoint {
+> +				remote-endpoint =3D <&mipi_csi2_in_ep>;
+> +				clock-lanes =3D <0>;
+> +				data-lanes =3D <1 2>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&i2c2 {
+> +	clock-frequency =3D <100000>;
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_i2c2>;
+> +	status =3D "okay";
+> +
+> +	camera@3c {
+> +		compatible =3D "ovti,ov5640";
+> +		reg =3D <0x3c>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_camera1_pwdn>;
+> +		clocks =3D <&clk IMX8MQ_CLK_CLKO2>;
+> +		clock-names =3D "xclk";
+> +		assigned-clocks =3D <&clk IMX8MQ_CLK_CLKO2>;
+> +		assigned-clock-parents =3D <&clk IMX8MQ_SYS2_PLL_200M>;
+> +		assigned-clock-rates =3D <20000000>;
+> +		powerdown-gpios =3D <&gpio1 3 GPIO_ACTIVE_HIGH>;
+
+Could this regression also prevent initialization on the second camera
+for the same reason?
+
+> +		DOVDD-supply =3D <&sw4_reg>;
+> +		AVDD-supply =3D <&reg_2v8>;
+> +		DVDD-supply =3D <&reg_1v5>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-eliza-bind=
-ings-evk-v1-1-8deb81ed86dd@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515111143.2980=
+956-1-robby.cai@nxp.com?part=3D1
