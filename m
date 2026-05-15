@@ -1,97 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C1537106D;
-	Fri, 15 May 2026 01:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B42A2F7478
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 01:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778807893; cv=none; b=AqikPyJ5nawTpxltY6Y8uGMvFg0K72Z41cFXIhS7xy2XGS+bEV1IGqDNjz29cfyLAe8YO2d4XKNUgeHlOFn4QH1XvU2uU51e9vzsCt5mSO8vy0Rdo2+LenY+BmBZflrIJVkF9m1O7LompWo4R7vgma00LZSfcyh+3i5+Gknacaw=
+	t=1778808026; cv=none; b=jAwokx28XHnN7ZSqAkHPrSQ+aRT2TJc/z1Zpfzan/3YScvcFq8Zg6ALsctGIT2rQ2xi0fm6BM9AshFG1O8AT/vY67pS3mWUrq5vSz59FNnUgwJ40xuvZQf/KMEz5EJFUV83dLXZmP/KlQKLlvdenlSy+jaJv/Z4HK7sh2ssgo7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778807893; c=relaxed/simple;
-	bh=jseFc3n5cwC0kdVmMRsSBaoSA7xjf+l4Q0DXJP129kc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QTcsm6Ts4OQvqxidjakbwNSK0xp6lTWONte64CDe9O9gUZNtT520OlkGg0t/0Hkjzd/usVHjJeTBeSuZO0/2X35THszDzUO1I4r1MvpPJ3m48YRqVA6qzmDI6kxVWKnLHOfpHUbTmTyd9lrdo11lY1OIcDGOppJOXE4jNaAfKCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4qWHYA7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778808026; c=relaxed/simple;
+	bh=kKSl4abVOt+G0HNz0hYnKXAzve2t3wM77fxyFXmiXz8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nHAUK9isVOLtiNJcq7DzBxPL2xrH9jj7R+t5BJr4bJN1P/g2Y75SAKgZVuAZZBcVseaPWS5etgYNTubWl67Dcytx3tnjO14Y4tGX8hBNXcsMBPIA0LWQMEFgElsJbjL4s0hjw79xqrSSpmEx8xIrF2OZem9jmzEfJEaO3VhQEnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akP15nGi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4qWHYA7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5F7B7C4AF0C;
-	Fri, 15 May 2026 01:18:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akP15nGi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4C8C2BCB3;
+	Fri, 15 May 2026 01:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778807893;
-	bh=jseFc3n5cwC0kdVmMRsSBaoSA7xjf+l4Q0DXJP129kc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=k4qWHYA7Yk+41PPDXrsZapPg/ye7FGUUMaCrgX9528FyDJBqbfStsfWT/vn9sF8ia
-	 VEoVycf/kw/BgjiRdwiSoFe3jl2d16uAONW+BMxhx9Rq8inIjRLancdqFNI465MNqA
-	 JIopc6IVKHxl+P1lcz20GeUKPwBQtcdw14ea15eNvFAYLQxoaWJ+aYYBFXFSatkR5t
-	 Q87PO5QCObH7WjB9xwmI6JeOqeG50K/5CoJ8LdmlSg5AQA2cZ7XD8UPhQ6zY+QI2iR
-	 J9UgyAy0KXtFtgHXbe/Kn+3TCBP7hJr6mdI6p0fc4mWLLb3SsNFrghrqDuEiIWyMBC
-	 VwN1cqoezvu7Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 562FFCD37AC;
-	Fri, 15 May 2026 01:18:13 +0000 (UTC)
-From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
-Date: Fri, 15 May 2026 09:18:05 +0800
-Subject: [PATCH 9/9] riscv: defconfig: enable ARCH_ULTRARISC
+	s=k20201202; t=1778808026;
+	bh=kKSl4abVOt+G0HNz0hYnKXAzve2t3wM77fxyFXmiXz8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=akP15nGib4tLPgfNYpUm/cZNfjzVVwTE0OdwaZayCv2cKSxOcB7oe6iedj9NdKeYV
+	 1Zlnq+836BA5PlZ9h01Sc9+ooR1Xw1/uiT5oy8XeeNgl02hnJ70enF80FoKV9ZaMI/
+	 IZIfb6zonjQKonk9RjweIXMcZSu9rSyurIoxrwNsi3FJQjnXRqxtTjCv2u0dhYG+Pp
+	 F5lsvKH/hI+C+9Ka1vx6yMxToYMtjDQC8oQF2BCVrjd+wxSh46A2tGlV9UVprk9bz8
+	 LR2Dj3DrRcL74tI54urepNZ86b/oyXBmILOXP6ecl++394iPImeGF+zfs+M6oMfqJU
+	 WBCW9pryLa7AA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: iio: chemical: sensirion,scd30: Update
+ maintainers field
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Maxwell Doose" <m32285159@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260515011639.28570-1-m32285159@gmail.com>
+References: <20260515011639.28570-1-m32285159@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 01:20:25 +0000
+Message-Id: <20260515012025.BA4C8C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-ultrarisc-pinctrl-v1-9-bf559589ea8a@ultrarisc.com>
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
-In-Reply-To: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- Jia Wang <wangjia@ultrarisc.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778807890; l=681;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=mQUrNpHmImAQll8Ku4hP3FOcTP1mWHcrN/GQ55X+mwU=;
- b=rW2qhP7IrKxExw+g4gJleU/MrAUEhaKmMhuGcdOG+RtY0KMyatlMSfNTeHSuSxbWMM36rDjGg
- hsqzqaDJQN0BUcaVrGPI7kuRezqEaJ8TXYPwir9hh3/UGPzd5k3Q2ZQ
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
- auth_id=779
-X-Original-From: Jia Wang <wangjia@ultrarisc.com>
-Reply-To: wangjia@ultrarisc.com
 
-From: Jia Wang <wangjia@ultrarisc.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message claims to replace Tomasz Duszynski with Maxwe=
+ll Doose as the maintainer of the SCD30 driver, but it only updates the Dev=
+ice Tree binding YAML file. The global `MAINTAINERS` file was not updated.
+--
 
-Enable `ARCH_ULTRARISC` in the default RISC-V defconfig.
+commit 93a32c5e87f9412329bac834ecc989bf06a6129d
+Author: Maxwell Doose <m32285159@gmail.com>
 
-Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-1-98935f6cdfb5@ultrarisc.com/
+dt-bindings: iio: chemical: sensirion,scd30: Update maintainers field
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
----
- arch/riscv/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+This commit updates the maintainers field in the Sensirion SCD30 device
+tree binding to reflect a change in maintainership.
 
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index c2c37327b987..9fdc4d1831ed 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -32,6 +32,7 @@ CONFIG_SOC_STARFIVE=y
- CONFIG_ARCH_SUNXI=y
- CONFIG_ARCH_TENSTORRENT=y
- CONFIG_ARCH_THEAD=y
-+CONFIG_ARCH_ULTRARISC=y
- CONFIG_ARCH_VIRT=y
- CONFIG_ARCH_CANAAN=y
- CONFIG_SMP=y
+Link: https://lore.kernel.org/linux-iio/20260507172404.80435-1-m32285159@gm=
+ail.com/
 
--- 
-2.34.1
+> Tomasz Duszynski is no longer the maintainer of the SCD30 driver.
+> Replace his entry with mine.
 
+The commit message indicates a change in maintainership for the SCD30 drive=
+r,
+but this patch only updates the device tree binding file.
 
+Should the SENSIRION SCD30 CARBON DIOXIDE SENSOR DRIVER entry in the global
+MAINTAINERS file also be updated?
+
+If the global MAINTAINERS file is left unupdated, tools like get_maintainer=
+.pl
+will continue to route patches for the driver's C files to the old maintain=
+er.
+
+> diff --git a/Documentation/devicetree/bindings/iio/chemical/sensirion,scd=
+30.yaml b/Documentation/devicetree/bindings/iio/chemical/sensirion,scd30.ya=
+ml
+> index 40d87346ff4cf..a5b0debe85b1a 100644
+> --- a/Documentation/devicetree/bindings/iio/chemical/sensirion,scd30.yaml
+> +++ b/Documentation/devicetree/bindings/iio/chemical/sensirion,scd30.yaml
+> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: Sensirion SCD30 carbon dioxide sensor
+> =20
+>  maintainers:
+> -  - Tomasz Duszynski <tomasz.duszynski@octakon.com>
+> +  - Maxwell Doose <m32285159@gmail.com>
+> =20
+>  description: |
+>    Air quality sensor capable of measuring co2 concentration, temperature
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515011639.2857=
+0-1-m32285159@gmail.com?part=3D1
