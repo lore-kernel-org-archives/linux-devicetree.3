@@ -1,157 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10F83D5661
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363833FE363
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778847049; cv=none; b=kUkzQKjfKTv8+cNYiGYmbjn4wXzUgWt740A3nD9rYDOOFF4Zf2SMut8rZtncka6/Gj5UplYOLREO+KvhXfLF5HTx0rMIO91GZRIY5gAb2wbMcZHe96zf5uwAaESLJAuTg/LJqa0/2NDfakYRP6s7I+IIEmDjBCagQvALczILQpo=
+	t=1778847144; cv=none; b=mFJTKsr0sKzS5w62GsGRkP8Dr7Gnvp3lTfBp8/qHYLeBGpX3kyWl7KQ0gycujWsbvTXcy/N+vBaYR/TEwiAe1weblGN2n623SqQ8IksiSyrKR8xhUtbSZWWaacqjpRSB4CMXjasJDV8DHKy5CSkioS8WmkgVD5+UvFidmsSvX3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778847049; c=relaxed/simple;
-	bh=Vfb52PFpKBllGr/TPSZrDH/QK8XLnLbiHKiIqLz8yKs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iJNO0dpjWNbkaH10wlZwrRoR2ttJ8bLrHFl08gEGtZkLMGsadBCTSJmSWPKjqzsVaBOttdltfh1U5Friyo1IYj0U582k5j64P5cSEBDt4tbfmzTCFIi+5v/OXkILFj1tieGJ+99Nr1DGF7oy1ksLAGe7SwdtmRSoJkVb2SfgxDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+Mow9Az; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778847144; c=relaxed/simple;
+	bh=Ka3qm8iBE8n8zjZnG+YFbup1oVW5hThp/IzT8vNc3vc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fVkUs/Fhga9EjYD4QHkjWDa98xgo2OticdEgAsG+P4++P7oKUmR+FaAr/r4SbaDcNkNbXmDaBCrC8sH3ybupWpGR3abQmQtxkxODWVYcyzxzHN292eNmn9ykubtRGLX6jJwHRLxgWqQwfLTz06rtmBTX43rMwaZDPbRsg7rLiKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B3e5JxII; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eaypbQj3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+Mow9Az"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18568C2BCB0;
-	Fri, 15 May 2026 12:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778847049;
-	bh=Vfb52PFpKBllGr/TPSZrDH/QK8XLnLbiHKiIqLz8yKs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=C+Mow9AzqSKTsKm4QlnB758LkT7VQeCVIA91x2RiIOQpCXR1fQipNepIW3IQqsMYU
-	 U95ea7og2MUm3aXjtJORyUnjZcXLt2yIM13/9/jCSCig+buMACUanTZgcldAolmBId
-	 sS5lg6RZL9Nr/46iADBbAZufyOmmgwRfcrjS2drfu/AMQY+PCQw/YrX6WV/UxfV48Z
-	 L0uDyBiuT+8Hfuaht8rQBq638bWrwCXZZIzzHcwSBN0DDBIuzArsKMc7kBxNAXxhO2
-	 bju0bZx/dkT5XZH/B0zbwfXqFGSiwlSs9/sYnQyL9KsXrA11mcj4Hkqdde6OFqLgCT
-	 99CYyvblQl6iw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: memory: renesas,rzg3e-xspi: Add
- RZ/T2H and RZ/N2H support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260515115202.1515577-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260515115202.1515577-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 12:10:48 +0000
-Message-Id: <20260515121049.18568C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B3e5JxII";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eaypbQj3"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FBFvm2654865
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:12:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sUlqYvl38wfA6UHhPWcG67kFeqamI6p0XEhh5Bosy2U=; b=B3e5JxII3qlc+mbV
+	iDmDtSmXezgny0Jg3dyc74B6ICWqVk0iyyOTha7tl+tWOj2dvZLFlVPXcrxl/E5y
+	N+UlCwhmOqJOJMtu9238g8MTuPA7KjW+Kr154C6rTJdFQK2g5zxonNXH14d+eGVy
+	LBimhj9sZkfm9NXndRTQTDgO+/MNMRldPXfkhNmQiBlL29lDK+DFEYzIalspp/41
+	0P0H2T/A3i/6vnyt+pYDApQV0xXbJyKaBnZBH5QGeF+IHOXGynuZe8RhXFhKethg
+	l+PX7jn2nZpeUEech5ow8rx8b4uelrbUeGebGe2ONr+l71wtrpraSAAMQjygcnN0
+	AnMyRQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1pu7sx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:12:22 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-631bec27874so428629137.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:12:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778847141; x=1779451941; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sUlqYvl38wfA6UHhPWcG67kFeqamI6p0XEhh5Bosy2U=;
+        b=eaypbQj3nFCQNOl9bY+gXDCyu1Lb+ZF9dpsGEYAug9g6MUvOEXMHddVN84ejgWikHX
+         XHTQ9U9/gRm1AGBef3pMZe5qKAIXvl203bVwcGvWH4vC0NBBsxzfq9nB7x43XyXFj9Dp
+         Gs633Qj//HHKwJ6ftYLBL6QFp4rjBDAs6pD6OcHQelHToSqODAvZXa/tE9lmGG1bSKQ2
+         WTViyiCpOg4hVxJC3Qcr6emKAFiSz5DBCmUc9nuc2YENMJsNkeWQXn6rPVt+gK1aWqxw
+         ltcsIciQfGGoWu3XaFBTsbx1Ja4R0nlkc9ehSo0QZJi4eHQzZnmp4Uj3yyGLsBawaojF
+         kuZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778847141; x=1779451941;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sUlqYvl38wfA6UHhPWcG67kFeqamI6p0XEhh5Bosy2U=;
+        b=Tw0XwGpq4RuJF/ifLIMS2n09LesrDsjcVhVQ6czETBBSvA0NEzZcH7jNBd/In5qja8
+         tREEGQONO8RPptTAbGlQrEdQQyDx6sGqgjSFJVIAxR+tTft8D1uNBxOKo9SILuftkFAA
+         ywhmvr5QHNXIBvx2sQxi5mhhFOrzSzX9FAtkyGs2mLTIh4xD91xrWCALhij4OCAZXnsZ
+         gm2EB2D8Vqn3qHH0VKCRL5efR9j6JUOTHRzWHMyjJcYGrUdsJg76P2kAljKoA30A7wrm
+         CEyfi4sv7uWe+vjxxvb3pOUKjlMXLwMpCDHi8qrOzo7JHagoqkhz69OqJxKKQs2Ujl02
+         SYUQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8MEJdqWoL5aTu/pr6BdS5yVgRwdpfM+pEEh9q8k8BVKdfurTbmq/ckep9pvppsR/O4cvN2CJj8C17O@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXCjic8vfMJz570i3G6Yh6mO8FnTWtWKs4Zxx/GWpLccGrnrFV
+	0zuP3Q4aTQPqVLucHH1pG4L+rFe+7J/1yyccMGJfh9heAQh9ZrTsgmN8aqu8LcBIPn8EsMkTKgj
+	0oM+nV8I2UFp0nzFm3qRuwqAc6OUnps5MZEv/9LX0YQYF0+QE0ujAVHx9DZkSAbI+
+X-Gm-Gg: Acq92OEIh514bAHUepio6EfXlrbH25OIRRaAItEPpaqnXtTojBS82OK7hHEe2aNE7ip
+	Wn89mcyw/GUyabyQpu5JoulBNsTL1OrnZJle/Mi09DQnQYIR3QukvcDNVSfp2URCueWIextyXIN
+	8Jo191YxsxBHo0jDCkVPFLroznUqinbxqSo/1CV9QFtdxmA9hZJjeEkbUG6xFmYzHjvMBmQ1EXQ
+	sTyaXX8qO/sMTFmoi+sFFlTnJeuGPnjaJ5M36LTfZhwcCEHm+qVyrGFj0+cu4IRusc+edP6KgQU
+	IRlsj4Z/UWOmZwc6rZGFy6ncz3qAMMrlhcOKqj63KVpg5YPxFEk+v6Lypniz3sdEde3xnRUOL+U
+	czS3X9EE/le0mIOPKJSZoCAo6Yg0rRtEXMZ9nnCAMtk1vrlxcFydaZLn/nTVJB7MYZwLP6SHJmR
+	KjgfQ=
+X-Received: by 2002:a05:6122:6117:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5760bc49d2emr582275e0c.0.1778847141533;
+        Fri, 15 May 2026 05:12:21 -0700 (PDT)
+X-Received: by 2002:a05:6122:6117:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5760bc49d2emr582252e0c.0.1778847141135;
+        Fri, 15 May 2026 05:12:21 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4c631e2sm214670766b.28.2026.05.15.05.12.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 05:12:20 -0700 (PDT)
+Message-ID: <34f80a3a-1b8c-4c2e-8773-c0169518df60@oss.qualcomm.com>
+Date: Fri, 15 May 2026 14:12:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] clk: qcom: gcc-sm6115: Set HW_CTRL_TRIGGER for
+ video GDSC
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260515-iris-sm6115-v2-0-2ab75229de61@oss.qualcomm.com>
+ <20260515-iris-sm6115-v2-1-2ab75229de61@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260515-iris-sm6115-v2-1-2ab75229de61@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Y9MUpe9O0n7mUWwzdwuHfKMUWU2JCdY7
+X-Proofpoint-ORIG-GUID: Y9MUpe9O0n7mUWwzdwuHfKMUWU2JCdY7
+X-Authority-Analysis: v=2.4 cv=GrhyPE1C c=1 sm=1 tr=0 ts=6a070da6 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=V4j3QN97b3vMt8JjJHsA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDEyMyBTYWx0ZWRfX+s/6EjSyqI52
+ a7M412s4JRXqewTtBjVk48PoLxU+HDTl60VxGj2sMD7CWiXPpkuGuTMEluKDh0ZvN358PZ6XTWw
+ sh8begZaaCc7iR3w/RR/cghrYsB7tYZy765cu2Gj4Zx9DNuoOyq2i6pyHqqWTF9J4fpFA7Qwtod
+ Up16vQaSGaIyd7MZFlXRCq9FvKsPGVZAw9WQ0iyObJQfSuk1HEUx4VrVP5G4TFQfLN0NhKXXICG
+ q46P6mV4u4FpYfq0LKOBaoEorHERQ4KxPiJzXuofWgvXqPoaOyYSYcc2Xcr5sOldja0gEGahoHx
+ aAprVhQyYnk3cQfdAPdQ4pjS90BcWoeTjqb9jRavEkBSXYL9ObinBboU3u1Ov12QuejD51ZaBfq
+ RovmsUk/3paQUq4lfzeADAfQgrTkIkFAKLe8zZVbwoMiItFr6Ctqs5lH7bmApfHtvRWIIlqRxB9
+ 8WQtU4E61nEwyfcKdQA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_03,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0
+ spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150123
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The new SoCs claim fallback compatibility with `renesas,r9a09g04=
-7-xspi` but provide strictly fewer hardware resources than the fallback sch=
-ema previously mandated.
-- [Medium] The `else` block enforces a known-incorrect `minItems: 4` constr=
-aint on the base `renesas,r9a09g047-xspi` compatible, contradicting the har=
-dware reality described in the commit message.
---
+On 5/15/26 1:59 PM, Dmitry Baryshkov wrote:
+> The venus video driver will uses dev_pm_genpd_set_hwmode() API to switch
+> the video GDSC to HW and SW control modes at runtime. This requires domain
+> to have the HW_CTRL_TRIGGER flag.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-commit 53ce1d0b1afc85c1adf4f55123b53c081bc04767
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-dt-bindings: memory: renesas,rzg3e-xspi: Add RZ/T2H and RZ/N2H support
-
-Document the xSPI controller found on the Renesas RZ/T2H and RZ/N2H SoCs.
-The patch updates clock and reset constraints to handle SoC differences,
-noting that the RZ/G3E hardware actually only supports a single bridge
-channel despite manual references.
-
-> diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas=
-,rzg3e-xspi.yaml b/Documentation/devicetree/bindings/memory-controllers/ren=
-esas,rzg3e-xspi.yaml
-> index 7a84f5bb7284e..cdeca4c795f3a 100644
-> --- a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-=
-xspi.yaml
-> +++ b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-=
-xspi.yaml
-> @@ -30,6 +30,8 @@ properties:
->            - enum:
->                - renesas,r9a09g056-xspi  # RZ/V2N
->                - renesas,r9a09g057-xspi  # RZ/V2H(P)
-> +              - renesas,r9a09g077-xspi  # RZ/T2H
-> +              - renesas,r9a09g087-xspi  # RZ/N2H
->            - const: renesas,r9a09g047-xspi
-
-Could this cause a regression since the new SoCs claim fallback
-compatibility with renesas,r9a09g047-xspi, but provide strictly fewer
-hardware resources than the fallback schema previously mandated?
-
-A fallback compatible string asserts that an unmodified legacy OS driver for
-the fallback SoC can successfully drive the new hardware. Prior to this pat=
-ch,
-the schema for renesas,r9a09g047-xspi mandated 4 clocks and 2 resets. The n=
-ew
-if/then block restricts the new SoCs to only 2 clocks and 1 reset.
-
-While the current Linux driver handles this gracefully by using
-devm_clk_get_optional_enabled(), Device Tree bindings are strictly
-OS-agnostic. An older OS driver written strictly to the fallback's original
-schema might attempt to acquire the previously mandatory axi/spix2 clocks a=
-nd
-aresetn reset, resulting in a probe failure.
-
-Could the fallback's constraints be relaxed instead, or should SoCs providi=
-ng
-fewer resources avoid claiming fallback compatibility with a more
-resource-demanding SoC?
-
-[ ... ]
-
-> @@ -109,6 +121,34 @@ required:
->    - '#address-cells'
->    - '#size-cells'
-> =20
-> +if:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - renesas,r9a09g077-xspi
-> +          - renesas,r9a09g087-xspi
-> +then:
-> +  properties:
-> +    clocks:
-> +      maxItems: 2
-> +    clock-names:
-> +      maxItems: 2
-> +    resets:
-> +      maxItems: 1
-> +    reset-names:
-> +      maxItems: 1
-> +else:
-> +  properties:
-> +    clocks:
-> +      minItems: 4
-> +    clock-names:
-> +      minItems: 4
-> +    resets:
-> +      minItems: 2
-> +    reset-names:
-> +      minItems: 2
-
-Does this else block introduce a regression by enforcing a known-incorrect
-minItems constraint on the base renesas,r9a09g047-xspi compatible?
-
-The commit message explicitly states that the RZ/G3E hardware actually only
-supports a single bridge channel, matching the RZ/T2H design. However, the
-patch adds an else block that strictly enforces minItems: 4 for clocks and
-minItems: 2 for resets on all variants not listed in the if block. This
-cements a known-incorrect hardware description into the schema.
-
-When the RZ/G3E devicetrees are eventually corrected to reflect the 2-clock
-hardware reality as promised, will they immediately fail schema validation?
-Would relaxing the else block correctly allow RZ/G3E to use either the lega=
-cy
-4-item or the correct 2-item configurations?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515115202.1515=
-577-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
+Konrad
