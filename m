@@ -1,238 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E08F3C9896
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC833F9290
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:21:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778861981; cv=none; b=Re+QapRH6sY4CGTGNGBhvQ9x31NnMZKO2dmuMdN56N9ksOqiCgylW8J3+3u/7TktVHTNuWf8jHuhHGXL7ImQLF9/PDmpU/S8fXVO5+RyxTf3UZt9AmQ6gsXSHSglL52Y7jYYsd7N50Gl4ZYKHZMalAO/PVA5VVzkmnekaZTG7Sw=
+	t=1778862073; cv=none; b=LjAbxwRhMGHEueI6UGv0AwGs4cQTxoanXkdFiWQy0rvFJfehQtYA+4/HLbmN6V8WPkmMDL7ZTD2pIToODP1/8HXqFpDLI3eqsvRovqmk+j+ZbsgMX295otG+2yoPeF2LX2VNR1fBqAT14yiTOnHhjeUQpgh5upqQpeAy5WSIfYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778861981; c=relaxed/simple;
-	bh=dTreoN9oL4nDHFAxeUaAumjFltacC1kiVykxqLug7UU=;
+	s=arc-20240116; t=1778862073; c=relaxed/simple;
+	bh=RQqIhEWugvBThRGcRyaNdNRz5t1DuaSeeUrIqCesg5k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lTX4AmamW+QHj4OI/N8sQnQ1AsiZGzJUBbjHP3XDveY8XxYByRusbpNrk46VdET3XxZZVgd5DO5ID/tluKuuiIGQYeiBJsDUWm/9BDYsy08es0I4LcD5bTokz8ZR25LBcd85nlcyVd3DybnI0msoM6/YqDJzSwNW2cLgq1nhaI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9o2Rk+i; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=XIXXlQQZrjz5oh3SVDfhkx+Kk7ceZJ4WjYPov9RTtfXt0OV3eBcEF0UGqKxViLGnn3yLYAsaiGDcc8bT/myKUnDawUvb2+cfrRreSrt7tdjgIfOTwSE62iVZn+MQRQYiRprVtjtmG/wG7z4dU+PsMZz+Cw/S7j961joa8NhfOuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQNo/YVD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9o2Rk+i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4EC2C2BCC7;
-	Fri, 15 May 2026 16:19:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQNo/YVD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C35AC2BCC7;
+	Fri, 15 May 2026 16:21:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778861981;
-	bh=dTreoN9oL4nDHFAxeUaAumjFltacC1kiVykxqLug7UU=;
+	s=k20201202; t=1778862073;
+	bh=RQqIhEWugvBThRGcRyaNdNRz5t1DuaSeeUrIqCesg5k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=P9o2Rk+icWZ98kSrPVbfo5zSnVqrDC7SgZ7oDJrkHe2dOR2PNN602iNrFtnRWJXP9
-	 EQfu/zsLnP4lWG/ARN6asZJtMFPLcIAJ8FkaRTWDO4SIkTIvBvbCECD4TlLcCIAGyP
-	 2Z6xLenP5fuv2qFF/AMLlEjeLqhSaPAN2g5uK39FhkOxAZIJx/2SY++JQBX0iWUS+u
-	 OZwcgNiivaDen/HgqBGCfHffNBnZS2dqZUOu8Jt37eDbzUIK2Xdu299OEB9fKtPROK
-	 KTyN4DTK3Z25LkZm8IB1jcMhTTvBmtjVHO6V21oSLAALRMa4cOjMLBNOoVuRuxoLls
-	 OpIXCy+c6FJuQ==
+	b=SQNo/YVDB2ndEEl8gMoRpnVdT5xpEz/7URjJHWNUEsWLg1vVpgS7ivN2ae83nWe5s
+	 oiPCxsja8c29ub3L0O6upteFMb26zZ4AUa4U4GepGMZE+HZtaN1pko8P7v2egXuNL2
+	 BDFP52sbOugIHOKhYza5ro0bRiIq1wLL2+t0Cw709wC+5tgBZMqcGpMT4ODnm8gA9e
+	 euFMqqlBnruud7U8nLzw/ic5gisbD0bzpq/G0Bnv6HJOwNEkJGMt5Of7X9XwAto6t+
+	 tgR7KzmO9dhbEO3P1LkaghkkM5JPdkX/JW8yLmXXAQ4klPLOxBLFdZwwhRGk8kHYbm
+	 eJXLcPnQ0oNnQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] arm64: dts: ti: Add k3-am62l3-beaglebadge
+Subject: Re: [PATCH v11 6/6] docs: iio: adc: ad4691: add driver
+ documentation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Judith Mendez" <jm@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260515153541.294698-3-jm@ti.com>
-References: <20260515153541.294698-3-jm@ti.com>
+To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260515-ad4692-multichannel-sar-adc-driver-v11-6-eab27d852ac2@analog.com>
+References: <20260515-ad4692-multichannel-sar-adc-driver-v11-6-eab27d852ac2@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 16:19:40 +0000
-Message-Id: <20260515161940.E4EC2C2BCC7@smtp.kernel.org>
+Date: Fri, 15 May 2026 16:21:11 +0000
+Message-Id: <20260515162112.5C35AC2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Unmanaged Board Control GPIOs (Missing GPIO Hogs / Regulators) for=
- `BOOST_5V_ENA` and `USB_HUB_RST`.
-- [High] Driver/DTB Interface Violation: `microchip,spi-present-mask` lengt=
-h mismatch.
-- [High] Missing `bootph-all` property on referenced pinctrl nodes will cau=
-se U-Boot SPL probe failures.
-- [Medium] Misplaced Consumer Pinctrl Configurations on the `&gpio0` provid=
-er node.
-- [Low] Deprecated `gpio` property used instead of `gpios` in `regulator-fi=
-xed` nodes.
+- [High] IIO ABI violation and architectural anti-pattern regarding per-cha=
+nnel attributes implicitly mutating shared global hardware state.
+- [Low] Documentation inaccurately attributes the handling of the `reset-gp=
+ios` property to the reset controller framework.
 --
 
-commit 535e2cddc8d18ba0025f3f27f6e67f150156d239
-Author: Judith Mendez <jm@ti.com>
-arm64: dts: ti: Add k3-am62l3-beaglebadge
+commit 503be5723d887e52797574aecacc47811e35f4b5
+Author: Radu Sabau <radu.sabau@analog.com>
 
-This patch introduces the device tree for the BeagleBoard.org BeagleBadge,
-a compact single board computer based on the TI AM62L3 SoC. It provides
-the initial hardware description including regulators, GPIOs, pinmux
-configurations, and basic peripherals.
+docs: iio: adc: ad4691: add driver documentation
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts b/arch/arm6=
-4/boot/dts/ti/k3-am62l3-beaglebadge.dts
+This commit adds RST documentation for the AD4691 family ADC driver,
+covering supported devices, IIO channels, operating modes, oversampling,
+reference voltage, LDO supply, reset, GP pins, SPI offload support,
+and buffer data format.
+
+> diff --git a/Documentation/iio/ad4691.rst b/Documentation/iio/ad4691.rst
 > new file mode 100644
-> index 0000000000000..30fc9c83b1f44
+> index 0000000000000..84492ef7a5d61
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
-
+> +++ b/Documentation/iio/ad4691.rst
 [ ... ]
-
-> +	vdd_3v3_sd: regulator-3 {
-> +		/* TPS22918DBVR */
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDD_3V3_SD";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		vin-supply =3D <&vdd_3v3>;
-> +		regulator-boot-on;
-> +		enable-active-high;
-> +		gpio =3D <&gpio0 16 GPIO_ACTIVE_HIGH>;
-
-This isn't a bug, but could the gpios property be used here instead of the
-deprecated gpio property? The wlan_en node later in this file correctly uses
-the plural form.
-
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&vdd_3v3_sd_ena_pins_default>;
-> +		bootph-all;
-> +	};
+> +Oversampling
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 > +
-> +	sensor_3v3: regulator-4 {
-> +		/* TPS22918DBVR */
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "Sensor_3V3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		vin-supply =3D <&vdd_3v3>;
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +		enable-active-high;
-> +		gpio =3D <&wkup_gpio0 1 GPIO_ACTIVE_HIGH>;
-
-Could this also be updated to use the gpios property?
-
+> +In CNV Burst Mode each channel has an independent hardware accumulator t=
+hat
+> +averages a configurable number of successive conversions. The result is =
+always
+> +returned as a 16-bit mean, so ``realbits`` and ``storagebits`` are unaff=
+ected
+> +by the oversampling ratio. Valid ratios are 1, 2, 4, 8, 16 and 32; the d=
+efault
+> +is 1 (no averaging). Oversampling is not supported in Manual Mode.
 [ ... ]
-
-> +	usr_button_pins_default: usr-button-default-pins {
-> +		pinctrl-single,pins =3D <
-> +			AM62LX_IOPAD(0x00a4, PIN_INPUT, 7) /* (H18) GPMC0_AD11.GPIO0_26 */
-> +			AM62LX_IOPAD(0x01e4, PIN_INPUT, 7) /* (D16) EXT_REFCLK1.GPIO0_104 */
-> +			AM62LX_IOPAD(0x00c0, PIN_INPUT, 7) /* (N19) GPMC0_ADVn_ALE.GPIO0_32 */
-> +			AM62LX_IOPAD(0x00e8, PIN_INPUT, 7) /* (L19) GPMC0_CSn1.GPIO0_42 */
-> +			AM62LX_IOPAD(0x00b8, PIN_INPUT, 7) /* (L21) GPMC0_CLK.GPIO0_31 */
-> +			AM62LX_IOPAD(0x01c0, PIN_INPUT, 7) /* (B13) UART0_RTSn.GPIO0_95 */
-> +		>;
-> +	};
-
-Because the gpio0 node later in the file includes the bootph-all property a=
-nd
-references this node, does this node also need bootph-all? Without it,
-U-Boot's fdtgrep might strip this node, leaving a dangling phandle and
-causing probe failures in SPL.
-
-[ ... ]
-
-> +	sensor_3v3_ena_pins_default: sensor-3v3-ena-default-pins {
-> +		pinctrl-single,pins =3D <
-> +			AM62LX_IOPAD(0x004, PIN_OUTPUT, 7) /* (AA23) WKUP_UART0_TXD.WKUP_GPIO=
-0_1 */
-> +		>;
-> +	};
-
-Does this node also need the bootph-all property? The sensor_3v3 regulator
-node uses this pinctrl configuration and has bootph-all.
-
-[ ... ]
-
-> +	lora_control_pins_default: lora-control-default-pins {
-> +		pinctrl-single,pins =3D <
-> +			AM62LX_IOPAD(0x00c8, PIN_OUTPUT, 7) /* (M19) GPMC0_WEn.GPIO0_34 */
-> +			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 7) /* (L20) GPMC0_CSn0.GPIO0_41 */
-> +			AM62LX_IOPAD(0x01a4, PIN_INPUT, 7) /* (D11) SPI0_CS1.GPIO0_88 */
-> +			AM62LX_IOPAD(0x01bc, PIN_INPUT, 7) /* (B14) UART0_CTSn.GPIO0_94 */
-> +		>;
-> +	};
-
-Same question here regarding the bootph-all property since this is referenc=
-ed
-by the gpio0 node.
-
+> +Writing ``oversampling_ratio`` stores the new depth for that channel and
+> +snaps the internal oscillator to the largest valid table entry that is b=
+oth
+> +less than or equal to ``old_effective_rate =C3=97 new_osr`` and evenly d=
+ivisible
+> +by ``new_osr``. This preserves an integer read-back of
+> +``in_voltageN_sampling_frequency`` after the change and keeps the oscill=
+ator
+> +as close as possible to the previous effective rate.
 > +
-> +	gpio0_pins_default: gpio0-default-pins {
-> +		pinctrl-single,pins =3D <
-> +			AM62LX_IOPAD(0x0078, PIN_OUTPUT, 7) /* (L22) GPMC0_AD0.GPIO0_15 */
-> +			AM62LX_IOPAD(0x00e0, PIN_INPUT, 7) /* (M21) GPMC0_DIR.GPIO0_40 */
-> +			AM62LX_IOPAD(0x00ec, PIN_OUTPUT, 7) /* (M23) GPMC0_CSn2.GPIO0_43 */
-> +			AM62LX_IOPAD(0x00f0, PIN_INPUT, 7) /* (M22) GPMC0_CSn3.GPIO0_44 */
-> +			AM62LX_IOPAD(0x0194, PIN_OUTPUT, 7) /* (B11) MCASP0_AFSX.GPIO0_84 */
-> +		>;
-> +	};
+> +All channels share one internal oscillator. Writing ``sampling_frequency=
+`` for
+> +any channel updates the oscillator and therefore affects the effective r=
+ate
+> +read back from all other channels.
 
-Does this node also need bootph-all to match the gpio0 node?
+Does this break IIO ABI semantics? Attributes that control shared hardware
+state must be exposed as shared attributes, such as shared_by_type, rather
+than per-channel attributes.
 
-Also, I noticed that GPIO0_15 (BOOST_5V_ENA) and GPIO0_43 (USB_HUB_RST)
-are configured as PIN_OUTPUT here. Because configuring PIN_OUTPUT in pinctrl
-only sets the pad multiplexing and does not actively drive a logic level on
-the GPIO controller, will these pins remain floating?
-
-Should there be a gpio-hog or consumer regulator node to manage the directi=
-on
-and logic level for these control pins?
+If per-channel attributes implicitly mutate a global clock, could this
+break deterministic configuration? Userspace initialization scripts
+attempting to configure channels sequentially will experience unpredictable
+side-effects, as configuring one channel's OSR or frequency will silently
+overwrite the shared oscillator state configured by a previous channel.
 
 [ ... ]
+> +Reset
+> +=3D=3D=3D=3D=3D
+> +
+> +The driver supports two reset mechanisms:
+> +
+> +* **Hardware reset** (``reset-gpios`` in device tree): asserted at probe=
+ by
+> +  the reset controller framework.
 
-> +&gpio0 {
-> +	gpio-line-names =3D"","","","","","","","","","",									/* 0-9 */
-> +			 "","","","","","BOOST_5V_ENA","VDD_3V3_SD_ENA","","","",					/* 10-1=
-9 */
-> +			 "","","","","","MCP23S18_RESET","BTN_SELECT","","","",						/* 20-29=
- */
-> +			 "","BTN_LEFT","BTN_UP","","LORA_RESET","","","","","",						/* 30-39=
- */
-> +			 "FUEL_GAUGE_BATLOW","LORA_RFSW","BTN_DOWN","USB_HUB_RST","MIKROBUS_I=
-NT","","","","","",	/* 40-49 */
-> +			 "","WLAN_EN","","","","","","","","",								/* 50-59 */
-> +			 "","","","","","","","","","",									/* 60-69 */
-> +			 "","","","","","","","","","",									/* 70-79 */
-> +			 "","","","","MIKROBUS_RST","","","","LORA_BUSY","",						/* 80-89 */
-> +			 "","","","","LORA_DIO","BTN_RIGHT","","","","",						/* 90-99 */
-> +			 "","","","","BTN_BACK","","","","","",								/* 100-109 */
-> +			 "","","","","","","","","","",									/* 110-119 */
-> +			 "","","SD_CD","","","";									/* 120-125 */
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&gpio0_pins_default>, <&usr_button_pins_default>, <&lora=
-_control_pins_default>;
+Is this description accurate regarding the reset controller framework?
 
-Is it expected to place the pinctrl configurations for consumer devices
-(usr_button_pins_default and lora_control_pins_default) on the gpio0
-provider node?
-
-This causes the pins to be claimed when the GPIO controller probes. Could
-these be moved to the respective consumer device nodes instead?
-
-[ ... ]
-
-> +	mcp23s18: gpio@0 {
-> +		compatible =3D "microchip,mcp23s18";
-> +		reg =3D <0>;
-> +		spi-max-frequency =3D <10000000>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		reset-gpios =3D <&gpio0 25 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&mcp23s18_reset_pins_default>;
-> +		microchip,spi-present-mask =3D /bits/ 8 <0x01>;
-
-Will this cause a probe failure in the pinctrl-mcp23s08_spi driver?
-
-The driver uses device_property_read_u32() to parse the
-microchip,spi-present-mask property. Because the property is defined here
-as an 8-bit value, the property read API will see a length mismatch and
-might return -EOVERFLOW.
-
-Could this be specified as a standard 32-bit cell (i.e., <0x01>)?
-
-> +	};
-> +};
+The reset-gpios property is parsed and handled by the GPIO subsystem, while
+the reset controller framework manages the resets property. Could this
+conflate the two subsystems and mislead users about which bindings are used?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515153541.2946=
-98-1-jm@ti.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-ad4692-mul=
+tichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com?part=3D6
