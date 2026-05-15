@@ -1,123 +1,161 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61893441054;
-	Fri, 15 May 2026 10:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F7044D001;
+	Fri, 15 May 2026 10:39:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778841594; cv=none; b=k0SIhHX5QcM7iXecbdS80L/fmR8g+ijJrOe+983NTTD02KfHswGuoW0Ppi/Sc74nHZxoLR4rTPvaFDYQVMa+dfQMvFto+TcQ7AqAHg+hu0xLsqpkazRMrH1ajlzQiScChONxnUwCaYyeP0aXH2Poj3i398SASdO2gR4r61ATVNE=
+	t=1778841595; cv=none; b=j7gJDZTPld5ePtF77x/xT3WY29NpYoWmcWyttWaC6OP7+Ocuarx9bxK0CeVuSZrq1007wj4T92FDt4Q0TG4xHB2PquwRVY0dmXCA7xutmY/Qo45P2RFhZtn7+fQHLr+JRG0NZnvb+0PtMc/62V2YYFjhuGI7l27J1LYKr7JudTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778841594; c=relaxed/simple;
-	bh=49gZmuy7/uaMr4IxZ6SU1T8b0OR9K5hUBztsiny6iO0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MJSQKNx/JCwDJYjBnYp9vfNhuy6ZJZH9xAxrDxcSwTtTscGcaP07Xi+EMu/7Vz5YfDDxRuskqdc/Rdyzd08YvK+/7DXE4UpnN5j5kKDGOVbJICHDtjq/dzf9XqoDAYOeNFSRRws/OAUGH7wsdFb16VbK7tEZpclWfi9vbrSU5QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Ro4rshFc; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1778841595; c=relaxed/simple;
+	bh=F2K+7FDUJtbESplW0IG4BAnCiZSuUiTnTBrp7OG3XTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZRfShfcT4v1vKa09IYOTgPjChujgtiipdaG9WptBZ51GwvEZz+EOzVIBeTaOjvrW0MNsg7mK6F7ZvrAdziHg4/KtL/v1xsVVRoC5FRJxNe8f9CP9IKGZRGjxhFmpo8TW7I+QSescuTcEaQdF9+4TDmZfxUxPxRmEB6Ejjg98bGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXizuLpU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Ro4rshFc"
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 089322714A;
-	Fri, 15 May 2026 12:39:52 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id JlTet2NnaPlr; Fri, 15 May 2026 12:39:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1778841591; bh=49gZmuy7/uaMr4IxZ6SU1T8b0OR9K5hUBztsiny6iO0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ro4rshFcCVZ6gqZ5Ur68Yz4yTcTZz3FIFIhrPXzL93FWPgHQbAcgWDwukBhFOsA+u
-	 We3g7YD5kH1KriySWUwMDe2KWYZlshCPgIZJTMQXaJXpEhKZFx5qrMyQbqQSi6I0bk
-	 7mfdfK9jhdKt7yu7faX4uvFms5MTvLzceSxnpM4xRXnPfqmFEmSdwl20OKH5p0Hhv+
-	 7CROhId2NwVzP3ga3WsiAz8wA6hQu0Nh0wBP/nF9bD5ugaaaC0YLr+FnYtY6I4UAVn
-	 PTtkmiGTUF3SBbSFKNc94XsN2MqW6ih2qpKNAQpPHY7fIa85R324Iv7jAJE1P0gQBc
-	 3ngco4buA6+9g==
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Date: Fri, 15 May 2026 16:08:58 +0530
-Subject: [PATCH v6 02/11] dt-bindings: extcon: document Samsung S2M series
- PMIC extcon device
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXizuLpU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D90C2BCC7;
+	Fri, 15 May 2026 10:39:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778841595;
+	bh=F2K+7FDUJtbESplW0IG4BAnCiZSuUiTnTBrp7OG3XTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WXizuLpUNBsyMcu/ngYzIUOaWO8IvwPvLSUV6CR2KTx3REvsdC76yekrwglLrXaDs
+	 1QT6IMdUc1+FZA+KuIX25osjTCEeB2uGDdhh17qdI4XkIz2oNZKH50Uj6sFkijJqba
+	 ijy6hPHLDCU9DPci4C3+6Om4VRW567pccVxxXW0ZHlfqzp8mReUzHlLM0guzf8N9j9
+	 OdhakEE5pQ9Sw47YY8UFheX6KKz4rRmTJ+KT8vVuUgTQpnl94rEUcWbO2mhHulDhCR
+	 tVEzLyqW5hL24ZgvYopjfr9li+ClTUrxx38lhao86z/ARKiq6slVzjmYDftoGMWKBF
+	 OU1o9JYOlo1Kw==
+Date: Fri, 15 May 2026 12:39:52 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add Sony IMX678
+Message-ID: <20260515-axiomatic-yellow-armadillo-b14dea@quoll>
+References: <20260513-imx678-v1-0-30fc593ed8fa@ideasonboard.com>
+ <20260513-imx678-v1-1-30fc593ed8fa@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-s2mu005-pmic-v6-2-1979106992d4@disroot.org>
-References: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
-In-Reply-To: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Nam Tran <trannamatk@gmail.com>, 
- =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org, 
- linux-doc@vger.kernel.org, Kaustabh Chakraborty <kauschluss@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260513-imx678-v1-1-30fc593ed8fa@ideasonboard.com>
 
-Certain Samsung S2M series PMICs have a MUIC device which reports
-various cable states by measuring the ID-GND resistance with an internal
-ADC. Document the devicetree schema for this device.
+On Wed, May 13, 2026 at 09:03:16PM +0530, Jai Luthra wrote:
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          data-lanes:
+> +            oneOf:
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
+> +                  - const: 5
+> +                  - const: 6
+> +                  - const: 7
+> +                  - const: 8
+> +
+> +          link-frequencies: true
 
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
----
- .../bindings/extcon/samsung,s2mu005-muic.yaml      | 40 ++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+Drop. My patch fixing existing bindings is still valid and I do not
+agree with other approach. I wanted to fix all existing bindings to make
+it easier for you.
 
-diff --git a/Documentation/devicetree/bindings/extcon/samsung,s2mu005-muic.yaml b/Documentation/devicetree/bindings/extcon/samsung,s2mu005-muic.yaml
-new file mode 100644
-index 0000000000000..0a320d5e2a352
---- /dev/null
-+++ b/Documentation/devicetree/bindings/extcon/samsung,s2mu005-muic.yaml
-@@ -0,0 +1,40 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/extcon/samsung,s2mu005-muic.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MUIC Device for Samsung S2M series PMICs
-+
-+maintainers:
-+  - Kaustabh Chakraborty <kauschluss@disroot.org>
-+
-+description: |
-+  The Samsung S2M series PMIC MUIC device is a USB port accessory
-+  detector. It reports multiple states depending on the ID-GND
-+  resistance measured by an internal ADC.
-+
-+  This is a part of device tree bindings for S2M and S5M family of Power
-+  Management IC (PMIC).
-+
-+  See also Documentation/devicetree/bindings/mfd/samsung,s2mps11.yaml for
-+  additional information and example.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - samsung,s2mu005-muic
-+
-+  connector:
-+    $ref: /schemas/connector/usb-connector.yaml#
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/properties/port
-+    description: Port connecting to the USB controller or PHY.
-+
-+required:
-+  - compatible
-+  - connector
-+  - port
-+
-+additionalProperties: false
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - avdd-supply
+> +  - ovdd-supply
+> +  - dvdd-supply
+> +  - port
+> +
 
--- 
-2.53.0
+Missing ref to video interface devices
+
+> +additionalProperties: false
+
+and this is unevaluated then
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        camera@1a {
+> +            compatible = "sony,imx678";
+> +            reg = <0x1a>;
+> +            clocks = <&imx678_clk>;
+> +
+> +            avdd-supply = <&camera_avdd_3v3>;
+> +            ovdd-supply = <&camera_ovdd_1v8>;
+> +            dvdd-supply = <&camera_dvdd_1v2>;
+> +
+> +            reset-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
+> +
+> +            port {
+> +                imx678: endpoint {
+> +                    remote-endpoint = <&cam>;
+> +                    data-lanes = <1 2 3 4>;
+> +                    link-frequencies = /bits/ 64 <720000000>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 2fb1c75afd16..5260cd83a255 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24911,6 +24911,13 @@ T:	git git://linuxtv.org/media.git
+>  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+>  F:	drivers/media/i2c/imx415.c
+>  
+> +SONY IMX678 SENSOR DRIVER
+> +M:	Jai Luthra <jai.luthra@ideasonboard.com>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +T:	git git://linuxtv.org/media.git
+
+Drop. Individual drivers do not have dedicated trees. Media alrady
+covers it.
+
+Best regards,
+Krzysztof
 
