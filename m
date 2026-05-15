@@ -1,232 +1,150 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 779EC126F3B
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0049305E1F
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778834609; cv=none; b=fgHJXvusKy0d+75+yt7frxS/IdW9DrgcGGVpFMWSXN2g93rTQ6hnNoRP1q84OE5wXrvHok5ZgZ/9/5O957n6ERr7jvizQtlG4dmCQhqttghIWSvLI4yhNRaqpkrZHkPDxDfqMg24y0LeFnH9hkWsPRVisFjO9qrmhXC8EFC359g=
+	t=1778834853; cv=none; b=pvuYZvnTSHweSrHMBrkWKWyoNkrWNdUSTgKA4ExDUFyJfBeoMVisQ4CYw9kFxTpj7j4aSc3r5eN5ioTDDfFbwrafDTrFNBdZS8M6PXs58ChG10tXDC8iWgS0/AHEIKbrBsDnN6hB6wLxu4xEhF3F/MHsKo8sdNkqS2iNQZ4v5tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778834609; c=relaxed/simple;
-	bh=nS+lCgr4OrV4iecFaYNEUGomabWrCmUsI7giLwsMxE8=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=OiORZR8Vi1uGlp3t8g6CLB9DN0xmzZ0vAMtKHJCypRfz571v9n+UwnzCFMM/vt1EONpkBawmGg3ky8k3QK7I/Vaab+kYYe3xtXFSi7dII9x2WLxTCw8V8UySnu6xGsZz5gRhdhijOK/8qDOGbqz/hnKOn3Ez8QMtKoEK7SXPoTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=JUPrNsyI; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1778834853; c=relaxed/simple;
+	bh=tcsWhvBYfHAaZ0xx4d95uTJpmff+GK5/N7wi/KGLKks=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tv89q/olEN0yyp/S0CUIWyWsv/GpaHQ5yYzFAWAZ0krTa8nYsWsXzvKyLT8qGErBSZ/lnu86XMCNt7v2Y4qKpinutOYB1HBNc1TGnV4wndRfz/xMD4jV723do7m4Qj58PGh6M3Dd+HKNIIYJCRZ7llRJPxTk7gCvzxoemtPJGlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=veuSbATF; arc=none smtp.client-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="JUPrNsyI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=Q/ZGijoJsq+Ap0qMs88xNOMP9wdMwxFtl
-	TwU91GwQ7Y=; b=JUPrNsyIlumGooe5Wg33nkvjv14BdTDNK1s54SfgCgmMyRuM8
-	Jk9YHhskel4JQGrv6lEIIgaHWBw6527pjIkKC4imf5uYyoEhsv2ouXT/4tiB8Jrs
-	5HDxOHk1h8+Frmpr5f3tO3Jl2CJM9MPdzNG0nzTSEllzbyOzly9/yOjbqE=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYULH3AZqvXQEAA--.5045S2;
-	Fri, 15 May 2026 16:43:52 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="veuSbATF"
+Received: from [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d] (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id 3F1287802DC;
+	Fri, 15 May 2026 10:47:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1778834849;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tcsWhvBYfHAaZ0xx4d95uTJpmff+GK5/N7wi/KGLKks=;
+	b=veuSbATFW3Pg3jWRq0VNZehZ+fz6FeS5mEEHJAMmQIYJBcQjQgpmC//1UPVccdmHEgIw/C
+	HummouTQSc7yqbuMfPoIuhnpQRBYYDO5QZEYOkcEbsp29uo2LpXYyF5EwuQPEF5NEiAZfP
+	D3dHahdgrK7lBPpt51lUxmOqMV1LEu0tOWa1Kfv4bLvyO6YLk1OoaO3ZbTcLRuA0xOxXVV
+	BEUnqGjV3Lre/lq7V5wiQMB6xx/o4i62+h+37P7JiBi8RDxSs8yHGZwP33/9WQb1hvm1/e
+	C7mCuUVcS3Qmqh9M4JHQTg4DbHPAVVGt8lqJTa5QcxNL/uKTNueDszbsUI9sMQ==
+Message-ID: <55abfd54cc6f01cee65d54ec74754549e30e4a94.camel@svanheule.net>
+Subject: Re: [PATCH v2 0/2] watchdog: realtek-otto: add fallback compatible
+From: Sander Vanheule <sander@svanheule.net>
+To: Rob Herring <robh@kernel.org>, Rustam Adilov <adilov@disroot.org>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck	
+ <linux@roeck-us.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley	 <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 15 May 2026 10:47:28 +0200
+In-Reply-To: <CAL_JsqLM4JQmbYCEz3-vpS+qiz8nXSk758CP_nFwWR2ihG-AFw@mail.gmail.com>
+References: <20260512204854.8931-1-sander@svanheule.net>
+	 <20260514161008.GB841147-robh@kernel.org>
+	 <9f81a947b65cafd44b293e05080b1fd2820cea06.camel@svanheule.net>
+	 <CAL_JsqLM4JQmbYCEz3-vpS+qiz8nXSk758CP_nFwWR2ihG-AFw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 4/9] dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl
- bindings
-From: Jia Wang <wangjia@ultrarisc.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
- robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, 
- conor+dt@kernel.org
-In-Reply-To: <20260515014938.540FDC2BCB3@smtp.kernel.org>
-References: <20260515-ultrarisc-pinctrl-v1-4-bf559589ea8a@ultrarisc.com>
- <20260515014938.540FDC2BCB3@smtp.kernel.org>
-Date: Fri, 15 May 2026 16:43:10 +0800
-Message-Id: <177883459046.3325333.4510759257711016058.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778834590; l=6422;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=nS+lCgr4OrV4iecFaYNEUGomabWrCmUsI7giLwsMxE8=;
- b=az+mWxW9HCUgpUf5xEM4+Q6pi00Zk5iLLZgj7rrwQQo+cgiwM61nXnYO7foSUvM2y8a4ijcpc
- dlR0wLEb0h2CEUe9hwQgK01aM9RxYEFCsup+lHLKD1O/fcAzCtZBI1f
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnYULH3AZqvXQEAA--.5045S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKF4UuF4rWF4fKF17XryftFb_yoWxJryUpF
-	WfJFW5AFy8KF45t392y3W8C3Waqan7CrW7Kr1Dtryjya98uF10qF13Kw45uas8ur4vvFy3
-	Zay5Wa4UJa1DuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
-	c2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWU
-	twCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
-	L18JUUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWoFRsMACwAMs6
 
-On 2026-05-15 01:49 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] The schema lacks a top-level `required` block for mandatory controller properties.
-> - [Medium] The binding introduces custom legacy vendor properties and magic macros instead of using generic pinctrl properties.
-> - [Medium] The `maxItems: 32` constraint on the legacy array properties allows structurally incomplete configuration tuples.
-> - [Medium] The schema incorrectly uses `additionalProperties: false` alongside `$ref` inclusions, forcing redundant property definitions.
-> - [Low] The documentation incorrectly describes the legacy properties as a `phandle-array`.
-> - [Low] The schema fails to enforce the hardware limitation that `func1` is unsupported on `LPC` pins.
-> --
-> 
-> commit 20f50ac043d77ef903b805d0902034551c955519
-> Author: Jia Wang <wangjia@ultrarisc.com>
-> 
-> dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl bindings
->     
-> Add bindings for the pin controllers on the UltraRISC DP1000 RISC-V SoC.
-> 
-> > diff --git a/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > new file mode 100644
-> > index 0000000000000..c7ed1f96382af
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > @@ -0,0 +1,168 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/pinctrl/ultrarisc,dp1000-pinctrl.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: UltraRISC DP1000 Pin Controller
-> > +maintainers:
-> > +  - Jia Wang <wangjia@ultrarisc.com>
-> > +
-> > +description: |
-> > +  UltraRISC RISC-V SoC DP1000 pin controller.
-> > +
-> > +  The binding supports two child node styles under the same controller
-> > +  compatible:
-> > +
-> > +  - legacy DP1000-specific nodes using phandle-array properties
-> > +    `pinctrl-pins` and `pinconf-pins`
-> 
-> Is "phandle-array" accurate here? The schema defines these as flat uint32
-> arrays, and the examples show raw integer arrays without any phandles.
->
+Hi Rob,
 
-Thanks for spotting that. The term "phandle-array" is indeed inaccurate
-here, but since these legacy properties will be removed entirely in v2,
-this description will be dropped along with them.
- 
-> > +  - generic pinctrl nodes using `pins`, `function` and generic pin
-> > +    configuration properties
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: ultrarisc,dp1000-pinctrl
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  "#pinctrl-cells":
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> 
-> Should there be a top-level required block for compatible and reg?
-> Without it, a device tree node omitting the reg property or left entirely
-> empty could silently pass schema validation.
->
+On Thu, 2026-05-14 at 15:57 -0500, Rob Herring wrote:
+> On Thu, May 14, 2026 at 11:25=E2=80=AFAM Sander Vanheule <sander@svanheul=
+e.net> wrote:
+> >=20
+> > On Thu, 2026-05-14 at 11:10 -0500, Rob Herring wrote:
+> > > On Tue, May 12, 2026 at 10:48:52PM +0200, Sander Vanheule wrote:
+> > > > Like for the GPIO hardware of the Realtek Otto platform, add a fall=
+back
+> > > > compatible for the watchdog hardware.
+> > > >=20
+> > > > For backward compatibility, the binding will still allow current
+> > > > single-compatible devicetrees to work, but new devicetrees, includi=
+ng
+> > > > new compatibles, should use a two-component compatible.
+> > > >=20
+> > > > This series serves to address comments regarding the device compati=
+bles
+> > > > for the patches adding RTL9607C watchdog support [1].
+> > > >=20
+> > > > [1]
+> > > > https://lore.kernel.org/lkml/20260509163101.722793-1-adilov@disroot=
+.org/
+> > >=20
+> > > You misunderstood the discussion (though some came after this). The
+> > > fallback should be one of the existing compatibles (the oldest one), =
+so
+> > > there are no driver changes needed for the OS. Creating a new fallbac=
+k
+> > > completely misses that point.
+> >=20
+> > Using a SoC-specific compatible would mean we should go for something l=
+ike:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =3D "realtek,rtl9=
+706c-wdt", "realtek,rtl8380-wdt";
+> >=20
+> > Then that means we can never change our interpretation of how the rtl83=
+80
+> > behaves (we don't have datasheets), because it would also impact the
+> > behavior of
+> > the rtl9706c.
+>=20
+> No, at that point you would add the rtl9706c compatible to the driver
+> to distinguish.
+>=20
+> You have the same constraint with your generic compatible.
+>=20
+> > I also think "apple,wdt" is a bad example to compare with "realtek,otto=
+-
+> > wdt".
+> > The former only specifies the vendor, while the latter refers to the li=
+ne of
+> > SoCs this IP block is used for. Although I see the docs also discourage
+> > family
+> > compatibles.
+>=20
+> Is M1, M2, M3 not a family? Maybe A series is included too, but if
+> there's anyone that maintains some consistency across SoCs, it is
+> Apple.
+>=20
+> The docs are based on experience and regret...
+>=20
+> >=20
+> > If I may ask, what is the rationale for preferring the "older
+> > implementation"
+> > approach over a "family compatible" to match the common subset of suppo=
+rted
+> > features?
+>=20
+> If you create bindings as the SoCs are created, then you don't really
+> know what's in a family, only does it work with the existing driver .
+> You only know what's in a family after the fact. Things are never that
+> clean either.
+>=20
+> I just picked the oldest as that's probably the most well known, least
+> likely to need some future change, and would have the oldest OS
+> version support.
 
-Yes, I’ll added the top-level required block for compatible and reg.
- 
-> > +patternProperties:
-> > +  '.*-pins$':
-> > +    type: object
-> > +    allOf:
-> > +      - $ref: /schemas/pinctrl/pincfg-node.yaml#
-> > +      - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> > +    additionalProperties: false
-> 
-> Should this use unevaluatedProperties: false instead? Using
-> additionalProperties: false alongside $ref ignores properties imported by
-> the references and forces redundantly redefining generic properties locally
-> in this file.
-> 
+Thanks for the extra context.
 
-I’ll switch to unevaluatedProperties: false and verify the behavior.
-
-> > +    properties:
-> > +      pinctrl-pins:
-> > +        description: |
-> > +          The list of pins and their mux settings that properties in the node
-> > +          apply to. The format: `PORT  PIN  FUNCTION`.
-> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +        minItems: 1
-> > +        maxItems: 32
-> 
-> Since the format requires 3 integers per tuple, does a maxItems: 32
-> constraint allow structurally incomplete configuration tuples? 32 is not a
-> multiple of 3, so it rejects a valid 11-pin configuration (33 integers) while
-> permitting an invalid array ending with a partial tuple.
-> 
-
-This legacy property will be removed in v2.
-
-> > +      pinconf-pins:
-> > +        description: |
-> > +          The list of pins and their pad configuration that properties in the
-> > +          node apply to. The format: `PORT  PIN  CONF`.
-> > +          CONF is a DP1000-specific encoding of pull and drive strength as
-> > +          defined in dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h.
-> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +        minItems: 1
-> > +        maxItems: 32
-> 
-> Is it appropriate to encode distinct physical characteristics like bias and
-> drive strength into a single integer using a macro? The pinctrl subsystem's
-> architectural design typically models these as individual, human-readable DT
-> properties.
-> 
-> For a new upstream driver, shouldn't it rely exclusively on the standard
-> generic pinctrl framework rather than introducing new custom vendor properties?
-> 
-
-In v2, I’ll remove the legacy vendor-specific pinconf-pins/pinctrl-pins
-properties from the binding schema. They were previously included for
-compatibility.
-
-The legacy format is kept only as a driver implementation detail for
-existing DTs and is not part of the binding.
-
-New device trees must use the generic pinctrl binding.
-
-> [ ... ]
-> 
-> > +      function:
-> > +        description: |
-> > +          Mux function to select for the listed pins.
-> > +          gpio maps to the hardware default mode. The default mode is
-> > +          GPIO for PA/PB/PC/PD pins and LPC for LPC pins.
-> > +          func1 is not supported on LPC pins.
-> > +        enum:
-> > +          - gpio
-> > +          - func0
-> > +          - func1
-> 
-> Could the schema enforce the hardware limitation that func1 is unsupported
-> on LPC pins? Adding an allOf with an if/then block would prevent this
-> invalid combination from passing schema validation.
->
-
-Thanks, will add an allOf with if/then in v2 to reject func1 on LPC pins.
- 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=4
-> 
-
-Best Regards,
-Jia Wang
+Rustam, will you take it from here to add the two-part compatible for the
+RTL9706C? Since you won't need update the driver, I guess a single patch wo=
+uld
+do.
 
 
+Best,
+Sander
