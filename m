@@ -1,213 +1,95 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3312D0622
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3129E2DB7B9
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778849856; cv=none; b=bUgHMp3JaoUHUIwrNiywNga4oolPuweTW67gcBfqI8bl5o2UFk35giUj54SI4a6VarI6hrwnRq5gJ/9JPAYwP4/QUTz519jK963l2R/qqM7dTnzEnlQTJg118EyPGn9Lwk1K/cnA92NaR7uWLWqQxTHi1PPlgkqeP8w3vxc165c=
+	t=1778849866; cv=none; b=cARRQPNHarjdnws4fSKspZiI1LO81AfLkH0f24CsoVJfviGWzxcoFYpMM8Bn9CLNTyDd4f4QjIt7IGLT1npW1barfAwjeVb32DMwEJJGhgi5NgPbiOcoQzV5pGhcTx/B16heuSe9jk1/4OaLaqP49TJ5r1ym8q3VwPYGLWOAdoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778849856; c=relaxed/simple;
-	bh=6jZeY3fFm/RWu46vschP8gHQy+Evtx8dFt3HodsRJEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sRshU1jIzk7vejiXfSrjdw03O8jDTSoUrq4ixLUjkgEhOeudzct5yQct9VoA+zctygiLqE+LR+Kt8Z5m9TIujq/2VFvCarOFVHBHb7uE5KRs0BG2nhJxNaMKRb5F/IEwJBDLhAj0MiaPrtTMioaVR2nEygSJiTKN8Ott3QykT0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eZkJLlBl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RseFilte; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778849866; c=relaxed/simple;
+	bh=yxfuK9gQx1WbbllwbVouyZJWpOPie+fm3+30lLExS6c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kdaa8v2AgyIp9vuJdRwVYUHCIovTKIcvMarHIq0TozGyrfGATDt01fXWdbsRl9PIZOu2+97SRtVy1tXf/daWtFuEYsM2/vdCGe3rP0QWgnTwtHkT07CZyXBRQlmr9xOY1lpCG9DqG+am2A3z8BHGWkP7aMknQX5DO4UKoKq7xhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bcxfs374; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eZkJLlBl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RseFilte"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FC0dfw1847994
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:57:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PdkIR6RMfY5OxV5lPVO4LlZZZ2NLTbP3dRMQlqgS3FU=; b=eZkJLlBljMbyAyQr
-	TgNgygTHkLS0ix+U9krjIhm/mFnhYTguxqxgyrQYUaEkPRS2woekwR1HkcueC2j3
-	ru4Cb5g/HSqYHEao/G4OqUgZP9zbt3C+qc7SSyhwf9aFHRl19DzniO9OiSH+O9/t
-	I9zsoCWL270oBXW0xi1n77WO6LUBmwNIF9pN00iVSajFd9Hcq5rMmty80ND5iJpd
-	1bEw2A5mxrHSieHNylYINM0M5SU6BfQKFjK/mtAgBymSjC7KLa2M/H7C7j7KDPbz
-	NKXcfUU+FmbYeI1JvyIA73CxX8B5k8GBIfbo4ny6zdfKTsQC7myuPDnv/UygjSWN
-	XqPc5g==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1t38ss-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:57:33 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-631bec27874so435511137.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:57:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778849853; x=1779454653; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PdkIR6RMfY5OxV5lPVO4LlZZZ2NLTbP3dRMQlqgS3FU=;
-        b=RseFilteNn+qPff2YG/aUtw81drJSMqs+HSKFGoaf1GskyLuVnZXVsmTyyanQVDN4Q
-         MdN/uAIv8mQEkZpB98Ej34zJuVQb99/fFpVN9Z9BnNLbVgGhSRFnvfRdT4BbQFBWWfL7
-         nc025NMIsg5EBD4R9y0w0pNm0fVDw9ohdZYIjrpYvuGjLmksTz/KGsMottR5Egxgx6Zh
-         T2ING6TTyqxhr/ic/YzfbEvQKBEH7Gb9M22cNN5gsMAVLknecNiYC5MpvrmMJ07MwcH/
-         ELgCpWfOo8hBivm23WSRPa/MQGMITM19fpW4svLG2ZenpebxF9TFKTL5q59Il5unmdol
-         8PhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778849853; x=1779454653;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PdkIR6RMfY5OxV5lPVO4LlZZZ2NLTbP3dRMQlqgS3FU=;
-        b=BxS2+LUyEq6vC+2KM3bRU8ALBAjRGpkp3QXcwBGjueS9/p6eo7HNWAWEK2pOorRssf
-         Y+IUnwTx736G1YM2y8xUE19v15EwQ5gtfzzOTX8yUKhhPPFP/J3XK9idzDoMaMnEpaXS
-         H+fDXRI1Flq1dtDFehh4CI3pq46fKEyFbvu+Cz2DeP2NbtcsOIzZskoMozX5QflVKdFC
-         eblT8ehdR2P3PFLYWJcPbWRJeQpO1YK7qHZ/nkw1uzxpZg0wkskjQe/52V9BImF3vCyN
-         kEWjlNpKoWgjm2SaWIVHLRetnJPETHwLsTI/0Z7byS5C5higASWBGsB4pmqBPXAT4jsr
-         MUWg==
-X-Forwarded-Encrypted: i=1; AFNElJ9ZDYrt7heNx1OD1Lm3GqU/RPOZmUr0mrJJKfx+yBCzhkzoMu53OmfG3Cs9GhDQQKLz+S+zKoTqpHUj@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoyVqk76BAZLxOCvqrEKAXBozMohKHaVoN30LEVzEGZzavzBF2
-	dkegAp8gA+Qjp5PSebxi03Io06u9oHqRRLAbLmlj50RdUyp/UwNiTVWYXXLaNuuxpYaCsejiu4l
-	G2GRJbuMnKbALxyeK/Dh0/67vqR0xFMAvIOynIA4xFX8QHYpMzKmo0mnWJXd+g7Nu
-X-Gm-Gg: Acq92OHA5NmlHENPCmxNLYFAZQwa6JQ9tuQYYgxDk3TPe4VIfAzKpWLi0kC4I3UTyVH
-	6vecqq2SvANIAmgAhs0jSX+Z8NyrjQ1xwH96Fv+pg30Bz6SnpsxeW+oEgnKd5Q75X2iGT2IVX1+
-	l+i5pu0Eqgx+TcOOAw1Bb2LF6QDqFXYn4zreyX8Frb2fqtRE5ha/51IKr8ndlwPCvGunsBdjrFP
-	IiwDopxMRK7fqO0eeZXGhafxD9jq7f7cZaFs3RAWskuLyup3rQqLTd+lINOf3iTVBLJ9pnLvJwh
-	9AlkA71ScYTDlodAwDrz3uewtbYvzAtiZBBH5V7ByI23mCOt56iw2IUo5FX7lSG1P+FOzCSryPq
-	nVpMyYSrRCPintRDCTVe9eoCkgzDIOeSpBg3JC3I5BOmjLumsHYXvRtCB1w0pWTvvp1Htgh8ZWU
-	kHjk4=
-X-Received: by 2002:a05:6102:126b:b0:632:5db8:f656 with SMTP id ada2fe7eead31-63c002c3749mr339405137.4.1778849853069;
-        Fri, 15 May 2026 05:57:33 -0700 (PDT)
-X-Received: by 2002:a05:6102:126b:b0:632:5db8:f656 with SMTP id ada2fe7eead31-63c002c3749mr339390137.4.1778849852436;
-        Fri, 15 May 2026 05:57:32 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4dea93dsm221177266b.38.2026.05.15.05.57.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 05:57:31 -0700 (PDT)
-Message-ID: <bd4e93dd-5293-4cbc-bfbe-314b3f348d31@oss.qualcomm.com>
-Date: Fri, 15 May 2026 14:57:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bcxfs374"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC843C2BCB0;
+	Fri, 15 May 2026 12:57:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778849865;
+	bh=yxfuK9gQx1WbbllwbVouyZJWpOPie+fm3+30lLExS6c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Bcxfs3741uJx5ZVj09+S/FjtsYzDplE5z1Um66rX3nU3rA6jHfc0fRli48oad5UtN
+	 HDFEK3nj9KZEYf939KTqZ4FLzVCFXcu6qGzSgQTKgBK+ZpOjA7i1Tn72glCu6L21YQ
+	 euGZVxSZOQGy9fJRKbxWAP2/Lc45Vq/1EwP9FI72v9tIVGc/hb+5XuZ1qrH6qnNkKq
+	 f1w2HEK8NtXPERmd8cSklV9/ueJY0tV7viWevEDvk+7swSc68bBrrJCCdV06mwQSjZ
+	 DtFHn8ZwU6r2Nk9++OWoEcLpR9bPQVXS+vPYvCMfTpmBF5rYe6C1an1XsEqOcHcrYv
+	 n82lfJ3YV4K6w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: qrb4210-rb2: enable venus
+ device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515-iris-sm6115-v2-4-2ab75229de61@oss.qualcomm.com>
+References: <20260515-iris-sm6115-v2-4-2ab75229de61@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 12:57:45 +0000
+Message-Id: <20260515125745.AC843C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/14] dt-bindings: media: qcom: Add CAMSS Offline
- Processing Engine (OPE)
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-        laurent.pinchart@ideasonboard.com, kieran.bingham@ideasonboard.com
-References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
- <20260427-camss-isp-ope-v2-10-f430e7485009@oss.qualcomm.com>
- <aead10a8-45be-4f7a-ac6c-35a99a716b3c@oss.qualcomm.com>
- <CAFEp6-38=hcUOvW1yd+hRZ2nHV8sLxiLeB18uu-au=LgA2bQTw@mail.gmail.com>
- <0c6c9366-a190-4143-a0fb-2aff38ed8804@oss.qualcomm.com>
- <CAFEp6-1uDO7UzYm+5ejRH0fCtnFZSA3z_Xa+4ibDEbXBh38ueA@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAFEp6-1uDO7UzYm+5ejRH0fCtnFZSA3z_Xa+4ibDEbXBh38ueA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=D7Z37PRj c=1 sm=1 tr=0 ts=6a07183d cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=MDVsdYFiAoUeNHFhHhoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDEzMSBTYWx0ZWRfX55lOqVojELVP
- d/8Vo/xovDSKykJSuvaHZgL2lqemp4Qr8Op3gNpRZtBJVrYc62lVD/0+Kyt/p5T/e5ECa6AWxAe
- Ov67oxSa4JWOXjDjQKMiI5V23+U7rcXzDF2JwBV8QFRVSWnbyNFAUeMYACR6lZ8JLMDjiiV+qan
- fnEHDA6dKZmFd5iCJ8o7l7A6XEIP2OOdf8MqbMKDSW1Y1+v0VDzQty+24zMoRwnbvo/EDl2EjBC
- Ne1v+3glhsVkWCtkao8zSnhIgGNUjjstNHwdmYWHca35rOl0kBLYk4HP3yKAa1HwqayCWHxDUfE
- FOBxyoZtjzau1Tp0UaxtjcSl6Iv/oz3d59M0UbtILMTTTYTW1pKlICXO7hG5bq2h7wkDU5PcstI
- iQvAaaOTzCutGUu98J1UgWeFa2iheHGo3LzIwKwnAe+C10W6O0vkAR4VYZG6p70H5TjOdnx3QGO
- JM/aeR1/z2oYEY6yiFA==
-X-Proofpoint-ORIG-GUID: WK_vEV6oRIOfO8wSufy77NBD9QyWbrHp
-X-Proofpoint-GUID: WK_vEV6oRIOfO8wSufy77NBD9QyWbrHp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-15_03,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- adultscore=0 phishscore=0 clxscore=1015 bulkscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605150131
 
-On 5/5/26 3:16 PM, Loic Poulain wrote:
-> On Tue, Apr 28, 2026 at 12:16 PM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->>
->> On 4/27/26 10:33 PM, Loic Poulain wrote:
->>> On Mon, Apr 27, 2026 at 4:22 PM Konrad Dybcio
->>> <konrad.dybcio@oss.qualcomm.com> wrote:
->>>>
->>>> On 4/27/26 2:43 PM, Loic Poulain wrote:
->>>>> Add Devicetree binding documentation for the Qualcomm Camera Subsystem
->>>>> Offline Processing Engine (OPE) found on platforms such as Agatti.
->>>>> The OPE is a memory-to-memory image processing block which operates
->>>>> on frames read from and written back to system memory.
->>>>>
->>>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
->>>>> ---
->>>>
->>>> [...]
->>>>
->>>>> +        clocks = <&gcc GCC_CAMSS_OPE_CLK>,
->>>>> +                 <&gcc GCC_CAMSS_OPE_AHB_CLK>,
->>>>> +                 <&gcc GCC_CAMSS_NRT_AXI_CLK>;
->>>>
->>>> Should the two AXI clocks be aggregated by camss-top instead?
->>>>
->>>> Otherwise we run the risk of the OPE driver setting a rate of A
->>>> and another sub-device setting a rate of B
->>>
->>> On qcm2290, OPE appears to be the only consumer of the NRT AXI clock,
->>> while the capture path (VFE/TFE) relies on the RT AXI clock. That
->>> said, this may not always be the case and these clocks (AXI / NRT‑AXI
->>> / RT‑AXI) seem like they could reasonably be managed at the
->>> camss-bus/top level.
->>>
->>> The open question is how the NRT AXI clock should be enabled when
->>> required? enabling them unconditionally (similar to other camss PM
->>> clocks), introducing a dedicated CAMSS top‑level interface for voting,
->>> or leveraging an existing framework to handle this?
->>
->> So, interconnect, or some internal, smaller version of it?
-> 
-> Downstream, there is a CPAS driver that handles these clocks in
-> conjunction with the internal CAMNOC block. Dmitry also mentioned the
-> existing icc_clock mechanism, but we likely need to investigate this
-> further to support proper dynamic scaling of the required clocks.
-> However, I don’t plan to address this as part of the current series,
-> as it would significantly increase its scope.
->
-> I believe the current approach is acceptable for now because:
-> - This NRT clock is required by this specific sub-block, but not by
-> all CAMSS sub-blocks (unlike, for example, camss-ahb), so referencing
-> it makes sense here.
-> - At the moment, the OPE only enables this clock without setting its
-> rate (i.e., it uses the default), so this should not conflict with
-> introducing a more complete scaling framework later.
-> 
-> Does this sound good?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The device tree override `firmware-name` has no functional effec=
+t, making the intended workaround a no-op.
+--
 
-Depends how you're going to want to tackle this debt in the future.
-If you go through the icc framework, you'll end up needing to alter
-the DT
+commit 52a51e0f4e822b65926de689abb3bd0218261df9
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-If you bake in something internal to the camss family, say
-camss_foo_bar_request_bandwidth(u32 val), you may get it done
-without that. But I don't know what practical challenges that will
-entail
+arm64: dts: qcom: qrb4210-rb2: enable venus device
 
-Konrad
+Enable the Venus en/decoding device on the Qualcomm RB2 board. The HFI
+Gen2 firmware for AR50Lt platforms doesn't work on RB2, so fix the
+firmware in the DT for now.
+
+> diff --git a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts b/arch/arm64/boot/d=
+ts/qcom/qrb4210-rb2.dts
+> index 1203172729faa..a6236b09cdbd9 100644
+> --- a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+> @@ -739,6 +739,12 @@ &usb_qmpphy_out {
+>  	remote-endpoint =3D <&pmi632_ss_in>;
+>  };
+> =20
+> +&venus {
+> +	firmware-name =3D "qcom/venus-6.0/venus.mbn";
+
+Does this firmware-name property actually change the driver behavior?
+
+Looking at qcm2290_res in drivers/media/platform/qcom/venus/core.c (which
+handles the qcom,qcm2290-venus fallback compatible used by this platform),
+the default fwname is also qcom/venus-6.0/venus.mbn.
+
+In drivers/media/platform/qcom/venus/firmware.c, if the firmware-name prope=
+rty
+is absent, the driver falls back to core->res->fwname. Since the string
+provided here exactly matches the default fallback, the override appears to
+have no functional effect.
+
+Was a different firmware name intended to avoid the broken HFI Gen2 firmwar=
+e?
+
+> +
+> +	status =3D "okay";
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-iris-sm611=
+5-v2-0-2ab75229de61@oss.qualcomm.com?part=3D4
