@@ -1,160 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC4C3F20F1
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:30:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0C31A2C04
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778833858; cv=none; b=s772qPac7xlRLSa0Zh21RvwGJYnjSOJz+XDtbBCDPd6AU3Q+2dnl7hNhbJZsjLBCcomDhI6xQhke6IRy+IjlBjj5PEWZojYH+HId5BQ/v2le96i2gj5gmVJlu3yN1sQ57TeSU1uyR6A6Dfr0XAFO6bHJYZPTx78TOHMBzNDNJXA=
+	t=1778833955; cv=none; b=ZmzWOxRnV0gGeFeYPWJ0bY/uN5KjUXcekX0KWMD6spdFdZFFQ/yRHlos3rZsB4Y8dJ+Qo2mKnMwQB5XdNiSFZfLamQrlUsVluDGtH7od+TrxtngquUbP3r0U66Fhs7KybwnjtjE7zRPygpxHfPxwVrrEipfZ8BR/VoiaVxasSmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778833858; c=relaxed/simple;
-	bh=TuM8uzFhCfbCeX7iLDcSAPhcFLY3hHpwqn3/6Z/oiXk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HLaMhArHutZ9IRLS2DIDCwoUq4RhnkjcfSyF30Dv6WSaCXa5DSDgw9bnQRer19ZbLf13cHmwfvjS0YsfpbjAohyNoRrkOrgoVBvYg+mLUfvdbpFQYLpi53EG9ILgUPL1EhZzaJVaIfb2H2eO4E6SxYbcCoAebwNkgP8iZ9J/zlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcVaQbjv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778833955; c=relaxed/simple;
+	bh=2KlkGNOF7+OvLv0cTbiSK1wSmJp3z+rBZspm5oF/ITE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SqUPSTIQGnmD7o28UXPLXOZhm22fN9lqIHHKQz9FC/1DoLjqdTz11ZynZXffHwosYSRplOH81Oux8qBr/ITLlH2rylohz/xvIdBv3x5Mlpu33IFzPtu1LmwWiVAA2Rgpqgyka2/TvJJn+HCln/97i7LX0JuP0ncOaZ0dkQplCqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DIdPpKcY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QhP7bcW+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcVaQbjv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FB2C2BCB8;
-	Fri, 15 May 2026 08:30:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778833858;
-	bh=TuM8uzFhCfbCeX7iLDcSAPhcFLY3hHpwqn3/6Z/oiXk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=dcVaQbjv+RGCi1YkJSXR/YEztCATYBtCC6X6NrY5TCXxG9XyCXn9eH4+6r5wMo8sh
-	 lu6alH4npdgF5YHJSYA/luhrw8/pVDnua2A/l340kKjMncgnqK0bODTEDT2c5lxUF2
-	 oCVSoj+zTBeZpE+OaUWr68/tslWrWAc+3LX0I2wdi33eamur7Wtb0wvUma3mllU2Oz
-	 pGq5lGjf59NHKwoAfalunuQcTtHKK0ER7pqBcANDjqT+esL4EK/L8zN5x0T9Z6km4n
-	 CgeQNjr71Ck2WMD3IHvBngpJNsdVAMgBheERrgOvL41SsTvFQUNErJdOiMP3bVugNa
-	 XH5uRMUN+t8sw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] drm/rcar-du: dsc: Add rudimentary Renesas R-Car
- V4H DSC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260515-rcar-du-dsc-v2-3-f6b9240a1240@ideasonboard.com>
-References: <20260515-rcar-du-dsc-v2-3-f6b9240a1240@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 08:30:57 +0000
-Message-Id: <20260515083057.C5FB2C2BCB8@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DIdPpKcY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QhP7bcW+"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64F5OPev654862
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:32:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ypc5cw+aeh2+Tg52m6j1/NuUMBslXu/qMIh12tt5Eiw=; b=DIdPpKcYHKUcSHCH
+	HDORyNMxjlg9kkFh3FyJ42jpvMjAXeN57c2rE6lk6xD2GwgsgFK75UwbLARwJ7F2
+	lPw6D88hRbpn0ChQNQXYr9aTTEC5+w1Lw30V8fw5vIXlbGeW3YnulCisIEO/b7Wn
+	LxxhIbbQ6aKdgUFL83Ef7PTdTQXp6FzS9rlm4k4yykEIfPX/kbWqBVY20EqtNk7X
+	b1xDOTTdKo4qRdHTmdGJL7A7MzyTTwfR1tM4YUbfwL0CfOrBCS+I7cTNZjx/JDIp
+	wgL2IhfXAEzpH1oVMWVtgQu0iU9VPVZZvLdVJ2Ty4I0kr5ChzUYEzH4Zfyl0jRWA
+	CQRm8w==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1ptf4k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:32:33 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-368f2d76b04so3600174a91.3
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 01:32:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778833952; x=1779438752; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Ypc5cw+aeh2+Tg52m6j1/NuUMBslXu/qMIh12tt5Eiw=;
+        b=QhP7bcW+zwwLND5tsK0SjtwQtSnGHx41Fp+45MFJCuzKY0ax0YBEacDZ8vZTqSH8xi
+         8kGE8+LKYLhvC0GrmcThjaXYeQl+AmuwalOYUhcG/E9q4qco+HGtvh1hR2be4gDQLnW4
+         /xt6J31YV/26A1nSSlPtXL7M+QxCTL9NdyR8Cmg63GG/bt3CgCMMPI8zV6BectUeLdxD
+         E5sTtgm4nulfENb1a7C40+3RRlobH3antoP58oT7gRs83BsNOIQorb+97ADopXiuFEiK
+         +fvk6Vj2VTz09jYdAbdoKJ42+ZtO39RjJyhfs1wJXgLRDwAe9h7cak9fSxrQF8Mh2j7h
+         P14g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778833952; x=1779438752;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ypc5cw+aeh2+Tg52m6j1/NuUMBslXu/qMIh12tt5Eiw=;
+        b=SoxVToHmnl3QnH4T1nsj0WzoCxGmb4FhHo0m+Rc5opPFc212+/yzQkqjjQAxPsJ+Pu
+         i3wCsPPrBG79yl7s8aAA+cNKdsZclKOjwRH3l2OvTYxWgsIDlpJE0KCNA9LlVJIkK+A7
+         pJ5qQ5jpoWOz2pfUzOnVA5ulM640JwI6pAe21Y4FBWFGuZcLo7xoYHcTeoci0r455NDs
+         LBBq3f34DCP/KuHjiJYFL93FvYCjRDquWGOvBNGr7w3BYblEhzVDWjM2v0nC1Q3aFjZh
+         VxNfqlZagsDvJRMD6qvv1Cf1V+twtHKXNmOnKXbZvW3Ya/FjYR5zg2NVffTYmkBzEvGg
+         57/w==
+X-Forwarded-Encrypted: i=1; AFNElJ9KwVSHzP9FLM3LtYmPfLsPO6QgwumwK350wD10YWmnnIGfm9BsyHVR5dVU3iNcxoVZtNb/j+LfLzJp@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3foOlfjWSPuM+IePtF3gdsL1UAMOHgoAsk2MQvm59DYd9mjcX
+	c2yuYMH5LDwb5xIy3//o1qbhgVBuqGQCgsb5XryeOPlNoAtlWHnvBNqwV66JdUEMoGjuFVQfigv
+	9zed35yOZTNFJ2cVWpCGfpWwItw501lh3546NVzmRWtvDEY73y5m6S5iF5Uye+w4L
+X-Gm-Gg: Acq92OFm5KzBhpS2BNeNGIEkQpR54l9Zuu8wxk7fliYSChmI+T1Z87du0evHJYICOFL
+	ZqtnLiK+k+5VvJYMRgalNTfytcQ7YJc8G2Z3ATpWWSCdZDrCZWydhBXM58BMMsjTU8lbfxAasKn
+	2xAhfWVTIc8fPOXKRLpWWdz9gNoHqpMRksdJ0ijID3LxNUEMMAg+G2aRDNwkpdJOOp5BsBCpH8o
+	VxvdT0/GpphiRht+D5Yuvjs5PXfqICMgxviwn0vWl4MhMnBptTrKu2lHuf12DvSRVbNJdmjYUaP
+	lu263f2+pvvfOWVVYPl2OJR6cH9HnuDl1v6/vWHmGOudVim84+LM8MeuVQfIIfdw/d0x5RQFDQI
+	3CrH+eFmXbhMuEfG7JzAPkxvquyDdu57FXZDqv757dRxLlT1Fd+2yay9GPxTe
+X-Received: by 2002:a17:90b:3d0a:b0:366:479e:63a5 with SMTP id 98e67ed59e1d1-369518b25cemr3166926a91.2.1778833952380;
+        Fri, 15 May 2026 01:32:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:3d0a:b0:366:479e:63a5 with SMTP id 98e67ed59e1d1-369518b25cemr3166888a91.2.1778833951854;
+        Fri, 15 May 2026 01:32:31 -0700 (PDT)
+Received: from [10.92.212.183] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3695155b2c4sm2001418a91.3.2026.05.15.01.32.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 01:32:31 -0700 (PDT)
+Message-ID: <5ad97e7b-f39e-44cd-b4be-86711a090d01@oss.qualcomm.com>
+Date: Fri, 15 May 2026 14:02:08 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: cpufreq: qcom-hw: Document Shikra
+ CPUFREQ Hardware
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260501-shikra-cpufreq-scaling-v1-0-c78b95f53b91@oss.qualcomm.com>
+ <20260501-shikra-cpufreq-scaling-v1-1-c78b95f53b91@oss.qualcomm.com>
+ <20260504-fuzzy-wapiti-of-ampleness-d8bc13@quoll>
+ <8101e2c8-0593-4325-a701-84f776dd4b0a@oss.qualcomm.com>
+ <eebae734-3b03-4848-a728-a29d8a210e57@kernel.org>
+ <dfc3039b-c45c-44d3-85c0-0d131bb5e55a@oss.qualcomm.com>
+ <27cc44d7-b3d1-4610-8257-4aad4115cd36@kernel.org>
+ <e5552777-a449-4640-993f-5cf9bacbda56@kernel.org>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <e5552777-a449-4640-993f-5cf9bacbda56@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: giq_zIxiVxul46aD7WZoFd5Jjggwpfjo
+X-Proofpoint-ORIG-GUID: giq_zIxiVxul46aD7WZoFd5Jjggwpfjo
+X-Authority-Analysis: v=2.4 cv=GrhyPE1C c=1 sm=1 tr=0 ts=6a06da21 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=nIfeAKEMkRZjI2vJ8KMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDA4NCBTYWx0ZWRfX/rZA/bkZCAYv
+ e0n8mPxG146A79qdn0kb8A+6VTyPFlKrVijiYm6WY97Y0EzS0cpLSViA6yhGWS2W7U+ErIXQrNp
+ pKqHgGF2ZiF+h8anfFFZW9bzWPCp8BlLRU5auSODP2ygzObORxw86Yq0hykUPkx2xfoc7dNama1
+ MgS8CJPQ+SKNuLtRaDFlfW/N70vtYPJ26PfbmgL0NlNpfW0MGogAgkO2pLtDdgPkJUZ7to6DC+E
+ lmq92jR3xivwCVZKvY/T7Lvp9Tj5JD1xvXr/uGilht11M4tzlfgr42GJo5eRG3oeqAGZOYBuI9B
+ Qg+Vbb+d67Zmtd6aY+rVSabvuQM+CQ50eIqC4Ap3ZgCHCILiNaUTywD/nYQ2Akth7yP3l4fqBt3
+ npeHFSfV57K5199Lu03xYpfCJ/0ZAtGrbmPH82umatAqR8vLENG7TzOztmPUQW8XxedSbjtxcqm
+ xKpN75GWFFUhd7vdYmA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0
+ spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150084
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Sleeping functions called from atomic bridge callbacks (Subsystem =
-Guide Violation).
-- [Medium] Resource leak of the remote bridge module reference.
-- [Low] Kconfig logic error defeats COMPILE_TEST support.
-- [Low] Unbalanced clock management due to ignored initialization errors.
---
 
-commit bddd7270b2102e27ba00c2ae1f77dd8387606431
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
+On 14-05-2026 08:13 pm, Krzysztof Kozlowski wrote:
+> On 14/05/2026 16:39, Krzysztof Kozlowski wrote:
+>> On 08/05/2026 18:03, Imran Shaik wrote:
+>>>
+>>>
+>>> On 05-05-2026 02:23 pm, Krzysztof Kozlowski wrote:
+>>>> On 05/05/2026 10:50, Imran Shaik wrote:
+>>>>>
+>>>>>
+>>>>> On 04-05-2026 03:53 pm, Krzysztof Kozlowski wrote:
+>>>>>> On Fri, May 01, 2026 at 12:45:44PM +0530, Imran Shaik wrote:
+>>>>>>> The Qualcomm Shikra cpufreq hardware is functionally identical to EPSS,
+>>>>>>> but supports only up to 12 frequency lookup table (LUT) entries. Introduce
+>>>>>>> qcom,cpufreq-epss-lite to represent this constrained EPSS variant.
+>>>>>>
+>>>>>> The entire point of having a generic compatible is that it MUST match
+>>>>>> all devices. If it does not, then it is pointless to push that generic
+>>>>>> compatible.
+>>>>>>
+>>>>>> I am speaking about qcom,cpufreq-epss.
+>>>>>>
+>>>>>> That's nothing new, I was arguing about it already, but now you have
+>>>>>> confirmation of the mess introduced by generic compatibles. Solution is
+>>>>>> not to add more generic compatibles, because what will be next?
+>>>>>> qcom,cpufreq-epss-lighter?
+>>>>>> qcom,cpufreq-epss-more-lite?
+>>>>>> qcom,cpufreq-epss-high?
+>>>>>>
+>>>>>> Same was here:
+>>>>>> https://lore.kernel.org/all/20240828203721.2751904-17-quic_nkela@quicinc.com/
+>>>>>>
+>>>>>> So that's second time I object and do object for every new instance. No
+>>>>>> to generic compatibles, they are proven to be wrong at least for
+>>>>>> Qualcomm.
+>>>>>>
+>>>>>> Best regards,
+>>>>>> Krzysztof
+>>>>>>
+>>>>>
+>>>>> Hi Krzysztof,
+>>>>>
+>>>>> There is no functional change to the latest EPSS hardware
+>>>>> (qcom,cpufreq-epss) in this case. The Shikra platform uses the CPU
+>>>>> frequency scaling block, which is a predecessor of EPSS and is referred
+>>>>> to as EPSS‑lite. The only difference between EPSS‑lite and EPSS is the
+>>>>> maximum number of frequency look up table (LUT) entries.
+>>>>>
+>>>>> This constrained EPSS block is not specific to Shikra and can be reused
+>>>>> by other SoCs that implement the same hardware. Hence, we have added a
+>>>>> separate epss-lite compatible and reused the existing bindings, as all
+>>>>> other aspects of the hardware behavior and interface remain identical.
+>>>>
+>>>> I don't understand how any of this is relevant to my comment. I know
+>>>> what you did.
+>>>>
+>>>
+>>> Hi Krzysztof,
+>>>
+>>> The intent behind proposing an epss-lite compatible was to describe a
+>>> common hardware variant and avoid introducing SoC‑specific handling in
+>>> the cpufreq driver.
+>>
+>> And I already objected. Look:
+>>
+>> "So that's second time I object and do object for every new instance. No
+>> to generic compatibles"
+>>
+>> I provided arguments for that in the past.
+>>
+>> NAK
+>>
+>> Best regards,
+> 
+> I already provided the arguments here:
+> 
+> "The entire point of having a generic compatible is that it MUST match
+> all devices. If it does not, then it is pointless to push that generic
+> compatible."
+> 
+> so if you have generic compatible, IT MUST be used. You cannot keep
+> adding more generic compatibles just because existing generic compatible
+> is not generic enough!
+> 
 
-The Renesas DSC Display Stream Compression is a bridge embedded in the
-Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-8k or 400 Mpixel/s. Add rudimentary driver to act as a pass-through
-bridge for DSI1.
+Hi Krzysztof,
 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/re=
-nesas/rcar-du/Kconfig
-> index 840305fdeb49a..a51f996d35375 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> +++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> @@ -33,6 +33,19 @@ config DRM_RCAR_DW_HDMI
->  	help
->  	  Enable support for R-Car Gen3 or RZ/G2 internal HDMI encoder.
-> =20
-> +config DRM_RCAR_USE_DSC
-> +	bool "R-Car DU DSC Encoder Support"
-> +	depends on DRM_BRIDGE && OF
-> +	depends on DRM_RCAR_DU || COMPILE_TEST
-> +	default DRM_RCAR_DU
-> +	help
-> +	  Enable support for the R-Car Display Unit embedded DSC encoder.
-> +
-> +config DRM_RCAR_DSC
-> +	def_tristate DRM_RCAR_DU
-> +	depends on DRM_RCAR_USE_DSC
-> +	select RESET_CONTROLLER
+Sure, I will drop the generic compatible approach and introduce a Shikra 
+specific bindings file (shikra-cpufreq-qcom-hw.yaml), similar to the 
+existing EPSS binding, using the compatible string qcom,shikra-cpufreq-epss.
 
-Since DRM_RCAR_DSC lacks a user prompt and uses def_tristate DRM_RCAR_DU,
-doesn't it silently evaluate to 'n' during cross-architecture compile tests
-where DRM_RCAR_DU=3Dn?
+Thanks,
+Imran
 
-This seems to prevent rcar_dsc.c from being compiled even when COMPILE_TEST
-is enabled in DRM_RCAR_USE_DSC.
+> I gave you detailed reasoning and even example why this approach is
+> getting ridiculous, but you just have to keep pushing your solution to
+> maintainers and keep asking the same.
+> 
+> You were given the answer and the argument. Now you are just wasting
+> maintainers time.
+> 
+> Best regards,
+> Krzysztof
 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm=
-/renesas/rcar-du/rcar_dsc.c
-> new file mode 100644
-> index 0000000000000..2ab5a4bb099c3
-> --- /dev/null
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-[ ... ]
-> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
-> +				   struct drm_atomic_state *state)
-> +{
-> +	struct rcar_dsc *dsc =3D bridge_to_rcar_dsc(bridge);
-> +
-> +	WARN_ON(clk_prepare_enable(dsc->clk));
-
-Does this sequence execute in atomic context?
-
-Looking at the DRM subsystem guidelines, bridge atomic enable/disable
-callbacks run in atomic context where sleeping is forbidden. Since
-clk_prepare_enable() acquires a mutex internally, can this trigger a
-scheduling while atomic warning?
-
-Also, if clk_prepare_enable() fails, the failure is recorded by WARN_ON()
-but execution continues. Later, the pipeline teardown will unconditionally
-call clk_disable_unprepare().
-
-Can this lead to unbalanced clock disable warnings from the Common Clock
-Framework since the clock was never actually enabled?
-
-> +	WARN_ON(reset_control_deassert(dsc->rst));
-> +}
-> +
-> +static void rcar_dsc_atomic_disable(struct drm_bridge *bridge,
-> +				    struct drm_atomic_state *state)
-> +{
-> +	struct rcar_dsc *dsc =3D bridge_to_rcar_dsc(bridge);
-> +
-> +	reset_control_assert(dsc->rst);
-> +	clk_disable_unprepare(dsc->clk);
-> +}
-[ ... ]
-> +static int rcar_dsc_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	dsc->bridge.next_bridge =3D of_drm_find_and_get_bridge(remote);
-> +	of_node_put(remote);
-> +	if (!dsc->bridge.next_bridge)
-> +		return -EPROBE_DEFER;
-> +
-> +	dsc->bridge.of_node =3D dev->of_node;
-> +
-> +	return devm_drm_bridge_add(dev, &dsc->bridge);
-> +}
-
-Does this code leak the remote bridge module reference?
-
-The call to of_drm_find_and_get_bridge() acquires a reference to the
-bridge that requires a matching drm_bridge_put(). If devm_drm_bridge_add()
-fails, the reference doesn't appear to be released.
-
-Additionally, there doesn't seem to be a .remove callback or a registered
-devm action to release the reference when the driver unbinds. Would using
-devm_drm_of_get_bridge() resolve this?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-rcar-du-ds=
-c-v2-0-f6b9240a1240@ideasonboard.com?part=3D3
