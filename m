@@ -1,83 +1,54 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B28C38655D;
-	Fri, 15 May 2026 19:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F4F3E2AA4;
+	Fri, 15 May 2026 19:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778871985; cv=none; b=jrL30qQnRHnVYg66r2TX93tTmyK3O6eOfQTqd9NsE3yn6Q/WCeeZPaBAOCvUIfqaYplgMdlmLq/yZTSCXtUgIl+b6UNhNZcg0ufgDfejTs8+HE94s8Db17lWLjFsicsF574FLDwoal2xUPnVOiQWHnYG9CBqgHDGVgjNkfzr26g=
+	t=1778872027; cv=none; b=I7N9Pd2HfiJqiCrHxfghN21Gnsf+B+jCBjeQ7nhLEX8G4i0MWhGV5doIVs++hhEp0xfyXpui5vJbhfwl49g54LW8xCP87OuHht0UEunB/y6Uz/k823+4uy0mrtg3jhWHxucq5ovMv7ZzSq4J2/MOo3hPa6WngotaXwlVOAj3Pwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778871985; c=relaxed/simple;
-	bh=EPY8zYOqAlTEnqJKpT4mqc0U11ogRduEGaX/D5nsvqQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WAOg3lhRoLom0x6nne+3dLfhAgB/NuGP23QwoIXR0cFA0YRd8dB/ikroc+Jc6TVIC7Lbf3F1S7QrK66rYCkUk40JpEgnwR24r//VOhf+oOy+mMsM1T2srtnBmAEj5YzEPA64oAni+0qa2bkrvobvifyfQI34flTwQ6S2iG4HHsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VxTxOfJY; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1778872027; c=relaxed/simple;
+	bh=UCSgOFk/WDNB3yJPWIDDr0ElsDABRh5hBg/X+bFtSAk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EsvfheB4SVzK6HMC82NjRmqkhsT6yLKSLMbNhCSYkaQB7nieff13FHwPJqTQQalCCfWobdxTWPmYkdzY1xYo3gt31+daBrTTdVbToFmKsKiImdTHsyLbBuRGokPXdfr/28yoDDZfWB6BV7WijNkYdDbgMdRWqlS0o++BkeL1zHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TS83HECS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VxTxOfJY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=PXRTL93tCwxTfMqDqmJOAdd3CPOzU+5xdtwwN+gTQV8=; b=VxTxOfJYZHCfAky6/9pzbBz1HF
-	G2npnoX1bk45dlsrGAC0MGW/gmq5KiosuDuwUvlQRIH0eDTSLsqveFjbsLsDPAWJb1UbiZWSGDvRw
-	/Z3B0yUZlSdpJFmVGrVxja81E1SiZ1MsNPr6NZaBKY4R4nj9hUIEuG/yvtFyS5Ot9mnQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wNxrM-0037QM-49; Fri, 15 May 2026 21:06:08 +0200
-Date: Fri, 15 May 2026 21:06:08 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>,
-	"parthiban.veerasooran@microchip.com" <parthiban.veerasooran@microchip.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be
- active low, level triggered
-Message-ID: <50e77863-4445-406a-a535-eb620d6fc1b2@lunn.ch>
-References: <CY8PR02MB924916514D414B698DEB9A1883042@CY8PR02MB9249.namprd02.prod.outlook.com>
- <ab821805-49dd-4b55-a77d-0f25e0247bff@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TS83HECS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033BDC2BCB0;
+	Fri, 15 May 2026 19:07:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778872027;
+	bh=UCSgOFk/WDNB3yJPWIDDr0ElsDABRh5hBg/X+bFtSAk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=TS83HECSN6sNoqtBW6RbhrTTWDcbck71aDL7qDBJSZZcPnIH5mH3V+2PZN9zK6uZY
+	 CZUBIwTfQ4ENVgKmOWq+mtQwKOyRLVEQZ2i3xkYIbC+fxiLjQs0D5G4c1xJSGAQw3j
+	 Hq3UzOnGCQAx36SLrHuDa1k0QKXpSnUTRtjBAOu5UXmagKPrfkXzqS5H16Xaakj5li
+	 /VUfXQDc2LbGlnKR8ZA6t3uKF1ETPj818nVwmNwyBWF0DMwhKyKohDGNcLTeCeAtGG
+	 krFfFRAZPj4r9vOBgl2uwi55H3k22bL84CNfEE0z5c7clCaIz+p0YBQRuy9T0PnLdP
+	 DBME6VyKDPsPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 6/6] mux: add NXP MC33978/MC34978 AMUX driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oleksij Rempel" <o.rempel@pengutronix.de>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515160537.115808-7-o.rempel@pengutronix.de>
+References: <20260515160537.115808-7-o.rempel@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Date: Fri, 15 May 2026 19:07:01 +0000
+Message-Id: <20260515190707.033BDC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ab821805-49dd-4b55-a77d-0f25e0247bff@kernel.org>
 
-On Fri, May 15, 2026 at 06:15:50PM +0200, Krzysztof Kozlowski wrote:
-> On 15/05/2026 18:13, Selvamani Rajagopal wrote:
-> > According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
-> > specification, interrupt type is active low, level triggered interrupt.
-> > 
-> > Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S MACPHY")
+> Add a mux-control driver for the 24-to-1 analog multiplexer (AMUX)
+> embedded in the NXP MC33978/MC34978 Multiple Switch Detection
+> Interface (MSDI) devices.
 > 
-> Drop, there is no bug here. That is only an example. Otherwise explain
-> how does this bug affect anything.
+> Assisted-by: Gemini:gemini-3.1-pro Sashiko
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-There is a tendency for DT developers to just copy/paste the example,
-and not really engage brain. So if the example is wrong, the .dts file
-will be wrong.
+Reviewed-by: Sashiko <sashiko-bot@kernel.org>
 
-The thing about edge interrupts when level should be used is that they
-mostly work. So quick smoke testing is not going to see any problems,
-it is only when some condition comes along which causes two interrupts
-in quick succession will the interface grind to a halt due to a missed
-interrupt.
-
-So i think it is a useful fix to have in stable.
-
-	Andrew
