@@ -1,169 +1,125 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931CD3EF655;
-	Fri, 15 May 2026 07:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F763F789A
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 07:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778831814; cv=none; b=FfQ7GErpHUy9OmUZvJvuWQbCdeH0yM9Y+PPBqFhVp1CYmDpxY5iBuJV8RbGp85p3pd7HxSUVqxxguaLiEGTEitIWkBrzoTnOC8ijgCuLaDwyZfDHjG+4W95uK8KHhGo4P+hRVcqY/OLOm47RLQ4yqtjs3xbxTMQwqlt+23ShSIY=
+	t=1778831914; cv=none; b=srtqHDQQ2nqRBGK5xy7aSFnBROslIa4WrAsuj5FSkegR8E33ccDLPH9zsN+MGet66YwdSLC2gWaB/UhxnLxRKHzuN1Js3PLUnqY8Y7Wp8mprC236Otmcdz92YgrxAZNx2jWu6p/DdlZj5ziz70QFHy6e10mRCjgjDLMZkg8kY1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778831814; c=relaxed/simple;
-	bh=gBQFB78X4KGzpd0DZyLsXnhD9qIE3f4obIum+k+GS5o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kZcVWpS6H8i8wjmAmj4qCxvknIvghts5nnjmySl8gRmP/eY6g+GGWbvXfotroRaV4dgEHWVIRCUUvGm/f9HpSyc2LeXo4+YIrz5cMJ0LwxB2yCSuZvoLW6sL6OKfHBC/uP219Hb9OpUbgYTJLZWD/yajhAQguUqSwdLiFyoKD8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=I3ZCtmS2; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1778831914; c=relaxed/simple;
+	bh=yvG+iUy2BtpefsQwnJB6MqnqmyYSKf2CEqQs6d1zWOk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kLhWfVrmzcP2MMNl3HhF2LYcilh/cVQs5D27oYaeljnU1OLNftERWYXjM+OIBUF1rxdiy9kgRTWQniN8RsxJikprdjixg2zqt+TMpYVcQV/ymT9IPgAjVOlys7YrN+G7YeU5ie+me3ijuKvuKj2wBHtQ5dp15stw7/oSKceq9PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nNs6uhDU; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="I3ZCtmS2"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B10C81337;
-	Fri, 15 May 2026 09:56:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778831798;
-	bh=gBQFB78X4KGzpd0DZyLsXnhD9qIE3f4obIum+k+GS5o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=I3ZCtmS2M9jvVB9tUwR3xDgYz12AJs28JQDrulU0fckk7wuPsa4BcFPjJKZoP6H+d
-	 qL/+eoRThiSYPKaAggi+dBxQfu/hvzGFh6vXQyCFsUqUkXJ8lfP7hP8DSztvJR8niz
-	 3/26+2rVSWWMLE2C5OaN/2MCDbF0E/hxxzTbjTlw=
-From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Fri, 15 May 2026 10:56:17 +0300
-Subject: [PATCH v2 4/5] drm/rcar-du: dsi: Support DSC in the pipeline
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nNs6uhDU"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3664df32e91so7751803a91.3
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 00:58:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778831912; x=1779436712; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NbBbu3VFnkPkbAFgdz3fGXOyT9/Bu+8ThEz8Gs0MIMM=;
+        b=nNs6uhDUd8KZ3DNSjSRXwDneSX4yaldSuYpM3MFItiFkEsI3fzlIB0BIeNMy/oetWG
+         e0viRgtJRS8tW4GpPWX3ZEcdPYBBklLK00FiCgCZzfPaGOT3b0iNwLM23b0kVH9EJLPW
+         ifB3LoDZllnuQGYIc5Wc2/TG/MGVBBAwMWxIdYa0L66SNh6Hvj/0gCHwGQy9q2xsgUVs
+         THv1XS0MvDooxFdf92nh8WJpIpLX1DKwIDpiSqI15MuRXFWv6g6lY4eDplmfV9AZRbr9
+         1rnLAmTtMgsNl+CvLv0aiQZAaJFGuRB5ABUxvKdZ+1nXBhkPKMRyhMOcQlkAzvkt36n6
+         OJ3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778831912; x=1779436712;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NbBbu3VFnkPkbAFgdz3fGXOyT9/Bu+8ThEz8Gs0MIMM=;
+        b=C5ksGgtJ3H/QO3lOopihlR+fp4CChqbuCNil4qlJtz9Snj0TPac0Ymi3EEaudPw3C5
+         rLuF3E0ifQmMe7QOxL1ZEnIi+mWr21KUAcMDQksFzUhkt8DF3arfqpHUV5efec4rmxJR
+         kiW5QAj6ttEGMuF8cu3Q96zKPIOP1hXB1EZq//9aZfOhjQ+89ag+8fBrqoz57s4rwctt
+         Vitfa29SdP6f85Kelp45LwLOJoWvPhyjQHjTA2rqkY9zAP5Ci6bVVEWQ4ztZDpgUWZgm
+         IpwvCMtUBzcCwCbTz0OAaxJj7z8Vg2RW/jJSSqMaKPmkLzIx5GEfm7qyNVVJYnV7JZha
+         gJIQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8J+kvEWSgzMUkv6T4KribTr+CVgLu9+0Cz569nIFVpTLWyPDXv4NufTfIVHTsXhXZHFangtGfb8WUI@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVBLVy0y2+CKJQw0Vlt70+j06mDL+METQWCsn4Omnxz6DTuxi+
+	S16t+RaUy5KVqGXyq9U8DA5KqtRWAqvhGhQXDJG4UG07rRNQ6k2QB6qm
+X-Gm-Gg: Acq92OGxfpWYcuPFAcguLsfoEpkjAE1Y1OwiGWNeFT4/KS7jDx01XzcJL5eT0Hw+/ek
+	+v7+34bU4FxjW0VpQsvkYcGIaiyUdniixOxWnZKjtjbCOSKNhQPov5radwsqKXlpk7zpvre6vql
+	CCNa1imgSsZaORghibiWMPVWpitSOqZfyDw6s1SqWMLhTpLFgaF3EAIs4cgtYzGnPo2Kd2u90/o
+	4a0UzFh3GXiFFypAe7CbLyDzzvry/6K3K9qWqUvwkP+VdMMQ27M9y5Xr/wFD8u8DBRUdDgxLgGc
+	173nq1fkPYl3U8ZsQb5CVsc8XYSPw07NamJW3Wa9rVfrx9alqOtUdmMrYTNecxySJbB5LnCvFFt
+	vLfuPHNw0ZoikNw1Fojz2zzFm5y5oBPtELB7CXFOxdc452R/0gjl1Abml5MIona2KUgxIfbpGn/
+	G4g4ukw1QEltFfQgwiI3dYdTzPtrtzDm3XQXiORVVwuA3TlTqGFhNLEX5EX0SAvA==
+X-Received: by 2002:a17:90b:1c8d:b0:368:57db:784a with SMTP id 98e67ed59e1d1-36951c97b01mr2852096a91.22.1778831912456;
+        Fri, 15 May 2026 00:58:32 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:d008:80b:a00:27ff:feb6:42dd])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36959c7eacesm542040a91.2.2026.05.15.00.58.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 15 May 2026 00:58:31 -0700 (PDT)
+From: Pramod Maurya <pramod.nexgen@gmail.com>
+To: jic23@kernel.org
+Cc: lars@metafoo.de,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pramod.nexgen@gmail.com
+Subject: [PATCH v4 0/3] Convert Xilinx XADC binding to YAML and related cleanups
+Date: Fri, 15 May 2026 03:57:33 -0400
+Message-ID: <20260515075736.172172-1-pramod.nexgen@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260510083219.70224-1-pramod.nexgen@gmail.com>
+References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-rcar-du-dsc-v2-4-f6b9240a1240@ideasonboard.com>
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-In-Reply-To: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2997;
- i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=gBQFB78X4KGzpd0DZyLsXnhD9qIE3f4obIum+k+GS5o=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBtG3q6ozBUgeLeR+VJ30nREHyXEMve1sOkZTR
- xbyjxGiDQuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbRtwAKCRD6PaqMvJYe
- 9RjID/9WAMplmXopUUNqWD2y44x/JVmYqyvm4ZbiME70tsNXFMLDNZnLeswVpp1JZ5IMBIanikP
- qpF8iIziHv39jNvGkKYJWgSO5hsCNICcwQQVU+N3tIQK9MxRz3EBAFrdMxCmhMqmuAgekOuhvIR
- AE4+5urWeIba7HUYnNpaoC1IsQUc/1dYBHFrG9s9j2usgOhRy0rDM96Jrpo+f8lw8EIRixDuAoZ
- ocYss95m6kQhsHiqF9TQtnfCys9PpRx/SbZkRhMFwVFqEnK99JjRqOoD5M1HrnZ/zj9VlUur/Jk
- ih50kVwFanGpKy5cajMj8yJOcuxHBiECJ1L4Ln/MC+gJrmKGP2tE8gpqMLgUuSkOgvnbNFfM3Ou
- om1+65soeyYWy5gTAaM37XY69FmD61+/J+fOtTxANnVQc9GQF4zJsZ9YW6p+85KOapQBnPRUXMX
- L+rJffH6IENfQjjSoJ5eKNbJDoqVFdxKWc4DAKWZRwSFBXipHraHGalH+WmMZ1u0pM2zMS6FsoB
- DubX1RoSZBWkR6NynHxk/jt4JxgJ9A1HDGgRMwShXgNwnzEKifvzJHDgbbJmtHKHuiaesE830Ap
- gi8pAdcHS2TnMoy/nSRTRzSki7OlKdGJ58VvruZmvtCdU4tQhisYXFVnmVSXfVinrj3z8STSwY5
- U9K+0us038+8XHA==
-X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+Content-Transfer-Encoding: 8bit
 
-Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-crtc, when enabling the crtc.
+This series converts the Xilinx XADC device tree binding from the legacy
+plain-text format to a validated YAML schema, fixes a checkpatch alignment
+warning in the axis-fifo staging driver, and adds a YAML DT binding for
+the Xilinx AXI-Stream FIFO IP core.
 
-With DSC (added in upcoming patch) in the pipeline, between the DU and
-the DSI, the above call path is broken as the crtc tries to call
-rcar_mipi_dsi_pclk_enable() on the DSC.
+Patch 1 is v4 of the XADC binding conversion. Previous versions had the
+following issues that are now addressed:
+  - v3: xlnx,channels was placed in patternProperties to satisfy the
+    vendor-props.yaml meta-schema; dt-schema PR#195 (merged by Rob
+    Herring) now allows commas in nodenames so it correctly lives in
+    properties. A companion dt-schema update is needed to add
+    xlnx,channels to the vendor-props.yaml explicit object exceptions
+    (similar to the existing adi,channels entry).
+  - v3: reg constraints inside channel subnodes used bare minimum/maximum
+    keywords which are silently ignored on array types; the description
+    now documents the valid range and reg uses maxItems: 1 per cell.yaml.
+  - v3: xlnx,bipolar had a redundant type: boolean alongside the $ref
+    to /schemas/types.yaml#/definitions/flag; the $ref already implies
+    the boolean type so type: boolean is removed.
 
-Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
-in that case gets the next bridge from the DSC, which is the DSI.
+Patches 2 and 3 are new additions to this series.
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
----
- drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
- 1 file changed, 34 insertions(+), 2 deletions(-)
+Pramod Maurya (3):
+  dt-bindings: iio: adc: Convert xilinx-xadc bindings to YAML schema
+  staging: axis-fifo: Fix alignment of wait_event_interruptible
+    arguments
+  dt-bindings: misc: Add binding for Xilinx AXI-Stream FIFO
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-index 4ef2e3c129ed..085e229bcb0b 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-@@ -88,6 +88,8 @@ struct dsi_setup_info {
- 	const struct dsi_clk_config *clkset;
- };
- 
-+static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
-+
- static inline struct rcar_mipi_dsi *
- bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
- {
-@@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
- 	rcar_mipi_dsi_stop_video(dsi);
- }
- 
-+/*
-+ * We need to skip the DSC bridge when we have DSC in between the DU and
-+ * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
-+ * next_bridge is the DSI bridge. If this is not the case, the DT data
-+ * is wrong (so it shouldn't really happen).
-+ */
-+static struct drm_bridge *
-+rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
-+{
-+	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-+		bridge = bridge->next_bridge;
-+
-+	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-+		return NULL;
-+
-+	return bridge;
-+}
-+
- void rcar_mipi_dsi_pclk_enable(struct drm_bridge *bridge,
- 			       struct drm_atomic_state *state)
- {
--	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
- 	const struct drm_display_mode *mode;
- 	struct drm_connector *connector;
-+	struct rcar_mipi_dsi *dsi;
- 	struct drm_crtc *crtc;
- 	int ret;
- 
-+	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-+	if (WARN_ON(!bridge))
-+		return;
-+
-+	dsi = bridge_to_rcar_mipi_dsi(bridge);
-+
- 	connector = drm_atomic_get_new_connector_for_encoder(state,
- 							     bridge->encoder);
- 	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
-@@ -885,7 +911,13 @@ EXPORT_SYMBOL_GPL(rcar_mipi_dsi_pclk_enable);
- 
- void rcar_mipi_dsi_pclk_disable(struct drm_bridge *bridge)
- {
--	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
-+	struct rcar_mipi_dsi *dsi;
-+
-+	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-+	if (WARN_ON(!bridge))
-+		return;
-+
-+	dsi = bridge_to_rcar_mipi_dsi(bridge);
- 
- 	rcar_mipi_dsi_shutdown(dsi);
- 	rcar_mipi_dsi_clk_disable(dsi);
+ .../bindings/iio/adc/xilinx-xadc.txt          | 141 ------------
+ .../bindings/iio/adc/xlnx,xadc.yaml           | 210 ++++++++++++++++++
+ .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     |  93 ++++++++
+ MAINTAINERS                                   |  13 ++
+ drivers/staging/axis-fifo/axis-fifo.c         |   3 +-
+ 5 files changed, 318 insertions(+), 142 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+ create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
 
 -- 
-2.43.0
+2.52.0
 
