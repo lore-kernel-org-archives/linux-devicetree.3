@@ -1,171 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0567F37DAD7;
-	Fri, 15 May 2026 19:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B28C38655D;
+	Fri, 15 May 2026 19:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778871606; cv=none; b=o/TWaVsVjNzA9T/JPK2WU3wt2mQ/I+jZKpxTOIcXzSqxVGpBbu6YYR73Y2UqRdVhhZ+v6qvMYVZw+Fe3oU6wPw47/ti7gWSufc1ISbNhG+U672q+kP+AzP0ADe5buNcLIXqGODmhMP4siudMbnwWPekxKLw98OIfQSsxuLgtcYA=
+	t=1778871985; cv=none; b=jrL30qQnRHnVYg66r2TX93tTmyK3O6eOfQTqd9NsE3yn6Q/WCeeZPaBAOCvUIfqaYplgMdlmLq/yZTSCXtUgIl+b6UNhNZcg0ufgDfejTs8+HE94s8Db17lWLjFsicsF574FLDwoal2xUPnVOiQWHnYG9CBqgHDGVgjNkfzr26g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778871606; c=relaxed/simple;
-	bh=uoOw1fEfymbsBl96G2s/lqTMA1cP1P2Jc7bAjsYjRT0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FwK9nci7MQaVm//Fl5Sx3ki0RvCp4E+BeYVmMoP1+us4hZGBM62tEPpiyg5UTOtqJXI/B/1tGWL5hVBrwZZfdDDplm+hexIy+lEUOlA/Xr7Ca4FbtY0DNzJXNqO7jOBev/BK+2s2UEeN2yzXzuzlplJgdoIoIjcoOiy6iGst4aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y/3bG04d; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778871985; c=relaxed/simple;
+	bh=EPY8zYOqAlTEnqJKpT4mqc0U11ogRduEGaX/D5nsvqQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WAOg3lhRoLom0x6nne+3dLfhAgB/NuGP23QwoIXR0cFA0YRd8dB/ikroc+Jc6TVIC7Lbf3F1S7QrK66rYCkUk40JpEgnwR24r//VOhf+oOy+mMsM1T2srtnBmAEj5YzEPA64oAni+0qa2bkrvobvifyfQI34flTwQ6S2iG4HHsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VxTxOfJY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y/3bG04d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A52EC2BCB0;
-	Fri, 15 May 2026 18:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778871605;
-	bh=uoOw1fEfymbsBl96G2s/lqTMA1cP1P2Jc7bAjsYjRT0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Y/3bG04dizxBnLYBcnQJFTADNXIs1EiHrg6IcPkcZHhT75GXJx7HkVFEA5gI/kycg
-	 RFe9P/+FIXPZi+ecJBvrSbLKdObdXYsG66yQbxF6ZL9c9on5KcO3jNOHlavW9uZz/L
-	 /Vs/+cht6KWAErBxo9szrGeDNRtcGqW+wW1CZwgu+mUzXkkt8Oo5n72Te7bWWSoewk
-	 mspeTg/E5+zhME20JMEpEE8NdMdvIYZT9ekGuirHKT3luJd0ZWPhFla/ARVT9mzeFC
-	 J7aUwWm3A1gJ9CWdW2TcpF9nov7t/oQLVXeTjdEKmzNWQfNX1nnFLDuiLeVK3hXiKM
-	 bxF7wFO/01zIQ==
-Date: Fri, 15 May 2026 19:59:54 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V7 05/11] iio: imu: inv_icm42607: Add PM support for
- icm42607
-Message-ID: <20260515195954.0cafbaa7@jic23-huawei>
-In-Reply-To: <20260515130018.237378-6-macroalpha82@gmail.com>
-References: <20260515130018.237378-1-macroalpha82@gmail.com>
-	<20260515130018.237378-6-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VxTxOfJY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=PXRTL93tCwxTfMqDqmJOAdd3CPOzU+5xdtwwN+gTQV8=; b=VxTxOfJYZHCfAky6/9pzbBz1HF
+	G2npnoX1bk45dlsrGAC0MGW/gmq5KiosuDuwUvlQRIH0eDTSLsqveFjbsLsDPAWJb1UbiZWSGDvRw
+	/Z3B0yUZlSdpJFmVGrVxja81E1SiZ1MsNPr6NZaBKY4R4nj9hUIEuG/yvtFyS5Ot9mnQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wNxrM-0037QM-49; Fri, 15 May 2026 21:06:08 +0200
+Date: Fri, 15 May 2026 21:06:08 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>,
+	"parthiban.veerasooran@microchip.com" <parthiban.veerasooran@microchip.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be
+ active low, level triggered
+Message-ID: <50e77863-4445-406a-a535-eb620d6fc1b2@lunn.ch>
+References: <CY8PR02MB924916514D414B698DEB9A1883042@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <ab821805-49dd-4b55-a77d-0f25e0247bff@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ab821805-49dd-4b55-a77d-0f25e0247bff@kernel.org>
 
-On Fri, 15 May 2026 08:00:10 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
-
-> From: Chris Morgan <macromorgan@hotmail.com>
+On Fri, May 15, 2026 at 06:15:50PM +0200, Krzysztof Kozlowski wrote:
+> On 15/05/2026 18:13, Selvamani Rajagopal wrote:
+> > According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
+> > specification, interrupt type is active low, level triggered interrupt.
+> > 
+> > Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S MACPHY")
 > 
-> Add power management support for the ICM42607 device driver.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> Drop, there is no bug here. That is only an example. Otherwise explain
+> how does this bug affect anything.
 
-Sashiko had a comment but I'd ignore it as it's about the rather
-complex magic that lets us do various forms of PM configs without
-lots of __maybe_unused etc and it works so don't touch it :)
-I'm too lazy to check what the dependency ordering is other than
-pm_ptr() is true in cases where pm_sleep_ptr() whereas the
-opposite is not true and that means the actual dead code removal
-occurs at a different point in the code those macros are producing.
+There is a tendency for DT developers to just copy/paste the example,
+and not really engage brain. So if the example is wrong, the .dts file
+will be wrong.
 
-Anyhow a few really minor things inline. Otherwise LGTM
+The thing about edge interrupts when level should be used is that they
+mostly work. So quick smoke testing is not going to see any problems,
+it is only when some condition comes along which causes two interrupts
+in quick succession will the interface grind to a halt due to a missed
+interrupt.
 
-> ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607.h   |  12 ++
->  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 143 ++++++++++++++++++
->  .../iio/imu/inv_icm42607/inv_icm42607_i2c.c   |   1 +
->  .../iio/imu/inv_icm42607/inv_icm42607_spi.c   |   1 +
->  4 files changed, 157 insertions(+)
-> 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> index 2c20e95b237a..5f37999e39a5 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+So i think it is a useful fix to have in stable.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> index 1088c5c7076f..e27ad0319a12 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-
->  static int inv_icm42607_set_conf(struct inv_icm42607_state *st,
->  				 const struct inv_icm42607_conf *conf)
->  {
-> @@ -198,11 +255,15 @@ static int inv_icm42607_enable_vddio_reg(struct inv_icm42607_state *st)
->  {
->  	int ret;
->  
-> +	if (st->vddio_en)
-> +		return 0;
-> +
->  	ret = regulator_enable(st->vddio_supply);
->  	if (ret)
->  		return ret;
->  
->  	fsleep(INV_ICM42607_POWER_UP_TIME_US);
-> +	st->vddio_en = 1;
-
-It's a bool (which is good) so = true
-
->  
->  	return 0;
->  }
-> @@ -211,7 +272,10 @@ static void inv_icm42607_disable_vddio_reg(void *_data)
->  {
->  	struct inv_icm42607_state *st = _data;
->  
-> +	if (!st->vddio_en)
-> +		return;
->  	regulator_disable(st->vddio_supply);
-> +	st->vddio_en = 0;
-
-= false
-
->  }
-
->  
-> +static int inv_icm42607_suspend(struct device *dev)
-> +{
-> +	struct inv_icm42607_state *st = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	if (pm_runtime_suspended(dev))
-> +		return 0;
-> +
-> +	ret = inv_icm42607_set_pwr_mgmt0(st, INV_ICM42607_SENSOR_MODE_OFF,
-> +					 INV_ICM42607_SENSOR_MODE_OFF,
-> +					 false, NULL);
-> +	if (ret)
-> +		return ret;
-
-Trivial but blank line here
-
-> +	inv_icm42607_disable_vddio_reg(st);
-> +
-> +	return 0;
-> +}
-
-> +
-> +static int inv_icm42607_runtime_suspend(struct device *dev)
-> +{
-> +	struct inv_icm42607_state *st = dev_get_drvdata(dev);
-> +	int ret = 0;
-
-Assigned in all paths I think?  If that stops being true I'd probably still
-introduce the assignment when it becomes the case even though it's a little
-more code churn.
-
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret = inv_icm42607_set_pwr_mgmt0(st, INV_ICM42607_SENSOR_MODE_OFF,
-> +					 INV_ICM42607_SENSOR_MODE_OFF, false,
-> +					 NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	inv_icm42607_disable_vddio_reg(st);
-> +
-> +	return 0;
-> +}
-
+	Andrew
