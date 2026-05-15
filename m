@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C4C4CA282
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:33:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875684DBD68
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:33:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778859202; cv=none; b=PzETfpH4zSWstjyPY327nO6LKatMLSnPihsp8xvLIlYszmF19qXZORTkjc8r7qB9DhQuW5VzrFgeUkefzWY2yzJRQoew9fnbMN7+RpvYeQ2JnNFlPKJDbx9dZDd2mJ4cu2RWBGf3XqHNKE1rF++aqPVFtV6zE7YtSpU+uovOKck=
+	t=1778859204; cv=none; b=eL2nKHWOj5JWidvehrAr+iwFPMRfi3iHVj0Vz2eOCxBqipo3ekemdjNgWOYXLrDda7JDQT19K9dQa5cCmqYjgz2pizA/5OD4gASjOOSKhecdB7Zgzhp+D6KFFvMdjPQJAbmZ+XP2/g/DSqZKybMPJOE78WihUiZemC/AoQ/ReKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778859202; c=relaxed/simple;
-	bh=eO7+aNjmkKQ3/PB3NA+gWDAvZ7Wz4ECU6FZ6HGGgFaU=;
+	s=arc-20240116; t=1778859204; c=relaxed/simple;
+	bh=pKZOYwEGn5x3zzyKEaY7cYxemy2d0t5TJOhgO3uVp9c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Zpw6oj03GyAwy+G1Saiwjo5oBXbMguXbLFyjGOSlqFZLqXAJr0NuffMpCUXHrbOxhCNMWgOCxxMb6uozyaNH3+hpp/NkGwWk8jFedC4MHXrbtCoKG2/CSv0tvsO91r6bBA8aXmSZ2Op3rfazzVrZ4lnIQQVvr8mVhDi/7nPUUcE=
+	 In-Reply-To:To:Cc; b=eGGdbMYBJy0eiTv09kbBnSboduvsd5zizBdxLBGDgJjb7x98ePaW//OvVbbEOK21ff+JecN57cqeeOQAYvRiEWpZsD3bWzA7ZM7rOGOezkrR7bY3JaSjzRe6FFVcYQ3pKySrUadDUCMKkiGUngNsvhNhVhFWyX5MfJZiMshrf5k=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wNuXH-0005OF-A7; Fri, 15 May 2026 17:33:11 +0200
+	id 1wNuXL-0005OF-Sr; Fri, 15 May 2026 17:33:15 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Fri, 15 May 2026 17:32:49 +0200
-Subject: [PATCH v6 23/28] media: rockchip: rga: remove stride from
- rga_frame
+Date: Fri, 15 May 2026 17:32:52 +0200
+Subject: [PATCH v6 26/28] media: rockchip: rga: disable multi-core support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260515-spu-rga3-v6-23-e547152eb9c9@pengutronix.de>
+Message-Id: <20260515-spu-rga3-v6-26-e547152eb9c9@pengutronix.de>
 References: <20260515-spu-rga3-v6-0-e547152eb9c9@pengutronix.de>
 In-Reply-To: <20260515-spu-rga3-v6-0-e547152eb9c9@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -52,236 +51,88 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Remove the stride variable from rga_frame. Despite the comment it
-didn't involve any calculation and is just a copy of the
-plane_fmt[0].bytesperline value. Therefore avoid this struct member
-and use the bytesperline value directly in the places where it is
-required.
+Disable multi-core support in preparation of the RGA3 addition. The
+RK3588 SoC features two equal RGA3 cores. This allows scheduling of the
+work between both cores, which is not yet implemented. Until it is
+implemented avoid exposing both cores as independent video devices to
+prevent an ABI breakage when multi-core support is added.
 
-Also drop the dependency on the depth format member, which was only
-used to calculate the stride of the default format. This is already done
-by the v4l2_fill_pixfmt_mp_aligned helper and used as stride in try_fmt.
-Therefore using it's value also for the default format stride is just
-more consistent.
+This patch is copied from the Hantro driver patch to disable multi core
+support by Sebastian Reichel. See
+commit ccdeb8d57f7f ("media: hantro: Disable multicore support")
 
+Link: https://lore.kernel.org/all/20240618183816.77597-4-sebastian.reichel@collabora.com/
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 36 ++++++++++------------------
- drivers/media/platform/rockchip/rga/rga.c    |  5 +---
- drivers/media/platform/rockchip/rga/rga.h    |  4 ----
- 3 files changed, 13 insertions(+), 32 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 47 +++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 73584706a47e2..fac3975e2d0cd 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -44,7 +44,7 @@ rga_get_corner_addrs(struct rga_frame *frm, struct rga_addrs *addrs,
- 	struct rga_addrs *lt, *lb, *rt, *rb;
- 	const struct v4l2_format_info *format_info;
- 	unsigned int x_div = 0,
--		     y_div = 0, uv_stride = 0, pixel_width = 0;
-+		     y_div = 0, y_stride = 0, uv_stride = 0, pixel_width = 0;
- 
- 	lt = &corner_addrs.left_top;
- 	lb = &corner_addrs.left_bottom;
-@@ -61,14 +61,15 @@ rga_get_corner_addrs(struct rga_frame *frm, struct rga_addrs *addrs,
- 	else
- 		x_div = 1;
- 	y_div = format_info->vdiv;
--	uv_stride = frm->stride / x_div;
--	pixel_width = frm->stride / frm->pix.width;
-+	y_stride = frm->pix.plane_fmt[0].bytesperline;
-+	uv_stride = y_stride / x_div;
-+	pixel_width = y_stride / frm->pix.width;
- 
--	lt->y_addr = addrs->y_addr + y * frm->stride + x * pixel_width;
-+	lt->y_addr = addrs->y_addr + y * y_stride + x * pixel_width;
- 	lt->u_addr = addrs->u_addr + (y / y_div) * uv_stride + x / x_div;
- 	lt->v_addr = addrs->v_addr + (y / y_div) * uv_stride + x / x_div;
- 
--	lb->y_addr = lt->y_addr + (h - 1) * frm->stride;
-+	lb->y_addr = lt->y_addr + (h - 1) * y_stride;
- 	lb->u_addr = lt->u_addr + (h / y_div - 1) * uv_stride;
- 	lb->v_addr = lt->v_addr + (h / y_div - 1) * uv_stride;
- 
-@@ -169,6 +170,7 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 	union rga_src_act_info src_act_info;
- 	union rga_dst_vir_info dst_vir_info;
- 	union rga_dst_act_info dst_act_info;
-+	u32 in_stride, out_stride;
- 
- 	src_h = ctx->in.crop.height;
- 	src_w = ctx->in.crop.width;
-@@ -291,13 +293,15 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 	 * Calculate the framebuffer virtual strides and active size,
- 	 * note that the step of vir_stride / vir_width is 4 byte words
- 	 */
--	src_vir_info.data.vir_stride = ctx->in.stride >> 2;
--	src_vir_info.data.vir_width = ctx->in.stride >> 2;
-+	in_stride = ctx->in.pix.plane_fmt[0].bytesperline;
-+	src_vir_info.data.vir_stride = in_stride >> 2;
-+	src_vir_info.data.vir_width = in_stride >> 2;
- 
- 	src_act_info.data.act_height = src_h - 1;
- 	src_act_info.data.act_width = src_w - 1;
- 
--	dst_vir_info.data.vir_stride = ctx->out.stride >> 2;
-+	out_stride = ctx->out.pix.plane_fmt[0].bytesperline;
-+	dst_vir_info.data.vir_stride = out_stride >> 2;
- 	dst_act_info.data.act_height = dst_h - 1;
- 	dst_act_info.data.act_width = dst_w - 1;
- 
-@@ -481,97 +485,81 @@ static struct rga_fmt formats[] = {
- 		.fourcc = V4L2_PIX_FMT_ARGB32,
- 		.color_swap = RGA_COLOR_ALPHA_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
--		.depth = 32,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ABGR32,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
--		.depth = 32,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_XBGR32,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_XBGR8888,
--		.depth = 32,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB24,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
--		.depth = 24,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_BGR24,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
--		.depth = 24,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ARGB444,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR4444,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ARGB555,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR1555,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB565,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_BGR565,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV21,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV61,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV12,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV12M,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV16,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YUV420,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YUV422P,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422P,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YVU420,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
--		.depth = 12,
- 	},
- };
- 
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index e44e81814b7cb..e52d0577b236c 100644
+index 8d60e94da32d8..0152b8ef2da2f 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -267,8 +267,6 @@ static int rga_open(struct file *file)
- 		.fmt = &rga->hw->formats[0],
- 	};
+@@ -711,6 +711,49 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+ 	return 0;
+ }
  
--	def_frame.stride = (def_width * def_frame.fmt->depth) >> 3;
--
- 	ctx = kzalloc_obj(*ctx);
- 	if (!ctx)
++/*
++ * Some SoCs, like RK3588 have multiple identical RGA3 cores, but the
++ * kernel is currently missing support for multi-core handling. Exposing
++ * separate devices for each core to userspace is bad, since that does
++ * not allow scheduling tasks properly (and creates ABI). With this workaround
++ * the driver will only probe for the first core and early exit for the other
++ * cores. Once the driver gains multi-core support, the same technique
++ * for detecting the main core can be used to cluster all cores together.
++ */
++static int rga_disable_multicore(struct device *dev)
++{
++	struct device_node *node = NULL;
++	const char *compatible;
++	bool is_main_core;
++	int ret;
++
++	/* Intentionally ignores the fallback strings */
++	ret = of_property_read_string(dev->of_node, "compatible", &compatible);
++	if (ret)
++		return ret;
++
++	/* The first compatible and available node found is considered the main core */
++	do {
++		node = of_find_compatible_node(node, NULL, compatible);
++		if (of_device_is_available(node))
++			break;
++	} while (node);
++
++	if (!node)
++		return -EINVAL;
++
++	is_main_core = (dev->of_node == node);
++
++	of_node_put(node);
++
++	if (!is_main_core) {
++		dev_info(dev, "missing multi-core support, ignoring this instance\n");
++		return -ENODEV;
++	}
++
++	return 0;
++}
++
+ static int rga_probe(struct platform_device *pdev)
+ {
+ 	struct rockchip_rga *rga;
+@@ -721,6 +764,10 @@ static int rga_probe(struct platform_device *pdev)
+ 	if (!pdev->dev.of_node)
+ 		return -ENODEV;
+ 
++	ret = rga_disable_multicore(&pdev->dev);
++	if (ret)
++		return ret;
++
+ 	rga = devm_kzalloc(&pdev->dev, sizeof(*rga), GFP_KERNEL);
+ 	if (!rga)
  		return -ENOMEM;
-@@ -481,7 +479,6 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	if (IS_ERR(frm))
- 		return PTR_ERR(frm);
- 	frm->fmt = rga_fmt_find(rga, pix_fmt->pixelformat);
--	frm->stride = pix_fmt->plane_fmt[0].bytesperline;
- 
- 	/*
- 	 * Copy colorimetry from output to capture as required by the
-@@ -507,7 +504,7 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 		 "[%s] fmt - %p4cc %dx%d (stride %d)\n",
- 		  V4L2_TYPE_IS_OUTPUT(f->type) ? "OUTPUT" : "CAPTURE",
- 		  &frm->fmt->fourcc, pix_fmt->width, pix_fmt->height,
--		  frm->stride);
-+		  pix_fmt->plane_fmt[0].bytesperline);
- 
- 	for (i = 0; i < pix_fmt->num_planes; i++) {
- 		v4l2_dbg(debug, 1, &rga->v4l2_dev,
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index d47c6821ce2c9..227ab6c0532c2 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -19,7 +19,6 @@
- 
- struct rga_fmt {
- 	u32 fourcc;
--	int depth;
- 	u8 color_swap;
- 	u8 hw_format;
- };
-@@ -31,9 +30,6 @@ struct rga_frame {
- 	/* Image format */
- 	struct rga_fmt *fmt;
- 	struct v4l2_pix_format_mplane pix;
--
--	/* Variables that can calculated once and reused */
--	u32 stride;
- };
- 
- struct rga_dma_desc {
 
 -- 
 2.54.0
