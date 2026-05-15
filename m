@@ -1,38 +1,41 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837C43EEAD6;
-	Fri, 15 May 2026 21:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3FE3F5BC4;
+	Fri, 15 May 2026 21:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778881236; cv=none; b=OEjubdYvUhHwrgq00YzYQty4YhSj9OsjcqGke1zSjpwmgP0OB9HvgG6bqp7q9nqoIuL7x23arl8yp57jLuF3K+qQ07QeKW0tL/gwsukFdMBAxf9jHQPIvkn/xrmXqondfGZcWviUDnx/NH8NJe8QW5D9W+N2CVvjAAHUVZCDue0=
+	t=1778881240; cv=none; b=Lxp8XNO04G5+Lf/cLC4VTMdRrx9kvwDehpQtBpUmcFyGMV+XS2VClQxnHlbk2DTIxRzIH7cAhjFh44/FJA+UKjzktJKUvNFuA588lGxEJt1ObHCSPWFicSMyR2l+V0P7+2FWo04GWBKihI6Qo5nVPmxGpuAqQIf1P8wVk6UMxwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778881236; c=relaxed/simple;
-	bh=gye9zPNp36aqWbqr0sOGRoRHnaYNBFHBnr7dInnB++g=;
+	s=arc-20240116; t=1778881240; c=relaxed/simple;
+	bh=pZ3dQTLXbyi8z0UJOwZtx2gaB8xktnmiii2bKQcYwmc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=L+PdWMw/aBTEmx4J3aCJ5h57yeeH5u81k5V1MRCCIHmKA9kfbPuOWCz4c4oTPEC9GoI2lm9L0xE/eiNzxwj610xMxOlEpcfH9WWU62aNuDkpyRJ55tWwmctc65vVULf+0Pw1LLm3/gpcg7lnOrHMYNbjH0KiKIbPLjYpHR3WCyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fgwFxBts; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=l8NpFTU4rCsi3scZhwNbLc+1Du5598442hurpwnAtun/X2UK6QGj+ZT2JcvjOzPzZvM+PYYG3FV4i3/zsxufek40aP63Q+Ch8cEITmTeTMeT0Ldte0F8chZKGA5NbiJShKG7xk8iw+2H3gxUlbPNUuYZnRZo7UPbLsP9tmrFt74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=GW0nuwpQ; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fgwFxBts"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 67001C2BCC7;
-	Fri, 15 May 2026 21:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778881236;
-	bh=gye9zPNp36aqWbqr0sOGRoRHnaYNBFHBnr7dInnB++g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=fgwFxBtsXAtzWGyDRj4A49zXNha5TwgiZzI2+2FCQVCaqOLLIuHu0g4/b44d/bjuv
-	 ZLTCN/7szh7Ar5eCaIQVGHkz7ZIGriWmvV8wxaTSmxtzGiQ14TXP2srct1yJkkG5vN
-	 WZVwwdiaNc85mmWp9LwB5tMbpu7AlhQxwzL6eHp+f89rEelBfDDIv4+7TPSJZqhMwM
-	 GDX3wo9qrob84TOfL+uZp8Ns8ji/yZ38VduGkXJPDMAK3bDUeuMmTTOzcY+VmFnYo/
-	 krM6lj1XmWq0zH5TasNUALU/kz9HrU8ao9ks86HjV4/Vg9o9yaOPEYTR6eWXPrNAWf
-	 en4VPDJPtcCbQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F152CD4851;
-	Fri, 15 May 2026 21:40:36 +0000 (UTC)
-From: Frank Li via B4 Relay <devnull+Frank.Li.nxp.com@kernel.org>
-Date: Fri, 15 May 2026 17:40:36 -0400
-Subject: [PATCH 5/6] ARM: dts: imx: replace undocumented compatible string
- edt,edt-ft5x06 with edt,edt-ft5206
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="GW0nuwpQ"
+Received: from mail01.disroot.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 2ABCF27163;
+	Fri, 15 May 2026 23:40:37 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id Vpej_jZ045xO; Fri, 15 May 2026 23:40:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1778881236; bh=pZ3dQTLXbyi8z0UJOwZtx2gaB8xktnmiii2bKQcYwmc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=GW0nuwpQFdE5j5R4oz3dALDqih+oPO/lNRG9J/O4iHg3IRUFmVsMz58n+CyNrYM1e
+	 QH+KerL7/JLyZ3pmC2a4j+L/9dNblhXWZDP1w0HJhfO17Nk/Nt4ju/j56FaxMae+Ai
+	 t+qYJQOhIY5dlMTDJbwD3BHQ0EuxhloU8Stewr6caL4UXf81SuZ+YvAAKecodYlCuT
+	 grndyeJr8zh3Jeg3YASRRTstRQKs1Aujm/r4lI+x3cSMTNucEqbno/QwK2sRnx57dH
+	 F73eTbOPOMaTwmClGrpxuWlqNPmdZwAzQdUMcsldPxzXzL4m+pimfDYNQkwUOiUfzc
+	 sm0bTYxV9S8cw==
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Date: Sat, 16 May 2026 03:08:41 +0530
+Subject: [PATCH v7 09/10] extcon: add support for Samsung S2M series PMIC
+ extcon devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,238 +44,448 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-imx25_dts_simple_warning_2-v1-5-b06bff192a05@nxp.com>
-References: <20260515-imx25_dts_simple_warning_2-v1-0-b06bff192a05@nxp.com>
-In-Reply-To: <20260515-imx25_dts_simple_warning_2-v1-0-b06bff192a05@nxp.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778881235; l=9043;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=AOVw1M7zQlb65bw1DPrZXPBsg7v9jNLK9xQ41dQcIMo=;
- b=kpNTSLM5bkd6P4023vBkTiE890KlD7saNAmYXOZoF2JkCSxWi5OwN8ezRq0iPBT2D8prTbUDb
- 2OVl82+qWQOAbLS5tDNSyMjKrVEbNmSfDAYQUiAc5m7MoMGgWIXQH8X
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-Endpoint-Received: by B4 Relay for Frank.Li@nxp.com/20240130 with
- auth_id=121
-X-Original-From: Frank Li <Frank.Li@nxp.com>
-Reply-To: Frank.Li@nxp.com
+Message-Id: <20260516-s2mu005-pmic-v7-9-73f9702fb461@disroot.org>
+References: <20260516-s2mu005-pmic-v7-0-73f9702fb461@disroot.org>
+In-Reply-To: <20260516-s2mu005-pmic-v7-0-73f9702fb461@disroot.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Nam Tran <trannamatk@gmail.com>, 
+ =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>, 
+ Yassine Oudjana <y.oudjana@protonmail.com>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Kaustabh Chakraborty <kauschluss@disroot.org>
 
-From: Frank Li <Frank.Li@nxp.com>
+Add a driver for MUIC devices found in certain Samsung S2M series PMICs
+These are USB port accessory detectors. These devices report multiple
+cable states depending on the ID-GND resistance measured by an internal
+ADC.
 
-The edt,edt-ft5x06 compatible is not referenced in
-drivers/input/touchscreen/edt-ft5x06.c and is not documented.
+The driver includes initial support for the S2MU005 PMIC extcon.
 
-There is no publicly available datasheet or binding information that
-distinguishes edt-ft5206/ft5306/ft5406 variants and the driver treats these
-FT5x06-family controllers with the same configuration model. So switch to
-the lowest common and documented baseline compatible edt,edt-ft5206.
-
-Fix below CHECK_DTBS warnings:
-arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dtb: /soc/bus@60000000/i2c@63fc8000/touchscreen@38: failed to match any schema with compatible: ['edt,edt-ft5x06']
-
-ABI impact consideration:
-Not affect Linux kernel ABI because edt,edt-ft5x06 is not used by the
-existing driver. U-Boot does not parse or use edt,edt-ft* touchscreen
-compatibles.
-
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
 ---
-Change binding doc discuss at
-- https://lore.kernel.org/imx/aasmQiZJO2gSKzNH@lizhi-Precision-Tower-5810/
----
- arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts           | 2 +-
- arch/arm/boot/dts/nxp/imx/imx53-tx53-x03x.dts          | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6q-var-dt6customboard.dts | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6qdl-nit6xlite.dtsi       | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6_max.dtsi   | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6x.dtsi      | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi            | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi             | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6ul-pico-hobbit.dts       | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6ul-pico-pi.dts           | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi            | 2 +-
- arch/arm/boot/dts/nxp/imx/imx7d-pico-dwarf.dts         | 2 +-
- arch/arm/boot/dts/nxp/imx/imx7d-pico-pi.dts            | 2 +-
- 13 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/extcon/Kconfig      |   9 ++
+ drivers/extcon/Makefile     |   1 +
+ drivers/extcon/extcon-s2m.c | 370 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 380 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts b/arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts
-index 2acbc86cabb3193f1b27b5de3155cf3d88381f49..aa1c7e5012c6af16e559c914777de476d6eab966 100644
---- a/arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts
-@@ -248,7 +248,7 @@ &i2c1 {
- 	status = "okay";
+diff --git a/drivers/extcon/Kconfig b/drivers/extcon/Kconfig
+index 68d9df7d2dae0..b052da947fc92 100644
+--- a/drivers/extcon/Kconfig
++++ b/drivers/extcon/Kconfig
+@@ -183,6 +183,15 @@ config EXTCON_RT8973A
+ 	  and switch that is optimized to protect low voltage system
+ 	  from abnormal high input voltage (up to 28V).
  
- 	touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_edt_ft5x06>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx53-tx53-x03x.dts b/arch/arm/boot/dts/nxp/imx/imx53-tx53-x03x.dts
-index 872cf7e16f20c923e7772e8def7df46276d683ef..6a1063c455f0c225c3d23ac4621c9957c95d491e 100644
---- a/arch/arm/boot/dts/nxp/imx/imx53-tx53-x03x.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx53-tx53-x03x.dts
-@@ -201,7 +201,7 @@ sgtl5000: codec@a {
- 	};
- 
- 	polytouch: edt-ft5x06@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_edt_ft5x06_1>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-var-dt6customboard.dts b/arch/arm/boot/dts/nxp/imx/imx6q-var-dt6customboard.dts
-index 0225a621ec7a9e697ba95cf0617513156f8c521f..ccf6a048c9184c95105231f50acd96038ab353d9 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6q-var-dt6customboard.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-var-dt6customboard.dts
-@@ -169,7 +169,7 @@ &i2c3 {
- 	status = "okay";
- 
- 	touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <4 IRQ_TYPE_EDGE_FALLING>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-nit6xlite.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-nit6xlite.dtsi
-index 610b2a72fe82557c51fbad1bfff65154540e2279..cebfd622df688ecd01cecc0621d1ed23512da007 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-nit6xlite.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-nit6xlite.dtsi
-@@ -256,7 +256,7 @@ touchscreen@4 {
- 	};
- 
- 	touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6_max.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6_max.dtsi
-index ef0c26688446ef5a92c94f553ab900ae4e5fdcfb..f8a7218b13ef20675c0e9b7af1f56c0b7bcc2b11 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6_max.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6_max.dtsi
-@@ -405,7 +405,7 @@ touchscreen@4 {
- 	};
- 
- 	touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6x.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6x.dtsi
-index 6a353a99e13daa2f13ba91d7311f60c88b40695b..9fe52e0ca7aa24379ad11c62236d586885242aa0 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6x.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6x.dtsi
-@@ -333,7 +333,7 @@ touchscreen@4 {
- 	};
- 
- 	touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-index c39a9ebdaba1c56b7422c1beb77ba9ddd502609f..ca4cb986efbc204a4ccc8b4d3eb035f4b3504dcd 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-@@ -217,7 +217,7 @@ &i2c2 {
- 	status = "okay";
- 
- 	touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpio5>;
- 		interrupts = <31 IRQ_TYPE_EDGE_FALLING>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi
-index ec1528ff3ea0146157a56f2ecba500e651f857ff..fe25934e06b1fea9bc2b16cb53c24a11ca0525f9 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi
-@@ -292,7 +292,7 @@ sgtl5000: sgtl5000@a {
- 	};
- 
- 	polytouch: edt-ft5x06@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_edt_ft5x06>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-pico-hobbit.dts b/arch/arm/boot/dts/nxp/imx/imx6ul-pico-hobbit.dts
-index bf7dbb4f1f3ed99a9b9cff76e052bd1d9aa8bafe..e99ba04216b8670173bed60b98f0011b423b23aa 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-pico-hobbit.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-pico-hobbit.dts
-@@ -62,7 +62,7 @@ &i2c3 {
- 	status = "okay";
- 
- 	polytouch: touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <29 IRQ_TYPE_EDGE_FALLING>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-pico-pi.dts b/arch/arm/boot/dts/nxp/imx/imx6ul-pico-pi.dts
-index 6cfc943a8fa3ee4452244bf4198d65a319453d66..f79090fb2e6e2e7bfe886d67f45df06923bb96ac 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-pico-pi.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-pico-pi.dts
-@@ -65,7 +65,7 @@ &i2c3 {
- 	status = "okay";
- 
- 	polytouch: touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <29 IRQ_TYPE_EDGE_FALLING>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi
-index 1992dfb53b45cd308522c3e922d5758f5b8fe527..192c6a95ae589f491473a92277e38ad1d4c7b23c 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi
-@@ -317,7 +317,7 @@ sgtl5000: codec@a {
- 	};
- 
- 	polytouch: polytouch@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_edt_ft5x06>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-pico-dwarf.dts b/arch/arm/boot/dts/nxp/imx/imx7d-pico-dwarf.dts
-index 347dd0fe4f82e00ff5fa57487f3333d61c4b27c5..fca8aab9d850791d5df1569a9a3ef4301bd0503c 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7d-pico-dwarf.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-pico-dwarf.dts
-@@ -70,7 +70,7 @@ pca9554: io-expander@25 {
- 	};
- 
- 	touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_touchscreen>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-pico-pi.dts b/arch/arm/boot/dts/nxp/imx/imx7d-pico-pi.dts
-index 62221131336f12b9233474496888e0d34631765b..673bbe49de52500a9218fb06c4212a5a4238d677 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7d-pico-pi.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-pico-pi.dts
-@@ -49,7 +49,7 @@ sgtl5000: codec@a {
- 
- &i2c4 {
- 	polytouch: touchscreen@38 {
--		compatible = "edt,edt-ft5x06";
-+		compatible = "edt,edt-ft5206";
- 		reg = <0x38>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_touchscreen>;
++config EXTCON_S2M
++	tristate "Samsung S2M series PMIC EXTCON support"
++	depends on MFD_SEC_CORE
++	help
++	  This option enables support for MUIC devices found in certain
++	  Samsung S2M series PMICs, such as the S2MU005. These devices
++	  have internal ADCs measuring the ID-GND resistance, thereby
++	  can be used as a USB port accessory detector.
++
+ config EXTCON_SM5502
+ 	tristate "Silicon Mitus SM5502/SM5504/SM5703 EXTCON support"
+ 	depends on I2C
+diff --git a/drivers/extcon/Makefile b/drivers/extcon/Makefile
+index 6482f2bfd6611..e3939786f3474 100644
+--- a/drivers/extcon/Makefile
++++ b/drivers/extcon/Makefile
+@@ -23,6 +23,7 @@ obj-$(CONFIG_EXTCON_PALMAS)	+= extcon-palmas.o
+ obj-$(CONFIG_EXTCON_PTN5150)	+= extcon-ptn5150.o
+ obj-$(CONFIG_EXTCON_QCOM_SPMI_MISC) += extcon-qcom-spmi-misc.o
+ obj-$(CONFIG_EXTCON_RT8973A)	+= extcon-rt8973a.o
++obj-$(CONFIG_EXTCON_S2M)	+= extcon-s2m.o
+ obj-$(CONFIG_EXTCON_SM5502)	+= extcon-sm5502.o
+ obj-$(CONFIG_EXTCON_USB_GPIO)	+= extcon-usb-gpio.o
+ obj-$(CONFIG_EXTCON_USBC_CROS_EC) += extcon-usbc-cros-ec.o
+diff --git a/drivers/extcon/extcon-s2m.c b/drivers/extcon/extcon-s2m.c
+new file mode 100644
+index 0000000000000..8450fdf2ff3ed
+--- /dev/null
++++ b/drivers/extcon/extcon-s2m.c
+@@ -0,0 +1,370 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Extcon Driver for Samsung S2M series PMICs.
++ *
++ * Copyright (c) 2015 Samsung Electronics Co., Ltd
++ * Copyright (C) 2026 Kaustabh Chakraborty <kauschluss@disroot.org>
++ */
++
++#include <linux/delay.h>
++#include <linux/extcon-provider.h>
++#include <linux/interrupt.h>
++#include <linux/mfd/samsung/core.h>
++#include <linux/mfd/samsung/s2mu005.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++
++#include "extcon.h"
++
++struct s2m_muic {
++	struct device *dev;
++	struct regmap *regmap;
++	struct extcon_dev *extcon;
++	struct s2m_muic_irq_data *irq_data;
++	const unsigned int *extcon_cable;
++	bool attached;
++};
++
++struct s2m_muic_irq_data {
++	const char *name;
++	int (*const handler)(struct s2m_muic *);
++	bool call_on_probe;
++	int irq;
++};
++
++static int s2mu005_muic_detach(struct s2m_muic *priv)
++{
++	int ret;
++	int i;
++
++	ret = regmap_set_bits(priv->regmap, S2MU005_REG_MUIC_CTRL1,
++			      S2MU005_MUIC_MAN_SW);
++	if (ret) {
++		dev_err(priv->dev, "failed to disable manual switching\n");
++		return ret;
++	}
++
++	ret = regmap_set_bits(priv->regmap, S2MU005_REG_MUIC_CTRL3,
++			      S2MU005_MUIC_ONESHOT_ADC);
++	if (ret) {
++		dev_err(priv->dev, "failed to enable ADC oneshot mode\n");
++		return ret;
++	}
++
++	ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_SWCTRL, ~0);
++	if (ret) {
++		dev_err(priv->dev, "failed to clear switch control register\n");
++		return ret;
++	}
++
++	/* Find all set states and clear them */
++	for (i = 0; priv->extcon_cable[i]; i++) {
++		unsigned int state = priv->extcon_cable[i];
++
++		if (extcon_get_state(priv->extcon, state) == true)
++			extcon_set_state_sync(priv->extcon, state, false);
++	}
++
++	priv->attached = false;
++
++	return 0;
++}
++
++static int s2mu005_muic_attach(struct s2m_muic *priv)
++{
++	unsigned int type;
++	int ret;
++
++	/* If any device is already attached, detach it */
++	if (priv->attached) {
++		s2mu005_muic_detach(priv);
++		msleep(100);
++	}
++
++	ret = regmap_read(priv->regmap, S2MU005_REG_MUIC_DEV1, &type);
++	if (ret) {
++		dev_err(priv->dev, "failed to read DEV1 register\n");
++		return ret;
++	}
++
++	/*
++	 * All USB connections which require communication via its D+
++	 * and D- wires need it.
++	 */
++	if (type & (S2MU005_MUIC_OTG | S2MU005_MUIC_CDP | S2MU005_MUIC_SDP)) {
++		ret = regmap_update_bits(priv->regmap, S2MU005_REG_MUIC_SWCTRL,
++					 S2MU005_MUIC_DM_DP,
++					 FIELD_PREP(S2MU005_MUIC_DM_DP,
++						    S2MU005_MUIC_DM_DP_USB));
++		if (ret) {
++			dev_err(priv->dev, "failed to configure DM/DP pins\n");
++			return ret;
++		}
++	}
++
++	/*
++	 * For OTG connections, enable manual switching and ADC oneshot
++	 * mode. Since the port will now be supplying power, the
++	 * internal ADC (measuring the ID-GND resistance) is made to
++	 * poll periodically for any changes, so as to prevent any
++	 * damages due to power.
++	 */
++	if (type & S2MU005_MUIC_OTG) {
++		ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_CTRL1,
++					S2MU005_MUIC_MAN_SW);
++		if (ret) {
++			dev_err(priv->dev, "failed to enable manual switching\n");
++			return ret;
++		}
++
++		ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_CTRL3,
++					S2MU005_MUIC_ONESHOT_ADC);
++		if (ret) {
++			dev_err(priv->dev, "failed to disable ADC oneshot mode\n");
++			return ret;
++		}
++	}
++
++	switch (type) {
++	case S2MU005_MUIC_OTG:
++		dev_dbg(priv->dev, "USB OTG connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_USB_HOST, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_CDP:
++		dev_dbg(priv->dev, "USB CDP connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_USB, true);
++		extcon_set_state_sync(priv->extcon, EXTCON_CHG_USB_CDP, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_SDP:
++		dev_dbg(priv->dev, "USB SDP connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_USB, true);
++		extcon_set_state_sync(priv->extcon, EXTCON_CHG_USB_SDP, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_DCP:
++		dev_dbg(priv->dev, "USB DCP connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_CHG_USB_DCP, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_UART:
++		dev_dbg(priv->dev, "UART connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_JIG, true);
++		priv->attached = true;
++		break;
++	default:
++		dev_warn(priv->dev,
++			 "failed to recognize the device attached, unknown or bad type\n");
++	}
++
++	return ret;
++}
++
++static int s2mu005_muic_init(struct s2m_muic *priv)
++{
++	int ret;
++
++	ret = regmap_update_bits(priv->regmap, S2MU005_REG_MUIC_LDOADC_L,
++				 S2MU005_MUIC_VSET,
++				 FIELD_PREP(S2MU005_MUIC_VSET,
++					    S2MU005_MUIC_VSET_3P0V));
++	if (ret) {
++		dev_err(priv->dev, "failed to set internal ADC voltage regulator\n");
++		return ret;
++	}
++
++	ret = regmap_update_bits(priv->regmap, S2MU005_REG_MUIC_LDOADC_H,
++				 S2MU005_MUIC_VSET,
++				 FIELD_PREP(S2MU005_MUIC_VSET,
++					    S2MU005_MUIC_VSET_3P0V));
++	if (ret) {
++		dev_err(priv->dev, "failed to set internal ADC voltage regulator\n");
++		return ret;
++	}
++
++	ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_CTRL1,
++				S2MU005_MUIC_IRQ);
++	if (ret) {
++		dev_err(priv->dev, "failed to enable MUIC interrupts\n");
++		return ret;
++	}
++
++	return 0;
++}
++
++static const unsigned int s2mu005_muic_extcon_cable[] = {
++	EXTCON_USB,
++	EXTCON_USB_HOST,
++	EXTCON_CHG_USB_SDP,
++	EXTCON_CHG_USB_DCP,
++	EXTCON_CHG_USB_CDP,
++	EXTCON_JIG,
++	EXTCON_NONE,
++};
++
++static const struct s2m_muic_irq_data s2mu005_muic_irq_data[] = {
++	{
++		.name = "attach",
++		.handler = s2mu005_muic_attach,
++		.call_on_probe = true,
++	}, {
++		.name = "detach",
++		.handler = s2mu005_muic_detach,
++	}, {
++		/* sentinel */
++	}
++};
++
++static irqreturn_t s2m_muic_irq_func(int virq, void *data)
++{
++	struct s2m_muic *priv = data;
++	const struct s2m_muic_irq_data *irq_data = priv->irq_data;
++	int ret;
++	int i;
++
++	for (i = 0; irq_data[i].handler; i++) {
++		if (virq != irq_data[i].irq)
++			continue;
++
++		ret = irq_data[i].handler(priv);
++		if (ret)
++			dev_err(priv->dev, "failed to handle interrupt for %s (%d)\n",
++				irq_data[i].name, ret);
++		break;
++	}
++
++	return IRQ_HANDLED;
++}
++
++static int s2m_muic_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct sec_pmic_dev *pmic_drvdata = dev_get_drvdata(dev->parent);
++	struct s2m_muic *priv;
++	int ret;
++	int i;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	platform_set_drvdata(pdev, priv);
++	priv->dev = dev;
++	priv->regmap = pmic_drvdata->regmap_pmic;
++
++	switch (platform_get_device_id(pdev)->driver_data) {
++	case S2MU005:
++		priv->extcon_cable = s2mu005_muic_extcon_cable;
++		priv->irq_data = devm_kmemdup(dev, s2mu005_muic_irq_data,
++					      sizeof(s2mu005_muic_irq_data),
++					      GFP_KERNEL);
++		/* Initialize MUIC */
++		ret = s2mu005_muic_init(priv);
++		break;
++	default:
++		return dev_err_probe(dev, -ENODEV, "device type not supported by driver\n");
++	}
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to initialize MUIC\n");
++
++	if (!priv->irq_data)
++		return -ENOMEM;
++
++	priv->extcon = devm_extcon_dev_allocate(dev, priv->extcon_cable);
++	if (IS_ERR(priv->extcon))
++		return dev_err_probe(dev, PTR_ERR(priv->extcon),
++				     "failed to allocate memory for extcon\n");
++
++	ret = devm_extcon_dev_register(dev, priv->extcon);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to register extcon device\n");
++
++	for (i = 0; priv->irq_data[i].handler; i++) {
++		ret = platform_get_irq_byname_optional(pdev, priv->irq_data[i].name);
++		if (ret == -ENXIO)
++			continue;
++		if (ret < 0)
++			return dev_err_probe(dev, ret, "failed to get IRQ %s\n",
++					     priv->irq_data[i].name);
++
++		priv->irq_data[i].irq = ret;
++		ret = devm_request_threaded_irq(dev, priv->irq_data[i].irq, NULL,
++						s2m_muic_irq_func, IRQF_ONESHOT,
++						priv->irq_data[i].name, priv);
++		if (ret)
++			return dev_err_probe(dev, ret, "failed to request IRQ\n");
++
++		if (priv->irq_data[i].call_on_probe)
++			priv->irq_data[i].handler(priv);
++	}
++
++	return 0;
++}
++
++static void s2m_muic_remove(struct platform_device *pdev)
++{
++	struct s2m_muic *priv = dev_get_drvdata(&pdev->dev);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->extcon->lock, flags);
++
++	/*
++	 * Disabling the MUIC device is important as it disables manual
++	 * switching mode, thereby enabling auto switching mode.
++	 *
++	 * This is to ensure that when the board is powered off, it
++	 * goes into LPM charging mode when a USB charger is connected.
++	 */
++	switch (platform_get_device_id(pdev)->driver_data) {
++	case S2MU005:
++		s2mu005_muic_detach(priv);
++		break;
++	default:
++		WARN_ON_ONCE("execution shouldn't have reached here!");
++	}
++
++	spin_unlock_irqrestore(&priv->extcon->lock, flags);
++}
++
++static const struct platform_device_id s2m_muic_id_table[] = {
++	{ "s2mu005-muic", S2MU005 },
++	{ /* sentinel */ },
++};
++MODULE_DEVICE_TABLE(platform, s2m_muic_id_table);
++
++/*
++ * Device is instantiated through parent MFD device and device matching
++ * is done through platform_device_id.
++ *
++ * However if device's DT node contains proper clock compatible and
++ * driver is built as a module, then the *module* matching will be done
++ * through DT aliases. This requires of_device_id table. In the same
++ * time this will not change the actual *device* matching so do not add
++ * .of_match_table.
++ */
++static const struct of_device_id s2m_muic_of_match_table[] = {
++	{
++		.compatible = "samsung,s2mu005-muic",
++		.data = (void *)S2MU005,
++	}, {
++		/* sentinel */
++	},
++};
++MODULE_DEVICE_TABLE(of, s2m_muic_of_match_table);
++
++static struct platform_driver s2m_muic_driver = {
++	.driver = {
++		.name = "s2m-muic",
++	},
++	.probe = s2m_muic_probe,
++	.remove = s2m_muic_remove,
++	.id_table = s2m_muic_id_table,
++};
++module_platform_driver(s2m_muic_driver);
++
++MODULE_DESCRIPTION("Extcon Driver For Samsung S2M Series PMICs");
++MODULE_AUTHOR("Kaustabh Chakraborty <kauschluss@disroot.org>");
++MODULE_LICENSE("GPL");
 
 -- 
-2.43.0
-
+2.53.0
 
