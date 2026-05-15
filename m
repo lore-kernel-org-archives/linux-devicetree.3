@@ -1,571 +1,173 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010012.outbound.protection.outlook.com [52.101.228.12])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D31B35A933;
-	Fri, 15 May 2026 11:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778846347; cv=fail; b=ECraiHL3clbrFPLImJCBl3nc8hfnIOHMKbRfMBI5keZdNrz2oBnLZPIkrulNzTDy5mn5cRbyni9ryynxFnyw1m4gk8dBReoN/GdeY4sNhg51zDZ+VQoiGknEm2xh3pDXV9M5HKJxljZ8udpeSPorHh/7eVppK95MxfW9UU0ENUc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778846347; c=relaxed/simple;
-	bh=Yuhh2tDjFaEkG+mUGVz+wnMF3vHTgqzH2HsomimLVXE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hCokIuW5UhlWA2yed6aJeY6NLon5wWQ8lLb8FQc7x2ZvUJk33owYwVcDEMZnZd2uBFGEn85R+nx/j2wTY0h69WS7KicYFu3QTuAwCcCYtMuu3/3PlA27Qml9lF8aByfMdOG415uBnHQCHY5ne3oD7WFPXEEVi9GybAyzV216NaY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=VUrytX/t; arc=fail smtp.client-ip=52.101.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243D4346AF8
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778846375; cv=none; b=UWVEYeoNkByjeQyTczbSBsmZ8QP/MUdZxf10PzD3pe0unyR67NO+hHyunFpThHr2JDqXdrVLXbB9i2O8M6rHOcMQ0RgbJPI475C79yagG9raCO7m/pA3+VvyAlvxNFC5JrKDVbex/jp1GCQw/hnQV/rpvp1y6UoH55ysPoHlha4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778846375; c=relaxed/simple;
+	bh=4Ws36Kh4YBbC0ww0Jy+xw/tAJtFPBW16pQwGma9xSls=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=a2dHncPn/PNYbJWzHLM90PGWCVvWuUsr1WTLm1gEvKOqSat2fUMci+4XfUrPev5sWvp7bwQp+Do9Tf9tFsSsemK5bYLYNdsSyCrp6YoZxC588iQb23CorwrV2Mmv7dHYxVGgYcZsrN8LlvJBWxFlJEkdlkvsrmI1zDrldHSNiTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=atRImTyp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Lud0rfCj; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="VUrytX/t"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VRTDW8qMVauVthfBOCcE0Fz73UJLhhcVJFkCvwlKVB5Kmo/bQH2AE32BRrghI2QQst2y2P7zRaCXQssM6xasd0fLb/2jBUl42LyCMq/xygxXqwC6dHurXpRDDFLkdDxRLH7cSPIiLsbtoKFg5Yoyh/IgJAPKVKmXH/MJT6Asv+om+4kMBeCzaWuaQ62bbqTxhVCT1R8HN+fY6z9vHAF5bmDHGzj/eBVpt145KU3abORG4FCM0t1wvBWeJXpbQlt2/1H83+kRgsieXPFUl/et4BU19lb1c2nm0QOHJX3VqJKdBZ08odbvY3vNk0rGjQQ1gcAK0No5WuXBnDsNmXQpVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UKIQE56h9jPa37zOiZTwqLZ6a4C2QVqHofbOtaB0eIg=;
- b=Gkpu3fdF1FHN1KwNUnUQcPoO4Hf19AGZ2mgm0TvcOP489SY9HDlSk25tYljvgsoYWPPVB9VGgVBly6z6igouJIJgPNaIM9scx+Gfsz/bPW4UHgWXRkv3QXDa1ss7t8zVJ1rrYDLWw3bBOJP0qh0Oppy5njz3qsh5HfEph8pZciQjJ6WhJvRWKB9eGEODtFJXocYw9VwPzHJ4lNGkzUDxaKNC6UH6YBRkz/2OBe9Mp3vxUuiEBOwxMVCnXTtA09vmpeMq1DZLxIsBPuREg0KxAUkiVbzFccPVFbqWVBQ5pt78v0iswzBikb1pi3YH6v50JocaIbBAlLtoYxI2Dqk3BA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UKIQE56h9jPa37zOiZTwqLZ6a4C2QVqHofbOtaB0eIg=;
- b=VUrytX/t7RAY9FFTNswtQhhFCCD5g1llU/HLSxACByeHyH6hCBGopT9cxCSna2Ch6ZyJOOrs26PodSy9vjErIYVvrE2m4+3EdOBepewqqAG+px3JAK/kMdqeki13YStCVFeiGqYu50D2twgXZsh51TLLzqfbN9HAzqSOUayFjV0=
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
- by TY3PR01MB11020.jpnprd01.prod.outlook.com (2603:1096:400:3b0::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
- 2026 11:58:55 +0000
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.20.9913.012; Fri, 15 May 2026
- 11:58:55 +0000
-From: John Madieu <john.madieu.xa@bp.renesas.com>
-To: Rob Herring <robh@kernel.org>
-CC: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
-	<broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jaroslav
- Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Biju Das
-	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com"
-	<john.madieu@gmail.com>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v6 01/16] ASoC: dt-bindings: sound: Add DT binding for
- RZ/G3E sound
-Thread-Topic: [PATCH v6 01/16] ASoC: dt-bindings: sound: Add DT binding for
- RZ/G3E sound
-Thread-Index: AQHc4j0JOxbIxckKgU+hYzGA6LonCLYNlzkAgAFlkWA=
-Date: Fri, 15 May 2026 11:58:55 +0000
-Message-ID:
- <TY6PR01MB17377F226C3B10B1DC5AD1FFFFF042@TY6PR01MB17377.jpnprd01.prod.outlook.com>
-References: <20260512182631.3842065-1-john.madieu.xa@bp.renesas.com>
- <20260512182631.3842065-2-john.madieu.xa@bp.renesas.com>
- <20260514142754.GA378860-robh@kernel.org>
-In-Reply-To: <20260514142754.GA378860-robh@kernel.org>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|TY3PR01MB11020:EE_
-x-ms-office365-filtering-correlation-id: 22e58746-d174-4347-a609-08deb27956e9
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|366016|376014|38070700021|11063799003|4143699003|22082099003|56012099003|18002099003|3023799003;
-x-microsoft-antispam-message-info:
- Jz6fer0fr2VZvL14pcfRFuUK83XGvdoBPenIDXJgbBwEAPit42EISKDs9Ns9EHniiuFkeRxsAtFi3fylG4JJwSkfui5pZIc/yLxGXHxzkMWfcqWfofpZWZfuMObfEnErQvjdHlP2t4M38e+tptnY2r8JvzOSgQvuA0Z5WsISAE3NDLIFSjdesS//+jlucql5tfTCmJ4um/2QIFNYFmyDtwkI+RFK/6y0KtF6LzMnVVtOQS8hJMO6YWuztnumpRjN5Qt4U60O5IHAW9V2XXmtC/gnxh+Q+JJYGuORZKk/cvgYbsp86+yzBuyZo7Dg7d6NGakBu3PDrhI2/AaXHjuOhoHzsj8BPlErdOetMss+DRW/o0G/wOwtPuKX3MRdQpdSENZYA9BNtal3e9DVbtpxjC7gKQRm4UoduuhRqzxMvY3EzBds7FCGodwsFX21ow3UEc+dg018uGDtw5e7WLX8CNoJCWGjRwatrh1eiGqjPs4ZxWoL9SDFjvVSEgUTYaJ9T91x2BjaGMKHE8/2wdFEaxROjJcrMSDbP4f8XgFvgR4StEuEMzK2FQ2WQq9lozQHV6yA/RquJob7dqTqi3UUcfXNX47jVlhJ4Xtz5kQPlinMJZf627ivDphhyqJbbPdU++TUfNXdgKIMDG0hbPnXzfGaFsZb4zyXrpYKzk3iereZ1FaeWXtjOgNf6nzjoCvBgFHPj1f/cllmYE3WL5IOQA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(38070700021)(11063799003)(4143699003)(22082099003)(56012099003)(18002099003)(3023799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?V5W3Vn9XIunPt4tgoRPs5RAxe0g8Baszj7CIah/YqCbO1xi0uVmPxGp2rnqY?=
- =?us-ascii?Q?P+4VwSr5pn5gz9CE2YlxnGS7jDaxBU4FEXpWDEnNjr5KumaBcBxpU2xeKdDc?=
- =?us-ascii?Q?kuY+vHAZnwTjx3LD/rLdkPUcYvg5pKPg7ozfEbyl0KnIfMN1s7fDi3hvi/Z2?=
- =?us-ascii?Q?6NXLeHeDpcLF8PtEGzSpHt3b+SgCCsOcn1r9s3RZVYpwsKqI8uTdCp5vbHZ+?=
- =?us-ascii?Q?H+0lQMvtePRE9L/zYWKW9MfTCUQ+xBqtP1RbvpmxRjPCnNo0ILy1LNs7zerq?=
- =?us-ascii?Q?5WZjsh1PAQX2EJJrSe1+5IrlfhEVejYVdK7wPLfXk5Ae0wle9U1i3OVryJTW?=
- =?us-ascii?Q?LtIJXE5yTVVG8ZUraO7W67Frqy8PYoY66XcmnCkSm16KIpC/ZEhkglYj0hsd?=
- =?us-ascii?Q?3h0/eA6N10jR9B278uBgt0vXYUjzLJTXpozbDIHizECuNHsSqj1+kZneTH1w?=
- =?us-ascii?Q?uwDXBb6dL/2QS00I27fNJo8rSQmgzpa3/UrOdfhBTs1nw4LMV+Cvna6aV65o?=
- =?us-ascii?Q?ONal4p5bGjj9mb/cCwzFTj4JdOpewG0vaxryA/kYWv0s0cwEz6+FRI4d5G7F?=
- =?us-ascii?Q?LWU13K2A5ONs/WpZ6/k53+28G4znLu9p8Uw7qxdxhMCYqXyN5XApMKa0ZnZk?=
- =?us-ascii?Q?uyDXC33sfxcTAOl8bQ4yuJSuACfqgRY04xM+QdiED08/Qz/skKuM4BceTyoj?=
- =?us-ascii?Q?34NCQDOuUz3f6zPYshPIXRxlAJhOCWbuDlZ81bBsrfSlqG0dV/Fv+aqbOVfE?=
- =?us-ascii?Q?ZziluZdRgpWXNWCX9bsBBHxR9ajQW5Qps3MzxMgo0c9g2It1o+ecR/MVC0B4?=
- =?us-ascii?Q?EIlj7INYMeOd2V7WiqdNzpvgZKuGzjoq9GbqShr4DnHXWq0BhXkM6mKpzWbP?=
- =?us-ascii?Q?FJoMMmTcmLcUznvYNbWWtkvCIHeAOGZ95f1hUu5ESQCP4ICIQYfTiYlgbHDQ?=
- =?us-ascii?Q?pp5A/gU/dY7BkDoTMmTz68/4yWyriZv6T+PrxyFlENsZWe1/+nONuiXsxdCf?=
- =?us-ascii?Q?1Q7qXSuH+xbqgvOW0o39wF9GFyks6+iUAw6G5XnHZwq0TguMchmBmfL3fVz6?=
- =?us-ascii?Q?HeciSGK2hqbYVX8NutYIIi4lLB6DefPK3WUbKyXAGIOVvXvW+tExjUtTTrrr?=
- =?us-ascii?Q?5JbyO+GYY5aXi2Zx+xgz4AdcfO4SFIGd9Cys1dyDxfKNn2pklHIC31PkISMc?=
- =?us-ascii?Q?SZRbkf7VsMnhhSFsRFzejCd29YjQ8hM4s1XeJq+ML9sntm1mQeUczpOv/qdk?=
- =?us-ascii?Q?ZWxLL+yGcxgvHK//eVqG6q6PMjjWl9KXTavRmcFjdALoxwBRsOOWaX7czcaX?=
- =?us-ascii?Q?KilKALN3z23vpj1LENRvf180vmva38wOnhbzeV38h37BTtVkM2P9NjKGurmV?=
- =?us-ascii?Q?8PGQwlKjqSzT6Q8eNWkJDr+Y3YhGKZfkMfOOaDfmTIVHHIBNliXfgdNDkBMs?=
- =?us-ascii?Q?EfsU3oQeITCXWES54GOo7V25FrTFSLev5bnHH8A3uKYZtuFqzZJ9X9vjMT0r?=
- =?us-ascii?Q?qo/tu/cAF1mJbvR6/f324IrOnvjx1gXHFcyNPhO6+S/99qVaYEN8GR3UgWGD?=
- =?us-ascii?Q?9SY8WhDtv5nChVdObB/Qb6yey9Wka2cchgdatSNsZ3o5u6UbeX21lLuLnLbV?=
- =?us-ascii?Q?gvT5e6F4a125Ja4m4CFn8YgUhiDvdWL2qof+tRt9S7pMUe7EzG2BHTZimiBJ?=
- =?us-ascii?Q?cXnVkgxJB3eqGT6qAT85jrmu3yRrCIq66kW+JkrRBI7syDNkL2k72cjw75DJ?=
- =?us-ascii?Q?xG4dh9zr9pF7ruE/OnZnChvLYPUxDEY=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="atRImTyp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lud0rfCj"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FBK6ie4008506
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:59:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kb1gCwgaGV5H3d/jKwmfo6mOPiG1Fyfm04poCnOImZw=; b=atRImTypaWq+vaUC
+	aoowq9ZGzAZI1YmvBE8zaMxzwNDLQzNrt0i5FwgSh5jvRBFwTQdmu3eQiqDskwt0
+	rCxOQ/Cjhaq4eaJmwifvMRZQci4+xTLG15hqNTYo6C4lXULkuvLeik71yxnvffFb
+	3paoRvdT5MpcPn8PLuF5xiMamJXPzG26r+z6rQ1wklfjrQFmBTKUyHTm0bo3DgJZ
+	/FoaNUGJZXRQiYV0Pamw6H2dCjHUFKaj2d3RfOnZzPp9QJoNPP8LfWhhqk2vMUHl
+	S0A9NRUVS/76H/BOnOSuuxjAhqSWz5VEB3Q4hqVXDAe6UiKVSYlHNdJMN7iJh4Rm
+	4Qu6aw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1su58j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:59:33 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51494d74d4bso24147511cf.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 04:59:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778846372; x=1779451172; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kb1gCwgaGV5H3d/jKwmfo6mOPiG1Fyfm04poCnOImZw=;
+        b=Lud0rfCjlbxN5JNaluZucclWdIPgZGFqh0ILR6N8iUSGJGirPdA4VADV7f7aL2cXva
+         IGQCnrFcwoZ11eppVoKKF6dd7iOPuNNTK1wo8HCgPehI8mu5fID75Qrn2IoWDXIdyoZS
+         YLmVvnF1yZI3JlDWs1vTSj8Cv9OSonp4MNGPD+jT9r48ik29bhRkxjMtGok1CBnqkqcp
+         dZO0mebmmjInJdlz0L2OB0rxnQptZ1t0419aKutccW4PjHjuDInPmKwc+crIhOE5eq6f
+         ZQ0NmDNFhmzXjcrr2begg1wwnZvhYk/eCevK1AxXFAKplGxGj16j+UHcTsCk3kQY7NTv
+         W81g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778846372; x=1779451172;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kb1gCwgaGV5H3d/jKwmfo6mOPiG1Fyfm04poCnOImZw=;
+        b=nfk/lAbZeCtQVDWbg2kaC+qgrD5JpYTnKhPChT5XjF3KnU900y/+i8eGiqJMM9gUrn
+         Hu8jEfLQiG8Im8VuWo5zJSxJqWIsQoCbsQ4EBNLh3k/pzDNRhYnVBPPT36qC7SU9ycBy
+         oXwV8NrQUS7tY+sO+B7iY1R5H5HJfiN7rWs530/3KI8PRI9Pi+Trwm/jYVWTqTjiL2rw
+         vsTp3eg0/Cnz0cFZQothxXwWwqXmlCM1GC2hz0GuJTtUZ+pEv5wN78gCM5zMNTBKXV+Y
+         syIKUK5sUGuFJEQIhlCPN+KTOsHMuSD+8posnw5DiKD7gA+aCNpmEq9vyzsunOCDr01n
+         Foqg==
+X-Forwarded-Encrypted: i=1; AFNElJ9HjKBAF0USiPnvlAkD40kJWWZYvpi4ZSl7QzHvDgT61J2iuHch7M8vGFxi4yAc6aMLPdGLjwuXPsvY@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhWO9YZWL+6PQmziCmSrIYjpSUvh4QyZ14PIwLjq7IaTDb0+qq
+	JOIU2ph8Q1+yYwrOBhmvCXxSdUsCAuh4aKAfkKlMTMKffyltbXzUd1H8h7LKtSPlXDsF41N3TQ/
+	ZokYcHbQe2BZ/AzEvE9aD/9P8icVjNnwdTPPKReYILinlIMl21wNUsUS221efajA6
+X-Gm-Gg: Acq92OFPdySc8OaA0JpvXhjm7MatMse9cXb3bqAnyBnQ8F74XVVzUbo3jPMrlLUkV4s
+	l7EbiC7zqFWkrMIfZm7JNc+YdEmw2Fln1hZsQLS9HWPsNyLTnKAsOHUl1tEDmvTMXSOqUrV3LPo
+	12ntdHo3LJtTzHD5g1qztk5F2xOfgqlaTztKSlfJONyGy42mtanwe2SfCV1M6eL8Xd/IVfeJp0U
+	IAKcHqNT7+ChD2qxTK0EtwOi4r3j+bFL1CecTcV1zo2jo2xXJlBt0o75usVZtSX4A7GgOGqnrPs
+	VDnzIXneWI02yWxWg18ekSAK04NagtsqR+I7Ft273gERrGvjMB0+xariXfD8MZwxxJjMNJSxz0+
+	EqJ13BwxdsJQwAdpYFhKpm0dJwXBSb4O2xpFv5FaZUG3p/7GVbQlJabCCe6X/U0SmX+eyexbuwU
+	ZZvIH0T6P3qZ/o98ghwBEYovrN+C1CBpntt8AdWG+uF6+naw==
+X-Received: by 2002:a05:622a:254:b0:50f:39f4:3a2b with SMTP id d75a77b69052e-51641967867mr97237971cf.41.1778846372538;
+        Fri, 15 May 2026 04:59:32 -0700 (PDT)
+X-Received: by 2002:a05:622a:254:b0:50f:39f4:3a2b with SMTP id d75a77b69052e-51641967867mr97237671cf.41.1778846372086;
+        Fri, 15 May 2026 04:59:32 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a90f119ff4sm1295651e87.20.2026.05.15.04.59.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 15 May 2026 04:59:31 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Fri, 15 May 2026 14:59:24 +0300
+Subject: [PATCH v2 1/4] clk: qcom: gcc-sm6115: Set HW_CTRL_TRIGGER for
+ video GDSC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22e58746-d174-4347-a609-08deb27956e9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2026 11:58:55.1880
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: y/k2G927dgxdf7BnvS5rXgMzlBfSMT9L4FocghXPcoC2l5zeXmBb1HKow01KVFOhiNEqbPwKxstQcA6O5mEajHaPqnegz5lX6eXd5D7OGF8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11020
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260515-iris-sm6115-v2-1-2ab75229de61@oss.qualcomm.com>
+References: <20260515-iris-sm6115-v2-0-2ab75229de61@oss.qualcomm.com>
+In-Reply-To: <20260515-iris-sm6115-v2-0-2ab75229de61@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=712;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=4Ws36Kh4YBbC0ww0Jy+xw/tAJtFPBW16pQwGma9xSls=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqBwqgPduWkAngFc0G01Tesp7cCgfjcVKboQxbt
+ YT21p7aWzCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCagcKoAAKCRCLPIo+Aiko
+ 1cM/B/443v2lMaVWPHvJrTYc1RFnRzV5ivedKaUcEWKFICvi64tyMvfY2S6isJjVmCVGX7b44/u
+ l6rbKs6/esUkMEf6BToi3ya3P6EZsmyoGDmD55JIgE0yyHsuc8DrihOKipB/H5lWYAQUmZCDFuy
+ X3uIJ9hC0/ifpQJvYsykiN+U8IH4izBvspB/SqoLF8INoQxSqb6xMHbpOZwtmidsgcoItSVtqwk
+ 94BGZq6tpfCdggzDjGXHaQwQO86zxHJ4BUSN+ix647dZdd+1Sq4P4nCKLf8AZXqq7IUIuYP9WeO
+ pYsmv/gCtOHZa4Fi0sr5CtUmPgd1Sfj/oi7vvMpmpuUTqNqA
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-ORIG-GUID: TQUt-QDiJtFDNG_Hh15SCZSVTRuJjgYe
+X-Proofpoint-GUID: TQUt-QDiJtFDNG_Hh15SCZSVTRuJjgYe
+X-Authority-Analysis: v=2.4 cv=cZPiaHDM c=1 sm=1 tr=0 ts=6a070aa5 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=KOvF56qbc03BBMn0VcwA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDEyMCBTYWx0ZWRfX1zJIe/fkpCPM
+ VWct1F4jOPYe1nxQfqlenOrpL6/UjPaeXrdR4Itjpl3DD+xYlmvp+Vk2vvC5PWhq98SWQcwag1A
+ mt0DZ6959cKCLwDSBs+JIJX9O60W5jxe8f5cV6YyMNzOanbZg1ugVSSThDdcEmoqDA2ZMxujbD3
+ Pad2RKf7qXd7q6YTPJNXAbcK6MgoOHilf4aAAH7L8/KApdNBHq4MznngPdW9Jzs+q6vgWNo5yQp
+ s1bX5HD6xVeUyHhNFzV6tz+1MqP5F7cBG/31vnPR/KLfcfDo+Kmt36MNJjcLVbOjNPwTNLnZQzQ
+ zEwBIvqbaRsf9mFrSjZWAiEPGmsUO0YuDFd1prjLEjqozXybAOiF5Qsc1Z+/G236pbvk7W7DpeO
+ fI2PP+C+wS9diCViNv6K+clX5CkE/3KTY5lp0RELYuISnlTLSp45FGdDjdTzD4ZRtTHLriNTjaU
+ a+WV1jmkK0bi0vIMlSw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_03,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ adultscore=0 suspectscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150120
 
-Hi Rob,
+The venus video driver will uses dev_pm_genpd_set_hwmode() API to switch
+the video GDSC to HW and SW control modes at runtime. This requires domain
+to have the HW_CTRL_TRIGGER flag.
 
-Thanks for your review.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/clk/qcom/gcc-sm6115.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> -----Original Message-----
-> From: Rob Herring <robh@kernel.org>
-> Sent: Donnerstag, 14. Mai 2026 16:28
-> To: John Madieu <john.madieu.xa@bp.renesas.com>
-> Subject: Re: [PATCH v6 01/16] ASoC: dt-bindings: sound: Add DT binding fo=
-r
-> RZ/G3E sound
->=20
-> On Tue, May 12, 2026 at 06:26:16PM +0000, John Madieu wrote:
-> > Add a standalone device tree binding for the Renesas RZ/G3E
-> > (R9A09G047) sound controller.
-> >
-> > The RZ/G3E sound IP is based on R-Car Sound but differs in several ways=
-:
-> > - Uses unprefixed sub-node names (ssi, ssiu, src, dvc, mix, ctu) instea=
-d
-> >   of R-Car's rcar_sound,xxx prefixed names.
-> > - Supports up to 5 DMA controllers per direction, allowing multiple DMA
-> >   entries with repeated channel names in SSIU, SRC and DVC sub-nodes.
-> > - Has 47 clocks including per-SSI ADG clocks (adg-ssi-[0-9]), SCU clock=
-s
-> >   (scu, scu_x2, scu_supply), SSIF supply clock, AUDMAC peri-peri clock,
-> >   and ADG clock.
-> > - Has 14 reset lines including SCU, ADG and AUDMAC peri-peri resets.
-> > - SSI operates exclusively in BUSIF mode.
-> >
-> > These differences make the RZ/G3E binding incompatible with the
-> > existing renesas,rsnd.yaml, so it is added as a separate standalone
-> > binding with its own $ref to dai-common.yaml.
-> >
-> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> > ---
-> >
-> > Changes:
-> >
-> > v6:
-> >  - Rename all indexed clock-names and reset-names from the dotted
-> >    form (ssi.0, src.0, adg.ssi.0, clk_a, clk_b, clk_c, clk_i) to
-> >    the hyphenated form (ssi-0, src-0, adg-ssi-0, audio-clka,
-> >    audio-clkb, audio-clkc, audio-clki) so the new binding follows
-> >    the standard DT naming convention.
-> >  - Tighten #sound-dai-cells to const: 1.
-> >  - Drop unused properties: clock-frequency, clkout-lr-asynchronous.
-> >  - Simplify the ports/endpoint schema (single ports object with
-> >    port@N children referencing audio-graph-port.yaml), drop the
-> >    separate top-level dai patternProperties block.
-> >  - Move additionalProperties: false to the top of each sub-object
-> >    (dvc, mix, ctu, src, ssiu, ssi).
-> >  - Reorder example clocks/resets to match the new ordinal-ascending
-> >    name order.
-> >
-> > v5:
-> >  - Drop the two-patch rsnd.yaml split approach from v4. Replace
-> >    with a single self-contained standalone binding that does not
-> >    touch renesas,rsnd.yaml at all.
-> >  - Remove select: false, redundant blanket properties
-> >    (compatible: true, reg: true, etc.) and pointless
-> >    patternProperties per Krzysztof's review.
-> >  - Add missing #clock-cells and #sound-dai-cells constraints.
-> >  - Add hardware description text instead of "Binding for ..."
-> >    phrasing.
-> >  - Move G3E-specific DMA comment into the binding itself rather
-> >    than relying on a shared schema.
-> >  - Use unprefixed sub-node names (ssi, ssiu, src, dvc, mix, ctu)
-> >    to reflect the actual RZ/G3E DT binding.
-> >
-> > v4: No changes
-> > v3: No changes
-> > v2:
-> >  - Introduce RZ/G3E sound binding as a standalone schema.
-> >
-> >  .../sound/renesas,r9a09g047-sound.yaml        | 743 ++++++++++++++++++
-> >  1 file changed, 743 insertions(+)
-> >  create mode 100644
-> > Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> >
-> > diff --git
-> > a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > new file mode 100644
-> > index 000000000000..0b651214bd61
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.
-> > +++ yaml
-> > @@ -0,0 +1,743 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) %YAML 1.2
-> > +---
-> > +$id:
-> > +http://devicetree.org/schemas/sound/renesas,r9a09g047-sound.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Renesas RZ/G3E Sound Controller
-> > +
-> > +maintainers:
-> > +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > +  - John Madieu <john.madieu.xa@bp.renesas.com>
-> > +
-> > +description:
-> > +  The RZ/G3E (R9A09G047) sound controller is based on R-Car Sound IP
-> > +  with extended DMA channel support (up to 5 DMACs per direction),
-> > +  additional clock domains (47 clocks including per-SSI ADG clocks),
-> > +  and additional reset lines (14 including SCU, ADG and Audio DMAC
-> > +  peri-peri resets). SSI operates exclusively in BUSIF mode with
-> > +  2-4 BUSIF channels per SSI.
-> > +
-> > +allOf:
-> > +  - $ref: dai-common.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: renesas,r9a09g047-sound
-> > +
-> > +  reg:
-> > +    maxItems: 5
-> > +
-> > +  reg-names:
-> > +    items:
-> > +      - const: scu
-> > +      - const: adg
-> > +      - const: ssiu
-> > +      - const: ssi
-> > +      - const: audmapp
-> > +
-> > +  "#sound-dai-cells":
-> > +    const: 1
-> > +
-> > +  "#clock-cells":
-> > +    const: 0
-> > +
-> > +  "#address-cells":
-> > +    const: 1
-> > +
-> > +  "#size-cells":
-> > +    const: 0
-> > +
-> > +  clocks:
-> > +    maxItems: 47
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: ssi-all
-> > +      - const: ssi-0
-> > +      - const: ssi-1
-> > +      - const: ssi-2
-> > +      - const: ssi-3
-> > +      - const: ssi-4
-> > +      - const: ssi-5
-> > +      - const: ssi-6
-> > +      - const: ssi-7
-> > +      - const: ssi-8
-> > +      - const: ssi-9
-> > +      - const: src-0
-> > +      - const: src-1
-> > +      - const: src-2
-> > +      - const: src-3
-> > +      - const: src-4
-> > +      - const: src-5
-> > +      - const: src-6
-> > +      - const: src-7
-> > +      - const: src-8
-> > +      - const: src-9
-> > +      - const: mix-0
-> > +      - const: mix-1
-> > +      - const: ctu-0
-> > +      - const: ctu-1
-> > +      - const: dvc-0
-> > +      - const: dvc-1
-> > +      - const: audio-clka
-> > +      - const: audio-clkb
-> > +      - const: audio-clkc
-> > +      - const: audio-clki
-> > +      - const: ssif_supply
-> > +      - const: scu
-> > +      - const: scu_x2
-> > +      - const: scu_supply
-> > +      - const: adg-ssi-0
-> > +      - const: adg-ssi-1
-> > +      - const: adg-ssi-2
-> > +      - const: adg-ssi-3
-> > +      - const: adg-ssi-4
-> > +      - const: adg-ssi-5
-> > +      - const: adg-ssi-6
-> > +      - const: adg-ssi-7
-> > +      - const: adg-ssi-8
-> > +      - const: adg-ssi-9
-> > +      - const: audmapp
-> > +      - const: adg
-> > +
-> > +  power-domains:
-> > +    maxItems: 1
-> > +
-> > +  resets:
-> > +    maxItems: 14
-> > +
-> > +  reset-names:
-> > +    items:
-> > +      - const: ssi-all
-> > +      - const: ssi-0
-> > +      - const: ssi-1
-> > +      - const: ssi-2
-> > +      - const: ssi-3
-> > +      - const: ssi-4
-> > +      - const: ssi-5
-> > +      - const: ssi-6
-> > +      - const: ssi-7
-> > +      - const: ssi-8
-> > +      - const: ssi-9
-> > +      - const: scu
-> > +      - const: adg
-> > +      - const: audmapp
-> > +
-> > +  dvc:
-> > +    type: object
-> > +    additionalProperties: false
->=20
-> blank line
->=20
-> > +    patternProperties:
-> > +      "^dvc-[0-1]$":
-> > +        type: object
-> > +        additionalProperties: false
->=20
-> blank line
->=20
-> > +        properties:
-> > +          dmas:
-> > +            maxItems: 5
->=20
-> blank line
+diff --git a/drivers/clk/qcom/gcc-sm6115.c b/drivers/clk/qcom/gcc-sm6115.c
+index 4c3804701e24..c5251aff9886 100644
+--- a/drivers/clk/qcom/gcc-sm6115.c
++++ b/drivers/clk/qcom/gcc-sm6115.c
+@@ -3218,6 +3218,7 @@ static struct gdsc gcc_vcodec0_gdsc = {
+ 	.pd = {
+ 		.name = "gcc_vcodec0",
+ 	},
++	.flags = HW_CTRL_TRIGGER,
+ 	.pwrsts = PWRSTS_OFF_ON,
+ };
+ 
 
-Will add, here and in the equivalent src, ssiu, ssi blocks.
-
->=20
-> > +          dma-names:
-> > +            maxItems: 5
-> > +            allOf:
->=20
-> Don't need allOf.
-
-I tried dropping it and dt_binding_check rejects the bare form
-("items: {const/enum} is not of type 'array'" from
-string-array.yaml). The items-as-list form doesn't fit either,
-because the length varies (up to 5 AUDMAC controllers per
-direction), so maxItems is needed alongside the per-entry
-constraint, and the meta-schema rejects maxItems together with
-an items list.
-
-The allOf wrapper is what renesas,rsnd.yaml uses on src, ssiu and
-ssi for the same kind of constraint. Is there a cleaner construct
-for "string array, maxItems N, every entry must match this enum"?
-Happy to switch if so.
-
->=20
-> > +              - items:
-> > +                  enum:
-> > +                    - tx
->=20
-> Is 5 entries of 'tx' really what you want?
-
-Yes. On RZ/G3E each direction is fanned out across up to 5 AUDMAC
-controllers. Each dmas entry points at a different AUDMAC, and all
-5 share the name "tx" so the dma-engine core's match-string lookup
-picks the first matching entry, falls through to the next when
-that provider's .of_xlate() can't satisfy the request, and so on.
-The driver just calls dma_request_chan(dev, "tx") and gets back
-whichever AUDMAC had a free channel, without needing to know the
-topology.
-
-Will expand the commit message and add a paragraph in the
-binding's top-level description making the fallback explicit
-so it doesn't read as a mistake.
-
->=20
-> blank line
->=20
-> > +        required:
-> > +          - dmas
-> > +          - dma-names
-> > +
-> > +  mix:
-> > +    type: object
-> > +    additionalProperties: false
-> > +    patternProperties:
-> > +      "^mix-[0-1]$":
-> > +        type: object
-> > +        additionalProperties: false
->=20
-> There is little point in empty nodes.
-
-The rsnd driver enumerates MIX and CTU instances via
-of_get_child_by_name(), and DT labels are attached to these
-sub-nodes for the playback/capture phandle routing arrays. Without
-the nodes there is nothing to label and nothing for the driver to
-iterate. The same empty patternProperties exist in
-renesas,rsnd.yaml today.
-
-Will add a description block on the mix and ctu objects so the
-purpose of the empty patternProperties is clear. Is there a tidier
-way to express "this node exists for labelling and enumeration
-only" that you have in mind?
-
->=20
-> > +
-> > +  ctu:
-> > +    type: object
-> > +    additionalProperties: false
-> > +    patternProperties:
-> > +      "^ctu-[0-7]$":
-> > +        type: object
-> > +        additionalProperties: false
-> > +
-> > +  src:
-> > +    type: object
-> > +    additionalProperties: false
-> > +    patternProperties:
-> > +      "^src-[0-9]$":
-> > +        type: object
-> > +        additionalProperties: false
-> > +        properties:
-> > +          interrupts:
-> > +            maxItems: 1
-> > +          dmas:
-> > +            maxItems: 10
-> > +          dma-names:
-> > +            maxItems: 10
-> > +            allOf:
->=20
-> Don't need allOf.
-
-Same situation as the dvc-N case above; will follow whatever
-resolution we land on there.
-
->=20
-> > +              - items:
-> > +                  enum:
-> > +                    - tx
-> > +                    - rx
->=20
-> 10 entries of any combination of tx and rx?
-
-Same reasoning as dvc-N but for both directions: up to 5 "tx" plus
-up to 5 "rx", each duplicate name being a separate AUDMAC fallback
-target for the dma-engine core to try. The same description
-paragraph at the top of the binding will cover this case.
-
-If you'd prefer a tighter constraint (enforcing exactly 5 "tx" +
-5 "rx" in some specific order, or splitting the property into
-separate tx-only and rx-only halves), let me know.
-
->=20
-> > +
-> > +  ssiu:
-> > +    type: object
-> > +    additionalProperties: false
-> > +    patternProperties:
-> > +      "^ssiu-[0-9]+$":
-> > +        type: object
-> > +        additionalProperties: false
-> > +        properties:
-> > +          dmas:
-> > +            maxItems: 10
-> > +          dma-names:
-> > +            maxItems: 10
-> > +            allOf:
-> > +              - items:
-> > +                  enum:
-> > +                    - tx
-> > +                    - rx
-> > +        required:
-> > +          - dmas
-> > +          - dma-names
-> > +
-> > +  ssi:
-> > +    type: object
-> > +    additionalProperties: false
-> > +    patternProperties:
-> > +      "^ssi-[0-9]$":
-> > +        type: object
-> > +        additionalProperties: false
-> > +        properties:
-> > +          interrupts:
-> > +            maxItems: 1
-> > +          dmas: true
-> > +          dma-names: true
-> > +          shared-pin:
-> > +            description: Shared clock pin.
-> > +            $ref: /schemas/types.yaml#/definitions/flag
-> > +        required:
-> > +          - interrupts
-> > +
-> > +  ports:
-> > +    $ref: audio-graph-port.yaml#/definitions/port-base
-> > +    unevaluatedProperties: false
-> > +    patternProperties:
-> > +      '^port@[0-9a-f]+$':
-> > +        $ref: audio-graph-port.yaml#/definitions/port-base
-> > +        unevaluatedProperties: false
-> > +        properties:
-> > +          reg:
-> > +            maxItems: 1
-> > +          endpoint:
-> > +            $ref: audio-graph-port.yaml#/definitions/endpoint-base
-> > +            unevaluatedProperties: false
-> > +            properties:
-> > +              playback:
-> > +                $ref: /schemas/types.yaml#/definitions/phandle-array
-> > +              capture:
-> > +                $ref: /schemas/types.yaml#/definitions/phandle-array
->=20
-> This is odd. The graph should really just point to another endpoint along
-> with any properties for the connection. These probably belong elsewhere.
-> What do these point to? Missing any sort of description or constraints.
-
-Each phandle in these arrays references one of the in-node ssi-N
-/ src-N / ctu-N / mix-N / dvc-N sub-nodes; they describe the
-in-SoC DAI module chain that the rsnd driver wires up for each
-direction. The remote-endpoint phandle on the same endpoint
-describes the off-SoC connection. The shape was carried over from
-the existing renesas,rsnd binding, which has the same properties
-on the audio-graph endpoint, and is where asoc-audio-graph-card
-and the rsnd parser read them from.
-
-I'll add proper type definitions, item constraints and
-descriptions either way. Where would you like the properties to
-live? Or is there any other approach I should have followed ?
-
-Regards,
-John
+-- 
+2.47.3
 
