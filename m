@@ -1,136 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8856C37BE8E;
-	Fri, 15 May 2026 08:21:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D7C3FA5C2;
+	Fri, 15 May 2026 08:22:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778833275; cv=none; b=UGx3yM26kefbo86lbUtBg+JOE6f08GnwLh+MuDhrDCGJXvZaIAkh5OqQ4jnM4xMAblTlhp3EbL1IkZ+EmHKkuTYiosnadhsUw9KVfRfc1P9mViFIpKIs4dNf2XTsTVb82BCT0GkAbP4Q7ZrfWiwXvSuraRrKl8EtHNgumct5Ug4=
+	t=1778833353; cv=none; b=L6p8O4Uwa/JzevGWiUgXNSGiRDcHC7MwdC+oz4NPJFSQDj7JzfxOYxYqqIVvc9v+qm38xXyKO74tWEnY/a4IT/jIXJoFkWDFyNELIoEKiJJM3OdbHD8YapovaxBh88VEs5B1k8ivBQN23lit3inh9BD6rApSXg5ow1V6tpH79M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778833275; c=relaxed/simple;
-	bh=fncsyLLDmUrl81XOBce8mHfBxoufAcTXHGLJ6bqsG7E=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KtMM8Vx912GWAgubfQgBQv2DoCb9JUWYXRfIc6y7F9A9al/333bpJ25CVAHONVzlZ5SDZdtcvQHx9fc6j6MOYnesScUGymfr64AfMascgw0N0WDoBeQ5rfbIKBQPZo2xjLypCY67A6IVIe04RayPk+zpjQTEkO7hC4nXpytXr2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RONHB/qJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778833353; c=relaxed/simple;
+	bh=PWLpYmkZQKvLg5eHKoPsig10udV2ltm5dbRXSSmqIKs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aLmiSHp65EF65Fmgigh63X5XIo+WrrTSzk0qiuNdLglJKDPWj0ETcVONvtnOewqZsrche3bGUIk67aDs7HW/cVMpQKaniLepoZvBQjkLKhqCU0iPfnxXEuLathVMsE9b8ClAMos4puse5imOW7Qwu29mSv5TUVhDwC5Tp5xvWMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q0sum3tP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RONHB/qJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25A4AC2BCB0;
-	Fri, 15 May 2026 08:21:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q0sum3tP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96DCC2BCB0;
+	Fri, 15 May 2026 08:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778833275;
-	bh=fncsyLLDmUrl81XOBce8mHfBxoufAcTXHGLJ6bqsG7E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=RONHB/qJX7Ul1SwBf8w5jd1/wiJlcPuopA9ysOcyCb94v4nTqEMfiHO8PJx0v7CLU
-	 YVzE4FuZranY00gdvM9yyFsgiQt/4bWSklthqBzHevyQCwmjokoyPUzbLjV1LFpm3b
-	 6yk6MqofiEDxiQWnB8L5hf9KWav78XnN1B07FC1tKb8aKoszt8VnIKddjKaEcDT/tv
-	 bi3IvE0HzoZB1A0CEnkYiiWHxWgcCkNLNyaRrctQgSxp9nUeHE0u9h7MxtcWxhSg3h
-	 EFby8Ja5+5Eh0OLe0+6e2KbeqElZWqMX098hy3tHhy4kEGaEda/x9tl2FX8GueMqPj
-	 o3IQVSnGw8HiQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wNnnF-00000002byC-0ORI;
-	Fri, 15 May 2026 08:21:13 +0000
-Date: Fri, 15 May 2026 09:24:28 +0100
-Message-ID: <87se7t9j2b.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: Re: [PATCH v2 13/17] arm64: dts: qcom: Add EL2 virtual timer interrupt
-In-Reply-To: <20260514230629.34892C2BCB3@smtp.kernel.org>
-References: <20260514150945.3917510-14-maz@kernel.org>
-	<20260514230629.34892C2BCB3@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20201202; t=1778833353;
+	bh=PWLpYmkZQKvLg5eHKoPsig10udV2ltm5dbRXSSmqIKs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=q0sum3tPGcjRCxrACE7YjnyVeZA1qAP567X7iTVccaLyqCA0PDP1SQBYiBron9V4K
+	 xWQeP+O5OXDLWsq/oM4bWJD1dtrQJ78VHEa2J1n0IECZjBM7hukWME6ugWjdZKRw1x
+	 z/cJZVWF9b1b3jkmcfIchMtEjcz8WzWQgMPH5nS5F7/Lj9uwSjjve0IcxgmHZmhTJA
+	 R45aozgT/rqpvFjmx6Zk8qnkMpxQewHOtQIyY7IqeQXZ6RrIH20w4+v8PG2DJAygMu
+	 0wS4yLVWyR6uDxlywqoY9AbzcDvaSotjTB8TvkBNQakbFW2i3eD/b13fCDmm88I1xC
+	 J5jOMwOsqb40w==
+Date: Fri, 15 May 2026 10:22:30 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: mfd: qcom,tcsr: Document the IPQ9650 TCSR
+ block
+Message-ID: <20260515-flawless-space-groundhog-0fcfaf@quoll>
+References: <20260511-ipq9650_tcsr_binding-v1-1-a41f612da54a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: sashiko-reviews@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260511-ipq9650_tcsr_binding-v1-1-a41f612da54a@oss.qualcomm.com>
 
-On Fri, 15 May 2026 00:06:26 +0100,
-sashiko-bot@kernel.org wrote:
+On Mon, May 11, 2026 at 10:28:04PM +0530, Kathiravan Thirumoorthy wrote:
+> Document the TCSR block found on the Qualcomm's IPQ9650 SoC.
 > 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The commit message claims to add the EL2 virtual timer interrupt, but for `sdx75.dtsi` and `milos.dtsi` it actually adds the EL2 physical timer interrupt (`GIC_PPI 10`).
-> --
-> 
-> commit 3f4b80b2c0c05477bcee12a9ba5b2e0a5b15a672
-> Author: Marc Zyngier <maz@kernel.org>
-> 
-> arm64: dts: qcom: Add EL2 virtual timer interrupt
-> 
-> This commit adds the missing EL2 virtual timer interrupt to the timer nodes
-> across multiple Qualcomm SoC device trees.
-> 
-> > arm64: dts: qcom: Add EL2 virtual timer interrupt
-> > 
-> > The ARMv8.1+ based CPUs used in a number of Qualcomm SoCs are missing
-> > the EL2 virtual timer interrupt. Add it.
-> 
-> Is this description entirely accurate?
-> 
-> The commit message explicitly states it adds the missing EL2 virtual timer
-> interrupt, but it appears to also add the EL2 physical timer interrupt in
-> a couple of files where the virtual timer was already present.
-> 
-> [ ... ]
-> 
-> > diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
-> > index 4a64a98a434b6..b991124b8ce9f 100644
-> > --- a/arch/arm64/boot/dts/qcom/milos.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-> > @@ -3235,6 +3235,7 @@ timer {
-> >  		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW 0>,
-> >  			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW 0>,
-> >  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW 0>,
-> > +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW 0>,
-> >  			     <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW 0>;
-> >  	};
-> >  };
-> 
-> Does this inadvertently add the EL2 physical timer instead of the virtual
-> timer?
-> 
-> The virtual timer (GIC_PPI 12) is already present here, and this addition
-> is for GIC_PPI 10.
-> 
-> [ ... ]
-> 
-> > diff --git a/arch/arm64/boot/dts/qcom/sdx75.dtsi b/arch/arm64/boot/dts/qcom/sdx75.dtsi
-> > index d1b61530b562f..b6cdf71051026 100644
-> > --- a/arch/arm64/boot/dts/qcom/sdx75.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/sdx75.dtsi
-> > @@ -1583,6 +1583,7 @@ timer {
-> >  		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-> >  			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
-> >  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-> > +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
-> >  			     <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>;
-> >  	};
-> >  };
-> 
-> Similarly, could the commit message be updated to mention this fix, or
-> should this physical timer addition be split into a separate patch?
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
 
-These hunks were not supposed to be there, and were intended as a
-separate fix (though I suspect these machines have never booted Linux
-at EL2...).
+NAK, I said it way too many times. You just sent COMPLETELY separately
+IPQ5210 and on the same day, completely separately this patch.
 
-I'll drop that from the next round.
+I gave this feedback publicly and internally to Qualcomm already
+multiple times.
 
-	M.
+NAK
 
--- 
-Jazz isn't dead. It just smells funny.
+Best regards,
+Krzysztof
+
