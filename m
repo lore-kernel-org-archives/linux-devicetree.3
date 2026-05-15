@@ -1,114 +1,198 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEAC3EE1C2
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD842D5941;
+	Fri, 15 May 2026 08:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778832476; cv=none; b=QEA94AUKJzcPvEApiCkoRrXOupN03sWfQCqbzVUlLmSjY1jWgBPLk0I0b6oW5WnKGOm6puqYs+94zNHgZn58O+OxCzPSy1LFHMTc4HERrUz/yhgEuO3usTwNsw8Taq/xdWBI+XYKiZUAUPC3LJ4tjTk16X4mFxzZ7RCTmO/yEBU=
+	t=1778832546; cv=none; b=kjmI2jNLgStrVQnyjnB0C/tuOCJWfzDLPcvzqZpZNolNHhNBlDV3MQwAuR16FoJg8NQZsc6LJ1QD2/aGQgyB3/VPEUC3ubyJZCJrVQ5uyXkPK+ts65g8G37CS0fz14WzcrRceMPFftiXd+Qit71bUIfWNPkvuq82sxtVai0auBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778832476; c=relaxed/simple;
-	bh=li6NXU7sST/n8eXTPpy/Kpdi+fuxsdYH6rwtrEYDBl0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XmxTyqgNPDyPISjob5T1VqSuyeTGIZw97/JfXs5bKi0zfzlXf9qSklpqGyPPrgFQ+HLgLRxpOxefOnXTaFhlcMVEWJjYHDrMxQzTcunW4UDf5nmGmxyfU85GFZv6HnxEugzUfhaua31PGMzf1byrx5683u+Gy5/2vBPJ5tV6g38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8b6dd874471so116047616d6.0
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 01:07:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778832474; x=1779437274;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mk3+gk0uvDvPr4J0ZYYOynNFHdcw9MrgwNKr9DcQAuQ=;
-        b=cFPNM5cVmUFS1jGcEbIM1DSe7GlhhzXJsEjutsJsZ91bClxADzRf2EO2hXSRJiF/1m
-         dVpnobbWkpb0h6LLBy3dmlraPmEQlVrocLSH2yKfawkAEnk4IjB+qj8+xSH5CeA1xm4l
-         sNVrM17hEn0Pen/+/+uIeLsZM3K8eUhGR50KRCQwPFgs8QxOEUEPH6nPQ++0EESNBRFq
-         bwQG8ypZ0Dt0JiWW3pwcLyqbnZBwtYT6uFqF4UFLvjQLUYtwY58TrgiNYrKI6paMmIDy
-         X8WjyaLPeQabb/tqkPbi1ZevmgNtCNWZMrCdy3hNwR5jNfq/F2XoeCHXnVzZ3JiAl5wR
-         56hQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+XGmXD+Sco6d8QkBDn9EZ/kcEs+1BLVzoowD2g52weDFlIHKUpo50jvyJNcOVNL8zRJwnJhoWRaGsZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6Jsl83d2McsCDyNrPWv63AiZ/e7JbHoo9AlnjQn3wSNfJBxSp
-	VZzVkWPN/ex3oDgSjn2Tap+1jE0597YuRVHZqoZUGbzWgw/lp8TpJ5udfOOtfds/
-X-Gm-Gg: Acq92OEgLIh7hcTZp6kNKoL1IsG5ZLfd3heWTQduycQHHNW3ifT1R61sET1bP/E879Q
-	u/aZoyHcgSgkxiBaHOeDGm0qRPlLzzgqzskFrCebPbXnaxOLIkYezm95cc1sCYWQaoUyP62bW7i
-	s5Fk6GismOqDNmy9brLGqe+SfV0qSlIC3UoIpGf5cYqYo6rGbwgwTNwAz7vL3fk7cLTZ/yqaOzY
-	w9eAasaDr6ptBSRf35AvDi6VaIEB2bXvVyomN2nsY4bhsYGNS6gi3DtfUxw5ITzKc0y9bz92/61
-	+d8FsztCqmE1w/C3mJxpF+JmVgl9o34btC+/jQbS7Dg57yclhI+mnjaepZfJARdlrBpaiMgCPyu
-	3mnFNHLepxyrrulEps9keORGc8zPjIQ/Ko4Q6GhWFoZcTyInPds2eQODxwh4BIGtkZQnQgnYIwp
-	EBpKmdMGw6SadC48kX8l6hlUyaBk81C7DBkxcfo9cdjBUzbAuUC3K4L+LgkCP/+RwX
-X-Received: by 2002:a05:6214:601b:b0:8bd:c9ca:7b5c with SMTP id 6a1803df08f44-8ca0f6e4e26mr44584956d6.44.1778832474297;
-        Fri, 15 May 2026 01:07:54 -0700 (PDT)
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com. [209.85.160.180])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8c908f0601asm48326616d6.17.2026.05.15.01.07.53
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 01:07:53 -0700 (PDT)
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-516389a9b70so22374451cf.3
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 01:07:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9zNyB3RPeInL8+qIs96cMGoo0/ptPB95rer4nzBjBsiDxhCTobDFy7f2UlogPAz7POL8IRZVvkH39i@vger.kernel.org
-X-Received: by 2002:a05:6122:ec7:b0:575:44b3:300d with SMTP id
- 71dfb90a1353d-5760c0528f5mr1639450e0c.10.1778832080852; Fri, 15 May 2026
- 01:01:20 -0700 (PDT)
+	s=arc-20240116; t=1778832546; c=relaxed/simple;
+	bh=Bg1YT47zyTBWhwh0sSsEf1oPFueOBupCLeeynnys2HI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ozpem2nP5nE+d3vFJRZB6psIpsmK1SJWKv8FSBP8qUXVlKc/B48uHL3A7H94soJwe8KxvDUKSH2pyRDGQ/1+PViOZLYQBvY5nF/rka4+xuz3Z6Y5TcFpFkyBV4RYk2QxQyejXYICxNY+Kl0XaT13MM9Y+Ij838daNQmZbndxVME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vNTOm601; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vNTOm601"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70295C2BCB0;
+	Fri, 15 May 2026 08:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778832546;
+	bh=Bg1YT47zyTBWhwh0sSsEf1oPFueOBupCLeeynnys2HI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vNTOm601qZQyM9NgdondIjlzH01Q1CG7YdS5AgL6NV15huyEn/G5DKJSeDw1NzIVu
+	 thjZF1bzS4pQhwkwA07lyUn25QBWDIqArSxr7+EoJ4IAjJKohxBLtRQ8JCqP/A684b
+	 p9aoJuB8si12qsbvVcaL8BDgsV8eaIybycR9kQv3qpRKmTIcVhyDFxiZc2H2oiJpF2
+	 Trq2LzeONPJPe8tcuiejcDJMBsDW+ioARKNuXmm46Bali1i87BpDyBy0/1GBA/+jxH
+	 8LSFT7lLUZHSTQMgkjRv3Fh0+gDzIQ0Y3kcwg4RDhyxX8IQB3cT/2dBeCC7+JbFw0n
+	 1pkY+tlnELCkQ==
+Date: Fri, 15 May 2026 10:09:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jian Hu <jian.hu@amlogic.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Xianwei Zhao <xianwei.zhao@amlogic.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 02/10] dt-bindings: clock: Add Amlogic A9 PLL clock
+ controller
+Message-ID: <20260515-subtle-sepia-tuatara-cfee3d@quoll>
+References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
+ <20260511-b4-a9_clk-v1-2-41cb4071b7c9@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-In-Reply-To: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 15 May 2026 10:01:09 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdU_HF-L+KrMNTUMO0_ukfVJE=nZLjoadFFWf0qDopKs8A@mail.gmail.com>
-X-Gm-Features: AVHnY4Juo1yrSdWSEhGd8PIKGe45raKjJnOdNJywoBplErTdAE8Qpe6uxcK4nzs
-Message-ID: <CAMuHMdU_HF-L+KrMNTUMO0_ukfVJE=nZLjoadFFWf0qDopKs8A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/5] drm/rcar-du: Add support for DSI pipelines with DSC
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260511-b4-a9_clk-v1-2-41cb4071b7c9@amlogic.com>
 
-Hi Tomi,
+On Mon, May 11, 2026 at 08:47:24PM +0800, Jian Hu wrote:
+> Add the PLL clock controller dt-bindings for the Amlogic A9 SoC family.
+> 
+> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> ---
+>  .../bindings/clock/amlogic,a9-pll-clkc.yaml        | 110 +++++++++++++++++++++
+>  include/dt-bindings/clock/amlogic,a9-pll-clkc.h    |  55 +++++++++++
+>  2 files changed, 165 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/amlogic,a9-pll-clkc.yaml b/Documentation/devicetree/bindings/clock/amlogic,a9-pll-clkc.yaml
+> new file mode 100644
+> index 000000000000..4ee6013ba1a1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/amlogic,a9-pll-clkc.yaml
+> @@ -0,0 +1,110 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (C) 2026 Amlogic, Inc. All rights reserved
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/amlogic,a9-pll-clkc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Amlogic A9 Series PLL Clock Controller
+> +
+> +maintainers:
+> +  - Neil Armstrong <neil.armstrong@linaro.org>
+> +  - Jerome Brunet <jbrunet@baylibre.com>
+> +  - Jian Hu <jian.hu@amlogic.com>
+> +  - Xianwei Zhao <xianwei.zhao@amlogic.com>
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - amlogic,a9-gp0-pll
+> +      - amlogic,a9-hifi0-pll
+> +      - amlogic,a9-hifi1-pll
+> +      - amlogic,a9-mclk0-pll
+> +      - amlogic,a9-mclk1-pll
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#clock-cells':
+> +    const: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: pll input oscillator gate
+> +      - description: fixed input clock source for mclk_sel_0
+> +      - description: u3p2pll input clock source for mclk_sel_0 (optional)
 
-On Fri, 15 May 2026 at 09:56, Tomi Valkeinen
-<tomi.valkeinen+renesas@ideasonboard.com> wrote:
-> Some DSI pipelines have DSC (Display Stream Compression) IP block
-> between the DU and the DSI. Even if DSC is not needed, the IP must be
-> enabled for the DSI output to work.
->
-> This series adds a basic DSC driver, so that the DSC IP gets enabled in
-> bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
-> the DP output comes from DSI and sn65dsi86 bridge.
->
-> Original series from Marek.
+Second clock is also optional. Drop "(optional)" comment, just
+confusing.
 
-Thanks for your series!
+> +    minItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: in0
+> +      - const: in1
+> +      - const: in2
 
-Now we can revisit "[PATCH/RFC 1/1] arm64: dts: renesas: white-hawk:
-Add mini-DP output support", too?
-https://lore.kernel.org/05e43f61321b4191d5f97dec2349facd4b56c899.1729240989.git.geert+renesas@glider.be/
+Pretty pointless names, drop property.
 
-Gr{oetje,eeting}s,
+> +    minItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - '#clock-cells'
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amlogic,a9-mclk0-pll
+> +              - amlogic,a9-mclk1-pll
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 3
 
-                        Geert
+No, minItems instead. maxItems is already 3, so what is the point of
+redefining it?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> +
+> +        clock-names:
+> +          maxItems: 3
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amlogic,a9-gp0-pll
+> +              - amlogic,a9-hifi0-pll
+> +              - amlogic,a9-hifi1-pll
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +
+> +        clock-names:
+> +          maxItems: 1
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    apb4 {
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+soc
+
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        clock-controller@8200 {
+> +            compatible = "amlogic,a9-gp0-pll";
+> +            reg = <0x0 0x8200 0x0 0x20>;
+> +            #clock-cells = <1>;
+> +            clocks = <&scmi_clk 0>;
+> +            clock-names = "in0";
+> +        };
+> +
+> +        clock-controller@8330 {
+> +            compatible = "amlogic,a9-mclk0-pll";
+> +            reg = <0x0 0x8330 0x0 0x14>;
+> +            #clock-cells = <1>;
+> +            clocks = <&scmi_clk 4>,
+> +                     <&scmi_clk 8>;
+> +            clock-names = "in0", "in1";
+
+One example is enough, you have exactly the same properties.
+
+
+Best regards,
+Krzysztof
+
