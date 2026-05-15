@@ -1,176 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F07F1DED5C
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 23:10:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FFA35E1A2;
+	Fri, 15 May 2026 23:16:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778886636; cv=none; b=CoFR0Fu8Ex5ZVLO4AOSLU8gE5aRakNAwc1+wwaKoSpBmRnDDTIhCzYuFLFl0/SnEGCESwK10OW/IzmqlSfOijSSKakeco5c+sx3+RVpiQhTmLHJYhsgkH7g4arub4kFsDdYgX61jRDtqFNegoMioxgJOCecLAGa+4PDieQKmiow=
+	t=1778886997; cv=none; b=fr/WnCw1PaFMU4QqOiSPkHyBSzGcFaoKGY6wGobOhonAq05jIok2pZW2csO5NNJSXotDGXJEK8S5xbruEu1SM75N8Qc0grwnw3k7dS2vW4cd+0LdeixfJkuHaSjev0UCYckYzgF8+I5Kc8TM/2GBLn0/EKRIcE10RHbuxrMZ7gA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778886636; c=relaxed/simple;
-	bh=wR2NeTEdNLRmu5RIoAUcBF2xvfP+9PVBdZAZHlHb3bs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ulGVNOBnuEm7k8nmI8+mkSEhvndNvc6kZAplO3MWQIdkEGkO85sbWbuHYyNKJ2HyGfRyFTVXMQSDN/rgUgtUSyztWCy5N0cX+mxToDYpZpZLfHzAe4EIwYqQHiRF2Su1EJ1vcN5lO8LxTOUfP1YKUe9uSEw+jBiF4IRIq86eJrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DwUCsyR9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778886997; c=relaxed/simple;
+	bh=ZMsRxrh8IFDEBxFzQ/V211V80nqkkiWsjoCKrZR1w5g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=vD+InHRToHdu9Kr48CJuW5mfepkOq2gNy7xQkgTZ7fGv2M92bpwK5QlKT12YBS9/D8qGIBaTLFb780grpJFoqczhgxuDLd90PBYxoRapAV+zyB5GHbjMhZUwxqVGMlUVA+/Yjj5A8k4pO2SM64MaKjNOIByRYHgyKSCsVZ4V/8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sb4P3A9o; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DwUCsyR9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E181C2BCB0;
-	Fri, 15 May 2026 23:10:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sb4P3A9o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE22FC2BCB0;
+	Fri, 15 May 2026 23:16:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778886636;
-	bh=wR2NeTEdNLRmu5RIoAUcBF2xvfP+9PVBdZAZHlHb3bs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=DwUCsyR9HHu2sccbvg+4VW7WMo6U6hDYpXyuCJqO0kHqNB0ifA4B8C5O8xxosWIFt
-	 0r33c/LaprJ7dfdxwnXkUHkYiX40yZhNfkwndshTiKE3I0TYvx2IuA2kMeaDKlTtC6
-	 dC700sV7QRPGdFOFQ5vFuEQdn/s2EKcvw3YsYtfz9KekTKOh5TUcneVyFuMUMwWMuv
-	 pUWFYomrollkPKD8z2qGhCz0zN8SePLnYYWlaaPgnUrD8myyNZm9bPSNTLewaUaRBi
-	 Isv3OCYKKZImTYRG4P07nXI7H3r60vyD8DpgldE8a5lDwVS6DC5PFIdiCc2hOWDZ8x
-	 JREV72N3LzVhQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 4/6] drm/panel: anbernic-td4310: Add RG Vita Pro
- panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515221947.299229-5-macroalpha82@gmail.com>
-References: <20260515221947.299229-5-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 23:10:33 +0000
-Message-Id: <20260515231034.9E181C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778886996;
+	bh=ZMsRxrh8IFDEBxFzQ/V211V80nqkkiWsjoCKrZR1w5g=;
+	h=From:Subject:Date:To:Cc:From;
+	b=Sb4P3A9ofeB4/IMZIUaGSGePnhU57lTe3uh736tE1qTfVM8eozWGJs2OtUeMwOE36
+	 /5ilJZDZCStE3xpTQTVxM01wRZSP9y7EuHLDAegfxzgke5Zcttt0xJYBriwN1sXwdS
+	 Jy1/UMrTdHwKqWDFEWa0OVFKWZJ6Md62P/vQVDuY+3IPqluBwI4GvagAOmKbLGpPTf
+	 LI6Daih7v3y0Taf6LIVvzA/xwfYYhlk2c0Q2dD9VTD8aJsbvkCyX2Rotg7rmhVlRV0
+	 Xqg13TfDeTG+6bLvlUHh1SsisRQ3DXqclgcguqEhh4V/8prTLHuz4cazkJ5aV8PUHV
+	 t5nvfpLe9urig==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 0/5] net: dsa: microchip: Add support for
+ KSZ8995XA/KS8995XA
+Date: Sat, 16 May 2026 01:16:12 +0200
+Message-Id: <20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDUwNL3exiC0tLU92SfCCrykLX0DTNOM0y2cLI3DBNCaipoCg1LbMCbGB
+ 0LIRfXJqUlZpcAjJFqbYWAHEG089yAAAA
+X-Change-ID: 20260509-ks8995-to-ksz8-15f3f9c8271f
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Resource leak and hardware state mismatch on prepare error path.
-- [High] Enable GPIO is incorrectly asserted during probe before the VDD re=
-gulator is enabled.
-- [Medium] Panel-specific delay configuration fields are ignored in favor o=
-f hardcoded values.
-- [Low] Extraneous semicolon after if-statement block.
---
+This series breaks with the dated attempt to polish the old
+KS8995 driver, and instead implement support for the KS8995XA
+in the KSZ driver, and after that delete the old KS8995 driver.
 
-commit b88e27c6a433bac0f5f02ad289ba084e02f359ed
-Author: Chris Morgan <macromorgan@hotmail.com>
+The hardware clearly has the same ancestry, the KSZ8995XA is
+just a rebrand of the much older Micrel KX8995XA switch.
 
-drm/panel: anbernic-td4310: Add RG Vita Pro panel
+The old drivers referce to "KS8995" was actually KS8995XA only,
+it never supported the sibling devices KS8995E or KS8995MA.
+This is reflected in this patch set.
 
-This commit adds support for the TD4310 DSI panel used in the Anbernic RG
-Vita Pro handheld console. It introduces a new panel driver with power
-sequencing, DCS initialization, and display mode definitions.
+Add new compatibles, add special code paths for the KSZ8995XA
+and add a new tagger for the special front tag found in the
+KSZ8995XA.
 
-> diff --git a/drivers/gpu/drm/panel/panel-anbernic-td4310.c b/drivers/gpu/=
-drm/panel/panel-anbernic-td4310.c
-> new file mode 100644
-> index 0000000000000..733c68ff9771b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-anbernic-td4310.c
-[ ... ]
-> +static int panel_anbernic_td4310_prepare(struct drm_panel *panel)
-> +{
-> +	struct anbernic_panel_td4310 *ctx =3D panel_to_anbernic_panel_td4310(pa=
-nel);
-> +	struct mipi_dsi_device *dsi =3D ctx->dsi;
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
-> +	int ret;
-> +
-> +	ret =3D regulator_enable(ctx->vdd);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (ctx->enable_gpio) {
-> +		ret =3D gpiod_set_value_cansleep(ctx->enable_gpio, 1);
-> +		if (ret)
-> +			goto err_enable;
-> +	};
+The patches were tested with the Actiontec MI424WR rev D (which
+has the KS8995XA) and OpenWrt as userspace.
 
-This isn't a bug, but is there an extra semicolon here after the if block?
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (5):
+      net: dsa: microchip: Add fallback Micrel compatibles
+      dt-bindings: net: dsa: microchip: Add KSZ8995XA
+      net: dsa: tag_ks8995: Add the KS8995 tag handling
+      net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+      net: dsa: ks8995: Delete surplus driver
 
-> +
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	mipi_dsi_msleep(&dsi_ctx, 10);
-> +
-> +	ret =3D gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	if (ret)
-> +		goto err_reset;
-> +	if (ctx->panel_info->reset_delay)
-> +		mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->reset_delay);
-> +	ret =3D gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	if (ret)
-> +		goto err_reset;
-> +
-> +	if (ctx->panel_info->enable_delay)
-> +		mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->enable_delay);
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 100);
+ .../devicetree/bindings/net/dsa/microchip,ksz.yaml |   1 +
+ drivers/net/dsa/Kconfig                            |   8 -
+ drivers/net/dsa/Makefile                           |   1 -
+ drivers/net/dsa/ks8995.c                           | 857 ---------------------
+ drivers/net/dsa/microchip/Kconfig                  |   1 +
+ drivers/net/dsa/microchip/ksz8.c                   | 105 ++-
+ drivers/net/dsa/microchip/ksz8_reg.h               |   2 +
+ drivers/net/dsa/microchip/ksz_common.c             | 115 ++-
+ drivers/net/dsa/microchip/ksz_common.h             |  11 +-
+ drivers/net/dsa/microchip/ksz_spi.c                |  33 +-
+ include/linux/platform_data/microchip-ksz.h        |   1 +
+ include/net/dsa.h                                  |   2 +
+ net/dsa/Kconfig                                    |   6 +
+ net/dsa/Makefile                                   |   1 +
+ net/dsa/tag_ks8995.c                               | 134 ++++
+ 15 files changed, 376 insertions(+), 902 deletions(-)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260509-ks8995-to-ksz8-15f3f9c8271f
 
-Does this code ignore the prepare_delay and init_delay fields defined in
-anbernic_panel_td4310_info by using a hardcoded 100ms sleep?
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 100);
-> +
-> +	return dsi_ctx.accum_err;
-
-If mipi_dsi_dcs_exit_sleep_mode_multi or mipi_dsi_dcs_set_display_on_multi
-encounters an error and populates dsi_ctx.accum_err, does this return bypass
-the err_reset and err_enable cleanup paths?
-
-If the DRM framework does not call unprepare when prepare fails, does
-this leave the vdd regulator enabled indefinitely and the GPIOs in their
-active states?
-
-> +
-> +err_reset:
-> +	gpiod_set_value_cansleep(ctx->enable_gpio, 0);
-> +err_enable:
-> +	regulator_disable(ctx->vdd);
-> +	return ret;
-> +}
-> +
-> +static int panel_anbernic_td4310_unprepare(struct drm_panel *panel)
-> +{
-> +	struct anbernic_panel_td4310 *ctx =3D panel_to_anbernic_panel_td4310(pa=
-nel);
-> +	struct mipi_dsi_device *dsi =3D ctx->dsi;
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-
-Are the disable_delay and unprepare_delay fields defined in
-anbernic_panel_td4310_info intended to be used here instead of the hardcoded
-120ms sleeps?
-
-[ ... ]
-> +static int panel_anbernic_td4310_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev =3D &dsi->dev;
-> +	struct anbernic_panel_td4310 *ctx;
-> +	int ret;
-[ ... ]
-> +	ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ctx->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> +				     "Cannot get reset gpio\n");
-> +
-> +	ctx->enable_gpio =3D devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_H=
-IGH);
-
-Does initializing enable_gpio with GPIOD_OUT_HIGH assert the GPIO
-immediately during probe, before the vdd regulator is enabled in
-panel_anbernic_td4310_prepare?
-
-Could driving control pins active while the main IC power supply is off
-cause leakage current or latch-up through ESD diodes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515221947.2992=
-29-1-macroalpha82@gmail.com?part=3D4
