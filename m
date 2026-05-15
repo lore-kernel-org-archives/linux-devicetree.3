@@ -1,74 +1,255 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F7B3E3173;
-	Fri, 15 May 2026 07:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E713241139;
+	Fri, 15 May 2026 07:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778830647; cv=none; b=O/FdPtWIcDWtnQwfBojhtR72t4CWK1oJI1uBgcrS/OutGRfph6LIItqIxJ6l1ZHxtF0G/lM2fISYpTZCzQnxchGvcm7yGf+5EDcL1ZNdcWWDxh6R++aesq4rx2j5TLHMG8pvK/jC+sI4e4m+wGtt85CaZELCw+9AQ019rnba7ZU=
+	t=1778830731; cv=none; b=RdNJtQaLVxRF7SzAHK5WyeVnAKL/9w81wB/ZXyfq2ZCBuhU7cedz/Yajicj7npagc/LNpWipTTZ4q2a3ut4834wFIlZKmt5ZCru8k1aT4E5ZJ71lXiTNXom/vTXokWySKG09+m7NCpOfojCiduu6yxpzdfVfCIJk64ipx/4jS3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778830647; c=relaxed/simple;
-	bh=a8EYgOEz++YwUaCdJC5iuFQH3G+D7Z3AA/LV/KjouHQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VQ8KaKEfPqxJZ8s2ApaE7UvLEGWcfsCyWUgSgPLDhENVgwaz0nsKR6CdyaXNuBa625gf9JOZKoETXWiMpCIYzWcvBKGB6x0acsuWjh7uIN8bdD0zyBsSMeT8h8w61pkdpLswK0Z0PORI1m0MMITijACtMdkCD1Lc2sBBTWwffBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvCFukU+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778830731; c=relaxed/simple;
+	bh=YRLf0lurFbfXEuuPH6jbfmoCndoC1re7fD+TOa1Oyjk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IRcFTBakO/eDm4rkXSqrS6gKFgESR/hKKf4FGPFzLOa62PQ68C0lboqBYOXtC7ZElWA3eZ4unQAlSScbRhYR78K+jRBCX4u1NwYZNHtV+bRSz2XJheEHb4kD+L7nl64ATJ2prI9cvyFVGjPFLeA3M4smxi7kP9glssN3V1Gf7Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=WxtNl0oq; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvCFukU+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A80C2BCB8;
-	Fri, 15 May 2026 07:37:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778830646;
-	bh=a8EYgOEz++YwUaCdJC5iuFQH3G+D7Z3AA/LV/KjouHQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IvCFukU+krehMgs77r1eo1DOe8p6PhMicmvj3a2hns+H7LMtIip+pPzY/sklR7o2s
-	 +KB9LebJmj3GJJxDcscEY9TQo4ZA3NyhuNHhpEaao1szG3L7D+LLMtE68Vf/3L1iGP
-	 AuVAqPf30D73I4Gc/fV5p6yFZjkaG5xcjLcak61mclalI4bs6SKAV5bmsHZnUmqOXW
-	 wCFVoYZdMJFkXOSjZsu/7e1DUBgHZuX9dvGvmqR+SK/EurDnrwD8tQkAw9Pd/uQfXR
-	 ciPYKQCiRuPbWNHrzvSo8bhagrEr91UH5eS4marGBbBkpilrSMWE8jqr+eOGKG4KSg
-	 EXd+BEohmQXKw==
-Date: Fri, 15 May 2026 09:37:24 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexandre Hamamdjian <azkali.limited@gmail.com>
-Cc: Philippe Simons <simons.philippe@gmail.com>, 
-	Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Silergy SY7758
-Message-ID: <20260515-friendly-anaconda-of-dew-abd4dd@quoll>
-References: <20260511-sy7758-v1-0-999a33081304@gmail.com>
- <20260511-sy7758-v1-1-999a33081304@gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="WxtNl0oq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1778830729; x=1810366729;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YRLf0lurFbfXEuuPH6jbfmoCndoC1re7fD+TOa1Oyjk=;
+  b=WxtNl0oqqOIgV4I4JMpofPq2lFpHGNqDXjlNZddyqZY2zg3oBepwJueL
+   w/UC2xhIrJSWyay3c/hknK3smE+Qh4k2MRkcJGbdXfKZDFqRo9nlsiM82
+   lImuaHpt0aIC+12FOQdVGbrPol/R4MbBuTX24uw2cWxAZ3xMNpo4GdyFk
+   pbSS5OabJTdE4Ks2lHhFxISIk9O7gtKv2uhItlOWMSaQ9W7ifjxCF0qdX
+   eNsA4IpLQr5eTt2Gl1VCMo7Z29MWUB84jjt8zRKwCWQUEaLnSNFOBdPKx
+   fhj6e3J5HDA8RDo8mo0N5CK6yBtmooJt9FZ5pMeGD8Vlo2qMx/FBgT2pS
+   Q==;
+X-CSE-ConnectionGUID: v9Dn61O4RUWO9G2t+3/DGg==
+X-CSE-MsgGUID: h7E9LxoKTimEBkOISndbBw==
+X-IronPort-AV: E=Sophos;i="6.23,236,1770620400"; 
+   d="asc'?scan'208";a="224790273"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 May 2026 00:38:48 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.37; Fri, 15 May 2026 00:38:48 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex04.mchp-main.com (10.10.85.152)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 15 May 2026 00:38:44 -0700
+Date: Fri, 15 May 2026 08:38:07 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+CC: Conor Dooley <conor@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul
+ Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Lianfeng
+ Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v2 03/22] pinctrl: pinctrl-generic: Make the "function"
+ property optional
+Message-ID: <20260515-dandruff-shorts-d7417c6e977a@wendy>
+References: <20260514111218.94519-1-changhuang.liang@starfivetech.com>
+ <20260514111218.94519-4-changhuang.liang@starfivetech.com>
+ <20260514-operation-remix-9f9fcf9a6102@spud>
+ <ZQ4PR01MB120245CDE718812D1C65638AF2042@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TfqgCJgMGabClEuj"
 Content-Disposition: inline
-In-Reply-To: <20260511-sy7758-v1-1-999a33081304@gmail.com>
+In-Reply-To: <ZQ4PR01MB120245CDE718812D1C65638AF2042@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 
-On Mon, May 11, 2026 at 12:08:02AM +0700, Alexandre Hamamdjian wrote:
-> The Silergy SY7758 is an I2C-controlled multi-channel LED backlight
-> driver typically used to drive the edge-lit LED strings of LCD panels
-> in handheld and embedded devices. Brightness is programmed as a 12-bit
-> linear value through two 8-bit registers.
-> 
-> Document the binding for the new compatible "silergy,sy7758" so it can
-> be referenced by board device trees and the matching driver, and add a
-> MAINTAINERS entry covering both the binding and the upcoming driver.
-> 
-> Co-developed-by: Philippe Simons <simons.philippe@gmail.com>
-> Signed-off-by: Philippe Simons <simons.philippe@gmail.com>
-> Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
-> ---
->  .../bindings/leds/backlight/silergy,sy7758.yaml    | 47 ++++++++++++++++++++++
+--TfqgCJgMGabClEuj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This was already sent two weeks ago:
-<20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-1-308140640de9@linaro.org>
-and that posting looks closer to complete.
+On Fri, May 15, 2026 at 05:55:48AM +0000, Changhuang Liang wrote:
+> Hi, Conor
+>=20
+> Thanks for the review.
+>=20
+> > On Thu, May 14, 2026 at 04:11:59AM -0700, Changhuang Liang wrote:
+> > > Some pinctrl subnodes only need to configure pin properties (e.g.,
+> > > power-source, bias, drive strength) without assigning any mux functio=
+n.
+> > >
+> > > Currently, the driver requires a valid "function" property for all
+> > > pinctrl subnodes. This forces the addition of dummy or redundant
+> > > "function" entries when only pin configuration is needed.
+> > >
+> > > Example use case:
+> > > gpios-configs {
+> > >     config {
+> > >         pins =3D <0 1 2 3>;
+> > >         power-source =3D <0>;
+> > >     };
+> > > };
+> > >
+> > > Make the "function" property optional. If it is missing, skip adding
+> > > the mux map and only process the pin configuration.
+> >=20
+> > I looked through the series though and all controllers appear to have p=
+ins and
+> > functions, is it the case that gpio is the default for these pins, so y=
+ou are
+> > omitting the functions property when you are using the pin in gpio mode?
+> > Saying that the functions property is "redudant" makes it seem like thi=
+s might
+> > be the case?
+> >=20
+> > I've got some feedback here, but I can't really provide it without know=
+ing the
+> > answer to that question.
+>=20
+>=20
+> "From v1, copying Linus's suggestion:
+>=20
+> > +  This domain contains 4 IO groups which support voltage levels 1.8V a=
+nd 3.3V
+> > +  gpioe-spi - comprises PAD_GPIO_C0 through PAD_GPIO_C4.
+> > +  gpioe-qspi0 - comprises PAD_GPIO_C5 through PAD_GPIO_C11.
+> > +  gpioe-qspi1 - comprises PAD_GPIO_C12 through PAD_GPIO_C19.
+> > +  gpioe-qspi2 - comprises PAD_GPIO_C20 through PAD_GPIO_C27.
+> > +
+> > +  Each of the above IO groups must be configured with a voltage settin=
+g that matches the external
+> > +  voltage level provided to the IO group.
+>=20
+> So your hardware has groups and support some properties on the group leve=
+l.
+>=20
+> So expose these groups and make these properties configurable per group
+> instead of inventing per-group properties.
+>=20
+> > +  gpioe-spi-vref:
+> > +  gpioe-qspi0-vref:
+> > +  gpioe-qspi1-vref:
+> > +  gpioe-qspi2-vref:
+>=20
+> Create proper groups in the pin controller then use the
+> standard pincfg property power-source =3D <...>; for this.
+>=20
+> Example for a simple default hog:
+>=20
+> pinctrl {
+>     /* Hog the QSPI pins */
+>     pinctrl-names =3D "default";
+>     pinctrl-0 =3D <&qspi_default>;
+>=20
+>     qspi_default: pinctrl-qspi {
+>         config {
+>             groups =3D "gpioe-qspi-pins";
+>             power-source =3D <2>;
+>         };
+>     };
+> };
+>=20
+> The groups can be orthogonal to other pin handling, that's
+> fine. Implement .pin_config_group_set in struct pinconf_ops.
+>=20
+> However, I found that pinctrl_generic_pins_function_dt_node_to_map() does=
+ not=20
+> handle the groups property,
 
-Best regards,
-Krzysztof
+That's kind of the whole point of the function, see the comment about
+it:
+/*
+ * For platforms that do not define groups or functions in the driver, but
+ * instead use the devicetree to describe them. This function will, unlike
+ * pinconf_generic_dt_node_to_map() etc which rely on driver defined groups
+ * and functions, create them in addition to parsing pinconf properties and
+ * adding mappings.
+ */
 
+If you have the groups property in your devicetree, it contains strings
+that the driver uses to match against the groups it has defined in it.
+See my recently added microchip,pic64gx-pinctrl-gpio2 for an example of
+that if you like.
+
+However, if you are using the pins or pinmux properties, the groups are
+not defined in the driver, and need to be created at runtime. That's
+what pinctrl_generic_pins_function_dt_node_to_map() is for - it creates
+the groups at runtime when using the *pins* and *function* properties.
+It's in the name!
+
+Judging by your drivers, and how many structures you have that look very
+like groups from a quick glance, probably you can still make use of the
+groups property. The equivalent function to
+pinctrl_generic_pins_function_dt_node_to_map() when you're using driver
+defined groups is pinconf_generic_dt_node_to_map().
+
+Also, I notice that you never actually answered the question that I
+asked:
+> > I looked through the series though and all controllers appear to have p=
+ins and
+> > functions, is it the case that gpio is the default for these pins, so y=
+ou are
+> > omitting the functions property when you are using the pin in gpio mode?
+> > Saying that the functions property is "redudant" makes it seem like thi=
+s might
+> > be the case?
+
+Are you omitting the functions property from your nodes when they're
+using gpio because it is a default, or is there some other reason why
+you're omitting the functions property sometimes?
+
+
+> currently, my node uses pins instead, so it looks like this:
+>=20
+> +&pinctrl_per3 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&gpios_configs>;
+> +
+> +	gpios_configs: gpios-hog-grp {
+> +		gpios-hog-pins {
+> +			pins =3D <PADNUM_PER3_GPIO_E0
+> +				PADNUM_PER3_GPIO_E1
+> +				PADNUM_PER3_GPIO_E2
+> +				PADNUM_PER3_GPIO_E3
+> +				PADNUM_PER3_GPIO_E4
+> +				PADNUM_PER3_GPIO_E5
+> +				PADNUM_PER3_GPIO_E6
+> +				PADNUM_PER3_GPIO_E7
+> +				PADNUM_PER3_GPIO_E8
+> +				PADNUM_PER3_GPIO_E9
+> +				PADNUM_PER3_GPIO_E10>;
+> +			power-source =3D <JHB100_PINVREF_1_8V>;
+> +		};
+> +	};
+> +};
+>=20
+> Best regards,
+> Changhuang
+>=20
+
+--TfqgCJgMGabClEuj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagbNXgAKCRB4tDGHoIJi
+0hDOAP9QsmueYrhT6e0GNFL/p7Lhrcf5L/7S/ufZj4VmRodEHgD6A2+iq8ip2Jsc
+wOX3AS5YYYdkLDxh/V4ZlxG20GuG9Qg=
+=miil
+-----END PGP SIGNATURE-----
+
+--TfqgCJgMGabClEuj--
