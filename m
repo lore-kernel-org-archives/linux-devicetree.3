@@ -1,208 +1,210 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF67379EF9
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 13:45:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F623FFAD4;
+	Fri, 15 May 2026 13:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778852720; cv=none; b=eHpuRBf9ctpdvfh7gCwsneBpXk1FD45rqwtfVwjisd1i4mNC/kgDKS0xT1ynLW7BFW4PMxVQufz2NouZsOpa9Zwy7BL/tA5gBReEUP10P9lrOdA5kRSulbVI/grhMDUkB4QIg6QQR6cgY8vrhvpMl06gBWDyU4TUa/dDQONLgOs=
+	t=1778852821; cv=none; b=CJwmIG4D3jyCOPAcmQ5iFKUT5aHtgfOHKOky4p5kdb+TI1XdQp3Ng7/r0EK4j5UiCIoKRl6TaVzlAI/R9ZZIa7JRyNCoIhxOCjFfAnWI8n7u6BT9FPDmsvppGDMvb3vuhFpSLQB9NjNly2kXZCGVbZLckjNSCJYjuz3Bnp0K6M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778852720; c=relaxed/simple;
-	bh=eRVBxC5TrU2k+CIn+44EZEmy/Q/wQx51WPpKlVs5QBk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LCV7OSrIHluJnzsWp7pJTJaFFFXY23t09X0suD92aJeiFGuTckzEYk3wx7VHV5aqTlJnQ2lN+SdX68AHSZxoy8ExJayMj0Ib4/BTR6Vy+soNlF2MiExyD4lQ4hwQHwgwT2EG4hD5aNVWPBi5crL4V9LUSGJdPTpgA18kLGetMQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rngbUPJr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778852821; c=relaxed/simple;
+	bh=1DnnCkmocMnHe94ZkReRXuscYumyh1GIuX6FKsRW7gU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N7jhUxE3T9yFuWJgceJ9QQb0RG2kcuswjkHMezUFQeyzcCYLGx/bTEWaQ33rlwTWONazcWWg6wTlT8XXBL5Svlpn+Wf39FOZQdl1qqm5My1Vm4UoYiYJULPgRNWna0OEJ9AyZz7iYqmqUFNgcq0ms4/xCxmV7ZUI34Rgm8z97Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9XkkD7P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rngbUPJr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC04EC2BCB0;
-	Fri, 15 May 2026 13:45:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9XkkD7P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0878C2BCB0;
+	Fri, 15 May 2026 13:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778852720;
-	bh=eRVBxC5TrU2k+CIn+44EZEmy/Q/wQx51WPpKlVs5QBk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=rngbUPJrO8CRH2J+G70jI8VCVMlyrDWi/RYRxOBeRSPGUdwUFVqzxgBFFmxTCcEEt
-	 Ay3lpaIkA1y9JaXneK/7o3hct77kBK6csnm3hXhP6BcKG/zp/GJB6ohMZgjcgvx6rC
-	 HeJ38LlAt4JMF2+JSVfbsq5yDRHnrSvzYb0Nb3Whenc4H5kG5JODvSQUwTcwiLymWt
-	 vjoF5p+eTrCgYSWX50lEZqnFA+CMEFhbS7zvi01/kk6ssfO+l4XsaKfLTmerdthThl
-	 IWHvsQNTtt0qW6ooUvFPWBeSywG4jiAaz3BWOMgsnWMPLAyhs8LQ7NrrUk9nYbNGY5
-	 76gG/0VeNK3Vw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V7 04/11] iio: imu: inv_icm42607: Add I2C and SPI For
- icm42607
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515130018.237378-5-macroalpha82@gmail.com>
-References: <20260515130018.237378-5-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 13:45:19 +0000
-Message-Id: <20260515134519.CC04EC2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778852819;
+	bh=1DnnCkmocMnHe94ZkReRXuscYumyh1GIuX6FKsRW7gU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i9XkkD7PzP8uXBEEeDm7JVQRgf3aXLKbGhB6VQPjUauVsBNxvwtykf+WkzilGX8ts
+	 84SQVmaqdX+JHhbm1JRAmvgKyLzDGn3CqeurmAZrGxQAf2V1MHJVZPIS9tP8t5dCqL
+	 i4MfOu9SjKwoUD3SphCYbNr19xkwnuGlkhvjuY771bYEKpzm7cjx/Hi+sMNtnRIwku
+	 MuzBkNZOgfdh+SNj9O9sPfwgHUILfE2nWcl/PqWmPBJqd7lAIy6ymCuwxbUh+6GmIB
+	 45slBgCu9dRiZP0peWw8U8iSkzxUEWR78T3Qaxqd4MlSea2Ol6TKg//YmR0Q09QMuc
+	 7XnrCDrVjmuXg==
+Date: Fri, 15 May 2026 06:46:58 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH RFC v4 07/18] riscv_cbqri: Add capacity controller probe
+ and allocation device ops
+Message-ID: <agcj0jBGTAllxjCu@tt-p14-dfustini>
+References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-7-eb53831ef683@kernel.org>
+ <20260512012635.84FCCC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512012635.84FCCC2BCB0@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Masking `-EPROBE_DEFER` and strict IRQ naming breaks device probe =
-lifecycle and standard devicetrees.
-- [High] `regcache_mark_dirty()` usage causes the hardware state to desync,=
- skipping required bus configuration after soft reset.
-- [High] SPI 3-wire mode configuration uses a read-modify-write cycle, read=
-ing garbage data and corrupting device registers.
-- [Medium] Valid error codes from regmap operations are discarded and repla=
-ced with -EIO.
---
+On Tue, May 12, 2026 at 01:26:34AM +0000, sashiko-bot@kernel.org wrote:
+[..] 
+> > +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> > +			     const struct cbqri_cc_config *cfg)
+> > +{
+> > +	bool need_at_mirror;
+> > +	u64 saved_cbm = 0;
+> > +	int err = 0;
+> > +	u64 reg;
+> > +
+> > +	mutex_lock(&ctrl->lock);
+> > +
+> > +	need_at_mirror = ctrl->cc.supports_alloc_at_code && !cfg->cdp_enabled;
+> > +
+> > +	/*
+> > +	 * Capture the cfg->at half CBM before any write so a partial
+> > +	 * AT-mirror failure can revert and keep the two halves consistent.
+> > +	 */
+> > +	if (need_at_mirror) {
+> > +		err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
+> > +					closid, cfg->at);
+> > +		if (err < 0)
+> > +			goto out;
+> > +		saved_cbm = ioread64(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
+> > +	}
+> 
+> To mitigate silent firmware no-ops where the hardware returns success without
+> updating the staging register, cbqri_read_cache_config() pre-clears
+> the register.
+> 
+> If a silent no-op occurs here during the READ_LIMIT operation, could
+> saved_cbm capture stale MMIO data? If a revert is later triggered, does
+> this risk writing garbage data back and corrupting the controller's capacity
+> allocation state?
 
-commit 7dbec8ad22b33274f815169a6c802cbf63590cea
-Author: Chris Morgan <macromorgan@hotmail.com>
+I will change it to pre-clear cc_block_mask before the READ_LIMIT so a
+silent firmware no-op surfaces as zero rather than stale data.
 
-iio: imu: inv_icm42607: Add I2C and SPI For icm42607
+> > +	/* Get the operation status */
+> > +	*status = FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> > +
+> > +	/*
+> > +	 * Check for the AT support if the register is implemented
+> > +	 * (if not, the status value will remain 0)
+> > +	 */
+> > +	if (*status != 0) {
+> > +		/*
+> > +		 * Re-issue operation with AT=CODE so the controller
+> > +		 * latches AT=CODE on supported hardware (or resets it to 0
+> > +		 * on hardware that doesn't). OP must be a defined CBQRI op
+> > +		 * here. OP=0 is a no-op and would silently disable CDP.
+> > +		 */
+> > +		reg = saved_reg;
+> > +		FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_OP_MASK, &reg, operation);
+> > +		FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_AT_MASK, &reg,
+> > +			     CBQRI_CONTROL_REGISTERS_AT_CODE);
+> > +		iowrite64(reg, ctrl->base + reg_offset);
+> 
+> When issuing the second probe to verify AT support, the code restores the raw
+> boot-time register state via reg = saved_reg.
+> 
+> Does this execute the command against whatever uninitialized RCID value the
+> firmware originally left in the register, since the RCID mask is not cleared
+> again? If the RCID is out of bounds, could the hardware reject the operation,
+> causing the driver to falsely report that supports_alloc_at_code is false?
+> 
 
-This commit adds I2C and SPI driver support for the InvenSense
-ICM-42607 motion tracking device.
+I will change cbqri_probe_feature() to build each write from saved_reg
+masked clean of OP, AT, RCID, and EVT_ID before ORing in the intended
+fields.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c b/drivers/ii=
-o/imu/inv_icm42607/inv_icm42607_spi.c
-> new file mode 100644
-> index 0000000000000..49438fa6f8673
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+> > +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
+> > +{
+> 
+> [ ... ]
+> 
+> > +	/*
+> > +	 * Resolve cache_size via cacheinfo. cpus_read_lock satisfies
+> > +	 * lockdep_assert_cpus_held() inside get_cpu_cacheinfo_level(). If
+> > +	 * every cpu_mask member is offline, cache_size stays 0 and the
+> > +	 * controller cannot back occupancy monitoring.
+> > +	 */
+> > +	cpus_read_lock();
+> > +	if (!ctrl->cache.cache_size) {
+> > +		int cpu = cpumask_first_and(&ctrl->cache.cpu_mask, cpu_online_mask);
+> > +
+> > +		if (cpu < nr_cpu_ids) {
+> > +			struct cacheinfo *ci;
+> > +
+> > +			ci = get_cpu_cacheinfo_level(cpu, ctrl->cache.cache_level);
+> > +			if (ci)
+> > +				ctrl->cache.cache_size = ci->size;
+> > +		}
+> > +	}
+> > +	cpus_read_unlock();
+> 
+> A comment in riscv_cbqri_register_controller() states that cache_size is
+> filled lazily during probe.
+> 
+> Since cbqri_probe_cc() is invoked synchronously during early boot
+> registration, wouldn't CPUs in other clusters still be offline? Because there
+> is no lazy re-evaluation mechanism or CPU hotplug hook later on, does this
+> permanently leave ctrl->cache.cache_size at 0 and break occupancy monitoring
+> calculations for those controllers?
 
-[ ... ]
+ACPI parsing runs at subsys_initcall which is after smp_init() brings up
+the secondary CPUs, so every cpu in cpu_mask is online by the time
+cbqri_probe_cc() runs.
+> 
+> > +void cbqri_controller_destroy(struct cbqri_controller *ctrl)
+> > +{
+> > +	kfree(ctrl);
+> > +}
+> 
+> When riscv_cbqri_unregister_last() is used to roll back a successful
+> registration, it calls this function to free the controller.
+> 
+> Does this leak the I/O mappings and memory regions, since it fails to call
+> iounmap(ctrl->base) and release_mem_region() for the resources successfully
+> allocated during cbqri_probe_controller()?
 
-> +static int inv_icm42607_spi_bus_setup(struct inv_icm42607_state *st)
-> +{
-> +	const struct device *dev =3D regmap_get_device(st->map);
-> +	const struct spi_device *spi =3D to_spi_device(dev);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	if (spi->mode & SPI_3WIRE)
-> +		ret =3D regmap_clear_bits(st->map, INV_ICM42607_REG_DEVICE_CONFIG,
-> +					INV_ICM42607_DEVICE_CONFIG_SPI_AP_4WIRE);
+I will fix this to mirror the probe error paths. They already clean up
+and clear ctrl->base before returning, so destroying a probe-failed
+controller does not double free or unmap an already-released region.
 
-Since the device powers on in 4-wire mode, won't this initial
-read-modify-write fail for a 3-wire configured host?
+> > +int riscv_cbqri_register_controller(const struct cbqri_controller_info *info)
+> > +{
+> > +	struct cbqri_controller *ctrl;
+> > +	int err;
+> > +
+> > +	if (!info->addr) {
+> > +		pr_warn("skipping controller with invalid addr=0x0\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	ctrl = kzalloc(sizeof(*ctrl), GFP_KERNEL);
+> > +	if (!ctrl)
+> > +		return -ENOMEM;
+> > +
+> > +	mutex_init(&ctrl->lock);
+> > +
+> > +	ctrl->addr = info->addr;
+> > +	ctrl->size = info->size;
+> > +	ctrl->type = info->type;
+> > +	ctrl->rcid_count = info->rcid_count;
+> > +	ctrl->mcid_count = info->mcid_count;
+> 
+> The cbqri header explicitly defines CBQRI_MAX_RCID and CBQRI_MAX_MCID as 1024,
+> alongside documentation warning that a malformed firmware table claiming a
+> large number of IDs could trip the soft-lockup watchdog during per-id MMIO
+> init loops.
+> 
+> Is it safe to blindly assign these counts without validating them against the
+> safety caps? Could a malformed ACPI or DT table bypass this protection and
+> trigger a soft lockup during boot?
 
-The host expects data on MOSI but the device drives MISO, which would result
-in reading garbage data and permanently corrupting the rest of the
-configuration bits in DEVICE_CONFIG when written back.
+CBQRI_MAX_RCID and CBQRI_MAX_MCID are enforced in acpi_parse_rqsc()
+which is the only firmware discovery path that exists today. Any value
+that reaches riscv_cbqri_register_controller() has already passed that.
 
-Should a blind regmap_write() be used here instead to safely establish
-3-wire mode?
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index 9784709319b92..1088c5c7076f8 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-
-[ ... ]
-
-> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
-> +			      inv_icm42607_bus_setup bus_setup)
-> +{
-> +	const struct device *dev =3D regmap_get_device(st->map);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	/*
-> +	 * Setup the bus first in case we need to set the SPI mode or
-> +	 * change the slew rate in order.
-> +	 */
-> +	ret =3D bus_setup(st);
-> +	if (ret)
-> +		return ret;
-
-[ ... ]
-
-> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
-> +	if (ret)
-> +		return ret;
-> =20
-> -	fsleep(1000);
-> +	/*
-> +	 * In order to confirm a reset is complete, we need to read the reset
-> +	 * bit, but in certain circumstances we need to set the bus up before
-> +	 * we can do a read. So we should wait the required amount of time
-> +	 * per the datasheet first, then set the bus up again, then read to
-> +	 * ensure the reset status is done. Invalidate the regmap cache since
-> +	 * we're doing a hardware reset.
-> +	 */
-> +	regcache_mark_dirty(st->map);
-> =20
-> -	ret =3D regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
-> -				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
-> -				       INV_ICM42607_RESET_TIME_MS * 100,
-> -				       INV_ICM42607_RESET_TIME_MS * 1000);
-> -	if (ret)
-> -		return dev_err_probe(dev, ret,
-> -				     "reset error, reset done bit not set\n");
-> +	fsleep(INV_ICM42607_RESET_TIME_MS * 1000);
-> =20
->  	ret =3D bus_setup(st);
-
-Because regcache_mark_dirty() only flags the cache as needing a sync but do=
-es
-not clear the cached values, will regmap_update_bits() in this second
-bus_setup() call silently skip the hardware writes?
-
-The cache would still show the bits as set from the first bus_setup(), leav=
-ing
-the hardware in its default reset state.
-
-Would regcache_sync() or regcache_drop_region() be more appropriate here to
-force the actual hardware writes?
-
->  	if (ret)
->  		return ret;
-> =20
-> +	ret =3D regmap_read(st->map, INV_ICM42607_REG_INT_STATUS, &val);
-> +	if (ret || (!(val & INV_ICM42607_INT_STATUS_RESET_DONE)))
-> +		return dev_err_probe(dev, -EIO,
-> +				     "reset error, reset done bit not set\n");
-
-If the underlying bus read fails (e.g., returning -ENXIO or -ETIMEDOUT), do=
-es
-it make sense to mask the actual error code with a hardcoded -EIO?
-
-Could the original error code be propagated to help debug underlying bus
-subsystem issues?
-
-[ ... ]
-
-> +int inv_icm42607_core_probe(struct regmap *regmap, const struct inv_icm4=
-2607_hw *hw,
-> +			    inv_icm42607_bus_setup bus_setup)
-> +{
-> +	struct device *dev =3D regmap_get_device(regmap);
-> +	struct fwnode_handle *fwnode =3D dev_fwnode(dev);
-> +	struct inv_icm42607_state *st;
-> +	int irq;
-> +	int ret;
-> +
-> +	irq =3D fwnode_irq_get_byname(fwnode, "INT1");
-> +	if (!(irq > 0))
-> +		return dev_err_probe(dev, -EINVAL, "Unable to get INT1 interrupt\n");
-
-Does this prevent probe deferral if the interrupt controller isn't ready ye=
-t?
-
-Since fwnode_irq_get_byname() would return -EPROBE_DEFER, converting it to
--EINVAL causes a permanent probe failure instead of retrying.
-
-Additionally, if the device tree binding specifies interrupt-names as optio=
-nal,
-will this strict name enforcement cause a hard failure for valid devicetrees
-that omit it?
-
-Should the driver fall back to an index-based lookup or use the
-framework-provided client->irq / spi->irq if the name is missing?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515130018.2373=
-78-1-macroalpha82@gmail.com?part=3D4
+-Drew
