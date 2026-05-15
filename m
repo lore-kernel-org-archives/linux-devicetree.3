@@ -1,156 +1,169 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569A33FBB51
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914323FBB5C
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:14:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778861648; cv=none; b=j9mAfiVrn/kIDOuVpG/qOthQB+QvrKxXliyt8SK/Kk3I4mDdx5tvS9r9VbgBRViQk4pztTR6JnU8yirzjsVwDMqTwmqf83HKqqnu32msFJyAYEJGBNG+6EzmROyzG1yiegs3qmsGQYiEapKXMUvfNUI8XLVojFfE+W/SNjGGIbM=
+	t=1778861662; cv=none; b=P99yg9OYZF1TOuWX/vhF6giwU21debokL0gYo0f4Nc7PBFK1//gxX4iVACa/mmsf5XDVtCfoTpDoD6NqU0tKQvOAaIKLXZG2RGZkr4ANdh2khE2d1LRX8JXUF048C9FUJIs+giUTVPVTNeyWlaZaSouYIb7xfOacC8ZP8vMPTAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778861648; c=relaxed/simple;
-	bh=cboX3d8XkVXIEKowAOjoe4Fu6Sq0Dq4+kvLQFmjQATQ=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mcLrLqyGhm0HbM9EBU+fORq4k2N0Q6cDuTCxxj/zAntGMQZdtpfWkhXUgYPBXviiOS/bGmetRQMhR5Ur//AiuxEl0CLQM1FJL6Fn7HKVI7R/7iX9o2IeXmKJfADKzp9xWUGn49ld1j3PxYCQ3eCxfADDytBPJhXMgpGpXPFm9OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=T1ivEFAA; arc=none smtp.client-ip=170.10.153.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1778861662; c=relaxed/simple;
+	bh=0iwJQgkxnZ3S3Z+eMaNDD3tgjmUX1buStqNK/85/jWw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DjpkTgK+osnN9MVOF/7GBnwK84QpED+a2MyLXKHsesLj6CFjGoXUDU4oFgbz0BBJDsQxgZwf9Q95fYw05+/0ACT7CwB7kztRM7nX+jwc6uaFsocxAHAnASZMZFjFDpE7v698n1z/SQd1bbJkCNVnuE1xP+I0C2d0LcY9P6E3lpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PqrfzD3d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="T1ivEFAA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1778861639;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6z1jfvzQfiPZQlmfQKAx/3yNkDe+kLUmEifZ3V+qmwQ=;
-	b=T1ivEFAAITmYxtBHbJcADE6xifrgoYt2dgcKO+DQBMZcmBvEht0CtdnUjviVN7U1CP3PdI
-	2swRJw/HNudfZy8XkvWyNJZXKZj7uOC42zwRBgp48q7f1YukAJc3pfcDkKy9QITtH3AyCY
-	i7SchbEdIihat+N8ogOrqekxBpqtP+itCK5unDLB09RCRkl+kBdvg7RwIgW3uZ6gSso468
-	IdVr4BWk9BdcIvDhMkDgd376df0lH6daXrdi2De+2UAfmkHBYEK+GMNiRa+c1BMKC2ZapA
-	TzdwCgMAEOpfzioqg1yK0B+K6/qwOz//7Tq0PR8IIE/I005DYVkwK0HL2Mco0Q==
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012052.outbound.protection.outlook.com
- [40.93.195.52]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-34-fdhDgZ9mPuSvFawhfiCbkw-2; Fri, 15 May 2026 09:13:55 -0700
-X-MC-Unique: fdhDgZ9mPuSvFawhfiCbkw-2
-X-Mimecast-MFC-AGG-ID: fdhDgZ9mPuSvFawhfiCbkw_1778861633
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
- by DS1PR02MB10490.namprd02.prod.outlook.com (2603:10b6:8:217::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.19; Fri, 15 May
- 2026 16:13:51 +0000
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.20.9913.009; Fri, 15 May 2026
- 16:13:51 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: "parthiban.veerasooran@microchip.com"
-	<parthiban.veerasooran@microchip.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be active
- low, level triggered
-Thread-Topic: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be
- active low, level triggered
-Thread-Index: AdzkhZbrD+M8KZwKQJ6/PvOKyavj8w==
-Date: Fri, 15 May 2026 16:13:51 +0000
-Message-ID: <CY8PR02MB924916514D414B698DEB9A1883042@CY8PR02MB9249.namprd02.prod.outlook.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|DS1PR02MB10490:EE_
-x-ms-office365-filtering-correlation-id: f00d2a4c-c1f2-4003-69eb-08deb29cf45d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014|56012099003|18002099003|921020|38070700021|11063799003
-x-microsoft-antispam-message-info: aSM1CAitQIdHwoTrDvg4tm4t9tmcxfMtGF9DKajlJuyJc3U4FKCKV5RshS20yjfc9EByFW9g6hPbwOKK5IJTciCVwSoAgQiITMNMPAbhIbKNqQRPZ+6bWFgd9iwTsq2pNshe77rn9CqWbEZsHLF+lLahIya92J8WVP5KxFR1C1MjlW7EvgzP6nwiN5+SQIHKyy/sYjkGCid95w72g3jcHLEJhl2cwpOCc4/h8o5y1BMbBimOxbNeDMKk7GK/bSykmGKKyq/Fvb5KcCUQuH8t2eby7Ebl1qcXnoEZY39q48zrWJ1NLZVevnFcWOKhejFAk1i7qONzIgu8UVvsfacm8/greIsf6gLmFQ6nSWk33sRlHQMysHZY11Os7P4/RriCQxWX05RZYaKiKVJjK2r3hEYYmY+3H5U2M4tvy3KV6vDwae9LNh3eqpbPyW1NgRHI9MwH36TnXaCkc+L/Rr0bnNvw9e8Wycv4MVUnNfqMeX6LhFVYpZOTDmXkYw2gvRqaIxVaI3g0safMxj6T0409P1RVs0Qjndd2610GaUFKaybKbw4ZNOpNjvipv0L3fA4jbs0RRmW/Yelb1nei9Z6fckq8ZBx3zoenJ9SP1rDjUfRf5MtZzpJigldc8MiOdCDT2U7kP+CmuMQm07IcrxUheTmDW5aS0mhw1+Ij+UedqLTMZ1ps+duh6TQSiA1cqYV7zos3fMDA6GvMK1DA46UqPQWeUAjXpvZp0+NIsQAtOG6VobEQgGgHUvTaYFo5RWPIG/05QDT/ZVTJezoY5MHX6Q==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(56012099003)(18002099003)(921020)(38070700021)(11063799003);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KT1vjFw1o6X7BvSgeEgAnIFkAcTu4mpKeTEzoBy2QIBPb95Dkt+iHjvLysud?=
- =?us-ascii?Q?b6v0HkQt9HrEROwoD/q4uSLe5UvqHJ4AHi0bAeggZ2yBpPPzMN+aq7HnMyf6?=
- =?us-ascii?Q?rydXbBSkYgL89GObgHvD4U5uow6qH6MpXtXRJZNUVm1mhaevypWGJTlLbzzC?=
- =?us-ascii?Q?kQQppTVlKUHK2WQ1j76Em3ZH5M+OBLUdassCGeDdDRInKCuOuQMS6dIPZvgh?=
- =?us-ascii?Q?uxiGNy0mKlN3KAYUZBlhZvuqcCDvgOILx51A/zn+kLhTFIq/BXhFGiMfFNDI?=
- =?us-ascii?Q?9SY/xVi/E35CTTfKEpFEdeAOUQlf1rGf4JngMt5pjzVhqdyyhkR7Dpz7tzq3?=
- =?us-ascii?Q?xP+xtm6d0Np0tcmQ3JbwlE6wj9uYTqc6nQyHYbUZB5dEJFSreGmkYb3ripVV?=
- =?us-ascii?Q?3KWTaaS4A5OiZ555FwWpqH8OuMo+CpbkLhl1EeWmbOOkLnkZez+6IlqOmtTi?=
- =?us-ascii?Q?U31FoXfg+KXxOgCvxlxVnFefuPUjo9Nmu1LolDVvcDE3RPWKkum2XHsWHrki?=
- =?us-ascii?Q?UJUXbgtu0Sz1sX06ARAGzejdOR94KA3KpthBwypP9PPm1dVljSbXr0NrashH?=
- =?us-ascii?Q?+ikPvh1noHEwQKXEvdeqNb3g1cta1Q/hBCXT/bq8sweIDkBhIuReMXEy4sC8?=
- =?us-ascii?Q?gM5yPFjmuWvEGCeUcnfkRPeOrRUcZOTV80aUvnOJBAFew+NICuSbNTMVPjo6?=
- =?us-ascii?Q?S/UGRYtcfXa1Zz3J8yM42IJwK2Jn3X9vGhVNpVo8/I3qAE43/4R5gBomxKFz?=
- =?us-ascii?Q?1sUtpO7Yu2mBd7tLex9CtnqwxwL5psWLVb/d7as167D/rDbG0qXhXXIAoXQq?=
- =?us-ascii?Q?zNuwJKbGJ8jXNH7V/aApOyogSOLOLiKqm1RKt/OjR+Ra8ifdWwJZfNmOFx9e?=
- =?us-ascii?Q?l19FokLmW0SvWhJWa5o61HjQQvyj8Tc0GaGG89HWy2nxHQzVKK4zCFKFoI6F?=
- =?us-ascii?Q?U8TVbjiHKZA9OZhATlNZlJxTfKyvYUqqt5OInPOUAbFdWalc8przHBU3ZwQb?=
- =?us-ascii?Q?ZotDRO3tGhwpWKsjHxasOrlRNcvL+1eYpIbB9To5QGYh6/4AFTit+DTVpRmR?=
- =?us-ascii?Q?Z7Jtp4H95iMeQLnNJWBFsLm4LGVgJR8uwPPtH7cHJq9tiXzINksr9X/Zmrmc?=
- =?us-ascii?Q?/e1Xp76tDM1NIpAoCd6MilxKqMfLHWcvuvIUIgFjmiSzkyQuHe/UZEiTlHRn?=
- =?us-ascii?Q?2V+CxP0oVT+qm7bVI10rwNartdvyaZZaAzO5oHMrqz5mxjToE+WtpNX/2hiD?=
- =?us-ascii?Q?ofQf63dqZwx8wMcwWL0SGnKJ5Np/9q9UWlSgHuz3YUxbj0vXfgZN2fUZJ5NX?=
- =?us-ascii?Q?yAyRQ8Fnpwy0hVv/7DoQi3JTjJgrXfjbyY1/dD+Hp3buG+ypS5Y98OAuTQAy?=
- =?us-ascii?Q?N5OOul5d9i8VnXc6iLAZcBjl1OSeiKCqHrW+pEixDe/cLB/8mWpoi3MUvKfc?=
- =?us-ascii?Q?nGDP58aqyvgRblsmzE7l0iRGVHDNBevtEzlzSib4TzUSvv1OWIRI9+L++hhM?=
- =?us-ascii?Q?h3pE+JKkKKusH8ekA/SHbxHeSTs5ohxa/9wIkQTqav/pCe5UrMdm2xVir/yG?=
- =?us-ascii?Q?ijwC6oJcmS0/wvjsM4BfIXOX59+Uv2sVAlWZMR6RkNt79CA72gMLLgSHovuo?=
- =?us-ascii?Q?tDqPM/vr4tXpMXDdkcaeTB6fD/exqHWNZTtrlX6bXLVonCy/zHWfxT3N+t7y?=
- =?us-ascii?Q?MPaMH8V7GcIN0UpHjx10tTLATd7D1gtRMF0ig0U5LG7Wwo5slOSi9RmRj7o3?=
- =?us-ascii?Q?y0VbOovl8HGELoVhDb7Vbacwqyz/iZM=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PqrfzD3d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561C0C2BCB0;
+	Fri, 15 May 2026 16:14:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778861662;
+	bh=0iwJQgkxnZ3S3Z+eMaNDD3tgjmUX1buStqNK/85/jWw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=PqrfzD3dpNUZGA8U7uxUyGmEd1+lR+yRu4mUBXXEKr85eQ9JQxfVC2KjhI2OPBD9a
+	 a2qmmoz85gHRpBUTqH2Ds95RexBNNPctm+VJ/CPMWEfhcrYL/erEL9ChepNYLHodzL
+	 ZG3q245Q5CwMFNoYxFe5siX5Fo4mXnkcWPlWyaMatpY2e4Tx2EZTBi3MNLG2uPUptl
+	 +woJMtuL0HyE4m7V/Ui1pxpUky918L87CWStp6HP4N9lgVaB9SQmySntWsK7epCQL2
+	 schggQcE+1vrbWAgvJr4y3d6nE2kqxs4s1dKo1Hy1Ij/dHtHMjhP2zPM05zESMvIzB
+	 k2Cyju+F5UlVg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 10/28] media: rockchip: rga: announce and sync
+ colorimetry
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515-spu-rga3-v6-10-e547152eb9c9@pengutronix.de>
+References: <20260515-spu-rga3-v6-10-e547152eb9c9@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 16:14:13 +0000
+Message-Id: <20260515161416.561C0C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: aSjgtflFvnc2IWLSkqsxI1O8lNPMI5Yhft41M3BpmMnbqp4OXdKVsmX6qIuXu9LaVyhpRERpXrh+WEnJuNoguZwKY/BcQcmOu4PV4FWO2aThvDuKTWEA/3aYYzYuaDMfXpEKd4GaEaLJYc3GzeswCnBSgjk6M5jK1IEhz+XqPNVye4fH8EE+tFoYvhZ5KrqDEFwduqkQ1OcrAgy/vS3UFBjjeOsmChbzR3zLnVP8bbTYZ05ONxeMqm3ALJG9OYLzVjggn1X/z66FpJCeZn9APkpp4J1Fks+mQHu53qZSFvvcVsulGUjBYOiKbihxWazUeLq5zMW3dz6Bs4VD8MCTWQ==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f00d2a4c-c1f2-4003-69eb-08deb29cf45d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2026 16:13:51.6941
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8V0xqAgIsUaVlgXYEbRSZ90hFneKDEYi2w2WoQNKRz9iNlnBOqY7ChCO5dLg6+8i9nFnwQ/SpNsyFcB+YRu5GCKPzH9dG1vyGaRwAO7lO+E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR02MB10490
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: VJYyjAL5g5RkK5g4v6OtoPJVh844x1LuB6ljwnPSTTw_1778861633
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
 
-According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
-specification, interrupt type is active low, level triggered interrupt.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Falsely advertising hardware capabilities for CSC quantization and=
+ YCbCr encoding.
+- [High] Missing validation and clamping of colorimetry fields in `vidioc_t=
+ry_fmt`.
+- [Medium] `vidioc_try_fmt` uses the CAPTURE queue's state instead of the O=
+UTPUT queue's state as the default colorimetry.
+- [Medium] `vidioc_try_fmt` accepts user-provided colorimetry for non-YUV f=
+ormats, bypassing intended restrictions.
+- [Low] Comment in `vidioc_enum_fmt` contradicts the implemented code.
+--
 
-Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S =
-MACPHY")
-Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
----
- Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 0b2b6b238c69f747c597a881c5d1349d57e712fe
+Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml b=
-/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-index 61e11d4a07c4..766ff58147ae 100644
---- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-+++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-@@ -67,7 +67,7 @@ examples:
-         pinctrl-names =3D "default";
-         pinctrl-0 =3D <&eth0_pins>;
-         interrupt-parent =3D <&gpio>;
--        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
-+        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
-         local-mac-address =3D [04 05 06 01 02 03];
-         spi-max-frequency =3D <15000000>;
-       };
+media: rockchip: rga: announce and sync colorimetry
+   =20
+Announce the capability to adjust the quantization and ycbcr_enc on the
+capture side and check if the SET_CSC flag is set when the colorimetry
+is changed. Furthermore copy the colorimetry from the output to the
+capture side to fix the currently failing v4l2-compliance tests, which
+expect exactly this behavior.
+
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index ca8d8a53dc251..8c34f73d69764 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -437,6 +437,15 @@ static int vidioc_enum_fmt(struct file *file, void *=
+priv, struct v4l2_fmtdesc *f
+>  	fmt =3D &formats[f->index];
+>  	f->pixelformat =3D fmt->fourcc;
+> =20
+> +	if (f->type !=3D V4L2_BUF_TYPE_VIDEO_CAPTURE &&
+> +	    f->type !=3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
+> +		return 0;
+> +
+> +	/* allow changing the quantization and xfer func for YUV formats */
+
+This isn't a bug, but the comment mentions "xfer func" instead of
+"ycbcr_enc", while the code sets V4L2_FMT_FLAG_CSC_YCBCR_ENC. Furthermore,
+vidioc_try_fmt explicitly disallows modifying xfer_func.
+
+> +	if (v4l2_is_format_yuv(v4l2_format_info(f->pixelformat)))
+> +		f->flags |=3D V4L2_FMT_FLAG_CSC_QUANTIZATION |
+> +			    V4L2_FMT_FLAG_CSC_YCBCR_ENC;
+
+Does the hardware actually support applying custom quantization and YCbCr
+encoding matrices?
+
+Looking at rga_cmd_set_trans_info() in rga-hw.c, the hardware configuration
+backend appears to ignore quantization and ycbcr_enc, hardcoding the CSC
+mode to either RGA_SRC_CSC_MODE_BT709_R0 or RGA_SRC_CSC_MODE_BT601_R0 based
+purely on colorspace.
+
+If the capabilities are announced merely to pass v4l2-compliance without
+applying them in hardware, could this cause the driver to silently ignore
+user requests and produce visually incorrect output?
+
+[ ... ]
+
+> @@ -459,8 +468,25 @@ static int vidioc_g_fmt(struct file *file, void *pri=
+v, struct v4l2_format *f)
+>  static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_for=
+mat *f)
+>  {
+>  	struct v4l2_pix_format_mplane *pix_fmt =3D &f->fmt.pix_mp;
+> +	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
+>  	struct rga_fmt *fmt;
+> =20
+> +	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
+> +		const struct rga_frame *frm;
+> +
+> +		frm =3D rga_get_frame(ctx, f->type);
+
+Is it correct to use the CAPTURE queue's state here instead of the OUTPUT
+queue's state as the default colorimetry?
+
+For memory-to-memory devices, when V4L2_PIX_FMT_FLAG_SET_CSC is not set on
+the CAPTURE queue, it usually falls back to the colorimetry of the OUTPUT
+queue (ctx->in). Fetching the frame with f->type resolves to ctx->out for
+the CAPTURE queue.
+
+If a user previously used SET_CSC to override the CAPTURE queue's
+colorimetry, wouldn't a subsequent call without SET_CSC inherit this
+overridden state instead of resetting to the OUTPUT queue's defaults?
+
+> +		if (IS_ERR(frm))
+> +			return PTR_ERR(frm);
+> +
+> +		if (!(pix_fmt->flags & V4L2_PIX_FMT_FLAG_SET_CSC)) {
+> +			pix_fmt->quantization =3D frm->pix.quantization;
+> +			pix_fmt->ycbcr_enc =3D frm->pix.ycbcr_enc;
+> +		}
+
+When V4L2_PIX_FMT_FLAG_SET_CSC is set, does this blindly accept
+pix_fmt->quantization and pix_fmt->ycbcr_enc without validating if they are
+supported enum values?
+
+Additionally, does this enforce the restriction that colorimetry can only
+be changed for YUV formats? vidioc_enum_fmt restricts the CSC flags to YUV
+formats, but this code seems to honor SET_CSC on the CAPTURE queue
+regardless of the format type, allowing arbitrary colorimetry values even
+for RGB formats.
+
+Furthermore, for the OUTPUT queue, the colorimetry fields don't seem to be
+validated or resolved. Does the driver need to resolve
+V4L2_COLORSPACE_DEFAULT to concrete standards and clamp unsupported values
+during try_fmt as required by the V4L2 specification?
+
+> +		/* disallow values not announced in vidioc_enum_fmt */
+> +		pix_fmt->colorspace =3D frm->pix.colorspace;
+> +		pix_fmt->xfer_func =3D frm->pix.xfer_func;
+> +	}
+> +
+>  	fmt =3D rga_fmt_find(pix_fmt->pixelformat);
+>  	if (!fmt)
+>  		fmt =3D &formats[0];
+
 --=20
-2.43.0
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-spu-rga3-v=
+6-0-e547152eb9c9@pengutronix.de?part=3D10
