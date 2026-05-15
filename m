@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADB84B8DF8
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:33:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688FC4921BB
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778859189; cv=none; b=lE0HPrui5szcUBM1AS3hwJnS3vYaW9VwAh6kQ/gWIsXwXPXsI1BBAZQcCm1YmshbJKAIukh9wyzMHNAfE1sAuawLqEVZPLFa6bzg4Ht5fgeusLGjOwt6Zwky/6x/Pi7i+fLn0c/F521aaKQ+p5ir80TjnbQYyjHPVfcSxGyu6Bs=
+	t=1778859191; cv=none; b=SBDFX1z5gD74ZvIx4BAf9JHArwRP3Ww8mFul5OBHO/RnISYX/dR83YOlR0PLwXdESUXRN9HNzyrX4X8yi877iHLJwAf+loPf43l+rAL+25bxAbzbzKJXRaizkSkeHmrzbkvqZfyQbvCkorbmaDvfNaNHl4Jr2rWBF2MtbeEmSWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778859189; c=relaxed/simple;
-	bh=rcVGQNpvVb11V8IiuFUDMjCOvBwh/do9BUef7J57mAg=;
+	s=arc-20240116; t=1778859191; c=relaxed/simple;
+	bh=BSV6OseY3HINQEBpTu/vF4+NDlgWrbTO9U93LHWRneI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PndtrjzCPwJIf7tAE+EwVqKsOAIaZft0Mta17ngCjJuG98kHSjysrBd2lW1gi8az7wivswTmyUHMdQ8FcbSIZl/tN/EYRqQ+bkqgHjcnXZ7E3OK/wJE73mQ1MeqNA+70LCmHQCHmb3eSQlaEBt1udpXmYp4vUJflvw2+a88+xyo=
+	 In-Reply-To:To:Cc; b=miWB/inhnamwxja2PVvvxAbtLx36bt6pd2Swwb/Z2KmNtDMxzHKQbACRVUsqx40JWGL9dTiLaSsTxZuC4mZCzVZGExEo07bOuIUB/DyFeVTs5APx4cEG877wkrA7ogkTFE7l+iGhKcTzC8iuPmUvA83Cc32EGB1Ek9lvCatC5vc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wNuX5-0005OF-Di; Fri, 15 May 2026 17:32:59 +0200
+	id 1wNuX9-0005OF-CN; Fri, 15 May 2026 17:33:03 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Fri, 15 May 2026 17:32:40 +0200
-Subject: [PATCH v6 14/28] media: rockchip: rga: move cmdbuf to rga_ctx
+Date: Fri, 15 May 2026 17:32:43 +0200
+Subject: [PATCH v6 17/28] media: rockchip: rga: check scaling factor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260515-spu-rga3-v6-14-e547152eb9c9@pengutronix.de>
+Message-Id: <20260515-spu-rga3-v6-17-e547152eb9c9@pengutronix.de>
 References: <20260515-spu-rga3-v6-0-e547152eb9c9@pengutronix.de>
 In-Reply-To: <20260515-spu-rga3-v6-0-e547152eb9c9@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,257 +43,253 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
  p.zabel@pengutronix.de, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Move the command buffer to the rga_ctx struct in preparation to reuse
-an already prepared command buffer. This allows to split the command
-buffer setup in a further commit to setup a template for the command
-buffer at streamon and only update the buffer addresses in device_run
-and trigger the command stream. No sync point is added, as one command
-buffer should only be used for one conversion at a time.
+Check the scaling factor to avoid potential problems. This is relevant
+for the upcoming RGA3 support, as it can hang when the scaling factor
+is exceeded.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+The check is done at streamon when the other side is already streaming
+to avoid incorrectly failing if the application configures the other
+side after calling streamon. As try_fmt shouldn't be state aware,
+it cannot be used to limit the format based on the scaling factor.
+Therefore the check is done just before the actual streaming would be
+started.
+
+As the driver allows changing the rotation and selection while
+streaming, add additional checks to ensure these changes
+don't exceed the scaling factor.
+
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
----
- drivers/media/platform/rockchip/rga/rga-hw.c | 28 +++++++---------
- drivers/media/platform/rockchip/rga/rga.c    | 48 ++++++++++++++++------------
- drivers/media/platform/rockchip/rga/rga.h    |  5 +--
- 3 files changed, 41 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 17f7a67c0b4bb..9881c14f908d5 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -122,8 +122,7 @@ static struct rga_addr_offset *rga_lookup_draw_pos(struct
- 
- static void rga_cmd_set_src_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
- {
--	struct rockchip_rga *rga = ctx->rga;
--	u32 *dest = rga->cmdbuf_virt;
-+	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int reg;
- 
- 	reg = RGA_MMU_SRC_BASE - RGA_MODE_BASE_REG;
-@@ -135,8 +134,7 @@ static void rga_cmd_set_src_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
- 
- static void rga_cmd_set_src1_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
- {
--	struct rockchip_rga *rga = ctx->rga;
--	u32 *dest = rga->cmdbuf_virt;
-+	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int reg;
- 
- 	reg = RGA_MMU_SRC1_BASE - RGA_MODE_BASE_REG;
-@@ -148,8 +146,7 @@ static void rga_cmd_set_src1_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
- 
- static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
- {
--	struct rockchip_rga *rga = ctx->rga;
--	u32 *dest = rga->cmdbuf_virt;
-+	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int reg;
- 
- 	reg = RGA_MMU_DST_BASE - RGA_MODE_BASE_REG;
-@@ -162,7 +159,7 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
- static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- {
- 	struct rockchip_rga *rga = ctx->rga;
--	u32 *dest = rga->cmdbuf_virt;
-+	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int scale_dst_w, scale_dst_h;
- 	unsigned int src_h, src_w, dst_h, dst_w;
- 	union rga_src_info src_info;
-@@ -322,8 +319,7 @@ static void rga_cmd_set_src_info(struct rga_ctx *ctx,
- 				 struct rga_addr_offset *offset)
- {
- 	struct rga_corners_addr_offset src_offsets;
--	struct rockchip_rga *rga = ctx->rga;
--	u32 *dest = rga->cmdbuf_virt;
-+	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int src_h, src_w, src_x, src_y;
- 
- 	src_h = ctx->in.crop.height;
-@@ -350,8 +346,7 @@ static void rga_cmd_set_dst_info(struct rga_ctx *ctx,
- {
- 	struct rga_addr_offset *dst_offset;
- 	struct rga_corners_addr_offset offsets;
--	struct rockchip_rga *rga = ctx->rga;
--	u32 *dest = rga->cmdbuf_virt;
-+	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int dst_h, dst_w, dst_x, dst_y;
- 	unsigned int mir_mode = 0;
- 	unsigned int rot_mode = 0;
-@@ -397,8 +392,7 @@ static void rga_cmd_set_dst_info(struct rga_ctx *ctx,
- 
- static void rga_cmd_set_mode(struct rga_ctx *ctx)
- {
--	struct rockchip_rga *rga = ctx->rga;
--	u32 *dest = rga->cmdbuf_virt;
-+	u32 *dest = ctx->cmdbuf_virt;
- 	union rga_mode_ctrl mode;
- 	union rga_alpha_ctrl0 alpha_ctrl0;
- 	union rga_alpha_ctrl1 alpha_ctrl1;
-@@ -423,7 +417,7 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- {
- 	struct rockchip_rga *rga = ctx->rga;
- 
--	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
-+	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
- 
- 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
- 	/*
-@@ -439,11 +433,11 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- 	rga_cmd_set_dst_info(ctx, &dst->offset);
- 	rga_cmd_set_trans_info(ctx);
- 
--	rga_write(rga, RGA_CMD_BASE, rga->cmdbuf_phy);
-+	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
- 
- 	/* sync CMD buf for RGA */
--	dma_sync_single_for_device(rga->dev, rga->cmdbuf_phy,
--		PAGE_SIZE, DMA_BIDIRECTIONAL);
-+	dma_sync_single_for_device(rga->dev, ctx->cmdbuf_phy,
-+				   PAGE_SIZE, DMA_BIDIRECTIONAL);
+---
+Changes in v6:
+- Dropped scaling adjustment in s_fmt, as this didn't match the try_fmt
+  result (which shouldn't have it to avoid making it stateful)
+- Moved scaling check to the prepare_streaming callback instead of
+  overwriting the ioctl directly
+- Consider rotation when checking the scaling
+- Check scaling factor when adjusting rotation and selection while
+  streaming
+---
+ drivers/media/platform/rockchip/rga/rga-buf.c | 28 ++++++++++++
+ drivers/media/platform/rockchip/rga/rga-hw.c  |  1 +
+ drivers/media/platform/rockchip/rga/rga-hw.h  |  1 +
+ drivers/media/platform/rockchip/rga/rga.c     | 63 +++++++++++++++++++++++++--
+ drivers/media/platform/rockchip/rga/rga.h     |  4 ++
+ 5 files changed, 94 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
+index ffc6162b2e681..dcaba66f5c1fc 100644
+--- a/drivers/media/platform/rockchip/rga/rga-buf.c
++++ b/drivers/media/platform/rockchip/rga/rga-buf.c
+@@ -197,6 +197,33 @@ static void rga_buf_return_buffers(struct vb2_queue *q,
+ 	}
  }
  
- static void rga_hw_start(struct rockchip_rga *rga,
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 77b8c7ab74274..bf6bbcbfc869b 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -219,6 +219,16 @@ static int rga_open(struct file *file)
- 	ctx = kzalloc_obj(*ctx);
- 	if (!ctx)
- 		return -ENOMEM;
++static int rga_buf_prepare_streaming(struct vb2_queue *q)
++{
++	struct rga_ctx *ctx = vb2_get_drv_priv(q);
++	const struct rga_hw *hw = ctx->rga->hw;
++	int ret;
 +
-+	/* Create CMD buffer */
-+	ctx->cmdbuf_virt = dma_alloc_attrs(rga->dev, rga->hw->cmdbuf_size,
-+					   &ctx->cmdbuf_phy, GFP_KERNEL,
-+					   DMA_ATTR_WRITE_COMBINE);
-+	if (!ctx->cmdbuf_virt) {
-+		ret = -ENOMEM;
-+		goto rel_ctx;
++	/* It's safe to check the streaming state of the other queue,
++	 * as the streamon ioctl's can't race due to the lock set in
++	 * the queue_init function.
++	 */
++	if ((V4L2_TYPE_IS_OUTPUT(q->type) &&
++	     vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx))) ||
++	    (V4L2_TYPE_IS_CAPTURE(q->type) &&
++	     vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx)))) {
++		/*
++		 * As the other side is already streaming,
++		 * check that the max scaling factor isn't exceeded.
++		 */
++		ret = rga_check_scaling(hw, &ctx->in.crop, &ctx->out.crop,
++					ctx->rotate);
++		if (ret < 0)
++			return ret;
 +	}
 +
- 	ctx->rga = rga;
- 	/* Set default formats */
- 	ctx->in = def_frame;
-@@ -230,15 +240,13 @@ static int rga_open(struct file *file)
- 			    ctx->out.fmt->fourcc, def_width, def_height);
- 
- 	if (mutex_lock_interruptible(&rga->mutex)) {
--		kfree(ctx);
--		return -ERESTARTSYS;
-+		ret = -ERESTARTSYS;
-+		goto rel_cmdbuf;
- 	}
- 	ctx->fh.m2m_ctx = v4l2_m2m_ctx_init(rga->m2m_dev, ctx, &queue_init);
- 	if (IS_ERR(ctx->fh.m2m_ctx)) {
- 		ret = PTR_ERR(ctx->fh.m2m_ctx);
--		mutex_unlock(&rga->mutex);
--		kfree(ctx);
--		return ret;
-+		goto unlock_mutex;
- 	}
- 	v4l2_fh_init(&ctx->fh, video_devdata(file));
- 	v4l2_fh_add(&ctx->fh, file);
-@@ -252,6 +260,15 @@ static int rga_open(struct file *file)
- 	mutex_unlock(&rga->mutex);
- 
- 	return 0;
++	return 0;
++}
 +
-+unlock_mutex:
-+	mutex_unlock(&rga->mutex);
-+rel_cmdbuf:
-+	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, ctx->cmdbuf_virt,
-+		       ctx->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
-+rel_ctx:
-+	kfree(ctx);
+ static int rga_buf_start_streaming(struct vb2_queue *q, unsigned int count)
+ {
+ 	struct rga_ctx *ctx = vb2_get_drv_priv(q);
+@@ -232,6 +259,7 @@ const struct vb2_ops rga_qops = {
+ 	.buf_prepare = rga_buf_prepare,
+ 	.buf_queue = rga_buf_queue,
+ 	.buf_cleanup = rga_buf_cleanup,
++	.prepare_streaming = rga_buf_prepare_streaming,
+ 	.start_streaming = rga_buf_start_streaming,
+ 	.stop_streaming = rga_buf_stop_streaming,
+ };
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 567d39e58d33f..f2900812ba76f 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -584,6 +584,7 @@ const struct rga_hw rga2_hw = {
+ 	.max_width = MAX_WIDTH,
+ 	.min_height = MIN_HEIGHT,
+ 	.max_height = MAX_HEIGHT,
++	.max_scaling_factor = MAX_SCALING_FACTOR,
+ 	.stride_alignment = 4,
+ 
+ 	.setup_cmdbuf = rga_hw_setup_cmdbuf,
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media/platform/rockchip/rga/rga-hw.h
+index c2e34be751939..805ec23e5e3f4 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.h
++++ b/drivers/media/platform/rockchip/rga/rga-hw.h
+@@ -14,6 +14,7 @@
+ 
+ #define MIN_WIDTH 34
+ #define MIN_HEIGHT 34
++#define MAX_SCALING_FACTOR 16
+ 
+ #define RGA_TIMEOUT 500
+ 
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 394b14b9469df..22954bbae55fc 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -127,7 +127,9 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ 	struct rga_ctx *ctx = container_of(ctrl->handler, struct rga_ctx,
+ 					   ctrl_handler);
++	const struct rga_hw *hw = ctx->rga->hw;
+ 	unsigned long flags;
++	int ret = 0;
+ 
+ 	spin_lock_irqsave(&ctx->rga->ctrl_lock, flags);
+ 	switch (ctrl->id) {
+@@ -138,6 +140,13 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		ctx->vflip = ctrl->val;
+ 		break;
+ 	case V4L2_CID_ROTATE:
++		if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)) &&
++		    vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx))) {
++			ret = rga_check_scaling(hw, &ctx->in.crop,
++						&ctx->out.crop, ctrl->val);
++			if (ret < 0)
++				goto s_ctrl_done;
++		}
+ 		ctx->rotate = ctrl->val;
+ 		break;
+ 	case V4L2_CID_BG_COLOR:
+@@ -145,8 +154,10 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 	}
+ 	ctx->cmdbuf_dirty = true;
++
++s_ctrl_done:
+ 	spin_unlock_irqrestore(&ctx->rga->ctrl_lock, flags);
+-	return 0;
 +	return ret;
  }
  
- static int rga_release(struct file *file)
-@@ -266,6 +283,10 @@ static int rga_release(struct file *file)
- 	v4l2_ctrl_handler_free(&ctx->ctrl_handler);
- 	v4l2_fh_del(&ctx->fh, file);
- 	v4l2_fh_exit(&ctx->fh);
+ static const struct v4l2_ctrl_ops rga_ctrl_ops = {
+@@ -182,6 +193,38 @@ static int rga_setup_ctrls(struct rga_ctx *ctx)
+ 	return 0;
+ }
+ 
++static bool check_scaling_factor(const struct rga_hw *hw, u32 src_size,
++				 u32 dst_size)
++{
++	if (src_size < dst_size)
++		return src_size * hw->max_scaling_factor >= dst_size;
++	else
++		return dst_size * hw->max_scaling_factor >= src_size;
++}
 +
-+	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, ctx->cmdbuf_virt,
-+		       ctx->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
++int rga_check_scaling(const struct rga_hw *hw, const struct v4l2_rect *crop_in,
++		      const struct v4l2_rect *crop_out, u32 rotate)
++{
++	u32 scaled_width;
++	u32 scaled_height;
 +
- 	kfree(ctx);
++	if (rotate == 90 || rotate == 270) {
++		scaled_width = crop_out->height;
++		scaled_height = crop_out->width;
++	} else {
++		scaled_width = crop_out->width;
++		scaled_height = crop_out->height;
++	}
++
++	if (!check_scaling_factor(hw, crop_in->width, scaled_width))
++		return -EINVAL;
++
++	if (!check_scaling_factor(hw, crop_in->height, scaled_height))
++		return -EINVAL;
++
++	return 0;
++}
++
+ static struct rga_fmt *rga_fmt_find(struct rockchip_rga *rga, u32 pixelformat)
+ {
+ 	unsigned int i;
+@@ -525,7 +568,6 @@ static int vidioc_s_selection(struct file *file, void *priv,
+ 	struct rga_ctx *ctx = file_to_rga_ctx(file);
+ 	struct rockchip_rga *rga = ctx->rga;
+ 	struct rga_frame *f;
+-	int ret = 0;
  
- 	mutex_unlock(&rga->mutex);
-@@ -720,19 +741,10 @@ static int rga_probe(struct platform_device *pdev)
- 
- 	pm_runtime_put(rga->dev);
- 
--	/* Create CMD buffer */
--	rga->cmdbuf_virt = dma_alloc_attrs(rga->dev, rga->hw->cmdbuf_size,
--					   &rga->cmdbuf_phy, GFP_KERNEL,
--					   DMA_ATTR_WRITE_COMBINE);
--	if (!rga->cmdbuf_virt) {
--		ret = -ENOMEM;
--		goto rel_m2m;
--	}
--
- 	ret = video_register_device(vfd, VFL_TYPE_VIDEO, -1);
- 	if (ret) {
- 		v4l2_err(&rga->v4l2_dev, "Failed to register video device\n");
--		goto free_dma;
-+		goto rel_m2m;
+ 	f = rga_get_frame(ctx, s->type);
+ 	if (IS_ERR(f))
+@@ -569,10 +611,25 @@ static int vidioc_s_selection(struct file *file, void *priv,
+ 		return -EINVAL;
  	}
  
- 	v4l2_info(&rga->v4l2_dev, "Registered %s as /dev/%s\n",
-@@ -740,9 +752,6 @@ static int rga_probe(struct platform_device *pdev)
++	if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)) &&
++	    vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx))) {
++		int ret = 0;
++
++		if (V4L2_TYPE_IS_OUTPUT(s->type))
++			ret = rga_check_scaling(rga->hw, &s->r, &ctx->out.crop,
++						ctx->rotate);
++		else
++			ret = rga_check_scaling(rga->hw, &ctx->in.crop, &s->r,
++						ctx->rotate);
++
++		if (ret < 0)
++			return ret;
++	}
++
+ 	f->crop = s->r;
+ 	ctx->cmdbuf_dirty = true;
  
- 	return 0;
+-	return ret;
++	return 0;
+ }
  
--free_dma:
--	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, rga->cmdbuf_virt,
--		       rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
- rel_m2m:
- 	v4l2_m2m_release(rga->m2m_dev);
- rel_vdev:
-@@ -759,9 +768,6 @@ static void rga_remove(struct platform_device *pdev)
- {
- 	struct rockchip_rga *rga = platform_get_drvdata(pdev);
- 
--	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, rga->cmdbuf_virt,
--		       rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
--
- 	v4l2_info(&rga->v4l2_dev, "Removing\n");
- 
- 	v4l2_m2m_release(rga->m2m_dev);
+ static const struct v4l2_ioctl_ops rga_ioctl_ops = {
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 27b3c9b4f220c..04aeb7b429523 100644
+index 5360f092fecf0..df525c6aea8b6 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -53,6 +53,9 @@ struct rga_ctx {
- 	struct rga_frame out;
- 	struct v4l2_ctrl_handler ctrl_handler;
+@@ -123,6 +123,9 @@ static inline struct rga_vb_buffer *vb_to_rga(struct vb2_v4l2_buffer *vb)
  
-+	void *cmdbuf_virt;
-+	dma_addr_t cmdbuf_phy;
+ struct rga_frame *rga_get_frame(struct rga_ctx *ctx, enum v4l2_buf_type type);
+ 
++int rga_check_scaling(const struct rga_hw *hw, const struct v4l2_rect *crop_in,
++		      const struct v4l2_rect *crop_out, u32 rotate);
 +
- 	int osequence;
- 	int csequence;
+ /* RGA Buffers Manage */
+ extern const struct vb2_ops rga_qops;
  
-@@ -89,8 +92,6 @@ struct rockchip_rga {
- 	spinlock_t ctrl_lock;
+@@ -151,6 +154,7 @@ struct rga_hw {
+ 	size_t cmdbuf_size;
+ 	u32 min_width, min_height;
+ 	u32 max_width, max_height;
++	u8 max_scaling_factor;
+ 	u8 stride_alignment;
  
- 	struct rga_ctx *curr;
--	dma_addr_t cmdbuf_phy;
--	void *cmdbuf_virt;
- 
- 	const struct rga_hw *hw;
- };
+ 	void (*setup_cmdbuf)(struct rga_ctx *ctx);
 
 -- 
 2.54.0
