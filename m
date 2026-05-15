@@ -1,195 +1,139 @@
-Received: from mail-m1973174.qiye.163.com (mail-m1973174.qiye.163.com [220.197.31.74])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0273C0604;
-	Fri, 15 May 2026 02:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9219E3C768E
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 02:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778812918; cv=none; b=rTC22lJm/ULPdL6dkASyokvi+ixPB17s/QlDaECjpirvZxo73VaU9NzNThJR6LoKgUAB1yrqLwa6VYYx31b24xRT6UUa6CxIV67nSybQmXj4lMkV23CMt7tT6NQYqK9qEWSjnoL00fr9gjLZmplHQmMq0zJIELV2HcEb4QsEjd4=
+	t=1778813444; cv=none; b=eiFTflcm6zZsxU+nKg8QGlqf0jHZ06ZIYnawUhy0cjWVodwanjgFT+mrUWaxA8ygozHfyGegU0Jm7VOFVp+pDcJyf+G1Am/s2osCigQbPJwf71QExz7wSyuiKVHNgThWdioKedB48O0P5UncaHvkSBF1uxYIuVsBdM9CBK4zMwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778812918; c=relaxed/simple;
-	bh=j/n9SAX+huQAAy7hg39MXq2X9s1sA1FtukTsKuUJLZg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PGhtIs0nlZEeyjTo3GbuVtVcjUgN60CLQ8kpa+blR98/on5byy9KgiQfSZAHddz9zc5odOMozzzE2uibf6JhHBMvjLYMPG8wm/EvtOdmoZXuzYC0/7jE4zZetpPbmprPbLfkH5VKwKLNlC10YicgvH+ZP0YLoNTXNPsc2rzHZ04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=LqrIEfZA; arc=none smtp.client-ip=220.197.31.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778813444; c=relaxed/simple;
+	bh=1Pqzqs0y1UG6cPMNOIg3igBFqPqnzgCRxlTKlOklsyA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Nn2veT+88oCytSLTYOEQU72Vm6ECw/t4C+3Gqj5MNB75D8pJknDxKp5geNInTMK7h0hkMB5MetRxfr6E3TCKifRqKfA4U65mbbqyYrWIQ7vn5kboxFnoasuSWqZ3nI/mmKGzCLqA8QgSMF+tLZ5wS+kHIJxBA4VCk3nDFHgsy9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCTG5Si/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="LqrIEfZA"
-Received: from [172.16.12.43] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e7fc10ae;
-	Fri, 15 May 2026 10:36:32 +0800 (GMT+08:00)
-Message-ID: <f290b425-d5e1-46dd-a63e-0fac53067ca0@rock-chips.com>
-Date: Fri, 15 May 2026 10:36:32 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCTG5Si/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C5BC2BCB3;
+	Fri, 15 May 2026 02:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778813444;
+	bh=1Pqzqs0y1UG6cPMNOIg3igBFqPqnzgCRxlTKlOklsyA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=ZCTG5Si/06x486n3k99q4Ai/7nOQ7rh0lg6kBFHz5+hKK2Uy49QchHnR08L/qK6jg
+	 68+3NujduGVLD3Z9p2t3+s6g2b/r/YTQ2XiqrKeFCtCECunpScbfwHUq2Ta834eXuv
+	 n2IS0GmBYKwIflmtB80PrvejV+D9r3xUvH6w9xky3u4x47bxrCdApGkEbZVEXAbzdd
+	 jAj5FAOgnhk5+3IfPEKUYnCirz+x64QeePTObPfxyW6gtAs1CJifIg2H+O2XAQ+Lbo
+	 1uHdeG7y4NUpnoZMhsPjowADw++SrRtkdEK+3FtmKbSk+oLVkNZZLSrY0lpei4utJW
+	 TVQUWYUHdWIJA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 8/9] riscv: dts: ultrarisc: add Milk-V Titan board
+ device tree
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jia Wang via B4 Relay" <devnull+wangjia.ultrarisc.com@kernel.org>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260515-ultrarisc-pinctrl-v1-8-bf559589ea8a@ultrarisc.com>
+References: <20260515-ultrarisc-pinctrl-v1-8-bf559589ea8a@ultrarisc.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 02:50:43 +0000
+Message-Id: <20260515025043.D1C5BC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
- hclk as third clock for RK3588
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
- <20260513074414.2053435-2-damon.ding@rock-chips.com>
- <20260514-elegant-agate-pug-449ec2@quoll>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260514-elegant-agate-pug-449ec2@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e297e20f403a3kunmc0deb7cd11afb4
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHkgfVkMfShlLT0kdS0lKTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=LqrIEfZA+38ljtZG4tF5/WXxztcTnpzY/0OJHfmpE6+LRkFfaUBXdEd9wAWhiPI+0kT6NObp8PeeC962DlhXclUpfPS8fboSaz+TH7sCUqcyub0csGGdW0gd7744Ue1MZAg6ad/M3haGgxeWshyXu7maKjiAb/B0UcwE2TAEa+k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=U0zZkFsIJMlo+SmTsm1vbbfTBR0506CjYpUXxe4Vvng=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The GPIO pins used for board-level multiplexers (`PA5`, `PA6`, `PA=
+7`) are configured with the `gpio` pinmux function but are not driven to an=
+y defined state.
+- [Low] The `gpio-poweroff` and `gpio-restart` nodes are explicitly defined=
+ in the board device tree but are left with `status =3D "disabled";`.
+--
 
-On 5/14/2026 6:03 PM, Krzysztof Kozlowski wrote:
-> On Wed, May 13, 2026 at 03:44:05PM +0800, Damon Ding wrote:
->> RK3588 eDP controller requires HCLK_VO1 (video output bus clock)
->> to access the VO1 GRF registers and enable the video datapath.
-> 
-> To access GRF? Then it is the same clock input.
+commit f0b973e0e230934a238fa1f5d39b91d61efc3d7b
+Author: Jia Wang <wangjia@ultrarisc.com>
 
-Not the same as RK3399 case.
-(The same as the descriptions in [0])
+riscv: dts: ultrarisc: add Milk-V Titan board device tree
 
-RK3588 hclk_vo1 related NOC design:
+This commit adds the device tree for the Milk-V Titan motherboard based on
+the dp1000 soc.
 
-PD_VO1
-    hclk_vo1
-      └─ pclk_vo1_root
+> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dts=
+i b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
+> index 0000000000000..053206190ec75
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
+[ ... ]
+> +	mux_dcdc_pins: mux-dcdc-pins {
+> +		pins =3D "PA5";
+> +		function =3D "gpio";
+> +	};
+> +
+> +	mux_i2c3_pins: mux-i2c3-pins {
+> +		pins =3D "PA6";
+> +		function =3D "gpio";
+> +	};
+> +
+> +	mux_uart0_pins: mux-uart0-pins {
+> +		pins =3D "PA7";
+> +		function =3D "gpio";
+> +	};
 
-Then the clock tree design:
+[ ... ]
 
-hclk_vo1 (200M)
-├─ hclk_vo1_niu_en
-│    └─ hclk_vo1_niu (200M)
-├─ hclk_hdcp1_en
-│    └─ hclk_hdcp1 (200M)
-├─ hclk_i2s5_8ch_en
-│    └─ hclk_i2s5_8ch (200M)
-├─ hclk_spdif4_en
-│    └─ hclk_spdif4 (200M)
-├─ hclk_spdifrx1_en
-│    └─ hclk_spdifrx1 (200M)
-├─ hclk_i2s9_8ch_en
-│    └─ hclk_i2s9_8ch (200M)
-└─ hclk_i2s6_8ch_en
-       └─ hclk_i2s6_8ch (200M)
+> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/=
+riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
+> index 0000000000000..21d85c03abe12
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
+[ ... ]
+> +	gpio-poweroff {
+> +		compatible =3D "gpio-poweroff";
+> +		gpios =3D <&gpio_b 0 GPIO_ACTIVE_LOW>;
+> +		active-delay-ms =3D <100>;
+> +
+> +		status =3D "disabled";
+> +	};
+> +
+> +	gpio-restart {
+> +		compatible =3D "gpio-restart";
+> +		gpios =3D <&gpio_b 1 GPIO_ACTIVE_LOW>;
+> +		active-delay =3D <100>;
+> +
+> +		status =3D "disabled";
+> +	};
 
-pclk_vo1_root (150M)
-├─ pclk_edp0_en
-│    └─ pclk_edp0 (150M)
-├─ pclk_edp1_en
-│    └─ pclk_edp1 (150M)
-├─ pclk_hdmitx1_en
-│    └─ pclk_hdmitx1 (150M)
-├─ pclk_vo1grf_en
-│    └─ pclk_vo1grf (150M)
-├─ pclk_hdcp1_en
-│    └─ pclk_hdcp1 (150M)
-├─ pclk_hdmitx0_en
-│    └─ pclk_hdmitx0 (150M)
-└─ pclk_trng1_en
-      └─ pclk_trng1 (150M)
+Is it intended to leave these nodes disabled in a final board device tree?
 
-On RK3399, the 'grf' clock is only used exclusively for GRF register access.
+Defining board-level features only to disable them might leave functionality
+unexpectedly unavailable or litter the tree with dead code. If the hardware
+supports these features, should they be enabled to provide power-off and
+restart functionality?
 
-But on RK3576/RK3588, the 'hclk' (HCLK_VO1) acts as the parent clock for 
-pclk_vo1_root in NOC design. Meanwhile pclk_vo1_root is further the 
-parent of pclk_vo1grf and pclk_edp0/pclk_edp1 in clock tree. So this 
-hclk affects both GRF register access and the overall APB clock domain 
-of the eDP controller, which makes it necessary to be listed independently.
+[ ... ]
+> +&gpio {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&io_pins &mux_dcdc_pins &mux_i2c3_pins &mux_uart0_pins>;
+> +};
 
-> 
-> AGAIN (reiterated soooo many times by me): you describe here clock
-> input, NOT OUTPUT.
-> 
+Does this configuration leave the multiplexer pins in a floating state?
 
-You're absolutely right, thank you for the repeated clarification.
+The mux_dcdc_pins, mux_i2c3_pins, and mux_uart0_pins configure the PA5, PA6,
+and PA7 pins to act as gpios and are applied to the default state of the gp=
+io
+controller here. However, configuring a pin to gpio mode only routes it to
+the gpio controller without configuring the direction or output level.
 
-I used "video output bus clock" as a shorthand to refer to HCLK_VO1,
-which clocks the entire video output domain including eDP and HDMI
-interfaces.
+Without a driver or gpio-hog nodes explicitly setting these pins as outputs
+and driving them high or low, they will default to inputs. This might lead =
+to
+unpredictable hardware behavior, potentially disabling the dcdc converter,
+i2c bus, or the system console. Could this be addressed by adding gpio-hog
+configurations?
 
-I will rephrase the commit message more precisely in the next version.
-
->>
->> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
->> phandle reference, which allowed the eDP to work without explicitly
->> managing the hclk_vo1 clock. However, this is not safe or explicit.
->>
->> Enforce the correct third clock name on a per-compatible basis to
->> standardize clock requirements per SoC. This makes the clock
->> dependency clear and removes reliance on implicit clock enablement
->> from GRF phandle.
->>
->> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>
->> ---
->>
->> Changes in v4:
->> - Modify the commit msg.
->>
->> Changes in v5:
->> - Enforce the correct third clock name on a per-compatible basis.
->> - Modify the commit msg simultaneously.
->> ---
->>   .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
->>   1 file changed, 33 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> index d99b23b88cc5..8001c1facf98 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> @@ -23,10 +23,7 @@ properties:
->>   
->>     clock-names:
->>       minItems: 2
->> -    items:
->> -      - const: dp
->> -      - const: pclk
->> -      - const: grf
-> 
-> What is 'grf' clock in such case?
-> 
-
-The 'grf' clock here was specifically for RK3399, which is only used for 
-GRF register access.
-
-Moreover, the control logic for the new 'hclk' clock is different from 
-'grf' clock:
-- The 'grf' clock was gated dynamically before/after GRF register access;
-- The 'hclk' needs to be enabled during probe and kept running 
-continuously [1].
-
-Best regards,
-Damon
-
-[0] 
-https://lore.kernel.org/all/c349eaf2-5852-4bb6-9dac-f7240e1c8098@rock-chips.com/
-[1] 
-https://lore.kernel.org/all/20260513074414.2053435-6-damon.ding@rock-chips.com/
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-ultrarisc-=
+pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=3D8
