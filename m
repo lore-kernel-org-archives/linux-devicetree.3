@@ -1,158 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3BC4C6EE3;
-	Fri, 15 May 2026 16:48:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A4A4C040D;
+	Fri, 15 May 2026 16:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778863733; cv=none; b=PRrVcQL2Vp2ayROFOAtIedGrGusQySVda/54AlXhNkho9XkErMvUhssHcd1JcJ2tMCRL1wGeIcbuYe+G3VQtuQcZDdiA8smKxB2XmKKWC5uWMdg/Ys51F62ygF1ck9dhYzzYHEiFYtOhem5gc+jbOKF+4nASuYVITIcFkMCOZc4=
+	t=1778863864; cv=none; b=NcwFRkvitByLh3fFUaU3ztUiDGT1EpKwrPpMihu31/N8CdvrN4b/waJh4rH+KGJxrpUJspys3Cc72xAZMtTLUCrVD4+LyQN2Z6oXC21QWt/eWE//+v4x1hluH8luWFvJSh4fJ1vTsh7wbaM4NAEJI/kTtezLbwH8b2kMu4dCFR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778863733; c=relaxed/simple;
-	bh=ydeO6pbhPsSTDy08iF5L9BvTw26BZ6WQggBk9NY2ZMA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mGHb20+BAm4xa7bbB9z0ygfZm5RiFfOc3eXRnXYWRrHMUzNb4C/fvTqp7axPvW4xHMMEa+FvSgGEaBhymU3Kc1z0IQJLi+FOZu5+45NwcAmCmbZEvh0wPcHfmJzAqehHOMS8CUFaj0EaNTBCddZAS6ia4/Y5V2hn48PcyIAI8K8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JPIvQcHa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778863864; c=relaxed/simple;
+	bh=BReUGgHoYTDJh7cSrs/u1F61XWcA/9TtEZBk5WoaNXc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PugEnT8fn0BBth3xicH8jLpU7jdyYg0DY5LoHwG7cNBxmqxuEKmO0mJubduKuorH68/ST5h+ZaPXFd+pCKp3z2Uk6QGC1nKQH82AwNobj7H79mwl21vmbUtbP1dTsFgvSdhxxwVmCxPR+zeBxqeN+F18Y7no9Mrx/P24nviwPtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bY6tYAil; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JPIvQcHa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6848BC2BCB0;
-	Fri, 15 May 2026 16:48:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bY6tYAil"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DF7C2BCC7;
+	Fri, 15 May 2026 16:51:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778863732;
-	bh=ydeO6pbhPsSTDy08iF5L9BvTw26BZ6WQggBk9NY2ZMA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=JPIvQcHaR3OcaTbYhvnnXgUW3ezb08rBasc2Ah9nIXasFKXBnr7XVwd5qriND6fCD
-	 KZNcHeUQxZf7wtSGDswgr2GHMNVYHo+wPjEBtpBo9ssedAfl6+j/agTXbqglso10tk
-	 9BZL9eeSUwQ6vfmOSIPMu+oEUNGU0oAZjC/9f9uFnKfmiQXutTI+F2ue9gcx0dGkjE
-	 Nwln8pmy7KaMpHiIisepo3FelrD07OqTIdxQxu52zJH7uW0opUW14oYPFrndkZD4wJ
-	 H82NxXG8Gw+zqOJjGgnGJccuoE3uOofMLMOEGZAFZ5BN/wW7yAhQN4Y2/WBBH/5MKa
-	 AXPwCSprFi9rQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 2/6] mfd: add NXP MC33978/MC34978 core driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Oleksij Rempel" <o.rempel@pengutronix.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260515160537.115808-3-o.rempel@pengutronix.de>
-References: <20260515160537.115808-3-o.rempel@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 16:48:51 +0000
-Message-Id: <20260515164852.6848BC2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778863863;
+	bh=BReUGgHoYTDJh7cSrs/u1F61XWcA/9TtEZBk5WoaNXc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=bY6tYAilDsW6nxBiun3BUTKPpj3Py8uxttjb0Mevx1dedsXLndxyHn6WOIqgWmitp
+	 d8evHBewmLdlzF6aHgUt13fHWMcQuDDd5zojOxZ2Q4YfQNawRgP9x/eH89st45Tcgx
+	 gs/2RighS00AW+67HuV+2itB+Cu46Ub6NRW/j0E5zFqiBNT2TsyPGMmDndkM/nOHvf
+	 i3mgCeQaxbMkaB3RUxIfSE2sqcysBf06bOR+bwIi5UoJiHCG9xKhLODjcHm5a1rcQE
+	 Y+448r7SFhDoQjiRsyGB1XTpZOg5eB3db95ao6wVC2+AIwEinahBuRuy2M5GPvnD4h
+	 rcK+iLjIHKHUQ==
+From: Conor Dooley <conor@kernel.org>
+To: linux-riscv@lists.infradead.org
+Cc: conor@kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] riscv: dts: microchip: remove redudant enabling of syscontroller
+Date: Fri, 15 May 2026 17:50:42 +0100
+Message-ID: <20260515-fetch-antennae-2eba5bf45593@spud>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4396; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=+j3Q+HJOMszU63lc/mKAVJp2ABWAuiZDnQ2FzIBLAgE=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFnsfo9Y/lRs1ZtZNpszsmHKs7BLO7b+WFn0MMTotOSn6 +vfK3n1dZSyMIhxMciKKbIk3u5rkVr/x2WHc89bmDmsTCBDGLg4BWAin84z/OEROXSuaVaoANvT t04OfBJcFYVz7yx7k6pn1M0cvmRjqhvD/5T1bTssl5d+qnZcvTwyZ7HQVvlfG3ZeDDp1UFAky07 8OQcA
+X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Sustained hardware faults cause a 100% CPU lockup in the event han=
-dling loop.
-- [Medium] Transient fault detection logic is dead code due to pipelined SP=
-I dummy fetch filtering.
---
+From: Conor Dooley <conor.dooley@microchip.com>
 
-commit a9e570c4deed793a38c78aa7e88c2bfc68e7b1cd
-Author: Oleksij Rempel <o.rempel@pengutronix.de>
+The system controller is never disabled, there's no need to ever enable
+it.
 
-    mfd: add NXP MC33978/MC34978 core driver
+Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+---
+CC: Conor Dooley <conor.dooley@microchip.com>
+CC: Daire McNamara <daire.mcnamara@microchip.com>
+CC: Rob Herring <robh@kernel.org>
+CC: Krzysztof Kozlowski <krzk+dt@kernel.org>
+CC: linux-riscv@lists.infradead.org
+CC: devicetree@vger.kernel.org
+CC: linux-kernel@vger.kernel.org
+---
+ arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts       | 1 -
+ arch/riscv/boot/dts/microchip/mpfs-disco-kit.dts          | 4 ----
+ arch/riscv/boot/dts/microchip/mpfs-icicle-kit-common.dtsi | 4 ----
+ arch/riscv/boot/dts/microchip/mpfs-m100pfsevp.dts         | 4 ----
+ arch/riscv/boot/dts/microchip/mpfs-polarberry.dts         | 4 ----
+ arch/riscv/boot/dts/microchip/mpfs-sev-kit.dts            | 4 ----
+ arch/riscv/boot/dts/microchip/mpfs-tysom-m.dts            | 4 ----
+ arch/riscv/boot/dts/microchip/pic64gx-curiosity-kit.dts   | 4 ----
+ 8 files changed, 29 deletions(-)
 
-Add core Multi-Function Device (MFD) driver for the NXP MC33978 and MC34978
-Multiple Switch Detection Interfaces (MSDI).
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts b/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
+index 7bbd400b71039..6d7037c9528dd 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
+@@ -328,7 +328,6 @@ mmc@1 {
+ 
+ &syscontroller {
+ 	microchip,bitstream-flash = <&sys_ctrl_flash>;
+-	status = "okay";
+ };
+ 
+ &syscontroller_qspi {
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-disco-kit.dts b/arch/riscv/boot/dts/microchip/mpfs-disco-kit.dts
+index f769c9d5d7b47..da2fcde263e3c 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-disco-kit.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-disco-kit.dts
+@@ -199,7 +199,3 @@ &spi0 {
+ &spi1 {
+ 	status = "okay";
+ };
+-
+-&syscontroller {
+-	status = "okay";
+-};
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-common.dtsi b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-common.dtsi
+index 7816408343a32..a11e3103b8f25 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-common.dtsi
++++ b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-common.dtsi
+@@ -238,10 +238,6 @@ &spi1 {
+ 	status = "okay";
+ };
+ 
+-&syscontroller {
+-	status = "okay";
+-};
+-
+ &syscontroller_qspi {
+ 	/*
+ 	 * The flash *is* there, but Icicle kits that have engineering sample
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-m100pfsevp.dts b/arch/riscv/boot/dts/microchip/mpfs-m100pfsevp.dts
+index 86234968df486..973e34b74be44 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-m100pfsevp.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-m100pfsevp.dts
+@@ -179,10 +179,6 @@ &spi1 {
+ 	status = "okay";
+ };
+ 
+-&syscontroller {
+-	status = "okay";
+-};
+-
+ &usb {
+ 	status = "okay";
+ 	dr_mode = "host";
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-polarberry.dts b/arch/riscv/boot/dts/microchip/mpfs-polarberry.dts
+index 510d59153cd07..cad0871a62a5d 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-polarberry.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-polarberry.dts
+@@ -112,7 +112,3 @@ &refclk {
+ &rtc {
+ 	status = "okay";
+ };
+-
+-&syscontroller {
+-	status = "okay";
+-};
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-sev-kit.dts b/arch/riscv/boot/dts/microchip/mpfs-sev-kit.dts
+index 8f1908a105671..46ded8a4fc363 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-sev-kit.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-sev-kit.dts
+@@ -149,10 +149,6 @@ &rtc {
+ 	status = "okay";
+ };
+ 
+-&syscontroller {
+-	status = "okay";
+-};
+-
+ &usb {
+ 	status = "okay";
+ 	dr_mode = "otg";
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-tysom-m.dts b/arch/riscv/boot/dts/microchip/mpfs-tysom-m.dts
+index bc15530a2979b..c6950410e918a 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-tysom-m.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-tysom-m.dts
+@@ -171,10 +171,6 @@ flash@0 {
+ 	};
+ };
+ 
+-&syscontroller {
+-	status = "okay";
+-};
+-
+ &usb {
+ 	status = "okay";
+ 	dr_mode = "host";
+diff --git a/arch/riscv/boot/dts/microchip/pic64gx-curiosity-kit.dts b/arch/riscv/boot/dts/microchip/pic64gx-curiosity-kit.dts
+index ef5bff3093fc3..180fd8891903c 100644
+--- a/arch/riscv/boot/dts/microchip/pic64gx-curiosity-kit.dts
++++ b/arch/riscv/boot/dts/microchip/pic64gx-curiosity-kit.dts
+@@ -170,7 +170,3 @@ &refclk {
+ &rtc {
+ 	status = "okay";
+ };
+-
+-&syscontroller {
+-	status = "okay";
+-};
+-- 
+2.53.0
 
-> diff --git a/drivers/platform/misc/mc33978-core.c b/drivers/platform/misc=
-/mc33978-core.c
-> index 0000000000000..287b524aed98a
-> --- /dev/null
-> +++ b/drivers/platform/misc/mc33978-core.c
-
-[ ... ]
-
-> 	/*
-> 	 * Transient fault detection (=C2=A79.10.27): FAULT_STAT latches on fault
-> 	 * occurrence and persists until Fault register (0x42) read clears it.
-> 	 * Hwmon driver reads Fault register, which triggers regmap SPI read with
-> 	 * pipelined frames: REQ frame (old response, FAULT_STAT=3D1 latched) and
-> 	 * PIPE frame (Fault register response clears latch). If fault condition
-> 	 * cleared between latch and read, FAULT_STAT won't re-latch (datasheet:
-> 	 * "immediately set again if condition still present").
-> 	 *
-> 	 * Transient detection: hw_flags contains harvested FAULT_STAT bit
-> 	 * (latched evidence from REQ frame), but bus_fault_active=3D0 and
-> 	 * cached_fault_active=3D0 (PIPE frame showed cleared, condition gone).
-> 	 * This proves brief fault (VBATP voltage glitch, threshold oscillation)
-> 	 * occurred and cleared before Fault register read. Edge-triggered
-> 	 * consumers need this event notification.
-> 	 *
-> 	 * WAKE_BIT exclusion: WAKE_BIT is synthetic (bus_fault_active changes),
-> 	 * not hardware evidence. Including it causes phantom transients when
-> 	 * normal faults deassert (WAKE_BIT present but no actual transient).
-> 	 */
-> 	transient =3D !changed && !fault_active && !cached_fault &&
-> 		    (hw_flags & MC33978_HI_BYTE_STAT_FAULT);
-
-Is it possible that the transient fault detection logic is never executed?
-
-Since mc33978_prepare_messages() hardcodes the dummy fetch for the PIPE fra=
-me
-to be MC33978_REG_CHECK, the REQ frame in the next SPI read will contain the
-response to REG_CHECK.
-
-However, mc33978_rx_decode() explicitly sets has_status =3D false for
-MC33978_REG_CHECK and returns -ENODATA.
-
-This skips status harvesting for the REQ frame in mc33978_spi_read(), meani=
-ng
-the latched FAULT_STAT evidence might never be harvested.
-
-[ ... ]
-
-> static void mc33978_process_single_event(struct mc33978_core_data *cdata)
-> {
-> 	unsigned int harvested;
-> 	unsigned int pin_state;
-> 	int ret;
->=20
-> 	/*
-> 	 * Grab harvested_flags BEFORE hardware read. Flags harvested during
-> 	 * the read trigger another loop pass. This intentionally forces a
-> 	 * redundant SPI read on most interrupts, but is necessary to prevent
-> 	 * lost events when concurrent regmap access races with IRQ thread
-> 	 * (hardware has clear-on-read INT_flg).
-> 	 */
-> 	harvested =3D atomic_xchg(&cdata->harvested_flags, 0);
->=20
-> 	ret =3D regmap_read(cdata->map, MC33978_REG_READ_IN, &pin_state);
-> 	if (ret)
-> 		dev_err_ratelimited(&cdata->spi->dev, "failed to read pin state: %d\n",
-> 				    ret);
-> 	else
-> 		mc33978_handle_pin_changes(cdata, pin_state);
->=20
-> 	mc33978_handle_fault_condition(cdata, harvested);
-> }
->=20
-> static void mc33978_handle_events(struct mc33978_core_data *cdata)
-> {
-> 	guard(mutex)(&cdata->event_lock);
->=20
-> 	do {
-> 		mc33978_process_single_event(cdata);
-> 	} while (atomic_read(&cdata->harvested_flags) !=3D 0);
-
-Can a sustained hardware fault cause a soft lockup in this event loop?
-
-If a persistent physical fault exists, the hardware continuously latches
-FAULT_STAT=3D1. The regmap_read() to MC33978_REG_READ_IN inside
-mc33978_process_single_event() triggers mc33978_spi_read(), which then
-calls mc33978_harvest_status().
-
-Because mc33978_harvest_status() unconditionally adds
-MC33978_HI_BYTE_STAT_FAULT back into cdata->harvested_flags, the
-atomic_read(&cdata->harvested_flags) check would perpetually evaluate
-to true.
-
-> }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515160537.1158=
-08-1-o.rempel@pengutronix.de?part=3D2
