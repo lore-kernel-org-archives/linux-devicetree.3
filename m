@@ -1,68 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1DC37EFF7;
-	Fri, 15 May 2026 07:42:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECB92C2346;
+	Fri, 15 May 2026 07:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778830938; cv=none; b=jYzIKVawnwxFt2dajgmVOERV8TauUGh9GXroxhGLuiub+JDv0Cfx4ts/R2TN8wAYHZYv3uYBmDMIcsn2fU399wMRCwEYPVKF54fterlnJRfht/ArID7Y3i0ObTev/XtARFnvzZPaYPRcTietUhzLWuXjKBZJPh0tzxKHJpMq5Xg=
+	t=1778831197; cv=none; b=hVeID6UVCTFUOjNomufEkMP9ZHRES5cAcK+op8ITyKhpPBic2V5vErAE+J5pxQCYuOHc3azA1LlMkUxWAX9iy86lHR1IWlcBUvD7KgdutyCuKxaEvQoUsP+VSpLppwC440xTw3jPUmAXOaJqGHpsz2RUvT7hTAj2aVcpxh3bxec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778830938; c=relaxed/simple;
-	bh=xRYVtVgQPLJ8x5jZ8eWU7cuVDLV6bkK8AXCkt+j9x0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BuZWqxm9pVmdxWTI3Vdj0LxLU/yhbaC2hlWTakANpJEbr3EH9NtrMB5vEnkjJNTMWvTuUJkc+P9dscQF2PT+Oo6e1dS4TufwHZZ0DBoFujd2Bmz/lllwZ4204mSsuDNUHH/styuUhSuojwMyvfIj+afVHYGxJ9yddZedc6HB0cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zrg/95qw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778831197; c=relaxed/simple;
+	bh=7sEI5Cq/9RqwXR4CM2tns7oM2RtNA9lKm2Q3A0kRfws=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ZAQywdAmMdCEP/Ku0AussXZSS3r+s72h2ZHBELBHzOOuA33laUzRfm1GRX9bdwDT/oiCHl3QJPGHClznDJ87rRrSr9oQOtwXqmEuN33cr4yT5T7qewtIkYF3XnVwT3hPnRAtAmr0LUs/TRGnEaSoUx33iXFB/xkVEUPYQ1r3zG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u7JAbAlU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zrg/95qw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44D90C2BCB0;
-	Fri, 15 May 2026 07:42:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u7JAbAlU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9826BC2BCB0;
+	Fri, 15 May 2026 07:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778830937;
-	bh=xRYVtVgQPLJ8x5jZ8eWU7cuVDLV6bkK8AXCkt+j9x0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Zrg/95qws17BanAeNWrmp5I1aRw7ojZ05mBCWMAybEkOr/cQ4lzvbBqWfbyXreRix
-	 JwmA/ZHGiuJIs2m7hjEmXa2NxPhmy2tFtPSNe7t81jCcCmu2byDL5xDDEI16OjYVNV
-	 f7oeSQ3wLfAIUs+RKAi574/RVHEi7l9L1Ggq+kTZBlk30Tc4UxNUyalp/tdAguPQ5V
-	 KyOfmN0V2HUsyP916/tfIl0J/z6TVEqVJHassdOWOZbtLIjQfP/kEFZUZLjG0fhTSm
-	 ZUr3msXEDADxS0IYCdfSTMT1FeYNU+aYT2hR1FAZNvcwHf5K/qr6g3+dx4pAj84617
-	 p4y1bp2qlP1tg==
-Date: Fri, 15 May 2026 09:42:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kartik Nair <contact.kartikn@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	jacobsfeder@gmail.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: misc: add documentation for Xilinx
- AXI-Stream FIFO IP core
-Message-ID: <20260515-stalwart-deer-of-drama-0fcca4@quoll>
-References: <20260510190908.400-1-contact.kartikn@gmail.com>
+	s=k20201202; t=1778831197;
+	bh=7sEI5Cq/9RqwXR4CM2tns7oM2RtNA9lKm2Q3A0kRfws=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=u7JAbAlUWR3EM98ZOnhQAwQpWd3NAxKfCv69WXZbwGMroPiMCkH96xLg7Ojw9IpIn
+	 oVr/SXhtmT8i+2yKtWnhxfONDyhTBhL/k9UdspFYqe58vOA1stV6luI4XRN6fQYA4t
+	 Qt9p69oXjXLBlsJOXW1UdzvSZmgvLbL42O568xMeLCF5vCEVvzhzJL4Js0PQj01yKf
+	 SZLIKkkeaTIHv5TPvh5aEs+jXN29ppnQUWWjWwPrzvhqkMXg2PpZ+vDhwBll/2OsE5
+	 tiCD+IMG/7JCvfMV8tKBuIa+NjrrWVLVheUWiG9Dqc4cVvEukOUrUs3DbqJ2cq7xlP
+	 jbe2X4FG/oaUw==
+Message-ID: <8f826804-95e7-48a6-b6ad-ed5ad55155e6@kernel.org>
+Date: Fri, 15 May 2026 09:46:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260510190908.400-1-contact.kartikn@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: misc: add documentation for MediaLB DIM2
+ controller
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kartik Nair <contact.kartikn@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ christian.gromm@microchip.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260510184419.98043-1-contact.kartikn@gmail.com>
+ <20260515-radiant-practical-dalmatian-a896d4@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260515-radiant-practical-dalmatian-a896d4@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 11, 2026 at 12:39:08AM +0530, Kartik Nair wrote:
-> Add device tree binding documentation for the Xilinx AXI-Stream FIFO
-> IP core (PG080). This documents the compatible strings used in
-> drivers/staging/axis-fifo/axis-fifo.c which were previously flagged
-> as undocumented by checkpatch.
+On 15/05/2026 09:39, Krzysztof Kozlowski wrote:
+> On Mon, May 11, 2026 at 12:14:19AM +0530, Kartik Nair wrote:
+>> Add device tree binding documentation for the MediaLB DIM2 hardware
+>> dependent module. This documents the compatible strings used in
+>> drivers/staging/most/dim2/dim2.c which were previously flagged as
+>> undocumented by checkpatch.
 > 
-> Documented compatible strings:
-> - xlnx,axi-fifo-mm-s-4.1
-> - xlnx,axi-fifo-mm-s-4.2
-> - xlnx,axi-fifo-mm-s-4.3
+> This is not a warning you are supposed to be working on.
 > 
-> Signed-off-by: Kartik Nair <contact.kartikn@gmail.com>
+> It's third or fourth patch like that last month.
 
-How many times this binding is going to be sent? This is like fifth
-time!
+And judging by this:
+https://lore.kernel.org/all/20260511213658.25273-1-contact.kartikn@gmail.com/
+and this:
+https://lore.kernel.org/all/20260513211927.4206-1-contact.kartikn@gmail.com/
 
-Please use search on lore before you start working on something.
+it seems you use AI to do the work. It's not acceptable to push AI slop
+onto us. There is no benefit for you in sending us AI work.
 
 Best regards,
 Krzysztof
-
