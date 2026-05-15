@@ -1,229 +1,243 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E45368D53
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 22:10:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E5F368D53
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 22:10:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778883036; cv=none; b=e9cNa0OheOML6bratn4ZpwRp66XNk13H3qy4jrPvF++aND4ZSEqvVq+5R92GiO6F+ntlNkWfTGKhU7NHIP7OcFa7GO8tHJ/Rk/cmF0bYDpyAmZA3IN2HU/XQYRLLg4tOHiZiBbQO7FsMw6nrAsTmL8ZhYMsKv0ZA5F3HUbKqK6A=
+	t=1778883037; cv=none; b=taC5M2jiwb2sRcO9wyrkAZ5ATpfrbV6trzf35/Hmm2NndelMk8bktwvvZplsW7Tozmm+awWVLVCmJ/M151bBh5hi5MozbKPo+86kdVhbs1eFOK7ogmKH7GpIdjAWPdGWe4zFeKGkT58c1zMDHlXRDwk4ZdTOlOtPgkR0V6eCkfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778883036; c=relaxed/simple;
-	bh=wUOKmgzqsrm0VDc4UQ4oCildkUIvhtSErxBFe89Yhdk=;
+	s=arc-20240116; t=1778883037; c=relaxed/simple;
+	bh=OrNEz044O2bUUb4tZSehVWC7aL8/xnmz5C6jZSuKz6Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=f3g4n68ujAmi3xLsPArO1MaLg10uD6qPlAiYqiYwIB18befFkSKSM22epamfz9VvZjEHmYbUm1L9FMWjmUU4FvynaPjYVC9SMw7b59MHQcgTyDAmwyqrjfm4bDdYdzRI77owYSJLT9EW/sF/vVLXHEHfP/ByrL0rGE8rMbYc5U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V9c4Ambt; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=SxD7tCfuzwdehP4/kI/bIFiuPV5T7JlzssTvHHOwKPiA55rIrqz+wYRuJ54mT7S3nwg3Cit479svBXEAWdfbqfKVpX0ldIXfuxB98wMaQK6Eaa7cHahzCmBLe7p4ijmH4+YI3dV3TAlBaeFu6kU7/+0ysckd0fJDin5vFbG9gFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ohbko1oq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V9c4Ambt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C961EC2BCB0;
-	Fri, 15 May 2026 22:10:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ohbko1oq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D5CC2BCB7;
+	Fri, 15 May 2026 22:10:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778883036;
-	bh=wUOKmgzqsrm0VDc4UQ4oCildkUIvhtSErxBFe89Yhdk=;
+	s=k20201202; t=1778883037;
+	bh=OrNEz044O2bUUb4tZSehVWC7aL8/xnmz5C6jZSuKz6Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=V9c4AmbtbVHzDMv5UvUGrxARUah/8yDxnyt3M2aqEjVZH54JiboxiBQYJEBaqHDC5
-	 2EU4gzPSJDJskof1eVNE85tWeYT3YnYSXf2cjmVXdN5fnUSH0sJh0uFBQJQe7kG4Mc
-	 xpdu44VqiEYU9J8ZjhC92wKAbxEyaaMalCWM1TyHBVESOQBs1Sy4Md+rigx3+nnyrj
-	 5XPLj+NDz7Je+8XWfoLnkkv5xXluLIKB0v/Soah46I7rUlk9tdlFFyy+yLLbpnTKE8
-	 Xfd3U0FCGdeKbrtzaguZYMyg90X7LTS/qaGFfVX7A5my9mJlMJsaw8ROidjfjkSErk
-	 wOafM9FFoAbEQ==
+	b=Ohbko1oqS015FDFoex+qopenXBI8DmQjaM0lB1vfGxba90r9Yqzowq8Sn93hY7WYJ
+	 DHJhsFClgeC8ld+6QWRJRK63U2l7YVraVsmQh56iobTxFPulm1ruYXAHuvuPOivdHg
+	 5lIEyMuW/NsErZqxYEzSkZKOQlenoEa6Op2vdzo0AHfv0FwVeFeihS9C38iBx4OCTX
+	 E3snG2iTE9/vEZAcrtm5W3nMZphAuJeMOfEISqtjDZrgAQzvZl7BkcdzVcKi3Bc4AZ
+	 LB6VmMVbBY0iL5EENAHRSIuW20M/Z6phcOMW3Qhc9g917qi3qjUFXrS+z1367904BR
+	 +h9PM8Hyk5ksg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/10] extcon: add support for Samsung S2M series
- PMIC extcon devices
+Subject: Re: [PATCH v7 07/10] leds: rgb: add support for Samsung S2M series
+ PMIC RGB LED device
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260516-s2mu005-pmic-v7-9-73f9702fb461@disroot.org>
-References: <20260516-s2mu005-pmic-v7-9-73f9702fb461@disroot.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260516-s2mu005-pmic-v7-7-73f9702fb461@disroot.org>
+References: <20260516-s2mu005-pmic-v7-7-73f9702fb461@disroot.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 22:10:35 +0000
-Message-Id: <20260515221035.C961EC2BCB0@smtp.kernel.org>
+Date: Fri, 15 May 2026 22:10:36 +0000
+Message-Id: <20260515221037.03D5CC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
-- [Critical] Self-deadlock in `s2m_muic_remove()` due to recursive acquisit=
-ion of the internal extcon spinlock.
-- [High] Sleeping I2C regmap accesses are performed in atomic context while=
- holding a spinlock.
-- [High] Missing mutual exclusion allows unprotected concurrent execution o=
-f attach/detach handlers, leading to state corruption.
-- [Medium] Unhandled 'no device attached' state causes a spurious warning o=
-n boot.
-- [Medium] The driver uses a fragile `switch` statement on a register read =
-that is explicitly treated as a bitmask.
-- [Low] Misuse of `WARN_ON_ONCE` by passing a string literal instead of a l=
-ogical condition.
-- [Low] A failed memory allocation error is masked if the subsequent initia=
-lization function fails, and initialization is performed unnecessarily.
+- [High] The driver uses the `abs()` macro on unsigned integer subtractions=
+, causing a build failure and integer underflow.
+- [High] Unconditional dereference of `dev->parent` without validation caus=
+es a kernel panic if instantiated via a standalone DT node.
+- [High] Setting a solid brightness does not clear previously configured ha=
+rdware pattern timings, causing the LED to continue blinking.
+- [High] Missing Kconfig dependency on `LEDS_CLASS_MULTICOLOR`.
+- [Medium] The driver silently aggregates complex multi-pulse patterns and =
+forcibly alters blink semantics instead of rejecting unsupported patterns.
+- [Medium] Software and hardware pattern states become desynchronized on er=
+ror paths.
+- [Medium] The driver incorrectly uses the array loop index instead of the =
+`channel` field for hardware register offsets.
+- [Low] The `of_match_table` is exported but not assigned to the platform d=
+river.
 --
 
-commit fa85a485ca17ccd71c4ade607d5194878ea06e29
+commit d2d65a1923271678db5e8b3090e9b23768e600c4
 Author: Kaustabh Chakraborty <kauschluss@disroot.org>
-extcon: add support for Samsung S2M series PMIC extcon devices
+leds: rgb: add support for Samsung S2M series PMIC RGB LED device
 
-This commit adds a driver for MUIC devices found in certain Samsung S2M
-series PMICs. These devices report multiple cable states depending on the
-ID-GND resistance measured by an internal ADC.
+This commit adds support for the RGB LEDs found in Samsung S2M series PMICs,
+starting with the S2MU005. It controls three LED channels as a single
+device, providing 8-bit brightness control for each channel.
 
-> diff --git a/drivers/extcon/extcon-s2m.c b/drivers/extcon/extcon-s2m.c
+> diff --git a/drivers/leds/rgb/Kconfig b/drivers/leds/rgb/Kconfig
+> index 28ef4c487367c..b16144b48b8f8 100644
+> --- a/drivers/leds/rgb/Kconfig
+> +++ b/drivers/leds/rgb/Kconfig
+> @@ -75,6 +75,16 @@ config LEDS_QCOM_LPG
+> =20
+>  	  If compiled as a module, the module will be named leds-qcom-lpg.
+> =20
+> +config LEDS_S2M_RGB
+> +	tristate "Samsung S2M series PMICs RGB LED support"
+> +	depends on LEDS_CLASS
+> +	depends on MFD_SEC_CORE
+
+Should this also depend on LEDS_CLASS_MULTICOLOR?
+
+The driver uses multicolor LED APIs like led_mc_calc_color_components and
+devm_led_classdev_multicolor_register_ext. Without a Kconfig dependency on
+CONFIG_LEDS_CLASS_MULTICOLOR, building the kernel with the multicolor class
+disabled could result in silent functional failures or link errors.
+
+> diff --git a/drivers/leds/rgb/leds-s2m-rgb.c b/drivers/leds/rgb/leds-s2m-=
+rgb.c
 > new file mode 100644
-> index 0000000000000..8450fdf2ff3ed
+> index 0000000000000..d239f54eee901
 > --- /dev/null
-> +++ b/drivers/extcon/extcon-s2m.c
+> +++ b/drivers/leds/rgb/leds-s2m-rgb.c
 [ ... ]
-> +static int s2mu005_muic_attach(struct s2m_muic *priv)
+> +static int s2mu005_rgb_apply_params(struct s2m_rgb *rgb)
 > +{
 [ ... ]
-> +	ret =3D regmap_read(priv->regmap, S2MU005_REG_MUIC_DEV1, &type);
+> +	for (int i =3D 0; i < rgb->mc.num_colors; i++) {
+> +		ret =3D regmap_write(regmap, S2MU005_REG_RGB_CH_CTRL(i),
+> +				   rgb->mc.subled_info[i].brightness);
+
+Is it safe to use the loop index i to calculate the hardware channel?
+
+While i currently matches the channel sequentially, any reordering of the
+subled_info array might cause the index to map to the wrong physical channe=
+l.
+
+Would it be better to extract and use rgb->mc.subled_info[i].channel instea=
+d?
+
 [ ... ]
-> +	if (type & (S2MU005_MUIC_OTG | S2MU005_MUIC_CDP | S2MU005_MUIC_SDP)) {
-> +		ret =3D regmap_update_bits(priv->regmap, S2MU005_REG_MUIC_SWCTRL,
-> +					 S2MU005_MUIC_DM_DP,
-> +					 FIELD_PREP(S2MU005_MUIC_DM_DP,
-> +						    S2MU005_MUIC_DM_DP_USB));
+> +static int s2m_rgb_lut_get_closest_duration(const u32 *lut, const size_t=
+ len, const u32 duration)
+> +{
+> +	u32 closest_distance =3D abs(duration - lut[0]);
+
+Can this cause a compile-time error and integer underflow?
+
+Both duration and lut[0] are u32 variables, and subtracting a larger unsign=
+ed
+integer from a smaller one will wrap around. Additionally, the abs macro in
+linux/math.h is designed to reject unsigned types and evaluates to void.
+
+Could abs_diff be used here instead?
+
 [ ... ]
-> +	switch (type) {
-> +	case S2MU005_MUIC_OTG:
-> +		dev_dbg(priv->dev, "USB OTG connection detected\n");
-> +		extcon_set_state_sync(priv->extcon, EXTCON_USB_HOST, true);
-> +		priv->attached =3D true;
-> +		break;
+> +static int s2m_rgb_pattern_set(struct led_classdev *cdev, struct led_pat=
+tern *pattern, u32 len,
+> +			       int repeat)
+> +{
 [ ... ]
-> +	default:
-> +		dev_warn(priv->dev,
-> +			 "failed to recognize the device attached, unknown or bad type\n");
+> +	for (int i =3D 0; i < len; i++) {
+> +		int brightness =3D pattern[i].brightness;
+> +		u32 delta_t =3D pattern[i].delta_t;
+> +
+> +		if (brightness) {
+> +			/*
+> +			 * The pattern should define only one non-zero
+> +			 * brightness in the HIGH state. The device doesn't
+> +			 * have any provisions to handle multiple peak
+> +			 * brightness levels.
+> +			 */
+> +			if (brightness_peak && brightness_peak !=3D brightness)
+> +				return -EINVAL;
+> +
+> +			brightness_peak =3D brightness;
+> +			time_hi +=3D delta_t;
+> +			ramp_dn_en =3D !!delta_t;
+> +		} else {
+> +			time_lo +=3D delta_t;
+> +			ramp_up_en =3D !!delta_t;
+> +		}
 > +	}
+
+Instead of accumulating durations to force a breathing effect, should the
+driver reject unsupported patterns by returning -EINVAL?
+
+If a sequence with more than two states or sharp step transitions is reques=
+ted,
+rejecting it would allow the LED core to correctly fall back to
+software-driven blinking instead of silently distorting the sequence.
+
+[ ... ]
+> +param_fail:
+> +	rgb->ramp_up =3D 0;
+> +	rgb->ramp_dn =3D 0;
+> +	rgb->stay_hi =3D 0;
+> +	rgb->stay_lo =3D 0;
+> +
+> +	mutex_unlock(&rgb->lock);
 > +
 > +	return ret;
 > +}
 
-Could this switch fail to match if multiple bits are set simultaneously,
-given that the earlier code treats type as a bitmask? If multiple flags
-can be set, independent bitwise checks might be safer.
+Could this error path leave the software and hardware pattern states
+desynchronized?
 
-Also, since call_on_probe is true for the attach handler, if no cable
-is attached at boot, won't type be 0? Does this cause the driver to emit
-this warning on boot when no device is attached?
+Zeroing out the timing state variables without clearing the hardware pattern
+means the hardware continues blinking. A subsequent brightness update might
+then unintentionally alter the running pattern by writing this zeroed state.
 
 [ ... ]
-> +static int s2m_muic_probe(struct platform_device *pdev)
+> +static int s2m_rgb_brightness_set(struct led_classdev *cdev, enum led_br=
+ightness value)
 > +{
-[ ... ]
-> +	switch (platform_get_device_id(pdev)->driver_data) {
-> +	case S2MU005:
-> +		priv->extcon_cable =3D s2mu005_muic_extcon_cable;
-> +		priv->irq_data =3D devm_kmemdup(dev, s2mu005_muic_irq_data,
-> +					      sizeof(s2mu005_muic_irq_data),
-> +					      GFP_KERNEL);
-> +		/* Initialize MUIC */
-> +		ret =3D s2mu005_muic_init(priv);
-> +		break;
-> +	default:
-> +		return dev_err_probe(dev, -ENODEV, "device type not supported by drive=
-r\n");
-> +	}
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to initialize MUIC\n");
+> +	struct s2m_rgb *rgb =3D to_s2m_rgb(to_s2m_mc(cdev));
+> +	int ret =3D 0;
 > +
-> +	if (!priv->irq_data)
-> +		return -ENOMEM;
+> +	if (!value)
+> +		return s2m_rgb_pattern_clear(cdev);
+> +
+> +	mutex_lock(&rgb->lock);
+> +
+> +	led_mc_calc_color_components(&rgb->mc, value);
+> +	/* Apply params with variant-specific implementation. */
+> +	ret =3D s2mu005_rgb_apply_params(rgb);
 
-If devm_kmemdup() fails but s2mu005_muic_init() succeeds, does this
-mask the -ENOMEM error? It also seems to perform hardware I2C initialization
-even if the core data structure allocation failed. Could the allocation
-check be moved immediately after the allocation?
+Does this need to clear previously configured hardware pattern timings when
+setting a solid brightness?
+
+If a hardware blink pattern was previously active, the old non-zero timings
+will be written back to the registers along with the new peak brightness,
+causing the LED to continue blinking instead of emitting a solid color.
 
 [ ... ]
-> +	for (i =3D 0; priv->irq_data[i].handler; i++) {
-> +		ret =3D platform_get_irq_byname_optional(pdev, priv->irq_data[i].name);
-> +		if (ret =3D=3D -ENXIO)
-> +			continue;
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "failed to get IRQ %s\n",
-> +					     priv->irq_data[i].name);
-> +
-> +		priv->irq_data[i].irq =3D ret;
-> +		ret =3D devm_request_threaded_irq(dev, priv->irq_data[i].irq, NULL,
-> +						s2m_muic_irq_func, IRQF_ONESHOT,
-> +						priv->irq_data[i].name, priv);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to request IRQ\n");
-> +
-> +		if (priv->irq_data[i].call_on_probe)
-> +			priv->irq_data[i].handler(priv);
-> +	}
-> +
-> +	return 0;
-> +}
-
-Is there a possibility of concurrent execution here? The attach handler is
-invoked manually after devm_request_threaded_irq() has already enabled the
-interrupt.
-
-If the IRQ fires immediately, the probe thread and the IRQ thread could
-execute s2mu005_muic_attach() simultaneously. Is there a need for
-driver-level synchronization (like a mutex) to protect the priv->attached
-flag and the regmap configuration sequence?
-
-[ ... ]
-> +static void s2m_muic_remove(struct platform_device *pdev)
+> +static int s2m_rgb_probe(struct platform_device *pdev)
 > +{
-> +	struct s2m_muic *priv =3D dev_get_drvdata(&pdev->dev);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->extcon->lock, flags);
-> +
-> +	/*
-> +	 * Disabling the MUIC device is important as it disables manual
-> +	 * switching mode, thereby enabling auto switching mode.
-> +	 *
-> +	 * This is to ensure that when the board is powered off, it
-> +	 * goes into LPM charging mode when a USB charger is connected.
-> +	 */
-> +	switch (platform_get_device_id(pdev)->driver_data) {
-> +	case S2MU005:
-> +		s2mu005_muic_detach(priv);
+> +	struct device *dev =3D &pdev->dev;
+> +	struct sec_pmic_dev *pmic_drvdata =3D dev_get_drvdata(dev->parent);
 
-Will this cause a self-deadlock when the driver is unbound?
-s2mu005_muic_detach() calls extcon_get_state() and extcon_set_state_sync():
+What happens if this driver is instantiated via a standalone device tree
+node rather than as an MFD child?
 
-s2mu005_muic_detach()
-    extcon_get_state()
-        spin_lock_irqsave(&edev->lock, flags);
+If dev->parent is NULL, this unconditional dereference will cause a kernel
+panic.
 
-Since s2m_muic_remove() already acquired the exact same priv->extcon->lock
-before calling s2mu005_muic_detach(), and Linux spinlocks are not
-recursive, won't this hang the kernel?
+Should dev->parent be validated before use?
 
-Additionally, is it safe to perform I2C operations in this context?
-s2m_muic_remove() acquires a spinlock with IRQs disabled. While holding
-this lock, s2mu005_muic_detach() performs multiple regmap_set_bits()
-operations. Since the PMIC is an I2C device, these operations can sleep,
-which violates atomic context rules.
+[ ... ]
+> +static struct platform_driver s2m_rgb_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "s2m-rgb",
+> +	},
+> +	.probe =3D s2m_rgb_probe,
+> +	.id_table =3D s2m_rgb_id_table,
+> +};
 
-Could this be avoided by using a driver-level mutex instead of bypassing the
-extcon API to access the internal lock?
+Is the of_match_table assignment missing from the driver struct?
 
-> +		break;
-> +	default:
-> +		WARN_ON_ONCE("execution shouldn't have reached here!");
-
-This isn't a bug, but WARN_ON_ONCE expects a boolean-like condition, not
-a string literal. While the string evaluates to true, it causes a
-pointer-to-integer conversion warning in static analysis, and the string
-itself isn't formatted into the output message. Should this be
-WARN_ONCE(1, ...)?
-
-> +	}
-> +
-> +	spin_unlock_irqrestore(&priv->extcon->lock, flags);
-> +}
+s2m_rgb_of_match_table is declared earlier in the file to support explicit
+device tree matching but is not assigned here, preventing direct Open Firmw=
+are
+matching.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516-s2mu005-pm=
-ic-v7-0-73f9702fb461@disroot.org?part=3D9
+ic-v7-0-73f9702fb461@disroot.org?part=3D7
