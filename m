@@ -1,100 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80EB2745E;
-	Fri, 15 May 2026 06:02:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E9030E0EE
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 06:02:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778824927; cv=none; b=aqcWPELgfQCVJuUfVeOmtjyUkwlai+KEtuo+F1k5ahI06vbCPWNENIYE4bEIKPmwERQtNaKR5ZXI8H4/H1ssZO8FEDCvaSlQ+iCeYtzRYZB9OT7hdW0u8TQwcCJw3w8dUYiU5Hs2Q9dUv7YJrxajYnsooJFPv2rKghqJVqDKZ80=
+	t=1778824978; cv=none; b=rYTcusH4OBPIGlEzR7pn4PqvFKoYQkyxc4ZflkFPzvim1jB0BlgUdILpTQaCCYhffwrF6DS9o3bXPUL/T5w0QIw3Ha+g1ng/9d9AZbcr8Nw6X2OqJVqcSk3bDAXB0nM8+seN8ywPcozZHkwm/krBRbLWlGA7z2MOgw6OBJVpVaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778824927; c=relaxed/simple;
-	bh=14cqtNz8aiE8UM/nv/f4aw33+woFPGaAntFgInl1rnk=;
+	s=arc-20240116; t=1778824978; c=relaxed/simple;
+	bh=shc49GocOcCWl/9wt7f5lcsdWK1RnVzEDcwO8slFLfc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pniyWTr2Ff+rrGUEFDwdpuNYAKvwuoY+CjH6fcs3zG9+U6noAzWFiNKOyBDmQwo75kHPJn4i0bZ7yOaK93r2Xn3fvGk1bNacAA5FiK0zA/5y8jdErtOilII56gan3U+0JdQvxfNpWG8Gj3gMqK7mUXcODpQ+q7U2rtjCdW0sJuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gz4xdUMh; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=HDioJ2vFVcufdkbK86XBzIRTU2Yo51tlZRrWEfJFXBrNu3qeFZfVgYpzckZ4hi7RoHXCaYdmjk/pnsitCQ62HaE5ZtFZzgSzcC2/4dP+QHSzjl7Rh6fs73gDJh/jDFIVehzhXwzPZTHU8ETLn1Pgz+OVOUzeEFP7gmHVLmYkLIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VR0Nk7yU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gz4xdUMh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B69C2BCB0;
-	Fri, 15 May 2026 06:02:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VR0Nk7yU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA3DC2BCB0;
+	Fri, 15 May 2026 06:02:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778824927;
-	bh=14cqtNz8aiE8UM/nv/f4aw33+woFPGaAntFgInl1rnk=;
+	s=k20201202; t=1778824978;
+	bh=shc49GocOcCWl/9wt7f5lcsdWK1RnVzEDcwO8slFLfc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Gz4xdUMhT4rW2JXWFKAYuKpBDbFMfhTK8gTLOUtTI5AjCDh4pSHFzCRNHlc3RytWe
-	 G9E/2xV6B8zJwYzKmfYBRrxdIhBbnL4kNGu7YObuQcw5SKwPMAIR5GgASJA+o++lng
-	 gEBZFu1ul2HlTQJrNaaarxBwq3FuIBP/pZmOHvdpKmGIzN5Rl7nGpR25fla6zAOTDn
-	 vMVRRyvFCBSNa3rHP/lwlNwB/NO21h0v2JbyJl43OHP79g7bdRRMO61wxrAlATTp10
-	 HJDdO44AgOLbvjsOTAPe7lpXJ15C2w2gUlXmNhKCDCEphN/0mVdP0RSmm3GtLzuOKP
-	 k/MxpHcN/i+cg==
+	b=VR0Nk7yUBVenMOkPXdWAJphyFdvaFOmz37RvtCCr/0NCOGjXrpXxdV28oOe5lKUMl
+	 CjHbnvqXRbUGREZ6UYe7zVqD5NGIhNUZWSWsmc1dm0zRc38TuOw5yxYjs3bLI6DADi
+	 hFWfnKQ3F90eDp6O+J/I3GL6cH1WX1q2Ba8NmVGfHg28dHw8FBmSaySgLjhu5P5O7K
+	 GvdiCxW6wbsaCNj+xiKDXW6Hp3qzmHgL/iBSssvxia9mFiPEva3gtQOVYrmCMuJrMH
+	 u+kmRrVgPem5ET7itVoYeWzpZwcGA8CGaRxwesgx1AlrM3m1/5CQbaMSjE2vDPzu0/
+	 Ad5HVLBWJJs9Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/7] platform/surface: SAM: Add support for Surface
- Pro 12in
+Subject: Re: [PATCH v18 1/3] dt-bindings: pwm: opencores: Drop starfive
+ compatibles and update maintainers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harrison Vanderbyl" <harrison.vanderbyl@gmail.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, devicetree@vger.kernel.org, linux-input@vger.kernel.org
-In-Reply-To: <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
-References: <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
+To: "Hal Feng" <hal.feng@starfivetech.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515054723.25024-2-hal.feng@starfivetech.com>
+References: <20260515054723.25024-2-hal.feng@starfivetech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 06:02:05 +0000
-Message-Id: <20260515060206.56B69C2BCB0@smtp.kernel.org>
+Date: Fri, 15 May 2026 06:02:57 +0000
+Message-Id: <20260515060258.0CA3DC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Incorrect software node used for the pen stash device, breaking =
-pen stash events.
+- [High] Removing existing StarFive compatible strings breaks DT schema val=
+idation for existing device trees.
+- [Medium] The commit silently modifies the `reg` space size in the schema =
+example.
+- [Low] The `compatible` schema contains an awkward single-item list struct=
+ure after modification.
 --
 
-commit 66a330e4ed95d1a03b167abb4b106aaef584a66f
-Author: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+commit c3152a2a38b5f4d3a25df0696646b840e0d04b60
+Author: Hal Feng <hal.feng@starfivetech.com>
 
-platform/surface: SAM: Add support for Surface Pro 12in
+dt-bindings: pwm: opencores: Drop starfive compatibles and update maintaine=
+rs
 
-This commit adds a SAM client device node group and registry entry for the
-Microsoft Surface Pro 12-inch. It specifically mentions enabling the cover
-keyboard, cover touchpad, and pen stash events.
+Each of the StarFive SoCs has 8 OpenCores PTC IP cores that only differ
+by their register base address. There is no need for starfive compatibles to
+distinguish them, so they are dropped.
 
-> diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/dri=
-vers/platform/surface/surface_aggregator_registry.c
-> index 0599d5adf02e6..8840499614154 100644
-> --- a/drivers/platform/surface/surface_aggregator_registry.c
-> +++ b/drivers/platform/surface/surface_aggregator_registry.c
+> diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml b/D=
+ocumentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> index 52a59d245cdb1..834fb17ec595e 100644
+> --- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> +++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+
 [ ... ]
-> @@ -422,6 +422,19 @@ static const struct software_node *ssam_node_group_s=
-p11[] =3D {
->  	NULL,
->  };
-> =20
-> +/* Devices for Surface Pro 12" first edition (ARM/QCOM) */
-> +static const struct software_node *ssam_node_group_sp12in[] =3D {
-> +	&ssam_node_root,
-> +	&ssam_node_hub_kip,
-> +	&ssam_node_tmp_sensors,
-> +	&ssam_node_hid_kip_keyboard,
-> +	&ssam_node_hid_sam_penstash,
 
-Will this software node work correctly for the Surface Pro pen stash events?
+> @@ -20,10 +20,6 @@ allOf:
+>  properties:
+>    compatible:
+>      items:
+> -      - enum:
+> -          - starfive,jh7100-pwm
+> -          - starfive,jh7110-pwm
+> -          - starfive,jh8100-pwm
+>        - const: opencores,pwm-v1
 
-Since the pen is typically stashed inside the detachable cover keyboard on
-Surface Pro devices, its events are usually routed through the Keyboard
-Interface Protocol (KIP) hub.
+Does removing the legacy compatible strings break dtbs_check for existing
+device trees? Older device trees likely still use the two-string format.
 
-Other Surface Pro models, like the SP11, use ssam_node_hid_kip_penstash
-instead. Should this use the KIP variant here as well? Using the SAM
-variant might cause the driver to listen on the wrong target ID and miss
-the pen stash events entirely.
+Would it be better to use a oneOf construct to allow both the legacy
+two-string format and the new single-string format to maintain backward
+compatibility?
 
-> +	&ssam_node_hid_kip_touchpad,
-> +	&ssam_node_hid_kip_fwupd,
-> +	&ssam_node_pos_tablet_switch,
-> +	NULL,
-> +};
+This isn't a bug, but leaving a single element under items is an anti-patte=
+rn
+in dt-schema. Since only one string is allowed now, could this be simplified
+to just a direct const property instead of an items array?
+
+[ ... ]
+
+> @@ -48,8 +44,8 @@ additionalProperties: false
+>  examples:
+>    - |
+>      pwm@12490000 {
+> -        compatible =3D "starfive,jh7110-pwm", "opencores,pwm-v1";
+> -        reg =3D <0x12490000 0x10000>;
+> +        compatible =3D "opencores,pwm-v1";
+> +        reg =3D <0x12490000 0x10>;
+
+The commit message mentions dropping the starfive compatibles and updating
+maintainers, but does not document changing the register space size from
+0x10000 to 0x10.
+
+Could the commit message be updated to explicitly explain and justify this
+register size change?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1778822464.gi=
-t.harrison.vanderbyl@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515054723.2502=
+4-1-hal.feng@starfivetech.com?part=3D1
