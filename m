@@ -1,132 +1,466 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FF644B67F;
-	Fri, 15 May 2026 10:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15D744D695;
+	Fri, 15 May 2026 10:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778841698; cv=none; b=LB0F0ZK0XVebbyKY1loFG/2/L0FA35IThFSkBGDf9DXWTXFM+zRKN5Gc5QmPds7plv0HHEc5KBdkxjqD9MZL63KcvcAtZhnkpReSnn2gmBFG+p24UtyTcw//gpr8zbljZzQaYjMjVutZs/cZe80kL0H05CST4FzlyhU0VbQBD8I=
+	t=1778841713; cv=none; b=GwbEizyQG/6zR4CDEJOMnqjMt3APoXS5y6cGMjJi+NKkgF75BDvcs3PfAqpAKmMeylGFsZV8NLBtPQNFSHeoai1cp1XAv11lm75+7tWVd0XGQTUsnMR0tf6Nf4zAkwydwk/+j3bhZDsRTY+Eag/Z1kXKWGwt0z6sP5DkCj06Lt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778841698; c=relaxed/simple;
-	bh=ZPp1ndVMVWLYC7Sk18kpys0/Vxz72Hm26ip8CZBljYE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SAwtbrJ8V+xX0DXbgOG4JgKqNjOKv1v/r8LN2KpYS6tVnIrVuKxSAali6BFZgz4ZVB4n/IKEsLkRkEMi4Y2HArVJ7I6l4eBKlahNg+va3Ako8Qxwg8qYvun+MgOZWxD/dkHZAgPbWjNhopxnPAsHr26zufAr6skA+tbfRUnXUYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoTx566A; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778841713; c=relaxed/simple;
+	bh=fDGy8zCbKZjuU7SUb4iiNUBbrbAOmp37dV9Iyi+Nb8M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=o0iyOGyQedsoW2g+rnT0fH9v6Wygj9nbBKOy647oDHYKvFUcyacAeL5lBgF44eZ1Mg7wgTW1TlyAcjAfIBoCrqfbhSl3XW0CcFHXeYoTW4DOtjl/hJEmymPdgnnmCJMSfl/JJOdghSmkEUiB5zqactlwxVNEgdoH5i31JslmSUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=XfbpuskP; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoTx566A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DFA4C2BCB0;
-	Fri, 15 May 2026 10:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778841697;
-	bh=ZPp1ndVMVWLYC7Sk18kpys0/Vxz72Hm26ip8CZBljYE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LoTx566AZfQ7AhbCDv8iJXLbQuv4WxHkjBv793wCwifvvzWY9mvl9BUQNXCw+fCSL
-	 Tq6zOxvUrSgBVp2X7+D/JduW0dq8Ucna1aMZ1UHNteo1x9f1878XHeQfFtJKS7+hAz
-	 O+YSW5vQ4LypYB4ROn0kAhlHp5pP5WvgNlmowLrjwfoYXWbkCi/ZsU7kvGsTVAr8Sf
-	 lsttYtXhDHvRhX8l1v2gU0apZKTiTavcMoXaM9JBVL0+TSwbPnXjp8JOGjAOMFUHBF
-	 gvQrwWCob8ceNdomHFsbl5u2UvIWvaEQa0qR8zIcJsgLCNo5cyK2yG5bKSmeBzkq15
-	 hE+yLbESijFqw==
-Date: Fri, 15 May 2026 12:41:35 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: imx678: Add driver for Sony IMX678
-Message-ID: <20260515-meteoric-prudent-walrus-eee028@quoll>
-References: <20260513-imx678-v1-0-30fc593ed8fa@ideasonboard.com>
- <20260513-imx678-v1-2-30fc593ed8fa@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="XfbpuskP"
+Received: from mail01.disroot.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 6ABC626DEA;
+	Fri, 15 May 2026 12:41:50 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id V4omcYTAQy65; Fri, 15 May 2026 12:41:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1778841709; bh=fDGy8zCbKZjuU7SUb4iiNUBbrbAOmp37dV9Iyi+Nb8M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=XfbpuskPJqSXZMaJz/spg7PsaIa6y8uxXgBA6XgYRkVoxkEZ2ytS2b+GTgktuRKf6
+	 fQwFzS5Dj8fOIX79kZDUshruZnEw5Rixy2zLTATvZk+fmIKYT0fg0OjBu6fn5Nfn4S
+	 ilJkk3y2VWbNgYhrPs84/MLRxTwPLXVA2lbbF3Ytq75iloiW8tXHNRJqgxxTsJmw1F
+	 0BWzGEZClFV4sfjEaSCDRfqn2sdJxGbMbBO2AesB4sGkl3zBZNB68ydJs24EnsRwp5
+	 YtRnUOmoxlSHzvRdHY77ZyE7GunlzsvvfrtkqXhiy5DTiGlNfZk8lanZ+dhLFjUPdG
+	 rsgnThIORmePQ==
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Date: Fri, 15 May 2026 16:09:06 +0530
+Subject: [PATCH v6 10/11] extcon: add support for Samsung S2M series PMIC
+ extcon devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260513-imx678-v1-2-30fc593ed8fa@ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260515-s2mu005-pmic-v6-10-1979106992d4@disroot.org>
+References: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
+In-Reply-To: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Nam Tran <trannamatk@gmail.com>, 
+ =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Kaustabh Chakraborty <kauschluss@disroot.org>
 
-On Wed, May 13, 2026 at 09:03:17PM +0530, Jai Luthra wrote:
-> +static int imx678_disable_streams(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *state,
-> +				  u32 pad, u64 mask)
-> +{
-> +	struct i2c_client *client = v4l2_get_subdevdata(sd);
-> +	struct imx678 *imx678 = to_imx678(sd);
-> +	int ret = 0;
-> +
-> +	/* Master mode disable */
-> +	cci_write(imx678->cci, IMX678_REG_XMSTA, 0x01, &ret);
-> +	/* Standby */
-> +	cci_write(imx678->cci, IMX678_REG_MODE_SELECT, IMX678_MODE_STANDBY, &ret);
-> +	if (ret)
-> +		dev_err(&client->dev, "%s failed to stop stream\n", __func__);
-> +
-> +	pm_runtime_put(&client->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int imx678_power_on(struct device *dev)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> +	struct imx678 *imx678 = to_imx678(sd);
-> +	int ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(imx678_supply_name), imx678->supplies);
-> +	if (ret) {
-> +		dev_err(&client->dev, "%s: failed to enable regulators\n",
-> +			__func__);
-> +		return ret;
-> +	}
-> +
-> +	usleep_range(500, 550); /* Tlow */
-> +
-> +	gpiod_set_value_cansleep(imx678->reset_gpio, 1);
+Add a driver for MUIC devices found in certain Samsung S2M series PMICs
+These are USB port accessory detectors. These devices report multiple
+cable states depending on the ID-GND resistance measured by an internal
+ADC.
 
-Never tested. How can you have device powered on when it is in reset
-stage?
+The driver includes initial support for the S2MU005 PMIC extcon.
 
-> +
-> +	ret = clk_prepare_enable(imx678->xclk);
-> +	if (ret) {
-> +		dev_err(&client->dev, "%s: failed to enable clock\n",
-> +			__func__);
-> +		goto reg_off;
-> +	}
-> +
-> +	usleep_range(20, 22); /* T4 */
-> +
-> +	return 0;
-> +
-> +reg_off:
-> +	regulator_bulk_disable(ARRAY_SIZE(imx678_supply_name), imx678->supplies);
-> +	return ret;
-> +}
-> +
-> +static int imx678_power_off(struct device *dev)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> +	struct imx678 *imx678 = to_imx678(sd);
-> +
-> +	gpiod_set_value_cansleep(imx678->reset_gpio, 0);
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+---
+ drivers/extcon/Kconfig      |  10 ++
+ drivers/extcon/Makefile     |   1 +
+ drivers/extcon/extcon-s2m.c | 345 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 356 insertions(+)
 
-And here as well bug. And if you looked at existing drivers you would
-see how to do that correctly.
+diff --git a/drivers/extcon/Kconfig b/drivers/extcon/Kconfig
+index 68d9df7d2dae0..19c712e591955 100644
+--- a/drivers/extcon/Kconfig
++++ b/drivers/extcon/Kconfig
+@@ -183,6 +183,16 @@ config EXTCON_RT8973A
+ 	  and switch that is optimized to protect low voltage system
+ 	  from abnormal high input voltage (up to 28V).
+ 
++config EXTCON_S2M
++	tristate "Samsung S2M series PMIC EXTCON support"
++	depends on MFD_SEC_CORE
++	select REGMAP_IRQ
++	help
++	  This option enables support for MUIC devices found in certain
++	  Samsung S2M series PMICs, such as the S2MU005. These devices
++	  have internal ADCs measuring the ID-GND resistance, thereby
++	  can be used as a USB port accessory detector.
++
+ config EXTCON_SM5502
+ 	tristate "Silicon Mitus SM5502/SM5504/SM5703 EXTCON support"
+ 	depends on I2C
+diff --git a/drivers/extcon/Makefile b/drivers/extcon/Makefile
+index 6482f2bfd6611..e3939786f3474 100644
+--- a/drivers/extcon/Makefile
++++ b/drivers/extcon/Makefile
+@@ -23,6 +23,7 @@ obj-$(CONFIG_EXTCON_PALMAS)	+= extcon-palmas.o
+ obj-$(CONFIG_EXTCON_PTN5150)	+= extcon-ptn5150.o
+ obj-$(CONFIG_EXTCON_QCOM_SPMI_MISC) += extcon-qcom-spmi-misc.o
+ obj-$(CONFIG_EXTCON_RT8973A)	+= extcon-rt8973a.o
++obj-$(CONFIG_EXTCON_S2M)	+= extcon-s2m.o
+ obj-$(CONFIG_EXTCON_SM5502)	+= extcon-sm5502.o
+ obj-$(CONFIG_EXTCON_USB_GPIO)	+= extcon-usb-gpio.o
+ obj-$(CONFIG_EXTCON_USBC_CROS_EC) += extcon-usbc-cros-ec.o
+diff --git a/drivers/extcon/extcon-s2m.c b/drivers/extcon/extcon-s2m.c
+new file mode 100644
+index 0000000000000..e57031b0066bb
+--- /dev/null
++++ b/drivers/extcon/extcon-s2m.c
+@@ -0,0 +1,345 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Extcon Driver for Samsung S2M series PMICs.
++ *
++ * Copyright (c) 2015 Samsung Electronics Co., Ltd
++ * Copyright (C) 2026 Kaustabh Chakraborty <kauschluss@disroot.org>
++ */
++
++#include <linux/delay.h>
++#include <linux/extcon-provider.h>
++#include <linux/interrupt.h>
++#include <linux/mfd/samsung/core.h>
++#include <linux/mfd/samsung/s2mu005.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++
++struct s2m_muic {
++	struct device *dev;
++	struct regmap *regmap;
++	struct extcon_dev *extcon;
++	struct s2m_muic_irq_data *irq_data;
++	const unsigned int *extcon_cable;
++	bool attached;
++};
++
++struct s2m_muic_irq_data {
++	const char *name;
++	int (*const handler)(struct s2m_muic *);
++	int irq;
++};
++
++static int s2mu005_muic_detach(struct s2m_muic *priv)
++{
++	int ret;
++	int i;
++
++	ret = regmap_set_bits(priv->regmap, S2MU005_REG_MUIC_CTRL1,
++			      S2MU005_MUIC_MAN_SW);
++	if (ret < 0) {
++		dev_err(priv->dev, "failed to disable manual switching\n");
++		return ret;
++	}
++
++	ret = regmap_set_bits(priv->regmap, S2MU005_REG_MUIC_CTRL3,
++			      S2MU005_MUIC_ONESHOT_ADC);
++	if (ret < 0) {
++		dev_err(priv->dev, "failed to enable ADC oneshot mode\n");
++		return ret;
++	}
++
++	ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_SWCTRL, ~0);
++	if (ret < 0) {
++		dev_err(priv->dev, "failed to clear switch control register\n");
++		return ret;
++	}
++
++	/* Find all set states and clear them */
++	for (i = 0; priv->extcon_cable[i]; i++) {
++		unsigned int state = priv->extcon_cable[i];
++
++		if (extcon_get_state(priv->extcon, state) == true)
++			extcon_set_state_sync(priv->extcon, state, false);
++	}
++
++	priv->attached = false;
++
++	return 0;
++}
++
++static int s2mu005_muic_attach(struct s2m_muic *priv)
++{
++	unsigned int type;
++	int ret;
++
++	/* If any device is already attached, detach it */
++	if (priv->attached) {
++		s2mu005_muic_detach(priv);
++		msleep(100);
++	}
++
++	ret = regmap_read(priv->regmap, S2MU005_REG_MUIC_DEV1, &type);
++	if (ret < 0) {
++		dev_err(priv->dev, "failed to read DEV1 register\n");
++		return ret;
++	}
++
++	/*
++	 * All USB connections which require communication via its D+
++	 * and D- wires need it.
++	 */
++	if (type & (S2MU005_MUIC_OTG | S2MU005_MUIC_DCP | S2MU005_MUIC_SDP)) {
++		ret = regmap_update_bits(priv->regmap, S2MU005_REG_MUIC_SWCTRL,
++					 S2MU005_MUIC_DM_DP,
++					 FIELD_PREP(S2MU005_MUIC_DM_DP,
++						    S2MU005_MUIC_DM_DP_USB));
++		if (ret < 0) {
++			dev_err(priv->dev, "failed to configure DM/DP pins\n");
++			return ret;
++		}
++	}
++
++	/*
++	 * For OTG connections, enable manual switching and ADC oneshot
++	 * mode. Since the port will now be supplying power, the
++	 * internal ADC (measuring the ID-GND resistance) is made to
++	 * poll periodically for any changes, so as to prevent any
++	 * damages due to power.
++	 */
++	if (type & S2MU005_MUIC_OTG) {
++		ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_CTRL1,
++					S2MU005_MUIC_MAN_SW);
++		if (ret < 0) {
++			dev_err(priv->dev, "failed to enable manual switching\n");
++			return ret;
++		}
++
++		ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_CTRL3,
++					S2MU005_MUIC_ONESHOT_ADC);
++		if (ret < 0) {
++			dev_err(priv->dev, "failed to disable ADC oneshot mode\n");
++			return ret;
++		}
++	}
++
++	switch (type) {
++	case S2MU005_MUIC_OTG:
++		dev_dbg(priv->dev, "USB OTG connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_USB_HOST, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_CDP:
++		dev_dbg(priv->dev, "USB CDP connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_USB, true);
++		extcon_set_state_sync(priv->extcon, EXTCON_CHG_USB_CDP, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_SDP:
++		dev_dbg(priv->dev, "USB SDP connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_USB, true);
++		extcon_set_state_sync(priv->extcon, EXTCON_CHG_USB_SDP, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_DCP:
++		dev_dbg(priv->dev, "USB DCP connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_USB, true);
++		extcon_set_state_sync(priv->extcon, EXTCON_CHG_USB_DCP, true);
++		priv->attached = true;
++		break;
++	case S2MU005_MUIC_UART:
++		dev_dbg(priv->dev, "UART connection detected\n");
++		extcon_set_state_sync(priv->extcon, EXTCON_JIG, true);
++		priv->attached = true;
++		break;
++	}
++
++	if (!priv->attached)
++		dev_warn(priv->dev, "failed to recognize the device attached\n");
++
++	return ret;
++}
++
++static int s2mu005_muic_init(struct s2m_muic *priv)
++{
++	int ret = 0;
++
++	ret = regmap_update_bits(priv->regmap, S2MU005_REG_MUIC_LDOADC_L,
++				 S2MU005_MUIC_VSET,
++				 FIELD_PREP(S2MU005_MUIC_VSET,
++					    S2MU005_MUIC_VSET_3P0V));
++	if (ret < 0) {
++		dev_err(priv->dev, "failed to set internal ADC voltage regulator\n");
++		return ret;
++	}
++
++	ret = regmap_update_bits(priv->regmap, S2MU005_REG_MUIC_LDOADC_H,
++				 S2MU005_MUIC_VSET,
++				 FIELD_PREP(S2MU005_MUIC_VSET,
++					    S2MU005_MUIC_VSET_3P0V));
++	if (ret < 0) {
++		dev_err(priv->dev, "failed to set internal ADC voltage regulator\n");
++		return ret;
++	}
++
++	ret = regmap_clear_bits(priv->regmap, S2MU005_REG_MUIC_CTRL1,
++				S2MU005_MUIC_IRQ);
++	if (ret < 0) {
++		dev_err(priv->dev, "failed to enable MUIC interrupts\n");
++		return ret;
++	}
++
++	return s2mu005_muic_attach(priv);
++}
++
++static const unsigned int s2mu005_muic_extcon_cable[] = {
++	EXTCON_USB,
++	EXTCON_USB_HOST,
++	EXTCON_CHG_USB_SDP,
++	EXTCON_CHG_USB_DCP,
++	EXTCON_CHG_USB_CDP,
++	EXTCON_JIG,
++	EXTCON_NONE,
++};
++
++static struct s2m_muic_irq_data s2mu005_muic_irq_data[] = {
++	{
++		.name = "attach",
++		.handler = s2mu005_muic_attach
++	}, {
++		.name = "detach",
++		.handler = s2mu005_muic_detach
++	}, {
++		/* sentinel */
++	}
++};
++
++static irqreturn_t s2m_muic_irq_func(int virq, void *data)
++{
++	struct s2m_muic *priv = data;
++	const struct s2m_muic_irq_data *irq_data = priv->irq_data;
++	int ret;
++	int i;
++
++	for (i = 0; irq_data[i].handler; i++) {
++		if (virq != irq_data[i].irq)
++			continue;
++
++		ret = irq_data[i].handler(priv);
++		if (ret < 0)
++			dev_err(priv->dev, "failed to handle interrupt for %s (%d)\n",
++				irq_data[i].name, ret);
++		break;
++	}
++
++	return IRQ_HANDLED;
++}
++
++static int s2m_muic_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct sec_pmic_dev *pmic_drvdata = dev_get_drvdata(dev->parent);
++	struct s2m_muic *priv;
++	int ret;
++	int i;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	platform_set_drvdata(pdev, priv);
++	priv->dev = dev;
++	priv->regmap = pmic_drvdata->regmap_pmic;
++
++	switch (platform_get_device_id(pdev)->driver_data) {
++	case S2MU005:
++		priv->extcon_cable = s2mu005_muic_extcon_cable;
++		priv->irq_data = s2mu005_muic_irq_data;
++		/* Initialize MUIC */
++		ret = s2mu005_muic_init(priv);
++		break;
++	default:
++		return dev_err_probe(dev, -ENODEV,
++				     "device type %d is not supported by driver\n",
++				     pmic_drvdata->device_type);
++	}
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to initialize MUIC\n");
++
++	priv->extcon = devm_extcon_dev_allocate(dev, priv->extcon_cable);
++	if (IS_ERR(priv->extcon))
++		return dev_err_probe(dev, PTR_ERR(priv->extcon),
++				     "failed to allocate memory for extcon\n");
++
++	ret = devm_extcon_dev_register(dev, priv->extcon);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to register extcon device\n");
++
++	for (i = 0; priv->irq_data[i].handler; i++) {
++		int irq = platform_get_irq_byname_optional(pdev,
++							   priv->irq_data[i].name);
++		if (irq == -ENXIO)
++			continue;
++		if (irq <= 0)
++			return dev_err_probe(dev, -EINVAL, "failed to get IRQ %s\n",
++					     priv->irq_data[i].name);
++
++		priv->irq_data[i].irq = irq;
++		ret = devm_request_threaded_irq(dev, irq, NULL,
++						s2m_muic_irq_func, IRQF_ONESHOT,
++						priv->irq_data[i].name, priv);
++		if (ret)
++			return dev_err_probe(dev, ret, "failed to request IRQ\n");
++	}
++
++	return 0;
++}
++
++static void s2m_muic_remove(struct platform_device *pdev)
++{
++	struct s2m_muic *priv = dev_get_drvdata(&pdev->dev);
++
++	/*
++	 * Disabling the MUIC device is important as it disables manual
++	 * switching mode, thereby enabling auto switching mode.
++	 *
++	 * This is to ensure that when the board is powered off, it
++	 * goes into LPM charging mode when a USB charger is connected.
++	 */
++	switch (platform_get_device_id(pdev)->driver_data) {
++	case S2MU005:
++		s2mu005_muic_detach(priv);
++		break;
++	}
++}
++
++static const struct platform_device_id s2m_muic_id_table[] = {
++	{ "s2mu005-muic", S2MU005 },
++	{ /* sentinel */ },
++};
++MODULE_DEVICE_TABLE(platform, s2m_muic_id_table);
++
++static const struct of_device_id s2m_muic_of_match_table[] = {
++	{
++		.compatible = "samsung,s2mu005-muic",
++		.data = (void *)S2MU005,
++	}, {
++		/* sentinel */
++	},
++};
++MODULE_DEVICE_TABLE(of, s2m_muic_of_match_table);
++
++static struct platform_driver s2m_muic_driver = {
++	.driver = {
++		.name = "s2m-muic",
++	},
++	.probe = s2m_muic_probe,
++	.remove = s2m_muic_remove,
++	.id_table = s2m_muic_id_table,
++};
++module_platform_driver(s2m_muic_driver);
++
++MODULE_DESCRIPTION("Extcon Driver For Samsung S2M Series PMICs");
++MODULE_AUTHOR("Kaustabh Chakraborty <kauschluss@disroot.org>");
++MODULE_LICENSE("GPL");
 
-
-> +	regulator_bulk_disable(ARRAY_SIZE(imx678_supply_name), imx678->supplies);
-> +	clk_disable_unprepare(imx678->xclk);
-> +
-> +	/* Force reprogramming of the common registers when powered up again. */
-> +	imx678->common_regs_written = false;
-
-You should just use regcache.
-
-Best regards,
-Krzysztof
+-- 
+2.53.0
 
