@@ -1,87 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8EA3806BE
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 20:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B38D346AD5;
+	Fri, 15 May 2026 21:07:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778878317; cv=none; b=uCOwhBZ/4BZR5iC6UzSMTmD7qRN0hzjVExns4grgA5rvNShS8KAXO2/bvJpU10OloF84mSi6dMe1YEuvjlhXQdbWCItZhiFg3oLbr6h/+j02HiwtOkMaRbkfVQKryrVpONqTskrglntuBN3tLpH7xZHBx9lEDKvAQO5nujwILe8=
+	t=1778879274; cv=none; b=Pzh37pc7/+8hbVXfG2rd6UYaRCzsVPESW66i2BWyPnJQ7IUgbAb7XtEo+LmQW7HnXQ9Pu76s6QnfxjT4iX64Xg8DfXCO38JwvSAsQMI1u9O8KeSdStPBC14VOXP1wEAqLjwu7Cltbot4Y5G8vZifujTof2veLDxeiEzEYsb4sFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778878317; c=relaxed/simple;
-	bh=0ESP+86ordSTT0tVwjRrcILNMP/NsuGIdwEoF0WHaTE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d7JGd1j/Sdyxl0s3ANUpy2zkNB/OPunVSBlN+EGQVjjOy0qIjiW01sPztJJauUMOV3f9G0QVbPtLXGyWpEXw6y+R3qj8OuVNWfNz2P2KdoHLIP/uRgLeX2UNAMuG1xrNf5dwZM5hPbMf7oYJ2Q8V1NJoNuCPGz66MXcg7AlBlag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXQ6ELe/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778879274; c=relaxed/simple;
+	bh=UZQiu0VH2xAOXUxnfPEgUIj3JzYw5nHJpb6xLgSjZxw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=vDP3SsEgmQ903+JuKrTR3cdIESH9hq2HyoL0l1RZ3Dq3p3GKYSAAzZuiNmxKctyw1qTMNgWK7B70Z7c3S/8PbyrOUt+2fxHKwic5rYjmEjBRPCScYDRWWPmeA4qJJFcaMtoLyPhCJuQ/uofXMjiiu9sgG4TAf067aJeMlLfJ9VM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=KZxDj9jU; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXQ6ELe/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806C5C2BCB0;
-	Fri, 15 May 2026 20:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778878316;
-	bh=0ESP+86ordSTT0tVwjRrcILNMP/NsuGIdwEoF0WHaTE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=CXQ6ELe/Jvl3xviq3RWRc1CzlJSnylp6y62FDJAGrxROaNi2dtJBPnjDG2LUV8GFQ
-	 +DtReWUBMGYxzwGAI/L0WAyRshqO4zB4hXm5l3OQNdWmCXMd07PnOpYGwgsT9IkRhx
-	 sGuQwQWc5X6ZOWwMWkou3h1YRU++HyBgfgSz2Y4YrJ5yTyHfpgRk+wn3oXqhQ3V83w
-	 KbC8GroFBZonym/rGgDF3E81N061zZAZcRh7N9q5Ykt8k31qk/eWsoY7p2pG1l8HBI
-	 loAUPUCdXFEIy5g4FmAcCWyI7JIiB7QE8yw9ZCqKVDVcA32flD+aCfK3P8v43DUueq
-	 sQmN9RuwaHQ4Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] spi: dt-bindings: tegra: Support dma-coherent
- property for QSPI
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaron Kling via B4 Relay" <devnull+webgeek1234.gmail.com@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515-tegra194-qspi-iommu-v1-2-57dfb63cd3d6@gmail.com>
-References: <20260515-tegra194-qspi-iommu-v1-2-57dfb63cd3d6@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 20:51:56 +0000
-Message-Id: <20260515205156.806C5C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="KZxDj9jU"
+Received: from mail01.disroot.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 4FCC9271BA;
+	Fri, 15 May 2026 23:07:52 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 0_mgalvMmZ-c; Fri, 15 May 2026 23:07:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1778879271; bh=UZQiu0VH2xAOXUxnfPEgUIj3JzYw5nHJpb6xLgSjZxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KZxDj9jUR9eWY6FtpDOfeAiHdPJhQRayv8CRJF0SCw/5/WwSUZmevrgvw/Fq4mYEC
+	 FvgYwNdWeUmcs6Rl+P9VBFdaAhnFR57l18isQVtNY/lx0nzvShZfuxXwg6YrjAO5oO
+	 4H7dHFV7DdVdr5ILFO/KJWDmXcVaFjqnI19H8hS9viNfoysLdTYusaC8oprMu1pn3R
+	 iYes4MaI9wvWM3s8arTr5vFrjfCa/h0C7z1WxAUKgX2DuphoS+9Fj2zPG619erC0w4
+	 E+PsYVzARBAHhJorueok+DNwSS83ke16/sMNQwTSnt1cYWXinUahBOMaT/e+eMrjnK
+	 UA41x/RhAlNzA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 16 May 2026 02:37:34 +0530
+Message-Id: <DIJK2FWQOGCK.2WJ9FED9HKGHG@disroot.org>
+From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+To: "Conor Dooley" <conor@kernel.org>, "Kaustabh Chakraborty"
+ <kauschluss@disroot.org>
+Cc: "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "MyungJoo Ham"
+ <myungjoo.ham@samsung.com>, "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Sebastian Reichel" <sre@kernel.org>, "Krzysztof Kozlowski"
+ <krzk@kernel.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, "Nam Tran" <trannamatk@gmail.com>,
+ =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>,
+ <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-rtc@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v6 02/11] dt-bindings: extcon: document Samsung S2M
+ series PMIC extcon device
+References: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
+ <20260515-s2mu005-pmic-v6-2-1979106992d4@disroot.org>
+ <20260515-mutable-urgency-305fecf3ffc4@spud>
+In-Reply-To: <20260515-mutable-urgency-305fecf3ffc4@spud>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `dma-coherent` property is allowed globally for all SoC vari=
-ants, including older ones that lack DMA coherency support.
---
+On 2026-05-15 18:15 +01:00, Conor Dooley wrote:
+> On Fri, May 15, 2026 at 04:08:58PM +0530, Kaustabh Chakraborty wrote:
+>> Certain Samsung S2M series PMICs have a MUIC device which reports
+>> various cable states by measuring the ID-GND resistance with an internal
+>> ADC. Document the devicetree schema for this device.
+>>=20
+>> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> pw-bot: not-applicable
 
-commit 65a20c2287e15ca3b52c5785b3e048bc7401f80b
-Author: Aaron Kling <webgeek1234@gmail.com>
-
-spi: dt-bindings: tegra: Support dma-coherent property for QSPI
-
-This commit adds the dma-coherent property to the Tegra QSPI device tree
-binding, noting that it is supported by at least the Tegra194 and Tegra234
-controllers.
-
-> diff --git a/Documentation/devicetree/bindings/spi/nvidia,tegra210-quad.y=
-aml b/Documentation/devicetree/bindings/spi/nvidia,tegra210-quad.yaml
-> index 62233eb3101ae..433bca02f86b1 100644
-> --- a/Documentation/devicetree/bindings/spi/nvidia,tegra210-quad.yaml
-> +++ b/Documentation/devicetree/bindings/spi/nvidia,tegra210-quad.yaml
-> @@ -47,6 +47,8 @@ properties:
->    iommus:
->      maxItems: 1
-> =20
-> +  dma-coherent: true
-> +
-
-By adding this unconditionally to the top-level properties block, does the
-schema now permit this property for all hardware variants?
-
-If a device tree incorrectly applies dma-coherent to an older, non-coherent
-generation like Tegra210 or Tegra186, it appears it would silently pass
-validation.
-
-Could this be constrained via an if-then block in allOf to set
-dma-coherent: false for unsupported variants, similar to how the iommus
-property is handled in this file?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-tegra194-q=
-spi-iommu-v1-0-57dfb63cd3d6@gmail.com?part=3D2
+Thanks, but this patch has already been reviewed by Krzysztof in v5. I
+missed the Reviewed-by tags, sorry! I'd been preparing v7 after the
+reviews by Sashiko.
