@@ -1,105 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4991F30A4;
-	Fri, 15 May 2026 12:34:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BA537DEAB
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:36:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778848477; cv=none; b=lkUaYva+lOz5Ge7eG6ROKFZ9w3kdKDLXg5wM9NoV2qs/OH42FCr0ZkQA8ibtg0y5RwHeWcfdChLFwYYPpAqD9qLQxWqx7Jo9r9QftjdUvSrTwxLiqIwKKQgFlY4agbLC9CUsOCCOcJ9g7NC5O3yRf5wv2eEpMITCZ8pdqoy+bEo=
+	t=1778848617; cv=none; b=YhaI2zLvxBu4z6PwDFQbChR6kIrBiZnmfHDePPBhr7lXfZY1G3HWw1Wmc1IJejJIGbkiTuvoi5nCyBapzsiq6CLlnH11AzRgvqxzk/iaBcu3eifw3CE1dCWnvV/i1AliUkp/NIU2eq8jZXAnsHGN8s+uiBIggxVfP6YpVKYhjFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778848477; c=relaxed/simple;
-	bh=JbXnvVyBQOQm3POKkCXAnCMirmd5M25Arn9QV67e5KY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b3SyWbUHTuwZrW9o56FjGYM7n+b053cxzXR28HAq5wgvr2++kiivRRKsu2qV21C+fY96laFHcMfpawECA/Rz/0U+GbWivGxr+fJLdpZ35OK7BumBjVHvPFoOz+pWZ2xHXRvv3FyXIs1A8fQ1NAAnjqbDp4o5TuLu6kPRd0XDFmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khL1kYnx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778848617; c=relaxed/simple;
+	bh=U6xpjZYkLzNu3aw3I+h7bk/wrZv7nov0VS4muO2jNHA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WC4kYO7p4UhFJ5EwEL5pt1PAtR5lvFEK0kORmgUk7BEDlfoaSkuZ3fIigILqoPxKqPOfMOMQ033i9H3ZnTqMjQHjbCL5vVhhYYuYp/eOqOMR9Ax3oWmMgNMajQZZIwCzoo4nqHpnKfRBOdFCZHfVGe9IBWu9AR+TxewhVN0kWUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AF6nGwfO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khL1kYnx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A907C2BCB0;
-	Fri, 15 May 2026 12:34:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AF6nGwfO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3889EC2BCB0;
+	Fri, 15 May 2026 12:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778848477;
-	bh=JbXnvVyBQOQm3POKkCXAnCMirmd5M25Arn9QV67e5KY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=khL1kYnxGQq5eSnbqjbwdr/JJ1zAxr2qRthtVT3dNo1OtwC3Zpr2b/hkfWfyZkw7q
-	 XzibwMOjiMYRkgjBCVrJgxS1L9ItMrsL+Sv4L+rkDOx1K8gQeG8kExobc/b6mFaPb+
-	 9Po/gxOjJH7MpII79MKJN/bb25dNvh7aQtq0OeT0jdbpent7uyCHWE7zazApElnMEB
-	 Vb7xOgeUcDNAtklcn88V3LDgq9G/WanrwPtzG0qeraRf2rpoNW8EESmPRbffykltJK
-	 flKIn2VP8ot2i3W15LvUX0+BYj3nxV50Zjy65sdUhUThQbb8SyxHP0O++O6z+kl1Xc
-	 /WOLrBa8UnnVg==
-Date: Fri, 15 May 2026 18:04:29 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Ryder Lee <ryder.lee@mediatek.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: PCI: mediatek-gen3: Allow memory-region for
- restricted DMA buffer
-Message-ID: <2tq4zy3zhcrz25rl2qhdsxvoedcry4z3v2lmmropesxqgzhtlp@fn6htdl74ogu>
-References: <20260508063633.3894348-1-wenst@chromium.org>
- <locoul5wdzuvvmm7mqpuntjqu4o75gmyd5npgfqrw3zuwsrse6@dhrjggs4cihh>
- <CAGXv+5GAaMQbaoUVr5zcwtHaofyXwHz03TxBe-QyWj_sNoQZsg@mail.gmail.com>
- <qnikqcqoiw7z2yh5wruqcli3rk56yomyymghzivlcmekp2blwc@dfhsfl3sqcla>
- <CAGXv+5GBraoTrQatQdrM5b+dOteL_Y5K7_UQBUt-2L1x=c94KA@mail.gmail.com>
+	s=k20201202; t=1778848617;
+	bh=U6xpjZYkLzNu3aw3I+h7bk/wrZv7nov0VS4muO2jNHA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=AF6nGwfOSZrHJBsQwI1afa2I+sKFdcFS9c4wtCRuWdF89wHar4A04TEFg9uj9Dv6z
+	 3vJph8LgKD+v3d+uLXXsSzVmXWXaNwG+iwOIOPot/C77c8ypv2x8DXUYw4Cav7d6ip
+	 FDKUBEZk2bxfvtAOp3cgOR/AwNrQLUO3l+UwD2o2+YIALHqkSNRrmmNhlkLdQPFwsK
+	 xcOR8yKb0dEExfRIM8b3M7VEj3FxDZX9dkB/GQR00yRNZftF0MmGZMEXkU1Z/Nv81m
+	 EHt/2phKBnt1sgq5L+N0RIojnOGNhVkc/RfWAUAdqL83HENUVlc492yeVDiML5MZjO
+	 8K+3dea3sJ9+A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: qcom: dts: qcm6490: Add JPEG encoder DT
+ properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515-qcom-jpeg-v4l2-v1-3-f38c2e1b3555@oss.qualcomm.com>
+References: <20260515-qcom-jpeg-v4l2-v1-3-f38c2e1b3555@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 12:36:56 +0000
+Message-Id: <20260515123657.3889EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGXv+5GBraoTrQatQdrM5b+dOteL_Y5K7_UQBUt-2L1x=c94KA@mail.gmail.com>
 
-On Fri, May 15, 2026 at 05:16:19PM +0800, Chen-Yu Tsai wrote:
-> On Thu, May 14, 2026 at 7:48 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> >
-> > On Thu, May 14, 2026 at 03:54:29PM +0800, Chen-Yu Tsai wrote:
-> > > On Thu, May 14, 2026 at 1:23 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> > > >
-> > > > On Fri, May 08, 2026 at 02:36:32PM +0800, Chen-Yu Tsai wrote:
-> > > > > On some SoCs without an IOMMU behind the PCIe controller, the PCIe
-> > > > > controller memory access could be limited to a small region by the
-> > > > > firmware configuring a memory protection unit. This memory region
-> > > > > must be assigned to the PCIe controller so that the OS knows to
-> > > > > use that region. Otherwise PCIe devices would not work properly.
-> > > > >
-> > > >
-> > > > So this means, the PCIe devices can only access a specific carveout memory
-> > > > configured by MPU for DMA? If so, you should use 'dma-ranges' as suggested by
-> > > > Rob.
-> > > >
-> > > > 'memory-region' also serves the purpose, but for PCI, we have the dedicated
-> > > > 'dma-ranges' property.
-> > >
-> > > I think I need some sort of guide on writing the 'dma-ranges' property,
-> > > because it is not working for me.
-> > >
-> > > I'm adding
-> > >
-> > >     dma-ranges = <0x42000000 0 0x00000000 0 0xc0000000 0 0x4000000>;
-> > >
-> >
-> > So the device DMA address start from 0x0? Isn't it a 1:1 mapping?
-> 
-> I actually don't know. But
-> 
-> >         dma-ranges = <0x42000000 0 0xc0000000 0 0xc0000000 0 0x4000000>;
-> 
-> this didn't work either.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The new device tree node violates generic naming conventions and co=
+ntains properties that will fail DT schema validation.
+--
 
+commit b8074fba99ec8410569dbab1538fc6fc7f0597b9
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+arm64: qcom: dts: qcm6490: Add JPEG encoder DT properties
 
-Hmm. Can you print the DMA address programmed to the device? i.e., the address
-returned by dma_map_single() in the driver.
+Add the required JPEG encoder definitions to the device tree.
 
-Also, using prefetchable flag is not correct for DMA memory. You should use:
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
+com/kodiak.dtsi
+> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+[ ... ]
+> @@ -5305,6 +5305,58 @@ port@4 {
+>  			};
+>  		};
+> =20
+> +		qcom_jpeg_enc: qcom,jpegenc@ac4e000 {
 
-	dma-ranges = <0x02000000 0 0xc0000000 0 0xc0000000 0 0x4000000>;
+This isn't a bug, but does this node name violate generic naming
+conventions? Devicetree specifications generally require using generic
+names such as jpeg-encoder@ac4e000 or video-codec@ac4e000 instead of
+vendor-specific names.
 
-- Mani
+> +				cell-index =3D <0>;
 
--- 
-மணிவண்ணன் சதாசிவம்
+Can this cause a schema validation failure? The cell-index property does
+not appear to be defined in the qcom,jpeg-encoder.yaml schema. Since the
+schema specifies additionalProperties: false, this undocumented property
+will trigger a make dtbs_check validation error.
+
+> +				compatible =3D "qcom,qcm6490-jenc";
+> +
+> +				reg =3D
+> +						<0 0xac4e000 0 0x4000>,
+> +						<0 0xac40000 0 0x1000>;
+> +
+> +				reg-names =3D
+> +						"jpeg_regs",
+> +						"cpas_regs";
+
+Are these reg-names aligned with the schema constraints? It appears they
+use underscores, whereas the schema explicitly constrains these items to
+use hyphens (jpeg-regs, cpas-regs). This mismatch will cause schema
+validation to fail, even though the driver retrieves them safely by index.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-qcom-jpeg-=
+v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com?part=3D3
