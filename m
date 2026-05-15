@@ -1,231 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2B0407588
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:50:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0723F3F4119;
+	Fri, 15 May 2026 08:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778835016; cv=none; b=sibDz+Xy6UjTkapXEKIaFL6N6ZQuF5IOkgGNY4tX6C15SSwRq/yAt5FEAh2LvzkDCfixRVP1W12sOpRzzRzLlJNX990cz0z9Lla5Cc2QT35UwcKzMpkLUwjr7sevd8/vsHVafqp89NfMWIDmLMZJiiR3/Y5x1T5RAiPb9Z30QMQ=
+	t=1778835100; cv=none; b=Df+OLbhVs5QqoYPRJR/m2u1mYqOkcE1hk8AJntUXfAoudT3RCiwWJJvOrAFSlZBj10A6lDMMqrZqnJ7msO8tQsj99+E7bGylnyZssXWAA0y3bT2WszjhyMD2OaUMQjzq94J/iEu8UtGAcYaJN2xmSUCDuTfZkyJAeR7ARUOh5Ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778835016; c=relaxed/simple;
-	bh=G5+5fodb3WGYNhnA47j3X09tsXhL6UFSysN6XJgwc/k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uTSP+kWOMd6Dfxg1bxqwTEPvdpGQ4DhsRm3VLpGJ6aYdAb5xxlhwPs2l9O/Q7yIgxVv6aLEidXS3U8oD71GfJLVcrRXF4gLWoGLTJtrnKBLrVbJgQABWgWl4mTnAkGz+hnmj3xi3Bin9B5RIQArow2Yvd4AAPrQMMi/cenoUnfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9BesGAC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778835100; c=relaxed/simple;
+	bh=GUDh7csve5Af1Ir+XPRcGhmpi3nn8y3D30mqwIhD+Co=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=azeeULA4eSCktIDpDwABAQJACAreTcZc3TUR6gMbYJghZF/R2+Z2Ut/u7NU2H+2BSAwMhElJorRCzgii6WWYipr6Tt4Q7heKNJZjFQkuNZRAZZXkCZx6dm6bF0OVUEwrtjONPe17UlnTOe+74I+Sgh91yh59/Dh3V1wrVBJHy2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvv1IfIX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9BesGAC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4746AC2BCB8;
-	Fri, 15 May 2026 08:50:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvv1IfIX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B1DC2BCB8;
+	Fri, 15 May 2026 08:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778835015;
-	bh=G5+5fodb3WGYNhnA47j3X09tsXhL6UFSysN6XJgwc/k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=W9BesGACIRRyVMiggwEUhN6THApV/xLFpNrXoEL9ftls40nsUSQV5z/ZrjQX4uQx6
-	 YhgguHjnUEYBp1o4SfU3ihQl/fOSKu38YkNlyHdnpJRPsb0w1NDODgMd4guHCObmna
-	 e2/taJTbhTusfufKM4WPaxEqbIs0Sz/lK5LcrT5u0T69U62XydX8spxvch4Wl/QTsD
-	 vpSVg+FqUl0eDHgesg1e1MFYiYosvbBQ/YT2g7D+taaU/3Tj0MSHpXDN9wmSMyAYG9
-	 PCLoKzfIOrxqTHE7aA2WTIDn2Pipnwt4DI6IzdGJk3tDRoMZWa315iNi8AXQuCZCaM
-	 4WnNWSxVBRK/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
- DSI bridge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: syyang@lontium.com
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260515080934.9870-3-syyang@lontium.com>
-References: <20260515080934.9870-3-syyang@lontium.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 08:50:14 +0000
-Message-Id: <20260515085015.4746AC2BCB8@smtp.kernel.org>
+	s=k20201202; t=1778835099;
+	bh=GUDh7csve5Af1Ir+XPRcGhmpi3nn8y3D30mqwIhD+Co=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jvv1IfIX+ZBhMY8G9UetoR0uoqNjjcFeLAt3il2BC9JTuHY5MInnFdXZ5tUb8PqHg
+	 qL3Xbyjy71xJ/jvam8M6axLkhOvI6jzCyY7lGZ6WYdD3tpb3boP8hVOIR66iwTPMlA
+	 HSwD7I0xlCK7EYN19OEcbZxL3TeaRPzBBzQ2goIi8465urOFKL2mjRuW+J5zfmgyzA
+	 ucOcDbsmWZszBqMwHqXhVa/dF3Y0+vGxMLPOEG8nKligwC/Im8jTjKaL+XLaRzK/ej
+	 BfR/HZIkCLqLHchBHpMh/+pO2dxC4ExCtzME8dHmkZddGZUzepO7ryBrsEFq3+Fr6b
+	 F4W/OWdBBTUhw==
+Date: Fri, 15 May 2026 10:51:37 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-mmc@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: arm: qcom: Document Shikra and its EVK
+ boards
+Message-ID: <20260515-pumpkin-cuscus-of-expression-cec1ea@quoll>
+References: <20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com>
+ <20260512-shikra-dt-v1-1-716438330dd0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260512-shikra-dt-v1-1-716438330dd0@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] DSI transfer callback returns success for reads without populating=
- the receive buffer, leaking uninitialized memory.
-- [High] DSI transfer callback polls for eDP video readiness before the ups=
-tream encoder is enabled, guaranteeing a timeout.
-- [High] The driver attempts I2C transfers while the hardware is held in ph=
-ysical reset.
-- [High] Missing DRM_MIPI_DSI Kconfig dependency causes linker errors.
-- [High] request_firmware is called while holding the hardware lock and hal=
-ting the MCU, risking a system pipeline stall.
-- [High] Sleeping functions are called from atomic context in the DRM bridg=
-e callbacks.
-- [Medium] lt7911exc_dsi_host_transfer bypasses the required MCU hardware h=
-alt sequence.
---
+On Tue, May 12, 2026 at 09:38:04AM +0530, Komal Bajaj wrote:
+> Shikra is a Qualcomm IoT SoC available in a System-on-Module (SoM)
+> form factor. The SoM integrates the Shikra SoC, PMICs, and essential
+> passives, and is designed to be mounted on carrier boards.
+> 
+> One SoM variant is introduced:
+>   - CQM: retail variant with integrated modem (PM4125 PMIC)
+> 
+> Two EVK boards are supported:
+>   - shikra-cqm-evk: pairs with the CQM SoM
+>   - shikra-cqs-evk: pairs with the CQM SoM, with no modem support
 
-commit ac42b7d6e1a6501b8416d964b8bbfde4d4b376bc
-Author: Sunyun Yang <syyang@lontium.com>
-Subject: drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+s/CQM/CQS/
 
-This commit adds support for the Lontium LT7911EXC bridge chip, converting =
-eDP
-input to MIPI DSI output. It includes I2C firmware upgrade mechanisms, GPIO
-management, and DRM bridge integration.
+but anyway I would prefer to use full product names from
+include/dt-bindings/arm/qcom,ids.h (so CQXXXXM).
 
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
-fig
-> index c3209b0f46786..cb74730c6ef44 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -132,6 +132,21 @@ config DRM_ITE_IT6505
->  	help
->  	  ITE IT6505 DisplayPort bridge chip driver.
-> =20
-> +config DRM_LONTIUM_LT7911EXC
-> +	tristate "Lontium eDP/MIPI DSI bridge"
-> +	depends on OF
-> +	depends on I2C
-> +	select CRC32
-> +	select FW_LOADER
-> +	select DRM_PANEL
-> +	select DRM_KMS_HELPER
-> +	select REGMAP_I2C
+> 
+> Each EVK provides debug UART, USB, and other peripheral interfaces.
+> 
+> Add compatible strings for the CQM SoM variant and its two
+> corresponding EVK boards.
+> 
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index 2741c07e9f41..f041d71d7957 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -963,6 +963,13 @@ properties:
+>            - const: qcom,qcs9100
+>            - const: qcom,sa8775p
+>  
+> +      - items:
+> +          - enum:
+> +              - qcom,shikra-cqm-evk
+> +              - qcom,shikra-cqs-evk
+> +          - const: qcom,shikra-cqm-som
 
-Is a select DRM_MIPI_DSI missing here?=20
+This is not accurate. The SoM has physically different SoC - either CQM
+or CQS. You either need two lists, like Toradex is doing (e.g.
+toradex,verdin-imx95), or enum in the middle of the lists, like Renesas
+is doing (e.g. renesas,rzt2h-evk).
 
-The driver unconditionally uses MIPI DSI core APIs such as
-mipi_dsi_host_register() and mipi_dsi_host_unregister(), so building without
-the MIPI DSI core enabled might result in undefined reference build failure=
-s.
+I prefer the first option, so Toradex choice.
 
-[ ... ]
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
-/bridge/lontium-lt7911exc.c
-> new file mode 100644
-> index 0000000000000..e7b8a22b2e29b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-[ ... ]
-> +static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
-> +{
-> +	struct device *dev =3D lt7911exc->dev;
-> +	const struct firmware *fw;
-> +	u8 *buffer;
-> +	size_t total_size =3D FW_SIZE - 4;
-> +	u32 crc32;
-> +	int ret;
-> +
-> +	/* 1. load firmware */
-> +	ret =3D request_firmware(&fw, FW_FILE, dev);
+But for sure you do not get the third solution... Really, you are not
+supposed to invent these things, but look at existing solutions (and I
+was mentioning Toradex during internal meetings whenever someone asked
+me how the SoM and carrier should be organized).
 
-Could calling request_firmware() here block concurrent DRM atomic commits a=
-nd=20
-freeze the display pipeline?=20
+Best regards,
+Krzysztof
 
-This function is called by lt7911exc_firmware_store(), which acquires=20
-ocm_lock and halts the MCU via lt7911exc_lock() before invoking it. If the=
-=20
-firmware file is missing or takes time to load, request_firmware() can=20
-block waiting for the userspace fallback mechanism while the mutex is held.
-
-[ ... ]
-> +static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struc=
-t drm_atomic_state *state)
-> +{
-> +	struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
-> +
-> +	guard(mutex)(&lt7911exc->ocm_lock);
-> +
-> +	lt7911exc_reset(lt7911exc);
-> +}
-
-Is it safe to use sleeping functions like guard(mutex) and msleep() inside=
-=20
-lt7911exc_reset(), as well as gpiod_set_value_cansleep() here?=20
-
-The DRM subsystem guide specifies that encoder atomic enable/disable=20
-callbacks execute in an atomic context where sleeping is forbidden, which=20
-could lead to kernel warnings, system instability, or deadlocks.
-
-> +
-> +static void lt7911exc_atomic_disable(struct drm_bridge *bridge, struct d=
-rm_atomic_state *state)
-> +{
-> +	/* Delay after panel is disabled */
-> +	msleep(20);
-> +}
-
-Similar to the above, does calling msleep() here violate atomic context=20
-constraints?
-
-> +
-> +static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, str=
-uct drm_atomic_state *state)
-> +{
-> +	struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
-> +
-> +	guard(mutex)(&lt7911exc->ocm_lock);
-> +
-> +	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-> +}
-
-If the chip is placed in hardware reset here via gpiod_set_value_cansleep()=
-,=20
-will subsequent I2C transfers in lt7911exc_dsi_host_transfer() fail?
-
-During the next display enable sequence, the panel's pre_enable will=20
-likely send DCS commands before the bridge's atomic_pre_enable deasserts=20
-the reset, leaving the chip physically in reset during I2C communication.
-
-[ ... ]
-> +static ssize_t lt7911exc_dsi_host_transfer(struct mipi_dsi_host *host,
-> +					   const struct mipi_dsi_msg *msg)
-> +{
-> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	guard(mutex)(&lt7911exc->ocm_lock);
-
-Should this use lt7911exc_lock() instead of guarding ocm_lock directly?
-
-lt7911exc_lock() is explicitly defined to protect register accesses by=20
-halting the on-chip MCU. Bypassing this sequence might lead to I2C=20
-collisions with the running firmware.
-
-> +
-> +	/* ensure eDP input video ready */
-> +	ret =3D regmap_read_poll_timeout(lt7911exc->regmap, 0xe084, val, (val &=
- 0x01), 5000, 50000);
-> +	if (ret) {
-> +		dev_warn(lt7911exc->dev, "Video source not ready within 50ms\n");
-> +		return -EBUSY;
-> +	}
-
-Will this polling loop always time out during panel initialization?
-
-The downstream panel typically sends initialization DCS commands during its=
-=20
-pre_enable phase, which runs before the upstream eDP encoder's enable=20
-callback. Since the eDP video source is inactive at this stage, this=20
-might permanently break the display initialization pipeline.
-
-> +
-> +	/* enable mipi dsi output stream and firmware will send dcs */
-> +	ret =3D regmap_write(lt7911exc->regmap, 0xe0b0, 0x01);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return msg->tx_len;
-> +}
-
-Could returning msg->tx_len for DCS read operations (where msg->rx_len > 0)=
-=20
-lead to uninitialized memory being used by the caller?
-
-Because the function returns a positive success value without actually=20
-populating msg->rx_buf, the calling panel driver might assume the read was=
-=20
-successful and consume uninitialized stack or heap memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515080934.9870=
--1-syyang@lontium.com?part=3D2
