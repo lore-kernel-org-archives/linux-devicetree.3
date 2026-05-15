@@ -1,131 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521C348AE21
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:54:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4E8480DCC
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:57:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778846077; cv=none; b=p/EqpoMFudfVEZJP7dSl4OOzO+XqigXQ/lMVg7XOx1C5aI6rf/eIsUnPKVrcZEvBhAqKYOKJb/RJ9J9vDNoevCFrq+lG4cW63UQt/aBvRhDBvyXAjvxcHpHI/aehYICG6+QmOndIUOe3RpgPaNv6VV9c87fLImT9ZuNNZ6QlH0Q=
+	t=1778846262; cv=none; b=KlVm/KErUNzQctdWPdwpL+2TSfwlrHCpATMmYmAhzGvCuPpnwEr/aUfn3u7g0Uov1bvtmLeOFqr7bhgyDSBgJaN8bHbbW4bRbK27k7R8xwH7y5bdqNRyxtp1X976R8ettoAddhO+20ABCzSHcNVsuBS1UXjMuMW9pixfmrWWFUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778846077; c=relaxed/simple;
-	bh=RulHm11K1INEe3Avumhc0LeHtX2JGhd/S72JsSzLsF0=;
+	s=arc-20240116; t=1778846262; c=relaxed/simple;
+	bh=Hu8YhMpsxtkt8kG4O2zdPvhE0pyHxdVlB9UKK+8xIfs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pD73CYE9ikrOPgG60DtrRqwL8S5l55Ibag3qBcI9s7DzF+dFHe4aEzi8KIvvXKdLZhhabDFhgQB1AO00WDINBPZQFax9ZR7RkBVQQ82urwpbhGn3ihWDsZcDPjFln5SrWq/uWQ1dwQIM/4aB3qTPplL0UfFtgPSsy7xKXZdnLFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FSinmiSl; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=e3YfbzyOlH5XxA3TV/affPlwe5+bylOgP7uyNfDitudnBZ7rVeJOdPMuhYqV397ag5GMi45V95OAue3mHcSUo867OL9+J0bk3FX87eh9ui/JDVbEfCAUXeKZngRbIkuYKzDGSNGcvu/1Pb8ZiHbQQH7OVS+m8LMNKmS7pQC8V6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MqWyzt0v; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FSinmiSl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F9DC2BCB0;
-	Fri, 15 May 2026 11:54:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MqWyzt0v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E07C2BCB0;
+	Fri, 15 May 2026 11:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778846077;
-	bh=RulHm11K1INEe3Avumhc0LeHtX2JGhd/S72JsSzLsF0=;
+	s=k20201202; t=1778846261;
+	bh=Hu8YhMpsxtkt8kG4O2zdPvhE0pyHxdVlB9UKK+8xIfs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=FSinmiSli4KBSIWJe9B0exlKcgfukYhLWk5NOTBy9+odz/a6i2jvcKCk2keOmul5W
-	 UnPiKP4qFYJlVVrnHlXMC1w/llK8IGcr9D0GxJFKNfEMNeJQlu6X8z4NzHDlJqCCeA
-	 ixj47RG0lpbxeph160KhMXomIFn+x7gqSQvnLCN/+rFEg5wbQlr4BvPx3PFcLU2m2X
-	 vH/9+E7FKU1nDRrAUVgl8C4snLWpjH5r3Z5Q2+4F0kfIAo4tEHXW1D85PETiON9AE9
-	 b5fUsWbXvvnCAs2Ly14mHTEddcvb/dXoMPndq6RFfHAMLLh7DZpeP7r+Ojjhvsgp/W
-	 bmLtfKcAJe87g==
+	b=MqWyzt0vHFdGLCsBEGj52edl1DGsKcU7/C8CDkZATAJl+nD0+7Foj+kX03D08YTz3
+	 titFRIAE6pOsAIGc4+zr2kxrrrVWFWqmqUqcSMkEVPZGf88PF/FrmAvThjI8hyNRT4
+	 +NWH9hOO2SgQJIOae1D9KUAKatNLU7/PZNLWn1kGd/G6pKKeCqnRZeSA0s5STYB/p/
+	 MjldmD2UrhEH/C7T6E7wPVrKYsDG3vk/V13vPiFIl3wmZ8fmVyrWKBQXcgRAgKVNXo
+	 ETDkaqaFr1hfw1g99mrV4VloaXlkrJB86Y33iiMNKjtfkI8ERYqtybmo4PDt7Q80B5
+	 MN3FjNeC6tRjg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] usb: cdnsp: Add support for device-only
- configuration
+Subject: Re: [PATCH 1/3] media: dt-bindings: qcom: add JPEG encoder binding
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pawel Laszczak via B4 Relay" <devnull+pawell.cadence.com@kernel.org>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515-b4-no_drd_config-v8-2-75cb05317679@cadence.com>
-References: <20260515-b4-no_drd_config-v8-2-75cb05317679@cadence.com>
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
+References: <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 11:54:36 +0000
-Message-Id: <20260515115436.C1F9DC2BCB0@smtp.kernel.org>
+Date: Fri, 15 May 2026 11:57:40 +0000
+Message-Id: <20260515115741.57E07C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Critical] In `cdnsp_pci_probe()`, the error path unconditionally frees t=
-he shared `wrap` structure if `platform_device_register_full()` fails, caus=
-ing a use-after-free and double-free vulnerability.
+- [Medium] `clock-names` is omitted from the `required` list, which can lea=
+d to runtime driver probe failures for otherwise valid DT nodes.
+- [Low] The `cell-index` property is used in the example but is not defined=
+ in the `properties` block, causing a schema validation error.
+- [Low] The example uses C preprocessor macros without including the necess=
+ary headers, causing `dt_binding_check` compilation to fail.
+- [Low] The example uses a non-generic node name (`qcom,jpegenc@ac4e000`).
+- [Low] The `reg` property in the example uses 64-bit addresses and sizes w=
+ithout a parent node specifying the cell context, causing a schema validati=
+on failure.
 --
 
-commit 4dafbda57ec59e424fb1db39575dac6fe3174dd5
-Author: Pawel Laszczak <pawell@cadence.com>
+commit 8198eafe99ce53eb80a55ddd2b50d88c47749ec9
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-usb: cdnsp: Add support for device-only configuration
+media: dt-bindings: qcom: add JPEG encoder binding
 
-This patch introduces support for the Cadence USBSSP (cdnsp) controller in
-hardware configurations where the Dual-Role Device (DRD) register block is
-not implemented or is inaccessible.
+Add YAML device tree binding for the Qualcomm JPEG encoder hardware. This
+binding is used by the newly added driver and describes all required
+resources, including clocks, power domains, IOMMU mappings and interconnect
+paths.
 
-Closes: https://lore.kernel.org/oe-kbuild-all/202605141023.18vWXyw3-lkp@int=
-el.com/
-
-> diff --git a/drivers/usb/cdns3/cdnsp-pci.c b/drivers/usb/cdns3/cdnsp-pci.c
-> index 432007cfe6954..1a71dee5044cc 100644
-> --- a/drivers/usb/cdns3/cdnsp-pci.c
-> +++ b/drivers/usb/cdns3/cdnsp-pci.c
-> @@ -93,7 +104,7 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
-> =20
->  	pci_set_master(pdev);
-> =20
-> -	if (pci_is_enabled(func)) {
-> +	if (func && pci_is_enabled(func)) {
->  		wrap =3D pci_get_drvdata(func);
->  	} else {
->  		wrap =3D kzalloc_obj(*wrap);
-
+> diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.ya=
+ml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
+> new file mode 100644
+> index 0000000000000..fac3e654458d3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
 [ ... ]
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - interrupts
+> +  - power-domains
+> +  - iommus
+> +  - interconnects
+> +  - interconnect-names
 
-> @@ -158,6 +183,7 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
->  		plat_info.dma_mask =3D pdev->dma_mask;
->  		plat_info.data =3D &pdata;
->  		plat_info.size_data =3D sizeof(pdata);
-> +		plat_info.properties =3D wrap->prop;
->  		wrap->devfn =3D pdev->devfn;
->  		/* register platform device */
->  		wrap->plat_dev =3D platform_device_register_full(&plat_info);
+Should clock-names be included in this required list?=20
 
-This might be a pre-existing issue rather than a new regression, but is the=
-re
-a use-after-free risk in the error handling immediately following this
-platform device registration?
+The binding mandates exactly 6 clocks and defines clock-names, but omits
+clock-names from the required list. If a device tree node conforms to the
+schema by omitting clock-names, the driver might fail to probe when fetching
+clocks by string name.
 
-If probing a dual-function device, the first PCI function allocates the
-shared wrap structure, stores it in its drvdata, and completes its probe.
-When the second PCI function probes, it retrieves the shared wrap from the
-first function and calls platform_device_register_full().
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
 
-If that registration fails:
+Does this example need dt-bindings header includes?=20
 
-    wrap->plat_dev =3D platform_device_register_full(&plat_info);
-    if (IS_ERR(wrap->plat_dev)) {
-        ret =3D PTR_ERR(wrap->plat_dev);
-        kfree(wrap);
-        goto put_pci;
-    }
+It uses macros like GIC_SPI, IRQ_TYPE_EDGE_RISING, CAM_CC_TITAN_TOP_GDSC, a=
+nd
+GCC_CAMERA_HF_AXI_CLK, but the headers defining them are missing. The device
+tree compiler will fail with syntax errors because it expects integer values
+rather than string tokens.
 
-Does the unconditional kfree(wrap) here free the memory that the first PCI
-function's drvdata still points to?
+> +    qcom_jpeg_enc: qcom,jpegenc@ac4e000 {
 
-If so, when the first function is later unbound, cdnsp_pci_remove() might
-retrieve the dangling wrap pointer and eventually call kfree(wrap) again,
-causing a double-free. Should the error path only free wrap if it was
-allocated exclusively during the current probe execution?
+This isn't a bug, but the node name qcom,jpegenc@ac4e000 does not use a
+generic term. Would it be better to use a generic name like
+jpeg-encoder@ac4e000 or video-codec@ac4e000 according to standard Device Tr=
+ee
+naming conventions?
 
-> @@ -185,13 +211,17 @@ static void cdnsp_pci_remove(struct pci_dev *pdev)
->  	if (wrap->devfn =3D=3D pdev->devfn)
->  		platform_device_unregister(wrap->plat_dev);
-> =20
-> -	if (!pci_is_enabled(func))
-> +	if (!func || !pci_is_enabled(func))
->  		kfree(wrap);
-> =20
->  	pci_dev_put(func);
->  }
+> +        cell-index =3D <0>;
+
+Should cell-index be defined in the properties block above?=20
+
+Because additionalProperties is false at the top level, having cell-index in
+the example without defining it in the schema will cause a schema validation
+error.
+
+> +        compatible =3D "qcom,qcm6490-jenc";
+> +        reg =3D
+> +            <0 0xac4e000 0 0x4000>,
+> +            <0 0xac40000 0 0x1000>;
+
+Will this reg property pass validation without a parent node specifying
+#address-cells and #size-cells?=20
+
+Since it uses four cells per entry, dtc will default to 1 for both address
+and size, interpreting these 8 cells as 4 separate regions. This would
+violate the maxItems: 2 constraint on the reg property.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-b4-no_drd_=
-config-v8-0-75cb05317679@cadence.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-qcom-jpeg-=
+v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com?part=3D1
