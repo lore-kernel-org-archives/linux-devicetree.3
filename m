@@ -1,167 +1,398 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A873AD514
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1A03AD514
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778847740; cv=none; b=chelthy6jvQrvjC0cdXT+cCCw/4LXT9vXFKbeVp01gwbE0XGRm39ku3avmXs6wocgO7800PO1BoyAoni68ubtpwKdJLP9JTyd3oHt+UAGecn09NtNkSdnEJge3tSZgd9lchORhnwLal87eZV7F1f2WZL7RfB/IuKzNZcWnJtrGM=
+	t=1778847834; cv=none; b=nYPoidSR44lY7ESvUwaHZrqnIyXNw41x75IY4OX0gw/avUPNz8fsD6cWlSiEPATC0KHz1AUFIH6ij53/rL6XpTW62UuR0z38BD/srtPbh1cbmUbF6p784vtj9oa7FDHYbpEkHzjTKEv1broBG1AVNwsMQ4k7ik2vC/rtWcEWnHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778847740; c=relaxed/simple;
-	bh=cSbgwQsIMiL4r+c9TFJSvgPFeEAMxUXwZf80tWnw+EA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WGwv44Uvh05ps6ObuZ0dAt858cr/+VwmIBUooSBbfblak3RmkpPP70n3paXVED3AovCUyX2+1BFtSSuVYAy0ZZE/tvDKyCw/ArAkAg5194AWs60oc6xF4NnSugac4cN665PecQgD0xqcrvf5NAQ6dTTUujMBOTAanlQV2GMA1ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UXHSf4Cm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SxxMA6qG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778847834; c=relaxed/simple;
+	bh=6S3KhOEQdCjjWuGaGfAgksBZiiGj9QecW5tJIJYSZLk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QAcKzDYznfDW3ykjpSwqSdZ2Wc1eypQcYroyZgTVZzRdDDgsXfFPq38YEKkgxwgVawDEfNtK7nQWpuk5H7yQ0pwBk7tB+B10TQawlGoyeIfIl+NNIR00ld4CmS5uvko8qFDyFQs673+RB+VTWrGLJrsv2X27pkP1xmLPhyppBag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMAxpQR7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UXHSf4Cm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SxxMA6qG"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FBeCCv3797495
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:22:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	X3CKBojgLIxLibEaJ8g467kLwm5xL6u1aVmhYP8EbH4=; b=UXHSf4Cm5cKa15Wg
-	FCJv8H33r5CHEEvaoW3BEGGjYsMG0DwJ0317XBxPW1wONjByVR/znbBMc5lPardv
-	fmgwpDUqUXDH7c6rm+K8i2KAeC+cevc9sJih5QYpFkeiP8sQ7L+s2Q/DiwtFo8pr
-	L5RTp2sXj9CIvQrocyOdd+z8hj88snyr1Lcd3u3ZY7ILyM5Vod5H+Y0vLBwBqSS/
-	A/hi/jkZLeHCI9z5Nk2yMabC4UWkE6ln524+qkggDpfH4/klDc0jeIHdVfTS3fYM
-	su8TerxT/GNaBLeXsSHUEcHW04zK7zE3edC0buujR1cfK/saFgcNShbYaMUQpQ8z
-	5BsDMg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1su5af-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:22:18 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50fb98b09d3so26873861cf.2
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:22:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778847738; x=1779452538; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=X3CKBojgLIxLibEaJ8g467kLwm5xL6u1aVmhYP8EbH4=;
-        b=SxxMA6qGqnM79FU6xGkre8MzRl/b6huGd0/uUphAJCVrCO5+9/8oNEDFvMSBJR+HMe
-         x4pGR5hLX09hmb4SwR+9pcX0YpAwJCTeStuCLUylarXAn4+2rtzMoasi8xLeLHT7GEr+
-         7UKT6sSGkVE2aqb+dunr8x38YxAABwIV2EfALa+IriEDQCU03SFs9+SslffeYKCQEeTa
-         qpzNAseCikQrgr/5iN+a1wuj2ycnlVUykU0umGd1ssjgNo+cQxxgT7+VyEp/y5IMiyZv
-         4UqMtAeb0IMZcnW3TCbyixNpeuDuv0aXY/+GtxIUHpqd/k2Mji0dJsDrp4jAIgD9CHmX
-         xL/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778847738; x=1779452538;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=X3CKBojgLIxLibEaJ8g467kLwm5xL6u1aVmhYP8EbH4=;
-        b=JBBi6cI77Wp9tEbHs7dth+CEiFWD6BfvGGZyhFykMDlFoVlDPN5pwyAAxiDqPBMHsT
-         TqJk3GWfuOV/p1XxcflLhPFDOjy8Yn6K3sjQ9WoLyb4ylNGEx1DffYjQWNgOmcSG0ato
-         OP+//3JCsbdqTfqcUIJXGmJXhP+0DgqdQ1BzEgfAQuad0mluaBkKNO27ND6NwQx1aOBt
-         uBaF0clGMEP+sPfU8F6TvjP72CEl7a/ZfqmyQRT5S01VzCSNfQ9pEQB4raTxgfQATd8+
-         1GO0uIvNLtP48x/L6Xm2lCOw4oYNiK373Hop6B3W97cV7sQvoB7rNsvHvt0Kjbsk6cWe
-         qFVg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Woc92kGjWd2z3ILwv/mrG8kDXqOHpfriWCtvrIVl6RmXsdLBScSzTB6SDuNZet05DyRqZ+R7hlygv@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEDhKPUBOgdT+vZAebm3zSLDLvFAw+QJvjxx+W7XbkAUUMmdhS
-	gi3XcbkFqkI8IK9vRjKTYNI8rTRXbv1Rd2tm7wxrxi06TU4ecWfVzff6DXyI8zsP0PlmI41y3TY
-	wSwuolep2RWnFilUw5Dt/y/zJpE7W2pWBC6tMKZoW5OIHCwZPS6jY0U/eNHV350ek
-X-Gm-Gg: Acq92OEsyzWZhdPXLX3jiiDmsz2GwIN8tqHWKFVEhz0pt5AnSUtQph+NmsfOO/EThkl
-	sqOLD4/OA81scnv3Gf7Lr2jCXGVk26kYOOsAL0U2W5xiOWRa09Q5Xq0EmMlXT4WA3NnUsm2MblJ
-	BrwtT2iYfkfImxUyXQNB/Q0vadGv++AnrzF2nHXBJ3JQCMxpgIhdUvraulvdUrBB4nB3Zi+N0Dw
-	W+mmnX7P1Y6t9Xtur4MtxbeXoMRRCggDo+9J7wY7TkOlnnlQE2hAiz9loP5V5QR61rF5rHtFlm9
-	JmL3HNeiqxszadV+Y1lV55adRUe7GC8IphjzBdjFRRMEa/CtundK9/0a8Wsafgeg3b9MlnGeBNB
-	7B4eqIcx9unFM0PXFwLrIdiuANcRT8DJnZaN8eQgaI8VR3AeUspwk8fH46eHSr8M+G4a2pZsyrE
-	DsLJ8=
-X-Received: by 2002:ac8:7dc4:0:b0:510:144a:636 with SMTP id d75a77b69052e-5165a22eb4emr32714881cf.8.1778847737567;
-        Fri, 15 May 2026 05:22:17 -0700 (PDT)
-X-Received: by 2002:ac8:7dc4:0:b0:510:144a:636 with SMTP id d75a77b69052e-5165a22eb4emr32714571cf.8.1778847737129;
-        Fri, 15 May 2026 05:22:17 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6834ba6af5dsm1677738a12.14.2026.05.15.05.22.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 05:22:15 -0700 (PDT)
-Message-ID: <b71f7653-78bb-49eb-b4c4-3fa8bca3e705@oss.qualcomm.com>
-Date: Fri, 15 May 2026 14:22:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMAxpQR7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF65C2BCB0;
+	Fri, 15 May 2026 12:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778847834;
+	bh=6S3KhOEQdCjjWuGaGfAgksBZiiGj9QecW5tJIJYSZLk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=LMAxpQR7eHAOvMR9GG06p208sssVtZs+rCpp+encT6Os06EvSlspi6AE89h7gFw24
+	 aaFQM01pbZsj9fBXNDQ063GPRQB6EcNoQxT6c3HvL5x03b311WQpUeuaFK7cN/vtK/
+	 x9YIdKDyTNyy2UQxEgm6othfql5YgMATKAhl9kz8WTygTL11mwDuE9bPLWxsF8s4mm
+	 2U3FRECBJQ3tU47x8amjn4Gl30V4ApPtjxfUfjHP4AyKXqAZn87K0XDEnqz+AxJ0tX
+	 TQtgEIzBKh5Ptif8UVmvyNrWAI2WiMwxLKMvCYn3X4tu96DY+0NuJtVCVA8aZ9MbXv
+	 S9TVj5pj9LD5w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] qcom: media: jpeg: Add Qualcomm JPEG V4L2 encoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515-qcom-jpeg-v4l2-v1-2-f38c2e1b3555@oss.qualcomm.com>
+References: <20260515-qcom-jpeg-v4l2-v1-2-f38c2e1b3555@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 12:23:53 +0000
+Message-Id: <20260515122354.0BF65C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: dts: qcom: arduino-monza: add WLAN enable and
- rfkill GPIO
-To: Qian Zhang <qian.zhang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260511-linux-next-v3-1-3e22737e71eb@oss.qualcomm.com>
- <920223a6-4e4a-4ebc-8a1c-c37d0923a470@oss.qualcomm.com>
- <a79100cd-0e33-4eb6-9452-c4458ea40bc0@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <a79100cd-0e33-4eb6-9452-c4458ea40bc0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDEyNCBTYWx0ZWRfX4HLo8aH7/Qlq
- 1bw+zjiuYoRrA3m0cauFGituEJvnRz1x+6c67gQOz4hW8GjJEbzjZXjAW/4/CARUUZhS63UKA6Z
- esdg8sotjE3qckpewqn4N+oladfJTEIa8ItNVEs5X6tH5afjNHPpiX/8zW32bL1Id6XZ8HOEJDK
- Vba3zdHLIY1sSCLpSDrpi78rbvVUxd1bbc6Kazm8AyDL/DyEkExfTQNwo8IWplR8/uPPNSZK/E7
- oa3jN3aII8lv3Csxd8GuyrW/seSKWnwwV3ket2/4F8CQihY/OTj77JOpEtG5H8CzF+3hfddxV8b
- U30Ce6q8wJb6s23IcHhOeUYFdpkTMNgAbx7Ctl5iDVpzMBFjpyLHQUAvuU9EpK4czSLyxxsiq/A
- /cKV84jis5teqpq2hWyJRec63toWJcVb4VI15xoo3atQeyGzFU7hRhYUgySU1AK5XgD1gveIakx
- TpmUnEtQvxJW4OzhXLw==
-X-Authority-Analysis: v=2.4 cv=cZXiaHDM c=1 sm=1 tr=0 ts=6a070ffa cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=DHS6kQ4Rh5SRIDjE-IkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: ZOC1myQ2av20kiVJeyzMT4s4YrwefhI3
-X-Proofpoint-ORIG-GUID: ZOC1myQ2av20kiVJeyzMT4s4YrwefhI3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-15_03,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 phishscore=0 suspectscore=0 adultscore=0
- bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150124
 
-On 5/15/26 2:08 PM, Qian Zhang wrote:
-> 
-> 
-> On 5/15/2026 6:51 PM, Konrad Dybcio wrote:
->> On 5/11/26 10:48 AM, Qian Zhang via B4 Relay wrote:
->>> From: Qian Zhang <qian.zhang@oss.qualcomm.com>
->>>
->>> The QCNFA765 M.2 PCIe WLAN module requires GPIO56 (wlan_en) to be
->>
->> But isn't that just the wlan-en pin that the power sequencing driver
->> takes?
->>
->> ref: drivers/power/sequencing/pwrseq-qcom-wcn.c
->>
->> Konrad
-> Thanks for the review.
-> It's not the same pin functionally, though they share the same name. There are two key differences:
-> 
-> 
-> Different power topology: The pwrseq-qcom-wcn.c driver targets WLAN
-> hips powered by an on-board PMU via the power sequencing framework. In our case (VENTUNO Q), the WLAN module has its own internal PMU, and wlan_en controls the power-on/off of that internal PMU — it is not part of the board-level power sequencing.
+Thank you for your contribution! Sashiko AI review found 15 potential issue=
+(s) to consider:
+- [Critical] Unclocked Hardware Access in VIDIOC_QBUF
+- [Critical] DMA Memory Corruption due to Scatter-Gather mismatch
+- [High] Out-of-Bounds DMA Hardware Write
+- [High] Race Condition in Job Completion (`jpeg_stop` kills next job)
+- [High] Unclocked Hardware Access in start_streaming Error Path
+- [High] V4L2 Device Registration Race Condition (NULL Dereference)
+- [High] Use-After-Free on Driver Unbind
+- [High] kfifo Use-After-Free on Unbind
+- [High] DMA Memory Corruption on V4L2_ENC_CMD_STOP
+- [High] DMA Direction Violation
+- [High] Spurious IRQ Crash Risk
+- [Medium] Per-Context State Initialization Bug
+- [Medium] Threaded IRQ Handler does not loop
+- [Medium] Kconfig Dependency Propagation Violation
+- [Low] PM Callbacks Dead Code
+--
 
-I don't believe what you said about the pwrseq driver is true.
+commit 4ae9b8d353b9d9d7104c0c0120d42653b3e58a64
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Date:   Fri May 15 11:47:00 2026 +0000
 
-> PCIe probe ordering: The WLAN module connects to the PCIe root complex through a PCIe bridge that does not currently support hotplug. If we were to use a similar node configuration as in pwrseq-qcom-wcn.c, there is no guarantee that the WLAN module would be powered on before the PCIe root complex probes, which would cause enumeration failure.
+    qcom: media: jpeg: Add Qualcomm JPEG V4L2 encoder
+   =20
+    Implementation of a V4L2 JPEG encoder device driver supporting
+    Qualcomm SC7180, SM8250, SM7280, and SM8550 chipsets.
 
-What do you mean by "*currently* does not support hotplug"? Does that
-depend on some more code changes?
+> diff --git a/drivers/media/platform/qcom/jpeg/Kconfig b/drivers/media/pla=
+tform/qcom/jpeg/Kconfig
+> new file mode 100644
+> index 0000000000000..51846aeafaf37
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/Kconfig
+> @@ -0,0 +1,17 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config VIDEO_QCOM_JENC
+> +	tristate "Qualcomm V4L2 JPEG Encoder driver"
+> +	depends on V4L_MEM2MEM_DRIVERS
+> +	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
+> +	depends on VIDEO_DEV
+> +	select VIDEO_V4L2_SUBDEV_API
 
-Konrad
+This isn't a bug, but selecting VIDEO_V4L2_SUBDEV_API without inheriting its
+dependencies (like MEDIA_CONTROLLER) can cause Kconfig warnings and build
+failures. Could the dependency be added here?
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_dev.c
+> new file mode 100644
+> index 0000000000000..4ef6bf9fd48de
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+[ ... ]
+> +static void qcom_jpeg_remove(struct platform_device *pdev)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D platform_get_drvdata(pdev);
+> +
+> +	pm_runtime_disable(&pdev->dev);
+> +
+> +	qcom_jpeg_v4l2_unregister(jenc);
+> +
+> +	v4l2_device_unregister(&jenc->v4l2_dev);
+> +
+> +	kfifo_free(&jenc->kfifo_inst);
+
+If an interrupt fires after this point but before devres cleans up the
+threaded IRQ handler, can op_jpeg_irq_top push items to this freed kfifo?
+
+Also, since the jenc structure is allocated with devm_kzalloc during probe,
+it will be freed when this remove function completes. If userspace still
+holds the video device file descriptor open, will v4l2_m2m_ctx_release in
+fop_jpeg_file_release access the m2m_dev inside the freed jenc memory later?
+
+[ ... ]
+> +static struct platform_driver qcom_jpeg_platform_driver =3D {
+> +	.probe  =3D qcom_jpeg_probe,
+> +	.remove =3D qcom_jpeg_remove,
+> +	.driver =3D {
+> +		.name =3D QCOM_JPEG_ENC_NAME,
+> +		.of_match_table =3D qcom_jpeg_of_match,
+> +		.pm             =3D &qcom_jpeg_pm_ops,
+
+This isn't a bug, but should this use the pm_ptr() wrapper to allow the
+compiler to optimize out the dev_pm_ops structure when PM features are
+disabled?
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_ops.c
+> new file mode 100644
+> index 0000000000000..92e3c09df3d14
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+[ ... ]
+> +static int jpeg_store_we_next(struct jenc_context *ectx, struct vb2_buff=
+er *vb2)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	struct qcom_jenc_queue *q =3D &ectx->bufq[TYPE2QID(vb2->type)];
+> +	struct qcom_jpeg_buff *frame =3D &q->buff[vb2->index];
+> +	struct qc_jfif *mptr;
+> +	struct sg_table *sgt;
+> +	dma_addr_t dma;
+> +
+> +	sgt =3D vb2_dma_sg_plane_desc(vb2, 0);
+> +	if (WARN_ON_ONCE(!sgt || !sgt->sgl))
+> +		return -EINVAL;
+> +
+> +	dma =3D sg_dma_address(sgt->sgl);
+
+Since the driver configures the queues with vb2_dma_sg_memops, userspace can
+pass physical memory mapped via scatterlists. Does extracting only the first
+scatterlist segment's DMA address cause the hardware to overrun the first
+segment if the buffer spans multiple non-contiguous pages?
+
+> +	if (WARN_ON_ONCE(!dma))
+> +		return -EINVAL;
+> +
+> +	mptr =3D vb2_plane_vaddr(vb2, 0);
+> +	if (WARN_ON_ONCE(!mptr))
+> +		return -EINVAL;
+> +
+> +	mutex_lock(&ectx->quality_mutex);
+> +	if (ectx->quality_programmed !=3D ectx->quality_requested)
+> +		jpeg_apply_dmi_table(ectx);
+
+This function is called from bop_jpeg_vb2_buf_prepare during VIDIOC_QBUF.
+Because VIDIOC_QBUF can be called by userspace before VIDIOC_STREAMON, the
+device's PM runtime might be suspended. Will writing directly to the MMIO
+registers in jpeg_apply_dmi_table cause a synchronous external abort when t=
+he
+hardware is unclocked?
+
+> +	mutex_unlock(&ectx->quality_mutex);
+> +
+> +	dma +=3D qcom_jenc_header_emit(&ectx->hdr_cache, (void *)mptr,
+> +				     min_t(size_t, vb2->planes[0].length, ectx->hdr_cache.size),
+> +				     q->vf.width, q->vf.height);
+
+By advancing the destination DMA address by the header size, does this allow
+the hardware to write past the end of the allocated DMA buffer, since the
+length limit programmed into the hardware is still the full sizeimage?
+
+> +	qcom_jenc_dqts_emit(&ectx->hdr_cache, (void *)mptr);
+> +
+> +	frame->plns[0].sgt	=3D sgt;
+> +	frame->plns[0].dma	=3D dma;
+> +	frame->plns[0].size	=3D vb2_plane_size(vb2, 0);
+> +
+> +	jpeg_dev_access(jenc->dev, frame, DMA_TO_DEVICE);
+
+Since this is the destination capture buffer that is written by the hardware
+and read by the CPU, should this use DMA_FROM_DEVICE to maintain cache
+coherency?
+
+[ ... ]
+> +static irqreturn_t op_jpeg_irq_bot(int irq, void *data)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D data;
+> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+> +	u32 irq_status;
+> +	u32 irq_mask;
+> +	unsigned long flags;
+> +	int rc;
+> +
+> +	rc =3D kfifo_out_spinlocked(&jenc->kfifo_inst, &irq_status, sizeof(irq_=
+status),
+> +				  &jenc->kfifo_lock);
+
+If multiple interrupts push events to the queue, will this only process the
+first one and leave the rest stalled until another interrupt arrives? Should
+this process the kfifo in a while loop?
+
+> +	if (rc !=3D sizeof(irq_status)) {
+> +		dev_err(jenc->dev, "IRQ status: FIFO empty\n");
+> +		return IRQ_HANDLED;
+> +	}
+> +
+> +	irq_mask =3D jenc->res->hw_mask[JMSK_IRQ_STATUS_SESSION_DONE];
+> +	if (jpeg_bits_get(irq_mask, irq_status)) {
+> +		struct jenc_context *ctx =3D jenc->actx;
+> +		struct qcom_jenc_queue *dq =3D &ctx->bufq[JENC_DST_QUEUE];
+> +		size_t out_size;
+> +
+> +		spin_lock_irqsave(&jenc->hw_lock, flags);
+> +		jenc->actx =3D NULL;
+> +		spin_unlock_irqrestore(&jenc->hw_lock, flags);
+> +
+> +		if (ctx && dq->buff_id >=3D 0) {
+> +			struct qcom_jpeg_buff *frame;
+> +			unsigned long flags;
+> +
+> +			spin_lock_irqsave(&jenc->hw_lock, flags);
+> +			frame =3D &dq->buff[dq->buff_id];
+> +			out_size =3D jpeg_io_read(jenc, offs->enc_out_size);
+> +			spin_unlock_irqrestore(&jenc->hw_lock, flags);
+> +
+> +			dev_dbg(jenc->dev, "complete idx:%d addr=3D0x%llx size=3D%zu\n",
+> +				dq->buff_id, frame->plns[0].dma, out_size);
+> +
+> +			jpeg_cpu_access(jenc->dev, frame, DMA_FROM_DEVICE);
+> +			jenc->enc_hw_irq_cb(ctx, VB2_BUF_STATE_DONE,
+> +					    out_size + JPEG_HEADER_MAX);
+> +			jpeg_stop(jenc);
+
+The callback enc_hw_irq_cb calls v4l2_m2m_job_finish, which can immediately
+unblock the M2M framework to schedule the next job and start the hardware.
+Does calling jpeg_stop right after this halt the hardware and kill the newly
+scheduled job?
+
+[ ... ]
+> +static irqreturn_t op_jpeg_irq_top(int irq, void *data)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D data;
+> +	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+> +	u32 irq_status;
+> +	u32 irq_mask;
+> +	unsigned long flags;
+> +	int rc;
+> +
+> +	spin_lock_irqsave(&jenc->hw_lock, flags);
+> +
+> +	irq_status =3D jpeg_io_read(jenc, offs->int_status);
+
+If a spurious interrupt arrives while the device is in a runtime-suspended
+state (powered off), will reading this register unconditionally cause a bus
+fault? Should it check if the device is active first?
+
+[ ... ]
+> +static int op_jpeg_acquire(struct jenc_context *ectx, struct vb2_queue *=
+q)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	struct qcom_jenc_queue *sq, *dq;
+> +	int rc;
+> +
+> +	if (atomic_inc_return(&jenc->ref_count) =3D=3D 1) {
+> +		rc =3D pm_runtime_resume_and_get(jenc->dev);
+> +		if (rc < 0) {
+> +			dev_err(jenc->dev, "PM runtime get failed\n");
+> +			atomic_dec(&jenc->ref_count);
+> +			return rc;
+> +		}
+> +
+> +		rc =3D jpeg_init(jenc);
+> +		if (rc) {
+> +			dev_err(jenc->dev, "hardware init failed\n");
+> +			atomic_dec(&jenc->ref_count);
+> +			pm_runtime_put(jenc->dev);
+> +			return rc;
+> +		}
+> +
+> +		sq =3D &ectx->bufq[JENC_SRC_QUEUE];
+> +		sq->sequence =3D 0;
+> +		sq->buff_id   =3D -1;
+> +		dq =3D &ectx->bufq[JENC_DST_QUEUE];
+> +		dq->sequence =3D 0;
+> +		dq->buff_id   =3D -1;
+> +	}
+
+Is it intentional to only initialize the context state for the first contex=
+t?
+If a second M2M context starts streaming while ref_count > 1, does its
+sequence and buff_id remain uninitialized?
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c b/drivers/=
+media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> new file mode 100644
+> index 0000000000000..8f5e4bd8a36e6
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+[ ... ]
+> +static int bop_jpeg_vb2_start_streaming(struct vb2_queue *q, unsigned in=
+t count)
+> +{
+> +	struct jenc_context *ectx =3D vb2_get_drv_priv(q);
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	const struct qcom_jpeg_hw_ops *hw =3D jenc->res->hw_ops;
+> +	struct qcom_jenc_queue *sq =3D jpeg_get_bufq(ectx, JENC_SRC_QUEUE);
+> +	struct qcom_jenc_queue *dq =3D jpeg_get_bufq(ectx, JENC_DST_QUEUE);
+> +	u32 hw_caps;
+> +	u8 pln;
+> +	int rc;
+> +
+[ ... ]
+> +	mutex_lock(&jenc->dev_mutex);
+> +
+> +	ectx->quality_requested =3D QCOM_JPEG_QUALITY_MAX;
+> +
+> +	rc =3D hw->hw_acquire(ectx, q);
+> +
+> +	hw->hw_get_cap(jenc, &hw_caps);
+
+If hw_acquire fails to resume the device and returns an error, will
+hw_get_cap attempting to read from the unclocked hardware cause a
+synchronous external abort?
+
+[ ... ]
+> +static int iop_jpeg_encoder_command(struct file *file, void *priv, struc=
+t v4l2_encoder_cmd *ec)
+> +{
+> +	struct jenc_context *ectx =3D jpeg_file2ctx(file);
+> +	struct vb2_queue *vq;
+> +
+> +	if (ec->cmd =3D=3D V4L2_ENC_CMD_STOP) {
+> +		vq =3D v4l2_m2m_get_src_vq(ectx->fh.m2m_ctx);
+> +		if (!vb2_is_streaming(vq))
+> +			return 0;
+> +
+> +		vq =3D v4l2_m2m_get_dst_vq(ectx->fh.m2m_ctx);
+> +		if (!vb2_is_streaming(vq))
+> +			return 0;
+> +
+> +		mutex_lock(&ectx->stop_lock);
+> +		ectx->is_stopping =3D true;
+> +		mutex_unlock(&ectx->stop_lock);
+> +		jpeg_v4l2_work_stop(ectx->jenc, ectx, VB2_BUF_STATE_ERROR);
+> +
+> +		return 0;
+> +	}
+
+While jpeg_v4l2_work_stop cleans up buffers, it doesn't appear to halt the
+hardware DMA engine. Could the hardware continue writing to the destination
+buffer after it has been returned to userspace and potentially reallocated,
+causing memory corruption?
+
+[ ... ]
+> +int qcom_jpeg_v4l2_register(struct qcom_jenc_dev *jenc)
+> +{
+> +	int rc;
+> +
+> +	mutex_lock(&jenc->dev_mutex);
+> +
+> +	jenc->enc_hw_irq_cb =3D jpeg_v4l2_process_cb;
+> +
+> +	jenc->m2m_dev =3D v4l2_m2m_init(&qcom_jpeg_v4l2_m2m_ops);
+[ ... ]
+> +	rc =3D video_register_device(jenc->vdev, VFL_TYPE_VIDEO, -1);
+> +	if (rc) {
+> +		dev_err(jenc->dev, "failed to register video device\n");
+> +		goto err_video_device_release;
+> +	}
+> +
+> +	video_set_drvdata(jenc->vdev, jenc);
+
+By calling video_register_device before video_set_drvdata, the video node
+becomes visible to userspace immediately. If an application calls open() in
+this narrow window, will video_drvdata(file) return NULL and cause a crash
+in fop_jpeg_file_open?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-qcom-jpeg-=
+v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com?part=3D2
