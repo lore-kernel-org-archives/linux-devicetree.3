@@ -1,80 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A85F3FADF4;
-	Fri, 15 May 2026 08:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223923176E0;
+	Fri, 15 May 2026 08:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778833130; cv=none; b=YFOXYfm06HEntaWH1F2TZQ2eL6RaD8o8jDw1LJ2XCK2JWc58BE6pQ6+rnOv0s/vVujMWC+B7eOzchIOpOoHWbyEZEj4mvXvIwX6fJEoF/fiBuYUNQj7TpI4o11Ge7bWPbux87gbDvuUR9fzo0HLnul/8OZUfWfdGUm49ExiHQxc=
+	t=1778833196; cv=none; b=JDygXwe6wq6YsK+OSPKVZ2VmTbS+9IF1hB3DiyMZf013TlcPGg5FPLQ582rq3GQI1NYJImv9nqtSu9/MiGApc92g2vNxQOd8In4WFR8Db1zMXpkUVZH/83vfNDmbFtyNhJ+eg4byu6kQVdmY15dJa5X/IKoheKcXEg1Zrlln9EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778833130; c=relaxed/simple;
-	bh=2oizVG4O3uoNeGTVjU8VPZdS7sVqMY19d5r731hQAzU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BS+4NP6TfxPuw+DF47fF0Pl6aGGPFFhLOxjHHzGU+TOnfEQCu9vlTSPD3azQPF2ztznndHtnCaXs4eOzT3eXhLfK9LHiKWaBxW3JdveOpJ+UxJKc9ZI/Nk+Ok6MImVLwinDKXS0dLiUVQye3WEXGFUf1cEB4YnnVGHRS6muy60Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pUuAIplf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778833196; c=relaxed/simple;
+	bh=DVW3zGuRiAwtlxV6sDechZsTz70XEBaeqt1QBsRL1w0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kHZQRcwj1PM8eeQaeisElMUCq+y/HCIkkl+dLThmVU4JXGPCDG+RWFtZxWP5VhsKr4+50tXqPd/VZT1kbXzVaJKXaM62Iiy5nU69mxhxuIJFzgPIWYNb/n21PraHgqj7MwMVP1ES4oKGp5IjElwtSzrQYiAKJsy4K9+wnQycNeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuuPRH7I; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pUuAIplf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B1DC2BCB0;
-	Fri, 15 May 2026 08:18:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuuPRH7I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A51C2BCB0;
+	Fri, 15 May 2026 08:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778833129;
-	bh=2oizVG4O3uoNeGTVjU8VPZdS7sVqMY19d5r731hQAzU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pUuAIplfHLWThVdLLDFjzdWYisgqOY7Irqx+VtYdA5NZ7cfUrufOHKfcWAbo99GhW
-	 Q8l4r/VQEFccdNdrslxyOpuGEI1yAfhmbfWDq/go8XgADNdNS9uSHhLplAoGcL0cbv
-	 UvUPPJY7R24gFA11uhhik/Zn0RnwOGPlO0Q6fiyM2yA1oGYymirbfUfWCD7v+AEpAl
-	 483JPCNE7GGVVHPYKekv9RhQEjjl5XfokVqcqqzLmK7RhnoHoVRTpRbV/CKTBmDrVs
-	 azZ9KQTwre0iUC5VoymRNQaVfgc/sraBdkCV/9cFt8J5GCZzxvlLmYDpD/ZkCGUcWG
-	 r+HvLzeVka4GQ==
-Date: Fri, 15 May 2026 10:18:47 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v1 3/6] dt-bindings: net: Document Infineon/Intel XMM6260
- modem
-Message-ID: <20260515-precious-ginger-lori-d1fde7@quoll>
-References: <20260511135703.62470-1-clamor95@gmail.com>
- <20260511135703.62470-4-clamor95@gmail.com>
+	s=k20201202; t=1778833195;
+	bh=DVW3zGuRiAwtlxV6sDechZsTz70XEBaeqt1QBsRL1w0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=UuuPRH7IPZPbcK0LZ3o14TgqdgwVbURcINWZ6iyumNFirfL1QM18nouUZ9UYh1MFj
+	 R/WS9LHpZXAOV9PMamTfjgytnro7vboE8yEdnLAOMLQiJ3c26y9c6dEWwQpFeoGNTT
+	 yEUQ0SIhNAJRRSXQSKwXopJzNGoKhNqMBL6jNU7PbksZC+kNxxRAh7CBulneD2zQrS
+	 27bmrLzX5/Rk7PsTU+VL4uVGgaashbQkBIIAxEMjqq1xFZeb69fj33xor4T4dNhs0T
+	 Vw1QK+2c6gs2wtQ0BPdvqBW2UzKI88bH08yqkPATGZePNsA1AEzOnshraBvzndVEHg
+	 7mEs1tQA1aHPA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wNnlx-00000002bwo-3229;
+	Fri, 15 May 2026 08:19:53 +0000
+Date: Fri, 15 May 2026 09:23:08 +0100
+Message-ID: <87tss99j4j.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org,	devicetree@vger.kernel.org,	krzk+dt@kernel.org,
+	conor+dt@kernel.org, =?UTF-8?B?IkFuZHJlYXMgRsOkcmJlciI=?=
+ <afaerber@suse.de>, Yu-Chun Lin <eleanor.lin@realtek.com>
+Subject: Re: [PATCH v2 14/17] arm64: dts: realtek: Add EL2 virtual timer interrupt
+In-Reply-To: <20260514231804.000CCC2BCB3@smtp.kernel.org>
+References: <20260514150945.3917510-15-maz@kernel.org>
+	<20260514231804.000CCC2BCB3@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260511135703.62470-4-clamor95@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: sashiko-reviews@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, afaerber@suse.de, eleanor.lin@realtek.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, May 11, 2026 at 04:56:58PM +0300, Svyatoslav Ryhel wrote:
-> +  ap-wake-gpios:
-> +    description: GPIO connected to the EINT3 pin
-> +    maxItems: 1
-> +
-> +  cp-wake-gpios:
-> +    description: GPIO connected to the EINT2 pin
-> +    maxItems: 1
-> +
-> +  phys:
-> +    maxItems: 1
-> +
-> +  vbat-supply:
-> +    description: Supply connected to the VBAT lines.
+On Fri, 15 May 2026 00:18:03 +0100,
+sashiko-bot@kernel.org wrote:
+> 
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Incomplete implementation: missing update for Realtek Kent SoC family which specifies an incorrect EL2 virtual timer interrupt.
+> --
+> 
+> commit 3b73638950a28ecc324e1c28fa4fb9fcb13d5567
+> Author: Marc Zyngier <maz@kernel.org>
+> 
+> arm64: dts: realtek: Add EL2 virtual timer interrupt
+> 
+> This commit adds the missing EL2 virtual timer interrupt to ARMv8.2-based
+> Realtek SoCs. It updates rtd16xx.dtsi by adding the fifth timer interrupt
+> with GIC_PPI 12.
+> 
+> > diff --git a/arch/arm64/boot/dts/realtek/rtd16xx.dtsi b/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
+> > index 3a7f6e35b7f74..43b13d133c324 100644
+> > --- a/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
+> > +++ b/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
+> > @@ -105,7 +105,8 @@ timer {
+> >  		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+> >  			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
+> >  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+> > -			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
+> > +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
+> > +			     <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>;
+> >  	};
+> 
+> Does this update miss another Realtek ARMv8.2+ SoC file?
+> 
+> Looking at arch/arm64/boot/dts/realtek/kent.dtsi (used by RTD1501, RTD1861,
+> and RTD1920), the fifth timer interrupt is currently defined as
+> <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>.
+> 
+> PPI 9 is the GIC vCPU maintenance interrupt, rather than the EL2 virtual
+> timer interrupt which should be PPI 12:
+> 
+> arch/arm64/boot/dts/realtek/kent.dtsi:
+> 	timer {
+> 		compatible = "arm,armv8-timer";
+> 		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+> 			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
+> 			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+> 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
+> 			     <GIC_PPI  9 IRQ_TYPE_LEVEL_HIGH>;
+> 	};
+> 
+> Another patch in this series (clocksource/drivers/arm_arch_timer: Default
+> to EL2 virtual timer when running VHE) changes the driver to use the EL2
+> virtual timer by default on VHE systems.
+> 
+> If the kernel uses the EL2 virtual timer on these Realtek SoCs, could it
+> request the wrong interrupt (PPI 9 instead of PPI 12), causing timer
+> interrupts to not be delivered and resulting in a boot hang regression?
 
-This should be rather name of the pin on this device, not the provider
-name. VBAT suggests the latter. Please double check.
+That's definitely odd, as PPI9 is present in two interrupt specifiers
+(timer and GIC). Obviously, that's not possible.
 
-Rest looks fine, with respect to Sashiko comment on description:
+I'll add a tentative fix for that in the next round. Maybe Andreas or
+Yu-Chun can check in the meantime?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+	M.
 
-Best regards,
-Krzysztof
-
+-- 
+Jazz isn't dead. It just smells funny.
