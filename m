@@ -1,400 +1,103 @@
-Received: from poodle.tulip.relay.mailchannels.net (poodle.tulip.relay.mailchannels.net [23.83.218.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8969A33B974;
-	Fri, 15 May 2026 08:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.249
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778833012; cv=pass; b=Rupq0pmwemgwttQ2Zhs7/v2yP8eJEsjmHr3r8CBdJ9EXD670iPBKSYexQcV8XVo19R9ZNc5q6j1SJHOX0AgIPoklitvL+U4SfcgF6we5P7h5W5AR2n8MZhcgn3H+VpBL/n+OFPZ/3bv8FgcoxvJTXBQBLm/GbQ5wy1PtBCEGN4Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778833012; c=relaxed/simple;
-	bh=s3Oa6l/kg5PwTBfxeHEjS6p/XHZ6lB7O3YVXb8TrZ8I=;
-	h=Message-ID:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Date; b=sKRsGWkaaPSXrHoJBsv4iFiTv7vgeeVH1e04jpAx2VWokRkTzcVQcOAXUd1VTJU19DO6w35vDLMFMyzSEmW2h6Bw2pbiq33XxvtaAyXvZWr7Zgpt6kRMboaLGGhh/IJUGlEYnmuAcZbJiW8yQnzyOUITaMGu1k4WqY4Zr3DSjpk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=AdqcwyXc; arc=pass smtp.client-ip=23.83.218.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC50F3FE659
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:17:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778833068; cv=none; b=PxA6kZ+ygZaG1bF3akm5EBFFzxcpipTh+nmTTAF+PWcwuQRhRaQQICFqlpJKDxd1nMhBCbLr3PEEj2efgsTAqOLNXPDe9b5O0wapJZyo7psiZmsOY+a4sq27XK72e7jpofQjB9dbmX7wYMmg0dk7wCrXlZNsmggio6H7owdk1ZI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778833068; c=relaxed/simple;
+	bh=2OnJdpSf1F9n1GTpP39AmS0IQ8BVMnlgW1SubimsfGM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KDt37pOI7V9ijO6O1fb513v9ml7GEhdO1F+pwYldFq46W5t8QWYl/TrVIU7qmF1c2kRIO78ZH5iD1IAjazAgTFdZZTd5QtQMogIXfZwhQcueqG2W9fHN9QNdvNlI/d1g07Ecc8pjaVgU8YoAOvJT/96XKfaEpJQ47weJfvaMWvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CADuVCI8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="AdqcwyXc"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 1B04F7E275E;
-	Fri, 15 May 2026 08:16:44 +0000 (UTC)
-Received: from de-fra-smtpout2.hostinger.io (trex-green-3.trex.outbound.svc.cluster.local [100.98.35.125])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id D6D877E296C;
-	Fri, 15 May 2026 08:16:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1778833003;
-	b=oU2WK+niLu7SwhJHuOTol0LIKKm5mP6lrh/jBCM5OUVuOoZ5D71KnNPCvwJ0FjTlqtrPGd
-	zJDWwGzEFNz0y1uvrVnQl7gPwkx7N9oawRoVM75STGkXKDAFtPWUtodQ26qTp1EZvfDZyH
-	PjQDgmEmuguFBgyZQjx0GcHjmqbqyH1ZzYKjpPhidqsRkWj6VTla3CkYnqgv9UN1HIrsAT
-	LXKqBsXI+wOlLPwjN4rCQBa6lnsGRh/BqBSjisiksAKfbKY2As0efdzmJfihjeY0sdXWAy
-	/yGXEFhrQBtRDRxw3+So2HQmx0D0gdsU64BJJ2OYEhDoOn+zG8uqhS7mcyioFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1778833003;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=7dvcpn18DPusjPkAUQswhKnt+4l2abZaC5CJ6zw1jgA=;
-	b=bosmnF3H5ZaN+xj9Jv1AfWloYBI1HSjCMecLF/aPLyF2KN6ZNdvPmsVk8igRRyIB86iJE0
-	/zyTRsSVwBqtyyjz7hMh9QQVu+w+dkQCw7KStJbczo6SwfGM3gByy4+CMFlBht6VZ4tlJZ
-	zlIPE1TKbrMgkLoVWDaYd1KBJxF0+9i/m1pgFEtAmRPv+S2O31mv+2iAImdQBq+20ECAlX
-	3hFcj/jwuGXl66BS0GxuiCwlv3m/6m1T+9lPAUN+Suq0Rq4oLoyJMVHLjINVmkeNkA7Vzp
-	GdhSSTIqtNawDk4Yfv6palnEY37j/u+giptZ4MgfLs2X4S4pc53yh37Bklf7xQ==
-ARC-Authentication-Results: i=1;
-	rspamd-5c5444c55f-csk57;
-	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Abortive-Abiding: 0565c9ea20b621cc_1778833003955_1423954591
-X-MC-Loop-Signature: 1778833003954:852900398
-X-MC-Ingress-Time: 1778833003954
-Received: from de-fra-smtpout2.hostinger.io (de-fra-smtpout2.hostinger.io
- [148.222.55.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.98.35.125 (trex/7.1.5);
-	Fri, 15 May 2026 08:16:43 +0000
-Received: from [IPV6:2001:448a:c020:6af:44f8:2dfa:b1ba:e2f2] (unknown [IPv6:2001:448a:c020:6af:44f8:2dfa:b1ba:e2f2])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4gH0Qs6Vqsz3wdn;
-	Fri, 15 May 2026 08:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1778833000;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7dvcpn18DPusjPkAUQswhKnt+4l2abZaC5CJ6zw1jgA=;
-	b=AdqcwyXchv7y7A/uY+ckOuVuCCCz41qgWEvhs0zDvRoU+/Gha7cYWIWISInhw9nvEakxGC
-	5jyK54rYg5LT1iFNLTLUYyB3BNJRNIeTy1DMhpdAJHlSpPfGiPKiDJxc/yZ53vucA9ujxz
-	iIWL01CXp0opsBTBZjWu7Fw5wsjP7g782CxEjXK2TpXbzPzqkYtKIKS2F9gloXV7z1lhkP
-	JBOtecXykQDIrS8Eax1JN6PtwMHjuampZCkLLexhRhJ0nHHDqrQpRMJMaHwPRaDkblv83n
-	esfqqGvRkb7DgpyTzrvPh6F15MebJQdB2i8OyxbUgSXsw2ObL7xpVm9R9T0IzQ==
-Message-ID: <07422376-528e-4824-98e0-35d79dbd4017@smankusors.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CADuVCI8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E033C2BCB0;
+	Fri, 15 May 2026 08:17:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778833067;
+	bh=2OnJdpSf1F9n1GTpP39AmS0IQ8BVMnlgW1SubimsfGM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=CADuVCI8GZiYORwPgfIWUMQuSESTP6HSqOLeYyjI2ZgNq5dsaeZZdnH+vNiTIlLzW
+	 1fE6jFIaUOBosr0gLWhapvH8+S1Zow1cj6UoZ7hpqkVdkHinqVOtP+uCEHH0mdlqUF
+	 EVtR2UW7qjto8gl+X8tuhd3jZOVtydjGihkzgwnf54vwlJEVafO2fanMZa6Q8Jaa1J
+	 leWLQK7bN5HhHWSLPZJOz0Qfppwr8BQ7we2KJbmGKrDdZQHdrd5oMSVZRa3afRj9Ep
+	 vt+vU35+ssBHedPr73cEp+twBjMJC5TZKX0ijh7GFxWSxnQEJfjrgCYb6Yz8YeehDm
+	 voFNTtuT+P66w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] staging: axis-fifo: Fix alignment of
+ wait_event_interruptible arguments
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pramod Maurya" <pramod.nexgen@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515075736.172172-3-pramod.nexgen@gmail.com>
+References: <20260515075736.172172-3-pramod.nexgen@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 08:17:46 +0000
+Message-Id: <20260515081747.4E033C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] ARM: dts: qcom: msm8960: Add CPU frequency scaling
- support
-To: Rudraksha Gupta <guptarud@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260514-expressatt_cpufreq-v1-0-487fd2d78859@gmail.com>
- <20260514-expressatt_cpufreq-v1-3-487fd2d78859@gmail.com>
-Content-Language: en-US
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-In-Reply-To: <20260514-expressatt_cpufreq-v1-3-487fd2d78859@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Fri, 15 May 2026 08:16:37 +0000 (UTC)
-X-CM-Envelope: MS4xfPiA3AbYYNoKR4lOx2fMWaWH/cJhqDlaPDew6MFqkWDZmI4qE22W4AkpWGAtXGRHPUi4t6n6AyGY+c4IbOhGvSVYt6Jup22KQV/3f13Fpbi0Tslpcopv 5oP6cUe9WcoCknLizrkkqFja8CeovDTXuB76lJbACD1JhOf/O/q9WCg5kbhm3Z0dWeUWP7tg/MvtzJ8rTZIKPGZU8RRvnYXCzl3iKEW8NXYpYblOcaUX8IdC c6sJeHUUXZWe03PdIhBXakkvxHxXrDETOpCTU/GqYQvrlrYJrYOlmvpGTDWaNUXrAvOwMMdBqZfdnE9Zlkv9hwqV0FsMOfunvYt5n90vw+wKygtzsoyMDs63 ICEsoQqHUSw2kINFxSJ9pQ/oZUUM/lgag17BEYj3KGUToA9XfZL6Z7iKj53Cax3s9oqNQNPPhefJga79pUXNgHh+E0d3UZH1wFVP+MCueFX8a8IBESbDXWB/ dH/YrcknIIGcu+mnJ1j2Nlu4hpNF6HleSDKYnLzkZTNU6PLCx80lA277nc+3hz7EXlYA98wB/BO9tEi12mHJx3uLEG9iKdWYCXczZybnjTQ15GnW18DgtCO9 0UM=
-X-CM-Analysis: v=2.4 cv=ALriHGRn c=1 sm=1 tr=0 ts=6a06d668 a=gaaSNMXc1qFnL05oSjs71Q==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=oA5LrNwOAAAA:20 a=gEfo2CItAAAA:8 a=pGLkceISAAAA:8 a=wxLWbCv9AAAA:8 a=2tpBmOoPBWwOf3z1pQYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=sptkURWiP4Gy88Gu7hUp:22 a=QJY96suAAestDpCc5Gi9:22 a=6d_NeF2Wq4kEx_vldW19:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-AuthUser: linux@smankusors.com
 
-On 5/14/2026 2:04 PM, Rudraksha Gupta wrote:
-> Enable Krait DVFS on MSM8960 by adding the required device tree nodes:
->
-> - OPP table with 12 operating points from 384 MHz to 1.512 GHz, with
->    per-PVS voltages for slow, nominal, and fast silicon bins.
-> - Krait clock controller (krait-cc-v1) driving the CPU muxes from
->    PLL9/PLL10, ACC aux outputs, and PXO.
-> - PVS efuse nvmem cell in qfprom for the cpufreq-nvmem driver to
->    read the speed-bin and process voltage class.
-> - CPU idle state for Standalone Power Collapse (SPC).
-> - operating-points-v2, clocks, cpu-supply, and cpu-idle-states wired
->    into both CPU nodes.
->
-> Link: https://github.com/CyanogenMod/android_kernel_samsung_d2/blob/0dbe2b56847b304d30b809dfd08ba3b4a61d9af8/arch/arm/mach-msm/acpuclock-8960.c#L120-L235
-> Assisted-by: Claude:claude-opus-4.6
-> Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
-> ---
->   arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 133 ++++++++++++++++++++++++++++++-
->   1 file changed, 131 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-> index a427f0f41cd1..b5b9239c7aa0 100644
-> --- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-> +++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-> @@ -54,6 +54,10 @@ cpu@0 {
->   			reg = <0>;
->   			enable-method = "qcom,kpss-acc-v1";
->   			device_type = "cpu";
-> +			operating-points-v2 = <&cpu_opp_table>;
-> +			clocks = <&kraitcc 0>;
-> +			cpu-supply = <&saw0_vreg>;
-> +			cpu-idle-states = <&cpu_spc>;
->   			next-level-cache = <&l2>;
->   			qcom,acc = <&acc0>;
->   			qcom,saw = <&saw0>;
-> @@ -64,6 +68,10 @@ cpu@1 {
->   			reg = <1>;
->   			enable-method = "qcom,kpss-acc-v1";
->   			device_type = "cpu";
-> +			operating-points-v2 = <&cpu_opp_table>;
-> +			clocks = <&kraitcc 1>;
-> +			cpu-supply = <&saw1_vreg>;
-> +			cpu-idle-states = <&cpu_spc>;
->   			next-level-cache = <&l2>;
->   			qcom,acc = <&acc1>;
->   			qcom,saw = <&saw1>;
-> @@ -74,6 +82,116 @@ l2: l2-cache {
->   			cache-level = <2>;
->   			cache-unified;
->   		};
-> +
-> +		idle-states {
-> +			cpu_spc: cpu-spc {
-> +				compatible = "qcom,idle-state-spc", "arm,idle-state";
-> +				entry-latency-us = <400>;
-> +				exit-latency-us = <900>;
-> +				min-residency-us = <3000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	cpu_opp_table: opp-table-cpu {
-> +		compatible = "operating-points-v2-krait-cpu";
-> +		nvmem-cells = <&pvs_efuse>;
-> +
-> +		opp-384000000 {
-> +			opp-hz = /bits/ 64 <384000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <950000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <900000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <850000>;
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver incorrectly uses register I/O accessors (iowrite32/iore=
+ad32) for FIFO stream data, corrupting the payload byte order on big-endian=
+ architectures.
+--
 
-The Sashiko bot comment about the binding schema is valid, I encountered 
-the following warnings:
+commit 2b61bbc0527fc4d755d68d7a70237195d89efad6
+Author: Pramod Maurya <pramod.nexgen@gmail.com>
 
-/mnt/linux/.output/arch/arm/boot/dts/qcom/qcom-msm8960-sony-huashan.dtb: 
-/ (sony,huashan): opp-table-cpu:opp-384000000: 
-'opp-microvolt-speed0-pvs0-v0', 'opp-microvolt-speed0-pvs1-v0', 
-'opp-microvolt-speed0-pvs3-v0' do not match any of the regexes: 
-'^opp-microvolt-speed[0-9]+-pvs[0-9]+$', '^pinctrl-[0-9]+$'
-         from schema $id: 
-http://devicetree.org/schemas/cpufreq/qcom-cpufreq-nvmem.yaml
+staging: axis-fifo: Fix alignment of wait_event_interruptible arguments
 
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-486000000 {
-> +			opp-hz = /bits/ 64 <486000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <975000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <925000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <875000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-594000000 {
-> +			opp-hz = /bits/ 64 <594000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1000000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <950000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <900000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-702000000 {
-> +			opp-hz = /bits/ 64 <702000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1025000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <975000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <925000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-810000000 {
-> +			opp-hz = /bits/ 64 <810000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1075000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1025000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <975000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-918000000 {
-> +			opp-hz = /bits/ 64 <918000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1100000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1050000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <1000000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-1026000000 {
-> +			opp-hz = /bits/ 64 <1026000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1125000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1075000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <1025000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-1134000000 {
-> +			opp-hz = /bits/ 64 <1134000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1175000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1125000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <1075000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-1242000000 {
-> +			opp-hz = /bits/ 64 <1242000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1200000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1150000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <1100000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-1350000000 {
-> +			opp-hz = /bits/ 64 <1350000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1225000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1175000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <1125000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-1458000000 {
-> +			opp-hz = /bits/ 64 <1458000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1237500>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1187500>;
-> +			opp-microvolt-speed0-pvs3-v0 = <1137500>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
-> +
-> +		opp-1512000000 {
-> +			opp-hz = /bits/ 64 <1512000000>;
-> +			opp-microvolt-speed0-pvs0-v0 = <1250000>;
-> +			opp-microvolt-speed0-pvs1-v0 = <1200000>;
-> +			opp-microvolt-speed0-pvs3-v0 = <1150000>;
-> +			opp-supported-hw = <0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF>;
-> +		};
->   	};
->   
->   	memory@80000000 {
-> @@ -81,6 +199,13 @@ memory@80000000 {
->   		reg = <0x80000000 0>;
->   	};
->   
-> +	kraitcc: clock-controller {
-> +		compatible = "qcom,krait-cc-v1";
-> +		clocks = <&gcc PLL9>, <&gcc PLL10>, <&acc0>, <&acc1>, <&pxo_board>;
-> +		clock-names = "hfpll0", "hfpll1", "acpu0_aux", "acpu1_aux", "qsb";
-> +		#clock-cells = <1>;
-> +	};
-> +
+This commit resolves a checkpatch warning about argument alignment in
+wait_event_interruptible(). It breaks the condition at the comparison
+operator to keep the line under 80 columns.
 
-I think the kraitcc node should be placed before the memory node so that 
-it's sorted alphabetically.
+> diff --git a/drivers/staging/axis-fifo/axis-fifo.c b/drivers/staging/axis=
+-fifo/axis-fifo.c
+> index 3aa2aa870ea91..1c34de020cf85 100644
+> --- a/drivers/staging/axis-fifo/axis-fifo.c
+> +++ b/drivers/staging/axis-fifo/axis-fifo.c
+> @@ -246,7 +246,8 @@ static ssize_t axis_fifo_write(struct file *f, const =
+char __user *buf,
+>  		mutex_lock(&fifo->write_lock);
+> =20
+>  		ret =3D wait_event_interruptible(fifo->write_queue,
+> -			ioread32(fifo->base_addr + XLLF_TDFV_OFFSET) >=3D words_to_write);
+> +					       ioread32(fifo->base_addr + XLLF_TDFV_OFFSET) >=3D
+> +					       words_to_write);
+>  		if (ret)
+>  			goto end_unlock;
+>  	}
 
->   	soc: soc {
->   		compatible = "simple-bus";
->   		ranges;
-> @@ -112,6 +237,10 @@ qfprom: efuse@700000 {
->   			#address-cells = <1>;
->   			#size-cells = <1>;
->   
-> +			pvs_efuse: pvs@c0 {
-> +				reg = <0xc0 0x04>;
-> +			};
-> +
->   			tsens_calib: calib@404 {
->   				reg = <0x404 0x10>;
->   			};
-> @@ -348,7 +477,7 @@ acc0: clock-controller@2088000 {
->   		};
->   
->   		saw0: power-manager@2089000 {
-> -			compatible = "qcom,msm8960-saw2-cpu", "qcom,saw2";
-> +			compatible = "qcom,msm8960-saw2-v1.1-cpu", "qcom,saw2";
->   			reg = <0x02089000 0x1000>, <0x02009000 0x1000>;
->   
->   			saw0_vreg: regulator {
-> @@ -367,7 +496,7 @@ acc1: clock-controller@2098000 {
->   		};
->   
->   		saw1: power-manager@2099000 {
-> -			compatible = "qcom,msm8960-saw2-cpu", "qcom,saw2";
-> +			compatible = "qcom,msm8960-saw2-v1.1-cpu", "qcom,saw2";
->   			reg = <0x02099000 0x1000>, <0x02009000 0x1000>;
->   
->   			saw1_vreg: regulator {
->
+This isn't a bug introduced by this commit, but while reviewing
+axis_fifo_write() I noticed a potential endianness issue later in the
+function:
 
-Tested on the Sony Xperia SP (msm8960t), and it works as expected.
+	for (int i =3D 0; i < words_to_write; ++i)
+		iowrite32(txbuf[i], fifo->base_addr + XLLF_TDFD_OFFSET);
 
-# echo performance | tee 
-/sys/devices/system/cpu/cpufreq/policy*/scaling_governor
-# echo 1512000 | tee 
-/sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq
-# 7z b
-7-Zip (z) 26.00 (armt) : Copyright (c) 1999-2026 Igor Pavlov : 2026-02-12
-  32-bit arm_v:7-A thumb:2 locale=C.UTF-8 Threads:2 OPEN_MAX:1024
+Could this loop corrupt the payload byte order on big-endian architectures?
 
-Compiler:  ver:15.2.0 GCC 15.2.0 : FP SIMD32 UNALIGNED
-Linux : 7.0.0 : #247 SMP Thu May 14 20:32:48 UTC 2026 : armv7l
-PageSize:4KB hwcap:FB8D6:NEON hwcap2:0
-armt
+Stream data fifos must exclusively use stream accessors (such as writesl()
+and readsl()) to preserve memory byte order without applying unwanted
+byte-swapping.
 
-1T CPU Freq (MHz):   717   814   815   815   817   799   816
-1T CPU Freq (MHz): 100% 815   100% 816
-2T CPU Freq (MHz): 196% 800   191% 777
+The driver currently uses register I/O accessors to transfer data to and
+from the fifos (XLLF_TDFD_OFFSET and XLLF_RDFD_OFFSET). On big-endian
+systems, iowrite32() maps to writel(), which performs CPU-to-device
+byteswapping.
 
-RAM size:     974 MB,  # CPU hardware threads:   2
-RAM usage:    444 MB,  # Benchmark threads:      2
+Are there similar issues in axis_fifo_read() where ioread32() is used to
+read from XLLF_RDFD_OFFSET?
 
-                        Compressing  | Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-          KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS  MIPS
-
-22:        806   174    451    784  |      24894   193   1102  2126
-23:        772   173    456    787  |      24344   194   1084  2107
-24:        760   176    464    817  |      23257   194   1051  2042
-25:        743   179    475    849  |      22233   193   1025  1979
-----------------------------------  | ------------------------------
-Avr:       770   175    462    809  |      23682   194   1066  2063
-Tot:             184    764   1436
-
-# echo 384000| tee /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq
-# 7z b
-7-Zip (z) 26.00 (armt) : Copyright (c) 1999-2026 Igor Pavlov : 2026-02-12
-  32-bit arm_v:7-A thumb:2 locale=C.UTF-8 Threads:2 OPEN_MAX:1024
-
-Compiler:  ver:15.2.0 GCC 15.2.0 : FP SIMD32 UNALIGNED
-Linux : 7.0.0 : #247 SMP Thu May 14 20:32:48 UTC 2026 : armv7l
-PageSize:4KB hwcap:FB8D6:NEON hwcap2:0
-armt
-
-1T CPU Freq (MHz):   210   209   210   210   209   210   210
-1T CPU Freq (MHz):  99% 209   100% 210
-2T CPU Freq (MHz): 191% 202   190% 200
-
-RAM size:     974 MB,  # CPU hardware threads:   2
-RAM usage:    444 MB,  # Benchmark threads:      2
-
-                        Compressing  | Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-          KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS  MIPS
-
-22:        295   146    196    287  |       7444   188    337 636
-23:        286   148    197    292  |       7302   188    337 632
-24:        285   150    205    307  |       7255   191    333 637
-25:        282   151    214    322  |       7105   192    330 632
-----------------------------------  | ------------------------------
-Avr:       287   149    203    302  |       7276   190    334 634
-Tot:             169    269    468
-
-Tested-by: Antony Kurniawan Soemardi <linux@smankusors.com>
-
--- 
-Thanks,
-Antony K. S.
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515075736.1721=
+72-1-pramod.nexgen@gmail.com?part=3D2
