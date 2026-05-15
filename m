@@ -1,161 +1,133 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC1D3CF030
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 06:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778828295; cv=pass; b=Keqmr9hAIe4bRETzffoYIiRSnKApL7N5JA59BMleGPK/qYNXZMCi+fGck5gTAeFzA3pb+Wg9nP4VGzdH8Z8oZ8j0bF5gPEI36M2tETCa/vLemS8HxdIBAfPY+RJR8HGzP5m4ax1ewzGc8CZkprbGdIVDneDhbRgyrnbESa44C/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778828295; c=relaxed/simple;
-	bh=KUdg6NaWQDrpKtiYBBG7/RuYnu0UUwnrZH1VpFsFWGA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WB0LTT02KOTA7fKtPy2SD0Op5BE9Ffmp4pKodN2orzS2E6pZMkVbEQgG7vIFzuWfwm6kDCSIZjSQ93whjDH1jL8egMQfKHigMIHC+t/We4nqHevbT4fkaTiB6zkJH6TuptMSgOzFocaDV9duZHBgp3EL4OGHVvVRJKWgpyPP70M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rRSog2b/; arc=pass smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CD53D47D4;
+	Fri, 15 May 2026 06:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778828330; cv=none; b=EkRISazdEDpbbI/I9hYzVdZHQDNk9ACQpM9jzgVTDdM83dnCRTEIO7yfKMCZcRcvP4zeq6wWnL9Y4hpnwnfp5pZFaQwBdy9zmlgE9QY0rxRYS3Roc/KcXWn+hdwpqRWyDrUitD7UVgW50baXZ1iePV1vyaDZBFYef7mHVe3ZNmg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778828330; c=relaxed/simple;
+	bh=p2oEUSNazBDlchTlqnkUx+ga14/Y4r53gZkxNfQNfTQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MXYOal0eRS/1n02WBEto9lsIyGswU3E+cfZr7tIKsZ4/wX/T+IaCcAxyp7eqbtxUqidogBLiD1PgWuwOyrbowOSvHPZCMKTBNJI51jq9CuEVzOGEB4GVFWKXJ9XbAn4MCKPx3nd+j1HjH8G4AsYZcjXTQSsR1KzmrSWGHK9yCJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=albFfBsP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rRSog2b/"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2bcd3ac3307so32142815ad.0
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 23:58:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778828293; cv=none;
-        d=google.com; s=arc-20240605;
-        b=EXi0JTndJlHVnUYbXAB6ka5fJ7ECCWq68SeqJWLKMVhIC97Uv+qGZ+zLY5//caYy7+
-         sSZtzEOPAbsp38fheLPw2pwTWE74cEYucK4BdDIbhzamT+NHHknP0dcG6dT/UWOsc7zG
-         EAQ2G5IlJlBp+QQwyy8sgYvjg1mfUduMugltpb/0Yuz7kvuQmHOFDfdMWC9JAsIVmgF+
-         E4Yi9/kMJMwrwuOGvBhsM/CZRdbxin0Lts9r6N2pNgpxgs4L/n+Q4IdlDxgL9lGlV1rz
-         1u4rKmeXuP7eLiRtIEmbNyw/b+4s5AZzKjox7ktUpgnSFUGU7Twdp4LbvluD2NXOSwM+
-         cMdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/eC1OtdjNZ3d+8g9rIjBdvZ8lfjkRUHKUFoBnIZ0sz4=;
-        fh=PkC7qSlF7JJ276XxbD6ApWyWMYsr+lG3JlTu6hpAjjI=;
-        b=INWoIS7/6XjrLFSV8qx6xVthqJfshjNA+fRMN2G2nNUsvRbQfDBGx/58wc7uyoIZk7
-         4Hcxtw8ahMSput7rJinT2FxrR5QZBRkwXkCG+9bhajmjc0Phpp1nABeAQyuHdmswoV4r
-         p15l5dk2PJHH2YJuquYaekbmkt0/r67J4S3c7niixcpN74AfbAuvLha8cfop921iprON
-         86Ciu8K/uGkd5QNu1S3bpDHZ7xeEPiMGvuj1vl5/QXcjCwOB4z4H5RsO3wPI2FO9mIM0
-         l5YQHsE+38Yd4v7Z9stYHw7esT8vNwT5i919CXJ+A42vRFV5GDonxNNP9dZXFOdQhlkJ
-         82Xw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778828293; x=1779433093; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/eC1OtdjNZ3d+8g9rIjBdvZ8lfjkRUHKUFoBnIZ0sz4=;
-        b=rRSog2b/+pQuwpnQ/FTF3867vyBaigU15HOz7TQnKvhhN/A+BCwFYjCHP5YOYv/0KR
-         9DFgfTGr8syqiKSbQBYucUKHNt4swduGZrjWnHYm/Lao8/jl2ib1bFGBDqbsT3sF2UTe
-         CooyVIP1t8ozAmIhXaepD4bDfOfYYrmz+Tg5z2e7GdV9+xVrwIdCy0rfOie1ahSfD+7V
-         VwOVbmGFgD68N21MgQtPxuZtk3YC9Fi8MsnxLwCo01pcNwqGoBJiAO9z40sP66/sioGo
-         plu1J3uZnmATruLxrSijHOW4rcwB4hS1gXiGbwg5B1fVKh5WHq6FCF4fspXiHc60XRlI
-         bEFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778828293; x=1779433093;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/eC1OtdjNZ3d+8g9rIjBdvZ8lfjkRUHKUFoBnIZ0sz4=;
-        b=rJibazJ74JnV51VpIH1fdZXy+fswZv8A7CL03fNq0qrVjb2gCsMuQonTDWf/y6ApIK
-         kz8nBe8Z/d/L0PL51hN28o5ea3iq22vzedCKP2x4R0Fi/YyOTKxOpTwjLF0EU+Giaxqn
-         Ckk82B0zl+Emnu4up77unQwIU4f9SJ0Xyoqgjm5+oMZg8vuAkdl0gle6I4pADhLPZywN
-         vdibu5808zcNZEsr0pmvxmAqM7MkIfhGsq3BXUBZk3sfn1OJbeDPaLhK2qXzij1WS5hi
-         QrFKmAbSX2tnscIUNGNllCQT04ai/6cAP2O6sSqjylX4Lyqlp9GVTGKi70GmXKynlckM
-         uakQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/LHq5RZBmMkP4rY82P8XFwcxBHDlikyW4oxdQGXl0MR5IMIwvwubXHp273c2JLLbYh4Qf5dXX9uHsU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5oaSqM4kyzB94Gaw4y8zCHT70omNqRy2KVJdu8ewa/Wv4EaVG
-	57kTgLLO8M6TBU7mNamJy6oS4WeOzCxLCSHpwyNKr6LKph8Sy1knbCE2LAUmUOS8hAsT4gXTyml
-	GXejyiEpMmkAUX3jU+OAv/8QCqKHbzDg=
-X-Gm-Gg: Acq92OE/lUMpve0TSo3pc+zNSleH6rANhcjx7uFwkGSR4fTZl0f2lBmTeFxd9IARNCz
-	QAtFYbIs/Or4HOwOyIMDZMcG8f2BZK9qDHSh0k36KegV4SfO7wSdfHjv6aXEzQw75CJf0dvw3aO
-	mdV60ChVa1z0deomRhzUtgKkouTJD5YZ7l3pcZUswRCF+TXN3iBoRfQnqzcUHFstF1D9ttRT51a
-	yORllkHuK6Mzhwn/j6sRWRPrT5VG4kRI7Qry3Fdp0B9//vAOgvbIK22fa4HxMIcz5AHbqvK2IJG
-	pb6DUImRcafFB+wSiyFi1Bo1x6pFd0aM25QlpQ==
-X-Received: by 2002:a17:902:bd0a:b0:2b2:4260:109 with SMTP id
- d9443c01a7336-2bd7e980363mr21178305ad.23.1778828293255; Thu, 14 May 2026
- 23:58:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="albFfBsP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AF01C2BCC7;
+	Fri, 15 May 2026 06:58:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778828330;
+	bh=p2oEUSNazBDlchTlqnkUx+ga14/Y4r53gZkxNfQNfTQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=albFfBsPhqI4JHEfGybiGWjI4+0kHJBZPx3kUwAbr0bT+T6N/QWnspGozvgLOpqZs
+	 XPFjKQxTbE8POL7FaGeMkjuJkw2Vi7+ePSV399n+pdcK8hlPwZSiACn17XO5noaTkK
+	 YBoUHrmXKdrKg6JqANsLcw6OOhFEhrC8mmPE41fp/XfNAKVSl60DTk7jpcQNkrNqVq
+	 zISuIlRbkd78L/mvxYKIXZc8mHwPlftazBoRCYWmh3qCslk4BExfnWIPFVh7+q6W5D
+	 5auYvUQUDZeBn8K91u2FKpO3jTQx8dbNMipTnJ8aZnu/EJl42qDLUQZnyipKrht6+6
+	 Z9muX+TqQI5yw==
+Message-ID: <3d9fa332-6761-4f84-b287-bf9271c03d24@kernel.org>
+Date: Fri, 15 May 2026 08:58:44 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510084303.122426-3-phucduc.bui@gmail.com> <20260511220354.CCDCBC2BCB0@smtp.kernel.org>
-In-Reply-To: <20260511220354.CCDCBC2BCB0@smtp.kernel.org>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 15 May 2026 13:58:01 +0700
-X-Gm-Features: AVHnY4IkpWSudu6WWXvdLPvc-p7JcRPzpQsP4WMEAKh-EKbzc9nN8ZsT1I8ujWg
-Message-ID: <CAABR9nHrBceHOoOR1ZqoBPjx2JyWBFKtYh_VNOoa8oeF4+St=w@mail.gmail.com>
-Subject: Re: [PATCH v3 02/10] arm: dts: renesas: r8a7740: Add clocks for FSI
-To: sashiko@lists.linux.dev
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/16] dt-bindings: display: ti,am65x-dss: Add AM62P
+ DSS
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
+ Devarsh Thakkar <devarsht@ti.com>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
+ <20260513-beagley-ai-display-v2-5-9e9bcefde6bc@ideasonboard.com>
+ <20260515-certain-honest-wren-f03dfa@quoll>
+ <3e5ce95a-10dd-4520-8bd7-7d4cfaf612d2@ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <3e5ce95a-10dd-4520-8bd7-7d4cfaf612d2@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi all,
-
-On Tue, May 12, 2026 at 5:03=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
-> Will adding the spu clock to the device tree without the corresponding dr=
-iver
-> support cause the common clock framework to automatically disable it duri=
-ng
-> system initialization?
->
-> If the bootloader leaves the spu clock enabled, and the kernel disables i=
-t
-> because the driver hasn't claimed it yet, could this cause a regression w=
-here
-> the system hangs on subsequent register accesses by the fsi driver?
-
-Yes, that is the current issue.
-
-The SPU clock was already present in the DT, but since it was not managed b=
-y
-the FSI driver, the common clock framework could disable it after boot.
-
-This change adds the SPU clock to the FSI clock handling so it stays enable=
-d
-while FSI is active.
+On 15/05/2026 08:56, Tomi Valkeinen wrote:
+>>> The DSS IP itself is compatible with older SoCs. While we could use
+>>> "ti,am625-dss" compatible string, we add a new one "ti,am62p-dss" to be
+>>> on the safe side in case the driver needs to do something special for
+>>> the dual-DSS case in the future.
+>>>
+>>> Original patch by Swamil Jain <s-jain1@ti.com>
+>>>
+>>> Reviewed-by: "Rob Herring (Arm)" <robh@kernel.org>
+>>> Tested-by: Swamil Jain <s-jain1@ti.com>
+>>
+>> Same comments.
+> Interesting, looks like "b4 trailers" applies quotes here. I assume the 
+> parenthesis makes it do that.
 
 
-> To maintain bisectability, should the driver be updated to manage the spu
-> clock before or in the same commit as this device tree update? I see this
-> regression was addressed in a later commit adding spu clock control in
-> hw_startup/shutdown, but it may break bisectability here.
+I think you need to update your b4. There was a version which had this
+issue.
 
-Reordering should not be necessary here, since this is a pre-existing issue
-rather than a regression introduced by this patch.
+> 
+> As for the tested-by, yes, it doesn't make sense for bindings. As the 
+> tested-by was for the series, "b4 trailers" applies it to all patches.
+> 
+> I will manually drop these in v3.
 
-The SPU clock node was already present in the DT previously, and the later
-driver change simply adds the missing clock management support for it.
+Yes, please.
 
-> > +             clock-names =3D "fck", "spu", "icka", "ickb", "xcka",
-> > +                             "xckb";
->
-> Does appending the external clocks (xcka and xckb) here without the inter=
-nal
-> dividers (diva and divb) violate the strict positional order defined in t=
-he
-> device tree binding schema?
->
-> The dt-binding schema for renesas,sh_fsi2 defines the clocks property as =
-an
-> ordered list where the 5th and 6th items are the internal dividers, and t=
-he
-> 7th and 8th are the external clocks.
->
-> Since dt-validate evaluates array items positionally, will it evaluate th=
-e
-> external clocks against the internal divider descriptions? Should the arr=
-ay
-> be padded with dummy elements (like <0>) to maintain the strict positiona=
-l
-> order?
-
-No. These clocks are defined as optional, and the current schema does not
-define fixed positional constraints for individual clock entries.
-
-Best Regard,
-Phuc
+Best regards,
+Krzysztof
