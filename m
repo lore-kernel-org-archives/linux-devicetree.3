@@ -1,278 +1,407 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71752B9A4
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B4D3B4EB2
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778854974; cv=none; b=dIUwQnXgT0kb1UFOfgIUqBMiAoxB7nK4CbFkKgIxksSLnO210Z8Y9qUJSF6CsINaFn83X8lKmi0qvdliMlNdzuC3SCByGuRrOelBL26Ct9OoihLU+FObiwoRf50W2lXrevUK1IpBy8zLFL1gbqzNpEEtgWiAwi4dSi6VZQ1WCig=
+	t=1778855517; cv=none; b=iBdoNBblq+CoZn81UNV2nK2sl0NtUhUGuwKfLhtdsLjHwWUf/IWPplmvddfOZ2AlRm+j6ALY0JqtkrAQUFeLFBHv6TKpNl38oSvpAnvjjlsduATT89yTaE16COhB36SF5iduSCcbuEN4rkr6j0vEOaWrvpZpcpFQhLvRhFhzTso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778854974; c=relaxed/simple;
-	bh=vg7rsFdmrkTWiZNtp5qMnR7zjL7mLG8s1Cu9e/+xksg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AFujWOwUgXmgupmy22g7Okq/L2isokPxE6vuQyEtfgyH9okuCDpwfJVONtD6tA/ePaXDruCr+9X22cMMsGm3lOUUX5JscJa/BqOaog8lEOWu8Uc7fZG+67EV+A35J0rfxSKL+NQa1sTwmi0OlCrPrJ+w6+7rrk6j0N5vbX4qE1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g+HNLWx7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H92ewZ4z; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778855517; c=relaxed/simple;
+	bh=OWnWFxSdmpvYr6SK5ppnHAgSN/bQXmTVCLxMZEG18Io=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=u0LoQWOFgyZUot5fFmOqDm7chvs9gsS2MOxVLGcBohwzHPGm5fGAzGlpO3etO+QZD3u5X+eAzcktL8vMYC+9dr+/7fGW7gLj/LWD+l+iTVo5Y+TE3nYl0d9Jt3OzqNUcUGB2mml29PMNqsaU6k6C+228CLycgQgADnvadaoQUbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=Odb4Gkbb; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g+HNLWx7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H92ewZ4z"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FBRDof3200288
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:22:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lwgI4gCOFcfcSUDdRJPuf785r1N8oM5gm37xd7VD4IU=; b=g+HNLWx7lFuEr2lr
-	i2DRUJKq2O5DpXHZkJ6ciinfLWRpDGCRe8YzfUjc9VF8Ln5EPlpXo16OcVHbAAfH
-	KjR/iXDEVPVK2VY7s/QYODuMwJocXFS5bEEpZQvtibNCGFwKiGS7jgqgJdsRFUtw
-	FBy6P1zRCW3Q3zG+Pz/qSvsTaUI60YFJ3qpUQWk8KfJZvwaMlowmNQVVc+ACszrd
-	1B/bOdCR7dfns/JoBjaf/Q4Gkz5zLS0067f3qzqTA/cqFCHQVxkMrH755O1VH5gT
-	LSe3eS2BGA+//s0hSHlpKTIO07CI1rcW9VlGZxn52CFCzu7knCRyz0+2B/NGIzNH
-	PQI0iQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1quhy0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:22:52 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2ef37c3f773so10700648eec.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 07:22:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="Odb4Gkbb"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b9382e59c0eso1560992666b.0
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 07:31:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778854972; x=1779459772; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lwgI4gCOFcfcSUDdRJPuf785r1N8oM5gm37xd7VD4IU=;
-        b=H92ewZ4z0aPj6/xWX0yJrEYONkoSwpAua8u0YkudEMO6iIt+YCI1nGGB3M9gFyeTJH
-         6cCu6kzZbnV9Ka6ypyifrginshInwA26b5Y1i25ggMxbUcBI9ox54qZGN+4nTtnbNjp4
-         ieR2oGiqVB+QubGqRi6WD+kuRH+kiG5Q2Wj2OUwa7Py7T670HT6CJQA2lag7357XWow3
-         oM3H7o93fWWklSPXijlOFbK8T167bKDB6522sqMOP14p9jt2teV3gjwO93PgenPwQfJ4
-         0cdux34jmBWd0apKFlQH31sEsw1makJeGEYVsOVV7saZZUzuhLSNSKmR8gMED9n4+pNs
-         vZBQ==
+        d=fairphone.com; s=fair; t=1778855513; x=1779460313; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WiChq0bWxYu8cm+d+z1QVhaK5qjC2UQLCYZmN1T6Ywc=;
+        b=Odb4GkbbhdwNaYB0R7+n3fIXSGI/n0E8sm+7gwB2ebw9/pYiIpB/VgzUNukQatrc6S
+         MVN6U+4bvho1po6oE8G18Dnnhah7TJzj44y1lYNG47WY9pRz/j/UVNZBM/HWlfgFaUBL
+         x+ZTIcR9rQl9OrjsTsciP+grb16EeBCSGR1O6pYVu7CPnAt4trD4AxaQ5ixP/P2wEyPk
+         t1y/+8fiTl3JHAeANtK0Lj1sYrG4YSfyoJNY0yBM2NdJglfWQFNCH7wiynjf88b4uspQ
+         fah+vf99qJdjCWCbvMQ3MHkwCsUky8ln8DJY/7Ir7mElP/xKWsVsLAqT9D11EeMZflHL
+         Kocg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778854972; x=1779459772;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lwgI4gCOFcfcSUDdRJPuf785r1N8oM5gm37xd7VD4IU=;
-        b=nOeV+ADnFcyKFYXmfsZqYWQZs9dr7RDT6NO3Y9N86l4bzx+liZlgH0YDwdgKC5rvMT
-         1F1RzW2Pos7CFlSCaqU5P//SbeZw5ysBdUc5NmeGQuR9adBYNimBNo1QMEG5xPwyTz4q
-         K4nnFQO7pHTxWSyuLw3GxB7nzU2LdhBBzIX635EsL5/LkqZf6hLE9mKgk4E/mSeXFBuO
-         gS3dfptUxoqNhb9MmJbd20Wix1qtWP/6dBYV9rcB3vxYeC3O37/5Pa9DUn38F776dWFb
-         lUxJKs0hi390DruMPyigD60+kn9FotJ34zI54sW5CgGJ7EjzEhSjhfNwRFqj08miXk0A
-         TnCA==
-X-Forwarded-Encrypted: i=1; AFNElJ+fahLkeHTFomiIa16kYcCihTjIjGLi9RIxEzMYuM69d3uI28nUdNisF9xQ1bslYY2Cir6c2esTUyzh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQ+i01ImcBRdi2Rk0HMtZOZ5RZqSrwhTsxTuPIFsP/BS3fW4xb
-	KPq3/b5XJ+PA1n/GmQ6ryf4Rc8nA/fDle0z58+zO8BmtGohkF1gntA9zoo0yBQCStx81OBOS50s
-	5t1vbxJNSaz7JSa5xdxI5R0vCkTRp3hSPzp6vExePVZhjzCLpUjrp4u6GfTSXtUs2
-X-Gm-Gg: Acq92OF2Om5ug4uq7ywiEdrBWF1V1xyyBXt3JVpAEYqsD7wAo2VxOw+mSo/s3Y/TIp9
-	KYtlm8K7X4dpfYhtQ16ZLhRdiDBxXJ8y3UgHaBrFyC6gp0QtRE4maipbPJyoPjAfs4x0mHbjl2V
-	tmDUPFMqJgYBjLC/W4a/QTOOIZk99x64GgUr1F358yoM4l2fgg/mQ9CwyGDB+ZxqJdzFfNPr8/a
-	2diaFtpAeUGAhWkmkNWLlXBQFo+69TmXBnUPcyHwKeNN/eaSHPODy4+ewex3IdkeefZEiQ/3u/9
-	8p/Nsmt51u01MAmQ1GR2Zi3mjOPTe75QR/v6fgU6IO0vNc3ueAHJbDPCoGRb/w/7YDY1vp/9wpU
-	nkaMuA60DCr3dwwloeLNzKi0YqdtByRMvc+vssjdakWpfKFNoDXqCknmihV2JA9by/z2GbrE5T7
-	W3Utn7
-X-Received: by 2002:a05:7301:2f85:b0:2ea:cd38:f921 with SMTP id 5a478bee46e88-3039869ffffmr2132111eec.26.1778854971050;
-        Fri, 15 May 2026 07:22:51 -0700 (PDT)
-X-Received: by 2002:a05:7301:2f85:b0:2ea:cd38:f921 with SMTP id 5a478bee46e88-3039869ffffmr2132069eec.26.1778854970441;
-        Fri, 15 May 2026 07:22:50 -0700 (PDT)
-Received: from [10.110.108.188] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30294500a97sm7956995eec.9.2026.05.15.07.22.46
+        d=1e100.net; s=20251104; t=1778855513; x=1779460313;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WiChq0bWxYu8cm+d+z1QVhaK5qjC2UQLCYZmN1T6Ywc=;
+        b=WaOXGNs/EnaPffTu7mvw9cF+uOLGluD4RL7hX+lBZy/r546xdn++pN8P1U5qJw7ipR
+         vg5K44++1cwBeCStlPIF25FLvnq+6ZO7EDYDEuzfNXaKq64Pj3wpfYo6aiM5ddkVH0q0
+         rdJ5FTBbrfi3ONwFqdulSbEG/p06J/rzebSejbUlaYbbpqETcdKZ+ZSK3R/pVezHyPA9
+         bLIHTPtuj/whAajfvjZ7plAPpL+3Mn1dgTyD+qMyEnCH3KKPnJu7pR84pJ5Fvqhzfltk
+         46NqrMqk3FlG++JSOXqL8G3oXHmdvlzIoo0rvdT5kK1+a4kYVHfhbZCkIn9KalvAemOl
+         6bPQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9+ViOVIrpTgN/cIICjfM6TO9fvX2G450sy5mqQXH73SwIdeJFzeGAspxHZpiTg4yoXpjWMqx/3M/N2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1vkHJDpm6bhkLE5ZbkyX2l4dtrrKUT1Avbyl6mA6iY/wlMjPq
+	+3GdZa3vrJ2UWgBiGRkAabtfKP/Uy9CzSkKM7qCWf8U5D6PQYYVPvaDLYbFcwXFzC2I=
+X-Gm-Gg: Acq92OGf6593NEdVDiVIPOAnRcmaqJQEv6Qj8PoD5RA+ZdrZk8Y1Nq807XM10fqBcAJ
+	syxgy8L2ICUsWbM9wHRVy/xci8wYzYLGBIjfuARw7zzVbCEAUTw/+TET22oGsuACOgrE44O7tQC
+	5zK73/3/HxR4ZSHzWLbGcB/wFLtBgpmR0lP8f6XKUTWizvQ7VXIK0+0gSMg9q79AzjYZeJeJntQ
+	SzO5kkEJ7ayn4EIcjsNtKXNbuaUJQKINJNGPw3y9IpnCJ5mTRB01/Hk6GmHMaX1XWNMbZIgedQ/
+	sS3niNPM1p/f8V+Rm4jMXo5LEgYaUWENwGBvpnbLLmjNPAxYPaJYvi083vANbwklMJeLlZIw1Zu
+	xOqamhuTiOeiM4rofbC61KbebPCG29uE4aKDTtmZQITpOK48PNKLXtN6W0rDoI5z/z1TVw+ajgU
+	2HdCbehTYcl7n11yMUxH01tRF536znVLhaAFeGStFJb0H+WC2It6Kx+HHpS6RNWNdNkoLk
+X-Received: by 2002:a17:907:9483:b0:bd2:bd43:b46c with SMTP id a640c23a62f3a-bd517979775mr246890366b.43.1778855512784;
+        Fri, 15 May 2026 07:31:52 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4de6f28sm240053066b.34.2026.05.15.07.31.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 07:22:50 -0700 (PDT)
-Message-ID: <01578e6a-d10a-46df-bb32-fd45ecb365d7@oss.qualcomm.com>
-Date: Fri, 15 May 2026 22:22:45 +0800
+        Fri, 15 May 2026 07:31:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] soc: qcom: ice: Enable PM runtime for ICE driver
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S . Miller" <davem@davemloft.net>, devicetree@vger.kernel.org,
-        linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        bjorn.andersson@oss.qualcomm.com
-References: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
- <20260512033750.3393050-3-linlin.zhang@oss.qualcomm.com>
- <b07a3634-a7a6-4f28-994b-fc900be26879@kernel.org>
-Content-Language: en-US
-From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-In-Reply-To: <b07a3634-a7a6-4f28-994b-fc900be26879@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=HbkkiCE8 c=1 sm=1 tr=0 ts=6a072c3c cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=LBsR1RIUYHBeOwdxVikA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: 5kxnZDE3izCDB47DNZ7PgvrTdm_7CPmf
-X-Proofpoint-ORIG-GUID: 5kxnZDE3izCDB47DNZ7PgvrTdm_7CPmf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDE0NiBTYWx0ZWRfX0fkiOcQ78f3v
- 7DSjffNAwD90t8rsgFZwEbF41Gk5/Mn2dHhi49Sm0FapGukkjpzqK/MyRQWoWUjGMSeLunrbBmk
- 1co4+iQuWwy4Ec0gtVY82J8JK51c6nCNAS05o7bj4G3FQFWcvN6roUbQ2VltDaaxWZj352M8Zip
- miyAQUpAXCFmpHSbzfd6cgVa5ErysdBFTaNOIPSBqn/ciDJPmz41lFmDEKgPThk4D6f8VBBAP4G
- OSOwGlGWydMaGP7FrTdh1cLWBRsqs7IEVoJzbrAsIOYLCTFtotYbgO7G4c6yPTI1A+NJ5l3fsQT
- nXdE3CKSGXb1Cdi8PJMjOYjhW8PpPv63FJP9S1aXQgNziLG2sZRQ85c+E/wOFXKCGKROpUHh2z6
- ZFydWt99sZztoulcGaQysoeUVmbiJ+vE/s796z4glIvDlTduBLS6+nFlhu7iStLX4mX4qV3hT+X
- uNE0crk2zS/9dN4bm6Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-15_03,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0
- bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150146
+Date: Fri, 15 May 2026 16:31:51 +0200
+Message-Id: <DIJBNGDNXE0L.2I0H4PBDDODOP@fairphone.com>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Jessica Zhang" <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH 2/4] drm/panel: Add driver for Novatek NT37705 panel
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
+ <20260501-fp6-panel-v1-2-e09cb05651cc@fairphone.com>
+ <c06623ba-b19c-471a-becb-2fafddb3583c@suse.de>
+In-Reply-To: <c06623ba-b19c-471a-becb-2fafddb3583c@suse.de>
 
-
-Hi Krzysztof,
-
-Thanks for the review.
-
-For the SCMI-based platforms (e.g. sa8255p), the ICE resources such as
-clocks are not controlled directly by the ICE driver. Instead, they are
-managed by remote firmware and exposed to Linux via power domains. As a
-result, the ICE driver cannot use clk_prepare_enable() directly to
-control the hardware clock.
-
-The intention of moving the clock handling into runtime PM callbacks is
-to align the ICE driver with the power domain framework used on these
-platforms. When the ICE device is attached to a power domain, invoking
-pm_runtime_resume_and_get() will trigger the provider (remote firmware
-via SCMI) to power up the device, which in turn enables the underlying
-clock and other resources.
-
-This design follows the guidance where the runtime PM framework is
-used as the common mechanism to abstract both:
-  - direct clock control on non-SCMI platforms, and
-  - firmware-controlled resources via power domains on SCMI platforms.
-
-In both cases, the runtime PM callbacks are responsible for performing
-the actual resource enable/disable:
-  - for legacy platforms: clk_prepare_enable()/disable_unprepare()
-  - for SCMI platforms: power domain on/off handled by firmware
-
-So while it may look like an additional layer on legacy platforms, this
-approach provides a unified mechanism without requiring separate driver
-entry points or special handling in the upper layers (e.g. UFS driver).
-
-That said, I understand your concern that introducing runtime PM solely
-for clock gating can be seen as unnecessary overhead on existing
-platforms. I will revisit the implementation to ensure that:
-  - the runtime PM integration does not introduce regressions for legacy
-    platforms, and
-  - the design clearly justifies the common abstraction for both SCMI
-    and non-SCMI cases.
-
-In addition, I rewrite the commit message as the following to make the
-intention more clear.
-
-  On some platforms the ICE device is placed in a firmware-managed power
-  domain. In those cases the ICE core resources (including the clock) are
-  not directly controllable by Linux and are instead toggled by the power
-  domain provider (e.g. remote firmware via SCMI).
-
-  Wire the ICE device into runtime PM so that a single pm_runtime
-  transition is used to bring the ICE device up/down. When the device is
-  attached to a PM domain, pm_runtime_resume_and_get()/pm_runtime_put_sync()
-  will invoke the PM domain callbacks and let the provider manage the
-  resources. On platforms without a PM domain the runtime PM callbacks
-  continue to perform the existing clock enable/disable locally.
-
-  No functional change is intended for non-firmware-managed platforms; the
-  change provides a common control point that allows ICE to operate when
-  resources are owned by a PM domain provider.
-
-Thanks again for the feedback. I would appreciate your further review
-and comments.
-
-Best regards,
-Linlin
-
-On 5/14/2026 10:06 PM, Krzysztof Kozlowski wrote:
-> On 12/05/2026 05:37, Linlin Zhang wrote:
->> The QCOM ICE driver manages the ICE core clock through direct calls to
->> clk_prepare_enable() and clk_disable_unprepare(), which limits integration
-> 
-> No, it does not limit any integration.
-> 
->> with platforms that rely on firmware-managed resources or platform-specific
->> power management mechanisms.
-> 
-> Nope. It's perfectly correct way of managing clocks. Adding runtime PM
-> ONLY to toggle clocks is absolute killer, pointless overhead without
-> benefits.
-> 
+On Fri May 8, 2026 at 10:06 AM CEST, Thomas Zimmermann wrote:
+> Hi
+>
+> Am 01.05.26 um 15:52 schrieb Luca Weiss:
+>> Add support for the 2484x1116 AMOLED panel from BOE (BJ631JHM-T71-D900)
+>> bundled with a NT37705 driver IC, as found on the Fairphone (Gen. 6)
+>> smartphone.
 >>
->> Replace direct clock management with runtime PM support by moving clock
->> enable and disable into runtime PM callbacks. Use
->> pm_runtime_resume_and_get() and pm_runtime_put_sync() in qcom_ice_resume()
->> and qcom_ice_suspend() to drive power state transitions, and enable runtime
->> PM in qcom_ice_probe().
+>> The panel can also be configured in 10-bit (RGB101010) mode, however
+>> currently it's configured in 8-bit (RGB888) since there's some issues in
+>> the Qualcomm DPU driver when driving this panel in 10-bit.
 >>
->> Reviewed-by: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
->> Reviewed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
->> Signed-off-by: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 >> ---
->>  drivers/soc/qcom/ice.c | 58 ++++++++++++++++++++++++++++++++++++++----
->>  1 file changed, 53 insertions(+), 5 deletions(-)
+>>   drivers/gpu/drm/panel/Kconfig                 |  11 +
+>>   drivers/gpu/drm/panel/Makefile                |   1 +
+>>   drivers/gpu/drm/panel/panel-novatek-nt37705.c | 413 ++++++++++++++++++=
+++++++++
+>>   3 files changed, 425 insertions(+)
 >>
->> diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
->> index b203bc685cad..6f9d679b530c 100644
->> --- a/drivers/soc/qcom/ice.c
->> +++ b/drivers/soc/qcom/ice.c
->> @@ -16,6 +16,7 @@
->>  #include <linux/of.h>
->>  #include <linux/of_platform.h>
->>  #include <linux/platform_device.h>
->> +#include <linux/pm_runtime.h>
->>  
->>  #include <linux/firmware/qcom/qcom_scm.h>
->>  
->> @@ -310,8 +311,8 @@ int qcom_ice_resume(struct qcom_ice *ice)
->>  	struct device *dev = ice->dev;
->>  	int err;
->>  
->> -	err = clk_prepare_enable(ice->core_clk);
->> -	if (err) {
->> +	err = pm_runtime_resume_and_get(dev);
->> +	if (err < 0) {
->>  		dev_err(dev, "failed to enable core clock (%d)\n",
->>  			err);
->>  		return err;
->> @@ -323,7 +324,7 @@ EXPORT_SYMBOL_GPL(qcom_ice_resume);
->>  
->>  int qcom_ice_suspend(struct qcom_ice *ice)
->>  {
->> -	clk_disable_unprepare(ice->core_clk);
->> +	pm_runtime_put_sync(ice->dev);
->>  	ice->hwkm_init_complete = false;
->>  
->>  	return 0;
-> 
-> 
-> This is pretty pointless change. At least by quick glance. You changed
-> nothing here for PM, except adding indirection layer and more locks.
-> Clocks will be gated the same way, no energy savings. But on the other
-> hand introducing runtime PM subsystem is huge bunch of code with its own
-> locks, completely unnecessary here.
-> 
-> This itself is poor choice and has NEGATIVE impact on all existing
-> platforms without any benefit.
-> 
-> I am surprised you went through SIX internal reviews, collected two
-> internal review tags and no one suggested that using runtime PM ONLY to
-> toggle clocks is pretty pointless and undesired.> 
-> Best regards,
-> Krzysztof
+>> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconf=
+ig
+>> index 979109c27b9b..59ab3f29d8ef 100644
+>> --- a/drivers/gpu/drm/panel/Kconfig
+>> +++ b/drivers/gpu/drm/panel/Kconfig
+>> @@ -624,6 +624,17 @@ config DRM_PANEL_NOVATEK_NT37700F
+>>   	  Say Y here if you want to enable support for Novatek NT37700F DSI
+>>   	  panel module. The panel has a resolution of 1080x2160.
+>>  =20
+>> +config DRM_PANEL_NOVATEK_NT37705
+>> +	tristate "Novatek NT37705-based DSI panel"
+>> +	depends on OF
+>> +	depends on DRM_MIPI_DSI
+>> +	depends on BACKLIGHT_CLASS_DEVICE
+>> +	select DRM_KMS_HELPER
+>> +	help
+>> +	  Say Y here if you want to enable support for Novatek NT37705-based
+>> +	  display panels, such as the one found in the The Fairphone (Gen. 6)
+>
+> Duplicate 'the'
 
+Marketing really wanted to have it be "The Fairphone". Will change and
+make it saner.
+
+>
+>> +	  smartphone.
+>> +
+>>   config DRM_PANEL_NOVATEK_NT37801
+>>   	tristate "Novatek NT37801/NT37810 AMOLED DSI panel"
+>>   	depends on OF
+>> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Make=
+file
+>> index 0d694acbfbb6..94639bc58ca8 100644
+>> --- a/drivers/gpu/drm/panel/Makefile
+>> +++ b/drivers/gpu/drm/panel/Makefile
+>> @@ -61,6 +61,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) +=3D panel-nov=
+atek-nt36523.o
+>>   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) +=3D panel-novatek-nt36672a.o
+>>   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) +=3D panel-novatek-nt36672e.o
+>>   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) +=3D panel-novatek-nt37700f.o
+>> +obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37705) +=3D panel-novatek-nt37705.o
+>>   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) +=3D panel-novatek-nt37801.o
+>>   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) +=3D panel-novatek-nt39016.o
+>>   obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) +=3D panel-mantix-mlaf057we=
+51.o
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37705.c b/drivers/gpu=
+/drm/panel/panel-novatek-nt37705.c
+>> new file mode 100644
+>> index 000000000000..27bd8072ccd1
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
+>> @@ -0,0 +1,413 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Generated with linux-mdss-dsi-panel-driver-generator from vendor dev=
+ice tree.
+>> + * Copyright (c) 2026 Luca Weiss <luca.weiss@fairphone.com>
+>> + */
+>> +
+>> +#include <linux/backlight.h>
+>> +#include <linux/delay.h>
+>> +#include <linux/gpio/consumer.h>
+>> +#include <linux/mod_devicetable.h>
+>> +#include <linux/module.h>
+>> +#include <linux/regulator/consumer.h>
+>> +
+>> +#include <video/mipi_display.h>
+>> +
+>> +#include <drm/display/drm_dsc.h>
+>> +#include <drm/display/drm_dsc_helper.h>
+>
+> IIRC this requires
+>
+>  =C2=A0select DRM_DISPLAY_DSC_HELPER
+>
+> in the Kconfig. Maybe double-check.
+
+Will check. Always difficult to figure out the proper dependencies in a
+fully-featured defconfig build.
+
+>
+>> +#include <drm/drm_mipi_dsi.h>
+>> +#include <drm/drm_modes.h>
+>> +#include <drm/drm_panel.h>
+>> +#include <drm/drm_probe_helper.h>
+>> +
+>> +struct nt37705_panel {
+>> +	struct drm_panel panel;
+>> +	struct mipi_dsi_device *dsi;
+>> +	struct drm_dsc_config dsc;
+>> +	struct regulator_bulk_data *supplies;
+>> +	struct gpio_desc *reset_gpio;
+>> +};
+>> +
+>> +static const struct regulator_bulk_data nt37705_supplies[] =3D {
+>> +	{ .supply =3D "vddio" },
+>> +	{ .supply =3D "dvdd" },
+>> +	{ .supply =3D "vci" },
+>> +};
+>> +
+>> +static inline struct nt37705_panel *to_nt37705_panel(struct drm_panel *=
+panel)
+>> +{
+>> +	return container_of_const(panel, struct nt37705_panel, panel);
+>
+> Either just use container_of or build something that respects the=20
+> input's const-ness.
+
+I really don't get what you mean here? Why is container_of_const() bad
+here?
+
+>
+>> +}
+>> +
+>> +static void nt37705_reset(struct nt37705_panel *ctx)
+>> +{
+>> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>> +	usleep_range(10000, 11000);
+>> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+>> +	usleep_range(5000, 6000);
+>> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>> +	usleep_range(10000, 11000);
+>> +}
+>> +
+>> +static int nt37705_on(struct nt37705_panel *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+>> +
+>> +	ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+>> +
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
+>> +				     0x55, 0xaa, 0x52, 0x08, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1b);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba, 0x18);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00,
+>> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+>> +				     0x00, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x2c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x00, 0x01, 0x01, 0x01, 0x00, 0x05, 0x05,
+>> +				     0x05, 0x00, 0x05, 0x05, 0x05, 0x00, 0x00,
+>> +				     0x00, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x3c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x0b,
+>> +				     0x0b, 0x00, 0x00, 0x0b, 0x0b, 0x00, 0x00,
+>> +				     0x00, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x4c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+>> +				     0x1d, 0x00, 0x00, 0x00, 0x1d, 0x00, 0x00,
+>> +				     0x00, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x5c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+>> +				     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+>> +				     0x01, 0x01);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x6c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x0b,
+>> +				     0x77, 0x77, 0x00, 0x00, 0x0b, 0x00, 0x1d,
+>> +				     0x00, 0x1d);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x7c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x0b,
+>> +				     0x77, 0x77, 0x00, 0x00, 0x0b, 0x00, 0x1d,
+>> +				     0x00, 0x1d);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x8c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+>> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+>> +				     0x00, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x9c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x11, 0x11, 0x20, 0x02, 0x00, 0x03, 0x00,
+>> +				     0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xa4);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba, 0x00, 0xc0, 0x40, 0x08);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xa8);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
+>> +				     0x22);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xb0);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+>> +				     0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
+>> +				     0x22);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
+>> +				     0x55, 0xaa, 0x52, 0x08, 0x01);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x05);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc5, 0x15, 0x15, 0x15, 0xdd);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
+>> +				     0x55, 0xaa, 0x52, 0x08, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0e);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x32);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
+>> +				     0x55, 0xaa, 0x52, 0x00, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x80);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x19);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf2, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1a);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4, 0x55);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x11);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x01, 0x7f);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x2d);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x01, 0x20);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x81);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x05);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x3c);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x02);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf9, 0x04);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1e);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x0f);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0f);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf5, 0x20);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0d);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x80);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x83);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x12);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x41);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x13);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfd, 0x21);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
+>> +				     0x20);
+>> +	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x045b);
+>> +	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x09b3);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_GAMMA_CURVE, 0x00)=
+;
+>> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xbb0d);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x04);
+>> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xfe0f);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x01, 0x19);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0x03, 0x03);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91,
+>> +				     0x89, 0x28, 0x00, 0x0c, 0xd2, 0x00, 0x02,
+>> +				     0x2f, 0x01, 0x18, 0x00, 0x07, 0x09, 0x75,
+>> +				     0x08, 0x34, 0x10, 0xf0);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x02);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x01);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x30);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x00);
+>> +	mipi_dsi_msleep(&dsi_ctx, 120);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x29, 0x00);
+>> +	mipi_dsi_msleep(&dsi_ctx, 22);
+>> +
+>> +	return dsi_ctx.accum_err;
+>> +}
+>> +
+>> +static int nt37705_off(struct nt37705_panel *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+>> +
+>> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+>> +
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x00);
+>> +	mipi_dsi_msleep(&dsi_ctx, 20);
+>> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x00);
+>> +	mipi_dsi_msleep(&dsi_ctx, 120);
+>> +
+>> +	return dsi_ctx.accum_err;
+>> +}
+>> +
+>> +static int nt37705_prepare(struct drm_panel *panel)
+>> +{
+>> +	struct nt37705_panel *ctx =3D to_nt37705_panel(panel);
+>> +	struct device *dev =3D &ctx->dsi->dev;
+>> +	struct drm_dsc_picture_parameter_set pps;
+>> +	int ret;
+>> +
+>> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(nt37705_supplies), ctx->suppl=
+ies);
+>> +	if (ret < 0) {
+>
+> Common style is to check for errors with
+>
+>  =C2=A0 if (ret)
+>
+> Here and everywhere else.
+
+At least for regulator_bulk_enable() "ret < 0" is actually more popular
+than just "ret".
+
+Kernel doc says "Return: 0 on success or a negative error number on
+failure." so a positive integer should in theory never happen so they're
+equivalent.
+
+(git grep -h -A2 regulator_bulk_enable | grep if | sed 's|^[ \t]\+||' | sed=
+ 's| {$||' | sort | uniq -c)
+
+Thanks for the review!
+
+Regards
+Luca
