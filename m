@@ -1,128 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4933A3FF1D5
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:59:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8733FF1DE
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778860785; cv=none; b=knzIXXy3WNfNDfW0Hp23c3KCjurIQhd5FOwN8VAmlooHDBPZBQuoyJms1TxO418CYGKX+WSGNFsyKMVJtS3p+nX7JwRbRJCKDQUWq/OwXogxyDkCVjDnbjj+s23VPGbBnEOBNGbZ107Noo6bBQveifREFcc2v8+q6rbbmgDxL78=
+	t=1778860812; cv=none; b=p7HUGnUrnDHVPAA+z7duHJdXbpDU+Z0Di5p4vp1YS8jfHhr5nzauW2IWHQSCEee4C8IEHiID2T+sktxNg5fafWZLrVvMxqyo4sPLa9QdSY3pCAaoaR3iUKvoTKVwd4/C9deXRy67BgQdToEhfbb9gPXiSA5qZ9784GI19JSKsbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778860785; c=relaxed/simple;
-	bh=SVWOaHxV2LWmxfFZLGoRIhh+l+7tgRnkwR1xK2jnK54=;
+	s=arc-20240116; t=1778860812; c=relaxed/simple;
+	bh=uv7mAr8JaX9LyDOISDI5xNG/EQSX8zVq0wIH2PamoCA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VvbAn71CvBwC/MDhJzPTPlrzfjaf3cwCmzOmriThJi1PafVqBxk5EgM5JiFErEBpKEDrCZdCXEMYWnciGEFKuRASdea741ItRnvT3hr0CHnPpWay+ayCpd8c3MV8o7en7jGfW0BMRlFgGzJMnFTXI1y7+ag5Lcrsex+ziCQEmxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bdv2qzLZ; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=BxdKo6jMQZZosQtqIipvxgDX3jJrzlipqB17LHPmnvnoJgr5KSDjdSVmvV6dmR/C0qhhjrKSeigYHXpC1XdL8YyRLdYUjegQTvV+zPlfv040bVkuW0J95lRJVjud3StneZ1JuEEOKDDn4R1ohvckMWr072PDh8k3zfcsxgVY9Nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RcD9h93A; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bdv2qzLZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4436C2BCB3;
-	Fri, 15 May 2026 15:59:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RcD9h93A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61DAC2BCB3;
+	Fri, 15 May 2026 16:00:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778860785;
-	bh=SVWOaHxV2LWmxfFZLGoRIhh+l+7tgRnkwR1xK2jnK54=;
+	s=k20201202; t=1778860812;
+	bh=uv7mAr8JaX9LyDOISDI5xNG/EQSX8zVq0wIH2PamoCA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Bdv2qzLZHV5yPGUY+I6hjKOBjMRiIujuZES7RWMYMS4SjefOq18fiKGCAdZeyiDpN
-	 b83XDwqzHNvWHub6I2PAQSsgQ0n1oGwuNF4ynEIXUaBbYei2t7zCxr9Msq7DDMcMLE
-	 uXiz8c6rCMU/ZUaaeAcOhXGCbGs8PD7suexdbgMjVG1IuzgWzXTyJ9UWfLnZ07oK/l
-	 59FZCmUrBwiTXvgac8Fnu3Ptek6AaPF/zppy7/gEVb2heFIfjXrjPBu3RROF4qEA3b
-	 Vh836cFUgYqWv8hPdC6s5UfMHmBShlxy/7jZdiBQAeorT9JYIxEjVNxK18vztNcntn
-	 jHVOJGCSdQ3PA==
+	b=RcD9h93AFJQWjE+xvf1myL2fVVJhp3Ij7QnxwT1nfYPrBXVWnpMQPaBu41Ss4RFXQ
+	 u6WU5KbXSn2e9SYfmes5Iuy+GAAdAWZN6XjF9iNwu4d2WS5utVGu/aQoeULQuGgYiq
+	 RgsEb4bEcWBOLuk61bbRPPxyfo0Bzgf/H5kyx2O4e23y0NJsu4SkNzYdwuSgFBXjNI
+	 o2tilLBKLE7kHFrOv+1/HVnHbPve2t714CX0PCTUKLFS9byTOJRLmU/1cvG9dnUU2K
+	 7DTz/cevIHT3RL9D2EQluum1ZugfM2oWm92KZg0hpMaECC3DeMY0gMAU6V/DnhDkTP
+	 uAtvavbmurSGA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 19/28] media: rockchip: rga: change offset to
- dma_addresses
+Subject: Re: [PATCH v6 18/28] media: rockchip: rga: use card type to specify
+ rga type
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515-spu-rga3-v6-19-e547152eb9c9@pengutronix.de>
-References: <20260515-spu-rga3-v6-19-e547152eb9c9@pengutronix.de>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515-spu-rga3-v6-18-e547152eb9c9@pengutronix.de>
+References: <20260515-spu-rga3-v6-18-e547152eb9c9@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 15:59:44 +0000
-Message-Id: <20260515155944.E4436C2BCB3@smtp.kernel.org>
+Date: Fri, 15 May 2026 16:00:11 +0000
+Message-Id: <20260515160011.E61DAC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Uninitialized stack memory in the `dma_addrs` array is written to =
-the hardware's DMA-mapped command buffer for formats with fewer than 3 plan=
-es.
+- [High] Changing the V4L2 `card` capability string for existing devices br=
+eaks userspace backwards compatibility.
+- [Medium] The commit updates `cap->card` to differentiate device nodes but=
+ fails to update `vfd->name`, leaving sysfs attributes with the generic nam=
+e.
 --
 
-commit 9081b335b1506ccdaa6465a8ae0be247c58c4532
+commit bb9e5b143d71f3baaeea92ea613c7a8d9627f5cc
 Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-media: rockchip: rga: change offset to dma_addresses
+media: rockchip: rga: use card type to specify rga type
 
-This commit renames the offset fields to dma_addrs and changes their type
-to dma_addr_t to better reflect that they represent addresses rather than
-IOMMU offsets. It updates the buffer preparation and command generation
-routines to use these newly named fields.
-
-> diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/medi=
-a/platform/rockchip/rga/rga-buf.c
-> index dcaba66f5c1fc..ab9554c1c4cd9 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-buf.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-> @@ -121,7 +121,7 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
->  	size_t curr_desc =3D 0;
->  	int i;
->  	const struct v4l2_format_info *info;
-> -	unsigned int offsets[VIDEO_MAX_PLANES];
-> +	dma_addr_t dma_addrs[VIDEO_MAX_PLANES];
+In preparation of the RGA3 support add a filed to the rga_hw struct
+to specify the desired card type value. This allows the user to
+differentiate the RGA2 and RGA3 video device nodes.
 
 [ ... ]
 
-> @@ -145,18 +145,18 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
->  				 "Failed to map video buffer to RGA\n");
->  			return n_desc;
->  		}
-> -		offsets[i] =3D curr_desc << PAGE_SHIFT;
-> +		dma_addrs[i] =3D curr_desc << PAGE_SHIFT;
->  		curr_desc +=3D n_desc;
->  	}
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index 22954bbae55fc..91775b43ff617 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -354,8 +354,10 @@ static const struct v4l2_file_operations rga_fops =
+=3D {
+>  static int
+>  vidioc_querycap(struct file *file, void *priv, struct v4l2_capability *c=
+ap)
+>  {
+> +	struct rockchip_rga *rga =3D video_drvdata(file);
+> +
+>  	strscpy(cap->driver, RGA_NAME, sizeof(cap->driver));
+> -	strscpy(cap->card, "rockchip-rga", sizeof(cap->card));
+> +	strscpy(cap->card, rga->hw->card_type, sizeof(cap->card));
+
+Will changing the cap->card string from "rockchip-rga" to "rga2" break
+existing userspace applications or udev rules that rely on the old string
+to identify the hardware?
+
+The cap->card field is often used by udev (which extracts it to
+ID_V4L_PRODUCT) and userspace frameworks like libcamera to identify specific
+video hardware, so modifying it could cause regressions for existing
+configurations.
+
+Additionally, since the goal is to differentiate RGA2 and RGA3 device nodes,
+should this change also update the name field of the video_device struct
+(vfd->name)?
+
+If vfd->name remains initialized from the generic template as "rockchip-rga=
+",
+sysfs attributes like /sys/class/video4linux/videoX/name will still report
+the old name. This could prevent tools relying on sysfs from differentiating
+the nodes as intended.
+
+>  	strscpy(cap->bus_info, "platform:rga", sizeof(cap->bus_info));
 > =20
->  	/* Fill the remaining planes */
->  	info =3D v4l2_format_info(f->fmt->fourcc);
->  	for (i =3D info->mem_planes; i < info->comp_planes; i++)
-> -		offsets[i] =3D get_plane_offset(f, info, i);
-> +		dma_addrs[i] =3D dma_addrs[0] + get_plane_offset(f, info, i);
-> =20
-> -	rbuf->offset.y_off =3D offsets[0];
-> -	rbuf->offset.u_off =3D offsets[1];
-> -	rbuf->offset.v_off =3D offsets[2];
-> +	rbuf->dma_addrs.y_addr =3D dma_addrs[0];
-> +	rbuf->dma_addrs.u_addr =3D dma_addrs[1];
-> +	rbuf->dma_addrs.v_addr =3D dma_addrs[2];
-
-Does this code leak uninitialized stack memory into the hardware's DMA-mapp=
-ed
-command buffer?
-
-If info->comp_planes is 1 (such as with RGB formats), the initialization
-loops above do not populate dma_addrs[1] and dma_addrs[2]. These array
-elements remain uninitialized stack memory.
-
-However, the code unconditionally assigns these elements to
-rbuf->dma_addrs.u_addr and v_addr.
-
-Later, rga_cmd_set_src_info() and rga_cmd_set_dst_info() use these values,
-apply arithmetic to them, and write the results directly into the device's
-DMA command buffer:
-
-	dest[(RGA_SRC_CB_BASE_ADDR - RGA_MODE_BASE_REG) >> 2] =3D
-		src_corner_addrs.left_top.u_addr;
-	dest[(RGA_SRC_CR_BASE_ADDR - RGA_MODE_BASE_REG) >> 2] =3D
-		src_corner_addrs.left_top.v_addr;
-
-Could this leak stack memory to the device or trigger KMSAN warnings on
-uninitialized value usage?
-
-While this behavior existed previously with the offsets array, should
-dma_addrs be zero-initialized to resolve it?
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-spu-rga3-v=
-6-0-e547152eb9c9@pengutronix.de?part=3D19
+6-0-e547152eb9c9@pengutronix.de?part=3D18
