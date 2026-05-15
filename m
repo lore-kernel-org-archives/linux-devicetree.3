@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1390247DD76
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:24:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1165947DF8A
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:24:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778844248; cv=none; b=fb0u4DxStEAWQYyv078uXD4tI17WiECzUwTnXqOvCiz6kFY1payYy6ui8Ujt5Rac+2Rj58MyQUxnMougzW2EmWKCcwiNw3Lwfea9+HpymeoXUMZYso4pYzDzdWN07RelrzxYolw6vsW3eq700HWTLHAwQwSEI+bjEVGxZ+rSzkk=
+	t=1778844254; cv=none; b=dKS7F8sEagTpgWuWQgkydCUAiZWn3JBf9vNspeuMTzK0IWJIny9BvJTNX04ZFi7mG0W3SKNAsr2kDdrIt4t50ufAypYMC1Ill6m9DyOce7WSjQ4MUe5UhpYxLCWxFUFJfe8aex5P7TFrImJ4iEXMMJTd41VszO2d5RJ3xnWCD44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778844248; c=relaxed/simple;
-	bh=HbJDO7h4MkXgsgKVbQfCPfPwW5H3OtSc6iVBjpNeMBo=;
+	s=arc-20240116; t=1778844254; c=relaxed/simple;
+	bh=onJeJiw9EMeTDpFkD/CSfgq5ekY6oL32ti+K4AKPSPg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TKaGyEhFIITeCAECZKMYZkWDS+SC9Jw+FIE04fJlYLT0yr/PlxvvB4O8NKxbKcQvKoUskZymFfQpKcZA7L4dfvv8on1dxiGvzMJLdC/k6OlGHnpiSQmNui50buZkEimbbC15P7MDqQ9eqio2DG2wxH7ynvsZihZRqu5K8ze9MUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NHLY65yp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iF3c2SpM; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=UchXEn05uBzCxmzG806Xm2HYZRE5Ma0AgqDHORdAmNnPJo8MRXAHhxFHVpqzBZ1EXkWo+y2V7/cpdcrKixEMmMdXRa40LNfU0asspDC2Y/nMj1sGWUFtvj/RNm81+arM9k/ANE3q/j3MqMDup7Shl/cQWEu4Pd0T2CEZjvAUK08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VpybtXJK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zx6frrY0; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NHLY65yp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iF3c2SpM"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FB0wGV4020900
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:24:05 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VpybtXJK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zx6frrY0"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FB1xeu654908
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:24:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BeUeck/PnJeaOYXxZG3voZpfankG9NVFAX+3uH7MhSk=; b=NHLY65yphjy4Fq7y
-	VoH5KiywMXn3IbSSHFXnj1SouXITkPl/vrs0uwKYv25HgKSP9BD6iCMF77ZHSS1J
-	+zV6toe6EMD4/DHsKMY/mcRRnXeb1HNk7wbcMmgqO790DsJ9MOkVc9p3tyL3LndB
-	3jarjdv4qto1jqmeUfcrRjnvKdtTrpkWsu8IR7c33CuiXgWRspPGbkqMlr/aFuES
-	6tjdkGUbiGtURXKcG9dtDqdP5Kn5g0h4JsSEaWx/hwKmA8X5/Bi8+5X5EsRn0i99
-	qDonOzIqtVK2d4MQ3e+DmLGzmctRbobP4tyZPtxCSA5iba6ibz5lfkaWOpqiE4lp
-	druOlQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1ru1g1-1
+	kqDWRt1uVdCbnOpqf0M1wXSvFfZm943941fN6LZQjNI=; b=VpybtXJKXRzZNwba
+	8WbuhX2Zkcyaafql9qS1X3k5OE/Od7UaPjK7oTgpT6XiYFbyceoWLueLj5NdxkeS
+	thxq9h3XGvhKEZqJn3aduRpz+5wHf1orYy2j5WIXYmE3uBQod/5QlRgndk6qHstF
+	Mr47kxvWj3mdyHsSGwYjyfW8cgvluSe/q8fRiIp0KEkNsra5JtWUFS+YxlXPtFp/
+	uL8CJ0koAlbNoiA9miVsWhyHez4HbXPh6ZilUb286ZpgOBKiWYz8m072x4vW1VpH
+	TEqIyo45LtmTAfV0lqOlTDtrg8P3xMJyhiqnGfVenDcaVlJb6RU1Vw2+UivkYhOB
+	HOrnjQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1pu2ym-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:24:05 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3663d5e9bf4so8811293a91.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 04:24:05 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:24:12 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-368b68a33adso5884883a91.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 04:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778844245; x=1779449045; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778844251; x=1779449051; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=BeUeck/PnJeaOYXxZG3voZpfankG9NVFAX+3uH7MhSk=;
-        b=iF3c2SpM5V2mnWWFrRE9UEpa9adBtBl9V6VyWHg6MTq1FUVfYkKvvk8LWJpZvKsPC6
-         nkyESoYcZ1vHjHZh71RQglCa7QGoHUSc5u5qObWxezQ0M9vQw8P314+ytxvFqHky5QNm
-         9RmSV7q3z6/pBTfn2u/3MHi4LSXL2Dlgqf3hxw1G3Jio8/T6MEe+kxw+ZS4x86VmzkOH
-         QrkebI84YN3IdZVKuRo8iAJMLxqSy4GO+Jjtbfhxq746emQGOeD6NMweAHCtdgz+hQrd
-         o9YkIVqjh/ETHe8grFE9FMpzBAXx4lAxGeq+9zw1pJfeH/VXmB7VBc7gmG2pOMtzuQfr
-         5aMQ==
+        bh=kqDWRt1uVdCbnOpqf0M1wXSvFfZm943941fN6LZQjNI=;
+        b=Zx6frrY0W6hnTyT1OS5ummvhPqH+8UjsRa6oRiMNBRRPJJtUeHq+rSnMJMvExJ76kM
+         7XyVGJWKL/Igvk97aajBV/lBKqnYNZFcnEDjK0wgsrv42x0ytAg/CVX8+R7FNAIThra9
+         4FZUs3QKYqbvqCIypg7AjmOydgXfE/x9aLQzQZXMD2HZiJufMLXUnhajPVNVGG7g2OPd
+         S1ZqsNkE4+vIe6zgMQQvFZ7ZsWtfAAyj5pxK2ZfCiqor94F9Cl+vSeYYqT6ZcujF2GGJ
+         OZW+60jPXOhJvHCooEDURlf+l9ay9gUgIPjWUoAfXPKO/m5pTHH0oZht5bNPuL+essTS
+         V3ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778844245; x=1779449045;
+        d=1e100.net; s=20251104; t=1778844251; x=1779449051;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=BeUeck/PnJeaOYXxZG3voZpfankG9NVFAX+3uH7MhSk=;
-        b=d5He+IsCGCGSKZiNCYrYb8sqIaot32o5/eauCp87bZiXWaBjMSlXUlq0kA/kadfv5e
-         P6D49Mc9gTvRiUjCdFzAa7Ee5oR8mDM27galhakA8J74iEoUcxi+cruphAapzaHcLBfQ
-         kPhvZGqIQixkyja1kblWbOYGmb69CHwD/QxiMDcm4EMm1a2lnnBMITIFhbFcv57P/6JB
-         1bmpDORpjaSTBWFJgxeyq8bPCDeG4X5U0Dfocj9g/uOQb4Rc7ZcAqnA9xfDIXLhzEe1O
-         IDEMnRvaanmhoRacb66NNfhZDMQqUQravj/nDS0ZGZI6gqX/2OB/Qi7NsCRJzwtBWcal
-         Ba5A==
-X-Forwarded-Encrypted: i=1; AFNElJ+q6Bt1OOJdPvuMN8GY2bJMfSO6y4lI3XMAWoMz6vFRs1Dy9hSQ7j9CKsMzndmbJlC8rHOww+MGi6wM@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+2LZHlbshk2B9z4Ikz6VLC+J7cEZ2D4laQYmCr/P9vgkfRakI
-	OLdM9FFRtpVoKQAaKugOH+ivOruhdWeSphObv2FCkkwWcG8vvhrnda0s7C4CkIJuNEUEG6LIVcG
-	G5WLYL0GD0dZEusHEvH0uStwVVxBECPP7/Eaf7JeKZV2YH0e/tp2kqfjj6xhVbW+S
-X-Gm-Gg: Acq92OGyN1oK+n8EhgfN6kIfHMvYFDQn/q301E1rPTzMQtnzSqMllazkhU5N1nRZnhe
-	KigNe8OAu2EUX6ojcsV1+3fSm7OxnHSMSYgfYSmJdRkxbL1iFJDwhptrXdXkB6stP+yLkpBx8og
-	mPbJIEoiGNrc5VgYG2GEwbdXNZjOdF7TGl6M+8VtFByEGtgsK1qACWKkE684GuOs1jwwq+yBaEq
-	a+nS28zD6rDjXauCs4pO0XHivEBBGqllQRWCwspGXIiN/E6rH42sVt1ELGd5l/H/+OU6KCMPC20
-	nnUABiiMALOrOdfdaFHD5C9hmMlMizHyp7iwGBJdVNnerFD3xp9QHwyQTacB2zSO7KkRfFrNhV7
-	59N8NTq65cZBL+pj8H4hSgda0ln6s5SSoMHx8uzmwYqEQ8X8WAccmFtDRDFjQ0fVb1w==
-X-Received: by 2002:a17:90b:2d08:b0:362:e826:cefe with SMTP id 98e67ed59e1d1-36951ca6064mr3530024a91.23.1778844244680;
-        Fri, 15 May 2026 04:24:04 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d08:b0:362:e826:cefe with SMTP id 98e67ed59e1d1-36951ca6064mr3529993a91.23.1778844244145;
-        Fri, 15 May 2026 04:24:04 -0700 (PDT)
+        bh=kqDWRt1uVdCbnOpqf0M1wXSvFfZm943941fN6LZQjNI=;
+        b=l2lERPdZesDCsmlP6xxQWbdsHUnz/Gtweuv+Ui0h+h4RTRZlOJidyQ1g5Ud795vgba
+         oU3b/4GFP3faF2npUHMLyxnv31KhsmEwW3hyF0EyoIcbeDdeWnGiZWhaTQS9XBLs14wN
+         TVT6/AW2JB3S7b5TL5FY8pac2ox+MEWMl3Tg2gD+fEX0c/AuXlsT3Exq0dIh2NgLqp2q
+         z0eHq5R8yRIUZN0+nEyAd3HEKeKzoCaawbtUNhtkjUtHM1+NcHnpJO8Z3GFEWjZWa3lx
+         csO1VeafKYLcbPSL4kCRKHpPpQMmqrNZIhaTi59JXRbPNo4h5/hvfyi3ZMus+NzwDEav
+         MrcQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/cNQ2CTGE43NGzy98ujdKaB08vW8SEL11v+IqF/JNsvk5yN5gChNKiU80NawzqLtCyFtaSOPaZB0FE@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOXj/TsT3S/JsvGGRaZGljn3qu7GJGy7FpCQiBI3QCrSx8iNWr
+	4tKI0pT/ep3xdGxV2m9NG3DtwnJ12OuaJdSLv3PJcYCTmamwnSkp/Z3YzQhan320KUbJexWb79C
+	0NUt3Qdq2JEuisw7K40W16HQ0PtlIVZ3y7BWHR1vGldPBH8aP8A8aCXMim/xhGXfQ
+X-Gm-Gg: Acq92OHQDHc4tQHS7nEb60YdGGw0SA1VoNgcdqNDLqUPcy8gZJPpOupL4aj+fstV8S7
+	yC6gH294p1idaqhEQguHPC7lX/IN+gT/4HMkiqV7PytNYqkDVe6P1kLqlN9sPfXzHQ8GtfO/Qbj
+	UBP2s6lkVY1fGUSwaDxcvG0Lxp38R/QLNyk2dka1BRc6c3N2lA7K3mC7QsZ702T/vcqLEdiG2i6
+	4uZ0kaItG4wJsMznIPq9P2kfCj2CJAKmnfsBc1pTcZW6e0TPAtVVQKBseYbAe9+d9nR1GTbzM2H
+	mV8RPCO8QnTqLm3OgPYbECqd4Mp5pHIwwYIJmLNiQrp6HDljKC4/4yj0Q/3gBUW5vaXE6AiM/O4
+	wBRvCib20QzqtcT7XR+FqjY3dvZqY17IOuJOP+ulC1DfDJ6HULlXP4oY=
+X-Received: by 2002:a17:90b:5203:b0:369:1dff:6bd5 with SMTP id 98e67ed59e1d1-36951b7840amr3169821a91.17.1778844251387;
+        Fri, 15 May 2026 04:24:11 -0700 (PDT)
+X-Received: by 2002:a17:90b:5203:b0:369:1dff:6bd5 with SMTP id 98e67ed59e1d1-36951b7840amr3169793a91.17.1778844250844;
+        Fri, 15 May 2026 04:24:10 -0700 (PDT)
 Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36951584654sm2476249a91.7.2026.05.15.04.23.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36951584654sm2476249a91.7.2026.05.15.04.24.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 04:24:03 -0700 (PDT)
+        Fri, 15 May 2026 04:24:10 -0700 (PDT)
 From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Fri, 15 May 2026 16:51:21 +0530
-Subject: [PATCH v6 06/14] media: iris: Add context bank hooks for platform
- specific initialization
+Date: Fri, 15 May 2026 16:51:22 +0530
+Subject: [PATCH v6 07/14] media: iris: Enable Secure PAS support with IOMMU
+ managed by Linux
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-glymur-v6-6-f6a99cb43a24@oss.qualcomm.com>
+Message-Id: <20260515-glymur-v6-7-f6a99cb43a24@oss.qualcomm.com>
 References: <20260515-glymur-v6-0-f6a99cb43a24@oss.qualcomm.com>
 In-Reply-To: <20260515-glymur-v6-0-f6a99cb43a24@oss.qualcomm.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
@@ -111,126 +111,256 @@ To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
 Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
         devicetree@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778844197; l=2952;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778844197; l=7327;
  i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=HbJDO7h4MkXgsgKVbQfCPfPwW5H3OtSc6iVBjpNeMBo=;
- b=5Ql20Vud027qUgCrsDdN8eNBl6av5FzP2NS6aw/2+3z6TP0/pO36FuTHTiqw0h3Z2qRWiyCI6
- lTq0CqYJvDvCxrxV5MVdBvRFrCeQ97yAv4xs0DQ0aERecLQ3g5rcKki
+ bh=37/hiTXVX9eQYBQu3HR7YyKJBAxiMFbmP14R68LJz1k=;
+ b=q2XsJHyGRXSvCFhZ9XflyOp+xKQepeFWo5kYnqWncMEmKnQ9NbTfv1uP2lLTp6gG8XKFZTxf1
+ hYis/YIYViHCru8bXKmV5UDifTIS+HbBgHtglbIlfNn/Tcn4zV6cfbh
 X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
  pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Proofpoint-GUID: -aOZBRjgPdtu-3m27gkClRUkebqVb_od
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDExNSBTYWx0ZWRfXy+iYFZSjQyfp
- dDRya21a6eEfpQbvQqbBoxAbE/UZG9GBKa122Nd74Co5RzLkidyoYrcdhdDwH4SeLgIcHAtQVJ5
- uwJwyDMAk8drjg9xZOunp4VhS/vZ09G+zLlnsmIDqkn0M9RxccltwFjRCd+Xq1ceCS/w+BoBaN+
- TR5DiDVkPyxW0CujV4EBBpSBCTtECnFwh/Yrvx5s6pDXgfnzBs/H5i2pfZpsUY9WfBg3yDpqs4L
- MaoB1p1aOEvfvr39LQAksY5mrwY8d1mt04le9g+wQcANhoQT2ahckUDAfJXSXkQ8brXyr2F4g2+
- Ta3GFZJbnSJJ3THK0jSoik0jfdK9KkJisFA4qLyS93mr2VKtU4mMzxWInnY8mUETG1E0b63rmUM
- kVu5k7X2M0ECGDSiBa2A1zYJm1bB64zWjBgmevCfc/pX80u4vZDLi8QmlfTx/HtM3L/lb1h7GZL
- DWXwgiVuHefEHmm147w==
-X-Proofpoint-ORIG-GUID: -aOZBRjgPdtu-3m27gkClRUkebqVb_od
-X-Authority-Analysis: v=2.4 cv=JPELdcKb c=1 sm=1 tr=0 ts=6a070255 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: dBhDGxWU8A_JNn3lx8LD1Tp2eB8OwFrQ
+X-Proofpoint-ORIG-GUID: dBhDGxWU8A_JNn3lx8LD1Tp2eB8OwFrQ
+X-Authority-Analysis: v=2.4 cv=GrhyPE1C c=1 sm=1 tr=0 ts=6a07025c cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=hn6c7xJugPWrWid5T_cA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=U8OLdchxA3Z7P0hrdlYA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDExNSBTYWx0ZWRfX3CJ2oRyIQgeb
+ NdCZOQ+bLH1mCgOTla6gJxLKT+o751g9P/9jwGKZUYk72blmQXfIS9ZFCxFSygz5QVbVycHd43c
+ qhuf1yDiP4dwkbHyidnT+DrUIKkkhdnl+1aspKE1ofr5lcslD+KnquiEsIwLqMJq8/68Gjd9bz/
+ lM57CBi6r0lOByR1UP1Rk0Dl2wKt0RhkZ5IYcOk7u/Bmph3O6KUBFDWICUVpv1UY3ZS+hCg7i+E
+ Jch+6H6OxnL3kosJxBOC/BeyBohvPyWZCu79iwL4VzSZ/ofj5HE+4ojkp/BaJtqhPZniihfGGfM
+ GpbbhGRc1UYSmOKGtRTF42+whRVNDVNZ/Hz9xq3P04MTZk7f3Hq6e50HgRV3bYlKhBHDlmsPJsE
+ 0I+m3dEkU/JH25AJyja+0MzFDMFtEoY8mJKmHKlGwoYYiMCjw2aG9roytVjaGUe6eu6GL946FTe
+ ZCj9iZGjF8SKcm4xFFA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-15_02,2026-05-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 priorityscore=1501 spamscore=0
- malwarescore=0 suspectscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ priorityscore=1501 clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0
+ spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150115
 
-The Glymur platform requires a dedicated firmware context bank device
-which is mapped to the firmware stream ID to load the firmware.
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-Add init and deinit hooks in the platform data for context bank setup.
-These hooks allow platform specific code to initialize and tear down
-context banks.
+On platforms where a hypervisor is present, all Secure Monitor Calls
+(SMC) are intercepted. For qcom_scm_pas_auth_and_reset(), the hypervisor
+registers a Shared Memory (SHM) bridge over the Peripheral Image Loader
+(PIL) memory region so that TrustZone (TZ) can access it, forwards the
+authentication SMC to TZ, and upon return maps the PIL region and
+triggers the co-processor bring-up sequence:
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+HLOS -> Hypervisor(SHM setup) -> TZ(auth) -> Hypervisor(map+reset) -> IRIS
+
+On platforms without a hypervisor, Linux drives these steps directly.
+The SHM bridge infrastructure required for this is already upstream [1].
+
+To isolate firmware memory in its own Input-Output Memory Management
+Unit (IOMMU) context, a dedicated stream ID (SID) is required, tied to
+the firmware function ID. This SID is specified via the iommu-map
+property in the device tree using the firmware function ID as the lookup
+key. A firmware device is created and mapped to this SID.
+
+The presence of a SID mapped to the firmware device via iommu-map is
+used to detect whether a hypervisor is absent: when the firmware device
+has a SID mapped, Linux manages the IOMMU directly; when no SID is
+mapped, a hypervisor is assumed to be present and these steps are
+skipped.
+
+Extend the Iris driver to support Secure Peripheral Authentication
+Service (PAS) on platforms where Linux manages the IOMMU, by creating
+the firmware context device and performing the necessary IOMMU mapping
+when the firmware device SID is present.
+
+[1] https://lore.kernel.org/lkml/20260105-kvmrprocv10-v10-0-022e96815380
+@oss.qualcomm.com/
+
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Co-developed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 ---
- .../platform/qcom/iris/iris_platform_common.h      |  2 ++
- drivers/media/platform/qcom/iris/iris_probe.c      | 23 +++++++++++++++++++++-
- 2 files changed, 24 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/iris/iris_core.h     |  4 ++
+ drivers/media/platform/qcom/iris/iris_firmware.c | 73 ++++++++++++++++++++----
+ 2 files changed, 67 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index 6a108173be35..84fc68128c70 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -263,6 +263,8 @@ struct iris_platform_data {
- 	 */
- 	const struct iris_firmware_desc *firmware_desc;
+diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
+index 24da60448cf2..2edba569fa25 100644
+--- a/drivers/media/platform/qcom/iris/iris_core.h
++++ b/drivers/media/platform/qcom/iris/iris_core.h
+@@ -36,6 +36,8 @@ struct qcom_ubwc_cfg_data;
+  * struct iris_core - holds core parameters valid for all instances
+  *
+  * @dev: reference to device structure
++ * @fw_dev: reference to the context bank device used for firmware load
++ * @pas_ctx: SCM PAS context for authenticated firmware load and shutdown
+  * @reg_base: IO memory base address
+  * @irq: iris irq
+  * @v4l2_dev: a holder for v4l2 device structure
+@@ -81,6 +83,8 @@ struct qcom_ubwc_cfg_data;
  
-+	int (*init_cb_devs)(struct iris_core *core);
-+	void (*deinit_cb_devs)(struct iris_core *core);
- 	const struct vpu_ops *vpu_ops;
- 	const struct icc_info *icc_tbl;
- 	unsigned int icc_tbl_size;
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index d36f0c0e785b..12596c9a3cbf 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -150,6 +150,20 @@ static int iris_init_resources(struct iris_core *core)
- 	return iris_init_resets(core);
- }
+ struct iris_core {
+ 	struct device				*dev;
++	struct device				*fw_dev;
++	struct qcom_scm_pas_context		*pas_ctx;
+ 	void __iomem				*reg_base;
+ 	int					irq;
+ 	struct v4l2_device			v4l2_dev;
+diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+index 1a476146d758..8bdc9273036c 100644
+--- a/drivers/media/platform/qcom/iris/iris_firmware.c
++++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+@@ -5,6 +5,7 @@
  
-+static int iris_init_cb_devs(struct iris_core *core)
-+{
-+	if (core->iris_platform_data->init_cb_devs)
-+		return core->iris_platform_data->init_cb_devs(core);
-+
-+	return 0;
-+}
-+
-+static void iris_deinit_cb_devs(struct iris_core *core)
-+{
-+	if (core->iris_platform_data->deinit_cb_devs)
-+		core->iris_platform_data->deinit_cb_devs(core);
-+}
-+
- static int iris_register_video_device(struct iris_core *core, enum domain_type type)
+ #include <linux/firmware.h>
+ #include <linux/firmware/qcom/qcom_scm.h>
++#include <linux/iommu.h>
+ #include <linux/of_address.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/soc/qcom/mdt_loader.h>
+@@ -15,11 +16,14 @@
+ #define IRIS_PAS_ID				9
+ 
+ #define MAX_FIRMWARE_NAME_SIZE	128
++#define IRIS_FW_START_ADDR	0
+ 
+ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
  {
- 	struct video_device *vdev;
-@@ -206,6 +220,7 @@ static void iris_remove(struct platform_device *pdev)
- 	video_unregister_device(core->vdev_enc);
++	struct device *fw_dev = core->fw_dev ? core->fw_dev : core->dev;
+ 	const struct firmware *firmware = NULL;
+-	struct device *dev = core->dev;
++	struct qcom_scm_pas_context *pas_ctx;
++	struct iommu_domain *domain;
+ 	struct resource res;
+ 	phys_addr_t mem_phys;
+ 	size_t res_size;
+@@ -30,14 +34,18 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+ 	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
+ 		return -EINVAL;
  
- 	v4l2_device_unregister(&core->v4l2_dev);
-+	iris_deinit_cb_devs(core);
- 
- 	mutex_destroy(&core->lock);
- }
-@@ -272,11 +287,15 @@ static int iris_probe(struct platform_device *pdev)
+-	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
++	ret = of_reserved_mem_region_to_resource(core->dev->of_node, 0, &res);
  	if (ret)
  		return ret;
  
-+	ret = iris_init_cb_devs(core);
+ 	mem_phys = res.start;
+ 	res_size = resource_size(&res);
+ 
+-	ret = request_firmware(&firmware, fw_name, dev);
++	pas_ctx = devm_qcom_scm_pas_context_alloc(fw_dev, IRIS_PAS_ID, mem_phys, res_size);
++	if (IS_ERR(pas_ctx))
++		return PTR_ERR(pas_ctx);
++
++	ret = request_firmware(&firmware, fw_name, fw_dev);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -53,9 +61,27 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+ 		goto err_release_fw;
+ 	}
+ 
+-	ret = qcom_mdt_load(dev, firmware, fw_name,
+-			    IRIS_PAS_ID, mem_virt, mem_phys, res_size, NULL);
++	pas_ctx->use_tzmem = !!core->fw_dev;
++	ret = qcom_mdt_pas_load(pas_ctx, firmware, fw_name, mem_virt, NULL);
++	if (ret)
++		goto err_mem_unmap;
++
++	if (pas_ctx->use_tzmem) {
++		domain = iommu_get_domain_for_dev(fw_dev);
++		if (!domain) {
++			ret = -ENODEV;
++			goto err_mem_unmap;
++		}
++
++		ret = iommu_map(domain, IRIS_FW_START_ADDR, mem_phys, res_size,
++				IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV, GFP_KERNEL);
++		if (ret)
++			goto err_mem_unmap;
++	}
++
++	core->pas_ctx = pas_ctx;
+ 
++err_mem_unmap:
+ 	memunmap(mem_virt);
+ err_release_fw:
+ 	release_firmware(firmware);
+@@ -63,6 +89,18 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+ 	return ret;
+ }
+ 
++static void iris_fw_iommu_unmap(struct iris_core *core)
++{
++	struct iommu_domain *domain;
++
++	if (!core->pas_ctx->use_tzmem)
++		return;
++
++	domain = iommu_get_domain_for_dev(core->fw_dev);
++	if (domain)
++		iommu_unmap(domain, IRIS_FW_START_ADDR, core->pas_ctx->mem_size);
++}
++
+ int iris_fw_load(struct iris_core *core)
+ {
+ 	const struct tz_cp_config *cp_config;
+@@ -77,13 +115,13 @@ int iris_fw_load(struct iris_core *core)
+ 	ret = iris_load_fw_to_memory(core, fwpath);
+ 	if (ret) {
+ 		dev_err(core->dev, "firmware download failed\n");
+-		return -ENOMEM;
++		return ret;
+ 	}
+ 
+-	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
++	ret = qcom_scm_pas_prepare_and_auth_reset(core->pas_ctx);
+ 	if (ret)  {
+ 		dev_err(core->dev, "auth and reset failed: %d\n", ret);
+-		return ret;
++		goto err_unmap;
+ 	}
+ 
+ 	for (i = 0; i < core->iris_platform_data->tz_cp_config_data_size; i++) {
+@@ -95,16 +133,31 @@ int iris_fw_load(struct iris_core *core)
+ 		if (ret) {
+ 			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
+ 			qcom_scm_pas_shutdown(IRIS_PAS_ID);
+-			return ret;
++			goto err_pas_shutdown;
+ 		}
+ 	}
+ 
++	return 0;
++
++err_pas_shutdown:
++	qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
++err_unmap:
++	iris_fw_iommu_unmap(core);
++
+ 	return ret;
+ }
+ 
+ int iris_fw_unload(struct iris_core *core)
+ {
+-	return qcom_scm_pas_shutdown(IRIS_PAS_ID);
++	int ret;
++
++	ret = qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
 +	if (ret)
 +		return ret;
 +
- 	iris_session_init_caps(core);
- 
- 	ret = v4l2_device_register(dev, &core->v4l2_dev);
- 	if (ret)
--		return ret;
-+		goto err_deinit_cb;
- 
- 	ret = iris_register_video_device(core, DECODER);
- 	if (ret)
-@@ -311,6 +330,8 @@ static int iris_probe(struct platform_device *pdev)
- 	video_unregister_device(core->vdev_dec);
- err_v4l2_unreg:
- 	v4l2_device_unregister(&core->v4l2_dev);
-+err_deinit_cb:
-+	iris_deinit_cb_devs(core);
- 
- 	return ret;
++	iris_fw_iommu_unmap(core);
++
++	return ret;
  }
+ 
+ int iris_set_hw_state(struct iris_core *core, bool resume)
 
 -- 
 2.34.1
