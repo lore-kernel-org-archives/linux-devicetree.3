@@ -1,242 +1,180 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2513E009E
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4D63E7BAD
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778861113; cv=none; b=Z1NkyyBF+LW8XsnOJFy3/VCAGIFI9Uj7I/CHiUFjkAzFKYmIqD+RJFU7gO7WMwzjnOt+TsbnXXnmncuM1iirUnXx2ThtrXZCdIZ73YjZ6VNMJ35SG5+EoFDfdQzIj4B3XPvPWv6clSNsLsVwFr3nlsZbvj0B7dMKdZvCOcUPk6A=
+	t=1778861131; cv=none; b=HV9sT26sUI+A4G2eZO96OdKtlBZ6hiXo5jP2vvIkTziy3uX4gkBvHZ/FEzscucmiKybdER7oushJEp6cKBU517ZbiooTKGwuCmcKctOUhzsQj9SVs63QS5787THQ5KDAi5VvDZ4hET1NtDDNAktCtVx3dxq4XJJRZ8rJkO0Ul3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778861113; c=relaxed/simple;
-	bh=b5pd97Ki+/XAUp6J5p3HNpRMAnmllhdnuVwxI2OEYhs=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h/8Ty5ILciheAxI4imlg7tSgkGgeEap0eT6t3UWxBYYxaOqwihYGVMFOKoH73TDajsgbOUQaZHOEyCYN8fB6iyzI2ip6VlaIe1vkMTTxiBEljx4gKhmNRSh9Q7Gf37Fcz+0E34NLyAVbG2GRqNf4YgKOyTbDDp3wTYA/6Aj8LQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hp4DJTo9; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778861131; c=relaxed/simple;
+	bh=eIexaNfG/rLBr75r9vpsJXwatV8r4XXYIQrhNQI9MjA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AGN5LH/k0YvAm0O6QJ1V8wIzlGhpY8wttL8lS5zCQWPw5bsr1M3bA5u3t4QHu978ZqqsgO7yz9vk9XrdYYfIpp3lrcI//SYBRx8gSu8P2MtxBJsnT2mLta15tPreTfGouOtMrpDPQ0HQrjkVqwgVOhYNcNJ2RQlrLY6WaFMl/5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bsp/+oTa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hp4DJTo9"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488af96f6b2so110172785e9.0
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:05:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778861110; x=1779465910; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=QJEHw+NfjmamzJ6e+wpSFeRm2Y9ZjDhLNyEd/6LMzgY=;
-        b=Hp4DJTo9/dal9rKDfqruemL6qWUHBIxzK+15BqFeM+cHOaTO7tTP4IUgkmaqys+1Xi
-         aJCK4+0GNKj+cyXtrMq0lW5tGV2QfcQDPABZ5pFmSDZUD0Mw10f5HdB5/s0QkCFf4TfK
-         qNNlhGG6hU3AeRW+5KrpkRbYDeW3nuhV5RFGI8F8Tb1ijyCDBgOMsqpjfcoGPxqkaguw
-         Vocbee+LUBXPhkPd2g52aQr1HxytgMpikYSWUPKRBzTQKXn3/xNv7wrhiN9yREhq3qLY
-         kqfRgzyOfjSnlhIXW7YAFV4Ly+qGrv81faAiMGugle5QPVWArhlzlr9YJV+AV5sIdCpl
-         QuHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778861110; x=1779465910;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=QJEHw+NfjmamzJ6e+wpSFeRm2Y9ZjDhLNyEd/6LMzgY=;
-        b=Xapy0OfF2sMDco9NS7cWUpdwG7bfKDyR2JTGWS3ZLZcjRpmlzzD5ST7dK6Eb6rbiGb
-         wuRN8IFjnwKNqDWTDMyIvRXdoHWjx03MZci8bhFU3T7tDPxEGqC/xCRp2LbC+WLkvlCX
-         JCNAR6f/xyNGBTmPt/Cn3nj8yd9ZoAvDlWjO1PopSezW7SWa9MpfqFq2YnD1EE8ECGcK
-         /jOqObDQDMKH+y2CJnFiIeAho3VL3Gnet7wam34Aa+GwgnlzGSUqvkjTG/ZGDMUmbkPp
-         BLZlF6dMsAtt9pTNcOS1a7JtjnhIEMI6IgtXl84tyAkG7Oh/Oky0IcZLew0WpfL7x2pE
-         PgPw==
-X-Forwarded-Encrypted: i=1; AFNElJ+LecnZF/xxUh+fNd6ySySOqdHTWlCuzvkWS1RMgMrpkD9v2xn6NOhdLKYgh5dE8xlqnZTZGQ5mBqt8@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzc84IUUo3BIDMkjSRbSMFrPrQxWJPY4to/U10b/MHXGZMtE0Qe
-	omK/dwe6HSbZORFRIX7a/g1NOJK3FAvtSPCy5N0jsrEENENDcPyN1Z4t
-X-Gm-Gg: Acq92OGp80uso6ltBIv2mDR551DZSvijiJdRDlTg4K582mKhEUYGCsx47XJtoqvU26T
-	tWuo3WxuD26mY+tdeDKUdPZHmYxiKDQZX4ur6IUCE9zxQjF7QfjEtTc0VzyXEoVSZ9LDeq4jTES
-	I8hA3zeb0D1L9DJfct1YvE5Z+GmoIvaMIaq0h8WXkwtkPQ+NkIl8uhX7RmrJhPYFV/V7NmpDjw4
-	k3Lx9iT27TrM8FgRgdQxg21f+nCA0Ixt4dRufmAGryDFQXeftAm6HaYPpnmDko+5VssNL93ooW+
-	2y3xmBWBIRi3IelMhQNo2KnW8llJ9Urr6PECaB+4HWL7bVNxjPgTkyCLLSMeug7y8FrMvQWetSo
-	kdajIBRXwlIrBN3Gh4h2Nrkc2nLpxMLIGC44+IrMB79h6rseQkeVpfwy/2hyAn96KWOVojaI29k
-	gCuy8CkYeaaiX/gcqjF/cGifxmYFlJDf+ylYZPAsFgm1dsqupCOLj8bu1u77I1Ny726AWV1iz4u
-	TIBHc4+89MJr+wC1lc10sSZGg1Yw4kkYDhgZNYqxBmDDuSkVw==
-X-Received: by 2002:a05:600c:8184:b0:489:1c1f:35f1 with SMTP id 5b1f17b1804b1-48fe60e1451mr65158195e9.4.1778861109715;
-        Fri, 15 May 2026 09:05:09 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febe67688sm21102505e9.5.2026.05.15.09.05.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 09:05:09 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Fri, 15 May 2026 17:05:06 +0100
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
-	rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <ex6p5qpgsfvm5wzalpwo7whcj4m4uxzscpzxvb5ihfu2prx3fj@7skhmz3cbshw>
-References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
- <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
- <kwjoyikbygik4futknqpua2tlzokradms25n2dmfa5czyj2uts@4rdfl6zlul2q>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bsp/+oTa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E2EC2BCB0;
+	Fri, 15 May 2026 16:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778861131;
+	bh=eIexaNfG/rLBr75r9vpsJXwatV8r4XXYIQrhNQI9MjA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=bsp/+oTa9Sss1ZdxgpepMo2CQserx1MVckRIyHYs9FXmnRYY+D5zzGk9+95wGJswm
+	 7gWKuXPWVUYXd0K0ebFnRtKvPcTFV/tPjIy19OkbLO7AjoTa0qou5GhfSh3yMJ2ljB
+	 lZlDLUufO/IWnonlDZQ+01ZFNroD90LfUworA/GyvJHO91UQY/jyAjY4Pxc+AYVH+f
+	 GtuuzlC78mFxXpfZc6ELNp6UodUWz9kEdYzATCCE10/HWdCanmw+JlbJLyn/0GjfDS
+	 sIzyWyoevOw7ZccPpxw8mHjHLxm9v3Dht7b0rfVLbA1xFTKev7EPWwDZZM6l/O23pH
+	 QJpMP+UPEm7Wg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 11/28] media: rockchip: rga: move hw specific parts
+ to a dedicated struct
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515-spu-rga3-v6-11-e547152eb9c9@pengutronix.de>
+References: <20260515-spu-rga3-v6-11-e547152eb9c9@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 16:05:30 +0000
+Message-Id: <20260515160531.11E2EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <kwjoyikbygik4futknqpua2tlzokradms25n2dmfa5czyj2uts@4rdfl6zlul2q>
 
-On 26/05/13 10:41AM, Rodrigo Alencar wrote:
-> On 26/05/10 01:42PM, Rodrigo Alencar via B4 Relay wrote:
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> > precision). After the decimal point, digits beyond the specified scale
-> > are ignored.
-> 
-> Hi Andy,
-> 
-> I am starting over here, the other conversation is getting hard to follow.
-> This is my new proposal...
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Critical] Lack of PM state verification in the ISR allows spurious inter=
+rupts on suspended hardware to trigger a kernel panic.
+- [Critical] Integer overflow in `vidioc_s_selection` allows bypassing boun=
+ds checks with maliciously large crop dimensions.
+- [High] Use-After-Free race condition during module removal due to unbalan=
+ced teardown order in `rga_remove()`.
+- [High] Unhandled initialization error in `rga_open()` leads to a use-afte=
+r-free of a destroyed mutex.
+--
 
-+cc David
- 
-> ...
-> 
-> > +static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
-> > +{
-> > +	u64 _res = 0, _frac = 0;
-> > +	unsigned int rv;
-> > +
-> > +	if (scale > 19) /* log10(2^64) = 19.26 */
-> > +		return -EINVAL;
-> > +
-> > +	if (*s != '.') {
-> > +		rv = _parse_integer(s, 10, &_res);
-> > +		if (rv & KSTRTOX_OVERFLOW)
-> > +			return -ERANGE;
-> > +		if (rv == 0)
-> > +			return -EINVAL;
-> > +		s += rv;
-> > +	}
-> > +
-> > +	if (*s == '.' && scale) {
-> > +		s++; /* skip decimal point */
-> > +		rv = _parse_integer_limit(s, 10, &_frac, scale);
-> > +		if (rv & KSTRTOX_OVERFLOW)
-> > +			return -ERANGE;
-> > +		if (rv == 0)
-> > +			return -EINVAL;
-> > +		s += rv;
-> > +		if (rv < scale)
-> > +			_frac *= int_pow(10, scale - rv);
-> > +		while (isdigit(*s)) /* truncate */
-> > +			s++;
-> > +	}
-> > +
-> > +	if (*s == '\n')
-> > +		s++;
-> > +	if (*s)
-> > +		return -EINVAL;
-> > +
-> > +	if (check_mul_overflow(_res, int_pow(10, scale), &_res) ||
-> > +	    check_add_overflow(_res, _frac, &_res))
-> > +		return -ERANGE;
-> > +
-> > +	*res = _res;
-> > +	return 0;
-> > +}
-> 
-> This function now becomes:
-> 
-> 	static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
-> 	{
-> 		u64 _res = 0;
-> 		unsigned int rv_int, rv_frac;
-> 
-> 		rv_int = _parse_integer(s, 10, &_res);
-> 		if (rv_int & KSTRTOX_OVERFLOW)
-> 			return -ERANGE;
-> 		s += rv_int;
-> 
-> 		if (*s == '.')
-> 			s++; /* skip decimal point */
-> 
-> 		rv_frac = _parse_integer_limit_init(s, 10, _res, &_res, scale);
-> 		if (rv_frac & KSTRTOX_OVERFLOW)
-> 			return -ERANGE;
-> 		s += rv_frac;
-> 
-> 		if (!rv_int && !rv_frac && !isdigit(*s))
-> 			return -EINVAL; /* no digits at all */
-> 
-> 		while (isdigit(*s)) /* truncate digits */
-> 			s++;
-> 
-> 		if (*s == '\n')
-> 			s++;
-> 		if (*s)
-> 			return -EINVAL;
-> 
-> 		if (_res && (scale > (19 + rv_frac) || /* log10(2^64) = 19.26 */
-> 		    check_mul_overflow(_res, int_pow(10, scale - rv_frac), &_res)))
-> 			return -ERANGE;
-> 
-> 		*res = _res;
-> 		return 0;
-> 	}
-> 
-> The new thing here is _parse_integer_limit_init(), which is a local modified
-> helper that accepts an init value, so _parse_integer_limit() becomes:
-> 
-> 	unsigned int _parse_integer_limit(const char *s, unsigned int base,
-> 					  unsigned long long *p, size_t max_chars)
-> 	{
-> 		return _parse_integer_limit_init(s, base, 0, p, max_chars);
-> 	}
-> 
-> with init = 0:
-> 
-> 	static unsigned int _parse_integer_limit_init(const char *s, unsigned int base,
-> 						      unsigned long long init,
-> 						      unsigned long long *p,
-> 						      size_t max_chars)
-> 	{
-> 		unsigned long long res;
-> 		unsigned int rv;
-> 
-> 		res = init;
-> 		/* ...
-> 		 * the rest is the same implementation as _parse_integer_limit()
-> 		 * ...
-> 		 */
-> 		return rv;
-> 	}
-> 
-> That allows to accumulate the final value into the same variable, which makes
-> things simpler and decreases the amount of overflow checks.
-> 
-> The scale can now be a bigger value, like 0.00000000000000000000000000000000423
-> can be parsed with scale = 35, resulting into 423.
-> 
-> The truncation loop is still there... I think this implementation is better,
-> and I am not sure what is the input limit that you would consider ok to allow
-> non-zero digits to be truncated once the scale can now be something bigger than 19.
-> As long as the output fits into a u64 variable, the parser still works.
+commit 0a388e94d347297bf67ec0c6a92dbb56a186e007
+Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-The truncation loop is at least stricting the input on digits!
-Any comments on that?
+media: rockchip: rga: move hw specific parts to a dedicated struct
 
-> 
-> I am also adding new test cases for that!
+In preparation for the RGA3 unit, move RGA2 specific parts from rga.c
+to rga-hw.c and create a struct to reference the RGA2 specific functions
+and formats.
 
-I have a v13 ready with this. I'll give it a go soon...
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index 8c34f73d69764..f599c992829dd 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -55,13 +54,8 @@ static void device_run(void *prv)
+>  static irqreturn_t rga_isr(int irq, void *prv)
+>  {
+>  	struct rockchip_rga *rga =3D prv;
+> -	int intr;
+> =20
+> -	intr =3D rga_read(rga, RGA_INT) & 0xf;
+> -
+> -	rga_mod(rga, RGA_INT, intr << 4, 0xf << 4);
+> -
+> -	if (intr & 0x04) {
+> +	if (rga->hw->handle_irq(rga)) {
+>  		struct vb2_v4l2_buffer *src, *dst;
+>  		struct rga_ctx *ctx =3D rga->curr;
+> =20
+>  		WARN_ON(!ctx);
 
--- 
-Kind regards,
+This isn't a bug introduced by this commit, but is it possible for rga_isr
+to be called when the device is suspended?
 
-Rodrigo Alencar
+If the device is suspended, reading RGA_INT might return 0xffffffff, which
+evaluates to true here. Since ctx would be NULL, the code warns but then
+dereferences ctx via ctx->fh.m2m_ctx, which could cause a panic.
+
+With the planned addition of IRQF_SHARED support for external IOMMUs
+mentioned in later patches, another device on the same shared interrupt
+line could trigger this when the RGA is suspended. Would we need to verify
+if the device is active using pm_runtime_get_if_active() before accessing
+registers?
+
+[ ... ]
+
+> @@ -360,9 +225,9 @@ static int rga_open(struct file *file)
+>  	ctx->out =3D def_frame;
+> =20
+>  	v4l2_fill_pixfmt_mp(&ctx->in.pix,
+> -			    ctx->in.fmt->fourcc, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+> +			    ctx->in.fmt->fourcc, def_width, def_height);
+>  	v4l2_fill_pixfmt_mp(&ctx->out.pix,
+> -			    ctx->out.fmt->fourcc, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+> +			    ctx->out.fmt->fourcc, def_width, def_height);
+> =20
+>  	if (mutex_lock_interruptible(&rga->mutex)) {
+>  		kfree(ctx);
+
+This isn't a bug introduced by this commit, but looking further down in
+rga_open(), is it safe to ignore the return value of rga_setup_ctrls(ctx)?
+
+If control setup fails, rga_setup_ctrls() internally calls
+v4l2_ctrl_handler_free(), which frees the internal control buckets and
+destroys the mutex.
+
+However, rga_open() blindly proceeds to call
+v4l2_ctrl_handler_setup(&ctx->ctrl_handler) and assigns the freed handler
+to ctx->fh.ctrl_handler. Could this lead to a use-after-free of the mutex
+during subsequent V4L2 ioctl operations?
+
+[ ... ]
+
+> @@ -660,7 +527,7 @@ static int vidioc_s_selection(struct file *file, void=
+ *priv,
+> =20
+>  	if (s->r.left + s->r.width > f->pix.width ||
+>  	    s->r.top + s->r.height > f->pix.height ||
+> -	    s->r.width < MIN_WIDTH || s->r.height < MIN_HEIGHT) {
+> +	    s->r.width < rga->hw->min_width || s->r.height < rga->hw->min_heigh=
+t) {
+>  		v4l2_dbg(debug, 1, &rga->v4l2_dev, "unsupported crop value.\n");
+>  		return -EINVAL;
+>  	}
+
+This isn't a bug introduced by this commit, but can the
+s->r.left + s->r.width check overflow here?
+
+Since s->r.width is an unsigned 32-bit integer, providing a maliciously
+large width (e.g., 0xFFFFFFFF) and a small left offset could cause the
+addition to wrap around to 0, bypassing the bounds check.
+
+Furthermore, 0xFFFFFFFF < rga->hw->min_width evaluates to false, which
+bypasses this minimum size check as well. Could this result in out-of-bounds
+memory operations when the hardware DMA engine is programmed with these
+excessively large dimensions?
+
+[ ... ]
+
+> @@ -883,7 +750,7 @@ static void rga_remove(struct platform_device *pdev)
+>  {
+>  	struct rockchip_rga *rga =3D platform_get_drvdata(pdev);
+> =20
+> -	dma_free_attrs(rga->dev, RGA_CMDBUF_SIZE, rga->cmdbuf_virt,
+> +	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, rga->cmdbuf_virt,
+>  		       rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
+> =20
+>  	v4l2_info(&rga->v4l2_dev, "Removing\n");
+
+This isn't a bug introduced by this commit, but is the teardown order
+in rga_remove() safe?
+
+It frees the DMA command buffer and releases the mem2mem context before
+calling video_unregister_device().
+
+Could a concurrent userspace process holding the device open continue to
+issue V4L2 ioctls while the module is unloading, potentially causing a
+use-after-free on m2m_dev or the newly freed DMA buffer memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-spu-rga3-v=
+6-0-e547152eb9c9@pengutronix.de?part=3D11
