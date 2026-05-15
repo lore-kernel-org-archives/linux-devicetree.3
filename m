@@ -1,105 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C093C3422
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6D747ECEC
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778845427; cv=none; b=AUpbn8SN3lMdFB+YuZ8HPv14QWc5yTW011dzxeMracegphuUH5By8VcAc+8vrnZ+D/CW3tG2SkSTc057yfzaM1WKdN8J2pvgIMqsmM/L4lMUMyxWy2L8fwX7BIKBJ78BUeSgKAzIIEX0SgEpWyqQA5uSQZoTl26dixPkn+YoPc0=
+	t=1778845613; cv=none; b=Tzs7hATUImdNMzDuIj8cgFJyrW2cXcGnHBEvtC4fvUvqqxnYUgIMdZpT5STr+18PceeFHtmAa6IuuXvXqLolA0p8SlBdeUhrWY7IEIQvOYkYctrNXH46NNMghm0KtKm4PI5XibFJ8KrRmyCHJpaPii43XdCMPPbSRYt/ppCiN7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778845427; c=relaxed/simple;
-	bh=gevhjTysHR6hwjDTyGHmxkV3zuZFY3KlNg4d5dguU4I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hhhpIV14TTibsKeRO/V5+Y5nnLBXuEiBCi6Be/HRVkmLK0DInGBSJL2agTGD+HUgoMjaqlw67uicpiW1tWzz8R6ZqQ9N9dhz5woi3WiYKrXDiiCz4O+SQ9RejlQHA9WiVepbnNuuo/8LKZkvTiEZrlEXLHu7WzaGKDvlBDSp/bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzmzqTTs; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzmzqTTs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1FF1C2BCB0;
-	Fri, 15 May 2026 11:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778845426;
-	bh=gevhjTysHR6hwjDTyGHmxkV3zuZFY3KlNg4d5dguU4I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=mzmzqTTsfX8Tp9mpw7ItErJxHviTT4gSu/3h0I1DOpvKwUy6ygOPPsGLucAwPSOfJ
-	 EluecdUq6gdGBa7b+nzqHab3Vn/7ZVe6xQqq8awnaHcJQ2710iqigUvfUMgGH679/u
-	 C4hupPtn0QFIVVwT51ophmoCYYXtmn2DlId2G4gN9pLHomWUTt7nb9/E0+pBlaEVDB
-	 FguLa3juXnuwcZS75eV7LBJQUr+EO0KTpvdqPNpARjGhx3Ax5p2q1peFFbahkCmPja
-	 dRH7/Uz1WFbE7o6fouj7o5rlRMf3EKVGTRqSGEwAxUGMkCvwZjkWAIqObAqS2iUZBj
-	 gUtKc9BcLaZxg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/4] riscv: dts: spacemit: k1-bananapi-f3: add SD
- card support with UHS modes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260515-orangepi-sd-card-uhs-v10-3-094af27e310d@gmail.com>
-References: <20260515-orangepi-sd-card-uhs-v10-3-094af27e310d@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 11:43:46 +0000
-Message-Id: <20260515114346.A1FF1C2BCB0@smtp.kernel.org>
+	s=arc-20240116; t=1778845613; c=relaxed/simple;
+	bh=IuY8uuoh8D4LQsIfMiC3uLsAXcVkj5Q5OX4JV8oN6EY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PAIPR2DO/Uj3CZ6YyZOGOIkhbihShSCUOcNF7+ApxTx3nPjm1HFdgy4Dx/XFSdDmtYmgv7vDqreNqUXBtpE6KK0CO7dKjiOL+QJ5CCVtOrk+J23oULy2aHzatIHgf4ytWfb/13vnBNUJrdKSgZYyqfG3LMrPkBwBWAGUI7qyhYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.trumtrar@pengutronix.de>)
+	id 1wNr05-0000OE-RZ; Fri, 15 May 2026 13:46:41 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Fri, 15 May 2026 13:46:32 +0200
+Subject: [PATCH v2 1/2] dt-bindings: display: simple: Add NEC
+ NL6448BC33-70C panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260515-v7-1-topic-panel-simple-nl6448bc33-v2-1-74ab0baa1817@pengutronix.de>
+References: <20260515-v7-1-topic-panel-simple-nl6448bc33-v2-0-74ab0baa1817@pengutronix.de>
+In-Reply-To: <20260515-v7-1-topic-panel-simple-nl6448bc33-v2-0-74ab0baa1817@pengutronix.de>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=990;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=IuY8uuoh8D4LQsIfMiC3uLsAXcVkj5Q5OX4JV8oN6EY=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQxY7+/zA5d+qD6rUnt+s6tcQlbH66IqzupUpjzT+3L55f
+ GLUb4bSjlIWBjEuBlkxRRaVhRV8oh4fPCOniXDBzGFlAhnCwMUpABP5WMXwv4L/XWqcOnPKGh2J
+ //U8q+adUC5b6PcrKWMTW+8x5fqGAkaGld95c2ZNE9DlkXVfPcU1cMEyVgHp8B36zxtf8y3bK/6
+ eCwA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing driver support for UHS pinctrl state switching in SpacemiT=
- SDHCI driver
---
+Add the NEC LCD Technologies,Ltd. NL6448BC33-70C 10.4" 640x480 LCD panel.
 
-commit dccbc831846f54656728199aecf02388bd320143
-Author: Iker Pedrosa <ikerpedrosam@gmail.com>
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-riscv: dts: spacemit: k1-bananapi-f3: add SD card support with UHS modes
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+index 3e41ed0ef5d51..96d218f78b0be 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+@@ -232,6 +232,8 @@ properties:
+       - nec,nl12880bc20-05
+         # NEC LCD Technologies,Ltd. WQVGA TFT LCD panel
+       - nec,nl4827hc19-05b
++        # NEC LCD Technologies,Ltd. VGA TFT LCD panel
++      - nec,nl6448bc33-70c
+         # Netron-DY E231732 7.0" WSVGA TFT LCD panel
+       - netron-dy,e231732
+         # Newhaven Display International 480 x 272 TFT LCD panel
 
-This commit adds complete SD card controller support with UHS high-speed
-modes for the SpacemiT K1 Banana Pi F3. It configures the sdhci0
-controller, including regulators for power switching and dual pinctrl
-states for voltage-dependent pin configuration.
+-- 
+2.53.0
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv=
-/boot/dts/spacemit/k1-bananapi-f3.dts
-> index e20daa50a152f..72f77e9edd63d 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-[ ... ]
-> @@ -374,3 +376,21 @@ hub_3_0: hub@2 {
->  		reset-gpios =3D <&gpio K1_GPIO(124) GPIO_ACTIVE_LOW>;
->  	};
->  };
-> +
-> +&sdhci0 {
-> +	pinctrl-names =3D "default", "uhs";
-> +	pinctrl-0 =3D <&mmc1_cfg>;
-> +	pinctrl-1 =3D <&mmc1_uhs_cfg>;
-
-Does the host controller driver (sdhci-of-k1) support switching to the "uhs"
-pinctrl state?
-
-The generic mmc and sdhci core subsystems do not automatically parse or
-switch to a "uhs" pinctrl state, unlike standard states like "default" or
-"sleep".
-
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&gpio K1_GPIO(80) (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-> +	no-mmc;
-> +	no-sdio;
-> +	disable-wp;
-> +	cap-sd-highspeed;
-> +	vmmc-supply =3D <&buck4>;
-> +	vqmmc-supply =3D <&aldo1>;
-
-If the driver does not manually look up and select the "uhs" state when
-dropping the vqmmc-supply to 1.8V for UHS modes, will the pads remain
-locked to the 3.3V configuration?
-
-Could this mismatch between the pad configuration and the supplied power
-cause signal integrity issues or data corruption when operating in sdr25,
-sdr50, or sdr104 modes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-orangepi-s=
-d-card-uhs-v10-0-094af27e310d@gmail.com?part=3D3
