@@ -1,133 +1,194 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6A33CD8AA
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0030243C05E;
+	Fri, 15 May 2026 10:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778839413; cv=none; b=QwTIff5ysoezM1h0Dio+ljukSCv+U/SjWqdtl8LZiF6ifaD9Leeqd0A1dfiBKJuttNp4+Yit4gyKVss7kP+VIOo81gRU4wDU23eY3zoPMZUXekTF2FC6KPlBu6d9WINwqz++3FDP/9QPkZzLcY568L6/uwAs9KEk7dU2Q/Ify9U=
+	t=1778839437; cv=none; b=hP88XDSBkifJu7WKWJhfhrac/xqqpRpVbLBmJDuurvR3RKE9MIvNiE3kYkDz9gXPAhKbne586Z2hElqT7A2NgJJNDQFlGYqgqs8q3vH1gsAHytzcMehxXh0mjKxGE02L1Sm38Eahh2NkHs20qDDC7k4YSnklVCb96NFb+mqhTYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778839413; c=relaxed/simple;
-	bh=aYk715nl6+8kYbgjKWSg4YhfpDONym9S+gEFDi4xdos=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oRwwcpgVQSQZTSjBOs1m3vY20HDdynhom0RgEI6dl1BPhJVuYzyQmvPFAJ5v5j2WGjFWEt5+s8tOWaVafBBZDTMEFmXUZ/IGJIYGd1EkViU66xvcIPjM8KTn96dAfwGRT2mnhIXpehDa5ha+A3iglplV22KgrESdrzKa+fBemks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GARs+Lte; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1778839437; c=relaxed/simple;
+	bh=rmXc2RV9XZGALh+ZdY2CWCSvGaYLblZ8chn0OvWGWEk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LrdjZVHHplmXTAyv5jJzpnf2uK3IklnoovPrPolpQoBKtzbekx9k4s58HG3fmCeaZmGAqN8Z66wrz/SQP4i+v/NlArHGWlA21p9WN5FWBlZVRvT/WaWyZefDc8zdjZIhP3oJ3wkYR6vtqnm9nsYAbTZ0ekia58bmu+Yr/PJiw34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBKi+bpm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GARs+Lte"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48909558b3aso86350905e9.0
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 03:03:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778839410; x=1779444210; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QVuoueab5Xq5CfW5uFSzOMqQqitlxOrW9pFKGekv6HY=;
-        b=GARs+LteYsxvIF6xRzAqywZY77hif8vaduDA0o8g4lma3UxukoYipMx29kgaPsV0+h
-         c4mDYpJ4K0yYmEzan+lbmevyg/SbXB8Da9H0Q0VFOoPgPvXQzt/gLvOAaVbFtkqd1GlQ
-         7sEGv3ERJJJxThVvauh9sHBIv+79KgMb1NoIB3w33fO3ZsaMtpEa6mcpi2UyawfVul27
-         twaECrr2BmJKPgPq5Ewg7/UafBA3bF6H8BMKjCccyJf5KwZo3K4vy2nVeTbYc5/GmS2D
-         aqn39hiEjll1lDYNWo9tWEk0mVCalBVh5ijdH/Mj8PVVWfL1UGFj7HEVZpvOOMZVJo13
-         0mvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778839410; x=1779444210;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QVuoueab5Xq5CfW5uFSzOMqQqitlxOrW9pFKGekv6HY=;
-        b=rh2aK9Xgwrp3/xpynoabyvMhvGjlp8KI7yL6z/QebX/4Bn6xIN62YP9STYSxC0WZ50
-         IztngLQeYLhXmn+iV4tUewpHC6FWGKfnvcQorC7NZYAJykp984sO+NRa6KKYztCDBrp1
-         fnphE/U4gBGbrlVGooFH9jUJxuEkeEnbXNY3lmejiK0xbEITqpu7fX8Ij1ELcwjesmZD
-         qaFaCfVgb7pZG2MHrIjODNjnl+ctpOS3iVnzNuoxx62iZNuhDXjl9oZqixM96YIuKPSc
-         ASN5G1UOpflHtbFGLUuIwZP5To+f0+7V+M4ExyKbuMMjLO9qQVyOjTTvo1Nga9dGL9WK
-         ap2g==
-X-Forwarded-Encrypted: i=1; AFNElJ/YOGNXTODYNZWlzRMwYskZehYJu4sf2E5AydbWtIywtQb/huUe25vgKI8jtza041vpvhw8ugglIVqA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1LVfxQezyytPuhO6TEqwFacJGZ6N1YzKz69cQ2vbbxYgDsQbL
-	jGmaIZa6p7L9g8I5ENiS0qzfniMv/79OUG8q3u+UN19bhiPTFIOJlUU+o6dcEwYYhjI=
-X-Gm-Gg: Acq92OE9ZkRBdg4xmWqfQEo7LUlb4SlR4I6ejh+BF1p8lghW2eXZBDvO+GohpKHCsGA
-	0znib+R1NSVuZh9+yo7KFZGlaKeWZRg8143SQJJTBF/HUM+VkeQZGyihp6gq44KfdSzwP2TIMxV
-	sjO/BwxGPa/DTO21X2oxVfAY8U/5LVdYCjsugFuU057/yxI4WnrSqNxg7Pf1tDKHOb0TypkGCL1
-	z3TkEXYoNXdkqlCzDnDsFz5bdT1BpGNTxsVjOl+iESknKc0dNs4hAWpe4oXd+k364Nb5cPKsiDs
-	dZkcKq+Ps5Y9qIZqphFAOX9X1bNL4TW/lMgV0Epg0PhMhU/L1RJQDVePSUlFj8a1NmuM1RKbvNh
-	DeF6zHWGkNCt84glg3s750H06kuKhup2/VbDJbcEOr52KSCHyix4XtzxEPrFxBwo3Nef3WijtpS
-	eqh4JCHrtapJbbgMoTm8U3dxFimgddqKPqUPT3
-X-Received: by 2002:a05:600c:3e1b:b0:48a:9562:7a30 with SMTP id 5b1f17b1804b1-48fe6515f20mr40353795e9.24.1778839409890;
-        Fri, 15 May 2026 03:03:29 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.168.101])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0a1aeafsm13035426f8f.23.2026.05.15.03.03.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 03:03:28 -0700 (PDT)
-Message-ID: <b762a6f2-72f6-4edf-9b39-858679ab1088@linaro.org>
-Date: Fri, 15 May 2026 11:03:24 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBKi+bpm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7497C2BCB0;
+	Fri, 15 May 2026 10:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778839436;
+	bh=rmXc2RV9XZGALh+ZdY2CWCSvGaYLblZ8chn0OvWGWEk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=LBKi+bpmKyG+cH6YwIGomcrWS1lBBal434bNxd0C2HiuoJqhKdhpVqQN74tE7e9LM
+	 kUnSbWV6LBzUcg5JuqGDTyKhI6XhB9pA4P9k8f3QJIkmz/DzW2qLdfO9AtUR4LgPgl
+	 itnVs4uDGOIiIlCJm5ZssjYD7Tir789DRAS54PCK264yWyoTXKqq2UTFWAFC2y/ZKo
+	 1RO5oZs4HU803yRqULjWtPvTBlUaPj7Hy40I+s7PAfLgl9EjwxJGCQ1DMO+pFFGhnu
+	 yfubd4buO6vjuE45K+WftR5jXSW/kHsEoyoPxLMLUzYS487M107DnLwLZiR8fQHOxN
+	 skhTfguZKGUEA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] hwmon: Add Eswin EIC7700 PVT sensor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: hehuan1@eswincomputing.com
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515092128.483-1-hehuan1@eswincomputing.com>
+References: <20260515092128.483-1-hehuan1@eswincomputing.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 10:03:55 +0000
+Message-Id: <20260515100355.A7497C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 6/8] media: qcom: venus: add power domain enable logic
- for Venus cores
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260514-msm8939-venus-rfc-v7-0-33c6c6fb9285@gmail.com>
- <KyofAf7-7fHuyrl4e6F6V0PcISdaPnC_KqyHb1MnejRrdC2Zkfj17Gz2_zcC5Z1ZnCvCWxJ0cSrHqzCzqQjxHg==@protonmail.internalid>
- <20260514-msm8939-venus-rfc-v7-6-33c6c6fb9285@gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20260514-msm8939-venus-rfc-v7-6-33c6c6fb9285@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 13/05/2026 22:24, Erikas Bitovtas wrote:
-> +static int vcodec_domains_enable(struct venus_core *core)
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [Critical] The timeout calculation for sensor conversion evaluates to 0 j=
+iffies, causing all reads to instantly fail.
+- [High] Missing pm_runtime_disable() in the devres cleanup path leads to a=
+n unbalanced disable_depth.
+- [High] Clock leakage on the IRQ request error path when CONFIG_PM is disa=
+bled.
+- [High] Race condition between ISR and main thread leaks PM runtime active=
+ state.
+- [High] Incorrect initialization order causes an IRQ storm during probe if=
+ an interrupt fires early.
+- [High] Lack of internal locking in eic7700_pvt_hwmon_read allows concurre=
+nt hardware state corruption.
+- [Medium] Useless and incorrectly ordered devres action for unblocking sys=
+fs readers.
+--
+
+commit fe78922d5101b3a07ca5ea0fbd0fd5e9cba0dcc9
+Author: Huan He <hehuan1@eswincomputing.com>
+
+hwmon: Add Eswin EIC7700 PVT sensor driver
+
+Add support for ESWIN EIC7700 Voltage and Temperature sensor. The driver
+supports temperature and voltage monitoring with polynomial conversion,
+and provides sysfs interface for sensor data access.
+
+> diff --git a/drivers/hwmon/eic7700-pvt.c b/drivers/hwmon/eic7700-pvt.c
+> index 0000000000000..cdcfa031cdbdb
+> --- /dev/null
+> +++ b/drivers/hwmon/eic7700-pvt.c
+[ ... ]
+> +static irqreturn_t eic7700_pvt_hard_isr(int irq, void *data)
 > +{
-> +	const struct venus_resources *res = core->res;
-> +	struct device *pd_dev;
-> +	int i = 0, ret;
+[ ... ]
+> +	val =3D readl(pvt->regs + PVT_DATA);
+> +	WRITE_ONCE(pvt->data_cache, FIELD_GET(PVT_DATA_OUT, val));
+> +	complete(&pvt->conversion);
 > +
-> +	if (!res->vcodec_pmdomains)
-> +		return 0;
+> +	if (IS_ENABLED(CONFIG_PM))
+> +		pm_runtime_put_noidle(pvt->dev);
 > +
-> +	for (; i < res->vcodec_pmdomains_num; i++) {
-> +		pd_dev = core->pmdomains->pd_devs[i];
-> +		ret = pm_runtime_resume_and_get(pd_dev);
-> +		if (ret)
-> +			goto err;
-> +
-> +		ret = dev_pm_genpd_set_hwmode(pd_dev, true);
-> +		if (ret && ret != -EOPNOTSUPP)
-> +			goto err;
-> +	}
-> +
-> +	return 0;
-> +err:
-> +	while (i--) {
-> +		pd_dev = core->pmdomains->pd_devs[i];
-> +		dev_pm_genpd_set_hwmode(pd_dev, false);
-> +		pm_runtime_put_sync(pd_dev);
-> +	}
-\n> +	return ret;
+> +	return IRQ_HANDLED;
 > +}
+
+If the main thread in eic7700_pvt_hwmon_read() drops the usage count from 2
+to 1 before the ISR drops it from 1 to 0, will both threads fail to trigger
+the idle callback?
+
+This could leave the device indefinitely in the active state. Should the ISR
+use pm_runtime_put_autosuspend() or pm_runtime_put() instead of
+pm_runtime_put_noidle()?
+
+[ ... ]
+> +static int eic7700_pvt_read_data(struct pvt_hwmon *pvt,
+> +				 enum pvt_sensor_type type, long *val)
+> +{
+> +	unsigned long timeout;
+[ ... ]
+> +	timeout =3D 2 * usecs_to_jiffies(ktime_to_us(pvt->timeout));
+> +	ret =3D wait_for_completion_timeout(&pvt->conversion, timeout);
+
+Because pvt->timeout is 333 microseconds, will usecs_to_jiffies(333) evalua=
+te
+to 0 on standard kernel configurations like HZ=3D1000?
+
+If so, this acts as a non-blocking check and wait_for_completion_timeout()
+could instantly return 0, causing all reads to permanently fail with
+-ETIMEDOUT.
+
+[ ... ]
+> +static int eic7700_pvt_hwmon_read(struct device *dev,
+> +				  enum hwmon_sensor_types type, u32 attr,
+> +				  int ch, long *val)
+> +{
+> +	struct pvt_hwmon *pvt =3D dev_get_drvdata(dev);
+
+The driver registers the temperature sensor with the thermal subsystem via
+the HWMON_C_REGISTER_TZ flag.
+
+If thermal zone background polling directly invokes this read callback while
+a user concurrently reads a hwmon sysfs attribute, is there a race conditio=
+n?
+Does this need an internal mutex to prevent concurrent hardware state
+corruption?
+
+[ ... ]
+> +static struct pvt_hwmon *eic7700_pvt_create_data(struct platform_device =
+*pdev)
+> +{
+[ ... ]
+> +	ret =3D devm_add_action(dev, pvt_clear_data, pvt);
+
+Because devres actions execute in reverse order of registration (LIFO), will
+this action run after the hwmon device is unregistered?
+
+Since hwmon unregistration blocks until all active sysfs read operations
+finish, the reader would have already completed before pvt_clear_data runs,
+which might make it ineffective for unblocking sysfs readers.
+
+[ ... ]
+> +static void eic7700_pvt_disable_pm_runtime(void *data)
+> +{
+> +	struct pvt_hwmon *pvt =3D data;
 > +
+> +	pm_runtime_dont_use_autosuspend(pvt->dev);
+> +	pm_runtime_force_suspend(pvt->dev);
+> +
+> +	if (!IS_ENABLED(CONFIG_PM))
+> +		clk_disable_unprepare(pvt->clk);
+> +}
 
-+
+Should this custom devres cleanup action call pm_runtime_disable()?
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+If the module is unloaded and then re-probed, could the unbalanced
+disable_depth cause an "Unbalanced pm_runtime_enable!" warning and corrupt
+the power management state?
 
----
-bod
+> +
+> +static int eic7700_pvt_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	if (IS_ENABLED(CONFIG_PM))
+> +		clk_disable_unprepare(pvt->clk);
+> +
+> +	ret =3D eic7700_pvt_request_irq(pvt);
+> +	if (ret)
+> +		return ret;
+
+If CONFIG_PM is disabled, the clock remains enabled. If
+eic7700_pvt_request_irq() fails here, does the function return without
+disabling the clock? This could permanently leak the clock reference because
+the devres cleanup action is not yet registered.
+
+> +
+> +	pm_runtime_enable(&pdev->dev);
+
+Since the IRQ is unmasked before pm_runtime_enable() is called, what happens
+if the hardware asserts an interrupt in this window?
+
+If eic7700_pvt_hard_isr() fires, pm_runtime_get_if_active() would return
+-EINVAL and the handler would return IRQ_NONE without clearing the interrup=
+t.
+Since the interrupt is level-triggered (IRQF_TRIGGER_HIGH), could this cause
+an infinite IRQ storm that locks up the CPU?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515091942.449-=
+1-hehuan1@eswincomputing.com?part=3D2
