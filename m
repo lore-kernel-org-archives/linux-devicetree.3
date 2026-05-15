@@ -1,95 +1,217 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6CB3F20F6;
-	Fri, 15 May 2026 07:48:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5C33AC0F1;
+	Fri, 15 May 2026 07:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778831322; cv=none; b=ZgBmm+2qsodaArkWsimrLB75cLrj4D6RjBYEVy10ITiMq/wzpjbA41vUllO5hHYy7OYKmjnnhZp4NJOIvajpAweA1DspjU+krUqjJ0omNkkLVUQlwNRRijrSQ9sCADgBJ8z0clTBoQuQnJTA+F52eWnYHMlORfAgqWT1p58V818=
+	t=1778831653; cv=none; b=qQ3ACx19J51WqK8MHqPOgWoiAXw96DSJg7LEECAXI+gDF63xAFjf1G2rsAHQV5VhcR7K10uBLjQnFCO0mlpp8BAbReeNfTGH2pqgqika1C7MV3aNokJm83Q1eHuGCf5P0il2tOokU+ReQ5nLbQ3cTuMoGVIG4mutSSra619Zkss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778831322; c=relaxed/simple;
-	bh=GnvF+3lr3/CxAtmxTGYUQTrSwCr7CpNrWr3OTp6aMPg=;
+	s=arc-20240116; t=1778831653; c=relaxed/simple;
+	bh=6ceNaQOsWeuicN4hn04erefEjHrpUzdn7iOlsxG3uV4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VToXCwyjurRBdhhREyrrzOIOF1g32DOHDAfZhE6QByc44KRfcSQXpPqVKZeMPvkRKLRAQ7lW3TEQtTEOvZF4I+Vob2ye2IxJ1yzW96OCSaEoN0nzDwa18bPB2zFnFM2uBF6IjNTo/NZXW3fRpD1DKpvOI09zaaiQSMU8adWG6qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=av5Irmdu; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=jfDpW5MECfhCEczDGi8jEFMh6Avb7qLNHCyzzdglHvPkbvfCc8Ht7MvABtVwyUOoB3JMDMX6M6iOpCcuc5B3ImjsAg/kGdYuDhHz9EeVMrYv2Ryf47ueSvg5rk+M8ysxOjeEjsQ1d4fE8UJnJXwSotVjSiZIKdquylwbdhFzac0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQCUnjVl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="av5Irmdu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=a1AVvdVarc8InzAOGW6ry1UU/91SpnKo6fW3luX2//U=; b=av5IrmdufgZCyrkWhuzfjPjqid
-	qR2SeBhvG4bLfAHJc0UhihY+pCE+1pudh4/9DxKesByZDb7ddBmSJNuR3MZNMxvpV/sBGIVFh0afh
-	MOXd3D8Rc2vh020gjBvhKA+W3ecJgZpuQQFcm1oUPbhIW4i95n4W9yR210YYO9lWCBNeZSwOQ7D8w
-	A4ELDN0tLgPGCGDjYggh309d8EmUk3MCH5iDHbAXRWLftmENZh4bXqpdMsT5gU5kqLQ4rgMCVK8aN
-	PjSYO1ijgSw7X0354AQZnh+Vxqpkr3YA7JBcmbOg+RN9Cr0G/rapoWhLocjt+vdG/9abXSB99nMQY
-	BrM8Ju6Q==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wNnHf-00000008MGS-2RNt;
-	Fri, 15 May 2026 09:48:35 +0200
-Date: Fri, 15 May 2026 09:48:35 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: E Shattow <e@freeshell.de>
-Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH 3/4] riscv: dts: spacemit: enable eMMC on Milk-V Jupiter
-Message-ID: <agbP0-OsfQRFJcr0@aurel32.net>
-Mail-Followup-To: E Shattow <e@freeshell.de>, linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-References: <20260514160356.1642075-1-aurelien@aurel32.net>
- <20260514160356.1642075-4-aurelien@aurel32.net>
- <f52a821b-157a-467d-84ee-4d1d4a96f673@freeshell.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQCUnjVl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33FA7C2BCC7;
+	Fri, 15 May 2026 07:54:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778831652;
+	bh=6ceNaQOsWeuicN4hn04erefEjHrpUzdn7iOlsxG3uV4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OQCUnjVl95zerEu5idPYQgFx5D1M+KBHFdz6BwSmSbcvV3+ktlYEqSupy6T017Wof
+	 ES3463b/oqdcvR2oGHQqucZl0PtOw2ptAGwcNz63XcWeF1G4/Tm2k+bLVAC5Va18m/
+	 +LNI6hPLN693AfDNkwep6l/L9y8dElHu0paB/sczHAXca2lwT7fsefpvjJ0GMcOlDb
+	 N1TjpZypvaLrz3IsYBnEhQzm5zX3MgoqZUPecakF402Twai+x3ydBubgEgeQFZaWoZ
+	 Dboapk/t353YYcpHvDlXocRN2rx1fHhZ8txKf/FIISCcx9qMdf7HbXcimAZqRY63ze
+	 ewa2ALJACJ9lg==
+Date: Fri, 15 May 2026 09:54:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Peter Chen <peter.chen@cixtech.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	gregkh@linuxfoundation.org, pawell@cadence.com, rogerq@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	cix-kernel-upstream@cixtech.com, linux-arm-kernel@lists.infradead.org, arnd@arndb.de
+Subject: Re: [PATCH 3/4] dt-bindings: usb: add CIX Sky1 Cadence USB3
+ controller
+Message-ID: <20260515-dynamic-archetypal-reindeer-dc6dd5@quoll>
+References: <20260511024244.981941-1-peter.chen@cixtech.com>
+ <20260511024244.981941-4-peter.chen@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <f52a821b-157a-467d-84ee-4d1d4a96f673@freeshell.de>
-User-Agent: Mutt/2.2.13 (2024-03-09)
+In-Reply-To: <20260511024244.981941-4-peter.chen@cixtech.com>
 
-On 2026-05-14 23:49, E Shattow wrote:
-> On 5/14/26 08:56, Aurelien Jarno wrote:
-> > The Milk-V Jupiter board has a connector for an eMMC module. Add an
-> > entry for it in the device tree and alias it mmc0. As it is not
-> > populated by default, do no mark it as non-removable.
-> > 
+On Mon, May 11, 2026 at 10:42:43AM +0800, Peter Chen wrote:
+> Add a binding for the CIX Sky1 integration of the Cadence USBSSP DRD
+> controller. The schema documents the glue register window, clocks,
+> resets, interrupts and S5 system controller phandle.
 > 
-> The meaning of "non-removable" here is whether it is expected to be
-> added and removed during use, requiring to be probed again; not whether
-> it is a user configurable module or soldered down part.
+> Signed-off-by: Peter Chen <peter.chen@cixtech.com>
+> ---
+>  .../bindings/usb/cix,sky1-cdns3.yaml          | 151 ++++++++++++++++++
 
-Not connecting the eMMC module and larking it as non-removable causes this info
-message to appears in the logs:
+Why are you mixing USB patches with DTS in one patchset? Don't.
 
-mmc0: SDHCI controller on d4281000.mmc [d4281000.mmc] using ADMA
-mmc0: Failed to initialize a non-removable card
+>  1 file changed, 151 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-cdns3.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-cdns3.yaml b/Documentation/devicetree/bindings/usb/cix,sky1-cdns3.yaml
+> new file mode 100644
+> index 000000000000..23d82d8cc9bc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/cix,sky1-cdns3.yaml
 
-Regards
-Aurelien
+Complete mess of filename. There is no such compatible.
 
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+> @@ -0,0 +1,151 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/cix,sky1-cdns3.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 Cadence USB3 Controller
+> +
+> +maintainers:
+> +  - Peter Chen <peter.chen@cixtech.com>
+> +
+> +description:
+> +  The CIX Sky1 USB3 controller is based on the Cadence USBSSP DRD
+> +  controller. The integration adds glue registers and mode strap controls
+> +  in the Sky1 S5 system controller.
+> +
+> +allOf:
+> +  - $ref: usb-drd.yaml#
+> +  - $ref: usb-xhci.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: cix,sky1-usb3
+> +      - const: cix,cdns-usb3
+
+I don't understand the fallback compatible. You claim this device is
+called EXACTLY like vendor cdns? Nope, you SoC specific compatibles.
+
+
+> +
+> +  reg:
+> +    items:
+> +      - description: OTG controller registers
+> +      - description: Device controller registers
+> +      - description: XHCI host controller registers
+> +      - description: Sky1 USB glue registers
+> +
+> +  reg-names:
+> +    items:
+> +      - const: otg
+> +      - const: dev
+> +      - const: xhci
+
+Wrong order, look at cdns,usb3 schema.
+
+> +      - const: glue
+> +
+> +  interrupts:
+> +    items:
+> +      - description: XHCI host controller interrupt
+> +      - description: Device controller interrupt
+> +      - description: OTG/DRD controller interrupt
+> +      - description: Wakeup interrupt
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: host
+> +      - const: peripheral
+> +      - const: otg
+> +      - const: wakeup
+> +
+> +  clocks:
+> +    items:
+> +      - description: Start-of-frame clock
+> +      - description: AXI bus clock
+> +      - description: Low-power mode clock
+> +      - description: APB register interface clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: sof
+> +      - const: aclk
+> +      - const: lpm
+> +      - const: pclk
+> +
+> +  resets:
+> +    items:
+> +      - description: APB register reset
+> +      - description: Controller reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: prst
+
+apb
+
+> +      - const: rst
+
+controller or core
+
+> +
+> +  cix,syscon-usb:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the Sky1 S5 system controller used to program USB mode
+> +      strap controls.
+> +
+> +  dma-coherent: true
+> +
+> +  maximum-speed:
+> +    enum: [super-speed-plus, super-speed, high-speed, full-speed]
+
+Why isn't this deducible from the compatible?
+
+> +
+> +  phys:
+> +    minItems: 1
+> +    maxItems: 2
+
+No, this is not flexible.
+
+> +
+> +  phy-names:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      anyOf:
+> +        - const: cdns3,usb2-phy
+> +        - const: cdns3,usb3-phy
+
+Drop all this and define standard names.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - cix,syscon-usb
+
+phys should be required, no?
+
+> +
+> +unevaluatedProperties: false
+
+Best regards,
+Krzysztof
+
