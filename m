@@ -1,157 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF36E3B6354
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569A33FBB51
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778861553; cv=none; b=EMdv0QSXXMqM+O9D1U5WresddTX9hY1uZHanujGPssPlZAmaDqwaEAw/PGrlgNxZYBM7bXIixMoq70xoLg5uJD2COCgmOr2ukogv67EMuobNNXGMC73+ESIZxX/NOvk3vkdpWuTYccrx2vhupwKnHvHXMAdPeQHebv5OZ1b07IA=
+	t=1778861648; cv=none; b=j9mAfiVrn/kIDOuVpG/qOthQB+QvrKxXliyt8SK/Kk3I4mDdx5tvS9r9VbgBRViQk4pztTR6JnU8yirzjsVwDMqTwmqf83HKqqnu32msFJyAYEJGBNG+6EzmROyzG1yiegs3qmsGQYiEapKXMUvfNUI8XLVojFfE+W/SNjGGIbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778861553; c=relaxed/simple;
-	bh=ajfMeNlbacyrJhotvON69vV08gKAAPbB+tQGK/f4yF8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uV8R2CdrSuvWQ6LIypDXxl74EayJ3Wz4UGJBhs9onqRh1+Y2VGT9LgYG1cd11LlEQDlhpj9i3t/mTEhfHwgv3WRF2xUImivLb18HFEnGzJCEMdoiIqX8zi/PGHih/tZP0JB0K/HGCKDWZ0xuteNUr5DOf8tvSQKdP+YpnWvbMjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lNsiVpgz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778861648; c=relaxed/simple;
+	bh=cboX3d8XkVXIEKowAOjoe4Fu6Sq0Dq4+kvLQFmjQATQ=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mcLrLqyGhm0HbM9EBU+fORq4k2N0Q6cDuTCxxj/zAntGMQZdtpfWkhXUgYPBXviiOS/bGmetRQMhR5Ur//AiuxEl0CLQM1FJL6Fn7HKVI7R/7iX9o2IeXmKJfADKzp9xWUGn49ld1j3PxYCQ3eCxfADDytBPJhXMgpGpXPFm9OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=T1ivEFAA; arc=none smtp.client-ip=170.10.153.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lNsiVpgz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE04C2BCF6
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:12:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778861552;
-	bh=ajfMeNlbacyrJhotvON69vV08gKAAPbB+tQGK/f4yF8=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
-	b=lNsiVpgzp/XRQAqxwaKH8NMC9j740bxLutzSLti6/867t9T6oFIX05Traa5lD5Nh+
-	 QlCJAfzz796aQqNjkyXOObduMn9RyJ7i1k62pLM+jQXG1O7enPpH6BhoSgW+32+UJ5
-	 s6PNasBCryu59ytr6teI9OLO88zIhs5SVmLvmOumTek3x62V/gU5aUeF57E+oJ2IA1
-	 rs+9k5mA/O7Bk34GKOARd0wm8SZSKRIXQrUFuANdE5+jvhE4IWOHMyiZsHJOCL6T20
-	 /M7G7Y+OKX/TlsM60dkUS1hKzzhfJnrqTsfZjxj0WjeJqnQjz3inzIZCz3jUknFSah
-	 74iL8643V8RnA==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-394413a63d3so221711fa.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:12:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8b6fzh4BQX2Uj7zwJR8qSDQ0qQ1GjaAQZOvxhrqw6cLQ+r4P5In8OM/fXyRYEgJBndWzOxqt67oPTv@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZSTiTzXQadvlT8VqiZQhlLEOdoSOT/D8XiJybZkngFOaZLWa5
-	+vsFuEk0femD8dzQzyo5vQ/9cFN89pE3OmzW7BjNTBI+bh/MHCVVcQKkkl5May0DCnzq792emTE
-	UMxGdIFg6WZC/Zy2iXB/Na2RkMRWcH6A=
-X-Received: by 2002:a05:651c:1593:b0:394:331:c26d with SMTP id
- 38308e7fff4ca-39561c07bf6mr16170691fa.6.1778861551206; Fri, 15 May 2026
- 09:12:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="T1ivEFAA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1778861639;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=6z1jfvzQfiPZQlmfQKAx/3yNkDe+kLUmEifZ3V+qmwQ=;
+	b=T1ivEFAAITmYxtBHbJcADE6xifrgoYt2dgcKO+DQBMZcmBvEht0CtdnUjviVN7U1CP3PdI
+	2swRJw/HNudfZy8XkvWyNJZXKZj7uOC42zwRBgp48q7f1YukAJc3pfcDkKy9QITtH3AyCY
+	i7SchbEdIihat+N8ogOrqekxBpqtP+itCK5unDLB09RCRkl+kBdvg7RwIgW3uZ6gSso468
+	IdVr4BWk9BdcIvDhMkDgd376df0lH6daXrdi2De+2UAfmkHBYEK+GMNiRa+c1BMKC2ZapA
+	TzdwCgMAEOpfzioqg1yK0B+K6/qwOz//7Tq0PR8IIE/I005DYVkwK0HL2Mco0Q==
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012052.outbound.protection.outlook.com
+ [40.93.195.52]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ usb-mta-34-fdhDgZ9mPuSvFawhfiCbkw-2; Fri, 15 May 2026 09:13:55 -0700
+X-MC-Unique: fdhDgZ9mPuSvFawhfiCbkw-2
+X-Mimecast-MFC-AGG-ID: fdhDgZ9mPuSvFawhfiCbkw_1778861633
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
+ by DS1PR02MB10490.namprd02.prod.outlook.com (2603:10b6:8:217::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.19; Fri, 15 May
+ 2026 16:13:51 +0000
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.20.9913.009; Fri, 15 May 2026
+ 16:13:51 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: "parthiban.veerasooran@microchip.com"
+	<parthiban.veerasooran@microchip.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org"
+	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be active
+ low, level triggered
+Thread-Topic: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be
+ active low, level triggered
+Thread-Index: AdzkhZbrD+M8KZwKQJ6/PvOKyavj8w==
+Date: Fri, 15 May 2026 16:13:51 +0000
+Message-ID: <CY8PR02MB924916514D414B698DEB9A1883042@CY8PR02MB9249.namprd02.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|DS1PR02MB10490:EE_
+x-ms-office365-filtering-correlation-id: f00d2a4c-c1f2-4003-69eb-08deb29cf45d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014|56012099003|18002099003|921020|38070700021|11063799003
+x-microsoft-antispam-message-info: aSM1CAitQIdHwoTrDvg4tm4t9tmcxfMtGF9DKajlJuyJc3U4FKCKV5RshS20yjfc9EByFW9g6hPbwOKK5IJTciCVwSoAgQiITMNMPAbhIbKNqQRPZ+6bWFgd9iwTsq2pNshe77rn9CqWbEZsHLF+lLahIya92J8WVP5KxFR1C1MjlW7EvgzP6nwiN5+SQIHKyy/sYjkGCid95w72g3jcHLEJhl2cwpOCc4/h8o5y1BMbBimOxbNeDMKk7GK/bSykmGKKyq/Fvb5KcCUQuH8t2eby7Ebl1qcXnoEZY39q48zrWJ1NLZVevnFcWOKhejFAk1i7qONzIgu8UVvsfacm8/greIsf6gLmFQ6nSWk33sRlHQMysHZY11Os7P4/RriCQxWX05RZYaKiKVJjK2r3hEYYmY+3H5U2M4tvy3KV6vDwae9LNh3eqpbPyW1NgRHI9MwH36TnXaCkc+L/Rr0bnNvw9e8Wycv4MVUnNfqMeX6LhFVYpZOTDmXkYw2gvRqaIxVaI3g0safMxj6T0409P1RVs0Qjndd2610GaUFKaybKbw4ZNOpNjvipv0L3fA4jbs0RRmW/Yelb1nei9Z6fckq8ZBx3zoenJ9SP1rDjUfRf5MtZzpJigldc8MiOdCDT2U7kP+CmuMQm07IcrxUheTmDW5aS0mhw1+Ij+UedqLTMZ1ps+duh6TQSiA1cqYV7zos3fMDA6GvMK1DA46UqPQWeUAjXpvZp0+NIsQAtOG6VobEQgGgHUvTaYFo5RWPIG/05QDT/ZVTJezoY5MHX6Q==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(56012099003)(18002099003)(921020)(38070700021)(11063799003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KT1vjFw1o6X7BvSgeEgAnIFkAcTu4mpKeTEzoBy2QIBPb95Dkt+iHjvLysud?=
+ =?us-ascii?Q?b6v0HkQt9HrEROwoD/q4uSLe5UvqHJ4AHi0bAeggZ2yBpPPzMN+aq7HnMyf6?=
+ =?us-ascii?Q?rydXbBSkYgL89GObgHvD4U5uow6qH6MpXtXRJZNUVm1mhaevypWGJTlLbzzC?=
+ =?us-ascii?Q?kQQppTVlKUHK2WQ1j76Em3ZH5M+OBLUdassCGeDdDRInKCuOuQMS6dIPZvgh?=
+ =?us-ascii?Q?uxiGNy0mKlN3KAYUZBlhZvuqcCDvgOILx51A/zn+kLhTFIq/BXhFGiMfFNDI?=
+ =?us-ascii?Q?9SY/xVi/E35CTTfKEpFEdeAOUQlf1rGf4JngMt5pjzVhqdyyhkR7Dpz7tzq3?=
+ =?us-ascii?Q?xP+xtm6d0Np0tcmQ3JbwlE6wj9uYTqc6nQyHYbUZB5dEJFSreGmkYb3ripVV?=
+ =?us-ascii?Q?3KWTaaS4A5OiZ555FwWpqH8OuMo+CpbkLhl1EeWmbOOkLnkZez+6IlqOmtTi?=
+ =?us-ascii?Q?U31FoXfg+KXxOgCvxlxVnFefuPUjo9Nmu1LolDVvcDE3RPWKkum2XHsWHrki?=
+ =?us-ascii?Q?UJUXbgtu0Sz1sX06ARAGzejdOR94KA3KpthBwypP9PPm1dVljSbXr0NrashH?=
+ =?us-ascii?Q?+ikPvh1noHEwQKXEvdeqNb3g1cta1Q/hBCXT/bq8sweIDkBhIuReMXEy4sC8?=
+ =?us-ascii?Q?gM5yPFjmuWvEGCeUcnfkRPeOrRUcZOTV80aUvnOJBAFew+NICuSbNTMVPjo6?=
+ =?us-ascii?Q?S/UGRYtcfXa1Zz3J8yM42IJwK2Jn3X9vGhVNpVo8/I3qAE43/4R5gBomxKFz?=
+ =?us-ascii?Q?1sUtpO7Yu2mBd7tLex9CtnqwxwL5psWLVb/d7as167D/rDbG0qXhXXIAoXQq?=
+ =?us-ascii?Q?zNuwJKbGJ8jXNH7V/aApOyogSOLOLiKqm1RKt/OjR+Ra8ifdWwJZfNmOFx9e?=
+ =?us-ascii?Q?l19FokLmW0SvWhJWa5o61HjQQvyj8Tc0GaGG89HWy2nxHQzVKK4zCFKFoI6F?=
+ =?us-ascii?Q?U8TVbjiHKZA9OZhATlNZlJxTfKyvYUqqt5OInPOUAbFdWalc8przHBU3ZwQb?=
+ =?us-ascii?Q?ZotDRO3tGhwpWKsjHxasOrlRNcvL+1eYpIbB9To5QGYh6/4AFTit+DTVpRmR?=
+ =?us-ascii?Q?Z7Jtp4H95iMeQLnNJWBFsLm4LGVgJR8uwPPtH7cHJq9tiXzINksr9X/Zmrmc?=
+ =?us-ascii?Q?/e1Xp76tDM1NIpAoCd6MilxKqMfLHWcvuvIUIgFjmiSzkyQuHe/UZEiTlHRn?=
+ =?us-ascii?Q?2V+CxP0oVT+qm7bVI10rwNartdvyaZZaAzO5oHMrqz5mxjToE+WtpNX/2hiD?=
+ =?us-ascii?Q?ofQf63dqZwx8wMcwWL0SGnKJ5Np/9q9UWlSgHuz3YUxbj0vXfgZN2fUZJ5NX?=
+ =?us-ascii?Q?yAyRQ8Fnpwy0hVv/7DoQi3JTjJgrXfjbyY1/dD+Hp3buG+ypS5Y98OAuTQAy?=
+ =?us-ascii?Q?N5OOul5d9i8VnXc6iLAZcBjl1OSeiKCqHrW+pEixDe/cLB/8mWpoi3MUvKfc?=
+ =?us-ascii?Q?nGDP58aqyvgRblsmzE7l0iRGVHDNBevtEzlzSib4TzUSvv1OWIRI9+L++hhM?=
+ =?us-ascii?Q?h3pE+JKkKKusH8ekA/SHbxHeSTs5ohxa/9wIkQTqav/pCe5UrMdm2xVir/yG?=
+ =?us-ascii?Q?ijwC6oJcmS0/wvjsM4BfIXOX59+Uv2sVAlWZMR6RkNt79CA72gMLLgSHovuo?=
+ =?us-ascii?Q?tDqPM/vr4tXpMXDdkcaeTB6fD/exqHWNZTtrlX6bXLVonCy/zHWfxT3N+t7y?=
+ =?us-ascii?Q?MPaMH8V7GcIN0UpHjx10tTLATd7D1gtRMF0ig0U5LG7Wwo5slOSi9RmRj7o3?=
+ =?us-ascii?Q?y0VbOovl8HGELoVhDb7Vbacwqyz/iZM=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511221741.25888-1-andre.przywara@arm.com>
- <CAGb2v64u4sqwiiQcEBg-XvmJ2DLEpSj-_AWNbp14RAp-GXP7OA@mail.gmail.com> <ee9fca66-d079-4ad7-9cb3-5077e8a4f6d6@arm.com>
-In-Reply-To: <ee9fca66-d079-4ad7-9cb3-5077e8a4f6d6@arm.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sat, 16 May 2026 00:12:17 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66drOyBgNU0hFo356MKTFnggNmyzrANok+-U31NzZCUEw@mail.gmail.com>
-X-Gm-Features: AVHnY4IAiy7whTy9FnGtvfBRFabJs2Ii_3tvaDmPh7Gdax0WMKu2QkVOACnxggs
-Message-ID: <CAGb2v66drOyBgNU0hFo356MKTFnggNmyzrANok+-U31NzZCUEw@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: allwinner: Cubie A5E: enable SPI flash
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked: aSjgtflFvnc2IWLSkqsxI1O8lNPMI5Yhft41M3BpmMnbqp4OXdKVsmX6qIuXu9LaVyhpRERpXrh+WEnJuNoguZwKY/BcQcmOu4PV4FWO2aThvDuKTWEA/3aYYzYuaDMfXpEKd4GaEaLJYc3GzeswCnBSgjk6M5jK1IEhz+XqPNVye4fH8EE+tFoYvhZ5KrqDEFwduqkQ1OcrAgy/vS3UFBjjeOsmChbzR3zLnVP8bbTYZ05ONxeMqm3ALJG9OYLzVjggn1X/z66FpJCeZn9APkpp4J1Fks+mQHu53qZSFvvcVsulGUjBYOiKbihxWazUeLq5zMW3dz6Bs4VD8MCTWQ==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f00d2a4c-c1f2-4003-69eb-08deb29cf45d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2026 16:13:51.6941
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8V0xqAgIsUaVlgXYEbRSZ90hFneKDEYi2w2WoQNKRz9iNlnBOqY7ChCO5dLg6+8i9nFnwQ/SpNsyFcB+YRu5GCKPzH9dG1vyGaRwAO7lO+E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR02MB10490
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: VJYyjAL5g5RkK5g4v6OtoPJVh844x1LuB6ljwnPSTTw_1778861633
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 13, 2026 at 5:19=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
-com> wrote:
->
-> Hi Chen-Yu,
->
-> thanks for chipping in!
->
-> On 5/13/26 07:21, Chen-Yu Tsai wrote:
-> > Hi,
-> >
-> > On Tue, May 12, 2026 at 6:18=E2=80=AFAM Andre Przywara <andre.przywara@=
-arm.com> wrote:
-> >>
-> >> The Cubie A5E board comes with 16MiB of SPI NOR flash.
-> >>
-> >> Enable the SPI0 DT node and describe the configuration.
-> >>
-> >> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> >> ---
-> >>   .../boot/dts/allwinner/sun55i-a527-cubie-a5e.dts  | 15 +++++++++++++=
-++
-> >>   1 file changed, 15 insertions(+)
-> >>
-> >> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts b=
-/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> >> index bfdf1728cd14b..7ad22fc85d1fd 100644
-> >> --- a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> >> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> >> @@ -344,6 +344,21 @@ &r_pio {
-> >>          vcc-pm-supply =3D <&reg_aldo3>;
-> >>   };
-> >>
-> >> +&spi0  {
-> >> +       pinctrl-names =3D "default";
-> >> +       pinctrl-0 =3D <&spi0_pc_pins>, <&spi0_cs0_pc_pin>,
-> >> +                   <&spi0_hold_pc_pin>, <&spi0_wp_pc_pin>;
-> >
-> > This whole thing needs to be an overlay. The HOLD and WP pins
-> > conflict with eMMC usage, so it seems that Radxa only populates
-> > one or the other.
-> >
-> > If you look at the pictures on their official website, you'll see the
-> > SPI NOR chip populated, but not the eMMC chip. On the linux-sunxi wiki
-> > page, you'll see the opposite.
->
-> Well, I have a hard time spotting any actual eMMC SKUs in the shops anywa=
-y.
-> But you are right, the hold and WP pins conflict with eMMC, whereas the
-> other pins are not.
->
-> > And you probably want to enable QSPI, like Sashiko mentioned.
->
-> Well, in the interest of keeping this simple and enabling the usage of
-> SPI flash for all the users out there, I'd rather drop the extra pins.
-> This is mostly really useful for booting the firmware, maybe loading a
-> tiny kernel or other data once, so performance is not a big concern in
-> this use case. The BootROM surely does not use QSPI.
+According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
+specification, interrupt type is active low, level triggered interrupt.
 
-Given that the pins are tied on physically, if someone then enables mmc2
-for a potentially present eMMC, the two pins could be toggled by the
-MMC controller, causing the flash to misbehave. I'm slightly concerned
-about this possibility.
+Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S =
+MACPHY")
+Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+---
+ Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml b=
+/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+index 61e11d4a07c4..766ff58147ae 100644
+--- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
++++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+@@ -67,7 +67,7 @@ examples:
+         pinctrl-names =3D "default";
+         pinctrl-0 =3D <&eth0_pins>;
+         interrupt-parent =3D <&gpio>;
+-        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
++        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
+         local-mac-address =3D [04 05 06 01 02 03];
+         spi-max-frequency =3D <15000000>;
+       };
+--=20
+2.43.0
 
-ChenYu
-
-> And as you say, if people are really interested in the last bit of
-> performance, they can use an overlay.
->
-> Cheers,
-> Andre
->
-> >
-> >
-> > ChenYu
-> >
-> >
-> >> +       status =3D "okay";
-> >> +
-> >> +       flash@0 {
-> >> +               compatible =3D "winbond,w25q128", "jedec,spi-nor";
-> >> +               reg =3D <0>;
-> >> +               spi-max-frequency =3D <40000000>;
-> >> +               #address-cells =3D <1>;
-> >> +               #size-cells =3D <1>;
-> >> +       };
-> >> +};
-> >> +
-> >>   &uart0 {
-> >>          pinctrl-names =3D "default";
-> >>          pinctrl-0 =3D <&uart0_pb_pins>;
-> >> --
-> >> 2.46.4
-> >>
-> >
->
