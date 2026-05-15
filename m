@@ -1,135 +1,141 @@
-Received: from mail-m32113.qiye.163.com (mail-m32113.qiye.163.com [220.197.32.113])
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA303D5646;
-	Fri, 15 May 2026 04:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AFE37B00E
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778819622; cv=none; b=lPA6V/vj8P6NBdkD++NP/6vU9apA43UkjB5OiANjsB+7iSo+c8dpFlH25huSRIZFsZIFouCHDaTIqse7UbfpjW5djhlFFg3Ay1aSEyxvFIhCbkq3lRa9BMUhTeopHbrOmGJWScG3qRCX5+Jzqz19XpFqdUM9KnYQQ25ScTZp6Uc=
+	t=1778821703; cv=none; b=eIqiNavdQW4xsunF5iT9gcED8l6l62gdGquucUQulur5gT63ha7T2BX3QrGee33/Tfq2oKyioY+Ghbed+lvkXhuMqAIE7xNTkiZdKib4TXokyK5AoAqYrEDKPNrNvs9zMVwV8TQOaeOQPVCnvppIp0xWTk5dE3AVXRq3NmH5SuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778819622; c=relaxed/simple;
-	bh=zg8dWcxfVEFqhgH2uc69LayhhgOBez8UBuZQBT7A5oo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=svD/4/M/ERY9Jem3p9WWE3erNPQqjgQeeK6V6jWIHWbiE2eoPL53eKCzLX1eGG3je8pDOT0R2wQy5PrFkB0F9CjuJXbpb0KHYm4xFjDX6V4klxQfR5FaceQBNf+vTY5pTBktKnxwAc25CIHDbfiACAn4bCdgU2KzEK2snFNMv3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=UZB7lH4h; arc=none smtp.client-ip=220.197.32.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778821703; c=relaxed/simple;
+	bh=foPiAKtlim0IMGXBD6vjdgfAWPjrYOn9Kce7+yb/c4o=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Qv6jUGrF26vd9zKjNKH2cwd2Ji8YaBN2tIbSz1fV7VSn+SAcMm/HDHXeU/KThsOO3l1g5fKX8Cv3+O4vGPnT6NTvndjZwlXAHINxkKN1ofhLjtrNp0RxslOXB+oBnwmkj3qa8x9ZQpq7avnXPYAbkVIiXPJTcsmWWtBBM1FRIlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=c5uGs2jF; arc=none smtp.client-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="UZB7lH4h"
-Received: from [172.16.12.43] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e82fac39;
-	Fri, 15 May 2026 11:57:58 +0800 (GMT+08:00)
-Message-ID: <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
-Date: Fri, 15 May 2026 11:57:58 +0800
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="c5uGs2jF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1778821699; x=1779080899;
+	bh=bY8td5xPHQkAvs6MnLRddzsEhSM0rtjpwZSEz61U4/Y=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=c5uGs2jF/40+/AJP9iIBtqB3QbcPFLrmYuRLHxYWqG6Kdg39VdH0Ap5Kp51s3eoWj
+	 g3gukyHr+TtHynPHBWxkRos6tyC0mdlKSA76XYtfQP1OqVxY+H3l89heiAXvAx4MTU
+	 tL7xECOOcqbUoFmP8aD2CfKUomzojzzfjXxJ25pLfpQaDvlDqiyRmKmxYwbTGQryEx
+	 xEsvtxoICUg3CUnFjMpWkB1cqLDd0I0BBI2XxTuEY887xqlZXVBt6xQtKtlRw6aB8z
+	 v9ENHB80RZDHWURmEtESG7DxBkGcq1H+7XwFiZhuRW8dzCRwinpYR9ziiEltHovWOe
+	 MFNIxJae6d5tQ==
+Date: Fri, 15 May 2026 05:08:10 +0000
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH RFC v6 0/7] Add support for Adreno 810 GPU
+Message-ID: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 359b81c8d6c56f79e141c4cc4d08652c6efd40a9
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
- Expose inherited properties
-To: Conor Dooley <conor@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
- <20260514070133.2275069-2-damon.ding@rock-chips.com>
- <20260514-upstate-sneer-0b6e78682798@spud>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260514-upstate-sneer-0b6e78682798@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e29c8ae0703a3kunmd1b8d9bd125afa
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSktLVkIYTR8aHkgdTE0YSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=UZB7lH4hvEXP3pLiPNBhvVIN/gQNsy9iafLoKvDKgsRRFlrJKAecHptJ7/J77wyBeceuZOOprBHD36ae6nHJk5rWBHxxSgKKrOX7JTLhssGbJxofO/ZsqaDhRPiJGMf+/tYd2AQbZfHuNBGK4/0Iow6PsrJyKqHXbi5WbuimHJU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=num2dBkmQCmOz3VFEseziFih+L9BmXJ8Dbo1P1UCNNw=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Conor,
+Adreno 810 is present in the Milos SoC and is the first GPU to be released =
+in
+the A8x family.
 
-On 5/15/2026 2:16 AM, Conor Dooley wrote:
-> On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
->> Expose the inherited properties from the base analogix-dp schema
->> to satisfy unevaluatedProperties constraints.
->>
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> 
-> Given it's unevaluatedProperties, not addtionalProperties, this patch
-> shouldn't be needed?
-> 
+This series is marked as RFC because it depends on a few other in review
+series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2], and devicetre=
+e
+support for Glymur [3] (for a8xx RSCC offset fix and X2-185 bindings change=
+).
 
-When I remove both the top-level data-lanes property and those explicit 
-"xxx: true" property entries and run the dtbs check with:
+Also depends on the GXCLKCTL block for Milos [4], but this is no longer in
+review and has been applied.
 
-make CHECK_DTBS=y CROSS_COMPILE=aarch64-linux-gnu- LT0=none LLVM=1 
-LLVM_IAS=1 ARCH=arm64 rockchip/rk3588-evb1-v10.dtb 
-rockchip/rk3588s-evb1-v10.dtb rockchip/rk3399-sapphire-excavator.dtb 
-rockchip/rk3576-evb1-v10.dtb -j4
+[1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e=
+54b3d464@oss.qualcomm.com
+[2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017=
+cc642db@pm.me
+[3]: https://lore.kernel.org/linux-arm-msm/20260513-glymur-gpu-dt-v4-0-f838=
+32c3bc9a@oss.qualcomm.com
+[4]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f=
+5988c43a2@fairphone.com
 
-It results in validation errors like these:
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+Changes in v6:
+- Re-jigged the register ranges for GPU/GMU to match Glymur
+- Depend on RSCC offset fix
+- Fix bindings to add constraints for reg list
+- Link to v5: https://lore.kernel.org/r/20260502-adreno-810-v5-0-bc9fd2bb78=
+8d@pm.me
 
-/home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb: 
-edp@27dc0000: ports:port@1:endpoint: Unevaluated properties are not 
-allowed ('data-lanes' was unexpected)
-         from schema $id: 
-http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
-/home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb: 
-edp@27dc0000: Unevaluated properties are not allowed ('force-hpd', 
-'interrupts', 'phy-names', 'phys', 'ports', 'reg' were unexpected)
-         from schema $id: 
-http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
+Changes in v5:
+- Sync with latest kgsl
+- Link to v4: https://lore.kernel.org/r/20260416-adreno-810-v4-0-61676e073f=
+8a@pm.me
 
-I suspect that the properties defined in the child binding are 
-overriding/masking all the inherited properties from the parent Analogix 
-DP schema.
+Changes in v4:
+- Add 1150MHz speedbin
+- Rebase on next-20260415
+- Add dep on efuse patchset
+- Link to v3: https://lore.kernel.org/r/20260407-adreno-810-v3-0-30cb7f196e=
+d4@pm.me
 
-Is there a better way to fix this issue without explicitly listing all 
-inherited properties as true?
+Changes in v3:
+- Drop DEMET from GMU clocks (not required on A810)
+- Document qcom,adreno-44010000 compatible (regex is gone in 7.0+)
+- Drop zeroed out CP_PROTECT_REG[46, 62] range, not required
+- Add a810_protect to __build_asserts
+- Add UCHE_CCHE_TRAP_BASE_[LO|HI] and UCHE_CCHE_WRITE_THRU_BASE_[LO|HI] to =
+a810_pwrup_reglist_regs
+- Move TPL1 registers to a810_pwrup_reglist_regs
+- Include all protect registers in a810_ifpc_reglist_regs
+- Revert pipe reg comment, just copied it from downstream but original also=
+ works
+- Link to v2: https://lore.kernel.org/r/20260402-adreno-810-v2-0-ce337ca87a=
+9e@pm.me
+
+Changes in v2:
+- Mark as RFC due to dependency on in-review changes
+- Explain in DTS commit why qcom,kaanapali-gxclkctl.h and not qcom,milos-gx=
+clkctl.h
+- cx_mmio -> cx_misc_mmio
+- Sync a810_nonctxt_regs with GRAPHICS.LA.14.0.r5-03100-lanai.0
+- Link to v1: https://lore.kernel.org/r/20260331-adreno-810-v1-0-725801dbb1=
+2b@pm.me
+
+---
+Alexander Koskovich (7):
+      dt-bindings: display/msm/gmu: Document Adreno 810 GMU
+      dt-bindings: display/msm/gpu: Document Adreno 810 GPU
+      drm/msm/adreno: rename llc_mmio to cx_misc_mmio
+      drm/msm/adreno: set cx_misc_mmio regardless of if platform has LLCC
+      drm/msm/a8xx: use pipe protect slot 15 for last-span-unbound feature
+      drm/msm/adreno: add Adreno 810 GPU support
+      arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |  30 +++
+ .../devicetree/bindings/display/msm/gpu.yaml       |   5 +-
+ arch/arm64/boot/dts/qcom/milos.dtsi                | 165 ++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 298 +++++++++++++++++=
+++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   8 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  44 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |  14 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |   6 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 +
+ 9 files changed, 536 insertions(+), 39 deletions(-)
+---
+base-commit: 2ca0470eca8b4cee27aeeb39bd93c1f4c96b7e7b
+change-id: 20260330-adreno-810-5a47525522cd
 
 Best regards,
-Damon
+--=20
+Alexander Koskovich <akoskovich@pm.me>
 
->> ---
->>   .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 +++++++
->>   1 file changed, 7 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> index bb75d898a5c5..896ded87880f 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> @@ -50,6 +50,13 @@ properties:
->>     aux-bus:
->>       $ref: /schemas/display/dp-aux-bus.yaml#
->>   
->> +  reg: true
->> +  interrupts: true
->> +  phys: true
->> +  phy-names: true
->> +  force-hpd: true
->> +  ports: true
->> +
->>   required:
->>     - compatible
->>     - clocks
->> -- 
->> 2.34.1
->>
->>
 
