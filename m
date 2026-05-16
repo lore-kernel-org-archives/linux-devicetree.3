@@ -1,160 +1,146 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33FB30C17B
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 19:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256ED2EA749
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 19:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778960113; cv=none; b=Sd+ZtkwGUXVHCtX7t8Hq+4EgWdnsIwVizBlfHC/KThWdjHZgy2csCPSDkeK9aKjRtWjecks0cTm6g2gy4XS2ML/ZPrso8nAsu6vhopoAHzPj8OJLZ1Q/qM0Jj4KuB3YakyeopJojyeI5pVxDiRVg7ApnU63GGAPfVeFJatTvMzc=
+	t=1778960579; cv=none; b=rvBCMQOzCHRZJlIp+eOMelnffXZEMRCmwQF5jMyDmgIhbv4LJ5koO8BFSqCT9z1q2QD9wTcVUAfGGnX9GYE0vqy6m8hpt3ArgU1YjdjGeYCwFA3lgEvHkq4FQO5LAgcRJ+8bwj1BpdzWCmGdu3ZBaDjBT0teWvC9DhK8s+9b/CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778960113; c=relaxed/simple;
-	bh=NnjdJ0VTzldu49W5mcdmVmQl1rEFGjOR7UXnupRT89o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CNUl7D1DzcUxLKOAFkDz56XisPAKL+4DjgZL7B0iHWv1uBl1vRsDd7clLpjpwJdu8xeWT7sqmh8Bxsq74KNXnvCDmiWHk3v3yRLgTb5rPEe4Yjk306AIfemJkjqezIGuX1Y2Io+mNsv5UZ00AnAgTGBCcVfFJtCIzsiXaeGAyQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=ycSFdIHX; arc=none smtp.client-ip=209.85.161.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1778960579; c=relaxed/simple;
+	bh=icrYgJeoiJp6GjLcRex+OWljT6sjR9uqwHqOqvUVbKs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oExKC6Xyi9HhzpIakQ2Q8sQO8BZfwJsxun1OjqdAi2ty2GGOr9wKpQuwFS/y7aYepjtkWYWw9JG5yc3+pBf8X6yT6qcW1i/1O208VwSJaRuM74Cth8rLZsrPC3i13avcaHYz/k6LWHYyevX3ukTVgm38tiM1tFz0Xzz8VJMhd+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocHz4iCM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="ycSFdIHX"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6948d7ccfbbso219865eaf.1
-        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 12:35:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778960111; x=1779564911; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2i7S9wo1ePdNkbO172mKq17H2QCBIBfTWKgSltqMeIg=;
-        b=ycSFdIHXs9K+m3s4gmn0h5deTpkDt9ZhNq9w2hQhZ17c57ZrA1XU+xgHxu79eyPdH3
-         /GCKWJKltawnEfsWVBnGgkyL3i9u6ZXxZPAkzJkcTNBCaHQm+nkMNUZFrMiqx3cnL7i0
-         qApuwisVDLguS2/wyn4jLE3cDIIOsWJHaKfSUMcg89FTkPLCKcK5V9BfQehB1pFjJkjs
-         pMX1XRSxyUFqyr4X81SgiJ0YJ9icqJQYUe/k4EA0Dm+JtVjux97j7Cpjr+5ku4dGXX83
-         Sq0kuUjLH9ZKe2OSDdqpXNyfhHauBOSAfEgfOcfNOE+swwEHH8BxM19a03ziVhc/la1b
-         +0OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778960111; x=1779564911;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2i7S9wo1ePdNkbO172mKq17H2QCBIBfTWKgSltqMeIg=;
-        b=bz1XHI17ScrvdAk+ukWPMAD6Rvd1ChyfG+rTrMYgJGlkVJwDNSzwwbnm5SxA2AjVcI
-         cicQPcWzkeDzbyRSh7hfZI2fqEW8jGlwksxrsftggS80Kp18fc7NhLGj3kJfhcdObgAo
-         n2P3rvlAbIkg7nSZUNwkSeJoQRVfJRL4W/rdL79hKDCkGIfHp+u4M/kK+D3tz8urysxE
-         EUd/pfQB7mH5wi272ojZiZ41G40reHQ2UjYrtRbksv3G/4DHmIZ3rKazL8GVwpdHooFh
-         1tzorXQM8o/skRvGiL23VtwZycC/fHoSMro+WuJKUNt4NtN/1jBrIrzysBrLfscLk/CI
-         5org==
-X-Forwarded-Encrypted: i=1; AFNElJ+P4E7cQIV7cIMstbQr6dCJwC9l8hzBbZ/3uov/R9eKqHBnZPHPGopz0+UkNbo0+K0FLM51fw0ABbHC@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSEWggkjWB12MO0YVlKyJOg9ZAX0RaG2lB1aQfcaGy1r0R0Os3
-	/3DMHrCSSrdGIF35TiyQPbNfxU1GLmHcmR5F6gBVzadqmX+uc8965gmJU1OTWGNlWF8=
-X-Gm-Gg: Acq92OEqWzxFCGuk/sX7gkY5T7U6/ijFo5tQ5ruZ5EaDkUiD6f+0Z6q2dnGigWnROwk
-	7Ztt4yxuq2lVvibjz1ya2afrNdYVqwo88ymUnZeTskxrbl3rXMjarqfTFdUiIBW7FGtkMkeUwMQ
-	5RJpnXrpKLek7hOEGe4Nc9g5tRVNpE01vej9pSEWolBm7gniaT6d+lY3GM9fJl+8dgE6KQxIH/o
-	4mqkeC8xO2/KhxC6YNLbTMZZNIjXDxwmFRtIGhxzXQ9DDxUfWxJgUai1ffs1j9O3wd5X80iBe3k
-	1zFm6WhI+Xz9A3sho3+zrp8dmlLlNR0b3A1k8FSyWlGw2jwm2Bc9WIMemJBq7laQCgs4kjIT097
-	Htq2lYmxRZav++JbAHTSnwg5DnvhdzdgC3yUqSpfS7fGIva849yenYNWG9yyYSjmi/GmyqcNsoj
-	ntI4/4K9tXBwMej0z9rN7pYGb2Ux+/Bx8mAIjPGmpH5SPUTjg6mRR+lN5NlERDfYWQeSTboNEUT
-	w==
-X-Received: by 2002:a05:6820:2017:b0:694:a2c9:2d50 with SMTP id 006d021491bc7-69c9c07d4fbmr5938765eaf.59.1778960110874;
-        Sat, 16 May 2026 12:35:10 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:b36d:bd18:7c02:29e2? ([2600:8803:e7e4:500:b36d:bd18:7c02:29e2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69d048b3c51sm3071760eaf.11.2026.05.16.12.35.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 16 May 2026 12:35:09 -0700 (PDT)
-Message-ID: <2f74e76e-b066-40ac-9cb4-c75137c9825d@baylibre.com>
-Date: Sat, 16 May 2026 14:35:09 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocHz4iCM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2388C19425;
+	Sat, 16 May 2026 19:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778960578;
+	bh=icrYgJeoiJp6GjLcRex+OWljT6sjR9uqwHqOqvUVbKs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=ocHz4iCMCnmPAS92QM+7wT9MZOIkXX96PB+Ox/uxJD+yDxS6y/wtcouXlvb1QCIIM
+	 fxlPuhnRwOa/lttDzEvTtvBh1yrMBNI0vvBmOI9tfOLJ1WjUbhU5gnNz8KRaGmXi2S
+	 kZnFlYtkfqJ0G7VcJ4VGoG4FrKJya58OXC+adRbESdUHqoou4sSOOJ2O53qq/PA4vQ
+	 EZSovPeUzIusF+BcziOEVhcNEEWM819ZFbH28CxKhOWeKudQZs7Alpiq09ReIdybo+
+	 MVhD8fnIpYEyiNnpJAyvPpSqGAtN1IzYt9zW1IeVn3Fm+u9HL09JSEAVl+fa+A46sp
+	 vWwiv8n78qobQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/4] clocksource/timer-econet-en751221: Disable IRQ
+ until cevt registered
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260516182648.3987792-4-cjd@cjdns.fr>
+References: <20260516182648.3987792-4-cjd@cjdns.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 16 May 2026 19:42:57 +0000
+Message-Id: <20260516194258.B2388C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] iio: dac: Add AD5529R DAC driver support
-To: Janani Sunil <janani.sunil@analog.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Janani Sunil <jan.sun97@gmail.com>
-References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
- <20260508-ad5529r-driver-v2-2-e315441685d7@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260508-ad5529r-driver-v2-2-e315441685d7@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 5/8/26 6:55 AM, Janani Sunil wrote:
-> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Incomplete Race Condition Fix / NULL Pointer Dereference
+- [High] Missing Teardown in CPU Hotplug / Error Path Rollback Failure
+- [High] Missing Hardware Clock Enable and Reference Leak
+- [Low] Redundant API Usage for per-CPU Interrupt
+--
 
-...
+commit 5ebbb6312519c50062084d8964d9f2a0fe342d0f
+Author: Caleb James DeLisle <cjd@cjdns.fr>
 
-> +#define AD5529R_DAC_CHANNEL(chan, bits) {			\
-> +	.type = IIO_VOLTAGE,					\
-> +	.indexed = 1,						\
-> +	.output = 1,						\
-> +	.channel = (chan),					\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
-> +			      BIT(IIO_CHAN_INFO_SCALE),		\
-> +	.scan_type = {						\
+clocksource/timer-econet-en751221: Disable IRQ until cevt registered
 
-> +		.sign = 'u',					\
+This commit attempts to eliminate a race condition where the interrupt
+could trigger before the clockevent device is fully registered and its
+event handler is set. It achieves this by setting the no-auto-enable
+flag and delaying the interrupt enablement until after registration.
 
-This field has a new name `.format`.
+> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
+ource/timer-econet-en751221.c
+> index 155471f68e6f8..ed750e39cc4fa 100644
+> --- a/drivers/clocksource/timer-econet-en751221.c
+> +++ b/drivers/clocksource/timer-econet-en751221.c
+> @@ -104,12 +104,11 @@ static int cevt_init_cpu(uint cpu)
+>  	reg =3D ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
+>  	iowrite32(reg, reg_ctl(cpu));
+> =20
+> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+> -
+> -	/* Do this last because it synchronously configures the timer */
+>  	clockevents_config_and_register(cd, econet_timer.freq_hz,
+>  					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
+> =20
+> +	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
 
-> +		.realbits = (bits),				\
-> +		.storagebits = 16,				\
-> +	},							\
-> +}
-> +static struct regmap *ad5529r_get_regmap(struct ad5529r_state *st, unsigned int reg)
-> +{
-> +	if (reg <= AD5529R_8BIT_REG_MAX)
-> +		return st->regmap_8bit;
-> +
-> +	return st->regmap_16bit;
-> +}
+Does this completely resolve the race condition?
 
-Another way we have done this is make custom read/write functions for the
-regmap itself so that we don't have to have two regmaps.
+If the clockevents core rejects the new device during registration,
+dev->event_handler remains null. Because the hardware timer is unconditiona=
+lly
+started above and there is no set_state_shutdown callback, the timer cannot
+be stopped on rejection.
 
-> +
-> +static int ad5529r_debugfs_reg_read(struct ad5529r_state *st, unsigned int reg,
-> +				    unsigned int *val)
-> +{
-> +	return regmap_read(ad5529r_get_regmap(st, reg), reg, val);
-> +}
-> +
-> +static int ad5529r_debugfs_reg_write(struct ad5529r_state *st, unsigned int reg,
-> +				     unsigned int val)
-> +{
-> +	return regmap_write(ad5529r_get_regmap(st, reg), reg, val);
-> +}
+When the timer eventually wraps and fires, will cevt_interrupt() execute
+a null event_handler and crash?
 
-Would be more logical to move these closer to the struct that
-references them.
+>  	return 0;
+>  }
+> =20
+> @@ -177,6 +176,8 @@ static int __init timer_init(struct device_node *np)
+>  		goto out_membase;
+>  	}
+> =20
+> +	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
 
-(I snipped a bunch of functions here)
+This isn't a bug, but is this explicit flag setting redundant?
 
-> +
-> +static int ad5529r_reg_access(struct iio_dev *indio_dev,
-> +			      unsigned int reg,
-> +			      unsigned int writeval,
-> +			      unsigned int *readval)
-> +{
-> +	struct ad5529r_state *st = iio_priv(indio_dev);
-> +
-> +	if (!readval)
+request_percpu_irq() requires the target interrupt to be configured as a
+per-cpu devid interrupt. The core function irq_set_percpu_devid_flags()
+already applies IRQ_NOAUTOEN alongside IRQ_PER_CPU_DEVID, meaning the flag
+is guaranteed to be set before request_percpu_irq() is executed.
 
-Might as well swap these and avoid the !.
+Are we missing a call to clk_prepare_enable() for the clock fetched earlier
+in timer_init()?
 
-> +		return ad5529r_debugfs_reg_write(st, reg, writeval);
-> +
-> +	return ad5529r_debugfs_reg_read(st, reg, readval);
-> +}
-> +
+If the clock is never formally enabled with a positive reference count, the
+common clock framework late initcall clk_disable_unused() might turn off
+the clock. Would shutting off the clock underneath an active system timer
+instantly stop the hardware counter and lock up timekeeping?
+
+Also, does this code leak the clock reference by never calling clk_put()
+on the returned clock pointer on both success and error paths?
+
+Is a teardown callback missing for cpu hotplug?
+
+timer_init() calls cpuhp_setup_state() with null as the teardown callback:
+
+    ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
+                            "clockevents/econet/timer:starting",
+                            cevt_init_cpu, NULL);
+
+When a cpu is offlined, disable_percpu_irq() is never called, leaving the
+per-cpu interrupt unmasked on the dying cpu. Without a set_state_shutdown
+callback, does the hardware timer remain running, potentially causing
+spurious wakeups or preventing low-power states?
+
+Furthermore, if cpuhp_setup_state() fails on a cpu, the core cannot roll ba=
+ck
+the successfully started processors because of the missing teardown callbac=
+k.
+The error path then frees the interrupt action while hardware timers are
+still running. Will this lead to an unhandled interrupt storm?
+
+>  	ret =3D request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
+>  				 &econet_timer_pcpu);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516182648.3987=
+792-1-cjd@cjdns.fr?part=3D3
