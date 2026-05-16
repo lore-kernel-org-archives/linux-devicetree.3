@@ -1,154 +1,112 @@
-Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FB41CFBA
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 19:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9432DEA7B;
+	Sat, 16 May 2026 19:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778958942; cv=none; b=N74baeCqqWD+v8ThDxc0ciEAJSkzaYE/zZTNjsnPbhzAUgq35fJVSZ4bn4jdmY7UPVS+/03sLmlgrtBfPRRYZyITZSTzG/JfgqiUiTY5/Y74GdIIoYC1bvrnCkbW+bHWQO8pkJfMt30wscdBMHlWTWOu1SfkZloIy4Xa2YWnt4c=
+	t=1778959161; cv=none; b=EE8ANqkOMBzY5EewXoEh0UMTpkj2qzGj+yDsTRyTR1IX+4ht5x3mlFqT9S5ItEH8nSgO/Js6Y4mjbUvB0Debkp9IBThRQrj6S4bzJaABEce7t8ik226epT37c6dFUiLbXA3UqAF0zcfhtFmd3Za3UgD2EsftslKxUgRl/HGiJzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778958942; c=relaxed/simple;
-	bh=sWG3JHqA91US5JXXh5l8VZS5q01pBdVjPuti8mnAf1Y=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Aa6Uxi0zcuq9OfBU54Ch18ENCUH+u9k7QiZlAizeRAZW3tkpofjZ4jMsNZtenM5Bd+ZN0adA9j8nxNOd9MBabdfj6hbbl7kRc7SMLuu2p4jhUbUjuSqhWGVEKrtsgW5kFdpUDXHFrBBL3OTdXan3UaHLeoJyDOleUseQCeduiYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bEMxEbXB; arc=none smtp.client-ip=95.215.58.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1778959161; c=relaxed/simple;
+	bh=pcYymB/j06J6E3QBgWT3spkGVEN27teZkiA59m8H69o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SAOHilRcntzD0xdTtxlU1bIMJk4xWldHOahv1iNehvMqVuXLAZwgaSQKJBNOzmOu5ah4tO2dFoeb5YXbknARtqfyttyBRM0WZqXKOv4yK6o2qhcDUgs3vECbIAZ/49xo0xc3kDih06uFvrxT20SoL3wG1OsKN1HlmBo5FkF5zpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=y6lWXTn+; arc=none smtp.client-ip=212.227.126.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bEMxEbXB"
-Content-Type: text/plain; charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1778958929;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E21WzfW/ySA7ReG7QT8gdPtetis/rOP/c2Skg3RzTgc=;
-	b=bEMxEbXBz4rpbm5bKAyijGN6uQ8X1eiXnEKE5Phs1UOHX9LQ03ANhxfi7irZlUgW/4GTq3
-	KchTiP0aEArP1cMMVia+6ahKz+bjdBA+3tG2dIZ+aAuouVgcgQJjgE7gk0BkQZtqy9xvht
-	PUXw3ZhIPz9IkOy3tcHCKavKW8+1zfE=
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="y6lWXTn+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=oldschoolsolutions.biz; s=s1-ionos; t=1778959156; x=1779563956;
+	i=jens.glathe@oldschoolsolutions.biz;
+	bh=pcYymB/j06J6E3QBgWT3spkGVEN27teZkiA59m8H69o=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=y6lWXTn+hJd6OBdUYpEBLG4lEGc88Hw4v2jE16UDJQ4+saU2gLuFLrWkjJcGAbpH
+	 W/MAS5yOmnu5cqkAq6RcIIEQJedTWImsZCpPqYVAh+zWcKTSvNKeW0XwWZ6xs7vVa
+	 TEoQa2tckRLEVwaN32s8u+AdtnUeHsxsssXTs9hbAJJ4fTgUNr+WSQV3fqhkkWKyd
+	 OnoegkRQTKtvalSla11MLvD72eYf/Ks/zi438kX1KyF+C+VV61Qzz67r9FggiEdVj
+	 786DLyCZklvHEr/rz1ERAysxO7nGcfgAS0iSgPgs3bfdjl9IlRIJIGWPNd+WQ3f4/
+	 UjQAqli2nphqEd9lyg==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue012
+ [212.227.15.167]) with ESMTPSA (Nemesis) id 1MmQUL-1x6Uyr1J5d-00kXvK; Sat, 16
+ May 2026 21:19:16 +0200
+Message-ID: <e94318be-1584-4e4d-8f92-99df8a284dfe@oldschoolsolutions.biz>
+Date: Sat, 16 May 2026 21:19:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: Stop false review statements
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Roman Gushchin <roman.gushchin@linux.dev>
-In-Reply-To: <b5989c0f-90da-42cc-a623-3b60df077848@kernel.org>
-Date: Sat, 16 May 2026 12:15:12 -0700
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- Konstantin Ryabitsev <mricon@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
- sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
- Linux Kernel Workflows <workflows@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree@vger.kernel.org, kfree@google.com
-Message-Id: <FA45D2AD-1135-4480-8423-63C0D37FE78D@linux.dev>
-References: <b5989c0f-90da-42cc-a623-3b60df077848@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: correct usb phy power supply
+To: Pengyu Luo <mitltlatltl@gmail.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20250110092326.167575-1-mitltlatltl@gmail.com>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <20250110092326.167575-1-mitltlatltl@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:rAv0Rgj9KzjEzq3BPqeqB9eJLb1lnyjfdenOxDfIlNMteaG/fzh
+ H7Rtsuo3wCJIPP+hlkzkF0CDtfhYrjUNCfe80spRT42FLJ1oX/OvpissBQSIHkFRgV9tb6F
+ LHDpLSCxkHEG2HkHMPImJ5SPktgJ6def6BUh9YVswShog2UIkU8cNLnwfHiB7UXAN2/zODg
+ t/cOB5rE3aYHQXJOteiZQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:o3M8M8xJ9Hs=;6btD2gE9uKOchXrutrXB9HKWvX5
+ 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
+ vuzAWOtwIYsEjoaeTGiGbT8Q9uwVg=
 
+On 10.01.25 10:23, Pengyu Luo wrote:
+> On this platform, according to dsdt tables, usb{0,1} phy consume the
+> following regulators. usb2 phy should be corrected also, usb2 in dsdt
+> is a little complicated, so correct usb{0,1} only for now.
 
+Can confirm that this works on blackrock and x13s. And I went a=20
+different route when I tried to verify vregs for blackrock and noticed=20
+that=C2=A0the vdd voltages didn't match the layer of logic schematic in th=
+e=20
+dwc3 block (some TI documentation), so I switched them already for=20
+blackrock.
 
-> On May 16, 2026, at 12:00=E2=80=AFPM, Krzysztof Kozlowski <krzk@kernel.org=
-> wrote:
->=20
-> =EF=BB=BFOn 16/05/2026 20:56, Roman Gushchin wrote:
->>=20
->>=20
->>>> On May 16, 2026, at 11:29=E2=80=AFAM, Krzysztof Kozlowski <krzk@kernel.=
-org> wrote:
->>>=20
->>> =EF=BB=BFOn 16/05/2026 17:49, Roman Gushchin wrote:
->>>>>=20
->>>>>> I=E2=80=99m not attached to any specific form of it, I thought Review=
-ed-by is the most obvious form.
->>>>>> And we use Reported-by: tags with various tooling for years.
->>>>>=20
->>>>> Reported-by: shows the existance of a problem that some tool found, a
->>>>> subtle difference here.
->>>>>=20
->>>>>> What do you think is the best form?
->>>>>>=20
->>>>>> I=E2=80=99ll pause sending reviewed-by tags until we have a discussio=
-n and agreement here.
->>>>>=20
->>>>> Just say it in some other text form, that our tools will not pick up.
->>>>> Like:
->>>>>  Tool XXXX reports that all is good:
->>>>>      https://....
->>>>>=20
->>>>> or something like that?
->>>>=20
->>>> Sure, works for me.
->>> Roman,
->>> Before implementing such changes, send a RFC or just ask a few folks for=
+Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
->>> opinions. We do use the tool, among other tools, so we will gladly
->>> provide a feedback.
->>>=20
->>> Sashiko should in general not send such emails when not asked for. Why?
->>> Because we have also other bots, like LKP, KernelCI, and imagine how
->>> maintainer's mailbox will look like.
->>>=20
->>> LKP allows opt-in for your own repo, which for example I am using, so I
->>> get confirmation of the success. But people are not receiving them. I
->>> cannot imagine all the people getting these LKP-successfully-built
->>> emails on every email.
->>=20
->> It=E2=80=99s opt-in on per-subsystem basis, as well as all other email-re=
-lated features.
->> I do rely on corresponding maintainers to decide if they want it or not.
->=20
-> The trouble is that subsystem is mailing list, thus I still got all of
-> them via b4, which is used to get the discussion.
->=20
-> Send them only to the maintainer, for example. Or maintainer + authors.
->=20
-> Basically the same as LKP is doing.
+with best regards
 
-There are subsystems which want email reviews to be sent to the subsystem
-mailing list. In fact, all currently configured email policies came from mai=
-ntainers,
-I don=E2=80=99t push anything based on my own preferences.=20
+Jens
 
-Sashiko can be configured the way you describe it or in any other way, it=E2=
-=80=99s up to corresponding=20
-maintainers.
-
-I agree, it=E2=80=99s sometimes gets tricky when a patchset is sent to multi=
-ple mailing lists,
-which policy to apply. I have some improvements in my plans, but it=E2=80=99=
-s not always possible
-to say how it should be handled. It=E2=80=99s not fundamentally new: landing=
- changes touching=20
-multiple subsystems is always harder exactly because maintainers might have d=
-ifferent
-and sometimes conflicting views.
-
->=20
->> If you=E2=80=99re saying that it should not send any non-personal emails i=
-n general, I disagree here,
->> but happy to have a discussion, assuming it=E2=80=99s polite and construc=
-tive.
->=20
-> I meant it should not be send to people who did not request that. Opt-in
-> should be explicit and no mailing lists must be Cced (because then it is
-> sending to everyone).
-
->>=20
->> The reason why I disagree is simple: there are maintainers/subsystems who=
- like Sashiko=E2=80=99s reviews
->> and  before introducing the email interface they had to manually send lin=
-ks to Sashiko=E2=80=99s reviews
->> as replies to proposed patches. I=E2=80=99ve been explicitly asked to add=
- an ability to send out
->> emails with reviews.
->=20
-> Sure, I agree with the need for use-case.
->=20
-> Best regards,
-> Krzysztof
