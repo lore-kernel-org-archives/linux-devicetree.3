@@ -1,75 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4811A683B;
-	Sat, 16 May 2026 02:07:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86DF4CB5B;
+	Sat, 16 May 2026 02:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778897235; cv=none; b=fAxbNr0E02UFoZPe9vsL+KJ3Te4Bz4rpomyKo/zrker/ifBgqgdg1ckw8ZtmfSsDsMZV3IS+ujwAPbR3uN5YFY3e6lGPp7QT5vNBf1lsQhDXvwxhpyuQeBH6CiNlOVhFLcqKo2B1J1nP7E7X77ofhIiSoZrIJeedEXSd/J4PwbY=
+	t=1778898645; cv=none; b=Mp1GGj1/cq1GRVfNFY/wDGtq7xZpaeb702ddzP8LPWtJb5u+KQePzs92Z9OM2qGViY5JUkDpbUT05Ko4tiKq+lWc6y+15tInP30TRXhCNkPDrcuhLt0f2b77NvtgqyZv6ivsJHsm0aLm9cOTuYKTYGH7ALbuSOqNXWOE3W3fK4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778897235; c=relaxed/simple;
-	bh=iqCIplJrqfaiHknlrsPCYdWY6TiMpIdZBid5zJCNkGE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jrFVLgBGZKTWlARvt5ERQd3P+mpidXHFMvCwRfFpBM4owPKqOga2J/LuJ9YfNPXu2CpONdpTgvJ8bCDHK9Fg3ho9YqVa7kGZ7dvT+gXqe2yUyWiGPiC3HLKeERVrMqxcmMcD+9dcUJ1zNq8GhgVq2QhxBBt4YIJJIFE4xW2O80w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VFuKdFAA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778898645; c=relaxed/simple;
+	bh=fXauv6pXRzSARsUh5lGbdtmEN6s8FRglmNcydc9LiIc=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=EBDmXJEj3xIEbSkQZUL3jg5uNci0NNFxbDQS7X1aqTbqbj7lpXDpDKA5EJh4ik4ctvgtGF+LHQMIXSVTcafRKJh1blR3oXrcZJi82Cp6OjwPd/G3V2Q2InNGtpcL+AT6NXDTeFN8O4tU25433CrOvzc+OAtkL8KGqx3omxYKlDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1r75yAl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VFuKdFAA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01B8FC2BCB0;
-	Sat, 16 May 2026 02:07:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1r75yAl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2B63C2BCB0;
+	Sat, 16 May 2026 02:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778897235;
-	bh=iqCIplJrqfaiHknlrsPCYdWY6TiMpIdZBid5zJCNkGE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=VFuKdFAACaO2gG2mF0pAsPqW+U5ygN31EDpTvZADccBwfqZ5b1uYXD+79dj3KBecc
-	 2x5+81wsmC1ULUYJz5AlMv0NIvq9rph5/yuzVUR+T6KePKGnRZYI+R1cxe3br2nT32
-	 n/Yf+45tJcxol25prBdxczVb0J2L852cu+KS+rNElUk0YSDc4aJL1KLoIzTODETI35
-	 OSCcEncLwgm38tB/no0wCVLd6ib7Lj8ARq/JXNhluhMyLR/btdczu61RW3jWQoOPuM
-	 cizul79Ox73ddRKnMZjzYfROLAmNAmYgfRtfN8aUHKc5F2Dl5OHRuHZfMos8ClZKZb
-	 QjNUkgUxlU9Aw==
-From: Yixun Lan <dlan@kernel.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k3: Add USB2.0 support
-Date: Sat, 16 May 2026 02:07:08 +0000
-Message-ID: <177889719089.2290560.15121464517928343972.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260330-02-k3-usb20-dts-v2-1-46af262fb4a9@kernel.org>
-References: <20260330-02-k3-usb20-dts-v2-1-46af262fb4a9@kernel.org>
+	s=k20201202; t=1778898645;
+	bh=fXauv6pXRzSARsUh5lGbdtmEN6s8FRglmNcydc9LiIc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=X1r75yAly27zWMpcuML/U2rhPS7KlWcCKMVwJ02XGYyAh65pN8uzBoELWtEQCmUie
+	 DClCSqcA7Vt2ejiwL8LLQU2b3Pxy43WwVQGU/Sbinv4dl1Cw3hiL89xTqEcDA974dO
+	 FbtwzTwU1FobIwQiBKT8P++aQOVVi3qB61/MQ+N1ec2cJ5FEwETzndDT/2paHnFYvW
+	 hsMsaATfyguGgbqNQRRGPd/GBQ0N+5IrMRQ7cwIU/i438tPo7Zx5vaxDZNR2LGIKIp
+	 bj2ZQGnvEoQB/ZX+2HvJwwibmEnhP3vS56o+S6xSAfrc85td69CtPsVAiTrlLQnOT8
+	 bZ9CerOYXZNAw==
+Date: Fri, 15 May 2026 21:30:43 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ afilipov@quicinc.com, Hariram Purushothaman <hariramp@quicinc.com>, 
+ Gjorgji Rosikopulos <grosikop@quicinc.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Kapatrala Syed <akapatra@quicinc.com>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
+References: <20260515-qcom-jpeg-v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com>
+ <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
+Message-Id: <177889864336.2704850.15815754320818996790.robh@kernel.org>
+Subject: Re: [PATCH 1/3] media: dt-bindings: qcom: add JPEG encoder binding
 
 
-On Mon, 30 Mar 2026 22:15:21 +0000, Yixun Lan wrote:
-> There is one USB2.0 host in K3 SoC which use DWC3 IP but only provide
-> USB2.0 functionality, and with only one USB2 PHY connected.
+On Fri, 15 May 2026 14:46:59 +0300, Atanas Filipov wrote:
+> Add YAML device tree binding for the Qualcomm JPEG encoder
+> hardware. This binding is used by the newly added driver and
+> describes all required resources, including clocks, power domains,
+> IOMMU mappings and interconnect paths.
 > 
-> The USB2.0 controller on Pico-ITX board connects to a Terminus FE1.1 Hub
-> which fully USB2.0 protocol compliant and provides 4 ports.
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>  .../bindings/media/qcom,jpeg-encoder.yaml          | 122 +++++++++++++++++++++
+>  1 file changed, 122 insertions(+)
 > 
-> 
-> [...]
 
-Applied, thanks!
+My bot found errors running 'make dt_binding_check' on your patch:
 
-[1/1] riscv: dts: spacemit: k3: Add USB2.0 support
-      https://github.com/spacemit-com/linux/commit/d3bd58f3060f28ecd30df51925a9b1f62e5e8c9b
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml:20:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml:44:5: [warning] wrong indentation: expected 6 but found 4 (indentation)
 
-Best regards,
--- 
-Yixun Lan <dlan@kernel.org>
+dtschema/dtc warnings/errors:
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:31.27-34 Unexpected 'GIC_SPI'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:31.39-59 Unexpected 'IRQ_TYPE_EDGE_RISING'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:32.37-58 Unexpected 'CAM_CC_TITAN_TOP_GDSC'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:43.23-44 Unexpected 'GCC_CAMERA_HF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:44.23-44 Unexpected 'GCC_CAMERA_SF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:45.25-44 Unexpected 'CAM_CC_CORE_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:46.25-44 Unexpected 'CAM_CC_CPAS_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:47.25-46 Unexpected 'CAM_CC_CAMNOC_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:48.25-40 Unexpected 'CAM_CC_JPEG_CLK'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:55.27-44 Unexpected 'MASTER_APPSS_PROC'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:55.54-70 Unexpected 'SLAVE_CAMERA_CFG'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:56.28-44 Unexpected 'MASTER_CAMNOC_HF'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:56.56-66 Unexpected 'SLAVE_EBI1'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:57.28-44 Unexpected 'MASTER_CAMNOC_SF'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:57.56-66 Unexpected 'SLAVE_EBI1'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:58.28-45 Unexpected 'MASTER_CAMNOC_ICP'
+Lexical error: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dts:58.57-67 Unexpected 'SLAVE_EBI1'
+FATAL ERROR: Syntax error parsing input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/media/qcom,jpeg-encoder.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1639: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
