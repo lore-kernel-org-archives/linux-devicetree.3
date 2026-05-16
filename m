@@ -1,170 +1,153 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB9221FF2E;
-	Sat, 16 May 2026 14:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C10191;
+	Sat, 16 May 2026 14:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778940156; cv=none; b=Dwz34boukSLbc5f71GIAHG7jVt3km0nPBkCTqQctMI5XzFZx8tGN4pZOSPOG4FUQzwCeey7Eam/txhqJRhI/Dhqgr6FlvUjFxoeB+rNYybei8Gcm4pPsK/rz6D9QDgZX0IxB6XSJXgwBAaAZ7yuyXj3a8KY6tBXpEa4jxRyQQa4=
+	t=1778940686; cv=none; b=qZRf5MwvhD1oDb5W0283D9CCTATB4rtafU/zb3LlAGhyfod6enHctoxpZ8HClEyvIZ7RbJiXSdxty3YkJRaSo9xLP5UgAx1104DGVOcLj1VcLBaR5O/ci1y1gXcUihW9r+xd8TZb4WgSVIskQhMGWVMQwX9+/73vaSCjVWp9Zgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778940156; c=relaxed/simple;
-	bh=/MGhmNGd58Y8tUBcNrPN7bRt88SN7DcrRjossZzLX6Q=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=X3ifMfIdx70Q8cmAFJ0AELszzc8N49U+cFQO0ubVo13yVOUwbMGUJyPcWVi8mkoWUEaUx8rSVSZV5X98P7COqDfwrtLdPCki6mdGKgCdiYazFmTIJbgEMPtOWICb68t1OQBVX8cid+YT7qFJ8R4QOEu/C+Q19pblefu6OH0xRkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=nJPqpPGP; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1778940686; c=relaxed/simple;
+	bh=MKQd5TVPGkOnI/BZDunngLi6RMufEmzjFG5irRHzUoA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=RN2WRC+FX7pbEOfYvceIvCyHce2Uu1Bz4p539AEmXy3A9JrlU8cl7GtMX1gnvoov7Hy5osSxKAgqmNXXPsDQEQkbeW9lsROYqMwiF2NfjJ9p5u46Vf65zZ8ICZVNp5uPFKJl0R+O2k5FIF17/8QTPcXu2Q9cLCS2Fq8VddG/910=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=mlxvpyFn; arc=none smtp.client-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="nJPqpPGP"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:1da4:3c70:f102:9ea:5df7])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1543B229;
-	Sat, 16 May 2026 16:02:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778940142;
-	bh=/MGhmNGd58Y8tUBcNrPN7bRt88SN7DcrRjossZzLX6Q=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=nJPqpPGPKlaMbO1UbuAPM0Su5/L2GQHSD5bsSBZ+tN0k7JySES9/jW9RZ2vdiBkAG
-	 gArqXqzGi5v3S9eaGIQ6yAeZZ9CzTvIL7SNxP2XN1NqGX0YSmUfdlHV+s+c8HuJKvX
-	 mlvxW0VatYyRbNlilbGip1E4tc0EuuD9weD9bPwE=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="mlxvpyFn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1778940640;
+	bh=gl6h17IIH0vCWE5gXx+SMnqjSaIj3H6R4jAvrfOok/s=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=mlxvpyFnzbK3DFvybUsWoIBIVa8Qfja0e3gqLHisdV9JW1eAGO0YOSQ+F4aFOdbim
+	 hBm04vC9FHY6OJyHjjE6HfsP8JMwSuPN1lwJyOYhRP6woLbb4L6Rnw+MfzeGY5KSnP
+	 3m8YV3Q4YA1Wtm5hK4MS945z/nX8RsoMKKpm55YgxiG9+asRULIlhrVKSV2cgxYkOh
+	 jFnEXvNCQKn4in/JVRz1jZQJuRLOHowB6LOGWmV+uViuZTplAUuM8QncSp3IUYA8Pm
+	 GJKC7m/379kbvOnkdw8uv8IT+CyqlMuESugYs8M7a4+xWVJeYu6lHhph2VeEeseVkR
+	 pNrizXHelklgw==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id BB048B220220;
+	Sat, 16 May 2026 16:10:37 +0200 (CEST)
+Message-ID: <57bd1600-fa0f-4387-b2fc-4dd17430ce5b@freeshell.de>
+Date: Sat, 16 May 2026 07:09:11 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <177873553195.34645.15555914837036171264@freya>
-References: <20260513-imx678-v1-0-30fc593ed8fa@ideasonboard.com> <20260513-imx678-v1-2-30fc593ed8fa@ideasonboard.com> <CAPY8ntBi88-dd2HxxftErf8h5-ERRPcGy5KJ-+oF7jawNOJpuA@mail.gmail.com> <177873553195.34645.15555914837036171264@freya>
-Subject: Re: [PATCH 2/2] media: i2c: imx678: Add driver for Sony IMX678
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Sat, 16 May 2026 19:32:27 +0530
-Message-ID: <177894014786.34645.15432488649235816946@freya>
-User-Agent: alot/0.13.dev20+g31692a239
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] riscv: dts: spacemit: enable eMMC on Milk-V Jupiter
+To: Yixun Lan <dlan@kernel.org>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+References: <20260514160356.1642075-1-aurelien@aurel32.net>
+ <20260514160356.1642075-4-aurelien@aurel32.net>
+ <f52a821b-157a-467d-84ee-4d1d4a96f673@freeshell.de>
+ <agbP0-OsfQRFJcr0@aurel32.net> <20260516053730-GKA3675990@kernel.org>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20260516053730-GKA3675990@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Quoting Jai Luthra (2026-05-14 10:42:11)
-> Hi Dave
->=20
-> Thank you for the review.
->=20
-> Quoting Dave Stevenson (2026-05-13 23:58:32)
-> > Hi Jai
-> >=20
-> > I think Soho Enterprises sent me an IMX678 module a while back, so
-> > I'll try and track it down and test the driver out.
-> >=20
-> > A couple of comments based on a quick read though.
-> >=20
-> > On Wed, 13 May 2026 at 16:42, Jai Luthra <jai.luthra@ideasonboard.com> =
-wrote:
-> > >
-> > > Add a V4L2 subdev driver for the Sony IMX678 image sensor.
-> > >
-> > > IMX678 is a diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type
-> > > solid-state image sensor with a square pixel array and 8.40 M effecti=
-ve
-> > > pixels.
-> > >
-> > > The following features are supported by the driver:
-> > > - Monochrome and Color (Bayer filter) variants
-> > > - Multiple input clock frequencies supported
-> > > - Multiple link frequencies supported
-> > > - VBLANK and HBLANK control for variable framerate
-> > > - Freely configurable resolution through S_FMT ioctl
-> > > - Freely configurable crop through S_SELECTION ioctl
-> > > - 2x2 binning configurable via S_FMT/S_SELECTION APIs
-> > > - VFLIP and HFLIP control for flipping readout
-> > > - Test pattern control support
-> > > - Exposure and gain control
-> > > - MIPI RAW12 output
-> > >
-> > > Following features are not currently supported but may be added later:
-> > > - Pixel-perfect crop reporting, account for the shift-by-1 when flipp=
-ing
-> > >   using HFLIP/VFLIP, which maintains the bayer readout order
-> > > - Increased framerate (lower HMAX/VMAX) when cropping
-> > > - MIPI RAW10 output mode
-> > > - Embedded data stream
-> > >
-> > > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
-[snip]
 
-> > > +
-> > > +static u64 imx678_output_pixel_rate(struct imx678 *imx678)
-> > > +{
-> > > +       const u32 lane_count =3D imx678->lane_count;
-> > > +       const u64 link_freq =3D link_freqs[imx678->link_freq_idx];
-> > > +       const u8 bpp =3D 12;
-> > > +       u64 numerator =3D link_freq * 2 * lane_count;
-> > > +
-> > > +       do_div(numerator, bpp);
-> >=20
-> > I don't believe the pixel rate changes with link frequency or bit
-> > depth, and plausibly you're ending up with the same number every time.
-> >=20
-> > Reading the Software Reference Manual (rev 7.0), Section 4 "Operating M=
-ode".
-> > 2 lanes at 1440Mbit/s/lane 10bpp 25fps readout requires 1H period
-> > (HMAX) of 1320, and 1V period (VMAX) of 2250.
-> > 2 lanes at 1782Mbit/s/lane 12bpp 25fps readout requires 1H period
-> > (HMAX) of 1320, and 1V period (VMAX) of 2250.
-> > So there is no change in HMAX or VMAX when changing bit depth, so
-> > pixel rate must be the same.
-> > You can get away with a lower link frequency as there is less data to s=
-end.
-> >=20
-> > 4 lanes at 720Mbit/s/lane 10bpp 25fps readout requires 1H period
-> > (HMAX) of 1320, and 1V period (VMAX) of 2250.
-> > So again no change with number of lanes and link frequency.
-> >=20
-> >=20
-> > Potentially coincidence, but if you play with the numbers from the
-> > 12bit readout mode:
-> > 2 lanes at 1782Mbit/s/lane 12bpp 25fps readout requires 1H period
-> > (HMAX) of 1320, and 1V period (VMAX) of 2250.
-> >=20
-> > 1782Mbits/lane * 2 lanes / 12bpp / 25fps =3D 11,880,000Pixel_clocks/fra=
-me.
-> > 11880000 / 2250 (VMAX) =3D 5280, which so happens to be exactly 1320 (H=
-MAX) * 4
->=20
-> Good find! You're right the FPS is only tied to 1H/1V period in that tabl=
-e,
-> so pixel rate should be independent of lane/linkrate/bpp.
->=20
-> I'll update this in v2, and cleaner blanking calculation will anyway be
-> useful to support higher FPS (lower hblank) when doing cropping. It would
-> be ideal if I manage to figure out the minimum HMAX programmatically for
-> each link rate/crop so the table can be dropped.
->=20
-> >=20
-> > If you define the pixel rate as 297MPix/s (1782*2/12), treat the
-> > HBLANK and VBLANK controls in the normal manner, but write HMAX as
-> > (width + hblank / 4), I believe you'll find all the numbers fall out
-> > to perfectly match the datasheet.
-> >=20
+On 5/15/26 22:37, Yixun Lan wrote:
+> Hi Aurelien,
+> 
+> On 09:48 Fri 15 May     , Aurelien Jarno wrote:
+>> On 2026-05-14 23:49, E Shattow wrote:
+>>> On 5/14/26 08:56, Aurelien Jarno wrote:
+>>>> The Milk-V Jupiter board has a connector for an eMMC module. Add an
+>>>> entry for it in the device tree and alias it mmc0. As it is not
+>>>> populated by default, do no mark it as non-removable.
+>>>>
+>>>
+>>> The meaning of "non-removable" here is whether it is expected to be
+>>> added and removed during use, requiring to be probed again; not whether
+>>> it is a user configurable module or soldered down part.
+>>
+>> Not connecting the eMMC module and larking it as non-removable causes this info
+>> message to appears in the logs:
+>>
+>> mmc0: SDHCI controller on d4281000.mmc [d4281000.mmc] using ADMA
+>> mmc0: Failed to initialize a non-removable card
+>>
+> 
+> I'm with E Shattow here, and would prefer to add "non-removable" property,
+> Unlike SD card, the eMMC has no CD pin, some logic may be handled slightly
+> differently.
+> 
+> For that failure message, I have no idea how to deal with it but might
+> just ignore it.. Guess it's the price that have to pay if enabling the
+> eMMC in DT but has no module soldered or plugged in?
+> 
 
-The trouble with 4x was that it resulted in negative blankings for higher
-link frequency 4-lane modes.
+Yes in this situation the ideal measure would need an overlay to set the
+status = "okay" or status = "disabled" dependent on the presence or
+absence of the module, correctly representing the state of the hardware
+- there is no module attached with which to configure. That is no
+trivial amount of work though and the easier (and I think we agree
+acceptable) approach is the driver will do what it does and inform that
+the module is not initialized. I would agree that an error message is
+the more useful outcome even if we would like to silence the error
+message it is at least accurate information.
 
-The Operation Mode section also runs at 60FPS with 4 lanes of 1728Mbps,
-where (1728M * 4 / 12 / 60)/2250 =3D 4400 which matches 550 (HMAX) * 8.
+For comparison, Pine64 Star64 boot messages when SD Card is present and
+eMMC module is not populated, as follows.
 
-So I've ended up with 8x ratio, i.e. pixel rate of 594MPix/s. I'll post v2
-with that.
+U-Boot:
+Working FDT set to ff731a10
+Hit any key to stop autoboot:  0
+Card did not respond to voltage select! : -110
+** Booting bootflow '<NULL>' with efi_mgr
+Booting: Debian
 
-> > This is the approach I found worked for IMX415 (needed /12) and IMX662
-> > (needed /3).
-> >=20
-> > > +
-> > > +       return numerator;
-> > > +}
-> > > +
+Linux kernel (reverse timeline log):
+dwmmc_starfive 16020000.mmc: IDMAC supports 32-bit address mode.
+dwmmc_starfive 16020000.mmc: Using internal DMA controller.
+dwmmc_starfive 16020000.mmc: Version ID is 290a
+dwmmc_starfive 16020000.mmc: DW MMC controller at irq 26,32 bit host
+data width,32 deep fifo
+dwmmc_starfive 16020000.mmc: Got CD GPIO
+dwmmc_starfive 16010000.mmc: IDMAC supports 32-bit address mode.
+dwmmc_starfive 16010000.mmc: Using internal DMA controller.
+dwmmc_starfive 16010000.mmc: Version ID is 290a
+dwmmc_starfive 16010000.mmc: DW MMC controller at irq 25,32 bit host
+data width,32 deep fifo
+mmc_host mmc1: Bus speed (slot 0) = 45511111Hz (slot req 400000Hz,
+actual 399220HZ div = 57)
+mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 400000Hz,
+actual 399220HZ div = 57)
+mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 300000Hz,
+actual 299415HZ div = 76)
+mmc_host mmc1: Bus speed (slot 0) = 45511111Hz (slot req 50000000Hz,
+actual 45511111HZ div = 0)
+mmc1: new high speed SDXC card at address 0001
+mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 200000Hz,
+actual 199610HZ div = 114)
+mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 100000Hz,
+actual 99805HZ div = 228)
 
-[snip]
+There "Card did not respond to voltage select! : -110" is repeated each
+mmc interface that does not have media presently;  mmc1 is the eMMC
+connection. This driver (for JH-7110 designware MMC controller) does not
+complain about the eMMC module that is not attached.
 
-Thanks,
-    Jai
+I don't have an answer what should be done about that error message and
+no opinion on making the driver less verbose or leaning into suggesting
+an overlay (which is not trivial, so... feel free to ignore me on that)
+however reporting on what is commonly true of 'non-removable' property.
+
+Best regards,
+
+-E
