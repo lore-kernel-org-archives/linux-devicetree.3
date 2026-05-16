@@ -1,159 +1,236 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8259D257844
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 22:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271592F7F0F;
+	Sat, 16 May 2026 22:39:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778970811; cv=none; b=sS1b+k+OtUtvPA7aZqRQtFOkheVHPtEskF9YdSTQ7h0miL4HmFGf5/Hqfk0INVTBxw9gjMXi3oo88iNL+Ky6nOJ6ZaN4V3KcjfPyvzPuM90iDi7P4+nebt1iprVlwODZjwHprTiu5faKwpdk5sQe8k28Y47cDalvs8bsF1bg2AI=
+	t=1778971195; cv=none; b=N0Spzj3e4YzZLHoR4y/G4eHUQavWOs8Td2hnSWfKz2zpf6xfrnFW5hOtzcYLpVyIw1DswpoLQ21NfNEASnZmSg2QYRTI6U05msC+i0D81fUitJH6Y29C7PtclqFFRGCVD278xNVGGbXsuo5dJAwzKNl7CHhhH2ODUw/YBLvB2cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778970811; c=relaxed/simple;
-	bh=hAA0Puk6a6+lbrFi9vrvWMkcCFdNmG2ALuMhtMC9eyg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Uox1AqMeTEqN9a2eNlS7Qo53IVmSh3ba8cJmkSY4aWlSpyTv6SS6lfoxDx3gcOn5moWcdkSxMS0hdFcFlLX4CdirHaYuzkj/kwYy7qdNyfN1783qGCoaqlxovm4BnDfhcC5GLC7WdetnUT0+rNZVQ3EMxV8U0v7VG1HIEeyOymY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcuzeSw+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778971195; c=relaxed/simple;
+	bh=O9vY5xgIduoE6o099w+D8afHS0L8Ab8xEtCmV8q5JDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hI2Tklph0Ib4cpZoqUhcYXvzlyDj/GKUeGU0wweceZN+rPR+wSotNU5tMYs/42+95NSPYs9GdzdQ+/AvKsKiXp9oZa/BrGssFo/v9PSak+VMD5yER4fcORs1HeAJheI3fmy8LJ2CQaoWwnfV8IM9BnYhNIzgQPDSKIBZ+cW/wA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pMjkURX3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcuzeSw+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A843C19425;
-	Sat, 16 May 2026 22:33:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pMjkURX3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854E4C19425;
+	Sat, 16 May 2026 22:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778970811;
-	bh=hAA0Puk6a6+lbrFi9vrvWMkcCFdNmG2ALuMhtMC9eyg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=gcuzeSw+C1zwaKC4hsIYiEY8o7Ub5ejmlvKKkjfkwVcYJY4sCygg7DK1dVsc790Hc
-	 l1s65sY23ozdz+4U+P4+mLGCGRdl4X+1ieJOT4PRQCZxnwtn1tP0teV9cEHsMcymBD
-	 91fmQOqfSSwln5B4QmLCnqZnO8ORw5cgqDYhFLPpSxzQ5Ev4QNcZDFPBKF7MtdCI4y
-	 2ksQ2k+ak+n2e7MFCEM05dxQLbEUDzXGTKf+hT9+lig4H0lR1tDu9vLCbknfYswkAo
-	 NTSjGLOIdwsnZhV/fRN0eiQCBcF33sSV5B/ywUJ6W6heHyONS10+HzsNSiRKQVTCam
-	 +oESUCN9nT8jA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] clocksource/timer-econet-en751221: Init teardown
- on error if possible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260516215720.4160831-3-cjd@cjdns.fr>
-References: <20260516215720.4160831-3-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 May 2026 22:33:30 +0000
-Message-Id: <20260516223331.3A843C19425@smtp.kernel.org>
+	s=k20201202; t=1778971194;
+	bh=O9vY5xgIduoE6o099w+D8afHS0L8Ab8xEtCmV8q5JDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pMjkURX3WCA65Kt6Rt72D+C/t0O+n7O5bEYSyWf9Hm/ZRqIyEmmrbqLDIWQigcUnw
+	 bSWdDNUZnZ8jIE7whd5M5KzieFUFbvMqLvnJe4mAzVKG2fo/OdFFCgEgzrQv9P/D/L
+	 /9QvLgGb6d4DIopjFOCi0mhwvVTmbNTbpc0rrEul1F5LCQHtjhV1Qr2gFUJAI7VpZX
+	 9jU5S6qENvoZJ+c0nHxM3f/We+xHxk0sKeSvYhCLUNtUCqBCjZSccpHpDtb+JYLBkU
+	 uiYr9SxPMAA80oB7f0KMIojNRuhiljfuMG6Yad2jEYrCNuxZBEmMG1nDZwnkQSmpHp
+	 Cd9W99Q1AgWpQ==
+Date: Sat, 16 May 2026 15:39:53 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v4 12/18] riscv_cbqri: resctrl: Add L3 cache
+ occupancy monitoring
+Message-ID: <agjyOYWZLcnm4PZO@thelio>
+References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-12-eb53831ef683@kernel.org>
+ <20260512050001.38B24C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512050001.38B24C2BCB0@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Teardown path unmaps memory while clockevents remain registered (U=
-se-After-Free)
-- [High] Missing CPU hotplug teardown callback leaves per-CPU IRQs enabled =
-on offline CPUs
-- [High] Pre-existing out-of-bounds mapping access with sparse CPU possible=
- mask
-- [Medium] Ignored error code from clocksource_mmio_init causes false succe=
-ss reporting
---
+On Tue, May 12, 2026 at 05:00:00AM +0000, sashiko-bot@kernel.org wrote:
+> >     resctrl_arch_reset_rmid() re-arms CONFIG_EVENT with EVT_ID=Occupancy.
+> >     CONFIG_EVENT both resets the counter to 0 and selects the event, so
+> >     re-arming with the same event keeps the MCID counting after reset rather
+> >     than relying on sticky-last-event semantics that the CBQRI register
+> >     definition does not guarantee.
+> 
+> The resctrl core only calls mon_event_read() with first=true (which
+> triggers the arch reset hook) for Memory Bandwidth Monitoring events,
+> never for L3 Occupancy.
+> 
+> Because resctrl_arch_reset_rmid() is never invoked for L3 Occupancy during
+> RMID recycle, will the counter fail to re-arm when a new monitoring group
+> is created, causing it to stop counting or inherit dirty data from previous
+> users?
 
-commit d0c6a451d26e5e0afd704c60615c1cfa9457c425
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+cbqri_init_mon_counters() pre-configures the MCID slot at domain init,
+and occupancy is a current state read rather than an accumulator, so a
+recycled MCID returns the live counter. I'll update the commit message
+and drop the occupancy branch in resctrl_arch_reset_rmid() since it is
+unreachable.
 
-clocksource/timer-econet-en751221: Init teardown on error if possible
+> > +/*
+> > + * Per-event controller table. Only events CBQRI can back occupy a
+> > + * slot, so other events do not bloat the array.
+> > + */
+> > +#define CBQRI_MAX_EVENT QOS_L3_OCCUP_EVENT_ID
+> > +static struct cbqri_controller *cbqri_resctrl_counters[CBQRI_MAX_EVENT + 1];
+> 
+> This array is allocated and initialized in cbqri_resctrl_pick_counters()
+> and nulled out during teardown, but its contents appear to never be accessed
+> by any logic in the driver. 
+> 
+> Is this array just dead code?
 
-This commit reorganizes the driver initialization process into two
-distinct phases, providing a rollback path for errors that occur prior to
-the point of no return. It adds logic to unmap memory and release interrupts
-if the setup steps fail.
+No, cbqri_resctrl_counters[QOS_L3_MBM_TOTAL_EVENT_ID] is read in
+cbqri_resctrl.c to decide whether to enable mbm_total_bytes. 
 
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
-ource/timer-econet-en751221.c
-> index 4008076b1a210..155471f68e6f8 100644
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
-> @@ -186,22 +165,45 @@ static int __init timer_init(struct device_node *np)
->  		econet_timer.membase[i] =3D of_iomap(np, i);
->  		if (!econet_timer.membase[i]) {
->  			pr_err("%pOFn: failed to map register [%d]\n", np, i);
-> -			return -ENXIO;
-> +			ret =3D -ENXIO;
-> +			goto out_membase;
->  		}
->  	}
+> > @@ -205,10 +225,101 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+> >  			   u32 closid, u32 rmid, enum resctrl_event_id eventid,
+> >  			   void *arch_priv, u64 *val, void *arch_mon_ctx)
+> >  {
+> > -	return -ENODATA;
+> > +	struct cbqri_resctrl_dom *hw_dom;
+> > +	struct cbqri_controller *ctrl;
+> > +	struct rdt_ctrl_domain *d;
+> > +	u64 ctr_val;
+> > +	int err;
+> > +
+> > +	resctrl_arch_rmid_read_context_check();
+> > +
+> > +	/*
+> > +	 * Each branch takes a sleeping mutex. Bail if called with IRQs
+> > +	 * disabled (e.g. smp_call_function_any() from nohz_full CPUs).
+> > +	 */
+> > +	if (irqs_disabled())
+> > +		return -EIO;
+> 
+> The resctrl core intentionally reads remote domains via
+> smp_call_function_any() when the target CPU is nohz_full, running the
+> callback in hardirq context.
+> 
+> Will rejecting calls in atomic context completely break cache occupancy
+> monitoring for nohz_full CPUs, as any attempt to read their statistics
+> will always fail with -EIO?
 
-This is a pre-existing issue that is resolved later in this patch series
-by commit clocksource/timer-econet-en751221: Support EN751627 without
-percpu IRQ, but I am mentioning it here for completeness.
+This matches MPAM's __read_mon(). fs/resctrl explicitly handles -EIO
+from this class of drivers when dispatching via smp_call_function_any()
+for nohz_full CPUs. I'll update the comment to clarify.
 
-Can this loop cause an out-of-bounds access with a sparse CPU mask?
+> > +	err = resctrl_online_mon_domain(res, &mon_dom->hdr);
+> > +	if (err)
+> > +		goto err_listdel;
+> > +
+> > +	err = cbqri_init_mon_counters(ctrl);
+> 
+> During domain initialization, resctrl_online_mon_domain() internally
+> calls resctrl_arch_reset_rmid_all(), which loops over all max_rmid to
+> issue CONFIG_EVENT MMIO operations.
+> 
+> Immediately after this returns, cbqri_init_mon_counters() is called,
+> which loops over ctrl->mcid_count to issue the exact same CONFIG_EVENT
+> MMIO operations again.
+> 
+> Since each CBQRI MMIO operation can sleep and take up to 1ms, does
+> doing this twice per domain initialization introduce strictly redundant
+> and significant latency during CPU hotplug?
 
-The loop iterates up to num_blocks, which is calculated based on
-num_possible_cpus(). If the system has a sparse CPU topology where
-CPUs 0 and 4 are possible, num_possible_cpus() is 2, so the loop only
-maps membase[0].
+Yes. I'll drop cbqri_init_mon_counters() from the L3 mon attach path,
+since resctrl_arch_reset_rmid_all() called from
+resctrl_online_mon_domain() already covers the same occupancy
+configuration.
 
-However, cevt_init() iterates over for_each_possible_cpu(i). For CPU 4,
-cevt_dev_init(4) accesses membase[2], which remains null, potentially
-causing a kernel panic when dereferenced.
+> > +	if (err)
+> > +		goto err_offline;
+> > +
+> > +	return 0;
+> > +
+> > +err_offline:
+> > +	cancel_delayed_work_sync(&mon_dom->cqm_limbo);
+> > +	cancel_delayed_work_sync(&mon_dom->mbm_over);
+> 
+> The resctrl core only initializes mbm_over if resctrl_is_mbm_enabled()
+> is true. Since the CBQRI driver only enables the L3 Occupancy event and
+> not MBM, mbm_over remains completely zero-initialized from allocation.
+> 
+> Can calling cancel_delayed_work_sync() on a zeroed structure pass an
+> uninitialized timer to del_timer_sync() and trigger kernel panics?
 
-[ ... ]
+Yes. The fix is to guard the mbm_over cancel on
+resctrl_is_mon_event_enabled(QOS_L3_MBM_TOTAL_EVENT_ID). resctrl only
+INIT_DELAYED_WORK's mbm_over when MBM is enabled, so a system without a
+paired BC will no longer cancel a zeroed work struct.
 
-> +	cevt_init(np);
-> +
-> +	ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-> +				"clockevents/econet/timer:starting",
-> +				cevt_init_cpu, NULL);
-> +	if (ret < 0) {
-> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
-> +		goto out_irq_free;
-> +	}
+> > +static int cbqri_attach_cpu_to_cap_ctrl(struct cbqri_controller *ctrl,
+> > +					unsigned int cpu)
+> > +{
+> 
+> The hotplug callback cbqri_resctrl_online_cpu() unconditionally skips
+> controllers if !ctrl->alloc_capable.
+> 
+> Will this cause controllers that are only capable of monitoring to be
+> ignored entirely, meaning no CPUs will ever be attached and no monitoring
+> domains will be created on monitoring-only hardware?
 
-If cpuhp_setup_state() fails here, can the teardown path cause a
-use-after-free?
+This implementation does not support a capacity controller that supports
+mon_capable but not alloc_capable. I'll add pr_warn_once() in
+cbqri_resctrl_pick_caches() to make the limitation visible. 
 
-Because the teardown callback in cpuhp_setup_state() is null, the CPU
-hotplug core's attempt to roll back the state on previously initialized
-CPUs acts as a no-op. This leaves the clock event devices and hardware
-timers fully active on those CPUs.
+> > -	domain = cbqri_create_ctrl_domain(ctrl, res, cpu, dom_id);
+> > -	if (IS_ERR(domain))
+> > -		return PTR_ERR(domain);
+> > +	if (ctrl->mon_capable && ctrl->cache.cache_level == 3) {
+> > +		err = cbqri_attach_cpu_to_l3_mon(ctrl, res, cpu);
+> > +		if (err)
+> > +			return err;
+> 
+> If cbqri_attach_cpu_to_l3_mon() fails here, the error is returned, but the
+> CPU is not removed from the ctrl_domain mask and the domain structure is
+> not freed.
+> 
+> Because the CPU hotplug core handles a startup failure by rolling back
+> from the previous state, the offline callback for the current state
+> (cbqri_resctrl_offline_cpu) is not invoked.
+> 
+> Does this leave the CPU permanently stranded in the ctrl_domain mask and
+> leak the newly allocated domain structure?
 
-The error path then proceeds to out_irq_free and subsequently unmaps the
-memory regions via iounmap(). When the clockevents core later tries to
-access the active timer on those CPUs, it will read from and write to
-unmapped memory.
+Yes. I'll make cbqri_attach_cpu_to_cap_ctrl() roll back the
+cpumask_set_cpu and tear down the new ctrl_domain when
+cbqri_attach_cpu_to_l3_mon() fails.
 
-Additionally, while this is a pre-existing issue, does providing a null
-teardown callback leave per-CPU interrupts enabled on offline CPUs?
+> > +static void cbqri_detach_cpu_from_l3_mon(struct rdt_resource *res,
+> > +					 unsigned int cpu)
+> > +{
+> > +	struct rdt_l3_mon_domain *mon_dom, *tmp;
+> > +
+> > +	lockdep_assert_held(&cbqri_domain_list_lock);
+> > +
+> > +	list_for_each_entry_safe(mon_dom, tmp, &res->mon_domains, hdr.list) {
+> > +		if (!cpumask_test_cpu(cpu, &mon_dom->hdr.cpu_mask))
+> > +			continue;
+> > +		cpumask_clear_cpu(cpu, &mon_dom->hdr.cpu_mask);
+> > +		if (cpumask_empty(&mon_dom->hdr.cpu_mask)) {
+> > +			cancel_delayed_work_sync(&mon_dom->cqm_limbo);
+> 
+> This function is executed as a CPU hotplug callback, meaning the thread
+> holds cpus_write_lock(). Concurrently, the cqm_handle_limbo() worker
+> function in the resctrl core begins by acquiring cpus_read_lock().
+> 
+> If the worker starts executing while the hotplug thread is active, the
+> worker will block on cpus_read_lock(), while the hotplug thread blocks in
+> cancel_delayed_work_sync() waiting for the worker to finish.
+> 
+> Could this create an unresolvable AB-BA deadlock that hangs the system
+> during CPU offline operations?
 
-When a CPU is dynamically offlined, the teardown callback should stop the
-hardware timer and call disable_percpu_irq(). Without it, the timer remains
-free-running and the interrupt unmasked for the offline CPU.
+Yes, I will move the L3 mon_domain teardown path from
+cancel_delayed_work_sync to cancel_delayed_work.
 
-> +
-> +	/* Point of no return, do not attempt to tear down after this. */
-> =20
->  	/* For clocksource purposes always read clock zero, whatever the CPU */
->  	ret =3D clocksource_mmio_init(reg_count(0), np->name,
->  				    econet_timer.freq_hz, 301, ECONET_BITS,
->  				    clocksource_mmio_readl_up);
-> -	if (ret) {
-> -		pr_err("%pOFn: clocksource_mmio_init failed: %d", np, ret);
-> -		return ret;
-> -	}
-> -
-> -	ret =3D cevt_init(np);
-> -	if (ret < 0)
-> -		return ret;
-> +	if (ret)
-> +		pr_err("%pOFn: clocksource_mmio_init failed: %d\n", np, ret);
+> > +			cancel_delayed_work_sync(&mon_dom->mbm_over);
+> 
+> (As mentioned above, mbm_over appears to be uninitialized here as well.)
 
-Does removing the return on error here cause the driver to report success
-when initialization fails?
+I'll do the same fix here too.
 
-The failure code is captured in ret, but execution falls through and the
-function unconditionally returns 0 at the end. This allows the driver to
-print success messages and report a successful initialization even if the
-clocksource registration failed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516215720.4160=
-831-1-cjd@cjdns.fr?part=3D2
+-Drew
