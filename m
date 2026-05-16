@@ -1,122 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03022C1586;
-	Sat, 16 May 2026 21:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6365A374736
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 21:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778967209; cv=none; b=csQwFcdqF2muLBfby2o3qWX+XSX4mFYaln8yTYvFKwMbz93BKUDCHPK7vGWxPDrtyH0FERZedyxiwA+T1T02BtPQenDb6I+AxzcN5RBIfxRqtkjc6ByQzQIyFXCK75a4eBQHEuyPvWNOhgsRTlMUdTF1Y6bqNVts7CEYBzls21Y=
+	t=1778968266; cv=none; b=Y5G/3fRBdwXSti8zE6XokGzjCdQcDZ/eRgVg8UMRAfAIo48Kmkb5AxCXYiDi0UyVHJNXsKOFb/YqTpy7s/Y23UYqjeRZ4dgECwq5XugGRh9x++l2pIzU5HH5tiX67/qLDsvF/wBiMn/3c1TSR+Qa0IiYWnhVeJQyHGhWd+hCxac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778967209; c=relaxed/simple;
-	bh=ayR1SmOkd5Db76wS5pPGCTdZgUjQMdIBr6hvP2KdR9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bjOul584HFYVLwbYR7XyDxecRZE8rO5IRSpm5VQAxV8bt/gpoVomohZN6hS955b/2h4DIjbxM5DuE7FKbDmjrm9kfHWeSjfJrMrEvO8acfoB+CQayA2aKhx3LamgqBmolVK/JoTobNH5Z86vUyYsSHmwFDA5cYNNl4EzWCWrVOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqIZ5Mpw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778968266; c=relaxed/simple;
+	bh=gT6XICHpMAC3xsYxIsUQVNDrHejCwTPOWCqbI0fjZRw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eaLLNOhx2iylcA1WcgTp+CqW8HmUrJQUCT4o+Uod2AAjnj0zdegwUqOrCp2kIXvsMDlJCZUnfqMwGEF9VDFhsMkjbXNtKkI5AH1seH9CZKGSBRE+oDhEhhvVmbuoZeDI7fgcOaCFVwiScVDur+a+7C81SzceLMyB4bQdfVD4LA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZDHDei4; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqIZ5Mpw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88BCEC2BCB8;
-	Sat, 16 May 2026 21:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778967209;
-	bh=ayR1SmOkd5Db76wS5pPGCTdZgUjQMdIBr6hvP2KdR9w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IqIZ5MpwTE979o2rjPrK3hsomoTwmVpkowHgfcZXpoivs3Q72pwGwyhldadT8URy+
-	 LStZpuUavU22T9hJ+0dAfWSnSfTlMzkUhfnVVA3P/Itwi7+OB2NdNLeTmNykvT/gE0
-	 eDHa1s6/vomCovHLOHOaqZ8rUEKxJD8AMNvvXHrQ26+1URkgZGAaFMSyFmBI26n9ep
-	 ILXdx+GLWrDuX8W4QBb5JCKkgOFwSX7VSQO7eZs4gvZVdOX8Tt21R4dEawRBoiv89I
-	 DSLCf4Qox91eAPm2nQYt8e/yPfqVYKbIO/t+qkU12Vy02IuW/FgrOJkpp0QnFl519k
-	 0GsvpPdpD+9Uw==
-Message-ID: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
-Date: Sat, 16 May 2026 23:33:24 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZDHDei4"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43d73422431so600498f8f.2
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 14:51:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778968264; x=1779573064; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=H0Ibvrh10uhcctZ5pFOGwQIOfOXYmHIfcNc9VVPAHmc=;
+        b=hZDHDei4JpZmxe7bplmM7bwTB8bWjw9gJHdlfGN/Q6c57WS6khZxbN+0PcUN8RjWlT
+         gKwcvSgS8kTc1beP6dunEWiQ6AkCHVzCCEkg9VWrOuieROmJDJxEghyXm22hTOJc0hrx
+         rtTfvFXA1c3oQXpiqbVOyW9LfOv8YVkt6kzf6ChtGaV+/8kiEJmIBfJVYq6cIiPwnM2S
+         dQ7UzTpoReCDtX/V10DxDJS3HqPdag7ruRTXfegQ7wAOOPKa5kvcPh+/au8JlyY/7ZNW
+         FzcAjOmE1hkYLw4vqNTB6xkMNKA474H7EnjcHaw5loCCi/XNyC1S9D9OPDmEGwBxzaQi
+         v97Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778968264; x=1779573064;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=H0Ibvrh10uhcctZ5pFOGwQIOfOXYmHIfcNc9VVPAHmc=;
+        b=C+A9Y36Br/GrBiMmqWE5Y5IWMXynY2mfgaAtXBIjZNF6gOclnAwKRfYa0+TimN+T0G
+         I46X/jenAjwnGRmnLTfOe128DMWCI903ev9gzJgU5uex2ZL0qvJdf96rapc7RERZzu08
+         eck4jH41pUfM8k6ZBA1FrX4o2U61NfAVWhSGdc6mYIZZL4M3aOU9ozZCg03zzGqgyOI4
+         UpgvneMRnzqh7fxImZl+t3kjIBKv/gIOs0gq5SnzD+zP2JCEyXTfP2UENDnL52W34w87
+         iLdv1V5EaqE0mjCc+aJ9UqdnvQTQn86U6X0Wrbl3XD4F35spNBQfyO8A23RfmfgXvp1d
+         u1hw==
+X-Forwarded-Encrypted: i=1; AFNElJ+iKgkuHL37uk6a67VwbxZuR/DwdjpscCnMryxL+/D9MesW23fHY35jes5/apDJ/yB3dN9f0FjpjIa3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzws3CPJXRPb04Jecnr7lbTsoERTvqZ+rDv3qT973YlfnUVXxMC
+	Fk1IpgfncMQGJrqeQjkVfHhUEnP1MRiQi1YgkmWDzzJ8x/OHJMzsX44Y
+X-Gm-Gg: Acq92OHtqP6XsouRTQmLfe4WeQiDmk+0a53V1IxV/GBndn0ZGd4+TwOrrtb+pPQohvR
+	saE7kUR8qh+GY+uv+M1KsmQHYt2XiPt8bg0mk/Zj718hGaqhOdVBFpS80J97trTVr4VKueW3h6x
+	x1hDmT+4YwL55H2GPmvblEKyZxYqriQsFVfgjlHnK1akzfWdzQO/kDK+gXn6/q1Y6UjvuEN3Xbs
+	gaB8cofguSvR05axmiedpbVgUd4pk9tVIxX8NX0R0p8+phfnCYTe30fCIp9D5Iu88sqRCFzDiKQ
+	fflm0fqc07gSi3D+PfF1rmvwfigQK2cJpvUuj/dq9j7cotWtErq99n2+rgqevZY45f7YP2OZSRf
+	0m/B33p5UyLVLbsQ6oPNmewn+7RjQzgK+abpphW0DQhfE5FSkBozIUKVrd3V+plpYwZ7vov06Ip
+	ujLldRxS/R5JdJtjXaU+d8ew8lON9fGKvDIZf8rBGvIXERX3aK7dU4n7BwemmagTvHKnPsTZX3M
+	X9Ks5f8lwli7gAlrF1ayVovTWH/KYRaW83nVd8dUCQfIBZHcDgTkxJjtifscv97T6gP9dYiQySb
+	h4RIOsJggL6ji7lTUBooFCqDl9wZ6GEb5QZQx8VKDGAjbCXD
+X-Received: by 2002:a05:6000:2dc2:b0:45d:4c20:7285 with SMTP id ffacd0b85a97d-45e5c5bbe46mr13893624f8f.6.1778968263443;
+        Sat, 16 May 2026 14:51:03 -0700 (PDT)
+Received: from systembl0wer.localdomain ([213.194.212.155])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da15a5653sm25819528f8f.35.2026.05.16.14.51.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 16 May 2026 14:51:03 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: [PATCH 0/2] iio: light: veml3328: add support for new sensor
+Date: Sat, 16 May 2026 23:50:52 +0200
+Message-Id: <20260516-veml3328-v1-0-1d4b663e2fe3@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Stop false review statements
-To: debarbos@redhat.com, Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
- Greg KH <gregkh@linuxfoundation.org>,
- Konstantin Ryabitsev <mricon@kernel.org>, Guenter Roeck
- <linux@roeck-us.net>, sashiko-bot@kernel.org,
- sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
- Linux Kernel Workflows <workflows@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree@vger.kernel.org, kfree@google.com
-References: <2026051631-trolling-juggling-da1c@gregkh>
- <0902F8E6-C495-40A1-975D-92D3B72D44AE@linux.dev> <agi3X76XwcBJ-KmH@x1>
- <agjb7-q-p2SemgJa@debarbos-thinkpadt14gen5.rmtusma.csb>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <agjb7-q-p2SemgJa@debarbos-thinkpadt14gen5.rmtusma.csb>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALzmCGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEyMz3bLU3BxjYyMLXdOkNEvjNAtTQ0uLVCWg8oKi1LTMCrBR0bEQfnF
+ pUlZqcglIv1JtLQA8PZSDbAAAAA==
+X-Change-ID: 20260426-veml3328-5bf93f85198e
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778968262; l=1340;
+ i=joshua.crofts1@gmail.com; s=20260516; h=from:subject:message-id;
+ bh=gT6XICHpMAC3xsYxIsUQVNDrHejCwTPOWCqbI0fjZRw=;
+ b=rNJZ9uDZG7S2Cm0fg+Cdo75lKl5vgAev7X77MLtkLSkHdYy32sEULWOkJjFgOSUv4o0x3EvJP
+ 6k/GmWCmuDOAg7xnoueIYRhyNH9+t2bAjxt1R+4v4kjvOou5mZxB/yE
+X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
+ pk=d2X8EVKEB2uF4AaPPi3iSSI+IJF3/9kOoDYVVmc+G1o=
 
-On 16/05/2026 23:29, Derek Barbosa wrote:
-> On Sat, May 16, 2026 at 03:28:47PM -0300, Arnaldo Carvalho de Melo wrote:
->>
->> Couldn't this be something like:
->>
->> AI-analysed-by: bot-X
-> 
-> +1
+This patch series adds support for the Vishay VEML3328 RGBCIR light
+sensor. The sensor communicates via I2C (SMBus compatible) and provides
+5 types of 16-bit measurements: red, green, blue, clear and infrared.
 
-But why? What is the benefit of storing in Git log information that some
-tool did work?
+Reasons for adding a new driver:
+- Existing Vishay drivers in the kernel do not cover sensors that
+  handle RGBC and IR simultaneously.
+- The register map and configuration differ from other Vishay light
+  sensors currently supported by IIO.
 
-We do not store checkpatch result (another pattern matching tool),
-Coverity, Smatch, LKP or syzkallers.
+Testing:
+- Tested on a Raspberry Pi 4 using a VEML3328 breakout board.
 
-Instead just blank +1 please provide arguments why this is useful for us.
+Datasheet:
+https://www.vishay.com/docs/84968/veml3328.pdf
 
-I find it opposite: clogging commits with useless information, because
-some arbitrary and completely closed-source tool did analysis means
-nothing to me one year later when I look at the commit in the Git history.
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+Joshua Crofts (2):
+      iio: light: veml3328: add devicetree binding for new sensor
+      iio: light: veml3328: add support for new device
+
+ .../bindings/iio/light/vishay,veml3328.yaml        |  45 +++
+ MAINTAINERS                                        |   6 +
+ drivers/iio/light/Kconfig                          |  11 +
+ drivers/iio/light/Makefile                         |   1 +
+ drivers/iio/light/veml3328.c                       | 405 +++++++++++++++++++++
+ 5 files changed, 468 insertions(+)
+---
+base-commit: 74d173f29572951629d1e0b7456b424006e51b87
+change-id: 20260426-veml3328-5bf93f85198e
 
 Best regards,
-Krzysztof
+--  
+Joshua Crofts <joshua.crofts1@gmail.com>
+
