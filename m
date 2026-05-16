@@ -1,166 +1,132 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F33434F48D
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 20:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94C82FC893;
+	Sat, 16 May 2026 20:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778962056; cv=none; b=Yqt/qL/V32Zob1fn3vHIHySyDgSIyGSPQsoxZi+qjZuJzoIwBaySfsHMjuWwaqcw2TNlMNtLmOsbq9BLXOagoeeEt+1D2PQbUdle5qOtet54GBlOfOGY8klzbaA5AKO8nOGHfnyrvgmGzQKrR2QapOnDz0c/tCr7N1n6lLvh/vo=
+	t=1778962606; cv=none; b=SgD9fCb5ItbOStlVh5s9el1WC4H096K+oykbERtW/nirYNK+p3sv76xfOdTqwXupkGJtf95wWdAh2w044RQKIZJ+B+2TYS208yhnyxD0WEe7AOLgik7P6+WyG2UF7GQR44hTYQNNNKbgMVV1RmiDTq3b79pj8MNkxoFRG2uAiAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778962056; c=relaxed/simple;
-	bh=/XSwKEBlN2etIJ2HDD3RrPUiKaW6GeUhkusBv518Ws0=;
+	s=arc-20240116; t=1778962606; c=relaxed/simple;
+	bh=hlpl3QFFVUCLJyEXWFF8BrifXVl5rOg5Wmrm0J0mVy8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GtVhNcJ2lxHxs7psv5xTExP+BbBZl7W23srw9O/HZ4mzfkoRKVU5Ywi/2OO520e2gyWafxx9wHtmxWGC/9KlpGZJnRzaoeVjuPteUqLu2URtDwF3p4AqxV6XghJ9SE4OAjmJiqoMhLlWfso6aBFln/pEh8I9dRgrhxtmI6CKk2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Wrv1kLQX; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	 In-Reply-To:Content-Type; b=Y4IURHk7sWKhDLzWkA8wW8r0BU8QPEJ/jYv+2mk16C24KHF6QBqgDf8q8B8BZUvEZ26VUgSRHd6uARy3hnXpfR14Srxn+Pa2g6cM68XjOXukGofgg+LMzv71+XiUzMJe0WUMcYIrJ/NLLDiNOSnKi3Syr2YlpVf4mlwVUOvbQQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bn0HCOSU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Wrv1kLQX"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06F5A3F6CB3;
-	Sat, 16 May 2026 22:07:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778962051; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=CRBHpz6Y3zzrdaC5vfdjbfoqovTiBHZIMpJNktzJRBE=;
-	b=Wrv1kLQXnvaTDxuVSKX9XJyPwcIpxkBVXbxvtvKFJcqKzTkLKfOQk9aoOSqhoU+cdGI/UK
-	4pneOIxJQPiODAkDZVs05SAHqzwTXQ1I3VMqmLV4YMjhn08S850EU/duHT2qlIhSJO8qDh
-	ZG0tBufzd/igfiEn6uXBhLfiaVT5aboLhmaiDp9cnFzs5xYRYN4jDTk66JaZIbrEDmxkxO
-	LfX4hIEaDszt3vA75g40ocY22V5KaKShS6OZty/S4L8EKbCaFUzFU0LkELdvdBZ08Bk68W
-	WTaltsaUl2QRReuei5k35YtZZHR9S24paKc7uTD8wdEH7+01J/ctSKlcYYxSgA==
-Message-ID: <a6b00560-d6fb-480b-bfcb-26324e478ad3@cjdns.fr>
-Date: Sat, 16 May 2026 22:07:27 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bn0HCOSU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E240BC2BCB8;
+	Sat, 16 May 2026 20:16:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778962606;
+	bh=hlpl3QFFVUCLJyEXWFF8BrifXVl5rOg5Wmrm0J0mVy8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bn0HCOSUrdWayaJqYUwJTUqY46B+d9yahziK9MQiz9jcQsmxGqnH/Emu+mcD3ZBk0
+	 ceKY3mRH5B3sAz7BDGV+6mTDnu7bZLG/lDtpWuDY+UujDSXXVeQNzcbHwXtIdm8uD9
+	 T0uRAPKMrIf/5tJE+6AIra2fdnM+1WrH3o88Yqfh/LUuLUGEXNCzsp9NTho/9Hdska
+	 vBzikTnRJ+2RqSexB1Z1mVxAhcxwDR3VnRMdlNtn0DSJlfdLKQCP2lv3Prne0z/Xqf
+	 YA1Ws5aPv1Wlcm2mZP306S4tMyy95IVxjz6XqiLH0mlDnn6WBSZpqirqrjk7vwxO4J
+	 fPSjVhd6MaU7Q==
+Message-ID: <a39b5e37-72b8-465a-b6c3-65415eb577aa@kernel.org>
+Date: Sat, 16 May 2026 22:16:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v3 2/4] clocksource/timer-econet-en751221: Init teardown
- on error if possible
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260516182648.3987792-3-cjd@cjdns.fr>
- <20260516190510.CD925C19425@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] media: dt-bindings: qcom: add JPEG encoder binding
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kapatrala Syed <akapatra@quicinc.com>,
+ Hariram Purushothaman <hariramp@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Gjorgji Rosikopulos <grosikop@quicinc.com>, afilipov@quicinc.com
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260515-qcom-jpeg-v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com>
+ <b7u5v5a7DiYm-NowQSavDCjDEb1bGE_S2Z5LPZmIlMx5ve25F7067cdVqRJEeuUoTl7pHVr98FuOry9-VR5cNA==@protonmail.internalid>
+ <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
+ <f4159f41-8a06-40a6-919c-5e16314b1732@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260516190510.CD925C19425@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <f4159f41-8a06-40a6-919c-5e16314b1732@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+
+On 16/05/2026 17:51, Bryan O'Donoghue wrote:
+> On 15/05/2026 12:46, Atanas Filipov wrote:
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - enum:
+>> +        - qcom,sc7180-jenc
+>> +        - qcom,sm8250-jenc
+>> +        - qcom,sm7325-jenc
+>> +        - qcom,sc7280-jenc
+>> +        - qcom,qcm6490-jenc
+>> +        - qcom,sm8550-jenc
+> 
+> Per my previous feedback.
+> 
+> Please only list the items you are also providing in the DTS to be verified.
+> 
+> For example if this driver works on sm8250 there should be an enabling 
+> patch for the DTS to that effect so that it can be verified.
+> 
+> Right now I believe all you are asserting in this way is qcm6490, so I 
+> advise very strongly to either add the missing elements or just drop 
+> what's not shown to be supported in your submission.
 
 
-On 16/05/2026 21:05, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The error teardown path for `cpuhp_setup_state()` failure unmaps MMIO memory without unregistering active clock event devices, creating a latent use-after-unmap bug.
-> - [High] `cevt_dev_init()` accesses memory blocks using absolute CPU IDs, causing a NULL pointer dereference if the CPU mask is sparse or the device tree is incomplete.
-> --
->
-> commit 28fb215150f468c2962087cefa4f634e20465bd8
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> clocksource/timer-econet-en751221: Init teardown on error if possible
->
-> This commit converts the initialization process into two clearly delineated
-> phases. It moves all IRQ and address resource mapping before the point of no
-> return and adds teardown logic in case of error.
->
->> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
->> index 4008076b1a210..155471f68e6f8 100644
->> --- a/drivers/clocksource/timer-econet-en751221.c
->> +++ b/drivers/clocksource/timer-econet-en751221.c
-> [ ... ]
->
->> @@ -126,22 +127,9 @@ static void __init cevt_dev_init(uint cpu)
->>   	iowrite32(U32_MAX, reg_compare(cpu));
->>   }
->>   
->> -static int __init cevt_init(struct device_node *np)
->> +static void __init cevt_init(struct device_node *np)
->>   {
->> -	int i, irq, ret;
->> -
->> -	irq = irq_of_parse_and_map(np, 0);
->> -	if (irq <= 0) {
->> -		pr_err("%pOFn: irq_of_parse_and_map failed", np);
->> -		return -EINVAL;
->> -	}
->> -
->> -	ret = request_percpu_irq(irq, cevt_interrupt, np->name, &econet_timer_pcpu);
->> -
->> -	if (ret < 0) {
->> -		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np, irq, ret);
->> -		goto err_unmap_irq;
->> -	}
->> +	int i;
->>   
->>   	for_each_possible_cpu(i) {
->>   		struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, i);
->> @@ -151,21 +139,12 @@ static int __init cevt_init(struct device_node *np)
->>   					  CLOCK_EVT_FEAT_C3STOP |
->>   					  CLOCK_EVT_FEAT_PERCPU;
->>   		cd->set_next_event	= cevt_set_next_event;
->> -		cd->irq			= irq;
->> +		cd->irq			= econet_timer.irq;
->>   		cd->cpumask		= cpumask_of(i);
->>   		cd->name		= np->name;
->>   
->>   		cevt_dev_init(i);
-> Could this iteration cause a NULL pointer dereference if the CPU mask is
-> sparse?
->
-> timer_init() allocates memory blocks based on num_possible_cpus(). If
-> cpu_possible_mask is sparse (for example, if only CPUs 0 and 3 are present),
-> num_possible_cpus() is 2, and only 1 block is mapped.
->
-> When this loop reaches CPU 3, cevt_dev_init(3) might try to access an
-> unmapped membase pointer.
->
-> A later patch in this series changes the allocation to use of_address_count()
-> and adds a check in cevt_init_cpu(), but since cevt_dev_init() is called
-> unconditionally here, the issue appears to remain reachable during early
-> initialization.
-This is a potential issue but it predates this patch, and this patch 
-only tries to fix one thing.
->
->>   	}
-> [ ... ]
->
->> @@ -186,22 +165,45 @@ static int __init timer_init(struct device_node *np)
->>   		econet_timer.membase[i] = of_iomap(np, i);
->>   		if (!econet_timer.membase[i]) {
->>   			pr_err("%pOFn: failed to map register [%d]\n", np, i);
->> -			return -ENXIO;
->> +			ret = -ENXIO;
->> +			goto out_membase;
->>   		}
->>   	}
-> [ ... ]
->
->> +	cevt_init(np);
->> +
->> +	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
->> +				"clockevents/econet/timer:starting",
->> +				cevt_init_cpu, NULL);
->> +	if (ret < 0) {
->> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
->> +		goto out_irq_free;
->> +	}
-> If cpuhp_setup_state() fails, does this error path leave active clock event
-> devices registered with unmapped MMIO memory?
->
-> cpuhp_setup_state() invokes its startup callback (cevt_init_cpu) on all
-> online CPUs, which activates the clock events. If it fails on a subsequent
-> CPU, the NULL teardown callback means no rollback occurs.
->
-> When the error path jumps to out_irq_free and unmaps the MMIO memory, any
-> subsequent timer interrupt could dereference the unmapped memory.
->
-> A later patch in this series modifies cevt_init_cpu() to return errors,
-> which makes this teardown path reachable.
+Bryan, before you waste more time here - you missed announcement that
+this should have never been posted.
 
-cevt_init_cpu either returns an error, or it registers a timer, not both. Per my understanding, if there's an error running on CPU0, cpuhp_setup_state will not register it to run on other CPUs.
-
-So I don't think there's anything to be done for this.
-
-
+Best regards,
+Krzysztof
