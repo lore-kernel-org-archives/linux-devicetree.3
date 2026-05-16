@@ -1,182 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7563B28686;
-	Sat, 16 May 2026 18:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E61A3446C9
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 18:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778957736; cv=none; b=VbUO0bxtX7u+CPfpoSS5Wk6he/e7nZnru3vdnavr2MO7DyfKtkW8NqyU1oF9WfUPdjU55T7BRaiF1/XAkqBshmpLP6RooIiZGto4dGhCSSjuwSwD4+bxTtyexwhU38bmYRGgBBLUCnpA8FJOu1jgeR8SbzG4R6jJ5MTrp54UUrQ=
+	t=1778957837; cv=none; b=b9Og7J+ELwwWuNc9zz41Isb2zsRRrgaZ3EspH8JB4cN2s9Cl5jXMzAumeTIDrhyVuQ3zuE7iHBmoe6lUs31AQ9QAg9API0TE3wPmMzZfYvEv4tPS8+G+f0xTraK/xaqgg6GIlwguQRIL+1pHj/DlRD7scUWzHyBaM0isO0zMcb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778957736; c=relaxed/simple;
-	bh=q/IpILmr0azoC+t0Lf2g+yybKTzBbhfe+OMXbr5vnMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kbo1J/U1puZ/DF9hsIJjmjoGN4XEBBd4AiHXppHBZU3bfixcD/Wp3s4k4HaObYxVY2eoJvsQ/oAjyAO1zxxR/nDEsG/AKgUpWKwhDGg6uwwxmxnB89zUa99Ud9unZ35DhpGOi9NcsQFfKz/8x7TSJcvYzd1H2v/PL8jUfwnb6ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhK1sizi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778957837; c=relaxed/simple;
+	bh=of8TX82GAchL6eHU8AfWJKqFRWVZ0hb2HwjwXfE+9xY=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=ObgxSMhhTp6gcSV1OJ3TRFqL1a4I8gjJVZ9qy5dE4jGFRPAaAQSDps+7U4uA/cJZQ10zLllo3Io7NMjiYbo1JEmcs5ctMUKeqildSE6u+xH4t3CZxh81w7sIhRiga/1u0bDwoBVYqwvMdKvfCXiLiL9p/NAwpeOqGFrMugI5OH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pDetYoJZ; arc=none smtp.client-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhK1sizi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDB1C19425;
-	Sat, 16 May 2026 18:55:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778957736;
-	bh=q/IpILmr0azoC+t0Lf2g+yybKTzBbhfe+OMXbr5vnMg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ZhK1siziz+X7X/gaHEAf46XLp/wpndFW29ONEQhistZJ8LZL9NdVhquDzcCgPzRA7
-	 bYeyYR8bf5oaBqHnG4MFF7J/vDaW1WRDMr726TXGzMop61gPwHVD6HKwttfehaoLoA
-	 h7vseBAgDOF2R1upFMaCUfj+o0ws1/A5FYJEw9mg1eHlPYjnYCltvTi0BhptUvduT2
-	 9ZQ1zmnNifahl03+VVA7SFJfAiqMlxHu0iCqsxEmROOF0FY2eStn6JT/JHOpG/VQq5
-	 deKDcavTSAoCLRc5oCU4z03rHl+rmDgUp+Sn0RdZQMBSdjAowxOxCHcvXl1dC/Zb7q
-	 iT6k3kn+oWE+Q==
-Date: Sat, 16 May 2026 19:55:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v11 5/6] iio: adc: ad4691: add oversampling support
-Message-ID: <20260516195522.6792f89e@jic23-huawei>
-In-Reply-To: <20260515-ad4692-multichannel-sar-adc-driver-v11-5-eab27d852ac2@analog.com>
-References: <20260515-ad4692-multichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com>
-	<20260515-ad4692-multichannel-sar-adc-driver-v11-5-eab27d852ac2@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pDetYoJZ"
+Content-Type: text/plain; charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1778957824;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FwKxoY0mz0ptZPDYXqLwrww/3nX4SlEEJE/N2RkvrQU=;
+	b=pDetYoJZruA5D8Ps7MplFOVD3y+x45SRS/xDU+bU85E8rfWxHPGtr9wGRgjNhjAyNsYQ1o
+	MYDvE+qWm5bKmANE/xIESyOHL5gMpG1XqqAcB1iTd19DAjsCuie8/AI/mNZl9+C4yeLkHy
+	b4fkLbborb+M/KVwLZ+tlWZCg6k1Oj4=
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Fri, 15 May 2026 16:31:34 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
-
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add per-channel oversampling ratio (OSR) support for CNV burst mode.
-> The accumulator depth register (ACC_DEPTH_IN) is programmed with the
-> selected OSR at buffer enable time and before each single-shot read.
-> 
-> Supported OSR values: 1, 2, 4, 8, 16, 32.
-> 
-> Introduce AD4691_MANUAL_CHANNEL() for manual mode channels, which do
-> not expose the oversampling_ratio attribute since OSR is not applicable
-> in that mode. A separate manual_channels array is added to
-> struct ad4691_channel_info and selected at probe time.
-> 
-> in_voltageN_sampling_frequency represents the effective output rate for
-> channel N, defined as osc_freq / osr[N]. The chip has one internal
-> oscillator shared by all channels; each channel independently
-> accumulates osr[N] oscillator cycles before producing a result.
-> 
-> Writing sampling_frequency computes needed_osc = freq * osr[N] and
-> snaps down to the largest oscillator table entry that satisfies both
-> osc <= needed_osc and osc % osr[N] == 0, guaranteeing an exact integer
-> read-back. The result is stored in target_osc_freq_Hz and written to
-> OSC_FREQ_REG at buffer enable and single-shot time, so sampling_frequency
-> and oversampling_ratio can be set in any order.
-> 
-> in_voltageN_sampling_frequency_available is computed dynamically from
-> the channel's current OSR, listing only oscillator table entries that
-> divide evenly by osr[N], expressed as effective rates. The list becomes
-> sparser as OSR increases, capping at max_rate / osr[N].
-> 
-> Writing oversampling_ratio stores the new OSR for that channel and snaps
-> target_osc_freq_Hz to the largest oscillator table entry that is both
-> <= old_effective_rate * new_osr and evenly divisible by new_osr. This
-> preserves an integer read-back of in_voltageN_sampling_frequency after
-> the OSR change while keeping the oscillator as close as possible to the
-> previous effective rate.
-> 
-> OSR defaults to 1 (no accumulation) for all channels.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-
-Mostly to avoid others looking into it. We do indeed have some issues
-in the IIO core with races around read_avail().
-They've been there a long time and attempts to fix them haven't yet
-made it upstream.  Where possible it is better to precompute all the options
-and pick a pointer rather than copying on the fly.
-
-I think we can do that here but maybe I'm missing something.
-
-I'm running out of energy tonight and feel like some Eurovision silliness
-so I'm not going to do another full review today at least
-
-> ---
->  drivers/iio/adc/ad4691.c | 381 ++++++++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 343 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
-> index 25f7a6939b0f..39244e0e4a2d 100644
-> --- a/drivers/iio/adc/ad4691.c
-> +++ b/drivers/iio/adc/ad4691.c
-
->  
->  static int ad4691_read_avail(struct iio_dev *indio_dev,
-> @@ -634,10 +802,46 @@ static int ad4691_read_avail(struct iio_dev *indio_dev,
->  	unsigned int start = ad4691_samp_freq_start(st->info);
->  
->  	switch (mask) {
-> -	case IIO_CHAN_INFO_SAMP_FREQ:
-> -		*vals = &ad4691_osc_freqs_Hz[start];
-> +	case IIO_CHAN_INFO_SAMP_FREQ: {
-> +		unsigned int osr;
-> +		int n = 0;
-> +
-> +		/*
-> +		 * Hold the lock while reading osr[chan] and populating the
-> +		 * scratch buffer: a concurrent oversampling_ratio write modifies
-> +		 * both target_osc_freq_Hz and osr[] under the lock, so we must
-> +		 * read osr atomically with respect to that write. The scratch
-> +		 * buffer is per-channel, so concurrent reads on different
-> +		 * channels do not race; concurrent reads on the same channel
-> +		 * would compute identical values, but holding the lock avoids
-> +		 * the formal data race.
-
-The further issue that sashiko points out is we might rip whilst the
-core is formatting this. It's actually worse than a small race as the
-consumer interface might hold the pointer indefinitely.  There are only
-a few osr values, can we precompute the lot and make this a pick?
+Mime-Version: 1.0 (1.0)
+Subject: Re: Stop false review statements
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Roman Gushchin <roman.gushchin@linux.dev>
+In-Reply-To: <efc4d394-b328-4ccf-8c05-b6470ee4b88d@kernel.org>
+Date: Sat, 16 May 2026 11:56:46 -0700
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+ Konstantin Ryabitsev <mricon@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
+ sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
+ Linux Kernel Workflows <workflows@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree@vger.kernel.org, kfree@google.com
+Message-Id: <70C5331E-06F1-48D5-A6BA-0CD130B69A45@linux.dev>
+References: <efc4d394-b328-4ccf-8c05-b6470ee4b88d@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Migadu-Flow: FLOW_OUT
 
 
-> +		 */
-> +		scoped_guard(mutex, &st->lock) {
-> +			osr = st->osr[chan->channel];
-> +
-> +			/*
-> +			 * Only oscillator frequencies evenly divisible by the
-> +			 * channel's OSR yield an integer effective rate; expose
-> +			 * those as effective rates (osc / osr) so the user works
-> +			 * entirely in output-sample space.
-> +			 */
-> +			for (unsigned int i = start;
-> +			     i < ARRAY_SIZE(ad4691_osc_freqs_Hz); i++) {
-> +				if (ad4691_osc_freqs_Hz[i] % osr)
-> +					continue;
-> +				st->samp_freq_avail[chan->channel][n++] =
-> +					ad4691_osc_freqs_Hz[i] / osr;
-> +			}
-> +		}
-> +		*vals = st->samp_freq_avail[chan->channel];
->  		*type = IIO_VAL_INT;
-> -		*length = ARRAY_SIZE(ad4691_osc_freqs_Hz) - start;
-> +		*length = n;
-> +		return IIO_AVAIL_LIST;
-> +	}
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		*vals = ad4691_oversampling_ratios;
-> +		*type = IIO_VAL_INT;
-> +		*length = ARRAY_SIZE(ad4691_oversampling_ratios);
->  		return IIO_AVAIL_LIST;
->  	default:
->  		return -EINVAL;
+
+> On May 16, 2026, at 11:29=E2=80=AFAM, Krzysztof Kozlowski <krzk@kernel.org=
+> wrote:
+>=20
+> =EF=BB=BFOn 16/05/2026 17:49, Roman Gushchin wrote:
+>>>=20
+>>>> I=E2=80=99m not attached to any specific form of it, I thought Reviewed=
+-by is the most obvious form.
+>>>> And we use Reported-by: tags with various tooling for years.
+>>>=20
+>>> Reported-by: shows the existance of a problem that some tool found, a
+>>> subtle difference here.
+>>>=20
+>>>> What do you think is the best form?
+>>>>=20
+>>>> I=E2=80=99ll pause sending reviewed-by tags until we have a discussion a=
+nd agreement here.
+>>>=20
+>>> Just say it in some other text form, that our tools will not pick up.
+>>> Like:
+>>>   Tool XXXX reports that all is good:
+>>>       https://....
+>>>=20
+>>> or something like that?
+>>=20
+>> Sure, works for me.
+> Roman,
+> Before implementing such changes, send a RFC or just ask a few folks for
+> opinions. We do use the tool, among other tools, so we will gladly
+> provide a feedback.
+>=20
+> Sashiko should in general not send such emails when not asked for. Why?
+> Because we have also other bots, like LKP, KernelCI, and imagine how
+> maintainer's mailbox will look like.
+>=20
+> LKP allows opt-in for your own repo, which for example I am using, so I
+> get confirmation of the success. But people are not receiving them. I
+> cannot imagine all the people getting these LKP-successfully-built
+> emails on every email.
+
+It=E2=80=99s opt-in on per-subsystem basis, as well as all other email-relat=
+ed features.
+I do rely on corresponding maintainers to decide if they want it or not.
+Even in the case which you was so unhappy about, I asked Guenter prior=20
+to enabling it for hwmon.
+
+If you=E2=80=99re saying that it should not send any non-personal emails in g=
+eneral, I disagree here,
+but happy to have a discussion, assuming it=E2=80=99s polite and constructiv=
+e.
+
+The reason why I disagree is simple: there are maintainers/subsystems who li=
+ke Sashiko=E2=80=99s reviews=20
+and  before introducing the email interface they had to manually send links t=
+o Sashiko=E2=80=99s reviews
+as replies to proposed patches. I=E2=80=99ve been explicitly asked to add an=
+ ability to send out
+emails with reviews.
+
+Thanks
+
+
