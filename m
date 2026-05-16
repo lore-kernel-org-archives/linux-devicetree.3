@@ -1,182 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70778405C5A;
-	Sat, 16 May 2026 12:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2691C5D72
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 12:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778934559; cv=none; b=ZjiyjJZoPrE1aeoQwX11pEMjxX3AwMbB8qARIp3OnoHP54QGLt/YCK1n43YSdfy3+TaRyz5OZW4o10aus9vIv+7sB+uabltKw2bLpRY0UZLECa3BAoWqSODm1+fCXcekISZzHKVH0F0nOJAdlVrhK6pdQ71xIBgBqMEAYhV9u4k=
+	t=1778934862; cv=none; b=nh3el4Kds5eXweDoZZ+4YP61hozWyyYaIRXRcKMTrcaTc/uiuER4vAi6ALgCFP8VezXLVT/ntFaCd1JjvnPpZZAJQ6OPwrK0+Ud4d/h/+15U8seIf+PYFc90QsfT7tpH1bnZKXdu2euVsvaviAYG+32uC+IU+UPVxduGTHfFHFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778934559; c=relaxed/simple;
-	bh=Lbp5oUIRM/Mc5rIExQYk1XGR6tzLA4ZDVN/RucFG268=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BhL7UY+PViQP/2sMHhDeee7stVgRDHnECHLxDj/4i/JuXW+UcoG24uQxTsPugtEpvl/o2KvzLJpCYK5p/pXmRcT/AVDDzGknAM+ggOb96yjC/AcDczjHwwbdEU/AuEea7F+PSKXni1pX8UBpAeBmez745u8xXh9SwWOordfsyNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rRJUIoHO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778934862; c=relaxed/simple;
+	bh=wqpXfIpeij9xEfvUNcjaE+C+fgLfl5o0ZRfgRNcaWrA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lTaQBfITt6LUJ1PusxagWRpke4xOUsWmpopFqQ2FnFnDCyuYwc6moX9pvDTx0mNEbka4+bsH5rea7qBGjlRqbR4CIeX3dA3trwGaq8MekkkOJkJXuncD1SweJvg6hsFt+mfwmf6OCrDEgrye+rI0V7BP/GjEtyKHlhW9c8dDr+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NwCWa8Oe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fFdHVKO9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rRJUIoHO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5A4C19425;
-	Sat, 16 May 2026 12:29:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778934559;
-	bh=Lbp5oUIRM/Mc5rIExQYk1XGR6tzLA4ZDVN/RucFG268=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=rRJUIoHOEHWutR0CIyrwZ9LOE0CJ8SyPSU+3JdwYX7fDtU2Q83ywS99rsetJh+vgE
-	 zcm7OBPOVttsYCF5Qr3PN5Kq6sFo+gvjRf39g7PhReTN/hgOcpjF2riWwJwfUgujr0
-	 J9ZXGPcqKv1o+rGG8PkwVWq5wCr9F4xOqaYWurcNVwFdo+2pHpJfhskdDvn8lOp72v
-	 FzxyzhUKgAsMDfr+253PuUP+rDZ5rjQYjogzh392gJZ9rDKltEOu4Ll28rVdT89+Dt
-	 6L6m2cDZq68b4ZEUlYDNtoxCrn1u8YlVC5y7SWCfob48U8vKCsw5Bhccgv0YI5hXik
-	 SqP59284JuKqQ==
-Message-ID: <b5f2a21a-9530-4efe-aed5-cc96aab74e88@kernel.org>
-Date: Sat, 16 May 2026 14:29:15 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NwCWa8Oe";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fFdHVKO9"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64G8jPgW3863506
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 12:34:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=v/qlA8PM2DTSSKhlDDk1SL
+	7aX+U5Iuh8+Hnk2GoP4P0=; b=NwCWa8Oe64/+tC+7G1YPgU4Sl+IxypHWpjZ6+U
+	v3HMl/VIwq3Gz/+vSD82ELktoiGIT7WHPoFt62DX6rQnW/L9RElH0wySuO3lw2/c
+	dPfxI/s7UH4sG0kKoFghl01BuSSVS3LbMNMgBN/IVeT3ffF5z9PS6ECcbxZj6W5z
+	5m3nmPfPvUO9pQxUv00zgomy6m5ThIQ5ftSveZ8HSYnLuXzNXQVrw2C8+I+4WeE8
+	/rVdErwnm1dpQVrvBg5FzMyBGHhF8tMPdwxCpxkNKQ803tv4vJR66AMj+5YOLzsx
+	Bn5fnF0r4ulXRJiOkDVCLu2K4ChY0GytyDs3o2/PmyWqk/wA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gvqrumm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 12:34:19 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8353df9bc7eso901069b3a.2
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 05:34:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778934859; x=1779539659; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=v/qlA8PM2DTSSKhlDDk1SL7aX+U5Iuh8+Hnk2GoP4P0=;
+        b=fFdHVKO9J3qkMBg5v/6DCveRBGlB2E997Xwd6I6GOZihFpgQJNyvwES5b45vsXuOg/
+         yzZJ3y4NtWxUdZLiFaVxLOVmj0xTiZqESARNtsMteF4MU2KK7SeXwTxJpe43imDqnppx
+         JQr96S5Br5SuDwCR+cC32vUWAokBmDVjd7ypGsgiuX8r84VjWrqQ1YN863p7wPHoFdhv
+         wjvP1ysulLohtAEIytQi4p1b0SdlHUX4IrIKzVdtrCrXeZG7kyIUYkxcatsg1sx5rSXe
+         dY0wNzZKFzWaDLNPqLRiWXemgrZoHNbjWSpxL/KRT3qOJKn4wA33z2cqUAnZmnx7IlTM
+         AxeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778934859; x=1779539659;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v/qlA8PM2DTSSKhlDDk1SL7aX+U5Iuh8+Hnk2GoP4P0=;
+        b=DChTbo5epR+kgjlIKRWAXPJhCR7Ldw8OWN3c2xDI2vEAsujSMMrOQk8QB+qhvBUd6i
+         ++S0NNS1EaOomR/fDGMOfIeFEQThngbAsTvOpmMwVFVzNe8jZNb0v4rWrHBLfm0TtSfq
+         vCo5NVl0vPgEZjAHe2qsWOcBAHQcO5mnUs4Zi3Seqde+jvOcKIpzaxyeUa2FOX+927VA
+         Cec8YBVBrp13JrujZkrb9HN27HxdCq/On5MwgW7n5mmh+IqjeDn9gbmFmYRstrltHGKY
+         +Fb2BYBUSReJicTvgMxyPQidcsPHhZRherWQZC/vl9c75Hvs6LJ7uTDAzXtT1z6VD5fI
+         R5UQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8sw5y2CzMXcMrzW/dlLRizIlQyUqIY20+Tl64ERue1RSCVp3uX0gcYSqz44JBXyfauXAAjsZXKNQVG@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5T4G6DJdCV2PinT7v/US8p7P/McSLQ2HzcCtg4/Dd5aLHQZZN
+	6J9ToYG86Al9UZR39lwhVlsTfW231ESRDRCRZR0L/O6jDBMAlOHA2biNfCkc/j0CbESGZaqVY8B
+	e+5+1skzBRaCf30/rOOqBS4YTff3sCjlOttkMkvYashsI3tdSo/fjMrlHYB+y9V1vZlGz3yw9
+X-Gm-Gg: Acq92OH+iLJkNZ+HIlP8/N832CqZlZ17EAGQLWvpZrs2SYnzv1ier2xs3khePEu5zRG
+	CUnf1cjZDLpeKdqpvUdU0yOmSkRpD/bD6J96SMiSCEJgUK+RhQhKNsHw7kKJSqQvZwkujL0O6ZG
+	AiayGEq8Z8R8ZvON4GdxaDWAhpDUUqWDi8+c49oG8QMtNWTX/fG5wU8BUCKO/qFq0tKcWBVW85G
+	f1m2FzMsjKUpfA5iO9ThpE5RRq91W9M7tMf3SeTUMbOEd1Zle7zrAH8JwSnNMe3XbvM6E7u8iZu
+	GtFK41u96MJX0pcn8s5ry62guEzJfl4KeiwmC6CTeVmW9flfnWk1ujkHTjt2QOKhxODfdz6ghSu
+	EG2VGvMAAgCIuqb4+LVO3bdja+UmKSwY6B7OwBgfW7wS6vJFY5E76oYp99yq4s/s=
+X-Received: by 2002:a05:6a00:3028:b0:82f:2243:e445 with SMTP id d2e1a72fcca58-83f33d9dc40mr8418954b3a.32.1778934858924;
+        Sat, 16 May 2026 05:34:18 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3028:b0:82f:2243:e445 with SMTP id d2e1a72fcca58-83f33d9dc40mr8418925b3a.32.1778934858440;
+        Sat, 16 May 2026 05:34:18 -0700 (PDT)
+Received: from hu-bibekkum-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19f7cc9asm11405217b3a.53.2026.05.16.05.34.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 16 May 2026 05:34:18 -0700 (PDT)
+From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Subject: [PATCH 0/2] iommu/arm-smmu: Add interconnect bandwidth voting
+ support
+Date: Sat, 16 May 2026 18:04:02 +0530
+Message-Id: <20260516-smmu_interconnect_addition-v1-0-f889d933f5c1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Stop false review statements
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
- sashiko@lists.linux.dev, Linux Kernel Workflows <workflows@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, kfree@google.com
-References: <ad139e54-a7f0-4d09-832c-6b2bf2e93e03@kernel.org>
- <fcc4b719-2696-4f31-bac4-6c07f8ddec47@roeck-us.net>
- <221cc52e-9918-43ea-b196-622a8cc6db05@kernel.org>
- <fd3b2ca7-4d64-4c4b-98a3-7d3285fa6826@roeck-us.net>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <fd3b2ca7-4d64-4c4b-98a3-7d3285fa6826@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIADpkCGoC/x3MQQqAIBBA0avErBOsUKmrREQ4U82iKdQiiO6et
+ HyL/x+IFJgidMUDgS6OvEtGVRbg10kWUozZUOvaalNZFbftHFkSBb+LkE/jhMgpZwpbY51pDLX
+ oIA+OQDPf/7wf3vcDEL/MpGwAAAA=
+X-Change-ID: 20260516-smmu_interconnect_addition-d9567535e9d7
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778934854; l=1960;
+ i=bibek.patro@oss.qualcomm.com; s=20260408; h=from:subject:message-id;
+ bh=wqpXfIpeij9xEfvUNcjaE+C+fgLfl5o0ZRfgRNcaWrA=;
+ b=JhI5NIrTKt3Fz1WHFtw59UHAjtXkzMyTDK6UkYq9PmroRFC6ryp6bV7aLu3hq2ngBFuCBlEh4
+ 1OPRd2WhGNsD5MXrmvURzIV8+iuWhpm0brMLZ+Y/ntndjB1FeER/fa3
+X-Developer-Key: i=bibek.patro@oss.qualcomm.com; a=ed25519;
+ pk=V4oTa+TgRi7dib76fc92V+rslyRCAKbK8D4b2RVsMbc=
+X-Proofpoint-GUID: T4P8uFvnQKekVY2bPEHKNvWKCleJR5NL
+X-Proofpoint-ORIG-GUID: T4P8uFvnQKekVY2bPEHKNvWKCleJR5NL
+X-Authority-Analysis: v=2.4 cv=LKJWhpW9 c=1 sm=1 tr=0 ts=6a08644b cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=Z_0B4eLmBfDa8jkmzhEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE2MDEyMyBTYWx0ZWRfX2B/5Ro7QkaT6
+ xW7UDSrobXCZa7LE21+eXiuyYXQQxHEug3nSaHn0lktCw13udlkPOYNrMGAvarZ82R2o4WZhBhv
+ puFQ4NV+LKcTHLvTirXr94omjfXzLxhxiOU6sXhiYO9w0AkM+2CDZBSFJJ66aeSAv6PxEHQvG/6
+ 04qoO+2QKymDSBS9mMGZxtN7mzDrwHRFZOD2wK8gSw+SWiVYK8zOkdmgTXgvnrTLcGSK1VSbm2a
+ CXcTrT4e6PdTuGloSK7Y2HIlglcEfRWhpluHcg6IL8ET5rvx04oidlZlN6GjF4jdc7CqSd59Hr7
+ 04YO67UQebrWqWXrzLyau6c5zLBFDGlubvAH43Puq/unesqcrub7WrrdvjeFGaAcu1uvVv8PRys
+ eBgPHUowetNKBrYO8JYGjULJCQ7EVA7C9c1x36pvxUjd1XXTMob5xqTSNjZeTBV+bz9KyKKKVDs
+ icirLWfJGtZlW4UwIxw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-16_01,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 phishscore=0
+ clxscore=1011 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605160123
 
-On 16/05/2026 14:23, Guenter Roeck wrote:
-> On 5/16/26 05:16, Krzysztof Kozlowski wrote:
->> On 16/05/2026 14:11, Guenter Roeck wrote:
->>> On Sat, May 16, 2026 at 10:05:02AM +0200, Krzysztof Kozlowski wrote:
->>>> What the hell is that:
->>>>
->>>> https://lore.kernel.org/all/20260515190707.033BDC2BCB0@smtp.kernel.org/
->>>>
->>>> As a bot you CANNOT MAKE a Reviewer's statement of oversight. You are
->>>> not a damn human do be able to make such statement. You are a bot, a tool.
->>>>
->>>
->>> Where exactly do the rules say that ? I seem to miss that.
->>>
->>> There is a policy document about _contributions_ made by AI, but I don't
->>> see the one that says that AI agents must not provide Reviewed-by: tags.
->>
->> Quotes from the existing policy:
->>
->> 1. "By offering my Reviewed-by: tag, I state that:"
->>
->> Tool cannot use first person "I". Tool cannot "state that".
->>
->> 2. "A Reviewed-by tag is *a statement of opinion* that the patch is an
->>   appropriate modification of the kernel without any remaining serious"
->>
->> Tool cannot make a statement of opinion.
->>
->> 3. "Any interested reviewer (who has done the work) can offer a
->> Reviewed-by".
->>
->> Tool is not a reviewer as a person, thus above does not grant the tool
->> permission to offer a tag.
->>
-> 
-> I'd like to see that explicitly spelled out. Until then it is your opinion.
+On some Qualcomm SoCs the SMMU register space is gated behind an
+interconnect fabric that requires an active bandwidth vote before
+registers can be accessed. In the common case this vote is held
+implicitly by other clients (e.g. the GMU device holds a GEM_NOC
+vote whenever the GPU is active), so the SMMU works without any
+explicit vote from the driver.
 
-It is not an opinion. It is written. I gave you quotes.
+However, during certain power transitions — specifically sleep/wakeup
+sequences — the interconnect vote can be dropped before the SMMU is
+powered down. If the SMMU is then accessed (e.g. during runtime
+resume) while the vote is absent, register reads fail intermittently.
+The precise ordering makes this difficult to reproduce consistently.
 
-Do you want to spell the rules of English language? That tool is not a
-person?
+This series adds support for an optional interconnect path in the
+arm-smmu driver. When an 'interconnects' property is present in the
+SMMU device node, the driver acquires the path and votes for bandwidth
+before any register access, releasing the vote on runtime suspend and
+on error paths. Platforms that do not describe an interconnect path
+are unaffected.
 
-Shall I send the patch like:
+[PATCH 1/2] documents the optional 'interconnects' properties in the
+arm,smmu DT binding.
 
-  Any interested reviewer (who has done the work) can offer a
-  Reviewed-by.
- +In English "reviewer" is a person [1].
- + [1] https://en.wiktionary.org/wiki/reviewer
+[PATCH 2/2] implements the ICC path acquisition and bandwidth voting in
+the arm-smmu driver.
 
-Seriously, you expect to document the English language?
+Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+---
+Bibek Kumar Patro (2):
+      dt-bindings: iommu: arm,smmu: Document optional interconnects property
+      iommu/arm-smmu: Add interconnect bandwidth voting support
 
-> 
->>>
->>>> Stop faking tags.
->>>>
->>>> And really, considering how many false positives Sashiko produces, how
->>>> poor review comments it gives, how many misleading comments, it's
->>>> unacceptable to me to consider that a review.
->>>>
->>>> Amount of useless noise Sashiko produces already changed my mind how
->>>> useful that tool is.
->>>
->>> We seem to have completely different experiences. Yes, it does produce
->>> false positives, just like humans do. However, I have seen it find many
->>> real bugs, including many in patches which already had Reviewed-by: tags
->>> from (presumably) human reviewers.
->>
->> Of course it finds bugs. But it also produces - roughly - 80-90% false
->> positives, completely useless.
->>
-> 
-> Really ? The ones I have seen are - roughly, to use the same term - 80-90%
-> true positives. Maybe you should explicitly ask for no Sashiko reviews in
-> your scope of responsibility.
-
-I already sent a patch to stop receiving all these emails and I stopped
-reading them completely, when fetched via b4 for review in mutt workflow.
-
-But this is not the point.
-
-Our docs clearly state what Reviewed-by means, regardless of the quality
-of the actual review. Poor quality is just another reason, less
-important, though.
+ .../devicetree/bindings/iommu/arm,smmu.yaml        |  9 ++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c              | 53 +++++++++++++++++++++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.h              |  2 +
+ 3 files changed, 63 insertions(+), 1 deletion(-)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260516-smmu_interconnect_addition-d9567535e9d7
 
 Best regards,
-Krzysztof
+-- 
+Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+
