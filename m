@@ -1,202 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A7C31717C
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 06:11:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0963626D4F7;
+	Sat, 16 May 2026 06:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778911918; cv=none; b=fYZu+fTjyoTDaHso5VKmTZUe8IlDSk1RdnZgFAOOUQUDdPYvyawbHHZc4QbWYp+xx+f+Ma3lv7LEtNwfORyM3mopEyFVqb8xqwJyZFclqQpgH6CeiNc3jJvlp+ZcvLJ6OgoI67qDl7ldbDJwE4+zSGWNv/rE0pouJ83JtFGrBEI=
+	t=1778912132; cv=none; b=lxnsDcW+QeEJnqmoEmytX5FQR/sSOR0kOKNZoKL2jZO+Y/t9ZaIS3dS61qlDQC/kMq7EU1yrhem4hqVrbxmI8f/7PlrJNOFGvzCAR+j9zM55qtcGqEPeYG4c6xw2PN39MZCtBZdKQ0GAud/bPtAou5nztXJJrrZIIvxk3mgT7RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778911918; c=relaxed/simple;
-	bh=m8zHdqHB9qoOb8ZczozE6BpuIl3ezBnhCyalX5zcN7g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HpKvyfbSN3Ppy6O1cNU2tlHl8XYYLUrttmmwEzqMqKKchzb1G2f0rPbc/mfq75xleomhHoyydnYpoOAJSihaFPrA/HQAfPROVAe2EF5EHzV3ZENShe/DVSK1ufxzHxrmU2VfdC2iVCOzYJmmwLJKTRYLRxVc054TgBLMEkDsmD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iGigTyEg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778912132; c=relaxed/simple;
+	bh=qzjqVHKvQyATuIeQqKgJaYd4zkcX2/SrbvAc/Ym8gQM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h8IrPbbFm73gcctW27VSB8f9bw88rnUvNzthB6EQRHDAw/gOO/ns0MNktiLt9aOHZrPcwabigRd6AYM4xJ6gY5a0XQ6DFnd8oICBM1zgmRFYsVr6Sl2zmTCnXiRYjF+13Hlyd5zY2EHQPMF2zmgjfC+g70i4xvQiEns5/6KTxM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BKITLAww; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iGigTyEg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6C0C2BCB8
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 06:11:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BKITLAww"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1067C19425;
+	Sat, 16 May 2026 06:15:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778911917;
-	bh=m8zHdqHB9qoOb8ZczozE6BpuIl3ezBnhCyalX5zcN7g=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
-	b=iGigTyEgF37MpZsfozbubez7CVe4rUBHolYZ96FNCTLC/Cy7RBUP7RYt45zXs0kFk
-	 V9MWnzl9ipefOjZu0Ac1E8DOoKNt3xZaJCKkqJfZKqoxhvOH+LqUm78qChT+OBqxrc
-	 +/1GpDI6dFDn6kE8dUpIUOvWoPVQUxhYfd1/jO6MXz/itbDBXEWPVJSlRLyt0RqB2D
-	 nijCXZraaoQn+W2hnkL+5fRr2ZuaN5CKeAakFNXUF9QpRLQBcIIdfDXQkvNUvLWWOk
-	 F3wC0aYIg50suUq8WkGP3zJdVm7ad1y23IVWa4EPHJNYL62l+VmFE/+7WT/071bzj8
-	 YjD+oSyWECjqg==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-38e84ed22bdso8647511fa.2
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 23:11:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8d29Gah06USIaP5NjPz6bOIu3QkqXBiPLOPBsQit0Pdp5k/r+nlmixFX4miZXX54q5yjKKYDaUbxzL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxt+xdsB96T8cIX7NZEyhRpsp5a7TQYLpBBsSlguFPM2ydpdKIR
-	vGam+9mXp5Dx+luk9ikcBlMAHZLaIaWu3rP4ldneMh0J3VUKYB8H06XtCuHVuvg7gCeZFPVtEVm
-	yB9+DuCzGtHrGPnmpMipHXe8yjg/+zWY=
-X-Received: by 2002:a05:651c:4188:b0:385:dde5:1bf3 with SMTP id
- 38308e7fff4ca-39561adf7damr18828581fa.6.1778911916095; Fri, 15 May 2026
- 23:11:56 -0700 (PDT)
+	s=k20201202; t=1778912131;
+	bh=qzjqVHKvQyATuIeQqKgJaYd4zkcX2/SrbvAc/Ym8gQM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BKITLAwwdnOt3fCsbnX2kwZL0cXoVpJVy7zmDy05NDYnsp9lP6JUXbnnDopm5DlsD
+	 XVACQtlZzxYNN964ZcJj7Bk75QUVvC4gPuu3BueDkR2eSTSasUSJ3pO3XJrR3yjaCp
+	 0gYb/SF5eWgDxtVKovFPpPl6HU/ZA/E7/epwDo3o+2AwiOks48sZh7D2FRNxtxW2I9
+	 /+HNDOQmaN3t0kW49nkpEriQTiifoRgqU1znbtcIcihbFLXQPhu2jHRK7/AfG4eWiI
+	 Rn8gxB2GsddwkCmHLAiGf6QkjzFONxh9rnNwnN/LcZcOQi7bNcs7rcXPndcD0eZk0u
+	 fTSv6jKR5PjOA==
+Date: Fri, 15 May 2026 23:15:30 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v4 09/18] riscv_cbqri: Add bandwidth controller probe
+ and allocation device ops
+Message-ID: <aggLggGOeuPTQV3p@thelio>
+References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-9-eb53831ef683@kernel.org>
+ <20260512022939.683A1C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511221741.25888-1-andre.przywara@arm.com>
- <CAGb2v64u4sqwiiQcEBg-XvmJ2DLEpSj-_AWNbp14RAp-GXP7OA@mail.gmail.com>
- <ee9fca66-d079-4ad7-9cb3-5077e8a4f6d6@arm.com> <CAGb2v66drOyBgNU0hFo356MKTFnggNmyzrANok+-U31NzZCUEw@mail.gmail.com>
- <20260515235112.3d2a0c5e@ryzen.lan>
-In-Reply-To: <20260515235112.3d2a0c5e@ryzen.lan>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sat, 16 May 2026 14:11:52 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67ZyUTfKK21-H5duAA0xNoHCQOUKN=WYtbN7fqWaqyE4g@mail.gmail.com>
-X-Gm-Features: AVHnY4IeD7gLniZO5qjqEwQ99zb5tdOVe4q7o-In43rzrp6IN3-fWSvLkRMCMZU
-Message-ID: <CAGb2v67ZyUTfKK21-H5duAA0xNoHCQOUKN=WYtbN7fqWaqyE4g@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: allwinner: Cubie A5E: enable SPI flash
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512022939.683A1C2BCB0@smtp.kernel.org>
 
-On Sat, May 16, 2026 at 5:52=E2=80=AFAM Andre Przywara <andre.przywara@arm.=
-com> wrote:
->
-> On Sat, 16 May 2026 00:12:17 +0800
-> Chen-Yu Tsai <wens@kernel.org> wrote:
->
-> > On Wed, May 13, 2026 at 5:19=E2=80=AFPM Andre Przywara <andre.przywara@=
-arm.com> wrote:
-> > >
-> > > Hi Chen-Yu,
-> > >
-> > > thanks for chipping in!
-> > >
-> > > On 5/13/26 07:21, Chen-Yu Tsai wrote:
-> > > > Hi,
-> > > >
-> > > > On Tue, May 12, 2026 at 6:18=E2=80=AFAM Andre Przywara <andre.przyw=
-ara@arm.com> wrote:
-> > > >>
-> > > >> The Cubie A5E board comes with 16MiB of SPI NOR flash.
-> > > >>
-> > > >> Enable the SPI0 DT node and describe the configuration.
-> > > >>
-> > > >> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> > > >> ---
-> > > >>   .../boot/dts/allwinner/sun55i-a527-cubie-a5e.dts  | 15 +++++++++=
-++++++
-> > > >>   1 file changed, 15 insertions(+)
-> > > >>
-> > > >> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.d=
-ts b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> > > >> index bfdf1728cd14b..7ad22fc85d1fd 100644
-> > > >> --- a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> > > >> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> > > >> @@ -344,6 +344,21 @@ &r_pio {
-> > > >>          vcc-pm-supply =3D <&reg_aldo3>;
-> > > >>   };
-> > > >>
-> > > >> +&spi0  {
-> > > >> +       pinctrl-names =3D "default";
-> > > >> +       pinctrl-0 =3D <&spi0_pc_pins>, <&spi0_cs0_pc_pin>,
-> > > >> +                   <&spi0_hold_pc_pin>, <&spi0_wp_pc_pin>;
-> > > >
-> > > > This whole thing needs to be an overlay. The HOLD and WP pins
-> > > > conflict with eMMC usage, so it seems that Radxa only populates
-> > > > one or the other.
-> > > >
-> > > > If you look at the pictures on their official website, you'll see t=
-he
-> > > > SPI NOR chip populated, but not the eMMC chip. On the linux-sunxi w=
-iki
-> > > > page, you'll see the opposite.
-> > >
-> > > Well, I have a hard time spotting any actual eMMC SKUs in the shops a=
-nyway.
-> > > But you are right, the hold and WP pins conflict with eMMC, whereas t=
-he
-> > > other pins are not.
-> > >
-> > > > And you probably want to enable QSPI, like Sashiko mentioned.
-> > >
-> > > Well, in the interest of keeping this simple and enabling the usage o=
-f
-> > > SPI flash for all the users out there, I'd rather drop the extra pins=
-.
-> > > This is mostly really useful for booting the firmware, maybe loading =
-a
-> > > tiny kernel or other data once, so performance is not a big concern i=
-n
-> > > this use case. The BootROM surely does not use QSPI.
-> >
-> > Given that the pins are tied on physically, if someone then enables mmc=
-2
-> > for a potentially present eMMC, the two pins could be toggled by the
-> > MMC controller, causing the flash to misbehave. I'm slightly concerned
-> > about this possibility.
->
-> That's a good point, but that means it's really a hardware design
-> issue: you cannot have SPI together with eMMC on this board.
->
-> I don't know if Radxa ships the eMMC SKUs without SPI flash, I
-> will try to query Tom Cubie about this.
->
-> I would prefer to go with SPI flash, at least for now: I think that's
-> what most users have, and the eMMC versions are rare so far? Since we
-> don't have an eMMC node in the DT anyway, that should be fine for now.
-> If someone adds eMMC support later, we would need to figure this out.
-> We could mark one as disabled, and leave it up to users (or U-Boot)
-> to decide which to enable.
-> On the H6 there is a similar problem: PC5 is both SPI0_CS and MMC2_CMD,
-> so on the PineH64 we disable the SPI flash, in favour of eMMC, which is
-> more useful for users (but sunxi-fel SPI access and U-Boot SPI loading
-> work nevertheless). But given the apparent prevalence of SPI boards vs.
-> those with eMMC for the Cubie A5E, I would go with SPI on this one.
->
-> Does that make sense? Any thoughts?
+On Tue, May 12, 2026 at 02:29:38AM +0000, sashiko-bot@kernel.org wrote:
+[..]
+> > +static int cbqri_bc_alloc_op(struct cbqri_controller *ctrl, int operation, int rcid)
+> > +{
+> > +	int reg_offset = CBQRI_BC_ALLOC_CTL_OFF;
+> > +	int status;
+> > +	u64 reg;
+> > +
+> > +	lockdep_assert_held(&ctrl->lock);
+> > +
+> > +	if (ctrl->faulted)
+> > +		return -EIO;
+> > +
+> > +	if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> 
+> If a timeout in cbqri_wait_busy_flag() sets ctrl->faulted = true, will
+> runtime operations like cbqri_bc_alloc_op() ever execute again? Because
+> it returns early here when ctrl->faulted is true, the polling function
+> is never called again to clear the flag, which seems to permanently
+> disable the controller after a single timeout.
 
-In that case it might be better to enable it with full QSPI. The pin
-conflicts can also serve as a lockout against enabling both. Just need
-to document it properly.
+I'll drop the ctrl->faulted early return from cbqri_bc_alloc_op(),
+cbqri_cc_alloc_op() and cbqri_mon_op() to avoid locking the controller
+out for the lifetime of the driver.
 
+> > +static int cbqri_apply_bc_field(struct cbqri_controller *ctrl, u32 closid,
+> > +				void (*set)(struct cbqri_controller *, u64),
+> > +				u64 (*get)(struct cbqri_controller *),
+> > +				u64 val, bool *committed)
+> > +{
+> > +	int ret;
+> > +	u64 reg;
+> > +
+> > +	lockdep_assert_held(&ctrl->lock);
+> > +
+> > +	/* Load current RCID state so the unmodified field is preserved */
+> > +	ret = cbqri_bc_alloc_op(ctrl, CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT, closid);
+> > +	if (ret < 0)
+> > +		return ret;
+> 
+> Does this initial read need the same sentinel protection as the
+> verification read? If this READ_LIMIT silently fails, the staging
+> register might retain data from a previous operation (like a different
+> RCID). Since set() only modifies the target field, CONFIG_LIMIT could
+> commit the stale data in the unmodified field, causing cross-RCID state
+> corruption.
 
-ChenYu
+I'll stop relying on the register to preserve the unmodified field. I
+will add an mweight_cache alongside rbwb_cache.
 
-> Cheers,
-> Andre
->
-> > > And as you say, if people are really interested in the last bit of
-> > > performance, they can use an overlay.
-> > >
-> > > Cheers,
-> > > Andre
-> > >
-> > > >
-> > > >
-> > > > ChenYu
-> > > >
-> > > >
-> > > >> +       status =3D "okay";
-> > > >> +
-> > > >> +       flash@0 {
-> > > >> +               compatible =3D "winbond,w25q128", "jedec,spi-nor";
-> > > >> +               reg =3D <0>;
-> > > >> +               spi-max-frequency =3D <40000000>;
-> > > >> +               #address-cells =3D <1>;
-> > > >> +               #size-cells =3D <1>;
-> > > >> +       };
-> > > >> +};
-> > > >> +
-> > > >>   &uart0 {
-> > > >>          pinctrl-names =3D "default";
-> > > >>          pinctrl-0 =3D <&uart0_pb_pins>;
-> > > >> --
-> > > >> 2.46.4
-> > > >>
-> > > >
-> > >
-> >
->
+> > +	reg = get(ctrl);
+> > +	if (reg != val) {
+> > +		pr_err_ratelimited("BC field verify mismatch (reg=0x%llx != val=%llu)\n",
+> > +				   reg, val);
+> > +		return -EIO;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> 
+> If the verification fails here and returns -EIO, *committed remains
+> true. When called from cbqri_apply_rbwb(), this causes the rejected
+> value to be cached in ctrl->rbwb_cache[closid]. If the requested value
+> was smaller than the previous one, could this cause the software cache
+> to underestimate the reserved capacity and allow future allocations to
+> exceed the MRBWB hardware limit?
+
+I'll change the order so that committed is only set to true after the
+verify readback succeeds.
+
+> > +int cbqri_apply_mweight_config(struct cbqri_controller *ctrl, u32 closid,
+> > +			       u64 mweight)
+> > +{
+> > +	int ret;
+> > +
+> > +	mutex_lock(&ctrl->lock);
+> > +	ret = cbqri_apply_bc_field(ctrl, closid,
+> > +				   cbqri_set_mweight, cbqri_get_mweight,
+> > +				   mweight, NULL);
+> > +	mutex_unlock(&ctrl->lock);
+> > +	return ret;
+> > +}
+> 
+> What happens if an arbitrarily large mweight is passed in? FIELD_MODIFY
+> silently truncates values larger than the 8-bit MWEIGHT_MASK. The
+> verification step in cbqri_apply_bc_field() will then compare the
+> truncated hardware value against the original untruncated val and
+> always fail, returning -EIO and logging a hardware failure instead of
+> returning -EINVAL. Should this have bounds checking similar to
+> cbqri_apply_rbwb()?
+
+I will bound mweight against FIELD_MAX(MWEIGHT_MASK) at the beginning.
+
+> 
+> > @@ -437,6 +664,83 @@ static int cbqri_probe_cc(struct cbqri_controller *ctrl)
+> >  	return 0;
+> >  }
+> >  
+> > +static int cbqri_probe_bc(struct cbqri_controller *ctrl)
+> > +{
+> > +	bool has_mon_at_code = false;
+> > +	int err, status;
+> > +	u64 reg;
+> 
+> [ ... ]
+> 
+> > +	/* Probe monitoring features */
+> > +	err = cbqri_probe_feature(ctrl, CBQRI_BC_MON_CTL_OFF,
+> > +				  CBQRI_BC_MON_CTL_OP_READ_COUNTER, &status,
+> > +				  &has_mon_at_code);
+> 
+> When probing features, cbqri_probe_feature() modifies the OP mask and
+> clears RCID_MASK, but it doesn't appear to clear EVT_ID_MASK:
+> 
+> drivers/resctrl/cbqri_devices.c:cbqri_probe_feature() {
+>     ...
+>     FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_OP_MASK, &reg, operation);
+>     reg &= ~CBQRI_CONTROL_REGISTERS_RCID_MASK;
+>     iowrite64(reg, ctrl->base + reg_offset);
+>     ...
+> }
+> 
+> If the hardware or firmware left an unsupported Event ID in those bits,
+> could the hardware reject the READ_COUNTER operation, causing the probe
+> to see STATUS != SUCCESS and incorrectly assume monitoring is not
+> supported?
+
+I will clear OP, AT, RCID and EVT_ID on every write in the probe.
+
+-Drew
