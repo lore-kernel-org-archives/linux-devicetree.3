@@ -1,159 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B091E309F1D
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 20:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F33434F48D
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 20:07:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778961998; cv=none; b=D4dzKT7MpVZ8NRrZ25R3G7JgTYEPp43dAuYz7YKboBUp89LnDWf6tZfcXvX25Ee1xC95DA4yyJQVspjUNcSza7X60wFGsGsdvTgHmYC+AEQYdBaRrT5mLW7rJT3vb5P4/jv+E1AyTc2FnUdB8SgjS+D4H/LjOpDCejfIF/4lZCw=
+	t=1778962056; cv=none; b=Yqt/qL/V32Zob1fn3vHIHySyDgSIyGSPQsoxZi+qjZuJzoIwBaySfsHMjuWwaqcw2TNlMNtLmOsbq9BLXOagoeeEt+1D2PQbUdle5qOtet54GBlOfOGY8klzbaA5AKO8nOGHfnyrvgmGzQKrR2QapOnDz0c/tCr7N1n6lLvh/vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778961998; c=relaxed/simple;
-	bh=N5zj3wnWyUMGx0AuEUPMMjYeWTFSkvE1jUAZ7YVLTpg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OMV7Tz0p38mjCt/DnxN3R4JNcI1Mfg5f91WJmEy33SOWopw9tcq1iqA9MVKpbeP9m4hpEjCF+RleToDoU86oGP8LcJ00+pM5eKeooAw7cJkZILpz8Z7udBUfHFLU+xcIfjcLyEved+XOvM9me+og9GwB8p3XoZVvwbEknDy1538=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oX6Ntjqi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778962056; c=relaxed/simple;
+	bh=/XSwKEBlN2etIJ2HDD3RrPUiKaW6GeUhkusBv518Ws0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GtVhNcJ2lxHxs7psv5xTExP+BbBZl7W23srw9O/HZ4mzfkoRKVU5Ywi/2OO520e2gyWafxx9wHtmxWGC/9KlpGZJnRzaoeVjuPteUqLu2URtDwF3p4AqxV6XghJ9SE4OAjmJiqoMhLlWfso6aBFln/pEh8I9dRgrhxtmI6CKk2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Wrv1kLQX; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oX6Ntjqi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF88C19425;
-	Sat, 16 May 2026 20:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778961998;
-	bh=N5zj3wnWyUMGx0AuEUPMMjYeWTFSkvE1jUAZ7YVLTpg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=oX6NtjqiKmu+bZ1/3XnwV3piMhuKaFNchvue8Sid+upoOThqh/nF/KFDNaJcDMffY
-	 vep+qPMcOYIweToigWrmnOCqPFylEAklVFro3X/jRsFY1A1Rmk4qQOrNRB97xOYoG5
-	 YDWGTJls4GCAB1uzJHBtK5zyxHSWog45s8IoX8YGW7aiPWFmrmwcdX3fI8Ba305oFL
-	 qTfbfnBXRvprsmUKq5IdNedOeCZZN2EkaJaLBf1ErnRbVWZrbFpL48Lp4OJADLeLNo
-	 CrJtTI5AdKVcj6sO4WbUrgKamtDlyxvHGp5E33tazD2M/1DoISFnD8+bB5MIerYR1e
-	 Dnc8vJCbGlAiA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260516182648.3987792-5-cjd@cjdns.fr>
-References: <20260516182648.3987792-5-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 May 2026 20:06:37 +0000
-Message-Id: <20260516200638.0FF88C19425@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Wrv1kLQX"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06F5A3F6CB3;
+	Sat, 16 May 2026 22:07:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1778962051; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=CRBHpz6Y3zzrdaC5vfdjbfoqovTiBHZIMpJNktzJRBE=;
+	b=Wrv1kLQXnvaTDxuVSKX9XJyPwcIpxkBVXbxvtvKFJcqKzTkLKfOQk9aoOSqhoU+cdGI/UK
+	4pneOIxJQPiODAkDZVs05SAHqzwTXQ1I3VMqmLV4YMjhn08S850EU/duHT2qlIhSJO8qDh
+	ZG0tBufzd/igfiEn6uXBhLfiaVT5aboLhmaiDp9cnFzs5xYRYN4jDTk66JaZIbrEDmxkxO
+	LfX4hIEaDszt3vA75g40ocY22V5KaKShS6OZty/S4L8EKbCaFUzFU0LkELdvdBZ08Bk68W
+	WTaltsaUl2QRReuei5k35YtZZHR9S24paKc7uTD8wdEH7+01J/ctSKlcYYxSgA==
+Message-ID: <a6b00560-d6fb-480b-bfcb-26324e478ad3@cjdns.fr>
+Date: Sat, 16 May 2026 22:07:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 2/4] clocksource/timer-econet-en751221: Init teardown
+ on error if possible
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260516182648.3987792-3-cjd@cjdns.fr>
+ <20260516190510.CD925C19425@smtp.kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260516190510.CD925C19425@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing bounds check on `num_blocks` leads to buffer overflow and =
-memory corruption.
-- [High] Off-by-one error in `cpuhp_setup_state` failure path causes out-of=
--bounds array access and invalid IRQ free.
-- [High] Missing CPU hotplug teardown callback causes unbalanced `enable_ir=
-q` warnings and use-after-unmap crashes on initialization failure.
---
 
-commit c9306a7aa40ae1fa4dc34819e52ba88137234f75
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+On 16/05/2026 21:05, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] The error teardown path for `cpuhp_setup_state()` failure unmaps MMIO memory without unregistering active clock event devices, creating a latent use-after-unmap bug.
+> - [High] `cevt_dev_init()` accesses memory blocks using absolute CPU IDs, causing a NULL pointer dereference if the CPU mask is sparse or the device tree is incomplete.
+> --
+>
+> commit 28fb215150f468c2962087cefa4f634e20465bd8
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> clocksource/timer-econet-en751221: Init teardown on error if possible
+>
+> This commit converts the initialization process into two clearly delineated
+> phases. It moves all IRQ and address resource mapping before the point of no
+> return and adds teardown logic in case of error.
+>
+>> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
+>> index 4008076b1a210..155471f68e6f8 100644
+>> --- a/drivers/clocksource/timer-econet-en751221.c
+>> +++ b/drivers/clocksource/timer-econet-en751221.c
+> [ ... ]
+>
+>> @@ -126,22 +127,9 @@ static void __init cevt_dev_init(uint cpu)
+>>   	iowrite32(U32_MAX, reg_compare(cpu));
+>>   }
+>>   
+>> -static int __init cevt_init(struct device_node *np)
+>> +static void __init cevt_init(struct device_node *np)
+>>   {
+>> -	int i, irq, ret;
+>> -
+>> -	irq = irq_of_parse_and_map(np, 0);
+>> -	if (irq <= 0) {
+>> -		pr_err("%pOFn: irq_of_parse_and_map failed", np);
+>> -		return -EINVAL;
+>> -	}
+>> -
+>> -	ret = request_percpu_irq(irq, cevt_interrupt, np->name, &econet_timer_pcpu);
+>> -
+>> -	if (ret < 0) {
+>> -		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np, irq, ret);
+>> -		goto err_unmap_irq;
+>> -	}
+>> +	int i;
+>>   
+>>   	for_each_possible_cpu(i) {
+>>   		struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, i);
+>> @@ -151,21 +139,12 @@ static int __init cevt_init(struct device_node *np)
+>>   					  CLOCK_EVT_FEAT_C3STOP |
+>>   					  CLOCK_EVT_FEAT_PERCPU;
+>>   		cd->set_next_event	= cevt_set_next_event;
+>> -		cd->irq			= irq;
+>> +		cd->irq			= econet_timer.irq;
+>>   		cd->cpumask		= cpumask_of(i);
+>>   		cd->name		= np->name;
+>>   
+>>   		cevt_dev_init(i);
+> Could this iteration cause a NULL pointer dereference if the CPU mask is
+> sparse?
+>
+> timer_init() allocates memory blocks based on num_possible_cpus(). If
+> cpu_possible_mask is sparse (for example, if only CPUs 0 and 3 are present),
+> num_possible_cpus() is 2, and only 1 block is mapped.
+>
+> When this loop reaches CPU 3, cevt_dev_init(3) might try to access an
+> unmapped membase pointer.
+>
+> A later patch in this series changes the allocation to use of_address_count()
+> and adds a check in cevt_init_cpu(), but since cevt_dev_init() is called
+> unconditionally here, the issue appears to remain reachable during early
+> initialization.
+This is a potential issue but it predates this patch, and this patch 
+only tries to fix one thing.
+>
+>>   	}
+> [ ... ]
+>
+>> @@ -186,22 +165,45 @@ static int __init timer_init(struct device_node *np)
+>>   		econet_timer.membase[i] = of_iomap(np, i);
+>>   		if (!econet_timer.membase[i]) {
+>>   			pr_err("%pOFn: failed to map register [%d]\n", np, i);
+>> -			return -ENXIO;
+>> +			ret = -ENXIO;
+>> +			goto out_membase;
+>>   		}
+>>   	}
+> [ ... ]
+>
+>> +	cevt_init(np);
+>> +
+>> +	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
+>> +				"clockevents/econet/timer:starting",
+>> +				cevt_init_cpu, NULL);
+>> +	if (ret < 0) {
+>> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
+>> +		goto out_irq_free;
+>> +	}
+> If cpuhp_setup_state() fails, does this error path leave active clock event
+> devices registered with unmapped MMIO memory?
+>
+> cpuhp_setup_state() invokes its startup callback (cevt_init_cpu) on all
+> online CPUs, which activates the clock events. If it fails on a subsequent
+> CPU, the NULL teardown callback means no rollback occurs.
+>
+> When the error path jumps to out_irq_free and unmaps the MMIO memory, any
+> subsequent timer interrupt could dereference the unmapped memory.
+>
+> A later patch in this series modifies cevt_init_cpu() to return errors,
+> which makes this teardown path reachable.
 
-clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+cevt_init_cpu either returns an error, or it registers a timer, not both. Per my understanding, if there's an error running on CPU0, cpuhp_setup_state will not register it to run on other CPUs.
 
-EN751627 is based on the 1004Kc which uses a different interrupt number
-for each CPU timer. Support both this and the EN751221 which uses a
-single percpu interrupt.
+So I don't think there's anything to be done for this.
 
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
-ource/timer-econet-en751221.c
-> index ed750e39cc4fa..dea6dbafa16ea 100644
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
-> @@ -107,7 +128,10 @@ static int cevt_init_cpu(uint cpu)
->  	clockevents_config_and_register(cd, econet_timer.freq_hz,
->  					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
-> =20
-> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	if (econet_timer.is_percpu)
-> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	else
-> +		enable_irq(cd->irq);
 
-Will this cause unbalanced enable_irq() warnings when a CPU is brought back
-online?
-
-Since cpuhp_setup_state() provides NULL for the teardown callback, taking a
-CPU offline leaves the IRQ depth at 0.
-
-When brought back online, cevt_init_cpu() calls enable_irq() again, which
-could trigger the IRQ subsystem's unbalanced enable warning.
-
-Also, if cpuhp_setup_state() fails midway, the hotplug core attempts to roll
-back CPUs but does nothing due to the NULL teardown callback. The driver th=
-en
-proceeds to unmap MMIO memory and free IRQs.
-
-Could this leave active clockevent devices registered that will crash the
-system when their set_next_event callback accesses the unmapped memory?
-
-[ ... ]
-
-> @@ -148,9 +177,23 @@ static void __init cevt_init(struct device_node *np)
-> =20
->  static int __init timer_init(struct device_node *np)
->  {
-> -	int num_blocks =3D DIV_ROUND_UP(num_possible_cpus(), 2);
-> +	int num_blocks =3D of_address_count(np);
-
-[ ... ]
-
-> @@ -160,7 +203,7 @@ static int __init timer_init(struct device_node *np)
-> =20
->  	econet_timer.freq_hz =3D clk_get_rate(clk);
-> =20
-> -	for (int i =3D 0; i < num_blocks; i++) {
-> +	for (i =3D 0; i < num_blocks; i++) {
->  		econet_timer.membase[i] =3D of_iomap(np, i);
-
-Could this overflow the econet_timer.membase array?
-
-The econet_timer.membase array is statically sized to ECONET_NUM_BLOCKS.
-
-If a device tree specifies more address resources than ECONET_NUM_BLOCKS, t=
-his
-loop will write out of bounds and corrupt adjacent memory like the irqs arr=
-ay.
-
-Also, if num_blocks is less than required for the number of CPUs, will
-cevt_dev_init() dereference unmapped NULL memory?
-
-[ ... ]
-
-> @@ -216,11 +270,20 @@ static int __init timer_init(struct device_node *np)
->  	return 0;
-> =20
->  out_irq_free:
-> -	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-> +	for (; i >=3D 0; i--) {
-> +		if (econet_timer.is_percpu) {
-> +			free_percpu_irq(econet_timer.irqs[i], &econet_timer_pcpu);
-> +		} else {
-> +			free_irq(econet_timer.irqs[i], NULL);
-> +		}
-> +	}
-
-Could this perform an out-of-bounds access or free an uninitialized IRQ?
-
-After successfully requesting num_irqs interrupts in the loop above, the lo=
-op
-variable i is equal to num_irqs.
-
-If the subsequent cpuhp_setup_state() call fails, the code executes goto
-out_irq_free without decrementing i.
-
-If num_irqs equals ARRAY_SIZE(econet_timer.irqs), this will access
-econet_timer.irqs[num_irqs], which is past the end of the array. Even if
-within bounds, it calls free_irq() on an unrequested index.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516182648.3987=
-792-1-cjd@cjdns.fr?part=3D4
