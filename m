@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA49F19B5B1;
-	Sat, 16 May 2026 09:59:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1D1405C46;
+	Sat, 16 May 2026 10:04:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778925580; cv=none; b=hgu3REa3OOn/1sG/4sXtFB7IZizZANmaG32BmZVXqMDmmNA/XzcQPZi2oINaD4W8FMcJRpsYJ1HcplMkObU85YdINc4nkE1H/3gxq4WYymtWdoKTyXq+INi4kJNb1KQ5T9aDYCup2Xf2al3fc6ArbNKzdKcU2jpHt0KV8B8R4ew=
+	t=1778925866; cv=none; b=JHjejoc3TwGy1jfagwNZIe14iY+gcOTxgOBK5cLOOvEXym+8BYmbLgop0tIplu84q5nJdUQnrFL86Ef6K6OsUODxK1+ldrt2JHIPNG8PuN+kloz3xoUp9JtrgNgncWawxK3b6bdMeKD/0zcejvb4fGWqLOIFGexq7gLNirRzSVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778925580; c=relaxed/simple;
-	bh=6tNtF84euk+znVjOJuLcSviJ2wZ7fO+YBywlcbsuVvc=;
+	s=arc-20240116; t=1778925866; c=relaxed/simple;
+	bh=dq4MMd0lbPDQmhF9bMo2JYiaEO7Ae9IgHeGxKuczcsU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MfBq1gEPFN2F6VH4PAHKDiy81XtAL2j9BS4UUoy2HCfgAlEQdSmIkrsKYUszsnbyuFvAhRmP8r6/FaOMeK/E/thoPLES+lj9cG+VV+7oCVEDgeAuckaf2eBOYc+5PY2jlRJ5IyrJqxktddUSj3ZSPtmmHtXCRVDBKnmGEvNB7m0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CdMytAET; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=FxaqCgw0wgh9xJMPlNUDTArKseT99VE0oBkmFfIzW56eMe5pgYZ6bQHe/NSqW7+hYzMG5wzit0UgnS0IE9KOuk1JFzpmruSa2rLMYAJZe/qKaqVYH2VVk6stDzhh9eE1iNUoe66pQh2ugrOtlS4LRAlbuk/0y89+s/uqsUW77AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6ZqlCeR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CdMytAET"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F6DC2BCB8;
-	Sat, 16 May 2026 09:59:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6ZqlCeR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9E19C19425;
+	Sat, 16 May 2026 10:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778925580;
-	bh=6tNtF84euk+znVjOJuLcSviJ2wZ7fO+YBywlcbsuVvc=;
+	s=k20201202; t=1778925866;
+	bh=dq4MMd0lbPDQmhF9bMo2JYiaEO7Ae9IgHeGxKuczcsU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CdMytAET/RdylTAxEQgPFV3sd8JUzhA2e+ZUfOmcSZx4Tiv/XdtsAVzFfMLVV0f5C
-	 0Hy6vbjMlfT69vw71NNmG+nbM6lGehMvq/PSrrjqzbips2msuvZ70ylueUkCuQJm7a
-	 75PG2jIIyEuX/S8ZpgAq1GrdXbDsRm9MJc7e1L5TuCbj66u4+Sf5Zi69aV1nMePih8
-	 WwcER4L8Gq732vraj4I7rqA0OKlGvNeXbXGg+LKU2Y3+LLWIH5yiZ4GyuJCyocsScG
-	 jnVvRyCxM/QE/K1fsge6K59aogD7z9UulReBLw/PSy0Re4FfqVbx9iFwG3CB4C+ekP
-	 SPjr0+NbNm7VA==
-Date: Sat, 16 May 2026 11:59:37 +0200
+	b=A6ZqlCeREAbVbXx+FMqWutfacguKU2jNDSPEwCDlFJNyYCowyBK7dOsA2luxNoEXy
+	 7K/EQDDxLNl/ivZGfYVlcNHCJ4AT4WEX9n7OSn0XgiICT77jGbO+8fBkeD5hubgz9u
+	 k6v93LRXWLVHm11ROEojOFFFjmeS8rHubSlhOT5zNFwyUrp9p2LUPgfMkAaUGWvkLd
+	 1fP+ha4k/2erwL3zPx1OPve+vX26xKzxCkpeGHEO6l3d4OMxvyHWVrmzTU9E7rfdRq
+	 OWi9XJH4FaXJUrmp2CSCZKU063qyBLRgUe0bl4AjetEqcKMhg+8U1jhV6ljhs76WyR
+	 gukjVCDo1msgQ==
+Date: Sat, 16 May 2026 12:04:23 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: qcom: Document Eliza CQM and CQS EVK
- boards
-Message-ID: <20260516-vivacious-axolotl-of-attack-4e0ad7@quoll>
-References: <20260515-eliza-bindings-evk-v1-1-8deb81ed86dd@oss.qualcomm.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>, 
+	"parthiban.veerasooran@microchip.com" <parthiban.veerasooran@microchip.com>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, 
+	"davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>, 
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be
+ active low, level triggered
+Message-ID: <20260516-acoustic-rapid-lorikeet-7c1a2f@quoll>
+References: <CY8PR02MB924916514D414B698DEB9A1883042@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <ab821805-49dd-4b55-a77d-0f25e0247bff@kernel.org>
+ <3bfd9650-bf67-4abb-8820-2cab95ef6402@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,23 +50,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260515-eliza-bindings-evk-v1-1-8deb81ed86dd@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <3bfd9650-bf67-4abb-8820-2cab95ef6402@lunn.ch>
 
-On Fri, May 15, 2026 at 02:13:31PM +0300, Abel Vesa wrote:
-> Document the compatible strings for the Qualcomm Eliza CQM and CQS EVK
-> boards. Both boards are built from a base board paired with a SoM which
-> is populated with either CQ7790M or CQ7790S (Eliza variants), PMICs,
-> LPDDR, eMMC and UFS.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+On Fri, May 15, 2026 at 06:40:45PM +0200, Andrew Lunn wrote:
+> > Also, did you consider the board layout?
+>=20
+> Hum. How would a board design convert a level interrupt into an edge
+> interrupt?
 
-Heh, I noticed only after sending email - where is any user of that?
+I don't know how feasible or useful in practice, but such converters in
+theory are simple:
 
-I expressed it many times - we do not take bindings without users.
+1. RC differentiator + Schmitt trigger
+2. Logic-gate edge detector
+3. Monostable (=E2=80=9Cone-shot=E2=80=9D) pulse generator
+4. Flip-flop / synchronizer logic in CPLD/FPGA/MCU
+5. Dedicated interrupt-controller or GPIO expander ICs
 
-Best regards,
-Krzysztof
+Different point is that Rob said these flags should represent what the
+device expects. I disagree with that, because except RC delay GPIO
+bindings, we do not have representation of any inverters, thus this flag
+should rather represent the final board layout.
 
+>=20
+> Use the level signal to gate a clock signal? So while the interrupt is
+> low, you get a stream of edges? Does that really exist?
+>=20
+>      Andrew
