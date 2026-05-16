@@ -1,105 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A771B1EB5FD;
-	Sat, 16 May 2026 15:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6932629C35A;
+	Sat, 16 May 2026 15:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778946348; cv=none; b=STfzi50sxDBXsiTv+suoHbraLFMdoU3DQ07bttTFjb/xNzYux1RFZX7kyb+rDPFTi0pY+7lEXJg9lp2mlljlAOuq9cITenPLS7KWE84bq9fFvf3hb2/WtNcsNg4m0HdsHQ12NwnGlQM4Tavej1YXeBTTrY9oRicFCdwHFm7c7sA=
+	t=1778946355; cv=none; b=Mv3VcikmtUul8BEdnw/w+OqCwLmqqkzU+t/vz0CfNpxZbGGL+RnPouhykNrnIZyywrX+5dCoNkLKzraLmF05WfMj3mJsP/HVsxoXdYrEoRv1W58RCpoGrfrNuyl+ZUU2ocM1+mphttlcSTZQFPSy8CszqT8Zr0FJBZmO9a2saG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778946348; c=relaxed/simple;
-	bh=pRFVmoNmf0bNFcvUJeUo1t7U8gYZLp7kTChwioajW+g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e4W05xqXoAEsRkY0/7ZJBgFtm4yTBSI+eGkntJN0v4CbxWe4qsWNft2EkY4wZfiuQxNns31rsBPXYXVGIqUqId5rGhoPLRRBvJo7Y7puLyq/7pdCX+/GbzMsiAGgpy8j0ZjR2Dp3mrsp4KEW5z4W1zZPzELcyO2ryMRhOppcFcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g5N8A6de; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778946355; c=relaxed/simple;
+	bh=T9XyH7g2hhoIoZrXdzjBiqYHgV7pSFHIU2jUJ5cKx+A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TqBJCxehRfaopy65g0mF+lVLXfFhdxYdVB1ChlPX1sp1Z6uimPKf4wYrgbagzYEGaAd1vMzZPgoAdM7VLnzF3YqBuKf9xnwU1RUAGCY8fuFJNeQ26eCQZgBk9TT5juv3+Na4ZIcdk/yVNZqppwbLHERGfJYdOsjTqNOgAOKsP1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDShWvxI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g5N8A6de"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56847C19425;
-	Sat, 16 May 2026 15:45:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1778946347;
-	bh=pRFVmoNmf0bNFcvUJeUo1t7U8gYZLp7kTChwioajW+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=g5N8A6deBHMcodEqljjw24yZ/uciuNlZqa3bw4X+wtvCAzVLxIGyBxrxlqwOtaeh4
-	 OXF72/zT6p6yoQZ+smtijIu4GbKkyYIN8J0/ysrjYBVtWUGwU0ajD1rnhhw5d2E6ol
-	 ydj991+T3gLLxEQq8OcI4bOR6v26pc4SgNrj1XjQ=
-Date: Sat, 16 May 2026 17:45:51 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Konstantin Ryabitsev <mricon@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Krzysztof Kozlowski <krzk@kernel.org>, sashiko-bot@kernel.org,
-	sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
-	Linux Kernel Workflows <workflows@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	devicetree@vger.kernel.org, kfree@google.com
-Subject: Re: Stop false review statements
-Message-ID: <2026051631-trolling-juggling-da1c@gregkh>
-References: <20260516-upbeat-tody-of-feminism-4ab00a@lemur>
- <D659E814-069C-439A-B816-1BC383F38E1F@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDShWvxI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6EF3C2BCB3;
+	Sat, 16 May 2026 15:45:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778946355;
+	bh=T9XyH7g2hhoIoZrXdzjBiqYHgV7pSFHIU2jUJ5cKx+A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eDShWvxI+1oH/MeqhPOgrUMz/IUatV/5u6XmtAMvRQw1PPDk2aeQh/HKl1O/xEMPX
+	 PMFN9HByriZS+qAh5xTSVrc2dcVQ84B15Oop8JX9xR8SjetPJdM+olSkSeLX4BYJtP
+	 plCCn2bks2jW6HkzlT6z4ZOeezRJy58Ozatq5ktUf8Jn+wcFofAjH8zmnpFMGmuHja
+	 BNqH6x/lYC/jC2CZyk3Pbf0Nx+b9UApHMcoTGs93TUfdsmIimdFWmCuEE3yqoHEG2/
+	 oD/sGBoUUI8JSGa3z0vXHrPWhlT8U1pnGP2BT/SiJoUGOsz7wPnh+8e3j17a8sOXmA
+	 7m2uP5iFtZxkQ==
+Message-ID: <2a6e3dea-3f8b-4551-bd93-d1abf9702928@kernel.org>
+Date: Sat, 16 May 2026 16:45:48 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <D659E814-069C-439A-B816-1BC383F38E1F@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: qcom: dts: qcm6490: Add JPEG encoder DT
+ properties
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kapatrala Syed <akapatra@quicinc.com>,
+ Hariram Purushothaman <hariramp@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Gjorgji Rosikopulos <grosikop@quicinc.com>, afilipov@quicinc.com
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260515-qcom-jpeg-v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com>
+ <cufebFnw7txTay2-mA0rdo_RLU6zmEBfFAMWKm90hMC44GyMa-g77dbxBXeWoMb_F5WSA88ko6gamoTFGk6yrg==@protonmail.internalid>
+ <20260515-qcom-jpeg-v4l2-v1-3-f38c2e1b3555@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260515-qcom-jpeg-v4l2-v1-3-f38c2e1b3555@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, May 16, 2026 at 08:41:43AM -0700, Roman Gushchin wrote:
+On 15/05/2026 12:47, Atanas Filipov wrote:
+> Add the required JPEG encoder definitions to the device tree.
 > 
-> > On May 16, 2026, at 8:20 AM, Konstantin Ryabitsev <mricon@kernel.org> wrote:
-> > 
-> > ﻿On Sat, May 16, 2026 at 05:11:28AM -0700, Guenter Roeck wrote:
-> >>> On Sat, May 16, 2026 at 10:05:02AM +0200, Krzysztof Kozlowski wrote:
-> >>> What the hell is that:
-> >>> 
-> >>> https://lore.kernel.org/all/20260515190707.033BDC2BCB0@smtp.kernel.org/
-> >>> 
-> >>> As a bot you CANNOT MAKE a Reviewer's statement of oversight. You are
-> >>> not a damn human do be able to make such statement. You are a bot, a tool.
-> >>> 
-> >> 
-> >> Where exactly do the rules say that ? I seem to miss that.
-> >> 
-> >> There is a policy document about _contributions_ made by AI, but I don't
-> >> see the one that says that AI agents must not provide Reviewed-by: tags.
-> > 
-> > From my perspective, AI agents must NOT use the Reviewed-by tag for the
-> > following reasons:
-> > 
-> > - We consider this a "person-trailer" and it implies agency
-> > - Adding yourself to a commit via a trailer is a *binding responsibility* for
-> >  the change. A lot of tooling will cc the Reviewed-by addresses on follow-up
-> >  messages regarding code in this commit. If the address is bogus or doesn't
-> >  go to a developer, this is both wasteful and potentially frustrating.
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/kodiak.dtsi | 52 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 52 insertions(+)
 > 
-> Hi Konstantin!
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> index 6079e67ea829..dbfc6cc051f3 100644
+> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> @@ -5198,6 +5198,58 @@ port@4 {
+>   			};
+>   		};
 > 
-> The goal here is to inform maintainers that sashiko has successfully reviewed the patch
-> and there were no findings, otherwise maintainers have to go to the web site and check the status.
+> +		qcom_jpeg_enc: qcom,jpegenc@ac4e000 {
 
-That's fine.
+This should be a sub-node of the CAMSS block as, it is indeed inside of 
+the individually collapsible CAMSS block in qcom documentation.
 
-> I’m not attached to any specific form of it, I thought Reviewed-by is the most obvious form. 
-> And we use Reported-by: tags with various tooling for years.
+See how we are instantiating the OPE as a sub-node of CAMSS, along with 
+CSIPHY as WIP.
 
-Reported-by: shows the existance of a problem that some tool found, a
-subtle difference here.
+https://patchwork.linuxtv.org/project/linux-media/patch/20260427-camss-isp-ope-v2-14-f430e7485009@oss.qualcomm.com
 
-> What do you think is the best form?
+You can cherry-pick my one-liner into your series to facilitate the 
+change in CAMSS and then your sub-nodes will automagically probe.
+
+https://patchwork.linuxtv.org/project/linux-media/patch/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-4-5b93415be6dd@linaro.org/
+
+> +
+>   		camcc: clock-controller@ad00000 {
+>   			compatible = "qcom,sc7280-camcc";
+>   			reg = <0 0x0ad00000 0 0x10000>;
 > 
-> I’ll pause sending reviewed-by tags until we have a discussion and agreement here.
+> --
+> 2.34.1
+> 
 
-Just say it in some other text form, that our tools will not pick up.
-Like:
-	Tool XXXX reports that all is good:
-		https://....
-
-or something like that?
-
-thanks,
-
-greg k-h
