@@ -1,65 +1,65 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8AE3D88E1
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 15:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA963D88E1
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 15:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778944306; cv=none; b=BP8arbbuEO5p5Vg3Zj434S/Gk2VysSksjx5ARjb6B/uekA+fOtPuC85RY5dsvDtbArsGal9NxkJo43rNr8nspp45yLRExgH1qmvbytRPallsM3loy7z1gx97prfP4fDFuo40qF6bRexSP2jZqVrAUtSOUgar/s9Vn8lfJY3x8y4=
+	t=1778944425; cv=none; b=klLzUwz2sl83fwh7qVGBkUhCcfA2L1POjGt97LQzYXL4CEeQnGhw02V2UlFYEuSu9A4lVSAPszpXjbVrebIX7U7y8XgNhaxlp3as74+4jB1ukWsWG7GmxAk4aT4/nHdgxpK20rYu4CnEnC2E99sgRNg+bX5UGzO306P+DaHBmmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778944306; c=relaxed/simple;
-	bh=E9pcr/535Gr7kYSJxjUaXzWht1zhpDZcBz/5xjacYYo=;
+	s=arc-20240116; t=1778944425; c=relaxed/simple;
+	bh=x3q9X5rctzpPLLg+WEQqW83/payfJpridGsXjOe3umU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MBAaqRuo4Pi1N9wUq/RxtNAjgtR0JdSwmEpSPmJth4mid0TjVr0MWoQSXcwxYygqvUX5SPwHSSIKfppBPhiVAYFV+TFWvU/NiC7CMWZjcqvB07sZobzVjF5DbQFwiMNhM0F7RBUg8dk3DZdS1BY0CZdlui1gpG0blh3jmA22Xlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VsbHP/bI; arc=none smtp.client-ip=209.85.214.172
+	 Content-Type:Content-Disposition:In-Reply-To; b=QJ55CLYwfup9KF1VI4u9bSDkrQ9hUX1j5zbXCjzpueVpeKFgA1VyRLyC5x96+fTQvbsl6kibBBy0Sgx5VtesV79FKM0LYq25fuRpxdYGqLKRcx5br+e0llzjnQAGIK3EqkHwLQLH3xkCAp8+/JPYVX6/YoL+Pzw/00no5gYBzxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJTLQ0SZ; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VsbHP/bI"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2b9ec9443c2so10653435ad.1
-        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 08:11:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJTLQ0SZ"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-835b78c3797so361022b3a.2
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 08:13:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778944304; x=1779549104; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778944423; x=1779549223; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=+j4cr1iyUCBb1PP17Lc7udm6C+rJ+6/BnxCiDoqSk58=;
-        b=VsbHP/bIl/dQLqbV3tynHzbNlLOUWu+HsL4Vvf8VUXC5lPiMHiomSb+EVV1eUYmhGF
-         dJGKoL1jR5DZUjMAa/0k0PdOBFU1Jmxy6z9aNxoK4NLQkINOtQWGPCar+GDqiQdE9/qz
-         cK1uHd3Wc+IHFbsoZxWqo7FRyfRsbGESFydNxz6MQPXk1O6F/p47LWZx0HpR8imWOtF1
-         wuvFB1tjwkhmyLmGbayxJjpiwC+m01IF9IEfucHpA73aa036PRM4KZpHh+RJF/ihrUex
-         +NrkHGlzGicQuNvhEHSr26lmThsefzy9YyLxMiF6fKWFc/m2KFMsv93VZrRIicj0sIGV
-         nU3g==
+        bh=YVFycFVy8UBTwjNSOafscyPuCcY/dWfAyWqdQ/Z2H1Y=;
+        b=LJTLQ0SZuWsFfqnxd7BruF9bCltEOMs9E80pjGh3FmDBC7+M7qVQFyx5/AxXVkTGJc
+         6XEqJEmEWi80KOOQKx/0wSmhp/igu6hW2B7vVgfH9QLqfu7fZb3tXeX6yKNlb+7uxjiy
+         rtbnFsvVGFzYunwr1tBw29NyHahCnuBAG40XBPDWJlWEPCxruZFUZa9aCv5jxJAkwbB0
+         +29HkG+T5FW9boRmjHc9Bojb3yZjhn8GDzTFgp/X1vkewu3G3DuEYzClQhVXEMSdAl6V
+         nrZFt4wvYh5LG1nmNgdT49GbVxviXCXw0Vb6Kc9EUi35fr8OZfueaWjXOkhGFhd5xVkl
+         j8NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778944304; x=1779549104;
+        d=1e100.net; s=20251104; t=1778944423; x=1779549223;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=+j4cr1iyUCBb1PP17Lc7udm6C+rJ+6/BnxCiDoqSk58=;
-        b=QqJ9k+CFk7jaAkGNUNusVnmHcA723KXJHBFv3GDcJfSZ4ha0ArYJrbwiBVShmIPol4
-         2R+eNg0RE61sFx2XWEenqsrIJTzNHadCRUARJAd7usVWiGyk5OBe3Ofpmi3egPryAsKu
-         3vDyYIZPQVB0hmaqvCHA5d4yb32mh0Jrm3ogBQrJfnUsunajc+l4kSqYQlKLi9E0FGPz
-         8wNsuSGjdA80SFjwlEkscnicwD42vC/2uW0GDzB2afCU1b7F+t4jwIEJKWYbA1mVJugP
-         /jQ1RxNCYitp9SUD8T4DZXQL2nNaF1lRqoC+87SuK+h3YDQw8m+8wSsDJ1u357PnqNBh
-         4bQA==
-X-Forwarded-Encrypted: i=1; AFNElJ9k/+S2fXZ3E18ULWa61ZJ8j34/YTDsjkvVVuW3wAKcIWLX1qfW4AR8Ygonc4q22DyeRoR28mWhyVko@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxjlzLji6ktsF3HJvUVr+CoZjdgadbK163cg6kuUhVR5a9kAZP
-	+AFmM5eZH/vanqASdqxWKc4H1Po7SwlTb+VUqEqSFgP+EA/9m0/hNE/U
-X-Gm-Gg: Acq92OE4NnbGTVtGchZbP9Ouf8ELxynttFz8bppoJ5OIQ2S6kpdkFnL5GTtHZLACGrS
-	3k01NYqijvvfkzck3M9nWEPH+X1jA/zzQdw/YH0I7WN6lKMTDqpnrOpOqAkPPMaZFlzayzMoXe2
-	vnP659qLbrKXkahFnmzU+helNmiwe7KJTNlnbE1nDOWcVioPqYuU33G8Ep0Kx/U3cRdy9T5RzU0
-	AjOGTUz+RK28e2VPpp4BXBDElfk7QzHCdFoJw4H5852FrSkIivtWTLrsJtF5RQYMi9lhZV/mSlU
-	gJZLfKWFcJAqoJmyjcaJZ0E6pSYFie9dDta9TLFila0lGFKX+puWjRYw+CD91Z4NJ1WX3w4eIjl
-	6OxXeb6pG+oRxsYSK8ppEedET8pbeox4FRJD/ZA9jR+rS9q1W50ww/4NR47X2xwi/DocPPrfNg1
-	WkvdD6DoVpsqo1X5wE90EX53pT5Cvr3+LfWWlF
-X-Received: by 2002:a17:903:2c07:b0:2ba:21c2:d6cb with SMTP id d9443c01a7336-2bd7e933c99mr79249975ad.16.1778944304131;
-        Sat, 16 May 2026 08:11:44 -0700 (PDT)
+        bh=YVFycFVy8UBTwjNSOafscyPuCcY/dWfAyWqdQ/Z2H1Y=;
+        b=hOFbFM+evtn3XJvo3U+1dga9p75NOFihJAzoROL9A+CE3T3Be9IgMR97JRqLbA2cBm
+         AMUvzLxSlUDWSPb6cXOQJFp75Jk94slQrQWu0ZFLfF5fd6SpJb050+H2xqrnZyOxl+XY
+         5rqDh7sxLTlq+fkYTlo9d7h2b5oAYbadLBCYcVICFZNyroIXAE5ct4by+SSLF6CeBFDi
+         MY7cWGc3M6fPvQYhpsNVNZcdYPapMcLJRCdjVcJRN7kEtAVsMxvz4T/etEwpKmvn92Xj
+         /VXXH7Y+8TwBinhCTnklnfTDTSl1rnsO2oBfppdChg0WSqynw72mTMeWa4xKhm4OfLz3
+         CZ2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ++bJd7tvNRx+BurgaJbPdWI5ho/yuj7ebwhC4aL0C568WXFehLmI4duYefl/jYDzEQ0SOmbprBXzW8@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqtgODe8Z/kNjNkp8/rbcHmVHCzJDA7PT3sZS/fKRj1F7VwVBo
+	BIy+zyCDn07tLO+iPpmjDexa1EsfXlbjuxsY/swFzlNq4sIsK21H8YQw
+X-Gm-Gg: Acq92OHH2YQWAoMBY4sjgJZwRA8LD4GNNtxKikpqoXjZ8Fnjgc6FUOV8AaARWMZNO8T
+	Xe48VmzyFY5vNkgDbKJ2xZ3OSFPjr525EQ1ROBXEXOxMvXPjC9lsy/8fK6WKaGOVimbooGByUUF
+	SOqaV9roKD3C74F8dsw5+M0/UjmD1cRAB7aCzOIeJyUjhsjXsK3isHaxja+kDsXlEOEPix3iSzQ
+	hhvkEUqXq6QzUnml+8vRe7EtUnGe9ldTsH7TnPDw6OW9k2HB7ax8hvAXTtbgo4/sQk1Jn1xgqm2
+	M7FEP/tqAZUMXkX7SYqzrQ/gxwnF/pPRolN9zpUQZ56+im/JjI+s8pL5hh6Ho8Ftpu+rDEMCCCP
+	BFrbqU1d1YiJCkhn75J3NBDlWK8zbLGnESNNJxMnFAFu9ONYQIQDejxJKQMd3o/7DmK2XaX+Aml
+	qDGQMuLjk4dXn2bzkI5ghWNhPPj5mlZsqQWkkc
+X-Received: by 2002:a05:6a00:1c81:b0:82c:eb46:acb9 with SMTP id d2e1a72fcca58-83f33d26a98mr8474307b3a.24.1778944422863;
+        Sat, 16 May 2026 08:13:42 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5d0fd856sm94594275ad.66.2026.05.16.08.11.43
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f1977a570sm8762514b3a.20.2026.05.16.08.13.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 16 May 2026 08:11:43 -0700 (PDT)
+        Sat, 16 May 2026 08:13:42 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sat, 16 May 2026 08:11:42 -0700
+Date: Sat, 16 May 2026 08:13:41 -0700
 From: Guenter Roeck <linux@roeck-us.net>
 To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,12 +67,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Jonathan Corbet <corbet@lwn.net>,
 	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: trivial-devices: Add Murata D1U74T
- PSU
-Message-ID: <8ce4c0df-18a3-4d9d-97c2-68685355fcaf@roeck-us.net>
+	linux-doc@vger.kernel.org, kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v4 2/2] hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
+Message-ID: <5074e0b2-1276-4856-81f3-c2b79f567a6f@roeck-us.net>
 References: <20260514-d1u74t-v4-0-1f1ee7b002ec@nexthop.ai>
- <20260514-d1u74t-v4-1-1f1ee7b002ec@nexthop.ai>
+ <20260514-d1u74t-v4-2-1f1ee7b002ec@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,27 +80,266 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260514-d1u74t-v4-1-1f1ee7b002ec@nexthop.ai>
+In-Reply-To: <20260514-d1u74t-v4-2-1f1ee7b002ec@nexthop.ai>
 
-On Thu, May 14, 2026 at 08:03:25PM -0700, Abdurrahman Hussain wrote:
-> The Murata D1U74T-W series are hot-pluggable 1U AC/DC front-end
-> power supplies in the Intel CRPS-185 / OCP M-CRPS form factor.
-> Each variant delivers a 12 V main output plus a 12 V standby output
-> from a wide AC input (90-264 Vac) or HVDC supply, and includes an
-> internal variable-speed cooling fan and on-board voltage, current,
-> power, fan-speed, and temperature telemetry.
+On Thu, May 14, 2026 at 08:03:26PM -0700, Abdurrahman Hussain wrote:
+> Add PMBUS driver for Murata D1U74T power supplies.
 > 
-> The host-side digital interface is a PMBus 1.2 port on I2C.  The
-> PSU's other electrical signals (status, alert, current-share) live
-> on the CRPS edge connector and are consumed by the chassis
-> controller rather than the host SoC, so there are no host-described
-> supplies, GPIOs, clocks, or interrupts.  Add the compatible to
-> trivial-devices.yaml rather than carrying a standalone binding file.
-> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202605122253.zInzmUeX-lkp@intel.com/
 > Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Applied.
+Applied, after dropping the above Reported-by: and Closes: tags.
+Those are inappropriate for new drivers.
 
-Thanks,
+I also added the missing include files.
+
 Guenter
+
+> ---
+>  Documentation/hwmon/d1u74t.rst | 81 +++++++++++++++++++++++++++++++++++++++
+>  Documentation/hwmon/index.rst  |  1 +
+>  MAINTAINERS                    |  7 ++++
+>  drivers/hwmon/pmbus/Kconfig    |  9 +++++
+>  drivers/hwmon/pmbus/Makefile   |  1 +
+>  drivers/hwmon/pmbus/d1u74t.c   | 86 ++++++++++++++++++++++++++++++++++++++++++
+>  6 files changed, 185 insertions(+)
+> 
+> diff --git a/Documentation/hwmon/d1u74t.rst b/Documentation/hwmon/d1u74t.rst
+> new file mode 100644
+> index 000000000000..3a9eedbda483
+> --- /dev/null
+> +++ b/Documentation/hwmon/d1u74t.rst
+> @@ -0,0 +1,81 @@
+> +.. SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +Kernel driver d1u74t
+> +====================
+> +
+> +Supported chips:
+> +
+> +  * Murata D1U74T
+> +
+> +    Prefix: 'd1u74t'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet: Publicly available at the Murata website
+> +
+> +Authors:
+> +    Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> +
+> +
+> +Description
+> +-----------
+> +
+> +This driver implements support for Murata D1U74T Power Supply with
+> +PMBus support.
+> +
+> +The driver is a client driver to the core PMBus driver.
+> +Please see Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
+> +
+> +
+> +Usage Notes
+> +-----------
+> +
+> +This driver does not auto-detect devices. You will have to instantiate the
+> +devices explicitly. Please see Documentation/i2c/instantiating-devices.rst for
+> +details.
+> +
+> +
+> +Sysfs entries
+> +-------------
+> +
+> +======================= ======================================================
+> +curr1_label		"iin"
+> +curr1_input		Measured input current
+> +curr1_alarm		Input current alarm
+> +curr1_rated_max		Maximum rated input current
+> +
+> +curr2_label		"iout1"
+> +curr2_input		Measured output current
+> +curr2_max		Maximum output current
+> +curr2_max_alarm		Output current high alarm
+> +curr2_crit		Critical high output current
+> +curr2_crit_alarm	Output current critical high alarm
+> +curr2_rated_max		Maximum rated output current
+> +
+> +in1_label		"vin"
+> +in1_input		Measured input voltage
+> +in1_alarm		Input voltage alarm
+> +in1_rated_min		Minimum rated input voltage
+> +in1_rated_max		Maximum rated input voltage
+> +
+> +in2_label		"vout1"
+> +in2_input		Measured output voltage
+> +in2_alarm		Output voltage alarm
+> +in2_rated_min		Minimum rated output voltage
+> +in2_rated_max		Maximum rated output voltage
+> +
+> +power1_label		"pin"
+> +power1_input		Measured input power
+> +power1_alarm		Input power alarm
+> +power1_rated_max	Maximum rated input power
+> +
+> +temp[1-3]_input		Measured temperature
+> +temp[1-3]_max		Maximum temperature
+> +temp[1-3]_max_alarm	Maximum temperature alarm
+> +temp[1-3]_rated_max	Maximum rated temperature
+> +
+> +fan1_alarm		Fan 1 warning
+> +fan1_fault		Fan 1 fault
+> +fan1_input		Fan 1 speed in RPM
+> +fan1_target		Fan 1 target
+> +======================= ======================================================
+> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+> index 8b655e5d6b68..97b1ef65b1c1 100644
+> --- a/Documentation/hwmon/index.rst
+> +++ b/Documentation/hwmon/index.rst
+> @@ -60,6 +60,7 @@ Hardware Monitoring Kernel Drivers
+>     corsair-psu
+>     cros_ec_hwmon
+>     crps
+> +   d1u74t
+>     da9052
+>     da9055
+>     dell-smm-hwmon
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b2040011a386..3106cf725dfc 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -18249,6 +18249,13 @@ F:	drivers/mux/
+>  F:	include/dt-bindings/mux/
+>  F:	include/linux/mux/
+>  
+> +MURATA D1U74T PSU DRIVER
+> +M:	Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> +L:	linux-hwmon@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/hwmon/d1u74t.rst
+> +F:	drivers/hwmon/pmbus/d1u74t.c
+> +
+>  MUSB MULTIPOINT HIGH SPEED DUAL-ROLE CONTROLLER
+>  M:	Bin Liu <b-liu@ti.com>
+>  L:	linux-usb@vger.kernel.org
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index 8f4bff375ecb..ee93b22d2887 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -113,6 +113,15 @@ config SENSORS_CRPS
+>  	  This driver can also be built as a module. If so, the module will
+>  	  be called crps.
+>  
+> +config SENSORS_D1U74T
+> +	tristate "Murata D1U74T Power Supply"
+> +	help
+> +	  If you say yes here you get hardware monitoring support for the Murata
+> +	  D1U74T Power Supply.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called d1u74t.
+> +
+>  config SENSORS_DELTA_AHE50DC_FAN
+>  	tristate "Delta AHE-50DC fan control module"
+>  	help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index 7129b62bc00f..8cf7d3075371 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -76,3 +76,4 @@ obj-$(CONFIG_SENSORS_XDPE1A2G7B)	+= xdpe1a2g7b.o
+>  obj-$(CONFIG_SENSORS_ZL6100)	+= zl6100.o
+>  obj-$(CONFIG_SENSORS_PIM4328)	+= pim4328.o
+>  obj-$(CONFIG_SENSORS_CRPS)	+= crps.o
+> +obj-$(CONFIG_SENSORS_D1U74T)	+= d1u74t.o
+> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
+> new file mode 100644
+> index 000000000000..286ba492e336
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/d1u74t.c
+> @@ -0,0 +1,86 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright 2026 Nexthop Systems.
+> + */
+> +
+> +#include <linux/i2c.h>
+> +#include <linux/of.h>
+> +#include <linux/pmbus.h>
+> +
+> +#include "pmbus.h"
+> +
+> +static const struct i2c_device_id d1u74t_id[] = {
+> +	{ "d1u74t" },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(i2c, d1u74t_id);
+> +
+> +static struct pmbus_driver_info d1u74t_info = {
+> +	.pages = 1,
+> +	/* PSU uses default linear data format. */
+> +	.func[0] = PMBUS_HAVE_PIN | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
+> +		   PMBUS_HAVE_IIN | PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT |
+> +		   PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_TEMP |
+> +		   PMBUS_HAVE_TEMP2 | PMBUS_HAVE_TEMP3 |
+> +		   PMBUS_HAVE_STATUS_TEMP | PMBUS_HAVE_FAN12 |
+> +		   PMBUS_HAVE_STATUS_FAN12,
+> +};
+> +
+> +static int d1u74t_probe(struct i2c_client *client)
+> +{
+> +	char buf[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
+> +	struct device *dev = &client->dev;
+> +	int rc;
+> +
+> +	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
+> +	if (rc < 0)
+> +		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
+> +
+> +	if (rc != 9 || strncmp(buf, "Murata-PS", 9)) {
+> +		buf[rc] = '\0';
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "Unsupported Manufacturer ID '%s'\n",
+> +				     buf);
+> +	}
+> +
+> +	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
+> +	if (rc < 0)
+> +		return dev_err_probe(dev, rc,
+> +				     "Failed to read PMBUS_MFR_MODEL\n");
+> +
+> +	if (rc < 8 || strncmp(buf, "D1U74T-W", 8)) {
+> +		buf[rc] = '\0';
+> +		return dev_err_probe(dev, -ENODEV, "Model '%s' not supported\n",
+> +				     buf);
+> +	}
+> +
+> +	rc = pmbus_do_probe(client, &d1u74t_info);
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "Failed to probe\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id d1u74t_of_match[] = {
+> +	{
+> +		.compatible = "murata,d1u74t",
+> +	},
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, d1u74t_of_match);
+> +
+> +static struct i2c_driver d1u74t_driver = {
+> +	.driver = {
+> +		.name = "d1u74t",
+> +		.of_match_table = d1u74t_of_match,
+> +	},
+> +	.probe = d1u74t_probe,
+> +	.id_table = d1u74t_id,
+> +};
+> +
+> +module_i2c_driver(d1u74t_driver);
+> +
+> +MODULE_AUTHOR("Abdurrahman Hussain");
+> +MODULE_DESCRIPTION("PMBus driver for Murata D1U74T-W power supplies");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
