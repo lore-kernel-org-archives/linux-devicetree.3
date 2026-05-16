@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816262BD030;
-	Sat, 16 May 2026 09:58:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA49F19B5B1;
+	Sat, 16 May 2026 09:59:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778925539; cv=none; b=hOPOID9Jt9G8UT+PfwX+RTmSfu5QFgZUCieMgZKemM8cVyx5eplJQ3wqcs81GT640UKqs/WFfiRO+GqPgabpoBl+qcD2Uq7DNTFzI0NFDrTtDwEDcmitn7lAm8k9uWPhsdkT3cnWAUCcHE7bE1NdHrN1TeLwfwSCDVph5/4H9g8=
+	t=1778925580; cv=none; b=hgu3REa3OOn/1sG/4sXtFB7IZizZANmaG32BmZVXqMDmmNA/XzcQPZi2oINaD4W8FMcJRpsYJ1HcplMkObU85YdINc4nkE1H/3gxq4WYymtWdoKTyXq+INi4kJNb1KQ5T9aDYCup2Xf2al3fc6ArbNKzdKcU2jpHt0KV8B8R4ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778925539; c=relaxed/simple;
-	bh=/Cd5D81A/OW/oM0+DfS9RH4MadGII7LyE+NoEou+BaY=;
+	s=arc-20240116; t=1778925580; c=relaxed/simple;
+	bh=6tNtF84euk+znVjOJuLcSviJ2wZ7fO+YBywlcbsuVvc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lgdaR7wJoQ/mK+PkYTc16/j6Cks+vQ6lYzz9ss8Do1MdtFtenac0Pd5QGCF7sJqwFgQ9i85toPXRAKcy9pLd17XZoN7Xe3qQ8lSGIu2WGoET5UzPsF8nBqga+GP54SbtUdldgkZe8pcAx7liIBxkNfTDDiXMYiPxIQMh+S53v8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PfuFmycN; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=MfBq1gEPFN2F6VH4PAHKDiy81XtAL2j9BS4UUoy2HCfgAlEQdSmIkrsKYUszsnbyuFvAhRmP8r6/FaOMeK/E/thoPLES+lj9cG+VV+7oCVEDgeAuckaf2eBOYc+5PY2jlRJ5IyrJqxktddUSj3ZSPtmmHtXCRVDBKnmGEvNB7m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CdMytAET; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PfuFmycN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D495C19425;
-	Sat, 16 May 2026 09:58:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CdMytAET"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F6DC2BCB8;
+	Sat, 16 May 2026 09:59:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778925539;
-	bh=/Cd5D81A/OW/oM0+DfS9RH4MadGII7LyE+NoEou+BaY=;
+	s=k20201202; t=1778925580;
+	bh=6tNtF84euk+znVjOJuLcSviJ2wZ7fO+YBywlcbsuVvc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PfuFmycN2tjuGlzq/imCF9DtawVa0twAPOKCEssAq/ifsGBa8fyaWistx0ROtmQOP
-	 +dh6gzaLwICB496evvnPFIqSkPJkk/hj7xDh9wlwe2+SXvKq0eMfIntQb6PJZLeWHE
-	 qD+xE/Fs78AwC9fp/Vhhz7c419+o4eLyJ8IuDqa91DpMrFom0CoZ/WLNWxmfXR2mSi
-	 z+6vrxwRKri7KgVRXUgfnX7VWpEUnAtrywqFCZKiui+2hR5kIWWW0Y8OsKVLydIgx6
-	 7o3Z/DOn0ECyQY+JGik+aBmm14acXVNPDasfa6bG3i6AQ0VuhY6mQG6l5HgzCq1VvY
-	 YWVRvMDyXP7sw==
-Date: Sat, 16 May 2026 11:58:56 +0200
+	b=CdMytAET/RdylTAxEQgPFV3sd8JUzhA2e+ZUfOmcSZx4Tiv/XdtsAVzFfMLVV0f5C
+	 0Hy6vbjMlfT69vw71NNmG+nbM6lGehMvq/PSrrjqzbips2msuvZ70ylueUkCuQJm7a
+	 75PG2jIIyEuX/S8ZpgAq1GrdXbDsRm9MJc7e1L5TuCbj66u4+Sf5Zi69aV1nMePih8
+	 WwcER4L8Gq732vraj4I7rqA0OKlGvNeXbXGg+LKU2Y3+LLWIH5yiZ4GyuJCyocsScG
+	 jnVvRyCxM/QE/K1fsge6K59aogD7z9UulReBLw/PSy0Re4FfqVbx9iFwG3CB4C+ekP
+	 SPjr0+NbNm7VA==
+Date: Sat, 16 May 2026 11:59:37 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
@@ -35,7 +35,7 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
 	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] dt-bindings: arm: qcom: Document Eliza CQM and CQS EVK
  boards
-Message-ID: <20260516-sheep-of-radical-popularity-d0cdc5@quoll>
+Message-ID: <20260516-vivacious-axolotl-of-attack-4e0ad7@quoll>
 References: <20260515-eliza-bindings-evk-v1-1-8deb81ed86dd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -57,26 +57,10 @@ On Fri, May 15, 2026 at 02:13:31PM +0300, Abel Vesa wrote:
 > ---
 >  Documentation/devicetree/bindings/arm/qcom.yaml | 2 ++
 >  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index 2741c07e9f41..28a18254b4b7 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -63,6 +63,8 @@ properties:
->  
->        - items:
->            - enum:
-> +              - qcom,eliza-cqm-evk
-> +              - qcom,eliza-cqs-evk
 
-When we talked privately, I asked to mirror Shikra approach. But you did
-not - it's different from what Shikra sent.
+Heh, I noticed only after sending email - where is any user of that?
 
-Shikra received my comments - but you did not mirror these, either.
-Basically you went with third approach... well, I think this is the same
-case as in Shikra, thus comments from Shikra apply here (at least what
-I expect to see). Also, another reason is that this should be
-consistent.
+I expressed it many times - we do not take bindings without users.
 
 Best regards,
 Krzysztof
