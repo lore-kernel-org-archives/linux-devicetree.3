@@ -1,112 +1,119 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6CD63F075E;
-	Fri, 15 May 2026 23:39:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01765695;
+	Sat, 16 May 2026 00:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778888350; cv=none; b=X2guYGy61hu78vi+wrVffWQHNDHmyL6svP2tszhMBVBboceCAjMWbyTBQu9KfPy0PGSTX3NOdjbD06UsOW9c8RHUuyVYP3YQTw8hJIk8S/ke8T+CKxgNH/F0ASYbsV7f4jjyuwonw1tDprf7oaSp8IDiW5d8ZgIWEF0M0/5NI0A=
+	t=1778890708; cv=none; b=ZBD2mwg8Z1oZacAKFuoz3UltYCkqjKOQAB8XQDZIegcok0hoEcx84PvHl9P0g1sIOCNu2KGNk9ttEQkk2TYpxTLy/44wrnBq319NGF7nXwiLOlVqYmAc+UYBRGZJ78C6FrKiuDQCk3Oo5FgfmYy6iRDRYjXq7Na9lBEY8+XciNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778888350; c=relaxed/simple;
-	bh=hcyi/oQQYFZ0VBh4EERVTQPgaMQsOUZKGv3aL0avj9M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WrlY2a57FkmBoUQ8LHG+Xn4TmGW9hEQ71cxL/WrvM59uqNiYYOm61Kc6UOD1JTxPEcSPC1PBhRIv2PVT8D1e4hj4I7b/2TGL50MDclvuZvAo2g49xOcwnJphQC72LsSk4tcsPt36IFetv5npfe1dU7Wrx8PSaMPsbYu4VIq7U4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pPkwFu5D; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1778890708; c=relaxed/simple;
+	bh=Tyq7mD6hXsGUCi+fVaRbLiqkQ90EYTsiUFCtMxpfUi4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NJ5XjZ/3rhMad1Y1V1l5LisoOX0bhpuogcjjLfXwpFyfG+dK5FIWlC+mWcTPCXyMVuTgdgY22njGqiMUnraWun6Tr+hvvpXX5XbX6zs2rEEUCnWnclGHIXrBygzYRSNIr3//MjJFC7bi1ISqTrxXA8XnlMV/zegABlq7d5BmDKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=caJ2LKly; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pPkwFu5D"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CF5B022FC;
-	Fri, 15 May 2026 16:39:01 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9DABD3F85F;
-	Fri, 15 May 2026 16:38:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1778888347; bh=hcyi/oQQYFZ0VBh4EERVTQPgaMQsOUZKGv3aL0avj9M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=pPkwFu5D+YbH2+PpMwRTpME8igQ1y2qLUKm9sYXy4XipkRaiTw+MnZkf3cLn1Ge7O
-	 HVAblJg3cV+31efMuWUyKMt2R7inzWu4pynGFnlLK2OBD3Um9meAy+J1U5xXLJ/i8U
-	 /tDMGc53F7bdHTNTw1tBhaCIVUVWPaIpCFa8JIdM=
-Date: Sat, 16 May 2026 01:38:15 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, Sudeep Holla
- <sudeep.holla@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
- Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland <samuel@sholland.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ge Gordon
- <gordon.ge@bst.ai>, BST Linux Kernel Upstream Group
- <bst-upstream@bstai.top>, Jesper Nilsson <jesper.nilsson@axis.com>, Lars
- Persson <lars.persson@axis.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Dinh Nguyen
- <dinguyen@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
- <jonathanh@nvidia.com>, Bjorn Andersson <andersson@kernel.org>, Konrad
- Dybcio <konradybcio@kernel.org>, Andreas =?UTF-8?B?RsOkcmJlcg==?=
- <afaerber@suse.de>, Heiko Stuebner <heiko@sntech.de>, Shawn Lin
- <shawn.lin@rock-chips.com>, Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Michal Simek <michal.simek@amd.com>,
- linux-sunxi <linux-sunxi@lists.linux.dev>
-Subject: Re: [PATCH v2 05/17] arm64: dts: allwinner: Add EL2 virtual timer
- interrupt
-Message-ID: <20260516013815.6dd21da3@ryzen.lan>
-In-Reply-To: <20260514150945.3917510-6-maz@kernel.org>
-References: <20260514150945.3917510-1-maz@kernel.org>
-	<20260514150945.3917510-6-maz@kernel.org>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="caJ2LKly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2C6C2BCB0;
+	Sat, 16 May 2026 00:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778890708;
+	bh=Tyq7mD6hXsGUCi+fVaRbLiqkQ90EYTsiUFCtMxpfUi4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=caJ2LKly5r0HILD19wseqJVug1ZS8368NAYabqXVpFSseFq6/vor+Mtp5gM7VAU7J
+	 ThwHdQM1KGhv583t6idWYyTWaxEnJAVfr8bdh5inbW1jvAfITCBtTQT2JcpCJ/SOPR
+	 Y/Ll99EUzPh5QNabSZz7JR4+fRHugBJOgoXCqQG7gmPXDuASe6N9X0A/dbVC70DWLT
+	 JlOIn5VzZpmOBPfXaSEaLEMJa9o1nTTDXSWcHuwb6Ijy1hV/qGaFGfC5Qxe/ix6TUp
+	 eJazYbbI4QN9DQS+W0dUsPJ/5sZhuil+7v08HMJ7odG+qdB8qMv6Y0h/VF6/sikBMF
+	 xRrsPVQCIDgug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/6] ARM: dts: imx: replace undocumented compatible
+ string edt,edt-ft5x06 with edt,edt-ft5206
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Frank Li via B4 Relay" <devnull+Frank.Li.nxp.com@kernel.org>
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515-imx25_dts_simple_warning_2-v1-5-b06bff192a05@nxp.com>
+References: <20260515-imx25_dts_simple_warning_2-v1-5-b06bff192a05@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 16 May 2026 00:18:27 +0000
+Message-Id: <20260516001828.1C2C6C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Thu, 14 May 2026 16:09:33 +0100
-Marc Zyngier <maz@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The commit message inaccurately claims that the 'edt,edt-ft5x06'=
+ compatible string is not used by the existing driver.
+- [Low] Incomplete replacement of the 'edt,edt-ft5x06' compatible string in=
+ the i.MX device trees.
+--
 
-> The ARMv8.2 based CPUs used in the A523 SoC (and derivatives)
-> are missing the EL2 virtual timer interrupt. Add it.
-> 
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
+commit 41200cd2fe9679c5de99c8f7d34c6e5a590d761b
+Author: Frank Li <Frank.Li@nxp.com>
 
-Works, with [v2 03/17] and this patch I see the arch timer IRQ being
-int ID 28, and working, where it was 26 before. dmesg confirms that:
-[    0.000000] arch_timer: cp15 timer running at 24.00MHz (hyp-virt).
+ARM: dts: imx: replace undocumented compatible string edt,edt-ft5x06 with e=
+dt,edt-ft5206
 
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Tested-by: Andre Przywara <andre.przywara@arm.com>
+This commit replaces the undocumented edt,edt-ft5x06 compatible string with
+edt,edt-ft5206 across various i.MX device trees to resolve dtbs_check
+schema validation warnings.
 
-Cheers,
-Andre
+> ABI impact consideration:
+> Not affect Linux kernel ABI because edt,edt-ft5x06 is not used by the
+> existing driver. U-Boot does not parse or use edt,edt-ft* touchscreen
+> compatibles.
 
-> ---
->  arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> index 5afa8d92acbfb..d3c47966e8fc8 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> @@ -101,7 +101,8 @@ timer {
->  		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_HIGH>,
->  			     <GIC_PPI 14 IRQ_TYPE_LEVEL_HIGH>,
->  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_HIGH>,
-> -			     <GIC_PPI 10 IRQ_TYPE_LEVEL_HIGH>;
-> +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_HIGH>,
-> +			     <GIC_PPI 12 IRQ_TYPE_LEVEL_HIGH>;
->  	};
->  
->  	soc {
+This isn't a bug, but is this explanation of the ABI impact accurate?
 
+The I2C subsystem uses a legacy fallback mechanism where it strips the vend=
+or
+prefix from the compatible string to derive the client name, resulting in
+edt-ft5x06.
+
+This derived client name successfully matches against the driver's
+i2c_device_id table in drivers/input/touchscreen/edt-ft5x06.c, which
+explicitly contains an entry for:
+
+	{ .name =3D "edt-ft5x06", .driver_data =3D (long)&edt_ft5x06_data },
+
+Because of this, the driver was actively binding to these devices based on
+this compatible string. While changing it to the documented edt,edt-ft5206
+is functionally correct to cleanly match the of_match_table, does the
+rationale provided in the commit message reflect the I2C/OF core matching
+semantics?
+
+[ ... ]
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts b/arch/arm/boot=
+/dts/nxp/imx/imx53-m53menlo.dts
+> index 2acbc86cabb31..aa1c7e5012c6a 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dts
+> @@ -248,7 +248,7 @@ &i2c1 {
+>  	status =3D "okay";
+> =20
+>  	touchscreen@38 {
+> -		compatible =3D "edt,edt-ft5x06";
+> +		compatible =3D "edt,edt-ft5206";
+
+Are there still remaining instances of this undocumented compatible string
+in the tree?
+
+It appears the exact same string still remains in the tree:
+
+arch/arm/boot/dts/nxp/imx/imx6qdl-nitrogen6_som2.dtsi:
+	touchscreen@38 {
+		compatible =3D "edt,edt-ft5x06";
+		reg =3D <0x38>;
+		...
+	};
+
+Because this occurrence was omitted, will schema validation warnings
+persist for any board incorporating this dtsi file?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-imx25_dts_=
+simple_warning_2-v1-0-b06bff192a05@nxp.com?part=3D5
