@@ -1,67 +1,68 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43043624BC
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 19:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D7D366073
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 19:25:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778959516; cv=none; b=dHGaMUq8owoh6vv6EBc0SBUzPrWVY/e0y4sAiy1KrDPLtG6s4sREFXLsy8MgAGx5/A3wD7N3mbyTvXrZyUPkV22vduQqaYSrR+NN0fqh3xF4bmb69ns+7bgtr/oPPNsKWBznG0YlFLr3A1i1cCOYFmyTd4iW0lWKKIEl6TwiWzU=
+	t=1778959532; cv=none; b=sEyYnL1wAT7yy2G8KulQJ/oxb5ewel1TJybJ/O3hE+ttExFZ+DyjUQNQhpbLGHx+ob2455tDwPBYYTkBcR/THSCToqCJxH3yz47txR3uh5zTTao+xnCl0qn00A2In0B8Tyuf81vZ9g6fDHtf+90M9/1WNGgmi87Fo4cVyRx1238=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778959516; c=relaxed/simple;
-	bh=Rch9BlJKm86u2jFjWPy/exsEl++VNJ8K47Z8YCQbhlY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=obiMgPWH/VPVpZn9W7zFPd4N+08e+WkDK1BNgg8IKx7fpRXhg8tRNQCdpzM0sFNHq0SIknpWHoyJWOJhCsBv+fAPo6W/s5/PZ2a5Rb2wwJ6evfOpUcU8ZrKGRqPcEeeAbVSZPxX1zozdXxN7ZmbIyr+CCBdAXSX6pJpI4vX8Dxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=sjV3WU6g; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1778959532; c=relaxed/simple;
+	bh=egB9c96iQ8I2rADNx2KgerAOYNhDFlCBqRnjnpDJJts=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=GRgaVD4qqKEiWsdKMkV++HaXQeinlfLuFNQEyFH0bn4u932wN6o4xaw3XqHkklOXZkpfpuRFfT7ze15YFyHOKq+vGfUfsoXiflBXnTfuqkNCx0td5SaeWX+9cHicKRZigrx+HMTz4mB5UiZX/ayfiVi9cC6Y3IyPE9F61Ve1+Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XVo5+seD; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="sjV3WU6g"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e4de538f83so601136a34.1
-        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 12:25:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XVo5+seD"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-82f9fdfc965so423691b3a.1
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 12:25:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778959511; x=1779564311; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7fPwesdjsiyiHQsIQO0tND7lOMwn0nsVsfr8NNzx7zw=;
-        b=sjV3WU6gDdb0fiziRhotQ9qQeXC8VEmtLrnNWudUrByaxsuCsYa6AxQqE7/fkBNGPa
-         V0AcgN6U7M7K9+/wxUOvV5ss0LytD1wpmk7nYvA3JkRiFwUshu6bCauzBjpM5hgT6r1n
-         FA1MqINegzVeAVmmqnQ5guYze+89oNRBAh/+iTCIeXIe9H/c7g5Hp/U2AFHakAodC87T
-         apYqtK50GdRB7ljIC1f1ZtiaJh69wCnTCFcmOl256m6B56ldux7Sv+Wz5zP73e4yYsKF
-         cE29cBTu2UeceI2qgFk/9DPET6JS8IG+hKpuzY43oIM9ctwxWA5I4/uOJ2LNyu31wYng
-         umxw==
+        d=gmail.com; s=20251104; t=1778959530; x=1779564330; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=qDDCo4VLFxe+GYF4Abu/TOXNjEfOWoKqyK6dTWXD39E=;
+        b=XVo5+seDMWDgp6b/C8X8lLHQ7/oSBAAKBK9ZGQ2xCv5bJIjcVdddToPmi3BUWdzG5k
+         4F9DK9oeAKy/gYmfVd1OxRP/MA3TWEM4WTI4rJ80GoklUanIfYKvQjwKpaJt5g+hjRIE
+         yyk/kYrRVHTKmsC7jCZoptq5BoRNdjXCD0e0t7wTd4cdXNLbEPt2tWNdvB3YdyJ4wR3/
+         LO2X/dKZMUuoEuusrYPgTEdyeq0niuZlhRXxi7zSdRttYDUBqiaNnHY3f+sAVqNmWb+l
+         9tc1uB/vSTxb9Fo1cc4RJ4W0E5l/N09XotuPTp+vNklC/K2HbXgRxJDXdHHHqjl5x705
+         MZFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778959511; x=1779564311;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7fPwesdjsiyiHQsIQO0tND7lOMwn0nsVsfr8NNzx7zw=;
-        b=kiWk7/eBOjy6TWiodzrylX8j22NE4gCN367SyPsgL7ahGes7ytKw/pVujb8a5+e3OR
-         mUgOwC1/Fj5Wy5MWz6xQaLX7jZ5Njco/0Gphg3g4F8pTI4DgaCQY1JwXrXIDOSGXPEJO
-         9Usc6HLjtpP13DmCZ+3idJ0hPgxcUnfI6vlrTACA7nTU4BLipWfBJnBMblE2zcVuu7in
-         EwfgaUGcFQDZ6aH+fpi3pbyngqEbXO6GagqxePSFRLPywxE8rdaMtHIyolaJojBeAk7/
-         IcCYrqr0Wnjolf6j++z6bmBk3tVgDNqfUSqicnQlomxHvcugNjMq3NlVm43pwLUPOtjE
-         gdwg==
-X-Forwarded-Encrypted: i=1; AFNElJ8HErtJeQ6PGf9nt7gIQbXGV+xA0m0pBm/HUtqLeEcskdbA2NsVhkl19Sn6P1Xnthi7tr60nVh6h4Bu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuYzjZzgk7J1ocKkbqDziZWZvqIFmhfMFkw1Em+csciGTtcZq1
-	0iP++4sUXYcKjdk8FmxA9HZH0nazwYHGkykeeQldv+t5epunLlrApwUNF3gl5/5EUEo=
-X-Gm-Gg: Acq92OEWN+va3qpRHf+E3FvX5SAROvO8dM/zeysNmJdUyWG/SR0h1UcybqQUq3mq19c
-	HM9454TSmG35fx1dBFTqqN1ih1WPECV89cWhw68Sl0ylQDN2yo7QBZ//p+Jn2RNUFrtDwViJsE5
-	55Y74KIK52FoZ7O2zy6HP2j298qo7QIRHl6VU8wuTka6wrl2uTtOd6J//9NSwb9WhpJjGeIY3Cu
-	C5qjOOgq5oxkaWsXhZlYXbkOChhTblFU/PGLYSQ06Pu3YCC8YPkyDRVonkj79fMiw9KUpvBhhh+
-	F5KVxFpgp2vRyGGc1O79Qsk1DkFIONaWEDjDxHls6qYn+rvrTlWV5DYdn+ojB5/zNDqWtGcLHLn
-	V7wxkPtwa3BaaROYtywmNNcnkYdJ5emRS4g+TA1dMVQNLpnaKiDBt9tSZyWXly7mVc4Kd8banty
-	W6jYmqigA/O1++tt1lYflA/RdKM6OYjSqr+BU5xS1ddrFzPaOV9x676FmwtdZgNG4kYN+HL392I
-	g==
-X-Received: by 2002:a05:6830:4704:b0:7d7:4ee9:c39a with SMTP id 46e09a7af769-7e4ea031993mr6198970a34.4.1778959511638;
-        Sat, 16 May 2026 12:25:11 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:b36d:bd18:7c02:29e2? ([2600:8803:e7e4:500:b36d:bd18:7c02:29e2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e55b507cbesm4126569a34.0.2026.05.16.12.25.09
+        d=1e100.net; s=20251104; t=1778959530; x=1779564330;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=qDDCo4VLFxe+GYF4Abu/TOXNjEfOWoKqyK6dTWXD39E=;
+        b=XfsAW/JNJTCWuCm8EB/mrir0b7jJAJAioYkZvEcBW56pJUPcF11rNC8t1NvGuoCC2k
+         OURK+h9FKM04W9q3qvFYbuusNPCOYTEpnQ9l23enba/hIRPrZgcCikkkI9YjX2jodhxx
+         K3C695Arp/h0FMX8HQUrvoZfM84HgesndwHh/vE3E/xejgRTstzhnlBXOaKdqhlTPMMR
+         K/oMPeIlvEmxWbaRxCL62S6aUapUWBhTDf7K5H+b4RUdf7oEIGTrZYPWKEL3wEM+PQPr
+         HiSrzj6Xyux1vAviDIDGoKvgpiKHK0PhtTeIDOsiG3nSc0L7Hx3ftq/rIl6/yg6Pw7Sk
+         mAIw==
+X-Forwarded-Encrypted: i=1; AFNElJ/PdPP75d7P8nNvXRA6EIm+bVcU+q3Fkts/bwiVb7hT77/06tpAHA5vyDTWVm35BaeKR2traUKAmPxc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6WevVARMgeTY9HHzfAAt2ltsnwrNlottpHXKuSjJ8Tjo47/Hd
+	Azyh3K/J5MlEvspZoI0XLyWkQzWudTh5MkVEgzR56muABuJ7LwlI6ZJQ
+X-Gm-Gg: Acq92OFp1zf/h+Wq/TntvJl0rrucqnD3S3DyA3gQ7xlUEr9Xv+r4f5FMEnnxEc7JxAK
+	QAzE4dRztUZ6axjKd6CqQ1MNCmiRPEzuAxnVuClub9FNOj5YtVOXT+tSJ0MfFltyhzivg8XpKjH
+	3aPRiHUEIK+g8cSkZeTLS5LMybUURq9NeuslmRJsEd1tiVa0pwqWZd5Qmv9fgTmpRU02mXOH3kP
+	adPh9DWHUmoNOs53XWEF/jD1D/QepnN6Kp8y6t/YEDoTOXmESQuavwuUWOPkVZV1/8A8/P1KgBB
+	EFynZ0SkchBnEopxESdshvLDufiF8pOy1HRtKdswSCA0YLzD+QVGckxhcoXx8Qa4t9yFYPSdbdW
+	psqkFGU0Wil5lmXRKwisbQ0RPaYZPOfnEQIAmkkTqcngbMbzC0pyRlsHUfYuKh2zLqnA20gSWEc
+	/CPPapJi5r1rKEDswwXWqEJZew5rgdY6pCdKTwbvlFPLbJwZz1Lf7Mmx3OkszjNKuMDXn++FATh
+	REuNwCjDvM=
+X-Received: by 2002:a05:6a00:17a9:b0:835:4291:6975 with SMTP id d2e1a72fcca58-83f33d82ffcmr9836058b3a.39.1778959529890;
+        Sat, 16 May 2026 12:25:29 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19664712sm9872455b3a.12.2026.05.16.12.25.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 16 May 2026 12:25:10 -0700 (PDT)
-Message-ID: <53d547ee-1ac3-42b9-92a6-e7f48b72fee3@baylibre.com>
-Date: Sat, 16 May 2026 14:25:09 -0500
+        Sat, 16 May 2026 12:25:29 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <35412149-282f-4272-ba47-136caeeb5c1b@roeck-us.net>
+Date: Sat, 16 May 2026 12:25:28 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,96 +70,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: iio: dac: Add AD5529R
-To: Jonathan Cameron <jic23@kernel.org>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Janani Sunil <jan.sun97@gmail.com>, rodrigo.alencar@analog.com
-References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
- <20260508-ad5529r-driver-v2-1-e315441685d7@analog.com>
- <20260508134843.7646c4f5@jic23-huawei>
+Subject: Re: Stop false review statements
+From: Guenter Roeck <linux@roeck-us.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+ Konstantin Ryabitsev <mricon@kernel.org>, sashiko-bot@kernel.org,
+ sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
+ Linux Kernel Workflows <workflows@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree@vger.kernel.org, kfree@google.com
+References: <efc4d394-b328-4ccf-8c05-b6470ee4b88d@kernel.org>
+ <70C5331E-06F1-48D5-A6BA-0CD130B69A45@linux.dev>
+ <b5989c0f-90da-42cc-a623-3b60df077848@kernel.org>
+ <dd37929b-ff90-4567-930a-26db01d85950@roeck-us.net>
 Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260508134843.7646c4f5@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <dd37929b-ff90-4567-930a-26db01d85950@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 5/8/26 7:48 AM, Jonathan Cameron wrote:
-> On Fri, 8 May 2026 13:55:47 +0200
-> Janani Sunil <janani.sunil@analog.com> wrote:
+On 5/16/26 12:13, Guenter Roeck wrote:
+> On 5/16/26 12:00, Krzysztof Kozlowski wrote:
+> ...
 > 
->> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
->> buffered voltage output digital-to-analog converter (DAC) with an
->> integrated precision reference.
+>>> It’s opt-in on per-subsystem basis, as well as all other email-related features.
+>>> I do rely on corresponding maintainers to decide if they want it or not.
 >>
->> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
->> ---
+>> The trouble is that subsystem is mailing list, thus I still got all of
+>> them via b4, which is used to get the discussion.
+>>
+>> Send them only to the maintainer, for example. Or maintainer + authors.
+>>
+> 
+> For hwmon and watchdog I most definitely want the response sent to the
+> mailing list and to the patch author. That was the original configuration
+> for hwmon. Roman took it out because people who were copied on the
+> original patch complained that they did _not_ get Sashiko's reply.
 
-...
+Actually, turns out he didn't, he just moved it.
 
->> +  * Multiplexer for output voltage, load current sense and die temperature
->> +
->> +  Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/ad5529r.pdf
->> +
->> +properties:
->> +  compatible:
->> +    const: adi,ad5529r
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  spi-max-frequency:
->> +    maximum: 50000000
->> +
->> +  reset-gpios:
->> +    maxItems: 1
->> +    description:
->> +      GPIO connected to the RESET pin. Active low. When asserted low,
->> +      performs a power-on reset and initializes the device to its default state.
->> +
->> +  vdd-supply:
->> +    description: Digital power supply (typically 3.3V)
->> +
->> +  avdd-supply:
->> +    description: Analog power supply (typically 5V)
->> +
->> +  hvdd-supply:
->> +    description: High voltage positive supply (up to 40V for output range)
->> +
->> +  hvss-supply:
->> +    description: High voltage negative supply (ground or negative voltage)
-> 
-> I don't mind doing it this way but in some similar cases where 0 is something that
-> can be considered the 'default' we've made the supply optional.  What was
-> your reasoning for requiring it in this case?
-> 
-> dt-bindings should be as complete as we can make them - with that in mind...
-> 
-> There are some more interesting corners on this device the binding doesn't
-> currently cover such as mux_out pin.  We'd normally do that by making the
-> driver potentially a client of an ADC
-> 
-> Easier though is !alarm which smells like an interrupt.
-> !clear probably a gpio. TG0-3 also GPIOs.
+However, it turns out that Rob added krzk+dt@kernel.org as explicit
+Cc: target for the devicetree subsystem. I would suggest to drop that.
 
-also optional vref-supply for external vs internal reference
-
-> 
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - vdd-supply
->> +  - avdd-supply
->> +  - hvdd-supply
->> +  - hvss-supply
-> 
+Thanks,
+Guenter
 
