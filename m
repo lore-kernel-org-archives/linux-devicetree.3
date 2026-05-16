@@ -1,89 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AEA355055;
-	Sat, 16 May 2026 11:20:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA78230C62D;
+	Sat, 16 May 2026 11:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778930430; cv=none; b=tUMXv5jKzXqKlQzSY83tewCT1TxaIxAk4KvreMuRGUej1AoSZevuvAJzbjBS7t68oIZeQSm+gUh3BDdmijXaPX4WylKS2uLMR73TSACX5uyke6TDrphm/imKBkjCRFR9t/zECDJKhVaV0ZPvMvpSHRd1/uu2cY1DwzdH4J3LDU8=
+	t=1778930543; cv=none; b=kYgTCID+gFUMcMuZiyYPGNa2oe9iGgB5pJVhVVgIOBfyVk4hS9rIiDBAnk57pziaMcdXnE2FxKT9W9EL1+rlCgxI6v28brwvXnDGg9Ef7vJR+bOmcmj+KslcyFmUrl2yTXYSGnzjMkRarNh5UgHvFS9lM4Ba7a4VI7op41MiB4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778930430; c=relaxed/simple;
-	bh=1YVe191uXDA4Cm/Vqc7LR7GoDA8SIGQoMShtAvg1+5Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fo+yX3WtH+ARTQX1mVW8D+RjHGm4PyZYv7qV7wR9zgT+FPJGLwCFllchP/HGdVbBFmFbFH/PAL99BbQLyjGaZPAdKcn7djjNFw+EEBNbHgsP3OPUvEV3DZsfy3sj9YvfnVTLrdS9w54oQMXxBgrZMR1JSJ+WQA2prMuxCEwPTlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBHchSPN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778930543; c=relaxed/simple;
+	bh=KmhGMwY9NLy83wnR0ng0AbyCQyA5nLoRKIqcwfoWIec=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gVjXxw+4m2ihnIGnFZNLHO2CrXp+aB9Wan0Z/EKgxnbd0W/r36EoScUbJi+eiyH095Djg/0+gXdvxNa4aPJjBzNlB3IKsGOBSHvu+W07h1zqGAFbKnXQlCKccj6Ls8nStX1/BvLb4UQaQTMA2WhTUaSGdSUeoyfgtYGuAntZezo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0qbNrZu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBHchSPN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDF4C19425;
-	Sat, 16 May 2026 11:20:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0qbNrZu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58554C19425;
+	Sat, 16 May 2026 11:22:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778930430;
-	bh=1YVe191uXDA4Cm/Vqc7LR7GoDA8SIGQoMShtAvg1+5Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=LBHchSPN7W+KiB5Z+xX30H6D5cAAw6CqWpOkJv/pT0/nFEYiMRMraH5cSDT7q/qdu
-	 Kzkpl6YrEBU3gES457hB+Z87sv0lzypJYgAZoJGQAqWvPg+jZzbOBuzHJM5QKDqoOq
-	 DuR5PnI8wzcMy3qfvz6voh4XsZ56CfJ8Xdor3/YIgxj/DtWMzLZ/TaUN+e6c+7J3iu
-	 Lwp49vFLxAf21Q9Ww18ihuw0p6/VSg4Klf+LPSp9qiOcF2TEiPrc6Q5JGwG4R8GpNe
-	 yLFtaDYOh648mmkifsdTGMvJS2LlePd81Pogqp5HAwIrUd6H96Kv4QKkdB+pKsZsu6
-	 XSTmc4nv8sG1w==
-Date: Sat, 16 May 2026 12:20:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Pramod Maurya <pramod.nexgen@gmail.com>
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Subject: Re: [PATCH v4 2/3] staging: axis-fifo: Fix alignment of
- wait_event_interruptible arguments
-Message-ID: <20260516122022.1aa82a8a@jic23-huawei>
-In-Reply-To: <20260515075736.172172-3-pramod.nexgen@gmail.com>
-References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
-	<20260515075736.172172-1-pramod.nexgen@gmail.com>
-	<20260515075736.172172-3-pramod.nexgen@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1778930543;
+	bh=KmhGMwY9NLy83wnR0ng0AbyCQyA5nLoRKIqcwfoWIec=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=m0qbNrZuTSbjHRpzJlGhSod2H/2JnkZxXgLs/BNnm7A4OW6qUCir8Xm5HwNSKxKTb
+	 RHoz4teY4/zaCL9lFhtkhcbj68msU/ZHG4TqzmIjzCJ53ApP4uB/k3BijblDruDjS4
+	 q8buK4uJSeJEgaU3aPwDfV2owuT1QxnbBaZU8ZAl78yp5sPdBXwwUgwUJcCOfCGGlR
+	 BrRbU/uMYHI2+XvcT2mRYeQaUEhWP1P3SSlk4475JEsc8WcOCG3eV/vE8owLpk3PP5
+	 q4cg7MsReuTL/JTVYSCqUp3RtrgsnmTXlcJUzkefuYlfGbuO6joqhSseCQbJEGtYZD
+	 f5U9O8xPVec5Q==
+Message-ID: <d15f75f2-01a8-4bd2-ad12-ee67c93c74d1@kernel.org>
+Date: Sat, 16 May 2026 13:22:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: arm: qcom: Document Eliza CQM and CQS EVK
+ boards
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260515-eliza-bindings-evk-v1-1-8deb81ed86dd@oss.qualcomm.com>
+ <20260516-vivacious-axolotl-of-attack-4e0ad7@quoll>
+ <if7u76ecucdpjff7v5a5nryb3oiyouofn4ldpu6dmfweg5tjmh@gxdvexjrazvh>
+ <d946b45b-cef0-43a2-b31c-a3860836745e@kernel.org>
+ <igtojkmahfoubhkbv2dn4c6h2fzu24patv5n6etjdw3jsy7wss@2qbxzsxg7ph5>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <igtojkmahfoubhkbv2dn4c6h2fzu24patv5n6etjdw3jsy7wss@2qbxzsxg7ph5>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, 15 May 2026 03:57:35 -0400
-Pramod Maurya <pramod.nexgen@gmail.com> wrote:
-
-> The second argument to wait_event_interruptible() was indented with a
-> single tab instead of being aligned to the opening parenthesis. Since
-> the fully-aligned form exceeds 80 columns, break the condition at the
-> comparison operator and align the continuation line to the opening
-> parenthesis.
+On 16/05/2026 13:12, Abel Vesa wrote:
+> On 26-05-16 12:37:03, Krzysztof Kozlowski wrote:
+>> On 16/05/2026 12:34, Abel Vesa wrote:
+>>> On 26-05-16 11:59:37, Krzysztof Kozlowski wrote:
+>>>> On Fri, May 15, 2026 at 02:13:31PM +0300, Abel Vesa wrote:
+>>>>> Document the compatible strings for the Qualcomm Eliza CQM and CQS EVK
+>>>>> boards. Both boards are built from a base board paired with a SoM which
+>>>>> is populated with either CQ7790M or CQ7790S (Eliza variants), PMICs,
+>>>>> LPDDR, eMMC and UFS.
+>>>>>
+>>>>> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>>>>> ---
+>>>>>  Documentation/devicetree/bindings/arm/qcom.yaml | 2 ++
+>>>>>  1 file changed, 2 insertions(+)
+>>>>
+>>>> Heh, I noticed only after sending email - where is any user of that?
+>>>>
+>>>> I expressed it many times - we do not take bindings without users.
+>>>
+>>> Well, my intention for the DT patchset was to include the eliza-cqm-som.dtsi
+>>> and eliza-cqm-ek.dts as well, basically having the eliza-cqm-som.dtsi
+>>> include the eliza-cqs-som.dtsi and later on add the modem (and the rest
+>>> of the CQM) in there.
+>>>
+>>> But then, I realized that I don't know exactly the differences between
+>>> CQM and CQS, specifically the SoM related ones.
+>>>
+>>> So I decided to send without the CQM entirely.
+>>
+>> But it is not about CQM. There is no user of any of these - neither CQS
+>> nor CQM.
 > 
-> Fixes the following checkpatch.pl warning:
->   CHECK: Alignment should match open parenthesis
-> 
-> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
+> I'm not sure I understand this one. Here is the CQS user:
+> https://lore.kernel.org/all/20260515-eliza-dts-qcs-evk-v1-2-7169d78a33e1@oss.qualcomm.com/
 
-It's not a related cleanup as nothing to do with DT - so break it out of the series
-and send it separately.
+Why is that posted separately? This breaks every practice we had,
+including all my recent comments complains on internal chats and in
+public to Nord, Shikra and IPQ upstreaming about grouping patches. :/
 
-Jonathan
 
-> ---
->  drivers/staging/axis-fifo/axis-fifo.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/staging/axis-fifo/axis-fifo.c b/drivers/staging/axis-fifo/axis-fifo.c
-> index 3aa2aa870ea9..1c34de020cf8 100644
-> --- a/drivers/staging/axis-fifo/axis-fifo.c
-> +++ b/drivers/staging/axis-fifo/axis-fifo.c
-> @@ -246,7 +246,8 @@ static ssize_t axis_fifo_write(struct file *f, const char __user *buf,
->  		mutex_lock(&fifo->write_lock);
->  
->  		ret = wait_event_interruptible(fifo->write_queue,
-> -			ioread32(fifo->base_addr + XLLF_TDFV_OFFSET) >= words_to_write);
-> +					       ioread32(fifo->base_addr + XLLF_TDFV_OFFSET) >=
-> +					       words_to_write);
->  		if (ret)
->  			goto end_unlock;
->  	}
-
+Best regards,
+Krzysztof
