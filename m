@@ -1,160 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84E23909A2
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 23:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D805B390C95
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 23:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778972878; cv=none; b=SYQM0VQSIPNIlFcOLK890AAsKfKHNpdLk4EpW/prL4LEzQFwWZOopftgWz1LyCDzKiynjMoTvb/lWSX0RAD6TmazAwVOYwsB2hc/DtW2IFvGFNtVkqQLY5FKWHRV7KhG9gmKqycmstK9d3gh0zqJfW4uB0xG2rWtdEfWPB7sGVw=
+	t=1778972941; cv=none; b=CydGW+n+vkmkIvBmWVz0Qf7WzJgXMP7eugqcbyJutbk8/APfXuB4YK+em0VFf5D9ZhgaC/VCXFStVOVHHQgau8c65SaS1qol3TpHeTpq1WwNRrafLNkmpHKs6a+y+LoHB6rQ2UZWvJfitRgFZGm2Q55PqItdqgEH5aQttxS3u20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778972878; c=relaxed/simple;
-	bh=PFX4Cagodk1jK4vQRA02nSHCrNVIXmqDUjAm3J6Sx/E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gfje1FpQCRF2vLaUjUQEUnbp39PNi2UK7rLLbEuQM6uckn8ETN+0gJkdZepTYVUjjvzVGTQ5cAGONN8GPGwwdhzJLIZZ6tNEXH9J3R+tEOiXjsmkm8WGk9zXt+BZsX8Lrse5j8O5dcG6clbbXiA4vY0XoyRiGHiqvAqr0PkrMYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9gSY881; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778972941; c=relaxed/simple;
+	bh=4Tw1975QqPqCLa0sf7YUurAHi3Q3AX+denT2FA8bqcY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eqSr5KyVrQNtBpvK+P1Ns/bzw/yQ2sPNHe+F+KapCMtF0wFr4VtU0vTs8sjcPWasgl75kx9/aGJlLcyCt8lRPUr4IWXXXZYllUqlz9Vr3gVUjdwHx7WUoeJScmN4m2KZZJCmZSvtbnuihx2fTGqU1QHNqo53ETSaVEDRCpcJM3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=tiR6EYYV; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9gSY881"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A85C19425;
-	Sat, 16 May 2026 23:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778972877;
-	bh=PFX4Cagodk1jK4vQRA02nSHCrNVIXmqDUjAm3J6Sx/E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=W9gSY881GxNAvfKex/tJ0f3Ce7lV8mJcwUIiZ+jf97m6YeVO6RtQSFiksRyUxPWQ/
-	 5t6XK1w4mDERsHB5kWXFV98fHhwY/RABP5sb6wocOlj4odI3LXOpQIM6ZQ02yCotvc
-	 aYJ9hp7INA8u7kJUm5Ah8Bso8iUnoRvWZgb6rHW/W9SLrVnQ22GQ84+JE02Na4jFGc
-	 TqgyAEt1MMpb3kNzOFql+Ya7IdyqPqM20CBfp45Pt6/4YYLHw3/QyLn71fQB8x3aAX
-	 UNjwFzjWOH+CkEGmbM50mi7S6IgOwF5D1b7wpKsvmWACbeNleL2O9x/f4Czj8yEnq3
-	 E9FKJrIcSykEA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] clocksource/timer-econet-en751221: Disable IRQ
- until cevt registered
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260516215720.4160831-4-cjd@cjdns.fr>
-References: <20260516215720.4160831-4-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 May 2026 23:07:56 +0000
-Message-Id: <20260516230757.51A85C19425@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="tiR6EYYV"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5D3343F8CE2;
+	Sun, 17 May 2026 01:08:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1778972931; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=a76I6a49b3i2lbk8ykm4clFLPuo5ePSCCn97niUVBIc=;
+	b=tiR6EYYVMI0DjJUiJCkQKBBT1Ok/bU305oxKbpYCF55VsfwXiYhDIErPqU+P+yuZpMu001
+	Nd9SFiX4kk3FlQSzehk6j8+Jh2lUB5wJsqyWX+yD4w28QMwQg8wkUmWTg7qnAXMobKA16X
+	W/llXHtGKIHi2m/bGMSQPNcGLYgdOK1y4K/2a0Z761mLwxJ7DkJpG7YUqURoksXLkcwLhB
+	S5EnQw/TvBpXdsV9jjHhzCqnQdlIu1KhocPzW808CnsByA1+uckcbi15AKaVda1QbT6lcl
+	ee77ZUsK18+s4QxjpZAxDXnrHB/MbEDqHA0T4Ov+eSSDU6t8id5awopnkK4Z0Q==
+Message-ID: <3403906d-00cd-4b5d-b59e-6989ecf7b721@cjdns.fr>
+Date: Sun, 17 May 2026 01:08:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v4 2/4] clocksource/timer-econet-en751221: Init teardown
+ on error if possible
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+References: <20260516215720.4160831-3-cjd@cjdns.fr>
+ <20260516223331.3A843C19425@smtp.kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260516223331.3A843C19425@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] The error path for `cpuhp_setup_state()` leaves the clockevent=
- device registered and the per-CPU interrupt enabled, leading to a leaked a=
-ction and a Use-After-Free/Data Abort.
-- [High] The patch attempts to fix a NULL pointer dereference race conditio=
-n but leaves the `dev->event_handler` uninitialized if the clockevent devic=
-e is rejected by the core, leading to a kernel panic.
-- [High] The driver registers its CPU hotplug state with a `NULL` teardown =
-callback, leaving the per-CPU interrupt enabled when a CPU is offlined.
---
 
-commit b63915756d157ccb863471270a1e61036ce0f8e5
-Author: Caleb James DeLisle <cjd@cjdns.fr>
-clocksource/timer-econet-en751221: Disable IRQ until cevt registered
-
-This commit reorders the clockevent registration sequence to call
-enable_percpu_irq() after clockevents_config_and_register(). This aims
-to eliminate a race condition where the timer interrupt could fire before
-the event handler is initialized.
-
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
-ource/timer-econet-en751221.c
-> index 155471f68e6f8..ed750e39cc4fa 100644
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
-> @@ -104,12 +104,11 @@ static int cevt_init_cpu(uint cpu)
->  	reg =3D ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
->  	iowrite32(reg, reg_ctl(cpu));
-> =20
-> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> -
-> -	/* Do this last because it synchronously configures the timer */
->  	clockevents_config_and_register(cd, econet_timer.freq_hz,
->  					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
-> =20
-> +	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +
->  	return 0;
->  }
-
-If tick_check_new_device() rejects the timer (for instance, because another
-higher-rated clockevent device is available), does the device remain in the
-DETACHED state without the clockevents core initializing dev->event_handler?
-
-Since the hardware timer is already explicitly enabled before registration
-via ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu), it will eventually wrap
-and trigger an interrupt.
-
-With enable_percpu_irq() unmasking the interrupt line, could
-cevt_interrupt() execute and dereference a NULL dev->event_handler?
-
-Should cd->event_handler be explicitly initialized to
-clockevents_handle_noop prior to registration to fully resolve this race?
-
-[ ... ]
-
-> @@ -177,6 +176,8 @@ static int __init timer_init(struct device_node *np)
->  		goto out_membase;
->  	}
-> =20
-> +	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
-> +
->  	ret =3D request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
->  				 &econet_timer_pcpu);
-> =20
-
-Looking further down in timer_init(), the driver registers its CPU hotplug
-state with a NULL teardown callback:
-
-    ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-                            "clockevents/econet/timer:starting",
-                            cevt_init_cpu, NULL);
-
-Since the driver registers its CPU hotplug state with a NULL teardown
-callback, what happens when a CPU is hotplugged out?
-
-Because the clockevent device lacks a set_state_shutdown callback, the
-clockevents core cannot turn off the hardware timer. This appears to leave
-the per-CPU interrupt unmasked at the interrupt controller and the timer
-hardware actively running.
-
-When the CPU is later brought back online and unmasks its interrupts, could
-it instantly take a pending timer interrupt before initialization is
-complete?
-
-Additionally, if cpuhp_setup_state() fails on a subsequent CPU after
-succeeding on CPU 0, it attempts to roll back CPU 0. Because of the NULL
-teardown callback, disable_percpu_irq() and clockevents_unbind_device()
-are never executed for CPU 0.
-
-The error path then jumps to out_irq_free:
-
-out_irq_free:
-    free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-out_irq_mapping:
-    irq_dispose_mapping(econet_timer.irq);
-out_membase:
-    for (int i =3D 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
-        if (econet_timer.membase[i])
-            iounmap(econet_timer.membase[i]);
-    }
-
-If the interrupt is still enabled on CPU 0, will __free_percpu_irq() safely
-warn and return without freeing the action?
-
-Since the hardware timer is still running on CPU 0 and the driver proceeds
-to unmap the membase via iounmap(), could the timer fire and cause the
-still-registered cevt_interrupt handler to access unmapped MMIO memory,
-resulting in a Data Abort?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516215720.4160=
-831-1-cjd@cjdns.fr?part=3D3
+On 17/05/2026 00:33, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [High] Teardown path unmaps memory while clockevents remain registered (Use-After-Free)
+> - [High] Missing CPU hotplug teardown callback leaves per-CPU IRQs enabled on offline CPUs
+> - [High] Pre-existing out-of-bounds mapping access with sparse CPU possible mask
+> - [Medium] Ignored error code from clocksource_mmio_init causes false success reporting
+> --
+>
+> commit d0c6a451d26e5e0afd704c60615c1cfa9457c425
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> clocksource/timer-econet-en751221: Init teardown on error if possible
+>
+> This commit reorganizes the driver initialization process into two
+> distinct phases, providing a rollback path for errors that occur prior to
+> the point of no return. It adds logic to unmap memory and release interrupts
+> if the setup steps fail.
+>
+>> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
+>> index 4008076b1a210..155471f68e6f8 100644
+>> --- a/drivers/clocksource/timer-econet-en751221.c
+>> +++ b/drivers/clocksource/timer-econet-en751221.c
+>> @@ -186,22 +165,45 @@ static int __init timer_init(struct device_node *np)
+>>   		econet_timer.membase[i] = of_iomap(np, i);
+>>   		if (!econet_timer.membase[i]) {
+>>   			pr_err("%pOFn: failed to map register [%d]\n", np, i);
+>> -			return -ENXIO;
+>> +			ret = -ENXIO;
+>> +			goto out_membase;
+>>   		}
+>>   	}
+> This is a pre-existing issue that is resolved later in this patch series
+> by commit clocksource/timer-econet-en751221: Support EN751627 without
+> percpu IRQ, but I am mentioning it here for completeness.
+>
+> Can this loop cause an out-of-bounds access with a sparse CPU mask?
+>
+> The loop iterates up to num_blocks, which is calculated based on
+> num_possible_cpus(). If the system has a sparse CPU topology where
+> CPUs 0 and 4 are possible, num_possible_cpus() is 2, so the loop only
+> maps membase[0].
+>
+> However, cevt_init() iterates over for_each_possible_cpu(i). For CPU 4,
+> cevt_dev_init(4) accesses membase[2], which remains null, potentially
+> causing a kernel panic when dereferenced.
+>
+> [ ... ]
+>
+>> +	cevt_init(np);
+>> +
+>> +	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
+>> +				"clockevents/econet/timer:starting",
+>> +				cevt_init_cpu, NULL);
+>> +	if (ret < 0) {
+>> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
+>> +		goto out_irq_free;
+>> +	}
+> If cpuhp_setup_state() fails here, can the teardown path cause a
+> use-after-free?
+>
+> Because the teardown callback in cpuhp_setup_state() is null, the CPU
+> hotplug core's attempt to roll back the state on previously initialized
+> CPUs acts as a no-op. This leaves the clock event devices and hardware
+> timers fully active on those CPUs.
+>
+> The error path then proceeds to out_irq_free and subsequently unmaps the
+> memory regions via iounmap(). When the clockevents core later tries to
+> access the active timer on those CPUs, it will read from and write to
+> unmapped memory.
+>
+> Additionally, while this is a pre-existing issue, does providing a null
+> teardown callback leave per-CPU interrupts enabled on offline CPUs?
+>
+> When a CPU is dynamically offlined, the teardown callback should stop the
+> hardware timer and call disable_percpu_irq(). Without it, the timer remains
+> free-running and the interrupt unmasked for the offline CPU.
+As said in previous version, I don't think this is an issue, but I need 
+to fix that yaml so I'll move it below the point of no return to make 
+the bot be quiet.
+>
+>> +
+>> +	/* Point of no return, do not attempt to tear down after this. */
+>>   
+>>   	/* For clocksource purposes always read clock zero, whatever the CPU */
+>>   	ret = clocksource_mmio_init(reg_count(0), np->name,
+>>   				    econet_timer.freq_hz, 301, ECONET_BITS,
+>>   				    clocksource_mmio_readl_up);
+>> -	if (ret) {
+>> -		pr_err("%pOFn: clocksource_mmio_init failed: %d", np, ret);
+>> -		return ret;
+>> -	}
+>> -
+>> -	ret = cevt_init(np);
+>> -	if (ret < 0)
+>> -		return ret;
+>> +	if (ret)
+>> +		pr_err("%pOFn: clocksource_mmio_init failed: %d\n", np, ret);
+> Does removing the return on error here cause the driver to report success
+> when initialization fails?
+>
+> The failure code is captured in ret, but execution falls through and the
+> function unconditionally returns 0 at the end. This allows the driver to
+> print success messages and report a successful initialization even if the
+> clocksource registration failed.
+It's below the point of no return so the idea is to complain but muddle 
+through no matter what.
