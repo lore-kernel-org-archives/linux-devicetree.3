@@ -1,132 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94C82FC893;
-	Sat, 16 May 2026 20:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2F02DECCC
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 20:27:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778962606; cv=none; b=SgD9fCb5ItbOStlVh5s9el1WC4H096K+oykbERtW/nirYNK+p3sv76xfOdTqwXupkGJtf95wWdAh2w044RQKIZJ+B+2TYS208yhnyxD0WEe7AOLgik7P6+WyG2UF7GQR44hTYQNNNKbgMVV1RmiDTq3b79pj8MNkxoFRG2uAiAQ=
+	t=1778963234; cv=none; b=XmLJ9xN5uterUdjGtOO9i5jZD6LbfD1teMK4HK+faSfBL9Jpad5R4GbUGjOkjxy3OGrkQ8ONwuUqXVr813yDyYvpa4dDiPOCPoXS/IRTVxbICOn3a/DTk+aJTGd6VqjqksiK/dms+MR+Ih3HgxQKRrD57o//9YdT3qKZrezJexY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778962606; c=relaxed/simple;
-	bh=hlpl3QFFVUCLJyEXWFF8BrifXVl5rOg5Wmrm0J0mVy8=;
+	s=arc-20240116; t=1778963234; c=relaxed/simple;
+	bh=T0k7Wwrec0WvnAK+kdyipmL0NcZTus0+zz/Fkvx/LZ4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y4IURHk7sWKhDLzWkA8wW8r0BU8QPEJ/jYv+2mk16C24KHF6QBqgDf8q8B8BZUvEZ26VUgSRHd6uARy3hnXpfR14Srxn+Pa2g6cM68XjOXukGofgg+LMzv71+XiUzMJe0WUMcYIrJ/NLLDiNOSnKi3Syr2YlpVf4mlwVUOvbQQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bn0HCOSU; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=s4nKAJFW/Os3vtSXUM7Jmm/mPG1d18jtJtr60j20INCfxkFEjAQ5wGxCtjGxmglGwaJgn9SsphY59KeV/0Xos0jJ/pFE41VmCe1AAj1oHqfRz0jyv3KBQYv31uADBiSGlPQJwxHGv81gkb1YZRjr6h2Qo3ZxkWOVTfLZtkjqK8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=QKFNCsM7; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bn0HCOSU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E240BC2BCB8;
-	Sat, 16 May 2026 20:16:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778962606;
-	bh=hlpl3QFFVUCLJyEXWFF8BrifXVl5rOg5Wmrm0J0mVy8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bn0HCOSUrdWayaJqYUwJTUqY46B+d9yahziK9MQiz9jcQsmxGqnH/Emu+mcD3ZBk0
-	 ceKY3mRH5B3sAz7BDGV+6mTDnu7bZLG/lDtpWuDY+UujDSXXVeQNzcbHwXtIdm8uD9
-	 T0uRAPKMrIf/5tJE+6AIra2fdnM+1WrH3o88Yqfh/LUuLUGEXNCzsp9NTho/9Hdska
-	 vBzikTnRJ+2RqSexB1Z1mVxAhcxwDR3VnRMdlNtn0DSJlfdLKQCP2lv3Prne0z/Xqf
-	 YA1Ws5aPv1Wlcm2mZP306S4tMyy95IVxjz6XqiLH0mlDnn6WBSZpqirqrjk7vwxO4J
-	 fPSjVhd6MaU7Q==
-Message-ID: <a39b5e37-72b8-465a-b6c3-65415eb577aa@kernel.org>
-Date: Sat, 16 May 2026 22:16:41 +0200
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="QKFNCsM7"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 707633F9283;
+	Sat, 16 May 2026 22:27:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1778963230; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=LqkOJ4cflb4R5gtL8qXDiRudP3BhK//fCfgK0ytXFlM=;
+	b=QKFNCsM7oSUga9BYcN0ja8tpjx+D4GWiWRqr5S5gSkUOBEVhLnIuQbJVZcf14F8O/BYpz2
+	zqHO9geSyeKth0sL2UYUyH7mCBNLaZvWOddSncj3SGGDyyfNxG74DaJJJSxbi98gS7id6l
+	+csB/wAgSSOcFiqXyept6QF0/stdUKwmn2qFXaw5Nb9BI1VRPKW6gairuyHEL4pNh/7sgZ
+	RxONe+POXgxBLdOrDPrssKYgtghJVSz1pvwQRX5o1AIidUvPyZVUDhEoZZiG/n5HY799EX
+	k73Km1Tza4CRitzBAIPu7SF0OUVzRaTQuZhbObSRjHl8IkLIUyG1J+gLJu5J3A==
+Message-ID: <3d36a919-dcb9-427f-9b9d-ca6dcbe67171@cjdns.fr>
+Date: Sat, 16 May 2026 22:27:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] media: dt-bindings: qcom: add JPEG encoder binding
-To: Bryan O'Donoghue <bod@kernel.org>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kapatrala Syed <akapatra@quicinc.com>,
- Hariram Purushothaman <hariramp@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Gjorgji Rosikopulos <grosikop@quicinc.com>, afilipov@quicinc.com
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260515-qcom-jpeg-v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com>
- <b7u5v5a7DiYm-NowQSavDCjDEb1bGE_S2Z5LPZmIlMx5ve25F7067cdVqRJEeuUoTl7pHVr98FuOry9-VR5cNA==@protonmail.internalid>
- <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
- <f4159f41-8a06-40a6-919c-5e16314b1732@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 4/4] clocksource/timer-econet-en751221: Support
+ EN751627 without percpu IRQ
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260516182648.3987792-5-cjd@cjdns.fr>
+ <20260516200638.0FF88C19425@smtp.kernel.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <f4159f41-8a06-40a6-919c-5e16314b1732@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260516200638.0FF88C19425@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-
-On 16/05/2026 17:51, Bryan O'Donoghue wrote:
-> On 15/05/2026 12:46, Atanas Filipov wrote:
->> +properties:
->> +  compatible:
->> +    items:
->> +      - enum:
->> +        - qcom,sc7180-jenc
->> +        - qcom,sm8250-jenc
->> +        - qcom,sm7325-jenc
->> +        - qcom,sc7280-jenc
->> +        - qcom,qcm6490-jenc
->> +        - qcom,sm8550-jenc
-> 
-> Per my previous feedback.
-> 
-> Please only list the items you are also providing in the DTS to be verified.
-> 
-> For example if this driver works on sm8250 there should be an enabling 
-> patch for the DTS to that effect so that it can be verified.
-> 
-> Right now I believe all you are asserting in this way is qcm6490, so I 
-> advise very strongly to either add the missing elements or just drop 
-> what's not shown to be supported in your submission.
+X-Last-TLS-Session-Version: TLSv1.3
 
 
-Bryan, before you waste more time here - you missed announcement that
-this should have never been posted.
-
-Best regards,
-Krzysztof
+On 16/05/2026 22:06, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] Missing bounds check on `num_blocks` leads to buffer overflow and memory corruption.
+> - [High] Off-by-one error in `cpuhp_setup_state` failure path causes out-of-bounds array access and invalid IRQ free.
+> - [High] Missing CPU hotplug teardown callback causes unbalanced `enable_irq` warnings and use-after-unmap crashes on initialization failure.
+> --
+>
+> commit c9306a7aa40ae1fa4dc34819e52ba88137234f75
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+>
+> EN751627 is based on the 1004Kc which uses a different interrupt number
+> for each CPU timer. Support both this and the EN751221 which uses a
+> single percpu interrupt.
+>
+>> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
+>> index ed750e39cc4fa..dea6dbafa16ea 100644
+>> --- a/drivers/clocksource/timer-econet-en751221.c
+>> +++ b/drivers/clocksource/timer-econet-en751221.c
+>> @@ -107,7 +128,10 @@ static int cevt_init_cpu(uint cpu)
+>>   	clockevents_config_and_register(cd, econet_timer.freq_hz,
+>>   					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
+>>   
+>> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+>> +	if (econet_timer.is_percpu)
+>> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+>> +	else
+>> +		enable_irq(cd->irq);
+> Will this cause unbalanced enable_irq() warnings when a CPU is brought back
+> online?
+Doesn't happen on this SoC.
+>
+> Since cpuhp_setup_state() provides NULL for the teardown callback, taking a
+> CPU offline leaves the IRQ depth at 0.
+>
+> When brought back online, cevt_init_cpu() calls enable_irq() again, which
+> could trigger the IRQ subsystem's unbalanced enable warning.
+>
+> Also, if cpuhp_setup_state() fails midway, the hotplug core attempts to roll
+> back CPUs but does nothing due to the NULL teardown callback. The driver then
+> proceeds to unmap MMIO memory and free IRQs.
+Per last patch note, cevt_init_cpu only either errors OR sets up a 
+timer, not both.
+>
+> Could this leave active clockevent devices registered that will crash the
+> system when their set_next_event callback accesses the unmapped memory?
+>
+> [ ... ]
+>
+>> @@ -148,9 +177,23 @@ static void __init cevt_init(struct device_node *np)
+>>   
+>>   static int __init timer_init(struct device_node *np)
+>>   {
+>> -	int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
+>> +	int num_blocks = of_address_count(np);
+> [ ... ]
+>
+>> @@ -160,7 +203,7 @@ static int __init timer_init(struct device_node *np)
+>>   
+>>   	econet_timer.freq_hz = clk_get_rate(clk);
+>>   
+>> -	for (int i = 0; i < num_blocks; i++) {
+>> +	for (i = 0; i < num_blocks; i++) {
+>>   		econet_timer.membase[i] = of_iomap(np, i);
+> Could this overflow the econet_timer.membase array?
+>
+> The econet_timer.membase array is statically sized to ECONET_NUM_BLOCKS.
+>
+> If a device tree specifies more address resources than ECONET_NUM_BLOCKS, this
+> loop will write out of bounds and corrupt adjacent memory like the irqs array.
+>
+> Also, if num_blocks is less than required for the number of CPUs, will
+> cevt_dev_init() dereference unmapped NULL memory?
+Indeed, invalid DT will cause a crash. I can fix this easy enough.
+>
+> [ ... ]
+>
+>> @@ -216,11 +270,20 @@ static int __init timer_init(struct device_node *np)
+>>   	return 0;
+>>   
+>>   out_irq_free:
+>> -	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
+>> +	for (; i >= 0; i--) {
+>> +		if (econet_timer.is_percpu) {
+>> +			free_percpu_irq(econet_timer.irqs[i], &econet_timer_pcpu);
+>> +		} else {
+>> +			free_irq(econet_timer.irqs[i], NULL);
+>> +		}
+>> +	}
+> Could this perform an out-of-bounds access or free an uninitialized IRQ?
+>
+> After successfully requesting num_irqs interrupts in the loop above, the loop
+> variable i is equal to num_irqs.
+>
+> If the subsequent cpuhp_setup_state() call fails, the code executes goto
+> out_irq_free without decrementing i.
+>
+> If num_irqs equals ARRAY_SIZE(econet_timer.irqs), this will access
+> econet_timer.irqs[num_irqs], which is past the end of the array. Even if
+> within bounds, it calls free_irq() on an unrequested index.
+Oops yes that needs fixing. Will send v4 for this and sweep in a few of 
+the others as well.
+>
