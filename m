@@ -1,153 +1,127 @@
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C10191;
-	Sat, 16 May 2026 14:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778940686; cv=none; b=qZRf5MwvhD1oDb5W0283D9CCTATB4rtafU/zb3LlAGhyfod6enHctoxpZ8HClEyvIZ7RbJiXSdxty3YkJRaSo9xLP5UgAx1104DGVOcLj1VcLBaR5O/ci1y1gXcUihW9r+xd8TZb4WgSVIskQhMGWVMQwX9+/73vaSCjVWp9Zgw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778940686; c=relaxed/simple;
-	bh=MKQd5TVPGkOnI/BZDunngLi6RMufEmzjFG5irRHzUoA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=RN2WRC+FX7pbEOfYvceIvCyHce2Uu1Bz4p539AEmXy3A9JrlU8cl7GtMX1gnvoov7Hy5osSxKAgqmNXXPsDQEQkbeW9lsROYqMwiF2NfjJ9p5u46Vf65zZ8ICZVNp5uPFKJl0R+O2k5FIF17/8QTPcXu2Q9cLCS2Fq8VddG/910=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=mlxvpyFn; arc=none smtp.client-ip=116.202.128.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5907C34DB72
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 14:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778940888; cv=pass; b=DSRkahCBfPivt0JcNvd/3syLym08pXuq7Kc0sAkMUgf3jGZxmR7wC32l2vH5aqpDwPeYVrHmxi23xJaOAwQcTSZ7W1gnBTC08thyUaLj0oX0hdj8ZCEIFQo6jqdcSHNdSa5o21Zeb42u+FDObb8XN/LMcXxTFv6GJ7GrndT+q6w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778940888; c=relaxed/simple;
+	bh=9L7uSDfYqWpbZbIF7kf11hJJ/d4tbmWtlB4hpNY3gc4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=X5c4ovlZQu81LEIV72gJW5WUl9GF3rlyrULWDTZQ3pqA5wBWQKQOc2+/NMhXJ+F1s1X6aDR7QIlgR95WnIVMDSghbFqJMJngQ7x/Z6hRja2RiXQMJ/cHoy0hjKn5Vr7viwNAMWr1xi/iQ53ZVD71Lj87TM19wieMVtEyPTYYQQw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxAEZKtZ; arc=pass smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="mlxvpyFn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1778940640;
-	bh=gl6h17IIH0vCWE5gXx+SMnqjSaIj3H6R4jAvrfOok/s=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=mlxvpyFnzbK3DFvybUsWoIBIVa8Qfja0e3gqLHisdV9JW1eAGO0YOSQ+F4aFOdbim
-	 hBm04vC9FHY6OJyHjjE6HfsP8JMwSuPN1lwJyOYhRP6woLbb4L6Rnw+MfzeGY5KSnP
-	 3m8YV3Q4YA1Wtm5hK4MS945z/nX8RsoMKKpm55YgxiG9+asRULIlhrVKSV2cgxYkOh
-	 jFnEXvNCQKn4in/JVRz1jZQJuRLOHowB6LOGWmV+uViuZTplAUuM8QncSp3IUYA8Pm
-	 GJKC7m/379kbvOnkdw8uv8IT+CyqlMuESugYs8M7a4+xWVJeYu6lHhph2VeEeseVkR
-	 pNrizXHelklgw==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id BB048B220220;
-	Sat, 16 May 2026 16:10:37 +0200 (CEST)
-Message-ID: <57bd1600-fa0f-4387-b2fc-4dd17430ce5b@freeshell.de>
-Date: Sat, 16 May 2026 07:09:11 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxAEZKtZ"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-90ca6f20872so257763185a.0
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 07:14:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778940886; cv=none;
+        d=google.com; s=arc-20240605;
+        b=FGgsNTcLJnyReCQahyXTa8pVdDPFzEhBP2XAWUlAbNoRCHttTnQ5foz1L3GH3csB3a
+         qNXjrPrqhVaMvpuADEBPTYGopQPQYrJjWjg2Bju1LqlfxevsFkeaPYCNrCWqoDpuPCGV
+         VLL1aWsOCvoNB4ocIQO5vUR2zD1deRmakE5y9j25PDagvOnYEZ+L9od9JY8N4ZnZE3Gp
+         XDzR2DPZLF4DQe10STU0enZK9qWpl57KYCYTy9VLAudRYEuFnSM9evsSZ/E0ZKhACWwx
+         eyNAwWhy0dh8JNZsHPUHBhLsgAxFLchILLNXo1Id1l/8zs5Bkygd+BG98mvzE0PXTkeK
+         6UGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QNixrMOrBDr2U45lZ0XT+QexEjSwj35RNi4qTyD9BG4=;
+        fh=fz2KpU8uJ++NmshbFX1wwWZgyeRegxjVbPQvvYTsL6k=;
+        b=JvtxA00HrsLzGq8XfJV01qfver+R/jLQuIP1IvfVCGvz+wtnZuW005j/vEEuoIYwxc
+         +eDfuodAYXs8G7xmAdxMhMdCoRd5xw+Y5AMbx5KK4+ffw8LRie1BJv4MULTTqb5EgA5e
+         lrXtT5PCdW4ey1xO04/IZwCfKKQg3OzDgpfE8Ikrpvb9prh6OQYg5tHYDSi2foofE4rE
+         uxK9RkuAGAkFQAqmzEN0CSYKOzp6ehM+rWcJyoRec974WV/1nqcPMPX3dbIOFs16pMBF
+         UccR+9d93PYsTTdJ/mpeGUwfZpc44lk9KPkcsVXrUGD7QczHvdNr7LaTBFERRjIjPedO
+         bhCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778940886; x=1779545686; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QNixrMOrBDr2U45lZ0XT+QexEjSwj35RNi4qTyD9BG4=;
+        b=KxAEZKtZguKo3geBrVphjFcKqMlw9CB3tjTkwlPYMM+Oa1wZhAqz/zzZz7A4pJdke0
+         sSBbbciQBXUWxJ1VkBPKICc+BRWs8+W5QrH+5ZiziRCDaqvSPIDg4X9kqCmpA7Bw2vgp
+         XEiFj2nQM7lEGmV2HkT9rxAdV7AuYeoLIVe9D03zzEWOA4IxnOsGZlCJwgaMVP388AOS
+         3WvuwPp5nb89HDJukuJ3KPb4ucSZVvXOX+MJTuoOjeFUlxnJim8mkTzdwPSUKBj8i2oq
+         tB5OO5UNWteYbBJ3XeV0aVQ08Vvw+CdfhZwPYSpv3R9y0xUZM+zU6xVuP0p8LUnLtlUH
+         MzpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778940886; x=1779545686;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=QNixrMOrBDr2U45lZ0XT+QexEjSwj35RNi4qTyD9BG4=;
+        b=OCPNXE1klcdb8x41YyQ6P+U3ga1zoU3qNWf3ST/pMh/RyuYgq95N9bBA1srOBYFjuV
+         diNTtA5mQiTJwS2O7d8kZH/o7rd5/y9YJjx2+025hZUOoZh1its6WCVBNXhaskIpvXgw
+         acYMcU4xGC5R3gozjOzB7ptD/0m0PwWsDZMUWlOj/4cn/5Vdihjps0y26pikBKIonHzi
+         TkSFB8BkGUDAM2olAzZJyk6PE7+70SvJ6Fc+ONxuMu/mBoI3IHZntcsYKbY/ueTUkMh9
+         fNZnm5VLZTP05cwes4cPqmx876rFAw3WWuka6wLkO969ymoR36THX0YwXY2bI10l3nd3
+         HVJA==
+X-Forwarded-Encrypted: i=1; AFNElJ+fwFp2ZckD13AU//ALkPQFwsVfwZ0rtyTAFD8oXGFGsefESGFSlxFT0z2hr2KDlvXYPUatJV1gu3Rg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjbiRbR3EuFOhbnmZBIox9JLZ7G3kqrwlcjc7+bs6S6PZ7Z/UJ
+	Aku6+oLOgGwm3XJAnZJfsPj/nWvMGLMmCpYYZi9q8ZNRSZQeB9VIkwKqvnGCX8LCOEaSW32DWXj
+	YwQhnd5aaofMu/dILQiF7tjGm4H1UsSw=
+X-Gm-Gg: Acq92OFvOmhcGQoMJQi1Wx+B1RaPlKxVqTVBTnmd0Infqait9K61DTUxDPmwylQGJPf
+	sffLe7TmX8oZm9hch/wSEOefU1pIfqvaNYjC+xfOy4hOcS/Xp6XVRLBPYVAfhqJyHnH8gfTcS01
+	vouPopmen5fVYteBUztaX/CLZ404Y5AmzER1S2V/6EYVdf2eEOQq9w4EKPOsCkphHl/wJcGCB9b
+	OtgaYnRf2zrljV9wiWBQUDPryBeDFGMfbJDbYAjjzXDEtEMJvgv+iLhE9GmI/reaFJWVz9EbCVR
+	LEAb6/UdzFwojCgf
+X-Received: by 2002:a05:622a:550e:b0:50b:29da:ec58 with SMTP id
+ d75a77b69052e-516596ed043mr105211611cf.8.1778940886177; Sat, 16 May 2026
+ 07:14:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] riscv: dts: spacemit: enable eMMC on Milk-V Jupiter
-To: Yixun Lan <dlan@kernel.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
- "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-References: <20260514160356.1642075-1-aurelien@aurel32.net>
- <20260514160356.1642075-4-aurelien@aurel32.net>
- <f52a821b-157a-467d-84ee-4d1d4a96f673@freeshell.de>
- <agbP0-OsfQRFJcr0@aurel32.net> <20260516053730-GKA3675990@kernel.org>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20260516053730-GKA3675990@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260511191135.36691-1-vlad.kulikov.c@gmail.com> <20260516124055.4b7e0c43@jic23-huawei>
+In-Reply-To: <20260516124055.4b7e0c43@jic23-huawei>
+From: Vlad <vlad.kulikov.c@gmail.com>
+Date: Sat, 16 May 2026 17:14:35 +0300
+X-Gm-Features: AVHnY4JbFfksTAwPYgQfc6zBWXSa4ledaSY2ewxTiKF1bZtGidjLDgiclZF197o
+Message-ID: <CAMY8kpQPg9jc7cnY_jJ3sFR7+G_JNxQKkuyRF90guc9jJP02jQ@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] iio: magnetometer: add MEMSIC MMC5983MA driver
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, 
+	andriy.shevchenko@intel.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Jonathan,
+
+Great, thank you!
+
+And David, thank you for the review and the kind words. I really
+appreciate it.
+
+Best Regards,
+Vladi
 
 
-
-On 5/15/26 22:37, Yixun Lan wrote:
-> Hi Aurelien,
-> 
-> On 09:48 Fri 15 May     , Aurelien Jarno wrote:
->> On 2026-05-14 23:49, E Shattow wrote:
->>> On 5/14/26 08:56, Aurelien Jarno wrote:
->>>> The Milk-V Jupiter board has a connector for an eMMC module. Add an
->>>> entry for it in the device tree and alias it mmc0. As it is not
->>>> populated by default, do no mark it as non-removable.
->>>>
->>>
->>> The meaning of "non-removable" here is whether it is expected to be
->>> added and removed during use, requiring to be probed again; not whether
->>> it is a user configurable module or soldered down part.
->>
->> Not connecting the eMMC module and larking it as non-removable causes this info
->> message to appears in the logs:
->>
->> mmc0: SDHCI controller on d4281000.mmc [d4281000.mmc] using ADMA
->> mmc0: Failed to initialize a non-removable card
->>
-> 
-> I'm with E Shattow here, and would prefer to add "non-removable" property,
-> Unlike SD card, the eMMC has no CD pin, some logic may be handled slightly
-> differently.
-> 
-> For that failure message, I have no idea how to deal with it but might
-> just ignore it.. Guess it's the price that have to pay if enabling the
-> eMMC in DT but has no module soldered or plugged in?
-> 
-
-Yes in this situation the ideal measure would need an overlay to set the
-status = "okay" or status = "disabled" dependent on the presence or
-absence of the module, correctly representing the state of the hardware
-- there is no module attached with which to configure. That is no
-trivial amount of work though and the easier (and I think we agree
-acceptable) approach is the driver will do what it does and inform that
-the module is not initialized. I would agree that an error message is
-the more useful outcome even if we would like to silence the error
-message it is at least accurate information.
-
-For comparison, Pine64 Star64 boot messages when SD Card is present and
-eMMC module is not populated, as follows.
-
-U-Boot:
-Working FDT set to ff731a10
-Hit any key to stop autoboot:  0
-Card did not respond to voltage select! : -110
-** Booting bootflow '<NULL>' with efi_mgr
-Booting: Debian
-
-Linux kernel (reverse timeline log):
-dwmmc_starfive 16020000.mmc: IDMAC supports 32-bit address mode.
-dwmmc_starfive 16020000.mmc: Using internal DMA controller.
-dwmmc_starfive 16020000.mmc: Version ID is 290a
-dwmmc_starfive 16020000.mmc: DW MMC controller at irq 26,32 bit host
-data width,32 deep fifo
-dwmmc_starfive 16020000.mmc: Got CD GPIO
-dwmmc_starfive 16010000.mmc: IDMAC supports 32-bit address mode.
-dwmmc_starfive 16010000.mmc: Using internal DMA controller.
-dwmmc_starfive 16010000.mmc: Version ID is 290a
-dwmmc_starfive 16010000.mmc: DW MMC controller at irq 25,32 bit host
-data width,32 deep fifo
-mmc_host mmc1: Bus speed (slot 0) = 45511111Hz (slot req 400000Hz,
-actual 399220HZ div = 57)
-mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 400000Hz,
-actual 399220HZ div = 57)
-mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 300000Hz,
-actual 299415HZ div = 76)
-mmc_host mmc1: Bus speed (slot 0) = 45511111Hz (slot req 50000000Hz,
-actual 45511111HZ div = 0)
-mmc1: new high speed SDXC card at address 0001
-mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 200000Hz,
-actual 199610HZ div = 114)
-mmc_host mmc0: Bus speed (slot 0) = 45511111Hz (slot req 100000Hz,
-actual 99805HZ div = 228)
-
-There "Card did not respond to voltage select! : -110" is repeated each
-mmc interface that does not have media presently;  mmc1 is the eMMC
-connection. This driver (for JH-7110 designware MMC controller) does not
-complain about the eMMC module that is not attached.
-
-I don't have an answer what should be done about that error message and
-no opinion on making the driver less verbose or leaning into suggesting
-an overlay (which is not trivial, so... feel free to ignore me on that)
-however reporting on what is commonly true of 'non-removable' property.
-
-Best regards,
-
--E
+On Sat, May 16, 2026 at 2:41=E2=80=AFPM Jonathan Cameron <jic23@kernel.org>=
+ wrote:
+>
+> On Mon, 11 May 2026 19:11:33 +0000
+> Vladislav Kulikov <vlad.kulikov.c@gmail.com> wrote:
+>
+> > Add an IIO driver for the MEMSIC MMC5983MA 3-axis magnetometer over
+> > I2C. The driver provides raw magnetic field readings with
+> > per-measurement SET/RESET offset cancellation, giving 18-bit output
+> > with a full-scale range of +/-8 Gauss.
+> >
+> Applied to the testing branch of iio.git.  Once the build bots are happy
+> (and I catch up with backlog of other review!) I'll push that out as
+> togreg and it will get picked up for linux-next etc.
+>
+> Thanks,
+>
+> Jonathan
