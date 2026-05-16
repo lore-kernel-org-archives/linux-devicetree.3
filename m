@@ -1,152 +1,392 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1674230BD5
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 16:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8D73E4C8D
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 16:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778948562; cv=none; b=dIY6TrLx8iId6wQdevPi5dqPPQSzMSOgegLsgwUhihRQeoy7bu5CwM2W2tLb9g/bV+pozyk9VHVj3mw7vQ6bOMiHzM8NR4ZKqlDdelYTN1lc+mftNDWZKfL5M4ffifiqp9Z0pGNlBDoUP0yRWJvAq6fHTJirKGkXlE9ASm1fQgA=
+	t=1778948738; cv=none; b=oudkVZstrHolPI5JLahSO3gl5Iyr9uVpsc1uIiINv221VVXYfIaxcroGycb1poeAjUfntD4lGMWZc9hSXPmJoEzbIPeivxAfGXsZqRpyZtdCsvwtezaVKvE+B0igtSS9wqcSuHlrsnrTDP8xF6vRJnHHFiDWtHDkKonXSKGsQiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778948562; c=relaxed/simple;
-	bh=QbSMZNro/tsFV61AOiauNJk5853m5ywcmzrf4R+Y1eQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XpUGsHkaNP47Fkmu8aIOptzzdJm0Km0Ii1MbVvH4pusqGKaiTangfOOzXQ4dVmE+j/IgJkeg2wWmg2lb9n6InO3j00DGcWXeMGWCsEFYujI2S2uq+kqu5kSNJJlHkKBBo6zSXC8j4rIAoiHBc9Gy3dJ5udLrWx7xwqBiJREGD5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G8buu+GO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bsDv4Dtr; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778948738; c=relaxed/simple;
+	bh=job9rYTM+UCqFeY7rxXBeHi2zHxMKKFypYMRXUtyhd0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GADohTaYDzB3RT1RKvT+wTJB6gNjyqr9G4fRtVe3oWVa9OwMkCfkxlTacpgSls11Hs37jdTWvSPn83wReoUraKOLe4tU20UGTBqbJgh5I5mmF5uqtivS2pQ4CWGFTNvSKBTXdubl3s2speTBO06tuDlo3MYcxtzZn6B3bDEOUHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=i+LaVPlV; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G8buu+GO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bsDv4Dtr"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64G3lods3573203
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 16:22:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=sVs3WHhnycnq25s8a2tK9aUD
-	JAVeSsHh65fJqWlNy8s=; b=G8buu+GOqEIL0v4M+PIHoMe2SaiNTbHJuns5L0mT
-	TiHZ++vCqcxw7Yytw+Jj5UjD0exUFJe7Y0Ssmu3tfSfiltROJE/ggx1yRVqGEyZb
-	k3jMatjGYZfhO799MYCNczCpjSy/k73j/w/fdEQVO9L6ngnXNH7mDGtnf+Gvxu9+
-	bn8vZ7NGy+nqItzskjALjrx3yR8W86kXfcWrdiZ3QfAP8uq3KoAIe7FwgaD2MrFO
-	YnzgBe2Rr3FegOmytlFLW2thoYtll8UADbCSpdcbOPGZhGTcozOR5kfcvStU6s8N
-	fd4pAFCcUNbwbr/URAVUdXiVLc0yD2G6IdfaQ8NhIorlQg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6h01h83k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 16:22:39 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5162ee45a77so26168241cf.1
-        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 09:22:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="i+LaVPlV"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7e4de538f83so552430a34.1
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 09:25:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778948559; x=1779553359; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=sVs3WHhnycnq25s8a2tK9aUDJAVeSsHh65fJqWlNy8s=;
-        b=bsDv4DtrslOTrOTDjsG7gZYu17raTjsNQYOLZnUYj7ZrgLFNJzwO/bUnzGLXJay5dX
-         fHy+l069ayRM/TjmiaPsK8zIFROPpV+iy1W7UAFCaK7dXyhGJHZDGJ0QqsH7R+VqEFOO
-         avZKghmaQNkOQmzdWIEF3s3AftUdqALCcluLGXSEdTGLQK6VWSz0YKFxPskd8SkkFL4U
-         TyH1yxF+V/JyvaBI4ufLshG841Kah2JMt558NhFM1jb+NE9rWhfaTKRT3gEjZHLsDKx/
-         hSGPfOlqw/iXsVhKN8QyF+KxOtqvcBrfCAAO4fSzgeTUPbi0IWjTKdgEZWKlWtbZcG1j
-         77rA==
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778948735; x=1779553535; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WSimK5zaxsSTTvAIbV2ZqT3wvlMvZQ/t+G+wtbYDzlU=;
+        b=i+LaVPlVMNRBhAQVQHfg1eE+zecOTyrlRMUe8CIWvGMgIUZm4TpbPVsd2tXT7QPcG5
+         dy9mMYKMTdiCKBme5lmoR8VVbICUvpAPboiy8hN79v6zO0PWNeF3UBRLksH4mPG2I4Li
+         I8Ry35ahIfobce+4sgVounkvDEi7fulrAS8+m64L5IBKi356Cq6bG/ytPC0icOrZ9D7b
+         1vwpdq/XSFjs6KR1TAkw7OL5On8Tm+k6TtOjFxw2WgDQNbFaSFqBpe67VV0MDOHB9jmS
+         eeXV75XzkSmi8RUCX1t++EaIJSSQrj4Q2aI42trARVvIaeiIu8j7/Dpc7qzmyvNt7HiE
+         6PWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778948559; x=1779553359;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=sVs3WHhnycnq25s8a2tK9aUDJAVeSsHh65fJqWlNy8s=;
-        b=pNXyD75jdBniZ6PR5lWQnap9Xw/RUy+UVs5lOwoJ8Y1Zrysiz16p5YwWKdUrpVMF1L
-         y9HKLnSwi687t2MK1f3yoga0TfDEWdSygnj8WWDx3KY+ZPfWekDH6rihRfOaSITgjH4h
-         2FuenPfxTit0O1VbZaqsAL4ynXNdnHtTArTyBWuq3Rln1uwNPVemRUos9VXDlpX7U4A6
-         X2yhsq8nlyK2ROSM/IO7Vb5XNceYWJHdqWsc0DJSMVO7fF2yn4qzIGnVs2tFM6UpcsDs
-         8Xuyr8QR23zdiXFuaWM6R2y205uNn8x0xWO4+pbbFvGqlXPqHLn/CSgIGw5md3I0Lasb
-         TLdw==
-X-Gm-Message-State: AOJu0YwF1LRWcEmSGdF7ty3lojPF1IX/9dJDr9HclcktgKHNuHjkTZi6
-	1PdcJ+OrXMnPvX8gv87WcMFGOw3L23xixTnVL58QrsyzC0iV6uXT2B1fKm75LvbDJbSt7gWkY2j
-	4zK7bQh/xbwXfWfgO4ixcazPOfR1Bb1fSYtZEnKwdzHie0FA2XPXxmuvFMxio1AzM
-X-Gm-Gg: Acq92OFqbrqb0I+df95CTpwmx9BeGyfGH7olAFGU1jytE49UWR5+/PIBB+JdtNxK00c
-	Omfv8N7nlTa+tQ4z7TDH3Ovkpd5Abh81eGuaTSOV81lP93nYB4noWpA14J1ZlZXRF/xx9A1vX5x
-	8bdN/74+6YP13A2Bnm7GidquFO9w3D0uqIgk6yA7okrb+ffuj20b/7kfg2leUeAs+Uoo9wSJ1lF
-	Ph3qh64Ve2V03bllmNUDGesVLXe0RLLuNSd8CPMhQfZ+Z29WcjuznTMJ3gErYzlm3VuMg12hoJx
-	s13YXj4zAmwqo0PLsJmynDHLAzM7amNdxXrIt6GC7RhgbB0ChOWSDkDyUnYNob//cbcLlk2B7Co
-	O7V7RVgLHECCrDbQbuxsY/SKxfVAnzbsEzoeZGRUEIZC5mn4vGS3yVvNzyDlJWP7sAM+fo8/xjk
-	tzcg4xxwYbXkhkFzYw2ol50OBaTpMC0CooohSr0Wy0jfEdPQ==
-X-Received: by 2002:ac8:5cc5:0:b0:50e:601a:217f with SMTP id d75a77b69052e-5165a076dcamr126517161cf.25.1778948559323;
-        Sat, 16 May 2026 09:22:39 -0700 (PDT)
-X-Received: by 2002:ac8:5cc5:0:b0:50e:601a:217f with SMTP id d75a77b69052e-5165a076dcamr126516821cf.25.1778948558822;
-        Sat, 16 May 2026 09:22:38 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3945cab4cfdsm23943751fa.27.2026.05.16.09.22.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 16 May 2026 09:22:37 -0700 (PDT)
-Date: Sat, 16 May 2026 19:22:34 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Stanislav Zaikin <zstaseg@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm7325: Move common IPA
- properties
-Message-ID: <mpqxflj66d6gqwek4hmytp5r6xxposcrzyvh5vyvkstqgget6e@awxvzbmfy3nj>
-References: <20260516090853.2873223-1-zstaseg@gmail.com>
- <20260516090853.2873223-4-zstaseg@gmail.com>
- <urrhdy6esy4srh4hh2ebqvk75z7xjk37n4nyaybaayitlnc3au@y6cm4y3trvis>
+        d=1e100.net; s=20251104; t=1778948735; x=1779553535;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WSimK5zaxsSTTvAIbV2ZqT3wvlMvZQ/t+G+wtbYDzlU=;
+        b=n0rIgfFbymRPKocuu5iCu6QUu37L+4RMIZhdQ/dGn1sn8/ybQf7E0lrAm0F6l64Jmp
+         YZ4n+uKYbeVM6XJaA5KJ1qG6bKEvoeod5Lr6Ho7VdbXv6AUgJjiVF5ZV2YbztT/yRKJN
+         ozdu7+Sua17/lewHWvmFO9FqgmzKeU1GZxY5741t54oS7ViN0RgGe2LQ9rlL4bO9/TXQ
+         wy2vSHj7Z6tY4SfasSbHmPlGRyA3I/RzQ+HGzF9YQvIB1EvdiE8r89ZRtmu31lvgqNLU
+         vThj+9yiyOzpPQn9Xr89KritNZd6DQkG3Qzfkif36NuqSBxGyKdbLv4pZjhC+aAORzD8
+         2oQw==
+X-Forwarded-Encrypted: i=1; AFNElJ9w6IVhRRvXxLEY7X8fxsrrbF+Ums+s6W/cdHsoBqG6MY2jtJKyuHHqrj6E/vPE8vBmKo20s3SlxSCY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzg4qk4FGuEzrUw+kj/3A3xjxMLWLXkcyUcGJVcn8AFhOx/GOE/
+	oQwWpWEO/QY3O29pfmtbsjOJ7eOG/A3Alx1hr8DeOxhm8jHXCwB2e5XeGiPI2UvgwIU=
+X-Gm-Gg: Acq92OGEqNl7Fdfeeyvnfg3D+ju3ifrqyjtnBk1JT4MjV4wvfaDtJTFwBsfEIYZBSu4
+	lXrCtrisF65tRqVOxWaAzeWDnjyuWSAggJAo6MDnnGDn2OOlKpao3CIUXq8uC43RkqLbzL1uDrD
+	S0RMsgEDO6jZJ3aki/yYn1tGJjRq14ynaxeMuEFk4w4RDSiXpseIvxMI2dXmEG+B6j8VViZLAbG
+	ShL0qkOHpG+sAGRJHVvI7MQlviykS/vm3q3Odsu2e/yPmDIr+V1qA6eavBFPx5AKHKnh5+S6Hjx
+	cDoTGXdV0vTy/4YGdnPSYCgeFou0mEpmbsunD7Ks6eyfa09wmWWq+XPh0zLYcIw3b95IgW2DWYr
+	EUyvsxENXSkeqIf3Xz1kQKMLSmNWyOEviZg/7I50W3jor32oHVyeUZauxGWBRqs0JGft5rczA1x
+	FSNzrDxGFXIltVUpXzBE1NVwT1TXIrO8yFROGjw7ibgNR2C1K+mmZnkZAF8Hg9RUDtcfjlbA3fl
+	w==
+X-Received: by 2002:a05:6830:6614:b0:7d7:d615:3040 with SMTP id 46e09a7af769-7e4f2b865d1mr5772418a34.17.1778948734590;
+        Sat, 16 May 2026 09:25:34 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:b36d:bd18:7c02:29e2? ([2600:8803:e7e4:500:b36d:bd18:7c02:29e2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e55b95b82fsm4418210a34.12.2026.05.16.09.25.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 16 May 2026 09:25:34 -0700 (PDT)
+Message-ID: <fe766c2a-3662-4896-b7ec-b569791630cd@baylibre.com>
+Date: Sat, 16 May 2026 11:25:33 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <urrhdy6esy4srh4hh2ebqvk75z7xjk37n4nyaybaayitlnc3au@y6cm4y3trvis>
-X-Proofpoint-ORIG-GUID: mgLjMp40K1UU3WLmXR0nwOVvgLlZDgrh
-X-Authority-Analysis: v=2.4 cv=XbG5Co55 c=1 sm=1 tr=0 ts=6a0899cf cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=q6enR45eAREWc0_BSpMA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: mgLjMp40K1UU3WLmXR0nwOVvgLlZDgrh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE2MDE2MyBTYWx0ZWRfX5Em7yJTk9iGX
- b3l30H7xbxon3xzr/r+czRrDX+ey57rnOLwxFAUAlvbpPVCb6hzSLBqXexel2DHXkoxGoWON7Kn
- wDFaAQBvT6x6GG2IuA4PnOd9YAL1+m8a4NrlcqHuXKMW+zkWlAU4kOftLPOCdHMTuZ37uuL4xAj
- COd/e2cqGCOnb9PzR6BskHkgvxbwDdWF6obxqz0oB349jLs86t0uvIIwsgOYwQHWiQ9/4JwYoUz
- N6KdHtiOtcV6a6OoskY3+D1gWTcJ6bFqmVJ+zJJZXMNJUqEUFgQ7AcTGAncCIE+nJA4zmGCzkSf
- +gWjX6JycO2VF5XWAzkHfYbVWN/i0b59RjdryyEOtGpNXMVoqHQoy6++IYA7DQ8GmUxkC4kBmea
- 4Dybs/LY5Gaz1B9/3XSUTHDrJMK6KpsGCdRXI2O8x4Wmz4How8r2c6FgGux3vnhWcqmaXq6v5rv
- 9vfNn1JTEJvHYbme1NQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-16_02,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 phishscore=0 adultscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605160163
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] iio: adc: support for multi-device aggregation
+To: Jonathan Cameron <jic23@kernel.org>,
+ Jonathan Santos <jonath4nns@gmail.com>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com,
+ nuno.sa@analog.com, andy@kernel.org, marcelo.schmitt1@gmail.com
+References: <af0EGv172ZMl/6N5@JSANTO12-L01.ad.analog.com>
+ <af2gJyG3rDjsjFmo@nsa> <agdKRhtywsThg/gT@JSANTO12-L01.ad.analog.com>
+ <20260516113738.4103f388@jic23-huawei>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260516113738.4103f388@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, May 16, 2026 at 06:40:48PM +0300, Dmitry Baryshkov wrote:
-> On Sat, May 16, 2026 at 11:08:53AM +0200, Stanislav Zaikin wrote:
-> > The qcom,gsi-loader and memory-region properties are common across
-> > sm7325 devices. Move them from spacewar dts to the soc dtsi to avoid
-> > duplication.
-> > 
-> > Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/sm7325-nothing-spacewar.dts | 2 --
-> >  arch/arm64/boot/dts/qcom/sm7325.dtsi                 | 5 +++++
-> >  2 files changed, 5 insertions(+), 2 deletions(-)
-> > 
+On 5/16/26 5:37 AM, Jonathan Cameron wrote:
+> On Fri, 15 May 2026 13:31:02 -0300
+> Jonathan Santos <jonath4nns@gmail.com> wrote:
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> On 05/08, Nuno Sá wrote:
+>>> On Thu, May 07, 2026 at 06:28:58PM -0300, Jonathan Santos wrote:  
+>>>> Hi all,
+>>>>
+>>>> We have a request to support multiple devices tied together in a single evaluation
+>>>> board. The goal is to be able to read them simultaneously via the IIO framework,
+>>>> while also controlling them individually. Currently we have two ADC devices that
+>>>> would benefit from this, but there might be more in the future.
+>>>>
+>>>> This is the scenario:
+>>>>
+>>>> +---------------+                                                 
+>>>> |     ADC 0     |                                                 
+>>>> |               |                                                 
+>>>> |        SYNC_IN|---+---------------------------+                 
+>>>> |          DRDY0|---|------------------------+  |                 
+>>>> |               |   |                        |  |   +------------+
+>>>> |          SCLK0|---|------+                 |  |   |    HOST    |
+>>>> |           SDI0|---|------|--+              |  |   |            |
+>>>> |            CS0|---|------|--|-----------+  |  +-->|ADC_SYNC    |
 
-Looking at it, the property should go to kodiak.dtsi, but then it's more
-complicated because of the platform differences. I will take a look and
-maybe send a patch.
+							Is this arrow
+							supposed to be
+							going the other
+							direction?
 
+>>>> |          DOUT0|---|------|--|--------+  |  |      |            |
+>>>> |               |   |      |  |        |  |  |      |            |
+>>>> +---------------+   |      +--|--------|--|--|----->|SCLK        |
+>>>>                     |      |  +--------|--|--|----->|MOSI        |
+>>>> +---------------+   |      |  |        |  |  |      |            |
+>>>> |     ADC 1     |   |      |  |        |  |  |      |            |
+>>>> |               |   |      |  |        |  |  +----->|DRDY0       |
+>>>> |        SYNC_IN|---+      |  |        |  +-------->|CS0         |
+>>>> |          DRDY1|---|------|--|----+   +----------->|MISO0       |
+>>>> |               |   |      |  |    |                |            |
+>>>> |          SCLK1|---|------+  |    |                |            |
+>>>> |           SDI1|---|------|--+    +--------------->|DRDY1       |
+>>>> |            CS1|---|------|--|-------------------->|CS1         |
+>>>> |          DOUT1|---|------|--|-------------------->|MISO1       |
+>>>> |               |   |      |  |                     |            |
+>>>> +---------------+   |      |  |                     | .          |
+>>>>                     |      |  |                     | .          |
+>>>>        ...          |      |  |                     | .          |
+>>>>                     |      |  |                     |            |
+>>>> +---------------+   |      |  |            +------->|DRDYN       |
+>>>> |     ADC N     |   |      |  |            | +----->|CSN         |
+>>>> |               |   |      |  |            | | +--->|MISON       |
+>>>> |        SYNC_IN|---+      |  |            | | |    |            |
+>>>> |          DRDYN|----------|--|------------+ | |    +------------+
+>>>> |               |          |  |              | |                  
+>>>> |          SCLKN|----------+  |              | |                  
+>>>> |           SDIN|-------------+              | |                  
+>>>> |            CSN|----------------------------+ |                  
+>>>> |          DOUTN|------------------------------+                  
+>>>> |               |                                                 
+>>>> +---------------+                                                                                                    
+>>>>   
+
+Would there actually be 4 DRDY inputs on the host system? I assume that
+they would be the SPI offload trigger. But there can only be one trigger.
+So I would expect all DRDY going into an N-input AND gate and the output
+of that gate used as the trigger.
+
+> Took me a while to get to this. 
 > 
+> Another datapoint to perhaps look at is daisychain SPI devices. That's
+> moderately common on high end ADCs with applications such as electric car battery
+> monitoring as they need to scale to 100s of devices and separate CS for each would
+> be a pain.  
 > 
-> -- 
-> With best wishes
-> Dmitry
+> For those we just handled it in the ADC driver.
+> 
+> If we need to have a device specific aggregator driver to make any scheme work
+> then it might be better to just make it a driver problem.
+> 
+>>>
+>>> Do we have any FPGA IP for high speed transfers? If so, it would be nice
+>>> to have it in the above diagram.
+>>>   
+>>
+>> We only use the SPI-engine offload with the new multilane data feature.
+>>
+>>>> To summarize, the devices share SPI pins such as SCLK and MOSI, but have individual
+>>>> chip-selects and MOSIs (we can consider individual SPI interfaces). The ideia
+>>>> is to allow users to aggregate these devices so they can be read simultaneously
+>>>> from the user space.
+>>>>
+>>>> I found a similar case here involving the AD4880 (ad4080 driver), which consists
+>>>> of two independent ADC channels, each with its own SPI interface for configuration.
+>>>> In that instance, the ancillary device feature was used because it was considered
+>>>> the approach of a single device with independent channels rather than independent
+>>>> devices connected together. Additionally, the backend handled the buffered data
+>>>> aggregation.
+>>>>
+>>>> However, I would like to discuss a more generic approach to support device aggregation
+>>>> across different drivers. Marcelo suggested a while ago to consider the components
+>>>> framework. This would allow us to create a virtual device responsible for 
+>>>> aggregating and controlling the sub-devices in a standard yet flexible manner.  
+>>>
+>>> component might fit here but it has it's limitations and I fear (one of
+>>> the reasons I did not used for the backend stuff) is that it looks too geared for DRM. But yeah,
+>>> in theory is more or less what we have here with the distinction (I
+>>> think) that the type of devices are actually different :).
+>>>   
+>>
+>> Yes, they are different, but i did not find something more similar. Here
+>> the goal is to define a standard way of aggregating multiple devices
+>> from the same driver.
+>>
+>>>>
+>>>> The aggregate driver could either be an extension to the main driver (e.g. ad7768-1.c),
+>>>> or a separate file (e.g. ad7768-1-agreegator.c).   
+>>>
+>>> I guess we could support this in the main driver (more on this below).
+>>>   
+>>>>
+>>>> Here's an example of how the devicetree would look like: 
+>>>> (includes the multiple data lanes feature)
+>>>>
+>>>> spi {
+>>>>     #address-cells = <1>;
+>>>>     #size-cells = <0>;
+>>>>
+>>>>     /* AD7768-1 physical devices */
+>>>>     adaq7768_1_0: adaq7768-1@0 {
+>>>> 	compatible = "adi,adaq7768-1";
+>>>> 	reg = <0>;  /* CS0 - First physical device */
+>>>>         spi-tx-lane-map = <0>;
+>>>>         spi-rx-lane-map = <0>;
+>>>> 	/* other properties */
+>>>>     };
+>>>>
+>>>>     adaq7768_1_1: adaq7768-1@1 {
+>>>>         compatible = "adi,adaq7768-1";
+>>>>         reg = <1>;  /* CS1 - Second physical device */
+>>>>         spi-tx-lane-map = <0>;
+>>>>         spi-rx-lane-map = <1>;
+>>>>         /* other properties */
+>>>>     };
+>>>>
+>>>>     adaq7768_1_2: adaq7768-1@2 {
+>>>>         compatible = "adi,adaq7768-1";
+>>>>         reg = <2>;  /* CS2 - Third physical device */
+>>>>         spi-tx-lane-map = <0>;
+>>>>         spi-rx-lane-map = <2>;
+>>>>         /* other properties */
+>>>>     };
+>>>>
+>>>>     adaq7768_1_3: adaq7768-1@3 {
+>>>>         compatible = "adi,adaq7768-1";
+>>>>         reg = <3>;  /* CS3 */
+>>>>         spi-tx-lane-map = <0>;
+>>>>         spi-rx-lane-map = <3>;
+>>>>         /* other properties */
+>>>>     };
+>>>>
+>>>>     /* AD7768-1 aggregator/virtual device */
+>>>>     quad_adaq7768: ad7768-1-aggregator@4 {
+>>>>         compatible = "adi,ad7768-1-aggregator";
+>>>>         reg = <4>; /* ? */
+>>>>
+>>>>         adaq7768-components = <&adaq7768_1_0>, <&adaq7768_1_1>, <&adaq7768_1_2>, <&adaq7768_1_3>;
+>>>>           
+>>>
+>>> I guess we can avoid the dummy device! The one having the components
+>>> with be the main/controller device but I guess we would still need a custom
+>>> property for the other nodes in case they need to do something specific
+>>> for this arrangement.
+>>>   
+>>
+>> Yeah, defining one device as the controller looks cleaner, but we still
+>> have that problem of the main "owning" or using the CS from the other
+>> devices (if they are registered separately).
+>>
+> Long ago I did some thinking about the fidlier problem of aggregating multiple
+> unrelated device driver buffer outputs - was for sensor fusions stuff.
+> In the end I concluded it was easier to just do it in user space.  As long
+> as they ran off the same trigger then the data alignment problem wasn't too hard.
+> 
+> Obviously here things are a bit different as the SPI offload IP is doing the
+> data marshalling.
+> 
+>>>   
+>>>>     };
+>>>>         
+>>>> };
+>>>>
+>>>> Is it ok to proceed with component helper for this purpose or do we have something
+>>>> better? If yes, I have some following questions:
+>>>>   
+>>>> -> How to read all devices simultaneously in buffer mode given we can't assert   
+>>>> all CS from the virtual device?  
+>>>
+>>> Isn't this also an HW question? Not sure how that can be done
+>>> simultaneously without some kind of HW synchronization. In SW, I'm not
+>>> seeing other way other than  N SPI transfers and put them together in the buffer. 
+>>>   
+>>
+>> In HW we have that multiple data lane feature that receives the data
+>> from eache SDI lane and put them in order (for FIFO mode and offload mode).
+>> If we are not using offload, we could set N SPI transfers and then
+>> aggregate them into one buffer. But how to do that in offload? We cannot
+>> control the CS mask from userspace.
+> 
+> If it's not doing hardware offload is it worth the pain?  Easy enough to do
+> it in userspace - particularly if we have timestamps as a bit of nearest
+> timestamp maths allows easy buffer alignment.
+> 
 
--- 
-With best wishes
-Dmitry
+For this type of SPI controller where it can read multiple data
+channels at the same time, the .dts should look like this:
+
+spi {
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    adc@0 {
+	compatible = "adi,adaq7768-1";
+	reg = <0>, <1>, <2>, <3>;
+        
+        spi-rx-bus-width = <1>, <1>, <1>, <1>;
+
+	/* other properties */
+    };
+};
+
+The reg property is the 4 CS lines and spi-rx-bus-width having 4 items means
+that the controller has four SDI lines (the value <1> could be different if
+each data channel/device was dual or quad SPI).
+
+This goes along with what jic23 suggested about making it similar to
+what we do with daisy-chaining.
+
+The only tricky part with that is when devices don't share all of the
+same of another property. For example, in the wiring diagram above, I
+see that the DRDY lines are not connected together. But I would assume
+that everything else is the same (all chips share the same power supplies,
+etc.).
+
+We would need to modify devicetree bindings a bit in cases where a property
+needed a per-chip value. But I think that this happens rarely enough, that we
+can just do that on an as-needed basis rather than trying to make every property
+support multi-device use.
+
+
+
+>>
+>>> thou>   
+>>>> -> Should the physical devices be registered in IIO during probe, or should only  
+>>>> the aggregator be exposed to control attributes and general configuration?  
+>>>
+>>> Good question but it would likely make for a better/simpler interface if only
+>>> one device was registered (with multiple channels - depending on the
+>>> number of devices). Similar to backends. I guess the idea is also to
+>>> only have one IIO buffer for all the channels?
+>>>   
+>>
+>> Yes, the ideia is to have a single buffer to allow reading them
+>> simultaneously from the userspace.
+>>
+>>> Or, IIUC, at the very least, only the aggregator could expose a buffer.
+>>> But again, linking the other device channels to the buffer is not really
+>>> doable without major changes in the core.
+>>>
+>>> Something that also just come to my mind! What about the IIO inkernel
+>>> interface and things like 
+>>>
+>>> industrialio-buffer-cb.c
+>>> industrialio-hw-consumer.c
+>>>
+>>> Maybe they have some limitations but something that we can work on? Not
+>>> sure though...
+>>>   
+>>
+>> The Inkernel is interesting, I will see what can be done to cover this
+>> case.
+> 
+> How common do we think this requirement is?  If it's just a couple of
+> devices I'd go a similar route to the daisy chaining case and do
+> something in the specific driver.  Maybe the only point of generalization
+> is the dt-bindings if we got that way.  Designing that to maybe let
+> us do a generic answer in the long term might be the right compromise
+> in not adding complexity to the core until it's proven to be needed.
+> 
+> Now if you have customers asking for it on 10 different devices today then
+> sure let's look at it sooner!  Even then it might be some library code that
+> the drivers use rather than big changes to the data flow in the IIO core.
+> 
+> Jonathan
+> 
+>>
+>>> - Nuno Sá
+>>>   
+>>>>
+>>>> Regards,
+>>>> Jonathan S.
+>>>>   
+>>
+> 
+
