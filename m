@@ -1,91 +1,224 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968E826F29C
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 22:07:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79663405C30
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 22:18:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778969221; cv=none; b=ED0xwOm1pqkacp57TTPfSMqYpM1LrNZU+psrYIL9T/6GclbicqAgnO2GaLINItrW0wY2BCTO0kNoeymBZAfltDMWTi9dfEPHItUb4kGDcQ7yB6DY+2W+Mlt2Nb8zKqREd/6u3Ig4ExXZ4A5kUreL/f3n+L+SquLXnt32j1z3ZEk=
+	t=1778969922; cv=none; b=UhPSoXnVGWAUuMnivdVFklFu4eD3JM9D3VePooQudFYVbaghngklynGjn2WlqsatmxQT/l4nwpyjVFaEPszs9lYWbc7VT37QsU4OdqpWa4Ip8RqynIKY4+WG2delIWaEgCeRPVthH+Qpo/aWR4m/gRoPadrQU4LvWhG4bhaiu5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778969221; c=relaxed/simple;
-	bh=rdRcdLaBaFPAwq3noZOxqieB326Em1kG9HmOVq8cp38=;
+	s=arc-20240116; t=1778969922; c=relaxed/simple;
+	bh=Y6lbJjGkbjq1ewylMLdRewpqX3C+DiEoODRPSw7IsxI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y1+BGfOlEyG0YqyMHMyx6Kki92GQpzopKH2fjZU4nvZJewSNoaFWmssL31JhFGXL8D1JXu+gCGSxwPoUp4XT67YSwOhunaQe4EIIk7hGs0NzJsNlzW8ODY2TCfGMhMtdiNRqOgww6G8TLHEn0bRTdGM4/1luOYL33yB+s0tXyzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhzXmfSz; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=PmWCHHifUqZJZtjB2qJDqk/OnHcolb9Ou6k+72WP+eZ8+cYC6tu+2QGbJxoPq43lwc0Kq5Wrnhp2fGsWNhMho5hg0xRPM4iYwz9rK2eyLTKorLouaqcRrpszvmwsEEhR75NyivfSyEP00fHkMbV/M0Hqo+bvK3895sh2j41zABA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dy7yxyOu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhzXmfSz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D00C19425;
-	Sat, 16 May 2026 22:07:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dy7yxyOu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D830AC19425;
+	Sat, 16 May 2026 22:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778969221;
-	bh=rdRcdLaBaFPAwq3noZOxqieB326Em1kG9HmOVq8cp38=;
+	s=k20201202; t=1778969922;
+	bh=Y6lbJjGkbjq1ewylMLdRewpqX3C+DiEoODRPSw7IsxI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=bhzXmfSzpMKqpQdkKU6xXjQG1WEBVlhjw0NmfL4Pg29tQpLPDUMUDilovXkfk11fC
-	 uPxpoLf00r4sIPjfNlRRd8+nabGBgr6frHuLwbKISIedvw/cfy91hoFFHk3zy+0AIE
-	 KXqwtCy/KNZP+abOC2g9vBmWbaV42WmWldAs11QN9BIaGElbxvDxNk1sHgmAt1PHxT
-	 OB6qlx4+4bJG4xrQV5wa54vFXtiSqqwukf2xMl1PetEJEulBDL54MgN9ImpDpiSk6U
-	 AYVXB6sW67uzBKD+3Cja7AKUJbGpac46l5uCxeYNot+hAT7eJhN8rpLDU+kRSiB2+a
-	 PPD0RAuiRbTgw==
+	b=Dy7yxyOuhea7KBIq0DHojh8WCGEUmzNg0pXUcngyB5FaJZi4Yypue6oXFY+NM0TUn
+	 Ys6WsWILHD8ub8q+UnHnu6MQlJEUZaxg6k38Tkifg3bTuDxk9KbRXCq9XDY4l0qJ8f
+	 qXVb0InCj6IrQqdCYAcM6Fn28d5MvGqV+NyNiwQQIwhuhCtdMjxfh481hmWulrXJ0A
+	 F1/hSq1FelaQEL2p3x/qqzWCAErqzaSs97BdR1WPfRPXDGg4paItnWdfnsiQMgcYEa
+	 s44MfPVddBTCZkdWK4MpCVcbneGoDt2drCGpsig/dutwG8uqwKlyEtq9kFLK2C40Mp
+	 DZy2Htqi9Sb6w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/4] dt-bindings: timer: econet: Update EN751627 for
- multi-IRQ
+Subject: Re: [PATCH 2/2] iio: light: veml3328: add support for new device
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260516215720.4160831-2-cjd@cjdns.fr>
-References: <20260516215720.4160831-2-cjd@cjdns.fr>
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260516-veml3328-v1-2-1d4b663e2fe3@gmail.com>
+References: <20260516-veml3328-v1-2-1d4b663e2fe3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 May 2026 22:07:00 +0000
-Message-Id: <20260516220701.00D00C19425@smtp.kernel.org>
+Date: Sat, 16 May 2026 22:18:41 +0000
+Message-Id: <20260516221841.D830AC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Schema validation failure due to mismatched `compatible` propert=
-y definition
+- [Medium] The device will not enter runtime suspend until it is accessed a=
+t least once by userspace, wasting power indefinitely.
+- [Medium] Mixing `goto` with `guard()` cleanup in the same function.
+- [Medium] Unconditional 400ms blocking sleep on runtime resume.
 --
 
-commit 98621a611cbcdcc4dc90e93160187fdb4c15428f
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+commit feb7c398a0fbd0837142edbdc6bd02aa226154e0
+Author: Joshua Crofts <joshua.crofts1@gmail.com>
 
-dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+    iio: light: veml3328: add support for new device
 
-This commit updates the EN751221 timer binding to account for the
-EN751627 SoC, which uses four individual interrupts instead of a
-single percpu interrupt. The example is updated to demonstrate this
-by dropping the fallback compatible string.
+This commit introduces a new driver for the Vishay VEML3328 RGB/IR light se=
+nsor
+communicating via I2C. It includes runtime PM support and basic IIO channel
+configurations.
 
-> diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-time=
-r.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> index c1e7c2b6afde1..16f32741473fe 100644
-> --- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> +++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+> diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
+> new file mode 100644
+> index 0000000000000..9eb5429c813d9
+> --- /dev/null
+> +++ b/drivers/iio/light/veml3328.c
+
 [ ... ]
->  examples:
->    - |
-> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
->      timer@1fbf0400 {
-> -        compatible =3D "econet,en751627-timer", "econet,en751221-timer";
-> +        compatible =3D "econet,en751627-timer";
 
-Since the fallback string "econet,en751221-timer" was removed from the
-example here, does the top-level compatible property definition also need
-to be updated?
+> +static int veml3328_power_up(struct veml3328_data *data)
+> +{
+> +	int ret;
+> +
+> +	ret =3D regmap_update_bits(data->regmap, VEML3328_REG_CONF,
+> +				 VEML3328_SHUTDOWN, 0);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	fsleep(veml3328_it_times[3][1]);
 
-If the schema still strictly requires "econet,en751627-timer" to be followed
-by the "econet,en751221-timer" fallback, will this standalone string cause
-a regression during make dt_binding_check validation? Updating the property
-definition to permit the standalone string would prevent this.
+Does this unconditional 400ms sleep cause a latency regression when the dev=
+ice
+is resuming?
 
->          reg =3D <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
->          interrupt-parent =3D <&intc>;
+Because this function is called from the runtime resume callback, this adds=
+ a
+400ms latency to every operation that wakes the device from suspend, includ=
+ing
+simple configuration reads or writes via sysfs.
+
+It also unconditionally sleeps for the maximum possible integration time
+instead of the currently configured one.
+
+Should the measurement delay be handled in veml3328_read_raw() when actually
+acquiring data, rather than in the general resume callback?
+
+> +
+> +	return 0;
+> +}
+
 [ ... ]
+
+> +static int veml3328_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct veml3328_data *data =3D iio_priv(indio_dev);
+> +	struct regmap *regmap =3D data->regmap;
+> +	unsigned int reg_val;
+> +	int ret;
+> +	int reg;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	ret =3D pm_runtime_resume_and_get(data->dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret =3D regmap_read(regmap, chan->address, &reg_val);
+> +		if (ret < 0)
+> +			goto exit;
+
+Is it intended to mix goto-based error handling with guard() in the same
+function?
+
+The kernel cleanup guidelines explicitly state that mixing goto-based clean=
+up
+labels with guard() declarations in the same function creates confusing
+ownership semantics.
+
+Could the goto statements inside the switch blocks be trivially replaced wi=
+th
+break to eliminate the exit label and comply with the guidelines?
+
+> +
+> +		*val =3D reg_val;
+> +		ret =3D IIO_VAL_INT;
+> +		break;
+
+[ ... ]
+
+> +	default:
+> +		ret =3D -EINVAL;
+> +	}
+> +
+> +exit:
+> +	pm_runtime_put_autosuspend(data->dev);
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static int veml3328_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int val, int val2, long mask)
+> +{
+> +	struct veml3328_data *data =3D iio_priv(indio_dev);
+> +	struct regmap *regmap =3D data->regmap;
+> +	int ret;
+> +	int i;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	ret =3D pm_runtime_resume_and_get(data->dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		if (val !=3D 0) {
+> +			ret =3D -EINVAL;
+> +			goto exit;
+
+This has the same issue with mixing goto and guard() as veml3328_read_raw().
+
+> +		}
+> +
+> +		for (i =3D 0; i < ARRAY_SIZE(veml3328_it_times); i++) {
+> +			if (veml3328_it_times[i][1] =3D=3D val2)
+> +				break;
+> +		}
+
+[ ... ]
+
+> +static int veml3328_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct veml3328_data *data;
+
+[ ... ]
+
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_set_autosuspend_delay(dev, 2000);
+> +	pm_runtime_use_autosuspend(dev);
+> +
+> +	ret =3D devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+Will this device fail to enter runtime suspend until it is accessed at least
+once by userspace?
+
+Because the usage count starts at 0 and no idle request is explicitly queue=
+d,
+the PM core does not automatically start the autosuspend timer. The device
+might remain fully powered on indefinitely until the first userspace access
+triggers a get/put cycle.
+
+Should the driver queue an idle check by calling pm_request_idle(dev) or
+perform a pm_runtime_get_noresume() and pm_runtime_put_autosuspend() sequen=
+ce
+at the end of probe to initiate autosuspend?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516215720.4160=
-831-1-cjd@cjdns.fr?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516-veml3328-v=
+1-0-1d4b663e2fe3@gmail.com?part=3D2
