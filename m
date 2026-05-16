@@ -1,158 +1,156 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D805B390C95
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 23:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85E53750B2;
+	Sat, 16 May 2026 23:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778972941; cv=none; b=CydGW+n+vkmkIvBmWVz0Qf7WzJgXMP7eugqcbyJutbk8/APfXuB4YK+em0VFf5D9ZhgaC/VCXFStVOVHHQgau8c65SaS1qol3TpHeTpq1WwNRrafLNkmpHKs6a+y+LoHB6rQ2UZWvJfitRgFZGm2Q55PqItdqgEH5aQttxS3u20=
+	t=1778973130; cv=none; b=hMvYgXU3xNpJzqI1OzV4PoPuKnnDbkQh3bSbWFYZJ6J5TsTTSPpGZnbRBmk82z+VyejKvhvMbUnsnPB4SHM3KfEO5CMb0MsJv9cqcRPheqHZrwGFUdJKcI/vTo/Rlw+6P5rV7T7KIOcIcsrkZTJxqJqyYlITRPAKZ0sxDiGdkl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778972941; c=relaxed/simple;
-	bh=4Tw1975QqPqCLa0sf7YUurAHi3Q3AX+denT2FA8bqcY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eqSr5KyVrQNtBpvK+P1Ns/bzw/yQ2sPNHe+F+KapCMtF0wFr4VtU0vTs8sjcPWasgl75kx9/aGJlLcyCt8lRPUr4IWXXXZYllUqlz9Vr3gVUjdwHx7WUoeJScmN4m2KZZJCmZSvtbnuihx2fTGqU1QHNqo53ETSaVEDRCpcJM3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=tiR6EYYV; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778973130; c=relaxed/simple;
+	bh=LeUa/ZHAxHXoBiN1flUfAXHTIF8MVVncZaDQMDkVAjo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MecPQX+a8v36NX70H2JKFmUeyLMMsZtX1URko2LQNlDlSgv0vKbTGH149Ng7XWHO6fzSFp+cdFqrFC9g4niBic8C+1cf1i8Erh+oelB5S6P41rNx9C9/fKZSte1OEKBVkrbuJ4BT87z9fSKxF93+ILsqlJKerxKWruvWzTsQBIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEFngEkD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="tiR6EYYV"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5D3343F8CE2;
-	Sun, 17 May 2026 01:08:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778972931; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=a76I6a49b3i2lbk8ykm4clFLPuo5ePSCCn97niUVBIc=;
-	b=tiR6EYYVMI0DjJUiJCkQKBBT1Ok/bU305oxKbpYCF55VsfwXiYhDIErPqU+P+yuZpMu001
-	Nd9SFiX4kk3FlQSzehk6j8+Jh2lUB5wJsqyWX+yD4w28QMwQg8wkUmWTg7qnAXMobKA16X
-	W/llXHtGKIHi2m/bGMSQPNcGLYgdOK1y4K/2a0Z761mLwxJ7DkJpG7YUqURoksXLkcwLhB
-	S5EnQw/TvBpXdsV9jjHhzCqnQdlIu1KhocPzW808CnsByA1+uckcbi15AKaVda1QbT6lcl
-	ee77ZUsK18+s4QxjpZAxDXnrHB/MbEDqHA0T4Ov+eSSDU6t8id5awopnkK4Z0Q==
-Message-ID: <3403906d-00cd-4b5d-b59e-6989ecf7b721@cjdns.fr>
-Date: Sun, 17 May 2026 01:08:36 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEFngEkD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5408EC19425;
+	Sat, 16 May 2026 23:12:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778973129;
+	bh=LeUa/ZHAxHXoBiN1flUfAXHTIF8MVVncZaDQMDkVAjo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OEFngEkDMStnzVxUs2+OhpDt+1571NDoqVKMfFawIv6pib6mlBiL0UQKsDXkUw6RW
+	 qt15C8YNWLs49ammQZ1Pr+e9vZPebeBVn5sy5R6KpPB+XlUVGYmcDE+G+Grigu8NRQ
+	 Qv6qGhLVdse0JW3kNFvrYjNwBuzs2Tfce1Iy7Pq+AM1NS/l+UGOtHLlsHkRnMJ+66d
+	 AkkpQjeYs/pQ+D3IoAGe94NF8yxDhgQ5nB4Y8MYlD+SqAkoq1m5fy7e3qboKBfpM14
+	 INh69kx9yiY86YzkOrjLX48SRJ4CoZ2IRUliSxB0tg6StlolYLczin5lLkI5lWTKYa
+	 qCZbN1cN8p/Pg==
+Date: Sun, 17 May 2026 00:12:04 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: linux-mips@vger.kernel.org, conor+dt@kernel.org,
+	daniel.lezcano@kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+	naseefkm@gmail.com, robh@kernel.org, tglx@kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/4] dt-bindings: timer: econet: Update EN751627 for
+ multi-IRQ
+Message-ID: <20260517-cathouse-spiral-6a56c30ec223@spud>
+References: <20260516215720.4160831-1-cjd@cjdns.fr>
+ <20260516215720.4160831-2-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v4 2/4] clocksource/timer-econet-en751221: Init teardown
- on error if possible
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260516215720.4160831-3-cjd@cjdns.fr>
- <20260516223331.3A843C19425@smtp.kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260516223331.3A843C19425@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="B5La+Mptp6gvMym4"
+Content-Disposition: inline
+In-Reply-To: <20260516215720.4160831-2-cjd@cjdns.fr>
 
 
-On 17/05/2026 00:33, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [High] Teardown path unmaps memory while clockevents remain registered (Use-After-Free)
-> - [High] Missing CPU hotplug teardown callback leaves per-CPU IRQs enabled on offline CPUs
-> - [High] Pre-existing out-of-bounds mapping access with sparse CPU possible mask
-> - [Medium] Ignored error code from clocksource_mmio_init causes false success reporting
-> --
->
-> commit d0c6a451d26e5e0afd704c60615c1cfa9457c425
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> clocksource/timer-econet-en751221: Init teardown on error if possible
->
-> This commit reorganizes the driver initialization process into two
-> distinct phases, providing a rollback path for errors that occur prior to
-> the point of no return. It adds logic to unmap memory and release interrupts
-> if the setup steps fail.
->
->> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
->> index 4008076b1a210..155471f68e6f8 100644
->> --- a/drivers/clocksource/timer-econet-en751221.c
->> +++ b/drivers/clocksource/timer-econet-en751221.c
->> @@ -186,22 +165,45 @@ static int __init timer_init(struct device_node *np)
->>   		econet_timer.membase[i] = of_iomap(np, i);
->>   		if (!econet_timer.membase[i]) {
->>   			pr_err("%pOFn: failed to map register [%d]\n", np, i);
->> -			return -ENXIO;
->> +			ret = -ENXIO;
->> +			goto out_membase;
->>   		}
->>   	}
-> This is a pre-existing issue that is resolved later in this patch series
-> by commit clocksource/timer-econet-en751221: Support EN751627 without
-> percpu IRQ, but I am mentioning it here for completeness.
->
-> Can this loop cause an out-of-bounds access with a sparse CPU mask?
->
-> The loop iterates up to num_blocks, which is calculated based on
-> num_possible_cpus(). If the system has a sparse CPU topology where
-> CPUs 0 and 4 are possible, num_possible_cpus() is 2, so the loop only
-> maps membase[0].
->
-> However, cevt_init() iterates over for_each_possible_cpu(i). For CPU 4,
-> cevt_dev_init(4) accesses membase[2], which remains null, potentially
-> causing a kernel panic when dereferenced.
->
-> [ ... ]
->
->> +	cevt_init(np);
->> +
->> +	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
->> +				"clockevents/econet/timer:starting",
->> +				cevt_init_cpu, NULL);
->> +	if (ret < 0) {
->> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
->> +		goto out_irq_free;
->> +	}
-> If cpuhp_setup_state() fails here, can the teardown path cause a
-> use-after-free?
->
-> Because the teardown callback in cpuhp_setup_state() is null, the CPU
-> hotplug core's attempt to roll back the state on previously initialized
-> CPUs acts as a no-op. This leaves the clock event devices and hardware
-> timers fully active on those CPUs.
->
-> The error path then proceeds to out_irq_free and subsequently unmaps the
-> memory regions via iounmap(). When the clockevents core later tries to
-> access the active timer on those CPUs, it will read from and write to
-> unmapped memory.
->
-> Additionally, while this is a pre-existing issue, does providing a null
-> teardown callback leave per-CPU interrupts enabled on offline CPUs?
->
-> When a CPU is dynamically offlined, the teardown callback should stop the
-> hardware timer and call disable_percpu_irq(). Without it, the timer remains
-> free-running and the interrupt unmasked for the offline CPU.
-As said in previous version, I don't think this is an issue, but I need 
-to fix that yaml so I'll move it below the point of no return to make 
-the bot be quiet.
->
->> +
->> +	/* Point of no return, do not attempt to tear down after this. */
->>   
->>   	/* For clocksource purposes always read clock zero, whatever the CPU */
->>   	ret = clocksource_mmio_init(reg_count(0), np->name,
->>   				    econet_timer.freq_hz, 301, ECONET_BITS,
->>   				    clocksource_mmio_readl_up);
->> -	if (ret) {
->> -		pr_err("%pOFn: clocksource_mmio_init failed: %d", np, ret);
->> -		return ret;
->> -	}
->> -
->> -	ret = cevt_init(np);
->> -	if (ret < 0)
->> -		return ret;
->> +	if (ret)
->> +		pr_err("%pOFn: clocksource_mmio_init failed: %d\n", np, ret);
-> Does removing the return on error here cause the driver to report success
-> when initialization fails?
->
-> The failure code is captured in ret, but execution falls through and the
-> function unconditionally returns 0 at the end. This allows the driver to
-> print success messages and report a successful initialization even if the
-> clocksource registration failed.
-It's below the point of no return so the idea is to complain but muddle 
-through no matter what.
+--B5La+Mptp6gvMym4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, May 16, 2026 at 09:57:17PM +0000, Caleb James DeLisle wrote:
+> This hardware is found in the EN751221 SoC family as well as the
+> EN751627. The former uses a percpu IRQ for all timers while the
+> latter uses an individual IRQ number per timer.
+>=20
+> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
+>  .../bindings/timer/econet,en751221-timer.yaml | 23 ++++++++++++++-----
+>  1 file changed, 17 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-time=
+r.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+> index c1e7c2b6afde..16f32741473f 100644
+> --- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+> +++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+> @@ -12,8 +12,9 @@ maintainers:
+>  description:
+>    The EcoNet High Precision Timer (HPT) is a timer peripheral found in v=
+arious
+>    EcoNet SoCs, including the EN751221 and EN751627 families. It provides=
+ per-VPE
+> -  count/compare registers and a per-CPU control register, with a single =
+interrupt
+> -  line using a percpu-devid interrupt mechanism.
+> +  count/compare registers and a per-CPU control register. On EN751221 it=
+ uses a
+> +  single interrupt line using a percpu-devid interrupt mechanism, and on
+> +  EN751627 it uses an interrupt per VPE.
+> =20
+>  properties:
+>    compatible:
+> @@ -28,8 +29,8 @@ properties:
+>      maxItems: 2
+> =20
+>    interrupts:
+> -    maxItems: 1
+> -    description: A percpu-devid timer interrupt shared across CPUs.
+> +    minItems: 1
+> +    maxItems: 4
+> =20
+>    clocks:
+>      maxItems: 1
+> @@ -52,21 +53,31 @@ allOf:
+>            items:
+>              - description: VPE timers 0 and 1
+>              - description: VPE timers 2 and 3
+> +        interrupts:
+> +          description: An interrupt for each timer (one per VPE)
+> +          minItems: 4
+>      else:
+>        properties:
+>          reg:
+>            items:
+>              - description: VPE timers 0 and 1
+> +        interrupts:
+> +          description: A percpu-devid timer interrupt shared across time=
+rs
+> +          maxItems: 1
+> =20
+>  additionalProperties: false
+> =20
+>  examples:
+>    - |
+> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
+>      timer@1fbf0400 {
+> -        compatible =3D "econet,en751627-timer", "econet,en751221-timer";
+> +        compatible =3D "econet,en751627-timer";
+
+This is not going to pass dt_binding_check.
+Please remove my ack until this is fixed.
+
+>          reg =3D <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
+>          interrupt-parent =3D <&intc>;
+> -        interrupts =3D <30>;
+> +        interrupts =3D <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
+>          clocks =3D <&hpt_clock>;
+>      };
+>    - |
+> --=20
+> 2.39.5
+>=20
+
+--B5La+Mptp6gvMym4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagj5xAAKCRB4tDGHoIJi
+0nHOAPwIJSD2j/JuVJMI0DZeaPv7ZyXJZZnON1vxeZ+Tx1cmUgEA3mCyqTo4QNsL
+9lUnnEgrv9jQKrWfb+CcYtMPvj00pwU=
+=p6ab
+-----END PGP SIGNATURE-----
+
+--B5La+Mptp6gvMym4--
