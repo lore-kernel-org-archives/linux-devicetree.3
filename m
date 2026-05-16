@@ -1,132 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD00624A047;
-	Sat, 16 May 2026 15:47:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2F076026
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 15:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778946441; cv=none; b=m0M09omRQiERWb/S6KgJZnk2Xday5wJfFVYRbIFVCnELXlQVp5Ump1apjLZOY2iZmrykxDESWZChugtoCInuKNaxZDMQVNtfk91s6TPV1pRMTjIPHGqvXj/XycHH4/aL1d2BcQXS1z1Jur+StlT1aZYbhhqgCbmxNMo4T8gaCX0=
+	t=1778946608; cv=none; b=QOGqhpRwUm5dZbxnCPtYOITn6jzqpe6tCoILFO7hs0dkcOHh6m5ytZWOA53PMuvdLlZiN0FFp/ML4KLGoaMOq7Ic/lHpYxMIE867GOE4pauLLrBi73reVkaMLTyMqUVi1daZbWyQYdN2Vp8j1PXg2364MV/muS72ba1n5CAihAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778946441; c=relaxed/simple;
-	bh=OReBZguA/Xhxm9gBybH+zeU+A7rVo6Jj1A3B2+Wzisc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mnln5nMBgu/O9UT3OZeBZZRMU4qTGwpM6FhBC3kVwMFCtjhIYGFZIO+dVuTLLOcBZ93AimP20K0tJqNJ/p7LP13z8VD6xgkeknE1w2ssqeABWj4d7DwLLN6hGL3B1SBTfXT2q2zu/ZyOlz5vV5JnM9edgP3fcKhSLxTiwA7NM2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VExmynF7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778946608; c=relaxed/simple;
+	bh=FeuUX8oMZRiDE1D/l77ftV+FFZbaTVPV4PkPXVXrARU=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=d7gAx+nhRbJBVcZG+x441x5yFv6EmQRjnbfrE5Z+1WorSL95UAUNZD8ZU1Tu7NIP/gGWxBB0PqsAkByXbMlqpBKN9G4Vqp9AqhtyOkMvNeHxcx1vLhZrQQw/qk2U6tgRvXIe2txseW7FI4+EE+vnXK2jmLKP0jSuFnV7HtD8k80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZgNn/JIj; arc=none smtp.client-ip=95.215.58.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VExmynF7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A11C19425;
-	Sat, 16 May 2026 15:47:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778946440;
-	bh=OReBZguA/Xhxm9gBybH+zeU+A7rVo6Jj1A3B2+Wzisc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VExmynF7GuXa5NjxOP8JA/8u1Euixu7uW2q33kvNxSkUKeF+He5YAGPx7GSfeLb4e
-	 I0K7SJ/zhxi7LlZbjOH9FVu+QIcJWWebG8GXUCqcYVWjTDkSkS80cxonKE85hQjG4p
-	 xxio3YVIN/EVZxnMRSbr+cPGLpKeCdY0Or3zSh1WZgNIn9Puv+/sa88+x08VpMPvTy
-	 2ae4G3XMbyx8HH6uBaSjdYBLjznug5rsacgLlXJUgo11UfzrTP3c3uKIZtu/viZSAX
-	 uMysrgCU3SsxICmQIHrl2A8X9MNc37ySssdLIFChoV87uliDbsQj8ZMjNqXLSPNib3
-	 I4M51bYTzre0A==
-Message-ID: <6378b14e-24d4-4a19-a3a5-3f87245d5b9b@kernel.org>
-Date: Sat, 16 May 2026 16:47:16 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZgNn/JIj"
+Content-Type: text/plain; charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1778946595;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GZ3+QXNs1Ruk6C/JUmWvrB0kpJwdp6UGI2mwrNsZMhs=;
+	b=ZgNn/JIj5mBrXnmCCm4JECClo95jWnAfgvxaeUogSLftOTtVOzEu4LwImaPcNL4LtHqDNj
+	iHjoJngmIBDXMTVlkTV1dUk2ZIgbdt35RP8vhnAxzoi9SmadjToGVPn56XnocUuz+cH0kb
+	uKtkVu326TWUBz5b4aaQr0MG7ebI3YU=
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] media: dt-bindings: qcom: add JPEG encoder binding
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kapatrala Syed <akapatra@quicinc.com>,
- Hariram Purushothaman <hariramp@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Gjorgji Rosikopulos <grosikop@quicinc.com>, afilipov@quicinc.com
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260515-qcom-jpeg-v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com>
- <b7u5v5a7DiYm-NowQSavDCjDEb1bGE_S2Z5LPZmIlMx5ve25F7067cdVqRJEeuUoTl7pHVr98FuOry9-VR5cNA==@protonmail.internalid>
- <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (1.0)
+Subject: Re: Stop false review statements
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Roman Gushchin <roman.gushchin@linux.dev>
+In-Reply-To: <2026051631-trolling-juggling-da1c@gregkh>
+Date: Sat, 16 May 2026 08:49:39 -0700
+Cc: Konstantin Ryabitsev <mricon@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski <krzk@kernel.org>,
+ sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
+ sashiko@lists.linux.dev,
+ Linux Kernel Workflows <workflows@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree@vger.kernel.org, kfree@google.com
+Message-Id: <0902F8E6-C495-40A1-975D-92D3B72D44AE@linux.dev>
+References: <2026051631-trolling-juggling-da1c@gregkh>
+To: Greg KH <gregkh@linuxfoundation.org>
+X-Migadu-Flow: FLOW_OUT
 
-On 15/05/2026 12:46, Atanas Filipov wrote:
-> Signed-off-by: Atanas Filipov<atanas.filipov@oss.qualcomm.com>
-> ---
->   .../bindings/media/qcom,jpeg-encoder.yaml          | 122 +++++++++++++++++++++
->   1 file changed, 122 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
-> new file mode 100644
-> index 000000000000..fac3e654458d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
-> @@ -0,0 +1,122 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id:http://devicetree.org/schemas/media/qcom,jpeg-encoder.yaml#
-> +$schema:http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm JPEG Encoder
-> +
-> +maintainers:
-> +  - Azam Sadiq Pasha Kapatrala Syed<akapatra@quicinc.com>
-> +  - Hariram Purushothaman<hariramp@quicinc.com>
-> +
 
-The listed maintainers are not in the SoB list for this patch while the 
-submitter is not in the listed maintainers:
+> On May 16, 2026, at 8:45=E2=80=AFAM, Greg KH <gregkh@linuxfoundation.org> w=
+rote:
+>=20
+> =EF=BB=BFOn Sat, May 16, 2026 at 08:41:43AM -0700, Roman Gushchin wrote:
+>>=20
+>>>> On May 16, 2026, at 8:20=E2=80=AFAM, Konstantin Ryabitsev <mricon@kerne=
+l.org> wrote:
+>>>=20
+>>> =EF=BB=BFOn Sat, May 16, 2026 at 05:11:28AM -0700, Guenter Roeck wrote:
+>>>>> On Sat, May 16, 2026 at 10:05:02AM +0200, Krzysztof Kozlowski wrote:
+>>>>> What the hell is that:
+>>>>>=20
+>>>>> https://lore.kernel.org/all/20260515190707.033BDC2BCB0@smtp.kernel.org=
+/
+>>>>>=20
+>>>>> As a bot you CANNOT MAKE a Reviewer's statement of oversight. You are
+>>>>> not a damn human do be able to make such statement. You are a bot, a t=
+ool.
+>>>>>=20
+>>>>=20
+>>>> Where exactly do the rules say that ? I seem to miss that.
+>>>>=20
+>>>> There is a policy document about _contributions_ made by AI, but I don'=
+t
+>>>> see the one that says that AI agents must not provide Reviewed-by: tags=
+.
+>>>=20
+>>> =46rom my perspective, AI agents must NOT use the Reviewed-by tag for th=
+e
+>>> following reasons:
+>>>=20
+>>> - We consider this a "person-trailer" and it implies agency
+>>> - Adding yourself to a commit via a trailer is a *binding responsibility=
+* for
+>>> the change. A lot of tooling will cc the Reviewed-by addresses on follow=
+-up
+>>> messages regarding code in this commit. If the address is bogus or doesn=
+'t
+>>> go to a developer, this is both wasteful and potentially frustrating.
+>>=20
+>> Hi Konstantin!
+>>=20
+>> The goal here is to inform maintainers that sashiko has successfully revi=
+ewed the patch
+>> and there were no findings, otherwise maintainers have to go to the web s=
+ite and check the status.
+>=20
+> That's fine.
+>=20
+>> I=E2=80=99m not attached to any specific form of it, I thought Reviewed-b=
+y is the most obvious form.
+>> And we use Reported-by: tags with various tooling for years.
+>=20
+> Reported-by: shows the existance of a problem that some tool found, a
+> subtle difference here.
+>=20
+>> What do you think is the best form?
+>>=20
+>> I=E2=80=99ll pause sending reviewed-by tags until we have a discussion an=
+d agreement here.
+>=20
+> Just say it in some other text form, that our tools will not pick up.
+> Like:
+>    Tool XXXX reports that all is good:
+>        https://....
+>=20
+> or something like that?
 
-Please fix that.
+Sure, works for me.
 
----
-bod
+Thanks,
+Roman=
