@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AB2191;
-	Sat, 16 May 2026 19:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33FB30C17B
+	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 19:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778959949; cv=none; b=E8LcJJ/mOyQm6SFYDBc30Fj4M9Ogue0aithuyYrdWDYSxO9MEl1dlXj6Dhj+eeRJBbFmQjJU3NVs3HiXAQSiBQtUE7tlEnBcnSBgbCYUYNfcgvwrXoL6Bj2F8u3V3Q2US+FjIoqLq4Tf+S3wb/Lnqv1hzC+pZ3sHshDuy2oIAKg=
+	t=1778960113; cv=none; b=Sd+ZtkwGUXVHCtX7t8Hq+4EgWdnsIwVizBlfHC/KThWdjHZgy2csCPSDkeK9aKjRtWjecks0cTm6g2gy4XS2ML/ZPrso8nAsu6vhopoAHzPj8OJLZ1Q/qM0Jj4KuB3YakyeopJojyeI5pVxDiRVg7ApnU63GGAPfVeFJatTvMzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778959949; c=relaxed/simple;
-	bh=y2QxKdp0IpJbIPuJXX2Q8Xyf7FvOXID9Znadskk+T80=;
+	s=arc-20240116; t=1778960113; c=relaxed/simple;
+	bh=NnjdJ0VTzldu49W5mcdmVmQl1rEFGjOR7UXnupRT89o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sZy1tk5HHfjEQEVEhY0Tg0vQjCypBvCU9FpmlgrWRjuQW4gW+mpLPpdbpngd0n6j43c3PLZIhcn9sdhSDJGf3b7WS3vLZS8z3h9hbIw1VR+z7URJJdKQC5BvpneCcN6og5SmFWZfdsuzhWcLKlHlIyKDTgYL/phxOaZ0jmM+B/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U3q5Gbpw; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=CNUl7D1DzcUxLKOAFkDz56XisPAKL+4DjgZL7B0iHWv1uBl1vRsDd7clLpjpwJdu8xeWT7sqmh8Bxsq74KNXnvCDmiWHk3v3yRLgTb5rPEe4Yjk306AIfemJkjqezIGuX1Y2Io+mNsv5UZ00AnAgTGBCcVfFJtCIzsiXaeGAyQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=ycSFdIHX; arc=none smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U3q5Gbpw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C9AC19425;
-	Sat, 16 May 2026 19:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778959948;
-	bh=y2QxKdp0IpJbIPuJXX2Q8Xyf7FvOXID9Znadskk+T80=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=U3q5GbpwVWahnZf+64yR7Qyv1KjOAXFoNOBXnB97sojhFVKmdV8zOGCw/+roNFxWT
-	 rzPc/nIxpy6Ry35fjVjjvfkmIaCU1Qc1lj+zwsASjMp2ip33zNJ1hEdJoKdoiuxErG
-	 qFxkx9gUBwPY9QKm5un6eP7p6MaCK0rfmx+fhnkYbvW2ytnPr1LvPHN7jKhxmb2TUL
-	 /D5IJVNqkTdwPL2b7Ba/WuN5KLsfriSJmJ2tWU6smfhdfjGAQMgklWLVpWzMoeCLfx
-	 zq8nh4GvoDZX/A5zflSDf21hSBaFEWK7aOLN9KmvTP95a8kwAw95TyYOFPjGWJsZAc
-	 Lg542v3NAsYdQ==
-Message-ID: <f77eaf7c-72c1-4646-b412-733b566d3643@kernel.org>
-Date: Sat, 16 May 2026 21:32:25 +0200
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="ycSFdIHX"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6948d7ccfbbso219865eaf.1
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 12:35:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778960111; x=1779564911; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2i7S9wo1ePdNkbO172mKq17H2QCBIBfTWKgSltqMeIg=;
+        b=ycSFdIHXs9K+m3s4gmn0h5deTpkDt9ZhNq9w2hQhZ17c57ZrA1XU+xgHxu79eyPdH3
+         /GCKWJKltawnEfsWVBnGgkyL3i9u6ZXxZPAkzJkcTNBCaHQm+nkMNUZFrMiqx3cnL7i0
+         qApuwisVDLguS2/wyn4jLE3cDIIOsWJHaKfSUMcg89FTkPLCKcK5V9BfQehB1pFjJkjs
+         pMX1XRSxyUFqyr4X81SgiJ0YJ9icqJQYUe/k4EA0Dm+JtVjux97j7Cpjr+5ku4dGXX83
+         Sq0kuUjLH9ZKe2OSDdqpXNyfhHauBOSAfEgfOcfNOE+swwEHH8BxM19a03ziVhc/la1b
+         +0OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778960111; x=1779564911;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2i7S9wo1ePdNkbO172mKq17H2QCBIBfTWKgSltqMeIg=;
+        b=bz1XHI17ScrvdAk+ukWPMAD6Rvd1ChyfG+rTrMYgJGlkVJwDNSzwwbnm5SxA2AjVcI
+         cicQPcWzkeDzbyRSh7hfZI2fqEW8jGlwksxrsftggS80Kp18fc7NhLGj3kJfhcdObgAo
+         n2P3rvlAbIkg7nSZUNwkSeJoQRVfJRL4W/rdL79hKDCkGIfHp+u4M/kK+D3tz8urysxE
+         EUd/pfQB7mH5wi272ojZiZ41G40reHQ2UjYrtRbksv3G/4DHmIZ3rKazL8GVwpdHooFh
+         1tzorXQM8o/skRvGiL23VtwZycC/fHoSMro+WuJKUNt4NtN/1jBrIrzysBrLfscLk/CI
+         5org==
+X-Forwarded-Encrypted: i=1; AFNElJ+P4E7cQIV7cIMstbQr6dCJwC9l8hzBbZ/3uov/R9eKqHBnZPHPGopz0+UkNbo0+K0FLM51fw0ABbHC@vger.kernel.org
+X-Gm-Message-State: AOJu0YxSEWggkjWB12MO0YVlKyJOg9ZAX0RaG2lB1aQfcaGy1r0R0Os3
+	/3DMHrCSSrdGIF35TiyQPbNfxU1GLmHcmR5F6gBVzadqmX+uc8965gmJU1OTWGNlWF8=
+X-Gm-Gg: Acq92OEqWzxFCGuk/sX7gkY5T7U6/ijFo5tQ5ruZ5EaDkUiD6f+0Z6q2dnGigWnROwk
+	7Ztt4yxuq2lVvibjz1ya2afrNdYVqwo88ymUnZeTskxrbl3rXMjarqfTFdUiIBW7FGtkMkeUwMQ
+	5RJpnXrpKLek7hOEGe4Nc9g5tRVNpE01vej9pSEWolBm7gniaT6d+lY3GM9fJl+8dgE6KQxIH/o
+	4mqkeC8xO2/KhxC6YNLbTMZZNIjXDxwmFRtIGhxzXQ9DDxUfWxJgUai1ffs1j9O3wd5X80iBe3k
+	1zFm6WhI+Xz9A3sho3+zrp8dmlLlNR0b3A1k8FSyWlGw2jwm2Bc9WIMemJBq7laQCgs4kjIT097
+	Htq2lYmxRZav++JbAHTSnwg5DnvhdzdgC3yUqSpfS7fGIva849yenYNWG9yyYSjmi/GmyqcNsoj
+	ntI4/4K9tXBwMej0z9rN7pYGb2Ux+/Bx8mAIjPGmpH5SPUTjg6mRR+lN5NlERDfYWQeSTboNEUT
+	w==
+X-Received: by 2002:a05:6820:2017:b0:694:a2c9:2d50 with SMTP id 006d021491bc7-69c9c07d4fbmr5938765eaf.59.1778960110874;
+        Sat, 16 May 2026 12:35:10 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:b36d:bd18:7c02:29e2? ([2600:8803:e7e4:500:b36d:bd18:7c02:29e2])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69d048b3c51sm3071760eaf.11.2026.05.16.12.35.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 16 May 2026 12:35:09 -0700 (PDT)
+Message-ID: <2f74e76e-b066-40ac-9cb4-c75137c9825d@baylibre.com>
+Date: Sat, 16 May 2026 14:35:09 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,125 +69,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: iio: adc: Add GPADC for Allwinner
- A523
-To: sashiko-reviews@lists.linux.dev,
- Michal Piekos <michal.piekos@mmpsystems.pl>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
- linux-sunxi@lists.linux.dev, conor+dt@kernel.org
-References: <20260516-sunxi-a523-gpadc-v3-1-a3a04cff2620@mmpsystems.pl>
- <20260516055003.3F014C19425@smtp.kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 2/3] iio: dac: Add AD5529R DAC driver support
+To: Janani Sunil <janani.sunil@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Janani Sunil <jan.sun97@gmail.com>
+References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
+ <20260508-ad5529r-driver-v2-2-e315441685d7@analog.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260516055003.3F014C19425@smtp.kernel.org>
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260508-ad5529r-driver-v2-2-e315441685d7@analog.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/05/2026 07:50, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Low] Brittle schema conditional matching for compatible string
-> - [Low] Missing device tree example for the newly added A523 variant
-> --
+On 5/8/26 6:55 AM, Janani Sunil wrote:
+> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
 > 
-> commit 8ef795d51c1bc739366c917fc7bb2c4c8c5c937c
-> Author: Michal Piekos <michal.piekos@mmpsystems.pl>
-> 
-> dt-bindings: iio: adc: Add GPADC for Allwinner A523
-> 
-> Add support for the GPADC for the Allwinner A523, which introduces a
-> second clock compared to previous generations.
-> 
->> diff --git a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
->> index da605a051b949..6467800d30e27 100644
->> --- a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
->> +++ b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
-> 
-> [ ... ]
-> 
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          enum:
->> +            - allwinner,sun55i-a523-gpadc
-> 
-> Could this conditional matching be brittle?
-> 
-> Using a strict enum instead of contains: enum will fail if a future
-> hardware variant uses allwinner,sun55i-a523-gpadc as a fallback string
-> in an array. Would it be better to use contains: enum here to ensure
-> standard extensibility?
 
-Nitpick. Code is correct. Sashiko prompts are asking to skip nitpicks so
-why do we deal with this?
+...
 
-Really the quality of Sashiko reviews for DT at least deteriorated or
-was always poor but I just did not notice :(
+> +#define AD5529R_DAC_CHANNEL(chan, bits) {			\
+> +	.type = IIO_VOLTAGE,					\
+> +	.indexed = 1,						\
+> +	.output = 1,						\
+> +	.channel = (chan),					\
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
+> +			      BIT(IIO_CHAN_INFO_SCALE),		\
+> +	.scan_type = {						\
 
-> 
->> +    then:
->> +      properties:
->> +        clocks:
->> +          items:
->> +            - description: Bus clock
->> +            - description: Module clock
->> +        clock-names:
->> +          items:
->> +            - const: bus
->> +            - const: mod
->> +      required:
->> +        - clock-names
-> 
-> Should an example be added for the allwinner,sun55i-a523-gpadc variant
-> in the examples section?
-> 
-> Without an example, it appears the new constraints for the two clocks
-> and the clock-names property will not be tested during dt_binding_check.
+> +		.sign = 'u',					\
 
-Again crappy Sashiko reasoning...
+This field has a new name `.format`.
 
-Best regards,
-Krzysztof
+> +		.realbits = (bits),				\
+> +		.storagebits = 16,				\
+> +	},							\
+> +}
+> +static struct regmap *ad5529r_get_regmap(struct ad5529r_state *st, unsigned int reg)
+> +{
+> +	if (reg <= AD5529R_8BIT_REG_MAX)
+> +		return st->regmap_8bit;
+> +
+> +	return st->regmap_16bit;
+> +}
+
+Another way we have done this is make custom read/write functions for the
+regmap itself so that we don't have to have two regmaps.
+
+> +
+> +static int ad5529r_debugfs_reg_read(struct ad5529r_state *st, unsigned int reg,
+> +				    unsigned int *val)
+> +{
+> +	return regmap_read(ad5529r_get_regmap(st, reg), reg, val);
+> +}
+> +
+> +static int ad5529r_debugfs_reg_write(struct ad5529r_state *st, unsigned int reg,
+> +				     unsigned int val)
+> +{
+> +	return regmap_write(ad5529r_get_regmap(st, reg), reg, val);
+> +}
+
+Would be more logical to move these closer to the struct that
+references them.
+
+(I snipped a bunch of functions here)
+
+> +
+> +static int ad5529r_reg_access(struct iio_dev *indio_dev,
+> +			      unsigned int reg,
+> +			      unsigned int writeval,
+> +			      unsigned int *readval)
+> +{
+> +	struct ad5529r_state *st = iio_priv(indio_dev);
+> +
+> +	if (!readval)
+
+Might as well swap these and avoid the !.
+
+> +		return ad5529r_debugfs_reg_write(st, reg, writeval);
+> +
+> +	return ad5529r_debugfs_reg_read(st, reg, readval);
+> +}
+> +
