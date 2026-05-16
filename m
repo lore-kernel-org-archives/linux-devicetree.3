@@ -1,106 +1,200 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992FC8287E
-	for <devicetree@vger.kernel.org>; Sat, 16 May 2026 18:37:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0347405C2C;
+	Sat, 16 May 2026 18:48:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778956625; cv=none; b=jXK3rANIPPKnBpdgKsB0h1VPFf/qqSNKowSk7WbaBqqOodDzynhDgJ8KOlfaOwFnBtWw5Xt1XWa6tX7kaSTevab7/xu+eQSwcAgT90Q+8BfLMeY80zmqQQiS1ZTDSyD6Dd5MSncvPLHnRQG7KdvFtLN/bnSzN9DvXkxsIhtrb/k=
+	t=1778957299; cv=none; b=aL3088cMxiAeW0KnvaorWd6ad+L52pdqLg5YhpYtdVkxNTm6GK+f7jTokzdAKw6sVJJ8vBqMQUM5Zb2tNEoaKoMyn6s5aoh87eo7Jzzegadc9kSKR4a07xgRLDy/Eadiq/uyTcJoByDqARSjXBopsTsuf6s0Wl3VDxySlnmNK6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778956625; c=relaxed/simple;
-	bh=2JNg4A0LfkskF8istyB/F0L1l+ZyerIIQ2JyqPUsNzE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bP7ILio8gsnY4Qqhxc1zrG/ejvKhbXXbePULf1IKTiyqBRM3p0z7XrrRcm06WYk57XXa86tt20n6bWbWC4t0eiiIim6m7MUTRY8OrcwQOHmOD2xE5nV9IaT3V/TmO5gyxVtkBKIdxCiuFnvhc84X0AB4YSQRlq0zQxsB7N6dmC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q7i9jHFh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778957299; c=relaxed/simple;
+	bh=koZzu9qegl+yA6HJQumUETob9pvN+7fnQkECzRo0yzU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rQ/ZX7XI5Ha2cskLCJGViho3xSmqVc6Bhn3SzJ0ALydv1L/PMnp3erQs9rVUoo7fgtk2EiUY81NSl2Sm+Pcx7DPOdYgOiSkea1fbBjs0eZeYnaZj6AMfqSlsxjwyy74d1Ka/OsxRgTvVkjV+NhkNH9t9A4xs45JRVf6xzYzlXyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ru9BPIu0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q7i9jHFh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2F2C19425;
-	Sat, 16 May 2026 18:37:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ru9BPIu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE691C19425;
+	Sat, 16 May 2026 18:48:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778956625;
-	bh=2JNg4A0LfkskF8istyB/F0L1l+ZyerIIQ2JyqPUsNzE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=q7i9jHFh5rl/fqFStqwepxH6YU7OVtmMAjDqP8aCDskEXpcS17upH1Y0DoX87ryEx
-	 D3eNqFOSiGmqOIaosjDWGAyXOcDjsgBVWEkr7kKEBjpj74c94EovD50/y3G+PggQgh
-	 hcoZGs4+KwQMkbatlD0Lo5UIAmQ7syjgKUPs2Eh7I5Nwz2y6KJinkw+I0uTUbx+LjY
-	 7Vo7Y7CLzR/yNk1h8vVTBFwYH+auo1Gs2ki/EevSiaBlcWJftZnIRwldnbFtFJR7bH
-	 +UozuIMlgLQ4lMaHQOf/q7Uaw7kaJ+EpIkRNlxdNO2KkjsEvApOXtQGMkPp8DtvpAW
-	 b82GR0+Yhn6iQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: timer: econet: Update EN751627 for
- multi-IRQ
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260516182648.3987792-2-cjd@cjdns.fr>
-References: <20260516182648.3987792-2-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 May 2026 18:37:04 +0000
-Message-Id: <20260516183704.EC2F2C19425@smtp.kernel.org>
+	s=k20201202; t=1778957298;
+	bh=koZzu9qegl+yA6HJQumUETob9pvN+7fnQkECzRo0yzU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ru9BPIu0QchNJezGP19SrdGoGGZ7hn/s2L6pGkr0PD0PGdV6KOZMhDNN+fUYJ/wGW
+	 egMr+fwD5FpfuDkGjU7mYV7zAyqzMHaevA6W2PkxsIbslXsqDAn7Ag0ggqrlTnAkal
+	 tE4nH4bXRvbaMNc1pRZc2iEuNk77jJlZCsxhQqxT9R+FOqVCCWvKcNFEpqfKseEoRJ
+	 uZF8gKkggNOTaBpUCUe9Gw1CZlcx6TKZNxPT3xS7qaNdtWTS12YU74RJ2sB+o0kNCp
+	 t7m3QRgXcdHdqcMhOScHfmXWGfs5ByIM9oagx10sZ5LD2hV5McvFJA+dxRVi8nFYHM
+	 V/wKTc8JY7TKw==
+Date: Sat, 16 May 2026 19:48:07 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v11 3/6] iio: adc: ad4691: add triggered buffer support
+Message-ID: <20260516194807.3048d226@jic23-huawei>
+In-Reply-To: <20260515-ad4692-multichannel-sar-adc-driver-v11-3-eab27d852ac2@analog.com>
+References: <20260515-ad4692-multichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com>
+	<20260515-ad4692-multichannel-sar-adc-driver-v11-3-eab27d852ac2@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] DT Binding Example Validation Failure
---
+On Fri, 15 May 2026 16:31:32 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-commit 2aadbe8d15e40c585e5998e7532f23b02294a2a3
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+> From: Radu Sabau <radu.sabau@analog.com>
+>=20
+> Add buffered capture support using the IIO triggered buffer framework.
+>=20
+> CNV Burst Mode: the GP pin identified by interrupt-names in the device
+> tree is configured as DATA_READY output. The IRQ handler stops
+> conversions and fires the IIO trigger; the trigger handler executes a
+> pre-built SPI message that reads all active channels from the AVG_IN
+> accumulator registers and then resets accumulator state and restarts
+> conversions for the next cycle.
+>=20
+> Manual Mode: CNV is tied to SPI CS so each transfer simultaneously
+> reads the previous result and starts the next conversion (pipelined
+> N+1 scheme). At preenable time a pre-built, optimised SPI message of
+> N+1 transfers is constructed (N channel reads plus one NOOP to drain
+> the pipeline). The trigger handler executes the message in a single
+> spi_sync() call and collects the results. An external trigger (e.g.
+> iio-trig-hrtimer) is required to drive the trigger at the desired
+> sample rate.
+See below. Sashiko noticed an issue.
 
-dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+Note that I think the vast majority of what it came up with for this
+version is garbage. Not this one though.=20
 
-This commit updates the EN751627 timer binding to describe its use of an
-individual IRQ per timer (4 total) compared to the single percpu IRQ used
-by the EN751221 family. The constraints and example are updated accordingly.
+For manual mode you still register a trigger and attach it.
+That trigger never fires...
 
-> diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-time=
-r.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> index c1e7c2b6afde1..16f32741473fe 100644
-> --- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> +++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+I suspect it appears to all work because you just set the trigger
+for manual mode before enabling it. However makes more sense to not
+register the pointless trigger.  Just a bit of code reorg probably
+to fix this.
 
-[ ... ]
+One other thing inline from the other other sashiko bit that was 'nearly'
+right.
 
-> @@ -52,21 +53,31 @@ allOf:
 
-[ ... ]
+>=20
+> Both modes share the same trigger handler and push a complete scan =E2=80=
+=94
+> one big-endian 16-bit (__be16) slot per active channel, densely packed
+> in scan_index order, followed by a timestamp.
+>=20
+> The CNV Burst Mode sampling frequency (PWM period) is exposed as a
+> buffer-level attribute via IIO_DEVICE_ATTR.
+>=20
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 
->  examples:
->    - |
-> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
->      timer@1fbf0400 {
-> -        compatible =3D "econet,en751627-timer", "econet,en751221-timer";
-> +        compatible =3D "econet,en751627-timer";
+> =20
+> +static int ad4691_setup_triggered_buffer(struct iio_dev *indio_dev,
+> +					 struct ad4691_state *st)
+> +{
+> +	struct device *dev =3D regmap_get_device(st->regmap);
+> +	struct iio_trigger *trig;
+> +	unsigned int i;
+> +	int irq, ret;
+> +
+> +	indio_dev->channels =3D st->info->sw_info->channels;
+> +	indio_dev->num_channels =3D st->info->sw_info->num_channels;
+> +	indio_dev->info =3D st->manual_mode ? &ad4691_manual_info : &ad4691_cnv=
+_burst_info;
+> +
+> +	trig =3D devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
+> +				      iio_device_id(indio_dev));
+> +	if (!trig)
+> +		return -ENOMEM;
+> +
+> +	trig->ops =3D &ad4691_trigger_ops;
+> +	iio_trigger_set_drvdata(trig, st);
+> +
+> +	ret =3D devm_iio_trigger_register(dev, trig);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "IIO trigger register failed\n");
+> +
+> +	indio_dev->trig =3D iio_trigger_get(trig);
 
-Does this updated example fail dt_binding_check validation?
+One place here where I think sashiko may have a point... You register a tri=
+gger
+for manual mode.  What actually makes it fire as the only code that calls
+iio_trigger_poll() is in the irq that isn't registered in this path.
 
-The example changes the compatible property to a single string, removing the
-fallback to "econet,en751221-timer". This correctly reflects that the two
-hardware variants have incompatible interrupt topologies.
 
-However, it appears the properties definition for compatible in this schema
-was not updated. If the schema still requires "econet,en751627-timer" to be
-part of an array with the "econet,en751221-timer" fallback, this single
-string example will not match the expected array schema.
 
-Should the compatible schema definition be updated to allow
-"econet,en751627-timer" as a standalone string?
+> +
+> +	if (st->manual_mode)
+> +		return devm_iio_triggered_buffer_setup(dev, indio_dev,
+> +						       &iio_pollfunc_store_time,
+> +						       &ad4691_trigger_handler,
+> +						       &ad4691_manual_buffer_setup_ops);
+> +
+> +	/*
+> +	 * The GP pin named in interrupt-names asserts at end-of-conversion.
+> +	 * The IRQ handler stops conversions and fires the IIO trigger so
+> +	 * the trigger handler can read and push the sample to the buffer.
+> +	 * The IRQ is kept disabled until the buffer is enabled.
+> +	 */
+> +	irq =3D -ENXIO;
+> +	for (i =3D 0; i < ARRAY_SIZE(ad4691_gp_names); i++) {
+> +		irq =3D fwnode_irq_get_byname(dev_fwnode(dev),
+> +					    ad4691_gp_names[i]);
+> +		if (irq > 0 || irq =3D=3D -EPROBE_DEFER)
+> +			break;
+> +	}
+> +	if (irq < 0)
+> +		return dev_err_probe(dev, irq, "failed to get GP interrupt\n");
+> +
+> +	st->irq =3D irq;
+> +
+> +	ret =3D ad4691_gpio_setup(st, i);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * IRQ is kept disabled until the buffer is enabled to prevent
+> +	 * spurious DATA_READY events before the SPI message is set up.
+> +	 */
+> +	ret =3D devm_request_threaded_irq(dev, irq, NULL,
+> +					&ad4691_irq,
+> +					IRQF_ONESHOT | IRQF_NO_AUTOEN,
+> +					indio_dev->name, indio_dev);
 
->          reg =3D <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
->          interrupt-parent =3D <&intc>;
-> -        interrupts =3D <30>;
-> +        interrupts =3D <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
->          clocks =3D <&hpt_clock>;
->      };
+Sashiko was moaning about something different but it made me look at this.
+The irq handler her calls iio_trigger_poll but in a thread.
+Either that should be a top half (so dev_request_irq() with flag to force
+no threading) or should be iio_trigger_poll_nested()
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516182648.3987=
-792-1-cjd@cjdns.fr?part=3D1
+I'm not sure why you weren't seeing a warning on this.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_iio_triggered_buffer_setup_ext(dev, indio_dev,
+> +						   &iio_pollfunc_store_time,
+> +						   &ad4691_trigger_handler,
+> +						   IIO_BUFFER_DIRECTION_IN,
+> +						   &ad4691_cnv_burst_buffer_setup_ops,
+> +						   ad4691_buffer_attrs);
+> +}
+
