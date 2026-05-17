@@ -1,107 +1,88 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE713CAE73
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7103C4B8A
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779040132; cv=none; b=pJFis93tMttePqRoS8VZJUqHtaLoOTu/wCbAjlbNFwmjA5MtU+fbYBQ7EXvZLMBjKeUy30INEawJFl5EKFIOz70OMD8FEzZ1Sw/BLhZlHfuRLJSwdcncWjOw6NoUAFnghWnfqgs7s5baG4his44585egjCJii7qFLa5CgIVS9DM=
+	t=1779040483; cv=none; b=j7dtWe3Awm8/r5XruNtJF3HrIgwQ7GyVY8Q/oJfyMoXhBN61vjO4/EVaSWl9Me5NvJBY4jTqJHuT8R/QjM7eoae6tzQ2JE9HIX3c88pIWQ69LM8Vm3A/G6Oe16R9XLKPBOOFtUs6hqbn26AdpmqrXiNmmRbL8bGK4/zSRo5Mqqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779040132; c=relaxed/simple;
-	bh=LH31HdscTScQYadkTVUyNbrfZEMAWXcUK9ZjS2AH6/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HAsQySQOeAe0tCBD+RuuxxZrE1SU9irMgKFPnzPW8Hc0XroNjd/YeRaJwoIztNYE31A9N/IAIQBBt6pTGveaJo90uhJBl75sLucgBfUt61EQcBGGKxwaA7gNAOt+tFKIaes7E03I5CDAy/1JLroR44jezyT8qCjeGdYuj4wjVOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZAx3RNV9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V6NIYEwz; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779040483; c=relaxed/simple;
+	bh=HV9+cXihAaH4KwSTsC1gpmYVeE6h/AHKaW49mEWHgB8=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dgHyTEBsbmSaiVouOpbGMfdoN87XH9QCyc5hFw69uSQKZLZbP6RFqXDEIjxs1M8sjYGzgCNfnRZnJf47R1qlaYOCYQutTq+8IONomWTJTMB1PRvYgr3W4o2s2DxLTkEQVh72zMzmczW3d95kqnBLzXh7uRDCWVHToeZqMmTg7U8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJDcSzUZ; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZAx3RNV9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V6NIYEwz"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64GLuE861779072
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:48:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lpHY7oihfb3amRFxiPEd1m3a
-	03YdGFnYGYRDDtzyi7M=; b=ZAx3RNV97QNDaeDPBm0eQJO93jOxwpMPGzb/TJah
-	dqsXoFDz51gjgpaSU8N7Qzp+AUA2My/19D6jWfO4UdtlZMVXDiUakPU1Ou3UfRaz
-	ezSxF5WpCIwrtk0hinjywm2KTy9ROpY892QaKlyHKuaSAPGfH2J36oRJZA5cC9GC
-	l0MsRguIRvO7luEi7zN1PiUnz7iddvoYHEr18Nn/7+tkGp3xaLi1kBJPfVqVfX1I
-	tnwFwth+FR6U4sMg7cpfckuxWhhE0ko3IlG6rAfQo0QcygceqSX/l51jCphWDY6X
-	vMlkZWddo7/fLJ/oFbO23EFnxIIiULneRW5J2nvgs+UpAA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gyw39yg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:48:47 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-90d6fe98316so369327685a.3
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:48:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJDcSzUZ"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-44509921fbcso757871f8f.3
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:54:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779040127; x=1779644927; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779040480; x=1779645280; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=lpHY7oihfb3amRFxiPEd1m3a03YdGFnYGYRDDtzyi7M=;
-        b=V6NIYEwz9NvzjEcbllGkLk/HclKJdR85CukSlw2AUcSGSK8ANIOkQ1ZPl+MYzlLW/j
-         5w+NQgn3eZVLc4/9bd4/bIBFz2yRUpBgu4TUUQFR5Xi2ioCbU0YdSh5pSSwyqS3o6eTS
-         bsECC9znCWMPUX66+nqx7wVducKfd03lTmOxh2XhDdlwmRpWunyxMdEIHuSqLP/a6AnH
-         kOTpx0+lYFSv5fHmdjJakztWB2XbdRZPFkLtC1RMmLBm2XFuO86U1V6+R0Z6bsZSeXWJ
-         X5W91IxsEsZ9SetFuFxJKeGb04EMZlEqDlqcQUhe2Jx4SpSvZ5c8fTtSb8xcaTcSEDNT
-         xSAg==
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=TnFwmmTG90t0fKQgEeFLZttD4NeL9fxw8K+kX1DEzbA=;
+        b=CJDcSzUZCydm54QBxUNXA+hA8oosDpavNttlf92pe5ylkavdt9zuD/uSVCsi1O9GyY
+         rCpfVm7ROr+J97t7odaTaHJHhsupkmYLyj6OBshs/YaCZrjOJtUCm1lAkcFvNV4R3yto
+         sVk4sUIsxl8FMdw1iQxsFdxtJpUJ8UBEDx9QVyDf4NvaSzm25xYfuVuc7en4tsUPKoNY
+         /Xc1/mAqn+/kQ5oUM4CFnwOfImFl3y/Q/G2mp9sPJFvwc8zWy0rxE2VJzSUQ22Td5jWT
+         kVGS502jHT+mScFwagskCd5FnVeTffQdCd/70mXdUYdo3fTaWLwB5nQBzWCWuEpIgczG
+         b7pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779040127; x=1779644927;
+        d=1e100.net; s=20251104; t=1779040480; x=1779645280;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=lpHY7oihfb3amRFxiPEd1m3a03YdGFnYGYRDDtzyi7M=;
-        b=p9xzSYWJH1xjiEMmYTV30TWXsBSHqfPPNtPKo4kugV+fkirwb71WNU28cR8CzFChua
-         Cqmm6h9ntWEAbhzEoWUugKrdmYGUXc++Jd7mo/4k3EhuMkjolS54tlTPiljn4EGTrzb4
-         c+UXmO6OyGCuz0z9mv+KqGf2/9rYvRhFyLp0sc8stZKnSX2HREpsVcZNtDz+9kSj5SPB
-         nHo+fAKfncxKo0AbwV84ROy8lhchNkEimywXjRItefnz6yGb5AGjVqzi3WGzZp2f4qfX
-         Zv2dBOfX+BYmbimhKgL7wptlclwr6IOK6Dqlt2HomHB8QTD5XcBWYW462/F4PKGK6sfL
-         LJRg==
-X-Forwarded-Encrypted: i=1; AFNElJ9q9ppJPWs4rEuOCD0BBBOzlTmGRhKGKP+XxNISsI4WRx2WEgsX/beDiLh7U6+47FgT8W7OK3GfUsXF@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxFibRmnatGVP7a+AdopFJbn7P5Vei85niIi0eIOVywr+Yhyb3
-	FrEWXWraSbG21J+KuBvh7DbzzRAv0P9h3Tp+eDquZ0iPqG/OzBKe4sEeH6VHYQ/kYaXFNJuYPLM
-	cx4/nySXG+I7mdQKKr6Kk+1ILQHeUEwpdN2Ca89Z6mPZukMjqTzaHkRXH3fA2cIYz
-X-Gm-Gg: Acq92OHaBE4NVOO67bliiC5L6vkUYXHr2yBjYgqUAxOR9JDdqrKPzglj3L+pFA3Hgmv
-	B1tmrFWZPK99326nwBmVU8MyCYagDuGoZTXDd9T5W5tuyyM0EM1kUWj5kuDIbJcWFHR5CChcpRe
-	sIuGxvLj7DfBjb1dzgC+2wWxIanVqrr62gqg0C6jCp4WEzwFi8+nuUPRWiMglOLU4KnJohLnGK7
-	sR80ov2KIjc1eCkIlnKE3gkLB/omMU4X/J5Lq6ziOooSNzjFK3xmr6snOSlOApoJDi5I4KFgt1z
-	8rr1TfxxY8NcmhS1CweEtSa4LuT2BI/807OzjBxQysv64pw31BZP8Zk5XK1CocIqu3q/EyC80zt
-	MIONuf4WzpiWNn3zMaIE1qnKPWGldrv/zHoyqsAUsEC47awwUWmshvU7pqkvczkvIw6MzcVfM2f
-	aSwFvzCj8pJ8NNO95EdwqBW9fMKjcZKrZZkD8=
-X-Received: by 2002:a05:620a:2685:b0:908:e262:52c3 with SMTP id af79cd13be357-911cef034cdmr1880920385a.46.1779040127362;
-        Sun, 17 May 2026 10:48:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:2685:b0:908:e262:52c3 with SMTP id af79cd13be357-911cef034cdmr1880915585a.46.1779040126788;
-        Sun, 17 May 2026 10:48:46 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a90f10c797sm2804811e87.8.2026.05.17.10.48.44
+        bh=TnFwmmTG90t0fKQgEeFLZttD4NeL9fxw8K+kX1DEzbA=;
+        b=HVjtQ8Fk/xOMaCehQ6m3otuf47uqaynaUY5OtjAJkVViflP1Pr1dFldD/+qGKXH7j+
+         exr7lUGvkJPXDsYcQE+jf0IJzLDrZhspOVrNWimeuT7cUi7gBmMqvYE81eZTzRvBdPp8
+         Kf7w99Y2P7985B2cgfZ7jNJe4RKPQBc2CvnhUq6ar2euMPG2+E5oe1Xl75SaEtaNphdg
+         i1Ux9huFogiQmr3nqa9Gc2524k761jcIaDRyzlWJpf0DEDh4uAqeNz0hW1ortLiyW0I5
+         Mait42GGTzUDXxM/Xk4E0p93+Pa0qWpx1V7Dd7oyZNnY8qfi468LjuQkn1eo/OjQaAb9
+         62GQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+bRTCWK/0R0QhdFfe7STIlpyZhVW+bedQ7twJTOKNBfkfwta+1++qp72u0M6yUHwZXLupFBr0C5iYH@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBojL9mqlsBLqdSJ6T1UPjXNl1CzG7FwrwSpurY021HUvwdWZv
+	laaehebfIOiktjTyrAnih/3Mr0tH5EPiwxo5QXzVc9OKT+3dsXfYzi8PuCz82rRE
+X-Gm-Gg: Acq92OEfNbPGk7AjrPr/2X3mRLPsSm15VpUV4WIGBFX+20nnN5HXHnQVc4LDypekh7N
+	vjkJb/YeYnDTTasG5riBaXRiKnpUhlrM8Ul5fS2vQxaXiFVGepksQRsXiZyDoT9XEKGWDjZITxs
+	uBhizjNTktdHpoYNC02N4hOogc1v/9HVnD3KwUW4ZBCJ3RGtDmd1EsCYM4I/XPD/EQQEQZ4iw0j
+	vfuGP8ke5AODfARhryE0jmMaUdrPzenWLE+KLU0wQFvNglWEH925etBda2RdJQIdlwEdEYS4D/j
+	YZNWQKzg5SSX+abpRWx43LqCNxLxIncSu2Y2RHrgdZs6E8pJ61G4hk4pr0JDWqtJRbc7zie+GUS
+	Ext/gWj8XGAoqbfClIZdfs1r4KjNs/1hB2FsRPj7fVmoEI40D0tdZQnhpFsE8fDMEqG/xenvpK6
+	XDxjURElALngw4jxsXX9k2F2GRZlRSa/aJMm0S3UhOQACKhnIW8c/cBitFe8+go2yy8CuxTQtE3
+	/YUPzAz3OFtaMxCCGKhvxEF2K+jrOWljVrdL8YDpr71bOAsAw==
+X-Received: by 2002:adf:f643:0:b0:45e:73b6:d107 with SMTP id ffacd0b85a97d-45e73b6d124mr3699595f8f.41.1779040480412;
+        Sun, 17 May 2026 10:54:40 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9e768bcesm32883396f8f.4.2026.05.17.10.54.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 10:48:45 -0700 (PDT)
-Date: Sun, 17 May 2026 20:48:43 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v6 09/14] media: iris: Use power domain type to look up
- pd_devs index
-Message-ID: <bh6g3vne2cnknvpeus3fmwjgyqk4ngstdn5fkvju72rd23lqey@ip2gt4hoqqmd>
-References: <20260515-glymur-v6-0-f6a99cb43a24@oss.qualcomm.com>
- <20260515-glymur-v6-9-f6a99cb43a24@oss.qualcomm.com>
+        Sun, 17 May 2026 10:54:39 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Sun, 17 May 2026 18:54:34 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
+	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v4 10/10] docs: iio: add documentation for ad9910
+ driver
+Message-ID: <lydcfe6pxgswwysqqnn3mqjwj2b2x3ldcnvwhnbh5tukdummps@f4b3h4kpf7ff>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+ <20260508-ad9910-iio-driver-v4-10-d26bfd20ee3d@analog.com>
+ <b8f9a174-f3d0-4cb8-a571-605be79165d6@baylibre.com>
+ <zvulxrrvg4sf7m5pjfpfucg7yssgallfu6zi6mcyblu2qy24hn@wdzs7h77vkoz>
+ <18c2eab9-c0c7-4e93-b4e8-73b18531e784@baylibre.com>
+ <uphcx5zr4lmukuom75g66hp4agurty7yq6mo6ri6otrsscqfek@tn3u5jjszaoy>
+ <5bce7868-feca-4c54-a14d-ad4bf4072c29@baylibre.com>
+ <20260517164418.37f13914@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -110,135 +91,171 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260515-glymur-v6-9-f6a99cb43a24@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDE5MiBTYWx0ZWRfX4WFWARt+bAKO
- f03beJXNhAb3EsJSW7MbbyVOrhFZkZ1jhnPv/Jbm7nuKm4OzR5dZjoPegN6N1B6JYNueonB6UYn
- CTa3d8D2p0wdXxIv0Q9V+m7mbT7Fo7WgBOw1tJZ0feJdASnWQjcnfq9jLXd6XGN/Z1Wsna6uizt
- rRpvPnDF3/sn+L6lPUGUKjyqReePzgx1iFWPXuqgotR7wkF7WJphJV2qOi9raNjeysLJScuIEvL
- u11+gao/xkGhb8Pe8n19CJul3prtiTpz9I5BO1m57JmZRm9jKgFUpwhUbEPBKwP4fT2Cld3506X
- wFiDFP9ob6nnTy4cmASNFSGxkPbqBzVU/AdeDr/pMNrz4igHNI9Ag9kn/45POJcA1b2lCH3dfz2
- leb30LdYz5Y+ZSezUeKAFl0lsoQrRhuVXxjbXBlrva1ioGUe+JUeSdhoCVYGinhj3YyYHyRVwTz
- LYgE9etoiBkQJHLv9hw==
-X-Proofpoint-GUID: 3NBY45naFTTt5UI4FWu3A0erlIpdMDTm
-X-Proofpoint-ORIG-GUID: 3NBY45naFTTt5UI4FWu3A0erlIpdMDTm
-X-Authority-Analysis: v=2.4 cv=E5v9Y6dl c=1 sm=1 tr=0 ts=6a09ff80 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=wVukXIzjBZceI6JPWPsA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-17_04,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 adultscore=0 spamscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605170192
+In-Reply-To: <20260517164418.37f13914@jic23-huawei>
 
-On Fri, May 15, 2026 at 04:51:24PM +0530, Vishnu Reddy wrote:
-> The pmdomain_tbl was a array of strings holding only the power domain
-> names. Callers had to pass a pd_devs[] pointer indexed directly by the
-> platform_pm_domain_type enum value to iris_enable_power_domains() and
-> iris_disable_power_domains().
+On 26/05/17 04:44PM, Jonathan Cameron wrote:
+> On Mon, 11 May 2026 10:23:35 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
 > 
-> A future platform may need to introduce a new enum value that aliases
-> an existing one (e.g. IRIS_VCODEC1_POWER_DOMAIN aliasing the
-> IRIS_VPP0_HW_POWER_DOMAIN on Glymur), which would break the assumption
-> that enum values map 1:1 to pd_devs[] indices.
+> > On 5/11/26 10:02 AM, Rodrigo Alencar wrote:
+> > > On 26/05/11 09:46AM, David Lechner wrote:  
+> > >> On 5/10/26 4:30 AM, Rodrigo Alencar wrote:  
+> > >>> On 26/05/09 06:42PM, David Lechner wrote:  
+> > >>>> On 5/8/26 12:00 PM, Rodrigo Alencar via B4 Relay wrote:  
+> > >>>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > >>>>>
+> > >>>>> Add documentation for the AD9910 DDS IIO driver, which describes channels,
+> > >>>>> DDS modes, attributes and ABI usage examples.  
+> > >>>
+> > >>> ...
+> > >>>  
+> > >>>>> +       must be a power of 2.
+> > >>>>> +
+> > >>>>> +   * - ``frequency_offset``
+> > >>>>> +     - Hz
+> > >>>>> +     - Base FTW to which scaled parallel data is added. Range :math:`[0, f_{SYSCLK}/2)`.
+> > >>>>> +
+> > >>>>> +   * - ``phase_offset``
+> > >>>>> +     - rad
+> > >>>>> +     - Base phase for polar modulation. Lower 8 bits of POW register.
+> > >>>>> +       Range :math:`[0, 2\pi/256)`.
+> > >>>>> +
+> > >>>>> +   * - ``scale_offset``
+> > >>>>> +     - fractional
+> > >>>>> +     - Base amplitude for polar modulation. Lower 6 bits of ASF register.
+> > >>>>> +       Range :math:`[0, 1/256)`.
+> > >>>>> +  
+> > >>>>
+> > >>>> I guess there was some discussion on these attributes. I see some of these in the
+> > >>>> ad9832 driver in staging, but I'm guessing they are new ABI. It isn't clear to
+> > >>>> me from the documentation here what they actually do though. I guess they are
+> > >>>> just basic transformations on the input signal?  
+> > >>>
+> > >>> Not sure how the ABI is not clear:
+> > >>>
+> > >>> 	For a channel that allows amplitude control through buffers, this
+> > >>> 	represents the value for a base amplitude scale. The actual output
+> > >>> 	amplitude scale is a result with the sum of this value.
+> > >>>
+> > >>> So yes, it is a basic transformation.  
+> > >>
+> > >> I didn't have time to read the ABI docs yet. For scale_offset though,
+> > >> how is that different from the existing offset attribute?  
+> > > 
+> > > I suppose that existing offset ABI is applied to (raw * scale), mostly for
+> > > voltage channels, here the scale_offset is an offset to the scale itself.  
+> > 
+> > 
+> > Ah, so a very general case would be (raw * (scale + scale_offset)) + offset
+> > 
+> > when the scale can change as a function of time and comes from an external
+> > source.
+> Ah. Similar question to what I was commenting on.  Though maths is currently wrong
+> for normal offset application as it is pre scale.
 > 
-> To fix this, replace the string array with a new struct platform_pd_data
-> that pairs each power domain name with its platform_pm_domain_type. Add
-> a helper iris_get_pd_index_by_type() that walks this table and returns
-> the correct pd_devs[] index for a given type.
 > 
-> Update iris_enable_power_domains() and iris_disable_power_domains()
-> to accept a platform_pm_domain_type instead of a struct device pointer.
-> They now call the helper internally to resolve the index, removing the
-> need for callers to do the index lookup themselves.
+> 	(raw + offset) * scale is normal case.
+> This is proposing (I think)
 > 
-> This prepares the driver for adding new platforms where power domain enum
-> values cannot be used directly as pd_devs[] indices.
+> 	(raw + offset) * (scale_offset + scale)
 > 
-> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  .../platform/qcom/iris/iris_platform_common.h      |  9 +++-
->  .../media/platform/qcom/iris/iris_platform_vpu2.c  | 18 +++++---
->  .../media/platform/qcom/iris/iris_platform_vpu3x.c | 24 ++++++----
->  drivers/media/platform/qcom/iris/iris_probe.c      |  4 +-
->  drivers/media/platform/qcom/iris/iris_resources.c  | 43 +++++++++++++++++-
->  drivers/media/platform/qcom/iris/iris_resources.h  |  6 ++-
->  drivers/media/platform/qcom/iris/iris_vpu3x.c      |  7 ++-
->  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 52 ++++++++--------------
->  drivers/media/platform/qcom/iris/iris_vpu_common.c | 23 +++++-----
->  9 files changed, 115 insertions(+), 71 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index 07cc0ce25b84..1d757cb8e9e1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -70,6 +70,12 @@ struct platform_clk_data {
->  	const char *clk_name;
->  };
->  
-> +struct platform_pd_data {
-> +	enum platform_pm_domain_type *pd_types;
-> +	const char * const *pd_names;
-> +	u32 pd_count;
-> +};
-> +
->  struct tz_cp_config {
->  	u32 cp_start;
->  	u32 cp_size;
-> @@ -270,8 +276,7 @@ struct iris_platform_data {
->  	unsigned int icc_tbl_size;
->  	const struct bw_info *bw_tbl_dec;
->  	unsigned int bw_tbl_dec_size;
-> -	const char * const *pmdomain_tbl;
-> -	unsigned int pmdomain_tbl_size;
-> +	const struct platform_pd_data *pmdomain_tbl;
->  	const char * const *opp_pd_tbl;
->  	unsigned int opp_pd_tbl_size;
->  	const struct platform_clk_data *clk_tbl;
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> index 41986af8313b..bcf873829fd3 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> @@ -62,7 +62,17 @@ static const struct icc_info iris_icc_info_vpu2[] = {
->  
->  static const char * const iris_clk_reset_table_vpu2[] = { "bus", "core" };
->  
-> -static const char * const iris_pmdomain_table_vpu2[] = { "venus", "vcodec0" };
-> +static const struct platform_pd_data iris_pmdomain_table_vpu2 = {
-> +	.pd_types = (enum platform_pm_domain_type []) {
-> +		IRIS_CTRL_POWER_DOMAIN,
-> +		IRIS_VCODEC_POWER_DOMAIN,
-> +	},
-> +	.pd_names = (const char *[]) {
-> +		"venus",
-> +		"vcodec0",
-> +	},
-> +	.pd_count = 2,
-> +};
+> Altvoltages are a little odd though in that we are really always kind of dealing
+> in scales as it's the peak voltage that is the base unit. So they are kind
+> of always about scale - hence for such a single offset would be shifting the
+> mid voltage point which I guess is different form scale_offset.
 
-I still don't think it is a good idea. You are using these lookup and
-indirection to make _platform_ code take care about _platform_
-specifics by the price of complicating the core and the core structures.
+As mentioned in the previous patch, I'd say we don't handle voltages in altvoltage
+channels because voltage values depends on external circuitry and they vary with
+frequency. Scale control is often achieved with hardware_gain in dB, but the
+dB scale would not be good to achive the 32 bit control of the "raw" values.
+Then, here it is implemented from 0 to 1.0, where 1.0 is the full scale.
 
-Instead it looks like it's time to push power domain handling to
-platform code and then hopefully drop all IRIS_foo_POWER_DOMAIN enums.
+> 
+> Hmm. Not sure I can draw this but i'll give it a go...
+> 
+> So with no modulation going on and scale = 2.0, Raw 1000. 
+> (imagine these are sign waves)
+> 
+>   _         _       _ 2V
+>  / \       / \
+> /___\_____/___\___  _ 0V
+>      \   /     \
+>       \_/       \__ _ -2V
+> 
+> That is sine wave -2/2V swing.
+> 
+> Now if scale or voltage double it get twice as big.
+> 
+> If offset + 100
+> 
+>   _         _       _ 3V
+>  / \       / \
+> /   \     /   \   
+> _____\___/_____\___ _ 0v
+>       \_/       \__ _ -1V
+> 
+> Scale offset at this point seems straight forward.. Gets more fun when it's modulated.
+> 
+> For now apply a scale offset of -1 and scale becomes 2 - 1 == 1. 
+>   _         _       _ 1.5V
+>  / \       / \
+> /   \     /   \   
+> _____\___/_____\___ _ 0v
+>       \_/       \__ _ -0.5V
+> 
+> So for simple case we could just role it into scale. However the fun here
+> I believe is that _scale is controlled by say a ramp generator.. 
+> 
+> Ok. I can't really draw this.. Lets try with xs
 
-I'm pretty sure that the clocks would also need to follow that approach.
-There should be no need to bother the core code to introduce the
-platform-specific clock type. It all needs to be handled in the
-platform callback and platform-specific data structures.
+The ramp pattern would be the envelope of the actual varying signal.
 
->  
->  static const struct tz_cp_config tz_cp_config_vpu2[] = {
->  	{
+> 
+> Initial scale 1, ramping to 2 over a couple 1ish cycles, offset 1.  That is
+> computed sale is going from 2 to 3.
+>                    Peak 3
+> ____________________________ 3V
+>     Peak 2.33         xx
+> ______x_______________xx____ 2V 
+>      xxx             x  x
+>    xx   x            x
+>  xx      x          x
+> x_________x_________x_______ 0V   
+>            x       x 
+>             x      x
+>              x    x
+> ______________x__x__________ -2V            
+> _______________xx___________ -2.5
+>                 Peak 2.67
+> 
+> Key being really where this starts which is scale_offset = 1 rather than starting
+> ramp from scale of 0.
+
+yeah... that makes sense. Note that scale_offset ABI is defined generically, but
+it is proposed for the parallel port mode with polar as destination. That is needed
+because the amplitude is defined by the 6-bit offset (LSB) plus 8-bit input (MSB) that
+would come from the buffer.
+
+> Having drawn these I'm even less clear in my head on whether we can move from
+> expressing that scale_offset and scale_roc in volts  - i.e. not as scales
+> or not.
+
+Yes, I'd say volts is not the right unit to use here. We may have the options:
+- raw values
+- fractional or proportional values from 0 to 1.0 (the one I am using here)
+- dBFS
+
+> Given need for separate control for overall mid point of waveform and the
+> starting point of scaling I think not.  Ah well.  The challenge will be
+> how to makes sure folk looking at the ABI can understand the complex
+> interactions of all these parameters. We may need some extra docs with
+> better diagrams than above.
+>               
+> Jonathan
+> 
 > 
 
 -- 
-With best wishes
-Dmitry
+Kind regards,
+
+Rodrigo Alencar
