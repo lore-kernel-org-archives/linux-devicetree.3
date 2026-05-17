@@ -1,95 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3848E2FBDFD;
-	Sun, 17 May 2026 10:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FF8357D1A
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779012363; cv=none; b=KhUyUczOMGhNMFZa24wWm52heaA/DGwFeUSwWMEMfCVxacz58utT6nxQtPgSvw7P8hi+/hVMsDNOkLSxqxd8Cr74zWYownyfCnRiHQOKPKC69cCN02l5F6npURQLrqEl5zdkZQYNeebLmxu+I6ihACad/38Anl5eJwlUfhHFWUA=
+	t=1779012575; cv=none; b=HL8B0igY3ETqIrq00pcILvxsQULzLEYqYxUNDQa9EHjmDzwDX4Wei0ALr6ztE2RzmRz0EtZmTWvBb8i8R1kCS25VqgJdLdnTlN927zYpTJn9RRWVgpeYu2p8e/aD55VXrKMMiNkyx63uKZFT1TQrSKmcyYlu66ZqtzFBha2a3uE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779012363; c=relaxed/simple;
-	bh=5ZcF1iuhgpZRaRKi7D1apExht7Ot8MG/oztV7oYXe9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mLE2oOJ+LhbpjKdns1henkkqmoSJukqAWqHnPiN5iggRql/gy771VW212Ut6p/HuQVcgJ9HwEZjQVqQ8EGTcYw9a670RyQqhuSpP3QplCxHEM5qXWejNzhimWEs4Gkrg6g2CqS1gQywA5ha8QgFLBnLa15OkV1CRfF+IR264CtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MDVg3qoJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779012575; c=relaxed/simple;
+	bh=F5vNZAymUdgzsQpw5kF6/hbqKevS0z8VrSXy0ZQ5xxM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=FO6/vSbDH0wGPhMvTfgeeuUvATMUYoJR9kLNLRmJThsRcJS5fCf3urC5+9r55+Kzh3MuIRrbEtXXmi8Rnl5MNi6H18x63mHFcGJPK2LqqW1XmqlMbqm8oyIz0YLTmF0XWYgBF+JTTagWACTGiQaB4nan4ke7DczAr+aOu6G9uVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cIvOeCuE; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MDVg3qoJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C681DC2BCB0;
-	Sun, 17 May 2026 10:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779012362;
-	bh=5ZcF1iuhgpZRaRKi7D1apExht7Ot8MG/oztV7oYXe9o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=MDVg3qoJmQolGF3qv8e+DTjWdIoPIuOIWrNd1h6lz/O2/q2QD3Ndnhv7vJkwowq+/
-	 KwDTIwGleJ4Y8xgCiGxwq+VSeqSHKgxxdqBXC3KSOc+qKCfQ8s+YMCXEJKT0pN74gI
-	 ZqwJJzF4m2G0v7z0/DCYwIzI8x1KzEXCpPqfZ/I/EHzoSWR+XEw1m2y0g/k2rWOcyt
-	 tc5NPxuEptZgYNGsKKtrzf52ykxVaYwmwhu1udihj2IAjvN1g0xL3M6r+WXjvcGAxL
-	 atxCZ7VYsIRx7255P1PiReRzHSdlZ6YWyGEJ4DotKLTAbSg9TUD1FpuVF0OXNojurV
-	 ACCQoRblK2SCg==
-Date: Sun, 17 May 2026 12:05:56 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, debarbos@redhat.com, Arnaldo
- Carvalho de Melo <acme@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Konstantin Ryabitsev <mricon@kernel.org>, Guenter Roeck
- <linux@roeck-us.net>, sashiko-bot@kernel.org,
- sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev, Linux Kernel
- Workflows <workflows@vger.kernel.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, devicetree@vger.kernel.org,
- kfree@google.com
-Subject: Re: Stop false review statements
-Message-ID: <20260517120556.248852d8@foz.lan>
-In-Reply-To: <07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
-References: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
-	<07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cIvOeCuE"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-43d7e23defbso587098f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 03:09:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779012572; x=1779617372; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=VNJLSUKdFxTUDMe2tzuMJwTcJLUa59qTrANJUI4DYPc=;
+        b=cIvOeCuEeBtYpTQBF1+OJQxkUFRoKofOGUKfsHS7raDsdy55q1UpH1l133LHEgGse1
+         0Zpnh3PUJWieuJtzbo14CrENn0+Ezg6zfGhRBbkXq9IK4OctuOAxhb7UcgHUgfho17fT
+         bfrjmcZs5qashKAQb03PfL4/iwZTFV6Uu7ykwfQhu0rm+YwGEND+ikKVmV1rsyynxgMa
+         ZDFiDO23uPN1W5/ddZJaLXLDuLp15b8qkOnLiizeOhTroqDg0O3EjYNj/5S7LaJDz8Vt
+         rbxeMWiCocV3H9pqepjXnPAHjLmCcWG74liAx1yfhFHi1cN2O/apmnd6ahNN1lLKvtfa
+         xqmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779012572; x=1779617372;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VNJLSUKdFxTUDMe2tzuMJwTcJLUa59qTrANJUI4DYPc=;
+        b=lSrDmt91nJTX8GYph1R2KNLyyOoc8ePfoZEKEnMkf9rIvr/WG+7h1JxBbzq9D+XTUG
+         ND3hwPIkLhgMuqMGNli6f/VD0wXf3jqUgAjnTj8EbPw4oMBPk7BpY6oYH2hRB4SV3iML
+         8xkrBsI+nVA3BMtI2Ksamk90W2O2Aa58jDYvYp1Ao8Zr3dBr6/KliU5uZlZjTkEsTzQS
+         IqaEc8swGH4C3IqQUbtYfQtBkumpSd6cYMFnJPU0mCR5MTq9R2d++suR1bMwTI03Nvkn
+         pdkI/ycUC7cXh/PhrS+mOWKv0zrb3TYPn8hqoKkWO3wv6kshYB5WemgCizqHcyL+HHbZ
+         Ockw==
+X-Forwarded-Encrypted: i=1; AFNElJ8w3DUoU3Y+DhHeEkFnj4Zk09xZl0nk6FP8T0NlZnW/hEq0mUajaPHezcHrcXwc/Ua0w35GpQHH9bp9@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhAoz8uLpBFuUShYTXcMIIvFTGLH7o6ahIIVUX4RpueWWCHvNS
+	lMUriYhVu/hvMziPwliid4VMGNqIjvkqqHRyX+6b8MpnvCnQgno4ZkY=
+X-Gm-Gg: Acq92OEB1KpfY4X0j6yim35J6HL0Coz3BNuGzPp2MseSWY6Qe+3Ew9bzlKOx9L+LURB
+	ATc18TCV0EfqfAuyLnu0NmCEdJ2CTUXBC0UziyrqCzp8/SGOE0EmsqGFCjEd7uYob0lvyub2qaL
+	5lQdxjD5pfgszYjTc/JA663r5Ji5Qv9zFD5WSqCLCFLNeu2f2Fv3o+YmTMC7aI/cqcW9AES9MSA
+	LUEprIuAtQzHtXRCQ2H8/OxSrFcRdGJUuk63R0IhnS2cdHtkiX+cN0pociKirBhZTgcnC5gCskY
+	YP673tBlW3fZvcfpgKlcCgkZiu/aK2HzyrCjReU4ihzHPeCrN1ly0kMxCOC78Qtzx512eDao6Vy
+	bbvF4NewJPW4/dQwYE4FgGROiHUXB1nYnKm/yEBqXYfx83F6Jpqvr4UjPpdJiXGWU7D08enSamr
+	Wmk26Zi/elQCYviQai7ajR7iEhjshXGpiQdCGPd8S+a9XRrr8hZqqwRyAbdZjY2U6iQ9t+RJIe7
+	UirulxaE5+CEV0hWGSLmCrd8lS9Cge/X1a1dPJon2O0TTyMzYJbyOadQjtc593hLkjwcqfypYxs
+	2TYV
+X-Received: by 2002:a05:6000:22c5:b0:43d:6f0f:32fe with SMTP id ffacd0b85a97d-45e5c6049acmr15219684f8f.31.1779012572096;
+        Sun, 17 May 2026 03:09:32 -0700 (PDT)
+Received: from ?IPV6:2a01:cb08:52d:7400:bbd7:ca83:de4a:f625? (2a01cb08052d7400bbd7ca83de4af625.ipv6.abo.wanadoo.fr. [2a01:cb08:52d:7400:bbd7:ca83:de4a:f625])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0a178adsm30260076f8f.18.2026.05.17.03.09.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 17 May 2026 03:09:31 -0700 (PDT)
+Message-ID: <78d5673f-beb9-40ae-84f1-2cf5224394db@gmail.com>
+Date: Sun, 17 May 2026 12:09:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt: arm64: qcom: sc8280xp-blackrock: amend usb0-sbu-mux
+ enable gpio
+From: =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+References: <20250609-blackrock-usb0-mux-v1-1-7903c3b071e4@oldschoolsolutions.biz>
+ <25464c46-4576-4411-a7a0-4ad950605ad5@gmail.com>
+Content-Language: en-US
+In-Reply-To: <25464c46-4576-4411-a7a0-4ad950605ad5@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, 16 May 2026 14:59:44 -0700
-Roman Gushchin <roman.gushchin@linux.dev> wrote:
 
-> > On May 16, 2026, at 2:33=E2=80=AFPM, Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
-> >=20
-> > I find it opposite: clogging commits with useless information, because
-> > some arbitrary and completely closed-source tool did analysis means
-> > nothing to me one year later when I look at the commit in the Git histo=
-ry. =20
->=20
-> This is simple not true: Sashiko is fully open-source, under Apache 2.0 l=
-icense
-> and the code belongs to LF.=20
 
-> Yes, the instance behind sashiko.dev is using
-> Gemini 3.1 Pro LLM, which is not open-source, but it=E2=80=99s not a fund=
-amental limitation -=20
-> Sashiko is supporting various LLMs, including open models - it=E2=80=99s =
-just a practical
-> choice: to my knowledge the quality of open models is not on par with fro=
-ntier closed
-> models=20
+On 5/17/26 12:03, Jérôme de Bretagne wrote:
+> On 6/9/25 22:53, Jens Glathe wrote:
+>> The usb0 port didn't switch to dp altmode, investigation into DSDT
+>> UCS0 device resulted into GPIO 100.
+>>
+>> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> 
+> Tested:by: Jérome de Bretagne <jerome.debretagne@gmail.com>
 
-I would very much prefer using an open source LLM, even if not in pair=20
-with latest paid models.
+Sorry for the typo, I meant:
 
-> and it would require a non-trivial amount of hardware and infrastructure =
-to run
-> an open model at the required scale.
+Tested-by: Jérome de Bretagne <jerome.debretagne@gmail.com>
 
-IMHO the best would be to have them running on some infra that would accept
-open source models (*). If there aren't enough resources to have our own
-infra, there are offers out there which allows running open source models
-like https://ollama.com/pricing (I never used myself).
+> 
+> The same issue was impacting the other sc8280xp-based model from
+> Microsoft, which is sharing an almost identical board:
+> 
+> The top USB-C port (usb0) didn't switch to DP alt mode, as reusing the
+> same GPIO 101 as on the SC8280XP CRD or Lenovo ThinkPad X13s was not
+> working on the Surface Pro 9 5G (arcata) either.
+> 
+> Switching to GPIO 100 fixed the issue on arcata as well, to finally.
+> enable external screen when using the left-side top USB-C port. I
+> will send the fix for the Surface Pro 9 5G as part of a series
+> fixing various issues and limitations in its initial device tree.
+> 
+> Thank you,
+> Jérôme
+> 
 
-(*) For instance, Qwen3.6 is brand new and licensed under apache-2.0.
-    Not bad on my tests running it locally.
-
-Thanks,
-Mauro
