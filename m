@@ -1,61 +1,103 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5385271A6D;
-	Sun, 17 May 2026 20:58:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900EC2FB97B
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 21:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779051503; cv=none; b=YCRG8yNXABoYYVHa7wNNUpcb6pgr8K1Qgq4PwHV5udiX3vUh+XYGLEEfVfCz1ekdd8dI1YL+ZqWGpH+4URphs9/fNsJXlNcYPRuznOjwi6bX/LdHcGf9udm355ku99lpUXbJCutlhQNA05iQvqDbl2NvOGIFOgZd+PcgbmlLDIo=
+	t=1779051788; cv=none; b=lf331e8e5r04YWNxPs++4Ek47PX9L/tktppRJZnQ5mAnlQTcXPtuYmYZRPbI88qFUFNxAEeQ/dePuJvq6CAxns1FcLC6TroZMyCa/HBzmKde8059BUu3Ey/F5txPAsNV341Tav7aNZQUnrIhfBAwSNGag1M6QMKK3xBD3BLx+JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779051503; c=relaxed/simple;
-	bh=8YdDtosc2yuBrzAdShLNX5Aura5/QzNzsydkW/hbS2I=;
+	s=arc-20240116; t=1779051788; c=relaxed/simple;
+	bh=NoGjoz7ljns+CMqTGt667ziDj0pK8O6jA7MO1n0+ZUk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=To7zqGtw9qA2xaAEEt5zEVjFZGlH0qTV9SMs7gaDQfcwrPc69O5oTqs2TEeMifzq5U0yf8VUapTnWMAtNrLr87XzZn+dvPhPz7JPNCw0/xzItc0oSeqxkM/DpbLHF2ima065E4ENYfmsLEifL454omrQlDhaMFiO+aIzNraSG6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FeT4EohV; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=pKAOZfOm3teA9ONmwqfyjJcJGBAUkZ1g0BRl+RrlHvw38HnlTRABBtB3G7kbRk+3QX7mnGkGQVR9GgRkgQI4aQGShhP3RIWIzCsKsXz/HRPhfY9kE0rHG3UYbgfSVpOWo0W+OSp5nDTWTov4604IluyAf16OBDjYCt2HgGRpq9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M8yoWMEM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YVw+KgJp; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FeT4EohV"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 96A1F19F0;
-	Sun, 17 May 2026 13:58:14 -0700 (PDT)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA24E3F632;
-	Sun, 17 May 2026 13:58:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1779051499; bh=8YdDtosc2yuBrzAdShLNX5Aura5/QzNzsydkW/hbS2I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FeT4EohVSdz0//AGj/+rybSIAktQFGsZBGx+b2XCfQ2fy4e0lQGswwBNToLuCEbRH
-	 fL+pIcQYwVjShNYdxaFGLRo9FGopvFEV0yggvFZyd2UCOGu+uHALw+dejaixXxB1Fh
-	 l59MX3c3/vu+4oE8sBj7+q0p9sMB92tUZlrBNv4k=
-Date: Sun, 17 May 2026 21:58:12 +0100
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Ulf Hansson <ulfh@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH/RFC 05/14] firmware: arm_scmi: Add scmi_get_base_info()
-Message-ID: <agor5HJ0JFBoX3sZ@pluto>
-References: <cover.1776793163.git.geert+renesas@glider.be>
- <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
- <aekXUvIPb8nkhdKu@pluto>
- <CAMuHMdX8b9C3D8fV5th6GCgs6JAq7HZbF_SrOKz_gDy2H8ksow@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M8yoWMEM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YVw+KgJp"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64HJcqu2483452
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 21:03:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=VVSuzLLDRHb7QkGv2Hj4Tw1K
+	ZRnYa7BJhMxXlF9ykEI=; b=M8yoWMEMDAISG1SGUaIJrOGqjepTyR3+P0mzvQ/i
+	rxQhKUxNBhUrib+kXilfFOBdKKBe6Am1gTkH4FcPxOeR0Dhy2ldF2ici9V5M7EeG
+	HgfuhJ+IE5pYepRqXXPIhyM9Sn6xb4izhSEaxyDFgckl8p1D57MqJ6oJ0wu7Hnbh
+	pwBYCPJ/+awgjCRBXiDIGluErU1xR9EFs9t6raJhbQdkEdmzx/fiaGBrOWAWNESh
+	VyKoA4NxLwGCbYgsKgzBYwjPy4MUySM/JMh5HkIO5VkxtX806OFsm8NaWXeRQW+k
+	Y6RncfVnstTkXzKKFdSB3Z0/L1qN0CMTUfjp0i3Y715drQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6tvcjf7j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 21:03:06 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fbc70cfbdso50059421cf.2
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 14:03:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779051786; x=1779656586; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=VVSuzLLDRHb7QkGv2Hj4Tw1KZRnYa7BJhMxXlF9ykEI=;
+        b=YVw+KgJp6YkhZS9O/pITv7ELNJaQKaRJmfd2bXg1cCJlq6Pxr7eiVwvLK6BJsGGwJl
+         1s15cqWKLHYz4Tmq+hTVs/L3YUNkCdT5ThP7Lo00bgWcYISsT63CSsoY2GtMmG1wrhrO
+         Jn2mEVZs79sy63zut7GkD1rsgTii0r8F4ynzw+jYzyUkIn8eFRfhWlWdi5tJR3a284+w
+         JZzZihEQMd5EayQZbm3pAgXsBeYnnsGuGLzxxq6TT8Fz8IOi1STPtVPnG8qEIL+rhI7T
+         Ltktidr1nbAw3Nc+k0NJYdVBdvPa1fYKVt4hY+bvpWisNjlmxUOwJ+gxI0TPFd2u09ik
+         KKWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779051786; x=1779656586;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VVSuzLLDRHb7QkGv2Hj4Tw1KZRnYa7BJhMxXlF9ykEI=;
+        b=OG0psrUpUMKFBskvquSr6KJaE8GAiCQI2bvGLUIUJ7fdjsxVuW1qZ5qRD1Wxi8noni
+         qX/QJY2+WCuqwgTMOjsKqCBP1gNHQixqvMoKwpkN9RO/UX0eTeIm9Wy+AUC75umRd2sU
+         e1Fu8uUSmXb4t7OvbB6847y32OUg+YrlalrDa3knmZuTRTugG04p0m9Er0+OWzsW16AI
+         c+/xqX7K75sUhzVnzsiXX6YSA+etW9X1zvy3WJ6WurmJrJuBqh49dPQO/l3eMaWnTUym
+         MtPJ5Je/mV6LbWEppEJvOmO8n3vtaS6kkRcQRGtc+d+dlMZyLRikdUsg04PxdJXi6btS
+         SGqA==
+X-Forwarded-Encrypted: i=1; AFNElJ9teYLDphqIqAUl+yRY8Zf3kMRjkdE1kZqYDgc6uTy9VQ+at1GSCsDlJZHfYz4L2u9qvtO12S0fNnYf@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwVSN7VnlOarxwP1jL/FeC6lbdfIUzXkLAXfr5RtaeWWifKm6+
+	dtyjnRb9JjQLo9YBlFfePhlhZstc3nmDG5JVfVv2JGOEHI5fMijqHGQXGTqnHWtPT+5tIgt8k/6
+	XquhuISCd8OxsTNKpQD+BXiBHvA5KqDBFPWCHyubv76hlGh+Cera3LSvommIG9PBg
+X-Gm-Gg: Acq92OHy9cFKldkHhBcOHdX9VkByjj1MGfE3wcrnVNuwCF0h2qrH6P+jRmossM0YY0I
+	Ghe8OarNEMwkmq9Y9VAjbrlZoocoQKYrupXR0nVzfs1x7mMT4wqHRcLNbY2LGmjZihT5dVYEbjY
+	p9FX22iybHGszVhhCc3lADj2+7gCfUgYZH6qyi5c1eJnGO07DaqRt5NEuA+e8tfWybisO+ynD8r
+	BTVE3fdsfvdKYocCSo+OjR+hr5MrNVxjwUh2n6zDDFTD5pF2rVtrGaM5WSfviU/fSrvOnN9f0AT
+	ni2V4vJ4sIGpeSot06QrsqTQoWB1yJkLxn1vmfL1exv1WNO3SMHcm71HztBoAYnVPd+o78zq9MT
+	2deL75y4cI1sB2mobZdBONAqerCJSCvTXh/jKy60MkTxPIjPKekn24FNywkIXRbIlBaO6W62x1y
+	IayaXT3WTe5EJeZFRFbXtq97OjnHNvPlrCCXCiQ+ujubdbXg==
+X-Received: by 2002:ac8:7dd3:0:b0:50e:631c:c390 with SMTP id d75a77b69052e-5165a22d156mr183972291cf.44.1779051785710;
+        Sun, 17 May 2026 14:03:05 -0700 (PDT)
+X-Received: by 2002:ac8:7dd3:0:b0:50e:631c:c390 with SMTP id d75a77b69052e-5165a22d156mr183971831cf.44.1779051785286;
+        Sun, 17 May 2026 14:03:05 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395882e734fsm7520441fa.18.2026.05.17.14.03.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 17 May 2026 14:03:02 -0700 (PDT)
+Date: Mon, 18 May 2026 00:03:00 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Frank.Li@oss.nxp.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Thierry Reding <thierry.reding@gmail.com>,
+        Sam Ravnborg <sam@ravnborg.org>,
+        "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+        open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
+        Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/1] dt-bindings: display: simple: add avic,tm097tdh02
+ panel
+Message-ID: <qfyc3kuhd5qwgtbbvhix5upyfcn5s26vty2yrnkzun7vuujgco@44itayac2pfe>
+References: <20260515195935.2415466-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,84 +106,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdX8b9C3D8fV5th6GCgs6JAq7HZbF_SrOKz_gDy2H8ksow@mail.gmail.com>
+In-Reply-To: <20260515195935.2415466-1-Frank.Li@oss.nxp.com>
+X-Proofpoint-ORIG-GUID: e5DatTq7kxVU4U46AAAdYt-5hwXPy0RQ
+X-Authority-Analysis: v=2.4 cv=UIDt2ify c=1 sm=1 tr=0 ts=6a0a2d0a cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=8AirrxEcAAAA:8
+ a=402Ol7Zq4xy1YCkJ2sQA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=ST-jHhOKWsTCqRlWije3:22
+X-Proofpoint-GUID: e5DatTq7kxVU4U46AAAdYt-5hwXPy0RQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDIyNiBTYWx0ZWRfX/b5/M+UVfnrV
+ PDh8T/d24oorlbkXUqL2xkDyU54uGB7/qLx/rmxTCvfjSmhn+KmAw9umiIQwtp6rWma6Spom+9v
+ 2SvXD22Iefy+IYU0oUE0LacCnF7H7GB42J0KMpJ++TyLb9sCqR1wHR3E9xPAfo00ACQVs4eLlgy
+ xx0kiAVhbG6hmCpyv8A/bLhN7Qe7+m4Pzype2fGwaL3rPOx1Fq2WHY9bSTchdvAg1FozW5YYRU4
+ 4Ob76ew72LxZjmoFKBfAvdwIEdfXkJny0bA+FJlqZ0rIShYzMW6wR1/4QTWwhrg0aVzdudOUS1X
+ CxbDr1syfnKk4hxdm96LkzUrIsy0gCHtOdNitcr4Z7jmCuam1IF4dNWA2ETKR4jF8KHa/GkhLBH
+ 87j6xtFxmDsgscp2cxtDH8hVGYBk01y0ZEX5VJbnfYZHbTlkQpZ5yG8+Ao/gm0qr3uygNEAbdM4
+ ZuTmNGjmrIF+G06nGdg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-17_05,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+ bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605170226
 
-On Fri, May 15, 2026 at 05:39:45PM +0200, Geert Uytterhoeven wrote:
-> Hi Christian,
+On Fri, May 15, 2026 at 03:59:34PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> On Wed, 22 Apr 2026 at 20:45, Cristian Marussi <cristian.marussi@arm.com> wrote:
-> > On Tue, Apr 21, 2026 at 08:11:38PM +0200, Geert Uytterhoeven wrote:
-> > > Currently non-SCMI drivers cannot find out what the specific versions of
-> > > each SCMI provider implementation on the running system are.
-> >
-> > Thanks for your patches....this is not a proper full review of the series,
-> > BUT this patch catched my eye..
-> >
-> > Indeed, yes, it is deliberate that the SCMI version information is NOT
-> > exposed out of the SCMI world, since being the SCMI an attempt to
-> > standardize a common FW interface (as in [1] of course), you should not
-> > know what runs inside the black-box, it should be irrelevant...
-> >
-> > ...indeed the versioning is used inside the SCMI stack to deal properly
-> > with different protocol versions implemented by the server OR to apply
-> > proper quirks when needed, but all the rest should be standard....
+> Add compatilbe string avic,tm097tdh02 for AVIC Optoelectronics 9.7".
 > 
-> [...]
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> > I watched a bit of the LPC discussions around this (from Marek I think)
-> > but sincerely most of those problems had one (not necessarily simple)
-> > solution: fix your firmwares AND/OR apply quirks in the meantime...
-> 
-> So let's forward to the future, where the firmware is fixed, is fully
-> compliant with the SCMI spec, and all IDs are stable, so no quirks are
-> needed.
-> 
-> Where do we specify the SCMI IDs to use?  Unless when using the
-> remapping driver proposed in this patch series, they must end up in the
-> DTB.  Existing upstream users put them either in the SoC-specific .dtsi,
-> or in board-specific .dts.
-> 
-> The SCMI server is supposed to expose to an agent (e.g. Linux) a
-> sequential and contiguous list of IDs that represent only resources that
-> the agent is allowed to use.
->   - We cannot put the SCMI IDs in the SoC-specific .dtsi, as that
->     describes all hardware in the SoC, which is typically much more than
->     Linux can or even wants to use when running on a specific board.
->   - You would think we could put the SCMI IDs in the board-specific
->     .dts.  However, that would limit actual use cases later, which do
->     not necessarily depend on the board solely.
->       - E.g. when moving control of the CAN-FD controller from Linux to
->         the Realtime OS, the CAN-FD node must be disabled in the DTB (by
->         overriding status to "reserved", or by just deleting the CAN-FD
->         node, both of which can be done by the boot loader). However,
->         with SCMI, the IDs corresponding to CAN-FD resources must be
->         removed from the ID space, causing a full renumbering. Who is
->         supposed to update the IDs in the DTB?
+> diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+> index fdf522a15d2ea..a8f057208e23d 100644
+> --- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+> @@ -63,6 +63,8 @@ properties:
+>        - auo,p320hvn03
+>          # Shanghai AVIC Optoelectronics 7" 1024x600 color TFT-LCD panel
+>        - avic,tm070ddh03
+> +        # Shanghai AVIC Optoelectronics 9.7" 1024x600 color TFT-LCD panel
+> +      - avic,tm097tdh02
 
-As per my previous email, after such a breaking change I would expect a
-new DTB describing the new HW to be needed anyway.
+Not without the corresponding driver changes.
 
->       - E.g. when partitioning a single Linux system in multiple VMs,
->         and distributing hardware across these VMs, all VMs need
->         different DTBs, each describing a subset of the hardware.  With
->         SCMI, each VM needs different SCMI ID spaces, causing not a
->         simple partitioning of the devices in the DTB, but also a
->         renumbering of all IDs.
+>          # BOE AV101HDT-a10 10.1" 1280x720 LVDS panel
+>        - boe,av101hdt-a10
+>          # BOE BP082WX1-100 8.2" WXGA (1280x800) LVDS panel
+> -- 
+> 2.43.0
+> 
 
-Ok now I am lost..why do you need a distinct IDs space for each VM ?
-
-In a virtualized env, I would expect to leverage the SCMI stack to
-realize the exact opposite: same set of IDs advertised to each VM (and
-so same DTB potentially) by the server which in turn can decide to
-assign the same device (and handle the sharing) to some ID or assign
-different devices to the same or different IDs on each VM: i.e. you
-have a set of virtual_IDs that is what the server exposes to each VM
-SCMI agent, and then a bunch of real physical IDs, without any contraint
-on their numbering, that the server uses in the backstage to refer to
-the real resources and that it properly remaps to each per-VM set of
-exposed virtual_IDs during the build and/or boot board configuration
-phase....i.e. when the FW adapts and reconfigures to the specific
-board that is finally running on.
-
-Thanks,
-Cristian
+-- 
+With best wishes
+Dmitry
