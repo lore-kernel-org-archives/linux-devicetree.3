@@ -1,95 +1,92 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6700130F957;
-	Sun, 17 May 2026 15:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C009526E706;
+	Sun, 17 May 2026 15:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779031313; cv=none; b=U/bq9FV2pKSb4ENqi7//hrQT8uNP8G2iuMr8MY+7rYMEAg6yuSagEysn7WhU+ZxCC68zrOo5alTttJ9hsXkj/r+9TBtikX1uJcyr8bY+DOWNbyen0xgvfmgRJIYtGhvXw+ozUHfvRnsmYWEWy00QCze2PiwAOeOSaV1n3L1GJZU=
+	t=1779032102; cv=none; b=PHdQ8z/l9+3Iwvm6/Wnx3hFSh/Jyr8sj964NrQPkuOaZSFA+NQmvvvC6wj4ej6kc6cAFBixcYhrdf6Ok2tj+hXQtSDC5r8LTQnKC+5Q4qf719JeZvy5ifAsMEsHFrANRs0q92GvA78LOXXMWOpESH5ySFM5Lb39i/5TZ7Bsc2uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779031313; c=relaxed/simple;
-	bh=t9y0GTdIMNxbDvtPXVJ2Wbg9KnL36rFZbM7XjzwMxiY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=RRHg+Lok95jRZ8iew6fXtNlXUao0N/ugZjv78rxaFzPUrnnT58Eh/4sQyw0TnMNFV2vdiPua0K6yLV6EJ6D8Xzqq9H/4U3YhNj1Cxzu/4sMXSslmPvwlxtBx2ghtAUZaKJeUFPa9gCOg9DSP1ufgTgSZlE4xY1IN962NjL0yWoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=XNFn06y8; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1779032102; c=relaxed/simple;
+	bh=DyCKE+6QVJML/SRaH5o/1PGkhtGZiUS9tYCZZV8ek6k=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=XtknV4NsWSO2Z/SQMmEEcT3bd7gjsSdRQ0yIMRIl/E4LvRNaw5J35P/AZ1NQVZa+4ad4tZQZj9QG1O7t33z43Tw8mCPhoqoGP1ooFY0ja2xt1XTIFv0auT00vP0Dpbx7OZz6yWOCwUptIZH9u7qXsCSF2oeUT7l7ofxwzs/JnWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DdoQ81g0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="XNFn06y8"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 6EF8140C79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1779031306; bh=sr9iSe4M/xfVvPcj6Q8cSaRqEc29Xtd0DjCI8Frt+58=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=XNFn06y8oRe/pI9RuBJ//uKP8K79mY26JT63CbMuAdkFCViameJoyh1SToaKe0GrG
-	 3iO853p7n0xAPHzV5w8nu0wNTm5LsVQqzoiSzqz3waLOnRNWoytyav1GCcpw5RHOil
-	 bkt95/Uylr8sX6VgYyopqjw/ppbXIBugvdL0z4ZJV44vaD6I98kKzNWMNk/2MYNbwP
-	 ZdwYG3vFZpw7maDU1ryaXryFVeJB/hNA+/nPTz2RakVTUrC42tBAJ7ZFdYm686/6rh
-	 zmg7XBdxAI4lFZtDpf+q1vXjiYGcAolmr1xHzZHt0+Q5wuhHrRbohkaDh0/VQtf4yF
-	 /Ja++u4T7Pn1A==
-Received: from localhost (unknown [IPv6:2601:280:4600:27b:67c:16ff:fe81:5f9b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 6EF8140C79;
-	Sun, 17 May 2026 15:21:46 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
- sashiko@lists.linux.dev, Linux Kernel Workflows
- <workflows@vger.kernel.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, kfree@google.com
-Subject: Re: Stop false review statements
-In-Reply-To: <fd3b2ca7-4d64-4c4b-98a3-7d3285fa6826@roeck-us.net>
-References: <ad139e54-a7f0-4d09-832c-6b2bf2e93e03@kernel.org>
- <fcc4b719-2696-4f31-bac4-6c07f8ddec47@roeck-us.net>
- <221cc52e-9918-43ea-b196-622a8cc6db05@kernel.org>
- <fd3b2ca7-4d64-4c4b-98a3-7d3285fa6826@roeck-us.net>
-Date: Sun, 17 May 2026 09:21:45 -0600
-Message-ID: <877bp2m586.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DdoQ81g0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B64C2BCB0;
+	Sun, 17 May 2026 15:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779032102;
+	bh=DyCKE+6QVJML/SRaH5o/1PGkhtGZiUS9tYCZZV8ek6k=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=DdoQ81g0J1xQP3Pxn/9g5eRaK99GfNAY6DkB1XsC1WIiIl77PPic5z1XapCVT3qPa
+	 OiZtwiF+YR/zmraIvF+YrYoT+JTOmR2b8AcBN0QMNN6/dZIan9plkI7qK5lW3mpJEh
+	 cjT8kh/IrfYkjbEqX78uPyAzFnAcUfa/oM2UbF5CUiAlgxlEkKLGN4sW1cBXEFfoQ2
+	 5DaKgFDfp/PuQKdJoM+mKCKZkvAsBWGfSrSFeq+goFmvwG9FkYs20ivNo2xmGm7UHA
+	 SxKmiCvv+aPvXq6jQUUjmaniT9vdGlruVhaUkHUDRLODIVzzVhunpfTT4D4EN4nzXv
+	 QAylAryJ+CRdQ==
+Date: Sun, 17 May 2026 10:35:01 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>, Conor Dooley <conor+dt@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, Paul Walmsley <pjw@kernel.org>, 
+ Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ Brian Masney <bmasney@redhat.com>, Albert Ou <aou@eecs.berkeley.edu>
+To: Chuanhong Guo <gch981213@gmail.com>
+In-Reply-To: <20260517-sf21-topcrm-v1-3-438f2e0513ff@gmail.com>
+References: <20260517-sf21-topcrm-v1-0-438f2e0513ff@gmail.com>
+ <20260517-sf21-topcrm-v1-3-438f2e0513ff@gmail.com>
+Message-Id: <177903210154.62629.12426356915694314234.robh@kernel.org>
+Subject: Re: [PATCH 3/4] dt-bindings: clock: add doc for Siflower
+ sf21-topcrm
 
-Guenter Roeck <linux@roeck-us.net> writes:
 
-> On 5/16/26 05:16, Krzysztof Kozlowski wrote:
->> Quotes from the existing policy:
->> 
->> 1. "By offering my Reviewed-by: tag, I state that:"
->> 
->> Tool cannot use first person "I". Tool cannot "state that".
->> 
->> 2. "A Reviewed-by tag is *a statement of opinion* that the patch is an
->>   appropriate modification of the kernel without any remaining serious"
->> 
->> Tool cannot make a statement of opinion.
->> 
->> 3. "Any interested reviewer (who has done the work) can offer a
->> Reviewed-by".
->> 
->> Tool is not a reviewer as a person, thus above does not grant the tool
->> permission to offer a tag.
->
-> I'd like to see that explicitly spelled out. Until then it is your opinion.
+On Sun, 17 May 2026 22:12:57 +0800, Chuanhong Guo wrote:
+> Add a binding doc for the top clock and reset module found on Siflower
+> SF21 SoCs. This block provides the main PLLs, high-level clock
+> controls, and some reset lines.
+> 
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> ---
+>  .../bindings/clock/siflower,sf21-topcrm.yaml       | 69 ++++++++++++++++++++++
+>  1 file changed, 69 insertions(+)
+> 
 
-So I'm the person who wrote that text.  Automated review tools weren't
-really on the radar at that time, so I can't argue that it expresses an
-opinion either way as to whether an LLM could make such assertions.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-That said, I was certainly considering *human* reviewers at the time,
-and all of the people who agreed with the suggested policy were too.
-Adding bots seems like a stretch to me.
+yamllint warnings/errors:
 
-I can't speak for subsystems that require Reviewed-by tags on their
-commits, but I'm not sure that their maintainers would accept an
-automated review as satisfying that requirement.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/clock/siflower,sf21-topcrm.example.dtb: /: 'compatible' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/clock/siflower,sf21-topcrm.example.dtb: /: 'model' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
 
-If we want to record this sort of processing, perhaps a tag like
-"Scanned-by" would be appropriate?
+doc reference errors (make refcheckdocs):
 
-jon
+See https://patchwork.kernel.org/project/devicetree/patch/20260517-sf21-topcrm-v1-3-438f2e0513ff@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
