@@ -1,179 +1,178 @@
-Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B412C11FD
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639EE223708;
+	Sun, 17 May 2026 20:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779047618; cv=none; b=iHJeWq+ml+5UsPvYLxf2Bssev44dwear+klgk0J0rryaKgRUR29zUIK1qfY0yw7G+z36xirp5XJQ/P/FmclVAv4C3f+lH7l5wTlsEi9OVjTGltvFVhoUCJjNfhEoO9+pFIk2GrrNK9wH2rcefTpFV1Mkp0WKUtR1VshFdGTGq3Q=
+	t=1779048507; cv=none; b=grFgS4Qj1ICgmgFzrSzqbrYXEPmwqUs9ssMiEtCseTDqsfKXbt60N2I/gYsCTbPZCHmnFA/ZtROBdpmBrEc9i88EiiHcGceNBCvPHC3nImKWFJoXB6tVj35e11RtEJnvo90SCYpgLrsoBjseDBevhmL/pOLD1qVE00ZYfhxlBpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779047618; c=relaxed/simple;
-	bh=rziN1hh0A5wT+pZjQfWI+vaKYthAU6o0Wnfyfi7LghU=;
-	h=Content-Type:From:Mime-Version:Subject:Message-Id:Date:Cc:To; b=YH/gRVJ1w5ZtfkAw7HZ60gGM41h+O8ese2bsMR0hg+4oJc8O0LGWh/jFIliFS1IlJfvCXyyLuibyc5WdLxKNf2/OV+pJ9ttkLY8l1UqHvK3ahrVxMfZ2iFpyusvp4prNnA8GLQJ41k++UwV9itNbD8HySdb9PJop/fLYt6NnIMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K6b+mF8g; arc=none smtp.client-ip=91.218.175.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1779048507; c=relaxed/simple;
+	bh=65zKbn26QK62Gg3960MexvoTIM5YXLr7mBBeYXUIdKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zj/wDidkU/EXSoEYReIpTJSCD4HcpjRIS2SXht9BbRxjhuWy6DSoyzDiKq2CvP3NktDNJ9VH9wmzEujF3zci9CMy+BFTb3sBECTV0FTo0Q2F65ECimNRPGz20oD3Lbxc3Q65PalQo6w5afKMHY3Eu3vPpivygBzZ4WDziLX4Qp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ON+4ZOdD; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CcC7WRiX; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K6b+mF8g"
-Content-Type: text/plain; charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1779047614;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ON+4ZOdD";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CcC7WRiX"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gJX7B09s4z9vTD;
+	Sun, 17 May 2026 22:08:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1779048502;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=rrXf+swBl4yp9CtNuCEzzNucE6Q+vtW2TZ7N7Ibq2Gk=;
-	b=K6b+mF8gJmKtADw1GEqNvYlcofJiUFGBMiRX6rw836icAeNlS551hvn+MjBEI6bbqj0efr
-	iLA9NeKDJYFHvXe9konzB3cnVIY3LLCX+Lm1UJTQrklmdIGQGQhvBiBdte0esAWxVlUj4T
-	9jfylDEjzThfEv7/696dY2je91bJDk4=
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Roman Gushchin <roman.gushchin@linux.dev>
+	bh=l4wFVxQBgL8B6DVjVkF6XY4KfSRZqxPxMXAGErUdUOE=;
+	b=ON+4ZOdDioAhwgYq6wu2cWAZ3cNX+m+ypBoHVg81Nv3MXcUxvt/woO+rGux6YwY3FiDJHa
+	m03vd9UcQ7DiPJG5gZT27AXBo6k6nrldJdGaevjzPr9T/TEOXS7YwUQv6BRX2ciOL/PqEL
+	tjmFaGUIkztIeX3oQ404Uj8XHm2IZ12HKSJr8Bxw7NIPs3bgN1ynk+l2HY2X5X4/9h78/6
+	JyCZ0GlRsfvc6kL1/keCF+ZoSmhDiSt0UYWY7VtB0ubkuODxg5sLZCGTL9zQ7K/7bQ+JfU
+	fPaJM1m/IAz0wmbmp566FhWzELv0+RpaR7Nt2mAiLVwGC9JrxkVMeTPxugREVw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=CcC7WRiX;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1779048500;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=l4wFVxQBgL8B6DVjVkF6XY4KfSRZqxPxMXAGErUdUOE=;
+	b=CcC7WRiXiGfj9qB3IEUc4W9PX+ThhzSiQxdNpIUcfFltXLJW6dDgJsPmiX5Xv/Mm0QdsEK
+	CuP1hqrGnmuje1VrxDDNnh4zFy9xW+3oiRnjUnXSTrd1BG0VJQiVVZVun/cTVU5KSKwAoP
+	MTjaOmbG/8Uz07ukSTjcwLUJo7dzPSRko/d3UL9raDkLOkr504tVEfysJ5wKEk9OlY5bzL
+	y03hd15AGO6KCSsK+ENunR410Tm4sr9Kv+rapXxpfl6Q/Woy9spJ/dDy+hAsADCjOIi2ob
+	97Q7hoOmMSD0xb4YSQP65Kbu1iYqT6MBrDaHNE0nIebsRubHXfjX/SiP+8EdGA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: renesas: r8a78000: Describe all reserved memory
+Date: Sun, 17 May 2026 22:07:40 +0200
+Message-ID: <20260517200814.21624-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: Stop false review statements
-Message-Id: <2CB46AD9-BD19-4FAC-B992-C1CDBB9C36C0@linux.dev>
-Date: Sun, 17 May 2026 12:53:19 -0700
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, debarbos@redhat.com,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Konstantin Ryabitsev <mricon@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
- sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
- Linux Kernel Workflows <workflows@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree@vger.kernel.org, kfree@google.com
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 3e02abafad4a71cb2b3
+X-MBO-RS-META: xrb9uyt3n4p1aa9mmtafi9o74nrhuoq8
+X-Rspamd-Queue-Id: 4gJX7B09s4z9vTD
 
+Fully describe all available DRAM in the DT, and describe regions which
+are not accessible because they are used by firmware in reserved-memory
+node.
 
-> On May 17, 2026, at 11:56=E2=80=AFAM, Mauro Carvalho Chehab <mchehab+huawe=
-i@kernel.org> wrote:
-> =EF=BB=BFOn Sun, 17 May 2026 11:17:06 -0700
-> Roman Gushchin <roman.gushchin@linux.dev> wrote:
->=20
->>> On May 17, 2026, at 9:40=E2=80=AFAM, Mauro Carvalho Chehab <mchehab+huaw=
-ei@kernel.org> wrote:
->>> =EF=BB=BFOn Sun, 17 May 2026 12:12:00 +0200
->>> Greg KH <gregkh@linuxfoundation.org> wrote:
->>>>> On Sun, May 17, 2026 at 12:05:56PM +0200, Mauro Carvalho Chehab wrote:=
+Replace first memory bank memory@60600000 with memory@40000000 and a
+518 MiB long reserved-memory no-map subnode. This memory region is used
+by other cores in the system.
 
->>>>> On Sat, 16 May 2026 14:59:44 -0700
->>>>> Roman Gushchin <roman.gushchin@linux.dev> wrote:
->>>>>>> On May 16, 2026, at 2:33=E2=80=AFPM, Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
->>>>>>> I find it opposite: clogging commits with useless information, becau=
-se
->>>>>>> some arbitrary and completely closed-source tool did analysis means
->>>>>>> nothing to me one year later when I look at the commit in the Git hi=
-story.     =20
->>>>>> This is simple not true: Sashiko is fully open-source, under Apache 2=
-.0 license
->>>>>> and the code belongs to LF.    =20
->>>>>> Yes, the instance behind sashiko.dev is using
->>>>>> Gemini 3.1 Pro LLM, which is not open-source, but it=E2=80=99s not a f=
-undamental limitation -
->>>>>> Sashiko is supporting various LLMs, including open models - it=E2=80=99=
-s just a practical
->>>>>> choice: to my knowledge the quality of open models is not on par with=
- frontier closed
->>>>>> models    =20
->>>>> I would very much prefer using an open source LLM, even if not in pair=
+Reserve 32 kiB of memory at 0x8c100000 for parameters shared by IPL,
+SCP, TFA BL31 and TEE.
 
->>>>> with latest paid models.
->>>>>> and it would require a non-trivial amount of hardware and infrastruct=
-ure to run
->>>>>> an open model at the required scale.   =20
->>>>> IMHO the best would be to have them running on some infra that would a=
-ccept
->>>>> open source models (*). If there aren't enough resources to have our o=
-wn
->>>>> infra, there are offers out there which allows running open source mod=
-els
->>>>> like https://ollama.com/pricing (I never used myself).
->>>>> (*) For instance, Qwen3.6 is brand new and licensed under apache-2.0.
->>>>>   Not bad on my tests running it locally.   =20
->>>> You can run the tool locally, with whatever model you want, if you want=
+Reserve 512 kiB of memory at 0x8c200000 for TFA BL31. The upcoming
+upstream TFA 2.15 BL31 uses memory from 0x8c200000..0x8c242fff, the
+round up to 512 kiB is slight future proofing.
 
->>>> to.
->>>> But for now, let's just take the free credits that Google is willing to=
+Reserve 32 MiB of memory at 0x8c400000 for OPTEE-OS, which is the
+entire OPTEE-OS TZ protected DRAM area.
 
->>>> throw at this thing and let it give us reviews IF the maintainer of the=
+Neither the TFA BL31 nor OPTEE-OS do modify the DT passed to Linux in
+any way with any new reserved-memory {} node to reserve memory areas
+used by the TFA BL31 or OPTEE-OS to prevent the next stage from using
+those areas, which lets Linux use all of the available DRAM as it is
+described in the DT that was passed in by U-Boot, including the areas
+that are newly utilized by TFA BL31 or OPTEE-OS.
 
->>>> subsystem feels it is something they want to do.  No one is forcing
->>>> maintainers to do this. =20
->>> If Google and/or others are willing to give free credits on their cloud,=
+In case of high DRAM utilization, unless the memory used by TFA BL31
+or OPTEE-OS is properly reserved, Linux may use and corrupt the memory
+used by TFA BL31 or OPTEE-OS, which would lead to the system becoming
+unresponsive.
 
->>> they could instead or in addition give free credits to run ollama
->>> there, allowing us to use different models.
->>> =46rom my side, while I won't personally object getting reviews from
->>> Sashiko/Gemini, this is something I can't reproduce locally. I would
->>> very much want something where I can select my LLM preferred model
->>> and run on my ollama docker container on my own GPU, in a way that
->>> I could run it locally before even sending a patch series. =20
->>=20
->> 2 thoughts here:
->> 1) I actually tried to run it with ollama on my personal framework 13. Ad=
-ding nominal support is trivial,
->> but the whole thing is not really useful: I can get maybe few hundreds to=
-kens per second using
->> a quantified model with reduced quality; an average sashiko review is con=
-suming 3.5 millions tokens
->> (with Gemini 3.1 pro, it=E2=80=99s also model-dependent).
->=20
-> Do you mean 3.5 millions tokens per patch series? If so, that
-> sounds a lot! Why does it require too many tokens?
+Fixes: ad142a4ef710 ("arm64: dts: renesas: r8a78000: Add initial Ironhide board support")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+V2: Run checkpatch, fix indent
+---
+ .../boot/dts/renesas/r8a78000-ironhide.dts    | 35 +++++++++++++++++--
+ 1 file changed, 32 insertions(+), 3 deletions(-)
 
-It=E2=80=99s an average per patch, not a series. Some are much cheaper, some=
- are much more expensive.
-Sashiko posts token cost nearby each review.
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+index a721734fbd5d0..ed027a6c356ed 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
++++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+@@ -20,10 +20,9 @@ chosen {
+ 		stdout-path = "serial0:1843200n8";
+ 	};
+ 
+-	memory@60600000 {
++	memory@40000000 {
+ 		device_type = "memory";
+-		/* first 518MiB is reserved for other purposes. */
+-		reg = <0x0 0x60600000 0x0 0x5fa00000>;
++		reg = <0x0 0x40000000 0x0 0x80000000>;
+ 	};
+ 
+ 	memory@1080000000 {
+@@ -65,6 +64,36 @@ memory@1e00000000 {
+ 		device_type = "memory";
+ 		reg = <0x1e 0x00000000 0x1 0x00000000>;
+ 	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		/* First 518 MiB is reserved for other purposes. */
++		firmware@40000000 {
++			reg = <0x0 0x40000000 0x0 0x20600000>;
++			no-map;
++		};
++
++		/* Parameters set by IPL. */
++		parameters@8c100000 {
++			reg = <0x0 0x8c100000 0x0 0x00008000>;
++			no-map;
++		};
++
++		/* TFA BL31. */
++		tfa-bl31@8c200000 {
++			reg = <0x0 0x8c200000 0x0 0x00080000>;
++			no-map;
++		};
++
++		/* TEE TZ DRAM. */
++		tee@8c400000 {
++			reg = <0x0 0x8c400000 0x0 0x02000000>;
++			no-map;
++		};
++	};
+ };
+ 
+ &extal_clk {
+-- 
+2.53.0
 
-Why it uses many tokens? Because in many cases it has to dig deep into the c=
-ode.
-Long sessions with multiple tool calls are expensive. Also Sashiko has a mul=
-ti-stage
-architecture, effectively it reviews every patch multiple times from differe=
-nt angles.
-It has a measurable influence on the quality of reviews. The current generat=
-ion of LLMs
-is not good at spotting various types of issues at once: once it sees a memo=
-ry leak
-it can=E2=80=99t think anymore on e.g. locking issues. Also just by running t=
-he same thing multiple times
-and combining the result you can meaningfully improve the quality.
-
->> I=E2=80=99m personally all in on having the entire thing as open as possi=
-ble and I believe Sashiko is what
->> is realistically the best at this moment - a fully open-source harness an=
-d set of prompts which
->> can work with a variety of models.
->> I=E2=80=99m happy to merge a support for any LLM model which can produce d=
-ecent review results.
->>=20
->> 2) Due to probabilistic nature of LLMs, nothing is reproducible in a stri=
-ct sense of the word.
->> Even with exactly the same model/harness/prompts you=E2=80=99ll get diffe=
-rent results every time you run it.
->> It=E2=80=99s unfortunate, but it is what it is at the moment.
->=20
-> By "reproduce locally", I didn't mean in strict sense. Sure, LLM answers
-> won't be identical, but I suspect that at least most of the major issues
-> on a patch series would be reported by any decent model.
-
-I believe we=E2=80=99re not quite there yet. Models do differ in their abili=
-ties to spot
-various types of bugs and also producing false positives. Some types of issu=
-es
-(e.g. complex locking issues) are really hard for best of the current models=
-.
-
-> So, if we have something that one can locally run using its GPU, being
-> able to get an answer in the range of a couple of minutes per patch
-> should be enough to catch most of the issues.
-
-I=E2=80=99m happy to be wrong here, but my understanding is that it=E2=80=99=
-s not realistic now.
-Sashiko reviews taking longer with production grade hardware.=
