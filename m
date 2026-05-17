@@ -1,102 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DD0359703;
-	Sun, 17 May 2026 10:12:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779012766; cv=none; b=mvolQ2U31M++OdlRhsVLnNYioHjiAlQR+LIl8L7d3nOlqzQUttFJkoc13IyIKNyYBH2dyYLkHky4h4hSPggmEgOY5TT+qkiZs+RUm23DL3OluBFeD15rtFil+HDiA5LpweW+E159arX4pwnMhUVGxe9rrhrehpwUYgbvl/TnTes=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779012766; c=relaxed/simple;
-	bh=iUYLHQY3uWeVAxMEfj+NOh/d+kYdwRIWjApEH09TTBs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q4TehmOSv2N3alTyO/oSNTtlT8aoQJKulLtwHloXEpuCXqYOc8DXNWSaF5hkr64r3YftmnqqDYdyA+i6CSumMXzZ1Myqgcv3Ms2pb78QrfSagCrnQ5FGPYZ1jh64+xoKnnfjVAI6bXxbj5c/0V3cPgUCpzh5HdWGyXITsmddXWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yLLHXpfr; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C590935AC09
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779012816; cv=pass; b=gejAtGyrIS+LgNcDqXWEjg2eWldFV1m8Cocud+FsLqxvw3qCnuFbR3UyO/6e/145hAdX71itv0/ZW2qupLONm4MU4j/nGFOPC9QUjvvrE/zJbr6SekOWHIx8cLebBttsreroS/APGnlSdHZMhbHtRZfEDqeFnGkI/E7PiyDbcac=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779012816; c=relaxed/simple;
+	bh=Ah355/SrzZrFxRMEDg0nnxbwUFNinnvYb3ZHH5bVd7Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QGMaFf6NX7YlNlrRprTsFezLLHZEw0uorsY5WOA2V3AGmlaAXZLikaYyF3mUXtCsNA0PZmHEOqJRf1g6o+vfc5QtKEM+mOeeTH5aMaV3LOdnlOH8mGn3dPpFSxkm4Y9QZGpEbEZLPAJJ++8BC4KtUdPv4+1IStWmLPkqHRO7gcg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DpiZQz5C; arc=pass smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yLLHXpfr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B003BC2BCB0;
-	Sun, 17 May 2026 10:12:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1779012766;
-	bh=iUYLHQY3uWeVAxMEfj+NOh/d+kYdwRIWjApEH09TTBs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=yLLHXpfr/OESwdoqabAlvrm93iSx2OpiPgiTB9Q+OONko5U5elVHx41X0ryIlkZZw
-	 1nzyrdexgXUrkYREIx0jr3SxuOslNh2uHGT9F/yqu5y5lbxLEnTnQ6Pdz1E3q2+LWe
-	 2qll5oWHQiqGqeUTdPi0qewHup7qdp/l6YH2/uaA=
-Date: Sun, 17 May 2026 12:12:00 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
-	Krzysztof Kozlowski <krzk@kernel.org>, debarbos@redhat.com,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Konstantin Ryabitsev <mricon@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
-	sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
-	Linux Kernel Workflows <workflows@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	devicetree@vger.kernel.org, kfree@google.com
-Subject: Re: Stop false review statements
-Message-ID: <2026051758-superbowl-baritone-2705@gregkh>
-References: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
- <07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
- <20260517120556.248852d8@foz.lan>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DpiZQz5C"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-303dbfbec77so8892eec.0
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 03:13:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779012814; cv=none;
+        d=google.com; s=arc-20240605;
+        b=SzHUVGksad+NRlgw3LyLc3NWlibdt88eV4gxgiL+5jLFGl6AvSy4cYX3y+q7Iwazpy
+         n0EdADEJI8lm/ZgaCwSJbhTwkc7MxCFXaUjuKxdZWFSNQRp+I4NRtjLiqf2y31J0If26
+         z736nadP+4+taXHG2rqgNxvnkI2d8Mzogz9J4qJ/ie4kpPpWMcDvSCQvMYhpwRwGnnNX
+         Y6eMo2qAlg2sCHuoo6gQZN3qZF0wxb+VkrLRFP6s6cEm/HLbNcGAwElcSCV3D2CVCgEb
+         dZ90CALOrhd10YMb6qCbZRlaUlMoQ/R6l/4UMUbSBpaBymtlZeQvDcWmkD8OFBamdT2d
+         TPvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ah355/SrzZrFxRMEDg0nnxbwUFNinnvYb3ZHH5bVd7Y=;
+        fh=LMJaeG978+2QqXrz6euiIoJeZlUIh9l0rCJANaNGio0=;
+        b=CJGmwLK1Op48XLDGJj6OCFdwtSY16QT4uwN7Pi3lvUAcKF11JNh23iMztnULrIrQNp
+         UTP2v9yasyfwrr1mA32L8I5CtibBDCQ227Ej0/w0i2PUEuV97szhgmZHuNJoyFDfthAv
+         5RMPH/lJRsXHy25xLHLtx7c/DCbrl/rFHU21QnWUwQWCMk1x48p5kPQ+0Jx2Qw0nBNrv
+         462dRNEu5Zw07J6gZCMYTwUiKhoOQNa/Kj4iPARYirtFWQwkLEwgVpSOJqX76pOJUtPq
+         La1VjKRSb91pI4LsY9r0oT8Yv0AnQ4cKZrvh7vGtgizg5iptQb7we5/q8eZsMRTfoHEB
+         PZtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779012814; x=1779617614; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ah355/SrzZrFxRMEDg0nnxbwUFNinnvYb3ZHH5bVd7Y=;
+        b=DpiZQz5CG8ZsaOTOglNTkpxyCrOL2GT7MM2PeQzjC+91XVAbmvolTcCxLU63eB8NbQ
+         WEI6T07V2j1xZObTgOmqSnbrokDXpO6061B+NXhy4sDdEPgT5a+ubEBxizQ9myDYGlWC
+         O62zgIwpFxpPyLkH4EhPQqjEIdOWArEJXc7t0mML/K9fj+90Q+Qw71nRr09oxaXeqquh
+         J7egeAQ7ppT4Va5M2I63q2c6XcGN9klLocWjLb7ZYA9A4LNa6W9Uh2Bm5Y2nQku6s9lA
+         TgqsXMrnoAr8q01O+m4luSM4rbXjhePOOY7jxaFcDRXNkWopcSeGTB6F6pa6n0Qh3K1N
+         t1Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779012814; x=1779617614;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Ah355/SrzZrFxRMEDg0nnxbwUFNinnvYb3ZHH5bVd7Y=;
+        b=X4uABgJb8zgiHdHaTpO8+NQYDFWIoLjpjPe9h1dKo7mS+DcaSbWOdgY8gr6SYssOhX
+         3I4aZCuqNGt8KmxFBqfPqNeM5kFyKBWecWRmQBp1Ef6Cg2cu+P5AH2xWDPkbWNXKgThJ
+         ObWJvX4xAsK3CG8zOZ3nmet2uIQOJPaqTjV/MjXKGbZ3T/hpGYlMoHycgyLmi94Vamxx
+         oi2PRGygJwFhOuUgO7fz0oLz9S97gSzWUrm4OCAwSqRDd0UlcltYeiweF9+yVtgnEht9
+         BCVimN1vlc/HwGpNLs4MpLhhb3JiAuB9xb4aqh4ADUKenk/8vqbo4khLq4vmaNYfKyAT
+         Gu3w==
+X-Forwarded-Encrypted: i=1; AFNElJ+WdRMLYO6VpcvKUqStJ2qCAxLaVDA9Z8PGVVtFR1TmVbsRdW1HrX6IPuAkuCU96O8yqa3vTXdLRZ+q@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzg2P+HxxqNOAEdQo8jqXDz/X4hVkPWvqDg5gcAUM1RRAZTRIWR
+	m3qBlTNG8yOybk+ejk6RxfXuHTG8GAsB5gn+W5wkgpsMZoEYcUKB3/+3Rq/yXr1euAVDjBMWWUg
+	rCYtgFPSc6tLuhvJ5/QDlQQ0vlA0OeDU=
+X-Gm-Gg: Acq92OEonnw+kYLNj7hbRf+e6xcgFrYX5KfmbHYioR1lm4H+6HbwboBHjvRykJVjkrQ
+	PraGLeGRuoyQDU2muGF4HHybVv1srGjI4DinwrpWaApQ51mchPTFGt3YF/SOOSpWPX9kDVesMb0
+	/M58kOSYGnE8gG1Fsu5BLiJ4N0md425Uk2IlHdWCp0PKggQ2iwzXDvVSd5cJgAPaDym7qT+vbqy
+	V2KxZmnA9tcHDviyygNcznUCzNTQeDbvmmBLs2et6hL3HSKqnxIoAi0MzoxXC2wbMgiqGG71BdV
+	6sk6iYxVqby5kfh1/gA=
+X-Received: by 2002:a05:7300:8b95:b0:2e0:1f09:d924 with SMTP id
+ 5a478bee46e88-3039813cab5mr5237843eec.5.1779012813884; Sun, 17 May 2026
+ 03:13:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260517120556.248852d8@foz.lan>
+References: <20260517074306.30937-1-clamor95@gmail.com> <agl1T8O6kwP7SFZ1@ashevche-desk.local>
+In-Reply-To: <agl1T8O6kwP7SFZ1@ashevche-desk.local>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sun, 17 May 2026 13:13:22 +0300
+X-Gm-Features: AVHnY4IqE6FsGFbbFI5FSmJMlyOUEK62QOSOEKabbR3m07ZeyolRt90bM2zxkWg
+Message-ID: <CAPVz0n0tfbwa1AbgO4eKrmNunHvmTFLDqXDFd1=VfLayuafH8w@mail.gmail.com>
+Subject: Re: [PATCH v1 0/6] mfd: lm3533: convert to OF bindings, improve support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 17, 2026 at 12:05:56PM +0200, Mauro Carvalho Chehab wrote:
-> On Sat, 16 May 2026 14:59:44 -0700
-> Roman Gushchin <roman.gushchin@linux.dev> wrote:
-> 
-> > > On May 16, 2026, at 2:33 PM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > > 
-> > > I find it opposite: clogging commits with useless information, because
-> > > some arbitrary and completely closed-source tool did analysis means
-> > > nothing to me one year later when I look at the commit in the Git history.  
-> > 
-> > This is simple not true: Sashiko is fully open-source, under Apache 2.0 license
-> > and the code belongs to LF. 
-> 
-> > Yes, the instance behind sashiko.dev is using
-> > Gemini 3.1 Pro LLM, which is not open-source, but it’s not a fundamental limitation - 
-> > Sashiko is supporting various LLMs, including open models - it’s just a practical
-> > choice: to my knowledge the quality of open models is not on par with frontier closed
-> > models 
-> 
-> I would very much prefer using an open source LLM, even if not in pair 
-> with latest paid models.
-> 
-> > and it would require a non-trivial amount of hardware and infrastructure to run
-> > an open model at the required scale.
-> 
-> IMHO the best would be to have them running on some infra that would accept
-> open source models (*). If there aren't enough resources to have our own
-> infra, there are offers out there which allows running open source models
-> like https://ollama.com/pricing (I never used myself).
-> 
-> (*) For instance, Qwen3.6 is brand new and licensed under apache-2.0.
->     Not bad on my tests running it locally.
+=D0=BD=D0=B4, 17 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 10:5=
+9 Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun, May 17, 2026 at 10:43:00AM +0300, Svyatoslav Ryhel wrote:
+> > Convert LM3533 to OF bindings, add missing VIN supply, add support for
+> > setting mapping mode and LED sources based on device tree.
+>
+> How is this being different to
+> https://lore.kernel.org/lkml/20250218132702.114669-1-clamor95@gmail.com/
+> ?
+>
 
-You can run the tool locally, with whatever model you want, if you want
-to.
+I have decided to have a fresh look, this is continuation.
 
-But for now, let's just take the free credits that Google is willing to
-throw at this thing and let it give us reviews IF the maintainer of the
-subsystem feels it is something they want to do.  No one is forcing
-maintainers to do this.
+> What about this comment
+> https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
+> ? Have you talked to Bjorn A and Johan?
+>
 
-The netdev, bpf, and drm developers have been doing much the same for a
-while now, with who-knows-what model behind the thing.  The model
-doesn't matter, we aren't advertising for them, we just want the results
-that they can provide us.
+No, but since grep -r "lm3533_platform_data" * gives 0 results there
+are no platform_data users of lm3533.
 
-thanks,
-
-greg k-h
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
