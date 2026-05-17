@@ -1,129 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401C835DA6A;
-	Sun, 17 May 2026 10:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAD63161AB
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779014430; cv=none; b=tkeq54QWYqTk2uGixXnHGWdiIbQewl26b7OQY3JGQUldXZVEhxx+NVgeEbXXWlTcnIeBMlkm6xIE0qhuE4brkUhbYNUKRbX69xZPtvhykvaHSihO/VBaW2OY3+JYHu3y2Ux7IygKO6mo5u1nmAg3yDdqIEoge/rDZcbJElxmFmU=
+	t=1779014648; cv=none; b=PTn4XyRLY8ZAuMk3B91xfVAXkMEIQLGa4bF8DOCM2WElW2ySkrqChhsEYBDyG4Qs7FIS7ij8HePpxEKb4Y7LngtR0oiCUH2PovpbM910/kxBquiGJzc+/OvlfFHJ50gAZrwS7Viet1yZE+sNkdzxf1aW1C1+co39Z52roGql6jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779014430; c=relaxed/simple;
-	bh=3+pu7n1CG+XGB3Ldn4JBhKXZKe50YpSBlqvjDoYq7e4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u7IBTjabDXUwDzl3xECg0hYMKkjt8ML7zEYjng2K/f5Y1bNLWosKS6IdwcBLoQ2Wka9/LB482/7bc0EEUOepCXdhfleC/u4IysUFE0OWJtnSSXlsj8M/srzQYTlTCC3MCeEEt6kmt0NWHRyOtLxGbqEZysK3715Kp5qoohoPJRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oCnt/T1h; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1779014648; c=relaxed/simple;
+	bh=tlZmveqPOI0YGsJN4bEukbZ+5Bgq+D8k9OvRT/i7aSQ=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VLbsSAuQrGEgQSGZF1muQMAaC55seaizUXtGGrz25IArs9Ad3viG9ZnkzKuQV/oC19iSmkh5bx6VrwdretgXwGvyXZ1lKjTm6fG7nUkDTdB2OO863lNWo81o9LQVFIkKuUh8oxLTWcvxdITU2+EniJeeNFIAlP3O1rHlNXqLM3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UfNZx+CV; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oCnt/T1h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779014429; x=1810550429;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=3+pu7n1CG+XGB3Ldn4JBhKXZKe50YpSBlqvjDoYq7e4=;
-  b=oCnt/T1hrNEJC7ZFmXgtq96bERBAv0NCNjyDHCiXlkBJ99nze3/XJ0yT
-   C7ZJIjYlFmGBI3P6Og2bxDFREzoVfnJu1eChHDZE9+H1GBgSc5kh53vXr
-   8Dd6sNNnZp0De5DCjNFuTM5Z46qEmA2AjW+b4m4lowTKbMVD+TVb3upTj
-   j5EDFpol0p/udo08kZkP5iQk76NtunQVwMPlo6KasFiJ40O/6GLT9goWC
-   caGy/OcVen2FGhjROf71GhJsE6IxTPr8g+KFk2oCAi1t7dh+fZhFrctD7
-   7Wap0sP/dG6C78XkT4kS1iZnAUpfBlUAmP9UhoXoOK7A1uw/iyYBuawDk
-   g==;
-X-CSE-ConnectionGUID: ljCdVK8KQPGBGjdo9LBWlw==
-X-CSE-MsgGUID: vqRgCxZfR2iudSr9I+iX1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11788"; a="79864304"
-X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; 
-   d="scan'208";a="79864304"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 May 2026 03:40:28 -0700
-X-CSE-ConnectionGUID: 0/XQ2Nl4Q3apw4ZJiajANw==
-X-CSE-MsgGUID: qo1alMKuTvC8X7PvF427pQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; 
-   d="scan'208";a="262908978"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.182])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 May 2026 03:40:23 -0700
-Date: Sun, 17 May 2026 13:40:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v1 0/6] mfd: lm3533: convert to OF bindings, improve
- support
-Message-ID: <agmbFQHezUl5Nydn@ashevche-desk.local>
-References: <20260517074306.30937-1-clamor95@gmail.com>
- <agl1T8O6kwP7SFZ1@ashevche-desk.local>
- <CAPVz0n0tfbwa1AbgO4eKrmNunHvmTFLDqXDFd1=VfLayuafH8w@mail.gmail.com>
- <agmWVdi3TkBb2cxV@ashevche-desk.local>
- <CAPVz0n3Kn5VVxWxCgq2EcRiOaLWnB85hD+-S2Eou=H1PyycJCQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UfNZx+CV"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48e8132c6d0so6751495e9.1
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 03:44:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779014645; x=1779619445; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=H5gIsWRNwchS9zsgu9M5QrXv9157pRu5lm3mw2NTNgU=;
+        b=UfNZx+CVoYK6vURd1/JBOO0KIqwUo8bBUqBX/Ox4GcxWAa/7doVBjKKWUt3JmV4vKU
+         T3+m4ynPzdF9kaT5Y42KsONbpy8zUABtjSrlwLSjwiu2ILhV2ZQVESyS6NSQlmDaCdpZ
+         ZbTByK5fLoHrZprriNcsMaqLmWvEN0b/ZmUyLxURMxxRDYlIJdUknnCsx+SgOQAdoyhE
+         clu9kwZG/t2BCJZqd7pqzjhtt2j9q60MZXTL62bPQJXVbqIYrmQYyrdCq09OV32NhiQP
+         95X8VFOh/6BurJ7tiLSZ+EEpEqK4Q1oGnmFR+JakZUkdVMenmKUUgW7cCWI+v0qFrmbE
+         LiqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779014645; x=1779619445;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=H5gIsWRNwchS9zsgu9M5QrXv9157pRu5lm3mw2NTNgU=;
+        b=oSg43His0n118SXZ3WJDv775KzK8J6LclZtYOupICO/vKbZ448cu+A9TTCMG4LFCw+
+         Cjz611nUpsipmxb5+2Z5CLHV4dDrl4o5herBfbDy1kKHKHsMQizEz5uyMtJOsbdJOUNW
+         5lSJrPGovqxzId1DTWbiBZAQqtNCUaKcxCoy8Kt+n28tLQGx88dpGGDOvohuvQVV0ONZ
+         pKd5FDKhMNjmXLT0A8VjfJGlUFd7LbZJLwzQ9F4hNTSAtU4XlVQqeZMLLHBlZZ2i9Mey
+         v8bb1KbMbDWh1hQv8gTCM8i786UySCUIFXOqa8uCSTcsdR0Q/6/xb1mWJgmVOJDM4j2D
+         I2NA==
+X-Forwarded-Encrypted: i=1; AFNElJ9FYRrC2JF4VILTwqz2euQ54iHN4+RqptbiUclT6AZq0Y+j3km1ylQ2qs74Zdu/k6lU/I6+eK8k0hj8@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHVwxJynxhbFZ+5YZ5Zv9SwfHHLjj8rhQeILFic5VxboH6Phtb
+	D+JgtQYqJdNUmmE/ZwMGhkGbkDKBGowXspE9qIlLuZLUuWICP89vApim
+X-Gm-Gg: Acq92OHjIA5WTBlvai5lW4kaFBtqnmpedeqhWyW4HuJiwX1jvDlTYBMPhXEb/KNd2N+
+	n0B5fTejt5bbr8r8sO5FOLPhnUKLvrfW2U45T0pviWqRwfnkViHKsuAMNZjLPN+uW5eGN+86QB+
+	/26laQWDrjBV48EGivfJcETy2BHu6Uyh9LgEq97UQflhJj36NLHg6jsa5QdVx4KZ/JccXGuxEt+
+	OGQRg1fdpHWrcus4E80HcETYg2AoOZQ/np8U5wO8UzpnZyswm6knjl5HEHfUNqr5l3rcnc4GIvB
+	qwvqadcLJ/01aw9NIhnpSKNJoYblfcy9YukO4w6Xxk9DITfOGjlKn+Ddl3NfRAN1RwSWoHDbyWT
+	NvpMoZqLKQAtTwxtD8GUNynY59ma/IrM+Rc2A6Ln6lNFF1ic+F80Y05IzExg5USojFezcxcRHCy
+	1XFbwuwFqQSeqh4mLC7wx+cxMnLaCrxSrGDxazB89VuaW1xJwg0jqXuwlM19GUa7heTFvxRK55k
+	qpr1LsJpf9vtn3ehkxkVMVScakvrdDKJHolhWrJeg2P5aI5eA==
+X-Received: by 2002:a05:600c:848c:b0:48a:52d4:888c with SMTP id 5b1f17b1804b1-48fe60e5241mr161739305e9.3.1779014645237;
+        Sun, 17 May 2026 03:44:05 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9ec3ac86sm28777006f8f.14.2026.05.17.03.44.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 17 May 2026 03:44:04 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Sun, 17 May 2026 11:44:02 +0100
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	rodrigo.alencar@analog.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v13 06/12] iio: core: add decimal value formatting into
+ 64-bit value
+Message-ID: <bhicqdxszledixf44h4ox6cdemuytyiotgha6ab7455vtmqatn@byvmhy5llaij>
+References: <20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com>
+ <20260517-adf41513-iio-driver-v13-6-bb6e134a360f@analog.com>
+ <agmVYvWBmLI4A65m@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n3Kn5VVxWxCgq2EcRiOaLWnB85hD+-S2Eou=H1PyycJCQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <agmVYvWBmLI4A65m@ashevche-desk.local>
 
-On Sun, May 17, 2026 at 01:34:32PM +0300, Svyatoslav Ryhel wrote:
-> нд, 17 трав. 2026 р. о 13:20 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
-> > On Sun, May 17, 2026 at 01:13:22PM +0300, Svyatoslav Ryhel wrote:
-> > > нд, 17 трав. 2026 р. о 10:59 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
-> > > > On Sun, May 17, 2026 at 10:43:00AM +0300, Svyatoslav Ryhel wrote:
-> > > > > Convert LM3533 to OF bindings, add missing VIN supply, add support for
-> > > > > setting mapping mode and LED sources based on device tree.
-> > > >
-> > > > How is this being different to
-> > > > https://lore.kernel.org/lkml/20250218132702.114669-1-clamor95@gmail.com/
-> > > > ?
-> > >
-> > > I have decided to have a fresh look, this is continuation.
-> >
-> > Then it should be something like v4?
+On 26/05/17 01:16PM, Andy Shevchenko wrote:
+> On Sun, May 17, 2026 at 10:14:01AM +0100, Rodrigo Alencar via B4 Relay wrote:
 > 
-> That was more than a year ago, lets start fresh. Those patches are
-> gone, though I did add many of suggestions from there.
+> > Create new format types for iio values (IIO_VAL_DECIMAL64_*), which
+> > defines the representation of fixed decimal point values into a single
+> > 64-bit number. This new format increases the range of represented values,
+> > allowing for integer parts greater than 2^32, as bits are not "wasted"
+> > in the fractional part, which can be seen in IIO_VAL_INT_PLUS_MICRO and
+> > IIO_VAL_INT_PLUS_NANO. Helpers are created to compose and decompose 64-bit
+> > decimals into integer values used in IIO formatting interfaces, which
+> > creates consistency and avoid error-prone manual assignments when using
+> > wordpart macros. When doing the parsing, kstrtodec64() is used with the
+> > scale defined by the specific decimal format type.
 > 
-> > > > What about this comment
-> > > > https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
-> > > > ? Have you talked to Bjorn A and Johan?
-> > >
-> > > No, but since grep -r "lm3533_platform_data" * gives 0 results there
-> > > are no platform_data users of lm3533.
-> >
-> > Johan was against driver removal (while it sounds logical due to above) and
-> > referred to some other patches from somebody else. I think you need to
-> > synchronise with the people to have a clear roadmap that all stakeholders
-> > are agree with. With that, the split and other technical issues can be solved
-> > during the normal process.
+> ...
 > 
-> And this discussion was 2 years ago, and
+> > +	{
+> > +		int scale = type - IIO_VAL_DECIMAL64_BASE;
 > 
-> "This device is used in a bunch of Sony phones and Bjorn A posted a
-> series adding devicetree bindings a few years ago"
+> > +		int l = 0;
 > 
-> They have had more than enough time, don't you think? You would
-> definitely know if there were any activity since you are IIO reviewer
-> and would be included, were there any activity?
+> Perhaps make it global in the function? We have the same in
+> IIO_VAL_INT_MULTIPLE case.
+> 
+> > +		s64 frac;
+> > +
+> > +		tmp2 = div64_s64_rem(iio_val_s64_from_s32s(vals),
+> > +				     int_pow(10, scale), &frac);
+> > +		if (tmp2 == 0 && frac < 0)
+> > +			l += sysfs_emit_at(buf, offset, "-");
+> > +
+> > +		l += sysfs_emit_at(buf, offset + l, "%lld.%0*lld", tmp2, scale,
+> > +				   abs(frac));
+> > +		return l;
+> > +	}
+> 
+> ...
+> 
+> >  #ifndef _IIO_TYPES_H_
+> >  #define _IIO_TYPES_H_
+> 
+> Also needs types.h now... Which makes me think if the proposed macros are
+> placed in the good enough location.
 
-At least it's polite to Cc them your version.
+That is a good point. I left it there because they are related to IIO_VAL_INT_64
+and IIO_VAL_DECIMAL64_*. I had them as macros initially, but they are not exactly
+"types" indeed. 
+
+> 
+> (Note, iio/iio.h missing actually types.h, but includes it indirectly.)
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Kind regards,
 
-
+Rodrigo Alencar
