@@ -1,1226 +1,497 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA0530EF88
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 14:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779027264; cv=none; b=nCMYMAqFM9FC7Vx0PGL6XUQWPUN5HASVGWI0/7UCzBZBFy1aaA+sS5nUrsHuEg1gO+skf2HfrfQ/AYVg5pTJ6m4KD0DOiJ/epdZ/x3X7V2YZBLkLCgZaM6Pi2PZ5bCCpd4hPR8Xxlub63Hou3CW/9I5CjIBbbABRm3L+r4Pz5NM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779027264; c=relaxed/simple;
-	bh=EnrscEuSE8fI9Gm+MsYeXhaWnc4Rwq16JrCR4XufEh8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ta6GlQwcM5exEijcrjzh+acGeEunvaGrMXQNCC4SNBS7vHSiIW/xitPYx05vlLUHkfbFhQaD+3/hyd1GnMtCP7s9sRmLz9HIIS70F6qmGWwN5QqadeCouge0RxEJoZuZ1R5IHJe6sSWVMI75iP7VGnvx7A5fX/alc5eE3e3yos8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kSt24/Fp; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1E33B9DAB
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 14:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779027703; cv=pass; b=VCMCdZTQS5f9pnu9b0rQzh9WdaL6l1LnK70UttKgsThhUh8+KUgYmwOfZU8zKj3RKNmHognyYY1T81dv5bY/cMM4ZieL+XQ80m4jZUuphZNZgVFWou+1HSZ/OEgR2ePvnMPyiVZ+8NrRdbxMY2RffXcMX3Rv4A+ho7zSSqdw+3c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779027703; c=relaxed/simple;
+	bh=a9s45M2yFd2luVa3ROR6IXVFEmUl8An+BjESOWtxj18=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Oz68IeSAQqQN7jfyZML4514Cqi0N2jTfsFCmjsSqA7gSuLIgK3QTakmcQbI+/XJh1pCjq5VkY2fjqFNhL/jXbjfOgAF1n9tnGGbezm/i9dy2uoRRucGChAps0DoLyvkb84Y1d11CRDH06iL6NZtkfyN/gdzbzxFKT6TA/aamMWc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a82VVafq; arc=pass smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kSt24/Fp"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c82de129a40so361421a12.1
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 07:14:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a82VVafq"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48a3e9862f0so7152725e9.1
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 07:21:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779027690; cv=none;
+        d=google.com; s=arc-20240605;
+        b=AhluuOqBnp50Mz7vSapQ4Xv5vfrU/BqodUtMprUE4l6Lqn5LMz6KPw2x03lyohJipf
+         XvwIs6d6a5P2HKHZJqvE1A9K35v+DJcFOYVDAycayaoGfxqeD6AXKa6DUKmoZkVyBEDw
+         x32PLn4cq0ACpkvR9yPClJEbafbiuRiVOg45o0Z0JJJqfGksEibpbSRADrBsCFOgfEKu
+         vOLvpAgp98SsFMB9CZGovF+w0YAfEyX1RmCQPZexyqqzROKrL2VgZG+RlhB4CJZ/Mfzv
+         3Al/cfYQ078WV8pusHQ/qywDxsmLNfibJkQs8e79dkZ2VEO/MI5kmNIgrfZ/WmTNmGAx
+         /PXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=u0XJWqDAWCmfrV09OO90ILuAbPxPPBqO51QHu07miis=;
+        fh=aIxQ7NDg/s4M/b4+2i4fS6ABoaxvBwqWqC0U+G+Y7F0=;
+        b=JdUoKrxNPYoqHtCg4JHebqTFN77aQOAV6eal31uS0J2dd+z7oElD34MUXPoVR6D5gh
+         IlJC/hg6pL1CbVis+tixqdTccUtEneTWuRJrxSZMtlDahf6IdWBv7EWj8esyPre23sYJ
+         3hc/UvLeU7t0OG2ams1cAmAETTClm+vVdjJPr05UNTgc7eB8PXoh7WS/y6JBTh0xE3/M
+         vSiWzZb9mCXet9BpMMM0yp5tEHQ8mkTNHS7fN6ce2Ioxs+hfcK5kJOrahqDTdyBgrBTq
+         mlV+tdurW8ZQEm3B+GpO9y14lgW3b2KhOdWZqjpyLG8m2PEvYIqgNpWao6PNHi790fjs
+         4JhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779027260; x=1779632060; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QQ0AMioN9ICp6uPC2mkgQROFQBoTgmc1faz4jD3rols=;
-        b=kSt24/FpulBkhWFgcBU5EchKF4bELXzXwMvfH2K9v5Chcvfx6We0ovcrDQ8wpU+2hx
-         EJwFC+lFDludzB8dsEcEiRY48nPQTRYQgkc8BtFxxOH7rfNsu5VC9q657bJwO1OyuF6Y
-         KhY9B2WEPXLdUcKylE1E5jXiqjl+RBEOK4aJ5IhPbd7Ms3+6AV7tJCtjXMFMyfAyqMLM
-         WAHBq1ph2apHbhgIC0aqjxjGX7oH4/ctrExDW/GagUqSurnxZUfZhR5we6UqZEsxNipG
-         pGkTOErrLqKd1t30RoMen/SHbFGb6UEP9Elu2CmFfovgDs8sb+FEZOfygcnl8BlRS8CF
-         Il3g==
+        d=gmail.com; s=20251104; t=1779027690; x=1779632490; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=u0XJWqDAWCmfrV09OO90ILuAbPxPPBqO51QHu07miis=;
+        b=a82VVafqMMURuYCmwwxMIl7YK9psfar7PaH4PpujRWsTXBsIep5UwvOrwTHJbbhHlM
+         P/ovKiwMhpZYw9HPEyXk+o2RYYoRtGREk7ADl7zbUnyUfH0ix3oTKkyI+ENCfR3E1aA/
+         8aS33IoKaiVT4AUJleUhdbY7+8+BDqfPKJDmqqwJdw6BE/wSCWeyEtcsaT8hnzg8LziA
+         0Bf+v9rn7SOVwtPJyuhFPdMtoIDX4yfVCcQUbUSqqLO8p3EwCzcCFQZslMNGzQzQtBvr
+         7qfXO3iX1QsJr0jcO5aP8OB69MrZ3j++Sdtng6kwjAXOHG4pYvPt92X7U6Du++AUbY9Y
+         KiSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779027260; x=1779632060;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=QQ0AMioN9ICp6uPC2mkgQROFQBoTgmc1faz4jD3rols=;
-        b=iMv0OXeoZm01hegGjtRySgHwW3L9upCI7paU9tAdyfpXXJT4KtQYS2J2fhPgzhCQzV
-         VvcZBwrIGc4n7WgPdA9JmZVMUTP1nmUSKYklw7bPlIbug09WqdlbCd6bXibLgPczmuH0
-         cs4oqHrOVbPBj8JlhFHRRn90poEl5jzhcHrQXBEb5b4nGfi+EMPh5h3YiqGCOUQk5VaM
-         V6zdkUT+pQLEuf4f5vdLnUQfLzvWiZvjKsFY0RLzSuim5AZsRjzwETpRoDL4UJ4gbUbO
-         vdlDv9pzJl5puSO3ZIRiLRJ5NblzYrI2sVYPirSeQJV9oHzLQYGXVkBmHTkcUO3VH077
-         SKzw==
-X-Forwarded-Encrypted: i=1; AFNElJ/bx7L77LRdQmZVmR2dwKYAQ4JHBzeVnnJQJqTcXcO951dcHSv/NFhGzMrqc8/ggDIzc6rUnOmUQbMQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzsriZz7OisY3rwhu8Qq07fB4oj6ZElYcCYgOVXrF5tLY0E+Z2n
-	kW+8LOau/MpiqcxMKWomZ8vDQQQUG1MAPe2LkkG0Y+XTJDFZp+zVvawP
-X-Gm-Gg: Acq92OHFMhNBmBt9wY/HMOLYtXKkjfa/7jDugfocaXtIpCUAP5h4Z+0LEgHaI/3U9hf
-	YnXWUJgg4aaYGnzjJS4Q7MVjfuDj+SgtJ2W0XZwnJvwguuhEn+sE5DP9dFVQ4Pooe6QSiFPAyOc
-	K/DMGQeLy0lGD+Q0syurwWQ4CDh7JsbJVqOaZKdpyh0swybz69isq7ds3RXSRWsWrJALMG0T/D/
-	uXTVCDVzZS8OmXaP9BMR5eUOb8Sm6aQd9erFJZkG6SmSUh1ngbb8PFpbo5+ZirD2zClLdGggTm8
-	arQI2v99r7Mu20RgnadfSxttMbRw3LKj+5JXkuwBkFR/kL+ODrH8hpNxvpU9+dU1EwXbIDcDrJT
-	ZoKHx7DvEQO+G6l7fjM1xOsbvWm65thrWBzdbN2JUibc6qa0Yal/ScUysOrom/qdYyA7r1jLgx8
-	ZJysmvUe5cOYPY9Oi+iqD3QZXhHdm2
-X-Received: by 2002:a05:6a00:428e:b0:83a:3155:c5e9 with SMTP id d2e1a72fcca58-83f33c34accmr11489015b3a.6.1779027259969;
-        Sun, 17 May 2026 07:14:19 -0700 (PDT)
-Received: from guoguo-lecoo.lan ([104.28.163.100])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19fa5489sm10252528b3a.60.2026.05.17.07.14.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 07:14:19 -0700 (PDT)
-From: Chuanhong Guo <gch981213@gmail.com>
-Date: Sun, 17 May 2026 22:12:58 +0800
-Subject: [PATCH 4/4] clk: add support for siflower sf21-topcrm
+        d=1e100.net; s=20251104; t=1779027690; x=1779632490;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u0XJWqDAWCmfrV09OO90ILuAbPxPPBqO51QHu07miis=;
+        b=R7Qv6qj/ykLDajv0BU8wByBf4W0XHBxgXqyz3XDVNjOS3nosgzhq2Yj/gT8cJHnrGy
+         jycgfoBb+HcYdkkNVCqDmyYB2j+nr3MzAUAgViusW4Wcj5bflXO37mwxqnW6TX7vm9vA
+         mxlfCLWIJtArnKc+5BDy0Hx5sjMugWLpLwEMI6Q711kZNwvcWAwfLl7wr9c+if7pJ9AK
+         f2TcPoDMdvQhhQ5EpB1w6A11AObaqqc5elQK1LMxuVhSPcq0T8Y/DBqk830I5oN9kj3T
+         lK8bl3Fe3N2bfGfSUUfavrbP1Fm5buEYMAYHReKIKXmhR8HL1zCN7ssjTKKh2Xu3YzTm
+         nvdg==
+X-Forwarded-Encrypted: i=1; AFNElJ8R8FPzRGrwvq3602jQy40eGHkoWwFpGSEcC5m71lTU5Brh9O/nDx7zV0k5UE7pw1u2zc+6Jq1ebjee@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBwULC6hxyLoHJb0Km2PG9o29moRaKVk2XqZmAr0KHHJYoJDVF
+	PHwnzyiQGuaPTKnFqnJ1JsccYuJW2D51r32Ld46SeuFCi5MjQqylBmaXXcl13xk65vEakN0QU7u
+	z33AnZFr8VAdHxUPGt0bdRsI1uWMItzQ=
+X-Gm-Gg: Acq92OG3YHY+3c1FKkmyT0UmXwqqbDlYNjPCp7WdSg+Tjjj7n0N0YybxJg9ilBrGQwl
+	2fsSgvJXoslwIW3esBtkqoyeyXkKXaPsRBCRJkoKbC8zOIthr8SVo5IN2yP445W5y8GkjisEby9
+	zcpLywd51iTZbkVwlAakUUiTka5q3Q9FLMv9u3sP1vl3Kp0FEwF4VBgWzB8vB9N6vmJI0QJY7wQ
+	Ut0yqlp8UnxtWI755SUa5H/bQ+cXjrjNCPa8PU9ohfVvnVOr/MEJM4+DpGqQ8cMcGyRGG1BbLg7
+	IndKAx1cwx5Aw/Uign94rzz8FMkXfzRe4q5eyz1yCbXYmKD8ri7VAebdWhTbgV/1XSzQQfZgEqB
+	1hcdLp1QTjoCRuxD/CpIh0DHj4gRs9tBUh/ZsSOkeTPhxZc4Jg8iQRBFNF/dn3g8L2OO2Sw2R2p
+	p7VGW6wM0=
+X-Received: by 2002:a05:600c:46d0:b0:489:1abb:5559 with SMTP id
+ 5b1f17b1804b1-48fe4dad784mr150638425e9.5.1779027689648; Sun, 17 May 2026
+ 07:21:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260517-sf21-topcrm-v1-4-438f2e0513ff@gmail.com>
-References: <20260517-sf21-topcrm-v1-0-438f2e0513ff@gmail.com>
-In-Reply-To: <20260517-sf21-topcrm-v1-0-438f2e0513ff@gmail.com>
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- Chuanhong Guo <gch981213@gmail.com>
-X-Mailer: b4 0.14.3
+References: <20260516-veml3328-v1-0-1d4b663e2fe3@gmail.com>
+ <20260516-veml3328-v1-2-1d4b663e2fe3@gmail.com> <20260517143449.6c30b99f@jic23-huawei>
+In-Reply-To: <20260517143449.6c30b99f@jic23-huawei>
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Sun, 17 May 2026 16:21:16 +0200
+X-Gm-Features: AVHnY4LjscMK8M-TbLFayvnP80RNXxkDxv38M4KTbwHHOj0-FiQEilFrkPbwlXQ
+Message-ID: <CALoEA-z5dJLYC_L93hPo5zpgB+yhjH3iOje1V5XgQ1aOPppU=Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] iio: light: veml3328: add support for new device
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-This commit adds a driver for the Toplevel clock and reset controller
-found on Siflower SF21A6826/SF21H8898 SoCs.
-This block contains control for 3 PLLs, several clock mux/gate/divider
-blocks, and a reset register for on-chip peripherals.
+On Sun, 17 May 2026 at 15:34, Jonathan Cameron <jic23@kernel.org> wrote:
+>
+> On Sat, 16 May 2026 23:50:54 +0200
+> Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+>
+> > Add support for the Vishay VEML3328 RGB/IR light sensor communicating
+> > via I2C (SMBus compatible).
+> >
+> > Also add a new entry for said driver into Kconfig and Makefile.
+> >
+> > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Hi Joshua,
+>
+> Pretty nice for a v1.  A few comments inline to add to
+> the other reviews (I may well have duplicated some!)
+>
+> Jonathan
+>
+> > diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
+> > new file mode 100644
+> > index 000000000000..9eb5429c813d
+> > --- /dev/null
+> > +++ b/drivers/iio/light/veml3328.c
+> > @@ -0,0 +1,405 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Vishay VEML3328 RGBCIR light sensor driver
+> > + *
+> > + * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
+> > + *
+> > + * Datasheet: https://www.vishay.com/docs/84968/veml3328.pdf
+> > + */
+> > +
+> > +#include <linux/bitfield.h>
+> > +#include <linux/bits.h>
+> > +#include <linux/cleanup.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/err.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/module.h>
+> > +#include <linux/mutex.h>
+> > +#include <linux/pm_runtime.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> > +
+> > +#include <linux/iio/iio.h>
+> > +
+> > +#define VEML3328_REG_CONF            0x00
+> > +#define VEML3328_REG_ID                      0x0c
+> > +#define VEML3328_REG_DATA_C          0x04
+> > +#define VEML3328_REG_DATA_R          0x05
+> > +#define VEML3328_REG_DATA_G          0x06
+> > +#define VEML3328_REG_DATA_B          0x07
+> > +#define VEML3328_REG_DATA_IR         0x08
+> > +
+> > +#define VEML3328_IT_MASK             GENMASK(5, 4)
+> > +#define VEML3328_GAIN_MASK           GENMASK(11, 10)
+> Name these so it is obvious which register they are in.
+> I guess VEML3328_CONF_IT_MASK etc.
+>
+>
+> > +
+> > +#define VEML3328_ID_VAL                      0x28
+> > +
+> > +#define VEML3328_CONF_SD0            BIT(0)
+> > +#define VEML3328_CONF_SD1            BIT(15)
+> These two don't add anything given always used together.
+> > +#define VEML3328_SHUTDOWN            (VEML3328_CONF_SD0 | VEML3328_CONF_SD1)
+>
+> #define VEML3328_SHUTDOWN               BIT(0) | BIT(15)
+>
+> is sufficient
 
-There are also two registers for enabling PCIE clock output in this
-block. They aren't covered by this patch because I can't test those
-without a PCIE driver. These will be added with the PCIE driver
-patchset later after I get that working.
+Ah, fair enough, that's a remnant of me using existing drivers
+as inspiration.
 
-Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
----
- drivers/clk/Kconfig                    |    1 +
- drivers/clk/Makefile                   |    1 +
- drivers/clk/siflower/Kconfig           |   22 +
- drivers/clk/siflower/Makefile          |    1 +
- drivers/clk/siflower/clk-sf21-topcrm.c | 1053 ++++++++++++++++++++++++++++++++
- 5 files changed, 1078 insertions(+)
+> > +
+> > +struct veml3328_data {
+> > +     struct regmap *regmap;
+> > +     struct device *dev;
+> The use of the one embedded in regmap got mentioned already in another review.
+> > +     struct mutex lock;
+> All locks need a comment saying what data they are protecting
+> (might well be in the device).
+>
+> Mind you - I'm seeing quite a bit of locking around simple regmap calls.
+> Given there are locks in regmap, you may need to call out if there
+> is a particular readout sequence that must not be interrupted.
+>
+> I'm not immediately seeing one and as such you might not need a local
+> lock.
 
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index b2efbe9f6acb..8098e38d5f59 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -523,6 +523,7 @@ source "drivers/clk/renesas/Kconfig"
- source "drivers/clk/rockchip/Kconfig"
- source "drivers/clk/samsung/Kconfig"
- source "drivers/clk/sifive/Kconfig"
-+source "drivers/clk/siflower/Kconfig"
- source "drivers/clk/socfpga/Kconfig"
- source "drivers/clk/sophgo/Kconfig"
- source "drivers/clk/spacemit/Kconfig"
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index a3e2862ebd7e..7492942b7fad 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -144,6 +144,7 @@ obj-y					+= renesas/
- obj-$(CONFIG_ARCH_ROCKCHIP)		+= rockchip/
- obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
- obj-$(CONFIG_CLK_SIFIVE)		+= sifive/
-+obj-$(CONFIG_CLK_SIFLOWER)		+= siflower/
- obj-y					+= socfpga/
- obj-y					+= sophgo/
- obj-y					+= spacemit/
-diff --git a/drivers/clk/siflower/Kconfig b/drivers/clk/siflower/Kconfig
-new file mode 100644
-index 000000000000..03cbfbdbdb8d
---- /dev/null
-+++ b/drivers/clk/siflower/Kconfig
-@@ -0,0 +1,22 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+menuconfig CLK_SIFLOWER
-+	bool "Clock driver for Siflower SoCs"
-+	depends on ARCH_SIFLOWER || COMPILE_TEST
-+	default ARCH_SIFLOWER
-+	help
-+	  Clock drivers for Siflower Linux-capable SoCs.
-+
-+if CLK_SIFLOWER
-+
-+config CLK_SF21_TOPCRM
-+	tristate "Clock driver for Siflower SF21 toplevel clock & reset module"
-+	depends on ARCH_SIFLOWER || COMPILE_TEST
-+	default ARCH_SIFLOWER
-+	select RESET_CONTROLLER
-+	help
-+	  Supports the toplevel clock and reset module in Siflower SF21 SoCs.
-+	  If this kernel is meant to run on Siflower SF21A6826 or SF21H8898,
-+	  enable this driver.
-+
-+endif
-diff --git a/drivers/clk/siflower/Makefile b/drivers/clk/siflower/Makefile
-new file mode 100644
-index 000000000000..952a470a4308
---- /dev/null
-+++ b/drivers/clk/siflower/Makefile
-@@ -0,0 +1 @@
-+obj-$(CONFIG_CLK_SF21_TOPCRM) += clk-sf21-topcrm.o
-diff --git a/drivers/clk/siflower/clk-sf21-topcrm.c b/drivers/clk/siflower/clk-sf21-topcrm.c
-new file mode 100644
-index 000000000000..7d4c5e370d6d
---- /dev/null
-+++ b/drivers/clk/siflower/clk-sf21-topcrm.c
-@@ -0,0 +1,1053 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/kernel.h>
-+#include <linux/of.h>
-+#include <linux/slab.h>
-+#include <linux/clk-provider.h>
-+#include <linux/bitfield.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/rational.h>
-+#include <linux/module.h>
-+#include <linux/reset-controller.h>
-+#include <linux/spinlock.h>
-+#include <linux/platform_device.h>
-+#include <dt-bindings/clock/siflower,sf21-topcrm.h>
-+
-+struct sf_clk_common {
-+	void __iomem	*base;
-+	/* Serializes register RMW sequences shared by clocks and resets. */
-+	spinlock_t	*lock;
-+	struct clk_hw	hw;
-+};
-+
-+static inline struct sf_clk_common *hw_to_sf_clk_common(struct clk_hw *hw)
-+{
-+	return container_of(hw, struct sf_clk_common, hw);
-+}
-+
-+static inline u32 sf_readl(struct sf_clk_common *priv, u32 reg)
-+{
-+	return readl(priv->base + reg);
-+}
-+
-+static inline void sf_writel(struct sf_clk_common *priv, u32 reg, u32 val)
-+{
-+	return writel(val, priv->base + reg);
-+}
-+
-+static inline void sf_rmw(struct sf_clk_common *priv, u32 reg, u32 clr, u32 set)
-+{
-+	u32 val;
-+
-+	val = sf_readl(priv, reg);
-+	val &= ~clr;
-+	val |= set;
-+	sf_writel(priv, reg, val);
-+}
-+
-+#define PLL_CMN_CFG1		0x0
-+#define  PLL_CMN_BYPASS		BIT(27)
-+#define  PLL_CMN_PD		BIT(26)
-+#define  PLL_CMN_FBDIV		GENMASK(25, 14)
-+#define  PLL_CMN_FBDIV_BITS	(25 - 14 + 1)
-+#define  PLL_CMN_POSTDIV_PD	BIT(13)
-+#define  PLL_CMN_VCO_PD		BIT(12)
-+#define  PLL_CMN_POSTDIV1	GENMASK(11, 9)
-+#define  PLL_CMN_POSTDIV2	GENMASK(8, 6)
-+#define  PLL_CMN_REFDIV		GENMASK(5, 0)
-+#define  PLL_CMN_REFDIV_BITS	6
-+
-+#define PLL_CMN_LOCK		0xc8
-+#define PLL_DDR_LOCK		0xcc
-+#define PLL_PCIE_LOCK		0xd4
-+
-+#define CFG_LOAD		0x100
-+#define  CFG_LOAD_PCIE_PLL	BIT(4)
-+#define  CFG_LOAD_DDR_PLL	BIT(2)
-+#define  CFG_LOAD_CMN_PLL	BIT(1)
-+#define  CFG_LOAD_DIV		BIT(0)
-+
-+#define PLL_LOCK_TIMEOUT_US	1000
-+
-+static unsigned long sf21_cmnpll_vco_recalc_rate(struct clk_hw *hw,
-+						 unsigned long parent_rate)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	u32 cfg = sf_readl(priv, PLL_CMN_CFG1);
-+	unsigned long refdiv = FIELD_GET(PLL_CMN_REFDIV, cfg);
-+	unsigned long fbdiv = FIELD_GET(PLL_CMN_FBDIV, cfg);
-+
-+	if (!refdiv || !fbdiv)
-+		return 0;
-+
-+	return (parent_rate / refdiv) * fbdiv;
-+}
-+
-+static int sf21_cmnpll_vco_determine_rate(struct clk_hw *hw,
-+					  struct clk_rate_request *req)
-+{
-+	unsigned long fbdiv, refdiv;
-+
-+	rational_best_approximation(req->rate, req->best_parent_rate,
-+				    BIT(PLL_CMN_FBDIV_BITS) - 1,
-+				    BIT(PLL_CMN_REFDIV_BITS) - 1, &fbdiv,
-+				    &refdiv);
-+	if (!refdiv || !fbdiv)
-+		return -EINVAL;
-+
-+	req->rate = (req->best_parent_rate / refdiv) * fbdiv;
-+
-+	return 0;
-+}
-+
-+static int sf21_cmnpll_vco_set_rate(struct clk_hw *hw, unsigned long rate,
-+				    unsigned long parent_rate)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	unsigned long flags;
-+	unsigned long fbdiv, refdiv;
-+	u32 val;
-+	int ret;
-+
-+	rational_best_approximation(rate, parent_rate,
-+				    BIT(PLL_CMN_FBDIV_BITS) - 1,
-+				    BIT(PLL_CMN_REFDIV_BITS) - 1, &fbdiv,
-+				    &refdiv);
-+	if (!refdiv || !fbdiv)
-+		return -EINVAL;
-+
-+	spin_lock_irqsave(priv->lock, flags);
-+
-+	sf_rmw(priv, PLL_CMN_CFG1, PLL_CMN_REFDIV | PLL_CMN_FBDIV | PLL_CMN_PD,
-+	       FIELD_PREP(PLL_CMN_REFDIV, refdiv) |
-+		       FIELD_PREP(PLL_CMN_FBDIV, fbdiv));
-+	sf_writel(priv, CFG_LOAD, CFG_LOAD_CMN_PLL);
-+	sf_writel(priv, CFG_LOAD, 0);
-+
-+	ret = readl_poll_timeout_atomic(priv->base + PLL_CMN_LOCK, val, val & 1,
-+					0, PLL_LOCK_TIMEOUT_US);
-+	if (ret)
-+		goto out_unlock;
-+
-+out_unlock:
-+	spin_unlock_irqrestore(priv->lock, flags);
-+	return ret;
-+}
-+
-+static const struct clk_ops sf21_cmnpll_vco_ops = {
-+	.recalc_rate = sf21_cmnpll_vco_recalc_rate,
-+	.determine_rate = sf21_cmnpll_vco_determine_rate,
-+	.set_rate = sf21_cmnpll_vco_set_rate,
-+};
-+
-+static struct sf_clk_common cmnpll_vco = {
-+	.hw.init = CLK_HW_INIT_FW_NAME("cmnpll_vco", "xin25m",
-+				       &sf21_cmnpll_vco_ops, 0),
-+};
-+
-+static unsigned long sf21_dualdiv_round_rate(unsigned long rate,
-+					     unsigned long parent_rate,
-+					     unsigned int range,
-+					     unsigned int *diva,
-+					     unsigned int *divb)
-+{
-+	unsigned int div = DIV_ROUND_CLOSEST(parent_rate, rate);
-+	unsigned int best_diff, da, db, cur_div, cur_diff;
-+
-+	if (div <= 1) {
-+		*diva = 1;
-+		*divb = 1;
-+		return parent_rate;
-+	}
-+
-+	best_diff = div - 1;
-+	*diva = 1;
-+	*divb = 1;
-+
-+	for (da = 1; da <= range; da++) {
-+		db = DIV_ROUND_CLOSEST(div, da);
-+		if (db > da)
-+			db = da;
-+
-+		cur_div = da * db;
-+		if (div > cur_div)
-+			cur_diff = div - cur_div;
-+		else
-+			cur_diff = cur_div - div;
-+
-+		if (cur_diff < best_diff) {
-+			best_diff = cur_diff;
-+			*diva = da;
-+			*divb = db;
-+		}
-+		if (cur_diff == 0)
-+			break;
-+	}
-+
-+	return parent_rate / *diva / *divb;
-+}
-+
-+static int sf21_cmnpll_postdiv_determine_rate(struct clk_hw *hw,
-+					      struct clk_rate_request *req)
-+{
-+	unsigned int diva, divb;
-+
-+	if (!req->rate)
-+		return -EINVAL;
-+
-+	req->rate = sf21_dualdiv_round_rate(req->rate, req->best_parent_rate,
-+					    7, &diva, &divb);
-+
-+	return 0;
-+}
-+
-+static int sf21_cmnpll_postdiv_set_rate(struct clk_hw *hw,
-+					unsigned long rate,
-+					unsigned long parent_rate)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	unsigned int diva, divb;
-+	unsigned long flags;
-+
-+	if (!rate)
-+		return -EINVAL;
-+
-+	sf21_dualdiv_round_rate(rate, parent_rate, 7, &diva, &divb);
-+
-+	spin_lock_irqsave(priv->lock, flags);
-+	sf_rmw(priv, PLL_CMN_CFG1, PLL_CMN_POSTDIV1 | PLL_CMN_POSTDIV2,
-+	       FIELD_PREP(PLL_CMN_POSTDIV1, diva) |
-+		       FIELD_PREP(PLL_CMN_POSTDIV2, divb));
-+	sf_writel(priv, CFG_LOAD, CFG_LOAD_CMN_PLL);
-+	sf_writel(priv, CFG_LOAD, 0);
-+	spin_unlock_irqrestore(priv->lock, flags);
-+	return 0;
-+}
-+
-+static unsigned long
-+sf21_cmnpll_postdiv_recalc_rate(struct clk_hw *hw,
-+				unsigned long parent_rate)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	u32 cfg = sf_readl(priv, PLL_CMN_CFG1);
-+	unsigned long div1 = FIELD_GET(PLL_CMN_POSTDIV1, cfg);
-+	unsigned long div2 = FIELD_GET(PLL_CMN_POSTDIV2, cfg);
-+
-+	if (!div1 || !div2)
-+		return 0;
-+
-+	return parent_rate / div1 / div2;
-+}
-+
-+static const struct clk_ops sf21_cmnpll_postdiv_ops = {
-+	.recalc_rate = sf21_cmnpll_postdiv_recalc_rate,
-+	.determine_rate = sf21_cmnpll_postdiv_determine_rate,
-+	.set_rate = sf21_cmnpll_postdiv_set_rate,
-+};
-+
-+static struct sf_clk_common cmnpll_postdiv = {
-+	.hw.init = CLK_HW_INIT_HW("cmnpll_postdiv", &cmnpll_vco.hw,
-+				  &sf21_cmnpll_postdiv_ops, 0),
-+};
-+
-+#define PLL_DDR_CFG1		0x18
-+#define  PLL_DDR_BYPASS		BIT(23)
-+#define  PLL_DDR_PLLEN		BIT(22)
-+#define  PLL_DDR_4PHASEEN	BIT(21)
-+#define  PLL_DDR_POSTDIVEN	BIT(20)
-+#define  PLL_DDR_DSMEN		BIT(19)
-+#define  PLL_DDR_DACEN		BIT(18)
-+#define  PLL_DDR_DSKEWCALBYP	BIT(17)
-+#define  PLL_DDR_DSKEWCALCNT	GENMASK(16, 14)
-+#define  PLL_DDR_DSKEWCALEN	BIT(13)
-+#define  PLL_DDR_DSKEWCALIN	GENMASK(12, 1)
-+#define  PLL_DDR_DSKEWFASTCAL	BIT(0)
-+
-+#define PLL_DDR_CFG2		0x1c
-+#define  PLL_DDR_POSTDIV1	GENMASK(29, 27)
-+#define  PLL_DDR_POSTDIV2	GENMASK(26, 24)
-+#define  PLL_DDR_FRAC		GENMASK(23, 0)
-+
-+#define PLL_DDR_CFG3		0x20
-+#define  PLL_DDR_FBDIV		GENMASK(17, 6)
-+#define  PLL_DDR_REFDIV		GENMASK(5, 0)
-+
-+static unsigned long
-+sf21_ddrpll_postdiv_recalc_rate(struct clk_hw *hw,
-+				unsigned long parent_rate)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	u32 cfg2 = sf_readl(priv, PLL_DDR_CFG2);
-+	u32 postdiv1 = FIELD_GET(PLL_DDR_POSTDIV1, cfg2);
-+	u32 postdiv2 = FIELD_GET(PLL_DDR_POSTDIV2, cfg2);
-+	u32 cfg3 = sf_readl(priv, PLL_DDR_CFG3);
-+	u32 fbdiv = FIELD_GET(PLL_DDR_FBDIV, cfg3);
-+	u32 refdiv = FIELD_GET(PLL_DDR_REFDIV, cfg3);
-+
-+	if (!refdiv || !fbdiv || !postdiv1 || !postdiv2)
-+		return 0;
-+
-+	return (parent_rate / refdiv) * fbdiv / postdiv1 / postdiv2;
-+}
-+
-+static const struct clk_ops sf21_ddrpll_postdiv_ops = {
-+	.recalc_rate = sf21_ddrpll_postdiv_recalc_rate,
-+};
-+
-+static struct sf_clk_common ddrpll_postdiv = {
-+	.hw.init = CLK_HW_INIT_FW_NAME("ddrpll_postdiv", "xin25m",
-+				       &sf21_ddrpll_postdiv_ops, 0),
-+};
-+
-+#define PLL_PCIE_CFG1		0x4c
-+#define  PLL_PCIE_PLLEN		BIT(31)
-+#define  PLL_PCIE_POSTDIV0PRE	BIT(30)
-+#define  PLL_PCIE_REFDIV	GENMASK(29, 24)
-+#define  PLL_PCIE_FRAC		GENMASK(23, 0)
-+
-+#define PLL_PCIE_CFG2		0x50
-+#define  PLL_PCIE_FOUTEN(i)	BIT(28 + (i))
-+#define  PLL_PCIE_BYPASS(i)	BIT(24 + (i))
-+#define  PLL_PCIE_PDIVA_OFFS(i)	(21 - 6 * (i))
-+#define  PLL_PCIE_PDIVB_OFFS(i)	(18 - 6 * (i))
-+#define  PLL_PCIE_PDIV_MASK	GENMASK(2, 0)
-+
-+#define PLL_PCIE_CFG3		0x54
-+#define  PLL_PCIE_DSKEWFASTCAL	BIT(31)
-+#define  PLL_PCIE_DACEN		BIT(30)
-+#define  PLL_PCIE_DSMEN		BIT(29)
-+#define  PLL_PCIE_DSKEWCALEN	BIT(28)
-+#define  PLL_PCIE_DSKEWCALBYP	BIT(27)
-+#define  PLL_PCIE_DSKEWCALCNT	GENMASK(26, 24)
-+#define  PLL_PCIE_DSKEWCALIN	GENMASK(23, 12)
-+#define  PLL_PCIE_FBDIV		GENMASK(11, 0)
-+
-+static unsigned long
-+sf21_pciepll_vco_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	u32 cfg1 = sf_readl(priv, PLL_PCIE_CFG1);
-+	unsigned long refdiv = FIELD_GET(PLL_PCIE_REFDIV, cfg1);
-+	u32 cfg3 = sf_readl(priv, PLL_PCIE_CFG3);
-+	unsigned long fbdiv = FIELD_GET(PLL_PCIE_FBDIV, cfg3);
-+
-+	if (!refdiv || !fbdiv)
-+		return 0;
-+
-+	return (parent_rate / refdiv) * fbdiv / 4;
-+}
-+
-+static int sf21_pciepll_vco_enable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	unsigned long flags;
-+	u32 val;
-+	int ret;
-+
-+	spin_lock_irqsave(priv->lock, flags);
-+	sf_rmw(priv, PLL_PCIE_CFG1, 0, PLL_PCIE_PLLEN);
-+	sf_writel(priv, CFG_LOAD, CFG_LOAD_PCIE_PLL);
-+	sf_writel(priv, CFG_LOAD, 0);
-+	ret = readl_poll_timeout_atomic(priv->base + PLL_PCIE_LOCK, val, val & 1,
-+					0, PLL_LOCK_TIMEOUT_US);
-+	spin_unlock_irqrestore(priv->lock, flags);
-+	return ret;
-+}
-+
-+static void sf21_pciepll_vco_disable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(priv->lock, flags);
-+	sf_rmw(priv, PLL_PCIE_CFG1, PLL_PCIE_PLLEN, 0);
-+	sf_writel(priv, CFG_LOAD, CFG_LOAD_PCIE_PLL);
-+	sf_writel(priv, CFG_LOAD, 0);
-+	spin_unlock_irqrestore(priv->lock, flags);
-+}
-+
-+static int sf21_pciepll_vco_is_enabled(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *priv = hw_to_sf_clk_common(hw);
-+
-+	return !!(sf_readl(priv, PLL_PCIE_CFG1) & PLL_PCIE_PLLEN);
-+}
-+
-+static const struct clk_ops sf21_pciepll_vco_ops = {
-+	.enable = sf21_pciepll_vco_enable,
-+	.disable = sf21_pciepll_vco_disable,
-+	.is_enabled = sf21_pciepll_vco_is_enabled,
-+	.recalc_rate = sf21_pciepll_vco_recalc_rate,
-+};
-+
-+static struct sf_clk_common pciepll_vco = {
-+	.hw.init = CLK_HW_INIT_FW_NAME("pciepll_vco", "xin25m",
-+				       &sf21_pciepll_vco_ops,
-+				       CLK_SET_RATE_GATE),
-+};
-+
-+struct sf21_pciepll_fout {
-+	struct sf_clk_common common;
-+	u8 index;
-+};
-+
-+static int sf21_pciepll_fout_enable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_pciepll_fout *priv =
-+		container_of(cmn_priv, struct sf21_pciepll_fout, common);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	sf_rmw(cmn_priv, PLL_PCIE_CFG2, 0, PLL_PCIE_FOUTEN(priv->index));
-+	sf_writel(cmn_priv, CFG_LOAD, CFG_LOAD_PCIE_PLL);
-+	sf_writel(cmn_priv, CFG_LOAD, 0);
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+	return 0;
-+}
-+
-+static void sf21_pciepll_fout_disable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_pciepll_fout *priv =
-+		container_of(cmn_priv, struct sf21_pciepll_fout, common);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	sf_rmw(cmn_priv, PLL_PCIE_CFG2, PLL_PCIE_FOUTEN(priv->index), 0);
-+	sf_writel(cmn_priv, CFG_LOAD, CFG_LOAD_PCIE_PLL);
-+	sf_writel(cmn_priv, CFG_LOAD, 0);
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+}
-+
-+static int sf21_pciepll_fout_is_enabled(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_pciepll_fout *priv =
-+		container_of(cmn_priv, struct sf21_pciepll_fout, common);
-+
-+	return !!(sf_readl(cmn_priv, PLL_PCIE_CFG2) &
-+		  PLL_PCIE_FOUTEN(priv->index));
-+}
-+
-+static int sf21_pciepll_fout_determine_rate(struct clk_hw *hw,
-+					    struct clk_rate_request *req)
-+{
-+	unsigned int diva, divb;
-+
-+	if (!req->rate)
-+		return -EINVAL;
-+
-+	req->rate = sf21_dualdiv_round_rate(req->rate, req->best_parent_rate,
-+					    8, &diva, &divb);
-+
-+	return 0;
-+}
-+
-+static int sf21_pciepll_fout_set_rate(struct clk_hw *hw,
-+				      unsigned long rate,
-+				      unsigned long parent_rate)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_pciepll_fout *priv =
-+		container_of(cmn_priv, struct sf21_pciepll_fout, common);
-+	unsigned int diva, divb;
-+	unsigned long flags;
-+
-+	if (!rate)
-+		return -EINVAL;
-+
-+	sf21_dualdiv_round_rate(rate, parent_rate, 8, &diva, &divb);
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	sf_rmw(cmn_priv, PLL_PCIE_CFG2,
-+	       (PLL_PCIE_PDIV_MASK << PLL_PCIE_PDIVA_OFFS(priv->index)) |
-+		       (PLL_PCIE_PDIV_MASK << PLL_PCIE_PDIVB_OFFS(priv->index)),
-+	       ((diva - 1) << PLL_PCIE_PDIVA_OFFS(priv->index)) |
-+		       ((divb - 1) << PLL_PCIE_PDIVB_OFFS(priv->index)));
-+	sf_writel(cmn_priv, CFG_LOAD, CFG_LOAD_PCIE_PLL);
-+	sf_writel(cmn_priv, CFG_LOAD, 0);
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+	return 0;
-+}
-+
-+static unsigned long
-+sf21_pciepll_fout_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_pciepll_fout *priv =
-+		container_of(cmn_priv, struct sf21_pciepll_fout, common);
-+	int idx = priv->index;
-+	u32 cfg2 = sf_readl(cmn_priv, PLL_PCIE_CFG2);
-+	ulong pdiva = (cfg2 >> PLL_PCIE_PDIVA_OFFS(idx)) & PLL_PCIE_PDIV_MASK;
-+	ulong pdivb = (cfg2 >> PLL_PCIE_PDIVB_OFFS(idx)) & PLL_PCIE_PDIV_MASK;
-+
-+	return parent_rate / (pdiva + 1) / (pdivb + 1);
-+}
-+
-+static const struct clk_ops sf21_pciepll_fout_ops = {
-+	.enable = sf21_pciepll_fout_enable,
-+	.disable = sf21_pciepll_fout_disable,
-+	.is_enabled = sf21_pciepll_fout_is_enabled,
-+	.recalc_rate = sf21_pciepll_fout_recalc_rate,
-+	.determine_rate = sf21_pciepll_fout_determine_rate,
-+	.set_rate = sf21_pciepll_fout_set_rate,
-+};
-+
-+#define SF21_PCIEPLL_FOUT(_name, _idx, _flags)			\
-+	struct sf21_pciepll_fout _name = {				\
-+		.common.hw.init = CLK_HW_INIT_HW(#_name,		\
-+						 &pciepll_vco.hw,	\
-+						 &sf21_pciepll_fout_ops,\
-+						 _flags),		\
-+		.index = _idx,						\
-+	}
-+
-+static SF21_PCIEPLL_FOUT(pciepll_fout0, 0, 0);
-+static SF21_PCIEPLL_FOUT(pciepll_fout1, 1, 0);
-+static SF21_PCIEPLL_FOUT(pciepll_fout2, 2, 0);
-+static SF21_PCIEPLL_FOUT(pciepll_fout3, 3, 0);
-+
-+struct sf21_clk_muxdiv {
-+	struct sf_clk_common common;
-+	u16 en;
-+	u8 mux_reg;
-+	u8 mux_offs;
-+	u8 div_reg;
-+	u8 div_offs;
-+};
-+
-+#define CRM_CLK_SEL(_x)		((_x) * 4 + 0x80)
-+#define  CLK_SEL1_PLL_TEST	GENMASK(6, 4)
-+#define CRM_CLK_EN		0x8c
-+#define CRM_CLK_DIV(_x)		((_x) * 4 + 0x94)
-+#define  CRM_CLK_DIV_MASK	GENMASK(7, 0)
-+
-+static unsigned long sf21_muxdiv_recalc_rate(struct clk_hw *hw,
-+					     unsigned long parent_rate)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_clk_muxdiv *priv =
-+		container_of(cmn_priv, struct sf21_clk_muxdiv, common);
-+	ulong div_reg = CRM_CLK_DIV(priv->div_reg);
-+	u16 div_offs = priv->div_offs;
-+	u16 div_val = (sf_readl(cmn_priv, div_reg) >> div_offs) &
-+		      CRM_CLK_DIV_MASK;
-+	div_val += 1;
-+	return parent_rate / div_val;
-+}
-+
-+static int sf21_muxdiv_determine_rate(struct clk_hw *hw,
-+				      struct clk_rate_request *req)
-+{
-+	unsigned int div;
-+
-+	if (!req->rate)
-+		return -EINVAL;
-+
-+	div = DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate);
-+	if (!div)
-+		div = 1;
-+	else if (div > CRM_CLK_DIV_MASK + 1)
-+		div = CRM_CLK_DIV_MASK + 1;
-+
-+	req->rate = req->best_parent_rate / div;
-+	return 0;
-+}
-+
-+static int sf21_muxdiv_set_rate(struct clk_hw *hw, unsigned long rate,
-+				unsigned long parent_rate)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_clk_muxdiv *priv =
-+		container_of(cmn_priv, struct sf21_clk_muxdiv, common);
-+	ulong div_reg = CRM_CLK_DIV(priv->div_reg);
-+	u16 div_offs = priv->div_offs;
-+	unsigned long flags;
-+	unsigned int div;
-+
-+	if (!rate)
-+		return -EINVAL;
-+
-+	div = DIV_ROUND_CLOSEST(parent_rate, rate);
-+	if (div < 1)
-+		div = 1;
-+	else if (div > CRM_CLK_DIV_MASK + 1)
-+		div = CRM_CLK_DIV_MASK + 1;
-+	div -= 1;
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	sf_rmw(cmn_priv, div_reg, CRM_CLK_DIV_MASK << div_offs,
-+	       div << div_offs);
-+	sf_writel(cmn_priv, CFG_LOAD, CFG_LOAD_DIV);
-+	sf_writel(cmn_priv, CFG_LOAD, 0);
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+	return 0;
-+}
-+
-+static int sf21_muxdiv_enable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_clk_muxdiv *priv =
-+		container_of(cmn_priv, struct sf21_clk_muxdiv, common);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	sf_rmw(cmn_priv, CRM_CLK_EN, 0, BIT(priv->en));
-+	/*
-+	 * Clock divider value load only happens when the clock is running.
-+	 * Pulse the CFG_LOAD_DIV so that set_rate() which happened
-+	 * before enable() is applied.
-+	 */
-+	sf_writel(cmn_priv, CFG_LOAD, CFG_LOAD_DIV);
-+	sf_writel(cmn_priv, CFG_LOAD, 0);
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+	return 0;
-+}
-+
-+static void sf21_muxdiv_disable(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_clk_muxdiv *priv =
-+		container_of(cmn_priv, struct sf21_clk_muxdiv, common);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	sf_rmw(cmn_priv, CRM_CLK_EN, BIT(priv->en), 0);
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+}
-+
-+static int sf21_muxdiv_is_enabled(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_clk_muxdiv *priv =
-+		container_of(cmn_priv, struct sf21_clk_muxdiv, common);
-+	u32 reg_val = sf_readl(cmn_priv, CRM_CLK_EN);
-+
-+	return reg_val & (BIT(priv->en)) ? 1 : 0;
-+}
-+
-+static u8 sf21_muxdiv_get_parent(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_clk_muxdiv *priv =
-+		container_of(cmn_priv, struct sf21_clk_muxdiv, common);
-+	ulong mux_reg = CRM_CLK_SEL(priv->mux_reg);
-+	u16 mux_offs = priv->mux_offs;
-+	u32 reg_val = sf_readl(cmn_priv, mux_reg);
-+
-+	return reg_val & BIT(mux_offs) ? 1 : 0;
-+}
-+
-+static int sf21_muxdiv_set_parent(struct clk_hw *hw, u8 index)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	struct sf21_clk_muxdiv *priv =
-+		container_of(cmn_priv, struct sf21_clk_muxdiv, common);
-+	ulong mux_reg = CRM_CLK_SEL(priv->mux_reg);
-+	u16 mux_offs = priv->mux_offs;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	if (index)
-+		sf_rmw(cmn_priv, mux_reg, 0, BIT(mux_offs));
-+	else
-+		sf_rmw(cmn_priv, mux_reg, BIT(mux_offs), 0);
-+
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+	return 0;
-+}
-+
-+static const struct clk_ops sf21_clk_muxdiv_ops = {
-+	.enable = sf21_muxdiv_enable,
-+	.disable = sf21_muxdiv_disable,
-+	.is_enabled = sf21_muxdiv_is_enabled,
-+	.recalc_rate = sf21_muxdiv_recalc_rate,
-+	.determine_rate = sf21_muxdiv_determine_rate,
-+	.set_rate = sf21_muxdiv_set_rate,
-+	.get_parent = sf21_muxdiv_get_parent,
-+	.set_parent = sf21_muxdiv_set_parent,
-+};
-+
-+#define SF21_MUXDIV(_name, _parents, _mux_reg, _mux_offs, _div_reg,	\
-+		    _div_offs, _en, _flags)				\
-+	struct sf21_clk_muxdiv _name = {				\
-+		.common.hw.init = CLK_HW_INIT_PARENTS_HW(		\
-+		#_name, _parents, &sf21_clk_muxdiv_ops, _flags),	\
-+		.en = _en,						\
-+		.mux_reg = _mux_reg,					\
-+		.mux_offs = _mux_offs,					\
-+		.div_reg = _div_reg,					\
-+		.div_offs = _div_offs,					\
-+	}
-+
-+static const struct clk_hw *clk_periph_parents[] = {
-+	&cmnpll_postdiv.hw,
-+	&ddrpll_postdiv.hw,
-+};
-+
-+static const struct clk_hw *clk_ddr_parents[] = {
-+	&ddrpll_postdiv.hw,
-+	&cmnpll_postdiv.hw,
-+};
-+
-+static const struct clk_hw *clk_gmac_usb_parents[] = {
-+	&cmnpll_vco.hw,
-+	&ddrpll_postdiv.hw,
-+};
-+
-+static SF21_MUXDIV(muxdiv_cpu, clk_periph_parents, 0, 1, 0, 0, 0,
-+		   CLK_IGNORE_UNUSED);
-+static SF21_MUXDIV(muxdiv_pic, clk_periph_parents, 0, 3, 3, 16, 1,
-+		   CLK_IGNORE_UNUSED);
-+static SF21_MUXDIV(muxdiv_axi, clk_periph_parents, 0, 5, 0, 8, 2,
-+		   CLK_IS_CRITICAL);
-+static SF21_MUXDIV(muxdiv_ahb, clk_periph_parents, 0, 7, 0, 16, 3,
-+		   CLK_IS_CRITICAL);
-+static SF21_MUXDIV(muxdiv_apb, clk_periph_parents, 0, 9, 0, 24, 4,
-+		   CLK_IS_CRITICAL);
-+static SF21_MUXDIV(muxdiv_uart, clk_periph_parents, 0, 11, 1, 0, 5, 0);
-+static SF21_MUXDIV(muxdiv_iram, clk_periph_parents, 0, 13, 1, 8, 6, 0);
-+static SF21_MUXDIV(muxdiv_npu, clk_periph_parents, 0, 17, 1, 24, 8, 0);
-+static SF21_MUXDIV(muxdiv_ddrphy, clk_ddr_parents, 0, 19, 2, 0, 9,
-+		   CLK_IS_CRITICAL);
-+static SF21_MUXDIV(muxdiv_ddr_bypass, clk_ddr_parents, 0, 21, 3, 0, 10,
-+		   CLK_IS_CRITICAL);
-+static SF21_MUXDIV(muxdiv_ethtsu, clk_periph_parents, 0, 25, 2, 16, 12,
-+		   0);
-+static SF21_MUXDIV(muxdiv_gmac_byp_ref, clk_gmac_usb_parents, 0, 27, 2,
-+		   24, 13, 0);
-+static SF21_MUXDIV(muxdiv_usb, clk_gmac_usb_parents, 1, 1, 1, 16, 24, 0);
-+static SF21_MUXDIV(muxdiv_usbphy, clk_gmac_usb_parents, 1, 3, 2, 8, 25,
-+		   0);
-+static SF21_MUXDIV(muxdiv_serdes_csr, clk_periph_parents, 1, 15, 5, 0,
-+		   20, 0);
-+static SF21_MUXDIV(muxdiv_crypt_csr, clk_periph_parents, 1, 17, 5, 8,
-+		   21, 0);
-+static SF21_MUXDIV(muxdiv_crypt_app, clk_periph_parents, 1, 19, 5, 16,
-+		   22, 0);
-+static SF21_MUXDIV(muxdiv_irom, clk_periph_parents, 1, 21, 5, 24, 23,
-+		   CLK_IS_CRITICAL);
-+
-+static int sf21_mux_determine_rate(struct clk_hw *hw,
-+				   struct clk_rate_request *req)
-+{
-+	req->rate = req->best_parent_rate;
-+	return 0;
-+}
-+
-+static const struct clk_ops sf21_clk_mux_ops = {
-+	.get_parent = sf21_muxdiv_get_parent,
-+	.set_parent = sf21_muxdiv_set_parent,
-+	.determine_rate = sf21_mux_determine_rate,
-+};
-+
-+#define SF21_MUX(_name, _parents, _mux_reg, _mux_offs, _flags)	\
-+	struct sf21_clk_muxdiv _name = {				\
-+		.common.hw.init = CLK_HW_INIT_PARENTS_DATA(		\
-+			#_name, _parents, &sf21_clk_mux_ops, _flags),	\
-+		.en = 0,						\
-+		.mux_reg = _mux_reg,					\
-+		.mux_offs = _mux_offs,					\
-+		.div_reg = 0,						\
-+		.div_offs = 0,						\
-+	}
-+
-+static const struct clk_parent_data clk_boot_parents[] = {
-+	{ .hw = &muxdiv_irom.common.hw },
-+	{ .fw_name = "xin25m" },
-+};
-+
-+static SF21_MUX(mux_boot, clk_boot_parents, 0, 30, CLK_IS_CRITICAL);
-+
-+static const struct clk_ops sf21_clk_div_ops = {
-+	.recalc_rate = sf21_muxdiv_recalc_rate,
-+	.determine_rate = sf21_muxdiv_determine_rate,
-+	.set_rate = sf21_muxdiv_set_rate,
-+};
-+
-+#define SF21_DIV(_name, _parent, _div_reg, _div_offs, _flags)		\
-+	struct sf21_clk_muxdiv _name = {				\
-+		.common.hw.init = CLK_HW_INIT_FW_NAME(			\
-+			#_name, _parent, &sf21_clk_div_ops, _flags),	\
-+		.en = 0,						\
-+		.mux_reg = 0,						\
-+		.mux_offs = 0,						\
-+		.div_reg = _div_reg,					\
-+		.div_offs = _div_offs,					\
-+	}
-+
-+static SF21_DIV(div_pvt, "xin25m", 3, 8, 0);
-+
-+static const struct clk_hw *clk_pll_test_parents[] = {
-+	&cmnpll_postdiv.hw,
-+	&ddrpll_postdiv.hw,
-+	&pciepll_fout3.common.hw,
-+};
-+
-+static u8 sf21_pll_test_get_parent(struct clk_hw *hw)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	u32 reg_val = sf_readl(cmn_priv, CRM_CLK_SEL(1));
-+	u8 parent = FIELD_GET(CLK_SEL1_PLL_TEST, reg_val);
-+
-+	if (parent >= ARRAY_SIZE(clk_pll_test_parents))
-+		return 0;
-+
-+	return parent;
-+}
-+
-+static int sf21_pll_test_set_parent(struct clk_hw *hw, u8 index)
-+{
-+	struct sf_clk_common *cmn_priv = hw_to_sf_clk_common(hw);
-+	unsigned long flags;
-+
-+	if (index >= ARRAY_SIZE(clk_pll_test_parents))
-+		return -EINVAL;
-+
-+	spin_lock_irqsave(cmn_priv->lock, flags);
-+	sf_rmw(cmn_priv, CRM_CLK_SEL(1), CLK_SEL1_PLL_TEST,
-+	       FIELD_PREP(CLK_SEL1_PLL_TEST, index));
-+	spin_unlock_irqrestore(cmn_priv->lock, flags);
-+	return 0;
-+}
-+
-+static const struct clk_ops sf21_clk_pll_test_ops = {
-+	.recalc_rate = sf21_muxdiv_recalc_rate,
-+	.determine_rate = sf21_muxdiv_determine_rate,
-+	.set_rate = sf21_muxdiv_set_rate,
-+	.get_parent = sf21_pll_test_get_parent,
-+	.set_parent = sf21_pll_test_set_parent,
-+};
-+
-+static struct sf21_clk_muxdiv muxdiv_pll_test = {
-+	.common.hw.init = CLK_HW_INIT_PARENTS_HW("muxdiv_pll_test",
-+						 clk_pll_test_parents,
-+						 &sf21_clk_pll_test_ops, 0),
-+	.en = 0,
-+	.mux_reg = 0,
-+	.mux_offs = 0,
-+	.div_reg = 3,
-+	.div_offs = 24,
-+};
-+
-+static const struct clk_ops sf21_clk_gate_ops = {
-+	.enable = sf21_muxdiv_enable,
-+	.disable = sf21_muxdiv_disable,
-+	.is_enabled = sf21_muxdiv_is_enabled,
-+};
-+
-+#define SF21_GATE(_name, _parents, _en, _flags)				\
-+	struct sf21_clk_muxdiv _name = {				\
-+		.common.hw.init = CLK_HW_INIT_PARENTS_HW(		\
-+			#_name, _parents, &sf21_clk_gate_ops, _flags),	\
-+		.en = _en,						\
-+		.mux_reg = 0,						\
-+		.mux_offs = 0,						\
-+		.div_reg = 0,						\
-+		.div_offs = 0,						\
-+	}
-+
-+static const struct clk_hw *clk_pcie_parents[] = {
-+	&pciepll_fout1.common.hw,
-+};
-+
-+static SF21_GATE(pcie_refclk_n, clk_pcie_parents, 15, 0);
-+static SF21_GATE(pcie_refclk_p, clk_pcie_parents, 16, 0);
-+
-+static struct clk_hw_onecell_data sf21_hw_clks = {
-+	.num = SF21_CLK_MAX,
-+	.hws = {
-+		[SF21_CLK_CMNPLL_VCO] = &cmnpll_vco.hw,
-+		[SF21_CLK_CMNPLL_POSTDIV] = &cmnpll_postdiv.hw,
-+		[SF21_CLK_DDRPLL_POSTDIV] = &ddrpll_postdiv.hw,
-+		[SF21_CLK_PCIEPLL_VCO] = &pciepll_vco.hw,
-+		[SF21_CLK_PCIEPLL_FOUT0] = &pciepll_fout0.common.hw,
-+		[SF21_CLK_PCIEPLL_FOUT1] = &pciepll_fout1.common.hw,
-+		[SF21_CLK_PCIEPLL_FOUT2] = &pciepll_fout2.common.hw,
-+		[SF21_CLK_PCIEPLL_FOUT3] = &pciepll_fout3.common.hw,
-+		[SF21_CLK_CPU] = &muxdiv_cpu.common.hw,
-+		[SF21_CLK_PIC] = &muxdiv_pic.common.hw,
-+		[SF21_CLK_AXI] = &muxdiv_axi.common.hw,
-+		[SF21_CLK_AHB] = &muxdiv_ahb.common.hw,
-+		[SF21_CLK_APB] = &muxdiv_apb.common.hw,
-+		[SF21_CLK_UART] = &muxdiv_uart.common.hw,
-+		[SF21_CLK_IRAM] = &muxdiv_iram.common.hw,
-+		[SF21_CLK_NPU] = &muxdiv_npu.common.hw,
-+		[SF21_CLK_DDRPHY_REF] = &muxdiv_ddrphy.common.hw,
-+		[SF21_CLK_DDR_BYPASS] = &muxdiv_ddr_bypass.common.hw,
-+		[SF21_CLK_ETHTSU] = &muxdiv_ethtsu.common.hw,
-+		[SF21_CLK_GMAC_BYP_REF] = &muxdiv_gmac_byp_ref.common.hw,
-+		[SF21_CLK_USB] = &muxdiv_usb.common.hw,
-+		[SF21_CLK_USBPHY] = &muxdiv_usbphy.common.hw,
-+		[SF21_CLK_SERDES_CSR] = &muxdiv_serdes_csr.common.hw,
-+		[SF21_CLK_CRYPT_CSR] = &muxdiv_crypt_csr.common.hw,
-+		[SF21_CLK_CRYPT_APP] = &muxdiv_crypt_app.common.hw,
-+		[SF21_CLK_IROM] = &muxdiv_irom.common.hw,
-+		[SF21_CLK_BOOT] = &mux_boot.common.hw,
-+		[SF21_CLK_PVT] = &div_pvt.common.hw,
-+		[SF21_CLK_PLL_TEST] = &muxdiv_pll_test.common.hw,
-+		[SF21_CLK_PCIE_REFN] = &pcie_refclk_n.common.hw,
-+		[SF21_CLK_PCIE_REFP] = &pcie_refclk_p.common.hw,
-+	}
-+};
-+
-+struct sf21_clk_ctrl {
-+	void __iomem *base;
-+	/* Serializes register RMW sequences shared by clocks and resets. */
-+	spinlock_t lock;
-+	struct reset_controller_dev rcdev;
-+	const u32 *reset_bits;
-+	unsigned int nr_resets;
-+};
-+
-+#define SF21_SOFT_RESET		0xc0
-+
-+static const u32 sf21_topcrm_reset_bits[] = {
-+	[SF21_RESET_GIC]			= BIT(1),
-+	[SF21_RESET_AXI]			= BIT(2),
-+	[SF21_RESET_AHB]			= BIT(3),
-+	[SF21_RESET_APB]			= BIT(4),
-+	[SF21_RESET_IRAM]			= BIT(5),
-+	[SF21_RESET_NPU]			= BIT(7),
-+	[SF21_RESET_DDR_CTL]			= BIT(8),
-+	[SF21_RESET_DDR_PHY]			= BIT(9),
-+	[SF21_RESET_DDR_PWR_OK_IN]		= BIT(10),
-+	[SF21_RESET_DDR_CTL_APB]		= BIT(11),
-+	[SF21_RESET_DDR_PHY_APB]		= BIT(12),
-+	[SF21_RESET_USB]			= BIT(19),
-+	[SF21_RESET_PVT]			= BIT(23),
-+	[SF21_RESET_SERDES_CSR]			= BIT(24),
-+	[SF21_RESET_CRYPT_CSR]			= BIT(28),
-+	[SF21_RESET_CRYPT_APP]			= BIT(29),
-+	[SF21_RESET_NPU2DDR_ASYNCBRIDGE]	= BIT(30),
-+	[SF21_RESET_IROM]			= BIT(31),
-+};
-+
-+static inline struct sf21_clk_ctrl *
-+rcdev_to_sf21_topcrm(struct reset_controller_dev *rcdev)
-+{
-+	return container_of(rcdev, struct sf21_clk_ctrl, rcdev);
-+}
-+
-+static int sf21_topcrm_reset_update(struct reset_controller_dev *rcdev,
-+				    unsigned long id, bool assert)
-+{
-+	struct sf21_clk_ctrl *ctrl = rcdev_to_sf21_topcrm(rcdev);
-+	u32 bit = ctrl->reset_bits[id];
-+	unsigned long flags;
-+	u32 reg;
-+
-+	spin_lock_irqsave(&ctrl->lock, flags);
-+	reg = readl(ctrl->base + SF21_SOFT_RESET);
-+	if (assert)
-+		reg &= ~bit;
-+	else
-+		reg |= bit;
-+	writel(reg, ctrl->base + SF21_SOFT_RESET);
-+	spin_unlock_irqrestore(&ctrl->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int sf21_topcrm_reset_assert(struct reset_controller_dev *rcdev,
-+				    unsigned long id)
-+{
-+	return sf21_topcrm_reset_update(rcdev, id, true);
-+}
-+
-+static int sf21_topcrm_reset_deassert(struct reset_controller_dev *rcdev,
-+				      unsigned long id)
-+{
-+	return sf21_topcrm_reset_update(rcdev, id, false);
-+}
-+
-+static int sf21_topcrm_reset_status(struct reset_controller_dev *rcdev,
-+				    unsigned long id)
-+{
-+	struct sf21_clk_ctrl *ctrl = rcdev_to_sf21_topcrm(rcdev);
-+	u32 bit = ctrl->reset_bits[id];
-+
-+	return !(readl(ctrl->base + SF21_SOFT_RESET) & bit);
-+}
-+
-+static const struct reset_control_ops sf21_topcrm_reset_ops = {
-+	.assert = sf21_topcrm_reset_assert,
-+	.deassert = sf21_topcrm_reset_deassert,
-+	.status = sf21_topcrm_reset_status,
-+};
-+
-+static int sf21_topcrm_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct sf21_clk_ctrl *ctrl;
-+	int i, ret;
-+
-+	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
-+	if (!ctrl)
-+		return -ENOMEM;
-+
-+	ctrl->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(ctrl->base))
-+		return dev_err_probe(dev, PTR_ERR(ctrl->base),
-+				     "failed to map resources\n");
-+
-+	spin_lock_init(&ctrl->lock);
-+
-+	for (i = 0; i < sf21_hw_clks.num; i++) {
-+		struct clk_hw *hw = sf21_hw_clks.hws[i];
-+		struct sf_clk_common *common;
-+
-+		if (!hw)
-+			continue;
-+		common = hw_to_sf_clk_common(hw);
-+		common->base = ctrl->base;
-+		common->lock = &ctrl->lock;
-+		ret = devm_clk_hw_register(dev, hw);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to register clock %d\n",
-+					     i);
-+	}
-+
-+	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
-+					  &sf21_hw_clks);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add hw provider\n");
-+
-+	ctrl->reset_bits = sf21_topcrm_reset_bits;
-+	ctrl->nr_resets = ARRAY_SIZE(sf21_topcrm_reset_bits);
-+	ctrl->rcdev.owner = THIS_MODULE;
-+	ctrl->rcdev.nr_resets = ctrl->nr_resets;
-+	ctrl->rcdev.ops = &sf21_topcrm_reset_ops;
-+	ctrl->rcdev.of_node = dev->of_node;
-+	ctrl->rcdev.of_reset_n_cells = 1;
-+
-+	ret = devm_reset_controller_register(dev, &ctrl->rcdev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to register reset controller\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id sf21_topcrm_dt_ids[] = {
-+	{ .compatible = "siflower,sf21-topcrm" },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, sf21_topcrm_dt_ids);
-+
-+static struct platform_driver sf21_topcrm_driver = {
-+	.probe	= sf21_topcrm_probe,
-+	.driver	= {
-+		.name			= "sf21-topcrm",
-+		.suppress_bind_attrs	= true,
-+		.of_match_table		= sf21_topcrm_dt_ids,
-+	},
-+};
-+module_platform_driver(sf21_topcrm_driver);
-+
-+MODULE_AUTHOR("Chuanhong Guo <gch981213@gmail.com>");
-+MODULE_DESCRIPTION("driver for Siflower SF21 top clock and reset module");
-+MODULE_LICENSE("GPL");
+I was on the fence with this one - my understanding was that the locking
+in regmap was just for i2c bus interactions, not actual value read/writes.
+I've no problem with removing it though if I am mistaken.
+
+> > +};
+> > +
+> > +static const struct regmap_config veml3328_regmap_config = {
+> > +     .name = "veml3328",
+> > +     .reg_bits = 8,
+> > +     .val_bits = 16,
+> > +     .max_register = VEML3328_REG_ID,
+> > +     .val_format_endian = REGMAP_ENDIAN_LITTLE,
+> > +};
+> > +
+> > +#define VEML3328_CHAN_SPEC(_color, _addr) { \
+> > +     .type = IIO_INTENSITY, \
+> > +     .modified = 1, \
+> > +     .channel2 = IIO_MOD_LIGHT_##_color, \
+> > +     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+> > +     .info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME) | \
+> > +                                BIT(IIO_CHAN_INFO_SCALE), \
+> > +     .info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) | \
+> > +                                          BIT(IIO_CHAN_INFO_SCALE), \
+> > +     .address = _addr, \
+> > +}
+> > +
+> > +static const struct iio_chan_spec veml3328_channels[] = {
+> > +     VEML3328_CHAN_SPEC(CLEAR, VEML3328_REG_DATA_C),
+>
+> Would be nice to have a an IIO_LUX channel (always an approximation)
+> as that tends to be what userspace wanges.
+>
+> Hmm. I googled a bit. Seems there is a note that has more info.
+> https://www.vishay.com/docs/80010/designingveml3328.pdf
+>
+> Interestingly suggests that green channel is nearer than clear.
+>
+> If you can put the correct scaling in that would be a good thing
+> to support (keep the green as well).
+
+Sure, I was intending to do some extensions once this first version
+gets polished and accepted, but I can do it now.
+
+>
+>
+> > +     VEML3328_CHAN_SPEC(RED, VEML3328_REG_DATA_R),
+> > +     VEML3328_CHAN_SPEC(GREEN, VEML3328_REG_DATA_G),
+> > +     VEML3328_CHAN_SPEC(BLUE, VEML3328_REG_DATA_B),
+> > +     VEML3328_CHAN_SPEC(IR, VEML3328_REG_DATA_IR),
+> > +};
+>
+> > +
+> > +static int veml3328_power_up(struct veml3328_data *data)
+> > +{
+> > +     int ret;
+> > +
+> > +     ret = regmap_update_bits(data->regmap, VEML3328_REG_CONF,
+> > +                              VEML3328_SHUTDOWN, 0);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     fsleep(veml3328_it_times[3][1]);
+>
+> Add a comment on why we need to sleep maximum integration time.
+
+Fair, I also made the value into a macro per Andy's comment.
+
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static void veml3328_power_down_action(void *data)
+> > +{
+> > +     veml3328_power_down(data);
+> > +}
+> > +
+> > +static int veml3328_read_raw(struct iio_dev *indio_dev,
+> > +                          struct iio_chan_spec const *chan,
+> > +                          int *val, int *val2, long mask)
+> > +{
+> > +     struct veml3328_data *data = iio_priv(indio_dev);
+> > +     struct regmap *regmap = data->regmap;
+> > +     unsigned int reg_val;
+> > +     int ret;
+> > +     int reg;
+> > +
+> > +     guard(mutex)(&data->lock);
+> > +
+> > +     ret = pm_runtime_resume_and_get(data->dev);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     switch (mask) {
+> > +     case IIO_CHAN_INFO_RAW:
+> > +             ret = regmap_read(regmap, chan->address, &reg_val);
+> > +             if (ret < 0)
+> > +                     goto exit;
+> > +
+> > +             *val = reg_val;
+> > +             ret = IIO_VAL_INT;
+> > +             break;
+> > +
+> > +     case IIO_CHAN_INFO_INT_TIME:
+> > +             ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
+> > +             if (ret < 0)
+> > +                     goto exit;
+> > +
+> > +             reg = FIELD_GET(VEML3328_IT_MASK, reg_val);
+> > +             if (reg >= ARRAY_SIZE(veml3328_it_times)) {
+> > +                     ret = -EINVAL;
+> > +                     goto exit;
+> > +             }
+> > +
+> > +             *val = veml3328_it_times[reg][0];
+> > +             *val2 = veml3328_it_times[reg][1];
+> > +             ret = IIO_VAL_INT_PLUS_MICRO;
+> > +             break;
+> > +
+> > +     case IIO_CHAN_INFO_SCALE:
+> > +             ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
+> > +             if (ret < 0)
+> > +                     goto exit;
+> > +
+> > +             reg = FIELD_GET(VEML3328_GAIN_MASK, reg_val);
+> > +             if (reg >= ARRAY_SIZE(veml3328_scale_vals)) {
+> > +                     ret = -EINVAL;
+> > +                     goto exit;
+> > +             }
+> > +
+> > +             *val = veml3328_scale_vals[reg][0];
+> > +             *val2 = veml3328_scale_vals[reg][1];
+> > +             ret = IIO_VAL_INT_PLUS_MICRO;
+> > +             break;
+> > +
+> > +     default:
+> > +             ret = -EINVAL;
+> > +     }
+> > +
+> > +exit:
+> > +     pm_runtime_put_autosuspend(data->dev);
+> See below for comment on how to handle this using stuff that
+> ultimately comes from cleanup.h
+>
+> > +
+> > +     return ret;
+> > +}
+> > +
+>
+> > +
+> > +static int veml3328_write_raw(struct iio_dev *indio_dev,
+> > +                           struct iio_chan_spec const *chan,
+> > +                           int val, int val2, long mask)
+> > +{
+> > +     struct veml3328_data *data = iio_priv(indio_dev);
+> > +     struct regmap *regmap = data->regmap;
+> > +     int ret;
+> > +     int i;
+> > +
+> > +     guard(mutex)(&data->lock);
+> > +
+> > +     ret = pm_runtime_resume_and_get(data->dev);
+>
+> PM_RUNTIME_ACQUIRE_AUTOSUSPEND() will mean you can rely on this
+> being auto suspended on exiting scope.  Will allow early returns
+> and get rid of your goto that you noted already.
+
+Oh, now that is interesting! It would simplify things greatly...
+
+>
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     switch (mask) {
+> > +     case IIO_CHAN_INFO_INT_TIME:
+> > +             if (val != 0) {
+> > +                     ret = -EINVAL;
+> > +                     goto exit;
+>
+> With above, all these become direct returns.
+>
+> > +             }
+> > +
+> > +             for (i = 0; i < ARRAY_SIZE(veml3328_it_times); i++) {
+> > +                     if (veml3328_it_times[i][1] == val2)
+> > +                             break;
+> > +             }
+> > +
+> > +             if (i == ARRAY_SIZE(veml3328_it_times)) {
+> > +                     ret = -EINVAL;
+> > +                     goto exit;
+> > +             }
+> > +
+> > +             ret = regmap_update_bits(regmap, VEML3328_REG_CONF,
+> > +                                      VEML3328_IT_MASK,
+> > +                                      FIELD_PREP(VEML3328_IT_MASK, i));
+> > +             break;
+> > +
+> > +     case IIO_CHAN_INFO_SCALE:
+> > +             for (i = 0; i < ARRAY_SIZE(veml3328_scale_vals); i++) {
+> > +                     if (val == veml3328_scale_vals[i][0] &&
+> > +                         val2 == veml3328_scale_vals[i][1])
+> > +                             break;
+> > +             }
+> > +
+> > +             if (i == ARRAY_SIZE(veml3328_scale_vals)) {
+> > +                     ret = -EINVAL;
+> > +                     goto exit;
+> > +             }
+> > +
+> > +             ret = regmap_update_bits(regmap, VEML3328_REG_CONF,
+> > +                                      VEML3328_GAIN_MASK,
+> > +                                      FIELD_PREP(VEML3328_GAIN_MASK, i));
+> > +
+> > +             break;
+> > +
+> > +     default:
+> > +             ret = -EINVAL;
+> > +     }
+> > +
+> > +exit:
+> > +     pm_runtime_put_autosuspend(data->dev);
+> > +
+> > +     return ret;
+> > +}
+> > +
+> > +static int veml3328_write_raw_get_fmt(struct iio_dev *indio_dev,
+> > +                                   struct iio_chan_spec const *chan,
+> > +                                   long mask)
+> > +{
+> > +     switch (mask) {
+> > +     case IIO_CHAN_INFO_SCALE:
+> > +     case IIO_CHAN_INFO_INT_TIME:
+> > +             return IIO_VAL_INT_PLUS_MICRO;
+>
+> That's the default - no need for the callback.
+
+Good point.
+
+>
+> > +     default:
+> > +             return -EINVAL;
+> > +     }
+> > +}
+> > +
+> > +static const struct iio_info veml3328_info = {
+> > +     .read_raw = veml3328_read_raw,
+> > +     .write_raw = veml3328_write_raw,
+> > +     .read_avail = veml3328_read_avail,
+> > +     .write_raw_get_fmt = veml3328_write_raw_get_fmt,
+> > +};
+> > +
+> > +static int veml3328_probe(struct i2c_client *client)
+> > +{
+> > +     struct device *dev = &client->dev;
+> > +     struct veml3328_data *data;
+> > +     struct iio_dev *indio_dev;
+> > +     unsigned int reg_val;
+> > +     int ret;
+> > +
+> > +     indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> > +     if (!indio_dev)
+> > +             return -ENOMEM;
+> > +
+> > +     data = iio_priv(indio_dev);
+> > +     i2c_set_clientdata(client, indio_dev);
+> > +     data->dev = dev;
+> > +
+> > +     data->regmap = devm_regmap_init_i2c(client, &veml3328_regmap_config);
+> > +     if (IS_ERR(data->regmap))
+> > +             return dev_err_probe(dev, PTR_ERR(data->regmap),
+> > +                                  "Failed to initialize regmap\n");
+> > +
+> > +     ret = devm_mutex_init(dev, &data->lock);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     ret = devm_regulator_get_enable(dev, "vdd");
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "Failed to enable regulator\n");
+> > +
+> > +     ret = regmap_read(data->regmap, VEML3328_REG_ID, &reg_val);
+> > +     if (ret < 0)
+> > +             return dev_err_probe(dev, ret, "Failed to read ID register\n");
+> > +
+> > +     if ((reg_val & 0xff) != VEML3328_ID_VAL)
+> > +             return dev_err_probe(dev, -ENODEV, "Invalid device ID\n");
+>
+> This breaks fallback dt compatibles.
+> If some future part is released that backwards compatible with this one, then
+> the dt-binding will reflect that.  That future part will typically have a different
+> ID_VAL.  We need that case of new binding, older kernel to work so this can't
+> fail probe.  It is fine to print a message though to indicate we are seeing
+> a value that we don't know about.
+>
+> Note sashiko moans about this sometimes. It's wrong so ignore it on this
+> particular thing!  Sadly it's seeing a lot of older drivers where we did this
+> wrong in the past and haven't adding the churn needed to fix them all.
+
+Yes, Andy already pointed out to use dev_warn() instead. Good idea.
+
+Overall I appreciate the review as this is my first attempt at a driver.
 
 -- 
-2.54.0
+Kind regards
 
+CJD
