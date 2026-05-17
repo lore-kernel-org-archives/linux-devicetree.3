@@ -1,94 +1,172 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBB027A462
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 16:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97761223708;
+	Sun, 17 May 2026 16:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779035391; cv=none; b=HolXiNdbDmz1cLPn96v5Bdc/zNbv3M7YRq+tBkL/hTYUwhfmm0CFtyR1BX67VT6zpGfQWGj54S6JSslGcbvCL3+ZBstOzWmbuYjs6nAMJnlhjgn1FDDNtviWUKgsBtN/OP9ilnDI0zOi36n7RI+NMECpSdP8TaJ0uHHUqm71m40=
+	t=1779035574; cv=none; b=o0RVPDJS3h9XrueeEdfbSLOdEDRgO3o9Hq9x4BgsYWQZ2FCV44OR9pPyHlyTxUDcGKgzHWTkJap2dk0SrL62q/4KTM5lTAO6Qxtclqp1X1H19Df59Z9ZfcYtBrmgfku0fxd+EcIVhbkiLttiPE4hS5fnogsjarj0J/trps2eNwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779035391; c=relaxed/simple;
-	bh=zi3F9jjBameBKB9vjfjoURcZxlkSiuLP1xjP/cLUT5I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jkE5A5TW3SeGqigazUWXmYIDhc/Sf1+dokWTcb+JgIDuV/7MMqDgHDToojmM0nyqLqq3AD3vwGWqWX/MZz19tLRLv8bnq/0PsTi5l9yK0Vk8pFTjopG0b696FEkBgvNbC6+OKBSaBtNm5XAJRd9CfgcPRzX2H8IsJC6FbBUzGCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=OMv5hXju; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1779035574; c=relaxed/simple;
+	bh=5/2IM9AzVnmRWwF810UKTvZASqGP2E/71qnkahOXQW4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l4qkpo6Zl2Vz2BsKVa8VftMbW4zR4/8OB7oIIcIxosrEa3PQB3fuZ9z1N/Hn7Rx/aOtnjoGTaW9tRnvhYJLlBFG6grGdGgVyMN0uewEWqTxxUtzQfcieecieZrxcImuzB8Z+ztZqE5RX2tMmzl/YY0oR2P/CznI0GMfsB/dPpH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=s6umqwZJ; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=m6Ubl4F4; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="OMv5hXju"
-Received: from macsyma.thunk.org (pool-173-48-113-30.bstnma.fios.verizon.net [173.48.113.30])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 64HGTCOa012302
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 17 May 2026 12:29:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1779035356; bh=ybqO5IyQZWG+yOAuxzWHV8Y8nXAPMHTC2dZ8p+w8Rk0=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=OMv5hXjuOTQyRnU1KmIZA3vokJVdLvr2CS4amW3t7dbr1vrgJT0r3ffUR+K2/4WEt
-	 VlyY+tErhQE6NIZJYJKYuiDWeZS+rIwDbUA4R3IXhPxsXqmA4k1F5LluhhVv0LZzWE
-	 H/v/ToCWzUKYkBUedcceeBqmhMPCJtEFw/IY9Rgv39eAwakSuj3PFIP39wQ870USFr
-	 lpim7uWxLZ2t1tE88TorK9yLkvQx4qWT4ztAwOn1OBKFtq9SF57b2WPDQo/7NYCC2P
-	 Ft5A5H+uyHx99AQlABsOk6bdjNfog3Iwg5aiju2wVUYXNpXPQxdewAvRCTaIw3dFdz
-	 b+ikkRvIbReqw==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id B3F5167E8B95; Sun, 17 May 2026 12:29:12 -0400 (EDT)
-Date: Sun, 17 May 2026 12:29:12 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Roman Gushchin <roman.gushchin@linux.dev>,
-        Krzysztof Kozlowski <krzk@kernel.org>, debarbos@redhat.com,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Konstantin Ryabitsev <mricon@kernel.org>,
-        Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
-        sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
-        Linux Kernel Workflows <workflows@vger.kernel.org>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        devicetree@vger.kernel.org, kfree@google.com
-Subject: Re: Stop false review statements
-Message-ID: <20260517162912.GA51520@macsyma-wired.lan>
-References: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
- <07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
- <20260517120556.248852d8@foz.lan>
- <2026051758-superbowl-baritone-2705@gregkh>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="s6umqwZJ";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="m6Ubl4F4"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gJRLN58Xtz9ss2;
+	Sun, 17 May 2026 18:32:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1779035564;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=eImlYbdZ7QoBtV/tqV5M9hyci2tjWpC0XXN0ko+thxo=;
+	b=s6umqwZJng3J4dI6QSNHOrxKJfT1KGYJmJ6a6x5f1WEThx5Wn0YQ0uvNOgyZU5tR81qA8h
+	0vLjcb52aF5HNmkOf6AGFkY19XPw78GfpQKwvlmau7M8jp1e15kVp0hrHbmwsBfM0Qbcf1
+	YErEOx5Kx82jqEJQkM5tbPBOqnRbhsnJMqkyGRzqJm4/mus715kAtUODZaBiBeV7Kf6pXW
+	r4NnyKfbxZQ1E9Ql8/gsFj4TcdOo49fHOFl8HmfYyU8H7/8lhUIOwLninIwKvG1Gxt9/3P
+	IVkJOgviydT+Qm/0iBkTCxY9Qk+DZzZ3Pg7uWJ5hXNWctpeFftIOL3i2PiYBYg==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1779035563;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=eImlYbdZ7QoBtV/tqV5M9hyci2tjWpC0XXN0ko+thxo=;
+	b=m6Ubl4F48CQtkITSUYblVVCCYh/6nwJalleR0An7QKBiFq19VsZYojgGM/yyYw8wHaXpGc
+	frmaX2lFYzdGW4IdaFCXQ1rT2VXTFWN+ihwEi+JRWzzgd3IXBbPGdwg1qgBOLWkYVkYYwc
+	NPLCY8Io+toIKPIQmvZV+kLejD07aJCn4ewgPefm+pO8VYloUrvIr1MPD6F1QGo8t9jOU4
+	AnZr1Qen0T+52bRttR/FQc9snXIktETZCe7xPppJwoWOLtFzZCH7y1Dx91mUjyMUYtXasm
+	IL31vOUOYQJMe1O2VgYjPHtpKYWgyJWXn+4UVa8prveN9fML5HBB4wl19qtpjg==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: r8a78000: Describe all reserved memory
+Date: Sun, 17 May 2026 18:31:25 +0200
+Message-ID: <20260517163212.18016-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026051758-superbowl-baritone-2705@gregkh>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: rygdoqgc59rsenjakdm5yyot5cw3gfdf
+X-MBO-RS-ID: f474707d4ad9f75ab11
 
-It should also be noted that Intel's zero-day bot was (a) closed
-source, and (b) was sending its test regression reports with the
-linux-kernel mailing list cc'ed, and no one really complained because
-it was so useful, and if Intel was willing to use very expensive
-hardware in their data center to contribute reports, so long as the
-reports were useful and the false-positive noise was low enough, we
-decided to be grateful and not worry (too much) about the fact that
-Intel's zero-day bot was closed source.  (There was indeed some
-grumbling in the bar at Plumbers, of course.  :-)
+Fully describe all available DRAM in the DT, and describe regions which
+are not accessible because they are used by firmware in reserved-memory
+node.
 
-In my opinion, we should be doing the same for Sashiko, and that's the
-decision which the ext4 developers have made --- at least for ext4
-patches, after an experiment where we only sent reviews to the patch
-authors and the maintainer, people were satisifed that false positive
-rate was low enough (with the caveats that I had previously mentioned,
-but we were willing to live with them because at least for us, it was
-useful enough), that we will be requesting that Sashiko reviews be
-cc'ed to the ext4 mailing list.
+Replace first memory bank memory@60600000 with memory@40000000 and a
+518 MiB long reserved-memory no-map subnode. This memory region is used
+by other cores in the system.
 
-I realize that there are some extra sensitivities around AI / LLM's,
-but from the perspective of reviewing patches, I don't see any
-difference between this and other closed source tools that we've used,
-such as Coverity and the Zero-day bot.  Not everyone will agree, of
-course, but at the moment, this is a decision that we are making on a
-subsystem by subsystem basis, which again, has strong historical
-precedence.
+Reserve 32 kiB of memory at 0x8c100000 for parameters shared by IPL,
+SCP, TFA BL31 and TEE.
 
-Cheers,
+Reserve 512 kiB of memory at 0x8c200000 for TFA BL31. The upcoming
+upstream TFA 2.15 BL31 uses memory from 0x8c200000..0x8c242fff, the
+round up to 512 kiB is slight future proofing.
 
-						- Ted
+Reserve 32 MiB of memory at 0x8c400000 for OPTEE-OS, which is the
+entire OPTEE-OS TZ protected DRAM area.
+
+Neither the TFA BL31 nor OPTEE-OS do modify the DT passed to Linux in
+any way with any new reserved-memory {} node to reserve memory areas
+used by the TFA BL31 or OPTEE-OS to prevent the next stage from using
+those areas, which lets Linux use all of the available DRAM as it is
+described in the DT that was passed in by U-Boot, including the areas
+that are newly utilized by TFA BL31 or OPTEE-OS.
+
+In case of high DRAM utilization, unless the memory used by TFA BL31
+or OPTEE-OS is properly reserved, Linux may use and corrupt the memory
+used by TFA BL31 or OPTEE-OS, which would lead to the system becoming
+unresponsive.
+
+Fixes: ad142a4ef710 ("arm64: dts: renesas: r8a78000: Add initial Ironhide board support")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ .../boot/dts/renesas/r8a78000-ironhide.dts    | 35 +++++++++++++++++--
+ 1 file changed, 32 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+index a721734fbd5d0..99f4cfb53e0f8 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
++++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+@@ -20,10 +20,9 @@ chosen {
+ 		stdout-path = "serial0:1843200n8";
+ 	};
+ 
+-	memory@60600000 {
++	memory@40000000 {
+ 		device_type = "memory";
+-		/* first 518MiB is reserved for other purposes. */
+-		reg = <0x0 0x60600000 0x0 0x5fa00000>;
++		reg = <0x0 0x40000000 0x0 0x80000000>;
+ 	};
+ 
+ 	memory@1080000000 {
+@@ -65,6 +64,36 @@ memory@1e00000000 {
+ 		device_type = "memory";
+ 		reg = <0x1e 0x00000000 0x1 0x00000000>;
+ 	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		/* First 518 MiB is reserved for other purposes. */
++		firmware@40000000 {
++			reg = <0x0 0x40000000 0x0 0x20600000>;
++			no-map;
++		};
++
++		/* Parameters set by IPL. */
++		parameters@8c100000 {
++			reg = <0x0 0x8c100000 0x0 0x00008000>;
++			no-map;
++		};
++
++		/* TFA BL31. */
++		tfa-bl31@8c200000 {
++			reg = <0x0 0x8c200000 0x0 0x00080000>;
++			no-map;
++		};
++
++		/* TEE TZ DRAM. */
++		tee@8c400000 {
++			reg = <0x0 0x8c400000 0x0 0x02000000>;
++			no-map;
++		};
++        };
+ };
+ 
+ &extal_clk {
+-- 
+2.53.0
+
