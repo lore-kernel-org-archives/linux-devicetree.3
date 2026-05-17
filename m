@@ -1,172 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B859C10F2
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 00:20:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822D7405C33;
+	Sun, 17 May 2026 00:33:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778977236; cv=none; b=cYKtVH9ZUCsSj84s67GHt1tHMeU7zaqzUX09+KGG8D/4ooW9sWdR3lC5G6rRA5dW1fkEfJ5n6NcYU7iO2P6SP/MFTfvbshplpFnyaA7XSBI91hc4BmrN8u+io/x4G/WZZRAEjoHuyTj/xolLhEbPKClIMJn0AoRwffprJFAWCW0=
+	t=1778977992; cv=none; b=CC8t004DVyfdQGcMj5lUXiC1M09x0miOfMT51HYqBYGQPfKsA6qtqe8q0gSDVNrz3x21q1OLUCP69pg2ue2A+HOWHEly9HpMAnvUJMMdfRXzl0xjc9IOLZ+oKvgcosj7wiXfqSXEKANtnjalwn2uQbyVOC6oRe44WG29CUDkGCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778977236; c=relaxed/simple;
-	bh=0q/eY+on0+XHChhKwoaIpLQKbDvNsrrics2+4OknsTw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hRwj7Gb1ZY6i+iVur6VavO4NmdMzhQM3Nna5OM/25gBg+bpqtOF/+UlrHemB7ZuHZur3wV0aRXrlvA6YqSJ2bMLKL8EFWA+CxKMy5MYo5ed5loXYma4+Ngu4keqKa+1OGDnyujOfXc1h5gTP9wlWjOrYrp/IVDYm69d3xizWynE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwSSty/1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778977992; c=relaxed/simple;
+	bh=qRIb6ZmSrNofEDsljDIWiiN08PPfTUE7Lq2HqPPzlUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=scG8Kpxi3hitxovqmYFaHua77eEQFuUvdFbF5k/S3InnuyukZgA4GwBkRWmGAJ42XW8bEzjIwTrtGWEI489mckrQRPe0wl9vakiWT4QGc0LAUJvj4JNUPq11k88OEmS3L/vIv6lY+GaGyik+Cwcr454q5seDEzlofffJm7HuS38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdL7VIT0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwSSty/1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F8C2C19425;
-	Sun, 17 May 2026 00:20:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdL7VIT0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA160C2BCB7;
+	Sun, 17 May 2026 00:33:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778977236;
-	bh=0q/eY+on0+XHChhKwoaIpLQKbDvNsrrics2+4OknsTw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=hwSSty/1N0QE9LUqPnW55RK/UwaJy5QydPnIVWetbj7Y47EzCNDZ4p3w8QYCONoDf
-	 74Wqzi06vyhQeuQNXk4nOHhZNIo6e/cx7Pnj8tPk3uDLq5iNmBWvd96bKc+W7V6wKx
-	 QITuGnM8Rk2WZsgnyxjR8ujiws53dEEGVJFvomd/LJgBLsjS9kn/qHJtUjtVAqe4uf
-	 VXhttcH4J2pUyqNmJb3pECF2HOMDq8Nhp8jXTCU7AJ4mcFTYOS+Bjo39miewkr5M65
-	 EOWuidksT4phFJU7J4+0l9MxsKbINwOZlcwTZE713Zx5woNqwk8LQsTV7J0ypntTDA
-	 sePW9DKtcC75w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/4] clocksource/timer-econet-en751221: Init teardown
- on error if possible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260516233943.49502-3-cjd@cjdns.fr>
-References: <20260516233943.49502-3-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 00:20:35 +0000
-Message-Id: <20260517002036.2F8C2C19425@smtp.kernel.org>
+	s=k20201202; t=1778977992;
+	bh=qRIb6ZmSrNofEDsljDIWiiN08PPfTUE7Lq2HqPPzlUQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hdL7VIT09HhkiQHA7TeU6drm8yVCTUUFlkvZ1U+fzweRpcfgSouxpbl3wgbXJG2UA
+	 /ywkE4bO+ZeZNhFUvFGKBljK4s9BiUs3PnbiJA0gANA5PjIU9ByVTY47YoZFzmnty3
+	 xgWI5sz1I6tmdgTK+2hpH1snO3/GlgeLAxK81JjvTXzD8XXjeO0879Y3vEKQS9ii4G
+	 KwLpaQkwc/2vKpbvEBrjht1B5qs4QT/hL72qgvzC5O0WxvsBwcpcoNQmrnbv1BmFbQ
+	 bzasbapRgqsr73XRy4sXW5wlhYbeA7PoowXAmTHud/TtJWH9jCiuVZMSjCocrlHFsX
+	 pdMdsSr8VrPgA==
+Date: Sat, 16 May 2026 17:33:10 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v4 13/18] riscv_cbqri: resctrl: Add MB_MIN bandwidth
+ allocation via Rbwb
+Message-ID: <agkMxmmZOwLdSlWS@thelio>
+References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-13-eb53831ef683@kernel.org>
+ <20260512054240.432A6C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512054240.432A6C2BCB0@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Failing cpuhp_setup_state causes I/O memory unmapping while clock =
-event devices are still registered and active, leading to a fatal page faul=
-t.
-- [High] Race condition during initialization leads to NULL pointer derefer=
-ence.
-- [High] Mapping memory blocks based on num_possible_cpus() leads to out-of=
--bounds accesses on systems with sparse CPU masks.
-- [Medium] Error teardown path retains dangling pointers in the global econ=
-et_timer.membase array.
---
+On Tue, May 12, 2026 at 05:42:39AM +0000, sashiko-bot@kernel.org wrote:
+> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
+> > index d8fd9b06703fa..bcd9367e3555c 100644
+> > --- a/drivers/resctrl/cbqri_resctrl.c
+> > +++ b/drivers/resctrl/cbqri_resctrl.c
+> > @@ -415,6 +415,9 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+> >  	case RDT_RESOURCE_L2:
+> >  	case RDT_RESOURCE_L3:
+> >  		return cbqri_apply_cache_config_dom(dom, r, closid, t, cfg_val);
+> > +	case RDT_RESOURCE_MB_MIN:
+> > +		/* sum(Rbwb) <= MRBWB validation runs inside cbqri_apply_rbwb(). */
+> > +		return cbqri_apply_rbwb(dom->hw_ctrl, closid, cfg_val, true);
+> 
+> When a resctrl group is removed, does the framework invoke an architecture
+> hook to reset the hardware control values to a minimum default?
+> 
+> If the CLOSID is freed but the previously configured bandwidth value remains
+> pinned in the software cache (ctrl->rbwb_cache[closid]), will this abandoned
+> value falsely inflate the sum during subsequent cbqri_apply_rbwb() calls?
+> 
+> Could this cause new allocation attempts to fail with -EINVAL, effectively
+> creating a permanent denial of service for bandwidth allocations until the
+> leaked CLOSID is coincidentally re-allocated?
 
-commit 120bc83e186bdd341b411bcc91406b20c22b4507
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+resctrl has no arch-side hook, so the cached Rbwb for the freed closid
+stays counted in the sum and could prevent new allocations.
 
-clocksource/timer-econet-en751221: Init teardown on error if possible
+The solution is probably a new resctrl_arch_* callback that resctrl
+invokes on group destroy with a CBQRI implementation that resets
+rbwb_cache[closid] back to the minimum. However, that would touch
+fs/resctrl and all arch backends, so I will look at addressing that in a
+future series.
 
-This commit splits the initialization of the en751221 econet timer into two
-phases to support a clean exit on error. It moves IRQ setup and memory
-mapping before the point of no return. A teardown path is added to free
-IRQs and unmap memory if initialization fails early.
+> > @@ -491,15 +503,42 @@ void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
+> >  		return;
+> >  
+> >  	list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
+> > -		for (i = 0; i < hw_res->ctrl->rcid_count; i++) {
+> > -			for (t = 0; t < CDP_NUM_TYPES; t++) {
+> > +		dom = container_of(d, struct cbqri_resctrl_dom,
+> > +				   resctrl_ctrl_dom);
+> > +
+> > +		switch (r->rid) {
+> > +		case RDT_RESOURCE_MB_MIN:
+> > +			/*
+> > +			 * CBQRI section 4.5: Rbwb >= 1, sum(Rbwb) <= MRBWB.
+> > +			 * Walk N-1..1 first so the final sum lands at
+> > +			 * MRBWB. Use the unchecked helper since the
+> > +			 * intermediate sum may exceed MRBWB.
+> > +			 */
+> 
+> This isn't a bug, but is this comment accurate?
+> 
+> Since the loop strictly reduces the allocations for RCIDs N-1 down to 1
+> before finally increasing RCID 0 to the remaining budget, doesn't the
+> running hardware sum strictly decrease until the final step? 
+> 
+> Does the intermediate sum ever actually transiently exceed MRBWB?
 
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
-ource/timer-econet-en751221.c
-> index 4008076b1a210..155471f68e6f8 100644
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
+I will reword the comment. The hardware sum decreases through the walk
+and never exceeds MRBWB. However, the cache-based sum transiently
+exceeds MRBWB.
 
-[ ... ]
+> > +			for (i = 0; i < hw_res->ctrl->rcid_count; i++) {
+> > +				u32 rcid = (i + 1) % hw_res->ctrl->rcid_count;
+> > +				u64 rbwb = (rcid == 0) ?
+> > +					dom->hw_ctrl->bc.mrbwb - (hw_res->ctrl->rcid_count - 1) : 1;
+> 
+> If the hardware capability reports mrbwb == rcid_count - 1, will this
+> calculation evaluate exactly to 0 for RCID 0?
+> 
+> If so, does cbqri_apply_rbwb() bypass the internal sum validation
+> (which checks if rbwb > 0) and blindly write 0 to the hardware, violating
+> the CBQRI section 4.5 requirement that Rbwb >= 1?
 
-> @@ -186,22 +165,45 @@ static int __init timer_init(struct device_node *np)
->  		econet_timer.membase[i] =3D of_iomap(np, i);
->  		if (!econet_timer.membase[i]) {
->  			pr_err("%pOFn: failed to map register [%d]\n", np, i);
-> -			return -ENXIO;
-> +			ret =3D -ENXIO;
-> +			goto out_membase;
->  		}
->  	}
+cbqri_probe_bc() already rejects mrbwb < rcid_count and refuses to
+register the controller in that case. So by the time this reset runs,
+mrbwb >= rcid_count is guaranteed and the subtraction yields at least 1.
 
-Does calculating the number of memory blocks using num_possible_cpus() cause
-issues on systems with sparse CPU masks?
+I'll add a WARN_ON(mrbwb < rcid_count) at the top of the reset walk, or
+factor the budget calculation into a helper that the probe and reset
+paths share.
 
-If a system only has CPUs 0 and 4, num_possible_cpus() evaluates to 2, mapp=
-ing
-only one block. When hardware access paths use the absolute CPU index
-(cpu >> 1), could reading econet_timer.membase[2] lead to a NULL pointer
-dereference?
+> > +static int cbqri_attach_cpu_to_one_bw_res(struct cbqri_controller *ctrl,
+> > +					  enum resctrl_res_level rid,
+> > +					  unsigned int cpu)
+> > +{
+> > +	struct cbqri_resctrl_res *hw_res = &cbqri_resctrl_resources[rid];
+> > +	struct rdt_resource *res = &hw_res->resctrl_res;
+> > +	struct rdt_ctrl_domain *domain;
+> > +	int dom_id = ctrl->mem.prox_dom;
+> > +
+> > +	if (!hw_res->ctrl)
+> > +		return 0;
+> > +
+> > +	domain = cbqri_find_ctrl_domain(&res->ctrl_domains, dom_id);
+> > +	if (domain) {
+> 
+> If a system has multiple memory bandwidth controllers within the same NUMA
+> node, will the second controller match the existing domain via
+> cbqri_find_ctrl_domain() here?
+> 
+> Since struct cbqri_resctrl_dom only stores a single hw_ctrl pointer,
+> does this mean the secondary controller is never tracked by the domain and
+> its hardware limits will be silently ignored during subsequent configurations?
 
-(Note: It is understood this issue was present before this patch).
+Multiple memory bandwidth controllers are not supported. I will update
+it to detect the collision and reject the second BC at registration
+time. 
 
-> +	econet_timer.irq =3D irq_of_parse_and_map(np, 0);
-> +	if (econet_timer.irq <=3D 0) {
-> +		pr_err("%pOFn: irq_of_parse_and_map failed\n", np);
-> +		ret =3D -EINVAL;
-> +		goto out_membase;
-> +	}
-> +
-> +	ret =3D request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
-> +				 &econet_timer_pcpu);
-> +
-> +	if (ret < 0) {
-> +		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
-> +		       econet_timer.irq, ret);
-> +		goto out_irq_mapping;
-> +	}
-> +
-> +	cevt_init(np);
-
-Is there a potential race condition here if an interrupt fires immediately
-after request_percpu_irq() is called, before cevt_init() populates
-cd->cpumask?
-
-If the handler executes, could it result in a NULL pointer dereference
-when reading dev->cpumask?
-
-(Note: It is understood this might be fixed later in the patch series by
-commit clocksource/timer-econet-en751221: Disable IRQ until cevt registered=
-).
-
-> +	ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-> +				"clockevents/econet/timer:starting",
-> +				cevt_init_cpu, NULL);
-> +	if (ret < 0) {
-> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
-> +		goto out_irq_free;
-> +	}
-
-If cpuhp_setup_state() fails on a subsequent CPU, could the already-registe=
-red
-clock events on previous CPUs continue to be invoked by the timer core?
-
-Since the teardown path unmaps the IO memory without unregistering these
-clock event devices, would calling cd->set_next_event dereference unmapped
-memory?
-
-Should cpuhp_setup_state() be placed after the point of no return, or should
-a teardown callback be provided to unregister the devices?
-
-[ ... ]
-
-> +out_irq_free:
-> +	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-> +out_irq_mapping:
-> +	irq_dispose_mapping(econet_timer.irq);
-> +out_membase:
-> +	for (int i =3D 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
-> +		if (econet_timer.membase[i])
-> +			iounmap(econet_timer.membase[i]);
-> +	}
-> +
-> +	return ret;
->  }
-
-When iounmap() is called in the out_membase path, should the pointers in
-econet_timer.membase be set to NULL?
-
-Since econet_timer is a global static structure, if the driver's init
-function is invoked a second time (such as from a secondary matching device
-tree node), could a subsequent failure cause iounmap() to be called on
-already-unmapped pointers?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516233943.4950=
-2-1-cjd@cjdns.fr?part=3D2
+-Drew
