@@ -1,147 +1,221 @@
-Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com [209.85.167.67])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE4570830
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 03:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC0E3264FA
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 04:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778988411; cv=pass; b=i+ZJGoUaEz4iQh+0GYQO305hT8N3ZYwYSYOsGX7WA2Irmtfk+hQPiyGPMRvvNLYno1RvqPG7ptu0/tyfp34+HVeCY8WsnNb+zyBiJTz6EKr69IpJlDnHcwwnP97nYB7X3MJgoW74XkCBa+x/Wrbn+rpnitHMWEFQmtFyol5AKsQ=
+	t=1778992570; cv=pass; b=azgv7x0QgrZgZ5RAnSi00t9CVmMKk1beu2bGUsjVG3Xi050AjsGAhzwmUl3Q1KEPYA/qY6Gmxu8dankXflYzm6rgvc/r6VpvH0N27nhY6d3YtkjLMlys7UpNCiSbGaSNktuDy6a+I57AIIOZcCtHcSwgSuxJlqyhclx942J8xMs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778988411; c=relaxed/simple;
-	bh=PpBuX4SSA7P0CsT+tKuq2yy0xJjsWWKG3+q3THaUKuQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=czbnObkA/Vyf3t3DiXe8BnOEpPiyS8hwuBKh+NletQJ03WzURE7bxxGjWRDqgGNFbrEIpvbaiJ3+pqYqAVP9PIjpslbActskfVksiRpb0UsP9RB6bHDXyDsC5b5l4//ophuSP5w/trDta2UxJD6XwxJxlS8YGfIdaxaIOZchxhk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dhstQFDB; arc=pass smtp.client-ip=209.85.167.67
+	s=arc-20240116; t=1778992570; c=relaxed/simple;
+	bh=3ROR8haixq5iyUq7s9jdGclt/nlPcyVxpVzKqaY2PhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=kL7QJXdl5eN6vtCRbncdIQaHU75mWuG4ySZem+GgnwDHsvzWNdfVBTQfH/cUfTmMsDXXwVUI8MqESMy+dhrRg2Ety4CAvsFDgnvL85GnmzGNZ6/lvmb5HoSbtdEaUE8kvq0+QG0RP87v6ke3pHrJRc3oeLpatHrsMkaT+o6PFpU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TNtilZgr; arc=pass smtp.client-ip=209.85.208.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dhstQFDB"
-Received: by mail-lf1-f67.google.com with SMTP id 2adb3069b0e04-5a8891febd2so1598383e87.1
-        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 20:26:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778988408; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TNtilZgr"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-676a89de629so2134295a12.1
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 21:36:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778992568; cv=none;
         d=google.com; s=arc-20240605;
-        b=LV95IsfAiBQmDGvn3z/F6loltSPmh22rSIMcD1G+uSM8nhGGlnkRbEDJE2p+gdnlPJ
-         Nnm2G0VEG92rFlDaGhAf+EsEQRwvdRrkSv0HTOleFnWyFSiy4WIU/qkSswAEler1bHUT
-         4sdOZg9ttXKcTSV3H1VMShsH4cWr2H2/ZqC70dHn14Kh9EfE9LUyN7fgFdBms8GK1z6v
-         29Xxi07qfJ+ywZgM2+yU7opgTBaWOevkJoD00Sj9XLK5PMvtn4cbQjjizqxKB9PDgv3b
-         IeyyVU2G5Kyk87FyMO7VubhB3bMJ5lYuEQ3LhETzCAXycvwF+Hr7TNWTk61SMMUNWWe/
-         GcSA==
+        b=KeolfWkPlkxruePyRpOvWD1EwzvoxqibRHj06dSiR9vmKqQ/VO1Weiq7Bcjfu5z5BQ
+         ZcgHQKkYopGHHUDJzY3jI2wlu5Ip2gAtQZGNaBLjA1TjHvPdIvKCa//J8sPRFdR26DOg
+         cyV5nz57KrM0j81WjYuTrlEC7muVlOIEY2KUbqptAvtlGFtybfFGJpjHwFeNJZxPU4gV
+         2hqsYpFDq/LVbTUNomjOMpHm+SzDE2qYhsgXkSoVdRGbRCePx3uVusXhz1FNDDgYaplJ
+         YSAEmI0F0Bha+j9io3J5NXOja0hi0D5MHzy5qlTda3fTodVXj/8riyaGL2rInBeRHm1f
+         uWHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=71aS+1qGdtfHf6EmkyoA4cYy8RqwmM8JopMl5kKAswg=;
-        fh=xinSYdsNEWoxDqxtubbDOPEYdi8dHtB29xPzbI6oc6Q=;
-        b=EUYzlN8O5St7RHKxwOoRfui27dfWj7W0eBuOv3WjixX8MLQqbvsbXGDX1hG3o+ze/G
-         f5QMdeR5849yhZa9KfbMiUnlFEDjm6WTjLqX+YdC/8Rk42ICOjmzj1eNRLqH4p5xGamw
-         yw/XDDgQ3Aw6wYXbteo6LITK9dh7p7RpC6af6bySk1DjaDZuajudDyApzYHaxGumaVni
-         YjjbNTYZBgHpUI1t6cO/NFOMzmkUPJ2hAJ4otuHmC5Qc9NUpYMIB/yqoCppl6Zo5VeU8
-         PLVs3ZD18dcTfdEWJFRl8qIbwg9iScuStb2YRBMJvAvNMXIhXvPOaniMGviRvaQRWKDi
-         E9vw==;
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JQM4qBv1wE3brKr2hKxWej6MOZp+Tj3Sd6cgQ9f4fd8=;
+        fh=eMBHPN4A7u8IMMuXiuKjdWNnwDroxEVZQuQVZV3Na7s=;
+        b=WBVAc+caytG6dL943liYpy03TJAUrtFd98kV8yY++rmAwIlI8LBqQCuwW6mbSW7QkF
+         g7nNyOJkrJV7aa/yEQW2H9Wh0/qt0rT/EPEP1FmFbYmEfxGyRmM72K2iYVAly4HGu2GE
+         8/dYCaTmWedgBmP+ozxMeb1IFvSjRNOF9dAfBiX55K7MSwOzo1R7PYRlnN5RvplKwhSz
+         SnikCYE7q/qDnXx5oByac76T0I69Bvni1P9LxPaP4/j0mJZ0HO3bXeBp/9aIhLr+3TKI
+         22oqqINiOgMiPX42lYILH/EHpEaEJoIgakt6jeMzhoH8ef6c1H4Z++pKLvjnfLBWl0zj
+         EB+w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778988408; x=1779593208; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778992568; x=1779597368; darn=vger.kernel.org;
         h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=71aS+1qGdtfHf6EmkyoA4cYy8RqwmM8JopMl5kKAswg=;
-        b=dhstQFDBvMnm0UGBrF3HOepcmetWFFLUm62aaOKkbta65gHANdAl9k7g72w9uTIhlq
-         u7Gd3oH4uTPVmwkhGaOvK/j+cqTN8nPqPg2sunAYp7ixfK7KZP3uXv0QMo7qTnuO+0CF
-         1G9V3ViWmzKe2uOEd1xGPOz4F+E8mKj+Fa3r/7S8GLhzhU1R2OXdEuqp1b1+w6zK4+AB
-         pb9ECrxkXDN5bLMeN+mvWJMSUppuxm6Z5dwOakWthao0YOj7yjPG36dsPcULmYKZf8v0
-         e6HtgfzXCbPrtw1G1VBeWr2ZIOKyz7Lz88H1Cr6s87dPEjMlZH5o822romIvvnrLT9PD
-         bsCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778988408; x=1779593208;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=71aS+1qGdtfHf6EmkyoA4cYy8RqwmM8JopMl5kKAswg=;
-        b=iusOoIXIntY66HiXZpzbkW4BpM1nxEplN1bBwOhr/kgXXHSrgzcj0jDUnst9Lt7Qlc
-         NW4lRiGPEgV6b9ByySdBTd4PompHUf68Nyd7P8RVfoYpTI8/4w/kveylbK5inRtROZVX
-         j91GmvA6zH9/9GwgU2Bb3qnUht+2nKQpuv+RyWroKc2Xx2wjO3n1V9Gza860cmo110wW
-         ou6OhVa4mC3cohTMh5cHNfuErFtzLpwr5hyI+n1VulstWPMqsfc+xcG5587He+/5rvMV
-         xwPXeJU7+9BrKT0ZACGsaXIQG7+SXmeQBPx6GaF4Bcy7xLqKc52Q2rpfRd5kedBNDMOA
-         +FBw==
-X-Gm-Message-State: AOJu0YwCSmP+WnlNhInk3TObqoNYH1bImtwnuqZ/5/znxSAmMXzdgh8K
-	oIn/5pb0RxVOmX+ecQkHPi14PUEQLAYb3FuMBsx8lsWHmiGDpXbQg2RWDYs+GfxugfE2GoM7txu
-	Na3T39PXq9l7oaYNolsGqr7p+IZaDVeWZIEvPVRgO/Q==
-X-Gm-Gg: Acq92OEmLKMpgi5pdpCHtA/c63iGtfCuqZYTO3BYXc94h3wgd06RZOE+TpTkiGwHOCG
-	G3n65PMB/1Lg5ChNyw9iZ+jz+HdkbTfjC0vzSz4Qq7SWR4yikzTYt9liW93Xvj1EKCB9RnvgIzF
-	z6N+hXYtJSdaBiHnXkT2/aQqnc5cjxQJI1XUb+oiAlRqoXytsfKGPiO915JA8NgLJTXwUPqpqnM
-	3kFBl1sudHWoNqf+d+FB2sIHXwkg7yTNgOfFsGh2DJQteRsWw2JTseXc1kpsq7XIL2/WPjMScHq
-	RTC59wJRA+XyAVnrOpr5ChD/E4XeSgEbNjmJXEOge08IXaOGVyQnkGxeLa10z0aMg6Kz4MsOSw=
-	=
-X-Received: by 2002:a05:6512:39c3:b0:5a3:ffed:8443 with SMTP id
- 2adb3069b0e04-5aa0e75782amr3358434e87.23.1778988407787; Sat, 16 May 2026
- 20:26:47 -0700 (PDT)
+        bh=JQM4qBv1wE3brKr2hKxWej6MOZp+Tj3Sd6cgQ9f4fd8=;
+        b=TNtilZgrDSObvft0rs72S5LU8/iPtD5TFxdIS/zAxpziEZPYHXoGAeWPOadcggF9Ng
+         Xc72sGCuGXSc+e70weVKiVX0yXaEsto6hGwl+Y6TA+z4eb8VXSFu1troVNz781M1hQvm
+         4qNWQs8btax8sFq2ydZhfNtkVk+p2E1XS3bcrsL996P+nnWbUlW/+uZLHMl/9cEr905H
+         89jKYG9XulBZtBf9IYzKA+z41bE4vQejhoDiMmt4SBKRYMgESMesKG5hyb7Z8d69Ag1b
+         0YrRgNDe/+eM/dHZ+eE2FD3AejSub32bUgA6JPRV9qo5eTxbzRAI7fNxLGogSo9ePWcT
+         jZBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778992568; x=1779597368;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JQM4qBv1wE3brKr2hKxWej6MOZp+Tj3Sd6cgQ9f4fd8=;
+        b=Q2VcnDXhjFo/jRVesyFkJPpRV/cJ44G7ScjP6146AAWUOeFS9S2x/V+HsiEN33GqZ5
+         VmWXZn31DtHhumrCNah0oGfzWUBxvSqaA2ml3XZ5BoEc5e3sRQIxUgc54OJJ5PTm2veH
+         cktFEICufCLVkb4BUuw/svtZqyYnq+wgLG3B0Jz/4ccgp66zj9VwRFeqOKJbCYI2NzYJ
+         o2T9NHizMvykJFGH9NCfjv+54/RKiP3RJwGo+Os8bQcx94XBtt7VRq2oSnY5ay0alvBk
+         fZq338eV8JGj2b+H96UmrmalJsmZoSQPVAirHtncdmDH68rHWxYD2lulmb5p5pSeakp+
+         jxVw==
+X-Forwarded-Encrypted: i=1; AFNElJ9rA96ganKkYnvPX11iRZgQG5A5O4l2HTELIwuw4we8twiLQ0AjPY5LgDLD63qt7sw/HRrw7Z/BLghs@vger.kernel.org
+X-Gm-Message-State: AOJu0YzO3mXLAUL0PQ36k/h1OCsLjZTsk16nimZxsGV48Jcck5EBjVcR
+	X8V3Iy0bGdUwUp9xUNrgb9edVqCzSZ4mJ2D2Jj1Cy5+v8sxUqInNYZcAYn/oo3qC+ns4RR2eCww
+	VMPajTiUeqsaDhSQCkZdud2QUZnoPqZk=
+X-Gm-Gg: Acq92OHflgLeQRD2MKi9fJ580zczAK3RfTtzxgewktMK+M0RszpnhGZULIe8jGlLev7
+	AXaJegVYeZdC4G5X0XxE4NyZPnkbM1Q2Qq8cIcTNMYaY9sHbAu2zMcDKZv6lGeJlCuSDcHW8jSR
+	TXHAHDqqrbPrX4MM4IRpu+A46wvLL707Mz/Wo2tXsmy+pZLE108SbnBALXbn9GezpeErVknELZk
+	ri4Q9YWLzrIv+VrRIxO8kPCGmYdsNCclf3D7u4BcLqfYcj3sOuPLhDYPGE6hmv1GJ3ANXSYrbFj
+	waOa7A==
+X-Received: by 2002:a05:6402:4541:b0:676:9c6d:5c59 with SMTP id
+ 4fb4d7f45d1cf-683bc4b0a51mr3550891a12.2.1778992567465; Sat, 16 May 2026
+ 21:36:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Ga Hing Woo <huhuvmb88@gmail.com>
-Date: Sun, 17 May 2026 15:26:35 +1200
-X-Gm-Features: AVHnY4Icbi3ZF704jZGcyMxf6XcvdjbQupoZouzSLylCd5-xr3oSnzmcFutve60
-Message-ID: <CAECiUCvN-LDdv1jeWRfQ85qAq+fOcY5sj=QTp7G6J4tzOAZskA@mail.gmail.com>
-Subject: [ANN] socc: static analysis tool for hardware-level DTS consistency checking
-To: devicetree@vger.kernel.org
+References: <20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org>
+ <20260410-shadow-deps-v2-2-4e16b8c0f60e@mailbox.org> <CANAwSgSNHO3MNewNzpYbhuj4K3NTdfzDC9KPoUHbFH97P4M_UQ@mail.gmail.com>
+ <DHUCL24GMX7D.369IWK9DLPZPX@mailbox.org> <CANAwSgRt5-t_ah=phGc+CQYHG-CdWJuOX-2VTW6xE7n7EnVsFw@mail.gmail.com>
+ <aeaXszeaE62rM6BJ@aurel32.net> <DHYOIIFMGH7J.228ISQ7XYFGKE@mailbox.org>
+ <aeevr6Zj3Pwm9wux@aurel32.net> <CANAwSgSCo-mESo6=KSc08oUzTWAgzpYu0JaW5KqmnCNiPYHjxQ@mail.gmail.com>
+In-Reply-To: <CANAwSgSCo-mESo6=KSc08oUzTWAgzpYu0JaW5KqmnCNiPYHjxQ@mail.gmail.com>
+From: Anand Moon <linux.amoon@gmail.com>
+Date: Sun, 17 May 2026 10:05:50 +0530
+X-Gm-Features: AVHnY4KOL2rGt_SSoRHMzxpCQMBvp_fsFHr614JlPdf6906rsMFKS9vQD857v9s
+Message-ID: <CANAwSgRFQiNEi1Ac+sCvJWkj1R+yEPGt0RCjZu-3ZiD0Ffm6Hg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
+To: Shuwei Wu <shuwei.wu@mailbox.org>, Anand Moon <linux.amoon@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Hi Shuwei,
 
-I=E2=80=99ve been working on a tool called SoC-Consistency (socc) that trie=
-s to
-catch a class of DTS bugs that dt-schema cannot detect: problems that are
-schema-valid but physically incorrect.
+On Wed, 22 Apr 2026 at 11:44, Anand Moon <linux.amoon@gmail.com> wrote:
+>
+> Hi Shuwei,
+>
+> On Tue, 21 Apr 2026 at 22:41, Aurelien Jarno <aurelien@aurel32.net> wrote=
+:
+> >
+> > Hi,
+> >
+> > On 2026-04-21 16:10, Shuwei Wu wrote:
+> > > Hi Aurelien,
+> > >
+> > > Thanks for your addition.
+> > >
+> > > On Tue Apr 21, 2026 at 5:16 AM CST, Aurelien Jarno wrote:
+> > > > Hi Anand,
+> > > >
+> > > > On 2026-04-16 17:07, Anand Moon wrote:
+> > > >> After reviewing the Banana Pi F3 schematics, I confirmed that Buck=
+1 and Buck2
+> > > >> Both supply the CORE_0V9 with 0.9V=C2=B11% rail. To resolve the re=
+striction errors,
+> > > >> I expanded the voltage range in the DTS to 500,000=E2=80=93950,000=
+ =C2=B5V.
+> > > >>
+> sorry I was wrong from the doc below 1.2.1 CORE Power Design
+>
+> The typical core voltage is 0.9 V to 1.05 V. Actual voltage is
+> dynamically regulated by
+> the **remote-sense dynamic voltage** adjustment circuit inside P1.
+> P1 BUCK1 and BUCK2 must be combined to supply the core rail.
+>
+> [1] https://www.spacemit.com/community/document/info?nodepath=3Dhardware/=
+key_stone/k1/k1_hw/k1_hw_design_guide.md&lang=3Den
+>
+> > > >> Additionally, I updated the DTS to map the second CPU cluster (cor=
+es 4=E2=80=937)
+> > > >> to Buck2 to better align with the hardware's power distribution.
+> > > >
+> > > > Actually the output of Buck1 and Buck2 are connected together, so t=
+hey
+> > > > should always be configured with the same output voltage. And both
+> > > > clusters should be mapped to both outputs.
+> > >
+> > > You are right, I received the same response from the official develop=
+ers.
+> > >
+> > > Therefore, I'm wondering if an additional regulator-coupled-with: pro=
+perty
+> > > definition is also needed here?
+> >
+> correct.
+> > Yes, I think this is the way to go. I even wonder if this shouldn't be =
+a
+> > fix with Cc: stable. This also has to be done for the Milk-V Jupiter
+> > board, I haven't checked the other boards yet, but I guess they all use
+> > the same schematics at that the PMIC level.
+> >
+> > Regards
+> > Aurelien
+> >
 
-The motivating example: an Allwinner H3 board with vcc-pc-supply connected
-to a 3.3V regulator. The DTS parses cleanly, dt-schema is happy, but the
-PC/PG IO bank is hardwired for 1.8V maximum. The result is silent IO pad
-damage on power-on. The tool catches this as:
+The following changes resolve the warning on my setup.
+If possible, please integrate them into the next version.
 
-[ERROR] AW-202: 1.8V GPIO bank (PC/PG) supplied at 3.3V
-Location: /soc/pinctrl@2000000
-Impact:   Silent hardware damage
-Fix:      Connect vcc-pc-supply to a 1.8V regulator
+diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+index c2a1b759d41f..8512c7417f94 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+@@ -116,19 +116,19 @@ &cpu_3 {
+ };
 
-Other things it checks:
+ &cpu_4 {
+-       cpu-supply =3D <&buck1_3v45>;
++       cpu-supply =3D <&buck2_3v45>;
+ };
 
-Power supply chains: missing regulators, circular dependencies,
-IO-before-core sequencing violations
-Clock trees: cycles, missing providers, frequency mismatches
-between consumer and provider
-GPIO: pin conflicts (two nodes claiming the same physical pad)
-Interrupt routing: missing interrupt-parent, wrong IRQ numbering
-for the GIC type in use
-Bootloader vs kernel DTS diff: memory base address divergence,
-UART console mismatch
-Vendor-specific: Amlogic AO/EE domain crossing, Qualcomm GCC
-node absence, Rockchip memory region overlap
+ &cpu_5 {
+-       cpu-supply =3D <&buck1_3v45>;
++       cpu-supply =3D <&buck2_3v45>;
+ };
 
-Current SoC coverage: Rockchip (RK3588/RK3576/RK3568/RK3528/RK3308),
-Allwinner (H3/H6/H616/A64/A527), Amlogic (G12A/G12B/SM1/GXBB),
-Qualcomm (SDM845/SM8250/SC7180/QCS6490), NXP (i.MX8MP).
+ &cpu_6 {
+-       cpu-supply =3D <&buck1_3v45>;
++       cpu-supply =3D <&buck2_3v45>;
+ };
 
-The tool is pure Python, works on preprocessed DTS (after dtc -E or
-clang -E expansion), and outputs text, JSON, or SARIF for CI integration.
+ &cpu_7 {
+-       cpu-supply =3D <&buck1_3v45>;
++       cpu-supply =3D <&buck2_3v45>;
+ };
 
-pip install soc-consistency
-socc check board.dts =E2=80=93soc rk3588
+ &emmc {
+@@ -248,14 +248,14 @@ pmic@41 {
+                regulators {
+                        buck1_3v45: buck1 {
+                                regulator-min-microvolt =3D <500000>;
+-                               regulator-max-microvolt =3D <3450000>;
++                               regulator-max-microvolt =3D <950000>;
+                                regulator-ramp-delay =3D <5000>;
+                                regulator-always-on;
+                        };
 
-Source: https://github.com/gahingwoo/SoC-Consistency
+-                       buck2 {
++                       buck2_3v45: buck2 {
+                                regulator-min-microvolt =3D <500000>;
+-                               regulator-max-microvolt =3D <3450000>;
++                               regulator-max-microvolt =3D <1050000>;
+                                regulator-ramp-delay =3D <5000>;
+                                regulator-always-on;
+                        };
 
-I=E2=80=99m particularly interested in feedback on:
-
-1.False positives you hit on real boards =E2=80=93 the voltage threshold
-heuristics and clock frequency tolerances are calibrated against
-a limited set of actual hardware and are likely wrong in edge cases.
-2.Rule gaps on platforms I haven=E2=80=99t covered well =E2=80=93 NXP i.MX8=
-M rules
-are thin, and I have nothing for TI AM6x or MediaTek yet.
-3.Whether the approach of requiring preprocessed DTS input is
-acceptable, or if integrating a preprocessor step would make
-the tool more usable in practice.
-
-Thanks,
-gahingwoo
+Thnaks
+-Anand
