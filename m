@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BA72FFDCB
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B5E2FFDCB
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779024220; cv=none; b=PCFOUQz3BW81LD5LBpY68O+H2+nno15sEwG4hA0Gl8aANWzvEHgH6qnsSZuDWFA+1rIaLW/7B+FofXiJ9k9GKISUQPusPlj93T9BIprl/NhNkxKMmJwsVbFoTIkTriiO7rREW5V78Ac6y93066YVZMZbXlz4ToX9b6xrektT53w=
+	t=1779024463; cv=none; b=LliuM+KhSJ4a1Qymo9D/HEKQw1tQJCavRbuXDswA/NcuKyGCy2vATALsk2rdpNnOp+RB8dFlm1V584FkTi/O91TJ1GK2jDArdZpezjWP7x7L/mV+tsTahN2XaxuRkLp/SXA1o1KNCsG+oDcpmzaRCg+4XDMydQrObt7GQYqQrVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779024220; c=relaxed/simple;
-	bh=GHbYEEMXwbFNBawIkU43ib9dtneNNhmzSkmmc61/aAQ=;
+	s=arc-20240116; t=1779024463; c=relaxed/simple;
+	bh=9E3p2FyBDSzyqCk95E0Ek12GmPJz5AzGxzBHORXfT5g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YnNipNBbV1Sr/iwcm8GtIPoCKXYUeRsF4mPN+7UlKXwX7CBBUGPLDa1/Jg5nUDYFCfHQUG1S2ZY07DTFlFW6v7MxsPLNb+WzTx/vv467+lNuGkTNyC9Sqie5w8UIjt+ThpruxD5jRzz8DemDyfoPOAaZ84qa3tF+z8tL4BBVxqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qbBMDaBe; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=CVgLLJ/2HoN9ffz88jB4SJVbt+YKh3s03enoF2mqZt8+M155+06aOENGwRNqd1rm9LPla7CjutzgppG9PUslo306BAyfUrwYzLwmNR87B5mvQPMLvOy0dRAaqwkEEGmxv4TOXwLSV5l3i8Vb55DF2IoDKSpW4Cj9iu7Na7tTZSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNmM3+dl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qbBMDaBe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 602F2C2BCB0;
-	Sun, 17 May 2026 13:23:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNmM3+dl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBDEBC2BCB0;
+	Sun, 17 May 2026 13:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779024220;
-	bh=GHbYEEMXwbFNBawIkU43ib9dtneNNhmzSkmmc61/aAQ=;
+	s=k20201202; t=1779024463;
+	bh=9E3p2FyBDSzyqCk95E0Ek12GmPJz5AzGxzBHORXfT5g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=qbBMDaBeyKkSGbJQsNL8QWaGoFDAoTephAAM2QYIfylJQbPWSBFJKCG54glNKXTT3
-	 aJslAjOrb3RT2l6b58IMDGNpGLDhDZ8r3hZTt6f6javSgjUk7x8CxerlWdL6HXVXpI
-	 T6oqYnlx855WYgSBLgNqg7WMN+zT+xvqZLwh7muqVBi0b3tRt6M7qSzus0yKovsptR
-	 68EhggPtnCwx/QE/eiLd04Q83XHg7hUEpfWdtKKwLOfk3Jnmb1wa9fNt31RYw+fhDV
-	 UNS5/HHBxlCnK4ZmaZ4tRdKuCd9nOPC1JVsk7wFA4LhlxXr2XQxtbaXIMOiCdA+kK+
-	 QSiDpz91R4fOg==
+	b=cNmM3+dlZQOn8YWIdtEDgFEErD5Ab+DEMgDjuP2fuLKplf94eW8zwyjj6aLSAcvOa
+	 J62c7kjYkEvO9jq6Tj7IMrvutJta69o+cEa+EKlkXfr500dabzMyzrpJbIngk9S+wi
+	 MgYf4rGiI7NBjOrhron5CgNSgDrS0RqOtAiOyGDXy7QqtV7YgqbS91HAMyhe1eQODJ
+	 8IP2tUkVnRMpXPbGlP0lUtx2Z2SVeMPrN6o6HGRI8J4W7+bB95CqtG/moNHcHhHRW6
+	 LSOvaXXJp3odboB6N/0RaixQ8o0HTi4lDFnlMZusXfWH92FIPqV3TtS9JjoTNkMmUm
+	 7zbwyzOFGuvBA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: arm: qcom: document the Ayaneo
- Pocket DS
+Subject: Re: [PATCH v3 2/4] arm64: dts: qcom: sm8550: add labels for thermal
+ zones
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260517-pocketds-v3-1-d5910c801756@gmail.com>
-References: <20260517-pocketds-v3-1-d5910c801756@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260517-pocketds-v3-2-d5910c801756@gmail.com>
+References: <20260517-pocketds-v3-2-d5910c801756@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 13:23:39 +0000
-Message-Id: <20260517132340.602F2C2BCB0@smtp.kernel.org>
+Date: Sun, 17 May 2026 13:27:42 +0000
+Message-Id: <20260517132742.CBDEBC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,46 +46,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The compatible string 'ayaneo,pocketds' violates Devicetree naming =
-conventions by omitting a hyphen between words.
+- [Medium] Incomplete implementation: missing labels for almost all CPU the=
+rmal zones despite commit message claims.
 --
 
-commit afa187f3006436f1b9cb60821ba5f70e1c3ff499
+commit 32e1020122d8ab932064f6929e94b9d9f74c8a75
 Author: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-dt-bindings: arm: qcom: document the Ayaneo Pocket DS
+arm64: dts: qcom: sm8550: add labels for thermal zones
 
-This commit adds device tree binding documentation for the Ayaneo Pocket DS
-gaming console, based on the Qualcomm QCS8550 platform.
+This commit adds labels to the cpuss, cpu, and gpuss thermal zones in
+the sm8550 device tree. This is intended to allow board files to override
+trip points and cooling maps using labels instead of full node paths.
 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
-ion/devicetree/bindings/arm/qcom.yaml
-> index 2741c07e9f416..f130a6b092b95 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
+com/sm8550.dtsi
+> index 912525e9bca6f..a9c678fc9cb2e 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
 [ ... ]
-> @@ -1107,6 +1107,12 @@ properties:
->            - const: qcom,qcs8550
->            - const: qcom,sm8550
+> @@ -6028,7 +6028,7 @@ cpu6_bottom_crit: cpu-critical {
+>  			};
+>  		};
 > =20
-> +      - items:
-> +          - enum:
-> +              - ayaneo,pocketds
+> -		cpu7-top-thermal {
+> +		cpu7_top_thermal: cpu7-top-thermal {
+>  			thermal-sensors =3D <&tsens0 13>;
+> =20
+>  			trips {
 
-This isn't a bug, but there is a missing hyphen in the compatible string.
+The commit message states that labels are added for the cpu thermal zones,
+but it looks like only cpu7-top-thermal was updated here.
 
-Should this be ayaneo,pocket-ds instead? The commit message refers to the
-device as the Ayaneo Pocket DS, and the sibling entry for the Ayaneo Pocket=
- S2
-uses the hyphenated form ayaneo,pocket-s2.
+Were the other CPU thermal zones in this file, such as cpu0-thermal,
+cpu1-thermal, cpu3-bottom-thermal, and cpu7-bottom-thermal intentionally
+left without labels, or did they get missed during the update?
 
-A check of subsequent patches in the series confirms the string remains
-uncorrected.
-
-> +          - const: qcom,qcs8550
-> +          - const: qcom,sm8550
-> +
+If they are left out, it seems board files will not be able to extend those
+remaining zones using the label override syntax.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-pocketds-v=
-3-0-d5910c801756@gmail.com?part=3D1
+3-0-d5910c801756@gmail.com?part=3D2
