@@ -1,174 +1,251 @@
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1872F7EEE
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814D82E975E
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779045481; cv=none; b=Tw8nHGB2+elH8BE4oeMPRdAa1tIDSEeZYhBsB1oGN2bNq3ll3n4zaMVhvAGDLKOY/jRY0xil8J0jSXDOTZhOteQwt8GV7Dh0r8wtq4YAomCyDceyN+9+wET3TTH0dhKdoCdQwGjoAJEhCtHANtvU4suiHO9azz/bRVIellMLe50=
+	t=1779045544; cv=none; b=Mde+NlDL/+LzHXvIl3zrMIi9Z8OXn67MA6HA5iMjMoUgEqtetiSowLPm44Wb53aWkcSzjUgGxnZNzdPWlJ52t/vPZ7aK3zHi8soCMy2UK/4W7CCBsKIvtsfHeCtouAIY1ExgS4Pf0ubRG8AX616qxoce7L9M3usAQgoSlNc89GU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779045481; c=relaxed/simple;
-	bh=GOBi/pRWmVL+Veh9IwhLDZRHfmJP1ezRNfavGxJ3mzA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XsfDFPTLMQ/oomULOEJ4AgIekVsGsoHq+TZQu4uDE79Cqf25nR1xmLeNE1w2CVXl8hR5Ox892RbpjrGJPq1dK6x62sC2cgXy0KZAzgI+N346mCKgMcNpr3kQn/H9KZ+ZNjjO30z5/lFARugs4ycI4QyBb0Q9V0HBDLezkWvYUbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=a5OjVGJ2; arc=none smtp.client-ip=79.135.106.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1779045544; c=relaxed/simple;
+	bh=QAP930bHgohQmEUx/z2Sozwj1fZBT/04e/zV0xsrN+w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ipGCBXpjdTdbE2qdZUhyUE7WjHNFsJxEFZniXY02EkESSqaPakhLOx6UTIEbdgNYUOJEIEFueWx9CDh4m1BLD4+/y6XwCyFLcx82qi1zlPrO88WKJuLUnc2AuDfP3pmDU3IJPldXye1xlLeJpbjxvx4FQRM6DmFHkdmK1uk9i98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QV/+1ycl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="a5OjVGJ2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1779045471; x=1779304671;
-	bh=K8NQAnOha8d5JNbdYdd0AJXyY7YRm1TTkyKzdhoGALc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=a5OjVGJ2gfOIinrqLlNmFTz9/VT17fCi70c7K/d1artQVe18Du9SUYOFK+CKMbVZg
-	 XStVCZxrXgkYvlZ2KlHibkk9khiyX+3fGsjAyFhIRo3FuAv1s+phABggnef7L8nds1
-	 05MzWRkCl+KE0Wt6EyAb4UJ1uvVYWTiCsB16Sn5aS+TmksCHKfR2YOzE6YpQXxbGny
-	 pqEHPMR5KnEIEQEIYfhYkfmiRXPVWaGyuqFYGULBHdpPIb3R1IdrtNuge0FJTIjyIv
-	 aH7njgAPiz4kr4VCmap3/EqeqUkuk1dceWDiim2lJY5/rxNN3p2SuK45HjNSoa0OeX
-	 VhcCOK0N4If0Q==
-Date: Sun, 17 May 2026 19:17:44 +0000
-To: Jonathan Cameron <jic23@kernel.org>, Hardik Phalet <hardik.phalet@pm.me>
-From: Hardik Phalet <hardik.phalet@pm.me>
-Cc: gregkh@linuxfoundation.org, andy@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dlechner@baylibre.com, krzk+dt@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, me@brighamcampbell.com, nuno.sa@analog.com, robh@kernel.org, skhan@linuxfoundation.org, Hardik Phalet <hardik.phalet@gmail.com>
-Subject: Re: [PATCH v3 0/5] iio: magnetometer: add driver for QST QMC5883P
-Message-ID: <DIL6ZC7KKYMN.36KGJXKDRGFB0@pm.me>
-In-Reply-To: <20260420144534.0e47c06a@jic23-huawei>
-References: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me> <20260420144534.0e47c06a@jic23-huawei>
-Feedback-ID: 166659585:user:proton
-X-Pm-Message-ID: e13c3f58e0d2edfad5428b12adb06f0f421ca919
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QV/+1ycl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95B4C2BCB0;
+	Sun, 17 May 2026 19:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779045544;
+	bh=QAP930bHgohQmEUx/z2Sozwj1fZBT/04e/zV0xsrN+w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=QV/+1ycl5ovUzZmpepHHP920SnzXmFCwEbvUQfPskyG71432EYkZyNVuyG0QKd6mA
+	 Yi6aP2LshYtysCotqwj3GGsFNtbtq7yvw0BOdegsI36IQzTfJ7Tdor/KISokaZdmVs
+	 2iVBtqR3fs7+XI6WKJXqi5I4W0KD45xt/eobhrhoWJU+gGU+2d4FiJr8HShsTLh6k9
+	 xJgYMEa3N6H6DqEzM6IwZOB6UrWZB+OFClxSputWr2rP22L7qC+8SHwoEssaAasLZR
+	 GG39qVoWPfZG8lRaKaVacRFqjNlmisHJR0gpfU8Bmr2SYoL3WStF9LJx8lXg5MqZK7
+	 jgi/9/euKCAEw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 09/13] iio: frequency: ad9910: add RAM mode support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260517-ad9910-iio-driver-v5-9-31599c88314a@analog.com>
+References: <20260517-ad9910-iio-driver-v5-9-31599c88314a@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 17 May 2026 19:19:03 +0000
+Message-Id: <20260517191903.D95B4C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon Apr 20, 2026 at 7:15 PM IST, Jonathan Cameron wrote:
-> On Sun, 19 Apr 2026 22:32:09 +0000
-> Hardik Phalet <hardik.phalet@pm.me> wrote:
->
->> This series adds an IIO driver for the QST QMC5883P, a 3-axis
->> anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC,
->> communicating over I2C. To my knowledge there is no existing
->> upstream driver for this device (see "Prior-art register-map check"
->> below).
->>
->> The driver supports:
->>   - Raw magnetic field readings on X, Y and Z axes
->>   - Four full-scale ranges (+/-2 G, +/-8 G, +/-12 G, +/-30 G),
->>     selectable via IIO_CHAN_INFO_SCALE
->>   - Four output data rates (10, 50, 100, 200 Hz), selectable via
->>     IIO_CHAN_INFO_SAMP_FREQ
->>   - Four oversampling ratios (1, 2, 4, 8), selectable via
->>     IIO_CHAN_INFO_OVERSAMPLING_RATIO
->
-> I'm suspicious about this one based on a very quick read of the datasheet=
-.
-> Conventional oversampling would involve running the internal sampling
-> engine at a multiple of the sampling frequency, and then averaging the
-> results.  The datasheet describes this as:
-> "Over sample Rate (OSR1) registers are used to control bandwidth of an
->  internal digital filter. Larger OSR value leads to smaller filter bandwi=
-dth,
->  less in-band noise and higher power consumption. It could be used to rea=
-ch a
->  good balance between noise and power. Four over sample ratios can be sel=
-ected,
->  8,4,2 or 1."
->
-> That sounds like a boxcar filter to me not oversampling (which would be
-> a combination of box car and reducing the output data rate).
->
-> If possible, can you enable the data ready output and put a scope on it
-> to see if that changes frequency when OSR or OSR2 are modified.
->
-> Trickier to do would be looking at the noise levels whilst playing with
-> these filters and see if they at least match with standard filter types.
->
-> If we can't figure these out, then it may be a case of picking something
-> that works well and hard coding that rather than letting userspace
-> change things in a fashion that might not match the ABI.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Incomplete hardware rollback during a profile swap failure leaves =
+AD9910 shadow registers corrupted.
+- [High] Missing software cache and hardware rollback when CFR1 register up=
+date fails.
+- [High] Unprotected software profile cache corruption on firmware upload f=
+ailure.
+- [High] Firmware upload `.write` callback fails on chunked payloads and pe=
+rforms out-of-bounds memory reads.
+- [Medium] The RAM firmware upload sysfs node and debugfs symlinks are regi=
+stered with a `(null)` name.
+--
 
-I could not arrange a oscilloscope. So wrote a small standalone tool that d=
-rives
-the chip directly over /dev/i2c-N (skipping the driver) on a Pi 4 and
-characterised all three fields in CTRL_1 with timing + noise measurements.
-Summary:
+commit 3876f09fc86743085e5099fea5762c34dc150ecf
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-  Field    Bits     Role per measurement
-  ODR      [3:2]    output rate, accurate to ~3% of nominal in Normal Mode
-  OSR1     [5:4]    low-pass filter (bandwidth control), no rate change
-  OSR2     [7:6]    N-sample averaging, no rate change (real oversampling)
+iio: frequency: ad9910: add RAM mode support
 
-1. DRDY interval vs each field (median of 500 samples per setting,
-   ms; SCHED_FIFO, pinned CPU):
+Add RAM control channel, which includes RAM data loading via firmware
+upload interface, per-profile configuration, profile switching,
+sampling frequency control, and ram-enable-aware read/write paths.
 
-   vary ODR (OSR1=3D1, OSR2=3D1):
-     ODR=3D10 Hz  -> 100.9 ms       ODR=3D100 Hz -> 10.30 ms
-     ODR=3D50 Hz  ->  20.5 ms       ODR=3D200 Hz ->  5.14 ms
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
+> index 4ad80475139d7..86ed350011cff 100644
+> --- a/drivers/iio/frequency/ad9910.c
+> +++ b/drivers/iio/frequency/ad9910.c
 
-   vary OSR1 (ODR=3D200 Hz, OSR2=3D1):
-     OSR1=3D1 -> 5.142 ms           OSR1=3D4 -> 5.139 ms
-     OSR1=3D2 -> 5.143 ms           OSR1=3D8 -> 5.141 ms
+[ ... ]
 
-   vary OSR2 (ODR=3D200 Hz, OSR1=3D1):
-     OSR2=3D1 -> 5.142 ms           OSR2=3D4 -> 5.142 ms
-     OSR2=3D2 -> 5.140 ms           OSR2=3D8 -> 5.141 ms
+> @@ -1202,6 +1306,41 @@ static int ad9910_write_raw(struct iio_dev *indio_=
+dev,
+>  			return ad9910_reg32_update(st, AD9910_REG_CFR2,
+>  						   AD9910_CFR2_DRG_ENABLE_MSK,
+>  						   tmp32, true);
+> +		case AD9910_CHANNEL_RAM:
+> +			if (AD9910_RAM_ENABLED(st) =3D=3D !!val)
+> +				return 0;
+> +
+> +			/* swap profile configs */
+> +			for (i =3D 0; i < AD9910_NUM_PROFILES; i++) {
+> +				tmp64 =3D st->reg[AD9910_REG_PROFILE(i)].val64;
+> +				ret =3D ad9910_reg64_write(st,
+> +							 AD9910_REG_PROFILE(i),
+> +							 st->reg_profile[i],
+> +							 false);
+> +				if (ret)
+> +					break;
+> +				st->reg_profile[i] =3D tmp64;
+> +			}
+> +
+> +			if (ret) {
+> +				/*
+> +				 * After the write failure, profiles 0..i-1 were
+> +				 * already swapped in SW, but Hw registers are
+> +				 * still pending an IO update, so swap them back
+> +				 * in SW to keep the state consistent.
+> +				 */
+> +				while (i--) {
+> +					tmp64 =3D st->reg[AD9910_REG_PROFILE(i)].val64;
+> +					st->reg[AD9910_REG_PROFILE(i)].val64 =3D st->reg_profile[i];
+> +					st->reg_profile[i] =3D tmp64;
+> +				}
+> +				return ret;
 
-   ODR is the only knob that changes the rate.
+If a write fails mid-loop, this rollback block restores the software cache
+but doesn't issue SPI writes to revert the hardware shadow registers.
+Could the next successful SPI write with an IO_UPDATE pulse inadvertently
+latch these corrupted, partially-swapped profiles into the active hardware
+state?
 
-2. Per-axis noise stddev (2000 samples, sensor still, ratios vs N=3D1):
+> +			}
+> +
+> +			tmp32 =3D FIELD_PREP(AD9910_CFR1_RAM_ENABLE_MSK, !!val);
+> +			return ad9910_reg32_update(st, AD9910_REG_CFR1,
+> +						   AD9910_CFR1_RAM_ENABLE_MSK,
+> +						   tmp32, true);
 
-   vary OSR1:                   vary OSR2:
-     OSR1=3D1 -> 1.000              OSR2=3D1 -> 1.000
-     OSR1=3D2 -> 0.723              OSR2=3D2 -> 0.706
-     OSR1=3D4 -> 0.544              OSR2=3D4 -> 0.494
-     OSR1=3D8 -> 0.416              OSR2=3D8 -> 0.333
+If ad9910_reg32_update() fails here, the function returns immediately witho=
+ut
+reverting the swapped profiles. Should there be a rollback of the swapped
+profiles in this error path to prevent the device from operating with corru=
+pted
+synthesizer parameters?
 
-   Reference for N-sample averaging (1/sqrt(N)):
-     1.000 / 0.707 / 0.500 / 0.354
+>  		default:
+>  			return -EINVAL;
+>  		}
 
-   OSR2 matches within measurement noise; OSR1 trails the curve,
-   which is the expected signature of a bandwidth-limiting filter
-   on non-white input noise.
+[ ... ]
 
-So to my understanding, OSR2 is true oversampling. OSR1 is a filter.
+> @@ -1475,6 +1657,126 @@ static int ad9910_read_label(struct iio_dev *indi=
+o_dev,
+> +static enum fw_upload_err ad9910_ram_fwu_write(struct fw_upload *fw_uplo=
+ad,
+> +					       const u8 *data, u32 offset,
+> +					       u32 size, u32 *written)
+> +{
+> +	const struct ad9910_ram_fw *fw_data =3D (const struct ad9910_ram_fw *)d=
+ata;
+> +	struct ad9910_state *st =3D fw_upload->dd_handle;
+> +	int ret, ret2, idx, wcount;
+> +	u64 tmp64, backup;
+> +
+> +	if (offset !=3D 0)
+> +		return FW_UPLOAD_ERR_INVALID_SIZE;
 
-v4 plan, pending your input on (c):
+The sysfs firmware upload framework chunks data into blocks bounded by
+PAGE_SIZE (typically 4096 bytes). Since the maximum AD9910 firmware size
+can be 4176 bytes, this driver will reject any chunks after the first.
+Can this be adjusted to support firmware files larger than PAGE_SIZE?
 
-  (a) Add an OSR2 regmap_field and expose it as
-      IIO_CHAN_INFO_OVERSAMPLING_RATIO with values {1, 2, 4, 8}.
-  (b) Drop the OVERSAMPLING_RATIO mapping on OSR1.
-  (c) For OSR1, two options:
-        i)  expose as IIO_CHAN_INFO_LOW_PASS_FILTER_3DB_FREQUENCY.
-            The public datasheet does not give cutoff frequencies,
-            so I'd have to either characterise them empirically and
-            document them in the driver, or use placeholder values
-            derived from the OSR1 setting alone (which feels wrong).
-        ii) hard-code OSR1=3D1 in chip_init and not expose it. Loses
-            the noise-vs-bandwidth tradeoff but keeps the ABI clean.
-      Slight preference for (ii) unless you'd rather see the filter
-      knob exposed.
-  (d) Keep ODR mapped to IIO_CHAN_INFO_SAMP_FREQ as in v3.
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	if (st->ram_fwu_cancel)
+> +		return FW_UPLOAD_ERR_CANCELED;
+> +
+> +	if (AD9910_RAM_ENABLED(st))
+> +		return FW_UPLOAD_ERR_HW_ERROR;
+> +
+> +	for (idx =3D 0; idx < AD9910_NUM_PROFILES; idx++)
+> +		st->reg_profile[idx] =3D get_unaligned_be64(&fw_data->profiles[idx]) |
+> +				       AD9910_PROFILE_RAM_OPEN_MSK;
 
-One other finding worth mentioning: the datasheet's setup examples
-(sec 7.1, 7.2, 7.3) all write 0x06 to register 0x29 before entering
-an active mode, with the comment "Define the sign for X Y and Z axis".
-This register is not listed in the documented register map but the
-write is required for axes Y and Z to come out with the documented
-orientation. v4 will add this write to chip_init().
+Here the software cache st->reg_profile[] is overwritten before the SPI
+hardware operations. If any subsequent hardware writes fail, the function
+aborts and the cache is left with partially uploaded profiles.
+Could the original cache be backed up and restored on failure?
 
-If you have other measurements you'd like to see before v4, happy to
-run them.
+> +
+> +	ret =3D ad9910_reg32_update(st, AD9910_REG_CFR1,
+> +				  AD9910_CFR1_RAM_PLAYBACK_DEST_MSK |
+> +				  AD9910_CFR1_INT_PROFILE_CTL_MSK,
+> +				  get_unaligned_be32(&fw_data->cfr1), true);
+> +	if (ret)
+> +		return FW_UPLOAD_ERR_RW_ERROR;
+> +
+> +	wcount =3D get_unaligned_be16(&fw_data->wcount);
+> +	if (!wcount) {
+> +		*written =3D size;
+> +		return FW_UPLOAD_ERR_NONE; /* nothing else to write */
+> +	}
+> +
+> +	ret =3D ad9910_profile_set(st, st->profile);
+> +	if (ret)
+> +		return FW_UPLOAD_ERR_HW_ERROR;
+> +
+> +	/* backup profile register and update it with required address range */
+> +	backup =3D st->reg[AD9910_REG_PROFILE(st->profile)].val64;
+> +	tmp64 =3D AD9910_PROFILE_RAM_STEP_RATE_MSK |
+> +		FIELD_PREP(AD9910_PROFILE_RAM_START_ADDR_MSK, 0) |
+> +		FIELD_PREP(AD9910_PROFILE_RAM_END_ADDR_MSK, wcount - 1);
+> +	ret =3D ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), tmp64, =
+true);
+> +	if (ret)
+> +		return FW_UPLOAD_ERR_RW_ERROR;
+> +
+> +	memcpy(&st->tx_buf[1], fw_data->words, wcount * AD9910_RAM_WORD_SIZE);
 
->
->>   - Runtime PM with a 2 s autosuspend delay
->>   - System suspend/resume delegated to the runtime callbacks
+If the firmware is larger than PAGE_SIZE, size will be 4096 on the first
+call, but wcount could request more bytes than are present in the chunk.
+Does this memcpy() risk reading out-of-bounds memory from the data buffer?
 
-Best regards,
-Hardik
+[ ... ]
 
+> @@ -1688,7 +2014,25 @@ static int ad9910_probe(struct spi_device *spi)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "device setup failed\n");
+> =20
+> -	return devm_iio_device_register(dev, indio_dev);
+> +	snprintf(st->ram_fwu_name, sizeof(st->ram_fwu_name), "%s:ram",
+> +		 dev_name(&indio_dev->dev));
+
+The IIO core does not assign the device name to indio_dev->dev until
+devm_iio_device_register() is called. Will dev_name() return "(null)" here,
+resulting in sysfs nodes named "/sys/class/firmware/(null):ram"?
+This might also cause probe failures due to sysfs name collisions if multip=
+le
+AD9910 devices are present on the system.
+
+> +	st->ram_fwu =3D firmware_upload_register(THIS_MODULE, dev, st->ram_fwu_=
+name,
+> +					       &ad9910_ram_fwu_ops, st);
+> +	if (IS_ERR(st->ram_fwu))
+> +		return dev_err_probe(dev, PTR_ERR(st->ram_fwu),
+> +				     "failed to register ram upload ops\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, ad9910_ram_fwu_unregister, st->ra=
+m_fwu);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to add ram upload unregister action\n");
+> +
+> +	ret =3D devm_iio_device_register(dev, indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ad9910_debugfs_init(st, indio_dev);
+> +	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-ad9910-iio=
+-driver-v5-0-31599c88314a@analog.com?part=3D9
