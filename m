@@ -1,73 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93249391837;
-	Sun, 17 May 2026 13:11:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FA738F92A;
+	Sun, 17 May 2026 13:14:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779023462; cv=none; b=SwnDGxjvkwGjVVVWrX7dfTFHTRRh3ltUhLra5FcdcKFK8CIGSTUCdR1W2AYPSm8ZMs/SWNyQmwQz7N62fDQsQ+5qR7k+OBo1PXZwFb34Eomz09vEX6vP03Ef4HK/vFDFk70oKdjRwusEf47lkS0LtmhcvSr2yr9Lsf/gyshKX+I=
+	t=1779023665; cv=none; b=ZVsa+aKu9w6DEGbMwRMpm2RiT3HTOsG68IpVg+LuAn/qtCq+LS9CCjp5nEO6w6+P0q6cKlNr9kMTsLnMptD/PG97vlOONm8raXjtg/e0F+rp2SluBmzVkqXvwkvP7H/RigUg8Ec2QXAmYVTdKNMxiW3kI0pP0+de88rfDUYTkrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779023462; c=relaxed/simple;
-	bh=Pl0ntdz5RoEzLeLIVajFgue9u5KyRkR49SApKaEd1T0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LZsk3TAN6BTIWCFeEEjugMtOvgFziaCL0itKDq2rX1ATQOtKVVikQECeH155pjr5qS1caoowpeVOqkNRdzVoS4voTwka5LIN5ktbL7dbxJJR8YldkZkVdFsl7/ScLRA6/5e4aWy2S6Ss51Md8uZOfyr0SKSkj98Ax4s4Iq8Q+Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBkTOAOk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779023665; c=relaxed/simple;
+	bh=C0NfV0bt26acgBuyjoOhfdtQ6SXvD4+U/Pge//YsjaY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MD+YlWUh0AIk7fly7qc47UbOqP8CyMnTbOcIMU5SgilV+gB6k3TokUKeiR9ZQfcFNsWSsP09rZPdJg3Yd1Qcvc3ZJGFcDac7Nqzk3fgJnX/XqfAZePFy6ZnxdmB+h3Yvq/VxN15vZPFR1DXBdwJ7P/kfoIvf8CGg9xoeLeWFmkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rkPM4C8O; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBkTOAOk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB09C2BCB0;
-	Sun, 17 May 2026 13:10:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rkPM4C8O"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3670DC2BCF7;
+	Sun, 17 May 2026 13:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779023462;
-	bh=Pl0ntdz5RoEzLeLIVajFgue9u5KyRkR49SApKaEd1T0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=JBkTOAOkOTae8Y3MeAx9p8Sj8wx+NZnVDSC97DmjVC0m6ekxlqFSV/epgq8NlhmLy
-	 BnJQntzmiRJLcf89cafQP12hlhWLrwiK0vNSpkRQckxuegoqab3hXZqntJgLIhNUTH
-	 QlNLLkKud3d509Lyok3WyCLc/X2pl9CLfFy7HYkDIaFbIKLqCPdSO5rqm1LXgrmclk
-	 yURjs9Ah3F06qzuUwqUW1U+FTz6n57P05DGZtUybRvCgxOn2HB4+gvg/q5+3Eenq8b
-	 LUJQDIPS4zuYN0L5T+8F1aRVWqAesjnAaLbbKltWUKQrBuBqPB+te/qlsuao65119v
-	 kUS8KsQvc3lIQ==
-Date: Sun, 17 May 2026 14:10:54 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] iio: light: veml3328: add devicetree binding for
- new sensor
-Message-ID: <20260517141054.3981672c@jic23-huawei>
-In-Reply-To: <20260516-veml3328-v1-1-1d4b663e2fe3@gmail.com>
-References: <20260516-veml3328-v1-0-1d4b663e2fe3@gmail.com>
-	<20260516-veml3328-v1-1-1d4b663e2fe3@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1779023663;
+	bh=C0NfV0bt26acgBuyjoOhfdtQ6SXvD4+U/Pge//YsjaY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=rkPM4C8Oa8t0FgpM5bZa7aN+Lg8YXE21Qr2M3uKh0NWUPeSgWiQrNjdVQkrAlPqPT
+	 BTTco1CII2YJDEvW9AW17Sqsgv8ldO6TfBYGccpcpG9A7rjiNArUsx+rzbkfkuvtCX
+	 C8T20nnJenDuzwOi9Sv2YFpIbHVUQd9SB81XNC7ui/FKWpn+bnw2nZAZvqOJbR0bVj
+	 +sjnb4f70x3l1OQt74TVOxn0PGtXgARfAGQJkyIvAKh2W+ld0F3iru4Tk8gtogBqyk
+	 Xp85QJNMIoGqyhFC6dYd/Qr9Dga0zFUbfRJqM8A8eYH1JIpTMHKpdLNt9ZcNoU/RCS
+	 o7HJnqwNS4LeA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3015BCD4F48;
+	Sun, 17 May 2026 13:14:23 +0000 (UTC)
+From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
+Date: Sun, 17 May 2026 20:14:23 +0700
+Subject: [PATCH v3 4/4] arm64: dts: qcom: sm8550: add UART11 node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260517-pocketds-v3-4-d5910c801756@gmail.com>
+References: <20260517-pocketds-v3-0-d5910c801756@gmail.com>
+In-Reply-To: <20260517-pocketds-v3-0-d5910c801756@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779023659; l=1968;
+ i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
+ bh=g2a8yIPr/NXyccP9E9kuGm/v0j5P1EWZoxrYzuxfC0w=;
+ b=FLSZ6DNRRt17NzQZy35jonoFjMneO5VLh/PdOc3lMBEyZu2ZHKF8MMhjBJyS59F/s2F0j4Iwv
+ 0CGASmlMSMfDCQAxkxG5EPnbu+dRZts1ogvZlSRpTgB9nH5AoWb+uA+
+X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
+ pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
+X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
+ auth_id=774
+X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Reply-To: azkali.limited@gmail.com
 
-On Sat, 16 May 2026 23:50:53 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+From: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-> Add devicetree binding for the Vishay VEML3328 RGB/IR light sensor
-> connected via I2C (SMBus compatible).
-> 
-> Additionally, add an entry in MAINTAINERS.
-> 
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Add the QUPv3_2 SE3 High Speed UART (UART11) controller node and its
+default pinctrl state to sm8550.dtsi, so boards can enable it through
+&uart11 instead of open-coding the controller in their own dts.
 
-This is very standard looking. Have you considered if any similar
-bindings can be easily extended to cover this device?
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-Note that there is no direct relationship between bindings and
-drivers, there are single bindings with multiple associated drivers
-and multiple bindings covered by a single driver.
-Also dt-bindings get used in multiple projects and some of those
-will do different splits in what code covers what parts.
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index a9c678fc9cb2..3e71701b18ff 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -1084,6 +1084,24 @@ &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>,
+ 				status = "disabled";
+ 			};
+ 
++			uart11: serial@88c000 {
++				compatible = "qcom,geni-uart";
++				reg = <0 0x0088c000 0 0x4000>;
++				clock-names = "se";
++				clocks = <&gcc GCC_QUPV3_WRAP2_S3_CLK>;
++				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH 0>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&qup_uart11_default>;
++				interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
++						 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
++						<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++						 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
++				interconnect-names = "qup-core", "qup-config";
++				operating-points-v2 = <&qup_opp_table_100mhz>;
++				power-domains = <&rpmhpd RPMHPD_CX>;
++				status = "disabled";
++			};
++
+ 			i2c12: i2c@890000 {
+ 				compatible = "qcom,geni-i2c";
+ 				reg = <0 0x00890000 0 0x4000>;
+@@ -5102,6 +5120,14 @@ qup_uart7_default: qup-uart7-default-state {
+ 				bias-disable;
+ 			};
+ 
++			qup_uart11_default: qup-uart11-default-state {
++				/* TX, RX */
++				pins = "gpio70", "gpio71";
++				function = "qup2_se3";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
+ 			qup_uart14_default: qup-uart14-default-state {
+ 				/* TX, RX */
+ 				pins = "gpio78", "gpio79";
 
-Jonathan
+-- 
+2.54.0
+
 
