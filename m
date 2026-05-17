@@ -1,40 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA13D199920;
-	Sun, 17 May 2026 20:46:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299ACE54B;
+	Sun, 17 May 2026 20:47:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779050774; cv=none; b=TiP91pXyhiPWFJx9eempJ7QSPZnLStA7qKvYECgThQF+HYyZBZuv1+kGHRC08kJ/eDHDHD4c6rWIrsHKj0qVYIgx8XQ3zndbJKtcaevbF2mSbhRnL7mv8JgitTzUWR2CIWPWxsxe3FXkao7XZJIm3/L8J3xfAsIN/zqzNJQ6Mrk=
+	t=1779050852; cv=none; b=TpbTOnICAnisddOOBKWWtIt3DCut73GzjQasXPIG1r4E7f0tyRxlgua6NwsxxqwhstnX6K1c7oDKrQy2r7pfbfDNvaj3eIP+W7AORObTD+S1kf/JFRMAUGJQ1RNeGeGqClcFZZn3WkP2gBMKeXFxW2R2QymDwYFiuxKSK2SSoEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779050774; c=relaxed/simple;
-	bh=B9rfiTJRjyjXAJSEgvhZLZHwcNBRgl8iA7YymCZHq34=;
+	s=arc-20240116; t=1779050852; c=relaxed/simple;
+	bh=8l2JZyd0qp+/2cMhcZGlUMdUhecY4ayHyTnCgWxo6lM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RwaXC19kiGe25z0VkRgLBQdGSGXY6FJuadf8WnmuLvXnXduJpvXGFA9iSO2fANwd/ndCMB/9d87ie4Omt2qleAIBTU6tzJCgDdEBSSzukWW8OVkFUC7vxn34GXyZquyLacpRgBWL7jzXnq/JgkThSJ5mCAoMm+/cBviBTYVaXOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQiuEFrA; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=jXjopv4eJ/qjocKxaUVpN2lozmI9Q7QnrrhaipiFnOL6PwDphNtC92U8+/8Nxp3tFzZGQJ+aUHRAyqJyae1aVI2dMfoU9Jkrc3fNkQ+0bpj4JWwhFCo8XT9RMIxgFDCytk46MbD4bfZ9cd/ji0u80bfzdVy6xinDmHUQ4hBaYMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s16+Pkgx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQiuEFrA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD63C2BCB0;
-	Sun, 17 May 2026 20:46:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s16+Pkgx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDCDC2BCB8;
+	Sun, 17 May 2026 20:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779050774;
-	bh=B9rfiTJRjyjXAJSEgvhZLZHwcNBRgl8iA7YymCZHq34=;
+	s=k20201202; t=1779050851;
+	bh=8l2JZyd0qp+/2cMhcZGlUMdUhecY4ayHyTnCgWxo6lM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KQiuEFrAzqI0m/Q6iomWRf3UJ7D1NfdkLWFmTel3bBKAVcedvwiVwtiN/A3On+QCq
-	 wGiqNuD8yPrx4A1rUG/ft7NRn6lZ/CY2T8ro88k2oROewATRDUYUh2oORcuTALp/tf
-	 yL+98lT4Q2GjoJPD6KCzI8tUqnD3hJlpvFSPs0tiwCpVo2iuuqKFUlaq+8cJN29Rhi
-	 C+CreBY/KrhUBtvBDUyIBDVZKLG0duV7H/0im/QiIbt3t4aZ1wXDUfbWGG3Xa2KWIt
-	 9UVo+NPbrgluY9fd1mUS7fExoxDy5jN/IE91CFjozr2v0q760iIMxUDp01jL2fiVbc
-	 xrDasXVRc5Uvw==
-Date: Sun, 17 May 2026 21:46:10 +0100
+	b=s16+PkgxNgbz04nvSqZ1NDkGXVnt8BLgLnMZgZqS0bMkNjjYwi50NQmw82jxSor1x
+	 XIPe8iReQbPmWHNdscx3XyfeukMxW3afk5bk2L+PGNfl3N/SSJMw2kJr2ZPig+8A2z
+	 KZRPdsVGs1LhX/qVe0a35RnwClFRlKalewmTObatNIJsE4IQAQ/2bvJqWdylXiFYB7
+	 Tl+qCILAay+eLbI4zZxkWpYIeyB8wPa1YgS9I6UHKL+qNkIq8wXXFRezcEbOaPAyeF
+	 gHsCTQqXOX6z+3L8ddlCe8QzRrTaqshgTsyU/EIfxKYkAgCO/d78xzTyHmKkPAiT5q
+	 dTq2t1BhvCWrg==
+Date: Sun, 17 May 2026 21:47:26 +0100
 From: Conor Dooley <conor@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Chuanhong Guo <gch981213@gmail.com>, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/4] riscv: add Siflower RISC-V SoC family Kconfig support
-Message-ID: <20260517-aground-shadow-d4ac455623fe@spud>
-References: <20260517-sf21-topcrm-v1-1-438f2e0513ff@gmail.com>
- <20260517143152.C3318C2BCB0@smtp.kernel.org>
+To: Chuanhong Guo <gch981213@gmail.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: clock: add binding header for
+ sf21-topcrm
+Message-ID: <20260517-cartoon-slather-ec5ad7605449@spud>
+References: <20260517-sf21-topcrm-v1-0-438f2e0513ff@gmail.com>
+ <20260517-sf21-topcrm-v1-2-438f2e0513ff@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,79 +51,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bSL9o6xos8LVkq/6"
+	protocol="application/pgp-signature"; boundary="NDNiJudJTjPz3l07"
 Content-Disposition: inline
-In-Reply-To: <20260517143152.C3318C2BCB0@smtp.kernel.org>
+In-Reply-To: <20260517-sf21-topcrm-v1-2-438f2e0513ff@gmail.com>
 
 
---bSL9o6xos8LVkq/6
-Content-Type: text/plain; charset=iso-8859-1
+--NDNiJudJTjPz3l07
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 17, 2026 at 02:31:52PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] Conditionally selecting the `ARM_AMBA` hardware bus based on t=
-he `TTY` software subsystem.
-> --
->=20
-> commit 49824e33ae15603df7f899c7df0a4ab9b5f20eed
-> Author: Chuanhong Guo <gch981213@gmail.com>
->=20
-> riscv: add Siflower RISC-V SoC family Kconfig support
->=20
-> This adds Kconfig support for the Siflower RISC-V SoCs, including the
-> SF21A6826 and SF21H8898 chips. It defines ARCH_SIFLOWER, selects the
-> relevant T-Head errata, and conditionally selects ARM_AMBA for the UART.
->=20
-> > diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-> > index c174ac0ec46b4..9996591cd9dbf 100644
-> > --- a/arch/riscv/Kconfig.socs
-> > +++ b/arch/riscv/Kconfig.socs
-> [ ... ]
-> > @@ -37,6 +37,13 @@ config ARCH_SIFIVE
-> >  	help
-> >  	  This enables support for SiFive SoC platform hardware.
-> > =20
-> > +config ARCH_SIFLOWER
-> > +	bool "Siflower RISC-V SoCs"
-> > +	select ARM_AMBA if TTY
->=20
-> Should ARM_AMBA be selected conditionally based on TTY?
->=20
-> ARM_AMBA models the presence of a physical hardware bus, which exists
-> regardless of whether the TTY software subsystem is enabled. Even if the
+On Sun, May 17, 2026 at 10:12:56PM +0800, Chuanhong Guo wrote:
+> +#define SF21_CLK_PCIE_REFP		30
+> +#define SF21_CLK_MAX			31
 
-There's no point having the driver built if there's no driver built for
-devices on the bus, I think is the angle here.
+> +#define SF21_RESET_IROM			17
+> +#define SF21_RESET_MAX			18
 
-> PL011 UART is currently the only AMBA device on this platform, tying the
-> hardware bus infrastructure to a software abstraction might cause issues =
-if
-> other AMBA devices are added later and TTY is disabled.
->=20
-> Would it be better to select ARM_AMBA unconditionally, similar to how oth=
-er
-> architectures handle it?
->=20
-> > +	select ERRATA_THEAD
-> > +	help
-> > +	  This enables support for Siflower RISC-V SoC platform hardware.
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260517-sf21-topcrm=
--v1-0-438f2e0513ff@gmail.com?part=3D1
 
---bSL9o6xos8LVkq/6
+Having _MAX is not permitted, but is also really confusing that "max"
+appears to be max+1, so actually represents the count not the max?
+
+--NDNiJudJTjPz3l07
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagopEgAKCRB4tDGHoIJi
-0k+xAP9fybmFULqTMp78JR3HvZz13xvD1grBcGF3UZ5crBVmKQD+LWKVv/Z7b7LW
-EpcZjGfuRvzUq1Agf1+/ePr7u9e2hQg=
-=xE5w
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagopXgAKCRB4tDGHoIJi
+0ryUAQDutzNna+dS1Srtfi1let6kex89J0o1R0P7Q0ufH5QsowD/QrELQWfp+sz7
+6qMbRiR/I1cEmEy9KpZW6LY936HAJws=
+=S1b8
 -----END PGP SIGNATURE-----
 
---bSL9o6xos8LVkq/6--
+--NDNiJudJTjPz3l07--
