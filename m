@@ -1,163 +1,102 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DE835DA61
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DD0359703;
+	Sun, 17 May 2026 10:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779012746; cv=none; b=nJLjhB3SgqeJ0veJL8SzOTnkOyjJupJjYEamxYbouQB5zk31LghojwHUKJqGrWASdcnXhPI/K8Mk8wVgbfiVW8AziDXPZCUQVCJ3oOB6DSOZG34KXN5YesjSbfvzwh+Y60BanYiafkEtcrZMv2taASs7A7QsfXEeRJLUaON7WtA=
+	t=1779012766; cv=none; b=mvolQ2U31M++OdlRhsVLnNYioHjiAlQR+LIl8L7d3nOlqzQUttFJkoc13IyIKNyYBH2dyYLkHky4h4hSPggmEgOY5TT+qkiZs+RUm23DL3OluBFeD15rtFil+HDiA5LpweW+E159arX4pwnMhUVGxe9rrhrehpwUYgbvl/TnTes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779012746; c=relaxed/simple;
-	bh=KD/IuTgzVq18/vpJBrybXULGBqIH1vlZksMS0vB9c2E=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GlBb9iBs8NT946zdTLWtn4Aa5ayb7Q3A8Fbvb+5ZfyROvOedUfFKg+7z2IsSBOX0oIWXJQAiR7JSW9nC2OLf0z6EOFp3+kvcXzPAf5bbI5dtnWCU4lhFMQLO8Zk5OpdT0pJTa/OrwqTbXVh0GumHs7sBMEBtK/iG7ztMVu0PR8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g70Ccik1; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779012766; c=relaxed/simple;
+	bh=iUYLHQY3uWeVAxMEfj+NOh/d+kYdwRIWjApEH09TTBs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q4TehmOSv2N3alTyO/oSNTtlT8aoQJKulLtwHloXEpuCXqYOc8DXNWSaF5hkr64r3YftmnqqDYdyA+i6CSumMXzZ1Myqgcv3Ms2pb78QrfSagCrnQ5FGPYZ1jh64+xoKnnfjVAI6bXxbj5c/0V3cPgUCpzh5HdWGyXITsmddXWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yLLHXpfr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g70Ccik1"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-488b8bc6bc9so6446465e9.3
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 03:12:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779012743; x=1779617543; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NzQ+XkjFbbvnSSJgYiukqepa3NWBT/tqzId42RKwLNw=;
-        b=g70Ccik1II7afpDiDAjDi8pQvdlf45OLTbHgt6NPjxDHqXylsPDPi/VYbqo+Yr3sCU
-         7LiN6I6w8WYou1Z0z4Zftt67Z5CAohO7Oj9e+vTx8SzAjVfFiNo9MjaodLiGvf22U6jV
-         2T/39KbijVls5KHDwHib14+Yp5K+hCqQjI5CX6MgMCoClcYw2RCibCAmOmke+ja1xZUC
-         v2rjFgI16PlfXf2y+nEvbAwPcoCV1PeYbJOuQ0dzCdkeLwUNZzP0Na1pQARf7eLm8dJq
-         YfMLan7rR9dz1ZL1MwO2Oj0o+QOEKnIgwsQqFZ/Om+uUI6u8AXVZWvIXMrmZJIeGr2qb
-         H4vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779012743; x=1779617543;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NzQ+XkjFbbvnSSJgYiukqepa3NWBT/tqzId42RKwLNw=;
-        b=ns7UbdiueN6qZMrJetl81p/sHNB/iPxL3plWVUWPiC0URZrHnGioV9BBrvOkBsIrYC
-         hhyoJZE/kdUiyq4wQ7pejSMrSo9un6l5KtVQ/Xn4WRJ1wpUCxcAoUpzJX/BWZE0IRSer
-         KXVZFEsKYlj9R+4BPaWeeN+5b7P08nh5WLoUUBdZfUSwaH32bioZeTlBJceXdywcGI5L
-         ADacpYDKuj08bF9Mlhzr2KuEa5fs02ib41AJOwl6l5n62qul7eMOczsiL8G8w37TX8b6
-         KIahowrLwh2cgUdiKFvuK3IzimwYiTW8y1G4pkBzZBDjTn4hBsUGRGRX5xNzxZk6Zfaf
-         FXVg==
-X-Forwarded-Encrypted: i=1; AFNElJ8ZYYHWfl/DQs7Hy53NEWkO0qkAny44OQ96/CbohOaVJ1DBQXIhrZoW4F2omUVndearn31flox9Y5J5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxnw3ZUpHtvhk/Ymgen0wA2rcAj0jCah/7NRZzmY2rAvx0Omru1
-	a5OEJJ4wrwz4x9zAXM0hU94lcx9IXuaOUC0hOdDWunPs3cVUd2c8GcmD
-X-Gm-Gg: Acq92OF3YmNlv3yRafpcOLdomgl/VzKxV0d8UfBwl/qN4usVqn81ye78pb+5/iRhp98
-	2ElacyKVjpad6Y/w3oXNXd/xn+96iVc2E3ym8VBYOYd10HoMIkmzQemro4fYyLDF7fugqAN3bxx
-	qQIkBXreVZoK6Ky9EMPuS3wYod68ZPSQz9FlNe5GKQbPwgRoExEmUIY5lHYR/8nLyRubNunLGYb
-	cu6rwlHsxfeWrX4V/jIcGnuuvBGl+KvTiIqm8TD8HjdmK6KC5D94F9whZ/rXoBZXDD5/yHujZyZ
-	SixACMGSOxB7dG5OqwOO/iqQWkIh3fRhAf/slSJCOwoO1vNpsc4RqC4slDbzNgGsUIz95+g6nHC
-	bZZeICH0sYscS1yWwFFxf1ApnewdO7HQufZYofkXJbUyay9brsSvBGkT3cVuOuYUcyBSYxl/Xci
-	cGb4oF06az1Q92v8LDFcw37JZ6iv1QNqPisqbZmPKezEZkBE4hmpZDqfyhpIe/oYYJ13anc/o+q
-	QyRQhEnzAHpjJTz0JXXGw8pKaGqoVzHktKIS7hPt3AnYEMHfA==
-X-Received: by 2002:a05:600c:8184:b0:488:ffb1:494c with SMTP id 5b1f17b1804b1-48fe60ed790mr148404075e9.12.1779012742660;
-        Sun, 17 May 2026 03:12:22 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe537ccf5sm181409985e9.14.2026.05.17.03.12.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 03:12:19 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Sun, 17 May 2026 11:12:14 +0100
-To: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH RFC v4 01/10] dt-bindings: iio: frequency: add ad9910
-Message-ID: <ikhp5dsb4ook2cx665p4xbqg5ykmnoytiaybv2cx5khyn3wngn@j752jkewd36b>
-References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
- <20260508-ad9910-iio-driver-v4-1-d26bfd20ee3d@analog.com>
- <20260512193129.777d62a8@jic23-huawei>
- <vklczsi4vk3sqf53zifslhp5pysdmj3gfyhvdgrwo4bg3wdkxj@lnbftaf5jcbf>
- <20260516114022.58949a06@jic23-huawei>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yLLHXpfr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B003BC2BCB0;
+	Sun, 17 May 2026 10:12:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1779012766;
+	bh=iUYLHQY3uWeVAxMEfj+NOh/d+kYdwRIWjApEH09TTBs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=yLLHXpfr/OESwdoqabAlvrm93iSx2OpiPgiTB9Q+OONko5U5elVHx41X0ryIlkZZw
+	 1nzyrdexgXUrkYREIx0jr3SxuOslNh2uHGT9F/yqu5y5lbxLEnTnQ6Pdz1E3q2+LWe
+	 2qll5oWHQiqGqeUTdPi0qewHup7qdp/l6YH2/uaA=
+Date: Sun, 17 May 2026 12:12:00 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+	Krzysztof Kozlowski <krzk@kernel.org>, debarbos@redhat.com,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Konstantin Ryabitsev <mricon@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
+	sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
+	Linux Kernel Workflows <workflows@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	devicetree@vger.kernel.org, kfree@google.com
+Subject: Re: Stop false review statements
+Message-ID: <2026051758-superbowl-baritone-2705@gregkh>
+References: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
+ <07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
+ <20260517120556.248852d8@foz.lan>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260516114022.58949a06@jic23-huawei>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260517120556.248852d8@foz.lan>
 
-On 26/05/16 11:40AM, Jonathan Cameron wrote:
-> On Wed, 13 May 2026 16:09:24 +0100
-> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+On Sun, May 17, 2026 at 12:05:56PM +0200, Mauro Carvalho Chehab wrote:
+> On Sat, 16 May 2026 14:59:44 -0700
+> Roman Gushchin <roman.gushchin@linux.dev> wrote:
 > 
-> > On 26/05/12 07:31PM, Jonathan Cameron wrote:
-> > > On Fri, 08 May 2026 18:00:17 +0100
-> > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > >   
-> > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > > 
-> > > > DT-bindings for AD9910, a 1 GSPS DDS with 14-bit DAC. It includes
-> > > > configurations for clocks, DAC current, reset and basic GPIO control.  
+> > > On May 16, 2026, at 2:33 PM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 > > > 
-> > > I think this is getting close enough now that for next version you should
-> > > drop the RFC (which is probably gating DT binding folk giving it
-> > > a detailed review!)
-> > >   
-> > > > 
-> > > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>  
-> > >   
-> > > > +
-> > > > +  adi,dac-output-current-microamp:
-> > > > +    minimum: 8640
-> > > > +    maximum: 31590
-> > > > +    default: 20070
-> > > > +    description:
-> > > > +      DAC full-scale output current in microamps.
-> > > > +  
-> > > Can we use generic dac.yaml defined output-range-microamp? The base will be 0 always but
-> > > that shouldn't matter.
-> > >  
+> > > I find it opposite: clogging commits with useless information, because
+> > > some arbitrary and completely closed-source tool did analysis means
+> > > nothing to me one year later when I look at the commit in the Git history.  
 > > 
-> > would that be fine even if we do not have those child channel nodes in the device-tree node? 
-> > 
-> I think I'd rather we generalized to cover the 'one shared value' case rather
-> then went with a vendor specific binding.
+> > This is simple not true: Sashiko is fully open-source, under Apache 2.0 license
+> > and the code belongs to LF. 
+> 
+> > Yes, the instance behind sashiko.dev is using
+> > Gemini 3.1 Pro LLM, which is not open-source, but it’s not a fundamental limitation - 
+> > Sashiko is supporting various LLMs, including open models - it’s just a practical
+> > choice: to my knowledge the quality of open models is not on par with frontier closed
+> > models 
+> 
+> I would very much prefer using an open source LLM, even if not in pair 
+> with latest paid models.
+> 
+> > and it would require a non-trivial amount of hardware and infrastructure to run
+> > an open model at the required scale.
+> 
+> IMHO the best would be to have them running on some infra that would accept
+> open source models (*). If there aren't enough resources to have our own
+> infra, there are offers out there which allows running open source models
+> like https://ollama.com/pricing (I never used myself).
+> 
+> (*) For instance, Qwen3.6 is brand new and licensed under apache-2.0.
+>     Not bad on my tests running it locally.
 
-I can't reference dac.yaml in node level as it forces the nodename to match a pattern:
+You can run the tool locally, with whatever model you want, if you want
+to.
 
-	dds@0 (adi,ad9910): $nodename:0: 'dds@0' does not match '^channel(@[0-9a-f]+)?$'
+But for now, let's just take the free credits that Google is willing to
+throw at this thing and let it give us reviews IF the maintainer of the
+subsystem feels it is something they want to do.  No one is forcing
+maintainers to do this.
 
-Also, I can't reference the property only, because it ends with *-microamp:
+The netdev, bpf, and drm developers have been doing much the same for a
+while now, with who-knows-what model behind the thing.  The model
+doesn't matter, we aren't advertising for them, we just want the results
+that they can provide us.
 
-	  output-range-microamp:
-	    $ref: /schemas/iio/dac/dac.yaml#/properties/output-range-microamp
-	    items:
-	      - const: 0
-	      - minimum: 8640
-	        maximum: 31590
-	        default: 20070
+thanks,
 
-which gets me:
-
-	properties:output-range-microamp: '$ref' should not be valid under {'const': '$ref'}
-
-so I will adjust it to:
-
-	  output-range-microamp:
-	    description: DAC full-scale output current in microamps.
-	    items:
-	      - const: 0
-	      - minimum: 8640
-	        maximum: 31590
-	        default: 20070
-
-and not reference dac.yaml at all.
-
--- 
-Kind regards,
-
-Rodrigo Alencar
+greg k-h
