@@ -1,92 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A182309AA
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 14:31:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1222F8EBC;
+	Sun, 17 May 2026 14:35:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779028313; cv=none; b=J2AYVmSA7DHGWFEbP4FxUglJUPewfkjSOy8i38ULtBxLu7/dggrt8EI84k12W4gOIf3Y3THQx9wJYo5NSVan+czcP6kxKEUBhX1/R86bO1vucxYuilCc2/VOjZXn/cgL2AC8A7A49agE/ZdppApSCXKOd0umd7d5X9i4Vts70M8=
+	t=1779028508; cv=none; b=Q+sBnek7vq09Yl7yDEYRce8yGqpaQEXoW+YaTIUCzCaaLZeFQSYcUHY/DwtU5hpXjKzGl4l8c2l1Maa/76zPWiRiQS73jptJsh0N612q9VNaQut9IabCHp7e8Jqn52GjLSSCcLHsmdLkL6Be4rpwZ8cRGVFNlW3FhjylMXVZS54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779028313; c=relaxed/simple;
-	bh=SKR2MDyGDa3EkCtr2B4DnFjna0oNOBS2u1fro1MX8pg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uIBMjDUOVsIITYd6F20OBx3nlLbO/NXfVmte82KJ7KJggEINij0seo5YUAo8oTgAPkJunmYJGbP+MLa/hlV12dcQsWLuzwQBM7b8VpzZAEoMBs3qSAtKKUF7AKMprNi+wE1WbzIzrmHzUIQ2L2IVHt0qhjFwqTg+zXG395TY+pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wg+uxRMR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779028508; c=relaxed/simple;
+	bh=7DDFiqGdr88lpnr9v5VOxAr5PZ6BDStRMX/RHYyBXqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pnZlRZInMcKe1a73EYMy/duDBNQwrch/Q9IFhP5+yv1bfIHt2JimYLAuHuF1GwkXYSJIrPInIdPny6Cf3HxOsD2NNTz+nVqX71GXMaHUpRXU17Ql/CZ+NPUaHdO4Z+1CIXhMMKS/UIlopKgT0bMaZvTV7P3sbr2gstde2foC2eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XecxlReB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wg+uxRMR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3318C2BCB0;
-	Sun, 17 May 2026 14:31:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XecxlReB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2962C2BCB0;
+	Sun, 17 May 2026 14:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779028313;
-	bh=SKR2MDyGDa3EkCtr2B4DnFjna0oNOBS2u1fro1MX8pg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Wg+uxRMRvBNEkd8RNb3+mdLkHQYCEEu/RsPgFar5hb/MbDEaAPqoGLeOwZypMzXgu
-	 eFyLIDLnZ/OQsYuaTNoTglzemdEeajXASyBV5Fm0Q+C3qK5I/cpO4DAXGg2gzYx4dE
-	 2TZXwq6MmDdH9yu/atn4YiwBT/TiTlR2uha8UuTS7vmBOpKsBOfq9F0o08CQ3KdXRz
-	 sUlxkajv+9qVdH6gC9h/fl1LpQpasRBzFSMXdwHAmvlL8m0+K6BiFelRLAgTawyrZx
-	 XtIbnqOcatvbGTTiDPdMNtcrxh+rK/FULCXNZMD2OJAC6q7QP2OVUfERa5o8GFsgpp
-	 vxjdHLAU/2gpQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] riscv: add Siflower RISC-V SoC family Kconfig
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chuanhong Guo" <gch981213@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260517-sf21-topcrm-v1-1-438f2e0513ff@gmail.com>
-References: <20260517-sf21-topcrm-v1-1-438f2e0513ff@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 14:31:52 +0000
-Message-Id: <20260517143152.C3318C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1779028507;
+	bh=7DDFiqGdr88lpnr9v5VOxAr5PZ6BDStRMX/RHYyBXqU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=XecxlReB7c2xtiFZhFxrNm4ZOnpL5RFVhoRc1LlDu7/2YECnO0DNPqrMQwRJYJUaw
+	 oHXSsGPBo5LteH3TqvSEW5ws4GbvlUrMzYlmfKkjPzwO2XwRJwUAtbAea+ywsEDm0r
+	 jwErQvlK2CMy9piFvX6CcwH2lsqp5koEoxfYoPITSGoJok1H2RoVlOQuHI+ebacqVh
+	 Eur2h/1KXNk2lMCOG/WhiM77EoZi4W/RmkX3tked9G4C7NbMNvySoO9hjqolGpV6uj
+	 cVB2ouxmaXc3bAN0yt5n1Xdnw4v0zgwRRi7Mkvj4J8mVkWUDh0dk/EmwwkbSjfOLnv
+	 J2FdCZaPLvd0g==
+Date: Sun, 17 May 2026 15:34:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Taha Ed-Dafili <0rayn.dev@gmail.com>
+Cc: lars@metafoo.de, Michael.Hennerich@analog.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, skhan@linuxfoundation.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/5] iio: dac: ad5504: Align headers with IWYU
+ principle
+Message-ID: <20260517153458.47838fa6@jic23-huawei>
+In-Reply-To: <20260509142047.30302-4-0rayn.dev@gmail.com>
+References: <20260509142047.30302-1-0rayn.dev@gmail.com>
+	<20260509142047.30302-4-0rayn.dev@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Conditionally selecting the `ARM_AMBA` hardware bus based on the=
- `TTY` software subsystem.
---
+On Sat,  9 May 2026 15:20:41 +0100
+Taha Ed-Dafili <0rayn.dev@gmail.com> wrote:
 
-commit 49824e33ae15603df7f899c7df0a4ab9b5f20eed
-Author: Chuanhong Guo <gch981213@gmail.com>
+> Update the header inclusions to follow the IWYU principle and ensure
+> they are sorted alphabetically:
+> 
+> - Remove <linux/fs.h>, <linux/slab.h>, and <linux/kernel.h> as they
+>   are unused. The driver relies on devm_ managed allocations, so slab
+>   is not required.
+> - Replace <linux/bitops.h> with <linux/bits.h> as only the BIT() and
+>   GENMASK() macros are used.
+> - Add <linux/mod_devicetable.h> for struct spi_device_id.
+> - Add <linux/errno.h> and <linux/types.h> for error codes and data types.
+> - Add <asm/byteorder.h> for cpu_to_be16().
+> - Add <linux/array_size.h> for ARRAY_SIZE().
+> - Add <linux/kstrtox.h> for string to integer conversions.
+> 
+> Signed-off-by: Taha Ed-Dafili <0rayn.dev@gmail.com>
+> ---
+>  drivers/iio/dac/ad5504.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/iio/dac/ad5504.c b/drivers/iio/dac/ad5504.c
+> index 03ce37e2c616..57e6eeed26ef 100644
+> --- a/drivers/iio/dac/ad5504.c
+> +++ b/drivers/iio/dac/ad5504.c
+> @@ -5,16 +5,19 @@
+>   * Copyright 2011 Analog Devices Inc.
+>   */
+>  
+> -#include <linux/bitops.h>
+> +#include <asm/byteorder.h>
 
-riscv: add Siflower RISC-V SoC family Kconfig support
+asm always go after linux in their own block.
+Normally after the linux/iio block.
 
-This adds Kconfig support for the Siflower RISC-V SoCs, including the
-SF21A6826 and SF21H8898 chips. It defines ARCH_SIFLOWER, selects the
-relevant T-Head errata, and conditionally selects ARM_AMBA for the UART.
 
-> diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-> index c174ac0ec46b4..9996591cd9dbf 100644
-> --- a/arch/riscv/Kconfig.socs
-> +++ b/arch/riscv/Kconfig.socs
-[ ... ]
-> @@ -37,6 +37,13 @@ config ARCH_SIFIVE
->  	help
->  	  This enables support for SiFive SoC platform hardware.
-> =20
-> +config ARCH_SIFLOWER
-> +	bool "Siflower RISC-V SoCs"
-> +	select ARM_AMBA if TTY
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+>  #include <linux/device.h>
+This is like kernel.h in that if we are tidying up headers
+we should be looking to include dev_printk.h etc rather than this.
 
-Should ARM_AMBA be selected conditionally based on TTY?
+I couldn't immediately see a reason we need this in the driver.
+If there is one it is fine to keep it.
 
-ARM_AMBA models the presence of a physical hardware bus, which exists
-regardless of whether the TTY software subsystem is enabled. Even if the
-PL011 UART is currently the only AMBA device on this platform, tying the
-hardware bus infrastructure to a software abstraction might cause issues if
-other AMBA devices are added later and TTY is disabled.
+Otherwise this lot seems reasonable.
+> -#include <linux/fs.h>
+> +#include <linux/errno.h>
+>  #include <linux/interrupt.h>
+> -#include <linux/kernel.h>
+> +#include <linux/kstrtox.h>
+> +#include <linux/mod_devicetable.h>
+>  #include <linux/module.h>
+>  #include <linux/regulator/consumer.h>
+> -#include <linux/slab.h>
+>  #include <linux/spi/spi.h>
+>  #include <linux/sysfs.h>
+> +#include <linux/types.h>
+>  
+>  #include <linux/iio/dac/ad5504.h>
+>  #include <linux/iio/events.h>
 
-Would it be better to select ARM_AMBA unconditionally, similar to how other
-architectures handle it?
-
-> +	select ERRATA_THEAD
-> +	help
-> +	  This enables support for Siflower RISC-V SoC platform hardware.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-sf21-topcr=
-m-v1-0-438f2e0513ff@gmail.com?part=3D1
