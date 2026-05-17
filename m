@@ -1,261 +1,279 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010015.outbound.protection.outlook.com [52.101.229.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7103C4B8A
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779040483; cv=none; b=j7dtWe3Awm8/r5XruNtJF3HrIgwQ7GyVY8Q/oJfyMoXhBN61vjO4/EVaSWl9Me5NvJBY4jTqJHuT8R/QjM7eoae6tzQ2JE9HIX3c88pIWQ69LM8Vm3A/G6Oe16R9XLKPBOOFtUs6hqbn26AdpmqrXiNmmRbL8bGK4/zSRo5Mqqg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779040483; c=relaxed/simple;
-	bh=HV9+cXihAaH4KwSTsC1gpmYVeE6h/AHKaW49mEWHgB8=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dgHyTEBsbmSaiVouOpbGMfdoN87XH9QCyc5hFw69uSQKZLZbP6RFqXDEIjxs1M8sjYGzgCNfnRZnJf47R1qlaYOCYQutTq+8IONomWTJTMB1PRvYgr3W4o2s2DxLTkEQVh72zMzmczW3d95kqnBLzXh7uRDCWVHToeZqMmTg7U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJDcSzUZ; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FD13C4B64;
+	Sun, 17 May 2026 17:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779040756; cv=fail; b=uOTA21waI8ZN6PhzXm51k6ctYZ938jUG9YeHfpjJS3wk850cuU0Th/JNCRNmgltTu4AxCLcd/yrz9njBPFDWXDQNZhZmtY+5eLMc2cxucgq1H7PdDSjlOp0Kl5C6t62mf6tDjoMN8jbVJKf2KUkcCdI9kk71T9S9g0keKRqjv8w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779040756; c=relaxed/simple;
+	bh=TunRiSBOTSxfGtkj73uRlqAvZlzsq8NcAjvoqBt9ewM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tHEZ2xCsk+JUbaYVDRlUpImvhWP272Oy4IXIngmHJE9XeIhLv6kgBFJsWs6BPuzrRl1BHYFRoOVwW46ijf8FAuAxcHuGKR2YpcX33yJEayoB9aRIocRs0air3Xij8thhPUabp2cp9en8JS7g4kJ6Noj5JVSG3aFn4u/q2mZvQBI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Y8G7iq2/; arc=fail smtp.client-ip=52.101.229.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJDcSzUZ"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-44509921fbcso757871f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:54:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779040480; x=1779645280; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TnFwmmTG90t0fKQgEeFLZttD4NeL9fxw8K+kX1DEzbA=;
-        b=CJDcSzUZCydm54QBxUNXA+hA8oosDpavNttlf92pe5ylkavdt9zuD/uSVCsi1O9GyY
-         rCpfVm7ROr+J97t7odaTaHJHhsupkmYLyj6OBshs/YaCZrjOJtUCm1lAkcFvNV4R3yto
-         sVk4sUIsxl8FMdw1iQxsFdxtJpUJ8UBEDx9QVyDf4NvaSzm25xYfuVuc7en4tsUPKoNY
-         /Xc1/mAqn+/kQ5oUM4CFnwOfImFl3y/Q/G2mp9sPJFvwc8zWy0rxE2VJzSUQ22Td5jWT
-         kVGS502jHT+mScFwagskCd5FnVeTffQdCd/70mXdUYdo3fTaWLwB5nQBzWCWuEpIgczG
-         b7pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779040480; x=1779645280;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TnFwmmTG90t0fKQgEeFLZttD4NeL9fxw8K+kX1DEzbA=;
-        b=HVjtQ8Fk/xOMaCehQ6m3otuf47uqaynaUY5OtjAJkVViflP1Pr1dFldD/+qGKXH7j+
-         exr7lUGvkJPXDsYcQE+jf0IJzLDrZhspOVrNWimeuT7cUi7gBmMqvYE81eZTzRvBdPp8
-         Kf7w99Y2P7985B2cgfZ7jNJe4RKPQBc2CvnhUq6ar2euMPG2+E5oe1Xl75SaEtaNphdg
-         i1Ux9huFogiQmr3nqa9Gc2524k761jcIaDRyzlWJpf0DEDh4uAqeNz0hW1ortLiyW0I5
-         Mait42GGTzUDXxM/Xk4E0p93+Pa0qWpx1V7Dd7oyZNnY8qfi468LjuQkn1eo/OjQaAb9
-         62GQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+bRTCWK/0R0QhdFfe7STIlpyZhVW+bedQ7twJTOKNBfkfwta+1++qp72u0M6yUHwZXLupFBr0C5iYH@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBojL9mqlsBLqdSJ6T1UPjXNl1CzG7FwrwSpurY021HUvwdWZv
-	laaehebfIOiktjTyrAnih/3Mr0tH5EPiwxo5QXzVc9OKT+3dsXfYzi8PuCz82rRE
-X-Gm-Gg: Acq92OEfNbPGk7AjrPr/2X3mRLPsSm15VpUV4WIGBFX+20nnN5HXHnQVc4LDypekh7N
-	vjkJb/YeYnDTTasG5riBaXRiKnpUhlrM8Ul5fS2vQxaXiFVGepksQRsXiZyDoT9XEKGWDjZITxs
-	uBhizjNTktdHpoYNC02N4hOogc1v/9HVnD3KwUW4ZBCJ3RGtDmd1EsCYM4I/XPD/EQQEQZ4iw0j
-	vfuGP8ke5AODfARhryE0jmMaUdrPzenWLE+KLU0wQFvNglWEH925etBda2RdJQIdlwEdEYS4D/j
-	YZNWQKzg5SSX+abpRWx43LqCNxLxIncSu2Y2RHrgdZs6E8pJ61G4hk4pr0JDWqtJRbc7zie+GUS
-	Ext/gWj8XGAoqbfClIZdfs1r4KjNs/1hB2FsRPj7fVmoEI40D0tdZQnhpFsE8fDMEqG/xenvpK6
-	XDxjURElALngw4jxsXX9k2F2GRZlRSa/aJMm0S3UhOQACKhnIW8c/cBitFe8+go2yy8CuxTQtE3
-	/YUPzAz3OFtaMxCCGKhvxEF2K+jrOWljVrdL8YDpr71bOAsAw==
-X-Received: by 2002:adf:f643:0:b0:45e:73b6:d107 with SMTP id ffacd0b85a97d-45e73b6d124mr3699595f8f.41.1779040480412;
-        Sun, 17 May 2026 10:54:40 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9e768bcesm32883396f8f.4.2026.05.17.10.54.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 10:54:39 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Sun, 17 May 2026 18:54:34 +0100
-To: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>
-Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
-	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH RFC v4 10/10] docs: iio: add documentation for ad9910
- driver
-Message-ID: <lydcfe6pxgswwysqqnn3mqjwj2b2x3ldcnvwhnbh5tukdummps@f4b3h4kpf7ff>
-References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
- <20260508-ad9910-iio-driver-v4-10-d26bfd20ee3d@analog.com>
- <b8f9a174-f3d0-4cb8-a571-605be79165d6@baylibre.com>
- <zvulxrrvg4sf7m5pjfpfucg7yssgallfu6zi6mcyblu2qy24hn@wdzs7h77vkoz>
- <18c2eab9-c0c7-4e93-b4e8-73b18531e784@baylibre.com>
- <uphcx5zr4lmukuom75g66hp4agurty7yq6mo6ri6otrsscqfek@tn3u5jjszaoy>
- <5bce7868-feca-4c54-a14d-ad4bf4072c29@baylibre.com>
- <20260517164418.37f13914@jic23-huawei>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Y8G7iq2/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RRdlhd3luAJ72WNMkzkBo+ekiUYPt9mRQDtUO2LWLsiJEc5ZDSSS21GgyWR/5lFMFSqNp7RbuSdo9e+ZEJLYCzhUqdUAmzMQ3mExKVGoKB4+rPnbXvj/kafztl5xjFEaz+q64FClk9cw1yv3HHJfiLyHL2tRWOMRdsrxRZee8XYp2KsOBAgEiMGzGzBpujQ+fmGuX+rV6CJ59tZOI4JZ3Re9d0ubNvdP23R/jX/Qwk2UhhAYgc02Ri2s/TppuGwLDl/53NrCpJ/jJL6WxovF9x8ANdyN4mLFwoNW6POflAPEtF9sI5L6w7NTOFby2K7r+aivL52An9rK5zv11OOh6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VujkUuoirrpLohhZpmqOo9Ywjq+vULCF8lVMhbesnsk=;
+ b=W7TLOYacji7fWYXREhb/xI0NVBd8YEAfD/IA6mT6vA/IpP6x6SzwwKf7/CvV1vG47PzwZx2DXJL/v8RAyK0PJOfy+PtZwpIjrzNpdP2rQ6Z28og5dhmVicl8bvu9epBXRY5BLDzrh6D5deP4JDboFB/6HxOrSo2lLXXogYIsR1ZJ0nDmq/Owt+OOXhcOM9aDPiRj+otQtIJL4VxO+NPKwE/2he8+d7bYeuYcn/z2e1IFXjrZACCEgGdbq82O2nCVeVS1flaJmOP7hAC1rMya4cyS+Gf1gOFrQb9Bot9HtlE1tLoXJAtYgcj8AAbgHjBSDGQrSnHADSIfd976A1sozw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VujkUuoirrpLohhZpmqOo9Ywjq+vULCF8lVMhbesnsk=;
+ b=Y8G7iq2/nLFwAxCoFoGezo5cm9AFmhj47pHecKcEACYhFaJ67J2LxTRzKR1nHs4exBSOJx+VNbGhnZTmjElj16e9EtwGMl06QKzTe58rQeXijSWsilkVrTIIb2h29JKGVdAqKlGBys7lttMeuzLEez5U58GobEfDt86EAVAQTVg=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OS9PR01MB16855.jpnprd01.prod.outlook.com (2603:1096:604:2bd::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Sun, 17 May
+ 2026 17:59:09 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0025.022; Sun, 17 May 2026
+ 17:59:03 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>, Laurent Pinchart
+	<laurent.pinchart+renesas@ideasonboard.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	magnus.damm <magnus.damm@gmail.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
+ per-output clock limits
+Thread-Topic: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
+ per-output clock limits
+Thread-Index: AQHc4h12S/BvNeveSEeUROA0xwu+DrYShyGg
+Date: Sun, 17 May 2026 17:59:03 +0000
+Message-ID:
+ <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS9PR01MB16855:EE_
+x-ms-office365-filtering-correlation-id: ea4a50d7-9305-4de9-852c-08deb43dfb4d
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|7416014|366016|921020|18002099003|56012099003|22082099003|11063799003|4143699003|3023799003|38070700021;
+x-microsoft-antispam-message-info:
+ YrdcJFdK4DCpFzV5jlzE/mmTRkDHf5xczsGtCI267Fm1agp/KdISUpG+fyohsbe4izSGwxo/9Drzveg0VxxOzIKg4Wsz0GWR905r6WRihcyUfrpBwC3iNAmTZryw7sKAEXHHKa95ZzY/WSdhqpgdDRJd8ECxUDig1ZvYFlcD+ed2Tf4LrxXKwwOu1LwF0qsnXX/Cq78VsLzTiME/sxd99bVk+JBlw8MT9SnQ/nAOQRt9iVN9lSuqjUoRINOEZjTqbJqtFaQNcIYmVt0XZxa+QEZ49hvcVCrPHFlT4YYFP8jPUDqkeEypZ4gydv7/WzHBCXQ+J4CRJ7Sjpo+m+hlkhP96s83of5u+YmMkKViVQKHnZepxTJ4wKWCTjOl7HuMoo6p73jhaTfiWo4fKqkatP5UxBpbSnvwwoJfydeNEhli7rUsdZcwPQc5APZXaDuXyXXAHk+aEVXWSWNvvxSavkmfviRbwBa0tnq91Lx4rAZlbZqtC+q/B98oHTaqetcIOoY7QHVo513kz14YvTe1AkvRxNkb1Z+sMAehTn+Varf3P5UvByhpDoj+r4Q4bn10mw5fRDMfGDWZtf06tvno2OJE4WEj8r+tLudqjUtIA58+9aH+1oXOBoiOOz/7q5ytPhhr55IDhJzEDjGBHtgrCyxqwhNOGg9T4kna0HPSIsa25uKgvKJSokA42w+VwIGJ43Yaml4F2mrzc4eOEtl15baXU60Z+TO1zQhoPnNpcfNAz+P8/abQfVTH0iBqjDtdfaq3s6mtE+lb3zHkvtTdbqQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(18002099003)(56012099003)(22082099003)(11063799003)(4143699003)(3023799003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?zL5aaWRaNPXezXgtEeaidyhP99gJYUp9OCcHMcQn8Udz42FLtszRQJYDD3c7?=
+ =?us-ascii?Q?GRV/0Y2EpZR//IdlHmgTLV8epc6gLdidDpeVS8VQCCcDLlgvpPi679N05Nz0?=
+ =?us-ascii?Q?JW9PEU84+J4r08KeWndTXenVxsv0lPu50+pDs89wGnHOXRsRooAubh0ynH6j?=
+ =?us-ascii?Q?ughzZjKbiHx4ajA+HkZcz/YfChXOSg5QVF3PAT7mCEbnokHFJNQlEfsHITHY?=
+ =?us-ascii?Q?b3sCaaLN+o6PmqfO1x9+R3/PYSXjDgHHoByRMT/LWby9VMl9jgBbkWPolquf?=
+ =?us-ascii?Q?kl+0IXqdkKG9YRfDqUSEHeShy4n/sBXOrR3sWbo9pGnJE/vlyvkDRVyrQHMM?=
+ =?us-ascii?Q?NZKUwx2vptxvTuSNXzUGiac2y9ohke8CDyUXDUjmPM76eRqv9FK+QxA/Cc6R?=
+ =?us-ascii?Q?ieKa5invV4/IQCGsX2JFQ8C/IgvIfzE0cm5ucKnL6dT3ot0Gi2ujsOgFe0kw?=
+ =?us-ascii?Q?u9M+FCraSQkSHpElGXGuASWZQK0hPrnwSUu4T+uXWfmWrSi0KPE6ejH7gXA1?=
+ =?us-ascii?Q?mIXgfuLOr8Jvp2hr2dI7Tf77zmWt4NXFBIdYqbKhVZPkksS4eLbp3ya6lbhy?=
+ =?us-ascii?Q?utXbL5yi25fPvyCJRfZAQclYvmmUxZuvfsgH8E2o8ZVM0gPMl8Sp8DDhITHh?=
+ =?us-ascii?Q?ZYPNG2ahoeGJQ5h4JN6Gv066fEMpMXW5bC4G4w8auO36aPSoWMXbOXFp94oK?=
+ =?us-ascii?Q?faX79clEWAfaY5yF0g5sWiApA6mFgKWKWE4jAH+tJ6Za9lHEtnFPgKPtyBub?=
+ =?us-ascii?Q?O5wMfqpXtNi3lfNCBKeez6qnsPxmPCC98GAODR98gCXFFGrH4wZSNcvxTCqm?=
+ =?us-ascii?Q?TXwMQvRWzlK01iBcN3DLqqj48NLXFTM64SjS9Hcm/INjN0+j3cVB7iINZROT?=
+ =?us-ascii?Q?vFLqH7N7Vd/b091Ksg9GFkOuso4OanxX0MgDErvIPZliSSnIEMViYBTO6m5g?=
+ =?us-ascii?Q?1a7xWe0NgC53/7XlmgLa0qxVKczKXsvYoCkQnCOblWSKRHaISGKG20VcGyxz?=
+ =?us-ascii?Q?6YxnuHbOCDIhvsvECVq7tmbZJEFfscqHp8aXtMVdAQP3Egifhr4D6sMK1JsR?=
+ =?us-ascii?Q?xMlYdiHhdVeiRBswSRTnCpSs+y1tX1ftC4tM+anyqS/uVNzeLqhhOa4Vx3Es?=
+ =?us-ascii?Q?rLA3H3DzlVKhvzY/v4M851JgfPAxwmFG6oTXWfEAUhEQvn3B8jWFLoYTeBUo?=
+ =?us-ascii?Q?/wz++lWNk6jDD3g5H9Vdq6RxQuMLHGpKCxAXjCn/YC065QR1SW773RA/Hnox?=
+ =?us-ascii?Q?dD26nSS5ZEgRWfDyL3KWAok+wvNtXdZfHUbrlnuA1sc1Q6aCAraliKI5yibY?=
+ =?us-ascii?Q?MsQN+xKBmxUDs4x+UTomd5zeFVMoK/yt6mrddUv5ETgPAM/xiN7YVvS9vc7S?=
+ =?us-ascii?Q?TrHP8Pzwo4FAtdzy1Kfz+JLsuEaCR21XhbW8VXT8cyYflr/Ck9jKS9wyPjqY?=
+ =?us-ascii?Q?i0tM2qO3qO4/k73+MZRJ7gHCI91TgZePP+Q1wzF/aZEPRhOUsVQW2NX/umHa?=
+ =?us-ascii?Q?iebw4Pd8V8qfSCWGuoXZQrn3HUmFhbqsM1fSsrHjgtFXhz9gyWlEYEnaYxU1?=
+ =?us-ascii?Q?Mzut/VuGvQSjvhEv5fQ0uUJrzKM30q270peQ75NlBJ47wogIRcjiHgIMl735?=
+ =?us-ascii?Q?bBOqcAxC27NPTC5GU1MRkGUP9jJ341OcWHFBGLTWNnBwnglVA3rWxzzTMRa0?=
+ =?us-ascii?Q?y1Ke0UVzTFVjQQWOTH4gRPayyZoxhTrQc0a5i2nDQEnhOob5Hi6+ThOl/mkw?=
+ =?us-ascii?Q?udVakpvoTw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260517164418.37f13914@jic23-huawei>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea4a50d7-9305-4de9-852c-08deb43dfb4d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2026 17:59:03.5283
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9A+6EzvqzLo7IIj2/mEVl4Mae3wduoU/8ySNi1LWBi+qp9gYo77/DQec0xz8bNFelMRsZUQqXzkhRPytlEzlGPiDIJDwuVCIb3UjGMy+7eg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB16855
 
-On 26/05/17 04:44PM, Jonathan Cameron wrote:
-> On Mon, 11 May 2026 10:23:35 -0500
-> David Lechner <dlechner@baylibre.com> wrote:
-> 
-> > On 5/11/26 10:02 AM, Rodrigo Alencar wrote:
-> > > On 26/05/11 09:46AM, David Lechner wrote:  
-> > >> On 5/10/26 4:30 AM, Rodrigo Alencar wrote:  
-> > >>> On 26/05/09 06:42PM, David Lechner wrote:  
-> > >>>> On 5/8/26 12:00 PM, Rodrigo Alencar via B4 Relay wrote:  
-> > >>>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > >>>>>
-> > >>>>> Add documentation for the AD9910 DDS IIO driver, which describes channels,
-> > >>>>> DDS modes, attributes and ABI usage examples.  
-> > >>>
-> > >>> ...
-> > >>>  
-> > >>>>> +       must be a power of 2.
-> > >>>>> +
-> > >>>>> +   * - ``frequency_offset``
-> > >>>>> +     - Hz
-> > >>>>> +     - Base FTW to which scaled parallel data is added. Range :math:`[0, f_{SYSCLK}/2)`.
-> > >>>>> +
-> > >>>>> +   * - ``phase_offset``
-> > >>>>> +     - rad
-> > >>>>> +     - Base phase for polar modulation. Lower 8 bits of POW register.
-> > >>>>> +       Range :math:`[0, 2\pi/256)`.
-> > >>>>> +
-> > >>>>> +   * - ``scale_offset``
-> > >>>>> +     - fractional
-> > >>>>> +     - Base amplitude for polar modulation. Lower 6 bits of ASF register.
-> > >>>>> +       Range :math:`[0, 1/256)`.
-> > >>>>> +  
-> > >>>>
-> > >>>> I guess there was some discussion on these attributes. I see some of these in the
-> > >>>> ad9832 driver in staging, but I'm guessing they are new ABI. It isn't clear to
-> > >>>> me from the documentation here what they actually do though. I guess they are
-> > >>>> just basic transformations on the input signal?  
-> > >>>
-> > >>> Not sure how the ABI is not clear:
-> > >>>
-> > >>> 	For a channel that allows amplitude control through buffers, this
-> > >>> 	represents the value for a base amplitude scale. The actual output
-> > >>> 	amplitude scale is a result with the sum of this value.
-> > >>>
-> > >>> So yes, it is a basic transformation.  
-> > >>
-> > >> I didn't have time to read the ABI docs yet. For scale_offset though,
-> > >> how is that different from the existing offset attribute?  
-> > > 
-> > > I suppose that existing offset ABI is applied to (raw * scale), mostly for
-> > > voltage channels, here the scale_offset is an offset to the scale itself.  
-> > 
-> > 
-> > Ah, so a very general case would be (raw * (scale + scale_offset)) + offset
-> > 
-> > when the scale can change as a function of time and comes from an external
-> > source.
-> Ah. Similar question to what I was commenting on.  Though maths is currently wrong
-> for normal offset application as it is pre scale.
-> 
-> 
-> 	(raw + offset) * scale is normal case.
-> This is proposing (I think)
-> 
-> 	(raw + offset) * (scale_offset + scale)
-> 
-> Altvoltages are a little odd though in that we are really always kind of dealing
-> in scales as it's the peak voltage that is the base unit. So they are kind
-> of always about scale - hence for such a single offset would be shifting the
-> mid voltage point which I guess is different form scale_offset.
+Hi Prabhakar,
 
-As mentioned in the previous patch, I'd say we don't handle voltages in altvoltage
-channels because voltage values depends on external circuitry and they vary with
-frequency. Scale control is often achieved with hardware_gain in dB, but the
-dB scale would not be good to achive the 32 bit control of the "raw" values.
-Then, here it is implemented from 0 to 1.0, where 1.0 is the full scale.
+Thanks for the patch.
 
-> 
-> Hmm. Not sure I can draw this but i'll give it a go...
-> 
-> So with no modulation going on and scale = 2.0, Raw 1000. 
-> (imagine these are sign waves)
-> 
->   _         _       _ 2V
->  / \       / \
-> /___\_____/___\___  _ 0V
->      \   /     \
->       \_/       \__ _ -2V
-> 
-> That is sine wave -2/2V swing.
-> 
-> Now if scale or voltage double it get twice as big.
-> 
-> If offset + 100
-> 
->   _         _       _ 3V
->  / \       / \
-> /   \     /   \   
-> _____\___/_____\___ _ 0v
->       \_/       \__ _ -1V
-> 
-> Scale offset at this point seems straight forward.. Gets more fun when it's modulated.
-> 
-> For now apply a scale offset of -1 and scale becomes 2 - 1 == 1. 
->   _         _       _ 1.5V
->  / \       / \
-> /   \     /   \   
-> _____\___/_____\___ _ 0v
->       \_/       \__ _ -0.5V
-> 
-> So for simple case we could just role it into scale. However the fun here
-> I believe is that _scale is controlled by say a ramp generator.. 
-> 
-> Ok. I can't really draw this.. Lets try with xs
+> -----Original Message-----
+> From: Prabhakar <prabhakar.csengg@gmail.com>
+> Sent: 12 May 2026 15:41
+> Subject: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to per=
+-output clock limits
+>=20
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> Move pixel clock validation from a fixed encoder check to per-output cons=
+traints stored in
+> rzg2l_du_output_routing.
+>=20
+> Previously, rzg2l_du_encoder_mode_valid() applied a hard-coded 83.5 MHz u=
+pper limit specifically for
+> DPAD0. This approach cannot scale across the RZ DU family because pixel c=
+lock limits vary per SoC and
+> per output interface.
+>=20
+> Add mode_clock_min and mode_clock_max fields to rzg2l_du_output_routing s=
+o that clock constraints are
+> expressed at the granularity of individual output interfaces rather than =
+globally per SoC. Update
+> rzg2l_du_encoder_mode_valid() to look up the routing entry for the active=
+ output and return
+> MODE_CLOCK_LOW or MODE_CLOCK_HIGH when the pixel clock falls outside the =
+declared range. A value of 0
+> for either field means no bound is enforced in that direction.
+>=20
+> Set the DPAD0 pixel clock limits for RZ/G2UL (R9A07G043U) to 20.875 MHz m=
+inimum and 83.5 MHz maximum.
+> RZ/G2L and RZ/G2LC (R9A07G044) share the same DPAD0 pixel clock limits.
+>=20
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v2->v3:
+> - Moved clock limits from device_info to output_routing to allow
+>   per-output constraints.
+> - Updated commit message to reflect the change in approach.
+>=20
+> v1->v2:
+> - Dropped storing info pointer in struct rzg2l_du_encoder as it's not nee=
+ded.
+> ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 4 ++++
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
+>  3 files changed, 13 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/d=
+rm/renesas/rz-
+> du/rzg2l_du_drv.c
+> index 0fef33a5a089..d1bc205eb5f8 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> @@ -33,6 +33,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07=
+g043u_info =3D {
+>  		[RZG2L_DU_OUTPUT_DPAD0] =3D {
+>  			.possible_outputs =3D BIT(0),
+>  			.port =3D 0,
+> +			.mode_clock_min =3D 20875,
+> +			.mode_clock_max =3D 83500,
+>  		},
+>  	},
+>  };
+> @@ -47,6 +49,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07=
+g044_info =3D {
+>  		[RZG2L_DU_OUTPUT_DPAD0] =3D {
+>  			.possible_outputs =3D BIT(0),
+>  			.port =3D 1,
+> +			.mode_clock_min =3D 20875,
+> +			.mode_clock_max =3D 83500,
+>  		}
+>  	}
+>  };
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/d=
+rm/renesas/rz-
+> du/rzg2l_du_drv.h
+> index 58806c2a8f2b..307ae70dd382 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> @@ -30,6 +30,8 @@ enum rzg2l_du_output {
+>   * struct rzg2l_du_output_routing - Output routing specification
+>   * @possible_outputs: bitmask of possible outputs
+>   * @port: device tree port number corresponding to this output route
+> + * @mode_clock_min: minimum pixel clock in kHz
+> + * @mode_clock_max: maximum pixel clock in kHz
+>   *
+>   * The DU has 2 possible outputs (DPAD0, DSI0). Output routing data
+>   * specify the valid SoC outputs, which CRTC can drive the output, and t=
+he type @@ -38,6 +40,8 @@ enum
+> rzg2l_du_output {  struct rzg2l_du_output_routing {
+>  	unsigned int possible_outputs;
+>  	unsigned int port;
+> +	int mode_clock_min;
+> +	int mode_clock_max;
+>  };
+>=20
+>  /*
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/g=
+pu/drm/renesas/rz-
+> du/rzg2l_du_encoder.c
+> index 0e567b57a408..4af2ae09ff39 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> @@ -50,8 +50,12 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encode=
+r,
+>  			    const struct drm_display_mode *mode)  {
+>  	struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
+> +	struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.dev);
+> +	const struct rzg2l_du_output_routing *route =3D
+> +&rcdu->info->routes[renc->output];
+>=20
+> -	if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83500)
 
-The ramp pattern would be the envelope of the actual varying signal.
+Please retain the check for DPAD output, to avoid checking the same for DSI=
+ and LVDS.
 
-> 
-> Initial scale 1, ramping to 2 over a couple 1ish cycles, offset 1.  That is
-> computed sale is going from 2 to 3.
->                    Peak 3
-> ____________________________ 3V
->     Peak 2.33         xx
-> ______x_______________xx____ 2V 
->      xxx             x  x
->    xx   x            x
->  xx      x          x
-> x_________x_________x_______ 0V   
->            x       x 
->             x      x
->              x    x
-> ______________x__x__________ -2V            
-> _______________xx___________ -2.5
->                 Peak 2.67
-> 
-> Key being really where this starts which is scale_offset = 1 rather than starting
-> ramp from scale of 0.
+Or=20
 
-yeah... that makes sense. Note that scale_offset ABI is defined generically, but
-it is proposed for the parallel port mode with polar as destination. That is needed
-because the amplitude is defined by the 6-bit offset (LSB) plus 8-bit input (MSB) that
-would come from the buffer.
+Maybe add the below check to skip for DSI and LVDS.
 
-> Having drawn these I'm even less clear in my head on whether we can move from
-> expressing that scale_offset and scale_roc in volts  - i.e. not as scales
-> or not.
+if (renc->output !=3D RZG2L_DU_OUTPUT_DPAD0)
+	return MODE_OK;
 
-Yes, I'd say volts is not the right unit to use here. We may have the options:
-- raw values
-- fractional or proportional values from 0 to 1.0 (the one I am using here)
-- dBFS
 
-> Given need for separate control for overall mid point of waveform and the
-> starting point of scaling I think not.  Ah well.  The challenge will be
-> how to makes sure folk looking at the ABI can understand the complex
-> interactions of all these parameters. We may need some extra docs with
-> better diagrams than above.
->               
-> Jonathan
-> 
-> 
+Cheers,
+Biju
 
--- 
-Kind regards,
+> +	if (route->mode_clock_min && mode->clock < route->mode_clock_min)
+> +		return MODE_CLOCK_LOW;
+> +	if (route->mode_clock_max && mode->clock > route->mode_clock_max)
+>  		return MODE_CLOCK_HIGH;
+>=20
+>  	return MODE_OK;
+> --
+> 2.54.0
 
-Rodrigo Alencar
