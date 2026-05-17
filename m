@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60CB336884;
-	Sun, 17 May 2026 08:25:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C4378F39;
+	Sun, 17 May 2026 08:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779006339; cv=none; b=MeaT3cFclKIAO3VJ0yoVFVbDU20iNVg6kjCuBw/id5RAdceQSgCSU3jOQPTW6NflDD5/2NyVv+GB6gEVZJYDFZu5+kfe4HyX6VsXE4k+nFELurHZSyKv5t+27cUp6NtRDoc3SIY94xlzuZfl6185UvCMUZo6WiwMdlak0JIjo48=
+	t=1779006466; cv=none; b=RHyVTJR4O2DlxK5jpIEW4gN8fzozXrM9OAT2ADsu4dGosQeYUdw3B0sSTe44GhW6mqB5VtFppJ0n9poU7KWOREr+XA51HoMiYiEwdOk43NDQ0NzLSeQ9CP/qFrcJZiC8ESZFvHXDppZH9I7hp+OcvQYug2fDoVCnrKfvNhuj4iQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779006339; c=relaxed/simple;
-	bh=llp+J3zqo0qhY5+D9nsoNFKS+VH9miaL9ErLeWHqGYY=;
+	s=arc-20240116; t=1779006466; c=relaxed/simple;
+	bh=TkXa2plHaTy8FdH9xHBYQ1KXuU8I1xR2SgjbAKvMc9E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B+1zMzOz6oepHppS/vTAmmiD7/7s4ILm8mljuuomIQC3Efg4YR7KIvRPeG3iACgKRE3X+vu0XORt8zbEVZiLmI3lqaN+CVpbLWnYFNjpPYMcezPEScTprxfKZQ7O22XG19LlPGWEtW8rnD0UGj1k2cuXB4ayFf4RQudo2O7CzSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcDD9VxQ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=E/g0ACZ0l63BsHLvmN9qANLO2lAnKtsQm4oOyX3ZME/2O/iZBVw71FscSf/oh0TGUGSOCfZeFaUNsYZbRJ6bbU260bMbnIiq96Cn+syTJEnnqq1zxh/nB6e/T7Y/sqtIBwYRwTM7G+lyLw08Vnp8sECHT5aaGUFS9BwCwCFuo9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbDljtzO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcDD9VxQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D51CC2BCB0;
-	Sun, 17 May 2026 08:25:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbDljtzO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F71C2BCB0;
+	Sun, 17 May 2026 08:27:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779006339;
-	bh=llp+J3zqo0qhY5+D9nsoNFKS+VH9miaL9ErLeWHqGYY=;
+	s=k20201202; t=1779006466;
+	bh=TkXa2plHaTy8FdH9xHBYQ1KXuU8I1xR2SgjbAKvMc9E=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GcDD9VxQ3TtrOPLlZxlxf8uzI+LIkX2bzPFhCfVRQhNoDBqFQdZqZYinmz0NVAzwB
-	 fnD5nBUmyxDR5CPtpnJg/ACT3Oy9BuemgGcwBBSe6DZP40FbzCBaIJ07kvNcIEIiVT
-	 QyyUYxifLTqExXlwm7PB9cDqyjBGxFlnScfHAghzBj16TdRd0FSoh2qjPD8VoJeS8S
-	 2gv+ltgm8nViSJlVRjTgVVruI7rMhobXm2YLQScqNw+1CWIQNyFP6GXoEg3wHnarqa
-	 pYrcO0LR8rZA1Zx+Y2aI0je4Jo4GBn01h2ez5eYk7pfMIif7wEL4bT5oOdZOSoPL4j
-	 DguS9p4cg2vtQ==
-Message-ID: <c975d3a2-0534-4a0e-ab25-3cd8ad978a83@kernel.org>
-Date: Sun, 17 May 2026 10:25:34 +0200
+	b=nbDljtzOPfJHAt4PnuNlAYHPPDDbY5fOtF2gj5nyX8I5xCFgA1rmuLrb0Hx9arCui
+	 /HvFq9r8NtSmJ/bIgfQ16Avte0hSuCYp4yUG9drkJVFsszBwi4f4P6BtEhZsv+unFP
+	 GmnysJGCgXnP7BDih+DR+1endMmeXFgjYepz/m7q/GmdVLD5ky2CZw7BHCy3Fv5Qr7
+	 1jpuIs6N2/KexQy5YSymBfmOezTUAjCS29xpIzVd5lcyP3/6B4Z52LRQdm2or+dna1
+	 KirRzAjfmNbqo4eYdxFeo8KAJABZJD5H3AFcubydn7wJ4wNLx2f+StdcfOX3GTwrXH
+	 +7aaicBKPAvZA==
+Message-ID: <408f587b-76c2-4fdd-bbe1-89414270b4ee@kernel.org>
+Date: Sun, 17 May 2026 10:27:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,22 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Stop false review statements
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: debarbos@redhat.com, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Greg KH <gregkh@linuxfoundation.org>,
- Konstantin Ryabitsev <mricon@kernel.org>, Guenter Roeck
- <linux@roeck-us.net>, sashiko-bot@kernel.org,
- sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
- Linux Kernel Workflows <workflows@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree@vger.kernel.org, kfree@google.com
-References: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
- <07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
+Subject: Re: [PATCH v3 1/4] dt-bindings: clock: qcom: Add QREF regulator
+ supplies for glymur
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Taniya Das
+ <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ krishna.chundru@oss.qualcomm.com
+References: <20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com>
+ <20260506-qref_vote_0506-v3-1-5ab71d2e6f16@oss.qualcomm.com>
+ <20260514-outgoing-literate-dove-2e2a73@quoll>
+ <aglUmonGmr2goyOI@hu-qianyu-lv.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,33 +96,70 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
+In-Reply-To: <aglUmonGmr2goyOI@hu-qianyu-lv.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16/05/2026 23:59, Roman Gushchin wrote:
-> 
-> 
->> On May 16, 2026, at 2:33 PM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On 17/05/2026 07:39, Qiang Yu wrote:
+> On Thu, May 14, 2026 at 12:22:17PM +0200, Krzysztof Kozlowski wrote:
+>> On Wed, May 06, 2026 at 01:43:51AM -0700, Qiang Yu wrote:
+>>> Add regulator supply properties for the Glymur TCSR QREF/REFGEN blocks
+>>> required by clkref clocks.
+>>>
+>>> The vdda-qreftx*, vdda-qrefrpt*, and vdda-qrefrx* supplies map to common
+>>> QREF TX/RPT/RX components, while SoC-specific topology and instance count
+>>> differ. Document them here for qcom,glymur-tcsr.
+>>>
+>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+>>> ---
+>>>  .../bindings/clock/qcom,sm8550-tcsr.yaml           | 57 ++++++++++++++++++++++
+>>>  1 file changed, 57 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+>>> index 1ccdf4b0f5dd..57921cb63230 100644
+>>> --- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+>>> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+>>> @@ -51,6 +51,63 @@ properties:
+>>>    '#reset-cells':
+>>>      const: 1
+>>>  
+>>> +  vdda-refgen-0p9-supply: true
+>>> +  vdda-refgen-1p2-supply: true
+>>> +  vdda-qrefrx0-0p9-supply: true
+>>> +  vdda-qrefrx1-0p9-supply: true
+>>> +  vdda-qrefrx2-0p9-supply: true
+>>> +  vdda-qrefrx4-0p9-supply: true
+>>> +  vdda-qrefrx5-0p9-supply: true
+>>> +  vdda-qreftx0-0p9-supply: true
+>>> +  vdda-qreftx0-1p2-supply: true
+>>> +  vdda-qreftx1-0p9-supply: true
+>>> +  vdda-qrefrpt0-0p9-supply: true
+>>> +  vdda-qrefrpt1-0p9-supply: true
+>>> +  vdda-qrefrpt2-0p9-supply: true
+>>> +  vdda-qrefrpt3-0p9-supply: true
+>>> +  vdda-qrefrpt4-0p9-supply: true
 >>
->> I find it opposite: clogging commits with useless information, because
->> some arbitrary and completely closed-source tool did analysis means
->> nothing to me one year later when I look at the commit in the Git history.
+>> Either I do not understand your previous explanation:
+>> CXO -> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 -> PCIe4_PHY
+>>
+>> or this is still wrong. There is no TCSR here, so this proves nothing.
+>> If TCSR is TX0, then you do not have five of them...
+>>
+>> My previous comment stay - you are not describing the actual hardware
+>> here.
+>>
+> The CXO network "-> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 ->" is referred to
+> as the QREF block, and each component is controlled by the tcsr_clkref_en
+> registers.
+
+Still no clue what this -> relation is. Again, describe the hardware.
+
 > 
-> This is simple not true: Sashiko is fully open-source, under Apache 2.0 license
-> and the code belongs to LF. Yes, the instance behind sashiko.dev is using
-> Gemini 3.1 Pro LLM, which is not open-source, but it’s not a fundamental limitation - 
-> Sashiko is supporting various LLMs, including open models - it’s just a practical
-> choice: to my knowledge the quality of open models is not on par with frontier closed
-> models and it would require a non-trivial amount of hardware and infrastructure to run
-> an open model at the required scale.
-
-Sashiko is open, but it is not the Sashiko which performs the review but
-closed source LLM behind.
-
-Information that closed source LLM did some analysis is no more useful
-than all other cases I mentioned - LKP, Smatch, Coverity or checkpatch -
-of which most are even open source...
+> If a PHY receives its reference clock from QREF, it will have a clkref_en
+> register. However, this register may be located in different regions
+> depending on the target. On glymur it resides in TCSR, so I added these
+> LDOs QREF required in tcsr yaml.
+Registers are not described as supplies.
 
 Best regards,
 Krzysztof
