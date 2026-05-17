@@ -1,223 +1,243 @@
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853B830E858
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779049707; cv=none; b=ldwlPqRXk2LiuFr3lAjxxxlMh8SxXc/XJId5DcwwHRU0y7PE/+yY7lgToSmIEhEmCRL4wDLDus9pTwG9nMUuBcHpD7ortoqujnYKdB+2Crl9y7Tq6gYin9hTU/p6GYgIHpa8q5UbN2jca4U0AdYMBsA37MxihuFkjnJeRq6iszk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779049707; c=relaxed/simple;
-	bh=TfH3mebqGdarguuuYyHFAQAgVU0MPwFuKF0xD/rxr8g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mGJ8Ih8ZpEAzVZkw/qlHrhnaI3FvUZTkMr/SM0pggtfgEHFmUaUKngyoEfOMeF254wisIlFlT8qv0z0hR4CyckRAu163O6KlUAWNyQG39a0mUUvNxpVnsWRYR875iditDfbjC/4bkxlQsM5vzdOv+vANzFzBxlPHwuEAxACDqgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=0jPnodMk; arc=none smtp.client-ip=209.85.167.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9C821D3F5
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779049857; cv=pass; b=pJPmWNO1m7a+sF/8gJAZRewcIvA4cgixPMnvubxItzgAR+5mLTMml8ZGU4isVuYAg2S23Z+eZmpZ1gxOoVcDHO4KKrMHrtpDICJIBZehGnrSemArLRC3MquLMqvRlH4DNFvXIP8wNLtcl6ZO+r0QiY8svyrKphLyEm4Haptxg/8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779049857; c=relaxed/simple;
+	bh=50C7JM4Fkn1oeuiBJSXgulYieHOs0OaBMs+8C//qUxk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ni89CPzanNuNRinusS+yQVz7uzJOohcPUSc2zFuc+f2aUptiDO/Y3Mz7GKwG0UcDe8cQ5KEDqtzq1pYZCrulkOKZPutndyhjB+zWntFFnnQ17zj7bR+m6mMr3XglmNefm6jnliVGzQGAZQXW6SMXtCF/ZY2uDCEvtBPQ3xHeEyc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fv5b/zMw; arc=pass smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="0jPnodMk"
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-47c941f6bdcso1031110b6e.3
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:28:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fv5b/zMw"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488a88aeec9so18187685e9.2
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:30:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779049854; cv=none;
+        d=google.com; s=arc-20240605;
+        b=D4YLi0wYInSnwRLhnEB9webqxirwFs+boeAAZrSNsHtHizYmCDhrv/OCXJbbIqLgKw
+         cwFggWCwa51zwPL6bcwPl3yq2hP9Y7WerievpWL3zdwLt5IkFrG9JxMLhwPLkgs54QJr
+         4YFmEM8brGyh3EvNs0UB9gJveS12zb28U9l4TaaVOo7mo9ooYF9BC6sRnx3yL1NgTD5r
+         yaoSI/bsc2dZ5qAaJZRrEKzljDI/OJvbGWMIuu1PKFFEwWBscD3hxCX81XJuUvLZy+je
+         f0NC3wmFLbcKCRCR3iySbsENio0fKIDfb6lyfGKKnSpwoXrUjo8H2f4e0k9vDhiHqNQn
+         CTNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
+        fh=YaKfdomFeZbhfKIqiCycRFke9umD66qtSHQr/LLDyGs=;
+        b=SAlxTs5KY3GWF/4M3H8uaG1xpjXcxmcj09QgkE8sS/REYvtzSJhpzCOmTinmYMywAo
+         WVnM6Lss4xhTzDWmAJ6q3dj61eN0VGUf8dxKfd3VYZ0/cVmK+rbqwgn/1khPyQP7OZnW
+         7Wzzi8dCmskjHCmSNGj//UQ5lIQqWv0MWACZZvAGIKumADsj2Twjq1yOLFMYwh0C8Gfr
+         5IacSf/uVVlUN+pjN7oZWh/gge00DI423qXa9HNZpxiyy7tln43RPpJoDG6ieYdYcqDX
+         liGao9q3f00lSp7aRiB+SinlG5BCSmJxDcE2VGWEO4wnVGc2ow7oxfbh4v68MgtsY2uv
+         GuAQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779049704; x=1779654504; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7Z68gGNxfq6iDTV2nCWXatC0CvTWumwI6Opr30zc3J4=;
-        b=0jPnodMkGBuJS9tK3WYbqjIgcQVIsIcxW0LQ/XmuuyaHDMdD0GZNs9X19AVEzw9OoF
-         bL7Ot8DzMOZHUYT6cXQ6LkPx/A2rk0ScEO0eLhpfLRfLhKp4oE0WFLHkUsJ8n/L4Nbo9
-         2oDH+xl1OeSNqxxCGFcabYdq/RbEDQ6/iY3ehIiaF82HULiX8likyKpcgwupnU+c0B3W
-         jJ537D1pudJcLjNLmrn0pCIAbe43zMEHKeVnBNxkvQQLYArBcHAMqjyqiYRRzWuuJcJw
-         SUCdAzzsPf8lX8D1XubGxilcdHHI4stHcSFk1DWJNPhoLy2KeFNemK7P1LPBqx4NCn9t
-         7UyQ==
+        d=gmail.com; s=20251104; t=1779049854; x=1779654654; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
+        b=fv5b/zMw3ZkJz83Vu9XsS9My5k2TmQpz521lVaHHMmxvg5BpCHX+Iq410ijt2s8oir
+         1o+nMcUOAfiAyEh+8tYVs6+yInHfLYhWiSFdBqvO6sgxQADqi5A83NOokQ9Rq4W4s/Nj
+         E+V9EpPN0Izvyl9r0UR22/koStBuC/r1wxDD1t+iyfXJqVA5LNU5fMPckbIZxm0o47EC
+         d2o685E74CR/u+L5zTelk1iIzPlDln6nlQB8wDrdeCzZlL4ChEgkK4LAFkFW+syWxpqP
+         Ogi0hRm6zmJVQs2euaFp/ylAzuiNaMCNtHTFMhdNsTnQ1PgEcPXpYkttdk/aqgBWWiwf
+         cYbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779049704; x=1779654504;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7Z68gGNxfq6iDTV2nCWXatC0CvTWumwI6Opr30zc3J4=;
-        b=MaIcB9R0akW0dNiYGnSbpXv64kjSmDt7/alZbVJtDGCQkIXyPhmgEqT1HWBQa4pygj
-         wwzwAA7DPtFl/BL2z81rcc28qbPV7X6dYytmjBwUBT9AnjKrT9kEfqmy2fHIvzBFaID+
-         ibhz6C2cDlCbdt1P+Jpoktc1XOE9meSAmrMV2Oh5Ufzo3xntFyXEQ4OfnqYklfSnKIO3
-         KTVBZoph5Y6SHx3XPq1bWSQvGO6+8ASn1OLDx+KtQHQ1Ye9P0K7FvlJCukQGKewwcHwN
-         KD4gRhhOqU1zX6Sr1WhAYr/8X+9URg2VehCGj7MKBo+vnj5svkrU9J5yYgabcIwwhas0
-         5yZA==
-X-Forwarded-Encrypted: i=1; AFNElJ+/LE+f9qyNUTRsBuegvKpAnfXqCv55CIY420fGPnYVmqL4ZS/rnP3jPJ/7lo4p1gYFBkpmPZh+y4E2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwK4Yry0p0FmQyXlOUWs3aE2hPCznxZoGvE/0stST4Fk2+WoJYq
-	X6L5ty93LkKwYAIbGpm07nc5fFNqvC3lX1QV68us6bnCn9lPLlmt4lGo0YhLnKg6/lo=
-X-Gm-Gg: Acq92OGuSDj0p9Be641XYgkXuroz32Mt4h1xS+e4MBxiIfQvo7nEdGDKM9aPRQsPBdx
-	FrBb/CXuX4MRU27R/sqjy8FUjN1xSJWEaD5HM0TuWTBbpnez33oNmF/u6XOP11YHA5VMgT5P+Gf
-	hR2x1rksV+/PCfLsDZM9EoaXMerQJLb+N4FRtqxkGnIBg5LwQQny3MzSE8UNRrO69WRxOse2KZE
-	OgJ81yKYKNboIdYFYrhKZIK2sEvyO2QKM/K4RjBi9F484TXx2v8X98W//Do0id9zRgbmgtmCWFq
-	o/n12M6QXJM2ksaHgadjjnFkMMzFXJYYOiGW3UNYVL5gjFvl/0kvPJ1lapzGTv1prlWwD4SrEqX
-	pKrlZUHMrgT8vW53SZ7aAjT2zhaCmOBtRrYXVgae0mUG65FtZWKwuSqBlGCWz8fybc0SoeDYn1f
-	6QuepOYVYi422rE6sHHKqpIXJzypB1WZqVgAGjTAJzS/U5xuJxaLJHQU2quWjKNfZva3LM0yc=
-X-Received: by 2002:a05:6808:e409:b0:482:4dbd:4fe1 with SMTP id 5614622812f47-482e57ce234mr6049210b6e.45.1779049704393;
-        Sun, 17 May 2026 13:28:24 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:7a4b:ddf0:f61:f58d? ([2600:8803:e7e4:500:7a4b:ddf0:f61:f58d])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e55bc4f04fsm6341703a34.27.2026.05.17.13.28.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 17 May 2026 13:28:23 -0700 (PDT)
-Message-ID: <166a6262-0ad4-4957-9729-863e2694e81d@baylibre.com>
-Date: Sun, 17 May 2026 15:28:22 -0500
+        d=1e100.net; s=20251104; t=1779049854; x=1779654654;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
+        b=svHqR5CsdgAjcnrGrNgnK/3gQm/N0fA/Re2U+73C+z3CohztYf4oubXOH/FYEbEVHw
+         QDDDkACquecZxFdS9kjVOCrAp+X6yHh3zhKoyqx0sGDlwh8kWQTXpBFi4leOigpMf74T
+         jmBf3q+ybjSRJgpi1pvY4wJg9/CMzDlsZ4HNi+rTeOd0QIAtfKmdE0CE4XrUuK6ctd8K
+         gDz6kXO1u0quo3rf5Oe88XmA+udULdvKtQb3CrJneKDHy40dVtyzOjWE0x5Gk0alfO9c
+         y03bFVuMOgXyBUqB+p9+7Zw74vAsVXB/6O4ZZR71RDtfjrRUl9nXMWrafOUtVvBk7Oqn
+         TvGg==
+X-Forwarded-Encrypted: i=1; AFNElJ8JAwpFV2x4m+lO2z1MFk46EN9AbNyFv5aH7T/sV9eB1m7qrWw2vO8aCpHCJftzyuW02qAAneywGSBo@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8AyarPEMO22PDV72hNbAveulQfgW3dg0Chez5/YhEafCYkmkS
+	XXBEAMH6pUcj3cl+8o+nLkeUXXyHil3InuuJ8t6a+FwJuZt8KQxFdNuo6NByhpv7CqCvvRMDLAg
+	GZJlWhmUucCN444XT9Sed5xPln5l5WSc=
+X-Gm-Gg: Acq92OHDghldJitKLpgT3Bm5FZPg/sldWYkeXgkac3RxDZLCOPTKBFOl2zP19mjwVT5
+	gXRkxkF2hQwo8JTqlRCyHhAiBGyirUJyClyk72OPlFOFnqCWHYFYDewDa/Eq0yDF3ULP7irrQRd
+	k0Fpdfp859E8folYYCxF94JBcGuliw1vHVeJkXbqYbi9qdzV05fKXHcE9qWNW1nS9s5i1uA7Zy2
+	pvonZQI6jQHmq+/GMd3+tKVJd02Jv6qv3byu/eYXdzO4n0Sp0hYQuAalfYJbrUB6xNaz9ylTQcs
+	2vl9+/BbNzV/NlatwUGkbWhYrqgx+pQc8nfQy9w/RjvSF+Q7aLMZZVDav2dURoeYB2Adk+zHth8
+	PjCc=
+X-Received: by 2002:a05:600c:4e02:b0:483:2c98:4368 with SMTP id
+ 5b1f17b1804b1-48fe6322416mr195114775e9.18.1779049853553; Sun, 17 May 2026
+ 13:30:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/5] iio: magnetometer: add driver for QST QMC5883P
-To: Hardik Phalet <hardik.phalet@pm.me>, Jonathan Cameron <jic23@kernel.org>
-Cc: gregkh@linuxfoundation.org, andy@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, krzk+dt@kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
- me@brighamcampbell.com, nuno.sa@analog.com, robh@kernel.org,
- skhan@linuxfoundation.org, Hardik Phalet <hardik.phalet@gmail.com>
-References: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
- <20260420144534.0e47c06a@jic23-huawei> <DIL6ZC7KKYMN.36KGJXKDRGFB0@pm.me>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DIL6ZC7KKYMN.36KGJXKDRGFB0@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Sun, 17 May 2026 21:30:26 +0100
+X-Gm-Features: AVHnY4L4Iw5hWO4PauuBTrDRjWPhgs5UmEFDfgWOBP_KZfNbj_cxu6qjfmeyJWg
+Message-ID: <CA+V-a8v_gmPEcWgFsC3Kv4X_M_qzbVHeEY=EmzdYxzy+PkyB-Q@mail.gmail.com>
+Subject: Re: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
+ per-output clock limits
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	"magnus.damm" <magnus.damm@gmail.com>, 
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/17/26 2:17 PM, Hardik Phalet wrote:
-> On Mon Apr 20, 2026 at 7:15 PM IST, Jonathan Cameron wrote:
->> On Sun, 19 Apr 2026 22:32:09 +0000
->> Hardik Phalet <hardik.phalet@pm.me> wrote:
->>
->>> This series adds an IIO driver for the QST QMC5883P, a 3-axis
->>> anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC,
->>> communicating over I2C. To my knowledge there is no existing
->>> upstream driver for this device (see "Prior-art register-map check"
->>> below).
->>>
->>> The driver supports:
->>>   - Raw magnetic field readings on X, Y and Z axes
->>>   - Four full-scale ranges (+/-2 G, +/-8 G, +/-12 G, +/-30 G),
->>>     selectable via IIO_CHAN_INFO_SCALE
->>>   - Four output data rates (10, 50, 100, 200 Hz), selectable via
->>>     IIO_CHAN_INFO_SAMP_FREQ
->>>   - Four oversampling ratios (1, 2, 4, 8), selectable via
->>>     IIO_CHAN_INFO_OVERSAMPLING_RATIO
->>
->> I'm suspicious about this one based on a very quick read of the datasheet.
->> Conventional oversampling would involve running the internal sampling
->> engine at a multiple of the sampling frequency, and then averaging the
->> results.  The datasheet describes this as:
->> "Over sample Rate (OSR1) registers are used to control bandwidth of an
->>  internal digital filter. Larger OSR value leads to smaller filter bandwidth,
->>  less in-band noise and higher power consumption. It could be used to reach a
->>  good balance between noise and power. Four over sample ratios can be selected,
->>  8,4,2 or 1."
->>
->> That sounds like a boxcar filter to me not oversampling (which would be
->> a combination of box car and reducing the output data rate).
->>
->> If possible, can you enable the data ready output and put a scope on it
->> to see if that changes frequency when OSR or OSR2 are modified.
->>
->> Trickier to do would be looking at the noise levels whilst playing with
->> these filters and see if they at least match with standard filter types.
->>
->> If we can't figure these out, then it may be a case of picking something
->> that works well and hard coding that rather than letting userspace
->> change things in a fashion that might not match the ABI.
-> 
-> I could not arrange a oscilloscope. So wrote a small standalone tool that drives
-> the chip directly over /dev/i2c-N (skipping the driver) on a Pi 4 and
-> characterised all three fields in CTRL_1 with timing + noise measurements.
-> Summary:
-> 
->   Field    Bits     Role per measurement
->   ODR      [3:2]    output rate, accurate to ~3% of nominal in Normal Mode
->   OSR1     [5:4]    low-pass filter (bandwidth control), no rate change
->   OSR2     [7:6]    N-sample averaging, no rate change (real oversampling)
-> 
-> 1. DRDY interval vs each field (median of 500 samples per setting,
->    ms; SCHED_FIFO, pinned CPU):
-> 
->    vary ODR (OSR1=1, OSR2=1):
->      ODR=10 Hz  -> 100.9 ms       ODR=100 Hz -> 10.30 ms
->      ODR=50 Hz  ->  20.5 ms       ODR=200 Hz ->  5.14 ms
-> 
->    vary OSR1 (ODR=200 Hz, OSR2=1):
->      OSR1=1 -> 5.142 ms           OSR1=4 -> 5.139 ms
->      OSR1=2 -> 5.143 ms           OSR1=8 -> 5.141 ms
-> 
->    vary OSR2 (ODR=200 Hz, OSR1=1):
->      OSR2=1 -> 5.142 ms           OSR2=4 -> 5.142 ms
->      OSR2=2 -> 5.140 ms           OSR2=8 -> 5.141 ms
-> 
->    ODR is the only knob that changes the rate.
-> 
-> 2. Per-axis noise stddev (2000 samples, sensor still, ratios vs N=1):
-> 
->    vary OSR1:                   vary OSR2:
->      OSR1=1 -> 1.000              OSR2=1 -> 1.000
->      OSR1=2 -> 0.723              OSR2=2 -> 0.706
->      OSR1=4 -> 0.544              OSR2=4 -> 0.494
->      OSR1=8 -> 0.416              OSR2=8 -> 0.333
-> 
->    Reference for N-sample averaging (1/sqrt(N)):
->      1.000 / 0.707 / 0.500 / 0.354
-> 
->    OSR2 matches within measurement noise; OSR1 trails the curve,
->    which is the expected signature of a bandwidth-limiting filter
->    on non-white input noise.
-> 
-> So to my understanding, OSR2 is true oversampling. OSR1 is a filter.
+Hi Biju,
 
-The datasheet says that power consumption changes based on OSR1,
-so that makes me think that OSR1 is really oversampling since it
-would take more energy to do more conversions in the same amount
-of time. (Note 1 on table 2.1)
+Thank you for the review.
 
-Another chip by the same mfg that looks like it has the same OSR1/
-OSR2 has a bit more info in the same table [1]. It looks like OSR2
-affects the sensitivity (and calls OSR2 a low pass filter instead
-of "down sampling rate").
+On Sun, May 17, 2026 at 6:59=E2=80=AFPM Biju Das <biju.das.jz@bp.renesas.co=
+m> wrote:
+>
+> Hi Prabhakar,
+>
+> Thanks for the patch.
+>
+> > -----Original Message-----
+> > From: Prabhakar <prabhakar.csengg@gmail.com>
+> > Sent: 12 May 2026 15:41
+> > Subject: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to p=
+er-output clock limits
+> >
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Move pixel clock validation from a fixed encoder check to per-output co=
+nstraints stored in
+> > rzg2l_du_output_routing.
+> >
+> > Previously, rzg2l_du_encoder_mode_valid() applied a hard-coded 83.5 MHz=
+ upper limit specifically for
+> > DPAD0. This approach cannot scale across the RZ DU family because pixel=
+ clock limits vary per SoC and
+> > per output interface.
+> >
+> > Add mode_clock_min and mode_clock_max fields to rzg2l_du_output_routing=
+ so that clock constraints are
+> > expressed at the granularity of individual output interfaces rather tha=
+n globally per SoC. Update
+> > rzg2l_du_encoder_mode_valid() to look up the routing entry for the acti=
+ve output and return
+> > MODE_CLOCK_LOW or MODE_CLOCK_HIGH when the pixel clock falls outside th=
+e declared range. A value of 0
+> > for either field means no bound is enforced in that direction.
+> >
+> > Set the DPAD0 pixel clock limits for RZ/G2UL (R9A07G043U) to 20.875 MHz=
+ minimum and 83.5 MHz maximum.
+> > RZ/G2L and RZ/G2LC (R9A07G044) share the same DPAD0 pixel clock limits.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> > v2->v3:
+> > - Moved clock limits from device_info to output_routing to allow
+> >   per-output constraints.
+> > - Updated commit message to reflect the change in approach.
+> >
+> > v1->v2:
+> > - Dropped storing info pointer in struct rzg2l_du_encoder as it's not n=
+eeded.
+> > ---
+> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 4 ++++
+> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
+> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
+> >  3 files changed, 13 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu=
+/drm/renesas/rz-
+> > du/rzg2l_du_drv.c
+> > index 0fef33a5a089..d1bc205eb5f8 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > @@ -33,6 +33,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a=
+07g043u_info =3D {
+> >               [RZG2L_DU_OUTPUT_DPAD0] =3D {
+> >                       .possible_outputs =3D BIT(0),
+> >                       .port =3D 0,
+> > +                     .mode_clock_min =3D 20875,
+> > +                     .mode_clock_max =3D 83500,
+> >               },
+> >       },
+> >  };
+> > @@ -47,6 +49,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a=
+07g044_info =3D {
+> >               [RZG2L_DU_OUTPUT_DPAD0] =3D {
+> >                       .possible_outputs =3D BIT(0),
+> >                       .port =3D 1,
+> > +                     .mode_clock_min =3D 20875,
+> > +                     .mode_clock_max =3D 83500,
+> >               }
+> >       }
+> >  };
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu=
+/drm/renesas/rz-
+> > du/rzg2l_du_drv.h
+> > index 58806c2a8f2b..307ae70dd382 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> > @@ -30,6 +30,8 @@ enum rzg2l_du_output {
+> >   * struct rzg2l_du_output_routing - Output routing specification
+> >   * @possible_outputs: bitmask of possible outputs
+> >   * @port: device tree port number corresponding to this output route
+> > + * @mode_clock_min: minimum pixel clock in kHz
+> > + * @mode_clock_max: maximum pixel clock in kHz
+> >   *
+> >   * The DU has 2 possible outputs (DPAD0, DSI0). Output routing data
+> >   * specify the valid SoC outputs, which CRTC can drive the output, and=
+ the type @@ -38,6 +40,8 @@ enum
+> > rzg2l_du_output {  struct rzg2l_du_output_routing {
+> >       unsigned int possible_outputs;
+> >       unsigned int port;
+> > +     int mode_clock_min;
+> > +     int mode_clock_max;
+> >  };
+> >
+> >  /*
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers=
+/gpu/drm/renesas/rz-
+> > du/rzg2l_du_encoder.c
+> > index 0e567b57a408..4af2ae09ff39 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> > @@ -50,8 +50,12 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *enco=
+der,
+> >                           const struct drm_display_mode *mode)  {
+> >       struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
+> > +     struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.de=
+v);
+> > +     const struct rzg2l_du_output_routing *route =3D
+> > +&rcdu->info->routes[renc->output];
+> >
+> > -     if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83=
+500)
+>
+> Please retain the check for DPAD output, to avoid checking the same for D=
+SI and LVDS.
+>
+This patch checks only for pads that have added constraints.
 
-[1] https://www.qstcorp.com/upload/pdf/202601/CF382A94E1424763B3DE87DC967757FC.pdf
-
-> 
-> v4 plan, pending your input on (c):
-> 
->   (a) Add an OSR2 regmap_field and expose it as
->       IIO_CHAN_INFO_OVERSAMPLING_RATIO with values {1, 2, 4, 8}.
->   (b) Drop the OVERSAMPLING_RATIO mapping on OSR1.
->   (c) For OSR1, two options:
->         i)  expose as IIO_CHAN_INFO_LOW_PASS_FILTER_3DB_FREQUENCY.
->             The public datasheet does not give cutoff frequencies,
->             so I'd have to either characterise them empirically and
->             document them in the driver, or use placeholder values
->             derived from the OSR1 setting alone (which feels wrong).
->         ii) hard-code OSR1=1 in chip_init and not expose it. Loses
->             the noise-vs-bandwidth tradeoff but keeps the ABI clean.
->       Slight preference for (ii) unless you'd rather see the filter
->       knob exposed.
-
-It sounds like we already figured out that OSR2 is just a moving average
-so might as well implement IIO_CHAN_INFO_LOW_PASS_FILTER_3DB_FREQUENCY.
-
->   (d) Keep ODR mapped to IIO_CHAN_INFO_SAMP_FREQ as in v3.
-> 
-> One other finding worth mentioning: the datasheet's setup examples
-> (sec 7.1, 7.2, 7.3) all write 0x06 to register 0x29 before entering
-> an active mode, with the comment "Define the sign for X Y and Z axis".
-> This register is not listed in the documented register map but the
-> write is required for axes Y and Z to come out with the documented
-> orientation. v4 will add this write to chip_init().
-> 
-> If you have other measurements you'd like to see before v4, happy to
-> run them.
-> 
->>
->>>   - Runtime PM with a 2 s autosuspend delay
->>>   - System suspend/resume delegated to the runtime callbacks
-> 
-> Best regards,
-> Hardik
-
+Cheers,
+Prabhakar
