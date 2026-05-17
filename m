@@ -1,279 +1,257 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010015.outbound.protection.outlook.com [52.101.229.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FD13C4B64;
-	Sun, 17 May 2026 17:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779040756; cv=fail; b=uOTA21waI8ZN6PhzXm51k6ctYZ938jUG9YeHfpjJS3wk850cuU0Th/JNCRNmgltTu4AxCLcd/yrz9njBPFDWXDQNZhZmtY+5eLMc2cxucgq1H7PdDSjlOp0Kl5C6t62mf6tDjoMN8jbVJKf2KUkcCdI9kk71T9S9g0keKRqjv8w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779040756; c=relaxed/simple;
-	bh=TunRiSBOTSxfGtkj73uRlqAvZlzsq8NcAjvoqBt9ewM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tHEZ2xCsk+JUbaYVDRlUpImvhWP272Oy4IXIngmHJE9XeIhLv6kgBFJsWs6BPuzrRl1BHYFRoOVwW46ijf8FAuAxcHuGKR2YpcX33yJEayoB9aRIocRs0air3Xij8thhPUabp2cp9en8JS7g4kJ6Noj5JVSG3aFn4u/q2mZvQBI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Y8G7iq2/; arc=fail smtp.client-ip=52.101.229.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1243CAE73
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 18:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779041279; cv=none; b=YQQBiE0+qT6mSX4S7r/cOcOZyS0kyYCkXIB7NfmsHeBnrArcbt+elxEDCxXqxaHn1xFylkxF86g4JcaJk5UDoixESFM/PCuHgMR3MjKRCaVo3X/xk+RzXOXIpFhod1YGJ79R9/7bGU76QjURuBXwiQedZI4ZwZ4pP37+7cBTrHE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779041279; c=relaxed/simple;
+	bh=AgfMqLVnS6YuQEuhwKQ5hHW609zHtmx345KIezt5J0Y=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gIrG37cM0npBL2Fr/XReAcqrYZRd9iXQPX6ZiB1LNsHbpEttrczUFn7ULbRt3D0uL8KjLQhb5wPgct+kvqovKw0lwaX061VHCtS43b9qoM9MCZr9WWD8herF6de+feAyk33w+CL0QzVpIs2IiDtsFI56d+cfHE/AFwwiZFsRebU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=li7PDmv8; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Y8G7iq2/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RRdlhd3luAJ72WNMkzkBo+ekiUYPt9mRQDtUO2LWLsiJEc5ZDSSS21GgyWR/5lFMFSqNp7RbuSdo9e+ZEJLYCzhUqdUAmzMQ3mExKVGoKB4+rPnbXvj/kafztl5xjFEaz+q64FClk9cw1yv3HHJfiLyHL2tRWOMRdsrxRZee8XYp2KsOBAgEiMGzGzBpujQ+fmGuX+rV6CJ59tZOI4JZ3Re9d0ubNvdP23R/jX/Qwk2UhhAYgc02Ri2s/TppuGwLDl/53NrCpJ/jJL6WxovF9x8ANdyN4mLFwoNW6POflAPEtF9sI5L6w7NTOFby2K7r+aivL52An9rK5zv11OOh6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VujkUuoirrpLohhZpmqOo9Ywjq+vULCF8lVMhbesnsk=;
- b=W7TLOYacji7fWYXREhb/xI0NVBd8YEAfD/IA6mT6vA/IpP6x6SzwwKf7/CvV1vG47PzwZx2DXJL/v8RAyK0PJOfy+PtZwpIjrzNpdP2rQ6Z28og5dhmVicl8bvu9epBXRY5BLDzrh6D5deP4JDboFB/6HxOrSo2lLXXogYIsR1ZJ0nDmq/Owt+OOXhcOM9aDPiRj+otQtIJL4VxO+NPKwE/2he8+d7bYeuYcn/z2e1IFXjrZACCEgGdbq82O2nCVeVS1flaJmOP7hAC1rMya4cyS+Gf1gOFrQb9Bot9HtlE1tLoXJAtYgcj8AAbgHjBSDGQrSnHADSIfd976A1sozw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VujkUuoirrpLohhZpmqOo9Ywjq+vULCF8lVMhbesnsk=;
- b=Y8G7iq2/nLFwAxCoFoGezo5cm9AFmhj47pHecKcEACYhFaJ67J2LxTRzKR1nHs4exBSOJx+VNbGhnZTmjElj16e9EtwGMl06QKzTe58rQeXijSWsilkVrTIIb2h29JKGVdAqKlGBys7lttMeuzLEez5U58GobEfDt86EAVAQTVg=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS9PR01MB16855.jpnprd01.prod.outlook.com (2603:1096:604:2bd::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Sun, 17 May
- 2026 17:59:09 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0025.022; Sun, 17 May 2026
- 17:59:03 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>, Laurent Pinchart
-	<laurent.pinchart+renesas@ideasonboard.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	magnus.damm <magnus.damm@gmail.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Fabrizio
- Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-output clock limits
-Thread-Topic: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-output clock limits
-Thread-Index: AQHc4h12S/BvNeveSEeUROA0xwu+DrYShyGg
-Date: Sun, 17 May 2026 17:59:03 +0000
-Message-ID:
- <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS9PR01MB16855:EE_
-x-ms-office365-filtering-correlation-id: ea4a50d7-9305-4de9-852c-08deb43dfb4d
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|921020|18002099003|56012099003|22082099003|11063799003|4143699003|3023799003|38070700021;
-x-microsoft-antispam-message-info:
- YrdcJFdK4DCpFzV5jlzE/mmTRkDHf5xczsGtCI267Fm1agp/KdISUpG+fyohsbe4izSGwxo/9Drzveg0VxxOzIKg4Wsz0GWR905r6WRihcyUfrpBwC3iNAmTZryw7sKAEXHHKa95ZzY/WSdhqpgdDRJd8ECxUDig1ZvYFlcD+ed2Tf4LrxXKwwOu1LwF0qsnXX/Cq78VsLzTiME/sxd99bVk+JBlw8MT9SnQ/nAOQRt9iVN9lSuqjUoRINOEZjTqbJqtFaQNcIYmVt0XZxa+QEZ49hvcVCrPHFlT4YYFP8jPUDqkeEypZ4gydv7/WzHBCXQ+J4CRJ7Sjpo+m+hlkhP96s83of5u+YmMkKViVQKHnZepxTJ4wKWCTjOl7HuMoo6p73jhaTfiWo4fKqkatP5UxBpbSnvwwoJfydeNEhli7rUsdZcwPQc5APZXaDuXyXXAHk+aEVXWSWNvvxSavkmfviRbwBa0tnq91Lx4rAZlbZqtC+q/B98oHTaqetcIOoY7QHVo513kz14YvTe1AkvRxNkb1Z+sMAehTn+Varf3P5UvByhpDoj+r4Q4bn10mw5fRDMfGDWZtf06tvno2OJE4WEj8r+tLudqjUtIA58+9aH+1oXOBoiOOz/7q5ytPhhr55IDhJzEDjGBHtgrCyxqwhNOGg9T4kna0HPSIsa25uKgvKJSokA42w+VwIGJ43Yaml4F2mrzc4eOEtl15baXU60Z+TO1zQhoPnNpcfNAz+P8/abQfVTH0iBqjDtdfaq3s6mtE+lb3zHkvtTdbqQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(18002099003)(56012099003)(22082099003)(11063799003)(4143699003)(3023799003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?zL5aaWRaNPXezXgtEeaidyhP99gJYUp9OCcHMcQn8Udz42FLtszRQJYDD3c7?=
- =?us-ascii?Q?GRV/0Y2EpZR//IdlHmgTLV8epc6gLdidDpeVS8VQCCcDLlgvpPi679N05Nz0?=
- =?us-ascii?Q?JW9PEU84+J4r08KeWndTXenVxsv0lPu50+pDs89wGnHOXRsRooAubh0ynH6j?=
- =?us-ascii?Q?ughzZjKbiHx4ajA+HkZcz/YfChXOSg5QVF3PAT7mCEbnokHFJNQlEfsHITHY?=
- =?us-ascii?Q?b3sCaaLN+o6PmqfO1x9+R3/PYSXjDgHHoByRMT/LWby9VMl9jgBbkWPolquf?=
- =?us-ascii?Q?kl+0IXqdkKG9YRfDqUSEHeShy4n/sBXOrR3sWbo9pGnJE/vlyvkDRVyrQHMM?=
- =?us-ascii?Q?NZKUwx2vptxvTuSNXzUGiac2y9ohke8CDyUXDUjmPM76eRqv9FK+QxA/Cc6R?=
- =?us-ascii?Q?ieKa5invV4/IQCGsX2JFQ8C/IgvIfzE0cm5ucKnL6dT3ot0Gi2ujsOgFe0kw?=
- =?us-ascii?Q?u9M+FCraSQkSHpElGXGuASWZQK0hPrnwSUu4T+uXWfmWrSi0KPE6ejH7gXA1?=
- =?us-ascii?Q?mIXgfuLOr8Jvp2hr2dI7Tf77zmWt4NXFBIdYqbKhVZPkksS4eLbp3ya6lbhy?=
- =?us-ascii?Q?utXbL5yi25fPvyCJRfZAQclYvmmUxZuvfsgH8E2o8ZVM0gPMl8Sp8DDhITHh?=
- =?us-ascii?Q?ZYPNG2ahoeGJQ5h4JN6Gv066fEMpMXW5bC4G4w8auO36aPSoWMXbOXFp94oK?=
- =?us-ascii?Q?faX79clEWAfaY5yF0g5sWiApA6mFgKWKWE4jAH+tJ6Za9lHEtnFPgKPtyBub?=
- =?us-ascii?Q?O5wMfqpXtNi3lfNCBKeez6qnsPxmPCC98GAODR98gCXFFGrH4wZSNcvxTCqm?=
- =?us-ascii?Q?TXwMQvRWzlK01iBcN3DLqqj48NLXFTM64SjS9Hcm/INjN0+j3cVB7iINZROT?=
- =?us-ascii?Q?vFLqH7N7Vd/b091Ksg9GFkOuso4OanxX0MgDErvIPZliSSnIEMViYBTO6m5g?=
- =?us-ascii?Q?1a7xWe0NgC53/7XlmgLa0qxVKczKXsvYoCkQnCOblWSKRHaISGKG20VcGyxz?=
- =?us-ascii?Q?6YxnuHbOCDIhvsvECVq7tmbZJEFfscqHp8aXtMVdAQP3Egifhr4D6sMK1JsR?=
- =?us-ascii?Q?xMlYdiHhdVeiRBswSRTnCpSs+y1tX1ftC4tM+anyqS/uVNzeLqhhOa4Vx3Es?=
- =?us-ascii?Q?rLA3H3DzlVKhvzY/v4M851JgfPAxwmFG6oTXWfEAUhEQvn3B8jWFLoYTeBUo?=
- =?us-ascii?Q?/wz++lWNk6jDD3g5H9Vdq6RxQuMLHGpKCxAXjCn/YC065QR1SW773RA/Hnox?=
- =?us-ascii?Q?dD26nSS5ZEgRWfDyL3KWAok+wvNtXdZfHUbrlnuA1sc1Q6aCAraliKI5yibY?=
- =?us-ascii?Q?MsQN+xKBmxUDs4x+UTomd5zeFVMoK/yt6mrddUv5ETgPAM/xiN7YVvS9vc7S?=
- =?us-ascii?Q?TrHP8Pzwo4FAtdzy1Kfz+JLsuEaCR21XhbW8VXT8cyYflr/Ck9jKS9wyPjqY?=
- =?us-ascii?Q?i0tM2qO3qO4/k73+MZRJ7gHCI91TgZePP+Q1wzF/aZEPRhOUsVQW2NX/umHa?=
- =?us-ascii?Q?iebw4Pd8V8qfSCWGuoXZQrn3HUmFhbqsM1fSsrHjgtFXhz9gyWlEYEnaYxU1?=
- =?us-ascii?Q?Mzut/VuGvQSjvhEv5fQ0uUJrzKM30q270peQ75NlBJ47wogIRcjiHgIMl735?=
- =?us-ascii?Q?bBOqcAxC27NPTC5GU1MRkGUP9jJ341OcWHFBGLTWNnBwnglVA3rWxzzTMRa0?=
- =?us-ascii?Q?y1Ke0UVzTFVjQQWOTH4gRPayyZoxhTrQc0a5i2nDQEnhOob5Hi6+ThOl/mkw?=
- =?us-ascii?Q?udVakpvoTw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="li7PDmv8"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4891c00e7aeso9132835e9.2
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 11:07:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779041276; x=1779646076; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+S9zwilvrDZ3FX02ClZfVO+ZKyFuGBJXYxf1fRCPzCo=;
+        b=li7PDmv8FHkRGCK5JWionVWSsCu/eAuom7LVWZy8NjjvGqJUYAFa9Ve4SlEAdC0/y4
+         1jImpBXIaFKfkplHSBlumQFnHeM41uBnNAq1SZHtYqE3rsXLdmXCC/ZeUiNnoVJ4Rxdm
+         1oOnslkuTX/r2AT/3+fUjio0cJowKSNW2voVMOysHqGESysD/Y03YDrxz4kM6dSFdT4Z
+         4Txae3DGDzGWHnSCbdjATNm7nkYb8aJSLkQYTAssZCAOxQzgK6H95x+kllytJEslWR5k
+         SdndN7gaf1aGMF8BAEXqnbBQZSUB2pTfgjCnd82H7bBMwjPHCk5ppTVCsvRZL3TiJdNV
+         DLIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779041276; x=1779646076;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+S9zwilvrDZ3FX02ClZfVO+ZKyFuGBJXYxf1fRCPzCo=;
+        b=Ut8US2YwkHtxBJrmsWF7D2Jksh93vrCbg3Wtfnll3/G/weXRoM32xcN0hfza/8SEzU
+         NlOm6BgYVS3FONgI6HNJU88n64MLJu/pkIKO0fZRaGtqAeD2g4v/UQdF6Ilfe8xQPEOo
+         ISCfNfY5wlZTH0tTtbiUZY679+0q6d82Ix/52/pj53eEqdxceNidIe2bSAQLLQ09XbR3
+         Plxb8V2GMlM8nyNcNt5YalLUK5R7HS6jYAy8LAOoe4/3qHI5MKDh1e+3eOQpdfW2YDPw
+         ekQ7SRme50kDqBFUH21jaa4iaDNKCyIaoXl4mMNVRM1K+guIoU7Fs0SQ55ZFckpbq2gX
+         cj+A==
+X-Forwarded-Encrypted: i=1; AFNElJ99Z9gx0p9lV92SmOXjTMItiBjrzPv47UaK71kRDaZ8xl/p5GnCd+4pNMpMN7Et9sBJnY9HXQYFghAB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsBe2cQKkVM6PJrqwFwhCgVob5jBN5wkvusCzZREqOJtILAMKa
+	XanrHL7IiKhp8JXvEDQhHcS4jcVITRQG1RBkMpkmC6x0OeYTerbb/Zsh
+X-Gm-Gg: Acq92OGUccNMLa4DeWiTzm2knTTN9TdXZoanmCDB8bMhX07PTJS654Zb82LeVOraFuh
+	kSNWjbmTnEwK/a/l96f7/Us8zbVVDMM/arClE/LdxQVAMjkRM3xEu0ozn3Ct1wEnl2R+msQ6wVE
+	MUqmC/DRsP5yUQ6pEMvRcR6mzgh43RdL1XF9Xr5IKpmOQINicEBioDBylQnMAlHHxDusmnBf3p8
+	gCjW4fUId6uVzJeISPxRTjTOczRedGnXC1jsi4ys0aNY7HjMz2brtlrs3jisQc7AQT1HyTjXfQa
+	lNImBrNyLV0w51fkgVkf70v7ocfzH76HbMTU1IpCVsh314MOks+dVXAghLoZ60IYhop61oOzdzF
+	8WzvhMvvaEtBFjpVOO6bpSoEIhwyaI6QFiyVq1UzbU5t9hvlqgX2MoIqC3s5eoJmQ4I5tfKIi6y
+	rOfBg+ZQaITDEk+GtZP6EUho1fY8HZlJCe8dNno19pebI5DDDagdYpA5MspxM1zFUVJ4XAw2alS
+	MBrGhcq60RLjvaMGTVdwmz2DvxOEtGLQiFedokmtlTyqNoT2Q==
+X-Received: by 2002:a05:600c:8189:b0:488:ac01:72b6 with SMTP id 5b1f17b1804b1-48fe6323addmr185385535e9.21.1779041275890;
+        Sun, 17 May 2026 11:07:55 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe4862209sm207107125e9.0.2026.05.17.11.07.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 17 May 2026 11:07:55 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Sun, 17 May 2026 19:07:53 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v4 03/10] iio: frequency: ad9910: initial driver
+ implementation
+Message-ID: <is4rbxohz5icbaslatmjmzhb5oztnh6ytmntgkn3rssjijppb3@mur2heagprdi>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+ <20260508-ad9910-iio-driver-v4-3-d26bfd20ee3d@analog.com>
+ <20260517154745.5fbfcabf@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea4a50d7-9305-4de9-852c-08deb43dfb4d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2026 17:59:03.5283
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9A+6EzvqzLo7IIj2/mEVl4Mae3wduoU/8ySNi1LWBi+qp9gYo77/DQec0xz8bNFelMRsZUQqXzkhRPytlEzlGPiDIJDwuVCIb3UjGMy+7eg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB16855
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260517154745.5fbfcabf@jic23-huawei>
 
-Hi Prabhakar,
+On 26/05/17 03:47PM, Jonathan Cameron wrote:
+> On Fri, 08 May 2026 18:00:19 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> 
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add the core AD9910 DDS driver infrastructure with single tone mode
+> > support. This includes SPI register access, profile management via GPIO
+> > pins, PLL/DAC configuration from firmware properties, and single tone
+> > frequency/phase/amplitude control through IIO attributes.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> Hi Rodrigo
+> 
+> A few really minor things from a fresh look through.
+> 
+> Jonathan
+> 
+> > diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+> > new file mode 100644
+> > index 000000000000..c75f2ef178c2
+> > --- /dev/null
+> > +++ b/drivers/iio/frequency/ad9910.c
+> 
+> > +
+> > +static int ad9910_read_raw(struct iio_dev *indio_dev,
+> > +			   struct iio_chan_spec const *chan,
+> > +			   int *val, int *val2, long info)
+> > +{
+> > +	struct ad9910_state *st = iio_priv(indio_dev);
+> > +	u64 tmp64;
+> > +	u32 tmp32;
+> > +
+> > +	guard(mutex)(&st->lock);
+> > +
+> > +	switch (info) {
+> > +	case IIO_CHAN_INFO_ENABLE:
+> > +		switch (chan->channel) {
+> > +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
+> > +			if (ad9910_sw_powerdown_get(st)) {
+> > +				*val = 0;
+> > +			} else {
+> > +				tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
+> > +				*val = (tmp32 == st->profile);
+> > +			}
+> > +			break;
+> > +		default:
+> > +			return -EINVAL;
+> > +		}
+> > +		return IIO_VAL_INT;
+> > +	case IIO_CHAN_INFO_FREQUENCY:
+> > +		switch (chan->channel) {
+> > +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
+> > +			tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
+> > +			tmp64 = FIELD_GET(AD9910_PROFILE_ST_FTW_MSK,
+> > +					  st->reg[AD9910_REG_PROFILE(tmp32)].val64);
+> > +			break;
+> > +		default:
+> > +			return -EINVAL;
+> > +		}
+> > +		tmp64 *= st->data.sysclk_freq_hz;
+> > +		*val = tmp64 >> 32;
+> > +		*val2 = ((tmp64 & GENMASK_ULL(31, 0)) * MICRO) >> 32;
+> 
+> Why in this particular case have this outside the switch / case whereas in others
+> you do the full maths and set inside? I'd put it inside and not worry about slightly
+> long lines.
 
-Thanks for the patch.
+for frequency, those calculations are going to be common for the other channels that are
+going to be populated by other patches...
 
-> -----Original Message-----
-> From: Prabhakar <prabhakar.csengg@gmail.com>
-> Sent: 12 May 2026 15:41
-> Subject: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to per=
--output clock limits
->=20
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Move pixel clock validation from a fixed encoder check to per-output cons=
-traints stored in
-> rzg2l_du_output_routing.
->=20
-> Previously, rzg2l_du_encoder_mode_valid() applied a hard-coded 83.5 MHz u=
-pper limit specifically for
-> DPAD0. This approach cannot scale across the RZ DU family because pixel c=
-lock limits vary per SoC and
-> per output interface.
->=20
-> Add mode_clock_min and mode_clock_max fields to rzg2l_du_output_routing s=
-o that clock constraints are
-> expressed at the granularity of individual output interfaces rather than =
-globally per SoC. Update
-> rzg2l_du_encoder_mode_valid() to look up the routing entry for the active=
- output and return
-> MODE_CLOCK_LOW or MODE_CLOCK_HIGH when the pixel clock falls outside the =
-declared range. A value of 0
-> for either field means no bound is enforced in that direction.
->=20
-> Set the DPAD0 pixel clock limits for RZ/G2UL (R9A07G043U) to 20.875 MHz m=
-inimum and 83.5 MHz maximum.
-> RZ/G2L and RZ/G2LC (R9A07G044) share the same DPAD0 pixel clock limits.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v2->v3:
-> - Moved clock limits from device_info to output_routing to allow
->   per-output constraints.
-> - Updated commit message to reflect the change in approach.
->=20
-> v1->v2:
-> - Dropped storing info pointer in struct rzg2l_du_encoder as it's not nee=
-ded.
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 4 ++++
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
->  3 files changed, 13 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_drv.c
-> index 0fef33a5a089..d1bc205eb5f8 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> @@ -33,6 +33,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07=
-g043u_info =3D {
->  		[RZG2L_DU_OUTPUT_DPAD0] =3D {
->  			.possible_outputs =3D BIT(0),
->  			.port =3D 0,
-> +			.mode_clock_min =3D 20875,
-> +			.mode_clock_max =3D 83500,
->  		},
->  	},
->  };
-> @@ -47,6 +49,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07=
-g044_info =3D {
->  		[RZG2L_DU_OUTPUT_DPAD0] =3D {
->  			.possible_outputs =3D BIT(0),
->  			.port =3D 1,
-> +			.mode_clock_min =3D 20875,
-> +			.mode_clock_max =3D 83500,
->  		}
->  	}
->  };
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_drv.h
-> index 58806c2a8f2b..307ae70dd382 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> @@ -30,6 +30,8 @@ enum rzg2l_du_output {
->   * struct rzg2l_du_output_routing - Output routing specification
->   * @possible_outputs: bitmask of possible outputs
->   * @port: device tree port number corresponding to this output route
-> + * @mode_clock_min: minimum pixel clock in kHz
-> + * @mode_clock_max: maximum pixel clock in kHz
->   *
->   * The DU has 2 possible outputs (DPAD0, DSI0). Output routing data
->   * specify the valid SoC outputs, which CRTC can drive the output, and t=
-he type @@ -38,6 +40,8 @@ enum
-> rzg2l_du_output {  struct rzg2l_du_output_routing {
->  	unsigned int possible_outputs;
->  	unsigned int port;
-> +	int mode_clock_min;
-> +	int mode_clock_max;
->  };
->=20
->  /*
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/g=
-pu/drm/renesas/rz-
-> du/rzg2l_du_encoder.c
-> index 0e567b57a408..4af2ae09ff39 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> @@ -50,8 +50,12 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encode=
-r,
->  			    const struct drm_display_mode *mode)  {
->  	struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
-> +	struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.dev);
-> +	const struct rzg2l_du_output_routing *route =3D
-> +&rcdu->info->routes[renc->output];
->=20
-> -	if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83500)
+DRG up/down and RAM will have tmp64 populated with a FTW value.
 
-Please retain the check for DPAD output, to avoid checking the same for DSI=
- and LVDS.
+> 
+> > +		return IIO_VAL_INT_PLUS_MICRO;
+> > +	case IIO_CHAN_INFO_PHASE:
+> > +		switch (chan->channel) {
+> > +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
+> > +			tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
+> > +			tmp64 = FIELD_GET(AD9910_PROFILE_ST_POW_MSK,
+> > +					  st->reg[AD9910_REG_PROFILE(tmp32)].val64);
+> > +			tmp32 = (tmp64 * AD9910_MAX_PHASE_MICRORAD) >> 16;
+> > +			*val = tmp32 / MICRO;
+> > +			*val2 = tmp32 % MICRO;
+> > +			return IIO_VAL_INT_PLUS_MICRO;
+> > +		default:
+> > +			return -EINVAL;
+> > +		}
+> > +	case IIO_CHAN_INFO_SCALE:
+> > +		switch (chan->channel) {
+> > +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
+> > +			tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
+> > +			tmp64 = FIELD_GET(AD9910_PROFILE_ST_ASF_MSK,
+> > +					  st->reg[AD9910_REG_PROFILE(tmp32)].val64);
+> > +			*val = 0;
+> > +			*val2 = tmp64 * MICRO >> 14;
+> > +			return IIO_VAL_INT_PLUS_MICRO;
+> > +		default:
+> > +			return -EINVAL;
+> > +		}
+> > +	case IIO_CHAN_INFO_SAMP_FREQ:
+> > +		switch (chan->channel) {
+> > +		case AD9910_CHANNEL_PHY:
+> > +			*val = st->data.sysclk_freq_hz;
+> > +			return IIO_VAL_INT;
+> > +		default:
+> > +			return -EINVAL;
+> > +		}
+> > +	default:
+> > +		return -EINVAL;
+> > +	}
+> > +}
+> 
+> 
+> 
+> > +
+> > +static int ad9910_setup(struct device *dev, struct ad9910_state *st,
+> > +			struct reset_control *dev_rst)
+> > +{
+> > +	int ret;
+> > +
+> > +	ret = reset_control_deassert(dev_rst);
+> > +	if (ret)
+> > +		return ret;
+> No need to sleep at all after bringing device out of reset?
+> 
+> Sashiko has reasonably been asking about this in other drivers. If there
+> is no period needed or it is so quick as to be irrelevant add a comment here.
 
-Or=20
+I do not see any requirement on that in the datasheet.
 
-Maybe add the below check to skip for DSI and LVDS.
+> > +
+> > +	ret = ad9910_reg32_write(st, AD9910_REG_CFR1,
+> > +				 AD9910_CFR1_SDIO_INPUT_ONLY_MSK, false);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = devm_add_action_or_reset(dev, ad9910_sw_powerdown_action, st);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = ad9910_reg32_write(st, AD9910_REG_CFR2,
+> > +				 AD9910_CFR2_AMP_SCALE_SINGLE_TONE_MSK |
+> > +				 AD9910_CFR2_SYNC_TIMING_VAL_DISABLE_MSK |
+> > +				 AD9910_CFR2_DRG_NO_DWELL_MSK |
+> > +				 AD9910_CFR2_DATA_ASM_HOLD_LAST_MSK |
+> > +				 AD9910_CFR2_SYNC_CLK_EN_MSK |
+> > +				 AD9910_CFR2_PDCLK_ENABLE_MSK, false);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = ad9910_cfg_sysclk(st, false);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = ad9910_set_dac_current(st, false);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return ad9910_io_update(st);
+> > +}
+> 
 
-if (renc->output !=3D RZG2L_DU_OUTPUT_DPAD0)
-	return MODE_OK;
+-- 
+Kind regards,
 
-
-Cheers,
-Biju
-
-> +	if (route->mode_clock_min && mode->clock < route->mode_clock_min)
-> +		return MODE_CLOCK_LOW;
-> +	if (route->mode_clock_max && mode->clock > route->mode_clock_max)
->  		return MODE_CLOCK_HIGH;
->=20
->  	return MODE_OK;
-> --
-> 2.54.0
-
+Rodrigo Alencar
