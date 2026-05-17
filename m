@@ -1,163 +1,223 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651663043C8
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853B830E858
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779048557; cv=none; b=l1p0RM+7L3OIdBnR4IitXacadVD9EGlV539SNNP2qp6HTsljrNKUuiVwdfxIf3rqI5TynHDEKaSUh5qYjkO9T4azZ1RTY48hzp4ulI16IU6pHJ16WL7kE4p7f+Ngs2RPTQYIHBPftGdpNCLy6N+pFs+r3+bmx2idZ+H0g5LjHZg=
+	t=1779049707; cv=none; b=ldwlPqRXk2LiuFr3lAjxxxlMh8SxXc/XJId5DcwwHRU0y7PE/+yY7lgToSmIEhEmCRL4wDLDus9pTwG9nMUuBcHpD7ortoqujnYKdB+2Crl9y7Tq6gYin9hTU/p6GYgIHpa8q5UbN2jca4U0AdYMBsA37MxihuFkjnJeRq6iszk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779048557; c=relaxed/simple;
-	bh=i9gGQrBw8v0uvLDFMNri/IPMVmw/afxZ89giSkJ3hUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A4vqmJITeTkN8mqb3KLoKkt1DmgjV3oaD2oxckLM2A2ao+WEx5tWWkX5vJsppq9TKHXA09iVsyCb22K/IChWZ5hNS48Rx5dwU3dPJNYleHF/5KOvOi5+KWbrfk+xe/wwZZrDmTKoWHAhMoOz7TveqOpiPOVmK++TmdMqBuRzLVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f6id0z7K; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QzL5hEqg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779049707; c=relaxed/simple;
+	bh=TfH3mebqGdarguuuYyHFAQAgVU0MPwFuKF0xD/rxr8g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mGJ8Ih8ZpEAzVZkw/qlHrhnaI3FvUZTkMr/SM0pggtfgEHFmUaUKngyoEfOMeF254wisIlFlT8qv0z0hR4CyckRAu163O6KlUAWNyQG39a0mUUvNxpVnsWRYR875iditDfbjC/4bkxlQsM5vzdOv+vANzFzBxlPHwuEAxACDqgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=0jPnodMk; arc=none smtp.client-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f6id0z7K";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QzL5hEqg"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64H9SUJP3624334
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:09:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=hu1EtnfuPuyZsalbXIEwU6Sg
-	KVDqPybT0/jZrzd+yqo=; b=f6id0z7KZGH3WkQPvazB7wd+5zTpVArx8O1+9WXk
-	sWySwj2F4MqGnH2ul3ouDVMqqh6gNoxCs/pwXNC5OOFvOTFyjWaLoMeGJPCQN9DD
-	ceoQOX0tviM6RnhNZJdZO9ZsxI1DDTA6rsPcTuUN/8qVjJXbY63gDTsWjh+xqzQC
-	4yEetI+yr026lerXb314VaMHpShyDmdzX1JltSedfjTnIXXkPb5+uEh3Jmjklrj3
-	5s+cGQenGba+Zhrmse0IZ4vvL5ROvZyA12xQ0sOtnbJUNjzHvJhQLbfCitSSraqi
-	1LOXm7S2RZB2gYQEToxa6VenKDlGM1tu3x2wCRkZt4C6bQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gy53j1t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:09:15 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d8e8c47a3so51360131cf.0
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:09:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="0jPnodMk"
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-47c941f6bdcso1031110b6e.3
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:28:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779048555; x=1779653355; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=hu1EtnfuPuyZsalbXIEwU6SgKVDqPybT0/jZrzd+yqo=;
-        b=QzL5hEqgFZTm0ti0lTKnsU2GaRNCe/x9W5Mn3FAitpw5co9GWpRPBMFIKy+G6SpiK/
-         QI5DibGKrR4cJT1KE7LixoymjlbnbqYtDqnXeU/BE+Nhf5cbP9B7tX7qPO2BXcNyAJMM
-         Ie7rV02RuLkdsql2d7M4/dWnMcrZB2IKzXk6vV8Oseldvf5woxJOyLuu9xIfjEfvUtxc
-         fInX+heJGRpRweBPjeZLe7YaylThpM6ngdI3Epo3yQx4xwgTJ5LZmTb9fpvpZ0nop0oY
-         byr7POqQRYexD0ilwmIyQPPCOtOGhjOfgfBnCWvOA2LS3bp2x3SVhxTgtmoqfIw27WGf
-         ZrNw==
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779049704; x=1779654504; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7Z68gGNxfq6iDTV2nCWXatC0CvTWumwI6Opr30zc3J4=;
+        b=0jPnodMkGBuJS9tK3WYbqjIgcQVIsIcxW0LQ/XmuuyaHDMdD0GZNs9X19AVEzw9OoF
+         bL7Ot8DzMOZHUYT6cXQ6LkPx/A2rk0ScEO0eLhpfLRfLhKp4oE0WFLHkUsJ8n/L4Nbo9
+         2oDH+xl1OeSNqxxCGFcabYdq/RbEDQ6/iY3ehIiaF82HULiX8likyKpcgwupnU+c0B3W
+         jJ537D1pudJcLjNLmrn0pCIAbe43zMEHKeVnBNxkvQQLYArBcHAMqjyqiYRRzWuuJcJw
+         SUCdAzzsPf8lX8D1XubGxilcdHHI4stHcSFk1DWJNPhoLy2KeFNemK7P1LPBqx4NCn9t
+         7UyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779048555; x=1779653355;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hu1EtnfuPuyZsalbXIEwU6SgKVDqPybT0/jZrzd+yqo=;
-        b=HxkjlpJ2VZjHuPKO5tEy8+oQkTv65tz2pnMmIdV0I6kyILn4AAM5jrgYY4ve7eMxrU
-         arhXWrD+F4qYWhaAW1zAEBMPGgREql6wOs52jE02eChQ4384gR/JkWpkxw9gKLsUSxnH
-         5omqXT4MeexhfnLrtXDgMDI14VBeJzeuVLPbP0v00OOYO/WUAVzk+mCXOOuIz2saNRQ4
-         r/4zLevvn08mir3dsSQIXPb9KZ1a9uEVsmMK2ev0oirqfyr7MpfetXkg9byVZEIzFnfx
-         iB4nzLLeP+WmXiIKaFuwvtJ4A8sDojpmcYDvd/90ysbPvmiSAEgk8OAlMRTGwxP+ptmR
-         d3lg==
-X-Forwarded-Encrypted: i=1; AFNElJ+hY01zJ5F9i67qh2VYmkS2sLJlnjlOq5t7k1CAXnXvSIiUiBti7CMDuQQFqYpbnOLzDW+ekw0s6joh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzdKdSAddkVeu2nJ01MYUzSZUVeSH0oD05tTluPKz5VRMLm4ZA
-	I0Upj42S8PyA4LqNfC7oJV8nRGmv0wO0d332Yy0XsAPdvm3Iem8cUMDYrkT06Ivfh2bUmttqTGT
-	ohLeW3QIOFZvx1ue1yE06qd4ZQiPQz8qAAp9V4gR3eO+Fd1uXNi2tRHyZlxDHsh3T
-X-Gm-Gg: Acq92OE0LQRT4q2XbTtskCVCoBT5gkwt6MXQ9KbAfZp3C7rcWo+2Wss9UtdTBAzhV6I
-	LO+D4SnhcbpD/SX3ilSQFtAyPmcs0Ag3538H7on5HsMDrUxLzpZnif6kGF/V+z6I1ZFHLNhvo4f
-	yaYr83u6B9CTE4j9BuONKnQyTiGqWjXTMIAtbEHturSVdO5eDfnFwa5C2lL7gjoNogDWVLQyeFX
-	djGy/0/4eEVRD7OgBnaf94vRcFMDuixEAGDIk40FWA5eff5AnZEGghLqqEju+vzCjKKM+bXC9GL
-	7Hk2kdfslTI2Fz06Z49Y0Lpy4RXJX0o3cSi22oJswBqDOjDxTc2DlqRzT8U+fY6dGuM+1TZdatZ
-	0ohMYBghr4rYnnCramUflBnfO2U3FlCN5U9aOI1a4tgn3+0PIvLJSsbIxnPbgaQdWtrD7GjNATZ
-	gOeTQ3/SBUtw6X7g9aWIiJFP/9ol+ZHjJMAEc=
-X-Received: by 2002:a05:622a:4a:b0:510:12d0:3d80 with SMTP id d75a77b69052e-51659fd7d56mr193596721cf.12.1779048554753;
-        Sun, 17 May 2026 13:09:14 -0700 (PDT)
-X-Received: by 2002:a05:622a:4a:b0:510:12d0:3d80 with SMTP id d75a77b69052e-51659fd7d56mr193596391cf.12.1779048554324;
-        Sun, 17 May 2026 13:09:14 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a9164ccd7dsm2895550e87.67.2026.05.17.13.09.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 13:09:12 -0700 (PDT)
-Date: Sun, 17 May 2026 23:09:08 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-usb@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: phy: qcom,qusb2: Document ipq5210
- compatible
-Message-ID: <uoi2732geiiyocjkftdyf23hmbgsm4r5aroudoc24ja4xios5e@fwpmhz3p6rnu>
-References: <20260515-usb2phy-v1-0-5f8338d466bf@oss.qualcomm.com>
- <20260515-usb2phy-v1-1-5f8338d466bf@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1779049704; x=1779654504;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7Z68gGNxfq6iDTV2nCWXatC0CvTWumwI6Opr30zc3J4=;
+        b=MaIcB9R0akW0dNiYGnSbpXv64kjSmDt7/alZbVJtDGCQkIXyPhmgEqT1HWBQa4pygj
+         wwzwAA7DPtFl/BL2z81rcc28qbPV7X6dYytmjBwUBT9AnjKrT9kEfqmy2fHIvzBFaID+
+         ibhz6C2cDlCbdt1P+Jpoktc1XOE9meSAmrMV2Oh5Ufzo3xntFyXEQ4OfnqYklfSnKIO3
+         KTVBZoph5Y6SHx3XPq1bWSQvGO6+8ASn1OLDx+KtQHQ1Ye9P0K7FvlJCukQGKewwcHwN
+         KD4gRhhOqU1zX6Sr1WhAYr/8X+9URg2VehCGj7MKBo+vnj5svkrU9J5yYgabcIwwhas0
+         5yZA==
+X-Forwarded-Encrypted: i=1; AFNElJ+/LE+f9qyNUTRsBuegvKpAnfXqCv55CIY420fGPnYVmqL4ZS/rnP3jPJ/7lo4p1gYFBkpmPZh+y4E2@vger.kernel.org
+X-Gm-Message-State: AOJu0YwK4Yry0p0FmQyXlOUWs3aE2hPCznxZoGvE/0stST4Fk2+WoJYq
+	X6L5ty93LkKwYAIbGpm07nc5fFNqvC3lX1QV68us6bnCn9lPLlmt4lGo0YhLnKg6/lo=
+X-Gm-Gg: Acq92OGuSDj0p9Be641XYgkXuroz32Mt4h1xS+e4MBxiIfQvo7nEdGDKM9aPRQsPBdx
+	FrBb/CXuX4MRU27R/sqjy8FUjN1xSJWEaD5HM0TuWTBbpnez33oNmF/u6XOP11YHA5VMgT5P+Gf
+	hR2x1rksV+/PCfLsDZM9EoaXMerQJLb+N4FRtqxkGnIBg5LwQQny3MzSE8UNRrO69WRxOse2KZE
+	OgJ81yKYKNboIdYFYrhKZIK2sEvyO2QKM/K4RjBi9F484TXx2v8X98W//Do0id9zRgbmgtmCWFq
+	o/n12M6QXJM2ksaHgadjjnFkMMzFXJYYOiGW3UNYVL5gjFvl/0kvPJ1lapzGTv1prlWwD4SrEqX
+	pKrlZUHMrgT8vW53SZ7aAjT2zhaCmOBtRrYXVgae0mUG65FtZWKwuSqBlGCWz8fybc0SoeDYn1f
+	6QuepOYVYi422rE6sHHKqpIXJzypB1WZqVgAGjTAJzS/U5xuJxaLJHQU2quWjKNfZva3LM0yc=
+X-Received: by 2002:a05:6808:e409:b0:482:4dbd:4fe1 with SMTP id 5614622812f47-482e57ce234mr6049210b6e.45.1779049704393;
+        Sun, 17 May 2026 13:28:24 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:7a4b:ddf0:f61:f58d? ([2600:8803:e7e4:500:7a4b:ddf0:f61:f58d])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e55bc4f04fsm6341703a34.27.2026.05.17.13.28.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 17 May 2026 13:28:23 -0700 (PDT)
+Message-ID: <166a6262-0ad4-4957-9729-863e2694e81d@baylibre.com>
+Date: Sun, 17 May 2026 15:28:22 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260515-usb2phy-v1-1-5f8338d466bf@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=Wusb99fv c=1 sm=1 tr=0 ts=6a0a206b cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=11pfgTztydWGfUAPEyoA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: -MozYwtb5NBvanNr8YjqdSw1nYdurWEl
-X-Proofpoint-ORIG-GUID: -MozYwtb5NBvanNr8YjqdSw1nYdurWEl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDIxNyBTYWx0ZWRfXyY6AwRpgjAfz
- 2N5u2cV+dT98tEITm+R9Y7KgjpFjvpcybljY+4jxzjhB5M0OoHe/rRUHcLQikeJSZxod3ao7IJ0
- AF7Y25lAPmVNVom7pWHIyS8u0DqlSCnbTbvB8hAbzfGa+8XJLwu6MDDXNT3Wd5ugWF20gfELR/P
- lvrw1tK6HWJ3MEjLJdgQsFDez9rwtwooLHiiHQNmQ/WJr0Y8rgkc4a/94pA5HNqISf+oDVhOeab
- WTLaTdp5i81p3V5wnMV1T7e4X2SDxHQUslD60MJcBExdNqWHALZ4syFeH1o9FqvjVYzF5fzlEmW
- 7BkBj4eaS6CdtKYT8cDQtrab3YMt+xJx9HbMVXkbR9qIJ/+/Lu3TwwUvKaxBYnIwHJSIrflcHeX
- Ylk0PJA99sqRb7EHIR8oiqX/ApeuyunvlEMoiGfSna34zuJXQMjo8SWpOjKxmP8L6YX87oQCZ04
- ylSOh7hDmnQ/7Iayb7g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-17_05,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 spamscore=0 clxscore=1015
- suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605170217
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] iio: magnetometer: add driver for QST QMC5883P
+To: Hardik Phalet <hardik.phalet@pm.me>, Jonathan Cameron <jic23@kernel.org>
+Cc: gregkh@linuxfoundation.org, andy@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, krzk+dt@kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+ me@brighamcampbell.com, nuno.sa@analog.com, robh@kernel.org,
+ skhan@linuxfoundation.org, Hardik Phalet <hardik.phalet@gmail.com>
+References: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
+ <20260420144534.0e47c06a@jic23-huawei> <DIL6ZC7KKYMN.36KGJXKDRGFB0@pm.me>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DIL6ZC7KKYMN.36KGJXKDRGFB0@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 15, 2026 at 04:17:42PM +0530, Varadarajan Narayanan wrote:
-> Document the compatible string used for the qusb2 phy in ipq5210.
+On 5/17/26 2:17 PM, Hardik Phalet wrote:
+> On Mon Apr 20, 2026 at 7:15 PM IST, Jonathan Cameron wrote:
+>> On Sun, 19 Apr 2026 22:32:09 +0000
+>> Hardik Phalet <hardik.phalet@pm.me> wrote:
+>>
+>>> This series adds an IIO driver for the QST QMC5883P, a 3-axis
+>>> anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC,
+>>> communicating over I2C. To my knowledge there is no existing
+>>> upstream driver for this device (see "Prior-art register-map check"
+>>> below).
+>>>
+>>> The driver supports:
+>>>   - Raw magnetic field readings on X, Y and Z axes
+>>>   - Four full-scale ranges (+/-2 G, +/-8 G, +/-12 G, +/-30 G),
+>>>     selectable via IIO_CHAN_INFO_SCALE
+>>>   - Four output data rates (10, 50, 100, 200 Hz), selectable via
+>>>     IIO_CHAN_INFO_SAMP_FREQ
+>>>   - Four oversampling ratios (1, 2, 4, 8), selectable via
+>>>     IIO_CHAN_INFO_OVERSAMPLING_RATIO
+>>
+>> I'm suspicious about this one based on a very quick read of the datasheet.
+>> Conventional oversampling would involve running the internal sampling
+>> engine at a multiple of the sampling frequency, and then averaging the
+>> results.  The datasheet describes this as:
+>> "Over sample Rate (OSR1) registers are used to control bandwidth of an
+>>  internal digital filter. Larger OSR value leads to smaller filter bandwidth,
+>>  less in-band noise and higher power consumption. It could be used to reach a
+>>  good balance between noise and power. Four over sample ratios can be selected,
+>>  8,4,2 or 1."
+>>
+>> That sounds like a boxcar filter to me not oversampling (which would be
+>> a combination of box car and reducing the output data rate).
+>>
+>> If possible, can you enable the data ready output and put a scope on it
+>> to see if that changes frequency when OSR or OSR2 are modified.
+>>
+>> Trickier to do would be looking at the noise levels whilst playing with
+>> these filters and see if they at least match with standard filter types.
+>>
+>> If we can't figure these out, then it may be a case of picking something
+>> that works well and hard coding that rather than letting userspace
+>> change things in a fashion that might not match the ABI.
+> 
+> I could not arrange a oscilloscope. So wrote a small standalone tool that drives
+> the chip directly over /dev/i2c-N (skipping the driver) on a Pi 4 and
+> characterised all three fields in CTRL_1 with timing + noise measurements.
+> Summary:
+> 
+>   Field    Bits     Role per measurement
+>   ODR      [3:2]    output rate, accurate to ~3% of nominal in Normal Mode
+>   OSR1     [5:4]    low-pass filter (bandwidth control), no rate change
+>   OSR2     [7:6]    N-sample averaging, no rate change (real oversampling)
+> 
+> 1. DRDY interval vs each field (median of 500 samples per setting,
+>    ms; SCHED_FIFO, pinned CPU):
+> 
+>    vary ODR (OSR1=1, OSR2=1):
+>      ODR=10 Hz  -> 100.9 ms       ODR=100 Hz -> 10.30 ms
+>      ODR=50 Hz  ->  20.5 ms       ODR=200 Hz ->  5.14 ms
+> 
+>    vary OSR1 (ODR=200 Hz, OSR2=1):
+>      OSR1=1 -> 5.142 ms           OSR1=4 -> 5.139 ms
+>      OSR1=2 -> 5.143 ms           OSR1=8 -> 5.141 ms
+> 
+>    vary OSR2 (ODR=200 Hz, OSR1=1):
+>      OSR2=1 -> 5.142 ms           OSR2=4 -> 5.142 ms
+>      OSR2=2 -> 5.140 ms           OSR2=8 -> 5.141 ms
+> 
+>    ODR is the only knob that changes the rate.
+> 
+> 2. Per-axis noise stddev (2000 samples, sensor still, ratios vs N=1):
+> 
+>    vary OSR1:                   vary OSR2:
+>      OSR1=1 -> 1.000              OSR2=1 -> 1.000
+>      OSR1=2 -> 0.723              OSR2=2 -> 0.706
+>      OSR1=4 -> 0.544              OSR2=4 -> 0.494
+>      OSR1=8 -> 0.416              OSR2=8 -> 0.333
+> 
+>    Reference for N-sample averaging (1/sqrt(N)):
+>      1.000 / 0.707 / 0.500 / 0.354
+> 
+>    OSR2 matches within measurement noise; OSR1 trails the curve,
+>    which is the expected signature of a bandwidth-limiting filter
+>    on non-white input noise.
+> 
+> So to my understanding, OSR2 is true oversampling. OSR1 is a filter.
 
-Tell us something that isn't a part of the patch. Why do we need a
-separate compatible for IPQ5210? Is it compatible with any other
-platform?
+The datasheet says that power consumption changes based on OSR1,
+so that makes me think that OSR1 is really oversampling since it
+would take more energy to do more conversions in the same amount
+of time. (Note 1 on table 2.1)
+
+Another chip by the same mfg that looks like it has the same OSR1/
+OSR2 has a bit more info in the same table [1]. It looks like OSR2
+affects the sensitivity (and calls OSR2 a low pass filter instead
+of "down sampling rate").
+
+[1] https://www.qstcorp.com/upload/pdf/202601/CF382A94E1424763B3DE87DC967757FC.pdf
 
 > 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> v4 plan, pending your input on (c):
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml
-> index 39851ba9de43..509cadd31adf 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml
-> @@ -18,6 +18,7 @@ properties:
->      oneOf:
->        - items:
->            - enum:
-> +              - qcom,ipq5210-qusb2-phy
->                - qcom,ipq5424-qusb2-phy
->                - qcom,ipq6018-qusb2-phy
->                - qcom,ipq8074-qusb2-phy
-> 
-> -- 
-> 2.34.1
-> 
+>   (a) Add an OSR2 regmap_field and expose it as
+>       IIO_CHAN_INFO_OVERSAMPLING_RATIO with values {1, 2, 4, 8}.
+>   (b) Drop the OVERSAMPLING_RATIO mapping on OSR1.
+>   (c) For OSR1, two options:
+>         i)  expose as IIO_CHAN_INFO_LOW_PASS_FILTER_3DB_FREQUENCY.
+>             The public datasheet does not give cutoff frequencies,
+>             so I'd have to either characterise them empirically and
+>             document them in the driver, or use placeholder values
+>             derived from the OSR1 setting alone (which feels wrong).
+>         ii) hard-code OSR1=1 in chip_init and not expose it. Loses
+>             the noise-vs-bandwidth tradeoff but keeps the ABI clean.
+>       Slight preference for (ii) unless you'd rather see the filter
+>       knob exposed.
 
--- 
-With best wishes
-Dmitry
+It sounds like we already figured out that OSR2 is just a moving average
+so might as well implement IIO_CHAN_INFO_LOW_PASS_FILTER_3DB_FREQUENCY.
+
+>   (d) Keep ODR mapped to IIO_CHAN_INFO_SAMP_FREQ as in v3.
+> 
+> One other finding worth mentioning: the datasheet's setup examples
+> (sec 7.1, 7.2, 7.3) all write 0x06 to register 0x29 before entering
+> an active mode, with the comment "Define the sign for X Y and Z axis".
+> This register is not listed in the documented register map but the
+> write is required for axes Y and Z to come out with the documented
+> orientation. v4 will add this write to chip_init().
+> 
+> If you have other measurements you'd like to see before v4, happy to
+> run them.
+> 
+>>
+>>>   - Runtime PM with a 2 s autosuspend delay
+>>>   - System suspend/resume delegated to the runtime callbacks
+> 
+> Best regards,
+> Hardik
+
