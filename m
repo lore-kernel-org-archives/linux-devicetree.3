@@ -1,118 +1,371 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4DA2F5313
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:04:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E45B2F7F14
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779044685; cv=none; b=Nh2yWv6vAizAb9SOy+alXV2MnUjC861Jopy2NevifiDCwoZvSOl5D1nRuyVLOhO5aGHPvATLe0M7G056tzAJgdhGyPvM5bE/2kc47vNnVtDfJzwh7/IPQ1PJMCQRJg8i5faNtgMY87QOjmVkX9jwibBspg3XMgqxRROMilToj1U=
+	t=1779044779; cv=none; b=GO+ipnmhfYEeM0hAiNgfz2kN4OHQc31YQ95Y78buhLFJdPWV/qOeGNlAoUMH1etmgPzhPe2YbOmXXXArhn7iANWKdnK7GojYb2xxQMKHFA/Y1bKWzT9BBcvKtdn822ecuKXdrB8+Mbc64xCllKLeMISFDEQv7fLZaejn4WKk9tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779044685; c=relaxed/simple;
-	bh=xbHunPgxyH0POKnTaTlXT4hTOfPcF59J3AfJf3q+0Kc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O5JcxmLyGdOoPkwOQX0I3iK5hvtgmFcgDBZsBpFyvf6Bb3S3zO8WemV3hIQHOyuXHuhOJTId3czsF+jxCsC7S+BKEADXquFPcnbLhujjlJ3e6sjnjWm4o/ckFBlnTtspZEfoUnoy6/xnN40fDJgQ+cbx5O+UZUB4h0dJtg4wxbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1Lkt+TI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779044779; c=relaxed/simple;
+	bh=/x9LxNzmS5J8ypNDdwjQsG84LV/SknFWY/zG7E8fPZE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=odDGVyLS1sWQFnEuaEnwXVx/yq0jQlyUpyrwDYm/fU9x68B9rG7BUhODavQrIFXe64Bu0dyhkqZsE5WBaCO+Qul3ekSlGjTYGFobX49BImnbvbbm5cKY7Dmgv1rwC3dxvUyB3CSM5ESIqVCGyClQTzuFXsvWVagc4OyfyM9GihE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ACmHOvnp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R3mzC2R/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1Lkt+TI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10C4C2BCB0;
-	Sun, 17 May 2026 19:04:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779044684;
-	bh=xbHunPgxyH0POKnTaTlXT4hTOfPcF59J3AfJf3q+0Kc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=O1Lkt+TIMXdZIz4zYIUPD2K+MH76rz9RpP9vhnHYg3bRYg5/Zxtp+K2IdUrGnqevD
-	 rGSm7tkbbybj3VAaRDNJqo+bLm3E080IP73p4g1WZTwQVr9Nv/4JQtZe9UxOt77VxH
-	 P/JaaYnHa3OW7gS/dZhExWrbvyRR7EDfatiOtibegJ5yxGZId5RWc6gDBKn/PFLxWY
-	 CqL01lkjUUlrvs60RVDiWbnQnIjnW2WX4CKX8QxOuYoyvYChMOf8MVohLhodY0VVxg
-	 XcCjJq9CEVsGuSATsJrEKnfMbDOxlv2u7jtikSCQHgCVPvfwD7FxA9zXoR3cqEeyZ2
-	 VBYOWGuKDUTdw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 01/13] iio: core: validate file offset in
- iio_debugfs_write_reg()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260517-ad9910-iio-driver-v5-1-31599c88314a@analog.com>
-References: <20260517-ad9910-iio-driver-v5-1-31599c88314a@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 19:04:43 +0000
-Message-Id: <20260517190444.A10C4C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ACmHOvnp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R3mzC2R/"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64HEUCr7172004
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:06:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5CTp7WWFll3OVumVrIQDCRGiPwlHUxMe6Ct4Tld7Hi4=; b=ACmHOvnpQPi5Zhuq
+	lHPwg6xZ3Q33aOjHXKqG/xofPsZZ8QovFsSbr//uC5cOusHZ6sr5oqFroOqLyWza
+	iKBnfaK9D50elFGiFSk5cQiVYElWN3BgbHU60Uw5Zse2NmOI9KyGmGw9k6j+GR7g
+	OSX/YWQHVcHniwHZZAe3ll+H3XxPw244PCzigUubsBI0lGEFRZJgkp/eaLXDfouj
+	KSQ1/i/Iz9U6ZHh2i2tYjQCax+Vr6mxJSNB8JYAvTdD1JPR4sI+LPyt//hLXUgMy
+	sWvFkoRX0EMPOzzghp35RCXkFof3OOy9vExE9bJ9qZRwGxsy6y+jdVoxU4tx7WD4
+	osi7ig==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6h0g3d8b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:06:16 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-835444b6ce1so994312b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 12:06:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779044776; x=1779649576; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5CTp7WWFll3OVumVrIQDCRGiPwlHUxMe6Ct4Tld7Hi4=;
+        b=R3mzC2R/SCrcLQNns2mVOstqal+9xMmEkWLZT876DFAw0gXVo+K84jYb5+X7fTzO3w
+         uCNDXM8t0E6UEeP+/QyDR91cv/RnEzg3KgnRtv4y81vJJNa9lygtZVPeTPsOFk/CKkJt
+         FPYde4AsiECjbsKrBM/tXzXG11wJ4XlTLJPy+F99YteSAg+QI1IsY9+dkBSq9t+HG7Yh
+         nO6qZW+kf2B6hquEjakVKVq+NUVyJCbBIoegz1s35+mfzAy1+5lybnESWYp+fnYWVbNd
+         D+iGflPJIL4cK7w3H/qmXu71wOPgIBYu3lIny0cDUhIdbB17Y041wzzOzYHlSk7O0xr5
+         vKwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779044776; x=1779649576;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5CTp7WWFll3OVumVrIQDCRGiPwlHUxMe6Ct4Tld7Hi4=;
+        b=nRjDNNzlY57dc24nfuovpZ5LkwwzqrifZXn6QGlE0ks22rVvByQzDSaimzGHKGIbtH
+         BrzP8CIfTAfcrHm4se7lOjNVfaOOsoKCMtJzo5ILQlaOIf608edgEDmEq1JE8iCf0F7G
+         BsukDScqldjArtNqWae4xD86Bw46+KRWE/UWs1Amtl3dJypwXX4doNdErWiERWXZjcG4
+         PjDx/SbokF5YqOdykqAfIBwkQY+4oy0Hl1zohDmGIazx5r5B4LfMexCUGKDgE/+VKPdS
+         pOqdT9B2iTp4ZKglLOFII0PW4OyPcNV5U/Js0RY+hi+084E5NfwqApcDCMht6BEi5In4
+         JS9A==
+X-Forwarded-Encrypted: i=1; AFNElJ8MgsR01pVTZarrRLsP/2e8YDhstw36rWxP7XLhyOGYHQGotkcfdnkpfoUuD6qN7iCgt/dnlsfR6B3C@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx869pKWhz7BJywd22baVNKvVI5NlOIdTn16ZoqYE/dqWrn404Y
+	3IZGKhA9i5IAoV9GtsYGkrtMKB8lRtJd4c78mUwjJlEhaTItz+eRNFzJCwQoy6GbTXXO+pwyw5E
+	dcorGYTVGe9GvtRoT+375CfPuDdxyPw8Lw/CWRhdKM0fz3Ct0gBJFgO9sdcv5zMiv
+X-Gm-Gg: Acq92OGSXd5AVS0WXgtwxGNk/f8dx+Y9Rp8Zd0DjvOqjvepbI2QNIKsV90fF+JoU/hZ
+	WcOVmohr3VH+Xkv0GrjSGtUiba/p10AOZ2GlUV7m+eNxzGjDA80awTaQK2EGRzlyL+499OlIuur
+	2zr6SGEKuRrw1Q5u5jNlM+ruyPyFFTJFIyT8rrnnWzGPmykyfEJuysjCaiTMsXmZ7ujvjyp3FCP
+	wem6PekR8O2+k9bMdhBJyaZbDzPICkWw9D1Lv+/Iujy3bHNX49KjnZazm2syLwf2S2ITHDA8zwe
+	CFcvND9DRjNuPASDiQa9RO5QVOJxH1m39FOJ2Ba/EmxANuQi+mCjY+FK6Dnmw7/esvvqA2DkhZY
+	6J2L10g1L0radqN6wU9+5Ct6Xsxv/3kJnmlt8lOMY1zA8eYpZtIw=
+X-Received: by 2002:a05:6a00:4fc8:b0:82f:84c6:6510 with SMTP id d2e1a72fcca58-83f33c961c7mr12510774b3a.11.1779044776099;
+        Sun, 17 May 2026 12:06:16 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4fc8:b0:82f:84c6:6510 with SMTP id d2e1a72fcca58-83f33c961c7mr12510718b3a.11.1779044775544;
+        Sun, 17 May 2026 12:06:15 -0700 (PDT)
+Received: from [192.168.29.166] ([49.43.235.85])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19f8b8b3sm11579843b3a.59.2026.05.17.12.06.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 17 May 2026 12:06:15 -0700 (PDT)
+Message-ID: <6df56ddd-3cc2-414b-882d-641277ce1a66@oss.qualcomm.com>
+Date: Mon, 18 May 2026 00:36:04 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: Add Shikra CQM and CQS EVK boards
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-mmc@vger.kernel.org, Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Xueyao An <xueyao.an@oss.qualcomm.com>
+References: <20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com>
+ <20260512-shikra-dt-v1-4-716438330dd0@oss.qualcomm.com>
+ <mw2ipu5z26ubmrg6qe2v36cp6ktkqtbpfe3hmr434qdgm66nz4@pu6yy7hw4n3t>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <mw2ipu5z26ubmrg6qe2v36cp6ktkqtbpfe3hmr434qdgm66nz4@pu6yy7hw4n3t>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDIwNCBTYWx0ZWRfX9+vRdxewfNen
+ qgMhDPQlF3Qvhm0PonwsxqrHqdkW9kRYZEQWzFC8vG2+JeJYkF2XPFzPCiu9WQrf1VVbmkIrvT9
+ Xo+RUsCvePh1L39f9FaT1qfq9qv8FLYFchLR5EVycd+jchXZILMry8LKBKvgZZPkxJo4Bwz4mVX
+ bBQ3n/mJD+MdIApb3Xsnnfcr7J44MvrJkqo99FTIDDpvmgkPm9MdEEmEsQnWbRdFpYWQZJtD56w
+ Eq3vOGhzkMf64rMErem8tGl8b2Vl9GXKhYE0DffAOy3uAgPcnRiKPnQfZvsEohfTzy6CGDS/QhZ
+ llqXhqIejNjDvvT6PhE5JSkHuskShWj3Tx0IErI0CTcJY87WCn0BOnB51ojR+WczQWtoqdTiYSP
+ SCtlJ7WYlcYU2hJPYsyX9QcXCCqLTgetyl1zThYhBOKskj2QYRRTzfdJZKkBB/Ycu7q/HniR6af
+ kkAni56h9wHkkL238wQ==
+X-Authority-Analysis: v=2.4 cv=W7gIkxWk c=1 sm=1 tr=0 ts=6a0a11a8 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=g4/7f0GlZvY0MGcqtTB0Sw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=4NbkJTruBT-5dyiUZdQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: KMJoYxGUm5Djmo7ccyxDy7CTqcmqn7i9
+X-Proofpoint-ORIG-GUID: KMJoYxGUm5Djmo7ccyxDy7CTqcmqn7i9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-17_04,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
+ phishscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605170204
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `*ppos !=3D 0` check introduces a functional regression for se=
-quential writes, masking the true bug which is the inappropriate use of `si=
-mple_write_to_buffer()`.
-- [High] Unpatched uninitialized stack memory reads in other IIO drivers ca=
-used by the identical anti-pattern.
---
+On 5/13/2026 5:34 PM, Dmitry Baryshkov wrote:
+> On Tue, May 12, 2026 at 09:38:07AM +0530, Komal Bajaj wrote:
+>> Add device trees for the Shikra EVK platform, which combines the CQM
+>> SoM variant with a common carrier board.
+>>
+>> Two EVK boards are introduced:
+>>    - shikra-cqm-evk.dts: pairs with CQM SoM (retail, with modem)
+>>    - shikra-cqs-evk.dts: pairs with CQM SoM (retail, board has no modem
+> CQS
 
-commit 7c5ddbc34738b9e84e226b9906348d61e3569bf4
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+ACK
 
-iio: core: validate file offset in iio_debugfs_write_reg()
+>
+>>      support)
+>>
+>> Also add shikra-evk.dtsi common across both EVK boards.
+> What is the split between shikra-cq[ms]-evk.dts and shikra-evk.dtsi?
 
-This patch adds a check to ensure that the file offset is zero in
-iio_debugfs_write_reg() before calling simple_write_to_buffer(). This is
-intended to prevent leaving the start of the buffer uninitialized if a write
-occurs at a non-zero offset.
+shikra-evk.dtsi represents the common carrier‑board and daughter‑card 
+configuration shared across all Shikra EVK variants, including CQM, CQS, 
+and the upcoming IQS board. It currently enables the debug UART, eMMC, 
+and USB along with the required PMIC regulator supplies.
+In follow‑up series, this file will be extended to cover the remaining 
+common daughter‑card peripherals, such as MIC, display, camera, sensor, 
+and NFC daughter cards.
 
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
-ore.c
-> index bd6f4f9f45330..e587aca79b8e7 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-> @@ -419,7 +419,7 @@ static ssize_t iio_debugfs_write_reg(struct file *fil=
-e,
->  	char buf[80];
->  	int ret;
-> =20
-> -	if (count >=3D sizeof(buf))
-> +	if (count >=3D sizeof(buf) || *ppos !=3D 0)
+Thanks
+Komal
 
-Does this cause a functional regression for sequential writes?
+>
+>> Each board DTS enables USB (peripheral mode) with the appropriate PMIC
+>> regulator supplies for the QUSB2 and QMP PHYs, and eMMC with the
+>> correct vmmc/vqmmc supplies for the CQM SoM's PMIC.
+>>
+>> Co-developed-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+>> Co-developed-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>> Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
+>> Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
+>> Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+>> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+>> Co-developed-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+>> Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+>> Co-developed-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+>> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+>> Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>> Co-developed-by: Xueyao An <xueyao.an@oss.qualcomm.com>
+>> Signed-off-by: Xueyao An <xueyao.an@oss.qualcomm.com>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/Makefile           |  2 +
+>>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 61 +++++++++++++++++++++++++++++
+>>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 61 +++++++++++++++++++++++++++++
+>>   arch/arm64/boot/dts/qcom/shikra-evk.dtsi    | 13 ++++++
+>>   4 files changed, 137 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+>> index cc42829f92eb..6de783bcd133 100644
+>> --- a/arch/arm64/boot/dts/qcom/Makefile
+>> +++ b/arch/arm64/boot/dts/qcom/Makefile
+>> @@ -328,6 +328,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-huawei-matebook-e-2019.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-lenovo-yoga-c630.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-samsung-w737.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
+>> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
+>> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
+>> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>> new file mode 100644
+>> index 000000000000..12eeca84832c
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>> @@ -0,0 +1,61 @@
+>> +// SPDX-License-Identifier: BSD-3-Clause
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +/dts-v1/;
+>> +
+>> +#include "shikra-cqm-som.dtsi"
+>> +#include "shikra-evk.dtsi"
+>> +
+>> +/ {
+>> +	model = "Qualcomm Technologies, Inc. Shikra CQM EVK";
+>> +	compatible = "qcom,shikra-cqm-evk", "qcom,shikra-cqm-som", "qcom,shikra";
+>> +	chassis-type = "embedded";
+>> +
+>> +	aliases {
+>> +		mmc0 = &sdhc_1;
+>> +		serial0 = &uart0;
+>> +	};
+>> +
+>> +	chosen {
+>> +		stdout-path = "serial0:115200n8";
+>> +	};
+>> +};
+>> +
+>> +&sdhc_1 {
+>> +	vmmc-supply = <&pm4125_l20>;
+>> +	vqmmc-supply = <&pm4125_l14>;
+>> +
+>> +	pinctrl-0 = <&sdc1_state_on>;
+>> +	pinctrl-1 = <&sdc1_state_off>;
+>> +	pinctrl-names = "default", "sleep";
+>> +
+>> +	non-removable;
+>> +	supports-cqe;
+>> +	no-sdio;
+>> +	no-sd;
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb_1 {
+>> +	dr_mode = "peripheral";
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb_1_hsphy {
+>> +	vdd-supply = <&pm4125_l12>;
+>> +	vdda-pll-supply = <&pm4125_l13>;
+>> +	vdda-phy-dpdm-supply = <&pm4125_l21>;
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb_qmpphy {
+>> +	vdda-phy-supply = <&pm4125_l8>;
+>> +	vdda-pll-supply = <&pm4125_l13>;
+>> +
+>> +	status = "okay";
+>> +};
+>> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+>> new file mode 100644
+>> index 000000000000..bc93282f64cf
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+>> @@ -0,0 +1,61 @@
+>> +// SPDX-License-Identifier: BSD-3-Clause
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +/dts-v1/;
+>> +
+>> +#include "shikra-cqm-som.dtsi"
+>> +#include "shikra-evk.dtsi"
+>> +
+>> +/ {
+>> +	model = "Qualcomm Technologies, Inc. Shikra CQS EVK";
+>> +	compatible = "qcom,shikra-cqs-evk", "qcom,shikra-cqm-som", "qcom,shikra";
+>> +	chassis-type = "embedded";
+>> +
+>> +	aliases {
+>> +		mmc0 = &sdhc_1;
+>> +		serial0 = &uart0;
+>> +	};
+>> +
+>> +	chosen {
+>> +		stdout-path = "serial0:115200n8";
+>> +	};
+>> +};
+>> +
+>> +&sdhc_1 {
+>> +	vmmc-supply = <&pm4125_l20>;
+>> +	vqmmc-supply = <&pm4125_l14>;
+>> +
+>> +	pinctrl-0 = <&sdc1_state_on>;
+>> +	pinctrl-1 = <&sdc1_state_off>;
+>> +	pinctrl-names = "default", "sleep";
+>> +
+>> +	non-removable;
+>> +	supports-cqe;
+>> +	no-sdio;
+>> +	no-sd;
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb_1 {
+>> +	dr_mode = "peripheral";
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb_1_hsphy {
+>> +	vdd-supply = <&pm4125_l12>;
+>> +	vdda-pll-supply = <&pm4125_l13>;
+>> +	vdda-phy-dpdm-supply = <&pm4125_l21>;
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb_qmpphy {
+>> +	vdda-phy-supply = <&pm4125_l8>;
+>> +	vdda-pll-supply = <&pm4125_l13>;
+>> +
+>> +	status = "okay";
+>> +};
+>> diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
+>> new file mode 100644
+>> index 000000000000..fae8c75b68b3
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
+>> @@ -0,0 +1,13 @@
+>> +// SPDX-License-Identifier: BSD-3-Clause
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +&qupv3_0 {
+>> +	firmware-name = "qcom/shikra/qupv3fw.elf";
+>> +	status = "okay";
+>> +};
+>> +
+>> +&uart0 {
+>> +	status = "okay";
+>> +};
+>>
+>> -- 
+>> 2.34.1
+>>
 
-If a user writes multiple commands to the same open file descriptor, for
-example using (echo "cmd1"; echo "cmd2") > direct_reg_access, the first
-write advances the file position. This means *ppos will be non-zero on the
-second write, causing it to fail with -EINVAL.
-
-Before simple_write_to_buffer() was introduced, the code used
-copy_from_user() and ignored *ppos, correctly treating every write() call
-as a distinct command starting at the beginning of the buffer.
-
-Since simple_write_to_buffer() is designed for stateful linear memory buffe=
-rs
-rather than stateless command endpoints using local stack arrays, would it =
-be
-better to revert the use of simple_write_to_buffer() entirely and use
-copy_from_user() or strndup_user() to parse each write independently?
-
-Additionally, does this leave a similar pattern unpatched in other IIO
-drivers?
-
-While this patch addresses the issue in iio_debugfs_write_reg(), the same
-pattern of using simple_write_to_buffer() into a local stack array still
-exists in other locations:
-
-1. iio_backend_debugfs_write_reg() in drivers/iio/industrialio-backend.c
-2. ad3552r_hs_write_data_source() in drivers/iio/dac/ad3552r-hs.c
-
-Both functions use simple_write_to_buffer() into uninitialized local stack
-arrays without checking *ppos.
-
-Furthermore, ad9467_chan_test_mode_write() in drivers/iio/adc/ad9467.c
-uses the same pattern. While the buffer is zero-initialized there,
-sequential writes will still be functionally broken.
-
->  		return -EINVAL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-ad9910-iio=
--driver-v5-0-31599c88314a@analog.com?part=3D1
