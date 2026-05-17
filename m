@@ -1,121 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D483BFE44
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 18:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE903254B2
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 18:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779044178; cv=none; b=RXGLE3y4tEz+TVpUYCkdbbrB77O2dc63wSjhkemoTWocVTWUo2014Cii+G/kdcMUTK4FvsHyAEq1w60uQSuapZ47rLVTFUk72YQkdEUs7FeMsM4+dkuNKVT4ues/dweeDriHfgVTNQ7ojSj7Uil0K7Hmcp0+umplns1CXrvzp2g=
+	t=1779044266; cv=none; b=FWeTbBCzhqhnPBRR3EazxF3tyf+dGdRhrQ9GiXn3uiORMZnvK1Csq49bgmrbSivamkLYI/ewWlMWtRKVCYl/HxXkbLdf47CbUVAOCI8n3Lp1QevM1PY6hg8W7DsR4lMdFFPzhFaH348tqk6rxUhzKSq5lXmb7Z4mKLsJp8VB+lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779044178; c=relaxed/simple;
-	bh=K6/BvimTQyyOmSznys6OVmN+CL5hDI3K0PrVDhk2JSE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NMT8vF3kWvqoAygN9RYScw4E8qOolBnUfsgqtr3zy1G8BsL7huGGLpT4xboW3idRY4ID08aK+4EYjCZEQBhXxiLaZxVx8aoNSS2ot1buhHdDjFDF42sYWxQcdSlyOxngwoSDOqbuJSv7KfPbWae3oFIaQj/sYvQef4y5hW7Y8zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpX9zdF3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779044266; c=relaxed/simple;
+	bh=GAlUXZMnGCwaO4GCNvb5ECNdeyV3RiQVKVMK4gtbep8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K1s1ZB/VnVtAoj7IoTih+Z1Y8pEYdVmNM+Qc3+QhTTc3WAWVn91UD3qdmBmjqWT83cAeDoNC4aBk/+L6x4qWMURoVU3KwSz36rwVeXSdjhzWj3J/iGWdTKI8L8ZHAy62seryX8ROl2ejAFjANUNxXfOaFVUhrX0f5uXiOq6CUKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=QhXt2BAA; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpX9zdF3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4810EC2BCB0;
-	Sun, 17 May 2026 18:56:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779044178;
-	bh=K6/BvimTQyyOmSznys6OVmN+CL5hDI3K0PrVDhk2JSE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=cpX9zdF3I10dpV4QWTEZ29iSc7n3j8rTWHx25Yvtyc5q/WLW6aJbvpAh8JQ2vHsSQ
-	 RvOAudZEdYiRTT/6gQlfE3Fc3WVejvJMGHzZR8+rJdNZ5/Ky2X8G/POBCAg78oMxyI
-	 D8S21u3hE4wJVjEpOPxD3TwLHctlm2PJtam6Q6ipqIi44ejzl5ezeDvCAjUbMBznxW
-	 NkvJm2EJu3epUas7qgIVojO9H+ABtPTOkYdnxATTdbl6Hg4KDLGXP9z9UKHQ9QNBFq
-	 EDY+NtBb9YzSkpThx42OwnaMvmX/zQyFhLwcr9J2TcyWmDPqqx16RxUcjkX5Apzoyp
-	 8ggGSq0uopzNg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 03/13] iio: core: add hierarchical channel
- relationships
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260517-ad9910-iio-driver-v5-3-31599c88314a@analog.com>
-References: <20260517-ad9910-iio-driver-v5-3-31599c88314a@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 18:56:17 +0000
-Message-Id: <20260517185618.4810EC2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="QhXt2BAA"
+Received: from macsyma.thunk.org (pool-173-48-113-30.bstnma.fios.verizon.net [173.48.113.30])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 64HIv17E032614
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 17 May 2026 14:57:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1779044225; bh=gMINBBiTbNeV1bgnblj89ASPAmSxdgbY/zBx9eb7Ifc=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=QhXt2BAAR/HOJpDyDXiyH97kbvLhc1YrOlXzk396LThKtdPAUlwCaq9zJRTJKmHQJ
+	 mb5P5Y/MjL0DB8mZHJVZNgWHKiSRTj7RzKe+n3YXXSh0BPpe1/58/B+rAoRtZccCZI
+	 JjhHEP4vxsmfjfgV94ZhwzopqQYGPcXGAd2XefIofkWoM99uQlgxLvSz+4v0jtYPBg
+	 /apXhBJzcTtKSeWrmd3ZdG7UxsK/hhC/YmuwhQCEBNegV+KA0dvaDnwkDZ2A//5Npb
+	 VQHbC6avZ/g+VOGo2mPWRXu/64sbFvp8uGHmITseTsUqiUmzay/SUzWD5eTxMAmYR3
+	 RUQNff5+FmX/A==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id B472E67EE9A8; Sun, 17 May 2026 14:57:01 -0400 (EDT)
+Date: Sun, 17 May 2026 14:57:01 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>, debarbos@redhat.com,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Konstantin Ryabitsev <mricon@kernel.org>,
+        Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
+        sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
+        Linux Kernel Workflows <workflows@vger.kernel.org>,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        devicetree@vger.kernel.org, kfree@google.com
+Subject: Re: Stop false review statements
+Message-ID: <20260517185701.GB53471@macsyma-wired.lan>
+References: <20260517183959.37441984@foz.lan>
+ <F2FBD939-179D-467B-9FA8-BAA44F6C7524@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <F2FBD939-179D-467B-9FA8-BAA44F6C7524@linux.dev>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Exposing the hierarchical relationship via channel labels create=
-s an ambiguous UAPI for userspace.
---
+On Sun, May 17, 2026 at 11:17:06AM -0700, Roman Gushchin wrote:
+> 
+> I actually tried to run it with ollama on my
+> personal framework 13. Adding nominal support is trivial, but the
+> whole thing is not really useful: I can get maybe few hundreds
+> tokens per second using a quantified model with reduced quality; an
+> average sashiko review is consuming 3.5 millions tokens (with Gemini
+> 3.1 pro, it’s also model-dependent).
 
-commit 64c6f961f1d7645c58f732e4bd4c11200b999e93
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+I'm curious.  What hardware and LLM model were you using?  A few
+hundred tokens per second seems surprising high.  My initial
+research[1] showes that an M5 Max Macbook Pro costing 5 or 6 kilobucks
+can do 31.6 tokens/second on a 27B 4-bit Quanitized model (Qwen 3.5).
 
-iio: core: add hierarchical channel relationships
+[1] https://www.reddit.com/r/LocalLLaMA/comments/1rzkw4x/m5_max_128g_performance_tests_i_just_got_my_new/
 
-This commit introduces a parent-child relationship between IIO channels.
-It adds a parent pointer to the iio_chan_spec struct and exposes this
-relationship to userspace through a new "parent" sysfs attribute that
-returns the parent channel's label.
+The model matters of course.  With Gemma 3 27B and a 6-bit
+quantization, it's 21 tokens/s, and with Deepseek R1 8B Q6_K, it's
+72.8 tokens/second.  But unless you're using a really low-end model,
+or a really expensive, splufty hardware platform, I haven't seen
+reports of hundreds of tokens per second on hardware costing a
+reasonable amount of memory.  (I'll set aside the question of whether
+spending $6k for a fully spec'ed out M5 Max Macbook Pro, or $15k for a
+fully spec'ed out M3 Ultra Mac Studio is "reasonable".)
 
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
-ore.c
-> index 5c8404efd0a56..348ac7a597385 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
+As a result I'm not entirely sure how realistic it is to do reviews
+using "free" (you still have to pay $$$ for the hardware) local,
+open-weight LLM's if an average review requires around 3.5 million
+tokens.
 
-[ ... ]
+Cheers,
 
-> @@ -1263,6 +1271,31 @@ static int iio_device_add_channel_label(struct iio=
-_dev *indio_dev,
->  	return 1;
->  }
-> =20
-> +static int iio_device_add_channel_parent(struct iio_dev *indio_dev,
-> +					 struct iio_chan_spec const *chan)
-> +{
-> +	struct iio_dev_opaque *iio_dev_opaque =3D to_iio_dev_opaque(indio_dev);
-> +	int ret;
-> +
-> +	if (!chan->parent || (!indio_dev->info->read_label &&
-> +			      !chan->parent->extend_name))
-> +		return 0;
-
-Is relying on channel labels robust enough for programmatic parent resoluti=
-on?
-
-IIO channel labels are optional, human-readable descriptors and are not
-guaranteed by the core to be unique. If multiple channels within a device
-share the same label, how can userspace definitively resolve which specific
-channel is the parent?
-
-Also, if a driver establishes a hierarchy where chan->parent is set, but the
-parent channel lacks a label, this attribute is silently omitted, hiding the
-relationship entirely.
-
-Would it be more reliable to expose a definitive, unique identifier (such as
-the parent channel's sysfs prefix or index) rather than relying on an optio=
-nal
-descriptive string?
-
-> +
-> +	ret =3D __iio_add_chan_devattr("parent",
-> +				     chan,
-> +				     &iio_read_channel_parent,
-> +				     NULL,
-> +				     0,
-> +				     IIO_SEPARATE,
-> +				     &indio_dev->dev,
-> +				     NULL,
-> +				     &iio_dev_opaque->channel_attr_list);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return 1;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-ad9910-iio=
--driver-v5-0-31599c88314a@analog.com?part=3D3
+						- Ted
