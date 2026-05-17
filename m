@@ -1,174 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5767E2E975E
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:20:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D23303C93
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 19:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779045656; cv=none; b=uMZXQKCbc/B0uTpFvZEk/9oEzbDpq3OsnPupLTzNrFgtw2shUGno000ZB4GerQUp+BKNqcnulEO2GWbsV0bPzEp6Ay1gs3bGNX5x7G61ZJ+CTdS/L7n/vK8AkfYqJ5ruLw3tBRAAh7SXYggI3n84A7uqI2B7Vx5MeO/UtpDKn5M=
+	t=1779045698; cv=none; b=WBVK3lbNAumtNvaoX1BIA3tbWyoXgpMJgGGtbyRVPUSRgyRWYK4SqWJQiumLf21f/a94Ou0f1WRrfjRHBQg6Mvfb3vB3n/tSwJJfk6qGq4kgS1rpq3uabxDq33q/qqkpeIYneWvzIT0vwDR4K/dvCFgaoeh+/Xm5qmfTjuipztM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779045656; c=relaxed/simple;
-	bh=+icR24HAzvWhlNNWFUDT5qNsPqME/w3ynrhZBMl+PtU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I8kj/kjp9rEUF0ZMRNlMH5pmQMOGZJ1ybfv+bkGFYfdXVmpCqGfrJ0qUkv/4Tzlc42lUslxrlJoF1znoGsUoTU98A/z9n8L13Zr1Ku2jwLkh86QsdHLtFBQS1aA7ykjaM1m8m1sZEyMRxl8uHZAxMXXJ3EiAkcrDfaLnrBLkObo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/kHhlFi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779045698; c=relaxed/simple;
+	bh=lH1GgG6AZ3p8TFNccFcpJy8FScpxCDQooWelGA+EHCY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ni3ixQli4UVCTALYwXsmG8ioRzysE3llU5ImfvyNEig+jX0UQBX3q+2ez0KSQFxv2lEyssijbdpGqkw6CaM906Ps96FSSWHecqZD3AHaNdVLYLif4/p57W5simgLns+qSj9JtohnW8G7c8pj4NdswUdNpp6LfU+uacxAONSiI5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=WNgLu7g9; arc=none smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/kHhlFi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7F6C2BCB0;
-	Sun, 17 May 2026 19:20:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779045656;
-	bh=+icR24HAzvWhlNNWFUDT5qNsPqME/w3ynrhZBMl+PtU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=i/kHhlFiF0ni87Glinjb7I7ZHswRpFANrTf7h5N/Wq7+wZgGnrHYVcl4+Y2CM9Y2I
-	 54g8En/p4jmD+Vzt/BH+Uz3I/2eQk62NWGKKVXxcWLpDYxinTnPdgsc3BykF7zwlGY
-	 +3sPoCg/o4ELbmZNGMKKezpoQgmAOwrlrsLbingu/Ix1vD0RR03JIqme/kA4ioPnko
-	 apWDFlibDfYXORCwRClZbuFQ/RtVzNyQyGtJslN201HQQ26MAg3JYHaFf5MIpmc0bv
-	 BUpIWsoWI1aKtipHgMTBEMiDsN3e1u1iMq6G0Vfiyc1wWlKvlluqf14lnTMaqGMJcA
-	 /pi2RebHc8GFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 06/13] iio: frequency: ad9910: initial driver
- implementation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260517-ad9910-iio-driver-v5-6-31599c88314a@analog.com>
-References: <20260517-ad9910-iio-driver-v5-6-31599c88314a@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 19:20:55 +0000
-Message-Id: <20260517192055.CC7F6C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="WNgLu7g9"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-69b8cdfcf50so738051eaf.2
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 12:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779045694; x=1779650494; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=avFUFeQjZc5s2Fh1Gw+bXzbv6Nmu8tEYY1j2IJydQzo=;
+        b=WNgLu7g9882rZjfblRCA0f7R+Si3jCbcL1IoVyJ8xem5nV0o4D+3VgpV6BfeA4DypW
+         7Vo0DDNEbaIeGQq9qpNKAXpZ3JbsRUKtkXXyQbd7LYp+UzlHtbWugKcwH9IYl6v+zreR
+         KhBLKDwI1nosZXqI7ZfeE+rJ1YwQVs/CmhQpEBtyQpi5ukocCLV7/wsBXGELBKHDcbGB
+         jQUO0U0mVjc2XXiatiROYmSGkeYuWtLX3PIGK25sItq8Y0yZxQKl3Yr3clEDHEZwTrzK
+         o/JNEU0loLdHQ2z5VhS0G0B/wYf0i1l9qJZLFJlBmossgWlMzZJb73d4iQJ+pXbLR2yZ
+         db8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779045694; x=1779650494;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=avFUFeQjZc5s2Fh1Gw+bXzbv6Nmu8tEYY1j2IJydQzo=;
+        b=HjMjTb9ec7CAnk+aYCN4Eky6LVcJiZLUt/MzdBlx53y0GfSoXX2p63XwvdBrg7OhKT
+         xOfy9SdfcZ0f2IrIfNBCEzwm4LPlm9dDwD7nmvJ3mr+jp49fqq0w/LUFe+rIm+/RCRC4
+         8BN3m1wGmeIBWhwphrXjNCJ6Vlfx1s9ZHAGEvvXO+53P5RPa4tx8i4EUczHk9s6zCjsz
+         z8cMXicM6/DiOhovhkyHs6G41dKCd1tNC41W1eYh+uEiU4TuIydwvSb8+JD+KbkBS8U/
+         pnH790Zj+lEWcXyzNrqBZ+dNtxXFq6CcU6z3CwP5qS9g+3ilKxBTh+q4dsnrKtIQTlft
+         gLAA==
+X-Forwarded-Encrypted: i=1; AFNElJ/aDzHxIY5p6R57tfmFUeRmiOr6zvRS/eXWv+xmp+et8iArW3rpqsGweytZ0x+8VfZ6N0jCaMTWVlVX@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqeHbo/KOvYNZaS7MqiSvFgZsaDW1PvKQfJTiTxsmaRCZMhlli
+	ThwSpZNxe1hY58GX5qOPy/Y8ykxcPufJAUyyo0LYvnLvdc/GP9hi97Y5n9FVwEzmiZM=
+X-Gm-Gg: Acq92OES8vhOnOWgas2kawi7DSjh0ri4gwHTEIGfihzyWSW7JcXu0cGQjtFEdX4NloY
+	ORVcBnW5QcOwDCKrB3ZveTu7711w2KLuwhqTIEyx6ixVscSWPD4hkfvPoA1nG8OJ32v4a0likrZ
+	jkMwTjKtw63LkGO736wyMOme2sfv3be7kN0bk5NInBLF9fjuSmMetfEnAyNDWDIQwYBsQjZv7d5
+	tjg5wYeWvoqw+w0FXuodqOvjzwqqD/pru1G7dXF5+f2H+OTVKEwfZNen5E02IPxfGBP/t9xdkA1
+	nnaneOKDDmMXbfMTwgJAvCEo0kW65/KPIxfyiR1HQhcOSSlK+N/xdnIjA/1FNgG00FZKxrLCEzk
+	Remae8ox8/7mb6vSdG2OKLoUFfsdHG6nggEqeZQx8xHxUlYw5Mx/iOSpx1ITkXzYhFpujiIQbtD
+	GKHifGidFBOkGIhf93KlDUxEq26GtFfnFEDhAmebfVhquCsQsibZHUQGPUdzy7dk5nKIpy2DszC
+	SRqwmZNpw==
+X-Received: by 2002:a05:6820:4c0b:b0:694:8e6e:2e1c with SMTP id 006d021491bc7-69c9bfc92a9mr7692055eaf.60.1779045694287;
+        Sun, 17 May 2026 12:21:34 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:7a4b:ddf0:f61:f58d? ([2600:8803:e7e4:500:7a4b:ddf0:f61:f58d])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69d045e6567sm4530406eaf.3.2026.05.17.12.21.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 17 May 2026 12:21:32 -0700 (PDT)
+Message-ID: <58a66855-9fb3-48ca-8cae-ff9277f745df@baylibre.com>
+Date: Sun, 17 May 2026 14:21:30 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 3/6] iio: adc: ad4691: add triggered buffer support
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <20260515-ad4692-multichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com>
+ <20260515-ad4692-multichannel-sar-adc-driver-v11-3-eab27d852ac2@analog.com>
+ <9b7986e1-6550-415d-b301-33089ba10177@baylibre.com>
+ <20260517132526.27c71b70@jic23-huawei>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260517132526.27c71b70@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Incorrect usage of `device_property_read_u32_array` causes single-=
-value property `output-range-microamp` to be ignored.
-- [High] VCO_SEL field is incorrectly set to an out-of-bounds value (7) whe=
-n the PLL is bypassed.
-- [High] Stack out-of-bounds read in `ad9910_profile_set()` triggered by un=
-validated GPIO descriptor count.
-- [High] Missing resource teardown: device reset line is never asserted on =
-driver removal.
-- [Medium] PLL multiplier clamping logic violates the hardware's minimum VC=
-O operating frequency.
-- [Medium] Missing hardware initialization delay after reset deassertion ca=
-n cause SPI communications to fail.
---
+On 5/17/26 7:25 AM, Jonathan Cameron wrote:
+> On Sat, 16 May 2026 12:32:51 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
+> 
+>> On 5/15/26 8:31 AM, Radu Sabau via B4 Relay wrote:
+>>> From: Radu Sabau <radu.sabau@analog.com>
+>>>
+>>> Add buffered capture support using the IIO triggered buffer framework.
+>>>
+>>> CNV Burst Mode: the GP pin identified by interrupt-names in the device
+>>> tree is configured as DATA_READY output. The IRQ handler stops
+>>> conversions and fires the IIO trigger; the trigger handler executes a
+>>> pre-built SPI message that reads all active channels from the AVG_IN
+>>> accumulator registers and then resets accumulator state and restarts
+>>> conversions for the next cycle.
+>>>
+>>> Manual Mode: CNV is tied to SPI CS so each transfer simultaneously
+>>> reads the previous result and starts the next conversion (pipelined
+>>> N+1 scheme). At preenable time a pre-built, optimised SPI message of
+>>> N+1 transfers is constructed (N channel reads plus one NOOP to drain
+>>> the pipeline). The trigger handler executes the message in a single
+>>> spi_sync() call and collects the results. An external trigger (e.g.
+>>> iio-trig-hrtimer) is required to drive the trigger at the desired
+>>> sample rate.
+>>>
+>>> Both modes share the same trigger handler and push a complete scan —
+>>> one big-endian 16-bit (__be16) slot per active channel, densely packed
+>>> in scan_index order, followed by a timestamp.
+>>>
+>>> The CNV Burst Mode sampling frequency (PWM period) is exposed as a
+>>> buffer-level attribute via IIO_DEVICE_ATTR.
+>>>
+>>> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> 
+>>> +
+>>> +static int ad4691_manual_buffer_preenable(struct iio_dev *indio_dev)
+>>> +{
+>>> +	struct ad4691_state *st = iio_priv(indio_dev);
+>>> +	unsigned int k, i;
+>>> +	int ret;
+>>> +
+>>> +	memset(st->scan_xfers, 0, sizeof(st->scan_xfers));
+>>> +	memset(st->scan_tx, 0, sizeof(st->scan_tx));
+>>> +
+>>> +	spi_message_init(&st->scan_msg);
+>>> +
+>>> +	k = 0;
+>>> +	iio_for_each_active_channel(indio_dev, i) {
+>>> +		if (i >= indio_dev->num_channels - 1)
+>>> +			break; /* skip soft timestamp */  
+>>
+>> I don't think timestamp gets set in the scan mask. It is handled separately.
+> 
+> FWIW that is a sashiko false postive (I believe anyway!)
+> If we do hit this please shout as we have a core bug.
+> 
+> If anyone has time to look at how hard it would be to tweak
+> iio_for_each_active_channel to skip a last element timestamp that
+> would be great.
+> 
+> I think that iterates one too far which is what sashiko is tripping over.
+> 
+> I'm only keen to fix that if we can make it low cost and hid it entirely
+> from drivers.
+> 
+> Jonathan
+> 
+This is what I came up with (totally untested).
 
-commit fb6e130c7d866653f35ab965acf927500a84756c
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Since timestamp can never be set in scan_mask/active_scan_mask, it should
+be safe to exclude it from masklength without breaking existing code.
 
-iio: frequency: ad9910: initial driver implementation
+I didn't check all callers of masklength/iio_get_masklength() though.
 
-Add the core AD9910 DDS driver infrastructure with single tone mode
-support. This includes SPI register access, profile management via GPIO
-pins, PLL/DAC configuration from firmware properties, and single tone
-frequency/phase/amplitude control through IIO attributes.
+---
+diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
+index 9d66510a1d49..17f539fc23e2 100644
+--- a/drivers/iio/industrialio-buffer.c
++++ b/drivers/iio/industrialio-buffer.c
+@@ -2300,8 +2300,10 @@ int iio_buffers_alloc_sysfs_and_mask(struct iio_dev *indio_dev)
+ 	if (channels) {
+ 		int ml = 0;
+ 
+-		for (i = 0; i < indio_dev->num_channels; i++)
+-			ml = max(ml, channels[i].scan_index + 1);
++		for (i = 0; i < indio_dev->num_channels; i++) {
++			if (channels[i].type != IIO_TIMESTAMP)
++				ml = max(ml, channels[i].scan_index + 1);
++		}
+ 		ACCESS_PRIVATE(indio_dev, masklength) = ml;
+ 	}
+ 
 
-> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
-0.c
-> new file mode 100644
-> index 0000000000000..c7b1e474c92df
-> --- /dev/null
-> +++ b/drivers/iio/frequency/ad9910.c
-[ ... ]
-> +static int ad9910_set_sysclk_freq(struct ad9910_state *st, u32 freq_hz,
-> +				  bool update)
-> +{
-[ ... ]
-> +		tmp32 =3D clamp(tmp32, DIV_ROUND_UP(AD9910_PLL_OUT_MIN_FREQ_HZ, refclk=
-_freq_hz),
-> +			      AD9910_PLL_OUT_MAX_FREQ_HZ / refclk_freq_hz);
-> +		tmp32 =3D clamp(tmp32, AD9910_PLL_MIN_N, AD9910_PLL_MAX_N);
-> +		sysclk_freq_hz =3D refclk_freq_hz * tmp32;
 
-Is it possible for this second clamp to drop the multiplier below the
-minimum frequency constraint? If the input reference clock is 3.2 MHz,
-the first clamp would raise the multiplier to 132 to reach 420 MHz, but
-the second clamp limits it to 127. This results in a VCO frequency of
-406.4 MHz, violating the hardware minimum. Should the driver return
--ERANGE instead if the bounds cannot be satisfied?
-
-[ ... ]
-> +	} else {
-> +		tmp32 =3D DIV_ROUND_CLOSEST(refclk_freq_hz, freq_hz);
-> +		tmp32 =3D clamp(tmp32, 1U, 2U);
-> +		sysclk_freq_hz =3D refclk_freq_hz / tmp32;
-> +		tmp32 =3D AD9910_CFR3_VCO_SEL_MSK |
-> +			FIELD_PREP(AD9910_CFR3_REFCLK_DIV_BYPASS_MSK, tmp32 % 2);
-> +		ret =3D ad9910_reg32_update(st, AD9910_REG_CFR3,
-> +					  AD9910_CFR3_VCO_SEL_MSK |
-> +					  AD9910_CFR3_REFCLK_DIV_BYPASS_MSK,
-> +					  tmp32, update);
-
-Does setting tmp32 with AD9910_CFR3_VCO_SEL_MSK cause the update function
-to write an out-of-bounds value here? Because tmp32 contains the entire
-mask, the underlying field will be set to 7, but the valid range for the
-vco sel field is 0 to 5.
-
-[ ... ]
-> +static int ad9910_profile_set(struct ad9910_state *st, u8 profile)
-> +{
-> +	DECLARE_BITMAP(values, BITS_PER_TYPE(profile));
-> +
-> +	st->profile =3D profile;
-> +	values[0] =3D profile;
-> +	gpiod_multi_set_value_cansleep(st->gpio_profile, values);
-> +
-> +	return 0;
-> +}
-
-Could this cause an out-of-bounds read on the stack? The values bitmap is
-sized using BITS_PER_TYPE(profile), which allocates space for 1 unsigned
-long. If the device tree provides more profile gpios than fit in an unsigned
-long, gpiod_multi_set_value_cansleep() might read past the end of the bitmap
-when iterating over the descriptors.
-
-[ ... ]
-> +static int ad9910_parse_fw(struct ad9910_state *st)
-> +{
-[ ... ]
-> +	tmp[1] =3D AD9910_DAC_IOUT_DEFAULT_uA;
-> +	device_property_read_u32_array(dev, "output-range-microamp", tmp,
-> +				       ARRAY_SIZE(tmp));
-
-Will this properly read a single-value property? Because ARRAY_SIZE(tmp)
-is passed as the expected element count, device_property_read_u32_array()
-might return -EOVERFLOW and leave the tmp array unmodified if only one
-value is present in the device tree, causing the property to be silently
-ignored.
-
-[ ... ]
-> +static int ad9910_setup(struct device *dev, struct ad9910_state *st,
-> +			struct reset_control *dev_rst)
-> +{
-> +	int ret;
-> +
-> +	ret =3D reset_control_deassert(dev_rst);
-> +	if (ret)
-> +		return ret;
-> +
-
-Is a teardown action missing for the device reset here? Without adding a
-managed action to assert the reset line, the hardware might remain active
-after the driver is unloaded or if a subsequent setup step fails.
-
-Might this also require a hardware delay before the first spi write? The
-datasheet specifies waiting for the internal state machine to become ready
-after a low-to-high transition on the reset line. On fast hosts, the
-immediate spi access might be ignored.
-
-> +	ret =3D ad9910_reg32_write(st, AD9910_REG_CFR1,
-> +				 (st->spi->mode & SPI_3WIRE ? 0 :
-> +				 AD9910_CFR1_SDIO_INPUT_ONLY_MSK), false);
-> +	if (ret)
-> +		return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-ad9910-iio=
--driver-v5-0-31599c88314a@analog.com?part=3D6
