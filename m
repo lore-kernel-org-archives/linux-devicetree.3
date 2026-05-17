@@ -1,162 +1,164 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E9433987
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 11:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92BA10F1;
+	Sun, 17 May 2026 12:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779019182; cv=none; b=gxD4ewWMXtkY53kRqRuKlU8wV0BbaohHVNLeBDdjkN07xoaCn5bbI4hrhKVpzbVrGQZvhuZZ5JGeswzAcm+5r79tdJm58DelEf15JaqeZypqlVXghhl2/o0wbRNJYquD5T3NVUOadfLrpw2Zsk4R+yGp6xtQRTqn8yzpEsP3g6o=
+	t=1779020055; cv=none; b=hgB0WM0N4orH+rmtVy8KsGHfDVtyUC1UwqhRs5/uH7phvsQM4wW+vIbncke2SAuN3DzZzLCGFE8bD9r7E4mOzAguJFpsTS3Ls8D6FnCMQU0gxkBxdIbzSBZci4ErwB+e2gUEYBSRten6/OpBjFxt5d7A/GTQk5vShkFcNbt2K2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779019182; c=relaxed/simple;
-	bh=uwcAosqgeuh/Ws6oeipHKBE9NRJcqMoNk+g2JvGoW4Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G5Rrv3x2uHLoqZ+KcDb8HtVusjiJ5Pm/TC1vga7Akf/jeDIlIUKN4Dvdh5tfwapjigyOQQbYB40koog0/7k0aLz0MzVAwhKaWOkPaj3jeW7Z5z8HAZWDeybjxUelWieFWful7VG86cXEEGgcfuyGyPCa9yyBRdxrgpMy9+aTf84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gCMMVceB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SSVTB+Gt; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779020055; c=relaxed/simple;
+	bh=bFcGiGJfu9Ac5rl1wi1J5n2/JD7kyJwnntbvyDfKYpo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c0B094BRSiDh98qxQCJp6O7QB8JYYjfE5eVY3pmATou5029OHpdbr+slBa3dh+2bHLGTfBEDWKMkF1GZ2x24HYbZrYI97/YtdiOZ9TpJ7vhvko1e1BKhWZpQeWcPfC/Fc0SxqhrR9wSgJuWQC9e4QqkiNCMKX/rH4S0Jk6SZSmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EjVoQvKz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gCMMVceB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SSVTB+Gt"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64GHUMEB1146717
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 11:59:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=If2VTiwv89luQR2PmL2+TW4D
-	swboSIiiteX2/ZQl/m8=; b=gCMMVceB2mNUoUVgavly643igLSb0diRz+I/5fG/
-	yeyEUfH+7xIe63WEAAOXYKMG5oztK9rIF3qAcFJucuXK0dUjL/IPjYsolSOJSuhh
-	dD7qkD6Sej3ZDU9hGqMgRGzfmFqbK8mmtjbxodB6RJL+hBBtFZT1Z54yh4JCIi6g
-	vMj0MtaSuhXgCWGevgIXn1mxZDM8gsyb8/k8v9Vl0XJGjERKwOB/wKXhF6NHryXJ
-	LdQ9h+19UtuoBiwaP01lLJZjBVFdz8yClM2JcRSbGMhQTCaLG7X6kEnzOU435MsF
-	cxLo/xkPPQiOhjhdsIKWlFd2RVh0jIXRFSwHlq2SeS2v1w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gvqtry2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 11:59:39 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51009190feeso49733221cf.2
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 04:59:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779019179; x=1779623979; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=If2VTiwv89luQR2PmL2+TW4DswboSIiiteX2/ZQl/m8=;
-        b=SSVTB+Gt7uOyfDkKdLUok4S4JBWIaoQChoie6nJRjPk1eVt53mCl1wdtQRAoxON+z/
-         5wRDy7Ej3MX2+6ciBMfgf/GbIntA04NWhx3dMbTOvubRrYoAepKa46GoX2foY1+49WIz
-         RBHFn8v1CsCfXzfsEShIbMyOmGjPwmdhnVbDHSuhV6H1a1+0g/eCENvnOVV6fSE/q3kv
-         OwJ608dGgNVP5ki96xxcBzGRv8un8XTMWCwnY0Vh49hG5t52WSmQrpkonRD2MQL7lM8i
-         w3LuzawqEo/H0lcMPaKsUe05NYclYf+gZQKAE+B/VFmVE2IfJFnpKIz3ISBkeNI/5tiX
-         5TCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779019179; x=1779623979;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=If2VTiwv89luQR2PmL2+TW4DswboSIiiteX2/ZQl/m8=;
-        b=ERj3sY262q3WT1YRNPRW6kIK/36EWXUY2/X0eM3RjDSTEg+MmyLpefagG/f6cbHGNi
-         TH0SdkXdf85jl7yx6DZcEwKkE5IPGGSACr7WmRP/m90KfflVLzRRHBdWcrowwqlE24Qx
-         o7+TIt+dIPNWIWrhBH6uh1YEhLIMxgXPCc0Rh+trtNp3oNQmCS4uKPk8dQIZ3qn/qfnN
-         K7bg83pycNhFkEt3DzbxOL3uRVNfpI/BhmkUkkxerbJ/FcuiO3dNFmPf+vgmmH8gov/a
-         3x5kpfRlHMbws7+Uf1duJ/hq70wgfZWrDbO1bCs7XUa5opqDUjH3IXgiT9/K8b11juu3
-         ZalA==
-X-Forwarded-Encrypted: i=1; AFNElJ+na/ucDWUrfsQMsMU0+VWPiMINW2bo86VAsT2NsPghTXZ5KSg/gZYR8TSX373VwMoPEz4kIY6Da7c+@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSmUcrR4yqD8OY50dGpxCita6VRgSHouE2ZJddudkOHEh1BVCA
-	dTaHk8ZVr+8z8rdpksCciIDdsRrI2D8glkCidVlant4UPOflpuVJP4yqseHHzMa1fjfP8pV66tg
-	X/tTuFDD/xICM2riu2uYnC28MJUPRL69K852K6dm0Rjo+9dRjG+FyXeJsmA/sd+00
-X-Gm-Gg: Acq92OGtrpx9Zeyr6gWuLfVD+4LOM+gfOmEKyHBj8FXH0jrd1FFjzsTs96Aas7D1Ijk
-	h+pwuZG5zW97N5IlzsEaBRiKukYAoiAXION9MVJnlSoZyV50fGQ91BMHvrXi1dySNTge1rqwRoh
-	JGu+GfEi4xIeYX0ARtIpKbGy3O69HL20bfyaVyvqw9q7hb+n14MpLvrk8hnQFQ1nz8IyLPOsnnW
-	vCW7l6mEbZISLliYhpdSWEvT9G83YlVvUGgPDia2M2ktaU70/38NG5xmcnGXG4DJV3ihhWLW9po
-	8m036qacOoTcTEOrcGWMaLCEZumt9e98Kx1yK/TKK2OZcFvbIYKc0DxvcCO8MxG5gRYrsN2RO28
-	no6By1ImFnv+i/UBBp9cL3QoI71nVq6gA4npnvsRqJf/EUR9L1doWwq1G6FP75dJQ5WhAL9uLLz
-	G7SpEUanrwYmqlNS0emrcKhN52swrFFmhS4GM=
-X-Received: by 2002:ac8:5cc9:0:b0:50f:c117:1c52 with SMTP id d75a77b69052e-5165a012712mr142397681cf.4.1779019178804;
-        Sun, 17 May 2026 04:59:38 -0700 (PDT)
-X-Received: by 2002:ac8:5cc9:0:b0:50f:c117:1c52 with SMTP id d75a77b69052e-5165a012712mr142397551cf.4.1779019178357;
-        Sun, 17 May 2026 04:59:38 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395882c0c67sm4769841fa.10.2026.05.17.04.59.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 04:59:37 -0700 (PDT)
-Date: Sun, 17 May 2026 14:59:35 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-Subject: Re: [PATCH] dt: arm64: qcom: sc8280xp-blackrock: amend usb0-sbu-mux
- enable gpio
-Message-ID: <dlpgdby6m5zsl6onu7rqzzatbq3jiqm5r5gvtxoh5k6lmuzqzo@gk4clmoa762b>
-References: <20250609-blackrock-usb0-mux-v1-1-7903c3b071e4@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EjVoQvKz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED72C2BCB0;
+	Sun, 17 May 2026 12:14:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779020054;
+	bh=bFcGiGJfu9Ac5rl1wi1J5n2/JD7kyJwnntbvyDfKYpo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=EjVoQvKzHIEG2gPB3ClUsCxLPGrics1u2frI9totgFxSZmbHtPMyJgP7T2ly1h38s
+	 /f9H6uHDliTgPx5BURcLPYVM5Jxl5ha1ki6UOSCpzUFVRzwnBRT257Ke+Iq6V/zx8O
+	 RYAI/lF3qWpRTu9mlElAslwSWb5sYAftrzN1XRc7tFvgL3sFOBGuo3hrXzt0bFz2bw
+	 ylJFyoB6WroMcdLQG5Cqf1psjwFzu4H2MQ13aN/4l+qUbWn1DcJfJj6QVfKdiqrW3I
+	 s5AchMDeVOzPiV2MxYInItIxAktpOQjXiKNXvBJ58VNP5ErYhHE/kdjwc4W0kniRKh
+	 bGcKnhf/ZL8Tg==
+Date: Sun, 17 May 2026 13:14:01 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v11 2/6] iio: adc: ad4691: add initial driver for AD4691
+ family
+Message-ID: <20260517131401.32118f4c@jic23-huawei>
+In-Reply-To: <0696b662-f478-4d1a-95e0-0338bbdb719e@baylibre.com>
+References: <20260515-ad4692-multichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com>
+	<20260515-ad4692-multichannel-sar-adc-driver-v11-2-eab27d852ac2@analog.com>
+	<0696b662-f478-4d1a-95e0-0338bbdb719e@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250609-blackrock-usb0-mux-v1-1-7903c3b071e4@oldschoolsolutions.biz>
-X-Proofpoint-GUID: ERDmo7OrFuWAjfWWHs_ovuLPHTiM0r4F
-X-Proofpoint-ORIG-GUID: ERDmo7OrFuWAjfWWHs_ovuLPHTiM0r4F
-X-Authority-Analysis: v=2.4 cv=LKJWhpW9 c=1 sm=1 tr=0 ts=6a09adab cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=gxl3bz0cAAAA:8 a=OKCoC0DIYrHrkD67fT4A:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=kiRiLd-pWN9FGgpmzFdl:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDEyOCBTYWx0ZWRfX8I6q6sFM3mv+
- atjvtl974tKowkIL+ivo/9HIXwn5nQyFI8lyhSqXLlP/JAl8e1FCaUuWf33PYjfoYcT2G5xlWt6
- nqbGRYVl2OW+a33w2712lhWuEFfCxauwE0oXn9wzujrhzj7aG5yZ5Nz9MHMA3vCkHQ37zg3Vp+/
- zj2eNHHshKoLTRBLPohLCQyqXxlXXJMt/wyG5MH7sxWa4BD7NYnJBbmRK32gGJqYcze2+sYYsYL
- emYAigQJom/3qycwTDvPkFyvSFfe98XcP2blLXyZ/014f9AcbJWobAG3LLi5PioWJ9SgtST/mzx
- fycvSbO7EEWT/7rPkHzNp6GH6wAHuQXMSzLj7TJhoMcHdsEflGwEBUp2mQVqiSOievRkrWzsiqi
- w4/wBWvNq/mhmqeX4J/arUDxOWROmYxyxdoZwhNOCvk2i+DMJKohO4WBDhgIqdeyuwbSc/EKcCV
- RwJvixO+0YLM6xgYgOQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-17_02,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 suspectscore=0 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605170128
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 09, 2025 at 10:53:56PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> The usb0 port didn't switch to dp altmode, investigation into DSDT
-> UCS0 device resulted into GPIO 100.
-> 
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
-> This patch amends the enable gpio for the usb0-sbu-mux to the one
-> found in the DSDT file for this box. It shows a list of GPIOs in 
-> a certain order, and it has 2 buffers with conflicting values. 
-> The one deviating is in the second buffer, at the place where one 
-> would expect the GPIO for the select pin of USB0 (by pattern 
-> application from USB1). The GPIO previously used is also there, but 
-> at the end of the UCS0 buffer structure). Changing it resulted in 
-> a working dp altmode functionality on usb0.
-> 
-> This debug effort is a result of work / testing of the 4-lanes patch
-> [1] on all available devices. Independent of it, it enables dp 
-> altmode on usb0, and with it, also 4 lanes, making it even more useful.
-> 
-> [1]: https://lore.kernel.org/all/20250527-topic-4ln_dp_respin-v3-0-f9a0763ec289@oss.qualcomm.com/
-> ---
->  arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
+On Sat, 16 May 2026 12:11:16 -0500
+David Lechner <dlechner@baylibre.com> wrote:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> On 5/15/26 8:31 AM, Radu Sabau via B4 Relay wrote:
+> > From: Radu Sabau <radu.sabau@analog.com>
+> >=20
+> > Add support for the Analog Devices AD4691 family of high-speed,
+> > low-power multichannel SAR ADCs: AD4691 (16-ch, 500 kSPS),
+> > AD4692 (16-ch, 1 MSPS), AD4693 (8-ch, 500 kSPS) and
+> > AD4694 (8-ch, 1 MSPS).
+> >=20
+> > The driver implements a custom regmap layer over raw SPI to handle the
+> > device's mixed 1/2/3/4-byte register widths and uses the standard IIO
+> > read_raw/write_raw interface for single-channel reads.
+> >=20
+> > The chip idles in Autonomous Mode so that single-shot read_raw can use
+> > the internal oscillator without disturbing the hardware configuration.
+> >=20
+> > Three voltage supply domains are managed: avdd (required), vio, and a
+> > reference supply on either the REF pin (ref-supply, external buffer)
+> > or the REFIN pin (refin-supply, uses the on-chip reference buffer;
+> > REFBUF_EN is set accordingly). Hardware reset is performed via
+> > the reset controller framework; a software reset through SPI_CONFIG_A
+> > is used as fallback when no hardware reset is available.
+> >=20
+> > Accumulator channel masking for single-shot reads uses ACC_MASK_REG via
+> > an ADDR_DESCENDING SPI write, which covers both mask bytes in a single
+> > 16-bit transfer.
+> >=20
+> > IIO_CHAN_INFO_SAMP_FREQ is exposed as info_mask_separate. The oscillator
+> > is shared hardware =E2=80=94 writing any channel's sampling_frequency a=
+ttribute
+> > sets it for all others =E2=80=94 but per-channel attributes are used th=
+roughout
+> > the series to avoid an ABI change when per-channel oversampling ratios
+> > are introduced in a later commit, at which point the effective output
+> > rate (osc_freq / osr[N]) becomes genuinely per-channel.
+> >=20
+> > Reviewed-by: David Lechner <dlechner@baylibre.com>
+> > Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+One follow up as I was commenting on same code...
 
-P.S. Might it be that you need to set both GPIOs? Might the other GPIO
-be related to USB4 tunnelling?
+> > diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
+> > new file mode 100644
+> > index 000000000000..ba77e1bfef16
+> > --- /dev/null
+> > +++ b/drivers/iio/adc/ad4691.c
 
--- 
-With best wishes
-Dmitry
+> > +static int ad4691_get_sampling_freq(struct ad4691_state *st, int *val)
+> > +{
+> > +	unsigned int reg_val;
+> > +	int ret;
+> > + =20
+>=20
+> No mutex lock here? Maybe without OK since it is a read.
+
+Agreed. It's not a bug, but also not a fast path and it will save reasoning
+and need for comment to just take the lock.
+
+>=20
+> > +	/*
+> > +	 * AD4691_OSC_FREQ_REG is non-volatile and written during
+> > +	 * ad4691_config(), so regmap returns the cached value here without
+> > +	 * touching the SPI bus. No lock is needed.
+> > +	 */
+> > +	ret =3D regmap_read(st->regmap, AD4691_OSC_FREQ_REG, &reg_val);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	*val =3D ad4691_osc_freqs_Hz[FIELD_GET(AD4691_OSC_FREQ_MASK, reg_val)=
+];
+> > +	return IIO_VAL_INT;
+> > +}
+> > +
+> > +static int ad4691_set_sampling_freq(struct iio_dev *indio_dev, int fre=
+q)
+> > +{
+> > +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> > +	unsigned int start =3D ad4691_samp_freq_start(st->info);
+> > +
+> > +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> > +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> > +		return -EBUSY;
+> > +
+> > +	for (unsigned int i =3D start; i < ARRAY_SIZE(ad4691_osc_freqs_Hz); i=
+++) {
+> > +		if (ad4691_osc_freqs_Hz[i] !=3D freq)
+> > +			continue; =20
+>=20
+> mutex lock?
+Agreed. Whilst the direct mode acquire will serialize that's an internal im=
+plementation
+detail.  Where a driver needs to ensure some sequences are not interrupted
+(like I think for the single short read?) then it should take the local
+lock.
+
+
+>=20
+> > +		return regmap_update_bits(st->regmap, AD4691_OSC_FREQ_REG,
+> > +					  AD4691_OSC_FREQ_MASK, i);
+> > +	}
+> > +
+> > +	return -EINVAL;
+> > +}
