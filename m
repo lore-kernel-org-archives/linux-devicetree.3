@@ -1,230 +1,208 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7542535C1A6
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 09:45:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837282E7F38
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 09:49:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779011108; cv=none; b=TStBf/ruUn71b554jckuSA32IeMSa5aIGK1hx9uWOUkI4bPXfsnLeP5/e8hyeWaS+532Pz17ubxCMhIRw3jUe6dvRVcp9lLMAayrboTt0yRY/W/mWTDyUBp80Xu8+DKfqkYhEl+PjB8fr0oZvsvwc134bRlxlJloqw8V3DZ1Qro=
+	t=1779011346; cv=none; b=eOfXYV1m4uhtUM6va6Qrl6Xfbgk6Eewpqw7SM+AIrR29j/K3WYrnrCcew7f3LgqWL7bPst8NoJiN7rqeau9dmEoXwB1akN1lr+sNllmo2MDZ8/wmFPH4owZ7hw2InFaxtEDiCGqnx3kX2E9SI8/0UJTv/HsxLNq9FXmpwSRovwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779011108; c=relaxed/simple;
-	bh=n6DNFBD/Ws91LVsJVbMnO4sXel50ZzhFicaMqviswqk=;
+	s=arc-20240116; t=1779011346; c=relaxed/simple;
+	bh=HBwi3946IyyE1+iWNCfvvfG4l/sQ6Pvxk89moR8MG1A=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TRo4fO9PmUKzKBdcvF+zqQKg+bJ3Ufp3Q7Rw53hqE0f8CZsijTSgQxPrP6SgjTDLT3I0f7lqiVhFtpBR7R670p1v1Mj6iJEI+yvoG/rjHUxMPbJGaBTIa5+5pXvRuIQinS3/55I4Mzyu5eprHxLdw39vlYQZtpohdGyYjqxXdTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jD816R4M; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=UTc9uiiFNv6qvjk2MELMTEccQlOQe7EaSi7Ap5iQ+OdoYTK2r97HwYsUoekKu/+V+T592XYBDVgu+XMLhG5WvyyATm0zX1X5uQNIbWdM+86jt95B3ajY2fOpCYLtKmf7pPlHHrjDaoXAll+K8V5+PXRvNZjfenLXKVxg8cTth2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QS8zhgnS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jD816R4M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFFC0C2BCB0;
-	Sun, 17 May 2026 09:45:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QS8zhgnS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24A1C2BCB0;
+	Sun, 17 May 2026 09:49:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779011108;
-	bh=n6DNFBD/Ws91LVsJVbMnO4sXel50ZzhFicaMqviswqk=;
+	s=k20201202; t=1779011346;
+	bh=HBwi3946IyyE1+iWNCfvvfG4l/sQ6Pvxk89moR8MG1A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=jD816R4M7fR4Ba592eH9HGiaXPD6/mak9sg/bDwZLU/6FqfGgYa/7ZW95yuKcBAHO
-	 Bjo1Io+mz+IoRmwCHIMJ6iilpD7vDfhyp+bw17GvMsuJYgcoAmJcMLLxU3MaRSYQNG
-	 4CxBftJHOkssipy54Xqn5vjkp7h0kh1OiS+MSj7PEOIWQwDFskntIoVSK7KhYrRpHb
-	 qH6tDhucgBc3AYHx9zcO9OgNHQ7yTz5+JtERa20bmB/Cbg6Mx1pZrg49LPkC3/TicX
-	 Schv/ZWW16I0yix7AZG7b2dCzI4HNc7mQ7+QvJO9NbeC6ptyuHIKAcbyKXfaF5vQXI
-	 kiA+gC/I3U5OA==
+	b=QS8zhgnS+Ne2gKypzQ0EHq8lawQ7XxJCIIvExfDgOYwNGJq2Slp68N63S+dxWUYBq
+	 jrMlh/eieFMdnyCEOJoqYLJVNd8vGi1Qder6Uq/+P1GC7bPZTu92vZ4N5NGWVEGUS8
+	 KezITc21lwD5hkH3Zf3kb8wfK3v78V0eoYAofFLXY910nE+PXm2YWh4R4HpY9o2RGy
+	 Wl0tv2FWtV1yM9/oT7ydfIZLwSlp+K76Vlvmnpcyblydx4CwxQekFUwAYBr+TSVEau
+	 bO9RVZNSs1h/689/+iCnpf/ckG4KSEhrnsZo6TWGDkj+SDcemu+uZfA8GeSwudLwSO
+	 59hfPfOH1f22g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 6/6] video: leds: backlight: lm3533: Support getting
- LED sources from DT
+Subject: Re: [PATCH v13 08/12] iio: frequency: adf41513: driver
+ implementation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260517074306.30937-7-clamor95@gmail.com>
-References: <20260517074306.30937-7-clamor95@gmail.com>
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260517-adf41513-iio-driver-v13-8-bb6e134a360f@analog.com>
+References: <20260517-adf41513-iio-driver-v13-8-bb6e134a360f@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 09:45:07 +0000
-Message-Id: <20260517094507.BFFC0C2BCB0@smtp.kernel.org>
+Date: Sun, 17 May 2026 09:49:05 +0000
+Message-Id: <20260517094905.E24A1C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] An off-by-one bounds check skips parsing `led-sources` when exactl=
-y the maximum number of items is provided.
-- [High] `lm3533_update()` uses static global masks, clobbering the configu=
-ration of LEDs belonging to other control banks.
-- [High] LVLED4 and LVLED5 configuration is written to the wrong register (=
-`LM3533_REG_OUTPUT_CONF1`), corrupting backlight settings.
-- [Medium] Assigning the negative error code of `device_property_count_u32`=
- to an unsigned integer circumvents error checks.
-- [Medium] Unvalidated device tree array values are used as bit shift amoun=
-ts, risking Undefined Behavior.
+- [High] Variable modulus fractional calculation (frac2) can mathematically=
+ exceed the mod2 limit due to truncation error magnification.
+- [High] Cached software state is modified before SPI writes and is not rev=
+erted if the write fails, causing state corruption.
+- [Medium] Repeated `dev_warn` inside the frequency calculation loop causes=
+ kernel log spam.
 --
 
-commit a94501f0a6935a4f57e9e0fb89310c12e86759a9
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit 747ff374d7103b5e48e4b8ca3fdb7f75aac19a6d
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Subject: iio: frequency: adf41513: driver implementation
 
-video: leds: backlight: lm3533: Support getting LED sources from DT
+This commit adds support for the Analog Devices ADF41513 26.5 GHz
+Integer-N/Fractional-N PLL Frequency Synthesizer.
 
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+> diff --git a/drivers/iio/frequency/adf41513.c b/drivers/iio/frequency/adf=
+41513.c
+> new file mode 100644
+> index 0000000000000..20ea7e82818f2
+> --- /dev/null
+> +++ b/drivers/iio/frequency/adf41513.c
 
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
 [ ... ]
-> @@ -639,7 +649,30 @@ static const struct attribute_group *lm3533_led_attr=
-ibute_groups[] =3D {
-> =20
->  static int lm3533_led_setup(struct lm3533_led *led)
->  {
-> -	int ret;
-> +	u32 output_cfg_shift =3D 0;
-> +	u32 output_cfg_val =3D 0;
-> +	int ret, i;
+
+> +static int adf41513_calc_pfd_frequency(struct adf41513_state *st,
+> +				       struct adf41513_pll_settings *result,
+> +				       u64 fpfd_limit_uhz)
+> +{
+> +	result->ref_div2 =3D st->data.ref_div2_en;
+> +	result->ref_doubler =3D st->data.ref_doubler_en;
 > +
-> +	if (led->num_leds) {
-> +		for (i =3D 0; i < led->num_leds; i++) {
-> +			output_cfg_shift =3D led->leds[i] * 2;
+> +	if (st->data.ref_doubler_en &&
+> +	    st->ref_freq_hz > ADF41513_MAX_REF_FREQ_DOUBLER_HZ) {
+> +		result->ref_doubler =3D 0;
+> +		dev_warn(&st->spi->dev, "Disabling ref doubler due to high reference f=
+requency\n");
 
-Are the values in led->leds[i] validated against hardware bounds before
-being used to calculate the bit shift?=20
+Will this cause kernel log spam if an application frequently changes the
+frequency? Since ref_doubler_en and ref_freq_hz are constant after probe,
+could we validate this once during initialization or use dev_warn_once()
+here?
 
-If the device tree provides excessively large values, the shift amount could
-exceed the integer bit width.
+> +	}
 
-> +			output_cfg_val |=3D led->id << output_cfg_shift;
-> +		}
+[ ... ]
+
+> +static int adf41513_calc_variable_mod(struct adf41513_state *st,
+> +				      struct adf41513_pll_settings *result)
+> +{
+
+[ ... ]
+
+> +	/* calculate frac1 and frac2 */
+> +	frac1 =3D mul_u64_u64_div_u64(freq_error_uhz, ADF41513_FIXED_MODULUS,
+> +				    result->pfd_frequency_uhz);
+> +	freq_error_uhz -=3D mul_u64_u32_div(result->pfd_frequency_uhz, frac1,
+> +					  ADF41513_FIXED_MODULUS);
+> +	frac2 =3D mul_u64_u64_div_u64(freq_error_uhz, mod2 * ADF41513_FIXED_MOD=
+ULUS,
+> +				    result->pfd_frequency_uhz);
+
+Can this calculation result in a frac2 value that exceeds mod2?=20
+
+Because mul_u64_u32_div() truncates the remainder during the integer
+division, the subtracted value might be smaller than the exact mathematical
+contribution of frac1. This leaves freq_error_uhz artificially larger than
+its theoretical bound.=20
+
+When frac2 is computed by multiplying this enlarged error by
+(mod2 * ADF41513_FIXED_MODULUS), couldn't the result exceed mod2? If
+the hardware requires frac2 < mod2, should we cap frac2 or handle the
+remainder differently?
+
 > +
-> +		/* LVLED1, LVLED2 and LVLED3 */
-> +		ret =3D lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF1,
-> +				    output_cfg_val << OUTPUT_CONF1_SHIFT,
-> +				    OUTPUT_CONF1_MASK);
+> +	/* integer part */
+> +	result->actual_frequency_uhz =3D (u64)int_val * result->pfd_frequency_u=
+hz;
 
-Since OUTPUT_CONF1_MASK spans all LVLED1-3 bits and control banks are
-probed sequentially, will this update clear the routing configurations of
-previously probed banks?
+[ ... ]
 
+> +static int adf41513_set_frequency(struct adf41513_state *st, u64 freq_uh=
+z, u16 sync_mask)
+> +{
+> +	struct adf41513_pll_settings result;
+> +	int ret;
+> +
+> +	ret =3D adf41513_calc_pll_settings(st, &result, freq_uhz);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* apply computed results to pll settings */
+> +	st->settings =3D result;
+
+If adf41513_sync_config() fails at the end of this function, does this leave
+st->settings corrupted? If so, subsequent reads might incorrectly report the
+failed frequency as active.
+
+> +
+> +	dev_dbg(&st->spi->dev,
+
+[ ... ]
+
+> +static int adf41513_suspend(struct adf41513_state *st)
+> +{
+> +	st->regs[ADF41513_REG6] |=3D FIELD_PREP(ADF41513_REG6_POWER_DOWN_MSK, 1=
+);
+> +	return adf41513_sync_config(st, ADF41513_SYNC_DIFF);
+
+Similarly, if adf41513_sync_config() fails here, the power-down bit remains
+set in st->regs[ADF41513_REG6]. Could this inadvertently power down the PLL
+during a later register sync?
+
+> +}
+
+[ ... ]
+
+> +static int adf41513_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int val, int val2, long info)
+> +{
+> +	struct adf41513_state *st =3D iio_priv(indio_dev);
+> +	u64 tmp64 =3D iio_val_s64_compose(val, val2);
+> +	u16 phase_val;
+> +	int ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	switch (info) {
+> +	case IIO_CHAN_INFO_FREQUENCY:
+> +		return adf41513_set_frequency(st, tmp64, ADF41513_SYNC_DIFF);
+> +	case IIO_CHAN_INFO_PHASE:
+> +		if (tmp64 >=3D ADF41513_MAX_PHASE_MICRORAD)
+> +			return -EINVAL;
+> +
+> +		phase_val =3D DIV_U64_ROUND_CLOSEST(tmp64 << 12,
+> +						  ADF41513_MAX_PHASE_MICRORAD);
+> +		phase_val =3D min(phase_val, ADF41513_MAX_PHASE_VAL);
+> +		st->regs[ADF41513_REG2] |=3D ADF41513_REG2_PHASE_ADJ_MSK;
+> +		FIELD_MODIFY(ADF41513_REG2_PHASE_VAL_MSK,
+> +			     &st->regs[ADF41513_REG2], phase_val);
+> +		ret =3D adf41513_sync_config(st, ADF41513_SYNC_REG0);
 > +		if (ret)
 > +			return ret;
 > +
-> +		/* LVLED4 and LVLED5 */
-> +		ret =3D lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF1,
+> +		/* clear phase adjust for the next sync */
+> +		st->regs[ADF41513_REG2] &=3D ~ADF41513_REG2_PHASE_ADJ_MSK;
 
-Is LM3533_REG_OUTPUT_CONF1 the correct register for LVLED4 and LVLED5?
+If adf41513_sync_config() fails above, the early return leaves the
+ADF41513_REG2_PHASE_ADJ_MSK bit set in st->regs. Could this cause unintended
+phase adjustments during subsequent frequency changes or register syncs?
 
-Writing to LM3533_REG_OUTPUT_CONF1 with OUTPUT_CONF2_MASK clears its lower
-bits, which might overwrite the hardware mapping for the high-voltage
-backlight and LVLED1 settings instead of configuring LVLED4 and LVLED5.
-
-> +				    output_cfg_val >> OUTPUT_CONF2_SHIFT,
-> +				    OUTPUT_CONF2_MASK);
-> +		if (ret)
-> +			return ret;
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
 > +	}
-[ ... ]
-> @@ -713,6 +746,24 @@ static int lm3533_led_probe(struct platform_device *=
-pdev)
->  	led->pwm =3D 0;
->  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
-> =20
-> +	led->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
-> +
-> +	/*
-> +	 * If led-sources property is not set then either this Control Bank uses
-> +	 * its default LVLED or is not linked to any LVLED at all.
-> +	 */
-> +	if (led->num_leds <=3D 0 || led->num_leds > LM3533_MAX_LEDS)
-
-Does assigning the result of device_property_count_u32() directly to the
-unsigned led->num_leds cause negative error codes like -EINVAL to wrap into
-large positive values?
-
-This causes the led->num_leds <=3D 0 check to fail. Should a signed integer
-be used for the return value check before assigning it?
-
-> +		led->num_leds =3D 0;
-> +
-> +	if (led->num_leds > 0 && led->num_leds < LM3533_MAX_LEDS) {
-
-Does the strict inequality led->num_leds < LM3533_MAX_LEDS prevent the
-driver from reading the led-sources array when exactly the maximum allowed
-number of items is specified?
-
-> +		ret =3D device_property_read_u32_array(&pdev->dev, "led-sources",
-> +						     led->leds, led->num_leds);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "failed to get led-sources\n");
-> +			goto err_deregister;
-> +		}
-> +	}
-> +
-[ ... ]
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-[ ... ]
-> @@ -248,7 +255,8 @@ static struct attribute_group lm3533_bl_attribute_gro=
-up =3D {
->  static int lm3533_bl_setup(struct lm3533_bl *bl)
->  {
->  	int id =3D lm3533_bl_get_ctrlbank_id(bl);
-> -	int ret;
-> +	u32 output_cfg_val =3D 0;
-> +	int ret, i;
-> =20
->  	ret =3D lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF,
->  			    bl->linear ? CTRLBANK_AB_BCONF_MODE(id) : 0,
-> @@ -256,6 +264,16 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
->  	if (ret)
->  		return ret;
-> =20
-> +	if (bl->num_leds) {
-> +		for (i =3D 0; i < bl->num_leds; i++)
-> +			output_cfg_val |=3D id << bl->led_strings[i];
-> +
-> +		ret =3D lm3533_update(bl->lm3533, LM3533_REG_OUTPUT_CONF1,
-> +				    output_cfg_val, OUTPUT_CONF1_MASK);
-
-Similar to the LED setup, will applying OUTPUT_CONF1_MASK without preserving
-existing bit states overwrite the routing of other control banks?
-
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-[ ... ]
-> @@ -337,6 +355,25 @@ static int lm3533_bl_probe(struct platform_device *p=
-dev)
->  	bl->linear =3D device_property_read_bool(&pdev->dev,
->  					       "ti,linear-mapping-mode");
-> =20
-> +	bl->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
-> +
-> +	/*
-> +	 * If led-sources property is not set then either this Control Bank uses
-> +	 * its default HVLED or is not linked to any HVLED at all.
-> +	 */
-> +	if (bl->num_leds <=3D 0 || bl->num_leds > LM3533_MAX_LED_STRINGS)
-
-As with the LED probe function above, does this unsigned variable wrapper
-prevent catching negative error codes from device_property_count_u32()?
-
-> +		bl->num_leds =3D 0;
-> +
-> +	if (bl->num_leds > 0 && bl->num_leds < LM3533_MAX_LED_STRINGS) {
-
-Does this also skip array parsing if exactly LM3533_MAX_LED_STRINGS items
-are provided?
-
-> +		ret =3D device_property_read_u32_array(&pdev->dev, "led-sources",
-> +						     bl->led_strings,
-> +						     bl->num_leds);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "failed to get led-sources\n");
-> +			goto err_sysfs_remove;
-> +		}
-> +	}
-> +
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517074306.3093=
-7-1-clamor95@gmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-adf41513-i=
+io-driver-v13-0-bb6e134a360f@analog.com?part=3D8
