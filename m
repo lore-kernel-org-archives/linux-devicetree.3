@@ -1,125 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAAD35E1BC;
-	Sun, 17 May 2026 09:14:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F9E30FF21
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 09:28:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779009281; cv=none; b=uNyuXeGAPBsUp4C6h+cBxcbrItuF1DWXolE11W9E2K5sDkic/rCMqfvR4eJOQ+tVpF4dalILCOWLwJCg1tEQGkHyjMamhyyLtAt1Sz758wi55SgudAwGqUoPWyxgOQ/QPgGVCgkXQwMvukDl5AYwvLgXQAbqFZcpYSFZmqOXUEE=
+	t=1779010123; cv=none; b=r9JCampt4uIbdLlaex0FF87qlTH+PiYFMPeqVk9V+952yb6l1BZqd3sZi6ROU+L+EvlYseggGy8En1HzeFrc/jDzsrVioL6Su+7DDzw6ecS88xgiPAbkIXaRZAJIf9Xuqab1G5Q3kNozI55e2A0YjNncMCZR+IzpgK9uiQZXBiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779009281; c=relaxed/simple;
-	bh=aM5yeD8D0EpZb33GZB7QNZJF6fH7o1iaBw8tXcjXvyI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b56ToRRZg0AWEGeeIqy3mJ37esPoQL34Gejrr1Z9/rbJT5MVOYd23N0URicg1iszAFNCvk7JSxUlfEZUkp1U+1/PQyxpngAEitiWB2qvXYxd2WpEJqEf2CUik3RwtQt9rNxjLQEiTViwfXkZ7aqGp7Azn8H2DtemglMfNldQ6gE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lT6FVVmE; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779010123; c=relaxed/simple;
+	bh=VWTJlVtxgPvR3XPthauEbhuXVVeodOlY+9Kvw5t1HbA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RK/sQ/sgqWGtre2B50ooYpREDfhPQaPYC83YFPnGEVDQZ1L0pc4GATJ42hjKKpD7W6EnViXza8aRmzfBj1AKe/vPzRP/oaEOFsyw+nVAael4QvTJuWaxwf6E5oFBn1HIyYKyTqSSKsPY2wN0omXKtkgoVQw9/Wm4Xe0poyCoong=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DfH35yp4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lT6FVVmE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9ED05C4AF54;
-	Sun, 17 May 2026 09:14:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DfH35yp4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1FFC2BCB0;
+	Sun, 17 May 2026 09:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779009281;
-	bh=aM5yeD8D0EpZb33GZB7QNZJF6fH7o1iaBw8tXcjXvyI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=lT6FVVmEpcwufNYptR4hHs/ksunl8JN0Sc29MSJe+6CTTPM+lzErgmRWNVdE4yjFC
-	 q1+bcSrqtzRkGUZKnHUhscwzhyDBJElOD3SssnFebTYKCg6VhH+aI2nGjKRPu0Dgwh
-	 Wc63AA/KcN69WPVXVmCtkN6z93/cx6zH4EQUguufVPcx1BzKDFPSKCYoNEvCxcn7Bn
-	 JVfaVHMndEj0r7MDk/aJbtv6JU8Cmu6FW1C3oAS4e7fcvgyvZSGBNhqT3MtkpaqKpf
-	 li1TlMc4haCNHiruP0KbtExcgG32WQyLG2vbvnMYrSf+Ta7j/iCbmEcCwO+1u5SgWA
-	 z6vspIFsxb55g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90320CD4F4A;
-	Sun, 17 May 2026 09:14:41 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Sun, 17 May 2026 10:14:07 +0100
-Subject: [PATCH v13 12/12] Documentation: ABI: testing: add common ABI file
- for iio/frequency
+	s=k20201202; t=1779010123;
+	bh=VWTJlVtxgPvR3XPthauEbhuXVVeodOlY+9Kvw5t1HbA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=DfH35yp44JqQ41Qa30BUH/n34IYqf5QFXa/3heV7A6iYmknHS6Nlyz52qjcnOueBp
+	 GZRzRJzHeQk1+QHJr7n/e/CEXNCQWzAtihwIPb0+CiX/zopp+pHJ9lLD+VmI4uiHjs
+	 /rEh68KSvRl05lbULPDJAfSdRd8msL/KAR6wXtBdJy4XlI2ZWPSd5V27t10UENHG+n
+	 eus7QvwUAOtj5VHDpM4s+psNb65tNeo41iGo3V9NP77xd2VrF5XQ86D05S0CU65rRw
+	 WRoYFXoTepWdmYomKwtRf1KK/odjgbXVQQDB+A6x7Y3qLIvCyb36OLhdRnZSqwex5D
+	 VUUW9hXOnoLkg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 5/6] video: backlight: lm3533_bl: Set initial mapping
+ mode from DT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260517074306.30937-6-clamor95@gmail.com>
+References: <20260517074306.30937-6-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 17 May 2026 09:28:41 +0000
+Message-Id: <20260517092842.EB1FFC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260517-adf41513-iio-driver-v13-12-bb6e134a360f@analog.com>
-References: <20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com>
-In-Reply-To: <20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com>
-To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779009279; l=2211;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=swStfLGThUgetsoO5JlOQerjXKGwa5yLnNDxX9LhxH8=;
- b=N0XXM+lskRAv8R6nuE6KcW2wvrwQoYmF9Mt8DdkyvBSFNc4PQMuHa+oq1BEPJloUASU379bAM
- ZPj4dbQL10nDwpSSDsFD8ppSIHGH5KPPsmcTekjkc0C48t+8eh8HWSi
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The driver unconditionally clears the hardware linear mapping mode=
+ if the new DT property is absent, breaking existing configurations.
+- [High] The `linear` sysfs attribute is exposed to userspace before hardwa=
+re initialization completes, allowing userspace configurations to be silent=
+ly discarded.
+--
 
-Add ABI documentation file for PLL/DDS devices with frequency_resolution
-sysfs entry attribute used by both ADF4350 and ADF41513.
+commit cebf8bbd6f9d389030ebbf6dbf1725031e2f46a7
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- Documentation/ABI/testing/sysfs-bus-iio-frequency         | 11 +++++++++++
- Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350 | 10 ----------
- 2 files changed, 11 insertions(+), 10 deletions(-)
+video: backlight: lm3533_bl: Set initial mapping mode from DT
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency b/Documentation/ABI/testing/sysfs-bus-iio-frequency
-new file mode 100644
-index 000000000000..5af31b5b3a19
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency
-@@ -0,0 +1,11 @@
-+What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_resolution
-+KernelVersion:	3.4.0
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Stores channel Y frequency resolution/channel spacing in Hz for PLL
-+		devices. The given value directly influences the operating mode when
-+		fractional-N synthesis is required, as it derives values for
-+		configurable modulus parameters used in the calculation of the output
-+		frequency. It is assumed that the algorithm that is used to compute
-+		the various dividers, is able to generate proper values for multiples
-+		of channel spacing.
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350 b/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
-index 1254457a726e..76987a119feb 100644
---- a/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
-+++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
-@@ -1,13 +1,3 @@
--What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_resolution
--KernelVersion:	3.4.0
--Contact:	linux-iio@vger.kernel.org
--Description:
--		Stores channel Y frequency resolution/channel spacing in Hz.
--		The value given directly influences the MODULUS used by
--		the fractional-N PLL. It is assumed that the algorithm
--		that is used to compute the various dividers, is able to
--		generate proper values for multiples of channel spacing.
--
- What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_refin_frequency
- KernelVersion:	3.4.0
- Contact:	linux-iio@vger.kernel.org
+This commit adds support to configure the initial backlight mapping mode
+(linear or exponential) from the device tree instead of leaving it
+unconfigured. It also updates the linear sysfs attribute handling to use
+similar patterns.
 
--- 
-2.43.0
+> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
+t/lm3533_bl.c
+> index 42da652df58d9..be9114b7e0ad7 100644
+> --- a/drivers/video/backlight/lm3533_bl.c
+> +++ b/drivers/video/backlight/lm3533_bl.c
 
+[ ... ]
 
+> @@ -253,8 +247,15 @@ static struct attribute_group lm3533_bl_attribute_gr=
+oup =3D {
+> =20
+>  static int lm3533_bl_setup(struct lm3533_bl *bl)
+>  {
+> +	int id =3D lm3533_bl_get_ctrlbank_id(bl);
+>  	int ret;
+> =20
+> +	ret =3D lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF,
+> +			    bl->linear ? CTRLBANK_AB_BCONF_MODE(id) : 0,
+> +			    CTRLBANK_AB_BCONF_MODE(id));
+
+Could this break existing hardware configurations where the DT property is
+absent but the bootloader already configured linear mode?
+
+Previously, this register was left unconfigured. Because
+device_property_read_bool() returns false when the property is missing, this
+unconditionally forces the mapping mode to exponential (0), silently revert=
+ing
+any existing setups lacking the new ti,linear-mapping-mode property.
+
+[ ... ]
+
+> @@ -333,6 +334,9 @@ static int lm3533_bl_probe(struct platform_device *pd=
+ev)
+>  	bl->pwm =3D 0;
+>  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
+> =20
+> +	bl->linear =3D device_property_read_bool(&pdev->dev,
+> +					       "ti,linear-mapping-mode");
+> +
+>  	ret =3D lm3533_bl_setup(bl);
+
+Does this sequence silently discard userspace configuration?
+
+Earlier in lm3533_bl_probe(), sysfs_create_group() creates the linear sysfs
+attribute before we read the device properties and call lm3533_bl_setup().
+
+If a udev rule writes to the linear attribute, it will update the hardware
+register via store_linear(), but the setup function here will subsequently
+overwrite the register with the bl->linear value cached from DT, discarding
+the userspace setting.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517074306.3093=
+7-1-clamor95@gmail.com?part=3D5
