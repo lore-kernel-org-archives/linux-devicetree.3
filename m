@@ -1,88 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DCF30566A
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B0430566A
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779014391; cv=none; b=T6GS6ywLLKb30WPpNsHud4PYiN/GKGen0tTm31t0AH0EExc7f9N4EtKeJBu2MOw/0lqzijwAvRu/EGV5ar0Z2nucGvrNG+9kjxBTHAkmRmH/cTWVF/TOkbh3UAaP+ORR0gW2n7uP50ru+4zIUmeKk422YWj7myQdmSr9OAGhL7E=
+	t=1779014407; cv=none; b=BOfOKBHSNEehyBf/9A1f5RILqFe0i39wtQozB+2QKimDBWme3T+SMAnSX1IDraJD2i3C9nNU8rPVwQOyYcqMLHFi0CaWhpJzZ4dRD4wtE30QV194kEFOX/WRXgpkEOKjFfNKeznTNLKfYJsCQeCO6MmMlroIr7Yz+HKV9RBlT0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779014391; c=relaxed/simple;
-	bh=RZMuf80XDxHSbxPVmLIh9UA96dyig3RFRvrfEn1evGg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n/HwlTalOKZtyOhDHH9LeswQu7Iu0Va0BpPANXI3pzCusvELyHa6c+Qh35NWGG5q0HMuVfhmLDxM60JZEnrkcJ92yt/4XzuNHtEluzpTnB0b9vUolCCjYkeVTTcvXLxP9fct5GpJ0KPnRZ/D3MwFSOmDZje6/Y7r9esAvlLxzWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3oa5ImF; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779014407; c=relaxed/simple;
+	bh=QVDFICNKk8kg6qirWsiEWP/qhZZeBOs4t3uNbH6t0KM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bBxP/bwud7136m4wQI7JPT4xB/9jmzlKPns7q79hZT48Sc6lA3I6uJLLxPUNIMMBHtV9WB9rz8EoFNt6UUPPNdVj8F/r+hp/IswZFkjmKBYFZSXQRLVFJe3lE2M8lxsRPWqi6AW4C9JliRIy5+7rnZpZ+uOmFlLSwQCOVPr1/SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=bOglyjIh; arc=none smtp.client-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3oa5ImF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64F06C2BCFB
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779014391;
-	bh=RZMuf80XDxHSbxPVmLIh9UA96dyig3RFRvrfEn1evGg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=m3oa5ImF5ltPyjbkueQya//wdm7MCFWRbZArrw30aahjjNXo/ET/kpU3Dyi/1F/Ae
-	 X78kmGwnozL2KxAcHk+r+OIexTqg5A2o0SIhnOTgrLxqlyoFl6aParnGr1hFaxIm7X
-	 4ckH1ikB4dQV7Yf2Sa+5tpN4/Dxtu/uiTHoWY71+VfAWC2v0tJFy7dxw1RPquX8Wkt
-	 2kKwhIVOUNmp6r1oAQDOqc2I1FoJ0BAjIjhNOU/zfY3jVvwj9434IOYVNpH6WECdLp
-	 M5OB2DZfW1YK3InnxCi5QrJNpCssSswj4HNC6s3Hb7u6Zw4I44kZsQUjqFM2jHqw9f
-	 oK139BZU+9Xgw==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5a40b2bc96dso1455144e87.3
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 03:39:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8Ui5EZAkVSunyoOuKLADKghdUFsrKGb68dS5mJ6/NfgIl8o4KKetSjLJg5XNqEpLOkXGnjvyTI+MGb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcE7goHyBGu/2AzoppAgLHC6JSL1h2j8/6Dk14dSAiLiD23eKm
-	83ctyItdS9i7QKXqd4DIphlbr6TKCAJ4UTWPQdw7yf6gBU/IDzZL37rQgSTyh/9O4QGmaa89HAf
-	Gv1riTy7mPgmdZdIkuNBktLm1lgKlX1U=
-X-Received: by 2002:a05:6512:1452:10b0:5aa:f41:328d with SMTP id
- 2adb3069b0e04-5aa0f41334bmr1865660e87.10.1779014390067; Sun, 17 May 2026
- 03:39:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="bOglyjIh"
+Received: from [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d] (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id EE06078365D;
+	Sun, 17 May 2026 12:39:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1779014394;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BEYr5XX2z69OBAzGa57bCeR3hxABq7SAzUw126Kb08k=;
+	b=bOglyjIh5JuKZRWMRYcO2D4+Uw7+GWMiLC0bGEG6y6WspgNibTVg/ua5f0bVFl2VLVP8Ko
+	LrZo7k5GqUThsDMKiawWj7PFHPr+IXzSO3mtNrIOFNSkTkxEjWqMujfN5rLF4IV9vGd2EN
+	aivVddLVaeXy1GGZ7xsYvvFY6qMoDN4PRir+VIRMxO8RaNVcdrlSwCjSdxa/DYpH7osAYd
+	7ktBi7g1rvRTrLFvxywSjMoIsrMnjBWuNAsA2Vx/3GprRdf5Do4ozasmijytGPDPCWXp9Q
+	9IgI429UlTDA3zKCIUo8CeHaE98TBy0Icp4lb8JtpJdROVf63R6D08HDKCwONQ==
+Message-ID: <d0b159eefa6bc5abf0d1531acde568396f480500.camel@svanheule.net>
+Subject: Re: [PATCH 3/3] watchdog: realtek-otto: add RTL9607C support
+From: Sander Vanheule <sander@svanheule.net>
+To: sashiko@lists.linux.dev, Rustam Adilov <adilov@disroot.org>, Guenter
+ Roeck	 <linux@roeck-us.net>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	robh@kernel.org, linux-watchdog@vger.kernel.org
+Date: Sun, 17 May 2026 12:39:52 +0200
+In-Reply-To: <20260509172748.54B33C2BCB2@smtp.kernel.org>
+References: <20260509163101.722793-4-adilov@disroot.org>
+	 <20260509172748.54B33C2BCB2@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org>
- <20260516-ks8995-to-ksz8-v1-2-70d0ef4aa5f4@kernel.org> <570e6488-6320-4cbc-8d48-5438b4073d8b@kernel.org>
-In-Reply-To: <570e6488-6320-4cbc-8d48-5438b4073d8b@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 17 May 2026 12:39:37 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnCQZtcCX6Yy8G0c5VprQP1UozqDd+6ppiStuHsdCN6og@mail.gmail.com>
-X-Gm-Features: AVHnY4J8_nKN5in9STpMywwF6jSGuuV9EuyKQ0oAM4wVbiTzYv_Mz9cwlRuy0WM
-Message-ID: <CAD++jLnCQZtcCX6Yy8G0c5VprQP1UozqDd+6ppiStuHsdCN6og@mail.gmail.com>
-Subject: Re: [PATCH 2/5] dt-bindings: net: dsa: microchip: Add KSZ8995XA
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
-	Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 17, 2026 at 10:42=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
-> On 16/05/2026 01:16, Linus Walleij wrote:
-> > The KSZ8995XA is just like the KSZ8795 and KSZ8864 a Micrel
-> > product. It was renamed from KS8995XA to KSZ8995XA at some point,
-> > but it has the same properties as the KS8995XA.
->
-> This is a bit unfortunate sentence, because it strongly suggests devices
-> are compatible, but you do not express any compatibility. Driver looks
-> handling them in incompatible way, so it is odd to see "it is just like".
+On Sat, 2026-05-09 at 17:27 +0000, sashiko-bot@kernel.org wrote:
+> Also, does the system restart handler sleep in an atomic context?
+>=20
+> otto_wdt_restart() {
+> [ ... ]
+> 	disable_irq(ctrl->irq_phase1);
+> [ ... ]
+> }
+>=20
+> The otto_wdt_restart() function is a system restart handler executed in a=
+n
+> atomic context with local interrupts disabled. Since disable_irq() intern=
+ally
+> invokes synchronize_irq(), which uses wait_event() to wait for executing
+> interrupt handlers to finish, it can sleep.
+>=20
+> Calling a sleeping function with local interrupts disabled triggers a ker=
+nel
+> panic, and waiting for an IRQ handler to complete while other CPUs are st=
+opped
+> during a machine restart can result in a hard deadlock. Should this use
+> disable_irq_nosync() instead?
 
-Hm, they are compatible. The driver should handle KS8995XA and KSZ8995XA
-the same way, the only thing that is funky in the driver is that since ther=
-e
-is (unfortunately) an old "micrel,ks8995" (no suffixes) binding, which is
-actually the KS8995XA, we need to treat that as the XA binding as well.
+I figured if local interrupts are disabled, then we don't need to disable t=
+he
+pretimeout interrupt, since it won't get called (and give confusing warning=
+s).
+However, doing so results in the output of the pretimeout interrupt handler
+being printed when rebooting the system (single-core CPU, both with SMP and
+without), so the interrupt is still getting through.
 
-I should probably patch it deprecated.
+Am I missing something here? Or is this a false positive?
 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks!
-
-Yours,
-Linus Walleij
+Best,
+Sander
