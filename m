@@ -1,138 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA051A317D
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 14:05:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32C51A317D;
+	Sun, 17 May 2026 14:06:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779026758; cv=none; b=iRr94FwIcC+tWdzuVJ/qBV1VJWHftHkE/fsbLPd0BTE5v/ASIvU7hHcjONthqoZVdU7pkm6qrlQQ5h6v6OFSRSNOtmOMid9Uq7XJAq9sfcxQsKkihmXpCSHab4qsnWUb8XIaZc+j1lnv/sLG5OFp3D7D6RRInUT9Bs7pQ7BRLLs=
+	t=1779026772; cv=none; b=OpfOS5LtE62SHQSwuxkq3iWzyXLKVgjn19w+2gs/bOuFliBdT5j1f17a/so15GCDieJyuDGxt1SptPd74NoGQMaJcq/b5E99XSy2BugkGNNDKJnFZCQJRFbIPAschWyRbfN6T466KP4l4jtIhZOcMTYMQyVyD4ZTW3IJKpPJeuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779026758; c=relaxed/simple;
-	bh=yrR7FBJl80rneIXn+E+QCBe6uSsuI2O8hc4sRmGbDkA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P/z+l24wJ0RWADBquWspLMHQtqb8Hs+HHT4XoB7RaqWRHhHJ6NiQu2j5Itfy8xIqEthcXweEYG69UvgiiZWFfpeuCa3J4i0+zuakoSD5hNv4S1jgUYPfuNN/WyPH5behQ5L8jq6aH2R8ndJ7RyzDW33Bhyf5HV0qLQvHpRAJRZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t4bgT3vG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779026772; c=relaxed/simple;
+	bh=FIiY2oPaiBzktkc4Vzqp8+JoSCv/G20YsbKJJZKYKSw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DbBrwmJSbXuNpO8j7dv7ImDHtz9c0oZFZgxeZreRiAAAdOY/B6LPTVH5U0pKnfjPFfa05ekeBnTyyPwzsrL3YCQUlBJA3qtDxZJ+KqK5Kl4Mm6e+tFLQtYawXsfD+D/CJq9p8h2ljeGM2m8Ypx9yQ3QBYPyKOv2O/tODN34QkWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJf13g3k; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t4bgT3vG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E643C2BCB0;
-	Sun, 17 May 2026 14:05:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJf13g3k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78E1C2BCB8;
+	Sun, 17 May 2026 14:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779026758;
-	bh=yrR7FBJl80rneIXn+E+QCBe6uSsuI2O8hc4sRmGbDkA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=t4bgT3vGJWmS0etTnR7pryJ6O0Wsyziy2JErCeaf13agAX2JO0U6lrniBbVAY6MZg
-	 PYzLuqKWYGtTY0rc2vmeImR/T5AJx5jtQIzg5eYucWgjRi7ALNDBbaH1UDstRT1rLs
-	 TGHfndq8MIM9DbAmXbly58g3+xzuOqRBc32vA6CPqn4XRaswdkqeqnZ2AcDnjRWVta
-	 4MMPpKZuRzACq4gp+xC2byPCl0440F5AouShBuwepZrU6648qjXf/kmQ1Ne2qb/U0w
-	 uisEwgypCQrMEarL/VXWwf/ovYmSldKqAuZFC/RjsVBTzHm60boQMdtzOi15MLXxoV
-	 6pch8n73is7aw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: sm8550: add UART11 node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260517-pocketds-v3-4-d5910c801756@gmail.com>
-References: <20260517-pocketds-v3-4-d5910c801756@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 14:05:57 +0000
-Message-Id: <20260517140558.1E643C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1779026771;
+	bh=FIiY2oPaiBzktkc4Vzqp8+JoSCv/G20YsbKJJZKYKSw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=OJf13g3kilIuF4SitePqmLNhEIsZoAt6LUTZpHSh4Y0BFJMq2DKfDCr9muu6KAEzj
+	 +jTAab7N7bB91RoJIIpyONQZ7pRiRxjbHVjhnedPZ9R4CaOdKnjcFB4VypAMIYhMkH
+	 MKnix6qi5Z8IbuQE+5QeFkkb3ec7hzcPM5EP+EV0GAfqGqoBCq8GQ8HZL2pSSPrA3S
+	 AxGxxnKip8T2WOYxVNic7MMuIaW5uIqPw+Jwo4iIE2PfyhWlarywvwrjgiyX2Wk+SU
+	 FmV6o5Mb1lMt/NTCHP0KWbybdkPPjM7vxo8BCpdGWtHJ0PNBqcdWlArAbUs9zaems9
+	 OHECNScnGTfPQ==
+Date: Sun, 17 May 2026 15:05:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Andrew Morton
+ <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v13 08/12] iio: frequency: adf41513: driver
+ implementation
+Message-ID: <20260517150559.5209154c@jic23-huawei>
+In-Reply-To: <20260517-adf41513-iio-driver-v13-8-bb6e134a360f@analog.com>
+References: <20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com>
+	<20260517-adf41513-iio-driver-v13-8-bb6e134a360f@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Hardware/Device Tree inconsistency: The uart11 node references the=
- wrong operating-points-v2 table.
-- [Medium] Missing Pinctrl State: The `qup_uart11_cts_rts` state is omitted=
-, forcing boards to open-code it.
-- [Medium] Incorrect Pin Bias: The `qup_uart11_default` pinctrl state confi=
-gures pins with `bias-disable` instead of `bias-pull-up`.
---
+On Sun, 17 May 2026 10:14:03 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org=
+> wrote:
 
-commit 3269a824736c1b0b41ba9f1674a29c444d6c2b01
-Author: Alexandre Hamamdjian <azkali.limited@gmail.com>
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+>=20
+> The driver is based on existing PLL drivers in the IIO subsystem and
+> implements the following key features:
+>=20
+> - Integer-N and fractional-N (fixed/variable modulus) synthesis modes;
+> - High-resolution frequency calculations using microhertz (=C2=B5Hz) prec=
+ision
+>   to handle sub-Hz resolution across multi-GHz frequency ranges;
+> - IIO debugfs interface for direct register access;
+> - FW property parsing from devicetree including charge pump settings and
+>   reference path configuration;
+> - Power management support with suspend/resume callbacks;
+> - Lock detect GPIO monitoring.
+>=20
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Hi Rodrigo
 
-arm64: dts: qcom: sm8550: add UART11 node
+Took another brief look. Seeing as you'll be doing a v14:
 
-This commit adds the QUPv3_2 SE3 High Speed UART (UART11) controller node
-and its default pinctrl state to the sm8550 device tree.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
-com/sm8550.dtsi
-> index a9c678fc9cb2e..3e71701b18ff0 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -1084,6 +1084,24 @@ &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>,
->  				status =3D "disabled";
->  			};
+- check the headers don't need updates as I spotted one I think should be t=
+here.
+- the named initializer for struct spi_device_id thing is just to preempt s=
+ome=20
+  future cleanup.
+=20
+> diff --git a/drivers/iio/frequency/Makefile b/drivers/iio/frequency/Makef=
+ile
+> index 70d0e0b70e80..53b4d01414d8 100644
+> --- a/drivers/iio/frequency/Makefile
+> +++ b/drivers/iio/frequency/Makefile
+> @@ -5,6 +5,7 @@
 > =20
-> +			uart11: serial@88c000 {
-> +				compatible =3D "qcom,geni-uart";
-> +				reg =3D <0 0x0088c000 0 0x4000>;
-> +				clock-names =3D "se";
-> +				clocks =3D <&gcc GCC_QUPV3_WRAP2_S3_CLK>;
-> +				interrupts =3D <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH 0>;
-> +				pinctrl-names =3D "default";
-> +				pinctrl-0 =3D <&qup_uart11_default>;
-> +				interconnects =3D <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-> +						 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-> +						<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +						 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
-> +				interconnect-names =3D "qup-core", "qup-config";
-> +				operating-points-v2 =3D <&qup_opp_table_100mhz>;
-
-Is this the correct OPP table for this Serial Engine block?
-
-The sibling spi11 and i2c11 nodes, which represent the same physical SE blo=
-ck
-at the same address, use operating-points-v2 =3D <&qup_opp_table_120mhz>;.
-
-A mismatch could lead to the UART mode voting for incorrect voltages or
-failing to reach required frequencies.
-
-> +				power-domains =3D <&rpmhpd RPMHPD_CX>;
-> +				status =3D "disabled";
-> +			};
+>  # When adding new entries keep the list in alphabetical order
+>  obj-$(CONFIG_AD9523) +=3D ad9523.o
+> +obj-$(CONFIG_ADF41513) +=3D adf41513.o
+>  obj-$(CONFIG_ADF4350) +=3D adf4350.o
+>  obj-$(CONFIG_ADF4371) +=3D adf4371.o
+>  obj-$(CONFIG_ADF4377) +=3D adf4377.o
+> diff --git a/drivers/iio/frequency/adf41513.c b/drivers/iio/frequency/adf=
+41513.c
+> new file mode 100644
+> index 000000000000..20ea7e82818f
+> --- /dev/null
+> +++ b/drivers/iio/frequency/adf41513.c
+> @@ -0,0 +1,1106 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * ADF41513 SPI PLL Frequency Synthesizer driver
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + */
 > +
+Give this another look.
+array_size.h is missing for instance
+That seems to be the most common one people miss so is my smoke
+test for whether includes are probably correct.
 
-[ ... ]
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/sysfs.h>
+> +#include <linux/log2.h>
+> +#include <linux/math64.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
 
-> @@ -5102,6 +5120,14 @@ qup_uart7_default: qup-uart7-default-state {
->  				bias-disable;
->  			};
-> =20
-> +			qup_uart11_default: qup-uart11-default-state {
-> +				/* TX, RX */
-> +				pins =3D "gpio70", "gpio71";
-> +				function =3D "qup2_se3";
-> +				drive-strength =3D <2>;
-> +				bias-disable;
 
-Should these pins be configured with a pull-up?
-
-Other high-speed UARTs on this SoC (like qup_uart14_default) typically use
-bias-pull-up for TX/RX lines. Using bias-disable deviates from the
-established pattern for high-speed UARTs and could cause signal integrity
-issues on boards lacking external pull-up resistors.
-
-> +			};
 > +
+> +static const struct spi_device_id adf41513_id[] =3D {
+> +	{"adf41510", (kernel_ulong_t)&adf41510_chip_info},
+	{ "adf41510", (kernel_ulong_t)&adf41510_chip_info  },
 
-Could a qup_uart11_cts_rts state be added here as well?
+Though better still (and this is a recent thing given some of the work Uwe
+is doing) - given you are respinning please use named initializers like
+you do already for of_device_id.
 
-The commit message states the goal is to prevent boards from open-coding the
-controller configuration. Since high-speed UARTs often require hardware flow
-control, boards that need it will still have to open-code the CTS/RTS pins
-(gpio68 and gpio69) if the state is omitted from this file.
+It might save us a patch in the future.
 
->  			qup_uart14_default: qup-uart14-default-state {
->  				/* TX, RX */
->  				pins =3D "gpio78", "gpio79";
+Thanks,
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-pocketds-v=
-3-0-d5910c801756@gmail.com?part=3D4
+Jonathan
+
+> +	{"adf41513", (kernel_ulong_t)&adf41513_chip_info},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, adf41513_id);
+
