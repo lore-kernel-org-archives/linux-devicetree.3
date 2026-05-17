@@ -1,154 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4A32E414
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC86314A98
 	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 05:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778997493; cv=none; b=koL77l1c5/ILI36KNFX8GBsYdOjeEyoTQFgUQma10Zn+7mWiM8yIDt+lBGXL2OCP098Ix1sS/i7RM3Jdq6cpvmPNwzb1qRe33Q7WdHZ6Xc8wRtDMdyXfYi8dCMQCVfixGeTj+VavXv7ZZx/ahymVp4l9+TtadIfcBTDqHtu2ft0=
+	t=1778997493; cv=none; b=Y2GkfHvHtsxmqbQGc5xiikpQ7EicoBiZ2sjNSrrCbuJdt7ursQBDVYL78wTOK5sJtnYHpq+ixvT1gBJpHfO6D/5xhYFn6IAtqJa1W5gJPKsZUyvlsXSiy7p6kDlSlwBS3Klxp/CMxsFWegoH8WMhNxnlaWUtR16NQPi8sRAKB3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778997493; c=relaxed/simple;
-	bh=7gAUi8FVjagQYymkXNoNXbR03Wmfkp6d3fjy73V9EvA=;
+	bh=8HIzCy+GjSHUVdOl9uNLNZYoA6dtKo3bSRDMqPIT+Ko=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TrgPOMWMM3WMrRxVdlVWKY0RScZuKxZHehc1HX4hPtS4vFU1T297izXkQRNtixW6QxxXS+m6i0WOnLWxocsyUXyIjX0XhjFBF2y+vcewfzsluzrNNaiwMkJjx8n97USIKyVLmza4VpV051RVGAdrlz1TCrtPdCvwfMVl+A2vD8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R18dX0Dr; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=DMan0YtV3qiE1ULxtPYBp6Xx9qn0Y7Ii5s3jUnjZokDIEWof/op2HM/j8Vha0sEk0hqzzIZ7dzvJsde05XP0sp7RRUYQZ8n1s7G8mrbTpBmazruVjB17h25ldQ5j/GjJmwGtPmZz+E4+y32M4lG3aLMpqu9r9glmXeQofNWdMh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MaskQcmI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R18dX0Dr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC33C2BCB0;
-	Sun, 17 May 2026 05:58:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MaskQcmI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF3AC2BCF5;
+	Sun, 17 May 2026 05:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778997493;
-	bh=7gAUi8FVjagQYymkXNoNXbR03Wmfkp6d3fjy73V9EvA=;
+	bh=8HIzCy+GjSHUVdOl9uNLNZYoA6dtKo3bSRDMqPIT+Ko=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=R18dX0Drn6mmXEFzHTOz557pfVO7rSVtUYyRqLMwpGAzHd5H09EmReL5t2zBQtKVb
-	 UkHaaKj38gHQAS7deGuNxv3CR8+E8Woi1GtENIL7g6oE7iD4hdCm/ZuDVn1AImAau2
-	 o7nkAegJrqUEAqcBJHCJN2GMN0aWzVnNX1koLwHGrVLZYRBydiPKYAs4Qzd5Mr44dd
-	 EuMaZRCuDNOFDLrgWxZSlQF2TA+mnfoLmDHQ0aBgAAYj9QTsCKSJIV3+Q5j759bNrD
-	 nmJWuOSiJE2Rk8XmyJO4bp7E9AnzoK6yrRO7hRV3M45bQubh/mwIYAR9vYrAjEWMtX
-	 vkv+8jmRDwOFQ==
+	b=MaskQcmIWY4UZ9o/G8Fq9GK/slX6DJ8ihKzx5Fu8XqS9efEbzk+in7ViH9SdpkCOY
+	 7+Lb2Oa7ecrmogX3Jbu8w57XJFWGapOe+jrCYcTSRq0fptiofXhtZZpfQqBOkuCZcW
+	 4lFN5INjAOf84ponqp3ShN0LCS1R54zYlITtSEWySJUtiI0rNZq4V1NDG2Dc4fi+j4
+	 ByFGQW2uWfQm8m/EDr8F1XwiYOQBVqEVHFrQQILuMMXKvQtWvkjykz0vsZ/JehQq+G
+	 YO7ZiwafSHElcs/xk97yMz9hfw39PUTgCexb+lJ8XmorAEdK+R+sQQmLwDt86tgDE5
+	 6I+urueYGanWQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 02/10] net: airoha: Introduce airoha_gdm_dev
- struct
+Subject: Re: [PATCH net-next v7 07/10] net: airoha: Support multiple
+ net_devices for a single FE GDM port
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260516-airoha-eth-multi-serdes-v7-2-99e0093303e2@kernel.org>
-References: <20260516-airoha-eth-multi-serdes-v7-2-99e0093303e2@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260516-airoha-eth-multi-serdes-v7-7-99e0093303e2@kernel.org>
+References: <20260516-airoha-eth-multi-serdes-v7-7-99e0093303e2@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 05:58:12 +0000
-Message-Id: <20260517055812.CEC33C2BCB0@smtp.kernel.org>
+Date: Sun, 17 May 2026 05:58:13 +0000
+Message-Id: <20260517055813.7DF3AC2BCF5@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The patch introduces a race condition exposing a partially initial=
-ized port, leading to a NULL pointer dereference in NAPI polling handlers.
-- [High] The `airoha_get_dsa_tag` function lacks packet length validation b=
-efore stripping the MTK DSA tag, leading to an out-of-bounds memory access =
-and `skb->len` integer underflow.
+- [High] Hardware state corruption for shared GDM ports
 --
 
-commit 3474bcc37d20c84839dc4e74bab44197a0507f51
+commit 68e8fa8fe02248409d0048f81217cd5cf7eda775
 Author: Lorenzo Bianconi <lorenzo@kernel.org>
 
-net: airoha: Introduce airoha_gdm_dev struct
+net: airoha: Support multiple net_devices for a single FE GDM port
 
-This commit introduces the airoha_gdm_dev structure to collect net_device
-related info, preparing the driver for a 1:n relationship between GDM ports
-and net_devices.
+This commit introduces support for multiple net_devices connected to the sa=
+me
+Frame Engine GDM port via an external hardware arbiter. Note that issues wi=
+th
+shared hardware state introduced here appear to be addressed in later commi=
+ts
+such as 28e02ac461157 ("net: airoha: Do not stop GDM port if it is shared")
+and 01081daf7ce24 ("net: airoha: Introduce WAN device flag"), which add port
+user reference counting, aggregate the maximum MTU, and restrict WAN loopba=
+ck
+configuration.
 
 > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
 net/airoha/airoha_eth.c
-> index 5a027cc7ffcb1..3ca0dbd19275a 100644
 > --- a/drivers/net/ethernet/airoha/airoha_eth.c
 > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-
-[ ... ]
-
-> @@ -2007,7 +2020,7 @@ static netdev_tx_t airoha_dev_xmit(struct sk_buff *=
-skb,
->  	u8 fport;
-> =20
->  	qid =3D airoha_qdma_get_txq(qdma, skb_get_queue_mapping(skb));
-> -	tag =3D airoha_get_dsa_tag(skb, dev);
-> +	tag =3D airoha_get_dsa_tag(skb, netdev);
-
-While looking at this patch, I noticed an issue in airoha_get_dsa_tag() that
-pre-exists in the code. Does this function lack packet length validation
-before pulling the MTK DSA tag?
-
-airoha_get_dsa_tag() unconditionally performs memmove() and __skb_pull():
-
-        memmove(skb->data + MTK_HDR_LEN, skb->data, 2 * ETH_ALEN);
-        __skb_pull(skb, MTK_HDR_LEN);
-
-If an unprivileged user sends an undersized packet via a raw socket
-(AF_PACKET), could this result in an out-of-bounds memory access and cause
-skb->len to integer-underflow?
-
-This could lead to dma_map_single() attempting to map a massive amount of
-memory, potentially causing an IOMMU fault and a local denial-of-service.
-
-[ ... ]
-
-> @@ -2975,53 +3060,22 @@ static int airoha_alloc_gdm_port(struct airoha_et=
-h *eth,
->  		return -EINVAL;
+> @@ -3035,11 +3043,25 @@ static int airoha_alloc_gdm_device(struct airoha_=
+eth *eth,
+>  			 netdev->dev_addr);
 >  	}
 > =20
-> -	dev =3D devm_alloc_etherdev_mqs(eth->dev, sizeof(*port),
-> -				      AIROHA_NUM_NETDEV_TX_RINGS,
-> -				      AIROHA_NUM_RX_RING);
-> -	if (!dev) {
-> -		dev_err(eth->dev, "alloc_etherdev failed\n");
-> +	port =3D devm_kzalloc(eth->dev, sizeof(*port), GFP_KERNEL);
-> +	if (!port)
->  		return -ENOMEM;
-
-[ ... ]
-
-> -	port =3D netdev_priv(dev);
->  	u64_stats_init(&port->stats.syncp);
->  	spin_lock_init(&port->stats.lock);
-> -	port->eth =3D eth;
-> -	port->dev =3D dev;
->  	port->id =3D id;
->  	/* XXX: Read nbq from DTS */
->  	port->nbq =3D id =3D=3D AIROHA_GDM3_IDX && airoha_is_7581(eth) ? 4 : 0;
->  	eth->ports[p] =3D port;
-> =20
-> -	return airoha_metadata_dst_alloc(port);
-> +	err =3D airoha_metadata_dst_alloc(port);
-> +	if (err)
-> +		return err;
+> +	/* Allowed nbq for EN7581 on GDM3 port are 4 and 5 for PCIE0
+> +	 * and PCIE1 respectively.
+> +	 */
+> +	index =3D nbq;
+> +	if (index && airoha_is_7581(eth) && port->id =3D=3D AIROHA_GDM3_IDX)
+> +		index -=3D 4;
 > +
-> +	return airoha_alloc_gdm_device(eth, port, np);
->  }
+> +	if (index >=3D ARRAY_SIZE(port->devs) || port->devs[index]) {
+> +		dev_err(eth->dev, "invalid nbq id: %d\n", nbq);
+> +		return -EINVAL;
+> +	}
+> +
+> +	netdev->dev.of_node =3D of_node_get(np);
+>  	dev =3D netdev_priv(netdev);
+>  	dev->dev =3D netdev;
+>  	dev->port =3D port;
+> -	port->dev =3D dev;
+>  	dev->eth =3D eth;
+> +	dev->nbq =3D nbq;
+> +	port->devs[index] =3D dev;
 
-Could an interrupt cause a NULL pointer dereference in the NAPI handlers?
+With multiple net_devices now sharing a single GDM port, could this cause
+hardware state corruption when configuring shared hardware registers?
 
-Since NAPI is enabled earlier in airoha_probe() via airoha_qdma_start_napi(=
-),
-and eth->ports[p] is assigned here before airoha_alloc_gdm_device() populat=
-es
-port->dev, NAPI handlers like airoha_qdma_rx_process() could see a NULL
-port->dev:
+For example, in airoha_dev_init(), airoha_set_gdm2_loopback() overwrites
+the global REG_FE_WAN_PORT register entirely, which might wipe out the
+configuration of previously initialized devices on the same port:
 
-airoha_qdma_rx_process()
-        ...
-        port =3D eth->ports[p];
-        netdev =3D port->dev->dev;
+	airoha_fe_rmw(eth, REG_FE_WAN_PORT,
+		      WAN1_EN_MASK | WAN1_MASK | WAN0_MASK,
+		      FIELD_PREP(WAN0_MASK, src_port));
 
-I note that this issue is fixed later in the series by commit 68e8fa8fe0224
-("net: airoha: Support multiple net_devices for a single FE GDM port"), whi=
-ch
-changes port->dev to an array and adds proper NULL checks.
+Additionally, in airoha_dev_stop(), unconditionally writing FE_PSE_PORT_DROP
+to REG_GDM_FWD_CFG(port->id) appears to drop all traffic for the entire
+GDM port, breaking other active devices sharing it.
+
+Similarly, in airoha_dev_change_mtu(), overwriting REG_GDM_LEN_CFG(port->id)
+with a lower MTU could restrict the hardware limit for the entire port, cau=
+sing
+packet drops for other devices that require a higher MTU.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516-airoha-eth=
--multi-serdes-v7-0-99e0093303e2@kernel.org?part=3D2
+-multi-serdes-v7-0-99e0093303e2@kernel.org?part=3D7
