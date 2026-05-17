@@ -1,147 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56C62E414
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 05:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334BA2E414
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 05:58:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778997494; cv=none; b=LmdyybIvslfqcLMWdFRhOYuE+iScccdi+GidGDxCq/EK3BDzRQagKnbMgMi/lJ1LAEETKBoG1z4FDyQfiilTC29V9dj280soliPmjPqP+Xrl2IDXb0viwS7p/IWmKwUV+NBHbQVTBLoM60e7PIBULkizSRp0oLDqyobZbhuFgwA=
+	t=1778997495; cv=none; b=ZTTEx2pVqa5novV3oxBIT+rmptoCUAqZ4/NCGb18aIt1/fCnyT7W0hiOuxQgvLFfYL4IFZVtZWb1up/0CtJStIavvgb1hW/2P8u3g2j5ZyT01wYn+LIYzp5BODdHxKZvswXVvT4IP1J9HfAqdmY+pmN4dZi/3UmulU4kr2RKL/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778997494; c=relaxed/simple;
-	bh=K88ZJiLw5ctd0Di2P9lDQyM+4QJGSnXaUU8/IYFroyw=;
+	s=arc-20240116; t=1778997495; c=relaxed/simple;
+	bh=MaAt1gypCSiVJlVm1ErazOM55HJERe3KwKrmZwTdsU0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tWwYtIOJqIqz/c5p8cDmLhRwgJcY/HxnoGekLX5KKI9TidUw4FTqZ2DbALA3NqJ4qMvgTO+dk2fvuF/L961T3h+YBdim+DVi0MB8UGkslz5dITg2FCN5dwGntamkqpp7QPmeqtYyZl7kiqCpNXR+oJdyJWCoWcJKAR1Cc6CCXrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tJzF51UA; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=UzTJviFENedADRBqNdBTHvlHXcu972NwBV+YOnbSO5+7SZ+25lPFNFJ19kqdi/fgM1DEyibmxzU/Hoq0SrF8DdASZsf04le63TqUmQmk4cXOZIRzt4ifuFxA2tvDlTT2osYNFTktAap1YQ8d6Ntu08kHxdZl1VK63FxLk5dKMoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uBP4kpXO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tJzF51UA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D107C2BCB0;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uBP4kpXO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1F8C2BCB0;
 	Sun, 17 May 2026 05:58:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778997494;
-	bh=K88ZJiLw5ctd0Di2P9lDQyM+4QJGSnXaUU8/IYFroyw=;
+	s=k20201202; t=1778997495;
+	bh=MaAt1gypCSiVJlVm1ErazOM55HJERe3KwKrmZwTdsU0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=tJzF51UAEqhwwtSFCxlj9KxUjF1hIfXUs9SeWIzMMHiYfVoeNJXcxaXLIgJWux7tM
-	 VgdgrZ3ZzdUhXx2JUPThjaQbzkq+laBfGgFQS+M68HJRbNdOjH3zsSeFl2vUaLNS8k
-	 CrNRzfUineVTTGjOPL9zHXlictJyB5iJb+3Aq3GpNIenRb9slhu+5Pis6oyNDex65G
-	 U7xFhLGwGC97Uyyrx48fF1D6jt6m/lAmhYlU3obfNCm4G18kNRGHYsN2AkRBdmW45d
-	 Z2tPmAra9s0invhoyEQrA7Jf+2OZi5g3Piv9t4kwTz9R1rcFcyyJ+INkAGMa4AXDkb
-	 lThymkpuhpnHw==
+	b=uBP4kpXOWTtoqYdqDu7UZi63lOz9dRa9G1XOeZ/lbLGUE009Qt8yJXONzPrX33eF7
+	 UZ6JdDFPJGO1Sa9kY11GO7f+O9K6Wc3+3m0mFjI5tGsMYVo0A5oE5nurl4lgRE4KHv
+	 P2e7Hh5mvX+FN7q43H/+DwInV32LzFNdO2AowLyM53IDfBEWmMsUm66x7NYmEDdkbo
+	 Vjt6Fyqqe95Tl500E3TmREtFrZo9Gk++CkQ8oYBYQx2fK0LLbp+751fI82824XCUdH
+	 nz0cfBs20zgadxyO8yZn5G0VQAo+k/fY9ibm2b1Ai3J0gP708xduvdFj4rlDLc/4yT
+	 JY1G900g545gA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 05/10] net: airoha: Move qos_sq_bmap in
- airoha_gdm_dev struct
+Subject: Re: [PATCH net-next v7 08/10] net: airoha: Do not stop GDM port if
+ it is shared
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260516-airoha-eth-multi-serdes-v7-5-99e0093303e2@kernel.org>
-References: <20260516-airoha-eth-multi-serdes-v7-5-99e0093303e2@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260516-airoha-eth-multi-serdes-v7-8-99e0093303e2@kernel.org>
+References: <20260516-airoha-eth-multi-serdes-v7-8-99e0093303e2@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 05:58:13 +0000
-Message-Id: <20260517055814.3D107C2BCB0@smtp.kernel.org>
+Date: Sun, 17 May 2026 05:58:14 +0000
+Message-Id: <20260517055814.DB1F8C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Off-by-one error in airoha_tc_remove_htb_queue when clearing hardw=
-are rate limit.
-- [High] Blind increment/decrement of real_num_tx_queues breaks HTB offload=
- for non-sequential queue IDs.
+- [Medium] Flawed hardware MTU recalculation logic in airoha_dev_change_mtu=
+() for shared GDM ports
 --
 
-commit 7088e1abda5f2f9f4a048fc5586684fdaf382845
+commit 28e02ac4611575e19c4f6eef3fa74c11d4debb6e
 Author: Lorenzo Bianconi <lorenzo@kernel.org>
 
-net: airoha: Move qos_sq_bmap in airoha_gdm_dev struct
+net: airoha: Do not stop GDM port if it is shared
 
-This commit moves the qos_sq_bmap field from airoha_gdm_port to
-airoha_gdm_dev to prevent overwrites when multiple net_devices share a GDM
-port. It also adds qos_channel_map to track QDMA channels in use.
+This commit updates the driver to allow multiple devices to share the same
+GDM port. It stops the port only when no other devices are using it and
+adjusts the hardware MTU to accommodate all active devices.
 
 > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
 net/airoha/airoha_eth.c
-> index b90fc1cbfbc48..2a2a30dbad27e 100644
+> index 8558790eca644..c70e3ace38e25 100644
 > --- a/drivers/net/ethernet/airoha/airoha_eth.c
 > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> @@ -2597,44 +2597,61 @@ static int airoha_qdma_set_tx_rate_limit(struct n=
-et_device *netdev,
 
 [ ... ]
 
->  	err =3D netif_set_real_num_tx_queues(netdev, num_tx_queues + 1);
->  	if (err) {
->  		airoha_qdma_set_tx_rate_limit(netdev, channel, 0,
->  					      opt->quantum);
->  		NL_SET_ERR_MSG_MOD(opt->extack,
->  				   "failed setting real_num_tx_queues");
-> -		return err;
-> +		goto error;
->  	}
-> =20
-> -	set_bit(channel, port->qos_sq_bmap);
-> +	set_bit(channel, dev->qos_sq_bmap);
->  	opt->qid =3D AIROHA_NUM_TX_RING + channel;
-
-This problem wasn't introduced by this patch, but is a logic flaw that
-breaks the offload functionality.
-
-When allocating a QoS channel, real_num_tx_queues is blindly incremented by
-1 while the qid is derived from the channel. If a user allocates a
-non-sequential classid (for example, mapping to channel 3 when it is the
-first allocated queue), real_num_tx_queues will become
-AIROHA_NUM_TX_RING + 1, but qid will be AIROHA_NUM_TX_RING + 3.
-
-When transmitting, netdev_cap_txqueue() strictly validates that the packet's
-queue_mapping is < real_num_tx_queues.
-
-Since qid exceeds the blindly incremented count, will the stack log a warni=
-ng
-and forcefully route the packet to queue 0, silently bypassing the HTB
-hardware rate limit?
-
-Additionally, does blindly decrementing the count when deleting queues
-immediately invalidate any active higher-indexed queues?
-
-> @@ -2815,11 +2832,13 @@ static int airoha_dev_setup_tc_block(struct net_d=
-evice *dev,
->  static void airoha_tc_remove_htb_queue(struct net_device *netdev, int qu=
-eue)
+> @@ -1917,13 +1945,18 @@ static void airoha_dev_get_stats64(struct net_dev=
+ice *netdev,
+>  static int airoha_dev_change_mtu(struct net_device *netdev, int mtu)
 >  {
 >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> -	struct airoha_gdm_port *port =3D dev->port;
-> +	struct airoha_qdma *qdma =3D dev->qdma;
+> +	u32 cur_len, len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
+>  	struct airoha_gdm_port *port =3D dev->port;
+> -	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
+>  	struct airoha_eth *eth =3D dev->eth;
 > =20
->  	netif_set_real_num_tx_queues(netdev, netdev->real_num_tx_queues - 1);
->  	airoha_qdma_set_tx_rate_limit(netdev, queue + 1, 0, 0);
-
-This problem wasn't introduced by this patch, but the patch exposes it to
-cross-device corruption.
-
-In airoha_tc_remove_htb_queue(), the driver attempts to disable the hardware
-rate limit for the removed queue by calling airoha_qdma_set_tx_rate_limit()
-with queue + 1. However, the queue is originally allocated and configured
-using the channel index (where channel equals queue).
-
-Passing queue + 1 fails to clear the rate limit of the actually deleted que=
-ue,
-permanently leaking its hardware state. Furthermore, it incorrectly zeros o=
-ut
-the rate limit of the adjacent queue.
-
-Because this patch allows multiple net_devices to share the same QDMA block
-and its channels, could deleting a QoS queue on one interface unexpectedly
-corrupt the QoS hardware state of another interface actively using the
-adjacent channel?
-
-> -	clear_bit(queue, port->qos_sq_bmap);
+> -	airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
+> -		      GDM_LONG_LEN_MASK,
+> -		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
+> +	cur_len =3D airoha_fe_get(eth, REG_GDM_LEN_CFG(port->id),
+> +				GDM_LONG_LEN_MASK);
+> +	if (len > cur_len || !port->users ||
+> +	    (port->users =3D=3D 1 && netif_running(netdev)))
+> +		airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
+> +			      GDM_LONG_LEN_MASK,
+> +			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
 > +
-> +	clear_bit(queue, qdma->qos_channel_map);
-> +	clear_bit(queue, dev->qos_sq_bmap);
->  }
+
+The commit message states that the driver must "always set in GDM_LONG_LEN_=
+MASK
+field of REG_GDM_LEN_CFG register the maximum MTU of all running net_devices
+connected to the same GDM port."
+
+Does this logic successfully recalculate the MTU when the MTU of a running
+device is decreased while sibling devices are also running? In that scenari=
+o,
+len > cur_len evaluates to false, which appears to skip the update and leave
+the hardware MTU stuck at the previous larger value.
+
+Additionally, if an administratively down device has its MTU increased,
+len > cur_len can evaluate to true. Does this prematurely increase the
+hardware MTU, exposing the running sibling devices to larger frames based
+on a stopped device's configuration?
+
+Would it be more accurate to iterate over the devices to compute the
+actual maximum MTU of all active devices here, similar to the approach taken
+in airoha_dev_stop()?
+
+>  	WRITE_ONCE(netdev->mtu, mtu);
+> =20
+>  	return 0;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260516-airoha-eth=
--multi-serdes-v7-0-99e0093303e2@kernel.org?part=3D5
+-multi-serdes-v7-0-99e0093303e2@kernel.org?part=3D8
