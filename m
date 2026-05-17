@@ -1,111 +1,83 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80433C6A27
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6103C9EE7
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779039001; cv=none; b=VIkDBLkTVcrCD6So9vCJl9nUCqNjinnU3QbtYhD+0U5oGOb8VcMLFdKXIDUy/XJnG2NEjPhVeZV5jp3PWKADLbR0xvKEBxzcRoCSpeLuGfJnU/aKX0cC9uyeRHYd/oIJ2wTghu0Rm80acWqnPrQq24G8O0qtJGULfPaG1dLYPYo=
+	t=1779039040; cv=none; b=NJaCHFzGarPnj4xw6EaYHu/wyCskC1AETcqzSRcoGie+dvRIiWpQ/Xy4jTU0uInZvjOb2M4OAcBwpeu1Qdrw5hIzDjTGb1DmdDLMisATDzgUBizLkKkRz1a90OcKXV0g9RZT1ubrx5ALAlSU7yWJlL408J5zKeqs+IP8DGjbBwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779039001; c=relaxed/simple;
-	bh=6py1zoHaVdRk/ukIHqAdD7V61Ikdrr3sm0apl9nG3Fk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EITntXqioutG0tN2z+xmn/1QfCPS6U40fNcTmS82NuKqZCN3dzTAoDJvxMUjvM65qVfqOG2IY09slfsEKlZ1yWjsiSREjaQweUPBDInB+xx0kBAb983BnxwVNmE//1SOBsIxgtZs9e78G+Oy/1ESRhq1924A3oF5KUl+gYhixTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a2zaxeiV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J4sJ6gmH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779039040; c=relaxed/simple;
+	bh=ZN+M4Cchoa1lUZGVHkJaXVLB6ZtVvpayoDZ73oWRJAo=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sdIJFI0AIVH+i0g7KSBK7wEBzZmRaymtW8jcXL/X0/ybRx3UEh1JLEKysCq02gsqPBieA3G+Mbwrg6k98BdwmtVHNGxbb4KDkmSCjKSL13fmgNi7XvrbBSlWde+bJw76tgr+6s/gQBzP3wChflNkgpN7o0BwuGJT3mQYaFSnxZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ILn6PBvA; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a2zaxeiV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J4sJ6gmH"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64GNK2751931006
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:29:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=JpdeiS1uA+pl00HV/TMDS+WW
-	ayMzmhtr2xGT+L36+54=; b=a2zaxeiVGVoq4L/MfYoLpjoCw8rrZVrcuElfi8G4
-	ZPiOY9VgXyJAAtkRo0RXWEk/6IcJuerIyGVgycOF7bkTaYBUqRrS8B6xab2MYQO0
-	+o/Tvg5gLaE3cd5d616BX0HBzo8TSFV7/klc1j6cWjoP3ogVWVPxE0dmRkGqnQDh
-	CG+AqgeZqzE6Wvif5h/Mu9wREMoemT3V2TKxVBs3MCuLzrNHYgVo7ofLsVDyNf5n
-	yYNqLXqc/+mU3QoWIQ9bxcQZJwo+QyiojF9HK8lYGVq+GEC1pF0rPmBMZRhLS1Vb
-	fVHd5DOmWDWql7Um+Dwrmw4Z7As9t3zr0DtTWb8y7cxjdg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gx6u8je-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 17:29:59 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d9a6a853bso48982671cf.0
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:29:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ILn6PBvA"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-48fe26a177cso8605325e9.1
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:30:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779038998; x=1779643798; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779039034; x=1779643834; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=JpdeiS1uA+pl00HV/TMDS+WWayMzmhtr2xGT+L36+54=;
-        b=J4sJ6gmHM6v+w/CKOElgTF/RFsvztbXrrDv3bR7HSNaqBA17aHQl01kv+tYe0IbrV2
-         d9IKHbDKnxrZXjC/aZSaBENKt0ffYBUNoxAMXmvDqTH1j/931z7kiwwHgWqWQjNZVW8D
-         TIU+qZ1eRPggG3CxHAmlZliNw3+/yf0rnJvHCqdxCRG2avB8HUV6oaRsvn10V9FrcY6c
-         FJxFak25gwcMSzSX7xutVB0CberTmpVLqME2leXO6wmvf7LWlEdarGYG7TqPnY1Ewty1
-         i40cd1n45TCu6BYmjej9Dnom+bFZS4Esv6MdoteImktqcGQyikyDbbn/mVxljtCvShDg
-         VS8g==
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=biN63ninIqhGSrYMwDyAgi4Qnh2QQxC8g5gMwT2w1jQ=;
+        b=ILn6PBvAE4vEIn/gQKL3g1QZDQM5AH+iyz7FsTSK4GO7ra5i1V6PhR423ZdBEhEgKf
+         ow+u1wM/oWnxJQZODL4IllpQ/PdI4bIBjCyTpAHOteIZcE2+4ndeC1K6dKIwpcswJMYn
+         5Cib4cyH0Eel063IOE3EvRQ9Om1v5TTxs5LzGLQ0w2SzFegUKaiX7HI1BdGF0n1moeLh
+         xNWpiqD5pXS920Li9HSx25DDxqovXuZP+LvueVnSmJlg2g5lSuo0sIbFYNZW81k6sYB6
+         IILR+Bf/x8n67wqCxWmpRJtOnwAtvqiWgvJ0kDHxiqaQYy5feBVsjPhZdf7tqLFWK/by
+         whVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779038998; x=1779643798;
+        d=1e100.net; s=20251104; t=1779039034; x=1779643834;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JpdeiS1uA+pl00HV/TMDS+WWayMzmhtr2xGT+L36+54=;
-        b=Ou2DFTXkzYL8yo5ZsnG8DcO7Y+BvaYohC0U8vmp0r2N9b0Vaqx7rAcQHA/pfp6Bg/L
-         N4c4wxu5YZoP0/BIxZKb5J92xXIWCEtfsaRzuryG3VOcQ/XhH2RtEihCTQt6tIHNxErW
-         h91hWibC8gagFGyjql6HCbJZtMsuVMXdc6McgoaZQlkhwAhwCDS3/6ogpJzwAG7TaISj
-         6GsNVT7mXYpTvOHXCKj1fB21UGOodgwkWDSmUY5mIqG7jHJ2a8CZTX0sXtLljtlzdCII
-         rzMKZADPvMpdc8URqFJXpr0OpwmoVGPKvWYn7ju9aXbIAHxrbwVBo9orPbvP/AZMP8D0
-         wIaQ==
-X-Forwarded-Encrypted: i=1; AFNElJ87E0WjyFfmMUWVZOawllyWZMiP2fdKCSXQB9ZkHazEASH4a9Go3Vzuv2zGSqluRq1TBhT0sP+S2jsR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjpkYq4KmIPVLX62mDmwzBCl1tMxlXQ+f1BJHfSJZGARUh+xjj
-	68aoO9nW6DaJkSK9voGYrr3Huwcyugs3UloZHgiEQy1jMdXlqjZeJ8j/NdS/eO8Wf9IXwcVfu89
-	DXtvxprC9lLUV/OJN+p20JjJvWkSmOYyuqpSdxFO/zNQ7IHwnbTbL5EK9iFB/JSwz
-X-Gm-Gg: Acq92OEkfeVNOKp+Ijwiosbu1qEpo+pE2KFarur3dMvnMtqxxzExhUmBqcXYD5n21iJ
-	ZG+Wqxc8jvQdsHyFkbe40Iu3RXmEoJMGGQzFNbrFTsegQvYBHJl5Rao0ztXvn1EmpddzXRznnSv
-	YPCIWuFo8XhbjytAphB5Qnxmyap94/asXA5Y16wgZivybaYvUFM903S1hv4dk3Yum3a/6TwLzni
-	6inSbxKgJCQL7+9Spqbyi3cKLZFWntx35qEypDTJPRZeCGQdxohXd91plIiwNeDayHQY+iMbCIt
-	fQuwbzcf2lyCh04khD9PC5ngGL9nnxQrXL875ypX3bgpKZAc7ri2o0xrWlnMNzswe0K77BurfE/
-	aJ4JebKbJRj2Z9GjfEhnZLnhknQGlU6ktsZfbXYYerxbrdwkjmwpVhX76kwIrYBVUXAQB+jv4vJ
-	h1yZ3nmvPUpCA5tjWvgV3ajb7YDYdXdDWd7jM=
-X-Received: by 2002:a05:622a:6bc6:b0:50f:b3d2:6ee1 with SMTP id d75a77b69052e-5165a1eadf4mr127697161cf.31.1779038998118;
-        Sun, 17 May 2026 10:29:58 -0700 (PDT)
-X-Received: by 2002:a05:622a:6bc6:b0:50f:b3d2:6ee1 with SMTP id d75a77b69052e-5165a1eadf4mr127696841cf.31.1779038997655;
-        Sun, 17 May 2026 10:29:57 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395882c4683sm6281841fa.13.2026.05.17.10.29.54
+        bh=biN63ninIqhGSrYMwDyAgi4Qnh2QQxC8g5gMwT2w1jQ=;
+        b=i+OOXY+s1Ig2unKk1Uz1YJj9oGF65zexm+QmVNDWhNCNj4jAC9bYLiPd2PetCJgIKe
+         k2rQOuaFAXmi8DUJgy1lChAFECC00aHGcPCP1qRXQX00fryrg1drov5ACzPdNo2D90aa
+         SCuxMBQP+JyoQPj+/27Gk7DGQDZF52DF9db/0mUvVQB56pVhC/WDrkmOFZ802vlLdTQt
+         IgspMQIyxPDclpqRnU3nSbz+wouWVHrEFF157PkFobSd2xLHnYBDBSbO/+bpW3VJeZht
+         ojVazSw9BtJLULbvceO2Vlgo500XLJ36EAhszcT2bt/VX9L+AEs84PXuOjq5WdsHPH6G
+         YnlQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8vmB+WIRHiSHFSeREClUUTTlLK0/JwzMqaOu5lCJI5Gfqgs/9C3jORAIMkyOQvtJ76+CKp/iRtk5oU@vger.kernel.org
+X-Gm-Message-State: AOJu0YywmaMf8WL/ZPFwEpSOPF+wNtNfuDIZKsRxAV83M/P9iQFvQkkJ
+	ntAXewK87ITQt2oGaYyprElhhBP7RKTdLvlX//U+6V0Fw2Rv2vWwIlEP
+X-Gm-Gg: Acq92OGulIL73Am8jRovCFY6hjwDrjOco88w1sa29VoVdRSwwiia1N/1MgHF4rdtH2p
+	Y7luEHtR1Jtwf1gd6WInK+Yp8px/FyKt8wLqvD7ixRYMjI46YnpF4z/5ZJMzeOIybyhD0tT9tLg
+	KUTa5yKYRg2Ls2k/j095sTcpCGsbbk9t6PhIsS4dUJXRZ5soJAwDb3xyI4vcF5F2qUZPJ6T0YfV
+	pnew3+AdeXZqvtCOSBWcj2ytQoNwcab856c8ASFLlZBCvK2a67od8gibgqjQXaUwgIP7Oi7AP6Z
+	pDW7dpChNWoBmE94G/WejKg1rJrQruRHwvVnC78wepitAN+0sWDSKan/HSSACFxYfFy7olCiUR8
+	NTmU9jD8kR7qAecPG7LqfwraRSpJEcqO8V8+6zzwM1avfOWT/ncDZ2hMq7es0g/xusBbYohXTG1
+	qWFQpLkTP+qQHuGIyAe7YhcsgDcrYkZ6wPcNJQrLwyeGNumsCOC/bSVwRHhBcvQixlJn2nLcTpa
+	OgX1xK/F4lUQpWDkmo41KYiOgj44IU9+PnKTTES5t0Ih/9HB2exnGtdi8CONC9Aki/H7Hw=
+X-Received: by 2002:a05:600d:8448:b0:48f:fb0d:8d86 with SMTP id 5b1f17b1804b1-48ffb0d8ea0mr83999885e9.32.1779039033987;
+        Sun, 17 May 2026 10:30:33 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48ffed68baesm35541065e9.0.2026.05.17.10.30.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 10:29:55 -0700 (PDT)
-Date: Sun, 17 May 2026 20:29:53 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Del Regno <angelogioacchino.delregno@collabora.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
-        devicetree@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 03/14] media: iris: Fix VM count passed to firmware
-Message-ID: <izj6zy7c4ec2cjbsznkaxa4q3hupwteqprjzpajjquwchwa227@mplk7d7uccz7>
-References: <20260509-glymur-v5-0-7fbb340c5dbd@oss.qualcomm.com>
- <20260509-glymur-v5-3-7fbb340c5dbd@oss.qualcomm.com>
- <zfh3hb4gowxejxeip3l24jub2z3xh26pzl5xmjhjos634c6e3u@y26yubeb7v33>
- <11c63862-5e8b-9f3a-5479-706e672879a5@oss.qualcomm.com>
+        Sun, 17 May 2026 10:30:33 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Sun, 17 May 2026 18:30:27 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v4 09/10] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
+Message-ID: <yrabhhhdkzmiuxlqzrrj6a47ftlzwvva7r2korzeszdy4yqrin@xl6obhhnnas4>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+ <20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
+ <20260517155843.7f833658@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -114,69 +86,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <11c63862-5e8b-9f3a-5479-706e672879a5@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: h5fZ6VgnskzvB7NilIST8VnQV0k5kPmp
-X-Authority-Analysis: v=2.4 cv=f614wuyM c=1 sm=1 tr=0 ts=6a09fb17 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=oM8CjG1BZR9KsnUa8EkA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: h5fZ6VgnskzvB7NilIST8VnQV0k5kPmp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDE4OCBTYWx0ZWRfXwLGQQ64FKz+6
- RJERTrP/b/xKbV/1wEsMxJXND7QaFAgkjfFV4gUysrQ3ytqowh+YKBZNj6sbC6fwAW8zgmB/QLJ
- fCONfE2U8QCnh4wp6cyd/DxlKDLFivAKZRUmNEBLswskyzqYhUsNj9JDGDZequ/5teA+xk4V+Hl
- 2o1E/AxFWGO8/cfNs9e3QcNySRbXRoyqfrdckUdNj8AwS6uU9iUpQDtc4mOsa45D+dVbBqMvIjO
- 080kJUK24iQAUQntpIwvS3YND/OM843yDHUmageNvH8ww7Tj8V+hKTFw+FUpV9u+Lm7BbgBIlX2
- TjZmHxUjnqup6VExuT2Yt1sb2ni+A6BiHZXR8TUANo4LUyVt3feqUnjoSs71rCzyNVibe22xhJV
- /WKdjK3lsaInTcI+TF2/mGjWwpX46Svun2tGKU7Whn1hfTPzXj+fHEl1le3lTIGdKaPRnYcOvRV
- 10Acx02DVeJqhnuX1uQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-17_04,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605170188
+In-Reply-To: <20260517155843.7f833658@jic23-huawei>
 
-On Fri, May 15, 2026 at 04:48:44PM +0530, Vishnu Reddy wrote:
+On 26/05/17 03:58PM, Jonathan Cameron wrote:
+> On Fri, 08 May 2026 18:00:25 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 > 
-> On 5/9/2026 12:50 AM, Dmitry Baryshkov wrote:
-> > On Sat, May 09, 2026 at 12:29:52AM +0530, Vishnu Reddy wrote:
-> >> On Glymur, firmware interprets the value written to CPU_CS_SCIACMDARG3 as
-> >> the number of virtual machines (VMs) and internally adds 1 to it. Writing
-> >> 1 causes firmware to treat it as 2 VMs. Since only one VM is required,
-> >> remove this write to leave the register at its reset value of 0. This does
-> >> not affect other platforms as only Glymur firmware uses this register,
-> >> earlier platform firmwares ignore it.
-> > The explanation is pretty suspicious. I can see this write in venus
-> > sources too and it was added in the initial submission, dating 2017. The
-> > driver targeted two platforms, MSM8916 and MSM8996, so this write
-> > predates Glymur pretty much.
-> 
-> Thank you for the historical context! I checked with the firmware team and
-> confirmed that this register is not read by any of the platform firmwares
-> currently supported in the Iris driver. Regarding MSM8916 and MSM8996, those
-> are not supported in the Iris driver.
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add custom ABI documentation file for the DDS AD9910 with sysfs entries to
+> > control Parallel Port, Digital Ramp Generator and OSK parameters.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> I'm fine with phase and frequency as defined, but for the scaling it made me wonder.
+> For outvoltage0 channels the assumption the value is the peak voltage so if
+> we know what input to be modulated by the ramp generator can we express them
+> in volts (well milivolts) rather than as a scaling multiplier?
 
-So, which platforms actually needed that register? The "currently
-supported" is not strong enough. We are bringing in Agatti support and
-support for SM8150 and SDM845 is in discussion. I would not be surprised
-if we end up porting other older platforms too. So, you are changing the
-historical behaviour. You need to document the applicability of the
-change.
+The DAC output is current-based and differential. Voltage conversion would happen
+outside the device... using a resistor load or an op-amp transimpedance stage,
+and I am no expert on that, but that often requires impedance matching so voltage
+levels may depend on the frequency. Then, I suppose that voltage is not the right
+unit to use.
+
+The scale here controls the amplitude of the varying signal. Assuming the peak voltage
+(amplitude) is constant means we have a constant envelope, but that should not mean
+we can't control it or it should not mean that the hardware can have other ways to
+control it. That said, scale behaves as a "gain multiplier".
 
 > 
-> >> Fixes: abf5bac63f68 ("media: iris: implement the boot sequence of the firmware")
-> >> Cc: stable@vger.kernel.org
-> >> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> >> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> >> ---
-> >>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 1 -
-> >>  1 file changed, 1 deletion(-)
-> >>
+> That seems to me like it fits better with the overall ABI.
+> 
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_offset
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		For a channel that allows amplitude control through buffers, this
+> > +		represents the value for a base amplitude scale. The actual output
+> > +		amplitude scale is a result with the sum of this value.
+> > +
+> 
+> > +
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_roc
+> 
+> Silly question perhaps but can work out how this related to millivolts/sec
+> That might make a more intuitive interface than scaling multiplier per sec
+> Perhaps the combination with offset makes this impossible though maybe that
+> could be a expressed as a voltage offset?  Afterall if the amplitude being
+> scaled is 5V then 5 * (offset + scale) = 5 * offset + 5 * scale
+>  
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		Amplitude scale rate of change in 1/s for channels that ramp
+> > +		amplitude. This value may be influenced by the channel's
+> > +		sampling_frequency setting.
+> 
+> 
 
 -- 
-With best wishes
-Dmitry
+Kind regards,
+
+Rodrigo Alencar
