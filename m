@@ -1,94 +1,129 @@
-Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B0430566A
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 10:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401C835DA6A;
+	Sun, 17 May 2026 10:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779014407; cv=none; b=BOfOKBHSNEehyBf/9A1f5RILqFe0i39wtQozB+2QKimDBWme3T+SMAnSX1IDraJD2i3C9nNU8rPVwQOyYcqMLHFi0CaWhpJzZ4dRD4wtE30QV194kEFOX/WRXgpkEOKjFfNKeznTNLKfYJsCQeCO6MmMlroIr7Yz+HKV9RBlT0w=
+	t=1779014430; cv=none; b=tkeq54QWYqTk2uGixXnHGWdiIbQewl26b7OQY3JGQUldXZVEhxx+NVgeEbXXWlTcnIeBMlkm6xIE0qhuE4brkUhbYNUKRbX69xZPtvhykvaHSihO/VBaW2OY3+JYHu3y2Ux7IygKO6mo5u1nmAg3yDdqIEoge/rDZcbJElxmFmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779014407; c=relaxed/simple;
-	bh=QVDFICNKk8kg6qirWsiEWP/qhZZeBOs4t3uNbH6t0KM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bBxP/bwud7136m4wQI7JPT4xB/9jmzlKPns7q79hZT48Sc6lA3I6uJLLxPUNIMMBHtV9WB9rz8EoFNt6UUPPNdVj8F/r+hp/IswZFkjmKBYFZSXQRLVFJe3lE2M8lxsRPWqi6AW4C9JliRIy5+7rnZpZ+uOmFlLSwQCOVPr1/SY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=bOglyjIh; arc=none smtp.client-ip=84.16.241.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
+	s=arc-20240116; t=1779014430; c=relaxed/simple;
+	bh=3+pu7n1CG+XGB3Ldn4JBhKXZKe50YpSBlqvjDoYq7e4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u7IBTjabDXUwDzl3xECg0hYMKkjt8ML7zEYjng2K/f5Y1bNLWosKS6IdwcBLoQ2Wka9/LB482/7bc0EEUOepCXdhfleC/u4IysUFE0OWJtnSSXlsj8M/srzQYTlTCC3MCeEEt6kmt0NWHRyOtLxGbqEZysK3715Kp5qoohoPJRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oCnt/T1h; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="bOglyjIh"
-Received: from [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d] (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sander@svanheule.net)
-	by polaris.svanheule.net (Postfix) with ESMTPSA id EE06078365D;
-	Sun, 17 May 2026 12:39:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
-	s=mail1707; t=1779014394;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BEYr5XX2z69OBAzGa57bCeR3hxABq7SAzUw126Kb08k=;
-	b=bOglyjIh5JuKZRWMRYcO2D4+Uw7+GWMiLC0bGEG6y6WspgNibTVg/ua5f0bVFl2VLVP8Ko
-	LrZo7k5GqUThsDMKiawWj7PFHPr+IXzSO3mtNrIOFNSkTkxEjWqMujfN5rLF4IV9vGd2EN
-	aivVddLVaeXy1GGZ7xsYvvFY6qMoDN4PRir+VIRMxO8RaNVcdrlSwCjSdxa/DYpH7osAYd
-	7ktBi7g1rvRTrLFvxywSjMoIsrMnjBWuNAsA2Vx/3GprRdf5Do4ozasmijytGPDPCWXp9Q
-	9IgI429UlTDA3zKCIUo8CeHaE98TBy0Icp4lb8JtpJdROVf63R6D08HDKCwONQ==
-Message-ID: <d0b159eefa6bc5abf0d1531acde568396f480500.camel@svanheule.net>
-Subject: Re: [PATCH 3/3] watchdog: realtek-otto: add RTL9607C support
-From: Sander Vanheule <sander@svanheule.net>
-To: sashiko@lists.linux.dev, Rustam Adilov <adilov@disroot.org>, Guenter
- Roeck	 <linux@roeck-us.net>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	robh@kernel.org, linux-watchdog@vger.kernel.org
-Date: Sun, 17 May 2026 12:39:52 +0200
-In-Reply-To: <20260509172748.54B33C2BCB2@smtp.kernel.org>
-References: <20260509163101.722793-4-adilov@disroot.org>
-	 <20260509172748.54B33C2BCB2@smtp.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oCnt/T1h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779014429; x=1810550429;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=3+pu7n1CG+XGB3Ldn4JBhKXZKe50YpSBlqvjDoYq7e4=;
+  b=oCnt/T1hrNEJC7ZFmXgtq96bERBAv0NCNjyDHCiXlkBJ99nze3/XJ0yT
+   C7ZJIjYlFmGBI3P6Og2bxDFREzoVfnJu1eChHDZE9+H1GBgSc5kh53vXr
+   8Dd6sNNnZp0De5DCjNFuTM5Z46qEmA2AjW+b4m4lowTKbMVD+TVb3upTj
+   j5EDFpol0p/udo08kZkP5iQk76NtunQVwMPlo6KasFiJ40O/6GLT9goWC
+   caGy/OcVen2FGhjROf71GhJsE6IxTPr8g+KFk2oCAi1t7dh+fZhFrctD7
+   7Wap0sP/dG6C78XkT4kS1iZnAUpfBlUAmP9UhoXoOK7A1uw/iyYBuawDk
+   g==;
+X-CSE-ConnectionGUID: ljCdVK8KQPGBGjdo9LBWlw==
+X-CSE-MsgGUID: vqRgCxZfR2iudSr9I+iX1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11788"; a="79864304"
+X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; 
+   d="scan'208";a="79864304"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 May 2026 03:40:28 -0700
+X-CSE-ConnectionGUID: 0/XQ2Nl4Q3apw4ZJiajANw==
+X-CSE-MsgGUID: qo1alMKuTvC8X7PvF427pQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; 
+   d="scan'208";a="262908978"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.182])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 May 2026 03:40:23 -0700
+Date: Sun, 17 May 2026 13:40:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v1 0/6] mfd: lm3533: convert to OF bindings, improve
+ support
+Message-ID: <agmbFQHezUl5Nydn@ashevche-desk.local>
+References: <20260517074306.30937-1-clamor95@gmail.com>
+ <agl1T8O6kwP7SFZ1@ashevche-desk.local>
+ <CAPVz0n0tfbwa1AbgO4eKrmNunHvmTFLDqXDFd1=VfLayuafH8w@mail.gmail.com>
+ <agmWVdi3TkBb2cxV@ashevche-desk.local>
+ <CAPVz0n3Kn5VVxWxCgq2EcRiOaLWnB85hD+-S2Eou=H1PyycJCQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n3Kn5VVxWxCgq2EcRiOaLWnB85hD+-S2Eou=H1PyycJCQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, 2026-05-09 at 17:27 +0000, sashiko-bot@kernel.org wrote:
-> Also, does the system restart handler sleep in an atomic context?
->=20
-> otto_wdt_restart() {
-> [ ... ]
-> 	disable_irq(ctrl->irq_phase1);
-> [ ... ]
-> }
->=20
-> The otto_wdt_restart() function is a system restart handler executed in a=
-n
-> atomic context with local interrupts disabled. Since disable_irq() intern=
-ally
-> invokes synchronize_irq(), which uses wait_event() to wait for executing
-> interrupt handlers to finish, it can sleep.
->=20
-> Calling a sleeping function with local interrupts disabled triggers a ker=
-nel
-> panic, and waiting for an IRQ handler to complete while other CPUs are st=
-opped
-> during a machine restart can result in a hard deadlock. Should this use
-> disable_irq_nosync() instead?
+On Sun, May 17, 2026 at 01:34:32PM +0300, Svyatoslav Ryhel wrote:
+> нд, 17 трав. 2026 р. о 13:20 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
+> > On Sun, May 17, 2026 at 01:13:22PM +0300, Svyatoslav Ryhel wrote:
+> > > нд, 17 трав. 2026 р. о 10:59 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
+> > > > On Sun, May 17, 2026 at 10:43:00AM +0300, Svyatoslav Ryhel wrote:
+> > > > > Convert LM3533 to OF bindings, add missing VIN supply, add support for
+> > > > > setting mapping mode and LED sources based on device tree.
+> > > >
+> > > > How is this being different to
+> > > > https://lore.kernel.org/lkml/20250218132702.114669-1-clamor95@gmail.com/
+> > > > ?
+> > >
+> > > I have decided to have a fresh look, this is continuation.
+> >
+> > Then it should be something like v4?
+> 
+> That was more than a year ago, lets start fresh. Those patches are
+> gone, though I did add many of suggestions from there.
+> 
+> > > > What about this comment
+> > > > https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
+> > > > ? Have you talked to Bjorn A and Johan?
+> > >
+> > > No, but since grep -r "lm3533_platform_data" * gives 0 results there
+> > > are no platform_data users of lm3533.
+> >
+> > Johan was against driver removal (while it sounds logical due to above) and
+> > referred to some other patches from somebody else. I think you need to
+> > synchronise with the people to have a clear roadmap that all stakeholders
+> > are agree with. With that, the split and other technical issues can be solved
+> > during the normal process.
+> 
+> And this discussion was 2 years ago, and
+> 
+> "This device is used in a bunch of Sony phones and Bjorn A posted a
+> series adding devicetree bindings a few years ago"
+> 
+> They have had more than enough time, don't you think? You would
+> definitely know if there were any activity since you are IIO reviewer
+> and would be included, were there any activity?
 
-I figured if local interrupts are disabled, then we don't need to disable t=
-he
-pretimeout interrupt, since it won't get called (and give confusing warning=
-s).
-However, doing so results in the output of the pretimeout interrupt handler
-being printed when rebooting the system (single-core CPU, both with SMP and
-without), so the interrupt is still getting through.
+At least it's polite to Cc them your version.
 
-Am I missing something here? Or is this a false positive?
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Best,
-Sander
