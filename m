@@ -1,218 +1,192 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA90233ADA7
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 04:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D73D2E1EE7
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 05:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778992902; cv=none; b=WdeNxSYfQjyUxnzCbfnKMdJKBOQrNEBcxQ96nasN+ECiayB+qi6+Wd1nIDv9j0HYN5lu7JGMQ1ZMaIbfMT4bvmaJ99RTWF09YGZHqahd9SYywzIxDApb0HAzp3hnkCoALsFWSdm3/uQ3RGr7bj2MS+WQI+eQegQzptsp2X+y4fg=
+	t=1778996384; cv=none; b=k4+7Ooaz/6iPSpeKkcZSHzKwkQhVNzaB+nWqA5rMiCiYfqsLXW/cAw9WrlBF8Gs4oWnVoe477TtEGb0IcLWQ78ivq55isitf4cGIzZ5qFUxvZ4CwkJgYlKuW8de1OK30QClYbJ4XAgCJCff63mtSHHxwT7mi729x07GpbNyLzFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778992902; c=relaxed/simple;
-	bh=qSD1iAiziV1PDbFRDFZu8LZXTjF64/acluP8JL+NbBw=;
+	s=arc-20240116; t=1778996384; c=relaxed/simple;
+	bh=OyrYy3CxVCqxEwCBM/K4PBbKBewf9EfR5aSv4aTPx+4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=srqqFZuHcczEslLFmpbVursh5ZPJSHQI3lkeVVZ9ThxxrFC806mlkPVTq98OEJEGnktr3617/pRXHYqDLl2sDP5zopGaKSm8EhkNaPpj5wwWcDedl4B0f8ZXIvE1pOVDuo8IH99q2+mVh7+7DtxWziQNN+C0kHw/HdhR6uJIUyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fVqfhXZ2; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=p4D5zoFvBPAYbaXQ8Wxr0MzNQWS5EygJp2q1rjB9lKXSny66jEUvbDwTqzk+hHWlnS50hBIoqS3HgSs5/+n9g5910D9DHV0UwZ6zoSkYCZaqgxoLSc7YR10mNygUb0Lls121X3ejN0nmg8SKqnqvyocFSvSWdnnrhbjU6SiYcbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aUcZp13Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H4kYQrKC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fVqfhXZ2"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-838d0b7c950so816431b3a.3
-        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 21:41:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aUcZp13Y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H4kYQrKC"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64GNUSaS919547
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 05:39:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=92C73o0HZQMw9i0zPsZfTXUY
+	8FwNUtkb+k0e+b9dS80=; b=aUcZp13Y1ffz4lYft8fvI24IcyGsCiQufoVyQxuM
+	UZfrNAp49+hAinRO8QaWMKcn06EO3+hhth81njFIBZy+2ECKKOf9PNJIn1dsUz6A
+	RWPcztlbI2pRIvWpm5jANVy6PaCscxXnPLKvzGvtsnIVZl1+9ilVGkAOjeem6eFb
+	8UTXusIOeKEtxAexh0fgKupVeB9FV/a+ZbuRi6mnkT1Ml8GE1sSOUNgAKFrwL8xU
+	94b406Yo9gLERVyCdym7fk8d2bkE9XDC9qw0ZEGB6JomAtrCbE6wbk6XuyK9g5gu
+	HLaESroJGR+alhFscRaWJJimpJUQXGR5G74LraEBXMrrtw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6hv7t639-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 05:39:42 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2c16233ee11so1654505eec.1
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 22:39:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778992900; x=1779597700; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=tgM/imni8OBMR+8bMpL6Wt69F8bl6c0wLVOsI5NzgJI=;
-        b=fVqfhXZ2tUJKIkkMxdJ0XiBqWCn+ZMvwFaMmCDV7L6XQPSfsqVVu5Km9sSXC1vSNNi
-         Af1OofJviuyCpK23hKnZ/RLBmvI53JuDYj3EuZCi3LMHyAj5oiOvjLCSAnYVOpzjS+Sb
-         +k7sDTEqW3yv0raRphl1ocqJhCaexhShnhb85v2uktKNsUdSmekvwqUwmlo5ZwoMMstQ
-         7RXkmg34jQdIJVC2fyCyiEVeqM5waf4N8Jh11pMyJuYmQbKe3tEvLqoujuhgxiStoFAp
-         WKTvcrR/FvlgnduSEeLROSG3IMaJSZPh/jvK0vPFY31Vwyd2OE3X24VQ1uu6CDDWx2PQ
-         F50A==
+        d=oss.qualcomm.com; s=google; t=1778996382; x=1779601182; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=92C73o0HZQMw9i0zPsZfTXUY8FwNUtkb+k0e+b9dS80=;
+        b=H4kYQrKCblIhRVLitklWjK1tWRvUE6QFgfaTWKG2XOM8ILzuqLc1mvOWC+Qzd3mgBs
+         K5Ct6iMNkcYuPHg+BUBC/7W5mogGwk47PvoRxO12KxsbA6k9wkUwwnUlbxomCvM0LKJ5
+         gnytucMeRP5/kG3hZPkM1pPlqE5LxgzthF/Y7l7LEF4S1mva+yrprLQlhIME3Kvot2/u
+         CXViDHd9j5460SHgKsI3sTxnJ+EdNzYg3DC9H1sQCEndSYGSrLYvNrrVJzKCyQIvyYa2
+         Ca0U8Lrk9MxvAkYSPFG74KgVEIVsABeBG7zNQN1NiS4go+jc2NntNoE8fOR5OnwPQXdO
+         ogqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778992900; x=1779597700;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tgM/imni8OBMR+8bMpL6Wt69F8bl6c0wLVOsI5NzgJI=;
-        b=MuSEPWuh7q5qODjo7R3YsOn+Qy13YUWvcssUOkqljP7qprc6V4nXUEmErvPcqCoV3j
-         TnLlitjIORa84PjOoCKWzSHXo9QcNDfb6MNoqAk0zrQZEUzZvJ0Z6OGdRr5nZNdPa4Ms
-         agm/QqBg20vSuucVtrs/A+7gg5/yoscfW7uSs1VBkJ6zq9nA0dw/hAWN41YEnIGxCpi/
-         /IpmjTfUnPABXUjxqyODh36oGidOcSEsIYJMDx9zo4bAby1eVXv4kpTs5GfVJGDO6G3W
-         CR6yZlhNP/oaGnhVygP7RJQUr+9diaOwl7Yk3ZSb8Xj6LRQ9nN3nA+dVsTW63vBv2JoM
-         Cftw==
-X-Forwarded-Encrypted: i=1; AFNElJ/wpHmKkXOCdEGgmCwD4yq17lzTwJH71A6ZtAIQtqfdp7c3oOJ4CxcxZPXlvrfL4drzwVJOj+xGZS5S@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfKwfINFD758wVAOgh/gRr/iBryqhobxKq2zjLn5psCot/CMzG
-	YzKlDcaBnDe3xBXeKlgwMCTcdUFUT5aEEnRrdadvJ51bztbiyHAUpL/D
-X-Gm-Gg: Acq92OEI7oBNDPlpM1x7fmG4cpPTqwZFB2LXdgf6DzYlz8aTabAqsj3zLi48H9T+aVb
-	al3TshDFzHVTd3eQ/Oqn3HhGynjumNZLLwkk8V2NuZEJuqBKZtgWGi8nwy1g/YDNKtscPprm2pA
-	HLbsNgXPz+3NaiRjHPJTwaWBTfHdqqj4xHQRA8k36VciXp5QYFOXjYiYld1VrbqqxFleXdOZ5ai
-	/JfBPwzCvJuzi+xdpUb1dOxlimWDJhw3h3u6VmrITIbaMsejh5efQX1YOOSK1xsAQpu/MDLskYc
-	9YbWtiXXnYqbBAJQXNiWJ4A9uVNZtd/m40Wfy8+rNrTU6HAgFjE7yMsJNaxw1HnerVSMjjTBnAM
-	1Xg+Tq9W8Xntxlekzcbm1s7rcyXS9LDtTigEsEtRPiSFFyQX9m1lb6PwUW99kyWsvWfgWvrIWhp
-	Ct9f2/6PqyL/nsN+06I2fdRVA=
-X-Received: by 2002:a05:6a00:414e:b0:82f:4a4d:377e with SMTP id d2e1a72fcca58-83f33d9d741mr10897233b3a.28.1778992899922;
-        Sat, 16 May 2026 21:41:39 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c5b4bfsm10862196b3a.28.2026.05.16.21.41.39
+        d=1e100.net; s=20251104; t=1778996382; x=1779601182;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=92C73o0HZQMw9i0zPsZfTXUY8FwNUtkb+k0e+b9dS80=;
+        b=dKeZuxgAB9stVZ2n/J+mm1g+8NnGNHO9tKJxET43XHsLYM7MKQqP9EkoEL5bxodQFF
+         NyuQ6dnb2qDgwdvKTCo/wMZP6DE3C0wVHEt0LPdAtt1SLnguVvS9erZ5IqdIf09uAhpv
+         JSO7NuEr1jozYUtqczxU4QX5BqEGmAw8ZfIGbUYau5PdnErQlDrbCVcfpsFtJ9Y5fMDo
+         NQ+6b7lpZdodByqWbPCILcnP/tggZjcB2YhPX83TR1Keg2G47CkXcVNsfzqJV7aux+y3
+         8VKExDqAnjptzqjUjb+tr1KhfcSQRZXRQ5bWyBwcJel8OVecx44TnAALZmhX18THkV3N
+         ge1Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8Y0tpIUIuBEGLATsxYjn9/Y33FEch8KsOLKr50lWnw4B/SnKhgOGNR3/H0CR6bd0/NWLl6ISHTS+2T@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxj91wKCOSbLOiFFMqDbc9zr+Yd/+tL1PNCxa8OpwhKc94wuoP6
+	sKWZ05BwXFoVXl8QY3rp0zWb6Xeebiyl6G7s3fYUayxNYQyM9fpp/x7oHjUCUXFQLE/Ta7gI6rS
+	3rRR/TuxawYo2iUMkXHA0fcfxu+oB4QxZmSI1jwmL3/oQp447pNfyCzRdHFwqvzyL
+X-Gm-Gg: Acq92OEm8F3eNH1oqs3PyVl+Rjfrff57ci1p6gJZEAPgtH0yiFoMRUzN0PwcUrfvrpD
+	xfn7LZNnh9VwzCvwHCh2xSpSNsgsrHR/aOrx1vqg6vkl0vJbJ+K3jHiSQnGq5Eep2oxkG9s7kHI
+	9igntHZNh9lGzw/gG4IHJyDoAcSHzQAWYdsYWUDTPwiEqNCkjmbf0o0DLAp9qyUPnDuPHEwkA6t
+	mJvIDpvbt9zZJhfYPpmgbj3D0tCVrIwdsADWS1MmekSIz0+tTupMgZdj2zwJmXafm0AEwRri2SR
+	4NxhbUzJmlehyeHgtUwI4xqmpHdPz3Vv9qgFo7HUd0mXmfx9NMvooGXNUdLsFnXDX4adVO5RP19
+	O+ZUvuBcH6O07tqH9+iD6+blxsnVfLEJ7RJEdTWhe6T8vQcUhy5gteI74Ixre1sCNGL8a
+X-Received: by 2002:a05:7022:6b9a:b0:134:fea9:f107 with SMTP id a92af1059eb24-1350573a436mr3748701c88.33.1778996381455;
+        Sat, 16 May 2026 22:39:41 -0700 (PDT)
+X-Received: by 2002:a05:7022:6b9a:b0:134:fea9:f107 with SMTP id a92af1059eb24-1350573a436mr3748697c88.33.1778996380885;
+        Sat, 16 May 2026 22:39:40 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-134cc33a67csm15485227c88.13.2026.05.16.22.39.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 16 May 2026 21:41:39 -0700 (PDT)
-Date: Sun, 17 May 2026 12:41:07 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: sashiko-reviews@lists.linux.dev, Inochi Amaoto <inochiama@gmail.com>
-Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Message-ID: <aglGV-bsTxiJcjVs@inochi.infowork>
-References: <20260517014841.254085-6-inochiama@gmail.com>
- <20260517031620.E1854C2BCB7@smtp.kernel.org>
+        Sat, 16 May 2026 22:39:40 -0700 (PDT)
+Date: Sat, 16 May 2026 22:39:38 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, krishna.chundru@oss.qualcomm.com
+Subject: Re: [PATCH v3 1/4] dt-bindings: clock: qcom: Add QREF regulator
+ supplies for glymur
+Message-ID: <aglUmonGmr2goyOI@hu-qianyu-lv.qualcomm.com>
+References: <20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com>
+ <20260506-qref_vote_0506-v3-1-5ab71d2e6f16@oss.qualcomm.com>
+ <20260514-outgoing-literate-dove-2e2a73@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260517031620.E1854C2BCB7@smtp.kernel.org>
+In-Reply-To: <20260514-outgoing-literate-dove-2e2a73@quoll>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDA1NyBTYWx0ZWRfX+Q1+pQ29onLF
+ UieejvrY6nRV50grzuZD23SZQT4YJgSZ1agoZk2PyqmmNWm4rv9ttW8YXBCLjhhpU5BkqkBX+td
+ 6o8Tk52gJGlMUw2MWqZkhpBdYlRm77UNOB6tl5FdHzDSHk9AiRB/ZM+uXyXMOrMmpOpIDp8brB1
+ Bo+Pfwp2zKMOktryR8JitkkhRhcxN5DVVTnhoHvcpYtc0ODIBGJtW4TCV7ZA21Ca3ZgYqA0lgC7
+ OkMzkgTHMEsy7Lob5eNOrCd61QAPvHZrijxmB4/WDlEZ46Ak1ZSJKXwr5mC/m+kMJDx2pJlODQU
+ zjpe0pE4+90uI9qSqluAuIGKa7oTn3RAz7XJBVe6ZGYhdZkj9CIAGmLZBs8qvZDchYOF0/OG7Um
+ E0IFXZ6IwFZt9aB8X3k99Sj9xHZ59sQ22Z2CtEUeMcJik00clKuV4Dv8n7Lp/C7SUxE5h0XrreE
+ MdwE5vSQrTy1OMcZPUg==
+X-Authority-Analysis: v=2.4 cv=a8oAM0SF c=1 sm=1 tr=0 ts=6a09549e cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=Uzsr7iAuEFisXTRfTTMA:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: -9_I3kEqsdX_rzXMoala4PLfanLPPNVi
+X-Proofpoint-GUID: -9_I3kEqsdX_rzXMoala4PLfanLPPNVi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-17_01,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605170057
 
-On Sun, May 17, 2026 at 03:16:20AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] MMIO registers are accessed before the controller's clocks are enabled, leading to a synchronous external abort or system crash.
-> - [High] Incorrect use of `u32_replace_bits()` combined with bitwise OR (`|=`) fails to clear existing bits.
-> - [High] Missing Root Complex mode configuration for the K3 controller due to a copy-paste error.
-> - [Medium] A bitmask macro for a completely different field is incorrectly passed as the replacement value to `u32_replace_bits()`, writing unexpected values.
-> - [Medium] Asymmetric teardown: `k1_pcie_deinit()` fails to assert reset on the K3 controller because it uses a reset line the controller is explicitly configured to ignore.
-> --
+On Thu, May 14, 2026 at 12:22:17PM +0200, Krzysztof Kozlowski wrote:
+> On Wed, May 06, 2026 at 01:43:51AM -0700, Qiang Yu wrote:
+> > Add regulator supply properties for the Glymur TCSR QREF/REFGEN blocks
+> > required by clkref clocks.
+> > 
+> > The vdda-qreftx*, vdda-qrefrpt*, and vdda-qrefrx* supplies map to common
+> > QREF TX/RPT/RX components, while SoC-specific topology and instance count
+> > differ. Document them here for qcom,glymur-tcsr.
+> > 
+> > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> > ---
+> >  .../bindings/clock/qcom,sm8550-tcsr.yaml           | 57 ++++++++++++++++++++++
+> >  1 file changed, 57 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+> > index 1ccdf4b0f5dd..57921cb63230 100644
+> > --- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+> > @@ -51,6 +51,63 @@ properties:
+> >    '#reset-cells':
+> >      const: 1
+> >  
+> > +  vdda-refgen-0p9-supply: true
+> > +  vdda-refgen-1p2-supply: true
+> > +  vdda-qrefrx0-0p9-supply: true
+> > +  vdda-qrefrx1-0p9-supply: true
+> > +  vdda-qrefrx2-0p9-supply: true
+> > +  vdda-qrefrx4-0p9-supply: true
+> > +  vdda-qrefrx5-0p9-supply: true
+> > +  vdda-qreftx0-0p9-supply: true
+> > +  vdda-qreftx0-1p2-supply: true
+> > +  vdda-qreftx1-0p9-supply: true
+> > +  vdda-qrefrpt0-0p9-supply: true
+> > +  vdda-qrefrpt1-0p9-supply: true
+> > +  vdda-qrefrpt2-0p9-supply: true
+> > +  vdda-qrefrpt3-0p9-supply: true
+> > +  vdda-qrefrpt4-0p9-supply: true
 > 
-> commit 2826ac7fe9e0d0c0dd248a7fc412ce12f4d7b491
-> Author: Inochi Amaoto <inochiama@gmail.com>
+> Either I do not understand your previous explanation:
+> CXO -> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 -> PCIe4_PHY
+>
+> or this is still wrong. There is no TCSR here, so this proves nothing.
+> If TCSR is TX0, then you do not have five of them...
 > 
-> PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
+> My previous comment stay - you are not describing the actual hardware
+> here.
 > 
-> This commit adds host controller support for the Spacemit K3 PCIe IP. It
-> introduces K3-specific initialization, PHY enablement, and MSI host setup,
-> hooking these into the existing spacemit-k1 driver.
-> 
-> > diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> > index 7f6f1df31cd81..7854d26220a98 100644
-> > --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> > +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> [ ... ]
-> > @@ -262,6 +278,152 @@ static const struct dw_pcie_ops k1_pcie_ops = {
-> [ ... ]
-> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> > +{
-> [ ... ]
-> > +	/*
-> > +	 * Put the controller in root complex mode, and indicate that
-> > +	 * Vaux (3.3v) is present.
-> > +	 */
-> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-> 
-> Does this code configure the controller as a Root Complex? 
-> 
-> The comment mentions putting the controller in root complex mode, but the 
-> register write only sets the PERSTN bits. In the K1 initialization, this is 
-> done by setting DEVICE_TYPE_RC, which appears to be missing here.
-> 
+The CXO network "-> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 ->" is referred to
+as the QREF block, and each component is controlled by the tcsr_clkref_en
+registers.
 
-Unlike K1, K3 does not needs this.
+If a PHY receives its reference clock from QREF, it will have a clkref_en
+register. However, this register may be located in different regions
+depending on the target. On glymur it resides in TCSR, so I added these
+LDOs QREF required in tcsr yaml.
 
-> > +
-> > +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> > +	val = u32_replace_bits(val, GEN3_EQ_CONTROL_OFF_PHASE23_EXIT_MODE,
-> > +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
-> 
-> Is the replacement value intended to be GEN3_EQ_CONTROL_OFF_PHASE23_EXIT_MODE? 
-> 
-> This passes a bitmask macro for a completely different field into 
-> u32_replace_bits(), which shifts the value into the target mask and writes an 
-> unexpected value into the register.
-> 
+- Qiang Yu
 
-The GEN3_EQ_CONTROL_OFF_PHASE23_EXIT_MODE should be BIT(7),
-it is a mistake.
-
-> > +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-> [ ... ]
-> > +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-> > +{
-> > +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> > +	u32 val;
-> > +
-> > +	dw_pcie_dbi_ro_wr_en(pci);
-> > +
-> > +	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-> > +	val |= u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
-> > +				K3_CACHE_MSTR_AWCACHE_MODE);
+> Best regards,
+> Krzysztof
 > 
-> Will this clear the existing bits correctly? 
-> 
-> The u32_replace_bits() macro returns the fully modified 32-bit word. By using 
-> the bitwise OR assignment (|=), the original bits from val are ORed with the 
-> new bits, leaving any originally set bits as 1 instead of clearing them.
-> 
-
-Yes, it is wrong, I will fix it.
-
-> > +	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
-> [ ... ]
-> > +static const struct dw_pcie_host_ops k3_pcie_host_ops = {
-> > +	.init		= k3_pcie_init,
-> > +	.deinit		= k1_pcie_deinit,
-> 
-> Can k1_pcie_deinit() successfully assert the reset for the K3 controller? 
-> 
-> During initialization, k3_pcie_init() sets PCIE_IGNORE_PERSTN in 
-> PCIE_CONTROL_LOGIC. If k1_pcie_deinit() attempts to assert reset using 
-> PCIE_RC_PERST, the hardware might ignore it, leaving the device improperly 
-> reset during teardown.
-> 
-> > +	.msi_init	= k3_pcie_msi_host_init,
-> > +};
-> [ ... ]
-> > +static void k3_pcie_clear_irq_status(struct k1_pcie *k1,
-> > +				     u32 *status0, u32 *status1, u32 *status2)
-> > +{
-> > +	*status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	*status1 = readl_relaxed(k1->link + INTR_STATUS);
-> > +	*status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-> > +
-> > +	writel_relaxed(*status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	writel_relaxed(*status1, k1->link + INTR_STATUS);
-> > +	writel_relaxed(*status2, k1->link + K3_ADDR_INTR_STATUS1);
-> > +}
-> > +
-> > +static int k3_pcie_parse_port(struct k1_pcie *k1)
-> > +{
-> [ ... ]
-> > +	k1->phy_count = i;
-> > +	if (k1->phy_count == 0)
-> > +		return -EINVAL;
-> > +
-> > +	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
-> > +
-> > +	return 0;
-> > +}
-> 
-> Could accessing these MMIO registers before the clocks are enabled cause a
-> synchronous external abort?
-> 
-
-No problems, these register is always ready.
-
-> The probe function calls parse_port() before dw_pcie_host_init(). This means
-> k3_pcie_clear_irq_status() performs direct MMIO reads and writes to the 
-> k1->link registers before k1_pcie_enable_resources() is called later in 
-> k3_pcie_init(). 
-> 
-> Accessing an unclocked peripheral can cause a bus stall on ARM/RISC-V 
-> architectures.
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260517014841.254085-1-inochiama@gmail.com?part=5
