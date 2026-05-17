@@ -1,243 +1,503 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9C821D3F5
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779049857; cv=pass; b=pJPmWNO1m7a+sF/8gJAZRewcIvA4cgixPMnvubxItzgAR+5mLTMml8ZGU4isVuYAg2S23Z+eZmpZ1gxOoVcDHO4KKrMHrtpDICJIBZehGnrSemArLRC3MquLMqvRlH4DNFvXIP8wNLtcl6ZO+r0QiY8svyrKphLyEm4Haptxg/8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779049857; c=relaxed/simple;
-	bh=50C7JM4Fkn1oeuiBJSXgulYieHOs0OaBMs+8C//qUxk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ni89CPzanNuNRinusS+yQVz7uzJOohcPUSc2zFuc+f2aUptiDO/Y3Mz7GKwG0UcDe8cQ5KEDqtzq1pYZCrulkOKZPutndyhjB+zWntFFnnQ17zj7bR+m6mMr3XglmNefm6jnliVGzQGAZQXW6SMXtCF/ZY2uDCEvtBPQ3xHeEyc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fv5b/zMw; arc=pass smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C0B2DB7AE
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779049965; cv=none; b=MPhi96i8XuMh+m3XbCfDubUhAiutgUxBDE+pIfo0lsnkjhmSvXzqh1gnbLgwtJvmo1u/VyJSYWITi1dLhDoffmxDltYXwYCBoXv0Q60XARLiu2/2VMe6tTP4d3mk0CJ7650ZHTVyicbyTKTnZO9+oBGwwoQIduiH37Ssma/ag10=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779049965; c=relaxed/simple;
+	bh=I7Xbk2u//y8qiLOQJdId8sf1Rjd+sF7Yw0nApvja6JU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S+oPFBs29fvWRhLRFTEdpliRSEwWXdMfLtZeuAcsHy+dIu7WoHIM/Fe4BPVdtwBVRHPcDy3wZ+JK/Gdaz9H368JpsF1E1uzGOMAXQZ13OnBAdqg8b2noVOwd12f616+yg/Ll1cuvEh5b9A+osOqptvsTysPBsF4/8cbPDmH5W2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BxpCjP+f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ar1PP2KU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fv5b/zMw"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488a88aeec9so18187685e9.2
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:30:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779049854; cv=none;
-        d=google.com; s=arc-20240605;
-        b=D4YLi0wYInSnwRLhnEB9webqxirwFs+boeAAZrSNsHtHizYmCDhrv/OCXJbbIqLgKw
-         cwFggWCwa51zwPL6bcwPl3yq2hP9Y7WerievpWL3zdwLt5IkFrG9JxMLhwPLkgs54QJr
-         4YFmEM8brGyh3EvNs0UB9gJveS12zb28U9l4TaaVOo7mo9ooYF9BC6sRnx3yL1NgTD5r
-         yaoSI/bsc2dZ5qAaJZRrEKzljDI/OJvbGWMIuu1PKFFEwWBscD3hxCX81XJuUvLZy+je
-         f0NC3wmFLbcKCRCR3iySbsENio0fKIDfb6lyfGKKnSpwoXrUjo8H2f4e0k9vDhiHqNQn
-         CTNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
-        fh=YaKfdomFeZbhfKIqiCycRFke9umD66qtSHQr/LLDyGs=;
-        b=SAlxTs5KY3GWF/4M3H8uaG1xpjXcxmcj09QgkE8sS/REYvtzSJhpzCOmTinmYMywAo
-         WVnM6Lss4xhTzDWmAJ6q3dj61eN0VGUf8dxKfd3VYZ0/cVmK+rbqwgn/1khPyQP7OZnW
-         7Wzzi8dCmskjHCmSNGj//UQ5lIQqWv0MWACZZvAGIKumADsj2Twjq1yOLFMYwh0C8Gfr
-         5IacSf/uVVlUN+pjN7oZWh/gge00DI423qXa9HNZpxiyy7tln43RPpJoDG6ieYdYcqDX
-         liGao9q3f00lSp7aRiB+SinlG5BCSmJxDcE2VGWEO4wnVGc2ow7oxfbh4v68MgtsY2uv
-         GuAQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BxpCjP+f";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ar1PP2KU"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64HJwa5U242848
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:32:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=eD0sQbMrv/ZTrUTgp6JK3oLD
+	dN9ZckIvFx8HzP3EIGI=; b=BxpCjP+fZnB2uFVZGqOkDNen4Vhc0fErG2r79tDu
+	V9cxZ0GXb3+RR5HH1HvyXEeXU9DgRvyZGbsByPL2EVGdr0n2o82iIDVy3HOwROAV
+	YydqOJFXwmcBPkmswr2Sx95iWBKNzMpsv/N4aKzoCwupBNuNm4okXsA/9TePv3Nj
+	CO74V9utOhQehhq15yEwrnxAbCk8JG4VejNpDs+PMm6QCYBAMb0wWvErvxY5vcgj
+	kW2FcXaEOlLRfOVI1X1gkZq8IFLWVe2SClVZrBFWAlEg5tORATMy7JYNgtTdA/B+
+	ezDMbp0KZKKhqbPRd4lSMAV7VsPQUb0RdB2ySYlbWMxxow==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gyw3hnb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:32:36 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-514a182b90dso20517241cf.1
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 13:32:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779049854; x=1779654654; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
-        b=fv5b/zMw3ZkJz83Vu9XsS9My5k2TmQpz521lVaHHMmxvg5BpCHX+Iq410ijt2s8oir
-         1o+nMcUOAfiAyEh+8tYVs6+yInHfLYhWiSFdBqvO6sgxQADqi5A83NOokQ9Rq4W4s/Nj
-         E+V9EpPN0Izvyl9r0UR22/koStBuC/r1wxDD1t+iyfXJqVA5LNU5fMPckbIZxm0o47EC
-         d2o685E74CR/u+L5zTelk1iIzPlDln6nlQB8wDrdeCzZlL4ChEgkK4LAFkFW+syWxpqP
-         Ogi0hRm6zmJVQs2euaFp/ylAzuiNaMCNtHTFMhdNsTnQ1PgEcPXpYkttdk/aqgBWWiwf
-         cYbg==
+        d=oss.qualcomm.com; s=google; t=1779049956; x=1779654756; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=eD0sQbMrv/ZTrUTgp6JK3oLDdN9ZckIvFx8HzP3EIGI=;
+        b=ar1PP2KU8VQITcuVmThC3njhLCWqHB+M9PIAv6zxArGSRyo36uZHS08BU1DPskmS/X
+         q7ErrYGmRiW58DekZvyEQl9Ur4lL+eAe1O6dAUh5VUQmHPESr2Pcl0/ahsLOBFuVl9bD
+         NleaJwt3xcYetWoZsRWd+IVzt7E520rO0R4hGCN0T5SPmBJrOLsDDJeOcKoi9Xnl+kcy
+         Naxme/BUAsc+X0Fk93qCBWDHF7y6xWs6OzHycytZMkhAKwG87q5YRQo3R38r/MtBZ367
+         8Ac8r0KQt3Beh+GZVbhJivlJ+uzPrssGk/YjdZxyLVkz/dbh3p2tDA4SfaWceXy7BdP3
+         vOmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779049854; x=1779654654;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=m5W2yksOeDngCRoP0/L217ADV5Bob6V0u6vG3fCF/SQ=;
-        b=svHqR5CsdgAjcnrGrNgnK/3gQm/N0fA/Re2U+73C+z3CohztYf4oubXOH/FYEbEVHw
-         QDDDkACquecZxFdS9kjVOCrAp+X6yHh3zhKoyqx0sGDlwh8kWQTXpBFi4leOigpMf74T
-         jmBf3q+ybjSRJgpi1pvY4wJg9/CMzDlsZ4HNi+rTeOd0QIAtfKmdE0CE4XrUuK6ctd8K
-         gDz6kXO1u0quo3rf5Oe88XmA+udULdvKtQb3CrJneKDHy40dVtyzOjWE0x5Gk0alfO9c
-         y03bFVuMOgXyBUqB+p9+7Zw74vAsVXB/6O4ZZR71RDtfjrRUl9nXMWrafOUtVvBk7Oqn
-         TvGg==
-X-Forwarded-Encrypted: i=1; AFNElJ8JAwpFV2x4m+lO2z1MFk46EN9AbNyFv5aH7T/sV9eB1m7qrWw2vO8aCpHCJftzyuW02qAAneywGSBo@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8AyarPEMO22PDV72hNbAveulQfgW3dg0Chez5/YhEafCYkmkS
-	XXBEAMH6pUcj3cl+8o+nLkeUXXyHil3InuuJ8t6a+FwJuZt8KQxFdNuo6NByhpv7CqCvvRMDLAg
-	GZJlWhmUucCN444XT9Sed5xPln5l5WSc=
-X-Gm-Gg: Acq92OHDghldJitKLpgT3Bm5FZPg/sldWYkeXgkac3RxDZLCOPTKBFOl2zP19mjwVT5
-	gXRkxkF2hQwo8JTqlRCyHhAiBGyirUJyClyk72OPlFOFnqCWHYFYDewDa/Eq0yDF3ULP7irrQRd
-	k0Fpdfp859E8folYYCxF94JBcGuliw1vHVeJkXbqYbi9qdzV05fKXHcE9qWNW1nS9s5i1uA7Zy2
-	pvonZQI6jQHmq+/GMd3+tKVJd02Jv6qv3byu/eYXdzO4n0Sp0hYQuAalfYJbrUB6xNaz9ylTQcs
-	2vl9+/BbNzV/NlatwUGkbWhYrqgx+pQc8nfQy9w/RjvSF+Q7aLMZZVDav2dURoeYB2Adk+zHth8
-	PjCc=
-X-Received: by 2002:a05:600c:4e02:b0:483:2c98:4368 with SMTP id
- 5b1f17b1804b1-48fe6322416mr195114775e9.18.1779049853553; Sun, 17 May 2026
- 13:30:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779049956; x=1779654756;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eD0sQbMrv/ZTrUTgp6JK3oLDdN9ZckIvFx8HzP3EIGI=;
+        b=oB9Xq76sFdcrPjqmgNZgvgE6tXD/qpwTG5XhR5XK7JhC+UNvZRzIpHTAamEXqGV6GK
+         r3MdQ5/4U8Jrza6BV1I3zby6OiIchUgJrYKIiIFSOOkCPO0BzV8Mz5HBbnCyOi93O/ei
+         t0iUi8rPoJIG7tX0z1NlBSLZsuNftgpxIRXPE+2Bb8EgAS+utRkRYyitsJ6FAT6JMaww
+         ZscQ1CybJFbDMUGOWLqC4ZqupVEk5lW515+Gq6MPbWHtwByVS31Tzl6SC9ORQI8itNwi
+         FwMnsEXqOw1kBTuAErNaT3Z3wndYbgel4uYzIPDPPzRxyLQ/6FqDFDxLHB0SpPKPd/DP
+         MbEg==
+X-Forwarded-Encrypted: i=1; AFNElJ95ShM4ftj98J85uXIJoAoeygYD6IgZj/UsA04YbUrB/fLGIUxQd9ArRgXN1NACbjWw4/3fKzkJEiyL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHEkX7vjM/so28cTnR3FRTJDQTl2F62HDj/0mOiJ8XrzEW7P7z
+	KB41opy5csiasI6haNj99HeOMmMe4NRqcuu0+iLI76man8IUYdT2iKykcaZ+WtnhIk2XXIlaTye
+	1pgQEWQH67QYLZ5+wIsXuZAzbHar3fBUrGWhMxCDZEiob/JlFWkTOu744HCfPWZnG
+X-Gm-Gg: Acq92OExTw9uVYUJkHK/+fDnr7eT4iNU9kXRYo9SN8BmYpqKQO30HVqNDL1SEPTlDr7
+	TR9gLYI2vmqmYE/CnS8EzWgvzi1w1YXEGJ/XPS7GKzDi9funuxapDl8OPBpVmRjCcOkJfOy3ZcU
+	eUA6vS7wpCtVHPCbZMPs0J79IGa83jh5EslVQ+1Uf/Xc5G+50KLtRDdFUB9WE1kp2aaDi2Jp9w9
+	zWA9bGmcv5g5ToEYYg1vDlNwX//dftKak9TlAZ+0modHshDU3zVMSCleAdwXpuKc+xA+YpwDUjP
+	nyAGouXV9FP6qxpLwvekQ23q4+y9arTMDev9H9xhqWCC0bZygxPvs7F6UbesOAq9ec2VxR52VdA
+	s2RffyXPcg7s+2lOva/aeD48Brw6QQb7y4hoyZPGlF41EkXnK/lWL72HGODRGL4Pst/yBxQUvpr
+	iUruqCr2AhKsndWXcJGWBGI3PxCSO7/KpRBo4=
+X-Received: by 2002:a05:622a:9003:b0:50e:423e:2870 with SMTP id d75a77b69052e-5165a27a429mr161637361cf.52.1779049955749;
+        Sun, 17 May 2026 13:32:35 -0700 (PDT)
+X-Received: by 2002:a05:622a:9003:b0:50e:423e:2870 with SMTP id d75a77b69052e-5165a27a429mr161637151cf.52.1779049955264;
+        Sun, 17 May 2026 13:32:35 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a9164bc3fcsm2891592e87.48.2026.05.17.13.32.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 17 May 2026 13:32:33 -0700 (PDT)
+Date: Sun, 17 May 2026 23:32:30 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: azkali.limited@gmail.com
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Teguh Sobirin <teguh@sobir.in>
+Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: add basic devicetree for Ayaneo
+ Pocket DS gaming console
+Message-ID: <y5jliz2avr24ww4eq44uqi7ddcsbxr2irwfe265ain4sv3fone@dmcjelmnan65>
+References: <20260517-pocketds-v3-0-d5910c801756@gmail.com>
+ <20260517-pocketds-v3-3-d5910c801756@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260512144104.761531-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB11346174DD5FFD70AB39F570086022@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Sun, 17 May 2026 21:30:26 +0100
-X-Gm-Features: AVHnY4L4Iw5hWO4PauuBTrDRjWPhgs5UmEFDfgWOBP_KZfNbj_cxu6qjfmeyJWg
-Message-ID: <CA+V-a8v_gmPEcWgFsC3Kv4X_M_qzbVHeEY=EmzdYxzy+PkyB-Q@mail.gmail.com>
-Subject: Re: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-output clock limits
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	"magnus.damm" <magnus.damm@gmail.com>, 
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260517-pocketds-v3-3-d5910c801756@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDIyMiBTYWx0ZWRfX0I3RzjnOy2CG
+ XhXpYjYwtQjVKYcOyKtp+L2RZu68XMeFsDc/wuRHdVnNs9b2EXZ5whN0D5/49zM169zy/xy8Dlp
+ hWuXpf8hclOVwkZ68zLQ0TXGQJZM2mODKdYGhsaoaVZMFEx6PZ8yx0g3PavKhAaaB0Jw3Xi4ph3
+ xL8CFeTOeLx7reFz4Hqkwz/xDDzuAyiMnTix0nA0hytXbw7y3w+KvhvGnZOsEZTxjd9DM/Aujsy
+ s9Yb/u4qxCmuUAbe5SxWXSU7nbkOsb0eH4XIGhGi+lnefmp/Va3wc7nuTWIHFDaxUyeefe2UndW
+ TrrcuJGsiIRs6IamnHUYBzmeBzZrDoFeON75yWJbU0IYU8Op/pBALbqqs+wmq9hkTkIJG5zRTAA
+ pYOekMIsiCWjbnKb03L6YK+QErU7Rq9JtSkKloE3byYBx9TFRna1t1pkwvKYtouIjjaHndapSPm
+ h+Rg/D9RDUrOQnObJNg==
+X-Proofpoint-GUID: vvROIE50ViXkA-9L9NGSOYrU-mVhyHEF
+X-Proofpoint-ORIG-GUID: vvROIE50ViXkA-9L9NGSOYrU-mVhyHEF
+X-Authority-Analysis: v=2.4 cv=E5v9Y6dl c=1 sm=1 tr=0 ts=6a0a25e4 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=NEAV23lmAAAA:8
+ a=pGLkceISAAAA:8 a=EZ_7xAdKxuRBWxfvwsoA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-17_05,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 bulkscore=0 adultscore=0 spamscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605170222
 
-Hi Biju,
+On Sun, May 17, 2026 at 08:14:22PM +0700, Alexandre Hamamdjian via B4 Relay wrote:
+> From: Teguh Sobirin <teguh@sobir.in>
+> 
+> Add initial Device Tree for the Ayaneo Pocket DS gaming console based
+> on the Qualcomm QCS8550 platform.
+> 
+> The design is similar to a phone without the modem, the game control
+> is handled via a standalone controller connected to a Renesas uPD720201
+> PCIe USB 3.0 host controller. DisplayPort is muxed over the USB-C
+> connector with all four lanes wired.
+> 
+> Display panel support will be added in a second time.
+> 
+> Co-developed-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+> Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+> Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+>  .../boot/dts/qcom/qcs8550-ayaneo-pocketds.dts      | 1883 ++++++++++++++++++++
+>  2 files changed, 1884 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index cc42829f92eb..45859e977bc9 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -185,6 +185,7 @@ qcs8300-ride-el2-dtbs := qcs8300-ride.dtb monaco-el2.dtbo
+>  
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride-el2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayaneo-pocketds.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
+>  
+> diff --git a/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocketds.dts b/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocketds.dts
+> new file mode 100644
+> index 000000000000..416399a4179b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocketds.dts
+> @@ -0,0 +1,1883 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2025, Teguh Sobirin.
+> + * Copyright (c) 2025, ROCKNIX (https://github.com/ROCKNIX)
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> +#include "qcs8550.dtsi"
+> +#include "pm8550.dtsi"
+> +#include "pm8550b.dtsi"
+> +#define PMK8550VE_SID 5
+> +#include "pm8550ve.dtsi"
+> +#include "pm8550vs.dtsi"
+> +#include "pmk8550.dtsi"
+> +
+> +/delete-node/ &aop_image_mem;
+> +/delete-node/ &aop_config_mem;
+> +/delete-node/ &camera_mem;
+> +/delete-node/ &ipa_fw_mem;
+> +/delete-node/ &ipa_gsi_mem;
+> +/delete-node/ &mpss_dsm_mem;
+> +/delete-node/ &mpss_mem;
+> +/delete-node/ &q6_mpss_dtb_mem;
+> +/delete-node/ &cdsp_mem;
+> +/delete-node/ &q6_cdsp_dtb_mem;
+> +
+> +/delete-node/ &remoteproc_mpss;
+> +/delete-node/ &remoteproc_cdsp;
 
-Thank you for the review.
+Why are you deleting them? Isn't status="disabled" enough? If it's about
+the memory-region properties, it might be better to delete the
+properties instead of deleting the nodes.
 
-On Sun, May 17, 2026 at 6:59=E2=80=AFPM Biju Das <biju.das.jz@bp.renesas.co=
-m> wrote:
->
-> Hi Prabhakar,
->
-> Thanks for the patch.
->
-> > -----Original Message-----
-> > From: Prabhakar <prabhakar.csengg@gmail.com>
-> > Sent: 12 May 2026 15:41
-> > Subject: [PATCH v3 4/5] drm: renesas: rz-du: Move mode_valid logic to p=
-er-output clock limits
-> >
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Move pixel clock validation from a fixed encoder check to per-output co=
-nstraints stored in
-> > rzg2l_du_output_routing.
-> >
-> > Previously, rzg2l_du_encoder_mode_valid() applied a hard-coded 83.5 MHz=
- upper limit specifically for
-> > DPAD0. This approach cannot scale across the RZ DU family because pixel=
- clock limits vary per SoC and
-> > per output interface.
-> >
-> > Add mode_clock_min and mode_clock_max fields to rzg2l_du_output_routing=
- so that clock constraints are
-> > expressed at the granularity of individual output interfaces rather tha=
-n globally per SoC. Update
-> > rzg2l_du_encoder_mode_valid() to look up the routing entry for the acti=
-ve output and return
-> > MODE_CLOCK_LOW or MODE_CLOCK_HIGH when the pixel clock falls outside th=
-e declared range. A value of 0
-> > for either field means no bound is enforced in that direction.
-> >
-> > Set the DPAD0 pixel clock limits for RZ/G2UL (R9A07G043U) to 20.875 MHz=
- minimum and 83.5 MHz maximum.
-> > RZ/G2L and RZ/G2LC (R9A07G044) share the same DPAD0 pixel clock limits.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v2->v3:
-> > - Moved clock limits from device_info to output_routing to allow
-> >   per-output constraints.
-> > - Updated commit message to reflect the change in approach.
-> >
-> > v1->v2:
-> > - Dropped storing info pointer in struct rzg2l_du_encoder as it's not n=
-eeded.
-> > ---
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 4 ++++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
-> >  3 files changed, 13 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu=
-/drm/renesas/rz-
-> > du/rzg2l_du_drv.c
-> > index 0fef33a5a089..d1bc205eb5f8 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > @@ -33,6 +33,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a=
-07g043u_info =3D {
-> >               [RZG2L_DU_OUTPUT_DPAD0] =3D {
-> >                       .possible_outputs =3D BIT(0),
-> >                       .port =3D 0,
-> > +                     .mode_clock_min =3D 20875,
-> > +                     .mode_clock_max =3D 83500,
-> >               },
-> >       },
-> >  };
-> > @@ -47,6 +49,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a=
-07g044_info =3D {
-> >               [RZG2L_DU_OUTPUT_DPAD0] =3D {
-> >                       .possible_outputs =3D BIT(0),
-> >                       .port =3D 1,
-> > +                     .mode_clock_min =3D 20875,
-> > +                     .mode_clock_max =3D 83500,
-> >               }
-> >       }
-> >  };
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu=
-/drm/renesas/rz-
-> > du/rzg2l_du_drv.h
-> > index 58806c2a8f2b..307ae70dd382 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > @@ -30,6 +30,8 @@ enum rzg2l_du_output {
-> >   * struct rzg2l_du_output_routing - Output routing specification
-> >   * @possible_outputs: bitmask of possible outputs
-> >   * @port: device tree port number corresponding to this output route
-> > + * @mode_clock_min: minimum pixel clock in kHz
-> > + * @mode_clock_max: maximum pixel clock in kHz
-> >   *
-> >   * The DU has 2 possible outputs (DPAD0, DSI0). Output routing data
-> >   * specify the valid SoC outputs, which CRTC can drive the output, and=
- the type @@ -38,6 +40,8 @@ enum
-> > rzg2l_du_output {  struct rzg2l_du_output_routing {
-> >       unsigned int possible_outputs;
-> >       unsigned int port;
-> > +     int mode_clock_min;
-> > +     int mode_clock_max;
-> >  };
-> >
-> >  /*
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers=
-/gpu/drm/renesas/rz-
-> > du/rzg2l_du_encoder.c
-> > index 0e567b57a408..4af2ae09ff39 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> > @@ -50,8 +50,12 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *enco=
-der,
-> >                           const struct drm_display_mode *mode)  {
-> >       struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
-> > +     struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.de=
-v);
-> > +     const struct rzg2l_du_output_routing *route =3D
-> > +&rcdu->info->routes[renc->output];
-> >
-> > -     if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83=
-500)
->
-> Please retain the check for DPAD output, to avoid checking the same for D=
-SI and LVDS.
->
-This patch checks only for pads that have added constraints.
+> +
+> +&cpu7_top_thermal {
+> +	polling-delay = <200>;
+> +
+> +	trips {
+> +		cpu7_top_fan0: trip-point2 {
+> +			temperature = <70000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
 
-Cheers,
-Prabhakar
+How are these trip-points being used? If you want to control the fan, is
+there a cooling device for them?
+
+> +
+> +		cpu7_top_fan1: trip-point3 {
+> +			temperature = <75000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpu7_top_fan2: trip-point4 {
+> +			temperature = <80000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +	};
+> +};
+> +
+> +&cpuss0_thermal {
+> +	polling-delay = <200>;
+> +
+> +	trips {
+> +		cpuss0_fan0: trip-point2 {
+> +			temperature = <40000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss0_fan1: trip-point3 {
+> +			temperature = <50000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss0_fan2: trip-point4 {
+> +			temperature = <60000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss0_fan3: trip-point5 {
+> +			temperature = <65000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss0_fan4: trip-point6 {
+> +			temperature = <70000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss0_fan5: trip-point7 {
+> +			temperature = <75000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss0_fan6: trip-point8 {
+> +			temperature = <80000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +	};
+> +};
+> +
+> +&cpuss1_thermal {
+> +	polling-delay = <200>;
+> +
+> +	trips {
+> +		cpuss1_fan0: trip-point2 {
+> +			temperature = <40000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss1_fan1: trip-point3 {
+> +			temperature = <50000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss1_fan2: trip-point4 {
+> +			temperature = <60000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss1_fan3: trip-point5 {
+> +			temperature = <65000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss1_fan4: trip-point6 {
+> +			temperature = <70000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss1_fan5: trip-point7 {
+> +			temperature = <75000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss1_fan6: trip-point8 {
+> +			temperature = <80000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +	};
+> +};
+> +
+> +&cpuss2_thermal {
+> +	polling-delay = <200>;
+> +
+> +	trips {
+> +		cpuss2_fan0: trip-point2 {
+> +			temperature = <40000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss2_fan1: trip-point3 {
+> +			temperature = <50000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss2_fan2: trip-point4 {
+> +			temperature = <60000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss2_fan3: trip-point5 {
+> +			temperature = <65000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss2_fan4: trip-point6 {
+> +			temperature = <70000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss2_fan5: trip-point7 {
+> +			temperature = <75000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss2_fan6: trip-point8 {
+> +			temperature = <80000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +	};
+> +};
+> +
+> +&cpuss3_thermal {
+> +	polling-delay = <200>;
+> +
+> +	trips {
+> +		cpuss3_fan0: trip-point2 {
+> +			temperature = <40000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss3_fan1: trip-point3 {
+> +			temperature = <50000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss3_fan2: trip-point4 {
+> +			temperature = <60000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss3_fan3: trip-point5 {
+> +			temperature = <65000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss3_fan4: trip-point6 {
+> +			temperature = <70000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss3_fan5: trip-point7 {
+> +			temperature = <75000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +
+> +		cpuss3_fan6: trip-point8 {
+> +			temperature = <80000>;
+> +			hysteresis = <3000>;
+> +			type = "passive";
+> +		};
+> +	};
+> +};
+> +
+> +&gpi_dma1 {
+> +	status = "okay";
+> +};
+> +
+> +&gpi_dma2 {
+> +	status = "okay";
+> +};
+> +
+> +&gpu {
+> +	status = "okay";
+> +};
+> +
+> +&gpu_opp_table {
+> +	opp-719000000 {
+> +		opp-hz = /bits/ 64 <719000000>;
+> +		opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
+> +		opp-peak-kBps = <10687500>;
+> +		qcom,opp-acd-level = <0x882e5ffd>;
+> +	};
+
+We probably need to get speed bins done...
+
+> +
+> +	opp-746000000 {
+> +		opp-hz = /bits/ 64 <746000000>;
+> +		opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+> +		opp-peak-kBps = <10687500>;
+> +		qcom,opp-acd-level = <0x882e5ffd>;
+> +	};
+> +
+> +	opp-794000000 {
+> +		opp-hz = /bits/ 64 <794000000>;
+> +		opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+> +		opp-peak-kBps = <14398438>;
+> +		qcom,opp-acd-level = <0xa82d5ffd>;
+> +	};
+> +
+> +	opp-827000000 {
+> +		opp-hz = /bits/ 64 <827000000>;
+> +		opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
+> +		opp-peak-kBps = <16500000>;
+> +		qcom,opp-acd-level = <0xa82d5ffd>;
+> +	};
+> +
+> +	opp-860000000 {
+> +		opp-hz = /bits/ 64 <860000000>;
+> +		opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+> +		opp-peak-kBps = <16500000>;
+> +		qcom,opp-acd-level = <0x882d5ffd>;
+> +	};
+> +
+> +	opp-1000000000 {
+> +		opp-hz = /bits/ 64 <1000000000>;
+> +		opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L2>;
+> +		opp-peak-kBps = <16500000>;
+> +		qcom,opp-acd-level = <0x882d5ffd>;
+> +	};
+> +};
+> +
+
+[...]
+
+> +
+> +&remoteproc_adsp {
+> +	firmware-name = "qcom/sm8550/ayaneo/adsp.mdt",
+> +			"qcom/sm8550/ayaneo/adsp_dtb.mdt";
+
+.mbn, please. Even if the downstream uses .mdt. Either pil-squash them
+or just symlink, the code will handle it anyway.
+
+
+> +
+> +	status = "okay";
+> +};
+> +
+
+-- 
+With best wishes
+Dmitry
