@@ -1,109 +1,192 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4008258CD7;
-	Sun, 17 May 2026 15:05:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7019E220687;
+	Sun, 17 May 2026 15:06:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779030314; cv=none; b=NuGzSvpNPnCIG4ngs+w3Ch6a9OH7px4uqu5sLN5pu1PNWY/vKDVkOXCaUsj9fhxvRWXJ/92uetNmXHltdpTzpK7ggA+VNCEUWV347PAPiMY7HcBAS1Xi+764HCnBL19x3hB3wihnUZHtPdhcFm4nansUgq3oERy7e1BiHKwPzps=
+	t=1779030399; cv=none; b=XFPmAds/VhFcsBSujDBR816xCZ1uGK5N7EGbqygTarbDFWMZvW9JkOU4UbXIHqh5Px5XH6nRFde15hxkSrz/QNwt3JyONQdciu0lWVNPF66qeg7cpf0kFXxkA1mXzob/3E1Tf+QlQywoEpNd+EJI7MaN8R6LfsL1K6riYJi/Cg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779030314; c=relaxed/simple;
-	bh=HTf0CYA7N9N3ycOlSsH2RN9JpiCBHmSJID9/ns/WmqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bx2O+lm3E7/0nyGNAp04vvrRXB0dO3pfRmYiJY8HTaDAeyAA52Nlo23lBukIzDabvtiZN/3MhqvA3RMSqOL3Ja7I7EwxyIzGwZGLjTzNMdJrC6YfSqSAubkV2+pj/+21I7EgsQwvhJxlXigVk18v3uAj1VB6qPjp2SMf0exHZW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OacEpg0B; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779030399; c=relaxed/simple;
+	bh=zLCZow48jchZHQs9kzqyqfpT/IAXJQ2Nouv/3GCwS5k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U83y1QlfbzCePUEreU1RLbDHBSDYXrMI/i+ISJ8tCF2c9e/4NIb9+xRDw4egk0iwiqH89PVT0CrASJzW7gm59aFtrHL3rHc3OQ/Pv1xeUSgI86t6EIvfewj+u4oNDXbHUEA9K4jWpsIeUz2TeVEW2wPX5K7XmduVa7anBbo+WxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=StWstgdi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OacEpg0B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980A7C2BCB0;
-	Sun, 17 May 2026 15:05:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="StWstgdi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB97C2BCB0;
+	Sun, 17 May 2026 15:06:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779030314;
-	bh=HTf0CYA7N9N3ycOlSsH2RN9JpiCBHmSJID9/ns/WmqU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OacEpg0BHllVT5dCFHETKkOb/zz7Q6gsVg68LmodwakwJs7TUwK+px4dfd2w1SItX
-	 SroQwxfa2dxebFsbEq5TJ+CIIfKootwvJE9alpoAqCLALsL/IFibntmjImIo6CCP9v
-	 hMhNc4WPIc2JRIvnEXCUpq8tzXLQEO89zHHz4GPzfn02Vy2WD/KGtkONSGloh3TuKG
-	 zTh3oKtNfwX62moIN6h5K6pGVWelBPzdZq+/n9ZViXSd32bbfLO71eeE5RMVQpiDN3
-	 nGkQ2RavjezKKqbnCJeZNZfRh96kfFQH5fC75f0aVKPwNl95uHNFBR4qHOR3oJIKut
-	 ULi35LN7GpmSA==
-Date: Sun, 17 May 2026 17:05:10 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Manish Baing <manishbaing2789@gmail.com>
-Cc: lee@kernel.org, linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
-	devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH v3] dt-bindings: mfd: st,stmpe: fix PWM schema and drop
- legacy binding
-Message-ID: <agnY16I4sYAdRd9T@monoceros>
-References: <20260509193928.19030-1-manishbaing2789@gmail.com>
+	s=k20201202; t=1779030399;
+	bh=zLCZow48jchZHQs9kzqyqfpT/IAXJQ2Nouv/3GCwS5k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=StWstgdirUffeUmQgdUI+NqMobgu63H/Z74lq6OjDlzxCct/kwT1Rw/YhTsxiuNlp
+	 PLA8O56kpJm4Ql3CKY1F8AVST9607V+f09fNaw2m5tDi3j6GmDodF2D2LNP+jgzA4s
+	 XTx62k4mF7SwCyiP3gTccemTF9TR/GZgTWH08JrtTk2N9hIXWCjqDnQeVNjd1grqlX
+	 g1efZe9rV85m30Ox3SgD+M9qAlaecUf/iiSOie8oEGOFeizcOTDy5tAzeQVddw7ORk
+	 U7zwi7MrAyxPvTeNFNEWqUKq9BMLKBkKkd8d94B7WGKpupBdJl3i06Ioqi6eByFfHk
+	 /qBcOv7syhG6Q==
+Date: Sun, 17 May 2026 16:06:27 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v4 06/10] iio: frequency: ad9910: add RAM mode
+ support
+Message-ID: <20260517160627.5c98ec03@jic23-huawei>
+In-Reply-To: <20260508-ad9910-iio-driver-v4-6-d26bfd20ee3d@analog.com>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+	<20260508-ad9910-iio-driver-v4-6-d26bfd20ee3d@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mjp4gispirhzowi5"
-Content-Disposition: inline
-In-Reply-To: <20260509193928.19030-1-manishbaing2789@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+
+On Fri, 08 May 2026 18:00:22 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Add RAM control channel, which includes:
+> - RAM data loading via firmware upload interface;
+> - Per-profile configuration and DDS core parameter destination as firmware
+>   metadata;
+> - Profile switching relying on profile channels;
+> - Sampling frequency control of the active profile;
+> - ram-enable-aware read/write paths that redirect single tone
+>   frequency/phase/amplitude access through reg_profile cache when RAM is
+>   active;
+> 
+> When RAM is enabled, the DDS profile parameters (frequency, phase,
+> amplitude) for the single tone mode are sourced from a shadow register
+> cache (reg_profile[]) since the profile registers are repurposed for RAM
+> control.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+
+Minor stuff inline.
+
+> +
+> +static enum fw_upload_err ad9910_ram_fwu_write(struct fw_upload *fw_upload,
+> +					       const u8 *data, u32 offset,
+> +					       u32 size, u32 *written)
+> +{
+> +	const struct ad9910_ram_fw *fw_data = (const struct ad9910_ram_fw *)data;
+> +	struct ad9910_state *st = fw_upload->dd_handle;
+> +	int ret, ret2, idx, wcount;
+> +	u64 tmp64, backup;
+> +
+> +	if (offset != 0)
+> +		return FW_UPLOAD_ERR_INVALID_SIZE;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	if (st->ram_fwu_cancel)
+> +		return FW_UPLOAD_ERR_CANCELED;
+> +
+> +	if (AD9910_RAM_ENABLED(st))
+> +		return FW_UPLOAD_ERR_HW_ERROR;
+> +
+> +	/* copy ram profiles */
+> +	for (idx = 0; idx < AD9910_NUM_PROFILES; idx++)
+> +		st->reg_profile[idx] = get_unaligned_be64(&fw_data->profiles[idx]) |
+> +				       AD9910_PROFILE_RAM_OPEN_MSK;
+> +
+> +	/* update CFR1 */
+
+Comment is kind of obvious.  Maybe say more or drop it.
+
+> +	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
+> +				  AD9910_CFR1_RAM_PLAYBACK_DEST_MSK |
+> +				  AD9910_CFR1_INT_PROFILE_CTL_MSK,
+> +				  get_unaligned_be32(&fw_data->cfr1), true);
+> +	if (ret)
+> +		return FW_UPLOAD_ERR_RW_ERROR;
+> +
+> +	wcount = get_unaligned_be32(&fw_data->wcount);
+> +	if (!wcount) {
+> +		*written = size;
+> +		return FW_UPLOAD_ERR_NONE; /* nothing else to write */
+> +	}
+> +
+> +	/* ensure profile is selected */
+
+Comment is not adding value unless there is more to say.
+
+> +	ret = ad9910_profile_set(st, st->profile);
+> +	if (ret)
+> +		return FW_UPLOAD_ERR_HW_ERROR;
+> +
+> +	/* backup profile register and update it with required address range */
+> +	backup = st->reg[AD9910_REG_PROFILE(st->profile)].val64;
+> +	tmp64 = AD9910_PROFILE_RAM_STEP_RATE_MSK |
+> +		FIELD_PREP(AD9910_PROFILE_RAM_START_ADDR_MSK, 0) |
+> +		FIELD_PREP(AD9910_PROFILE_RAM_END_ADDR_MSK, wcount - 1);
+> +	ret = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), tmp64, true);
+> +	if (ret)
+> +		return FW_UPLOAD_ERR_RW_ERROR;
+> +
+> +	/* populate words into tx_buf[1:] */
+Another comment that doesn't add value given the code is obviously doing that.
+If nothing else to say remove it.
+> +	memcpy(&st->tx_buf[1], fw_data->words, wcount * AD9910_RAM_WORD_SIZE);
+> +
+> +	/* write ram data and restore profile register */
+> +	ret = ad9910_spi_write(st, AD9910_REG_RAM,
+> +			       wcount * AD9910_RAM_WORD_SIZE, false);
+> +	ret2 = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), backup, true);
+> +	if (ret || ret2)
+> +		return FW_UPLOAD_ERR_RW_ERROR;
+> +
+> +	*written = size;
+> +	return FW_UPLOAD_ERR_NONE;
+> +}
+
+>  static int ad9910_probe(struct spi_device *spi)
+>  {
+>  	static const char * const supplies[] = {
+> @@ -1688,7 +1991,21 @@ static int ad9910_probe(struct spi_device *spi)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "device setup failed\n");
+>  
+> -	return devm_iio_device_register(dev, indio_dev);
+> +	ret = devm_iio_device_register(dev, indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	snprintf(st->ram_fwu_name, sizeof(st->ram_fwu_name), "%s:ram",
+> +		 dev_name(&indio_dev->dev));
+> +	st->ram_fwu = firmware_upload_register(THIS_MODULE, dev, st->ram_fwu_name,
+> +					       &ad9910_ram_fwu_ops, st);
+> +	if (IS_ERR(st->ram_fwu))
+> +		return dev_err_probe(dev, PTR_ERR(st->ram_fwu),
+> +				     "failed to register ram upload ops\n");
+> +
+> +	ad9910_debugfs_init(st, indio_dev);
+> +
+> +	return devm_add_action_or_reset(dev, ad9910_ram_fwu_unregister, st->ram_fwu);
+
+Why is this only after we've registered the device?  At that point userspace
+stuff is exposed, so any risk of a race with this bit not having finished yet?
+Perhaps a comment would be useful.
 
 
---mjp4gispirhzowi5
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] dt-bindings: mfd: st,stmpe: fix PWM schema and drop
- legacy binding
-MIME-Version: 1.0
+>  }
+>  
+>  static const struct spi_device_id ad9910_id[] = {
+> 
 
-Hello,
-
-On Sat, May 09, 2026 at 07:39:28PM +0000, Manish Baing wrote:
-> The st,stmpe-pwm binding is already covered by the MFD schema in
-> Documentation/devicetree/bindings/mfd/st,stmpe.yaml. However, the
-> PWM subnode was missing a 'required' properties block. This allowed
-> Device Tree nodes to pass validation even if the 'compatible'
-> string was omitted. This omission could lead to probe failures
-> at runtime.
->=20
-> Fix the schema by adding the missing 'required' block and
-> remove the obsolete and redundant text binding file.
->=20
-> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
-> ---
-> Changes in v3:
-> - Added 'required' properties to the pwm subnode in st,stmpe.yaml
->   to close a validation gap identified by the Sashiko.
-> - Updated commit message and description to reflect MFD subsystem changes.
->=20
-> Changes in v2:
->  - Droppped the TXT file instead of converting to YAML, as the
->    functionality is already covered by st,stmpe.yaml.
->   =20
->  .../devicetree/bindings/mfd/st,stmpe.yaml      |  4 ++++
->  .../devicetree/bindings/pwm/st,stmpe-pwm.txt   | 18 ------------------
-
-If the patch was split into two, each touching just one of the files,
-there would be no need for merge coordination. Also logically it's two
-patches. Would you mind splitting?
-
-Best regards
-Uwe
-
---mjp4gispirhzowi5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoJ2SQACgkQj4D7WH0S
-/k7qMgf9F8VgNDKxylmZdIj4jJug5gFq8NLuFrwgb2rwAp26Bz+awUtEStzEzWKd
-YpjTwUDqoiOqAam42pv06UN8+mKhBH9BVfekX4xbfyJ3WtQVCvea1hPgVXfWv7Ed
-ADiMCiIY/8grsyCNp5IFeCgnhYBjn7gh4u+aCdhebcKWUnmTSZjcLAsncqe2WhWI
-PLxxYjvuQyZ32cYE5w0TZ99ak4QNLT4kjaanPA92nxbT7RXSWs2d0OZOPdKAE0i9
-s3Bu31dCoJ9u7XgQxtrlZGHxKMhuv6MBZdf+L73abLabw7tMi+nLe2V8p/nOv9AI
-XTZoWFflGQwfAyG8uEGHOxvzIgCRyw==
-=LQj8
------END PGP SIGNATURE-----
-
---mjp4gispirhzowi5--
