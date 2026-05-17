@@ -1,98 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEB13101D8
-	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 14:36:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850A610F1;
+	Sun, 17 May 2026 14:36:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779028569; cv=none; b=X0YMLkICbslvmVg3kGUlDQgw1fpCM0uKYG4lszR7c4bqfw0vk6Waz9EN+Fjq7YjONWbZbqWvjg02dN6ahd1opOS3iTpRmOpzNOxvg8jW/AbpHwotqLj8P1TKp3q6s8RMoBkHF9mZhBpmajS/8pnyUNpXwUG7kmP7v09YXMyaRQw=
+	t=1779028591; cv=none; b=HSKEhrkodhH8zdpCj+eiB6gEVPpwSbiM2OUjli/WMylYhPOlBiAYH+ozGvgxEqIuUotVvS26ZjpJ+J3OMjRKWxJxomLHbUw2WHSNAYbktezuTEyaZlc+CZ3IZtcI1ev3k1Ak9uil6/bm0/xbWywTSWG7AnVs9DUT91XwiribY2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779028569; c=relaxed/simple;
-	bh=V/xwlsEIlQN68izK5bH2x8e0x/a5Vci9/8zYNCEatrE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SkiuWK6o+LFBwms4FPU+uMebnWq4RT/Pa1l6Rue4363vvLpEuNZb0T1/P+3tSHwiwsFKurHInh8lSM/gFPU5udVp01QQCWKro5P4bcFrt7n2yGIsEeEQIMG01B7LUUdIan9VyBhMV4fdbOmFieamqiwq+E9a7W9hdS93A1FAfXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XoYy6zH8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779028591; c=relaxed/simple;
+	bh=XRvg7yra7Kdd4sPS1leUSWBeRh5YL1wJwU716C5+mGY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SEHqrJNeXku9bU51f3Vugzr91d2sjdvf+4gZabaIZhk5TqBFGG1cGICTFQlWUtlmxxkY/pF4DqIWBFnvoDogYlR6VKfUepNEQBEVbh0Ixhxy80M5JA2egkkKgVjYDnt6tjM6DS0tExXVopxMojRF6aIq50Ylrh2QuEPEIF+SltY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y1yIrzoh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XoYy6zH8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98BA5C2BCB0;
-	Sun, 17 May 2026 14:36:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y1yIrzoh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F48C2BCB0;
+	Sun, 17 May 2026 14:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779028568;
-	bh=V/xwlsEIlQN68izK5bH2x8e0x/a5Vci9/8zYNCEatrE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=XoYy6zH8gv978xd2aLmbkrgF1mQAITYUSrJ66x9yS+c1e2WJ7c6XD2cqU/A6GUIjU
-	 fBgySf0AUxqdNxCtqno9SKtijMqit/dRKcFHyQuY+Z6Kz9iKVtQz1D2YhoGQLPix4o
-	 LHvZy2luz5cV95wEPVSoOYAQWPtYilE30AoYty3Z6rcaA8OTmSJ10ei+gEGVZsdq9X
-	 z5ZvDWj+c0u4aUjt+PbUMBrW95IV8lP/G98RtAld3l+Ch6RiI1opsO4MZbvlW3Mjhf
-	 hZwpBFa8kcjmbUrMzNkm1UMYx9585nQa3Qtce8a0fHyOdwzgQHRBIGg+QtWT5nxGtl
-	 Cylf4D5kj2acQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: clock: add binding header for
- sf21-topcrm
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chuanhong Guo" <gch981213@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260517-sf21-topcrm-v1-2-438f2e0513ff@gmail.com>
-References: <20260517-sf21-topcrm-v1-2-438f2e0513ff@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 14:36:07 +0000
-Message-Id: <20260517143608.98BA5C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1779028591;
+	bh=XRvg7yra7Kdd4sPS1leUSWBeRh5YL1wJwU716C5+mGY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Y1yIrzohA36EB2tN71Hqse39pioPcC1WDtf0UXW9ygXF2DdE6HsMhnfkStcBlXepE
+	 nRdbjlY4CSfSdIKuwyC2vn31qiAM6U12npuo37thiXDLqsiz8jlAJu7+RYgv3/sIx3
+	 1crlwW9UoyVQ/Ugy45XpJk4upAq0VlGtMXIGyUPSeW8uKboDbCgh9RP+UAJ6XBsG9F
+	 sTncYs81d+e7athfKDtCG5gCt57IWW7uWRXpdhGvFAge/R5VSWIetgDvUimfODOsgq
+	 9/5r7IEXeFlJnqVcbYJjmydNdh4+8yizI8PiUgoyFzDN0SwqcXn/wEcBtrwkwF3DXF
+	 ujLANXWovB7Jg==
+Date: Sun, 17 May 2026 15:36:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Taha Ed-Dafili <0rayn.dev@gmail.com>
+Cc: lars@metafoo.de, Michael.Hennerich@analog.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, skhan@linuxfoundation.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] iio: dac: ad5504: introduce local dev pointer
+Message-ID: <20260517153621.55b3436d@jic23-huawei>
+In-Reply-To: <20260509142047.30302-5-0rayn.dev@gmail.com>
+References: <20260509142047.30302-1-0rayn.dev@gmail.com>
+	<20260509142047.30302-5-0rayn.dev@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The dt-bindings header file exposes software-specific `MAX` macros =
-(`SF21_CLK_MAX` and `SF21_RESET_MAX`).
---
+On Sat,  9 May 2026 15:20:42 +0100
+Taha Ed-Dafili <0rayn.dev@gmail.com> wrote:
 
-commit b39e2fdfa1953205f67f3e13ae23a09e43917c11
-Author: Chuanhong Guo <gch981213@gmail.com>
+> Replace &spi->dev with a local dev pointer to shorten lines, fix
+> alignment, and improve overall readability in the probe function.
+> 
+> Signed-off-by: Taha Ed-Dafili <0rayn.dev@gmail.com>
+Applied this one to the testing branch of iio.git
 
-dt-bindings: clock: add binding header for sf21-topcrm
+Thanks,
 
-Add the device tree binding header for Siflower SF21A6826/SF21H8898
-toplevel clock and reset module. The header covers both clock and
-reset IDs provided by the block.
-
-> diff --git a/include/dt-bindings/clock/siflower,sf21-topcrm.h b/include/d=
-t-bindings/clock/siflower,sf21-topcrm.h
-> new file mode 100644
-> index 0000000000000..3690b3452501e
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/siflower,sf21-topcrm.h
-[ ... ]
-> +#define SF21_CLK_PCIE_REFN		29
-> +#define SF21_CLK_PCIE_REFP		30
-> +#define SF21_CLK_MAX			31
-
-Should this MAX macro be exposed in the dt-bindings header?
-
-Device tree binding headers define the hardware ABI, and the total number
-of clocks is an internal software implementation detail. Changing this
-value when new clocks are added in the future breaks ABI compatibility for
-components compiled against the older header.
-
-Could this macro be defined internally within the driver source code instea=
-d?
-
-> +
-> +#define SF21_RESET_GIC			0
-[ ... ]
-> +#define SF21_RESET_NPU2DDR_ASYNCBRIDGE	16
-> +#define SF21_RESET_IROM			17
-> +#define SF21_RESET_MAX			18
-
-Similarly, should SF21_RESET_MAX be moved to the driver source code to
-avoid breaking ABI compatibility if new resets are added?
-
-> +
-> +#endif
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517-sf21-topcr=
-m-v1-0-438f2e0513ff@gmail.com?part=3D2
+Jonathan
