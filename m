@@ -1,185 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com [209.85.167.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C2F25F98B;
-	Sun, 17 May 2026 03:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778987781; cv=none; b=N2hQnsDrT6pQPlukrA+I9Opm7e8/0H/C0Ahye1NOfmW8FrgkEqrkbo5RByf+bN9eP2JN+UawTr62IRGrKVTXoYEuRPALqubUY1WwD8jfY+6mDRy4Xu1Q2Vpj0gZaB3HbUmOQtG8Bt8Z2oMVWHHrC7HehLbTW/ckgYVLfRB1Oqr0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778987781; c=relaxed/simple;
-	bh=PCfvLkWmZcAateO1r8zYfXsOhUrGBkB6G/RPZ1RXeU0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m+jTKXrJuHnkqjBwNgeQeU7z+ZSRtU4sInvBUQww/H21qpC4R8VBO523QBW5o/fdTBLGxqis2n9TIqfhr//f4zIkJT1Nm+YaBGmtk0gfn0umWpVEgZZENYCWS6CRt4w0yNnbwM0ZByJl5rRywBVdySiDucQTDeYfRtNu2Lp0e4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7N+SBGF; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE4570830
+	for <devicetree@vger.kernel.org>; Sun, 17 May 2026 03:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778988411; cv=pass; b=i+ZJGoUaEz4iQh+0GYQO305hT8N3ZYwYSYOsGX7WA2Irmtfk+hQPiyGPMRvvNLYno1RvqPG7ptu0/tyfp34+HVeCY8WsnNb+zyBiJTz6EKr69IpJlDnHcwwnP97nYB7X3MJgoW74XkCBa+x/Wrbn+rpnitHMWEFQmtFyol5AKsQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778988411; c=relaxed/simple;
+	bh=PpBuX4SSA7P0CsT+tKuq2yy0xJjsWWKG3+q3THaUKuQ=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=czbnObkA/Vyf3t3DiXe8BnOEpPiyS8hwuBKh+NletQJ03WzURE7bxxGjWRDqgGNFbrEIpvbaiJ3+pqYqAVP9PIjpslbActskfVksiRpb0UsP9RB6bHDXyDsC5b5l4//ophuSP5w/trDta2UxJD6XwxJxlS8YGfIdaxaIOZchxhk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dhstQFDB; arc=pass smtp.client-ip=209.85.167.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7N+SBGF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1854C2BCB7;
-	Sun, 17 May 2026 03:16:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778987781;
-	bh=PCfvLkWmZcAateO1r8zYfXsOhUrGBkB6G/RPZ1RXeU0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=K7N+SBGFOzXg0kQBcwMCom+OBdt7MGjnIP8nLdVOxatA1UuhLv5+27PMFAaFM79uX
-	 rJrmCuszZdvqlB1JNPwTNbA5cVanqXhVymCypWznyea6wORY5HOjUyETD/IsY3hhFT
-	 rXdgcjEHAUfgzRe3irBpL3aoaiuIYqVEG/dkPnd1MEHukZOL46I/Q/vvNEpKnmEWTb
-	 p28qKBtWLRV6ballV2wymEntxPU/Sm63Ut9MgVAFmByaU/44UI21WdkX/TGj/NxbC9
-	 M5Yc0VmrmipLA4/xvp8OQ1xfFHSdQylt7yd8jAP5j0f9Rfgu3Hb33ffCQNUhlE/yw3
-	 NKTHH1CAqSZqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/5] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Inochi Amaoto" <inochiama@gmail.com>
-Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260517014841.254085-6-inochiama@gmail.com>
-References: <20260517014841.254085-6-inochiama@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 May 2026 03:16:20 +0000
-Message-Id: <20260517031620.E1854C2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dhstQFDB"
+Received: by mail-lf1-f67.google.com with SMTP id 2adb3069b0e04-5a8891febd2so1598383e87.1
+        for <devicetree@vger.kernel.org>; Sat, 16 May 2026 20:26:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778988408; cv=none;
+        d=google.com; s=arc-20240605;
+        b=LV95IsfAiBQmDGvn3z/F6loltSPmh22rSIMcD1G+uSM8nhGGlnkRbEDJE2p+gdnlPJ
+         Nnm2G0VEG92rFlDaGhAf+EsEQRwvdRrkSv0HTOleFnWyFSiy4WIU/qkSswAEler1bHUT
+         4sdOZg9ttXKcTSV3H1VMShsH4cWr2H2/ZqC70dHn14Kh9EfE9LUyN7fgFdBms8GK1z6v
+         29Xxi07qfJ+ywZgM2+yU7opgTBaWOevkJoD00Sj9XLK5PMvtn4cbQjjizqxKB9PDgv3b
+         IeyyVU2G5Kyk87FyMO7VubhB3bMJ5lYuEQ3LhETzCAXycvwF+Hr7TNWTk61SMMUNWWe/
+         GcSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=71aS+1qGdtfHf6EmkyoA4cYy8RqwmM8JopMl5kKAswg=;
+        fh=xinSYdsNEWoxDqxtubbDOPEYdi8dHtB29xPzbI6oc6Q=;
+        b=EUYzlN8O5St7RHKxwOoRfui27dfWj7W0eBuOv3WjixX8MLQqbvsbXGDX1hG3o+ze/G
+         f5QMdeR5849yhZa9KfbMiUnlFEDjm6WTjLqX+YdC/8Rk42ICOjmzj1eNRLqH4p5xGamw
+         yw/XDDgQ3Aw6wYXbteo6LITK9dh7p7RpC6af6bySk1DjaDZuajudDyApzYHaxGumaVni
+         YjjbNTYZBgHpUI1t6cO/NFOMzmkUPJ2hAJ4otuHmC5Qc9NUpYMIB/yqoCppl6Zo5VeU8
+         PLVs3ZD18dcTfdEWJFRl8qIbwg9iScuStb2YRBMJvAvNMXIhXvPOaniMGviRvaQRWKDi
+         E9vw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778988408; x=1779593208; darn=vger.kernel.org;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=71aS+1qGdtfHf6EmkyoA4cYy8RqwmM8JopMl5kKAswg=;
+        b=dhstQFDBvMnm0UGBrF3HOepcmetWFFLUm62aaOKkbta65gHANdAl9k7g72w9uTIhlq
+         u7Gd3oH4uTPVmwkhGaOvK/j+cqTN8nPqPg2sunAYp7ixfK7KZP3uXv0QMo7qTnuO+0CF
+         1G9V3ViWmzKe2uOEd1xGPOz4F+E8mKj+Fa3r/7S8GLhzhU1R2OXdEuqp1b1+w6zK4+AB
+         pb9ECrxkXDN5bLMeN+mvWJMSUppuxm6Z5dwOakWthao0YOj7yjPG36dsPcULmYKZf8v0
+         e6HtgfzXCbPrtw1G1VBeWr2ZIOKyz7Lz88H1Cr6s87dPEjMlZH5o822romIvvnrLT9PD
+         bsCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778988408; x=1779593208;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=71aS+1qGdtfHf6EmkyoA4cYy8RqwmM8JopMl5kKAswg=;
+        b=iusOoIXIntY66HiXZpzbkW4BpM1nxEplN1bBwOhr/kgXXHSrgzcj0jDUnst9Lt7Qlc
+         NW4lRiGPEgV6b9ByySdBTd4PompHUf68Nyd7P8RVfoYpTI8/4w/kveylbK5inRtROZVX
+         j91GmvA6zH9/9GwgU2Bb3qnUht+2nKQpuv+RyWroKc2Xx2wjO3n1V9Gza860cmo110wW
+         ou6OhVa4mC3cohTMh5cHNfuErFtzLpwr5hyI+n1VulstWPMqsfc+xcG5587He+/5rvMV
+         xwPXeJU7+9BrKT0ZACGsaXIQG7+SXmeQBPx6GaF4Bcy7xLqKc52Q2rpfRd5kedBNDMOA
+         +FBw==
+X-Gm-Message-State: AOJu0YwCSmP+WnlNhInk3TObqoNYH1bImtwnuqZ/5/znxSAmMXzdgh8K
+	oIn/5pb0RxVOmX+ecQkHPi14PUEQLAYb3FuMBsx8lsWHmiGDpXbQg2RWDYs+GfxugfE2GoM7txu
+	Na3T39PXq9l7oaYNolsGqr7p+IZaDVeWZIEvPVRgO/Q==
+X-Gm-Gg: Acq92OEmLKMpgi5pdpCHtA/c63iGtfCuqZYTO3BYXc94h3wgd06RZOE+TpTkiGwHOCG
+	G3n65PMB/1Lg5ChNyw9iZ+jz+HdkbTfjC0vzSz4Qq7SWR4yikzTYt9liW93Xvj1EKCB9RnvgIzF
+	z6N+hXYtJSdaBiHnXkT2/aQqnc5cjxQJI1XUb+oiAlRqoXytsfKGPiO915JA8NgLJTXwUPqpqnM
+	3kFBl1sudHWoNqf+d+FB2sIHXwkg7yTNgOfFsGh2DJQteRsWw2JTseXc1kpsq7XIL2/WPjMScHq
+	RTC59wJRA+XyAVnrOpr5ChD/E4XeSgEbNjmJXEOge08IXaOGVyQnkGxeLa10z0aMg6Kz4MsOSw=
+	=
+X-Received: by 2002:a05:6512:39c3:b0:5a3:ffed:8443 with SMTP id
+ 2adb3069b0e04-5aa0e75782amr3358434e87.23.1778988407787; Sat, 16 May 2026
+ 20:26:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: Ga Hing Woo <huhuvmb88@gmail.com>
+Date: Sun, 17 May 2026 15:26:35 +1200
+X-Gm-Features: AVHnY4Icbi3ZF704jZGcyMxf6XcvdjbQupoZouzSLylCd5-xr3oSnzmcFutve60
+Message-ID: <CAECiUCvN-LDdv1jeWRfQ85qAq+fOcY5sj=QTp7G6J4tzOAZskA@mail.gmail.com>
+Subject: [ANN] socc: static analysis tool for hardware-level DTS consistency checking
+To: devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] MMIO registers are accessed before the controller's clocks are ena=
-bled, leading to a synchronous external abort or system crash.
-- [High] Incorrect use of `u32_replace_bits()` combined with bitwise OR (`|=
-=3D`) fails to clear existing bits.
-- [High] Missing Root Complex mode configuration for the K3 controller due =
-to a copy-paste error.
-- [Medium] A bitmask macro for a completely different field is incorrectly =
-passed as the replacement value to `u32_replace_bits()`, writing unexpected=
- values.
-- [Medium] Asymmetric teardown: `k1_pcie_deinit()` fails to assert reset on=
- the K3 controller because it uses a reset line the controller is explicitl=
-y configured to ignore.
---
+Hi all,
 
-commit 2826ac7fe9e0d0c0dd248a7fc412ce12f4d7b491
-Author: Inochi Amaoto <inochiama@gmail.com>
+I=E2=80=99ve been working on a tool called SoC-Consistency (socc) that trie=
+s to
+catch a class of DTS bugs that dt-schema cannot detect: problems that are
+schema-valid but physically incorrect.
 
-PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
+The motivating example: an Allwinner H3 board with vcc-pc-supply connected
+to a 3.3V regulator. The DTS parses cleanly, dt-schema is happy, but the
+PC/PG IO bank is hardwired for 1.8V maximum. The result is silent IO pad
+damage on power-on. The tool catches this as:
 
-This commit adds host controller support for the Spacemit K3 PCIe IP. It
-introduces K3-specific initialization, PHY enablement, and MSI host setup,
-hooking these into the existing spacemit-k1 driver.
+[ERROR] AW-202: 1.8V GPIO bank (PC/PG) supplied at 3.3V
+Location: /soc/pinctrl@2000000
+Impact:   Silent hardware damage
+Fix:      Connect vcc-pc-supply to a 1.8V regulator
 
-> diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/=
-controller/dwc/pcie-spacemit-k1.c
-> index 7f6f1df31cd81..7854d26220a98 100644
-> --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-[ ... ]
-> @@ -262,6 +278,152 @@ static const struct dw_pcie_ops k1_pcie_ops =3D {
-[ ... ]
-> +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> +{
-[ ... ]
-> +	/*
-> +	 * Put the controller in root complex mode, and indicate that
-> +	 * Vaux (3.3v) is present.
-> +	 */
-> +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
+Other things it checks:
 
-Does this code configure the controller as a Root Complex?=20
+Power supply chains: missing regulators, circular dependencies,
+IO-before-core sequencing violations
+Clock trees: cycles, missing providers, frequency mismatches
+between consumer and provider
+GPIO: pin conflicts (two nodes claiming the same physical pad)
+Interrupt routing: missing interrupt-parent, wrong IRQ numbering
+for the GIC type in use
+Bootloader vs kernel DTS diff: memory base address divergence,
+UART console mismatch
+Vendor-specific: Amlogic AO/EE domain crossing, Qualcomm GCC
+node absence, Rockchip memory region overlap
 
-The comment mentions putting the controller in root complex mode, but the=20
-register write only sets the PERSTN bits. In the K1 initialization, this is=
-=20
-done by setting DEVICE_TYPE_RC, which appears to be missing here.
+Current SoC coverage: Rockchip (RK3588/RK3576/RK3568/RK3528/RK3308),
+Allwinner (H3/H6/H616/A64/A527), Amlogic (G12A/G12B/SM1/GXBB),
+Qualcomm (SDM845/SM8250/SC7180/QCS6490), NXP (i.MX8MP).
 
-> +
-> +	val =3D dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> +	val =3D u32_replace_bits(val, GEN3_EQ_CONTROL_OFF_PHASE23_EXIT_MODE,
-> +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
+The tool is pure Python, works on preprocessed DTS (after dtc -E or
+clang -E expansion), and outputs text, JSON, or SARIF for CI integration.
 
-Is the replacement value intended to be GEN3_EQ_CONTROL_OFF_PHASE23_EXIT_MO=
-DE?=20
+pip install soc-consistency
+socc check board.dts =E2=80=93soc rk3588
 
-This passes a bitmask macro for a completely different field into=20
-u32_replace_bits(), which shifts the value into the target mask and writes =
-an=20
-unexpected value into the register.
+Source: https://github.com/gahingwoo/SoC-Consistency
 
-> +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-[ ... ]
-> +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-> +{
-> +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
-> +	u32 val;
-> +
-> +	dw_pcie_dbi_ro_wr_en(pci);
-> +
-> +	val =3D dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-> +	val |=3D u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
-> +				K3_CACHE_MSTR_AWCACHE_MODE);
+I=E2=80=99m particularly interested in feedback on:
 
-Will this clear the existing bits correctly?=20
+1.False positives you hit on real boards =E2=80=93 the voltage threshold
+heuristics and clock frequency tolerances are calibrated against
+a limited set of actual hardware and are likely wrong in edge cases.
+2.Rule gaps on platforms I haven=E2=80=99t covered well =E2=80=93 NXP i.MX8=
+M rules
+are thin, and I have nothing for TI AM6x or MediaTek yet.
+3.Whether the approach of requiring preprocessed DTS input is
+acceptable, or if integrating a preprocessor step would make
+the tool more usable in practice.
 
-The u32_replace_bits() macro returns the fully modified 32-bit word. By usi=
-ng=20
-the bitwise OR assignment (|=3D), the original bits from val are ORed with =
-the=20
-new bits, leaving any originally set bits as 1 instead of clearing them.
-
-> +	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
-[ ... ]
-> +static const struct dw_pcie_host_ops k3_pcie_host_ops =3D {
-> +	.init		=3D k3_pcie_init,
-> +	.deinit		=3D k1_pcie_deinit,
-
-Can k1_pcie_deinit() successfully assert the reset for the K3 controller?=20
-
-During initialization, k3_pcie_init() sets PCIE_IGNORE_PERSTN in=20
-PCIE_CONTROL_LOGIC. If k1_pcie_deinit() attempts to assert reset using=20
-PCIE_RC_PERST, the hardware might ignore it, leaving the device improperly=
-=20
-reset during teardown.
-
-> +	.msi_init	=3D k3_pcie_msi_host_init,
-> +};
-[ ... ]
-> +static void k3_pcie_clear_irq_status(struct k1_pcie *k1,
-> +				     u32 *status0, u32 *status1, u32 *status2)
-> +{
-> +	*status0 =3D readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> +	*status1 =3D readl_relaxed(k1->link + INTR_STATUS);
-> +	*status2 =3D readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-> +
-> +	writel_relaxed(*status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> +	writel_relaxed(*status1, k1->link + INTR_STATUS);
-> +	writel_relaxed(*status2, k1->link + K3_ADDR_INTR_STATUS1);
-> +}
-> +
-> +static int k3_pcie_parse_port(struct k1_pcie *k1)
-> +{
-[ ... ]
-> +	k1->phy_count =3D i;
-> +	if (k1->phy_count =3D=3D 0)
-> +		return -EINVAL;
-> +
-> +	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
-> +
-> +	return 0;
-> +}
-
-Could accessing these MMIO registers before the clocks are enabled cause a
-synchronous external abort?
-
-The probe function calls parse_port() before dw_pcie_host_init(). This means
-k3_pcie_clear_irq_status() performs direct MMIO reads and writes to the=20
-k1->link registers before k1_pcie_enable_resources() is called later in=20
-k3_pcie_init().=20
-
-Accessing an unclocked peripheral can cause a bus stall on ARM/RISC-V=20
-architectures.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260517014841.2540=
-85-1-inochiama@gmail.com?part=3D5
+Thanks,
+gahingwoo
