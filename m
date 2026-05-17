@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D71333FE0F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350A2351C2A;
 	Sun, 17 May 2026 09:14:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779009281; cv=none; b=PONKKRhpBbsd84/GR++pkLuQrgx0CbiMPRt3IULyA8zgQt74BormhCMK3gNv4stbLEb5mbVy3yKlvL83TyfvXRQSCjsooPjdi1hYpo60JPbTAvHO9VK7KKXcCfUP+ZSVMB1KtrI/QtkkgAO7RDONJs6uG6+UvIYnuO43fbC5VKo=
+	t=1779009281; cv=none; b=M+r6MH0oKCaweK6ZkHMnaul0ww7x43i9e+7O/yv9geXMFn5NxaOUQYfQfp3O5i1sczGu7yrvhxvjAkQCjjJy+NrqRlpXM7c2kliPD6fFolqWQ3kvtjo4X76NXuZXaopfvUpytZTruir/a4vhJhPXkcJIVaZ7yQ7L+GRNJXI53FA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779009281; c=relaxed/simple;
-	bh=zhw1h4rJnJZxyUUuf7LkOp1GVOP1mrkP1qSR27ea0Uc=;
+	bh=0MiPE4pAGNIHkDMT5fwtfqtbshqWVCMkNClPirEcpH4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QnQt7JtDvOCw2G2GLlqUtNlNGJIxiKHpbvk2iF62nrcwC0TNtxCjhpiKLU1FXFhtbOslzOc6r1w+kV/ntx1UKv0pMslX/O+HUoOdcrmYO2tTh9UCVrTsTpBWkJzPkRy+Fyi2LKDQAAovcgq/IJko7dGvEHMsbQw4FSrGAHxppsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVAazn9e; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=qDoKm4TyE4nCjpiuPci/AnMEYLEr85lh3sHqg4PyKpPjAakdIFOtCxIwVTm/x8Hium+KB/fTZsENPVyPHsm1irLykcmED5Dqk7Yw+K9m2WPTmgvW2FQ9VmREC+Xz50OmMaWlYp+d/g6bTZxIzWqcJ0N3b7JaxAo93W3E+0+0H48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFg+cqo6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVAazn9e"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D2642C2BCFC;
-	Sun, 17 May 2026 09:14:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFg+cqo6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 06178C2BCFB;
+	Sun, 17 May 2026 09:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779009280;
-	bh=zhw1h4rJnJZxyUUuf7LkOp1GVOP1mrkP1qSR27ea0Uc=;
+	s=k20201202; t=1779009281;
+	bh=0MiPE4pAGNIHkDMT5fwtfqtbshqWVCMkNClPirEcpH4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=nVAazn9eVQTz4CrktmD7FvifapSTNd8LMb6iek3NeninMPSaWcDBjOoSOxZPGAHed
-	 rYAT0wPLTaDVOCa949pkLpeATqtsJCtDJfRXpZYnOC/lNbISpA6Wt5/xtOwMokDYy9
-	 UJxuxP+7uiNws/O60urvYS4OMI9RHXoVW6BoWIzr+1GnsV5zkSW8hz3qnvuBbGpbH9
-	 xeaL+UT3TC/lepY5SyqzLetmaYVCyQeUMzFFvaU8hCHrx4UnlukBuGuYd3oyhgvXF+
-	 mh7FE4gwayrraWHe1MLvJn6UV41rjE4JrpAnVfQiPuMRQJ7PItmUAKFw9EngjRuneS
-	 QkeLOWNqasLiw==
+	b=UFg+cqo6Kez45HSO8Tfq58z9DblZ6nYxmMUfA73Tfj8mkzaufJYXAx/b1ltbUyPSl
+	 kVr4r+V0v5XBiAkUohe2gzsZV833FenuiWYIWReUZfuA4sakEcXbyzjWy4Ht2fIZX0
+	 JY2dc8WRf/AUKt1kCVYJYktqLpD9mwqmixqqWglMh0ms5o3xcd2P9GzRL0wqt0t13e
+	 RmFxLic6fVyfIV3tvuRlwXAWo1wE/XtJrtcmh1S7zaKGuE1hfPoyZgKWDfsC68bHOr
+	 CJWqQrZ35rAYkBiJNf7gwPsns1q/czdYqdqzUdYkrZSBlntBKUVatpUdwVfYe6g5GG
+	 z04wW3oCTgTAQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C78FBCD4F25;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEA3ECD37AC;
 	Sun, 17 May 2026 09:14:40 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Sun, 17 May 2026 10:13:58 +0100
-Subject: [PATCH v13 03/12] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
+Date: Sun, 17 May 2026 10:14:00 +0100
+Subject: [PATCH v13 05/12] lib: math: div64: add div64_s64_rem()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260517-adf41513-iio-driver-v13-3-bb6e134a360f@analog.com>
+Message-Id: <20260517-adf41513-iio-driver-v13-5-bb6e134a360f@analog.com>
 References: <20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com>
 In-Reply-To: <20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com>
 To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
@@ -60,11 +59,11 @@ Cc: Jonathan Cameron <jic23@kernel.org>,
  Shuah Khan <skhan@linuxfoundation.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779009279; l=4931;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779009279; l=2327;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=jyWhBw+dHv8V301xB7fVk7eBqiDA3HMu0EAZhZicGLI=;
- b=l2WvKBL0K/Uj2ZJpdq4h5kQKSUTtnn3VzFP7MNgx541OJ5q2yOF4SyzxAmzxbGRwznwcbfWdi
- 79kHiABWtWdC705I3kgDW13Gk7T6jcojRidljeJMWlSJ0eX1JKybvy2
+ bh=ROKa5iAD0w5bgrXddKrko8IjoFXS2V0nXvPl5DFoZoI=;
+ b=b6EtCBbORfV1tje8oH4b6Kp5kgLmh1VY13RM9nPQUXt860K5ghA0u31M2t6hzdDYjCZO4AQIi
+ WgjdE91awRuAvUFwOjGLevfxv/Zdvk4CI0hJiWMBBkak0ByMPsUWbOc
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -74,149 +73,79 @@ Reply-To: rodrigo.alencar@analog.com
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-precision). After the decimal point, digits beyond the specified scale
-are ignored.
+Add div64_s64_rem() function, with 32-bit implementation that uses
+div64_u64_rem() and a branchless approach to resolve the sign of the
+remainder and quotient (negation in two's complement).
 
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- include/linux/kstrtox.h |   3 ++
- lib/kstrtox.c           | 100 ++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 103 insertions(+)
+ include/linux/math64.h | 18 ++++++++++++++++++
+ lib/math/div64.c       | 15 +++++++++++++++
+ 2 files changed, 33 insertions(+)
 
-diff --git a/include/linux/kstrtox.h b/include/linux/kstrtox.h
-index 6ea897222af1..bec2fc17bde0 100644
---- a/include/linux/kstrtox.h
-+++ b/include/linux/kstrtox.h
-@@ -97,6 +97,9 @@ int __must_check kstrtou8(const char *s, unsigned int base, u8 *res);
- int __must_check kstrtos8(const char *s, unsigned int base, s8 *res);
- int __must_check kstrtobool(const char *s, bool *res);
- 
-+int __must_check kstrtoudec64(const char *s, unsigned int scale, u64 *res);
-+int __must_check kstrtodec64(const char *s, unsigned int scale, s64 *res);
-+
- int __must_check kstrtoull_from_user(const char __user *s, size_t count, unsigned int base, unsigned long long *res);
- int __must_check kstrtoll_from_user(const char __user *s, size_t count, unsigned int base, long long *res);
- int __must_check kstrtoul_from_user(const char __user *s, size_t count, unsigned int base, unsigned long *res);
-diff --git a/lib/kstrtox.c b/lib/kstrtox.c
-index 0705461f51c0..71862b40db74 100644
---- a/lib/kstrtox.c
-+++ b/lib/kstrtox.c
-@@ -17,6 +17,7 @@
- #include <linux/export.h>
- #include <linux/kstrtox.h>
- #include <linux/math64.h>
-+#include <linux/overflow.h>
- #include <linux/types.h>
- #include <linux/uaccess.h>
- 
-@@ -405,6 +406,105 @@ int kstrtobool(const char *s, bool *res)
+diff --git a/include/linux/math64.h b/include/linux/math64.h
+index cc305206d89f..99189410d4bb 100644
+--- a/include/linux/math64.h
++++ b/include/linux/math64.h
+@@ -57,6 +57,20 @@ static inline u64 div64_u64_rem(u64 dividend, u64 divisor, u64 *remainder)
+ 	return dividend / divisor;
  }
- EXPORT_SYMBOL(kstrtobool);
  
-+static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
-+{
-+	u64 _res = 0;
-+	unsigned int rv_int, rv_frac;
-+
-+	rv_int = _parse_integer(s, 10, &_res);
-+	if (rv_int & KSTRTOX_OVERFLOW)
-+		return -ERANGE;
-+	s += rv_int;
-+
-+	if (*s == '.')
-+		s++; /* skip decimal point */
-+
-+	rv_frac = _parse_integer_limit_init(s, 10, _res, &_res, scale);
-+	if (rv_frac & KSTRTOX_OVERFLOW)
-+		return -ERANGE;
-+	s += rv_frac;
-+
-+	if (!rv_int && !rv_frac && !isdigit(*s))
-+		return -EINVAL; /* no digits at all */
-+
-+	while (isdigit(*s)) /* truncate digits */
-+		s++;
-+
-+	if (*s == '\n')
-+		s++;
-+	if (*s)
-+		return -EINVAL;
-+
-+	if (_res && (scale > (19 + rv_frac) || /* log10(2^64) = 19.26 */
-+	    check_mul_overflow(_res, int_pow(10, scale - rv_frac), &_res)))
-+		return -ERANGE;
-+
-+	*res = _res;
-+	return 0;
-+}
-+
 +/**
-+ * kstrtoudec64() - Convert a string to an unsigned 64-bit value that represents
-+ *		    a scaled decimal number.
-+ * @s: The start of the string. The string must be null-terminated, and may also
-+ *  include a single newline before its terminating null. The first character
-+ *  may also be a plus sign, but not a minus sign. Digits beyond the specified
-+ *  scale are ignored.
-+ * @scale: The number of digits to the right of the decimal point. For example,
-+ *  a scale of 2 would mean the number is represented with two decimal places,
-+ *  so "123.45" would be represented as 12345.
-+ * @res: Where to write the result of the conversion on success.
++ * div64_s64_rem - signed 64bit divide with 64bit divisor and remainder
++ * @dividend: signed 64bit dividend
++ * @divisor: signed 64bit divisor
++ * @remainder: pointer to signed 64bit remainder
 + *
-+ * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
++ * Return: sets ``*remainder``, then returns dividend / divisor
 + */
-+noinline
-+int kstrtoudec64(const char *s, unsigned int scale, u64 *res)
++static inline s64 div64_s64_rem(s64 dividend, s64 divisor, s64 *remainder)
 +{
-+	if (s[0] == '+')
-+		s++;
-+	return _kstrtoudec64(s, scale, res);
++	*remainder = dividend % divisor;
++	return dividend / divisor;
 +}
-+EXPORT_SYMBOL(kstrtoudec64);
 +
-+/**
-+ * kstrtodec64() - Convert a string to a signed 64-bit value that represents a
-+ *		   scaled decimal number.
-+ * @s: The start of the string. The string must be null-terminated, and may also
-+ *  include a single newline before its terminating null. The first character
-+ *  may also be a plus sign or a minus sign. Digits beyond the specified scale
-+ *  are ignored.
-+ * @scale: The number of digits to the right of the decimal point. For example,
-+ *  a scale of 5 would mean the number is represented with five decimal places,
-+ *  so "-3.141592" would be represented as -314159.
-+ * @res: Where to write the result of the conversion on success.
-+ *
-+ * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
-+ */
-+noinline
-+int kstrtodec64(const char *s, unsigned int scale, s64 *res)
+ /**
+  * div64_u64 - unsigned 64bit divide with 64bit divisor
+  * @dividend: unsigned 64bit dividend
+@@ -102,6 +116,10 @@ extern s64 div_s64_rem(s64 dividend, s32 divisor, s32 *remainder);
+ extern u64 div64_u64_rem(u64 dividend, u64 divisor, u64 *remainder);
+ #endif
+ 
++#ifndef div64_s64_rem
++extern s64 div64_s64_rem(s64 dividend, s64 divisor, s64 *remainder);
++#endif
++
+ #ifndef div64_u64
+ extern u64 div64_u64(u64 dividend, u64 divisor);
+ #endif
+diff --git a/lib/math/div64.c b/lib/math/div64.c
+index d1e92ea24fce..0b10ded09a9b 100644
+--- a/lib/math/div64.c
++++ b/lib/math/div64.c
+@@ -158,6 +158,21 @@ u64 div64_u64(u64 dividend, u64 divisor)
+ EXPORT_SYMBOL(div64_u64);
+ #endif
+ 
++#ifndef div64_s64_rem
++s64 div64_s64_rem(s64 dividend, s64 divisor, s64 *remainder)
 +{
-+	u64 tmp;
-+	int rv;
++	s64 quot, t, rem;
 +
-+	if (s[0] == '-') {
-+		rv = _kstrtoudec64(s + 1, scale, &tmp);
-+		if (rv < 0)
-+			return rv;
-+		if ((s64)-tmp > 0)
-+			return -ERANGE;
-+		*res = -tmp;
-+	} else {
-+		rv = kstrtoudec64(s, scale, &tmp);
-+		if (rv < 0)
-+			return rv;
-+		if ((s64)tmp < 0)
-+			return -ERANGE;
-+		*res = tmp;
-+	}
-+	return 0;
++	quot = div64_u64_rem(abs(dividend), abs(divisor), (u64 *)&rem);
++	t = dividend >> 63;
++	*remainder = (rem ^ t) - t;
++	t = (dividend ^ divisor) >> 63;
++
++	return (quot ^ t) - t;
 +}
-+EXPORT_SYMBOL(kstrtodec64);
++EXPORT_SYMBOL(div64_s64_rem);
++#endif
 +
- /*
-  * Since "base" would be a nonsense argument, this open-codes the
-  * _from_user helper instead of using the helper macro below.
+ #ifndef div64_s64
+ s64 div64_s64(s64 dividend, s64 divisor)
+ {
 
 -- 
 2.43.0
