@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33CF2848A8;
-	Sun, 17 May 2026 08:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0BD19D071;
+	Sun, 17 May 2026 08:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779007119; cv=none; b=lVesCn5tuQthZMaRQisDo/aUMCJ7nJ3xAuSQnnNexhN+jknhHpjT2gpbxqrXmiWKsBaDFwKU/XCvDR8SaBBxqtRoQ1PG4ZJfdBAtvFb4kUkotj48WUr4a9NewkcPgcznHTZ+ku40RC4HepUBCEBnbI/TwSYalIgy26BLSq/mNcg=
+	t=1779007365; cv=none; b=R3uAH2XurHXX+C68pcorZngE1ODTSRluZx4ZSjcdPtgKNscNSX4gGtPzs7CYArwyViylEQtKgVKdekgFvo1CLzuecS3kMMADL6rkC9MXsaSPkjNLVaFfzcIEXAZ8Vx158RHvEZZSGvJIHtjL0ijU2S9tGeFJIscrQ9liQ/9F4Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779007119; c=relaxed/simple;
-	bh=FGzPm2ufVQl2aWKft8Id9YMZuI3FeW6z5bURo1rFCVs=;
+	s=arc-20240116; t=1779007365; c=relaxed/simple;
+	bh=x2z29KsUWrbQBd6d1pEuxwkOqP6nUgroqgtRorvLOAE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T7xcf8ho90vPZTYEcCk20uD3fN5GD7mLm6+3dGp+AWmzfdaeHtiXqW/6vKJZ8dYWNYGM6p+UA87G8OYEOR9Tvmc337FrJxayOCJ+KlmG0pT/pGTqfAs2kIh3WrYfUSmZ9g96tbjUlfMfPeoEQAS72IU9mMLzmdW7dnq4P3Mx/Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uzRm6pjF; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=Cts2esFrH7XCUoY/ZAGlD8kk54mqb+VgYtkX5PbpraVk2Lx07HRL/XFl01yyPe/2KKqXOPA25Hq90h0HWlM+PnAp0CAT1fvbGecbYEmczVX48fR6XeQ2t/zHuYBDDPpU8xO54PO7Qcuq30I19H2zmTVIIXIKTw8BPzdxum/joC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eh3aJxBs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uzRm6pjF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9F3C2BCB0;
-	Sun, 17 May 2026 08:38:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eh3aJxBs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4F6FC2BCB0;
+	Sun, 17 May 2026 08:42:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779007118;
-	bh=FGzPm2ufVQl2aWKft8Id9YMZuI3FeW6z5bURo1rFCVs=;
+	s=k20201202; t=1779007365;
+	bh=x2z29KsUWrbQBd6d1pEuxwkOqP6nUgroqgtRorvLOAE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=uzRm6pjFEz4dhgkRk1yolI2w8+wsSRViyNpnb4f+JdJ/UfLdJoG+v2Eyga2e9Acwk
-	 DHLN/Me8kduRG9qlQ9m7WPjseSfGkjFzFUr2Rvp4eR6Bzd93frR4k10pJRM9SkQtNi
-	 rHV3ecQJ5BeZvx3Y4QadGQ+l/US1LBBHsyqP3zzNx793tlnpULOPSFF1PBofruIOEq
-	 IJD/wEo0JCwLlyIIh08tijmUil7R2qixLKMqYvdwfhP4nC3escap9s5ZKeopOENfMa
-	 k8l/CYFuqzrU5X462DNaTP1mm2e+PpxF03Lcq/7F5644sPtvu5NOzbLjnFrSSFEOBA
-	 4n2kgKvpXUpCA==
-Message-ID: <4d1d9af9-af4d-4cb9-bcc6-e70d7640b98d@kernel.org>
-Date: Sun, 17 May 2026 10:38:34 +0200
+	b=Eh3aJxBsKt8HFEuS8g0EPsWRfZU/cCBXXwbxyu7iYgxcmtKKjpFYU4Q00PdEOmcgq
+	 O9k1D2KhqBoRDBnRUoA/IvuleaSitJ12QC93WFrHBwQcmDywkF87CA3Hg+KdiBNE3w
+	 82mTje3xZ76QisegmuXClY4XbM2miDN6SfuR3jYEMNBm4xLYrhWzW20Jb0jWz6i5lb
+	 aXYZKwqqZp+ROdPnQ2IhM5lf46kpxva/684pWkZPq+REmwzPa1n3sIUFSoAE79Qbez
+	 WM4rsralNS53632GlXvQGHbGYO8/0WI9eITmlgtQ71a/r2Ym6BLFFyXqnSFg40PU2n
+	 4nYrKEkyx04Bw==
+Message-ID: <570e6488-6320-4cbc-8d48-5438b4073d8b@kernel.org>
+Date: Sun, 17 May 2026 10:42:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,17 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] iio: light: veml3328: add devicetree binding for new
- sensor
-To: Joshua Crofts <joshua.crofts1@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260516-veml3328-v1-0-1d4b663e2fe3@gmail.com>
- <20260516-veml3328-v1-1-1d4b663e2fe3@gmail.com>
+Subject: Re: [PATCH 2/5] dt-bindings: net: dsa: microchip: Add KSZ8995XA
+To: Linus Walleij <linusw@kernel.org>, Woojung Huh
+ <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org>
+ <20260516-ks8995-to-ksz8-v1-2-70d0ef4aa5f4@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,66 +92,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260516-veml3328-v1-1-1d4b663e2fe3@gmail.com>
+In-Reply-To: <20260516-ks8995-to-ksz8-v1-2-70d0ef4aa5f4@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/05/2026 23:50, Joshua Crofts wrote:
-> Add devicetree binding for the Vishay VEML3328 RGB/IR light sensor
-> connected via I2C (SMBus compatible).
+On 16/05/2026 01:16, Linus Walleij wrote:
+> The KSZ8995XA is just like the KSZ8795 and KSZ8864 a Micrel
+> product. It was renamed from KS8995XA to KSZ8995XA at some point,
+> but it has the same properties as the KS8995XA.
 
-Please use subject prefixes matching the subsystem. You can get them for
-example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+This is a bit unfortunate sentence, because it strongly suggests devices
+are compatible, but you do not express any compatibility. Driver looks
+handling them in incompatible way, so it is odd to see "it is just like".
 
-And then:
-drop second/last, redundant "devicetree binding for new". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
-
-> 
-> Additionally, add an entry in MAINTAINERS.
-
-Drop, no need to describe what you did. We see that in the diff.
-
-> 
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
-
-...
-
-
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        light-sensor@10 {
-> +            compatible = "vishay,veml3328";
-> +            reg = <0x10>;
-> +            vdd-supply = <&vcc_3v3>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d6c3c7d22403..134690aa9866 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28386,6 +28386,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
->  F:	drivers/iio/light/veml3235.c
->  
-> +VISHAY VEML3328 RGB IR LIGHT SENSOR DRIVER
-> +M:	Joshua Crofts <joshua.crofts1@gmail.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/light/vishay,veml3328.yaml
-> +F:	drivers/iio/light/veml3328.c
-
-There is no such file at this point.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
