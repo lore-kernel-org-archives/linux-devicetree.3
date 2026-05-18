@@ -1,164 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8B140B6CE
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B05C345CBD;
+	Mon, 18 May 2026 12:37:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779107823; cv=none; b=tvHRTwXOL1x6Jikec8v9qdtSLQqdIQUYxj409yztCkV+5MRAM+OFcXVQv7Bwb7q+30yvfYfgbQUuWKa1si3B9Yrwvs8OMhXS4y9YOcAhH90GMc5hFjPYEECWELBHchl7NFF32/P6YAYQKH7JNRFp3xxBdBMSmxsK1hqLltrUid4=
+	t=1779107843; cv=none; b=SsRd/1KHhkRoiRqBLG+vscWOPpVD1ayTUgYoHuzgmQKAoRwkrtkq9Kjize1va4mZ9ldC93s8mQjkLubewxwI2cVPbauIRpUvBK5cYhohU230HsEQp/gfR1Q2P3ctUeJjhqMqJo2a97a81oxkDfbI4gnYl14wSrV+JZgP9Xw4ZR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779107823; c=relaxed/simple;
-	bh=1+c9ZA5ejlifzJTJ0vnAnfvvjvEXqSotAk2fh6tMJ1U=;
+	s=arc-20240116; t=1779107843; c=relaxed/simple;
+	bh=Z0pHL6qJOkf4aoVQyjJTchWaMIxuKP3dIZYqMivqQN0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DvfInxg9BMzJB+Q7ESVFEjoAdGD16EofBxomOC8Ws5R7CsvwFBbAOltUG+Yd2qYMnscBKtnnizWh6n+ou2Kr7ZkVzzTKPXsfKZ4gBzGSggkyEoE64ZtTnf0QriEIzAZ+qwZK8VjahJHk1Sv8hMaSq9Ch6Y8MrShEnrLhYdegRjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rkltQgi0; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=XEUktav+oa8nHjIANaYhuBZEnMOX965GDageEL3oeoirWTwZjYoE3xXzSndlesORwDYqEd4capyfvMRiS8D95VREO0iwQOt0juNp0v2DQTmlQ9m5a4ZCITkiFSN5+ZVTbNxzaFtZkpZQmOPmcmxZBM/Ne1FRPoi01OaZmi2RCdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T16v5jja; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rkltQgi0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFB50C2BCC7;
-	Mon, 18 May 2026 12:37:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T16v5jja"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE442C2BCB7;
+	Mon, 18 May 2026 12:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779107823;
-	bh=1+c9ZA5ejlifzJTJ0vnAnfvvjvEXqSotAk2fh6tMJ1U=;
+	s=k20201202; t=1779107843;
+	bh=Z0pHL6qJOkf4aoVQyjJTchWaMIxuKP3dIZYqMivqQN0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=rkltQgi0sd7A7/K1+rkE/tkKS0eWlt0dJtHjwJMLwGSiPRMPrBNJpaZdu8lTfdfy5
-	 qGVREuJ5GtwULY2xr3ghaXPMAcP5WxDNu4oOnGNIj1d+tYGl4ej42u+otjDbJhc7D4
-	 wktCeeBayL97MVGUifH9Qkyvy3fDTxMhzyorxp9YPm/Lv8AO0y8alNhkfnckfpbBlG
-	 bhRdSiA3vM2/5c2KvJwk9o3Y/Lb1cRX5fWLRabzX1gl3l1XzM7jmMYF1Pjj21sgjrJ
-	 r1wojG9kkuxhtjWR+voy86MWcyfX/khoM6SUkIoRsmEQMcqwPl5usNDY3W0PzRWXQ+
-	 vypHIVdD6OoOA==
+	b=T16v5jjaaJLBkDVt+D3rWcuhobJ51sjboo3hiHiSwLtBBt1XqTNpuH9eBv4cS+fl2
+	 HgF+Npaar7hjJfadbaqbqmtPhmF1jkpwFkrMCQNTwU+RM1c0TVc8GbgCP/EhUjaitm
+	 aylVaEAWFcIYxsMNIUVwixUSoafdJHfPDByGycqbDG5/YBe9y4OD6LD7RNn2boNeBr
+	 YW5jazp2QDH1Z8O4HIqRN0MZ3/xPSdSA1pmyGXvLCaND/mVgTTWP+5Iiw8K6qosJeg
+	 mgs4bbqJJXksMpYAkMZmyusDZtfIL/ObCjVAhU+EaeqN5h1xY0AQ8+i/S6BKO+7FWZ
+	 4tfdFUOCMXjFA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/10] ACPI: APEI: GHES: move CPER read helpers
+Subject: Re: [PATCH v7 6/7] power: supply: Add driver for ASUS Transformer
+ battery
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmed Tiba" <ahmed.tiba@arm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-2-42698675ba61@arm.com>
-References: <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-2-42698675ba61@arm.com>
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260518095907.36158-7-clamor95@gmail.com>
+References: <20260518095907.36158-7-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 12:37:02 +0000
-Message-Id: <20260518123702.BFB50C2BCC7@smtp.kernel.org>
+Date: Mon, 18 May 2026 12:37:22 +0000
+Message-Id: <20260518123722.EE442C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Time-of-Check to Time-of-Use (TOCTOU) vulnerability in CPER error =
-status block reads allows Out-of-Bounds memory access.
-- [High] Integer overflow in `cper_estatus_len()` allows parsing of uniniti=
-alized kernel heap memory.
-- [High] Bitwise logic error in `ghes_ack_error()` unconditionally clears b=
-its outside the shifted `read_ack_preserve` mask, causing hardware register=
- corruption.
+- [Medium] The driver lacks a MODULE_ALIAS declaration, which breaks module=
+ autoloading.
+- [Low] Missing NULL check for the devm_kasprintf allocation of the power s=
+upply name.
 --
 
-commit ad41efb8414d76a40ca9ad3cfbaf742fd5748919
-Author: Ahmed Tiba <ahmed.tiba@arm.com>
+commit ccc69cbdb16bd3e704318f7d07abbad8dc370844
+Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
 
-ACPI: APEI: GHES: move CPER read helpers
+power: supply: Add driver for ASUS Transformer battery
 
-This commit relocates the CPER buffer mapping, peek, and clear helpers
-from ghes.c into ghes_cper.c. This allows sharing the CPER handling
-flow with other firmware-first error sources. The commit states that
-behavior remains the same.
+This commit introduces a new power supply driver for the ASUS Transformer
+battery. It communicates with the embedded controller via I2C to read batte=
+ry
+status for both the tablet and mobile dock.
 
-> diff --git a/drivers/acpi/apei/ghes_cper.c b/drivers/acpi/apei/ghes_cper.c
+> diff --git a/drivers/power/supply/asus-transformer-ec-battery.c b/drivers=
+/power/supply/asus-transformer-ec-battery.c
 > new file mode 100644
-> index 0000000000000..7bb72fe578384
+> index 0000000000000..d08d155f72a3d
 > --- /dev/null
-> +++ b/drivers/acpi/apei/ghes_cper.c
-> @@ -0,0 +1,195 @@
+> +++ b/drivers/power/supply/asus-transformer-ec-battery.c
+[ ... ]
+> +static int asus_ec_battery_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	cfg.fwnode =3D dev_fwnode(dev->parent);
+> +	cfg.drv_data =3D priv;
+> +
+> +	memcpy(&priv->psy_desc, &asus_ec_battery_desc, sizeof(priv->psy_desc));
+> +	priv->psy_desc.name =3D devm_kasprintf(dev, GFP_KERNEL, "%s-battery",
+> +					     priv->ec->name);
+> +
+> +	priv->battery =3D devm_power_supply_register(dev, &priv->psy_desc, &cfg=
+);
+> +	if (IS_ERR(priv->battery))
+> +		return dev_err_probe(dev, PTR_ERR(priv->battery),
+> +				     "Failed to register power supply\n");
+
+Is it possible for devm_kasprintf() to fail and return NULL under memory
+pressure?
+
+If so, priv->psy_desc.name would become NULL, and devm_power_supply_registe=
+r()
+would return ERR_PTR(-EINVAL) because it checks for !desc->name. This relies
+on downstream validation and results in an incorrect error code being
+propagated for a memory allocation failure instead of -ENOMEM.
+
+Should there be an explicit NULL check here?
 
 [ ... ]
-
-> +static void ghes_ack_error(struct acpi_hest_generic_v2 *gv2)
-> +{
-> +	int rc;
-> +	u64 val =3D 0;
+> +static struct platform_driver asus_ec_battery_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "asus-transformer-ec-battery",
+> +		.pm =3D &asus_ec_battery_pm_ops,
+> +	},
+> +	.probe =3D asus_ec_battery_probe,
+> +};
+> +module_platform_driver(asus_ec_battery_driver);
 > +
-> +	rc =3D apei_read(&val, &gv2->read_ack_register);
-> +	if (rc)
-> +		return;
-> +
-> +	val &=3D gv2->read_ack_preserve << gv2->read_ack_register.bit_offset;
+> +MODULE_AUTHOR("Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>");
+> +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
+> +MODULE_DESCRIPTION("ASUS Transformer's battery driver");
+> +MODULE_LICENSE("GPL");
 
-This wasn't introduced by this patch, but does this bitwise logic
-unconditionally clear the lower bits of the register?
+Since this platform driver matches devices purely by name
+("asus-transformer-ec-battery") and lacks an id_table or of_match_table,
+will userspace tools like udev be able to automatically load this driver
+when it is compiled as a module?
 
-Shifting the preserve mask left by bit_offset introduces zeros into the
-lowest bits. The bitwise AND will then clear bits 0 through bit_offset - 1
-of val to zero, regardless of the read_ack_preserve value.
-
-Can this destroy unrelated hardware configurations residing in the lower
-bits when val is written back?
-
-> +	val |=3D gv2->read_ack_write    << gv2->read_ack_register.bit_offset;
-> +
-> +	apei_write(val, &gv2->read_ack_register);
-> +}
-
-[ ... ]
-
-> +/* Check the top-level record header has an appropriate size. */
-> +int __ghes_check_estatus(struct ghes *ghes,
-> +			 struct acpi_hest_generic_status *estatus)
-> +{
-> +	u32 len =3D cper_estatus_len(estatus);
-
-This wasn't introduced by this patch, but does cper_estatus_len() have an
-integer overflow risk?
-
-cper_estatus_len() calculates the total block length by adding
-estatus->raw_data_offset and estatus->raw_data_length. Since both are
-32-bit integers, could they wrap around to a small length?
-
-If it wraps to a small length (e.g., 24 bytes), it might pass the
-cper_estatus_check_header() checks but cause __ghes_read_estatus() to
-copy only a few bytes, leaving the rest uninitialized.
-
-Could the subsequent cper_estatus_check() loop then use a malicious
-data_length to parse uninitialized kernel heap memory?
-
-> +	u32 max_len =3D min(ghes->generic->error_block_length,
-> +			  ghes->estatus_length);
-
-[ ... ]
-
-> +int ghes_read_estatus(struct ghes *ghes,
-> +		      struct acpi_hest_generic_status *estatus,
-> +		      u64 *buf_paddr, enum fixed_addresses fixmap_idx)
-> +{
-> +	int rc;
-> +
-> +	rc =3D __ghes_peek_estatus(ghes, estatus, buf_paddr, fixmap_idx);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc =3D __ghes_check_estatus(ghes, estatus);
-> +	if (rc)
-> +		return rc;
-> +
-> +	return __ghes_read_estatus(estatus, *buf_paddr, fixmap_idx,
-> +				   cper_estatus_len(estatus));
-
-This wasn't introduced by this patch, but is there a double-fetch issue
-between peek and read?
-
-__ghes_peek_estatus() fetches the CPER header from physical memory into
-the estatus buffer, and __ghes_check_estatus() validates this header
-against max_len.
-
-However, __ghes_read_estatus() performs a second copy from the same
-physical memory, overwriting the previously validated header.
-
-If the underlying memory is modified via DMA between the first and second
-fetches, could the new header bypass the max_len validation and lead to
-out-of-bounds reads in cper_estatus_check() past the allocated buffer?
-
-> +}
+Should a MODULE_ALIAS("platform:asus-transformer-ec-battery"); declaration
+be added to ensure module autoloading works correctly?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-topics-ahm=
-tib01-ras_ffh_arm_internal_review-v4-0-42698675ba61@arm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518095907.3615=
+8-1-clamor95@gmail.com?part=3D6
