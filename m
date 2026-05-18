@@ -1,191 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86FE3F54DF;
-	Mon, 18 May 2026 11:17:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57EC03F58E2;
+	Mon, 18 May 2026 11:19:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779103035; cv=none; b=fCcbjNibB5p2X9SbQ6Ktb/+oXu+QiWOmc0suf3DRlEBLrFQY9rR5FbkFIGEupHWauLbpgk0s/xziNO4Jh6wUZVurCSAHwV9gpDW3X9zqdVLgnz51cmQ9/bIIfMLW9AnEDHNG5T8cBhkXID/P1kTFbyHN49Ks2h64QzL+gZW2HII=
+	t=1779103189; cv=none; b=bPKZNgUMzZyDZwMfqb45FdsMpdlweppPr1UZrhTSKl6+Y/gYolwzDG9PX2zVp5uPrmil7kDBZrOsampiAfQKVl9e5cj50nK0clz65/wZXSebbGNGKL0Aji4v1lPY8bohle0GxD4uTpW300RqDOaCfvWNSqbOkL1GX3tuv1YKkz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779103035; c=relaxed/simple;
-	bh=yQaPRqjhEAvNS2XqtXLbW3dhlWBkhQA+KcaHB3/iEPg=;
+	s=arc-20240116; t=1779103189; c=relaxed/simple;
+	bh=vH7pnbYGn7AO3OaKGHuq9u2nobog1aJHQ14rr8QXIog=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CL+MW4NlERTJ7jvTRRODVhJYqCF80aSgaQX0mfIE6kTkCLz+oXE5vqkA8r7LG6UVrqhj+mJ7eFDid9XUXsLvl2rhWOOpJBh5x0+asxqsQkludOjeRIdyumPpvbnXgmy2aCn373EC1sRJD8763AGxgv+nk8z4V/rIrtc5kKVXcbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JdqyWq1b; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=gapSoVu9cIP/+Nrdd+Ll2dylYE+rObx6X+zbBN0UvGcBNenI+dlhEO5Dr2AqxJv/sGQZSuI0cWll6j3UL7rMpsAuB10TxSt1zlVqSnWzK6my7YgSWuGb4Cwi/eM0JADc+dU3mLxBTtJuF9pJvM/gblgyV8JfVxb+itVimxJzz6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfhU79R+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JdqyWq1b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDEF9C2BCB7;
-	Mon, 18 May 2026 11:17:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfhU79R+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D177CC2BCB7;
+	Mon, 18 May 2026 11:19:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779103033;
-	bh=yQaPRqjhEAvNS2XqtXLbW3dhlWBkhQA+KcaHB3/iEPg=;
+	s=k20201202; t=1779103188;
+	bh=vH7pnbYGn7AO3OaKGHuq9u2nobog1aJHQ14rr8QXIog=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=JdqyWq1bNypXzLceBdYuWNvvYCPDNI1V4u8FgI2YnmZJQpLZNRJTaeeQD/opGv6Ra
-	 9/JnVC+WdBnHKVvhPh0ju36cEUuMZ1qTj7mnA3k2NY2/pgDtH3Ud9ovQUW9cSTIwA9
-	 ckgap2v1O1CsyUq3SVqWlVeHoH8JbxwLlWS1NcebSgQC1VoZSwMsrT6tWKCgOJQ27R
-	 B4a5bbuXRlglfmas7VN63MGHocv+b2pz3lqoN8mmp5+RPO2sMNk2ujUzX5hc+0G8Ux
-	 x167OTvHOb3N1bW5M20TVrbrLb9CuxJADynRRWQooaWwyTnKjCHxhiSZ1WFx+nLbl/
-	 CRzbaMG6X+HYA==
+	b=dfhU79R+hGg0NyjDnDXOjG21p7dVP7hxjyBA2dmLmGKNKBXKYBCRHDbUzC5tQ6SXN
+	 CNOLdpJEQWniZNHRXuQBXg0aqVKSDZxly9XpdqG3xXvD5v0X35DIYUZ6OJ/VxvdSFc
+	 E5npmSAX/K00E00f5BiG3bsPnDaE65u7fV6DVnBJMs/Iy0rqhZ+5fzUf3uJ4QsXIJc
+	 irvjDREjorLtHXVon7/THV0rFHWDPvD/pim70aa736hF89Sin9du6ZQXwsYWYR3LWL
+	 N219DxEDJzODsyNDJPZlp0kpvjx1S+/UGNe6ewIwPJGlgnF1HtXS2cus9RuIWSwnFw
+	 Ceb+qCKIcZtjA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/7] input: serio: Add driver for ASUS Transformer
- dock keyboard and touchpad
+Subject: Re: [PATCH v13 3/6] pinctrl: core: Make pin group callbacks
+ optional for pin-only drivers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: linux-input@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260518095907.36158-4-clamor95@gmail.com>
-References: <20260518095907.36158-4-clamor95@gmail.com>
+To: "Oleksij Rempel" <o.rempel@pengutronix.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260518100054.3552143-4-o.rempel@pengutronix.de>
+References: <20260518100054.3552143-4-o.rempel@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 11:17:12 +0000
-Message-Id: <20260518111712.BDEF9C2BCB7@smtp.kernel.org>
+Date: Mon, 18 May 2026 11:19:47 +0000
+Message-Id: <20260518111947.D177CC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Sleeping in atomic context due to synchronous I2C transfer in seri=
-o->write callback.
-- [High] Off-by-one error in packet length calculation causes a buffer over=
--read and breaks keycode remapping.
-- [Medium] In-place modification of a shared notifier data buffer.
+- [Critical] The function `pinconf_groups_show` iterates locklessly over pi=
+n groups using `pctlops->get_group_name` without taking `pctldev->mutex`, l=
+eading to a Use-After-Free (UAF) race condition.
+- [Critical] The function `pinctrl_get_group_selector` iterates over `pctlo=
+ps->get_group_name` locklessly, creating a Use-After-Free (UAF) race condit=
+ion during map resolution.
 --
 
-commit 3c9b2bf0acd20a594f17d65b0d6fd9762329b3bc
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+commit 02ec67dd43dc0fad7f2e694d9ac1bbd0d9a91c1a
+Author: Oleksij Rempel <o.rempel@pengutronix.de>
 
-input: serio: Add driver for ASUS Transformer dock keyboard and touchpad
+pinctrl: core: Make pin group callbacks optional for pin-only drivers
 
-This commit adds a serio input driver for the ASUS Transformer dock keyboard
-and touchpad. It registers serio ports that act as a bridge over I2C and
-remaps specific keycodes according to their position.
+Relax the requirement for pin-only drivers by making the group callbacks
+optional when no muxing or group pin configuration support is provided.
 
-> diff --git a/drivers/input/serio/asus-transformer-ec-kbc.c b/drivers/inpu=
-t/serio/asus-transformer-ec-kbc.c
-> new file mode 100644
-> index 0000000000000..c9707c7fbede5
-> --- /dev/null
-> +++ b/drivers/input/serio/asus-transformer-ec-kbc.c
+> diff --git a/drivers/pinctrl/core.c b/drivers/pinctrl/core.c
+> index 6cbcaa6709da1..3fcb7e584a937 100644
+> --- a/drivers/pinctrl/core.c
+> +++ b/drivers/pinctrl/core.c
 
 [ ... ]
 
-> +static int asus_ec_kbc_notify(struct notifier_block *nb,
-> +			      unsigned long action, void *data_)
-> +{
-> +	struct asus_ec_kbc_data *priv =3D container_of(nb, struct asus_ec_kbc_d=
-ata, nb);
-> +	unsigned int port_idx, n;
-> +	u8 *data =3D data_;
+> @@ -738,8 +743,15 @@ int pinctrl_get_group_selector(struct pinctrl_dev *p=
+ctldev,
+>  			       const char *pin_group)
+>  {
+>  	const struct pinctrl_ops *pctlops =3D pctldev->desc->pctlops;
+> -	unsigned int ngroups =3D pctlops->get_groups_count(pctldev);
+>  	unsigned int group_selector =3D 0;
+> +	unsigned int ngroups;
 > +
-> +	if (action & (ASUSEC_SMI_MASK | ASUSEC_SCI_MASK))
-> +		return NOTIFY_DONE;
-> +	else if (action & ASUSEC_AUX_MASK)
-> +		port_idx =3D 1;
-> +	else if (action & (ASUSEC_KBC_MASK | ASUSEC_KEY_MASK))
-> +		port_idx =3D 0;
-> +	else
-> +		return NOTIFY_DONE;
-> +
-> +	/*
-> +	 * The data[0] is the length of the packet including itself. It has to
-> +	 * be at least 2 bytes (length + 1 data byte) and must not exceed
-> +	 * the EC buffer size.
-> +	 */
-> +	if (data[0] < 2 || data[0] > DOCKRAM_ENTRY_BUFSIZE)
-> +		return NOTIFY_BAD;
-> +
-> +	n =3D data[0] - 1;
-> +	data +=3D 2;
-
-Is the payload length calculation off by one?
-
-The comment states data[0] is the length of the packet including itself.
-The code then skips two bytes (data +=3D 2), which suggests the payload
-starts at offset 2. If the payload length is data[0] - 2, will setting
-n =3D data[0] - 1 cause the loop at the end of the function to read one byte
-past the actual payload and inject garbage data into the serio port?
-
-If an external device sends a packet with data[0] =3D=3D DOCKRAM_ENTRY_BUFS=
-IZE,
-could this off-by-one error cause an out-of-bounds read past the end of
-the EC buffer array?
-
-Additionally, will this artificially inflated n cause the exact-length
-validation in the key remapping logic (if (n =3D=3D 2 ...) and if (n =3D=3D=
- 3 ...))
-to always fail for valid payload sequences, breaking the layout translation?
-
-> +
-> +	if (port_idx =3D=3D 0) {
-> +		/*
-> +		 * Remap keyboard key codes to match AT layout:
-> +		 * SEARCH: RIGHT-META [E0 27] -> LEFT-ALT   [11]
-> +		 * MENU:   COMPOSE    [E0 2F] -> RIGHT-META [E0 27]
-> +		 */
-> +		if ((n =3D=3D 2 || (n =3D=3D 3 && data[1] =3D=3D 0xF0)) && data[0] =3D=
-=3D 0xE0) {
-> +			u8 *keycode =3D &data[n - 1];
-> +
-> +			switch (*keycode) {
-> +			case 0x27:
-> +				*keycode =3D 0x11;
-
-Is it safe to modify the data_ buffer in place?
-
-Since data_ is passed to this function via the notifier chain, it points to=
- a
-shared event buffer that is broadcast to all registered listeners. Will
-modifying this payload permanently corrupt the event data for any downstream
-notifiers that might inspect the packet subsequently?
-
-> +				++data;
-> +				--n;
-> +				break;
-> +			case 0x2F:
-> +				*keycode =3D 0x27;
-> +				break;
-> +			}
-> +		}
+> +	if (!pctlops->get_groups_count || !pctlops->get_group_name) {
+> +		dev_err(pctldev->dev, "does not support pin groups\n");
+> +		return -EINVAL;
 > +	}
 > +
-> +	while (n--)
-> +		serio_interrupt(priv->sdev[port_idx], *data++, 0);
-> +
-> +	return NOTIFY_OK;
-> +}
-> +
-> +static int asus_ec_serio_write(struct serio *port, unsigned char data)
-> +{
-> +	struct asus_ec_kbc_data *priv =3D port->port_data;
-> +
-> +	return i2c_smbus_write_word_data(priv->parent, ASUSEC_WRITE_BUF,
-> +					 (data << 8) | port->id.extra);
+> +	ngroups =3D pctlops->get_groups_count(pctldev);
+> =20
+>  	while (group_selector < ngroups) {
+>  		const char *gname =3D pctlops->get_group_name(pctldev,
 
-Can this sleep while in an atomic context?
+This isn't a new regression introduced by this commit, but since the
+surrounding logic is being modified, does this code have a use-after-free
+race condition?
 
-i2c_smbus_write_word_data() performs a synchronous I2C transaction which
-acquires mutexes and can sleep. However, serio->write callbacks can be
-invoked from atomic contexts.
+pinctrl_get_group_selector() iterates over pctlops->get_group_name
+locklessly. This is called from map resolution paths
+(e.g. pinmux_map_to_setting()) holding pinctrl_maps_mutex but not
+pctldev->mutex.=20
 
-For example, asus_ec_kbc_notify() calls serio_interrupt() which acquires a
-spinlock and disables interrupts:
+If there is a concurrent dynamic modification to the group list (such as a
+provider driver unbinding and calling pinctrl_generic_remove_group() which
+frees the descriptor), could it race against the lockless radix tree lookup
+and lead to a use-after-free when accessing the returned group name?
 
-serio_interrupt()
-  spin_lock_irqsave(&serio->lock, flags);
-  serio->drv->interrupt()
-    serio_write()
-      asus_ec_serio_write()
-        i2c_smbus_write_word_data()
-
-Will this trigger a scheduling-while-atomic panic if the input driver issues
-a command back to the port while the spinlock is held?
-
-> +}
+Note that simply adding mutex_lock(&pctldev->mutex) inside
+pinctrl_get_group_selector() would deadlock callers like
+pin_config_group_get() which already hold the lock, so the locking might
+need to be addressed correctly in the call stack.
 
 [ ... ]
 
+> diff --git a/drivers/pinctrl/pinconf.c b/drivers/pinctrl/pinconf.c
+> index dca963633b5d1..81686844dfa5f 100644
+> --- a/drivers/pinctrl/pinconf.c
+> +++ b/drivers/pinctrl/pinconf.c
+
+[ ... ]
+
+> @@ -348,8 +348,13 @@ static int pinconf_groups_show(struct seq_file *s, v=
+oid *what)
+>  {
+>  	struct pinctrl_dev *pctldev =3D s->private;
+>  	const struct pinctrl_ops *pctlops =3D pctldev->desc->pctlops;
+> -	unsigned int ngroups =3D pctlops->get_groups_count(pctldev);
+>  	unsigned int selector =3D 0;
+> +	unsigned int ngroups;
+> +
+> +	if (!pctlops->get_groups_count || !pctlops->get_group_name)
+> +		return 0;
+> +
+> +	ngroups =3D pctlops->get_groups_count(pctldev);
+> =20
+>  	seq_puts(s, "Pin config settings per pin group\n");
+>  	seq_puts(s, "Format: group (name): configs\n");
+
+Similarly, this isn't a new regression introduced by this patch, but does
+pinconf_groups_show() have a use-after-free race condition?
+
+It iterates locklessly over pin groups using pctlops->get_group_name without
+taking pctldev->mutex (unlike its sibling pinctrl_groups_show).
+
+Since pinconf_groups_show() is a debugfs callback, it can run concurrently
+with a pinctrl driver's unbind or dynamic group removal. A driver unbinding
+calls pinctrl_unregister() or pinctrl_generic_remove_group(), which frees
+the group descriptor.
+
+Because pinconf_groups_show() traverses the radix tree locklessly and does
+not hold pctldev->mutex, can it access a freed group name and lead to memory
+corruption?
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518095907.3615=
-8-1-clamor95@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518100054.3552=
+143-1-o.rempel@pengutronix.de?part=3D3
