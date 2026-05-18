@@ -1,186 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022109.outbound.protection.outlook.com [52.101.126.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDB73DEAFA;
-	Mon, 18 May 2026 07:00:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779087639; cv=none; b=nkoemHXAAnfJKUN5zZeawNs9ySymhDB5xlxqP10UO8IXMqJjTjgG1I5NdBq63884/4l5oVq34yJPW8qZ7YTN2BVS7t7aT05vGhNomaaDr16bMilRR+/fBchYtS5VDhci500EjgCSNsJ5N8MrpAkw2//2WOxsA9oqhE3LzH3xKqQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779087639; c=relaxed/simple;
-	bh=lelqDmyTg+5CXbISPM5moYnepKJes/RZlk8bJJ8cNDY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tCXkpH0Q5aGq67Kc27EW8VQB4GmhkaLDpwwComwNKZCxNVVA3iK67mQ7rde0zshjzav9uItg9QqsCS/hiqbtF5OqbDXVGIZ4hz3M5oU3CIHjyQOCqY3k3K1SAx41Biy0gcyqDaVlIDLQnSbK3BPgMwlVrNraC+A8lh66uolRuBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5q9MbOj; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5q9MbOj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 720B6C2BCB7;
-	Mon, 18 May 2026 07:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779087638;
-	bh=lelqDmyTg+5CXbISPM5moYnepKJes/RZlk8bJJ8cNDY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h5q9MbOjdh4olgCXG1BFaG463QsXkHevGJRiyCAGpJKX7mqipj8BWMBMM1IV8Yfyf
-	 nhmkE62DjE+xKrnlsFeMlceD//GQGzRZBHtvhtBjRp3plw7L3gMvNoDJ0ZxlHtLETx
-	 BvtSZ5l4hVmWv9IWCeN2bCj3tj/J5C7lZ0AL2yK7LKydDp1h7NyJ68UYa7yPDt2BU3
-	 MYoXZWhyKp3w9B3A0NxJl+TSVeq5jGZUqrOzwe5uDvn9hA4n49Q/T3Uk2sM264ORIp
-	 /PlVLhB1GJgPCbbFTSBaT86PUir+GqRNu8htNOIZgR9pINeZ2bYJKWSqXgvdqeuZbe
-	 jzweZfy1j55xA==
-Message-ID: <bbd5e74d-99c0-4a18-bc80-b3658b235bf6@kernel.org>
-Date: Mon, 18 May 2026 09:00:33 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D873C76AD;
+	Mon, 18 May 2026 07:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.109
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779087749; cv=fail; b=po5rH1eTDt222pq8EfPiry+ZdUEVPQ5yvUc2RcAFQxYGDCHCPIXA6VFgsm+YH0SWOik0Lrk2wGuAaUcbz5xdSZ2zXZU1ujLxrWvUBXpP5NBzoDWmWjouOviSW77F4u0yJbwFNmjr8nr/zukOY3DKnR4JgKIXVdg7UINEt07sxMw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779087749; c=relaxed/simple;
+	bh=2CISBJwZW+y1RNUQkSGban+renthFspRGyrtQqt/4PA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FBXG9WBJ4QMoe1v6nWFBDHbKrHzUvCD7cHA72N0ls5fAgQkJrnWyCF2FomiQmshCHufeR0wN1i0T4StxXxclQ2mv7fe57NZLP7+VqB+v4SOumcuB4heS8HZNSp1PcrubxVeKH+o11qd/guI9EftFcMnf/7pJhQ+LUD6pHDxGAX8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KBxylg3Zlc0OLKUU7+A7PqJx+I4YTLFIdS2KV+JH2H9RJPG8Y6kkt3k4peq8LUP4lvSmaP5BRFSY4VU0zyyRsjTTtv4J1LG5wei587xa3lgHRTuS7egBxypgwYt7OBOxUx76L10Qg6Sdbazu+uc+wc5aPzYiigrLU8KWbd/kCqHL0y7ppgw7OR2CGEUwUC0fw1fDBZj36z4AYOPNF/7Cxo/k5EDxDDqn/o9m5/OvY2PIxoGl+oY21lzKNfN1dn3m+pb0nAgkIIn7Mp/UuqOxB78QnYGQRvn4yvyAU6BQWhqeuNBTNfewg1KVcGEpQkFmfIR69zr3k4AmwIhY3N87PA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ocUBXPIbrLYyCUgHYmEBOi9YRq/DzvVuga/ags9v9T0=;
+ b=iwFGUqsYPhAscV3peu9ZYx2mlHXSNMJP/G7Uanw3sLifChiJRaR1xrgdRveSw1wnKmZEcQ0DEVWL9Lvsp+lCgeEbza1yD7UWSpocCREkheLvRoZehR3MRgCF61xElPrdwtQ6ggglWlBuOWk6d0RkMMt8rXbdgLyApzrzJK4umdlrLq+C4Qg/8YRyk/C7YVqKufgCeyqZ+ZprVZFVhDE98pLWj8gwWYiDwTqJP3lOug0GOkzCBqqcU+/EwYSs5xHhapu3pd8SZhnrQRObeYls9KHwXJUfD068J9m2XLZwmPdLuuxh/2h8MfMbldNzhSGRo76kF4z28N8p2hf6yAE/tA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arndb.de smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from OSAPR01CA0376.jpnprd01.prod.outlook.com (2603:1096:604:35::28)
+ by KUZPR06MB7986.apcprd06.prod.outlook.com (2603:1096:d10:2e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.22; Mon, 18 May
+ 2026 07:02:21 +0000
+Received: from OSA0EPF000000C6.apcprd02.prod.outlook.com
+ (2603:1096:604:35:cafe::40) by OSAPR01CA0376.outlook.office365.com
+ (2603:1096:604:35::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.22 via Frontend Transport; Mon, 18
+ May 2026 07:02:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C6.mail.protection.outlook.com (10.167.240.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 07:02:20 +0000
+Received: from nchen-desktop (unknown [172.16.64.25])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id DDAC74126F80;
+	Mon, 18 May 2026 15:02:18 +0800 (CST)
+Date: Mon, 18 May 2026 15:02:17 +0800
+From: Peter Chen <peter.chen@cixtech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	gregkh@linuxfoundation.org, pawell@cadence.com, rogerq@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+	linux-arm-kernel@lists.infradead.org, arnd@arndb.de
+Subject: Re: [PATCH 3/4] dt-bindings: usb: add CIX Sky1 Cadence USB3
+ controller
+Message-ID: <agq5eZSAZYRAuCH6@nchen-desktop>
+References: <20260511024244.981941-1-peter.chen@cixtech.com>
+ <20260511024244.981941-4-peter.chen@cixtech.com>
+ <20260515-dynamic-archetypal-reindeer-dc6dd5@quoll>
+ <agb0he7vvbqSIym5@nchen-desktop>
+ <ccc8ab6c-d301-4585-8be3-1977485c5e87@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dt-bindings: clock: qcom: Add QREF regulator
- supplies for glymur
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Taniya Das
- <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- krishna.chundru@oss.qualcomm.com
-References: <20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com>
- <20260506-qref_vote_0506-v3-1-5ab71d2e6f16@oss.qualcomm.com>
- <20260514-outgoing-literate-dove-2e2a73@quoll>
- <aglUmonGmr2goyOI@hu-qianyu-lv.qualcomm.com>
- <408f587b-76c2-4fdd-bbe1-89414270b4ee@kernel.org>
- <agqMgkRwKqr05rms@hu-qianyu-lv.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <agqMgkRwKqr05rms@hu-qianyu-lv.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ccc8ab6c-d301-4585-8be3-1977485c5e87@kernel.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C6:EE_|KUZPR06MB7986:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5c9bc88-095e-414f-cdb6-08deb4ab67e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|7416014|376014|1800799024|36860700016|4143699003|18002099003|22082099003|56012099003|3023799003;
+X-Microsoft-Antispam-Message-Info:
+	/mK33+RNJE/SXD6Om93xrCznlt+6UbdpOqSXT/pOzV8VjyNpa0vSvWN0Gb/4BXWIBRYHoRD/FzaEw2AEJviGtn0MxhH20JKegw2zGwP5X9JQu55sl5FdmZreBpIPqOIfoKMLIWX5SrKdWjK7VgZY6twEv4ZupkK1bhmWgm10NA+2EHBc1vwmUadY5V1dVjSep6oIDY+T/JWaCqrFJIhz5ZcJUH1FUTZtDkllueMEejKyLTqZoK79I/jhwFw2sN4IGGabwC4iXdZzxr1vDboZVHtVXfLrn2YA2vIKhuIHqqwR1ohrCKPgfAJXLDYfZYyOqMsKzOwpxvL0hA7IiWkuLMWVmMtokUtq/i8JDK4OG06Lv5wopuHAIgw/AEH6cHuU0KqLf31EYotNYrWl8pgwmhC7v7rBfrCrFuSvoV343wa3NMiUv1AxHU+zfMT6j6fG2HtWWkspWbefh93pvaa/P2FNzzSPg0Y+ocdB5heLTfGYPZECwglZFswCvGEWBK37dw3P7pXfOMmEkwvQXnIIJrQEqieeG93ahZT5yYoe1an1odoRchC5W6zB5oYfce75ImwGmoUjcjs28C43Ls2IkxsCE4O5hTVVLzezClTaqTdB7EVB4TzQAG85iISdd/Zgry6lcCm5mRinT7Hb5n4cPSW702kobm5asRBuW/4u6e2VkP/b2sIrv05lH0+SupEkOVcVxN8cvPTvF8CzGJkZr73jXr3jWF2k6N6BVpCtHRw=
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(36860700016)(4143699003)(18002099003)(22082099003)(56012099003)(3023799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3I8Tpg3YCELk7vAbmPSMU6PLaKjfOQE4wI+8RfmGBqhHJfrx3dCgzp2t+ZIbLnkR5hqKkFbcpVfIk5zhLExfMLL1cFIOAHbb0fdF5Q9X1dk5P0NMLqgt13fUwefJY0Cunu35XCNamfYi7k0IShSV7I/Ij5l+n46ElGcEFq1G/+je/k9nO53lhyDafhlVBpZjH9WKLi1pSS00nhmW+1gr7bRSSxirEzltVVHUtLsx9Ek++BeFhCcHhZlr3GNCr3mVZAMpmQx5NLuRp0eLCwu6jL2WK9QybxomebShQpwXbQpLAtYQfACgvmhd1WuiqXKnyBuQqJ5xqlwgdXreiFK3g1VznnQ5TQz127zlhs+a0Nzqm3dXoQikerQJ0UfYcR4hB43UoxsriCTEjWm9I0HzwRe1u3vsO/qog5jerUEqwW+gKtYuii/uOobpdNSNvAcL
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 07:02:20.6144
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5c9bc88-095e-414f-cdb6-08deb4ab67e2
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C6.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR06MB7986
 
-On 18/05/2026 05:50, Qiang Yu wrote:
-> On Sun, May 17, 2026 at 10:27:39AM +0200, Krzysztof Kozlowski wrote:
->> On 17/05/2026 07:39, Qiang Yu wrote:
->>> On Thu, May 14, 2026 at 12:22:17PM +0200, Krzysztof Kozlowski wrote:
->>>> On Wed, May 06, 2026 at 01:43:51AM -0700, Qiang Yu wrote:
->>>>> Add regulator supply properties for the Glymur TCSR QREF/REFGEN blocks
->>>>> required by clkref clocks.
->>>>>
->>>>> The vdda-qreftx*, vdda-qrefrpt*, and vdda-qrefrx* supplies map to common
->>>>> QREF TX/RPT/RX components, while SoC-specific topology and instance count
->>>>> differ. Document them here for qcom,glymur-tcsr.
->>>>>
->>>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
->>>>> ---
->>>>>  .../bindings/clock/qcom,sm8550-tcsr.yaml           | 57 ++++++++++++++++++++++
->>>>>  1 file changed, 57 insertions(+)
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
->>>>> index 1ccdf4b0f5dd..57921cb63230 100644
->>>>> --- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
->>>>> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
->>>>> @@ -51,6 +51,63 @@ properties:
->>>>>    '#reset-cells':
->>>>>      const: 1
->>>>>  
->>>>> +  vdda-refgen-0p9-supply: true
->>>>> +  vdda-refgen-1p2-supply: true
->>>>> +  vdda-qrefrx0-0p9-supply: true
->>>>> +  vdda-qrefrx1-0p9-supply: true
->>>>> +  vdda-qrefrx2-0p9-supply: true
->>>>> +  vdda-qrefrx4-0p9-supply: true
->>>>> +  vdda-qrefrx5-0p9-supply: true
->>>>> +  vdda-qreftx0-0p9-supply: true
->>>>> +  vdda-qreftx0-1p2-supply: true
->>>>> +  vdda-qreftx1-0p9-supply: true
->>>>> +  vdda-qrefrpt0-0p9-supply: true
->>>>> +  vdda-qrefrpt1-0p9-supply: true
->>>>> +  vdda-qrefrpt2-0p9-supply: true
->>>>> +  vdda-qrefrpt3-0p9-supply: true
->>>>> +  vdda-qrefrpt4-0p9-supply: true
->>>>
->>>> Either I do not understand your previous explanation:
->>>> CXO -> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 -> PCIe4_PHY
->>>>
->>>> or this is still wrong. There is no TCSR here, so this proves nothing.
->>>> If TCSR is TX0, then you do not have five of them...
->>>>
->>>> My previous comment stay - you are not describing the actual hardware
->>>> here.
->>>>
->>> The CXO network "-> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 ->" is referred to
->>> as the QREF block, and each component is controlled by the tcsr_clkref_en
->>> registers.
->>
->> Still no clue what this -> relation is. Again, describe the hardware.
->>
->>>
->>> If a PHY receives its reference clock from QREF, it will have a clkref_en
->>> register. However, this register may be located in different regions
->>> depending on the target. On glymur it resides in TCSR, so I added these
->>> LDOs QREF required in tcsr yaml.
->> Registers are not described as supplies.
+On 26-05-15 13:18:53, Krzysztof Kozlowski wrote:
+> EXTERNAL EMAIL
 > 
-> I'm not descirbing register as supply.
+> On 15/05/2026 12:25, Peter Chen wrote:
+> > On 26-05-15 09:54:10, Krzysztof Kozlowski wrote:
+> >> EXTERNAL EMAIL
+> >>
+> >> On Mon, May 11, 2026 at 10:42:43AM +0800, Peter Chen wrote:
+> >>> Add a binding for the CIX Sky1 integration of the Cadence USBSSP DRD
+> >>> controller. The schema documents the glue register window, clocks,
+> >>> resets, interrupts and S5 system controller phandle.
+> >>>
+> >>> Signed-off-by: Peter Chen <peter.chen@cixtech.com>
+> >>> ---
+> >>>  .../bindings/usb/cix,sky1-cdns3.yaml          | 151 ++++++++++++++++++
+> >>
+> >> Why are you mixing USB patches with DTS in one patchset? Don't.
+> >
+> > In this series, the 1st patch is the IP core driver changes (export APIs for glue layer
+> > use), and the second glue layer patch is the user for new adding APIs.
 > 
->     tx0-0p9/1p2  rpt0-0p9   rpt1-0p9    rpt2-0p9    rx2-0p9
->        |             |           |        |           |
->        |             |           |        |           |
-> CXO -> TX0 -------> RPT0 ------> RPT1 -> RPT2 -----> RX2 -> PCIe4_PHY
->        |             |           |        |           |
->        |             |           |        |           |
->        ---------------------------------------------------tcsr_clkref_en
 > 
-> These components(TX/RTP/RX) can be disabled/enabled by tcsr_clkref_en
-> register, and they require power supplies.
+> Not really answer to my question. Why is DTS here? It has nothing to do
+> with 1st patch, second patch or this one.
+> 
 
-So I told you more than once - none of these are supplies to the TCSR.
-You clearly misunderstand what a supply is.
+Per submitting-patches.rst I.7, the DTS was placed at the end of the
+series so either maintainer can apply their portion. That said, if
+you prefer I can split it into a separate series, I have no strong
+option.
 
+-- 
 
 Best regards,
-Krzysztof
+Peter
