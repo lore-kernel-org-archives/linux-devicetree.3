@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4161F27281D;
-	Mon, 18 May 2026 16:11:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0598D48BD5B;
+	Mon, 18 May 2026 16:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779120694; cv=none; b=mOatYNMeHb3IQgY5jE5P09AbIocjKCR6A0ajg6ChkmhD8n2U/7G1kZrnyzvN1U1tbrhVtrKPRUMpEa0YPGx/Lx1tPsHIy6CYRMFgKJvhuR9itE7E1bbsLgaY/cYvLbxmrnPbES7mPYSNeo9oUwz4iPXcV6mWZMC30COOjYs/VJQ=
+	t=1779120757; cv=none; b=SiuXccqyJX9YlDvTloKlib2k5tl2ppOcDO3LxzhK3pgxf28w5TAn1/ibRudzWmFCSPhXH+aEwmsEChGCkaxjJ0vMBynKiwaEclEEjhSxN978ylmtr8W4YUGi8MMP/Ya8Es5m5FGGJyI0PwfYeKwq5aQZLU371FChgtcrcXGnz3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779120694; c=relaxed/simple;
-	bh=cb8j6DnkkjLHSGPe4ydRwB7IZQAkr3Jwq510+XI2TFU=;
+	s=arc-20240116; t=1779120757; c=relaxed/simple;
+	bh=3bBrs7mGRW350IS29w5MjBEpH7kFoVKDOCVdn0zMrgM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z1DjX6EO44lsBZmw6c+EGxS1DyNr1exGzPG801GtVMq/2dMJque17OLhX3GXn6ofA3bjTvh/xcLmXQjFJmWwxmZn9vV5GSJl6aAevhptxRhVYakiMLDQEGMAvMWbc5bs84LYwKWHYBdq6SKO5d2mSlb/chCFeRUqg/VGVqzP01A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3lxeVtm; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=kagTRQvQoVQ9B4F/kEv5bF4rGEStS+FiGlLYpkc/4ZyKMqjNafVSVdKvvTAbfRHSZYf2JapEuaA1pGYkQA5SNtvwJwcxfbfH6rLCa78pEt8HGrcip9LdKOe9mqi7Pi79YAGnV/jng+lUgsEMwZpETIxBoAdCwMFL/j31Gx9TcIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4GvXNNT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3lxeVtm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A4CC2BCB7;
-	Mon, 18 May 2026 16:11:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4GvXNNT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146AEC2BCB7;
+	Mon, 18 May 2026 16:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779120691;
-	bh=cb8j6DnkkjLHSGPe4ydRwB7IZQAkr3Jwq510+XI2TFU=;
+	s=k20201202; t=1779120756;
+	bh=3bBrs7mGRW350IS29w5MjBEpH7kFoVKDOCVdn0zMrgM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=b3lxeVtmGQUl2V78Bx8xd36f/K3QghoZw/iM77E1Gbdb3KPbw9cQGvwR4bpXsJZET
-	 wKScuuLGEwQRe8oPcGzi/miQwX9bOvLqEejZOagO93GO5jtkMknuRZuTsV2m/KK0LT
-	 z52rvKfaPn6qPPvqvRhgNGC/ue4cICGPeLlH7xEuATH6p0fyeWr8EHc+arKOEosChA
-	 nDys1gMewmE1TEoV7uiSqq9D6bi8/jEq0lBstSweJt0FG+7GdUMuGxPuJAtA1zwmsx
-	 3xOY4e5gWc/7+jqOWX9L6ZUVFRwTJPwBNAF6XAw+1SnjfmEAwFJmTS6vdTMdm/2Wvm
-	 kfuuK9UuFIVqg==
+	b=n4GvXNNTLDRPKdDUuTDOqA6d+VcvH4IVk+HWxsByWKShb+KY+r3yBvPjQDkmaQ3vu
+	 vXqP5EGV/2SwVzCx2GJrtoofvq7r0Db/Oz0Xx7BzrxnVEZYxWDzVS1T0dlyShfAWxN
+	 NOXgCFHjMIW5NYQYzVoreEmijWJt5c1Yr0uqmAkxHVqnz0mM9a8hbx+ew2gIYfxZJu
+	 tLZUk5lB6iTJdk4O32FTCZngNrqkHyGyMM2VBWIUgN96lroOR9Fdk3N5+MDiSYLpPY
+	 xvBv+t8drksaqX84E3SWF887NWPqez0u+AJotgBDb6iHhjG6BkdKyFbdz52gEpPoxr
+	 SaqhAlIYRDuJw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 5/9] ARM: dts: sun8i: v3s: Add nodes for MIPI CSI-2
- support
+Subject: Re: [PATCH v2 1/4] dt-bindings: PCI: renesas,r9a08g045-pcie: Add
+ RZ/V2H(P) support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Kocialkowski" <paulk@sys-base.io>
-Cc: linux-sunxi@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518153339.619947-6-paulk@sys-base.io>
-References: <20260518153339.619947-6-paulk@sys-base.io>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260518155324.168948-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260518155324.168948-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 16:11:30 +0000
-Message-Id: <20260518161130.F0A4CC2BCB7@smtp.kernel.org>
+Date: Mon, 18 May 2026 16:12:33 +0000
+Message-Id: <20260518161236.146AEC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,50 +46,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `dphy` node is missing the required `interrupts` property an=
-d a SoC-specific compatible string.
+- [High] The patch mandates `linux,pci-domain` to identify the hardware con=
+troller instance and determine system controller register offsets, which is=
+ a Device Tree architectural violation.
 --
 
-commit ceae1b5da24380c4a30d9a8b480a23eaee3c0814
-Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+commit ed13e82a06909d08d89ba9cf97e57413bb3dc6c8
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-ARM: dts: sun8i: v3s: Add nodes for MIPI CSI-2 support
+dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2H(P) support
+   =20
+This commit adds support for the PCIe controller found on the Renesas
+RZ/V2H(P) SoC. It makes the linux,pci-domain and num-lanes properties
+mandatory for identifying the controller instance and mapping system
+controller registers.
 
-This commit adds MIPI CSI-2 support to the Allwinner V3s SoC. It introduces
-the device tree nodes for the CSI0 controller, the MIPI CSI-2 bridge, and
-the D-PHY block.
+>     Unlike earlier SoCs supported by this driver which only feature a sin=
+gle
+>     PCIe controller, the RZ/V2H(P) SoC implements two controllers. Both
+>     controllers rely on the system controller (`sysc`) for configuration,
+>     but the required registers reside at different offsets for each insta=
+nce.
+>     To correctly identify the controller instance and map the correspondi=
+ng
+>     system controller registers, make the "linux,pci-domain" and "num-lan=
+es"
+>     properties mandatory for this SoC and restrict their values according=
+ to
+>     the hardware capabilities.
 
-> diff --git a/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi b/arch/arm/boot/d=
-ts/allwinner/sun8i-v3s.dtsi
-> --- a/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi
-> +++ b/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi
+Is it appropriate to use linux,pci-domain to identify the hardware
+controller instance?
+
+Device Tree is designed to describe hardware rather than software policy
+or configuration. The linux,pci-domain property is an OS-specific hint
+used to assign logical PCI domain numbers.
+
+Using it to identify hardware instances strictly couples the hardware
+register mapping to an OS numbering scheme.
+
+> diff --git a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie=
+.yaml b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> index 90086909e9210..149a2973b16eb 100644
+> --- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
 [ ... ]
-> +		dphy: d-phy@1cb2000 {
-> +			compatible =3D "allwinner,sun6i-a31-mipi-dphy";
+> @@ -235,6 +238,20 @@ allOf:
+>            maxItems: 1
+>          reset-names:
+>            maxItems: 1
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,r9a09g057-pcie
+> +    then:
+> +      properties:
+> +        linux,pci-domain:
+> +          enum: [0, 1]
 
-Should a SoC-specific compatible string like "allwinner,sun8i-v3s-mipi-dphy"
-be included here alongside the generic a31 fallback?
+Does limiting this to [0, 1] cause a regression for valid software
+configurations?
 
-> +			reg =3D <0x01cb2000 0x1000>;
-> +			clocks =3D <&ccu CLK_BUS_CSI>,
-> +				 <&ccu CLK_MIPI_CSI>;
-> +			clock-names =3D "bus", "mod";
-> +			resets =3D <&ccu RST_BUS_CSI>;
+For example, if a board with multiple PCIe controllers assigns domains 2
+and 3 to these instances to avoid conflicts, the binding will fail
+validation and the driver will fail to probe.
 
-Will this node fail dtbs_check schema validation? The existing device tree
-binding schema for "allwinner,sun6i-a31-mipi-dphy" requires an interrupts
-property, which appears to be missing here.
+Could the hardware instances instead be identified via standard hardware
+descriptive mechanisms, such as their physical base address (reg),
+standard aliases, or by adding a phandle specifier argument to
+renesas,sysc?
 
-If the V3s hardware physically lacks a D-PHY interrupt, would it be better
-to add the V3s-specific compatible string and update the binding schema
-to make the interrupts property conditionally optional for the V3s?
-
-> +			allwinner,direction =3D "rx";
-> +			status =3D "disabled";
-> +			#phy-cells =3D <0>;
-> +		};
-> +
+> +        num-lanes:
+> +          enum: [2, 4]
+> +      required:
+> +        - linux,pci-domain
+> +        - num-lanes
+> =20
+>  unevaluatedProperties: false
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518153339.6199=
-47-1-paulk@sys-base.io?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518155324.1689=
+48-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
