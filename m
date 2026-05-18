@@ -1,139 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428FE39183A;
-	Mon, 18 May 2026 22:37:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630E52E5B21
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779143880; cv=none; b=N6Qj3Q9PI/2898Oduix/pGfOtTN4dM0noThNxsho2RiCRifuhRpcI88Ut54OffLF06ufy2BDykWoD/U5CU2JcAH2SZJsN68zZOtbuJD+sAIX4PlITPSsDvNtYfM69z7FNIdWPhY3fSsjlY4dFXQyjyV8eiDNLyCeiNjae2I9gR8=
+	t=1779143967; cv=none; b=pK/etl8pMmWMBTpY/9oVt1oIs+OxyyXxbPaSWcLDYjKML0HMC5S/gg6qcyO72CzIYxuLIYlGgPg0k+2iW9g/piqyrSy1BkuZJrmqUn6728FKRqVKEzBQs5igSFBUcxiMzgGUIPnSxw7iTZ/4zqIgXRveO7LJacR1oiJYaYcKIic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779143880; c=relaxed/simple;
-	bh=yCPh+HXQRcTVsmUvu2yXJQlDcVHXXFcwMfPUyflHlTc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=Bz4PI20TcS92fgR0Qq4wQvdWCO9+GIGTEULd4awQykKS4HxUU9GSYkfKw+e0/dkLuYXghMxwYuMU01tm4igXFRzxLv+TotmHffW2zRtWZt2Ee4K2DxqJp0r85V9a3s5qznY+buYNyZZ3sPGapYooUPFaCAq/BtfrkWtlpc1vf7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uIV9oMFs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779143967; c=relaxed/simple;
+	bh=sM/6zuseC/podVj750k7NNgGLa+UuRQDG8JudP55gE8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=InXckEjH+fLqJ7MY8HVRmt6ao/hjAnde6sRod3R03Lf44m6f8LZ15flM65f6q1MK3xnNgDVoNVj7vYbXq/BsbRLQJl9du5gTBpaKJhy04pxEXNqKXbacwuCcI7M6B5zp/Cf5bGIXWGwoZiL3+XUlmh9NdvNN+K1KFQ0Cp8I/eVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XZw3oFfm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uIV9oMFs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE48DC2BCB7;
-	Mon, 18 May 2026 22:37:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XZw3oFfm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BEEC2BCB8;
+	Mon, 18 May 2026 22:39:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779143879;
-	bh=yCPh+HXQRcTVsmUvu2yXJQlDcVHXXFcwMfPUyflHlTc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=uIV9oMFsZiB2k1H5yl4LvHnzDb5kbXykJcpKi7D9HmO3wpF30Fm7LMuqdkV/3wCSx
-	 OZUB0KApB6xzK86w+pr1GMGjcouh1CpiLyTubSJWy5Iizzi4Sh0lwp+iUl5vy4gPCe
-	 hVUHFUGhHj/5bI5VhZ5jEFySJ7rdeKgSF+J7SO1dmKKI7ondlimEn9G0rFsSQFIxzS
-	 Wuph+R9JnXLbtGU5Xvac38Cp0cMt9u0DQ5P/aqPnpoAQKMIdGejHfufT4c+eB+oPta
-	 6aFZyhcUkwnug9239xE8FvofQgCMdSkFJZtUA2kDeuTuF14eScoCCQb/PcZbUrT3Wg
-	 Ty4V3IdCqwS6Q==
-Date: Mon, 18 May 2026 17:37:58 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Frank Li <frank.li@nxp.com>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"festevam@gmail.com" <festevam@gmail.com>,
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
-	"kwilczynski@kernel.org" <kwilczynski@kernel.org>,
-	"mani@kernel.org" <mani@kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>,
-	Hongxing Zhu <hongxing.zhu@nxp.com>,
-	"l.stach@pengutronix.de" <l.stach@pengutronix.de>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
- parsing Root Port properties
-Message-ID: <20260518223758.GA649325@bhelgaas>
+	s=k20201202; t=1779143967;
+	bh=sM/6zuseC/podVj750k7NNgGLa+UuRQDG8JudP55gE8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=XZw3oFfmW5BhgNPUxjK5nkOXxAfiDsOuuRGlRsV5jHiQLIA7kJmBMMTSXVDMdKKgc
+	 mA1WxDwKRLavEA4uJQFrHdZNLKqpsTp362iMLYIWs+C/DJF7UDZ4xT+1gtCSFnCje+
+	 rgrA0fWX4B2GutkOc+uELpMiMUUhKydfxUgOtwu65SbO1ULrOSe33xBfeZBYYu5yWw
+	 /LW1MzAeWVzVWIIAQ+RWLnBBs0v363cknL632NPULT4pfdvmKcXi558qReY2h9N7wo
+	 Nkj2OuCUOzT1Ng/9ojUKyXBq0W53naY+Z9sWTYcPT+LDAXt4dRhvjUm/CpKi0q4Md3
+	 c14t5y1a7Z2GQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 11/11] iio: adc: hx711: add support for HX710B
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Piyush Patle" <piyushpatle228@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260518220228.63322-12-piyushpatle228@gmail.com>
+References: <20260518220228.63322-12-piyushpatle228@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 22:39:26 +0000
+Message-Id: <20260518223926.C2BEEC2BCB8@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VI0PR04MB1211452312EB9BC6EF1ED2E0192032@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-On Mon, May 18, 2026 at 08:42:38AM +0000, Sherry Sun wrote:
-> > Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
-> > parsing Root Port properties
-> > 
-> > On Wed, Apr 22, 2026 at 05:35:39PM +0800, Sherry Sun wrote:
-> > > Introduce generic helper functions to parse Root Port device tree
-> > > nodes and extract common properties like reset GPIOs. This allows
-> > > multiple PCI host controller drivers to share the same parsing logic.
-> > >
-> > > Define struct pci_host_port to hold common Root Port properties
-> > > (currently only list of PERST# GPIO descriptors) and add
-> > > pci_host_common_parse_ports() to parse Root Port nodes from device
-> > tree.
-> > >
-> > > Also add the 'ports' list to struct pci_host_bridge for better
-> > > maintain parsed Root Port information.
-> > > ...
-> > 
-> > > +static int pci_host_common_parse_port(struct device *dev,
-> > > +				      struct pci_host_bridge *bridge,
-> > > +				      struct device_node *node)
-> > > +{
-> > > +	struct pci_host_port *port;
-> > > +	int ret;
-> > > +
-> > > +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
-> > > +	if (!port)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	INIT_LIST_HEAD(&port->perst);
-> > > +
-> > > +	ret = pci_host_common_parse_perst(dev, port, node);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	/*
-> > > +	 * 1. PERST# found in RP or its child nodes - list is not empty, continue
-> > > +	 * 2. PERST# not found in RP/children, but found in RC node - return -
-> > ENODEV
-> > > +	 *    to fallback legacy binding
-> > > +	 * 3. PERST# not found anywhere - list is empty, continue (optional
-> > PERST#)
-> > > +	 */
-> > > +	if (list_empty(&port->perst)) {
-> > > +		if (of_property_present(dev->of_node, "reset-gpios") ||
-> > > +		    of_property_present(dev->of_node, "reset-gpio"))
-> > > +			return -ENODEV;
-> > 
-> > This doesn't seem right to me.  The parser of per-Root Port properties should
-> > not be responsible for deciding whether legacy methods are valid, i.e.,
-> > whether a property is in the Root Complex node.  I think it's up to the caller
-> > to decide whether it needs to look elsewhere.
-> > 
-> > I don't think this even needs to return a "success/failure" value because there
-> > may be more properties in the future, and not all will be required.  This
-> > function can't tell which properties a specific driver requires and which are
-> > optional.
-> > 
-> > The caller can check whether we found what it needs and fall back to a legacy
-> > method as needed.
-> 
-> Hi Bjorn,
-> The code here was suggested by Mani, https://lore.kernel.org/all/lnzprzrdwra7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum/.
-> I think your suggestion here is reasonable, the per-Root Port parser shouldn't
-> check the RC-level binding. That's a policy decision that belongs to the caller.
-> 
-> Hi Mani, if you also agree, I'll rework this so that:
-> 1. pci_host_common_parse_port() only parses properties from the Root Port
->     (and its children) without checking the RC node.
-> 2. The function won't return failure for "property not found" - it will only return
->      errors for real failures (e.g., -ENOMEM, GPIO acquisition errors).
-> 3. The legacy fallback logic will be moved to the caller, which can inspect the
->      parsed result and decide whether to fall back to the legacy binding.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The trigger handler incorrectly performs physical ADC reads for th=
+e software timestamp channel.
+- [Medium] Missing `iio_device_claim_direct_mode()` protection in the newly=
+ added `hx710b_write_raw()`.
+- [Low] Data race on `samp_freq` when handling `IIO_CHAN_INFO_SAMP_FREQ` re=
+ads.
+--
 
-This is only used for imx6 so far, so I think this is OK as-is for
-v7.2.  We can file this under "possible future rework or kernel
-mentee project."
+commit 63c1473f6788341d410e6d9c03f632bdcaeaf6df
+Author: Piyush Patle <piyushpatle228@gmail.com>
+
+iio: adc: hx711: add support for HX710B
+
+This commit adds support for the AVIA HX710B ADC to the existing hx711
+driver. It handles the different trailing pulse requirements and fixed
+gain scaling, while exposing both 10 and 40 SPS sample rates.
+
+> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
+> index 8ec4dee1f451e..20ea667af7254 100644
+> --- a/drivers/iio/adc/hx711.c
+> +++ b/drivers/iio/adc/hx711.c
+[ ... ]
+> @@ -323,6 +378,9 @@ static int hx711_read_raw(struct iio_dev *indio_dev,
+>  		if (*val < 0)
+>  			return *val;
+>  		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*val =3D hx711_data->samp_freq;
+> +		return IIO_VAL_INT;
+
+Is there a potential data race here?=20
+
+In hx710b_write_raw(), hx711_data->samp_freq is updated while holding
+hx711_data->lock. Should this read also be protected by the same mutex to
+ensure state consistency?
+
+[ ... ]
+> @@ -400,20 +458,26 @@ static irqreturn_t hx711_trigger(int irq, void *p)
+>  	struct iio_dev *indio_dev =3D pf->indio_dev;
+>  	struct hx711_data *hx711_data =3D iio_priv(indio_dev);
+>  	int i, j =3D 0;
+> +	int ret;
+> =20
+>  	mutex_lock(&hx711_data->lock);
+> =20
+> -	memset(&hx711_data->buffer, 0, sizeof(hx711_data->buffer));
+> +	memset(hx711_data->buffer, 0, sizeof(hx711_data->buffer));
+> =20
+>  	iio_for_each_active_channel(indio_dev, i) {
+> -		hx711_data->buffer.channel[j] =3D
+> -			hx711_reset_read(hx711_data, &indio_dev->channels[i]);
+> -		j++;
+> +		ret =3D hx711_reset_read(hx711_data, &indio_dev->channels[i]);
+
+Does this loop incorrectly perform a physical ADC read for the software
+timestamp channel when userspace enables it?
+
+When the timestamp channel is enabled, its bit is set in active_scan_mask.
+The iio_for_each_active_channel() macro will iterate over it, causing
+hx711_reset_read() to execute for the timestamp channel.
+
+For the HX710B variant, chan->differential evaluates to 0 for the timestamp
+channel, which causes hx710b_trailing_pulses() to return 2 trailing pulses,
+performing an unintentional read over the supply monitor channel.
+
+For the HX711 variant, the timestamp channel sets chan->channel =3D -1.=20
+hx711_set_gain_for_channel() then falls into the else branch (since -1 !=3D=
+ 0),
+changing the hardware to channel B and performing a dummy physical read.
+
+In both cases, this forces the driver to wait for the ADC to settle on every
+trigger event, which can severely impact the sampling rate. Should this loop
+skip the timestamp channel (for example, by checking if the channel type is
+IIO_TIMESTAMP)?
+
+[ ... ]
+> +static int hx710b_write_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int val, int val2, long mask)
+> +{
+> +	struct hx711_data *hx711_data =3D iio_priv(indio_dev);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		if (val !=3D 10 && val !=3D 40)
+> +			return -EINVAL;
+> +		mutex_lock(&hx711_data->lock);
+> +		hx711_data->samp_freq =3D val;
+> +		hx711_data->channel_set =3D 0;
+> +		mutex_unlock(&hx711_data->lock);
+> +		return 0;
+
+Does this implementation need to use iio_device_claim_direct_mode() to
+prevent concurrent hardware changes while a buffered capture is active?
+
+If userspace modifies the sampling frequency during an active IIO triggered
+buffer capture, it resets channel_set to 0. This could alter the hardware
+configuration (changing the trailing pulses) out from under the IIO capture
+thread, which violates IIO concurrency semantics.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518220228.6332=
+2-1-piyushpatle228@gmail.com?part=3D11
