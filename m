@@ -1,63 +1,63 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0203932D0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036A5392C2C
 	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779135799; cv=none; b=ochVhCUItoCKTInuQZGuP1dIJRbEsWdJ0R9RqhzbGDM0yoam1p1jZOfH/j1cDXyqPXCY7J8JTm6n49FhpbaSuQbhB94+c16qMD4HzadP2Lg9NffxSXENxgapxinNknG/xCwW2tH/qA1WK1SWd+OMPtELaXvLe4dXUK7x460kEtE=
+	t=1779135804; cv=none; b=ECZ8xKTVqdjTfD+05Frw0UU8n5pu81VT3Th9X/ndFSONvbJ+nVcip47mC7JyYNm7NJSPSzo2wTO7R+3X1NvxaYh2xEm4WXgh5UEn5MaGz2fPTeB6NtOkXUJtAG8O6VZQTaohBWGR+8IWG8noIDSNxodjJ+2BHO5CKDkB7LPD+vY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779135799; c=relaxed/simple;
-	bh=TYdy6nuGg2H6DLqJvqnXf3NKbUg3XykFU/TUZ5CEuWI=;
+	s=arc-20240116; t=1779135804; c=relaxed/simple;
+	bh=QzaN/O/VlVMdJSFQy2H+lcyumcLYvF1o8hZeXgqCS2s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dj4K24WZIHcexdzWFENPmLGeRhmvNUsAlGCKwzpEceXLTnk95kbv9dUOKKi3zj1Fr57+FBkl1QNQKTAX5pbcTUD6Y3h+LiXQrCggh3o4321CM3uh1dc5xHFM2k+LepIM8s+rn7VUkZeM7cNqfyusEWhz/nRGeWwvoOspPe3ezCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DhHbnNes; arc=none smtp.client-ip=209.85.208.176
+	 MIME-Version; b=ACbq7gKG7lmnOlA6QkS92qzjJX4mwWLIDu6GaeGNNuc+TCcF02wRQXrQIDwaSGm9bgDao1180Jmofxu+zNiFuwNte0kvPRU/O+Ja5vYb8iCjohuc2PnbHuuQbywa77XskwZ/tQWL3IhLxsu/dCpsI8aXSppcwcNBhw36fFR2mTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msGf+D36; arc=none smtp.client-ip=209.85.208.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DhHbnNes"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38e800deae4so28045641fa.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msGf+D36"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-38be5e86918so37340661fa.3
         for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:23:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779135794; x=1779740594; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779135796; x=1779740596; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V7MgMydFIuv/r1d4/vML1sQi26pQ+VbIk3AiQmKgmmE=;
-        b=DhHbnNesJe2+EWPYUwyEinfP/Kg5FxHd6NLWVezExRXTBICvlq8xhfcts/6OUdR7fo
-         mXo/TsfgiWmX/z9bivqz7LiKH9Xjv1dyHqJ0zHNXt5pJ7+QvdP2UskWeMxnCgdYFKjEU
-         rSXn9xDp1i1zxJ7E0AZd+DgLraEqrh/GOFZ8Zc0rHCD+a0ual9Mt54U6ZfTlu9g7lQUZ
-         iQ3znw2kp1rSCDIrtmjOKB9EtWuxi6v329Fi/f54fF0oWX1Ut5PVluBZY0s22aOB1gWd
-         bPKbDg7gxsSDXJL2NMb8QlwyColEUmZhu03YqFmZTazKJ96L8RfDCt3P7dLJDwCwVls6
-         FMZA==
+        bh=jiJgbjum4jxo4zX9VgnCn31yV0goVxaYIj4uyBltCfk=;
+        b=msGf+D36QGPX4Ec2wrtXvmY3rm4T1+tihRJeG3wlE/yYqqyXSCjPQS77ARYKcXIbbV
+         i7CkYoEiNiyJALRwpb7w8WJ6O9vZU7C+83PckOxLULYd0cx6jSbr+biU4gmz3I7nYAVp
+         WV17g3mgMZgBOnK8/4ounC0TLMK4r8tZQlOoc2eph0eQOdSWma2gKIVtiO1QXmnKq48e
+         qnL5Mq5U1HaQoRlx6GM7otEUv0vw5xJJSLDNtQ+lnwN8EBDPna5Y98fCoicCtRabN/rS
+         vILakx9gd0uX7ZoydRo38+KRKQMWT3yz78nf18wDxtLUmiWl/LAg4RLGEzcam88D2E7q
+         1iFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779135794; x=1779740594;
+        d=1e100.net; s=20251104; t=1779135796; x=1779740596;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=V7MgMydFIuv/r1d4/vML1sQi26pQ+VbIk3AiQmKgmmE=;
-        b=Z8CkNMU6oGDhDu9G0+2InccTZG8lodXcnWROXZS5picEGdNokWzu2VQTZm1N69UibW
-         mb+l4I3Y5nG+XcGPYlSkSb+jtqyxlMdmfBknVaYL+0Dd2YSpy9dUcUFYGygc1iryDtL1
-         YG/iGHlzoEuGBBgYBU3s2VgAVBMNyC+RYwWIgM+3/rreeE/d6OPgnEWhyfoawUWqTsXF
-         J2S1HUxKE8vW+RzuvMSAjG3arw+J4UXf6l3YFUc1DP3i1ztQVHfSVD6j+/WGR1y6XJCm
-         HpBZFybzvvt3Jyp+ahrQrfxXIqA9zPzw6cIXROLXjH03XMpKZOxuYi6+Mxgms/8Wjh/4
-         fz9A==
-X-Forwarded-Encrypted: i=1; AFNElJ8kS4/gg3+CX7eAfHyXPfSwvOzTwD/fR2YnQ3Es8v44fvpRkEn5iKarKr48Et7kTO0eqw5jiKwXuU9Q@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxx+jPwJMDDKsj7y27zXW72pof4CiWx+dhwmBmIekvlvwqYUid+
-	FNrO6xp7tkVeS8AFz9gyFVat52NDvcnzJYXS/2KE1/SdDH1LmJcqRtVi
-X-Gm-Gg: Acq92OEQsgPomVHT9LRA1lo1kdrTJiQxwHgZ2DVgixMACuls/hl//O4tBNVuBHC9fCO
-	6/Mkf5eUTXKqxqZo0t8GLTAjeUWO5J20ruhPi7suKBlPT4vOBWL9aKGJxNh7EWvpDToKkn0zFQm
-	4LRKRYVnTkzb4TBjScwiCLKi41DMN+okOrr1d2pcoPUot1nlkFsNmKaNhSMG308jthJ4FRjTy7l
-	Rvm9KCdpQ/6KDV5a4SlXr52ce3vcNDurEIs7cSNv+mhGb75QzMqra+jZn4bguw0dYe/EwuOWkSW
-	BnSOFcSxw4S4kHNhCrG7bd/46KqvVpdXDEskV5AHLHoIMmG19UOxC3BFhwllXuRKgEIzvNigKB1
-	9DWOMj+5+RxQ2ZAcP5LBHe4qC/buR++eqyh5XhaGy6SYj+b/Vb3N1+/gHt0inOBMauSL/QKI4NY
-	Vw1qBG7Db9ZahG26ZVn37iYClDlf7WjxYyKRi9EvhQ
-X-Received: by 2002:a2e:3318:0:b0:393:a145:54f3 with SMTP id 38308e7fff4ca-39561d62df2mr40726251fa.15.1779135793502;
-        Mon, 18 May 2026 13:23:13 -0700 (PDT)
+        bh=jiJgbjum4jxo4zX9VgnCn31yV0goVxaYIj4uyBltCfk=;
+        b=Ry2mMjhfhLXwpphLDqwlx1YSw9fCUZtrFI96usWi+eOI2fli98Chd51Iy7Y1eRliI0
+         BcaHoAQpOOQCVSC+/gqD9mrPxpnwKeG0JDgPjj/3JO8kEBlDlBDgRNjWCkJk6gfPBJXf
+         +VbLchVu7F/5lblqIvhHBsl+hZOoW6Ab7zBBOnOUgb72GZsfGII326zMSBIU5RfVDrTT
+         iToWy5MEGaxYkFsRG1QgnZdR5P5TLlXqRCwEQRAmNKgD0/yKXITxX0aNJHIk7CnY40DS
+         0k9taznJrs0PQyT/sirC5FIeB/vSh7jZV+rVdacamTLav+zvNps/kWQqwE7SCgYlix7j
+         qPcg==
+X-Forwarded-Encrypted: i=1; AFNElJ9TmX1ClzpD6tQo1Hily/Wbp9xE4B+xlBUUylczF6wCCdmBv9xFtQJ5mFhPpVsEYItFWaXI1IXdpre/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqsUr7OL07aEBZQBt2P0ZhukU40SVcEQtDzN4svgmfrCdEsqNy
+	XMFiSlPx8DZ5HW/gQ1jjr2UUVd8lufOXozgSUY4EMjOZnInggYDHdX59
+X-Gm-Gg: Acq92OEQGCCTWYumSXbYH6VXRTFA17reQaGVNRfkKERSujXptgt/dCpf5LNSzjZcXQs
+	6nIJknEhMAb+u61CDgmDOLD3SRRXkhe71gMUjQo3LclGH3lZPa9PAchtKPgqKnCKyBLAWXGn+Yg
+	/94rUsPdQiJXW6nFCdhaXEQTXzPZ7AWR04bKSd0V7HENj2a2jFCWacMp5J4cLfpJ48Lv7xPq48N
+	z0zPDL0B/d6qDn7m1T0O4kYrVrG0t8X71kA71YpP8Jm8dwfZEE9lAWMWe3IGchKTjMNA4w1QWTM
+	LzDaXTJ10OV82CSjHYTFpZ9CL0doHTMIcec0DtjTNPos+WC4em18FoTAMprpkLJuX8rjea8XDdz
+	hLhM42mi+m8rGUm2crxKuTnAEaNHjoCEeuQPh60l1vi7Zw9T4uRUneCiYJUqU5MxuTzDOjTdUSn
+	aOeh6bXTaQSeMOTWd3zbeCN0oSz5kI6KyU44/nLYOG
+X-Received: by 2002:a2e:8a95:0:b0:394:635:70b1 with SMTP id 38308e7fff4ca-395619b0b28mr45511291fa.3.1779135795950;
+        Mon, 18 May 2026 13:23:15 -0700 (PDT)
 Received: from localhost.localdomain ([90.157.113.57])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887b42f8sm15225061fa.36.2026.05.18.13.23.10
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887b42f8sm15225061fa.36.2026.05.18.13.23.13
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 18 May 2026 13:23:12 -0700 (PDT)
+        Mon, 18 May 2026 13:23:14 -0700 (PDT)
 From: taygoth <taygoth@gmail.com>
 To: linux-arm-msm@vger.kernel.org,
 	linux-usb@vger.kernel.org,
@@ -75,9 +75,9 @@ Cc: Mark Brown <broonie@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
 	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Casey Connolly <casey.connolly@linaro.org>
-Subject: [PATCH 5/6] arm64: dts: qcom: sdm845-oneplus-common: enable USB Type-C role switching
-Date: Tue, 19 May 2026 01:22:50 +0500
-Message-ID: <ba3804796cc651aa281deab49234ca52cfdd3696.1779127507.git.taygoth@gmail.com>
+Subject: [PATCH 6/6] MAINTAINERS: add entry for Qualcomm PMI8998 USB Type-C driver
+Date: Tue, 19 May 2026 01:22:51 +0500
+Message-ID: <f77068e556b6a166ef05f2758d61234a4e1b954b.1779127507.git.taygoth@gmail.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <cover.1779127507.git.taygoth@gmail.com>
 References: <cover.1779127507.git.taygoth@gmail.com>
@@ -89,93 +89,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enable the PMI8998 Type-C controller and USB OTG VBUS regulator so the
-OnePlus 6 and OnePlus 6T can dynamically switch between USB peripheral
-and host roles depending on the connected cable, instead of being
-locked to peripheral mode at boot.
-
-The dwc3 controller is moved from dr_mode = "peripheral" to "otg" and
-gains a usb-role-switch property. The existing usb_1_dwc3_hs endpoint
-declared in sdm845.dtsi has its remote-endpoint pointed at the new
-pmi8998 Type-C connector subnode. The maximum-speed override is no
-longer required because role switching infrastructure handles speed
-negotiation through the usb-c-connector.
-
-The VBUS regulator current limits (500 mA - 1.5 A) match the boost
-converter capability noted in the downstream qpnp-smb2 charger config.
+Add a MAINTAINERS entry covering the new qcom_pmi8998_typec driver
+and its device-tree binding.
 
 Signed-off-by: taygoth <taygoth@gmail.com>
 ---
- .../boot/dts/qcom/sdm845-oneplus-common.dtsi  | 43 ++++++++++++++++---
- 1 file changed, 36 insertions(+), 7 deletions(-)
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 6b7378cf4d49..42badc71ba6a 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -606,6 +606,36 @@ &pmi8998_charger {
- 	status = "okay";
- };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c2c6d79275c6..d2861fdef012 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22120,6 +22120,14 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/usb/qcom,pmic-*.yaml
+ F:	drivers/usb/typec/tcpm/qcom/
  
-+&pmi8998_vbus {
-+	regulator-min-microamp = <500000>;
-+	regulator-max-microamp = <1500000>;
-+	status = "okay";
-+};
++QUALCOMM PMI8998 USB TYPE-C ROLE-SWITCH DRIVER
++M:	Maxim Furman <taygoth@gmail.com>
++L:	linux-arm-msm@vger.kernel.org
++L:	linux-usb@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/usb/qcom,pmi8998-typec.yaml
++F:	drivers/usb/typec/qcom_pmi8998_typec.c
 +
-+&pmi8998_typec {
-+	status = "okay";
-+
-+	connector {
-+		compatible = "usb-c-connector";
-+		label = "USB-C";
-+		power-role = "dual";
-+		data-role = "dual";
-+		try-power-role = "sink";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				pmi8998_hs_in: endpoint {
-+					remote-endpoint = <&usb_1_dwc3_hs>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &pmi8998_flash {
- 	status = "okay";
- 
-@@ -890,19 +920,18 @@ &usb_1 {
- };
- 
- &usb_1_dwc3 {
--	/*
--	 * We don't have the capability to switch modes yet.
--	 */
--	dr_mode = "peripheral";
--
--	/* fastest mode for USB 2 */
--	maximum-speed = "high-speed";
-+	dr_mode = "otg";
-+	usb-role-switch;
- 
- 	/* Remove USB3 phy as it's unused on this device. */
- 	phys = <&usb_1_hsphy>;
- 	phy-names = "usb2-phy";
- };
- 
-+&usb_1_dwc3_hs {
-+	remote-endpoint = <&pmi8998_hs_in>;
-+};
-+
- &usb_1_hsphy {
- 	status = "okay";
- 
+ QUALCOMM VENUS VIDEO ACCELERATOR DRIVER
+ M:	Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+ M:	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
 -- 
 2.47.3
 
