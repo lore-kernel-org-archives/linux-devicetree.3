@@ -1,361 +1,209 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786A0375F76
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:23:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7501C219E8
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:31:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779074634; cv=none; b=eT1a/HJvjuwKeOw285NmW1bqO8hPFDAryQDDTGPw8yM9q3M9bnYJ7LnK2PfOdKSC9OL4Ig5bcgEOdUY72blTCW3h3TMig1D7y0NHIqzO9YG0VsuSKBAcRLUmPWuoT//+cQ5WXA7MGK6ASBeKjbiKKWWdYVPQIxurK+j9H3dbzbg=
+	t=1779075069; cv=none; b=r5uKrqX5IljHeEVTkjBvESe2jH96wSI8snv/FMCqYmAcwGMqO3VrKdBRwyDj24VEePJ4Yxq8yWfL6opHpAYe2BqcEqMyO+sII/XKFqQ+AS/jrgnyAFXka/c50sHHQbr2YdJ2lNpSZe7zVNwGYRo4CcuND6ZUtLZbnB0d26jpIHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779074634; c=relaxed/simple;
-	bh=Yy9Itu31EH/chJDN5T5DzK0597S0ucLI1NqwKVsm/F4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y3VxgZM1OUVQvwzO0hT+SqtNqJnJw7x1ckCCkbnAXGdGEt5vZLyrd8L8NDkda01H3BYYjeAApAkrMxoK8qwkLKuBF7lBGFWCxq0yejBH9ZKfU1aPF4oeGgpnAoNmDjipqFsnv0axZ3EFvdt6nPQJXc4Ev/2DaI35CxU1Qh0Vxjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5jL8Wot; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779075069; c=relaxed/simple;
+	bh=PpyCpFLp+qOUo1XGzy4ti3wIBdJlEX//u0tJ4M8Klwk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=reYfl9GdoM8xaacLuBqyGFtii8aIVQnE4tp8ug+uJnu/zLgrZ7GaAFiIc9McCl/PvcoD3/MvwewSvMYhlevSWIwaT4trsaeSH17MLYtBPDe0gKFGxZCdSGFNmsD5PIeS9NdZA7Yo2emF36Kyj3E6lccebDKN8BASGfSGP9zAchM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2frLadX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5jL8Wot"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E53C2BCB0;
-	Mon, 18 May 2026 03:23:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2frLadX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E24C4AF0C
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:31:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779074634;
-	bh=Yy9Itu31EH/chJDN5T5DzK0597S0ucLI1NqwKVsm/F4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=I5jL8WotddBLI5ntexr6F3NTQabCIsUcYUiDlfP0u+ElCYjAy2zF/DEWfAlxNPLjz
-	 kapaJCckmfB+7sWRZP20oPzV8iQrXdcyMC/loMW01c2jwUkH81/tfZVxNOVdXrpo6T
-	 0jkP4xLnqCL4uqfNvUan87IgNBMtfrFQsW5AfFQEnDVYJKpqlmXAZav/Br5NEkKyLA
-	 4xLXgynabG8nwQVuJhsc4V/fmJGRHLbtQ6S0e/dfGyfZp6rPe0o6Nj9yMPu24S2bVo
-	 IeYZx6HuQvvWnpCqutMeHB1YnW4VAF1QRs0u16ee7t2mOPhRpe3D5vtEy3Mr6lIUeg
-	 jfFBR/FBioIjg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neo Chang" <YLCHANG2@nuvoton.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260518024704.118613-3-YLCHANG2@nuvoton.com>
-References: <20260518024704.118613-3-YLCHANG2@nuvoton.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 03:23:53 +0000
-Message-Id: <20260518032354.24E53C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1779075069;
+	bh=PpyCpFLp+qOUo1XGzy4ti3wIBdJlEX//u0tJ4M8Klwk=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
+	b=E2frLadX2voIeoBE/9x2tILtLh7EPzgyLKeG0XG62XHLDqhAHLPKbyL3O8qaO8tlk
+	 Y+oNCQ9KMJBuKTRQBddO4tOeGKlGSUz84O/GGsYLpVa6gbxlWbXTjd16OjiabQqrUV
+	 RwQMaZcKkKGJhMC759IxnHqU6LvaSJuZtLwwe9b8NoUIyGU6ibxnPlgzLkYKJmfPoV
+	 dJstFXdBE5K/jJGB1wNnBU8Ps2w42pxK48ZvoAZDwQHyivfMX7OVaaSV03P9HIcOA7
+	 sIaNJR/oLjpWuvMLrugv77WhdvB6fAikKjYBHPOEaVnPHYtU1OtuZXEOOTm57KE6O4
+	 lRzB5xxnBp+2w==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38e97e73234so16963931fa.1
+        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:31:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/n4WjWzpvVhEpWTVWH2jydzNLLRoyZhafzf4vCPvni5pSwvDTxOsriCUyA8Glw7OT2cwVhsQ0Tjufa@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqbgzS8ZrIBlOhQAb1FtvgMi+ycLD3jXjp9GYFjM/8bMXdYj6e
+	h79yn3gPBOPkyshVoAA1jEfW/kn7IRhWC2YJ/pObtvUCtCboPvRu0So/hGqSZNZGe+B2DcbtYg4
+	PJxXrIic3znGKhUA4hLHCTLxACvc0sD4=
+X-Received: by 2002:a05:651c:2111:b0:393:b365:6e24 with SMTP id
+ 38308e7fff4ca-395619b0ac5mr35805681fa.4.1779075067487; Sun, 17 May 2026
+ 20:31:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-4-alexander.sverdlin@gmail.com> <2306dd3c-6362-40ee-8d9f-77f89be3a502@arm.com>
+ <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
+In-Reply-To: <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 18 May 2026 11:30:55 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
+X-Gm-Features: AVHnY4JnqjbSr91YLBIoafpQYqqOubR36k-t-pMBLxLwXavZnAaD9k9U7zSyI3s
+Message-ID: <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
+ Baijie Helper A133 board
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: Andre Przywara <andre.przywara@arm.com>, linux-sunxi@lists.linux.dev, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] Regmap configuration truncates 32-bit DSP register reads to 16 bit=
-s, permanently breaking DSP communication.
-- [High] Error handler in `nau8360_dac_mux_put_enum` unconditionally revers=
-es the DSP state, causing severe playback disruption.
-- [High] TOCTOU race condition in `nau8360_dac_mux_put_enum` leads to dupli=
-cate DAPM widget creation and list corruption.
-- [High] Stack buffer overflow in `nau8360_reply_from_dsp` when parsing tra=
-iling DSP bytes.
-- [High] `nau8360_set_tdm_slot()` fails unconditionally for typical TDM con=
-figurations due to zero-initialized slot arrays.
-- [High] Synchronous firmware loading during system resume creates a system=
--wide deadlock hazard.
-- [High] PEQ coefficients are ignored by the hardware during `regcache_sync=
-()`, leading to lost EQ settings after resume.
-- [High] Data race on `NAU8360_R9D_PEQ_CTL` corrupts hardware register acce=
-ss during concurrent PEQ operations.
-- [High] Uninitialized variable `data_count` evaluated conditionally in `na=
-u8360_reply_from_dsp`.
-- [Medium] Inappropriate use of `GFP_DMA` exhausts restricted physical memo=
-ry zones unnecessarily.
---
+On Mon, May 18, 2026 at 4:37=E2=80=AFAM Alexander Sverdlin
+<alexander.sverdlin@gmail.com> wrote:
+>
+> Hi Andre,
+>
+> thanks for the quick feedback!
+>
+> On Mon, 2026-05-11 at 13:44 +0200, Andre Przywara wrote:
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+> > > @@ -0,0 +1,162 @@
+> > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> > > +/*
+> > > + * Copyright (c) 2025 Arm Ltd.
+> >
+> > Please put your own copyright here, even if that has been largely copie=
+d
+> > from an existing file.
+> >
+> > > + */
+> > > +
+> > > +/dts-v1/;
+> > > +
+> > > +#include "sun50i-a100.dtsi"
+> > > +#include "sun50i-a100-cpu-opp.dtsi"
+> > > +
+> > > +/{
+> > > +   compatible =3D "baijie,helper-a133-core",
+> > > +                "allwinner,sun50i-a100";
+> > > +
+> > > +   aliases {
+> > > +           serial1 =3D &uart1;       /* BT module */
+> >
+> > Do we really need an alias for the BT UART? And is the BT module
+> > supported already? Then please add a child node to the UART node.
+>
+> That's the only thing I can do currently regarding BT: stabilize the
+> serial enumeration, because UART1 cannot be used for anything else
+> except BT module, because this is soldered inside "core" module.
+> We can avoid different tty enumeration, should the support for
+> BT be implemented in the future...
+>
+> > Isn't the WiFi/BT module on the SoM? Then please mention and enable MMC=
+1
+> > here. Provide the child node for the WiFi chip, even if there is no
+> > upstream support in the kernel for it yet.
+>
+> So both the above BT and the WiFi is AW869A/AIC8800 combo chip, which
+> has neither upstream driver, nor [upstream] DT bindings. Even github
+> driver for AIC8800 doesn't seem to use DT, therefore it looks quite
+> pointless to me at this point to specify anything in the DT for the
+> chip which doesn't have the bindings idea even theoretically.
+>
+> Nothing in the current DT shall block any future work on the AW869A
+> support though and the above "aliases" entry shall even guarantee
+> unchanged serial enumeration shall such support arise.
+>
+> > > +&reg_aldo1 {
+> >
+> > What is aldo1 used for, actually? I don't see this referenced anywhere.
+> > I guess the kernel turns that off after booting?
+> > If you have access to the schematic, please check that. If that's for
+> > some peripheral not yet supported, please note the user anyway, ideally
+> > by an explaining regulator-name, or by a comment. Also if it's used for
+> > any of the required SoC VDD pins. See the Liontron .dts for comparison.
+> >
+> > > +   regulator-always-on;
+>         ^^^^^^^^^^^^^^^^^^^
+> I suppose it's not being switcdhed of because of the above.
+> It's used for both PLL supply for the whole SoC + as analog voltage refer=
+ence
+> for LRADC (the buttons you've noticed on the board are connected to
+> this ADC via a resistor ladder).
+>
+> >
+> > > +&reg_aldo2 {
+> > > +   regulator-always-on;
+> >
+> > For always-on regulators we definitely need an explanation. Does the
+> > board stop booting if you remove this line?
+> > Maybe it's for DRAM? Can you say what voltage it is, either from the
+> > reset default, or set by the bootloader?
+>
+> Thanks for the hint! I'll put proper voltages into all regulators +
+> comment all the always-on regulators.
 
-commit c79b1a5383d9c9de05c582b2ab0b28a3410dbb34
-Author: Neo Chang <YLCHANG2@nuvoton.com>
+Please also give them proper names. If you have the schematics, then use
+the names from that; otherwise just make up names matching their use.
 
-ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
+> >
+> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.=
+dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+> > > new file mode 100644
+> > > index 000000000000..ccbca5d0a40c
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+>
+> > And you should provide a top level 5V regulator here, to be the root of
+> > the regulator tree. Look at reg_vcc5v in the Liontron .dts.
+>
+> It doesn't look to me as if Liontron had reg_vcc5v as its 5V "root" regul=
+ator.
+> It seems to be only used for reg_usb1_vbus, while HelperBoard A133 doesn'=
+t
+> have USB power control. The second issue with Helper/Core split is that
+> all PMIC story is inside Core board which has 5V input rail, while Helper=
+Board
+> around it has indeed 12V->5V DCDC regulator (similar to Liontron), but
+> putting it in the DT would introduce wierd dependency of the core to the
+> HelperBoard which carries it. Do you think it would make sense?
 
-This commit adds support for the Nuvoton NAU83G60 audio codec. The NAU83G60
-is a stereo 30W+30W smart amplifier with an integrated low-latency Advanced
-Audio DSP.
+In that case I would probably put a 5v "fake root" regulator in the core
+dtsi. And in combined dts, I'd then add the 12v "real root", and use that
+as the supply for the 5v fake root.
 
-> --- /dev/null
-> +++ b/sound/soc/codecs/nau8360-dsp.c
-[ ... ]
-> +static int nau8360_reply_from_dsp(struct snd_soc_component *component,
-> +	const struct nau8360_cmd_info *cmd_info, int data_size,
-> +	void *data, unsigned short dsp_addr)
-> +{
-[ ... ]
-> +	frag_payload_len =3D frag_len - 1;
-> +	if (cmd_info->msg_param)
-> +		data_count =3D data_size;
-> +
-> +	for (i =3D 0; i < frag_payload_len; i++) {
-> +		ret =3D regmap_read(nau8360->regmap, dsp_addr, &payload);
-> +		if (ret) {
-> +			dev_err(dev, "failed to read payload of dsp");
-> +			goto err;
-> +		}
-> +
-> +		if (cmd_info->msg_param) {
-> +			if (data_count >=3D NAU8360_DSP_DATA_BYTE) {
-> +				*data_buf++ =3D payload;
-> +				data_count -=3D NAU8360_DSP_DATA_BYTE;
-> +				payload_read(dev, payload);
-> +			} else {
-> +				for (j =3D 0; j < NAU8360_DSP_DATA_BYTE; j++) {
-> +					((u8 *)data_buf)[j] =3D (payload >> (j * 8)) & 0xff;
-> +					data_count--;
-> +					if (data_count <=3D 0)
-> +						break;
-> +				}
+Does that make sense?
 
-Is it possible for this loop to write past the end of the destination buffe=
-r?
-If the DSP hardware sends more payload words than requested, data_count cou=
-ld
-drop to 0 or below before entering the else block. The loop writes 1 byte o=
-ut
-of bounds before checking if data_count <=3D 0, potentially causing a stack
-buffer overflow.
 
-> +				payload_read(dev, payload);
-> +				break;
-> +			}
-> +		} else {
-> +			*data_buf =3D payload;
-> +			payload_read(dev, payload);
-> +		}
-> +	}
-> +
-> +	/* check the reply length same as request */
-> +	if (data_count && (cmd_info->cmd_id =3D=3D NAU8360_DSP_CMD_GET_KCS_RSLT=
-S ||
-> +			cmd_info->cmd_id =3D=3D NAU8360_DSP_CMD_GET_KCS_SETUP)) {
+ChenYu
 
-Could data_count be uninitialized here? If cmd_info->msg_param is false,
-data_count is never assigned, yet it is evaluated in this condition. This
-could result in undefined behavior and trigger panics from dynamic analysis
-tools.
-
-> --- /dev/null
-> +++ b/sound/soc/codecs/nau8360.c
-[ ... ]
-> +static int nau8360_peq_coeff_get(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cp =3D snd_kcontrol_chip(kcontrol);
-> +	struct soc_bytes_ext *params =3D (void *)kcontrol->private_value;
-> +	int i, value, reg =3D nau8360_peq_regaddr(kcontrol->id.name);
-> +	u16 *val =3D (u16 *)ucontrol->value.bytes.data;
-> +
-> +	if (reg < 0)
-> +		return -EIO;
-> +
-> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
-TEST,
-> +		NAU8360_HW1_MEM_TEST);
-> +	for (i =3D 0; i < params->max / sizeof(u16); i++) {
-> +		value =3D snd_soc_component_read(cp, reg + i);
-> +		*(val + i) =3D cpu_to_be16(value);
-> +	}
-> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
-TEST, 0);
-
-Can concurrent access to the PEQ registers corrupt hardware state? ALSA .get
-and .put callbacks for SND_SOC_BYTES_EXT controls can be executed concurren=
-tly
-by multiple userspace threads. Toggling NAU8360_HW1_MEM_TEST without an
-internal driver lock might allow one thread to clear the bit while another =
-is
-still reading or writing, leading to silent data corruption.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cp =3D snd_kcontrol_chip(kcontrol);
-> +	struct soc_bytes_ext *params =3D (void *)kcontrol->private_value;
-> +	int i, ret, reg =3D nau8360_peq_regaddr(kcontrol->id.name);
-> +	__be16 *data;
-> +
-> +	if (reg < 0) {
-> +		ret =3D -EIO;
-> +		goto err;
-> +	}
-> +	data =3D kmemdup(ucontrol->value.bytes.data, params->max, GFP_KERNEL | =
-GFP_DMA);
-
-Is the use of GFP_DMA necessary here? The allocated memory appears to be us=
-ed
-only sequentially by the CPU to byte-swap words before passing them to
-snd_soc_component_write, and is never accessed by a hardware DMA controller.
-Using GFP_DMA unnecessarily taxes the highly constrained DMA memory zone,
-which can lead to spurious allocation failures.
-
-> +	if (!data) {
-> +		ret =3D -ENOMEM;
-> +		goto err;
-> +	}
-> +
-> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
-TEST,
-> +		NAU8360_HW1_MEM_TEST);
-> +	for (i =3D 0; i < params->max / sizeof(u16); i++)
-> +		snd_soc_component_write(cp, reg + i, be16_to_cpu(*(data + i)));
-> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
-TEST, 0);
-[ ... ]
-> +static int nau8360_dac_mux_put_enum(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
-ntrol);
-> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
-> +	unsigned int *item =3D ucontrol->value.enumerated.item;
-> +	bool dsp_en =3D snd_soc_enum_item_to_val(e, item[0]);
-> +	int ret =3D 0;
-> +
-> +	if (nau8360->dsp_enable =3D=3D dsp_en)
-> +		goto done;
-
-Does this check allow a time-of-check to time-of-use race condition? This
-check occurs outside of any lock before initiating the DSP switch. If two
-threads write the same value concurrently, both could bypass the check and
-execute nau8360_dsp_switch. This could result in duplicate execution of
-snd_soc_dapm_new_controls and snd_soc_dapm_add_routes, potentially corrupti=
-ng
-the ALSA DAPM widget lists.
-
-> +
-> +	if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
-> +		dev_err(nau8360->dev, "changing path is not allowed during playback");
-> +		ret =3D -EINVAL;
-> +		goto err;
-> +	}
-> +
-> +	ret =3D nau8360_dsp_switch(component, dsp_en);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret =3D snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
-> +	if (ret < 0)
-> +		goto err;
-> +
-> +	nau8360->dsp_enable =3D dsp_en;
-> +
-> +done:
-> +	return ret;
-> +err:
-> +	nau8360_dsp_switch(component, !dsp_en);
-
-Could this error handler cause severe playback disruption? If the component=
- is
-actively playing audio, the code aborts the mux change and jumps to err, but
-then unconditionally forces the DSP into the state opposite to what the user
-requested, ignoring the actual current state.
-
-> +	return ret;
-> +}
-[ ... ]
-> +static int nau8360_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx=
-_mask,
-> +	unsigned int rx_mask, int slots, int slot_width)
-> +{
-[ ... ]
-> +	if (tx_mask) {
-> +		for (i =3D 0; i < NAU8360_TDM_TXN; i++) {
-> +			func_slot =3D nau8360->tdm_tx_func_slot[i];
-> +			if (!(tx_mask & BIT(func_slot))) {
-> +				dev_warn(cp->dev, "TX %s mapped to slot %d, but disabled by tx_mask!=
-",
-> +					nau8360_tx_func_names[i], func_slot);
-> +				continue;
-> +			}
-> +
-> +			if (tx_slot_used & BIT(func_slot)) {
-> +				dev_err(cp->dev, "TX %s slot %d collision!",
-> +					nau8360_tx_func_names[i], func_slot);
-> +				return -EINVAL;
-> +			}
-
-Will this logic always fail for typical TDM configurations? The
-tdm_tx_func_slot array is allocated with devm_kzalloc, so all 8 TX functions
-default to slot 0. When a machine driver calls snd_soc_dai_set_tdm_slot to
-enable slot 0, the first function marks slot 0 as used, and the second
-function immediately triggers this collision error.
-
-> +
-> +			tx_slot_used |=3D BIT(func_slot);
-> +		}
-[ ... ]
-> +static int __maybe_unused nau8360_resume(struct snd_soc_component *compo=
-nent)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct regmap *regmap =3D nau8360->regmap;
-> +	int ret;
-> +
-> +	regcache_cache_only(regmap, false);
-> +	regcache_sync(regmap);
-
-Are the PEQ coefficients ignored by the hardware during this regcache_sync?
-The hardware requires the NAU8360_HW1_MEM_TEST bit in NAU8360_R9D_PEQ_CTL to
-be set before writing to the PEQ coefficient registers. Because that control
-register is marked as volatile, it is excluded from the cache, so the test =
-bit
-remains inactive (0) while regcache_sync blindly writes the cached PEQ valu=
-es,
-leaving the PEQ RAM uninitialized after resume.
-
-> +	/* disable Sense at standby */
-> +	snd_soc_dapm_disable_pin(nau8360->dapm, "Sense");
-> +	snd_soc_dapm_sync(nau8360->dapm);
-> +
-> +	regmap_update_bits(regmap, NAU8360_R90_HW2_CTL0, NAU8360_HW2_STALL, 0);
-> +	nau8360_dsp_software_reset(component);
-> +	if (nau8360->dsp_enable) {
-> +		nau8360_dsp_enable(regmap, true);
-> +		/* loading DSP firmware */
-> +		ret =3D nau8360_dsp_reinit(component);
-
-Could this create a system-wide deadlock hazard during resume? The
-nau8360_dsp_reinit function synchronously calls request_firmware. If the
-filesystem (or block device) is not fully resumed yet, the firmware loader
-will block indefinitely, while the filesystem cannot resume because the
-suspend/resume sequence is blocked by the driver.
-
-> +		if (ret) {
-> +			nau8360_dsp_enable(regmap, false);
-> +			dev_err(nau8360->dev, "can't enable DSP (%d)", ret);
-> +			goto err;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +err:
-> +	return ret;
-> +}
-[ ... ]
-> +static const struct regmap_config nau8360_regmap_config =3D {
-> +	.reg_bits =3D NAU8360_REG_ADDR_LEN,
-> +	.val_bits =3D NAU8360_REG_DATA_LEN,
-
-Does this configuration truncate 32-bit DSP register reads to 16 bits?
-NAU8360_REG_DATA_LEN is 16. Even though the custom nau8360_reg_read callback
-successfully reads 32-bit data for DSP addresses, the regmap core will mask
-the returned value using map->format.val_mask (which is 0xFFFF). This
-truncates the upper 16 bits of responses like the idle pattern 0xf4f3f2f1,
-causing initialization loops to always time out and fail.
-
-> +
-> +	.max_register =3D NAU8360_REG_MAX,
-> +	.readable_reg =3D nau8360_readable_reg,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518024704.1186=
-13-1-YLCHANG2@nuvoton.com?part=3D2
+> > So from the pictures I found online it looks like there is an USB-C por=
+t
+> > labelled "OTG", so can you please add an &usbotg reference here and
+> > describe that port.
+>
+> Nice catch! I've missed the fact usbphy 0 has to be in peripheral mode,
+> not host mode. Will rework!
+>
+> > > +&usbphy {
+> >
+> > Are the two USB ports always powered?
+> >
+> > And anyway, I see a *dual* USB-A socket on the pictures online, in
+> > addition to the USB-OTG port. So where does the third USB come from? Th=
+e
+> > A133 only supports one host USB port plus the one OTG port. So is there
+> > an USB hub chip on the board?
+>
+> There are two hubs, one on each usbphy. OTG side hub is even bus-powered,
+> two USB-A ports are always powered from the board's 12V->5V DCDC, no USB
+> load switches.
+> >
+>
+> --
+> Alexander Sverdlin.
