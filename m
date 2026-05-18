@@ -1,146 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C2038E124;
-	Mon, 18 May 2026 19:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCC238AC8B
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779133229; cv=none; b=IWhy6HUXgiMaBENGlXRY6rXg9VPGoStvR1YfiB+t8n0Do5o9JXL5fz8Fk4Jc+8MOlKDqSCkxD2ttEMrYH/jJRGYxJKTbhnAEENQtvoPg9mNAKl43eUa6DYZ4k2XCeDmIqCcFoBK/kYSazouGY8Fi+6gbMSq1t4dvhoBMk/P+0Aw=
+	t=1779134729; cv=none; b=lEiddByfAsw9mA2Wrtwua8PtcFXlu7wS9hWwbTOH787cwoZH9kiRk8+uGYpDqJDy8ncbS8hh+FhSz6gGCSJSurZ+P/PuLNE555WEphy8aulLuSReK/MqSIdN3tNRQcKOHT+qSRCj6N+UAZ6VToJmu1FavDDY1TwcodQ0K6F+uBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779133229; c=relaxed/simple;
-	bh=Lj2y6Z/5yB8RGF1dZj4AOFVgzx3lRYityrUd9Yu85wY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cXlvikDSbJl9TE+oHWPpUa0xeFFeBqUAtknl7z1CftX2/T5PGFK7c0tnrNmk2P/PHpVB4v+9MDIvToVL7puy/wybb04jJ6hAfYuEvP2c1KyaThvW5mwHWT/musB+Rv7DjdADMiqPVWOfHEA4eC19Vh/OSZ4PSV2HLpo6bo02D70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKnDeAtu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779134729; c=relaxed/simple;
+	bh=vb2AgGc35TL/XGOXSGbcvOchFSZiLg5xVi3rxt9C3Jc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FmuDBGU4IXIc2Krewugs6ISI/F0BeZgkQHFueixiAmiAZx/36iaAUwwIXbdo2PMzolzDuPb4XiCONeKp4CR3AAh/jf4QvDrXFAXFxGOKumRx/1C2Y4hsXYe8NOBDwZsSrWc/BtRklgVqTTM0lOfnHW+Di3PwdvcOMv+I3+ij/os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K6EWyO55; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKnDeAtu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68AD2C2BCB7;
-	Mon, 18 May 2026 19:40:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779133228;
-	bh=Lj2y6Z/5yB8RGF1dZj4AOFVgzx3lRYityrUd9Yu85wY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=JKnDeAtu/QV8Ha15MCZOZm/ucdQ/st7/AJB6NHDPW4+2YAIGegtsUIIttkbKhWg8w
-	 iXCh99HSSN7QsxV5QcE7XIQEFGLpjAHfh/5jG5Zyy3sFK+0ORwTQsahxWbNlds+aXs
-	 PlVcVj/BD9CPnqdfZlVW4Mbx0ODreKQLuOsh70CVr2JJ2rTvOhTJmdptdh2lJ2UFWz
-	 gb5VByelsFgfYSTgvVOWubD5Owf5Ftxo7agFcGAJ4D8y/V3VIhmtY5B5SdbNoo8cy9
-	 uzIUJTDwTmhtW9HF7y2VpE6vvfLTph8u9k5jddf4k+3apv64gYD9uLUPu1O1BDSPiX
-	 KgJL4SuTZw21A==
-Date: Mon, 18 May 2026 21:40:22 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: "Theodore Tso" <tytso@mit.edu>
-Cc: Jani Nikula <jani.nikula@intel.com>, Roman Gushchin
- <roman.gushchin@linux.dev>, Krzysztof Kozlowski <krzk@kernel.org>,
- debarbos@redhat.com, Arnaldo Carvalho de Melo <acme@kernel.org>, Greg KH
- <gregkh@linuxfoundation.org>, Konstantin Ryabitsev <mricon@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
- sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev, Linux Kernel
- Workflows <workflows@vger.kernel.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, devicetree@vger.kernel.org,
- kfree@google.com
-Subject: Re: Stop false review statements
-Message-ID: <20260518214022.5f94f917@foz.lan>
-In-Reply-To: <20260518121601.GA87957@macsyma-wired.lan>
-References: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
-	<07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
-	<2e20badf27b6910d619329841e37d2961556056f@intel.com>
-	<20260518121601.GA87957@macsyma-wired.lan>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K6EWyO55"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so134144f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779134727; x=1779739527; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=cAkY0vj7iSY+sZjzSMZGpI/xkJ9Jb7vUa4k3TiZjewI=;
+        b=K6EWyO55U+qM4qMSlAm8EKx1RPPf6yoJiz9flsaJXpScaXdbQghCcqcpDV2w/Qlh4O
+         5HJSjPjAKzJ+a9THNHNlFwRDsRMn3bs8X475OpyT+vXh4nwSG6p0vo4KGoTn0L/3u59X
+         E3ZW+86E8W7ugUvXTY/adTodcUCYk+J4Qi6mEkYtT75XyHuY8i8HoolTTCb9pObeGE64
+         ReDTPG2SJiR8YBos1+dyKrHqwqFOIt8nwRrvBw4r83pCSw+vssYZnc/m2FFtbxa0rTXL
+         b3nqrzb4WoQIKF0rb7pJkpacQqmtkCYuPfA+CuENx3afnfdNJcViBwY38tLsmZxcjHEC
+         hc8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779134727; x=1779739527;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cAkY0vj7iSY+sZjzSMZGpI/xkJ9Jb7vUa4k3TiZjewI=;
+        b=RMyO2FotZHBu6E2doPUAKqgdxH9/dAqHQdu2EsGS/quCXxnhmOpVP7w8PQbC1hUMKK
+         798caAhVupm6KvxuLwDLRt0LxYUs85Q0LQWeiN3d1NNVTLRTAKDCP5inrK27MXHghsNZ
+         050fIeXh1dcQy1aqU+X/gjDi5AB7ZuJDp3bh4/pzm4bF/O+uTWvFYa+C2L8g0uLMjmVh
+         iPaVieHs7rQZbdut69O0WOfLbE+imIqXuKYaDjOyR/MY+NGGIMZ3X9mHRN6O1aYIICEs
+         tdEnXpM40UL2uekf2c8iblpHgsRtaAZyLBoWbwMBXhcZ10mO5xg0KpYMw3F2ETidOXj+
+         R4vQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+NPotexpjvYd58kkQMdkMPaXnWaPUkNgjSeKSiP68L41YnvrLllPxCQ14Vrx6zkAHFD1wqsZVTQR0c@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzr2faIvgrppvQt1CJNh54Mz850WmUduY9aI4YoZliVRMKB7QQE
+	l0iHlfEgQm/lNhMfpNjIyO49IUnFc8YCDaaVTBkY4YFi+CJ+YsBMrgas
+X-Gm-Gg: Acq92OGKwU/7cN9nndGuKkOC4I5CQzATmT9JPQmG2+kl6biC2d/dh9pqTng7oD5tlyJ
+	IVQK8cZh6cA2F+1xrY/49qtBi+cegmZpeMaEjf8BfScpywSHPx34HZtOSl7osmL6rBS9noCRki8
+	EaIiuu8c07G0CCup+GYq3MgGi6rim1S2AWWv8OHi/Ujwd/nvVCpvvAqVL/3YR8P2f1FaMh4SAg6
+	9KiRiWvopCnm2epL5X9dg5hR1ERoaVcHxn//YNnF1xFtfUQ9SFBg96nvH2dNyWv+eZ4V2gQsuaW
+	EXr1CpGVE5EadDF14viiQM4K4F3OH43MGfctPsOsFwF55Xu6K1zMpuCJtE0k21dyGDMO/2rcJye
+	Hh4oHp1Q/LJwMcvPg8XbWQ+UYovH3M4OK9VJARDcV8SRXI//78kj4IuzowWE8hXZiofU9ARQwcI
+	X2UzZpdM4MRxDwYwWxoUnHAEbDMBONcop9hSQ0+fQ6KXHN9KZ0h/TzRDb9WkUHHkGyW+ucZF8cg
+	kI=
+X-Received: by 2002:a5d:584c:0:b0:446:db72:e8ec with SMTP id ffacd0b85a97d-45e5c587281mr26781621f8f.23.1779134726576;
+        Mon, 18 May 2026 13:05:26 -0700 (PDT)
+Received: from giga-mm-11.home (72.92.4.85.dynamic.cust.swisscom.net. [85.4.92.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0a19c2dsm40825454f8f.21.2026.05.18.13.05.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 13:05:26 -0700 (PDT)
+Message-ID: <04da68168f92b196cce4d49c766fc62702bf6472.camel@gmail.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
+ Baijie Helper A133 board
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: linux-sunxi@lists.linux.dev, Andre Przywara <andre.przywara@arm.com>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 18 May 2026 22:05:25 +0200
+In-Reply-To: <agr9m_tidBr6Cu2h@collins>
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+	 <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
+	 <agr9m_tidBr6Cu2h@collins>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 18 May 2026 08:16:01 -0400
-"Theodore Tso" <tytso@mit.edu> wrote:
+Hi Paul,
 
-> On Mon, May 18, 2026 at 11:04:29AM +0300, Jani Nikula wrote:
-> > > Sashiko is supporting various LLMs, including open models - it=E2=80=
-=99s just a practical
-> > > choice: to my knowledge the quality of open models is not on par with=
- frontier closed
-> > > models and it would require a non-trivial amount of hardware and infr=
-astructure to run
-> > > an open model at the required scale. =20
+thanks for the review!
+
+On Mon, 2026-05-18 at 13:52 +0200, Paul Kocialkowski wrote:
+>=20
+> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi =
+b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+> > new file mode 100644
+> > index 000000000000..65b094f30bf5
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+
+[]
+
+> You should add:
+>=20
+> 	chosen {
+> 		stdout-path =3D "serial0:115200n8";
+> 	};
+
+I actually have it in .dts, but it's theoretically possible to deploy
+the core board in a way that serial0 is *not* a console, so the above
+probably will not be valid in all cases in .dtsi.
+
+>=20
+>=20
+>=20
+> > +&reg_dcdc2 {
+> > +	regulator-always-on;
+> > +	regulator-min-microvolt =3D <500000>;
+> > +	regulator-max-microvolt =3D <1300000>;
+>=20
+> Should be:
+> 	regulator-min-microvolt =3D <900000>;
+> 	regulator-max-microvolt =3D <1300000>;
+
+0.81..1.2v according to A133 Datasheet Revision 1.1 Jul.14, 2020?
+
+>=20
+> > +&reg_dcdc4 {
+> > +	regulator-always-on;
+> > +	regulator-min-microvolt =3D <500000>;
+> > +	regulator-max-microvolt =3D <1300000>;
+> > +	regulator-name =3D "vdd-sys";
+>=20
+> Should be:
+> 	regulator-min-microvolt =3D <810000>;
+> 	regulator-max-microvolt =3D <990000>;
+> 	regulator-name =3D "vcc-usb-sys";
+
+I'm a bit puzzled here: datasheet says 0.9..1.0v
+and it has no "Typ" value, similar to VDD_CPU, but
+VDD_SYS is not part of OPP tables, so who is going
+to adjust this? Or shall it be just
+
+regulator-min-microvolt =3D <950000>;
+regulator-max-microvolt =3D <950000>;
+
+?
+
+>=20
+> > +};
+> > +
+> > +&reg_dcdc5 {
+> > +	regulator-always-on;
+> > +	regulator-min-microvolt =3D <800000>;
+> > +	regulator-max-microvolt =3D <1840000>;
+> > +	regulator-name =3D "vcc-dram";
+>=20
+> Should be:
+> 	regulator-min-microvolt =3D <1100000>;
+> 	regulator-max-microvolt =3D <1100000>;
+> 	regulator-name =3D "vcc-dram-2";
+>=20
+> ALDO2 is the main DRAM supply, this is the second one.
+
+Core schematics mentions 1.1V/1.2/1.35/1.5 on this rail...
+Currently U-Boot has CONFIG_AXP_DCDC5_VOLT=3D1100, but potentially
+this is adjustable, right? At some point LPDDR4 chips they
+are soldering today will be unavailable. And in the current
+market it will happen rather sooner than later...
+
+>=20
+> > +};
+> > +
+> > +/* DCDC6 unused */
+> > +
+> > +&reg_dldo1 {
+> > +	regulator-min-microvolt =3D <700000>;
+> > +	regulator-max-microvolt =3D <3300000>;
+> > +	regulator-enable-ramp-delay =3D <1000>;
+>=20
+> Should be:
+> 	regulator-min-microvolt =3D <1800000>;
+> 	regulator-max-microvolt =3D <1800000>;
+> 	regulator-name =3D "vcc-pg";
+
+Do suggest to drop vendor's
+
+regulator-enable-ramp-delay =3D <1000>;
+
+in all cases?
+
 > >=20
-> > In the context of the "Reviewed-by: Sashiko" discussion, this actually
-> > makes it really hard to assess the quality of those reviews. =20
+> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dt=
+s b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+> > new file mode 100644
+> > index 000000000000..ccbca5d0a40c
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+
+[]
+
+> > +	aliases {
+> > +		serial0 =3D &uart0;
 >=20
-> Agreed.  There's a reason why the coding-assistants.rst specifies the
-> model which is used:
+> The is best added to the core dtsi.
 >=20
->   Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]
+> > +	};
+> > +
+> > +	chosen {
+> > +		stdout-path =3D "serial0:115200n8";
 >=20
-> The problem is that (as Jon has pointed out) coding-assistants.rst was
-> intended for use when the tool was beging used to help create the code
-> --- that is, "Coding Assistants".  What we're doing here is more of a
-> reviewer assistance.  Something like:
->=20
->   Scanned-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]
->=20
-> Would be more interesting, but it doesn't actually tell us anything
-> about what the results were of the scan.
+> Ditto.
 
-I don't like scanned-by, even for a tool that would always get the
-same results like checkpatch. For LLM, this is even worse, as two runs
-may give different results for the same code.
+But it only physically materializes in Helperboard, the carrier.
+Potentially this one can be left floating or used for something else.
 
-IMO what makes much more sense is to add information there when
-a change was done due avoid a problem detected by sashiko, and what
-was the fixed issue, e.g. a textual description like:
-
-	Changed locking schema after Sashiko's report report about
-	XXX race condition.
-
-Also, except if 100% of the=20
-
-> One of the problems here is that there is a distinction between the
-> infrastructure and review prompts in the Sashiko github repository,
-> and the reviews that are being published by Sashiko the web service
-> being run by Google that is being lost by some folks.  So I wonder if
-> for now, we should just do something like:
->=20
-> Link: https://sashiko.dev/#/patchset/20260515091829.194810-1-me%40linux.b=
-eauty
-
-Adding a link makes sense to me. It doesn't need to be to the
-sashiko's email though: it can be to the entire thread.
-
-> Or just have a link to lore where the review has responded to the
-> Sashiko review stating where the Sashiko review reported a
-> pre-existing condition (perhaps one that we don't care about because
-> races in readahead logic is really Not A Big Deal, etc.)  We go for
-> this strategy, it would actually be better for the Shashiko.dev review
-> to get cc'ed to the mailing list.
->=20
-> Personally, I think that's probably be best way to go.  We already
-> don't insert into the git commit an explanation of why some bullsh*t
-> review by some wannabe human reviewer should be ignored, or why a
-> discussion of some problem discovered by a human review in the source
-> of the review would be handled in a future patch set.  That's what the
-> discussion on lore.kernel.org is for.  And we shouldn't treat AI
-> reviews any different from how we deal with human reviews.  So if we
-> want to give credit to an AI review, then let's go with the
-> Scanned-by.=20
-
-If the entire content of a Sashiko review is ignored, I don't think
-it is worth adding anything. Just like we do with humans, IMO the
-best is to just mention what changed due to some feedback received
-by a human or by a bot, mentioning who/what bot helped to identify
-the issue.
-
-> Or we can just let people look at the mailing list, and
-> if people want to have statistics, we can ask people to use a script
-> running against public inbox to figure things out.
->=20
-> 						- Ted
->=20
-
-
-
-Thanks,
-Mauro
+--=20
+Alexander Sverdlin.
