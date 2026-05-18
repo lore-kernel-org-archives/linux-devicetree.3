@@ -1,228 +1,586 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70175330D36
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C203EF0C7;
+	Mon, 18 May 2026 11:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779105100; cv=none; b=TOkkIoqcDg7TcGRCN2cD9nNOZiLxWTNg9hWx7/TwxBS5eOOm6/8S78v64I6/1PRiv35Dl3lAVROwP7eiZRntX1hYopePst5Z52VYk1INO3wERi9wj9ZGBWGeJKOHTREUSDLloI4IB+0NU8f1/RaHV4jO+6N5VlwUS1Eisksb1vE=
+	t=1779105196; cv=none; b=uykbQhPAM1ZpRyFCu1a5hqDGSnagw5nd2sRMYy/XGjebLLpOuSQhavUSxXPu0pQFK4qMTckYH+DrmPp/dMSg8Dyz7tiqFv3CwfhYWFa1NkcLp+qORPfCJEfug3qQIA4aHrBwkuhlRFcLwu3JwZPbaa0T5B7QAt+q9SRV2Uhw+dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779105100; c=relaxed/simple;
-	bh=5Z9hPhqS8oaSLq86Bc3gD4M5ws/BmUkz38QLBtVDsSY=;
+	s=arc-20240116; t=1779105196; c=relaxed/simple;
+	bh=Teyt01h9pySaHZzzKais+2r0E+togszGBC4c2AStHe0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uQnLI7LFqtizbwH6hjxo+6jJrjQP6Cx8TCDwhO6zfc9gRwrjzIK4uyyv1XH64xrdLMStAJEfcr6rjoiGVDA8bw8+3TknKmHIo5otNRtxKwL+fqUkRYzHE0nNC73SUhuVkkb0/uoI/TP1mW65U0sa9wvOE1haOYQVbx35oEuHKGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ErLR2sQv; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ErLR2sQv"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4891b4934ffso1265e9.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 04:51:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1779105097; x=1779709897; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=2tqNcSw5901z0ZWyLeYPwIMccpM8CGNBD8cgagm4vKA=;
-        b=ErLR2sQvRD2NAz/YAzulim9c+ASR9AgNK2vh1u/IvqSQ6WgS+qPAU1airk0xybcGLX
-         VX6Wc3kFl2C7L+HMULZ+KLr8h9NWAlbCyw2B1lWehuFsIYjHNQDUyQx9IZE/Wt9i3bvK
-         sXcZhRkviz20F39odlDSgwliVQClZ9ArOIJnmynIgoJPCY3IrsxuesZYXxH49Yl83GHI
-         oP5tesLZxVuMFr9hIYfnDEDhGbVlWS7wiRsFnO6kSbgs9n+/wPo/pXCxPa076C4i0ix4
-         e96XG4S+1ael2JnkxV2Ltfp0JZToU/WnYPAtmrCP5/+Iwwg12U8JaFL9JMmSbdTajj4P
-         DWRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779105097; x=1779709897;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2tqNcSw5901z0ZWyLeYPwIMccpM8CGNBD8cgagm4vKA=;
-        b=A9ebK1Y2sIrJL5zfE5C0iLi0GhQwIZufVZrcf9KUYKcqCRHWQLr1nvgvWaBas0kOgZ
-         vXp+WYTGibtIKiuLMGnB+mswyZ1iYiW2m0q0LkfZIJqhCi7nD93d/cfx/GDHUPBGwj2C
-         y05xfDittWTULuVD3VJlKV1/Cbg1+qqsamVaSQAW/V1f1lmwB/9uuHkJMpoBdztxi+7V
-         gPp5e6S4CuTxycrpKtFfHwBR2JZYQ/G1zpLPiddCqoj5q9uId+Q28sObZGjucWXnIcYa
-         juB8R9SDb/9WmUM//5jr5YhbQ4lt2GPECITGH4LoR6fWPfZXTKohwaLORxyUcRqWOely
-         8RiA==
-X-Forwarded-Encrypted: i=1; AFNElJ81zUiPe9tg4KEql+gcV3t8HMDpgAjVb/iKoEjwqVR1zsymclo0XiRs2A2jTcJKSmf0BXHnNi2udqnK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw47C5KPKzkRChu1qGB37yVkEomfO6q4M6F3LMDCsAcXze8RkN3
-	T8S1cMRMtbPCDFmBo/D9H3udlTeQGWJPn/FQHmFVi9bEpitOJqRvwCXcvkcdUGdWpg==
-X-Gm-Gg: Acq92OGY6iyLR4Ehuj8P88nuKe88g+mna7WT6IxPLqCmHcSU1pFJ+qli1JBBNYm+txN
-	bSHcr8AVUK5AxGdIWTHINoT0h+vX6LC8cxT/oCjy0O+bU+RCUxjZ+1sRLlXe1S+eYWDg4USGLiN
-	n7saIvJfWJgk+6VSvFpymkXHGfoktMheEWoNJ8ZLSSEA821A8ocOjVjISoBkKRLjRU5pIcc+8U+
-	h2MDliBy1XPbJ2AtraiQBxJ3m5nyGb3bYvo9Fk13sOSLq/ybuNb8zcuy6LMzBcmfC2kWN9asFZE
-	C4DF17AipFFWEFrmF6P3LVNwweN3M7GaKtlglYaWS7MHsPGTk4kD+uC0box+KEMXywfujkFVGgu
-	JKBg8VChzPRkqCkTQvhc3zhf+AtEXiDbbu9HS0vS3HQoDsZFCIB0YiboMXnbB0fFcQdbYUyaoeo
-	lxjV9qSkAUNp4yAIvP7qj7TDyAmEweCsLRwIihmvOJ4vrTln5Yn/wqwOK97Z5Aft5qUZo=
-X-Received: by 2002:a05:600c:5650:b0:48a:5aa3:ac1e with SMTP id 5b1f17b1804b1-48ffd828c95mr1864315e9.3.1779105096335;
-        Mon, 18 May 2026 04:51:36 -0700 (PDT)
-Received: from google.com (8.181.38.34.bc.googleusercontent.com. [34.38.181.8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48ffed68baesm59218185e9.0.2026.05.18.04.51.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 04:51:35 -0700 (PDT)
-Date: Mon, 18 May 2026 11:51:31 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, maz@kernel.org
-Subject: Re: Support for Lenovo IdeaCentre Mini X (Purwa)
-Message-ID: <agr9Q-CC8v4G9neP@google.com>
-References: <20260429141815.827157-1-smostafa@google.com>
- <5c838838-00e5-45f2-9515-edbdcddf50ec@oss.qualcomm.com>
- <afOP2xXmEpV1eI3Z@google.com>
- <abe8443b-9871-455c-95d9-d16975c0fbdf@oss.qualcomm.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=cZDR6fqTqoeQZQFMQdgnVmPWcZyjNmVyl603jUb2Q3icINW/zZ6tH1pTvd/Sf1GrrAytMt/Y/QQDHuKIv9n9KWTpA6+s4NF6T0tQfST9GxRxnnUADCplZufFP2AS+vzWO44W6SwF8Ce8JSbxUbPZpu5aLUuIZpEksSQ79TeCLBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 30D301F8005C;
+	Mon, 18 May 2026 11:53:05 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 5E207B407F6; Mon, 18 May 2026 11:53:03 +0000 (UTC)
+X-Spam-Level: 
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 972C9B407E7;
+	Mon, 18 May 2026 11:53:01 +0000 (UTC)
+Date: Mon, 18 May 2026 13:52:59 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
+ Baijie Helper A133 board
+Message-ID: <agr9m_tidBr6Cu2h@collins>
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6aVDxZ04DcuTPu75"
+Content-Disposition: inline
+In-Reply-To: <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
+
+
+--6aVDxZ04DcuTPu75
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <abe8443b-9871-455c-95d9-d16975c0fbdf@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 15, 2026 at 01:28:00PM +0200, Konrad Dybcio wrote:
-> On 4/30/26 7:22 PM, Mostafa Saleh wrote:
-> > Hi Konrad,
-> > 
-> > On Thu, Apr 30, 2026 at 06:48:33PM +0200, Konrad Dybcio wrote:
-> >> On 4/29/26 4:18 PM, Mostafa Saleh wrote:
-> >>> Hi,
-> >>>
-> >>> I see that recently the support for “Lenovo IdeaCentre Mini X” was
-> >>> added [1]
-> >>> However, unfortunately that doesn’t work for my device, the board
-> >>> resets once I try to boot the kernel from UEFI.
-> >>>
-> >>> I believe that’s because it is another variant, as I have been using
-> >>> my device tree for some time[2] which is hacked based on the crd
-> >>> device tree with some trial and error. With that I can boot with
-> >>> PCI/NVME/Ethernet and USB (there are also some other errors in the
-> >>> log related PMIC), this device tree is based on purwa.dtsi unlike
-> >>> the upstream one which use hamoa.dtsi.
-> >>>
-> >>> Are there any plans to support the Purwa based variant? I am happy to
-> >>> help with testing, but I can’t confidently send patches as my device
-> >>> tree is based on trial and error rather than a data sheet.
-> 
-> [...]
-> 
-> > I can try to see the differences and build another dt on top of the
-> > hamoa one, but that will also be based on trial and error rather than
-> > actual knowledge, I am happy to test patches if you have other
-> > suggestions.
-> 
-> Hm, I ran a quick diff and even though there's a lot of noise (mostly
-> due to the same things being named slightly differently), the actual
-> meat and potatoes aren't very different at all, e.g. the PHY regulators
-> are the same
-> 
-> Could you post the full dmesg with both DTs?
+Hi Alexander,
 
-This is the log with the device tree that boots[1]:
-https://gist.github.com/misaleh/b09c04480062c5a3e7bafe3d4176b15d
+Le Sun 10 May 26, 22:16, Alexander Sverdlin a =C3=A9crit :
+> Baijie Helper A133 board is a development board around Baijie A133 Core
+> SBC. Features:
 
-This is the log with replacing hamoa.dtsi with purwa.dtsi inside
-hamoa-lenovo-ideacentre-mini-01q8x10.dtsi which does not boot:
-https://gist.github.com/misaleh/aaad5704824edac9a43e2ebe45adbf85
+Just in case you missed it, there was a previous submission for this
+board which wasn't followed up on.
 
-With those modifications, I can boot:
+I also have one of this board and wanted to respin support, but it looks
+like you beat me to it :)
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
-index bfb7cea56df9..00f9a1d5ac95 100644
---- a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
-+++ b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
-@@ -8,7 +8,7 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
--#include "hamoa.dtsi"
-+#include "purwa.dtsi"
- #include "hamoa-pmics.dtsi"
- 
- / {
-@@ -17,7 +17,7 @@ / {
- 	chassis-type = "desktop";
- 
- 	aliases {
--		serial0 = &uart14;
-+		serial0 = &uart21;
- 	};
- 
- 	wcd938x: audio-codec {
-@@ -185,6 +185,7 @@ vreg_nvme2_3p3: regulator-nvme2-3p3 {
- 		pinctrl-names = "default";
- 
- 		regulator-boot-on;
-+		status = "disabled";
- 	};
- 
- 	vreg_v0p9: regulator-v0p9 {
-@@ -714,19 +715,20 @@ &pcie3 {
- 
- 	vddpe-3v3-supply = <&vreg_nvme2_3p3>;
- 
--	status = "okay";
-+	status = "disabled";
- };
- 
- &pcie3_phy {
- 	vdda-phy-supply = <&vreg_l3c>;
- 	vdda-pll-supply = <&vreg_l3e>;
- 
--	status = "okay";
-+	status = "disabled";
- };
- 
- &pcie3_port0 {
- 	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
- 	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-+	status = "disabled";
- };
- 
- &pcie4 {
-@@ -1064,21 +1066,9 @@ wcn_sw_en: wcn-sw-en-state {
- 	};
- };
- 
--&uart14 {
-+&uart21 {
-+	compatible = "qcom,geni-debug-uart";
- 	status = "okay";
--
--	bluetooth {
--		compatible = "qcom,wcn7850-bt";
--		max-speed = <3200000>;
--
--		vddaon-supply = <&vreg_pmu_aon_0p59>;
--		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
--		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
--		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
--		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
--		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
--		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
--	};
- };
- 
- &usb_1_ss0 {
+Thanks for working on this!
 
-The issues were:
-- pcie6a and pcie3 conflict in regulator pins
-- Different UART
+Please change the naming to "Baijie HelperBoard A133" and "Baijie A133
+HelperBoard Core" to align with the vendor terminology and rename the
+files as:
+- sun50i-a133-helperboard.dts
+- sun50i-a133-helperboard-core.dtsi
 
-However, there are quite verbose errors from MDSS clocks, and spmi
-failures. Here are the booting logs with the above change (at
-loglevel=5)
+> - 1/2/4GiB LPDDR4 DRAM
+> - 8/16/32GiB eMMC
+> - AXP707 PMIC
+> - 2 USB 2.0 ports
+> - MicroSD slot and on-board eMMC module
+> - Gigabit Ethernet
+> - Bluetooth
+> - WiFi
+>=20
+> Add initial support for both the Helper and Core boards, including UART,
+> PMU, eMMC, USB, Ethernet.
+>=20
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> ---
+>=20
+> Changelog:
+> v2:
+> - introduced baijie,helper-a133-core compatible for the Core (SoM) board
+>=20
+>  arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+>  .../dts/allwinner/sun50i-a133-baije-core.dtsi | 162 ++++++++++++++++++
+>  .../allwinner/sun50i-a133-baijie-helper.dts   |  94 ++++++++++
+>  3 files changed, 257 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.=
+dtsi
+>  create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-help=
+er.dts
+>=20
+> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts=
+/allwinner/Makefile
+> index d116864b6c2b..926dfa851100 100644
+> --- a/arch/arm64/boot/dts/allwinner/Makefile
+> +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> @@ -18,6 +18,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a64-sopine-baseboa=
+rd.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a64-teres-i.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h64-remix-mini-pc.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a100-allwinner-perf1.dtb
+> +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a133-baijie-helper.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a133-liontron-h-a133l.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-bananapi-m2-plus.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-bananapi-m2-plus-v1.2.dtb
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi b/=
+arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+> new file mode 100644
+> index 000000000000..65b094f30bf5
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+> @@ -0,0 +1,162 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2025 Arm Ltd.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "sun50i-a100.dtsi"
+> +#include "sun50i-a100-cpu-opp.dtsi"
+> +
+> +/{
 
-https://gist.github.com/misaleh/3b1d67ac51a8960b811cc20075ab7630
+You could add a model here while at it, even though it would generally
+be overwritten.
 
-I get cleaner boot logs with MDSS and pmc8380_6 disabled.
+> +	compatible =3D "baijie,helper-a133-core",
+> +		     "allwinner,sun50i-a100";
+> +
+> +	aliases {
+> +		serial1 =3D &uart1;	/* BT module */
+
+Not sure this is reallyt useful.
+
+> +	};
+
+You should add:
+
+	chosen {
+		stdout-path =3D "serial0:115200n8";
+	};
+
+As well as the incoming 5v regulator:
+
+	reg_vcc5v: vcc5v {
+		compatible =3D "regulator-fixed";
+		regulator-name =3D "vcc-5v";
+		regulator-min-microvolt =3D <5000000>;
+		regulator-max-microvolt =3D <5000000>;
+		regulator-always-on;
+	};
+
+> +};
+> +
+> +&cpu0 {
+> +	cpu-supply =3D <&reg_dcdc2>;
+> +};
+> +
+> +&pio {
+> +	vcc-pb-supply =3D <&reg_dcdc1>;
+> +	vcc-pc-supply =3D <&reg_eldo1>;
+> +	vcc-pd-supply =3D <&reg_dcdc1>;
+> +	vcc-pe-supply =3D <&reg_dldo2>;
+> +	vcc-pf-supply =3D <&reg_dcdc1>;
+> +	vcc-pg-supply =3D <&reg_dldo1>;
+> +	vcc-ph-supply =3D <&reg_dcdc1>;
+> +};
+> +
+> +&mmc2 {
+
+mmc2 goes before pio (alphanum sorting).
+
+> +	vmmc-supply =3D <&reg_dcdc1>;
+> +	vqmmc-supply =3D <&reg_eldo1>;
+> +	cap-mmc-hw-reset;
+> +	non-removable;
+> +	bus-width =3D <8>;
+> +	mmc-ddr-1_8v;
+> +	mmc-hs200-1_8v;
+> +	status =3D "okay";
+
+You can add:
+	max-frequency =3D <100000000>;
+	cap-mmc-highspeed;
+
+> +};
+> +
+> +&r_i2c0 {
+> +	status =3D "okay";
+> +
+> +	axp803: pmic@34 {
+> +		compatible =3D "x-powers,axp803";
+> +		reg =3D <0x34>;
+> +		interrupt-parent =3D <&r_intc>;
+> +		interrupts =3D <0 IRQ_TYPE_LEVEL_LOW>;
+
+You can also add:
+		x-powers,drive-vbus-en; /* set N_VBUSEN as output pin */
+
+		aldoin-supply =3D <&reg_vcc5v>;
+		dldoin-supply =3D <&reg_vcc5v>;
+		eldoin-supply =3D <&reg_vcc5v>;
+		fldoin-supply =3D <&reg_dcdc5>;
+		vin1-supply =3D <&reg_vcc5v>;
+		vin2-supply =3D <&reg_vcc5v>;
+		vin3-supply =3D <&reg_vcc5v>;
+		vin4-supply =3D <&reg_vcc5v>;
+		vin5-supply =3D <&reg_vcc5v>;
+		vin6-supply =3D <&reg_vcc5v>;
 
 
-[1] https://github.com/misaleh/linux/blob/lenovo/arch/arm64/boot/dts/qcom/x1p42100-lenovo-ideacentre-x-gen10.dts
+> +	};
+> +};
+> +
+> +#include "axp803.dtsi"
+> +
+> +&ac_power_supply {
+> +	status =3D "okay";
+> +};
+> +
+> +&reg_aldo1 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <3300000>;
 
-Thanks,
-Mostafa
-> 
-> Konrad
+Should be:
+	regulator-min-microvolt =3D <1800000>;
+	regulator-max-microvolt =3D <1800000>;
+	regulator-name =3D "vcc-pll-avcc";
+
+> +};
+> +
+> +&reg_aldo2 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <3300000>;
+
+Should be:
+	regulator-min-microvolt =3D <1800000>;
+	regulator-max-microvolt =3D <1800000>;
+	regulator-name =3D "vcc-dram-lpddr";
+
+> +};
+> +
+> +&reg_aldo3 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <3300000>;
+> +	regulator-enable-ramp-delay =3D <1000>;
+
+Should be:
+	regulator-min-microvolt =3D <1800000>;
+	regulator-max-microvolt =3D <1800000>;
+	regulator-name =3D "vcc-pl";
+
+> +};
+> +
+> +&reg_dcdc1 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <1600000>;
+> +	regulator-max-microvolt =3D <3400000>;
+> +	regulator-name =3D "vcc-3v3";
+
+Should be:
+	regulator-min-microvolt =3D <3300000>;
+	regulator-max-microvolt =3D <3300000>;
+	regulator-name =3D "vcc-io-usb-pd-nand-3v3";
+
+> +};
+> +
+> +&reg_dcdc2 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <500000>;
+> +	regulator-max-microvolt =3D <1300000>;
+
+Should be:
+	regulator-min-microvolt =3D <900000>;
+	regulator-max-microvolt =3D <1300000>;
+
+
+> +	regulator-name =3D "vdd-cpu";
+> +};
+> +
+> +&reg_dcdc3 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <500000>;
+> +	regulator-max-microvolt =3D <1300000>;
+> +};
+
+DCDC3 is polyphased with DCDC2, so remove this one and add:
+/* DCDC3 is polyphased with DCDC2 */
+
+> +
+> +&reg_dcdc4 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <500000>;
+> +	regulator-max-microvolt =3D <1300000>;
+> +	regulator-name =3D "vdd-sys";
+
+Should be:
+	regulator-min-microvolt =3D <810000>;
+	regulator-max-microvolt =3D <990000>;
+	regulator-name =3D "vcc-usb-sys";
+
+> +};
+> +
+> +&reg_dcdc5 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <800000>;
+> +	regulator-max-microvolt =3D <1840000>;
+> +	regulator-name =3D "vcc-dram";
+
+Should be:
+	regulator-min-microvolt =3D <1100000>;
+	regulator-max-microvolt =3D <1100000>;
+	regulator-name =3D "vcc-dram-2";
+
+ALDO2 is the main DRAM supply, this is the second one.
+
+> +};
+> +
+> +/* DCDC6 unused */
+> +
+> +&reg_dldo1 {
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <3300000>;
+> +	regulator-enable-ramp-delay =3D <1000>;
+
+Should be:
+	regulator-min-microvolt =3D <1800000>;
+	regulator-max-microvolt =3D <1800000>;
+	regulator-name =3D "vcc-pg";
+
+> +};
+> +
+> +&reg_dldo2 {
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <3400000>;
+> +	regulator-enable-ramp-delay =3D <1000>;
+
+Should be:
+	regulator-min-microvolt =3D <1800000>;
+	regulator-max-microvolt =3D <1800000>;
+	regulator-name =3D "vcc-csi-pe";
+
+> +};
+> +
+> +&reg_dldo3 {
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <3300000>;
+> +	regulator-enable-ramp-delay =3D <1000>;
+> +	regulator-name =3D "avdd-csi";
+
+Should be:
+	regulator-min-microvolt =3D <2800000>;
+	regulator-max-microvolt =3D <2800000>;
+	regulator-name =3D "ldo-avdd-csi";
+
+> +};
+> +
+> +&reg_dldo4 {
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <3300000>;
+> +	regulator-enable-ramp-delay =3D <1000>;
+
+Should be:
+	regulator-min-microvolt =3D <2800000>;
+	regulator-max-microvolt =3D <2800000>;
+	regulator-name =3D "ldo-avdd-csi";
+
+> +};
+
+You can add:
+
+&reg_drivevbus {
+	regulator-name =3D "usb0-vbus";
+	status =3D "okay";
+};
+
+> +
+> +&reg_eldo1 {
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <1900000>;
+> +	regulator-enable-ramp-delay =3D <1000>;
+
+Should be:
+	regulator-min-microvolt =3D <1800000>;
+	regulator-max-microvolt =3D <1800000>;
+	regulator-name =3D "vcc-pc-efuse-lvds-cpvin-mcsi";
+
+
+> +};
+> +
+> +&reg_eldo2 {
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <1900000>;
+
+Should be:
+	regulator-min-microvolt =3D <1200000>;
+	regulator-max-microvolt =3D <1200000>;
+
+> +	regulator-enable-ramp-delay =3D <1000>;
+> +	regulator-name =3D "dvdd-csi";
+> +};
+> +
+> +/* ELDO3 unused */
+> +
+> +&reg_fldo1 {
+> +	regulator-always-on;
+> +	regulator-min-microvolt =3D <700000>;
+> +	regulator-max-microvolt =3D <1450000>;
+> +	regulator-name =3D "vdd-cpus-usb";
+> +};
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts =
+b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+> new file mode 100644
+> index 000000000000..ccbca5d0a40c
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+> @@ -0,0 +1,94 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2025 Arm Ltd.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "sun50i-a133-baije-core.dtsi"
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+> +
+> +/{
+> +	model =3D "HelperBoard A133";
+> +	compatible =3D "baijie,helper-a133",
+> +		     "baijie,helper-a133-core",
+> +		     "allwinner,sun50i-a100";
+> +
+> +	aliases {
+> +		serial0 =3D &uart0;
+
+The is best added to the core dtsi.
+
+> +	};
+> +
+> +	chosen {
+> +		stdout-path =3D "serial0:115200n8";
+
+Ditto.
+
+> +	};
+> +
+> +	leds {
+> +		compatible =3D "gpio-leds";
+> +
+> +		led {
+> +			function =3D LED_FUNCTION_INDICATOR;
+> +			color =3D <LED_COLOR_ID_GREEN>;
+> +			gpios =3D <&pio 7 13 GPIO_ACTIVE_LOW>;	/* PH13 */
+> +		};
+> +	};
+> +};
+> +
+> +&mmc0 {
+> +	vmmc-supply =3D <&reg_dcdc1>;
+> +	cd-gpios =3D <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
+> +	bus-width =3D <4>;
+> +	status =3D "okay";
+
+You can add:
+	disable-wp;
+
+> +};
+> +
+> +&uart0 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&uart0_pb_pins>;
+> +	status =3D "okay";
+> +};
+> +
+> +&rgmii0_pins {
+> +	drive-strength =3D <30>;
+> +};
+
+Sorting is also incorrect throughout the file, please use alphanum
+sorting for phandle-based overwrites.
+
+> +
+> +&emac0 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&rgmii0_pins>;
+> +	phy-handle =3D <&eth_phy>;
+> +	phy-mode =3D "rgmii-id";
+> +	allwinner,rx-delay-ps =3D <200>;
+> +	allwinner,tx-delay-ps =3D <200>;
+> +	status =3D "okay";
+> +};
+> +
+> +&mdio0 {
+> +	reset-gpios =3D <&pio 7 11 GPIO_ACTIVE_LOW>;	/* PH11 */
+> +	reset-delay-us =3D <10000>;
+> +	reset-post-delay-us =3D <150000>;
+> +
+> +	eth_phy: ethernet-phy@1 {
+> +		compatible =3D "ethernet-phy-ieee802.3-c22";
+> +		reg =3D <1>;
+> +	};
+> +};
+> +
+> +&usbphy {
+> +	status =3D "okay";
+
+You can add:
+	usb0_vbus-supply =3D <&reg_dcdc1>;
+	usb1_vbus-supply =3D <&reg_dcdc4>;
+
+> +};
+> +
+> +&ehci0 {
+> +	status =3D "okay";
+> +};
+
+AFAIK there is no ID pin so ehci0/ohci0 will not be used.
+It seems that version 1.7 of the board used PH0 as USB0 ID pin but
+version 2.5 has reassigned PH8 to LCD reset.
+
+> +&ohci0 {
+> +	status =3D "okay";
+> +};
+> +
+> +&ehci1 {
+> +	status =3D "okay";
+> +};
+> +
+> +&ohci1 {
+> +	status =3D "okay";
+> +};
+> --=20
+> 2.54.0
+>=20
+>=20
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--6aVDxZ04DcuTPu75
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmoK/ZsACgkQhP3B6o/u
+lQz+3w//cAo+iNDV/jqZNetOLGFjNEcruEdST3BE4CTtKHMfI/9ahJzqxp7HdoKD
+agNB8iflMZmN5yfiBDz8luiFqebf68rEYWAVPnl7Bc3IeSNy3WeyxjQl2vZW/je1
+/F5z36wPKEEZdm+9IKp5ga+A8rxPqN71xYpElNeB2+nRy47kvIQ9NBxNbpftmCpG
+IehZEDIl68439Bc5X/o/9T9lkjw+QkwRpZKCCyi1qKT1TXGqPIe3pQphAWl/NvL9
+/CJU8BzGumvNUSLG0J98Vq+pIC8yyZAKi1XFqlF1QgILN9DJQ4ixIxClKd4Dj1N+
+hN9Td3wTSqzWvVbnnl66oQVCACr17ouNG5G+lfbzWewiHKoCj5hYods1J6N5U3fU
+SoV/Hj23LVtY96ruivP5pu/UfN2AIuosgdqLcoh1s12pYeRsyA2BgX+wf23L67dH
+VCU51vVy516q2rumS+Hgu08yafbCQtHjYI5LWmpT1NQ1bP8k7kyh4GGGJ+qgiVai
+Vg2RaTPRLh8PDJSQ4z6BbzFbwotUu33oy6X+1fmXuxaNhDUYKK2ZSztjlbXPvxbg
+aHrZZOtQXAhS7h2Br5Q436tkf9JwW5IsAF4oLBsgIKYkwZrlK/JYIDqsX0oZUhQ+
+Nw/er1GoAZpHXMpiRlatJ3WRM7JlgZO+SIw2DxSm+Zq5Hf5SNTE=
+=rK3C
+-----END PGP SIGNATURE-----
+
+--6aVDxZ04DcuTPu75--
