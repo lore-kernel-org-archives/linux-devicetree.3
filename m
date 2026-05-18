@@ -1,95 +1,191 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0135C21D3F5;
-	Mon, 18 May 2026 10:09:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1910731D366;
+	Mon, 18 May 2026 10:09:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779098958; cv=none; b=W/6PCuoPlr5RIHgd+jHcdyYq9q4XS/z0PElHEzg6RlOXuHpiZjUkN47M/1i1wPmA/FWiH/9E9DgG5k2bLSIYaD1qm4F5dn5TCe9zAeeiDRaCT+NzVLSEsnIfVa/DuWzd++lwWHJsH/HXGgq4DuNQDIV/LaQ8BXXlc/WHvq0Soyc=
+	t=1779098990; cv=none; b=IcAkyn94civpsFL9O9D2B64M/cxn1jMCu0GPv8FXBDB/6q8A3QFclkxTBJJeYB2zwtFZeHZs1FftH6vlTbTWzPQ593+Mx1bCIT9oiJaPKNjdGDiOGAKYAChBE4LaG59uvu6QNZvy4TsezBffvK2R8TO2rRasli8swfHx1spQYbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779098958; c=relaxed/simple;
-	bh=LQ13ebAO4UAXqbS/+/OyQ1q0rMBzWh0nkMrJYsP8yGQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ssIXr5+ih16FeYpBHxzH4KsV4IBtmHLT/bdLLPOid1gRYN7GHc1yzztk/smOptw92UHlYpx2OJ/J8MgwP6ID+upYeZCpYVy+Ax/hPZz4MnkR3e1rG4DR2mCyJCXcLIqQW/nrz4zwE9/Wvt+KK85dowcmehjV/48asL2eBX+y2NI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THt1RafR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779098990; c=relaxed/simple;
+	bh=u56jg7DlcON9+DXGEF4UUjo0mA99ELeWFFq/Ike9RM8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PuA6ERerbugj75ZPm3mIq2MDZogeYeRpSIEJ2MslV5+PcYNi9f1SOW5p0+mheLcRcRC1M/RsmB0KwlnlNbdu7xcqTqq/ARndal/BnwdaCkmLNwU/Q70119qdCHE7wsqig9CASsap/7LpTA3dD2nWWHL1yXOQDmjQOrCNC1s8N6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAy4SXup; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THt1RafR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53345C2BCB7;
-	Mon, 18 May 2026 10:09:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAy4SXup"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A7E31C2BCC6;
+	Mon, 18 May 2026 10:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779098957;
-	bh=LQ13ebAO4UAXqbS/+/OyQ1q0rMBzWh0nkMrJYsP8yGQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=THt1RafRYxc1QTFiabyiyjuG/Sb6ASo61uirT7RHgZV+hxQ2/kwiPO0HeCc0okzIo
-	 lTViDaD5kYRNLytO9K9kzW7szwtsek5xaxsYlxPail2zxN6hPl3Vtmdjca8S6Y9AEM
-	 LD+56s7BleuLLMwbdGLQCq8xdXp70qGTFeONCVteEoNI1iA1vOyFqSaQc90bUPI08H
-	 ZijM+KCzCEXQiDAHinge0LbMj1QdqxX6TTZFOCweH1nqgGBilBhWHgJUT+a4lveH1q
-	 OLflW0dyfd7uqQ6CroBBSKq1c70AS9gGJqAPcUScY4l8MOa0Oa46EeV9X0rFtqcAv/
-	 ucwKt7Lm0l29Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/7] dt-bindings: embedded-controller: document ASUS
- Transformer EC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518095907.36158-2-clamor95@gmail.com>
-References: <20260518095907.36158-2-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 10:09:10 +0000
-Message-Id: <20260518100917.53345C2BCB7@smtp.kernel.org>
+	s=k20201202; t=1779098989;
+	bh=u56jg7DlcON9+DXGEF4UUjo0mA99ELeWFFq/Ike9RM8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=nAy4SXupexX5Yd/Jh65iRzTGGKibrwsVMx4Do553FwQOWDk8pNtcdeQiEYw/M1y1R
+	 2SOnNZtpy+5SgAR/UTPBE4m8hjVxGSdEUbt8WvJSeb8B1yYuFNRDAlglFqHBHRvNvW
+	 LJhMVt2nhI0SjNrBzmKBkv6E755upD6Yg+qxgyzaAuDuWiAD3NQL9/iqv1/z5yDSCg
+	 C4UPn298sXtznWOIpRevUfjk7j7bJ1BmpnEdD5QP4JwDMCfqnHEvF4jy4pM0WuR4EY
+	 vIQF/SIgRVbgrx2BqHCyHOeS9ws85RQFblwxJOdRTp5yJ2n1iRZo1rT/CCT0j7jJZL
+	 CeVlWEg1KkpwQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 965C3CD4F54;
+	Mon, 18 May 2026 10:09:49 +0000 (UTC)
+From: Rex Fu via B4 Relay <devnull+Rex.Fu.amd.com@kernel.org>
+Date: Mon, 18 May 2026 18:00:40 +0800
+Subject: [PATCH v2] ARM: dts: aspeed: anacapa: correct SGPIO names for
+ monitoring
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260518-anacapa-sgpio-edsff-thermtrip-v2-1-e43b1847b2dc@amd.com>
+X-B4-Tracking: v=1; b=H4sIAEfjCmoC/42OSwrCMBRFt1Iy9kmSfhRH7kM6yOelfUKbkMSgl
+ O7dtm7A4YHDuXdhCSNhYrdqYRELJfLzBvJUMTOqeUAguzGTXHa8qTmoWRkVFKQhkAe0yTnII8Y
+ pRwqgjJbyql0nNLKtESI6eh/9R//j9NJPNHmP7sZIKfv4OQ4UsXv/bhUBAqSzLV5kU7eW39Vkz
+ 8ZPrF/X9QvqpmBx2gAAAA==
+X-Change-ID: 20260430-anacapa-sgpio-edsff-thermtrip-acb228bf61be
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Rex Fu <Rex.Fu@amd.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779098465; l=4551;
+ i=Rex.Fu@amd.com; s=20260417; h=from:subject:message-id;
+ bh=R6pEDyauTB50Fmhvxn0QsYGtV2og2/4FKpGrDbJds/8=;
+ b=RC64u2ytJ72iyOUFotIilIIvQnQwyvi5OfqMn3hKP+rzzxF8q2th+T0U1TtU6hXd+NbgacbZ0
+ kRDPXrW5GeECk58Ywm1UgI3Pjx7idCfONhNhX9W2thRQSbad/63mm9J
+X-Developer-Key: i=Rex.Fu@amd.com; a=ed25519;
+ pk=26ECoh24fxrbXDKgA4hCmgg0xjQ+IxU97kXb46ovwgc=
+X-Endpoint-Received: by B4 Relay for Rex.Fu@amd.com/20260417 with
+ auth_id=738
+X-Original-From: Rex Fu <Rex.Fu@amd.com>
+Reply-To: Rex.Fu@amd.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `reg` property specifies `minItems: 2` but is missing an explic=
-it `maxItems: 2` constraint or an `items` array definition.
---
+From: Rex Fu <Rex.Fu@amd.com>
 
-commit 1a4f9a19859ef3d1429d7fbcebe0842f0c3684af
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Update several Anacapa SGPIO line names to match the existing platform
+hardware design and the signal names consumed by userspace monitoring.
 
-dt-bindings: embedded-controller: document ASUS Transformer EC
+The previous names did not match the actual Anacapa SGPIO usage. Some
+lines were named as CPU or CPU power-good signals, but they are wired and
+used on Anacapa for EDSFF presence, EDSFF power-good, boot EDSFF
+presence, and thermal-trip assertion monitoring.
 
-This commit adds device tree binding documentation for the embedded
-controller used in the ASUS Transformer device series. The controllers
-are attached to an I2C bus and run custom ASUS firmware.
+Correct the mappings as follows:
 
-> diff --git a/Documentation/devicetree/bindings/embedded-controller/asus,t=
-f201-ec-pad.yaml b/Documentation/devicetree/bindings/embedded-controller/as=
-us,tf201-ec-pad.yaml
-> new file mode 100644
-> index 0000000000000..60b6375864aaf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/embedded-controller/asus,tf201-ec=
--pad.yaml
+  PWRGD_PVDDCR_SOC_P0     -> L_PRSNT_EDSFF0_N
+  PWRGD_PVDDIO_P0         -> L_PRSNT_EDSFF1_N
+  PWRGD_PVDDIO_MEM_S3_P0  -> R_PRSNT_EDSFF2_N
+  PWRGD_CHMP_CPU0_FPGA    -> R_PRSNT_EDSFF3_N
+  PWRGD_CHIL_CPU0_FPGA    -> HPM_EDSFF_PG
+  EAM2_CPU_MOD_PWR_GD_R   -> PRSNT_EDSFF_BOOT_N
+  CPU0_SP7R1              -> L_EDSFF0_PG
+  CPU0_SP7R2              -> L_EDSFF1_PG
+  CPU0_SP7R3              -> R_EDSFF2_PG
+  CPU0_SP7R4              -> R_EDSFF3_PG
+  HPM_AMC_THERMTRIP_R_L   -> AMC_THERMTRIP_ASSERT
+  FM_CPU0_THERMTRIP_N     -> CPU_THERMTRIP_ASSERT
 
-[ ... ]
+The left-side EDSFF slots are numbered as EDSFF0 and EDSFF1 to match
+the platform slot numbering used by userspace. The thermtrip names are
+also updated to describe the asserted condition monitored by userspace
+instead of the raw active-low signal names.
 
-> +  reg:
-> +    description:
-> +      The ASUS Transformer EC has a main I2C address and an associated
-> +      DockRAM device, which provides power-related functions for the
-> +      embedded controller. Both addresses are required for operation.
-> +    minItems: 2
+This is a naming correction for the existing Anacapa hardware design.
+There is no new board revision or underlying hardware change involved.
 
-Does this property need an explicit maxItems: 2 constraint or an items array
-definition to properly bound the schema?=20
+Signed-off-by: Rex Fu <Rex.Fu@amd.com>
+---
+Update the Anacapa SGPIO line names to match the existing hardware
+design and the platform signal names used by userspace monitoring.
 
-> +
-> +  reg-names:
-> +    items:
-> +      - const: ec
-> +      - const: dockram
+The v2 commit message now explains why changing these userspace-visible
+GPIO line names is appropriate and lists the exact old-to-new mappings.
+---
+Changes in v2:
+- Reworked the commit message to explain why these userspace-visible
+  GPIO line names are changed.
+- Listed the exact old-to-new SGPIO line name mappings.
+- Clarified that this is a naming correction for the existing hardware
+  design and not a board revision or hardware change.
+- Link to v1: https://patch.msgid.link/20260430-anacapa-sgpio-edsff-thermtrip-v1-1-2fd5e72435d0@amd.com
 
-While the reg-names property correctly defines exactly two expected names,
-without an explicit upper bound or items array, the reg property definition
-might be incomplete according to standard dt-binding conventions.
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Joel Stanley <joel@jms.id.au>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-aspeed@lists.ozlabs.org
+Cc: linux-kernel@vger.kernel.org
+---
+ .../boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts  | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518095907.3615=
-8-1-clamor95@gmail.com?part=3D1
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+index 2cb7bd128d24..e898bc11e6f5 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+@@ -908,11 +908,11 @@ &sgpiom0 {
+ 	"", "", "", "",
+ 
+ 	/* G0-G7 line 96-111 */
+-	"PWRGD_PVDDCR_SOC_P0", "",
+-	"PWRGD_PVDDIO_P0", "",
+-	"PWRGD_PVDDIO_MEM_S3_P0", "",
+-	"PWRGD_CHMP_CPU0_FPGA", "",
+-	"PWRGD_CHIL_CPU0_FPGA", "",
++	"L_PRSNT_EDSFF0_N", "",
++	"L_PRSNT_EDSFF1_N", "",
++	"R_PRSNT_EDSFF2_N", "",
++	"R_PRSNT_EDSFF3_N", "",
++	"HPM_EDSFF_PG", "",
+ 	"PWRGD_CHEH_CPU0_FPGA", "",
+ 	"PWRGD_CHAD_CPU0_FPGA", "FM_BMC_READY_PLD",
+ 	"", "",
+@@ -934,7 +934,7 @@ &sgpiom0 {
+ 	"EAM3_BRD_PRSNT_R_L", "",
+ 	"EAM0_CPU_MOD_PWR_GD_R", "",
+ 	"EAM1_CPU_MOD_PWR_GD_R", "",
+-	"EAM2_CPU_MOD_PWR_GD_R", "",
++	"PRSNT_EDSFF_BOOT_N", "",
+ 	"EAM3_CPU_MOD_PWR_GD_R", "",
+ 
+ 	/* J0-J7 line 144-159 */
+@@ -957,8 +957,8 @@ &sgpiom0 {
+ 	"PDB_ALERT_R_N", "",
+ 
+ 	/* L0-L7 line 176-191 */
+-	"CPU0_SP7R1", "", "CPU0_SP7R2", "",
+-	"CPU0_SP7R3", "", "CPU0_SP7R4", "",
++	"L_EDSFF0_PG", "", "L_EDSFF1_PG", "",
++	"R_EDSFF2_PG", "", "R_EDSFF3_PG", "",
+ 	"CPU0_CORETYPE0", "", "CPU0_CORETYPE1", "",
+ 	"CPU0_CORETYPE2", "", "FM_BIOS_POST_CMPLT_R_N", "",
+ 
+@@ -984,8 +984,8 @@ &sgpiom0 {
+ 	"HPM_PWR_FAIL", "Port80_b0",
+ 	"FM_DIMM_IP_FAIL", "Port80_b1",
+ 	"FM_DIMM_AH_FAIL", "Port80_b2",
+-	"HPM_AMC_THERMTRIP_R_L", "Port80_b3",
+-	"FM_CPU0_THERMTRIP_N", "Port80_b4",
++	"AMC_THERMTRIP_ASSERT", "Port80_b3",
++	"CPU_THERMTRIP_ASSERT", "Port80_b4",
+ 	"PVDDCR_SOC_P0_OCP_L", "Port80_b5",
+ 	"CPLD_SGPIO_RDY", "Port80_b6",
+ 	"", "Port80_b7",
+
+---
+base-commit: 9974969c14031a097d6b45bcb7a06bb4aa525c40
+change-id: 20260430-anacapa-sgpio-edsff-thermtrip-acb228bf61be
+
+Best regards,
+--  
+Rex Fu <Rex.Fu@amd.com>
+
+
