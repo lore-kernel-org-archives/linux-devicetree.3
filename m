@@ -1,142 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE473E0090
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404303EFFC2;
+	Tue, 19 May 2026 09:25:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779182644; cv=none; b=NOpeAy1xKXlkguOqukxc9BtFUfZat2PDU8NNzB6TZs4LXO9ix+CNoIf/4PEGCGruhoD8SBuGprxAzTmWTyXtHSOil4EztBHxnOEgSmS6Xvcdu5aaHiZsqH0qiAb40/X4x8kPraudcXLjx0vC2fO7Tqy2sQqplx46S7hZHp8OQko=
+	t=1779182717; cv=none; b=eAzsjPBnzqsCC5t5tubNxBWq/zitFaT+ET7we6fEapoqbo+nEoj9VUcFQlGbJVMhVKEdglU8ZP3X+Lmjr9EgXxew+CNSAyvsCTwfaOdL/PwlGieVbNkJQ6xZd4SBSP0FJp3keSxKQJBa3BGfIryEzkQdTObpUdIRIWe7b1JzeD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779182644; c=relaxed/simple;
-	bh=W9tCChh774z7smGVrR5Sm5Cl4Zeu/K/I73fWHAcOnjo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K6Cp0joeG2dMPXm8m63ypyObTTg8yZAburGY03rOs+f8h2gHhJCOsUSovLMiQr9hLerQ+dbcLqgC7M2uA9FuvJNGJK1WtJijcFiybubWZTLHteMT5J8ZBMgJcgthsm2ZI3G60f2OeayD1+q7e/tdQIJEt4JkvF/0e1eePlJpD2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlB/RBfU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779182717; c=relaxed/simple;
+	bh=LY4j+awKez8uEwIL98fiH+gRN9x2qY9yTM+7byFWkT8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=XCSl0BY8V4bYQ3ZfJUW8JzCjdyVSVA1JdAMye6F9RT09/6ZVi4tqCYNzKtbJVQ0hrvJPfvEaN6ihBi7UVxpl1sYsrEtFqfw2or4R+ivLaggUrtopJu1xMqBFYJ/D+rXuOyT3R1PDVN50+nIFUwf9C5lggQ8nMtkk+DUR8f8vsso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qvFv9gRo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlB/RBfU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0969FC2BCC9;
-	Tue, 19 May 2026 09:24:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qvFv9gRo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7643C2BCB3;
+	Tue, 19 May 2026 09:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779182644;
-	bh=W9tCChh774z7smGVrR5Sm5Cl4Zeu/K/I73fWHAcOnjo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=AlB/RBfUm+KbYBRR111a/hXbtVPg8X+kDzcz6I4Bw/yNE1ZYajbC9jumKgQ0MO0P9
-	 7MOH6uIkzLz2br1zmuNBA1Eh4Oj/Jj4KsDnc6Wfl9ZN+DKR4uTlmVNOFJMLYBcOGYz
-	 LIrb+jA2v0EzqV0ngJWlN5nLrbo5R8Sw99Z+qDDuKeqi5TI5liA7KqYCZMtE6jCrCz
-	 K+ZGCAn5wpsmKPh8O20IZErYLh6nKgbM+aYJrFueZ0Mua3AcWMF1wfAPRFVZ6tzbJ4
-	 ZEfytgMZKe2YLznSuBmoVPdJ5d/jqcd3QqTeMHD/l3lHYB0SVGzDE6SK0SSZGJjr6g
-	 wv/S9ztfcYU/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] of: reserved_mem: only support one <base size>
- entry in reg property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519082427.4181476-4-chenwandun@lixiang.com>
-References: <20260519082427.4181476-4-chenwandun@lixiang.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 09:24:03 +0000
-Message-Id: <20260519092404.0969FC2BCC9@smtp.kernel.org>
+	s=k20201202; t=1779182717;
+	bh=LY4j+awKez8uEwIL98fiH+gRN9x2qY9yTM+7byFWkT8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=qvFv9gRojvXoDWo7++gx8YgEHwBhplYpFEZMoqsGTigFypLqJomaA0Z0B4o7GyCD2
+	 utPNm/g4AFtD8Y7osfFHEYhQ3pWI6+0kjRAfmW368l2B6/pLxfQvSdAMdSG8N0Z9vt
+	 vLlAbg/xv3ZInCD10jp2pPWut9YR+mIacjErV0fi0z9yNgLgCcUk4Jazp8+t60gbMK
+	 pXyX1UiEbIlUFHQVH1p6hTHUWdBcRJK0/64QTtKcjqu4DGTXkXmMCJhyoh33xgIOn+
+	 DKfC6+YYc0X5FS5IIEO1Gm1D7hZA/PvNbHs0GsnFsFRzKBq0RNR8/Lg7alnQpqZyF7
+	 H1QbEGEsNJILg==
+From: Mark Brown <broonie@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Herve Codina <herve.codina@bootlin.com>
+Cc: linux-sound@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Christophe Leroy <chleroy@kernel.org>
+In-Reply-To: <20260513081702.317117-1-herve.codina@bootlin.com>
+References: <20260513081702.317117-1-herve.codina@bootlin.com>
+Subject: Re: [PATCH v3 00/17] ASoC: Add support for GPIOs driven amplifiers
+Message-Id: <177912269514.352391.10184061127272991864.b4-ty@b4>
+Date: Mon, 18 May 2026 17:44:55 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3526; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=LY4j+awKez8uEwIL98fiH+gRN9x2qY9yTM+7byFWkT8=;
+ b=kA0DAAoBJNaLcl1Uh9AByyZiAGoMLHijtKhg2bzH9vN5cJeX23ssUzW9D4fCBT4nDr/XZaEGz
+ YkBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqDCx4AAoJECTWi3JdVIfQA98H/A0n
+ 6RYuh8WJgFqu9o0qrpi6xiTm+AFuikj7qx/QqA1NaYOX+V4TqaAfjOy4wmLTL4eNR1ItCGX8AQb
+ Mi599fXxb/Ru2fPh5glNkYVHs/DC1kRZ2ABo/79uxr58dhNy+GkY4Ce7AEgqsKgHNI0RS1A93a8
+ YIbXkgXwzhv7dM7SSXB4KO5Kfl3DYoBCYnwK/AfxglmtzcaNtOW3S7HPsc9DtDzRktXvMlFvp+0
+ VmCpGf5rOgWUlseQyN9hPShB7VVoUr66TG1WGmOFytXEujNiS00h9i7lEUdEGchh9BOSEarUB1U
+ VVKMk9FtEsbzTNQ4klCx1Rd+G/QhLEx2TsYpwKI=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unconditional read of the first `reg` property entry without verif=
-ying that `len > 0` leads to an out-of-bounds FDT read for empty `reg` prop=
-erties.
---
+On Wed, 13 May 2026 10:16:44 +0200, Herve Codina wrote:
+> ASoC: Add support for GPIOs driven amplifiers
+> 
+> On some embedded system boards, audio amplifiers are designed using
+> discrete components such as op-amp, several resistors and switches to
+> either adjust the gain (switching resistors) or fully switch the
+> audio signal path (mute and/or bypass features).
+> 
+> [...]
 
-commit def0743ccda5f4a97f9b1275e989c8ea559363b4
-Author: Wandun Chen <chenwandun1@gmail.com>
+Applied to
 
-of: reserved_mem: only support one <base size> entry in reg property
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
 
-This commit simplifies reserved memory parsing by restricting support
-to a single base/size entry in the reg property. It removes the loop
-in the early pass and warns if multiple entries are present,
-unconditionally reading only the first entry.
+Thanks!
 
-Link: https://lore.kernel.org/all/20260506014752.GA280279-robh@kernel.org/
+[01/17] of: Introduce of_property_read_s32_index()
+        https://git.kernel.org/broonie/sound/c/37dba38ac8d0
+[02/17] ASoC: dt-bindings: Add support for the GPIOs driven amplifier
+        https://git.kernel.org/broonie/sound/c/04a1fe8e6582
+[03/17] ASoC: simple-amplifier: Remove DRV_NAME defined value
+        https://git.kernel.org/broonie/sound/c/28188a6d8869
+[04/17] ASoC: simple-amplifier: Add missing headers
+        https://git.kernel.org/broonie/sound/c/23cf9e3ca498
+[05/17] ASoC: simple-amplifier: Remove CONFIG_OF flag and of_match_ptr()
+        https://git.kernel.org/broonie/sound/c/2c562adb159e
+[06/17] ASoC: simple-amplifier: Rename drv_event() function
+        https://git.kernel.org/broonie/sound/c/dc8beaad2926
+[07/17] ASoC: simple-amplifier: Use 'simple_amp' variable name instead of 'priv'
+        https://git.kernel.org/broonie/sound/c/34ddd2d368c3
+[08/17] ASoC: simple-amplifier: Remove DAPM widgets and routes from the ASoC component driver
+        https://git.kernel.org/broonie/sound/c/4d84b75e5eec
+[09/17] ASoC: simple-amplifier: Introduce support for gpio-audio-amp
+        https://git.kernel.org/broonie/sound/c/41e3ebbfcab1
+[10/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for extra power supplies
+        https://git.kernel.org/broonie/sound/c/f68933d0eb67
+[11/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for mute gpio
+        https://git.kernel.org/broonie/sound/c/432331970eca
+[12/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for bypass gpio
+        https://git.kernel.org/broonie/sound/c/46c21e55c3bf
+[13/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for basic gain
+        https://git.kernel.org/broonie/sound/c/5796026b8e90
+[14/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for gain-ranges
+        https://git.kernel.org/broonie/sound/c/d25e00ecd5c5
+[15/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for gain-labels
+        https://git.kernel.org/broonie/sound/c/fb757dfa039f
+[16/17] ASoC: simple-amplifier: Update author and copyright
+        https://git.kernel.org/broonie/sound/c/7b295a6fc632
+[17/17] MAINTAINERS: Add the ASoC gpio audio amplifier entry
+        https://git.kernel.org/broonie/sound/c/5bd8c4b7d3bb
 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 462e7c3078a3a..0e91c4a71d89d 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -134,37 +134,38 @@ static int __init __reserved_mem_reserve_reg(unsign=
-ed long node,
-[ ... ]
->  	prop =3D of_flat_dt_get_addr_size_prop(node, "reg", &len);
->  	if (!prop)
->  		return -ENOENT;
-> =20
-> +	if (len > 1)
-> +		pr_warn("Reserved memory: node '%s' has %d <base size> entries, only t=
-he first is used\n",
-> +			uname, len);
-> +
->  	nomap =3D of_get_flat_dt_prop(node, "no-map", NULL) !=3D NULL;
-> =20
->  	err =3D fdt_validate_reserved_mem_node(node, NULL);
->  	if (err && err !=3D -ENODEV)
->  		return err;
-> =20
-> -	for (i =3D 0; i < len; i++) {
-> -		u64 b, s;
-> -
-> -		of_flat_dt_read_addr_size(prop, i, &b, &s);
-> -
-> -		base =3D b;
-> -		size =3D s;
-> +	of_flat_dt_read_addr_size(prop, 0, &b, &s);
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-If a device tree node contains an empty reg property,
-of_flat_dt_get_addr_size_prop() returns a valid pointer to the empty
-property data and sets len to 0.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Since the loop was removed, is there a risk of an out-of-bounds read here
-because the code unconditionally calls of_flat_dt_read_addr_size()?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-This could fetch garbage values for the physical base and size. If the
-parsed garbage size happens to be non-zero, could the kernel attempt
-to reserve unintended physical memory regions via
-early_init_dt_reserve_memory()?
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Would it be safer to verify len > 0 before reading the first entry?
+Thanks,
+Mark
 
-> +	base =3D b;
-> +	size =3D s;
-[ ... ]
-> @@ -277,20 +278,24 @@ void __init fdt_scan_reserved_mem_late(void)
->  	alloc_reserved_mem_array();
-> =20
->  	fdt_for_each_subnode(child, fdt, node) {
-> +		const __be32 *prop;
-[ ... ]
-> -		if (!of_flat_dt_get_addr_size(child, "reg", &b, &s))
-> +		prop =3D of_flat_dt_get_addr_size_prop(child, "reg", &len);
-> +		if (!prop)
->  			continue;
-> =20
->  		ret =3D fdt_validate_reserved_mem_node(child, NULL);
->  		if (ret && ret !=3D -ENODEV)
->  			continue;
-> =20
-> +		of_flat_dt_read_addr_size(prop, 0, &b, &s);
-
-Does this have the same out-of-bounds read potential when len =3D=3D 0?
-
-The previous of_flat_dt_get_addr_size() wrapper explicitly checked that
-entries !=3D 1, which inherently skipped empty reg properties.
-
->  		base =3D b;
->  		size =3D s;
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519082427.4181=
-476-1-chenwandun@lixiang.com?part=3D3
