@@ -1,164 +1,155 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B78B35E937;
-	Mon, 18 May 2026 03:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F7037F8AD;
+	Mon, 18 May 2026 03:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779073654; cv=none; b=mZ1kV8ALu4eqak5xrBXfdA7Ec8dCiVtbhPITrpyGBXpqTal54cvdfu5pmjQVcWhqZKyXoNHdwQMbLMaLo0xRe7UV82+kECXeZ04fdWlvkry71/pVdKVIGnttInWtmX7Ej2peSDBMX5btlVMQ4XPs2BtmipBe1eUwgvY6S+1Ckhk=
+	t=1779074446; cv=none; b=txjSRePU0MIPlpT/7+x/fM7TtD9pnSAksZjnewAVTXJX88cSA9ogcC1JAXNGjKnokN8CSjKgFPu9rSPlMAZF+d52bTLmkNW4NaivELBHnpfsVjzpCF+nfCLDz4mqMAcA4CcFvOfpo+GBTxmJ5C5K9WT15QpussKV45+y48Iy4G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779073654; c=relaxed/simple;
-	bh=opbHcjGJhGN0V2AsfKdod5Ei6jme1uyutNohcVTuoK8=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=JYrh3i2trZRR5BdSjw2Z+vs1HX3WV7hLXoU0fRTb3ie8oi8JSaHVsxHQPI6aNaM9eEBed2ZAvTDN1xB5/rNoo0BKtNnBpfOS7e8Bo/Dbx3MYOHA2QlVLMnXLQjpBTxRhNvB0YLWDt5U7iPf2rMv537wIfgzr3+CwJVGnqHa/iMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=cKxFTmbZ; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1779074446; c=relaxed/simple;
+	bh=+uxIrVnT2ecTFM8iinW9prL096Cs3ptyGswkwlISofM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=H4IhSMUhSAfUtnluLqKEceORTpGOi3WwnYxcmX0v4r/unCDxj1MHi3ENpajoWREox9KJ4twBXHeclFi/p0D5k4q+lTBt4lafMxMBUzJrvR9bmm+v/aF9HkL/BhAr3kO6onQg536n9mowj6NI0QGpibpQql+tOiTjtSgfnT/Sw/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARe46AMI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="cKxFTmbZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=XJKd3+IiOKB10QoMgGQXKpCTm/heRFRR4
-	1Tj2dK9CTI=; b=cKxFTmbZIVOMI5YiR3XYzSgIoSFAeXhjsUMYC+0MnpoKekS4a
-	zuICeD/5YuWkITQAlg+2zv8OEP9xPCdn/IOubBnQwqzpXQNUak0P/82JIbjqqSI9
-	SF8VRx/mJV71ArzPOTeOlz4nu/3Y4wYRboB4VscCQeSkIIkIymvdI75ZPs=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUJ7ggpq97MEAA--.6085S2;
-	Mon, 18 May 2026 11:07:39 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARe46AMI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 198F0C2BCB3;
+	Mon, 18 May 2026 03:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779074446;
+	bh=+uxIrVnT2ecTFM8iinW9prL096Cs3ptyGswkwlISofM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=ARe46AMIG0hBv/jlQdT5RBCo6iGb1hsaPI3SkhFwc1NZno55w+I3ah1wUIkMu6NtQ
+	 xwT6XXK1QI9rYChFeURoDVDlO02dAKP+wkM6+ucL/UtICSZTUiBFfO8+GuWlqT55l/
+	 33/1w4kEGtpPpC2KdAH5FDTybUXh0fRsGcC56bzycsTxbKVZCjUjzL/czDAVUzfGnB
+	 SztO4FngHYSCxox7713LpXgf9dqzxOcddfJffU/jqpt5auRCZwNjjkg38oep4TL+qJ
+	 FseqGdHGn9dhEOa8xoo6XYm+Ki3SjWjK/3STQlfuYR4wyir4XJMuq9z0sr+2QqI2DK
+	 zIylhTEpMBOPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] arm64: dts: freescale: add i.MX95 19x19 FRDM PRO
+ board dts
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joseph Guo" <qijian.guo@nxp.com>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260518-imx95_frdm_pro-v4-2-975346555a9b@nxp.com>
+References: <20260518-imx95_frdm_pro-v4-2-975346555a9b@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 03:20:45 +0000
+Message-Id: <20260518032046.198F0C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/9] dt-bindings: riscv: Add UltraRISC DP1000 bindings
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Conor Dooley <conor.dooley@microchip.com>
-Cc: Jia Wang <wangjia@ultrarisc.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-In-Reply-To: <20260515-cyclic-frequency-50d690821af1@wendy>
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
- <20260515-ultrarisc-pinctrl-v1-3-bf559589ea8a@ultrarisc.com>
- <20260515-cyclic-frequency-50d690821af1@wendy>
-Date: Mon, 18 May 2026 11:06:58 +0800
-Message-Id: <177907361849.2045074.12347174714063726227.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779073618; l=2538;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=opbHcjGJhGN0V2AsfKdod5Ei6jme1uyutNohcVTuoK8=;
- b=ZwWPpWn2mi3LpKg0v1Bzfdt07pmYtp4BrxR/JtKv7lBsuzhxrfCg+njdaEqN60m/eSVi2fEC6
- f7NZxRIHuwFCQgMIGjSWK9Sh6x2Y9bh2B6BKMJDoDGj/MTuL1rmBY+m
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwA3cUJ7ggpq97MEAA--.6085S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1xWr45ury3ZF17Gr1rZwb_yoW8KF43pa
-	18GFn5AFyxJr13Can3t3W3A3Z5Xr48uFW5trsF934jyas8WFyjqrZ7K345u3WkAr4UGF42
-	yF17uw1akw40vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWoFRsMACwAWsg
 
-On 2026-05-15 11:08 +0100, Conor Dooley wrote:
-> On Fri, May 15, 2026 at 09:17:59AM +0800, Jia Wang wrote:
-> > Add DT binding documentation for the UltraRISC DP1000 SoC.
-> > 
-> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> > ---
-> >  .../devicetree/bindings/riscv/ultrarisc.yaml       | 27 ++++++++++++++++++++++
-> >  MAINTAINERS                                        |  6 +++++
-> >  2 files changed, 33 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/riscv/ultrarisc.yaml b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-> > new file mode 100644
-> > index 000000000000..d4421c2ef945
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-> > @@ -0,0 +1,27 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/riscv/ultrarisc.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: UltraRISC SoC-based boards
-> > +
-> > +maintainers:
-> > +  - Jia Wang <wangjia@ultrarisc.com>
-> > +
-> > +description:
-> > +  UltraRISC DP1000 SoC-based boards
-> > +
-> > +properties:
-> > +  $nodename:
-> > +    const: '/'
-> > +  compatible:
-> > +    oneOf:
-> > +      - items:
-> > +          - enum:
-> > +              - rongda,m0
-> > +              - milkv,titan
-> > +          - const: ultrarisc,dp1000
-> > +
-> > +additionalProperties: true
-> > +...
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index b2040011a386..5bf971ff48b2 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -23082,6 +23082,12 @@ F:	include/dt-bindings/power/thead,th1520-power.h
-> >  F:	include/dt-bindings/reset/thead,th1520-reset.h
-> >  F:	include/linux/firmware/thead/thead,th1520-aon.h
-> >  
-> > +RISC-V ULTRARISC SoC SUPPORT
-> > +M:	Jia Wang <wangjia@ultrarisc.com>
-> > +L:	linux-riscv@lists.infradead.org
-> > +S:	Maintained
-> 
-> You work for ultrasoc, probably this should be "Supported".
->
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Architectural flaw preventing the M7 core from using the CAN1 tran=
+sceiver.
+- [High] Incorrect drive strength in `pinctrl_usdhc2_200mhz` causing potent=
+ial SD card instability.
+- [Medium] Mismatch between commit message claiming 10G ETH support and dev=
+ice tree implementation.
+- [Medium] Dead pinctrl configuration in the reserved `flexcan1` node.
+- [Low] Unused `reg_3p3v` regulator node.
+--
 
-Will change S: to Supported in v2. Thanks.
- 
-> > +F:	Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-> 
-> There's no git tree here where patches for the platform will be applied
-> before sending them on to the SoC maintainers. Are you expecting me to
-> apply patches for this platform?
-> 
+commit 65457c99452cde3ade57a7afda12053dd0e2d5ee
+Author: Joseph Guo <qijian.guo@nxp.com>
 
-Will add a T: entry in v2. Thanks for pointing this out.
+arm64: dts: freescale: add i.MX95 19x19 FRDM PRO board dts
+   =20
+This commit adds the device tree for the NXP i.MX95 19x19 FRDM PRO board,
+which is based on the i.MX95 19x19 SoC. It configures various peripherals
+including USB, PCIe, ethernet, CAN, and regulators.
 
-> > +
-> >  RNBD BLOCK DRIVERS
-> >  M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
-> >  M:	Jack Wang <jinpu.wang@ionos.com>
-> > 
-> > -- 
-> > 2.34.1
-> > 
+> - 10G ETH interface
 
-Best Regards,
-Jia Wang
+The commit message claims support for a 10G ETH interface, but the device t=
+ree
+only configures enetc_port0 and enetc_port1 as 1 Gbps rgmii-id interfaces a=
+nd
+entirely omits the i.MX95 10G Ethernet MAC. Is this omission intentional?
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts b/arc=
+h/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
+> new file mode 100644
+> index 0000000000000..b87a26b0d7fcf
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
+> @@ -0,0 +1,1021 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright 2026 NXP
+> + */
 
+[ ... ]
+
+> +	flexcan1_phy: can-phy0 {
+> +		compatible =3D "nxp,tja1057";
+> +		#phy-cells =3D <0>;
+> +		max-bitrate =3D <5000000>;
+> +		silent-gpios =3D <&i2c4_gpio_expander_22 11 GPIO_ACTIVE_HIGH>;
+> +	};
+
+[ ... ]
+
+> +	reg_3p3v: regulator-3p3v {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "+V3.3_SW";
+> +		regulator-max-microvolt =3D <3300000>;
+> +		regulator-min-microvolt =3D <3300000>;
+> +	};
+
+Is this regulator used anywhere? It doesn't have the regulator-always-on
+property and isn't referenced by any device node as a supply.
+
+[ ... ]
+
+> +&flexcan1 {
+> +	phys =3D <&flexcan1_phy>;
+> +	pinctrl-0 =3D <&pinctrl_flexcan1>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "reserved";
+> +};
+
+Will the M7 core be able to use the CAN1 transceiver with this setup?
+
+Since flexcan1 is marked as reserved, the Linux CAN driver won't probe it.
+As a result, Linux will never power on flexcan1_phy or drive the standby GP=
+IO
+low. The Linux driver core will also ignore the pinctrl-0 configuration.
+
+If the M7 core depends on Linux to set up the pin multiplexing and enable t=
+he
+PHY, does this need a gpio-hog on the expander and the pinctrl moved to an
+active pinctrl_hog group instead?
+
+[ ... ]
+
+> +	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
+> +		fsl,pins =3D <
+> +			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
+> +			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
+> +			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
+> +			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
+> +			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
+> +			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
+> +			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
+> +		>;
+> +	};
+
+Are these pad settings correct for 200MHz operation?
+
+These use the exact same pad settings (0x138e and 0x158e) as the 100MHz gro=
+up,
+whereas usdhc1 and usdhc3 correctly configure higher drive strength (0x13fe=
+ and
+0x15fe) for 200MHz. Can this lower drive strength cause signal integrity
+issues or CRC errors with the SD card at 200MHz?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-imx95_frdm=
+_pro-v4-0-975346555a9b@nxp.com?part=3D2
