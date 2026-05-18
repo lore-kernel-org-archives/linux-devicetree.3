@@ -1,117 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0C83822BE;
-	Mon, 18 May 2026 20:58:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3910371CEC;
+	Mon, 18 May 2026 20:59:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779137905; cv=none; b=kN2fDSgThgAlOwKUnI4tEL2UyJcNWAXaQKLcuDKg7CS1Ur5GT5yrttXVLyWmWdXy1hF82CHtwZ+zqqY7DCS59CAI3zUjNEGqqpcBYOP+5YjW6IiqqVq3Kf/MWLVdy31ei6aErA/TuWiOQtcq8VWNU9tNh1pKhy+2iCCNxtddUzM=
+	t=1779137954; cv=none; b=Ej1fE4KnuJKVqCHz37//m8x1UFI8CjBOXaDGWtly8wlFKqtR8DNLzvHAO6cWOFAdWdjQVuK9xzs1xE5Jpo9IoZi+5Y0wSh1bqVooFnIN7n4Mo2F2G70xgBsTmmGwP3JjV+gr6sapByhGDmxpZUPxKdzedV4xAlggwfDfGHiHYGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779137905; c=relaxed/simple;
-	bh=i8rjaRkxopw8OlF0S2A6bM63Z9+AhhS7gHX5DH8OmKE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oh5LWPsxaw7IYubJLZiYS3vCZNSvxq7cWZO/fk6M04xbjdMFEKkCqN2LrWNlvAR6rUzqfjc3Teh8W5dIQqBG9x7PqxkO1hFKl4rgBK/h9+G1uKkgVzjf92PJB9bQbZnP4h/Cv3d6W0YNHmWJx8zbGuMZ72o579J2agAENzyRnJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rU/h+E4d; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779137954; c=relaxed/simple;
+	bh=lO7cK/BdKDswb57EujED7Mp/I6vQbg0rlmtGY4RNQMs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k4ekJAr6HZiE3H5YUcd0NWzn6P8S/twxTnnvKxXQ5+iXGj6aRwcDrPuuiGJqgj05YbcjZFs/OnFTAhd5kT36dEzzOhSa7MZJwp05orbqgsvUHqjWcwemT56963td5CmkkF3MaKj5nNxACK4Uz13rtiaAWWpSlKuhAE8zdWQkmpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s5mCG/9X; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rU/h+E4d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182E3C2BCC6;
-	Mon, 18 May 2026 20:58:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s5mCG/9X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF85BC2BCB7;
+	Mon, 18 May 2026 20:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779137904;
-	bh=i8rjaRkxopw8OlF0S2A6bM63Z9+AhhS7gHX5DH8OmKE=;
-	h=From:Date:Subject:To:Cc:From;
-	b=rU/h+E4dh0AdXeFgtVktati3S+YTYqhWKFEnvMd+ft72tUvf6BlIgdPpvVa/0Xk9I
-	 /CK1OwsLdiXQ5+Lx8pX5qQJ8+jxxhpjrcY+xB0kN4L00v0QNRZhjbxuOXFhhFjzdeY
-	 xrM2OUtdQoKml781VKun8tTTl+i8nlZFYcwm0PuAtbAG7iRWXjlKxgoBf3++o2cf7M
-	 myFNQOOMwf9ax4WNEK0R3K4Dwxwr6q+y5vpiRLrkMyBvO+i0U4Z5J7oGyyjO9NfHEW
-	 a9IwG3ojWkSRMm0+8IMq7EN9NyTJFuY+fDX6pteSKb5Us4V3gs0Nt3oL1xhl/fu8cR
-	 6FhjVXw05NNJw==
-From: Yixun Lan <dlan@kernel.org>
-Date: Mon, 18 May 2026 20:58:16 +0000
-Subject: [PATCH] dts: riscv: spacemit: k3: Fix I/O power settings
+	s=k20201202; t=1779137954;
+	bh=lO7cK/BdKDswb57EujED7Mp/I6vQbg0rlmtGY4RNQMs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=s5mCG/9X8XK4N9oT6M0Kj1mPdrW/JIjhOp/TTpr53pul2Fa7pNEknOxnaSbmUucJa
+	 5UZpMQ0oWt++Y9uD7Ws+HDNeEnqUGqsFwH6/hGGaYzpLyaGhZXu+/CYI3+9Ocd/LTH
+	 Rq1zNAPVHF3Cebone50LSS38Veb8MhgwbBGGxOGcllL8H1aS7oTLlWDJXPPheCe5QL
+	 l1qqKSeTg0G2UQ2sqDxzvGgXgD8QF8hzF+a38l3OXlYrOJd4RiYh7GIyMai4JDK3Nx
+	 CEplR/PpPQem9D6kT8zfh/qUR+ovZQsNo2vSY0RNIfZB5bAlk/xi9txb6AStZ8/wdg
+	 vP/Vqc5mBRQGg==
+Date: Mon, 18 May 2026 22:59:11 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v7 02/10] net: airoha: Introduce airoha_gdm_dev
+ struct
+Message-ID: <agt9n4qF3hyardCB@lore-desk>
+References: <20260516-airoha-eth-multi-serdes-v7-2-99e0093303e2@kernel.org>
+ <20260517055812.CEC33C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260518-07-dts-pinctrl-io-power-v1-1-abe19c14a726@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAGd9C2oC/yXMTQ6CMBBA4auQWTtJC6LoVYgL2w46xrTNTP1JC
- He34PJbvDeDkjApnJsZhN6snGKF3TXg79d4I+RQDa1pD6a3A5ojhqKYOfoiT+SEOX1I0LrQdW6
- ifjjtodZZaOLvdh4vf+vLPciXdQfL8gP15NuoewAAAA==
-X-Change-ID: 20260518-07-dts-pinctrl-io-power-1bd33bfe5894
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: Inochi Amaoto <inochiama@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1627; i=dlan@kernel.org;
- h=from:subject:message-id; bh=i8rjaRkxopw8OlF0S2A6bM63Z9+AhhS7gHX5DH8OmKE=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqC31qYwQytJjsLBLJBfc0/6szLw4gCToBXYwaW
- g7gbAcDvQWJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCagt9ahsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+01fg/9FSqJUEIvu4++shC1RVOfuefElopiNxTv0NbykiV57GNmsOY4TqNBw
- ju5dnVyCPtcGashsbtiiaK74a3jhccrPbk2hBaR2UmTI1p38UVKLv9pO4PZ3BhcpTjXGRp+CvJH
- C56dJm3NASSBBes/PGH86d/R6KXRD6vgLtpDHoLurHRlk2apgklJYE2VsUT/ovU87w2gVRpalqv
- n0SK1J5pglbY/lGDkZRa5JhehAU9CQwcSzcjvCBGG3cO/WWwd31w/GH7bgROImRmep+G6OA6+vG
- cOeAFheTEmqFaDvJD5JX8AIiAqarf+m87mzocbpByxwGzaSpnzoMZvSsu6zIIhbCEuxCrkJ29e/
- yP3RExGnAjf2vukK7/cj6loKvE7Gw3WKS/GB+ME+DlUJG67bTQRttpyTp6jcIjt+wG7RAZMxRwF
- a9hdRSMEDHWbPgzGdaL8rCp72RjQE08aGgMBIKhIy/NrRZKJZL4IwvtqTVlMfiQ+hS2cXDMWkVJ
- lN4mQWyZnPwdILVfHVovrpBbWMCkFEHk+dKP75LXb23nYBpxQc4IMnUHWCKrlCGlXi7S2xghnoj
- pX9UObDowwa1iPNnE9wgIlGCL98zr14d8cprlY7mdhgVKx8oxS/Kp023bt7sdhWXJuQQVHastAk
- ZsvwsyxhDEi2GV7M4P36PUo0ezBUWE=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="I5Ic1VMvRwYsDD/n"
+Content-Disposition: inline
+In-Reply-To: <20260517055812.CEC33C2BCB0@smtp.kernel.org>
 
-SpacemiT K3 SoC support dual-voltage I/O power domain, while initially
-configure to 3.3v, and need to access register from APBC space to switch
-to 1.8v domain.
 
-Fix the GMAC0's I/O pins 1.8v switch failure that will result a broken
-ethernet driver.
+--I5Ic1VMvRwYsDD/n
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: d8944577496b ("riscv: dts: spacemit: k3: add pinctrl support")
-Reported-by: Han Gao <gaohan@iscas.ac.cn>
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
-This issue is reported by Han while booting kernel from UFS storage, and
-found the ethernet driver is broken, we can see the message as below:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] The patch introduces a race condition exposing a partially initi=
+alized port, leading to a NULL pointer dereference in NAPI polling handlers.
+> - [High] The `airoha_get_dsa_tag` function lacks packet length validation=
+ before stripping the MTK DSA tag, leading to an out-of-bounds memory acces=
+s and `skb->len` integer underflow.
+> --
+>=20
+> commit 3474bcc37d20c84839dc4e74bab44197a0507f51
+> Author: Lorenzo Bianconi <lorenzo@kernel.org>
+>=20
+> net: airoha: Introduce airoha_gdm_dev struct
+>=20
+> This commit introduces the airoha_gdm_dev structure to collect net_device
+> related info, preparing the driver for a 1:n relationship between GDM por=
+ts
+> and net_devices.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index 5a027cc7ffcb1..3ca0dbd19275a 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+>=20
+> [ ... ]
+>=20
+> > @@ -2007,7 +2020,7 @@ static netdev_tx_t airoha_dev_xmit(struct sk_buff=
+ *skb,
+> >  	u8 fport;
+> > =20
+> >  	qid =3D airoha_qdma_get_txq(qdma, skb_get_queue_mapping(skb));
+> > -	tag =3D airoha_get_dsa_tag(skb, dev);
+> > +	tag =3D airoha_get_dsa_tag(skb, netdev);
+>=20
+> While looking at this patch, I noticed an issue in airoha_get_dsa_tag() t=
+hat
+> pre-exists in the code. Does this function lack packet length validation
+> before pulling the MTK DSA tag?
+>=20
+> airoha_get_dsa_tag() unconditionally performs memmove() and __skb_pull():
+>=20
+>         memmove(skb->data + MTK_HDR_LEN, skb->data, 2 * ETH_ALEN);
+>         __skb_pull(skb, MTK_HDR_LEN);
+>=20
+> If an unprivileged user sends an undersized packet via a raw socket
+> (AF_PACKET), could this result in an out-of-bounds memory access and cause
+> skb->len to integer-underflow?
+>=20
+> This could lead to dma_map_single() attempting to map a massive amount of
+> memory, potentially causing an IOMMU fault and a local denial-of-service.
 
- [    1.635881] mdio_bus stmmac-0: MDIO device at address 1 is missing.
+As already pointed out, this does not seem an issue.
 
-This problem is caused by GMAC driver that unable to configure I/O power
-domain to 1.8v, which leads to the MDIO communication failure.
+>=20
+> [ ... ]
+>=20
+> > @@ -2975,53 +3060,22 @@ static int airoha_alloc_gdm_port(struct airoha_=
+eth *eth,
+> >  		return -EINVAL;
+> >  	}
+> > =20
+> > -	dev =3D devm_alloc_etherdev_mqs(eth->dev, sizeof(*port),
+> > -				      AIROHA_NUM_NETDEV_TX_RINGS,
+> > -				      AIROHA_NUM_RX_RING);
+> > -	if (!dev) {
+> > -		dev_err(eth->dev, "alloc_etherdev failed\n");
+> > +	port =3D devm_kzalloc(eth->dev, sizeof(*port), GFP_KERNEL);
+> > +	if (!port)
+> >  		return -ENOMEM;
+>=20
+> [ ... ]
+>=20
+> > -	port =3D netdev_priv(dev);
+> >  	u64_stats_init(&port->stats.syncp);
+> >  	spin_lock_init(&port->stats.lock);
+> > -	port->eth =3D eth;
+> > -	port->dev =3D dev;
+> >  	port->id =3D id;
+> >  	/* XXX: Read nbq from DTS */
+> >  	port->nbq =3D id =3D=3D AIROHA_GDM3_IDX && airoha_is_7581(eth) ? 4 : =
+0;
+> >  	eth->ports[p] =3D port;
+> > =20
+> > -	return airoha_metadata_dst_alloc(port);
+> > +	err =3D airoha_metadata_dst_alloc(port);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	return airoha_alloc_gdm_device(eth, port, np);
+> >  }
+>=20
+> Could an interrupt cause a NULL pointer dereference in the NAPI handlers?
+>=20
+> Since NAPI is enabled earlier in airoha_probe() via airoha_qdma_start_nap=
+i(),
+> and eth->ports[p] is assigned here before airoha_alloc_gdm_device() popul=
+ates
+> port->dev, NAPI handlers like airoha_qdma_rx_process() could see a NULL
+> port->dev:
+>=20
+> airoha_qdma_rx_process()
+>         ...
+>         port =3D eth->ports[p];
+>         netdev =3D port->dev->dev;
+>=20
+> I note that this issue is fixed later in the series by commit 68e8fa8fe02=
+24
+> ("net: airoha: Support multiple net_devices for a single FE GDM port"), w=
+hich
+> changes port->dev to an array and adds proper NULL checks.
 
-We didn't find this problem due to using tftp(net) to load kernel images
-while bootloader already configured the I/O power.
----
- arch/riscv/boot/dts/spacemit/k3.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ack, I will fix it in v8.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 815debd16409..2b0bf9cd755b 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -803,6 +803,7 @@ pinctrl: pinctrl@d401e000 {
- 			clocks = <&syscon_apbc CLK_APBC_AIB>,
- 				 <&syscon_apbc CLK_APBC_AIB_BUS>;
- 			clock-names = "func", "bus";
-+			spacemit,apbc = <&syscon_apbc>;
- 		};
- 
- 		uart10: serial@d401f000 {
+Regards,
+Lorenzo
 
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260518-07-dts-pinctrl-io-power-1bd33bfe5894
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260516-airoha-eth-=
+multi-serdes-v7-0-99e0093303e2@kernel.org?part=3D2
 
-Best regards,
---  
-Yixun Lan <dlan@kernel.org>
+--I5Ic1VMvRwYsDD/n
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagt9nwAKCRA6cBh0uS2t
+rBeLAQCdlm/QAuyNFWuTfclaOJkPj3v/jYi7gcrxxPmerVRw1QD9EL4eO6LNj9Rk
+bDp2khdOoGbazmqN+YdLfTX70ZT5IAI=
+=t9f+
+-----END PGP SIGNATURE-----
+
+--I5Ic1VMvRwYsDD/n--
