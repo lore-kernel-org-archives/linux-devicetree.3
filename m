@@ -1,98 +1,147 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276C92ED84A;
-	Mon, 18 May 2026 06:44:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5033C1F37;
+	Mon, 18 May 2026 06:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779086672; cv=none; b=l7TDOSJDI8yoT+9kxsMVG385D0+YN3gCW0Fr72VBx4qYxAmxC22oXu6P0pM8Cu4GxKDxWsJMsFoGRXo6o3Ed+Q1gWnypuOEKWdt+INP4TLkg8HfSURI1UiPXADvqx+R6dAmcQB4MIQZVDdwGytzbvqDhtIn9h5muQrOtm80Cm98=
+	t=1779086795; cv=none; b=AEZWbfKxERVxO253sdKSQl8AlbG1hxYLPT1bn0GU6zC90nuMujoVGGJkIEpS4+cDxwnKWcPUFoJX6gukshHfUK+I3ymSPhxax1p+JKs+bMEDlbIe5E7TGlYSteUXqMStpcCJN2ZkSuSAEpNWcH9P4NP7UAvwd1eIvxRmxxR6jZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779086672; c=relaxed/simple;
-	bh=NaBsCiEzBh2l62UYbT/Tg/jcXbBwLVo6fLA30JPkv78=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DjzrFQ4gEzhoA0hjQeS/dpn9fTZxSKO39XGpa1snFTvKiKAtNx1CDqFDHMDnL7Q72hfDqE99sYLXUup9kM6wNGV//ca23NmPG4HVVKhR+02wfjbK78l53m0M1SpizlvFlRSgxllREBTBtyNBdV8We3D5gRkQfCpAJP5473hbHj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VJ0+Y3j6; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1779086795; c=relaxed/simple;
+	bh=nyUvwxOERFiKlrwpt376CsF/RFVPO90hyYEOTpqZkSI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PLtVdNgFLpckTs6jJfcUE76eHEDucl/1YMlcKqwH/5LY1Dj4ixJgPvMl+3qTbi0vbr162I7jwxUGsDZKHCfP6r6q8PqTAjujjoQO2dpbOysJgKT2Ms5xkuwEWll/LktSdLF7KmNfwleBcSAIh1nA/z7cZgou8SPCqJRssZNpShY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3RLYH4+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VJ0+Y3j6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779086669; x=1810622669;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NaBsCiEzBh2l62UYbT/Tg/jcXbBwLVo6fLA30JPkv78=;
-  b=VJ0+Y3j6MHa3a89ia/m2HW6ZqfA+KmZgveH5rQPftIGqfoR5PFunbB8I
-   yJJ7ZQfeJ7qGVu/dKZ3ZzewGRPfWK4hrj/+Em+jWW0nL5BE1/k0MouV/2
-   JGzB3bS+0A8Lt23eLiub+j4YgUYcNu6jtVv/ydzo6nJzekkBZmvHZoYdo
-   ZkX+YozptVvjhKRIrCkXtT3jx4goRZaXLgrIGzGd8BduQohz5SOQ/acGT
-   bP7pq7i2H0ML7qFWPsrJweky4b2YARoXKjEBKELmlQl4JabK+eK7e05HG
-   umCwHR3AL+9IAzV9fIFkNg1H/L95ISrufpQKGkzSHN83MSKkqG7fDyP9w
-   Q==;
-X-CSE-ConnectionGUID: LeqjKVlQS2OznMDBZJDD4A==
-X-CSE-MsgGUID: nklyRi2AStSqFhnWX22xYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11789"; a="79980366"
-X-IronPort-AV: E=Sophos;i="6.23,241,1770624000"; 
-   d="scan'208";a="79980366"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 May 2026 23:44:27 -0700
-X-CSE-ConnectionGUID: 72L9Bp4PStmSIaPG4eg5PA==
-X-CSE-MsgGUID: fbIIQAseQ8+rVoOTzp+fmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,241,1770624000"; 
-   d="scan'208";a="262856490"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.3])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 May 2026 23:44:23 -0700
-Date: Mon, 18 May 2026 09:44:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: light: veml3328: add support for new device
-Message-ID: <agq1RVf-x4UnCOMI@ashevche-desk.local>
-References: <20260516-veml3328-v1-0-1d4b663e2fe3@gmail.com>
- <20260516-veml3328-v1-2-1d4b663e2fe3@gmail.com>
- <20260517143449.6c30b99f@jic23-huawei>
- <CALoEA-zpJ2B4W6N-++cBqE6fBLsd08D4j+Rozgpt+1=NBAga0g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3RLYH4+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F5FC2BCB7;
+	Mon, 18 May 2026 06:46:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779086794;
+	bh=nyUvwxOERFiKlrwpt376CsF/RFVPO90hyYEOTpqZkSI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=I3RLYH4+iHTTxBCDBtgF1Rn+vLlbLcxMk5dw6Hq22zJLF/pDsJzeyJLRg6i7OPbJ6
+	 Q5Yg2QN6jiLK6I4VUz5OuBSll+v8SmAdzsfbsOBFfgHm/FEZhCB7vm190n+6AHCfip
+	 yONHyKV9ya1yUf5QvxuHqa9gdUnDKZQkKGZEpqM+YUDiV8MyBD5Zo1JZbcOFqJ7Hxl
+	 A9QlpRweUeUANOip/LM8cOKIGPafqrxCBDJV5w7ytPHbgw5PycNMfVbTpG0o6H3tXe
+	 6RZfkPNaZGyAH6QY5Egb40ZbXHXN5aFI+BT2qy7TaHRef0A3y8X8x3tH5fLkZVTP29
+	 m1JnzQS9U7PCw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/1] arm64: dts: s32g: add PIT support for s32g2 and
+ s32g3
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260518063547.2890353-2-khristineandreea.barbulescu@oss.nxp.com>
+References: <20260518063547.2890353-2-khristineandreea.barbulescu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 06:46:33 +0000
+Message-Id: <20260518064634.86F5FC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALoEA-zpJ2B4W6N-++cBqE6fBLsd08D4j+Rozgpt+1=NBAga0g@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, May 17, 2026 at 07:11:06PM +0200, Joshua Crofts wrote:
-> On Sun, 17 May 2026 at 15:34, Jonathan Cameron <jic23@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The newly added device tree nodes `pit0` and `pit1` are named `pit@=
+...` instead of the generic name `timer@...`.
+--
 
-...
+commit 296fdf97d8d5f42b2426eda4d41b0132d74ccbbd
+Author: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.c=
+om>
 
-> > > +     ret = pm_runtime_resume_and_get(data->dev);
-> >
-> > PM_RUNTIME_ACQUIRE_AUTOSUSPEND() will mean you can rely on this
-> > being auto suspended on exiting scope.  Will allow early returns
-> > and get rid of your goto that you noted already.
-> 
-> Sorry if this is a silly request, however I can't seem to understand how the
-> macro mentioned above works... Could someone point me to documentation
-> on it or a functioning example in a driver?
+arm64: dts: s32g: add PIT support for s32g2 and s32g3
 
-`git grep ...` is your everyday tool for most questions in the kernel :-)
+This commit adds device tree nodes for the Periodic Interrupt Timer (PIT0 a=
+nd
+PIT1) blocks on the NXP S32G2 and S32G3 SoCs.
 
-In short it uses the guard()()-type approach beneath, it creates a scoped auto
-variable on stack and then uses it at the function epilogue.
+> diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/d=
+ts/freescale/s32g2.dtsi
+> index 51d00dac12deb..57ff97e445075 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+[ ... ]
+> @@ -417,6 +417,15 @@ edma0: dma-controller@40144000 {
+>  			clock-names =3D "dmamux0", "dmamux1";
+>  		};
+> =20
+> +		pit0: pit@40188000 {
 
--- 
-With Best Regards,
-Andy Shevchenko
+This isn't a bug, but should these nodes use the generic name timer instead=
+ of
+pit? The Devicetree Specification recommends using generic names that refle=
+ct
+the primary function of the device rather than specific IP block acronyms.
 
+> +			compatible =3D "nxp,s32g2-pit";
+> +			reg =3D <0x40188000 0x3000>;
+> +			interrupts =3D <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&clks 61>;
+> +			clock-names =3D "pit";
+> +			status =3D "disabled";
+> +		};
+> +
+[ ... ]
+> @@ -622,6 +631,15 @@ edma1: dma-controller@40244000 {
+>  			clock-names =3D "dmamux0", "dmamux1";
+>  		};
+> =20
+> +		pit1: pit@40288000 {
 
+Could this node also be named timer@40288000 for the same reason?
+
+> +			compatible =3D "nxp,s32g2-pit";
+> +			reg =3D <0x40288000 0x3000>;
+> +			interrupts =3D <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&clks 61>;
+> +			clock-names =3D "pit";
+> +			status =3D "disabled";
+> +		};
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/d=
+ts/freescale/s32g3.dtsi
+> index e314f3c7d61d0..efe5398e12403 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+[ ... ]
+> @@ -475,6 +475,15 @@ edma0: dma-controller@40144000 {
+>  			clock-names =3D "dmamux0", "dmamux1";
+>  		};
+> =20
+> +		pit0: pit@40188000 {
+
+And similarly, could this node be updated to timer@40188000?
+
+> +			compatible =3D "nxp,s32g3-pit", "nxp,s32g2-pit";
+> +			reg =3D <0x40188000 0x3000>;
+> +			interrupts =3D <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&clks 61>;
+> +			clock-names =3D "pit";
+> +			status =3D "disabled";
+> +		};
+> +
+[ ... ]
+> @@ -693,6 +702,15 @@ edma1: dma-controller@40244000 {
+>  			clock-names =3D "dmamux0", "dmamux1";
+>  		};
+> =20
+> +		pit1: pit@40288000 {
+
+And timer@40288000 here?
+
+> +			compatible =3D "nxp,s32g3-pit", "nxp,s32g2-pit";
+> +			reg =3D <0x40288000 0x3000>;
+> +			interrupts =3D <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&clks 61>;
+> +			clock-names =3D "pit";
+> +			status =3D "disabled";
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518063547.2890=
+353-2-khristineandreea.barbulescu@oss.nxp.com?part=3D1
