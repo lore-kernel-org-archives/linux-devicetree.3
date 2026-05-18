@@ -1,251 +1,175 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CBC3246F0
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779097885; cv=pass; b=GaKRaKfmTfBJBVwTKrD7EIsOfKyMb0mdFEhzcleJMiO0XH1guAUdtPnR7irEqoHCWrkv8Z+KwZGsItEF58+0jlQDb2m17DUUEFT75PCSZRQzm5Sl3Ta6TuyhduUkh03vFS5O0jQ9EVSTpLDHUpHeUx9OdwICUHy44w/IpktFLpo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779097885; c=relaxed/simple;
-	bh=JOqNYOpYniKiLryaD7Q8FBNSmyt01Ujzp39DKCKBG8E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vo8ci7eD3frLtyeYACGGylmFcslfUVzYQ9WJ2qpTe5qONEP6aneTZFA44ohMmBZGOLE32wZRAzk//15CRC7TyOnqmnsGhwihtYIyGijetXCzXsW4K2FCDMcUB0XyymbFx1o79p6nfnvV6Dx1/zV6UabJBoN4lJazXFriVFjYVew=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RhE3wCQ0; arc=pass smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECE8322B7B
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779097978; cv=none; b=HD+uCnTYfuGh6X3/O8Bbw0j24ewSgRXLRlWZOnybvczwPOxbf1rVXp3V8guM4OvvAPO2KCuCsdAhUtUQHcK3orp4oP21dt+uuoKctLSGlrTRJPmVJU0easIcC23xpJykH437n5u6KC/zw8dihBDoOxKbHXQTQDnWWLcye/UXdmE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779097978; c=relaxed/simple;
+	bh=of417GscjKdbAnhwfbSWrlsJm8LWUKrkEmCLH5aShT0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mOTsM/94I9Op/7+nEwvomYvvjDFwx2CfXx96TO/h7wWw6dLGR3zLs8kjH+3ib0gmXgEvauTc7CCgtt0mUO2TycqQjKPzPYv/gw9AGCOQgFv+hXmbnoAUEW9oJMxLBZgZF8lHtuYP0xPca5orW9xr5LGzO07cI7AY+crLmDAp0rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qqz/K3X+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UDsp/mY2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RhE3wCQ0"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-2f68f3b075fso8400631eec.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 02:51:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779097882; cv=none;
-        d=google.com; s=arc-20240605;
-        b=S7CBvd6b3L5RgfScuHUYae5n2NKxMVINcZ+XBMfQ/+vttFaLVU20vrbyCN5uHqCjn9
-         pqwjLApkTIQ3w2fqSDR3C9hFxSLzPuoPLmkOvdcICPIb6fkLXHWuiBukPffLoMUzg7CJ
-         d+WwpxNEeUNU66uvvYrOav/DzydySqwEM/IlFMtiN4vSPYVVKm0zfve18K6ufq6TGvFu
-         zcIIG0hW6Km2Vs9ketQXXFNyOm8MjgqwHj6gv8Yetw47WnWuCfZbxYq7cqRjRxli6Sym
-         09Y3u3CNTZrkFQ7/8D9ZEv4TzuTVhi8OomlgY2pPbidSlQ89Po/JTWDThcVxFz7p4NB7
-         wVrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FePX2WL11b5dRW+WYbo5NswoFP4g/thJvtgtY1wXay8=;
-        fh=fgWZseNJ5wpvXHpdnxsW0j6+9hHg1vKVc5zJWcGUQc0=;
-        b=MgwACxyw5aIwIhTGA5hukdbyw1FEz1p1qxEOFO59rmlEZgMM6oKZPw9oR97KokwsFS
-         A1MVeHRHP0PV/7P94oUPBnDtww1F+xc9v1ymesoH8NPe4z8maGbWXHE3whDuPytuZKr9
-         5c97p0DYFLfVkqC+OpKlnAzeDb0Z/JFC0P5whpJJSPWwOXieCd9RNBojC5kGfNMpzUkh
-         QGngfVUReG0lIZMgu6yeABN/fMSRqlYQz0qhfONCygqbnrQLzzS6L2PnjeIBteQ3iEkB
-         7yGJA7TOzcx8aurcJs7vnPiG6YZqiWeiDwRxMXRXNhUllOvujXTty+h+MJCqW7D4rydQ
-         uuYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qqz/K3X+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UDsp/mY2"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I7eNmL970086
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:52:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=YvXvwkEtJUar+AF4mcltGq
+	qcUdDyNha0AyAaMHsVw1I=; b=Qqz/K3X+IVYCds0PY48txgtanKUESkdprRr5B6
+	Sfx86MEoOONR1Zlrj0it4IB6IDC+MdOtqpi4OOtzYQFyt1urqLwBaAdHacEWgEp8
+	gSulg8w2isGQm85oF57WlUYCLoYMnGk1aXR2rIWqgwnXIcZNUVIe1+nnPToqAqkn
+	k7h9sx3vRKAXgfr/HAfGBoGDsKKTgI6cpPDfdTvQ9cxN2H17+m/i6hEIM44ImK9R
+	wnrMbKsCurt77RxVfv0kelkKjAFhEeqctAML18DLoriWIWnvCbkFuHD6D07FVJlO
+	v9DDL1ll1RK5MgCEgM1SCaLMAAoVlb8BvRq5lk2KDHosRTVA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6hv7wr8b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:52:57 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2c16233ee11so2820838eec.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 02:52:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779097882; x=1779702682; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FePX2WL11b5dRW+WYbo5NswoFP4g/thJvtgtY1wXay8=;
-        b=RhE3wCQ0oOeMN7MfcDrswyUcIWD9pJ8hEEqNNEgJej/v03XZnbisRVNEy21JsCAuD0
-         O8CxKVFumIUtF+3uQ42UOVYIEi9wcMc90cwHYSLxyl0xRa744xAIoEE5Y2woX468sbfQ
-         joafHnsz88TeQiWFZphoG2hZe1jTfZ2M2c/EvAomXv5hGvDNOrTAm9a9cUQ5F0UyXc+4
-         Y9e2nHtcfkeOc2QgqvUwDB0EjbUFovCSm0koR2rNlmWrWoAVCBDGmOf7mrt1TYTRNJ8f
-         TKCMRz0QYzqBYw8vKS9d42QrF3+gYazrH5JsmMPeUdzsrOfVqCvrLwdAx9rwkkBXd3Uo
-         Aqyw==
+        d=oss.qualcomm.com; s=google; t=1779097976; x=1779702776; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YvXvwkEtJUar+AF4mcltGqqcUdDyNha0AyAaMHsVw1I=;
+        b=UDsp/mY2DtTQic3APxcC1yeJuzVBbAjgHt+00/0dTKf5B8FjmzSXAl84rFz4s2zDqg
+         7I4A8swA1oT43OUJBhW/jz3u0UySShOJwvH3rFa+cQJlevhLaP12w7PpOmxa6V72IpMs
+         Lm56odO0EFcalCEMNi6G+VbTpYRQnmBJ74TBhptInAittXiwv84QDiJmGSI6gxMjYkmv
+         MSfAbbpLPTd4lUfE9dZxHTHs4IN0Vz754uZG1ZWx/sUR7o9ZXjAYVR3nWk2mZDmGMiA5
+         Qn2/vRrXtbgHLy/g7F/1TGcgJuDH4H9ok9GNAP6cLA2XyowDk1kHxUnKu2jFpmdOtXXn
+         siIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779097882; x=1779702682;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FePX2WL11b5dRW+WYbo5NswoFP4g/thJvtgtY1wXay8=;
-        b=eq2kTozvnX7vjt1082eugUCnYQwdCsKWiYAcgpYHf+lKAT3CvrPHucSyW/mmCyJcOu
-         Y/dsWJV3mtkHCCAT4ICDkh4Y2sn/0I9v+4kAFgGrXepONt4aTSoUi3LRtO1/T/aIwcWX
-         UybbGi6dvZmI63+B7T93Jz4vbkUDAW8XCPDufmlERrbQ+xoMC5YE/DhIPFbRs/lPCigw
-         C9f+B16w90qK8QWoRZgliSbYIGwwImS5OmHADrj+ER2NaD5+G6JaHOEr3emyuya92O8L
-         +S4oggwsupVSyAvB22j+yZeKHKLvASpK4FM+F24T15DQpa6/THyBEVwA23/TU+6fXKqd
-         eHew==
-X-Forwarded-Encrypted: i=1; AFNElJ8mu1VndCPbF8jqHHIVFu6Js2lf+h7R62ppMyWaU4tLXHzpaIw4N4xHRDc+WKVe1YlPDMbi2K0SPtTN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+VdoB4cTbtZa5GKt9JTqTMruybTUFfc4pMewbymD5XclE7iZS
-	m9B0S1iP0GaAUIJf9mzNBMrS+yo0Dm8wAuKtLGvn00eN5K/TFDCWd72yO7v58d3ZyZLTP7Y4S+z
-	H9IOQXpanSDGsG6uiR27Uuy+AJiF/1iE=
-X-Gm-Gg: Acq92OES9GbhkZVVuQzFo7/tFioRbNN5t7GG40xF1R++T9ULcHrVLLRINIaVT4wJULu
-	82deHMadQwdSV3oalaTiFQy1ZiL5cN7B9glL3a2nAOPzR9i1Wria4MGfQWOl/QzotU4KW2xJSco
-	awrnJOMnZCseyC/gBLo/a63O4BwlLLEAr+7FuPzbKNdCZCMwl/8pLPSLhcNia7MpmKEif/fXjjD
-	veBRDSlpsNbE0NMnHkrRp/gdfw7mC6F86dhwyQGTBkkurx4K67FTHZq12Ox43NTuUM+4OtPiW2R
-	b8xxzj1EjQXqOGyn2MWEmAFg1RzXKg==
-X-Received: by 2002:a05:7301:688:b0:2ed:e16:6b4a with SMTP id
- 5a478bee46e88-3039869b963mr6436744eec.32.1779097882266; Mon, 18 May 2026
- 02:51:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779097976; x=1779702776;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YvXvwkEtJUar+AF4mcltGqqcUdDyNha0AyAaMHsVw1I=;
+        b=lgaFTh+YTwfC2F5jzXZvSSiApR6YlqM/oFSXa40HrqaXXAv+mXlD+kozcJWYMNauG5
+         GY70SCxDn4FfoAqZOdQX2s/3QaD2y1yjN8iUY3hIf8BATlf1twZEe2MUH7SmHsvyA5jw
+         GZ9DcpzILrMTplMawfOpUxU+cHw93V7zRsf4A7WLWrvGchToWOu4/M3Xofq5Z2YTcOS0
+         DrKuoI8MC/sRmL1npRKsWI/FBXfOHvYhWQwcBuDA9d8OL2BhA8NTH9vkcYAz1JVwquG1
+         7AKQEKzsgihHQID6bP9TQwIPIGqZcooHhjitc6Ho8hlgzfOmt4MJOTpznoMCCqEhXal7
+         WOTQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9d6rkPe8mLJp5Z7CJH2iM3+io2Sv3qIXX48L5hyUAMnfoRHzDUX8oemnvBtkIdKSvyDOFbergdYqTH@vger.kernel.org
+X-Gm-Message-State: AOJu0YygoLI21LVhZvFvrMFWFOZA3Bfsazbkd1gTs2u/ce0PLvGGrUX2
+	P658jHxqcO4/u+s6aG4kB+D/AIc/SnntNS71QjuF3RNIzLh2ar6wDOmcZ+sMjuIDXL1JtCccEFA
+	js7IV+fkUnmBY7911ZvVl36YmEYNn4ge+uu0FDRucgHpGR6VC34/nnjzVOKTVBjtm
+X-Gm-Gg: Acq92OGUlKa8dEOU+WhtnmRrPkRR/wDRP364Rg9ZzAFGDoWnU99nIGuaQ3hjEGWa5by
+	vsC0nb2O/2GtpVpyHT7mwXV5gpswRvnSlmT5pwPUGuF3g/BNvG2Z5WFAc553606APP5wdGkK1R+
+	nrDn8sOTtbu8ha79hBOyrfpWpLj7u/bbHIJqhKs1XONFHUWyV9E1YlK92zBGzUC706fhf4+Y6gk
+	GSt/vh9sugKVXUlDDiPnl25jKz4D9tdykRjM/binNcOqnpjPBMWYD5SV6r25xyvOdC3R0W9y5+R
+	Pz2LMNvUhzdX8wOE0/T9GTWfsx+OEme3kIROHfsbXV7OFEzBHYv2+m8fNuOKUCwPwTfeYTFehIQ
+	Tq4P9dzUD/hftq//J4NOxDLlHe9QAJ5ozxRFiWlxs4/xrWgv2yVSH27duDZvpVLCeSfvzWcTwZy
+	KrcM59ft/xhA==
+X-Received: by 2002:a05:7300:4307:b0:2ea:5057:a331 with SMTP id 5a478bee46e88-30398655963mr6287207eec.21.1779097976158;
+        Mon, 18 May 2026 02:52:56 -0700 (PDT)
+X-Received: by 2002:a05:7300:4307:b0:2ea:5057:a331 with SMTP id 5a478bee46e88-30398655963mr6287190eec.21.1779097975658;
+        Mon, 18 May 2026 02:52:55 -0700 (PDT)
+Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-302973bcd0csm13994915eec.24.2026.05.18.02.52.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 02:52:55 -0700 (PDT)
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Date: Mon, 18 May 2026 02:52:53 -0700
+Subject: [PATCH] arm64: dts: qcom: glymur: Fix wrong interrupt number for
+ i2c19
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260517074306.30937-1-clamor95@gmail.com> <20260517074306.30937-3-clamor95@gmail.com>
- <CAPVz0n3gLYXab4H+DihfTkdBkGPqTvmoFVY1Cwuafd70KPtYbA@mail.gmail.com> <20260518092833.GR305027@google.com>
-In-Reply-To: <20260518092833.GR305027@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 18 May 2026 12:51:11 +0300
-X-Gm-Features: AVHnY4IgFlUyRpln1URXZyQyooZBVQu7rOOaMkPI7Cfdheurgkdm_oeKquAVOyE
-Message-ID: <CAPVz0n3QAGk_iebCQdEnv_fG2nnGdM1xm__=wG+4KqVJzs-T_g@mail.gmail.com>
-Subject: Re: [PATCH v1 2/6] mfd: lm3533: Convert to use OF bindings
-To: Lee Jones <lee@kernel.org>
-Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Jonathan Cameron <jic23@kernel.org>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	Andy Shevchenko <andy@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260518-glymur-fix-i2c19-irq-v1-1-7d5968bd9b2b@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAHThCmoC/x2MSQqAMAwAv1JyNmCLC/oV8VBsqgGtmqIo4t8tH
+ gdm5oFIwhShVQ8InRx5DQl0pmCYbBgJ2SUGk5sqL3WN43wvh6DnC9kMukGWHcnZpiidr4z1kNJ
+ NKAn/tuvf9wPxO2rrZgAAAA==
+X-Change-ID: 20260517-glymur-fix-i2c19-irq-eda945df62af
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779097974; l=1351;
+ i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
+ h=from:subject:message-id; bh=of417GscjKdbAnhwfbSWrlsJm8LWUKrkEmCLH5aShT0=;
+ b=mWZjj2MyCV27OBRk1TyCJFKRcyHSGfjtLj2EPmccgnJYpL4pBYnp6BbAUzg7z6lN9RN4bL6Nn
+ XYVbo5XMOx9C5j4fIdxLno50tkzvLDfw1cC4af6I070OLCXSqfOZnyv
+X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
+ pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA5NSBTYWx0ZWRfX+AHw58sA0cFA
+ ZR0EAswtjB/egb/cFGm9G5BlAQATJWPNeVJ0w/XwJojZfXhtWO5qL+YBTMn/nHZT5dUev5y1PZt
+ Y6yTCsOy3uscC02VTe9a7eNrnxMnMGoxzRekeF2Go76CsHfO2ca9OTgY8C8eoqxNaoMiJUlJDNz
+ yhWJvmckiKQWLelsJTye+b11O0fCs/8oHn0iklbdWcl3S2tV9rfQduUxbuT+wyuLY1ZRGO/idqy
+ 8ymzDtgseinyOx7pXu7IJUptcYNHjsTBa4Sg78A8ex00yNNAUn4UHa42PRKFTsBDuA+lL2whHx8
+ ZiKjFNW/GaQDkeExLlWZ9uCJg4mcqsP0dNNmBJphIObzrPWGQjKmJObbvNnHp0j+RYou1lOsxOY
+ voJBNT3HPR0AfLnI0Q4xCHru2pjSSyui7srtWuuBKdrAG9WfsulGcP7NVK7X6a2ZE9d4/dJ6Dot
+ xpy3M9QD8wXlKHI+sug==
+X-Authority-Analysis: v=2.4 cv=a8oAM0SF c=1 sm=1 tr=0 ts=6a0ae179 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=gUn1S9SPUxNGwtii2nwA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: 39uo7yWEvBue5LikrXnpPHHx244eT7oj
+X-Proofpoint-GUID: 39uo7yWEvBue5LikrXnpPHHx244eT7oj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180095
 
-=D0=BF=D0=BD, 18 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 12:2=
-8 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun, 17 May 2026, Svyatoslav Ryhel wrote:
->
-> > =D0=BD=D0=B4, 17 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
-10:43 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > Since there are no users of this driver via platform data, remove the
-> > > platform data support and switch to using Device Tree bindings.
-> > > Additionally, optimize functions used only by platform data.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/iio/light/lm3533-als.c      | 123 +++++--------
-> > >  drivers/leds/leds-lm3533.c          |  60 ++++---
-> > >  drivers/mfd/lm3533-core.c           | 257 +++++++++-----------------=
---
-> > >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
-> > >  include/linux/mfd/lm3533.h          |  51 +-----
-> > >  5 files changed, 202 insertions(+), 341 deletions(-)
->
-> Please snip replies.
->
-> [...]
->
-> > > -static int lm3533_device_led_init(struct lm3533 *lm3533)
-> > > -{
-> > > -       struct lm3533_platform_data *pdata =3D dev_get_platdata(lm353=
-3->dev);
-> > > -       int i;
-> > > -       int ret;
-> > > -
-> > > -       if (!pdata->leds || pdata->num_leds =3D=3D 0)
-> > > -               return 0;
-> > > -
-> > > -       if (pdata->num_leds > ARRAY_SIZE(lm3533_led_devs))
-> > > -               pdata->num_leds =3D ARRAY_SIZE(lm3533_led_devs);
-> > > -
-> > > -       for (i =3D 0; i < pdata->num_leds; ++i) {
-> > > -               lm3533_led_devs[i].platform_data =3D &pdata->leds[i];
-> > > -               lm3533_led_devs[i].pdata_size =3D sizeof(pdata->leds[=
-i]);
-> > > +               dev_err(dev, "failed to set boost ovp\n");
-> > > +               goto err_disable;
-> > >         }
-> > >
-> > > -       ret =3D mfd_add_devices(lm3533->dev, 0, lm3533_led_devs,
-> > > -                             pdata->num_leds, NULL, 0, NULL);
-> > > +       ret =3D devm_mfd_add_devices(dev, 0, lm3533_child_devices,
-> > > +                                  ARRAY_SIZE(lm3533_child_devices),
-> > > +                                  NULL, 0, NULL);
-> >
-> > Question to Lee Jones. Would you find acceptable if the driver will
-> > build cell list dynamically based on the nodes in the device tree?
-> > This is LED controller after all, not all leds can be populated and
-> > same LED control bank can be linked to all LVLEDs for example.
-> >
-> > If you are ok, would this implementation satisfy you?
->
-> Generally not.  Create the non-dynamical information statically
-> (obviously not 'const'), then you can add dynamic data as you go.
->
+The i2c19 node at 0x88c000 uses GIC SPI 584, but that interrupt
+belongs to the neighboring i2c18/spi18 node at 0x888000. The correct
+interrupt for i2c19 is GIC SPI 585, as used by its sibling nodes
+spi19 and uart19 which share the same register base and clock.
 
-Hm, code I have proposed below creates mfd_cell structure with 7 cells
-(max amount of children), and fills each slot with devices described
-in the device tree. This seems to fit your expectation. LM3533 is
-basically a LED controller but it is set as mfd and IMHO would be
-undesirable to create dummy devices.
+Fixes: 41b6e8db400c ("arm64: dts: qcom: Introduce Glymur base dtsi")
+Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/glymur.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> >         struct mfd_cell lm3533_cells[LM3533_CELLS_MAX];
-> >         u32 count =3D 0, reg;
-> >         int ret;
-> >
-> >         device_for_each_child_node_scoped(lm3533->dev, child) {
-> >                 if (!fwnode_device_is_available(child))
-> >                         continue;
-> >
-> >                 if (count >=3D LM3533_CELLS_MAX)
-> >                         break;
-> >
-> >                 if (fwnode_device_is_compatible(child, "ti,lm3533-als")=
-) {
-> >                         lm3533_cells[count].name =3D "lm3533-als";
-> >                         lm3533_cells[count].id =3D PLATFORM_DEVID_NONE;
-> >                         lm3533_cells[count].of_compatible =3D "ti,lm353=
-3-als";
-> >
-> >                         lm3533->have_als =3D true;
-> >                 }
-> >
-> >                 if (fwnode_device_is_compatible(child, "ti,lm3533-backl=
-ight")) {
-> >                         ret =3D fwnode_property_read_u32(child, "reg", =
-&reg);
-> >                         if (ret || reg > LM3533_HVLED_ID_MAX) {
-> >                                 dev_err(dev, "invalid backlight reg %d\=
-n", reg);
-> >                                 continue;
-> >                         }
-> >
-> >                         lm3533_cells[count].name =3D "lm3533-backlight"=
-;
-> >                         lm3533_cells[count].id =3D reg;
-> >                         lm3533_cells[count].of_compatible =3D
-> > "ti,lm3533-backlight";
-> >
-> >                         lm3533->have_backlights =3D true;
-> >                 }
-> >
-> >                 if (fwnode_device_is_compatible(child, "ti,lm3533-leds"=
-)) {
-> >                         ret =3D fwnode_property_read_u32(child, "reg", =
-&reg);
-> >                         if (ret || reg < LM3533_HVLED_ID_MAX ||
-> >                             reg > LM3533_LVLED_ID_MAX) {
-> >                                 dev_err(dev, "invalid LED reg %d\n", re=
-g);
-> >                                 continue;
-> >                         }
-> >
-> >                         lm3533_cells[count].name =3D "lm3533-leds";
-> >                         lm3533_cells[count].id =3D reg - LM3533_HVLED_I=
-D_MAX;
-> >                         lm3533_cells[count].of_compatible =3D "ti,lm353=
-3-leds";
-> >
-> >                         lm3533->have_leds =3D true;
-> >                 }
-> >
-> >                 count++;
-> >         }
-> >
-> > >         if (ret) {
-> > > -               dev_err(lm3533->dev, "failed to add LED devices\n");
-> > > -               return ret;
-> > > -       }
-> > > -
-> > > -       lm3533->have_leds =3D 1;
-> > > -
-> > > -       return 0;
-> > > -}
->
-> [...]
->
-> --
-> Lee Jones
+diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+index 0c5cb8532b20..ff2c66eded08 100644
+--- a/arch/arm64/boot/dts/qcom/glymur.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+@@ -968,7 +968,7 @@ &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
+ 			i2c19: i2c@88c000 {
+ 				compatible = "qcom,geni-i2c";
+ 				reg = <0x0 0x0088c000 0x0 0x4000>;
+-				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
++				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&gcc GCC_QUPV3_WRAP2_S3_CLK>;
+ 				clock-names = "se";
+ 				interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
+
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260517-glymur-fix-i2c19-irq-eda945df62af
+
+Best regards,
+-- 
+Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+
