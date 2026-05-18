@@ -1,137 +1,370 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010032.outbound.protection.outlook.com [52.101.69.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338A53E3142;
-	Mon, 18 May 2026 08:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779093419; cv=none; b=qtXAFycyyXeZ73i+dYP11jo2FN9TMd8b3u0hNP2tTvot/2l7nXN/vFLTI9Kw/NjA6knelnCVzwPXHV7dt1RkNO6er2GWvU7vSeYn3LAVRgSuiK2IJjuEAAlLUSvpjeNVGrdvFXu5eKmCbhjqAoYBKcWPTuAAt6misi6OWdrBK9c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779093419; c=relaxed/simple;
-	bh=8HxM9NAXQ/OYR3BVxMP+CMYTTeNzmdUCAmcIbA50uoE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PX7/CR0dcKFIXa24WA2beU9wPb/uU+BRkLY4n6LJAutzCvkP7Fqj77vISY7LCZvXUMxwSRwX/aIqwnk8RM1eUAyDlmS2sgjx5QHZZPIQDb39u9oiyEUfAkHpE4Uku030RPUGFwj7/flAhedNwtMOBMihHpuTn9x4FczwblTnLE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=M9b+ibU0; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE263E1D0B;
+	Mon, 18 May 2026 08:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779093764; cv=fail; b=fcyXU5GiI3Vjq54uJ6icFxl0wNxD5JxbyBPFrXfJij1cM6Y0A6XknIdzMoaKqevJtmNT0jltXCqrifPbaz77pqYRL1LWHJDjQwHaP0Bt+zJuBMVwtuVjxFl3z2sW3f/FEt0se4INuorS4TYquISjUqC1D8TFYovGEyDe42PiM0A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779093764; c=relaxed/simple;
+	bh=yl3ldlDU7wQ7r9Ow1QCmmtbBQaqpowIZhTI5yCKR8sY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Wbo1BD9zPfDFatY2dBbq8fy8zslO99jRko2Wp9CqTLDJEMbp8vDM5USPmUlAM/8eLhqWlBxaTazxw9YMccji7phtFTvoydKucKFxVoubmwYELgo+ZyF6iam66/Lfz4qMpd5PisfDnkDNlVq3YR5WnmJMhUhzXjUaX06F/le4ALc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=OdpEfQyv; arc=fail smtp.client-ip=52.101.69.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="M9b+ibU0"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I55AWx1210052;
-	Mon, 18 May 2026 04:36:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=h9DN2
-	l5KO1TLvw6wivzKlvO9fm9A9uUBzzAgYbkuLwg=; b=M9b+ibU0DscWLZ+ryD7Lj
-	47qmhDOLWvXFWxIsOfs0bAmRvSosKubawGY4f2HFQEm52+v8sw00b6tBX+VBvPF/
-	yFuJ3nnUSNk2s2hiqh4wgo24SNahCyKrIXH2I+M02mTGHzwgS2KlHUMuI3q00xPi
-	MctZaZozAEwrP/igqPlck9TgQeWl8gFHPzBe1oaFUPfRk5do3ve5mtD8wEI55gaR
-	Jn+fysaJ0n09LnyOK4qGtURq0fOn3rMIq+mhrd+3ZwRvoqxLVeYBtPyad7cMpxxp
-	c4eNDH7M/+9zskhjGZELziY7bgBKTQY6Lygcb0DlRWwKqcWuZPrm8hzSeVMlssk7
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4e6ng0w5d0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 18 May 2026 04:36:54 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64I8arZV018673
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 18 May 2026 04:36:53 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 18 May
- 2026 04:36:53 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 18 May 2026 04:36:53 -0400
-Received: from HYB-MkYHBcJRSnh.ad.analog.com (HYB-MkYHBcJRSnh.ad.analog.com [10.48.65.202])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64I8ag9h019175;
-	Mon, 18 May 2026 04:36:44 -0400
-From: Liviu Stan <liviu.stan@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>
-CC: Liviu Stan <liviu.stan@analog.com>, David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko
-	<andy@kernel.org>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        Rob
- Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor
- Dooley <conor+dt@kernel.org>,
-        Antoniu Miclaus <antoniu.miclaus@analog.com>,
-        Francesco Lavra <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 3/7] iio: temperature: ltc2983: Fix inconsistent channel wording in messages
-Date: Mon, 18 May 2026 11:36:38 +0300
-Message-ID: <20260518083639.84374-1-liviu.stan@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260516174811.76580432@jic23-huawei>
-References:
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="OdpEfQyv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qttYvNkrhVUrEjR38A2v429ocOph9uCjz++DfMIltezVRmbdzz/aWfkBMJxhRC4VVp3PXRI0Du7mOxdgwgj8/9o2pK7g4W9eXP5ZpaiRIWAlCtr9BytvplEPIqgZjWsZsmhpAHg10yDFskgQUlB+0qpQWpf2FmMin7OCkyuIHotgfdlfMlyaPYw7wHTD3w0YpQGt2R5xujWAsaAPTGuIioeW0w+53+oTCRw6hJHrSUR0slM386XemCGB7tR3vjgfPo9r1DJBi0HUJjQFvJ/z3jut+rUw+fPRK+ZRio9j808bG5k6xgv5xMVI9N+X3T+sS0fUwnCXcNuG7jHgNOZkHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=se49UU57phbmkJgjmZO35eDRlLDBBH2ZxwM8OzuGous=;
+ b=KFIM8661x+y8DEOlWxHQaJZG3806Pk8DM7ozFUBW4Xg5UCDwLfiOhRHXSbphlpDG7lpzd4FmNeRcGaSw/AVS4o/dy6PlZQG3gL9W5SUzhw6mkBLSlC2mzeLccEddf05YKx2E6BZqZV9P+1a+RBi9PwARcT7G8kZDHMAMkARCdPBnrKdrAexC84aheeB3JeWXxjLp2lMryUsV7v1X3Yg6KoMyPKNpTYhn67OcEGDlVXzIFriUhP5RAjUeqDvjtBodSNGK4rD4oamqGPgt0dPZ6UWTf3yTSnAReh8EfIrERZnD5jmjVxyCYrPcPyHD5AQc4rPdPTxHHbRFQEwkybDy0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=se49UU57phbmkJgjmZO35eDRlLDBBH2ZxwM8OzuGous=;
+ b=OdpEfQyvQDnel66ksEDoAJYCU0NEMhaKnA2k2CEeR1aEFpHXS3AzpNIE6jHaDEQMa3e1V8Z3Xo5lO4gYITyryLZzoFbdYlxI1+xF9bkjCPoy8m9rHJZmhktKoxseavSVhMpH3PDcKkhjtcfA24elKuTjKU2gzOTyL0Y3Vu8GORb7zccqz4TIeDBBBy4f4MLMyAO5vGD5EG3LT/CUm9/OewiOv3U6NTTNsJIodH77+n9QTux52+3608wygEVDCyM858e15CSfIKmUSr9Jc9qHohiZkQfpWja81Iq6lGxAFdHXMPZiC7jpguFcLzfA7W71PW2oajppViPltGWmXC86Kg==
+Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
+ (2603:10a6:800:315::13) by DB9PR04MB9450.eurprd04.prod.outlook.com
+ (2603:10a6:10:369::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Mon, 18 May
+ 2026 08:42:38 +0000
+Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
+ ([fe80::feda:fd0e:147f:f994]) by VI0PR04MB12114.eurprd04.prod.outlook.com
+ ([fe80::feda:fd0e:147f:f994%6]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 08:42:38 +0000
+From: Sherry Sun <sherry.sun@nxp.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+CC: "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, Frank Li
+	<frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com"
+	<festevam@gmail.com>, "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+	"kwilczynski@kernel.org" <kwilczynski@kernel.org>, "mani@kernel.org"
+	<mani@kernel.org>, "bhelgaas@google.com" <bhelgaas@google.com>, Hongxing Zhu
+	<hongxing.zhu@nxp.com>, "l.stach@pengutronix.de" <l.stach@pengutronix.de>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
+ parsing Root Port properties
+Thread-Topic: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
+ parsing Root Port properties
+Thread-Index: AQHc0jsxliV0xf54o0mI/gzBxIIshLYMsR4AgAbuO4A=
+Date: Mon, 18 May 2026 08:42:38 +0000
+Message-ID:
+ <VI0PR04MB1211452312EB9BC6EF1ED2E0192032@VI0PR04MB12114.eurprd04.prod.outlook.com>
+References: <20260422093549.407022-3-sherry.sun@nxp.com>
+ <20260513224944.GA341451@bhelgaas>
+In-Reply-To: <20260513224944.GA341451@bhelgaas>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI0PR04MB12114:EE_|DB9PR04MB9450:EE_
+x-ms-office365-filtering-correlation-id: f5098160-6264-43a8-da33-08deb4b96a9f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|11063799003|22082099003|56012099003|18002099003|38070700021|4143699003;
+x-microsoft-antispam-message-info:
+ Cidq266q6PlNlWUGDmqZYpVkGGKq76gSEgvK9ITPnKdRR/Xzg7BpgxiRrnhUc5mpf5lHzrhIFA2u0d269J+mrnYQD7PQxgMfGykaYb+sChartgukqGx7AJCfVn7D6aOxneDTHXQ9MYTdRRXn0yrTcFTxITnPNsWYfnbTO7rNc7r8kk+cs/B7MMyhPZGZ/nAoi5YWTqJtbfCv4QCtJaak7OdoEhTJ24PLQrKkaqpeONr4nMBI6cq5KpYlqVr69YOy8bwoWPuR8FOkz3JlA/JpDgSt/NdPnN4XlYRGu2saH3B/h0VkVIslL22b10sCHxEqJNnYd4PAa82E8tsdPb38hq8LcluM8GkxUBk9TFFHP0XqBvm0XapwmPAHrx2gG2OPuSVJjBko+dTJwMSq364cZikWAKf+zzwYYzGh46dzCSGRcfSqicDU8wESzGUsK19uTnWpv0B6Fl5MZbTlmGpZ9j82gVY9MbMsxjb1eGHDcpYT2E+VYI66XU9VTNmpgQuAtDkJJPlgr9sqbJnpxEZb8oAkx2LcAb+cDyJtzcVEh3swvgp8w+ckPipNiZA0NZLxadMjkW8YYawef3OvRBf8GL8XlyEEV3DJ4qEqB8bajoKfN0CAd7ERbYzVdfkm5vQa5kCsZMCVNql5PcOHO+p7D+OYwXuNTh7aSJwKp5bCt5OGZ5lYSkcCKQoD7KCUG/wmP4/4yV6j8a4oUbVSbGYPXdVzfjr/ldlN/kdWPPZ4n4DJ98wxwunIR1pN7vPUubQK
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12114.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799003)(22082099003)(56012099003)(18002099003)(38070700021)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ncPHyt0N9sF7eScjLHeoHWHoXLo6jh+m+9RmRvCnpCD/5IlyTJqjhrIY/PUK?=
+ =?us-ascii?Q?frxkQlueRTieD+L0FvUa7wFNUEDJaoSDXhRrVkeeZk0ohTpSAVvjepL0OPZM?=
+ =?us-ascii?Q?AYRHsXxnWEY/dET7xqm0GJ0k5IpNj9wgrHmU+vwwN5aFvh2GZkQpZ/Kvp9nq?=
+ =?us-ascii?Q?GBLUezN+tm1nfY9MuKakE/oaqUQXsthM+j78effZa6iF4lcrQnPYxQhy2L9f?=
+ =?us-ascii?Q?MBYjOkiLKixiMV+Z4R0pKXAediougn/eDgTnUq7+exGEScin2xciA4HTPEfU?=
+ =?us-ascii?Q?kXuGRfhXd6/fi5lOy7niomewhHeZMV8ycyTQIV7tAN8CMpff74qn3OAGN1W2?=
+ =?us-ascii?Q?c2u3LHFKuH6Za0C874QQf9sKo2uvw4wBwNI8QQ8lhNFe9llNgha40H2Mae3g?=
+ =?us-ascii?Q?jit3n7m/Y3ttwAs1oqlovI7DR3gHNDV0Aew64bKhe0DOAj1ESLzaUWSRZ44y?=
+ =?us-ascii?Q?Lji+WtBf2DVHiDekP9wkvoE2QspKjo5wt3G6CvPhtrmMQ0eCNf6YedqIKu9G?=
+ =?us-ascii?Q?pKVWNLSLFDhu/DKP2mi/vdjaz1QqM6FEcDY50fYcjWsPNpgruV0g0Fl2DuXj?=
+ =?us-ascii?Q?2fVv2QP4OAQMXQ//v4RNogJsyGVqa172nG1dL2ReDStRNQ9wB8TcvCD23Aoy?=
+ =?us-ascii?Q?uQipCQRfiqcmQ4lolnIxfo0d/AojBiBqK/fh8MhOsSLQEbLOsA3HLAu9LnOb?=
+ =?us-ascii?Q?p72tDiPcB8IsBNzXsl8H94E13CFTL5bjeNOFI7C/13IAgK3vZW6j3pgfp7I1?=
+ =?us-ascii?Q?fFKPYTFU2JDk8v6YYqAqhA0TuTi0LsvzfRlus2lN/E/l8mcHUSXTDRuAHEpL?=
+ =?us-ascii?Q?j1BMHxXMF0zoDlQA6V+ECJQKLRr/f92l87t2Adb0g5iMZ8HNsVhjFMFANmPE?=
+ =?us-ascii?Q?KMgXZ5h12aQ9ARHzuM+FOF5azRsUalRTfaiBdCnItKbEQZBg1yljHOjilscv?=
+ =?us-ascii?Q?hJQviTsNGafKYgwNylwosqNQZsvQ81MuT0uR2bWdE3gTndFnjJVm7B/ubnSa?=
+ =?us-ascii?Q?P94Z27Fv65R4l1ue8OK3hKGVowqnLOJGem7QpVkgHjgb/MMByNm40MA03QDJ?=
+ =?us-ascii?Q?/6jcGnkSa+OAGobXe6pSaIN4al/Ju28hYFeDh/Te1nUtbji4qIn/rDgatwVs?=
+ =?us-ascii?Q?4ZfPXsaahaIhEVhTsjrj3Z6jDw0KsuGI1WlYDufJDBoHjBi9YAJv4krLk0gZ?=
+ =?us-ascii?Q?U5GnKW60EI+QOC3MbVPJnMhIB6zXY22K8DGsL7RB5ebtfVK5Lz260DVK0Ifi?=
+ =?us-ascii?Q?BtsebBfelsogyCBQgHwoJHY6bu/6QtmPTtR92CWGyBW9nOW2ftEDboUGsNte?=
+ =?us-ascii?Q?WvbK/qrZ3CxTcIlcLYs/+eHheCcTmZGc8TWWFsSsnvlJ8DMT+nHE0T5BxtfM?=
+ =?us-ascii?Q?HPBG35ssweLwaeh3E0AljmHEw6OJCP0PbbYfhum7zAuUsK83DsniO7Uj8hTx?=
+ =?us-ascii?Q?JFmX4omOiDIwayB5djfMRnkycYmLg7VlIWNoiML7dRamkHZfxjh4UYyPI/wN?=
+ =?us-ascii?Q?oiYGX5ErVeQaLP65M+zjADLDi6xE01JrTU1DoW2wmu5/5bcP6dE5Po4h7pF9?=
+ =?us-ascii?Q?ySwk92K5swAgBov99MsUUzcQQX1ula+ToypvqaaWexpvQUoO+Jcsb4DS4HDW?=
+ =?us-ascii?Q?A8tNJVYArMyY8QXWK6TPDXfNF0/xNa8yH10pRSlXrDtpe3Pc8xoB2P6ibFGF?=
+ =?us-ascii?Q?wABw85hEwiqltQgaPNo4w+KpGM/6nxe0jHddY69ou1ul79AN?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA4MiBTYWx0ZWRfX32rRKf8Ns7Jp
- 4pyDvL/TIV0uvNPrqH434nFHMiZjcjkZa12T3Y5wowVbun35owtRvXC7gwzOEuhz5ruet3M0nK5
- 89Msaxf6qTYPkrmVIxH4zEny52C9nuVdISGozLxpe2OKDRKpOBFOPJKLjp/9Ji0xlgzEnEDPQNV
- NDnSkkVv5GJ2lRp4TSbaSdDteyDAt9YPU44cZxBxC+pxstqr1FcEu1B209vje8zb+ff+2TRXo+M
- A0dSoBtr+BUizf0xseN5DN3zGLBE3iHg7Hx8agj/DL29JE/vN8nWr70ZxVhr7ewJqrIs3ncl39B
- Shuqw6VrpIhC9A09njo1ucEJcL8foz4yqSLXH9P/AQ4K64rnJkclT0LHKKmLin4KXgXsE8Qeshi
- Y2Mf08RAwL59v4fojjWKNxOCi2JRap0wKOr6tZ2ayEIa8c39vpi/NFRPxs7u1eyobmwwlNlqL+g
- EdHqiMc5Z4SHwb9bBvw==
-X-Proofpoint-GUID: 3E4ZHPQPQKQhnUej8ZgqHgJ8hukvigFO
-X-Proofpoint-ORIG-GUID: 3E4ZHPQPQKQhnUej8ZgqHgJ8hukvigFO
-X-Authority-Analysis: v=2.4 cv=QpFuG1yd c=1 sm=1 tr=0 ts=6a0acfa6 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
- a=bg2DPC6P4RyFBVl4yYQA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180082
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB12114.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5098160-6264-43a8-da33-08deb4b96a9f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 08:42:38.3707
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SW+DrQZzwfvnsf3Nguka/esxfUqwaK0/aaYf8oyb0DT55Ur9jQzKRZR/HDTnZjw1Y+Y/ZwhsCbwTtAMz7f6MOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9450
 
-On Sat, 16 May 2026 17:48:11 +0100 Jonathan Cameron <jic23@kernel.org> wrote:
+> Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
+> parsing Root Port properties
+>=20
+> On Wed, Apr 22, 2026 at 05:35:39PM +0800, Sherry Sun wrote:
+> > Introduce generic helper functions to parse Root Port device tree
+> > nodes and extract common properties like reset GPIOs. This allows
+> > multiple PCI host controller drivers to share the same parsing logic.
+> >
+> > Define struct pci_host_port to hold common Root Port properties
+> > (currently only list of PERST# GPIO descriptors) and add
+> > pci_host_common_parse_ports() to parse Root Port nodes from device
+> tree.
+> >
+> > Also add the 'ports' list to struct pci_host_bridge for better
+> > maintain parsed Root Port information.
+> > ...
+>=20
+> > +static int pci_host_common_parse_port(struct device *dev,
+> > +				      struct pci_host_bridge *bridge,
+> > +				      struct device_node *node)
+> > +{
+> > +	struct pci_host_port *port;
+> > +	int ret;
+> > +
+> > +	port =3D devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+> > +	if (!port)
+> > +		return -ENOMEM;
+> > +
+> > +	INIT_LIST_HEAD(&port->perst);
+> > +
+> > +	ret =3D pci_host_common_parse_perst(dev, port, node);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/*
+> > +	 * 1. PERST# found in RP or its child nodes - list is not empty, cont=
+inue
+> > +	 * 2. PERST# not found in RP/children, but found in RC node - return =
+-
+> ENODEV
+> > +	 *    to fallback legacy binding
+> > +	 * 3. PERST# not found anywhere - list is empty, continue (optional
+> PERST#)
+> > +	 */
+> > +	if (list_empty(&port->perst)) {
+> > +		if (of_property_present(dev->of_node, "reset-gpios") ||
+> > +		    of_property_present(dev->of_node, "reset-gpio"))
+> > +			return -ENODEV;
+>=20
+> This doesn't seem right to me.  The parser of per-Root Port properties sh=
+ould
+> not be responsible for deciding whether legacy methods are valid, i.e.,
+> whether a property is in the Root Complex node.  I think it's up to the c=
+aller
+> to decide whether it needs to look elsewhere.
+>=20
+> I don't think this even needs to return a "success/failure" value because=
+ there
+> may be more properties in the future, and not all will be required.  This
+> function can't tell which properties a specific driver requires and which=
+ are
+> optional.
+>=20
+> The caller can check whether we found what it needs and fall back to a le=
+gacy
+> method as needed.
 
-> On Thu, 14 May 2026 17:46:50 +0300
-> Liviu Stan <liviu.stan@analog.com> wrote:
-> 
-> > Replace all occurrences of the abbreviated 'chann' and 'chan' with
-> > 'channel' in error and debug messages throughout the driver.
-> > 
-> > Fixes: f110f3188e5639c81c457b2b831d40dfe3891bdb ("iio: temperature: Add support for LTC2983")
-> > Fixes: a00838cae079b9b9b90969c2b7b031b1bfd9ab3a ("iio: temperature: ltc2983: convert to dev_err_probe()")
-> 
-> Wrong format and also what is it fixing?
-> 
-> I think you have misunderstood what that tag means.
-> It almost always means we should backport. Which is not something we'll
-> do for consistency in error messages.
-> 
+Hi Bjorn,
+The code here was suggested by Mani, https://lore.kernel.org/all/lnzprzrdwr=
+a7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum/.
+I think your suggestion here is reasonable, the per-Root Port parser should=
+n't
+check the RC-level binding. That's a policy decision that belongs to the ca=
+ller.
 
-Sorry for this, I will change in v3.
+Hi Mani, if you also agree, I'll rework this so that:
+1. pci_host_common_parse_port() only parses properties from the Root Port
+    (and its children) without checking the RC node.
+2. The function won't return failure for "property not found" - it will onl=
+y return
+     errors for real failures (e.g., -ENOMEM, GPIO acquisition errors).
+3. The legacy fallback logic will be moved to the caller, which can inspect=
+ the
+     parsed result and decide whether to fall back to the legacy binding.
 
-> > Signed-off-by: Liviu Stan <liviu.stan@analog.com>
-> 
-> 
-> Sashiko did call out a few more cases, but I think they are fine as they
-> are using chan: %d to tell us which channel a message is referring to.
-> However you should relax your 'all occurrences' to make it clear it's
-> not 'all'.
-> 
+>=20
+> > +	}
+> > +
+> > +	INIT_LIST_HEAD(&port->list);
+> > +	list_add_tail(&port->list, &bridge->ports);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +/**
+> > + * pci_host_common_parse_ports - Parse Root Port nodes from device
+> > +tree
+> > + * @dev: Device pointer
+> > + * @bridge: PCI host bridge
+> > + *
+> > + * This function iterates through child nodes of the host bridge and
+> > +parses
+> > + * Root Port properties (currently only reset GPIOs).
+> > + *
+> > + * Returns: 0 on success, -ENODEV if no ports found or PERST# found
+> > +in RC node
+> > + * (legacy binding should be used), Other negative error codes on fail=
+ure.
+> > + */
+> > +int pci_host_common_parse_ports(struct device *dev, struct
+> > +pci_host_bridge *bridge) {
+> > +	int ret =3D -ENODEV;
+> > +
+> > +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> > +		if (!of_node_is_type(of_port, "pci"))
+> > +			continue;
+> > +		ret =3D pci_host_common_parse_port(dev, bridge, of_port);
+> > +		if (ret)
+> > +			goto err_cleanup;
+> > +	}
+>=20
+> I think we should export pci_host_common_parse_port() itself and drop thi=
+s
+> so we deal with a single Root Port, and drivers that support multiple RPs
+> should include their own loop similar to this.  That way the driver can d=
+o
+> several things at once in each iteration of that loop, e.g., get resource=
+s, power
+> up, configure, etc.
+>=20
+> I see that would require some rework of the devm_add_action_or_reset()
+> cleanup.
 
-I can modify them too to "channel" so that they're all consistent.
+Thanks for the suggestion, make sense.
+I'll export pci_host_common_parse_port() to deal with a single Root Port
+and drop pci_host_common_parse_ports().
 
-Thanks,
-Liviu
+>=20
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return devm_add_action_or_reset(dev,
+> pci_host_common_delete_ports,
+> > +					&bridge->ports);
+> > +
+> > +err_cleanup:
+> > +	pci_host_common_delete_ports(&bridge->ports);
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_GPL(pci_host_common_parse_ports);
+> > ...
+>=20
+> > + * struct pci_host_perst - PERST# GPIO descriptor
+> > + * @list: List node for linking multiple PERST# GPIOs
+> > + * @desc: GPIO descriptor for PERST# signal
+> > + *
+> > + * This structure holds a single PERST# GPIO descriptor.
+> > + */
+> > +struct pci_host_perst {
+> > +	struct list_head	list;
+> > +	struct gpio_desc	*desc;
+> > +};
+>=20
+> How do we associate an element of this list with something?
+>=20
+> Based on the imx6 changes, I guess we don't; we don't even associate the
+> pci_host_port with an RP.  We just assert/deassert PERST# for every RP at
+> once, and we do it for every GPIO associated with each RP.
+>=20
+> There's no way to assert PERST# for a single RP.  I guess we don't need t=
+hat?
+
+You are right. In the current design, we assert/deassert PERST# for all GPI=
+Os across
+all Root Ports simultaneously - there is no per-RP independent PERST# contr=
+ol.
+And I think we don't need it for now, for most platforms, multiple RPs typi=
+cally share
+a single PERST# signal or require synchronized reset sequencing during init=
+ialization.
+I am not aware of a practical use case where independent per-RP PERST# cont=
+rol is
+required at the host controller driver level during probe/remove.
+
+The per-port structure is a natural result of parsing per-RP DT nodes (each=
+ Root Port
+child node maps to one pci_host_port, with PERST# GPIOs collected from the =
+RP and
+its downstream nodes). Even if such a requirement does arise in the future,=
+ since
+the controller driver now owns the multi-RP loop, the driver that needs per=
+-RP PERST#
+control could associate each parsed port with its own per-RP context and op=
+erate on
+specific ports independently.
+
+For the i.MX case (single Root Port), there's no need for per-RP PERST# con=
+trol -- we
+just assert/deassert all PERST# GPIOs at once.
+
+>=20
+> > +/**
+> > + * struct pci_host_port - Generic Root Port properties
+> > + * @list: List node for linking multiple ports
+> > + * @perst: List of PERST# GPIO descriptors for this port and its
+> > +children
+> > + *
+> > + * This structure contains common properties that can be parsed from
+> > + * Root Port device tree nodes.
+> > + */
+> > +struct pci_host_port {
+>=20
+> "host_port" is not really a standard term.  And despite the comments abov=
+e
+> and below, I don't think the list is restricted to Root Ports because we =
+traverse
+> the whole hierarchy below the RP.
+
+Ok. How about struct pci_root_port_info to better reflect its purpose, I ca=
+n also
+highlight in the struct comment that it holds common properties parsed from=
+ a
+Root Port device tree node and all PCIe bridge nodes under this Root Port (=
+currently
+only PERST# GPIOs). Or any other suggestions?
+
+Best Regards
+Sherry
+
+>=20
+> > +	struct list_head	list;
+> > +	struct list_head	perst;
+> > +};
+>=20
+> > +	struct list_head ports;		/* Root Port list (pci_host_port) */
