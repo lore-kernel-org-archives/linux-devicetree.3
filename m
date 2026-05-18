@@ -1,102 +1,129 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8383FBB5E
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779106180; cv=none; b=o9L1z2/13gTH6o95QPoShFkJ7CgwuBx7eeRLNrtIaunZdGY5V+KbshM+7sJ6iGCQXBMUZJy8WZVLMKsKUbGighUQp1mcfowKmt4t/i63gw9ujt43EepXPcLgKkKkdhgyATtZNc5Ry/wDs9ZsX7TPnOovSzT8KGUco0xUyRroI2I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779106180; c=relaxed/simple;
-	bh=7AT2/oSiJdqVT/zn70Y/W9nkm60nW+UXqpoRWb5gyUI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IuriKPOoOaOtV8f4RM665/aPpldC3kpObG4MCX/vZ79L+BBlUQ2br96Pb7ledvuGbdVwNQw0nCXDX+UqcI2lJc9QgLwF4pSPzq2Sp9+SxHgvOlFl5UkWO+OwXIO6jBiFeArwHtq7HdSj8v/UyIVCqZYUbARM+nJql1AktGGz4Z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s5hMHycN; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5097B3F58ED
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779106198; cv=pass; b=niO6tB7bsv1wJMxBaAk811Q8+oV8KMosuy8LVEO2FzhVhcSjwYicVO+b8yE3VTT89sLWVCLiDlraqQn5YMXWZVeE7Dn2Fd2ENqKi1aoCw5vZmRvpmNkqFspQV3dxkZ8KbN9/vx4F84jjXXP5FtSURIVfRMFcnkCBUC3p4XHhbuA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779106198; c=relaxed/simple;
+	bh=cd9XDVS5bJ+dblAmZlrlop+kZgyj3GivNWTk0OpSHRQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AWWziNJs7QMqQWZTv89A+/5fUFNtUukodEeYHjzccjREI3dp7zZVlYJsCYvnBfhgWmBjBharjGMqiAToKOWkc2XdcwXWNe9HdqLmJ5vo0k7ev3IKZoO72Wqi8X6DzeC53E/xff9cBwc94SzCWm4wfrwZWQ7CcmMe+K1TVF10SIM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VEcpMgSr; arc=pass smtp.client-ip=209.85.221.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s5hMHycN"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488e1a8ac40so22434925e9.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 05:09:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VEcpMgSr"
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5751770a178so581582e0c.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 05:09:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779106196; cv=none;
+        d=google.com; s=arc-20240605;
+        b=NaflPPcsg8N62RRwf7eA/uUW/Xoyj2flmlz4P1/7waIFrEWR+UBAi9NJvJph9m0TGz
+         adYHW8Z8CAnDC4zTDTbZ57ZNqJXZ4R+Raxxpldyryq7Qsqg41nB2eYPL8YVfpqkOPkeq
+         avPd27cgot60okkf9Ayn/lMW73gKafhzfW2n01yyLH3FBJMIvet/EYSTrtHj2+uiIO11
+         1lywf5heeynV9g6pzto5SO0iGu7fq40R+2DhmXwCr+hARXbRtfBkN+AZ9SjiuBcWPMvz
+         yEA9itqdndKX3xZcZjVY170CxSQS85coXr/YZd6TVlFAnfr+xhboSEsepnreTcYoM/9z
+         LPEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cd9XDVS5bJ+dblAmZlrlop+kZgyj3GivNWTk0OpSHRQ=;
+        fh=3jJ4yeL3nMmlyTzXFfGkTxA7/toM24O1fhEAbZaCykg=;
+        b=bfhEWhm/aNYjVItral5DwL4eRbIfwlEC3xtZX/o/Mm5eulT4NAw6SqCISRFC+OOVyG
+         e/JK0b1Pk/Wb5/zqCi7RCTVrheMckgLOX3vaJKv9LkmD97xFgd3SJpiJtWgTgiVGqfBl
+         4t80XpjmDWDYvhOaUlNMU4iQDzQ3fyC92Ne+0CICo7b0wacfAR90VgXQrQG4Cg8P2ehw
+         ysCGeNDoknCdR5pdwa2J12IGhzv+bL4qOIJoZ51SduVe9Kbi0Ux7X9uxg5g2QgCB/4bX
+         0L+F85aiA06Os5jQlshPOHq77RHtHwoxhKeNlUCjK30rdTg+LI/xS8thwltDHOaxZL7h
+         JTOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779106175; x=1779710975; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=7AT2/oSiJdqVT/zn70Y/W9nkm60nW+UXqpoRWb5gyUI=;
-        b=s5hMHycNyNVY/dwgEjAiHWaRKPTrXiLMgI3Q/hbciRnLk0P69LRLfzes7VxcgejvgS
-         bZoVZewF7fi4QzEn4b6XPCkYZyx2QdTti6nMfzgk3PeDFuqgD+Ois8icg4LNUlraJmSh
-         mn9L5YUm/uF9Rwtg5Iuw9xInLBFudwnpJxjh10AbhgQI1GoG5p3M8vbZSmPAQ2hyGGFO
-         vJBwLPc3JP0qQwsyVE5Wa+74k1ou9WogVFcz2s58tZVTuDPKOxK9rBIfa5+arahJ1IHk
-         TbuXHoFN/DF7h6B9OqQuGwjtBj3PbF77cGblr4RAD9Yur1X7IrHznFXS2Cpz+GpLDDuA
-         HN6g==
+        d=gmail.com; s=20251104; t=1779106196; x=1779710996; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cd9XDVS5bJ+dblAmZlrlop+kZgyj3GivNWTk0OpSHRQ=;
+        b=VEcpMgSrTCWwLdGo0GDRrmhpXA9gDUw19PYPHIJ/h6olhVXjCM9NfJIMfLmqMrXm6V
+         nheU+I20OqX1XY7y+v4ZU5uP6sqFkWtgKE1N1sf4QrxOFYP7/tvZoXNYYBYtR0IhXH67
+         PnnIjsO3DgjsB6pJZI/eirDcTSr7IkgENzY7LGs+aeNku70w4WAJ3TbmZ26HbUd7dCkC
+         QuWKkgEmBA5uQ3XwAvHKcjHECfWEVM0/GDmhab2Zzj9EBVjnBdk2mw4RoKzJWXpBCvnn
+         pEf61eqSCi2Nj88PBo2EcQ58I25w+xs5AMz5T+PhDkqa0jzsejkPjZh34Wwwhz3PHxVQ
+         D4Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779106175; x=1779710975;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7AT2/oSiJdqVT/zn70Y/W9nkm60nW+UXqpoRWb5gyUI=;
-        b=i5Y4sjC8lBQHHZy7Wegol/xfUtc1MuzgnPFwdo+N1223y4ZbvFlGO+DxbgvBQgipvv
-         /t7+Q3R9caaH0xdLWNDhr1HWxYu9sY6SIM7PXmdHWcA36kJ/CIRCBY8sx0lIwwj8ngL3
-         /jECCFtE6qbMw7j3pn+Ho1/SkxdrmOdfXq91zYSbTN4E+lqs2gaiLKiFs2tRWBicznZN
-         oR74ga9kzMTwuBVUnfMST6kCvibn0fbryb3Vivu2kAYGM2bkd0iMJ4Isx2MkQvEeh8Cq
-         EgpZefLOGFZ3gdX/rGirjMthF4lg211ldUskfukILaSF9+5RZIGOQRuiEKEQ0Q4oS2uI
-         bMJg==
-X-Forwarded-Encrypted: i=1; AFNElJ+CK8zUePT70Ll99DdjGk1V+PqHZ3/HIrk9N9xkMM9SHwp+tlzFHW6xmjWgtMNATb+Z5YwE2wP+nvC1@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJEhNx4xYGKRjliPUGI/mrphIO6kn6PqlNWvCJTumHR8p25HpW
-	L42jJzFi3Sxh+iGz83oiqNxglGU9/LIgUPLRN2800O2CQZjBBVdr99Gm
-X-Gm-Gg: Acq92OF52CnZ6WK4H1vj1XsohOm1xNraT6tXeU83mBG3tFgnQQFfWCif9VR/j9DQDAl
-	nyQ1e3WyDWTKfN6T28gO2kLf7MOXIEt5bmIduZqr2Y9JdL6LbIWy/TS1q43PKs8JJ5f7SAY/YTQ
-	rs9XycA2GhpE2YVo4S+1R12RoBrDmOCb1he0nL7WW9zrcENSt1KJBW1hwSfyJmc6FUuPL50HDGZ
-	/PspFV2LcOjXQaGovr6QbBwj1pJeTY5MDfdVmx/GD94YPwrNSv8omv4X12gLG/TfDkYx5ojPaXZ
-	VunakAmHQjnYx2q58Fpe1A2v5EyNsSofX+jzLlUWY8ruqjxZE6dfnQ3OQyBr7kABpn019vvS3Nz
-	79BGloJpHsFSs/Luktu88f1vWTAWSlN+Db6vUC5mG66wxip//JpMSMGouDwUGGVPX3nf9sJczbD
-	LG6NBg6msw/OuzQvQO/NxqmFTctq663deT8IzYiz6azOwQtCnuHc8Y2HyX15KMAH+GsBgpgb53u
-	TZ3jgaXBGheZA==
-X-Received: by 2002:a05:600c:a293:b0:48f:e6de:1cc6 with SMTP id 5b1f17b1804b1-48fe6de1e03mr141000945e9.32.1779106175444;
-        Mon, 18 May 2026 05:09:35 -0700 (PDT)
-Received: from giga-mm-11.home (72.92.4.85.dynamic.cust.swisscom.net. [85.4.92.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49017d7108fsm2250215e9.23.2026.05.18.05.09.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 05:09:34 -0700 (PDT)
-Message-ID: <579c7c33123c4cd0bd486301e56daf5962ca55ec.camel@gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
- Baijie Helper A133 board
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 18 May 2026 14:09:33 +0200
-In-Reply-To: <agr9m_tidBr6Cu2h@collins>
-References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
-	 <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
-	 <agr9m_tidBr6Cu2h@collins>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+        d=1e100.net; s=20251104; t=1779106196; x=1779710996;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=cd9XDVS5bJ+dblAmZlrlop+kZgyj3GivNWTk0OpSHRQ=;
+        b=OGB3MiQXBfSY1Fry97e9RiIg4YzbRD+5EmYdj9n54PSXUgWIIdaY1Dgdi5DSk/xpU/
+         iZZ5ZpGwyzw1H+oR+gNo1msnj2FuPzWlQ36DB9yRhi2IlK6gzU4om/87ypA+4s4sgN7U
+         AbPV6q5KTRbMR1nWTFh/9MOvZAiKKlFF5AGL0aUgw0SHEBNJWPu+Wf4gJZul4GLvCuit
+         xPcY4fY7vni7+esUiBSyCTssLWhl/lbW5HYV5oPkh+oWlKYWCcAf+KBnCI9OqCMGaafZ
+         q3Pz5v7QFtC8yfBEjknwDvMHxDBErgAQg5UlvhzRT90k/BcZOdUW+jX0ggZdtvoY3LUG
+         xVJw==
+X-Forwarded-Encrypted: i=1; AFNElJ857xbM7GMrlVJWhJsLhEBDiPwVN33zxuphkaGljFsNcGkuCpbTgIi1cE6EvyIjYWhtxXtt6waUv2s2@vger.kernel.org
+X-Gm-Message-State: AOJu0YytTIxg0uwxg0mBPJCVVhg2uiRB6VSLK2BxF5oUCC+G3RDTizVo
+	X6XT8ZGTVlby6Sx6BqQ+4fyEKz2Wb26O87ItbAdnwWyhHaYATVJ8Snf+KzSsNW8ZlzaL9Au/VC2
+	KO8iHuLKHIpEcO8HR17RzrDsQ2b+ntP9qiCaypaMLEQ==
+X-Gm-Gg: Acq92OFH5S00vGI9y1aldcjtg/4nGWuVlqWo+79uhVWQwxD0miFFca3NtDQrMu4WknI
+	x7/Sdu1u8ZBbQJWxs0Py3Mdd56WbONeK0u8Bpj/rHv3ym/OfkwT7iBCqB1xUi5jKCDgAXgStZ1T
+	3yKcag3EFUtNEUbIbbGSTJkOOiVENl6Fs/kz6YsbdI5NMr8KsxaXc1fJ3qxVy2akoB3nTI6nBOA
+	TaBfrItkdnbipN9/gd4JNKHnXWswHp/2R1IPro8jE3lteWI02LoKyaVDvk5qHEMypDHj+zbymgk
+	W9KigXKfYq05D4ocHdfb4d0Q85pmQmtKpWnVm/c=
+X-Received: by 2002:a05:6122:2407:b0:575:29ef:7df8 with SMTP id
+ 71dfb90a1353d-5760be39b70mr7202066e0c.2.1779106196212; Mon, 18 May 2026
+ 05:09:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20250110092326.167575-1-mitltlatltl@gmail.com> <e94318be-1584-4e4d-8f92-99df8a284dfe@oldschoolsolutions.biz>
+In-Reply-To: <e94318be-1584-4e4d-8f92-99df8a284dfe@oldschoolsolutions.biz>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Mon, 18 May 2026 20:08:55 +0800
+X-Gm-Features: AVHnY4Ksrs9aTussseNr09raAikIjCq76pmPVkVYEhG45aPbYof4tvxp5Ck7-Mw
+Message-ID: <CAH2e8h6skog5P6hPc_DkVpJzR1Wj3s7j8jx3vMcRyCn0+sYqCA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: correct usb phy power supply
+To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Paul,
+On Sun, May 17, 2026 at 3:19=E2=80=AFAM Jens Glathe
+<jens.glathe@oldschoolsolutions.biz> wrote:
+>
+> On 10.01.25 10:23, Pengyu Luo wrote:
+> > On this platform, according to dsdt tables, usb{0,1} phy consume the
+> > following regulators. usb2 phy should be corrected also, usb2 in dsdt
+> > is a little complicated, so correct usb{0,1} only for now.
+>
+> Can confirm that this works on blackrock and x13s. And I went a
+> different route when I tried to verify vregs for blackrock and noticed
+> that the vdd voltages didn't match the layer of logic schematic in the
+> dwc3 block (some TI documentation), so I switched them already for
+> blackrock.
+>
 
-On Mon, 2026-05-18 at 13:52 +0200, Paul Kocialkowski wrote:
-> Just in case you missed it, there was a previous submission for this
-> board which wasn't followed up on.
->=20
-> I also have one of this board and wanted to respin support, but it looks
-> like you beat me to it :)
+I think they might take the power sequence into account when they were
+introducing the devices, vdda-phy(~0.9v) first and vdda-pll(1.2v)
+later in the upstream while vdd(0.912v) first and core(1.2v) later in
+the downstream. BTW, the DSDT is unreliable. On my platform, it
+describes that several components are consuming several LDOs, but
+these components work well with these LDOs manually disabled via rpmh.
 
-thanks for the hint!
-Do you mean this series:
-https://lore.kernel.org/all/20241227-a133-display-support-v1-0-13b52f71fb14=
-@linumiz.com/
-?
+Best wishes,
+Pengyu
 
-I've missed it indeed! I'll look into it!
-
---=20
-Alexander Sverdlin.
+> Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+>
+> with best regards
+>
+> Jens
+>
