@@ -1,130 +1,191 @@
-Received: from mail.eswincomputing.com (mail.eswincomputing.com [123.124.195.78])
+Received: from mail-m1973181.qiye.163.com (mail-m1973181.qiye.163.com [220.197.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FAC30F531;
-	Mon, 18 May 2026 02:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=123.124.195.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306E31A683F;
+	Mon, 18 May 2026 02:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779070995; cv=none; b=aYDWX+IM7Qs4alCjoCYMPdb3Lntf5cjGaTIlmuwuzDdL05ob3zliUUuL6hPNLe3u1GrMmR5hrVB1gZqYkGijYPdCgBe3zennwoZ5+whiG5AA8Ycc5qpH4ufaBN13jKkKbNNSUcL/DluB2RG9h9nRoo+aa2Z4D5/kbj2RfX/EqIk=
+	t=1779072304; cv=none; b=J05xJrZjsHlOksA3mzGmpHrzTooYnBzDPvaLlR9FpOkwV4wHOMle4O0PCMrp3hBm1PzO03+IOLgW5WgMkcXUm23ouo+Ce/WhqOZwgScCdj+xeybNTelGNbaynGqZG7WKdkUCh64SdfWkk9tS5c+u1qNerqTlx9gnPjk1xzITjCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779070995; c=relaxed/simple;
-	bh=xIezIPYrU1XZhZhIwZ9tG3zXZhJD4nSiE3wteCyZxc0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M7puoulsOvGW4wIeyOl3z/nZrwqQ2e7etLY4UpJu6mv50eYgTJUhIAZmr9rQMjPMIxbbUkf9FUWy3CUeZnO83VtknYLOeEuDK22ZFBRgGj2um07RMdfFfrZDpkU6GlHcx/E/pwYcD/BbFyU6/+jZdStwseiAakYBZiDbllqe2o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=123.124.195.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
-	by app1 (Coremail) with SMTP id TAJkCgB3DHHFdwpqSU4aAA--.34605S2;
-	Mon, 18 May 2026 10:21:58 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	maxime.chevallier@bootlin.com,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com,
-	Zhi Li <lizhi2@eswincomputing.com>
-Subject: [PATCH net v2 4/5] net: stmmac: eswin: correct RGMII delay granularity to 20 ps
-Date: Mon, 18 May 2026 10:21:52 +0800
-Message-ID: <20260518022156.484-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260518021919.404-1-lizhi2@eswincomputing.com>
-References: <20260518021919.404-1-lizhi2@eswincomputing.com>
+	s=arc-20240116; t=1779072304; c=relaxed/simple;
+	bh=vcZ+4+FTq7/07QzwMX3qZnmIkZmq12mHXi3yO4rChZ0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K5zAIX7LkZESRpW1iW+95szoPSgACKNdAvcr5qy08TBRZY9Ac9ytD6BxKINrk2H85BE8UghyNTuzLrooSNkEBKHItBQkaX1q8i20nR8liA8NfYhk+qo5sOp716J2g4M4sW653uTOLmwZaNHqvvlBqEFV1S3nKpSFewAY4wyXZss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=FwLaaBmh; arc=none smtp.client-ip=220.197.31.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="FwLaaBmh"
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3ec15c82d;
+	Mon, 18 May 2026 10:44:29 +0800 (GMT+08:00)
+Message-ID: <a7ab01f6-78a4-405f-8160-8af31a8ef99c@rock-chips.com>
+Date: Mon, 18 May 2026 10:44:29 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgB3DHHFdwpqSU4aAA--.34605S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UWry3tFy5XrWDtF1UWrg_yoW8KFy8pr
-	W5CFy5Kw4UJr1xGwn7A3Wvqa45tayUJF47uryrtFs3Zay3tF90qay0ka4DG3WjqrWxZa1f
-	Z3yUAF47uanFk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBG14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4U
-	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRByxiUUUUU=
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
+ Expose inherited properties
+To: Conor Dooley <conor.dooley@microchip.com>
+Cc: Conor Dooley <conor@kernel.org>, hjc@rock-chips.com, heiko@sntech.de,
+ andy.yan@rock-chips.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
+ <20260514070133.2275069-2-damon.ding@rock-chips.com>
+ <20260514-upstate-sneer-0b6e78682798@spud>
+ <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
+ <20260515-confess-hungrily-4f64ce0d8de2@wendy>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260515-confess-hungrily-4f64ce0d8de2@wendy>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e38f87b4603a3kunm9c63833a220204
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQk1DSlZISUJPHkwfS0
+	pMH0JWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=FwLaaBmhRyX/1x2IvWIC8qOmg34/xaCXClSHSdAJaEUcRSf5nX3SBXOZhMb994CUmRYQeSsjZ6y0NOI6bU0UW1xVnMC9WLJxklcjrM2drB63dzkXrU7kaLlmYkFEXYIvDYF0lijlkN3eymJS+Yf77EsmSG7sshWzf/Qm15GFjng=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=mmp02j+JTh/LSA7GCH0kahZIKzpGQLcvXOXcVOAsbFw=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Zhi Li <lizhi2@eswincomputing.com>
+Hi Conor,
 
-The EIC7700 MAC implements programmable RGMII delay adjustment with a
-granularity of 20 ps per hardware step.
+On 5/15/2026 5:04 PM, Conor Dooley wrote:
+> On Fri, May 15, 2026 at 11:57:58AM +0800, Damon Ding wrote:
+>> Hi Conor,
+>>
+>> On 5/15/2026 2:16 AM, Conor Dooley wrote:
+>>> On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
+>>>> Expose the inherited properties from the base analogix-dp schema
+>>>> to satisfy unevaluatedProperties constraints.
+>>>>
+>>>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>>
+>>> Given it's unevaluatedProperties, not addtionalProperties, this patch
+>>> shouldn't be needed?
+>>>
+>>
+>> When I remove both the top-level data-lanes property and those explicit
+>> "xxx: true" property entries and run the dtbs check with:
+>>
+>> make CHECK_DTBS=y CROSS_COMPILE=aarch64-linux-gnu- LT0=none LLVM=1
+>> LLVM_IAS=1 ARCH=arm64 rockchip/rk3588-evb1-v10.dtb
+>> rockchip/rk3588s-evb1-v10.dtb rockchip/rk3399-sapphire-excavator.dtb
+>> rockchip/rk3576-evb1-v10.dtb -j4
+>>
+>> It results in validation errors like these:
+>>
+>> /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
+>> edp@27dc0000: ports:port@1:endpoint: Unevaluated properties are not allowed
+>> ('data-lanes' was unexpected)
+>>          from schema $id:
+>> http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
+>> /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
+>> edp@27dc0000: Unevaluated properties are not allowed ('force-hpd',
+>> 'interrupts', 'phy-names', 'phys', 'ports', 'reg' were unexpected)
+>>          from schema $id:
+>> http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
+>>
+>> I suspect that the properties defined in the child binding are
+>> overriding/masking all the inherited properties from the parent Analogix DP
+>> schema.
+>>
+>> Is there a better way to fix this issue without explicitly listing all
+>> inherited properties as true?
+> 
+> The example in this file uses most of the properties that you mention
+> above:
+>      dp@ff970000 {
+>        compatible = "rockchip,rk3288-dp";
+>        reg = <0xff970000 0x4000>;
+>        interrupts = <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
+>        clocks = <&cru SCLK_EDP>, <&cru PCLK_EDP_CTRL>;
+>        clock-names = "dp", "pclk";
+>        phys = <&dp_phy>;
+>        phy-names = "dp";
+>        resets = <&cru 111>;
+>        reset-names = "dp";
+>        rockchip,grf = <&grf>;
+>        pinctrl-0 = <&edp_hpd>;
+>        pinctrl-names = "default";
+> 
+> dt_binding_check reports no problems with this node, so I think the
+> problem might lie elsewhere?
+> There's no edp node in the dts you mention above, so this looks like an
+> interaction with something that's not yet upstream.
 
-The driver previously converted rx-internal-delay-ps and
-tx-internal-delay-ps values using a 100 ps step size, resulting in
-incorrect delay programming.
+Ah, I see.
 
-Update the conversion to use the correct 20 ps granularity so the
-programmed delay matches the values described in the device tree.
+I did add extra changes to the edp node on my local rk3576-evb1 board 
+DTS, which indeed caused this 'asymmetric information' issue and made 
+the validation fail incorrectly.
 
-Fixes: ea77dbbdbc4e ("net: stmmac: add Eswin EIC7700 glue driver")
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+I will try adding the data-lanes property to the example in the binding 
+document to ensure dt_binding_check passes cleanly.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-index 541b279f08a1..ef60cab24533 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-@@ -28,8 +28,8 @@
- 
- /*
-  * TX/RX Clock Delay Bit Masks:
-- * - TX Delay: bits [14:8] — TX_CLK delay (unit: 0.1ns per bit)
-- * - RX Delay: bits [30:24] — RX_CLK delay (unit: 0.1ns per bit)
-+ * - TX Delay: bits [14:8] — TX_CLK delay (unit: 0.02ns per bit)
-+ * - RX Delay: bits [30:24] — RX_CLK delay (unit: 0.02ns per bit)
-  */
- #define EIC7700_ETH_TX_ADJ_DELAY	GENMASK(14, 8)
- #define EIC7700_ETH_RX_ADJ_DELAY	GENMASK(30, 24)
-@@ -148,7 +148,7 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 	/* Read rx-internal-delay-ps and update rx_clk delay */
- 	if (!of_property_read_u32(pdev->dev.of_node,
- 				  "rx-internal-delay-ps", &delay_ps)) {
--		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
-+		u32 val = min(delay_ps / 20, EIC7700_MAX_DELAY_UNIT);
- 
- 		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
- 		dwc_priv->eth_clk_dly_param |=
-@@ -161,7 +161,7 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 	/* Read tx-internal-delay-ps and update tx_clk delay */
- 	if (!of_property_read_u32(pdev->dev.of_node,
- 				  "tx-internal-delay-ps", &delay_ps)) {
--		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
-+		u32 val = min(delay_ps / 20, EIC7700_MAX_DELAY_UNIT);
- 
- 		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
- 		dwc_priv->eth_clk_dly_param |=
--- 
-2.25.1
+> 
+> If this is required for the rk3576 edp, then you should include this
+> patch in the rk3576 edp support series rather than this one anyway where
+> it can actually be evaluated alongside the node it apparently causes
+> problems with.
+
+The data-lanes property is actually applicable and useful for all 
+Rockchip eDP platforms, not just rk3576.
+
+In the next version, I will modify the series to better separate this 
+common data-lanes change from the rk3576 specific eDP support patches.
+
+> 
+> pw-bot: changes-requested
+> 
+>>
+>> Best regards,
+>> Damon
+>>
+>>>> ---
+>>>>    .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 +++++++
+>>>>    1 file changed, 7 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>>>> index bb75d898a5c5..896ded87880f 100644
+>>>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>>>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>>>> @@ -50,6 +50,13 @@ properties:
+>>>>      aux-bus:
+>>>>        $ref: /schemas/display/dp-aux-bus.yaml#
+>>>> +  reg: true
+>>>> +  interrupts: true
+>>>> +  phys: true
+>>>> +  phy-names: true
+>>>> +  force-hpd: true
+>>>> +  ports: true
+>>>> +
+>>>>    required:
+>>>>      - compatible
+>>>>      - clocks
+>>>> -- 
+>>>> 2.34.1
+>>>>
+>>>>
+>>
+
+Best regards,
+Damon
 
