@@ -1,185 +1,102 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1C3319871
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4E131E850;
+	Mon, 18 May 2026 10:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779098615; cv=none; b=ciar5eXizGE/ANKE+mgobpc/3u6cphuVqWa4Xtgv0zHZqMLxdOB3JtqMlD9572vCm9Hf1hP8BY8UfyfukTZyV/FCSfYns888r4XSIV+qWhTF29jQb0hKSkkwztFN7OqdMXb6+5jshlK9GNJlu+h9OFDSueb+Kk8dFI0ezh4vMfE=
+	t=1779098761; cv=none; b=GixcjPCDW3NhrOAnGmdMaY+Gf77gbbe8i+Cpcc/J5Zs6nzIZN1p50Ko8zmaMYR26O7vlrGFOLs2Tice5enK2Mh4bb4RPTqfrOOCfPMgrfQW+wSbjeueGAj3CaLhCLbassVDUDGMVsU1jOw1ogEgKp5JtwtixNJNqpHFRQ2VKTug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779098615; c=relaxed/simple;
-	bh=OlVnZ6hgBjl6Z4wjcdiU1o7je41o2bODQ8xTkDcLa3M=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lL3rjf3+nWEnys0/mWg3oZnm1GSxG79Ras39Mch365mUZqD3aJ5ixxrsuJN3u4BZLSvYbod2ecSXbKVTxxLkUugTJBvT76TjpsAS/UWe2aKimx+yb4NYKij5lxDzlJ5hT1ZrfE68BLzpFG0jf0RIVghjbaYN2wxO4hCXCd2+uGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l66c26y2; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l66c26y2"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-67f94c078e8so3799973a12.1
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:03:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779098612; x=1779703412; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=J9ylC37SeHhzEHv6vV+fwrRGDdNjQ9Rkf4Ee3GfdjHs=;
-        b=l66c26y2HCl2ofOgm8mN9gFQxNXJmjgUbaj22MJZalI0IQUYLh6KWDyebsE3k3jMG1
-         3TDqvmqoFvE0YpYF+YFCq6cVfOWsS5cSJuvvHkQ9/xlT0IkabPsPohCW9jjhtv2dnwsH
-         XR08ai3ORBF+584Xz55zcG0fFZVBORnNYeoMsQNOvQa34PT28d7ThEfQNEq8b8oTIh3W
-         I4qn5rcyBLmOaYDyi0Hw6bj/8i6ge/vJP2MGZaYOMtkLFNCrCiF3yiQmbXlzQb2hgwFY
-         pSqyyyUQ82tXkSN79KURiGMJfMKKeYblF/hanGGBiFoSWlZdcRTWUS69wLRKM7Oxy/eb
-         m7Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779098612; x=1779703412;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=J9ylC37SeHhzEHv6vV+fwrRGDdNjQ9Rkf4Ee3GfdjHs=;
-        b=cpEBtO2yItV6VHYsSezdmEv76IKWmDC/rTTiU3F/F9ykaaz2j+qOMkxjixO+JHJ2RX
-         lbz5PmRPJpg5bCtWyVYm789hf5f+yPrW/7H5VLi9F5HDQcrNpqeqbyyb+UBxaUezMXZR
-         1uO7YD4O9lW9FqEDP3u3+FZ87kofnZ2Jg4RFTWfFhCzwlmyGO1mft2l65Ha3zf9mSvoO
-         I5u2LJqFqn06H7Adt3w2xMW/3hZhQ7j35kMeDaCLGR1oOZHMWNwHVcHVkX8GEkCtz7Rb
-         ELRVH0HcrnTqLjFVjbadb8q0mk2p6pDcqKnlzqhBZH9nZBJ5IPrIP/STw8/4wV8vZwHJ
-         zBzg==
-X-Forwarded-Encrypted: i=1; AFNElJ91V3oJtGu40hXBj7+8YSkujeHvaeAjXJvnfi5/Hf3B+hxsSb23zDc+BahrBmnmQizZieOjjrEu06x1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5jcpy0orY2X3LaMxF0yrMTln9zZZQ7j2061aGTi5+se/tR2nE
-	HH48rDpe8JmC5VBVaBI2REHpaFO3VGEx+zwrvP2DBhSetfUFhNNPqN8h
-X-Gm-Gg: Acq92OHRGx5R9uTKudv4FooEbZeSEcivYLtj75kCSSisA3ljpXhTopJfchN38Mr4zbu
-	x1xnFmeZrpiISJvzJH7ViepsM5xalaOzd4WFV5SCfiXhDjfc060NgQcc2u+4QNkC9HlZUSAxfOr
-	OudL+dWnywirptXS3ZnwhvGhh0fWoTnhLnmHdq0HlcI11ROn7tA0qmCUxnrpqY9kOcaFxw+ZT12
-	5GDwQSmT4xZ7eHwYxW5WDFcccu4NKlzLwTSzTFjH4hwdGEgy7ht8row3U55aXZzWpH4E7hwtf/f
-	6yFwAG2s50evN7QSSMPbjwD/0iXqbvk2yTOtQTn/C2WJELZktdxc+Ucz7XBoxa+ibj1rDgtGaCE
-	eP9XM3gQFHUriQsaUjb86NxCr+wLowQifqMnwgapWMn1DtqlNdmQjXiTKxcu1GibHXaVbHGnfUo
-	1Wx3rZBmqGHh0sG8Dzu61dNIYmfm/iyjdnkhYB8sYRkZlGwHdcw3R+ZwLvXOWKc/dNlNfs21aF9
-	1+ggTS5YvTifSQ1yWIdraWtH6SYPi9YT/3uR9V6ZWxD0VnhCR853grQsbiSKHzAOrIUedc=
-X-Received: by 2002:a17:907:1608:b0:bd4:9a55:18e2 with SMTP id a640c23a62f3a-bd51797a54dmr747720366b.45.1779098612039;
-        Mon, 18 May 2026 03:03:32 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4bd2f67sm541480966b.7.2026.05.18.03.03.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 03:03:31 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Mon, 18 May 2026 11:03:25 +0100
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
-	Rodrigo Alencar <rodrigo.alencar@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v5 05/13] dt-bindings: iio: frequency: add ad9910
-Message-ID: <54aifnhtrlus35grvw2cgotvxwnp5p7peim3tke5wa5tjobmww@iiaajlvladrt>
-References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
- <20260517-ad9910-iio-driver-v5-5-31599c88314a@analog.com>
- <20260518-zippy-ingenious-aardwolf-df46a2@quoll>
+	s=arc-20240116; t=1779098761; c=relaxed/simple;
+	bh=0tfAzFMJ40E/JjfP6FdPvkJS1Us5o4hbVMYh7ny6N0g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RNGsrZRw+pj86wCCla+ZfB1mCGouign6aNapNmBwqcsPhpY2Ih0x3772PhopDo2YtRmOAx3EsjrVPTglCxU3+YAehOQ9+iIL5aT1CHQdv/d+NS3oRQf9W4cfFwnF12x9AlD8Y1xHc9gnt12Smrp6FXFZ04wIeDz+naQJ6pmY85Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [119.122.215.211])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3ed2313df;
+	Mon, 18 May 2026 18:00:37 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	spacemit@lists.linux.dev,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Subject: [PATCH v2 1/1] riscv: dts: spacemit: enable USB3 on OrangePi R2S
+Date: Mon, 18 May 2026 18:00:30 +0800
+Message-Id: <20260518100030.2354606-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260518-zippy-ingenious-aardwolf-df46a2@quoll>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e3a87c55103a2kunm8420fbff14e784
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTB1JVkxPGB9KSB5OSEIeTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkJVSklJVUlKTlVJSkpZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0tVSktLVUtZBg++
 
-On 26/05/18 09:52AM, Krzysztof Kozlowski wrote:
-> On Sun, May 17, 2026 at 07:37:49PM +0100, Rodrigo Alencar wrote:
-> > +maintainers:
-> > +  - Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > +
-> > +description:
-> > +  The AD9910 is a 1 GSPS direct digital synthesizer (DDS) with an integrated
-> > +  14-bit DAC. It features single tone mode with 8 configurable profiles,
-> > +  a digital ramp generator, RAM control, OSK, and a parallel data port for
-> > +  high-speed streaming.
-> > +
-> > +  https://www.analog.com/en/products/ad9910.html
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: adi,ad9910
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  spi-max-frequency:
-> > +    maximum: 70000000
-> > +
-> > +  clocks:
-> > +    minItems: 1
-> > +    items:
-> > +      - description: Reference clock (REF_CLK).
-> > +      - description: Optional synchronization clock (SYNC_IN).
-> > +
-> > +  clock-names:
-> > +    oneOf:
-> > +      - items:
-> > +          - const: ref_clk
-> > +      - items:
-> > +          - const: ref_clk
-> > +          - const: sync_in
-> 
-> So that's just items with two items and minItems: 1. Like you have in
-> "clocks:".
-> 
-> You got this comment already at v2.
+Enable the DWC3 USB3.0 controller and its associated PHY on the
+OrangePi R2S. The USB regulator provides VBUS for USB2 and USB3
+ports, but the USB2 ports are handled by a separate controller.
 
-You're right! will adjust. For some reason I thought I had problems with
-the dt-binding check without this.
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+---
+v2: Remove vin-supply for the vcc5v0_usb regulator.
+---
+ .../boot/dts/spacemit/k1-orangepi-r2s.dts     | 23 +++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-> 
-> > +
-> > +  '#clock-cells':
-> > +    const: 1
-> > +
-> > +  clock-output-names:
-> > +    minItems: 1
-> > +    maxItems: 3
-> > +    items:
-> > +      enum: [ sync_clk, pdclk, sync_out ]
-> 
-> Why are the names fixed? And why is the order random?
-
-All of those would be optional. Having it in a specific order we would need
-to register all the clocks even if only one (or none) is used?
-
-> > +
-> > +  interrupts:
-> > +    minItems: 1
-> > +    items:
-> > +      - description:
-> > +          Signal that indicates that Digital Ramp Generator has reached a limit.
-> > +      - description:
-> > +          Signal that indicates the end of a RAM Sweep.
-> > +
-> > +  interrupt-names:
-> > +    minItems: 1
-> > +    maxItems: 2
-> > +    items:
-> > +      enum: [ drover, ram_swp_ovr ]
-> 
-> Your "interrupts:" do not allow flexibility. Are you sure interrupts are
-> optional in the hardware?
-
-Good point, They are optional. Should I drop the items and descriptions in "interrupts"?
-
-> > +
-> > +  dvdd-io33-supply:
-> > +    description: 3.3V Digital I/O supply.
-> > +
-> > +  avdd33-supply:
-> > +    description: 3.3V Analog DAC supply.
-> 
-> Best regards,
-> Krzysztof
-> 
-
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+index de75f6aac740..1ecc40749e5a 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+@@ -21,6 +21,19 @@ aliases {
+ 	chosen {
+ 		stdout-path = "serial0";
+ 	};
++
++	vcc5v0_usb: regulator-vcc5v0-usb {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpios = <&gpio K1_GPIO(126) GPIO_ACTIVE_HIGH>;
++		regulator-name = "vcc5v0_usb";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++	};
++};
++
++&combo_phy {
++	status = "okay";
+ };
+ 
+ &emmc {
+@@ -90,3 +103,13 @@ &uart0 {
+ 	pinctrl-0 = <&uart0_2_cfg>;
+ 	status = "okay";
+ };
++
++&usbphy2 {
++	status = "okay";
++};
++
++&usb_dwc3 {
++	dr_mode = "host";
++	vbus-supply = <&vcc5v0_usb>;
++	status = "okay";
++};
 -- 
-Kind regards,
+2.34.1
 
-Rodrigo Alencar
