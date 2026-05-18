@@ -1,135 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C873FE34D;
-	Mon, 18 May 2026 12:15:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038613FB056
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779106503; cv=none; b=jwk3qEuqOKV5wZfWs3Ur9JExBd3dxOqYBvyRE1N3FvxwveRyMEsQit/NqMc3t4Y53T+XQz/4uDS2Pc1r8UWJQ2qVUxDsT5o4y1R4LwBSvXXg8wve7xYsU3CwJKefmcKd2W5+MV6eoDIPrlrOZYD1L3rD8vu4XWz5u0dSj9blQZc=
+	t=1779106686; cv=none; b=YU2fFR1GRvBn9bmf7a5PjOmWEpLviJnlrE9u85SL4yvOiYWAI8eRPtXFWkeZDsGLnFVrMRudnzcr2Hxc90aly2JjIWaJF97nbBDw7OVCIIyBWwH7/KcdhHHnZV2BF/hOn8yJxlWWLlxS4+Ou3D1kr8gPccBSEr/hurfgR4iT6OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779106503; c=relaxed/simple;
-	bh=X3GigOM2u4KI51FwnzMMnvpD7nABhS3JcQX5+WHADl8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fJ87bBYD3vJ/JZSn0G0TuD61qaahKyJmm3EvnFGsYuvED7LMM/xsaN0/IvwTgZcNu62RNWKgd1enc+C+CBUaD19g6vOWci+dFtfuu6HIa46ft2xeXiHTBzpgI1RZO1/abModx6TT7VLTba1N3bcGfr20DGKM1UTdkdaHkcmxJog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbgSEgM6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779106686; c=relaxed/simple;
+	bh=qBTFH3dyHCIfh4nEjJIzIjWBS1XDlCf4mzh2+niSAbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R0RMDB5UA3QiVKpG8mW/VqNeDE00RCHiNfyYoyu8mngPda0lP6czaOEiITUAsSiD4Hzg/+DjCh7qYICLNZ/nWAe6eyy8AJWEdqlUjfaRw0DEppPfOCuv6vUvjRINV0YSh1KWSz1BcPdqSbsuhtVskMMQP4nnWFxKreVXTTvqB4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=g8AkuScs; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbgSEgM6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A558C2BCC7;
-	Mon, 18 May 2026 12:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779106503;
-	bh=X3GigOM2u4KI51FwnzMMnvpD7nABhS3JcQX5+WHADl8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=VbgSEgM6SBT3UNvGn/kjE3YkFPFJh2/lET1sRBNQ07ah1EsnToU1YDDwbmdTm36DA
-	 4/2jHm7SftznDfJXS2WHZ636UlJW3SMPUnYgOTIeE1/pJjrPH6yPlhIurntOlz3Q2g
-	 chQMdHacyQGk0s0q/+7KrACfsoT8m+PlKQ5KsUOOgw8x2HIG4QPjo9ul3baifcN5B8
-	 5B+XQirYAie642sCfJ5UcwAaRzuRZDX4GxNRvLTL7Z9QyJBnMlkzh23kab8OlwGkW2
-	 krZzi4duZxLqxxpXpTNCZQ/HIasXBYr4yWXwJkI7dNzDQz7TahenwSKcEv8IwEgjBC
-	 7+biN4/O3cX9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 5/6] hwmon: add NXP MC33978/MC34978 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Oleksij Rempel" <o.rempel@pengutronix.de>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518100054.3552143-6-o.rempel@pengutronix.de>
-References: <20260518100054.3552143-6-o.rempel@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 12:15:02 +0000
-Message-Id: <20260518121503.4A558C2BCC7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="g8AkuScs"
+Received: from macsyma.thunk.org (pool-173-48-113-30.bstnma.fios.verizon.net [173.48.113.30])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 64ICH1s7015840
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 18 May 2026 08:17:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1779106626; bh=Q7EAU14Ys+Ue6sfrOPOXvnTHEKS36ofxGlqV0U56nvw=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=g8AkuScsGzuB9Si53wWolNuQqxijXTw7LdWxMpac9QHTtiPvtv63traLOiGP6y7G+
+	 tjpIpL23U8lDd/BqlMawpMUFS4yDirPRQmfjeWkpYR2yYyH/5rfFfIYBYZAtJZMCpA
+	 j7Rp/diYgjf8zBAOAVvrQaqSR4+4ToNFpYneel8nVk+XoESYR8tag3fDRHsyVvSSf5
+	 G/JCcWWAQw4QlMZrPnHekLxJz1usWzWMSt/gqpaX4JTfPyQU8yy5ySGZFJExyfFOKW
+	 akGzmEa5WA3oStwtdhZBcN3jM38ssMeMLG4x4La61MkOOXsWtWaF1nhXn9zPwJ6gPi
+	 2iT7cKbZMv6uA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 5FB3A68029BD; Mon, 18 May 2026 08:16:01 -0400 (EDT)
+Date: Mon, 18 May 2026 08:16:01 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+        Krzysztof Kozlowski <krzk@kernel.org>, debarbos@redhat.com,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Konstantin Ryabitsev <mricon@kernel.org>,
+        Guenter Roeck <linux@roeck-us.net>, sashiko-bot@kernel.org,
+        sashiko-reviews@lists.linux.dev, sashiko@lists.linux.dev,
+        Linux Kernel Workflows <workflows@vger.kernel.org>,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        devicetree@vger.kernel.org, kfree@google.com
+Subject: Re: Stop false review statements
+Message-ID: <20260518121601.GA87957@macsyma-wired.lan>
+References: <4f3d7f48-5766-425b-91f6-0acdb5554584@kernel.org>
+ <07602616-412B-4ED8-95D7-588C0D077EE3@linux.dev>
+ <2e20badf27b6910d619329841e37d2961556056f@intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2e20badf27b6910d619329841e37d2961556056f@intel.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Background polling worker unconditionally re-arms itself during te=
-ardown, leading to a Use-After-Free.
---
+On Mon, May 18, 2026 at 11:04:29AM +0300, Jani Nikula wrote:
+> > Sashiko is supporting various LLMs, including open models - it’s just a practical
+> > choice: to my knowledge the quality of open models is not on par with frontier closed
+> > models and it would require a non-trivial amount of hardware and infrastructure to run
+> > an open model at the required scale.
+> 
+> In the context of the "Reviewed-by: Sashiko" discussion, this actually
+> makes it really hard to assess the quality of those reviews.
 
-commit 120174fd926c55b417dcd675badea0f431859a73
-Author: Oleksij Rempel <o.rempel@pengutronix.de>
+Agreed.  There's a reason why the coding-assistants.rst specifies the
+model which is used:
 
-hwmon: add NXP MC33978/MC34978 driver
+  Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]
 
-This commit adds hardware monitoring support for the NXP MC33978/MC34978
-Multiple Switch Detection Interface (MSDI). It implements an edge-triggered
-interrupt handler paired with a polling delayed workqueue to manage persist=
-ent
-hardware faults.
+The problem is that (as Jon has pointed out) coding-assistants.rst was
+intended for use when the tool was beging used to help create the code
+--- that is, "Coding Assistants".  What we're doing here is more of a
+reviewer assistance.  Something like:
 
-> diff --git a/drivers/hwmon/mc33978-hwmon.c b/drivers/hwmon/mc33978-hwmon.c
-> new file mode 100644
-> index 0000000000000..bd4dd25b3b20a
-> --- /dev/null
-> +++ b/drivers/hwmon/mc33978-hwmon.c
-[ ... ]
-> +static int mc33978_hwmon_update_faults(struct mc33978_hwmon_priv *priv)
-> +{
-[ ... ]
-> +	ret =3D mc33978_hwmon_read_fault(priv, &faults);
-> +	if (ret) {
-> +		hwmon_unlock(priv->hwmon_dev);
-> +		dev_err_ratelimited(priv->dev,
-> +				    "failed to read fault register: %pe\n",
-> +				    ERR_PTR(ret));
-> +		/*
-> +		 * Always retry on read failure. If we drop the heartbeat during
-> +		 * the initial fault before caching it, the edge-triggered IRQ
-> +		 * will never fire again and permanently stall fault monitoring.
-> +		 */
-> +		rearm =3D true;
-> +		goto out_poll;
-> +	}
-[ ... ]
-> +	rearm =3D !!alarm_faults;
-> +
-> +out_poll:
-> +	/*
-> +	 * If any alarms are currently active, the global FAULT_STAT bit remains
-> +	 * asserted. The hardware will not generate a new rising edge interrupt
-> +	 * if a secondary fault occurs, nor will it interrupt when faults clear.
-> +	 * Schedule a poll to detect both clearing edges and secondary alarms.
-> +	 */
-> +	if (rearm)
-> +		/* Use freezable polling to pause while the system is suspended. */
-> +		mod_delayed_work(system_freezable_wq, &priv->poll_work,
-> +				 msecs_to_jiffies(MC33978_FAULT_POLL_INTERVAL_MS));
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static void mc33978_hwmon_action_cancel_work(void *data)
-> +{
-> +	struct mc33978_hwmon_priv *priv =3D data;
-> +
-> +	cancel_delayed_work_sync(&priv->poll_work);
-> +}
+  Scanned-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]
 
-During device removal, devres calls mc33978_hwmon_action_cancel_work(), whi=
-ch
-uses cancel_delayed_work_sync(). If the work is concurrently executing,
-cancel_delayed_work_sync() will wait for the worker to finish.
+Would be more interesting, but it doesn't actually tell us anything
+about what the results were of the scan.
 
-Inside the running worker, mc33978_hwmon_update_faults() attempts a
-regmap_read(). Since the device is being removed, this read is likely to fa=
-il
-or return persistent physical faults, setting rearm to true. The worker then
-calls mod_delayed_work() and queues the underlying timer to fire again.
+One of the problems here is that there is a distinction between the
+infrastructure and review prompts in the Sashiko github repository,
+and the reviews that are being published by Sashiko the web service
+being run by Google that is being lost by some folks.  So I wonder if
+for now, we should just do something like:
 
-When cancel_delayed_work_sync() observes the completion of the execution, it
-returns without canceling the newly re-armed timer. The teardown sequence t=
-hen
-continues, freeing the devm-allocated priv structure.
+Link: https://sashiko.dev/#/patchset/20260515091829.194810-1-me%40linux.beauty
 
-When the timer expires, could this cause a use-after-free when the kernel t=
-imer
-subsystem dereferences the freed priv->poll_work.timer memory? Should there=
- be
-a state flag to prevent re-arming the work during teardown?
+Or just have a link to lore where the review has responded to the
+Sashiko review stating where the Sashiko review reported a
+pre-existing condition (perhaps one that we don't care about because
+races in readahead logic is really Not A Big Deal, etc.)  We go for
+this strategy, it would actually be better for the Shashiko.dev review
+to get cc'ed to the mailing list.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518100054.3552=
-143-1-o.rempel@pengutronix.de?part=3D5
+Personally, I think that's probably be best way to go.  We already
+don't insert into the git commit an explanation of why some bullsh*t
+review by some wannabe human reviewer should be ignored, or why a
+discussion of some problem discovered by a human review in the source
+of the review would be handled in a future patch set.  That's what the
+discussion on lore.kernel.org is for.  And we shouldn't treat AI
+reviews any different from how we deal with human reviews.  So if we
+want to give credit to an AI review, then let's go with the
+Scanned-by.  Or we can just let people look at the mailing list, and
+if people want to have statistics, we can ask people to use a script
+running against public inbox to figure things out.
+
+						- Ted
