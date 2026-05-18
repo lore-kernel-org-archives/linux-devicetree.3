@@ -1,110 +1,127 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0743A4538
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BB43A63F6
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:07:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779141905; cv=none; b=uA5ehMomjHbSSL5NH2o4R/8T7mzze8ah2M5lAD/GQG0BLRy/jXLCG9qyIscTTuF7Y5+Aqplik3qUOB+GssmRORLX7x5Q766enHuvkVP1TL9TDJDna+3aTIvtvuyY6zoe2IWPE5sXTwmWM8Uc0JtJdM99apA0MAnafeamy43jeqI=
+	t=1779142055; cv=none; b=NWQ6w8piKDBEOQsB0Q4Hunmh8dlH0mGIdMg7mssRmhRVmIpAJhIcvrSkLifGDijaP8DW7oRaMAzTFDud8oyXJqC84Qc5LQu9mmDly+EqSXW7X5D+S2BM90NxHsYRqOqIuy2BS7XHJ6teKoNsPYk25mlbsfZr6MHrNLURYUmQUxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779141905; c=relaxed/simple;
-	bh=7KuR50pAzSW39ZRZCwjG/exnUpapOdN4/r22kkJty6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u0xKD6+PUb0djI7mPCe4ArDsTzPje4AiVyMTttBpM5sL38M3U/Of0TBUM81zMCsDoDicZqZo906njhvwMAghL0KabOyt4WtM3vUyViqI84yVGtWI5OKDJqAKA677HdEECIIBtXjIrX3KG5HbZ3KKM9R4ZcGaF7imzvKgZWazmkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bhz4m47R; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779142055; c=relaxed/simple;
+	bh=BB1Y6UYNt+5fsI+CPTJ1sVHNClySS/lhkvDIVefPULg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ilp8yttEMt8eXE4XGFD44eZhqeOs73FulH3LYMrwnTfAZrL2LZbg7XKEmVnRsttPsj9N1Jf+jbz8ssIBYdfDR8llSW8pMh+Z9QwxMnromO5d/BFuIe2BYMFpP9FTYvVIs/D36vuWF/3mgXBHF2VoXQQGLwVTNZCujp85savCPpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xhczwa/K; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bhz4m47R"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48a7fe4f40bso34666765e9.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:05:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xhczwa/K"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so23114535e9.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:07:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779141901; x=1779746701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Cd2gH8+KVNAxcq+NWcUqT38BQp2PFP+quQ7E39pyZhM=;
-        b=Bhz4m47RaFEn7X2qEX6ZAO5eS3/UaoYDbsafcaXyDzbZyyXd9nKwACaW/t0LRExmcJ
-         0HttMCGLGAdpqYbRcAdLXZki2oLdO3J0D8vOoMXQc6KGd8C8Yep4FTVCAo/Dgn6zkM3m
-         8MLkLINRfHJvmE3SAxCYF6Fjuu89u4oPqnKb1yd6fAY/WKruuNBXAHOd3o1zp1LVzvsj
-         rL//yFsu4FzEsabltDPJsni+c0F/BCMfNRZEfxHQeblZXBtkQ78SxDe+PCCjnIrSkVkg
-         3WCSglw3CmontUGd9p084ZHA6vu55siwE6Ubu2MzUrIyaEc1Yr1Xd6J8tYGxmBcRJ3QT
-         yX+w==
+        d=linaro.org; s=google; t=1779142052; x=1779746852; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sGR8lYC7RwoehcYqlTGMusvCrV6UmoJY2p/GFIP4wIE=;
+        b=xhczwa/KBcv5kBpNw7gFMObagcrY8MkXyYLJqUb1ILcYZ7VZGJXPP8iLWqnAdpGRv2
+         uRyubucV3vQAvYP5Z615H7ZTFS8EnNDsZAvNJMfOu0TQfZfkmRZZZogi5J1HpaDzRL8Q
+         IGMC8Uh/kF5WKRfg7eccVKsOvxC1N2cQF5gDuwX7FUh8Tg2EBiPo6faO4L6Vx7hM5reC
+         dLNrnaARNnHzmVIg+d0D7N+arK6NrDYGtyyeYKQkRnFaLs2ibUxo5vN3SPohnIB5zuFr
+         qSAlb3nSTADqaqM+G+/Y+ifPhTGZB8bwh+z6uexlDRFbGHmIgeVhuIEf2VVH1LSLiHVk
+         j+2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779141901; x=1779746701;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Cd2gH8+KVNAxcq+NWcUqT38BQp2PFP+quQ7E39pyZhM=;
-        b=rAfRC3acK1o683JSKAaenu+t+Oc1Px5JqOGFyq0MlpVES/Bk0jD1IIz9e2b7tdbYDW
-         caA8aJ2tCgKMpImOKXQF5mMCdCU+4GZymv7VVi8c5VNgD57OnQzjI4+4LEMRpc+gDYqL
-         s7hvr8DqnptpE+YMdE/Xh8efcVJR+Cpuob3fcm6iqxaV6fW1lBjIONtEIw1vEaXMSrlG
-         qo//bR2+azZORDeoNYvBVLE3Uwhylbh0fYosspX7YyhqlyYRLW/mRB0CAiTsFLZPUyZK
-         EGW2QZzDg6zGsyveTG8PyzmcFcroVbVt4yiWQclLkg311YTba3qfmyDVrFtarJbv5uEC
-         WxQw==
-X-Forwarded-Encrypted: i=1; AFNElJ/31lSvvdmSSKgez309twiY3BVyIoyfMnk7XUpt4LvTgS45x3fIucpFzFc5j6bArDzXQi+mHvDd5qvY@vger.kernel.org
-X-Gm-Message-State: AOJu0YympVmGaJBdxdQoDwdZeZB7VjvvXmMSXb0dadyrIFmV85+9iDRq
-	gPecxGAJe3RitYTIg1+a/6VE1VtExT1pRFE3uTONYZO2Y2K86cKJ1FlG
-X-Gm-Gg: Acq92OHVnmV074J1Eeul2Tgl7nJR9EaDNDz9AFDFXvi9c1RBpEvMtxrNjcukDUdl454
-	aIwoOQw0oVqEqy5f+5CW8adhEatexL9L4WnYG1waW9s4MOF+F5CHZJVfNYJmVP3vy7DiovFOO8D
-	Ky7Y6VqjiuB/jdWXrLVh6o1yJyIrqX9BNuxUygsLoYH75047PNeZTMX5BGwbsp+zaUa2Kcx2oy1
-	ZmKD1SaPdWaTAEhUGLi+dqzYA+7pTPcHFcoHbE11qBELxtTpZcm0VF98xpmn8YjyLapAoO+eoVC
-	AWwSujYe0rlDTo6Ha7ffnC97Uy1vkhvGW6eX+pSTneWqwoSFJ4fjbs6y3h74FoRZJqGHj1K2UUv
-	ZquGrmRfiJOhp6O8H2LZI2OEc4F1OuHim7mLa45qOiCcsWJQeJsXZNZmSNSSCrY163UjBlneYOe
-	GIfn6H4BmzJdm5cb1CW/PTCsI4+HtWGBPCTP3aTnW9arjidY0zP0gbIPpUW5rU0ESGJtqCRPRJU
-	Ewsj4VSaf8bMYdYX3Xcr9AIpTHAKatpEdqoQ9sBh7mE7rXyMwc0fin2B21zqNWIQBATLguDZBEC
-	xRf4Ws4+RwFlCHz1Wie+bcuASkoImoW+zKjZx+zCp+hJDxWtAJeSL6DbQChL52Kc8igN46H1uT3
-	azYB85U+eyjqv/hrlZpEBCg==
-X-Received: by 2002:a05:600c:34cc:b0:48e:635a:18d7 with SMTP id 5b1f17b1804b1-48fe59b047bmr287108655e9.0.1779141900529;
-        Mon, 18 May 2026 15:05:00 -0700 (PDT)
-Received: from cypher.home.roving-it.com (7.9.7.f.b.1.3.0.b.8.f.0.9.e.0.0.1.8.6.2.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:fb11:2681:e9:f8b:31b:f797])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-48fe53ab671sm281976645e9.1.2026.05.18.15.04.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 15:04:59 -0700 (PDT)
-From: Peter Robinson <pbrobinson@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev
-Cc: Peter Robinson <pbrobinson@gmail.com>
-Subject: [PATCH] arm64: dts: allwinner: sun50i-a64: Enable DT overlays
-Date: Mon, 18 May 2026 23:04:49 +0100
-Message-ID: <20260518220455.156874-1-pbrobinson@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20251104; t=1779142052; x=1779746852;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sGR8lYC7RwoehcYqlTGMusvCrV6UmoJY2p/GFIP4wIE=;
+        b=O45baVYpwIGUQjXxI3/i3Qxq13I4iX55nEoW5CGDFm/KJQIUmP7RaRFbs1jFNCGeUW
+         8mnfJHF8bAqd/yCpXBBNFV+QIImpB7PwPmUt2NYdlH/NIpYHUbaAb9ZituxOb/31d/Z9
+         4csq5DeXWltGwv+SPfQOVfLQ3erGuHsKBYiTid1p8d2LW5fO3Yrp3MjC8lQzpSYFP+Kg
+         6XhI5c+NybTdge0A6x6lEf+c1hz+ZMxa177zNQ4FvwkGRoPZw8CV2dTUp6r5zYBvb94+
+         ngKf5LIku4rBXADQ1BmrVFex4wPoi9Mn4n3tR/9Y1iuYhMnZGDEtgfPitbT2HN1ZxjBR
+         XdqQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8fE/X/4GXQMu2UIch6R/N7W0sFCpRZP5/Py8fqjz0qbQhsmQmbB8V2alRXtc2e8uDLrW7yXy1yByZ0@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY248wK4ZRFD86WQcdFSuHVwS/o4v9AIJCIdU6/MzUGhHkhOiv
+	8tzaukZWAxWNAu8x2sVHXuGN++SpboOq57n+Nxn5+jrKCuWC5jzKkjV7U21v94SWVIw=
+X-Gm-Gg: Acq92OEpFKZetJB4u6i3+vod5Syd/aJAiFp+7TIo3RcG63yW3ymPW8LmaWeZrboUDOe
+	EmOKiPA+ZPL+2b8D4SzzUYRrk3vR2W4qvIVo390iRo5pYAK+/cilg82B2XRq7aM6lUtyT731Jv2
+	nCw80wa/rl7fCA/XUgKkpZv0SqQ1W4hykArsVpSDXvsM0qnZPK6EP52RVQJqMTppsyba5SrbX3k
+	3yiNEMlk18Xky1C5bBpvubwECC6urrFt2LJDtGiaPgox6GRA2Y+ObATUOq7HIt+4BaHAmgzTjqB
+	w5w38gfetg/QeH2FyyZwtl29Poa/AASUEdSp+hCJcKgByNj7xSZGaIE1xi6Sdys2fQ4FKCDhrLs
+	t9tH6Ruwww7sB3xmhoLie2psEK1aJwNKFz18+tAGyjGK02kFPGUT6wpsR/ZjcbeKg/OWsrpjE8g
+	B7efdzdO13COvtexQXFEKSXskbUf6yHRkl
+X-Received: by 2002:a05:600c:8184:b0:488:ffb1:494c with SMTP id 5b1f17b1804b1-48fe60ed790mr252457835e9.12.1779142052380;
+        Mon, 18 May 2026 15:07:32 -0700 (PDT)
+Received: from [192.168.0.35] ([64.43.40.255])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5694fcasm261653215e9.5.2026.05.18.15.07.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 15:07:31 -0700 (PDT)
+Message-ID: <d15b138d-8c6b-430b-bfc3-f410b05e4835@linaro.org>
+Date: Mon, 18 May 2026 23:07:30 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] usb: typec: add Qualcomm PMI8998 role-switch driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ taygoth <taygoth@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Luca Weiss <luca.weiss@fairphone.com>
+References: <cover.1779127507.git.taygoth@gmail.com>
+ <6fedbcd344505b63de72037f69ea94f916255f03.1779127507.git.taygoth@gmail.com>
+ <zm7buc6djok2743bs6ghvlr3bpc4lld4qpgs3ggwjsy45f4l75@kua4xtj6b3wd>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <zm7buc6djok2743bs6ghvlr3bpc4lld4qpgs3ggwjsy45f4l75@kua4xtj6b3wd>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Enable DT overlays on some of the Pine64 devices to enable
-use of addon accessories such as WiFi or audio modules.
+On 18/05/2026 22:45, Dmitry Baryshkov wrote:
+>> No software TCPM state machine is used because the hardware handles
+>> the Type-C protocol natively, and the PMI8998 interrupt topology does
+>> not expose the granular per-event signals the TCPM code path expects.
+>> Power Delivery is not implemented in this driver; the PMI8998 PDPHY
+>> block at offset 0x1700 (register-identical to PM8150B) can be wired
+>> up by a separate driver later if PD negotiation is required.
+> I think TCPM / PD-PHY is (more or less) a sensible requirement. Without
+> it you can't negotiate higher power modes or AltModes support (which
+> means no DP).
 
-Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+If the PDPHY is register compatible  as stated then the PD part is very 
+close.
+
+Looking at the pmi8998 STATUS_REG_4
+
+- VBUS_STATUS
+- ORIENTATION
+- ATTACHED
+
+are all driven. So I believe it would be possible to bring the pmi8998 
+into - along side the pmi8998 logic.
+
+@Maxim have you looked at that as an option ?
+
+I believe Casey and Luca? both worked on that.
+
+For preference I think we should try to land pmi8998 into the existing 
+TCPM logic though, as another TypeC port handler within the existing logic.
+
+The important signals above, appear to be driven.
+
 ---
- arch/arm64/boot/dts/allwinner/Makefile | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
-index d116864b6c2b3..53e6b701e7d3a 100644
---- a/arch/arm64/boot/dts/allwinner/Makefile
-+++ b/arch/arm64/boot/dts/allwinner/Makefile
-@@ -1,4 +1,10 @@
- # SPDX-License-Identifier: GPL-2.0
-+# Enables support for device-tree overlays for named devices
-+DTC_FLAGS_sun50i-a64-pine64-lts := -@
-+DTC_FLAGS_sun50i-a64-pine64 := -@
-+DTC_FLAGS_sun50i-a64-pine64-plus := -@
-+DTC_FLAGS_sun50i-a64-sopine-baseboard := -@
-+
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-amarula-relic.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-bananapi-m64.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-nanopi-a64.dtb
--- 
-2.54.0
-
+bod
