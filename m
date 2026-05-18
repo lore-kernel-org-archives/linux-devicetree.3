@@ -1,161 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2A9322B6F;
-	Mon, 18 May 2026 12:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C873FE34D;
+	Mon, 18 May 2026 12:15:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779106465; cv=none; b=By7ycJjNqd7ZdtxwwLP09QF7HEZl7eT64ETHXHXTyrFgQ0ZOCgcuCc2UvZZDbUTRLPifCOxdIVsqj9IGladDydP2Npx/7u8C0EUD+uOaZCl4RgU9b9Ubi+r6cJi7jFHNknR/AbU6w7LRkfMvXbXLfkyYNSHzRMOHZ6bLngAu1QE=
+	t=1779106503; cv=none; b=jwk3qEuqOKV5wZfWs3Ur9JExBd3dxOqYBvyRE1N3FvxwveRyMEsQit/NqMc3t4Y53T+XQz/4uDS2Pc1r8UWJQ2qVUxDsT5o4y1R4LwBSvXXg8wve7xYsU3CwJKefmcKd2W5+MV6eoDIPrlrOZYD1L3rD8vu4XWz5u0dSj9blQZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779106465; c=relaxed/simple;
-	bh=GNYTfMcpdYqvc5O6r9OZMMFpvN0zVIdv7qdjGK/a46A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DbIc7VZBFGQQ33muej5snZlMA2SsO3t/0qwX2sL2iS7VuBty2uRjouufwEDzLpekL9wWZ7ZQ60coJvHi20XL8J351yRvStAqOjhoP8zM98ildE9ljNA1XwcqPcHz+3KJApx3G+ibDBy0kKlswRcUTHBF2faaB6tA4OD84KODrv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U0auKsWR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779106503; c=relaxed/simple;
+	bh=X3GigOM2u4KI51FwnzMMnvpD7nABhS3JcQX5+WHADl8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fJ87bBYD3vJ/JZSn0G0TuD61qaahKyJmm3EvnFGsYuvED7LMM/xsaN0/IvwTgZcNu62RNWKgd1enc+C+CBUaD19g6vOWci+dFtfuu6HIa46ft2xeXiHTBzpgI1RZO1/abModx6TT7VLTba1N3bcGfr20DGKM1UTdkdaHkcmxJog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbgSEgM6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U0auKsWR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2665DC2BCB7;
-	Mon, 18 May 2026 12:14:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbgSEgM6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A558C2BCC7;
+	Mon, 18 May 2026 12:15:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779106465;
-	bh=GNYTfMcpdYqvc5O6r9OZMMFpvN0zVIdv7qdjGK/a46A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U0auKsWR6IY5dSn2or0lJLFBvKIhnen8FrW7e70aiBBrFqnjKp5HWAwWjshEbXK9y
-	 bjdtatA1i8duY1hH3i7Iha/fO3EkWu9cN1ef8m8zBNocKK2eN7htVpFliI/ZpBjSVA
-	 iA0a/YR8mqjL1rLeTslcic5VukgHquImcj0pQe2znlVKo0EHuhRh/ybXSPz7kQDpVs
-	 6LRiJ+GpVBHw+2O6iFryXfIeTsHSPu7PtrMS7nKl75sC/RbmOOGPo4DDka0RC7bLlq
-	 OezasHM8gt4CzVFdvM7DbhUgf5q4ORIiTot9m8QUJqR68pgCNjo1GiW9BAGagizcjZ
-	 TNvkzRDadjgbg==
-Date: Mon, 18 May 2026 14:14:23 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v1 5/6] dt-bindings: phy: tegra: Document Nvidia Tegra
- XMM6260 PHY
-Message-ID: <20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll>
-References: <20260511135703.62470-1-clamor95@gmail.com>
- <20260511135703.62470-6-clamor95@gmail.com>
- <20260515-utopian-malamute-of-patience-367e8e@quoll>
- <CAPVz0n2wrAdU0JKx7eb7uosCcoGayqNchK591VPph-5_nBAMXg@mail.gmail.com>
+	s=k20201202; t=1779106503;
+	bh=X3GigOM2u4KI51FwnzMMnvpD7nABhS3JcQX5+WHADl8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=VbgSEgM6SBT3UNvGn/kjE3YkFPFJh2/lET1sRBNQ07ah1EsnToU1YDDwbmdTm36DA
+	 4/2jHm7SftznDfJXS2WHZ636UlJW3SMPUnYgOTIeE1/pJjrPH6yPlhIurntOlz3Q2g
+	 chQMdHacyQGk0s0q/+7KrACfsoT8m+PlKQ5KsUOOgw8x2HIG4QPjo9ul3baifcN5B8
+	 5B+XQirYAie642sCfJ5UcwAaRzuRZDX4GxNRvLTL7Z9QyJBnMlkzh23kab8OlwGkW2
+	 krZzi4duZxLqxxpXpTNCZQ/HIasXBYr4yWXwJkI7dNzDQz7TahenwSKcEv8IwEgjBC
+	 7+biN4/O3cX9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 5/6] hwmon: add NXP MC33978/MC34978 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oleksij Rempel" <o.rempel@pengutronix.de>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260518100054.3552143-6-o.rempel@pengutronix.de>
+References: <20260518100054.3552143-6-o.rempel@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 12:15:02 +0000
+Message-Id: <20260518121503.4A558C2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CAPVz0n2wrAdU0JKx7eb7uosCcoGayqNchK591VPph-5_nBAMXg@mail.gmail.com>
 
-On Fri, May 15, 2026 at 11:37:34AM +0300, Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 15 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11=
-:20 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Mon, May 11, 2026 at 04:57:00PM +0300, Svyatoslav Ryhel wrote:
-> > > Document the XMM6260 PHY used by various devices based on the Nvidia =
-Tegra
-> > > SoC, describing its usage
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  .../bindings/phy/nvidia,tegra-xmm6260.yaml    | 58 +++++++++++++++++=
-++
-> > >  1 file changed, 58 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/phy/nvidia,tegr=
-a-xmm6260.yaml
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm62=
-60.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
-> > > new file mode 100644
-> > > index 000000000000..0346433c9772
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
-> > > @@ -0,0 +1,58 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/phy/nvidia,tegra-xmm6260.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Nvidia Tegra PHY for XMM6260 modem
-> >
-> > XMM6260 is Infineon modem, so any combination with nvidia,tegra is very
-> > confusing.
-> >
->=20
-> May you please suggest how to adjust the name then? Thank you.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Background polling worker unconditionally re-arms itself during te=
+ardown, leading to a Use-After-Free.
+--
 
-Depending what is that. Start describing hardware, not driver behavior
-to help in that.
+commit 120174fd926c55b417dcd675badea0f431859a73
+Author: Oleksij Rempel <o.rempel@pengutronix.de>
 
->=20
-> > > +
-> > > +description:
-> > > +  A hardware configuration used in Tegra SoCs to provide proper inte=
-raction
-> > > +  between the application processor and the modem, as well as contro=
-l over
-> > > +  one of the SoC's USB lines for the modem.
-> > > +
-> > > +maintainers:
-> > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: nvidia,tegra-xmm6260
-> >
-> > Also here.
-> >
-> > What sort of phy is this? So far looks more like a software construct.
-> >
->=20
-> Infineon XMM6260 does not work as an ordinary USB modem, it is a
-> standalone CPU which just exposes itself to AP via USB. In order to do
-> so, it has to have control over a USB bus of AP which is dedicated to
-> it. In case of Tegra - XMM6260 interaction it looks like this: second
-> Tegra USB controller is set into HSIC mode and is dedicated solely to
-> the modem, modem controls this USB bus. Then the main XMM6260 driver
-> performs power and init sequence and once it is ready it calls phy to
-> register controller. Phy has its own supply, controls USB controller
-> de/register and using enable GPIO sends signal to modem to proceed.
-> Additionally, since some XMM626 versions have a few steps to setup
-> exposing different USB devices, phy handles controller reinit for each
-> step. If treat XMM6260 as an simple USB modem it will never init.
->=20
-> One more benefit of having PHY is that modem driver itself is generic
-> and PHY handles SoC specific configurations required by the modem.
-> Since this modem was used on a variety of different SoC's (Exynos and
-> OMAP for example) they can reuse modem's driver and provide only PHY
-> which handles modem interactions with the USB bus.
+hwmon: add NXP MC33978/MC34978 driver
 
-Without any registers here, this is not a PHY but a power sequencing,
-just like we do for other USB or PCI devices.
+This commit adds hardware monitoring support for the NXP MC33978/MC34978
+Multiple Switch Detection Interface (MSDI). It implements an edge-triggered
+interrupt handler paired with a polling delayed workqueue to manage persist=
+ent
+hardware faults.
 
-Optionally, it could be part of existing USB phy, when configuring it in
-HSIC mode, but it seems you add here supplies for the modem, not actual
-phy as the phy is undefined.
+> diff --git a/drivers/hwmon/mc33978-hwmon.c b/drivers/hwmon/mc33978-hwmon.c
+> new file mode 100644
+> index 0000000000000..bd4dd25b3b20a
+> --- /dev/null
+> +++ b/drivers/hwmon/mc33978-hwmon.c
+[ ... ]
+> +static int mc33978_hwmon_update_faults(struct mc33978_hwmon_priv *priv)
+> +{
+[ ... ]
+> +	ret =3D mc33978_hwmon_read_fault(priv, &faults);
+> +	if (ret) {
+> +		hwmon_unlock(priv->hwmon_dev);
+> +		dev_err_ratelimited(priv->dev,
+> +				    "failed to read fault register: %pe\n",
+> +				    ERR_PTR(ret));
+> +		/*
+> +		 * Always retry on read failure. If we drop the heartbeat during
+> +		 * the initial fault before caching it, the edge-triggered IRQ
+> +		 * will never fire again and permanently stall fault monitoring.
+> +		 */
+> +		rearm =3D true;
+> +		goto out_poll;
+> +	}
+[ ... ]
+> +	rearm =3D !!alarm_faults;
+> +
+> +out_poll:
+> +	/*
+> +	 * If any alarms are currently active, the global FAULT_STAT bit remains
+> +	 * asserted. The hardware will not generate a new rising edge interrupt
+> +	 * if a secondary fault occurs, nor will it interrupt when faults clear.
+> +	 * Schedule a poll to detect both clearing edges and secondary alarms.
+> +	 */
+> +	if (rearm)
+> +		/* Use freezable polling to pause while the system is suspended. */
+> +		mod_delayed_work(system_freezable_wq, &priv->poll_work,
+> +				 msecs_to_jiffies(MC33978_FAULT_POLL_INTERVAL_MS));
+> +
+> +	return ret;
+> +}
+[ ... ]
+> +static void mc33978_hwmon_action_cancel_work(void *data)
+> +{
+> +	struct mc33978_hwmon_priv *priv =3D data;
+> +
+> +	cancel_delayed_work_sync(&priv->poll_work);
+> +}
 
-The problem is that in the patch and explanation you mix driver model
-and driver behavior, so I really don't know what is this hardware. And
-it is not my job to guess, btw. A partial argument/proof why this is not
-a PHY, is that you reference the USB in the node, so phy-provider
-references the phy-consumer. That's reverse. If this is PHY, it's USB's
-HSIC phy, thus this needs to be referenced by USB.
+During device removal, devres calls mc33978_hwmon_action_cancel_work(), whi=
+ch
+uses cancel_delayed_work_sync(). If the work is concurrently executing,
+cancel_delayed_work_sync() will wait for the worker to finish.
 
-If this is power sequencing, then it can be represented as USB device,
-just like we do for all USB devices, but then it is not PHY and
-phy-cells are not appropriate.
+Inside the running worker, mc33978_hwmon_update_faults() attempts a
+regmap_read(). Since the device is being removed, this read is likely to fa=
+il
+or return persistent physical faults, setting rearm to true. The worker then
+calls mod_delayed_work() and queues the underlying timer to fire again.
 
+When cancel_delayed_work_sync() observes the completion of the execution, it
+returns without canceling the newly re-armed timer. The teardown sequence t=
+hen
+continues, freeing the devm-allocated priv structure.
 
-Best regards,
-Krzysztof
+When the timer expires, could this cause a use-after-free when the kernel t=
+imer
+subsystem dereferences the freed priv->poll_work.timer memory? Should there=
+ be
+a state flag to prevent re-arming the work during teardown?
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518100054.3552=
+143-1-o.rempel@pengutronix.de?part=3D5
