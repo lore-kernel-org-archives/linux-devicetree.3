@@ -1,114 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C9B34F474;
-	Mon, 18 May 2026 17:10:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820D02494D8
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779124256; cv=none; b=gkW32ZhawKfLJo9UXuxcm3ncRHQPhdLoM11PxSiCKBqi1TmZLY6ldOrQJoT3XGS9ru/zgtW/jJg9uVk+KZCKmmPp59IONq8ATS/O+G6Q3k+AbaaWlJKaWWGZ8z0f2XjT93gvBh7bkE24qJ6NVMMLdPctKjITPA9wIRpcqzRnyko=
+	t=1779124815; cv=none; b=rZQpFRihIMyEj3ps+rESIzOOg9X6JL/B4gKY+5wEi91MoMMdiV9BPm+UEYMOQYNJPIhdcV2naC/9krrITDUaTNnD+n1CekeAEf3WbSDWvNQJlzHg16pUdWtNIrCP6k3AqUPn9ECGSn5wsYS6hPUpQqnBXd6do1BANph/g9XlWUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779124256; c=relaxed/simple;
-	bh=nF/HU1fjnqUQnaZoipkFcCFRl4r0iGbfmYpcV7+Cd60=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T94WxymuurW0cZ4CK+i2i1tOT7xDzyJBLIHhYEnX5+uc96aGNJuYnHB3wiCWJMXwwtZezH87LoXT7/3s0oZ9PZeRPOfSxgKXIV0JiDZ21isRJ/NNlIPTOLBstelTMSjvS2rE7GJ0PE/lEoY3QvlU4x0iske1JbGfmK1ZN8r6nu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USV5QUc2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779124815; c=relaxed/simple;
+	bh=YbH3DLcjmOdU13NbufJjfw1GtVpWCi0PlKxThHTimAc=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=S3cbYn43fGIXXGddhoLv4TxVG9U4BwxmPJmYhmZpikb8hELBap5q5MxalQENx3yknCsb+UjSqhLcpjSmfkxgEtIjmxTsIzKJNZocW7DNdzOHkOyGhozfLeGtpi45+n1be8/S0t1b3GCLspDjrujkQs1yDBGx2rx0jX1zRqhSWVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DNOVWCKi; arc=none smtp.client-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USV5QUc2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B9DC2BCB7;
-	Mon, 18 May 2026 17:10:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779124256;
-	bh=nF/HU1fjnqUQnaZoipkFcCFRl4r0iGbfmYpcV7+Cd60=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=USV5QUc2OEB1Q1Tsbmo+9M8sJSDHjK4k+q77wwWZAaYzchNXndPFW1zD8nxkTwd/G
-	 hdJDtj5ao06XusriqbWwb466HyPTIUqlgCz2xQFk5zlyaDW3qNVpYd7yGJ0LqzckBO
-	 ZXyOvkHeapJQ1n8MomD5jjooqCJK5PLY0DUsIznGZNo5ikFDK2FnUS7ZCkXmnASKv5
-	 ebBC83WcfbWvZiCGasQ4qJa/twypYx0Nu1K5y6WhACwt2KFHiAbj84VddkpfpCh3WN
-	 OZDSZ5KdmCYEuFhFlWr+Sin4aLq8QALrj9tbq50+tJyfbKSFwtmaOb8kHbBvLyx5lJ
-	 qDE8Jt4j/IMcw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 9/9] ARM: dts: sun8i-a83t: Add BananaPi M3 OV8865
- camera overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Kocialkowski" <paulk@sys-base.io>
-Cc: linux-sunxi@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260518153339.619947-10-paulk@sys-base.io>
-References: <20260518153339.619947-10-paulk@sys-base.io>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DNOVWCKi"
 Content-Type: text/plain; charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1779124801;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YbH3DLcjmOdU13NbufJjfw1GtVpWCi0PlKxThHTimAc=;
+	b=DNOVWCKi7aFf6VFu/JC0wRZfu4ECTL91fCym+9XSX+Fm5qUctR41mQ/ZOAdvjk0MzP2Mlt
+	bYpo2XJql9RK9JTWxzt9BduCNeknOPwspY+NUxHb6IQx8kLn7EZsiplkt12ruEqtbRQViT
+	C/kXQotvjMBuy0HPNhIB+WxpFzmK1Cw=
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 17:10:55 +0000
-Message-Id: <20260518171055.C8B9DC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0 (1.0)
+Subject: Re: Stop false review statements
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Roman Gushchin <roman.gushchin@linux.dev>
+In-Reply-To: <DIL2P8CHKVZD.2WVQQRN0FM28N@kernel.org>
+Date: Mon, 18 May 2026 10:19:47 -0700
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>,
+ Konstantin Ryabitsev <mricon@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Miguel Ojeda <ojeda@kernel.org>,
+ sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
+ sashiko@lists.linux.dev,
+ Linux Kernel Workflows <workflows@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree@vger.kernel.org, kfree@google.com
+Message-Id: <C16C14F1-4D2F-4701-88CC-114F5233980D@linux.dev>
+References: <DIL2P8CHKVZD.2WVQQRN0FM28N@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Fixed regulator node names do not match the required schema pattern.
---
 
-commit 7dbfc9e619262f99c508e48d6adf246ddf875f69
-Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+> On May 17, 2026, at 8:56=E2=80=AFAM, Danilo Krummrich <dakr@kernel.org> wr=
+ote:
+>=20
+> =EF=BB=BFOn Sat May 16, 2026 at 9:15 PM CEST, Roman Gushchin wrote:
+>> I agree, it=E2=80=99s sometimes gets tricky when a patchset is sent to mu=
+ltiple
+>> mailing lists, which policy to apply. I have some improvements in my plan=
+s,
+>> but it=E2=80=99s not always possible to say how it should be handled.
+>=20
+> Which improvements do you have in mind?
 
-ARM: dts: sun8i-a83t: Add BananaPi M3 OV8865 camera overlay
+If a patchset is sent to multiple mailing lists now Sashiko is using the sup=
+erset of
+email policies. But in many cases it=E2=80=99s possible to determine the =E2=
+=80=9Cmain=E2=80=9D mailing list/subsystem
+and prefer it=E2=80=99s configuration. Not always.
 
-This commit adds a device tree overlay supporting the OV8865 sensor on the
-BananaPi Camera v3 peripheral board. It configures the fixed regulators,
-clocks, and MIPI CSI-2 endpoints needed for the camera module.
+>=20
+>> It=E2=80=99s not fundamentally new: landing changes touching multiple sub=
+systems is
+>> always harder exactly because maintainers might have different and someti=
+mes
+>> conflicting views.
+>=20
+> It can also be relevant in cases where only a single subsystem is touched.=
 
-> diff --git a/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov=
-8865.dtso b/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov886=
-5.dtso
-> new file mode 100644
-> index 0000000000000..4340ca73bfaaf
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov8865.dt=
-so
+>=20
+> For instance, in the case of Rust, the rust-for-linux list serves two purp=
+oses
+> -- when it is a Rust subsystem change and when Rust code of any other subs=
+ystem
+> is touched, i.e. the rust-for-linux list has more of a LKML character and a=
+lso
+> receives patches for subsystems whose maintainers may not have opted in to=
 
-[ ... ]
+> sashiko email delivery.
+>=20
+> That said, I personally don't mind too much, I really like sashiko, which i=
+s
+> also why I asked for adding the driver-core list. My experience has been t=
+hat it
+> does a very decent job in providing feedback for C code; my feeling is tha=
+t
+> feedback for Rust code is not quite on par yet, but of course it also high=
+ly
+> depends on the complexity and scope of the corresponding changes.
 
-> +&{/} {
-> +	/*
-> +	 * These regulators actually have DLDO4 tied to their EN pin, which is
-> +	 * described as input supply here for lack of a better representation.
-> +	 * Their actual supply is PS, which is always-on.
-> +	 */
-> +
-> +	ov8865_avdd: ov8865-avdd {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "ov8865-avdd";
-> +		regulator-min-microvolt =3D <2800000>;
-> +		regulator-max-microvolt =3D <2800000>;
-> +		vin-supply =3D <&reg_dldo4>;
-> +	};
-> +
-> +	ov8865_dovdd: ov8865-dovdd {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "ov8865-dovdd";
-> +		regulator-min-microvolt =3D <2800000>;
-> +		regulator-max-microvolt =3D <2800000>;
-> +		vin-supply =3D <&reg_dldo4>;
-> +	};
-> +
-> +	ov8865_dvdd: ov8865-dvdd {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "ov8865-dvdd";
-> +		regulator-min-microvolt =3D <1200000>;
-> +		regulator-max-microvolt =3D <1200000>;
-> +		vin-supply =3D <&reg_dldo4>;
-> +	};
+This is super interesting. An obvious idea is that the training set is relat=
+ively limited,
+if we=E2=80=99re talking rust for kernel code. Did you notice any common top=
+ics or patterns?
+Does it produce more false positives or worse in finding actual bugs in comp=
+arison
+to the c code?
 
-This isn't a bug, but do these fixed regulator node names trigger device
-tree schema validation warnings?
+> However, I still have the same concern I raised previously when it comes t=
+o
+> email delivery: I think that when sashiko sends feedback to contributors
+> (without Cc'ing the mailing list and all other recipients), it should acti=
+vely
+> ask the contributor to raise things on the list with all other recipients,=
 
-According to the fixed regulator binding schema, node names should match
-the pattern ^regulator(-[0-9]+v[0-9]+|-[0-9a-z-]+)?$.=20
+> reviewers and maintainers before acting on them, such that changes subsequ=
+ent to
+> the first submission on the list are aligned.
 
-Using arbitrary names like ov8865-avdd falls back to an "Any name allowed"
-clause in the schema that is marked as deprecated.
+I personally think that it=E2=80=99s always better to cc some mailing list a=
+nd/or maintainers,
+so there is a second pair of eyes. I totally agree that replying just to the=
+ author is less effective.
+Of course, we can add the text you=E2=80=99re proposing, but why not simply c=
+onfigure sashiko=20
+to cc the mailing list?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518153339.6199=
-47-1-paulk@sys-base.io?part=3D9
+Thanks!=
