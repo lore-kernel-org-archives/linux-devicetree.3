@@ -1,124 +1,119 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E5E30DD22
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2796931E82F;
+	Mon, 18 May 2026 23:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779144801; cv=none; b=UwoLRtggWfMrgNdPqQZ+E2gynsVlVU1BuBWBm2O5kdj5HEK/dDCyjceMIcnulF6OGLxdcXwcjqdjstT8zeA4tRUvSLH/5g/BCY734ii4J+5l+eW7JFStKTFYMxTNMQuQF/HrJWB79sZktsGspek+5gffSwxYjl3whAswqvbn/Zw=
+	t=1779147227; cv=none; b=b4QM+dtirVy0hS5idtU8jRo3+SVuHxCOGIXe2nlrD7hvKFtY1Sb2SK3vcr7IrcEbzC/ZrbDBi+z1kc7Xy8flnPRoxDpg3ssHHP7WPSq97evY1DDL90zr72uJXjUAiu4P2VDnGFWWQxtnrFrbD3VT7Czgu/+G/Vi55bfm2OWOrOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779144801; c=relaxed/simple;
-	bh=LRCn80kM8HBzYaSZlDk72UNrNNqLYgqVin8TWWYQOGw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eIqmk9Qe6a8uS17MESHUu7uGIqN7lleNYfgnFo/wB1/gMS/c+WcxAEbvZde+5i8zsH/kRXP7Ggy+ZJlB58hVS8i1TzF1fb/Oi28feNbfXdP1IMWFkbhlF17In4iOZv8XOmq5imB2wE5t+4zMLY/DJ5YKFpER2g7YekeM7FYZOR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TRIypVOO; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779147227; c=relaxed/simple;
+	bh=X5pKwqyT25YTgtH8HkJKqoI6v8d7nkjVY5/oK2GK5WE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rrO7JKnpdyk+HEpitzdvGVHFBUUU5O2jk7GASEA3oQMfYWZd751huTKvdGfe+8so/GVENvvsuOJJh8GKWVnxjUVi2Q4mapKdgicbA/+GNG7LOhXYOEXh5Q4ykbmZzhY4poYtqiuqddrn/gKPE1V8935HbaLuGhVEhJkCJLA9i/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5yyDNa7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TRIypVOO"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7dbe437b072so1440676a34.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:53:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779144799; x=1779749599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LRCn80kM8HBzYaSZlDk72UNrNNqLYgqVin8TWWYQOGw=;
-        b=TRIypVOORcEtFJEhLDKGhQUIdEb4weWEpmBG5ggFinaVKfx79oVoE0WQQQhK8ySvX5
-         KpSzthShOJnLKJUQPTDu1TZA/uEZxg61Q9B6cfLm+KvovpiAcZAdwy/jLfkeKBCBc9fg
-         iQRpn3w/pspYow5AlzVPgjRUxU5Ukk32PxiYPOcHIaFAN2Sx6xy5i82LtMWysu4pqjWA
-         FGpkFZubQrurlz6hazT9FpyOWzEOylrBITFHTVmJqOjPCp0jKPzktCAMAAKcYAkdAISy
-         gm+EiEDj5owz+SLiCEXc3m2Ywwd2V21cTjB8n8252ndpr98FssWH7PwSMirLmRV6xoG7
-         pOKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779144799; x=1779749599;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LRCn80kM8HBzYaSZlDk72UNrNNqLYgqVin8TWWYQOGw=;
-        b=nYuTr5qwiTapxJ/XikGbNcShXF5FBuqcIMN9ozGS8PoLl9GQLEHpQZQCPH8KLdhkt9
-         nbyagH+ylL/tkWQ7diF3uJOvY8FV0Tcmn7FnKAgT1pFnMFgiGn7I31oC2EnFijVc0u8W
-         rPvoMO9JFMOlycKRCiZlsmqINLZ2q8Abytd2UCaox3H3caWEcH7bl057uXPCj5YYXx5i
-         3R2YSs5d+e3PMZ/Ntuh4PdXjnjz853EBueH/KT/qmMwbip0o68GRf/AahqHyfAmIpc+F
-         lZnfOI42Z4o3Oi6P+ofr5/EbZaRlXwSfS6aGaJ+YqBpr7LaiCjLQM2sIui7skQ0sjwvj
-         +ZsQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8+LRfGcawSMPpulxLs9WKezrxe/FFcZ1gMP2d4h4TOUcxeubnKNmskNLgSk7E8zNPN9o3KuHG/wiZ7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw030YUfdB9UbEy3YnASSWI0kVbGVFjfHf8r1ZwxgpWCeKblcXS
-	myjOoQBvB80TU1x9rmgaZlHjJQK+fza0xO7gcqBPkIUnJe125ix3qcW3rEopNC29
-X-Gm-Gg: Acq92OHKg1qVbzbsFiIexwOv7l/MjDG+K5c6PD3yHoXNqQ/HoAwWwQN3Vz4DBh2FeMe
-	54SEOZNZhVQORgOYhple39sggmFYrXW7pV6Cij2SslqcMXj37LURtQntK9/lyxodS5w4GsGkiny
-	5egPdqFzdTvr9YjDnR1fftw4ysZOVJ3LgykAzE0qZ8eg9FYg8DmvdgzGERfbx96VijvbC55F9JJ
-	H9N/CIVyGCtDarfQH8hFWzLQnPF38IFR1YLiEsybAsxPb/Wo2yb/eB0kg/XkCOv3mHUrbcVilxZ
-	b4UZIRvbYu+BtHgZ2Y7IkJOgobxRGzawWnROJNg2oJyy9zrIS21gYAuSt/CJ0lt1+ptHBfx699f
-	3o0hpAWNTPsiwiLIoa84OY882zVBcLJtohtb426zNghW17pldtaWzt6X/9g1sBW5kVo5iSWqwX3
-	iqnHKSEwIDq4lYaW1AL8jav8lYLN0Qgw4vmudAAQ3cYaDWPWutvS8dusPPjgkxKTt6
-X-Received: by 2002:a05:6830:2117:b0:7d7:da05:f2d2 with SMTP id 46e09a7af769-7e4f2b3dfc9mr12303565a34.16.1779144799071;
-        Mon, 18 May 2026 15:53:19 -0700 (PDT)
-Received: from Dell.cheetah-searobin.ts.net ([108.243.219.47])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e55bbd0be3sm8668776a34.15.2026.05.18.15.53.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 15:53:18 -0700 (PDT)
-From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-To: sashiko-bot@kernel.org
-Cc: akash.sukhavasi@gmail.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	robh@kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v2 2/2] dt-bindings: usb: richtek,rt1711h: add missing 'port' property
-Date: Mon, 18 May 2026 17:53:17 -0500
-Message-ID: <20260518225317.53138-1-akash.sukhavasi@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260518164403.C09F1C2BCB7@smtp.kernel.org>
-References: <20260518164403.C09F1C2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5yyDNa7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A9BC2BCB7;
+	Mon, 18 May 2026 23:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779147227;
+	bh=X5pKwqyT25YTgtH8HkJKqoI6v8d7nkjVY5/oK2GK5WE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h5yyDNa72xRL/tTRZP5+xIUfBOuM2BXUdjqcW05AbMUSk+Fg5Zyd1RzuZ+sjUHRnH
+	 ODVwLMSFHaF1fUNtNz3F3y8lni5mwNmJmWvH+2CqbqjziGniWm5EkPfZlt9I+P+kAF
+	 pP5Ylh7DGV+ZThOqS7igS3MmyppcVdCTHkYAsrP9+l/peIVD93yVCZL5WFJ6gkRagB
+	 y8wFasnVKm7kJlnNqaaXTkPw+XcgfgGiZ/kDTlBnayLMfb80OLdWp+WVnQb5yQargT
+	 l6y0kuMQiz1Rpxip2LK1Z9MIXovfjg1+MlPFTmNWKZ0ZdB0gAXydtubJtrWOb2VRdk
+	 MrsUJAdYezWSg==
+Date: Mon, 18 May 2026 23:33:45 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] dts: riscv: spacemit: k3: Fix I/O power settings
+Message-ID: <20260518233345-GKC3679294@kernel.org>
+References: <20260518-07-dts-pinctrl-io-power-v1-1-abe19c14a726@kernel.org>
+ <20260518211546.A52A3C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518211546.A52A3C2BCB7@smtp.kernel.org>
 
-> Is this comparison to realtek,rts5411.yaml accurate? The RTS5411 is a USB
-> hub that physically routes data, while the RT1711H is a Type-C Port
-> Controller (TCPC).
+Hi 
 
-Fair point, rts5411 is a hub, not a TCPC. A better precedent is
-qcom,pmic-typec.yaml, which is also a Type-C controller and uses the
-same pattern: a top-level port for role-switch signaling as a sibling
-of the connector node.
+On 21:15 Mon 18 May     , sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The newly added `spacemit,apbc` DT property triggers a spurious boot warning and relies on a fragile probe deferral dependency, because the target `syscon_apbc` node lacks the `"syscon"` compatible string.
+> --
+> 
+> commit 89bb8c89cecf7c32a2e825a2b8f604c5c45762bd
+> Author: Yixun Lan <dlan@kernel.org>
+> 
+> dts: riscv: spacemit: k3: Fix I/O power settings
+>     
+> SpacemiT K3 SoC support dual-voltage I/O power domain, while initially
+> configure to 3.3v, and need to access register from APBC space to switch
+> to 1.8v domain.
+>     
+> Fix the GMAC0's I/O pins 1.8v switch failure that will result a broken
+> ethernet driver.
+> 
+> > diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > index 815debd16409b..2b0bf9cd755bd 100644
+> > --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > @@ -803,6 +803,7 @@ pinctrl: pinctrl@d401e000 {
+> >  			clocks = <&syscon_apbc CLK_APBC_AIB>,
+> >  				 <&syscon_apbc CLK_APBC_AIB_BUS>;
+> >  			clock-names = "func", "bus";
+> > +			spacemit,apbc = <&syscon_apbc>;
+> 
+> Does this newly added spacemit,apbc property trigger a spurious boot warning
+> and rely on a fragile probe deferral dependency?
+> 
+> Looking at the referenced syscon_apbc node, it lacks the "syscon" compatible
+> string.
+> 
+> This prevents syscon_node_to_regmap() from instantiating the regmap
+> on-the-fly, causing it to return -EPROBE_DEFER if the pinctrl driver probes
+> before the clock driver registers the regmap.
+> 
+This is possible, I think it's worth the effort to add some logic to
+handle the deferral probe situation
 
-> Since the RT1711H is a TCPC, should this role switch endpoint logically
-> belong to the physical port inside the connector child node instead?
+> The pinctrl driver catches this with a blanket IS_ERR() check and prints a
+> now-spurious "no syscon found" warning during boot while discarding the
+> regmap pointer:
+> 
+> drivers/pinctrl/spacemit/pinctrl-k1.c:spacemit_pinctrl_probe() {
+> 	...
+> 	pctrl->regmap_apbc = syscon_regmap_lookup_by_phandle(np, "spacemit,apbc");
+> 	if (IS_ERR(pctrl->regmap_apbc)) {
+> 		dev_warn(dev, "no syscon found, disable power voltage switch functionality\n");
+> 		pctrl->regmap_apbc = NULL;
+> 	}
+> 	...
+> }
+> 
+> The voltage switch functionality only ultimately succeeds because the
+> subsequent devm_clk_get_enabled() call against the same node also returns
+> -EPROBE_DEFER.
+> 
+> This gives the clock driver time to probe and register the regmap before the
+> pinctrl driver retries.
+> 
+make sense
 
-The top level port describes a control-plane connection (role switch
-signaling from the TCPC to the USB controller), which is distinct from
-the data-path connections inside the connector. This separation is used
-by qcom,pmic-typec.yaml, and on the controller side by
-snps,dwc3-common.yaml, dwc2.yaml, and chipidea,usb2-common.yaml.
+> Would adding "syscon" to the syscon_apbc node's compatible string, or
+> explicitly handling -EPROBE_DEFER in the pinctrl driver, resolve this issue
+> and prevent the spurious warning?
+> 
+I prefer to do the latter way
 
-> According to the standard bindings in connector/usb-connector.yaml, the
-> connection to the USB role switch is typically represented inside the
-> usb-c-connector child node.
-
-The connector ports describe physical data paths (HS, SS, alt-mode).
-The top-level port describes role-switch signaling between the TCPC
-device and the USB controller. Both patterns exist in-tree across
-multiple bindings.
-
-> The Linux TCPM core also appears to expect the standard layout, as
-> tcpci.c initializes tcpc->fwnode to the connector child node, and tcpm.c
-> attempts fwnode_usb_role_switch_get(tcpc->fwnode) first.
-
-The TCPM core handles both layouts. Multiple in-tree bindings and
-their corresponding DTS files already rely on the top-level port
-pattern.
-
-> Would it be more appropriate to update hi3660-hikey960.dts to move the
-> port into the connector subnode rather than changing the schema to allow
-> it at the top level?
-
-No. The top-level port layout is an established pattern, not an
-anomaly in this one DTS. Moving it would be a functional change to a
-6-year-old in-tree DTS (commit 47e2843f5e2e, 2020), and the schema
-should describe what exists in-tree.
+-- 
+Yixun Lan (dlan)
