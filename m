@@ -1,134 +1,128 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C2F46AEF2
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE9D48AE02
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779119623; cv=none; b=uTxyquxiCL82Rf47Wwu2tVIqR+vwrvTzDQ6FRlG1AjaQeqPzlzNuARYZlL5Rz5clvLG9P2ngyBY15zUE2qeBMjwwVSsBSULOCgXjBTkINQ/RsFTK1Z8/GaipfeKgPVB9W31fwckp5jo+0OpQkhnPUGoobqwojsWo3QsznJs6LpE=
+	t=1779119624; cv=none; b=eHFKgp4K6pEGsgHzgsOLmfUF0PWa+1ssjr8pqxrn+8EpwS4G5wWwB+bOH69xnUZ1URciM1EnwTA8GO/+ZYCbFczKEI0lSOptDUZJLW+h/bjkYwRa0Ll/0TxDM/BvoT64wXMXMkErnwcCSZWtsSpJCGPmZF5jdnEna7Zvyiw5468=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779119623; c=relaxed/simple;
-	bh=ilxXJ6f6ocM13VA/URJIbBBqXtBkN2Q+ruqs2Cl8XYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fl0V5qnHSrmxboC/PCiR5N8dxEs2CRIRjf8lZw/AxpQjhEkEA9fZ3Pm78AfUEHg0R0CnWwS9cWBwi6Kli6LOd/BBH8eHrKMliRZW4WrlmDQOPihI+fu68u333W1HU6aq7T23w42XjmZ37w6weOUxz+WF7ripANheyGFJxpcraAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gooXQ9tM; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779119624; c=relaxed/simple;
+	bh=S6SVBqmcAvHY5nTiiDj99x5B0CqWbX8RSys9dvTwzVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Oh9Gg2MBOQCqLGRH2tQnlEVMpVi+EdH79QF8KZd+w5wzm9QYLMREKp2OWCyng/mbsHzs8B9EMP22SLmJLILRWV432fXMJYYgn004S/7p2mvaPILCcsLM4dHMFd3n/SgAtHAQcZrWWejVSwe5We0lqkw05zgL36QyOprKBzFbdBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gEIL5JDj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tgzJw+j2; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gooXQ9tM"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-48d102471a4so20269775e9.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:53:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gEIL5JDj";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tgzJw+j2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1779119609;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wZCyUkEWRjyv2fKKDGGvW1Vl+jU51oCsDzDIRpAen0g=;
+	b=gEIL5JDjDLezKWWHvXVMOTwyG3cMwTt7md6pTQ3mKuqmJL15glXW8CTliw3R65uOwHHtQm
+	Yic1IuoWNdukIKy278tj/01LmcueP7feNKgH3/mdOHUxPneWdeM0U0h69a/sotYmJKJj3c
+	z10B0lUP410QNxTkAjw44UF8CIxeE70=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-549-hukbde0_Nb6dXf57yklepg-1; Mon, 18 May 2026 11:53:28 -0400
+X-MC-Unique: hukbde0_Nb6dXf57yklepg-1
+X-Mimecast-MFC-AGG-ID: hukbde0_Nb6dXf57yklepg_1779119608
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8baa173eacbso39897436d6.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:53:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779119612; x=1779724412; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=zmgE78suZlMwwBJChVhs0s2vjaTS32du2erStadTtvQ=;
-        b=gooXQ9tM/GQEQRs8OsgB52bzqkPnODTR/xxTtxJX7Qi87/5Y6v5lmiY5CxCW+ReCKl
-         Dt+cVV7oYneyVB7uPlgJ4abvdmzrv5AVq2nQGH1GxdHXok4NlpAOkKG0uzyLfsDidHb3
-         RGkKocbrqeNv5kjxFD6tabvxEkMzzrDBDSyxDm4SJQsKe4AT1h1b0G88HbbJ90AJAGbE
-         r6+z6uDDKrci6dVLE69QRbuEd8hjQSBX26Ys9guPengfpbf4AzaAilAe01I3qfg2yld3
-         w3Ut/LFpRffT8hcyCkmYVGpYwzS3XeoO1+MNgc03l2BmMeD8Iy6twnPsAeAFqc1Ub4Ou
-         dglg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779119612; x=1779724412;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1779119608; x=1779724408; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zmgE78suZlMwwBJChVhs0s2vjaTS32du2erStadTtvQ=;
-        b=Y46dgn3i9i4Qb1AKO10H3+0Ch8sWaedGnZ8g+6DokcqKpfVxRDs/Lq9oYVY/m4QCIf
-         he/dCgEuid0HdvNOBMtF8U+4hV01n/L8GBIXgtSFHQ4MwoyDJJwubVtb5Nznx8Tz5cNl
-         a7ayjSxTG9NW0YUOxL/LDL8t5C6TYyOxfzehWHY+1/w+XbF15fSUAIu6vSwa7h3SmQi+
-         HV7KHEVORrTlsLBhNNgv0dutUY94JumGK/U3gmAmMgvLKsIf8OxvyJfn+/XwzT/Gu13B
-         mZ1sPH5cwcCyRKah7YwL3oiEDQbxjnLzQlZYCCWaxWNLmIpOjB0P3LAe4cHU9kaLjoJr
-         QNwA==
-X-Forwarded-Encrypted: i=1; AFNElJ+vfxy1ChA7gG06PTXxo57KrpPJAg6Z1v5w6gtPYzfqxKfLk2pQH48epg3mcQN+dTwiCxkBRHbiXFcd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxyza02e//cQqjJd4qDVlF5H+lhmDHX6EM+28KcYRCbqDDItzrb
-	uO94jLFMmjGx6Jb8IT4i4DgKE/wAL0Oagd2wOfmHig4wROPgJlO/C9vc
-X-Gm-Gg: Acq92OHHufmRumZratxx7O/AI1VGjJvK6lPU9ibqWqN1+iJo4l4EBdUpHuDT/A7MQel
-	CiuUC8LN+iO/JvjAvwCslxmvX+rD1hyqETzauq9nzL3ijf/vDbv4G1PAL8z+t27oVwabIz7Tpsc
-	2MNuyBC8K5wicOIqMpJABi80FKows/aB12DbXwJ2kDvAULLmCT1XSRopRhJw/23zyX976bWCp52
-	8Rj7+wzJgSlwLmR/c1x9Ngg8TEy81Vr3E7vk+Vmjw13cOyzz/mAzS278Brctbs8zaEG8FcYXgS2
-	U3Sde/DBQ7WgyXVizVpU2Gv6LUqOk7OzfJasIvBRPAuszq3clnFXE4hgtC49MP5sGRH5B/eaKFQ
-	XpgHDKtNUZ8CdW+VG2481VBR8OBZ18BIV+t5lHBfkNj3LYwHAxg/5yFg2jn/iHE8KGYiqk6/LW1
-	jdjDpA2MtD562++cj6uFKYznBWArSIWzW9lmRHBW737QGTvj/dgtRmAY9bLzcxBSbgD2eIYwpLF
-	8QxWU+ONjBOgZDRavbqMkeleP+IDptf07F6/1PaXFzW88kA
-X-Received: by 2002:a05:600c:4e46:b0:48a:75b9:5e07 with SMTP id 5b1f17b1804b1-48fe60d576dmr255690515e9.11.1779119612345;
-        Mon, 18 May 2026 08:53:32 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:2409:d26f:6d8b:b2cc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe4c8344asm450054575e9.1.2026.05.18.08.53.31
+        bh=wZCyUkEWRjyv2fKKDGGvW1Vl+jU51oCsDzDIRpAen0g=;
+        b=tgzJw+j2vhZNqmMa3hG500Ea43o4/yQMZlOHrwfG6AEthEPZRsLiP8xp3s2EbpM7O2
+         1L2jqMfsC7LeCWMfE0gekaQdqnBPjdzx0pCZtYFOM9qvdbbRPPB8qFe1WHZuY66VZV2y
+         UlcfuuDAPsj0+84QLv2U3m5wcm8XhMFmGnf2nLVlO1msMhFXuI1c2F0rJR8JSIRz+UCp
+         iJ+lkW41M+nwLAcw89pzD7x0RZkWH5nAhduKDCwmSOdQasxNlbblmaoFdXp2e1wWWXRw
+         F3jeP2RZC8WRoWHBUIXxmzdQNvmoNgGboNvlVnXALoKRUfd0ghyzJt040F/czwDKCgc6
+         z0ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779119608; x=1779724408;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wZCyUkEWRjyv2fKKDGGvW1Vl+jU51oCsDzDIRpAen0g=;
+        b=eHlgqcfoeRlZQb968X4b8oOIckB0vPRmNVfcwh6tU8WWy/BmFWT4KwKXB9TGMPAscH
+         8rvR/6W59NuN00elNBpU+/IFboC3if/VJKgWaOF9SdViXAqfQ/WhAPrp1ZmcgAiXXGOV
+         8uE28kMj/afnM8rxJXnStRZWOBrIhE85DTRPjr0q5xUHMJk7Te8WOoTAU8iV+6HzflhT
+         C5+3HPcpsWn3yS+wjh6qhZIA3WBe9RP43dkqSRZfC11mpYgROqCMPclSffxBNBg1UTt3
+         nYUQpiJt/drOSlF9Hd0NXxmK34uYhUYQZpW/zGhAWK6tKKpN6t+FP1NYnkBGKJ43Ro9E
+         G+rw==
+X-Forwarded-Encrypted: i=1; AFNElJ9agRzYndVPqvqt+K/p3Ao+LGvRSZG52nYL3CcaM31thVHqJBYOR2hR93XGmBimYgAxNOTOkNMADP3K@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx08mu6rJxBfjdm1YNFewOWOF3Q4MDrmdggseQi/jQEkCKb/2ck
+	MSBZCfRg8Csy0Q7VVZmhyEyLE2/gazTWn/LhxM17w09SwA/sr8sscsmWnd2b5fdkLVheVs7u5jk
+	efFR8m/o1p5cq8YDLK42e65diQv9v+WilkNvmv2tC7CxGCh9it6a/IKaUMcfoj8M=
+X-Gm-Gg: Acq92OFauhO2ge4UERmhocCMZR2QtySR9TqgtNyvsSoLim1QTc5GoRbqmE+ybePs2sd
+	jVxWjaXlq6MZhT1u2UlwEPZQxQZD03OJj79ryw3s2W1PbxghYOV4NHlU8kR5iFzU9YAbV28i17l
+	hug1NJSIgpf4S5vxDYLjglwPQ1RFZv7hK04G4Td8QCFnb91XEt5J+4fRDgv/cUN2vWDvjNhz5cZ
+	qhMBr5am9JQfHTmNEYpqtYF1gR3Rv0RORvRZjs+MljwHJCJpfNm/rPEXHK780Adi6ThAazYVMmZ
+	owvi1EDFWpoh5hTVNTX5bm7K6SDJtrCC2LoYh9A1Bwo2GoKmP+aALxvHqZlSmrAnLqb9B+PySY0
+	7gT+uTYNCLAbp1irMolLKFbBQ1iL7IW+vD/IGvbPqHTlV/RBIPy642Aba
+X-Received: by 2002:a05:620a:4006:b0:8c9:fb69:e708 with SMTP id af79cd13be357-911cc6aeac9mr2295179985a.25.1779119607759;
+        Mon, 18 May 2026 08:53:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:4006:b0:8c9:fb69:e708 with SMTP id af79cd13be357-911cc6aeac9mr2295176185a.25.1779119607260;
+        Mon, 18 May 2026 08:53:27 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-910baf2236fsm1529569185a.20.2026.05.18.08.53.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 08:53:31 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Rob Herring <robh@kernel.org>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+        Mon, 18 May 2026 08:53:26 -0700 (PDT)
+Date: Mon, 18 May 2026 11:53:24 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 0/4] Add PCIe support for RZ/V2H(P) SoC
-Date: Mon, 18 May 2026 16:53:20 +0100
-Message-ID: <20260518155324.168948-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Subject: Re: [PATCH v5 1/6] clk: correct clk_div_mask() return value for
+ width == 32
+Message-ID: <ags19ABMNAgtao-k@redhat.com>
+References: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
+ <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
+User-Agent: Mutt/2.3.1 (2026-03-20)
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Thu, May 14, 2026 at 05:27:17PM +0800, Junhui Liu wrote:
+> The macro clk_div_mask() currently wraps to zero when width is 32 due to
+> 1 << 32 being undefined behavior. This leads to incorrect mask generation
+> and prevents correct retrieval of register field values for 32-bit-wide
+> dividers.
+> 
+> Although it is unlikely to exhaust all U32_MAX div, some clock IPs may rely
+> on a 32-bit val entry in their div_table to match a div, so providing a
+> full 32-bit mask is necessary.
+> 
+> Fix this by using the standard GENMASK() macro. This safely resolves the
+> undefined behavior on both 32-bit and 64-bit architectures, while also
+> benefiting from the built-in compile-time type and bounds checking
+> provided by the GENMASK() macro.
+> 
+> Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> Cc: Brian Masney <bmasney@redhat.com>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 
-Hi all,
-
-This series adds support for the PCIe host controllers found on the
-Renesas RZ/V2H(P) SoCs. The RZ/V2H(P) controller includes additional
-features for PCIe lane control and supports multilink operation with
-two independent controllers.
-
-v1->v2:
-- Dropped RZ/V2N DT binding patch as it has been merged in the
-  pci/dt-binding branch.
-- Dropped un-necessary new line in schema.
-- Renamed RZG3S_PCIE_CHANNEL_ID* to RZG3S_PCIE_CONTROLLER_ID* for clarity.
-- Added locks to protect shared lane configuration state and
-  prevent concurrent access issues during probe.
-- Added cleanup action to release lanes on driver removal.
-- Reconfigured RZG3S_SYSC_FUNC_ID_LINK_MASTER in resume path.
-- Renamed num_channels to num_pcie_controllers for clarity.
-- Updated commit messages for clarity in patches 1-4.
-
-note, the dt binding patch applies on top of pci/dt-binding branch.
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (4):
-  dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2H(P) support
-  PCI: rzg3s-host: Use shared reset controls for power domain resets
-  PCI: rzg3s-host: Prepare System Controller handling for multiple
-    controllers
-  PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
-
- .../bindings/pci/renesas,r9a08g045-pcie.yaml  |  21 +-
- drivers/pci/controller/pcie-rzg3s-host.c      | 229 ++++++++++++++++--
- 2 files changed, 231 insertions(+), 19 deletions(-)
-
-
-base-commit: d2fc550dfe13eef91b065af7a12348ba4162ac04
--- 
-2.54.0
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
