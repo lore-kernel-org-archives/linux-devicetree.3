@@ -1,57 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B880148A2D8;
-	Mon, 18 May 2026 16:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9687481FC3;
+	Mon, 18 May 2026 16:39:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779121882; cv=none; b=LyQ5517QZJIc16za27AtLx4HUOIMJs5oqfVtepM71c4NN+mLAnjGwcxj0EzHRMhet4xQbZPthmLzqLxTIsYgNx60jw8NEz/MczSh0d/b2xaZmND7OBMT3tXrzm1AvWpmI4fIyKjdlbN1Sgy47U2fEqe8ZXJRTG8gKMqz/KfOQRs=
+	t=1779122351; cv=none; b=oHma/eNZkTJUmIzz7WsIxkS8es21hcze/svgMfOr/BL7bjEqeL0bZVjTg5QnTxIKetVTFjxSq/hs329DVX3j9wseYMaiT1BG5hdhpDDG2btWbDtjKMSbje/7VmGsXpAwkhwxkl5guDlIklB82/lRhFtoRcJigpbs+NLHcgT96Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779121882; c=relaxed/simple;
-	bh=jMB5NoP0wP+6A9Zh0OD36Hq603Uurn3NLlC4stKV5Ag=;
+	s=arc-20240116; t=1779122351; c=relaxed/simple;
+	bh=Stf0ehQABcL3BWcb4wO+GZaxhOMvSkzAfcn2Ijq0AG0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EuXTKGpG5keu3aLLRQOtZ205oPe7xLvEpkG3elK5Wb1Q4VjZGFvFqVXYtpLIzVLcvk61/FH+0WOX+kb1wlT7hzarJOEh3tklRv4xKFYHrnXPl+hGDzyiZb63l/h54zyNFfzhdoTdk0wjN2ttQ6WtbWHcGT0TU/RkKkZmEInYBbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4vHn98Y; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=rKxEyT0+jFU5Xc0U1UBJ6WzZ/bytHIcVhnWlDdffjK5b8QJ2E+7sR7iNc4Pe7v0oX1Ez7mJYwqQ18NV/aslzo7m9jyZhRlV+e/bcF45JcecE4eYP9FSeeH6TcXzmxo08p0ix+SYhfm2AJ4NKJuVBzdNcBcZGqAJQp5V/izq5BVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ri+taL0k; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4vHn98Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9105C2BCB7;
-	Mon, 18 May 2026 16:31:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ri+taL0k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92DCCC2BCB7;
+	Mon, 18 May 2026 16:39:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779121882;
-	bh=jMB5NoP0wP+6A9Zh0OD36Hq603Uurn3NLlC4stKV5Ag=;
+	s=k20201202; t=1779122351;
+	bh=Stf0ehQABcL3BWcb4wO+GZaxhOMvSkzAfcn2Ijq0AG0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m4vHn98Y6yqiR5nHUZYeHgIe1GYZOYxdaAUikdAIiclUlR6G0/TQadLFDESIfFWtx
-	 NAVKpOQRnJ+nc/mPfCztm3u6bR2H6K0grub1oakThM22+VJHHuLc58PBo15oAzJ91G
-	 fmtIaJIMaDtW5XxTdwpJeXJCrwKTCuZL3nkc2mEgCCYTLUyI2tk8Wxe3PT2ZWlfYZO
-	 P8h0kIgpuEKUOSr2QnSm0jZ0i9cC8d54ihfJYsTM3HkAfyNyIcu184dDHGMTb++Zd4
-	 RYmeY0C4vfm0QUnrJkvOKototuGqQl/n6C9mSOFMgc7H0eAXMLhqYCcvfOCnz5kf5C
-	 RfUETTXb/PvtA==
-Date: Mon, 18 May 2026 17:31:14 +0100
+	b=Ri+taL0kKcikhS3U246fV7VwmCwQVJ6iR4pUT7Y1ejnazoXIXqjNukoVEtnXYq4lE
+	 H9J3jMBXFgj+4iIZwHXfMn0US77NnnM26zye4J+RRc4jt/+lY7C4FT9sbpQWzLkoXS
+	 3lKf16QcCWIYaD112BN30pqxYvycFepjSujK34DF99lOud7ieetTWqTwDUzu+yfk5x
+	 lXurmf8G/GOUGgYBX1RIb3baq/h9LbplM+2ki7B+fyjHYAjnvf0daBI/oLqZSyouZd
+	 NdgD8a3RBpVpTsXSmGL5WNhSxi+QnnX9e1cSQniKU9PWXZuOhZia/Y1d5DQU0wQZSI
+	 16mpmxkrjQ6TQ==
+Date: Mon, 18 May 2026 17:39:08 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, hjc@rock-chips.com,
-	heiko@sntech.de, andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	andrzej.hajda@intel.com, neil.armstrong@linaro.org,
-	rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se, jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com, dianders@chromium.org,
-	m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
- Expose inherited properties
-Message-ID: <20260518-bootlace-afoot-8da24d7c9d13@spud>
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
- <20260514070133.2275069-2-damon.ding@rock-chips.com>
- <20260514-upstate-sneer-0b6e78682798@spud>
- <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
- <20260515-confess-hungrily-4f64ce0d8de2@wendy>
- <a7ab01f6-78a4-405f-8160-8af31a8ef99c@rock-chips.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>,
+	devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: Add bindings for StarFive JHB100 SoC
+ trng controller
+Message-ID: <20260518-try-county-894e2fc4a433@spud>
+References: <20260518065243.20865-2-lianfeng.ouyang@starfivetech.com>
+ <20260518070622.446D9C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,125 +43,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zu1z+34yeGAH2xIH"
+	protocol="application/pgp-signature"; boundary="Nobh5KDaNa7Qm609"
 Content-Disposition: inline
-In-Reply-To: <a7ab01f6-78a4-405f-8160-8af31a8ef99c@rock-chips.com>
+In-Reply-To: <20260518070622.446D9C2BCB7@smtp.kernel.org>
 
 
---zu1z+34yeGAH2xIH
-Content-Type: text/plain; charset=us-ascii
+--Nobh5KDaNa7Qm609
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 18, 2026 at 10:44:29AM +0800, Damon Ding wrote:
-> Hi Conor,
->=20
-> On 5/15/2026 5:04 PM, Conor Dooley wrote:
-> > On Fri, May 15, 2026 at 11:57:58AM +0800, Damon Ding wrote:
-> > > Hi Conor,
-> > >=20
-> > > On 5/15/2026 2:16 AM, Conor Dooley wrote:
-> > > > On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
-> > > > > Expose the inherited properties from the base analogix-dp schema
-> > > > > to satisfy unevaluatedProperties constraints.
-> > > > >=20
-> > > > > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> > > >=20
-> > > > Given it's unevaluatedProperties, not addtionalProperties, this pat=
-ch
-> > > > shouldn't be needed?
-> > > >=20
-> > >=20
-> > > When I remove both the top-level data-lanes property and those explic=
-it
-> > > "xxx: true" property entries and run the dtbs check with:
-> > >=20
-> > > make CHECK_DTBS=3Dy CROSS_COMPILE=3Daarch64-linux-gnu- LT0=3Dnone LLV=
-M=3D1
-> > > LLVM_IAS=3D1 ARCH=3Darm64 rockchip/rk3588-evb1-v10.dtb
-> > > rockchip/rk3588s-evb1-v10.dtb rockchip/rk3399-sapphire-excavator.dtb
-> > > rockchip/rk3576-evb1-v10.dtb -j4
-> > >=20
-> > > It results in validation errors like these:
-> > >=20
-> > > /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
-> > > edp@27dc0000: ports:port@1:endpoint: Unevaluated properties are not a=
-llowed
-> > > ('data-lanes' was unexpected)
-> > >          from schema $id:
-> > > http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.y=
-aml#
-> > > /home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb:
-> > > edp@27dc0000: Unevaluated properties are not allowed ('force-hpd',
-> > > 'interrupts', 'phy-names', 'phys', 'ports', 'reg' were unexpected)
-> > >          from schema $id:
-> > > http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.y=
-aml#
-> > >=20
-> > > I suspect that the properties defined in the child binding are
-> > > overriding/masking all the inherited properties from the parent Analo=
-gix DP
-> > > schema.
-> > >=20
-> > > Is there a better way to fix this issue without explicitly listing all
-> > > inherited properties as true?
-> >=20
-> > The example in this file uses most of the properties that you mention
-> > above:
-> >      dp@ff970000 {
-> >        compatible =3D "rockchip,rk3288-dp";
-> >        reg =3D <0xff970000 0x4000>;
-> >        interrupts =3D <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
-> >        clocks =3D <&cru SCLK_EDP>, <&cru PCLK_EDP_CTRL>;
-> >        clock-names =3D "dp", "pclk";
-> >        phys =3D <&dp_phy>;
-> >        phy-names =3D "dp";
-> >        resets =3D <&cru 111>;
-> >        reset-names =3D "dp";
-> >        rockchip,grf =3D <&grf>;
-> >        pinctrl-0 =3D <&edp_hpd>;
-> >        pinctrl-names =3D "default";
-> >=20
-> > dt_binding_check reports no problems with this node, so I think the
-> > problem might lie elsewhere?
-> > There's no edp node in the dts you mention above, so this looks like an
-> > interaction with something that's not yet upstream.
->=20
-> Ah, I see.
->=20
-> I did add extra changes to the edp node on my local rk3576-evb1 board DTS,
-> which indeed caused this 'asymmetric information' issue and made the
-> validation fail incorrectly.
->=20
-> I will try adding the data-lanes property to the example in the binding
-> document to ensure dt_binding_check passes cleanly.
->=20
-> >=20
-> > If this is required for the rk3576 edp, then you should include this
-> > patch in the rk3576 edp support series rather than this one anyway where
-> > it can actually be evaluated alongside the node it apparently causes
-> > problems with.
->=20
-> The data-lanes property is actually applicable and useful for all Rockchip
-> eDP platforms, not just rk3576.
->=20
-> In the next version, I will modify the series to better separate this com=
-mon
-> data-lanes change from the rk3576 specific eDP support patches.
+Sashiko devs,
 
-To be clear, I wasn't talking about data-lanes here, I was talking about
-this patch that addressed the properties inherited from the common
-analogix-dp.yaml.
+On Mon, May 18, 2026 at 07:06:21AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Removing the existing 'starfive,jh8100-trng' compatible string=
+ breaks backwards compatibility.
+> --
+>=20
+> commit 847e83dc6a2024f6cb7a70fd0453035b2808bedb
+> Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+>=20
+> dt-bindings: Add bindings for StarFive JHB100 SoC trng controller
+>=20
+> This commit adds device tree bindings for the StarFive JHB100 SoC TRNG
+> controller, updates the maintainer, and removes the JH8100 compatible
+> string.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng=
+=2Eyaml b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
+> > index 4639247e9e510..d21769b7d54e6 100644
+> > --- a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
+> > +++ b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
+>=20
+> [ ... ]
+>=20
+> >  properties:
+> >    compatible:
+> > -    oneOf:
+> > -      - items:
+> > -          - const: starfive,jh8100-trng
+> > -          - const: starfive,jh7110-trng
+> > -      - const: starfive,jh7110-trng
+> > +    enum:
+> > +      - starfive,jh7110-trng
+> > +      - starfive,jhb100-trng
+>=20
+> Does removing the existing "starfive,jh8100-trng" compatible string break
+> backwards compatibility?
 
---zu1z+34yeGAH2xIH
+The commit message is perfunctory but does attempt to explains this.
+Since the bot reply fails to retain the commit message as quoted text,
+it's annoying to go figure that out.
+
+It's really annoying that this happens, especially when the LLM text
+references the commit message. Can you please change the email response
+settings to retain the commit messages?
+
+Cheers,
+Conor.
+
+>=20
+> Device tree bindings represent a stable ABI, and removing the previously
+> merged "starfive,jh8100-trng" string breaks dt-schema validation for any
+> existing or downstream device trees that used it. Even if the hardware is
+> no longer supported, the standard practice is to retain such strings,
+> perhaps optionally adding "deprecated: true", rather than deleting them
+> outright.
+>=20
+> > =20
+> >    reg:
+> >      maxItems: 1
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260518065243.20865=
+-1-lianfeng.ouyang@starfivetech.com?part=3D1
+
+--Nobh5KDaNa7Qm609
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCags+0gAKCRB4tDGHoIJi
-0r+xAQCCA3hrAk8UTFXKlAQIK/tQrNfrXeTUlCpoCL4QRVIvSQEAlMrMbINx6Xd0
-QZxf04KGcPEvkVb/5IExzbmxUZ8p7Ak=
-=TgMj
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagtArAAKCRB4tDGHoIJi
+0o12AQDfhow6+UreCj+Kxz2nab/sMC839yIeHrsR1Pq22+htBwD7BfQZx0HnYdXo
+fxDeTRst6kAiF7iC3miaaV0wMcgM1Qk=
+=lwZU
 -----END PGP SIGNATURE-----
 
---zu1z+34yeGAH2xIH--
+--Nobh5KDaNa7Qm609--
