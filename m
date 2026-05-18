@@ -1,192 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D6F388E4B
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 07:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779090009; cv=none; b=Aspcw+P38l1Di5bd8Gk8UQg6HKg9FqAGzJnnUUmPVSd2WPO2Iosy8AQpMK/8YCWwGskCZGdYRP6b56G/6Z0KJ8J+TalBo/eYCiBQGfiKWOeZorD7yndaH7z0nY1+eoa3sMhBZr3eqiRDME6QgvHnWHoVvtgOhIMeabHAZCWttM8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779090009; c=relaxed/simple;
-	bh=WF1zseLhLsruTsny6aNSVC5b1ByNQeKZ2WXlGjfpkSs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=plPGWTYTpWoB1dp3c21mzwKty7pOR+JPtDxjDKsYP0u+4kftAfP8Rm6DXAVD2wywCxGzJN1Xde+OxOdacHgPXjYpcewcKJ7/4zewzWBie7Ne1QJXjW5A4+vcS0xKMLDdpnouxixqK9OWaiYacrRjwhXxqJr/yFIuFTMpVXqsUj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IecTovIt; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF573DDDD8;
+	Mon, 18 May 2026 07:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779090073; cv=fail; b=ZlnSjG+MNyUyVcCflD3FwK4VDscXApdxZXHB0oPpuZCwljQ/rwKdeyMX5puR3vPzjv9Bybf2x25azY5Vdl1iy0iDemAKOlDtw6MhSmTlKNdCF3qyL2XLlELPN0Rscji3tPWZkuDcUSNnbswXnMejqbQcl+Mc8dAnHOtxF3J8oa4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779090073; c=relaxed/simple;
+	bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=HLVGN070LgcYkclcLSPPjFf2MFHPg7fyxHkdsYtoVr/eIzccD4GmBgY5i3+65q3lYSQY0P1TSH/Wyd71/fYcDX8/3oMweowz+hv9IfcwnkD88t7iF26cFfE98Wdt4fOxfEpurFPY0kirIvSMeEGXd0I2cdwXUq3Aof9aT3j/KJw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=SuA9Xunx; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=NKlR/+UJ; arc=fail smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IecTovIt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09EBC2BCB7;
-	Mon, 18 May 2026 07:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779090009;
-	bh=WF1zseLhLsruTsny6aNSVC5b1ByNQeKZ2WXlGjfpkSs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=IecTovItEte7aTA2xDZvUQ9iHQnljJ11Une6HfCH6jffLfJn1pxS19/yC6Djtgx9c
-	 hwWgu/TZ5Ss+gqe686JJAOsr1UKKfUSA3QWK67BdKlE+AAb8h/Hj27ZtgUNE7LEziZ
-	 UnrcjH9HBbAdqdtEsQuS3FmnZaWrnPURo+nYLE9U3eyA16dDFj52WKHCm5dX9xO3Fw
-	 z6F9t9HbffLmPn8hMWtulxlW8MwBbY6B+5YO9nt/l1hz5ZUZGhnnQFkmElEIU3jMrP
-	 S7XEURmoUyjfeIkViEoFsIuWk3UJv8j3SENg1+xtLiGiRUHwG+mYT/CA9QilgaFjoK
-	 BP6rIZTkQcMGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] hwrng: starfive: Update clk and reset sequence
-Reply-To: sashiko-reviews@lists.linux.dev
-To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518065243.20865-3-lianfeng.ouyang@starfivetech.com>
-References: <20260518065243.20865-3-lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 07:40:08 +0000
-Message-Id: <20260518074008.C09EBC2BCB7@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="SuA9Xunx";
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="NKlR/+UJ"
+X-UUID: eed9e9da528c11f1a3561939bc42ff46-20260518
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
+	b=SuA9Xunx+gy5pY5EG/t3V5xtBzebBo56lybCl+z6gorawSJ3biKS3Mb5NcfgmQSpDbY/hTr11tfdDP6U8TZmNmP/Fsp/aGtYuSOLh/9ZXLo0yVMKmvKhS8CF0OiBqFA+bXHwdSmOI2N1Uxq1OQBQwJgyUvuMhfvdtaUCVYF28FM=;
+X-CID-CACHE: Type:Local,Time:202605181442+08,HitQuantity:4
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.14,REQID:e833fcd7-bbe8-4a12-a406-de4caecd339e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:9091e75,CLOUDID:295d81a4-a669-48ac-a1cb-3b38a93be682,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
+	898,TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:1,File:130,RT:0,Bulk:nil,QS:ni
+	l,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: eed9e9da528c11f1a3561939bc42ff46-20260518
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
+	(envelope-from <xueqi.zhang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 849109438; Mon, 18 May 2026 15:41:08 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 18 May 2026 15:41:07 +0800
+Received: from SI4PR04CU001.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 18 May 2026 15:41:07 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bcow4TTN+iz7fy3x6n8Vp/epe2nTBxKMKUOYczbYXlBBWp2V91A6QumyHef9zl7DrmTDi7V1KJyrhg6uTB9S24z2Xnpqp1anVojVR4df1g9tZvUjzo7ONMoO8Zu7GiOGmAxWyw9MZeP7ntH6nZA9NhjwwwT5caYkfpvXB4y99heIBgDjs9bcT1ILaOx+denWXS1jhwj/KRFGT9J90eW3I4I4YfagISigqyfl/FxInpQAWfbmpmTmliDq4hdphsVT73/T/VBzSq8PX9PuZkx/TLJecnkiBw41DzH+NCZS6Fg1hoNa2sUWN2Zs01EXpcPCmztcJFs9dpaBt8pLo13axw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
+ b=WAux8LLxSI909gZQEP0AywSXc/5oxv6r4Bwvyx9bNLuVGaKwXgoYVSIm3qni6Lb0v2tOVp5VZI5Tj/7l0Fi/mawXezOv+fRBW4wgq7lFWccSbz+TFAKdZ9+BKlvKq/945tShoFupeZTVYXBuc8cjReRY7ktyLVXDFb8kkP8Ivp1P5JVElcOjxTuF+6AhE748CO2A6HBYZzd3f31QfD2YPyYkgc0c2cfUd6AwYHmUGJWH6eFQKCOtTaVCJ+K3S6yLlElddedQpAZ4XepIHApEig39Lrpryt0nQZ2EJAbNtV5Uu4uX+Q909bJhjFF8xGvBNV2Ari61Ww+S+bJkBbO/Gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
+ b=NKlR/+UJSFQT3txDQaHnEkvcXaTvRFlpUmWqJ31ckHSWy5PHAALQk80V5TfHT4O5aqzKWUlaPu9O4fZAD1Xv8vTFRmFC0278DsjHhvRVCLNitFi0u8QQYiWcxPnQ+DeFE96TQ4fDUAc7Gk6U9o4cmXonyX6B7yhY7UivRxs9ft0=
+Received: from TYZPR03MB6471.apcprd03.prod.outlook.com (2603:1096:400:1c9::8)
+ by KL1PR03MB8012.apcprd03.prod.outlook.com (2603:1096:820:101::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.11; Mon, 18 May
+ 2026 07:41:02 +0000
+Received: from TYZPR03MB6471.apcprd03.prod.outlook.com
+ ([fe80::6c05:f611:5357:7326]) by TYZPR03MB6471.apcprd03.prod.outlook.com
+ ([fe80::6c05:f611:5357:7326%5]) with mapi id 15.21.0048.010; Mon, 18 May 2026
+ 07:41:02 +0000
+From: =?utf-8?B?WHVlcWkgWmhhbmcgKOW8oOmbqueQpik=?= <Xueqi.Zhang@mediatek.com>
+To: "robh@kernel.org" <robh@kernel.org>, "matthias.bgg@gmail.com"
+	<matthias.bgg@gmail.com>, =?utf-8?B?WW9uZyBXdSAo5ZC05YuHKQ==?=
+	<Yong.Wu@mediatek.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, "krzk@kernel.org"
+	<krzk@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	=?utf-8?B?WHVlcWkgWmhhbmcgKOW8oOmbqueQpik=?= <Xueqi.Zhang@mediatek.com>,
+	Project_Global_Chrome_Upstream_Group
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	=?utf-8?B?V2VuZHktU1QgTGluICjmnpfoqanluq0p?= <Wendy-ST.Lin@mediatek.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>
+Subject: Re: [PATCH 2/3] memory: mtk-smi: Add a flag skip_rpm
+Thread-Topic: [PATCH 2/3] memory: mtk-smi: Add a flag skip_rpm
+Thread-Index: AQHbmWr+ThkPYzLV/EeJKX653FeCxLN777UAgpoKryaAAAYdAA==
+Date: Mon, 18 May 2026 07:41:01 +0000
+Message-ID: <932b23380cf23b340d4738b5ac577f850dc61ae7.camel@mediatek.com>
+References: <20250320073625.25225-1-xueqi.zhang@mediatek.com>
+	 <20250320073625.25225-3-xueqi.zhang@mediatek.com>
+	 <46e0e1f1-e094-40f9-99f9-22678bb40d39@collabora.com>
+	 <198865fb3184926d0b1b4e4855b5f863ad0d6a20.camel@mediatek.com>
+	 <1571510c-e51c-40c6-a702-214bf77f9f4d@kernel.org>
+In-Reply-To: <1571510c-e51c-40c6-a702-214bf77f9f4d@kernel.org>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6471:EE_|KL1PR03MB8012:EE_
+x-ms-office365-filtering-correlation-id: 9f0cd209-c61f-4842-9f9c-08deb4b0cf6c
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700021|11063799003|4143699003|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info: 9WAiSKhz1mSHM2OuGOTboZzrNuRMQRvUR2u+MCzRrfB6MtDqN8uD+YPeysKiAwdx6PsaHN1H77AQvU56klp2EQ95fJYBFA/JoXAcPMIiTCMyKhXpN4YYUNh3YhuPpnZLEFNdwNmoVynaw38QJZHLmvj9P/3MfcG/444IW6yZw+iGN1NGMVqpicaGSbiUtBsNFFldgzpYit6eW9TSG4oZ4DOPJ9xv4S3azFl78sS1/cYoBgBd3wd3RymXPPJb1Ugv1SrGHehw+Hx4J6X4256dPlHTXhSprdP6hWAsV5BqZCjnG1UT11ATQ6KWfJVTVZ2uW9pbMjVPyigcv7YwFxNP5/I0i16j38EHVskDjhmiYNvsTzNOiGo+wkRle5J8XuG1ZjlIAr1H5vqlHqNEuSXMzKKDwTKetcCj5q5EQgtwx+xJODWc8GZKxpM0cO5IIgRG7AIwjTMV73ypgtRNeZCJG4W+BSFHVnQDzc0ekrsAMOnRKOX9e9/akW0CwPdhH53EhGOWcjcwnV75kQ43a8Ls2koD6lOflBmqz5ag3sXIRhPhLCQt6RjXSKuuQ3DA/nIFlPWpI1r3wOXfMkP+gvPr/FKAiXc4n776KzlKcxBNu0NhJ4o0WAQ1ZI5y/ckmSQ0V838H36HJNb64G1Hk0Ok47iqN31j5UIdz2sCt9BveuFQa5mEYW4YxgDMTtaMt9XlM0SpeV6Z0mF7t1UjOWayXTk8GxuuWE6BRlu/82QKw/h/PrZXxkrv3jCCeWHELTRbC
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6471.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700021)(11063799003)(4143699003)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dU5Ba1c5R01qcjdRVDdpSm4rYXpFYkJDdFM1VWFkYjBvL0IxSWJJM0h5dHYx?=
+ =?utf-8?B?azZ0SUE4ZlJBRFlJNjAzRmZCb3ZPdDc0cVU2QlBKRlV2cCtNalhWQjRjdFc2?=
+ =?utf-8?B?RlpyQUVIM1gxSU1XS095UmtNNTVldFlqZjFWUEk3aG5wdHN5Q1pMTEpqclNu?=
+ =?utf-8?B?aVJ1SXl6Mlp3S2UyNzAwY0NEUHBmaWNEbWo1dU51VGw4KzBSZkdVdXVVM05a?=
+ =?utf-8?B?QkhNU0N1TXRZMkNvM0dEblJvSTZjN3FtY294aGZ3Sy94NGpHVlAraXN1dEtN?=
+ =?utf-8?B?NFEvTEZLVXNBQXJGZHp2RGVkUlNhUFpsOGIzd2Q2bjNIdFJweHBlYU8yWFFY?=
+ =?utf-8?B?RXlVQmJEREJCemo3bUFGZGpHdjl5Tm9oRU0vVGEyNVlEN3ZIaUdqQUVMaGhT?=
+ =?utf-8?B?Z3VMTDU3SVF1UVZKY2lQRGFsb1lkeGJuLzhLZTBVdzdrVnVXeElDYXBvNkNr?=
+ =?utf-8?B?dnFpMlhxSnFER0RxeEd0enY1ekxsd0VLUVV3OGlKOGZuV21wdm16eHNhRGVI?=
+ =?utf-8?B?cCtzTDBBd240WE05V09UcHByTEJqSzZOb3U1VEJNR1BpQUFsbG9PZFlFbno5?=
+ =?utf-8?B?RjhWWjczUzVVeFBNa2g0Q0lOUkxZaG9TanlNa0ZxWGdheml0YVFLWmFqMnF3?=
+ =?utf-8?B?ekhzU2JUUDBFZ3VrcTRxMERQZWxBMjhYaG9nSXZQbEhqWkU4MCtxaVBaVzdp?=
+ =?utf-8?B?Um5KSWF0bnZDZWZBYU5xQU50cDNBaWVvNXIzM2FVRnI1NVVrZWFTWmZBa21h?=
+ =?utf-8?B?bkdSUzBmSDJqcU9JWWZsZlg4REJOQ1dZd3ZVVU1LQlI1cVdQUkIra3UvMVRq?=
+ =?utf-8?B?NTg3M1pkYVRqM1czMzV4ZnVacVlXbUNWU2NwUVpta0hwbVcwSm9YREZxS1hS?=
+ =?utf-8?B?eHRjUWJLYUpQNlp0M1ArT3FEakpNakZHcTV0cmtjRGtLWUYvN0VPQ2E2TlI3?=
+ =?utf-8?B?cTB6a29Kd0JKVzB6eUROSSs5NVlWRTNaOVNkQ1ZZejlscUlNbzJOdTZ5NzJI?=
+ =?utf-8?B?cS9qcXN6V0lkaG5Ya3JCRHBLTnZIWlVoYnpWbkNFT1VsTGYxWmc0MThxZWh2?=
+ =?utf-8?B?T2o3Y0lVa3BNZGNKdjZpWkVua0hoTkVuL09uZ3hwUTZSbUdZWEJSNU1mczhY?=
+ =?utf-8?B?WmFqWVBwYmhSTXN1TU15YWIyM0dPWWFramJoTjJjS3lVSXB3cS9ETVliMzhO?=
+ =?utf-8?B?c2dYMUtGaEVzZENGemNzdVdrVVAxSlo0bVdDZk01VjdOaEg1eHl2ZWFFUDZM?=
+ =?utf-8?B?VmJDdEZzdVlERXdERXQySmVEdE80T1c1YVd3UGFyS3lqSHFGeHd2SHdqejlJ?=
+ =?utf-8?B?QnlhZkVLV3JEYWlDdlBGQjJpWHhvRzF0L1BwUVNpTE5KZWwzbjJwcllSUWdM?=
+ =?utf-8?B?WW12dno4emo1ZklDSjlOVFhGMnJJK1Zha0JSSHlnbXlGQkhCNzJWS1FDUnZP?=
+ =?utf-8?B?WW96RHluT0RabDN3d05SY0lFN21QQUplTUNKYXd5QUkzaisvM1BYclpQbVlS?=
+ =?utf-8?B?SDA1dkROTFJMMDBNRkIwMitSbnBHbkpudUxmVXlCQitqa3UrTUtTdXJ0Zko1?=
+ =?utf-8?B?MTdyWGFGUnBkRWorUWMwUHgrZlJ2TmRyQk1BL3NkRTNLckt2UXJnTVFkNzMy?=
+ =?utf-8?B?WXV3TEY3eHpRUDE5bWhqelRRK1VvUDQrdTFha2UwZ3Z3dmM1UWpxbVJtcXJz?=
+ =?utf-8?B?dFc5M3ZVZC9aRXJXczdkL09FMkhhc2pGcnVnRnZUeGhQd0lyNFhGeWl1TEMv?=
+ =?utf-8?B?NnFoWG5ZNGFEQmp3MWZSbkxFR0NlaUJYYndNQkxxdXp0bStJUDlUMjkvSTda?=
+ =?utf-8?B?NHQrOGxOb2U5Qk9DYWR3K3pOcElGS2w4NXJUbC9LMmF3RVJNV2V2Slc2ZFEy?=
+ =?utf-8?B?S1NueVUzbmUrR2wwZ0lvUTh0VHUxZmNlS3RQV0FrTU1RbGNqM0l5SWFTaktv?=
+ =?utf-8?B?S1VwRzlheXJ3MjQ3c09MY3h5aEhoS1d3ZElicC9QMmJDemNkTFZhektkdTJs?=
+ =?utf-8?B?U1lOcmZrVDk4b1h5OHUzbDJqeWlaVFhQNmFGVkh2S3lqdWp4SEdsbFdLdi9a?=
+ =?utf-8?B?bnRxQjRqaDRtMDM5R3A4bzhXb0RtZXdxRy84bkk4WmlGanAxb2FmVGxrOUpr?=
+ =?utf-8?B?U3ZuSmIwNEdmdk9NSXQvS2ExV2RFVHJhNmdLaVlNbXJrV1lUamVaT00xSnVx?=
+ =?utf-8?B?amNaRU55YUh4ampXUXdKOTVUcCtMdmlkUnp2WkcySjFBckxibVZmUGI4eHho?=
+ =?utf-8?B?Q0xLaFlxNDdYNTNPaVZRM2lhQnUraEJscnlOQjhSVG9WVmpuVWVOQkx4OWpz?=
+ =?utf-8?B?aGcrMEcyVE9NSlUvRVpqdm13OVVvbGh5TDZ0WWtWc211RE1zVGMzUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <47C866EAE8B99747989ACF07942A3BD8@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: LLhHv9JgeMxr/8aHXYs4Mh/esA0Qdqi8BvXvOkZuaHZwloGopf0EeLWprJ7Y/at/L1gp67FpMf5H5/ZmsZQtdmQOJew3lXEFzEX7uc93Ue7g1YaOiMHVTmWq7bK+S7fiWmbbaiqEusYRrzlqHIPkDJY8XNYOJVeZ0/jCw5/nxVtgtODUZFrRNk8yoix03ZtVHd7nLTCBoBir9gT6K6TV0VF9NHIBS/aYrgcOMQ6hTlZTLmuPoKgbj4zuRAZ3dN65QJQ/o1zfbEQFSJ6SBvSN97mxM5Dvlb//UETChfUa3KTYaFOsP0D/MD/a9GrX+e8v0elD2nMkS0OPUNs/BA+14A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6471.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f0cd209-c61f-4842-9f9c-08deb4b0cf6c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 07:41:02.0111
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IvQUYwC0zk/nM1nKa6M0D3onQo6SgUdIOXep4rfNF4kiKXYa8ETsjJMXSuLVUVUoeOu3M4A/VoTlEK3JvGDkL6pfdgxUMYU77ki6U72bWUg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8012
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Unhandled error from `pm_runtime_get_sync()` leads to unsafe regis=
-ter access.
-- [High] `starfive_trng_release()` causes a clock double-disable and hardwa=
-re sequence violation if the device is suspended.
-- [High] Devres ordering creates a race condition where the IRQ handler rem=
-ains active after clocks are disabled.
-- [High] The IRQ handler accesses hardware registers without verifying the =
-device's PM state.
-- [High] The IRQ handler is registered before hardware clocks are enabled, =
-creating a window for a fatal crash.
-- [High] A stale IRQ completion race allows `starfive_trng_read()` to retur=
-n non-random bytes prematurely.
---
-
-commit 9fe8263576b446ca8c08d308b365ff7601cef468
-Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: hwrng: starfive: Update clk and reset sequence
-
-This commit updates the clock and reset sequencing for the StarFive TRNG
-driver to prevent glitches on the jhb100 platform. It introduces a specific
-release function and integrates runtime PM across initialization, reading,
-and cleanup.
-
-> diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_rando=
-m/jh7110-trng.c
-> --- a/drivers/char/hw_random/jh7110-trng.c
-> +++ b/drivers/char/hw_random/jh7110-trng.c
-> @@ -138,6 +143,23 @@ static inline void starfive_trng_irq_mask_clear(stru=
-ct starfive_trng *trng)
->  	writel(data, trng->base + STARFIVE_ISTAT);
->  }
-> =20
-> +static void starfive_trng_release(void *data)
-> +{
-> +	struct starfive_trng *trng =3D data;
-> +
-> +	pm_runtime_disable(trng->dev);
-> +	pm_runtime_dont_use_autosuspend(trng->dev);
-> +
-> +	if (trng->hw_seq =3D=3D HW_SEQ_RESET_FIRST_THEN_CLK)
-> +		reset_control_assert(trng->rst);
-> +
-> +	clk_disable_unprepare(trng->ahb);
-> +	clk_disable_unprepare(trng->hclk);
-
-If the device is already runtime-suspended (e.g., autosuspend timer expired=
-),
-starfive_trng_suspend() would have already disabled these clocks. Since
-pm_runtime_disable() does not wake up a suspended device, will calling
-clk_disable_unprepare() here result in a clock enable count underflow?
-
-Also, for the HW_SEQ_RESET_FIRST_THEN_CLK variant, could this assert the
-hardware reset on a clock-gated IP block? Should the release function wake
-the device (via pm_runtime_get_sync) before performing hardware teardown?
-
-[ ... ]
-> @@ -174,13 +196,16 @@ static int starfive_trng_init(struct hwrng *rng)
->  {
->  	struct starfive_trng *trng =3D to_trng(rng);
->  	u32 mode, intr =3D 0;
-> +	int ret;
-> +
-> +	pm_runtime_get_sync(trng->dev);
-
-Is it safe to ignore the return value of pm_runtime_get_sync() here? If the
-device fails to resume, it returns a negative error code. Would the
-subsequent register accesses (like writel/readl) occur on a device with
-disabled clocks, potentially causing a synchronous external abort?
-
-Does this same unhandled return value issue apply to the pm_runtime_get_syn=
-c()
-calls added in starfive_trng_read() and starfive_trng_cleanup() as well?
-
-[ ... ]
-> @@ -257,24 +292,26 @@ static int starfive_trng_read(struct hwrng *rng, vo=
-id *buf, size_t max, bool wai
->  	if (wait) {
->  		ret =3D starfive_trng_wait_idle(trng);
->  		if (ret)
-> -			return -ETIMEDOUT;
-> +			goto end;
->  	}
-> =20
->  	ret =3D starfive_trng_cmd(trng, STARFIVE_CTRL_GENE_RANDNUM, wait);
-
-Even though starfive_trng_wait_idle() polls until the hardware is idle,
-could there still be a pending IRQ from a previous operation that hasn't
-been processed by the CPU yet?
-
-If that pending IRQ is handled right after reinit_completion() is called
-inside starfive_trng_cmd(), would it complete the random_done completion
-early, causing this function to read from STARFIVE_RAND0 while the hardware
-is still actively generating the new random number?
-
-[ ... ]
-> @@ -283,21 +320,22 @@ static int starfive_trng_probe(struct platform_devi=
-ce *pdev)
-[ ... ]
->  	init_completion(&trng->random_done);
->  	init_completion(&trng->reseed_done);
->  	spin_lock_init(&trng->write_lock);
-> =20
-> -	ret =3D devm_request_irq(&pdev->dev, irq, starfive_trng_irq, 0, pdev->n=
-ame,
-> +	ret =3D devm_request_irq(&pdev->dev, trng->irq, starfive_trng_irq, 0, p=
-dev->name,
->  			       (void *)trng);
-
-This registers the IRQ before the hardware clocks are enabled below. If an
-interrupt is pending from a prior boot stage, will starfive_trng_irq()
-fire immediately and attempt to read STARFIVE_ISTAT while clocks are still
-gated off, potentially triggering a bus fault?
-
-Additionally, does starfive_trng_irq() need to check the PM state using
-pm_runtime_get_if_active() before accessing registers? If a spurious or
-delayed interrupt fires while the device is runtime suspended, the handler
-currently reads registers unconditionally.
-
-[ ... ]
->  	pm_runtime_use_autosuspend(&pdev->dev);
->  	pm_runtime_set_autosuspend_delay(&pdev->dev, 100);
-> +	pm_runtime_set_active(&pdev->dev);
->  	pm_runtime_enable(&pdev->dev);
-> =20
-> -	ret =3D devm_hwrng_register(&pdev->dev, &trng->rng);
-> -	if (ret) {
-> -		pm_runtime_disable(&pdev->dev);
-> -
-> -		reset_control_assert(trng->rst);
-> -		clk_disable_unprepare(trng->ahb);
-> -		clk_disable_unprepare(trng->hclk);
-> +	ret =3D devm_add_action_or_reset(&pdev->dev, starfive_trng_release, trn=
-g);
-
-Devres actions execute in reverse order of creation. Since
-devm_request_irq() is called before devm_add_action_or_reset(), won't
-starfive_trng_release() run first during device unbind and disable the
-clocks, leaving the IRQ active?
-
-If an interrupt fires during this window, wouldn't it cause a bus fault
-when the handler reads from a clock-gated IP?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518065243.2086=
-5-1-lianfeng.ouyang@starfivetech.com?part=3D2
+aGkgS3J6eXN6dG9mDQoNCk15IGFwb2xvZ2llcyBmb3IgdGhlIG11bHRpcGxlIGVtYWlscyEgSSd2
+ZSBiZWVuIGhhdmluZyBzb21lIHRlY2huaWNhbA0KaXNzdWVzIHdpdGggbXkgbWFpbCBjbGllbnQn
+cyBwbGFpbi10ZXh0IHNldHRpbmdzIGFuZCB0aG91Z2h0IG15DQpwcmV2aW91cyBhdHRlbXB0cyBo
+YWQgZmFpbGVkLlRoYW5rcyBmb3IgdGhlIHJlbWluZGVyIQ0KDQp0aGFua3MNCnh1ZXFpDQoNCk9u
+IE1vbiwgMjAyNi0wNS0xOCBhdCAwOToxOCArMDIwMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90
+ZToNCj4gT24gMTgvMDUvMjAyNiAwOToxNiwgWHVlcWkgWmhhbmcgKOW8oOmbqueQpikgd3JvdGU6
+DQo+ID4gSGkgQW5nZWxvLA0KPiA+IA0KPiA+IEZpcnN0IG9mIGFsbCwgcGxlYXNlIGFjY2VwdCBt
+eSBhcG9sb2dpZXMgZm9yIHRoZSBkZWxheWVkIHJlc3BvbnNlLg0KPiA+IEkgDQo+ID4gaGF2ZSBi
+ZWVuIGRlZXBseSBvY2N1cGllZCB3aXRoIE1UODE5NiBBbHVtaW5pdW0gcEtWTSBTTU1VIGFuZCBT
+TUkgDQo+ID4gcmVsYXRlZCB0YXNrcyByZWNlbnRseS4NCj4gPiANCj4gDQo+IA0KPiBIb3cgbWF5
+IHRpbWVzIGFyZSB5b3UgZ29pbmcgdG8gc2VuZCBpdD8gSSBjb3VudGVkIEZPVVIgYWxyZWFkeSEN
+Cj4gDQo+IA0KaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLz9xPSUyMlJlJTNBKyU1QlBBVENI
+KzIlMkYzJTVEK21lbW9yeSUzQSttdGstc21pJTNBK0FkZCthK2ZsYWcrc2tpcF9ycG0lMjINCj4g
+IA0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCg==
