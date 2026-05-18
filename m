@@ -1,213 +1,135 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D8C37EFF8
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A15037DE9B;
+	Mon, 18 May 2026 15:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779118055; cv=none; b=NWNIzBrIDFTzG1tO+C9Mn5Hl8q5yZOPTW1sbYbORQN5xQ0PFajEC54tV4bzHMNGTiG93aDgWjmrd4kohNs2gMU8aukwsegmZ4LeM0MOj0M2MzhF0scn0h5cAVuQ4yeVAq9LwmslKJTWehtfid1/M+yytPb+ViisU7echVpgbsTg=
+	t=1779118073; cv=none; b=WTrfJHpYOaPdKzfLBGED3ZrSQmRMJ7uZm5q2Goux9EOyGbIvyM/2yhRTbs0LoNmjNI5WJw7GU3re0Wo3t/0ww2Y/Ycq3gO5nEKZzE/rJt9U+v8poHw2fu+4iORpSQed++9HTwYiRQiLznnKrCEyyr9S0OAZU8joImcjqTUJ+/Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779118055; c=relaxed/simple;
-	bh=b9Vk9qY/xav/EhSVPYY2GDfbqJukb+UtFNl3cAOu4qM=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rvXNH+gfY95T3XDtyyCTDsSlVNlKQAo692apY84s8yCDpMDR5tLmSwOd9ub59PZpfbUpXxU3QMbRxD6xdebQcrTrBinzlLL6tAQQrTZUcrqGNNkBcnF6iHlsFzlu8hSRqvIBnBb26K5SWHbIIzr4vFEn5bcupjzgRSnL0pwHtJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C4XI2Zm2; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779118073; c=relaxed/simple;
+	bh=uV/dNKDL67m/VfCon1aQ8zgvR05wzPVijS7dm06t6FE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uF1YWJusFol3u0RaqCt4XtsZL2mVixvV9THN4fd6C5LjorwRBRX8GLTXr9xIMxYrASGtRokFW9vVKX/ND0W8ei3dQUrUU+RRVv7DdBd05HcFSiBS+ZAmvQD+xmtzRUm4dDQAmoUFTROArjvvMOuwUuOLqL5c6qfd+6W/oR+CB+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W5aekSJr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C4XI2Zm2"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-bd56d108454so503349466b.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:27:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779118050; x=1779722850; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=u5i5J5qLZGHdK+LXGjv6pdc5szyRrGvH9rm66LD4078=;
-        b=C4XI2Zm2YVKNJzHaxQoHUZRGA332eu6se9fUFJuGXXxDKyVy1OBKMia0TXoz9Fxv2i
-         l11awCVfc4uCLwbMA/suZ0ZqJqmysU56+6DwVtSAAQbJjDJjnUW7Qv8gB4VTKVuhJmGR
-         YcHleXHieiMQhGWfi9wpISWADLQwYyEMbwB9tR9W8j9nzpz3IrRj6EN9J50RzfQ5vLKj
-         2uKavpgwVcVJYnKGwklaeuyYy5lfWssK3xoA34bosK64HX5IvpQuaPmcXE1AaChx7/a8
-         bAvmb6K1D/a9jsCsDC7+h4mgYMDBQIvZv4r2vI1J3x6J+lc41fF9grsERAaA/zVjVOIW
-         D+IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779118050; x=1779722850;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=u5i5J5qLZGHdK+LXGjv6pdc5szyRrGvH9rm66LD4078=;
-        b=EZzED1iyOMnnZjwjzGWCHdgAUeri6JpvzLDYyqA8i+YgXWJu5MsczkJEa406syMVuQ
-         x8K7YffLhclIMHGCYZ5HRXCQEzJZQwFZke7c5XE6Xzu75komNt+n3mkSW4XmNKq5P1KY
-         1Zz+Ff492JTa2rplaLGHSRgh+l7VTfoo7lERgTI2ixN7SD1nkx7I1HGTbbvTsEJPcOu4
-         wTgqmhzgB/6e2Bj9MXx00wdtk3C/LCEoPncOnNRJ0VBtzJRMuZYuwToCdvRGP6Vcpem6
-         aYDLShZqOBKNUSHYTzr/4LN66CEAK0JQ95hTysp98drONYsYQGbz5psSPwkeeMXP7pjQ
-         VRPA==
-X-Forwarded-Encrypted: i=1; AFNElJ85N0T8RqzsMZikxmbHye4JzpNy4Z5LTrcfHcKL1D75TQRzepaYua2+lEAZ7mmUgyLnmKVT37oZuJbE@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPXzQQ8+9zpr2RFIziR4+13ZdfirBA6BnMLMZnKs0CTmQjbYP2
-	0XZqVHkQ9lYQEKmAEe4aY6HJxoG4ejiZ777rzrOkqKLvR5sxoA27S0BJ
-X-Gm-Gg: Acq92OGPLt3iOsYHRAdQuexBMWdPRetzBY7gUr1nX21Fdg8YAbkl3Gsg9QN2LHjwo8T
-	hcFLfa/uGmp+YPPANB2wVG749nlwVCp0Q7hYVMrDN7kKJwJ2mCM0g0ET/EnMPOj1EQReNXBBeIc
-	pg4E4fiZwYSD5gw9trVxFxLp+YvTQxDzfJXg/SCxmSQTCd3DqyzdUp0IZG+w6Q0ecL6qeXkO2Du
-	esNtluf3ZMm1yLJWcfjGrcoEEL6d7/SyfeVzpciDsFBLUgL2+bc/vVpJyx21Q58VkKBpAUMP786
-	K6uqDgoB2Jnhy6l5TeUu+fDWWY585HyMsguu7q+Cg53u9Yr2hmVTkZvSaDt/ISediahESZeyGQg
-	u38AxR8kfCJTFNizjgoAVv7D6WOJJm6S2iue3fRRvKvc3VfVuIdxD9umu55AQRghxMtapmynJK5
-	U2sUEpRVk5MJVJTVtp2ujEH7ykI34hNdLhLdEtjDPFpIHC51g/Dng4dTb/RVYTkA1vicAjb7hiQ
-	jYgIpTlun57B3+Hrh5Y40kBASjXg61zlRvWRswsziDHHGzneFaFluYActyg
-X-Received: by 2002:a17:906:5145:10b0:bd5:5834:1d39 with SMTP id a640c23a62f3a-bd558341f32mr480464166b.45.1779118049379;
-        Mon, 18 May 2026 08:27:29 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4de6f28sm590371766b.34.2026.05.18.08.27.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 08:27:28 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Mon, 18 May 2026 16:27:23 +0100
-To: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH RFC v4 09/10] Documentation: ABI: testing: add docs for
- ad9910 sysfs entries
-Message-ID: <pkx5v4od3wkyyzxomfrjf4ei7leboadzth262xnl55fvu76pf3@yqrezmo6gtq7>
-References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
- <20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
- <20260517155843.7f833658@jic23-huawei>
- <yrabhhhdkzmiuxlqzrrj6a47ftlzwvva7r2korzeszdy4yqrin@xl6obhhnnas4>
- <20260518144537.7c998308@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W5aekSJr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728EAC2BCB7;
+	Mon, 18 May 2026 15:27:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779118072;
+	bh=uV/dNKDL67m/VfCon1aQ8zgvR05wzPVijS7dm06t6FE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=W5aekSJrAZCyhKc8kIlBPDvGxGA3izQi8HB/Yy4rz3ZIcgGsfHkamqwzz9MOFC5zH
+	 MsSIWi5wDZjV5ab0qMdUKsQ4zU4yICxqJqWrKiW3m+BLQHOd3erT5cBB6Znk2kRjCF
+	 VtVy+B2FQ++3mDx0qxRDEOZ8XDUUjYVYGmIbP4u38hSuQigCu3Sb6+taO8EuGPWX/L
+	 SmhkRHW1CbDr/LNg3XoH3xk9fLrdTTQZUHl4e1swm8Ws2PVOBWwSIxQV4vwJ/Id0L8
+	 3k/9u1C7fU0gu9PhMJB1kIWHd3K+LikvOvOiOETJKldZL0QvfST2s2K/Z1rnkuwfzR
+	 nlaNUC9AAmzxw==
+Message-ID: <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
+Date: Mon, 18 May 2026 17:27:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260518144537.7c998308@jic23-huawei>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
+ batteryless property
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
+ <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 26/05/18 02:45PM, Jonathan Cameron wrote:
-> On Sun, 17 May 2026 18:30:27 +0100
-> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+On 18/05/2026 15:49, Rakesh Kota wrote:
+> Document the "qcom,batteryless" boolean device tree property
+> for the PMIC Glink battery manager node.
 > 
-> > On 26/05/17 03:58PM, Jonathan Cameron wrote:
-> > > On Fri, 08 May 2026 18:00:25 +0100
-> > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > >   
-> > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > > 
-> > > > Add custom ABI documentation file for the DDS AD9910 with sysfs entries to
-> > > > control Parallel Port, Digital Ramp Generator and OSK parameters.
-> > > > 
-> > > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>  
-> > > I'm fine with phase and frequency as defined, but for the scaling it made me wonder.
-> > > For outvoltage0 channels the assumption the value is the peak voltage so if
-> > > we know what input to be modulated by the ramp generator can we express them
-> > > in volts (well milivolts) rather than as a scaling multiplier?  
-> > 
-> > The DAC output is current-based and differential. Voltage conversion would happen
-> > outside the device...
+> When this property is present, the battery manager driver registers
+> the power supply as POWER_SUPPLY_TYPE_MAINS instead of BATTERY.
+> This is intended for 12V DC adapters, where presenting the supply
+> as a battery would cause userspace to incorrectly trigger battery
+> power-saving sequences.
 > 
-> Why aren't we representing this as out_altcurrentX-Y_xxxx?
-
-Good point! altcurrent makes more sense than altvoltage if we want to use raw to
-control the output level rather than scale, which would be a constant to convert
-raw into current units (what is the one that is used in the sysfs ABI? Ampere, mA or uA?)
-
-Not sure about the benefits on setting "differential" in channel spec.. the name would
-become out_altcurrentX-altcurrentY_xxxxx...
-
-Is there any modifier for amplitude/peak/envelope? I see IIO_MOD_RMS, which could be used
-if adding a 1/sqrt(2) factor to the fixed scale.
-
-Then, I would consider something like out_altcurrent_rms_xxxx as a good alternative.
-
-"scale" would be a constant in the top-level phy channel
-
-single tone profile channels would have:
-- frequency
-- phase
-- raw
-
-drg ramp up/down channels:
-- frequency and frequency_roc
-- phase and phase_roc
-- raw and raw_roc
-
-parallel port channel(s):
-- frequency_scale and frequency_offset (frequency destination)
-- phase_offset (polar destination)
-- offset (polar destination)
-
-osk channel:
-- raw
-- raw_roc
-
-raw_roc could be just roc, but that sounds like it carries the scale and refers to
-a current value? and maybe that breaks consistency with other destination attributes?
-I am fine with just roc if that refers to the raw value, not (raw * scale).
-
-With all the above, still using altvoltage is not incorrect, just a matter on how
-we want to express the units. Note that using raw instead of scale to control the
-amplitude is just another option to tackle the problem. I suppose that the
-important thing here is being technically corrent and consistent in terms of
-usage. Maybe out_altcurrent_rms_* is more clear in terms of amplitude level.
-
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> 
-> > using a resistor load or an op-amp transimpedance stage,
-> > and I am no expert on that, but that often requires impedance matching so voltage
-> > levels may depend on the frequency. Then, I suppose that voltage is not the right
-> > unit to use.
-> 
-> Understood that it can get complex!
-> > 
-> > The scale here controls the amplitude of the varying signal. Assuming the peak voltage
-> > (amplitude) is constant means we have a constant envelope, but that should not mean
-> > we can't control it or it should not mean that the hardware can have other ways to
-> > control it. That said, scale behaves as a "gain multiplier".
-> Understood. Given it's the envelope then if scale happened to be 1 always it would
-> be presented as _processed. So this is consistent with other channel types.
-> 
-> > 
-> > > 
-> > > That seems to me like it fits better with the overall ABI.
-> > >   
-> > > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_offset
-> > > > +KernelVersion:
-> > > > +Contact:	linux-iio@vger.kernel.org
-> > > > +Description:
-> > > > +		For a channel that allows amplitude control through buffers, this
-> > > > +		represents the value for a base amplitude scale. The actual output
-> > > > +		amplitude scale is a result with the sum of this value.
-> > > > +  
-> > >   
-> > > > +
-> > > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_roc  
-> > > 
-> > > Silly question perhaps but can work out how this related to millivolts/sec
-> > > That might make a more intuitive interface than scaling multiplier per sec
-> > > Perhaps the combination with offset makes this impossible though maybe that
-> > > could be a expressed as a voltage offset?  Afterall if the amplitude being
-> > > scaled is 5V then 5 * (offset + scale) = 5 * offset + 5 * scale
-> > >    
-> > > > +KernelVersion:
-> > > > +Contact:	linux-iio@vger.kernel.org
-> > > > +Description:
-> > > > +		Amplitude scale rate of change in 1/s for channels that ramp
-> > > > +		amplitude. This value may be influenced by the channel's
-> > > > +		sampling_frequency setting.  
-> > > 
-> > >   
-> > 
-> 
+> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> index ff01d2f3ee5be18e404591e3f0382ff2b3f7d168..5f7b90d37ea09d9aacff463b2ff4b76d218bbeac 100644
+> --- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> @@ -72,6 +72,14 @@ properties:
+>        - const: charge_limit_end
+>        - const: charge_limit_delta
+>  
+> +  qcom,batteryless:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      When present, the battery manager registers the power supply as
+> +      POWER_SUPPLY_TYPE_MAINS instead of BATTERY. This is intended for
 
--- 
-Kind regards,
+You described the desired Linux feature or behavior, not the actual
+hardware. The bindings are about the latter, so instead you need to
+rephrase the property and its description to match actual hardware
+capabilities/features/configuration etc.
 
-Rodrigo Alencar
+And isn't lack of monitored battery property enough to indicate that?
+
+Best regards,
+Krzysztof
