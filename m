@@ -1,137 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5281C2853E9
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:25:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8843F405C33;
+	Mon, 18 May 2026 20:39:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779135935; cv=none; b=NflHT5x2Yu5dT94cNdl49u89KxEtOC6c0sPfg5JEH11ieXL6YxQh4un+TmUZNHhPsaSqC+3K8AzA6Kgq36QwG5PSexUJo2RNrIN6HS6PQQOOArKGMVRamfmXNykvS17m0GBc1W5DYL0WLW44+8W5uvY3bgYtVlbHzsSz5eb6sPc=
+	t=1779136753; cv=none; b=d0kyscRs5ClJluszXmizsWPCe5K2qqKm+978/yF8JhntAzAeHRbofieSGyOGlDYZ2DHIKrtmwz4LKGVQUFAFCWS33JrAVcm1/Z8DjBp5qAwN8uBtHAX5v+PBfFGHQj0eMgSaZyfdDiF487hTny+UD2qE5LMnAtA7KOm3Ay+LGC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779135935; c=relaxed/simple;
-	bh=ALZtofDvuO+lxRUuzuaKOH0Sc6Qt+qasAxhRtSyMgik=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CTK8DRf4KBYUAcbxfakTTn4RqBwxyzlgJqxWFm+a+gbNVQE6XY07a+o6e5a9QWuP+lbBsj0ILQInUd90eUenGQbxviTdc/Wtcds7W4c8FIO/vmVCo2ud4IvHtCGtMrceHKTdwpPnezVNEH4yyn0h4TeqC5igbNIR6uc2yG1arx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTJnfBwS; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779136753; c=relaxed/simple;
+	bh=IBsdB8Nuuwi1MR6kLJwaKONOD3M/Wjoh1pALRTWL4wE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UpiftKYaleYaCdn+/kz8SVwQnrG3KNY3cj1KwVuHzgNxhecbXIECcx/dceEezY43ra/wwIAdEXoeWgB2vuZ4tHyjzVnzqIT4OAnvI2uzwzl5WyMEMxxEKWwTyFbdzpiBU8E/x5eD9u71il8D7GiOWkv+BJ7op0ac/C5p4zzKTaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDVJFcs9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTJnfBwS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563EAC2BCB7;
-	Mon, 18 May 2026 20:25:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDVJFcs9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C78E4C2BCC6;
+	Mon, 18 May 2026 20:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779135934;
-	bh=ALZtofDvuO+lxRUuzuaKOH0Sc6Qt+qasAxhRtSyMgik=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=KTJnfBwSCS3CXiwEO4brOcTlG4qD31P/mckoRFBvMZbVInTzKs93Xl+/MAXEK3nIE
-	 HcEzA1BP15DjOMCqvbv08Y4aLLS5VpOBYcZ6roYgNF79Cgp7F8qpDprGBaiesyXtQ4
-	 JscguIZzBlszTXj3UxpCvvJmfxY9Mjnl1toYY/B/YTV11Ytb/pPJwI+WBUXquXbHgh
-	 q/NZkuoRiVQXHxDDjBE46ufzs6j5uSM9OwL5PieLwhSo1u7AWfGSgvcMaoc2l3Ke2U
-	 +TV5RsBbwfxUv5WIzHSRFFVsAbXR7ARJkFpUP3enkhooyk7MAgvmTSYs7Z+oqEWIak
-	 xLlTuODc5NNVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V8 03/10] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260518200526.458421-4-macroalpha82@gmail.com>
-References: <20260518200526.458421-4-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 20:25:33 +0000
-Message-Id: <20260518202534.563EAC2BCB7@smtp.kernel.org>
+	s=k20201202; t=1779136753;
+	bh=IBsdB8Nuuwi1MR6kLJwaKONOD3M/Wjoh1pALRTWL4wE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eDVJFcs9S3dQSeuf2JbHQ1PyqqkxmFvhpEBMwfi1KvUFgGFBjf7XFSNBRO1USUFcv
+	 SouTl7HkQ5Tk8AtVCi/sbtbomdMLCGvKKgGm/EvLjQlJ74klVOkkEGY1vlxS1iNgMh
+	 d8lZ2mj57fRgxjbauXlK9DJPEBsXAyEVbzqWBCNFCNH/9NK9H1u3ggSPKpW2XyW7LF
+	 kL2Uhk0U2DnV3CxFbWR+DRjWV46Ok3wy69dhTcNqxgdycU5dOBW1R6S29LrF5tWRjE
+	 uTmhGVsKxPt6lsZ4mbFxHT54k3EvXX06HypG/Ozn705JhJfGNkCL9/LeKQs29d+OaU
+	 li7m3j7OFAQ2w==
+Date: Mon, 18 May 2026 22:39:10 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v7 01/10] dt-bindings: net: airoha: Add EN7581
+ ethernet-ports properties
+Message-ID: <agt47l8NuOj-Ufr8@lore-desk>
+References: <20260516-airoha-eth-multi-serdes-v7-1-99e0093303e2@kernel.org>
+ <20260517055811.EFECEC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="z58LbN+oPyY9Nri3"
+Content-Disposition: inline
+In-Reply-To: <20260517055811.EFECEC2BCB3@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Unsafe hardware reset polling loop with premature timeouts and mis=
-sing delay.
-- [High] Strict DT requirement for `interrupt-names` breaks compatibility w=
-ith valid bindings.
---
 
-commit 32920ed238e36be6e7fdd4fa2b84b2b710397641
-Author: Chris Morgan <macromorgan@hotmail.com>
+--z58LbN+oPyY9Nri3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Medium] Unconditionally requiring `#address-cells` and `#size-cells` f=
+or `ethernet@3` and `ethernet@4` breaks backward compatibility and causes `=
+dtc` warnings.
+> - [Low] The `reg` property in the `airoha,eth-port` node incorrectly uses=
+ `maxItems: 5` instead of `maximum: 5`.
+> --
+>=20
+> commit f8c9c25c14697c9de91b47f1ea5850c1b33f44a9
+> Author: Lorenzo Bianconi <lorenzo@kernel.org>
+>=20
+> dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
+>=20
+> The EN7581 and AN7583 SoCs support connecting multiple external SerDes to=
+ GDM3
+> or GDM4 ports via a hw arbiter that manages the traffic in a TDM manner. =
+This
+> commit introduces the ethernet-port property in order to model a given
+> net_device connected via the external arbiter.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.ya=
+ml b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> > index fbe2ddcdd909c..7144d6da7394b 100644
+> > --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> > +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> > @@ -130,6 +130,46 @@ patternProperties:
+> >          maximum: 4
+> >          description: GMAC port identifier
+> > =20
+> > +    allOf:
+> > +      - if:
+> > +          properties:
+> > +            reg:
+> > +              contains:
+> > +                items:
+> > +                  - enum:
+> > +                      - 3
+> > +                      - 4
+> > +        then:
+> > +          properties:
+> > +            '#address-cells':
+> > +              const: 1
+> > +
+> > +            '#size-cells':
+> > +              const: 0
+> > +
+> > +          patternProperties:
+> > +            "^ethernet@[0-5]$":
+> > +              type: object
+> > +              unevaluatedProperties: false
+> > +              $ref: ethernet-controller.yaml#
+> > +              description: External ethernet port ID available on the =
+GDM port
+> > +
+> > +              properties:
+> > +                compatible:
+> > +                  const: airoha,eth-port
+> > +
+> > +                reg:
+> > +                  maxItems: 5
+>=20
+> Could this maxItems constraint allow the reg array to contain up to 5 ele=
+ments
+> (e.g., reg =3D <0 1 2 3 4>)? Since the parent node enforces #address-cell=
+s =3D <1>
+> and #size-cells =3D <0>, shouldn't this use maximum: 5 instead to restric=
+t the
+> numeric value of a single port ID?
 
-This commit adds the core component of the new inv_icm42607 driver. It
-includes setup functions and the full register definition in the header fil=
-e.
+ack, I will fix it in v8.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> new file mode 100644
-> index 0000000000000..b270d48335ba6
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+>=20
+> > +                  description: External ethernet port identifier
+> > +
+> > +              required:
+> > +                - reg
+> > +                - compatible
+> > +
+> > +          required:
+> > +            - "#address-cells"
+> > +            - "#size-cells"
+>=20
+> Will unconditionally requiring #address-cells and #size-cells for etherne=
+t@3
+> and ethernet@4 break configurations that don't use the external arbiter?
+>=20
+> If a board connects the GDM3 or GDM4 port directly to a PHY without child=
+ nodes,
+> it seems these properties would fail schema validation.
+>=20
+> Also, if added merely to satisfy dtbs_check, wouldn't dtc emit an
+> avoid_unnecessary_addr_size warning when the node has no children?
 
-[ ... ]
+ack, I will fix it in v8.
 
-> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
-> +			      inv_icm42607_bus_setup bus_setup)
-> +{
+Regards,
+Lorenzo
 
-[ ... ]
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260516-airoha-eth-=
+multi-serdes-v7-0-99e0093303e2@kernel.org?part=3D1
 
-> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
-> +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
-> +				       INV_ICM42607_RESET_TIME_MS * 100,
-> +				       INV_ICM42607_RESET_TIME_MS * 1000);
+--z58LbN+oPyY9Nri3
+Content-Type: application/pgp-signature; name=signature.asc
 
-Could this polling loop fail prematurely if the device returns a read error
-while resetting?
+-----BEGIN PGP SIGNATURE-----
 
-Since regmap_read_poll_timeout() evaluates the loop condition as
-__ret || (cond), any read error will immediately abort the loop and
-return the error. If the device is unresponsive on the bus during reset
-(e.g. returning an I2C NACK), it will instantly defeat the polling mechanis=
-m.
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagt47gAKCRA6cBh0uS2t
+rMrVAP9EyZsTnfyXznRd7nmTwDer3FoKXkXeqfHnIc5wUwqBCgEAphGulHI1Ji5e
+QcSZXkF6lIsgk56KBTjhf2pNY+UG2Ak=
+=wFbV
+-----END PGP SIGNATURE-----
 
-Additionally, could the timeout of exactly 1ms cause spurious probe failure=
-s?
-
-Since 1ms is the typical hardware reset time, this doesn't leave any margin
-for scheduling variations or natural hardware differences.
-
-Would it be better to add a mandatory sleep before polling, and increase the
-timeout margin?
-
-[ ... ]
-
-> +int inv_icm42607_core_probe(struct regmap *regmap, const struct inv_icm4=
-2607_hw *hw,
-> +			    inv_icm42607_bus_setup bus_setup)
-> +{
-> +	struct device *dev =3D regmap_get_device(regmap);
-> +	struct inv_icm42607_state *st;
-> +	int irq;
-> +	int ret;
-> +
-> +	irq =3D fwnode_irq_get_byname(dev_fwnode(dev), "INT1");
-> +	if (irq < 0)
-> +		return dev_err_probe(dev, irq, "Unable to get INT1 interrupt\n");
-
-Does this break compatibility with valid device trees that omit the
-optional interrupt-names property?
-
-If interrupt-names is not provided in the device tree, fwnode_irq_get_bynam=
-e()
-will return -EINVAL and abort the probe.
-
-Could this be modified to fallback to fetching the interrupt by index
-(e.g. fwnode_irq_get(dev_fwnode(dev), 0)) if the named lookup fails?
-
-> +
-> +	st =3D devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518200526.4584=
-21-1-macroalpha82@gmail.com?part=3D3
+--z58LbN+oPyY9Nri3--
