@@ -1,79 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DC238237D;
-	Mon, 18 May 2026 18:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF90346AC2
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 18:41:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779128780; cv=none; b=K4qKyOo+CdkeUWENeTkd4r0lLziTuYsFg+M55ficJ9WjVLE0P6nUCQviCcPdpzoHfo5JCP046pn1YltIcpN4f1FgKtpiXxm3O2s8W9lx66St9syzvZt4LhmeUDrDa8tB2I44L5+MNe9U5Vm7Op4L7HHzp3JimzOcWjdkhYCE0Gg=
+	t=1779129713; cv=none; b=b1x1axhHhy+RgsICqmHGjB1/7WpOzmxk5Dkgxp8VBFUAQNtSqIcqhcvIcyzxNf7DlHmAXStBwOn3AicozwVe/fxsJ5f36JkuNzy7K5dLXweqox/8GVv+wtBuMqEdmJ2JpCSmQj1oYAu4MeP6HwRtHP4sj808svXiqv+SShO42PI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779128780; c=relaxed/simple;
-	bh=pbXYLQ1mwct3+ssZlrWJpr6OzTUkZbnMsQ/G5sb/T3M=;
+	s=arc-20240116; t=1779129713; c=relaxed/simple;
+	bh=JNbCHaWL9A4MjehkdwtKJsbWrGA6dxODtuxGwf4j9hE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AD7/43eDuGOoEq+T35lC4QD/Y67eyRbJR31nR957MQEP33uzEiMhdd1Os9xCmMCY3IwNa6mJtH6kuzid6b1V1V0QMwYGzZ6Tal+6X1pqp/x9GUTkgvMDhlVWjPAxjcz1/VE5QjG9NyaeTs7t4nCrxNpTKBXlgY277v65NDN6foI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A2T0DUHL; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=X+ONZyFHA5F+Sk0PbHu4Ot6c+T/iiaUM9icFPDArsgmk3FE3YcY2exTdLRnr93Wc1y6MfnszQGwp/NWaDIMNy4A/aDpJ7Jrjqp3jlSLmaV/iGpwUsqdOpTqfo5Ql+8+s1/0ZjlOUFhju4sc45XOIQKZDJtncWtj9u/3Ls5mdjQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GW1/Fpr4; arc=none smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A2T0DUHL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779128779; x=1810664779;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pbXYLQ1mwct3+ssZlrWJpr6OzTUkZbnMsQ/G5sb/T3M=;
-  b=A2T0DUHLXSAZYQw2jRiF+UoKrVoD0sUG+NgJtbnOEQb18t2vQsGxLopw
-   YUxKWtYH8sxVruSa43cAl3BbpnZ04oBxA4nDyeKXLSbRW1afM6G4WSkr4
-   ZJObrW+BGc0Icc6onS9dZJE4WOU0QPpHzD8wHPszfE+/amcnq74W8dnKi
-   ojxajFEfbqExWClaWwZqO4rARkYfU4V+fyjqBpaVjrQhtM0PqYc19qSsI
-   3nLaQA3OGxSSKCqC+ljONKYwvx39XAdeaOkXLxRLKrsuiGC3BZF3e3Dub
-   /9Ft5tR0johwFWGFLRiCCXov2JNgAOk0WOR15314fzbbobb8vfam97s1H
-   A==;
-X-CSE-ConnectionGUID: 9qriItO/ScWlODNBpfRg1Q==
-X-CSE-MsgGUID: +k3VPqE9SVOFJAvzB/QnXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="90575555"
-X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
-   d="scan'208";a="90575555"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 11:26:18 -0700
-X-CSE-ConnectionGUID: O0zap/NiRba3AYD16GFVrA==
-X-CSE-MsgGUID: e9aNJkI4TGO68gsQIjE1Pw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
-   d="scan'208";a="239764455"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.3])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 11:26:12 -0700
-Date: Mon, 18 May 2026 21:26:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v11 4/6] iio: adc: ad4691: add SPI offload support
-Message-ID: <agtZwbeVeZdnlXTI@ashevche-desk.local>
-References: <20260515-ad4692-multichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com>
- <20260515-ad4692-multichannel-sar-adc-driver-v11-4-eab27d852ac2@analog.com>
- <80f61c0b-1f36-4fee-9f76-b93f63b87abe@baylibre.com>
- <LV9PR03MB841418AEF0059E802F7A69B2F7032@LV9PR03MB8414.namprd03.prod.outlook.com>
- <60d66897-41cc-4f3f-afd2-64e49f0bb55e@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GW1/Fpr4"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-50d87c138e1so32455651cf.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:41:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779129711; x=1779734511; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=RjcXx1L02D57/85kmr8KRIpyy2DN3BNEA8TDg2cGfrc=;
+        b=GW1/Fpr4KJGV1w73HxVUBExobEEqxD+ZVKvNZzM3cODox/lJU6COlP3lO4/CvdOXE0
+         JGTY3h0QVkg8jb5TosmM/0YN78pI3JlMqP/USMohv7pasTKsjP63Hm/LGwVKXbMlzSBZ
+         w/j8Song2rMtZFCsTw+vocXOrT6AWIPy5Aejr7mexPBS+IixKirRKOD4X0GCN0uyFfdg
+         Z/NCQxlwCqF5j9BvU1g+BPsC4lzskgWIq2IK4k80B8UTWN7q8qOHkuYLH0d//Go6Qlcu
+         rNsmDX1NxObiej20UaelfHfmGXL49YuHIWN7ijjw8+LpwIE0S40Y0vRtffCXEWEEI69u
+         Co6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779129711; x=1779734511;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RjcXx1L02D57/85kmr8KRIpyy2DN3BNEA8TDg2cGfrc=;
+        b=g67XUjcpAZgJ4x4BWZ5M8VbFdjEjMUBOQ9UZkemA/AxiyhgCadoWcRBCt3OjFEeIYg
+         7aacunx5hZPLnAQzyHGytK7Lejh7g5sEyb04YpTyqT+3oILMC/vnQWQMybtZHSmZPLbU
+         gzixWZBkpbzHf7lJSoDH1OTFyav6N9pJJQSNdtWRyCrVMWXafvYdUUTPs9ySWWmQH7PR
+         oLae1WMY57c6+Ro4fv0LRhXzBF8ZAbm9M8MfwrylA6XXeghmdcREquIOnB4QU7k8RMDC
+         QO/vC+KaFt9JeqLxCsourWpWzVwefV1UW3H4RBgcoZTJdF98TuzzyvJSve8CnFvS5nn3
+         lCQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/UIxnguUWbhc4J/HpD/w/L6jNugXvoQ0fj7WW1zTuH3bRfUKGjTGjLUoOBLZu3CsaNgoU/xd4zyrlM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyd5ivCog6WcxztKGcRITfEEPqSzuNN3fmT8JnBo4vfaXC5PFnK
+	pSGr7eU0Ol0cVo6Zr2zSt5V1AYKc1vY7zMxA/sUteey33O7QwGKdiN4zbVYoVA0m
+X-Gm-Gg: Acq92OF7kRfCHOrqaDYIGG4bVLu+uUBEAelw4d1904cDJCzaMuPUYHXcvKe3QaCnMDh
+	aQ1/18i2imrvEpZU7RLgfyS3akFTlzQ2MrWHR/fNE6BuNmtgGbUDFqIXeIq0StIi6j5SVYRdd/R
+	oLeoFSTltGp1AaMIkbOAthzMv4Z+UG+X6IFMZnCf8rGfISWtDW+7yhUFWzzDWRg9L3VNo3voF6L
+	OYwe6F2nUoPVLRQeIaAJ9g0BaVj6b2fbOTp3ljQg9aeW1gJdjRiwrclNJLyq0BbePp11RMOS/JC
+	qANmcdO3NeiG+YQ92FBInPuDhCDjVNA2qU+f12QGgmx+smcC3ygVvHJdz1OVYjJGV5xT0TVICEq
+	dGpAKmPuPDmSzW4q/eBaaFX6lDzk+TX5eghPSoDHToz+x57cP6TqW/fFNVnlCJj00MQmhlIDmCq
+	R6PfXc0Bk+tDfnsnEvEFlu3mmE1JqJZrtW
+X-Received: by 2002:a05:622a:1789:b0:509:3940:30ea with SMTP id d75a77b69052e-5165a255f15mr239848711cf.55.1779129710804;
+        Mon, 18 May 2026 11:41:50 -0700 (PDT)
+Received: from localhost ([2804:30c:1f02:6000:8b59:7c96:762e:9faa])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5168c968930sm50529931cf.0.2026.05.18.11.41.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 11:41:50 -0700 (PDT)
+Date: Mon, 18 May 2026 15:42:05 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jic23@kernel.org, nuno.sa@analog.com,
+	Michael.Hennerich@analog.com, dlechner@baylibre.com,
+	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v1 1/4] dt-bindings: iio: adc: Add ltc2378
+Message-ID: <agtdfXdUR-zwtFOe@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1779117444.git.marcelo.schmitt1@gmail.com>
+ <cf404216011b6972519436c63fcc7c4e2c883c54.1779117444.git.marcelo.schmitt1@gmail.com>
+ <20260518-trapped-gauze-ada279af89fc@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,45 +78,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <60d66897-41cc-4f3f-afd2-64e49f0bb55e@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260518-trapped-gauze-ada279af89fc@spud>
 
-On Mon, May 18, 2026 at 10:16:38AM -0500, David Lechner wrote:
-> On 5/18/26 10:14 AM, Sabau, Radu bogdan wrote:
-> >> -----Original Message-----
-> >> From: David Lechner <dlechner@baylibre.com>
-> >> Sent: Saturday, May 16, 2026 8:53 PM
+Hi Conor,
+
+On 05/18, Conor Dooley wrote:
+> On Mon, May 18, 2026 at 12:21:01PM -0300, Marcelo Schmitt wrote:
+> > From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > 
+> > Document how to describe LTC2378-20 and similar ADCs in device tree.
+> > 
+> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > ---
+...
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - enum:
+> > +          - adi,ltc2338-18
+> > +          - adi,ltc2369-18
+> > +          - adi,ltc2370-16
+> > +          - adi,ltc2379-18
+> > +          - adi,ltc2380-16
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2364-18
+> > +              - adi,ltc2364-16 # fallback compatible
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2367-18
+> > +              - adi,ltc2367-16 # fallback compatible
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2368-18
+> > +              - adi,ltc2368-16 # fallback compatible
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2376-18
+> > +              - adi,ltc2376-20
+> > +              - adi,ltc2376-16 # fallback compatible
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2377-18
+> > +              - adi,ltc2377-20
+> > +              - adi,ltc2377-16 # fallback compatible
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2378-18
+> > +              - adi,ltc2378-20
+> > +              - adi,ltc2378-16 # fallback compatible
+> 
+> All of these are wrong.
+> 
+> Firstly, your "fallback" setups don't work, because they only permit a
+> single compatible. Secondly, if they did work, you still need to define
+> the fallback compatible in isolation for it to be permitted for use when
+> it isn't a fallback.
+> And thirdly, your driver appears to show that these devices aren't
+> actually compatible at all, given there's unique match data for each
+> one.
+...
+> 
+> Why do you have fallbacks here? Is it because a limited set of channels
+> could be used in the fallback case? At the very least, the rationale for
+> fallbacks should be explained.
+> 
+Some devices can be grouped by main number (e.g. ltc2378-16, -18, -20) and
+those vary only on the amount of precision bits. I initially thought we could
+fallback to reading only 16 or 18 bits if a driver compatible with ltc2378-20 is
+not found. Though, I now realize that won't work because the less significant
+bits would be missing which would compromise scaling the data to milli volts.
+Will make this a unique match list (no separate items lists, no fallbacks).
 
 ...
-
-> >>> +	if (st->manual_mode && st->offload)
-> >>> +		return sysfs_emit(buf, "%llu\n", READ_ONCE(st->offload-
-> >>> trigger_hz));
-> >>
-> >> Why do we need READ_ONCE?
-> > 
-> > trigger_hz is u64 and if the target is 32-bit, a 64-bit access compiles to two 32-bit
-> > instructions, so show() reading it without a lock and store() writing it concurrently
-> > can produce a torn value at the compiler level. READ_ONCE/WRITE_ONCE suppress
-> > the compiler transformations that would allow that splitting or caching. We could
-> > have st->lock in show() instead, but that felt heavier than necessary for a single
-> > scalar where a transiently stale-but-whole read is fine.
+> > +
+> > +additionalProperties: false
 > 
-> I would go with the mutex. It will be easier for people to understand.
+> As sashiko pointed out, this is not correct if you want to permit spi
+> properties other than spi-max-frequency (although I could definitely see
+> how this would be correct).
 
-But why? READ_ONCE() here is exactly enough. We do not care about
-serialisation, we care only about integrity. With mutex it will confuse
-(some) people more, e.g., me. Because in that case I would think about
-some specific access to it that may happen. Yes, I saw many times the show
-functions that do mutex and then print the result when mutex is not held
-anymore, but for simple cases like here, mutex is overkill. Interestingly
-that using guard()() inside show makes the mentioned functions to print
-(almost) latest value of the variable in question. It narrows window down
-as printing will go inside critical section.
+Ack, switching to 'unevaluatedProperties: false'.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Marcelo
