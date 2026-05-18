@@ -1,165 +1,121 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0C0389E03
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779139107; cv=pass; b=cq98+6kDlC0OrSNBVOOrlzXX4akz4kU5/NX9ivN7FcUyADPSLTugOgbyFPBktEh9EbmiNnx8utOkhEX6lHmUprNZXgWRfXzcGsXBahOk7+4wTQFFadbnB7ZVfTP3KOJ0k/mCdZvPDriS95SKm+MFqyTGzO0XqHcPjtDF2NQTZPc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779139107; c=relaxed/simple;
-	bh=4qUw43U2LYoI9+/R/PJBXjvbtL6mII2xem43FyU/rRw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rhVYmMiXg0tX/IMpl8L0Z7civCR5N8cBW4lPmyX7+OW3eN0bBzSJOo7EPzFoWNe61CtJsD3Gm0nwJ326AmmZMV0gf54390nZ/IJTAQ0vw3RP3M6cubckKpaMJsfEDzOgayOXwavWnabRI+YdwpHf4LsF0YnHW9rDpi40jhSoids=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n8JXKa7J; arc=pass smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF36F328610
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779139149; cv=none; b=WGwnUxxzHSGDsc3M5kbG+QnH+3S2bMxpn1i7+QCS8hiQOc1G/sP8tvdqMiPHFVO2uvk4AX1+t6KOVG1NFVJJjgV4vSF9Sk/SxbfyPb2DlRskpXEgapUjNl3225MR3E6W6Iw9RBlvWTzc0TyC+oIT/EMQI0ScwQ2eTkg1P1krcs8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779139149; c=relaxed/simple;
+	bh=gymc5FTvJVRTw+zQj6kaFoehs0Qk0dP/S0P9R8FbGTo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ENL99FcIHvbxJp/Cok0vuxuL6pZHDwFLHhZJNpR9GAVXhndZYp1Sygdk22e6q+iqWmXZdGXf+pWz5xPeFJMOCDPGZr9yGVlQpoJM9uHhE+nfMuWr7PbESnuIgQx/MmtIH5yE+tDDsHRGmrzWBR4WbBU0i9IEhPuKkioPoI69+7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sq8k8KwT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n8JXKa7J"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3939d2bd739so24532421fa.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:18:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779139104; cv=none;
-        d=google.com; s=arc-20240605;
-        b=OtnfSwZoUVIQNY5g+oQ5A+YHq8pD0cECWBpgBnkgSdaEMb/5c21SW0+GqGJHzGBADc
-         sR8jdiZvoG1VUTJm+n4DFe7Kk35oSl1n3wk4wadP6T8QAOHsMeV9a2qvIf3WeIKwPnhT
-         j7HGvU/YJAzFM0+rtQJzbVhFnBYfF16S4yOuAW7qpaTjSV6g97yvNZnl3/Ahf0sTD/nL
-         L+wTp8z1Na4GoeF1V8QdiTQXmkZnNo8UM/WTg7yotYGqzMXDR2DZzRXDZNx38Ab+Zakz
-         DflxPB3mNYrvB8DyB41CrVwgcYTzoY5YFxYRGkGljhDHkse1Db7XKyO2kTedDZ8P7bh4
-         y/mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nPd2OppDv9ew6wMyj8LXvgg1wtgj3b6TQdSWXMfEVvQ=;
-        fh=vHgMkzOceGKpt7cP1mhLUtPjvAe0FBCwRyXeYVENnBA=;
-        b=f+UNHmVZYY0zO3qmYPogLGewMw04klpWIdyXnxIDAAskTU/au1w7wjBGiToiwpNggd
-         1e6702pMpsqUkXxpNElcMzvmOzLWAhTuQH0sF3rkAka/HIwAJCxAHwiFF1xEub1AYO9y
-         NGy/G+5TPM+Ks1xWwX/W3jHSTJ3vgl1BiWl224/PBCfA5lCVRO2pJjBzsnF9LqYlvZmZ
-         VIUJDGxxue5oWEDgbBK1KpHbtQz/Wyg0K0UR0dbJvdoONCwh6ZyC9gqJfMucZFcvmCgS
-         qT0y13xvXrt9dqXhjNC4S13pLjFF2ByDtpUia1QRbd1gmGeS0wdZBxIZkyv4byhZvTkk
-         /HUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779139104; x=1779743904; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nPd2OppDv9ew6wMyj8LXvgg1wtgj3b6TQdSWXMfEVvQ=;
-        b=n8JXKa7JvAO+ffCYLdTVpySeZzFoZVeUtXKOg30D7UX5gmt6wIDgCeWHz0ys0O/d+K
-         czO/s3bwkJDeXEYi1gQvPE72yka0bx4k6JZf5BKRgVV2zp8aaqLTlS5f6tqAJy7/+Ww9
-         27HGv68coSSbnJzB897YX5fxbr2IDh+VYSUdjuNMM7QNO/Px5S/TCCHo0J75uZ/0zHwq
-         FK2Wx3oSNJOGUm4wDm/hWbGGTXrC+t6PRDNwHg02ytCW6l1yiFNnt5Fw65QFs2TDchUL
-         BCgtIYdknqhIk7gjH1lp0ZfKTGcG3H/VjwpYDNObJyd+HfPFw0fkA2L++lXEOymTnZ9p
-         IulA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779139104; x=1779743904;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nPd2OppDv9ew6wMyj8LXvgg1wtgj3b6TQdSWXMfEVvQ=;
-        b=ibl2UdcmEY82xbg79aak0Q3LMn4ehrgZ0L13bhp5ZvqRg5CUPQFT7VPXaQqcx2Ckqn
-         Nr8eyL2AIGFMSTH7MZBOBfD/Yhwk2QmW/MYWhbmdlnhDmljK8t6EE5406ROJhrJOooQ2
-         Lg94Ax5ZAMVI20pA0qqb2aGQmHhSD9mM3Zru9gfJm3g8tVNqpzHtzC8hzu9UIYKyiI6t
-         SquzTF48FRJi1TDN6w2QHC3wb0EyMHq34cpHT+I8XEEIynD0GCBl7pyejLNHKXPxAEAk
-         hDnX2qU69r3luccE+Nbx0ERwKPDiHY62W98nN1QQKXCuFYMh5/vAxTxw/5eKUY4QrLaF
-         5uSg==
-X-Forwarded-Encrypted: i=1; AFNElJ/cx2fgVdBVHJPs6MOlO0nPGzt5mBI1SJ2RmvWCeGNzsMote20PNEz/VBcoi8pMW2BZMS73HFfJOphh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVYnQZcd7sr2EUplDhYlDJ5Ppo0pSALHMYbGPjI3gC3ahtAY5y
-	36IA7n9LNssRp8O7iGSqsRy/rfBYDESHNGu60l3kCM4nKpMobLKnC+XkFfujkwX2Qn9arNS+ptm
-	CFa7E3/41cyCOZDD1lrrOzfZnvQEQAFI=
-X-Gm-Gg: Acq92OESNBRH7nxqjlVMPJcBZeAHD+VYvFN5fQgNIkHXf9CcKqOeUBGlm6zc9wk2SY2
-	Gu6zz3jW1evz0YTp01QXleAyvqmoTc6dmNDdiHq+D7Zfc7XX4gClfFle7g5fauNIdswlWw7Bxwo
-	BFl9aShFLYmS67YNrjhlJ8gWiuqDe6EDwXWNysLLHQ3hAeFfWM3jMqIMzHq2kXkzYFeoNLLc0tu
-	9O+loOKv8duFMPGm77Z8BZ222yQfkgQDjI73aBgstrZyJVMAJ61GhgVfpZucCtE5qCbJwEc2LYW
-	18Id1VnAihouYgzKNk622SuIFo7DugEdXCLyoDw=
-X-Received: by 2002:a05:651c:439c:10b0:393:9773:9d8d with SMTP id
- 38308e7fff4ca-39561d33099mr38846201fa.10.1779139103939; Mon, 18 May 2026
- 14:18:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sq8k8KwT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E31DC2BCB7;
+	Mon, 18 May 2026 21:19:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779139149;
+	bh=gymc5FTvJVRTw+zQj6kaFoehs0Qk0dP/S0P9R8FbGTo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=sq8k8KwTSez5rCjw78CBgnkuxTAfkssv2uZsOyGO4adj3llja1j6G/41hKSUUpnSk
+	 Bef0htiJeIS44b2/B7HxptrbebpuieicG4XTfan8/SGsjJW3OhWzli7VkpdhYX1Ht/
+	 yykfK/G6Grus6n23VyySfh0JAb0VOgAhUUSQSrU+FVdmZv/baIizwf2asKduaIKI2h
+	 H5k6EdJ/JdA4WPKxXx7UKj8VAjh2mRL+df4+53Z87V1z0jwYsmbLP8O6nfNjx3l8ar
+	 Z0KqypXvLEt+ERpRR8a6Ewy1Z1K/njoRW6Ph2P9DDQiXLq+Ge4dqcnoZt4XxIPXMzD
+	 yXjg05h8wOQHQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/6] arm64: dts: qcom: pmi8998: add USB Type-C and VBUS
+ regulator nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: taygoth <taygoth@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <10efd57e82ebceedb75dbe3e038af81de4f1557c.1779127507.git.taygoth@gmail.com>
+References: <10efd57e82ebceedb75dbe3e038af81de4f1557c.1779127507.git.taygoth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 21:19:08 +0000
+Message-Id: <20260518211909.1E31DC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260511174342.123820-1-piyushpatle228@gmail.com>
- <20260511174342.123820-3-piyushpatle228@gmail.com> <20260512130622.1f3f4d08@jic23-huawei>
- <20260512130809.5ab5eb90@jic23-huawei>
-In-Reply-To: <20260512130809.5ab5eb90@jic23-huawei>
-From: Piyush Patle <piyushpatle228@gmail.com>
-Date: Tue, 19 May 2026 02:47:44 +0530
-X-Gm-Features: AVHnY4IkPA2euuGf4uy-HpNCACUI-JapCUTXmjsQETWfi991mkr273OkQQB_1ZE
-Message-ID: <CAMB+xkaOEVbc=nO0nSODJC6cmbGiXZ9C+WA8NEY8Lhj=3c89JQ@mail.gmail.com>
-Subject: Re: [PATCH v8 v8 02/11] dt-bindings: iio: adc: hx711: add VSUP supply property
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: ak@it-klinger.de, andriy.shevchenko@linux.intel.com, dlechner@baylibre.com, 
-	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 12, 2026 at 5:38=E2=80=AFPM Jonathan Cameron <jic23@kernel.org>=
- wrote:
->
-> On Tue, 12 May 2026 13:06:22 +0100
-> Jonathan Cameron <jic23@kernel.org> wrote:
->
-> > On Mon, 11 May 2026 23:13:27 +0530
-> > Piyush Patle <piyushpatle228@gmail.com> wrote:
-> >
-> > > Document the optional VSUP supply used by the HX711 on-chip regulator=
-.
-> > >
-> > > Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > ---
-> >
-> > I got curious given the driver doesn't yet turn this on and wanted
-> > to just sanity check it via a datasheet.
-> >
-> > Why are we including this one but not dvdd-supply?  The suggested
-> > wiring does connect them to the same supply but it's external to the
-> > chip so in theory they might not be.  Curiously dvdd supply is allowed
-> > to be 0.1 V lower than vsup-supply.
-The HX711 does have a DVDD pin, but it is the output of the internal
-LDO and is normally just bypassed to ground. VSUP is the rail supplied by
-the board, so that was the one I documented here.
-That said, dvdd-supply is already allowed for HX711 nodes by patch 04,
-as only vref-supply is forbidden for HX711. So the binding does not block
-a board from describing DVDD if needed.
-The driver does not use DVDD for HX711 today, but explicit support can be
-added later if there is a real user for it.
->
-> I should have said, given there is nothing wrong with what you have here
-> and the above is a possible additional change - applied to the testing
-> branch of iio.git.
->
-> Thanks,
->
-> Jonathan
->
-Thanks for applying patches 01-03.
-> >
-> > >  Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yam=
-l b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> > > index 1ea60dff98d5..a8eaa1f18de5 100644
-> > > --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> > > +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> > > @@ -33,6 +33,10 @@ properties:
-> > >      description:
-> > >        Analog supply voltage (AVDD).
-> > >
-> > > +  vsup-supply:
-> > > +    description:
-> > > +      Supply voltage for the on-chip regulator (VSUP).
-> > > +
-> > >    clock-frequency:
-> > >      description:
-> > >        Controls the SCK bit-bang timing. The value is used to derive =
-the
-> >
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Devicetree schema validation failure for VBUS regulator node due=
+ to incorrect name and missing properties.
+- [Medium] Devicetree schema validation failure for Type-C node due to sche=
+ma routing conflict and missing required subnode.
+--
+
+commit d114c820eb701d590cfd5b3e5e83a32def5c8605
+Author: taygoth <taygoth@gmail.com>
+
+arm64: dts: qcom: pmi8998: add USB Type-C and VBUS regulator nodes
+
+This commit adds disabled nodes for the PMI8998 PMIC USB Type-C detection
+block and the USB OTG VBUS boost converter. The VBUS regulator falls back
+to the pm8150b-vbus-reg compatible due to identical register layouts.
+
+> --- a/arch/arm64/boot/dts/qcom/pmi8998.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
+> @@ -29,6 +29,25 @@ pmi8998_charger: charger@1000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		pmi8998_vbus: vbus-reg@1100 {
+
+Will this node name cause a devicetree schema validation failure during
+dtbs_check?
+
+It looks like Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+enforces the node name pattern ^usb-vbus-regulator@[0-9a-f]+$ and has
+additionalProperties: false.
+
+> +			compatible =3D "qcom,pmi8998-vbus-reg",
+> +				     "qcom,pm8150b-vbus-reg";
+> +			reg =3D <0x1100>;
+
+Are we missing the regulator-min-microamp and regulator-max-microamp
+properties here?=20
+
+The qcom,usb-vbus-regulator.yaml schema strictly requires them, which might
+trigger warnings for all boards including pmi8998.dtsi even if the status is
+disabled.
+
+> +			status =3D "disabled";
+> +		};
+> +
+> +		pmi8998_typec: typec@1300 {
+
+Does naming this node typec@1300 create a schema routing conflict?
+
+The pattern ^typec@[0-9a-f]+$ in qcom,spmi-pmic.yaml hardcodes a reference
+to /schemas/usb/qcom,pmic-typec.yaml#. Since qcom,pmi8998-typec has its own
+binding and isn't permitted in qcom,pmic-typec.yaml, dtbs_check might
+evaluate it against the wrong schema and reject the compatible string.
+
+> +			compatible =3D "qcom,pmi8998-typec";
+> +			reg =3D <0x1300>;
+> +
+> +			interrupts =3D <0x2 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
+> +			interrupt-names =3D "type-c-change";
+> +
+> +			vdd-vbus-supply =3D <&pmi8998_vbus>;
+
+Does this node also need the connector subnode? It appears to be explicitly
+listed as required in qcom,pmi8998-typec.yaml.
+
+> +
+> +			status =3D "disabled";
+> +		};
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779127507.gi=
+t.taygoth@gmail.com?part=3D4
