@@ -1,129 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BFC3F0773
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFF43EFFCB
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:04:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779102202; cv=none; b=lio7N1Im6wqtsIv08C4mEiZ0S00RuVL/Wh5S0QUQzHCnJGsoKVZa7a4V9SswAKQZppiL0/9W8DfJlt817PiurbRHn21MSah+VxAm7TmXDxy9hHZk9PAgnMuUcPXroVTVcZ8rCSeeeJuEGnt7m98fmUYnGFbFD0LXFOyIYn4bNOU=
+	t=1779102286; cv=none; b=ro2zO1z9kkEhE0TjY0G5GF2Twp+huhMsE92WvRmFMXvN2XJjMhc8QLRMJxIPhw2boVPeDZHL5/3UtbinhX1rWdCunWvmDTFx4VGPTeL5VbRiF7JELT+YPFvwyadVL2v5XhcFWzh70lc4Hm9UB0mj99SfqGQZgMvNNF0FWO2FUAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779102202; c=relaxed/simple;
-	bh=RC+EB6AGqYPaOpeRYcttsp5h/6sH2zJN0L9kROF4HRU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oehns7xaTrUGGHIcP4hG1OVWfDq6f3j7jwFQA6Ae4VCYXduELsXfOnkDowL181a8KXexN0hZqUAfLwVLgPoekVZACIPXwh2ZHt8NPHkfYQ7TnhzN0hTyUEb1d5evZe2cQ5h6gQ1hlJtRuqkXW/QgF7uk82HB8OWipivNyQ1nH2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWZhN6x0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779102286; c=relaxed/simple;
+	bh=lSgAgfsm+ifdU5GgoJvsBiZptAzOBTrHgO6WCViTs/M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t/ElXlQeWVKcs7TpwtmIkXXHP0nogOe19PBeWIO8Kr5ul7IOTkseuFjC95H4n8KMpZH4inEMarNKb2fzPg4JfU2lkB4FkCSH1A4ou0BYhu3HMzbgo9f+I3u7sOXMouvCFO1mQHUFeZYvHlXlibt4EHIum/cuOvb0eAYD8KKgzYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o15OkzeX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWZhN6x0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1C39C2BCB8;
-	Mon, 18 May 2026 11:03:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o15OkzeX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90C2DC2BCB7;
+	Mon, 18 May 2026 11:04:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779102201;
-	bh=RC+EB6AGqYPaOpeRYcttsp5h/6sH2zJN0L9kROF4HRU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=XWZhN6x0RQcRVf6MWIXcbqcjAKAebH1ThNb1XrDU59wyjlmBjgkKA/Bdwt9mlHxYH
-	 ysTE6ZnpfyAOP8HwRdGs53d3P1xeHbhgpakRoZLSSulPebjb+dLq9CWmXdwmCGVmpu
-	 Karo4wzXgPtHvsRlCBKYUHd78hti6hxkkzmgFNEab7iStYWutqwBfhTcKWlyduRhwS
-	 qA8uKGb24PgkpshnYeYSeaQnVt5QU6/hHhjPWpi13HE1oJvO5eenb/6rHyhQIlsLZd
-	 h+qCT/lTU8R2BdQBZoRYpCAfRbU69Rt83g0X4QFkNYw+8tp+xnVAnzql0JTiEk7mzN
-	 cDr7kfOJm9kVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] phy: core: Define TBT phy_mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260518-topic-usb4phy-v1-2-71d827c49dca@oss.qualcomm.com>
-References: <20260518-topic-usb4phy-v1-2-71d827c49dca@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 11:03:20 +0000
-Message-Id: <20260518110320.F1C39C2BCB8@smtp.kernel.org>
+	s=k20201202; t=1779102285;
+	bh=lSgAgfsm+ifdU5GgoJvsBiZptAzOBTrHgO6WCViTs/M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=o15OkzeXAMQyrt7tiEPJ65DlvmbL8phtOJn9IPU5pL+uOlFp32TPiANe7dMjcDY3C
+	 X8OT8/6vDQ2B4s1pquHUUebOgqeQZFHxu7XmP4/CmfRTDMGSI5v+U5sw2FoOgZ1AZl
+	 Wb96/DXLgdS5lXpF28Vyx/AQWraU+lF+qWrg41yLBsokeorerGal0MBVKW7Ks788Lg
+	 29oQXGKGu4h5FMqSVw33S9v7JMppMK8hjaakI+IQRHEb+L5/UMu7B1xjGFVv+U/sUs
+	 +2wj5tHa8qs7CNQzt4Qn8IKoobsm5yERVVMUnObUuGCf4h3nPbigTV0kMMn07pomlX
+	 WHUR5zHOqFUaw==
+Date: Mon, 18 May 2026 13:04:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch, airlied@gmail.com, 
+	tzimmermann@suse.de, mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
+	jesszhan0024@gmail.com, neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org, 
+	krzk+dt@kernel.org, robh@kernel.org, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V2 3/6] dt-bindings: display: panel: document Anbernic
+ TD4310 panel
+Message-ID: <20260518-fat-bouncy-capybara-f1be7c@quoll>
+References: <20260515221947.299229-1-macroalpha82@gmail.com>
+ <20260515221947.299229-4-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260515221947.299229-4-macroalpha82@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The tbt_phy_submode enum implicitly sets PHY_SUBMODE_TBT3 to 0, =
-making it the hidden default submode for phy_set_mode().
-- [Low] Using PHY_MODE_TBT as the generic mode with USB4 as a submode conce=
-ptually inverts the industry standard hierarchy.
---
-
-commit f1ad33ca1ed62aa8d4ab806ced09908d4e9f3625
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-phy: core: Define TBT phy_mode
-
-This commit introduces a new PHY mode for Thunderbolt (TBT) and USB4 PHYs
-that require specific electrical and analog configurations. It defines
-PHY_MODE_TBT along with PHY_SUBMODE_TBT3 and PHY_SUBMODE_USB4 submodes.
-
-> diff --git a/include/linux/phy/phy-tbt.h b/include/linux/phy/phy-tbt.h
-> new file mode 100644
-> index 0000000000000..5f48059814e19
-> --- /dev/null
-> +++ b/include/linux/phy/phy-tbt.h
-> @@ -0,0 +1,14 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+On Fri, May 15, 2026 at 05:19:44PM -0500, Chris Morgan wrote:
 > +
-> +#ifndef __PHY_TBT_H_
-> +#define __PHY_TBT_H_
+> +allOf:
+> +  - $ref: panel-common.yaml#
 > +
-> +enum tbt_phy_submode {
-> +	PHY_SUBMODE_TBT3,
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: anbernic,panel-vita-pro
 
-Since PHY_SUBMODE_TBT3 is the first element, it implicitly evaluates to 0.
+You should have fallback compatible for the IC, at least that is the
+review I was consistently giving to others recently. Apologies if
+someone gave you opposite comment...
 
-The generic phy_set_mode(phy, mode) macro in include/linux/phy/phy.h wraps
-phy_set_mode_ext(phy, mode, 0).
-
-Does this mean any driver calling phy_set_mode(phy, PHY_MODE_TBT) will
-silently default to requesting the legacy TBT3 electrical/timing
-configuration instead of USB4?
-
-Would it be safer to reserve 0 for an unspecified state (e.g.,
-PHY_SUBMODE_UNSPECIFIED =3D 0) to force explicit submode selection, or to
-make the modern standard (USB4) the default?
-
-> +	PHY_SUBMODE_USB4,
-> +};
 > +
-> +#endif
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply:
+> +    description: Panel power supply
+> +
+> +required:
+> +  - compatible
+> +  - port
+> +  - reg
+> +  - reset-gpios
+> +  - vdd-supply
 
-> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-> index ea47975e288ae..26a91c070f8ce 100644
-> --- a/include/linux/phy/phy.h
-> +++ b/include/linux/phy/phy.h
+I guess this could go to panel-simple (after using power-supply instead
+of vdd), but it's fine as well.
 
-[ ... ]
+> +
+> +unevaluatedProperties: false
 
-> @@ -45,6 +46,7 @@ enum phy_mode {
->  	PHY_MODE_LVDS,
->  	PHY_MODE_DP,
->  	PHY_MODE_HDMI,
-> +	PHY_MODE_TBT,
+Best regards,
+Krzysztof
 
-Is using PHY_MODE_TBT as the generic mode with USB4 as a submode the best
-hierarchy here?
-
-USB4 is the foundational open standard established by the USB-IF, and the
-Linux kernel USB and Type-C subsystems natively treat USB4 as the primary
-mode (e.g., TYPEC_MODE_USB4).
-
-Could grouping USB4 under a Thunderbolt PHY mode cause semantic confusion
-and contradict existing kernel USB nomenclature? Might it be more
-consistent to use PHY_MODE_USB4 as the primary mode, with TBT3 as a
-legacy fallback submode?
-
->  };
-> =20
->  enum phy_media {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-topic-usb4=
-phy-v1-0-71d827c49dca@oss.qualcomm.com?part=3D2
