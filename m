@@ -1,113 +1,143 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6199A35F199;
-	Mon, 18 May 2026 11:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893282EC09F;
+	Mon, 18 May 2026 11:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779104091; cv=none; b=mSUY0m64/WreCI6ntpEXbDtaNpy0cyTL9RTj9bxGwAlsvjJ5QB0RiQ2KhSQM5IBRQHmCGCnYhm2hi0Lfuhy0kSZmaRvhrsQYZTT082pVj6Rq9aCRAgBR809BamZCNO4chq6B39zDoHK8TaJ9+XWoOZblGzdBnYS+RQ2hYKFC0ow=
+	t=1779104128; cv=none; b=ngbEju070zE/trV5R/9MDPOLaozhv3tmL9Ovhwg8/IdgcYGVImhzEfQT1QZ9rWs4GW6jktexWqUaIsMd/f1i9iIop1/LJ7/ThyrKJHVenA4zjTVvtoVGXFZvbx/sg+KC5THInymSFzDJC/n+ppgk6tu1kACAO6asNoCsNnN4oxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779104091; c=relaxed/simple;
-	bh=GDhJSGWnbOlWh6rBw+wx7DZ4aVfA1kCmO8wPZifp7Yw=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=slWkp6PCZzvfN0LF2aOqVr1D1EwhUItI77qhmg/++dXbN+i9kur7Od1xcmJgkjd5hQGdRxDoRG2/R65o7AOEAJfkbh/ZLKeZABSTV9kjWi38BuMp2rYUj7WeOsFyOFxujgQIhAqHmEEyIfeQbtwenogYDFYx/sX8mRriV4qDMPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=GPMPfB7w; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="GPMPfB7w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1779104081;
-	bh=REqrAQY4uKlWtuT6Rjt1VuMQRCebk3yBOhWbO+UCL2E=;
-	h=Subject:From:To:Date:In-Reply-To:References;
-	b=GPMPfB7wp23Hpil/z8xfSFoOpHRkAS89KniFB1Qm8LAc55RA2/mOH+Ml0vgY0Rzqa
-	 MpGRWJqivCpy/NgcrDDRXAhnji4mrEtMcdZtp/Ck2wW6/xtIfOVB60P7pQVcKRZnho
-	 wkIE3wv7SfE8TvNJPXwPSe3rXCJOT940liRpEMJDnEs9XCOgtRGi3reo6suvy28U1w
-	 +ce5kkr0ybrEYdLuxl1DtArMQhNdWcwM6KzLPeBtmMKPWhRn2bkFjRYiLE6cc+9nRH
-	 8uMvJJz8qv9kgzVv176PxqOuCvNO+nlmCpraVOmBSP2c/jDy/4Totf5hrB6Pjqb6uE
-	 izsQ1G5TOXa4w==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 381E36024D;
-	Mon, 18 May 2026 19:34:41 +0800 (AWST)
-Message-ID: <642d8a490626d4e62473baa37bef04ce85bddb96.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v1 7/7] ARM: dts: aspeed: system1: DTS updates
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Ninad Palsule <ninad@linux.ibm.com>, eajames@linux.ibm.com,
- robh@kernel.org, 	krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Date: Mon, 18 May 2026 21:04:40 +0930
-In-Reply-To: <20260421224551.1611818-8-ninad@linux.ibm.com>
-References: <20260421224551.1611818-1-ninad@linux.ibm.com>
-	 <20260421224551.1611818-8-ninad@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1779104128; c=relaxed/simple;
+	bh=4rRfsXP7glWEuhZ9UGgjhJNfT+8WTnI/VR3vWexhKOQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ey4vUnQbWBXKqOc3NQXE6ZKzK1Zzv4kicEpK9sukeSVjJav9glNoPiUs3KMb+VcQ+DZ1D37uv4GK32csWkHAA+4dllsGvqqbP1hygFhmOOwZYO4p/4jknS9SMU+YjHlr7Rmj6Gk03/7gd6wyZW7cyhvNPoeNGthpL1aZYFTY710=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id F41A71F8005C;
+	Mon, 18 May 2026 11:35:19 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 59B4CB407F5; Mon, 18 May 2026 11:35:18 +0000 (UTC)
+X-Spam-Level: 
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 9E03FB407ED;
+	Mon, 18 May 2026 11:35:16 +0000 (UTC)
+Date: Mon, 18 May 2026 13:35:14 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: arm: sunxi: Add Baijie HelperBoard
+ A133 compatible
+Message-ID: <agr5cmgZ_fdv52Ni@collins>
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-3-alexander.sverdlin@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SGiZE73NjioLjzVe"
+Content-Disposition: inline
+In-Reply-To: <20260510201644.4143710-3-alexander.sverdlin@gmail.com>
 
-Hi Ninad,
 
-On Tue, 2026-04-21 at 17:45 -0500, Ninad Palsule wrote:
-> - Removed SGPIO node as not in use anymore.
-> - Updated chassis power related pins as per the new hardware design
+--SGiZE73NjioLjzVe
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Can you please take a look at the discussion in the thread linked
-below, and consider some of the approaches outlined there?
+Hi Alexander,
 
-https://lore.kernel.org/all/d7794f74b26bbc1ee0a70e39c5671acc018f80eb.camel@=
-codeconstruct.com.au/
-
-I'd like to avoid a stream of backwards-incompatible changes due to
-platform design changes where we can.
-
-Andrew
-
+Le Sun 10 May 26, 22:16, Alexander Sverdlin a =C3=A9crit :
+> Baijie HelperBoard A133 is a development board around their A133 Core
+> board. Introduce a compatible for both the Core and the development
+> boards.
 >=20
-> Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 > ---
-> =C2=A0arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts | 10 ++--------
-> =C2=A01 file changed, 2 insertions(+), 8 deletions(-)
 >=20
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts b/arch/a=
-rm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts
-> index 91c317267d6b..d7a934fe5860 100644
-> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts
-> @@ -424,7 +424,7 @@ &pinctrl_gpiol6_unbiased
-> =C2=A0	/*E0-E7*/	"","","","","","","","",
-> =C2=A0	/*F0-F7*/	"","","","","","","","",
-> =C2=A0	/*G0-G7*/	"","","","","","","","",
-> -	/*H0-H7*/	"","","","","","","","",
-> +	/*H0-H7*/	"power-chassis-good","power-chassis-reboot","","","","","",""=
-,
-> =C2=A0	/*I0-I7*/	"","","","","","","","",
-> =C2=A0	/*J0-J7*/	"","","","","","","","",
-> =C2=A0	/*K0-K7*/	"","","","","","","","",
-> @@ -440,7 +440,7 @@ &pinctrl_gpiol6_unbiased
-> =C2=A0	/*U0-U7*/	"","","","","","","","",
-> =C2=A0	/*V0-V7*/	"","rtc-battery-voltage-read-enable","","power-chassis-c=
-ontrol","","","","",
-> =C2=A0	/*W0-W7*/	"","","","","","","","",
-> -	/*X0-X7*/	"fpga-pgood","power-chassis-good","pch-pgood","","","","","",
-> +	/*X0-X7*/	"fpga-pgood","","pch-pgood","","","","","",
-> =C2=A0	/*Y0-Y7*/	"","","","","","","","",
-> =C2=A0	/*Z0-Z7*/	"","","","","","","","";
-> =C2=A0
-> @@ -486,12 +486,6 @@ &emmc {
-> =C2=A0	clk-phase-mmc-hs200 =3D <180>, <180>;
-> =C2=A0};
-> =C2=A0
-> -&sgpiom0 {
-> -	status =3D "okay";
-> -	ngpios =3D <128>;
-> -	bus-frequency =3D <500000>;
-> -};
-> -
-> =C2=A0&ibt {
-> =C2=A0	status =3D "okay";
-> =C2=A0};
+> Changelog:
+> v2:
+> - introduced baijie,helper-a133-core compatible for the Core (SoM) board
+>=20
+>  Documentation/devicetree/bindings/arm/sunxi.yaml | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documenta=
+tion/devicetree/bindings/arm/sunxi.yaml
+> index e6443c266fa1..d7b9dec81165 100644
+> --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
+> +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+> @@ -96,6 +96,17 @@ properties:
+>            - const: allwinner,ba10-tvbox
+>            - const: allwinner,sun4i-a10
+> =20
+> +      - description: Baijie Helper A133
+
+Please use the correct naming from the vendor, which is: "Baijie
+A133 HelperBoard"
+
+> +        items:
+> +          - const: baijie,helper-a133
+
+Please make this: "baijie,helperboard-a133"
+
+> +          - const: baijie,helper-a133-core
+
+Please make this: "baijie,helperboard-a133-core"
+
+Thanks!
+
+> +          - const: allwinner,sun50i-a100
+> +
+> +      - description: HelperBoardA133 Core
+> +        items:
+> +          - const: baijie,helper-a133-core
+> +          - const: allwinner,sun50i-a100
+> +
+>        - description: BananaPi
+>          items:
+>            - const: lemaker,bananapi
+> --=20
+> 2.54.0
+>=20
+>=20
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--SGiZE73NjioLjzVe
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmoK+XIACgkQhP3B6o/u
+lQw2BA/+IHc8I9Er6XihIareQXTGKDeAAatpQfTX63S6GliuDvrCF4et5lAtdz9E
+EXw3F7ATLVdz+uJsHGMbk0TYQ43gUMmGp8A+pycB0owdwpDGoP3WqLU36AMsciPG
+AxFgqFg3uKB09ejkze0Jm8f8rdbb4tTxOcGO4NvqtAUneGWSRha+B+0YslU0Eyvi
+j+/XcUVKzYPwHsE+PkpHdxP5Aj1G1eQ1ccr7a2weSTBmokEEZM8udMc++lw+7H2P
+Go7dbJ3pMWHxlL8GSZOgPyofTsfc1pT7JR/j/ZOc1tkK3B1y81ZxxkrL57u8oxQK
+gekBvmVxHQCPK1jljy4oQKlbmieUrDdopY+qDCVlxkX/CnuagrE3Ntscg6i9ok9Q
+wSS/BsZt1sYls1EDl19DWIfwkELpbReZ3b0pr+dyopcR4Pgz9UBjcDXdAPxCcqhz
+a9CZUdoiw6ik1KY4c1mHYpFxMUe77/AsVNApUF3F/fy3sozZ0waW3TvDtIhdwpM7
+Mt+kc0mDywba/aSn269mf4/xzcqA2UeLr7Qy9ZFozqnJDyFhTl/SHHnAv9/boMB1
+Hv0S9UkVASAvE8d6ykrdb8kLEWDsqK2p/C6lkFfRECrc6lq0JN4cnywf2topi/JK
+fu+wzkv/K17deUo6JsbPCS54zn6t9arEzedTiJ19Qe1Y3f2ew1c=
+=KXWX
+-----END PGP SIGNATURE-----
+
+--SGiZE73NjioLjzVe--
