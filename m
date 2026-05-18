@@ -1,187 +1,254 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297DD39A04F
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C115D32C92A;
+	Mon, 18 May 2026 21:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779140753; cv=none; b=p/ld6NVheo3pLBlX5ARW2Ac4OxsBlzwEX0/Z8g/hYNcI4RwPQ2EBbce+cTl4TGYruErRs3THuIb7U/LQ8KXUv90p8btZkaECrtMxRw+wgFAqRxXc14+RWwuKbsql9mipMNodA8AMYGFNAVtwPSHTkr87UXO7LGEQDzzkdlKDm20=
+	t=1779140812; cv=none; b=OHzU5gxNyuq/DAlIECzOy9I+sbKsrdqFo6hUfNk92Y8wLadSk7QI5uIszV8uagYoJ1IdFylgG7wSXyT7jwMXGDWGE3pEhFcBu+3OObPYO/EzdGwH+PAmAuebpoOMcedENxA60126IOQXUjR2fKL02aSOYYdtOyOf6rdcrdZ/G3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779140753; c=relaxed/simple;
-	bh=92tE+ZJDxeX5Vcwq5hmmYKZPdmAPn8I7BHosGfRrNZE=;
+	s=arc-20240116; t=1779140812; c=relaxed/simple;
+	bh=AtbT9o8WzXsXZk8sSVdCCfqVDiy9nwYQkqNvJJDpkGQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TylW+zpgjDn+d96Wf/qKYtg2sIpP7rwf7BzjLnf6od+121I0aKEsnW75eEklJtly2O5ZlI1frbno5W0jr7VTSXFcfaub/Yopq/6Cm79pgEM/D+zHrgQDV2BMW4cWzDsLqjsaRiiojp5YCG5z2PQl5Q1U5wius9tipDnZNgqhE5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jM/gvOjA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Js0zXAuU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jM/gvOjA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Js0zXAuU"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IInsFd1252691
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:45:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=aeeMHJuYduPDLfPtUte93/Zl
-	OUIn79ssUXS0hhRxo2g=; b=jM/gvOjA5TJVp2GLYsr0nL1nm74/h5XpfJzWayfK
-	kN6bdou2bOZLdw+tUkwyhkIrxKEBI3pSlPMAApAIxtuSAfLec324vMwS/beBaFGG
-	wiaSDKVs6E1GSnl+wsqqdcZxnsI26YoNBm4Z+EebyqBOJD7xVpogd3bbDDWGRroG
-	ObbIz2nf5cvMX6n8kp/r/4fr5Yse1uRLlf7OEgpzg5vBNV/QtKKkvLJF0vxT94yf
-	JIxFdJGNLj4zTlEvrEgM8YGtXPrTanI6K1hy3CZAobE0XZMYWbhJSes8lbPWnREM
-	3l4I2IQmEgL/Q8K94cxoPjrVyXuL+KBdGVhVbeE0SANtYA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e82c0j6xu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:45:51 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50edf01172bso92237931cf.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:45:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779140750; x=1779745550; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=aeeMHJuYduPDLfPtUte93/ZlOUIn79ssUXS0hhRxo2g=;
-        b=Js0zXAuUj6JoRY5U525ge0KtgBDO4RcFKicHDafdCkN99V8ZD/KB/60wbKPFsoOmkX
-         3/N8VtUENRAn2jCtQg6jDfhHuMTat/dt8jSM4cEdOoDE8V9uHzNWvL5vHBg/1VBMPH9D
-         XdO6xq7WrnKVlFX9fqu4dF6LWSX0E9yDAAb2l+nFL2u8TdBgxDWpfT8rLyslj3Zxj/Ib
-         f+T4i+9kL5+63pRZp1fd8nb8r8LQ/5wldNP0FfN+ZfDxZpYRVzqbcnlYgBeea9AP+ZwA
-         jFfgfMNxSPi0So24WPqL5ySWltNLmQh2nDJVBc02kFjxxZ5QMjss3dZ4+KOuk+/HUo7W
-         k5kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779140750; x=1779745550;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=aeeMHJuYduPDLfPtUte93/ZlOUIn79ssUXS0hhRxo2g=;
-        b=a5ibonz/U36NsG8kgC56Cq+8qzYZ57FYT78GzJWkdUxMfH3cWXKmvPp8P32qa1JY36
-         WEnHzRU9uyDLcaPsSQ0ePUl5m/sF9pXK2bG9yYDDkCsYwbPK8zTyGTv/K67migsZBgC5
-         N0B3zoMj8kjPTxfyou859WQjkmElHK9FSwRNXUwZjt2C+elanol/MgBDP20HH71T9NLe
-         5FwRkMweBpGL+o/eYfhyJPDIxgbrKQdV6/gOjPi6IvNFgVdZRKziu700M123MowPQnSO
-         juSKHOby3huXe7G7C06+7GLscWlyRGiZrea/EUHr8VDSBunfTyPvtGiqifXU3ONlY2oz
-         P14Q==
-X-Forwarded-Encrypted: i=1; AFNElJ99RBYOk2Dag6/2aPbbKpzdbEEgaEXh8SMTxMAiPl+gMAwxq/wnZqmmP01Sl2rVX/XOsuxupYqpBnbz@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxw+UipsokrKQfOAnCb8nJse+u/uK7tHnqpDMsZXBM3IqVYeJMn
-	rj2NQl/ymVwQOS5xCCO/gMzJqAkGLMeH7BwRaeDNyzrCekZUQ0hsu1+CWbCKjJuKZufPBYR8mPL
-	7Qz5cD7ZNiaN0UrXMKNbL66g10aSnfWMInzkQis1Mp+Y9sGXIKkR6DWtaUerjdO8D
-X-Gm-Gg: Acq92OEdwbudEBfdn3qQUW9nl9dqUejm1HPXYJNabgzdx/ekvMMjYdqSpy/LSZuKLbe
-	xGrWefdlAOj6g8ugu8/N1fQQf+ERwrdhDLQUi5nj8vpHe/Z2Wrcz2YIxKTbQEX9dMM5hVjgQpsL
-	ok5tA/3QygbmBg38BKTeXkPjEorN8qrRqyFcrEgSXlcDk4P9iYVoq34ux4Mcc9pujMWhK++EkkR
-	SDxBx0g69is1nnABSIzUwzxuhTXBnszeMxpI3586WYAFYZpqS/8EfQRk1C5RnoYJN+w0GizNZMV
-	NTwsb1/DaWpf2MKw9OrnuoKxO0Yt6KGY583vjkTIlmrjFiBH5pTS/ybWc3yRe9+m3Z2z8VeYIWF
-	ZJ+I6auQb3aZi2lIH4oE5OlA7/0iI40xnsNjQc4NwHbXlnD5V1DUCZkSPYCdHmUgWbsnWaXjts2
-	MCc9PMf0DryZGkDOKq/zTs+zxbLowYodzkvUI=
-X-Received: by 2002:a05:622a:1806:b0:50d:a8f5:1c0f with SMTP id d75a77b69052e-5165a068660mr230250741cf.24.1779140750142;
-        Mon, 18 May 2026 14:45:50 -0700 (PDT)
-X-Received: by 2002:a05:622a:1806:b0:50d:a8f5:1c0f with SMTP id d75a77b69052e-5165a068660mr230250381cf.24.1779140749628;
-        Mon, 18 May 2026 14:45:49 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a91e2b6db9sm3586258e87.84.2026.05.18.14.45.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 14:45:48 -0700 (PDT)
-Date: Tue, 19 May 2026 00:45:46 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: taygoth <taygoth@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Casey Connolly <casey.connolly@linaro.org>
-Subject: Re: [PATCH 3/6] usb: typec: add Qualcomm PMI8998 role-switch driver
-Message-ID: <zm7buc6djok2743bs6ghvlr3bpc4lld4qpgs3ggwjsy45f4l75@kua4xtj6b3wd>
-References: <cover.1779127507.git.taygoth@gmail.com>
- <6fedbcd344505b63de72037f69ea94f916255f03.1779127507.git.taygoth@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=m0Ohd3BJaZ03ingJkX/OQMtnU9QI6vJH5arp41roT3DxOSCtigE2YCPUUCFwDnNd2Cp0e7b70PVjY5GwN6n1eM48UBLVqavHQgNvAJIaYEHvqFY5HY7A8YviVbEC64JNr/uLT9fhZydTSA7sPfGYYvgfIU1wfO8jE5rg2+71sv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 40E111F8004D;
+	Mon, 18 May 2026 21:46:42 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 00285B40810; Mon, 18 May 2026 21:46:40 +0000 (UTC)
+X-Spam-Level: 
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 10FC4B40809;
+	Mon, 18 May 2026 21:46:40 +0000 (UTC)
+Date: Mon, 18 May 2026 23:46:38 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, Andre Przywara <andre.przywara@arm.com>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
+ Baijie Helper A133 board
+Message-ID: <aguIvpKQM18kX97T@shepard>
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
+ <agr9m_tidBr6Cu2h@collins>
+ <04da68168f92b196cce4d49c766fc62702bf6472.camel@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n/6HFoDPod6U7Z7S"
 Content-Disposition: inline
-In-Reply-To: <6fedbcd344505b63de72037f69ea94f916255f03.1779127507.git.taygoth@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDIxNiBTYWx0ZWRfX5Kv/XedGqeL5
- E+6QEZSwdvky+Rsg7nV5KuKoHkLH5mBb2sXy0ZHefLUkAmbcnfAJgUjiSdy8NUlt4sZrVccr40M
- kX8WY8TzIPJDfnlRoLvTWzQC9yDrb3m+nkf6639NA4lvYAPEBdQrdRwyfKXGPJfqTU0rL0GtAtj
- GBp/ixygSqZXiF4MW6sSRlhTw9kckL90CLuvm9zvsBsvbAxO7GPhvV/DrvMR1kvZij+z3PEMBCh
- fCDhcAKQDs7bUMwsWMDZ6cvZzU0CiqfnvyjanfKgNZzpLhXUGOz0wMKuxgDFTwU1nuyCD2D812p
- 40/xedyRU9v55sBzPL2S5jtP1lvYkpPx0EoPZkVwv0T/ozD59HTlsH3mtQDxpJQCg6C83FyfmwU
- Dvt4u/gFVHgb7LXVO0E3vN2RwXmXXCaCArAjywmrMWN6IOIlKjW2jKJRLSf0FIzPDwBuE5Js6z0
- PJ7sE/Uo5HcrR14Da7w==
-X-Authority-Analysis: v=2.4 cv=A5Jc+aWG c=1 sm=1 tr=0 ts=6a0b888f cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
- a=3UPe3UmtX21fba2st3IA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: 7AHPi8s0fIzDtfFkJgCJwYzsHXF7PnwR
-X-Proofpoint-ORIG-GUID: 7AHPi8s0fIzDtfFkJgCJwYzsHXF7PnwR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_04,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 spamscore=0 malwarescore=0 impostorscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180216
+In-Reply-To: <04da68168f92b196cce4d49c766fc62702bf6472.camel@gmail.com>
 
-On Tue, May 19, 2026 at 01:22:48AM +0500, taygoth wrote:
-> The Qualcomm PMI8998 PMIC integrates a USB Type-C detection block in
-> its SMB2 charger USBIN region at offset 0x1300. The block performs CC
-> sensing, debounce and Rp/Rd resolution in silicon and reports role
-> changes through a single consolidated "type-c-change" interrupt.
-> 
-> This driver reads TYPE_C_STATUS_4 on probe and on every interrupt,
-> decodes the hardware-detected role (host / device / none) and pushes
-> it to a usb_role_switch consumer (typically dwc3) so the controller
-> can flip between peripheral and host on cable orientation change. An
-> optional VBUS supply regulator is toggled on USB_ROLE_HOST transitions
-> so bus-powered downstream peripherals can be powered.
 
-This is an interesting implementation, but...
+--n/6HFoDPod6U7Z7S
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> No software TCPM state machine is used because the hardware handles
-> the Type-C protocol natively, and the PMI8998 interrupt topology does
-> not expose the granular per-event signals the TCPM code path expects.
-> Power Delivery is not implemented in this driver; the PMI8998 PDPHY
-> block at offset 0x1700 (register-identical to PM8150B) can be wired
-> up by a separate driver later if PD negotiation is required.
+Hi Alexander,
 
-I think TCPM / PD-PHY is (more or less) a sensible requirement. Without
-it you can't negotiate higher power modes or AltModes support (which
-means no DP).
+On Mon 18 May 26, 22:05, Alexander Sverdlin wrote:
+> Hi Paul,
+>=20
+> thanks for the review!
+>=20
+> On Mon, 2026-05-18 at 13:52 +0200, Paul Kocialkowski wrote:
+> >=20
+> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dts=
+i b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+> > > new file mode 100644
+> > > index 000000000000..65b094f30bf5
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+>=20
+> []
+>=20
+> > You should add:
+> >=20
+> > 	chosen {
+> > 		stdout-path =3D "serial0:115200n8";
+> > 	};
+>=20
+> I actually have it in .dts, but it's theoretically possible to deploy
+> the core board in a way that serial0 is *not* a console, so the above
+> probably will not be valid in all cases in .dtsi.
 
-Also, this (read-only) implementation doesn't leave space for the active
-events, like role negotiation.
+Yes I figured out later that it was in the board dts file and I initially
+assumed it was missing entirely.
 
-Anyway, could you please be more specific, which events or which
-controls do you need?
+In practice both options are fine, although the reference software does
+hardcode UART0 as debug serial.
 
-> 
-> This enables USB host mode on the OnePlus 6 (enchilada), OnePlus 6T
-> (fajita), Xiaomi Poco F1 (beryllium), SHIFT 6mq (axolotl) and other
-> SDM845-based phones that use the PMI8998 as their second PMIC.
-> 
-> Signed-off-by: taygoth <taygoth@gmail.com>
+> > > +&reg_dcdc2 {
+> > > +	regulator-always-on;
+> > > +	regulator-min-microvolt =3D <500000>;
+> > > +	regulator-max-microvolt =3D <1300000>;
+> >=20
+> > Should be:
+> > 	regulator-min-microvolt =3D <900000>;
+> > 	regulator-max-microvolt =3D <1300000>;
+>=20
+> 0.81..1.2v according to A133 Datasheet Revision 1.1 Jul.14, 2020?
 
-Please correct your Git configuration to use your full name in the From
-metadata and in the SoB.
+I guess the initial values are taken from the allwinner-perf1 board dts.
 
-> ---
->  drivers/usb/typec/Kconfig              |  17 ++
->  drivers/usb/typec/Makefile             |   1 +
->  drivers/usb/typec/qcom_pmi8998_typec.c | 213 +++++++++++++++++++++++++
->  3 files changed, 231 insertions(+)
->  create mode 100644 drivers/usb/typec/qcom_pmi8998_typec.c
-> 
-> 
+The 900 mV-1.3 V range matches the CPU OPPs (although it really only goes up
+to 1.13 V). Maybe down to 810 mV does work, but we don't have an OPP for it.
+I think I took these values from the reference BSP for the board.
 
--- 
-With best wishes
-Dmitry
+Also it would be good to add:
+
+	regulator-name =3D "vdd-cpux";
+
+> >=20
+> > > +&reg_dcdc4 {
+> > > +	regulator-always-on;
+> > > +	regulator-min-microvolt =3D <500000>;
+> > > +	regulator-max-microvolt =3D <1300000>;
+> > > +	regulator-name =3D "vdd-sys";
+> >=20
+> > Should be:
+> > 	regulator-min-microvolt =3D <810000>;
+> > 	regulator-max-microvolt =3D <990000>;
+> > 	regulator-name =3D "vcc-usb-sys";
+>=20
+> I'm a bit puzzled here: datasheet says 0.9..1.0v
+> and it has no "Typ" value, similar to VDD_CPU, but
+> VDD_SYS is not part of OPP tables, so who is going
+> to adjust this? Or shall it be just
+>=20
+> regulator-min-microvolt =3D <950000>;
+> regulator-max-microvolt =3D <950000>;
+>=20
+> ?
+
+Yes the reference BSP runs it at 950 mV, LGTM.
+
+>=20
+> >=20
+> > > +};
+> > > +
+> > > +&reg_dcdc5 {
+> > > +	regulator-always-on;
+> > > +	regulator-min-microvolt =3D <800000>;
+> > > +	regulator-max-microvolt =3D <1840000>;
+> > > +	regulator-name =3D "vcc-dram";
+> >=20
+> > Should be:
+> > 	regulator-min-microvolt =3D <1100000>;
+> > 	regulator-max-microvolt =3D <1100000>;
+> > 	regulator-name =3D "vcc-dram-2";
+> >=20
+> > ALDO2 is the main DRAM supply, this is the second one.
+>=20
+> Core schematics mentions 1.1V/1.2/1.35/1.5 on this rail...
+> Currently U-Boot has CONFIG_AXP_DCDC5_VOLT=3D1100, but potentially
+> this is adjustable, right? At some point LPDDR4 chips they
+> are soldering today will be unavailable. And in the current
+> market it will happen rather sooner than later...
+
+It is part of the LPDDR4 spec that the main voltage should be 1.8 V and
+the second and I/O buffer ones should be 1.1 V. See JESD209-4D Table 180 =
+=E2=80=94
+Recommended DC Operating Conditions.
+
+Maybe they jsut copied this comment from a reference design that allows for
+other types of DRAM too. In any case their BSP hardcodes 1.1 V anyway.
+
+> >=20
+> > > +};
+> > > +
+> > > +/* DCDC6 unused */
+> > > +
+> > > +&reg_dldo1 {
+> > > +	regulator-min-microvolt =3D <700000>;
+> > > +	regulator-max-microvolt =3D <3300000>;
+> > > +	regulator-enable-ramp-delay =3D <1000>;
+> >=20
+> > Should be:
+> > 	regulator-min-microvolt =3D <1800000>;
+> > 	regulator-max-microvolt =3D <1800000>;
+> > 	regulator-name =3D "vcc-pg";
+>=20
+> Do suggest to drop vendor's
+>=20
+> regulator-enable-ramp-delay =3D <1000>;
+>=20
+> in all cases?
+
+Well we generally don't have the delays in the axp regulator definitions and
+it works well without them, but I guess they don't hurt either.
+
+In practice many drivers will have a delay after a regulator power on anyway
+because we generally expect that hardware needs some time to power up,
+in addition to the regulator. So all in all it's rarely critical.
+
+>=20
+> > >=20
+> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.=
+dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+> > > new file mode 100644
+> > > index 000000000000..ccbca5d0a40c
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+>=20
+> []
+>=20
+> > > +	aliases {
+> > > +		serial0 =3D &uart0;
+> >=20
+> > The is best added to the core dtsi.
+> >=20
+> > > +	};
+> > > +
+> > > +	chosen {
+> > > +		stdout-path =3D "serial0:115200n8";
+> >=20
+> > Ditto.
+>=20
+> But it only physically materializes in Helperboard, the carrier.
+> Potentially this one can be left floating or used for something else.
+
+Yes fair enough, I'm happy with having it on the helperboard dts file.
+
+All the best,
+
+Paul
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--n/6HFoDPod6U7Z7S
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmoLiL4ACgkQhP3B6o/u
+lQzu7w/+Li3WB/RqyOhBotp67F5Kst4upx8CaFkmpfvnE1C+xCKF8o9JNYivUnIV
++b0k9Gzb2riSG/LSkroml7G684MdWJ13L9Lf0By5T4odFvkrYP8iqJY87NFXgGkk
+tiw4gP5MaAJlErtzvisLh9o1XncrxEzWMjeS8Zqf8gp7FDW551PX3QN89KfHI/cF
+sL1IEJ01Gc43nlrPyDrbMc+rU+XKnQK/VdbUNtaIQnBHgeBz++Ngi4d6EPwL4ST4
+9asVDJiWa5up6319Nwv8BZYzgR2UqURVfKCALQCy21aQWhKlGGIDMPtH15K9ZB+Q
+A42Now55/m8Ld6m293eMu9k8aNIdfMaAM3RkwRDRP9rmAhZjQ16XpbwHasgBjTgK
+FskGcacWVAdhj3D96HSQ76DDJ64kJhOyPL7GipEyuG+P+rOSLBHICo1bw4plI+lc
+CQG72K3bPWQ4TYYVQyTcVFyNKAnRx5J7t6cFNKDXM8/ghf5IXIxRypGoFNfS9hts
+ZBt7B1gP2enqtCvuUcgrHKKmgRqKKm7KEWpdULsMkfj4GlcM7330BuWsKUg8h8EM
+dO4upS6qp0pR/tfJrfkaB4lJ5HwdEimwXugq0KeFywXzOfv+vTZlVUQBKqin3MWs
+Z/vovo0munJJASdEaQRy4bQZOiEI/R+Uo4NzRYiqQJUKobbaVH0=
+=/6pF
+-----END PGP SIGNATURE-----
+
+--n/6HFoDPod6U7Z7S--
