@@ -1,63 +1,63 @@
 Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F0D3F44E6
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 16:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFEC481FBD
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 16:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779121226; cv=none; b=ZOs65XvWDhEuI0rtRerZXYhl+NESNNRCgUKufMdNlRyQ7MXn+wIt8vkzF7Zm1XDWlZO/QdtqGEAR/NiQhog9uBQTwJzQXLP9Q5eavl7Tb2PXYLMtRMZcUwKi+nv2rgQpe+tjw/l925WpbbGoBlxZAEKyx//3k9C0FOiv7wTxH68=
+	t=1779121228; cv=none; b=oCz+s8/chwbR1LVTStmTTM/kmtxwnOvVPyzeW1MjTDJoTfcv787zYtqr+j3ny3fWCpzEofP7Wr2aWIFHI4a8C3L+xjxDILKyE1YFrc7PlHziZls9uLdq0pda3RXUsYFaVmO074zyK+m8IHnM09nlMqDsYOPyIP3Ia9RutWzCO88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779121226; c=relaxed/simple;
-	bh=vdEZEUOs7PRDXYhwPRYrWKYpoelBDrzxoSmk24QTQgk=;
+	s=arc-20240116; t=1779121228; c=relaxed/simple;
+	bh=KtWQWhKC3Kxohq5UMc3habVp2D7N2gtkE1n6puIjLZU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pyIkEgiPrp3KTSIrjUCWcv2IhSV7aj8yq1lC7G3AECbPCvXJWUfA4daQ7ow4WeOoRuIN4hBnRdXYF5SW75F/+7wOxTL1jUkqtNbjVV+JfV+eFFBqLq7leNOGFC0Dk95+k2vwzp9mMemdOQ2bRzbW2bfTNnf9HJyTfpcsd/O73oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tv513+di; arc=none smtp.client-ip=74.125.224.44
+	 MIME-Version; b=kH7kpvn4YnKLVRa9NURPxmktR/27XR7dcE4BRk8atlB0J1PAHnph31gyEU25beWpy7yIJ9lP+q/iVXjrsg1BjhnqxoudzaBvVPSIzp/N1FodN8gdgB2H05VFOj9XjIH3GGL2RmeRO5edLwLllCLkmXoao0mz5vctaO6aYs+3r0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mOvbwuoF; arc=none smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tv513+di"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-65c305f381eso2721111d50.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:20:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mOvbwuoF"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-651d6347a69so4193918d50.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:20:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779121218; x=1779726018; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779121217; x=1779726017; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Mm59fBho8TSPcttA9nMtsPpYbNTzkooRSqlhl7WTUa4=;
-        b=Tv513+dirocYuWNp4yWdL8GR4535jqc0dO/0/qCymsboV9Y5nmmcgYIT8IyGzFrsit
-         xvITzE3Gcl2rnpHkWtMcADz02YxnGzWqzgQPdGOEZZ4xxOqfTkTcKRbVW6XjzYk8mjdY
-         0TYmjAPr9bG9+BCZz1gXF9CM/bupATQ+9WY6qnWeGOt0FdTiFIw5d/Mf1Nx5uImg2nNh
-         +7KIpChSccZ6YmZtRtbb3OFTZmWFU9432etb2kem23n8U3Hd3XFfoLMLjk3WXcn7Cmmc
-         nVzFXSmrZgwVes9JtDBU38a/brgvqbHawkcrXciZ3xIdyTdwy9iG5p+hS/CvqiU8xulD
-         +c3w==
+        bh=m95kSTeSTgyCfxV7Wyxfftox/V8NCoAaJWZ67QlB3Ww=;
+        b=mOvbwuoFyUruF+IIX9LuZ6MfteNYMWr4CzJRV0lzmy2BwFxtROds+Q+BZZ9IzVl581
+         jAE/NBi+JXiAhmjP6u5brCE/95xWDlVjDTHOTpWex4CCRNgFDKK6kneBjipAIUaG37Qa
+         7hq6YfdM3aABtEIK6TrenMHZ9TRpp7a0fpMx7tBe3F/pt7Z0chZEpgBO5uRSQdNABj7/
+         dqeXCuq6qtEHsMs0yrNF0jn+U3HUjgXY+rfLCD/zz2QoGQ318eREeMm9AgJp7x3U7i5i
+         Zxf+rPQK3Rlqv2PhmeOWhdNLwnfrq6eIbiGhnE6XCIGXnpCUwebAWDq8kCLy9uB/9zfX
+         ELHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779121218; x=1779726018;
+        d=1e100.net; s=20251104; t=1779121217; x=1779726017;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Mm59fBho8TSPcttA9nMtsPpYbNTzkooRSqlhl7WTUa4=;
-        b=pKPcRtaknoMTsp3ZFx7bn0zMRfkMnxODKywkWRsYhGEDH11W1wo97PqlwuFjiLM91z
-         doUmTiSVhpezzOoXREzTrGmMxvRuqAL6hjoLe11jqBEw5bqcTrlAb6KSaxZtyfVNrKlj
-         uUimlsW6keL5krQsvuZicPx7mkOjBAqUFrchQIsiLMTN4rm9E4PSjia67VtEodOI67v9
-         Ius8+nzJDi9wtfD9k9nl4QJZMevWUDGxNdr5sWdIrLe0XWg3hT2GoubSM13oja5iDyZb
-         wB761TAuvKXRflfkkG/ZI1MUsLpKxXvHhvXuR36qa8Z7tR3fjnUx9Jfjyi1EYsOIbnT6
-         1r7g==
-X-Forwarded-Encrypted: i=1; AFNElJ9loTarCiJG6gG0Aqm45YVBYUsIx49GFm4S98K1GUsSnMOfDCPhtLtm4Suv4MqP6nCc5YKHXwMcW4D9@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKUEiux5f3AvzJV0Pj1EhDpWCzW1Uu9wSt82r/CzHzv6M6CQXv
-	FULg+mfXPGp+/PO94RfmBNTexSJVETyTIoHlKT1Xpc3in/zE6iEYUFoO
-X-Gm-Gg: Acq92OHbXYSwxKb/Dh9YM9RNniuwgV30OPKwv+++YjJdYC5XJpm6z08eNj8cPObK6tW
-	rJrqjnSBwub/+XsUKwefi5V8j5/Z9M3JGVJ+BqfLl4gjY+0HK0hX//B8oszVC8k6COGab2LYC+0
-	80beykcXJzyTaqGlDRm0LmdHv6mPh74ZfVwcZwxAnvYwTBOuaYbLgRPtDXc0tCDtRHcbPYqvxq5
-	2+yV686tp1FqLFh7S59xyPMuNpf2P/KT7ZOsCkm0opnigUof4UlxTnnrqD8zDAA9J3VB9y6dUwH
-	2UFDtLcii+IwLmK15BrcKfI5HeluE/21SjyAQHVrEfPU16qifS6Yb3E1sJ6Tn46/oigUshtsx5n
-	Fjrux4W2PanfXcZDboeHIhxHM/0xTPSS9EoDNN5f+CAFKdPRxH7Pq5XZ5kKlWMszdooXrPiXN+/
-	U6usu4qZQJce5Di+ks4kqioa+4GiVuOEimhYr+D1EiEg==
-X-Received: by 2002:a05:690e:190f:b0:654:c2b5:b77c with SMTP id 956f58d0204a3-65e226632f7mr15134957d50.7.1779121217793;
-        Mon, 18 May 2026 09:20:17 -0700 (PDT)
+        bh=m95kSTeSTgyCfxV7Wyxfftox/V8NCoAaJWZ67QlB3Ww=;
+        b=j9gVc7iMy7q7V+jdrYdYd1sWQZZAAF2eN5V1rzGdK4lWXDy6eCZ2+AvTKzp8gU4Uxa
+         lg9OQ6TNFZDy+9w47ci0BNxiTQm7XblTw3A98LeiBvOF0uBqvyEIQU5FlmeRc7zKXmfd
+         f2LTqdAicodNuIuEzv8k1OMsjKWgQeCxt/JXH4bOlveTtL79/nxl8FftAZV0iXmnsAQ7
+         rH7kmfr9UleRQqim6TU3CY99SKcLso77UPcKihPvuj8agQbs9i13dXToSJq0EjXR0TP2
+         FR64AAf8t4CFYH24R0110d7aj2oh5BQJxwQ5XEMATdhMKwP4FQ1NBD6BCm095Cn1wNp0
+         K6RQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8gOCpkHTtPJO1CJxmGjOXN51vz1+3ewnZiNXkmWqfhlnRmm2HyPqzrjTimPXQTvUbWUTnulXgvaDsb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzwcam7l96NV5U1CNhi1WZPdrLo98EfYmS4Qbx1kxd6nqARpS+5
+	bEb7s8jXOUQf0bB+2xIrjkxbW7QEPOG7ce43kVNE9CIRNNugqQinnXJ1
+X-Gm-Gg: Acq92OEW6sLdO+YHll9xO7CvjyAqEPGIdjY1pCsnXPCRjpFoFam8+JlaGZ9Wth1RwMM
+	U7w9q48l6dd+mpAR/FFI/xVCysz/CawhZdsskWTeC3gpxf6SJgXiCArd+q6BiJ1vUQ1m/0BrCQR
+	ePrQJ6vMO/TwGl4oxRUWfC+SapTz6pFQw3iwLjEt9FYpf5IFWPx/XpHp2h6QrFrnaP4aB7V4Km2
+	4e90PwIi0rj+63wvw/MCsAswS5SDZ9mZOHOgpKNS78J963d1N+0c+E2HAZ3eXPLmAde5iCXMV6K
+	fU/bzsRrTESMqFGh1AlHyhTnwWK4aNIWNv1ezrhVDpeqYJgTkXWqCNrZ9CN2TBBSOWxQhkTPr8W
+	8maKBnf8TL69it7+ihNPqfmK8vOM176CRs/sEyiQbWL45cEQbNWMJt0KFEtstrTB5IWeb9gNqB4
+	GdeCZVB0zsdYSt3gNlRvmlmOs1HgS2u1qmq0+9N45kZKYGh79Uj82R
+X-Received: by 2002:a53:b451:0:b0:65c:d26a:6e71 with SMTP id 956f58d0204a3-65e0b225732mr12388187d50.27.1779121216830;
+        Mon, 18 May 2026 09:20:16 -0700 (PDT)
 Received: from fsh.attlocal.net ([2600:1702:56e9:4b40:ed8c:6b8b:1fa3:d14b])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65e0db60379sm6596021d50.14.2026.05.18.09.20.16
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65e0db60379sm6596021d50.14.2026.05.18.09.20.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 09:20:17 -0700 (PDT)
+        Mon, 18 May 2026 09:20:16 -0700 (PDT)
 From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
 To: krzk+dt@kernel.org
 Cc: robh@kernel.org,
@@ -67,9 +67,9 @@ Cc: robh@kernel.org,
 	linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] dt-bindings: usb: richtek,rt1711h: add missing 'port' property
-Date: Mon, 18 May 2026 11:20:14 -0500
-Message-ID: <20260518162014.18251-3-akash.sukhavasi@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: usb: richtek,rt1711h: remove deprecated .txt file
+Date: Mon, 18 May 2026 11:20:13 -0500
+Message-ID: <20260518162014.18251-2-akash.sukhavasi@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518162014.18251-1-akash.sukhavasi@gmail.com>
 References: <20260518162014.18251-1-akash.sukhavasi@gmail.com>
@@ -81,56 +81,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The schema declares 'additionalProperties: false' but omits the
-top-level 'port' property, which hi3660-hikey960.dts uses to
-describe the role-switch graph endpoint. This causes dtbs_check
-to emit:
-
-  hi3660-hikey960.dtb: rt1711h@4e (richtek,rt1711h): 'port' does
-  not match any of the regexes: '^pinctrl-[0-9]+$'
-
-Add the missing property using /schemas/graph.yaml#/properties/port,
-following the pattern used by realtek,rts5411.yaml and other USB
-controller bindings.
-
-Update the example accordingly.
+Remove the deprecated .txt binding for richtek,rt1711h. It was
+superseded by the YAML schema added in commit a72095ed8e65
+("dt-bindings usb: typec: rt1711h: Add binding for Richtek RT1711H").
 
 Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
 ---
- .../devicetree/bindings/usb/richtek,rt1711h.yaml    | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ .../bindings/usb/richtek,rt1711h.txt          | 44 -------------------
+ 1 file changed, 44 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/usb/richtek,rt1711h.txt
 
-diff --git a/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml b/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
-index 7ded36384..05ffc33a2 100644
---- a/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
-+++ b/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
-@@ -52,6 +52,13 @@ properties:
-     description:
-       Properties for usb c connector.
- 
-+  port:
-+    $ref: /schemas/graph.yaml#/properties/port
-+    description:
-+      OF graph port describing the connection to the USB role switch
-+      consumer (e.g., a dwc3 controller with usb-role-switch), used to
-+      convey type-C data-role changes signaled by the TCPC.
-+
- additionalProperties: false
- 
- required:
-@@ -108,6 +115,12 @@ examples:
-             };
-           };
-         };
-+
-+        port {
-+          endpoint {
-+            remote-endpoint = <&usb_role_switch>;
-+          };
-+        };
-       };
-     };
- ...
+diff --git a/Documentation/devicetree/bindings/usb/richtek,rt1711h.txt b/Documentation/devicetree/bindings/usb/richtek,rt1711h.txt
+deleted file mode 100644
+index 6f8115db2..000000000
+--- a/Documentation/devicetree/bindings/usb/richtek,rt1711h.txt
++++ /dev/null
+@@ -1,44 +0,0 @@
+-Richtek RT1711H TypeC PD Controller.
+-
+-Required properties:
+- - compatible : Must be "richtek,rt1711h".
+- - reg : Must be 0x4e, it's slave address of RT1711H.
+- - interrupts : <a b> where a is the interrupt number and b represents an
+-   encoding of the sense and level information for the interrupt.
+-
+-Required sub-node:
+-- connector: The "usb-c-connector" attached to the tcpci chip, the bindings
+-  of connector node are specified in
+-  Documentation/devicetree/bindings/connector/usb-connector.yaml
+-
+-Example :
+-rt1711h@4e {
+-	compatible = "richtek,rt1711h";
+-	reg = <0x4e>;
+-	interrupt-parent = <&gpio26>;
+-	interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
+-
+-	usb_con: connector {
+-		compatible = "usb-c-connector";
+-		label = "USB-C";
+-		data-role = "dual";
+-		power-role = "dual";
+-		try-power-role = "sink";
+-		source-pdos = <PDO_FIXED(5000, 2000, PDO_FIXED_USB_COMM)>;
+-		sink-pdos = <PDO_FIXED(5000, 2000, PDO_FIXED_USB_COMM)
+-			     PDO_VAR(5000, 12000, 2000)>;
+-		op-sink-microwatt = <10000000>;
+-
+-		ports {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			port@1 {
+-				reg = <1>;
+-				usb_con_ss: endpoint {
+-					remote-endpoint = <&usb3_data_ss>;
+-				};
+-			};
+-		};
+-	};
+-};
 -- 
 2.54.0
 
