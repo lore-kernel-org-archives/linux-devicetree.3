@@ -1,230 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581D14A3E
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:05:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A68F155757
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779138319; cv=none; b=AU3N/JjsrQIvBrTWfrDIAug3Cumn8k7oeDxwc2VYNPrrJZBYQCfuyhXZIQONDS4BjEK5HehjWwAsrIUiDMHLgrfeMuQxSLIwscgPMeAnCFtBm1sV38QAL0OU+9ceFWoH3DW/7qoD8MMZhSAzBU8P7AD6Qs2jX2GArIBnhTXvuFU=
+	t=1779138947; cv=none; b=XcO6MvAXCIasS4XI7ZYCCoQHGoHGu0VHYulV+H6jKGgUIyzMg4//tz2LZbQr3tsM5Jr5/pJLcvEJn5LEcmE/cuR5L+zeIEvqeoRtJo4BzOR+RvIR8YyuIpaDGFFOerxb7opVgm7X0TmYiofE7MjBrDqdQPqynccTl4WVbFgTIMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779138319; c=relaxed/simple;
-	bh=R1lPwXy1skJB8lNdTicTI4EOElz6M6/M2wQjyqQZ67s=;
+	s=arc-20240116; t=1779138947; c=relaxed/simple;
+	bh=tpUvYQdxVgpSQFijdItNQqOKtJl51qzD+ihmeSIprpY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K2CXlPbGJheKEaQYxUyVxEWtmk7slFN4vofeIq3PI/gby6PEVuEzWVuzYjeN/ZdFjibUeKF9KgFt51SuWe6E/QdoNtH+TE9hEEJXgkaXwq+o9jrlaDW7CoBZWf8J+VO2jXYxF134Ra4DaexzexGd9MuHDzLMyKhwhIOuZbpguF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OgSvvMct; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=OAeOfo1mIufUUovvhFBmmlOayW5MYJ3xL7ovPQnHVfT2hx0ZWfeY0E7BRvqkcfn7FgAw1K/TJtLV0Olf2/wBApH4VA5VH1bwjlBN4dFzNcfaGTY9i0NOmybdHJQxx9hKw+Rnqf6tW6DVbLkCTkXqFS7aRHfiQgxREb+ZrxE9mIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/GziSzM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OgSvvMct"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C343FC2BCC6;
-	Mon, 18 May 2026 21:05:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/GziSzM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52A3C2BCB7;
+	Mon, 18 May 2026 21:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779138319;
-	bh=R1lPwXy1skJB8lNdTicTI4EOElz6M6/M2wQjyqQZ67s=;
+	s=k20201202; t=1779138947;
+	bh=tpUvYQdxVgpSQFijdItNQqOKtJl51qzD+ihmeSIprpY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=OgSvvMctzwoWqSI0kEnR/A25wVY7tS0FTQrjvbvS9hhQ8BGx6xDmEKyeaxZX578Bs
-	 23FUNp4Dcqtg2x/phLxUvGKK/sia7TpknR/qMJGQmEo9cmR0F2Cbi4mehZzt4AK/yF
-	 UuwGTf1ef4qW9c04xAJC2ub3OIcCTbPh5OMCKLWfQvELg1tpT6k28OS8HO8T3NFzBw
-	 XsaEnxgBjOce/t/p5oj8+eT3muiGsjOAW5W7hIGcfPaSd6byMBklKPb71UYRaSG6iU
-	 EW4IvwoJgh5LryCkBlEqaXOqw/xugCBA9MW73Ihx4JimbIXEWvOutaKsqBs1tbzwl3
-	 B7GaCy68EIxoA==
+	b=J/GziSzMRJy4/IKBIpsMQHUtQp9H4t8xe974FsrKWbzKWDfXLLqjpyDmH/XPDgpvX
+	 b38mLgnPbDfKWGWNJDoeVCTcanJJX1wTxcQPgEN+I1C87DMffL3nqMXK1gmsDqffAl
+	 YcrzuZF80z5ww/dVJycb0ZJGEeUKf4y/k1Z0q2gkChgJDQyg9RmECPKk3/KUC7gt05
+	 CiErex7RgmHBkBlw/ZBjYRu7kb9Tq4AwqzGlhD3jhr4J5s3wKLealV/7O3MOdyTmeU
+	 PKYtKCMWzfkwAsAd/SIMw1lc0HqjQg3xRDRss5qwiVet57Vw8UaZ5/ZULBxMqnapyw
+	 BS+5d0g4ZmEBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V8 09/10] iio: imu: inv_icm42607: Add Gyroscope to
- icm42607
+Subject: Re: [PATCH] dts: riscv: spacemit: k3: Fix I/O power settings
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260518200526.458421-10-macroalpha82@gmail.com>
-References: <20260518200526.458421-10-macroalpha82@gmail.com>
+To: "Yixun Lan" <dlan@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260518-07-dts-pinctrl-io-power-v1-1-abe19c14a726@kernel.org>
+References: <20260518-07-dts-pinctrl-io-power-v1-1-abe19c14a726@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 21:05:18 +0000
-Message-Id: <20260518210518.C343FC2BCC6@smtp.kernel.org>
+Date: Mon, 18 May 2026 21:15:45 +0000
+Message-Id: <20260518211546.A52A3C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Probe race condition leads to NULL pointer dereference on `st->ind=
-io_gyro`.
-- [High] Data race and TOCTOU vulnerability in `hwfifo_flush` causes data d=
-uplication and timestamp corruption.
-- [High] Incorrect devres registration order causes Use-After-Free during t=
-eardown.
-- [Medium] The available sampling frequencies sysfs attribute exposes unini=
-tialized memory (zeros).
-- [Medium] Software timestamp state becomes permanently inconsistent if har=
-dware configuration fails.
-- [Medium] Gyroscope is left powered on indefinitely after a single raw rea=
-d.
+- [Medium] The newly added `spacemit,apbc` DT property triggers a spurious =
+boot warning and relies on a fragile probe deferral dependency, because the=
+ target `syscon_apbc` node lacks the `"syscon"` compatible string.
 --
 
-commit db77d2b5f802169a721fb840e81fd3f9add01065
-Author: Chris Morgan <macromorgan@hotmail.com>
+commit 89bb8c89cecf7c32a2e825a2b8f604c5c45762bd
+Author: Yixun Lan <dlan@kernel.org>
 
-iio: imu: inv_icm42607: Add Gyroscope to icm42607
+dts: riscv: spacemit: k3: Fix I/O power settings
+   =20
+SpacemiT K3 SoC support dual-voltage I/O power domain, while initially
+configure to 3.3v, and need to access register from APBC space to switch
+to 1.8v domain.
+   =20
+Fix the GMAC0's I/O pins 1.8v switch failure that will result a broken
+ethernet driver.
 
-Add gyroscope functions to the icm42607 driver.
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
+pacemit/k3.dtsi
+> index 815debd16409b..2b0bf9cd755bd 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> @@ -803,6 +803,7 @@ pinctrl: pinctrl@d401e000 {
+>  			clocks =3D <&syscon_apbc CLK_APBC_AIB>,
+>  				 <&syscon_apbc CLK_APBC_AIB_BUS>;
+>  			clock-names =3D "func", "bus";
+> +			spacemit,apbc =3D <&syscon_apbc>;
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers=
-/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> index 0e723a7dd5623..355cd38601b9c 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-[ ... ]
-> @@ -506,12 +519,14 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42=
-607_state *st)
->  int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
->  				     unsigned int count)
->  {
-> +	struct inv_icm42607_sensor_state *gyro_st =3D iio_priv(st->indio_gyro);
->  	struct inv_icm42607_sensor_state *accel_st =3D iio_priv(st->indio_accel=
+Does this newly added spacemit,apbc property trigger a spurious boot warning
+and rely on a fragile probe deferral dependency?
+
+Looking at the referenced syscon_apbc node, it lacks the "syscon" compatible
+string.
+
+This prevents syscon_node_to_regmap() from instantiating the regmap
+on-the-fly, causing it to return -EPROBE_DEFER if the pinctrl driver probes
+before the clock driver registers the regmap.
+
+The pinctrl driver catches this with a blanket IS_ERR() check and prints a
+now-spurious "no syscon found" warning during boot while discarding the
+regmap pointer:
+
+drivers/pinctrl/spacemit/pinctrl-k1.c:spacemit_pinctrl_probe() {
+	...
+	pctrl->regmap_apbc =3D syscon_regmap_lookup_by_phandle(np, "spacemit,apbc"=
 );
->  	struct inv_sensors_timestamp *ts;
-> -	s64 accel_ts;
-> +	s64 gyro_ts, accel_ts;
->  	int ret;
-> =20
->  	accel_ts =3D iio_get_time_ns(st->indio_accel);
-> +	gyro_ts =3D iio_get_time_ns(st->indio_gyro);
-> =20
->  	ret =3D inv_icm42607_buffer_fifo_read(st, count);
->  	if (ret)
-> @@ -520,6 +535,14 @@ int inv_icm42607_buffer_hwfifo_flush(struct inv_icm4=
-2607_state *st,
->  	if (st->fifo.nb.total =3D=3D 0)
->  		return 0;
-> =20
-> +	if (st->fifo.nb.gyro > 0) {
-> +		ts =3D &gyro_st->ts;
-> +		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
-> +		ret =3D inv_icm42607_gyro_parse_fifo(st->indio_gyro);
-> +		if (ret)
-> +			return ret;
-> +	}
+	if (IS_ERR(pctrl->regmap_apbc)) {
+		dev_warn(dev, "no syscon found, disable power voltage switch functionalit=
+y\n");
+		pctrl->regmap_apbc =3D NULL;
+	}
+	...
+}
 
-Since inv_icm42607_buffer_fifo_read() drops st->lock before returning, could
-this result in a data race?
+The voltage switch functionality only ultimately succeeds because the
+subsequent devm_clk_get_enabled() call against the same node also returns
+-EPROBE_DEFER.
 
-Concurrent calls from sysfs could overwrite the shared st->fifo.data and
-state between the lock release and the subsequent lock acquisition inside
-inv_icm42607_gyro_parse_fifo(), potentially causing duplicated data and
-corrupted timestamp state.
+This gives the clock driver time to probe and register the regmap before the
+pinctrl driver retries.
 
-[ ... ]
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index 4bbcbbe8905f4..a6b668e82c1a7 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-[ ... ]
-> @@ -440,6 +483,11 @@ int inv_icm42607_core_probe(struct regmap *regmap, c=
-onst struct inv_icm42607_hw
->  	if (IS_ERR(st->indio_accel))
->  		return PTR_ERR(st->indio_accel);
-> =20
-> +	/* Initialize IIO device for Gyro */
-> +	st->indio_gyro =3D inv_icm42607_gyro_init(st);
-> +	if (IS_ERR(st->indio_gyro))
-> +		return PTR_ERR(st->indio_gyro);
+Would adding "syscon" to the syscon_apbc node's compatible string, or
+explicitly handling -EPROBE_DEFER in the pinctrl driver, resolve this issue
+and prevent the spurious warning?
 
-If a user or udev interacts with the accelerometer sysfs interface (like
-triggering hwfifo_flush) immediately after it is registered but before
-st->indio_gyro is initialized, will this cause a NULL pointer dereference
-when inv_icm42607_buffer_hwfifo_flush() unconditionally accesses
-st->indio_gyro?
-
-Additionally, does allocating the IIO devices after inv_icm42607_buffer_ini=
-t()
-introduce a use-after-free risk during teardown?
-
-Since devres uses LIFO ordering, the IIO devices will be freed before the
-hardware interrupt handler is removed. If an interrupt fires during removal,
-the handler might access the freed st->indio_gyro and st->indio_accel.
-
-[ ... ]
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_gyro.c
-> new file mode 100644
-> index 0000000000000..16c505ce70ae8
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-[ ... ]
-> +static int inv_icm42607_gyro_read_sensor(struct iio_dev *indio_dev,
-> +					 struct iio_chan_spec const *chan,
-> +					 s16 *val)
-> +{
-[ ... ]
-> +	/* enable gyro sensor */
-> +	conf.mode =3D gyro_st->power_mode;
-> +	ret =3D inv_icm42607_set_gyro_conf(st, &conf, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* read gyro register data */
-> +	data =3D &st->buffer[0];
-> +	ret =3D regmap_bulk_read(st->map, reg, data, sizeof(*data));
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val =3D be16_to_cpup(data);
-> +	if (*val =3D=3D INV_ICM42607_DATA_INVALID)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-Does this leave the gyroscope powered on indefinitely after a raw read?
-
-It doesn't appear to be turned off again before returning, meaning the driv=
-er
-will maintain the ON state even after resuming from runtime PM.
-
-[ ... ]
-> +static const int inv_icm42607_gyro_odr[][2] =3D {
-> +	[INV_ICM42607_ODR_12_5HZ] =3D { 12, 500000 },
-> +	[INV_ICM42607_ODR_25HZ] =3D { 25, 0 },
-> +	[INV_ICM42607_ODR_50HZ] =3D { 50, 0 },
-> +	[INV_ICM42607_ODR_100HZ] =3D { 100, 0 },
-> +	[INV_ICM42607_ODR_200HZ] =3D { 200, 0 },
-> +	[INV_ICM42607_ODR_400HZ] =3D { 400, 0 },
-> +	[INV_ICM42607_ODR_800HZ] =3D { 800, 0 },
-> +	[INV_ICM42607_ODR_1600HZ] =3D { 1600, 0 },
-> +};
-
-Could this initialization expose zeros to userspace?
-
-Since the first index (INV_ICM42607_ODR_12_5HZ) evaluates to a non-zero val=
-ue,
-the leading elements in this array will be implicitly zero-initialized. When
-returned via inv_icm42607_gyro_read_avail(), those zeros might break the IIO
-sysfs API contract.
-
-[ ... ]
-> +static int inv_icm42607_gyro_write_odr(struct iio_dev *indio_dev,
-> +				       int val, int val2)
-> +{
-[ ... ]
-> +	ret =3D inv_sensors_timestamp_update_odr(ts, inv_icm42607_odr_to_period=
-(conf.odr),
-> +					       iio_buffer_enabled(indio_dev));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D inv_icm42607_set_gyro_conf(st, &conf, NULL);
-> +	if (ret)
-> +		return ret;
-
-If inv_icm42607_set_gyro_conf() fails here, does the software timestamp sta=
-te
-become permanently inconsistent?
-
-It seems ts is updated before the I2C/SPI write, and there is no rollback
-of the timestamp configuration on failure.
-
-[ ... ]
+>  		};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518200526.4584=
-21-1-macroalpha82@gmail.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-07-dts-pin=
+ctrl-io-power-v1-1-abe19c14a726@kernel.org?part=3D1
