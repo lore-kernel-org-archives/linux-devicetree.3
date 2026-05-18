@@ -1,550 +1,271 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528673A1681
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0D13932F0
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779141806; cv=none; b=Dc2hqooNv1ut1YcvVwvz3uHMkxwvN8KLY2tXB1fspAp8KBYOqu2Uya/Z0zb8U2QIaWx6jizBgUarbJ8/AslWkznedQCBaZ+OrrZIuiyw7ZPLeVV44PZDhV1WRRA68Pm0JE5KWF4fitkcGgOUa4qPJ1gJJr4iEiUjRn0ewRTSbTY=
+	t=1779141833; cv=none; b=O6aM55Mp7I18t87rzd9vcVOvz3O+uFSNqLXpE4gK21OHwrTInheVjNkDpAvHXwMWD45z8e3aKGM6r9me5QEQDjgxVKWDRVOE7F+NTzI78I9Kcc3Lt6kVQNzUjE6mWdB0zDsSlBeZtfYonzv7jFNCO9jQ1yNRujBAwO2kUsyMETQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779141806; c=relaxed/simple;
-	bh=QREVGmbO0flASHR7B9jWuwtBmy40wR+vMZDh34awweo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GWdoXoULFjEM4vkCdsFBiscvXpiNBeaS5W7FYS/AXpVv7SaKWrHquy8nYgsZUtEMw7GJdzQ61jIKlmSF+Z8/eDw105dF8nSR7ykTvy/p8qUtP42K6Thk+oNda7W1LZ+po+oJeK/0H6UtyvF7Lb1elJcnUkZKMRKwN6H9IsFZADA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJT8Yipb; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779141833; c=relaxed/simple;
+	bh=pRUyYmmgY+SMR9KdaJVku27H+nF27hTsbqOt+3i5IxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VpZDn9xUt5Fp8319OMvQRgAaQu8TKegILzsov6rI9AEl+jr+YwsGN++u6yQ+XJciAmJTE1CqD/f5cxHmL+qq6EsrZ9waPCFfPjOHuYvQTVlBdO3RKY7fE1so6tQlVd02TKFtJ9RAb1suY9u9RbwJBH50ADS+4ggMIVroU8gLMXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cLIN78ED; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fmQ8YwEg; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJT8Yipb"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-82fbf5d4dc2so1983703b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:03:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cLIN78ED";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fmQ8YwEg"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IKbauT2188804
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:03:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WE/ZmXbZ2mfp389Bj3cAnUFxz1Swq6CCIkSQGONfjZE=; b=cLIN78EDFFiNAjev
+	u2f9Q3NT1U18ZtdPQHtVAvR0CUQaEqqJ7I8GG/ok/NDd/z2XYst5Hq95Azi8j4iw
+	I6H/Si8LHc9J6BQWd6YIh4aJfCmsUiZW170SEAtI/G1OIqbWPkuM4pGDOXGq8UXa
+	puavL74s/a5jSyQwetFqDDrpqUMyJCGYdBjjTUV0Ekds5L0k9npwiWVm9qamOHBD
+	d08Vl81jP+Hiw3/aQmM6mMk51V84IjSLaBGrsbUzoDa+cBHXwiMTjfRLL/3NY5zF
+	5Qoug7NPigTcG7PDiZih6e01PEP2yEaRYhsZrBmGDJNG1amDGt9RWy0dsDHFDaug
+	R9Fhhw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7xkuk97m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:03:51 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-514d2b22e7fso3668881cf.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:03:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779141803; x=1779746603; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=t31rL2+BJeheFfwXTUWp86Cw2iNCjJotlcNbQb/7e1s=;
-        b=lJT8YipbsF3NCPTOYgorb4cTDbWGT6VT2g3KWj8mZZj3AFyjpyv62+ZWdJENV3tPRm
-         UaweD01brMtA1OoY+UW2Akvs5GliG+kKTDVM78zj/ZBc6GRqRepZXrpqeTsNcCa5lbVy
-         JAJh5t+PPYO3fio1yqs6y+p9x/TtBQQBth2b472wZKlLSGlZmw5L3HQueA4gKmCWH59F
-         W7vSZrLNeBEuQBsmCqoaok0Swv8cydc7BL3dq8UatjZg3keqaE2Z2Z/urByUFNKyNE7Y
-         KZYVwG5P4XZ8ElB3DJ1RT1fYwyTycgWD6NKkxI1YeokvdYNimMFP8GbbKSbIDMJreb+R
-         VNmQ==
+        d=oss.qualcomm.com; s=google; t=1779141830; x=1779746630; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=WE/ZmXbZ2mfp389Bj3cAnUFxz1Swq6CCIkSQGONfjZE=;
+        b=fmQ8YwEgdU1f/METYCbXH/4/zSUMYsPbH6TbnRBwuBGkL8egbsFt5LC4xTDQ3JZrF3
+         sCD30wKGuarPqi2X4wOLvT9itsljyOoClNFv/ZPqtRF7ch4KCnQPHtOI86etd7DMTEV4
+         3FwjAkvV6cu/O0ZxbAxUdHtFho8NmROMD2g08456uWr1V51pLQetyur2ZCyqhunEIbaj
+         ed8ORVsPkR4hG0ALezpJPMuskdMm33XeD9ZHGe8h6E13XJfkRTsBT9cA50fV1nUaoXP7
+         V2R9eEu4oT1i5mMH6lDksFSU00ypCO3fwAn8ulYDeXsvVrbh/8RHwKpvwGXiRsuJgdbt
+         ePIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779141803; x=1779746603;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=t31rL2+BJeheFfwXTUWp86Cw2iNCjJotlcNbQb/7e1s=;
-        b=F2Mu+rAiBSlhfEVsyA+Lc5GW/bexBEKatGJOdlXjrwUhOKwbDyWQtY+7avB01MW3gf
-         Ny8Zps+1kVkV9hfOVRll2WbaqAVM4DjQb+1vsO6jOZuVsfI4ERyTNV3h7+D6AAKg7mRC
-         9PQxZvb+uxNy7ISGQGJ8Q9SDeUYLuonzeMMeMeSWQFUVTh7t5CjFxvoNcG7bMur+9CQA
-         X/wZRUNDG4b3QvxF1mfhJUVAp0LmLtgYGW65iU2r5FY7gAPstYcRJu8HAj7IXqrBtBa9
-         e2Pi/+j+j7n8NJm1WRT4DqMwvn4CHyD7xOjaiviMyMoOgvv1MjKxXkJM1BBbyWQ2eoIF
-         OXzg==
-X-Forwarded-Encrypted: i=1; AFNElJ9F0tI/HEUwfbuHB0AngnyiDuzFleRjxkARLf5O5rJfAXbR3eiffO3gwT7vucKt7MPS4y4b6/YOk2nk@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQFyJnsmNXexSYK0WNtCBnsQZPEeXE/ib0k989MrZIYoaEN7id
-	0+Mv+1JkhEqoVnGoRfH/rB5/sh+btpQF1/8nuSVC8FPe1bkmzwcZsDWv
-X-Gm-Gg: Acq92OFq08iObKMnyL12egyeTLXEUIBa5e5UIR8DNxLI7/+D+unj5ESQo7FZnAtlqll
-	XEMeZudEcEPp3tgSkmqKQQztYRYfFjILpn1mCg6DQ4oDLQXDvwYeqDpF3IkafzilHB38N7w0a/n
-	T6j9EaB+skj8kv3UU35y3VxixdWq9wp6tI7R6zLnOX88geC4VGFV+WIjwiHA6paFOZtJXRghCfz
-	P3/BIaTqL7rm9rQUGiB94Cwx6HFS4Q8mzVkGGtRRveywIdfFO87bo0J9X7NTcCepGvN/fAoB0Cu
-	2t02uzU7+/qUQea/ThNjGF//OI2/27B51xoRxYbdR8sdesZJy0mb/3CUV+41LgfhDoFO4pW58Be
-	mk5naR+OaVtsmrs29Evj8vszH0KmRYI3Sx87vD1bJVA/eYX8Ll3xNh3gt1vHolIezyzLEPaCEHf
-	Worm6lWmejA0SPuq0EhSUVkJ3oLZIol3kEdhQiHZeAt5KRi3AVaXpwk5INPlyNarNEkmhsbQ6Fb
-	gsnmtvEVxkmOTIG5svRRwW1FR2ctAHYquaxpXfk/lu2RVlZYqTtIPuOvo37
-X-Received: by 2002:a05:6a00:c93:b0:81f:3fa0:8c38 with SMTP id d2e1a72fcca58-83f33b4d8a6mr17293228b3a.20.1779141802541;
-        Mon, 18 May 2026 15:03:22 -0700 (PDT)
-Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.www.tendawifi.com ([14.139.108.62])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f1977b128sm15772960b3a.22.2026.05.18.15.03.18
+        d=1e100.net; s=20251104; t=1779141830; x=1779746630;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WE/ZmXbZ2mfp389Bj3cAnUFxz1Swq6CCIkSQGONfjZE=;
+        b=NhwsCpJbYNWgBhIJvSwNT5/I4Oerf8hV+BosTLEraKgV9q+2sDY8TpjkhjSMLk4TTX
+         j4afoUZn3m2R+LdPAm0VLgtXue4gOB3ZGkMQPhSaxAoGUNucfl4uUMhM0xnAEsltMG//
+         fbAlSxK8DdIgcOCAKS8fMAr1S1F9sGidahg4Rtqh8yLqPXGsVELKAzFPRYpf/BWcB4YE
+         DBFedE5gnnRmYJ/Snf9fkPxiWiz0Bq8Swheqtyn3i6M96SlRCuQzTpYY43M6yj3hu8wF
+         2p/eVf3E7qMlq44Y/QPzlA12h5UkMqbvOhkcfFE4pJU3tlbqenhs6dyO0dxqKPWtf80l
+         tV2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8VeOPfac5b2Q75iRgfakJZeyQZ671usTzUKxD3yJW/ZDxT4KLp9KPfvnje9Q99ClZeO1U+rxpWup3X@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpRr2GbI2Ff/rEHPX42LAKXqKNr9q7LTAbrC8p9oC8NHr+s9W4
+	rUrL2D4v5+hLso9gcKG/e64lHkQLESCLkz672YdQ0Ug+jvrEMoFU8KnabbQknpETgtIKG45Qxje
+	LJ9Gd7+YNYMphnNmRzv4KYT8ZTqzZ8Pcyj8EyAb61ZzKYEZOYhmJy5zVsUNjEfw2d
+X-Gm-Gg: Acq92OFDdHbYj8/KnMiVlkW1xTZJTtSJwSiZop+MfxoNh0FPuhttLVTfRDdrS5Thxux
+	drf7OP7mDByIBvQwnOBg5VEDWDZ0tZkJ0meMnDPZRQjYUb4wHIWCIK71AZ3WcMlPwvDu+RO8hgt
+	RBC9ZGiLoQU6GVLe+If2ArHwqZlQZY10gmsZTiCUBSju+EOI+kVLLxFaWXg29wDkhasnBkrQQjM
+	42lCS8a8OQdqPlnBiJFgUmBnw27uVU8TYcyTPbggT+fcQe2HYfmjmrO/5bApxRVXOuApQOLX6Wf
+	MeV9uTr6gnGg6NEY3hMt7IAjG3UmRFt+1oBXbedbTS7f9vB9uZJHHcJFBnZpr3tjCuy2GOf1JNM
+	I230xuwI/99bC4ONfiFnA7R9MC3EM+TosGtX+8ybXR8s7V4PJQQZKanKpdRj0WssfMD55X6YOEC
+	Ka9gksLLXM0K8sSTPTZk+59qt2e1d7tlIQjPM=
+X-Received: by 2002:a05:622a:1444:b0:50d:8e6b:96ac with SMTP id d75a77b69052e-5165a31a533mr227093081cf.58.1779141830367;
+        Mon, 18 May 2026 15:03:50 -0700 (PDT)
+X-Received: by 2002:a05:622a:1444:b0:50d:8e6b:96ac with SMTP id d75a77b69052e-5165a31a533mr227092541cf.58.1779141829745;
+        Mon, 18 May 2026 15:03:49 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a90f11a619sm3598182e87.27.2026.05.18.15.03.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 15:03:22 -0700 (PDT)
-From: Piyush Patle <piyushpatle228@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andreas Klinger <ak@it-klinger.de>,
-	Andy Shevchenko <andy@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH v9 11/11] iio: adc: hx711: add support for HX710B
-Date: Tue, 19 May 2026 03:32:27 +0530
-Message-ID: <20260518220228.63322-12-piyushpatle228@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260518220228.63322-1-piyushpatle228@gmail.com>
-References: <20260518220228.63322-1-piyushpatle228@gmail.com>
+        Mon, 18 May 2026 15:03:48 -0700 (PDT)
+Date: Tue, 19 May 2026 01:03:45 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: taygoth <taygoth@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Casey Connolly <casey.connolly@linaro.org>
+Subject: Re: [PATCH 2/6] dt-bindings: usb: add Qualcomm PMI8998 Type-C
+ controller
+Message-ID: <3cdjn22kjsjlhfd7mt34uldmkxdquxexydefkfd5hpm2cfdusi@dqhhsl2ux4sv>
+References: <cover.1779127507.git.taygoth@gmail.com>
+ <5f4271701066943ead54f82003ab282c4b39f3da.1779127507.git.taygoth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <5f4271701066943ead54f82003ab282c4b39f3da.1779127507.git.taygoth@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDIxOSBTYWx0ZWRfX8QCqIZm052PJ
+ Q8ivzqdgA+/AFJj46yHishSD3SuimCuSa9DozBbuLyQYbbXx+3WChwBK9/wWCWFY+XOb10awsXI
+ O3CmYwH2G7hhd3MDQjppullAC0u7TJLlmRhVpl+Y7566srPp95kj4YSwSNJUfnzoVkDwkcwVHwo
+ ythpQKgiTVAU5UANnY8On2kqrO8g/k8yGO3aKyEvZwyQM4Te7xmkWK36ct+HxjiDhMjRV8aNq3W
+ cZ7Tcyn6ek7QUdCcEWdIxUvPLNvf7+z8meaO8qJYHUCtrqWgzKLiT/QzsOTIrt4er1ZZeEN9n2U
+ rE3XIfAaqAuYzyE7A0LxIFfjajsaSTsGxH+xd5ycEm7HHJq7yvz7+KpzcokQiVgzeNd2zU26635
+ aXaKpIy0M7qUO0tVfefrXwmYaG/BrM+vgLCIyIDDcZoehxI8IRZBvb6/8HKLfERGNG7kPgpEPdK
+ 6IR1dQYKLTlFl+zpPgg==
+X-Proofpoint-GUID: aKvR9CTcDW9Pw3a8Y7MVzFgQuehzz04b
+X-Proofpoint-ORIG-GUID: aKvR9CTcDW9Pw3a8Y7MVzFgQuehzz04b
+X-Authority-Analysis: v=2.4 cv=FsY1OWrq c=1 sm=1 tr=0 ts=6a0b8cc7 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=gEfo2CItAAAA:8
+ a=pGLkceISAAAA:8 a=fpthWuqRuR8fFdR_s3QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_04,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180219
 
-Add support for the AVIA HX710B ADC, which shares the HX711 GPIO
-interface but uses trailing PD_SCK pulses to select the active mode.
+On Tue, May 19, 2026 at 01:22:47AM +0500, taygoth wrote:
+> The PMI8998 PMIC integrates a USB Type-C detection block in its SMB2
+> charger USBIN region at offset 0x1300. The block performs CC sensing,
+> debounce and Rp/Rd resolution in hardware and reports role changes
+> through a single consolidated "type-c-change" interrupt.
+> 
+> This is architecturally distinct from the qcom,pmic-typec binding
+> (PM8150B / PMI632 family) which exposes a granular 8-16 IRQ topology
+> fanned out per Type-C event for a software TCPM state machine. PMI8998
+> has neither the per-event IRQs nor a register layout compatible with
+> the TCPM code path, so this binding describes a separate hardware-
+> managed role-switch controller.
+> 
+> Signed-off-by: taygoth <taygoth@gmail.com>
+> ---
+>  .../bindings/usb/qcom,pmi8998-typec.yaml      | 97 +++++++++++++++++++
+>  1 file changed, 97 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/qcom,pmi8998-typec.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,pmi8998-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmi8998-typec.yaml
+> new file mode 100644
+> index 000000000000..f2814f5ce3de
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/qcom,pmi8998-typec.yaml
+> @@ -0,0 +1,97 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/qcom,pmi8998-typec.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm PMI8998 USB Type-C role-switch controller
+> +
+> +maintainers:
+> +  - Maxim Furman <taygoth@gmail.com>
+> +
+> +description:
+> +  The PMI8998 PMIC integrates a USB Type-C detection block inside its SMB2
+> +  charger USBIN region at offset 0x1300. CC sensing, debounce and Rp/Rd
+> +  resolution are performed in hardware, and the negotiated role is reported
+> +  through a single consolidated "type-c-change" interrupt.
+> +
+> +  This block is distinct from the TCPM-based qcom,pmic-typec controllers
+> +  (PM8150B, PMI632, etc.) — PMI8998 lacks the granular per-event interrupt
+> +  topology those parts expose and the driver therefore translates the
+> +  hardware-decided role directly into a usb_role_switch_set_role() call
+> +  rather than running a software TCPM state machine. Power Delivery is not
+> +  supported by this binding.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,pmi8998-typec
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: Type-C SPMI register base offset (typically 0x1300).
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: type-c-change
+> +
+> +  vdd-vbus-supply:
+> +    description:
+> +      VBUS source regulator enabled when the controller transitions to
+> +      USB host mode so bus-powered downstream peripherals can be powered.
 
-Model the HX710B with variant-specific channel tables and IIO info,
-track the active channel across conversions, and use the fixed gain
-value when computing scale.
+We probably need to fix this for PM8150B too... This should be
+connector's vbus-supply instead. I'll send a patch for the existing
+devices.
 
-Also update the adjacent Kconfig text, file header, and module
-description so the driver text matches the newly supported variant.
+> +
+> +  connector:
+> +    type: object
+> +    $ref: /schemas/connector/usb-connector.yaml#
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-names
+> +  - connector
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    pmic {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        typec@1300 {
+> +            compatible = "qcom,pmi8998-typec";
+> +            reg = <0x1300>;
+> +
+> +            interrupts = <0x2 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
+> +            interrupt-names = "type-c-change";
+> +
+> +            vdd-vbus-supply = <&pmi8998_vbus>;
+> +
+> +            connector {
+> +                compatible = "usb-c-connector";
+> +                label = "USB-C";
+> +                power-role = "dual";
+> +                data-role = "dual";
+> +                try-power-role = "sink";
+> +
+> +                ports {
+> +                    #address-cells = <1>;
+> +                    #size-cells = <0>;
+> +
+> +                    port@0 {
+> +                        reg = <0>;
+> +                        pmi8998_hs_in: endpoint {
+> +                            remote-endpoint = <&usb_1_dwc3_hs>;
+> +                        };
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> -- 
+> 2.47.3
+> 
 
-Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
----
-Changes from v8:
-
-Channel layout redesign (Jonathan Cameron):
-  HX710B modes 1 and 3 both read the same physical differential input
-  (only the sample rate differs: 10 vs 40 SPS).  Exposing them as two
-  separate IIO channels was incorrect.  They are now collapsed into a
-  single channel (in_voltage0-voltage1) with IIO_CHAN_INFO_SAMP_FREQ;
-  userspace reads/writes sampling_frequency to select 10 or 40 SPS.
-  The hx710b_write_raw() and hx710b_read_avail() callbacks are added
-  to hx710b_iio_info to support this.
-
-  The channel spec no longer uses .address to carry the trailing pulse
-  count.  A new hx710b_trailing_pulses() helper derives the count from
-  hx711_data.samp_freq (1 for 10 SPS, 3 for 40 SPS) and the channel
-  type (2 for the supply monitor, which is always 40 SPS).
-
-  The IIO_DECLARE_BUFFER_WITH_TS() slot count is reduced from 3 to 2
-  to reflect that both HX711 and HX710B now have at most 2 physical
-  channels.
-
-channel_set ordering fix (Sashiko Suzuki):
-  hx711_set_hx710b_channel() previously updated channel_set after
-  hx711_wait_for_ready(), meaning a timeout would leave the field out
-  of sync with the hardware.  The hardware mode is committed once
-  hx711_read() sends the trailing pulses, so channel_set is now
-  updated immediately after hx711_read() returns successfully, before
-  the ready-wait.
-
-Trigger error handling (Jonathan Cameron):
-  hx711_trigger() was silently casting negative error codes from
-  hx711_reset_read() to u32 and pushing them to the buffer.  The
-  handler now checks the return value, logs the error with
-  dev_err_ratelimited(), and skips the push via goto out_unlock.
-
- drivers/iio/adc/Kconfig |   8 +-
- drivers/iio/adc/hx711.c | 240 ++++++++++++++++++++++++++++++++++------
- 2 files changed, 212 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a9dedbb8eb46..38ba8cae13f1 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -791,13 +791,15 @@ config HI8435
- 	  called hi8435.
- 
- config HX711
--	tristate "AVIA HX711 ADC for weight cells"
-+	tristate "AVIA HX711 and compatible ADCs"
- 	depends on GPIOLIB
- 	select IIO_BUFFER
- 	select IIO_TRIGGERED_BUFFER
- 	help
--	  If you say yes here you get support for AVIA HX711 ADC which is used
--	  for weigh cells
-+	  If you say Y here you get support for the following AVIA ADCs:
-+	    - HX710B
-+	    - HX711
-+	  which are used for bridge sensors such as weigh cells.
- 
- 	  This driver uses two GPIOs, one acts as the clock and controls the
- 	  channel selection and gain, the other one is used for the measurement
-diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-index 183568196d52..d5c977b4669b 100644
---- a/drivers/iio/adc/hx711.c
-+++ b/drivers/iio/adc/hx711.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * HX711: analog to digital converter for weight sensor module
-+ * HX711 and compatible ADCs driver for weigh sensor modules
-  *
-  * Copyright (c) 2016 Andreas Klinger <ak@it-klinger.de>
-  */
-@@ -15,6 +15,8 @@
- #include <linux/slab.h>
- #include <linux/sched.h>
- #include <linux/delay.h>
-+#include <linux/types.h>
-+
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
- #include <linux/iio/buffer.h>
-@@ -84,12 +86,16 @@ static int hx711_get_scale_to_gain(const int *gain_scale, int scale)
-  * @channels: channel specification array
-  * @num_channels: number of entries in @channels
-  * @iio_info: IIO info ops for this variant
-+ * @fixed_gain_val: fixed PGA gain (used when @has_fixed_gain is true)
-+ * @has_fixed_gain: true if the variant has a fixed ADC gain
-  */
- struct hx711_chip_info {
- 	const char			*name;
- 	const struct iio_chan_spec	*channels __counted_by_ptr(num_channels);
- 	unsigned int			num_channels;
- 	const struct iio_info		*iio_info;
-+	unsigned int			fixed_gain_val;
-+	bool				has_fixed_gain;
- };
- 
- struct hx711_data {
-@@ -99,16 +105,12 @@ struct hx711_data {
- 	int			gain_set;	/* gain set on device */
- 	int			gain_chan_a;	/* gain for channel A */
- 	int			gain_scale[HX711_GAIN_MAX];
-+	int			channel_set;	/* HX710B active channel */
-+	unsigned int		samp_freq;	/* HX710B differential channel sample rate */
- 	const struct hx711_chip_info	*chip_info;
- 	struct mutex		lock;
--	/*
--	 * triggered buffer
--	 * 2x32-bit channel + 64-bit naturally aligned timestamp
--	 */
--	struct {
--		u32 channel[2];
--		aligned_s64 timestamp;
--	} buffer;
-+	/* 2x32-bit channels + 64-bit naturally aligned timestamp */
-+	IIO_DECLARE_BUFFER_WITH_TS(u32, buffer, 2);
- 	/*
- 	 * delay after a rising edge on SCK until the data is ready DOUT
- 	 * this is dependent on the hx711 where the datasheet tells a
-@@ -207,6 +209,7 @@ static int hx711_wait_for_ready(struct hx711_data *hx711_data)
- 
- static int hx711_reset(struct hx711_data *hx711_data)
- {
-+	const struct hx711_chip_info *info = hx711_data->chip_info;
- 	int val;
- 
- 	val = hx711_wait_for_ready(hx711_data);
-@@ -227,8 +230,11 @@ static int hx711_reset(struct hx711_data *hx711_data)
- 
- 		val = hx711_wait_for_ready(hx711_data);
- 
--		/* after a reset the gain is 128 */
--		hx711_data->gain_set = HX711_RESET_GAIN;
-+		if (info->has_fixed_gain)
-+			hx711_data->channel_set = 0;
-+		else
-+			/* after a reset the gain is 128 */
-+			hx711_data->gain_set = HX711_RESET_GAIN;
- 	}
- 
- 	return val;
-@@ -284,9 +290,51 @@ static int hx711_set_hx711_channel(struct hx711_data *hx711_data,
- 	return 0;
- }
- 
-+/*
-+ * Return the trailing pulse count for an HX710B channel (Table 3 in
-+ * the datasheet).  The supply-monitor channel always uses 2 trailing
-+ * pulses; the differential channel uses 1 (10 SPS) or 3 (40 SPS).
-+ */
-+static int hx710b_trailing_pulses(const struct hx711_data *hx711_data,
-+				  const struct iio_chan_spec *chan)
-+{
-+	if (!chan->differential)
-+		return 2;
-+	return hx711_data->samp_freq == 10 ? 1 : 3;
-+}
-+
-+/*
-+ * Switch the HX710B to the requested channel for the next conversion.
-+ * channel_set tracks the trailing pulse count that was last sent to the
-+ * chip; it is updated immediately after hx711_read() commits the new
-+ * mode in hardware, before waiting for the chip to be ready again.
-+ */
-+static int hx711_set_hx710b_channel(struct hx711_data *hx711_data,
-+				    const struct iio_chan_spec *chan)
-+{
-+	int trailing_pulses = hx710b_trailing_pulses(hx711_data, chan);
-+	int ret;
-+
-+	if (hx711_data->channel_set == trailing_pulses)
-+		return 0;
-+
-+	ret = hx711_read(hx711_data, trailing_pulses);
-+	if (ret < 0)
-+		return ret;
-+
-+	hx711_data->channel_set = trailing_pulses;
-+
-+	ret = hx711_wait_for_ready(hx711_data);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
- static int hx711_reset_read(struct hx711_data *hx711_data,
- 			    const struct iio_chan_spec *chan)
- {
-+	const struct hx711_chip_info *info = hx711_data->chip_info;
- 	int trailing_pulses;
- 	int ret;
- 
-@@ -299,9 +347,16 @@ static int hx711_reset_read(struct hx711_data *hx711_data,
- 		return -EIO;
- 	}
- 
--	ret = hx711_set_hx711_channel(hx711_data, chan, &trailing_pulses);
--	if (ret < 0)
--		return ret;
-+	if (info->has_fixed_gain) {
-+		ret = hx711_set_hx710b_channel(hx711_data, chan);
-+		if (ret < 0)
-+			return ret;
-+		trailing_pulses = hx710b_trailing_pulses(hx711_data, chan);
-+	} else {
-+		ret = hx711_set_hx711_channel(hx711_data, chan, &trailing_pulses);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	return hx711_read(hx711_data, trailing_pulses);
- }
-@@ -323,6 +378,9 @@ static int hx711_read_raw(struct iio_dev *indio_dev,
- 		if (*val < 0)
- 			return *val;
- 		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		*val = hx711_data->samp_freq;
-+		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
- 		*val = 0;
- 		mutex_lock(&hx711_data->lock);
-@@ -400,20 +458,26 @@ static irqreturn_t hx711_trigger(int irq, void *p)
- 	struct iio_dev *indio_dev = pf->indio_dev;
- 	struct hx711_data *hx711_data = iio_priv(indio_dev);
- 	int i, j = 0;
-+	int ret;
- 
- 	mutex_lock(&hx711_data->lock);
- 
--	memset(&hx711_data->buffer, 0, sizeof(hx711_data->buffer));
-+	memset(hx711_data->buffer, 0, sizeof(hx711_data->buffer));
- 
- 	iio_for_each_active_channel(indio_dev, i) {
--		hx711_data->buffer.channel[j] =
--			hx711_reset_read(hx711_data, &indio_dev->channels[i]);
--		j++;
-+		ret = hx711_reset_read(hx711_data, &indio_dev->channels[i]);
-+		if (ret < 0) {
-+			dev_err_ratelimited(hx711_data->dev,
-+					    "read failed: %d\n", ret);
-+			goto out_unlock;
-+		}
-+		hx711_data->buffer[j++] = ret;
- 	}
- 
--	iio_push_to_buffers_with_timestamp(indio_dev, &hx711_data->buffer,
--							pf->timestamp);
-+	iio_push_to_buffers_with_timestamp(indio_dev, hx711_data->buffer,
-+					   pf->timestamp);
- 
-+out_unlock:
- 	mutex_unlock(&hx711_data->lock);
- 
- 	iio_trigger_notify_done(indio_dev->trig);
-@@ -463,6 +527,50 @@ static const struct iio_info hx711_iio_info = {
- 	.attrs			= &hx711_attribute_group,
- };
- 
-+static const int hx710b_samp_freq_avail[] = { 10, 40 };
-+
-+static int hx710b_read_avail(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     const int **vals, int *type, int *length,
-+			     long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		*vals = hx710b_samp_freq_avail;
-+		*type = IIO_VAL_INT;
-+		*length = ARRAY_SIZE(hx710b_samp_freq_avail);
-+		return IIO_AVAIL_LIST;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int hx710b_write_raw(struct iio_dev *indio_dev,
-+			    struct iio_chan_spec const *chan,
-+			    int val, int val2, long mask)
-+{
-+	struct hx711_data *hx711_data = iio_priv(indio_dev);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		if (val != 10 && val != 40)
-+			return -EINVAL;
-+		mutex_lock(&hx711_data->lock);
-+		hx711_data->samp_freq = val;
-+		hx711_data->channel_set = 0;
-+		mutex_unlock(&hx711_data->lock);
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info hx710b_iio_info = {
-+	.read_raw		= hx711_read_raw,
-+	.write_raw		= hx710b_write_raw,
-+	.read_avail		= hx710b_read_avail,
-+};
-+
- static const struct iio_chan_spec hx711_chan_spec[] = {
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -495,6 +603,51 @@ static const struct iio_chan_spec hx711_chan_spec[] = {
- 	IIO_CHAN_SOFT_TIMESTAMP(2),
- };
- 
-+/*
-+ * HX710B channels (Table 3 in datasheet).
-+ * 25 pulses (1 trailing): differential input, 10 SPS
-+ * 26 pulses (2 trailing): DVDD-AVDD supply monitor, 40 SPS
-+ * 27 pulses (3 trailing): differential input, 40 SPS
-+ * Channel 0 exposes both differential rates via IIO_CHAN_INFO_SAMP_FREQ.
-+ * Channel 2 is used for the supply monitor to avoid aliasing the
-+ * channel2 terminal of the differential pair.
-+ */
-+static const struct iio_chan_spec hx710b_chan_spec[] = {
-+	{
-+		.type = IIO_VOLTAGE,
-+		.differential = 1,
-+		.channel = 0,
-+		.channel2 = 1,
-+		.indexed = 1,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE) |
-+				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),
-+		.scan_index = 0,
-+		.scan_type = {
-+			.sign = 'u',
-+			.realbits = 24,
-+			.storagebits = 32,
-+			.endianness = IIO_CPU,
-+		},
-+	},
-+	{
-+		.type = IIO_VOLTAGE,
-+		.channel = 2,
-+		.indexed = 1,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.scan_index = 1,
-+		.scan_type = {
-+			.sign = 'u',
-+			.realbits = 24,
-+			.storagebits = 32,
-+			.endianness = IIO_CPU,
-+		},
-+	},
-+	IIO_CHAN_SOFT_TIMESTAMP(2),
-+};
-+
- static const struct hx711_chip_info hx711_chip = {
- 	.name		= "hx711",
- 	.channels	= hx711_chan_spec,
-@@ -502,6 +655,15 @@ static const struct hx711_chip_info hx711_chip = {
- 	.num_channels	= ARRAY_SIZE(hx711_chan_spec),
- };
- 
-+static const struct hx711_chip_info hx710b_chip = {
-+	.name		= "hx710b",
-+	.channels	= hx710b_chan_spec,
-+	.iio_info	= &hx710b_iio_info,
-+	.num_channels	= ARRAY_SIZE(hx710b_chan_spec),
-+	.fixed_gain_val	= 128,
-+	.has_fixed_gain	= true,
-+};
-+
- static int hx711_probe(struct platform_device *pdev)
- {
- 	const struct hx711_chip_info *chip_info;
-@@ -544,32 +706,43 @@ static int hx711_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(hx711_data->gpiod_dout),
- 				     "failed to get dout-gpiod\n");
- 
--	ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
-+	if (chip_info->has_fixed_gain)
-+		ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-+	else
-+		ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
- 	if (ret < 0)
- 		return ret;
- 
- 	/*
--	 * with
--	 * full scale differential input range: AVDD / GAIN
-+	 * With
-+	 * full scale differential input range: reference / GAIN
- 	 * full scale output data: 2^24
- 	 * we can say:
--	 *     AVDD / GAIN = 2^24
-+	 *     reference / GAIN = 2^24
- 	 * therefore:
--	 *     1 LSB = AVDD / GAIN / 2^24
--	 * AVDD is in uV, but we need 10^-9 mV
-+	 *     1 LSB = reference / GAIN / 2^24
-+	 * reference is in uV, but we need 10^-9 mV
- 	 * approximately to fit into a 32 bit number:
--	 * 1 LSB = (AVDD * 100) / GAIN / 1678 [10^-9 mV]
-+	 * 1 LSB = (reference * 100) / GAIN / 1678 [10^-9 mV]
- 	 */
- 
- 	/* we need 10^-9 mV */
- 	ret *= 100;
- 
--	for (i = 0; i < HX711_GAIN_MAX; i++)
--		hx711_data->gain_scale[i] =
--			ret / hx711_gain_to_scale[i].gain / 1678;
-+	if (chip_info->has_fixed_gain) {
-+		for (i = 0; i < HX711_GAIN_MAX; i++)
-+			hx711_data->gain_scale[i] =
-+				ret / chip_info->fixed_gain_val / 1678;
-+		hx711_data->gain_set = chip_info->fixed_gain_val;
-+		hx711_data->samp_freq = 10;
-+	} else {
-+		for (i = 0; i < HX711_GAIN_MAX; i++)
-+			hx711_data->gain_scale[i] =
-+				ret / hx711_gain_to_scale[i].gain / 1678;
- 
--	hx711_data->gain_set = 128;
--	hx711_data->gain_chan_a = 128;
-+		hx711_data->gain_set = 128;
-+		hx711_data->gain_chan_a = 128;
-+	}
- 
- 	hx711_data->clock_frequency = 400000;
- 	ret = device_property_read_u32(&pdev->dev, "clock-frequency",
-@@ -608,6 +781,7 @@ static int hx711_probe(struct platform_device *pdev)
- }
- 
- static const struct of_device_id of_hx711_match[] = {
-+	{ .compatible = "avia,hx710b", .data = &hx710b_chip },
- 	{ .compatible = "avia,hx711", .data = &hx711_chip },
- 	{ }
- };
-@@ -625,7 +799,7 @@ static struct platform_driver hx711_driver = {
- module_platform_driver(hx711_driver);
- 
- MODULE_AUTHOR("Andreas Klinger <ak@it-klinger.de>");
--MODULE_DESCRIPTION("HX711 bitbanging driver - ADC for weight cells");
-+MODULE_DESCRIPTION("HX711 and compatible bitbanging ADC driver");
- MODULE_LICENSE("GPL");
- MODULE_ALIAS("platform:hx711-gpio");
- 
 -- 
-2.43.0
-
+With best wishes
+Dmitry
