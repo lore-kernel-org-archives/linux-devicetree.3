@@ -1,222 +1,165 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011003.outbound.protection.outlook.com [52.101.65.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA803D330A;
-	Mon, 18 May 2026 14:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779114305; cv=fail; b=PghaRebN+o6uDQS8/Z2zS7XgFCEDCtEPLoz8L2RsiZr5o5fsjDCf4ZtT2tQLeEYT4df1v1yxPPhzNhiXcVRWKfOoNjaDs7cUiYXoxhuw4cZ/bi7jN9phm2EmPgdoEn80XVm1L8zeS/l/skbMFMwlYKIW9i8uhZBKhLa/DllnKVU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779114305; c=relaxed/simple;
-	bh=gtDkKBoka/4fPhh9RFpwNZkNfPLoLPSj9IS/ZG41XPs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pULXC3tKGizLuqMYDzBFmQ81fwJBwSWL/iocM6fsoVg2HpA2Cj9OuzLaWPArxiT0EXZo5oCr5Le6fM0ELYijDyv8DTOuKhLf5t6Ywq9+ARSiALSte4OPQWecow7v5SC86JEK76qtTMXI+980f35tX0STWOHkXRPzjCbulFje7m8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=JD649LyF; arc=fail smtp.client-ip=52.101.65.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9953E7BB7
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779114388; cv=none; b=eCFEtYYjgD4LDYObT5i3xyo+JE8SHXTKxlkq8FcsKA2pMV4OUoJGgLFB7WlCZ3IyXVXkekEEjCCQZY3v9KUKiXsI54xP0Woyk0m/m5MIOB+tsGthBHsIFnL9yz/o6Zaw2X87MQ7dWRplKjopRTPU6viYyVhOpCnQWdgKRPMRchY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779114388; c=relaxed/simple;
+	bh=jj8C42vP8d402qhEj5BRNKUYabfpNU3fCaowD0OVNto=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mkk32WcC5Bl3qwgON/olADdqxUreKUgKOhjomb5YzJUVXDQRkrPqRj3mymhsGobjeIeUACQXSx34D48roShu1gny9dhlT539eNpsP4xvGn96LIoBT/guBT7HcWC8STaAHeDVzaknl4llwC2a8vlbHrpwRMoozFsP8wfljngMDGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kvAEqn/E; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="JD649LyF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sn/DUjonm5cW2K+AKb2AXlddk0+XiQtev8CX02potS5OaH5+57nQhTDoZtC+g/SQ+UIppWgDxxgX1sYWEMtiSHhk48/4l/m4jZqfBZDbgDSoShh9e31rAhvTR6eI+2is3oVEA0OnyDzdFLo/edgmy1G2uK6q8J1bK1TDIyWS2tedSwk17uesTlnppEfwtX7H4w+5n1ozuunrb26PlJGq7CF+plrm1zqQL2euFQz9ZhOFAVlxEbr3Ycc679Gfj0cEhEJEVAOzs5v7+kM2NI0Vk3J8sZzPrSepiuN7QKgenjgm8XTbUJclDTJcTdAQR56keLwzVUQOj6mNso0LB1BjMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qxHm4meEDR/VqQA5H0e8VZkmUep5xrh1RAghaDopVXc=;
- b=B0mAkfcleZxB0YxJHriGOI9CPF0sLWyaulU9dH818YVMYCHQDixObeeEzhbKP4XVTjiQTE1pXR38t8W2eSsr5/KEDvKDQIucbSCdsxXu//Ko/CUhbQH2vdCtqB45LtlylN2yPTfm9Mo0EykLXAJEF5rYGeZo3Z91v5+nZIeterByLyfCsLpiEKIIkD94TnEI0WijpzB7jzKP7uGAjtigdiorIz0d2PSToQSgO1Ylm9mw9bgkaWuk9cJzkw3auuWaWY8VJChjIxGqBIyM65t38vxU7geuWtUhLwyRfS57mQQ3eXVcfGUWIEHsUElR5tXaWnRd5IL8e9DgrmMKvLlmYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qxHm4meEDR/VqQA5H0e8VZkmUep5xrh1RAghaDopVXc=;
- b=JD649LyFqZURxDpCB7eWadVS//daWutY8YoloIfOECbQKpcOQAAy++SbZdwMrVfdEnEYXFExn4KB8EWGmouKLDghkrN8l9hXdQeg0zRrzwXMB5/2H9Ot4na7DA2SgB9jfGWTuNE4HvWCXN+G/DAXtwVe3Q+P7wzAu8d1a3R0+lfeTXOuLxHQVYuzUQFsERFzX3biw+UXj3ZUgekjOsmCrBHXXfSfcNw29elctgg++ApItV3QrC53ejgN3Oz0qBPzb0meav0Wij2vxs4qIwqkFqDRBpJX2PWlzz+KN199uSgI2UtOLHmxFO//XwYKGvT9UJOoUK5z+WIpT1Q1q6efsQ==
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by DU2PR04MB8566.eurprd04.prod.outlook.com (2603:10a6:10:2d5::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 14:24:52 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::b4c0:6119:2228:2ceb]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::b4c0:6119:2228:2ceb%4]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 14:24:52 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-CC: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, Beleswar Prasad Padhi
-	<b-padhi@ti.com>, Andrew Lunn <andrew@lunn.ch>, Linus Walleij
-	<linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson
-	<andersson@kernel.org>, Frank Li <frank.li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Peng
- Fan <peng.fan@nxp.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
-	<linux-remoteproc@vger.kernel.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, dl-linux-imx <linux-imx@nxp.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-Thread-Topic: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-Thread-Index: AQHc5tIXt84GDNmf8UW04dpFalLnKg==
-Date: Mon, 18 May 2026 14:24:52 +0000
-Message-ID:
- <PAXPR04MB918587A8812B51BBB2A46A2C89032@PAXPR04MB9185.eurprd04.prod.outlook.com>
-References:
- <CANLsYkzt9xUczxSU28u-TfZAAjr0ufZKXAj8Eqfq=45gufXW3w@mail.gmail.com>
- <f7ef3417-eb84-4467-ac72-a9bc8b0c81e8@foss.st.com>
- <21de8440-adf7-454b-acfc-06e50882e075@ti.com>
- <4c526816-b127-43e7-86e9-eee4dc1152bc@foss.st.com>
- <268f8e00-91bc-43ea-ba95-077cf859e7f3@ti.com>
- <9e2492d3-8753-46c7-8db6-5f1a80b4f2e9@foss.st.com>
- <db4c18be-1c8d-4227-9fcc-1d25cec50e37@ti.com>
- <6917e3d7-8c6c-4e63-8eca-5308621ec3e8@foss.st.com> <afzIABSh1xtMEGbf@p14s>
- <PAXPR04MB9185BFA6E7375FAD0B15B021893C2@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <agYHzH-nJLl1HFIn@p14s>
-In-Reply-To: <agYHzH-nJLl1HFIn@p14s>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|DU2PR04MB8566:EE_
-x-ms-office365-filtering-correlation-id: d0ac6241-20cc-47c8-52ae-08deb4e93a04
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|366016|19092799006|18002099003|56012099003|22082099003|11063799003|4143699003|38070700021;
-x-microsoft-antispam-message-info:
- U1ZutsWIEoHWD0nClukdc+2LWVu6209SN6YbjCDw/tPNDf5o8sN578GO0482igKzgnPkGtW2NqOb0hR77ls5G9hL87QmYB4YOgukCbmwb1uAqUObQmS6dsANeec1ludvxwbTzwFcBeeqs4ArUJ69mhoceCCFonTvV+oWX5++IfbLQ+PSbqT5DRzzSSmCdAGUXOvz5O+HlI+dankOg5upYu5NcxAAKxqvEMgTyGF3Ow3HJFOhPTt8SXXVUPGLjtk+HZGKryU/gfv/5dh5nMQCtXDCG5z1E5Le97k60JQEaQEWkUJK1nvMRiKlusbIIuU8AhqEDU+XsaWivE9qHtaoEvwvfXMhHdLIeot5apDXpx6VkRqUB9fQO1nZbHxqeMPlmNqdeSqjFXC5tPJRwT9+L/h3jBeFWcIMMrfiWCU/qO/7TxMxtTUCadp38iiI4MxF5Uc3sl+YlnfWG/ocZpIoAxqhi6GdT3sI3OP4YxToZzTbHrZ3C6Iehf/S3I1IOwv9k7l7dDb5DBauW7ekAa3jjDxIqoeIATq9JRgNDn0F6hMBhGAuiGrUp5QLsY60QPCk+OakHb93zTZwVZjYsc6SoismQ9o9Y3XxWJ1iacBjq4u+q/cVbBgHFOHKgyh85ROgaCLooFnyLEFqpIzEt1b+oB+ZBpU61HcEVvymfo4fUw5f5knCZSgjaNcYTNS0t8sfPhYinua8DXZrSZ0XF1N8lmDUMxFJ8QHMSm4uK5B/TmPgUFZGgHAqBji2ze3/0bQz
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9185.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(19092799006)(18002099003)(56012099003)(22082099003)(11063799003)(4143699003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?kvJ1K/0MTw5f+vLk69iqVnMvUwPq7F485yLiwpVsefAPxpLogCaHppRD9fih?=
- =?us-ascii?Q?3/DV6j1DuiekbHrTJB0KngRzuD2Cf/acHnROlG0YL8okrt5iivPumOL4BMhc?=
- =?us-ascii?Q?L3jKgARg5BkMbYDGC3CSEi4bXHmETSm02jkFouOmUuz4kGbgVLAA2qmI0Ae0?=
- =?us-ascii?Q?rE4/wvjkQ+V6VunjqR8mXkhMHRU2Mh+BjKlcWYtvmil9IC4IAE7vcZNvaWF7?=
- =?us-ascii?Q?G+wFphozNKkI7y4HRBFcpCSWyzhJVJDIytoX25zAYzB6WN7jkNG2gS+Ld0UG?=
- =?us-ascii?Q?EY5F2k8PFUrIkRuuhkVRYyASX7WeqbGL6S5BvH26Sh5AubUj6dwVdsZWsM3b?=
- =?us-ascii?Q?YU8rC+oEWC0L3/JaYT7r+TRO9KSHYCI8o/VDjTzzJw7mEJoRdgnwVfqExert?=
- =?us-ascii?Q?TAttnPvzPp+EsJx2VNG4hz7RNDy2KFUQFfMP6626CXBCcbZwaEPEvrHKhr+e?=
- =?us-ascii?Q?8Rt8ZdlxTvVcCC+KD+80nbOH/SktmeAD8OrbzC3WcwMHBUn3hviVAiNeyJwS?=
- =?us-ascii?Q?fva6Rjp+G7Ar6H60cnczBiRTtwLsuDdiG23z6dtnXS30qS4NnQXUfrWcdFVI?=
- =?us-ascii?Q?P8dgcXFFNnCrOhN4dVAbF4usru3KebaXBJMJb5zFw+oiQCTSmHHAkuI7O/7A?=
- =?us-ascii?Q?ip3fbWqvy0KwQjL1CpjohupT0ncWMpODqe98mk075QzoAi/xoY/BIx55uEHY?=
- =?us-ascii?Q?rI6mYYljwmxbIyHXwHfNT4bP/1JsD/9LwdLdJP8BzD9u+0PxoGiQ9+oOTpob?=
- =?us-ascii?Q?XsY5M1DcGv1/IEnfUu8wXcVwr2jMOMQmVrjdLD8hNHgEhnGSo3YzdnouCK8w?=
- =?us-ascii?Q?vFzN7/L2VI/aqdQmKB9Bzi5kBxjPdKV/zx1Gs1C6hkkNkUt4cvNDjZXSETZA?=
- =?us-ascii?Q?ttzyteYWBF0dM9gMG619caB61Syialsf+9DPNjAUjjXutS52FKuUiAMFLam/?=
- =?us-ascii?Q?GJjKVGoByC5/ZSDJrkF9TC3BSUyXRkAS1DL4IDFiaEtvyTnMQxELzUQmyoy6?=
- =?us-ascii?Q?OZBztcCEg4Jijjy5YZ1vKvFzWBBYo7Pc8TqVQF3MBSjUY5HnUzfSsxNS43E2?=
- =?us-ascii?Q?kV3TgjCD8w3P5eQ9mEAjOSfoyj49HRWPKxU0Ij0a8Je9FeIQ9Vsxpjs1shfB?=
- =?us-ascii?Q?UE73or8pBrF7+XwhGUqUNswMqXDhdT0NV1be1hpGVYE6+I4SXHlH8HFpD9KU?=
- =?us-ascii?Q?Fo/AIf+XpwoSNiZw9eXTrNFSgiUVuLAfhxbvkDNLVM4TaP3QhrG9DYPjQ22x?=
- =?us-ascii?Q?tKN3q5uMpv0FcSuqHD5NlqR655lNX/RCYtkV+5ubfejCMwtrKCLWeJxkDERB?=
- =?us-ascii?Q?F5P1yHoPb6/8DhtgqRekzxAWV+fTvlHynqwfEyzSRaMR+fgNMyibjE0Px1y0?=
- =?us-ascii?Q?olRsh33I+skRWliDQPwyVPGmmLF5pEw9O4kRiq66+uIlbtJq+NLmd+x/D16q?=
- =?us-ascii?Q?xWZkL/AXsXvEanJU6u7UqFGW7cwad4EFkHu42K4ZcLO13r2SCXFUZRsKnVhh?=
- =?us-ascii?Q?oMRHkEG8rKD/pK2B2+6XuOvkYnQlxd5ZhqYN6pWAnQNce7llJJDYER5uPRfm?=
- =?us-ascii?Q?s9IxL3c3PqIyMkcWIxyfYGVLRxccJxAU2lX/5NpBBV179Ihv1y6+1iQf55ec?=
- =?us-ascii?Q?4c2d5kdWShOidkhOlz5QnweTR0LCllpjVi10O2WzuKh5HYk1k+FteVvzphJI?=
- =?us-ascii?Q?u2OKsFi4eA4HHsq0rTYj9MRnka2Vw2sf+RurH3QI6QBRcb9H?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kvAEqn/E"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-b9358bc9c50so372336966b.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 07:26:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779114382; x=1779719182; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=IkhDiryJOpnQp+hMnQvA4acbZ3NW2ct6Ye+UJkfo1fw=;
+        b=kvAEqn/EGte5BsftZMQtIevhSTjN/lg4par430Dh0RjjanumMwpUMElyCf37+/Gdh6
+         Ba40klxUvrSjJOCn+yRJMbG4OZ8Y/hpmuifn1lI0/peZ92/1+PP4wC0KmDiWwSLi7isY
+         HN2Fi2qwPisfGHcPCSnlaWMxAiQtMnEWe00qVfAFLnp6dLV5Z/04K8NuztTR+EFuHrgn
+         iEZc4eYVpOqrSNSsfSndEq2tCxy/Fb4KCwASLG1wE8NOkHjo/eqATGcsnBaKZ3Mo/BIO
+         Rp5UWskfLhDtb089YxR2z54Z4xUFMMZcSByV9O5wmffnNXg4ppZs2CXttdONEHx/dTze
+         HxZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779114382; x=1779719182;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IkhDiryJOpnQp+hMnQvA4acbZ3NW2ct6Ye+UJkfo1fw=;
+        b=l+tDArXegtadR0XASKFc3xH3fKXcxaWUgpFyqr4UjJ4lr+N+GEkseveGyCSHCTtGxS
+         wJMoEw+NHyMA5s1CYyi/bESEkSt15DNSOS0iUb14lW0836eiXthV4uYo5s93/S5BfIe8
+         pwbrN7/Cx1dHW+FIqQD9EWJlPOJFgL0Cth7lYTXJIU9MXANoZCMDaexur4syGFEjK9wa
+         41x5ZUFKQaJGraDFPJkwwn0qxu6yYKDWxhB1tPD+VAfIST48hZhaZ4/Gza0pLRS8ixT8
+         XFEi8HUSLlw/kNVwGhEMYOzDmq8qRVcM0dowyLwE1nPJSzrOGbqs6KbNeWFxZ6h+vjmP
+         jxSg==
+X-Gm-Message-State: AOJu0YznlknHTEoZJrgGYbbn9dtdXPJ9UsnPre4wBAtZwbbtdo8YiMrv
+	2ouG8mAilRDbQmmLMs6XVSNaBj38LeMozz4vQJV4DjofdQCkzNQKKABcVzSOsxJW
+X-Gm-Gg: Acq92OGU/L5UWWFNhAnfChmD4ih6zbpZmYXmMd+O0gZ90eRMH5uR9oTPdWw3eciQkyj
+	FheQSlKkOTHekuOxay6OwTzuSi8lHO9xysK0QrDHJSyajGKsgEefayoTf+JfsSWpGUP6hxs6H+F
+	AgBsHYsfXX3ppZGfOfV87Oae0Q0edRDs0C/hIlOS7F5/SgRSwAOl1905UUVuqgnpCWGe8xBgBs0
+	yy4TeY8/Y8GUyxw3UVfC3Sss+T/GaPf+YesbCPXk3DR9+ZhP5+yPDV61FZwDQ5U/TYAyeWb/6Ps
+	kGt2sJ9jEZOjzPoCLYuJMv39M/ZAjx3lEUkU9XdvA/6w+Rem9EFW9SuvRlbFUIr6XUbF2x9tf/t
+	TbH4p30X2OvgkdBkb8hKIMXVCoilZ8zZ2oK8oHsIH+MqqjvvQkpyh7pZaWIDS7uOBYWmLcAkcxL
+	jKbusG5OfU6iaf6x9foVR0GDRF+xwfCJS68wEYpk2ApUy9MB2WsYw/713AA9pujaUE+5EZr7VCA
+	uCAGdrnaVwekaYZrdGw1vjGf0NEnRrP8Gqi7W6p5UaHjqmhfUM3XLQ3+DVkkd4k1MUdZ0w=
+X-Received: by 2002:a17:907:9705:b0:bd5:9a2:6c7d with SMTP id a640c23a62f3a-bd5177d6672mr847883566b.4.1779114382418;
+        Mon, 18 May 2026 07:26:22 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-684744d13aesm2764498a12.18.2026.05.18.07.26.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 07:26:21 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 18 May 2026 15:26:15 +0100
+To: sashiko-reviews@lists.linux.dev, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH v5 03/13] iio: core: add hierarchical channel
+ relationships
+Message-ID: <vlasqyhpdcxtdw7isyapmpxaqw6wwpni3el2jzckfh22i6bgiy@7ikszah6elga>
+References: <20260517-ad9910-iio-driver-v5-3-31599c88314a@analog.com>
+ <20260517185618.4810EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0ac6241-20cc-47c8-52ae-08deb4e93a04
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 14:24:52.6773
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X090dRCRvWPZqulirG8/212UIsZc0XOKVIgOP9CfAZhqqcXed1BHrM7xMqBpCaqxAi5GqsORtyYK27nmAAHCKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8566
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260517185618.4810EC2BCB0@smtp.kernel.org>
 
+On 26/05/17 06:56PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Exposing the hierarchical relationship via channel labels creates an ambiguous UAPI for userspace.
+> --
+> 
+> commit 64c6f961f1d7645c58f732e4bd4c11200b999e93
+> Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> iio: core: add hierarchical channel relationships
+> 
+> This commit introduces a parent-child relationship between IIO channels.
+> It adds a parent pointer to the iio_chan_spec struct and exposes this
+> relationship to userspace through a new "parent" sysfs attribute that
+> returns the parent channel's label.
+> 
+> > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+> > index 5c8404efd0a56..348ac7a597385 100644
+> > --- a/drivers/iio/industrialio-core.c
+> > +++ b/drivers/iio/industrialio-core.c
+> 
+> [ ... ]
+> 
+> > @@ -1263,6 +1271,31 @@ static int iio_device_add_channel_label(struct iio_dev *indio_dev,
+> >  	return 1;
+> >  }
+> >  
+> > +static int iio_device_add_channel_parent(struct iio_dev *indio_dev,
+> > +					 struct iio_chan_spec const *chan)
+> > +{
+> > +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
+> > +	int ret;
+> > +
+> > +	if (!chan->parent || (!indio_dev->info->read_label &&
+> > +			      !chan->parent->extend_name))
+> > +		return 0;
+> 
+> Is relying on channel labels robust enough for programmatic parent resolution?
+> 
+> IIO channel labels are optional, human-readable descriptors and are not
+> guaranteed by the core to be unique. If multiple channels within a device
+> share the same label, how can userspace definitively resolve which specific
+> channel is the parent?
+> 
+> Also, if a driver establishes a hierarchy where chan->parent is set, but the
+> parent channel lacks a label, this attribute is silently omitted, hiding the
+> relationship entirely.
+> 
+> Would it be more reliable to expose a definitive, unique identifier (such as
+> the parent channel's sysfs prefix or index) rather than relying on an optional
+> descriptive string?
 
+A bit impressive that sashiko can comment on that architecture level.
 
-=20
->=20
-> On Thu, May 07, 2026 at 07:43:33PM +0000, Shenwei Wang wrote:
-> >
-> >
-> > > That was my initial approach.  We don't even need an additional
-> > > "rpmsg-io-*" in rpmsg_gpio_channel_id_table[].  All we need is:
-> > >
-> > > /* rpmsg devices and drivers are matched using the service name */
-> > > static inline int rpmsg_id_match(const struct rpmsg_device *rpdev,
-> > >                                  const struct rpmsg_device_id *id) {
-> > >  +     size_t len =3D strnlen(id->name, RPMSG_NAME_SIZE);
-> > >
-> > >  -     return strncmp(id->name, rpdev->id.name, RPMSG_NAME_SIZE) =3D=
-=3D 0;
-> > >  +     return strncmp(id->name, rpdev->id.name, len) =3D=3D 0;
-> > > }
-> > >
-> >
-> > If we encode the port index directly into ept->src, for example:
-> >
-> >     ept->src =3D (baseaddr << 8) | port_index;
-> >
->=20
-> There is no rpmsg_endpoint::src.  You likely meant ept->addr.  This would=
- work
-> but not optimal on two front:
->=20
-> (1) rpms_endpoint::addr is a u32 and idr_alloc() returns an 'int'.  As su=
-ch there is a
-> possibility of conflict.  I concede the possibility is marginal, but it s=
-till exists.
->=20
+Those are all good points. I suppose I went for this because otherwise it would
+require refactoring core code to get the needed parts from __iio_device_attr_init()
+that gets you the channel name without the attribute part.
 
-I think there may be a misunderstanding in the implementation. In this case=
-, we do not=20
-need the return value from idr_alloc.
+Maybe we should have a function that outputs a channel name into a buffer based on
+__iio_device_attr_init() behavior, and that could be reused.
 
-When the driver calls rpmsg_create_ept, it can pass an rpmsg_channel_info s=
-tructure as an
- input parameter. This allows you to specify the source address you want to=
- bind.
-Please refer to the definitions below:
+> > +
+> > +	ret = __iio_add_chan_devattr("parent",
+> > +				     chan,
+> > +				     &iio_read_channel_parent,
+> > +				     NULL,
+> > +				     0,
+> > +				     IIO_SEPARATE,
+> > +				     &indio_dev->dev,
+> > +				     NULL,
+> > +				     &iio_dev_opaque->channel_attr_list);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> > +	return 1;
+> > +}
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com?part=3
 
-struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_device *rpdev,
-					rpmsg_rx_cb_t cb, void *priv,
-					struct rpmsg_channel_info chinfo)
+-- 
+Kind regards,
 
-struct rpmsg_channel_info {
-	char name[RPMSG_NAME_SIZE];
-	u32 src;
-	u32 dst;
-};
-
-> (2) By proceeding this way, the kernel exposes the GPIO controller it kno=
-ws
-> about.  It is preferrable to have the remote processor tell the kernel ab=
-out the
-> GPIO controller it wants.
->=20
-
-If everyone agrees with this namespace announcement approach, I will prepar=
-e the=20
-next revision based on it, even though it is not as clean as the source add=
-ress encoding solution.
-
-Shenwei
-
-> I am done reviewing this revision.  Given the amount of refactoring neede=
-d, I will
-> not look at the code.  Please refer to this reply [1] for what I am expec=
-ting in the
-> next revision.
->=20
+Rodrigo Alencar
