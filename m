@@ -1,223 +1,183 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865A74048B6
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779107036; cv=pass; b=BM1IQnAz/3fry4mYBg7NOLmIfqzugXRO79aVRGxyX5EcsinBRl4YHnC93q2BkG/XxwylGjRpoFW9BEspGVOgza3duyubLpBAZbMKR7uzuTIKwc9+zM9apan7XIqbFFkS+K6d81PklCSLUrMjJgY+2c6XvKT1uFr94YRPm3QRLog=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779107036; c=relaxed/simple;
-	bh=fSU/Nv50gQUXxxzoYFAghpmKq4w9ZnFqkSDSVnIbHqU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a+Fz+GlUxPuYTUTUctNMGa3nETvGjDmrvSbOCZAD1JgSkyWb/6eofY0OElyfdOQSYmTIiKCpEQ97sO6QZCuepRXsTXPOIrc3KntxHWwRfMAk2ufXA5HbL7WK3tdKy38nuUPlt9Jl/ANJl/DTGnKyacHJtZ771h2csYb4vzVHvWk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3jeF28S; arc=pass smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E82A40587E
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779107156; cv=none; b=EpTPT5n5zeCfbl/0/yqhXOw32eyYm3tP0d5WAzvVk0P0pxsmQSfts4Z/Ng553UKoD5SDO0njkVS9NtZ3p5AIpWpstJ/ysg7kHQx/Z82aJ+i0rWO94NAdztLmJZK2kpdInOgjZ7s14y4oScHzlxpJ4TsCHcrwMAsZ/R2rYYj/STQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779107156; c=relaxed/simple;
+	bh=/I/Lh9kABNEkYq/fKWm+AznCg9UkQBLj7n6ZS1EybHM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y3WbAilQ9zAwpKYUhzGD/Lgn5HRA58T/FyUE76+DP4NAES4lOS6ghB9gkHaftYbm0cW36LIIYlo68bra+AmybX6+azV4tTSddx7ljhfpT5RdQFH8e0sFaElW7ZUse9jii2kQvRmzbOcnZ0JgnPFQIQvnRor2/nZpwsdTdM4pC7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=crmwrb3J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BRlgtfJJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3jeF28S"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2ef8d6ba48bso1039085eec.1
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 05:23:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779107034; cv=none;
-        d=google.com; s=arc-20240605;
-        b=RXcB2ocRGZC92Ow8Gx4Dres6qxYISNqmnc9Yrs9pbtnaE3/hteChtwsgYVwv7Wj1Jc
-         dfs5V+qeVa60GrlgKoGHqVXezEHzZj5lZlenL1bNHSmtmyBYaZSScA7s1tX49mAONn5+
-         LEasDv+MVLRMuFPBqGBwLyoFfrtzFL3qsm2uQ59xPkDrH6/sl2XKB+kAciO6XURhbPPZ
-         Kb+pK6n/NMPJQHH195PwOiTvzyBAj4uZMj83v2VlpbtOsIBKHfg9EAx1V3s3htB22sJp
-         szxyxSPeSs5ibO04Spq9ofikEi3d5i8OxRh4ghbgjXitsJRj/KbuCHYvLWz2rMUOr0tO
-         xvIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/sybBoxzQkI8aLI6NqXXkb4wIzeCWahvMKbXOpYmLoU=;
-        fh=M8jMVDow7bPB7sNWsFAhXVvUelIDqEGga5u6BurBnPA=;
-        b=OzBH/Z9TtgfhsFL1HiB/cUwH2xT4+oEHXMPSEgAIezvmiCsGygq8cNm9T3sEZqsge+
-         MHMjvf3A93vYaKOCt1ETlEX5+hcweeKiNTqQt7NaT1x95Dk5Zh5PZZvA0cqu+TSAD6fR
-         MpO4nCW0/vyLl8islbxHmjDRkSS9D8afsZyVImT0BLBKcAoVK0JRHJNeUXaagwk/3i83
-         0O8IxZLgoM/FZaSANm9wYwDIGc7z6KNYvEPDExllN8/xNbvgUBKJw5ZbZ1EC2ery1qzT
-         ISOP4+eiDG2oDkP+XrfumXbgDBIV5LE5w6z/bkh9KmiCvqZwvCNJB8jmwwOl3DQLHAEJ
-         Y8xw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="crmwrb3J";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BRlgtfJJ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I7fdnt2188872
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:25:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UZeGp5Bki4jeCnZ73ibXYmI/
+	3gyap43fyhUtc6hPfvo=; b=crmwrb3JNam+zeq71i9jx5/Ex+pX7ay7/ThZERzT
+	xsCRsBxZCQsflm87UUNIx/4MVVOwO9H2SW8z/XzHHmZRMJ7YoaDSfLJT1XJ+G4no
+	2g247RLmqg9Ns/lJt/WTrzqbbTH/foFECuS+dMEUbmU8c6colGhm6oZ5qWJBGC2/
+	OVc+CooArRsBpDrCrVvU3+6hxBpdYxZyePctCbbJy9fTI0fET72yD/oZoLrKlbRn
+	+jk18jWPyZj0Wja14Kis5PJhapHKthbHbGzj6Z4LizXKDtM7+d0lflDu3iLMqcwn
+	W34Hyqfw0/k75EhMCYdi5Kb5Dv4V49pY1igrExAdJ0kQPg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7xkuh63r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 12:25:46 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-516879bf1a7so41054421cf.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 05:25:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779107034; x=1779711834; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/sybBoxzQkI8aLI6NqXXkb4wIzeCWahvMKbXOpYmLoU=;
-        b=m3jeF28SK1CuzUt6M+4OnYzbZvIx8KWEaXA2AEFiJxgjbZFS3PMv92wVmPBPeomoZs
-         6CMZshDWsF5YHjqWxvbWvfyrfoKXLZJQKbPKvuB3i1xspRGhidOwFGRigBptY0UOAG+a
-         ruQAgwaL9CDLIkj5JsXs0yvxxT6cM/YOYuIpKhOVUb+FKLCYoyaxNMf1+Ps+1Tf+uPXz
-         7+hgjYw8XMuNidGEPADXGEwqpMP3R81SrYVEHu1XrLNfqlsvPZf4iVGp35M69uKerlbe
-         HI6ZIvF4xza+W7nGjepPYeYYKZa79VxIqb7rAEoUkm4ZyQPVVVdX2IDsc7TpNNraI8gZ
-         5SNA==
+        d=oss.qualcomm.com; s=google; t=1779107146; x=1779711946; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=UZeGp5Bki4jeCnZ73ibXYmI/3gyap43fyhUtc6hPfvo=;
+        b=BRlgtfJJHiEwSJegg/Pr2TMNtfQUmr68Jf4JvqUoK8MCzpYdec+0ehGiU7507hQRIB
+         vZVF+mjloX81pODigJJ3LBExdxXtK9H+v+7/R/OZnU798vtt8d95DQN3s289UUiCcc6V
+         44dJJRQ8DydyGgr8kgtJgl2cow0ZE9mLJjb8hjMtwFa2yQQSVWOTbEWjmsFCq5FUyMH9
+         Ou6Am+MC5NyMZFUsirEjyGS0g8u3zohpgwv3fEWYfrl/po1SuHLgogA0iZxzgTqpSfJ3
+         DM/ciFgGI4gKhYEoeMnuBlQw6AVqMMO7iUAYvV3/ElJ3Is7gsiMB4OpuHCfVo++fCbse
+         uPEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779107034; x=1779711834;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/sybBoxzQkI8aLI6NqXXkb4wIzeCWahvMKbXOpYmLoU=;
-        b=JpxAibJJckO4nOpv1xszBeReUiZKGUI4FZOjdDkF3zu9HkdUEhj7iraX041P6Am+Fd
-         YH7qkUktg2f/cMzw5GQ975B/hoeIbvcrA0LymK1vrMpjVPm7HarSZ5mDt4lnwygYtgow
-         bpPo9i94lc1DTZUeJ2oeUMxvUaNGGcNHDydVe/rWINTjUlpoRkbeRpnfDJVvKZihHynF
-         rucY/qsg/5bauHo85oeFzNXC3aN2XMLxryZaqEzXtY0st+Rrj5H1BuPby/OaOub1x6Lk
-         Kn3wxUt8WAMT09Y9hTmZoKESwqa0RJGFqIONXX4KcAHHrAJJypkLKV4r3KN8KIemy38J
-         5SPg==
-X-Forwarded-Encrypted: i=1; AFNElJ+FacwYDV8RBzXDeQ+6V6biSjyssS2ZFAmP5egqxCOrdpRzUNp3BKicdU3iUvDnOQB2IbEBDRDnMWwY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2/mlvBWwc7C4EW6iVB2clmjEInBc/BqlirnBhEDJi5rU/MPh2
-	wahWWBDN5k2S66XJnmvUWd1RnKotlFzeY5Os7wbUZZhohwlO1A1KIeR2mSFTmRoY7R36ZMtP7/E
-	1+5Q3paq186pua7VSsRaodi4PXD7QEc4=
-X-Gm-Gg: Acq92OG78vi+o9ql0SeKSG8SDTreUD/47qCRSJBVTKu9Q/HSZXgsqGBnPzQtRipmYVv
-	0HPhyo4H1l4F3y98zSVpo4UfQsbMJgr6O67F9bxsd+rPIpUagxo6uK4xPhGqn6fr8vkFnriqlVy
-	azG+3/wgCH1lm538x+dKSgPjGyD7E1JQTiCgIP76MJn5NU+67SaLuQuu2aU9mvM5x/RY1Gj5+1X
-	RrqAABHnPtud7lzsVkROqpc35npbnhl0anBQiMtQs7UjoC6HeABc6K2jE9ONjq1sixUWhdAqJxx
-	MlpZGts4IAmhlv+uwIA=
-X-Received: by 2002:a05:7300:a897:b0:2ed:a58c:942 with SMTP id
- 5a478bee46e88-303978ad90cmr5911766eec.8.1779107033494; Mon, 18 May 2026
- 05:23:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779107146; x=1779711946;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UZeGp5Bki4jeCnZ73ibXYmI/3gyap43fyhUtc6hPfvo=;
+        b=s07cPXa1TM0DlHwd/jla11REnVmyjbj7MaJJi3m29mzW9BJLOQ4K7QGOx0nl/xl49v
+         az4bMBmB4xQBPKWFIOAcpOCBmt7vhVBiSSA1CuuRswvFfcSGd+Y35sfFAEwD9MIRSGn8
+         gsTc+2pBMXE85ZBiqLoPvz8mbVypwHRgmGZzRsfdHx+Bc4dERzHRazZnsrIxM70eN5y2
+         SQAGTox97mGTb8Z+SMcg9UDo/fLOT94mH1eGGbO6yIfZrt0ps2t+k5TcJX5I8sdOl1OI
+         I1AwCGTvkyNNPfebgM6Kw1qhBYkiLbIAYaGHZJmOZME2mNRfEY9ZJ1QDEjQmPotO2E90
+         e5vA==
+X-Forwarded-Encrypted: i=1; AFNElJ8XbNqO+MeWf1RV3tv9OvRza9mu+lh1Nb8DY5WyG3df3ma+9X4Q2EvBgyr452iz62WKy2DayOziw9g9@vger.kernel.org
+X-Gm-Message-State: AOJu0YyB77Jb0agp73tXlzATGPlwvW5Wz2RBwXvJ9VgMuDZGIq0W8a18
+	hcGAKVsmEEMWqDy0lHnmJWYjzfmWtL/d8I6lyJT66vEqBDCoLjsrc7i0vl3+PY3zyCAsLM2qC9r
+	0C1JJfY+K2R69YUNXAZJgDN2DPB817Z2uTSZVQoKemTogUa/ovxNjjA78Mb5WsF6Z
+X-Gm-Gg: Acq92OFTkBMx/2A+QfXIAcftTyOM2PPfFI4uMjMhCMyxUzfbVclP4YkLKUc6iIqgVg6
+	0h1h7j+ul2vELM+MswityhhX+WJzCFGTZAdOO42lC6bSOBttcQdCyl1V+1+ZM4FtDbuwWuOdpSm
+	Wm9KdvDQOitD8u/BOIED/2WsoJh7fbSEZW4YMoiXcQpzErzCszi6GzvHZDeHO5+/tplkFd7+dd0
+	LdaTPASNQnwf06a0XfemVTBKZq0lD0KKZajmuDEkhGnLSSLgcPkcgeQqbWp1l0f2M9w7GBobVoV
+	PwvUdUbW9BS9rpXo87yy/Sm1LMnKkqI0v46KrNG3LPWHT3jJDciuUxUBDs/qnnxmqqB1Y8qmCHb
+	Mae/8ogffRS2H2hSlfpPe5oTF6AxHf/jh0RRBJJD/hLOmBWtGOVixtljwYfi68+VdS5vo6E/clA
+	azEokXZInPA5dZf0zSl9NbabTMk2Df3XtJAPQ=
+X-Received: by 2002:ac8:5e4e:0:b0:50f:ba60:2dd4 with SMTP id d75a77b69052e-516419629f0mr229735891cf.40.1779107146206;
+        Mon, 18 May 2026 05:25:46 -0700 (PDT)
+X-Received: by 2002:ac8:5e4e:0:b0:50f:ba60:2dd4 with SMTP id d75a77b69052e-516419629f0mr229735671cf.40.1779107145732;
+        Mon, 18 May 2026 05:25:45 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887b408bsm11481771fa.35.2026.05.18.05.25.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 05:25:44 -0700 (PDT)
+Date: Mon, 18 May 2026 15:25:42 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com,
+        Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
+        Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 2/5] phy: core: Define TBT phy_mode
+Message-ID: <5kwr2cbi3swgvjrzyqxa36rk2jnjlivgsw242shd3s4zbbdv5u@x3qvxkt2xm6x>
+References: <20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com>
+ <20260518-topic-usb4phy-v1-2-71d827c49dca@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511135703.62470-1-clamor95@gmail.com> <20260511135703.62470-6-clamor95@gmail.com>
- <20260515-utopian-malamute-of-patience-367e8e@quoll> <CAPVz0n2wrAdU0JKx7eb7uosCcoGayqNchK591VPph-5_nBAMXg@mail.gmail.com>
- <20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll>
-In-Reply-To: <20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 18 May 2026 15:23:42 +0300
-X-Gm-Features: AVHnY4LNwA3nH_QM5Y-7LcPOdghwjQLoGIom9Y5M5xnInrZ8XmypJBIC54V587Y
-Message-ID: <CAPVz0n1Q_5WYAE0GKzFA1SpW55GS3dCLgxcMzw-nOEMaYobn6w@mail.gmail.com>
-Subject: Re: [PATCH v1 5/6] dt-bindings: phy: tegra: Document Nvidia Tegra
- XMM6260 PHY
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518-topic-usb4phy-v1-2-71d827c49dca@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDEyMCBTYWx0ZWRfXwJqiBkq03sFR
+ duLR/0oIxU5HQ/0EC4OadSCBJcsHV28E/AaEyWXZeS02cR+fovXBzL/CSTprgEGiSpFsGH4DcKU
+ XQiNDjKvgVX8LfG7azDoPBI8qrTZpF70JV3IyfXjylxWmSjXb+KwJzV6yOJeF/LMtucB3OwPW4e
+ +gra//UF1SK+UXHEdaGjkOnJbcH5+kxWORlMw8BbTOeTowSqhqHOvgnqvIR7zFS7fFfmnk1FXWI
+ CWeZOlVkOY/DlnNaducV3wLLitAdxd8F8HZVyG72/GpdtL6UTBxgtmVVnhowOntd1Uyk1QY6J0o
+ vWqR2cjuhSajsTKOy/XKLC+fVqYGB/TbgOkCQECjmHj7wqQ8CYPOus4vU2mXWV/jqBmHapICF3X
+ 8stN8OfPG31l7li/k+1B33oe6Hxv443NKxjjsn0wdkV06cTxyCnamabovEAsnti0zJEKPK2KiFp
+ ZRDeQ2Wn2V/VDPu/caQ==
+X-Proofpoint-GUID: Wt3dR0fPKwADezVNzTNAIgiBw4tBHnfc
+X-Proofpoint-ORIG-GUID: Wt3dR0fPKwADezVNzTNAIgiBw4tBHnfc
+X-Authority-Analysis: v=2.4 cv=FsY1OWrq c=1 sm=1 tr=0 ts=6a0b054a cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=fNMWtLC6zdMFL8tt74cA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_03,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180120
 
-=D0=BF=D0=BD, 18 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 15:1=
-4 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Fri, May 15, 2026 at 11:37:34AM +0300, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 15 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
-11:20 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Mon, May 11, 2026 at 04:57:00PM +0300, Svyatoslav Ryhel wrote:
-> > > > Document the XMM6260 PHY used by various devices based on the Nvidi=
-a Tegra
-> > > > SoC, describing its usage
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  .../bindings/phy/nvidia,tegra-xmm6260.yaml    | 58 +++++++++++++++=
-++++
-> > > >  1 file changed, 58 insertions(+)
-> > > >  create mode 100644 Documentation/devicetree/bindings/phy/nvidia,te=
-gra-xmm6260.yaml
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm=
-6260.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..0346433c9772
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.ya=
-ml
-> > > > @@ -0,0 +1,58 @@
-> > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/phy/nvidia,tegra-xmm6260.yaml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: Nvidia Tegra PHY for XMM6260 modem
-> > >
-> > > XMM6260 is Infineon modem, so any combination with nvidia,tegra is ve=
-ry
-> > > confusing.
-> > >
-> >
-> > May you please suggest how to adjust the name then? Thank you.
->
-> Depending what is that. Start describing hardware, not driver behavior
-> to help in that.
->
-> >
-> > > > +
-> > > > +description:
-> > > > +  A hardware configuration used in Tegra SoCs to provide proper in=
-teraction
-> > > > +  between the application processor and the modem, as well as cont=
-rol over
-> > > > +  one of the SoC's USB lines for the modem.
-> > > > +
-> > > > +maintainers:
-> > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    const: nvidia,tegra-xmm6260
-> > >
-> > > Also here.
-> > >
-> > > What sort of phy is this? So far looks more like a software construct=
-.
-> > >
-> >
-> > Infineon XMM6260 does not work as an ordinary USB modem, it is a
-> > standalone CPU which just exposes itself to AP via USB. In order to do
-> > so, it has to have control over a USB bus of AP which is dedicated to
-> > it. In case of Tegra - XMM6260 interaction it looks like this: second
-> > Tegra USB controller is set into HSIC mode and is dedicated solely to
-> > the modem, modem controls this USB bus. Then the main XMM6260 driver
-> > performs power and init sequence and once it is ready it calls phy to
-> > register controller. Phy has its own supply, controls USB controller
-> > de/register and using enable GPIO sends signal to modem to proceed.
-> > Additionally, since some XMM626 versions have a few steps to setup
-> > exposing different USB devices, phy handles controller reinit for each
-> > step. If treat XMM6260 as an simple USB modem it will never init.
-> >
-> > One more benefit of having PHY is that modem driver itself is generic
-> > and PHY handles SoC specific configurations required by the modem.
-> > Since this modem was used on a variety of different SoC's (Exynos and
-> > OMAP for example) they can reuse modem's driver and provide only PHY
-> > which handles modem interactions with the USB bus.
->
-> Without any registers here, this is not a PHY but a power sequencing,
-> just like we do for other USB or PCI devices.
->
-> Optionally, it could be part of existing USB phy, when configuring it in
-> HSIC mode, but it seems you add here supplies for the modem, not actual
-> phy as the phy is undefined.
->
-> The problem is that in the patch and explanation you mix driver model
-> and driver behavior, so I really don't know what is this hardware. And
-> it is not my job to guess, btw. A partial argument/proof why this is not
-> a PHY, is that you reference the USB in the node, so phy-provider
-> references the phy-consumer. That's reverse. If this is PHY, it's USB's
-> HSIC phy, thus this needs to be referenced by USB.
->
-> If this is power sequencing, then it can be represented as USB device,
-> just like we do for all USB devices, but then it is not PHY and
-> phy-cells are not appropriate.
->
+On Mon, May 18, 2026 at 12:29:49PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> There exist OS-accessible USB4 and Thunderbolt PHYs that need specific
+> configuration. Define a new phy_mode for them.
+> 
+> Currently, USB4 and TBT3 are defined as submodes, because they're quite
+> distinct, most visibly in the electrical/analog aspects (slightly
+> different frequencies, timings, etc.). This results in a need to make
+> the PHY aware of the actual mode needed (at least in the Qualcomm
+> implementation, but I believe that'll be a general need).
+> 
+> Newer versions of TBT are basically supersets of USB4 with higher
+> host-side requirements, so these are not defined. This can always be
+> changed as necessary.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  include/linux/phy/phy-tbt.h | 14 ++++++++++++++
+>  include/linux/phy/phy.h     |  2 ++
+>  2 files changed, 16 insertions(+)
+> 
+> diff --git a/include/linux/phy/phy-tbt.h b/include/linux/phy/phy-tbt.h
+> new file mode 100644
+> index 000000000000..5f48059814e1
+> --- /dev/null
+> +++ b/include/linux/phy/phy-tbt.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __PHY_TBT_H_
+> +#define __PHY_TBT_H_
+> +
+> +enum tbt_phy_submode {
+> +	PHY_SUBMODE_TBT3,
+> +	PHY_SUBMODE_USB4,
 
-If I integrate USB controller reference into the modem, modem will not
-be generic since Exynos and OMAP don't use Chipidea USB controller
-(both those SoC use this modem). Modem has to control USB controllers
-init and deinit in order to operate properly. I have tried to resolve
-this with PHY but if you find this inappropriate, maybe you can
-suggest better suited way?
+Do we need TBT2 as a separate submode?
 
->
-> Best regards,
-> Krzysztof
->
+Other than that:
+
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+
+> +};
+
+-- 
+With best wishes
+Dmitry
