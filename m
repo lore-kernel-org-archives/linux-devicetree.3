@@ -1,399 +1,186 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D0A53DCDB1;
-	Mon, 18 May 2026 06:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779084233; cv=none; b=lqOiJNjm3nv++8YRLbdeUQl1sqpiCLNlr4FxUWD798EXCyWZMAMdo0D4/p4hIQnN5+0PThT1cQq/Vcf0ZFUdt5it0RAJoaaPvJpnDA5TWHMMq5dp3E4ereo0wzzEoqkgTBoan9pqEc4ZMD5Xy+cd8reD4MDm0GAwXXBA/4aMOFE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779084233; c=relaxed/simple;
-	bh=naDIk1LmehiyBilvJE7JO9LRVtvJgbRqizOvTJr793M=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=bjafYKzdq262u2l2gnSDkNpRjC5DY+wdyAeFWb5fSX6WmGBjhx37QLOoDB+h+9jYmJk5yHr+ilu4lriLkOyW1s3KGvgkvp2eOpqSboOqElsXBsXry3cWQyAsIafOPwlg7EeLKmbxswxhVzEMWyZFxwJNw+vseD+dtB0ySXUPNWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=KBLckvtX; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011008.outbound.protection.outlook.com [52.101.52.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDA53DDDB5;
+	Mon, 18 May 2026 06:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779084628; cv=fail; b=ffxcC2Qy7L5/zvK8oGdMEFG5WQunJ1yQ/21u3ZcEuovVc9xWBmttn6HwRsF9t9CcYh++vCIk8WGCSceWMmvbbauf49qyAqQNEk9PcY4q1gMO9t8i8LNmfLLow5fmPNf3jh3XQmgzIqDgwAF0UDtToDTAXlT8ZivZKIgBFO1uum0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779084628; c=relaxed/simple;
+	bh=3flF4y8V7ol7/Q8e/ZCfxxXnMjqPMJVKGns3Tw1TqFA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=J13AuMesYHOzP/5YWmcoEkD4O1ufZx0TZh2HXIK7zxWLdC+sykwoFcCsEEGTiAqsu+lie78MhnN5IbqZ5b4b1WTJ8yaQ5X7aZRmv6vtDa7wdsiK29lsOlWJRxNYkyP7XIKMcD7T63zRcYgfkwhMJ+u16Fcq2lDCRE/qYm5a/htk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=vRYso6dm; arc=fail smtp.client-ip=52.101.52.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="KBLckvtX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=040PPyh4hyNL02s2nYCsjjVPnlanJFo/L
-	2eYNDmar4M=; b=KBLckvtXUarQe0WQf2Swb1IaZe+Rj2MX6XC7EfXbYF34q7XpT
-	ddIIWfnkx1xXhdJS4nYVYYTJQmR5q+fRILrYNYuR2XT/sblMZVkjZvo3HUaxj5sW
-	jxN9QKtYyi1M1BtsyGRnGG0laLIZCNxxVvUXYoFmZeubuA8YVbPPJbunxU=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEELUqwpqpLYEAA--.6034S2;
-	Mon, 18 May 2026 14:04:04 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="vRYso6dm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q6iUe9i4mFm/3YiKkZbb1llDUK1W+sGr9p7v1vDuSAakpzkGjxxG1A2m4E5sk45x052zrP/Qy+zORRBAd5R5ZcFdxetV3Re5+cd9UEpOoN9lUFuO/4/CBQUsPI+6zYmMKGBwwLFZUPSmiHptiLTKXPkrU1zSsTJagbdPMN8bmiUnGVNnW8VvRmQrQuWZRYCmTApg0jA8E/Y2GPpfU/p+3HxNTxL988jJvLxqG/FKwNyrotZvP6enx0u7U4SpDc09W1znpujnd6ShS7SHmCeIg5PkfyU0rHfbSR//IkqhAe6ZVyCDEHVoXGpvsN5X9qWKZNJZI2hkx6ImxOLHutGnEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3flF4y8V7ol7/Q8e/ZCfxxXnMjqPMJVKGns3Tw1TqFA=;
+ b=eBl1zQ8tlpFLN7nEbRUMgiSZScVhavjc6mKXwOq+ad1Ics9OUn2qwrdXnR2WCulYQEdpOsswgFTRIdQcM94NZpfIRCzM+3xumS6m5L1HBelDMHFK3jjqjdLygM/Kar3/cX9CZ/NIcOVChPwf5PgswLhm9jOxBzM5UrW9vLpQi0kfUk24Q2wiR6t13luHIuvItH0GmTxg/fXaJrys1udd1AV00b9HhGmalE/w1a+3LEw3HtiVD8xAgMgwKfxd1taV/eiAV3WwTW9FeATzwm1ijQE5X3gmSPHtN1f/q7zJlhoLAzuovZ/Vai1nHhPgUpLFhueGfMJUj6HR1VUqVFNOVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3flF4y8V7ol7/Q8e/ZCfxxXnMjqPMJVKGns3Tw1TqFA=;
+ b=vRYso6dmjdhlBgdE07FZYy3rAfPYSHlXIfb16T2wQrziaJjkBD9FVVskvWMjRVPwi7frnBWN7BJjeJprn6eN9G/UVH+DnzPg+arOLM15NBhm7zUrc0o29dFOpgy4WDY6ACb/gVuoyxzxAmbKwyB2Im8iMKR3TgYVjQqCBO4f6OOkbGZKLU1CMbgrZHNlQgoMUQoMjAVdhYyNqqzT+6J8SF9Sftt5Rve3oyE9U1nJZrFfxma6Os2OJOAXFIWNrl9qPi6erG/nzHxm2Ht1FYgQduLX1ZnnDADlied1kI7vmivy+VyvChC/Qi8WAG7bJvXd8BYAurXKcjVGT9YnnSQa6w==
+Received: from DM3PPF9623118BD.namprd11.prod.outlook.com
+ (2603:10b6:f:fc00::f3a) by DS7PR11MB6101.namprd11.prod.outlook.com
+ (2603:10b6:8:86::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Mon, 18 May
+ 2026 06:10:19 +0000
+Received: from DM3PPF9623118BD.namprd11.prod.outlook.com
+ ([fe80::ad98:5674:dd4c:875d]) by DM3PPF9623118BD.namprd11.prod.outlook.com
+ ([fe80::ad98:5674:dd4c:875d%6]) with mapi id 15.20.9913.009; Mon, 18 May 2026
+ 06:10:19 +0000
+From: <Manikandan.M@microchip.com>
+To: <claudiu.beznea@tuxon.dev>
+CC: <alexandre.belloni@bootlin.com>, <Frank.Li@nxp.com>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <Nicolas.Ferre@microchip.com>,
+	<linux@armlinux.org.uk>, <mturquette@baylibre.com>, <sboyd@kernel.org>,
+	<tytso@mit.edu>, <Aubin.Constans@microchip.com>, <Ryan.Wanner@microchip.com>,
+	<Romain.Sioen@microchip.com>, <durai.manickamkr@microchip.com>,
+	<Cristian.Birsan@microchip.com>, <adrian.hunter@intel.com>,
+	<jarkko.nikula@linux.intel.com>, <npitre@baylibre.com>,
+	<linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v6 4/5] ARM: dts: microchip: add I3C controller
+Thread-Topic: [PATCH v6 4/5] ARM: dts: microchip: add I3C controller
+Thread-Index: AQHc3f5hiQrjI09J2EOEyCmbhs7ALLYQ4BwAgAJ95wA=
+Date: Mon, 18 May 2026 06:10:19 +0000
+Message-ID: <515e89f3-fca9-477c-be4d-be9ed9428d5f@microchip.com>
+References: <20260507084805.481737-1-manikandan.m@microchip.com>
+ <20260507084805.481737-5-manikandan.m@microchip.com>
+ <da83523d-f3ac-42e3-83a2-fb7e7d64ebf9@tuxon.dev>
+In-Reply-To: <da83523d-f3ac-42e3-83a2-fb7e7d64ebf9@tuxon.dev>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM3PPF9623118BD:EE_|DS7PR11MB6101:EE_
+x-ms-office365-filtering-correlation-id: 82658dff-d478-49f5-ea8d-08deb4a4237a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|7416014|38070700021|11063799003|4143699003|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info:
+ dFYx3VANm0mUeOWOzxDmWllJCxif++Ml8mrr9RUaDixrFXgEm9CFWUyrqB2lvYy98XJrE4wjxcXWGJ1Ru8aoTCt2tXXOdYH/gZMDUqe66cIu76/xNI2XHjTVNmufsj6a33R0u/3lYb5RtsWxHTQYI7XpN/3npXMNr1/c2SfPy36cTed+7ytgb4YvvqHlRIB6p9gJamp4fMT1hW0JUXA31rUZ1uBHl8QG18QThzfs7kddxNLwKarAbaHTUlrwIV9Kro4rrxuHseXt0f9xLG1FQpMje94IO1oM1HphaPt35Dankwg3H4Pqs2ogEBbZg30Henoykq5zXsGW/p6kRmJVEl85oGy6kNRuxysvxIDDxbHm/PhXeJO1RLIO7ppSp+ye7qvlWp5rxrpemY5WJKo8KxDkxS7pWBwPKIcZmpuJ1wuMcvHFBCae3lZ90AnJaiqTd5VL3R/iw3M3I1L3ou8jax9vtN+bd65sg5/TYww1U/p+0omiI8VWjkyOax481om88JNpO2NW+GFZ6SGSNUNqxc9DgjemxFq43FLxZUD3esD5WXoFhjVNoLpqnz5kgLjRprCTtGVFo4BpQl9RuYUM+Hc5Eim8diN4IA3i6wGHT2k6nlTfXvy8h+L6Vw3m9rl7QDHUHszJDlcIkxB5Qv7Mz2ohZRu0GChTvNAaDGuM44oueH5WixOoCfqkIsBDxpomJCiR83xcSXTurw9S0Tit8KdC501FDFjSun/BYm+oJtU8wEhj1bqG9ECIx/tQH1ew
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PPF9623118BD.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(38070700021)(11063799003)(4143699003)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RXpJUmk5eXNpVTVWcDVFa040L2NGOXJ1a2NmSCtJK1VrSTBUUVJ3ZEVMaXht?=
+ =?utf-8?B?bUpKK3hnNVpIV0NZWVpHNWN5S3NFYTU1WWgzWHFHOFhHb3Nxb2VjcVdUbVdW?=
+ =?utf-8?B?ak5MY21wSW1Qd0xwQ3VxdmdFQ1AzVVlpTENZVFFsOURWdTFLV2lLbkgxMFNU?=
+ =?utf-8?B?czl1TGFIakF5ZkY1aEtUNkVTZmJLWmlYRXdQaG9CbVo5ZTM0b1M4UnNsNXJZ?=
+ =?utf-8?B?bEJaMFYyRTN3Mm9TUVRiSUFxQXZRQmtxUHhqWG5rTkIxZ29wbjkrUk9vSjNr?=
+ =?utf-8?B?VlhjeGxSS3l1blVjc0loMkFQWlFkQWRMS1AzaDhXTHcrV1N5bUVVMnAxM01S?=
+ =?utf-8?B?NDYxUWJ2K0I0ckE1VzZzeTBBU3VaNTh0RlJGb1VpMWhtQzRIUXd1anJNRlNu?=
+ =?utf-8?B?UHhhOVdTWHU2R1N1WmN3eGIyb2J2T0UwdVI2dnM0U3laSWFoMVd2U2Uwa2dt?=
+ =?utf-8?B?OUpCL0JqVzVqSGVQYjgycXlHRmdPd2NtN0Q1OVdGUlMwdktsVVdnTU0vVVhk?=
+ =?utf-8?B?eVhNRjZTUk53dHVZcnJTWWhGdVRUODVLM2FZRTFPZlRHcjJFSzJXSm14WFAy?=
+ =?utf-8?B?WWxwVTJxemx6L2JNc0kzK000ZDBsZE41NHl0UXBMVWttaG4xUGF2Q0dkNG0r?=
+ =?utf-8?B?ODdaYlQ0aUVsTi8zNHdvVGFRaTBnNkVmZUlEbnkyMHZ6bHcxMFNDNDdMRHBR?=
+ =?utf-8?B?R0wvNElkTjdkUXRSMGIrc1R4cFd5Qnllc0tuUDgxRGNxdUFEZmxVTkY3eFRv?=
+ =?utf-8?B?aFE3Q2xCWGFFaDBVM2pvRDMvTGFoNlNjN014SEJ1OWxUWTFHaUhCb0svV3FD?=
+ =?utf-8?B?VzhTb0xEQ3QzWSttTjhNdEpqWFJQdjVoSWFjV0YzZlFWRXZMY3dSQWM1Z0Jj?=
+ =?utf-8?B?MnRqeUdJU1I5OXllM29vT2FxTGFTOG9aSUlOcjhnanNxbXBWRUhQWGdyVHFJ?=
+ =?utf-8?B?L05SR1RUTjNnU2ZNbkJ2d1U0d3ZIUWkzUVNlRTBQTWRmNkFhbldJeFNyYkFQ?=
+ =?utf-8?B?N0pSVy9NYkZCdjlqQlp5aEFFY0hXWmF6MWJhL3AvQTVCT2JITEZFSmZjREZP?=
+ =?utf-8?B?QXE5VUFoTmtZY2xRVzlvNnhVU2pudjdlU0YzaDlZRjg3YWJOWlViWnA3Qyto?=
+ =?utf-8?B?SDNrSVMrdzdGZTB1dWRVaFVEbzZ6YUpSUDFYc3dBQldSdFdqRml1KzhTZnli?=
+ =?utf-8?B?YXIrNm5IOVVaeE1pME44WHVieHhtNXJVZlg0SnlETlk1bGxNY0NVaTEvNThq?=
+ =?utf-8?B?czRkOGFUTjZsN1hUWEsxTGNEa3N3WkJvdHk4WXZhTTRvdmdSc1M2UFgzZ0Zr?=
+ =?utf-8?B?MjRrSXpLRXRSV01CdlAxOHpBZ1EvUXFKNTV1dzRqM3JrRCtnQ1o0V0R0N21s?=
+ =?utf-8?B?eHR5WmhXYUkvaWoyWjI3WUh4Uk1sUWR1c1JpTEtZWGNiSUtSRldxRElLWUFI?=
+ =?utf-8?B?SDQ4bU5zRHc0azQ4WUxhN2gvNmRPZXBJbVJ5aXVFOEZ2VTRoc2NzQkNMWXRH?=
+ =?utf-8?B?b0RteW9wK2hkMDI3YitVSFhPb1ludzlSeHFBN09Vblh2UVVTNEY2Wm9mSDJn?=
+ =?utf-8?B?b2g1UTBhRzVzcTdaTmIvNGJEeVRYS2VmcWJqV0pET05yM1huZGFWNUxJMkx1?=
+ =?utf-8?B?U2dQcnRoVE1FNnJseDkrdWcwVm1RQWNPb25oTndWanlwWW9Ra1BHSzBUTFd5?=
+ =?utf-8?B?SCtUK3dLM0hYR0JmR1dISFprbUtERkFQaWZwRDhFVUtGb29CQXRkUjRHaEt2?=
+ =?utf-8?B?UTFXR2VBNDU5elhpTmZCaTk2MnZIVDFWb2V5R1NWWndpL0pFWGFqdlJSWjFz?=
+ =?utf-8?B?MWpFTEJzYVNFalQyQTI0VkdzQys2bWVVTlYvNjNLb2tkM0ZRWWQxZFZXRmNY?=
+ =?utf-8?B?NXRsTWxVN21DQVkrbGJnY1ZYUndnbXEyYk1jYTh1SzNNNTZlczN6NDZGZ2N2?=
+ =?utf-8?B?NExGUGlQSmNhdy85Y1hDK2Q4VXZrUEMzN0xiRjNkWWxlMXorZk9vWmQ3VXZW?=
+ =?utf-8?B?Ym84ODNlSml5UU1PUTlYMjZqNk4rUHNMYlhMZkpUWWVzbWZ0N29Sd3lHM3gz?=
+ =?utf-8?B?OW5nQ2JuNHAxUFVFR1RxeFdMYnY4SXVpMHh6MVpDYU1RQ0NWVUdxRVFmUnZN?=
+ =?utf-8?B?a2JWeWZrUjRvYXlPQWZZV1JlUWxTaFhwTGVlV09taTZtSE1oZnl1QnE3YzNv?=
+ =?utf-8?B?dnh2NW5FTlRVL0VQZmdRSmg0OXpGWm9HUkZ5dUw2anVMalNjSEJQdituWXZk?=
+ =?utf-8?B?UGZVZ0hzM2h6ZUdBWEJwR3Era2FxaWpFSHRCNXRmcDBZejBXTXFncU4wUko2?=
+ =?utf-8?B?V0QxVTM5U2xUUjUrRGE3Z1lPeUtBUnN2dHdnN2pEMFpGVVRQQjNwUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <F5120D9471FE12449EF9708052D37129@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 4/9] dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl
- bindings
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Conor Dooley <conor.dooley@microchip.com>
-Cc: Jia Wang <wangjia@ultrarisc.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-In-Reply-To: <20260515-fragrant-anyplace-e69a7d3e205d@wendy>
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
- <20260515-ultrarisc-pinctrl-v1-4-bf559589ea8a@ultrarisc.com>
- <20260515-fragrant-anyplace-e69a7d3e205d@wendy>
-Date: Mon, 18 May 2026 14:03:23 +0800
-Message-Id: <177908420351.2045074.18268079367799334509.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779084203; l=10842;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=naDIk1LmehiyBilvJE7JO9LRVtvJgbRqizOvTJr793M=;
- b=DrQ4DioFQMBAj1WEBHNQoAke5N6P0XKcEgIfBF1H/GgB3DND4Hf7kBMO50owTizi39YwWtoSW
- 2XhiaisqCjuAMfTNnJIthn+tXvr6GWd17x6cjEdxT0M4dcwvhYsfd6h
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwDXEELUqwpqpLYEAA--.6034S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3JrW3Gr1xuw15uryDKw1xZrb_yoWfZrW3pF
-	s3GFWrAFW3JF15JrW0qw1UA3ZxCa10kryxGw42qryUCa909F18XFy3Kw43uaykur47ZrW7
-	tF15ur1ayay29aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWoFRsMACwAass
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM3PPF9623118BD.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82658dff-d478-49f5-ea8d-08deb4a4237a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 06:10:19.5914
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CbxbjIJwRY/cn3+0QLx3UciQn+Zw7iczWY8KfurFB/+yFkg6esVYA+78mW67P8YiFo88ZDXvjFJcVNdaRCYWEWT/7VAKGAl50suSKvpcjhM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6101
 
-On 2026-05-15 11:12 +0100, Conor Dooley wrote:
-> On Fri, May 15, 2026 at 09:18:00AM +0800, Jia Wang wrote:
-> > Add bindings for the pin controllers on the UltraRISC DP1000 RISC-V SoC.
-> > 
-> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> > ---
-> >  .../bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml | 168 +++++++++++++++++++++
-> >  MAINTAINERS                                        |   7 +
-> >  .../dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h |  65 ++++++++
-> >  3 files changed, 240 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > new file mode 100644
-> > index 000000000000..c7ed1f96382a
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > @@ -0,0 +1,168 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/pinctrl/ultrarisc,dp1000-pinctrl.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: UltraRISC DP1000 Pin Controller
-> > +maintainers:
-> > +  - Jia Wang <wangjia@ultrarisc.com>
-> > +
-> > +description: |
-> > +  UltraRISC RISC-V SoC DP1000 pin controller.
-> > +
-> > +  The binding supports two child node styles under the same controller
-> > +  compatible:
-> > +
-> > +  - legacy DP1000-specific nodes using phandle-array properties
-> > +    `pinctrl-pins` and `pinconf-pins`
-> > +  - generic pinctrl nodes using `pins`, `function` and generic pin
-> > +    configuration properties
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: ultrarisc,dp1000-pinctrl
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  "#pinctrl-cells":
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +
-> > +patternProperties:
-> > +  '.*-pins$':
-> > +    type: object
-> > +    allOf:
-> > +      - $ref: /schemas/pinctrl/pincfg-node.yaml#
-> > +      - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> > +    additionalProperties: false
-> > +    properties:
-> > +      pinctrl-pins:
-> > +        description: |
-> > +          The list of pins and their mux settings that properties in the node
-> > +          apply to. The format: `PORT  PIN  FUNCTION`.
-> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +        minItems: 1
-> > +        maxItems: 32
-> > +      pinconf-pins:
-> > +        description: |
-> > +          The list of pins and their pad configuration that properties in the
-> > +          node apply to. The format: `PORT  PIN  CONF`.
-> > +          CONF is a DP1000-specific encoding of pull and drive strength as
-> > +          defined in dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h.
-> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +        minItems: 1
-> > +        maxItems: 32
-> 
-> These two "legacy" properties are not acceptable, sorry.
->
-
-Understood. Will remove pinconf-pins and pinctrl-pins from the binding in v2.
- 
-> > +      pins:
-> > +        description: List of pins affected by this state node.
-> > +        minItems: 1
-> > +        uniqueItems: true
-> > +        items:
-> > +          type: string
-> > +          pattern: '^(PA([0-9]|1[0-5])|P[BCD][0-7]|LPC([0-9]|1[0-2]))$'
-> 
-> The regex might be neat, but I don't think that it is very
-> user-friendly. It's hard to read this and understand what the pin
-> namings actually are. Could you break this down into multiple patterns,
-> one for each type of pin?
-> I think that would make reading it much simpler.
-> 
-
-Will split the pin regex into separate patterns per pin type in v2 for
-better readability. Thanks.
-
-> > +
-> > +      function:
-> > +        description: |
-> > +          Mux function to select for the listed pins.
-> > +          gpio maps to the hardware default mode. The default mode is
-> > +          GPIO for PA/PB/PC/PD pins and LPC for LPC pins.
-> > +          func1 is not supported on LPC pins.
-> > +        enum:
-> > +          - gpio
-> 
-> > +          - func0
-> > +          - func1
-> 
-> These two do no seem to be very useful to people writing devicetrees.
-> What do func0 and func1 represent? I assume that they represent
-> something different for different pins? For example, maybe qspi for LPC
-> or i2c for PC?
-> 
-
-You're right. I'll replace func0 and func1 with descriptive names based
-on the actual hardware functions (e.g., uart, i2c, spi) in v2. Thanks.
-
-> pw-bot: changes-requested
-> 
-> Cheers,
-> Conor.
->
-
-Best Regards,
-Jia Wang
- 
-> > +
-> > +      bias-disable: true
-> > +      bias-high-impedance: true
-> > +      bias-pull-up: true
-> > +      bias-pull-down: true
-> > +
-> > +      drive-strength:
-> > +        description: Output drive strength in mA.
-> > +        enum: [20, 27, 33, 40]
-> > +
-> > +    oneOf:
-> > +      - allOf:
-> > +          - anyOf:
-> > +              - required: [pinctrl-pins]
-> > +              - required: [pinconf-pins]
-> > +          - not:
-> > +              required: [pins]
-> > +      - allOf:
-> > +          - required: [pins]
-> > +          - not:
-> > +              anyOf:
-> > +                - required: [pinctrl-pins]
-> > +                - required: [pinconf-pins]
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    soc {
-> > +      #address-cells = <2>;
-> > +      #size-cells = <2>;
-> > +
-> > +      pinmux@11081000 {
-> > +        compatible = "ultrarisc,dp1000-pinctrl";
-> > +        reg = <0x0 0x11081000  0x0 0x1000>;
-> > +        #pinctrl-cells = <2>;
-> > +
-> > +        i2c0-pins {
-> > +          pins = "PA12", "PA13";
-> > +          function = "func0";
-> > +          bias-pull-up;
-> > +          drive-strength = <33>;
-> > +        };
-> > +
-> > +        uart0-pins {
-> > +          pins = "PA8", "PA9";
-> > +          function = "func1";
-> > +          bias-pull-up;
-> > +          drive-strength = <33>;
-> > +        };
-> > +      };
-> > +    };
-> > +
-> > +  - |
-> > +    /* Legacy example */
-> > +    #include <dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h>
-> > +
-> > +    soc {
-> > +      #address-cells = <2>;
-> > +      #size-cells = <2>;
-> > +
-> > +      pinmux@11081000 {
-> > +        compatible = "ultrarisc,dp1000-pinctrl";
-> > +        reg = <0x0 0x11081000  0x0 0x1000>;
-> > +        #pinctrl-cells = <2>;
-> > +
-> > +        i2c0-pins {
-> > +          pinctrl-pins = <
-> > +            UR_DP1000_IOMUX_A  12  UR_DP1000_FUNC0
-> > +            UR_DP1000_IOMUX_A  13  UR_DP1000_FUNC0
-> > +          >;
-> > +
-> > +          pinconf-pins = <
-> > +            UR_DP1000_IOMUX_A  12  UR_DP1000_BIAS(UR_DP1000_PULL_UP,
-> > +                                                  UR_DP1000_DRIVE_DEF)
-> > +            UR_DP1000_IOMUX_A  13  UR_DP1000_BIAS(UR_DP1000_PULL_UP,
-> > +                                                  UR_DP1000_DRIVE_DEF)
-> > +          >;
-> > +        };
-> > +
-> > +        uart0-pins {
-> > +          pinctrl-pins = <
-> > +            UR_DP1000_IOMUX_A  8  UR_DP1000_FUNC1
-> > +            UR_DP1000_IOMUX_A  9  UR_DP1000_FUNC1
-> > +          >;
-> > +
-> > +          pinconf-pins = <
-> > +            UR_DP1000_IOMUX_A  8   UR_DP1000_BIAS(UR_DP1000_PULL_UP,
-> > +                                                  UR_DP1000_DRIVE_DEF)
-> > +            UR_DP1000_IOMUX_A  9   UR_DP1000_BIAS(UR_DP1000_PULL_UP,
-> > +                                                  UR_DP1000_DRIVE_DEF)
-> > +          >;
-> > +        };
-> > +      };
-> > +    };
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 5bf971ff48b2..baaaa46b1a56 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -27358,6 +27358,13 @@ S:	Maintained
-> >  F:	drivers/usb/common/ulpi.c
-> >  F:	include/linux/ulpi/
-> >  
-> > +ULTRARISC DP1000 PINCTRL DRIVER
-> > +M:	Jia Wang <wangjia@ultrarisc.com>
-> > +L:	linux-gpio@vger.kernel.org
-> > +S:	Maintained
-> > +F:	Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > +F:	include/dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h
-> > +
-> >  ULTRATRONIK BOARD SUPPORT
-> >  M:	Goran Rađenović <goran.radni@gmail.com>
-> >  M:	Börge Strümpfel <boerge.struempfel@gmail.com>
-> > diff --git a/include/dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h b/include/dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h
-> > new file mode 100644
-> > index 000000000000..bef28115898d
-> > --- /dev/null
-> > +++ b/include/dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h
-> > @@ -0,0 +1,65 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +/*
-> > + * UltraRISC DP1000 pinctrl header.
-> > + *
-> > + * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_PINCTRL_ULTRARISC_DP1000_PINCTRL_H
-> > +#define _DT_BINDINGS_PINCTRL_ULTRARISC_DP1000_PINCTRL_H
-> > +
-> > +/**
-> > + * UltraRISC DP1000 IO pad configuration
-> > + * port: A, B, C, D, LPC
-> > + *     Pin in the port
-> > + * pin:
-> > + *     PA: 0 - 15
-> > + *     PB-PD: 0 - 7
-> > + *     LPC: 0 - 12
-> > + * func:
-> > + *     UR_DP1000_FUNC_DEF: default
-> > + *     UR_DP1000_FUNC0: func0
-> > + *     UR_DP1000_FUNC1: func1
-> > + */
-> > +#define UR_DP1000_IOMUX_A		0x0
-> > +#define UR_DP1000_IOMUX_B		0x1
-> > +#define UR_DP1000_IOMUX_C		0x2
-> > +#define UR_DP1000_IOMUX_D		0x3
-> > +#define UR_DP1000_IOMUX_LPC		0x4
-> > +
-> > +#define UR_DP1000_FUNC_DEF		0
-> > +#define UR_DP1000_FUNC0			1
-> > +#define UR_DP1000_FUNC1			0x10000
-> > +
-> > +/**
-> > + * Configure pull up/down resistor of the IO pin
-> > + * UR_DP1000_PULL_DIS: disable pull-up and pull-down
-> > + * UR_DP1000_PULL_UP: enable pull-up
-> > + * UR_DP1000_PULL_DOWN: enable pull-down
-> > + */
-> > +#define UR_DP1000_PULL_DIS	0
-> > +#define UR_DP1000_PULL_UP	1
-> > +#define UR_DP1000_PULL_DOWN	2
-> > +/**
-> > + * Configure drive strength of the IO pin
-> > + * UR_DP1000_DRIVE_DEF: default value, reset value is 2
-> > + * UR_DP1000_DRIVE_0: 20mA
-> > + * UR_DP1000_DRIVE_1: 27mA
-> > + * UR_DP1000_DRIVE_2: 33mA
-> > + * UR_DP1000_DRIVE_3: 40mA
-> > + */
-> > +#define UR_DP1000_DRIVE_DEF	2
-> > +#define UR_DP1000_DRIVE_0	0
-> > +#define UR_DP1000_DRIVE_1	1
-> > +#define UR_DP1000_DRIVE_2	2
-> > +#define UR_DP1000_DRIVE_3	3
-> > +
-> > +/**
-> > + * Combine the pull-up/down resistor and drive strength
-> > + * pull: UR_DP1000_PULL_DIS, UR_DP1000_PULL_UP, UR_DP1000_PULL_DOWN
-> > + * drive: UR_DP1000_DRIVE_DEF, UR_DP1000_DRIVE_0, UR_DP1000_DRIVE_1,
-> > + *        UR_DP1000_DRIVE_2, UR_DP1000_DRIVE_3
-> > + */
-> > +#define UR_DP1000_BIAS(pull, drive)		(((pull) << 2) | (drive))
-> > +
-> > +#endif /* _DT_BINDINGS_PINCTRL_ULTRARISC_DP1000_PINCTRL_H */
-> > 
-> > -- 
-> > 2.34.1
-> > 
-
-
+SGkgQ2xhdWRpdSwNCg0KT24gMTYvMDUvMjYgOTozNyBwbSwgQ2xhdWRpdSBCZXpuZWEgd3JvdGU6
+DQo+IEVYVEVSTkFMIEVNQUlMOiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50
+cyB1bmxlc3MgeW91IGtub3cgDQo+IHRoZSBjb250ZW50IGlzIHNhZmUNCj4gDQo+IEhpLCBNYW5p
+a2FuZGFuLA0KPiANCj4gT24gNS83LzI2IDExOjQ4LCBNYW5pa2FuZGFuIE11cmFsaWRoYXJhbiB3
+cm90ZToNCj4+IEZyb206IER1cmFpIE1hbmlja2FtIEtSIDxkdXJhaS5tYW5pY2thbWtyQG1pY3Jv
+Y2hpcC5jb20+DQo+Pg0KPj4gQWRkIEkzQyBjb250cm9sbGVyIGZvciBzYW1hN2Q2NSBTb0MuDQo+
+Pg0KPj4gU2lnbmVkLW9mZi1ieTogRHVyYWkgTWFuaWNrYW0gS1IgPGR1cmFpLm1hbmlja2Fta3JA
+bWljcm9jaGlwLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IE1hbmlrYW5kYW4gTXVyYWxpZGhhcmFu
+IDxtYW5pa2FuZGFuLm1AbWljcm9jaGlwLmNvbT4NCj4+IC0tLQ0KPj4gQ2hhbmdlcyBpbiB2MzoN
+Cj4+IC0gUmVtb3ZlIGNsb2NrLW5hbWVzIHByb3BlcnR5IGFzIGRyaXZlciBlbmFibGVzIHRoZSBj
+bGsgaW4gYnVsaw0KPj4NCj4+IMKgIGFyY2gvYXJtL2Jvb3QvZHRzL21pY3JvY2hpcC9zYW1hN2Q2
+NS5kdHNpIHwgOCArKysrKysrKw0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygr
+KQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9taWNyb2NoaXAvc2FtYTdk
+NjUuZHRzaSANCj4+IGIvYXJjaC9hcm0vYm9vdC9kdHMvbWljcm9jaGlwL3NhbWE3ZDY1LmR0c2kN
+Cj4+IGluZGV4IDY3MjUzYmJjMDhkZi4uZWMyMDA4NDhjMTUzIDEwMDY0NA0KPj4gLS0tIGEvYXJj
+aC9hcm0vYm9vdC9kdHMvbWljcm9jaGlwL3NhbWE3ZDY1LmR0c2kNCj4+ICsrKyBiL2FyY2gvYXJt
+L2Jvb3QvZHRzL21pY3JvY2hpcC9zYW1hN2Q2NS5kdHNpDQo+PiBAQCAtMTA1NSw1ICsxMDU1LDEz
+IEBAIGdpYzogaW50ZXJydXB0LWNvbnRyb2xsZXJAZThjMTEwMDAgew0KPj4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICNhZGRyZXNzLWNlbGxzID0gPDA+Ow0KPj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGludGVycnVwdC1jb250
+cm9sbGVyOw0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfTsNCj4+ICsNCj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgaTNjOiBpM2NAZTkwMDAwMDAgew0KPj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29tcGF0aWJsZSA9ICJtaWNyb2NoaXAsc2Ft
+YTdkNjUtaTNjLWhjaSI7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCByZWcgPSA8MHhlOTAwMDAwMCAweDMwMD47DQo+IA0KPiAgRnJvbSBtYW51YWwgYXQgWzFd
+IEkgc2VlIHRoZSBzaXplIG9mIEkzQ0MgcmVnaW9uIGlzIDB4MTAwMC4gVW5sZXNzIHRoYXQgaXMN
+Cj4gd3JvbmcgSSB0aGluayB3ZSBzaG91bGQgdXNlIDB4MTAwMCB0byBwcm9wZXJseSBkZXNjcmli
+ZSBkZSBIVy4gUGxlYXNlIA0KPiBsZXQgbWUNCj4ga25vdyBhbmQgSSBjYW4gZG8gaXQgd2hpbGUg
+YXBwbHlpbmcuDQo+IA0KDQpBY2NvcmRpbmcgdG8gVGFibGUgNzguNiAoUmVnaXN0ZXIgU3VtbWFy
+eSksIHRoZSBJM0NDIHJlZ2lzdGVyIHNwYWNlIA0KZXh0ZW5kcyB1cCB0byBvZmZzZXQgMHgyNTgs
+IElkZWFsbHkgdGhlIG1hcHBpbmcgc2hvdWxkIGhhdmUgYmVlbiAweDQwMCANCihuZXh0IHBvd2Vy
+IG9mIDIgY29uc2lkZXJpbmcgdGhlIG1lbW9yeSByZWdpb24gYWxpZ25tZW50KSwgdXNpbmcgMHgx
+MDAwIA0KaXMgYWxzbyBhY2NlcHRhYmxlLiBQbGVhc2UgYWR2aXNlIHdoaWNoIHZhbHVlIGlzIHBy
+ZWZlcnJlZC4NCg0KPiBUaGFuayB5b3UsDQo+IENsYXVkaXUNCj4gDQo+IFsxXQ0KPiBodHRwczov
+L3d3MS5taWNyb2NoaXAuY29tL2Rvd25sb2Fkcy9hZW1Eb2N1bWVudHMvZG9jdW1lbnRzL01QVTMy
+L1Byb2R1Y3REb2N1bWVudHMvRGF0YVNoZWV0cy9TQU1BN0Q2LVNlcmllcy1EYXRhLVNoZWV0LURT
+NjAwMDE4NTEucGRmDQo+IA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgaW50ZXJydXB0cyA9IDxHSUNfU1BJIDEwNSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsNCj4+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNsb2NrcyA9IDwmcG1j
+IFBNQ19UWVBFX1BFUklQSEVSQUwgMTA1PiwgPCZwbWMgDQo+PiBQTUNfVFlQRV9HQ0sgMTA1PjsN
+Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0YXR1cyA9ICJk
+aXNhYmxlZCI7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07DQo+PiDCoMKgwqDCoMKg
+IH07DQo+PiDCoCB9Ow0KPiANCg0KLS0gDQpUaGFua3MgYW5kIFJlZ2FyZHMsDQpNYW5pa2FuZGFu
+IE0uDQoNCg==
