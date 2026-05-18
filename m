@@ -1,69 +1,107 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210E43002DF;
-	Mon, 18 May 2026 05:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD3738947C
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 05:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779081171; cv=none; b=TfwCHqVY2IJENkfRl3tqqr6A/TAJUVsFDZyxCIrwt7NGjiBlJoX4AP0UMuZ9j+ZoCSOtTfEBLGfnY/OuoJsB4BkYlMSdWBBVcNGbvfxsemBVS3Fbgzp0EBItkswR0wKKqLbRuy5vsDWMVqwYk/MLXUblJ1bMENELn5u3GOK0aCQ=
+	t=1779081404; cv=none; b=BVz2/oaOxISLN26X3V7RJcANVSGB2B8JI9EYNqleID6eDP64kvVPIzxF8v4/ACzRrdwte8yV4xZLaQJ6EEL/7QKg3OF4ttCVCMS+abOJbDJKgdtj8bX6qwNl/L2ME4zg+Un2GldR5DwMJmv+/TGjwhgB8iSrGo8C4OQPB0Q4fhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779081171; c=relaxed/simple;
-	bh=orsPxhonnr/v/HpKuWbDz7ODhFRD0owe77PSgOmgzBo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=B22SkfsXyuvmP+VnL/Vb1a/NSLGU/BFEvP63x7+22XXH7oHXCUAGLLZqTmlk/Lw7eMiw8D8fFC5zv5U6cPfbay8ckdcd9pJHJml73O68tiKRaqPXLt4MJ9VYBWWWgPsOqvFdUzxzhnAC/+nS4zFuM4ERapbQNRFVsCe9Ji3Wvqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=aPKfRaxl; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1779081404; c=relaxed/simple;
+	bh=hOCKadUSTf3cQEUxxUGF55QCfpFY88BMmKN6ZyP3iYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IvYD1Wagqddy2gCgfj6/wIwprepaLHc+V0+8cM003rxkjUYJEnxpZQffwusx36Cyf6Eyf5BqfEzm4/AjoGNmpP6UFatkmhiXPdVjiSmYkcr55mgFGCT21dhShLcxdI9jcwmQN9IQrwFG+cnTXSw3jSHnj2ilLLz4CXwPtqkc9M8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=LkhpJKV/; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="aPKfRaxl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1779081168;
-	bh=i2PykgTZ59OqLYyaVj3A9+ycwaibzO5zZ0kF4EM5pJA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=aPKfRaxlpjRjX1lxwyOR0yHKYT3GuwmduyuUMuIz4evV85Lhyye6c/jHOGUCIdNvB
-	 S5xtRrhGTLc5RP9pZSglxjsFBOPgX3ieP658Ou3ACBnx3XTLEhi7vRzYtNdUxh1jdd
-	 kiCOuVgYeX8VSaa4gw3E7ayvZX/tSsblwiYJLdTckSrGK+HNVPXYVJO6usfs3MkjZV
-	 ojMBo3aCxP9DfhGbNf4LAtgcZsy9ckbl6CdtoSY43nftGwYvVtirenIYoGO6GdO3s8
-	 MokfjlSrD/lpiqfqLxhwqQe02ke9lSoyIK9FhXefC5zhcPSpWJhchdVLbG9MKNNbGA
-	 oSII5YKFtnUgA==
-Received: from [127.0.1.1] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 97F586025D;
-	Mon, 18 May 2026 13:12:47 +0800 (AWST)
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Colin Huang <u8813345@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- colin.huang2@amd.com
-In-Reply-To: <20260511-add-jtag-trst-pin-v1-1-b0be2f7b2da5@gmail.com>
-References: <20260511-add-jtag-trst-pin-v1-1-b0be2f7b2da5@gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: anacapa: add JTAG CPLD TRST pin to
- SGPIO map
-Message-Id: <177908116750.1269230.16667761190075154399.b4-ty@b4>
-Date: Mon, 18 May 2026 14:42:47 +0930
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="LkhpJKV/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=cmB9
+	EF7ivBtKGUG96g1Savi2M0luLEIRM5gfPbIQyiA=; b=LkhpJKV/Wfuy6DaJ9+ka
+	qurX96LoHx9xnrs64dm3h4h1ChxQtKZNoOk1dNSBZAFqo5fhxFDQTTcrdBDXVvHZ
+	Z3T66UGyA270vWeM4+o4Ipw5EeX4xU33tlt7+BB9zulum4DKCGQ/wCSgP+xqJWqN
+	iz+vr99tSYZNzpCK6NtDmMGqe4boElRzaeFvQojwYjAaHd4OnZHtGO7GTWBZWwyi
+	KvCgAMQ7FmP4+47jAnWFa9BqcHAMh4KwfGaq3a0X/I63utx4Oibnmxl26ZWLcUlS
+	nyOopuxl2H+WO+W/YxJKcuoKy/kJr+pM0QH4NdnDTSo5LSIjYn6j9fXthjiNbIwP
+	zg==
+Received: (qmail 869130 invoked from network); 18 May 2026 07:16:30 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 18 May 2026 07:16:30 +0200
+X-UD-Smtp-Session: l3s3148p1@Hz5LqhBSRqQujnuR
+Date: Mon, 18 May 2026 07:16:29 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+	workflows@vger.kernel.org, linux-arch@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, netdev@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-hardening@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	linux-csky@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
+	Hu Haowen <2023002089@link.tyut.edu.cn>,
+	Dinh Nguyen <dinguyen@kernel.org>, Kees Cook <kees@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>, Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Dave Penkler <dpenkler@gmail.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Subject: Re: [PATCH] nios2: remove the architecture
+Message-ID: <agqgrTBkVGBt_f28@ninjato>
+References: <20260518042833.272221-1-enelsonmoore@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518042833.272221-1-enelsonmoore@gmail.com>
 
-On Mon, 11 May 2026 17:47:56 +0800, Colin Huang wrote:
-> Add JTAG_CPLD_TRST_R_N to the sgpiom0 pin name table on
-> Facebook Anacapa BMC.
+On Sun, May 17, 2026 at 09:28:33PM -0700, Ethan Nelson-Moore wrote:
+> The Nios II architecture is a soft-core architecture developed by
+> Altera (since acquired by Intel) and intended to run on their FPGAs.
 > 
-> This exposes the CPLD JTAG TRST signal through SGPIO,
-> allowing proper JTAG reset control during debug.
+> Licenses for the architecture have not been available for purchase
+> since 2024 [1], and support for it has been removed from GCC 15 [2],
+> Buildroot [3], and QEMU [4].
 > 
+> Given all of these factors, it is time to remove Nios II support from
+> the kernel. The maintainer stated in 2024 that they were planning to do
+> so soon [5], but this did not come to pass.
 > 
-> [...]
+> Remove Nios II support from the kernel and move the former maintainer
+> to CREDITS. Thank you, Dinh Nguyen, for maintaining Nios II support!
+> 
+> References:
+> [1] https://docs.altera.com/v/u/docs/781327/is-discontinuing-ip-ordering-codes-listed-in-pdn2312-for-nios-ii-ip
+> [2] https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff;h=e876acab6cdd84bb2b32c98fc69fb0ba29c81153
+> [3] https://github.com/buildroot/buildroot/commit/6775ccc5a199d574ad70b5f79ec58cce97a07c6f
+> [4] https://github.com/qemu/qemu/commit/6c3014858c4c0024dd0560f08a6eda0f92f658d6
+> [5] https://sourceware.org/pipermail/newlib/2024/021083.html
+> 
+> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
 
-Thanks, I've applied this to the BMC tree.
-
--- 
-Andrew Jeffery <andrew@codeconstruct.com.au>
+Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com> # for I2C
 
