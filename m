@@ -1,100 +1,361 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012062.outbound.protection.outlook.com [52.101.53.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914BC480DFC
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779109843; cv=none; b=cixxdGZPxnS0rVfbctcVyqTTO/xzNgjm2PgQxJGJIFdHkT4/jODrYflWfNM5XcJnZVXTJihlIQWEjtflxpyiym5+OTwhH6Y49MnSVQNPPSmMzDUXQzLVOSAvMNKVaHhZvaxIWeLO2pvxnVn9AebCzSDve4O0rkuD8PiJpfPF0sA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779109843; c=relaxed/simple;
-	bh=1AXk/PsHLZHdqKRcxQcA4Z5eUdwbGi8BpeT1xlpLP8w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FLUVI8DoqgJmzKrltv8EV2w9eFYDWLEuhb+/JzOFEQt/9a0EvYY85rpjbySa8CBa2cii5UVdETm1VPieT0QBZzij50Uc68VmE2ag6tLYSR3brXv2K8E742i6gnHTQOi5XJLF2rig9ipMNFGltiJtdYRJHTSsc06DZ/PjhPJ9gpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l10eQXvr; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211082E414;
+	Mon, 18 May 2026 13:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779109909; cv=fail; b=svJSWKB8r5zZcZQ/iBbmUE1pQVdjq+XR8+ocCBqclIoZrJqfdlwFFdRN/SJKqIWqx8ZhxNoKI6hNq9rL60axfBSavoF4tmk6U3gcysNgmrOo2ZmR0ziiuBREKg9nX1qA16telJNM8Ltnf2i7ASXY260cXsns2QNgZKmIqUS0AAc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779109909; c=relaxed/simple;
+	bh=0vHLT64nNahsce8XHf5Lj212GuxX0DKcr0lo7B46w/E=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L75tqgHPJBmNv6EHPXA9z2gXf9EJ9qXWaA5xcItkJSsQ3wEthw3LAbvN+TVcPn4QZgCgN0Jrv+JOUvB+0cWoo7jRx9w4AvbG7C7sRjOJP+X0bMl1rcxZ+zbGHRTsjtWUthLEgnlm/TAWIUZ5squboE3BVzwYq+y1vH2QfIOtN5o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=gyX1mNe3; arc=fail smtp.client-ip=52.101.53.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l10eQXvr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07CDCC2BCB7;
-	Mon, 18 May 2026 13:10:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779109843;
-	bh=1AXk/PsHLZHdqKRcxQcA4Z5eUdwbGi8BpeT1xlpLP8w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=l10eQXvrZdd8EjN9YG4iQE0ixStapRDW1nzqdqczmT2rdXx3RhUHyHPv2uxjt0yPg
-	 JKl5NH5liZHp1gIITTkmu2o43UakKlVGS6gvzgBIbJsL0vg8ifOha6rB41pAAFdrtA
-	 eiE4cslmyj0+3lfiRiezMiStMf+K/WSrz6MUr1nmj4rFfptB5A8yJWA2KdCh/GKF6m
-	 ENVRWFHFnvVknduHMx18BQ+i+Gu7lpBcXrvkhDUVnPZZKaWuwinh2gr8qS88SmXGLJ
-	 vHqxwg3uN3FoLh8NZcAMGnLeE25lnZ9eNNNJwk4ks3wLCrO9ou75VKMEw5/NT2rvT0
-	 oHUSUCM62R85g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: memory: tegra264: Add full set of
- MC client IDs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sumit Gupta" <sumitg@nvidia.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518124306.2071481-3-sumitg@nvidia.com>
-References: <20260518124306.2071481-3-sumitg@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 13:10:42 +0000
-Message-Id: <20260518131043.07CDCC2BCB7@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="gyX1mNe3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CsYLP3Ind84rQrOGm/1CsLXUi67s/TJHUP54BERlimXaViagk/uBym8U2gkqBaRQvT4RfjjKnZgxpO91axnwBcxJr3fZ9kZ4fM3nxvGGPp09lQqiuA+DEotR22/fEZXyw1lCK54+HtZJjMzT7eSPNwlw1Vmvc0Jeuwo/O6uhharBsqcitlpdOtklG90EjnoZq7k9dSVG+ohg7QRdI7pBEBa0MnN0q0wws654jsbvXsLJ+J4xfprqHOwzf0qoUmLJHZXv1unF1JAHUL/6EglPN1L9ILDY2zuu58rh88mqIRI7UsUT1UJBj4+dJOiLIOCszgxst7S1IVfmxcT+jUJKEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=komgnNDlnLmJ/J1MdSAHqHWZaLQI8RsIwYhp36n6zQ4=;
+ b=iElSRVECkmSwHcI1VmX9BThn1jKGe0bWO1KsDuQKCfceh5VlbFD4cTR80pdPzkQ/ZrN7EX1bGWUc0m/XjISTnx82XF24aNMuRIDjf+3PnepguSdfHOdTn/xCGyOaGBMO/WYgIHK40C+ayUZaygziBFbe5wZuZo9eJeU7iRswjM2hZUe89oi6DkYpLg0yIYVPxnyD9jguBvPX0z4WniQwHW3acDFGicsb3b2/dF3gSLX+35OBaXCOc+feAVCk5cH8syRiSl5acDjgHrgggRduS3Pec3Gw4thsnxMN2P2+wWgV2ko2+G4t1p9PZUxGBJDz0Xhhx9nRd3UPonudQ6f2OA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=komgnNDlnLmJ/J1MdSAHqHWZaLQI8RsIwYhp36n6zQ4=;
+ b=gyX1mNe3HiGkhuxQq0zlknQy/uka0Q0URVqmy+iRvU4BQHinaqzmRxjyYF7nQIBwA0+92de6VucM5Q58yDB4QluOhzN0pIAN+UCCo9NDkKhNDE9ySz1hLGbs7L0AJ0QoP509FF+RdnfyN12D2A4btGQRuXTAyDVrUXWr1m+QNQc=
+Received: from MW4PR03CA0059.namprd03.prod.outlook.com (2603:10b6:303:8e::34)
+ by PH7PR10MB7837.namprd10.prod.outlook.com (2603:10b6:510:304::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Mon, 18 May
+ 2026 13:11:40 +0000
+Received: from MWH0EPF000C6185.namprd02.prod.outlook.com
+ (2603:10b6:303:8e:cafe::60) by MW4PR03CA0059.outlook.office365.com
+ (2603:10b6:303:8e::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.24 via Frontend Transport; Mon, 18
+ May 2026 13:11:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ MWH0EPF000C6185.mail.protection.outlook.com (10.167.249.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 13:11:38 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 18 May
+ 2026 08:11:37 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 18 May
+ 2026 08:11:37 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Mon, 18 May 2026 08:11:37 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64IDBb8l1932694;
+	Mon, 18 May 2026 08:11:37 -0500
+Date: Mon, 18 May 2026 08:11:37 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Judith Mendez <jm@ti.com>
+CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Andrew Davis
+	<afd@ti.com>, Bryan Brattlof <bb@ti.com>, Jason Kridner <jkridner@gmail.com>,
+	Robert Nelson <robertcnelson@gmail.com>
+Subject: Re: [PATCH v4 2/3] arm64: dts: ti: Add k3-am62l3-beaglebadge
+Message-ID: <20260518131137.zazw4xf6n7ftil6l@predator>
+References: <20260515153541.294698-1-jm@ti.com>
+ <20260515153541.294698-3-jm@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260515153541.294698-3-jm@ti.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6185:EE_|PH7PR10MB7837:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19a9d457-09e3-4f67-9ed1-08deb4deff04
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|13003099007|56012099003|22082099003|18002099003|3023799003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	zuShLiGLask6VOb7uOAzu3E8hF83TgdnjEf9XaOIQBaZOW9QHnrv7l5b7XGGnyV7IcRGv3WhqjF2zxBZXToF0OL7ZCbPIlf3mBCpDVQ8Z2qMjKs9GY+2zlnsxgxoUFnn9H4I1cM55zZdq8hjAoNEnJxzOpgmJARyPFvC4Jl5SbGxLxeLbvqf8j+gGvibK3KS7KhmKd4mRTJ+LxTIXs1LL/AeEh0JNwshDwWwwgBYlSlkSTtcaE05NX0O7p9oreE1y0+ee8rTs8ElWBD6KGTZ9kklu8rXaEpfkZ3dqJ0a9F5FI0j7fPqZwfOzNL7y6TSq2Qhrqd3OlmFGR2b+wP7P8z6sbl+U0QujPELT03phc/GXk/x8f3r5SUKXHBpLR2IaG429pAAH7NdSE6grLtfx+H3uyeyNXBAak6vbzu66kFUpLkxVlLo5dVGD2wFF9jcnkMSzMYtThfBXTR9LJRYL1SE4X1rrqx7eC1/t6OOOs1/n6qhBNr0LzGIoGWbIZbRFvN51xJCeQSbUqmHwMmnYUG+jc3xgxjxofLUmnsc2sEZHbR5TWoZqPQSqZfw9Df12jihH/LsZcVI6TcHuVMOqM6DpIJiaWMIOLt9iiKbUjnibW5Ta3NPjt1SwO7juZ0q3K/RumizeJnjrzyrGH81AsiH/dgh0Bk9N9DcspDUR6anBs9ntDdb7wKndV/ok7iDz
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(13003099007)(56012099003)(22082099003)(18002099003)(3023799003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	e+4nBDpaTJ1KNFRvJ1MhXwuaDRiCh4Jboo3bqs+KcYdpTQyaJkLaBLmv6ZPVEp2b9eZb49rWKfPcB8zDyqsaSVlOvXNfK0vV2pxWMLJDoaTcMJiE6LTr0uSnCGT83S1CsVM5YAkoOa2cioksnKC6WMyp/jQrRAx7Ck9qd6sDRxZmuRpvQf931a+Wz+FJfSE/TQPkQu27EtEp+pa2690mMjYEWVNHLp4MVduMWado2Wv1JgPehi+0FKhFy3NIlmv6MfG8hH1Vp+1H/SwctS570+9uAtz1eLDbiOpnYdi/cb6TV0fuiNA+FENoxdF+Oyoe1GrUwMBQXrdxqLFjq/WitBoJJxYwRk4emjMCyES8I9sqlwieU0YwnVNl1O1lj6uuB8tgfpbjUX/oXKMBGHXmI7qG8Tb7qlduXqJkNXiScGu76I+AWgkE4hEDfOpIJLBu
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 13:11:38.6082
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19a9d457-09e3-4f67-9ed1-08deb4deff04
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6185.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB7837
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The macros for the XUSB HOST memory clients are incorrectly name=
-d as `XUSB_DEV`.
---
+On 10:35-20260515, Judith Mendez wrote:
+> BeagleBoard.org BeagleBadge is a compact, affordable open source
+> hardware single board computer based on the Texas Instruments AM62L3
+> SoC designed for IoT and embedded applications with low power
+> consumption. Expansion is provided over open standards based headers
+> including QWIIC and GPIO interfaces.
+> 
+> https://github.com/beagleboard/BeagleBadge
 
-commit f7f5816878d7a2d26ed25199c9ab18008b75aa76
-Author: Sumit Gupta <sumitg@nvidia.com>
+Why not use https://www.beagleboard.org/boards/beaglebadge ?
+> 
+> Co-developed-by: Andrew Davis <afd@ti.com>
+> Signed-off-by: Andrew Davis <afd@ti.com>
+> Signed-off-by: Judith Mendez <jm@ti.com>
+> ---
+> Changelog since v3:
+> - Add missing newline in commit message
+> - Drop beagleboard URL
+> - Drop uneeded header files
+> - Add boothph flags in wkup_i2c0 & PMC nodes
+> ---
+>  arch/arm64/boot/dts/ti/Makefile               |   1 +
+>  .../boot/dts/ti/k3-am62l3-beaglebadge.dts     | 700 ++++++++++++++++++
+>  2 files changed, 701 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
+> 
+> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+> index 5269c9619b65c..4e377ca011cd8 100644
+> --- a/arch/arm64/boot/dts/ti/Makefile
+> +++ b/arch/arm64/boot/dts/ti/Makefile
+> @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62d2-evm.dtb
+>  
+>  # Boards with AM62Lx SoCs
+>  dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm.dtb
+> +dtb-$(CONFIG_ARCH_K3) += k3-am62l3-beaglebadge.dtb
+>  
+>  # Boards with AM62Px SoC
+>  dtb-$(CONFIG_ARCH_K3) += k3-am62p5-sk.dtb
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
+> new file mode 100644
+> index 0000000000000..30fc9c83b1f44
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
+> @@ -0,0 +1,700 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * https://www.beagleboard.org/boards/beaglebadge
+> + *
+> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
 
-dt-bindings: memory: tegra264: Add full set of MC client IDs
+Seeing the tags, I assume no BeagleBoard.org member contributions?
 
-This commit adds the complete set of TEGRA264_MEMORY_CLIENT_* IDs
-exposed by the Tegra264 memory controller.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include "k3-am62l3.dtsi"
+> +#include "k3-pinctrl.h"
+> +
+> +/ {
+> +	compatible = "beagle,am62l3-beaglebadge", "ti,am62l3";
+> +	model = "BeagleBoard.org BeagleBadge";
+> +
+> +	chosen {
+> +		stdout-path = &uart0;
+> +	};
+> +
+> +	aliases {
+> +		gpio0 = &gpio0;
+> +		gpio2 = &wkup_gpio0;
+> +		i2c0 = &i2c0;
+> +		i2c1 = &i2c1;
+> +		i2c2 = &i2c2;
+> +		i2c4 = &wkup_i2c0;
+> +		mmc1 = &sdhci1;
+> +		mmc2 = &sdhci2;
+> +		serial3 = &uart1;
+> +		usb0 = &usb0;
+> +		usb1 = &usb1;
 
-> diff --git a/include/dt-bindings/memory/nvidia,tegra264.h b/include/dt-bi=
-ndings/memory/nvidia,tegra264.h
-> index 521405c01f84c..c65403a764134 100644
-> --- a/include/dt-bindings/memory/nvidia,tegra264.h
-> +++ b/include/dt-bindings/memory/nvidia,tegra264.h
-[ ... ]
-> @@ -108,16 +194,140 @@
->  #define TEGRA264_MEMORY_CLIENT_PCIE5R		0xe2
->  /* PCIE5/DMX4 Write clients */
->  #define TEGRA264_MEMORY_CLIENT_PCIE5W		0xe3
-[ ... ]
->  /* UFS Read client */
->  #define TEGRA264_MEMORY_CLIENT_UFSR		0x15c
->  /* UFS write client */
->  #define TEGRA264_MEMORY_CLIENT_UFSW		0x15d
-> +/* XUSB HOST Read Client */
-> +#define TEGRA264_MEMORY_CLIENT_XUSB_DEVR	0x166
-> +/* XUSB HOST Write Client */
-> +#define TEGRA264_MEMORY_CLIENT_XUSB_DEVW	0x167
+is this valid?
+git grep of_alias_ driver/usb/
 
-Should these macros be named TEGRA264_MEMORY_CLIENT_XUSB_HOSTR and
-TEGRA264_MEMORY_CLIENT_XUSB_HOSTW instead?
+am I missing something?
 
-The inline comments document them as XUSB HOST clients, but the macro names
-use DEV. Previous Tegra generations typically separate the host and device
-endpoints using HOSTR/HOSTW and DEVR/DEVW.
+> +	};
+> +
+> +	memory@80000000 {
+> +		/* 256MB */
+> +		reg = <0x00000000 0x80000000 0x00000000 0x10000000>;
+> +		device_type = "memory";
+> +		bootph-all;
+> +	};
+> +
+> +	thermal-zones {
+> +		wkup0-thermal {
+> +			polling-delay-passive = <250>;	/* milliSeconds */
+> +			polling-delay = <500>;		/* milliSeconds */
+> +			thermal-sensors = <&vtm0 0>;
+> +
+> +			trips {
+> +				crit0 {
+> +					temperature = <125000>;
+> +					hysteresis = <2000>;
+> +					type = "critical";
+> +				};
+> +			};
+> +		};
+> +	};
 
-Since device tree bindings constitute public ABI, could using DEV for the
-host endpoints cause confusion for future drivers mapping the interconnect
-paths?
+This is better done by having something like
+arch/arm64/boot/dts/ti/k3-am62l-industrial-thermal.dtsi
 
-> +/* XUSB SS0 Read Client */
-> +#define TEGRA264_MEMORY_CLIENT_XUSB_DEV1R	0x168
-> +/* XUSB SS1 Write Client */
-> +#define TEGRA264_MEMORY_CLIENT_XUSB_DEV2W	0x169
-[ ... ]
+[..]
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518124306.2071=
-481-1-sumitg@nvidia.com?part=3D2
+> +
+> +	sensor_3v3: regulator-4 {
+> +		/* TPS22918DBVR */
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "Sensor_3V3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		vin-supply = <&vdd_3v3>;
+> +		regulator-boot-on;
+> +		regulator-always-on;
+
+Why sensor supply is always on?
+
+> +		enable-active-high;
+> +		gpio = <&wkup_gpio0 1 GPIO_ACTIVE_HIGH>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&sensor_3v3_ena_pins_default>;
+> +		bootph-all;
+> +	};
+> +
+> +	wlan_en: regulator-5 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "wlan_en";
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-max-microvolt = <1800000>;
+> +		enable-active-high;
+> +		gpios = <&gpio0 51 GPIO_ACTIVE_HIGH>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&wlan_en_pins_default>;
+> +	};
+> +};
+> +
+
+[..]
+
+> +
+> +	usr_button_pins_default: usr-button-default-pins {
+> +		pinctrl-single,pins = <
+> +			AM62LX_IOPAD(0x00a4, PIN_INPUT, 7) /* (H18) GPMC0_AD11.GPIO0_26 */
+> +			AM62LX_IOPAD(0x01e4, PIN_INPUT, 7) /* (D16) EXT_REFCLK1.GPIO0_104 */
+> +			AM62LX_IOPAD(0x00c0, PIN_INPUT, 7) /* (N19) GPMC0_ADVn_ALE.GPIO0_32 */
+> +			AM62LX_IOPAD(0x00e8, PIN_INPUT, 7) /* (L19) GPMC0_CSn1.GPIO0_42 */
+> +			AM62LX_IOPAD(0x00b8, PIN_INPUT, 7) /* (L21) GPMC0_CLK.GPIO0_31 */
+> +			AM62LX_IOPAD(0x01c0, PIN_INPUT, 7) /* (B13) UART0_RTSn.GPIO0_95 */
+> +		>;
+> +	};
+
+no wakeup from usr buttons?
+
+[...]
+
+> +};
+> +
+> +&gpio0 {
+> +	gpio-line-names ="","","","","","","","","","",									/* 0-9 */
+
+space after that =
+
+> +			 "","","","","","BOOST_5V_ENA","VDD_3V3_SD_ENA","","","",					/* 10-19 */
+> +			 "","","","","","MCP23S18_RESET","BTN_SELECT","","","",						/* 20-29 */
+> +			 "","BTN_LEFT","BTN_UP","","LORA_RESET","","","","","",						/* 30-39 */
+> +			 "FUEL_GAUGE_BATLOW","LORA_RFSW","BTN_DOWN","USB_HUB_RST","MIKROBUS_INT","","","","","",	/* 40-49 */
+> +			 "","WLAN_EN","","","","","","","","",								/* 50-59 */
+> +			 "","","","","","","","","","",									/* 60-69 */
+> +			 "","","","","","","","","","",									/* 70-79 */
+> +			 "","","","","MIKROBUS_RST","","","","LORA_BUSY","",						/* 80-89 */
+> +			 "","","","","LORA_DIO","BTN_RIGHT","","","","",						/* 90-99 */
+> +			 "","","","","BTN_BACK","","","","","",								/* 100-109 */
+> +			 "","","","","","","","","","",									/* 110-119 */
+> +			 "","","SD_CD","","","";									/* 120-125 */
+
+Could you keep these under 100 chars?
+
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&gpio0_pins_default>, <&usr_button_pins_default>, <&lora_control_pins_default>;
+> +	bootph-all;
+> +	status = "okay";
+> +};
+> +
+> +&wkup_gpio0 {
+> +	gpio-line-names ="","SENSOR_3V3_ENA","","","","","","";								/* 0-7 */
+
+same
+
+> +	bootph-all;
+> +	status = "okay";
+> +};
+> +
+> +&sdhci1 {
+> +	/* SD/MMC */
+> +	vmmc-supply = <&vdd_3v3_sd>;
+> +	disable-wp;
+> +	cd-gpios = <&gpio0 122 GPIO_ACTIVE_LOW>;
+> +	cd-debounce-delay-ms = <100>;
+> +	ti,fails-without-test-cd;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&mmc1_pins_default>;
+> +	bootph-all;
+> +	status = "okay";
+> +};
+> +
+> +&sdhci2 {
+> +	vmmc-supply = <&wlan_en>;
+> +	bus-width = <4>;
+> +	non-removable;
+> +	cap-power-off-card;
+> +	keep-power-in-suspend;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&mmc2_pins_default>;
+> +	ti,driver-strength-ohm = <50>;
+> +	ti,fails-without-test-cd;
+> +	status = "okay";
+> +};
+
+Why not introduce the sdhci2 and supplies once we get wlan driver in
+upstream?
+
+[...]
+
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
