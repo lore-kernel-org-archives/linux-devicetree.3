@@ -1,357 +1,135 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BEAC2EA
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F555311C35
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779111177; cv=none; b=RG5wAuyiDKsb5V7I/RFdfNX3D/1l65H/CpURdsuXhk8nbwYCu2+6DNfDUQcCK66I7rxjJFBJyuQDdQE1ATc50USFq5ib5IgtQVBcy+3exLKOXlusPUp9oNlUYag+CvjAHRNN+Sh7rnER0eB6dL2RN8JR0l37Q/dmjGApyA3Ldmw=
+	t=1779111189; cv=none; b=e4Pgdz2CTzTgaiqPMXduyA2an5eMAN3S7lqKqPo+lnqOofLkbr/1X6sy28Iy3Az29SdZx63qATsgFmIvpLrf7DPmEUy+IotKY2mSgtD1+wjS577YLqeezuKo9eVOQlJCu/2veCrs2TkFcT1lC9d59FXHq6NBxr8YQRVkxSGoTbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779111177; c=relaxed/simple;
-	bh=tIO0FwL6Rf+Gh5rHDXFh8Lu03ijsVNx56h8Ri692Fus=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=prPh8G59VIopYZ0Ihx+EpGGPy5uqD40gmptW2NbDgKUMo8ddDUQO4fHgR/GLzTtJi71VO2CeSaWqoCHdQSKUDkdiZBVuqwAaAofUqsYhkSfnC4qmdyLSZ7HWQbUNLS4Ovb5YNxHHu+3LJBb7h49gqmnCxItkXMFqQc9ip8dSlvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pLO2vSfj; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779111189; c=relaxed/simple;
+	bh=BEd35gZJ+lhW/n+YaH7VvlzZWiXmk3JVRvXBdLig7/M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jk6pqKH3f8rEzjd7RIywQKfVKpcdXnFhVtz0GOyHSBcoxKtm4Qho2B+k4sHOXMqpznLC0Cfyi1F+wGGq/ns31LVBccDOhLQo7vdCX4Tge00H38lissyev/xJUR5Lacq0M2pI2GtoK2v53m+hF4qnk+U2vEyBCLlRnN3a4563kCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRWZVZpv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pLO2vSfj"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a8d1f43432so4035038e87.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:32:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779111174; x=1779715974; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=b2hnj4S14R2EgiswMqZCyq8YIJqNclQ6RbOweMiuRYU=;
-        b=pLO2vSfj5zQJRu9AMYc6pbB/oXrLvQDI0/Hyew9HskQiL5sTuezurmefwwpW30iU/m
-         BuEeVy/fv814FZ5IUg8TVLrV3WCOZ0VCNwx70nvsNL/guq4qGPWKIr3Tj/PU60eC3sj9
-         rKKQttJ55kex4G4uANaQg+wAvdMmIVnLlG6n+AG6qUz/TaLHnBNZ54DqqIANqj0jQdxd
-         seleBJkLJWLH1ZDaUp2dGzXpRZUnWwORKlyhJ7f8Tztm6JRAhqWF9ZpLAtcyi3JiZuHS
-         CyQwsEk3wESR3bpx5pdpnroDqydbyv02cbcN4mxE7ic2H6qwoYnQuFg0dfF+yauEb0dN
-         wtAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779111174; x=1779715974;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=b2hnj4S14R2EgiswMqZCyq8YIJqNclQ6RbOweMiuRYU=;
-        b=fHlHX4HmyF66PlkZWZk4P+3aeniW2tOjb4NiCjmtuy1Nj0rMAYZrbX34pCWMva50ZB
-         iszdKDPBPeuPBnKue77IMsK2lLHEiYt7xaSBnc11lQi3+MgaIO+cbQflzTYii+LnwqBo
-         B/3/9IXJi8SgLBggEw+uqa6EBfm/bONU64TuNPPMrmbLUtGeXh6padWz2PBwzhM9kr2r
-         D5ilco1M5iO0lg5GrE4YHHv0t8YrHIpEJ0DN6VPwVTSm/nMOiO4ae2Lvw7fBy9htv1oB
-         gHDvZ9RAIN8NuC32JdRjRgIeccbA5fpbMyT29qQAPYQiC/rETc3iaxgtJGpqfPk3g8+x
-         yR9g==
-X-Forwarded-Encrypted: i=1; AFNElJ82u5EiFKVO4UxOBVWZO2EVXn8tP6Z6tciZl8KLX5UR/avRiPXnYI0cpY64JoXcuBQuENtpgXJpGAZn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOAeZBG7HpXRCzfH0/E70C4r6Ni/6/LlKDglFsVIw3lM2pfmKN
-	fAwIxlANa/VhdX9xC6ydYLiA6YMabCTkJ86WRb1aBp4v+Y/bhj7dCWvL
-X-Gm-Gg: Acq92OH/eaFBjEP5OrYEiAi9MaGFG1guR62enRgfWbeKxY7kcucEgPkdZUryhNI2z5b
-	TvO5T1pAWH4O/dLqUnA0HAK5mTocIlAAiPi6hFmjP/GYmce+8kq2hMXBHbzMARDpvjwbSo7M1X6
-	XNMiqQHs2QAujfyubibgib6FFuVSEVmai70yVoH1TMuUnVNNV7OWzIS/fzvbWCyDCX53Z4Ozgf6
-	SnoBNlZiPBGGkmmXjQqq+iAz5MrF8RgS430F7jZzBzLtq2KynzeCa6yZvQQGqu7AvW4KsfsH4xw
-	f65ddmfcgDhhytnJgBBMBw8FpIgELOiAvG1mmdn8/oC3XetoJHPC4cym9eiwO3uESyOQjtz1YgL
-	8NvbLqBRlXU1DGUWMFS95RBtpxBYitcghVJ7fxgGXIuZmGL2Oy4waOcZ+wcgfui8w3qoE6s6TeM
-	J8IjN3CwhRwyR8PpdWXqRVV/YeKzxVHL5MvWMsM8F4XUY=
-X-Received: by 2002:a05:6512:1594:b0:5a8:9756:f6b8 with SMTP id 2adb3069b0e04-5aa0e7429a9mr4641107e87.35.1779111173600;
-        Mon, 18 May 2026 06:32:53 -0700 (PDT)
-Received: from [10.38.18.54] ([213.255.186.37])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a90f10c944sm3424294e87.6.2026.05.18.06.32.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 May 2026 06:32:53 -0700 (PDT)
-Message-ID: <3887db1c-235e-4398-8310-39bb1c93820f@gmail.com>
-Date: Mon, 18 May 2026 16:32:51 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRWZVZpv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8B11C2BCC6;
+	Mon, 18 May 2026 13:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779111189;
+	bh=BEd35gZJ+lhW/n+YaH7VvlzZWiXmk3JVRvXBdLig7/M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=TRWZVZpvMzeNIIemDTj/faLVoUVucHFyukUqgELvrgBalXNERDqBIQnc1CXLaaXNl
+	 +84TwADa/39azEphPo+rJa+hIM3AwsQe4ibgqUS6idEjjytM6dXiZJp/7HSxdz6U9d
+	 VEuPQBjJuBmlm5puU3yruHQTTing89K1v0u+uu64tPxKPER7MwPdCaYIw8psfALk4/
+	 zbDs+kd6m2RvRSxiubKlv+bmU2iG1XTqfFJmNNIn6u6zG+CIeQAt38fVEBEiO2VnUr
+	 EuEiBEf2wRHvnWn01VCwsElH3jaUicoFOiCSTYwHQk11aX44AtNpfuFhOWSvW8a1se
+	 7lHC/UTW5hz0Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] memory: tegra264: Add full set of MC clients
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sumit Gupta" <sumitg@nvidia.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260518124306.2071481-4-sumitg@nvidia.com>
+References: <20260518124306.2071481-4-sumitg@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 13:33:08 +0000
+Message-Id: <20260518133308.E8B11C2BCC6@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] iio: light: add support for veml6031x00 ALS series
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
- <20260513-veml6031x00-v2-4-4703ca661a1d@gmail.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20260513-veml6031x00-v2-4-4703ca661a1d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 13/05/2026 07:49, Javier Carrasco wrote:
-> These sensors provide two light channels (ALS and IR), I2C communication
-> and a multiplexed interrupt line to signal data ready and configurable
-> threshold alarms.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Newly added BPMP-managed memory clients are missing their `.bpmp_i=
+d` and `.type` interconnect properties.
+--
 
-Thanks for the patch! I did only a very quick review, sorry for that. 
-Overall this looks nice! I think Jonathan already asked about the 
-atomics - I agree it looks like locking might be needed.
+commit 1230942ec14ede13ea86a9f95a6ff94371903b6d
+Author: Sumit Gupta <sumitg@nvidia.com>
 
-Anyways, the GTS usage (at a glance) looked nice! :) Just very minor 
-questions below.
+memory: tegra264: Add full set of MC clients
 
-Yours,
-	-- Matti
+This commit extends the tegra264_mc_clients table to include the full set of
+memory clients exposed by the SoC. The commit message notes that clients
+managed by the BPMP bandwidth manager additionally carry their bpmp_id and
+type.
 
-> 
-> Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-> ---
->   MAINTAINERS                     |    6 +
->   drivers/iio/light/Kconfig       |   14 +
->   drivers/iio/light/Makefile      |    1 +
->   drivers/iio/light/veml6031x00.c | 1193 +++++++++++++++++++++++++++++++++++++++
->   4 files changed, 1214 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2fb1c75afd16..47da46717c16 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28381,6 +28381,12 @@ S:	Maintained
->   F:	Documentation/devicetree/bindings/iio/light/vishay,veml6046x00.yaml
->   F:	drivers/iio/light/veml6046x00.c
->   
-> +VISHAY VEML6031X00 AMBIENT LIGHT SENSOR DRIVER
-> +M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
+> diff --git a/drivers/memory/tegra/tegra264.c b/drivers/memory/tegra/tegra=
+264.c
+> index e628908417255..b8d6c4ce48369 100644
+> --- a/drivers/memory/tegra/tegra264.c
+> +++ b/drivers/memory/tegra/tegra264.c
+[ ... ]
+> @@ -21,45 +21,62 @@
+>   */
+>  static const struct tegra_mc_client tegra264_mc_clients[] =3D {
+[ ... ]
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_MGBE2R,
+> +		.name =3D "mgbe2r",
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_OFAR2MC,
+> +		.name =3D "ofar2mc",
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_OFAW2MC,
+> +		.name =3D "ofaw2mc",
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_MGBE2W,
+> +		.name =3D "mgbe2w",
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_MGBE3R,
+> +		.name =3D "mgbe3r",
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_MGBE3W,
+> +		.name =3D "mgbe3w",
 
-Is this needed? I was (once upon a time) asked to drop the binding doc 
-file from the MAINTAINERS because the binding doc contains the 
-maintainer information. Not sure if it is used by the get_maintainer.pl 
-though, so maybe this is Ok?
+Are the new MGBE2 and MGBE3 clients missing their interconnect properties?
 
-> +F:	drivers/iio/light/veml6031x00.c
-> +
->   VISHAY VEML6075 UVA AND UVB LIGHT SENSOR DRIVER
->   M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
->   S:	Maintained
-> diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-> index eff33e456c70..b99f4e8d9a70 100644
-> --- a/drivers/iio/light/Kconfig
-> +++ b/drivers/iio/light/Kconfig
-> @@ -713,6 +713,20 @@ config VEML6030
->   	  To compile this driver as a module, choose M here: the
->   	  module will be called veml6030.
->   
-> +config VEML6031X00
-> +	tristate "VEML6031X00 ambient light sensor series"
-> +	select REGMAP_I2C
-> +	select IIO_BUFFER
-> +	select IIO_TRIGGERED_BUFFER
-> +	select IIO_GTS_HELPER
-> +	depends on I2C
-> +	help
-> +	  Say Y here if you want to build a driver for the Vishay VEML6031X00
-> +	  ambient light sensor series.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called veml6031x00.
-> +
->   config VEML6040
->   	tristate "VEML6040 RGBW light sensor"
->   	select REGMAP_I2C
-> diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-> index c0048e0d5ca8..a8cc03cfb6c2 100644
-> --- a/drivers/iio/light/Makefile
-> +++ b/drivers/iio/light/Makefile
-> @@ -66,6 +66,7 @@ obj-$(CONFIG_VCNL4000)		+= vcnl4000.o
->   obj-$(CONFIG_VCNL4035)		+= vcnl4035.o
->   obj-$(CONFIG_VEML3235)		+= veml3235.o
->   obj-$(CONFIG_VEML6030)		+= veml6030.o
-> +obj-$(CONFIG_VEML6031X00)	+= veml6031x00.o
->   obj-$(CONFIG_VEML6040)		+= veml6040.o
->   obj-$(CONFIG_VEML6046X00)	+= veml6046x00.o
->   obj-$(CONFIG_VEML6070)		+= veml6070.o
-> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
-> new file mode 100644
-> index 000000000000..c7808768f45a
-> --- /dev/null
-> +++ b/drivers/iio/light/veml6031x00.c
-> @@ -0,0 +1,1193 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * VEML6031X00 Ambient Light Sensor
-> + *
-> + * Copyright (c) 2026, Javier Carrasco <javier.carrasco.cruz@gmail.com>
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/units.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/sysfs.h>
-> +#include <linux/iio/events.h>
-> +#include <linux/iio/trigger.h>
-> +#include <linux/iio/trigger_consumer.h>
-> +#include <linux/iio/triggered_buffer.h>
-> +#include <linux/iio/iio-gts-helper.h>
-> +
-> +/* Device registers */
-> +#define VEML6031X00_REG_CONF0       0x00
-> +#define VEML6031X00_REG_CONF1       0x01
-> +#define VEML6031X00_REG_WH_L        0x04
-> +#define VEML6031X00_REG_WH_H        0x05
-> +#define VEML6031X00_REG_WL_L        0x06
-> +#define VEML6031X00_REG_WL_H        0x07
-> +#define VEML6031X00_REG_ALS_L       0x10
-> +#define VEML6031X00_REG_ALS_H       0x11
-> +#define VEML6031X00_REG_IR_L        0x12
-> +#define VEML6031X00_REG_IR_H        0x13
-> +#define VEML6031X00_REG_ID_L        0x14
-> +#define VEML6031X00_REG_ID_H        0x15
-> +#define VEML6031X00_REG_INT         0x17
-> +
-> +/* Bit masks for specific functionality */
-> +#define VEML6031X00_ALL_CH_MASK     GENMASK(1, 0)
-> +#define VEML6031X00_CONF0_SD        BIT(0)
-> +#define VEML6031X00_CONF0_AF_TRIG   BIT(2)
-> +#define VEML6031X00_CONF0_AF        BIT(3)
-> +#define VEML6031X00_CONF1_IR_SD     BIT(7)
-> +#define VEML6031X00_INT_TH_H        BIT(1)
-> +#define VEML6031X00_INT_TH_L        BIT(2)
-> +#define VEML6031X00_INT_DRDY        BIT(3)
-> +#define VEML6031X00_INT_MASK        (VEML6031X00_INT_TH_L | \
-> +				     VEML6031X00_INT_TH_H | \
-> +				     VEML6031X00_INT_DRDY)
-> +
-> +/* Autosuspend delay */
-> +#define VEML6031X00_AUTOSUSPEND_MS  2000
-> +
-> +enum veml6031x00_scan {
-> +	VEML6031X00_SCAN_ALS,
-> +	VEML6031X00_SCAN_IR,
-> +	VEML6031X00_SCAN_TIMESTAMP,
-> +};
-> +
-> +struct veml6031x00_rf {
-> +	struct regmap_field *gain;
-> +	struct regmap_field *int_en;
-> +	struct regmap_field *it;
-> +	struct regmap_field *pd_div4;
-> +	struct regmap_field *pers;
-> +};
-> +
-> +struct veml6031x00_chip {
-> +	const char *name;
-> +	const int part_id;
-> +};
-> +
-> +struct veml6031x00_data {
-> +	struct device *dev;
-> +	struct iio_gts gts;
-> +	struct regmap *regmap;
-> +	struct iio_trigger *trig;
-> +	struct veml6031x00_rf rf;
-> +	const struct veml6031x00_chip *chip;
-> +	/* serialize access to irq enable/disable by events and trigger */
-> +	struct mutex lock;
-> +	atomic_t int_users;
-> +	bool ev_en;
-> +	bool trig_en;
-> +};
-> +
-> +static const struct iio_itime_sel_mul veml6031x00_it_sel[] = {
-> +	GAIN_SCALE_ITIME_US(3125, 0, 1),
-> +	GAIN_SCALE_ITIME_US(6250, 1, 2),
-> +	GAIN_SCALE_ITIME_US(12500, 2, 4),
-> +	GAIN_SCALE_ITIME_US(25000, 3, 8),
-> +	GAIN_SCALE_ITIME_US(50000, 4, 16),
-> +	GAIN_SCALE_ITIME_US(100000, 5, 32),
-> +	GAIN_SCALE_ITIME_US(200000, 6, 64),
-> +	GAIN_SCALE_ITIME_US(400000, 7, 128),
-> +};
-> +
-> +/*
-> + * The gain selector encodes (PD_D4 << 2) | GAIN to identify each gain setting.
-> + * Gains are multiplied by 8 to work with integers. The values in the iio-gts
-> + * tables don't need corrections because the maximum value of the scale refers
-> + * to GAIN = x1, and the rest of the values are obtained from the resulting
-> + * linear function.
-> + * TODO: add support for MILLI_GAIN_X165 and MILLI_GAIN_X660
-> + */
-> +#define VEML6031X00_SEL_MILLI_GAIN_X125  0x07
-> +#define VEML6031X00_SEL_MILLI_GAIN_X250  0x04
-> +#define VEML6031X00_SEL_MILLI_GAIN_X500  0x03
-> +#define VEML6031X00_SEL_MILLI_GAIN_X1000 0x00
-> +#define VEML6031X00_SEL_MILLI_GAIN_X2000 0x01
-> +static const struct iio_gain_sel_pair veml6031x00_gain_sel[] = {
-> +	GAIN_SCALE_GAIN(1,  VEML6031X00_SEL_MILLI_GAIN_X125),
-> +	GAIN_SCALE_GAIN(2,  VEML6031X00_SEL_MILLI_GAIN_X250),
-> +	GAIN_SCALE_GAIN(4, VEML6031X00_SEL_MILLI_GAIN_X500),
-> +	GAIN_SCALE_GAIN(8, VEML6031X00_SEL_MILLI_GAIN_X1000),
-> +	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_MILLI_GAIN_X2000),
-> +};
-> +
-> +static IIO_CONST_ATTR(in_illuminance_thresh_either_period_available, "1 2 4 8");
-> +
-> +static struct attribute *veml6031x00_event_attributes[] = {
-> +	&iio_const_attr_in_illuminance_thresh_either_period_available.dev_attr.attr,
-> +	NULL
-> +};
-> +
-> +static const struct attribute_group veml6031x00_event_attr_group = {
-> +	.attrs = veml6031x00_event_attributes,
-> +};
-> +
-> +/*
-> + * Two shutdown bits (SD and ALS_IR_SD) must be cleared to power on
-> + * the device.
-> + */
-> +static int veml6031x00_als_power_on(struct veml6031x00_data *data)
-> +{
-> +	int ret;
-> +
-> +	ret = regmap_clear_bits(data->regmap, VEML6031X00_REG_CONF0,
-> +				VEML6031X00_CONF0_SD);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_clear_bits(data->regmap, VEML6031X00_REG_CONF1,
-> +				 VEML6031X00_CONF1_IR_SD);
-> +}
-> +
-> +/*
-> + * Two shutdown bits (SD and ALS_IR_SD) must be set to power off
-> + * the device.
-> + */
-> +static int veml6031x00_als_shutdown(struct veml6031x00_data *data)
-> +{
-> +	int ret;
-> +
-> +	ret = regmap_set_bits(data->regmap, VEML6031X00_REG_CONF0,
-> +			      VEML6031X00_CONF0_SD);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_set_bits(data->regmap, VEML6031X00_REG_CONF1,
-> +			       VEML6031X00_CONF1_IR_SD);
-> +}
-> +
-> +static void veml6031x00_als_shutdown_action(void *data)
-> +{
-> +	veml6031x00_als_shutdown(data);
-> +}
+Looking at the other EQOS clients like MGBE0R and MGBE1R, they correctly
+initialize .bpmp_id =3D TEGRA264_BWMGR_EQOS and .type =3D TEGRA_ICC_NISO. If
+these fields are omitted for MGBE2 and MGBE3, won't interconnect bandwidth
+scaling requests for these blocks be silently ignored, potentially causing
+hardware bandwidth starvation?
 
-I wonder if the register values are maintained when the device is 
-powered down? If not, then the regmap cache should be invalidated.
+[ ... ]
+> @@ -70,6 +87,15 @@ static const struct tegra_mc_client tegra264_mc_client=
+s[] =3D {
+>  		.name =3D "vicw",
+>  		.bpmp_id =3D TEGRA264_BWMGR_VIC,
+>  		.type =3D TEGRA_ICC_NISO,
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_VIW,
+> +		.name =3D "viw",
 
-Yours,
-	-- Matti
+Does this missing bpmp_id issue also apply to other BPMP-managed
+subsystems added in this patch, such as VIW?
 
----
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+[ ... ]
+> @@ -110,6 +208,12 @@ static const struct tegra_mc_client tegra264_mc_clie=
+nts[] =3D {
+>  		.name =3D "rcew",
+>  		.bpmp_id =3D TEGRA264_BWMGR_RCE,
+>  		.type =3D TEGRA_ICC_NISO,
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_NVENC1SRD2MC,
+> +		.name =3D "nvenc1srd2mc",
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_NVENC1SWR2MC,
+> +		.name =3D "nvenc1swr2mc",
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+Are these newly added NVENC clients also missing their TEGRA264_BWMGR_NVENC
+manager definitions?
+
+Since the memory controller interconnect implementation skips bandwidth
+scaling requests for clients without a bpmp_id, should these clients also
+include their respective bpmp_id and type to ensure bandwidth requests
+are processed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518124306.2071=
+481-1-sumitg@nvidia.com?part=3D3
