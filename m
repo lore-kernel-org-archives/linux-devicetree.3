@@ -1,118 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA2B352C5B
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428FE39183A;
+	Mon, 18 May 2026 22:37:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779143447; cv=none; b=cH+Af5VKfObHgamIMbu1LZ80Ps8L7bWxxC2HLb3LcH20dEdJ2pLNeWXIkr4bzb+A9po46Uo38rRlz1kTffQe/dR7ONxiLUBlKImw14F38ZMySefkG/3WQouzUCgIgpABDOBXZKls++8c1wbu/2bWi3kg/qL1aUP4QkV7Psr/t/4=
+	t=1779143880; cv=none; b=N6Qj3Q9PI/2898Oduix/pGfOtTN4dM0noThNxsho2RiCRifuhRpcI88Ut54OffLF06ufy2BDykWoD/U5CU2JcAH2SZJsN68zZOtbuJD+sAIX4PlITPSsDvNtYfM69z7FNIdWPhY3fSsjlY4dFXQyjyV8eiDNLyCeiNjae2I9gR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779143447; c=relaxed/simple;
-	bh=HbG0Vxnr76jtrx4jEHpG5u/0jkfZfIYfwbLFzpzmgls=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JoMRiWdu+81gzc6G4zwji74XOs7gyM4LnTaMvIQZcabfIT/cdwGDRbc4nHCR8lei/4fk758AcMpr3odHOX5wxawa2H5AOnBXeK1D5X59hC+I97I2pVvnHmQD8YbFe+5gM4oFcJOdwfo7s+r0PGAutZ0nhQ4XVZVQ58seJQpr3KM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXn1/l/+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779143880; c=relaxed/simple;
+	bh=yCPh+HXQRcTVsmUvu2yXJQlDcVHXXFcwMfPUyflHlTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Bz4PI20TcS92fgR0Qq4wQvdWCO9+GIGTEULd4awQykKS4HxUU9GSYkfKw+e0/dkLuYXghMxwYuMU01tm4igXFRzxLv+TotmHffW2zRtWZt2Ee4K2DxqJp0r85V9a3s5qznY+buYNyZZ3sPGapYooUPFaCAq/BtfrkWtlpc1vf7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uIV9oMFs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXn1/l/+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A83FC2BCFC;
-	Mon, 18 May 2026 22:30:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uIV9oMFs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE48DC2BCB7;
+	Mon, 18 May 2026 22:37:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779143447;
-	bh=HbG0Vxnr76jtrx4jEHpG5u/0jkfZfIYfwbLFzpzmgls=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=SXn1/l/+CgvL9acKETw+PDt82sxkGOJTBvMa7whVFBz4EBwKpzIU/NSXNQwmWi6y5
-	 wdQVt12JRu9utgtzshr1RqG2sT5XfgMtKUP7o9z6cDk58sNkMx7ovo86hiEWENMnKJ
-	 SYuwh1wWp3QJ92fc7Gqbws1iZEPUFWuTbZHesZd/RCYIgZr5yl9kaqhU7an4wo9hgK
-	 bLGoa69KNgMy4wRkPi2o2gQ2Pt0ImsYBH0NpT+sVqCboqsjH+CeBoLNpKB0aAaK6X3
-	 rvhOvCmpQYBgO8xeWRf/Yj60pljpm80F1c3Ph7NUROjMECSSc485y4AdEwFHqXu1Cu
-	 PYl2PxZDryrPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 06/11] iio: adc: hx711: introduce hx711_chip_info
- structure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Piyush Patle" <piyushpatle228@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518220228.63322-7-piyushpatle228@gmail.com>
-References: <20260518220228.63322-7-piyushpatle228@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 22:30:46 +0000
-Message-Id: <20260518223047.1A83FC2BCFC@smtp.kernel.org>
+	s=k20201202; t=1779143879;
+	bh=yCPh+HXQRcTVsmUvu2yXJQlDcVHXXFcwMfPUyflHlTc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=uIV9oMFsZiB2k1H5yl4LvHnzDb5kbXykJcpKi7D9HmO3wpF30Fm7LMuqdkV/3wCSx
+	 OZUB0KApB6xzK86w+pr1GMGjcouh1CpiLyTubSJWy5Iizzi4Sh0lwp+iUl5vy4gPCe
+	 hVUHFUGhHj/5bI5VhZ5jEFySJ7rdeKgSF+J7SO1dmKKI7ondlimEn9G0rFsSQFIxzS
+	 Wuph+R9JnXLbtGU5Xvac38Cp0cMt9u0DQ5P/aqPnpoAQKMIdGejHfufT4c+eB+oPta
+	 6aFZyhcUkwnug9239xE8FvofQgCMdSkFJZtUA2kDeuTuF14eScoCCQb/PcZbUrT3Wg
+	 Ty4V3IdCqwS6Q==
+Date: Mon, 18 May 2026 17:37:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	Frank Li <frank.li@nxp.com>,
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+	"kernel@pengutronix.de" <kernel@pengutronix.de>,
+	"festevam@gmail.com" <festevam@gmail.com>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+	"kwilczynski@kernel.org" <kwilczynski@kernel.org>,
+	"mani@kernel.org" <mani@kernel.org>,
+	"bhelgaas@google.com" <bhelgaas@google.com>,
+	Hongxing Zhu <hongxing.zhu@nxp.com>,
+	"l.stach@pengutronix.de" <l.stach@pengutronix.de>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
+ parsing Root Port properties
+Message-ID: <20260518223758.GA649325@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VI0PR04MB1211452312EB9BC6EF1ED2E0192032@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Driver probe unconditionally fails for legacy non-DT platform devi=
-ces.
-- [Low] Use of undeclared macro `__counted_by_ptr` causes a build failure.
---
+On Mon, May 18, 2026 at 08:42:38AM +0000, Sherry Sun wrote:
+> > Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
+> > parsing Root Port properties
+> > 
+> > On Wed, Apr 22, 2026 at 05:35:39PM +0800, Sherry Sun wrote:
+> > > Introduce generic helper functions to parse Root Port device tree
+> > > nodes and extract common properties like reset GPIOs. This allows
+> > > multiple PCI host controller drivers to share the same parsing logic.
+> > >
+> > > Define struct pci_host_port to hold common Root Port properties
+> > > (currently only list of PERST# GPIO descriptors) and add
+> > > pci_host_common_parse_ports() to parse Root Port nodes from device
+> > tree.
+> > >
+> > > Also add the 'ports' list to struct pci_host_bridge for better
+> > > maintain parsed Root Port information.
+> > > ...
+> > 
+> > > +static int pci_host_common_parse_port(struct device *dev,
+> > > +				      struct pci_host_bridge *bridge,
+> > > +				      struct device_node *node)
+> > > +{
+> > > +	struct pci_host_port *port;
+> > > +	int ret;
+> > > +
+> > > +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+> > > +	if (!port)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	INIT_LIST_HEAD(&port->perst);
+> > > +
+> > > +	ret = pci_host_common_parse_perst(dev, port, node);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	/*
+> > > +	 * 1. PERST# found in RP or its child nodes - list is not empty, continue
+> > > +	 * 2. PERST# not found in RP/children, but found in RC node - return -
+> > ENODEV
+> > > +	 *    to fallback legacy binding
+> > > +	 * 3. PERST# not found anywhere - list is empty, continue (optional
+> > PERST#)
+> > > +	 */
+> > > +	if (list_empty(&port->perst)) {
+> > > +		if (of_property_present(dev->of_node, "reset-gpios") ||
+> > > +		    of_property_present(dev->of_node, "reset-gpio"))
+> > > +			return -ENODEV;
+> > 
+> > This doesn't seem right to me.  The parser of per-Root Port properties should
+> > not be responsible for deciding whether legacy methods are valid, i.e.,
+> > whether a property is in the Root Complex node.  I think it's up to the caller
+> > to decide whether it needs to look elsewhere.
+> > 
+> > I don't think this even needs to return a "success/failure" value because there
+> > may be more properties in the future, and not all will be required.  This
+> > function can't tell which properties a specific driver requires and which are
+> > optional.
+> > 
+> > The caller can check whether we found what it needs and fall back to a legacy
+> > method as needed.
+> 
+> Hi Bjorn,
+> The code here was suggested by Mani, https://lore.kernel.org/all/lnzprzrdwra7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum/.
+> I think your suggestion here is reasonable, the per-Root Port parser shouldn't
+> check the RC-level binding. That's a policy decision that belongs to the caller.
+> 
+> Hi Mani, if you also agree, I'll rework this so that:
+> 1. pci_host_common_parse_port() only parses properties from the Root Port
+>     (and its children) without checking the RC node.
+> 2. The function won't return failure for "property not found" - it will only return
+>      errors for real failures (e.g., -ENOMEM, GPIO acquisition errors).
+> 3. The legacy fallback logic will be moved to the caller, which can inspect the
+>      parsed result and decide whether to fall back to the legacy binding.
 
-commit e7a943897aef3be5de1d3c4561e37e20e131b7c5
-Author: Piyush Patle <piyushpatle228@gmail.com>
-
-iio: adc: hx711: introduce hx711_chip_info structure
-
-Add a per-variant static configuration structure and populate the IIO
-device fields from it at probe time.
-
-> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-> index 823fd74f9cf95..062d6860da7d6 100644
-> --- a/drivers/iio/adc/hx711.c
-> +++ b/drivers/iio/adc/hx711.c
-[ ... ]
-> @@ -74,6 +76,20 @@ static int hx711_get_scale_to_gain(const int *gain_sca=
-le, int scale)
->  	return -EINVAL;
->  }
-> =20
-> +/**
-> + * struct hx711_chip_info - per-variant static configuration
-> + * @name: IIO device name
-> + * @channels: channel specification array
-> + * @num_channels: number of entries in @channels
-> + * @iio_info: IIO info ops for this variant
-> + */
-> +struct hx711_chip_info {
-> +	const char			*name;
-> +	const struct iio_chan_spec	*channels __counted_by_ptr(num_channels);
-
-Does this cause a build failure? The __counted_by_ptr macro does not appear=
-=20
-to be defined in the kernel headers, which will result in a syntax error=20
-during compilation.
-
-> +	unsigned int			num_channels;
-> +	const struct iio_info		*iio_info;
-> +};
-> +
-[ ... ]
-> @@ -473,6 +498,12 @@ static int hx711_probe(struct platform_device *pdev)
-> =20
->  	mutex_init(&hx711_data->lock);
-> =20
-> +	chip_info =3D device_get_match_data(dev);
-> +	if (!chip_info)
-> +		return dev_err_probe(dev, -ENODEV, "missing driver data\n");
-
-Does this cause a regression for legacy non-DT platform devices?
-
-The device_get_match_data function relies on a firmware node being present.=
-=20
-If a platform device is registered by name without a device tree or ACPI=20
-node, this will return NULL.
-
-Since there is no fallback behavior or id_table provided for name-based=20
-matching, this now unconditionally fails the probe with -ENODEV, whereas=20
-previously the driver fell back to the default configuration.
-
-> +
-> +	hx711_data->chip_info =3D chip_info;
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518220228.6332=
-2-1-piyushpatle228@gmail.com?part=3D6
+This is only used for imx6 so far, so I think this is OK as-is for
+v7.2.  We can file this under "possible future rework or kernel
+mentee project."
