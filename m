@@ -1,156 +1,215 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFCD32B99E;
-	Mon, 18 May 2026 08:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209A43E3C6D
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779094547; cv=none; b=M1Z/RfkIzJWbBALJZTnuzDiP+e002KtWsfiz0UjopMb7AXwLloKMXr/UjRQNcASOw8Og7AYvqWuivghX6i6GTQZ4t3XjPVmPHL1pBqQ9UmzUSTLXJviT1QIWNdyw/Ou7O83z+BnXtOgKRKDf0+UjlmxZT2CHp03tDelQgkBCOeY=
+	t=1779094665; cv=none; b=sGKKbIey+H6pNsq1SbBLLuBjvQ+AebY/B0pTSwVChmAxJYOw66ukiIJdtoryyNGQXCYZr0NGUVqJUFPVEZK+LJOOHIqWsoWVu2EEdBzqZK0OWbpjPbXjpcHlCUZs4psht+fjdN7hZDyzRFPUEpgLrFxK73xh3RUDqZhPy6WnW+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779094547; c=relaxed/simple;
-	bh=l/0QBaIVRAi74g3JzPSXWF+89gHglLGuyCFTiDEvMro=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dxskKoVE2OdRAdiLEA5Nt9xQxdv15sj/obALzuHlYxDb4fSU62NYW3o9lxzDVZjMPkD5hBfBEclA07IHdSM/VLjahM8KouaY/RJrKQihProcCY4oDxIZ3gmb/wcYf+szsbgpBe6P5y00ZlxW6hlkKgtAKOmxZyZ9Q65vHw6meJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=KPMuZx4F; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1779094665; c=relaxed/simple;
+	bh=ANAMh0DzcRNlvbRQrPFXI4G0Rad0BRN32gWCvVhZ0Cw=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fMTFhpSP8lMpbmA8AexlXPLKe7Vb4MciieP1fcY3U20BQrETy68ib15vtQ1aTitqGWBkl/t0RG6e0pXC0dsNn1yqJHrQ+fDjVFN5rxOYa46Z8nrSKO5Ki5BRKyLEs6cotfoS7k9xlVC6051qEoo2MEcJrbYgMk1DaM2P+pAgULQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arypz9Iz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="KPMuZx4F"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I4n50c675950;
-	Mon, 18 May 2026 04:55:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=yVQIY
-	5uXiyj4OBIsHKs8RtNgEMBy2EqjMlY+/fcuapw=; b=KPMuZx4FW8S0FyLm8QJkP
-	QQwfcnZ3m4v7czBI3RGHFLC7r/lPXFJiHV8gl0RmYE7VTMIeBgS9PP6p0fjpcKj8
-	CmixfL2DvClcgv8K1gf2/9MQn9ceoHjeSWe8hxeqtIf5YGKx6w0S3ZTBDsy8vyWX
-	b75jO5VD+4BI52itvwGqrbnRoG88BY+VzRxgFM/yG8eiUpPPkkG8pYBML4V0vp/c
-	p3iKDj1hlpH5H/BKdJkvgA6lRNkwxBTt3zOa/VhyPjFgkd7xk3nDxjOgzB9eiqro
-	FkixYoVuWrJWzkI5ti1xtl+mWmIONc5uMyXH77jn5Swc2NEb3oKADSz4ZQVXZmHF
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4e79wdu032-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 18 May 2026 04:55:42 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64I8tfji020398
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 18 May 2026 04:55:41 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 18 May
- 2026 04:55:41 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 18 May 2026 04:55:41 -0400
-Received: from HYB-MkYHBcJRSnh.ad.analog.com (HYB-MkYHBcJRSnh.ad.analog.com [10.48.65.202])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64I8tSe6019844;
-	Mon, 18 May 2026 04:55:30 -0400
-From: Liviu Stan <liviu.stan@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>
-CC: Liviu Stan <liviu.stan@analog.com>, David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko
-	<andy@kernel.org>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        Rob
- Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor
- Dooley <conor+dt@kernel.org>,
-        Antoniu Miclaus <antoniu.miclaus@analog.com>,
-        Francesco Lavra <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 6/7] dt-bindings: iio: temperature: Add ADT7604 support to adi,ltc2983
-Date: Mon, 18 May 2026 11:55:21 +0300
-Message-ID: <20260518085526.84987-1-liviu.stan@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260516180358.094e6c2d@jic23-huawei>
-References:
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arypz9Iz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E69C4AF0F
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:57:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779094664;
+	bh=ANAMh0DzcRNlvbRQrPFXI4G0Rad0BRN32gWCvVhZ0Cw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
+	b=arypz9Izul2t3KBwjCKAh3yWytnj1xsnOaK3y10oHXFENyMWtQj72bVaYZql0QBlW
+	 jcJglUhZP0l0GFr91jYIbUldNyj3T7JFW6ZfRkwiqj6A/I/P2mtcXFMcT7RL+u4TYw
+	 t+yKL0AduVAV90GYkrWRfm3IkA4Eoe47L8PWrmRuVKpq7zJv/lI+7saFY0MIyXEjTk
+	 44AIENIVHo+SvR5fz2P6I0VKWa60OGnDeu34j0IixXJNmpjwpPjzb8rhEtsG8s8V1C
+	 5RMeUlnHzRBaNNe3lcIFL1bctT2YAjM/96fTQTK9zD1HLeme3crlplsaRtD3l/wt7u
+	 e438SxUwS4KMA==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5a884815606so2430148e87.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 01:57:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ95VjqQWy9oEMN6r3xyvwR9Rhr0oSHSD1EokquxvfZ2WrnHH1FZQ0FZgmKY2391CXgxC3WQcGy27Hne@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkPrkOELJAhZOPsx8SEdK7GxOQjqUINepMgwSCLcvrlF2cYcUC
+	UKhWRZ1e6PXqaq++BrcbrrP8LXQvec9Kn3rMpLFl0aEDjK1aa6Qske2ay3e4DddPhoNoD7NFVm9
+	euPHLn2qPCFs0toJ3uTDGDRiVOX8ARx/PgfA64pmlcA==
+X-Received: by 2002:a05:6512:31c3:b0:5a8:73c3:f270 with SMTP id
+ 2adb3069b0e04-5aa0e60cff4mr4028599e87.8.1779094663370; Mon, 18 May 2026
+ 01:57:43 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 18 May 2026 01:57:40 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 18 May 2026 01:57:40 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260514-arm-psci-system_reset2-vendor-reboots-v22-8-28a5bde07483@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com>
+ <20260514-arm-psci-system_reset2-vendor-reboots-v22-8-28a5bde07483@oss.qualcomm.com>
+Date: Mon, 18 May 2026 01:57:40 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mde7Y3CQ3yi=U+999JyHTNacebiK8jJhHuYBGaqn59yYg@mail.gmail.com>
+X-Gm-Features: AVHnY4KsCu6BzmdgMNQvyF1FW_Rq2m9POMDMfDCMIANjFpuurD3lttlcdsXaGfQ
+Message-ID: <CAMRc=Mde7Y3CQ3yi=U+999JyHTNacebiK8jJhHuYBGaqn59yYg@mail.gmail.com>
+Subject: Re: [PATCH v22 08/13] mfd: core: Add firmware-node support to MFD cells
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Sebastian Reichel <sre@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
+	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: qYEyVreoTZer4o6x5blIz6JBGRdHAX_V
-X-Authority-Analysis: v=2.4 cv=HKbz0Itv c=1 sm=1 tr=0 ts=6a0ad40e cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=VwQbUJbxAAAA:8
- a=K6Ps094s-QnVl3WvZGcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=t30qsMHlJzOsgWiHt2r7:22
-X-Proofpoint-GUID: qYEyVreoTZer4o6x5blIz6JBGRdHAX_V
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA4NSBTYWx0ZWRfXzccUjSFSfY3Z
- UI1oV1pd+qWYgyPyBFTM8AqXwposVKibaHUo72yMpXa7L8TdEgyr1Oz5wsVW4d3GaC7h0Yj64b+
- r4xJEzoQJrTiQtiwSHPUmLm3TGEpKCmnsmW8xDRW4GZgmW2TRXor9FlFF4wug4bC9zq6Y6yJyqB
- jLxjhvZpDwdRWcCByT5CQhxoDN10ZDOzwh0LV2TnOKT9sb87ZHJ2TCdT3H3TEVOVVzAdTFLU4FO
- dc9XGLdaNPcqM79DeOshzSpqDsAHdI1HDkR8QveOsvQ1Fw/MWaT7SlcaicKsdrHUVjPISdWVJ07
- uEBViaGmF5A/m6y8xzfoFWd8D1dAutR7FuGAYecKdfIr6YP1o3FHNTzZPGA7pugCZuWc2jigdwm
- +QhcaCrCwoRQHD6GO0AD8VSkNkaZL0qGeNssAPSSHg4YThZ11ICIadzmihaKWtA8hpfQpAHuweE
- Y2DbsGiNevzvrbB1zeQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 malwarescore=0 phishscore=0 impostorscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180085
 
-On Sat, 16 May 2026 18:03:58 +0100 Jonathan Cameron <jic23@kernel.org> wrote:
+On Thu, 14 May 2026 16:25:49 +0200, Shivendra Pratap
+<shivendra.pratap@oss.qualcomm.com> said:
+> MFD core has no way to register a child device using an explicit firmware
+> node. This prevents drivers from registering child nodes when those nodes
+> do not define a compatible string. One such example is the PSCI
+> "reboot-mode" node, which omits a compatible string as it describes
+> boot-states provided by the underlying firmware.
+>
+> Extend struct mfd_cell with a callback that allows drivers to provide an
+> explicit firmware node. The node is added to the MFD child device during
+> registration when none is assigned by device tree, ACPI, or software
+> matching.
+>
+> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>  drivers/mfd/mfd-core.c   | 30 ++++++++++++++++++++++++++++++
+>  include/linux/mfd/core.h | 14 ++++++++++++++
+>  2 files changed, 44 insertions(+)
+>
+> diff --git a/drivers/mfd/mfd-core.c b/drivers/mfd/mfd-core.c
+> index 7aa32b90cf1eb7fa0a05bf3dc506e60a262c9850..cc2a2a924d6d3044e29a9f864b536ee325ed797b 100644
+> --- a/drivers/mfd/mfd-core.c
+> +++ b/drivers/mfd/mfd-core.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/acpi.h>
+> +#include <linux/fwnode.h>
+>  #include <linux/list.h>
+>  #include <linux/property.h>
+>  #include <linux/mfd/core.h>
+> @@ -148,6 +149,11 @@ static int mfd_match_of_node_to_dev(struct platform_device *pdev,
+>  	return 0;
+>  }
+>
+> +static void mfd_child_fwnode_put(void *data)
+> +{
+> +	fwnode_handle_put(data);
+> +}
 
-...
+Ah, this seems to answer my previous question, but...
 
-> > +  '^leak-detector@':
-> > +    $ref: '#/$defs/sensor-node'
-> > +    unevaluatedProperties: false
-> > +    description: |
-> > +      Leak detector sensor (some parts only). Outputs resistance in ohms and,
-> > +      when a custom table is provided, a coverage percentage via
-> > +      IIO_COVERAGE_PERCENT (raw/1024 = coverage %).
-> > +
-> > +    properties:
-> > +      reg:
-> > +        minimum: 2
-> > +        maximum: 20
-> > +
-> > +      adi,sensor-type:
-> > +        description: Sensor type for leak detector sensors.
-> > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > +        const: 33
-> > +
-> > +      adi,rsense-handle:
-> > +        description: Associated sense resistor sensor.
-> > +        $ref: /schemas/types.yaml#/definitions/phandle
-> > +
-> > +      adi,excitation-current-nanoamp:
-> > +        description:
-> > +          Excitation current applied to the leak detector. The correct value
-> > +          depends on the electrical characteristics of the liquid being sensed.
-> > +          For example, 10000 (10µA) is recommended for PG25 (see datasheet
-> > +          Table 39).
-> > +        enum: [250, 500, 1000, 5000, 10000, 25000, 50000, 100000, 250000,
-> > +               500000, 1000000]
-> > +
-> > +      adi,custom-leak-detector:
-> > +        description: |
-> > +          Lookup table mapping resistance to coverage data. Entries must be
-> > +          in ascending resistance order. The coverage data field encodes the
-> > +          coverage percentage P as (P + 273.15) expressed in uK, i.e.
-> > +          (P * 1000000 + 273150000).
-> 
-> I like sashiko's comment on this.  Why are we having the hardware / driver
-> offset encoded in DT?  Just put in the value without the offset and apply that
-> in the driver.
-> 
+> +
+>  static int mfd_add_device(struct device *parent, int id,
+>  			  const struct mfd_cell *cell,
+>  			  struct resource *mem_base,
+> @@ -156,6 +162,7 @@ static int mfd_add_device(struct device *parent, int id,
+>  	struct resource *res;
+>  	struct platform_device *pdev;
+>  	struct mfd_of_node_entry *of_entry, *tmp;
+> +	struct fwnode_handle *fwnode;
+>  	bool disabled = false;
+>  	int ret = -ENOMEM;
+>  	int platform_id;
+> @@ -224,6 +231,29 @@ static int mfd_add_device(struct device *parent, int id,
+>
+>  	mfd_acpi_add_device(cell, pdev);
+>
+> +	if (!pdev->dev.fwnode && cell->get_child_fwnode) {
+> +		fwnode = cell->get_child_fwnode(parent);
+> +		if (fwnode) {
+> +			device_set_node(&pdev->dev, fwnode);
+> +
+> +			/*
+> +			 * platform_device_release() drops only of_node refs.
 
-Will do this in v3.
+Which is a separate problem we're discussing elsewhere. It should probably drop
+the fwnode reference it holds, not the one of of_node.
 
-Thanks,
-Liviu
+> +			 * Track non-OF fwnodes explicitly so they are put on
+> +			 * all teardown paths.
+> +			 */
+> +			if (!to_of_node(fwnode)) {
+> +				ret = devm_add_action(&pdev->dev,
+> +						      mfd_child_fwnode_put,
+> +						      fwnode);
+
+What if the device never gets bound to the driver? The release will never be
+called, this is why it's wrong to schedule devres actions for unbound devices
+and one of the reasons for patch 1 in this series.
+
+What I suggest for now is: in tear-down path: see if the cell has the
+get_child_fwnode() callback and - if so - drop the reference. Add a big, fat
+comment saying that this must be removed if we decide to switch to dropping the
+device's fwnode reference in platform driver core which may happen soon.
+
+Bart
+
+> +				if (ret) {
+> +					device_set_node(&pdev->dev, NULL);
+> +					fwnode_handle_put(fwnode);
+> +					goto fail_of_entry;
+> +				}
+> +			}
+> +		}
+> +	}
+> +
+>  	if (cell->pdata_size) {
+>  		ret = platform_device_add_data(pdev,
+>  					cell->platform_data, cell->pdata_size);
+> diff --git a/include/linux/mfd/core.h b/include/linux/mfd/core.h
+> index faeea7abd688f223fb0b31cde0a9b69dfe2a61ff..abfc26c057d6ee46947ba2b6f2e99f420e74b127 100644
+> --- a/include/linux/mfd/core.h
+> +++ b/include/linux/mfd/core.h
+> @@ -50,6 +50,7 @@
+>  #define MFD_DEP_LEVEL_HIGH 1
+>
+>  struct irq_domain;
+> +struct fwnode_handle;
+>  struct software_node;
+>
+>  /* Matches ACPI PNP id, either _HID or _CID, or ACPI _ADR */
+> @@ -80,6 +81,19 @@ struct mfd_cell {
+>
+>  	/* Software node for the device. */
+>  	const struct software_node *swnode;
+> +	/*
+> +	 * Callback to return an explicit firmware node.
+> +	 * @parent: MFD parent device passed to mfd_add_devices().
+> +	 *
+> +	 * Called only if OF/ACPI matching did not assign a fwnode.
+> +	 * Ownership of the returned reference is transferred to MFD core.
+> +	 *
+> +	 * Return a referenced fwnode or NULL if none is available.
+> +	 *
+> +	 * mfd_cell must be zero-initialized or get_child_fwnode must be NULL
+> +	 * when unused.
+> +	 */
+> +	struct fwnode_handle *(*get_child_fwnode)(struct device *parent);
+>
+>  	/*
+>  	 * Device Tree compatible string
+>
+> --
+> 2.34.1
+>
+>
