@@ -1,209 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7501C219E8
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6D7219E8;
+	Mon, 18 May 2026 03:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779075069; cv=none; b=r5uKrqX5IljHeEVTkjBvESe2jH96wSI8snv/FMCqYmAcwGMqO3VrKdBRwyDj24VEePJ4Yxq8yWfL6opHpAYe2BqcEqMyO+sII/XKFqQ+AS/jrgnyAFXka/c50sHHQbr2YdJ2lNpSZe7zVNwGYRo4CcuND6ZUtLZbnB0d26jpIHk=
+	t=1779075242; cv=none; b=FW0e8nQkZRYz8oPSsvuUKevo3Ygca9ITyWoXEbjnHv69pkEvY1IgCvzPz1gyb1ipXhBFZC96qV2uYxg5ncaMfNdJWIe0VjtoHDAHZN7Tqtd+F9nliOTLSq2XfUJEkt7IONShuTbP4LIaO8ZgLkLW+AJ953SqWQsjPjHP0R2JE30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779075069; c=relaxed/simple;
-	bh=PpyCpFLp+qOUo1XGzy4ti3wIBdJlEX//u0tJ4M8Klwk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=reYfl9GdoM8xaacLuBqyGFtii8aIVQnE4tp8ug+uJnu/zLgrZ7GaAFiIc9McCl/PvcoD3/MvwewSvMYhlevSWIwaT4trsaeSH17MLYtBPDe0gKFGxZCdSGFNmsD5PIeS9NdZA7Yo2emF36Kyj3E6lccebDKN8BASGfSGP9zAchM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2frLadX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779075242; c=relaxed/simple;
+	bh=Q7iJZ6VUq1H8Bt3WwDMb4K4clOEXomOap5ooldumwW4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rdSmmMoTwIQ3kD+9tnyB82RyQqx1Dmwiphyf4rzW3sA7QOSyqKqRzJ5u2llxz4W92nZ7gHashZZSE0htBHJJFbc9MZ2kHVA8C6Lh0e2mu4yJlKO/b6TelN1n4HlQb+HHu7zWYhcCwh8yGX16JuMwNCg6WoWApq9Hwqx8sZg5ZAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=Hv+Ec8hg; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2frLadX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E24C4AF0C
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:31:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779075069;
-	bh=PpyCpFLp+qOUo1XGzy4ti3wIBdJlEX//u0tJ4M8Klwk=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
-	b=E2frLadX2voIeoBE/9x2tILtLh7EPzgyLKeG0XG62XHLDqhAHLPKbyL3O8qaO8tlk
-	 Y+oNCQ9KMJBuKTRQBddO4tOeGKlGSUz84O/GGsYLpVa6gbxlWbXTjd16OjiabQqrUV
-	 RwQMaZcKkKGJhMC759IxnHqU6LvaSJuZtLwwe9b8NoUIyGU6ibxnPlgzLkYKJmfPoV
-	 dJstFXdBE5K/jJGB1wNnBU8Ps2w42pxK48ZvoAZDwQHyivfMX7OVaaSV03P9HIcOA7
-	 sIaNJR/oLjpWuvMLrugv77WhdvB6fAikKjYBHPOEaVnPHYtU1OtuZXEOOTm57KE6O4
-	 lRzB5xxnBp+2w==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38e97e73234so16963931fa.1
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 20:31:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/n4WjWzpvVhEpWTVWH2jydzNLLRoyZhafzf4vCPvni5pSwvDTxOsriCUyA8Glw7OT2cwVhsQ0Tjufa@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqbgzS8ZrIBlOhQAb1FtvgMi+ycLD3jXjp9GYFjM/8bMXdYj6e
-	h79yn3gPBOPkyshVoAA1jEfW/kn7IRhWC2YJ/pObtvUCtCboPvRu0So/hGqSZNZGe+B2DcbtYg4
-	PJxXrIic3znGKhUA4hLHCTLxACvc0sD4=
-X-Received: by 2002:a05:651c:2111:b0:393:b365:6e24 with SMTP id
- 38308e7fff4ca-395619b0ac5mr35805681fa.4.1779075067487; Sun, 17 May 2026
- 20:31:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="Hv+Ec8hg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1779075179;
+	bh=gy+vLIjyMT6857Vtois325dTt+YrnhLSIrioPPR6St8=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=Hv+Ec8hgUmMLye2OnkQiMFf6pNZglDWaHNm5otFpf3mbNPl5A1P047LEhZolhwCTL
+	 amNTCigG8Og5Y8hmBiSfG0RwyPcS/3cQUE0osyzpbZCpdReQUy3SK/2QcDYkJBNulc
+	 F3VaOhavKdoBGuRAeeladZdrp2Ei56vQy+z8hg2M=
+X-QQ-mid: zesmtpgz9t1779075171tf46ec625
+X-QQ-Originating-IP: DRI+fk7/Uf0YrY164m/MNKWpAys+m6hYORxEOfYA7Og=
+Received: from = ( [61.145.255.150])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 18 May 2026 11:32:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 2042237181081148708
+EX-QQ-RecipientCnt: 21
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Mon, 18 May 2026 11:32:41 +0800
+Subject: [PATCH v6 1/4] dt-bindings: dmaengine: Add SpacemiT K3 DMA
+ compatible string
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
- <20260510201644.4143710-4-alexander.sverdlin@gmail.com> <2306dd3c-6362-40ee-8d9f-77f89be3a502@arm.com>
- <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
-In-Reply-To: <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Mon, 18 May 2026 11:30:55 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
-X-Gm-Features: AVHnY4JnqjbSr91YLBIoafpQYqqOubR36k-t-pMBLxLwXavZnAaD9k9U7zSyI3s
-Message-ID: <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
- Baijie Helper A133 board
-To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Cc: Andre Przywara <andre.przywara@arm.com>, linux-sunxi@lists.linux.dev, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260518-k3-pdma-v6-1-67fdf319a8f8@linux.spacemit.com>
+References: <20260518-k3-pdma-v6-0-67fdf319a8f8@linux.spacemit.com>
+In-Reply-To: <20260518-k3-pdma-v6-0-67fdf319a8f8@linux.spacemit.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Guodong Xu <guodong@riscstar.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779075161; l=1136;
+ i=troy.mitchell@linux.spacemit.com; s=20250710; h=from:subject:message-id;
+ bh=yaSmXSO5vYt5nKO5ZoIxkQx6dxueeCXO+Z09BlgFE88=;
+ b=W+5F5yNPpwe5k4aNvILetfG8MTdaq9zRwfU6oC4yYxh+ievsDveayf932kijLZHal5EV7LC30
+ PZvbYXimU2DAWfDHmLPX+hwbP9b2HvQFH3223XiI8PRhWzmrEK18hCk
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=ed25519;
+ pk=lQa7BzLrq8DfZnChqmwJ5qQk8fP2USmY/4xZ2/MSsXc=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M8UYpcaD4/AyTVxWAAid9s0jQq/BAhkHQDxth8iqqpCeSeac47mut5LG
+	k6jnognRm1gzKbPOc3aXX9xe2gs6wNeyNVqOzXXOUw7/Vwtciw+PsE0W8Nthm5FLLUCozrd
+	5qn8yh5MLMjTluoXNLp35PLP+wKza6/8xkvugg82cKVoBNDJXDY+4UJEVsfxPicVwKXRPMq
+	GV4PLya2EFlYNM8gWjllIkwhyPz9eTVR4UkBoxWl/BpI8kWz8+9uFTAQz1sA8e9LM3sfx6F
+	iihIxirk4b6LZ9OusD9HLPIABOLDGeagjIWfxlezfdD1vjzJ7dPGuC53AuLQYrXXbrTy4u/
+	+USwITUWmmy5WrzO77Kjm+gelIeIg9pNBLoTKxpayctCrHgWrr+TQk89W1qI1Bp1oCXRzAg
+	3LSl5C43E7XFP30TlVII0x5ZgfwNJhxhaUjSzSaA8b7cfbP9sch3OgeaeH6cIIN+oC3QawA
+	hXiEOAarfuKhwOUFboe/Ydf70Ijo6OWdHEYnOtE5op5lSOXqSPV4e3yDxbBPyoPdByIJxbU
+	f2D7o5s7AKNIOcebZnxA0yE1NDKCOkupGMNFQ4G+DqMXnk8k/7gUWGC+oHnAFs6Hl3nD4w5
+	2ZdoOgg2r6Th4A7UszCvYzG4VL4piz7XTc4USzY1Aa/aFwK9rX7sSd1/sefx3JO7n488w6e
+	Y43Lw0yS7PyAUyb3oOKpYdZYiWE8jIEdDAPbR9fNkJMJiZcnr7EgnBuGQ6Q3XbEosvph58X
+	0rwc22E3AFpZzTh3jTsFGeJhkNp1XUNUds0RZchr5z4YXzCE+9v5W414ZCYX4XHPdXoq8LH
+	iu4DA7pIjK59ZeuKE5Yu1bUS1zXPw3SMiUgQWNXV08gc2sjf7dYandyZdCgt69DASOViZUM
+	7oFJJpA7FGpMm6ZnrfnaGv0Ub0uRmFtPtHY+uulZrJBLjZnxV51Cti4foKcVqZvnft7BrP3
+	rMjKJq7EZ0ONHPlKDJsrTC82LIo/cEArKz19GiJlKaPL+DPPkJlX860AjgC5MLFsj97rM0/
+	GSdbhzaDl7+XvEc1NMajSdnA0FeC8DoVV53qtUfUh+G4ihYCAqHWoKspNW0IZstM6yfcoXi
+	5AQJ6jhkMwEUplRqnF5S3sUsOieLXoyspkW9lWaNyJUqE3QfxC7cxpOKJOIzI5M2Q==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, May 18, 2026 at 4:37=E2=80=AFAM Alexander Sverdlin
-<alexander.sverdlin@gmail.com> wrote:
->
-> Hi Andre,
->
-> thanks for the quick feedback!
->
-> On Mon, 2026-05-11 at 13:44 +0200, Andre Przywara wrote:
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
-> > > @@ -0,0 +1,162 @@
-> > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > > +/*
-> > > + * Copyright (c) 2025 Arm Ltd.
-> >
-> > Please put your own copyright here, even if that has been largely copie=
-d
-> > from an existing file.
-> >
-> > > + */
-> > > +
-> > > +/dts-v1/;
-> > > +
-> > > +#include "sun50i-a100.dtsi"
-> > > +#include "sun50i-a100-cpu-opp.dtsi"
-> > > +
-> > > +/{
-> > > +   compatible =3D "baijie,helper-a133-core",
-> > > +                "allwinner,sun50i-a100";
-> > > +
-> > > +   aliases {
-> > > +           serial1 =3D &uart1;       /* BT module */
-> >
-> > Do we really need an alias for the BT UART? And is the BT module
-> > supported already? Then please add a child node to the UART node.
->
-> That's the only thing I can do currently regarding BT: stabilize the
-> serial enumeration, because UART1 cannot be used for anything else
-> except BT module, because this is soldered inside "core" module.
-> We can avoid different tty enumeration, should the support for
-> BT be implemented in the future...
->
-> > Isn't the WiFi/BT module on the SoM? Then please mention and enable MMC=
-1
-> > here. Provide the child node for the WiFi chip, even if there is no
-> > upstream support in the kernel for it yet.
->
-> So both the above BT and the WiFi is AW869A/AIC8800 combo chip, which
-> has neither upstream driver, nor [upstream] DT bindings. Even github
-> driver for AIC8800 doesn't seem to use DT, therefore it looks quite
-> pointless to me at this point to specify anything in the DT for the
-> chip which doesn't have the bindings idea even theoretically.
->
-> Nothing in the current DT shall block any future work on the AW869A
-> support though and the above "aliases" entry shall even guarantee
-> unchanged serial enumeration shall such support arise.
->
-> > > +&reg_aldo1 {
-> >
-> > What is aldo1 used for, actually? I don't see this referenced anywhere.
-> > I guess the kernel turns that off after booting?
-> > If you have access to the schematic, please check that. If that's for
-> > some peripheral not yet supported, please note the user anyway, ideally
-> > by an explaining regulator-name, or by a comment. Also if it's used for
-> > any of the required SoC VDD pins. See the Liontron .dts for comparison.
-> >
-> > > +   regulator-always-on;
->         ^^^^^^^^^^^^^^^^^^^
-> I suppose it's not being switcdhed of because of the above.
-> It's used for both PLL supply for the whole SoC + as analog voltage refer=
-ence
-> for LRADC (the buttons you've noticed on the board are connected to
-> this ADC via a resistor ladder).
->
-> >
-> > > +&reg_aldo2 {
-> > > +   regulator-always-on;
-> >
-> > For always-on regulators we definitely need an explanation. Does the
-> > board stop booting if you remove this line?
-> > Maybe it's for DRAM? Can you say what voltage it is, either from the
-> > reset default, or set by the bootloader?
->
-> Thanks for the hint! I'll put proper voltages into all regulators +
-> comment all the always-on regulators.
+From: Guodong Xu <guodong@riscstar.com>
 
-Please also give them proper names. If you have the schematics, then use
-the names from that; otherwise just make up names matching their use.
+Add the "spacemit,k3-pdma" compatible string for the SpacemiT K3 SoC.
 
-> >
-> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.=
-dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
-> > > new file mode 100644
-> > > index 000000000000..ccbca5d0a40c
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
->
-> > And you should provide a top level 5V regulator here, to be the root of
-> > the regulator tree. Look at reg_vcc5v in the Liontron .dts.
->
-> It doesn't look to me as if Liontron had reg_vcc5v as its 5V "root" regul=
-ator.
-> It seems to be only used for reg_usb1_vbus, while HelperBoard A133 doesn'=
-t
-> have USB power control. The second issue with Helper/Core split is that
-> all PMIC story is inside Core board which has 5V input rail, while Helper=
-Board
-> around it has indeed 12V->5V DCDC regulator (similar to Liontron), but
-> putting it in the DT would introduce wierd dependency of the core to the
-> HelperBoard which carries it. Do you think it would make sense?
+While the K3 PDMA IP reuses most of the design found on the earlier
+K1 SoC, a new compatible string is required because the DRCMR
+(DMA Request/Command Register) base address for extended DMA request
+numbers (>= 64) differs from the K1 implementation.
 
-In that case I would probably put a 5v "fake root" regulator in the core
-dtsi. And in combined dts, I'd then add the 12v "real root", and use that
-as the supply for the 5v fake root.
+Signed-off-by: Guodong Xu <guodong@riscstar.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+ Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Does that make sense?
+diff --git a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
+index ec06235baf5c..62ce6d81526b 100644
+--- a/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
++++ b/Documentation/devicetree/bindings/dma/spacemit,k1-pdma.yaml
+@@ -14,7 +14,9 @@ allOf:
+ 
+ properties:
+   compatible:
+-    const: spacemit,k1-pdma
++    enum:
++      - spacemit,k1-pdma
++      - spacemit,k3-pdma
+ 
+   reg:
+     maxItems: 1
 
+-- 
+2.54.0
 
-ChenYu
-
-> > So from the pictures I found online it looks like there is an USB-C por=
-t
-> > labelled "OTG", so can you please add an &usbotg reference here and
-> > describe that port.
->
-> Nice catch! I've missed the fact usbphy 0 has to be in peripheral mode,
-> not host mode. Will rework!
->
-> > > +&usbphy {
-> >
-> > Are the two USB ports always powered?
-> >
-> > And anyway, I see a *dual* USB-A socket on the pictures online, in
-> > addition to the USB-OTG port. So where does the third USB come from? Th=
-e
-> > A133 only supports one host USB port plus the one OTG port. So is there
-> > an USB hub chip on the board?
->
-> There are two hubs, one on each usbphy. OTG side hub is even bus-powered,
-> two USB-A ports are always powered from the board's 12V->5V DCDC, no USB
-> load switches.
-> >
->
-> --
-> Alexander Sverdlin.
