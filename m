@@ -1,245 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD833ED134;
-	Mon, 18 May 2026 10:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF8B2F8E85
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779100268; cv=none; b=msKhopYC6Fhu2xvU2TfR3j+RyrjOD3a4El0pM3yf7IBdm2h1ktfZ3UP2St9qsHxGLwKCmWcplrV1glVaFzUfhMLjvYSQz3U2lHSWze79CQpANQUV6CnzE3GnrE300DnITv3uEMrDqU3vtlz8lUjSJ9OoRDrrJV/pRjseHICpfSU=
+	t=1779100371; cv=none; b=pNcj17hc+/rNJ00d2/aIklbCJHgqKlF1f0ySPCnMLbOEhj7ChXKqwhnekv36sOcIloC2eibHzRjy1FPce5vgMMZbL0ydavOo7DJCMg5UfcF42VEyn4SiLX9seO4imG+j/kS4Fcmfnnj6IoMyGuNaEpZwqvbNxKUFHXUUK4M7II8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779100268; c=relaxed/simple;
-	bh=FhzxYt//Uphy9XIMcZdhMxK6XHMp+0lzc44JUU+R3NU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nKY7WRRCMx0YKet+57wDxl3ps3y0KBFb9gw0SJ9zr9xLzQbrvXgvgsm60MhKQQdX5GjkBa1PboRNGZ2BwvYDaUf4rnPu/IiejhfUPMPnOO2PszSt3dmev+YzQ82jx+Lxhb7+Z083FlbqgXFk74hngLxVcW63DKlffHUO9fam3GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ac3nSHih; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779100371; c=relaxed/simple;
+	bh=G2Suns5VJleYMRm6J0IcnGJCb8Kgzf9eDglIQGSVjYQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BrK3cjOnqeqbzmtR3oFvfQGHcO9j1VZ9sGUCn/gvud0EO8yYFx9pnSuLXCZNmx3Iq5ZC3v3YBkXT7zFnNTStLxu8lKEzo5K0dUDDxYTI1TfvnR8/Li6VXUwr7Wrjic6kz2++8JEfL+zHt5syeGEGp6blxa4Sniy8wAWjQwzxqfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Azwb2TmF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YmC8M2lD; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ac3nSHih"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1DE5C2BCB8;
-	Mon, 18 May 2026 10:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779100265;
-	bh=FhzxYt//Uphy9XIMcZdhMxK6XHMp+0lzc44JUU+R3NU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Ac3nSHihohxac5PHqDzudCDR2GXQIEPgjVw7GnlzLgOvF3pt1fsK5nZy7fv/I0ZOY
-	 IEkryONTbOIDkqMcjL3HabW9KbWuXvwzzaEw4n4mzq6aRHfslKC7skhnRV1XiDvTym
-	 0+q6txvuo/d+vtN/IgcPFmAOjAIV8AgBDHZO/TIQt41TiXrWcw2qaS7JyMa4yfQzSL
-	 KqBkItR4ousgOfrmZg16MA3kgYoWBiekFlCoWv3bSB7qIxu91w2ZeVKwQvJqQNLmBP
-	 8Sxd7yJw9pUrfjeOguLBRqUOPEB2WnuI7bWvlhwhmcIrlN3lVdMhdHmk689y0j6EUu
-	 xtoW1bjg//meA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/7] mfd: Add driver for ASUS Transformer embedded
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dmitry.torokhov@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518095907.36158-3-clamor95@gmail.com>
-References: <20260518095907.36158-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 10:31:04 +0000
-Message-Id: <20260518103104.C1DE5C2BCB8@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Azwb2TmF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YmC8M2lD"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IA8ehr2091147
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:32:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=JKBw9AR404EF4NUzLzs/nNnx
+	H064LGvJW1ef6d0/ijc=; b=Azwb2TmFOtPQepUDtP77ta/2KX3x9vQP6D3FtGW3
+	D9CxjPxaeh/Wd5H6a5J+aLXX+6JK8kSSv0kzfVNtaB0rrip9dJKCdYRvwIjtNXTl
+	/2Am7yLBGe3E9zarizH6L1LGG5JJhPdPQfJ7sJMYrfObrWwbSaeRImfb20tlA+1L
+	Cd2DDxcQAZlwjR3uWQx6wwpYjnxibciZ96E5eSDHJ84UpoJwK4H8Kf5UNMDVpoHJ
+	xxTwpQsyoEd4H76CYAlCfvbrGCq5b3y+HRK+P01U5ngqofiIE9++Lm34IwSYExOX
+	ja894zCO+lSEDQZ3JP6AjWv3NifoQaQ3/e9Lk0GffzKeHw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e80rpg36s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:32:34 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51605cf3c60so26863371cf.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:32:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779100354; x=1779705154; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JKBw9AR404EF4NUzLzs/nNnxH064LGvJW1ef6d0/ijc=;
+        b=YmC8M2lD3wl9psptFCoH0M3nJyMjvrYZ7+SU9khUnaHMdVfr93alMbGVWe8ioqvyCN
+         r0ArIv2buOrqkRSm0Bxt/jbA1PCsENTEz62rICc6cWGCHlQJN+BuPo4v1mc0vLMJXag9
+         h8Oz4gvsQht7b7KXBe2+fKURSHCzmJ9JFWIPyhS23eRSdzU8uijFV9Gr3BhpaYdXjNcC
+         UBDNLG1OZjQxUH79AhJaIk9FkRNcdadPQo4bCkHOd5oyYbQB8yzP/hSYJz48VxJMH/oS
+         gAR05ATDUQCbHCqGK2UiNlaP4FIO2d/WXWkvuzxCkk8q3hnmu3E32OTKhBpp1cohF2qE
+         nNeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779100354; x=1779705154;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=JKBw9AR404EF4NUzLzs/nNnxH064LGvJW1ef6d0/ijc=;
+        b=ZWVcG2yHBtYRgz2R9Gb91RIRNqLqG9+uIUf924QQRFVvf9Gzb+rT4orsauNvHWABjh
+         YqzOoku8AV1TRSceftK245fJI7mrbCAbQHxTDp1/+IenrJ9xmoz1R0FpNrqX2Ay3uvYO
+         z0S4H32V24QA5lmihQeEQCSytPI/jave/EL9UoAmEKL1KO4/z77GjgmzqtS0j959qEun
+         tqSMrCb7+AFhKTABN+Mj1Ez4t1xBztVdfCnfJ0UrftFLJNPCGpmjHnox8SzzKaE1k3vf
+         fvxQ+tkUCqtrwsUoBeLPRPcIvWWfkqgkeUD6ItqNL+kvWYtDqkkTBuc7DtSMWkc+T98X
+         ml2g==
+X-Forwarded-Encrypted: i=1; AFNElJ+UCQmqX3anOsWWR2nLJ/Oqf/NpjQ9y0ZfJph/OkrB1MEvQ6lmie2PxpMXcLKYLOI4FU3ghgBMBkGab@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy04HgnNXYU5sQEaQ5zx8EGIPj4xvZdFjIRM69qvf9GnsDjbnSY
+	PB9xYSe2W7pW6zvKEHNcT8ct4tF/KWCfluarkf9WSHnZ4BKS8JuNC/OJWFRtUhDwr3qFWZtulaZ
+	p5b8JC3LaidO+hrbmV5N2WHWGGiQGYdUT5L1oVpZXquDOkVgT6Vb/vsTt6fPa3n+i
+X-Gm-Gg: Acq92OGilN84x8vA1SDR/7nWiGOssdBGU5cJfqFGs4Dg1x6yyMlpHH2p5NGMOYlSMpB
+	nNQT1M9yO7kfU8/Qi2I8e7OxS/71co+8ENXXg4H/sRhtLqkPfXuDsqreUz0sy38U8x16dqkDrI9
+	Y/8m3r+UDnaQQF8/c88lmvrQRqJb5GsxJw6WopnBDsSbp6Vb6iCNpzYFU29FKQK1SFUzgktxD4X
+	IGRU/5ZrToW9vWv5Pl/UeiasW8a+uXA4Grbj2x4it4HyN3wA+YSNp79vSgGQzAssLV3tfYHTojy
+	GvrnETJBPnwtbKkAxHvf5RcNQrhvWvNqw+7COSgmEczhlUet0iFt6uvK+IRPWTeBhMMULes1ugg
+	M4tsbkN3oIzZ/kDjjeQrSZoCIRZEloq/nEL8=
+X-Received: by 2002:a05:622a:1313:b0:50d:9b2e:7ee3 with SMTP id d75a77b69052e-5165a0ccdd9mr204777741cf.38.1779100352688;
+        Mon, 18 May 2026 03:32:32 -0700 (PDT)
+X-Received: by 2002:a05:622a:1313:b0:50d:9b2e:7ee3 with SMTP id d75a77b69052e-5165a0ccdd9mr204777111cf.38.1779100351558;
+        Mon, 18 May 2026 03:32:31 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.24.162.19])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe53ab671sm245653735e9.1.2026.05.18.03.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 03:32:30 -0700 (PDT)
+Date: Mon, 18 May 2026 13:32:29 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix wrong interrupt number for
+ i2c19
+Message-ID: <sy6sl3tdfep6umhfk63jar3ibcufnayqteyrmvdqpn5krralzt@jonkgiphbagf>
+References: <20260518-glymur-fix-i2c19-irq-v1-1-7d5968bd9b2b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518-glymur-fix-i2c19-irq-v1-1-7d5968bd9b2b@oss.qualcomm.com>
+X-Proofpoint-GUID: WB21nxL2xYnZk3bHs9hjd2tV5RXTg_Z2
+X-Proofpoint-ORIG-GUID: WB21nxL2xYnZk3bHs9hjd2tV5RXTg_Z2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDEwMSBTYWx0ZWRfX8f2/RrUlCz5q
+ 1M803aLfpPXA3KErfZyHkXxfx6C09s24hV+yHVaJEjWRIVjzP56jECUQgAtnNRnWzEXIk4wgMbI
+ Q0H5Iwu45m8JLIQlzOat6gLPMdRBglIqw8EU0r+wZ9EvMNPTlLmWP0g4gaZDfF9JJsaMES3tsVn
+ Uq2VPkR8MX0NAqSF7Jmz17ilRV2tTr4v54sOkEoeVT9Ze5snraGxzuPt/a5jTQ6avv2IFIkZZdn
+ G+Xwr9yS5cPr1x8TE7qX1vWP3UzVgyvpfl45JvXdkWGE+eH2rHsAd6bgFthK/jgCeEfzZ330Ige
+ E6VNAwI4lVQ+mYu3G5biLaf4jH+mf+83oI3cL5WN9avwyKQuBBu/XqlIfHGPcT9tni/wl2fmG+W
+ c1ZZmnnQQ9grJV02Ww56Z8TUOzAg/IoM3oSHThx8TIqRWfazk9hVOUDiIqmmW2/fmKVz67unthn
+ j/1PrCddbGx3U7Cpl+w==
+X-Authority-Analysis: v=2.4 cv=ecMNubEH c=1 sm=1 tr=0 ts=6a0aeac2 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=eYxG+yUyFZr/0hLq1CKHgQ==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=YFrQUJdA0-VyeVoQsyUA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180101
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Unsynchronized reallocation of `ddata->ec.model` causes Use-After-=
-Free during interrupts.
-- [High] Stale and uninitialized data is accessed on short I2C reads.
-- [Medium] `asus_dockram_access_ctl()` silently ignores I2C write errors.
-- [Medium] Memory leak of `ddata->ec.model` upon driver unbind or probe fai=
-lure.
-- [Medium] The original IRQ event payload is corrupted before being passed =
-to child notifiers.
-- [Medium] Subsystem Guideline Violation: Mixing `goto` error handling with=
- `__free()` cleanup.
-- [Medium] Missing error check for `kstrndup()` allocation failure in `asus=
-_ec_log_info()`.
-- [Low] Incorrect length check causes string truncation in `asus_ec_log_inf=
-o()`.
---
+On 26-05-18 02:52:53, Gopikrishna Garmidi wrote:
+> The i2c19 node at 0x88c000 uses GIC SPI 584, but that interrupt
+> belongs to the neighboring i2c18/spi18 node at 0x888000. The correct
+> interrupt for i2c19 is GIC SPI 585, as used by its sibling nodes
+> spi19 and uart19 which share the same register base and clock.
+> 
+> Fixes: 41b6e8db400c ("arm64: dts: qcom: Introduce Glymur base dtsi")
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
-commit d95a94a77b9b37ec021eabccb7ff81e4dd52730e
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-
-mfd: Add driver for ASUS Transformer embedded controller
-   =20
-Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201,
-TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 dock
-and TF600T, P1801-T and TF701T pad. This is a glue driver handling
-detection and common operations for EC's functions.
-
-> diff --git a/drivers/mfd/asus-transformer-ec.c b/drivers/mfd/asus-transfo=
-rmer-ec.c
-> new file mode 100644
-> index 0000000000000..18bb3e5f384d9
-> --- /dev/null
-> +++ b/drivers/mfd/asus-transformer-ec.c
-
-[ ... ]
-
-> +	if (mask || xor) {
-> +		put_unaligned_le64((val & ~mask) ^ xor, buf + 1);
-> +		ret =3D i2c_smbus_write_i2c_block_data(client,
-> +						     ASUSEC_DOCKRAM_CONTROL,
-> +						     DOCKRAM_ENTRY_SIZE, buf);
-> +	}
-> +
-> +	return 0;
-> +}
-
-Does this accidentally hide hardware write failures? Since ret is ignored,
-callers might falsely assume the I2C block write succeeded.
-
-[ ... ]
-
-> +static void asus_ec_clear_buffer(struct asus_ec_data *ddata)
-> +{
-> +	int ret, retry =3D ASUSEC_RSP_BUFFER_SIZE;
-> +
-> +	/*
-> +	 * Read the buffer till we get valid data by checking ASUSEC_OBF_MASK
-> +	 * of the status byte or till we reach end of the 256 byte buffer.
-> +	 */
-> +	while (retry--) {
-> +		ret =3D i2c_smbus_read_i2c_block_data(ddata->client, ASUSEC_READ_BUF,
-> +						    sizeof(ddata->ec_buf),
-> +						    ddata->ec_buf);
-> +		if (ret < 0)
-> +			continue;
-> +
-> +		if (ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK)
-> +			continue;
-
-Can a short read leave stale data in ddata->ec_buf? The function
-i2c_smbus_read_i2c_block_data() returns the actual number of bytes read. If=
- it
-returns a positive value less than ASUSEC_IRQ_STATUS + 1, the buffer will
-retain data from previous iterations.
-
-[ ... ]
-
-> +static int asus_ec_log_info(struct asus_ec_data *ddata, unsigned int reg,
-> +			    const char *name, char **out)
-> +{
-> +	struct device *dev =3D &ddata->client->dev;
-> +	u8 buf[DOCKRAM_ENTRY_BUFSIZE];
-> +	int ret;
-> +
-> +	memset(buf, 0, DOCKRAM_ENTRY_BUFSIZE);
-> +	ret =3D i2c_smbus_read_i2c_block_data(ddata->ec.dockram, reg,
-> +					    DOCKRAM_ENTRY_SIZE, buf);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (buf[0] > DOCKRAM_ENTRY_SIZE) {
-> +		dev_err(dev, "bad data len; buffer: %*ph; ret: %d\n",
-> +			DOCKRAM_ENTRY_BUFSIZE, buf, ret);
-> +		return -EPROTO;
-> +	}
-
-Is there a risk of an out-of-bounds read here? The I2C read fills up to 32
-bytes (DOCKRAM_ENTRY_SIZE), meaning buf[0] to buf[31] are valid. If buf[0]
-equals 32, the kstrndup() below will attempt to copy 32 bytes starting from
-buf + 1, reading up to buf[32].
-
-> +
-> +	if (!ddata->logging_disabled)
-> +		dev_info(dev, "%-14s: %.*s\n", name, buf[0], buf + 1);
-> +
-> +	if (out)
-> +		*out =3D kstrndup(buf + 1, buf[0], GFP_KERNEL);
-> +
-> +	return 0;
-> +}
-
-If kstrndup() fails and returns NULL, asus_ec_detect() will unknowingly ass=
-ign
-NULL to ddata->ec.model. Should this return -ENOMEM on allocation failure?
-
-[ ... ]
-
-> +static int asus_ec_detect(struct asus_ec_data *ddata)
-> +{
-> +	char *model __free(kfree) =3D NULL;
-> +	int ret;
-> +
-> +	ret =3D asus_ec_reset(ddata);
-> +	if (ret)
-> +		goto err_exit;
-
-This isn't a bug, but mixing goto error handling with __free() cleanup in t=
-he
-same function violates the subsystem guidelines. Functions are expected to =
-use
-either scope-based cleanup or goto-based cleanup exclusively to prevent
-confusing ownership semantics.
-
-[ ... ]
-
-> +	/* Check and inform about EC firmware behavior */
-> +	ret =3D asus_ec_susb_on_status(ddata);
-> +	if (ret)
-> +		goto err_exit;
-> +
-> +	kfree(ddata->ec.model);
-> +
-> +	ddata->ec.model =3D no_free_ptr(model);
-
-Could this cause a use-after-free or a memory leak?
-
-Since asus_ec_detect() can be called from the threaded interrupt handler at
-runtime, ddata->ec.model might be freed and replaced without synchronization
-while child drivers or sysfs attributes are concurrently accessing it.
-
-Additionally, ddata->ec.model is never freed on driver unbind or probe
-failure, causing a memory leak.
-
-[ ... ]
-
-> +static irqreturn_t asus_ec_interrupt(int irq, void *dev_id)
-> +{
-> +	struct asus_ec_data *ddata =3D dev_id;
-> +	unsigned long notify_action;
-> +	int ret;
-> +
-> +	ret =3D i2c_smbus_read_i2c_block_data(ddata->client, ASUSEC_READ_BUF,
-> +					    sizeof(ddata->ec_buf), ddata->ec_buf);
-> +	if (ret <=3D 0 || !(ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK))
-> +		return IRQ_NONE;
-
-Similar to asus_ec_clear_buffer(), if ret is a positive value smaller than
-the required length, this could process stale data from previous interrupt
-events.
-
-> +
-> +	notify_action =3D ddata->ec_buf[ASUSEC_IRQ_STATUS];
-> +	if (notify_action & ASUSEC_SMI_MASK) {
-> +		unsigned int code =3D ddata->ec_buf[ASUSEC_SMI_CODE];
-> +
-> +		asus_ec_handle_smi(ddata, code);
-> +
-> +		notify_action |=3D code << 8;
-> +	}
-> +
-> +	blocking_notifier_call_chain(&ddata->ec.notify_list,
-> +				     notify_action, ddata->ec_buf);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-Does asus_ec_handle_smi() corrupt the event payload before it is passed to
-child notifiers?
-
-If asus_ec_handle_smi() triggers a reset, it eventually calls
-asus_ec_clear_buffer(), which performs new I2C reads directly into
-ddata->ec_buf. This overwrites the original event data, meaning
-blocking_notifier_call_chain() will pass a clobbered buffer to child
-devices.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518095907.3615=
-8-1-clamor95@gmail.com?part=3D2
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
