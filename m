@@ -1,146 +1,225 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010069.outbound.protection.outlook.com [52.101.46.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B382C382F03
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779126716; cv=none; b=Ap7pd3agrcR5dl1vh8F3q2cAl5zrk1S6X6qBtT2QUn5y6SgScZf+J4hVYWoMm2ySNZ8/Wl1Dcv2IwAwS9D3wDjs6GTre2sKk0+0XSNBKxQqeNj1kg+Uydq1fLD8/Lyy7IYI5xujV8CM5q9xiYmMyUCkMuRD5gwNjAslGFRajRpA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779126716; c=relaxed/simple;
-	bh=YO0xaV+puJb+FXu8XxI7Miv+9xXb71hwJzUKynMUnYw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oP0y5yT7FJfiqClldXy/YyEgZmtcmTaFj6LPEtNqjmCeFrzSU4jVN/SeyjE7adnlIQVWLku7PMgDM1pfEHQPT1JWD1KygEarHvii2lPZje9vsZdjK1HdR4fqjRkrPSr6Xb012xm7ZyDstl4wFKsfJlde/tQsHx4W43VYyBs4X5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D0+NDR23; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dDjC0tGH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98BC35F184
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 18:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779127307; cv=fail; b=XWeqJ13YsAn0weRANAbmD+IJA53bJCwZidPWQLB2UrVPeIOWZlK94aRcmLrFUudwPCQ2IxlV9Amt7FBJd8jaeimwK2+0Z9hy9gLORCSTuLgmn8KcWbenRDj6DPSZRSOSZKyU6874cxQ6oNtzBWaoEvlG+AQquRmHtQNrtl1BMZo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779127307; c=relaxed/simple;
+	bh=ASfvC0S9OXstP3ck2N5BIL6dOKrCSFt3MpT8J95Z4Y4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=HI6GH7N70CAo7Mib1NIgPxD/tofUHtd/22jaui6fTurpnSAMy/OLJJ9UXiXap91c/75MZeW54C84IpKQ3Pt0EyNHYW2OC6xLNAP5VBC3NcAC6vJlmfM0oKPyspRysdoI/sGL/PxUQUJFCvBNsUbY6HVDWE3G37mZsVxdCgb8ouc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=b/2BpWOj; arc=fail smtp.client-ip=52.101.46.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D0+NDR23";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dDjC0tGH"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IDp8LT2893009
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:51:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=W24vIOGiSP4y29K9PfNEC3xc
-	hhMtUW4j//8Nr4NBCog=; b=D0+NDR23gr0Hf9uN9SsTR97Wpa/hUSXks34Z4fPc
-	ytW9M2nokM2oR6fqX+mL0I7KfQtCXwXCPHUcUkqZD/006ngkEKbeFTjSa7fMsvE+
-	zMcUWUNuiDLB6MoFr2ooNeHmcPFtHDRWif+cRlWyXrPY7kF+XcEJkk178y4MIBoD
-	BKZaBrXwe+FzmKeExjDx3GfI/Ad+KCq3L2djYW9f0nAMwRf2u+KeRlzn8jNfS8Y2
-	wNlU3Sk4kcWZjh3yXvVxWYRT+b0yjz+SHKYU6MeX156S0Qwqz2UpnwHtTztCQTSK
-	OjHRfa4h4faErBt85SDg+UUaIMe9cH/6tBIowaAbxvSaVQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7xk1afdn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:51:54 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50d5d1c2289so83626931cf.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:51:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779126713; x=1779731513; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=W24vIOGiSP4y29K9PfNEC3xchhMtUW4j//8Nr4NBCog=;
-        b=dDjC0tGHbk76CsBAbyEOg/s/WIx5Sbtwq3Gmhd86dgMQiDE6vKYZhTP/i3CUTnDcyV
-         bzsHc+aiNhgwQhfEEx8yf+Ws+AfyYipf+bXSrVbRyU4Df/dTvFPsIzDvmI8CmTVUBAoH
-         nHwvWaZ9Sjvj94MzE7yFBSWGmv+KGh5WwU8u8E8GaNCE3C8sravQyE4xGsvjWuyBn2lM
-         eDu1GG2zCYyRjG6/qe713+itq+Uj4Md2PixWcuXTjhDiUQSm0DwEh2rHvAw2r7nUcjKB
-         oAAIK/W1hjnGcHmZkCW2IQ1WdobTOlGI7ZOPs/aocq7eqC0vEAGNPn0YKyUUwEEWwVhK
-         h85g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779126713; x=1779731513;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=W24vIOGiSP4y29K9PfNEC3xchhMtUW4j//8Nr4NBCog=;
-        b=BVN47dKjh1R6uQCgb95j6NSLSOrSKN9jH4sWVgi3B7SJ82fefFlU29zZdkkJDBayWq
-         cUYYr9yAPNdkcevZNFgL50tSQxevOMj2c5i5iZ5DEVVJhQRpHe1Wixw83BLwYf4oaRSG
-         kdYejLXV7pBkS+F+SYDenUK3+WSmSgGGzcuHz+Ful5eVc6WDK5UN6ubNRNKv/0rCHa5E
-         Y+T9YClKdwcBTYoEP480zlILfnt9t/mw4xgNLkXWjUphqOe6TiKGUBEE4mRPsJWW7ki4
-         +SYhG5KWrzsMqEZG15bmk8tinTYs8U957j7CbTF+vIQJH3uUs/6E4lbgW5V/QFRcVEUV
-         Z82w==
-X-Forwarded-Encrypted: i=1; AFNElJ9nsz3sPecadALhHVsSaADuFNZRTD8dEDRIHrh0GZkBVlvyBXmGDE5T8o81VRdvHJGuTUPnKcaknG/s@vger.kernel.org
-X-Gm-Message-State: AOJu0YyqaGx9or/T5z+q682CeopAkLtiq6yR0TQDB+zd1wapD5sgvec1
-	sP1/dc65pJsmeIgRgxPYEj40whFWWlBM3m3W21Qom0S/2d3FbtIk2knyHEofsrZCCuaJbUjED/c
-	fNEjvJgiKY9hPkYM7fsNBKTftZwh5eLV7I0nGXgY675ZFHbawt+KGLwNXStscskku
-X-Gm-Gg: Acq92OEFrwhQRhm5MxqT6odHXCBqd7Wr8lekNtZEhc1gQRAlnKxm7GpcXic+j6DiqCR
-	Obztp5gbuleD2BvB8KwuGjvAWZZJs26itZj26Rpeoshxp7qEtktRHyiK8U1QKGaAxM4NFoSN/H7
-	4F5qRxLDcrOLZHpdciRUF57KySS1dyF0fJ/n9b800itI5shH7ZxazQCWayARJQNIiz3Ajn5OGH1
-	r45jxPBneE7kdCFrdt9wN8lgjd8G2wA1hjQ/jrk54dRnLZA7nWFpe6TgjVV3bAqssKIZo/bXqhN
-	7vpd6++PqhO/mRYxKXE0efydFr75qt8SZ1vNLXMdJR1GSJr92ziDmezdjYKSDBX6+964SerdMGY
-	Tep7G4rvEQI0RZUmvbVOY7rcFJwx1tHLYvbJy3uX2+ERqqYfwofzsTol1cx1b/g/yBEcpsvDbvM
-	9E7jNzI2j5MsHuzpSipU0jL6bbuSHJJcShsjs=
-X-Received: by 2002:ac8:57d6:0:b0:50f:ca25:fb48 with SMTP id d75a77b69052e-5165a26b016mr236818441cf.55.1779126713043;
-        Mon, 18 May 2026 10:51:53 -0700 (PDT)
-X-Received: by 2002:ac8:57d6:0:b0:50f:ca25:fb48 with SMTP id d75a77b69052e-5165a26b016mr236817891cf.55.1779126712506;
-        Mon, 18 May 2026 10:51:52 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3958878a103sm13495791fa.29.2026.05.18.10.51.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 10:51:51 -0700 (PDT)
-Date: Mon, 18 May 2026 20:51:49 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org,
-        Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net,
-        neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
-        mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
-        simona@ffwll.ch, jikos@kernel.org, bentiss@kernel.org,
-        luzmaximilian@gmail.com, hansg@kernel.org,
-        ilpo.jarvinen@linux.intel.com,
-        Douglas Anderson <dianders@chromium.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 0/7] Add support for the Microsoft Surface Pro 12in
- 1st Edition (Snapdragon),
-Message-ID: <qfoobb7xrqkc5ivs3v3wcymbhywwqe6albcijchdmkhwrvdatg@pbsnwdrawko6>
-References: <177869930359.1496076.12020223802779537187.b4-ty@kernel.org>
- <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="b/2BpWOj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NbaVM5ImyQQtBk31mIhQUkEu9RC3KOl8CespSUyu8APBNjNGq2rdWkdYKKg9034cdT52XRGfnBIAMCoexipfqMtfwBe4jmJX3ulOh6T/ZGwAdPUBlsBmrBLVUIqZ/xvZJ58TLLj4rx3huRKqs0JrJlfu180CqEqomWscT3ZDwZfTD8aA9DxdoWH+ObTliZEAqoFeQ5QrMWiabLo1r5lDQQcM7CUn3RKuSn/Eo6HRUUvgbpEXUH0HppUxwn/f0z+mtgi0f2gYv/1Y0QqrowW8D7IjFsWAc8vf4IJZL2rICuBKsp4vfhl1x+5EOC6uyCqWz6RLMDpAyCcfX6+0D1rS4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Hdv3nFwdP6gTll9tgcIufhW+s8odSDcDb96hYnUwd0s=;
+ b=J+TmVpTgE37sI6YUlEg7bT+OU0sKQAXxEZ3XDStKTO6n15vtzG9VV4X8g3GP8ifpaA0uWqOofigwXzEmKtwK9rDJZfRUvwiP4l3xfPTroStDaqjxsYG2BdhMJa2DepSJWWXiLbXcbPEDd1iwFAlnevZZiQ9yfmGmf2e0W12Ka70thsWTFOCJgikmoYIpGYauDfmw6eEJzizCBEHTYeIAFoXyl00mu0SFeuVx+J4sGIvFUVDFiNRug3A9Qp+uv2sVzY0IsbYgxD6P17XqW1NgD1mW9vK0FLvLC8N3eTP45BqDAXf0XpVpfsD7sSXrXqo8aBzKn9GBziOV2mpUl+1Bsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hdv3nFwdP6gTll9tgcIufhW+s8odSDcDb96hYnUwd0s=;
+ b=b/2BpWOjVMnvVVLw9wbhjx+f7JuCFn/zaA6xN/3qPvR9J/g6ThbTiEACijem/aqIRMWw84QKgDCSMbUVBVUNESg8tXqs0j8LlRCjyym5TPfhaZ2Tjzk1UTuKXkKZEmxVdvxlLefToWlR7zEmcImPNzd4Nu8XmyOW172nVh/K5x/Za0xvOcMYk19qsRfWew0sXz9p1qYPOdQVacNXA3YY7f1MHkT+oZ8SDpoZOhhXMmdqHb6uCNDqcm30mGg7A4pjSJ+YICMJIlOKEPggKCh/lx+BT2sVKQx4wmKbxGZ6VGyKieKP44mcm2+IdUtj18wdpUnxoxBmuMDl16VnUXWbwQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BN9PR12MB5179.namprd12.prod.outlook.com (2603:10b6:408:11c::18)
+ by MN0PR12MB6200.namprd12.prod.outlook.com (2603:10b6:208:3c3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.19; Mon, 18 May
+ 2026 18:01:39 +0000
+Received: from BN9PR12MB5179.namprd12.prod.outlook.com
+ ([fe80::cf08:f59b:d016:c95f]) by BN9PR12MB5179.namprd12.prod.outlook.com
+ ([fe80::cf08:f59b:d016:c95f%4]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 18:01:38 +0000
+Message-ID: <06d2a419-a4eb-4226-93f6-8d9d7f527c07@nvidia.com>
+Date: Mon, 18 May 2026 23:31:31 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] memory: tegra264: Add full set of MC clients
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ sumitg@nvidia.com
+References: <20260518124306.2071481-4-sumitg@nvidia.com>
+ <20260518133308.E8B11C2BCC6@smtp.kernel.org>
+Content-Language: en-US
+From: Sumit Gupta <sumitg@nvidia.com>
+In-Reply-To: <20260518133308.E8B11C2BCC6@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0302.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:21e::19) To BN9PR12MB5179.namprd12.prod.outlook.com
+ (2603:10b6:408:11c::18)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
-X-Proofpoint-GUID: rlRwC_ALSC03z0gpIXDW4iKoC0VRi3tM
-X-Proofpoint-ORIG-GUID: rlRwC_ALSC03z0gpIXDW4iKoC0VRi3tM
-X-Authority-Analysis: v=2.4 cv=BICDalQG c=1 sm=1 tr=0 ts=6a0b51ba cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=DHJDpsF2dBqhSPlo:21 a=xqWC_Br6kY4A:10
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=9VIlvAo4FWx-UwQJ4rAA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE3NiBTYWx0ZWRfX+TLcqvlVClcY
- MxAvTUiCL4QmyFpBXqFa2QDxlbNXpn/PqHfr/D33lt9//oyRo20D0LHh/nFbOQkrEp9WazCpl0r
- 60B0QANkdQJBJE+IVpVXiEBADqGSc0DLp1EFnsnfrkfVNtIprgb8dGa/7sl75V5CXqQwjxXOeXd
- ceL9MjSEME/e48NeGmANADP3H1jCwl2r7IvyLHBEd9J/2NPIyILegEVrKOJek1P3eEPcp8hCWkQ
- mlQnY/z19qOpVjHQ94jRrV/g2tYhQB2nuajaOHlROdE0ZH77ixCvVAnr72zG0CEOxS6HaeXWagn
- VbTAgBUfQkVp59ISOWsz+wTSaLRUUmkHRemIZrdmcnH+Ej5QMD2+BSUW4GQINw7t2aYO1IS9KSN
- HSAECJpXHSbF0x4PwdCPgmai9a/h2o9Hzi0kpQIIQ33iaywAqc4fegkstcnL0L5AGiRhstevDWx
- LRn6FZAb40xDuyYA8+w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180176
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5179:EE_|MN0PR12MB6200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 420ed767-7780-4db6-aca5-08deb50781d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|56012099003|11063799003|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	WgEF0WCPpdYbrrYnNqEyYvtUSfy3yGECh8d7BLyd08nXq4K+9wTZLlQvc5FoMa8nyzjY93r9HH+bwkm+aFco7+w9MDmcmxt5kSr8wTF5n/TFg3LSCweaTqz3hDBtNeZmJBCgLGiFRZSrr/xjRdOaLEFmtuHmhS6MkdJKkjxXvAkMG/HKSOXdXkq0fVI5x1ZC/BnYyrJ+FfPKaTHtGpWQf+GGGJZ+9b2ukUQGXe09X1b6kn+1sDYrlXmxV6IfbP9TcdAeBW9rCkdDEOoqwFaEaInMqleUesTw02DzoJboSZCFa/CCztr4v5jzK6TPtXWPUVU08AbUu1P2oDceXJaAmCFGCPA9L1ppEuDhnBDxC5Fb42qOymrDWANREy6XV5maP569lOZgPPwIjfaWNt9YUNyfo9itSknwDyd13J+0ZA07usto3k09Wp29Duy3NTLu6e6K76Qv+XgzSU9l89l6+kaM5DH7B1W9T3n5XvUx8W1ISKc0rKDCvnzu4vtR8h/HbgjdFnNOV4TmJE441QCJ2dNOV+6292bdY2N3BoAYgNvF3uq3FiUqhlMV2FBWeD4jQCVMrd8Yom3qEciNLO/8pvNehRBbnkIqoL+wJSsSMevg3IOd6gZucfRAlu9rP0wEgxK/cELsh2WpkTlXdSRRH8egD2BG8IciA7kqovX2vbnXjJrJUIGkvv8PCuQTTcmv
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5179.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(11063799003)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N0IwOFM0Y3RSVUFTLzJDM2U0SEkxemNCUUlwRkpaVkw3ZjZVdkR0dWZ0OWMw?=
+ =?utf-8?B?SXBsVGJicUhmMk5TTUJzSHlhZmxuVGhxbGI2TTBhVjAxU2tpTDI3ZFZYb2Vz?=
+ =?utf-8?B?M3Y4QStxTmVqN0w2eWs5TWdtQlhmMWQrbGUyOHIweVBvZ2VzK1hoWnNUSHNm?=
+ =?utf-8?B?SEpQR3d0MElPemFjS3hybTJYaWhrNEttMDZvdlFJdXA1RnFBRkE2U24zcEsr?=
+ =?utf-8?B?NVc5YXVIcDlFQ2d2b3prbW5CZjdteU1sSkt6VEZiMnA4Z2VjMkJqWm9uYjcw?=
+ =?utf-8?B?cEhFdTFXMGlneU05eEdDSVlaR2VtdkprZ244cEI0YUJwTmpTNUtqWmNpSFht?=
+ =?utf-8?B?cHVQQ3hOM1NoVmsvQkROaldSR0xDamVJUlVDWndidE1Udm1uRnhhSFpRRVlr?=
+ =?utf-8?B?bHRFS2xReVpXUFhXZXFVRG5BQ095MEZVNzB6NXhSdTJlbzJkVFRPTzZsbTZW?=
+ =?utf-8?B?bWNyTy81TEtKb09SUTZJTzB4cFVxRi9WOGhsMnBBaThCYUpHVVczOGZxb0U4?=
+ =?utf-8?B?Y1VRYnZSUU1FTnlobmlRNmRCNnFHY09MYlVNL1JtNUJ3UlZZeW1FUjRTZHdz?=
+ =?utf-8?B?bklUQXNIY0FwWXpKYTBUeGdOSGlqSU5NUHpDN2htdEFqd0hEbFo1NFU5ZVVK?=
+ =?utf-8?B?a05DNXppamxyVkhZMGdNVnIzYmY5QTgwTk9kWDFtTVNGemZEa0pPdlpJYnRa?=
+ =?utf-8?B?NnU1TlRCM0FRdjAxejV3M29ibjFOOGc0WjlFMVZjemlIbEZLcm02ME1wZ2F5?=
+ =?utf-8?B?bWk5Qmk4QlU1NVNLbmJubDZENXdtRzFtOExHZEdNNVFDdC9iSk16UDdMZVNI?=
+ =?utf-8?B?YmNzV0lqRDRSdGZHZFBPRzBCM2dHWW5jejFvanBjZ2xtQkJFT2VaOURKS3Iz?=
+ =?utf-8?B?Qko4MUZ1Z0ErbzNiKzliUDFmZDQ4WXg4cGJNUFRVdGdwRkJMeEs4QStjcVFa?=
+ =?utf-8?B?YWhxb2Y4YVAyVnFCRHNZZkljUlVPVlhkdThvNDBaMkJYd2JBZUVIWCtick5i?=
+ =?utf-8?B?eVd2WW5zNC80T0tyOFZSVWVLeHBvOXJsWWJpNXJ4WDN1amNOUVh4MTFBUUc4?=
+ =?utf-8?B?b25YckN2T1NTQ0tIYk43SFBQempiMzkxR0QvT2xONitlMk1SV0JyOVIxTFVD?=
+ =?utf-8?B?cEptV2ZxRDhic2ZqM3AyMEZoM0I0N3FTc2JKSmdBWFJ0dytYTVdhQjRuZ0NT?=
+ =?utf-8?B?Y1A2ZkpOLzNYSCs1STI4bjZtZm91MkxqSExlNVdFc0dQeFlKdGlzc1YwQk1G?=
+ =?utf-8?B?ajhRM2FVeEZTQ1Q1M2k0K2I0UzBQc1laLzJLZk9lT2JkV21XbjN5d09kTktN?=
+ =?utf-8?B?NW9paXBJdE9KQ3hrQS9Idmh1NkFHdzZsYVpQV0pzVWhtd3pWMmxuWCtGY0Rn?=
+ =?utf-8?B?UXAwR21FbnFyc01PYzdBRVhOT1dISFBaVTZ4bnJoZ0x6RmtvSHNMOXdOT1dG?=
+ =?utf-8?B?dWxKeEFGaUt5aTBsL2tObWpvUFNPVGg0ajFlRThhT3JlRk9WRlZRa3FlMGlp?=
+ =?utf-8?B?WnhkV0hLYUYxNXRFc2RIUWVpQy9kUlpTbU5XUFRwYWdkdktWOUM0VWV2ZjRa?=
+ =?utf-8?B?MzhBdnF5QjRCdUlkZ21EZXh5d0tGNjFvT3JJTDJocUxZckxYTkl1WGgrbUZB?=
+ =?utf-8?B?TVdqWDZkQy8wRGVKRTlNZmVwL0hpdGs2c01TcThNanFTMnhIUy9heUd6MCtl?=
+ =?utf-8?B?S24wZ2VsejBMdm5SazU1T3ZuZklrM1lOOUd6cTRGYnRpekcvUDBSVWNuVmVp?=
+ =?utf-8?B?TWFMS2cyMGFuTWlMbHVWQTdzMjd6TXRMcTRtZzRxbnZoenppbjdDS3VKZVZs?=
+ =?utf-8?B?WW9ZZlRwZm9CbHUyNE1xWFE3cmxnTDY1V1BhY0lheGZjOW5PRWU4U2M0TENy?=
+ =?utf-8?B?SWNoTVppT0RxUGJobDVybkpoQmxvQ2xpMGZpNE9lb2NkYWZlbGJ6SVphOUVx?=
+ =?utf-8?B?a1hSaXE1cXdIR29OTDdKUWs3ZWNSN3MrNHlIT1Q1YWJ2dXJZSENIQmJtTDhp?=
+ =?utf-8?B?S0dvZzBtVWM4OEJHMXpTQWk3Njg1ZUN6MGNqR3lNWUoyVDd1TXpTSFVEWDBC?=
+ =?utf-8?B?REc3TUxBeFZSSDFPZ0s3cGhhNFVpNmt5R0VnblhZckdTb0xUWE1LWGs2SnlM?=
+ =?utf-8?B?bm9IeG9KTERnWkF0eW9zS0QrV3VidjdkaU82bHN6b1ozaWVPSlNVcVVrWnhI?=
+ =?utf-8?B?NHpVd294WVlZbXpTTnJkZ294NXNyWGJrK0ZzWENZemkvUnFXY2ZMTDRSaHZh?=
+ =?utf-8?B?N3M5VEZMNVp4cVlNLzYvbWlBWW5nU0IwdVpHT2EzcU0vYk9mTDErdWg3cmQ4?=
+ =?utf-8?Q?NRPQT7wz3Yr+tcyyDe?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 420ed767-7780-4db6-aca5-08deb50781d5
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5179.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 18:01:38.4231
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bZa4AWckd4IeWWm78oFwm11CIO2Z5zwo9XvHYUZ1iPKxIlhROqba4TkO3Ok9AhchhGuvtOpr2axs423hCWqNSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6200
 
-On Fri, May 15, 2026 at 03:41:45PM +1000, Harrison Vanderbyl wrote:
-> Changes in v2:
 
-Please don't send new iterations as a reply to the previous iteration.
-Always start new thread for the new iteration.
+On 18/05/26 19:03, sashiko-bot@kernel.org wrote:
+> External email: Use caution opening links or attachments
+>
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Newly added BPMP-managed memory clients are missing their `.bpmp_id` and `.type` interconnect properties.
+> --
 
-> Ice device tree: 
->  - Updated to use 0x0 formatting
-> 
+In v2, added new 'patch 1/3' which adds a check to skip ICC requests
+for clients without .bpmp_id/.type, so they are not sent to BPMP.
 
--- 
-With best wishes
-Dmitry
+Thank you,
+Sumit Gupta
+
+
+>
+> commit 1230942ec14ede13ea86a9f95a6ff94371903b6d
+> Author: Sumit Gupta <sumitg@nvidia.com>
+>
+> memory: tegra264: Add full set of MC clients
+>
+> This commit extends the tegra264_mc_clients table to include the full set of
+> memory clients exposed by the SoC. The commit message notes that clients
+> managed by the BPMP bandwidth manager additionally carry their bpmp_id and
+> type.
+>
+>> diff --git a/drivers/memory/tegra/tegra264.c b/drivers/memory/tegra/tegra264.c
+>> index e628908417255..b8d6c4ce48369 100644
+>> --- a/drivers/memory/tegra/tegra264.c
+>> +++ b/drivers/memory/tegra/tegra264.c
+> [ ... ]
+>> @@ -21,45 +21,62 @@
+>>    */
+>>   static const struct tegra_mc_client tegra264_mc_clients[] = {
+> [ ... ]
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_MGBE2R,
+>> +             .name = "mgbe2r",
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_OFAR2MC,
+>> +             .name = "ofar2mc",
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_OFAW2MC,
+>> +             .name = "ofaw2mc",
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_MGBE2W,
+>> +             .name = "mgbe2w",
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_MGBE3R,
+>> +             .name = "mgbe3r",
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_MGBE3W,
+>> +             .name = "mgbe3w",
+> Are the new MGBE2 and MGBE3 clients missing their interconnect properties?
+>
+> Looking at the other EQOS clients like MGBE0R and MGBE1R, they correctly
+> initialize .bpmp_id = TEGRA264_BWMGR_EQOS and .type = TEGRA_ICC_NISO. If
+> these fields are omitted for MGBE2 and MGBE3, won't interconnect bandwidth
+> scaling requests for these blocks be silently ignored, potentially causing
+> hardware bandwidth starvation?
+>
+> [ ... ]
+>> @@ -70,6 +87,15 @@ static const struct tegra_mc_client tegra264_mc_clients[] = {
+>>                .name = "vicw",
+>>                .bpmp_id = TEGRA264_BWMGR_VIC,
+>>                .type = TEGRA_ICC_NISO,
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_VIW,
+>> +             .name = "viw",
+> Does this missing bpmp_id issue also apply to other BPMP-managed
+> subsystems added in this patch, such as VIW?
+>
+> [ ... ]
+>> @@ -110,6 +208,12 @@ static const struct tegra_mc_client tegra264_mc_clients[] = {
+>>                .name = "rcew",
+>>                .bpmp_id = TEGRA264_BWMGR_RCE,
+>>                .type = TEGRA_ICC_NISO,
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_NVENC1SRD2MC,
+>> +             .name = "nvenc1srd2mc",
+>> +     }, {
+>> +             .id = TEGRA264_MEMORY_CLIENT_NVENC1SWR2MC,
+>> +             .name = "nvenc1swr2mc",
+> Are these newly added NVENC clients also missing their TEGRA264_BWMGR_NVENC
+> manager definitions?
+>
+> Since the memory controller interconnect implementation skips bandwidth
+> scaling requests for clients without a bpmp_id, should these clients also
+> include their respective bpmp_id and type to ensure bandwidth requests
+> are processed?
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260518124306.2071481-1-sumitg@nvidia.com?part=3
