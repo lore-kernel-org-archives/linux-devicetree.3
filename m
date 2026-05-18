@@ -1,180 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CFD3126A9
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 16:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C783224B05
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 16:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779121167; cv=none; b=F2WbcF7a7Kk+euhprJ6DLKrnpuWRHe2De/L9qL31Z88Hua7iIMF0cRPg90AJpOO07g/opjIqCrAsNSo1fqg1SxvUvgZrEsGKDs38VDLDzQ+HBVTo4CMv4gzT7oMK4y9yIJZ3sJ47KS6M5DNH/WitaiEcdIbnL+6ImFiSOPuW8to=
+	t=1779121224; cv=none; b=gCVe3L90QEsr1vyCWXyDeJt+Eby0Lm7VoIWGYHyU2+/uuKlXT9zgWKHkpqngZf1knhdUXTxCYxdnNibJqtzyfcwDonx0YYzC378QNwMca9DLO+KKb/OF+VwFZMJQRSz9TQ7hnKT79/3Rec3fZZEjuh9WggzA7ValCywegHjbYRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779121167; c=relaxed/simple;
-	bh=JfCPfbpzb7evlkM3ELr9knKy+l06+alSyhYy9am91Lc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Gm1HKxMQ29HkHu6aegwPJqWiW0ZRcfrk0AJidyiDcJAyzQXke8UDtsCufrVy87+wLRCcwqGBBKnYrZJDZLPdoZmAZgDzpfL3KHLI6i5lhR3Iuhgt/gqmwgs7ssREElGEqTiHCO/uN93rWyepRD1npx/RDodm4VZ7uvzFeZzWrHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rgEtPryf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779121224; c=relaxed/simple;
+	bh=szwVb7ha6bAIomsunYV5j5o9HMUkT6Mku/1VrKH1sas=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CJSqtjZq8nLLf+sgcF0FO8dEQ0aBq2YkanKSUYJ75JKb91j0CXDTUT6ng+Q4+AnN4jh4V3d5YBchMwx4Jyq0PBTPR3Nh8X6ZouzfCF0i/oS62YJ5RxIEZBKI7f3exUA9H2GvdsQVyL+UJRSRFD9W0u443otWLBe/U+eEEOFdAHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVWLvW7B; arc=none smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rgEtPryf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59284C2BCB7;
-	Mon, 18 May 2026 16:19:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779121166;
-	bh=JfCPfbpzb7evlkM3ELr9knKy+l06+alSyhYy9am91Lc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=rgEtPryfkmvGzBL4hQpzYp8hgRMX4hP3kRC/AMQWvcv+gM1svDMBz7F/T99YpDlg3
-	 o3L/I5bNEsBQON9KPQqkPsKzHsYnxBMNHlLZ7U5oqfXLZVWjeA04Utkxvq9bRIqOd0
-	 Br5ZeJ+12XNO3AoTjZizNAtfBS9Qz6OXZZcKdSXSMvpWJ0YJ+PeizOShbXZQQw7RK6
-	 +POrfEF5BFNu5uub3ABxpGifZyLS10ERAVoareoeI/xfDxt5Xg2KYKube1X5mRMMZh
-	 ZpoHUchibaLfQrB9bSCNfvaPEW4BuPh9TMc/xhZtzEeERN7FUZ6qN5vlFIGLVE421W
-	 GXbLCr0WGXUsg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/4] iio: adc: ltc2378: Enable high-speed data
- capture
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <580ce8e03cdbda8ec20fed2e26f2226872ffcef3.1779117444.git.marcelo.schmitt1@gmail.com>
-References: <580ce8e03cdbda8ec20fed2e26f2226872ffcef3.1779117444.git.marcelo.schmitt1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 16:19:25 +0000
-Message-Id: <20260518161926.59284C2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVWLvW7B"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7b4ee3a88e1so20214577b3.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:20:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779121216; x=1779726016; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/Urn1ATBBB6xhhKW9jeomFsTgrcuoAc20SB+ogv/eOw=;
+        b=GVWLvW7BCeg7eTLRlKpWq+4UBVGXVwf22K4mpRz/WQvHpF+92ob05Eqev4p6UlXnIq
+         ubX9Hc+eHSOC1zqXLnEn8PNJX1ew5xHVDKzK/z3ZxUHSec+8yo577vZWVgsCEa7oRDZg
+         jb+YzzPhX5VXUac8l0JlzY3psarXh4qZVOm9+Ffcp3P71hM7D0plp8T5ritm7TCtwRI8
+         +NSOcZZ+SNu88fj1vIa6lxvDkTCS2XZGFFw84ZhXjIaD8QygxbBumsMtq0TSaFJTgPN9
+         H/ukRWfqTYg5MLbGC/I6f9xz4gGokeCEezL8WKBDMUjZ9R4FD9WMWmdlaoqoVueS+4At
+         ppJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779121216; x=1779726016;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/Urn1ATBBB6xhhKW9jeomFsTgrcuoAc20SB+ogv/eOw=;
+        b=P9/VWROppjNewdMzgpr2TFIFE6/GJU2jC7Yq+rEby0Z53acGiGjPv6pFOmmuS3zl1P
+         mC4m5blKVX2+1dI9FJpRCG6vSqJy/MF+n4HEoUw/Rp3/64dOJ5e9lp9IAfwhHwu3ps/Y
+         HKb2A16LKCbMsJJ5rzGMJjV64JKD0Oig2eLHd4RKMH/YXUsOPVd3EXR28W5HiV4BCQV4
+         xsdp6kF87hy/m9t6nnWKcjTYGQoAb4NntaPqm0ZonFAkjVmN3XZXufChznbwuZw8iWM+
+         kY6MYSxZOgtQszXIdj9+D4ARt1sd9k2wPm+GeBtjLzQSc9s+AG2v/9IvxND3P8CA4oDw
+         cCww==
+X-Forwarded-Encrypted: i=1; AFNElJ/UXA/+HwjCuLwCfvVPW4UHsYmGkDXZIPWCNL3UaY0xeJrVosVXqAsjqyUTXC1i83gUqZIin8IDWQSV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy93x1qjUvGTGLa9JpUrJRl5e5zKFhWKCqfssqdnofWJ5DL9vJg
+	p6eEv0iXvNdrN/Ft2pnYRZ9eoNT2tev0ax++wFd8GfNAqhNF0Oy2TQW+
+X-Gm-Gg: Acq92OHMfylpVCkPGXiglFAOjx0DhqNxSzEMlmItENOaBPI/8N5+zZEEShjlLAzpVJy
+	X8ZlTYtCg/Uy609fDz26+B4483xb58FB3UCQW/DFsA5iQXJZ1Qw5ZBeWTajYk9l4zxzsZY+NQbc
+	BLY95F+9uTs7f8GN18Ui+xFfU5PTZdGZ91gkdWh+cn8E0LeWCCDTJPexpBR0Rhh3t+3j4P50Kqy
+	iiTh1/wgJpMnr2TxlbS4mo8V7JkHP49XHHXDq9GcjMiusD4s/0H3vTRZ6ssdW2VuHXpbooav0/8
+	fjCEbZnMd4IVxg9K/UVW9PmawuQ7f/+df/vqrlh5FfULEed3c+D4jmn0EgFXCpXAX+zoLQxhcZ8
+	1Z4bkM3UGFbpZFUAAuxd9scvT72m6aMdLGHUFtnrmIaA/mI/cRSoeFRe5iSVYHeUbJhEGmdMxdh
+	4jDfbGETpaAEdhIt6k+eNhRz+8Acq3T10yljTv5u0pNg==
+X-Received: by 2002:a05:690e:1589:20b0:64a:ce9a:ace2 with SMTP id 956f58d0204a3-65e228a2c9amr13014197d50.56.1779121215879;
+        Mon, 18 May 2026 09:20:15 -0700 (PDT)
+Received: from fsh.attlocal.net ([2600:1702:56e9:4b40:ed8c:6b8b:1fa3:d14b])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65e0db60379sm6596021d50.14.2026.05.18.09.20.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 09:20:15 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+To: krzk+dt@kernel.org
+Cc: robh@kernel.org,
+	conor+dt@kernel.org,
+	gregkh@linuxfoundation.org,
+	gene_chen@richtek.com,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] dt-bindings: usb: richtek,rt1711h: remove .txt binding and fix schema
+Date: Mon, 18 May 2026 11:20:12 -0500
+Message-ID: <20260518162014.18251-1-akash.sukhavasi@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Missing early return in `ltc2378_offload_buffer_setup()` causes er=
-ror pointer dereference and breaks fallback mode.
-- [High] Unconditional exposure of sysfs attributes causes a NULL pointer d=
-ereference on devices without SPI offload.
-- [High] Unbounded `do...while` loops querying hardware limits can cause an=
- infinite loop and system hang.
-- [High] Hardcoded 4-byte SPI offload transfers conflict with 16-bit IIO bu=
-ffer allocations, causing data corruption.
-- [Medium] Kconfig dependency mismatch prevents enabling the offload featur=
-e when the driver is compiled as a module.
---
+The richtek,rt1711h binding has a legacy plain-text file that was
+superseded by the YAML schema. Remove it.
 
-commit 87ed4789078a187c9262ff17873220fb5108858f
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+The YAML schema also declares 'additionalProperties: false' but
+omits the top-level 'port' property used by hi3660-hikey960.dts
+to describe the role-switch graph endpoint, causing dtbs_check
+to emit:
 
-iio: adc: ltc2378: Enable high-speed data capture
+  hi3660-hikey960.dtb: rt1711h@4e (richtek,rt1711h): 'port' does
+  not match any of the regexes: '^pinctrl-[0-9]+$'
 
-Makes use of SPI transfer offloading to speed up data capture, enabling data
-acquisition at faster sample rates (up to 2 MSPS).
+Add the missing property referencing /schemas/graph.yaml.
 
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index 70fec8e3e891f..b5368ee783f7b 100644
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-[ ... ]
-> +config LTC2378_OFFLOAD_BUFFER
-> +	bool "Offloaded data capture with LTC2378"
-> +	depends on SPI && LTC2378
+A separate dtbs_check warning on the same node is out of scope
+for this series:
 
-LTC2378_OFFLOAD_BUFFER is a bool that depends on LTC2378. Since LTC2378 is a
-tristate, if a user compiles the driver as a module, won't Kconfig restrict
-this dependent boolean to n? Does this prevent enabling the offload feature
-entirely unless the driver is built-in?
+  hi3660-hikey960.dtb: rt1711h@4e (richtek,rt1711h):
+  connector:ports: 'port@0' is a required property
 
-> diff --git a/drivers/iio/adc/ltc2378-offload-buffer.c b/drivers/iio/adc/l=
-tc2378-offload-buffer.c
-> new file mode 100644
-> index 0000000000000..ed09f9a55f93e
-> --- /dev/null
-> +++ b/drivers/iio/adc/ltc2378-offload-buffer.c
-[ ... ]
-> +static int ltc2378_update_conversion_rate(struct ltc2378_state *st, int =
-freq_Hz)
-> +{
-[ ... ]
-> +	do {
-> +		cnv_wf.duty_length_ns =3D target;
-> +		ret =3D pwm_round_waveform_might_sleep(st->cnv_trigger, &cnv_wf);
-> +		if (ret)
-> +			return ret;
-> +		target +=3D 10;  /* Increment by PWM duty cycle period */
-> +	} while (cnv_wf.duty_length_ns < LTC2378_TCNV_HIGH_NS);
+That one is in the connector subnode and is governed by
+usb-connector.yaml, not this binding.
 
-If the physical PWM hardware clamps the duty cycle below LTC2378_TCNV_HIGH_=
-NS
-due to hardware limits or resolution, will this loop increment target
-indefinitely and stall the CPU? Should there be a maximum iteration limit?
+---
+Changes in v2:
+- Patch 1: No changes.
+- Patch 2: Fix port node indentation in example; port is now correctly
+  placed as a sibling of connector under rt1711h@4e.
 
-This same concern applies to the SPI trigger offset negotiation loop located
-just below this one.
+v1: https://lore.kernel.org/all/20260518142901.1747-1-akash.sukhavasi@gmail.com/
+ 
+Akash Sukhavasi (2):
+  dt-bindings: usb: richtek,rt1711h: remove deprecated .txt file
+  dt-bindings: usb: richtek,rt1711h: add missing 'port' property
 
-[ ... ]
-> +static int ltc2378_prepare_offload_message(struct device *dev,
-> +					   struct ltc2378_state *st)
-> +{
-> +	st->offload_xfer.bits_per_word =3D st->info->resolution;
-> +	/*
-> +	 * Ideally, we would ask the offload provider what data word sizes are
-> +	 * supported so we could use smaller words for less precise ADCs.
-> +	 * Though, the currently available SPI offloading hardware only supports
-> +	 * pushing 32-bit sized data elements to DMA memory. Because of that,
-> +	 * we hardcode set 4 byte sized transfers.
-> +	 */
-> +	st->offload_xfer.len =3D 4;
+ .../bindings/usb/richtek,rt1711h.txt          | 44 -------------------
+ .../bindings/usb/richtek,rt1711h.yaml         | 13 ++++++
+ 2 files changed, 13 insertions(+), 44 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/usb/richtek,rt1711h.txt
 
-Since st->offload_xfer.len is hardcoded to 4 bytes here, but
-ltc2378_chan->scan_type.storagebits remains at 16 for ADCs with 16-bit
-or lower resolution, does this cause a mismatch? Will the IIO core allocate
-DMA buffers assuming 2 bytes per sample while the DMA hardware pushes
-4 bytes, potentially leading to buffer overruns and data corruption?
+-- 
+2.54.0
 
-[ ... ]
-> +int ltc2378_offload_buffer_setup(struct iio_dev *indio_dev, struct spi_d=
-evice *spi)
-> +{
-> +	struct ltc2378_state *st =3D iio_priv(indio_dev);
-> +	struct device *dev =3D &spi->dev;
-> +	int ret;
-> +
-> +	st->offload =3D devm_spi_offload_get(dev, spi, &ltc2378_offload_config);
-> +	ret =3D PTR_ERR_OR_ZERO(st->offload);
-> +	if (ret && ret !=3D -ENODEV)
-> +		return dev_err_probe(dev, ret, "failed to get offload\n");
-> +
-> +	ret =3D ltc2378_spi_offload_setup(indio_dev, st);
-
-If devm_spi_offload_get() returns -ENODEV, this check bypasses the
-dev_err_probe() call but continues to ltc2378_spi_offload_setup() without
-returning.=20
-
-Could this pass an ERR_PTR(-ENODEV) via st->offload to
-devm_spi_offload_trigger_get(), causing a panic or breaking ltc2378_probe()=
-'s
-intended fallback to non-offloaded direct mode?
-
-> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> index 7916500c470cf..fdbe919d45d55 100644
-> --- a/drivers/iio/adc/ltc2378.c
-> +++ b/drivers/iio/adc/ltc2378.c
-[ ... ]
-> @@ -226,6 +266,9 @@ static int ltc2378_read_raw(struct iio_dev *indio_dev,
->  }
-> =20
->  static const struct iio_info ltc2378_iio_info =3D {
-> +#ifdef CONFIG_LTC2378_OFFLOAD_BUFFER
-> +	.attrs =3D &ltc2378_offload_attribute_group,
-> +#endif
->  	.read_raw =3D &ltc2378_read_raw,
->  };
-
-If a device probes successfully without SPI offload using standard direct m=
-ode,
-st->cnv_trigger remains uninitialized. Since these attributes are statically
-assigned without an is_visible callback, they remain exposed to userspace.
-
-Could writing to sampling_frequency in sysfs trigger a NULL pointer
-dereference when ltc2378_update_conversion_rate() passes the uninitialized
-st->cnv_trigger to pwm_round_waveform_might_sleep()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779117444.gi=
-t.marcelo.schmitt1@gmail.com?part=3D3
