@@ -1,47 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67CE481230;
-	Mon, 18 May 2026 16:44:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A782048C8A8;
+	Mon, 18 May 2026 16:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779122657; cv=none; b=CLocxm2O9l/3kxfB1y74JxbITPZUihPqBtIawdoYCcjUDzB07TNM9C7akBTTHBQzBPiFwNj0Y53KBJTPhBPY/o08olmvNez8DMIQR3cK9uUz1W/Jh4Llo11MdUH1pdSJbeg6+5WivQ395n+DShRgAVqMjlPpRzlH1AGceVsM2oA=
+	t=1779122681; cv=none; b=MTjnIzm/nEoel/qMieirpHzhT24JWWGctNpqgzfAWK+tFUOU/Anm9Z88wQaW0tqghHLKmHZ9SRRoVNv4u3R+fDn/3JUgeaD1E7ilIqZIDi70YCm8WZfpuEOUL4KPTq3LFwG+r5fl8QamgkLT4dst+RLxNNudvIc3A3AOrKwOTZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779122657; c=relaxed/simple;
-	bh=athY6V+ZJb/6Rqv375n3b6enOO/UaiPW+e5aLq34/yk=;
+	s=arc-20240116; t=1779122681; c=relaxed/simple;
+	bh=m3Ikqs/u6iw16HVdcS6tQdZmxm4Gckpgsu2UZkrryLA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RBkP6nQxpInWDzIkNMj/VivQl9NiubumRvepePyt46XeqquDSTMcz6HOYQNDSxR8gdSrGwT+Vn7FHT3USZ9HyvoybIOS6V5h70LXdxxskr+lBJGyN99Ja5OHkmSq48Co+q3ds5L+2NAqBdjuOYbMYyNgS86GMfEtUipLo6sFrLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y12bMgJZ; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=GRm88FaxnmG2cOdNbcqU/nlPaVfFQDSW/7hyz4MIhxjECnn4kiSw/RoqQhf9tPRLblcbp/Bl5CYlWoBpU4nz/9vgt8vS8P3Opxx7JsHrYQuT0VvkbZHqzejgQtel7ZWCXzq3WjdZRMN/9ZVvvF5G9yfbFjS4XbTNFGxjrTgcK1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hnb+B7S2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y12bMgJZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041AEC2BCC6;
-	Mon, 18 May 2026 16:44:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hnb+B7S2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89CAFC2BCC9;
+	Mon, 18 May 2026 16:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779122657;
-	bh=athY6V+ZJb/6Rqv375n3b6enOO/UaiPW+e5aLq34/yk=;
+	s=k20201202; t=1779122681;
+	bh=m3Ikqs/u6iw16HVdcS6tQdZmxm4Gckpgsu2UZkrryLA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y12bMgJZ4dqS2JON4td34dAuCUrQqgBrVog9wC7ZBC+kYdQ4ITvEzGkhVf2daOU1a
-	 lNSRNknm5faRJxr1mMtrd6sUyM4PpuZWIgr36CGKlak9X7PZza58AZLuyhOpc3ZrD0
-	 KmU6y5vfgceC9E6Gp62LdAXjJBrwnEIITi5c6LWIeKqdIWygqPUFt/Pg9xsjqoFSe1
-	 kkcD7veioPIDyZP4irTqeQzdJjznpW3Hjki8sgGTjDk6qpD2wwjCyEX5kvERMYrjNz
-	 YTRjLxQkbX/XC3sBXt+icI+ID1DKMd0ac2zSzR5DcUzmi8yGxs64T6N9AwkesaPXpl
-	 OJpS+HgRcsiHw==
-Date: Mon, 18 May 2026 17:44:12 +0100
+	b=Hnb+B7S2mrRrVnxTpFwavDZYcQo+ZA1OPZyLlO4Bpa6hFh5jghWsMhgRFUVVlkW7g
+	 A2EsU9A42Y8hoddNVbUjyRrHB/Ed6rNmkKQNeto7AnMHZmOoaAF05mFTpmKjVsKjgb
+	 bgpzq/j6tRXVlvMgda1RQ0iMOkE6+OYGsWObpIaymsWH472UwYWRcL3fHX09jW0EKu
+	 cFBwPVDK5C7dAj3Yaw+pZWVPjySDN/ip+NSCn3rErFrKFBK1pcn7I8rt/KfbWB8z7G
+	 TItf52cNhgK3oaF5pg2e4iQlRseETGquwS3/Epnvg9ralWg8TNKA3jxkjy/1glyuKu
+	 CFI//kXd9M+0g==
+Date: Mon, 18 May 2026 17:44:36 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Cc: linux-kernel@vger.kernel.org, linux-amarula@amarulasolutions.com,
+	domenico.acri@engicam.com, francesco.utel@engicam.com,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Parant <c.parant@phytec.fr>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: mfd: sprd,sc2731: Include SC2730
- regulator bindings
-Message-ID: <20260518-grading-activist-4b843b8bc487@spud>
-References: <20260518-sc2730-regulators-v2-0-9a5b3a7b1e49@abscue.de>
- <20260518-sc2730-regulators-v2-2-9a5b3a7b1e49@abscue.de>
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH 01/15] dt-bindings: arm: stm32: support Engicam
+ MicroGEA-STM32MP257-RMM board
+Message-ID: <20260518-cranial-egotism-425cda572694@spud>
+References: <20260518143150.3138712-1-dario.binacchi@amarulasolutions.com>
+ <20260518143150.3138712-2-dario.binacchi@amarulasolutions.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,27 +52,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DGEVYOoJMmDh5oG/"
+	protocol="application/pgp-signature"; boundary="k8rYH4PA6MYcOw7H"
 Content-Disposition: inline
-In-Reply-To: <20260518-sc2730-regulators-v2-2-9a5b3a7b1e49@abscue.de>
+In-Reply-To: <20260518143150.3138712-2-dario.binacchi@amarulasolutions.com>
 
 
---DGEVYOoJMmDh5oG/
+--k8rYH4PA6MYcOw7H
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---DGEVYOoJMmDh5oG/
+--k8rYH4PA6MYcOw7H
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagtB3AAKCRB4tDGHoIJi
-0kKCAP4kS4P1iSjZhWzF1CJrj50sH+HZJ4PoSsAg3U5NnVJ7EgEA6cchr3XMglr2
-0GQm7djvobAkvNeWAoMWN6g8jZ08fAQ=
-=RBSN
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagtB9AAKCRB4tDGHoIJi
+0i/4AP94lXNNmFYS6tVgFN3LRcZ5Ins4gmmknN0ofz1VRWQEgwEA5D9fYg7lqDmX
+1W6kIm5teSCnFwGj0zzwdjMgivR6eQw=
+=t30R
 -----END PGP SIGNATURE-----
 
---DGEVYOoJMmDh5oG/--
+--k8rYH4PA6MYcOw7H--
