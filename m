@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437103815E9
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 07:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB19E37FF56
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 07:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779090481; cv=none; b=G+Vlbx2vru77oz5AHum1Pq+B5ABwL5j4aDlK7cwiSmXqemfbnPbwNA5aWxueuXRL6nCBOtEIUaVgQDZSylnKiNRSRkIQx1JVY84yVkaQmTb1QqmEuRSn/C5F66qvpUpObcaaipNHsQPA3qg2GNoVYt42cqPvPInnoG5Kv/rTXbA=
+	t=1779090481; cv=none; b=AEAPOinTF5OXbTgZg0HQQXXN59SywabVdZzC4pmp51cEXkzAM71G1FHLkOLhuowNz3O27imwPpWyHGRUBmPmy0h7znz/dfseOHbz3O6OjkFjaLkqIQeZzGrrvL4l+LtoOcJ6I684F8I7NqOuM/PuuLmdc9xsj3ocFZFcAH1ZkEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779090481; c=relaxed/simple;
-	bh=PXlPK/z/WiNO414FMLo6oHl5jn6KF92WVH5j+46oWDo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tLIl9kV5HnxCZ2QN6demW5BTusqgj0ksTjSVGWwyc2gvajpfLTheha3LQWNP4Yc+zLpMWiLmm1uDczQeWMg1oiX+QWCWI0w1CFYhjuZcODrZ8YmtC3HsKqSZERsDRR0aKXpdru9sjbcKcNG10OHippeds9nQ5yoJLBfPLG4vUJ0=
+	bh=MlTOIVUnfbO0F6QyTOxxIW5b1CXEm6Ruuj24gBxpXDk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VAK1FObORkzpKH+YX5EmQ2efztSXfdRo/cIgmdYJmjP60gPiM+j8lAeHQmtdMKdrUQQOW30d5J6JpFporkzL7qsTRnVEG+4A/kQ3z0mK5gGACgIxZ8AeICenvFRlzMl5W0asR0So6QTs78Cgg9QN+7ksE4ATWNR4gLVg7/ZXrHw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1wOshb-0001Wi-91; Mon, 18 May 2026 09:47:51 +0200
+	id 1wOsha-0001Wi-AM; Mon, 18 May 2026 09:47:50 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 18 May 2026 09:47:46 +0200
-Subject: [PATCH v3 2/2] drm/panel: simple: add NEC NL6448BC33-70C
+Subject: [PATCH v3 0/2] Add NEC LCD Technologies NL6448BC33-70C Panel
+ Support
+Date: Mon, 18 May 2026 09:47:44 +0200
+Message-Id: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-0-21ea14a6e835@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,9 +30,11 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-2-21ea14a6e835@pengutronix.de>
-References: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-0-21ea14a6e835@pengutronix.de>
-In-Reply-To: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-0-21ea14a6e835@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIACDECmoC/5WOyw6CMBBFf8V07ZiW8tKV/2FctGWEMViaFhoM4
+ d8F3Ji40eVJbs65EwvoCQM77SbmMVKgzi4g9ztmGmVrBKoWZglPcp4JCbEAAX3nyIBTFlsI9HA
+ tgm3zNC21kRKMzFFKLUqlBVtEzuONxi1yub45DPqOpl/N66Kh0Hf+ub2IYt39FYwCOBx1leqi4
+ qgMPzu09dD7ztJ4qJCt1Zh8erOfvMniLVKluVZKlKL48s7z/AI0uhyEQwEAAA==
+X-Change-ID: 20260513-v7-1-topic-panel-simple-nl6448bc33-c36e33b18ab1
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, 
@@ -41,15 +44,16 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>, 
  Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>
+ linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1734;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1870;
  i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=PXlPK/z/WiNO414FMLo6oHl5jn6KF92WVH5j+46oWDo=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQxbXERXmbwqP0niuTuc7rnh1wVtfB7YrD5xNj345teanT
- ZdCt+zujlIWBjEuBlkxRRaVhRV8oh4fPCOniXDBzGFlAhnCwMUpABOZFsbIcMzbf/aEK46/ygML
- PhdKzWa9k9pbbTR5ltmMwPKuOw3hlgz/DL5lC0XJpk/fmb87OE4/6nH97gLOljPm1ooxT3+J/u9
- gAgA=
+ bh=MlTOIVUnfbO0F6QyTOxxIW5b1CXEm6Ruuj24gBxpXDk=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQxbXERUhid+Ls/89FMn+uEx82vnTy3Rc9nB33I5XVjiYW
+ rCp9LxFRykLgxgXg6yYIovKwgo+UY8PnpHTRLhg5rAygQxh4OIUgIksnMnwT7XpoqpaZtW0zefm
+ ir0zTWA6LJ51fMrp6u745/GnZazV7RgZNiQpnMw9VWFj5WI22/f7p8rNRVnLkiR8pjm7sGR0XZj
+ IDwA=
 X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
  fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
@@ -57,61 +61,49 @@ X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add NEC NL6448BC33-70C 10.4" 640x480 LCD module support.
+Add support for the above mentioned LCD panel from NEC.
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- drivers/gpu/drm/panel/panel-simple.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+Changes in v3:
+- fix bus_format for LVDS type
+- Include feedback from Sashiko AI review: https://sashiko.dev/#/patchset/20260515-v7-1-topic-panel-simple-nl6448bc33-v2-0-74ab0baa1817@pengutronix.de?part=2
+- Link to v2: https://patch.msgid.link/20260515-v7-1-topic-panel-simple-nl6448bc33-v2-0-74ab0baa1817@pengutronix.de
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index 236bd56208ccf..0bf50b1ed69e6 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -3659,6 +3659,32 @@ static const struct panel_desc nec_nl4827hc19_05b = {
- 	.bus_flags = DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
- };
- 
-+static const struct drm_display_mode nec_nl6448bc33_70c_mode = {
-+	.clock = 25175,
-+	.hdisplay = 640,
-+	.hsync_start = 640 + 16,
-+	.hsync_end = 640 + 16 + 48,
-+	.htotal = 640 + 16 + 48 + 96,
-+	.vdisplay = 480,
-+	.vsync_start = 480 + 2,
-+	.vsync_end = 480 + 2 + 31,
-+	.vtotal = 480 + 2 + 31 + 31,
-+	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-+};
-+
-+static const struct panel_desc nec_nl6448bc33_70c = {
-+	.modes = &nec_nl6448bc33_70c_mode,
-+	.num_modes = 1,
-+	.bpc = 6,
-+	.size = {
-+		.width = 211,
-+		.height = 158,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB666_1X7X3_SPWG,
-+	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
-+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-+};
-+
- static const struct drm_display_mode netron_dy_e231732_mode = {
- 	.clock = 66000,
- 	.hdisplay = 1024,
-@@ -5520,6 +5546,9 @@ static const struct of_device_id platform_of_match[] = {
- 	}, {
- 		.compatible = "nec,nl4827hc19-05b",
- 		.data = &nec_nl4827hc19_05b,
-+	}, {
-+		.compatible = "nec,nl6448bc33-70c",
-+		.data = &nec_nl6448bc33_70c,
- 	}, {
- 		.compatible = "netron-dy,e231732",
- 		.data = &netron_dy_e231732,
+Changes in v2:
+- fix .size settings
+- set connector_type
+- Include feedback from Sashiko AI review: https://sashiko.dev/#/patchset/20260513-v7-1-topic-panel-simple-nl6448bc33-v1-0-9bd4b7d0eac0@pengutronix.de?part=2
+- Link to v1: https://patch.msgid.link/20260513-v7-1-topic-panel-simple-nl6448bc33-v1-0-9bd4b7d0eac0@pengutronix.de
 
--- 
-2.53.0
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Thierry Reding <thierry.reding@gmail.com>
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Steffen Trumtrar (2):
+      dt-bindings: display: simple: Add NEC NL6448BC33-70C panel
+      drm/panel: simple: add NEC NL6448BC33-70C
+
+ .../bindings/display/panel/panel-simple.yaml       |  2 ++
+ drivers/gpu/drm/panel/panel-simple.c               | 29 ++++++++++++++++++++++
+ 2 files changed, 31 insertions(+)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260513-v7-1-topic-panel-simple-nl6448bc33-c36e33b18ab1
+
+Best regards,
+--  
+Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
