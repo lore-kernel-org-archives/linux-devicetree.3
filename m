@@ -1,43 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8DE3F54A2;
-	Mon, 18 May 2026 11:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F00C3624A8;
+	Mon, 18 May 2026 11:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779104152; cv=none; b=fZbSVv1vc1FDd8yOBMyX5osqZ95gi0TnDeW6q+mIg12DaLHndar62X4gETNomsVURu0R87JatkpK9NH92r35JG5iv4nTcpr0Tw2xr7cNWnwLNugZP9Skm+Y5/TmxLnds4yyRQ1A3mvUq+kbE1pzi9GhSZMzZrKhhw0JY+eWIUWo=
+	t=1779104191; cv=none; b=dbzyn03J0ONoPJGLisgcpnvXa734nxWXMA00UXzDPPMgaQkn4e0QI+05WhrjvWrLLx8Yl61IVZeNDrKXN4kMMRuiK4h4M4zPJprYW4oq7EYozUR9j262/BUYSgtZM4UAhoBk2l3pfOX+NIEqs8QuQJGC6QOzgeRhR+4nrXxs+SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779104152; c=relaxed/simple;
-	bh=DUt3eBS5gIFT83qNHuIFS6ges/Dm2qldEZJiOcVs2FY=;
+	s=arc-20240116; t=1779104191; c=relaxed/simple;
+	bh=yoRcR3nuu4Ddf2eerWDojIjEjHs+fmOvRSByE/L+hK0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V5vxPqs3/iD9ASlK5XWAyNAxhfg+BVkcpRYCU0zE86uIMDIMPK3q0D7bJ9+scGpifhkiQMejNDLWFc/csMMgukqaoPH2GPgs1dQ+9zGvBEIYUmtDoy/WkWo0wVFaVFvW7awRHoI3uXSL6BSEyKGNUOWviqGalKbTvH6iDtKx2WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/5OXYgS; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/5OXYgS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D82C2BCB7;
-	Mon, 18 May 2026 11:35:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779104152;
-	bh=DUt3eBS5gIFT83qNHuIFS6ges/Dm2qldEZJiOcVs2FY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=G/5OXYgSVqrykg9/WYzqoeohCDtUEwtzN356dCwuQsg+Ym++6YF12kbDUvMTWJCIm
-	 mcMwV/6yO9VgyfjM6Ci489DFJHmNx963pxbmPiQNL6auLHOcurV6VFmhI69pK+Klrg
-	 jtfhOWWs5PkgeeZpPPqmkQf7SfwIc5RycEurj6BK8Su1InPXdLrkq9vZmXiQdPO1hp
-	 AOrc+66uvbROu3ACPPljyKJfJkd81sjMRce7p8gunMdC6Z4+MGPUkBaQRlbSHsadEW
-	 M0h2/Ez9gct2fTCXdMHoa4xrOxj5q1ASTK+53Dyq8x8qHg50p4SaNzV9q+Pis5rSt1
-	 2WNJ1mhS0RCAw==
-Date: Mon, 18 May 2026 12:35:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh@kernel.org,
-	krzk+dt@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
-	neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Message-ID: <ce8d5ba7-22aa-47ac-90ab-026ed1ee3928@sirena.org.uk>
-References: <20260518024704.118613-1-YLCHANG2@nuvoton.com>
- <20260518024704.118613-3-YLCHANG2@nuvoton.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=kAHbnfN8U2U6LNgmuJ9H1dwRr9Tx2V0c6I6fwCuGftf9lKqBAV+kxsT6+v/tpAQgGM0AhpURax5hchMgF9l4ek/i2t+fAKnEZX6w8WZUKNMOijmgKwXMyn8IKwhXZES8syaC5AoPAFUGXce6fgyhHma4iTxBkrUVXuJnVTslB8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 252B71F8005C;
+	Mon, 18 May 2026 11:36:20 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id E86A6B407F7; Mon, 18 May 2026 11:36:18 +0000 (UTC)
+X-Spam-Level: 
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id B159DB407E7;
+	Mon, 18 May 2026 11:36:17 +0000 (UTC)
+Date: Mon, 18 May 2026 13:36:15 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add Shenzhen Baijie
+ Technology Co., Ltd.
+Message-ID: <agr5r5ikeEzv6B1l@collins>
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-2-alexander.sverdlin@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,131 +46,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pawrGPWhU6zsJTzn"
+	protocol="application/pgp-signature"; boundary="DPmCpSAJMKwxwRKn"
 Content-Disposition: inline
-In-Reply-To: <20260518024704.118613-3-YLCHANG2@nuvoton.com>
-X-Cookie: She sells cshs by the cshore.
+In-Reply-To: <20260510201644.4143710-2-alexander.sverdlin@gmail.com>
 
 
---pawrGPWhU6zsJTzn
-Content-Type: text/plain; charset=us-ascii
+--DPmCpSAJMKwxwRKn
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 18, 2026 at 10:47:04AM +0800, Neo Chang wrote:
+Hi,
 
-> Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
-> stereo 30W+30W smart amplifier with an integrated low-latency
-> Advanced Audio DSP.
+Le Sun 10 May 26, 22:16, Alexander Sverdlin a =C3=A9crit :
+> Shenzhen Baijie Technology Co., Ltd. focuses on R&D and production of
+> embedded products as well as customization of embedded solutions.
+>=20
+> Link: https://szbaijie.com/
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+
+Reviewed-by: Paul Kocialkowski <paulk@sys-base.io>
+
+All the best,
+
+Paul
 
 > ---
->  sound/soc/codecs/nau8360-dsp.c |  704 ++++++++++
->  sound/soc/codecs/nau8360-dsp.h |  117 ++
->  sound/soc/codecs/nau8360.c     | 2334 ++++++++++++++++++++++++++++++++
->  sound/soc/codecs/nau8360.h     |  904 +++++++++++++
->  4 files changed, 4059 insertions(+)
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index 28784d66ae7b..095cf654787f 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -229,6 +229,8 @@ patternProperties:
+>      description: Azoteq (Pty) Ltd
+>    "^azw,.*":
+>      description: Shenzhen AZW Technology Co., Ltd.
+> +  "^baijie,.*":
+> +    description: Shenzhen Baijie Technology Co., Ltd.
+>    "^baikal,.*":
+>      description: BAIKAL ELECTRONICS, JSC
+>    "^bananapi,.*":
+> --=20
+> 2.54.0
+>=20
+>=20
 
-There's no update to the build system, this can't have been tested.
+--=20
+Paul Kocialkowski,
 
-> --- /dev/null
-> +++ b/sound/soc/codecs/nau8360-dsp.c
-> @@ -0,0 +1,704 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * The NAU83G60 Stereo Class-D Amplifier with DSP and I/V-sense driver.
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
 
-Please make the entire comment a C++ one so things look more
-intentional.
+Expert in multimedia, graphics and embedded hardware support with Linux.
 
-> +static int nau8360_reply_from_dsp(struct snd_soc_component *component,
-> +	const struct nau8360_cmd_info *cmd_info, int data_size,
-> +	void *data, unsigned short dsp_addr)
-> +{
-> +	struct nau8360 *nau8360 = snd_soc_component_get_drvdata(component);
-> +	struct device *dev = component->dev;
-> +	unsigned int payload, *data_buf;
-> +	int i, j, ret, frag_len, frag_payload_len, data_count, len_pos, pad_len,
-> +		pad_len_exp;
-
-> +	frag_payload_len = frag_len - 1;
-> +	if (cmd_info->msg_param)
-> +		data_count = data_size;
-
-This is the only place where we initialise data_count.
-
-> +	/* check the reply length same as request */
-> +	if (data_count && (cmd_info->cmd_id == NAU8360_DSP_CMD_GET_KCS_RSLTS ||
-> +			cmd_info->cmd_id == NAU8360_DSP_CMD_GET_KCS_SETUP)) {
-> +		dev_warn(dev, "payload_len %d, expected %d",
-> +			data_size - data_count, data_size);
-> +	}
-
-but we use it unconditionally here.
-
-> +static bool nau8360_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case NAU8360_R00_SOFTWARE_RST ... NAU8360_R02_I2C_ADDR:
-> +	case NAU8360_R06_INT_CLR_STATUS:
-> +	case NAU8360_R21_VBAT_READOUT ... NAU8360_R22_TEMP_READOUT:
-> +	case NAU8360_R41_CLK_CTL2:
-> +	case NAU8360_R46_I2C_DEVICE_ID:
-
-Are the I2C addresss and device ID volatile or do they just not have
-defaults?
-
-> +static int nau8360_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
-> +	unsigned int rx_mask, int slots, int slot_width)
-> +{
-> +	struct snd_soc_component *cp = dai->component;
-> +	struct nau8360 *nau8360 = snd_soc_component_get_drvdata(cp);
-> +	unsigned int tx_slot_used = 0, rx_slot_used = 0;
-> +	int i, func_slot;
-> +
-> +	if (!rx_mask)
-> +		return -EINVAL;
-
-Specifying no slots should really be accepted as disabling TDM.
-
-> +	if (source == NAU8360_CLK_SRC_MCLK)
-> +		value = NAU8360_MCLK_SEL_MCLK;
-> +	else if (source == NAU8360_CLK_SRC_PLL)
-> +		value = NAU8360_MCLK_SEL_PLL;
-> +	else
-> +		goto err;
-
-This should be a switch statement rather than a cascade of if
-statements.  Thre's a number of other examples of this.
-
-> +	/* defalut disable Sense signal after booting */
-
-Typo of default.
-
-> +	/* Set HW2 default volume */
-> +	regmap_write(regmap, NAU8360_R97_HW2_CTL7, 0xbf66);
-> +	regmap_write(regmap, NAU8360_R98_HW2_CTL8, 0xbf66);
-
-Most user visible controls like volumes should be left at the hardware
-defaults, that avoids encoding some specific use case into the driver.
-
-> +	/* set GPIO3 MUX as Clock output */
-> +	regmap_write(regmap, NAU8360_R09_GP_CTRL1, 0x1e9e);
-
-This feels very platform specific and should be configured via DT or
-quirks.
-
---pawrGPWhU6zsJTzn
-Content-Type: application/pgp-signature; name="signature.asc"
+--DPmCpSAJMKwxwRKn
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoK+ZIACgkQJNaLcl1U
-h9DWlQf7BkoZVBAdZ7BLO/zhVK6vMFDAM0NMdLv6MmieTpo89Qng4dGDTNSSdyUd
-td98ug4vWi4lkk7fSdokTxF8aFjBlnL+W9lKNNGZshlR8i6+7vOg1vdOdNZa09M4
-LEj6Uw6OulIsuBnGAxqlBFmiyZ8MvRPO9g4CMNWzDZYgqtGHxD9Rlxmbx2ZTu+IB
-41V5fCn6c1i5ANdVNXDyjC9wII583mqlfiP23lb9eZiszv36wWuZb12s1LBbBGqn
-sVn+Q+YKUHMO6z+K3QMxpV2vIl+9qEMt3vpTZzexCm89QF9MIIvNCNcQ1/Nka/5A
-bVI7UQC5IInFBrJiTBIN9GP2l7282g==
-=PkKK
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmoK+a8ACgkQhP3B6o/u
+lQw2kRAAgtcMljYZEZ7CkBCq//84iLqr97yZ/jVDrney1Lh0ZJCwI7h/0pA7Qya3
+xcb5EaLnms9wUCB7qwSoX4nEoYCAn95CsRNcC2cbxBaOZbNb+S11CtwP34+NKAiS
+4ZhO5aKo7AabLBCm1cuBpnCSFxloXh+vHIsOxTzYwen9FF876jn/wxR3HvQy4e5N
+r+VBBY5IxCnYbFWyLVZt5A1B4WEH0Fg1xPVyqHQgT21TyOpVy7C+QAA/ZSHfq8MX
+9n59oKIKOTePPCLGWxMWXamXAVXF03aVYmADw6/10yaWNmcQmMxafX7J2rXEMz6V
+Wj+/GXxhldtt8WiYpA0ym62qqjgXriLwP6O8sSjfJBMHTln6fHxXLYp1n8W2tYY4
+8TEOLC35gXiNSSSvOS1va5etgBNlscoEiFu/MN+NluBIIseSvRgdIdYKXOaKkKt9
++OJ9gBnWsF2jNekXk9+2Q1gGn/W/Iq3Oz7wp1Qt30JXhNuhwwswEw0R68+1U4BE6
+XAsImQDjDtEqhtBJYo4uLBDrcdhjAIwvQWxMWgi8SPaOwRYda8rkxvmNBsZr94TV
+N6zivylUvp/9TkEQ0V2M8w73ijUB2PV+EGV9J3/J+lcpSms2UDE3w1qn1DHS7sza
+KWSByvWLnYd1VHbXiYwE8N8Y1UHIDEiAV6qifiIbMs3T1sJMbuw=
+=y2JF
 -----END PGP SIGNATURE-----
 
---pawrGPWhU6zsJTzn--
+--DPmCpSAJMKwxwRKn--
