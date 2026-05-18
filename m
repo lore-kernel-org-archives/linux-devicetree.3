@@ -1,229 +1,324 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2585A48167C
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E172148164F
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779112213; cv=none; b=YCeW0nOABhTwExrfjQvwXvSMK4yg1Xf7yN1VMBdUGKVRySZ58G/HXzNJLbnrn+HZCzhWWOG+WZGcCGnfYHZtQkgZKEXNKLERbjN5Xzd70FQJG2dDb9tuAv6pQNlKDqmbuaBbATRtCrkUGQn0YepvTdrwPmSaQRuyiJub14fYhmY=
+	t=1779112247; cv=none; b=ftYOfJntdS5zI7DozQtsCZjmv6FYPKw0kW5OgnEETxUQchEstWU7YHCKdg9htWoFOdRg1yOM6uGMsjkYacOsudFGe1SUpTCzO+tUbiwfG08icoFG8ClWq0MNJTHvWKZ8EHaD/g/x6MSryNcOCF6R1OdawVmkJYpTbWd0EYtFuJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779112213; c=relaxed/simple;
-	bh=1aO9ExS/iJmtGN9nCkni7bF7YETFRBmThZL8SJD8tuQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fA0yoZ8uQrvcQ0A+JabVROhVn97Qz9DWHqQQyvtxK2JHbxx76jSllPg4xv7eirqhfHBtuAwHpCQLXRIVhtPB0aIyzd/VGQa5uNUjLCjb8zfkqrB7Kf6dWZ0Zb6AdhS9uaVG6xweaZS2hYcOxdD3ciB8raujNVEka/pHWlA8ihYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kT0LVwrS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LDVs8GKd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779112247; c=relaxed/simple;
+	bh=HRuFSBfnRcAX1Ik+wr5YWCfxLO3z+wetsNZ7npXKxLM=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SvPF3mDEoktrCCjZnOIaZ13utJPiJtGf0tUUz2FnWJIoVo4bQbCSKFFsq2uQ2gjq/hKvj4ljFyGPzlOsnK+n1S0OvtxClz8pPA1zvkkSmLuVUsgm+fjHNz7PyrJ27NHymbTqW6Yil3Q6vozJzgONW3LfkCQpWZqz1eOU1C3t2Kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MFwQkIRV; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kT0LVwrS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LDVs8GKd"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IAorDc2083092
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:50:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Vy1Q1E39uQDwPqLscloGcfc9TxMS8pJ/zjTeEJF4xLo=; b=kT0LVwrSN+sVtjuw
-	28QFrVHnMNMveyFVSKGzXd0gLwOm+VTXOm5TLFPFynXGAwVAc7jEY+6UbiP0DeZB
-	izyR/W3KZtGHH2Y9jZnFYQyUATk1WEQ7EmuebFIp8sF7UWhYUrm9MioVS6m9Y+ge
-	IfflbPt2vf3o0cE+lUIxDDTScy7DxdAYeAq9pDwWwl+eLHO3+KP5d4z4B9ou/cQK
-	Ev2/ThgIZKCoxp8dtCzNIcwT8wCJQ9b/ksDqpCxX6MNnkcablJuq70zh+aN6FKk3
-	4vypXy32zYRlK8r4IxrpTqU3aObOi3gXp2FSmx0CB3CA38z5ytAD79d3oRiabVBj
-	A182lg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e81ch8pjp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:50:11 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-367bb9caa54so2051697a91.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:50:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MFwQkIRV"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43d7645adbdso1493405f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:50:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779112210; x=1779717010; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Vy1Q1E39uQDwPqLscloGcfc9TxMS8pJ/zjTeEJF4xLo=;
-        b=LDVs8GKdUetFADE0ONQ+jk373MP9TdTMHbIPphkWa04CR5J3z3r6Kv0Mo54zGa8+QF
-         1Nrybj9CKHhzFGEFExAt2w1l2mIWYbcCIO4qUAnVbtx5IsffxZAFdUt5mmf8w6ABLVt5
-         bipSvIfOez1CjbiliiQbfPZv6XgXBu+xH2FjCl28Y5L6xwaJXFBEzxxBpHdW0LBSTVeL
-         TpTSuCEVhXlOFShaLXnTzSJT4E2k6+5vhZ7h2dR3MWJ2Ag+Lnf4VCrigymGnez755OSz
-         7a8/d+pUh0pR4amAtZ0T+ENMZ4FxTyfgzEafjCzJ3qCEsroETPX7jZg6Nqq30HmTiFao
-         Nvww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779112210; x=1779717010;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+        d=gmail.com; s=20251104; t=1779112243; x=1779717043; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Vy1Q1E39uQDwPqLscloGcfc9TxMS8pJ/zjTeEJF4xLo=;
-        b=GaYqGCIBqzCj2rHENnsizQlW0cXja2mL44cjydbb2lCqu7cb4tEogFBmZJcso6g00N
-         qCHNej7thJ6RiJUHUoeg8Bi5o5dZonId3NRgD6fZ485scULGO5MTZV1jY9pJcLMDxSdT
-         QrOfRzavPThOi86OkZUiW2oHX6i2OL0sAN6D1n+jJzvfeQvpX+xps5HaL7NAOdkUM1zC
-         Qfprze+yhcvx2Ili+tU52V3Opu7cUBQgasI/DYR6GPlJxqdkHrMplkKJ2BG5g7bZGQQM
-         jwUIyykQjX1FQd2Da40t9QtU2gxDbQ/FyREQFaMJQKm2/WTqelh4EcO4B/dNnZJVX0Oe
-         juWA==
-X-Forwarded-Encrypted: i=1; AFNElJ8yBtXDrPPuLApgiEg9QzEmktn+HGZM04Ppl0R0P1ednOqA6tZOksQCCek3raRt6E2WV09ZXq3ufImg@vger.kernel.org
-X-Gm-Message-State: AOJu0YyED2P7oU8BtV5Ty+SIej8R6S9upC0jBGM8woIQmrlOWuwyQsl4
-	TIA7u/ugianYCqnmTKHPZP9zslHg2j7ncdIBfjFbDrv5etrby/yLD5AK4faz2x+U0kjKBmxqCEN
-	V887WSd7dlW/SYDkwSaJIK4QypTkniN+qynkcTn3XX5Pjd08w6cGJN38XkTgMEaQ=
-X-Gm-Gg: Acq92OEgU5mvaIoriwDPQPhf1JTTDQC1Ja2jQYDrneux+3kLsikgCbiwmcg9pYhjOdQ
-	JVc83KogjJc6hrnrBVLWtfGf09O6Ybvcd7cv4bKkoq4eSg4LEFTFuetq7rE8GX4I5YCizWEkQix
-	FPMoJ7KflDux72RhnTyLQ7UbBMh4CdHMfbhOogDmlBt1JIbaIgb+a8JlbQmrcFIoHfVCVIxoYyx
-	mxGIkMb5XYiJxbAOQHcQvYEBkMhPn7e+427o9odxvbdLnaKwLraC+tF0xMOhRKcoEWvrBcWN3UP
-	lktnc2igiKSvPft9xVyHhtSai0YZjSMZmDKAynpgOKg++4GV4kj6VKQq3L0Z6Ketq/CHOi//57G
-	wewTEPEEE5NAge0qfo0hrP6PXta9IpKGcogzUeIVrKiCLFFyOiGs=
-X-Received: by 2002:a17:90b:3f8c:b0:361:45df:102 with SMTP id 98e67ed59e1d1-36951b82f77mr14930689a91.17.1779112209655;
-        Mon, 18 May 2026 06:50:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:3f8c:b0:361:45df:102 with SMTP id 98e67ed59e1d1-36951b82f77mr14930656a91.17.1779112209139;
-        Mon, 18 May 2026 06:50:09 -0700 (PDT)
-Received: from hu-kotarake-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5c05f36fsm185411275ad.21.2026.05.18.06.50.05
+        bh=bOGygrHdqOVWXAOvGkDRTZ2rxuT23fhhj2Bb5CGxVXQ=;
+        b=MFwQkIRVFs1L3E53/SbMCH3sOMOZOZOkeAoBGFOErhTW8PYjS9u/rXKRbvdYPctSVy
+         agHN8dBvR9tr3SUV+NHVQsytocivf9/+ttfPGtqRTpbnX2x12vXL4uEFCDbeV4Seojog
+         nPUkgXIB2Lj2YpNuo8KEMp90H2jEfUiptqieprDZKHJdecu6P5iONWU1JFvMc1qxCJwu
+         tOkPlALa5HVS1yY44S33qnyYBrOlgHxajEha0bvyVwB8LCBkWUyFjKznbevCzXV7G1wB
+         ChzqkeWlxv3TS44ufX9EFF5i9zFOuQVPa8DPaEVt3VIN6iIYxhn+vU9aFo0+Liizxt++
+         CQLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779112243; x=1779717043;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bOGygrHdqOVWXAOvGkDRTZ2rxuT23fhhj2Bb5CGxVXQ=;
+        b=R1/7mg6CGyzyQmtBIMhC4yC5VrfmdHJBDPJSxtQl+X+PbUn+QvWryFEtHLI5AASu8k
+         C3eWfVK38frLogXYegSrVByruNIyfTfpiWxLg3n4Z5i+Oe5ngzs64XZvtOmbR8F8I7fZ
+         7nSsuuokO44qa+aTC1Y5uCMVaHMb5rQT9FdqitTvinJUt54gPqhtVwz7qVfQfNvFPK/5
+         Yni2FlqvpnGW1PB4wlY5Q0BD0wNS9wVlw1Np7tQQRrnyOvODjw99VwjyZgUhL9FLAKp6
+         YWqbrKNoRZN9xhRqbQMHmrHnFJIx9Q0tTN4M30PMXCgIqlVL7LoiTT1vCip5L1bgPj/H
+         /y2A==
+X-Forwarded-Encrypted: i=1; AFNElJ/V0vpWKngLzh2KQj2JEQGcgoKnHC2hAJSuP7jBoL7Um4DglqhkZ6DaFlOkNKS/kl772YvGu5RjgPWa@vger.kernel.org
+X-Gm-Message-State: AOJu0YyM/TfVAyYSpmaxZw2TH31FFbXZppQAuqmsMN4vg2P1EZQ8HkuG
+	EoGDDUE4fWUaKibRzd7QJK5t9KjNkWJc/ubeTH2G0u/uVigwZc0vuaTl
+X-Gm-Gg: Acq92OHqpS8hds9HuMjNwKJtT3zFU1mhtivCWGtMirydAZuotBiyD9nxEJNQG1NUhGJ
+	P/zZ/AsI/tIDXQpq/6nqic+iKKcD9Dlxx8NijQZZVpUCmCbcYYDR4aE6+yhZhjDdc958nMoSn1n
+	25fjNfXN20xJdV9K4vNf7Ja1I/jwZPBbDn6cAQD+7vg5CH6xTQlZGsbHYnMAA0dHdBDrPFzay7d
+	7wNohf4ZC9Dyz3vOGzTpiFKEuBZiGOpXpk2hQJhETou3B8BmBJXisL5i/EJA8JnWM1kXRJDp6XG
+	vJY788vV+AS1wZHXBXq5mRQunNYYGklyT/RiWdWP6TFKw/J6dH+J0A/0X0JPaaXQz/EmbDx5CPK
+	0N89XmF+KDXB2S/5G4iwrjmlloUVh58yqGHRnxIxR9CNpQRdjI14+zfH9FyXfspiuAbRd0cb1wn
+	7Boq6322llDcT6f/b98m19h8WU0c+5HkfgVobVYyqmmL+GrFkUUKRZVqzM59O+GZmgQNqUHVwhQ
+	y2y7Lu4EHYu6yZnZpL6qN2zsYiNHI6YqqArOn1k7G8dVkUMfE2p9n9xrPOz
+X-Received: by 2002:a05:600c:470e:b0:48e:8741:fd3d with SMTP id 5b1f17b1804b1-48fe60ea21dmr213355945e9.14.1779112242814;
+        Mon, 18 May 2026 06:50:42 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9e768bcesm39767810f8f.4.2026.05.18.06.50.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 06:50:08 -0700 (PDT)
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Date: Mon, 18 May 2026 19:19:40 +0530
-Subject: [PATCH 2/2] power: supply: qcom_battmgr: Add support batteryless
- boards as MAINS
+        Mon, 18 May 2026 06:50:42 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 18 May 2026 14:50:37 +0100
+To: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v5 09/13] iio: frequency: ad9910: add RAM mode support
+Message-ID: <dedkptdfy4bbhr66nirp52ldzmkje4rnjqgxre7gvnlrpwrvce@zymm36oaulv6>
+References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
+ <20260517-ad9910-iio-driver-v5-9-31599c88314a@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260518-add_dc_in_support-v1-2-31fbaa329879@oss.qualcomm.com>
-References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
-In-Reply-To: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779112197; l=3154;
- i=rakesh.kota@oss.qualcomm.com; s=20250919; h=from:subject:message-id;
- bh=1aO9ExS/iJmtGN9nCkni7bF7YETFRBmThZL8SJD8tuQ=;
- b=4U6y2t24JASec3FhMnbBc0UKbrhU17JX/1kC6ZyIjsBlbBhqAUOuuA/JLvK4zBv0uzCDOksk3
- UGxPCewnuF8CQWrCslsvgOwmJ96EW5GNU8mamapnOjooIqjJTfXg9Do
-X-Developer-Key: i=rakesh.kota@oss.qualcomm.com; a=ed25519;
- pk=dFhv9yPC8egZglsSLDMls08cOvZKZkG6QQn1a/ofwNU=
-X-Authority-Analysis: v=2.4 cv=a4MAM0SF c=1 sm=1 tr=0 ts=6a0b1913 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=HqcgoWIX0-uhnNlxQ_IA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDEzNCBTYWx0ZWRfXwOAOO058l+JZ
- KbFGRFfHy3FbhM5r50EhBw1kdpb/29S0xnU/uiRPJ9l3CLVK95qvE3ss08prD0m63FkL3qD26N7
- zWQnDZy4+XN7SNLAXX5ifVNTVSr7nFGy2WDzxXehTV+OF9rdv0m6iX86VvuB2DyDyojeM21KGUv
- qexbmG8akEi1yS34jXZ0r9OVyo8l7kLW75xSp8oXrcA6vQ2J9+zqnMYBpcqRP30ln3tWtipMNEI
- d/fUdo5YyamPrfBB3uAWud+6z18eikwPfZ/dhm0dswvT0uPrrC5b8h1SkSA+fR2NESmLb0NuRKy
- +yEL8fhGt8sIGVeQc9ENtxW2oWZ9Vw+xCFEw2mFrnxlmNKYZezFfSbiTtxr8s55mLuAIX8BFE1k
- IwLEMlWGoPV7DP4BHE9pF0bLhD7ZH42L/2d5I1RwCR9mfRLXRxzdErEY+ktD4m8qLH+EFnG/CDJ
- d+A9p0FwWXN8LksxciQ==
-X-Proofpoint-ORIG-GUID: Tt1dUDwHc1MSdTnj1SbZkekshIZAGInA
-X-Proofpoint-GUID: Tt1dUDwHc1MSdTnj1SbZkekshIZAGInA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_03,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 suspectscore=0 spamscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180134
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260517-ad9910-iio-driver-v5-9-31599c88314a@analog.com>
 
-Add support for the "qcom,batteryless" device tree property.
-When this boolean property is present, the driver registers the power
-supply as POWER_SUPPLY_TYPE_MAINS instead of BATTERY. This prevents
-userspace from triggering battery power-saving sequences when using
-powered by 12V adapters.
+On 26/05/17 07:19PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] Incomplete hardware rollback during a profile swap failure leaves AD9910 shadow registers corrupted.
+> - [High] Missing software cache and hardware rollback when CFR1 register update fails.
+> - [High] Unprotected software profile cache corruption on firmware upload failure.
+> - [High] Firmware upload `.write` callback fails on chunked payloads and performs out-of-bounds memory reads.
+> - [Medium] The RAM firmware upload sysfs node and debugfs symlinks are registered with a `(null)` name.
+> --
+> 
+> commit 3876f09fc86743085e5099fea5762c34dc150ecf
+> Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> iio: frequency: ad9910: add RAM mode support
+> 
+> Add RAM control channel, which includes RAM data loading via firmware
+> upload interface, per-profile configuration, profile switching,
+> sampling frequency control, and ram-enable-aware read/write paths.
+> 
+> > diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+> > index 4ad80475139d7..86ed350011cff 100644
+> > --- a/drivers/iio/frequency/ad9910.c
+> > +++ b/drivers/iio/frequency/ad9910.c
+> 
+> [ ... ]
+> 
+> > @@ -1202,6 +1306,41 @@ static int ad9910_write_raw(struct iio_dev *indio_dev,
+> >  			return ad9910_reg32_update(st, AD9910_REG_CFR2,
+> >  						   AD9910_CFR2_DRG_ENABLE_MSK,
+> >  						   tmp32, true);
+> > +		case AD9910_CHANNEL_RAM:
+> > +			if (AD9910_RAM_ENABLED(st) == !!val)
+> > +				return 0;
+> > +
+> > +			/* swap profile configs */
+> > +			for (i = 0; i < AD9910_NUM_PROFILES; i++) {
+> > +				tmp64 = st->reg[AD9910_REG_PROFILE(i)].val64;
+> > +				ret = ad9910_reg64_write(st,
+> > +							 AD9910_REG_PROFILE(i),
+> > +							 st->reg_profile[i],
+> > +							 false);
+> > +				if (ret)
+> > +					break;
+> > +				st->reg_profile[i] = tmp64;
+> > +			}
+> > +
+> > +			if (ret) {
+> > +				/*
+> > +				 * After the write failure, profiles 0..i-1 were
+> > +				 * already swapped in SW, but Hw registers are
+> > +				 * still pending an IO update, so swap them back
+> > +				 * in SW to keep the state consistent.
+> > +				 */
+> > +				while (i--) {
+> > +					tmp64 = st->reg[AD9910_REG_PROFILE(i)].val64;
+> > +					st->reg[AD9910_REG_PROFILE(i)].val64 = st->reg_profile[i];
+> > +					st->reg_profile[i] = tmp64;
+> > +				}
+> > +				return ret;
+> 
+> If a write fails mid-loop, this rollback block restores the software cache
+> but doesn't issue SPI writes to revert the hardware shadow registers.
+> Could the next successful SPI write with an IO_UPDATE pulse inadvertently
+> latch these corrupted, partially-swapped profiles into the active hardware
+> state?
 
-Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
----
- drivers/power/supply/qcom_battmgr.c | 47 ++++++++++++++++++++++++++++++++++++-
- 1 file changed, 46 insertions(+), 1 deletion(-)
+The approach reverts the changes on cached values, so we do not have RAM and single
+tone profile values mixed in software. The hardware might be in an invalid state,
+but an error is reported to the user.
+ 
+> > +			}
+> > +
+> > +			tmp32 = FIELD_PREP(AD9910_CFR1_RAM_ENABLE_MSK, !!val);
+> > +			return ad9910_reg32_update(st, AD9910_REG_CFR1,
+> > +						   AD9910_CFR1_RAM_ENABLE_MSK,
+> > +						   tmp32, true);
+> 
+> If ad9910_reg32_update() fails here, the function returns immediately without
+> reverting the swapped profiles. Should there be a rollback of the swapped
+> profiles in this error path to prevent the device from operating with corrupted
+> synthesizer parameters?
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 490137a23d00e97a9e6ced21d1e66fe637db6c9d..35d266375d8c46b161a64f9c2a8c6054dc2211de 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -332,6 +332,7 @@ struct qcom_battmgr {
- 	struct qcom_battmgr_wireless wireless;
- 
- 	struct work_struct enable_work;
-+	bool batteryless;
- 
- 	/*
- 	 * @lock is used to prevent concurrent power supply requests to the
-@@ -930,6 +931,47 @@ static const struct power_supply_desc sm8550_bat_psy_desc = {
- 	.property_is_writeable = qcom_battmgr_bat_is_writeable,
- };
- 
-+static int qcom_battmgr_dcin_get_property(struct power_supply *psy,
-+					  enum power_supply_property psp,
-+					  union power_supply_propval *val)
-+{
-+	struct qcom_battmgr *battmgr = power_supply_get_drvdata(psy);
-+	int ret;
-+
-+	if (!battmgr->service_up)
-+		return -EAGAIN;
-+
-+	ret = qcom_battmgr_bat_sm8350_update(battmgr, psp);
-+	if (ret < 0)
-+		return ret;
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_STATUS:
-+		val->intval = battmgr->status.status;
-+		break;
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = battmgr->info.present;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static const enum power_supply_property dcin_props[] = {
-+	POWER_SUPPLY_PROP_STATUS,
-+	POWER_SUPPLY_PROP_PRESENT,
-+};
-+
-+static const struct power_supply_desc dcin_psy_desc = {
-+	.name = "qcom-battmgr-dcin",
-+	.type = POWER_SUPPLY_TYPE_MAINS,
-+	.properties = dcin_props,
-+	.num_properties = ARRAY_SIZE(dcin_props),
-+	.get_property = qcom_battmgr_dcin_get_property,
-+};
-+
- static int qcom_battmgr_ac_get_property(struct power_supply *psy,
- 					enum power_supply_property psp,
- 					union power_supply_propval *val)
-@@ -1652,6 +1694,7 @@ static int qcom_battmgr_probe(struct auxiliary_device *adev,
- 	mutex_init(&battmgr->lock);
- 	init_completion(&battmgr->ack);
- 
-+	battmgr->batteryless = device_property_read_bool(dev, "qcom,batteryless");
- 	match = of_match_device(qcom_battmgr_of_variants, dev->parent);
- 	if (match)
- 		battmgr->variant = (unsigned long)match->data;
-@@ -1690,7 +1733,9 @@ static int qcom_battmgr_probe(struct auxiliary_device *adev,
- 			return dev_err_probe(dev, PTR_ERR(battmgr->wls_psy),
- 					     "failed to register wireless charing power supply\n");
- 	} else {
--		if (battmgr->variant == QCOM_BATTMGR_SM8550)
-+		if (battmgr->batteryless)
-+			psy_desc = &dcin_psy_desc;
-+		else if (battmgr->variant == QCOM_BATTMGR_SM8550)
- 			psy_desc = &sm8550_bat_psy_desc;
- 		else
- 			psy_desc = &sm8350_bat_psy_desc;
+Yes, I'd this part can be improved. Writing to CFR1 can be moved up (before the cache
+restore).
+
+> 
+> >  		default:
+> >  			return -EINVAL;
+> >  		}
+> 
+> [ ... ]
+> 
+> > @@ -1475,6 +1657,126 @@ static int ad9910_read_label(struct iio_dev *indio_dev,
+> > +static enum fw_upload_err ad9910_ram_fwu_write(struct fw_upload *fw_upload,
+> > +					       const u8 *data, u32 offset,
+> > +					       u32 size, u32 *written)
+> > +{
+> > +	const struct ad9910_ram_fw *fw_data = (const struct ad9910_ram_fw *)data;
+> > +	struct ad9910_state *st = fw_upload->dd_handle;
+> > +	int ret, ret2, idx, wcount;
+> > +	u64 tmp64, backup;
+> > +
+> > +	if (offset != 0)
+> > +		return FW_UPLOAD_ERR_INVALID_SIZE;
+> 
+> The sysfs firmware upload framework chunks data into blocks bounded by
+> PAGE_SIZE (typically 4096 bytes). Since the maximum AD9910 firmware size
+> can be 4176 bytes, this driver will reject any chunks after the first.
+> Can this be adjusted to support firmware files larger than PAGE_SIZE?
+
+That does not seem to be the case:
+https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/base/firmware_loader/sysfs_upload.c#L184
+
+Sysfs binary attribute writes from userspace are limited to PAGE_SIZE per
+write() syscall (enforced in fs/sysfs/file.c). But the firmware loader
+framework accumulates these into an internal buffer (fw->data).
+
+The driver's write callback is called from fw_upload_main() in sysfs_upload.c.
+So, the key question is whether that function passes fw->size - offset
+(the full remaining size) or min(fw->size - offset, PAGE_SIZE) (PAGE_SIZE-bounded chunks)
+to the driver callback.
+
+The referenced code shows that the write callback is not called every
+PAGE_SIZE chunks, but the callback implementation that defines the how
+much it can handle at each call.
+
+Also, I have already tested this code with a FW file bigger than 4k.
+
+> > +
+> > +	guard(mutex)(&st->lock);
+> > +
+> > +	if (st->ram_fwu_cancel)
+> > +		return FW_UPLOAD_ERR_CANCELED;
+> > +
+> > +	if (AD9910_RAM_ENABLED(st))
+> > +		return FW_UPLOAD_ERR_HW_ERROR;
+> > +
+> > +	for (idx = 0; idx < AD9910_NUM_PROFILES; idx++)
+> > +		st->reg_profile[idx] = get_unaligned_be64(&fw_data->profiles[idx]) |
+> > +				       AD9910_PROFILE_RAM_OPEN_MSK;
+> 
+> Here the software cache st->reg_profile[] is overwritten before the SPI
+> hardware operations. If any subsequent hardware writes fail, the function
+> aborts and the cache is left with partially uploaded profiles.
+> Could the original cache be backed up and restored on failure?
+
+I'd say that is not an issue. When RAM is disabled (requirement to enter this function),
+this cache is exclusive to be managed by the RAM mode. This is meant to be
+written here.
+
+> 
+> > +
+> > +	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
+> > +				  AD9910_CFR1_RAM_PLAYBACK_DEST_MSK |
+> > +				  AD9910_CFR1_INT_PROFILE_CTL_MSK,
+> > +				  get_unaligned_be32(&fw_data->cfr1), true);
+> > +	if (ret)
+> > +		return FW_UPLOAD_ERR_RW_ERROR;
+> > +
+> > +	wcount = get_unaligned_be16(&fw_data->wcount);
+> > +	if (!wcount) {
+> > +		*written = size;
+> > +		return FW_UPLOAD_ERR_NONE; /* nothing else to write */
+> > +	}
+> > +
+> > +	ret = ad9910_profile_set(st, st->profile);
+> > +	if (ret)
+> > +		return FW_UPLOAD_ERR_HW_ERROR;
+> > +
+> > +	/* backup profile register and update it with required address range */
+> > +	backup = st->reg[AD9910_REG_PROFILE(st->profile)].val64;
+> > +	tmp64 = AD9910_PROFILE_RAM_STEP_RATE_MSK |
+> > +		FIELD_PREP(AD9910_PROFILE_RAM_START_ADDR_MSK, 0) |
+> > +		FIELD_PREP(AD9910_PROFILE_RAM_END_ADDR_MSK, wcount - 1);
+> > +	ret = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), tmp64, true);
+> > +	if (ret)
+> > +		return FW_UPLOAD_ERR_RW_ERROR;
+> > +
+> > +	memcpy(&st->tx_buf[1], fw_data->words, wcount * AD9910_RAM_WORD_SIZE);
+> 
+> If the firmware is larger than PAGE_SIZE, size will be 4096 on the first
+> call, but wcount could request more bytes than are present in the chunk.
+> Does this memcpy() risk reading out-of-bounds memory from the data buffer?
+
+this is dicussed above, from drivers/base/firmware_loader/sysfs_upload.c it
+does not seem to be true that the write happens in chunks of PAGE_SIZE.
+
+> [ ... ]
+> 
+> > @@ -1688,7 +2014,25 @@ static int ad9910_probe(struct spi_device *spi)
+> >  	if (ret)
+> >  		return dev_err_probe(dev, ret, "device setup failed\n");
+> >  
+> > -	return devm_iio_device_register(dev, indio_dev);
+> > +	snprintf(st->ram_fwu_name, sizeof(st->ram_fwu_name), "%s:ram",
+> > +		 dev_name(&indio_dev->dev));
+> 
+> The IIO core does not assign the device name to indio_dev->dev until
+> devm_iio_device_register() is called. Will dev_name() return "(null)" here,
+> resulting in sysfs nodes named "/sys/class/firmware/(null):ram"?
+> This might also cause probe failures due to sysfs name collisions if multiple
+> AD9910 devices are present on the system.
+
+I suppose that is incorrect.
+
+	dev_set_name(&indio_dev->dev, "iio:device%d", iio_dev_opaque->id)
+
+happens during iio_device_alloc().
+
+> 
+> > +	st->ram_fwu = firmware_upload_register(THIS_MODULE, dev, st->ram_fwu_name,
+> > +					       &ad9910_ram_fwu_ops, st);
+> > +	if (IS_ERR(st->ram_fwu))
+> > +		return dev_err_probe(dev, PTR_ERR(st->ram_fwu),
+> > +				     "failed to register ram upload ops\n");
+> > +
+> > +	ret = devm_add_action_or_reset(dev, ad9910_ram_fwu_unregister, st->ram_fwu);
+> > +	if (ret)
+> > +		return dev_err_probe(dev, ret,
+> > +				     "failed to add ram upload unregister action\n");
+> > +
+> > +	ret = devm_iio_device_register(dev, indio_dev);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ad9910_debugfs_init(st, indio_dev);
+> > +	return 0;
+> >  }
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com?part=9
 
 -- 
-2.34.1
+Kind regards,
 
+Rodrigo Alencar
