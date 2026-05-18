@@ -1,215 +1,206 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCC238AC8B
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7029A1E511
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:07:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779134729; cv=none; b=lEiddByfAsw9mA2Wrtwua8PtcFXlu7wS9hWwbTOH787cwoZH9kiRk8+uGYpDqJDy8ncbS8hh+FhSz6gGCSJSurZ+P/PuLNE555WEphy8aulLuSReK/MqSIdN3tNRQcKOHT+qSRCj6N+UAZ6VToJmu1FavDDY1TwcodQ0K6F+uBw=
+	t=1779134872; cv=none; b=mr4uw5FJDNuCmQjlpAf3kaT403a3F9RVjqHoShgxYW9sUzGf6kvDcrAmiVsxFMpIOvYcF0sajuDFdCWBqFMIjsUVZhGSSi7OJcDptOYsF5K0akpjJXifOAuqPeeZ9YQkPewsrh/efWbIrmrXN1FKksrzWdeBinXluO2j1fnGlGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779134729; c=relaxed/simple;
-	bh=vb2AgGc35TL/XGOXSGbcvOchFSZiLg5xVi3rxt9C3Jc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FmuDBGU4IXIc2Krewugs6ISI/F0BeZgkQHFueixiAmiAZx/36iaAUwwIXbdo2PMzolzDuPb4XiCONeKp4CR3AAh/jf4QvDrXFAXFxGOKumRx/1C2Y4hsXYe8NOBDwZsSrWc/BtRklgVqTTM0lOfnHW+Di3PwdvcOMv+I3+ij/os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K6EWyO55; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1779134872; c=relaxed/simple;
+	bh=ydJ0FeTXnF3CWjz1VmMKW6XwgKlTkdUnjxsY2JTFk24=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bMyt3IUjqW7UOLvS0uZ4e8x4eZvCzypHWSfTmZsRdTuSeaUrP1yX2FvVgVRdGzxpxEud+sgH7xtHqAlft6L4v3T3iTEd9QMFKQlLina/QILsprqxcczo/gUg4//BWmkCPmEaB6r95pN9O8xb4jaP/5zPGpOuKylRzwmO3ZvYIN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3qXneyG; arc=none smtp.client-ip=209.85.210.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K6EWyO55"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so134144f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:05:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3qXneyG"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7dca4debedaso2940626a34.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:07:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779134727; x=1779739527; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=cAkY0vj7iSY+sZjzSMZGpI/xkJ9Jb7vUa4k3TiZjewI=;
-        b=K6EWyO55U+qM4qMSlAm8EKx1RPPf6yoJiz9flsaJXpScaXdbQghCcqcpDV2w/Qlh4O
-         5HJSjPjAKzJ+a9THNHNlFwRDsRMn3bs8X475OpyT+vXh4nwSG6p0vo4KGoTn0L/3u59X
-         E3ZW+86E8W7ugUvXTY/adTodcUCYk+J4Qi6mEkYtT75XyHuY8i8HoolTTCb9pObeGE64
-         ReDTPG2SJiR8YBos1+dyKrHqwqFOIt8nwRrvBw4r83pCSw+vssYZnc/m2FFtbxa0rTXL
-         b3nqrzb4WoQIKF0rb7pJkpacQqmtkCYuPfA+CuENx3afnfdNJcViBwY38tLsmZxcjHEC
-         hc8g==
+        d=gmail.com; s=20251104; t=1779134870; x=1779739670; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2aMdRv6ihcWtjppf7zSbeituA+UJ2sSFZR2RWfS3c1E=;
+        b=q3qXneyGldwHqwPySDXDiyL6BhHx0O6zMii1fBxEK8jojeT4720PafC1t7kfJSSvxl
+         LwkLYWx06umGcdSzIyt8nmbwbNkUpLU3yIUi7BH+rF0t+34vfHVKpflX2xvwuwXqfGGX
+         owzh4JvN03jpuAsI7aEJbfu04EQ/SdDEQl7wC1FbRiH/x2lkkWhlXTHaZ0dBqh6QgbyW
+         DTSpG4Pw1+BxFatqoioCjmDJs4JvPPqKedr/d6tA7WHt4Jg4L9tGAbmzz3BWzDKJe35S
+         8Le3662y2s2dQqVog5If16WWzLbXVglV5FghVurIEhIaLz6Rw9fStay2pmn72FvnijJa
+         d+jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779134727; x=1779739527;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cAkY0vj7iSY+sZjzSMZGpI/xkJ9Jb7vUa4k3TiZjewI=;
-        b=RMyO2FotZHBu6E2doPUAKqgdxH9/dAqHQdu2EsGS/quCXxnhmOpVP7w8PQbC1hUMKK
-         798caAhVupm6KvxuLwDLRt0LxYUs85Q0LQWeiN3d1NNVTLRTAKDCP5inrK27MXHghsNZ
-         050fIeXh1dcQy1aqU+X/gjDi5AB7ZuJDp3bh4/pzm4bF/O+uTWvFYa+C2L8g0uLMjmVh
-         iPaVieHs7rQZbdut69O0WOfLbE+imIqXuKYaDjOyR/MY+NGGIMZ3X9mHRN6O1aYIICEs
-         tdEnXpM40UL2uekf2c8iblpHgsRtaAZyLBoWbwMBXhcZ10mO5xg0KpYMw3F2ETidOXj+
-         R4vQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+NPotexpjvYd58kkQMdkMPaXnWaPUkNgjSeKSiP68L41YnvrLllPxCQ14Vrx6zkAHFD1wqsZVTQR0c@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzr2faIvgrppvQt1CJNh54Mz850WmUduY9aI4YoZliVRMKB7QQE
-	l0iHlfEgQm/lNhMfpNjIyO49IUnFc8YCDaaVTBkY4YFi+CJ+YsBMrgas
-X-Gm-Gg: Acq92OGKwU/7cN9nndGuKkOC4I5CQzATmT9JPQmG2+kl6biC2d/dh9pqTng7oD5tlyJ
-	IVQK8cZh6cA2F+1xrY/49qtBi+cegmZpeMaEjf8BfScpywSHPx34HZtOSl7osmL6rBS9noCRki8
-	EaIiuu8c07G0CCup+GYq3MgGi6rim1S2AWWv8OHi/Ujwd/nvVCpvvAqVL/3YR8P2f1FaMh4SAg6
-	9KiRiWvopCnm2epL5X9dg5hR1ERoaVcHxn//YNnF1xFtfUQ9SFBg96nvH2dNyWv+eZ4V2gQsuaW
-	EXr1CpGVE5EadDF14viiQM4K4F3OH43MGfctPsOsFwF55Xu6K1zMpuCJtE0k21dyGDMO/2rcJye
-	Hh4oHp1Q/LJwMcvPg8XbWQ+UYovH3M4OK9VJARDcV8SRXI//78kj4IuzowWE8hXZiofU9ARQwcI
-	X2UzZpdM4MRxDwYwWxoUnHAEbDMBONcop9hSQ0+fQ6KXHN9KZ0h/TzRDb9WkUHHkGyW+ucZF8cg
-	kI=
-X-Received: by 2002:a5d:584c:0:b0:446:db72:e8ec with SMTP id ffacd0b85a97d-45e5c587281mr26781621f8f.23.1779134726576;
-        Mon, 18 May 2026 13:05:26 -0700 (PDT)
-Received: from giga-mm-11.home (72.92.4.85.dynamic.cust.swisscom.net. [85.4.92.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0a19c2dsm40825454f8f.21.2026.05.18.13.05.25
+        d=1e100.net; s=20251104; t=1779134870; x=1779739670;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2aMdRv6ihcWtjppf7zSbeituA+UJ2sSFZR2RWfS3c1E=;
+        b=SnWP/hT/xJZi5GtNFa1AGt9smho6bpYPmJGxflBrTphORTlokw5PaalaMNYSCflXf0
+         D9uN6ilCs5dlH0eBR9WVBCpskfT5fN4i9Q62Npzo9VgfhSeRNOLuSvi7eUProrlsjGxH
+         vwNhz7ZtZS338KikUHG7Tqi7y1PrvDDPTS5aVnQTlGpKlNf2UaJQ0LhbHMfRRuebaGeb
+         DYUI+Ou2y1uQW06dpM4oLtHklTuHO8U/+0eRE8ru8uq2rS5s7P27dMUbC7VyWt5AJRrj
+         b+gWsKlDHkFvTxcZ8pXstssm7cCO9G3TrzOlSCWgBDDVoCrmUKGXbHolvlCM0i8o12so
+         88Wg==
+X-Forwarded-Encrypted: i=1; AFNElJ9CT3mSGD2JxwP81xHP5+tbkDJjvSAlqEs53TZOOOxDv1ZR0dbeWdyeeejr2GFJxRaAbRgW40Tzfus9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmnW33ej0dR/hqX2LkhLsgyhmGORG2j6q5JAKpLNJ1mArqTt01
+	DVH6fO2b9MXNzQ4b2zzx08I/G+/IOn+IYK/tlyk3fptCiGVaT2TirDdZ
+X-Gm-Gg: Acq92OESLdH3k6t8KZC9daw/o76GudrRhmvXKHTPIOHYIUrXwmbBipxdK29V2OUZFtu
+	PzzEzf8GE9AWGCTeAoYNz1zEAesd6JAlPCmPtMXmdTfbNE5Dv6uMRaUZlgqnuD8FQBuMsofOCfK
+	+AOAzkWqGYwVEe4GoPspa3nnbKIJhdnsSQWIYzhn+t+rh1GtUbb4SkDois+9hbQ0BS7eK7WeVKT
+	nYpsyL5p79Fsqst4/W1bDJsMocQJkJ408QhOK433R69ZyN92cL4C54TszqAHjtC0531SOquACg+
+	mRw7UZzXyuWHXvx2BQ9D1rSlHNYkaO4wv02ykG1+aY7zBgrnyjGuORazO8vEsejakaQaHLEGBFh
+	PYJyI8DNe15He8M6mB/V9M6U7tOLJfg3dcWzeItmyn4q56ZnGqklk4WysXp66IpvEY6fqFjvjAh
+	49x07+uquOM9HJqVnUf9aL
+X-Received: by 2002:a4a:ee07:0:b0:694:914f:c18f with SMTP id 006d021491bc7-69c94294299mr9985227eaf.3.1779134870134;
+        Mon, 18 May 2026 13:07:50 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69d0462e85esm6113360eaf.6.2026.05.18.13.07.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 13:05:26 -0700 (PDT)
-Message-ID: <04da68168f92b196cce4d49c766fc62702bf6472.camel@gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
- Baijie Helper A133 board
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: linux-sunxi@lists.linux.dev, Andre Przywara <andre.przywara@arm.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 18 May 2026 22:05:25 +0200
-In-Reply-To: <agr9m_tidBr6Cu2h@collins>
-References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
-	 <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
-	 <agr9m_tidBr6Cu2h@collins>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+        Mon, 18 May 2026 13:07:49 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	andriy.shevchenko@intel.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V8 00/10] Add Invensense ICM42607
+Date: Mon, 18 May 2026 15:05:15 -0500
+Message-ID: <20260518200526.458421-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+From: Chris Morgan <macromorgan@hotmail.com>
 
-thanks for the review!
+Add support for the ICM42607 IMU. This sensor shares the same
+functionality but a different register layout with the existing
+ICM42600.
 
-On Mon, 2026-05-18 at 13:52 +0200, Paul Kocialkowski wrote:
->=20
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi =
-b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
-> > new file mode 100644
-> > index 000000000000..65b094f30bf5
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+This driver should work with the ICM42607 and ICM42607P over both I2C
+and SPI, however only the ICM42607P over I2C could be tested.
 
-[]
+Changes Since V1:
+ - Instead of creating a new driver, merged with the existing inv_icm42600
+   driver. This necessitated adding some code to the existing driver to
+   permit using a different register layout for the same functionality.
+ - Split changes up a bit more to decrease the size of the individual
+   patches. Note that patch 0004 is still pretty hefty; if I need to split
+   further I may need to create some temporary stub functions.
+ - Used guard() and PM_RUNTIME_ACQUIRE_AUTOSUSPEND() on the new functions
+   per Jonathan's recommendations.
 
-> You should add:
->=20
-> 	chosen {
-> 		stdout-path =3D "serial0:115200n8";
-> 	};
+Changes Since V2:
+ - Went back to using a new driver on advice from Invensense engineer.
+ - Further split changes up into smaller chunks of functionality. Note
+   still that the largest patch is approximately 900 lines, and that while
+   the driver compiles cleanly at each commit it is not able to drive the
+   hardware until the commit that adds the Interrupt (as it also adds the
+   Makefile).
+ - Change the error to a warning when the devicetree binding does not match
+   the hardware ID.
+ - Dropped the ack on the devicetree bindings, as I am creating a new file
+   (for a new driver) instead of modifying the existing one.
 
-I actually have it in .dts, but it's theoretically possible to deploy
-the core board in a way that serial0 is *not* a console, so the above
-probably will not be valid in all cases in .dtsi.
+Changes Since V3:
+ - Numerous small fixes (too many to list here). Thank you to everyone who
+   provided feedback.
+ - Split power management additions into an additional commit to break
+   things up further.
+ - Consolidated devicetree documentation in existing
+   invensense,icm42600.yaml file.
+ - Removed most of the FIELD_PREP from header file to c files to make code
+   easier to read.
+ - Changed scale values to 2D arrays for Gyro and Accelerometer.
+ - Removed IIO_CHAN_INFO_CALIBBIAS attribute.
 
->=20
->=20
->=20
-> > +&reg_dcdc2 {
-> > +	regulator-always-on;
-> > +	regulator-min-microvolt =3D <500000>;
-> > +	regulator-max-microvolt =3D <1300000>;
->=20
-> Should be:
-> 	regulator-min-microvolt =3D <900000>;
-> 	regulator-max-microvolt =3D <1300000>;
+Changes Since V4:
+ - Additional numerous small fixes, thank you again for all the feedback.
+ - Dropped power control API and instead run device in low noise mode.
+ - Split devicetree bindings into two distinct changes.
+ - Reordered adding of enums and structs to main header file so that they
+   are only brought in when needed.
+ - Stopped using enum for driver data and instead am using pointer to
+   device specific driver data.
 
-0.81..1.2v according to A133 Datasheet Revision 1.1 Jul.14, 2020?
+Changes Since V5:
+ - Corrected use of "dev_warn_probe" to just "dev_warn".
+ - Fixed some return scenarios which would unconditionally return 0
+   when an error was present.
+ - Corrected use of max() to min() for bounds checking. max() was
+   incorrect.
+ - Fixed using "st->conf.accel.odr" in the gyroscope function. It
+   should have been "st->conf.gyro.odr" which it now is.
+ - Additional small fixes suggested by "sashiko.dev".
+ - Added a regmap cache. I used the datasheet to try and determine
+   which registers might change without explicit writes.
 
->=20
-> > +&reg_dcdc4 {
-> > +	regulator-always-on;
-> > +	regulator-min-microvolt =3D <500000>;
-> > +	regulator-max-microvolt =3D <1300000>;
-> > +	regulator-name =3D "vdd-sys";
->=20
-> Should be:
-> 	regulator-min-microvolt =3D <810000>;
-> 	regulator-max-microvolt =3D <990000>;
-> 	regulator-name =3D "vcc-usb-sys";
+Changes Since V6:
+ - Corrected additional errors identified by sashiko.dev, mostly
+   fixing potential deadlocks, missing calls for pm runtime, and
+   potential overflow issues.
 
-I'm a bit puzzled here: datasheet says 0.9..1.0v
-and it has no "Typ" value, similar to VDD_CPU, but
-VDD_SYS is not part of OPP tables, so who is going
-to adjust this? Or shall it be just
+Changes Since V7:
+ - Dropped Wake on Movement patches, since some of the functionality
+   was only available for a device on which I cannot test.
+ - Dropped support for SPI 3-Wire mode, since it complicated the
+   bus setup (and I lack the hardware to test such features anyway).
+ - Fixed a few additional bugs identified by sashiko.dev bot.
 
-regulator-min-microvolt =3D <950000>;
-regulator-max-microvolt =3D <950000>;
+Chris Morgan (10):
+  dt-bindings: iio: imu: icm42600: Add mount-matrix to icm42600
+  dt-bindings: iio: imu: icm42600: Add icm42607 binding
+  iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+  iio: imu: inv_icm42607: Add I2C and SPI For icm42607
+  iio: imu: inv_icm42607: Add PM support for icm42607
+  iio: imu: inv_icm42607: Add Buffer support for icm42607
+  iio: imu: inv_icm42607: Add Temp Support in icm42607
+  iio: imu: inv_icm42607: Add Accelerometer for icm42607
+  iio: imu: inv_icm42607: Add Gyroscope to icm42607
+  arm64: dts: rockchip: Add icm42607p IMU for RG-DS
 
-?
+ .../bindings/iio/imu/invensense,icm42600.yaml |   4 +
+ .../dts/rockchip/rk3568-anbernic-rg-ds.dts    |  20 +-
+ drivers/iio/imu/Kconfig                       |   1 +
+ drivers/iio/imu/Makefile                      |   1 +
+ drivers/iio/imu/inv_icm42607/Kconfig          |  30 +
+ drivers/iio/imu/inv_icm42607/Makefile         |  14 +
+ drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 428 +++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_accel.c | 587 +++++++++++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.c    | 573 +++++++++++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.h    |  95 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 597 ++++++++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 552 ++++++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_i2c.c   |  90 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_spi.c   | 102 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.c  |  80 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.h  |  33 +
+ 16 files changed, 3206 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/iio/imu/inv_icm42607/Kconfig
+ create mode 100644 drivers/iio/imu/inv_icm42607/Makefile
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
 
->=20
-> > +};
-> > +
-> > +&reg_dcdc5 {
-> > +	regulator-always-on;
-> > +	regulator-min-microvolt =3D <800000>;
-> > +	regulator-max-microvolt =3D <1840000>;
-> > +	regulator-name =3D "vcc-dram";
->=20
-> Should be:
-> 	regulator-min-microvolt =3D <1100000>;
-> 	regulator-max-microvolt =3D <1100000>;
-> 	regulator-name =3D "vcc-dram-2";
->=20
-> ALDO2 is the main DRAM supply, this is the second one.
+-- 
+2.43.0
 
-Core schematics mentions 1.1V/1.2/1.35/1.5 on this rail...
-Currently U-Boot has CONFIG_AXP_DCDC5_VOLT=3D1100, but potentially
-this is adjustable, right? At some point LPDDR4 chips they
-are soldering today will be unavailable. And in the current
-market it will happen rather sooner than later...
-
->=20
-> > +};
-> > +
-> > +/* DCDC6 unused */
-> > +
-> > +&reg_dldo1 {
-> > +	regulator-min-microvolt =3D <700000>;
-> > +	regulator-max-microvolt =3D <3300000>;
-> > +	regulator-enable-ramp-delay =3D <1000>;
->=20
-> Should be:
-> 	regulator-min-microvolt =3D <1800000>;
-> 	regulator-max-microvolt =3D <1800000>;
-> 	regulator-name =3D "vcc-pg";
-
-Do suggest to drop vendor's
-
-regulator-enable-ramp-delay =3D <1000>;
-
-in all cases?
-
-> >=20
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dt=
-s b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
-> > new file mode 100644
-> > index 000000000000..ccbca5d0a40c
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
-
-[]
-
-> > +	aliases {
-> > +		serial0 =3D &uart0;
->=20
-> The is best added to the core dtsi.
->=20
-> > +	};
-> > +
-> > +	chosen {
-> > +		stdout-path =3D "serial0:115200n8";
->=20
-> Ditto.
-
-But it only physically materializes in Helperboard, the carrier.
-Potentially this one can be left floating or used for something else.
-
---=20
-Alexander Sverdlin.
