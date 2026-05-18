@@ -1,172 +1,236 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011027.outbound.protection.outlook.com [52.101.52.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466BF3F58C9;
-	Mon, 18 May 2026 11:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779102915; cv=fail; b=oQiqkZPsKXibVciIAR4B0h6u0MMQZauBKp91SdiCxNkmG19ogFz0VM9ralZnkAI9wLO72pp1utfydTpPGbZ2kCwz8/fHHXlbu4Xi2YsKf5hwUO3VybejonZzMuSZiy8UvaPtUIBbK3uzxbVNFa6gjE6gPR4krTZX+j90amTaGtM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779102915; c=relaxed/simple;
-	bh=ub5oTepo8hE+Kc+fnjsY8WX6mflAPJ/vlObgauCjAUQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=rawYSVci0mzfDoneTIvN0j2FoSK7JGCarJ2ehcFWyOoQNyZukgMkxelecvT8xIAu+Mpd0PXoHAX0S7JUm/ymShz1/pGup8inCdPWHLdfsJByXS8KAbSSg9e6cmP9PJucWMfmvyCNC1ti1/qx8qZgPP+sqPMvuw6jzdWeuJC6Phw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RIYJXvEc; arc=fail smtp.client-ip=52.101.52.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3CE523F39F4;
+	Mon, 18 May 2026 11:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779102974; cv=none; b=STik3oRtj4/2v0zqvvNa4Xfoo3o8rVQ+bZmC9B382JSO/+09oXH9fmw9EpHLdEKS7nVaFYkmYGFSoh3p+lX2Z/Y9kDmkqLMiu8SUmS/nVqQwVBtbQRodgBINiXvKwfWwfjl/c/fcgCS7F3gx3VBTKvpdG56f3l/HjwpPVIDVLOQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779102974; c=relaxed/simple;
+	bh=pGAA9c13luwcUcUhUugAihmhN9XjUfMcS8y9zrZSnnQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CA66CzDkXxokksXLp7QE4XYxDFlhyKPMJB/In/Pyz9lvc0jWrOfe95i3gCbiLUeOT4ymnapHUpWJVKgfHFHvWRzxKmqSiBwvtiCxj/J7dFuJSRzzQpbyZjnt6qhGF3adStPzxn646FdXu9+SR+MUyloPkU3Iy+1yfkzeGj11TvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dLicqqL0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RIYJXvEc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ittEfL/dcJ4fJtj2n/9/9xasSD6lqCunWFMfQk7ykVRfmC3l+pIoA8OFUm87Sx48hvbv24p7DZEANW/rWd2lLF7yxvhk0fTrVNm7FkpAyPwMCtB7Z4Oq5nzuSNe/+1ZdZh4C/yInXswyeaLkqKFvp6fLyJGSGKRNN8x98wdgGqJ9KLH6m7/wha42xLrNXtYM7k7zxeJ+XX8dRreQVXFG8wLwR6GXPxiVYWBnhLjDl7u1ItJ+e1l59me4T04Qt+5Y9JFgtTPFRbcLr10+21VPRmCOcGH38fiF4TopzAPTdpjQmcw4cRSsg/NU+nVSGjI9w3qqCmfOK0UkuOzW46Vxog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EhjLLQL11I4VvSnomvTx5ZbD6ltug1GezRG/i15ngs8=;
- b=GynZ5WZoJLdAX65gbqBBjs53O+rDNbgPE8XVcXIt6oOZfYT13NWSesmnNKC4Qaj0b05ypSLTQk5/hT5ZzvkXky2fhY8otI2F0TeczKSLiYdtNoacIFPgtLLHCPzbjIoK378OhhqDgqpGjyEvYDPblZIaCTa7Mmi6Y7FGUgjIzDvxlIT92JHQ0tpmcRF17jlbtbhdpZi4tKw5zEPhWGGcy8aeLMcScyBt+rJmn2xME5h2F11ULfaw5Idpz4YNDxRvRQLqOUVmrlvG3uFM4SNWEiaEzCGfmb68hY09gTavAeMJbRtMiJa8WGzd4fgZeabuiIg/IHQZKPXm3jtr+sPBIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EhjLLQL11I4VvSnomvTx5ZbD6ltug1GezRG/i15ngs8=;
- b=RIYJXvEcyz/q63IwKLR6ZaZ3oIg9E11GJJYIFevS5u84Dp9C7rjHEoxa2p89wz+o7cbSzipA6JNPT5ggUvKyfELZvsC3uNrSCQ8xOH6YCn62ZFA9FKZPvN+jLPihVzmqc//0vr2Cfg8ePqCQ/Ljz+mtnnfKDuYOYFIhZZoeUlL/N6z+s5ANBdnYnL8WDGEMFVtnJJYojXLrWkUhD3m9eiCsolUMYbD2Ra1s0pa6YxFd1+FblY2NDqrrdrBGc1Fmlx5LgpyMPWqBI2QbxihLCXEsuMu5zRJ+8u/3j00U1epgyIxdi0OUtwMeoOTePjeMs0eTB6Eh+OX3JeG8y5mooLg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BN9PR12MB5179.namprd12.prod.outlook.com (2603:10b6:408:11c::18)
- by CH3PR12MB8584.namprd12.prod.outlook.com (2603:10b6:610:164::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 11:15:00 +0000
-Received: from BN9PR12MB5179.namprd12.prod.outlook.com
- ([fe80::cf08:f59b:d016:c95f]) by BN9PR12MB5179.namprd12.prod.outlook.com
- ([fe80::cf08:f59b:d016:c95f%4]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 11:15:00 +0000
-Message-ID: <c932ab10-a53d-4e95-81c8-dace918e6a01@nvidia.com>
-Date: Mon, 18 May 2026 16:44:52 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] memory: tegra264: Add full set of MC clients
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: treding@nvidia.com, jonathanh@nvidia.com, robh@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, devicetree@vger.kernel.org, bbasu@nvidia.com
-References: <20260515171911.1929868-1-sumitg@nvidia.com>
- <20260516-cautious-smart-ferret-230db8@quoll>
-Content-Language: en-US
-From: Sumit Gupta <sumitg@nvidia.com>
-In-Reply-To: <20260516-cautious-smart-ferret-230db8@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0236.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::10) To BN9PR12MB5179.namprd12.prod.outlook.com
- (2603:10b6:408:11c::18)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dLicqqL0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF1C845BF;
+	Mon, 18 May 2026 04:15:59 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 73BEB3F85F;
+	Mon, 18 May 2026 04:16:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1779102965; bh=pGAA9c13luwcUcUhUugAihmhN9XjUfMcS8y9zrZSnnQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dLicqqL03syVPcpPs2lnAl7S4pW0JfjBmLo2rVqYorr4b6cn/M2MOZxDH6120QlhM
+	 eUDSLsu9bNmHcHqSYGD2TvEOwdHf12DcBPaT4Fu3YUcON1otOO4Ay6MbesbLres1Kc
+	 ePOSKXwrxMK7dXcIE+HgmYGRtVCEpls6WVmJL9AA=
+Message-ID: <256b1cd8-b143-4f71-91cc-8513be04ce4c@arm.com>
+Date: Mon, 18 May 2026 13:16:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5179:EE_|CH3PR12MB8584:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6a48673-5bda-4cd8-86f8-08deb4ceb3ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|11063799003|4143699003|18002099003|56012099003|22082099003|3023799003;
-X-Microsoft-Antispam-Message-Info:
-	lanj8XQfJ+obCfDtTiCL0oKmhJ2cRMsEZ8I9+yd6Iz07JpDafj5ToCtJB7tM0vokKlcn5HbDbQiVWvZVKy4Lf72DxqSDDMp6oOhotjB+kg7/W37H14exa5c+cD5bL3FIClV5zD12C4872Jl88slV1VjGLTpwS+YMr2lWOWCF7p36fGBvBW9mn9XOwlyM39e47UyqF5rmeEw4g6ntXs3agOp2s4f4m8vweDR2FhKVTkr1DdM8Vg0OAgi/mEOhEtObLYV07hl8Z9Zsj+PDvAWEaKAT4SWQbs79OJ1HKZ/qxiArOhsQVpX34EjHeNW4MXhKwimwkGytwnCMm36KnOXTV1VE45+l/W1yk5+WdrLtl+W7TAyJh+J+57dkrFjmN5lhfGUPm4Lk1UmoKsLeD4Xy0B/6SNjJunrU56Fqciz9/ycr/wiy2L8gSRP6TNnFVCXh/Aar6wWufB0LqpkMk6czNVwMAEMTBuf3/QBrfN3V1fJzSKT+T1dE4Rletqie28/VrdXP006rk6yW7kvQVFCFfJXLF3TIXouMb6iSwyfxd5OKychZfaxF6SNzgrOkRdTzlH16TncY1U6OVomy1Nocld3/cXoKgiI0zSFREhuSKXge3Pu+0iqdTgbVHG6AJrDNxaZ3pJIO6pqJmWL84b3myGMuOu5Jc/+hH66FEbDJwqXxfpOyDiHgalJ3ccPzBQf/
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5179.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(11063799003)(4143699003)(18002099003)(56012099003)(22082099003)(3023799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WTNvczVtM2llOG0rRkhUWXRPSEhGMFFSSGRBdk1LaVRsUER2RVJqSUZSKzRm?=
- =?utf-8?B?enN2OVRMWmRuOUhPVVU2M2pjTFdYYzZyVjhmNjhmcXNyZjFKaFBJUUhFNVhn?=
- =?utf-8?B?bnQ4cHYrSmhtL2VrWU5IdlUzaGo1Y0dkRWkzeXdmcVZMcERnbExhVkFGWWEv?=
- =?utf-8?B?OWtqQVlOOWRxUVViU0RHcFFmb2kvQjVNU2lVS2FsSmFFNGQ3TVpXL2F6d29i?=
- =?utf-8?B?a29WbjMxQjVNU3duK3RsTHArTG4xSWlIUVR0NmdZT1Q1WE1VL2hjNkNjei8z?=
- =?utf-8?B?UjRhTmFhMWoxN0lKNXQ5WGlzMWdFVlIxK2ZGVk1oeDRNMDJtdll6bFdTNDRE?=
- =?utf-8?B?L1AzVTZjNnpBb1duT240cnY4cTd6V2hWY0Z6TFY0WERMODVaWlZZcDIvMm4z?=
- =?utf-8?B?MVZZd1YvU3lTOWJLYlB5UmVWTG0xZ1NyOVh2cERIWHVDaHk2WGV0RjJUb001?=
- =?utf-8?B?WE1WWW9VY2UxNGExTEhJRTlXYXpTNTVXL3B3WDJsa3Q1ejV5MlRMSW5LUE93?=
- =?utf-8?B?U0FZVWtmUVM5QzlrSExIb3hwV2hlV3NaclJEZml1a3RMbjg3RUtiekFlVmcx?=
- =?utf-8?B?alNZV3RWSGRxUmF2WUo5bGNtUlozbmczak85WkRLYW5Bb3JaNU41NXMrc0Qr?=
- =?utf-8?B?Q2Q3LzFjcjZHakczNUZTU0hKMUczc3pZekZMSVVJWVhxaDU5TERtS0tvV2RY?=
- =?utf-8?B?QTd6VmxZMlpOaDJ2UlExNFMxdi85T3F0Y3lldjNRL2lBWnQ5U0hpdzhla0xy?=
- =?utf-8?B?dHFlWXFVVUE0S3M3bEpWQm12VVgxYVhGc0VyTXZXQkZ1SUY0NUhWRG9KNlo0?=
- =?utf-8?B?aTVCdnlqRGpuUXdMeGZFeHRFUU1WQVZ5clRFTnpXYU9IL1plM1Z1NytVUFVF?=
- =?utf-8?B?VTlCVFhQSXFPWFR6V2RBaUdVUGh6WWN1aUdYMTZYYTJuS2QwYW1idGxnSGFO?=
- =?utf-8?B?Y1k2MWhSUEd6RkpIeHhSNzB2R2ZUWnBYOG1sNUttSEZUUTlHUk5RdlJHQTZz?=
- =?utf-8?B?cElhTnljbDZoN0dCRnE1YWRnS3EzaVdaeEJOV0V4RUVqZGN6TlRLYUhkcEJK?=
- =?utf-8?B?OFRPZ0VhT3FacGpuQk4ySUh4cXB3VVljSG02dDdhdDZRVWtpZ0V6U21yWi9y?=
- =?utf-8?B?UEk3SUlTWGhBdmlYNjRXQnBHRnZkMWozSS9iZ3pQdWdDWEtMMm9LVEZ0bG9C?=
- =?utf-8?B?bmpUdmZPMDg0Z1BxUW91MEdEQ0hEcGx5WmFkNm45SWJSeDlrZHhQMjZST0V4?=
- =?utf-8?B?WjdZOStZb0tNZWJpYm1TdDZ0U2lJNTBQNHpWWnNOdXU5OUIxZVFQTitDYUZX?=
- =?utf-8?B?K1pRekdndmJHZXdDanI4aEpNbVYvQmE0OXRQZUpHZEQyTzVPYXNCZ1d1VS8v?=
- =?utf-8?B?Y0o3L08zYzZBUjZHL2h0ZkpmcVNuc2tHazVhUkE1dWI4aU5UNUR6OUNsR1hT?=
- =?utf-8?B?c0x3VHpnVkVxM2o1N2U2b3BmV1Yzc1VEcFduNi9IRDJjbEQ5OUVBU1BiQlk0?=
- =?utf-8?B?VDFLb2k5U0cyS1hySVRpRU5kNjYzc2QwOExPeVhuMUJqa3BCalA3VVBEUW1L?=
- =?utf-8?B?RnJZQzdaUnU3c3lXa0RhOW42QjQ3eDhKTncrM3JnaEhDeDFVRHp5SjlMTHJE?=
- =?utf-8?B?N1VjRForakx2RU9wdkpGU1p6MmIxbWdSS0dBc2NMK0NBN1RFZ0xlOTNMR3ky?=
- =?utf-8?B?bm5qdU9ONlRoZzk4OEFaM0l6OFJMdDY3WWlMMVBDSE1WbU9OZFJvR24zWWo2?=
- =?utf-8?B?QXNETUszUEp4elhzR2NFditlS1E3MXBwNXpLYzhoRzRITTdZSXorVTJyR1c0?=
- =?utf-8?B?Rm13VS9SYVVHbVJKWjlaT2U3RGF4bk1FMlJ5WXpFem81YjJvTFJYZDEyZFl3?=
- =?utf-8?B?RkNBZGF1QmRmNjhKRkVmQzZOcEFPZ2RQZ3NPU1VRL2t1WXlWd3JWL2hEUmV4?=
- =?utf-8?B?L0Vkcm8zR3lLa3duaUxPZkhRSHlpSU1KQ1RmTXBjQk1SaGNYNkE5UnFPNUhG?=
- =?utf-8?B?ZVhPV3RlT3A3bU50QXRVMnBkRWUxK3h6UzY2bEt0UkI5MWd5aXo1S0wzcUkx?=
- =?utf-8?B?NDRRTWJkajcrdkxPZEk2U05TdWtsTmlLT29JZHF5U051NGREK3UzeWxnVmdQ?=
- =?utf-8?B?aXMxRS9rTUhWM1BFRllNbWdvdUhZSGY0bGdPSHdFS2sveWowNXJTSFRSMUJ6?=
- =?utf-8?B?dldYejNRM1FVbnZ4WGxCNko1OEVaMG5DUEsrQmZxNFRvd1ZoVjg0aks1cU5X?=
- =?utf-8?B?NGtrZUczbGw2Rkw4Q1RFcWxOQ3Z5THkzejdCcGNQUzdPUTB0SWRtT1ZORy96?=
- =?utf-8?Q?ewP9W+acozMFxyZWw5?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6a48673-5bda-4cd8-86f8-08deb4ceb3ae
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5179.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 11:15:00.7816
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cksKv6sc2fo+EZ3EBX3eZ+v5viXARTsq9r+/G+2z7RR/plVltmJebjz6A07OG2fiSxa5bCXlCVND9mPUWA60UA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8584
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
+ Baijie Helper A133 board
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ linux-sunxi@lists.linux.dev
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
+ <2306dd3c-6362-40ee-8d9f-77f89be3a502@arm.com>
+ <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
+Content-Language: en-US
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Hi Alexander,
 
-On 16/05/26 15:39, Krzysztof Kozlowski wrote:
-> External email: Use caution opening links or attachments
->
->
-> On Fri, May 15, 2026 at 10:49:11PM +0530, Sumit Gupta wrote:
->> Extend the Tegra264 MC dt-bindings header and tegra264_mc_clients
->> table to cover the full set of memory clients exposed by the SoC.
->> Client name is used for MC fault reporting. Clients managed by the
->> bandwidth manager in BPMP additionally carry their bpmp_id and type.
+On 5/17/26 22:38, Alexander Sverdlin wrote:
+> Hi Andre,
+> 
+> thanks for the quick feedback!
+> 
+> On Mon, 2026-05-11 at 13:44 +0200, Andre Przywara wrote:
+>>> --- /dev/null
+>>> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+>>> @@ -0,0 +1,162 @@
+>>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>>> +/*
+>>> + * Copyright (c) 2025 Arm Ltd.
 >>
->> Entries in tegra264_mc_clients[] are sorted in increasing order of
->> their client IDs, which matches the order of the override and
->> security register offsets used in previous SoCs.
+>> Please put your own copyright here, even if that has been largely copied
+>> from an existing file.
 >>
->> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
->> ---
->>   drivers/memory/tegra/tegra264.c              | 564 +++++++++++++++++--
->>   include/dt-bindings/memory/nvidia,tegra264.h | 287 ++++++++++
->>   2 files changed, 819 insertions(+), 32 deletions(-)
+>>> + */
+>>> +
+>>> +/dts-v1/;
+>>> +
+>>> +#include "sun50i-a100.dtsi"
+>>> +#include "sun50i-a100-cpu-opp.dtsi"
+>>> +
+>>> +/{
+>>> +	compatible = "baijie,helper-a133-core",
+>>> +		     "allwinner,sun50i-a100";
+>>> +
+>>> +	aliases {
+>>> +		serial1 = &uart1;	/* BT module */
 >>
-> Please run scripts/checkpatch.pl on the patches and fix reported
-> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-> patches and (probably) fix more warnings. Some warnings can be ignored,
-> especially from --strict run, but the code here looks like it needs a
-> fix. Feel free to get in touch if the warning is not clear.
->
-> Best regards,
-> Krzysztof
->
+>> Do we really need an alias for the BT UART? And is the BT module
+>> supported already? Then please add a child node to the UART node.
+> 
+> That's the only thing I can do currently regarding BT: stabilize the
+> serial enumeration, because UART1 cannot be used for anything else
+> except BT module, because this is soldered inside "core" module.
+> We can avoid different tty enumeration, should the support for
+> BT be implemented in the future...
+> 
+>> Isn't the WiFi/BT module on the SoM? Then please mention and enable MMC1
+>> here. Provide the child node for the WiFi chip, even if there is no
+>> upstream support in the kernel for it yet.
+> 
+> So both the above BT and the WiFi is AW869A/AIC8800 combo chip, which
+> has neither upstream driver, nor [upstream] DT bindings. Even github
+> driver for AIC8800 doesn't seem to use DT, therefore it looks quite
+> pointless to me at this point to specify anything in the DT for the
+> chip which doesn't have the bindings idea even theoretically.
+> 
+> Nothing in the current DT shall block any future work on the AW869A
+> support though and the above "aliases" entry shall even guarantee
+> unchanged serial enumeration shall such support arise.
 
-checkpatch.pl --strict reports one warning:
-   WARNING: DT binding docs and includes should be a separate patch.
+Fair enough for not providing DT nodes for those unsupported chips, but 
+why do we need to force enumeration? For the eventual Bluetooth usage, 
+the driver will find the respective serial interface by just looking at 
+its parent interface. IIUC there is nothing referring to ttyS1 
+explicitly. So we wouldn't really need an alias, would we?
+I see that some boards do define an alias, but others with Bluetooth 
+don't, which I think is the right thing to do. Which name the kernel 
+comes up with for UART1 shouldn't matter in any way.
 
-Will split the nvidia,tegra264.h changes into a separate patch in v2.
+>>> +&reg_aldo1 {
+>>
+>> What is aldo1 used for, actually? I don't see this referenced anywhere.
+>> I guess the kernel turns that off after booting?
+>> If you have access to the schematic, please check that. If that's for
+>> some peripheral not yet supported, please note the user anyway, ideally
+>> by an explaining regulator-name, or by a comment. Also if it's used for
+>> any of the required SoC VDD pins. See the Liontron .dts for comparison.
+>>
+>>> +	regulator-always-on;
+>          ^^^^^^^^^^^^^^^^^^^
+> I suppose it's not being switcdhed of because of the above.
+> It's used for both PLL supply for the whole SoC + as analog voltage reference
+> for LRADC (the buttons you've noticed on the board are connected to
+> this ADC via a resistor ladder).
 
-Thank you,
-Sumit Gupta
+Ah, yeah, somehow missed that line. So as stated below, please use a 
+descriptive regulator name.
+Look at sun55i-a527-cubie-a5e.dts, I think is a more modern example of 
+how to handle regulators best.
 
+> 
+>>
+>>> +&reg_aldo2 {
+>>> +	regulator-always-on;
+>>
+>> For always-on regulators we definitely need an explanation. Does the
+>> board stop booting if you remove this line?
+>> Maybe it's for DRAM? Can you say what voltage it is, either from the
+>> reset default, or set by the bootloader?
+> 
+> Thanks for the hint! I'll put proper voltages into all regulators +
+> comment all the always-on regulators.
+
+Thanks!
+
+> 
+>>
+>>> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+>>> new file mode 100644
+>>> index 000000000000..ccbca5d0a40c
+>>> --- /dev/null
+>>> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+> 
+>> And you should provide a top level 5V regulator here, to be the root of
+>> the regulator tree. Look at reg_vcc5v in the Liontron .dts.
+> 
+> It doesn't look to me as if Liontron had reg_vcc5v as its 5V "root" regulator.
+> It seems to be only used for reg_usb1_vbus, while HelperBoard A133 doesn't
+> have USB power control. The second issue with Helper/Core split is that
+> all PMIC story is inside Core board which has 5V input rail, while HelperBoard
+> around it has indeed 12V->5V DCDC regulator (similar to Liontron), but
+> putting it in the DT would introduce wierd dependency of the core to the
+> HelperBoard which carries it. Do you think it would make sense?
+
+Ah yeah, the Liontron is not the best example, we don't have the full 
+description there, because this board misses schematics.
+So look at sun55i-a527-cubie-a5e.dts instead, which uses the top level 
+regulator correctly. We didn't traditionally do this with the A64 boards 
+using the AXP803, and just learned to live with those dummy supplies 
+created by the kernel, but for new boards we should do better.
+
+Regarding the board/SoM split: You should have a fixed regulator in the 
+SoM .dtsi reflecting the 5V input pin(s), and then using that as the VIN 
+  supply for the various PMIC rails, as the Cubie A5E does. This would 
+mimic some barrel connector on a standard board: the voltage is applied 
+"by the user", externally.
+So in this SoM .dtsi node, there is no vin-supply property, but you add 
+that in the board .dts:
+
+&reg_vcc5v {
+	vin-supply = <&reg_vcc12v5v>;
+};
+Please come up with some better names than I just did ;-) Maybe 
+something like reg_vcc5v_som to make this clearer.
+
+And then you have that 12V->5V regulator described in the board .dts, 
+along with a parent-less 12V regulator, check sun55i-t527-avaota-a1.dts 
+for an example.
+
+That should work cleanly, I think.
+
+>> So from the pictures I found online it looks like there is an USB-C port
+>> labelled "OTG", so can you please add an &usbotg reference here and
+>> describe that port.
+> 
+> Nice catch! I've missed the fact usbphy 0 has to be in peripheral mode,
+> not host mode. Will rework!
+
+I guess that's the same situation as in the other recent boards using 
+USB-C: they hardwired it to peripheral mode, although you can use this 
+as a host port with some tricks, check sun50i-h616-orangepi-zero.dtsi, 
+and copy this comment, should it apply.
+
+>>> +&usbphy {
+>>
+>> Are the two USB ports always powered?
+>>
+>> And anyway, I see a *dual* USB-A socket on the pictures online, in
+>> addition to the USB-OTG port. So where does the third USB come from? The
+>> A133 only supports one host USB port plus the one OTG port. So is there
+>> an USB hub chip on the board?
+> 
+> There are two hubs, one on each usbphy. OTG side hub is even bus-powered,
+
+What do you mean with OTG side hub, exactly? Is there a hub on USB0? How 
+does this work, then?
+
+Cheers,
+Andre
+
+> two USB-A ports are always powered from the board's 12V->5V DCDC, no USB
+> load switches.
+>>
+> 
 
