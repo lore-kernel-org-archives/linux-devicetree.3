@@ -1,151 +1,228 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7DC3F7AB0
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70175330D36
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779104982; cv=none; b=DdDPWmC0trK6JaQ6TAk+6hxVuZUl3DmgXHqTUkxRDb7OoD8QagzzjyO1MsT+CNgKTfyh+q1Jaz8lui9cddax2EoM+oxTTN4513vixj++3RRZMfewI/2Rzpb3hk+4cTnTFNm3j0bDTb3gsv7pj6Ynk1ffMUOS4YvycJDjuuKQqWk=
+	t=1779105100; cv=none; b=TOkkIoqcDg7TcGRCN2cD9nNOZiLxWTNg9hWx7/TwxBS5eOOm6/8S78v64I6/1PRiv35Dl3lAVROwP7eiZRntX1hYopePst5Z52VYk1INO3wERi9wj9ZGBWGeJKOHTREUSDLloI4IB+0NU8f1/RaHV4jO+6N5VlwUS1Eisksb1vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779104982; c=relaxed/simple;
-	bh=l5f8SfMk0HODWzWCjI3H1ZlSl+nLiAlJOsvBVqtyL/E=;
+	s=arc-20240116; t=1779105100; c=relaxed/simple;
+	bh=5Z9hPhqS8oaSLq86Bc3gD4M5ws/BmUkz38QLBtVDsSY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IlnsLON9oWGEHkunw2LkIwdNkn9Ugl4Pru10TTEr46BeNr/tA2vNqkcR9sG5Yoe5Zcq0zCyy+fs8Sk383ptJ11tOoquoXjK74l1rIsyMbVYBlX7CgjPPcVU6R5uiU9x/fD/8L63I5Y61tfqO7sgBAc8ycsokdIB2VqS5s9IkIpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bs+eh4Ha; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FxRPWjK2; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uQnLI7LFqtizbwH6hjxo+6jJrjQP6Cx8TCDwhO6zfc9gRwrjzIK4uyyv1XH64xrdLMStAJEfcr6rjoiGVDA8bw8+3TknKmHIo5otNRtxKwL+fqUkRYzHE0nNC73SUhuVkkb0/uoI/TP1mW65U0sa9wvOE1haOYQVbx35oEuHKGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ErLR2sQv; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bs+eh4Ha";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FxRPWjK2"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I9bJ5v3197018
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:49:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=F0BiEN/sNtTqPDa1PtFNhLOF
-	abpHae6776oegoTycxo=; b=Bs+eh4HaSM7xH5fXW9rCZf6q0+iTV8dQSgS84+UC
-	i0uxu4mxDnEIHubxq1TA8MxDix54TcgvbA2WLwJvywB1947H6Qw+n+vgbO7goR5B
-	R0McpLOscnwucfdk0cGBHD5/TPL0ZkyD0RX40BPoNPNM+9rkI6Yaw0zjBGdjpTxw
-	9cJJVIRB3TzpEpQ+DJEWeO8Y8nKWnpy8PmoE1SZYcKaBvRytL08FMHESSdk+5V64
-	X0g0hHLn4nh82sRpFmX3NvUyVYbvcj38aWijQg1In7jmF7lIGQmrKgD6euebAxZe
-	JFus8vffIJ8pcKEsMkQkMQn4J7pJXtcCz9OgWVUtYf1EOA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gx6x9u5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:49:39 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c82c84be9c3so883688a12.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 04:49:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ErLR2sQv"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4891b4934ffso1265e9.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 04:51:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779104979; x=1779709779; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=F0BiEN/sNtTqPDa1PtFNhLOFabpHae6776oegoTycxo=;
-        b=FxRPWjK2db25fwS1eRqhPpy/HPhb8vdYdbR+aAWK1t+xA9dY1/sjaH8fFZdx4O7ZZI
-         cfS1zeBNQZwVIp2jFi99pBW1Q1jSK/GO9rB8lk+dUETx9MDk/AWjLza2tOzkCJorxcS2
-         vcLxCioJuWlRRJU1uDMCp2Wk0dVEqRHlodFgzRlPkdHFUouy9Mdc5L7pdVGv1FTnwhNm
-         dxLbI/I0wR+3P0k8v1lshRKRPOvo/w8Ol7/IFKz70TrMqfJq0XoWDfiYiVOJk1S+I6pw
-         yKJfGfKEJPfS+5N0h6u4C4fJZBKTWefyw9OAmiQdE5ggCx3XmmEiqpJ4X9fnBRnNYwnM
-         oCDQ==
+        d=google.com; s=20251104; t=1779105097; x=1779709897; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=2tqNcSw5901z0ZWyLeYPwIMccpM8CGNBD8cgagm4vKA=;
+        b=ErLR2sQvRD2NAz/YAzulim9c+ASR9AgNK2vh1u/IvqSQ6WgS+qPAU1airk0xybcGLX
+         VX6Wc3kFl2C7L+HMULZ+KLr8h9NWAlbCyw2B1lWehuFsIYjHNQDUyQx9IZE/Wt9i3bvK
+         sXcZhRkviz20F39odlDSgwliVQClZ9ArOIJnmynIgoJPCY3IrsxuesZYXxH49Yl83GHI
+         oP5tesLZxVuMFr9hIYfnDEDhGbVlWS7wiRsFnO6kSbgs9n+/wPo/pXCxPa076C4i0ix4
+         e96XG4S+1ael2JnkxV2Ltfp0JZToU/WnYPAtmrCP5/+Iwwg12U8JaFL9JMmSbdTajj4P
+         DWRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779104979; x=1779709779;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=F0BiEN/sNtTqPDa1PtFNhLOFabpHae6776oegoTycxo=;
-        b=gFHDK6k5Ox4olz9n5WfJikwpa6hpuUA4ufmoKjsJxoNEUQs3tM1dyAOeCijnoRzxvt
-         EbErmxJ7Sa+R1+tQUgsEZrXYIrNlh+ZsG5NuhzCKs21M4i+py3lNA5qlNwuEyTtGhOEa
-         6JxddONvmi+d/xvv5/kxMXdn9uzvajYm7rqVECmpLFKSVn/JY/ufQAjPKp5oIGgzaubZ
-         M8oiNSGTreXGq0tzfU7nmXdXO8WyUUwf8/juMQwRhuCuNC2M8rIFqvqHK98MQhOUjr+z
-         76UhBATxAqDRXMy4RNH57wV74VAmA04LDxHbI3m/2QPSBu3Du9uaf6VPIxkRJDIT1d2o
-         Njfg==
-X-Forwarded-Encrypted: i=1; AFNElJ9AGF1Ry4RrLEcUU2SQBrOJZ/K1YQ+CNnXZMKd1tDPoX8t9noJdUJBEbJ5ExaqR/XixBBtVWlkGuGZy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWr3XQR2Ba2f7mAEBPnYQT/wrQPev/iFoHqFMoGqJV7GlrRsP/
-	iTaF4D5/IfD0u7X/vZ4kDr84EP7zoFAx7uEbqSulYkNET8KwewavFAyzW8BsL/VvH0zjvrNy2w7
-	IerLIO7ZrCs8S/NbVIm9OZI0af5HvbvkebLmiRY46MxK2W/IAjxjYlAhszum+p0n7
-X-Gm-Gg: Acq92OFtsMWDAkVPaa9TqqWnr9mCcuUT+9LSBBhh4MM3qje5Qpu8jRGWj0j8MFJ/8NK
-	BiMLLhDGXCVvQk7Bd+E/CbOA7FkTTTD7H42Smh7fw4P1l7PQuHaC2cM14vYwJQypvLk6KQUrSKw
-	bl07QUAJoJ6TO/6AANYuwUKw11UMj7c9AY9VO9f01gEhUDzinY7gxsH0oG+JvQlS78IhbYBHOME
-	b2gDov4rDJ4+7XiOQxCWtQ/LzWARh19q7J+YrcaJX163K5AfInkBpLsqhF5pvdMxR+bHpXc/bLF
-	2Q38Tpzzfid65umTVnPeYfZC3yYuMe/jWLGQDCxouMx35k0EwMDvo1NWyWGCrAolHIUISpTNlRX
-	N3iQ+XNmczlTG98GYsH45b9ZC7Cjc/5f12PNISeMmnQgS3qA3
-X-Received: by 2002:a05:6a20:12d3:b0:39b:89e0:2e2a with SMTP id adf61e73a8af0-3b22e6528bamr16398258637.5.1779104979087;
-        Mon, 18 May 2026 04:49:39 -0700 (PDT)
-X-Received: by 2002:a05:6a20:12d3:b0:39b:89e0:2e2a with SMTP id adf61e73a8af0-3b22e6528bamr16398219637.5.1779104978556;
-        Mon, 18 May 2026 04:49:38 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c82bb07b007sm13179228a12.11.2026.05.18.04.49.36
+        d=1e100.net; s=20251104; t=1779105097; x=1779709897;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2tqNcSw5901z0ZWyLeYPwIMccpM8CGNBD8cgagm4vKA=;
+        b=A9ebK1Y2sIrJL5zfE5C0iLi0GhQwIZufVZrcf9KUYKcqCRHWQLr1nvgvWaBas0kOgZ
+         vXp+WYTGibtIKiuLMGnB+mswyZ1iYiW2m0q0LkfZIJqhCi7nD93d/cfx/GDHUPBGwj2C
+         y05xfDittWTULuVD3VJlKV1/Cbg1+qqsamVaSQAW/V1f1lmwB/9uuHkJMpoBdztxi+7V
+         gPp5e6S4CuTxycrpKtFfHwBR2JZYQ/G1zpLPiddCqoj5q9uId+Q28sObZGjucWXnIcYa
+         juB8R9SDb/9WmUM//5jr5YhbQ4lt2GPECITGH4LoR6fWPfZXTKohwaLORxyUcRqWOely
+         8RiA==
+X-Forwarded-Encrypted: i=1; AFNElJ81zUiPe9tg4KEql+gcV3t8HMDpgAjVb/iKoEjwqVR1zsymclo0XiRs2A2jTcJKSmf0BXHnNi2udqnK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw47C5KPKzkRChu1qGB37yVkEomfO6q4M6F3LMDCsAcXze8RkN3
+	T8S1cMRMtbPCDFmBo/D9H3udlTeQGWJPn/FQHmFVi9bEpitOJqRvwCXcvkcdUGdWpg==
+X-Gm-Gg: Acq92OGY6iyLR4Ehuj8P88nuKe88g+mna7WT6IxPLqCmHcSU1pFJ+qli1JBBNYm+txN
+	bSHcr8AVUK5AxGdIWTHINoT0h+vX6LC8cxT/oCjy0O+bU+RCUxjZ+1sRLlXe1S+eYWDg4USGLiN
+	n7saIvJfWJgk+6VSvFpymkXHGfoktMheEWoNJ8ZLSSEA821A8ocOjVjISoBkKRLjRU5pIcc+8U+
+	h2MDliBy1XPbJ2AtraiQBxJ3m5nyGb3bYvo9Fk13sOSLq/ybuNb8zcuy6LMzBcmfC2kWN9asFZE
+	C4DF17AipFFWEFrmF6P3LVNwweN3M7GaKtlglYaWS7MHsPGTk4kD+uC0box+KEMXywfujkFVGgu
+	JKBg8VChzPRkqCkTQvhc3zhf+AtEXiDbbu9HS0vS3HQoDsZFCIB0YiboMXnbB0fFcQdbYUyaoeo
+	lxjV9qSkAUNp4yAIvP7qj7TDyAmEweCsLRwIihmvOJ4vrTln5Yn/wqwOK97Z5Aft5qUZo=
+X-Received: by 2002:a05:600c:5650:b0:48a:5aa3:ac1e with SMTP id 5b1f17b1804b1-48ffd828c95mr1864315e9.3.1779105096335;
+        Mon, 18 May 2026 04:51:36 -0700 (PDT)
+Received: from google.com (8.181.38.34.bc.googleusercontent.com. [34.38.181.8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48ffed68baesm59218185e9.0.2026.05.18.04.51.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 04:49:38 -0700 (PDT)
-Date: Mon, 18 May 2026 17:19:32 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: nvmem: qfprom: qcom: Add Hawi compatible
-Message-ID: <20260518114932.i5uzdkraf3ividue@hu-mojha-hyd.qualcomm.com>
-References: <20260427182618.3667963-1-mukesh.ojha@oss.qualcomm.com>
+        Mon, 18 May 2026 04:51:35 -0700 (PDT)
+Date: Mon, 18 May 2026 11:51:31 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, maz@kernel.org
+Subject: Re: Support for Lenovo IdeaCentre Mini X (Purwa)
+Message-ID: <agr9Q-CC8v4G9neP@google.com>
+References: <20260429141815.827157-1-smostafa@google.com>
+ <5c838838-00e5-45f2-9515-edbdcddf50ec@oss.qualcomm.com>
+ <afOP2xXmEpV1eI3Z@google.com>
+ <abe8443b-9871-455c-95d9-d16975c0fbdf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260427182618.3667963-1-mukesh.ojha@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: ODEv6SiZ6mZPGriK8_FGZZP3X9MBGhFr
-X-Authority-Analysis: v=2.4 cv=f614wuyM c=1 sm=1 tr=0 ts=6a0afcd3 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=yRgZ8GWW88Essw8HruoA:9 a=CjuIK1q_8ugA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-GUID: ODEv6SiZ6mZPGriK8_FGZZP3X9MBGhFr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDExNCBTYWx0ZWRfX2cgs48s919wB
- PV7JPsWDa8dBTlcv66gPpOLAQNzLelvPcg8cubZz6x26ohkAqdhR9V7SITbM/K+/el07bBu60ZF
- QYEvILJmVR6r/c4h/ERVdFCUDlvDd1xecuZxX0kCnt15RGiuJK0xugyrC4W/OUUQMOlMTX2Jll1
- LcSB0d9vz9IFsrsA1hAsqmNfZIcLH2tAiHArmcphnuSSW3LJKjekxrSxqyevaoJ0SZFghfUXRkc
- S+jCeR837DLGx4mO/Opj66hX3kK9rxylceLBiKUxvRXLThEfuA87/8EyKeNUA/OU0EmSjS7FP1z
- ys0vR3t0DKeSBwu4+yoyTDsBv9ekF5vF7y3ANIUEsNOXz7rf8ArOchnt3/bplfgnMC8qfkdF1zd
- hsp0rFEe5e3NnEsSkdyLgMl1agyK1y16076Uk3WVn2+v0m3Gw1c6+QjPBwpLevCfVIFUa/pkjzJ
- zs+AGw8K1HQr2Avknew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_03,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180114
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <abe8443b-9871-455c-95d9-d16975c0fbdf@oss.qualcomm.com>
 
-On Mon, Apr 27, 2026 at 11:56:18PM +0530, Mukesh Ojha wrote:
-> Document compatible string for the QFPROM on Hawi platform.
+On Fri, May 15, 2026 at 01:28:00PM +0200, Konrad Dybcio wrote:
+> On 4/30/26 7:22 PM, Mostafa Saleh wrote:
+> > Hi Konrad,
+> > 
+> > On Thu, Apr 30, 2026 at 06:48:33PM +0200, Konrad Dybcio wrote:
+> >> On 4/29/26 4:18 PM, Mostafa Saleh wrote:
+> >>> Hi,
+> >>>
+> >>> I see that recently the support for “Lenovo IdeaCentre Mini X” was
+> >>> added [1]
+> >>> However, unfortunately that doesn’t work for my device, the board
+> >>> resets once I try to boot the kernel from UEFI.
+> >>>
+> >>> I believe that’s because it is another variant, as I have been using
+> >>> my device tree for some time[2] which is hacked based on the crd
+> >>> device tree with some trial and error. With that I can boot with
+> >>> PCI/NVME/Ethernet and USB (there are also some other errors in the
+> >>> log related PMIC), this device tree is based on purwa.dtsi unlike
+> >>> the upstream one which use hamoa.dtsi.
+> >>>
+> >>> Are there any plans to support the Purwa based variant? I am happy to
+> >>> help with testing, but I can’t confidently send patches as my device
+> >>> tree is based on trial and error rather than a data sheet.
 > 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> [...]
 > 
-> diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-> index 2ab047f2bb69..6117dd1d24d3 100644
-> --- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-> +++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-> @@ -19,6 +19,7 @@ properties:
->        - enum:
->            - qcom,apq8064-qfprom
->            - qcom,apq8084-qfprom
-> +          - qcom,hawi-qfprom
->            - qcom,ipq5018-qfprom
->            - qcom,ipq5332-qfprom
->            - qcom,ipq5424-qfprom
-> -- 
-> 2.53.0
->
-Hi Srini,
+> > I can try to see the differences and build another dt on top of the
+> > hamoa one, but that will also be based on trial and error rather than
+> > actual knowledge, I am happy to test patches if you have other
+> > suggestions.
+> 
+> Hm, I ran a quick diff and even though there's a lot of noise (mostly
+> due to the same things being named slightly differently), the actual
+> meat and potatoes aren't very different at all, e.g. the PHY regulators
+> are the same
+> 
+> Could you post the full dmesg with both DTs?
 
-If you can pick this up for upcoming merge window.
+This is the log with the device tree that boots[1]:
+https://gist.github.com/misaleh/b09c04480062c5a3e7bafe3d4176b15d
 
--- 
--Mukesh Ojha
+This is the log with replacing hamoa.dtsi with purwa.dtsi inside
+hamoa-lenovo-ideacentre-mini-01q8x10.dtsi which does not boot:
+https://gist.github.com/misaleh/aaad5704824edac9a43e2ebe45adbf85
+
+With those modifications, I can boot:
+
+diff --git a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+index bfb7cea56df9..00f9a1d5ac95 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
++++ b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+@@ -8,7 +8,7 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+-#include "hamoa.dtsi"
++#include "purwa.dtsi"
+ #include "hamoa-pmics.dtsi"
+ 
+ / {
+@@ -17,7 +17,7 @@ / {
+ 	chassis-type = "desktop";
+ 
+ 	aliases {
+-		serial0 = &uart14;
++		serial0 = &uart21;
+ 	};
+ 
+ 	wcd938x: audio-codec {
+@@ -185,6 +185,7 @@ vreg_nvme2_3p3: regulator-nvme2-3p3 {
+ 		pinctrl-names = "default";
+ 
+ 		regulator-boot-on;
++		status = "disabled";
+ 	};
+ 
+ 	vreg_v0p9: regulator-v0p9 {
+@@ -714,19 +715,20 @@ &pcie3 {
+ 
+ 	vddpe-3v3-supply = <&vreg_nvme2_3p3>;
+ 
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &pcie3_phy {
+ 	vdda-phy-supply = <&vreg_l3c>;
+ 	vdda-pll-supply = <&vreg_l3e>;
+ 
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &pcie3_port0 {
+ 	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
+ 	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
++	status = "disabled";
+ };
+ 
+ &pcie4 {
+@@ -1064,21 +1066,9 @@ wcn_sw_en: wcn-sw-en-state {
+ 	};
+ };
+ 
+-&uart14 {
++&uart21 {
++	compatible = "qcom,geni-debug-uart";
+ 	status = "okay";
+-
+-	bluetooth {
+-		compatible = "qcom,wcn7850-bt";
+-		max-speed = <3200000>;
+-
+-		vddaon-supply = <&vreg_pmu_aon_0p59>;
+-		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+-		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+-		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+-		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+-		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+-		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+-	};
+ };
+ 
+ &usb_1_ss0 {
+
+The issues were:
+- pcie6a and pcie3 conflict in regulator pins
+- Different UART
+
+However, there are quite verbose errors from MDSS clocks, and spmi
+failures. Here are the booting logs with the above change (at
+loglevel=5)
+
+https://gist.github.com/misaleh/3b1d67ac51a8960b811cc20075ab7630
+
+I get cleaner boot logs with MDSS and pmc8380_6 disabled.
+
+
+[1] https://github.com/misaleh/linux/blob/lenovo/arch/arm64/boot/dts/qcom/x1p42100-lenovo-ideacentre-x-gen10.dts
+
+Thanks,
+Mostafa
+> 
+> Konrad
