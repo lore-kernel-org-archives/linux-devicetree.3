@@ -1,121 +1,137 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036A5392C2C
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5281C2853E9
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779135804; cv=none; b=ECZ8xKTVqdjTfD+05Frw0UU8n5pu81VT3Th9X/ndFSONvbJ+nVcip47mC7JyYNm7NJSPSzo2wTO7R+3X1NvxaYh2xEm4WXgh5UEn5MaGz2fPTeB6NtOkXUJtAG8O6VZQTaohBWGR+8IWG8noIDSNxodjJ+2BHO5CKDkB7LPD+vY=
+	t=1779135935; cv=none; b=NflHT5x2Yu5dT94cNdl49u89KxEtOC6c0sPfg5JEH11ieXL6YxQh4un+TmUZNHhPsaSqC+3K8AzA6Kgq36QwG5PSexUJo2RNrIN6HS6PQQOOArKGMVRamfmXNykvS17m0GBc1W5DYL0WLW44+8W5uvY3bgYtVlbHzsSz5eb6sPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779135804; c=relaxed/simple;
-	bh=QzaN/O/VlVMdJSFQy2H+lcyumcLYvF1o8hZeXgqCS2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ACbq7gKG7lmnOlA6QkS92qzjJX4mwWLIDu6GaeGNNuc+TCcF02wRQXrQIDwaSGm9bgDao1180Jmofxu+zNiFuwNte0kvPRU/O+Ja5vYb8iCjohuc2PnbHuuQbywa77XskwZ/tQWL3IhLxsu/dCpsI8aXSppcwcNBhw36fFR2mTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msGf+D36; arc=none smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779135935; c=relaxed/simple;
+	bh=ALZtofDvuO+lxRUuzuaKOH0Sc6Qt+qasAxhRtSyMgik=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CTK8DRf4KBYUAcbxfakTTn4RqBwxyzlgJqxWFm+a+gbNVQE6XY07a+o6e5a9QWuP+lbBsj0ILQInUd90eUenGQbxviTdc/Wtcds7W4c8FIO/vmVCo2ud4IvHtCGtMrceHKTdwpPnezVNEH4yyn0h4TeqC5igbNIR6uc2yG1arx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTJnfBwS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msGf+D36"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-38be5e86918so37340661fa.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:23:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779135796; x=1779740596; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jiJgbjum4jxo4zX9VgnCn31yV0goVxaYIj4uyBltCfk=;
-        b=msGf+D36QGPX4Ec2wrtXvmY3rm4T1+tihRJeG3wlE/yYqqyXSCjPQS77ARYKcXIbbV
-         i7CkYoEiNiyJALRwpb7w8WJ6O9vZU7C+83PckOxLULYd0cx6jSbr+biU4gmz3I7nYAVp
-         WV17g3mgMZgBOnK8/4ounC0TLMK4r8tZQlOoc2eph0eQOdSWma2gKIVtiO1QXmnKq48e
-         qnL5Mq5U1HaQoRlx6GM7otEUv0vw5xJJSLDNtQ+lnwN8EBDPna5Y98fCoicCtRabN/rS
-         vILakx9gd0uX7ZoydRo38+KRKQMWT3yz78nf18wDxtLUmiWl/LAg4RLGEzcam88D2E7q
-         1iFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779135796; x=1779740596;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=jiJgbjum4jxo4zX9VgnCn31yV0goVxaYIj4uyBltCfk=;
-        b=Ry2mMjhfhLXwpphLDqwlx1YSw9fCUZtrFI96usWi+eOI2fli98Chd51Iy7Y1eRliI0
-         BcaHoAQpOOQCVSC+/gqD9mrPxpnwKeG0JDgPjj/3JO8kEBlDlBDgRNjWCkJk6gfPBJXf
-         +VbLchVu7F/5lblqIvhHBsl+hZOoW6Ab7zBBOnOUgb72GZsfGII326zMSBIU5RfVDrTT
-         iToWy5MEGaxYkFsRG1QgnZdR5P5TLlXqRCwEQRAmNKgD0/yKXITxX0aNJHIk7CnY40DS
-         0k9taznJrs0PQyT/sirC5FIeB/vSh7jZV+rVdacamTLav+zvNps/kWQqwE7SCgYlix7j
-         qPcg==
-X-Forwarded-Encrypted: i=1; AFNElJ9TmX1ClzpD6tQo1Hily/Wbp9xE4B+xlBUUylczF6wCCdmBv9xFtQJ5mFhPpVsEYItFWaXI1IXdpre/@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqsUr7OL07aEBZQBt2P0ZhukU40SVcEQtDzN4svgmfrCdEsqNy
-	XMFiSlPx8DZ5HW/gQ1jjr2UUVd8lufOXozgSUY4EMjOZnInggYDHdX59
-X-Gm-Gg: Acq92OEQGCCTWYumSXbYH6VXRTFA17reQaGVNRfkKERSujXptgt/dCpf5LNSzjZcXQs
-	6nIJknEhMAb+u61CDgmDOLD3SRRXkhe71gMUjQo3LclGH3lZPa9PAchtKPgqKnCKyBLAWXGn+Yg
-	/94rUsPdQiJXW6nFCdhaXEQTXzPZ7AWR04bKSd0V7HENj2a2jFCWacMp5J4cLfpJ48Lv7xPq48N
-	z0zPDL0B/d6qDn7m1T0O4kYrVrG0t8X71kA71YpP8Jm8dwfZEE9lAWMWe3IGchKTjMNA4w1QWTM
-	LzDaXTJ10OV82CSjHYTFpZ9CL0doHTMIcec0DtjTNPos+WC4em18FoTAMprpkLJuX8rjea8XDdz
-	hLhM42mi+m8rGUm2crxKuTnAEaNHjoCEeuQPh60l1vi7Zw9T4uRUneCiYJUqU5MxuTzDOjTdUSn
-	aOeh6bXTaQSeMOTWd3zbeCN0oSz5kI6KyU44/nLYOG
-X-Received: by 2002:a2e:8a95:0:b0:394:635:70b1 with SMTP id 38308e7fff4ca-395619b0b28mr45511291fa.3.1779135795950;
-        Mon, 18 May 2026 13:23:15 -0700 (PDT)
-Received: from localhost.localdomain ([90.157.113.57])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887b42f8sm15225061fa.36.2026.05.18.13.23.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 18 May 2026 13:23:14 -0700 (PDT)
-From: taygoth <taygoth@gmail.com>
-To: linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Casey Connolly <casey.connolly@linaro.org>
-Subject: [PATCH 6/6] MAINTAINERS: add entry for Qualcomm PMI8998 USB Type-C driver
-Date: Tue, 19 May 2026 01:22:51 +0500
-Message-ID: <f77068e556b6a166ef05f2758d61234a4e1b954b.1779127507.git.taygoth@gmail.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <cover.1779127507.git.taygoth@gmail.com>
-References: <cover.1779127507.git.taygoth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTJnfBwS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563EAC2BCB7;
+	Mon, 18 May 2026 20:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779135934;
+	bh=ALZtofDvuO+lxRUuzuaKOH0Sc6Qt+qasAxhRtSyMgik=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=KTJnfBwSCS3CXiwEO4brOcTlG4qD31P/mckoRFBvMZbVInTzKs93Xl+/MAXEK3nIE
+	 HcEzA1BP15DjOMCqvbv08Y4aLLS5VpOBYcZ6roYgNF79Cgp7F8qpDprGBaiesyXtQ4
+	 JscguIZzBlszTXj3UxpCvvJmfxY9Mjnl1toYY/B/YTV11Ytb/pPJwI+WBUXquXbHgh
+	 q/NZkuoRiVQXHxDDjBE46ufzs6j5uSM9OwL5PieLwhSo1u7AWfGSgvcMaoc2l3Ke2U
+	 +TV5RsBbwfxUv5WIzHSRFFVsAbXR7ARJkFpUP3enkhooyk7MAgvmTSYs7Z+oqEWIak
+	 xLlTuODc5NNVQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V8 03/10] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260518200526.458421-4-macroalpha82@gmail.com>
+References: <20260518200526.458421-4-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 20:25:33 +0000
+Message-Id: <20260518202534.563EAC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add a MAINTAINERS entry covering the new qcom_pmi8998_typec driver
-and its device-tree binding.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unsafe hardware reset polling loop with premature timeouts and mis=
+sing delay.
+- [High] Strict DT requirement for `interrupt-names` breaks compatibility w=
+ith valid bindings.
+--
 
-Signed-off-by: taygoth <taygoth@gmail.com>
----
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+commit 32920ed238e36be6e7fdd4fa2b84b2b710397641
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2c6d79275c6..d2861fdef012 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22120,6 +22120,14 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/usb/qcom,pmic-*.yaml
- F:	drivers/usb/typec/tcpm/qcom/
- 
-+QUALCOMM PMI8998 USB TYPE-C ROLE-SWITCH DRIVER
-+M:	Maxim Furman <taygoth@gmail.com>
-+L:	linux-arm-msm@vger.kernel.org
-+L:	linux-usb@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/usb/qcom,pmi8998-typec.yaml
-+F:	drivers/usb/typec/qcom_pmi8998_typec.c
-+
- QUALCOMM VENUS VIDEO ACCELERATOR DRIVER
- M:	Vikash Garodia <vikash.garodia@oss.qualcomm.com>
- M:	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
--- 
-2.47.3
+iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
 
+This commit adds the core component of the new inv_icm42607 driver. It
+includes setup functions and the full register definition in the header fil=
+e.
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
+> new file mode 100644
+> index 0000000000000..b270d48335ba6
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+
+[ ... ]
+
+> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
+> +			      inv_icm42607_bus_setup bus_setup)
+> +{
+
+[ ... ]
+
+> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
+> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
+> +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
+> +				       INV_ICM42607_RESET_TIME_MS * 100,
+> +				       INV_ICM42607_RESET_TIME_MS * 1000);
+
+Could this polling loop fail prematurely if the device returns a read error
+while resetting?
+
+Since regmap_read_poll_timeout() evaluates the loop condition as
+__ret || (cond), any read error will immediately abort the loop and
+return the error. If the device is unresponsive on the bus during reset
+(e.g. returning an I2C NACK), it will instantly defeat the polling mechanis=
+m.
+
+Additionally, could the timeout of exactly 1ms cause spurious probe failure=
+s?
+
+Since 1ms is the typical hardware reset time, this doesn't leave any margin
+for scheduling variations or natural hardware differences.
+
+Would it be better to add a mandatory sleep before polling, and increase the
+timeout margin?
+
+[ ... ]
+
+> +int inv_icm42607_core_probe(struct regmap *regmap, const struct inv_icm4=
+2607_hw *hw,
+> +			    inv_icm42607_bus_setup bus_setup)
+> +{
+> +	struct device *dev =3D regmap_get_device(regmap);
+> +	struct inv_icm42607_state *st;
+> +	int irq;
+> +	int ret;
+> +
+> +	irq =3D fwnode_irq_get_byname(dev_fwnode(dev), "INT1");
+> +	if (irq < 0)
+> +		return dev_err_probe(dev, irq, "Unable to get INT1 interrupt\n");
+
+Does this break compatibility with valid device trees that omit the
+optional interrupt-names property?
+
+If interrupt-names is not provided in the device tree, fwnode_irq_get_bynam=
+e()
+will return -EINVAL and abort the probe.
+
+Could this be modified to fallback to fetching the interrupt by index
+(e.g. fwnode_irq_get(dev_fwnode(dev), 0)) if the named lookup fails?
+
+> +
+> +	st =3D devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518200526.4584=
+21-1-macroalpha82@gmail.com?part=3D3
