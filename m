@@ -1,64 +1,64 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3562C3E95B8
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1FA481ABB
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:20:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779114057; cv=none; b=N25aw9zGciFhWCnJSpQl7yw31v20hvRIW7IqFkuuYapgDbkzQiMLLvqcE+HIe5Lp4IQFtGQEaWQytAVMQXtLzKOrhp0GYcrs1YmCfhtsyGbiVXbaQWoY/8L1T6GGHXCw5AFWKwJSNWmjibgiyNe/WQ5ow9qRWtnsudQpJm3Hb4Y=
+	t=1779114060; cv=none; b=gfFtIPngwWQM5dRNdxTLjcor7g0/uRBcESe6LS4CYFN2RlqmK2AXkrOAh9IprSThkI6PIvfplNfKRyj+YvN5JxuN9bbBM6TDW1+TU9rbpYIFQ7B5gYN/OJqJZTRoV9Vl7YrLP2y2tzC35yaDEH+v5X7Thppg+avyS7Y2E4CNYIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779114057; c=relaxed/simple;
-	bh=BXR1guabdFkXTU0pewTHfayRrjY42kQnfPQoGJ/jZok=;
+	s=arc-20240116; t=1779114060; c=relaxed/simple;
+	bh=7IxyLn7/GTQfidiqPllWO1BcJ/tmNAyzxF6iCaiajmc=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P2vf7KKc5/gAqx1CcZi2FCppedbpk09nRfi8DHozsy5kzUsS5hBmmsDqYbcxaBuNELnQqo5yLStxYBXskAG+eV+6qdBNaG+7VVWkLASIo1RmfWyGss/1YauxSYg9A+pTV1bGckXkyx0PiuhKfFW0ayMR4np+ph5czT1OHwBSsWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p3aogkLy; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=UorvjWg94ZdZlsw7I7u5WWz/GZjUE5lWU9g+7S6sXKWUvkJJlBg9PncUw/nMQdCOgIPBTdM+7oH88RRTsxn6IIKug7nlioWsp0taJ6MxAl0qtlI0BTCqbpkQk8YQmNySJTAI450uMFMIyhFTts/JOlxpgb2KA0yunpBXKQy79c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B24OJsFo; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p3aogkLy"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-453903ee4adso2029160f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 07:20:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B24OJsFo"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-44c350a5b87so1355740f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 07:20:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779114053; x=1779718853; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779114054; x=1779718854; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gfacA4QRILcKp0x4kch3e/wxFubsy8hlXb/wYlJDVIk=;
-        b=p3aogkLyMQ4P0gmtfgoBQIDJ3PsVHp2rEDUHiWatOrXWxa6VpX1XVC1bZpSYU0LuQ/
-         jImXEm+cKQFI0libPFXaFwxw7K5FYs1ZyHp99BP8lVsrITiqKKMDVNOVNd1yIM+RfYOC
-         6uxlEulajh/r6ZR8Tqy3AyADHOCj4FkBRDwXgVEEZIfMWvkRWQHFxzo+JZshgV/clFHN
-         mknVZdQ532lbkFcqblVBGcRcrkYuPM6TK+rzhmXDaz1aE+D+/neIQgcNZBdhB7RLTevY
-         xBGBqUEumIo85IPA+6GPoEqmFmCtPKkwPmxKZTUFPY2Abtoqk7Tf9RBh+/r8lUc7OP0I
-         KU5A==
+        bh=Two8INXQM5ey4/UQP4u04Ps1i9Z9naN07Q8ziJqEkkw=;
+        b=B24OJsFou51aG0q89wR9ewMfHMadWDI6oCCiF8HhIyb0RLL6CeGZI7XRGi3cLq8/z0
+         EHPSTc+2rBAvFLBE9p86/KRcm8jc0G7CJnMtdVxmGoOOHWaUBE5cSlkfneUUL105pSjl
+         WFzhmNh0BF926dO7IFcQh8lqxFWxGYMVyrcIWxqlKKGKLSxCERoKJnX9jbRQPx0KvR5I
+         k4TfrDMp/e1cFvnl+BPOmL8W1N8a4KzEnayM2qRFUUzIon2iB2fzB96C0gsmH1hy2fHQ
+         2xT9jyu7q2I2OgRw/UoKoMpi+D6JHMg6r7ZrXl+mmfuhUq4jCBO6lzbVhevPvBFh8UFz
+         592A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779114053; x=1779718853;
+        d=1e100.net; s=20251104; t=1779114054; x=1779718854;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=gfacA4QRILcKp0x4kch3e/wxFubsy8hlXb/wYlJDVIk=;
-        b=azN6W1JEfm5EUJj4hZFmjXVZSAMaL6jwPL78aho1L8Ym/thL91QAu9cespLEpybwwL
-         L+jTRslMH6IimV1STyXlo402MloYp4EljIzTAKMXkpAfNBXticvaGQ82W7PVjeOmURLk
-         xspx/UnmwHVEk/betWt0l75KWZrWJrYX0GCWTsBJfpdBtIDMimPHkoVDuEd3+hOOz0PA
-         mu3nLq9igxgiZgi0fyh/a+94w6NlIUx/Tbq8Meijl5yTc0qdNR7Z3eAxL+aKhCVVDjep
-         G0o96v/ZMjY8muIiv0I+6crsYZ5nvZQa/uSQqUIIBPYLmZg2/K6YdcxbjYkruXbCS8QN
-         dtrg==
-X-Forwarded-Encrypted: i=1; AFNElJ/nCn/GJgvwyYiyCbt54s8vrbKpuDyct4+9G/ceUiMvBRXN9WKXmuM9J8tDmMQ2mJ1rati8mfUtC90G@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjD8sD5fwRHgQlO9oE+ZiJjliHPpR3wpctTpdLoFFXqC1sSyHo
-	jaQiJKr1DhFfuWD1Arg5IdNOAqNKj0FouTj7EUKFyFk5vC8d7mbtuxov
-X-Gm-Gg: Acq92OGBV4NE6hYo021cgmMJ8nHyOitQCyj3LUOyEHWovzfvCDEYicH87WY4DItSGZt
-	/jDanBqNRlLfQzkYTVxmbNScde47iKFaSp4vAyrBzuxuSg8Ui5by8SZOwe3sAYWhQ00nqymLZPj
-	TtB6Q12MRIIY3n8C3tv5lgjso3plpcbSuV0viYpn+4MKPK+oGB4awc9fwQkaHRkJz0L+VbWokYR
-	R2zObaOYIx47iBwkUW0PsZnXBm58dEqX7tUsQohEUFrYhGfKmQqY8o8Rq4R7mqSbGx9kCaAnEXh
-	NpIdk3NmiCcRnjeQgBg3575KP4Gr7yLdqB/JhclfZkruftz/4cKnJb3HSGxfg0BjQYPvtCi/zdb
-	Q4mzDP/P6NnLVlwzj8q2K7o1pfYBlRltNts2RWi/1xTm33OYbErTuycJBRUHCaRBnEvBvWbW32a
-	UGhXMfmG/7EdolPr7hgKDvdbKaJefiH8w2a6iO+08oZNyecjP28w2bz69sskpjkMciE+DQypfz0
-	QVeUt0LKw==
-X-Received: by 2002:a5d:584c:0:b0:439:b8b2:fabc with SMTP id ffacd0b85a97d-45e5c587396mr22645755f8f.21.1779114051690;
-        Mon, 18 May 2026 07:20:51 -0700 (PDT)
+        bh=Two8INXQM5ey4/UQP4u04Ps1i9Z9naN07Q8ziJqEkkw=;
+        b=eT4JJ1MHTzn5CHU+6O9tYowhr85HMX8MIKRPzX3wO80Wz2yWm97Egj3kEjSOp2r+XU
+         QFwK5BrCqRPAhej64iOrs+GHD6m1nZY3fyoiNej7Kd8WxwnLCv7U4vbVZICOz/IfUhti
+         vndwHOE41peo9dXr6WQHMMGOyFI/bowUh+tQFO8IZTl8egUV6FKEuZE4qjQ6OfZbRC1a
+         sSqAQaLXAhh4Qcgngrs9sjJfyyV7Kav3cFUIIqhaZvbzgBkLC3wKHe2JEifdsD5UpDqs
+         VrWraXf9BdR+pvDkdEPPMLfIEi9/pz03fYSEJwIUuBM8AITXBR2ddLw6YjgGALOv1Yku
+         t1wA==
+X-Forwarded-Encrypted: i=1; AFNElJ/R9AHD2EdeaHITFB2U+E9VANcsh1mdYFo8puP58R8wgnjUstQLmFJo7zyg4DSCPI+DOYhpCtStYTCp@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy04OJ7+h/7KKan8YnQ0O28q0HiNW1VO16MpVcpvF8aFEwbHScp
+	ztlkQzhl2S2ba7fGajGjVFz2PPVXFXJRmi41C51gYrgrbbPV/Gta4L6O
+X-Gm-Gg: Acq92OHWsEa3TebeRJyjco1f921ChZiprZvFbvdzpyiAxfpWDX02X3Ai2BF+gXRe83O
+	kZ9sFYz766gBPoD1Q3xh3n5enem5NLazKvElB4msP92Vg0mzDkFM6u6swLjfJL4uYdjLw60Xtdu
+	VzBM2qHU1Cth5/lUr7A4rgJx5JyKg5xLR3g+VioMShC8uS3Dv7lTiFB/Myz3NyiVXWWratx7uwo
+	C9z2CcmV7Kf2J20yU3AucoABrhYCgOLIFcyIG+k4uv/sxJfCgY+gxS6FUtZAgvLo+e/teCul2jr
+	xGJFM0odRU3v6RB5JPUkUyHGC5VdZ4t6xNCL5uHTb7ELDqM2gWCJrjPUWYVfJHoBPwTRkh7B0qf
+	poZrE0x/RkFGeowduLD6q1Nx+RJvrEOz3+AscV1tOxTkav4pEU8Uc4vi3MUU9lVeZ8/QH2I7Pp7
+	mrzmYH51e8zZwRFLbWSASFNuxJ2ADEhqgRKOIW8DfKIIolulemLyB8Jom2XEwE0SdS8bsIxHgrT
+	VbZivn8Wg==
+X-Received: by 2002:a05:6000:26c4:b0:43c:fa96:d939 with SMTP id ffacd0b85a97d-45e5c5e2ee5mr23864236f8f.22.1779114053016;
+        Mon, 18 May 2026 07:20:53 -0700 (PDT)
 Received: from Ansuel-XPS24 (host-82-55-252-101.retail.telecomitalia.it. [82.55.252.101])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-45da0fe0fecsm34905626f8f.26.2026.05.18.07.20.49
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-45da0fe0fecsm34905626f8f.26.2026.05.18.07.20.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 07:20:50 -0700 (PDT)
+        Mon, 18 May 2026 07:20:52 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -67,9 +67,9 @@ To: Srinivas Kandagatla <srini@kernel.org>,
 	Christian Marangi <ansuelsmth@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] dt-bindings: nvmem: airoha: add SMC eFuses schema
-Date: Mon, 18 May 2026 16:20:31 +0200
-Message-ID: <20260518142042.8331-2-ansuelsmth@gmail.com>
+Subject: [PATCH v3 2/2] nvmem: airoha: Add support for SMC eFUSE
+Date: Mon, 18 May 2026 16:20:32 +0200
+Message-ID: <20260518142042.8331-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260518142042.8331-1-ansuelsmth@gmail.com>
 References: <20260518142042.8331-1-ansuelsmth@gmail.com>
@@ -81,91 +81,184 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Airoha SMC eFuses schema to document new Airoha SoC AN7581/AN7583
-way of accessing the 2 eFuse bank via the SMC command.
+Add support for SMC eFUSE on AN7581 SoC. The SoC have 2 set of 2048 bits of
+eFUSE that are used to read calibration value for PCIe, Thermal, USB and
+other specific info of the SoC like revision and HW device present.
 
-Each eFuse bank expose 64 eFuse cells of 32 bit used to give information
-on HW Revision, PHY Calibration,  Device Model, Private Key and
-all kind of other info specific to the SoC or the running system.
+eFuse value are taken by sending SMC command. ATF is responsible of
+validaing the data and rejecting reading protected data (like Private
+Key). In such case the SMC command will return non-zero value on a0
+register.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../bindings/nvmem/airoha,smc-efuses.yaml     | 65 +++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/nvmem/airoha,smc-efuses.yaml
+ drivers/nvmem/Kconfig             |  13 ++++
+ drivers/nvmem/Makefile            |   2 +
+ drivers/nvmem/airoha-smc-efuses.c | 118 ++++++++++++++++++++++++++++++
+ 3 files changed, 133 insertions(+)
+ create mode 100644 drivers/nvmem/airoha-smc-efuses.c
 
-diff --git a/Documentation/devicetree/bindings/nvmem/airoha,smc-efuses.yaml b/Documentation/devicetree/bindings/nvmem/airoha,smc-efuses.yaml
+diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+index 74ddbd0f79b0..95a399258538 100644
+--- a/drivers/nvmem/Kconfig
++++ b/drivers/nvmem/Kconfig
+@@ -28,6 +28,19 @@ source "drivers/nvmem/layouts/Kconfig"
+ 
+ # Devices
+ 
++config NVMEM_AIROHA_SMC_EFUSES
++	tristate "Airoha SMC eFuse support"
++	depends on ARCH_AIROHA || COMPILE_TEST
++	depends on HAVE_ARM_SMCCC
++	default ARCH_AIROHA
++	help
++	  Say y here to enable support for reading eFuses on Airoha AN7581
++	  SoCs. These are e.g. used to store factory programmed
++	  calibration data required for the PCIe or the USB-C PHY or Thermal.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called nvmem-airoha-smc-efuses.
++
+ config NVMEM_AN8855_EFUSE
+ 	tristate "Airoha AN8855 eFuse support"
+ 	depends on COMPILE_TEST
+diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
+index 7252b8ec88d4..f6f2bc51dee1 100644
+--- a/drivers/nvmem/Makefile
++++ b/drivers/nvmem/Makefile
+@@ -10,6 +10,8 @@ nvmem_layouts-y			:= layouts.o
+ obj-y				+= layouts/
+ 
+ # Devices
++obj-$(CONFIG_NVMEM_AIROHA_SMC_EFUSES)	+= nvmem-airoha-smc-efuses.o
++nvmem-airoha-smc-efuses-y 		:= airoha-smc-efuses.o
+ obj-$(CONFIG_NVMEM_AN8855_EFUSE)	+= nvmem-an8855-efuse.o
+ nvmem-an8855-efuse-y 			:= an8855-efuse.o
+ obj-$(CONFIG_NVMEM_APPLE_EFUSES)	+= nvmem-apple-efuses.o
+diff --git a/drivers/nvmem/airoha-smc-efuses.c b/drivers/nvmem/airoha-smc-efuses.c
 new file mode 100644
-index 000000000000..e21ce07c4f41
+index 000000000000..bb279d149519
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/nvmem/airoha,smc-efuses.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/nvmem/airoha,smc-efuses.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/nvmem/airoha-smc-efuses.c
+@@ -0,0 +1,118 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ *  Author: Christian Marangi <ansuelsmth@gmail.com>
++ */
 +
-+title: Airoha SMC eFuses
++#include <linux/arm-smccc.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/nvmem-provider.h>
++#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/regmap.h>
 +
-+description: |
-+  Airoha new SoC (AN7581/AN7583) expose banks of eFuse accessible
-+  via specific SMC commands.
++#define AIROHA_SMC_EFUSE_FID		0x82000001
++#define AIROHA_SMC_EFUSE_SUB_ID_READ	0x44414552
 +
-+  2 different bank of eFuse or 64 cells of 32 bit are exposed
-+  read-only used to give information on HW Revision, PHY Calibration,
-+  Device Model, Private Key...
++#define AIROHA_EFUSE_CELLS		64
 +
-+maintainers:
-+  - Christian Marangi <ansuelsmth@gmail.com>
++struct airoha_efuse_bank_priv {
++	u8 bank_index;
++};
 +
-+properties:
-+  compatible:
-+    enum:
-+      - airoha,an7581-efuses
++static int airoha_efuse_read(void *context, unsigned int offset,
++			     void *val, size_t bytes)
++{
++	struct regmap *regmap = context;
 +
-+  "#address-cells":
-+    const: 1
++	return regmap_bulk_read(regmap, offset,
++				val, bytes / sizeof(u32));
++}
 +
-+  "#size-cells":
-+    const: 0
++static int airoha_efuse_reg_read(void *context, unsigned int offset,
++				 unsigned int *val)
++{
++	struct airoha_efuse_bank_priv *priv = context;
++	struct arm_smccc_res res;
 +
-+patternProperties:
-+  '^efuse-bank@[0-1]$':
-+    type: object
++	arm_smccc_1_1_invoke(AIROHA_SMC_EFUSE_FID,
++			     AIROHA_SMC_EFUSE_SUB_ID_READ,
++			     priv->bank_index, offset, 0, 0, 0, 0, &res);
 +
-+    allOf:
-+      - $ref: nvmem.yaml#
++	/* check if SMC reported an error */
++	if (res.a0)
++		return -EIO;
 +
-+    properties:
-+      reg:
-+        description: Identify the eFuse bank.
-+        enum: [0, 1]
++	*val = res.a1;
++	return 0;
++}
 +
-+    required:
-+      - reg
++static const struct regmap_config airoha_efuse_regmap_config = {
++	.reg_read = airoha_efuse_reg_read,
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++};
 +
-+    unevaluatedProperties: false
++static int airoha_efuse_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	int ret;
 +
-+required:
-+  - compatible
++	for_each_child_of_node_scoped(dev->of_node, child) {
++		struct nvmem_config airoha_nvmem_config = {
++			.name = "airoha-efuse",
++			.size = AIROHA_EFUSE_CELLS * sizeof(u32),
++			.stride = sizeof(u32),
++			.word_size = sizeof(u32),
++			.reg_read = airoha_efuse_read,
++		};
++		struct airoha_efuse_bank_priv *priv;
++		struct nvmem_device *nvmem;
++		struct regmap *regmap;
++		u32 bank;
 +
-+additionalProperties: false
++		ret = of_property_read_u32(child, "reg", &bank);
++		if (ret)
++			return ret;
 +
-+examples:
-+  - |
-+    efuse {
-+        compatible = "airoha,an7581-efuses";
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++		priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++		if (!priv)
++			return -ENOMEM;
 +
-+        efuse-bank@0 {
-+           reg = <0>;
-+        };
-+    };
++		priv->bank_index = bank;
 +
-+...
++		regmap = devm_regmap_init(dev, NULL, priv,
++					  &airoha_efuse_regmap_config);
++		if (IS_ERR(regmap))
++			return PTR_ERR(regmap);
++
++		airoha_nvmem_config.priv = regmap;
++		airoha_nvmem_config.dev = dev;
++		airoha_nvmem_config.id = bank;
++		nvmem = devm_nvmem_register(dev, &airoha_nvmem_config);
++		if (IS_ERR(nvmem))
++			return PTR_ERR(nvmem);
++	}
++
++	return 0;
++}
++
++static const struct of_device_id airoha_efuse_of_match[] = {
++	{ .compatible = "airoha,an7581-efuses", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, airoha_efuse_of_match);
++
++static struct platform_driver airoha_efuse_driver = {
++	.probe = airoha_efuse_probe,
++	.driver = {
++		.name = "airoha-efuse",
++		.of_match_table = airoha_efuse_of_match,
++	},
++};
++module_platform_driver(airoha_efuse_driver);
++
++MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
++MODULE_DESCRIPTION("Driver for Airoha SMC eFUSEs");
++MODULE_LICENSE("GPL");
 -- 
 2.53.0
 
