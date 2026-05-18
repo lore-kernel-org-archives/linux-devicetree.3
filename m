@@ -1,191 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1910731D366;
-	Mon, 18 May 2026 10:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3AE31F9B8
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779098990; cv=none; b=IcAkyn94civpsFL9O9D2B64M/cxn1jMCu0GPv8FXBDB/6q8A3QFclkxTBJJeYB2zwtFZeHZs1FftH6vlTbTWzPQ593+Mx1bCIT9oiJaPKNjdGDiOGAKYAChBE4LaG59uvu6QNZvy4TsezBffvK2R8TO2rRasli8swfHx1spQYbA=
+	t=1779099068; cv=none; b=YoZJPyQmyV8NV+onGZDQuTf06IVLJRfiU5nYw8FRFr9r0iwIjjKbZ9ZrOzj4k3ONWi06QJpxtbsI+6W8+LKw8Fw9aRBIRn4E9cLK4J1bmF5Y0ze32POkwSNY3H7R1+sMGI6TyPPJZaNYeods6tVocblXjUjtddp1oj7rFAXmgds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779098990; c=relaxed/simple;
-	bh=u56jg7DlcON9+DXGEF4UUjo0mA99ELeWFFq/Ike9RM8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PuA6ERerbugj75ZPm3mIq2MDZogeYeRpSIEJ2MslV5+PcYNi9f1SOW5p0+mheLcRcRC1M/RsmB0KwlnlNbdu7xcqTqq/ARndal/BnwdaCkmLNwU/Q70119qdCHE7wsqig9CASsap/7LpTA3dD2nWWHL1yXOQDmjQOrCNC1s8N6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAy4SXup; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779099068; c=relaxed/simple;
+	bh=vOpK0d37n7uwbArZm9MneJF87h36WMMxKwaiCUgcXFE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M7aefG1k25ZJQlGR3XLI/BqlSyX9dhdewhWB1MTHFlPFKuw9WUH7+03nCOeUXP+pvOyKA8qkmF4SXQ9PdI/LznlUoHkxtkY4ifmvrSnh5WEYMbDEG1CPm1pCZS63eXvKV+qzdJlH4fGejZYfxvj/btLBkscmRuYiD3fqXzY/Rco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UoBhrUBo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DGoJBMbt; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAy4SXup"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A7E31C2BCC6;
-	Mon, 18 May 2026 10:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779098989;
-	bh=u56jg7DlcON9+DXGEF4UUjo0mA99ELeWFFq/Ike9RM8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=nAy4SXupexX5Yd/Jh65iRzTGGKibrwsVMx4Do553FwQOWDk8pNtcdeQiEYw/M1y1R
-	 2SOnNZtpy+5SgAR/UTPBE4m8hjVxGSdEUbt8WvJSeb8B1yYuFNRDAlglFqHBHRvNvW
-	 LJhMVt2nhI0SjNrBzmKBkv6E755upD6Yg+qxgyzaAuDuWiAD3NQL9/iqv1/z5yDSCg
-	 C4UPn298sXtznWOIpRevUfjk7j7bJ1BmpnEdD5QP4JwDMCfqnHEvF4jy4pM0WuR4EY
-	 vIQF/SIgRVbgrx2BqHCyHOeS9ws85RQFblwxJOdRTp5yJ2n1iRZo1rT/CCT0j7jJZL
-	 CeVlWEg1KkpwQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 965C3CD4F54;
-	Mon, 18 May 2026 10:09:49 +0000 (UTC)
-From: Rex Fu via B4 Relay <devnull+Rex.Fu.amd.com@kernel.org>
-Date: Mon, 18 May 2026 18:00:40 +0800
-Subject: [PATCH v2] ARM: dts: aspeed: anacapa: correct SGPIO names for
- monitoring
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UoBhrUBo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DGoJBMbt"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I8VDCf4083987
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:11:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	O+1Lf9eV4YZqdx7I47XP78GSMimosryCKYAL1WX0Oy0=; b=UoBhrUBowGkTEG1r
+	C1VBYYcCiGYIy962I4qBvYqv5BKSBIPNpbgrS0w07LNnyvSe3/xraOl2vlehAuiR
+	9fO61lp1ljU7aRIAil4Bm1UvMXw0cXSF9TfBIuyJazlw5ZhZBRFNytINTW16lEaC
+	k24WPT8uUlizJn8oivNdeCBU7D5fZTWlNmfV3a79cQOAog+e62DfS7pvVahrPi+H
+	dhbVtE1scFxE8jVDJy9IqJJDCh5a9yuWzMLR24clRRbltopUhSOkBhkdW5kizV2T
+	LQ66htFJ6oP1JaHCmqvedJo2uhfvfdKyEEjGkwKsZX9eiPzeFyS9CfeSlz2aQgD4
+	1JD3Ww==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6h0qdxk4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:11:05 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d840206c3so8126371cf.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:11:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779099064; x=1779703864; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=O+1Lf9eV4YZqdx7I47XP78GSMimosryCKYAL1WX0Oy0=;
+        b=DGoJBMbtvvgQNgA9hOOPj1tXwq72RCUHpjmNiHM56nq0Lh01xNccB8j7sELcN/i+Yb
+         dFbxcdYpG/a2O8ogagaCNXZTrLvOyvWknJo4SigMPW9NS3kJ8tjHHq5qdVvpAbTanpez
+         C5pSurwpqg+bVMKqhT7BdQrf4VloCtrKfJEzdrhbVm6eLVYd9kcVi2wPYnmoxXIqeusY
+         LUoIONKKq9bL9Fsk9aHFax0bY3cKNVJCfI1EGte1SYfOwbRJgVgEKZ28YCGBebZGWqeF
+         SzvlwiA2BryGHScL1jIcChnYokzCosKm4Gm9DU9pqXaqlxswrDgyDXwRfllbjehuMdO+
+         Wgig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779099064; x=1779703864;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O+1Lf9eV4YZqdx7I47XP78GSMimosryCKYAL1WX0Oy0=;
+        b=dKVNL8UPV53AkAmj0QAik8LDysjY8LZmxRyH0l3Bzj8BK/PpXXxOz/ea6C0tHOG+mT
+         8W3Ig8z6r0j7Nr+jbherYEbr+zRhNNV56j+ELob14KMxrE98LakWhnRtEJJYnIf/FAVa
+         BoxSyrt7+NLZDhX1/tBOripabxJwMzOrBP7cdTBcfVpBdxI9rAQUwKFzyJ1IDSJls+Ig
+         dGmqrctsqV8CpzYnDgDhvgKWJBN3o1MOVx+3uv0FMLiQ84rBiYT/uA4YbvL9XvDTOQtH
+         mXJRPWfpkARAz3nP0dMSxeN8ndUVAC+sCUuSm+Yv1gggduAwwHAjdJJqMZiVH7PGtrmW
+         kf8A==
+X-Forwarded-Encrypted: i=1; AFNElJ/SGp8WeZv/KuJojufNjL0z3mpewd32WkKjjxHY4yNbPaJ+WqdeVBCDDwr/xZnk1nlxNQCYEPfaEEWi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxk5LSny+yv4olN7YEzqU6YfUms9+FP95dl6EbvPf2v4eAqg6iG
+	OF1VZ3hJN0qIOJHf3qTj7ZQx8liHoTqj07iUXcIaxFN++VvXqefK9iQQkbcccKWB4Nbf0N+CkP5
+	IdC8Y/S3Xim7Nb/4i/CgDpYhx0cPR2rgkS7jJhimcL461gpfTV4ApZyR9K/lM2CCp
+X-Gm-Gg: Acq92OGYTDWo7kw7POy3dSeURa+VOQtF+OTtPn5UhoJhmETbNMkiPjsFm/Ew1KYYM5D
+	aIOLH27JW31DSCvJ36DRh46/PEcbvvYshpVLjTRFxnoaayyw3zyauggvU7cP/znFI+lnOejiz5C
+	NaM7Vshv20HVfvH/SdpC4dK3XEdnIJyPSpXDvH//OBQzg0UEzp9LUHZrbkC+RQJf7uM5RbVuSza
+	u/ihGcc9xzxnZGmwBsp1TRZ/Bba3p4metfZkixDcRLd3Jvp3FQED0G8z1YSVAloddxVyjxNAka2
+	vBOFsE9iyV/uojdC9e8BgWfQ/ueI2bBTAKVNAcRDHXClN93m9eLZcG7GkP4BWle1inrflmxRzTO
+	HLXd8Xx1G8j7EjipYCdmnWyniYbFx6ZaD316fh852xlxy2n8nBgGpZIsD8uM2su4QHDwpNbZbr4
+	fyimI=
+X-Received: by 2002:a05:622a:594:b0:50d:9138:3322 with SMTP id d75a77b69052e-5165a22d136mr145842721cf.7.1779099064221;
+        Mon, 18 May 2026 03:11:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:594:b0:50d:9138:3322 with SMTP id d75a77b69052e-5165a22d136mr145842301cf.7.1779099063675;
+        Mon, 18 May 2026 03:11:03 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6831197bf00sm5085669a12.31.2026.05.18.03.11.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 03:11:02 -0700 (PDT)
+Message-ID: <235b0c91-57b5-4c1b-839f-88cf9a11707d@oss.qualcomm.com>
+Date: Mon, 18 May 2026 12:10:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix wrong interrupt number for
+ i2c19
+To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260518-glymur-fix-i2c19-irq-v1-1-7d5968bd9b2b@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260518-glymur-fix-i2c19-irq-v1-1-7d5968bd9b2b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260518-anacapa-sgpio-edsff-thermtrip-v2-1-e43b1847b2dc@amd.com>
-X-B4-Tracking: v=1; b=H4sIAEfjCmoC/42OSwrCMBRFt1Iy9kmSfhRH7kM6yOelfUKbkMSgl
- O7dtm7A4YHDuXdhCSNhYrdqYRELJfLzBvJUMTOqeUAguzGTXHa8qTmoWRkVFKQhkAe0yTnII8Y
- pRwqgjJbyql0nNLKtESI6eh/9R//j9NJPNHmP7sZIKfv4OQ4UsXv/bhUBAqSzLV5kU7eW39Vkz
- 8ZPrF/X9QvqpmBx2gAAAA==
-X-Change-ID: 20260430-anacapa-sgpio-edsff-thermtrip-acb228bf61be
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Rex Fu <Rex.Fu@amd.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779098465; l=4551;
- i=Rex.Fu@amd.com; s=20260417; h=from:subject:message-id;
- bh=R6pEDyauTB50Fmhvxn0QsYGtV2og2/4FKpGrDbJds/8=;
- b=RC64u2ytJ72iyOUFotIilIIvQnQwyvi5OfqMn3hKP+rzzxF8q2th+T0U1TtU6hXd+NbgacbZ0
- kRDPXrW5GeECk58Ywm1UgI3Pjx7idCfONhNhX9W2thRQSbad/63mm9J
-X-Developer-Key: i=Rex.Fu@amd.com; a=ed25519;
- pk=26ECoh24fxrbXDKgA4hCmgg0xjQ+IxU97kXb46ovwgc=
-X-Endpoint-Received: by B4 Relay for Rex.Fu@amd.com/20260417 with
- auth_id=738
-X-Original-From: Rex Fu <Rex.Fu@amd.com>
-Reply-To: Rex.Fu@amd.com
+X-Proofpoint-ORIG-GUID: E3xM8kn4n7-tXmE1UXPBuOHPtLdIcJy2
+X-Proofpoint-GUID: E3xM8kn4n7-tXmE1UXPBuOHPtLdIcJy2
+X-Authority-Analysis: v=2.4 cv=fIMJG5ae c=1 sm=1 tr=0 ts=6a0ae5b9 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=YFrQUJdA0-VyeVoQsyUA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA5NyBTYWx0ZWRfX4lAn1tsReuXB
+ YA/9bRSSC9yLBAMmcERdqGFmP8Y+YjFSZ4ioSyX69TiqXK4G855MKGMN81eqHUF7+Ygts0dMUvq
+ 89QGRMzqnH+RroZP9APeWJZ7zp/gSO5f65bqLrVXZz/Zi05+M6mwIr6hCbjO7l0LxtJ9sZSwju3
+ uZ1k8vFYssoQ/KnMytus6uOVAQSAL4KK+k2zM7mq4jyl6gCWw7lzgXjURUhvGso3AqLqZpIzwSI
+ SrBcEpVcDGZEb2ydYODK3hUyBOBT5wiUmT4XOBx3Yr+fzZAk4DeVivvzGfuR64Or6fFKpfyQW8X
+ 8S+SfZ1culAjq1Q/7ULp+lw/SWbbMHveLA2CZw1lPgTWYkeK+eZm3onN2hxSSRVEpwbkexrXDU7
+ Ugn5lBXUpw+zeXY8JJMRp9z5unkQbpMBJ4Il5FMX1NHWrrD4EmdzKn0Uv98l269M3x7IH2Xtml7
+ wCTTMOXoDBZTia7NYHw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605180097
 
-From: Rex Fu <Rex.Fu@amd.com>
+On 5/18/26 11:52 AM, Gopikrishna Garmidi wrote:
+> The i2c19 node at 0x88c000 uses GIC SPI 584, but that interrupt
+> belongs to the neighboring i2c18/spi18 node at 0x888000. The correct
+> interrupt for i2c19 is GIC SPI 585, as used by its sibling nodes
+> spi19 and uart19 which share the same register base and clock.
+> 
+> Fixes: 41b6e8db400c ("arm64: dts: qcom: Introduce Glymur base dtsi")
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> ---
 
-Update several Anacapa SGPIO line names to match the existing platform
-hardware design and the signal names consumed by userspace monitoring.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The previous names did not match the actual Anacapa SGPIO usage. Some
-lines were named as CPU or CPU power-good signals, but they are wired and
-used on Anacapa for EDSFF presence, EDSFF power-good, boot EDSFF
-presence, and thermal-trip assertion monitoring.
-
-Correct the mappings as follows:
-
-  PWRGD_PVDDCR_SOC_P0     -> L_PRSNT_EDSFF0_N
-  PWRGD_PVDDIO_P0         -> L_PRSNT_EDSFF1_N
-  PWRGD_PVDDIO_MEM_S3_P0  -> R_PRSNT_EDSFF2_N
-  PWRGD_CHMP_CPU0_FPGA    -> R_PRSNT_EDSFF3_N
-  PWRGD_CHIL_CPU0_FPGA    -> HPM_EDSFF_PG
-  EAM2_CPU_MOD_PWR_GD_R   -> PRSNT_EDSFF_BOOT_N
-  CPU0_SP7R1              -> L_EDSFF0_PG
-  CPU0_SP7R2              -> L_EDSFF1_PG
-  CPU0_SP7R3              -> R_EDSFF2_PG
-  CPU0_SP7R4              -> R_EDSFF3_PG
-  HPM_AMC_THERMTRIP_R_L   -> AMC_THERMTRIP_ASSERT
-  FM_CPU0_THERMTRIP_N     -> CPU_THERMTRIP_ASSERT
-
-The left-side EDSFF slots are numbered as EDSFF0 and EDSFF1 to match
-the platform slot numbering used by userspace. The thermtrip names are
-also updated to describe the asserted condition monitored by userspace
-instead of the raw active-low signal names.
-
-This is a naming correction for the existing Anacapa hardware design.
-There is no new board revision or underlying hardware change involved.
-
-Signed-off-by: Rex Fu <Rex.Fu@amd.com>
----
-Update the Anacapa SGPIO line names to match the existing hardware
-design and the platform signal names used by userspace monitoring.
-
-The v2 commit message now explains why changing these userspace-visible
-GPIO line names is appropriate and lists the exact old-to-new mappings.
----
-Changes in v2:
-- Reworked the commit message to explain why these userspace-visible
-  GPIO line names are changed.
-- Listed the exact old-to-new SGPIO line name mappings.
-- Clarified that this is a naming correction for the existing hardware
-  design and not a board revision or hardware change.
-- Link to v1: https://patch.msgid.link/20260430-anacapa-sgpio-edsff-thermtrip-v1-1-2fd5e72435d0@amd.com
-
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Joel Stanley <joel@jms.id.au>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-aspeed@lists.ozlabs.org
-Cc: linux-kernel@vger.kernel.org
----
- .../boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts  | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-index 2cb7bd128d24..e898bc11e6f5 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-@@ -908,11 +908,11 @@ &sgpiom0 {
- 	"", "", "", "",
- 
- 	/* G0-G7 line 96-111 */
--	"PWRGD_PVDDCR_SOC_P0", "",
--	"PWRGD_PVDDIO_P0", "",
--	"PWRGD_PVDDIO_MEM_S3_P0", "",
--	"PWRGD_CHMP_CPU0_FPGA", "",
--	"PWRGD_CHIL_CPU0_FPGA", "",
-+	"L_PRSNT_EDSFF0_N", "",
-+	"L_PRSNT_EDSFF1_N", "",
-+	"R_PRSNT_EDSFF2_N", "",
-+	"R_PRSNT_EDSFF3_N", "",
-+	"HPM_EDSFF_PG", "",
- 	"PWRGD_CHEH_CPU0_FPGA", "",
- 	"PWRGD_CHAD_CPU0_FPGA", "FM_BMC_READY_PLD",
- 	"", "",
-@@ -934,7 +934,7 @@ &sgpiom0 {
- 	"EAM3_BRD_PRSNT_R_L", "",
- 	"EAM0_CPU_MOD_PWR_GD_R", "",
- 	"EAM1_CPU_MOD_PWR_GD_R", "",
--	"EAM2_CPU_MOD_PWR_GD_R", "",
-+	"PRSNT_EDSFF_BOOT_N", "",
- 	"EAM3_CPU_MOD_PWR_GD_R", "",
- 
- 	/* J0-J7 line 144-159 */
-@@ -957,8 +957,8 @@ &sgpiom0 {
- 	"PDB_ALERT_R_N", "",
- 
- 	/* L0-L7 line 176-191 */
--	"CPU0_SP7R1", "", "CPU0_SP7R2", "",
--	"CPU0_SP7R3", "", "CPU0_SP7R4", "",
-+	"L_EDSFF0_PG", "", "L_EDSFF1_PG", "",
-+	"R_EDSFF2_PG", "", "R_EDSFF3_PG", "",
- 	"CPU0_CORETYPE0", "", "CPU0_CORETYPE1", "",
- 	"CPU0_CORETYPE2", "", "FM_BIOS_POST_CMPLT_R_N", "",
- 
-@@ -984,8 +984,8 @@ &sgpiom0 {
- 	"HPM_PWR_FAIL", "Port80_b0",
- 	"FM_DIMM_IP_FAIL", "Port80_b1",
- 	"FM_DIMM_AH_FAIL", "Port80_b2",
--	"HPM_AMC_THERMTRIP_R_L", "Port80_b3",
--	"FM_CPU0_THERMTRIP_N", "Port80_b4",
-+	"AMC_THERMTRIP_ASSERT", "Port80_b3",
-+	"CPU_THERMTRIP_ASSERT", "Port80_b4",
- 	"PVDDCR_SOC_P0_OCP_L", "Port80_b5",
- 	"CPLD_SGPIO_RDY", "Port80_b6",
- 	"", "Port80_b7",
-
----
-base-commit: 9974969c14031a097d6b45bcb7a06bb4aa525c40
-change-id: 20260430-anacapa-sgpio-edsff-thermtrip-acb228bf61be
-
-Best regards,
---  
-Rex Fu <Rex.Fu@amd.com>
-
-
+Konrad
