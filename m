@@ -1,132 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC1B3FA5C5;
-	Mon, 18 May 2026 12:02:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A96D3F8EBA;
+	Mon, 18 May 2026 12:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779105755; cv=none; b=Pdw/EwYhXiiuQOzn+/5yswsFaI3EU6zFQJK7j2oFLV4isueIAboxvMJMfik5F7rdEn0VY5udP+L3frXuf2n/Pw5aHBP3k3hYtzQh9fl7Je1CiyOUNVWVOgTOoWfywsTkIYzgaq/Y6oI4GoFKZilpN7GF1UAEdBk4utPg3VQjzEc=
+	t=1779105861; cv=none; b=bXzcoy+s6RPWQX2HL8z6qbYEN5ypZRSJDvcD5B/7Hb8Qoad2+viKJEnoBboqOWjT3smWXod/hf0hQUNzulHz9bs8PuAcEQUJK1VCPrFlukBcGdQuaDOC9Eu0K3edJAV3jiRC6QqSvSZtJkrICEikSDz6rY32mbmtnHEYgo1ByD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779105755; c=relaxed/simple;
-	bh=v0XudB6/WzKpCCMEXx+EwPw5TDfqGX+OFUd9Oj1c8C4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LaIvtnit8UkA45D4WcvGfTG4VvL/i+jNvd/XZqA8tnklK2KKtw7ZS77Zff6P8QE8g3ch1xeBdEIq4aEZBT5IjmRodSCwNnBv86MktddORQ9AsHHMZjPRRpGlvgsh1pjWDFOmRCOHR3lmq9KkOEqmzjMB8PLOat8h0WuKLU82WVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOGG0vpN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779105861; c=relaxed/simple;
+	bh=BJ+dVmdctWlNDf4FxLrax2LS0TPJidUPUoHpRQQ+xy4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lNVNEXnYtmVvfQGmkclaA6fbtEUVNwYH3uGh2MAIfXCaOsTEK/NBsuiMMPlIYSNms2gv/vOpgY2VXpQFxxk7Cp8iZ4/64uxZrXTy+/P0UVJfFQiPx8NjWyN3qlA0ct+YSECOqiZ1b577fH6WX6muE+U+ceEp8D9HSrM3Y9TfM5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qu7vYbNa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOGG0vpN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF605C2BCB8;
-	Mon, 18 May 2026 12:02:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qu7vYbNa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55071C2BCB8;
+	Mon, 18 May 2026 12:04:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779105755;
-	bh=v0XudB6/WzKpCCMEXx+EwPw5TDfqGX+OFUd9Oj1c8C4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=KOGG0vpNuf/xUIC1vq8FOuGau6zyH/VLOwAycEsOEXRC6VyMMXIGj5Jxnijthc7cs
-	 UFV/DhxcdzxFeBn+WUKHCH6KYjan46vHeyEJSdTkVK7sPa5Dj0p7XSMSAX6dz6UiTC
-	 lB2ySC3xM4+qm+OSB4tuEaqoNeWwt54VYeossPu3DE9xdSnISKlob6aun4ClWbL7XE
-	 zcRqZeI7+mufsRDONMbY7zDyq4DIJTNN5pk9st+06kCWwmfgmq5p8GZzMjqQe7Ae5S
-	 41mqRtF2UGQA03iu+kxVxABQ7kpFPlDDE3rr9bYYBcLyZg/SeKDoK66Igp4KQUA5Y7
-	 uouwH9NxbLBRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/7] leds: Add driver for ASUS Transformer LEDs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dmitry.torokhov@gmail.com, robh@kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518095907.36158-6-clamor95@gmail.com>
-References: <20260518095907.36158-6-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 12:02:34 +0000
-Message-Id: <20260518120234.BF605C2BCB8@smtp.kernel.org>
+	s=k20201202; t=1779105860;
+	bh=BJ+dVmdctWlNDf4FxLrax2LS0TPJidUPUoHpRQQ+xy4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Qu7vYbNayaB/gjw1ZJNz4Q6wmI52LwzKCkT/zJTCuslmWmMAxgdblGEKHFxupOr+A
+	 ipJu+6BzEQcnqa3ooXWG0XbQ27XoL7iGQH+/EiVegk1UM82ndnNREOG1oRXlUrQw3B
+	 OQi4wfpOnPMLDbUGomcyScTZK4kLL45JLu5w1ORZbf0vswluOLtAEfEfqNTF5wy0NS
+	 UPQuu+fl4ztIypraKncQNiEm4eYJ1trSH9HG1o7OjIgWFqtbAmpvvcfQHMMQfDYCpZ
+	 doNii1C6E+z8hA1wYHgOw77s3KtSErMhNtCHKT8wsNGOWHalVepTi4Sc5iAjFbs5Nt
+	 bF2BVNTL/vjhQ==
+Date: Mon, 18 May 2026 14:04:18 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v1 3/6] dt-bindings: net: Document Infineon/Intel XMM6260
+ modem
+Message-ID: <20260518-loutish-colorful-earwig-12dbc9@quoll>
+References: <20260511135703.62470-1-clamor95@gmail.com>
+ <20260511135703.62470-4-clamor95@gmail.com>
+ <20260515-precious-ginger-lori-d1fde7@quoll>
+ <CAPVz0n3mvBLracMWGNuJ8kKUvAVZ+JRTJVkZGyq5MkuSobd8NQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAPVz0n3mvBLracMWGNuJ8kKUvAVZ+JRTJVkZGyq5MkuSobd8NQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Incorrect use of `LED_CORE_SUSPENDRESUME` for charging indicators.
-- [Medium] Lack of hardware state synchronization (`brightness_get`) at ini=
-tialization.
-- [Medium] Missing `MODULE_ALIAS` prevents automatic module loading.
-- [Low] The driver exposes a physical bi-color LED as two independent singl=
-e-color LED devices instead of utilizing the LED Multicolor class.
---
+On Fri, May 15, 2026 at 11:39:49AM +0300, Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 15 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11=
+:18 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Mon, May 11, 2026 at 04:56:58PM +0300, Svyatoslav Ryhel wrote:
+> > > +  ap-wake-gpios:
+> > > +    description: GPIO connected to the EINT3 pin
+> > > +    maxItems: 1
+> > > +
+> > > +  cp-wake-gpios:
+> > > +    description: GPIO connected to the EINT2 pin
+> > > +    maxItems: 1
+> > > +
+> > > +  phys:
+> > > +    maxItems: 1
+> > > +
+> > > +  vbat-supply:
+> > > +    description: Supply connected to the VBAT lines.
+> >
+> > This should be rather name of the pin on this device, not the provider
+> > name. VBAT suggests the latter. Please double check.
+> >
+>=20
+> There is no documentation on this device from Infineon, I have used
+> schematics of the P895 where this modem is used. According to it power
+> supply is connected to pin with name VBAT (and yes, I am not mixing it
+> up since supplies have different names)
 
-commit f02de4369b03c2d6785dea5fb4edfab53036130d
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+ack
 
-leds: Add driver for ASUS Transformer LEDs
+Best regards,
+Krzysztof
 
-ASUS Transformer tablets have a green and an amber LED on both the Pad
-and the Dock. If both LEDs are enabled simultaneously, the emitted light
-will be yellow.
-
-> ASUS Transformer tablets have a green and an amber LED on both the Pad
-> and the Dock. If both LEDs are enabled simultaneously, the emitted light
-> will be yellow.
-
-Since this describes a physically multi-color LED, shouldn't the driver use
-the LED Multicolor class API (CONFIG_LEDS_CLASS_MULTICOLOR) instead of expo=
-sing
-them as two separate single-color LED devices?
-
-> diff --git a/drivers/leds/leds-asus-transformer-ec.c b/drivers/leds/leds-=
-asus-transformer-ec.c
-> new file mode 100644
-> index 0000000000000..c9bdc46c02e15
-> --- /dev/null
-> +++ b/drivers/leds/leds-asus-transformer-ec.c
-[ ... ]
-> +	for (i =3D 0; i < ASUSEC_LED_MAX; i++) {
-> +		const struct asus_ec_led_config *cfg =3D &asus_ec_leds[i];
-> +		struct asus_ec_led *led =3D &ddata->leds[i];
-> +
-> +		led->cdev.name =3D devm_kasprintf(dev, GFP_KERNEL, "%s::%s",
-> +						ddata->ec->name, cfg->name);
-> +		if (!led->cdev.name)
-> +			return -ENOMEM;
-> +
-> +		led->cdev.max_brightness =3D 1;
-> +		led->cdev.color =3D cfg->color;
-> +		led->cdev.flags =3D LED_CORE_SUSPENDRESUME | LED_RETAIN_AT_SHUTDOWN;
-
-Does LED_CORE_SUSPENDRESUME make sense for a charging indicator?
-
-This flag instructs the LED core to explicitly turn off the LED during susp=
-end,
-which turns off the charging indicator while the device is sleeping.
-
-Also, could the Embedded Controller have already turned the LED on before t=
-he
-driver probes?
-
-Since there is no brightness_get callback to synchronize the initial hardwa=
-re
-state, the LED core will initialize the software brightness to 0. If the de=
-vice
-resumes from suspend, the LED core will restore this saved brightness of 0,
-permanently turning off the LED even if it was physically on before.
-
-[ ... ]
-> +static struct platform_driver asus_ec_led_driver =3D {
-> +	.driver.name =3D "asus-transformer-ec-led",
-> +	.probe =3D asus_ec_led_probe,
-> +};
-> +module_platform_driver(asus_ec_led_driver);
-> +
-> +MODULE_AUTHOR("Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>");
-> +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> +MODULE_DESCRIPTION("ASUS Transformer's charging LED driver");
-> +MODULE_LICENSE("GPL");
-
-Will this module load automatically when the platform device is registered?
-
-Since there is no MODULE_ALIAS("platform:asus-transformer-ec-led") declarat=
-ion,
-udev might not be able to automatically load the module during boot when the
-MFD core registers the corresponding platform device.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518095907.3615=
-8-1-clamor95@gmail.com?part=3D5
