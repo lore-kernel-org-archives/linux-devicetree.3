@@ -1,328 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF333E3162
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9927F3D5656;
+	Mon, 18 May 2026 08:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779094089; cv=none; b=hcrIOD5RaAfhwwh80/JpoUH3rLVQ8nkg+IhYjpeaMWV561IP918b0EdN08zTarLrMSzAwZGVH1NNF60MAzaIUk+yxTyOBl/Dy6Y35oq+VUW6Ivkco/UFiGJqnE1siepRdNT5biEkXvUU7F/TLn3H2cWHl7evn+ohuIv/BC+6mOc=
+	t=1779094257; cv=none; b=Fe0Pt+mmxAp7NQPn89HyJGH0ylXHV95JvxWYCIKt2e/MytlmQLLLhM/d0TuJ/mtmHLl348+7cJpZfONx+krTKJDKGLBl2ETE3+MKPcLxyw60s1Ag3s+DkayC5QZnlM7eZ17MKNxt28HQFW7n6lYvVbF3d5puhW0t7PjC5w6ljYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779094089; c=relaxed/simple;
-	bh=fyvkqZ9hXj2sEI8ongjqyp6bYF+oEOsYBPFUYv02r6A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IG8kWhynU3dRUwwqWLmuT3Ik9++sIwYHFJMD872qT1L+ISyyb0r/FGdYtQ0L9YfqJckB9QqvtA+agPElQINuYGLVE+oRJpG1K9kXy3YRVmNiFT/i25Tnrq2UORKzPcjwdfTTLbmjnkqdcaH0d3kB0o2OMkdARHAFN69AeeO7Njk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FJqnV9Th; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779094257; c=relaxed/simple;
+	bh=mI6iacXeg9KU5qE1kGk0QzkTwSG6aGaD4ZBxk+3fjRA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BEg/auTBx53uPRui7clbRvNa7bTYHGVBW0bCbBZrw7IPlTMvVxpDxOcqKrz0QpcxwNf2bsJl+HLCiaRWy+FscAmpf4BFzLXkiX4ry7DtuU9bpQISdx+6A6iKdjc/VZeAYO2hiJmN8kwRCqNRpXqwUvLGXDiH2e9o3ozq6fn0i3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=GHIHl/dr; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FJqnV9Th"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B8CC2BCB7;
-	Mon, 18 May 2026 08:48:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779094089;
-	bh=fyvkqZ9hXj2sEI8ongjqyp6bYF+oEOsYBPFUYv02r6A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=FJqnV9ThvXFK9rKgpfWg9ucrWQf/6Kp7Ojh0xFLanKwdOSQQw+xUxurRpdf1hW9m7
-	 Hc98yVohLwqOKBqRG48/qpaOY/sTnnzmC1iveIcUdxoy8RCsEYgOm9Th/rj1pvAzwt
-	 845VTC1C4ngAiZ3SxHZ1UMqEn4nln2IoEq+nCGivQ4x9NZEG8lJqNXVa5BAE2JnGe6
-	 +UFOP58dzW5BUdxQe9lSeEI/qY9GiCgLcYhRqbMEJjRl90U4OjeBnZ3/6YUtI0xGg3
-	 yfCdlMk4eh2xoy2571ibLmCZiSezpgI/m7z54SvyXs3bM0WgutfsQO56ueRoBZ3Lob
-	 h+kSED/5TP0+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/2] iio: adc: Add StarFive SAR-ADC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xingyu Wu" <xingyu.wu@starfivetech.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518081852.116909-3-xingyu.wu@starfivetech.com>
-References: <20260518081852.116909-3-xingyu.wu@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 08:48:08 +0000
-Message-Id: <20260518084809.36B8CC2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="GHIHl/dr"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I4IOlb676003;
+	Mon, 18 May 2026 04:50:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=jERQ0
+	tjKzPLGGgreuUHJq9GMxqFG7Wl3SuoiCuLLPB4=; b=GHIHl/drU0FO4jS9rMm8M
+	Jqf+Ru8e1byWDPhyUhfylO+PaMZeZGWPEEra9DTueiD7K/W306RrFP9BVZUUlvt/
+	mbOyilixS8B2+FMKRWqN1kUNnRZam/bJH0FLetnHv5ny9yGuvAUYaynTS03HF9Pa
+	hdY1is3+xe2QzRGr/FZAQD6fUQKYPVJuqG0wCd0+W/mX6dxehg1+zFZBO0CyVZ6m
+	qms6DbKEeq341nhvOP0ukQ8J1pWNV3tCAhkNg5gcyX8qhj9HQTA+atZ2BvwktTGU
+	P3oAcYcoqnFfCd4/v6FtIR7Sd/LX/SUMOqzc0oCIeOM/2Yyh74ECUJ/iDIry+Gz5
+	A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4e79wdtyks-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 18 May 2026 04:50:52 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64I8opmX019746
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 18 May 2026 04:50:51 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Mon, 18 May 2026 04:50:51 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Mon, 18 May 2026 04:50:51 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Mon, 18 May 2026 04:50:51 -0400
+Received: from HYB-MkYHBcJRSnh.ad.analog.com (HYB-MkYHBcJRSnh.ad.analog.com [10.48.65.202])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64I8oeuJ019590;
+	Mon, 18 May 2026 04:50:42 -0400
+From: Liviu Stan <liviu.stan@analog.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: Liviu Stan <liviu.stan@analog.com>, David Lechner <dlechner@baylibre.com>,
+        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Andy Shevchenko
+	<andy@kernel.org>,
+        Michael Hennerich <Michael.Hennerich@analog.com>,
+        "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>,
+        Antoniu Miclaus <antoniu.miclaus@analog.com>,
+        Francesco Lavra <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
+        <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 4/7] iio: temperature: ltc2983: Use fwnode_property_present() for optional properties
+Date: Mon, 18 May 2026 11:50:13 +0300
+Message-ID: <20260518085014.84790-1-liviu.stan@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260516175314.3f28a4b7@jic23-huawei>
+References:
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: J6S5OugSc2dLv1ngx6Obw3N1YQI52iNT
+X-Authority-Analysis: v=2.4 cv=HKbz0Itv c=1 sm=1 tr=0 ts=6a0ad2ec cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=c92rfblmAAAA:8 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8
+ a=08UPCBKS9iAeYEssiKsA:9 a=zgiPjhLxNE0A:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: J6S5OugSc2dLv1ngx6Obw3N1YQI52iNT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA4NCBTYWx0ZWRfX1+xgMp3Ez2rg
+ ZO/SU/zZ0c6q5rvMd6AtdBzLj+YcEHymUJuvJH2fN/mIsFvVTgICqoEk5Cq/Gtg9x2kEEoV58YR
+ oJCveTEgHHkTCIPqcT/3mxISWrO5ud5JNqohWFTfNosS/WSfN8nbQ0dFr8YiOd3vO0ShfHY/f9+
+ hwLsinGtqf0y3ROMLwnieHuccb664wFW+MFJZxrgfRvtK4rcm8O9r4KBYvf47NnUeTduolZ/1yZ
+ 3OzE+IaE+vza97oMBduN0oxYUUpSSndO4xgMfi2yz9XOBnc3IHrvNuwCt3npBJSM1DWJ21GBT20
+ GwPdJ98F8wjz0FxQCXsY+A/AQJS/aFyS2qRvb8azDYPsyroUmJtbnDBTpm6m5IWcmpT4qfXB4i6
+ ipaL0VnRFaABhBfupDSXkVXtllMseh7DcQebRIMCDBJhqTputH4Jny9BNZiVYoS69/4df756vib
+ 9ytfIcwjzFwMRoMRjTg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 malwarescore=0 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180084
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] System crash due to requesting IRQ before enabling hardware clocks.
-- [High] IRQ handler unconditionally returns IRQ_HANDLED without clearing i=
-nterrupts, leading to infinite IRQ storms.
-- [High] Clock reference count underflow due to incompatible mixing of devr=
-es and manual clock management.
-- [High] Missing cleanup for runtime PM and shared resets in error and remo=
-val paths.
-- [High] Data race on the `SARADC_IRQ_EN_ST` register causes lost interrupt=
- enables.
-- [High] Active hardware monitor is not stopped during device removal.
-- [High] Lockless sysfs store functions cause data corruption and IRQ storm=
-s.
-- [Medium] Multiple IIO ABI violations regarding standard events and data u=
-nits.
-- [Medium] Silent failure on ADC read timeouts.
---
+On Sat, 16 May 2026 17:53:14 +0100 Jonathan Cameron <jic23@kernel.org> wrote:
 
-commit 38cba5c631bad8026785f6fd6a6919692ab720de
-Author: Xingyu Wu <xingyu.wu@starfivetech.com>
-Subject: iio: adc: Add StarFive SAR-ADC driver
+> On Thu, 14 May 2026 17:46:51 +0300
+> Liviu Stan <liviu.stan@analog.com> wrote:
+> 
+> > Checking fwnode_property_read_u32() return value with if (!ret)
+> > silently swallows meaningful error codes when a property is present
+> > but malformed. Use fwnode_property_present() first so that absence
+> > uses the default while a present but unreadable property returns
+> > a proper error.
+> > 
+>  Fixes: f110f3188e5639c81c457b2b831d40dfe3891bdb ("iio: temperature: Add support for LTC2983")
+> Same again. Not a fix. It's hardening against unexpected errors.
+> 
+> Also, sashiko calls out an issue with n_wires and default value of 0.
+> The binding says default is 2.
+> 
+> 
+> that was always present but is worth a fix potentially:
+> https://sashiko.dev/#/patchset/20260514144712.64374-1-liviu.stan%40analog.com
+> 
 
-Add a new IIO ADC driver for the StarFive JHB100 SAR ADC controller.
+Understood. I'll drop the fixes tag and initialize n_wires to 2 to
+correspond to the binding.
 
-> diff --git a/drivers/iio/adc/starfive-saradc.c b/drivers/iio/adc/starfive=
--saradc.c
-> index 0000000000000..78409cb1bcb29
-> --- /dev/null
-> +++ b/drivers/iio/adc/starfive-saradc.c
-> @@ -0,0 +1,978 @@
-
-[ ... ]
-
-> +static void starfive_saradc_ch_monitor_start(struct starfive_saradc *pri=
-v, u8 ch)
-> +{
-[ ... ]
-> +	/* Enable IRQ */
-> +	reg =3D readl(priv->base + SARADC_IRQ_EN_ST);
-> +	writel(reg | SARADC_IRQ_CH_EN(ch), priv->base + SARADC_IRQ_EN_ST);
-
-Could this race with the interrupt handler? The hardirq handler reads and
-writes back to SARADC_IRQ_EN_ST to clear status bits without holding locks.
-If this thread context reads, modifies, and writes the register, could the
-hardirq handler concurrently write back a stale value and overwrite the
-interrupt enable bits set here?
-
-[ ... ]
-
-> +static ssize_t starfive_saradc_upper_bound_store(struct device *dev,
-> +						 struct device_attribute *attr,
-> +						 const char *buf, size_t len)
-> +{
-[ ... ]
-> +	starfive_saradc_ch_upper_bound_set(priv, ch, SARADC_VDD_MV_TO_RAW(upper=
-));
-> +	priv->up_bounds[ch] =3D upper;
-> +	pm_runtime_put(priv->dev);
-> +
-> +	return len;
-> +}
-
-Does this need to hold priv->lock? The starfive_saradc_ch_upper_bound_set
-function performs a read-modify-write on shared hardware registers, which
-might allow concurrent sysfs writes to corrupt the bounds.
-
-[ ... ]
-
-> +static ssize_t starfive_saradc_monitor_channel_select(struct device *dev,
-> +						      struct device_attribute *attr,
-> +						      const char *buf, size_t len)
-> +{
-[ ... ]
-> +	if (ch >=3D SARADC_MAX_CHANNELS || ch < 0)
-> +		return -EINVAL;
-> +
-> +	priv->mon_ch =3D ch;
-> +
-> +	return len;
-> +}
-
-Does this update priv->mon_ch without acquiring priv->lock? If the channel
-is changed while the monitor is active, could the IRQ handler check the
-wrong bit, fail to clear the interrupt, and trigger an infinite IRQ storm?
-
-[ ... ]
-
-> +static IIO_DEVICE_ATTR(in_voltage0_upper, 0644,
-> +		       starfive_saradc_upper_bound_show,
-> +		       starfive_saradc_upper_bound_store, 0);
-[ ... ]
-> +static IIO_DEVICE_ATTR(voltage_monitor_en, 0644,
-> +		       starfive_saradc_monitor_status,
-> +		       starfive_saradc_monitor_enable, 0);
-
-Should this driver use standard IIO events (IIO_EV_TYPE_THRESH) instead of
-introducing custom sysfs attributes for threshold monitoring?
-
-[ ... ]
-
-> +static int starfive_saradc_read(struct starfive_saradc *priv)
-> +{
-[ ... ]
-> +	tmp =3D starfive_saradc_data_get(priv);
-> +	/* Check that the data is ready to be read. */
-> +	if (!(tmp & ADC_DAT_RDY_MSK)) {
-> +		ret =3D readl_poll_timeout(priv->base + SARADC_DATAX_REG_GET(priv->usi=
-ng_ch), tmp,
-> +					 (tmp & ADC_DAT_RDY_MSK), 10, SARADC_TIMEOUT);
-> +		if (ret) {
-> +			priv->err =3D true;
-> +			dev_err(priv->dev, "channel%d is still not ready to be read! Timeout!=
-\n",
-> +				priv->using_ch);
-> +		}
-> +	}
-> +
-> +	if (priv->err)
-> +		tmp =3D 0;
-> +
-> +	starfive_saradc_ch_stop(priv);
-> +
-> +	return (int)(tmp & ADC_DAT_MSK);
-> +}
-
-If the poll times out, this sets tmp to 0 and returns it. Will this result
-in starfive_saradc_read_raw passing 0 to userspace as a valid ADC reading
-instead of propagating an error code like -ETIMEDOUT?
-
-[ ... ]
-
-> +	case IIO_CHAN_INFO_PROCESSED:
-> +		ret =3D starfive_saradc_read(priv);
-> +		if (ret < 0)
-> +			break;
-> +
-> +		/* VIN =3D AVDD * data[11:0] / 4096. (AVDD =3D 1.8v) */
-> +		tmp =3D SARADC_RAW_TO_VDD_ADJ(ret);
-> +		*val =3D (int)(tmp / 1000000);
-> +		*val2 =3D (int)(tmp % 1000000);
-> +		ret =3D IIO_VAL_INT_PLUS_MICRO;
-> +		break;
-> +
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/*
-> +		 * AVDD is fixed at 1.8v.
-> +		 * 1.8 / (1 << 12) * 1000000
-> +		 */
-> +		*val =3D 0;
-> +		*val2 =3D SARADC_AVDD_VOL / (1 << SARADC_REALBITS);
-> +		ret =3D IIO_VAL_INT_PLUS_MICRO;
-> +		break;
-
-Does this calculate the scale to expose Volts instead of millivolts? The
-calculation yields 439 instead of 0.439453, meaning users multiplying raw
-data by the exposed scale will get Volts. This violates the IIO user-space
-ABI requirement of millivolts.
-
-Similarly, IIO_CHAN_INFO_PROCESSED appears to be formatting the value as
-fractional Volts rather than millivolts.
-
-[ ... ]
-
-> +static irqreturn_t starfive_saradc_irq_handler(int irq, void *data)
-> +{
-> +	struct starfive_saradc *priv =3D data;
-> +	u32 irq_err =3D readl(priv->base + SARADC_IRQ_EN_ST);
-> +
-> +	if (!priv->mon_working)
-> +		return IRQ_HANDLED;
-> +
-> +	/* Error of out of bounds */
-> +	if (irq_err & BIT(priv->mon_ch)) {
-> +		/* Clear the interrupt */
-> +		writel(irq_err, priv->base + SARADC_IRQ_EN_ST);
-> +		priv->err =3D true;
-> +		return IRQ_WAKE_THREAD;
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-If priv->mon_working is false, or if the interrupt bit is not set, this
-returns IRQ_HANDLED without clearing the hardware interrupt status bits.
-Since the interrupt is requested with IRQF_TRIGGER_HIGH, won't failing to
-clear the source while returning IRQ_HANDLED cause the interrupt controller
-to immediately re-trigger, resulting in an infinite IRQ storm?
-
-[ ... ]
-
-> +static void starfive_saradc_init(struct starfive_saradc *priv)
-> +{
-[ ... ]
-> +	if (of_property_read_u16(priv->dev->of_node, "upper-bound-mv", &tmp)) {
-
-Are the default Device Tree bounds being parsed into microvolts here but
-exposed to sysfs where users expect millivolts?
-
-[ ... ]
-
-> +static int starfive_saradc_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D devm_request_threaded_irq(&pdev->dev, irq,
-> +					starfive_saradc_irq_handler,
-> +					starfive_saradc_mon_stop_threadfn,
-> +					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
-> +					dev_name(&pdev->dev), priv);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to request irq handler\n");
-> +
-> +	priv->clk =3D devm_clk_get_enabled(&pdev->dev, NULL);
-
-Since the IRQ is requested before the clock is enabled, could a pending or
-spurious interrupt fire immediately upon registration? If the handler
-executes and accesses the clock-gated MMIO register, it could cause a
-synchronous external abort or bus stall.
-
-> +	if (IS_ERR(priv->clk))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(priv->clk),
-> +				     "failed to get clock\n");
-> +
-> +	priv->rst =3D devm_reset_control_array_get_shared(&pdev->dev);
-> +	if (IS_ERR(priv->rst))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(priv->rst),
-> +				     "failed to get resets\n");
-> +
-> +	ret =3D reset_control_deassert(priv->rst);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to deassert reset\n");
-[ ... ]
-> +	pm_runtime_set_active(&pdev->dev);
-> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 50);
-> +	pm_runtime_use_autosuspend(&pdev->dev);
-> +	pm_runtime_enable(&pdev->dev);
-> +
-> +	return devm_iio_device_register(&pdev->dev, indio_dev);
-> +}
-
-If devm_iio_device_register fails, this returns the error without calling
-pm_runtime_disable. Does this leave the PM framework active on freed
-devres memory?
-
-Additionally, the shared reset line is deasserted here, but
-reset_control_assert is never called in the error paths or in
-starfive_saradc_remove. Could this permanently leak the shared reset line's
-reference count and prevent the hardware block from ever being reset again?
-
-> +static void starfive_saradc_remove(struct platform_device *pdev)
-> +{
-> +	pm_runtime_disable(&pdev->dev);
-> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
-> +}
-
-If continuous monitor mode is enabled (priv->mon_en =3D true), the hardware
-is actively sampling and generating interrupts. Does this leave the monitor
-running and the interrupt unmasked when the driver unbinds, potentially
-causing bus lockups when devres subsequently disables the clock?
-
-> +static int starfive_saradc_runtime_suspend(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-> +	struct starfive_saradc *priv =3D iio_priv(indio_dev);
-> +
-> +	starfive_saradc_pwr_on(priv, false);
-> +	clk_disable_unprepare(priv->clk);
-> +
-> +	return 0;
-> +}
-
-The clock is acquired via devm_clk_get_enabled in probe, which queues an
-automatic disable. Here, the driver manually manages the clock. If the
-driver is unbound while the device is runtime-suspended, devres will
-execute its queued clk_disable_unprepare. Will this drop the enable
-count below zero, causing a kernel warning and resource tracking
-corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518081852.1169=
-09-1-xingyu.wu@starfivetech.com?part=3D2
+Thanks,
+Liviu
