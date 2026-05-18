@@ -1,132 +1,128 @@
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820D02494D8
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DBA34E764
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779124815; cv=none; b=rZQpFRihIMyEj3ps+rESIzOOg9X6JL/B4gKY+5wEi91MoMMdiV9BPm+UEYMOQYNJPIhdcV2naC/9krrITDUaTNnD+n1CekeAEf3WbSDWvNQJlzHg16pUdWtNIrCP6k3AqUPn9ECGSn5wsYS6hPUpQqnBXd6do1BANph/g9XlWUM=
+	t=1779124873; cv=none; b=d1CfAC8GY2SURi38+EowLxJDbOzj4mrZzkh0RJ+RYpGnHvv1im1C1rHQKOSQOlSb4rj+eIOuF2NMuxzRR7v7dtXZLLquhf/aUw4pNuzEjByUHa7H/PcEp4ek+d1cdN09/C9GRGwMo6sXuO4NZdepbOQ7Svm6VPUBnBtb9vLKMgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779124815; c=relaxed/simple;
-	bh=YbH3DLcjmOdU13NbufJjfw1GtVpWCi0PlKxThHTimAc=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=S3cbYn43fGIXXGddhoLv4TxVG9U4BwxmPJmYhmZpikb8hELBap5q5MxalQENx3yknCsb+UjSqhLcpjSmfkxgEtIjmxTsIzKJNZocW7DNdzOHkOyGhozfLeGtpi45+n1be8/S0t1b3GCLspDjrujkQs1yDBGx2rx0jX1zRqhSWVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DNOVWCKi; arc=none smtp.client-ip=91.218.175.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1779124873; c=relaxed/simple;
+	bh=sOJxMZchOv0WgrC6+6PbayYyvo16Eg4LJgmrDhVE/y0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t3cVcHVP38FSgEy2X6c+C1AMpB1XHYlTGc1VSS47IkWzOHWj0OUpOMQwC64uDBPbqVEUmKL4SnwPg+NZ7fy25CQxUa3kb/xcoC5ul+OPcNS/VFJGZQM32a2SsrCGaQjV50ifToRtls4Ng2YTIRrd9oV/xLD2++mBEYfUZDQTfaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ftaiTXkn; arc=none smtp.client-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DNOVWCKi"
-Content-Type: text/plain; charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1779124801;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YbH3DLcjmOdU13NbufJjfw1GtVpWCi0PlKxThHTimAc=;
-	b=DNOVWCKi7aFf6VFu/JC0wRZfu4ECTL91fCym+9XSX+Fm5qUctR41mQ/ZOAdvjk0MzP2Mlt
-	bYpo2XJql9RK9JTWxzt9BduCNeknOPwspY+NUxHb6IQx8kLn7EZsiplkt12ruEqtbRQViT
-	C/kXQotvjMBuy0HPNhIB+WxpFzmK1Cw=
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ftaiTXkn"
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-90d13fa59e8so273628785a.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1779124870; x=1779729670; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0QbJKB2lw5vG8p4X0Zp1dtcwqkjeJLsy09spRbfmWxU=;
+        b=ftaiTXknJQU+tPhf0Ef736xQ2IC+E5HA6zTcjLkHRXdJ4AUh+yYunRYSmE122A9jKX
+         FAoB107kSN/sju/DbzZh3DvGCyW4VIskIsYyfhX83BE/G5u4ojANrkHz9H+dg489oJs+
+         yfLRoAajB826OJmHgOA4t+hR71BsmCVBFppOk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779124870; x=1779729670;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0QbJKB2lw5vG8p4X0Zp1dtcwqkjeJLsy09spRbfmWxU=;
+        b=gHp9QbuNiglWbBdxgy9mrvw+Y72PWySniy73fgH8ns2Gswqt1LW+7BF0/rQonm3mS4
+         w9mtfjjR5JdBOT1dXl6fMJgQAUdPG3Uhd1e2Xs5SQf9wI+Pp2MUg6CqAi2GFzPPnhggX
+         PS4O47wo2B0vTg7zWlCFCONPa8NNTcv4w7nMEYcijcKDszRR9HWf5De/njbtf3ReQuaH
+         Wf4y9bxGbRzXDazG0hp4Eq8FBTuWoku+tJTLRZKQFMmpNFb/SKrM51N2JwCtZ83MSq8j
+         3u9tQ7/gTBlIiuwR1Dc8uEEHM1S35uFOeda8AGYOoXAxJ+CIUsaPLfmtqWGUVDRKOnQP
+         fxmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+FoY3Uj4y7A/NFU+ksaljTmfzpPP3xsoOn8ArapucDR5n2LbtOcXnWMThVQWDl+O0UlsyUMZUVv/cv@vger.kernel.org
+X-Gm-Message-State: AOJu0YySATI7nI6DV9zIHTqOUra2i7oP/cmM1WpueXEbsvozqDv+Ieok
+	+hgCYMTo5tK9+Ju2t4iBWXBqyTrMxii3t/UloGZUJsnIXTqDhKDzk5PLJnLed9Qq0UbLpJVpb+P
+	jeto=
+X-Gm-Gg: Acq92OEmzomU4ZqRlJLqPJ5BJEgo4ELMYHq1JXca3+piOGg/qrOZNF8YXMXKiCqM9yn
+	8Xazm8TnA0aVmJMh+Fau6RTXBzr/h54qV0b/0hFHuLDTnff090bQm34/41b2SlNWZHRH03iS28+
+	MLMU368fpYbjHlpM+YGZ6LO40M9JT0m6ROOV5RS3DL2HRZ9HWnaUjlLO+fFqWWX+ff0AxaoD3aa
+	sBPhSp1O864r2lSxmkPcA2KVntOryJv83xxBbYnPOdnV9xnNRydTnxNS4QaLRStTPRkYohsHZIT
+	xt+LHDTzgfTjZYbiBzA4nPl6G2zS8uHNzcdGcTkE79cSCnpSv6ESlhRqKyVzK88QyPzj3+tcUs/
+	MJQ3GjoO+xngyOZVxpl580L0SbS/Yv+5A3AtE1gB2G3exo6hKcdbX9r22vCJIty89TezEC2gUZZ
+	7Jk9AteT5K01/OxHtqGiwLZDI50QWvTQnKdRvfAQJC7Rten2A42gefLJIlF5M1tGNJlvekmIxC5
+	Y5eA/TtAxM4C6E=
+X-Received: by 2002:a05:620a:a196:10b0:912:1206:ddce with SMTP id af79cd13be357-9121206e079mr1618945885a.6.1779124870466;
+        Mon, 18 May 2026 10:21:10 -0700 (PDT)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com. [209.85.222.169])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-910bc83b18dsm1547625985a.31.2026.05.18.10.21.09
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 10:21:10 -0700 (PDT)
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-90cbb2b50ccso204431585a.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:21:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+NjgTuIZuA6HlRXbo9JSRNsPcwhRM4U+P9+xHRRVQ8FN8DoW65QyXl7pdfTbbdLubwmyvG/gTJYgzD@vger.kernel.org
+X-Received: by 2002:a0c:ea46:0:b0:8be:1620:a95a with SMTP id
+ 6a1803df08f44-8ca0f67c3d3mr193127066d6.27.1779124505831; Mon, 18 May 2026
+ 10:15:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: Stop false review statements
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Roman Gushchin <roman.gushchin@linux.dev>
-In-Reply-To: <DIL2P8CHKVZD.2WVQQRN0FM28N@kernel.org>
-Date: Mon, 18 May 2026 10:19:47 -0700
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Greg KH <gregkh@linuxfoundation.org>,
- Konstantin Ryabitsev <mricon@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, Miguel Ojeda <ojeda@kernel.org>,
- sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
- sashiko@lists.linux.dev,
- Linux Kernel Workflows <workflows@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree@vger.kernel.org, kfree@google.com
-Message-Id: <C16C14F1-4D2F-4701-88CC-114F5233980D@linux.dev>
-References: <DIL2P8CHKVZD.2WVQQRN0FM28N@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+References: <cover.1778822464.git.harrison.vanderbyl@gmail.com> <9e749a3a483e4a3c684eac3ee6a4b241c94a0362.1778822464.git.harrison.vanderbyl@gmail.com>
+In-Reply-To: <9e749a3a483e4a3c684eac3ee6a4b241c94a0362.1778822464.git.harrison.vanderbyl@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 18 May 2026 10:14:54 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=W-T3gnhsPY1TPaShBcj6MtXhPntAm=ecZ8pK9aKg=LFg@mail.gmail.com>
+X-Gm-Features: AVHnY4IADEBlAYng-Vk8ynfnLq-alsFZFnj4hN5gU5NdDYItYKJ7p8Mb41QcTng
+Message-ID: <CAD=FV=W-T3gnhsPY1TPaShBcj6MtXhPntAm=ecZ8pK9aKg=LFg@mail.gmail.com>
+Subject: Re: [PATCH v2 5/7] drm/panel-edp: Add panel for Surface Pro 12in
+To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, 
+	Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, 
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+	jikos@kernel.org, bentiss@kernel.org, luzmaximilian@gmail.com, 
+	hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
+	Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
-> On May 17, 2026, at 8:56=E2=80=AFAM, Danilo Krummrich <dakr@kernel.org> wr=
-ote:
->=20
-> =EF=BB=BFOn Sat May 16, 2026 at 9:15 PM CEST, Roman Gushchin wrote:
->> I agree, it=E2=80=99s sometimes gets tricky when a patchset is sent to mu=
-ltiple
->> mailing lists, which policy to apply. I have some improvements in my plan=
-s,
->> but it=E2=80=99s not always possible to say how it should be handled.
->=20
-> Which improvements do you have in mind?
+On Thu, May 14, 2026 at 10:43=E2=80=AFPM Harrison Vanderbyl
+<harrison.vanderbyl@gmail.com> wrote:
+>
+> Add an entry for the BOE NE120DRM-N28 panel,
+> used in the Microsoft Surface Pro 12-inch.
+>
+> The values chosen were tested to be working fine
+> for wake from sleep and hibernation.
+>
+> Panel edid:
+>
+> 00 ff ff ff ff ff ff 00 09 e5 c9 0c a0 06 00 07
+> 0a 22 01 04 a5 19 11 78 07 9f 15 a6 55 4c 9b 25
+> 0e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 62 53 94 a0 80 b8 2e 50 18 10
+> 3a 00 fe a9 00 00 00 1a 13 7d 94 a0 80 b8 2e 50
+> 18 10 3a 00 fe a9 00 00 00 1a 00 00 00 fd 00 18
+> 5a 5b 88 20 01 0a 20 20 20 20 20 20 00 00 00 fc
+> 00 4e 45 31 32 30 44 52 4d 2d 4e 32 38 0a 00 0a
+>
+> Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-If a patchset is sent to multiple mailing lists now Sashiko is using the sup=
-erset of
-email policies. But in many cases it=E2=80=99s possible to determine the =E2=
-=80=9Cmain=E2=80=9D mailing list/subsystem
-and prefer it=E2=80=99s configuration. Not always.
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
->=20
->> It=E2=80=99s not fundamentally new: landing changes touching multiple sub=
-systems is
->> always harder exactly because maintainers might have different and someti=
-mes
->> conflicting views.
->=20
-> It can also be relevant in cases where only a single subsystem is touched.=
+Pushed to drm-misc-next:
 
->=20
-> For instance, in the case of Rust, the rust-for-linux list serves two purp=
-oses
-> -- when it is a Rust subsystem change and when Rust code of any other subs=
-ystem
-> is touched, i.e. the rust-for-linux list has more of a LKML character and a=
-lso
-> receives patches for subsystems whose maintainers may not have opted in to=
-
-> sashiko email delivery.
->=20
-> That said, I personally don't mind too much, I really like sashiko, which i=
-s
-> also why I asked for adding the driver-core list. My experience has been t=
-hat it
-> does a very decent job in providing feedback for C code; my feeling is tha=
-t
-> feedback for Rust code is not quite on par yet, but of course it also high=
-ly
-> depends on the complexity and scope of the corresponding changes.
-
-This is super interesting. An obvious idea is that the training set is relat=
-ively limited,
-if we=E2=80=99re talking rust for kernel code. Did you notice any common top=
-ics or patterns?
-Does it produce more false positives or worse in finding actual bugs in comp=
-arison
-to the c code?
-
-> However, I still have the same concern I raised previously when it comes t=
-o
-> email delivery: I think that when sashiko sends feedback to contributors
-> (without Cc'ing the mailing list and all other recipients), it should acti=
-vely
-> ask the contributor to raise things on the list with all other recipients,=
-
-> reviewers and maintainers before acting on them, such that changes subsequ=
-ent to
-> the first submission on the list are aligned.
-
-I personally think that it=E2=80=99s always better to cc some mailing list a=
-nd/or maintainers,
-so there is a second pair of eyes. I totally agree that replying just to the=
- author is less effective.
-Of course, we can add the text you=E2=80=99re proposing, but why not simply c=
-onfigure sashiko=20
-to cc the mailing list?
-
-Thanks!=
+[5/7] drm/panel-edp: Add panel for Surface Pro 12in
+      commit: 02f48ffdf96c83ca3e6600fe5dec872b34b68775
