@@ -1,63 +1,63 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B7239282C
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCE4392C2C
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779135791; cv=none; b=byh8NStC5CzkSvXzztwpByPlZnrADassV3grCS3yEZd4/O6acos3VBbCFuXWYG7MtSh2U7PneEITPnR0X3kxs93LKXDk/xMLQYUR2+oZtaTP3+wksKFHtDZpVu/zV+i3eRXy5xwDSs+Owgi0w8AeCiavjQkl/cY1/ZyuvxJaWRU=
+	t=1779135793; cv=none; b=T1u66N2Z5x8L5MZPDirAJwTsz3SF+LDFBQOTE4oBXcD2flq71Mw6FAutr1EddzgNj2Nasu0ksmda4j8EdMBEslysvvQlWFbupQdfDivjuAgWYTVHxeI7WoIcEeLp9ktz8oAALpkSNRp1a/SHjmDHEq5mb4GKLwg1mOZmGWW4OTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779135791; c=relaxed/simple;
-	bh=irpYGJCKR3bjiT4mhwqM9pkxHGcR9vvcqrGle5vQiYE=;
+	s=arc-20240116; t=1779135793; c=relaxed/simple;
+	bh=CJeSSYYnZeStLm7YVc5JWFlVV48PQFOvjmfLZx4cw/U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fdVEWsNHQIMi4Uh5EVkH1KbTBVA2jgjrl9mGMY4B+zMWWYgVDLOA7ieVzUD3hii/DtUE2W7pUndIU6j8R+wMMDPzGcHNji9n8gKPVX5uCd+9D9XXBnhzLQLZsltWm/hfiDUCIrK2WDDuocQVCh6r/kk2BK4Z4MTzi4eY9oUu1Jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PBWIX99i; arc=none smtp.client-ip=209.85.208.170
+	 MIME-Version; b=czuSjpBiSTkgwU80iG299WE9H1AiTXKieSzo25vWKEA37ZmQWEWnPdC1kLItLxt2ACC89Z6ZaWNe+58612tuZJXHxxunbXY3TUkonCS3KPi2OHTA1ihmA18u7MGyXHA47K1sf2Cpxfx3jnYf9mS1dmmuUyRhufTpKTuLPhB4Npo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SlmOn0XF; arc=none smtp.client-ip=209.85.208.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PBWIX99i"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-38be5e86918so37338301fa.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:23:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SlmOn0XF"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-393a44854d2so26522391fa.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:23:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779135788; x=1779740588; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779135790; x=1779740590; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=p/SGitXszrpcNPK3dZcbgwcy5TAfrIErrXFlnM2twUc=;
-        b=PBWIX99i3/ktSuY5On4V79oWlLH59ieJFSe6/rnOC2gw6fYpDKlnmvpTekEL7uNMGU
-         ia+yfgl+F2c9DlyG0ymOrrRls3uqpPDbgba37h1xO2TC1Am1t2/gCcpbScB8qoiKiPgj
-         NhIXp0pMkBg2Fbm/7mqmNVaF/pHBFVyGh1SBpechQkB1AiskGCJCJ27RS4P2FzynZA9J
-         qnkrspO7YuF1tZv9rGfKxZT2iJbwEAyFu67zg69kt2/fHo+Fc6BOXl2fQHKkvGlayhrg
-         U83rWvkSFnWTdiU/rH4WZ+bs/HCA8pbi/zzs63uvCFOhkQ1C7infVwS9r+BYmJDWZth8
-         pRUw==
+        bh=tLtvCiHLhOODkbTb6ldPXwhZ1lgl9LVuxx7kGug/QYY=;
+        b=SlmOn0XFAv6VxT8niudZz3kzeKSzKL0MZZrEh2uMcyPYPhOk3IiOEq+m1keWp6lJGl
+         6CWdHexjCw4Ilm3Yb9uOS7fPXM3cBgT300bb1qjOV2TgV4xYbUuxo4V7YKwycu9cfoxn
+         +owxja5rcHk8aEeR7vzEeGVjOxnq0NLEhvyIGFSUirioGAc1FHGOYYqNZGdKieuVzbVn
+         s3OT2KVf+IkcRRG0o4EF/MHYgNQghvvrEajsC7FM51LDx1bIeNMff4FWCIaSjpB1Ded6
+         /cdtRBjETTxg1Tz1Gmdfg2zHIZxoawWxsIv+oNikpqrGhhSUvQRDUTiCZNZpyE5viUCq
+         iFMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779135788; x=1779740588;
+        d=1e100.net; s=20251104; t=1779135790; x=1779740590;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=p/SGitXszrpcNPK3dZcbgwcy5TAfrIErrXFlnM2twUc=;
-        b=OGJD4CN48A2XqyhAcpvgI4DZgClzUkg5PYXJ0ecImrOPHp50pwRlHU5JuN17FmSOsk
-         h4qQc0LEWdQmQb0QgiA2siULoWWygW/AtSgA5laIv9XFOCwEBBAVU8K0M4NHMV3+iyMH
-         TrqvDaa0COrjzJM5/9LpxbPTrzktrqs5bkh8vcmT0GlHdQwLJqH1uxXSpUDDCPAN/lKJ
-         aYHAhN4TeDAOucNzqIIoAvPqmGn2C7iYkIVxgbqGLjsEtI16hbCi4IhNNE8K7kJAmC61
-         urTutvR5wHuKxtpbqdbQ+9y6+t9N9UbLcVFTGibEsplmY1hAUDMWUsROXB42IfvFAAV9
-         8plw==
-X-Forwarded-Encrypted: i=1; AFNElJ/cQrKZlOpYkBYtXkn4j+Dw+LiZT3hlmuDUDmhwADxtOQOPCkcaO4L5ZbO7I80DSbcpNb1vI2FS7XQ1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzmz9b3Vrw9B2IG3vLHBlfLnBRUn9bjbbF7vc6puqOZbevFSzJf
-	yCya2kHfgYxflSJgJaJAu4QsQDeXCHl1Tb7TVs5Kq/f8GmbIlwNfFQTO
-X-Gm-Gg: Acq92OG/KXuERzqg+K+VBMe2jpTF5340en5OD8Y7mW5dJAzlIlR48qGRUa9zSH8yKLO
-	EpemFPcbY+TKZdwaHoY/VWOWZDezcPMHM09w4C7mmj8p3x0XvVBkMzwgvnKEp/1LIbfJwGtHgN1
-	63WSLIYDWMWonmqtRQGh70X7SN100ejG3H7yBkccgLahyy17X7fsaftYF36CMv8MMwY5Uv/5sOh
-	nkkPN4cul5Rg2feuC3AwJXZ7c4f6HUAP0zTCn+Lzxf+RsOfaeoapqlaBvoeNcAYUNMGaIDwJr/+
-	asqQjglx8MpD3SFzeZKtLuZfYDOJgDX1nobZEY8LNPM//qPzGLoslIralZ568C7su+haSjUeZvY
-	eKRt3Bn00DKLr+PS2v11+gTC+rf2ipDhMX/Ll9gf8i/qPQaL3YSsBJl7k6zmRxa7wFVw9BnNDbo
-	sR1BB9sFTV73Dqc5BMbwdU7Oy3geCsWPxNLtI88tu59hYZOXnwbWpCCKA/OeUOjw==
-X-Received: by 2002:a05:651c:41d5:b0:38f:e2ad:e975 with SMTP id 38308e7fff4ca-39561c0d38amr51094441fa.14.1779135787577;
-        Mon, 18 May 2026 13:23:07 -0700 (PDT)
+        bh=tLtvCiHLhOODkbTb6ldPXwhZ1lgl9LVuxx7kGug/QYY=;
+        b=eWANc/KVVsTRCvJI5ZIW+1+QCNQz4ZZZZvZhba0WzZgClBccAD1KlYaJOgD0+Y6Bco
+         shD9TqVglRsd1ryYcjzDz4o5EOtE36uMc86yAzxqSuGdXzpgfMo8fHFmTJv7fP7JZFT7
+         HfFe0MIOH+15L6GRzYrM6wz1eZibaSz8hzINAoKObzMaymmFFtCsmO31R0jnROp6yrbx
+         u43B349yoVqHb+jhG8I9RcY6LNOIqEolt2LyA3emyqufJTr9pvg42KVutsE3ZpGgIXwa
+         L9Nvaa0j2YuQlqlUgPydp1SwDNiRKkrAj/QvMfF6uoxSunjrphTOcBcinkXgxix6kJhE
+         fhsw==
+X-Forwarded-Encrypted: i=1; AFNElJ/0Nlxe2wGbDLF7f3oZHYPFBAzID6hf2Bo457XTNtgN7QMKajAt6eXAfeF28sTm8wJGF1GQfU5hG9OE@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxv9aTXF/hYSmDy0/tWNkn/G8HiSg9kc3hThvZUMiqyMYqhAcXa
+	csOnSQGomacaxzFIOnmHkpcpQLHe9deIHzPBZa6WNzHIP6r9x86fZJxU
+X-Gm-Gg: Acq92OFtfs290pHjZvdCwQFouUO3BguSXcaPdeIm6080E3gYQjOLaohu/hq/NtUoDHs
+	dChr2Xx2Fe+1yfwYEcllxx343pKpp6zrcocuh3HIOvsy+fsS4wapoQCAhK+e4ZV12l3XdW+VXsZ
+	unVZRg/BL1cfOZGiM8vp3Y0gXYYBGke3W7Kyr/neAbGXZwl4lQoBGjky1Gwih/TqjSN8u7Znxdm
+	f4UbFpSBx62iSZ8BcgvfGMo4jUl6di/Zw8A993r8ZuWVmUpTlRF8Cyl4fJ5Rf0RnLdgetno6Pg2
+	A2XSorj9YDuG8gPJ0qNNLTWik+K5S/TUbmQossm5qTvV1XdyfpZyTo+Jpi9EMdPN+sN6K2wSrOV
+	vk46ODttrcpglgYPVtGxEiyzYejq6FcXpyE+uWxnqyGOofGsVSexY+3isFaYR/HtsXL4U+9vnDe
+	gIeyiuBed286ziIFVQ9TrBvpNLBAcxsGDy2zyv9jb1QBWMGHkds+4=
+X-Received: by 2002:a2e:a995:0:b0:393:a4f5:3e0f with SMTP id 38308e7fff4ca-39561ae1a22mr51690241fa.2.1779135789949;
+        Mon, 18 May 2026 13:23:09 -0700 (PDT)
 Received: from localhost.localdomain ([90.157.113.57])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887b42f8sm15225061fa.36.2026.05.18.13.23.05
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887b42f8sm15225061fa.36.2026.05.18.13.23.07
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 18 May 2026 13:23:06 -0700 (PDT)
+        Mon, 18 May 2026 13:23:08 -0700 (PDT)
 From: taygoth <taygoth@gmail.com>
 To: linux-arm-msm@vger.kernel.org,
 	linux-usb@vger.kernel.org,
@@ -75,9 +75,9 @@ Cc: Mark Brown <broonie@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
 	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Casey Connolly <casey.connolly@linaro.org>
-Subject: [PATCH 3/6] usb: typec: add Qualcomm PMI8998 role-switch driver
-Date: Tue, 19 May 2026 01:22:48 +0500
-Message-ID: <6fedbcd344505b63de72037f69ea94f916255f03.1779127507.git.taygoth@gmail.com>
+Subject: [PATCH 4/6] arm64: dts: qcom: pmi8998: add USB Type-C and VBUS regulator nodes
+Date: Tue, 19 May 2026 01:22:49 +0500
+Message-ID: <10efd57e82ebceedb75dbe3e038af81de4f1557c.1779127507.git.taygoth@gmail.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <cover.1779127507.git.taygoth@gmail.com>
 References: <cover.1779127507.git.taygoth@gmail.com>
@@ -89,295 +89,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Qualcomm PMI8998 PMIC integrates a USB Type-C detection block in
-its SMB2 charger USBIN region at offset 0x1300. The block performs CC
-sensing, debounce and Rp/Rd resolution in silicon and reports role
-changes through a single consolidated "type-c-change" interrupt.
+The PMI8998 PMIC includes a USB Type-C detection block at SPMI offset
+0x1300 and a USB OTG VBUS boost converter at offset 0x1100. Both are
+left disabled here so that only boards which wire up the connector and
+USB role-switch enable them.
 
-This driver reads TYPE_C_STATUS_4 on probe and on every interrupt,
-decodes the hardware-detected role (host / device / none) and pushes
-it to a usb_role_switch consumer (typically dwc3) so the controller
-can flip between peripheral and host on cable orientation change. An
-optional VBUS supply regulator is toggled on USB_ROLE_HOST transitions
-so bus-powered downstream peripherals can be powered.
-
-No software TCPM state machine is used because the hardware handles
-the Type-C protocol natively, and the PMI8998 interrupt topology does
-not expose the granular per-event signals the TCPM code path expects.
-Power Delivery is not implemented in this driver; the PMI8998 PDPHY
-block at offset 0x1700 (register-identical to PM8150B) can be wired
-up by a separate driver later if PD negotiation is required.
-
-This enables USB host mode on the OnePlus 6 (enchilada), OnePlus 6T
-(fajita), Xiaomi Poco F1 (beryllium), SHIFT 6mq (axolotl) and other
-SDM845-based phones that use the PMI8998 as their second PMIC.
+The VBUS regulator falls back to the qcom,pm8150b-vbus-reg compatible
+because the OTG register layout (CMD_OTG, OTG_CFG, OTG_CURRENT_LIMIT)
+is identical to the PM8150B SMB5 block.
 
 Signed-off-by: taygoth <taygoth@gmail.com>
 ---
- drivers/usb/typec/Kconfig              |  17 ++
- drivers/usb/typec/Makefile             |   1 +
- drivers/usb/typec/qcom_pmi8998_typec.c | 213 +++++++++++++++++++++++++
- 3 files changed, 231 insertions(+)
- create mode 100644 drivers/usb/typec/qcom_pmi8998_typec.c
+ arch/arm64/boot/dts/qcom/pmi8998.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/usb/typec/Kconfig b/drivers/usb/typec/Kconfig
-index 2f80c2792dbd..1912ca3f6e0a 100644
---- a/drivers/usb/typec/Kconfig
-+++ b/drivers/usb/typec/Kconfig
-@@ -100,6 +100,23 @@ config TYPEC_STUSB160X
- 	  If you choose to build this driver as a dynamically linked module, the
- 	  module will be called stusb160x.ko.
+diff --git a/arch/arm64/boot/dts/qcom/pmi8998.dtsi b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
+index cd3f0790fd42..08a5f58c9b85 100644
+--- a/arch/arm64/boot/dts/qcom/pmi8998.dtsi
++++ b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
+@@ -29,6 +29,25 @@ pmi8998_charger: charger@1000 {
+ 			status = "disabled";
+ 		};
  
-+config TYPEC_QCOM_PMI8998
-+	tristate "Qualcomm PMI8998 USB Type-C role-switch driver"
-+	depends on ARCH_QCOM || COMPILE_TEST
-+	depends on SPMI
-+	select USB_ROLE_SWITCH
-+	help
-+	  Say Y or M here to enable the role-switch driver for the USB
-+	  Type-C detection block integrated in the Qualcomm PMI8998 PMIC.
-+	  This is the part used on SDM845 phones such as the OnePlus 6/6T,
-+	  Xiaomi Poco F1 and SHIFT 6mq. The driver reports the
-+	  hardware-detected role through the USB role switch class so the
-+	  USB DRD controller (e.g. dwc3) can flip between peripheral and
-+	  host on cable orientation change.
++		pmi8998_vbus: vbus-reg@1100 {
++			compatible = "qcom,pmi8998-vbus-reg",
++				     "qcom,pm8150b-vbus-reg";
++			reg = <0x1100>;
++			status = "disabled";
++		};
 +
-+	  If you choose to build this driver as a dynamically linked module,
-+	  the module will be called qcom_pmi8998_typec.ko.
++		pmi8998_typec: typec@1300 {
++			compatible = "qcom,pmi8998-typec";
++			reg = <0x1300>;
 +
- config TYPEC_WUSB3801
- 	tristate "Willsemi WUSB3801 Type-C port controller driver"
- 	depends on I2C
-diff --git a/drivers/usb/typec/Makefile b/drivers/usb/typec/Makefile
-index 8a6a1c663eb6..568f8ee68c9d 100644
---- a/drivers/usb/typec/Makefile
-+++ b/drivers/usb/typec/Makefile
-@@ -10,5 +10,6 @@ obj-$(CONFIG_TYPEC_ANX7411)	+= anx7411.o
- obj-$(CONFIG_TYPEC_HD3SS3220)	+= hd3ss3220.o
- obj-$(CONFIG_TYPEC_STUSB160X) 	+= stusb160x.o
- obj-$(CONFIG_TYPEC_RT1719)	+= rt1719.o
-+obj-$(CONFIG_TYPEC_QCOM_PMI8998)	+= qcom_pmi8998_typec.o
- obj-$(CONFIG_TYPEC_WUSB3801)	+= wusb3801.o
- obj-$(CONFIG_TYPEC)		+= mux/
-diff --git a/drivers/usb/typec/qcom_pmi8998_typec.c b/drivers/usb/typec/qcom_pmi8998_typec.c
-new file mode 100644
-index 000000000000..77662b4f1b0c
---- /dev/null
-+++ b/drivers/usb/typec/qcom_pmi8998_typec.c
-@@ -0,0 +1,213 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Qualcomm PMI8998 USB Type-C role-switch driver.
-+ *
-+ * The PMI8998 PMIC integrates a USB Type-C detection block inside its
-+ * SMB2 charger USBIN region at offset 0x1300. The block performs CC
-+ * sensing, debounce and Rp/Rd resolution in hardware, then reports the
-+ * negotiated role via TYPE_C_STATUS_4 and a single consolidated
-+ * "type-c-change" interrupt.
-+ *
-+ * This driver translates the hardware-decided role into a
-+ * usb_role_switch_set_role() call so the USB DRD controller (typically
-+ * dwc3) can flip between peripheral and host. An optional VBUS supply
-+ * regulator is enabled on USB_ROLE_HOST transitions so bus-powered
-+ * peripherals can be powered.
-+ *
-+ * No software TCPM state machine is needed because the hardware handles
-+ * the Type-C protocol natively. Power Delivery is not supported by this
-+ * driver; the PMI8998 PDPHY block at offset 0x1700 (identical register
-+ * layout to PM8150B) can be wired up separately by an additional driver
-+ * if PD negotiation is required.
-+ *
-+ * Copyright (c) 2026 Maxim Furman <taygoth@gmail.com>
-+ */
++			interrupts = <0x2 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
++			interrupt-names = "type-c-change";
 +
-+#include <linux/bits.h>
-+#include <linux/err.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/usb/role.h>
++			vdd-vbus-supply = <&pmi8998_vbus>;
 +
-+#define TYPE_C_STATUS_1_REG			0x0b
-+#define   UFP_TYPEC_RDSTD				BIT(7)
-+#define   UFP_TYPEC_RD1P5				BIT(6)
-+#define   UFP_TYPEC_RD3P0				BIT(5)
++			status = "disabled";
++		};
 +
-+#define TYPE_C_STATUS_2_REG			0x0c
-+#define   DFP_RD_OPEN					BIT(3)
-+#define   DFP_RD_RA_VCONN				BIT(2)
-+#define   DFP_RD_RD					BIT(1)
-+#define   DFP_RA_RA					BIT(0)
-+
-+#define TYPE_C_STATUS_4_REG			0x0e
-+#define   UFP_DFP_MODE_STATUS				BIT(7)
-+#define   TYPEC_VBUS_STATUS				BIT(6)
-+#define   TYPEC_VBUS_ERROR_STATUS			BIT(5)
-+#define   TYPEC_DEBOUNCE_DONE_STATUS			BIT(4)
-+#define   CC_ORIENTATION				BIT(1)
-+#define   CC_ATTACHED					BIT(0)
-+
-+#define TYPE_C_STATUS_5_REG			0x0f
-+
-+#define TYPE_C_INTRPT_ENB_REG			0x67
-+#define TYPE_C_INTRPT_ENB_SW_CTRL_REG		0x68
-+
-+struct pmi8998_typec {
-+	struct device		*dev;
-+	struct regmap		*regmap;
-+	u32			base;
-+	int			irq;
-+	struct usb_role_switch	*role_sw;
-+	struct regulator	*vbus;
-+	bool			vbus_enabled;
-+	enum usb_role		role;
-+};
-+
-+static enum usb_role pmi8998_typec_decode(unsigned int status)
-+{
-+	if (!(status & CC_ATTACHED))
-+		return USB_ROLE_NONE;
-+	if (!(status & TYPEC_DEBOUNCE_DONE_STATUS))
-+		return USB_ROLE_NONE;
-+
-+	return (status & UFP_DFP_MODE_STATUS) ? USB_ROLE_HOST : USB_ROLE_DEVICE;
-+}
-+
-+static int pmi8998_typec_apply(struct pmi8998_typec *typec)
-+{
-+	unsigned int status;
-+	enum usb_role role;
-+	int ret;
-+
-+	ret = regmap_read(typec->regmap,
-+			  typec->base + TYPE_C_STATUS_4_REG, &status);
-+	if (ret)
-+		return ret;
-+
-+	role = pmi8998_typec_decode(status);
-+	if (role == typec->role)
-+		return 0;
-+
-+	if (typec->vbus) {
-+		bool want_vbus = (role == USB_ROLE_HOST);
-+
-+		if (want_vbus && !typec->vbus_enabled) {
-+			ret = regulator_enable(typec->vbus);
-+			if (ret)
-+				return ret;
-+			typec->vbus_enabled = true;
-+		} else if (!want_vbus && typec->vbus_enabled) {
-+			regulator_disable(typec->vbus);
-+			typec->vbus_enabled = false;
-+		}
-+	}
-+
-+	ret = usb_role_switch_set_role(typec->role_sw, role);
-+	if (ret)
-+		return ret;
-+
-+	typec->role = role;
-+	return 0;
-+}
-+
-+static irqreturn_t pmi8998_typec_isr(int irq, void *data)
-+{
-+	pmi8998_typec_apply(data);
-+	return IRQ_HANDLED;
-+}
-+
-+static int pmi8998_typec_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct fwnode_handle *connector;
-+	struct pmi8998_typec *typec;
-+	int ret;
-+
-+	typec = devm_kzalloc(dev, sizeof(*typec), GFP_KERNEL);
-+	if (!typec)
-+		return -ENOMEM;
-+
-+	typec->dev = dev;
-+	typec->role = USB_ROLE_NONE;
-+
-+	typec->regmap = dev_get_regmap(dev->parent, NULL);
-+	if (!typec->regmap)
-+		return -ENODEV;
-+
-+	ret = of_property_read_u32_index(dev->of_node, "reg", 0, &typec->base);
-+	if (ret)
-+		return ret;
-+
-+	typec->irq = platform_get_irq_byname(pdev, "type-c-change");
-+	if (typec->irq < 0)
-+		return typec->irq;
-+
-+	connector = device_get_named_child_node(dev, "connector");
-+	if (!connector)
-+		return -EINVAL;
-+
-+	typec->role_sw = fwnode_usb_role_switch_get(connector);
-+	fwnode_handle_put(connector);
-+	if (IS_ERR(typec->role_sw))
-+		return PTR_ERR(typec->role_sw);
-+
-+	typec->vbus = devm_regulator_get_optional(dev, "vdd-vbus");
-+	if (IS_ERR(typec->vbus)) {
-+		if (PTR_ERR(typec->vbus) != -ENODEV) {
-+			ret = PTR_ERR(typec->vbus);
-+			goto err_role_put;
-+		}
-+		typec->vbus = NULL;
-+	}
-+
-+	platform_set_drvdata(pdev, typec);
-+
-+	pmi8998_typec_apply(typec);
-+
-+	ret = devm_request_threaded_irq(dev, typec->irq, NULL,
-+					pmi8998_typec_isr, IRQF_ONESHOT,
-+					dev_name(dev), typec);
-+	if (ret)
-+		goto err_role_put;
-+
-+	return 0;
-+
-+err_role_put:
-+	usb_role_switch_put(typec->role_sw);
-+	return ret;
-+}
-+
-+static void pmi8998_typec_remove(struct platform_device *pdev)
-+{
-+	struct pmi8998_typec *typec = platform_get_drvdata(pdev);
-+
-+	if (typec->vbus_enabled)
-+		regulator_disable(typec->vbus);
-+	usb_role_switch_put(typec->role_sw);
-+}
-+
-+static const struct of_device_id pmi8998_typec_of_match[] = {
-+	{ .compatible = "qcom,pmi8998-typec" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, pmi8998_typec_of_match);
-+
-+static struct platform_driver pmi8998_typec_driver = {
-+	.probe		= pmi8998_typec_probe,
-+	.remove		= pmi8998_typec_remove,
-+	.driver		= {
-+		.name		= "qcom-pmi8998-typec",
-+		.of_match_table	= pmi8998_typec_of_match,
-+	},
-+};
-+module_platform_driver(pmi8998_typec_driver);
-+
-+MODULE_AUTHOR("Maxim Furman <taygoth@gmail.com>");
-+MODULE_DESCRIPTION("Qualcomm PMI8998 USB Type-C role-switch driver");
-+MODULE_LICENSE("GPL");
+ 		pmi8998_gpios: gpio@c000 {
+ 			compatible = "qcom,pmi8998-gpio", "qcom,spmi-gpio";
+ 			reg = <0xc000>;
 -- 
 2.47.3
 
