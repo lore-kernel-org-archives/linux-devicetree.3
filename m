@@ -1,91 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1909E21D3F5
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47E031F9B8
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779099087; cv=none; b=Smn1c5t/HWQiBv6jwEW0AsHro0QcX2lWSF45h1MvQpdbowUpGVfFrrbuaF3SNXOY0KXFXsM3/Kb25YSRkRgAM/UoG4vG1JZMqeApdlr6iR5hhLXt56al6Hc/ZiXohjSL3nke1e7hmMJ7q3NAG+wXze77way7jJ/v/dwqZclLoII=
+	t=1779099168; cv=none; b=PZH1BRHsJUQp4ac5W6nmvzUwOem8meS74LtLLdO2KvYQC8zmzy3ArXj+ndbU3VZs03uc16IFi+6sswv/Fqn9NLd8hEp2yc+qgVOaPPrhOVKxEzBlISpRyExy9fLLu4tEEVZcpSi02mi7blupRe3v3Lcbsjrjv4/QTKnbfnIuasw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779099087; c=relaxed/simple;
-	bh=wXp/pi0UemY6FL7MEwawj4eAwtF0F7HfcbCne0WxMBE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cESVJDhLIa3K13xlv7dE+HV3Jd5twIEGR5Jsmp5IDRhY/zemyk0TRHN5HWRqx1pE1xVq3KgWBCxurENXIsrM+/2LGl6PWi6RhwpPelIDniPwsZ3AoLxyWjp752P/KIl53Vb9mhldwJOQdGDgYZa2NEiRpmBul19SahgnIP1UvPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bHxGxDFj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779099168; c=relaxed/simple;
+	bh=HHoyvLjypv/XHA9Vamy+kGhoQHPAMAXQNoJk5ifA7rw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lyTXpuTX0iNlWvTMUnsEjkVLYBkSAmrc/l5Soupdq3Ctz59LZBZiD2HjO8PFKN3dtLVNoSjODvb/1AnG+AfFWVWDX6S0X4xJrQgI9i8GqHJp8wVOfTwjyt9hq51RG3YLvNbRaGk0l+Gt9NX5ErgYTZrzNPv6IUUZooJyETr03LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XGW3Momc; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bHxGxDFj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAEFDC2BCB7;
-	Mon, 18 May 2026 10:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779099087;
-	bh=wXp/pi0UemY6FL7MEwawj4eAwtF0F7HfcbCne0WxMBE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=bHxGxDFjsgC+fextruUVxsXTIj18IJ1WTB2lMNI4inURTDb/Gt4ouVflC12L0zF3n
-	 /5YnK+bF2k/NyZR0wFNL2R6xb3Hh8HQkis08hyLl1H6uDotEorWuoEt+R0YDsdFdaY
-	 E9runUn/NXnmFtiGVUjyd3d2G12tbcUKGGaM/gIurRjXvhkXRs9NWv9q2PYCmuWEja
-	 987DgKwkKUkk6RQbzwc/i4sjJxNM0MIic+NQXT8lkTwgkYyLfy2fZcgHUAjm43vR/N
-	 DLXo0DZT5m+Pz7vxSaxa95jR7HWBvS4iEGJJOAo6IbY4Ag9yim4GhBxXuHor4/JZpN
-	 aKX59dSbNPUnA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: hamoa: Fix clocks for HSPHYs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518-topic-hamoa_hsphy_clk-v1-1-d85203756505@oss.qualcomm.com>
-References: <20260518-topic-hamoa_hsphy_clk-v1-1-d85203756505@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XGW3Momc"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-48e56c1bf5dso9363265e9.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:12:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779099165; x=1779703965; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=HHoyvLjypv/XHA9Vamy+kGhoQHPAMAXQNoJk5ifA7rw=;
+        b=XGW3MomcCtdg7MJ+0mt6yQJ42iRh6PrKOYuzbXetOhCC4z0HZnEBTQIa6kPj0blt2m
+         WXF441/WlwwUIq/gsW5gzZdnZX9xHihxSYZb7pJmhlMaejn5Ky8zRKhHxcn6ysq13ET+
+         vOaj1SaxD6kyXei8Tm0gaybNDzfSZt2wAStVu8j1jda/ILiKc/WfBLZOm/UXEUsXX07n
+         /jUpnx7gwCTpv+EwSdheHnbTirQleRq8IrBFxGxAPQ0QKJqSVl9VrxTAdDlFgZ3bbRsB
+         vT2syiijYGrvZFTY1msGVeFCnNCGWErRN3J30xnhoa9i3N4lAEK+o5vH5fuOFmNnllCk
+         Nucg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779099165; x=1779703965;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HHoyvLjypv/XHA9Vamy+kGhoQHPAMAXQNoJk5ifA7rw=;
+        b=fe5ogyhZZtQrs9AbxgfUQbqTPcSVhg/IWq+mxB5YQZyk3HArGgQWQHfU1CWOvexex7
+         B9Pt3+/4koDNz4q4GwEBzx80vvq8UiT41dBlnkKkM2incRT+xQGvAQDIcJjgcF0GMJXg
+         77glXkLYlkjdHi0mQ2983UJfI3CvHu3RVF8uIaF1Q+1hX/PR9OQrsOKLkToz/zxwfd5R
+         i0WD7THpFgeDNkA9o0R5eHKIPhwvukfj/VwtTmlsxtPiKyuX12Gngh6Qx7ap3wzkYqYf
+         rT/eUW5qpGBLG1E7B7A7EFxzMkUJQOUSOvdzWc7z7pCjOqk/uu+CXkO5D7aUX4m3UESK
+         FJ2g==
+X-Forwarded-Encrypted: i=1; AFNElJ+sTGQGBt1pH+KoFDocYiVSNUBZL24WiPJ/HAcM7T9chNiesTdPAdsFdYYVAW4QnGPfim1Yc5VOrpLK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdEzeEE67RogBBvERSQJkhEP/Gd+MJGQilyjDf02opLwwUn4US
+	lHbeqq3DEHr4OA/xF+cN9VpIzXvZG5/fEqCGC/ZiiYYz4BDjn+6j34ca
+X-Gm-Gg: Acq92OGjQNcIcgTaZSbfESvbInNCE6gqvsDz7eIdzWtBdWU3QODfj+oFnOi9In1J//z
+	M2B/C+FNhNwYFlOchbT3tJeMzBKMs1LdMHqprK9mrOyoGuY+N6GxCS09P7Ol26b/Gze+Ms8oq4m
+	0mSBrumrpYam0eNDCprKXd/NqlMqnc68P/l8IMxo+dpwxByd+EOwCDENH1BdfctkQ8dAM/1oW0d
+	e5LoGmoPZAX7VEh0HdLNmLjrN87qPqIdXhokP9iOB4up7xt/7NnN1hUSY5oAH413qcnQTILvECV
+	MdEJtpthSw9SbLfmFoOuyVP31zLjg0H1eczh5KSYHTAoiOXUrsXNnZwFAL59URqju9v9MXvW+zl
+	wxsIPaUwpk5gAiQxjkWiOb9Lp0xhZ8V/+yI+QrW9WSlLKXKPvd/fW0veFVrpEI5yPHePMmZOQfe
+	vZaJDpDHFe95mYSpuWWFSsK2eZpcwmyGPB943jnmhTRCmvxNdOb7I+v12y47MIHvPVbBEVlU4tH
+	2E=
+X-Received: by 2002:a05:600c:1d99:b0:488:c078:bfda with SMTP id 5b1f17b1804b1-48fe631389bmr204052725e9.26.1779099164795;
+        Mon, 18 May 2026 03:12:44 -0700 (PDT)
+Received: from giga-mm-11.home (72.92.4.85.dynamic.cust.swisscom.net. [85.4.92.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5ab52a6sm242649805e9.10.2026.05.18.03.12.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 03:12:44 -0700 (PDT)
+Message-ID: <58e882977f7b4297e67d785467ec681c43ce3606.camel@gmail.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
+ Baijie Helper A133 board
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+To: wens@kernel.org
+Cc: Andre Przywara <andre.przywara@arm.com>, linux-sunxi@lists.linux.dev, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,  Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 18 May 2026 12:12:43 +0200
+In-Reply-To: <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+	 <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
+	 <2306dd3c-6362-40ee-8d9f-77f89be3a502@arm.com>
+	 <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
+	 <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 10:11:26 +0000
-Message-Id: <20260518101126.CAEFDC2BCB7@smtp.kernel.org>
+User-Agent: Evolution 3.60.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch assigns the `TCSR_USB2_2_CLKREF_EN` clock to `usb_1_ss=
-2_hsphy` (the tertiary controller's PHY). However, `usb_2_hsphy` (a separat=
-e PHY at 0x088e0000) is already assigned this exact same clock reference. T=
-his creates a hardware description conflict where two distinct PHYs share a=
- single toggle, contradicting the commit message's claim that the tertiary =
-PHY has its "own toggle".
---
+Hi Checn-Yu,
 
-commit 91799d7f574ab3aadbfd7f8695e82875347063f5
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+thanks for the review!
 
-arm64: dts: qcom: hamoa: Fix clocks for HSPHYs
+On Mon, 2026-05-18 at 11:30 +0800, Chen-Yu Tsai wrote:
+> > > And you should provide a top level 5V regulator here, to be the root =
+of
+> > > the regulator tree. Look at reg_vcc5v in the Liontron .dts.
+> >=20
+> > It doesn't look to me as if Liontron had reg_vcc5v as its 5V "root" reg=
+ulator.
+> > It seems to be only used for reg_usb1_vbus, while HelperBoard A133 does=
+n't
+> > have USB power control. The second issue with Helper/Core split is that
+> > all PMIC story is inside Core board which has 5V input rail, while Help=
+erBoard
+> > around it has indeed 12V->5V DCDC regulator (similar to Liontron), but
+> > putting it in the DT would introduce wierd dependency of the core to th=
+e
+> > HelperBoard which carries it. Do you think it would make sense?
+>=20
+> In that case I would probably put a 5v "fake root" regulator in the core
+> dtsi. And in combined dts, I'd then add the 12v "real root", and use that
+> as the supply for the 5v fake root.
+>=20
+> Does that make sense?
 
-This commit updates the clock references for the primary and tertiary HSPHYs
-on hamoa. The primary PHY is wired directly to the XO clock, and the
-tertiary PHY is updated to use TCSR_USB2_2_CLKREF_EN.
-
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qc=
-om/hamoa.dtsi
-> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-[ ... ]
-> @@ -3010,7 +3010,7 @@ usb_1_ss2_hsphy: phy@fde000 {
->  			reg =3D <0 0x00fde000 0 0x154>;
->  			#phy-cells =3D <0>;
-> =20
-> -			clocks =3D <&tcsr TCSR_USB2_1_CLKREF_EN>;
-> +			clocks =3D <&tcsr TCSR_USB2_2_CLKREF_EN>;
-
-The commit message notes the tertiary PHY has its "own toggle", but does
-assigning TCSR_USB2_2_CLKREF_EN here result in two PHYs sharing a toggle?
-
-It appears that usb_2_hsphy (located at 0x088e0000) is already assigned this
-exact same clock reference. If both usb_1_ss2_hsphy and usb_2_hsphy share
-TCSR_USB2_2_CLKREF_EN in the device tree, does usb_2_hsphy also need its
-clock assignment updated to correctly model the hardware?
-
->  			clock-names =3D "ref";
-> =20
->  			resets =3D <&gcc GCC_QUSB2PHY_TERT_BCR>;
+"core" board has some battery management schematics, switching the 5V,
+I'll look into specifying this part in "core" .dtsi, maybe it will result
+in some kind of regulator in "core" part. I'll send v4.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-topic-hamo=
-a_hsphy_clk-v1-1-d85203756505@oss.qualcomm.com?part=3D1
+Alexander Sverdlin.
