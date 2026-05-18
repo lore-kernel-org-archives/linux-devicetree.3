@@ -1,139 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CE3396573
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0C83822BE;
+	Mon, 18 May 2026 20:58:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779137901; cv=none; b=qRoOPGFruQlt0IL3Ky/UlX5tPV6/nPZnEru8VmPg+pJjX6kuxvIdQAjjUL4zEpq4pLmquvQXyKG1L1L8mhIqyip6ai/9P5D3i8dJWJ9UzIFGxnL+29bx2amN4hLpcjRAnZi4NOeYGIKxfhx1U8n+89Suy9+MFT3kyXixr+WRR1M=
+	t=1779137905; cv=none; b=kN2fDSgThgAlOwKUnI4tEL2UyJcNWAXaQKLcuDKg7CS1Ur5GT5yrttXVLyWmWdXy1hF82CHtwZ+zqqY7DCS59CAI3zUjNEGqqpcBYOP+5YjW6IiqqVq3Kf/MWLVdy31ei6aErA/TuWiOQtcq8VWNU9tNh1pKhy+2iCCNxtddUzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779137901; c=relaxed/simple;
-	bh=qArf86A+F+FiTL3URgZ2brdXqvgo2QuVMUNnoXQwmus=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mg7p9dBkr5VOTVgiHgQgU6/aLwrqUjR1eBCnlLJwsSYfsKi/gc7XQqqM0d84py67I8wdHodkNScjrHBLAeV5b1QX3pB/X994IE+l/y8EHV8j03O/pt536TYQh+BDwNqI2I/z9tb5DfqXind5CmlZwnC2rn7flP9fylc/VCHo+4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAxR1LhY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779137905; c=relaxed/simple;
+	bh=i8rjaRkxopw8OlF0S2A6bM63Z9+AhhS7gHX5DH8OmKE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oh5LWPsxaw7IYubJLZiYS3vCZNSvxq7cWZO/fk6M04xbjdMFEKkCqN2LrWNlvAR6rUzqfjc3Teh8W5dIQqBG9x7PqxkO1hFKl4rgBK/h9+G1uKkgVzjf92PJB9bQbZnP4h/Cv3d6W0YNHmWJx8zbGuMZ72o579J2agAENzyRnJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rU/h+E4d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAxR1LhY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49435C2BCB7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rU/h+E4d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182E3C2BCC6;
 	Mon, 18 May 2026 20:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779137901;
-	bh=qArf86A+F+FiTL3URgZ2brdXqvgo2QuVMUNnoXQwmus=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=aAxR1LhYvRV/S4Phr00BDKfy/F3yudJUh75crW5e/0JUjsLUKR3AFeibldFPfqEFB
-	 lfWoQwQcNwF4agV/VIgG+va1sxEc/p0kNrMu+tcnugFdkYkoHhYxSMYX3mvZnn/tSm
-	 DPpGadflQUwhFF84HdwZAnX5Rq4oSaY5P/P7wZL5Bj3Wkf/k1ApHgRkHPy+ABgyayc
-	 8PJ4hBXsfNwVTOobLUaAoS1PQ0K2QzqCg9YEKY2Pdz+7zSnnVOl9uxxg2l9jtEiq5X
-	 INsJFPiLGOFe84zyiFjupP00dhaDS587uIRi+LQHw9Fczrxp42CvrZH1KviU5U4hS+
-	 T6NxyvyCQdUDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/6] usb: typec: add Qualcomm PMI8998 role-switch driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: taygoth <taygoth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <6fedbcd344505b63de72037f69ea94f916255f03.1779127507.git.taygoth@gmail.com>
-References: <6fedbcd344505b63de72037f69ea94f916255f03.1779127507.git.taygoth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 20:58:20 +0000
-Message-Id: <20260518205821.49435C2BCB7@smtp.kernel.org>
+	s=k20201202; t=1779137904;
+	bh=i8rjaRkxopw8OlF0S2A6bM63Z9+AhhS7gHX5DH8OmKE=;
+	h=From:Date:Subject:To:Cc:From;
+	b=rU/h+E4dh0AdXeFgtVktati3S+YTYqhWKFEnvMd+ft72tUvf6BlIgdPpvVa/0Xk9I
+	 /CK1OwsLdiXQ5+Lx8pX5qQJ8+jxxhpjrcY+xB0kN4L00v0QNRZhjbxuOXFhhFjzdeY
+	 xrM2OUtdQoKml781VKun8tTTl+i8nlZFYcwm0PuAtbAG7iRWXjlKxgoBf3++o2cf7M
+	 myFNQOOMwf9ax4WNEK0R3K4Dwxwr6q+y5vpiRLrkMyBvO+i0U4Z5J7oGyyjO9NfHEW
+	 a9IwG3ojWkSRMm0+8IMq7EN9NyTJFuY+fDX6pteSKb5Us4V3gs0Nt3oL1xhl/fu8cR
+	 6FhjVXw05NNJw==
+From: Yixun Lan <dlan@kernel.org>
+Date: Mon, 18 May 2026 20:58:16 +0000
+Subject: [PATCH] dts: riscv: spacemit: k3: Fix I/O power settings
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260518-07-dts-pinctrl-io-power-v1-1-abe19c14a726@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAGd9C2oC/yXMTQ6CMBBA4auQWTtJC6LoVYgL2w46xrTNTP1JC
+ He34PJbvDeDkjApnJsZhN6snGKF3TXg79d4I+RQDa1pD6a3A5ojhqKYOfoiT+SEOX1I0LrQdW6
+ ifjjtodZZaOLvdh4vf+vLPciXdQfL8gP15NuoewAAAA==
+X-Change-ID: 20260518-07-dts-pinctrl-io-power-1bd33bfe5894
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: Inochi Amaoto <inochiama@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1627; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=i8rjaRkxopw8OlF0S2A6bM63Z9+AhhS7gHX5DH8OmKE=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqC31qYwQytJjsLBLJBfc0/6szLw4gCToBXYwaW
+ g7gbAcDvQWJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCagt9ahsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+01fg/9FSqJUEIvu4++shC1RVOfuefElopiNxTv0NbykiV57GNmsOY4TqNBw
+ ju5dnVyCPtcGashsbtiiaK74a3jhccrPbk2hBaR2UmTI1p38UVKLv9pO4PZ3BhcpTjXGRp+CvJH
+ C56dJm3NASSBBes/PGH86d/R6KXRD6vgLtpDHoLurHRlk2apgklJYE2VsUT/ovU87w2gVRpalqv
+ n0SK1J5pglbY/lGDkZRa5JhehAU9CQwcSzcjvCBGG3cO/WWwd31w/GH7bgROImRmep+G6OA6+vG
+ cOeAFheTEmqFaDvJD5JX8AIiAqarf+m87mzocbpByxwGzaSpnzoMZvSsu6zIIhbCEuxCrkJ29e/
+ yP3RExGnAjf2vukK7/cj6loKvE7Gw3WKS/GB+ME+DlUJG67bTQRttpyTp6jcIjt+wG7RAZMxRwF
+ a9hdRSMEDHWbPgzGdaL8rCp72RjQE08aGgMBIKhIy/NrRZKJZL4IwvtqTVlMfiQ+hS2cXDMWkVJ
+ lN4mQWyZnPwdILVfHVovrpBbWMCkFEHk+dKP75LXb23nYBpxQc4IMnUHWCKrlCGlXi7S2xghnoj
+ pX9UObDowwa1iPNnE9wgIlGCL98zr14d8cprlY7mdhgVKx8oxS/Kp023bt7sdhWXJuQQVHastAk
+ ZsvwsyxhDEi2GV7M4P36PUo0ezBUWE=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Race condition and Use-After-Free during driver removal due to mix=
-ed devm and manual cleanup.
-- [Medium] VBUS regulator enable count leak on probe error path.
-- [Medium] Silently ignored return value of hardware initialization in prob=
-e().
---
+SpacemiT K3 SoC support dual-voltage I/O power domain, while initially
+configure to 3.3v, and need to access register from APBC space to switch
+to 1.8v domain.
 
-commit 2be57d2a22cd876c2f33d5adcda09af34cd9c497
-Author: taygoth <taygoth@gmail.com>
+Fix the GMAC0's I/O pins 1.8v switch failure that will result a broken
+ethernet driver.
 
-usb: typec: add Qualcomm PMI8998 role-switch driver
+Fixes: d8944577496b ("riscv: dts: spacemit: k3: add pinctrl support")
+Reported-by: Han Gao <gaohan@iscas.ac.cn>
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+This issue is reported by Han while booting kernel from UFS storage, and
+found the ethernet driver is broken, we can see the message as below:
 
-This commit introduces a new USB Type-C role-switch driver for the Qualcomm
-PMI8998 PMIC. It translates the hardware-detected role into a consumer
-switch state, and enables an optional VBUS supply regulator when acting as
-a USB host.
+ [    1.635881] mdio_bus stmmac-0: MDIO device at address 1 is missing.
 
-> diff --git a/drivers/usb/typec/qcom_pmi8998_typec.c b/drivers/usb/typec/q=
-com_pmi8998_typec.c
-> new file mode 100644
-> index 0000000000000..77662b4f1b0c6
-> --- /dev/null
-> +++ b/drivers/usb/typec/qcom_pmi8998_typec.c
+This problem is caused by GMAC driver that unable to configure I/O power
+domain to 1.8v, which leads to the MDIO communication failure.
 
-[ ... ]
+We didn't find this problem due to using tftp(net) to load kernel images
+while bootloader already configured the I/O power.
+---
+ arch/riscv/boot/dts/spacemit/k3.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-> +static int pmi8998_typec_probe(struct platform_device *pdev)
-> +{
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 815debd16409..2b0bf9cd755b 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -803,6 +803,7 @@ pinctrl: pinctrl@d401e000 {
+ 			clocks = <&syscon_apbc CLK_APBC_AIB>,
+ 				 <&syscon_apbc CLK_APBC_AIB_BUS>;
+ 			clock-names = "func", "bus";
++			spacemit,apbc = <&syscon_apbc>;
+ 		};
+ 
+ 		uart10: serial@d401f000 {
 
-[ ... ]
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260518-07-dts-pinctrl-io-power-1bd33bfe5894
 
-> +	platform_set_drvdata(pdev, typec);
-> +
-> +	pmi8998_typec_apply(typec);
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
-Should the return value of pmi8998_typec_apply() be checked here?=20
-
-If operations like regmap_read() or regulator_enable() fail inside apply(),
-the probe will silently succeed with an unsynchronized hardware state.
-
-> +
-> +	ret =3D devm_request_threaded_irq(dev, typec->irq, NULL,
-> +					pmi8998_typec_isr, IRQF_ONESHOT,
-> +					dev_name(dev), typec);
-> +	if (ret)
-> +		goto err_role_put;
-> +
-> +	return 0;
-> +
-> +err_role_put:
-> +	usb_role_switch_put(typec->role_sw);
-
-If pmi8998_typec_apply() above evaluates to USB_ROLE_HOST, it will enable
-the vbus regulator and set typec->vbus_enabled to true.=20
-
-If the interrupt request then fails, does this error path leak the regulator
-enable count by missing a regulator_disable() call?
-
-> +	return ret;
-> +}
-> +
-> +static void pmi8998_typec_remove(struct platform_device *pdev)
-> +{
-> +	struct pmi8998_typec *typec =3D platform_get_drvdata(pdev);
-> +
-> +	if (typec->vbus_enabled)
-> +		regulator_disable(typec->vbus);
-> +	usb_role_switch_put(typec->role_sw);
-
-Because the interrupt was requested using devm_request_threaded_irq(), it
-will not be freed until after pmi8998_typec_remove() returns.
-
-If a hardware interrupt fires right after we disable the regulator and
-put the role switch:
-
-pmi8998_typec_remove()
-    regulator_disable(typec->vbus);
-    usb_role_switch_put(typec->role_sw);
-
--> interrupt fires
-pmi8998_typec_isr()
-    pmi8998_typec_apply()
-
-Could the ISR attempt to use the freed typec->role_sw or perform an
-unbalanced regulator_disable() since typec->vbus_enabled is never set
-to false in remove()?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779127507.gi=
-t.taygoth@gmail.com?part=3D3
