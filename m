@@ -1,93 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54BC1C84D0
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10958271A9A
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:47:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779115521; cv=none; b=JPynxlHG3+sstqvLpuAEhOtwv66teWuZeerm+/Zmcef6IWffPHitbyy2DnmXL7Z2lTa1ILEdTVNlaNRSkM2ryvTounVeH90LJwZp57MBgncKMQHQ+QlPsyyVk2GhFDQa/AuwPTrOsPQtu7rDzfrShc3m5v/zQbbaQDPzq8RjvAc=
+	t=1779115640; cv=none; b=NsG8TSFgbEfMh5dPEip++uFXhLpVxRry+lgQtZnUksgLaUX/n3/vyVDp0Dvzhp597Gqwka+RgRrPIYW1CLMgr1e4JcrABNjRUT1laLppbONSMwp7/3PaDCkQx9Oe1Nlk6iY6KW+r6Tj4vue2QtVr49s1dm5d5OyMS1ywx6aTDQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779115521; c=relaxed/simple;
-	bh=ZVUEMI2uDQUenyULmWcZ1MeV/5rkqRdVKxM0X1pwA3I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C9ZlcLnLB1vfYwT19l3JG5pximImtoVDPoLIv+xVUzAWA3ICjndJY2B/V9t5Pb+zivZglZ7Jr7kveZZODEKax1zF5l7HdloXTF+rubwgFcQJLoT9L2imj10C3oGsndqoyJRSnDhDU3IZoM4snscbUwAJBxVUQFbQWffsK7hfRT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BnG2N0Yu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779115640; c=relaxed/simple;
+	bh=vPaVPkElRKkI+lmUZzA09/LIbT0xt4R2+ENYZ4lLS5g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=raVozSS6rwLBPAASpTf6fWfvV9T5pFchsO6C0xVOEjJJxpBX3zxzl3mv+4xkT3Run1VQRqM9N6LnMDJm8H69DD5s+Xm16o92ExISn7uXoHUrSJ7twQLRkqqdst5QqyxEXBIRYpB6RuCpWj3Vyqkh8TDjlUvw7vJ+Xi9WQsI25pU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=av5vx73b; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BnG2N0Yu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A681C2BCB7;
-	Mon, 18 May 2026 14:45:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="av5vx73b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC453C2BCFB
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:47:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779115521;
-	bh=ZVUEMI2uDQUenyULmWcZ1MeV/5rkqRdVKxM0X1pwA3I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=BnG2N0YuYTocQSBc/+25boh6zOqRHfMnHaGnVjoDaNrcVDF5CoiQ6qPFgsfnces/B
-	 R/zG24ZPJc0qITNMEMKZ8Qna3q/+HFGvbbnl0lAxdZMpBs0swEc7KSII0nN++zn/4x
-	 1015t/4wJUEQ/UttayteBomrQAAl9wbqx55b1oo/At4d8lRxDbzVsQ4Mq79zPbCI+9
-	 SP2zcipJxjUUrlgbmPI5bpVYe027nued3HYq+kW+5WwleXHVb6QmBTgsRQpP3ip73Y
-	 I7aIVmB/qRnM8g+64Mv4ReYdzW/W2diSvw454W9wOAWBPg5yTkVEfmZw762UFZ10hQ
-	 36u+ptk0A2xIA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: usb: richtek,rt1711h: add missing
- 'port' property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akash Sukhavasi" <akash.sukhavasi@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518142901.1747-3-akash.sukhavasi@gmail.com>
-References: <20260518142901.1747-3-akash.sukhavasi@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 14:45:19 +0000
-Message-Id: <20260518144521.0A681C2BCB7@smtp.kernel.org>
+	s=k20201202; t=1779115639;
+	bh=vPaVPkElRKkI+lmUZzA09/LIbT0xt4R2+ENYZ4lLS5g=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
+	b=av5vx73bAiKuCKn/xuWqjVwaT8/gOojrPk8PuHYfDJPmDv2sqzpOCjrqr12AozgTg
+	 XrkEMEGmCvvaWmRT829lw+MPzOZ2DuVr4NP7Jwl6sLbn3rlhTFUNQZD4MDs5N+Ucs7
+	 h5M0utGAfqMK3Vej3dt7/13cw9omeP3AlJDxCLJJzfvWpya4vCDiFj3VeQWuCYrsCd
+	 aD5Po0q3MAmZvQmZwZa7UhgupPx0t65QUeuRzCsFjTx1J3de2mHDYREOm386RkIyuF
+	 IoT+XGcN/mSJEvqii7CY0gxUBQMTwdaCvGhIWpB+ytfy+5vt7ZgGflAiye15bz7zW1
+	 PeL3nvmxWK2Hw==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3939d2bd7ecso18818751fa.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 07:47:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+V8KcdWwILFPwnf0CdsjiAhpS5UVZL6lhGv25Ffx6Y3oTQNmpaFSOi01rfN24xVRxaX8AbSfgqY3OZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE6oF8O1BLM6AfiTJdtIh48mfbdriP87iPuOlFuDT2xZFsb9Zf
+	wNs9c8yft6UnuQXjhrdyWOM3kjDAis6FXQ11ShcNPpTTrs630DXFvjhTXL9e0p1PYQd7zuMaPI2
+	EzFJp61wYjclr4af7xBa1uLRJfDiSAkU=
+X-Received: by 2002:a05:651c:2215:b0:38e:58c7:cda with SMTP id
+ 38308e7fff4ca-3956089f9d7mr43916861fa.1.1779115638118; Mon, 18 May 2026
+ 07:47:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-4-alexander.sverdlin@gmail.com> <2306dd3c-6362-40ee-8d9f-77f89be3a502@arm.com>
+ <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com> <256b1cd8-b143-4f71-91cc-8513be04ce4c@arm.com>
+In-Reply-To: <256b1cd8-b143-4f71-91cc-8513be04ce4c@arm.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 18 May 2026 22:47:05 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65jpG-XXNjT46H2KnLoM_SHOatFw82u38ZGEELgXmvDtQ@mail.gmail.com>
+X-Gm-Features: AVHnY4JuD0SObsLmoajC3ESMjVn3MS_VFZrbgNyTbswwAAsPI15UX8WD889AEwg
+Message-ID: <CAGb2v65jpG-XXNjT46H2KnLoM_SHOatFw82u38ZGEELgXmvDtQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
+ Baijie Helper A133 board
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Alexander Sverdlin <alexander.sverdlin@gmail.com>, linux-sunxi@lists.linux.dev, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `port` node in the device tree example is incorrectly nested in=
-side the `connector` node instead of being at the top level of the `rt1711h=
-@4e` node.
---
+On Mon, May 18, 2026 at 7:16=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
+com> wrote:
+>
+> Hi Alexander,
+>
+> On 5/17/26 22:38, Alexander Sverdlin wrote:
+> > Hi Andre,
+> >
+> > thanks for the quick feedback!
+> >
+> > On Mon, 2026-05-11 at 13:44 +0200, Andre Przywara wrote:
+> >>> --- /dev/null
+> >>> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
+> >>> @@ -0,0 +1,162 @@
+> >>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> >>> +/*
+> >>> + * Copyright (c) 2025 Arm Ltd.
+> >>
+> >> Please put your own copyright here, even if that has been largely copi=
+ed
+> >> from an existing file.
+> >>
+> >>> + */
+> >>> +
+> >>> +/dts-v1/;
+> >>> +
+> >>> +#include "sun50i-a100.dtsi"
+> >>> +#include "sun50i-a100-cpu-opp.dtsi"
+> >>> +
+> >>> +/{
+> >>> +   compatible =3D "baijie,helper-a133-core",
+> >>> +                "allwinner,sun50i-a100";
+> >>> +
+> >>> +   aliases {
+> >>> +           serial1 =3D &uart1;       /* BT module */
+> >>
+> >> Do we really need an alias for the BT UART? And is the BT module
+> >> supported already? Then please add a child node to the UART node.
+> >
+> > That's the only thing I can do currently regarding BT: stabilize the
+> > serial enumeration, because UART1 cannot be used for anything else
+> > except BT module, because this is soldered inside "core" module.
+> > We can avoid different tty enumeration, should the support for
+> > BT be implemented in the future...
+> >
+> >> Isn't the WiFi/BT module on the SoM? Then please mention and enable MM=
+C1
+> >> here. Provide the child node for the WiFi chip, even if there is no
+> >> upstream support in the kernel for it yet.
+> >
+> > So both the above BT and the WiFi is AW869A/AIC8800 combo chip, which
+> > has neither upstream driver, nor [upstream] DT bindings. Even github
+> > driver for AIC8800 doesn't seem to use DT, therefore it looks quite
+> > pointless to me at this point to specify anything in the DT for the
+> > chip which doesn't have the bindings idea even theoretically.
+> >
+> > Nothing in the current DT shall block any future work on the AW869A
+> > support though and the above "aliases" entry shall even guarantee
+> > unchanged serial enumeration shall such support arise.
+>
+> Fair enough for not providing DT nodes for those unsupported chips, but
+> why do we need to force enumeration? For the eventual Bluetooth usage,
+> the driver will find the respective serial interface by just looking at
+> its parent interface. IIUC there is nothing referring to ttyS1
+> explicitly. So we wouldn't really need an alias, would we?
+> I see that some boards do define an alias, but others with Bluetooth
+> don't, which I think is the right thing to do. Which name the kernel
+> comes up with for UART1 shouldn't matter in any way.
 
-commit 18a1ecff9551deb9d653752f739ababa33eb01fd
-Author: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+It does provide a hint for any users enabling more UARTs and adding
+aliases for them that they should number them starting from 2? And
+just stable numbering overall.
 
-dt-bindings: usb: richtek,rt1711h: add missing 'port' property
 
-This commit adds the missing top-level port property to the
-richtek,rt1711h schema to describe the role-switch graph endpoint. It also
-updates the example to include this new port configuration.
-
-> diff --git a/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml b=
-/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
-> --- a/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
-> +++ b/Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
-[ ... ]
-> @@ -107,6 +114,12 @@ examples:
->                };
->              };
->            };
-> +
-> +          port {
-> +            endpoint {
-> +              remote-endpoint =3D <&usb_role_switch>;
-> +            };
-> +          };
->          };
->        };
->      };
-
-Is this port node indented correctly in the example?
-
-It looks like the 10-space indentation places it inside the connector node
-rather than as a top-level property of the rt1711h@4e node as intended by
-the schema update.
-
-Should it be aligned with fewer spaces to be a sibling of the connector node
-instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518142901.1747=
--1-akash.sukhavasi@gmail.com?part=3D2
+ChenYu
