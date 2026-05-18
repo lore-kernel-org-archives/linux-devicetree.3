@@ -1,335 +1,304 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E85E384258;
-	Mon, 18 May 2026 17:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60694380FEE
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779123981; cv=none; b=XrACpnf/VnfkdkiNRkAPBydF2pZWjBraoN8qV6qN++PxHZVb/NaVR4FzjeaNsBIOSsg10V2NEhnLt8+FlDsK+Hxim49ADRxG9ltdIV8LBbJVmhfNwfNQg7H0PHdrHW/e+tfPsr3WDEcy9kMMblMK55Y5FLBMnFoLfja/ZLnnNSA=
+	t=1779124148; cv=none; b=A07ohHCI24GrxikwPm2xd9KYFvV8I+xfaeFUJp31U+oHrIReCGr2ZVk3M5m2JdsD80UuSmjs4pBhS8x6aCCzFbOa2QdOgo/Y4JCxFZOPpTtL7b58I148N6PxgzeMRduNrq6U7T8wIsR6uK0W1jkRm5kXTWw+IWIwMm8xlRBULyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779123981; c=relaxed/simple;
-	bh=glz5ydJG24D+wH38fMIDd0BE5BMa9GicHuYKAMFAfj4=;
+	s=arc-20240116; t=1779124148; c=relaxed/simple;
+	bh=EiA4Qza20kI0bI27FyEkORjQDf1WJe1jx8699YeVPcE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kUMkAkZnjUHfmNlNVnyoYUGQcoHQGuH5ke458K3V3+eN6pN4pyWsfNrH68ChPgteeFwuJcj87Lu5fr5iUOQmdAfdy9fkX+qKnFS34cSIQ4lSCg+kkZ8OumeJkX8dCqO4JrYMPUvAZQFzT0MroNtWJEai87w0pdyng/CoLYu6ddk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZFh/LDl; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=cGo3DIU6jM4AEGIPwJI1zrMfotu+XJw/5NG+dcyAfVAFf+ui8gRRhRD60dvEW5I+sfm0YlYx0JYW8Psjr1Q9xwJ482GRB1uf1S0CG/UvO1IYUGPWtbjjoRe/V5DgsioBOzVY4SceLUAzmqTgtym0U98/qIjvqOlz1tXQC0yQqK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eZRboyY1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IHM2Lrl1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZFh/LDl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A623C2BCC9;
-	Mon, 18 May 2026 17:06:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779123981;
-	bh=glz5ydJG24D+wH38fMIDd0BE5BMa9GicHuYKAMFAfj4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QZFh/LDlxsMwtzj45gdBgd0viCfVrvtQqMvX2lAJRDhCCrwz4Kv8bcP5ODrR0JtPX
-	 L0KS7ztAU0dj6FFuTBX5+8keLMwixh7GNwHPcABVcTm9Bel1tVbv5ecvjUwLpneLbq
-	 fXc1XCNjLqCI9S00XKvrMlX1YFvyNQroyGMn7LadD05E/pkkdSV07P6KwxoYbaKIIy
-	 mkrmSQuhRS+duXLY/STwG1YkoDPU40tZ/3Q+JotuoZuDOp2xmg91FDHLQ9YYlbdHxQ
-	 K88dfmW3Yl/4Webk4WJB/8B4tAKyIXmvAuCDRmxH9UctTMYsH49uve0o1Jq2ATHEX8
-	 F62pbCTa+Hvqw==
-Date: Mon, 18 May 2026 18:06:16 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, jic23@kernel.org, nuno.sa@analog.com,
-	Michael.Hennerich@analog.com, dlechner@baylibre.com,
-	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: Re: [PATCH v1 1/4] dt-bindings: iio: adc: Add ltc2378
-Message-ID: <20260518-trapped-gauze-ada279af89fc@spud>
-References: <cover.1779117444.git.marcelo.schmitt1@gmail.com>
- <cf404216011b6972519436c63fcc7c4e2c883c54.1779117444.git.marcelo.schmitt1@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eZRboyY1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IHM2Lrl1"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IAopZR2083066
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:09:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=aiKhZszooCZnIL9WnJC9bubT
+	UUgVmiFNdwhBceZv0mg=; b=eZRboyY1a/j/JE+oB6LC5rC1v/ehVUnsbRF6AlXE
+	2B5GaRa/fLjczO14sd6t79VkYYnuPlMuMec09/uheXyhoSNJ/CRGvDK7IK8SEUFe
+	WXB0pgFV7fhH5K4NDptCpN45QWc7mWcyMk4G3a4W5hzG1ppbdhRwSpSTTa/MiP5g
+	KRRmyrUhf5YdwJQ6HPqYlmINFUDYyT2wKfF9cgvkfkgLrpXpbUxYhTTk/mqYMPfV
+	LuLYZqVRvCgOI0aGyLMliXjDuvto5/ZjLVPG5sP5CMLJCN8bTyPI9pxwZSUIjHFl
+	DXBI0eMIDWX8W5/25wXN3KDkB7tklypUiB2GX1FdRI79nA==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e81ch9g3k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 17:09:06 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5753ef2562aso2020708e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:09:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779124146; x=1779728946; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=aiKhZszooCZnIL9WnJC9bubTUUgVmiFNdwhBceZv0mg=;
+        b=IHM2Lrl1BQZt0NZmN7AP2TcJx6C5XAtK44WpYnm4vof/psDLrZSuJUP7dgHnKv5oFa
+         fbdwEvf5gIK74xUd/eWhLCeT+iGRgvKSwP86fGWk5N3D/X1WRQLFKoLmZj48ABY+kBc+
+         TfHBeCr0k76gHbsMrfHoj5ZXwEmlOvwaGfYQZWuOcYsWdNrfm0M1XSnFG6pklDvr0OlS
+         QXEJA/X2CaxzyIp5/uaCU8s0xXa3x2KzSdwISId8ZYjiE4VVi6JCaC1C4KfC+gaqP/7G
+         XcM3Tdxf4Z6lls/N7Y1mtx6sS7xBwE9xnIwtHnrE5cEmpNAgfoHsBdQam1E5/MBoz3Ar
+         l0hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779124146; x=1779728946;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aiKhZszooCZnIL9WnJC9bubTUUgVmiFNdwhBceZv0mg=;
+        b=VvwelAI1Wd6+h2V6cTfP1wne8qTOgbHdfYVhAzKI2qr3WJN7gDGbDPjN900Dakpr+v
+         jHd2t/OmsLscYlsz1Dm2fzNJEbvYTGwFJTIhMPsm/ye7quZbrICYFT/rkKsAZ7TxW6KP
+         i99s2+7cGAxm0+bSaL4LVGduqtomVDY6BH5NIC/BXRoEQDmqTmSg7ahtpS59A4mjJ3kt
+         fWaVtq2zZrpCzVfeW3ohJLlxoVyuN/Z3R6Ef7jux5eB0kFliDfEdsgZRkVzCbj0TABOU
+         aOQSA4b08kTR6G+NoLGPsGc33IF1o9D8MWf27+7mU1ip5IuF6M/zLrbpVEOCHf82TZzk
+         Ebbg==
+X-Forwarded-Encrypted: i=1; AFNElJ84HCwrQT+1x+6YvyQVUH26wV+xnj/R86olEuikOwsZ8LXCNQ/19eWYakxkAb+JE2j+FvX8DyEE0Vdp@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZFf8I0KJkAVYudMUhfHn7FG/ion931P8axXt3Y0BwqDy33B1z
+	jIdKDLh0mAr772Ga3fpPKjUif7FKrr2PX1H8COh9UAw2mhMIXEDbCcaTbRhOyxyXuY+Ii3KzfN+
+	9qAVYQAlADHl1Fm/dFgzDdKQaneuI2we+JBALYhjPQVsng6H5aKJl/fm3iCJPiBaC
+X-Gm-Gg: Acq92OHtN7P1eEgQX25eFD7wyIv0j6e9kcrymmkC1NRVmBTr3dcFShfR4HUQQvIrGi2
+	nAmpChkNiA9h25keBqgx/PK4yOr/svekdeTe9gfNg/DCQ6XVyJep6MXT7W8e/vh54w/fQP9o9KE
+	l8MPo2AL25yZjJtVAzijGuKpoNfvfFL6L5WqI8ID29TUARPJRevlggB5vLdBJsJig1dkkZTKD6b
+	KNENSdzsMdeEBrFWqlYeK3JihVuqAL5HO6cCgBLLqPgvzOFtl3sL1j7fK9nqDvix5ZITR7nfm4c
+	R7a0OkdbevtDfW4N4eEy3QeTrtLfv6oC6iVbw3nujAI9TUbw51KJNx9OmIHmjmcW9tnyw1lBqyW
+	6ztttGDYDKmxWmPzFhWF7x1Kjl7PVg3SHVixKTj6M84Evl0OjBFFJ1J0FIEwde+XEJuZt6uCVXL
+	ZEj/iBEkOyCA7XegRHixXMN9izru9GsHNrXkU=
+X-Received: by 2002:a05:6122:338f:b0:56e:e68e:9fc2 with SMTP id 71dfb90a1353d-5760c013b50mr9411636e0c.10.1779124145499;
+        Mon, 18 May 2026 10:09:05 -0700 (PDT)
+X-Received: by 2002:a05:6122:338f:b0:56e:e68e:9fc2 with SMTP id 71dfb90a1353d-5760c013b50mr9411593e0c.10.1779124145016;
+        Mon, 18 May 2026 10:09:05 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a91a6a1906sm3448184e87.79.2026.05.18.10.09.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 10:09:03 -0700 (PDT)
+Date: Mon, 18 May 2026 20:09:02 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: palash.kambar@oss.qualcomm.com
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
+        alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org,
+        andersson@kernel.org, abel.vesa@oss.qualcomm.com,
+        luca.weiss@fairphone.com, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org
+Subject: Re: [PATCH V1 3/3] phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
+Message-ID: <c6hlbz44belq5l3ko23ijny22hxzei5fexk47hwselgn7onsbz@o7uwxlkvgtwt>
+References: <20260518165346.1732548-1-palash.kambar@oss.qualcomm.com>
+ <20260518165346.1732548-4-palash.kambar@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1dVv8AhUQcfqNuHf"
-Content-Disposition: inline
-In-Reply-To: <cf404216011b6972519436c63fcc7c4e2c883c54.1779117444.git.marcelo.schmitt1@gmail.com>
-
-
---1dVv8AhUQcfqNuHf
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260518165346.1732548-4-palash.kambar@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=a4MAM0SF c=1 sm=1 tr=0 ts=6a0b47b2 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=A1qZTpn-tPCv_KexcQ4A:9 a=CjuIK1q_8ugA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDE2OCBTYWx0ZWRfXxSd3Vz4KdANR
+ 6JDhazEC93cX5frWrM9Y1N++1iHLUNYaMLMpc+vfhOYm1d5JRQ7zG+HJ+boJYUWhPINHOLr7/6T
+ Y6ejYntxGrCeT/9EUuiOo3jshrd+7QnJZsshySl/h5iYJ5Lfrqe91b2m2s4ydVWSs2mkSVkBL34
+ R1ZiB1QKAoEkZAGXh1Fsqj/e6YaYzWcblChuRtIyCzv79+sRqm9+dEzVWzc6Jb5LgaDk0ypQ/8u
+ 0SdbebLBClOT6txngU+e6cjLUXmpKKATpSA8LO9RewXuA53VcoeDxQBhOEz8ejItmyhPEgNsNY7
+ nAZwkYXHFRVbElYk6fIyeJ84Eags0RbscERrpmf34VtlnWmAX/NPgUjgwesJStvHwSUNCletg5b
+ z8dd0gRozWW9uoC/8gVzWtoxw8qlHI+l6/+ua4EJuULOOlWJAkkCVmymK8CyIZu/V9J6AW+xgLe
+ xsUuBc2DTNz2fpG3Mng==
+X-Proofpoint-ORIG-GUID: oScACRpsAcnuSDhZdTxK6460g-L1_nYu
+X-Proofpoint-GUID: oScACRpsAcnuSDhZdTxK6460g-L1_nYu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 suspectscore=0 spamscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180168
 
-On Mon, May 18, 2026 at 12:21:01PM -0300, Marcelo Schmitt wrote:
-> From: Marcelo Schmitt <marcelo.schmitt@analog.com>
->=20
-> Document how to describe LTC2378-20 and similar ADCs in device tree.
->=20
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+On Mon, May 18, 2026 at 10:23:46PM +0530, palash.kambar@oss.qualcomm.com wrote:
+> From: Palash Kambar <palash.kambar@oss.qualcomm.com>
+> 
+> Add the init sequence tables and config for the UFS QMP phy found in
+> the Hawi SoC.
+> 
+> Signed-off-by: Palash Kambar <palash.kambar@oss.qualcomm.com>
 > ---
->  .../bindings/iio/adc/adi,ltc2378.yaml         | 131 ++++++++++++++++++
->  MAINTAINERS                                   |   7 +
->  2 files changed, 138 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ltc2378=
-=2Eyaml
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml b=
-/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+>  .../phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h    |  22 +++
+>  .../phy-qcom-qmp-qserdes-txrx-ufs-v8.h        |  37 +++++
+>  drivers/phy/qualcomm/phy-qcom-qmp-ufs.c       | 140 ++++++++++++++++++
+>  3 files changed, 199 insertions(+)
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
 > new file mode 100644
-> index 000000000000..56e59bcd7306
+> index 000000000000..bf914c752d22
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-> @@ -0,0 +1,131 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/adi,ltc2378.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
+> @@ -0,0 +1,22 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) 2026, The Linux Foundation. All rights reserved.
+> + */
 > +
-> +title: Analog Devices LTC2378 and similar Analog to Digital Converters
+> +#ifndef QCOM_PHY_QMP_PCS_UFS_V7_H_
+> +#define QCOM_PHY_QMP_PCS_UFS_V7_H_
 > +
-> +maintainers:
-> +  - Marcelo Schmitt <marcelo.schmitt@analog.com>
+> +/* Only for QMP V7 PHY - UFS PCS registers */
 > +
-> +description: |
-> +  Analog Devices LTC2378 series of ADCs.
-> +  Specifications can be found at:
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-233818fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-236416fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-236418f.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-236716fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-236718f.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-236816f.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-236818f.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-236918fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237016fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237616fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237618fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237620fb.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237716fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237718fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237720fb.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237816fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237818fa.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237820fb.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-237918fb.pdf
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/=
-238016fb.pdf
+> +#define QPHY_V7_PCS_UFS_PCS_CTRL1			0x01C
+> +#define QPHY_V7_PCS_UFS_PLL_CNTL			0x028
+> +#define QPHY_V7_PCS_UFS_TX_LARGE_AMP_DRV_LVL		0x02C
+> +#define QPHY_V7_PCS_UFS_TX_HSGEAR_CAPABILITY		0x060
+> +#define QPHY_V7_PCS_UFS_RX_HSGEAR_CAPABILITY		0x094
+> +#define QPHY_V7_PCS_UFS_LINECFG_DISABLE			0x140
+> +#define QPHY_V7_PCS_UFS_RX_SIGDET_CTRL2			0x150
+> +#define QPHY_V7_PCS_UFS_READY_STATUS			0x16c
+> +#define QPHY_V7_PCS_UFS_TX_MID_TERM_CTRL1		0x1b8
+> +#define QPHY_V7_PCS_UFS_MULTI_LANE_CTRL1		0x1c0
 > +
-> +$ref: /schemas/spi/spi-peripheral-props.yaml#
+> +#endif
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
+> new file mode 100644
+> index 000000000000..5f923c3e64ec
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
+> @@ -0,0 +1,37 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) 2026, The Linux Foundation. All rights reserved.
+> + */
 > +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - enum:
-> +          - adi,ltc2338-18
-> +          - adi,ltc2369-18
-> +          - adi,ltc2370-16
-> +          - adi,ltc2379-18
-> +          - adi,ltc2380-16
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2364-18
-> +              - adi,ltc2364-16 # fallback compatible
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2367-18
-> +              - adi,ltc2367-16 # fallback compatible
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2368-18
-> +              - adi,ltc2368-16 # fallback compatible
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2376-18
-> +              - adi,ltc2376-20
-> +              - adi,ltc2376-16 # fallback compatible
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2377-18
-> +              - adi,ltc2377-20
-> +              - adi,ltc2377-16 # fallback compatible
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2378-18
-> +              - adi,ltc2378-20
-> +              - adi,ltc2378-16 # fallback compatible
+> +#ifndef QCOM_PHY_QMP_QSERDES_TXRX_UFS_V8_H_
+> +#define QCOM_PHY_QMP_QSERDES_TXRX_UFS_V8_H_
+> +
+> +#define QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_TX		(0x34)
+> +#define QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_RX		(0x38)
+> +#define QSERDES_UFS_V8_TX_LANE_MODE_1				(0x80)
+> +#define QSERDES_UFS_V8_RX_UCDR_FO_GAIN_RATE2			(0x1BC)
+> +#define QSERDES_UFS_V8_RX_UCDR_FO_GAIN_RATE4			(0x1C4)
+> +#define QSERDES_UFS_V8_RX_UCDR_SO_GAIN_RATE4			(0x1DC)
+> +#define QSERDES_UFS_V8_RX_EQ_OFFSET_ADAPTOR_CNTRL1		(0x2C8)
+> +#define QSERDES_UFS_V8_RX_UCDR_PI_CONTROLS			(0x1E4)
+> +#define QSERDES_UFS_V8_RX_OFFSET_ADAPTOR_CNTRL3			(0x2D0)
+> +#define QSERDES_UFS_V8_RX_UCDR_FASTLOCK_COUNT_HIGH_RATE4	(0x120)
+> +#define QSERDES_UFS_V8_RX_UCDR_FASTLOCK_FO_GAIN_RATE4		(0xD4)
+> +#define QSERDES_UFS_V8_RX_UCDR_FASTLOCK_SO_GAIN_RATE4		(0xEC)
+> +#define QSERDES_UFS_V8_RX_VGA_CAL_MAN_VAL			(0x288)
+> +#define QSERDES_UFS_V8_RX_EQU_ADAPTOR_CNTRL4			(0x2B0)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE_0_1_B4			(0x324)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE4_SA_B7			(0x3B4)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE4_SA_B9			(0x3BC)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE4_SB_B7			(0x3E0)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE4_SB_B9			(0x3E8)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE5_SA_B7			(0x40C)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE5_SA_B9			(0x414)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE5_SB_B7			(0x438)
+> +#define QSERDES_UFS_V8_RX_MODE_RATE5_SB_B9			(0x440)
+> +#define QSERDES_UFS_V8_RX_UCDR_SO_SATURATION			(0xF4)
+> +#define QSERDES_UFS_V8_RX_TERM_BW_CTRL0				(0x1AC)
+> +#define QSERDES_UFS_V8_RX_DLL0_FTUNE_CTRL			(0x498)
+> +#define QSERDES_UFS_V8_RX_SIGDET_CAL_TRIM			(0x4d0)
+> +
+> +#endif
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+> index 771bc7c2ab50..a4801cf4b0fe 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+> @@ -29,9 +29,11 @@
+>  #include "phy-qcom-qmp-pcs-ufs-v4.h"
+>  #include "phy-qcom-qmp-pcs-ufs-v5.h"
+>  #include "phy-qcom-qmp-pcs-ufs-v6.h"
+> +#include "phy-qcom-qmp-pcs-ufs-v7.h"
+>  
+>  #include "phy-qcom-qmp-qserdes-txrx-ufs-v6.h"
+>  #include "phy-qcom-qmp-qserdes-txrx-ufs-v7.h"
+> +#include "phy-qcom-qmp-qserdes-txrx-ufs-v8.h"
+>  
+>  /* QPHY_PCS_READY_STATUS bit */
+>  #define PCS_READY				BIT(0)
+> @@ -84,6 +86,13 @@ static const unsigned int ufsphy_v6_regs_layout[QPHY_LAYOUT_SIZE] = {
+>  	[QPHY_PCS_POWER_DOWN_CONTROL]	= QPHY_V6_PCS_UFS_POWER_DOWN_CONTROL,
+>  };
+>  
+> +static const unsigned int ufsphy_v7_regs_layout[QPHY_LAYOUT_SIZE] = {
+> +	[QPHY_START_CTRL]		= QPHY_V6_PCS_UFS_PHY_START,
+> +	[QPHY_PCS_READY_STATUS]		= QPHY_V7_PCS_UFS_READY_STATUS,
+> +	[QPHY_SW_RESET]			= QPHY_V6_PCS_UFS_SW_RESET,
+> +	[QPHY_PCS_POWER_DOWN_CONTROL]	= QPHY_V6_PCS_UFS_POWER_DOWN_CONTROL,
 
-All of these are wrong.
+Don't mix V6 and V7 registers. And why is it v7? The rest of the
+registers point out a v8 PHY.
 
-Firstly, your "fallback" setups don't work, because they only permit a
-single compatible. Secondly, if they did work, you still need to define
-the fallback compatible in isolation for it to be permitted for use when
-it isn't a fallback.
-And thirdly, your driver appears to show that these devices aren't
-actually compatible at all, given there's unique match data for each
-one.
-+static const struct of_device_id ltc2378_of_match[] =3D {
-+	{ .compatible =3D "adi,ltc2338-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-38_18] },
-+	{ .compatible =3D "adi,ltc2364-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-64_16] },
-+	{ .compatible =3D "adi,ltc2364-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-64_18] },
-+	{ .compatible =3D "adi,ltc2367-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-67_16] },
-+	{ .compatible =3D "adi,ltc2367-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-67_18] },
-+	{ .compatible =3D "adi,ltc2368-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-68_16] },
-+	{ .compatible =3D "adi,ltc2368-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-68_18] },
-+	{ .compatible =3D "adi,ltc2369-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-69_18] },
-+	{ .compatible =3D "adi,ltc2370-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-70_16] },
-+	{ .compatible =3D "adi,ltc2376-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-76_16] },
-+	{ .compatible =3D "adi,ltc2376-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-76_18] },
-+	{ .compatible =3D "adi,ltc2376-20", .data =3D &ltc2378_chip_info[ID_LTC23=
-76_20] },
-+	{ .compatible =3D "adi,ltc2377-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-77_16] },
-+	{ .compatible =3D "adi,ltc2377-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-77_18] },
-+	{ .compatible =3D "adi,ltc2377-20", .data =3D &ltc2378_chip_info[ID_LTC23=
-77_20] },
-+	{ .compatible =3D "adi,ltc2378-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-78_16] },
-+	{ .compatible =3D "adi,ltc2378-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-78_18] },
-+	{ .compatible =3D "adi,ltc2378-20", .data =3D &ltc2378_chip_info[ID_LTC23=
-78_20] },
-+	{ .compatible =3D "adi,ltc2379-18", .data =3D &ltc2378_chip_info[ID_LTC23=
-79_18] },
-+	{ .compatible =3D "adi,ltc2380-16", .data =3D &ltc2378_chip_info[ID_LTC23=
-80_16] },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, ltc2378_of_match);
+> +};
+> +
+>  static const struct qmp_phy_init_tbl milos_ufsphy_serdes[] = {
+>  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYSCLK_EN_SEL, 0xd9),
+>  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CMN_CONFIG_1, 0x16),
+> @@ -1844,6 +1868,119 @@ static const struct qmp_phy_cfg sm8750_ufsphy_cfg = {
+>  
+>  };
+>  
+> +static const struct qmp_phy_init_tbl hawi_ufsphy_serdes[] = {
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYSCLK_EN_SEL, 0xd9),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CMN_CONFIG_1, 0x16),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_SEL_1, 0x11),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_HS_SWITCH_SEL_1, 0x00),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP_EN, 0x01),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP_CFG, 0x60),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_IVCO, 0x1f),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_IVCO_MODE1, 0x1f),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CMN_IETRIM, 0x07),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CMN_IPTRIM, 0x20),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_VCO_TUNE_MAP, 0x04),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_VCO_TUNE_CTRL, 0x40),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_ADAPTIVE_ANALOG_CONFIG, 0x06),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE0, 0x41),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CP_CTRL_MODE0, 0x06),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_RCTRL_MODE0, 0x18),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_CCTRL_MODE0, 0x14),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CP_CTRL_ADAPTIVE_MODE0, 0x06),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_RCCTRL_ADAPTIVE_MODE0, 0x18),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_CCTRL_ADAPTIVE_MODE0, 0x14),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP1_MODE0, 0x7f),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP2_MODE0, 0x06),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0x92),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x1e),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE1, 0x4c),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CP_CTRL_MODE1, 0x06),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_RCTRL_MODE1, 0x18),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_CCTRL_MODE1, 0x14),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CP_CTRL_ADAPTIVE_MODE1, 0x06),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_RCCTRL_ADAPTIVE_MODE1, 0x18),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_CCTRL_ADAPTIVE_MODE1, 0x14),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP1_MODE1, 0x99),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP2_MODE1, 0x07),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE1_MODE1, 0xbe),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE2_MODE1, 0x23),
 
-Why do you have fallbacks here? Is it because a limited set of channels
-could be used in the fallback case? At the very least, the rationale for
-fallbacks should be explained.
+Yep... If it is V8, use V8 registers. Even if they are they same.
 
-pw-bot: changes-requested
+> +};
+> +
+> +static const struct qmp_phy_init_tbl hawi_ufsphy_tx[] = {
+> +	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_TX_LANE_MODE_1, 0x0c),
+> +	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_TX, 0x07),
+> +	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_RX, 0x17),
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-max-frequency:
-> +    maximum: 100000000
-> +
-> +  vdd-supply:
-> +    description: A 2.5V supply that powers the chip (VDD).
-> +
-> +  ovdd-supply:
-> +    description:
-> +      A 1.71V to 5.25V supply that sets the logic level for digital inte=
-rface.
-> +
-> +  ref-supply:
-> +    description:
-> +      A 2.5V to 5.1V supply for the reference input (REF).
-> +
-> +  cnv-gpios:
-> +    description:
-> +      When provided, this property indicates the GPIO that is connected =
-to the
-> +      CNV pin.
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    description:
-> +      Interrupt for signaling the completion of conversion results. The =
-active
-> +      low signal provided on the BUSY pin asserts when ADC conversions f=
-inish.
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +  - ovdd-supply
-> +  - ref-supply
-> +
-> +additionalProperties: false
+And it's V8.
 
-As sashiko pointed out, this is not correct if you want to permit spi
-properties other than spi-max-frequency (although I could definitely see
-how this would be correct).
-
-Cheers,
-Conor.
-
+> +};
 > +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +        adc@0 {
-> +            compatible =3D "adi,ltc2378-20";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <71000000>;
-> +            vdd-supply =3D <&supply_2_5V>;
-> +            ovdd-supply =3D <&supply_3_3V>;
-> +            ref-supply =3D <&supply_5V>;
-> +            cnv-gpios =3D <&gpio0 88 GPIO_ACTIVE_HIGH>;
-> +            interrupts =3D <7 IRQ_TYPE_EDGE_FALLING>;
-> +            interrupt-parent =3D <&gpio>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0de74503df08..768f56eea476 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15195,6 +15195,13 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/dac/lltc,ltc1660.yaml
->  F:	drivers/iio/dac/ltc1660.c
-> =20
-> +LTC2378 IIO ADC DRIVER
-> +M:	Marcelo Schmitt <marcelo.schmitt@analog.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Supported
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-> +
->  LTC2664 IIO DAC DRIVER
->  M:	Michael Hennerich <michael.hennerich@analog.com>
->  M:	Kim Seer Paller <kimseer.paller@analog.com>
-> --=20
-> 2.53.0
->=20
 
---1dVv8AhUQcfqNuHf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagtHCAAKCRB4tDGHoIJi
-0udmAQCYK1YC10+mA3RtJMEJb9G1E1ZW0TEBpPYCIxL+ktibDwEA8x25lAL2GAe2
-/mpsQL8+UYeHt1nZFocMDVGa1PF8qgA=
-=fQBx
------END PGP SIGNATURE-----
-
---1dVv8AhUQcfqNuHf--
+-- 
+With best wishes
+Dmitry
