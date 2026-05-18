@@ -1,64 +1,64 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FF3399015
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEB639E177
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779141775; cv=none; b=SQuw3yb8afDVl+ka0Ve9ug/BzXiVcPf8fy4tC3Mh40qDI9Ls3Mz/cVjPb3+tPG+c32FWCOgP0Egtwwhj/4FXFU+ygBwKqP3KyPpEUMKAE+AHXlBEMKXlxLBV+wmtFSYZQLOuji20AlUNgnlmUtbJXYag5saOxBeYOGlcx35dYaA=
+	t=1779141779; cv=none; b=RXmdSI+gowDgBPMbbsW3RSMsFv0qI6X4ifBldRHEeRUJaSDEv16B8vakw2LAX5JoZSNFiE8p2LdBKl14SetLuVwOgzFxCLh86+A6j11kkIPkOK8o6tfcL+S2DXLCw69tExdruHmaGR3Vo9IRN7/jkcAcrvet9hZzmRabdsFp0mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779141775; c=relaxed/simple;
-	bh=58hXK3+jjxdURzdM62kYNdhGnylmydkjDZ6DhB7yRAE=;
+	s=arc-20240116; t=1779141779; c=relaxed/simple;
+	bh=YIgzdEh/qr3hlX5d3x7wEDgkdp098G1nkKAjjuV5Y7Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ceXodY5Kp3Sg+6yip6UqYoGfTk008AKzDGDkNyRI7RmdODc4kJ1D7b8h5EhqmAmEZlG18f1BCW+JmB1x5Jq6BJFnFurryu2W1ogXFhP6huS6E8bsiwEwKMq2fgM7cIbomc0CgaWH239FgR7A4zNrCWJYfjeU80b0kvBkTweyBzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sxX/gfG0; arc=none smtp.client-ip=209.85.210.172
+	 MIME-Version; b=nsrcWZf53TPJiDDz3l1htKvdaQEjAPhkzJWdyOf7h2pIZ+YzlkZxzZXv4cUYzzdqJJZ8YWfj2p+RWSRlst6Or3nAf+ZsAxWDag4wTq8NuyetMGVaV9OygXWt7uSYbS3hdfCVqm7A+x4oUmo5EJCh7aiqwCkMXTZTKMRYTrogdoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uzmnk/Mb; arc=none smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sxX/gfG0"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8353fd1cb5fso1329295b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:02:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uzmnk/Mb"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-835386ff122so2978773b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:02:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779141774; x=1779746574; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779141778; x=1779746578; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MZ3L7gIVtDuWxh9a4b/o7Up/IHdND0VWYFyTOBzXy1Q=;
-        b=sxX/gfG0UoxLsEk/xjAuUpaTiWBqzm/ajeS08EpqCK1mXtqtV45s2C8xd92M7TlEij
-         HMErpGKYd5+YGfGCLU0fdbAJzCil9heEPubQqASmpZ18srp1H2HBJlMqbdAN+sa23eUX
-         gZ8JG+hV5ve0nz63Mu3+lzYtorDd4rt2pDLe5WqyrQKEqgV7FIWkXzi1mviXgn+yxBRD
-         0nWTitswxb1/RDPycnsOevI4UBMlY9F15VW7pypya68OeglDcTl2DV0idxymhmnzYWgM
-         MnDDS/fzPd+FGevLXGBs9waUP9VAPSPHfPIBMSNolGY39CHcSniijOdgVPctm9oeeWTf
-         YIwg==
+        bh=bvK2VJD8fl/Rjr0aAvzpby1wY4IjpgTnX0YvfLJpkFQ=;
+        b=Uzmnk/MbTBsVOb9lDVD5zubjipoeduNTWfuI6vYvMENntdWqcHbhR3rqCMjyDO7m5n
+         auY7hJNcvxvxnyypYDEZArlZVan4aEpI3wx0aueuGx/RG6n39LMWEaTJ0X8QnoeXRo6C
+         AZ7zRVHkIa8XnF1GdcgZMGTXJfOgmByPIk8jpcI0YyLDdMpmbwViwD9KOGOxGcKHjr0V
+         RbvvMwuHwV7OLK24jO09udZncwfSx6lDRcAclXB8dveVz+OXv7fpWZdElpnyhix1q35e
+         uIQk7qpZS67XjpagzhH1/a4DN92RjAdIQGvyuGI2vidSowntKFPvc+WnKOjTmuHJnmrN
+         2DXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779141774; x=1779746574;
+        d=1e100.net; s=20251104; t=1779141778; x=1779746578;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=MZ3L7gIVtDuWxh9a4b/o7Up/IHdND0VWYFyTOBzXy1Q=;
-        b=BVrD2ngFTrYjCJeoQNMz+GVXCEumIy6UrEHB8oTSmNU3RshddEKoiWDVf2XgtXJFkf
-         ZOPX7YOi34iCjISySaJ9APkGHGMRGkSeAB3i1NXujc76YhrEc29U6gY5g+Y+MjZjG1ng
-         pVpWzuqVRABF/QetCgqUzWyJE7ACKtyOFGVd4ji3y0IcZUk6qpZwrvWC8H2QHV1hXSBO
-         qYYvAJchlCx3gJ/AC7CaMSCDNyJn4YM7C6ALPSW0Rqzakm7cVnsNrL8/8OfqOxVupTmc
-         Wg8HES8YxWakZzQHPL2KszNgsj6BHRW0EMP4FOkpVSVjq1iTRdtZSGhP79G5le4IBCU+
-         Vxuw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Eaysy2qA/3ZsCH71JLsDBNekYcX0chbnLqssIVsLEA1C3TSpHindfNvLoNOG36G6F/8d0Nsn1NcPO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCM/HoCRlRp8fm4MKrj1UcOHlclaABcm/iCufm2ZS55DP48gC7
-	y2iAhN+3khwQoeKFifmb9pJPAwuFMSPJYzYk6hBxMIq+kjoR8bbWd116
-X-Gm-Gg: Acq92OH1Eb5tSCY1dgqD1PP1NFL7Y0ADpIOzux2EWpCJ7v6VSRMgNfInsQu9j6hBkrw
-	UTIz1/D941+Re+g0ktbVQ7NBiUWuZvUtMoXUMuzX52JvH/mr7atOYkLr/Vj7Q2koXa7IaufPQrG
-	5SrgSxKXJjS5qmg/ISJW/ejEh86CYgp57wleZkQMOYFc4aP4KoFEoeViPQi/Vbkf4UwTwUNrhcZ
-	v0EHtefJTnpx4U+8RDIgdPUZdpVWXpgxRWsvmrorEhNo1tyR441is2L2g5tTMqYc4uyagtKlnh6
-	dqcBbEapNNFjVreazgGro15Ue681smoHRvgJHQZtrTuO0OwW1dyHBYtuJwL//+B564hvXHFpDs2
-	sNt7EWB4/REOuHjHcmtyutDILO3MF9Z9dZDx4FSkii+UpzeNShfOtV9ov8SfAjPiuOjVkc4CYbv
-	35c3VA1/7hmZIJQNCO1jhIG3AUivNdbjxQBghgRJeBJ9L6o5WNZpS/YrT3FIR6cikugpvobSNG4
-	oXD0r6XpKZkVVR2u9xhl1w1f2oU9BocCA+25nWkBJx/ic1F55hlBUvwSGbT
-X-Received: by 2002:a05:6a00:14c4:b0:82a:146d:36a3 with SMTP id d2e1a72fcca58-83f33c9570fmr13371904b3a.21.1779141773709;
-        Mon, 18 May 2026 15:02:53 -0700 (PDT)
+        bh=bvK2VJD8fl/Rjr0aAvzpby1wY4IjpgTnX0YvfLJpkFQ=;
+        b=jFCfmuoOS40cArQiDzAyTp78aSlN1y1CEx3HLR3adfVYe635EFLUE2eB6uSrVnfO8M
+         dpIll0NUJUIdA7n2FyRCXQb8W6z5sm6D5EaDZlRs43ZzDvwSYVQvLkM0QDaGktEQu/HS
+         7Pz2YYLxBIiDBAqnB0mK6/c5vv2oZB8cYLPFDNoFdSk3e7K5Av5nEtBI/3KCtRbG3ZRj
+         N1V7L4OX1KV5nxSJfiVKvxWkeXe/wi39k7CfTD1Afy+R8zcfPNCjS/WsDNVnBiUm6l3x
+         2B62njF2g1dwKitgmchXAtYTgVER8y06phzq8dCNJwZR4sVMUFoZBEMzbuouYesJb25J
+         CdjQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+I3lTaCKYLA+gR2CI9ioz/PdBJfhh5A10LDsjz9YnFzDje91ZhMXuKHiiZzwoFzU/We/SIG/U4Jqs8@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZbY9nW0YoDQi56HfVbzSJuAJ5K3mVqoHnQ7GjVFZt2oIyjVQT
+	5saku6p2rdkyWnKYB6TaL+07iQHruSvZYpRgRT2HCKeKQbW8sXr/9B3I
+X-Gm-Gg: Acq92OEsp1wgc5GkMRUAzAsDLSKUm39GMVaZ6xv/XqV1eQCnAnqgFuA59k8NzA60R+g
+	J3ZbCggYFiQHMxAzEN/k6hjq9jq4nLSgzUlpepbodYz02HJCGcT0+G7ZQcskmynw0ADeDP8hA02
+	QmTDMWnwBmSxfZqtVGETXiHumijfaz1X/0KbFrsb33QdL0smgwMs4phvCsRCGXXwB+2PfPnHl9m
+	UgTOReCpHJcuLXwDlmz86s+nbwV9uS1s88ACOE29WXbOGlPyX7CZ5qLVK6KBoChcNZA14VMzJSd
+	rs/2UJbDh1KesIRWcGh7DF4rMqufeh0dow4xPhVXqQ94tozzlCWIpsCfyqy86RZ9TULjfQufavx
+	DxWuzbwopiMRnQ2lnpOFwbAOThf7Uwy5aNQF9wepdEzXLWaS2RKPH8Io/hOLohRQ6kZFzm+kTZG
+	vM6BaTwj98dCC6MPl/vrEuM4wX9AIZWQ9kJhjwRvPFIrE1yx6rRaQZasZZMFrD1BNhtCU48JZa6
+	vHRe7zE83ovkBaGo7U0rUkwG+nfh8f2toJW/J0islFdffIwL9T2qabSBgD8Ntmxhi4soKM=
+X-Received: by 2002:a05:6a00:2d19:b0:82f:a89e:e16f with SMTP id d2e1a72fcca58-83f33b2f58fmr17303350b3a.14.1779141777904;
+        Mon, 18 May 2026 15:02:57 -0700 (PDT)
 Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.www.tendawifi.com ([14.139.108.62])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f1977b128sm15772960b3a.22.2026.05.18.15.02.49
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f1977b128sm15772960b3a.22.2026.05.18.15.02.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 15:02:53 -0700 (PDT)
+        Mon, 18 May 2026 15:02:57 -0700 (PDT)
 From: Piyush Patle <piyushpatle228@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: linux-iio@vger.kernel.org,
@@ -69,9 +69,9 @@ Cc: linux-iio@vger.kernel.org,
 	Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Rob Herring <robh@kernel.org>
-Subject: [PATCH v9 04/11] dt-bindings: iio: adc: hx711: add HX710B support
-Date: Tue, 19 May 2026 03:32:20 +0530
-Message-ID: <20260518220228.63322-5-piyushpatle228@gmail.com>
+Subject: [PATCH v9 05/11] iio: adc: hx711: move scale computation to per-device storage
+Date: Tue, 19 May 2026 03:32:21 +0530
+Message-ID: <20260518220228.63322-6-piyushpatle228@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260518220228.63322-1-piyushpatle228@gmail.com>
 References: <20260518220228.63322-1-piyushpatle228@gmail.com>
@@ -83,108 +83,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the avia,hx710b compatible and document the HX710B-specific
-DVDD and VREF supplies.
+The gain-to-scale table is global today, so probe-time scale updates for
+one device overwrite the values used by any earlier device instance.
 
-Add constraints that forbid HX711-only properties on HX710B nodes and
-require vref-supply for HX710B, then add a separate HX710B example.
+Fix this by making the gain table const and storing the computed scale
+values per device in hx711_data.
+
+No functional change for single-sensor configurations.
 
 Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-Changes from v8:
-  - Dropped the trailing sentence "Keep the existing HX711-only binding
-    extensions in earlier patches so this change is limited to the new
-    variant." from the commit message.  The earlier patches in this
-    series extend the shared top-level binding (VSUP, RATE GPIO, etc.)
-    which are valid for both chips; there are no HX711-only binding
-    extensions kept separate from this patch.
+No change from v8. Already applied to iio.git testing branch.
+ drivers/iio/adc/hx711.c | 31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
- .../bindings/iio/adc/avia-hx711.yaml          | 42 ++++++++++++++++++-
- 1 file changed, 41 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-index 9134bbe41379..b2b5c7bdf05e 100644
---- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/iio/adc/avia-hx711.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
+index 1db8b68a8f64..86d2a70dd3de 100644
+--- a/drivers/iio/adc/hx711.c
++++ b/drivers/iio/adc/hx711.c
+@@ -28,22 +28,20 @@
+ struct hx711_gain_to_scale {
+ 	int			gain;
+ 	int			gain_pulse;
+-	int			scale;
+ 	int			channel;
+ };
  
--title: AVIA HX711 ADC chip for weight cells
-+title: AVIA HX711 and HX710B ADCs
+ /*
+  * .scale depends on AVDD which in turn is known as soon as the regulator
+- * is available
+- * therefore we set .scale in hx711_probe()
++ * is available; it is stored per device in hx711_data.gain_scale[]
+  *
+  * channel A in documentation is channel 0 in source code
+  * channel B in documentation is channel 1 in source code
+  */
+-static struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] = {
+-	{ 128, 1, 0, 0 },
+-	{  32, 2, 0, 1 },
+-	{  64, 3, 0, 0 }
++static const struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] = {
++	{ 128, 1, 0 },
++	{  32, 2, 1 },
++	{  64, 3, 0 },
+ };
  
- maintainers:
-   - Andreas Klinger <ak@it-klinger.de>
-@@ -14,9 +14,14 @@ description: |
-   differential input channels. Channel A supports gain 64 and 128;
-   channel B supports gain 32.
+ static int hx711_get_gain_to_pulse(int gain)
+@@ -56,22 +54,22 @@ static int hx711_get_gain_to_pulse(int gain)
+ 	return 1;
+ }
  
-+  The HX710B is a 24-bit ADC with fixed gain of 128. One input measures
-+  the differential voltage between the two input pins; a second measures
-+  the DVDD-AVDD supply voltage difference for battery level detection.
-+
- properties:
-   compatible:
-     enum:
-+      - avia,hx710b
-       - avia,hx711
+-static int hx711_get_gain_to_scale(int gain)
++static int hx711_get_gain_to_scale(const int *gain_scale, int gain)
+ {
+ 	int i;
  
-   sck-gpios:
-@@ -44,6 +49,17 @@ properties:
-       RATE pin state is determined by the board wiring.
-     maxItems: 1
+ 	for (i = 0; i < HX711_GAIN_MAX; i++)
+ 		if (hx711_gain_to_scale[i].gain == gain)
+-			return hx711_gain_to_scale[i].scale;
++			return gain_scale[i];
+ 	return 0;
+ }
  
-+  dvdd-supply:
-+    description:
-+      Digital supply voltage (DVDD). For the HX710B, DVDD must be
-+      greater than or equal to AVDD. When DVDD is a battery rail and
-+      AVDD is a regulated supply, one channel monitors the DVDD-AVDD
-+      difference for battery level detection.
-+
-+  vref-supply:
-+    description:
-+      Reference voltage input (VREF).
-+
-   clock-frequency:
-     description:
-       Controls the SCK bit-bang timing. The value is used to derive the
-@@ -53,6 +69,21 @@ properties:
-     maximum: 2500000
-     default: 400000
+-static int hx711_get_scale_to_gain(int scale)
++static int hx711_get_scale_to_gain(const int *gain_scale, int scale)
+ {
+ 	int i;
  
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          const: avia,hx710b
-+    then:
-+      properties:
-+        vsup-supply: false
-+        rate-gpios: false
-+      required:
-+        - vref-supply
-+    else:
-+      properties:
-+        vref-supply: false
-+
- required:
-   - compatible
-   - sck-gpios
-@@ -72,3 +103,12 @@ examples:
-         avdd-supply = <&avdd>;
-         clock-frequency = <100000>;
-     };
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    weight {
-+        compatible = "avia,hx710b";
-+        sck-gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
-+        dout-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
-+        avdd-supply = <&avdd>;
-+        vref-supply = <&vref>;
-+    };
+ 	for (i = 0; i < HX711_GAIN_MAX; i++)
+-		if (hx711_gain_to_scale[i].scale == scale)
++		if (gain_scale[i] == scale)
+ 			return hx711_gain_to_scale[i].gain;
+ 	return -EINVAL;
+ }
+@@ -82,6 +80,7 @@ struct hx711_data {
+ 	struct gpio_desc	*gpiod_dout;
+ 	int			gain_set;	/* gain set on device */
+ 	int			gain_chan_a;	/* gain for channel A */
++	int			gain_scale[HX711_GAIN_MAX];
+ 	struct mutex		lock;
+ 	/*
+ 	 * triggered buffer
+@@ -290,7 +289,8 @@ static int hx711_read_raw(struct iio_dev *indio_dev,
+ 		*val = 0;
+ 		mutex_lock(&hx711_data->lock);
+ 
+-		*val2 = hx711_get_gain_to_scale(hx711_data->gain_set);
++		*val2 = hx711_get_gain_to_scale(hx711_data->gain_scale,
++						hx711_data->gain_set);
+ 
+ 		mutex_unlock(&hx711_data->lock);
+ 
+@@ -321,7 +321,7 @@ static int hx711_write_raw(struct iio_dev *indio_dev,
+ 
+ 		mutex_lock(&hx711_data->lock);
+ 
+-		gain = hx711_get_scale_to_gain(val2);
++		gain = hx711_get_scale_to_gain(hx711_data->gain_scale, val2);
+ 		if (gain < 0) {
+ 			mutex_unlock(&hx711_data->lock);
+ 			return gain;
+@@ -386,6 +386,7 @@ static ssize_t hx711_scale_available_show(struct device *dev,
+ 				struct device_attribute *attr,
+ 				char *buf)
+ {
++	struct hx711_data *hx711_data = iio_priv(dev_to_iio_dev(dev));
+ 	struct iio_dev_attr *iio_attr = to_iio_dev_attr(attr);
+ 	int channel = iio_attr->address;
+ 	int i, len = 0;
+@@ -393,7 +394,7 @@ static ssize_t hx711_scale_available_show(struct device *dev,
+ 	for (i = 0; i < HX711_GAIN_MAX; i++)
+ 		if (hx711_gain_to_scale[i].channel == channel)
+ 			len += sprintf(buf + len, "0.%09d ",
+-					hx711_gain_to_scale[i].scale);
++				       hx711_data->gain_scale[i]);
+ 
+ 	len += sprintf(buf + len, "\n");
+ 
+@@ -511,7 +512,7 @@ static int hx711_probe(struct platform_device *pdev)
+ 	ret *= 100;
+ 
+ 	for (i = 0; i < HX711_GAIN_MAX; i++)
+-		hx711_gain_to_scale[i].scale =
++		hx711_data->gain_scale[i] =
+ 			ret / hx711_gain_to_scale[i].gain / 1678;
+ 
+ 	hx711_data->gain_set = 128;
 -- 
 2.43.0
 
