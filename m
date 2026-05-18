@@ -1,153 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57EC03F58E2;
-	Mon, 18 May 2026 11:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576CC33F369;
+	Mon, 18 May 2026 11:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779103189; cv=none; b=bPKZNgUMzZyDZwMfqb45FdsMpdlweppPr1UZrhTSKl6+Y/gYolwzDG9PX2zVp5uPrmil7kDBZrOsampiAfQKVl9e5cj50nK0clz65/wZXSebbGNGKL0Aji4v1lPY8bohle0GxD4uTpW300RqDOaCfvWNSqbOkL1GX3tuv1YKkz0=
+	t=1779103282; cv=none; b=l0/S6ZvEb0txhfjevbLpUNozQ4YZplzsowEOGfhUy1UJNz6G61JQBiMsm7+J3T4i+DbER0P3AoNuGmh9RQn4pRFc975Io+a5snI1kPf72Axox98dGknuDQjKZN97B5o69g9uMW9QCe2iNT7dF8jW+KuE36uct7wVjcDxTDMQF8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779103189; c=relaxed/simple;
-	bh=vH7pnbYGn7AO3OaKGHuq9u2nobog1aJHQ14rr8QXIog=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gapSoVu9cIP/+Nrdd+Ll2dylYE+rObx6X+zbBN0UvGcBNenI+dlhEO5Dr2AqxJv/sGQZSuI0cWll6j3UL7rMpsAuB10TxSt1zlVqSnWzK6my7YgSWuGb4Cwi/eM0JADc+dU3mLxBTtJuF9pJvM/gblgyV8JfVxb+itVimxJzz6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfhU79R+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779103282; c=relaxed/simple;
+	bh=S4h1G7k3+g8G0CgDNVWmvQjDH++jQABOuW4EyKH8EbM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nDx4mJwAqUBYoT9ItU6BNXiCLlIAFkw6XCcBB7TACaGMSddHR5yk6XU6/BB0o91b4140De3JLuN6x+IzsZ7dDgQOWuebr3EYgYkYhfUBYgqVDnhFFnzGnmdxibrQah4sm5dkqq7uC/ScR9pazYeLle0yBizmYGWLqB2K4T/CeQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kfra0QB7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfhU79R+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D177CC2BCB7;
-	Mon, 18 May 2026 11:19:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kfra0QB7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308B4C2BCB7;
+	Mon, 18 May 2026 11:21:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779103188;
-	bh=vH7pnbYGn7AO3OaKGHuq9u2nobog1aJHQ14rr8QXIog=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=dfhU79R+hGg0NyjDnDXOjG21p7dVP7hxjyBA2dmLmGKNKBXKYBCRHDbUzC5tQ6SXN
-	 CNOLdpJEQWniZNHRXuQBXg0aqVKSDZxly9XpdqG3xXvD5v0X35DIYUZ6OJ/VxvdSFc
-	 E5npmSAX/K00E00f5BiG3bsPnDaE65u7fV6DVnBJMs/Iy0rqhZ+5fzUf3uJ4QsXIJc
-	 irvjDREjorLtHXVon7/THV0rFHWDPvD/pim70aa736hF89Sin9du6ZQXwsYWYR3LWL
-	 N219DxEDJzODsyNDJPZlp0kpvjx1S+/UGNe6ewIwPJGlgnF1HtXS2cus9RuIWSwnFw
-	 Ceb+qCKIcZtjA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 3/6] pinctrl: core: Make pin group callbacks
- optional for pin-only drivers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Oleksij Rempel" <o.rempel@pengutronix.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260518100054.3552143-4-o.rempel@pengutronix.de>
-References: <20260518100054.3552143-4-o.rempel@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 11:19:47 +0000
-Message-Id: <20260518111947.D177CC2BCB7@smtp.kernel.org>
+	s=k20201202; t=1779103281;
+	bh=S4h1G7k3+g8G0CgDNVWmvQjDH++jQABOuW4EyKH8EbM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Kfra0QB7Z094KSbTQdkXOJ+yj8JDcPjUc+xzwUB7NgBMBs8+bxqfrIm43g+p2bnnd
+	 ML4DgxfRymPYDMe1NamTTBTFnoE1O5QNo9akFEwkMKKq/8S8L59Wu3mZie82hy/CXN
+	 H2KvhdMXLFCK4MRQzk0YiI3k0GQxvolnMxJ053T2GYJKyxDRG7cIQZ/ZIo/S1DjBzI
+	 O3UuGhwYYKSnfkdc7X2C8AseqPfybivabXhQzJuiBXsZ4l1UTfl1Lgwl1+BOhNUkew
+	 pMzHRHpOykNqY6Mz8+/A8ejvUf7NrF6fAhbPlsyeVvecty7JCfAZYFYrFsMvEKd8YH
+	 P5ITKHS53YcrQ==
+Message-ID: <43f22b49-c68e-4975-bd28-c179ba200558@kernel.org>
+Date: Mon, 18 May 2026 13:21:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix unit-address mismatch for
+ spmi_bus2
+To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maulik Shah <maulik.shah@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+ Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Cc: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+ Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260518-glymur-fix-spmi-bus2-unit-addr-v1-1-27d6edca51e8@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260518-glymur-fix-spmi-bus2-unit-addr-v1-1-27d6edca51e8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] The function `pinconf_groups_show` iterates locklessly over pi=
-n groups using `pctlops->get_group_name` without taking `pctldev->mutex`, l=
-eading to a Use-After-Free (UAF) race condition.
-- [Critical] The function `pinctrl_get_group_selector` iterates over `pctlo=
-ps->get_group_name` locklessly, creating a Use-After-Free (UAF) race condit=
-ion during map resolution.
---
+On 18/05/2026 13:16, Gopikrishna Garmidi wrote:
+> The spmi_bus2 node was named spmi@c48000, but its reg property
+> specifies the base address as 0x0c448000. Fix the node name to
+> spmi@c448000 to match the actual register base address.
+> 
+> Fixes: 41b6e8db400c ("arm64: dts: qcom: Introduce Glymur base dtsi")
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> ---
 
-commit 02ec67dd43dc0fad7f2e694d9ac1bbd0d9a91c1a
-Author: Oleksij Rempel <o.rempel@pengutronix.de>
 
-pinctrl: core: Make pin group callbacks optional for pin-only drivers
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Relax the requirement for pin-only drivers by making the group callbacks
-optional when no muxing or group pin configuration support is provided.
-
-> diff --git a/drivers/pinctrl/core.c b/drivers/pinctrl/core.c
-> index 6cbcaa6709da1..3fcb7e584a937 100644
-> --- a/drivers/pinctrl/core.c
-> +++ b/drivers/pinctrl/core.c
-
-[ ... ]
-
-> @@ -738,8 +743,15 @@ int pinctrl_get_group_selector(struct pinctrl_dev *p=
-ctldev,
->  			       const char *pin_group)
->  {
->  	const struct pinctrl_ops *pctlops =3D pctldev->desc->pctlops;
-> -	unsigned int ngroups =3D pctlops->get_groups_count(pctldev);
->  	unsigned int group_selector =3D 0;
-> +	unsigned int ngroups;
-> +
-> +	if (!pctlops->get_groups_count || !pctlops->get_group_name) {
-> +		dev_err(pctldev->dev, "does not support pin groups\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ngroups =3D pctlops->get_groups_count(pctldev);
-> =20
->  	while (group_selector < ngroups) {
->  		const char *gname =3D pctlops->get_group_name(pctldev,
-
-This isn't a new regression introduced by this commit, but since the
-surrounding logic is being modified, does this code have a use-after-free
-race condition?
-
-pinctrl_get_group_selector() iterates over pctlops->get_group_name
-locklessly. This is called from map resolution paths
-(e.g. pinmux_map_to_setting()) holding pinctrl_maps_mutex but not
-pctldev->mutex.=20
-
-If there is a concurrent dynamic modification to the group list (such as a
-provider driver unbinding and calling pinctrl_generic_remove_group() which
-frees the descriptor), could it race against the lockless radix tree lookup
-and lead to a use-after-free when accessing the returned group name?
-
-Note that simply adding mutex_lock(&pctldev->mutex) inside
-pinctrl_get_group_selector() would deadlock callers like
-pin_config_group_get() which already hold the lock, so the locking might
-need to be addressed correctly in the call stack.
-
-[ ... ]
-
-> diff --git a/drivers/pinctrl/pinconf.c b/drivers/pinctrl/pinconf.c
-> index dca963633b5d1..81686844dfa5f 100644
-> --- a/drivers/pinctrl/pinconf.c
-> +++ b/drivers/pinctrl/pinconf.c
-
-[ ... ]
-
-> @@ -348,8 +348,13 @@ static int pinconf_groups_show(struct seq_file *s, v=
-oid *what)
->  {
->  	struct pinctrl_dev *pctldev =3D s->private;
->  	const struct pinctrl_ops *pctlops =3D pctldev->desc->pctlops;
-> -	unsigned int ngroups =3D pctlops->get_groups_count(pctldev);
->  	unsigned int selector =3D 0;
-> +	unsigned int ngroups;
-> +
-> +	if (!pctlops->get_groups_count || !pctlops->get_group_name)
-> +		return 0;
-> +
-> +	ngroups =3D pctlops->get_groups_count(pctldev);
-> =20
->  	seq_puts(s, "Pin config settings per pin group\n");
->  	seq_puts(s, "Format: group (name): configs\n");
-
-Similarly, this isn't a new regression introduced by this patch, but does
-pinconf_groups_show() have a use-after-free race condition?
-
-It iterates locklessly over pin groups using pctlops->get_group_name without
-taking pctldev->mutex (unlike its sibling pinctrl_groups_show).
-
-Since pinconf_groups_show() is a debugfs callback, it can run concurrently
-with a pinctrl driver's unbind or dynamic group removal. A driver unbinding
-calls pinctrl_unregister() or pinctrl_generic_remove_group(), which frees
-the group descriptor.
-
-Because pinconf_groups_show() traverses the radix tree locklessly and does
-not hold pctldev->mutex, can it access a freed group name and lead to memory
-corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518100054.3552=
-143-1-o.rempel@pengutronix.de?part=3D3
+Best regards,
+Krzysztof
