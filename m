@@ -1,150 +1,164 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365623E929C
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E743E5A2E
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779101042; cv=none; b=kSUAxZiCaXq7WSahOw2jqrRPqlZS+e4ttYTBTdr0bUH2cc/5Rvk4rNnD5yAQUNYAf769JsCx21nThPVWdyWvYXRvLXMJrsXcpIZvwrQKve4awhYA4u9T9Rmu3t8kAiVP73CRQ1yq6QHMeYbTiaATMlnET8QyyjfTwAb63NPcAOQ=
+	t=1779101057; cv=none; b=N+/l7uAUuJskTvwWbiGne/mueYBcl6h7ncasrAibcYbFU9nkwa79r6+f6OUOG/HYa6AQtR2YkPm5FNg4a0gcbxVvPyyuMpau4AQLBY+ReLc/U1tjWNgkEdJd+CsLEMEuuetdKmKU0iwTAW+29JElin/8oNwZypZvLwH9k0NVnw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779101042; c=relaxed/simple;
-	bh=l4ToQiBwy7d2RiY785WIbdxmKwkLErG4Ylcah7yaaio=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N4DucZWxDPpQ2aVBbZ/FvkFhI6GQEV91GtEirD9VvqOh7RiUvcuaKwcMCvIvcnu+WCDFpG8KdyaMvr2ZxarRoqkCrBDUUN5FfztYErLk420c0A4zXVpAW745jKGKGiZSvdIuL+E5jXQW+dZWfpOmnRaogi7Kv36D9ARUw1WbqFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YKiYZplq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AHpCC7yq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779101057; c=relaxed/simple;
+	bh=RhWcqJg8RgbB1MJofKvo7sLooBa12dtFpi62aR3SVlA=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yr9m97D/SeJkUGZUZ3UuZjEsrWGf5ldksdcIbNdImyME/NaaAnXady0v2/svTsRINLxTdNyQpAswuRMG7QGjvjX32YPxu+ArgSIJgodkYob/vUF/rOEhISuCX38gQWfuze/xTHFNk7mi+/0s4bRJIa/2TsnHQSheMixbQztF+kY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=asZJ33ak; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YKiYZplq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AHpCC7yq"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I8wprN2566976
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:43:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	H8g9fIrkR3zBA+xoNE5AMzZclMhUkHCRBwnPd3MLibI=; b=YKiYZplqwD5mfco2
-	opUgOviuILxcrzdiuTJw9V1Ri+2HhvzQXFHGcX/+9htSm57bmqAaN1PefKhHnCR+
-	IXgxtbDEw/pUJVLr69oF+epYfftz1W5FkWuppkV88m1RcV9B3RObNUwFCE9CrZKZ
-	ZrqwMkylCcEaZIHlTWyuBkzqMLCwxZJt29d6F8g3nYbBvLCKC5VlmMN+grEF6f0s
-	vc+OpXGqd3hT2ncCcJn2XR0ij/s7NgtEadao4FupQL3SbK6RYZa8kLBUoyVJKZED
-	tow+7R36WOKv7bFHvrp6MxyF5JdrHEvDnRk9k0ezv5EKG/1h1Eq3GeLUJ6QCZRQt
-	vJkfbg==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gvqx3t8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:43:50 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82fd55bf6cdso1374772b3a.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:43:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="asZJ33ak"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488a88aeec9so25212505e9.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:44:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779101030; x=1779705830; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=H8g9fIrkR3zBA+xoNE5AMzZclMhUkHCRBwnPd3MLibI=;
-        b=AHpCC7yqbAWfRMIdEnZbuhaAao4XbW/UfMLJu7fe58eO/6u6FumxRKeQh+jaT0AX8L
-         BVV5I0fHvAlSmaQ+uqiEEKbzJm3m8Bxj1Cpovaz9UDUsa08A2Z5AbdkVFl0FDRvSgUGq
-         HSAM5xtOTQddcsI+umT3UZ6Jl3PELtmbDzz2I0k1+XN07w3eFaCvOm2EakZLbkNKVHKO
-         VqzKeyAO06t/89wvxbqp/MP6XdY8AjFVr4j6skyLn1m3s9IOatZVzd5eMzwzpTu4mGGj
-         q+GcXZJs3w0rLrdpJNdXXEnAy+YOPGNC+BSv5/62KMh9LsEClKNSiWlfUvKcG31qHLQM
-         y2sg==
+        d=gmail.com; s=20251104; t=1779101046; x=1779705846; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=1TfHYXVTtFe8YaePf+Qyu1Vi9txD3OHA9vREKcQqPtk=;
+        b=asZJ33ak0Vyy8BzpgsbV8W9yMbtX/3IobBUzr6evd39lgTXOwdAsjwODlfiA4IfAWV
+         oN2OnFgvI2KR7G0tI39EJoC2fqB15i+Tqr9txxVJAk6KnuhLmeWYGExopq05wJAwiFJE
+         Hb9JoeDGMQI2c3ucBkTa+n2oT+jPrnPBYnKg7JDpCVrBrWHVjC5OFQuEFZGq7SQXfQkP
+         pvKYzzeynmi/TmhskNCTCa1nmWStYvTAvKqBS92w3opnpjZJszpcLQ7BbDsEY5o8aja7
+         kPut9jURfdR2rRm+bRGJ04JxbKpKFAaoaqvUxwb8W4wnLoML7brSjDknuKjGztLjVWyG
+         wJsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779101030; x=1779705830;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=H8g9fIrkR3zBA+xoNE5AMzZclMhUkHCRBwnPd3MLibI=;
-        b=hvej8dPGoN7jWaLNKb0+a94Xiw39JaJuyM5L0KzEKwcF4g3+DZQhQ3SQYT0CwG+iGI
-         045qc9H0Td4kc2X9NrBNqBr5RM9kgIBsjjAcb+VAUDExymhfrRW5kuCzbaorcIpEqFW5
-         v82U+55w1h0au/1cARXYRhWDfLpKj6vgVp2LZSwTKEfXtv+tYC/HGY6pcBR9U1o/xVcl
-         jzqqs/DlQ9Iws0fW1uAgkoJNUqNixqnrXIRLz56uUr59AD339ssnxjd94rY8Ga0v8qFl
-         Psy1Inz3ak4/pkCUiqCWLCtxRRmLebmtqU6qBjx2B9kZIZiiHKsBqj/0wsBrQKGqok0u
-         MPWg==
-X-Forwarded-Encrypted: i=1; AFNElJ9cIn+97P0BVFhaMOZZeZftKELjWrdwSWtAgXkhHuGHVCdg2TQ+J9dfqs1STYQmedQsudg4t1qnE/y1@vger.kernel.org
-X-Gm-Message-State: AOJu0YySrQuD7ytOYQwm1RvQkajZNmjtJ+msoKSERXTu95dh2O20Vf5s
-	H0qZUhmzewnn/2SOm7nloRU0MSoje1BISSjnmN2HsMY7xXKdHzq3ZE4lAVEE0pl1UZxLbthzh9N
-	HZmbwDgfUe91fFnK2piB55Q6/eH1ruuQ1BMc1K/p9tNCUPlE67HWpYlGoKpSWmM5A
-X-Gm-Gg: Acq92OHQ4E1b8X/+3T4ol6rXH1a8PR2QM6eTGH43ZwpSHlBhfbamx0ibk/exfGeINLZ
-	9ARzx8evxGMPWG4FCzn7poBfQyL786KtHpBMfV2T5gPVa9/rRTr2lRql/478pGda+QJjdn0k1dE
-	Su8N/rYn60RO9EbpuSfv9WW3mpKNF+hj+YMEs2rsrJikOmy1W5e4+O2yo5eVCxHZ3noP6sRJAbM
-	QJGeFUsOaGPosramV4XCGDHs9DbusY56VuXrwcnfu5VuM/kdihGAIz6AGQrvhFwL7CnBG4CcdSC
-	ooeWwmbTSwZqdtgxYcYVrqB06c/RgcupmGFWq0AFa81Arf5iUuKxjMTwVK7PBsk8BbTfo1846B/
-	DZM5nZvnfEM97i+alN6NRXA2lMKx3pWtj/b/jkG4o1I0sK7cae4vyUL8wU1xgLDMmx/dGTWhXRP
-	VFRnX8Id0xGdXsEpTAjNEv2C4oNVQUIJ7bdEo6FF0o1+KQIYE=
-X-Received: by 2002:a05:6a00:3915:b0:81f:ac81:d597 with SMTP id d2e1a72fcca58-83f33a38df2mr13901977b3a.0.1779101029701;
-        Mon, 18 May 2026 03:43:49 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3915:b0:81f:ac81:d597 with SMTP id d2e1a72fcca58-83f33a38df2mr13901956b3a.0.1779101029233;
-        Mon, 18 May 2026 03:43:49 -0700 (PDT)
-Received: from [10.79.138.73] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c5ce1fsm14182221b3a.35.2026.05.18.03.43.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 May 2026 03:43:48 -0700 (PDT)
-Message-ID: <734cf62b-e896-4089-8c8e-5b773ae7df5e@oss.qualcomm.com>
-Date: Mon, 18 May 2026 16:13:44 +0530
+        d=1e100.net; s=20251104; t=1779101046; x=1779705846;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1TfHYXVTtFe8YaePf+Qyu1Vi9txD3OHA9vREKcQqPtk=;
+        b=o0uixM753I+175AqNlttOt1bu58EWqyPhO/euDRK7UlsVXX8S2SHGWWzPDKoPpF/Z6
+         GyJGRga6uIA9KRYsx+jx3eq33X5La0ML2Lcjsrl/Qd1sG6oQpbfOKMN3/43E53R7w71i
+         TUBcWVywSWidUehEUceUv16a9AGXfno/KDdtI+yBFK1C3dl6iI1Gn/k1xxXrsmbbG0xX
+         mTcsJyAtvXeRjVhzX6EfEScU8d0uB/2CBesg3Gfst9Wz6ykwahKQUJLpyGroHW+KhqpD
+         MhXRTI/qo3FxzZMBWBF6GsD1ARSFwxQVj+TUKSK+tED6mT2xFvblRhJ4FahKE1JP3lbm
+         A9lg==
+X-Forwarded-Encrypted: i=1; AFNElJ90ajBiLMdofU2kN9I5rAypJKIUP2ktgP4MmIKYubnGCj6NvLZWg7hgJMJFcOTok0lv1OL/M0cQpRaT@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRMW5fvjgbBQQ+0XE4RjjMX9qwt32Q7534Y3L1n+5R1uMVzsNN
+	HQFfU88USwwzCrTMFWxGjrgz+H7vQdb+z0js/2lwwk93NBZHcN6zJIT+
+X-Gm-Gg: Acq92OHzy68JEizXBCj8B897QX0aPiOe07j4NS1QIvdM8jToTsHqHZ+GfpYBBlm4Bty
+	873AxKQkv+RZV7J8gYwWoS9bjBodfoNVs3dlXHRZ6J31CrKTTD6C+n01TFKJO5E8yVrbDL8ibPj
+	JgncGuDKz+x6C5YB0bM1wA3Ghc/MT+8HJ1D/D7xNuxbiz+2ABTvjEMQgwPxFVtGor52kpYQg6DU
+	bQwsIzFe0r+omF6Iw35apYF3j8qGVogAE59wldtCayiRNh7JGube2l7HxUgunhmEgqdj5krUV/A
+	W5znCqcOuZdxEuJwllamT6KzAXUbdVwivuXT9bT2/FhzHCJqMP0lS9LKWEn5izkfWWL9Jbu+lXK
+	prA7DPA5YmrPLWMosIO54k1I91gsw3ndS6JpG8dkP6nAnf0SWxwBkPT/+1j448SjPyiorExTlyz
+	sMkyd9xl76xsIMt0/67f2untY1cDHc7E5pPQwNKxI2FM9/KIZ35t/BqsmloZwt+Fo0gD8sJAy39
+	JXjjWNk86K2o/FbbzudHh/mR2cTEQyv/SzQdsJQCISZGqYTzg==
+X-Received: by 2002:a05:600c:13ca:b0:48f:eb8b:9988 with SMTP id 5b1f17b1804b1-48feb8b9a84mr122520795e9.23.1779101046286;
+        Mon, 18 May 2026 03:44:06 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da15a562dsm36544342f8f.33.2026.05.18.03.44.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 03:44:05 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 18 May 2026 11:43:58 +0100
+To: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/13] iio: core: validate file offset in
+ iio_debugfs_write_reg()
+Message-ID: <hr3phupisl7dc3sch64tjkpeb25z2lkxwsxumcviauvstu2b46@rba2dqhoezze>
+References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
+ <20260517-ad9910-iio-driver-v5-1-31599c88314a@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: Move board nodes to common DTSI
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        sibi.sankar@oss.qualcomm.com, rajendra.nayak@oss.qualcomm.com
-References: <20260326-glymur-mahua-common-nodes-v1-1-12bb26920ea4@oss.qualcomm.com>
- <ac3i5MIlEQ6y9SNp@QCOM-aGQu4IUr3Y>
-Content-Language: en-US
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-In-Reply-To: <ac3i5MIlEQ6y9SNp@QCOM-aGQu4IUr3Y>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ORRk3l8Guzo0NSQqrGsCSWHOAFp6YWTb
-X-Proofpoint-ORIG-GUID: ORRk3l8Guzo0NSQqrGsCSWHOAFp6YWTb
-X-Authority-Analysis: v=2.4 cv=LKJWhpW9 c=1 sm=1 tr=0 ts=6a0aed66 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=k8rrXGyE-Y1bW8ej70EA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDEwMyBTYWx0ZWRfXxkBg/zuLcoaU
- ECOsXjj7pIqmP1bYBF8XKgaYefStTcP5XQbHhMmVa2CTVck3O0YyMCa9ykRdtJZOp73N7gb4mHl
- Txa/97xwEiZQMW4KKpQfqEOGWuKPGzKaJnzVR90QBw6bycKZ7gIPZ/MJaMJZMNUMJmNuULezjOo
- SHUJ2y2WYm8WV4ZVJvBLUe16u69VczNgQQ37a246LE8fLsi9tLCVC5Be53QZfGxro7k5l5dj+Ze
- eS1peveU5g6Mz3f5QUrgKBzVTK0NVq4q2s3D1pRF4kOZu4doqWyR1MB52hafw+IprOx81zeMVRY
- ME4Li13UtXSd/j6F16F0wYetUJJIMEhdNt5armFtkLKyXRv785mQ354un3hQ1+DY7xfYnZ1z7rQ
- 4wt5EqCtqj9COG8AU25IJRoUhD45DEn6sTNYdlmoEc6Hjm8iQF750E/uQB5vjknFzZptsN5kJq5
- UZFnyoXK+DpmP+2UWfg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 suspectscore=0 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605180103
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260517-ad9910-iio-driver-v5-1-31599c88314a@analog.com>
 
-
-
-On 4/2/2026 9:00 AM, Shawn Guo wrote:
-> On Thu, Mar 26, 2026 at 07:21:01AM -0700, Gopikrishna Garmidi wrote:
->> The display, peripherals (touchpad/touchscreen/keypad), usb and their
->> dependent device nodes are common to both Glymur and Mahua CRDs,
->> so move them from glymur-crd.dts to glymur-crd.dtsi to enable code
->> reuse.
->>
->> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+On 26/05/17 07:04PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] The `*ppos != 0` check introduces a functional regression for sequential writes, masking the true bug which is the inappropriate use of `simple_write_to_buffer()`.
+> - [High] Unpatched uninitialized stack memory reads in other IIO drivers caused by the identical anti-pattern.
+> --
 > 
-> You may want to have glymur-crd on the subject prefix to tell the scope
-> of the change.
-Sure, will fix it in the next version.
+> commit 7c5ddbc34738b9e84e226b9906348d61e3569bf4
+> Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> iio: core: validate file offset in iio_debugfs_write_reg()
+> 
+> This patch adds a check to ensure that the file offset is zero in
+> iio_debugfs_write_reg() before calling simple_write_to_buffer(). This is
+> intended to prevent leaving the start of the buffer uninitialized if a write
+> occurs at a non-zero offset.
+> 
+> > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+> > index bd6f4f9f45330..e587aca79b8e7 100644
+> > --- a/drivers/iio/industrialio-core.c
+> > +++ b/drivers/iio/industrialio-core.c
+> > @@ -419,7 +419,7 @@ static ssize_t iio_debugfs_write_reg(struct file *file,
+> >  	char buf[80];
+> >  	int ret;
+> >  
+> > -	if (count >= sizeof(buf))
+> > +	if (count >= sizeof(buf) || *ppos != 0)
+> 
+> Does this cause a functional regression for sequential writes?
+> 
+> If a user writes multiple commands to the same open file descriptor, for
+> example using (echo "cmd1"; echo "cmd2") > direct_reg_access, the first
+> write advances the file position. This means *ppos will be non-zero on the
+> second write, causing it to fail with -EINVAL.
+> 
+> Before simple_write_to_buffer() was introduced, the code used
+> copy_from_user() and ignored *ppos, correctly treating every write() call
+> as a distinct command starting at the beginning of the buffer.
+> 
+> Since simple_write_to_buffer() is designed for stateful linear memory buffers
+> rather than stateless command endpoints using local stack arrays, would it be
+> better to revert the use of simple_write_to_buffer() entirely and use
+> copy_from_user() or strndup_user() to parse each write independently?
+> 
+> Additionally, does this leave a similar pattern unpatched in other IIO
+> drivers?
+> 
+> While this patch addresses the issue in iio_debugfs_write_reg(), the same
+> pattern of using simple_write_to_buffer() into a local stack array still
+> exists in other locations:
+> 
+> 1. iio_backend_debugfs_write_reg() in drivers/iio/industrialio-backend.c
+> 2. ad3552r_hs_write_data_source() in drivers/iio/dac/ad3552r-hs.c
+> 
+> Both functions use simple_write_to_buffer() into uninitialized local stack
+> arrays without checking *ppos.
+> 
+> Furthermore, ad9467_chan_test_mode_write() in drivers/iio/adc/ad9467.c
+> uses the same pattern. While the buffer is zero-initialized there,
+> sequential writes will still be functionally broken.
+> 
+> >  		return -EINVAL;
 
-Thanks,
-Gopikrishna
+This was me trying to fix an issue and maybe creating another.
+Probably I would just drop this, and leave this to be handled later.
+At least it was good to indicate that such issue exist.
+
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com?part=1
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
+
