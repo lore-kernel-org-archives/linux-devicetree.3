@@ -1,111 +1,129 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656CE3CF680;
-	Mon, 18 May 2026 10:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BFC3F0773
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779101889; cv=none; b=TfgvuwzCEI0Seko26+ALIdBTcUATqeXfkIXLgb0KWPLgJNBeGXTGZpEw59BLiZCEjaK50sSj+D3eDNj72cSBBOWolZzng+WbRKFg9gGUKBzZoqhwumwABprqW45LrQhZNtmW+qcqTvKgacInIMJOT+IEHre0xRAOQ8kF1zEc088=
+	t=1779102202; cv=none; b=lio7N1Im6wqtsIv08C4mEiZ0S00RuVL/Wh5S0QUQzHCnJGsoKVZa7a4V9SswAKQZppiL0/9W8DfJlt817PiurbRHn21MSah+VxAm7TmXDxy9hHZk9PAgnMuUcPXroVTVcZ8rCSeeeJuEGnt7m98fmUYnGFbFD0LXFOyIYn4bNOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779101889; c=relaxed/simple;
-	bh=CeJdp63t5M3yrMI58BNBOA4lTzNvLQlOWbKDErRCEaI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cyowQN+JroVJfEIo2v/kygpXyNFrxcLkEdvf9zACXdBok4tMEaurZAj43IF1E6TKbcvbr4FjZV7LLKmGMAuL8SnlqYtAzdZ8ov7vQohfKuRS9OeVuAEhfOroxeuQO8nTHYzsszEOVbevAejd+s4viFjla2y8ISDASuVzFPIwvzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=oaydknFL; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1779102202; c=relaxed/simple;
+	bh=RC+EB6AGqYPaOpeRYcttsp5h/6sH2zJN0L9kROF4HRU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oehns7xaTrUGGHIcP4hG1OVWfDq6f3j7jwFQA6Ae4VCYXduELsXfOnkDowL181a8KXexN0hZqUAfLwVLgPoekVZACIPXwh2ZHt8NPHkfYQ7TnhzN0hTyUEb1d5evZe2cQ5h6gQ1hlJtRuqkXW/QgF7uk82HB8OWipivNyQ1nH2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWZhN6x0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="oaydknFL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=jBVg5PAElT/VJaPv+0RYYYnJBg28cPCXxION0Y0Lv4k=; b=oaydknFLp/ZK1dYVkG8aeaicn4
-	tL8zn5YeFiI4wR8LwtlU5+J57P84vdG88LIZgwZyUqoBwsb6cJCKJ5KZGd2c/3AGzOVPXCLF2kmB8
-	8U7N0P6tDEQs90979e5/EUmvwWH7J/OrNiRpwUskUsse4lGRaVrJ2pu1fF6GcR7aSJwbY7pWs06hA
-	7t4sBerD3jWTQMAGXm1LSXYETXKuukJY1ngImNn+ebXj4m4P/onLMBfLQnxqWYf6zRvehFm8Z8fbu
-	+0nTRjXX3PqW1knekPfczMPT+Sd3qcdNc9JzLFcqjNsA0kMe4HgIx/hWZJDOQ5cM0fR7S8w8GURIp
-	RMQ12bOw==;
-Received: from 2001-1c00-8d85-4b00-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl ([2001:1c00:8d85:4b00:266e:96ff:fe07:7dcc] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wOvfE-0000000AqRU-2NAG;
-	Mon, 18 May 2026 10:57:40 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 730F53007A4; Mon, 18 May 2026 12:57:35 +0200 (CEST)
-Date: Mon, 18 May 2026 12:57:35 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, linux-doc@vger.kernel.org,
-	devicetree@vger.kernel.org, workflows@vger.kernel.org,
-	Linux-Arch <linux-arch@vger.kernel.org>, dmaengine@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org,
-	Netdev <netdev@vger.kernel.org>, linux-pci@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-hardening@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	"linux-csky@vger.kernel.org" <linux-csky@vger.kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
-	Hu Haowen <2023002089@link.tyut.edu.cn>,
-	Dinh Nguyen <dinguyen@kernel.org>, Kees Cook <kees@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>, Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Nicholas Piggin <npiggin@gmail.com>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Dave Penkler <dpenkler@gmail.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Simon Schuster <schuster.simon@siemens-energy.com>,
-	Andreas Oetken <andreas.oetken@siemens-energy.com>
-Subject: Re: [PATCH] nios2: remove the architecture
-Message-ID: <20260518105735.GW3126523@noisy.programming.kicks-ass.net>
-References: <20260518042833.272221-1-enelsonmoore@gmail.com>
- <d40b1e80-37fc-4c88-9d7f-dae6458efe6c@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWZhN6x0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1C39C2BCB8;
+	Mon, 18 May 2026 11:03:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779102201;
+	bh=RC+EB6AGqYPaOpeRYcttsp5h/6sH2zJN0L9kROF4HRU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=XWZhN6x0RQcRVf6MWIXcbqcjAKAebH1ThNb1XrDU59wyjlmBjgkKA/Bdwt9mlHxYH
+	 ysTE6ZnpfyAOP8HwRdGs53d3P1xeHbhgpakRoZLSSulPebjb+dLq9CWmXdwmCGVmpu
+	 Karo4wzXgPtHvsRlCBKYUHd78hti6hxkkzmgFNEab7iStYWutqwBfhTcKWlyduRhwS
+	 qA8uKGb24PgkpshnYeYSeaQnVt5QU6/hHhjPWpi13HE1oJvO5eenb/6rHyhQIlsLZd
+	 h+qCT/lTU8R2BdQBZoRYpCAfRbU69Rt83g0X4QFkNYw+8tp+xnVAnzql0JTiEk7mzN
+	 cDr7kfOJm9kVQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] phy: core: Define TBT phy_mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260518-topic-usb4phy-v1-2-71d827c49dca@oss.qualcomm.com>
+References: <20260518-topic-usb4phy-v1-2-71d827c49dca@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 11:03:20 +0000
+Message-Id: <20260518110320.F1C39C2BCB8@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d40b1e80-37fc-4c88-9d7f-dae6458efe6c@app.fastmail.com>
 
-On Mon, May 18, 2026 at 11:29:48AM +0200, Arnd Bergmann wrote:
-> On Mon, May 18, 2026, at 06:28, Ethan Nelson-Moore wrote:
-> > The Nios II architecture is a soft-core architecture developed by
-> > Altera (since acquired by Intel) and intended to run on their FPGAs.
-> >
-> > Licenses for the architecture have not been available for purchase
-> > since 2024 [1], and support for it has been removed from GCC 15 [2],
-> > Buildroot [3], and QEMU [4].
-> >
-> > Given all of these factors, it is time to remove Nios II support from
-> > the kernel. The maintainer stated in 2024 that they were planning to do
-> > so soon [5], but this did not come to pass.
-> >
-> > Remove Nios II support from the kernel and move the former maintainer
-> > to CREDITS. Thank you, Dinh Nguyen, for maintaining Nios II support!
-> 
-> Hi Ethan,
-> 
-> We last discussed this a year ago when Simon Schuster mentioned[1]
-> that Siemens Energy is still using NIOS-2 in production and would
-> prefer to have this still included in Linux for at least another
-> few years until the obligation for kernel updates ends.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The tbt_phy_submode enum implicitly sets PHY_SUBMODE_TBT3 to 0, =
+making it the hidden default submode for phy_set_mode().
+- [Low] Using PHY_MODE_TBT as the generic mode with USB4 as a submode conce=
+ptually inverts the industry standard hierarchy.
+--
 
-Isn't that what we have LTS branches for?
+commit f1ad33ca1ed62aa8d4ab806ced09908d4e9f3625
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+phy: core: Define TBT phy_mode
+
+This commit introduces a new PHY mode for Thunderbolt (TBT) and USB4 PHYs
+that require specific electrical and analog configurations. It defines
+PHY_MODE_TBT along with PHY_SUBMODE_TBT3 and PHY_SUBMODE_USB4 submodes.
+
+> diff --git a/include/linux/phy/phy-tbt.h b/include/linux/phy/phy-tbt.h
+> new file mode 100644
+> index 0000000000000..5f48059814e19
+> --- /dev/null
+> +++ b/include/linux/phy/phy-tbt.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __PHY_TBT_H_
+> +#define __PHY_TBT_H_
+> +
+> +enum tbt_phy_submode {
+> +	PHY_SUBMODE_TBT3,
+
+Since PHY_SUBMODE_TBT3 is the first element, it implicitly evaluates to 0.
+
+The generic phy_set_mode(phy, mode) macro in include/linux/phy/phy.h wraps
+phy_set_mode_ext(phy, mode, 0).
+
+Does this mean any driver calling phy_set_mode(phy, PHY_MODE_TBT) will
+silently default to requesting the legacy TBT3 electrical/timing
+configuration instead of USB4?
+
+Would it be safer to reserve 0 for an unspecified state (e.g.,
+PHY_SUBMODE_UNSPECIFIED =3D 0) to force explicit submode selection, or to
+make the modern standard (USB4) the default?
+
+> +	PHY_SUBMODE_USB4,
+> +};
+> +
+> +#endif
+
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index ea47975e288ae..26a91c070f8ce 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+
+[ ... ]
+
+> @@ -45,6 +46,7 @@ enum phy_mode {
+>  	PHY_MODE_LVDS,
+>  	PHY_MODE_DP,
+>  	PHY_MODE_HDMI,
+> +	PHY_MODE_TBT,
+
+Is using PHY_MODE_TBT as the generic mode with USB4 as a submode the best
+hierarchy here?
+
+USB4 is the foundational open standard established by the USB-IF, and the
+Linux kernel USB and Type-C subsystems natively treat USB4 as the primary
+mode (e.g., TYPEC_MODE_USB4).
+
+Could grouping USB4 under a Thunderbolt PHY mode cause semantic confusion
+and contradict existing kernel USB nomenclature? Might it be more
+consistent to use PHY_MODE_USB4 as the primary mode, with TBT3 as a
+legacy fallback submode?
+
+>  };
+> =20
+>  enum phy_media {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-topic-usb4=
+phy-v1-0-71d827c49dca@oss.qualcomm.com?part=3D2
