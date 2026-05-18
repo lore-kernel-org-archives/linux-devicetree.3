@@ -1,456 +1,206 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022111.outbound.protection.outlook.com [40.107.75.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB802ED846
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779086937; cv=none; b=l8DIeUEJ9XoT4SUqNAD3Rlentug39Z9wQRyb8NwDRV6+diz59NbHwPe5QQhy1QQnKYHKRPz/hM5mss62tUPjaREiZU2NInDLGYehan5eaKxLkiC0DixZ3LuQC2tI2oVvB5oQWcnWq1d2F+QnCPUMKrK0gmsUoqR7rkYEL086XzM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779086937; c=relaxed/simple;
-	bh=4T60S1U3VhgCWnu91JxZ7aSQahWK3zfT6KTYqNP8iJE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YVqBm6QpQ2GxSwyUVLpvfIbWLKlj2m8eLtSMb2MlVNEy4sOPJBVXL4923xKWzZGNAdy2PO05Go1l/DdNdccDXsZs+h62yuQKN4Gmk/3tCDDcHivFYcbBf1SxFDaepINl/q98kocLJf+mTse/uETfjl8tdlXQslgzhLSDFgdwiLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RCDDwkVY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R+4rZU0V; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889CC3C1F37
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.111
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779087014; cv=fail; b=KGfhtbrSA3ps7Sadv0zBinqrHsm4jMUeYkyd4ywRLKMwf2jRbzT3NFlcMW2Y4ar73zuAraOey3siTQ0mIrAPHfxJLu4Uqgp1GtM+eq2jPP+WFrFKtizpT44oRI4Y+8OMb5/splLzw9p4+BrAXL60anVTadGYzAlI2SqIru2udPY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779087014; c=relaxed/simple;
+	bh=Sv9BioCfKnDvfmo1jwUzC+eNbat3aQiFoFrUSuf31wo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=kY4/SOJrmtQjA8g67VzsShA9q9BGZPlpwuixAEuKbm8GvjDJ+QArEh38U1l4np6zbJ9InHTnP5nXA+tLor1bewudEllqCvgBGdrb8FBcH2blPVeupo7neUJwQo1ckp+9bMdcszVRDIGXc1GWG56IDlmeey1y3lIyiD33BJg0Tas=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=Rf2FQFvl; arc=fail smtp.client-ip=40.107.75.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RCDDwkVY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R+4rZU0V"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I2CI8A3324932
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:48:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PQraxy4pjzHYyOiAxMp382MKADm1bUjA2zV4bITggG4=; b=RCDDwkVYtXDDRsL9
-	lqfP7qITwYBvnEDKGP8yew04TIKBn1EldhWRPpV7Y3gWAt28xxNvsJUZWx928YqX
-	phBImW2vYQQXaagPjVTlnb/2VRQhR6goT9d6K0cUioLR+a7slzO9I7kAnIAVLZdF
-	PoEL/vDiQ6fOa95ZwkejWUGFCM7S5yLzE0Mf4dd6F7xW5g4rz9GBa9u4NNTPDV8Z
-	Rzc1sxFS5jS2A2TnTtWTcd1BtPPXcKoEmV+nhuVXQYI88vRDvD4FfPBCbCWVw8x+
-	5xjC8kxa3atCzrk8kLU6YR4AB89x6yMq1ITBiT+TlDOov6TCawHwwsXVs2Vmmfbo
-	ki36hQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6hbcd01a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:48:53 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ba5f794825so14750285ad.0
-        for <devicetree@vger.kernel.org>; Sun, 17 May 2026 23:48:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779086932; x=1779691732; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PQraxy4pjzHYyOiAxMp382MKADm1bUjA2zV4bITggG4=;
-        b=R+4rZU0VB+kyqccFPD1Xl5xmA+ejjKvdCzD+Wbs+qncRNUXNwKAGgUlmhnN/91frfT
-         +hkw6esAJYxpg6mCRGng6WzC70INOwxS4x+RbNCcUY9SbqNWGuYc4SWZHgxrKu2yQ3Ua
-         +1zY1c9ygXEAODQuCIQD9gAlLMW1pqudHq2XF/EYgKjr/3gfB5SAn+4x/KtRLCWqL7bf
-         kinLJotjCR0lfDR55/tJUvEPbgi91jM5CGfTB7pX6s0tAycoV+/gGEA9bq/RPu+KnZnX
-         zXidS8RqszKJbBeUTcDw5JXlTUZZjkbZXoLl9aaZF37O1gDLu9T3StEj2uuiEPUFMcIF
-         +WzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779086932; x=1779691732;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PQraxy4pjzHYyOiAxMp382MKADm1bUjA2zV4bITggG4=;
-        b=TtbPhEUL/b+DgOCkgfP6hs/Ky2FjMSCAJJqFlXLYguZVTz8c4BqNaJyFbyICl1CLdX
-         r5EVfJSCMIepCEwK+nzqOGIi6psCQrdjF/lxVs1eQrDNE6CmlWrQ+JnNHiOzIiW1FYy/
-         aKOUGmf78IQxN57YQzXIbJi41Zj0lfVsaOyYLRY8SaiyfFmV5IbgTexa2MLRzWmb0/IU
-         v3/SMpbvQTwDT+6/5T8qUMc1NaYUhCsCzPl3J9LN5eYlam82YnbG9V1h/+cYBs/7R54J
-         uLrNdGQrjrwO606EE6WtSNrdEVyd49qx/WPMD/YP/R6OB8ukyaJx2DKBPYltxPxXO93E
-         vq2g==
-X-Forwarded-Encrypted: i=1; AFNElJ/aQ4Hhsx9pG31Wr+4nOFxx5bpD5Jb6bGBdvfM4PZoirrW73n0+6tx9gh5s8IGD6hN3ixcgHJESo6Pt@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz21p331DQ5dfyqUAZYS2grU8QmAf3ts5u0NfAylPXaHFZDbSGD
-	BY9fwYCHk/3iVROHiS+9ZhQ6gYm+it5zXlbJP5dGznBN/Fpf8aoLTPKmzgWbsc5AoUnXozJTq0Y
-	G2Q3Dl30tFMrCUuJy1LfLnhe9fnYpIsDQbSaI+/cA34g/qg4vWpzesEBDJWj1EkOZ
-X-Gm-Gg: Acq92OGBXJkJCloxMcoyEfKM6qKQoLEiL3j7E5kekRmXNuO6Lch62teLU0fy6ErVEBw
-	GI41Gg8F4oa3ElbdEfMh5B/UW5MKr3Xyd+mYXAUX7Abp4uR4RdwHlAe/QrNCdbGDLFPO8eYC2kz
-	nElj6wGYxI07lv6BuDbsNOGDCqU1jgPWmu8yYJf5DMUoRkuEBoXRU0gRzCr9N+j5e+LPFx4VmKo
-	ZWV3cForyx45LvgWqgBh5t/ETQO/BXkBIQAhfWNuoehi+fSIPjvFZjzKw/oS0iFCj1mRAY+RqnR
-	gSysedQTlmpa7FV4wMrL47IsXl0StZqz+Kd9GHaY89L2XPSbzMY5Oh+m4zoxDFulMgQjNxU2Nz9
-	fkwfg11fkZ6Z14DHJkuYSHtFLU+EnuvY4+8Ly1LVl+AK740eG9Lpqp8EzLgW29s2Dy3po6ej1JJ
-	3xeFs5IqkcGg==
-X-Received: by 2002:a17:902:cecf:b0:2bd:6327:b4f5 with SMTP id d9443c01a7336-2bd7e93580dmr152449975ad.40.1779086932318;
-        Sun, 17 May 2026 23:48:52 -0700 (PDT)
-X-Received: by 2002:a17:902:cecf:b0:2bd:6327:b4f5 with SMTP id d9443c01a7336-2bd7e93580dmr152449625ad.40.1779086931765;
-        Sun, 17 May 2026 23:48:51 -0700 (PDT)
-Received: from [10.133.33.76] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5c05fcb3sm141256015ad.26.2026.05.17.23.48.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 17 May 2026 23:48:51 -0700 (PDT)
-Message-ID: <04d95993-2029-4b7b-9746-1e9206ac5c37@oss.qualcomm.com>
-Date: Mon, 18 May 2026 14:48:44 +0800
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="Rf2FQFvl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yOFeEkDNgdFFTZ7pQ2rgb17AdRyTbcfp+F9O05u37SXBvfrwCyTaJrGDGF/GxcSmoEAPFtWOmy6Y3bpaeUeZSNDDKnyRoa/8fVSeZ6C9YSfx3ODsncnPuT+4g8cKx7AeL2p1Gf6VA52M3OYwpT7bZPVOyiquCJNgnpDicP2IZddGA2svJBrPfr4lEioyMfrnNBmnEJ5yXyw02PHe62imYadveE8RPqAoAo95HGhf+DEjFQw+kWdxCHfUmdzdvnj9+lhl0+rGZy4q2QpdlP4A7P1xv8LW46E5pQo3VEcg4TMpkHFEg/oKIc4ukNn0xOqUfCH/va5fQp5GJ2WHgDz6kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Sv9BioCfKnDvfmo1jwUzC+eNbat3aQiFoFrUSuf31wo=;
+ b=Bknr4ol7zuA/kzYVNvHxTTYwpeLVzpn4oxEakw+OdTqD9a8gzlKUmxqhtVXThMdhWteSVRp0JGJ1RjnxpM8Oc2jgXHco1T3IMtjdTSUpBR7p2uai+xx+zE2JGukyi+BorJW1B0MGfrLB3kkmFLD+8ZtthvsnV4qfaeVAOPgYaVmUIIaN5O2Rt0YGYYIGUkEFUbddT0SaGxfp1aenzxOq0xPfHth6n79t+zKYDF0niHaJ1t5b4LnurGn/+MB5mP3+TH3I4cMf4r+YcE1NtoGs46JuIZc0lflTZKMzC2mhCotbdxTkeZgdpotG1iNZUiKAb8LdWVTn4Wg+2GFM1C9PQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Sv9BioCfKnDvfmo1jwUzC+eNbat3aQiFoFrUSuf31wo=;
+ b=Rf2FQFvliIkGM7tIJbkedmnpD6u5/NkdrPgdikU5vHJ41UC8l5qDVIfEu6yATow+3w1QN150mlBYsMNS2oNyhzEapAUdkHFyiKhttOGQRNFTwWCtltzYaKP+aYvlatpwjc4hvRSqjT1NEXlDo3PiIR1oU1Gf8BQd6CsT7zp3EQcfo7xvn3MUOziiT/26KDZviLNW7nfNyBghu0+08k84NAFzjYVP7nswQ8g92MZ5nS8S8ImOaOsgwZDeHeSbAQXcYk1xofX0UfZq1qfzUdCCXVpOC0dWO1kber17fxR3DPF2KeBFIpmcsoHDjcyed5uwFh/+ZBvTefafH/EG4a2Rnw==
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
+ by SEZPR06MB8975.apcprd06.prod.outlook.com (2603:1096:101:33b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.20; Mon, 18 May
+ 2026 06:50:10 +0000
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::b696:e104:1f5e:7838]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::b696:e104:1f5e:7838%7]) with mapi id 15.20.9913.009; Mon, 18 May 2026
+ 06:50:09 +0000
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+CC: "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH RESEND v29 1/4] dt-bindings: i2c: Split AST2600 binding
+ into a new YAML
+Thread-Topic: [PATCH RESEND v29 1/4] dt-bindings: i2c: Split AST2600 binding
+ into a new YAML
+Thread-Index: AQHc4pnb91x2nqBBnUKfKdVRgeEO7bYMw3QAgAaZMVA=
+Date: Mon, 18 May 2026 06:50:09 +0000
+Message-ID:
+ <TY2PPF5CB9A1BE63BB9DB475E786838B7CCF2032@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260513-upstream_i2c-v29-1-fe9926964d55@aspeedtech.com>
+ <20260514015232.8FC29C19425@smtp.kernel.org>
+In-Reply-To: <20260514015232.8FC29C19425@smtp.kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|SEZPR06MB8975:EE_
+x-ms-office365-filtering-correlation-id: c8477f8a-4020-4cb3-1e1c-08deb4a9b3b1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|366016|38070700021|3023799003|18002099003|56012099003|22082099003|4143699003;
+x-microsoft-antispam-message-info:
+ nIM9QIP1j+f5P4AFemlV8OeTFGXteE6JS1BS1Nsn8+IZT+fxudYo45SSi2IomnxBG/yZaPpOIxKfGvcC+EvpnkdRED0L7pMx96/STj5b3bfyCcmOyAPQs96iNyCg9DaHBK7sgDFQaTo1D+C8wgC1jsZDNvb2WpnLvf2OFwkv/ZfUxuWNDu6zo2UDzuwFrlna3QNOWA+TyJlT+oCTFAX+xtdUh+WmwKIVZwTEkNdz6xRacNLD56QQsJCzNJ+T3d/wkg/allcfYlMfchyJyO0o6lewQr1w/dK0BGX0VRS4D0YkSce+5MiZ+wJ+l7LS90vVCmF4gepGiAJEhdc/0k/H1W+2R+/BLFy47/kKZyF1yTATe2zSlAQ+4QVM8NdRAqlulSQpmyEH3KraqJK4GjkLOXt60vQ+UXXloS+S7xOagOxa41Zr3KN8XrZBLCT1HdnqoLpcMvOid2oUaWnAgi40P35U3QE75XboL7ggSebvvqfy+zsZHllXiPjAWI3npIYcrHdd3VxLftSotRdM4nGrv4n7n0Gef6xWdMxgr2edZTtcUVrLIzmUYuCq3YAdtOw1hU+m7ayvsj68TejC02y82NDg8AafoGZzQIU3gkmRgqF8PERbMeNesazIj2dLYADmT9jP+XiXgsG+H2nX93Kgj1Y0asl2sLMqPEeXnzh+Ts2bNrRfn0SQl4uYBJ/q0ApS
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(3023799003)(18002099003)(56012099003)(22082099003)(4143699003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?cnFoVWF3TW9NSEp6blFSTGIvK2txMFJkZ3NHYkhKRVBWZ2hBNit0dEJXSkF5?=
+ =?utf-8?B?K09oMUsybzlGbzlQeGNjeWlYQitpZi9vaXJCMldocEFHMmV2SlJ3cTdKZ0VC?=
+ =?utf-8?B?ejMrMzVoNmszalpZaU9PblFjZnJrU1kycTZ5ZjZUYStXWlphQnFyRk10d1JD?=
+ =?utf-8?B?WCtlNld4V2RFMUdDdDJ6MVFpZngrcHdTZnl5YXBxUVpSUXUwb3NNUy9aN2RY?=
+ =?utf-8?B?SXNQVUN4V2NYSWdrWTNHditlUlRsVk1SWi9PbHlKVzJzSW5yM1NZcURwbUlu?=
+ =?utf-8?B?c2lwS1dCeU43NVJXNVdsRHk5emVPeE95c2tYaXhNR2tGcm5oOEUvWW5GK1Ro?=
+ =?utf-8?B?S0lUUDdXL3VmSVRGUGVKOTZlanZXTWo1MzlpREd3MjlIZGtvMUpVdzVIc2du?=
+ =?utf-8?B?U1hDSnJEdWRpZlFhM2dtNFpNUzAvVks1WCtmYllOanp6WWxJNGlnT2lvVk5G?=
+ =?utf-8?B?c3ZTWGxKeFNJeEhuSUEvUUYyTGttWXJPbXdkVW5YeURQWE9zQ0RycDU4Wnhn?=
+ =?utf-8?B?WURQeWdWK0prd0RhNVBhbzBMRTR6MS82UVBBWG14YXZDdncybW0vU25Wbkdj?=
+ =?utf-8?B?alppdEVTNXA4RUkvamRLbDJSLzFJQUJwR2kwMGx1RDVWSDlvVEw3T2YybTRs?=
+ =?utf-8?B?b2piRkZ3bnZBK1NsSGc3ekp5bHp2elAzUitGSGhFTDNNM1NNMWJnaWQrOFAx?=
+ =?utf-8?B?bXF0eElWcTdaWXNYVDZab2dDa3k2a2V4Q2JyYkJpMWxXcDFINnQyYkZLRW12?=
+ =?utf-8?B?emNCd2Z4ZmNMditPc1VZc1lKOGNUNUJHQXFIdEwwSTVsd1laTHN3NHRIdEVm?=
+ =?utf-8?B?RnA4UWVKUEFYSlJ1SEsvRy9SdVhncUpKNWtLK0M1dTViczZFak52ZkVzSllL?=
+ =?utf-8?B?ajJnS3ZUZHBiQVdQVExlTkg1NUI0dGsrcGx6VkNIdTZXY0RVRGxQaEN0Lzg2?=
+ =?utf-8?B?VGFya3VoTEdXMGdlaDhSQTZxYlpIVlBhNDAvY1BoRy9SVnVNTWgvTk1LQWRL?=
+ =?utf-8?B?dmFBMjZGWnZ3bUZMZjhiUFdua1pLNU5lV2gzTXBycFIySHd0Rmxkd1Z3Z2M2?=
+ =?utf-8?B?K2I0VkJPUmlVaTNUcWJSS0luUURnemdZYStyY1hYTXJzNzlzNXNaVDEvOVdu?=
+ =?utf-8?B?U1pMTUdJTFZXV0t3MFlnZk0rZmJ5K1JoV09Ib014R1FnenVmbXAxT0wxVCtq?=
+ =?utf-8?B?YkZ6aFU2aExyTWV2LzhSc0pmbU8zTW1yY1BrMURJTzUyQ1dNelJubGNaWFNq?=
+ =?utf-8?B?bXh3ZUF2NUV2VnlWZ21ZWkNsL29udFpETXRzaHRDMEVYUTRkckhqNGhCWW1Y?=
+ =?utf-8?B?UjVxSlpGTzFmYkdPdm9tVkoyR1dJRHZPVGJKZ0grV0Q4eFJzY0kwVktSMXdK?=
+ =?utf-8?B?SXM5OUpiRDFyRzQwcjZjOWd5d0prL1pIVWhveHp2RHJuQ2NhNGkxZVVnZXpY?=
+ =?utf-8?B?U3A5V2xzUDBNTFNROHY3b2EzUHBsSXpzaXJuelA1K0VBSDN0QzZnOTBNQ2F4?=
+ =?utf-8?B?SlBFZkMyWklTbXFQMC9oSWVEK2JSZytFd3JFaXNRT1NZVFhadytNeDR4YXRT?=
+ =?utf-8?B?OUZKVDY3aDVwdWJ6Y0tVY0FUOVRYZ3VrK3I2M0tuRDFCS0M2VVZMZTNWY0NY?=
+ =?utf-8?B?TjVpbDBVa25IZXdKQ1BnbTAreDlZM2NLRjlicG5iWC9WNkVvcmdjeEw5anR0?=
+ =?utf-8?B?eVBWUVo5Z2xxcTVkN3B2UU0vQ2tTcmhrbzlNRy9TaDYzdkZyR0lpQXZ2WEQ3?=
+ =?utf-8?B?cE56cWJXbk1XMUtUT3g4T3FqSWZqUkwxdHhuTVVMdDZVTktYY25GS2p3RDRz?=
+ =?utf-8?B?Mm1FNElML05ldmp5Tjl3dVFUU1U1YkVDYi8zM3NPekRMV25jZDh4ekhPTk1V?=
+ =?utf-8?B?NGc0RzZzVjIrblJka3hvN1FOSGRIVU9vTmw0RkxDcElpanpjOXN3YTZ3L3hG?=
+ =?utf-8?B?U0dOMlMzMlI2eFRpdzlMajJOQkVYT0gvU3JzVno5QUFsMXBjcFJ5WTUrYmJF?=
+ =?utf-8?B?RUJvSEQxNHBHS1FtclFCUU51azJqWFZ5bVZVN0VERis3Y0t1b3ZkSmNpbE1u?=
+ =?utf-8?B?TnRFQ040cWdud1E2MGFvQlNrRG0vR2l2T243UFl2SDhVNUlVL0gzWWN4YTBN?=
+ =?utf-8?B?YUlIODlqaXVYVitHNmZGRitmU0F2M2QxTUVSU001QkhIOFY5NHJyUnQxVmkw?=
+ =?utf-8?B?OHV1a3lhc2NjSFpqa29XYXEvR0MvRlRiWjNPN0hqOVJUUldEWmgxblNKVWh2?=
+ =?utf-8?B?NUR6QXZGZlM3Q3JsNXRYYm04cVhQVEhWYVZxQUNaSjFrbUpJUDFFQlZBRjRn?=
+ =?utf-8?B?bmVaaFFsZlcwQmVlaGpmQ29GZmFKMS9OSUd1NXFseXI2cU1obm1Sdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 0/7] coresight: ctcu: Enable byte-cntr function for
- TMC ETR
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Mike Leach
- <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260507-enable-byte-cntr-for-ctcu-v18-0-2b2d590463a3@oss.qualcomm.com>
-Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260507-enable-byte-cntr-for-ctcu-v18-0-2b2d590463a3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=cuSrVV4i c=1 sm=1 tr=0 ts=6a0ab655 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=7CQSdrXTAAAA:8
- a=KKAkSRfTAAAA:8 a=QyXUC8HyAAAA:8 a=JfrnYn6hAAAA:8 a=S0-iGdAQsZdNEWGIu3sA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
- a=TjNXssC_j7lpFel5tvFf:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=cvBusfyB2V15izCimMoJ:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA2MyBTYWx0ZWRfX5/l9YrESSAJV
- QsPlpbCYTMs96k+LYcj3dI3eEP3vSrhUJcVndZ5toikOD9eqDaWxAsVVm8CtcztpjORAX8yrLtM
- 6w2CPJdMZ8cbZIudKxhrE54ISenagH/Rug8jsabqhvbPr+4vv81Gs50jh3NUDt3dW/KoXQGrLEk
- EOiR/7eNamhpUXCfXP/JZksyKBuCQcSA1hr2HfAaTXJa/KYXYRUULxR3s64di3/QOYRBuPZA3Po
- QSrOSNCXrzG/t2b4HJXejyANnlb+Pyh7Dbss0ecNE0a4Y/AY4/65EZzcIiimlxs68DB2nsabmO2
- QOHWiu6mmXerDA7eblw8+ZSrcRTtqFEy05t6d+MB6MGfP/jRm5Ltl2edKioxvTLUaSRcmgGoubJ
- MdWrsuzMWndC4a0jqm/PjJV1GVhYT7nldXQtAqjoZyY/QCzeLoeYCyXA2YUs4xiNU3Vv9UJHhEw
- qwzHdfpPQ4iBtR70ZWg==
-X-Proofpoint-GUID: dR7plgbcMm0hFLNitqIjeKMVdAr8dqSc
-X-Proofpoint-ORIG-GUID: dR7plgbcMm0hFLNitqIjeKMVdAr8dqSc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_01,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
- spamscore=0 clxscore=1015 suspectscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180063
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8477f8a-4020-4cb3-1e1c-08deb4a9b3b1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 06:50:09.0322
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jNdvr7D4K0egJsnmxEq8c1F13EbXmrnw8+HfZ0OHA4cquATOYjvTQ/uS6D0A4zToqM93x7BxobuNPeC7FDJFhBV3I5yxmOoOkkjGetKduR4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB8975
 
-
-
-On 5/7/2026 10:11 PM, Jie Gan wrote:
-> The byte-cntr function provided by the CTCU device is used to count the
-> trace data entering the ETR. An interrupt is triggered if the data size
-> exceeds the threshold set in the BYTECNTRVAL register. The interrupt
-> handler counts the number of triggered interruptions.
-> 
-
-Gentle reminder. Thank you for taking the time to review this patch series.
-
-Thanks,
-Jie
-
-> Based on this concept, the irq_cnt can be used to determine whether
-> the etr_buf is full. The ETR device will be disabled when the active
-> etr_buf is nearly full or a timeout occurs. The nearly full buffer will
-> be switched to background after synced. A new buffer will be picked from
-> the etr_buf_list, then restart the ETR device.
-> 
-> The byte-cntr reading functions can access data from the synced and
-> deactivated buffer, transferring trace data from the etr_buf to userspace
-> without stopping the ETR device.
-> 
-> The byte-cntr read operation has integrated with the file node tmc_etr,
-> for example:
-> /dev/tmc_etr0
-> /dev/tmc_etr1
-> 
-> There are two scenarios for the tmc_etr file node with byte-cntr function:
-> 1. BYTECNTRVAL register is configured and byte-cntr is enabled -> byte-cntr read
-> 2. BYTECNTRVAL register is reset or byte-cntr is disabled -> original behavior
-> 
-> Shell commands to enable byte-cntr reading for etr0:
-> echo 1 > /sys/bus/coresight/devices/ctcu0/irq_enabled0
-> echo 1 > /sys/bus/coresight/devices/tmc_etr0/enable_sink
-> echo 1 > /sys/bus/coresight/devices/etm0/enable_source
-> cat /dev/tmc_etr0
-> 
-> Reset the BYTECNTR register for etr0:
-> echo 0 > /sys/bus/coresight/devices/ctcu0/irq_enabled0
-> 
-> Test Report:
-> === Module setup ===
->    CONFIG_CORESIGHT=y (built-in, no action needed)
->    CONFIG_CORESIGHT_LINK_AND_SINK_TMC=y (built-in, no action needed)
->    coresight-ctcu: not loaded, running modprobe...
->    coresight-ctcu: loaded
-> CTCU byte-cntr test
->    CTCU   : ctcu0
->    ETR    : tmc_etr0
->    source : etm0
->    chardev: /dev/tmc_etr0
->    module : coresight-ctcu
-> 
-> === T1: device presence ===
->    PASS: CTCU device found: ctcu0
->    PASS: TMC ETR device found: tmc_etr0
-> 
-> === T2: irq_enabled sysfs attributes ===
->    PASS: irq_enabled0 attribute exists
->    PASS: irq_enabled0 readable, value=0
->    PASS: irq_enabled1 attribute exists
->    PASS: irq_enabled1 readable, value=0
-> 
-> === T3: irq_enabled write/read round-trip ===
->    PASS: irq_enabled0: write 1 -> read back 1
->    PASS: irq_enabled0: write 0 -> read back 0
->    PASS: irq_enabled1: write 1 -> read back 1
->    PASS: irq_enabled1: write 0 -> read back 0
-> 
-> === T4: byte-cntr read with active trace ===
->    [step] cleanup: byte_cntr_disable
->    [step] enable_source = 0 (etm0)
->    [step] enable_sink = 0 (tmc_etr0)
->    [step] set irq_enabled0 = 0
->    [step] byte_cntr_disable done
->    [step] byte_cntr_enable
->    [step] set irq_enabled0 = 1
->    [step] set buffer_size = 0x2000000
->    [step] enable_sink = 1 (tmc_etr0)
->    [step] enable_source = 1 (etm0)
->    [step] byte_cntr_enable done
->    [step] cat /dev/tmc_etr0 > /tmp/tmc_etr0.bin &
->    [step] sleep 5 (accumulate trace data)
->    [step] byte_cntr_disable
->    [step] enable_source = 0 (etm0)
->    [step] enable_sink = 0 (tmc_etr0)
->    [step] set irq_enabled0 = 0
->    [step] byte_cntr_disable done
->    PASS: T4: cat exited naturally after source disabled (EOF delivered)
->    PASS: byte-cntr read returned 35333968 bytes -> /tmp/tmc_etr0.bin
->    PASS: no kernel warnings/oops after: byte-cntr read
-> 
-> === T5: EBUSY on concurrent open while byte-cntr reading ===
->    [step] enable_source = 0 (etm0)
->    [step] enable_sink = 0 (tmc_etr0)
->    [step] set irq_enabled0 = 0
->    [step] byte_cntr_disable done
->    [step] set irq_enabled0 = 1
->    [step] set buffer_size = 0x2000000
->    [step] enable_sink = 1 (tmc_etr0)
->    [step] enable_source = 1 (etm0)
->    [step] byte_cntr_enable done
->    PASS: T5: second open correctly refused (EBUSY)
->    [step] enable_source = 0 (etm0)
->    [step] enable_sink = 0 (tmc_etr0)
->    [step] set irq_enabled0 = 0
->    [step] byte_cntr_disable done
->    PASS: no kernel warnings/oops after: concurrent open test
-> 
-> === T6: rmmod while byte-cntr read is active ===
->    [step] enable_source = 0 (etm0)
->    [step] enable_sink = 0 (tmc_etr0)
->    [step] set irq_enabled0 = 0
->    [step] byte_cntr_disable done
->    [step] set irq_enabled0 = 1
->    [step] set buffer_size = 0x2000000
->    [step] enable_sink = 1 (tmc_etr0)
->    [step] enable_source = 1 (etm0)
->    [step] byte_cntr_enable done
->    PASS: T6: rmmod returned non-zero (device busy), no panic
->    PASS: no kernel warnings/oops after: rmmod while reading
->    [step] enable_source = 0 (etm0)
->    [step] enable_sink = 0 (tmc_etr0)
->    [step] set irq_enabled0 = 0
->    [step] byte_cntr_disable done
-> 
-> === T7: insmod after rmmod and re-probe sanity ===
->    [step] module still loaded after T6, retrying rmmod
->    PASS: T7: modprobe coresight-ctcu succeeded
->    PASS: T7: CTCU device reappeared: ctcu0
->    PASS: no kernel warnings/oops after: insmod / re-probe
-> 
-> ===================================
-> ===================================
-> 
-> Results: PASS=20  FAIL=0  SKIP=0
-> ---
-> Changes in v18:
-> 1. add a NULL check for the in_conns instance in patch 1.
-> 2. fix a bug in patch 2: the tmc_alloc_etr_buf never return NULL and the
->     previous check for the return value is incorrect.
-> 3. add more kernel_doc description for tmc_clean_etr_buf_list function
->     in patch 2
-> - Link to v17: https://lore.kernel.org/r/20260421-enable-byte-cntr-for-ctcu-v17-0-9cf36ff55fc0@oss.qualcomm.com
-> 
-> Changes in v17:
-> 1. fix race issue during allocat buffer.
-> 2. fix user after free issue observed when remove module.
-> - Link to v16: https://lore.kernel.org/r/20260323-enable-byte-cntr-for-ctcu-v16-0-7a413d211b8d@oss.qualcomm.com
-> 
-> Changes in v16:
-> 1. Remove lock/unlock processes in patch "coresight: tmc: add create/clean
->     functions for etr_buf_list" because we are allocating/freeing memory.
-> - Link to v15: https://lore.kernel.org/r/20260313-enable-byte-cntr-for-ctcu-v15-0-1777f14ed319@oss.qualcomm.com
-> 
-> Changes in v15:
-> 1. add lockdep_assert_held in patch "coresight: tmc: add create/clean
->     functions for etr_buf_list"
-> 2. optimize tmc_clean_etr_buf_list function
-> 3. optimize the patch "enable byte-cntr for TMC ETR devices" according
->     to Suzuki's comments
->     - call byte_cntr_sysfs_ops from etr_sysfs_ops
->     - optimize the lock usage in all functions
->     - remove the buf_node parameter in etr_drvdata, move it to
->       byte_cntr_data
->     - move the tmc_reset_sysfs_buf function to tmc-etr.c
->     - add a read flag to struct etr_buf_node to allow updating pos while
->       traversing etr_buf_list during data reads.
-> Link to v14: https://lore.kernel.org/r/20260309-enable-byte-cntr-for-ctcu-v14-0-c08823e5a8e6@oss.qualcomm.com
-> 
-> Changes in V14:
-> 1. Drop the patch: integrate byte-cntr's sysfs_ops with tmc sysfs file_ops
-> 2. Replace tmc_sysfs_ops with byte_cntr_sysfs_ops in byte_cntr_start
->     function and restore etr_sysfs_ops in byte_cntr_unprepare function.
-> 3. Remove redundant checks in byte‑cntr functions.
-> Link to V13: https://lore.kernel.org/all/20260223-enable-byte-cntr-for-ctcu-v13-0-9cb44178b250@oss.qualcomm.com/
-> 
-> Changes in v13:
-> 1. initilize the byte_cntr_data->raw_spin_lock before using.
-> 2. replace kzalloc with kzalloc_obj.
-> Link to V12: https://lore.kernel.org/all/20260203-enable-byte-cntr-for-ctcu-v12-0-7bf81b86b70e@oss.qualcomm.com/
-> 
-> Changes in v12:
-> 1. Add a new function for retrieving the CTCU's coresight_dev instead of
->     refactor the existing function.
-> Link to v11: https://lore.kernel.org/r/20260126-enable-byte-cntr-for-ctcu-v11-0-c0af66ba15cf@oss.qualcomm.com
-> 
-> Changes in v11:
-> 1. Correct the description in patch1 for the function coresight_get_in_port.
-> 2. Renaming the sysfs_ops to tmc_sysfs_ops per Suzuki's suggestion.
-> Link to v10: https://lore.kernel.org/r/20260122-enable-byte-cntr-for-ctcu-v10-0-22978e3c169f@oss.qualcomm.com
-> 
-> Changes in v10:
-> 1. fix a free memory issue that is reported by robot for patch 2.
-> Link to v9: https://lore.kernel.org/r/20251224-enable-byte-cntr-for-ctcu-v9-0-886c4496fed4@oss.qualcomm.com
-> 
-> Changes in v9:
-> 1. Drop the patch: add a new API to retrieve the helper device
-> 2. Add a new patch to refactor the tmc_etr_get_catu_device function,
->     making it generic to support all types of helper devices associated with ETR.
-> 3. Optimizing the code for creating irq_threshold sysfs node.
-> 4. Remove interrupt-name property and obtain the IRQ based on the
->     in-port number.
-> Link to v8: https://lore.kernel.org/r/20251211-enable-byte-cntr-for-ctcu-v8-0-3e12ff313191@oss.qualcomm.com
-> 
-> Changes in V8:
-> 1. Optimizing the patch 1 and patch 2 according to Suzuki's comments.
-> 2. Combine the patch 3 and patch 4 together.
-> 3. Rename the interrupt-name to prevent confusion, for example:etr0->etrirq0.
-> Link to V7 - https://lore.kernel.org/all/20251013-enable-byte-cntr-for-ctcu-v7-0-e1e8f41e15dd@oss.qualcomm.com/
-> 
-> Changes in V7:
-> 1. rebased on tag next-20251010
-> 2. updated info for sysfs node document
-> Link to V6 - https://lore.kernel.org/all/20250908-enable-byte-cntr-for-tmc-v6-0-1db9e621441a@oss.qualcomm.com/
-> 
-> Changes in V6:
-> 1. rebased on next-20250905.
-> 2. fixed the issue that the dtsi file has re-named from sa8775p.dtsi to
->     lemans.dtsi.
-> 3. fixed some minor issues about comments.
-> Link to V5 - https://lore.kernel.org/all/20250812083731.549-1-jie.gan@oss.qualcomm.com/
-> 
-> Changes in V5:
-> 1. Add Mike's reviewed-by tag for patchset 1,2,5.
-> 2. Remove the function pointer added to helper_ops according to Mike's
->     comment, it also results the patchset has been removed.
-> 3. Optimizing the paired create/clean functions for etr_buf_list.
-> 4. Remove the unneeded parameter "reading" from the etr_buf_node.
-> Link to V4 - https://lore.kernel.org/all/20250725100806.1157-1-jie.gan@oss.qualcomm.com/
-> 
-> Changes in V4:
-> 1. Rename the function to coresight_get_in_port_dest regarding to Mike's
-> comment (patch 1/10).
-> 2. Add lock to protect the connections regarding to Mike's comment
-> (patch 2/10).
-> 3. Move all byte-cntr functions to coresight-ctcu-byte-cntr file.
-> 4. Add tmc_read_ops to wrap all read operations for TMC device.
-> 5. Add a function in helper_ops to check whether the byte-cntr is
-> enabkled.
-> 6. Call byte-cntr's read_ops if byte-cntr is enabled when reading data
-> from the sysfs node.
-> Link to V3 resend - https://lore.kernel.org/all/20250714063109.591-1-jie.gan@oss.qualcomm.com/
-> 
-> Changes in V3 resend:
-> 1. rebased on next-20250711.
-> Link to V3 - https://lore.kernel.org/all/20250624060438.7469-1-jie.gan@oss.qualcomm.com/
-> 
-> Changes in V3:
-> 1. The previous solution has been deprecated.
-> 2. Add a etr_buf_list to manage allcated etr buffers.
-> 3. Add a logic to switch buffer for ETR.
-> 4. Add read functions to read trace data from synced etr buffer.
-> Link to V2 - https://lore.kernel.org/all/20250410013330.3609482-1-jie.gan@oss.qualcomm.com/
-> 
-> Changes in V2:
-> 1. Removed the independent file node /dev/byte_cntr.
-> 2. Integrated the byte-cntr's file operations with current ETR file
->     node.
-> 3. Optimized the driver code of the CTCU that associated with byte-cntr.
-> 4. Add kernel document for the export API tmc_etr_get_rwp_offset.
-> 5. Optimized the way to read the rwp_offset according to Mike's
->     suggestion.
-> 6. Removed the dependency of the dts patch.
-> Link to V1 - https://lore.kernel.org/all/20250310090407.2069489-1-quic_jiegan@quicinc.com/
-> 
-> To: Suzuki K Poulose <suzuki.poulose@arm.com>
-> To: Mike Leach <mike.leach@arm.com>
-> To: James Clark <james.clark@linaro.org>
-> To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Konrad Dybcio <konradybcio@kernel.org>
-> Cc: coresight@lists.linaro.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> 
-> ---
-> Jie Gan (7):
->        coresight: core: refactor ctcu_get_active_port and make it generic
->        coresight: tmc: add create/clean functions for etr_buf_list
->        coresight: tmc: introduce tmc_sysfs_ops to wrap sysfs read operations
->        coresight: etr: add a new function to retrieve the CTCU device
->        dt-bindings: arm: add an interrupt property for Coresight CTCU
->        coresight: ctcu: enable byte-cntr for TMC ETR devices
->        arm64: dts: qcom: lemans: add interrupts to CTCU device
-> 
->   .../ABI/testing/sysfs-bus-coresight-devices-ctcu   |   9 +
->   .../bindings/arm/qcom,coresight-ctcu.yaml          |  10 +
->   arch/arm64/boot/dts/qcom/lemans.dtsi               |   3 +
->   drivers/hwtracing/coresight/Makefile               |   2 +-
->   drivers/hwtracing/coresight/coresight-core.c       |  27 ++
->   .../hwtracing/coresight/coresight-ctcu-byte-cntr.c | 304 +++++++++++++++++++++
->   drivers/hwtracing/coresight/coresight-ctcu-core.c  | 146 ++++++++--
->   drivers/hwtracing/coresight/coresight-ctcu.h       |  79 +++++-
->   drivers/hwtracing/coresight/coresight-priv.h       |   2 +
->   drivers/hwtracing/coresight/coresight-tmc-core.c   |  55 ++--
->   drivers/hwtracing/coresight/coresight-tmc-etr.c    | 243 +++++++++++++++-
->   drivers/hwtracing/coresight/coresight-tmc.h        |  42 +++
->   12 files changed, 850 insertions(+), 72 deletions(-)
-> ---
-> base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
-> change-id: 20260309-enable-byte-cntr-for-ctcu-ff86e6198b7f
-> 
-> Best regards,
-
+SGVsbG8gUm9iLA0KCVRoYW5rcyB5b3VyIHJldmlldy4NCg0KPiBTdWJqZWN0OiBSZTogW1BBVENI
+IFJFU0VORCB2MjkgMS80XSBkdC1iaW5kaW5nczogaTJjOiBTcGxpdCBBU1QyNjAwIGJpbmRpbmcN
+Cj4gaW50byBhIG5ldyBZQU1MDQo+IA0KPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9u
+ISBTYXNoaWtvIEFJIHJldmlldyBmb3VuZCAyIHBvdGVudGlhbCBpc3N1ZShzKSB0bw0KPiBjb25z
+aWRlcjoNCj4gLSBbSGlnaF0gVGhlIG5ldyBEVCBiaW5kaW5nIGJyZWFrcyB2YWxpZGF0aW9uIGZv
+ciBleGlzdGluZyBBU1QyNjAwIGRldmljZQ0KPiB0cmVlcyBieSBlbmZvcmNpbmcgYSBuZXcgYHJl
+Z2AgbGF5b3V0IGFuZCByZW1vdmluZyBgYnVzLWZyZXF1ZW5jeWAuDQo+IC0gW0hpZ2hdIFJlbmFt
+aW5nIGBidXMtZnJlcXVlbmN5YCB0byBgY2xvY2stZnJlcXVlbmN5YCBjYXVzZXMgYSBzaWxlbnQN
+Cj4gcGVyZm9ybWFuY2UgcmVncmVzc2lvbiB3aXRoIHRoZSBsZWdhY3kgaTJjLWFzcGVlZCBkcml2
+ZXIuDQo+IC0tDQo+IA0KPiBjb21taXQgNjI1ZjA2ZTdiNDc1MmE2NzY5ZGUxYjk3Yjc5M2ViMjA0
+M2JkYThkZQ0KPiBBdXRob3I6IFJ5YW4gQ2hlbiA8cnlhbl9jaGVuQGFzcGVlZHRlY2guY29tPg0K
+PiANCj4gZHQtYmluZGluZ3M6IGkyYzogU3BsaXQgQVNUMjYwMCBiaW5kaW5nIGludG8gYSBuZXcg
+WUFNTA0KPiANCj4gVGhlIEFTVDI2MDAgSTJDIGNvbnRyb2xsZXIgaW50cm9kdWNlcyBhIG5ldyBy
+ZWdpc3RlciBsYXlvdXQgd2l0aCBzZXBhcmF0ZQ0KPiBjb250cm9sbGVyIGFuZCB0YXJnZXQgYmxv
+Y2tzLiBUaGUgYmluZGluZyBmb3IgQVNUMjYwMCBpcyBtb3ZlZCB0byBhIGRlZGljYXRlZA0KPiBh
+c3BlZWQsYXN0MjYwMC1pMmMueWFtbCBzY2hlbWEsIHVwZGF0aW5nIHJlcXVpcmVtZW50cyBsaWtl
+IGVuZm9yY2luZyB0d28NCj4gcmVnIHJlZ2lvbnMgYW5kIHVzaW5nIGNsb2NrLWZyZXF1ZW5jeSBp
+bnN0ZWFkIG9mIGJ1cy1mcmVxdWVuY3kuDQo+IA0KPiA+IGRpZmYgLS1naXQNCj4gPiBhL0RvY3Vt
+ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pMmMvYXNwZWVkLGFzdDI2MDAtaTJjLnlhbWwN
+Cj4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pMmMvYXNwZWVkLGFzdDI2
+MDAtaTJjLnlhbWwNCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+IGluZGV4IDAwMDAwMDAw
+MDAwMDAuLmRlMmMzNTkwMzdkYTUNCj4gPiAtLS0gL2Rldi9udWxsDQo+ID4gKysrIGIvRG9jdW1l
+bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2kyYy9hc3BlZWQsYXN0MjYwMC1pMmMueWFtbA0K
+PiBbIC4uLiBdDQo+ID4gK3Byb3BlcnRpZXM6DQo+ID4gKyAgY29tcGF0aWJsZToNCj4gPiArICAg
+IGVudW06DQo+ID4gKyAgICAgIC0gYXNwZWVkLGFzdDI2MDAtaTJjLWJ1cw0KPiA+ICsNCj4gPiAr
+ICByZWc6DQo+ID4gKyAgICBpdGVtczoNCj4gPiArICAgICAgLSBkZXNjcmlwdGlvbjogY29udHJv
+bGxlciByZWdpc3RlcnMNCj4gPiArICAgICAgLSBkZXNjcmlwdGlvbjogY29udHJvbGxlciBidWZm
+ZXIgc3BhY2UNCj4gDQo+IFdpbGwgZW5mb3JjaW5nIHRoaXMgbmV3IHJlZyBsYXlvdXQgYnJlYWsg
+dmFsaWRhdGlvbiBmb3IgZXhpc3RpbmcgQVNUMjYwMCBkZXZpY2UNCj4gdHJlZXM/DQo+IA0KPiBF
+eGlzdGluZyBpbi10cmVlIGRldmljZSB0cmVlcyBkZWZpbmUgYSBzaW5nbGUgcmVnIHJlZ2lvbi4g
+QmVjYXVzZSB0aGVzZSBkZXZpY2UNCj4gdHJlZXMgYXJlIG5vdCB1cGRhdGVkIGluIHRoaXMgcGF0
+Y2ggc2VyaWVzLCBtYWtlIGR0YnNfY2hlY2sgd2lsbCBmYWlsIGZvciBhbGwNCj4gQVNUMjYwMCBi
+b2FyZHMuDQo+IA0KPiBTaG91bGQgdGhlIGJpbmRpbmcgcmV0YWluIGJhY2t3YXJkIGNvbXBhdGli
+aWxpdHkgYnkgYWxsb3dpbmcgYSBzaW5nbGUgcmVnDQo+IHJlZ2lvbiBmb3IgbGVnYWN5IG5vZGVz
+Pw0KDQpJIHBsYW4gc3VibWl0IHYzMCBrZWVwcyB0aGUgYmluZGluZyBiYWNrd2FyZCBjb21wYXRp
+YmxlOg0KDQogIHJlZzoNCiAgICBtaW5JdGVtczogMQ0KICAgIGl0ZW1zOg0KICAgICAgLSBkZXNj
+cmlwdGlvbjogY29udHJvbGxlciByZWdpc3RlcnMNCiAgICAgIC0gZGVzY3JpcHRpb246IGNvbnRy
+b2xsZXIgYnVmZmVyIHNwYWNlDQoNCj4gDQo+IFsgLi4uIF0NCj4gPiArICBjbG9jay1mcmVxdWVu
+Y3k6DQo+ID4gKyAgICBkZXNjcmlwdGlvbjogRGVzaXJlZCBvcGVyYXRpbmcgZnJlcXVlbmN5IG9m
+IHRoZSBJMkMgYnVzIGluIEh6Lg0KPiA+ICsgICAgbWluaW11bTogNTAwDQo+ID4gKyAgICBtYXhp
+bXVtOiA0MDAwMDAwDQo+ID4gKyAgICBkZWZhdWx0OiAxMDAwMDANCj4gPiArDQo+ID4gKyAgcmVz
+ZXRzOg0KPiA+ICsgICAgbWF4SXRlbXM6IDENCj4gPiArDQo+ID4gK3JlcXVpcmVkOg0KPiA+ICsg
+IC0gcmVnDQo+ID4gKyAgLSBjb21wYXRpYmxlDQo+ID4gKyAgLSBjbG9ja3MNCj4gPiArICAtIHJl
+c2V0cw0KPiA+ICsgIC0gaW50ZXJydXB0cw0KPiA+ICsNCj4gPiArdW5ldmFsdWF0ZWRQcm9wZXJ0
+aWVzOiBmYWxzZQ0KPiANCj4gQ291bGQgcmVuYW1pbmcgYnVzLWZyZXF1ZW5jeSB0byBjbG9jay1m
+cmVxdWVuY3kgY2F1c2UgYSBzaWxlbnQgcGVyZm9ybWFuY2UNCj4gcmVncmVzc2lvbiB3aXRoIHRo
+ZSBsZWdhY3kgaTJjLWFzcGVlZCBkcml2ZXI/DQo+IA0KPiBJZiBhIGRldmljZSB0cmVlIGlzIHVw
+ZGF0ZWQgdG8gY29uZm9ybSB0byB0aGlzIG5ldyBiaW5kaW5nIChieSByZXBsYWNpbmcNCj4gYnVz
+LWZyZXF1ZW5jeSB3aXRoIGNsb2NrLWZyZXF1ZW5jeSkgYnV0IGRvZXMgbm90IGFkZCB0aGUgYXNw
+ZWVkLGdsb2JhbC1yZWdzDQo+IHByb3BlcnR5LCB0aGUgbGVnYWN5IGkyYy1hc3BlZWQuYyBkcml2
+ZXIgd2lsbCBzdGlsbCBwcm9iZS4NCj4gDQo+IFRoZSBsZWdhY3kgZHJpdmVyIHJlbGllcyBlbnRp
+cmVseSBvbiBidXMtZnJlcXVlbmN5IGFuZCBkb2VzIG5vdCB1c2Ugc3RhbmRhcmQNCj4gaGVscGVy
+cyBsaWtlIGkyY19wYXJzZV9md190aW1pbmdzKCkgdG8gcmVhZCBjbG9jay1mcmVxdWVuY3kuDQo+
+IA0KPiBUaGlzIHdpbGwgY2F1c2UgdGhlIGRyaXZlciB0byBmYWlsIHRvIGZpbmQgdGhlIGJ1cyBm
+cmVxdWVuY3kgcHJvcGVydHksIGxvZyBhbiBlcnJvciwNCj4gYW5kIHNpbGVudGx5IGZhbGwgYmFj
+ayB0byB0aGUgZGVmYXVsdCAxMDBrSHosIHdoaWNoIHdpbGwgZGVncmFkZSBwZXJmb3JtYW5jZQ0K
+PiBmb3IgZmFzdC1tb2RlIGRldmljZXMuDQo+IA0KPiBBZGRpdGlvbmFsbHksIGJlY2F1c2UgdGhl
+IGJpbmRpbmcgc2V0cyB1bmV2YWx1YXRlZFByb3BlcnRpZXMgdG8gZmFsc2UgYW5kDQo+IHJlbW92
+ZXMgYnVzLWZyZXF1ZW5jeSwgZXhpc3RpbmcgZGV2aWNlIHRyZWVzIHRoYXQgc3RpbGwgdXNlIGJ1
+cy1mcmVxdWVuY3kgd2lsbA0KPiBmYWlsIHZhbGlkYXRpb24uDQo+IA0KSSB3aWxsIGFkZCBidXMt
+ZnJlcXVlbmN5IGZvciBsZWdhY3kgZHJpdmVyDQoNCiAgYnVzLWZyZXF1ZW5jeToNCiAgICAkcmVm
+OiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MzINCiAgICBkZXByZWNhdGVk
+OiB0cnVlDQogICAgZGVzY3JpcHRpb246DQogICAgICBMZWdhY3kgbmFtZSBmb3IgY2xvY2stZnJl
+cXVlbmN5LiBFeGlzdGluZyBBU1QyNjAwIGRldmljZSB0cmVlcw0KICAgICAgdXNlZCB0aGlzIGJl
+Zm9yZSB0aGUgYmluZGluZyB3YXMgc3BsaXQgb3V0LiBOZXcgZGV2aWNlIHRyZWVzDQogICAgICBz
+aG91bGQgdXNlIHRoZSBzdGFuZGFyZCBjbG9jay1mcmVxdWVuY3kgcHJvcGVydHkgaW5zdGVhZC4N
+CiAgICBtaW5pbXVtOiA1MDANCiAgICBtYXhpbXVtOiA0MDAwMDAwDQoNCg0KSXMgdGhpcyB0d28g
+bW9kaWZ5IG9rPw0KPiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL3Nhc2hp
+a28uZGV2LyMvcGF0Y2hzZXQvMjAyNjA1MTMtdXBzdHJlYW1faTJjLXYyOS0wLWZlOTkyNjk2NGQ1
+NUANCj4gYXNwZWVkdGVjaC5jb20/cGFydD0xDQo=
