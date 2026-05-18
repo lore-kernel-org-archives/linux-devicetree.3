@@ -1,226 +1,185 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA48326928;
-	Mon, 18 May 2026 10:02:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1C3319871
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779098525; cv=none; b=QU/1O/a82k30ltEDeGoV5DSmCUrje2DlXmSOpT94WItIyiv96uIn38duwF3UGGycGwL8Y8Fl1KSstL4vEpjLl+z/0EV1/Mwpw0IpZDa3I3xDjfmAN5dgPoK5TJLMTm7eCVozw+z3v/9JTcxsSF8l2K869ddz8BRA+XNRNW5jI08=
+	t=1779098615; cv=none; b=ciar5eXizGE/ANKE+mgobpc/3u6cphuVqWa4Xtgv0zHZqMLxdOB3JtqMlD9572vCm9Hf1hP8BY8UfyfukTZyV/FCSfYns888r4XSIV+qWhTF29jQb0hKSkkwztFN7OqdMXb6+5jshlK9GNJlu+h9OFDSueb+Kk8dFI0ezh4vMfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779098525; c=relaxed/simple;
-	bh=+uNpgAuOVfN6qgRkrWEDp6LOZz8aiVnozDLX8gPsA/c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jvEbl4NaWpvbHS8VGWF7HZgp2bwFpTt6NzPW8aqtAVPGeoB9/CGNpL/DnopZCUjsqyVkSS0kkf2sk5E74FAL7+hnYxm/DB6uundfyjPC948910RrreUyMbcjOYumMhiazN+Z/i/ETPlYgBmSzXKhLWs19v4UuS4rQS6uvZsT0Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=megOarJa; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1779098615; c=relaxed/simple;
+	bh=OlVnZ6hgBjl6Z4wjcdiU1o7je41o2bODQ8xTkDcLa3M=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lL3rjf3+nWEnys0/mWg3oZnm1GSxG79Ras39Mch365mUZqD3aJ5ixxrsuJN3u4BZLSvYbod2ecSXbKVTxxLkUugTJBvT76TjpsAS/UWe2aKimx+yb4NYKij5lxDzlJ5hT1ZrfE68BLzpFG0jf0RIVghjbaYN2wxO4hCXCd2+uGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l66c26y2; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="megOarJa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1779098521;
-	bh=+uNpgAuOVfN6qgRkrWEDp6LOZz8aiVnozDLX8gPsA/c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=megOarJa4PorMb7FNPHfAcn90/VwHzYDGoqgcGwUm1KLGv9mMBqu0ZUVXUowEXhUX
-	 SvVw/N9PaL+/JvumOafJwJCSbB1wFCBd8/tAEKXVa1sRKdePie/nIH1Rj3kifrbJOL
-	 /xOhlEJExyYhEfMkkkPe5nQ7MZ8aMNYHcoWgLpXT81pza5CPcdbbx/3/aFEzrhGUMl
-	 G6pSe6IRlnhNbNPRCbpUJ+w4xzf2HOIrxh/UcRE7Kr0l+LXopNkLGktGb8ZOaSM89i
-	 xlu5RvMB/QQ4PRL090Gs5X6Dlj++0SZ+VbXpe8Ep/+qqsMvwp1VWyuznIboAJ1bQ1w
-	 sqRzNiz9XYrkw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A342B17E0443;
-	Mon, 18 May 2026 12:02:00 +0200 (CEST)
-Message-ID: <1a8b6793-661f-4676-bb29-6c1ee11a3ce9@collabora.com>
-Date: Mon, 18 May 2026 12:02:00 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l66c26y2"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-67f94c078e8so3799973a12.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:03:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779098612; x=1779703412; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=J9ylC37SeHhzEHv6vV+fwrRGDdNjQ9Rkf4Ee3GfdjHs=;
+        b=l66c26y2HCl2ofOgm8mN9gFQxNXJmjgUbaj22MJZalI0IQUYLh6KWDyebsE3k3jMG1
+         3TDqvmqoFvE0YpYF+YFCq6cVfOWsS5cSJuvvHkQ9/xlT0IkabPsPohCW9jjhtv2dnwsH
+         XR08ai3ORBF+584Xz55zcG0fFZVBORnNYeoMsQNOvQa34PT28d7ThEfQNEq8b8oTIh3W
+         I4qn5rcyBLmOaYDyi0Hw6bj/8i6ge/vJP2MGZaYOMtkLFNCrCiF3yiQmbXlzQb2hgwFY
+         pSqyyyUQ82tXkSN79KURiGMJfMKKeYblF/hanGGBiFoSWlZdcRTWUS69wLRKM7Oxy/eb
+         m7Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779098612; x=1779703412;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=J9ylC37SeHhzEHv6vV+fwrRGDdNjQ9Rkf4Ee3GfdjHs=;
+        b=cpEBtO2yItV6VHYsSezdmEv76IKWmDC/rTTiU3F/F9ykaaz2j+qOMkxjixO+JHJ2RX
+         lbz5PmRPJpg5bCtWyVYm789hf5f+yPrW/7H5VLi9F5HDQcrNpqeqbyyb+UBxaUezMXZR
+         1uO7YD4O9lW9FqEDP3u3+FZ87kofnZ2Jg4RFTWfFhCzwlmyGO1mft2l65Ha3zf9mSvoO
+         I5u2LJqFqn06H7Adt3w2xMW/3hZhQ7j35kMeDaCLGR1oOZHMWNwHVcHVkX8GEkCtz7Rb
+         ELRVH0HcrnTqLjFVjbadb8q0mk2p6pDcqKnlzqhBZH9nZBJ5IPrIP/STw8/4wV8vZwHJ
+         zBzg==
+X-Forwarded-Encrypted: i=1; AFNElJ91V3oJtGu40hXBj7+8YSkujeHvaeAjXJvnfi5/Hf3B+hxsSb23zDc+BahrBmnmQizZieOjjrEu06x1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5jcpy0orY2X3LaMxF0yrMTln9zZZQ7j2061aGTi5+se/tR2nE
+	HH48rDpe8JmC5VBVaBI2REHpaFO3VGEx+zwrvP2DBhSetfUFhNNPqN8h
+X-Gm-Gg: Acq92OHRGx5R9uTKudv4FooEbZeSEcivYLtj75kCSSisA3ljpXhTopJfchN38Mr4zbu
+	x1xnFmeZrpiISJvzJH7ViepsM5xalaOzd4WFV5SCfiXhDjfc060NgQcc2u+4QNkC9HlZUSAxfOr
+	OudL+dWnywirptXS3ZnwhvGhh0fWoTnhLnmHdq0HlcI11ROn7tA0qmCUxnrpqY9kOcaFxw+ZT12
+	5GDwQSmT4xZ7eHwYxW5WDFcccu4NKlzLwTSzTFjH4hwdGEgy7ht8row3U55aXZzWpH4E7hwtf/f
+	6yFwAG2s50evN7QSSMPbjwD/0iXqbvk2yTOtQTn/C2WJELZktdxc+Ucz7XBoxa+ibj1rDgtGaCE
+	eP9XM3gQFHUriQsaUjb86NxCr+wLowQifqMnwgapWMn1DtqlNdmQjXiTKxcu1GibHXaVbHGnfUo
+	1Wx3rZBmqGHh0sG8Dzu61dNIYmfm/iyjdnkhYB8sYRkZlGwHdcw3R+ZwLvXOWKc/dNlNfs21aF9
+	1+ggTS5YvTifSQ1yWIdraWtH6SYPi9YT/3uR9V6ZWxD0VnhCR853grQsbiSKHzAOrIUedc=
+X-Received: by 2002:a17:907:1608:b0:bd4:9a55:18e2 with SMTP id a640c23a62f3a-bd51797a54dmr747720366b.45.1779098612039;
+        Mon, 18 May 2026 03:03:32 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4bd2f67sm541480966b.7.2026.05.18.03.03.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 03:03:31 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 18 May 2026 11:03:25 +0100
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+	Rodrigo Alencar <rodrigo.alencar@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v5 05/13] dt-bindings: iio: frequency: add ad9910
+Message-ID: <54aifnhtrlus35grvw2cgotvxwnp5p7peim3tke5wa5tjobmww@iiaajlvladrt>
+References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
+ <20260517-ad9910-iio-driver-v5-5-31599c88314a@analog.com>
+ <20260518-zippy-ingenious-aardwolf-df46a2@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] memory: mtk-smi: Add a flag skip_rpm
-To: =?UTF-8?B?WHVlcWkgWmhhbmcgKOW8oOmbqueQpik=?= <Xueqi.Zhang@mediatek.com>,
- "robh@kernel.org" <robh@kernel.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- =?UTF-8?B?WW9uZyBXdSAo5ZC05YuHKQ==?= <Yong.Wu@mediatek.com>,
- "krzk@kernel.org" <krzk@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>
-Cc: =?UTF-8?B?V2VuZHktU1QgTGluICjmnpfoqanluq0p?= <Wendy-ST.Lin@mediatek.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-References: <20250320073625.25225-1-xueqi.zhang@mediatek.com>
- <20250320073625.25225-3-xueqi.zhang@mediatek.com>
- <46e0e1f1-e094-40f9-99f9-22678bb40d39@collabora.com>
- <198865fb3184926d0b1b4e4855b5f863ad0d6a20.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <198865fb3184926d0b1b4e4855b5f863ad0d6a20.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518-zippy-ingenious-aardwolf-df46a2@quoll>
 
-On 5/18/26 09:16, Xueqi Zhang (张雪琦) wrote:
-> Hi Angelo,
+On 26/05/18 09:52AM, Krzysztof Kozlowski wrote:
+> On Sun, May 17, 2026 at 07:37:49PM +0100, Rodrigo Alencar wrote:
+> > +maintainers:
+> > +  - Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > +
+> > +description:
+> > +  The AD9910 is a 1 GSPS direct digital synthesizer (DDS) with an integrated
+> > +  14-bit DAC. It features single tone mode with 8 configurable profiles,
+> > +  a digital ramp generator, RAM control, OSK, and a parallel data port for
+> > +  high-speed streaming.
+> > +
+> > +  https://www.analog.com/en/products/ad9910.html
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: adi,ad9910
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  spi-max-frequency:
+> > +    maximum: 70000000
+> > +
+> > +  clocks:
+> > +    minItems: 1
+> > +    items:
+> > +      - description: Reference clock (REF_CLK).
+> > +      - description: Optional synchronization clock (SYNC_IN).
+> > +
+> > +  clock-names:
+> > +    oneOf:
+> > +      - items:
+> > +          - const: ref_clk
+> > +      - items:
+> > +          - const: ref_clk
+> > +          - const: sync_in
 > 
-> First of all, please accept my apologies for the delayed response. I
-> have been deeply occupied with MT8196 Aluminium pKVM SMMU and SMI
-> related tasks recently.
+> So that's just items with two items and minItems: 1. Like you have in
+> "clocks:".
 > 
-> Regarding your question, my previous description in the patch was not
-> accurate enough and may have caused some confusion. In fact, not
-> all SMI commons have their backup/restore handled by the RTFF
-> hardware. The SMI commons are distributed across various subsystems
-> (e.g., mminfra, venc, display, cam, etc.). Currently, only the SMI
-> common under the mminfra subsystem is backed up and restored by
-> the RTFF hardware.
-> 
-> Therefore, I believe adding a specific 'skip_rpm' flag is more
-> appropriate here. If we were to differentiate this based on a new
-> MTK_SMI_GEN3 type, it would imply that all SMI common modules of
-> that generation would skip the RPM operations, which is not the
-> intended behavior.
-> 
-> To make this clearer, I plan to update the commit message in the
-> next version as follows:
-> 
-> Subject: memory: mtk-smi: Add skip_rpm flag for certain MT8196 SMI
-> commons
+> You got this comment already at v2.
 
-memory: mtk-smi: Allow no clocks for RTFF managed SMI commons
+You're right! will adjust. For some reason I thought I had problems with
+the dt-binding check without this.
 
 > 
-> Body:
-> On MT8196, certain SMI commons are backed up and restored by the RTFF
-> hardware rather than by software.
+> > +
+> > +  '#clock-cells':
+> > +    const: 1
+> > +
+> > +  clock-output-names:
+> > +    minItems: 1
+> > +    maxItems: 3
+> > +    items:
+> > +      enum: [ sync_clk, pdclk, sync_out ]
 > 
-> For these specific SMI commons, software-controlled register backup
-> and restore in the runtime callback is no longer necessary. Therefore,
-> introduce a 'skip_rpm' flag to bypass these redundant RPMoperations
-> for these SMI commons.
+> Why are the names fixed? And why is the order random?
+
+All of those would be optional. Having it in a specific order we would need
+to register all the clocks even if only one (or none) is used?
+
+> > +
+> > +  interrupts:
+> > +    minItems: 1
+> > +    items:
+> > +      - description:
+> > +          Signal that indicates that Digital Ramp Generator has reached a limit.
+> > +      - description:
+> > +          Signal that indicates the end of a RAM Sweep.
+> > +
+> > +  interrupt-names:
+> > +    minItems: 1
+> > +    maxItems: 2
+> > +    items:
+> > +      enum: [ drover, ram_swp_ovr ]
 > 
-> What do you think about this approach?
+> Your "interrupts:" do not allow flexibility. Are you sure interrupts are
+> optional in the hardware?
+
+Good point, They are optional. Should I drop the items and descriptions in "interrupts"?
+
+> > +
+> > +  dvdd-io33-supply:
+> > +    description: 3.3V Digital I/O supply.
+> > +
+> > +  avdd33-supply:
+> > +    description: 3.3V Analog DAC supply.
+> 
+> Best regards,
+> Krzysztof
 > 
 
-That would be kind-of ok, but keep in mind: pm_runtime doesn't only manage clocks.
+-- 
+Kind regards,
 
-I think that the best option here would be to allow having no clocks instead,
-and to still call pm_runtime_{en,dis}able() - as that would get a bit more
-future-proof, should any other (newer, older, etc) SoC need to declare any power
-domain but still no clocks.
-
-So at this point, I think that just doing something like:
-
-	if (common->plat->has_gals) {
-		if (common->plat->rtff_managed) <--- not "skip_rpm"
-			clk_required = 0;
-		else if (common->plat->type == MTK_SMI_GEN2)
-			clk_required = MTK_SMI_COM_GALS_REQ_CLK_NR;
-		else if (common->plat->type == MTK_SMI_GEN2_SUB_COMM)
-			clk_required = MTK_SMI_SUB_COM_GALS_REQ_CLK_NR;
-	}
-
-should be sufficient (and/or check zero required clocks in smi_dts_clk_init).
-
-Cheers,
-Angelo
-
-> Thanks,
-> Xueqi
-> 
-> On Thu, 2025-03-20 at 13:11 +0100, AngeloGioacchino Del Regno wrote:
->> External email : Please do not click links or open attachments until
->> you have verified the sender or the content.
->>
->>
->> Il 20/03/25 08:36, Xueqi Zhang ha scritto:
->>> MT8196 SMI commons is backed up/restored by RTFF HW.
->>> It doesn't need SW control the register backup/store
->>> in the runtime callback.Therefore, add a flag skip_rpm
->>> to help skip RPM operations for SMI commons.
->>>
->>> Signed-off-by: Xueqi Zhang <xueqi.zhang@mediatek.com>
->>
->> So the MT8196 SMI common doesn't require any clocks?
->>
->> That's fine for me, but this looks bloody similar to MT6989's SMI
->> common, which
->> is SMI GEN3 and not GEN2....
->>
->> ....so, are you sure that you need a `skip_rpm` flag and not new
->> MTK_SMI_GEN3 and
->> MTK_SMI_GEN3_SUB_COMM types? :-)
->>
->> Regards,
->> Angelo
->>
->>> ---
->>>    drivers/memory/mtk-smi.c | 11 ++++++++---
->>>    1 file changed, 8 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/memory/mtk-smi.c b/drivers/memory/mtk-smi.c
->>> index a8f5467d6b31..b9affa3c3185 100644
->>> --- a/drivers/memory/mtk-smi.c
->>> +++ b/drivers/memory/mtk-smi.c
->>> @@ -123,6 +123,7 @@ static const char * const mtk_smi_common_clks[]
->>> = {"apb", "smi", "gals0", "gals1
->>>    struct mtk_smi_common_plat {
->>>        enum mtk_smi_type       type;
->>>        bool                    has_gals;
->>> +     bool                    skip_rpm;
->>>        u32                     bus_sel; /* Balance some larbs to
->>> enter mmu0 or mmu1 */
->>>
->>>        const struct mtk_smi_reg_pair   *init;
->>> @@ -547,6 +548,9 @@ static int mtk_smi_dts_clk_init(struct device
->>> *dev, struct mtk_smi *smi,
->>>    {
->>>        int i, ret;
->>>
->>> +     if (smi->plat->skip_rpm)
->>> +             return 0;
->>> +
->>>        for (i = 0; i < clk_nr_required; i++)
->>>                smi->clks[i].id = clks[i];
->>>        ret = devm_clk_bulk_get(dev, clk_nr_required, smi->clks);
->>> @@ -783,7 +787,7 @@ static int mtk_smi_common_probe(struct
->>> platform_device *pdev)
->>>        common->dev = dev;
->>>        common->plat = of_device_get_match_data(dev);
->>>
->>> -     if (common->plat->has_gals) {
->>> +     if (!common->plat->skip_rpm && common->plat->has_gals) {
->>>                if (common->plat->type == MTK_SMI_GEN2)
->>>                        clk_required = MTK_SMI_COM_GALS_REQ_CLK_NR;
->>>                else if (common->plat->type == MTK_SMI_GEN2_SUB_COMM)
->>> @@ -814,13 +818,14 @@ static int mtk_smi_common_probe(struct
->>> platform_device *pdev)
->>>        }
->>>
->>>        /* link its smi-common if this is smi-sub-common */
->>> -     if (common->plat->type == MTK_SMI_GEN2_SUB_COMM) {
->>> +     if (common->plat->type == MTK_SMI_GEN2_SUB_COMM && !common-
->>>> plat->skip_rpm) {
->>>                ret = mtk_smi_device_link_common(dev, &common-
->>>> smi_common_dev);
->>>                if (ret < 0)
->>>                        return ret;
->>>        }
->>>
->>> -     pm_runtime_enable(dev);
->>> +     if (!common->plat->skip_rpm)
->>> +             pm_runtime_enable(dev);
->>>        platform_set_drvdata(pdev, common);
->>>        return 0;
->>>    }
->>
->>
-
+Rodrigo Alencar
