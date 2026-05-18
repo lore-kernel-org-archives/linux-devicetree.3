@@ -1,122 +1,265 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47E031F9B8
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:12:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A81318B9C
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779099168; cv=none; b=PZH1BRHsJUQp4ac5W6nmvzUwOem8meS74LtLLdO2KvYQC8zmzy3ArXj+ndbU3VZs03uc16IFi+6sswv/Fqn9NLd8hEp2yc+qgVOaPPrhOVKxEzBlISpRyExy9fLLu4tEEVZcpSi02mi7blupRe3v3Lcbsjrjv4/QTKnbfnIuasw=
+	t=1779099192; cv=none; b=NizZTgqxh40owJqQhLoabtulYqC/mxkBOu78aNMkc8yM2yurI6ClH5YvO1oH2erEVIIM8Q7CoXALMFwilZ3BWvRWe8xxKflBhboFDCbSlv7+XDQrJTYOiRj8iNMgxvQa42ItQTpMU5BMzow0bC5/897KFbSYyrCuZcz2WubLAV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779099168; c=relaxed/simple;
-	bh=HHoyvLjypv/XHA9Vamy+kGhoQHPAMAXQNoJk5ifA7rw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lyTXpuTX0iNlWvTMUnsEjkVLYBkSAmrc/l5Soupdq3Ctz59LZBZiD2HjO8PFKN3dtLVNoSjODvb/1AnG+AfFWVWDX6S0X4xJrQgI9i8GqHJp8wVOfTwjyt9hq51RG3YLvNbRaGk0l+Gt9NX5ErgYTZrzNPv6IUUZooJyETr03LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XGW3Momc; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779099192; c=relaxed/simple;
+	bh=9E3qq5D4WZQHWgquf7eFFyaxjAiENCppqVM2VoCoy30=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GmJqQTFXE5FNWvI4GJRypBQ0PffdFOGdov3sxAhEcED6rZOCtDV1eunxiQPoxXoO9HD3KTwLMV4G0hEUEQPgpClbwSpzDxzmduvfmTncGMg8fdl/jJV44G1SLZ6eIV6iJ3/c9ZmUOm3fLn58MKQwUNsRk0x5egFRMCDDAp6QMEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hi3mAoa/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xnoc4EYW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XGW3Momc"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-48e56c1bf5dso9363265e9.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:12:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hi3mAoa/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xnoc4EYW"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I7fZh12188789
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:13:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=AEl5MQcG4V9U6z1ZgKV9Wf
+	SwRgV+hZqvkiSWVAMoQeE=; b=hi3mAoa/6iQqs4Oh+KyqFGRwQ5W7kDyrObXxhY
+	tfIVGVIwm+GaF1h5gY9+PODtSGJu4EcnnuFFiWTOV/sc3XgpjgoLREWztwZWbOrm
+	eHeI/5+VzhNuKvziAG3HJexYFLaE+igishnrhUxsFYACut9p0LYXZEaVGYJ9DTJ1
+	g/6058w7/Cw2iQVvIDwWz403SNEW18f+G0+jfYYRa/BRo4ACW8LzURUJLBlQ6hcd
+	tM2QNCqR6N4hzw1v7Pxt9heDArG8dzP03DTxHRf6HW5K25Sma2FcmqSKtAgw0hR0
+	WJSdg7KU2iXaBOaNw5CorrsPESaprm701cyC53lIM9omD1MQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7xkugn9w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:13:09 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51605cf3c60so26209611cf.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:13:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779099165; x=1779703965; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=HHoyvLjypv/XHA9Vamy+kGhoQHPAMAXQNoJk5ifA7rw=;
-        b=XGW3MomcCtdg7MJ+0mt6yQJ42iRh6PrKOYuzbXetOhCC4z0HZnEBTQIa6kPj0blt2m
-         WXF441/WlwwUIq/gsW5gzZdnZX9xHihxSYZb7pJmhlMaejn5Ky8zRKhHxcn6ysq13ET+
-         vOaj1SaxD6kyXei8Tm0gaybNDzfSZt2wAStVu8j1jda/ILiKc/WfBLZOm/UXEUsXX07n
-         /jUpnx7gwCTpv+EwSdheHnbTirQleRq8IrBFxGxAPQ0QKJqSVl9VrxTAdDlFgZ3bbRsB
-         vT2syiijYGrvZFTY1msGVeFCnNCGWErRN3J30xnhoa9i3N4lAEK+o5vH5fuOFmNnllCk
-         Nucg==
+        d=oss.qualcomm.com; s=google; t=1779099189; x=1779703989; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AEl5MQcG4V9U6z1ZgKV9WfSwRgV+hZqvkiSWVAMoQeE=;
+        b=Xnoc4EYWVWtzMvOYUfjw6s6l6pWPFD98cUMPAn7nR2HzxTNAP8zzl9vacwP8QkS2uw
+         /YQATAcR5TF5TJJ0xR7EQSEtZ+vibUEUoa25DSwU1vSBePG5FD4iKWxEYsREsiBGyN0S
+         Id+W45IyYLaal028c+uIDmeLMvIJ8p9uTCSskt98oMzA9+l4l8S/4Jl7WF+atcZuEC79
+         LOflxUYHl4QI7Tskh6sUwO0/JNkgZMnlIZgGYPoWkh15dZLd2VzgIBeVZO65K3N7y9rT
+         S3ehyJ5dtQ3Kf9LDCwcHm54MhmLY2s4yDoHdA9zkeZByduv2xcYGon9/BDXs9RzJKg+U
+         huSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779099165; x=1779703965;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HHoyvLjypv/XHA9Vamy+kGhoQHPAMAXQNoJk5ifA7rw=;
-        b=fe5ogyhZZtQrs9AbxgfUQbqTPcSVhg/IWq+mxB5YQZyk3HArGgQWQHfU1CWOvexex7
-         B9Pt3+/4koDNz4q4GwEBzx80vvq8UiT41dBlnkKkM2incRT+xQGvAQDIcJjgcF0GMJXg
-         77glXkLYlkjdHi0mQ2983UJfI3CvHu3RVF8uIaF1Q+1hX/PR9OQrsOKLkToz/zxwfd5R
-         i0WD7THpFgeDNkA9o0R5eHKIPhwvukfj/VwtTmlsxtPiKyuX12Gngh6Qx7ap3wzkYqYf
-         rT/eUW5qpGBLG1E7B7A7EFxzMkUJQOUSOvdzWc7z7pCjOqk/uu+CXkO5D7aUX4m3UESK
-         FJ2g==
-X-Forwarded-Encrypted: i=1; AFNElJ+sTGQGBt1pH+KoFDocYiVSNUBZL24WiPJ/HAcM7T9chNiesTdPAdsFdYYVAW4QnGPfim1Yc5VOrpLK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxdEzeEE67RogBBvERSQJkhEP/Gd+MJGQilyjDf02opLwwUn4US
-	lHbeqq3DEHr4OA/xF+cN9VpIzXvZG5/fEqCGC/ZiiYYz4BDjn+6j34ca
-X-Gm-Gg: Acq92OGjQNcIcgTaZSbfESvbInNCE6gqvsDz7eIdzWtBdWU3QODfj+oFnOi9In1J//z
-	M2B/C+FNhNwYFlOchbT3tJeMzBKMs1LdMHqprK9mrOyoGuY+N6GxCS09P7Ol26b/Gze+Ms8oq4m
-	0mSBrumrpYam0eNDCprKXd/NqlMqnc68P/l8IMxo+dpwxByd+EOwCDENH1BdfctkQ8dAM/1oW0d
-	e5LoGmoPZAX7VEh0HdLNmLjrN87qPqIdXhokP9iOB4up7xt/7NnN1hUSY5oAH413qcnQTILvECV
-	MdEJtpthSw9SbLfmFoOuyVP31zLjg0H1eczh5KSYHTAoiOXUrsXNnZwFAL59URqju9v9MXvW+zl
-	wxsIPaUwpk5gAiQxjkWiOb9Lp0xhZ8V/+yI+QrW9WSlLKXKPvd/fW0veFVrpEI5yPHePMmZOQfe
-	vZaJDpDHFe95mYSpuWWFSsK2eZpcwmyGPB943jnmhTRCmvxNdOb7I+v12y47MIHvPVbBEVlU4tH
-	2E=
-X-Received: by 2002:a05:600c:1d99:b0:488:c078:bfda with SMTP id 5b1f17b1804b1-48fe631389bmr204052725e9.26.1779099164795;
-        Mon, 18 May 2026 03:12:44 -0700 (PDT)
-Received: from giga-mm-11.home (72.92.4.85.dynamic.cust.swisscom.net. [85.4.92.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5ab52a6sm242649805e9.10.2026.05.18.03.12.43
+        d=1e100.net; s=20251104; t=1779099189; x=1779703989;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AEl5MQcG4V9U6z1ZgKV9WfSwRgV+hZqvkiSWVAMoQeE=;
+        b=Rxz1pkszUGgVVRpttg9CVwj8GKJWhwhBFon1mIJEg7e61TG488RxT2Vkgp40gDFujP
+         zU7Qq2xKqtaVSz0FSu77L9vdeqcfXFW1Ymk2/yl/PV+ywFAFhzQkrqSesDGy+WyS/FCQ
+         gydskjhp1HVocq0CfJlfpABeNduFzpMMyoOgpVgWiJrj9BHmQNPai1WXSaosej+nUmN7
+         O3sZCfO8s8NXbIuEjVNQj/A3jINeN8PI59/dZWghP8T9tSlmgtsuBGm69glB48NFCf6H
+         0vP3aitQVeOugiu0AOKnxx8tlZybWhU5cbCHwcGwpi2g9fQ6X1xxIY3YMUzryKrRfytk
+         2WCA==
+X-Forwarded-Encrypted: i=1; AFNElJ8bOroYJMm7zEqrZiFJx7wUAmr9N/5x3ymF7SDnofhajlOSHXHOuoyLPvyfPZ7VRySXSZH7rC0HOxkY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwvXRUu87uUcbYhtvEiGCmpzwbLUz5GLXYOPo99QPZ3Id21Ah7P
+	PmJWvSJPa+PUkBzKKt0p3q0cknT9FRYrLeWsIvyvsp8o9EUhpg7xVfiH3+rVU0buz48aDL8W1iJ
+	G47arq/pI3anf/+GwyEgItotcg0Zmm9ut3BBO4Kb+c/XgKp61XcvJIm99ZLdmM+t+
+X-Gm-Gg: Acq92OFY4JJqkHW2Ps0KQEmFR8FLm4R3+LDG/rCk39OceiT0IFAA3eNItIu8jxJVfPa
+	gMWzqo5vRusukKPNdDzbj9pnDc4CIS+NIfQBmKI/a8FedCZhkb8Rl2zoXZFJ5WhqvzINVhx+URi
+	YOD1JXLeXMk8ihUgRsa0Hd8xT0EfferJwDdNbwQTLfBa7U0d7wzaQ2aMkze0yPkHD3n/FLLU0c2
+	3Jw/4Mn5mtsXJghqJsDPeb7mNZKVXYrVhjUc5y4x1f7fXlakAg9/4MKpndwdLNlBQ21AF9eEXGg
+	87LQFROsG41ean/BhkKLmGSoTMNwXDLLAlEltQE8kPqCMB3jCdWYjol/2XF36SdVR9WqK5nj9b/
+	ufm6siILHVJxcChLZONe/gWVELOGWhK6CHH0H
+X-Received: by 2002:a05:622a:2516:b0:50d:2a98:2571 with SMTP id d75a77b69052e-5165a059c4cmr205872771cf.26.1779099188671;
+        Mon, 18 May 2026 03:13:08 -0700 (PDT)
+X-Received: by 2002:a05:622a:2516:b0:50d:2a98:2571 with SMTP id d75a77b69052e-5165a059c4cmr205872241cf.26.1779099188062;
+        Mon, 18 May 2026 03:13:08 -0700 (PDT)
+Received: from quoll ([178.197.219.94])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe4c88495sm240548175e9.4.2026.05.18.03.13.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 03:12:44 -0700 (PDT)
-Message-ID: <58e882977f7b4297e67d785467ec681c43ce3606.camel@gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
- Baijie Helper A133 board
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: wens@kernel.org
-Cc: Andre Przywara <andre.przywara@arm.com>, linux-sunxi@lists.linux.dev, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,  Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 18 May 2026 12:12:43 +0200
-In-Reply-To: <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
-References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
-	 <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
-	 <2306dd3c-6362-40ee-8d9f-77f89be3a502@arm.com>
-	 <14a7e289ff5ffed8fcd6dcb9b2e8455a1b2c9420.camel@gmail.com>
-	 <CAGb2v67tjOCE=Xk=pD84wBG4WTt1nYhDoW3gu_xfx4J0Ooc_VQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+        Mon, 18 May 2026 03:13:07 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+        workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org
+Subject: [PATCH v2] docs: dt: maintainer: Add Devicetree and OF maintainer profile document
+Date: Mon, 18 May 2026 12:12:58 +0200
+Message-ID: <20260518101259.34948-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5055; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=9E3qq5D4WZQHWgquf7eFFyaxjAiENCppqVM2VoCoy30=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqCuYrlVysAwtLXXMvpEbQvYDr+bq8SSxz/afMQ
+ zlLbT4sz/WJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCagrmKwAKCRDBN2bmhouD
+ 117uEACK/anmxHIQXXzJEmDqMdAuebkx2c3ITQYiYPVx/gXQnmSsY2lm/CPK1uU6VRVFngJLa10
+ EsYD9D9Jh3g7qK8uvNqqf6BZIlJtXFJwfRK25wYRsW8Oc3uFNDj5z1OINWLiOxd4+zCExpY/gzB
+ OzG049WyWEH/Oi5j8an7hDvvot+Dbj0GR9aPBZ/pSsePg/qqVAIcldySjgs85ODFCJGrk0ikNLb
+ DwLTrdOhQOiMNXA2hp5ON2t+xQ1xPbrQbFnGb5UEMx4fV0wn86IrYChd9W0eBQTus3tYTXzqLCV
+ awLgZv7W+Lc6D+kiB+n5d9FKdkPLd1fHCDQkYjsY32vrPni6f/vGJan0ml2T35BTdFOBapLrUmz
+ yxQGwJAUtyOC/tXMO7gUjG5yWb7kxUShZ6ToPGcD1E/bsM4htr/LbCR5Nfeu4CiUYN+Ty645bDv
+ 8Bks3V5hxYyf5e84JoK6l7uo5sbRrhj8J+WPEjt92rQB8kRm3R6En7y/QvNJHcTzt2tDo6MCgwY
+ u7HxVSzMkI0UBW7e13WOGxHOtz9nVCquRLTAUey9UiA8EfiNhjvBAMpMBseRZqjc3k1Zt4u+BDl
+ YU03l15h8BINUouIfSsYr1f/6EP8RJ/95X5lZ6YmL2tcvOAuMl9uX+lVtG6LGrfo9GcDjx8Vcq5 Em3ZDxBMKmGiigg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA5OCBTYWx0ZWRfXx0uZ0C714PRy
+ KGxNSX5VWxnvQzcQq0qeJPYowM8EvpddJMmgXpHAvcruytncrhpbS0XWNlvH8dR+7Ehg5qHvmkb
+ JLE2x2ox1iQTl6rLQ1Jky7lGJNA7Ak423tvc7s54vOUXn0IOS0Bwic8ug8NvZalXn8V1+8y3GV0
+ J0I2vj6SfWHks+IReUkR3Bxfv7Nh3P3jfs6tDwoltVEw+Euip7aOpddS9s/+1zPWWki2kyJodSx
+ 8K1P0ikcWwyMKxz0yoWo0If5Y10Vp6ysIwlAr8VEtU98d67Z0Q1NxGPw6JfDjx1I+vJa82XmF2N
+ RH1AbViwpbn0txczfXD5t3gbYgSZGucvU3oFZ7p6JaYA8A0630RcPz4ol1L0/9H7hzSS/jcLO/f
+ cC4u/b42wVueiez4mK4RAwSSIpeCi3LSR5KpVXAYxdqDIC40BowPY2T/t76EdZ8hXsuFKr8hg2X
+ vyhQO1/wxJQIGo7WPKA==
+X-Proofpoint-GUID: G_rZBe37U_b_CAo6wF5vG9dtFrj1Yabf
+X-Proofpoint-ORIG-GUID: G_rZBe37U_b_CAo6wF5vG9dtFrj1Yabf
+X-Authority-Analysis: v=2.4 cv=FsY1OWrq c=1 sm=1 tr=0 ts=6a0ae635 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=7C85NsCI5bDNKhsY0GcA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180098
 
-Hi Checn-Yu,
+Document how Devicetree and Open Firmware maintainers handle their
+subsystem, especially focusing on two caveats:
 
-thanks for the review!
+Devicetree subsystem handles patches with a minor difference comparing
+to other subsystems: while DT maintainers pick up OF code, they only
+provide review of DT bindings without applying these.
 
-On Mon, 2026-05-18 at 11:30 +0800, Chen-Yu Tsai wrote:
-> > > And you should provide a top level 5V regulator here, to be the root =
-of
-> > > the regulator tree. Look at reg_vcc5v in the Liontron .dts.
-> >=20
-> > It doesn't look to me as if Liontron had reg_vcc5v as its 5V "root" reg=
-ulator.
-> > It seems to be only used for reg_usb1_vbus, while HelperBoard A133 does=
-n't
-> > have USB power control. The second issue with Helper/Core split is that
-> > all PMIC story is inside Core board which has 5V input rail, while Help=
-erBoard
-> > around it has indeed 12V->5V DCDC regulator (similar to Liontron), but
-> > putting it in the DT would introduce wierd dependency of the core to th=
-e
-> > HelperBoard which carries it. Do you think it would make sense?
->=20
-> In that case I would probably put a 5v "fake root" regulator in the core
-> dtsi. And in combined dts, I'd then add the 12v "real root", and use that
-> as the supply for the 5v fake root.
->=20
-> Does that make sense?
+All three DT bindings maintainers rely currently on Patchwork and due to
+enormous amount of emails per day, regardless how much DT maintainers
+try, they cannot read all the emails.
 
-"core" board has some battery management schematics, switching the 5V,
-I'll look into specifying this part in "core" .dtsi, maybe it will result
-in some kind of regulator in "core" part. I'll send v4.
+Cc: Rob Herring <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
---=20
-Alexander Sverdlin.
+---
+
+I expect patch to be picked up by Rob, after review.
+
+Changes in v2:
+1. Correct typos and trailing white spaces.
+2. Fix order of P: after C: in maintainers.
+---
+ .../process/maintainer-devicetree.rst         | 70 +++++++++++++++++++
+ MAINTAINERS                                   |  2 +
+ 2 files changed, 72 insertions(+)
+ create mode 100644 Documentation/process/maintainer-devicetree.rst
+
+diff --git a/Documentation/process/maintainer-devicetree.rst b/Documentation/process/maintainer-devicetree.rst
+new file mode 100644
+index 000000000000..d8ffe752bf5d
+--- /dev/null
++++ b/Documentation/process/maintainer-devicetree.rst
+@@ -0,0 +1,70 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++======================================
++Devicetree and Open Firmware Subsystem
++======================================
++
++Other Process Documents
++-----------------------
++
++Please see the documents in Documentation/devicetree/bindings/ for information
++on how to write proper Devicetree bindings and how to submit patches.
++
++Patch Review and Handling
++-------------------------
++
++Patches handled by Devicetree maintainers are processed differently depending
++on the patch type:
++
++1. Core OF driver code, e.g. drivers/of/:
++   patches are reviewed and applied by DT maintainers.
++
++2. Devicetree bindings:
++   patches are reviewed by DT maintainers but, except in certain cases, should
++   be applied by subsystem maintainers.  See also *For kernel maintainers* in
++   Documentation/devicetree/bindings/submitting-patches.rst.
++
++3. DTS and drivers:
++   DT maintainers might provide comments, but review is generally not expected.
++
++Patchwork
++~~~~~~~~~
++
++Devicetree maintainers review patches using Patchwork, so the current status of
++a patch can be checked there. For typical driver submissions, Patchwork
++receives the entire patch set, but only a few patches are usually Devicetree
++bindings that are reviewed by DT maintainers.
++
++Explanation of Patchwork statuses:
++
++ - **New**: Not yet processed by the automation toolset.
++ - **Needs ACK**: Waiting for review by DT maintainers.
++ - **Handled Elsewhere**: Non-DT patch; not being reviewed here.
++ - **RFC**: Patch was likely ignored because it was an incomplete RFC.
++ - **Changes Requested**: Patch was reviewed and DT maintainers expect changes.
++ - **Accepted**: Patch was reviewed and applied by DT maintainers to their tree.
++ - **Not Applicable**: Patch was reviewed and is likely in good shape, with a
++   *Reviewed-by* or *Acked-by* tag provided, but DT maintainers expect someone
++   else to apply it.
++
++Patch Re-review and Pinging
++~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++Due to the high volume of email traffic, Devicetree maintainers do not read
++every email they receive and instead rely on Patchwork during the review
++process. They also often skip patches that have already been reviewed.
++
++As a result, maintainers might miss:
++
++1. Questions about already reviewed patches.
++2. Pings, for example when a patch has been reviewed by DT maintainers but has
++   not been picked up by subsystem maintainers.
++
++Such cases can be addressed by:
++
++1. Pinging DT maintainers on the IRC channel.
++2. Dropping the DT maintainer’s *Acked-by* or *Reviewed-by* tag when sending a new
++   version of the patch set, together with an explanation in the patch
++   changelog describing why the tag was removed and what is expected from DT
++   maintainers.
++
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f877e5aaf2c7..843f1d124446 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20050,6 +20050,7 @@ S:	Maintained
+ Q:	http://patchwork.kernel.org/project/devicetree/list/
+ W:	http://www.devicetree.org/
+ C:	irc://irc.libera.chat/devicetree
++P:	Documentation/process/maintainer-devicetree.rst
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git
+ F:	Documentation/ABI/testing/sysfs-firmware-ofw
+ F:	drivers/of/
+@@ -20071,6 +20072,7 @@ L:	devicetree@vger.kernel.org
+ S:	Maintained
+ Q:	http://patchwork.kernel.org/project/devicetree/list/
+ C:	irc://irc.libera.chat/devicetree
++P:	Documentation/process/maintainer-devicetree.rst
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git
+ F:	Documentation/devicetree/
+ F:	arch/*/boot/dts/
+-- 
+2.51.0
+
