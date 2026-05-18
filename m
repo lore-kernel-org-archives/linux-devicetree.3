@@ -1,85 +1,87 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE40409E1A;
-	Mon, 18 May 2026 12:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA6640586F;
+	Mon, 18 May 2026 12:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779107283; cv=none; b=BWZgoF7OJK56hTRtyhsdx3aE0Cy/gCGl+vD2dUhFKrPaVPEWOQAA42XwVWzyp0rAH6hcxxcqydfixT5k5gXU5cVeb9cOAGg+nMIV3UtruCcxfyeT/UvoIc4lc7tUN+9r9xQ7Wi3kKdWRp1eAHUFGRIBwfAt/xdt9WZ1UCBHJZAQ=
+	t=1779107334; cv=none; b=JpeTmKdyDUEwZUNZhMcsNZZUPAon7V3rnNQ1qnHssAlZHUat5LxLo9lY3ZgQX05aLFJn5qd4EIznB6D41o09dJniNbM+/PHM8HEsLCi1CkNo8i03x7TYPyM3QCnQ6oY/IKUA4nBsfm5wH9P9ZRGRudFv0P2q9jTmEcY03Qm4u1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779107283; c=relaxed/simple;
-	bh=YsFmvc4ZHblbCYQuISYKcXJQ07qCsDZ6i5l+JLxB9eA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JrGry97105c1SIAs5POB5LP+FqJDVc/NERJWMjnt6DPiz/XmotOv/weOWbrWPV5bOFwMY3/HtHAYjbvH760ntBQYA1q3o0RRD0shDYGMI+8ZqzoBVHUlvB4x5diMkheK0iKLiyYeOPtHE9CQo9H2saBu7Dv7jVDqBdE3PByeHxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=JgiEpNGs; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1779107334; c=relaxed/simple;
+	bh=5xK7eBFJjZ1QYUgjb1y/5i+cX2QZ3wiGUMyJFbDID90=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dzmYb01LkLnh5ZuMSHlxYxrH6uazWRL6ap5qA83o7SAEBvDelqAm0kl/PZC1OL3jpjJuFNzPBz3wSp8XuRUwAvSjxRVjT4+V/qJm0fr+oSGmbOi9fionOCsdMH8pLFgLUXJ0X1ul4WHKdLhXLt9RAaUOl3dQCXSIWNFUpY3qOmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j3o/0WIS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="JgiEpNGs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1779107279;
-	bh=wj0yR9PYapzRO9WETQEouL8N/6Cx3siFuTTA4xukOso=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JgiEpNGsV/MptSZiLUBCsoKNZCnbg/Pong+ZdioH3V1VMSsXzpLBszyHPglpYeEcu
-	 AA4yQrnj8775FFAT69kdOk23mSjjgbjGlDpcGnQeRBk1PS/sNMIoLX3emWPtgQuaqn
-	 qfvhc4ndnsfwkJf72cqvekBDXC67fFp4PwHbWmpKi8EejioKsEwUZl2JjroUSqL19X
-	 lflx7wLZeHr1i04ctMSPuOy0vrNcSC3iw9tT8M2IUO8+iTlY3dX7RhzKMp7HFsutQ1
-	 kYi8C9ccG7DhQC/HcuCfVynQchUH13RHHhCtUMPBuQbQdvezOMrPCM1GOy+WXeoor2
-	 BKnxh2aQe9B0Q==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4F6096024D;
-	Mon, 18 May 2026 20:27:59 +0800 (AWST)
-Message-ID: <663d06c8c42892586075ddb2ba7111b06c58752f.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v13 0/2] Add Meta (Facebook) Ventura BMC (AST2600)
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: "P.K. Lee" <pkleequanta@gmail.com>, robh+dt@kernel.org, 
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, joel@jms.id.au, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: Jason-Hsu@quantatw.com, p.k.lee@quantatw.com
-Date: Mon, 18 May 2026 21:57:59 +0930
-In-Reply-To: <20260407081700.2658011-1-pkleequanta@gmail.com>
-References: <20260407081700.2658011-1-pkleequanta@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j3o/0WIS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63024C2BCC7;
+	Mon, 18 May 2026 12:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779107334;
+	bh=5xK7eBFJjZ1QYUgjb1y/5i+cX2QZ3wiGUMyJFbDID90=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=j3o/0WISsCWR4F2qY6fBZyLevfWfEWCguD6w3OiTwdZI2XLcqW9a+zD6ENpHNBzcx
+	 Ixb6qmpjFQTx4Yoi5jgoU9qqMdtc2tjTiLYqcG9zM6Lt+UOO1PB8ZOUMjVZTyR0Zr7
+	 CK/LZeTS0vi35e5gmS0C+MRXqjz03RpPbQumMd2th+uJ1U220Nq65WeuhjnvHhOirL
+	 TJSKCW4tVZ06GFYOnMwD6FoQNGjQ434zLtOzVT/FjWGE3D35UjI61IcPuOg6JdkjGn
+	 Mz0OZ73vH9KYznrr6jRXXSgUi8PTOB9FwuM1CTnQH/Ib5kRmwf/sM1Xq9lGXw7NxUw
+	 FRtvOE1hgB+HQ==
+Message-ID: <5d80590e-d443-4e16-9203-7251d52faf49@kernel.org>
+Date: Mon, 18 May 2026 15:28:49 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: interconnect: qcom-bwmon: Add Hawi cpu-bwmon
+ compatible
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260427182255.3649922-1-mukesh.ojha@oss.qualcomm.com>
+ <20260518112949.ui2gfxvkjdmgc6ks@hu-mojha-hyd.qualcomm.com>
+Content-Language: en-US
+From: Georgi Djakov <djakov@kernel.org>
+In-Reply-To: <20260518112949.ui2gfxvkjdmgc6ks@hu-mojha-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi P.K.,
+On 5/18/26 2:29 PM, Mukesh Ojha wrote:
+> Hi Georgi,
+> 
+> On Mon, Apr 27, 2026 at 11:52:55PM +0530, Mukesh Ojha wrote:
+>> Add the Qualcomm Hawi SoC compatible string for the CPU bandwidth
+>> monitor and there is single instance present globally to monitor
+>> the traffic from CPU to LLCC.
+>>
+>> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml     | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+>> index ce79521bb1ef..82b1d94d3010 100644
+>> --- a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+>> +++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+>> @@ -26,6 +26,7 @@ properties:
+>>         - items:
+>>             - enum:
+>>                 - qcom,glymur-cpu-bwmon
+>> +              - qcom,hawi-cpu-bwmon
+>>                 - qcom,kaanapali-cpu-bwmon
+>>                 - qcom,qcm2290-cpu-bwmon
+>>                 - qcom,qcs615-cpu-bwmon
+>> -- 
+>> 2.53.0
+>>
+> 
+> I am hoping, you would be picking this., let me know.
 
-On Tue, 2026-04-07 at 16:16 +0800, P.K. Lee wrote:
-> Add Linux device tree entry related to Meta (Facebook) Ventura specific
-> devices connected to the BMC (AST2600) SoC. The purpose of Ventura is to
-> detect liquid leakage from all compute trays, switch trays and rack
-> sensors within the rack, log the events, and take necessary actions
-> accordingly.
->=20
+Yes, i applied it.
 
-...
-
-> ---
->=20
-> P.K. Lee (2):
-> =C2=A0 dt-bindings: arm: aspeed: add Meta Ventura board
-> =C2=A0 arm: dts: aspeed: ventura: add Meta Ventura BMC
-
-A few things on the commit subjects. Can you please:
-
-- Capitalise the first word of the short description (the word after
-the final colon)
-- For the DTS patch, capitalise 'ARM' for consistency
-- Avoid redundancies
-
-So:
-
-   dt-bindings: arm: aspeed: Add Meta Ventura board
-   ARM: dts: aspeed: Add Meta Ventura BMC
-
-Cheers,
-
-Andrew
+Thanks,
+Georgi
