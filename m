@@ -1,130 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0598D48BD5B;
-	Mon, 18 May 2026 16:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EE93F8896
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 16:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779120757; cv=none; b=SiuXccqyJX9YlDvTloKlib2k5tl2ppOcDO3LxzhK3pgxf28w5TAn1/ibRudzWmFCSPhXH+aEwmsEChGCkaxjJ0vMBynKiwaEclEEjhSxN978ylmtr8W4YUGi8MMP/Ya8Es5m5FGGJyI0PwfYeKwq5aQZLU371FChgtcrcXGnz3M=
+	t=1779120786; cv=none; b=mQbWXggjcSMpV78QkdlQFmEuuoBDT7dPVAOIGr3yv5AyK0WnHK5tRh42VszprblcK2Ug1ytd+zIGz8e+LMQKW/S8iNotnCJox0qJNSkQrtxt15zw9kZTcu6poLkYKHn9V2CxuoUFgqI+A8YgYcFMFD7Gu6ZR5mRO+8xmKaLpx6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779120757; c=relaxed/simple;
-	bh=3bBrs7mGRW350IS29w5MjBEpH7kFoVKDOCVdn0zMrgM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kagTRQvQoVQ9B4F/kEv5bF4rGEStS+FiGlLYpkc/4ZyKMqjNafVSVdKvvTAbfRHSZYf2JapEuaA1pGYkQA5SNtvwJwcxfbfH6rLCa78pEt8HGrcip9LdKOe9mqi7Pi79YAGnV/jng+lUgsEMwZpETIxBoAdCwMFL/j31Gx9TcIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4GvXNNT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779120786; c=relaxed/simple;
+	bh=tPH3UHYA7l8VRAO21OcMYyZqTzp2i6IfDEbVAUhWAfY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WKad7Zbxn7MdlNSvSZ3eT3+1htL7W/mXpgGTXRb9Znm6rm57VSXjf+kyWe32ovF9QnZwSPNCXi3mirs0J985ABun2VspqPL54I1M0klzTCs0yYsgqZ3C5StKnvXT8dyOmMkSkJ129Qa2bd4gcrh67vpskImKZhLHVTvcLrgVGvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HgsNZTb2; arc=none smtp.client-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4GvXNNT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146AEC2BCB7;
-	Mon, 18 May 2026 16:12:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779120756;
-	bh=3bBrs7mGRW350IS29w5MjBEpH7kFoVKDOCVdn0zMrgM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=n4GvXNNTLDRPKdDUuTDOqA6d+VcvH4IVk+HWxsByWKShb+KY+r3yBvPjQDkmaQ3vu
-	 vXqP5EGV/2SwVzCx2GJrtoofvq7r0Db/Oz0Xx7BzrxnVEZYxWDzVS1T0dlyShfAWxN
-	 NOXgCFHjMIW5NYQYzVoreEmijWJt5c1Yr0uqmAkxHVqnz0mM9a8hbx+ew2gIYfxZJu
-	 tLZUk5lB6iTJdk4O32FTCZngNrqkHyGyMM2VBWIUgN96lroOR9Fdk3N5+MDiSYLpPY
-	 xvBv+t8drksaqX84E3SWF887NWPqez0u+AJotgBDb6iHhjG6BkdKyFbdz52gEpPoxr
-	 SaqhAlIYRDuJw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: PCI: renesas,r9a08g045-pcie: Add
- RZ/V2H(P) support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518155324.168948-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260518155324.168948-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 16:12:33 +0000
-Message-Id: <20260518161236.146AEC2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HgsNZTb2"
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4824176bbbeso701490b6e.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 09:12:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779120776; x=1779725576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tPH3UHYA7l8VRAO21OcMYyZqTzp2i6IfDEbVAUhWAfY=;
+        b=HgsNZTb22jNmqWagPBN44KVFwVnrPPFeml+BTVIw4P0WjfCHKiX3CqtAlL9B4kP9u2
+         pGFbxOhnjoEcu1/EugMxxOWatyRB1xp4PI4MZEwkBe8gQWDNhijq0b/SF+7Ium4YyuXk
+         G0n3eiKS/psSxR/3xZBn6rs4QdZIgpgO6RzZrId1v7pk+uDVuEgsOiFHtFDqSrS/tKcW
+         RzoaoWWzHfxzhmuqsVzy76XUQrrFTzCBi2Mv/I8wA9lKBnNWjwrXtNttf81dwnHCSVhC
+         A/C6oWCGLufwWPT+XtTZtR63qnxO72UUzlSKCErD4xpwmhW7ACBGMB/PzcBlSndvAQVP
+         xukw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779120776; x=1779725576;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=tPH3UHYA7l8VRAO21OcMYyZqTzp2i6IfDEbVAUhWAfY=;
+        b=oHK22GGtNIVfnWPV9p7D9u0ayL7QDS5HIDzELEkjwA90dshDKyFqQuY5O9XMJhSOYo
+         lARmQ+MCKpaBUTgaHIhSv3h0QgB+ZOcZD7ZvmCowLxvpt+W191W/GMaDujBGa0nJtFZZ
+         9UiqQDlHhZfDFlkq6tVb0EEGIHJAT1NCJjZu2Ek1YHyaEDflFunjk5+JgMS4nB/bIwGh
+         HctcyY/eJsJ2mxQhsVC5BTfL/SevJP175X96PrhNjxNnQ6lAhS98In1BsUgt5b5vh7oM
+         tR+TVU9VAVhsrPzV9SRmwSV7BlkTrsiTYfill1aRy1/NpBOKzCBcD151pZuMW5tvFQfi
+         Th1A==
+X-Forwarded-Encrypted: i=1; AFNElJ8xHcWoGDYZLsupn6j8DrtnmBI2C/lfFX5tOyrmTwFx1fA2Vrpx/METGku3gCOJFmT+CmzmouFKyM3l@vger.kernel.org
+X-Gm-Message-State: AOJu0YylEU4N08B3ihPmeASbpRuSJTE3tfIWLdNOAuepAryWOaNhoG3q
+	2en2vRBwtLQccy7T1RqybXKjHrdXHK10LrLEx9GN94itMeNfxq3fOblH
+X-Gm-Gg: Acq92OEi+zM9ulYt9S6ZjtxXZBhtdMPuzXnRFPPWhEwYU2Xtyk9fJuzR11QfRLXATw5
+	wC1uyyPED1KveAhLDzpNXRViLKh7DnuKpL7UCg7+Ov5ttUWiENTMazSQ+Tr91Feqk5FxpuVCF2e
+	mrszK10WwbDFaavd2FziBF4qcS8ui+vT7hjc5fJWJM40BgygvdgAVygbhcfYuqSyw6jQHxPUj/g
+	INgqlVx6HVAXIabuj5xXNhKgqTs6c/dkehe2mnDidlMGySkkvxU/7fSlvz5tp2ELXZ3GHLkcNFH
+	WimLDDBJHF/lylh/7kXR7ZlIXRxwhNTxeycGyRmbXGF6afOWFy0J8dop++x7D0csgZc3r/oDiLM
+	oS2Rm8B3C5nzHrtj28t0xi2TWSxz3PxX2cEP+i0J9lt80/VCzbs+WJY8Cx+IYLgb5kbbKZwfhcH
+	cTrmUWEKLjnU/IHAIF/2PmVBV5sdJ+j2J12vvGToFMUACDlaPvKOIOnGimRQumcVvO
+X-Received: by 2002:a05:6808:e693:b0:47c:6c99:f20d with SMTP id 5614622812f47-482e57ad3bemr7154228b6e.40.1779120776293;
+        Mon, 18 May 2026 09:12:56 -0700 (PDT)
+Received: from Dell.cheetah-searobin.ts.net ([108.243.219.47])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-482ee531c50sm5244120b6e.14.2026.05.18.09.12.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 09:12:54 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+To: sashiko-bot@kernel.org
+Cc: akash.sukhavasi@gmail.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	robh@kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH 2/2] dt-bindings: usb: richtek,rt1711h: add missing 'port' property
+Date: Mon, 18 May 2026 11:12:48 -0500
+Message-ID: <20260518161253.21655-1-akash.sukhavasi@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260518144521.0A681C2BCB7@smtp.kernel.org>
+References: <20260518144521.0A681C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The patch mandates `linux,pci-domain` to identify the hardware con=
-troller instance and determine system controller register offsets, which is=
- a Device Tree architectural violation.
---
+> Is this port node indented correctly in the example?
+>
+> It looks like the 10-space indentation places it inside the connector node
+> rather than as a top-level property of the rt1711h@4e node as intended by
+> the schema update.
+>
+> Should it be aligned with fewer spaces to be a sibling of the connector node
+> instead?
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260518142901.1747-1-akash.sukhavasi@gmail.com?part=2
 
-commit ed13e82a06909d08d89ba9cf97e57413bb3dc6c8
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Thanks for catching this. The port node was incorrectly nested inside
+the connector, moved it to be a sibling and fixed the indentation.
 
-dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2H(P) support
-   =20
-This commit adds support for the PCIe controller found on the Renesas
-RZ/V2H(P) SoC. It makes the linux,pci-domain and num-lanes properties
-mandatory for identifying the controller instance and mapping system
-controller registers.
-
->     Unlike earlier SoCs supported by this driver which only feature a sin=
-gle
->     PCIe controller, the RZ/V2H(P) SoC implements two controllers. Both
->     controllers rely on the system controller (`sysc`) for configuration,
->     but the required registers reside at different offsets for each insta=
-nce.
->     To correctly identify the controller instance and map the correspondi=
-ng
->     system controller registers, make the "linux,pci-domain" and "num-lan=
-es"
->     properties mandatory for this SoC and restrict their values according=
- to
->     the hardware capabilities.
-
-Is it appropriate to use linux,pci-domain to identify the hardware
-controller instance?
-
-Device Tree is designed to describe hardware rather than software policy
-or configuration. The linux,pci-domain property is an OS-specific hint
-used to assign logical PCI domain numbers.
-
-Using it to identify hardware instances strictly couples the hardware
-register mapping to an OS numbering scheme.
-
-> diff --git a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie=
-.yaml b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
-> index 90086909e9210..149a2973b16eb 100644
-> --- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
-[ ... ]
-> @@ -235,6 +238,20 @@ allOf:
->            maxItems: 1
->          reset-names:
->            maxItems: 1
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,r9a09g057-pcie
-> +    then:
-> +      properties:
-> +        linux,pci-domain:
-> +          enum: [0, 1]
-
-Does limiting this to [0, 1] cause a regression for valid software
-configurations?
-
-For example, if a board with multiple PCIe controllers assigns domains 2
-and 3 to these instances to avoid conflicts, the binding will fail
-validation and the driver will fail to probe.
-
-Could the hardware instances instead be identified via standard hardware
-descriptive mechanisms, such as their physical base address (reg),
-standard aliases, or by adding a phandle specifier argument to
-renesas,sysc?
-
-> +        num-lanes:
-> +          enum: [2, 4]
-> +      required:
-> +        - linux,pci-domain
-> +        - num-lanes
-> =20
->  unevaluatedProperties: false
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518155324.1689=
-48-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
+Will send v2.
