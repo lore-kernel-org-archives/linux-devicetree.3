@@ -1,299 +1,269 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013051.outbound.protection.outlook.com [40.107.162.51])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E563F58FF;
-	Mon, 18 May 2026 14:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779114074; cv=fail; b=gcvLaThZRccdM/Nj6N6pS3l92EEQdkzavDLUhUgV2am6GS1L1eqCGnBN7TPOgOhZVOhVlmUGPgaCnvxbFs5c3fo9pZlXUaXwkQ+3uc5kGHTY8Zmh/I4VRVhkXTaPX/V3SRTZ1wS3v99egM7U0Q7nSsW3R/m59TgjG/ay7+Do8j0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779114074; c=relaxed/simple;
-	bh=NPOpUcqdVmftSrt4evHF7OBdBR4D4G17m1wSkq38YsQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=l4tYsXc2kMfXHQHoHUZSF0jQx9nyrm9akXtQcfArREYiHkOMzZRZxnYE+ARBHP/BFrRi0cGJ68I2hLfwdDyVPU2plVOjOdNOGiT27OtpOOXZRlHI+Ongy4+2DRUxVripaoPQzWwxbg1OBv/7sfqMKxijwGjbX3zMiOn5+3xKBCo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=OTqzanOt; arc=fail smtp.client-ip=40.107.162.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF50D3F6C3E;
+	Mon, 18 May 2026 14:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779114078; cv=none; b=Qzz5H3hkaKiVh/9jEZ3v4e0Rh9TarwVRQP5aw21PZGz+7b0Fz1Cu7MOGIoDZrRsRlgXtmSWsvUQKba+jdC+IFJrWYO2YW1PqiF0cGiiFShaRcw3hp04l4mde787mst6Gqb0M90TyCuOSQXUahnPGV0FhaopWg6/vKzW+6mg3xSM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779114078; c=relaxed/simple;
+	bh=4JTnJo51lYwkVot9a+w1x7GmHxbJZVsWI0vpr1W/ws8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u4vIdgz1weHKMwuB64MNv9LvySMs/hisN9FOyf/BNG13qe9sh+qgRgjKOm1kf2LeI89T+NY1WIJ5LtjtZsXA+78ftLoKqpydIrRgPDqVV5JhKHdJ/i3a82Ev7Olq+AgGuqS5ReMZKVvL70b2gfuBn+db/mf9W4PvZyJsxJ8fmAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gR6Agr3e; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="OTqzanOt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Aieestufdcl2ZUB8eMeqhmHV7HMhgyNdzz7GKR1Ark2/Wka+n0PvWO8pMvx4odvA3lwk5BIBDOk13+WkkxP4Y0tVcfhxc/jXss140MsUm2657nRDX6cSIFjKsbVG3ojmV70lf565LwMdKJ41IdfLyUpRAtsPgwQGoyevfG3BMp7XUqRPx6iru2hJMiYQi9Dn3yfRyCb1I+oWuF7aY6tI4PXuqNtaN7DzBw/BczjWdmQS920aBEy7wQlM2Jg3pXTfvYO+HDTxSbDF3T5FiVlcpB8RF5dkbMtaVvRrYUFTkO7ESs9QPBTp1pek07niWMYXu6RH+L61Xp3k9Arsxb1khA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XAuJzBzuuqDSLklFQ6dEVc5lGCIBeNkMzONWTNDaitw=;
- b=C+QVKoVk/sf4OAwtlRoENk8Ine3rqoEZMk7UUAr6VgAxMlOK/M6z/DeRJuJyrI1YhebSI83KjRpEdq2o9xo9vheK/3yVy+ceQoStYWa+Kv+FkbSMadgNVQrLNCQIbumX+vC3FDgYOg4UFyp8Xvn3vBOqbyJ41iJaQKAAWxETRJb0C3jeaent8R5I1MFbqCN/lAUh7aQb6ETt89cDdN4ZXdFxrCMXwwgkOTSbxji8JCiII3E18NbS8RaYmqSySfbN5MbV0X1KDYW/8nCPflBHfPhYYtutVybLRoPZKqkyt71t72yzfz3p1pudqIR9qnsnvM9gBDhZY6luhCz4YDOa0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XAuJzBzuuqDSLklFQ6dEVc5lGCIBeNkMzONWTNDaitw=;
- b=OTqzanOtt0cx4nxbYK0SgOLnDUttGAP8gfhjx0fzgyocEd8ajFU7kPmol5qjgm9RKtZYaeyT9/3XmVGdbN3FpkVpt3DPR/mNNQq0aKrDFt4Fy6sV6J0/5MtQlsTsLFXQmisK92+pmSc41MUfFOMYqv/N6Z3GlDJBwPU7R7XeX4a7PO/X/wNJ4DqFjuQsblzG7Ukc5HVSHtXb5L5Ap/mnRfBJ2h0TDsLBipO5uVLVI88fpAp4pzKII7vAF4C1CqFgSZmPBVdQK0sB6H8Io6FvbOmBgkJFq4K1WwexshsM8hHH29Gh+nYIXP7ZDnKQJB8rRor7W9vse7RfEDHylT2Lzw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PR3PR04MB7402.eurprd04.prod.outlook.com (2603:10a6:102:89::16)
- by GV4PR04MB11793.eurprd04.prod.outlook.com (2603:10a6:150:2dc::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 14:20:48 +0000
-Received: from PR3PR04MB7402.eurprd04.prod.outlook.com
- ([fe80::4129:7aed:b5cb:b13d]) by PR3PR04MB7402.eurprd04.prod.outlook.com
- ([fe80::4129:7aed:b5cb:b13d%5]) with mapi id 15.20.9913.009; Mon, 18 May 2026
- 14:20:48 +0000
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	johan@kernel.org,
-	linux-phy@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 linux-phy 2/3] phy: ti: alphabetically sort Kconfig and Makefile
-Date: Mon, 18 May 2026 17:20:25 +0300
-Message-Id: <20260518142026.3098496-3-ioana.ciornei@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260518142026.3098496-1-ioana.ciornei@nxp.com>
-References: <20260518142026.3098496-1-ioana.ciornei@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AS4P191CA0017.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d9::7) To PR3PR04MB7402.eurprd04.prod.outlook.com
- (2603:10a6:102:89::16)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gR6Agr3e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8253AC2BCFA;
+	Mon, 18 May 2026 14:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779114076;
+	bh=4JTnJo51lYwkVot9a+w1x7GmHxbJZVsWI0vpr1W/ws8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=gR6Agr3eAos7fSGAABTi1vFd6i19cW7ktH2QMt59oqUuyoX9bOJXYy4qbVBu7XYYr
+	 Qo39rkjpee7dPAQcn4IjkMO5kdQOCCF9Bbu0wdViedOm0U0Uc6Kno0aN06PvQ3a/Zi
+	 xW/leZBRumXNNB/tyh4IqLxg1rdgygkGvuHHOAh24p0rnTOfrVam422/hP5hnA2P70
+	 cNz49HhIQ1gEU97Xa1vKHFiIS0X1lfDk824L2ieJNf+tPWjX0HIJRocYQzHOYQqz09
+	 1GecBrZmDvMzbrqbBWCg7LoNDWPFus0YfJmOFnBk1RSNkHHLUYUROgqJLjtBg8kD0Y
+	 +6jqsWLT2MIfg==
+Date: Mon, 18 May 2026 15:21:03 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v11 3/6] iio: adc: ad4691: add triggered buffer support
+Message-ID: <20260518152103.4d428c1e@jic23-huawei>
+In-Reply-To: <58a66855-9fb3-48ca-8cae-ff9277f745df@baylibre.com>
+References: <20260515-ad4692-multichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com>
+	<20260515-ad4692-multichannel-sar-adc-driver-v11-3-eab27d852ac2@analog.com>
+	<9b7986e1-6550-415d-b301-33089ba10177@baylibre.com>
+	<20260517132526.27c71b70@jic23-huawei>
+	<58a66855-9fb3-48ca-8cae-ff9277f745df@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PR3PR04MB7402:EE_|GV4PR04MB11793:EE_
-X-MS-Office365-Filtering-Correlation-Id: df91766a-74e0-454d-ee4a-08deb4e8a89e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|19092799006|11063799003|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xM6a0ooLyeuY2sr/Gwa9INVZEHuhMbzItZ/AeaQcEjYv9TnBF73W8DYanFe+I6dztzOEFGQY6V5Uk+9/IOvadURemSR9aFvAm4RA9nD0170Z5UHz4lu1JdvSI6DAvdj54x9ylU5YFtgT40maLs83afqzT7OS4a3Ml+ghioHQtnHOojqqRSIqdNFjNRZxCuJvFx/9rSKJiKdlMcVka7YX6aSeOEWl3pW73v9R7Jx705bzA38Ig7XnTCaDmWAROjIjFzfqMO+frb2HXJpuMdsf0B8tC7Nwrvz75FTjL/sjVXvABakTghy2/1NgfTKQtn9MaZEuSkOZA6zfMp9FNvsX/JDbYvMLfZoHOWOzjIFJp/rxzDQChY5Io5xr1nrlprykfFPCPvuhCuQPUkJ+APnctvPlhsz5mUUjSI8LgZoXCijXT5U3gpKtDtdKmzDTGHAApzZXHUPCmdhXuIvCE+B66May/Erw+nLEuMn6WAf3syc4FrEEWs08jCSCJ2/gGn5yHUiwebeSo4ZRodUYcVvgLCJVFMdm/bivqV6gSCiX7kyX27Yi4FdJ12zkUBsmkwqC+blUTuCr/t1pTWFX22/ytub++s2D1L/kniqFbtPYadx5Jli58Jlasf2fNUmVsShZYrm7TBKIbPbIQ3+9veJSDW25tlP6J35WMdlbBO9CfmhOMEYqtIbH57cWnK7c/WWn
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR04MB7402.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(19092799006)(11063799003)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CaZDr12Ro4JzO+2AF849AYhrcu4yKBQJSLHN285kPMQfWwBYu0zQk/xg/m5N?=
- =?us-ascii?Q?3fh985atiricGLB8Cy5MdWVQsZsCqWhEK/Ot47ETfx7lWykLXtNKE+KTetqI?=
- =?us-ascii?Q?xuITBRBwSE0vPLfn1El3QNBfK2fjA/oO6vPpfAN3HHBQ9Wj1JsTy8BR0OVnz?=
- =?us-ascii?Q?lQcDRzV6Q2taHoHj2m54eYPstZrN+qeDHh3LWq4guX6TR6MajZFIos2ngPcR?=
- =?us-ascii?Q?5gldHR60x1h4Yh2jjW9HFazIODN+eRgjmR9zPjGYM9z2qPTYD3ibvovoLCHT?=
- =?us-ascii?Q?sOzsjWQA4Rv7IKm4SFaQ7h7NyC/vRgIQr9zbqN/VRG1WMQdEU9CS9R4gSxM8?=
- =?us-ascii?Q?rzOTVoIif9RNcigOhJ+Rmlkq5noNHwnxUc/L0lBennn9PAyokierNnDxK9f0?=
- =?us-ascii?Q?KmZhgYtEX+DBc2DdQ5qLAGLzgUCNqWl02eM9oYYQL4jBNz6ikcIC4FtSpPuF?=
- =?us-ascii?Q?3KfPUAzCkkGsxl43JxpCW9tirbKijevtPX0NQiA8sIEWLvKT1aEOPY/0IJ6f?=
- =?us-ascii?Q?MyYNm6FXTGh04fXXupbrvfO/GNB0lwtDCd+IHBvWXIg8jWxazlPuQHchA8ZC?=
- =?us-ascii?Q?Qz2gWi/FATWWyDEMa3SI2ZQTFgd256np28iKgng3NISg0/YCOVVAWVg/C8ie?=
- =?us-ascii?Q?X1BAaL5VLR1w5Z0QnAWS1xTnqV5HthKfrKbF6bi32T7uLyBoFhkKpoTO6x9v?=
- =?us-ascii?Q?ECbt9gy9UN3U40S5SmYuCYbYcMnaWDmA1fHAir/y0QjkiNTv4D0J5uWjHULv?=
- =?us-ascii?Q?kuKEaKpwBcrZ8nxcv4XU+E+5y1gZ6HLbIBongDUA7LWXQ67aQ8x0gDe00NJp?=
- =?us-ascii?Q?0X5yBK+TNvTZNvnO/Mh09vtKMQSgZ/vbeeGlWO+V31ZO1dZctyMQvh3bfgkj?=
- =?us-ascii?Q?JCgKFwLv+xiTQUpC3kZG9GKqi5Es8OXCMS9L3U3xXcRDDf2LaEMHsA7phObc?=
- =?us-ascii?Q?IUdoiKjlypdG/enST9l569z+VvSWOqSWxQ7ELNwVRZ0+IL57ZwwD3LapfTLw?=
- =?us-ascii?Q?DJKhobRXjn1phQvfy6AAiZlnf82vVdUb5uH28xqUMoCQfJFiRlxm/trNFsOF?=
- =?us-ascii?Q?vy2lLDuei+CgAkEF8/mU20dSkTKimLyYzejFGKsGd+t+QrvKeTnc1Z5YQ6JU?=
- =?us-ascii?Q?4y/mm00g77uG8dR76m9912cnAHJf3jwCPFUOqtsdVxBOfH5d/mbtZFITpuRA?=
- =?us-ascii?Q?L0C4jMZ/vZNkBp/8CH2flVifuAThTfDXxKfyfngCC2NvKYqmoHLtUXcsvh4Z?=
- =?us-ascii?Q?jBI7n+bmzF0DpEo2w7fSwKdDhfOHLzawzEvAmSmcAaLWoVTeeHzrDBqNpoNx?=
- =?us-ascii?Q?1JYGvxqJb6qFNHAoiJP7bkzBcepmCcZ1LfcqokV+bRtP6wxedviicYX8vpWt?=
- =?us-ascii?Q?mkhzItnG27+SVhYMmLypnLNlzShZbv/SVivlQl6H26BmTORFVoNETT87jqFx?=
- =?us-ascii?Q?+j2mvWJiuNn3ozlQjYyoVJD+deFMVZ6K/tpAUQlfA2aZMLWYMZDRhr3vQV1Q?=
- =?us-ascii?Q?ghKfMe3qC6EFFQcRmiUvze8Qi7oRl5fmh9LYQuKJ6causR5TjuTcU18vWDho?=
- =?us-ascii?Q?YpBh1l/zNwMZR8a05KW9fL6By1prMdXKGD+EHzEqHkucYN/zg4vIPgRIIOS2?=
- =?us-ascii?Q?eDqV5b+IXc7MPhoT272DXhXpgLHKrIA56NcZZi+ls5yCwSlt8J6JvNgVME4M?=
- =?us-ascii?Q?bqPqQc6I3OUpI1KMSMGtiV3HSzOb0DDTLTf8IssKeDJiVRHylUqBuNapRBi1?=
- =?us-ascii?Q?tg0Qf3PGkQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df91766a-74e0-454d-ee4a-08deb4e8a89e
-X-MS-Exchange-CrossTenant-AuthSource: PR3PR04MB7402.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 14:20:48.8550
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b4GEIHymWchKQEu/luRmiExk7W6HF2w/pP4yPdLrmhbM9y1JrwdhC9Cxt9t8qCvz/XQ/8gJmD3hhCmDEnSBNVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11793
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Sort alphabetically the entries in the Kconfig and Makefile files.
+On Sun, 17 May 2026 14:21:30 -0500
+David Lechner <dlechner@baylibre.com> wrote:
 
-Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
----
-Changes in v4:
-- patch is new
----
- drivers/phy/ti/Kconfig  | 92 ++++++++++++++++++++---------------------
- drivers/phy/ti/Makefile | 12 +++---
- 2 files changed, 52 insertions(+), 52 deletions(-)
+> On 5/17/26 7:25 AM, Jonathan Cameron wrote:
+> > On Sat, 16 May 2026 12:32:51 -0500
+> > David Lechner <dlechner@baylibre.com> wrote:
+> >  =20
+> >> On 5/15/26 8:31 AM, Radu Sabau via B4 Relay wrote: =20
+> >>> From: Radu Sabau <radu.sabau@analog.com>
+> >>>
+> >>> Add buffered capture support using the IIO triggered buffer framework.
+> >>>
+> >>> CNV Burst Mode: the GP pin identified by interrupt-names in the device
+> >>> tree is configured as DATA_READY output. The IRQ handler stops
+> >>> conversions and fires the IIO trigger; the trigger handler executes a
+> >>> pre-built SPI message that reads all active channels from the AVG_IN
+> >>> accumulator registers and then resets accumulator state and restarts
+> >>> conversions for the next cycle.
+> >>>
+> >>> Manual Mode: CNV is tied to SPI CS so each transfer simultaneously
+> >>> reads the previous result and starts the next conversion (pipelined
+> >>> N+1 scheme). At preenable time a pre-built, optimised SPI message of
+> >>> N+1 transfers is constructed (N channel reads plus one NOOP to drain
+> >>> the pipeline). The trigger handler executes the message in a single
+> >>> spi_sync() call and collects the results. An external trigger (e.g.
+> >>> iio-trig-hrtimer) is required to drive the trigger at the desired
+> >>> sample rate.
+> >>>
+> >>> Both modes share the same trigger handler and push a complete scan =
+=E2=80=94
+> >>> one big-endian 16-bit (__be16) slot per active channel, densely packed
+> >>> in scan_index order, followed by a timestamp.
+> >>>
+> >>> The CNV Burst Mode sampling frequency (PWM period) is exposed as a
+> >>> buffer-level attribute via IIO_DEVICE_ATTR.
+> >>>
+> >>> Signed-off-by: Radu Sabau <radu.sabau@analog.com> =20
+> >  =20
+> >>> +
+> >>> +static int ad4691_manual_buffer_preenable(struct iio_dev *indio_dev)
+> >>> +{
+> >>> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> >>> +	unsigned int k, i;
+> >>> +	int ret;
+> >>> +
+> >>> +	memset(st->scan_xfers, 0, sizeof(st->scan_xfers));
+> >>> +	memset(st->scan_tx, 0, sizeof(st->scan_tx));
+> >>> +
+> >>> +	spi_message_init(&st->scan_msg);
+> >>> +
+> >>> +	k =3D 0;
+> >>> +	iio_for_each_active_channel(indio_dev, i) {
+> >>> +		if (i >=3D indio_dev->num_channels - 1)
+> >>> +			break; /* skip soft timestamp */   =20
+> >>
+> >> I don't think timestamp gets set in the scan mask. It is handled separ=
+ately. =20
+> >=20
+> > FWIW that is a sashiko false postive (I believe anyway!)
+> > If we do hit this please shout as we have a core bug.
+> >=20
+> > If anyone has time to look at how hard it would be to tweak
+> > iio_for_each_active_channel to skip a last element timestamp that
+> > would be great.
+> >=20
+> > I think that iterates one too far which is what sashiko is tripping ove=
+r.
+> >=20
+> > I'm only keen to fix that if we can make it low cost and hid it entirely
+> > from drivers.
+> >=20
+> > Jonathan
+> >  =20
+> This is what I came up with (totally untested).
+>=20
+> Since timestamp can never be set in scan_mask/active_scan_mask, it should
+> be safe to exclude it from masklength without breaking existing code.
+Probably...=20
+>=20
+> I didn't check all callers of masklength/iio_get_masklength() though.
 
-diff --git a/drivers/phy/ti/Kconfig b/drivers/phy/ti/Kconfig
-index b40f28019131..dbe65500f20c 100644
---- a/drivers/phy/ti/Kconfig
-+++ b/drivers/phy/ti/Kconfig
-@@ -2,24 +2,29 @@
- #
- # Phy drivers for TI platforms
- #
--config PHY_DA8XX_USB
--	tristate "TI DA8xx USB PHY Driver"
--	depends on ARCH_DAVINCI_DA8XX || COMPILE_TEST
--	select GENERIC_PHY
--	select MFD_SYSCON
-+config OMAP_CONTROL_PHY
-+	tristate "OMAP CONTROL PHY Driver"
-+	depends on ARCH_OMAP2PLUS || COMPILE_TEST
- 	help
--	  Enable this to support the USB PHY on DA8xx SoCs.
+That was the bit that made me nervous. Particularly if there is an off
+by one that is working by luck today - or someone who understood this
+oddity and did it deliberately.
+
+At one point we also had a few other timestamps - the ones come from hardwa=
+re.
+I can't remember how we handled those wrt to the scan mask.  I took a quick
+look and thing they are all fine.=20
+FWIW a nice precursor would be to make sure all timestamp channels are assi=
+gned
+using the macro. There are a few that are hand crafted.  I tested a few, bu=
+t obviously
+needs turning in to a proper set and cleaning up.
+
+diff --git a/drivers/iio/adc/ad4170-4.c b/drivers/iio/adc/ad4170-4.c
+index 627cbf5a37b0..890e25294baa 100644
+--- a/drivers/iio/adc/ad4170-4.c
++++ b/drivers/iio/adc/ad4170-4.c
+@@ -2385,9 +2385,7 @@ static int ad4170_parse_channels(struct iio_dev *indi=
+o_dev)
+ 	}
+=20
+ 	/* Add timestamp channel */
+-	struct iio_chan_spec ts_chan =3D IIO_CHAN_SOFT_TIMESTAMP(chan_num);
 -
--	  This driver controls both the USB 1.1 PHY and the USB 2.0 PHY.
-+	  Enable this to add support for the PHY part present in the control
-+	  module. This driver has API to power on the USB2 PHY and to write to
-+	  the mailbox. The mailbox is present only in omap4 and the register to
-+	  power on the USB2 PHY is present in OMAP4 and OMAP5. OMAP5 has an
-+	  additional register to power on USB3 PHY/SATA PHY/PCIE PHY
-+	  (PIPE3 PHY).
- 
--config PHY_DM816X_USB
--	tristate "TI dm816x USB PHY driver"
--	depends on ARCH_OMAP2PLUS || COMPILE_TEST
-+config OMAP_USB2
-+	tristate "OMAP USB2 PHY Driver"
-+	depends on ARCH_OMAP2PLUS || ARCH_K3 || COMPILE_TEST
- 	depends on USB_SUPPORT
- 	select GENERIC_PHY
- 	select USB_PHY
-+	select OMAP_CONTROL_PHY if ARCH_OMAP2PLUS || COMPILE_TEST
- 	help
--	  Enable this for dm816x USB to work.
-+	  Enable this to support the transceiver that is part of SOC. This
-+	  driver takes care of all the PHY functionality apart from comparator.
-+	  The USB OTG controller communicates with the comparator using this
-+	  driver.
- 
- config PHY_AM654_SERDES
- 	tristate "TI AM654 SERDES support"
-@@ -33,6 +38,25 @@ config PHY_AM654_SERDES
- 	  This option enables support for TI AM654 SerDes PHY used for
- 	  PCIe.
- 
-+config PHY_DA8XX_USB
-+	tristate "TI DA8xx USB PHY Driver"
-+	depends on ARCH_DAVINCI_DA8XX || COMPILE_TEST
-+	select GENERIC_PHY
-+	select MFD_SYSCON
-+	help
-+	  Enable this to support the USB PHY on DA8xx SoCs.
-+
-+	  This driver controls both the USB 1.1 PHY and the USB 2.0 PHY.
-+
-+config PHY_DM816X_USB
-+	tristate "TI dm816x USB PHY driver"
-+	depends on ARCH_OMAP2PLUS || COMPILE_TEST
-+	depends on USB_SUPPORT
-+	select GENERIC_PHY
-+	select USB_PHY
-+	help
-+	  Enable this for dm816x USB to work.
-+
- config PHY_J721E_WIZ
- 	tristate "TI J721E WIZ (SERDES Wrapper) support"
- 	depends on OF && (ARCH_K3 || COMPILE_TEST)
-@@ -49,29 +73,20 @@ config PHY_J721E_WIZ
- 	  three clock selects (pll0, pll1, dig) and resets for each of the
- 	  lanes.
- 
--config OMAP_CONTROL_PHY
--	tristate "OMAP CONTROL PHY Driver"
--	depends on ARCH_OMAP2PLUS || COMPILE_TEST
-+config PHY_TI_GMII_SEL
-+	tristate
-+	select GENERIC_PHY
-+	select REGMAP
- 	help
--	  Enable this to add support for the PHY part present in the control
--	  module. This driver has API to power on the USB2 PHY and to write to
--	  the mailbox. The mailbox is present only in omap4 and the register to
--	  power on the USB2 PHY is present in OMAP4 and OMAP5. OMAP5 has an
--	  additional register to power on USB3 PHY/SATA PHY/PCIE PHY
--	  (PIPE3 PHY).
-+	  This driver supports configuring of the TI CPSW Port mode depending on
-+	  the Ethernet PHY connected to the CPSW Port.
- 
--config OMAP_USB2
--	tristate "OMAP USB2 PHY Driver"
--	depends on ARCH_OMAP2PLUS || ARCH_K3 || COMPILE_TEST
--	depends on USB_SUPPORT
-+config PHY_TUSB1210
-+	tristate "TI TUSB1210 ULPI PHY module"
-+	depends on USB_ULPI_BUS
- 	select GENERIC_PHY
--	select USB_PHY
--	select OMAP_CONTROL_PHY if ARCH_OMAP2PLUS || COMPILE_TEST
- 	help
--	  Enable this to support the transceiver that is part of SOC. This
--	  driver takes care of all the PHY functionality apart from comparator.
--	  The USB OTG controller communicates with the comparator using this
--	  driver.
-+	  Support for TI TUSB1210 USB ULPI PHY.
- 
- config TI_PIPE3
- 	tristate "TI PIPE3 PHY Driver"
-@@ -84,13 +99,6 @@ config TI_PIPE3
- 	  This driver interacts with the "OMAP Control PHY Driver" to power
- 	  on/off the PHY.
- 
--config PHY_TUSB1210
--	tristate "TI TUSB1210 ULPI PHY module"
--	depends on USB_ULPI_BUS
--	select GENERIC_PHY
--	help
--	  Support for TI TUSB1210 USB ULPI PHY.
+-	st->chans[chan_num] =3D ts_chan;
++	st->chans[chan_num] =3D IIO_CHAN_SOFT_TIMESTAMP(chan_num);
+ 	num_channels =3D num_channels + 1;
+=20
+ 	indio_dev->num_channels =3D num_channels;
+diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
+index 6e1930f7c65d..56baca1f5026 100644
+--- a/drivers/iio/adc/at91_adc.c
++++ b/drivers/iio/adc/at91_adc.c
+@@ -521,13 +521,7 @@ static int at91_adc_channel_init(struct iio_dev *idev)
+ 	}
+ 	timestamp =3D chan_array + idx;
+=20
+-	timestamp->type =3D IIO_TIMESTAMP;
+-	timestamp->channel =3D -1;
+-	timestamp->scan_index =3D idx;
+-	timestamp->scan_type.sign =3D 's';
+-	timestamp->scan_type.realbits =3D 64;
+-	timestamp->scan_type.storagebits =3D 64;
 -
- config TWL4030_USB
- 	tristate "TWL4030 USB Transceiver Driver"
- 	depends on TWL4030_CORE && REGULATOR_TWL4030 && USB_MUSB_OMAP2PLUS
-@@ -103,11 +111,3 @@ config TWL4030_USB
- 	  family chips (including the TWL5030 and TPS659x0 devices).
- 	  This transceiver supports high and full speed devices plus,
- 	  in host mode, low speed.
--
--config PHY_TI_GMII_SEL
--	tristate
--	select GENERIC_PHY
--	select REGMAP
--	help
--	  This driver supports configuring of the TI CPSW Port mode depending on
--	  the Ethernet PHY connected to the CPSW Port.
-diff --git a/drivers/phy/ti/Makefile b/drivers/phy/ti/Makefile
-index dcba2571c9bd..975fb8448ba5 100644
---- a/drivers/phy/ti/Makefile
-+++ b/drivers/phy/ti/Makefile
-@@ -1,11 +1,11 @@
- # SPDX-License-Identifier: GPL-2.0
--obj-$(CONFIG_PHY_DA8XX_USB)		+= phy-da8xx-usb.o
--obj-$(CONFIG_PHY_DM816X_USB)		+= phy-dm816x-usb.o
- obj-$(CONFIG_OMAP_CONTROL_PHY)		+= phy-omap-control.o
- obj-$(CONFIG_OMAP_USB2)			+= phy-omap-usb2.o
--obj-$(CONFIG_TI_PIPE3)			+= phy-ti-pipe3.o
--obj-$(CONFIG_PHY_TUSB1210)		+= phy-tusb1210.o
--obj-$(CONFIG_TWL4030_USB)		+= phy-twl4030-usb.o
- obj-$(CONFIG_PHY_AM654_SERDES)		+= phy-am654-serdes.o
--obj-$(CONFIG_PHY_TI_GMII_SEL)		+= phy-gmii-sel.o
-+obj-$(CONFIG_PHY_DA8XX_USB)		+= phy-da8xx-usb.o
-+obj-$(CONFIG_PHY_DM816X_USB)		+= phy-dm816x-usb.o
- obj-$(CONFIG_PHY_J721E_WIZ)		+= phy-j721e-wiz.o
-+obj-$(CONFIG_PHY_TI_GMII_SEL)		+= phy-gmii-sel.o
-+obj-$(CONFIG_PHY_TUSB1210)		+= phy-tusb1210.o
-+obj-$(CONFIG_TI_PIPE3)			+= phy-ti-pipe3.o
-+obj-$(CONFIG_TWL4030_USB)		+= phy-twl4030-usb.o
--- 
-2.25.1
++	*timestamp =3D IIO_CHAN_SOFT_TIMESTAMP(idx);
+ 	idev->channels =3D chan_array;
+ 	return idev->num_channels;
+ }
+diff --git a/drivers/iio/adc/cc10001_adc.c b/drivers/iio/adc/cc10001_adc.c
+index 2c51b90b7101..d42b747325aa 100644
+--- a/drivers/iio/adc/cc10001_adc.c
++++ b/drivers/iio/adc/cc10001_adc.c
+@@ -262,7 +262,7 @@ static const struct iio_info cc10001_adc_info =3D {
+ static int cc10001_adc_channel_init(struct iio_dev *indio_dev,
+ 				    unsigned long channel_map)
+ {
+-	struct iio_chan_spec *chan_array, *timestamp;
++	struct iio_chan_spec *chan_array;
+ 	unsigned int bit, idx =3D 0;
+=20
+ 	indio_dev->num_channels =3D bitmap_weight(&channel_map,
+@@ -289,13 +289,7 @@ static int cc10001_adc_channel_init(struct iio_dev *in=
+dio_dev,
+ 		idx++;
+ 	}
+=20
+-	timestamp =3D &chan_array[idx];
+-	timestamp->type =3D IIO_TIMESTAMP;
+-	timestamp->channel =3D -1;
+-	timestamp->scan_index =3D idx;
+-	timestamp->scan_type.sign =3D 's';
+-	timestamp->scan_type.realbits =3D 64;
+-	timestamp->scan_type.storagebits =3D 64;
++	chan_array[idx] =3D IIO_CHAN_SOFT_TIMESTAMP(idx);
+=20
+ 	indio_dev->channels =3D chan_array;
+=20
+diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
+index 96b05c86c325..702b2fc66326 100644
+--- a/include/linux/iio/iio.h
++++ b/include/linux/iio/iio.h
+@@ -353,7 +353,7 @@ static inline bool iio_channel_has_available(const stru=
+ct iio_chan_spec *chan,
+ 		(chan->info_mask_shared_by_all_available & BIT(type));
+ }
+=20
+-#define IIO_CHAN_SOFT_TIMESTAMP(_si) {					\
++#define IIO_CHAN_SOFT_TIMESTAMP(_si) (struct iio_chan_spec) {		\
+ 	.type =3D IIO_TIMESTAMP,						\
+ 	.channel =3D -1,							\
+ 	.scan_index =3D _si,						\
+
+Doing that will mean we can spot any unusual use of IIO_TIMESTAMP much more
+easily.
+
+Anyhow, basic approach looks good to me.
+
+Jonathan
+
+
+
+>=20
+> ---
+> diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio=
+-buffer.c
+> index 9d66510a1d49..17f539fc23e2 100644
+> --- a/drivers/iio/industrialio-buffer.c
+> +++ b/drivers/iio/industrialio-buffer.c
+> @@ -2300,8 +2300,10 @@ int iio_buffers_alloc_sysfs_and_mask(struct iio_de=
+v *indio_dev)
+>  	if (channels) {
+>  		int ml =3D 0;
+> =20
+> -		for (i =3D 0; i < indio_dev->num_channels; i++)
+> -			ml =3D max(ml, channels[i].scan_index + 1);
+> +		for (i =3D 0; i < indio_dev->num_channels; i++) {
+> +			if (channels[i].type !=3D IIO_TIMESTAMP)
+> +				ml =3D max(ml, channels[i].scan_index + 1);
+> +		}
+>  		ACCESS_PRIVATE(indio_dev, masklength) =3D ml;
+>  	}
+> =20
+>=20
+>=20
+>=20
 
