@@ -1,61 +1,63 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C92F30C154
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4F63DD51F
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 08:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779092022; cv=none; b=kdj1NzJj8iRP5ZSY1ghW9VWg3kR7sCDbmcKpOJHs6iUHjCcUBO3BFnVdBAv2pfNEC9qDtf4pewKFjXdvooWKmRr29IjNmoEIyWOdbQR9UALySqFSDpyMB/hoeOMsksBlRRbyPezxMLX+eI+lErnuT09l+z37QDgPyqUQSZLgdw8=
+	t=1779092028; cv=none; b=Vv9Ksg5g/A+Z1IzjDAiDTLJOeQn/T7P7Q/rL4PUH7Mj5lYga8qj8JMuO6TdL+qLu3w9CodAbWTJwueP4YzgYWAYagD+WPMio1K2nU3RpoZp09gjN/tpaQogFmqUhMaJh+KGHKzZ8WZssxIu7aKLq7IWmxk7NEFrdA4vnLl2FyEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779092022; c=relaxed/simple;
-	bh=ClBw+PZ0ldyBl2hwKSuBlN4jYbjU8Fs7MP5m0kjjRDI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GmoRLHzR3A8gN4JE6QA0GSJp2rNqB+LqIOBTOe8Gvnk88t5722k1o5AgKZzTZsJEiJs3rm+hUZpPQClaYpAu042xKovv013mc+pBEV/1hnmSBg7lXRXsOumPhlm9gUPQRDUWHrYItZcqbRk0t55TKvTECQNFvcMTNucjxItd940=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UB/gTJ+q; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1779092028; c=relaxed/simple;
+	bh=S7dWrYvFIldw2l1SOFgEAr+X6zlqSVikajVanVBoRe8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=omEusWn7tfyM+JQ9OSTj2L4xpfzHu58/BCg4zTf4axHrzeQXkoHBtClXiquJWIzBX+EC3Db3O1807nvlCQMhicALibjAg5rmwABLveHeySo7o7fNqNzYyNKahlncU3GXVbTXYWKRx5QZNRFY9c6gEo5mAWLW8N3XJK6GaqgwY2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=igHGEYKo; arc=none smtp.client-ip=209.85.215.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UB/gTJ+q"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c8025500cc7so1484705a12.1
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 01:13:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="igHGEYKo"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c70fb6aa323so694508a12.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 01:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779092020; x=1779696820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TtmjcFudJHdbwgaOw1dq0xgX0ESp0DVFqApr/5XXiuc=;
-        b=UB/gTJ+qtpymcwIrKFxteLaC2npQPfELcM08XPDrgjFokxkI+j67qChYaEx6R2Pu50
-         BX9DhfOSmD6kDafoZhigd0/wKK8AnozP2ir68ujPw49T7438qLYFitmiPVfaUz1DDVgX
-         8nKWy1OydrIT483TJscvg+mXyqpIc4ozmz6uRmhy8tcDrvJB+3drYhnalhDgMCgJPuQj
-         iQrAuM2hVuGavNpsn5C40enF1mGXyyKh5r0dRpjcGREcC8i+jltnJMwfS8nt3gDQA4jb
-         GPfB0AINBAhvd4Aj2OL9/Hmq1Lr0PtCZgY8uqkEOrua0vGl9zsRGILkudz9KQxVZ7ezo
-         8tJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779092020; x=1779696820;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1779092026; x=1779696826; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TtmjcFudJHdbwgaOw1dq0xgX0ESp0DVFqApr/5XXiuc=;
-        b=H7j0fVqEB3JB/WY3Pa5MezaB2cBkcYxeZR6qZfaliNxf4+WwwbigbzG9dmMYtjwDEY
-         aMppOZtK88DaHjXy/mISYI4xFG+wNf/kxzDxUjz2KWtIOwDu7kiblMre9Qw8eFMm2NOP
-         pZBrm7PLMPbq0xqp/eqT4Mmwc7oKVXHOipRLwvD0E8fgYdn8NdbcEmxq2eMJCMVSW0iL
-         Y1c9yP2TA/DJ8+A0SxwCoXEZBMjOv4A1YrTC0xNo/IG9gnXcXy4RAM2put5mgKAuAf7U
-         IHUHzEi2ji8zkt2Uqq1rfXO4Kq6RUCvdgYGVy/t+MCVr8cLFIZ/NH12fh3KJPxEi+EYB
-         7KmQ==
-X-Gm-Message-State: AOJu0YwR622jNZgmYFKwRWF8IJtf6JBP6lrMztLrJNWCyPg5ihWDBnRX
-	0jCVoh10XLXTvPJV5nP/Rna4YB+PpdpSyKS4JujzMAzs+6AbyymyP08a
-X-Gm-Gg: Acq92OHLKVwfTqbux2HmvFHPaUP37RF8r52A1KUfsnijd237AUT30uUf5w05RfREE09
-	ogejB/NXo0YxmrhPANnji0/ilCrmBg7kssAmAeDOub7SIsqv78zOR6gZ2jB8AwupAj5Cby+gT9Q
-	CrICSfwF0SOAymfm1LiWODpIJxIrA6BbyihnhRQyehHVYaHOm6cw6glTURWDbdvTq0yOVukWBLg
-	6i4cJSywZd30aUYYCFUjqKYTy25G4oumg0Ky/DspJBMSKLem4kdkpIe7cRpnN7HDTk8iwbMOXQ5
-	Weu8iCKYCkfjbq6yL76DMCJL5vL/MDO4/fRHHC5/Td51HhnVFClvrOklHv5Pc1Zw1lofHdwPLpL
-	GCqX0BpCHnZp7jDbozueT/+SL6pG/eGnAy1WobrZ6r+eOBnEPE4iAuwJOKINFIjVFfvucjeu3ME
-	5jiM0VmHiWw+JRkB9aXE8RawCXWB76dggsmC6Cv0EuCSa45Xqar17QXS7GOuXeI7hBSWd055lhN
-	UWlI14SIZRMM0ROC/2RPsy6
-X-Received: by 2002:a05:6a20:7294:b0:398:9d5f:e093 with SMTP id adf61e73a8af0-3b22e75954bmr15671941637.19.1779092019769;
-        Mon, 18 May 2026 01:13:39 -0700 (PDT)
+        bh=HR4Kjt+Vrl/yVgY170pfdcB9p9LiTbCCTUEcbYkBEOU=;
+        b=igHGEYKoGi6HdgS51ao02NAnH2yw7sdBTfcdT3DVLnOuwXXufrUssMyhdMTsD5pLMU
+         C5YsIdFgbWqkakzYurh/AXnj0bOVBKry/6XhNAYHX+VaNrBlatMUqxXBtGP4n0l0qxM/
+         w0Wxh/+32SB20Bol6OSVfZucwJ8n5KXOzEXgU8OrGyacaQAZVbGXIej/iihYD/K7EYEG
+         Tp43bsHtCEOXX3415tCDjvrXDZWpGPip15BWoEHDjcl/IbCQGVvv9XEf8WJ5DdFB35T6
+         aqZwRvzzQ6E6o3y4TH92TAqvzLRqkqS+GKThW48fAqbLl8e5b2Ha2EZDbVS/hFp+R4IU
+         w1tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779092026; x=1779696826;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=HR4Kjt+Vrl/yVgY170pfdcB9p9LiTbCCTUEcbYkBEOU=;
+        b=X8MYgzZa6L3g2E8agc2nyzzgD5BwDMwLhasC4wkKROoJ1kKmx2M5A60Yrxj0draoQ5
+         nm5UlNuJ2YkL8f4W5biGakF1l/yOpATSR21UkJBDcO/SIKoYS9IBxwNU8i3yUfOAJoLA
+         PiYqiKgTQWlDe1RFO6NTMBNbFfUj+Kj2sQNwTbXJYFP8Gtk90gZoP56T50G5gbYOBDq4
+         dnc8hZMcV+VpztQJ/SH3LEobNRCzW6CuZMwT6izR/GMRPnEfK252+Wy6g+lzk92doCpR
+         Bp0u88C3rjktHpjzDahMlFa9Uud76LUbyISdQaufi8o68Pl5Nco27EuKNsrMSoLpbE7q
+         qOMQ==
+X-Gm-Message-State: AOJu0Yz0xlYtWNNKIw4eRxnju+MS7eFGMbAAEYVoUKEfu1XWdFJO+xd/
+	L5rAPxYBrI5haVcJiarQBwPkdra17YqBPSUm9/OFY2+g2sxNt9hSwP5X
+X-Gm-Gg: Acq92OGrT9iuXqAg2yQ7MFi8suNsiDT7THBG+mHAvVe2xbxcIlBbJBG0oNwo8coXqs3
+	7xtqz0BbrDrXxzKxIYQIOBxljslMyNQEJ4tQ/6n91h+vuDMfM4XzEIiJMdhGuJnSQdJQdJEqlne
+	zXZRdFLoAoO9vTDhfffip4r/YKSWBGCcm0qvrokD+txoMSVoRaZfQ70bhhxXXtc5UbgRZes4jyE
+	PX+2b1HA/qyXCZcA1TomOyNAaWiWOoNMyQ782a73F5iHzcN1/JYi8mhfTCUh8/cjZ0m/wL57PRU
+	DXuBLY/P5ZU/wBdhc1n4U9aoBXI0dnLMTlNaX4TnnjRa6VJcipie8nAu9mxw6nB+4HnfGfvfBu4
+	7XP3TU7305LfnuqzIgtabC9D3QJN/j9Zb2rz5v+xfFyfNMOwVDUU4fl3vQxIRx7i1KXf9ji4PHL
+	9qn6PggmOwyfUH+/5J5FNMpTZgE8UpcSY9jNfC3kH90DR9Fe4ONnn93IGdzUeMyLB7kEqkHLEXS
+	Na6qUY8P7PgCw==
+X-Received: by 2002:a05:6a20:7d9d:b0:3a3:2b7e:a4ab with SMTP id adf61e73a8af0-3b22ec60b53mr15472490637.44.1779092026391;
+        Mon, 18 May 2026 01:13:46 -0700 (PDT)
 Received: from open.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c82bb100706sm12749462a12.17.2026.05.18.01.13.37
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c82bb100706sm12749462a12.17.2026.05.18.01.13.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 01:13:39 -0700 (PDT)
+        Mon, 18 May 2026 01:13:45 -0700 (PDT)
 From: Neil Cheng <neilcheng0417@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -70,10 +72,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	Neil Cheng <neilcheng0417@gmail.com>
-Subject: [PATCH 0/2] Add Meta Rainiera6 BMC support
-Date: Mon, 18 May 2026 16:13:23 +0800
-Message-Id: <cover.1779088499.git.neilcheng0417@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: arm: aspeed: Add Meta Rainiera6 board
+Date: Mon, 18 May 2026 16:13:24 +0800
+Message-Id: <4f7aee0a2dfc44770347ccc82e54820e7b35317c.1779088499.git.neilcheng0417@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1779088499.git.neilcheng0417@gmail.com>
+References: <cover.1779088499.git.neilcheng0417@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,27 +86,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add initial device tree support for the Meta Rainiera6 platform.
+Document the new compatibles used on Meta Rainiera6.
 
-This series adds:
-- Meta Rainiera6 compatible entry
-- Rainiera6 BMC DTS
+Signed-off-by: Neil Cheng <neilcheng0417@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The DTS has been validated with:
-- make dtbs
-- make dt_binding_check
-- make CHECK_DTBS=y
-
-Neil Cheng (2):
-  dt-bindings: arm: aspeed: Add Meta Rainiera6 board
-  ARM: dts: aspeed: rainiera6: Add Meta Rainiera6 BMC
-
- .../bindings/arm/aspeed/aspeed.yaml           |    1 +
- arch/arm/boot/dts/aspeed/Makefile             |    1 +
- .../aspeed/aspeed-bmc-facebook-rainiera6.dts  | 1012 +++++++++++++++++
- 3 files changed, 1014 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-rainiera6.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index 8ec7a3e74a21..1a2252eb08f1 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -95,6 +95,7 @@ properties:
+               - facebook,greatlakes-bmc
+               - facebook,harma-bmc
+               - facebook,minerva-cmc
++              - facebook,rainiera6-bmc
+               - facebook,santabarbara-bmc
+               - facebook,yosemite4-bmc
+               - facebook,yosemite5-bmc
 -- 
 2.25.1
 
