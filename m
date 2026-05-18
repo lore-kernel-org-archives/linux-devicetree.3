@@ -1,189 +1,257 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF573DDDD8;
-	Mon, 18 May 2026 07:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779090073; cv=fail; b=ZlnSjG+MNyUyVcCflD3FwK4VDscXApdxZXHB0oPpuZCwljQ/rwKdeyMX5puR3vPzjv9Bybf2x25azY5Vdl1iy0iDemAKOlDtw6MhSmTlKNdCF3qyL2XLlELPN0Rscji3tPWZkuDcUSNnbswXnMejqbQcl+Mc8dAnHOtxF3J8oa4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779090073; c=relaxed/simple;
-	bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HLVGN070LgcYkclcLSPPjFf2MFHPg7fyxHkdsYtoVr/eIzccD4GmBgY5i3+65q3lYSQY0P1TSH/Wyd71/fYcDX8/3oMweowz+hv9IfcwnkD88t7iF26cFfE98Wdt4fOxfEpurFPY0kirIvSMeEGXd0I2cdwXUq3Aof9aT3j/KJw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=SuA9Xunx; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=NKlR/+UJ; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B393AF666;
+	Mon, 18 May 2026 07:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779090270; cv=none; b=H+P72Bi3Zvpg/XH222MrlMmHSCE3unqAHMFVePnxYApKl8HpGX1XdErO1EKSnOzTFLea+rs2+pc5wCzfNTf3/giXubjOHlvf9SszmtT4XfLRVmYTtufc4/9UuIlV6NSyZMgUF4gpVHOUr4sd/Cn+A5XA3mgT0x9HHCEtcyHQpyQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779090270; c=relaxed/simple;
+	bh=2VgfqRzwkyb5bRCypLGDNrZHPZPUmDh1p0S4IvBWaA0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EwSRjgSCuBYtS/jYH0KxWE4hG+K+2aqABR/uWjYXDc8SOevW95OqEY8h4rU15s4w0sNWcIF4x9Cc+gIInP318y24uVjDwhpmx847FYXLu0gtMPDibWv1GWYO739/+CnGJIrZzbLnbCcFkz9+8CfENn/0gV/Ecaa6os0BKc1AxrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBFC1mp3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="SuA9Xunx";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="NKlR/+UJ"
-X-UUID: eed9e9da528c11f1a3561939bc42ff46-20260518
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
-	b=SuA9Xunx+gy5pY5EG/t3V5xtBzebBo56lybCl+z6gorawSJ3biKS3Mb5NcfgmQSpDbY/hTr11tfdDP6U8TZmNmP/Fsp/aGtYuSOLh/9ZXLo0yVMKmvKhS8CF0OiBqFA+bXHwdSmOI2N1Uxq1OQBQwJgyUvuMhfvdtaUCVYF28FM=;
-X-CID-CACHE: Type:Local,Time:202605181442+08,HitQuantity:4
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.14,REQID:e833fcd7-bbe8-4a12-a406-de4caecd339e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:9091e75,CLOUDID:295d81a4-a669-48ac-a1cb-3b38a93be682,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
-	898,TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:1,File:130,RT:0,Bulk:nil,QS:ni
-	l,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: eed9e9da528c11f1a3561939bc42ff46-20260518
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
-	(envelope-from <xueqi.zhang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 849109438; Mon, 18 May 2026 15:41:08 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 18 May 2026 15:41:07 +0800
-Received: from SI4PR04CU001.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 18 May 2026 15:41:07 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bcow4TTN+iz7fy3x6n8Vp/epe2nTBxKMKUOYczbYXlBBWp2V91A6QumyHef9zl7DrmTDi7V1KJyrhg6uTB9S24z2Xnpqp1anVojVR4df1g9tZvUjzo7ONMoO8Zu7GiOGmAxWyw9MZeP7ntH6nZA9NhjwwwT5caYkfpvXB4y99heIBgDjs9bcT1ILaOx+denWXS1jhwj/KRFGT9J90eW3I4I4YfagISigqyfl/FxInpQAWfbmpmTmliDq4hdphsVT73/T/VBzSq8PX9PuZkx/TLJecnkiBw41DzH+NCZS6Fg1hoNa2sUWN2Zs01EXpcPCmztcJFs9dpaBt8pLo13axw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
- b=WAux8LLxSI909gZQEP0AywSXc/5oxv6r4Bwvyx9bNLuVGaKwXgoYVSIm3qni6Lb0v2tOVp5VZI5Tj/7l0Fi/mawXezOv+fRBW4wgq7lFWccSbz+TFAKdZ9+BKlvKq/945tShoFupeZTVYXBuc8cjReRY7ktyLVXDFb8kkP8Ivp1P5JVElcOjxTuF+6AhE748CO2A6HBYZzd3f31QfD2YPyYkgc0c2cfUd6AwYHmUGJWH6eFQKCOtTaVCJ+K3S6yLlElddedQpAZ4XepIHApEig39Lrpryt0nQZ2EJAbNtV5Uu4uX+Q909bJhjFF8xGvBNV2Ari61Ww+S+bJkBbO/Gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hPbF3CSlFQmQPBdAkkbkGIJv62ZPeIi63yMWEzsfKP4=;
- b=NKlR/+UJSFQT3txDQaHnEkvcXaTvRFlpUmWqJ31ckHSWy5PHAALQk80V5TfHT4O5aqzKWUlaPu9O4fZAD1Xv8vTFRmFC0278DsjHhvRVCLNitFi0u8QQYiWcxPnQ+DeFE96TQ4fDUAc7Gk6U9o4cmXonyX6B7yhY7UivRxs9ft0=
-Received: from TYZPR03MB6471.apcprd03.prod.outlook.com (2603:1096:400:1c9::8)
- by KL1PR03MB8012.apcprd03.prod.outlook.com (2603:1096:820:101::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.11; Mon, 18 May
- 2026 07:41:02 +0000
-Received: from TYZPR03MB6471.apcprd03.prod.outlook.com
- ([fe80::6c05:f611:5357:7326]) by TYZPR03MB6471.apcprd03.prod.outlook.com
- ([fe80::6c05:f611:5357:7326%5]) with mapi id 15.21.0048.010; Mon, 18 May 2026
- 07:41:02 +0000
-From: =?utf-8?B?WHVlcWkgWmhhbmcgKOW8oOmbqueQpik=?= <Xueqi.Zhang@mediatek.com>
-To: "robh@kernel.org" <robh@kernel.org>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, =?utf-8?B?WW9uZyBXdSAo5ZC05YuHKQ==?=
-	<Yong.Wu@mediatek.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, "krzk@kernel.org"
-	<krzk@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	=?utf-8?B?WHVlcWkgWmhhbmcgKOW8oOmbqueQpik=?= <Xueqi.Zhang@mediatek.com>,
-	Project_Global_Chrome_Upstream_Group
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	=?utf-8?B?V2VuZHktU1QgTGluICjmnpfoqanluq0p?= <Wendy-ST.Lin@mediatek.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "iommu@lists.linux.dev"
-	<iommu@lists.linux.dev>
-Subject: Re: [PATCH 2/3] memory: mtk-smi: Add a flag skip_rpm
-Thread-Topic: [PATCH 2/3] memory: mtk-smi: Add a flag skip_rpm
-Thread-Index: AQHbmWr+ThkPYzLV/EeJKX653FeCxLN777UAgpoKryaAAAYdAA==
-Date: Mon, 18 May 2026 07:41:01 +0000
-Message-ID: <932b23380cf23b340d4738b5ac577f850dc61ae7.camel@mediatek.com>
-References: <20250320073625.25225-1-xueqi.zhang@mediatek.com>
-	 <20250320073625.25225-3-xueqi.zhang@mediatek.com>
-	 <46e0e1f1-e094-40f9-99f9-22678bb40d39@collabora.com>
-	 <198865fb3184926d0b1b4e4855b5f863ad0d6a20.camel@mediatek.com>
-	 <1571510c-e51c-40c6-a702-214bf77f9f4d@kernel.org>
-In-Reply-To: <1571510c-e51c-40c6-a702-214bf77f9f4d@kernel.org>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6471:EE_|KL1PR03MB8012:EE_
-x-ms-office365-filtering-correlation-id: 9f0cd209-c61f-4842-9f9c-08deb4b0cf6c
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700021|11063799003|4143699003|22082099003|56012099003|18002099003;
-x-microsoft-antispam-message-info: 9WAiSKhz1mSHM2OuGOTboZzrNuRMQRvUR2u+MCzRrfB6MtDqN8uD+YPeysKiAwdx6PsaHN1H77AQvU56klp2EQ95fJYBFA/JoXAcPMIiTCMyKhXpN4YYUNh3YhuPpnZLEFNdwNmoVynaw38QJZHLmvj9P/3MfcG/444IW6yZw+iGN1NGMVqpicaGSbiUtBsNFFldgzpYit6eW9TSG4oZ4DOPJ9xv4S3azFl78sS1/cYoBgBd3wd3RymXPPJb1Ugv1SrGHehw+Hx4J6X4256dPlHTXhSprdP6hWAsV5BqZCjnG1UT11ATQ6KWfJVTVZ2uW9pbMjVPyigcv7YwFxNP5/I0i16j38EHVskDjhmiYNvsTzNOiGo+wkRle5J8XuG1ZjlIAr1H5vqlHqNEuSXMzKKDwTKetcCj5q5EQgtwx+xJODWc8GZKxpM0cO5IIgRG7AIwjTMV73ypgtRNeZCJG4W+BSFHVnQDzc0ekrsAMOnRKOX9e9/akW0CwPdhH53EhGOWcjcwnV75kQ43a8Ls2koD6lOflBmqz5ag3sXIRhPhLCQt6RjXSKuuQ3DA/nIFlPWpI1r3wOXfMkP+gvPr/FKAiXc4n776KzlKcxBNu0NhJ4o0WAQ1ZI5y/ckmSQ0V838H36HJNb64G1Hk0Ok47iqN31j5UIdz2sCt9BveuFQa5mEYW4YxgDMTtaMt9XlM0SpeV6Z0mF7t1UjOWayXTk8GxuuWE6BRlu/82QKw/h/PrZXxkrv3jCCeWHELTRbC
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6471.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700021)(11063799003)(4143699003)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dU5Ba1c5R01qcjdRVDdpSm4rYXpFYkJDdFM1VWFkYjBvL0IxSWJJM0h5dHYx?=
- =?utf-8?B?azZ0SUE4ZlJBRFlJNjAzRmZCb3ZPdDc0cVU2QlBKRlV2cCtNalhWQjRjdFc2?=
- =?utf-8?B?RlpyQUVIM1gxSU1XS095UmtNNTVldFlqZjFWUEk3aG5wdHN5Q1pMTEpqclNu?=
- =?utf-8?B?aVJ1SXl6Mlp3S2UyNzAwY0NEUHBmaWNEbWo1dU51VGw4KzBSZkdVdXVVM05a?=
- =?utf-8?B?QkhNU0N1TXRZMkNvM0dEblJvSTZjN3FtY294aGZ3Sy94NGpHVlAraXN1dEtN?=
- =?utf-8?B?NFEvTEZLVXNBQXJGZHp2RGVkUlNhUFpsOGIzd2Q2bjNIdFJweHBlYU8yWFFY?=
- =?utf-8?B?RXlVQmJEREJCemo3bUFGZGpHdjl5Tm9oRU0vVGEyNVlEN3ZIaUdqQUVMaGhT?=
- =?utf-8?B?Z3VMTDU3SVF1UVZKY2lQRGFsb1lkeGJuLzhLZTBVdzdrVnVXeElDYXBvNkNr?=
- =?utf-8?B?dnFpMlhxSnFER0RxeEd0enY1ekxsd0VLUVV3OGlKOGZuV21wdm16eHNhRGVI?=
- =?utf-8?B?cCtzTDBBd240WE05V09UcHByTEJqSzZOb3U1VEJNR1BpQUFsbG9PZFlFbno5?=
- =?utf-8?B?RjhWWjczUzVVeFBNa2g0Q0lOUkxZaG9TanlNa0ZxWGdheml0YVFLWmFqMnF3?=
- =?utf-8?B?ekhzU2JUUDBFZ3VrcTRxMERQZWxBMjhYaG9nSXZQbEhqWkU4MCtxaVBaVzdp?=
- =?utf-8?B?Um5KSWF0bnZDZWZBYU5xQU50cDNBaWVvNXIzM2FVRnI1NVVrZWFTWmZBa21h?=
- =?utf-8?B?bkdSUzBmSDJqcU9JWWZsZlg4REJOQ1dZd3ZVVU1LQlI1cVdQUkIra3UvMVRq?=
- =?utf-8?B?NTg3M1pkYVRqM1czMzV4ZnVacVlXbUNWU2NwUVpta0hwbVcwSm9YREZxS1hS?=
- =?utf-8?B?eHRjUWJLYUpQNlp0M1ArT3FEakpNakZHcTV0cmtjRGtLWUYvN0VPQ2E2TlI3?=
- =?utf-8?B?cTB6a29Kd0JKVzB6eUROSSs5NVlWRTNaOVNkQ1ZZejlscUlNbzJOdTZ5NzJI?=
- =?utf-8?B?cS9qcXN6V0lkaG5Ya3JCRHBLTnZIWlVoYnpWbkNFT1VsTGYxWmc0MThxZWh2?=
- =?utf-8?B?T2o3Y0lVa3BNZGNKdjZpWkVua0hoTkVuL09uZ3hwUTZSbUdZWEJSNU1mczhY?=
- =?utf-8?B?WmFqWVBwYmhSTXN1TU15YWIyM0dPWWFramJoTjJjS3lVSXB3cS9ETVliMzhO?=
- =?utf-8?B?c2dYMUtGaEVzZENGemNzdVdrVVAxSlo0bVdDZk01VjdOaEg1eHl2ZWFFUDZM?=
- =?utf-8?B?VmJDdEZzdVlERXdERXQySmVEdE80T1c1YVd3UGFyS3lqSHFGeHd2SHdqejlJ?=
- =?utf-8?B?QnlhZkVLV3JEYWlDdlBGQjJpWHhvRzF0L1BwUVNpTE5KZWwzbjJwcllSUWdM?=
- =?utf-8?B?WW12dno4emo1ZklDSjlOVFhGMnJJK1Zha0JSSHlnbXlGQkhCNzJWS1FDUnZP?=
- =?utf-8?B?WW96RHluT0RabDN3d05SY0lFN21QQUplTUNKYXd5QUkzaisvM1BYclpQbVlS?=
- =?utf-8?B?SDA1dkROTFJMMDBNRkIwMitSbnBHbkpudUxmVXlCQitqa3UrTUtTdXJ0Zko1?=
- =?utf-8?B?MTdyWGFGUnBkRWorUWMwUHgrZlJ2TmRyQk1BL3NkRTNLckt2UXJnTVFkNzMy?=
- =?utf-8?B?WXV3TEY3eHpRUDE5bWhqelRRK1VvUDQrdTFha2UwZ3Z3dmM1UWpxbVJtcXJz?=
- =?utf-8?B?dFc5M3ZVZC9aRXJXczdkL09FMkhhc2pGcnVnRnZUeGhQd0lyNFhGeWl1TEMv?=
- =?utf-8?B?NnFoWG5ZNGFEQmp3MWZSbkxFR0NlaUJYYndNQkxxdXp0bStJUDlUMjkvSTda?=
- =?utf-8?B?NHQrOGxOb2U5Qk9DYWR3K3pOcElGS2w4NXJUbC9LMmF3RVJNV2V2Slc2ZFEy?=
- =?utf-8?B?S1NueVUzbmUrR2wwZ0lvUTh0VHUxZmNlS3RQV0FrTU1RbGNqM0l5SWFTaktv?=
- =?utf-8?B?S1VwRzlheXJ3MjQ3c09MY3h5aEhoS1d3ZElicC9QMmJDemNkTFZhektkdTJs?=
- =?utf-8?B?U1lOcmZrVDk4b1h5OHUzbDJqeWlaVFhQNmFGVkh2S3lqdWp4SEdsbFdLdi9a?=
- =?utf-8?B?bnRxQjRqaDRtMDM5R3A4bzhXb0RtZXdxRy84bkk4WmlGanAxb2FmVGxrOUpr?=
- =?utf-8?B?U3ZuSmIwNEdmdk9NSXQvS2ExV2RFVHJhNmdLaVlNbXJrV1lUamVaT00xSnVx?=
- =?utf-8?B?amNaRU55YUh4ampXUXdKOTVUcCtMdmlkUnp2WkcySjFBckxibVZmUGI4eHho?=
- =?utf-8?B?Q0xLaFlxNDdYNTNPaVZRM2lhQnUraEJscnlOQjhSVG9WVmpuVWVOQkx4OWpz?=
- =?utf-8?B?aGcrMEcyVE9NSlUvRVpqdm13OVVvbGh5TDZ0WWtWc211RE1zVGMzUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <47C866EAE8B99747989ACF07942A3BD8@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBFC1mp3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEABFC2BCB7;
+	Mon, 18 May 2026 07:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779090269;
+	bh=2VgfqRzwkyb5bRCypLGDNrZHPZPUmDh1p0S4IvBWaA0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QBFC1mp3CcT7A19F66kJxDLr/EwzcxFYyB54RQgNL6HJN90bbyxiIi1rVk8oNYmjW
+	 N7pkQjsG/+FJJrlvVNGlHWEGy7se1TxSu6KZy7K+7E+wZQXS/IeZ9wxlPYV9Qh520z
+	 tF3L46YTZbdEwuPeMbgS4uAMVc8ag5tiw8vB13KNQSyPFFSqbZqDegfvvZVivFQ6Mc
+	 9CopzrMSyHYPLAZbl108nRjMfWutLPptrqdvSU5zJmh18l1VyT1kuqCtr1GZvIsCKQ
+	 FZ9L0xvHZfBPuVzOK3neMz+v7hFl2OwzvUctTjjeOaECUjpT7NsuxTBbg0zMwOLRhZ
+	 Cd9EP5GLpeXzw==
+Date: Mon, 18 May 2026 13:14:12 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com, sean@poorly.run,
+	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v5 00/16] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <agrDTB5ewEgibQLJ@sumit-xelite>
+References: <20260504130603.1474043-1-sumit.garg@kernel.org>
+ <agSAL-z6NUV1p2kH@sumit-xelite>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: LLhHv9JgeMxr/8aHXYs4Mh/esA0Qdqi8BvXvOkZuaHZwloGopf0EeLWprJ7Y/at/L1gp67FpMf5H5/ZmsZQtdmQOJew3lXEFzEX7uc93Ue7g1YaOiMHVTmWq7bK+S7fiWmbbaiqEusYRrzlqHIPkDJY8XNYOJVeZ0/jCw5/nxVtgtODUZFrRNk8yoix03ZtVHd7nLTCBoBir9gT6K6TV0VF9NHIBS/aYrgcOMQ6hTlZTLmuPoKgbj4zuRAZ3dN65QJQ/o1zfbEQFSJ6SBvSN97mxM5Dvlb//UETChfUa3KTYaFOsP0D/MD/a9GrX+e8v0elD2nMkS0OPUNs/BA+14A==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6471.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f0cd209-c61f-4842-9f9c-08deb4b0cf6c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 07:41:02.0111
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IvQUYwC0zk/nM1nKa6M0D3onQo6SgUdIOXep4rfNF4kiKXYa8ETsjJMXSuLVUVUoeOu3M4A/VoTlEK3JvGDkL6pfdgxUMYU77ki6U72bWUg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8012
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <agSAL-z6NUV1p2kH@sumit-xelite>
 
-aGkgS3J6eXN6dG9mDQoNCk15IGFwb2xvZ2llcyBmb3IgdGhlIG11bHRpcGxlIGVtYWlscyEgSSd2
-ZSBiZWVuIGhhdmluZyBzb21lIHRlY2huaWNhbA0KaXNzdWVzIHdpdGggbXkgbWFpbCBjbGllbnQn
-cyBwbGFpbi10ZXh0IHNldHRpbmdzIGFuZCB0aG91Z2h0IG15DQpwcmV2aW91cyBhdHRlbXB0cyBo
-YWQgZmFpbGVkLlRoYW5rcyBmb3IgdGhlIHJlbWluZGVyIQ0KDQp0aGFua3MNCnh1ZXFpDQoNCk9u
-IE1vbiwgMjAyNi0wNS0xOCBhdCAwOToxOCArMDIwMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90
-ZToNCj4gT24gMTgvMDUvMjAyNiAwOToxNiwgWHVlcWkgWmhhbmcgKOW8oOmbqueQpikgd3JvdGU6
-DQo+ID4gSGkgQW5nZWxvLA0KPiA+IA0KPiA+IEZpcnN0IG9mIGFsbCwgcGxlYXNlIGFjY2VwdCBt
-eSBhcG9sb2dpZXMgZm9yIHRoZSBkZWxheWVkIHJlc3BvbnNlLg0KPiA+IEkgDQo+ID4gaGF2ZSBi
-ZWVuIGRlZXBseSBvY2N1cGllZCB3aXRoIE1UODE5NiBBbHVtaW5pdW0gcEtWTSBTTU1VIGFuZCBT
-TUkgDQo+ID4gcmVsYXRlZCB0YXNrcyByZWNlbnRseS4NCj4gPiANCj4gDQo+IA0KPiBIb3cgbWF5
-IHRpbWVzIGFyZSB5b3UgZ29pbmcgdG8gc2VuZCBpdD8gSSBjb3VudGVkIEZPVVIgYWxyZWFkeSEN
-Cj4gDQo+IA0KaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLz9xPSUyMlJlJTNBKyU1QlBBVENI
-KzIlMkYzJTVEK21lbW9yeSUzQSttdGstc21pJTNBK0FkZCthK2ZsYWcrc2tpcF9ycG0lMjINCj4g
-IA0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCg==
+On Wed, May 13, 2026 at 07:14:15PM +0530, Sumit Garg wrote:
+> Hi Bjorn,
+> 
+> Just a gentle reminder for any further reviews for this series. If not
+> then please help to pick it up this merge window since we have got acks
+> from corresponding subsystem maintainer too. There were few minor comments
+> addressed by following diff on top of this series. Let me know if you
+> need a new version for that or can they be folded in when you pick this
+> series?
+>
+
+Okay, so I went ahead with v6 [1] for this series including below fixes.
+Let me know if I miss anything to get this into linux-next.
+
+[1] https://lore.kernel.org/all/20260518072856.22790-1-sumit.garg@kernel.org/
+
+-Sumit
+
+> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+> index 025308adf553..bc6c42f2b3c6 100644
+> --- a/drivers/firmware/qcom/qcom_pas.c
+> +++ b/drivers/firmware/qcom/qcom_pas.c
+> @@ -181,7 +181,7 @@ EXPORT_SYMBOL_GPL(qcom_pas_auth_and_reset);
+>   * qcom_pas_prepare_and_auth_reset() - Prepare, authenticate, and reset the
+>   *                                    remote processor
+>   *
+> - * @ctx:       Context saved during call to qcom_scm_pas_context_init()
+> + * @ctx:       Context saved during call to devm_qcom_pas_context_alloc()
+>   *
+>   * This function performs the necessary steps to prepare a PAS subsystem,
+>   * authenticate it using the provided metadata, and initiate a reset sequence.
+> diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
+> index c5ba91e6f95e..dff7fa7027c5 100644
+> --- a/drivers/net/wireless/ath/ath12k/ahb.c
+> +++ b/drivers/net/wireless/ath/ath12k/ahb.c
+> @@ -488,7 +488,7 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
+>                 ret = qcom_pas_shutdown(pasid);
+>                 if (ret)
+>                         ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
+> -                                  ab_ahb->userpd_id);
+> +                                  ab_ahb->userpd_id, ret);
+>         }
+>  }
+> 
+> -Sumit
+> 
+> On Mon, May 04, 2026 at 06:35:47PM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> > support these non-standard SCM calls. And even for newer architectures
+> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> > calls either with FF-A requirements coming in. And with both OP-TEE
+> > and QTEE drivers well integrated in the TEE subsystem, it makes further
+> > sense to reuse the TEE bus client drivers infrastructure.
+> > 
+> > The added benefit of TEE bus infrastructure is that there is support
+> > for discoverable/enumerable services. With that client drivers don't
+> > have to manually invoke a special SCM call to know the service status.
+> > 
+> > So enable the generic Peripheral Authentication Service (PAS) provided
+> > by the firmware. It acts as the common layer with different TZ
+> > backends plugged in whether it's an SCM implementation or a proper
+> > TEE bus based PAS service implementation.
+> > 
+> > The TEE PAS service ABI is designed to be extensible with additional API
+> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+> > extensions of the PAS service needed while still maintaining backwards
+> > compatibility.
+> > 
+> > Currently OP-TEE support is being added to provide the backend PAS
+> > service implementation which can be found as part of this PR [1].
+> > This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+> > EVK board being the next target. In addition to that WIN/IPQ targets
+> > planning to use OP-TEE will use this service too. Surely the backwards
+> > compatibility is maintained and tested for SCM backend.
+> > 
+> > Note that kernel PAS service support while running in EL2 is at parity
+> > among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+> > on proper IOMMU support being worked out on the PAS client end.
+> > 
+> > Patch summary:
+> > - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+> >   only allow UEFI and Linux to boot in EL2.
+> > - Patch #2: adds generic PAS service.
+> > - Patch #3: migrates SCM backend to generic PAS service.
+> > - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+> > - Patch #5-#14: migrates all client drivers to generic PAS service.
+> > - Patch #15: drops legacy PAS SCM exported APIs.
+> > 
+> > The patch-set is based on v7.1-rc1 tag and can be found in git tree here
+> > [2].
+> > 
+> > Merge strategy:
+> > 
+> > It is expected due to APIs dependency, the entire patch-set to go via
+> > the Qcom tree. All other subsystem maintainers, it will be great if I
+> > can get acks for the corresponding subsystem patches.
+> > 
+> > [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
+> > [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v5
+> > 
+> > ---
+> > Changes in v5:
+> > - Incorporated misc. comments from Mukesh.
+> > - Split up patch #11 into 2 to add an independent commit for passing
+> >   proper PAS ID to set_remote_state API.
+> > - Picked up tags.
+> > 
+> > Changes in v4:
+> > - Incorporate misc. comments on patch #4.
+> > - Picked up an ack for patch #10.
+> > - Clarify in cover letter about state of media support.
+> > 
+> > Changes in v3:
+> > - Incorporated some style and misc. comments for patch #2, #3 and #4.
+> > - Add QCOM_PAS Kconfig dependency for various subsystems.
+> > - Switch from pseudo TA to proper TA invoke commands.
+> > 
+> > Changes in v2:
+> > - Fixed kernel doc warnings.
+> > - Polish commit message and comments for patch #2.
+> > - Pass proper PAS ID in set_remote_state API for media firmware drivers.
+> > - Added Maintainer entry and dropped MODULE_AUTHOR.
+> > 
+> > Mukesh Ojha (1):
+> >   arm64: dts: qcom: kodiak: Add EL2 overlay
+> > 
+> > Sumit Garg (15):
+> >   firmware: qcom: Add a generic PAS service
+> >   firmware: qcom_scm: Migrate to generic PAS service
+> >   firmware: qcom: Add a PAS TEE service
+> >   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+> >   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+> >   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom: Select QCOM_PAS generic service
+> >   drm/msm: Switch to generic PAS TZ APIs
+> >   media: qcom: Switch to generic PAS TZ APIs
+> >   media: qcom: Pass proper PAS ID to set_remote_state API
+> >   net: ipa: Switch to generic PAS TZ APIs
+> >   wifi: ath12k: Switch to generic PAS TZ APIs
+> >   firmware: qcom_scm: Remove SCM PAS wrappers
+> >   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+> > 
+> >  MAINTAINERS                                   |   9 +
+> >  arch/arm64/boot/dts/qcom/Makefile             |   2 +
+> >  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+> >  drivers/firmware/qcom/Kconfig                 |  19 +
+> >  drivers/firmware/qcom/Makefile                |   2 +
+> >  drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
+> >  drivers/firmware/qcom/qcom_pas.h              |  50 ++
+> >  drivers/firmware/qcom/qcom_pas_tee.c          | 476 ++++++++++++++++++
+> >  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+> >  drivers/gpu/drm/msm/Kconfig                   |   1 +
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+> >  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+> >  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+> >  drivers/media/platform/qcom/venus/Kconfig     |   1 +
+> >  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+> >  drivers/net/ipa/Kconfig                       |   2 +-
+> >  drivers/net/ipa/ipa_main.c                    |  13 +-
+> >  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+> >  drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
+> >  drivers/remoteproc/Kconfig                    |   4 +-
+> >  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+> >  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+> >  drivers/remoteproc/qcom_wcnss.c               |  12 +-
+> >  drivers/soc/qcom/mdt_loader.c                 |  12 +-
+> >  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+> >  include/linux/firmware/qcom/qcom_scm.h        |  29 --
+> >  include/linux/soc/qcom/mdt_loader.h           |   6 +-
+> >  28 files changed, 1117 insertions(+), 318 deletions(-)
+> >  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> > 
+> > -- 
+> > 2.51.0
+> > 
+> > 
+> 
