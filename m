@@ -1,217 +1,125 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 226A739B4BB;
-	Mon, 18 May 2026 21:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F359D37BE8B
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 21:56:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779141325; cv=none; b=JxyjIFt3SIaQknVO8nRa/+2hfrh3omy0SuQ1jXCqJHVa8C40WRFPoQFmlWYqu/XYUxf/KaXfaJkRvcLDC/0Wq6reK7paML1qsBNTugG+QBrFQMfXEPnaNAL8DFeIfIpH9tEvEXo1LjkoqR6jOAUVRjjU3KyUmOk/icbpzNoX6rA=
+	t=1779141413; cv=none; b=t5QmkmptZ2nVri5AOHns5VDqy7NNjisuGdyn4UHnpnYHD+OroqbU1pJx60wNghjW5Op2f0Pi4RM5kudtibrSLRaTyW/wyMF6JjripmqQTRI9b+WCMFcM8s6o87qGyrAlUaBtMubrTqO/unnmh4veobIloogcUxgDZZgaZHTK2R8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779141325; c=relaxed/simple;
-	bh=YD8ys6Cvuh2mZbnirI1fsh8QprXFw+273S/FOd5w6Kk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uw0lo+47IiUc2j8c87WvXbWsTtwEbzZZEDiJMU+gEANnvDqHgoxgaZySYSqSm8IeQ/8M521mtN/khOpMihJbRX8Jp3X73lpoQVRcFwb307Mo1JDpSeuD9AZgABKpX3AmuZfe2ksqkFSlXub+GvtxKJlASu82JTPY01J8rFnp6IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XxmKvM1K; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1779141413; c=relaxed/simple;
+	bh=Izd+ajGb6hhShbhE86/HUzaqPbJZjDWmI8YZcDks5uU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q4MQdZlq9ADGBwbbO1HLYAsYVlA5duCtcqtWLqFcWMf1KUmzEkahK4B6R7iT06JSN0yVGmLWFh611XktLo6Vh7MlLvTHi5AWJAANSYPMufrr1Q7c2SH8zJz6Vxn6NRZkNUzw67MQKmVVLAkW2sWsbKEPZi+n3+i1Wwwv+EAdFlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yNrFffrh; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XxmKvM1K"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D4E832AC;
-	Mon, 18 May 2026 14:55:17 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DF1313F7B4;
-	Mon, 18 May 2026 14:55:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1779141322; bh=YD8ys6Cvuh2mZbnirI1fsh8QprXFw+273S/FOd5w6Kk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=XxmKvM1Kytq9wmpk2HPJ0TY3hWfXQD4nJPkDZj7nb3h9B23qMrJU8MTQGMxMJJ9pY
-	 uZRd7JxzqNLCnP+gCI74gIfE1GKZSZN3XHtrQTGvRWaTo0bUuQ6FbLZm3+WrE6zsca
-	 whJVdCaKYHw4idToRhdsK05umXIIlpYXakZRt0tY=
-Date: Mon, 18 May 2026 23:54:32 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Cc: Paul Kocialkowski <paulk@sys-base.io>, linux-sunxi@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
- Baijie Helper A133 board
-Message-ID: <20260518235432.07537260@ryzen.lan>
-In-Reply-To: <04da68168f92b196cce4d49c766fc62702bf6472.camel@gmail.com>
-References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
-	<20260510201644.4143710-4-alexander.sverdlin@gmail.com>
-	<agr9m_tidBr6Cu2h@collins>
-	<04da68168f92b196cce4d49c766fc62702bf6472.camel@gmail.com>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yNrFffrh"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-44dd5cb0f81so2554350f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:56:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779141409; x=1779746209; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NJv2EIPjGK3glu7utsDpkLohNn1a3Ary13YAALySZ3c=;
+        b=yNrFffrhTQicJDkxQNZjHKD7cPqdOo1u2a043wNdE5j9BJmW2kpOahJJcZ8FBrHzfb
+         qdB0KaCS5m4kBY7RDrUZOGgHMZrgqNZCU2LxEAT/mDKJ678HSqlzagaE576fZOPFlaeU
+         K0XPQrXT/xxqFfzoaAkVnpaZkkCFbhJX6yXym7EMKORwLi8g4+QtEw/vPhh9mQt+CkK1
+         nQ0T+eOaJaqUil+fYfu2Fcvmxeoq/I7B+xITtwZ6v3gW9btGQ5xnJcnn4kZ58bs8tYPY
+         sBvvqoKY+A5w15z2ay2xpscwe2Jm1LTgJLluwJomAQvBCvVfcJ0rWGye7A2/t60uakKK
+         SBFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779141409; x=1779746209;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NJv2EIPjGK3glu7utsDpkLohNn1a3Ary13YAALySZ3c=;
+        b=hnJIwwq87rKTMrNluCI/aMo+TaLTcalXBpesIhSF4YxePDeUNUa/2rJSZq94eCk03L
+         gVYf6i3HTALNqlRKFy5wjt2fiSJMz92vVlXGrAR17gE1DPeb2Kk9V3XfvuEAEGqj8MsB
+         9TQ3Q1mWFumA/OIIPtGZq0qCT0M2jdoezUK2Unc0CtgvXK76jvml7avMftGvWGzIC6GU
+         q9P+e7qyOSWMfG+IlfZ+6Pxia2q1mmzOjw7k6ZTzTaFjxO4CBUOxkziyrheAd0wDNHYP
+         q4Y5e1dba07aU6q6X5XzqOwdyXG0Au45ilkDZPsB9EXgYSs+ivYOPeRidEHGUsq2M9d0
+         DY4w==
+X-Forwarded-Encrypted: i=1; AFNElJ9lsOeWWsysLlZvwNV0n6FfvW9rO5vQZWBg5eOL4cjLJJACUbr2GqlkCWfMENwspW4D3jpMdcj95JT2@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZqX8f+5xsqcEFnA4IKEFm41DsSZOhu9323Ig4X5bcbHJyldpp
+	vukJQxqw+uUYeuZmwl8frvIBlQHewMIWl++zmlMN82qOPq4vTyrjd8uP8Nb3sDssjKk=
+X-Gm-Gg: Acq92OEglqZJ2taLhpVODFLrYRQ2oXytKYEWe75Uh7pFQxnttSfZ6rElHtaF1C2THJF
+	zyBPipHbpjjV2fggwwq/fVhg4y2ROV6iyajt6zlys6ZMmNYRE0Y+UsaMSZbZ9A1AQR1lBPVNV+1
+	QzNf1Z1ZkigW8BgfUNGZy2jer7VDPf/FPKq5wBH3iTHhb4DsFkvnBIXJIQBXgwILgB0SAyooZbV
+	SCiNpy3r6F57KE/aGJfs2LHm/od0lLaW31zJiAvFV616UMKVtgG22w+pdr80eC4oQOpFlkpjuLE
+	g8VCxIvt+CK4V8PGSjr3HW1Z8e8X7O3MFNcBQdS7fN/MkOZPcgvjVKU4ShC73vbBdb6lkk8UaKB
+	vw6vQn9pJjkQrrjwlibjkrm0enNfN7/fs3nKnCIFjffpTr6o8abX9zXvEzbhNMJKEi/yqIQ47pc
+	Ec7QGDsntk4+OgxelPKbNES8FttzWH0WGM
+X-Received: by 2002:a05:6000:22c1:b0:43d:7606:5a47 with SMTP id ffacd0b85a97d-45e5b73a043mr28591671f8f.2.1779141409371;
+        Mon, 18 May 2026 14:56:49 -0700 (PDT)
+Received: from [192.168.0.35] ([64.43.40.255])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9e768c4fsm40379314f8f.8.2026.05.18.14.56.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 14:56:48 -0700 (PDT)
+Message-ID: <3170e034-5780-4b85-9d25-f55126f4a2cb@linaro.org>
+Date: Mon, 18 May 2026 22:56:47 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: regulator: qcom,usb-vbus-regulator: add
+ PMI8998
+To: taygoth <taygoth@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Casey Connolly <casey.connolly@linaro.org>
+References: <cover.1779127507.git.taygoth@gmail.com>
+ <2a3c65bbfb85d944110b14b40ef375f238ca3932.1779127507.git.taygoth@gmail.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <2a3c65bbfb85d944110b14b40ef375f238ca3932.1779127507.git.taygoth@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 18 May 2026 22:05:25 +0200
-Alexander Sverdlin <alexander.sverdlin@gmail.com> wrote:
+On 18/05/2026 21:22, taygoth wrote:
+> The Qualcomm PMI8998 PMIC integrates a USB OTG VBUS boost converter
+> inside its SMB2 charger block at offset 0x1100. The OTG control
+> register layout (CMD_OTG at +0x40, OTG_CURRENT_LIMIT_CFG at +0x52,
+> OTG_CFG at +0x53) matches the PM8150B SMB5 block, so the existing
+> qcom_usb_vbus-regulator driver can drive it without code changes via
+> compatible cascade.
+> 
+> Verified by inspecting the downstream qpnp-smb2 driver and reading
+> live register values on a OnePlus 6T (sdm845-oneplus-fajita) running
+> mainline Linux.
+> 
+> Signed-off-by: taygoth <taygoth@gmail.com>
+> ---
+>   .../devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml   | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> index fcefc722ee2a..9e2e2c8f9539 100644
+> --- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> @@ -28,6 +28,7 @@ properties:
+>                 - qcom,pm6150-vbus-reg
+>                 - qcom,pm7250b-vbus-reg
+>                 - qcom,pmi632-vbus-reg
+> +              - qcom,pmi8998-vbus-reg
+>             - const: qcom,pm8150b-vbus-reg
+>   
+>     reg:
 
-Hi Paul, Alexander,
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-> thanks for the review!
-> 
-> On Mon, 2026-05-18 at 13:52 +0200, Paul Kocialkowski wrote:
-> >   
-> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
-> > > new file mode 100644
-> > > index 000000000000..65b094f30bf5
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi  
-> 
-> []
-> 
-> > You should add:
-> > 
-> > 	chosen {
-> > 		stdout-path = "serial0:115200n8";
-> > 	};  
-> 
-> I actually have it in .dts, but it's theoretically possible to deploy
-> the core board in a way that serial0 is *not* a console, so the above
-> probably will not be valid in all cases in .dtsi.
-
-I am with Alexander here, to me the serial port belong into the
-helper board .dts, not the SoM .dtsi.
-
-> 
-> > 
-> > 
-> >   
-> > > +&reg_dcdc2 {
-> > > +	regulator-always-on;
-> > > +	regulator-min-microvolt = <500000>;
-> > > +	regulator-max-microvolt = <1300000>;  
-> > 
-> > Should be:
-> > 	regulator-min-microvolt = <900000>;
-> > 	regulator-max-microvolt = <1300000>;  
-> 
-> 0.81..1.2v according to A133 Datasheet Revision 1.1 Jul.14, 2020?
-
-Do you have the CPU OPPs for this board? Do they slightly
-overclock/over-volt the core? We have seen this for some other boards.
-But you could go with the safer 810mV...1200mV range, and we adjust
-this when needed.
-
-> 
-> >   
-> > > +&reg_dcdc4 {
-> > > +	regulator-always-on;
-> > > +	regulator-min-microvolt = <500000>;
-> > > +	regulator-max-microvolt = <1300000>;
-> > > +	regulator-name = "vdd-sys";  
-> > 
-> > Should be:
-> > 	regulator-min-microvolt = <810000>;
-> > 	regulator-max-microvolt = <990000>;
-> > 	regulator-name = "vcc-usb-sys";  
-> 
-> I'm a bit puzzled here: datasheet says 0.9..1.0v
-> and it has no "Typ" value, similar to VDD_CPU, but
-> VDD_SYS is not part of OPP tables, so who is going
-> to adjust this? Or shall it be just
-> 
-> regulator-min-microvolt = <950000>;
-> regulator-max-microvolt = <950000>;
-
-There is indeed no exact value to be found. Just go with whatever the
-BSP used: either it's the PMIC reset value, or it's adjusted by boot0.
-If you have a BSP kernel booted, check the value of this regulator on
-the Linux prompt, then use this value. Chances are it's indeed 950mV,
-as used by the Liontron board.
-
-> 
-> ?
-> 
-> >   
-> > > +};
-> > > +
-> > > +&reg_dcdc5 {
-> > > +	regulator-always-on;
-> > > +	regulator-min-microvolt = <800000>;
-> > > +	regulator-max-microvolt = <1840000>;
-> > > +	regulator-name = "vcc-dram";  
-> > 
-> > Should be:
-> > 	regulator-min-microvolt = <1100000>;
-> > 	regulator-max-microvolt = <1100000>;
-> > 	regulator-name = "vcc-dram-2";
-> > 
-> > ALDO2 is the main DRAM supply, this is the second one.  
-> 
-> Core schematics mentions 1.1V/1.2/1.35/1.5 on this rail...
-> Currently U-Boot has CONFIG_AXP_DCDC5_VOLT=1100, but potentially
-> this is adjustable, right? At some point LPDDR4 chips they
-> are soldering today will be unavailable. And in the current
-> market it will happen rather sooner than later...
-
-We don't support multiple DRAM types for one board, really. If they
-switch to another DRAM type, we will need a new DT or some other way to
-adjust this (potentially runtime patched by U-Boot). But we can address
-this when we get there, so just set the 1.1V that LPDDR4 requires for
-the existing boards right now.
-
-> 
-> >   
-> > > +};
-> > > +
-> > > +/* DCDC6 unused */
-> > > +
-> > > +&reg_dldo1 {
-> > > +	regulator-min-microvolt = <700000>;
-> > > +	regulator-max-microvolt = <3300000>;
-> > > +	regulator-enable-ramp-delay = <1000>;  
-> > 
-> > Should be:
-> > 	regulator-min-microvolt = <1800000>;
-> > 	regulator-max-microvolt = <1800000>;
-> > 	regulator-name = "vcc-pg";  
-> 
-> Do suggest to drop vendor's
-> 
-> regulator-enable-ramp-delay = <1000>;
-> 
-> in all cases?
-> 
-
-I don't see this used in many other mainline DTs, mostly it's just for
-some picky peripherals (PHYs). So if that works stable for you without,
-I'd drop all of them.
-
-> > > 
-> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
-> > > new file mode 100644
-> > > index 000000000000..ccbca5d0a40c
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts  
-> 
-> []
-> 
-> > > +	aliases {
-> > > +		serial0 = &uart0;  
-> > 
-> > The is best added to the core dtsi.
-> >   
-> > > +	};
-> > > +
-> > > +	chosen {
-> > > +		stdout-path = "serial0:115200n8";  
-> > 
-> > Ditto.  
-> 
-> But it only physically materializes in Helperboard, the carrier.
-> Potentially this one can be left floating or used for something else.
-
-As mentioned above, I agree on this staying in the helper board .dts,
-and it not being moved.
-
-Cheers,
-Andre
+---
+bod
