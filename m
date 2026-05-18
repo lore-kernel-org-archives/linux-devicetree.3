@@ -1,124 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F262231B80D
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 15:29:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE153F076F;
+	Mon, 18 May 2026 15:29:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779118155; cv=none; b=Va2woe365NMXjdJx+0PzbTULKnl/CErxSopTn2GFQKJTS5E8dYws3bv3nz2qHnwqYlLwP65L1A09MTR4WQVkcRFF2ee3An83bgNeLSduIqyIkP08IVlI8fWR2b1JjKB/kvOsmXuVCm4OoD6SD+2gTGrzDO1T8gc8qak+m4aTMJU=
+	t=1779118183; cv=none; b=exknd1zBqcU6Ne6V/wzA1Go+FmSdZWGiw7CVS6AY780tlOqy8D16kyfjVg9KfGdB7JM1bWPZo9LumJ84yEWtjWUOKJnf50OqYhsneU7i5eEZWlK6PPFYkZONsoP4R07jOqS9WIQW2XMbqZlzQmzuUUSLdHVNYYAQQZ3AO8o4IrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779118155; c=relaxed/simple;
-	bh=BWiHn6qfFoIzJ9YEeRS7pU4LLp8bIb9vRVRCTL0PMGY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oEQool6WTDOahw2FpOe4LlZ1ID6Yzy7icN1GwX43xTQNvvhgsPd1bCUiBjK0GPEFWU7PLBvHLVxEi349d1SPaSa3DWhU/J4MeBNbOrI/Gj2c4pV/TXZSYuudw9/CivNC+BbERL8nu/Duxj9oq2FCTKjwvPtHI17o/fw8feAEaiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oC7UmxiA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779118183; c=relaxed/simple;
+	bh=sG79W+MkJg5APZjQ0IZO8BppN8H3r5aAnNzI61jDF3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GpvCWr+J1D5vOwsL9P8R+ucqn97HHCe1Fdo4XbTDXNNbP6w0V+Bu5Baq8H9gBN9jiarB6R5zjhXTtd9ESTjr0rRzw8Hwh9UEuuwjeVq5Z7ffbQ+MetDLcovvw1xComT42x7SJEEmE9EE2GaC+AIH7ijGXJcomZH8XpifgKImJsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DwZqROts; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oC7UmxiA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B83C2BCB7;
-	Mon, 18 May 2026 15:29:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DwZqROts"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022C5C2BCB8;
+	Mon, 18 May 2026 15:29:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779118154;
-	bh=BWiHn6qfFoIzJ9YEeRS7pU4LLp8bIb9vRVRCTL0PMGY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=oC7UmxiAa33JhXMWELBBAqFjngwfBFJokeOwA/kzt5EC9r0hbv+g/aMWdPWi3tM3o
-	 v5AAJoBGAeOXY15p/Dz5KGdqhZSmPGI2TN6NEOz41IcqQJsLYX9YE41zmyxSBqYRJh
-	 R+NGkOub3PIM+gDShCpUr9qx8DuLSdU7IwZ4w0Q89uDBNF7+CJHPDae2or0osfxAmG
-	 DyWgLBKI5vN0W9/BOM8li/wkRDyL83zF8fsSIJg0zkMhVbCvKzXyQk1nzdWW0ANx8D
-	 +rIoiM+D7Hk4+id9N8++b0FMEO2Eec3aMi4P58g/PBTxybMESaTbDr0DGw5EcwvP3l
-	 C772RE6hZWGtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/4] dt-bindings: iio: adc: Add ltc2378
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt1@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <cf404216011b6972519436c63fcc7c4e2c883c54.1779117444.git.marcelo.schmitt1@gmail.com>
-References: <cf404216011b6972519436c63fcc7c4e2c883c54.1779117444.git.marcelo.schmitt1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 15:29:13 +0000
-Message-Id: <20260518152913.D0B83C2BCB7@smtp.kernel.org>
+	s=k20201202; t=1779118182;
+	bh=sG79W+MkJg5APZjQ0IZO8BppN8H3r5aAnNzI61jDF3c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=DwZqROts39mMfmYdvXCT4HPiFfhe7pphuh2eDKH6Wk1FhbfIuLFoJAzIV1w6dNRkv
+	 gS8cb8Xmb9xkOCt1qVIvLGgvmZE6oe/kQRj9Y6tOcK3J7+SZnfUwT+d+1JQHBnsM7k
+	 y3T2EZLmM1+zyp9NgHNPRUHvt0LY1DRZbWBLEBpI5BZTxG52678vBTHhYBIh0DFCr2
+	 oQc7xvwwanHA8iVLjTvBSa4aPqcGU3EOVTPRsiGop7Ajz+J42dwFVmK6swcGn2j3CX
+	 P6VUm6NFcP5DRUG3+5LkZrUBKtbe441Fuid0F7nbIj+YzyFabtEFqfwvMKgxkES4aO
+	 fEdY++PK5+AOg==
+Date: Mon, 18 May 2026 16:29:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ workflows@vger.kernel.org, linux-arch@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-iio@vger.kernel.org, netdev@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ linux-csky@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel
+ Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Dongliang
+ Mu <dzm91@hust.edu.cn>, Hu Haowen <2023002089@link.tyut.edu.cn>, Dinh
+ Nguyen <dinguyen@kernel.org>, Kees Cook <kees@kernel.org>, Oleg Nesterov
+ <oleg@redhat.com>, Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Nick
+ Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, Vinod
+ Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Dave Penkler
+ <dpenkler@gmail.com>, Andi Shyti <andi.shyti@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?=
+ <kwilczynski@kernel.org>
+Subject: Re: [PATCH] nios2: remove the architecture
+Message-ID: <20260518162921.73e7c3aa@jic23-huawei>
+In-Reply-To: <20260518042833.272221-1-enelsonmoore@gmail.com>
+References: <20260518042833.272221-1-enelsonmoore@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The YAML schema incorrectly models fallback compatible strings b=
-y grouping specific and fallback strings into a single-element list, reject=
-ing actual fallback usage in the device tree.
-- [Medium] `additionalProperties: false` is used instead of `unevaluatedPro=
-perties: false` alongside a common schema reference, causing erroneous sche=
-ma validation failures for valid SPI properties.
---
+On Sun, 17 May 2026 21:28:33 -0700
+Ethan Nelson-Moore <enelsonmoore@gmail.com> wrote:
 
-commit e7c5954ec798a9962f4a29e46b3240e39219ef7e
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-
-dt-bindings: iio: adc: Add ltc2378
-
-This commit documents the device tree bindings for the Analog Devices LTC23=
-78
-and similar ADCs. It introduces a new YAML schema defining the compatible
-strings, power supplies, interrupts, and SPI peripheral properties.
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml b=
-/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - enum:
-> +          - adi,ltc2338-18
-> +          - adi,ltc2369-18
-> +          - adi,ltc2370-16
-> +          - adi,ltc2379-18
-> +          - adi,ltc2380-16
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2364-18
-> +              - adi,ltc2364-16 # fallback compatible
-
-Does this definition restrict the compatible property to an array of exactly
-one string?
-
-Grouping a specific variant and its fallback into a single enum under a
-one-element items array natively rejects the standard device tree formatting
-for a specific device paired with a fallback, such as:
-
-compatible =3D "adi,ltc2364-18", "adi,ltc2364-16";
-
-Should this list declare two discrete elements positionally instead, with t=
-he
-specific variant first, followed by a const for the fallback string? This
-pattern repeats for the other fallback compatibles below.
-
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +  - ovdd-supply
-> +  - ref-supply
-> +
-> +additionalProperties: false
-
-Does this introduce a regression where valid SPI peripheral properties are
-erroneously rejected?
-
-The binding includes a $ref to /schemas/spi/spi-peripheral-props.yaml# at
-the top of the file, but concludes with additionalProperties: false. Since
-additionalProperties only considers properties explicitly defined in this
-specific properties block, device tree nodes using standard SPI properties
-that are not manually redefined here (like spi-cpha or spi-cs-high) will
-fail validation.
-
-Should this be unevaluatedProperties: false instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779117444.gi=
-t.marcelo.schmitt1@gmail.com?part=3D1
+> The Nios II architecture is a soft-core architecture developed by
+> Altera (since acquired by Intel) and intended to run on their FPGAs.
+> 
+> Licenses for the architecture have not been available for purchase
+> since 2024 [1], and support for it has been removed from GCC 15 [2],
+> Buildroot [3], and QEMU [4].
+> 
+> Given all of these factors, it is time to remove Nios II support from
+> the kernel. The maintainer stated in 2024 that they were planning to do
+> so soon [5], but this did not come to pass.
+> 
+> Remove Nios II support from the kernel and move the former maintainer
+> to CREDITS. Thank you, Dinh Nguyen, for maintaining Nios II support!
+> 
+> References:
+> [1] https://docs.altera.com/v/u/docs/781327/is-discontinuing-ip-ordering-codes-listed-in-pdn2312-for-nios-ii-ip
+> [2] https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff;h=e876acab6cdd84bb2b32c98fc69fb0ba29c81153
+> [3] https://github.com/buildroot/buildroot/commit/6775ccc5a199d574ad70b5f79ec58cce97a07c6f
+> [4] https://github.com/qemu/qemu/commit/6c3014858c4c0024dd0560f08a6eda0f92f658d6
+> [5] https://sourceware.org/pipermail/newlib/2024/021083.html
+> 
+> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+If it goes for IIO trivial changes.
+Acked-by: Jonathan Cameron <jic23@kernel.org>
