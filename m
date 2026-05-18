@@ -1,265 +1,236 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A81318B9C
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1A931F9B8;
+	Mon, 18 May 2026 10:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779099192; cv=none; b=NizZTgqxh40owJqQhLoabtulYqC/mxkBOu78aNMkc8yM2yurI6ClH5YvO1oH2erEVIIM8Q7CoXALMFwilZ3BWvRWe8xxKflBhboFDCbSlv7+XDQrJTYOiRj8iNMgxvQa42ItQTpMU5BMzow0bC5/897KFbSYyrCuZcz2WubLAV4=
+	t=1779099214; cv=none; b=Mcft4UOAU0N4TyBm8DEa/Il54WStP42wleFFpGyeWYg7p20hHXYkfLDqNBuzqCk/WVJJZ7bjdSWfJfpMjSlAmeL1ruq0K/8L4zrDx1gBavpC2MrlVbKyz1sBudBOdWDPXWYcSzuSX1Csoymt96NBb99NTSeLf/SBsQoTn8xEetY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779099192; c=relaxed/simple;
-	bh=9E3qq5D4WZQHWgquf7eFFyaxjAiENCppqVM2VoCoy30=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GmJqQTFXE5FNWvI4GJRypBQ0PffdFOGdov3sxAhEcED6rZOCtDV1eunxiQPoxXoO9HD3KTwLMV4G0hEUEQPgpClbwSpzDxzmduvfmTncGMg8fdl/jJV44G1SLZ6eIV6iJ3/c9ZmUOm3fLn58MKQwUNsRk0x5egFRMCDDAp6QMEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hi3mAoa/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xnoc4EYW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779099214; c=relaxed/simple;
+	bh=BQnBx6WnqKgG+17up62Cx3dfKsGKFlZElr3ORMxdMWo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Aqz/cg4pfv6imypxe0lGBa6sTJQhbhq5sL7oD/SAoAv51CN/xJbusqqVe6wyPm6YNbWu81lgyOR68k7fRyNVcMFepAj0W+/wiunCZkMlw3dUuya0VQxxVLm5EJ14YiPosD0k6Kofl9NAfJUJ5vf8jatEhvdqva1HdQwCusPie0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aW472Y2+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hi3mAoa/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xnoc4EYW"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I7fZh12188789
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:13:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=AEl5MQcG4V9U6z1ZgKV9Wf
-	SwRgV+hZqvkiSWVAMoQeE=; b=hi3mAoa/6iQqs4Oh+KyqFGRwQ5W7kDyrObXxhY
-	tfIVGVIwm+GaF1h5gY9+PODtSGJu4EcnnuFFiWTOV/sc3XgpjgoLREWztwZWbOrm
-	eHeI/5+VzhNuKvziAG3HJexYFLaE+igishnrhUxsFYACut9p0LYXZEaVGYJ9DTJ1
-	g/6058w7/Cw2iQVvIDwWz403SNEW18f+G0+jfYYRa/BRo4ACW8LzURUJLBlQ6hcd
-	tM2QNCqR6N4hzw1v7Pxt9heDArG8dzP03DTxHRf6HW5K25Sma2FcmqSKtAgw0hR0
-	WJSdg7KU2iXaBOaNw5CorrsPESaprm701cyC53lIM9omD1MQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7xkugn9w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 10:13:09 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51605cf3c60so26209611cf.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 03:13:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779099189; x=1779703989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=AEl5MQcG4V9U6z1ZgKV9WfSwRgV+hZqvkiSWVAMoQeE=;
-        b=Xnoc4EYWVWtzMvOYUfjw6s6l6pWPFD98cUMPAn7nR2HzxTNAP8zzl9vacwP8QkS2uw
-         /YQATAcR5TF5TJJ0xR7EQSEtZ+vibUEUoa25DSwU1vSBePG5FD4iKWxEYsREsiBGyN0S
-         Id+W45IyYLaal028c+uIDmeLMvIJ8p9uTCSskt98oMzA9+l4l8S/4Jl7WF+atcZuEC79
-         LOflxUYHl4QI7Tskh6sUwO0/JNkgZMnlIZgGYPoWkh15dZLd2VzgIBeVZO65K3N7y9rT
-         S3ehyJ5dtQ3Kf9LDCwcHm54MhmLY2s4yDoHdA9zkeZByduv2xcYGon9/BDXs9RzJKg+U
-         huSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779099189; x=1779703989;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AEl5MQcG4V9U6z1ZgKV9WfSwRgV+hZqvkiSWVAMoQeE=;
-        b=Rxz1pkszUGgVVRpttg9CVwj8GKJWhwhBFon1mIJEg7e61TG488RxT2Vkgp40gDFujP
-         zU7Qq2xKqtaVSz0FSu77L9vdeqcfXFW1Ymk2/yl/PV+ywFAFhzQkrqSesDGy+WyS/FCQ
-         gydskjhp1HVocq0CfJlfpABeNduFzpMMyoOgpVgWiJrj9BHmQNPai1WXSaosej+nUmN7
-         O3sZCfO8s8NXbIuEjVNQj/A3jINeN8PI59/dZWghP8T9tSlmgtsuBGm69glB48NFCf6H
-         0vP3aitQVeOugiu0AOKnxx8tlZybWhU5cbCHwcGwpi2g9fQ6X1xxIY3YMUzryKrRfytk
-         2WCA==
-X-Forwarded-Encrypted: i=1; AFNElJ8bOroYJMm7zEqrZiFJx7wUAmr9N/5x3ymF7SDnofhajlOSHXHOuoyLPvyfPZ7VRySXSZH7rC0HOxkY@vger.kernel.org
-X-Gm-Message-State: AOJu0YwvXRUu87uUcbYhtvEiGCmpzwbLUz5GLXYOPo99QPZ3Id21Ah7P
-	PmJWvSJPa+PUkBzKKt0p3q0cknT9FRYrLeWsIvyvsp8o9EUhpg7xVfiH3+rVU0buz48aDL8W1iJ
-	G47arq/pI3anf/+GwyEgItotcg0Zmm9ut3BBO4Kb+c/XgKp61XcvJIm99ZLdmM+t+
-X-Gm-Gg: Acq92OFY4JJqkHW2Ps0KQEmFR8FLm4R3+LDG/rCk39OceiT0IFAA3eNItIu8jxJVfPa
-	gMWzqo5vRusukKPNdDzbj9pnDc4CIS+NIfQBmKI/a8FedCZhkb8Rl2zoXZFJ5WhqvzINVhx+URi
-	YOD1JXLeXMk8ihUgRsa0Hd8xT0EfferJwDdNbwQTLfBa7U0d7wzaQ2aMkze0yPkHD3n/FLLU0c2
-	3Jw/4Mn5mtsXJghqJsDPeb7mNZKVXYrVhjUc5y4x1f7fXlakAg9/4MKpndwdLNlBQ21AF9eEXGg
-	87LQFROsG41ean/BhkKLmGSoTMNwXDLLAlEltQE8kPqCMB3jCdWYjol/2XF36SdVR9WqK5nj9b/
-	ufm6siILHVJxcChLZONe/gWVELOGWhK6CHH0H
-X-Received: by 2002:a05:622a:2516:b0:50d:2a98:2571 with SMTP id d75a77b69052e-5165a059c4cmr205872771cf.26.1779099188671;
-        Mon, 18 May 2026 03:13:08 -0700 (PDT)
-X-Received: by 2002:a05:622a:2516:b0:50d:2a98:2571 with SMTP id d75a77b69052e-5165a059c4cmr205872241cf.26.1779099188062;
-        Mon, 18 May 2026 03:13:08 -0700 (PDT)
-Received: from quoll ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe4c88495sm240548175e9.4.2026.05.18.03.13.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 03:13:07 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org
-Subject: [PATCH v2] docs: dt: maintainer: Add Devicetree and OF maintainer profile document
-Date: Mon, 18 May 2026 12:12:58 +0200
-Message-ID: <20260518101259.34948-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aW472Y2+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C92FC2BCB7;
+	Mon, 18 May 2026 10:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779099214;
+	bh=BQnBx6WnqKgG+17up62Cx3dfKsGKFlZElr3ORMxdMWo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aW472Y2+pFZ+EzChXNYWW6iOpgzrk5uXaaC7iqKp6atHhWSSU5/vCFwUmFtIuwPHO
+	 rLkACdXJSVwwG5eZsX9BzO88mxSrnMe9zysXIxbapMu3XkRROtjRVqdiC1jRCUK5GF
+	 QPOvJWAXFgQ92hvTO7+XzG6hoRH0arP8R5ztHUu9rAY/0EK7mL8nutdNN3daFNlgFs
+	 y4xNolZ5BBOm9tCqbd8IYe6efWFui04gRqdhSP2UZf39kRzo2gbd2wQOnWiW4DJ/+R
+	 +3KvrQMbk+hpSlHpmDrkOieHKswyEREcRtxVsR2A0UjvdZzAYW7eZBcwagLL7VQPnC
+	 BGCy8qVYj9Urg==
+Date: Mon, 18 May 2026 11:13:28 +0100
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+	Ion Agorria <ion@agorria.com>,
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v6 2/7] mfd: Add driver for ASUS Transformer embedded
+ controller
+Message-ID: <20260518101328.GS305027@google.com>
+References: <20260502124055.22475-1-clamor95@gmail.com>
+ <20260502124055.22475-3-clamor95@gmail.com>
+ <20260514100205.GG305027@google.com>
+ <CAPVz0n07EKiF=Gi=Po0zFVSuU=g4pbhJam7VHgiQsPTwtT2wQg@mail.gmail.com>
+ <20260514155004.GO305027@google.com>
+ <CAPVz0n1drWV6zMzOx93gHNaw+Tt0M9oAF2RyKW6tZcC2gF_HAQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5055; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=9E3qq5D4WZQHWgquf7eFFyaxjAiENCppqVM2VoCoy30=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqCuYrlVysAwtLXXMvpEbQvYDr+bq8SSxz/afMQ
- zlLbT4sz/WJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCagrmKwAKCRDBN2bmhouD
- 117uEACK/anmxHIQXXzJEmDqMdAuebkx2c3ITQYiYPVx/gXQnmSsY2lm/CPK1uU6VRVFngJLa10
- EsYD9D9Jh3g7qK8uvNqqf6BZIlJtXFJwfRK25wYRsW8Oc3uFNDj5z1OINWLiOxd4+zCExpY/gzB
- OzG049WyWEH/Oi5j8an7hDvvot+Dbj0GR9aPBZ/pSsePg/qqVAIcldySjgs85ODFCJGrk0ikNLb
- DwLTrdOhQOiMNXA2hp5ON2t+xQ1xPbrQbFnGb5UEMx4fV0wn86IrYChd9W0eBQTus3tYTXzqLCV
- awLgZv7W+Lc6D+kiB+n5d9FKdkPLd1fHCDQkYjsY32vrPni6f/vGJan0ml2T35BTdFOBapLrUmz
- yxQGwJAUtyOC/tXMO7gUjG5yWb7kxUShZ6ToPGcD1E/bsM4htr/LbCR5Nfeu4CiUYN+Ty645bDv
- 8Bks3V5hxYyf5e84JoK6l7uo5sbRrhj8J+WPEjt92rQB8kRm3R6En7y/QvNJHcTzt2tDo6MCgwY
- u7HxVSzMkI0UBW7e13WOGxHOtz9nVCquRLTAUey9UiA8EfiNhjvBAMpMBseRZqjc3k1Zt4u+BDl
- YU03l15h8BINUouIfSsYr1f/6EP8RJ/95X5lZ6YmL2tcvOAuMl9uX+lVtG6LGrfo9GcDjx8Vcq5 Em3ZDxBMKmGiigg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDA5OCBTYWx0ZWRfXx0uZ0C714PRy
- KGxNSX5VWxnvQzcQq0qeJPYowM8EvpddJMmgXpHAvcruytncrhpbS0XWNlvH8dR+7Ehg5qHvmkb
- JLE2x2ox1iQTl6rLQ1Jky7lGJNA7Ak423tvc7s54vOUXn0IOS0Bwic8ug8NvZalXn8V1+8y3GV0
- J0I2vj6SfWHks+IReUkR3Bxfv7Nh3P3jfs6tDwoltVEw+Euip7aOpddS9s/+1zPWWki2kyJodSx
- 8K1P0ikcWwyMKxz0yoWo0If5Y10Vp6ysIwlAr8VEtU98d67Z0Q1NxGPw6JfDjx1I+vJa82XmF2N
- RH1AbViwpbn0txczfXD5t3gbYgSZGucvU3oFZ7p6JaYA8A0630RcPz4ol1L0/9H7hzSS/jcLO/f
- cC4u/b42wVueiez4mK4RAwSSIpeCi3LSR5KpVXAYxdqDIC40BowPY2T/t76EdZ8hXsuFKr8hg2X
- vyhQO1/wxJQIGo7WPKA==
-X-Proofpoint-GUID: G_rZBe37U_b_CAo6wF5vG9dtFrj1Yabf
-X-Proofpoint-ORIG-GUID: G_rZBe37U_b_CAo6wF5vG9dtFrj1Yabf
-X-Authority-Analysis: v=2.4 cv=FsY1OWrq c=1 sm=1 tr=0 ts=6a0ae635 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=7C85NsCI5bDNKhsY0GcA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_02,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
- malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180098
+In-Reply-To: <CAPVz0n1drWV6zMzOx93gHNaw+Tt0M9oAF2RyKW6tZcC2gF_HAQ@mail.gmail.com>
 
-Document how Devicetree and Open Firmware maintainers handle their
-subsystem, especially focusing on two caveats:
+On Thu, 14 May 2026, Svyatoslav Ryhel wrote:
 
-Devicetree subsystem handles patches with a minor difference comparing
-to other subsystems: while DT maintainers pick up OF code, they only
-provide review of DT bindings without applying these.
+> чт, 14 трав. 2026 р. о 18:50 Lee Jones <lee@kernel.org> пише:
+> >
+> > On Thu, 14 May 2026, Svyatoslav Ryhel wrote:
+> >
+> > > чт, 14 трав. 2026 р. о 13:02 Lee Jones <lee@kernel.org> пише:
+> > > >
+> > > > On Sat, 02 May 2026, Svyatoslav Ryhel wrote:
+> > > >
+> > > > > From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> > > > >
+> > > > > Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201,
+> > > > > TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 dock
+> > > > > and TF600T, P1801-T and TF701T pad. This is a glue driver handling
+> > > > > detection and common operations for EC's functions.
+> > > > >
+> > > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> > > > > ---
+> > > > >  drivers/mfd/Kconfig                     |  14 +
+> > > > >  drivers/mfd/Makefile                    |   1 +
+> > > > >  drivers/mfd/asus-transformer-ec.c       | 762 ++++++++++++++++++++++++
+> > > > >  include/linux/mfd/asus-transformer-ec.h | 162 +++++
+> > > > >  4 files changed, 939 insertions(+)
+> > > > >  create mode 100644 drivers/mfd/asus-transformer-ec.c
+> > > > >  create mode 100644 include/linux/mfd/asus-transformer-ec.h
+> >
+> > [...]
+> >
+> > > > > +     unsigned int num_devices;
+> > > > > +     bool clr_fmode; /* clear Factory Mode bit in EC control register */
+> > > > > +};
+> > > > > +
+> > > > > +struct asus_ec_data {
+> > > > > +     struct asusec_info info;
+> > > >
+> > > > You have 'data' and 'info' which a) using non-forthcoming nomenclature
+> > > > and doesn't tell me anything and then you b) put 'info' in the device's
+> > > > driver_data attribute which is very confusing.  driver_data should be
+> > > > for what we call ddata which I assume is expressed as 'data' here.
+> > > >
+> > >
+> > > asusec_info is shared among all child devices and is exposed while
+> > > remaining elements of this struct are for internal use only.
+> >
+> > Our terminology for that is usually ddata, that gets stored in
+> > 'struct devices' device_data attribute.
+> >
+> > > > > +     struct mutex ecreq_lock; /* prevent simultaneous access */
+> > > > > +     struct gpio_desc *ecreq;
+> > > >
+> > > > If I hadn't seen the declaration, I'd have no idea this was a GPIO
+> > > > descriptor.  Please improve the nomenclature throughout.
+> > > >
+> > > > > +     struct i2c_client *self;
+> > > >
+> > > > Again, please use standard naming conventions:
+> > > >
+> > > > % git grep "struct i2c_client" | grep "\*self" | wc -l
+> > > > 0
+> > > >
+> > > > % git grep "struct i2c_client" | grep "\*client" | wc -l
+> > > > 6304
+> > > >
+> > > > % git grep "struct i2c_client" | grep "\*i2c" | wc -l
+> > > > 903
+> > > >
+> > >
+> > > ok, noted.
+> > >
+> > > > > +     const struct asus_ec_chip_data *data;
+> > > >
+> > > > 'data', 'priv' and 'info' should be improved.
+> > > >
+> > > > > +     char ec_data[DOCKRAM_ENTRY_BUFSIZE];
+> > > >
+> > > > An array of chars called 'data'.  This could be anything.
+> > > >
+> > >
+> > > Do you have a comprehensive list of name conventions you find suitable?
+> >
+> > Anything descriptive that alludes to the type of data being held there.
+> >
+> > There are 100's of good examples, but a handful of generic / bad ones.
+> >
+> > > > > +     bool logging_disabled;
+> > > >
+> > > > This debugging tool is probably never going to be used again.
+> > > >
+> > > > Keep it local.
+> > > >
+> > > > > +};
+> > > > > +
+> > > > > +struct dockram_ec_data {
+> > > > > +     struct mutex ctl_lock; /* prevent simultaneous access */
+> > > > > +     char ctl_data[DOCKRAM_ENTRY_BUFSIZE];
+> > > > > +};
+> > > > > +
+> > > > > +#define to_ec_data(ec) \
+> > > > > +     container_of(ec, struct asus_ec_data, info)
+> > > > > +
+> > > > > +/**
+> > > > > + * asus_dockram_read - Read a register from the DockRAM device.
+> > > > > + * @client: Handle to the DockRAM device.
+> > > > > + * @reg: Register to read.
+> > > > > + * @buf: Byte array into which data will be read; must be large enough to
+> > > > > + *    hold the data returned by the DockRAM.
+> > > > > + *
+> > > > > + * This executes the DockRAM read based on the SMBus "block read" protocol
+> > > > > + * or its emulation. It extracts DOCKRAM_ENTRY_SIZE bytes from the set
+> > > > > + * register address.
+> > > > > + *
+> > > > > + * Returns a negative errno code else zero on success.
+> > > > > + */
+> > > > > +int asus_dockram_read(struct i2c_client *client, int reg, char *buf)
+> > > > > +{
+> > > >
+> > > > Have you considered using Regmap for register access instead of
+> > > > implementing custom functions?  Remaps already deals with caching and
+> > > > locking mechanisms that you'd get for free.
+> > > >
+> > > > This looks like it would be replaced with devm_regmap_init_i2c().
+> > > >
+> > >
+> > > I will consider this, thank you.
+> > >
+> 
+> It seems that regmap does not fit for this purpose, but I might switch
+> to plain i2c_smbus_read_i2c_block_data
 
-All three DT bindings maintainers rely currently on Patchwork and due to
-enormous amount of emails per day, regardless how much DT maintainers
-try, they cannot read all the emails.
+Can you explain why Regmap doesn't work for you?
 
-Cc: Rob Herring <robh@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: devicetree@vger.kernel.org
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Regmap is just a wrapper about i2c_smbus_read_i2c_block_data() and friends.
 
----
+> > > > > +     struct device *dev = &client->dev;
+> > > > > +     int ret;
+> > > > > +
+> > > > > +     memset(buf, 0, DOCKRAM_ENTRY_BUFSIZE);
+> > > > > +     ret = i2c_smbus_read_i2c_block_data(client, reg,
+> > > > > +                                         DOCKRAM_ENTRY_BUFSIZE, buf);
+> > > > > +     if (ret < 0)
+> > > > > +             return ret;
+> > > > > +
+> > > > > +     if (buf[0] > DOCKRAM_ENTRY_SIZE) {
+> > > > > +             dev_err(dev, "bad data len; buffer: %*ph; ret: %d\n",
+> > > > > +                     DOCKRAM_ENTRY_BUFSIZE, buf, ret);
+> > > > > +             return -EPROTO;
+> > > > > +     }
+> > > > > +
+> > > > > +     dev_dbg(dev, "got data; buffer: %*ph; ret: %d\n",
+> > > > > +             DOCKRAM_ENTRY_BUFSIZE, buf, ret);
+> > > >
+> > > > Please remove all of these debug messages.
+> > > >
+> > >
+> > > Why debug messages cannot be preserved? They are specifically marked as dev_dbg
+> >
+> > It's a general convention.
+> >
+> > After initial development, they tend to just litter the code-base.
+> >
+> > Debug prints can be useful higher up the stack though.
+> >
+> 
+> I am fine with removing all debugs and logging but I strongly would
+> like to keep EC model and firmware version along with susb and factory
+> status. That may be quite useful in identifying EC used and its
+> behavior without need in rebuilding the kernel and digging huge piles
+> of downstream code in order to find how to dump these values.
 
-I expect patch to be picked up by Rob, after review.
+Yes, you can keep this sort of thing as INFO.
 
-Changes in v2:
-1. Correct typos and trailing white spaces.
-2. Fix order of P: after C: in maintainers.
----
- .../process/maintainer-devicetree.rst         | 70 +++++++++++++++++++
- MAINTAINERS                                   |  2 +
- 2 files changed, 72 insertions(+)
- create mode 100644 Documentation/process/maintainer-devicetree.rst
-
-diff --git a/Documentation/process/maintainer-devicetree.rst b/Documentation/process/maintainer-devicetree.rst
-new file mode 100644
-index 000000000000..d8ffe752bf5d
---- /dev/null
-+++ b/Documentation/process/maintainer-devicetree.rst
-@@ -0,0 +1,70 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+======================================
-+Devicetree and Open Firmware Subsystem
-+======================================
-+
-+Other Process Documents
-+-----------------------
-+
-+Please see the documents in Documentation/devicetree/bindings/ for information
-+on how to write proper Devicetree bindings and how to submit patches.
-+
-+Patch Review and Handling
-+-------------------------
-+
-+Patches handled by Devicetree maintainers are processed differently depending
-+on the patch type:
-+
-+1. Core OF driver code, e.g. drivers/of/:
-+   patches are reviewed and applied by DT maintainers.
-+
-+2. Devicetree bindings:
-+   patches are reviewed by DT maintainers but, except in certain cases, should
-+   be applied by subsystem maintainers.  See also *For kernel maintainers* in
-+   Documentation/devicetree/bindings/submitting-patches.rst.
-+
-+3. DTS and drivers:
-+   DT maintainers might provide comments, but review is generally not expected.
-+
-+Patchwork
-+~~~~~~~~~
-+
-+Devicetree maintainers review patches using Patchwork, so the current status of
-+a patch can be checked there. For typical driver submissions, Patchwork
-+receives the entire patch set, but only a few patches are usually Devicetree
-+bindings that are reviewed by DT maintainers.
-+
-+Explanation of Patchwork statuses:
-+
-+ - **New**: Not yet processed by the automation toolset.
-+ - **Needs ACK**: Waiting for review by DT maintainers.
-+ - **Handled Elsewhere**: Non-DT patch; not being reviewed here.
-+ - **RFC**: Patch was likely ignored because it was an incomplete RFC.
-+ - **Changes Requested**: Patch was reviewed and DT maintainers expect changes.
-+ - **Accepted**: Patch was reviewed and applied by DT maintainers to their tree.
-+ - **Not Applicable**: Patch was reviewed and is likely in good shape, with a
-+   *Reviewed-by* or *Acked-by* tag provided, but DT maintainers expect someone
-+   else to apply it.
-+
-+Patch Re-review and Pinging
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+Due to the high volume of email traffic, Devicetree maintainers do not read
-+every email they receive and instead rely on Patchwork during the review
-+process. They also often skip patches that have already been reviewed.
-+
-+As a result, maintainers might miss:
-+
-+1. Questions about already reviewed patches.
-+2. Pings, for example when a patch has been reviewed by DT maintainers but has
-+   not been picked up by subsystem maintainers.
-+
-+Such cases can be addressed by:
-+
-+1. Pinging DT maintainers on the IRC channel.
-+2. Dropping the DT maintainer’s *Acked-by* or *Reviewed-by* tag when sending a new
-+   version of the patch set, together with an explanation in the patch
-+   changelog describing why the tag was removed and what is expected from DT
-+   maintainers.
-+
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f877e5aaf2c7..843f1d124446 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20050,6 +20050,7 @@ S:	Maintained
- Q:	http://patchwork.kernel.org/project/devicetree/list/
- W:	http://www.devicetree.org/
- C:	irc://irc.libera.chat/devicetree
-+P:	Documentation/process/maintainer-devicetree.rst
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git
- F:	Documentation/ABI/testing/sysfs-firmware-ofw
- F:	drivers/of/
-@@ -20071,6 +20072,7 @@ L:	devicetree@vger.kernel.org
- S:	Maintained
- Q:	http://patchwork.kernel.org/project/devicetree/list/
- C:	irc://irc.libera.chat/devicetree
-+P:	Documentation/process/maintainer-devicetree.rst
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git
- F:	Documentation/devicetree/
- F:	arch/*/boot/dts/
 -- 
-2.51.0
-
+Lee Jones
