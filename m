@@ -1,178 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C04B38AC9A
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 18:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DC238237D;
+	Mon, 18 May 2026 18:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779127702; cv=none; b=ecHSLr1ITgeMEy+uYcrr21bstMI8Rwn7rFUF3tHs5P15pvXRiTfMuw9mb+Pt3OsCm+1ihlKmDe30zWs5v5dictPODqZ1d1kWy3Co6gFlX0r89Zdyvu4PHLHnsPnSdFoff+dpWIBnZihU09MFjHHaS83lmnKoOBNlwOPNgcKJ+wE=
+	t=1779128780; cv=none; b=K4qKyOo+CdkeUWENeTkd4r0lLziTuYsFg+M55ficJ9WjVLE0P6nUCQviCcPdpzoHfo5JCP046pn1YltIcpN4f1FgKtpiXxm3O2s8W9lx66St9syzvZt4LhmeUDrDa8tB2I44L5+MNe9U5Vm7Op4L7HHzp3JimzOcWjdkhYCE0Gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779127702; c=relaxed/simple;
-	bh=r6dhSLixRiH8d6aSORfSpbFK0GajlV+f6tJSnYYpVwI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aRt6MUwmn/AEglgxan5qW7pNX/TK6HNXEB02HeeMpptk6iXJWZSF1Z03VZwq6aScRYuXuI2i0/Y3vBtQXBPm1AkjQJ5ZZ9o6xrsywReeKL39TdlqGSANaRASlluyH88Dss2BituZFZK4lypxnf7/Jf4XMVDt+M75+qODgaSUGLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/20/c+8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779128780; c=relaxed/simple;
+	bh=pbXYLQ1mwct3+ssZlrWJpr6OzTUkZbnMsQ/G5sb/T3M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AD7/43eDuGOoEq+T35lC4QD/Y67eyRbJR31nR957MQEP33uzEiMhdd1Os9xCmMCY3IwNa6mJtH6kuzid6b1V1V0QMwYGzZ6Tal+6X1pqp/x9GUTkgvMDhlVWjPAxjcz1/VE5QjG9NyaeTs7t4nCrxNpTKBXlgY277v65NDN6foI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A2T0DUHL; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/20/c+8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5F4C2BCC6;
-	Mon, 18 May 2026 18:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779127702;
-	bh=r6dhSLixRiH8d6aSORfSpbFK0GajlV+f6tJSnYYpVwI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=B/20/c+8iMhybGK5TURKlbs/dTsAc3ISJL6J0Hk44VgHWTuOV8msjShU1DztfOaQG
-	 IWoYfZyvQKOXNkFwkplS27J0aP99AjW0uQrN3iK9hlMQcBs8SOr63csZyJmFg6pB9f
-	 ApgyfXWZt+K78dADcTF8PYa75ZJbJ+e8VaNYxnGkOxxDrvm13bnfk06fCRHs/JYEx4
-	 xVMeATX2XEDMSE5WowH86xRbn4Hd7sMpBElVvqvGR/3NqgKRa7akx5M18xCZXwYAVc
-	 c0hUPrGZl+9jjzHYEyxHmOMn0yDn/7OJ3APybGiTXtTB0MqVszJqmMhcP9tPMZuxvl
-	 3l7bAtEvm7AlA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Add Vicharak Axon Mini
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ajit Singh" <blfizzyy@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260518173039.20592-4-blfizzyy@gmail.com>
-References: <20260518173039.20592-4-blfizzyy@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 18:08:21 +0000
-Message-Id: <20260518180822.1B5F4C2BCC6@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A2T0DUHL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779128779; x=1810664779;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pbXYLQ1mwct3+ssZlrWJpr6OzTUkZbnMsQ/G5sb/T3M=;
+  b=A2T0DUHLXSAZYQw2jRiF+UoKrVoD0sUG+NgJtbnOEQb18t2vQsGxLopw
+   YUxKWtYH8sxVruSa43cAl3BbpnZ04oBxA4nDyeKXLSbRW1afM6G4WSkr4
+   ZJObrW+BGc0Icc6onS9dZJE4WOU0QPpHzD8wHPszfE+/amcnq74W8dnKi
+   ojxajFEfbqExWClaWwZqO4rARkYfU4V+fyjqBpaVjrQhtM0PqYc19qSsI
+   3nLaQA3OGxSSKCqC+ljONKYwvx39XAdeaOkXLxRLKrsuiGC3BZF3e3Dub
+   /9Ft5tR0johwFWGFLRiCCXov2JNgAOk0WOR15314fzbbobb8vfam97s1H
+   A==;
+X-CSE-ConnectionGUID: 9qriItO/ScWlODNBpfRg1Q==
+X-CSE-MsgGUID: +k3VPqE9SVOFJAvzB/QnXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="90575555"
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
+   d="scan'208";a="90575555"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 11:26:18 -0700
+X-CSE-ConnectionGUID: O0zap/NiRba3AYD16GFVrA==
+X-CSE-MsgGUID: e9aNJkI4TGO68gsQIjE1Pw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
+   d="scan'208";a="239764455"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.3])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 11:26:12 -0700
+Date: Mon, 18 May 2026 21:26:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v11 4/6] iio: adc: ad4691: add SPI offload support
+Message-ID: <agtZwbeVeZdnlXTI@ashevche-desk.local>
+References: <20260515-ad4692-multichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com>
+ <20260515-ad4692-multichannel-sar-adc-driver-v11-4-eab27d852ac2@analog.com>
+ <80f61c0b-1f36-4fee-9f76-b93f63b87abe@baylibre.com>
+ <LV9PR03MB841418AEF0059E802F7A69B2F7032@LV9PR03MB8414.namprd03.prod.outlook.com>
+ <60d66897-41cc-4f3f-afd2-64e49f0bb55e@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <60d66897-41cc-4f3f-afd2-64e49f0bb55e@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The PCIe endpoints lack their power supply definitions (`vddpe-3=
-v3-supply`), relying instead on `regulator-always-on`.
-- [Medium] The USB 2.0 host controller lacks its VBUS power supply definiti=
-on (`vbus-supply`), relying instead on `regulator-always-on`.
---
+On Mon, May 18, 2026 at 10:16:38AM -0500, David Lechner wrote:
+> On 5/18/26 10:14 AM, Sabau, Radu bogdan wrote:
+> >> -----Original Message-----
+> >> From: David Lechner <dlechner@baylibre.com>
+> >> Sent: Saturday, May 16, 2026 8:53 PM
 
-commit 9bf522377749eb6ea3477116679a7d9817103a9f
-Author: Ajit Singh <blfizzyy@gmail.com>
+...
 
-arm64: dts: qcom: Add Vicharak Axon Mini
+> >>> +	if (st->manual_mode && st->offload)
+> >>> +		return sysfs_emit(buf, "%llu\n", READ_ONCE(st->offload-
+> >>> trigger_hz));
+> >>
+> >> Why do we need READ_ONCE?
+> > 
+> > trigger_hz is u64 and if the target is 32-bit, a 64-bit access compiles to two 32-bit
+> > instructions, so show() reading it without a lock and store() writing it concurrently
+> > can produce a torn value at the compiler level. READ_ONCE/WRITE_ONCE suppress
+> > the compiler transformations that would allow that splitting or caching. We could
+> > have st->lock in show() instead, but that felt heavier than necessary for a single
+> > scalar where a transiently stale-but-whole read is fine.
+> 
+> I would go with the mutex. It will be easier for people to understand.
 
-Add DTS for the Vicharak Axon Mini board based on the Qualcomm QCS6490 SoC.
-This adds debug UART, eMMC, UFS, SDIO WLAN, USB 2.0 host, PCIe support along
-with regulators.
+But why? READ_ONCE() here is exactly enough. We do not care about
+serialisation, we care only about integrity. With mutex it will confuse
+(some) people more, e.g., me. Because in that case I would think about
+some specific access to it that may happen. Yes, I saw many times the show
+functions that do mutex and then print the result when mutex is not held
+anymore, but for simple cases like here, mutex is overkill. Interestingly
+that using guard()() inside show makes the mentioned functions to print
+(almost) latest value of the variable in question. It narrows window down
+as printing will go inside critical section.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-vicharak-axon-mini.dts b/ar=
-ch/arm64/boot/dts/qcom/qcs6490-vicharak-axon-mini.dts
-> new file mode 100644
-> index 0000000000000..e9d54804ade1d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-vicharak-axon-mini.dts
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[ ... ]
 
-> +	vcc_5v0_usb2_0: regulator-vcc-5v0-usb2-0 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vcc_5v0_usb2_0";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +
-> +		vin-supply =3D <&vcc_5v0>;
-> +
-> +		gpio =3D <&tlmm 117 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 =3D <&vcc5v0_usb2_0_en>;
-> +		pinctrl-names =3D "default";
-> +
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
-> +
-> +	vcc_pcie1_3v3: regulator-vcc-pcie1-3v3 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vcc_pcie1_3v3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +
-> +		vin-supply =3D <&vcc_5v0>;
-> +
-> +		gpio =3D <&tlmm 115 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 =3D <&vcc_pcie1_3v3_en>;
-> +		pinctrl-names =3D "default";
-> +
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
-> +
-> +	vcc_pcie0_dsi_3v3: regulator-vcc-pcie0-dsi-3v3 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vcc_pcie0_dsi_3v3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +
-> +		vin-supply =3D <&vcc_5v0>;
-> +
-> +		gpio =3D <&tlmm 114 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 =3D <&vcc_pcie0_dsi_3v3_en>;
-> +		pinctrl-names =3D "default";
-> +
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
-
-[ ... ]
-
-> +&pcie0 {
-> +	perst-gpios =3D <&tlmm 87 GPIO_ACTIVE_LOW>;
-> +	wake-gpios =3D <&tlmm 89 GPIO_ACTIVE_HIGH>;
-> +
-> +	pinctrl-0 =3D <&pcie0_clkreq_n>, <&pcie0_reset_n>, <&pcie0_wake_n>;
-> +	pinctrl-names =3D "default";
-> +
-> +	status =3D "okay";
-> +};
-
-Can the &pcie0 node properly power-manage its endpoint without a
-vddpe-3v3-supply property?
-
-The device tree defines vcc_pcie0_dsi_3v3 with regulator-always-on and does=
-n't
-link it here. This breaks proper PCIe power management, as the driver cannot
-turn power off during suspend or reset sequences.
-
-[ ... ]
-
-> +&pcie1 {
-> +	perst-gpios =3D <&tlmm 2 GPIO_ACTIVE_LOW>;
-> +	wake-gpios =3D <&tlmm 3 GPIO_ACTIVE_HIGH>;
-> +
-> +	pinctrl-0 =3D <&pcie1_reset_n>, <&pcie1_wake_n>, <&pcie1_clkreq_n>;
-> +	pinctrl-names =3D "default";
-> +
-> +	status =3D "okay";
-> +};
-
-Similarly here, should vcc_pcie1_3v3 be referenced as vddpe-3v3-supply for
-the &pcie1 node instead of relying on regulator-always-on?
-
-[ ... ]
-
-> +&usb_2 {
-> +	dr_mode =3D "host";
-> +
-> +	status =3D "okay";
-> +};
-
-Does the USB 2.0 host controller need a vbus-supply reference here?
-
-The device tree defines vcc_5v0_usb2_0 as a 5V regulator but relies on
-regulator-always-on instead of referencing it as vbus-supply (typically
-via a usb-a-connector child node). Without this linkage, the USB driver
-cannot control VBUS power when the port is inactive or suspended.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518110435.1626=
-2-1-blfizzyy@gmail.com?part=3D3
