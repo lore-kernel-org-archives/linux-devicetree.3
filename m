@@ -1,96 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE153F076F;
-	Mon, 18 May 2026 15:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF74282F08;
+	Mon, 18 May 2026 15:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779118183; cv=none; b=exknd1zBqcU6Ne6V/wzA1Go+FmSdZWGiw7CVS6AY780tlOqy8D16kyfjVg9KfGdB7JM1bWPZo9LumJ84yEWtjWUOKJnf50OqYhsneU7i5eEZWlK6PPFYkZONsoP4R07jOqS9WIQW2XMbqZlzQmzuUUSLdHVNYYAQQZ3AO8o4IrA=
+	t=1779118458; cv=none; b=BS4bKHE2BD3TeawlExwA1hxumLbc/ocniOmukYEeX1wg3BFNI16rMrvTbO675UfpJwdkaqIXDBKQkcsSedW2ffVYtmF2EprPUVcM5yB5tk1vOiOx5YDv5IgS5ooFxqoRZr53/THw76ITDrB1RYFqO/9zxx3AxOiJzsg9bYg31/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779118183; c=relaxed/simple;
-	bh=sG79W+MkJg5APZjQ0IZO8BppN8H3r5aAnNzI61jDF3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GpvCWr+J1D5vOwsL9P8R+ucqn97HHCe1Fdo4XbTDXNNbP6w0V+Bu5Baq8H9gBN9jiarB6R5zjhXTtd9ESTjr0rRzw8Hwh9UEuuwjeVq5Z7ffbQ+MetDLcovvw1xComT42x7SJEEmE9EE2GaC+AIH7ijGXJcomZH8XpifgKImJsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DwZqROts; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DwZqROts"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022C5C2BCB8;
-	Mon, 18 May 2026 15:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779118182;
-	bh=sG79W+MkJg5APZjQ0IZO8BppN8H3r5aAnNzI61jDF3c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=DwZqROts39mMfmYdvXCT4HPiFfhe7pphuh2eDKH6Wk1FhbfIuLFoJAzIV1w6dNRkv
-	 gS8cb8Xmb9xkOCt1qVIvLGgvmZE6oe/kQRj9Y6tOcK3J7+SZnfUwT+d+1JQHBnsM7k
-	 y3T2EZLmM1+zyp9NgHNPRUHvt0LY1DRZbWBLEBpI5BZTxG52678vBTHhYBIh0DFCr2
-	 oQc7xvwwanHA8iVLjTvBSa4aPqcGU3EOVTPRsiGop7Ajz+J42dwFVmK6swcGn2j3CX
-	 P6VUm6NFcP5DRUG3+5LkZrUBKtbe441Fuid0F7nbIj+YzyFabtEFqfwvMKgxkES4aO
-	 fEdY++PK5+AOg==
-Date: Mon, 18 May 2026 16:29:21 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Cc: linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
- workflows@vger.kernel.org, linux-arch@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-kbuild@vger.kernel.org,
- linux-csky@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Dongliang
- Mu <dzm91@hust.edu.cn>, Hu Haowen <2023002089@link.tyut.edu.cn>, Dinh
- Nguyen <dinguyen@kernel.org>, Kees Cook <kees@kernel.org>, Oleg Nesterov
- <oleg@redhat.com>, Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Nick
- Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, Vinod
- Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Dave Penkler
- <dpenkler@gmail.com>, Andi Shyti <andi.shyti@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?=
- <kwilczynski@kernel.org>
-Subject: Re: [PATCH] nios2: remove the architecture
-Message-ID: <20260518162921.73e7c3aa@jic23-huawei>
-In-Reply-To: <20260518042833.272221-1-enelsonmoore@gmail.com>
-References: <20260518042833.272221-1-enelsonmoore@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1779118458; c=relaxed/simple;
+	bh=ypg30GFVWaBROlxm29ZV9G0HDLk60+P5gg3Ztr55JRc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LwYqIcw/QLXKdnQstQv4dE02wh1hGtf95mJA7Z0V4Am8IeH8zyGVUaBKOigk88LTZnwDwCk1ZFchJdfjUT2SmTiqCS1hpxBk0xD9K7FLe6+8nY91iOcjKutDtDj9eIvx8sBsswaz+A8ty4fyQYFr85CoHPKceNt9q6ognzDrMVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id D3C8E1F80041;
+	Mon, 18 May 2026 15:34:15 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 568F3B40808; Mon, 18 May 2026 15:34:15 +0000 (UTC)
+X-Spam-Level: *
+Received: from collins (unknown [192.168.1.64])
+	by laika.paulk.fr (Postfix) with ESMTP id 1F260B407FB;
+	Mon, 18 May 2026 15:33:40 +0000 (UTC)
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Yong Deng <yong.deng@magewell.com>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v9 0/9] Allwinner A31/A83T MIPI CSI-2 and A31 ISP / Platform Support
+Date: Mon, 18 May 2026 17:33:29 +0200
+Message-ID: <20260518153339.619947-1-paulk@sys-base.io>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 17 May 2026 21:28:33 -0700
-Ethan Nelson-Moore <enelsonmoore@gmail.com> wrote:
+This series adds platform support for the V3s/V3/S3 MIPI CSI-2 and ISP units
+as well the as A83T MIPI CSI-2 unit in the respective device-trees.
+Overlays for the BananaPi M3 cameras are also provided as actual users of the
+camera pipeline on A83T.
 
-> The Nios II architecture is a soft-core architecture developed by
-> Altera (since acquired by Intel) and intended to run on their FPGAs.
-> 
-> Licenses for the architecture have not been available for purchase
-> since 2024 [1], and support for it has been removed from GCC 15 [2],
-> Buildroot [3], and QEMU [4].
-> 
-> Given all of these factors, it is time to remove Nios II support from
-> the kernel. The maintainer stated in 2024 that they were planning to do
-> so soon [5], but this did not come to pass.
-> 
-> Remove Nios II support from the kernel and move the former maintainer
-> to CREDITS. Thank you, Dinh Nguyen, for maintaining Nios II support!
-> 
-> References:
-> [1] https://docs.altera.com/v/u/docs/781327/is-discontinuing-ip-ordering-codes-listed-in-pdn2312-for-nios-ii-ip
-> [2] https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff;h=e876acab6cdd84bb2b32c98fc69fb0ba29c81153
-> [3] https://github.com/buildroot/buildroot/commit/6775ccc5a199d574ad70b5f79ec58cce97a07c6f
-> [4] https://github.com/qemu/qemu/commit/6c3014858c4c0024dd0560f08a6eda0f92f658d6
-> [5] https://sourceware.org/pipermail/newlib/2024/021083.html
-> 
-> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-If it goes for IIO trivial changes.
-Acked-by: Jonathan Cameron <jic23@kernel.org>
+The corresponding drivers and dt bindings were merged a long time ago but this
+series was never actually picked up. It seems more than ready to be merged!
+
+Changes since v8:
+- Added collected review tags;
+- Added the overlays to be built as full dtbs.
+- Removed trailing whitespace.
+
+Changes since v7:
+- Added collected review tags;
+- Added interconnect properties to bindings;
+- Added compatible for device-tree overlays;
+- Moved mclk pin to sensor node in bpi-m3 overlays;
+- Removed duplicated assigned-clocks in bpi-m3 overlays.
+
+Changes since v6:
+- Rebased on top of the latest media tree, renamed dts to dtso for overlays.
+
+Changes since v5:
+- Added BananaPi M3 camera sensor support as device-tree overlays;
+- Cleaned-up OV8865 regulator definitions;
+- Always declared the internal links between CSI and MIPI CSI-2 on A83T
+  in device-tree.
+
+Changes since v4:
+- Removed mbus bindings patch: an equivalent change was merged;
+- Added collected tags;
+- Rebased on latest media tree.
+
+Changes since v3:
+- Reordered v3s mbus compatible in binding;
+- Added collected tag;
+- Removed rejected interconnects fix.
+
+Changes since all-in-one v2:
+- Corrected mbus index used for the interconnects;
+- Used extended mbus binding and exported the DRAM clock for that;
+- Reworked the description of the core openfirmware change to give
+  more insight about the situation.
+*** BLURB HERE ***
+
+Paul Kocialkowski (9):
+  dt-bindings: media: sun6i-a31-csi: Add optional interconnect
+    properties
+  dt-bindings: media: sun6i-a31-isp: Add optional interconnect
+    properties
+  clk: sunxi-ng: v3s: Export MBUS and DRAM clocks to the public header
+  ARM: dts: sun8i: v3s: Add mbus node to represent the interconnect
+  ARM: dts: sun8i: v3s: Add nodes for MIPI CSI-2 support
+  ARM: dts: sun8i: v3s: Add support for the ISP
+  ARM: dts: sun8i: a83t: Add MIPI CSI-2 controller node
+  ARM: dts: sun8i-a83t: Add BananaPi M3 OV5640 camera overlay
+  ARM: dts: sun8i-a83t: Add BananaPi M3 OV8865 camera overlay
+
+ .../media/allwinner,sun6i-a31-csi.yaml        |   6 +
+ .../media/allwinner,sun6i-a31-isp.yaml        |   6 +
+ arch/arm/boot/dts/allwinner/Makefile          |   6 +
+ .../sun8i-a83t-bananapi-m3-camera-ov5640.dtso | 115 +++++++++++++++++
+ .../sun8i-a83t-bananapi-m3-camera-ov8865.dtso | 101 +++++++++++++++
+ arch/arm/boot/dts/allwinner/sun8i-a83t.dtsi   |  43 +++++++
+ arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi    | 121 ++++++++++++++++++
+ drivers/clk/sunxi-ng/ccu-sun8i-v3s.h          |   4 -
+ include/dt-bindings/clock/sun8i-v3s-ccu.h     |   4 +-
+ 9 files changed, 400 insertions(+), 6 deletions(-)
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov5640.dtso
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov8865.dtso
+
+-- 
+2.54.0
+
