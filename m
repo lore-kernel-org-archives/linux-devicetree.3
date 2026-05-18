@@ -1,387 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11013046.outbound.protection.outlook.com [52.101.127.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0438218AB9;
-	Mon, 18 May 2026 02:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779072398; cv=none; b=S3SZ49Sq7C0B4lEKgu92+hbny6BRzH/zMLJ8c1hJpHCLwzNybrrUf+xnsf10X5pWIxkcLxQm9tzRP0+qrIV3kCHKNL/ySE+vUOsYA4fiXuvMM7ApR3qTuaqyvCPdDMhj87Gy77HytRnmWz8lavUSDLqqFKjA4rvowaY5snM2WM4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779072398; c=relaxed/simple;
-	bh=5zHura2ikc3DQkQZ1soryG3lh+2fqIgH9sfgwS1uNFY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hHN1HIOYwe11ZYo+yMCCR8dwUOvXvmYeiUObfJ5ZcyukaqwabRrUj67efLF5RIpt+c/MQv0Jpqk1mZH6HX/bzi9os60nhDphTUSKbhxC0ZZO0ZgQozgaIa+Soe6whLxgQ27U85Ei6Gvgw56i7ovK79M5Cb0b9gTQebUT5FJVMD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qVzNw5Bz; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A594B218AB9;
+	Mon, 18 May 2026 02:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779072443; cv=fail; b=VROBwdZQM1M+kuiVVQTgCGw4rHmg3AfI43c266rlSoKePh5I9DQzqECrKVrU7QXpXtViILvP3VtnVeRU+EY3pSNMkeOz6+XRuaRxe4ydMVKZuqSHGWbLPFXyGxwHSYqxvjn4jvXhhHCcwSg4dvkzs2X0OcUS1yT8L7cNkzweQDk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779072443; c=relaxed/simple;
+	bh=d5yGhPnLvVidyilPRk2XwyeECp78GE0H7MqweQF7q9E=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TCZbtGVfImK/X9m4AsGV//EtMKqA0f24ofrLQS6JqaKdkS66yEK6e97ebxq0usS1Anc2O/4RGjWUfnGe1ABBAMX+PmWs8BGuFI7uTMUaw7BBBWLY0DGNYy4j3MHydCugEfoiLIoAYIJe76pU0Oibu1ue+CdCw8Ay/ANmnURtEEI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=oOW6+Ml8; arc=fail smtp.client-ip=52.101.127.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qVzNw5Bz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C54EC2BCB0;
-	Mon, 18 May 2026 02:46:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779072398;
-	bh=5zHura2ikc3DQkQZ1soryG3lh+2fqIgH9sfgwS1uNFY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=qVzNw5Bzpf7jLn/x0VgSkoBz0ntju5qMzIl4IfKDqlY7cehFS5gtk5F5/XflizlIo
-	 aOpElJeWpFD0zlfMxsae4jOhuft8+fbDTq3ok1C9Wsf5woBr7VfijL7pZEhYbkFbNK
-	 t2dcwHY/hA+3MjeebqtitJKmz2vYefcCHv+DKa5sHj5t8lFQPUo1yvUsEiWpr+a41o
-	 1DE3jV+gOvM0wB2C480UjYBe03/AGbanyygJrHxsbWGVieFPdvvFVvy0WfTlIfCYGE
-	 hgPgXQauIkRoz4olNDXjFOjdJaMLOYCFq63Dn3trT+W1m32FHnS49Yr+xOnMNjmy4h
-	 bGYPdkHg8NNTQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] media: nxp: Add i.MX95 CSI pixel formatter v4l2
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518-csi_formatter-v7-2-562b750557e3@oss.nxp.com>
-References: <20260518-csi_formatter-v7-2-562b750557e3@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 02:46:37 +0000
-Message-Id: <20260518024638.5C54EC2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="oOW6+Ml8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DTu6a8yTQKebyhi+BRgtuRy9fQDptx8P7HbbVCt0jZzJU6FRRvgUGVZpC5TLNFWYDjWW7VWb+3tsTCm2Ffs4vImBkJuXDH1zPwMBNdJNHgU8CtkVTdFADTBnVp07WZBc4P2A0NgpRZ/r0mu4vj9861QyhzxxEITbwcnNTXH7b/oCRO/4Xn8RMajtGai/DEVLzLCzysjIPPIpiw0Lc8XHJd4J2Fg0q4BUk7ImfvHnth+L//80K554fIqkuZ5LBIkT3DAlBpzOi1qm+LCZkeIGfE/7cTf5Wtaa9ygCHkwbfrR4MSDNLdUd28dzcqy5NNWO67DbOeIDFlaC8mjV+w+4rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dYiEkg6Hqid8AjshCKGM1nBEI6HCekW52k20ISwnC10=;
+ b=CRKAgqEZLSaTTFovJvGki/kJFtwWJND6gO3SDni2rYPQoc0xcSBS2fxItY02q56f8bQPnBBu1JF06s9xF+cB3+Vs669pAmBx+BgfwCxC7PGXrgSEDxgAuDG7tjVgtgoWtItjABPftEr5M63sinCXPhJHM8lJwcB1JOT32wC6dM3UIs6ZNJdr09Ik/YgbSHzfkOtFzQRtacNQ5P6BOqqKgH7VBeTjh674V6EBivBzrWg/HS+AlfSERUwN8YvNuuVtTDimICDA+bYy5hTIk754pOjqjnODDV0AFcotYU0cG8sGeWLFjQjP+yi2bYqQ/kDxinaQ+UiOKm/w400HPpohkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dYiEkg6Hqid8AjshCKGM1nBEI6HCekW52k20ISwnC10=;
+ b=oOW6+Ml8YlWrbyOgI5oziSN0VfwpGrp4CjLkkiOniJM19GbWlZar4WsAvxMWJjQyh89l5dz7v7eQuBmrQHyMhWHL8LPIy6ElXs7FrPF82b0iCPQ/0PdDWCKG60AmcsKggSTydAp3d30MujkKJoXDMnJbavHcVhwKrg4BI/QfPLlUC6kVxG/4/f/ds+XK5E2bNbsj80KeYm4Fhaq8pO5rESNGkPVfAz/6zH7imp4Jv4cqrtyXQXczkrxjZ/oe18OOQoqxxyMfDiECV2u2GXqUMyt0/pB5+xtWwz9Z7lGg2DxWsKLNlOCRABGIZwU/NsYB4YSJW+VgSMzRx6SuFVqA3Q==
+Received: from SG2P153CA0003.APCP153.PROD.OUTLOOK.COM (2603:1096::13) by
+ OSQPR03MB9372.apcprd03.prod.outlook.com (2603:1096:604:427::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.13; Mon, 18 May
+ 2026 02:47:13 +0000
+Received: from SG2PEPF000B66D0.apcprd03.prod.outlook.com
+ (2603:1096::cafe:0:0:89) by SG2P153CA0003.outlook.office365.com
+ (2603:1096::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.2 via Frontend Transport; Mon, 18
+ May 2026 02:47:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
+Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
+ SG2PEPF000B66D0.mail.protection.outlook.com (10.167.240.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 02:47:13 +0000
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Mon, 18 May
+ 2026 10:47:12 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Mon, 18 May
+ 2026 10:47:11 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Mon, 18 May 2026 10:47:11 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <perex@perex.cz>, <tiwai@suse.com>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
+ Chang" <YLCHANG2@nuvoton.com>
+Subject: [PATCH v2 0/2] ASoC: codecs: Add Nuvoton NAU83G60 audio codec driver
+Date: Mon, 18 May 2026 10:47:02 +0800
+Message-ID: <20260518024704.118613-1-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66D0:EE_|OSQPR03MB9372:EE_
+X-MS-Office365-Filtering-Correlation-Id: b55d82a9-3d5a-4b84-2dc0-08deb487c3e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|18002099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info:
+	L8VoHMy3nvUQc5cQPacG+8i6699mUUKTSMfs1iitPnl4meAxcqGR+d+tQwW/97LVrHDzNlDmz1fIZZMYqZzCYkw+NuFw6YilwcyfzK8bQGP7T4m4KROVIdayiS2M5ifp/hctMjbJEA8ncy6GvIps8xy+Dkech7juXa2TtT11LSU7Hmf4l2NJi1PHcV9X4jNS6lnnNoHWyqgiwrOUiVHu5RgpU7XKaC/uv7NVB+/B4/K4WsQ1FWux4cgdUqOhw+xRPWH/1gsQjKQ+FUMXsocIdvAQ/DnCZtHxa6EL3VJzqdQWBia440fPJL/khUHPueRmO7IZ92VYvdj0YAatsd2yhcMdtbjJK/nyRaoQW7DKthBpfC1MTSssYDN/UrdVI0r1A+MHY+ZbtPnCNOYmMOdXv+3u8+4jsiFiKD4HB23TisC0QqfDGn5loMuyfBkMYbMyZP3m3lKrFsolbX1hG0P1T6ojrF70WYO3lM7MVt5N6L2f2VIt6Ebp5Ud61LgDc4YLHxtrllkRHH03aC6o8OMeEn8kcu8O6bE8wUanWD7+JGXhotzOhVi6BLhOlPH74HvXU8XR/YwqUzsp2qCU1zwPx9viy7nImRvdpS76h9u4o4eIebX3HgKLVcv31o34btB3vbFTgQU5b5SuxvWzQJ67iQ9xxni9FyhW/LHbkEiBmjOYBfbUggK74lXgxsSMpv+azOpJvqz3YQ4AGU4DMMLCUaKEUUCUBQTlIkFPpUV8sRI=
+X-Forefront-Antispam-Report:
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(18002099003)(56012099003)(11063799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IpQAg/7vN8086ugOO6LxAadXVAHwhRca6Z6BB4z4jqWVuAygc8Rrsas3gSynuIdcv4grzS44UV1uqK5NlKZkkbo3a4el9WsiU85v6M21zvg9pOHWtitD2SyHpn3hxiGQfwjQnKx7LG4vBXJSRYyglKcMgwc+PwJsLbUFZQyUix6gAAC9d/BL+yYZr7gT6NcmUaBV0/RM+c5y5fvrzoOw5uwkq+Ykz+QSpOIQpNHtiqWJgO4hSauWs9YVrpBDCGC2mkLqUyv8mHCx0tb8eQD8TLoMAsq1KAEB7KHUS15BG5BxEpmhH/OThICIADg/oiklbKOuTlfiCNxHUfwmVSPffCMFOcTyEccGzJkJwlUH/2yqGyq3pHXRDk/3CW/vZGN8g09ZMa2yhKzssFX4/II6ezNarUM+zDXAHPAwbxXHKJNy8oOB/Tczioyo2gmauQZb
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 02:47:13.2252
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b55d82a9-3d5a-4b84-2dc0-08deb487c3e6
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66D0.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR03MB9372
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [High] Unchecked return value from v4l2_subdev_state_get_format() causes =
-a kernel panic on invalid stream IDs.
-- [High] Missing .unbind callback leaves a dangling pointer to the upstream=
- subdevice, leading to Use-After-Free.
-- [High] Global format caching breaks multiplexed multi-stream configuratio=
-ns.
-- [High] Register overwrite on shared virtual channels disables concurrent =
-streams.
-- [High] Querying upstream frame descriptor after disabling it leads to res=
-ource leaks.
-- [High] Unprotected format modification and missing streaming check in for=
-matter_subdev_set_fmt().
-- [High] Double pm_runtime_put() on stream disable failure leads to unbalan=
-ced PM usage counter.
-- [Medium] Mixing of goto-based error handling and scope-based cleanup help=
-ers violates subsystem guidelines.
-- [Medium] Uninitialized stack variable `source_fd` in get_vc() risks out-o=
-f-bounds memory reads.
-- [Medium] Stream bitmasks > 7 are silently ignored during start/stop.
-- [Medium] formatter_subdev_set_fmt() breaks unrouted streams by improperly=
- returning -EINVAL.
---
+This patch series adds support for the Nuvoton NAU83G60 audio codec.
 
-commit 4d8a1be6e9f473bbb1ccaf942fe57cfe4870bd41
-Author: Guoniu Zhou <guoniu.zhou@nxp.com>
+The NAU83G60 is a stereo Class-D amplifier with an integrated DSP and
+I/V-sense capabilities. The driver supports I2C register access through
+regmap, DAPM widgets and routes, TDM interface configuration, and DSP
+firmware loading.
 
-media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver
-   =20
-The CSI pixel formatter is a module found on i.MX95 used to reformat
-packet info, pixel and non-pixel data from CSI-2 host controller to
-match Pixel Link(PL) definition. Add data formatting support.
+The series is structured as follows:
+- Patch 1: Adds the YAML device tree bindings documentation.
+- Patch 2: Adds the ASoC codec driver implementation.
 
-> diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/m=
-edia/platform/nxp/imx95-csi-formatter.c
-> new file mode 100644
-> index 0000000000000..45240b7422b47
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
-> @@ -0,0 +1,776 @@
-[ ... ]
-> +static int formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
-> +					   struct v4l2_subdev_state *sd_state,
-> +					   struct v4l2_subdev_mbus_code_enum *code)
-> +{
-> +	if (code->pad =3D=3D CSI_FORMATTER_PAD_SOURCE) {
-> +		struct v4l2_mbus_framefmt *fmt;
-> +
-> +		if (code->index > 0)
-> +			return -EINVAL;
-> +
-> +		fmt =3D v4l2_subdev_state_get_format(sd_state, code->pad,
-> +						   code->stream);
-> +		code->code =3D fmt->code;
+Changes in v2:
 
-Is it possible for v4l2_subdev_state_get_format() to return NULL here?
-If userspace passes an unrouted stream ID, this might result in a NULL
-pointer dereference.
+[dt-bindings]
+- Dropped the word "driver" from the description.
+- Removed runtime/software configuration properties:
+  nuvoton,low-latency, nuvoton,anc-enable, nuvoton,aec-enable,
+  nuvoton,vbat-microvolt, and nuvoton,tdm-channel-length.
+- Added missing "nuvoton,dac-cur-enable" property for static speaker
+  impedance matching.
+- Removed unnecessary '|' formatting from single-line descriptions.
+- Fixed typo in firmware-name property.
 
-> +		return 0;
-> +	}
-[ ... ]
-> +static int formatter_subdev_set_fmt(struct v4l2_subdev *sd,
-> +				    struct v4l2_subdev_state *sd_state,
-> +				    struct v4l2_subdev_format *sdformat)
-> +{
-> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
-> +	struct formatter_pix_format const *format;
-> +	struct v4l2_mbus_framefmt *fmt;
-> +
-> +	if (sdformat->pad =3D=3D CSI_FORMATTER_PAD_SOURCE)
-> +		return v4l2_subdev_get_fmt(sd, sd_state, sdformat);
-> +
-> +	/*
-> +	 * Validate the media bus code and clamp and align the size.
-> +	 *
-> +	 * The total number of bits per line must be a multiple of 8. We thus
-> +	 * need to align the width for formats that are not multiples of 8
-> +	 * bits.
-> +	 */
-> +	format =3D find_csi_format(sdformat->format.code);
-> +	if (!format)
-> +		format =3D &formats[0];
-> +
-> +	v4l_bound_align_image(&sdformat->format.width, 1, 0xffff, 2,
-> +			      &sdformat->format.height, 1, 0xffff, 0, 0);
-> +
-> +	fmt =3D v4l2_subdev_state_get_format(sd_state, sdformat->pad,
-> +					   sdformat->stream);
-> +	*fmt =3D sdformat->format;
+[codec driver]
+- Fixed nau8360_peq_coeff_put() to return 1 on value change.
+- Refactored TDM slot routing to use ALSA kcontrols instead of
+  custom masks in set_tdm_slot().
+- Switched regmap cache type to REGCACHE_MAPLE.
+- Dropped hardcoded DAC gain initialization to retain chip defaults.
+- Used devm_snd_soc_register_component() for safe unregistration.
+- Separated TDM TX/RX logic in shutdown() to safely support
+  full-duplex operation.
+- Refactored TDM enable/disable logic: moved RX enable from
+  startup to hw_params,
+  TX enable from startup to set_tdm_slot, and handled disable logic
+  in shutdown.
+- Moved software/runtime configurations from DT properties
+  to ALSA kcontrols (e.g., DSP bypass, low latency).
+- Corrected supported PDM data length from 24 to 32 bits per
+  datasheet specifications.
+- Updated firmware DT property parsing to use standard firmware-name.
+- Removed redundant VBAT bounds check in nau8360_sawtooth_params()
+  as it is already validated by the caller.
+- Read VBAT level dynamically via register instead of relying on
+  a DT property.
+- Cleaned up magic numbers by introducing PEQ band enumerations.
+- Set dsp_fws_num to 0 to use default firmware paths if
+  "firmware-name" is missing.
 
-Can v4l2_subdev_state_get_format() return NULL for an unrouted stream here
-as well?
+Neo Chang (2):
+  ASoC: dt-bindings: nuvoton,nau8360: Add NAU83G60
+  ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
 
-> +
-> +	/* Set default code if user set an invalid value */
-> +	fmt->code =3D format->code;
-> +
-> +	/* Propagate the format from sink stream to source stream */
-> +	fmt =3D v4l2_subdev_state_get_opposite_stream_format(sd_state, sdformat=
-->pad,
-> +							   sdformat->stream);
-> +	if (!fmt)
-> +		return -EINVAL;
+ .../bindings/sound/nuvoton,nau8360.yaml       |   86 +
+ sound/soc/codecs/nau8360-dsp.c                |  704 +++++
+ sound/soc/codecs/nau8360-dsp.h                |  117 +
+ sound/soc/codecs/nau8360.c                    | 2334 +++++++++++++++++
+ sound/soc/codecs/nau8360.h                    |  904 +++++++
+ 5 files changed, 4145 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+ create mode 100644 sound/soc/codecs/nau8360-dsp.c
+ create mode 100644 sound/soc/codecs/nau8360-dsp.h
+ create mode 100644 sound/soc/codecs/nau8360.c
+ create mode 100644 sound/soc/codecs/nau8360.h
 
-Since the V4L2 Streams API permits setting formats on unrouted streams,
-should this skip propagation instead of returning -EINVAL?
+-- 
+2.25.1
 
-> +
-> +	*fmt =3D sdformat->format;
-> +
-> +	/* Store the CSIS format descriptor for active formats. */
-> +	if (sdformat->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE)
-> +		formatter->fmt =3D format;
-
-Does this modification of formatter->fmt require formatter->lock protection
-to avoid a race with enable_streams()?
-
-Also, could userspace modify the format concurrently with an active stream
-since there is no media_entity_is_streaming() check here?
-
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int get_vc(struct csi_formatter *formatter, unsigned int stream)
-> +{
-> +	struct v4l2_mbus_frame_desc source_fd;
-> +	struct v4l2_mbus_frame_desc_entry *entry =3D NULL;
-> +	unsigned int i;
-> +	int vc;
-> +	int ret;
-> +
-> +	/*
-> +	 * Return virtual channel 0 as default value when remote subdev
-> +	 * don't implement .get_frame_desc subdev callback
-> +	 */
-> +	ret =3D v4l2_subdev_call(formatter->csi_sd, pad, get_frame_desc,
-> +			       formatter->remote_pad, &source_fd);
-
-Could source_fd be left uninitialized if the upstream subdev returns 0
-but fails to fully populate it? This might lead to an out-of-bounds read
-when iterating over source_fd.num_entries.
-
-> +	if (ret < 0)
-> +		return (ret =3D=3D -ENOIOCTLCMD) ? 0 : ret;
-[ ... ]
-> +static void csi_formatter_stop_stream(struct csi_formatter *formatter,
-> +				     u64 stream_mask)
-> +{
-> +	unsigned int i;
-> +	int ret;
-> +	int vc;
-> +
-> +	for (i =3D 0; i < V4L2_FRAME_DESC_ENTRY_MAX; ++i) {
-> +		if (!(stream_mask & BIT(i)))
-> +			continue;
-
-Are stream IDs >=3D V4L2_FRAME_DESC_ENTRY_MAX supported? If the mask
-contains bits higher than this limit, they seem to be silently ignored.
-
-> +
-> +		ret =3D get_vc(formatter, i);
-> +		if (WARN_ON(ret < 0)) {
-> +			dev_err(formatter->dev,
-> +				"Failed to get VC for stream %d: %d\n", i, ret);
-> +			continue;
-> +		}
-> +
-> +		vc =3D ret;
-> +
-> +		formatter_write(formatter, CSI_VC_PIXEL_DATA_TYPE(vc), 0);
-
-Does overwriting this register completely break other interleaved streams
-sharing the same Virtual Channel? A read-modify-write might be necessary
-here since the register uses a bitmask.
-
-> +	}
-> +}
-> +
-> +static int csi_formatter_start_stream(struct csi_formatter *formatter,
-> +				      u64 stream_mask)
-> +{
-> +	const struct formatter_pix_format *fmt =3D formatter->fmt;
-> +	u64 configured_streams =3D 0;
-> +	unsigned int i;
-> +	u32 val;
-> +	int ret;
-> +	int vc;
-> +
-> +	for (i =3D 0; i < V4L2_FRAME_DESC_ENTRY_MAX; ++i) {
-> +		if (!(stream_mask & BIT(i)))
-> +			continue;
-> +
-> +		val =3D BIT(get_index_by_dt(fmt->data_type));
-
-Will this break if userspace configures a multi-stream pipeline with
-different formats per stream, since it applies the same global data type
-to all enabled streams?
-
-> +
-> +		ret =3D get_vc(formatter, i);
-> +		if (ret < 0)
-> +			goto err_cleanup;
-> +
-> +		vc =3D ret;
-> +
-> +		formatter_write(formatter, CSI_VC_PIXEL_DATA_TYPE(vc), val);
-> +		configured_streams |=3D BIT(i);
-> +	}
-[ ... ]
-> +static int formatter_subdev_enable_streams(struct v4l2_subdev *sd,
-> +					   struct v4l2_subdev_state *state,
-> +					   u32 pad, u64 streams_mask)
-> +{
-> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
-> +	struct device *dev =3D formatter->dev;
-> +	u64 sink_streams;
-> +	int ret;
-> +
-> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state,
-> +						       CSI_FORMATTER_PAD_SOURCE,
-> +						       CSI_FORMATTER_PAD_SINK,
-> +						       &streams_mask);
-> +	if (!sink_streams || !streams_mask)
-> +		return -EINVAL;
-> +
-> +	dev_dbg(dev, "Enable streams: pad=3D%u sink=3D0x%llx source=3D0x%llx\n",
-> +		formatter->remote_pad, sink_streams, streams_mask);
-> +
-> +	if (!formatter->csi_sd) {
-> +		dev_err(dev, "CSI controller not linked with formatter\n");
-> +		return -EPIPE;
-> +	}
-> +
-> +	guard(mutex)(&formatter->lock);
-> +
-> +	if (!formatter->enabled_streams) {
-> +		ret =3D pm_runtime_resume_and_get(formatter->dev);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	ret =3D csi_formatter_start_stream(formatter, streams_mask);
-> +	if (ret)
-> +		goto err_runtime_put;
-
-Does mixing guard() with goto labels create confusing ownership semantics
-here?
-
-> +
-> +	ret =3D v4l2_subdev_enable_streams(formatter->csi_sd,
-> +					 formatter->remote_pad,
-> +					 sink_streams);
-> +	if (ret)
-> +		goto err_stop_stream;
-[ ... ]
-> +static int formatter_subdev_disable_streams(struct v4l2_subdev *sd,
-> +					    struct v4l2_subdev_state *state,
-> +					    u32 pad, u64 streams_mask)
-> +{
-> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
-> +	u64 sink_streams;
-> +	int ret;
-> +
-> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state,
-> +						       CSI_FORMATTER_PAD_SOURCE,
-> +						       CSI_FORMATTER_PAD_SINK,
-> +						       &streams_mask);
-> +	if (!sink_streams || !streams_mask)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&formatter->lock);
-> +
-> +	ret =3D v4l2_subdev_disable_streams(formatter->csi_sd, formatter->remot=
-e_pad,
-> +					  sink_streams);
-> +	if (ret)
-> +		dev_err(formatter->dev, "Failed to disable streams: %d\n", ret);
-> +
-> +	csi_formatter_stop_stream(formatter, streams_mask);
-
-Since the upstream subdevice is disabled first, will its get_frame_desc
-callback fail when csi_formatter_stop_stream() calls get_vc()? This could
-cause the driver to skip disabling the local hardware stream.
-
-> +
-> +	formatter->enabled_streams &=3D ~streams_mask;
-> +
-> +	if (!formatter->enabled_streams)
-> +		pm_runtime_put(formatter->dev);
-> +
-> +	return ret;
-
-If v4l2_subdev_disable_streams() fails, the V4L2 core retains the stream
-as enabled, but the driver clears enabled_streams and calls pm_runtime_put(=
-).
-Would a subsequent retry to disable the stream cause a second
-pm_runtime_put() without a matching get, unbalancing the usage counter?
-
-> +}
-[ ... ]
-> +static const struct v4l2_async_notifier_operations formatter_notify_ops =
-=3D {
-> +	.bound =3D csi_formatter_notify_bound,
-> +};
-
-Is an .unbind callback missing here? If the upstream subdevice is unbound,
-formatter->csi_sd would be left dangling, potentially leading to a
-use-after-free during subsequent V4L2 operations.
-
-> +
-> +static int csi_formatter_async_register(struct csi_formatter *formatter)
-> +{
-> +	struct device *dev =3D formatter->dev;
-> +	struct v4l2_async_connection *asc;
-> +	int ret;
-> +
-> +	struct fwnode_handle *ep __free(fwnode_handle) =3D
-> +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
-> +						FWNODE_GRAPH_ENDPOINT_NEXT);
-> +	if (!ep)
-> +		return -ENOTCONN;
-> +
-> +	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
-> +
-> +	asc =3D v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
-> +					      struct v4l2_async_connection);
-> +	if (IS_ERR(asc)) {
-> +		ret =3D PTR_ERR(asc);
-> +		goto err_cleanup_notifier;
-
-This mixes __free() and goto-based error handling. Could this lead to
-unexpected resource leaks or ownership issues?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-csi_format=
-ter-v7-0-562b750557e3@oss.nxp.com?part=3D2
