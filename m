@@ -1,176 +1,164 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2F236493E
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93FC33C18E;
+	Mon, 18 May 2026 13:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779112683; cv=none; b=vC5BBnRgFcG3cJN88h3I5+Ir+cvirxv/ft3TYNubsM5YgHfT008s9TqYXK/wnvRh6qFUqlrEL4ysxgNONy+TPz5E/uEYE2BGALQL8Xf1Q5BSgS2aJI1FT48C1pNc8QCL7u8+AEMkxLPVZsYo3kDsRAyH6knUbLiK0l/OKgwpOMg=
+	t=1779112692; cv=none; b=hGjufDXK5U97hXiZfmrBHXHYjv/YpJQGsf9K6cEkefZM6hhE9MDNKqFYnjYiZeql64Is/D7r8P56hK2Rn3us83NExdfrbvieRhQt4Uxx22OburqhN5E6TGXdBLeD4VjdNbQ2x55PLn2xY4JbG/BSBLnfpWlgiEn5APTMCT8oZ/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779112683; c=relaxed/simple;
-	bh=yfQr6oLUayQBBCZxtM7GuIaWrTQbBf8KpYeQggUmKhQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tVOv83N1hucUoShDZrR3Gwi3Za/oReZdsQLyRvwn20f3E6KOZ9C+AbiXlm8PYwRx4Go4EGFk9Ea0cwk/D06tvOHAbERNd8X10ipNAX6OP9V3+vlHqw2rsUTkEIEnCEQMzXhDhQRhU7SlPLBuQWEdAqHKEfXAKwtPvJXwQKrdhdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gBt/rLnO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZS45/0Mj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779112692; c=relaxed/simple;
+	bh=gOI3EtloXE0vHYMEZCfbRQeCy1ZlZvJfZkwlX480TPc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bzgXXrgt5TeudwFDYPUvtE4/38K1k48AjxMeUeTTo67Gf1+qENscPN/pyoyRY3l3IGZGSuSC5HBIX/h1PYgo2m0Tleaybk+nBhGYbiYD2YhTNfuvnbEJ6ADIs9wH8wczx1k7FpZaveGkafRWeRubKLRFlH295XqCyTmYbV5aPZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bqYwfhfM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gBt/rLnO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZS45/0Mj"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IAGg6n2685076
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:58:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=tLXYm7cmK5lZVfqyqbHK14WV
-	psNYg+y7RQD2MbOLis0=; b=gBt/rLnOEPVJ29Bonn9jZD/MFBmF8jPA2RGRpnIY
-	0eT2sa55wpiniX0ZWKOR0ltWCK66MMfGy2drT7ImMyjL1tu1+zYqOU9i/lOeUyCt
-	qqyLtZYt6pxhxbP2W2ypKVHrweJyKNgEFiwBOIn6QVks32L0wyjCtiT33eNm1vTY
-	zHSX6O1Rm0gLZCWk2k0NT7dRWxYM6cpnf8Np3pL3Z2v+tFn/U6rOA203B6Avpwb5
-	pG5+wuaraUuvLn4tAegWM596kCJ8DCTv2V0qS1Mbbgc0xLfX5M6lDZEiLm3DRP7a
-	iKvK3X3CZhE0fJG7dBs1aT0HmB+yWvvMMVtbLf2CNlxi0g==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e7vrbt2s3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 13:58:01 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-515224a8aa0so29915441cf.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 06:58:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779112680; x=1779717480; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=tLXYm7cmK5lZVfqyqbHK14WVpsNYg+y7RQD2MbOLis0=;
-        b=ZS45/0MjlUjwDnaQQXA8uvuyJ8ABjVwK3MrjYSrXuJEOn7K6RGaF9PKSNrR3a8Kpbj
-         giMKXVzbucINC8kt69iQ4uv/o37wq4+3CogoQwDHm076e6yy+wOK+0lNOONyfMZObiyg
-         VzpalCzlv8JUua0kSydr87h3hUYQbADFWEtvt0gn8J+Gh0uLf3Da3GLj0K8N9qaRT89u
-         FzfyroJyIVbSaHt7nHjcnHF9GCmji2LFFK14gb+vLma3EgTOemPTN4WsK+qqVnX0Tr7I
-         HqdbYBfmnhttqoTzNxwa6Ta7qCxxL+hoEmvuHfglOgcvly2BcGSwMAZy5kW2wm+JXx/t
-         JYOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779112680; x=1779717480;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=tLXYm7cmK5lZVfqyqbHK14WVpsNYg+y7RQD2MbOLis0=;
-        b=Pm4MvjfQYAfA3grx29UThCKIc+7AAHzHAY3b1h8CF94r2uEYCxMWV9WgOyaqEEbudr
-         4xn37eghtkxUVnNCm7QNBpVYoBC3SLCaTB+OGQzLi653SOkmRvUKZOiozOxJJ8TpGwB0
-         4ZmhbvMJmT3eYqJE7xIjraDYaYyPB1X5aMRd2f4NUP4dTl3PpVw6Uob4FvPqGp4DTZ7h
-         tw0Bg76rytYZEeWbsfN0vPravcu7dFoRwpvxuI2OaVk/LoSdSws+MlBWyVHfeq02F1Gy
-         qi5BGcNWQkU+VMFAUUaqceb6m8Px0PdV6DSVJikq3FeeTjfYGpi1t2HzlrSAQfceGWtV
-         DHaA==
-X-Forwarded-Encrypted: i=1; AFNElJ+ldIpXPhIA64TrTqhFLqZyhNc4ECFjbWEDac6FAJwRMG2CeeE6iraWNgUsLwKAt+Q9X9I2uu3c4rnS@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUa4dkVcO/SYuI+q8E0DGO+VwnsTqoMiWCL0j2rrP9+TeSc2tk
-	22G+Hztvu2Z834pEBLZsrbn9K45i2qePxQO4/uiZxaMJcQsnOwQv+2KWZr2bS0b1uyl2iEQ08fj
-	JTzhDhIhnnlCxdMKaZ2r2HlYUEX3tzcqjWAP4bQOJn9HoERRtWTYhpbxXJHkbOs0q
-X-Gm-Gg: Acq92OEgagCOnOvxaGwNWk9dC0MCi6xBGDfJ88R6J+YSB768/03nfUp3mMN2XGB10Ee
-	VySrfZ3NTdmOY7rPAyYJPK4CQq72VDBZJEPQ6Ga6FJ1chiHC1E5/TH9f+Jbnpic1LxN2ysuuK6f
-	atWW8BobzmFOlBJnXTweLwz2M+HVWXcJRrdGgAR7W4V8q4rTciAgbR0LwfDYM8wXF271y7APiZY
-	B5ZWrHi3oBrtZyBBwdE7+wVqTZbYQO8bnQWe8MmhaLGyq4GIveiKXGmwSJNab/zv8UZNaMfdP6r
-	mIHdFFQPUPuV8PvlBc6Z1s2WQVFCVoPPZoGp74UipJmulON7juyuDNwyaH39aACPkFzMzKZx76q
-	DzduBt8B+gimj+fbPQklSOb361qOwkxqJXBL8bTz8sOgcujernE1D2wn55AnU67vaY9oDrCm+6f
-	u9vlcy+dCABAHG+g7B/PMOEF8Gdd2+TZMWHt/x9LZvbXxcFQ==
-X-Received: by 2002:ac8:5c95:0:b0:50e:d330:f62d with SMTP id d75a77b69052e-5165a22aee1mr219637901cf.56.1779112679979;
-        Mon, 18 May 2026 06:57:59 -0700 (PDT)
-X-Received: by 2002:ac8:5c95:0:b0:50e:d330:f62d with SMTP id d75a77b69052e-5165a22aee1mr219637331cf.56.1779112679498;
-        Mon, 18 May 2026 06:57:59 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a90f118991sm3341803e87.18.2026.05.18.06.57.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 06:57:58 -0700 (PDT)
-Date: Mon, 18 May 2026 16:57:56 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com,
-        Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
-        Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 3/5] phy: qualcomm: qmp-combo: Add preliminary USB4
- support
-Message-ID: <4nqlpu7qfptekyn77sd7sdn446stgn3v3lw2356bvizrnvjgnr@czqgivemigt5>
-References: <20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com>
- <20260518-topic-usb4phy-v1-3-71d827c49dca@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bqYwfhfM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E592AC2BCB8;
+	Mon, 18 May 2026 13:58:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779112692;
+	bh=gOI3EtloXE0vHYMEZCfbRQeCy1ZlZvJfZkwlX480TPc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=bqYwfhfMjeWA65q0d9uh8/VTMia6+9/IcsQ8D2ICOlzs223Cyrp5u28df+cM0vQ+v
+	 RCs4EcPii4Wwg/nTlq4JoW3C1hsiYP9H+Z0LJ71Ej9WghhwtcBQeL990fkl4ETVg9C
+	 5N5cFQGebPf4e0IVpCqV0VGKtxM4Sl0/XhFyBMZYLftqw5/LhNs+Rm1VWYUmQLheLi
+	 djF7Q5NSk+QFbxEby9NGlhQhF+ucFGK1C5J6JlxhYPHCzQpr+Gitdrpa7INqFh533n
+	 LTK3VTpj2TMfEIf6GSxnY+a0goR0frk9+r82vllx3nSGfXFWYMvciMXlLTbkWNEZaq
+	 1+CiYyPWfPWiA==
+Date: Mon, 18 May 2026 14:58:02 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Liviu Stan <liviu.stan@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Antoniu
+ Miclaus <antoniu.miclaus@analog.com>, Francesco Lavra
+ <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux@analog.com>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 7/7] iio: temperature: ltc2983: Add support for
+ ADT7604
+Message-ID: <20260518145802.49a3bc94@jic23-huawei>
+In-Reply-To: <20260518080731.83585-1-liviu.stan@analog.com>
+References: <20260516181250.039e154a@jic23-huawei>
+	<20260518080731.83585-1-liviu.stan@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260518-topic-usb4phy-v1-3-71d827c49dca@oss.qualcomm.com>
-X-Proofpoint-GUID: MN7feaMUpmFk_KNJFmkFRa5j8mpj5EUp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDEzNyBTYWx0ZWRfX0qRZBLT+gzqF
- +C9uuQsDycwG8zmhKGYVsRrbjhjhZQavFeV5NT9gkCfTUa/buRmDHkzDvGHZ+llE+nkJB2skeRc
- /bh2WC5gSOSTjPMeQij10vNEGFCEgmdnfYCPNvROWLYxfSOL0WtB56P7YSe3XvZKDwMRZ1mMHjx
- 96Dz7WrBqIyCEh9VROJwOb3iW2dOaIVDGEAGWg5uD4449I9xhkLb3Rhwvct3tgV7j62c/Bg9aXV
- 0Le6CqOnvWXj4qkRVHZHbssW8T5LoJ5D3o95AydPx+zZ9s7mMc4UlegEw2LbuzIRqJSGHCzEAA+
- XMV/uDAGsXBgR5PMg+m1IyTpI3KqP1QujZaMifDEeJkIv84mV2J/IUq1jdO2TvxqMoEh/nwYpht
- eZ7ZpZrbUbpceOb+FJOn+37UknTgvBqdpeOLizXaWX3VuWduoZZffkb9TVv6mB8I/8s8hlgQCT/
- GFpVHj/mEAmuTf5QsFQ==
-X-Authority-Analysis: v=2.4 cv=KZ3idwYD c=1 sm=1 tr=0 ts=6a0b1ae9 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=4-prPhlKnIwNWIxOTkcA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: MN7feaMUpmFk_KNJFmkFRa5j8mpj5EUp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_03,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 priorityscore=1501 adultscore=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180137
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 18, 2026 at 12:29:50PM +0200, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Mon, 18 May 2026 11:07:17 +0300
+Liviu Stan <liviu.stan@analog.com> wrote:
+
+> On Sat, 16 May 2026 18:12:50 +0100 Jonathan Cameron <jic23@kernel.org> wrote:
+> > > 
+> > >  drivers/iio/temperature/ltc2983.c | 401 ++++++++++++++++++++++++++++--
+> > >  1 file changed, 386 insertions(+), 15 deletions(-)
+> > > 
+> > > diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
+> > > index bf435e965c6d..acd043ed62f5 100644
+> > > --- a/drivers/iio/temperature/ltc2983.c
+> > > +++ b/drivers/iio/temperature/ltc2983.c
+> > > @@ -28,6 +28,8 @@
+> > >  #define LTC2983_STATUS_REG			0x0000
+> > >  #define LTC2983_TEMP_RES_START_REG		0x0010
+> > >  #define LTC2983_TEMP_RES_END_REG		0x005F
+> > > +#define ADT7604_RES_RES_START_REG		0x0060
+> > > +#define ADT7604_RES_RES_END_REG			0x00AF
+> > >  #define LTC2983_EEPROM_KEY_REG			0x00B0
+> > >  #define LTC2983_EEPROM_READ_STATUS_REG		0x00D0
+> > >  #define LTC2983_GLOBAL_CONFIG_REG		0x00F0
+> > > @@ -186,17 +188,43 @@ enum {
+> > >  	LTC2983_SENSOR_SENSE_RESISTOR = 29,
+> > >  	LTC2983_SENSOR_DIRECT_ADC = 30,
+> > >  	LTC2983_SENSOR_ACTIVE_TEMP = 31,
+> > > +	/* Sensor types for some parts only; map to RTD_CUSTOM/THERMISTOR_CUSTOM in HW */
+> > > +	LTC2983_SENSOR_COPPER_TRACE = 32,
+> > > +	LTC2983_SENSOR_LEAK_DETECTOR = 33,  
+> > Given you care about being in range of this I'd add
+> > 	LTC2983_SENSOR_NUM  
+> > >  };  
+> >   
+> > > @@ -1329,7 +1649,7 @@ static int ltc2983_parse_fw(struct ltc2983_data *st)
+> > >  	if (!st->sensors)
+> > >  		return -ENOMEM;
+> > >  
+> > > -	st->iio_channels = st->num_channels;
+> > > +	st->iio_channels = 0;
+> > >  	device_for_each_child_node_scoped(dev, child) {
+> > >  		struct ltc2983_sensor sensor;
+> > >  
+> > > @@ -1357,7 +1677,13 @@ static int ltc2983_parse_fw(struct ltc2983_data *st)
+> > >  			return dev_err_probe(dev, ret,
+> > >  				"adi,sensor-type property must given for child nodes\n");
+> > >  
+> > > -		dev_dbg(dev, "Create new sensor, type %u, chann %u",
+> > > +		if (sensor.type > LTC2983_SENSOR_LEAK_DETECTOR ||  
+> > 
+> > To make it easier to extend in future, perhaps add the NUM entry I mention
+> > above then >= to it here.
+> >   
 > 
-> Some Combo PHYs (so far only on SC8280XP, X1E80100 and Glymur), come in
-> a flavor called USB43DP, which as the name implies, features USB4, USB3
-> and DP signal processing capabilities. In that architecture, USB3 and
-> USB4 PHYs share the same USB_PLL while featuring separate logic spaces.
-> The DP part is roughly the same as on the instances without USB4.
+> This makes sense. I will change in v3. Thanks!
 > 
-> The USB4 and USB3/DP operation modes of the PHY are mutually exclusive.
-> Only one USB protocol (and flavor of pipe clock) can be active at a
-> given moment (not to be confused with USB3 not being able to be
-> tunneled as USB4 packets - that of course remains possible).
-> The DP PLL is still used for clocking tunneled DP links. It may be
-> turned off to save power when no tunnels are active, but that's left as
-> a TODO item for now.
+> > > +		    !(st->info->supported_sensors & BIT_ULL(sensor.type)))
+> > > +			return dev_err_probe(dev, -EINVAL,
+> > > +					     "sensor type %d not supported on %s\n",
+> > > +					     sensor.type, st->info->name);
+> > > +
+> > > +		dev_dbg(dev, "Create new sensor, type %u, channel %u",
+> > >  			sensor.type, sensor.chan);
+> > >    
+> >   
+> > > @@ -1445,8 +1782,9 @@ static int ltc2983_eeprom_cmd(struct ltc2983_data *st, unsigned int cmd,
+> > >  
+> > >  static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
+> > >  {
+> > > -	u32 iio_chan_t = 0, iio_chan_v = 0, chan, iio_idx = 0, status;
+> > >  	struct device *dev = &st->spi->dev;
+> > > +	u32 iio_chan_t = 0, iio_chan_v = 0, iio_chan_r = 0, iio_chan_c = 0;
+> > > +	u32 chan, iio_idx = 0, status;
+> > >  	int ret;
+> > >  
+> > >  	/* make sure the device is up: start bit (7) is 0 and done bit (6) is 1 */
+> > > @@ -1493,8 +1831,26 @@ static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
+> > >  		    !assign_iio)
+> > >  			continue;
+> > >  
+> > > +		/*
+> > > +		 * Copper trace and leak detector sensors without a custom table
+> > > +		 * produce only a resistance result; the chip does not populate
+> > > +		 * the temperature result register. Emit only an IIO_RESISTANCE
+> > > +		 * channel in this case.  
+> > 
+> > Do we care?  That is are they useful without the table? We could just make it
+> > required in the binding.
+> >   
 > 
-> Due to the nature of USB4, the Type-C handling happens entirely inside
-> the Host Router, and as such the QMPPHY's mux_set() function is
-> nullified for the period when USB4 PHY remains active. This is strictly
-> necessary, as the Host Router driver is going to excercise manual
-> control over the USB4 PHY's power state, which is needed by the suspend
-> and resume flows. Failure to control that synchronously with other
-> parts of the code results in a SoC crash by unlocked access.
+> The datasheet specifies the table is optional. But more practically, in order to
+> be able to add accurate values to the custom table, the users first need to measure
+> the sensor's resistance at multiple known conditions, so I think the resistance-only
+> output is useful during that characterization phase, before the table exists. Making
+> it required would force users to provide placeholder values just to get the driver
+> to probe.
+Who cares of datasheet is crazy :)
+
+The initial case could I think be handled by an 'identity' table. 
+If it's useful in more general cases maybe we should always put out the resistance
+channels? This would be a bit like we often do for ambient light sensors, where
+we have a computed illuminance channel (IIO_LIGHT) + the data it comes from
+(IIO_INTENSITY)
+
+Jonathan
+
 > 
-> Because of that, a new struct phy is spawned to expose the USB4 mode,
-> along with a .set_mode callback to allow toggling between USB4 and TBT3
-> submodes.
-> 
-> Thunderbolt 3, having a number of differences vs USB4, requires a
-> couple specific overrides, pertaining to electrical characteristics,
-> which are easily accommodated for.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 392 ++++++++++++++++++++++++------
->  1 file changed, 322 insertions(+), 70 deletions(-)
+> Thanks,
+> Liviu
 > 
 
-Overall it looks good. The major question (after looking at TODOs), do
-we need a separate submode for USB+DP / TBT+DP?
-
-
--- 
-With best wishes
-Dmitry
