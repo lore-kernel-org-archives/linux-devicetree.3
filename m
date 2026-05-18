@@ -1,248 +1,164 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022082.outbound.protection.outlook.com [40.107.75.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250AC13FEE;
-	Mon, 18 May 2026 03:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779073526; cv=fail; b=SuLbH4i/MaNOrnKTByLnUKibKuo85bBV8lpCRqKFHypCZUnSvz5Y36qMILj08dNJp+HgrDYdAwK0d66jCY2gAzx8sirQVKENNpWHIif8fLzLMl8VOp5GzFMD0UgtFrrG773nwFpfDSINffIKWVOhTtLeGbOisX5DoEFCkJ/0HM4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779073526; c=relaxed/simple;
-	bh=2ar4ZOAw8HBCa2sDczUdbk2FXTp1aiugSEvWTZrBTZg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=E+nvATNNTxIlQVKeGAE/7sPTZ9rEyXCP9yNl8hrkIhy/rWpfGFLTVyZAH5hlsPVzb/ha6SWBGu5fU6dayaSAchQ1QoOx8Iw0uDnl2WyBnzmDlzvwqnpESGS3EnMTl5uhAuE73Aelkimif8+4rItJOi8SqptgSSorpy9BnUvxgEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=mVzShfQl; arc=fail smtp.client-ip=40.107.75.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B78B35E937;
+	Mon, 18 May 2026 03:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779073654; cv=none; b=mZ1kV8ALu4eqak5xrBXfdA7Ec8dCiVtbhPITrpyGBXpqTal54cvdfu5pmjQVcWhqZKyXoNHdwQMbLMaLo0xRe7UV82+kECXeZ04fdWlvkry71/pVdKVIGnttInWtmX7Ej2peSDBMX5btlVMQ4XPs2BtmipBe1eUwgvY6S+1Ckhk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779073654; c=relaxed/simple;
+	bh=opbHcjGJhGN0V2AsfKdod5Ei6jme1uyutNohcVTuoK8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=JYrh3i2trZRR5BdSjw2Z+vs1HX3WV7hLXoU0fRTb3ie8oi8JSaHVsxHQPI6aNaM9eEBed2ZAvTDN1xB5/rNoo0BKtNnBpfOS7e8Bo/Dbx3MYOHA2QlVLMnXLQjpBTxRhNvB0YLWDt5U7iPf2rMv537wIfgzr3+CwJVGnqHa/iMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=cKxFTmbZ; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="mVzShfQl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AraoCF0PCWQjP4vEvD9YWBEGhJcuJfyg7z7B0rySGXEUbgoghEt9Awe6tEaFfeXhtGNs0f6IqrB3xz3xiWQrOMJOuPGAYo0iH6HS/rlY/VawKzN4aDfhzVtkbA+eb/BR9LxGZlUfRk8PV1DlYAXeBMtQv6Xkqm9Pv89KO/il1R6PA2dc8AKKdyeIDDpWKiZGWvpceiAmpClAS5Yd1+RpCU4Tv8R+1k/8LgDF67EBnpSQlgsG701YAHYt+Q11Zygi2Daa9Mm+j0q0GGg29Fhyk7YTchmjbsJDL/UoiKMoO7EXQWq4RIrCStdhnlbTH5KzBixTf5rtRQE3fwGf0aIw4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pfhSXfCzdhhJ6IQTsJjqgupU85OghFebsX/Den1/pM4=;
- b=SKoJWiusBXwLfhMpaANUtqyJKyWcWZ7LPzxD1Pu91V87LMpytv5I3BMEU4MveeSrpinwtYxkqm1Ak52YwNkXuhTQdKAN7ZzX5pABaaADdGr/7yO8wMUChYWkAtBjHoq2+WAxePZSA/x1tuhM4L8b58veLdwlpoP0ECz/IBuWuIn4KOlbNWwbw4SdGUeMepqJTsgvbiJvxFju/g80iWd0ZjKDK4EyFs6zK2YPsLj1MA10QcJQTTnW8JRne4PE1Ae5rIWGhdyEXn3WUoUyuYnG6qOx3qn3/9bcHAuGtvP9myJHKhqg0BziGBIZwad2uQik8uIyivTdeUCO0HVeANPglQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pfhSXfCzdhhJ6IQTsJjqgupU85OghFebsX/Den1/pM4=;
- b=mVzShfQlqJaQK8EoounfyOEso++ueU7ojHZgIQlj9XCMHDhWxPPSnJ2DZmZMWFpYVf3u1HVOPwunay+aPctiCYRtR9hl7km/5RiIAEjROODRLw//cMifI8iP6o56mMkyaCGvEoKSetxPretk/ynt3rAqk0/GJUyiL13LrvMXgdspRPKHxdXdoarIaM5TrqztmBkm6jTZbSuR1v0mrA412Q1rbo2BT0tmLd7CvumAsRceoCKAZFw29RTjFEriMb2E9n7RImPmHjKBy909O5JktUyaghQoLQ3DGisQoCtntUEKgE2Viii86Ofh6ahgjt2w+Ls6gFmFU32Mr1Q6qD+Olg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by SEYPR03MB7012.apcprd03.prod.outlook.com (2603:1096:101:b0::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.13; Mon, 18 May
- 2026 03:05:20 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.21.0048.010; Mon, 18 May 2026
- 03:05:20 +0000
-Message-ID: <56112c57-ed8c-40c5-98ca-f08b2f0ecb94@amlogic.com>
-Date: Mon, 18 May 2026 11:05:15 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] pwm: meson: Add support for Amlogic S7
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org
-References: <20260402-s6-s7-pwm-v2-0-657dce040956@amlogic.com>
- <20260402-s6-s7-pwm-v2-2-657dce040956@amlogic.com>
- <agn2Yp3mzI7DcsyN@monoceros>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <agn2Yp3mzI7DcsyN@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2PR04CA0012.apcprd04.prod.outlook.com
- (2603:1096:4:197::14) To TYZPR03MB6896.apcprd03.prod.outlook.com
- (2603:1096:400:289::14)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="cKxFTmbZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=XJKd3+IiOKB10QoMgGQXKpCTm/heRFRR4
+	1Tj2dK9CTI=; b=cKxFTmbZIVOMI5YiR3XYzSgIoSFAeXhjsUMYC+0MnpoKekS4a
+	zuICeD/5YuWkITQAlg+2zv8OEP9xPCdn/IOubBnQwqzpXQNUak0P/82JIbjqqSI9
+	SF8VRx/mJV71ArzPOTeOlz4nu/3Y4wYRboB4VscCQeSkIIkIymvdI75ZPs=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUJ7ggpq97MEAA--.6085S2;
+	Mon, 18 May 2026 11:07:39 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|SEYPR03MB7012:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d69409e-af62-4e73-8cba-08deb48a4bfe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|22082099003|56012099003|18002099003|11063799003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	uWonfu7MQc2Jb1i6H6K1OpvNyT7Cje6FZVqmOHHbMneTpNPFWq3BaFdB+sFXGEG9MfCYjk79Ztv4uwuzKL+pNJr9iOJa3D7CTmaMkgDVhGUWPWtxz4m2PYfI24lmDuhz7roCC47qN5OuCo8+WsBv7DjCvfxhjCVgaCbIfXHrRxxtpikvnAMkUXTzJjDvyRubml7zmQ9MTB09Kky3P8ZhOcnL1LvCF1FgRbppSx6hQ3uBCEYRQvprV7niIcrAqd3HJoNVdRb710HCWYtG+3T986+B2m4o+YaU3ByO4J1zOFcSC3uY7/EXFgzBEfzN8PzfIy4YSgopL+w/+aRwMxUHKIUqBLqG0rcMppvULknndTqTZ3R6gyHci8hmcB+OTAJLF+yWHJqRxEgIFE0AfeKKPgZnAUbHmszzQ6ySariKKcIOCEwSYP/HdKQOyCUOB+2OEzndt7HYWg5mz7+j8Wg39SoLoUiI9bh46N1D6Wgh4SBHa5GV+cnk7MdXnGhMdK3T/SyIDuCul2LHnowt1RE7DmSDaGk9v7OpQspHYlkhpo+3JIsQyr0xKtc71IJkEJpOenbvcD1vFI0YRtj7OGxwLRnZnbtSjVvAVVeR6u6nLlyoRTEqFuMuOsBdAYlET6jgetW9DuxBKbqE46vB/5cAJSZ2FLjWXmDZnFcy0wqIykiS8MXnNAQ+nHbooTytViv0
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099003)(18002099003)(11063799003)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UEx3NHFVd3hKSmltQWtNV292TUFXanpkd1haaFFld0tndzVrU2IvczBrMFkz?=
- =?utf-8?B?bmtyS04wYjJRZXBsclV6dngvRXZoVjFkdmg2REhEUXhReEJtcXFsMTFWdkJO?=
- =?utf-8?B?VDNmcGFiT1ZxYnBDQkczM090S2l0KzcrR2Mva0o4eEs2ZjRlNWxqWFpWRm5B?=
- =?utf-8?B?RVFId2Rwek1nUE5MTEVTV0RNbzF6NGxjdXhBN3VaeVk1U0o3ZUlhejYzb3Yy?=
- =?utf-8?B?ME9nQmlVeEdsUmNrMnJVUzlNeERIbHdpemxwRDR3ZUs2WUlOcCtnTE53ZCsr?=
- =?utf-8?B?elBEd1NLcmFvdFhsRDZlWlY4YmVBYmdwQ2NiQ3cvWDc2czRvUk9TV2tPYmp4?=
- =?utf-8?B?TjZndTcwRG9WN3prTEhnLzUwMncyZHNmZk9pVUFOby9qRWwzOU93RWRvNEwr?=
- =?utf-8?B?b2V4dHdwaUZJWWsxcXQzTlVUVEVGTnlSS3NvaEs0dFZSYUEySitlajVEUVlH?=
- =?utf-8?B?UUlhbkFzQ0lFcThGczF2M1RldUJYUHpZVUpqWGlDN1ltd2N6RzZEUW9xR2tG?=
- =?utf-8?B?aVFxWmplWno5M2RhOUFUMGVLYXhObTQra3hBcDdveUxmOGNVNk95dnp6UnM3?=
- =?utf-8?B?aitCMjdkSlV3VVZvRnk1Skg1MkNSTi9DSVE0SHVUYXBVcmt2bDFIOVFGTlo3?=
- =?utf-8?B?WkZsamMwajlGa0VuRzVaeGVpVGN1YkpWaHg2WktQNWVKZTdYVWIxM2RaQ2hO?=
- =?utf-8?B?dTdpTlcvU3FaRGIrQU9oRXhNUCs1WHNDSFJaTUZqTkE4d2I1YmtjOXpvNVEy?=
- =?utf-8?B?aE5tS2ZjUmpwWE1HSnBFZWJaK2lWWUR5Uk5scTcwZ0ptY1d0VGRYbDRQM25S?=
- =?utf-8?B?eGpJVVJrNlhMd3BTWXExRHdFZXBOVnN5eUt5N2I3UVpTS3dKM2Vzai8rU1d4?=
- =?utf-8?B?bVQ5MHVpY1U3S3ZnU05qSkRxYjNJc2F6SyszS0ZVREVvRHVybmZXeG5TR04r?=
- =?utf-8?B?RHg0NGtYRTlBVkprUTY5WldCeHdQL3RJZUlhUEJvTGwyQWN2b29wOXZuUldk?=
- =?utf-8?B?TUlzeXZMUUIwQ2dOUnBNRTU1dzZFZWUxbmd3b0U4bFVwcEMrb3BmOHB1Q2Fa?=
- =?utf-8?B?eFVyN1pKL1ZNbmhhUVE2SVRqcjN3bHNGUXZHb0pSYzFvanlZUGxHMkZyTmd5?=
- =?utf-8?B?TDRWdjc1S1lQd3lVV3NOMFhhYlB5KzlKQVhEL05WVzY4Yk1UU0dGTkEyaHZ0?=
- =?utf-8?B?UGZJazlMMXlmVWszRjF2UFlBTjRyb09vUHhLQjlVQmZTSjFFcENGY2VIRWFG?=
- =?utf-8?B?U2dONlJmaGRERDZFOUZtRSswZ2NpWUlMd05MSDFReTlJNnlOSmV3UU52SnBw?=
- =?utf-8?B?bTRKR05ZaDZ4dnlOMGVrTmhRKytmYzNwVHdsRldFU3hVbkVIcWZUS2xySlNC?=
- =?utf-8?B?cU8xVnUrR2M3WWdGbzFEbWhzOUlsbUdRNDNJMjhYbmNmR0pVTTg3SWRhWXp4?=
- =?utf-8?B?Q1ZOQWliejN1eEo5ZzA4TkNreGJzaVBIUjgvdGExRkp4OE9UVVNPL0MzY0d4?=
- =?utf-8?B?djhkNGRWOFBaUXdWeGYzWGI3K29yajF6R2ZDbC93dmNGYytBQk1kL3BrRjJx?=
- =?utf-8?B?R00weU9LeFdhbEszNytqQkRPZzcvSUFPUkNWTzA3T1B3Y21pQndvS255a2Fw?=
- =?utf-8?B?UkRJTm41c1plQWpwR1lzNEZCWjNnaVNZUVlhaWlSbGZYd0tNeDlZbGJ2SEVQ?=
- =?utf-8?B?U1hwRVpUeU4wVWZpRHNHZ3MrNVV1TmFqMldKWFlQelhoZkRhcFJYWGxJLzNi?=
- =?utf-8?B?aU9JdXRvQ21WRllSbGwzR3NGY1pSTHRmcUV5MkpEWTZTKzR3aVFoNDFMUERW?=
- =?utf-8?B?K2t3aWl6U3dYRkRHc1Y4RUFINWZCWGlJODN5RlpTVzJDeFI4QXBYTXRxVXNY?=
- =?utf-8?B?aDdnV0hjaWFxdHprc3BWWm5RMlRyUVVOQndJSm5tMXVIV3BweStaUEVmNnNw?=
- =?utf-8?B?dDRJRFRud2plM0tScFlQUGVrMzArRWd5RXVlaVZmTEZiUEtlU2phSDNxZDF5?=
- =?utf-8?B?bGdQdnlkcFQ0dTZEMm1QOVhoZ0U4Q1ZSUktJbkoyZ2xNYXlDbW8vYU1RaTVC?=
- =?utf-8?B?YnRlcEd5WlhOMG9pSkhiUHlSMkR4N2xQQ05TWWhhQ0JCbC9peFlrNXBsUFFl?=
- =?utf-8?B?ODNTTlV3MGRJS2tvOCtZc1g1bVJYYzB4V0RRTWo0SkszSEI1aDR4YzF3cDlR?=
- =?utf-8?B?R1Q1ay9RVUoxcGt4ZUVnNnZ5NC8zM2FOa0dnc3BJYktacnp6WW0xNlQ1WE9j?=
- =?utf-8?B?Tk9Iay82TUZXcW8zaDFJaGtsUml6YXk0MFF2T3ljRjdPRUVEVi9WV0FFbzJz?=
- =?utf-8?B?ZEJBYjgzZ3doL0YwZS91b3FHSndJM0srQzVsM2Jsd3VUc0xKSklPQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d69409e-af62-4e73-8cba-08deb48a4bfe
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 03:05:20.7588
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: orBSPULWck+hcawOuloTS7u59LQX2w9Tkf6PhNX2KWVtUfFZY2/5AbrcbYMp+J70E6nCZ4TsheRx98uZjCbX40XGiWYxCFa9eWSZvHZriBs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB7012
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 3/9] dt-bindings: riscv: Add UltraRISC DP1000 bindings
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Conor Dooley <conor.dooley@microchip.com>
+Cc: Jia Wang <wangjia@ultrarisc.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+In-Reply-To: <20260515-cyclic-frequency-50d690821af1@wendy>
+References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
+ <20260515-ultrarisc-pinctrl-v1-3-bf559589ea8a@ultrarisc.com>
+ <20260515-cyclic-frequency-50d690821af1@wendy>
+Date: Mon, 18 May 2026 11:06:58 +0800
+Message-Id: <177907361849.2045074.12347174714063726227.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779073618; l=2538;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=opbHcjGJhGN0V2AsfKdod5Ei6jme1uyutNohcVTuoK8=;
+ b=ZwWPpWn2mi3LpKg0v1Bzfdt07pmYtp4BrxR/JtKv7lBsuzhxrfCg+njdaEqN60m/eSVi2fEC6
+ f7NZxRIHuwFCQgMIGjSWK9Sh6x2Y9bh2B6BKMJDoDGj/MTuL1rmBY+m
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwA3cUJ7ggpq97MEAA--.6085S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1xWr45ury3ZF17Gr1rZwb_yoW8KF43pa
+	18GFn5AFyxJr13Can3t3W3A3Z5Xr48uFW5trsF934jyas8WFyjqrZ7K345u3WkAr4UGF42
+	yF17uw1akw40vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWoFRsMACwAWsg
 
-Hi Uwe,
-    Thanks for your review.
+On 2026-05-15 11:08 +0100, Conor Dooley wrote:
+> On Fri, May 15, 2026 at 09:17:59AM +0800, Jia Wang wrote:
+> > Add DT binding documentation for the UltraRISC DP1000 SoC.
+> > 
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > ---
+> >  .../devicetree/bindings/riscv/ultrarisc.yaml       | 27 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  6 +++++
+> >  2 files changed, 33 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/riscv/ultrarisc.yaml b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
+> > new file mode 100644
+> > index 000000000000..d4421c2ef945
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
+> > @@ -0,0 +1,27 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/riscv/ultrarisc.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: UltraRISC SoC-based boards
+> > +
+> > +maintainers:
+> > +  - Jia Wang <wangjia@ultrarisc.com>
+> > +
+> > +description:
+> > +  UltraRISC DP1000 SoC-based boards
+> > +
+> > +properties:
+> > +  $nodename:
+> > +    const: '/'
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - enum:
+> > +              - rongda,m0
+> > +              - milkv,titan
+> > +          - const: ultrarisc,dp1000
+> > +
+> > +additionalProperties: true
+> > +...
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index b2040011a386..5bf971ff48b2 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -23082,6 +23082,12 @@ F:	include/dt-bindings/power/thead,th1520-power.h
+> >  F:	include/dt-bindings/reset/thead,th1520-reset.h
+> >  F:	include/linux/firmware/thead/thead,th1520-aon.h
+> >  
+> > +RISC-V ULTRARISC SoC SUPPORT
+> > +M:	Jia Wang <wangjia@ultrarisc.com>
+> > +L:	linux-riscv@lists.infradead.org
+> > +S:	Maintained
+> 
+> You work for ultrasoc, probably this should be "Supported".
+>
 
-On 2026/5/18 01:12, Uwe Kleine-König wrote:
-> Subject:
-> Re: [PATCH v2 2/2] pwm: meson: Add support for Amlogic S7
-> From:
-> Uwe Kleine-König <ukleinek@kernel.org>
-> Date:
-> 2026/5/18 01:12
+Will change S: to Supported in v2. Thanks.
+ 
+> > +F:	Documentation/devicetree/bindings/riscv/ultrarisc.yaml
 > 
-> To:
-> xianwei.zhao@amlogic.com
-> CC:
-> Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-> Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit 
-> <hkallweit1@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-> Kevin Hilman <khilman@baylibre.com>, Jerome Brunet 
-> <jbrunet@baylibre.com>, Martin Blumenstingl 
-> <martin.blumenstingl@googlemail.com>, linux-pwm@vger.kernel.org, 
-> devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-> linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
+> There's no git tree here where patches for the platform will be applied
+> before sending them on to the SoC maintainers. Are you expecting me to
+> apply patches for this platform?
 > 
-> 
-> 
-> Hello,
-> 
-> On Thu, Apr 02, 2026 at 02:40:16AM +0000, Xianwei Zhao via B4 Relay wrote:
->> From: Xianwei Zhao<xianwei.zhao@amlogic.com>
->>
->> Add support for Amlogic S7 PWM. Amlogic S7 different from the
->> previous SoCs, a controller includes one pwm, at the same time,
->> the controller has only one input clock source.
->>
->> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
->> ---
->>   drivers/pwm/pwm-meson.c | 32 +++++++++++++++++++++++++++++---
->>   1 file changed, 29 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
->> index 8c6bf3d49753..7a43c42ef3d6 100644
->> --- a/drivers/pwm/pwm-meson.c
->> +++ b/drivers/pwm/pwm-meson.c
->> @@ -113,6 +113,7 @@ struct meson_pwm_data {
->>   	int (*channels_init)(struct pwm_chip *chip);
->>   	bool has_constant;
->>   	bool has_polarity;
->> +	bool single_pwm;
-> Conceptually I'd prefer a `npwm` field here. That doesn't take more
-> space in memory and simplifies the logic a bit. (At the cost of having
-> to adapt all already existing meson_pwm_data instances, but that's fine
-> in my book.)
-> 
-I will use npwm(u8 type) instead of single_pwm.
 
->>   };
->>   
->>   struct meson_pwm {
->> @@ -503,6 +504,18 @@ static void meson_pwm_s4_put_clk(void *data)
->>   	clk_put(clk);
->>   }
->>   
->> +static int meson_pwm_init_channels_s7(struct pwm_chip *chip)
->> +{
->> +	struct device *dev = pwmchip_parent(chip);
->> +	struct meson_pwm *meson = to_meson_pwm(chip);
->> +
->> +	meson->channels[0].clk = devm_clk_get(dev, NULL);
->> +	if (IS_ERR(meson->channels[0].clk))
->> +		return dev_err_probe(dev, PTR_ERR(meson->channels[0].clk),
->> +				     "Failed to get clk\n");
->> +	return 0;
->> +}
->> +
->>   static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
->>   {
->>   	struct device *dev = pwmchip_parent(chip);
->> @@ -592,6 +605,13 @@ static const struct meson_pwm_data pwm_s4_data = {
->>   	.has_polarity = true,
->>   };
->>   
->> +static const struct meson_pwm_data pwm_s7_data = {
->> +	.channels_init = meson_pwm_init_channels_s7,
->> +	.has_constant = true,
->> +	.has_polarity = true,
->> +	.single_pwm = true,
->> +};
->> +
->>   static const struct of_device_id meson_pwm_matches[] = {
->>   	{
->>   		.compatible = "amlogic,meson8-pwm-v2",
->> @@ -642,6 +662,10 @@ static const struct of_device_id meson_pwm_matches[] = {
->>   		.compatible = "amlogic,meson-s4-pwm",
->>   		.data = &pwm_s4_data
->>   	},
->> +	{
->> +		.compatible = "amlogic,s7-pwm",
->> +		.data = &pwm_s7_data
->> +	},
->>   	{},
-> If you touch that array in the next revision, please make this line:
-> 
-> 	{ }
-> 
-> (I.e. add a space and drop the comma.)
-> 
-Will do.
+Will add a T: entry in v2. Thanks for pointing this out.
 
-> Best regards
-> Uwe
+> > +
+> >  RNBD BLOCK DRIVERS
+> >  M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
+> >  M:	Jack Wang <jinpu.wang@ionos.com>
+> > 
+> > -- 
+> > 2.34.1
+> > 
+
+Best Regards,
+Jia Wang
+
+
