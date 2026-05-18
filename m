@@ -1,156 +1,233 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86ADD3F0770
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AE33F6C50
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779104732; cv=none; b=FhO7mJRSOU5xSKxdWAiRcXmIWdCrgZeZTVrgpI5wcnl1swufJTaJWPKPmu1zSGEolEdtSdjDrf2RApSPbR9x6Ueg63KLtuU/scoDdKlSVcRG6I++su/k5QbwpIshINGZgvK5aU5yFGYIuXj5ZxkccB3ftyxzcRhV5ugx4ssCAuA=
+	t=1779104765; cv=none; b=bZHxc02yH161pf+qC1ZXKEGXd5DFa/kwEeYopp8gOuyrMU/ii9EMVociO6cD0z20OUvmZ6wRnpa6nr/E3VtOnDTjTpQNvlY1p3QswyvzGqra9FDFUbW0/si9YkdUQ4hmmU2KnPGZ7EAeVoPaqhZWi2D1aM9q/YZ+HVUOeU+SqA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779104732; c=relaxed/simple;
-	bh=9t7iVOOI+UxQvm/pVLW0wCjraZfj91isgU9NMHTFucE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O/Xyns86DQgesC2njF8h1CYo7E0fUdEeTKFNh0uozDjxNtD/HbtQlkI4xzPVQwsuFQX9POxDjCoSnhB18jRtu3DD1M9EOfqmHvB/ywb5qSJHzC2AWN8Qiapmhq5PNhtjPlB7cLjwn2dqhwPOX05MdZL78TcppjW24ullD70DLgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O7FaMvne; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dGwJpXqE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779104765; c=relaxed/simple;
+	bh=1yuJZujnJQq9wJqVPIoiZiDLsjPcYcNjsPmSeto0ClA=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mF5sxvnsJCciMC8uSHP9uc2/7p8HyeGa3eRVrA1SHs0RmATHVv7mYSvlnslyoh5oDa0wJ8NKX/bLwwkYxHjEEqaczb18g5FXz5VO7kR62J80SwXUWBLcreUGoFQ87/YRTvJ7UQE+velWiV2ZApNMJAF+xPwq+lLEIwHQQxmmGGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhOvqbPZ; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O7FaMvne";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dGwJpXqE"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64I8Fc662444106
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:45:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=CmR7UGnplXVXf6dhWEhuPDxQ
-	neGsG+WELjkD/IvH4PI=; b=O7FaMvne7gZQizSB3tPGG9dlpS7EwO3kO9DO13iG
-	piEPch4CO577PgXnH0z0veO3qTibsdWc43XYZnop0J7xp0gJVAXwyNLYIcqRPJ8r
-	TyP6Hyl3NYtoPheTcWkcZYct7z5tznz89HwBxw84IK+/hS5XJzo4LRjXOKQWanQD
-	9D47U0YeHh7QXHO3oQfoTYUwHW2cPiwkeZGw8e5gZY7iWj23eODh1mU4hBdaCLiw
-	YTo2D24OGkaYxAkX2O0BCseoIVrGUmHj8oUlGXTFZxSowzYN2B3V9F0NkWSxEUjv
-	7AG5PsLrWESnCGraVodWgWJRtYJ7LQ1c4BX0P2givXO6lA==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e6gx6x9an-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 11:45:30 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82fd55bf6cdso1402504b3a.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 04:45:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhOvqbPZ"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4526a8170ceso880496f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 04:46:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779104730; x=1779709530; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=CmR7UGnplXVXf6dhWEhuPDxQneGsG+WELjkD/IvH4PI=;
-        b=dGwJpXqEjxQMmppCvYtQhtbm+xpeK3FRzzqsSRTdJGEX1iQc8PFrq2Ukfw4IYMjwZj
-         AaG//CY4rKBTXgSk8kW+OdMeco3k3AdZuxKwt5HaXeZf3JYNAR/Z4Igx2FvSoBd+2g+d
-         CU0ZvgtY/Jd355j+bGaxuOgHoAwFP8bjRmZETe1ke2AdecR6jtX6Je6fGqQ29F1KqMmH
-         /9ewwgX6PEdNmyJNmg3JPdBM94Bidiaxx6Fk8YWaNEkXkWejIMJKiq8mSjbdesYyrSA7
-         BQXk0GJP9pGhmCE4KA6q2MY6w3xPnZWHIsLglMJ9BBnQfOI52RMV4WYfVKEoONRgicWJ
-         guJg==
+        d=gmail.com; s=20251104; t=1779104762; x=1779709562; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=7glLEzH6ZByBVkx3BNOToB7H47RR2NhR7VOuAUnFczk=;
+        b=NhOvqbPZg3CekKfNxlhbRPOYzXmE32W3WSMDG5ZJ1OhN3ck+d6oLCIF3f/CtkKSFRS
+         JQ8MWcnz2MMqIaiuRrcHSj9Bw1Zy+06xJ49CCWzg+n5kGJliMgmJvKdmb3HZaAQukVnP
+         rcfKms4/Km4svFw/80dx7VSHMUkTLZdWsXQHeD7lh5Oq/vP4atWHYErzQEI9P2hTkW8F
+         7KQnCF0HdHQ9zWj/GIvc/J1uLcP36TtVAU0L2GjbyG2ARHkjw32ihQurSveI4j+ZPnuu
+         C/P6lvW+DvQss6V0uypMZG8B0jaDtbWXw+a7l48/Zf3X0lPqe8J/1Ryoqaw5ltNWSNvV
+         QNJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779104730; x=1779709530;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CmR7UGnplXVXf6dhWEhuPDxQneGsG+WELjkD/IvH4PI=;
-        b=H+gpxa8mx6Xi8jTNNpO/C4FwG0H8KXXpGjKoWdBQ2XzfAY7mdauCsvuN3yin3/RYzd
-         wzngKkVMvo9VsM6NAmBfI4v4fMmoGfzhDcgpho8iMY5JXySC5luvJM3zTQYrEbckxdEi
-         YMo5yI/ucuSeH3icVtPdpQmNTe1y9WZ+SX5UxMhNdTktMvydMedAC46vVApTKjIFADpt
-         DFzsqVb5YZcbRpdZ9H2NBUo9QARsxG8hFjEQHNZ/d3WkYpaHVBVBrk9vjqAMhKwkN0IC
-         K5Bu3MOwB7wrml65uDsftnQKyTzhyLRjbAZCGjZmANLWX+mr5OOPwuTQAA/HzVZXE8W4
-         3ahw==
-X-Forwarded-Encrypted: i=1; AFNElJ8N3wVnyGECds8XmLlS3gneh6b+aM1SO63m50e1w6WOQyGJJ2hYnrgoCa3HvKg9WuzCQze5oYJq2CxQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJZ6jhPdJL/HplrbipY6Bag1dsVd/QPZrVvLRlxapaKPvdtIX/
-	zgx2Tvcewb4mqQPkDpv5Ejp1ZMMRg2EwAbbrMPEQBeMGK4lSdNYj9NSPYJsTSfUoNtusJ4jiheQ
-	pimWHhUO9wos9f+ZPSIezhUzXZgxyc2LLCvGcMrzNM0jYAfZrbehdTIrG0YmF5U9z
-X-Gm-Gg: Acq92OGYHCEiKTMjXn/KMPfj8a4TMh1ZBsWwoPTdR2x3rxCTHJq5fUm0jUhPzm20q53
-	BV3PrJ7VOkA6KpWsdu1UhHl8o/LkraOUqXr3edc1+Fiddf14jx1fmgRjXp5MWHPrDU8LvWp+Rxc
-	IGH0GO5NhrjQExagss7HIVmwEVwFShBLtgZpd1Z+NEblU6oqIHEKwdKsTTnJkFVPg3Y+u6scfRY
-	szGmVqDOx/n7Fv9RKSl2W3S8EM5xzKNCDUB4gyceOwpGz+5XiWKrQtwNZOsUCJYFhXx4rpHA/Qd
-	zmk61+ocUGQXG/PLdnlj8yoBY4ccW8vMAncfuxw/uGMnskKqky3+Egsm9CCbBGz0o8rWNeXfszu
-	6iPyUKoOhLckanWLIH9on+EUeAqwxZSRz152svUuoYySk/4NX
-X-Received: by 2002:a05:6a00:12e4:b0:835:405a:7e68 with SMTP id d2e1a72fcca58-83f33d9dd83mr15071386b3a.32.1779104729874;
-        Mon, 18 May 2026 04:45:29 -0700 (PDT)
-X-Received: by 2002:a05:6a00:12e4:b0:835:405a:7e68 with SMTP id d2e1a72fcca58-83f33d9dd83mr15071363b3a.32.1779104729357;
-        Mon, 18 May 2026 04:45:29 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f63bb986dsm3984653b3a.48.2026.05.18.04.45.26
+        d=1e100.net; s=20251104; t=1779104762; x=1779709562;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7glLEzH6ZByBVkx3BNOToB7H47RR2NhR7VOuAUnFczk=;
+        b=RIhLbvPnvNlNSKgfUCKXsjXhvc9+cNI6u2x+6V4oIKPnN0M9WRnwmmYfQRvhM4sxs8
+         Pf9LqQBeNpohlgdb97kZvdGIXsaOwv8CvIibIJRpG5TysR+GxJJ2y9UIF9ICe9xizjGZ
+         T4FIavzkh2poqiVQBcAmljXLGxQXWuyFQeh7oSGpIXlLNeQfLGv1JKRg3KvtrXGodA9D
+         yhN+a1AYCi6NvfqMpJnrZbV8vXfiFGMy2HLgSdxc60NTa7llvcpZBfgJ3EyCIvtjmU9x
+         Aka7Acrr9qD9oz2bzzk1OaDJkxl4Wk2E6x3rgXECDHLQYlesTOMHcdnCKUh/FG/0V0J4
+         WeyQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8v41pmCf79xMoUtcyvkB+ATT9a49JWWPglzhxxKVvlWYq09x0HLPpjT6r63sjDh6MClM9VXqHdSRG2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/XS2jRa0uJtUO1kYUwvqPX+ocYcp8Zrh90fBfVgYhvtrcYpjX
+	QzR4mtKwJPU0fDwSUlfVNSrkHd1T/9mB2rFyTvoSJ7umR3FfjNx75Xyk
+X-Gm-Gg: Acq92OGIbL/YetMqT5rGgxqeizVEAm/UJcy38pu4pYNUKICiRRbV6NMQwJOmxyzOyja
+	uCvSVFrD8OZUpZVPd6m1Sxg4/fUlc+bqAMrvdffhm5HPbsV1Xx9HnGrgo7LvHq5oOfXHGikctN3
+	F/Sfwd10kGuKJf7vGIaRx3+CsS3LbOMcEda+d+clW7Jf1rYPTrahChcJDfR3AaGS1W15G3hp312
+	MmWYcYs050uxhOQ5Q1PhoZ2rLAPQtnD8Td47w3jS5OHyb4dAgjgWp1Yl6QeIOmGIV8bIEllZXRO
+	ELRGgwXvQP7ojS/SPbCTjz0f/u2AXHNQr7qzQku9k9Fmr34fL2F4kOFyfyw1l43xBcRYvvcNnVL
+	x8oSwlkT1ScROTrMoYbdIpy3mSoq6bfqTfpqmX0fGQpokNh1bYsQMd74Xumy8FoS8zZq0TqC2Hu
+	0DQKwV7codVpiOmr5JoK1O3YeJkdoU50Uk0VD2ncUXPpe3zmUyxFRzikNfy+M1cRmGfUJpIrpKa
+	fB5X4YXqkyVqp2WumiBsTAa2m0kBGa8soeCW3jbBoq1atEOBG/2pox62cRJ
+X-Received: by 2002:a05:6000:2f87:b0:452:c246:ab7a with SMTP id ffacd0b85a97d-45e5c5beb43mr23682888f8f.14.1779104761877;
+        Mon, 18 May 2026 04:46:01 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0a17ec2sm33901792f8f.24.2026.05.18.04.46.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 04:45:29 -0700 (PDT)
-Date: Mon, 18 May 2026 17:15:23 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: mailbox: qcom,cpucp-mbox: Add Hawi
- compatible
-Message-ID: <20260518114523.kll5qlwfwu4esnf5@hu-mojha-hyd.qualcomm.com>
-References: <20260427182412.3666971-1-mukesh.ojha@oss.qualcomm.com>
+        Mon, 18 May 2026 04:46:01 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 18 May 2026 12:45:55 +0100
+To: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v5 06/13] iio: frequency: ad9910: initial driver
+ implementation
+Message-ID: <3hmrlvjzxoh6vasxdku36sin25g36ienzqingm5iu6gqtkeduj@4dxxraojyfic>
+References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
+ <20260517-ad9910-iio-driver-v5-6-31599c88314a@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260427182412.3666971-1-mukesh.ojha@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: w3Qw1kvW3IG8Gptr8qkrp0W-Q02Hg-jN
-X-Authority-Analysis: v=2.4 cv=f614wuyM c=1 sm=1 tr=0 ts=6a0afbda cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=OZ16uQIpaqB3DC0mcKYA:9 a=CjuIK1q_8ugA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: w3Qw1kvW3IG8Gptr8qkrp0W-Q02Hg-jN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE4MDExMyBTYWx0ZWRfXzRuHsU+kwuXP
- 6BTqti09OO8D7By/xP2jp7IdcEaL1Q98Mw7sp/rY7cQmKLl//1y97o/BS6KTy8LDEvG3/yo4Wrs
- YtyFLV1ReT2jfyrPXxCWFNVtTqiRTDyiIqg4aAgRzEzZw53rD0zCp0LM1vb1fimZpg/lhn+7z1J
- CLiBLCZBzd0c5L2YsJ1RnQIoYeJjeVbJVfBcLV5Bn7/qphYP0wuArfyKtDhSUezHrIR5aCudGVz
- QqYyLg+BgrdGylDg0V2pg675o40jUvE+EvQYvaZSorlRCEihdUJPHb1S4hdkNaP0m0/Udw9xn41
- x1skGG4yym0S2qOf16N25WqxJEJ8GIMG6XPsRUnCg118oiM+5wIcCAVUBx0/G0oBLTQHdVNNUfy
- GGLO5dYfyJGTPtCl1LDt/O3sXk+4PIx1/tm/40zsETYLWNOY4uidG0tAlpt/ZLjupPn/aayp6Ur
- umYJuLxZ2SfFhPLL7ig==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-18_03,2026-05-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605180113
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260517-ad9910-iio-driver-v5-6-31599c88314a@analog.com>
 
-Hi Jassi,
+On 26/05/17 07:20PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
+> - [High] Incorrect usage of `device_property_read_u32_array` causes single-value property `output-range-microamp` to be ignored.
+> - [High] VCO_SEL field is incorrectly set to an out-of-bounds value (7) when the PLL is bypassed.
+> - [High] Stack out-of-bounds read in `ad9910_profile_set()` triggered by unvalidated GPIO descriptor count.
+> - [High] Missing resource teardown: device reset line is never asserted on driver removal.
+> - [Medium] PLL multiplier clamping logic violates the hardware's minimum VCO operating frequency.
+> - [Medium] Missing hardware initialization delay after reset deassertion can cause SPI communications to fail.
+> --
+> 
+> commit fb6e130c7d866653f35ab965acf927500a84756c
+> Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> iio: frequency: ad9910: initial driver implementation
+> 
+> Add the core AD9910 DDS driver infrastructure with single tone mode
+> support. This includes SPI register access, profile management via GPIO
+> pins, PLL/DAC configuration from firmware properties, and single tone
+> frequency/phase/amplitude control through IIO attributes.
+> 
+> > diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+> > new file mode 100644
+> > index 0000000000000..c7b1e474c92df
+> > --- /dev/null
+> > +++ b/drivers/iio/frequency/ad9910.c
+> [ ... ]
+> > +static int ad9910_set_sysclk_freq(struct ad9910_state *st, u32 freq_hz,
+> > +				  bool update)
+> > +{
+> [ ... ]
+> > +		tmp32 = clamp(tmp32, DIV_ROUND_UP(AD9910_PLL_OUT_MIN_FREQ_HZ, refclk_freq_hz),
+> > +			      AD9910_PLL_OUT_MAX_FREQ_HZ / refclk_freq_hz);
+> > +		tmp32 = clamp(tmp32, AD9910_PLL_MIN_N, AD9910_PLL_MAX_N);
+> > +		sysclk_freq_hz = refclk_freq_hz * tmp32;
+> 
+> Is it possible for this second clamp to drop the multiplier below the
+> minimum frequency constraint? If the input reference clock is 3.2 MHz,
+> the first clamp would raise the multiplier to 132 to reach 420 MHz, but
+> the second clamp limits it to 127. This results in a VCO frequency of
+> 406.4 MHz, violating the hardware minimum. Should the driver return
+> -ERANGE instead if the bounds cannot be satisfied?
 
-On Mon, Apr 27, 2026 at 11:54:12PM +0530, Mukesh Ojha wrote:
-> Document CPU Control Processor (CPUCP) mailbox controller for Qualcomm
-> Hawi SoCs. It is software compatible with X1E80100 CPUCP mailbox
-> controller hence fallback to it.
+I suppose that would not be problematic as the PLL does accept that input
+frequency. Even though the VCO might not be designed for frequencies as low as
+406.4 MHz, we are doing the best effort here to get a proper configuration.
+ 
+> [ ... ]
+> > +	} else {
+> > +		tmp32 = DIV_ROUND_CLOSEST(refclk_freq_hz, freq_hz);
+> > +		tmp32 = clamp(tmp32, 1U, 2U);
+> > +		sysclk_freq_hz = refclk_freq_hz / tmp32;
+> > +		tmp32 = AD9910_CFR3_VCO_SEL_MSK |
+> > +			FIELD_PREP(AD9910_CFR3_REFCLK_DIV_BYPASS_MSK, tmp32 % 2);
+> > +		ret = ad9910_reg32_update(st, AD9910_REG_CFR3,
+> > +					  AD9910_CFR3_VCO_SEL_MSK |
+> > +					  AD9910_CFR3_REFCLK_DIV_BYPASS_MSK,
+> > +					  tmp32, update);
 > 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/mailbox/qcom,cpucp-mbox.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Does setting tmp32 with AD9910_CFR3_VCO_SEL_MSK cause the update function
+> to write an out-of-bounds value here? Because tmp32 contains the entire
+> mask, the underlying field will be set to 7, but the valid range for the
+> vco sel field is 0 to 5.
+
+No, 6 and 7 means PLL bypassed (Table 8 in the datasheet). Also, 7 is the
+default value of that bitfield.
+
+> [ ... ]
+> > +static int ad9910_profile_set(struct ad9910_state *st, u8 profile)
+> > +{
+> > +	DECLARE_BITMAP(values, BITS_PER_TYPE(profile));
+> > +
+> > +	st->profile = profile;
+> > +	values[0] = profile;
+> > +	gpiod_multi_set_value_cansleep(st->gpio_profile, values);
+> > +
+> > +	return 0;
+> > +}
 > 
-> diff --git a/Documentation/devicetree/bindings/mailbox/qcom,cpucp-mbox.yaml b/Documentation/devicetree/bindings/mailbox/qcom,cpucp-mbox.yaml
-> index 90bfde66cc4a..167ee222a163 100644
-> --- a/Documentation/devicetree/bindings/mailbox/qcom,cpucp-mbox.yaml
-> +++ b/Documentation/devicetree/bindings/mailbox/qcom,cpucp-mbox.yaml
-> @@ -19,6 +19,7 @@ properties:
->        - items:
->            - enum:
->                - qcom,glymur-cpucp-mbox
-> +              - qcom,hawi-cpucp-mbox
->                - qcom,kaanapali-cpucp-mbox
->                - qcom,sm8750-cpucp-mbox
->            - const: qcom,x1e80100-cpucp-mbox
+> Could this cause an out-of-bounds read on the stack? The values bitmap is
+> sized using BITS_PER_TYPE(profile), which allocates space for 1 unsigned
+> long. If the device tree provides more profile gpios than fit in an unsigned
+> long, gpiod_multi_set_value_cansleep() might read past the end of the bitmap
+> when iterating over the descriptors.
+
+well, profile-gpios are at most 3 pins. I'll see to constraint that in the
+probe function.
+
+> [ ... ]
+> > +static int ad9910_parse_fw(struct ad9910_state *st)
+> > +{
+> [ ... ]
+> > +	tmp[1] = AD9910_DAC_IOUT_DEFAULT_uA;
+> > +	device_property_read_u32_array(dev, "output-range-microamp", tmp,
+> > +				       ARRAY_SIZE(tmp));
+> 
+> Will this properly read a single-value property? Because ARRAY_SIZE(tmp)
+> is passed as the expected element count, device_property_read_u32_array()
+> might return -EOVERFLOW and leave the tmp array unmodified if only one
+> value is present in the device tree, causing the property to be silently
+> ignored.
+
+Ignoring those misconfigurations might be ok too. One can refer to the
+bindings to have a proper reference.
+
+> 
+> [ ... ]
+> > +static int ad9910_setup(struct device *dev, struct ad9910_state *st,
+> > +			struct reset_control *dev_rst)
+> > +{
+> > +	int ret;
+> > +
+> > +	ret = reset_control_deassert(dev_rst);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> 
+> Is a teardown action missing for the device reset here? Without adding a
+> managed action to assert the reset line, the hardware might remain active
+> after the driver is unloaded or if a subsequent setup step fails.
+
+I'd say it can't remain active with the power down pin being handled already.
+
+> Might this also require a hardware delay before the first spi write? The
+> datasheet specifies waiting for the internal state machine to become ready
+> after a low-to-high transition on the reset line. On fast hosts, the
+> immediate spi access might be ignored.
+
+Could not find that info in the datasheet. What is says is that the reset
+clears memory elements, e.g. registers are set to default values.
+
+> > +	ret = ad9910_reg32_write(st, AD9910_REG_CFR1,
+> > +				 (st->spi->mode & SPI_3WIRE ? 0 :
+> > +				 AD9910_CFR1_SDIO_INPUT_ONLY_MSK), false);
+> > +	if (ret)
+> > +		return ret;
+> 
 > -- 
-> 2.53.0
-> 
-
-I am just checking if this can be picked for upcoming merge window.
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com?part=6
 
 -- 
--Mukesh Ojha
+Kind regards,
+
+Rodrigo Alencar
