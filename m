@@ -1,124 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA8D171BB
-	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB07390CAE
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 20:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779137132; cv=none; b=cpdn75n0dXWev406vjxu/3pN96uR2JALR5dabxeyRaE9fEbSoV84xVYE/YrF+Z9Bix2yDUOvU0soa+T3a+4LdCkIz6sl+E2VWKK45SNUG46TI8HIsj8gqgSkhvJqV2cn44HdFMO7fq0bcKi1eoyii51Y2BlTC+09qy82477rLLc=
+	t=1779137222; cv=none; b=H3TEWiWIRjrvDNncuua8ZRiGK6dLap+NmQj+UOt2aE2RLlzYuHfy1KZt37qFPe4frkUAfNib9NxdMf1Iut9QufUqaefdqkxPtU7oKmSLUgcGIn2PchASb8hI6uDUMI0089RGzAEA5vSkvAOnmOa0wqr6sTxSyLXmBkOtr6Yu45E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779137132; c=relaxed/simple;
-	bh=WiX5EuX3Tq91b1WaAFnDj+qoFtSk58gTxdukq8kDcvU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fcxdXQImOuhPL/PD8GYSy4BiZ0KaUZcof+xKU9YLne7kO0fSlKjap/dgFwibTKq7eWdQQIpfxK7m9+uzeiQIq+PG3It3IKKb8yX4mNSZ3C9z2ks7UOWl6R5zz966N6rDac2vbfqvJvFSRbhOJXjwHPL2HB0fw5qsksE/EukFeng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QnEZcsPh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779137222; c=relaxed/simple;
+	bh=Ju0bBZL4gIhDXt1wxIRcD+B9cM8rwS33tQQtnjcKUwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MstEtXG2uWP3gthj6zHN4KBs6BAy2TsxNDERH3FfRddo0U1L3du21jlNE/PKEvz9bAXc6wfnT6hYOzzjMlCHUbxupdi3I4lt+xRgPo+nzyuic+bN9V5zqnhr5NqeXe5vpZ9OCaZctTIK3uEW0Fdira/9Kz5VhIKiPo/eG3yCJeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=hIDL4Pci; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QnEZcsPh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB704C2BCB7;
-	Mon, 18 May 2026 20:45:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779137132;
-	bh=WiX5EuX3Tq91b1WaAFnDj+qoFtSk58gTxdukq8kDcvU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=QnEZcsPh9ZVnkN5/mlqeymjOwV6sEemprac7KMMKIS+e+0HsgpaXdDGiYSs2C8ZS6
-	 u7zrWg9rlgEYDfhvzOl59Ipg3e8liHX1tKVUPCrPPXR3o9/54PUdcD3kkrmbK3TsOf
-	 NlD582sLIVuJ1MMRXJtjD7o85uxALEcG9c/ZjpUf3DQsoXwXXcZ6IF2XWUuVxOTGFm
-	 85vSQ8fwguU+CHYTMSPnYx24HEMYrLNHI5VkMdKDi8b3sWVMDnrdJO+T8YHPC2qM+y
-	 xclR368lF2byduCpGIJS2Pqo2PUzbRrGyh4A4vYraj57HmAqMGFX9RquOswhNFdwD2
-	 bCHXjgGKoaPkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V8 07/10] iio: imu: inv_icm42607: Add Temp Support in
- icm42607
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518200526.458421-8-macroalpha82@gmail.com>
-References: <20260518200526.458421-8-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 May 2026 20:45:31 +0000
-Message-Id: <20260518204531.BB704C2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="hIDL4Pci"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=L52K
+	0rxWySw3mD5z7jnwvPV6H6bdzA5sgxRy/hQVyAI=; b=hIDL4Pci78/puo7y9yQi
+	i2QwANMnkO9c+JN2J1AuGPGc7VaJw5mv5oB/Zi5V2NpOtmNWm9XOO1R+IJNZFnZR
+	meEUR+IwLqIIqHU3FlF+jDqISV7XhoIBKJj5YhCwfcISYldprr8eaDDjBG3r5TZw
+	mxP8JHNcHv1dzvI+ZmsQ1fBQiFdtCyshmDbAh204tTJkZb0f6TFW0ExyfM/Kk91P
+	wss0BhGJm15JjnmFgKwqDs+m+p0q5M7k+F6MldfbQ6dnZbJ07U0epn56qjQWMMuA
+	laR67xnGRvGP5v3vFrD1q2AD1KEOA7i38hJabnRO/72MrxDt/qCiKctVFaQbZ1ji
+	mA==
+Received: (qmail 5619 invoked from network); 18 May 2026 22:46:55 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 18 May 2026 22:46:55 +0200
+X-UD-Smtp-Session: l3s3148p1@dIu7qR1SQNMujnuR
+Date: Mon, 18 May 2026 22:46:55 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Simon Schuster <schuster.simon@siemens-energy.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Dinh Nguyen <dinguyen@kernel.org>, linux-doc@vger.kernel.org,
+	devicetree@vger.kernel.org, workflows@vger.kernel.org,
+	Linux-Arch <linux-arch@vger.kernel.org>, dmaengine@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org,
+	Netdev <netdev@vger.kernel.org>, linux-pci@vger.kernel.org,
+	linux-pwm@vger.kernel.org, linux-hardening@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	"linux-csky@vger.kernel.org" <linux-csky@vger.kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
+	Hu Haowen <2023002089@link.tyut.edu.cn>,
+	Kees Cook <kees@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Nicholas Piggin <npiggin@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Dave Penkler <dpenkler@gmail.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof WilczyDski <kwilczynski@kernel.org>,
+	Andreas Oetken <andreas.oetken@siemens-energy.com>
+Subject: Re: [PATCH] nios2: remove the architecture
+Message-ID: <agt6vy3WtjFy9sfU@shikoro>
+References: <20260518042833.272221-1-enelsonmoore@gmail.com>
+ <d40b1e80-37fc-4c88-9d7f-dae6458efe6c@app.fastmail.com>
+ <20260518105735.GW3126523@noisy.programming.kicks-ass.net>
+ <20260518172444.zyd47mcagrcwu7wt@dev-vm-schuster>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518172444.zyd47mcagrcwu7wt@dev-vm-schuster>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The temperature sensor is left enabled indefinitely after a sing=
-le read, causing a power leak and preventing low-power modes.
-- [Medium] The true Runtime PM error code is incorrectly masked and replace=
-d with a hardcoded -ENXIO.
---
+Hi Simon,
 
-commit 454b81f6136c888691f5c12d16c333a82da009f2
-Author: Chris Morgan <macromorgan@hotmail.com>
+> downstream. In other respects, we try to be good citizens and contribute
+> bugfixes as well as required cleanups (such as implementing clone3 [2]
+> and fixing its flag behaviour on 32-bit architectures) as they come up.
 
-iio: imu: inv_icm42607: Add Temp Support in icm42607
+Well, this is definitely 'good citizen'...
 
-This commit adds functions for reading temperature sensor data in the
-inv_icm42607 driver.
+> If desired, we also would be happy to intensify our support regarding
+> reviews or testing to share the maintnance burden if it helps to keep
+> nios2 in mainline a bit longer.
 
-[ ... ]
+... but given this, you might want to get added in MAINTAINERS as
+reviewer (or even maintainer) for nios2? Besides that your efforts are
+already worth it in my book, it would also ensure you get CCed on
+patches like this. Then, you are not depending on people like Arnd
+putting you in the loop manually.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_temp.c
-> new file mode 100644
-> index 0000000000000..7e9cb072a0110
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
-> @@ -0,0 +1,80 @@
-[ ... ]
-> +static int inv_icm42607_temp_read(struct inv_icm42607_state *st, s16 *te=
-mp)
-> +{
-> +	struct device *dev =3D regmap_get_device(st->map);
-> +	__be16 *raw;
-> +	int ret;
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-> +		return -ENXIO;
+Happy hacking,
 
-Since PM_RUNTIME_ACQUIRE_ERR() evaluates to the actual integer error code
-returned by the underlying runtime PM call, does returning a hardcoded
--ENXIO here mask the true cause of the PM failure from userspace?
+   Wolfram
 
-Could this propagate the actual error code instead?
-
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret =3D inv_icm42607_set_temp_conf(st, true, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	raw =3D &st->buffer[0];
-> +	ret =3D regmap_bulk_read(st->map, INV_ICM42607_REG_TEMP_DATA1, raw, siz=
-eof(*raw));
-> +	if (ret)
-> +		return ret;
-> +
-> +	*temp =3D be16_to_cpup(raw);
-> +	if (*temp =3D=3D INV_ICM42607_DATA_INVALID)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-Is the temperature sensor left enabled indefinitely after a single read?
-
-The sensor is explicitly powered on by calling inv_icm42607_set_temp_conf()
-with enable set to true, but it doesn't appear to be turned off before
-returning.
-
-If another channel like the accelerometer is actively streaming, the device
-will not power down due to runtime PM autosuspend. Because st->conf.temp_en
-remains true, it appears this would actively prevent the accelerometer from
-entering its low-power RC oscillator clock mode, which requires the
-temperature sensor to be disabled.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518200526.4584=
-21-1-macroalpha82@gmail.com?part=3D7
