@@ -1,128 +1,102 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8C0285CBA;
-	Mon, 18 May 2026 14:56:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057D3277007
+	for <devicetree@vger.kernel.org>; Mon, 18 May 2026 14:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779116173; cv=none; b=KsZpTmA7g/ID6GoJsDKoobagpsENmiYBkze0HkvS/ZKDx8w1Gd0tg1Qm9K9gWHMzE6THGxwnHSc4n+NG7J1yF4rPi2zesNpRcORUlFaRKie8+y7AXM7salS7Lb+h7LO634ssD4L09EQR22B0TIxdK55AvnT/pvOR70zPkUYKTEw=
+	t=1779116240; cv=none; b=Z9TNp222q3KB5Az6HqNDa+9kqk48c7q/hGU+Yr7MIGNZS4T0ZvsKUBqbuJXvo2PQw6HEkWVQSaE2gGrSvxlGONik5GEuUOEd302cXN7dqZrftRjGib0roxZ6D6/TO0ExhiwAMv0IX+3qEMA4+zgBVzF5ppFpWGCnr6q73K9VgAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779116173; c=relaxed/simple;
-	bh=XhkqJSMJRJ9caAgyYTXvXdZyQrFlJPUeu7FGKIdRg8U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aVS/OyeSpvVzI1H9Zb9rs8ValWQUy6dhd4UYhj7uVsZaykwVPo6m+2HMLDVDFcIDab1sPW2LlBq5bd7Sv4iJomAKP643u9EK+wO7BOLO9Q6kJXNDxgNw1vXwVnSlK1eTKAGdVReFE4ksxEoSLoqrtQAp8zRbhRjdJExIGCBiCcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id D10801F8004A;
-	Mon, 18 May 2026 14:56:07 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 00E1EB407FD; Mon, 18 May 2026 14:56:06 +0000 (UTC)
-X-Spam-Level: 
-Received: from collins (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id 6410AB407F3;
-	Mon, 18 May 2026 14:56:06 +0000 (UTC)
-Date: Mon, 18 May 2026 16:56:04 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
- Baijie Helper A133 board
-Message-ID: <agsohFpjuGqRRDO-@collins>
-References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
- <20260510201644.4143710-4-alexander.sverdlin@gmail.com>
- <agr9m_tidBr6Cu2h@collins>
- <579c7c33123c4cd0bd486301e56daf5962ca55ec.camel@gmail.com>
- <agsezxcxjQlBmesm@collins>
- <bc3b786313adee30cc00c65ea98ff5258a816abb.camel@gmail.com>
+	s=arc-20240116; t=1779116240; c=relaxed/simple;
+	bh=cm1DehLuu5EcbT8j5KOdVZAvP7cgGRccZ1kzoENS7M0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZuRU5wM3LSAzW1KMlUdeiQluu4wn+FxmZ5mY4/WsBoXh/zGOIJM98W20aDmpL/PSjI47DGVyCiyNimgePWj+sVUrsbx7STn2A1wU/Egt/dF/P49KUtU6gQB2axQ7sQGSglRTT4f8KP+CEzPA+AyPCbXHC3kLgGMIurpWSoCfSE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U71l7eC8; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U71l7eC8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B48C2BCB7;
+	Mon, 18 May 2026 14:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779116239;
+	bh=cm1DehLuu5EcbT8j5KOdVZAvP7cgGRccZ1kzoENS7M0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=U71l7eC863Ps1/WYaRbmeqjDgOSdDGfTeK9d0Q84T78xt8gNcGBQLwnOZwKYLTuj4
+	 pkOYSXkylr2M6SeASZF+ZDHDlBK9vsTvE3ALuhpEWCwxhQRDbLrJVctvgVJnl2rVMB
+	 zgE7l8MIi3Xx6Zj6Vf/zu0066NyaPqNurezNIir/XP7R7moTHMqhFc2RVRqLcnZMnk
+	 zOu0zQKUlqUV1ZMxyy/GnrLOxrBbrmzjJapGJN94PqGp1AZt4J/LVW52U4o4pZ0ZQw
+	 SPvPANNnlsjMWJBw6wCaJg+ocMioZm9E4Il8IStChUPn2Iw7Wzvara/sLg/7kriQNv
+	 XjjL2iGjC0xRg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 03/15] arm64: dts: st: add CAN1 support on stm32mp25
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dario Binacchi" <dario.binacchi@amarulasolutions.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260518143150.3138712-4-dario.binacchi@amarulasolutions.com>
+References: <20260518143150.3138712-4-dario.binacchi@amarulasolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 May 2026 14:57:19 +0000
+Message-Id: <20260518145719.84B48C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Fo0QafIQlmgBpWCX"
-Content-Disposition: inline
-In-Reply-To: <bc3b786313adee30cc00c65ea98ff5258a816abb.camel@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `m_can1` device tree node is missing the `resets` property.
+--
 
---Fo0QafIQlmgBpWCX
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 9a45deb755da217a14f0986f9795adff2ebdf1f4
+Author: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-Alexander,
+arm64: dts: st: add CAN1 support on stm32mp25
 
-Le Mon 18 May 26, 16:40, Alexander Sverdlin a =C3=A9crit :
-> Hi Paul,
->=20
-> On Mon, 2026-05-18 at 16:14 +0200, Paul Kocialkowski wrote:
-> > I also have a U-Boot config ready for it, which I could send once the
-> > device-trees are merged on the kernel side. I could send it to you if
-> > you're interested.
->=20
-> I do have one as well, I'm testing all open-source ;-) from ATF-upwards,
-> just thought U-Boot would require ATF merged and kernel DT merged
-> because of OF_UPSTREAM in U-Boot. But I'd be happy to sync when we get
-> there.
+This commit adds device tree support for the CAN1 controller on the stm32mp=
+25
+platform. It configures the necessary memory regions, interrupts, clocks,
+access controllers, and power domains for the bosch,m_can compatible node.
 
-Sure, let's keep in touch about this!
+> diff --git a/arch/arm64/boot/dts/st/stm32mp253.dtsi b/arch/arm64/boot/dts=
+/st/stm32mp253.dtsi
+> index eeceb086252bf..d5871203ccb01 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp253.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+> @@ -43,6 +43,21 @@ &optee {
+>  };
+> =20
+>  &rifsc {
+> +	m_can1: can@402d0000 {
+> +		compatible =3D "bosch,m_can";
+> +		reg =3D <0x402d0000 0x400>, <0x40310000 0xd50>;
+> +		reg-names =3D "m_can", "message_ram";
+> +		interrupts =3D <GIC_SPI 91 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupt-names =3D "int0", "int1";
+> +		clocks =3D <&rcc CK_BUS_FDCAN>, <&rcc CK_KER_FDCAN>;
+> +		clock-names =3D "hclk", "cclk";
+> +		bosch,mram-cfg =3D <0x0 0 0 32 0 0 2 2>;
+> +		access-controllers =3D <&rifsc 56>;
+> +		power-domains =3D <&CLUSTER_PD>;
 
-I also have the 7" LVDS LCD that goes with it, which was supported by
-Parthiban's initial series (but needs rework, and it seems that he's
-unlikely to do it). I also have the 5" MIPI LCD but it's less likely
-that it will be supported, although I have seen dirty patches to make
-some other MIPI panel work with A133.
+Should this node include the resets property?
 
-We'll need PWM for it which should be a follow-up to the current H616
-PWM series from Richard Genoud.
+The STM32MP25 RCC bindings define a dedicated hardware reset line for the
+FDCAN block. While the generic bosch,m_can driver can fall back to a
+software reset when the resets property is omitted, the STM32MP architecture
+relies on the hardware reset to guarantee a pristine state.
 
-Other than that there is a PCF8563TS RTC on the board, audio stuff:
-speaker (which I have) mic and headphones and a GPIO beeper which could
-be added.
+Could omitting the resets property prevent the driver from acquiring the
+hardware reset line and lead to unpredictable initialization failures if
+the hardware is left in a fault state after bootloader execution, kexec,
+or a warm reboot?
 
-Do you have other A133 boards that you're interested in?
-I also have:
-- KICKPI K5C
-- DshanPi-R818
-- Logicom La Tab 129
-- Trimui Brick
+> +		status =3D "disabled";
+> +	};
 
-And have some WIP device-trees and u-boot for most of them.
-
-All the best,
-
-Paul
+[ ... ]
 
 --=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---Fo0QafIQlmgBpWCX
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmoLKIQACgkQhP3B6o/u
-lQwSBA/8CUU8/y0NALKPJHPsGl+f83F2Juxadi4mbIE/AM3g6XK+OJR2fdBq5JyM
-qiww0A8jbvT/MfTj6pDVg3HnEU2cmcT4AjRdE5l3EfmL/LwfzA91VYlETXOkEhe6
-ropZY1h8IZl8cGgfUkM21KwsNekBYG81HFkNVvgykMuYoGx45rsPcQ+Yva1PHWhk
-Yv7/LTzf0dL5wENDQMCmoddeKK5USopdJ4qi9PE5q8YbvKmDwS0yoI5QHPMWUJ4J
-digD+MWXanhgqyRNl4LIlJrloXfd/iCjWrFhbEnoZV2Ytr19x+GX7JP3cUS+IeQO
-v6ELDislalhuic327sfGUIlaaFQL3SKV9GjTygAgQzWAo9UoFxLh8aDSLp6dZ8D6
-byy9KCvOKaIkoHqyT5fw/4SQa2UvJIKmjh1LrW2p4AbM+g2v2z1T+/8CiVk04bYg
-eyWE7TyQ2csO+YK1COX0NmueP6CWm3GTJ7qg1rFMgED4B9Taz/zIze1oQOyKM+59
-5ZslqkdHlarotx/s46ZOoyMGa5eeQdwcJBOoCXJ0Vrs2HCZQzaGotOfa0XdW+nze
-r7/DN6LOlHYqiFmd/+tbCOMnb7HSzTiCQ7mbjj6Ei9vQhEgMk1okU9f86CgewsJr
-wXdISV+lrAQWWzHxhGKAnmKJ8Um79u/Exrf5UKLnK15T0/KbsMg=
-=S0BY
------END PGP SIGNATURE-----
-
---Fo0QafIQlmgBpWCX--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518143150.3138=
+712-1-dario.binacchi@amarulasolutions.com?part=3D3
