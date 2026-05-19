@@ -1,107 +1,109 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F4B48033C;
-	Tue, 19 May 2026 11:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6F6370AF4;
+	Tue, 19 May 2026 11:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779190711; cv=none; b=pCq0k24wFptOqEPNJDvEgfYrOtZYAeKrUBITeOxmPwVQ3djppLgXj/pf7R/0dUSeYOH8np4zVDaQ/Ug9Zo34APnFSyOWDr/Rxub9rbCIvyrsKD5WTvprmu4NZi159eFMB/NHP9s+nAldJSNJ88rehbG6OommdznGBvYlTH3S42w=
+	t=1779190823; cv=none; b=hpzt8W4g3Umztv9oh+yY9I6e357wlAD13z8vDkIEDmEC6PeGA1h9DH//bijePeNOnsR1FhuMIO3lvzgDtnOIoEv4ve0zJhDAN2WPuJJAm9GjPTLlkUPFKlNY3mlfgjDiiA8W3PJTQyZPLmKKPeBDSxDgSxYuJoICEzTyF3NQsYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779190711; c=relaxed/simple;
-	bh=Ldqt2evZpICTczUXVRvtMMUJkyF1TiVte9LKC1slNqY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r0FxsRaPBYPQG+XahoayAtoJvPHV8ylMHXtMN1I3SoitVN2sOL+KMXJ0MjCUfW/Dmd6Lkmha488qQFtscdKUtLo5NS2hUAImhSX83yiFBW+VpOxg0rX9MgfFKn6+fh9lAfhafyOn7MPaQICVlsQkfrJtNi+NMIRsDVyImGWJagk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tm3aHWiH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1779190823; c=relaxed/simple;
+	bh=QQaaGxQ5MASOA16eW1u17RV/meEJnJskrvGMHhJ6QeQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hfRFjpS077LvXhtU0z3kzy8nB8R8VeqWVdTNxyhVSdIWx78/Fe8DWuXg4Y9sUqP6SDwWLDwCU2DxvkA9I/dSGq3JNpl30hnAhdf4ewmc3ZWe0dsGFh9IY/wxu46j7L25XhxUR8D0VBkaf0a0Z4PrKG9oq6c+vVAz5+xxlUE7L1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0TPOmjb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tm3aHWiH"
-Received: from killaraus.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:42d6:38fa:3bdf:70df])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0E28F558;
-	Tue, 19 May 2026 13:38:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779190693;
-	bh=Ldqt2evZpICTczUXVRvtMMUJkyF1TiVte9LKC1slNqY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=tm3aHWiHl4Z6Jlmnae4PnkraK95fhgvaH9ewKvsmBEKk2sUPn6jQqMFiR+wCBN7k9
-	 764ChDBpFkzZRSWxIoVTdVpp9F3vBvyOX5PtYqkLw4kSg73vZ39xIWTst1WFTxGq5a
-	 5L271GTl1md7OuMN4fP+gXlpyeH4H6bUehAu7RrY=
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Robby Cai <robby.cai@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Martin Kepplinger <martin.kepplinger@puri.sm>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: imx@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example endpoint label typo
-Date: Tue, 19 May 2026 13:38:23 +0200
-Message-ID: <20260519113824.91533-1-laurent.pinchart@ideasonboard.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0TPOmjb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FFCC2BCB3;
+	Tue, 19 May 2026 11:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779190823;
+	bh=QQaaGxQ5MASOA16eW1u17RV/meEJnJskrvGMHhJ6QeQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=G0TPOmjbmcvJIsyGp9Lt9WWuGrK3bSidLM55V8j1toGC08ccXy34OW+azx4MDkSV7
+	 a/BjSolTL36yxsLoocb5XUNbmpvdpDCm+P1wzQ6KWLN2vZA6JE6WOXE6NoTfzmfUey
+	 ef352MxE0yvpE8Idden2ACG12L3FEAoE2VydQ6X7abTwmp4W+J7UEPOHhQC0QxrCUv
+	 A5SHqdGiPEPP28otiuD5aBL0d9JDnfKn5p70KSV2wgC/lhciRK56CwFnAc4hkqZKLg
+	 mvQf2SluEbysYMgQBbiDmzhVt7XjUOIOl9GPWQDyB05H0C+RTfaFU1sGH/cIjAHr4+
+	 Jh0UTs5zoTCUA==
+Message-ID: <6b5378ed-270a-4ade-a944-654941ee9f8c@kernel.org>
+Date: Tue, 19 May 2026 06:40:18 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nios2: remove the architecture
+Content-Language: en-US
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Simon Schuster <schuster.simon@siemens-energy.com>
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
+ workflows@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>,
+ dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-iio@vger.kernel.org, Netdev <netdev@vger.kernel.org>,
+ linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ "linux-csky@vger.kernel.org" <linux-csky@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Alex Shi <alexs@kernel.org>,
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
+ Hu Haowen <2023002089@link.tyut.edu.cn>, Kees Cook <kees@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Nicholas Piggin <npiggin@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Dave Penkler <dpenkler@gmail.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof WilczyDski <kwilczynski@kernel.org>,
+ Andreas Oetken <andreas.oetken@siemens-energy.com>
+References: <20260518042833.272221-1-enelsonmoore@gmail.com>
+ <d40b1e80-37fc-4c88-9d7f-dae6458efe6c@app.fastmail.com>
+ <20260518105735.GW3126523@noisy.programming.kicks-ass.net>
+ <20260518172444.zyd47mcagrcwu7wt@dev-vm-schuster>
+ <CADkSEUjhq6HSdg4ignzbuJiN5uXATsTdxFbRJ3BMxs5=WUWLDg@mail.gmail.com>
+ <20260519103012.blot4bssgiqfer6p@dev-vm-schuster> <agxBqd-ubOL2_i-j@shikoro>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <agxBqd-ubOL2_i-j@shikoro>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Robby Cai <robby.cai@nxp.com>
+Hi Simon,
 
-The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out}
-endpoint labels, which is confusing for an i.MX8MQ binding. The labels
-could be removed as they are not functionally required in the example,
-but they have a documentation purpose that brings value to the reader.
-Rename them mipi_csi_{in,out} to avoid the confusion.
+On 5/19/26 05:55, Wolfram Sang wrote:
+> Hi Simon,
+> 
+>>> ... but given this, you might want to get added in MAINTAINERS as
+>>> reviewer (or even maintainer) for nios2? Besides that your efforts are
+>>> already worth it in my book, it would also ensure you get CCed on
+>>> patches like this. Then, you are not depending on people like Arnd
+>>> putting you in the loop manually.
+>>
+>> Sure, I'd be glad to do so, but so far I refrained from it as I was a bit
+>> unsure about the netiquette (can I simply do so by self-proclamation? At
+>> least the git history seems to suggest so...).
+> 
+> In your case, you can do so, I'd say. You explained your very reasonable
+> interest in the architecture and have already shown efforts to keep it,
+> as we can see from the git history. The final call will be done by Dinh
+> Nguyen obviously with whom you probably need to sort out details. But I
+> can't imagine your offer for help will be rejected, quite the contrary.
+> 
 
-Signed-off-by: Robby Cai <robby.cai@nxp.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
-Changes since v1:
+I 100% support adding you as a maintainer. Please send a patch.
 
-- Drop imx8mpq_ prefix from label name
-- Update commit message
-- Drop Fixes: tag
----
- .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-index 4fcfc4fd3565..9eee67ed2685 100644
---- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-+++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-@@ -220,7 +220,7 @@ examples:
-             port@0 {
-                 reg = <0>;
- 
--                imx8mm_mipi_csi_in: endpoint {
-+                mipi_csi_in: endpoint {
-                     remote-endpoint = <&imx477_out>;
-                     data-lanes = <1 2 3 4>;
-                 };
-@@ -229,7 +229,7 @@ examples:
-             port@1 {
-                 reg = <1>;
- 
--                imx8mm_mipi_csi_out: endpoint {
-+                mipi_csi_out: endpoint {
-                     remote-endpoint = <&csi_in>;
-                 };
-             };
-
-base-commit: d97d13c24d7893abcfb80d38630ce74daaa1434c
--- 
-Regards,
-
-Laurent Pinchart
+Thanks,
+Dinh
 
