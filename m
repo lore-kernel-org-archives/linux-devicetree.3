@@ -1,253 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1430E369D6B
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:35:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075B93F4DE3
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779190529; cv=none; b=Zm9Vk51GiXAXXV1ZxnJ8u16uMcaBDdCwpuWzH+T8G98OctxDSlWCiGcwUS0XstlUur3sWGlpuqwgyEgUywkwFjW5Vvf82to0cRJiBETn2U53jTPpcRnSRL1FTGIYvfxqGl7ezX1rpGcP2FCNEfgilN4zdzALPnrDN8QB226LjPM=
+	t=1779190677; cv=none; b=JDAh0q/xzZUbucsUu1qzUZrVHQygr62TFZ9z06f91aFZjlsETQ3yAIwykVcFr3tE3NTsoZA1sEigh32cMvOORR887Cza4aFi9fGAePctRGUWDBhx+f93f9yOPXI7VHXUyIxpBEPW9jQs5zAjEJoCQqsiRswYoi2UeuKwwfsNEjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779190529; c=relaxed/simple;
-	bh=bEsE+psoNcpcDHzxBWF5fTplAyQr6BXDunI79+4nAbY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q/mHnsfdFpjclf7H2ZHJaXTob+wpbSOF6e/ov5ILeS7GCur2EPPiSEldJKwXjnK58K2rkFAezEEZS3fQUaYSlKImUaPA1brTM9rxpa5ZnwT1/JMuyiL+RtRToKhyYwTkkw60vyrudYBcSacX6+sRJGqFgEIivEmTtq7rWRNSjJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmDPBfO6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779190677; c=relaxed/simple;
+	bh=qpWIOWTlOhe/O3Zu6wqaA+1dFbPPZ6kberD6gTt2KsI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g89k8h8D67LiAqEbp4VqJUUfTyYfqkd1o7Zmod/bbtCAk1Pl8Kfx/CbSVv9GiEwQaYi+S2JEiWk3oGLdUdOp9JgLtEM8SMyPj8DQ0JiKyJmAab+xkRy9MGnFuLkD7grek/MOyOf1Cx1nsVOHubTWPx3do4cnaDU7ssciTJcx9dY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=N6OwhVIj; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmDPBfO6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD273C2BCB3;
-	Tue, 19 May 2026 11:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779190528;
-	bh=bEsE+psoNcpcDHzxBWF5fTplAyQr6BXDunI79+4nAbY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=cmDPBfO6tfDd/tpUqCxyu5aQuB2CY5V7CR7J68QuRV8BdReAu5bdNFn8bEtz6BUBE
-	 L8zdTUCdG532gR8ewAaI5SuhNvC7C1PQxQ15E5exuc7Zz7yYWqS0sxp3NquGbfroHT
-	 W6JZWA3H/8Xc3+KvKZtIhPRF4aR3w3JJgW2wMVoUGfJFEAi6QV5E8CdHXMF5Jd5IaS
-	 NXdI/+1DfTyUhPLiFjr9cn+LAqPtf53QdoRFMZz43QuZxTM/E8FOiK1+KzHM72OJRX
-	 h29H+Z63ODLTAKb6sK/wdQv5XeZ0Fcn23oRjlFbFaFNd0fB7TpqjyC0pfYyFt2xri8
-	 AVIdIs+kdv1hw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
- DSI bridge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: syyang@lontium.com
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519105019.22622-3-syyang@lontium.com>
-References: <20260519105019.22622-3-syyang@lontium.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 11:35:19 +0000
-Message-Id: <20260519113521.CD273C2BCB3@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="N6OwhVIj"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490229aa522so2303615e9.3
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 04:37:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779190674; x=1779795474; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HABIrpORxD5O07tQlPwky6QpY+uvpmKET6RnXALAtVc=;
+        b=N6OwhVIjk5ZrmCiwJvsVbihju88mflNTZ8bT81mGVqkgWVmOEWf0o42dRTaEOl7Cfx
+         THg1+bh9PalWx4GiyjeGMSTnDoVsMf1L5Q8zlNF5cadEGEpalQp3wIW2cX22lSPTw4H5
+         FSYSB9jKJg2ytNAsRPlQH+kCpARqHX6lXnBq856viZr0cK/mphUsjHVcORPgGgIjL3nq
+         inwuyAr0TseG+sox70HBMRwmta5p5A4QkId6TaDI+BNNfdbc0Yo/40NTaSN+9Ry9THsN
+         E19ST5+8/cxD/FffPUfRygEPaboO6+nUDmDyAXux9Tbc7FqBrfbnJhPvoj2JZjMKnFWK
+         65VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779190674; x=1779795474;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HABIrpORxD5O07tQlPwky6QpY+uvpmKET6RnXALAtVc=;
+        b=WJm6EKq5zXe8CN7I2/f30Ek4sZO4t2/GQLG0Aa/FlYhK1MbQIw29SR5mRMTUYQS2TL
+         XES9y5k6mrknsEBWZhwf19XbbrP11H4Am0FivFjqPgCUrGPtPqDtpXwEWDVhH/gWAya7
+         I6ni0JbMcXK/AKV9tYTmiyD9tgLTBujxxGmDgfQqXzSNz8TLot1iaxuuefZBHkUzcdIH
+         wa05vFXUJ9ebh3KruPt19d1kzyL45MrhRgjRZykMp9aFteuBq5LYDabOEcnoIfCX6h55
+         WFdbAPGE+36twOn9q25Jm1k475BnOsYPHYbTfnQk0LnlAq5n9mVK79QpmS3qn0GTHi6v
+         0/Bg==
+X-Forwarded-Encrypted: i=1; AFNElJ9NRpHz8EXRACDCDA1mpQthR3dIadVWS0n540FtHPxTJ79F7QhysvxTPconPPwGT0rDmegKwMCe+fVo@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPcbRtKwWlr/PHsM8D2WRA5MDSYobhddwfZEuR+LW2bg289MPW
+	gaD7Ct3nnKQ0O8ptVTctvThCKN8LGPkDyhHHnZZAUbFo7S5rL4X2j7vthSnUtxCNLMs=
+X-Gm-Gg: Acq92OEUyQuwvp0P8cqFUVF8CPS0T914fo8lfNC947l2MO93uLh1oxL2Y2v9Ih0HPM5
+	EG3GuhFy1cV4r/Yj0c+AAassKI+aJfv/TNhDz27XtlhM4IGG+rpdDI8Fb/qXslt1IPkL8DFPTse
+	5kchLBFZSuCy6tvbqA7Di4fCIx+wQUAicu3erSIY8AgN7QntpPaFmpEVFoGBHcKkN85x0UGzMAC
+	u7hCvCF40XiWH8uIVmbbFxhPZUpBhFcLE4/ix9OhIAjVuXC9669PIEw2brenJaXdnjLdBvm9ene
+	MFqQNtWopcHf+x4oFGUifQRMHsk+Nv79rtDHNx0E5aWnzw1MDZTypsyhf+egfg3kgD64m50P6VY
+	a3Xk38YTHyjVicTwu3AlLUMzSQc5az40pD1tpG41SUkkU/ELk8J7xIdMny+hHuTuWM1SxRxRQZM
+	0ZVRGemr3C5n6WKjERv0zCZBd1k08GIO46JA==
+X-Received: by 2002:a05:600c:350b:b0:48a:58ae:9938 with SMTP id 5b1f17b1804b1-48ff3346102mr221572545e9.19.1779190674395;
+        Tue, 19 May 2026 04:37:54 -0700 (PDT)
+Received: from [192.168.0.35] ([51.37.145.233])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febe582e3sm120045195e9.15.2026.05.19.04.37.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 04:37:53 -0700 (PDT)
+Message-ID: <7dca70f4-6e03-42aa-afc8-be5c2e015a74@linaro.org>
+Date: Tue, 19 May 2026 12:37:46 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: usb: qcom,pmic-typec: deprecate
+ device-specific VBUS
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260519-fix-tcpm-vbus-v1-0-14754695282d@oss.qualcomm.com>
+ <20260519-fix-tcpm-vbus-v1-1-14754695282d@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260519-fix-tcpm-vbus-v1-1-14754695282d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] State machine lockup and resource leak on firmware upgrade error p=
-aths.
-- [High] Missing exclusivity check in `lt7911exc_dsi_host_attach` causes me=
-mory leaks and list corruption.
-- [High] Data race and hardware state corruption due to lockless access in =
-DRM atomic hooks.
-- [High] Use-After-Free (UAF) due to sysfs attribute lifetime extending pas=
-t driver removal.
-- [Medium] Concurrency flaw in `lt7911exc_firmware_store` blocks sysfs writ=
-ers and causes redundant upgrades.
---
+On 19/05/2026 11:48, Dmitry Baryshkov wrote:
+> The Qualcomm PMIC Type-C devices historically provided their own way of
+> specifying the VBUS regulator, via the device's vdd-vbus-supply node.
+> This is not ideal as the VBUS is supplied to the connector and not to
+> the Type-C block in the PMIC. Deprecate this property in favour of the
+> standard way of specifying it (via the connector's vbus-supply
+> property).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+> index 6d3fa2bc9cee..7a68423fb97c 100644
+> --- a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+> +++ b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+> @@ -79,7 +79,8 @@ properties:
+>         - const: fr-swap
+>   
+>     vdd-vbus-supply:
+> -    description: VBUS power supply.
+> +    deprecated: true
+> +    description: use connector/vbus-supply instead.
+>   
+>     vdd-pdphy-supply:
+>       description: VDD regulator supply to the PDPHY.
+> @@ -94,7 +95,6 @@ required:
+>     - reg
+>     - interrupts
+>     - interrupt-names
+> -  - vdd-vbus-supply
+>   
+>   allOf:
+>     - if:
+> 
 
-commit aa1e91d28c6a1d1b9faea6c1c05acd8d8780f392
-Author: Sunyun Yang <syyang@lontium.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-
-Add support for the Lontium LT7911EXC bridge chip, which converts eDP input
-to MIPI DSI output using an internal firmware-controlled pipeline.
-
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
-/bridge/lontium-lt7911exc.c
-> new file mode 100644
-> index 0000000000000..e94188e7987ab
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-
-[ ... ]
-
-> +static void lt7911exc_firmware_upgrade_work(struct work_struct *work)
-> +{
-> +	struct lt7911exc *lt7911exc =3D container_of(work, struct lt7911exc, wo=
-rk);
-> +	struct device *dev =3D lt7911exc->dev;
-> +	const struct firmware *fw;
-> +	u8 *buffer;
-> +	size_t total_size =3D FW_SIZE - 4;
-> +	u32 crc32;
-> +	int ret;
-> +
-> +	ret =3D request_firmware(&fw, FW_FILE, dev);
-> +	if (ret) {
-> +		dev_err(dev, "failed to load '%s'\n", FW_FILE);
-> +		goto out_status_only;
-> +	}
-> +
-> +	if (fw->size > total_size) {
-> +		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
-> +		goto out_release_fw;
-> +	}
-> +
-> +	buffer =3D kmalloc(total_size, GFP_KERNEL);
-> +	if (!buffer) {
-> +		ret =3D -ENOMEM;
-> +		goto out_release_fw;
-> +	}
-
-Will jumping to out_release_fw leave the upgrade flag permanently set?
-
-If the firmware size is too large or kmalloc() fails, the code jumps to
-out_release_fw, which calls release_firmware() and returns without clearing
-lt7911exc->upgrade.
-
-Since the flag remains set to true, all subsequent attempts to write to the
-sysfs firmware attribute will fail with -EBUSY, and
-lt7911exc_atomic_pre_enable() will silently return early without enabling t=
-he
-MIPI stream.
-
-[ ... ]
-
-> +out_release_fw:
-> +	release_firmware(fw);
-> +	return;
-> +
-> +out_status_only:
-> +	mutex_lock(&lt7911exc->ocm_lock);
-> +	lt7911exc->upgrade =3D false;
-> +	mutex_unlock(&lt7911exc->ocm_lock);
-> +}
-> +
-> +static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struc=
-t drm_atomic_state *state)
-> +{
-> +	struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
-> +
-> +	if (lt7911exc->upgrade)
-> +		return;
-> +
-> +	//enable mipi stream
-> +	regmap_write(lt7911exc->regmap, 0xe0b0, 0x01);
-> +}
-
-Can this unsynchronized check result in hardware state corruption?
-
-This function checks lt7911exc->upgrade and proceeds to perform I2C
-writes without holding ocm_lock. If a display modeset happens
-concurrently with a firmware upgrade, the unsynchronized I2C write can
-interleave with the firmware flashing sequence (for example, while the MCU
-is halted or flash is being erased).=20
-
-The same applies to lt7911exc_atomic_post_disable(). Both hooks likely need
-to hold ocm_lock while checking the flag and performing the register access.
-
-[ ... ]
-
-> +static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct =
-mipi_dsi_device *dev)
-> +{
-> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> +	struct drm_bridge *bridge;
-> +	struct drm_panel *panel;
-> +	int ret;
-> +
-> +	ret =3D drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel, &=
-bridge);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (panel) {
-> +		bridge =3D drm_panel_bridge_add_typed(panel, DRM_MODE_CONNECTOR_DSI);
-> +		if (IS_ERR(bridge))
-> +			return PTR_ERR(bridge);
-> +	}
-> +	lt7911exc->output.dev =3D dev;
-> +	lt7911exc->output.bridge =3D bridge;
-> +	lt7911exc->output.panel =3D panel;
-> +
-> +	drm_bridge_add(&lt7911exc->bridge);
-> +	return 0;
-> +}
-
-Is an exclusivity check needed here to prevent memory leaks and list
-corruption?
-
-The function unconditionally allocates a new panel bridge via
-drm_panel_bridge_add_typed() and calls drm_bridge_add(). If multiple
-downstream DSI devices are attached, the previous panel bridge allocation
-would be leaked.
-
-Repeatedly calling drm_bridge_add() on the same bridge also re-initializes
-its hpd_mutex, which destroys any existing lock state and imbalances the
-bridge reference counts.
-
-[ ... ]
-
-> +static ssize_t lt7911exc_firmware_store(struct device *dev, struct devic=
-e_attribute *attr,
-> +					const char *buf, size_t len)
-> +{
-> +	struct lt7911exc *lt7911exc =3D dev_get_drvdata(dev);
-> +
-> +	mutex_lock(&lt7911exc->ocm_lock);
-> +	if (lt7911exc->upgrade) {
-> +		mutex_unlock(&lt7911exc->ocm_lock);
-> +		return -EBUSY;
-> +	}
-> +
-> +	lt7911exc->upgrade =3D true;
-> +	mutex_unlock(&lt7911exc->ocm_lock);
-> +
-> +	schedule_work(&lt7911exc->work);
-> +
-> +	return len;
-> +}
-
-Could this concurrency approach block sysfs writers and cause redundant
-upgrades?
-
-The upgrade worker lt7911exc_firmware_upgrade_work() holds ocm_lock for
-the entire duration of the firmware flash process. If userspace writes to
-this attribute while an upgrade is running, the store function blocks on
-mutex_lock() instead of immediately returning -EBUSY.
-
-Once the running upgrade completes, the worker clears the upgrade flag and
-releases the lock. The blocked sysfs writer will then acquire the lock, see
-the flag is false, set it back to true, and queue a second, redundant
-firmware upgrade.
-
-[ ... ]
-
-> +static void lt7911exc_remove(struct i2c_client *client)
-> +{
-> +	struct lt7911exc *lt7911exc =3D i2c_get_clientdata(client);
-> +
-> +	mipi_dsi_host_unregister(&lt7911exc->dsi_host);
-> +	cancel_work_sync(&lt7911exc->work);
-> +	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-> +}
-
-Does this leave a use-after-free window between driver removal and sysfs
-group cleanup?
-
-The lt7911exc_firmware sysfs attribute is registered via the driver's
-dev_groups. The driver core removes these groups after this remove callback
-returns.
-
-Userspace can still write to the sysfs attribute after cancel_work_sync()
-is executed here. If this occurs, lt7911exc_firmware_store() will
-successfully call schedule_work() again. When the device's devres resources
-are later freed, the workqueue will access the freed memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519105019.2262=
-2-1-syyang@lontium.com?part=3D2
+---
+bod
