@@ -1,173 +1,229 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2109.outbound.protection.partner.outlook.cn [139.219.146.109])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEF637C904
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA79C37DE9B
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171066; cv=fail; b=APEdyWD+K1oOrCenqH352/GouAk09ddJPv/S1ANiiJe1sVzfvxeFKhHAZPjnsZPEFXB6kcKOiblYjNCid4lzH5msIdRs825MR0C53mGQvQHFA4F88+N/jP2QBbDSf7SyPLeJ5+yaOckhfh2ZOiQDCQ0xQulD6u3PSfeFq58HxOY=
+	t=1779171311; cv=pass; b=Rnq3uGm1WiLrcCHVIYeVYO/ZigHB3SCZ7pCiCF/iiucA51DQ39ApPTEdml4pvB6JQkEIJofMfELJNetXc14SBjjh+cU4bNLE+8O40GwIrBfCDFQlwujSLZv3CKYiDc3pblNTpT8IO38P3g/afTCDs2vhFBESZ6ozbp/eN7st3nQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171066; c=relaxed/simple;
-	bh=9N2PeyStzOT5751XYcEjw+j452qtw2FYrv+pm5ROVIQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=K2PgY/eEV0IlD/RUvCd8vwdNnRsSodzjxfu+AqKFwcEGJVB91lnwidKQ9uDqtspHahYquzStGjkx30hghk6bArlb4XjlIHEQvVUKTM9cxgljyxBj95fgPucO2g+rkv0Db0knWOSF9Pno5vKtC3fKHBn9QiEL3j3FD14h7nWxx0w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NxirBzD+oOkgoFAH2S0mnV7LO9NnylXfZS6hi1ylfxsKvbOw47rj6En5HOJEzONBOd+focoMKkvN5rV7oD1F+ZbfQapH0a18ipYBHc3rBN7bG3FYVPtJgJR+agGC9AZ2Ax3i77IIUBwcDiCOuu4BJzRT1nkPR7DqgoQThOGJkLtzo8gwj1gC1u57/ozLVZT8x3N9dqEYEWKbjd4Ix68s0bbfeg6DFh3Tmh3zMzWwoUtNh9Mk2Qes/BYKFctKSFPXwJfWHTJEDm/0INyOoNz6YlpN2PHX9cac2g7Q5gACr4PuJdj+zIZOqTf3GJsi3Ae2soG2TKu5yMYZS6ngbw+ORQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9N2PeyStzOT5751XYcEjw+j452qtw2FYrv+pm5ROVIQ=;
- b=CQjK3DoSZASlOpXtzfB5MaN9LwTtwfJo1KJz++x/4SP3k+mRG7aIzXCuyHALmLMOhp94OiW6kTltWeiakTdMieudIDTGDT96LHROxnV3JiMWzYmS9+hCLEcsD5JWbl6k1oNEYwpGfSdGl6JuZJDOPuFMTcbJDwsy9IBkbOsmrMuAGTywzzq5vMDFpfUDKKmUhvSRkbKg7lTEH+mIoVEFuk7IRgFaXwMECBviCLtK6OztR4TjHaELxczulBHHgnBQfIUb5Y/1Hyxj2hofZw6oxjX2czvwHIa0GWzdIbplOmMXhwSSdARSxqKVtK5EBM07LoJR6NwoecISIWvRFP1tVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:8::10) by NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:8::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
- 2026 06:10:50 +0000
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- ([fe80::d8e2:3f39:6ae7:bdf2]) by
- NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::d8e2:3f39:6ae7:bdf2%6])
- with mapi id 15.21.0025.023; Tue, 19 May 2026 06:10:50 +0000
-From: Xingyu Wu <xingyu.wu@starfivetech.com>
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-CC: "robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: RE: [PATCH v1 1/2] bindings: iio: adc: Add StarFive JHB100 SARADC
-Thread-Topic: [PATCH v1 1/2] bindings: iio: adc: Add StarFive JHB100 SARADC
-Thread-Index: AQHc5p77jQOM2JwohkK7qO7svRU7q7YTcj+AgAEwNiA=
-Date: Tue, 19 May 2026 06:10:50 +0000
-Message-ID:
- <NTZPR01MB0956A84FECA24FF8D420065C9F002@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
-References: <20260518081852.116909-2-xingyu.wu@starfivetech.com>
- <20260518082430.3F15DC2BCC9@smtp.kernel.org>
-In-Reply-To: <20260518082430.3F15DC2BCC9@smtp.kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: NTZPR01MB0956:EE_
-x-ms-office365-filtering-correlation-id: 2681a7b3-0b4f-4e43-d506-08deb56d601b
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003|38070700021|3023799003|4143699003;
-x-microsoft-antispam-message-info:
- qi1oDe0oPbaw9xnP2rNsvTATRE7sFBfRn5jNE35CdRXj3UhVtVV9djj4KwFfN9GbZvfcsVkPYv0A1xshNaZF8d4DR+1o3WpNMOdeVHBoHci14Kv3h3TLE557AgnlKdSRNNjd9MBwIC6/5fH6DXdnGtErvD6Fa9OaWmYctF5k0+dvFB87BlK2hQO9JgjlWyZfaaUiIu2rK+kfd6S8bNcdNTFkVa41YlT+ZMG03GHU/hUg5xQUJKhXAP7B+c0JeirP7i0QksZ+Fdqkkph6JSVcdI6MJig7H1c2KU4LqHK43X2gZM8a2UBb5KPBqGoOR0V01eDpW+O/I/XHjNFVTlEXQrUo7kWSTXNM6X8fiCeCzM8mENt8O6/aM5uJSYEca3tUhS18vlhXbLK48HLFT3gmzfTgi+tovLGib+W9w4nvft3QyqsCMNLDtZiOSfG/6xrN217CSuFRCxrHDpNNIEYW9yYJdaVZ+nvihoiyOjzaizeQPa/MkKtgdj0FcQrke9Ftcm+tnhHXD63OOaIAHUELiBzZXYclHeQpeS7m++UiiThpHlzQMOjt+FRHPYIzmwCb
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003)(38070700021)(3023799003)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?UHpNSnlFbHl1QjNYbzNNTXRGUW95RXRUelUrL0I4aXNleExURDBLWTlHVHRQ?=
- =?utf-8?B?K1Jxayt4ZTF6bXQrdUZCaXUyN0JLNWdGYkZ3RHdIZTdsWURvYU0zbjM5RUxo?=
- =?utf-8?B?ZUQxUnZEcTdkemdJZWlUbGZ5ZWFwRVNSZFdzYjFJMXpwQmtVNzJuYU5pLzVy?=
- =?utf-8?B?enhUckxEWHg3TEIzbzNzd0NqQTJ3REVXaW11V1ZhYWJ6S3BpY3Nsd0NFcFpS?=
- =?utf-8?B?OEFPV096UGJxZ0ZsSkRlSUxNWko2YlVueDdIdThJUUNxS3JsU3FyVTJUVXhi?=
- =?utf-8?B?RFpsTFNqM2VSQjdyYWNmTVgrTjI4alRqYW1FSmdKODFxLzJURWU4cFZnU0M5?=
- =?utf-8?B?amRCQlhKR2NpMHBEUWNNZDZROUxvdmNUNCtUaEVhUTNaRHBoa3NMSE0xWVRB?=
- =?utf-8?B?eUIxbTA3ekRyUHJMbTJiWC81UkVEL1BsOHo0UFRrMkdxZ2tFdWRhZXVtYVFq?=
- =?utf-8?B?dEovZndYU0htMkRMem9GT0czTHo1bkhHZW5vM2ZTL1VNeTNZR2x6QTdzNmRo?=
- =?utf-8?B?UVU2MnJ4aG82UUZMWFBCbVc2T2U2L0hLMEZvUEFFQnBCaDQ5eHdNaDNGanNR?=
- =?utf-8?B?azhkeGRZbEY4bnpvYklFN3V3cm1ERzFRN293a2Y3RkpxNjB1NkJZVk16ZGpY?=
- =?utf-8?B?TkdscHVrTUdmdlZCQytDcjhDWjFEcU5kRmVwNHFsNStXVjFrWWdnYkJpMDM3?=
- =?utf-8?B?b3BsRndxZzUrTEhDSnpNK1JkVW82U0NFTlYvUkozS1JVZXBmOXlUYkVZM01W?=
- =?utf-8?B?QXdWL2dnL1E1Z2o5ckh0QzMwdnJOakU1bXNQY2I5QUhtdFdHM2RMbDdYckJ0?=
- =?utf-8?B?SU1YZTNIMDVBMC80SzdIRnVuMFgvUExNaXVKdHBENElQOVQyUGRLeWRxRmxK?=
- =?utf-8?B?Tk8rQklac0dNVHJYUnAvUmJHSXFyTG1ZTGloSlVVOEpzMzRMV295UWNnRUJu?=
- =?utf-8?B?UEFxNWhQREtySkZDa3BkQkZRMm5xYlpXZCtKRG5qMkdtQk90SVRtaHM4Szl6?=
- =?utf-8?B?c2ZaRU9KK0Qxa1NOMHYzODB4R0ZhNGtBdjBWaCtXMEorY0ZFd2t2Y0NhZFpO?=
- =?utf-8?B?MWlqT0NOdDRJRm1HcWw5MG93WDZSVnk2a25wUm5yMk5hdHJZd2kwUnpVdnhp?=
- =?utf-8?B?Q1NtTnVSOXQ5NFRYZk5yaXgxaytTZWtzWXZaaGhtaUtBc1A4MWR1QytxalVl?=
- =?utf-8?B?ME5HVlNOZUZQSHFYaDl4MEtlbHRMWE9JR1NzanlmSmVQZlR1YVBuWHpzTFNa?=
- =?utf-8?B?dDJKUzU1bUo1WDYzUkd0QkxITWFGRy96eUlVa29NZE9YRW9GaDRPWUJ3VlZj?=
- =?utf-8?B?ZTNSdnlGM2xEMWFhektZYy95YjlFNG94N1dURThrMFQ5Wm5kN0ZPbDdnRDVy?=
- =?utf-8?B?cFhwMGlDWVBHV092YjljcFpsVERvZUJCRmFZcHRNOGdTSFZxOStNU3I5QmJh?=
- =?utf-8?B?UjFoQlRMby9CM0RPOVRQU09TSUZqVnJJUFZoN29UUFpoNWZNdnoxdFFESzJj?=
- =?utf-8?B?b0tPQjE0a1FlM25KWkFpeUo0TlZiR3ZLRG9JWVNkWHVCaElyRDRrQkovaEhC?=
- =?utf-8?B?N0J1am1uK3JEeWt1L2VDcmVYU2p6Z2pKM1ZWM3NhZEVmaWVWVEZnZ20xSTVW?=
- =?utf-8?B?ZklzRW4zckhJUUxLY3haOEdpbktJREQySjBQNmxGNWFxS0hnT1Q1NUhkUzky?=
- =?utf-8?B?Z1ZWM0ZVemJRV1dDRSs4cWU5NU5iWHdJRTlObUJiVWJXMXYxY0dFL2hBWmFm?=
- =?utf-8?B?N015WTFQQ2gwOFcrb09wOEpDOUFXeTd6OTkxMnRHdU8zY0RLejhTL0ZJamdr?=
- =?utf-8?B?OUxWSGJMUTdnOHhxc1dIcE85Zlg3bjIwNUNySENkYldBc2FvYVF0N0lITGJz?=
- =?utf-8?B?RlVRQmNsdzRmNk5UT2s3UXp5anl0S2FBWWVaWXBCMVRIckxOU1RmVWlxOG5w?=
- =?utf-8?B?cjNOY2MyVkZXb2M5T1o5MVpwZlAzazQ4VS9QalVYSG1aWTIyQytWMUNhVVBl?=
- =?utf-8?B?R1BTdEVDL29jYlVZc1pGV3o3Y3hGQUNEWmMvaFM1SEtzK29uREROTHVVcVJz?=
- =?utf-8?B?VDVyK0xhcTZMTVZOOExxRDk5VFZkUmIwcWR4NUpzN3RRR01xeHhUS3g2RDJF?=
- =?utf-8?B?R0lHTDhYVVh0NVdBa3FjNTZhc3AzS3VsNGRrdkNlMGo0VVhsSENnS0ZEVXN5?=
- =?utf-8?B?eTR3NDUzMnE3N1RFSUdjQmptTjFsSTZKb1hnZE0zczBSOUlwaFpnd1JBcHQw?=
- =?utf-8?B?dlZJeVMrdHpiZGFKOG0xeEhKaktWOXYrZFVoKzRxcEYwZVhETkhZWmczTHlL?=
- =?utf-8?B?eE9GRUpVWTBHcEdmbDlwa1lMK1BoZHhSSytFbGEvd2V0ZXd5UGFtZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1779171311; c=relaxed/simple;
+	bh=QPv9NrKqks25XdbSHhPFI546BElb5U2rT+BiAzKQ+7M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mMIFGy3MNoEMIldirlUWWY2SsY/A6wW2O25GKZfXGScy6U1QyWmIADUunLj1VkNZ6pFmQ0vj3q4EPVfbA1B8sztR0zDvKKBIKeQyFfw49l1yvrIzyD7svmv2g5el2M0tXdhr4nWKPh4gafWd1w2sBlfamwKywoPKHgu+YS/YiG4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0xIF9nJ; arc=pass smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0xIF9nJ"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-2f0d3e07e30so11935153eec.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:15:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779171309; cv=none;
+        d=google.com; s=arc-20240605;
+        b=WsGtMc6qDkMvri3+WpBrvQubvGEKD/atdcei/lPMpCtcpBC0xsNUf8JKA5u7nG6tEa
+         y/XPoN0rdahqNvyyNiCZVO0rdQk1OFi1yIqNzBPCF5OxbN/tIo8kQJjsNS4lEIA/qIDi
+         K26lvaGa1PzgpTBNfpcBYE7TopIPs2itP2qu1ih1YMqy23Ua4Jgy9oI03eQ3jJErRmwJ
+         AIcx0OTimVbm1jbjXxsmRa7JBB6Ns+Nxtcv2WbHT6Dzrvp+ki6uQEsJhs4c+Lm7wJaSW
+         X4tA8cZbMw4zVwOfQxv3E7rs1bIU3oBJvlOzWyzMYxLupBD6zfyvaZ/ct0+LNdgq3tTQ
+         L0Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=e3rxUJ/0l+GpFnRLs/exHMJwdlcSweb1iM7tuoW5l3A=;
+        fh=Qwk4W1NQcM3ldqtQ3VTIcpoas6hwa4XEKahq3sGlKig=;
+        b=EGjhDMzzwlv3CmPJyPwCQpmI2N+v1QUhm5koSC5J27nAhApHasgpJ6vK/V311/Inpz
+         Ly2nvfuOITBKkVt6qJUOxRMCItKVQloLn2cqHPIPchxcnN8bAsbwqwe5MuwoWoRISwPn
+         73pMf5dqfNeL7wE6YPL2CnlhLXjhL4AHjO0VwJSIO6MumAElST8/gqH/NMITWsWqkWv9
+         kWjH31anQ+2dZq3yij31bCSzvYVEjmfCPg2VJ935DYJs9y2Uv6kHeVXSgPRKzMctYiKd
+         g+eNqBO76gcRLmywUyihPTP8p0ORjrPyfc+bIlXZGQtyD0qDo0oz4RmW2oFKedXZw2Y9
+         e5YA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779171309; x=1779776109; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e3rxUJ/0l+GpFnRLs/exHMJwdlcSweb1iM7tuoW5l3A=;
+        b=K0xIF9nJkPkPRVvHiSwlUbkwOna/D1U7CNVoC2deCiQWXFHenpjXwiBqd7Bie5r6fe
+         f0s1+5TexX8TcakVB9gHtxoPgrwxm4OhTInS+wgU+mftW3dCw/H37e9b038U+6FwD01K
+         dSVH+FVkOdKXctiGcv3+amRo9xlhA+zwudrZHN4ZjF2BFzHCg+Es2NwVu9AHsSxWwawH
+         IO0GT42qOuSSHbSNs7Md4qBoSck17yZoG7gVmwcst4LlV7TXLiUnHAK9XXDMFClAzTCx
+         1Oh+2vneMPrJqRQwxynJvAXSK1oxcHjHt6rIdtCch1ca5pWXivYNbPO4fmIlsvFgsnsW
+         ig2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779171309; x=1779776109;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=e3rxUJ/0l+GpFnRLs/exHMJwdlcSweb1iM7tuoW5l3A=;
+        b=kuNSnk695gUFlSo/70ryldbtLnF8VB97jURGCjL5O7nzUeqVrpyQjq56KpCz9RqTZl
+         fWjb7i/hca/Cwn2H8tCiPDGuIRPHyq9KDT7AKBSgnQrrQLNl12B+QwqC++q5AHdK6S8A
+         I8EywwFH4AJM92nX0/cTuGBLSTyuvx7y3RR7E0pD3YKP5vOO+5EYH+XqHE7UXhAqnzeI
+         sOkczvbLa3voMYj8jP+GORvfwYtka0Iqst8Wtj7s3O97KcUWQaKbgXkrsIVLv75mzjPG
+         GNJM7gAEqjd3DGOUEKulXnswxNjv8yB+/7ZxhsK/0aSg71siCXdJjK679BWW0hIaoRz7
+         Pv3w==
+X-Forwarded-Encrypted: i=1; AFNElJ9wqRVNrRwwHoE+EX4Nk4B0nwfFEySW9ZAnl2xicxOEP4SM78VOYtyMqLsbJUZZjXbfbwvZSqXO2Q8Z@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8ZsFRCeXu0OoN+cRBt7ErjiqtZN9eqDG1sCj2BZo6vQzn8Yti
+	Q5nmgF7Kaf2NBzA83t0vUr/g5re4wkulYbyc1lr3d4Xp3/ooH9bhANhwhtcT2zRW2ajzrjDngDH
+	BXLvoQVwBcbiwXcVwJFndyaJap5BYePs=
+X-Gm-Gg: Acq92OEgtAVt02Ql50Mdh9w7biKMM32fIG16rNXyVyWjLuF/QOGkR0QN9IGlUvALC1q
+	M0LYzTt79Yn46Aidm1ErA2VZEZIAZjWv04Ofu61HAv9NHZaGWNsdwiJgnoO+xG4fET0CpLAcies
+	Aza5fm6v/mALquoRNtQmnTwSEbN74F4FluAb94U4OAEBGebetTQXRlPAVqA7HzUxDBsLDKGZIwi
+	Vf7rQUMwBI2/eCYaatGgzoVU6WO/bKCW0VjJvpSBsbjPZtietvD3v1SSZWrGfgcK+Ul97+ak19w
+	02XwX463
+X-Received: by 2002:a05:7300:a984:b0:2c5:b23e:48a9 with SMTP id
+ 5a478bee46e88-303986a160emr7175515eec.25.1779171308865; Mon, 18 May 2026
+ 23:15:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2681a7b3-0b4f-4e43-d506-08deb56d601b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 06:10:50.1099
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xeoHfPq252dLox7eCypY6anslgJwADMkCyvk6rjFAz2P3L1oR1OLrRDMYcuZLXskziNzHg5XPA+0WrSwwKS8S5OHHiyB5Js48329BqZjf+E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB0956
+References: <20260511135703.62470-1-clamor95@gmail.com> <20260511135703.62470-6-clamor95@gmail.com>
+ <20260515-utopian-malamute-of-patience-367e8e@quoll> <CAPVz0n2wrAdU0JKx7eb7uosCcoGayqNchK591VPph-5_nBAMXg@mail.gmail.com>
+ <20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll>
+In-Reply-To: <20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 19 May 2026 09:14:56 +0300
+X-Gm-Features: AVHnY4IxlqAJY6NaFP2GVNqF_snPzx1hM2RZ9fLkqEGHKp_bJ_sC8-qzf4i8pFA
+Message-ID: <CAPVz0n3C+g9zLaq9gN1OFnC=19oRwoZon_E0q0oFKbn-dG-FaA@mail.gmail.com>
+Subject: Re: [PATCH v1 5/6] dt-bindings: phy: tegra: Document Nvidia Tegra
+ XMM6260 PHY
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-T24gMjAyNi81LzE4IDE2OjI0LCBTYXNoaWtvIHdyb3RlOg0KPiANCj4gVGhhbmsgeW91IGZvciB5
-b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQgMyBwb3RlbnRpYWwgaXNz
-dWUocykgdG8NCj4gY29uc2lkZXI6DQo+IC0gW0xvd10gVHlwbyBpbiB0aGUgYHJlZ2AgcHJvcGVy
-dHkgc2NoZW1hIGtleXdvcmQgd2hlcmUgYG1heEl0ZW1gIGlzIHVzZWQNCj4gaW5zdGVhZCBvZiBg
-bWF4SXRlbXNgLg0KPiAtIFtMb3ddIEhhcmR3YXJlLXNwZWNpZmljIHByb3BlcnRpZXMgYHVwcGVy
-LWJvdW5kLW12YCwgYGxvd2VyLWJvdW5kLW12YCwgYW5kDQo+IGBzY2FuLWZyZXFgIGxhY2sgYSB2
-ZW5kb3IgcHJlZml4Lg0KPiAtIFtMb3ddIFRoZSBgcmVzZXRzYCBwcm9wZXJ0eSBhbGxvd3MgMiBp
-dGVtcyBidXQgZG9lcyBub3QgZG9jdW1lbnQgdGhlaXIgb3JkZXIgb3INCj4gbWVhbmluZy4NCj4g
-LS0NCj4gDQo+IGNvbW1pdCBmNTFhZGZhMThkZjliNzMyMzkzYmFhODdmMTFkYmVmNTA2YmI0YjVi
-DQo+IEF1dGhvcjogWGluZ3l1IFd1IDx4aW5neXUud3VAc3RhcmZpdmV0ZWNoLmNvbT4NCj4gDQo+
-IGJpbmRpbmdzOiBpaW86IGFkYzogQWRkIFN0YXJGaXZlIEpIQjEwMCBTQVJBREMNCj4gDQo+IFRo
-aXMgY29tbWl0IGFkZHMgYSBuZXcgZGV2aWNlIHRyZWUgYmluZGluZyBkb2N1bWVudCBmb3IgdGhl
-IFN1Y2Nlc3NpdmUNCj4gQXBwcm94aW1hdGlvbiBSZWdpc3RlciBBL0QgY29udmVydGVyIGZvdW5k
-IG9uIHRoZSBTdGFyRml2ZSBKSEIxMDAgU29DLg0KPiANCj4gPiBkaWZmIC0tZ2l0DQo+ID4gYS9E
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaWlvL2FkYy9zdGFyZml2ZSxqaGIxMDAt
-c2FyYWRjLnlhbQ0KPiA+IGwNCj4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9paW8vYWRjL3N0YXJmaXZlLGpoYjEwMC1zYXJhZGMueWFtDQo+ID4gbA0KPiA+IG5ldyBmaWxl
-IG1vZGUgMTAwNjQ0DQo+ID4gaW5kZXggMDAwMDAwMDAwMDAwMC4uYmE4ZTE5YjcyYWQ3MQ0KPiA+
-IC0tLSAvZGV2L251bGwNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3MvaWlvL2FkYy9zdGFyZml2ZSxqaGIxMDAtc2FyYWRjDQo+ID4gKysrIC55YW1sDQo+ID4gQEAg
-LTAsMCArMSw2MiBAQA0KPiBbIC4uLiBdDQo+ID4gK3Byb3BlcnRpZXM6DQo+ID4gKyAgY29tcGF0
-aWJsZToNCj4gPiArICAgIGNvbnN0OiBzdGFyZml2ZSxqaGIxMDAtc2FyYWRjDQo+ID4gKw0KPiA+
-ICsgIHJlZzoNCj4gPiArICAgIG1heEl0ZW06IDENCj4gDQo+IFRoaXMgaXNuJ3QgYSBidWcsIGJ1
-dCBzaG91bGQgdGhpcyBiZSBtYXhJdGVtcyBpbnN0ZWFkIG9mIG1heEl0ZW0/IFRoZSBkdC1zY2hl
-bWENCj4gdmFsaWRhdG9yIG1pZ2h0IHNpbGVudGx5IGlnbm9yZSB0aGUgdW5yZWNvZ25pemVkIGtl
-eXdvcmQsIGFsbG93aW5nIG5vZGVzIHdpdGgNCj4gbXVsdGlwbGUgcmVnIGVudHJpZXMgdG8gcGFz
-cyB2YWxpZGF0aW9uLg0KDQpXaWxsIGZpeC4NCg0KPiANCj4gWyAuLi4gXQ0KPiA+ICsgIGNsb2Nr
-czoNCj4gPiArICAgIG1heEl0ZW1zOiAxDQo+ID4gKw0KPiA+ICsgIHJlc2V0czoNCj4gPiArICAg
-IG1heEl0ZW1zOiAyDQo+IA0KPiBXaGVuIGFsbG93aW5nIG11bHRpcGxlIHJlc2V0IGxpbmVzLCBz
-aG91bGQgdGhlIGJpbmRpbmcgZGVmaW5lIHRoZWlyIGV4cGVjdGVkIG9yZGVyDQo+IGFuZCBtZWFu
-aW5nPyBVc3VhbGx5LCB0aGlzIGlzIGRvbmUgYnkgcHJvdmlkaW5nIGFuIGl0ZW1zIGxpc3Qgd2l0
-aCBkZXNjcmlwdGlvbnMgZm9yDQo+IGVhY2ggZW50cnksIG9yIGJ5IGRlZmluaW5nIGEgY29ycmVz
-cG9uZGluZyByZXNldC1uYW1lcyBwcm9wZXJ0eS4NCg0KTm90ZWQuDQoNCj4gDQo+IFsgLi4uIF0N
-Cj4gPiArICAiI2lvLWNoYW5uZWwtY2VsbHMiOg0KPiA+ICsgICAgY29uc3Q6IDENCj4gPiArDQo+
-ID4gKyAgdXBwZXItYm91bmQtbXY6DQo+ID4gKyAgICBkZXNjcmlwdGlvbjogVGhlIHVwcGVyIGJv
-dW5kIHZvbHRhZ2UgdmFsdWUgb2YgdGhlIG1vbml0b3IuDQo+ID4gKyAgICAkcmVmOiAvc2NoZW1h
-cy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MTYNCj4gPiArDQo+ID4gKyAgbG93ZXItYm91
-bmQtbXY6DQo+ID4gKyAgICBkZXNjcmlwdGlvbjogVGhlIGxvd2VyIGJvdW5kIHZvbHRhZ2UgdmFs
-dWUgb2YgdGhlIG1vbml0b3IuDQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9k
-ZWZpbml0aW9ucy91aW50MTYNCj4gPiArDQo+ID4gKyAgc2Nhbi1mcmVxOg0KPiA+ICsgICAgZGVz
-Y3JpcHRpb246IE51bWJlciBvZiB0aGUgc2NhbiBjeWNsZSBpbnRlcnZhbC4NCj4gPiArICAgICRy
-ZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQxNg0KPiANCj4gU2luY2Ug
-dGhlc2UgYXBwZWFyIHRvIGJlIGN1c3RvbSwgaGFyZHdhcmUtc3BlY2lmaWMgcHJvcGVydGllcywg
-c2hvdWxkIHRoZXkgYmUNCj4gcHJlZml4ZWQgd2l0aCB0aGUgdmVuZG9yIHN0cmluZyAoZS5nLiwg
-c3RhcmZpdmUsdXBwZXItYm91bmQtbXYpIHRvIHByZXZlbnQgZnV0dXJlDQo+IG5hbWVzcGFjZSBj
-b2xsaXNpb25zIHdpdGggZ2VuZXJpYyBwcm9wZXJ0aWVzPw0KDQpOb3RlZC4NCg0KVGhhbmtzLA0K
-WGluZ3l1IFd1DQo=
+=D0=BF=D0=BD, 18 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 15:1=
+4 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Fri, May 15, 2026 at 11:37:34AM +0300, Svyatoslav Ryhel wrote:
+> > =D0=BF=D1=82, 15 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
+11:20 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Mon, May 11, 2026 at 04:57:00PM +0300, Svyatoslav Ryhel wrote:
+> > > > Document the XMM6260 PHY used by various devices based on the Nvidi=
+a Tegra
+> > > > SoC, describing its usage
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  .../bindings/phy/nvidia,tegra-xmm6260.yaml    | 58 +++++++++++++++=
+++++
+> > > >  1 file changed, 58 insertions(+)
+> > > >  create mode 100644 Documentation/devicetree/bindings/phy/nvidia,te=
+gra-xmm6260.yaml
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm=
+6260.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..0346433c9772
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.ya=
+ml
+> > > > @@ -0,0 +1,58 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/phy/nvidia,tegra-xmm6260.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Nvidia Tegra PHY for XMM6260 modem
+> > >
+> > > XMM6260 is Infineon modem, so any combination with nvidia,tegra is ve=
+ry
+> > > confusing.
+> > >
+> >
+> > May you please suggest how to adjust the name then? Thank you.
+>
+> Depending what is that. Start describing hardware, not driver behavior
+> to help in that.
+>
+> >
+> > > > +
+> > > > +description:
+> > > > +  A hardware configuration used in Tegra SoCs to provide proper in=
+teraction
+> > > > +  between the application processor and the modem, as well as cont=
+rol over
+> > > > +  one of the SoC's USB lines for the modem.
+> > > > +
+> > > > +maintainers:
+> > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    const: nvidia,tegra-xmm6260
+> > >
+> > > Also here.
+> > >
+> > > What sort of phy is this? So far looks more like a software construct=
+.
+> > >
+> >
+> > Infineon XMM6260 does not work as an ordinary USB modem, it is a
+> > standalone CPU which just exposes itself to AP via USB. In order to do
+> > so, it has to have control over a USB bus of AP which is dedicated to
+> > it. In case of Tegra - XMM6260 interaction it looks like this: second
+> > Tegra USB controller is set into HSIC mode and is dedicated solely to
+> > the modem, modem controls this USB bus. Then the main XMM6260 driver
+> > performs power and init sequence and once it is ready it calls phy to
+> > register controller. Phy has its own supply, controls USB controller
+> > de/register and using enable GPIO sends signal to modem to proceed.
+> > Additionally, since some XMM626 versions have a few steps to setup
+> > exposing different USB devices, phy handles controller reinit for each
+> > step. If treat XMM6260 as an simple USB modem it will never init.
+> >
+> > One more benefit of having PHY is that modem driver itself is generic
+> > and PHY handles SoC specific configurations required by the modem.
+> > Since this modem was used on a variety of different SoC's (Exynos and
+> > OMAP for example) they can reuse modem's driver and provide only PHY
+> > which handles modem interactions with the USB bus.
+>
+> Without any registers here, this is not a PHY but a power sequencing,
+> just like we do for other USB or PCI devices.
+>
+> Optionally, it could be part of existing USB phy, when configuring it in
+> HSIC mode, but it seems you add here supplies for the modem, not actual
+> phy as the phy is undefined.
+>
+> The problem is that in the patch and explanation you mix driver model
+> and driver behavior, so I really don't know what is this hardware. And
+> it is not my job to guess, btw. A partial argument/proof why this is not
+> a PHY, is that you reference the USB in the node, so phy-provider
+> references the phy-consumer. That's reverse. If this is PHY, it's USB's
+> HSIC phy, thus this needs to be referenced by USB.
+>
+> If this is power sequencing, then it can be represented as USB device,
+> just like we do for all USB devices, but then it is not PHY and
+> phy-cells are not appropriate.
+
+I was looking into power sequencing and using it instead of phy is
+perfectly fine for me. How I see XMM modem configuration:
+- main device which handles most of generic power sequences,
+init/deinit and detection for USB device (both, target USB device and
+intermediate stages for fw loading)
+- phy or power seq, does not matter, both fit, that performs
+manipulations with SoC specific USB controller in order to ensure
+correct modem boot
+
+If I use power seq then modem will require link to power seq and power
+seq will work with USB line, this should not create confusion of phy
+acquiring USB that is phy consumer. Will this approach be acceptable?
+
+>
+>
+> Best regards,
+> Krzysztof
+>
