@@ -1,214 +1,171 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010044.outbound.protection.outlook.com [52.101.84.44])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE6621E097;
-	Tue, 19 May 2026 02:05:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779156345; cv=fail; b=uMfcY1JlTr1QUbWM7jiwL9HWnJuocFujTJWjq9oir0TjcaCBj0f1f6ijuhQuigpV/fhAbNprirHeuXvxtFV+8T/HCZ1IhzRRoFf+HqHo9iRXGbidPcS0yPH+E7mGf2i22thlzReiBldR4k5qEBnx4x8IAoSfsR+fzdmUVTnJ0wo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779156345; c=relaxed/simple;
-	bh=FEG5bYsPBxZ4dSkv2k1aIVamftOpHreA3QLGwnJexfk=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=pBj7Kfl1kjm6octjzNGwQz0x9ce3obBnCPvfeq92VY3B+o3o06rf7kZbVmgwdpowE+za6SWxrQBQa63h+czy7OSLZyYCW6nSWp9fI4Dx+YUGCrWd53JQJW6AOHj8maxsiz77ch0vOsyR0GGEBappjbLKG67XlRONRto738SuCOQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=O8qbLt0u; arc=fail smtp.client-ip=52.101.84.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3191F1A9FA4;
+	Tue, 19 May 2026 02:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779157070; cv=none; b=PakR9qIP6gMgpVDDzQ8O2rf0BAm7TklAy86dx6MyEllL4S5RpjEODRXQhN3S1JeGf5NBgvtHBqg2UMX1p7NdzEWl6uRLqGS7jUXxJJwkYlWFyvGXdwyftt1TijZj/vXv/YLoHUDCBbw6UuE74JVV2A7NZmWipm5p9U4hAzaXKTQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779157070; c=relaxed/simple;
+	bh=Q4IAQrZJiCaAtATOXBY417NzNjZppx6nQqvBqHOlhrY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fDQtlegQCZDuJT9z6/nFQIv3TLXKzegAqN1Q0sdmGF0hjUs/zdoPLJAVScb+VtZLnPrn6gxAnmSYOBzUFj4QY58WqQY42CM2eS4yAJQzjjJeqCv4lCZ/xGp3D/xSEkSpMJhNozEHJwlXYet8mC3rQv1R16IpGjIW/T+wCOOXWKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=SCt4YVVl; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="O8qbLt0u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D9f0wltmYGDfsziW0KhCqmqLKwPaD1C5aDCcArDugtHqMnvRT4dTwBsmwCAHV/J0KREko1pcs7HPRiRwNNyoiai1i4pH7GuQ9HsWsFhJYMOua7c+qU+o3lA3bjAvpFfD/ErQG6EA5H4O8VSLpP7J8r6TDUljYdZyR6TGZmWYH3eQE8uDTG0PYdB9/OCokg87lM92ok2AgWZd5OD9ln91Irm9zqlTy3WueQ2CA3dJ+fUfnWEudYy3gkSL8b5/kljKdkUjeJhR+DME0+RBlMruViMdfWjNDULkXlcKnactsDkv+7CeGjd2xb4O/XG275lZ9w6QivCtLNf4Aa4u/H5AtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iVPS/YZ1oSIlrkSb8D1UOrXNB6sJr5b517OMbwu23HY=;
- b=nbUG7wW+Q0LUz0dP+7uJ25DnYYzlOBFiwS5IOlYQ5bDoz2ZRJgA7Hzkq8xb7H5uUfOa7fF3gYfIMp/0kaWGTePRe6E6+yZyTj28mqIMw3I6VhMOW3xO7xBVyroQg13OyxjVGqilF887rU3i3e9bLuBpdTsK2NpOXovi9Wahw7KMzJ9/YvdC0o5FDJUxUDqFae5bqCtPXD/M7/8VCZGV9Ay7ARl8yGTJSSX55ZR3ycZUSuZTXvfntZ2AsYb2xDla0Cid50qa4Q+qM9/rZPssCa30S6qcQH6lyphJwA9zusBzWaRbJ8VJlwvurfdodVoLtylAhJQiREnjiot/bFemQ/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iVPS/YZ1oSIlrkSb8D1UOrXNB6sJr5b517OMbwu23HY=;
- b=O8qbLt0ufjvbBGVYQVDmjWQDDrgh0nyKkHMRdoIAhJ1uu+j6PiaPn7QFBBRl8L/Fwkypl+QqPIj6PVCtH7afIu0rdLE/WkFmUwYZjdfK5tor0zW4qTnvzxXOpEMrb+1gbEgYltkDmBNRhbzc6KvW1/VZ9abKLStm3DUdZ4RqZ6lw6BJ0hYeXfx2rrXC85MW2hhSqA1/3/whUtLg+w5MMdjXBQ9mnCPPfiNRxh13x8GT5h1LAgqtascFLo2gfLnDDIour7Kg2wogC85IMP1N9krP9oTJjKtX2Vi2do5N7DWBKw/AFz5VxauJy03i2SyfoZegqdN4vnBiDCpclj+Y9wg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AS8PR04MB9080.eurprd04.prod.outlook.com (2603:10a6:20b:447::16)
- by DU7PR04MB11139.eurprd04.prod.outlook.com (2603:10a6:10:5b1::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 02:05:38 +0000
-Received: from AS8PR04MB9080.eurprd04.prod.outlook.com
- ([fe80::92c2:2e03:bf99:68eb]) by AS8PR04MB9080.eurprd04.prod.outlook.com
- ([fe80::92c2:2e03:bf99:68eb%6]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 02:05:38 +0000
-From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Date: Tue, 19 May 2026 10:07:43 +0800
-Subject: [PATCH v4 6/6] media: synopsys: Add support for i.MX95
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-csi2_imx95-v4-6-84ea4bb78a88@oss.nxp.com>
-References: <20260519-csi2_imx95-v4-0-84ea4bb78a88@oss.nxp.com>
-In-Reply-To: <20260519-csi2_imx95-v4-0-84ea4bb78a88@oss.nxp.com>
-To: Michael Riesch <michael.riesch@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Frank Li <Frank.Li@nxp.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Mehdi Djait <mehdi.djait@linux.intel.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779156481; l=2362;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=FEG5bYsPBxZ4dSkv2k1aIVamftOpHreA3QLGwnJexfk=;
- b=8J+RaSWf/RzWXF1+grk+iSAnstSpSBemF6oEpWMXlUTHpleh8VpwsPX4lJBUmPh+KdMQyTQ1B
- 7ZZnMMybcaFDZEF50IZptMoFtJLpolxJ1GrMW6au7d4AjSLPjRenP6h
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: SI2PR01CA0011.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::6) To AS8PR04MB9080.eurprd04.prod.outlook.com
- (2603:10a6:20b:447::16)
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="SCt4YVVl"
+X-UUID: ea3fe842532811f1a3561939bc42ff46-20260519
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=U+xjvIGrrtaywGA0TAun/vyXtymmmkJ5YI4a//zr9/E=;
+	b=SCt4YVVl1jKf+teDVUX1sqDrD6VlphsGJwAfq/Ydo6dBIgVHI6vB0jVadDode8MIEsJy22RZduIx9xkTBBBX5k9Qicrwbw8U19chkRxUQ4jNVeOwZKL51Y+O0qyjbDydpdli/UUk3y0EniRcaul/w8kap9hCmPz005LMLAyR5J0=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.14,REQID:7f4e250c-11e6-4100-9206-5317cd62bd42,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:9091e75,CLOUDID:60da1346-e650-4d81-a877-d298d8f44b5d,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
+	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
+	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ea3fe842532811f1a3561939bc42ff46-20260519
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
+	(envelope-from <jianhua.lin@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1701171278; Tue, 19 May 2026 10:17:41 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 19 May 2026 10:17:40 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 19 May 2026 10:17:39 +0800
+From: Jianhua Lin <jianhua.lin@mediatek.com>
+To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
+	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
+Subject: [PATCH v8 1/3] dt-bindings: media: mediatek-jpeg-decoder: add MT8189 compatible string
+Date: Tue, 19 May 2026 10:17:24 +0800
+Message-ID: <20260519021726.19137-2-jianhua.lin@mediatek.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260519021726.19137-1-jianhua.lin@mediatek.com>
+References: <20260519021726.19137-1-jianhua.lin@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB9080:EE_|DU7PR04MB11139:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9a1aca3-4897-4a74-c97a-08deb54b1f41
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|52116014|7416014|376014|1800799024|366016|19092799006|11063799003|38350700014|56012099003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
- L94tIORaYPDGuoNraAUwU8MP2LocQpg+uW7PpziE2F5Ty43hvOdvLJ9aDOx9QE0wZKGPZQf/u5ZeWPZjDp7ATW64NSFP6h1QzYY9s0M7rrKqbhrnuUremaRK+bLJRJgqKwUfinmRhHhqy+diN5bTHRvVdyi6EAWoBoGUKi2ZcZJQxDRkhBQn3x+SptBW5vJ+vzddZ7Xcn6RNTFWBj1mvcpmrAr5xb8kUIAVEf2kGoaBVryf9B6I+wZkKguWZz76+VyTEcxwCjvv4U/AXuQHoID6QEcgyzZwbGFE5HjLMl2aAkwYYaUSkTUrubqqllm8fLf2N/QiSxfjoraENDYNAnRYUWoC6/hiljpqhq/Vzc5lVX/VnEYxgaffAcHQychOE43wMu1l7x8crk+qrbaxZxYoMGafczYfouGLeCkZRx7ycM6oajfRLLH7RE55jgUTyGkAAc/FtC9wpnYe3nsDU4rVxoYzuNmeHD1bEzPwnZG0idZ0bIB8oH0kegxInfem2DxWVlLISYJbp+yIMd8Rg3KaJVHdVve9GMzXaW98c6gIqhXIMkd2NV2EwkNq+fMxk8bhRVBi8otALf6WrMfg/jT1wThEAdjqcu+0pr/hdpwC95Dw/5eyWCtSB5O7VZ8Pf2oqH+i2pOEAV1fytaoVmBqqv8egMIZTneoDhPuIPOZ/xJSWSQ+s27dxPXIm7/EUNq4GIBLJEgepqk38AJVKS0IZkIxVcIue4yovYo5C5nucz2BySGAZArxvXr1LRf9Oxf+CV5JML0K+g0MalTp/AIw==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB9080.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799003)(38350700014)(56012099003)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?QkFsRmJpL0pKcFM4emxvLyswMjJ3LzNIei90aUYxdkRPUGQyb2k0V2VIL3ZT?=
- =?utf-8?B?c0pnSUpNeU1BbkVVdTI5QTNVRFJKWmo1Qkd6SWNzOW5NVFNFaUNzamFtNnI3?=
- =?utf-8?B?aVFxNDJKdkpCbWNLMmxpK3k4anF1RGFqVjJITUkvamF4cjdIMFZWVHRTNitP?=
- =?utf-8?B?QnlMeVRtcDJTT0lUV25ZZm0wckZ2Njc0NDNTYmVJWGdZT0FlVFBnRGZMRmo5?=
- =?utf-8?B?dVo1WGRXRXhIZ2FKSlNWM0UwcjEzSzQ5WkhoRmxuWHhqTXZDbVJnSURaL0RQ?=
- =?utf-8?B?R3dVT1hZdCt3bmZ5b0owWTlyWk1MQ2tmSHNkcHVPSm51RGR1bTlQVFhra1Qy?=
- =?utf-8?B?UU41cUIxTUdVYlZMbCtYdE1QZXptOG1LeWc5WEtLWE9NaTFRa25TT3AvV05P?=
- =?utf-8?B?aStnNTcwTk1iY3o3aWQ1Sm5BNW81LzF5VG5ET3pzN3NZeUdJUWs5b0ZzMWxo?=
- =?utf-8?B?WkpId1JlL0Z3SWNtVjkvR2VUOXNVMEF6Y1NtSW5JQmxKODRuZkdBTXYvTHBz?=
- =?utf-8?B?a28wbkZ5anA2aWJ6ZUgxdmgwbjZpY2NGRlFVOVZ3WFQ5ZmQ3QmZEa0k1RlFE?=
- =?utf-8?B?UDdJaVUxak1GQUhZamxSYUw4cHV3aklMV2lWTUM0LzAvMUVUL0h0SXlxVE55?=
- =?utf-8?B?N3V5WDFScm0yUGRtbEE0M1N6NFdPdTNqcm9NaWtiNzN2RDF1ZmhiNHFBUEhE?=
- =?utf-8?B?YXA2WUgyK2JXUVhKdDJCRld1Wk1JNlBNa3A1bzBOY1BGdjRxMzFFbzVpOEJk?=
- =?utf-8?B?Tk91TmxSL3V1aXZCUUJEbVJEZ2FIdGdSeEVKck4xMmMyNXM5MUhuZzdRTTRz?=
- =?utf-8?B?WVJ3SE1OZWlqdzd2aWk5WjRvclMrNlRnT1FoT1oyaHNBUklIQTFZbHlkbmZE?=
- =?utf-8?B?UEJTQUVyQWQzQjhwb3Nsa1ltNFgvTGlWb0dYWUVtczBIYk9nWCtZZXRmUjJz?=
- =?utf-8?B?bzM0VEpFM09MSjZweG85RmVmQ3RidDZmTHBRNFhGdlBtektKcXZoekNhbVF1?=
- =?utf-8?B?ZnMvd2dXeVd0U25nTzk5eDVQS0VVek5qTC9zL3kzcy9CY3ZtMUlJQ2lUb05M?=
- =?utf-8?B?SDlpQldXbFk2V3RUcDdyYzRWSkRSejNIS1dXbWxWaU5halZVcmY4MDBtczJR?=
- =?utf-8?B?L3hQWS8zdk9HMjRkZU9ta3lmUnFxRXBiRnBBNnhRT0V6TEFiUDFIeStNdUhk?=
- =?utf-8?B?TklzUkNoUXMyWFo4cndVbFQ2cGFsN2ZWUURMZjA5K2VUWmtVSVJ1MkJFMVNK?=
- =?utf-8?B?ODJpTHZVaXZKZ00xK3RNVnNkK1dIam50WUlnYVJOUjdQYlpzL3M2cmxWRTRW?=
- =?utf-8?B?WnA2Z3BGYVVOWS91TGlmOXRtRVp3am1WdGtvcFpUTXEyeS8zTytwdlp2VVh5?=
- =?utf-8?B?RHlwZm9VMWpuOTgxdkRZbW90eHdzcmFXZWdsa3Btbkg4Q0laRGZ3KzZOT0lI?=
- =?utf-8?B?T01salBHZTVzcjEvanhTMTZPS0hZSHFMZnRzZW1BbEFQSVdzQ1FBQlY2Q00y?=
- =?utf-8?B?S3dpeDNiMnVVeSs3VStJT05vWUhiSXRveE5rdWMxTUtjWlc3aUtFaE9jc09H?=
- =?utf-8?B?MUpsOUpQVnlqK25BNHRweEs1NGJqWVVrRGl2MGxld3BqQTVoV21mZnBHMHQ0?=
- =?utf-8?B?MzREaHR5MElzaGIwOWd1ZUVPU0ZUQ3oxWjVpS05zbjJTbFVJRUI4MWZQTWJL?=
- =?utf-8?B?S0FuRTI0ZFFpM0cvS21SOStVRlZ3RGJpQVVRTDN4V0hnUWlwMlNuY3lxdEJu?=
- =?utf-8?B?ank3RXhkQ21rN0pMS29uT3JFc0dQVXYra0FqOUVoWmVnWVk1VHREZUFWN25l?=
- =?utf-8?B?dEJON05YR29ld1pRblNSQmUzbWY3OCtpaDU0MjNjS0pjaGVpb0o5V1FQTFUy?=
- =?utf-8?B?Z0MwNWdxeHN6RGFyM21YUGRxck56ZTJuUm9FdGJuQWF6Q3dFUEZYREZENGl3?=
- =?utf-8?B?YmhTNnl5NmpTWUhodUZUKy9qTnRVenF4UVo3MnFML3VuQ2Z4Yk80WHQvbVhZ?=
- =?utf-8?B?NGpuSUlVeXRuMkRwL25mWGhxODgxUFZ3ZzB6WktOdk9VOVg5UDh0N1JPaTFG?=
- =?utf-8?B?V0NkVHFGam52M0cvb1NYcUE0RnlXcTcvRTNNVi8zbXB2c1ppVVp2Vk0raEZV?=
- =?utf-8?B?RGFWMzNlSDVFemovZHR1N2lEMmdoUGpUb25TZzR6RWZJVU8zWmowWWtNdnVp?=
- =?utf-8?B?SkJGVUpyVWEyTVRxSVRhbmlkcEFSaVFyQ0x6ZlBvTTM2N1UraUFDcVRHRjNs?=
- =?utf-8?B?cm50NVpyemY0aXBlbWw3ekZsNFkvdlhUbkwzOE9XSzlzZnFkcEhienV4ck51?=
- =?utf-8?B?b0NMckNxdGtUWm1NMFF5MU5HZ3lvcGRVTU9Ic2tXSVJBRzZLZ3FmZz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9a1aca3-4897-4a74-c97a-08deb54b1f41
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB9080.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 02:05:38.6285
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q/hTCdOzOMirPNy/h991LkIBKkqwNkqJBsLnoycvhoaEvrv2U4CrvVKOva56Pvz0r3pTgf53pyWE7sEw87L+bw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11139
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Add support for the i.MX95 MIPI CSI-2 receiver. The i.MX95 variant is
-nearly identical to i.MX93, with the main difference being the use of
-IDI (Image Data Interface) instead of IPI (Image Pixel Interface).
-However, the IDI interface is transparent to software, requiring only
-a different register map definition while sharing the same PHY control
-functions with i.MX93.
+Add the compatible string for the JPEG decoder block found in the
+MediaTek MT8189 SoC.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Compared to previous generation ICs, the MT8189 JPEG decoder requires
+34-bit IOVA address space support and only needs a single clock
+("jpgdec") instead of two. Therefore, it is added as a standalone
+compatible string without falling back to older SoCs.
+
+Update the binding schema to include the new compatible string and add
+an `allOf` block with conditional checks. This enforces the single clock
+requirement for MT8189 while preserving the two-clock requirement
+("jpgdec-smi", "jpgdec") for older SoCs.
+
+Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
 ---
-Changes in v2:
-- Add Reviewed-by tag from Frank Li <Frank.Li@nxp.com>
----
- drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ .../bindings/media/mediatek-jpeg-decoder.yaml | 44 +++++++++++++++----
+ 1 file changed, 36 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-index 8a34aec550ad..41e48365167e 100644
---- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-+++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-@@ -154,6 +154,17 @@ static const u32 imx93_regs[DW_MIPI_CSI2RX_MAX] = {
- 	[DW_MIPI_CSI2RX_IPI_SOFTRSTN] = DW_REG(0xa0),
- };
+diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+index a4aacd3eb189..a152c874b53b 100644
+--- a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+@@ -15,10 +15,10 @@ description: |-
+ properties:
+   compatible:
+     oneOf:
+-      - items:
+-          - enum:
+-              - mediatek,mt8173-jpgdec
+-              - mediatek,mt2701-jpgdec
++      - enum:
++          - mediatek,mt2701-jpgdec
++          - mediatek,mt8173-jpgdec
++          - mediatek,mt8189-jpgdec
+       - items:
+           - enum:
+               - mediatek,mt7623-jpgdec
+@@ -32,13 +32,16 @@ properties:
+     maxItems: 1
  
-+static const u32 imx95_regs[DW_MIPI_CSI2RX_MAX] = {
-+	[DW_MIPI_CSI2RX_N_LANES] = DW_REG(0x4),
-+	[DW_MIPI_CSI2RX_RESETN] = DW_REG(0x8),
-+	[DW_MIPI_CSI2RX_PHY_SHUTDOWNZ] = DW_REG(0x40),
-+	[DW_MIPI_CSI2RX_DPHY_RSTZ] = DW_REG(0x44),
-+	[DW_MIPI_CSI2RX_PHY_STATE] = DW_REG(0x48),
-+	[DW_MIPI_CSI2RX_PHY_STOPSTATE] = DW_REG(0x4c),
-+	[DW_MIPI_CSI2RX_PHY_TST_CTRL0] = DW_REG(0x50),
-+	[DW_MIPI_CSI2RX_PHY_TST_CTRL1] = DW_REG(0x54),
-+};
-+
- static const struct v4l2_mbus_framefmt default_format = {
- 	.width = 3840,
- 	.height = 2160,
-@@ -914,11 +925,22 @@ static const struct dw_mipi_csi2rx_drvdata imx93_drvdata = {
- 	.wait_for_phy_stopstate = imx93_csi2rx_wait_for_phy_stopstate,
- };
+   clocks:
++    minItems: 1
+     maxItems: 2
+-    minItems: 2
  
-+static const struct dw_mipi_csi2rx_drvdata imx95_drvdata = {
-+	.regs = imx95_regs,
-+	.dphy_assert_reset = imx93_csi2rx_dphy_assert_reset,
-+	.dphy_deassert_reset = imx93_csi2rx_dphy_deassert_reset,
-+	.wait_for_phy_stopstate = imx93_csi2rx_wait_for_phy_stopstate,
-+};
+   clock-names:
+-    items:
+-      - const: jpgdec-smi
+-      - const: jpgdec
++    oneOf:
++      - items:
++          - const: jpgdec
++      - items:
++          - const: jpgdec-smi
++          - const: jpgdec
+ 
+   power-domains:
+     maxItems: 1
+@@ -51,6 +54,10 @@ properties:
+       Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for details.
+       Ports are according to the HW.
+ 
++  mediatek,larb:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: A phandle to the smi_larb node.
 +
- static const struct of_device_id dw_mipi_csi2rx_of_match[] = {
- 	{
- 		.compatible = "fsl,imx93-mipi-csi2",
- 		.data = &imx93_drvdata,
- 	},
-+	{
-+		.compatible = "fsl,imx95-mipi-csi2",
-+		.data = &imx95_drvdata,
-+	},
- 	{
- 		.compatible = "rockchip,rk3568-mipi-csi2",
- 		.data = &rk3568_drvdata,
-
+ required:
+   - compatible
+   - reg
+@@ -60,6 +67,27 @@ required:
+   - power-domains
+   - iommus
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: mediatek,mt8189-jpgdec
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++        clock-names:
++          maxItems: 1
++      required:
++        - mediatek,larb
++    else:
++      properties:
++        clocks:
++          minItems: 2
++        clock-names:
++          minItems: 2
++
+ additionalProperties: false
+ 
+ examples:
 -- 
-2.34.1
+2.45.2
 
