@@ -1,106 +1,122 @@
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E94D3D7D93
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFF53A1A58
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779175820; cv=none; b=rUv55OHmNqBvtOnw2muAmGsrB3ZHRBgnJY13O1Db/dzztG6u+a+R9TU4LuHnlyWrn8zzQ0bXvAJiRsr3VkWed5m2Iv+sFAnyThdsGL+efC/IcbD26D6GRQxv5PWK9fwGuoOvVV+AEvT9rtaJoDOOlhgp9mBj1GqFYcjWPjroN+A=
+	t=1779176026; cv=none; b=mYYj+sqgeWfv/f++lOgO4Jcc8q4Wi507Ooqe1+0n6hx2+z3+Q08MZphdnFwCX4JdqY/W6aTV1yogW+WQ/Ent9bd6xTbLGi+LCDy2uiSBnKKJwuzeNth3kc/qe21xxXrfl9vr66hY1PgJIDX73LBYnbPMEDFDz3ZQ5yjG7cV9dHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779175820; c=relaxed/simple;
-	bh=EP+l3Xsf/02TI72QB7nqXNUQUPtcxewjH2cpp+hAG40=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NbdbuyGaOcNbEZosZVvxUcVkgbryBs7h4qdFH6uVpwMi0FB2Au/B+Mz5PlCHlRr68kD6SQ6yi+5tAAFoWuyqE1KyngrK+y74an6vnTPvhNY4HqxjTImmc3Zjk058TTImd4E8u5I0KVKmGF1gLD8eqtZC5TG7pnYQONyRkXV6fIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-6314adf187fso902830137.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 00:30:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779175818; x=1779780618;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+1Ydpi64imhfiW3BOCP/037yrb9bXbwCDPHAO9TSn2c=;
-        b=X1jgg0SHvpWke5PqQW4pxEvHQ+6eD3Ud88j4qU3VlveOapfxZbedrL807GrB7vJWxd
-         gfe3I6yRGnt11LPKFQgHEqugEu8RaFa6Sh5Ou3YsVGgJFWLZkDinxb8NBRBzSP9F3l8c
-         OaDEKKVP51EnRsStLhZwr/0VidBdElhlCjDKUgCvnMTb5T3iptl8gLPTGXg5jR1V6J7K
-         8UNxkSUpTeoTUfw2y8UxbFLDVRxOynQs/RK77E9d/bHeZUlt2pxsCeP8CWe23X05fauU
-         JXoe3ngM7EXL/mnzALLaSrWFjwMdjXsxiepbV+5SKjUxggJmLoCSUzDBTSc5eqvVJ94G
-         VwYg==
-X-Forwarded-Encrypted: i=1; AFNElJ+97T3QdCVV+pFqBt8U1Z0sVNKMdZg/PxloLR9Av96fn53SuIY+WgthmiknUk+Wk5xmWbJ5xzAHOtp7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZEof5YuQzywUj5d9PSBuzmDxTvHYyn3+dMIrDxtRvwjaR1msN
-	u3e/aNzCdUR5JrBoQi1N0j3uGQ9u4oWIo4uDQqDa12yKFF3jLuYXWJU+DMVtszn9
-X-Gm-Gg: Acq92OFcOVH2VLLgKDbn09ONieev2vZLfOCa0vwWzQo/Q2OIVfr2yQc9fhIjkm77jxT
-	8u8ra4gWleUnNdYsobmmK1P1Xk74cWaXsMXZO5pnqpoYffeuoeunlnOW18neSW+7ufXojnQhGh0
-	czLoDjmrB68h5xVq1up5q7rh8+xUxRTC5v0MmaDXSEH7YnE/Ob39ijfTb8AqnaRfNpxZA/oXYrJ
-	O/qjKfOagxjVfx6rte35MnYgsqI4aUKttpdVcF+gfVebHMTEs1vEQa8GeO/DuXdb3L17MxOvzRg
-	tyq0Ra+bwuguRHf8b9FLEkBQIFwVug1DNqrnKgQgqIE/KFdubEwcDACf7BEdxaybIGE84tgGxef
-	CulhcDJUWNyLU4P66nCoadfoaFMCaulk5SJ/Uakh8LVqaspUobnvXKf/nmJm1hthiK6RWx8N357
-	kkHJEPSe2AXSYK2aWSLgssS5i0luqAo1g7W+VRCHhUj51B51C0ubCzQ+GNbgKI62ssolP8M/T1r
-	pSTIDEhSA==
-X-Received: by 2002:a05:6102:cc8:b0:636:46ee:2f0b with SMTP id ada2fe7eead31-63a3cf2201cmr8276969137.12.1779175817997;
-        Tue, 19 May 2026 00:30:17 -0700 (PDT)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com. [209.85.222.42])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-63cb23b0d19sm6172351137.0.2026.05.19.00.30.16
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 00:30:17 -0700 (PDT)
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-95699e8e26aso867468241.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 00:30:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8mvk9K+E+xfR4bjf0sMWAApliByxhmUVWBkxteVUyQQgt+DVc1KZA4nrn7jiUL4D9PuuQIRfTB7JYQ@vger.kernel.org
-X-Received: by 2002:a05:6102:598d:b0:5ff:cee8:660c with SMTP id
- ada2fe7eead31-63a3fc94452mr8770872137.31.1779175816720; Tue, 19 May 2026
- 00:30:16 -0700 (PDT)
+	s=arc-20240116; t=1779176026; c=relaxed/simple;
+	bh=kO3/ntGo+m5RAcVFPTsPLt1JMQFHv2QCaQ4f4egQIM0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Z2xH7kkXOyap+cwc8yz7chIklumPYegn3ghBzPbdvD3a+S8YjI9hKsDHNjhv/Y1NWq/pZSkjlWYCTdoWbe72+onxOq57Y9TVoH4hYM/GG8zsbTZ6l2qKFAfBIV6tTeX18WvOx3FVyPklDQErtpN80DncSrY2eSG4wIUB1ERi7IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9N0A7qM; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9N0A7qM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21BE9C2BCB3;
+	Tue, 19 May 2026 07:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779176026;
+	bh=kO3/ntGo+m5RAcVFPTsPLt1JMQFHv2QCaQ4f4egQIM0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=A9N0A7qMLuKULEprY5CmkKgGJDabKEXrHNvUY0i5l/bZu2Px6lhxD2HpwUxMsgfn7
+	 Q5PX12XKQZ6dClBXhVTM78u5OtgFb4O/xzqTVzOxH+lemfgVHBFoY9YONZXKtt2I1e
+	 iiCiF1sqQkLTleTpaeple4gPSB8N0/TQm3EdRi4+cjb2kdPol4OezXOzDKkOpEiFOY
+	 DInSDGnjCPdxUNuOeT8TwfGgTC877J9FRupfS3lljVDfVooGt4R5LLp8Kak2dKg1Wj
+	 yRQQ4A+XTD62Ch8rUEMSo76Pcs04vmMx9tEVTTnOkL2FKJHPUFx3/mF1CJTXMMK4MW
+	 iYkorbmnEyLtw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 01/16] arm64: dts: qcom: kodiak: Add EL2 overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sumit Garg" <sumit.garg@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260518072856.22790-2-sumit.garg@kernel.org>
+References: <20260518072856.22790-2-sumit.garg@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 07:33:45 +0000
+Message-Id: <20260519073346.21BE9C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
- <20260512033750.3393050-2-linlin.zhang@oss.qualcomm.com> <20260514-clever-apricot-goose-acc827@quoll>
-In-Reply-To: <20260514-clever-apricot-goose-acc827@quoll>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 19 May 2026 09:30:05 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUzraGnOxRU=9bsxBBBFtVqudMGisfcAegUzk+_OS2+eQ@mail.gmail.com>
-X-Gm-Features: AVHnY4Lg6L73kxFzoZy6C0Wkwm0pix0KrxlB1EVn8QM9gs7VsfrBk977OYQBtOQ
-Message-ID: <CAMuHMdUzraGnOxRU=9bsxBBBFtVqudMGisfcAegUzk+_OS2+eQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: crypto: qcom,ice: Add sa8255p support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S . Miller" <davem@davemloft.net>, devicetree@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 14 May 2026 at 14:56, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On Mon, May 11, 2026 at 08:37:48PM -0700, Linlin Zhang wrote:
-> > On sa8255p, resources such as PHY, clocks, regulators, and resets are
-> > managed by remote firmware via the SCMI power protocol. As a result, the
-> > ICE driver cannot directly access clocks and must instead use power-domains
-> > to request resource configuration.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `kodiak-el2.dtso` overlay omits the `iommus` configuration for=
+ the `remoteproc_mpss` (modem) node.
+- [Medium] The commit message fails to explain why `gpu_zap_shader` and `ve=
+nus` are disabled, and why `watchdog` is enabled in the EL2 overlay.
+--
+
+commit b4ab2188dfbc3caab6111f1ec38bf830bc7a5ef3
+Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+
+arm64: dts: qcom: kodiak: Add EL2 overlay
+
+This commit adds an EL2-specific DT overlay for Kodiak devices to boot
+without the Gunyah hypervisor. It configures the remote processor firmware
+IOMMU streams to be managed by the consumer rather than the hypervisor.
+
+Link: https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boo=
+t-developer-touchpoints.html#uefi
+
+> When running under Gunyah, the remote processor firmware IOMMU
+> streams are controlled by Gunyah. However, without Gunyah, the IOMMU is
+> managed by the consumer of this DeviceTree. Therefore, describe the
+> firmware streams for each remote processor.
 >
-> Then how can it be compatible with qcom,inline-crypto-engine?
+> Add a EL2-specific DT overlay and apply it to Kodiak IOT variant
+> devices to create -el2.dtb for each of them alongside "normal" dtb.
+>
+> [1]
+> https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boot-de=
+veloper-touchpoints.html#uefi
+>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> [SG: watchdog fixup]
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-It is a pity there are such big differences between the SoC-integration
-"hardware" description in DT of systems with and without SCMI.
+This isn't a bug, but the commit message focuses solely on the IOMMU
+stream configurations. Could the message be updated to explain the
+rationale behind disabling the gpu_zap_shader and venus nodes, as well
+as enabling the watchdog?
 
-For R-Car X5H, we proposed a difference approach[1].
-Linlin: do you think this would be a viable solution for your platform?
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/d=
+ts/qcom/kodiak-el2.dtso
+> new file mode 100644
+> index 0000000000000..0b3a69a0d7654
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> @@ -0,0 +1,35 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
 
-[1] "[PATCH/RFC 00/14] R-Car X5H Ironhide SCMI CPG/MDLC remapping"
-    https://lore.kernel.org/all/cover.1776793163.git.geert+renesas@glider.be/
+[ ... ]
 
-Gr{oetje,eeting}s,
+> +&remoteproc_adsp {
+> +	iommus =3D <&apps_smmu 0x1800 0x0>;
+> +};
+> +
+> +&remoteproc_cdsp {
+> +	iommus =3D <&apps_smmu 0x11a0 0x0400>;
+> +};
+> +
+> +&remoteproc_wpss {
+> +	iommus =3D <&apps_smmu 0x1c03 0x1>,
+> +		 <&apps_smmu 0x1c83 0x1>;
+> +};
 
-                        Geert
+Is there a missing remoteproc_mpss node here?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+The qcs6490-rb3gen2.dts board file enables remoteproc_mpss and
+configures it to load modem.mbn.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Since the MPSS streams are routed through the APPS SMMU on Kodiak devices,
+will the omission of the iommus property for the modem cause SMMU context
+translation faults and prevent the peripheral from booting?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518072856.2279=
+0-1-sumit.garg@kernel.org?part=3D1
