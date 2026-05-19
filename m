@@ -1,162 +1,115 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailer241.gate86.rs.smtp.com (mailer241.gate86.rs.smtp.com [74.91.86.241])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D053F47886E
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 16:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779209339; cv=pass; b=uBVVHvG8VZI8d6Yzf9Vs8yaBK6gfGWaeFV5FmlIg5tEaOW6opr1V0hO5bgoV0kGqMlr0GZREWRpVVL1HlMnMkMRoCDQhBRZAp2no++agcQuYzKFCJIk1VL8Rd7GvpXHUCmkqt5rOETs0hYbHlyJtyoIdqWKLdeiMtgoMJ55DXJU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779209339; c=relaxed/simple;
-	bh=oH9Nrh5PMk8EWsTbmczz+vb5WQ2yNIkfnpOjRyzWjGA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z0ZM/t8VXM/2UtHxVN1q+hPKxctX2Q4oKqiWQ+rSFw8+TO38TJkwWM9qcOW+s76f7ezU1NnW05hdGrWATeAOqPzxuopwcV5dlExElPHf3Z9K4pwWMHaIiFVOnbjPABUDy78EtKYOa2VnipgwfbjANpsQmCJ5Kw87UhrfSV0YoVE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gLVtO780; arc=pass smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5206A30499A
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 16:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.91.86.241
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779209513; cv=none; b=q0jLZEzmpUX6mSG5BA60pFwn5B4dfKdE9yEGPnNL+2pOonpvTu318er4Rxh5ETfyi8xSFFWYl4meeseQ1PkJs1wIPrh3e3AMIHC1KjO13zP8Sm4u/sKclDu82VG6Q3i+EQRr4eQ1wzPFQn0ibBVpU/lYpHc20nY9vR49aoe6Euk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779209513; c=relaxed/simple;
+	bh=qTPbYkiOMspqG6VSxSHXCGcz+MklfLABEK6/0TNXX5s=;
+	h=From:Subject:To:Content-Type:Date:Message-Id; b=hcY8cKBWEZ9sfvbkzx7F7QBgFsSWbXMY4wgsiqIRLFBpmyD2DMsYITNjYhVMNCQVkZkJ/jl94iqwS3Ae2Wl7iCxGd3sPozoq2I8v+Z3o7aGR2ua3KT0CY/I+mG8vuhu8UG/Geq030PyYs3ywTPg7qnvKWWK1HwmT3mP0so9gNpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com; spf=fail smtp.mailfrom=computergamingpc.com; dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b=OP+7eYW2; dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b=u0BbRfKk; arc=none smtp.client-ip=74.91.86.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=computergamingpc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gLVtO780"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39380e79936so40741791fa.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:48:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779209336; cv=none;
-        d=google.com; s=arc-20240605;
-        b=cncKn7G/4l84XdIzLLprCQyzWseZEhiIR6JkYqpgE1E66He/OqY504YyN7SeHsvyoS
-         pp4XSA3Gd1SmGwOeM+j73CnXQZpKFHdoagjI+9ovmWCKphGeXxgHj9jRPmyuycoWIEY/
-         t0jKP2KpVfQw2OK2zpIKMhMsc1WJ/sTY0EYsAvzaEM5FZ5bmRvkJxxqWbTyTzH2vUSNi
-         6T7un97LkRRJBQTpE/dEUB4oLZgaQbz0bkKTbkB3Ipw6vgvsiz/9RHZgKlXSB7ElTiDE
-         MUIOKKtryvXOlgzKJD+yOAVWcUJ/jPbqqGUVBUCdL9nBXrGFfj4xIvWN7I8Mocfso9fT
-         nTqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=11HZunJH70CHsRXR3sppB58SVfwXvxQdgkcAB3E60NY=;
-        fh=mUhZ+smMEQcyMFXEN9FmC16NDxLhWdiVj35F5/wSYCw=;
-        b=KPEx39Fo1yCDa7/YgmB4Xe23IYh7sB26tGUpLL56bHtXJ4Zda0fky/RPtExT/RLVke
-         /14U/Y0WPhn6pE5Ph+0hL8aTiU9Y1QQCPfNARlX6upcaBvsVV224aJI3uv9yuOJyx7Yk
-         X5mXfrfJVGE+h0uZ/0fQpv7W0Ao5IY7rQKQFRn9mMvmyMLJgDq6u4NratUQpPRO9hZwG
-         eqIWB7jO3DeJy7yEsDJU0GkUBKL5xayNufL5E6cK6HipRvtQE8el6qsr8IH6NAPGO5iN
-         9o7ig6+wUzOyQXMXiPc830peP0LSBennc37QPYdw6FrZyAJUpEhEghc6PFglmdjMj2Gw
-         CEaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779209336; x=1779814136; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=11HZunJH70CHsRXR3sppB58SVfwXvxQdgkcAB3E60NY=;
-        b=gLVtO780K47SFspwGpqSc7Hn+QCwa47HcFq9d5Fs2eigtexzUDgZp69UV7YJpNLLmm
-         4yjJKMJFBW4droeX6NihF1HnMZFhcSf8AW2S3UysJIQsIUZqTyjIqG2TqOViDSIE47nL
-         y9jQbQPl6jlBE5YMZcp8BpzHuqjDCr8msZcPIdSJZWWMqtWFwSs8nmh7/hhZjQKSeclu
-         LfOTEuSb5WEdb9R04BdXXdvF6CeuxqTkUvLIqS55cV8DX/7pozi32y8Uo1Spfvyy0oYr
-         QMmS39yXl0xLcgb6RfajpccClgzVYEr4NFdruagWCBfaW7Ncp5mg2VKbAtQznRBI+qoV
-         eI3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779209336; x=1779814136;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=11HZunJH70CHsRXR3sppB58SVfwXvxQdgkcAB3E60NY=;
-        b=k6cbDG0PCuOa1ONmNc5rrKVZX6/v0K+kwFRQoEvxTQ2ozka16ydRmN3kiKlLxDuZNe
-         II93uYx6PXQijUgFt50rWteZzCoJDjlJkPAI02sVxebDFpO5AR4iE+fm3Ps6Je/ubmLw
-         /JaFS5acPSf7VFehgpDqwYF22/5AebbwTrtmYZdAvjlfWZr1rjjoVmNhndEYIqcD2Vs/
-         07k5olln43iHHYcywOVHZbpW3PKJu3Amk+d7Mxf3xezxf3UJshjUOzytbZIxmjwOedUU
-         WG3PH4cyaqK5R/495SJ4VhRKOxF5w3tcY+q1JeitrqvKl5MPgO+TYNG69+4tXgPfrdqV
-         kXRg==
-X-Forwarded-Encrypted: i=1; AFNElJ9rGplVbccKDl+zaV9WG15Z+v8xC9A+Eb/Aw423d+UdJkDscnjEqMr9wWrxMUIMKaunahDPaTItmCpX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLVAqB6B98W8s1X0ySEpfAmeCcoHcK63RJjSJFM+7SWL9qN0cZ
-	MtFA/XUHP4WVBrKMvwuhM0JXq4Du5UFIS+1py1S+JGZWD0ScT/Es0b8wTg3kBjBsWbOstGdLbFS
-	D/1q8AayiOGGqIzwXow2REQz+isG/APE=
-X-Gm-Gg: Acq92OE0aDskZ0vS3z5DcVI/S8B+yeHfs5IwYVuT++a31tKugSjc/LazeenJzoZ5i/r
-	+LTVVRC8HXLqf59rozXDxnwftft/bPI4Sw9j0Ls+nxWCexdueIgh+hX3iv8ffvT2M3H8p/iJvz6
-	RI2hUH/evMUfI+zCXc/hrt9ZdfLNXeh+Km6TnJS7CceybW60vyMy/PRH/ktccmh8uICPRgdXh0b
-	H16y8AhJ36klE+fux0LLtU31RgI5uowqB0F8/iUzD0Wgj++Vub1eaEMUcz74wtFe0IdwXSFXkwA
-	BBJcZ7qxTbh6X4NHF9cwU2ZdJwzOTA0kfyAL7mg4HlRVJAsV2dUR6Xw8Ak8DjoRBdyK7
-X-Received: by 2002:a05:651c:3252:b0:393:cdbb:2253 with SMTP id
- 38308e7fff4ca-39561adf7e7mr61614631fa.5.1779209335774; Tue, 19 May 2026
- 09:48:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b="OP+7eYW2";
+	dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b="u0BbRfKk"
+X-Report-Abuse: SMTP.com is an email service provider. Our abuse team cares
+ about your feedback. Please contact abuse@smtp.com for further investigation.
+Received: from [10.0.16.86] (unknown [10.138.12.5])
+	by mtl-mta02-out1 (Halon) with ESMTP
+	id 96d8f54e-5d5b-43ee-8b6a-b6f1b027d4ac;
+	Tue, 19 May 2026 16:51:51 +0000 (UTC)
+Received: Received from 10.138.12.169 by Caffeine (s0-aws-app-swarm-manager-1)
+ with SMTP id 40601554-2452-4a82-aac6-801081524721  for
+ devicetree@vger.kernel.org;  Tue, 19 May 2026 16:51:39 +0000 (UTC)
+Feedback-ID: 9194450:SMTPCOM
+Received: from ObaTech (unknown [189.124.148.1])
+	by s0-aws-app2-mta-in-2 (Halon) with ESMTPSA
+	id 40601554-2452-4a82-aac6-801081524721;
+	Tue, 19 May 2026 16:51:39 +0000 (UTC)
+From: "Computer Gaming pc" <sales@computergamingpc.com>
+Subject: FW: GPUs & Enterprise SSDs Available - 23438003
+To: <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Reply-To: <sales@computergamingpc.com>
+Date: Tue, 19 May 2026 17:51:39 +0100
+Priority: urgent
+X-Priority: 1
+Importance: high
+Message-Id: <1938202605511746326BAF5F$7021D6DA8B@computergamingpc.com>
+X-SMTPCOM-Sender-ID: 9194450
+X-SMTPCOM-Tracking-Number: 40601554-2452-4a82-aac6-801081524721
+X-SMTPCOM-Message-ID: 5f15fda5-4ecc-4c05-b3df-e7d20463bc3b
+X-SMTPCOM-Payload: 
+ xS2_Vv4BQSMIbFWJs5TOtnIToXnizr24MEYWnN51cH7A2WJz00OBuHoDUStg22D-yNUb3LB1p5yYb2vN2iz-gzAXdRxi6Jp7jRCLTHY83txJTRMU29z1pBcrbGmWkkn3N9eASnCzC5UUo9sbHeS-npt0wG8lLOV3SCpExXSXISR01NzYSusLkuAm862yQ9m4
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=computergamingpc.com; i=@computergamingpc.com; q=dns/txt; s=smtpkey;
+ t=1779209504; h=feedback-id : from : subject : to : content-type :
+ content-transfer-encoding : reply-to : date : message-id :
+ list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
+ bh=qTPbYkiOMspqG6VSxSHXCGcz+MklfLABEK6/0TNXX5s=;
+ b=OP+7eYW2Wl5hEpIsgTH11RdYUUUbV/BJRaLsJngv8VhLAIP5DTilM4wkcZdxX7FbgYnz4
+ ebSkVYc8F705sOFrcVW2DZHZsta6L45xxO2HFZIzxm+ESzTJMo8gMVVVDFwF93MJObKo54T
+ ZxMW2RKx6iM4OrsK75/AcyqrLn1u7636Qx5NalrwG6sYJLwVjtCdPamky5qL5bFDI35Qj+S
+ H7xOrGGx4BmVWksQP8dtJnDYYdMDis9moh5ZMORbHo58/SFkYH6G95J+S8IHQ3yRhO7dKrB
+ 7SW/p3mESfMAvzMb2ugDPuBzJmj0NW67cH83ThfRtbTldeVeSkKGdzUIZnZg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=smtpmessage.com;
+ i=@smtpmessage.com; q=dns/txt; s=smtpcustomer; t=1779209504;
+ h=feedback-id : from : subject : to : content-type :
+ content-transfer-encoding : reply-to : date : message-id :
+ list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
+ bh=qTPbYkiOMspqG6VSxSHXCGcz+MklfLABEK6/0TNXX5s=;
+ b=u0BbRfKkdprTpmrTrjlFfAW1mfkPsXbNitGuzBDlmPW/cElH7q+o2MriFkwc6/aEGsgoj
+ vh3d0DO5B94UllQPpxXTgLmTsORY/uBEb+6I//8waRHgwGWfg6Xh6xhMvZpPTII9wdlLZdw
+ 30fPtyY5u5Zx7V88vgTqbpJQyj5WiXzQ88FnQIhhIHEwqSXVqTr3SvVJU3/kqkCGjEO9gVr
+ +mYU8L8DDu9scY+IwK2cSK9hg+7nnv/6uJMpjya/jeNmkrkFldkWwvJ6QjeSMcvmDomM4QB
+ M6mnaPzy2aC3qOdU4ohwtcVnWNhalzlM/JO/BzNUxNL3IsBqJxO/vfWqWJwA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260515-tegra194-qspi-iommu-v1-0-57dfb63cd3d6@gmail.com>
- <d10a46b8-2a01-45d8-b1a4-7d003fdb25bd@nvidia.com> <91fc534a-6529-4880-8c92-a8713118242d@nvidia.com>
-In-Reply-To: <91fc534a-6529-4880-8c92-a8713118242d@nvidia.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 19 May 2026 11:48:44 -0500
-X-Gm-Features: AVHnY4Ko7WL-VuNyAXTNlEEFJFIPxQ3R5xh1-foib4BiOS2nRxwB08ZNB4h1Wpw
-Message-ID: <CALHNRZ_Ke_pC4tept4_vGOB0ArwjcaMu=mc=wJrQ0x79MKid-A@mail.gmail.com>
-Subject: Re: [PATCH 0/3] arm64: tegra: Add iommu and dma properties for
- Tegra194 QSPI
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 19, 2026 at 10:50=E2=80=AFAM Jon Hunter <jonathanh@nvidia.com> =
-wrote:
->
->
-> On 19/05/2026 15:43, Jon Hunter wrote:
-> >
-> > On 15/05/2026 21:35, Aaron Kling via B4 Relay wrote:
-> >> The reason for this is to properly support the spi nor chip on the
-> >> Jetson Xavier NX module. Prior to this, it would time out on all
-> >> transfers and sometimes even trigger a cbb fault, locking up the entir=
-e
-> >> unit. With this, reading and writing to the flash memory works as
-> >> expected.
-> >
-> > What kernel's do you see this on? With the latest mainline/-next I do
-> > see ...
-> >
-> >   tegra-qspi 3270000.spi: cannot use DMA: -19
-> >   tegra-qspi 3270000.spi: falling back to PIO
-> >
-> > But I don't see the crash. However, on linux-6.1.y I do see the crash .=
-..
-> >
-> >   tegra-qspi 3270000.spi: cannot use DMA: -19
-> >   tegra-qspi 3270000.spi: falling back to PIO
-> >   tegra-qspi 3270000.spi: transfer timeout
-> >   tegra-qspi 3270000.spi: error in transfer, fifo status 0x20400006
-> >   CPU:0, Error: cbb-noc@2300000, irq=3D15
-> >
-> > So I believe recent upstream changes in the Tegra210 QSPI driver have
-> > fixed this.
-> >
-> > This series does fix the issue on linux-6.1.y but I believe that is
-> > because this is really enabling DMA support and so PIO is still broken.
-> > Ideally, PIO should work if DMA support is missing in device-tree.
-> >
-> > IMO this series simply enables DMA support. May be we should clarify
-> > this in the commit message, but otherwise, I am fine with these changes=
-.
->
-> BTW, that said. This is a much simpler way to avoid the hang on earlier
-> kernels. So I would be happy to get this merged and backport to stable
-> as a fix. Again may be we just need to clarify this a bit more in the
-> commit message.
+Hi,
+Quick update — these units are in stock and can ship today:
 
-I could update the commit message to be more like 'Enable DMA support
-for Tegra194 QSPI', sure.
+Memory Modules
+* 32GB 2Rx4 PC4-2400T (Qty: 1,500) – $14.00
+* 32GB 2Rx4 PC4-3200AA (Qty: 1,500) – $15.00
+* 16GB 2Rx8 PC4-3200AA (Qty: 1,500) – $10.00
+* 128GB 4DRx4 DDR4 PC4-2933Y REG ECC LRDIMM (Qty: 980) – $70.00
+* 32GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,500) – $140.00
+* 64GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,200) – $450.00
+* 32GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,500) – $150.00
+* 64GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,100) – $450.00
 
-The primary kernel version I'm working on currently is 6.18,
-specifically googles android common kernel fork of it. I also
-replicated the issue on 6.12 and android-mainline which is currently
-7.0-ish.
+Solid State Drives
+- SSD SATA 6G 3.84TB SFF (Qty: 450) – $120.00
+- SSD SAS 12G 960GB SFF (Qty: 470) – $300.00
+- SSD SAS 12G 1.92TB SFF (Qty: 560) – $350.00
+- SSD SAS 12G 3.84TB SFF (Qty: 560) – $150.00
+- SSD SATA 6G 1.92TB SFF (Qty: 450) – $100.00
+* 32GB 2Rx4 PC4-2400T (Qty: 1,500) – $14.00
+* 32GB 2Rx4 PC4-3200AA (Qty: 1,500) – $15.00
+* 16GB 2Rx8 PC4-3200AA (Qty: 1,500) – $10.00
+* 128GB 4DRx4 DDR4 PC4-2933Y REG ECC LRDIMM (Qty: 980) – $70.00
 
-I was not normally seeing issues on boot, though I think I did hit
-that a couple times when jumping around versions. Where I had trouble
-was active use of the flash chip, like read/writing the slot metadata
-for a/b support or writing the flash for inline bootloader updates.
-The issue wasn't always triggering a cbb panic, but it was (almost?)
-always timing out and failing to read or write the flash chip.
+- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 P43331-B21 (Qty: 500) – $550.00
+- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 P64707-B21 (Qty: 500) – $550.00
+- DDR4 64GB 3200Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $450.00
+- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 Samsung (Qty: 500) – $450.00
+- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $550.00
 
-Aaron
+For quotes, availability, or inspection scheduling, please reach out 
+directly:
+sales@computergamingpc.com
+Call or WhatsApp: +1(774) 559-1248 | +1 (641)232-4364
+Thank you for your continued partnership.
+Ann Kamila
+Computer Gaming PC Trading
+2500 US-6, Iowa City, IA 52240, USA
