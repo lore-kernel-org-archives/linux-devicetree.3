@@ -1,229 +1,338 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666CA3E5A2F
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779180192; cv=none; b=P+gEuo2rN1emgshWx30AvfMKr0p6wGg9SLPzfpeszj0etbqMelCat6j55sjLewwFWg86aITGhAzvUYSERve0KNTtum6o2o5gMCdAGhU+btssyXMes35kAv+IBeB0/KFy1JOvr5vIoJJumgpIVsZVsSdFuw1ym10lAbNmxDEzlBY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779180192; c=relaxed/simple;
-	bh=GZByO2VDIprL7smzrTiU2wMTuNMdmVEjQ7Th5ILaSAE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o1tlODAPz8vXm/NfxS7XamzhMdJ3ARlLlCa/U0KAQg74KHhk1B4R579Z2rJ7mKoOMILvDad1eIS9AlfavJm8IFy24mio5omDgBDBQcjbq8P23IIwGrUxw8skKwAybSPaFj9J7zlnnY/lpcPDq1jO2ZVEonUL+uMRN3ZrO8+jsAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=geOMkfgD; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC8E3E120A
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779180193; cv=pass; b=ocwCP7CbHtGtcPjYJ5b6rVO2yiUdKl/D/GAFPw7h5X8vkky7iJzCg8gA0/hle08i22szWGHTpWHVPDSHAzZTdg6AHPmPiS3MS28xZQX8CMrVGckT+p8xdmjMr4t56mn5WF0O46TONGls+L9wkgAHrh9UIVFyK6wzCf0qrRcWTK0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779180193; c=relaxed/simple;
+	bh=/5/1C/nfDchQen7a0uWhsJKKNfxIdxaNrtMjwRBDWI4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SMozjfW4x19yuCfb+wso0Btu4BKpENvJl3SPn7OX2eTIUqo+LW18HYdP5P0lMIL1Koeqg3/jvSX+sGUpnu07q/xu3Wwg6AUPwIFrW2VFYXVhtfV0U3L/OHH+so0maN3c7qMZ7DKKqsyk8RexCoq+uewuBNB0t8K9xF9vNOiW73s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=i3WzDKci; arc=pass smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="geOMkfgD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81A0C2BCB3;
-	Tue, 19 May 2026 08:43:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779180192;
-	bh=GZByO2VDIprL7smzrTiU2wMTuNMdmVEjQ7Th5ILaSAE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=geOMkfgDuDiAtI941M18j+Pf2UpIZ1j8Zdi5hu/1smSeg57NfbIsLU1v/iRtlE1sR
-	 H1pLsZ1VhUisluD/8yqwOZqd/CR/QacUmB/gafMydNiq8iATvUfkyjYjEwzQfFExus
-	 /s8AjGsR341EEXA4OTyR1ZlcG5JjtLSrFkdOv+kAi/PtBBe6FdkzKo8XP/whOQ8Ce9
-	 Xaw2H4uikOBpzmj7M3kN+mMWdM0L+Ym6fg2MhqmV1dRggH0uZ/vWUPWcexUtIMRMJF
-	 OMShaWhEg1KvKGzMxWSuJEBqwo80/+YAmeZC8ANO+yYGWe3WzhCGAyZtfM3Ioks55t
-	 RHhEGFUDqsIgg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/8] iommu/msm: Look up masters per IOMMU instance
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519-mainline-send-v1-sending-v3-4-3dd7aa125353@alex-min.fr>
-References: <20260519-mainline-send-v1-sending-v3-4-3dd7aa125353@alex-min.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 08:43:05 +0000
-Message-Id: <20260519084305.A81A0C2BCB3@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="i3WzDKci"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5a8891f0c88so2155558e87.1
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:43:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779180190; cv=none;
+        d=google.com; s=arc-20240605;
+        b=I8L3veVJHPQff/cf6YL1FgiDmNw1KlGailzw7UCLQU0y29rrjdoZm/B0/+GEv7BP9R
+         Jg5qt0khtH9QPFh+kyYP1DfQE4/Z4SdarTEkE0odWoZU91iTVeQIteIQRW3pIq0jkNpE
+         DpmBY05OWOOvdhWK9qYCKuEVb+qAC4mDJNWzYS97j0aVyXMjYNSzeKhyQypfYBOFRity
+         Qk1TMVzOgTUkIYzcnj04zTTB12+pXQSRwrT/9QIDPPTjBvVZxAxH6oKGytsvVXnwy3Ix
+         fi6bz2HrYJM6gx1P2g7/lM5ov2XL3TGE9TpWkjAQU85H80tmkzZYNOjIYn6GbbtrPQwV
+         Ithw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fU6FJfQ/76+9tMzcnc5nPEzKVK7hTRt2Hbmts6N3fto=;
+        fh=ihTCB+RP6tV/U8etoCYg3gWdFSEoZMpKKYvWCNB5Z64=;
+        b=PrgyAVdOUETANnOMBtk5H0qTSj/TA5YkOj/47jwISrgd/7iGNX48/qGuv11Pbs88c6
+         WjhWqQm5qsP3UTBsjur2unfHJMOR9fMLhisusbfBAW8SfjIZPKFOAuhqnUOLjodlSMdo
+         nZCkls5iXEvgIEYp6wjqbngTrpyw/paryqVNGbJ2TwwKOZ+Zlt6FLYRs2NaaCdiJRb5E
+         RQn5e05h3vndGp6VJqWeG25vTdOkxtBYmTkxrHvQOOCmAendGNWWAujRQ7NMQ6DsHufH
+         wobFPuwUg6CYiNmR2TTOITPQcrNMwU4mNXqKViDWz/lB0YMPOautBbT8bLx5E6oAzDDi
+         5zQw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1779180190; x=1779784990; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fU6FJfQ/76+9tMzcnc5nPEzKVK7hTRt2Hbmts6N3fto=;
+        b=i3WzDKciNW8m7qsosKSxuNLin4pwyDtQ1yJ60VLkGYiJmKtCj+YKN9VZqwJIZ52+S3
+         guRvvbxkeAkK8JsRXl1ZidYxmogPxBpPQJzvt40Q2iy9nwhWHFYPMGi5PDNggqqp9BMn
+         L/VAi9pLZ0hPbVV6tObIJgY05YJbkV+pAJntk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779180190; x=1779784990;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fU6FJfQ/76+9tMzcnc5nPEzKVK7hTRt2Hbmts6N3fto=;
+        b=CHrmngToM9q/0Z+CqV9qOaayTdqPPNVQyNBh94ea1xy+rRdAaXZCBw4cFgGabpxfFT
+         hsHAnWdreOJIfyK2OCkZt4aBka67JteHm9YEQmYjqNiTgdONZZL44TC2GaJ0x883WtEK
+         Abl0Impa1Iks5zq1Gko2OaAV/wDDni8PteklvqDGLgYW4wppVIBkoufclYK1B7nO8YZ1
+         cnFvY8cUhTs+z0eXLe4i+Z7M43cftWhX8IwB92TBKyonrCz+MjNUBtS1NZQVEgBxOWCe
+         /xDIs7rZjoLCNpS+ezYfDgw4M9EvGUbymQtNCAj4H/v6ZxXEJ9DTQCw50GkCAhuB+Ey9
+         3/zw==
+X-Forwarded-Encrypted: i=1; AFNElJ/m6X8Bxv7mv7M/SXQAuMV+7rdgVVAIL5DbC3eWz0LBUYFpgyoUA9r+a0QdTAkp0PIJDyP0aZpeylPp@vger.kernel.org
+X-Gm-Message-State: AOJu0YzaNoI3l49B8wkS8UVvsnQQevRolUY+iqo6Qvt68yZsKQockzlD
+	N46mgi2VGPI8a/mn+FVAQTlJniXBKo/4dLKnaUIyk5zBZ4NLu1OTf2KILUflHOLuQTapQlxfAWf
+	kfR1it0VsDL9a31zZFotSJ+ll+V1aCcfiuR9sPf5i
+X-Gm-Gg: Acq92OED/J2iWc9p7yKkcQpEec5iXmbUOSFNMqDwY4LrmxvFlAdFO193J1vWOfr3gmD
+	Ao2UWcd+S7DwvipdYFzI6d5Yv2VP1lKputqXNglLLQHNUYNEH0P13tNJptXEY8NA7fSxFwS2j2L
+	WmRRJGdUqAfBXY1c1/kmb+uiPPHad80ulzRkRJttM+mPA62uIsqgd7PR/LLyxOcmRlZAYZraXit
+	OehHKwSuE/AIAksb9U0zh+qnY/UF5cWZwObKURh/5IdqPTQ04xugaf2KY/VNcPu7hkxk9VuDNtF
+	OEUC3LqjyTO7kk3gftc9Oas5Z7L6PUupLSKWdckOsEDPSHLM
+X-Received: by 2002:a05:6512:1291:b0:5a8:64fd:142 with SMTP id
+ 2adb3069b0e04-5aa0e60aebdmr5661162e87.15.1779180189498; Tue, 19 May 2026
+ 01:43:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260508063633.3894348-1-wenst@chromium.org> <locoul5wdzuvvmm7mqpuntjqu4o75gmyd5npgfqrw3zuwsrse6@dhrjggs4cihh>
+ <CAGXv+5GAaMQbaoUVr5zcwtHaofyXwHz03TxBe-QyWj_sNoQZsg@mail.gmail.com>
+ <qnikqcqoiw7z2yh5wruqcli3rk56yomyymghzivlcmekp2blwc@dfhsfl3sqcla>
+ <CAGXv+5GBraoTrQatQdrM5b+dOteL_Y5K7_UQBUt-2L1x=c94KA@mail.gmail.com>
+ <2tq4zy3zhcrz25rl2qhdsxvoedcry4z3v2lmmropesxqgzhtlp@fn6htdl74ogu>
+ <CAGXv+5GRBv8+pLbb-AyFW0cAx=c45JhWd-odzJGDdWABKQLaqg@mail.gmail.com> <rphuqwucr2r6gsgrkzkpzy7fn4qa7q4afzbwtzae53dtudmush@kxtzdoq426uz>
+In-Reply-To: <rphuqwucr2r6gsgrkzkpzy7fn4qa7q4afzbwtzae53dtudmush@kxtzdoq426uz>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Tue, 19 May 2026 16:42:56 +0800
+X-Gm-Features: AVHnY4LLo4eF_VaQ6YS2FYY5drqx5D71hzS5a123cTm8zGoSSsL-Aobf3coFKV4
+Message-ID: <CAGXv+5Hd91gS=j4x8rEPVSaU8ET-W0qygLTbCLVe6uGC-tQBrg@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: PCI: mediatek-gen3: Allow memory-region for
+ restricted DMA buffer
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Ryder Lee <ryder.lee@mediatek.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] msm_iommu_attach_dev and detach unconditionally loop over all =
-shared masters, breaking IOMMU isolation, causing attach failures, and corr=
-upting domain lists.
-- [High] msm_iommu_iova_to_phys() performs address translation using the wr=
-ong hardware context bank for shared IOMMUs.
-- [High] Error path in msm_iommu_attach_dev leaks IOMMU clocks.
-- [High] Buffer overflow in insert_iommu_master when writing stream IDs to =
-master->mids array.
-- [High] msm_iommu_probe modifies a global list without acquiring the requi=
-red lock, causing race conditions.
---
+On Tue, May 19, 2026 at 3:21=E2=80=AFPM Manivannan Sadhasivam <mani@kernel.=
+org> wrote:
+>
+> On Mon, May 18, 2026 at 05:02:11PM +0800, Chen-Yu Tsai wrote:
+> > On Fri, May 15, 2026 at 8:34=E2=80=AFPM Manivannan Sadhasivam <mani@ker=
+nel.org> wrote:
+> > >
+> > > On Fri, May 15, 2026 at 05:16:19PM +0800, Chen-Yu Tsai wrote:
+> > > > On Thu, May 14, 2026 at 7:48=E2=80=AFPM Manivannan Sadhasivam <mani=
+@kernel.org> wrote:
+> > > > >
+> > > > > On Thu, May 14, 2026 at 03:54:29PM +0800, Chen-Yu Tsai wrote:
+> > > > > > On Thu, May 14, 2026 at 1:23=E2=80=AFPM Manivannan Sadhasivam <=
+mani@kernel.org> wrote:
+> > > > > > >
+> > > > > > > On Fri, May 08, 2026 at 02:36:32PM +0800, Chen-Yu Tsai wrote:
+> > > > > > > > On some SoCs without an IOMMU behind the PCIe controller, t=
+he PCIe
+> > > > > > > > controller memory access could be limited to a small region=
+ by the
+> > > > > > > > firmware configuring a memory protection unit. This memory =
+region
+> > > > > > > > must be assigned to the PCIe controller so that the OS know=
+s to
+> > > > > > > > use that region. Otherwise PCIe devices would not work prop=
+erly.
+> > > > > > > >
+> > > > > > >
+> > > > > > > So this means, the PCIe devices can only access a specific ca=
+rveout memory
+> > > > > > > configured by MPU for DMA? If so, you should use 'dma-ranges'=
+ as suggested by
+> > > > > > > Rob.
+> > > > > > >
+> > > > > > > 'memory-region' also serves the purpose, but for PCI, we have=
+ the dedicated
+> > > > > > > 'dma-ranges' property.
+> > > > > >
+> > > > > > I think I need some sort of guide on writing the 'dma-ranges' p=
+roperty,
+> > > > > > because it is not working for me.
+> > > > > >
+> > > > > > I'm adding
+> > > > > >
+> > > > > >     dma-ranges =3D <0x42000000 0 0x00000000 0 0xc0000000 0 0x40=
+00000>;
+> > > > > >
+> > > > >
+> > > > > So the device DMA address start from 0x0? Isn't it a 1:1 mapping?
+> > > >
+> > > > I actually don't know. But
+> > > >
+> > > > >         dma-ranges =3D <0x42000000 0 0xc0000000 0 0xc0000000 0 0x=
+4000000>;
+> > > >
+> > > > this didn't work either.
+> > >
+> > >
+> > > Hmm. Can you print the DMA address programmed to the device? i.e., th=
+e address
+> > > returned by dma_map_single() in the driver.
+> >
+> > On a working system still using the restricted-dma-pool memory region,
+> > it gives something like 0x00000000c0009000, so indeed it is 1:1 mapping=
+?
+>
+> It has to be 1:1 mapping.
+>
+> > These are for the RX/TX descriptors [1][2].
+> >
+> > When using dma-ranges, the failure is from dma_alloc_coherent() [3][4],
+> > which is the descriptor ring. On a working system, this is something
+> > like 0x00000000c0c9d000, so again 1:1.
+> >
+> > [1] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless=
+/realtek/rtw88/pci.c#L221
+> > [2] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless=
+/realtek/rtw88/pci.c#L829
+> > [3] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless=
+/realtek/rtw88/pci.c#L192
+> > [4] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless=
+/realtek/rtw88/pci.c#L265
+> >
+> > > Also, using prefetchable flag is not correct for DMA memory. You shou=
+ld use:
+> > >
+> > >         dma-ranges =3D <0x02000000 0 0xc0000000 0 0xc0000000 0 0x4000=
+000>;
+> >
+> > This didn't work either. What exactly is supposed to handle dma-ranges?
+> > I see some code parsing it in the PCI core, but it just saves it to a l=
+ist.
+> >
+>
+> I think the failure is due to marking the memory as 'reserved' in DT. Wit=
+h
+> 'dma-ranges', the allocator will only ensure that the allocated memory st=
+ays
+> within this limit. But the allocator itself will not use this property to
+> allocate from the reserved region.
 
-commit a857d6e3a3b0380237f9c6c7b9ba76932246dfa4
-Author: Alexandre MINETTE <contact@alex-min.fr>
+It didn't work with the reserved regions removed either, since CMA and
+SWIOTLB take up the space by coincidence.
 
-iommu/msm: Look up masters per IOMMU instance
+> Now, I'm not sure if you can reliably get dma-ranges to work for this use=
+case
+> of forcing the dma_alloc_coherent() to use the reserved memory.
 
-This commit updates the MSM IOMMU driver to look up context descriptors on
-each IOMMU instance instead of using a global device provider. It introduces
-a helper to search the target IOMMU context list when probing and attaching
-devices. This aims to prevent null pointer dereferences when a device
-references multiple IOMMU provider nodes.
+Well I think that would be a bit sketchy. But we do want the reserved
+memory, as the whole point of limiting PCIe DMA to that region is to
+isolate the DMA, so we don't want the system using it for something
+else and potentially getting overriden by some rogue PCIe device.
 
-> diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
-> index 0ad5ff431d5b6..9c03878d0d2cb 100644
-> --- a/drivers/iommu/msm_iommu.c
-> +++ b/drivers/iommu/msm_iommu.c
-> @@ -357,17 +357,25 @@ static int msm_iommu_domain_config(struct msm_priv =
-*priv)
->  	return 0;
->  }
-> =20
-> +static struct msm_iommu_ctx_dev *find_iommu_master(struct msm_iommu_dev =
-*iommu,
-> +						   struct device *dev)
-> +{
-> +	struct msm_iommu_ctx_dev *master;
-> +
-> +	list_for_each_entry(master, &iommu->ctx_list, list)
-> +		if (master->of_node =3D=3D dev->of_node)
-> +			return master;
-> +
-> +	return NULL;
-> +}
+> So looks like 'memory-region' is your only option here.
 
-Since this patch allows multiple masters to be added to an IOMMU's ctx_list,
-are there other functions that still assume the list only contains a single
-element?
+Thanks. Hopefully Rob understands and gives an ack for the DT binding
+change.
 
-For example, doesn't msm_iommu_iova_to_phys() hardcode
-list_first_entry(&iommu->ctx_list, ...) to select the master and query its
-specific hardware context bank?
 
-If translation is requested for any device other than the first one attached
-to the IOMMU, could the driver read the hardware registers for the wrong
-context bank, returning incorrect physical addresses?
+ChenYu
 
->  /* Must be called under msm_iommu_lock */
->  static struct msm_iommu_dev *find_iommu_for_dev(struct device *dev)
->  {
->  	struct msm_iommu_dev *iommu, *ret =3D NULL;
-> -	struct msm_iommu_ctx_dev *master;
-> =20
->  	list_for_each_entry(iommu, &qcom_iommu_devices, dev_node) {
-
-This problem wasn't introduced by this patch, but msm_iommu_probe() adds the
-newly allocated device to the global qcom_iommu_devices list without holding
-the msm_iommu_lock spinlock:
-
-msm_iommu_probe() {
-    ...
-    list_add(&iommu->dev_node, &qcom_iommu_devices);
-    ...
-}
-
-Since other functions (like find_iommu_for_dev) concurrently access this
-list under the lock, could this unprotected list mutation lead to list
-corruption or a crash in asynchronous probing scenarios?
-
-> -		master =3D list_first_entry(&iommu->ctx_list,
-> -					  struct msm_iommu_ctx_dev,
-> -					  list);
-> -		if (master->of_node =3D=3D dev->of_node) {
-> +		if (find_iommu_master(iommu, dev)) {
->  			ret =3D iommu;
->  			break;
->  		}
-
-[ ... ]
-
-> @@ -405,10 +413,7 @@ static int msm_iommu_attach_dev(struct iommu_domain =
-*domain, struct device *dev,
-> =20
->  	spin_lock_irqsave(&msm_iommu_lock, flags);
->  	list_for_each_entry(iommu, &qcom_iommu_devices, dev_node) {
-> -		master =3D list_first_entry(&iommu->ctx_list,
-> -					  struct msm_iommu_ctx_dev,
-> -					  list);
-> -		if (master->of_node =3D=3D dev->of_node) {
-> +		if (find_iommu_master(iommu, dev)) {
->  			ret =3D __enable_clocks(iommu);
->  			if (ret)
->  				goto fail;
-
-With this change, multiple masters can be present in the ctx_list, but
-msm_iommu_attach_dev() and msm_iommu_identity_attach() still unconditionally
-iterate over the entire ctx_list instead of filtering for the target master:
-
-msm_iommu_attach_dev() {
-    ...
-    if (find_iommu_master(iommu, dev)) {
-        ...
-        list_for_each_entry(master, &iommu->ctx_list, list) {
-            ...
-
-When the first device attaches, does this incorrectly provision hardware
-contexts for all shared devices using its own domain, breaking IOMMU
-isolation?
-
-Also, because msm_iommu_alloc_ctx() can return 0, the safety check
-if (master->num) evaluates to false for context bank 0. When a subsequent
-device attaches, the loop re-allocates contexts and executes
-list_add(&iommu->dom_node, &priv->list_attached) a second time. Could this
-result in corruption of the doubly-linked domain list, leading to an
-infinite loop and hang?
-
-If a non-zero context bank was allocated, subsequent attaches hit
-if (master->num) and unconditionally fail with -EEXIST. Would this prevent
-shared IOMMUs from functioning?
-
-Furthermore, does detaching one device via msm_iommu_identity_attach()
-unintentionally tear down active DMA mappings for all other shared devices?
-
-If the loop encounters a master with a non-zero context bank
-(if (master->num)), it sets ret =3D -EEXIST and goes to the fail label:
-
-msm_iommu_attach_dev() {
-    ...
-    if (master->num) {
-        dev_err(dev, "domain already attached");
-        ret =3D -EEXIST;
-        goto fail;
-    }
-
-Since the fail label unlocks the spinlock and returns without calling
-__disable_clocks(iommu), and shared IOMMUs will hit this reliably, does
-this cause a permanent clock resource leak during probe/attach?
-
-[ ... ]
-
-> @@ -601,10 +606,10 @@ static int insert_iommu_master(struct device *dev,
->  				struct msm_iommu_dev **iommu,
->  				const struct of_phandle_args *spec)
->  {
-> -	struct msm_iommu_ctx_dev *master =3D dev_iommu_priv_get(dev);
-> +	struct msm_iommu_ctx_dev *master =3D find_iommu_master(*iommu, dev);
->  	int sid;
-> =20
-> -	if (list_empty(&(*iommu)->ctx_list)) {
-> +	if (!master) {
->  		master =3D kzalloc_obj(*master, GFP_ATOMIC);
->  		if (!master) {
->  			dev_err(dev, "Failed to allocate iommu_master\n");
-> @@ -612,7 +617,6 @@ static int insert_iommu_master(struct device *dev,
->  		}
->  		master->of_node =3D dev->of_node;
->  		list_add(&master->list, &(*iommu)->ctx_list);
-> -		dev_iommu_priv_set(dev, master);
->  	}
-> =20
->  	for (sid =3D 0; sid < master->num_mids; sid++)
-
-This wasn't introduced by this patch, but does this function lack bounds
-checking when appending stream IDs to the master->mids array?
-
-If a maliciously crafted or malformed Device Tree provides more than
-MAX_NUM_MIDS (32) stream IDs for a single device, could this result in an
-out-of-bounds write, corrupting adjacent heap memory?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-mainline-s=
-end-v1-sending-v3-0-3dd7aa125353@alex-min.fr?part=3D4
+> - Mani
+>
+> >
+> > Here's a function graph trace for the dma_alloc_coherent() call:
+> >
+> > funcgraph_entry:                   |  dma_alloc_attrs() {
+> > funcgraph_entry:        6.538 us   |    dma_alloc_from_dev_coherent(); =
+(ret=3D0x0)
+> > funcgraph_entry:                   |    dma_direct_alloc() {
+> > funcgraph_entry:                   |      __dma_direct_alloc_pages.isra=
+.0() {
+> > funcgraph_entry:        4.846 us   |        dma_alloc_contiguous(); (re=
+t=3D0x0)
+> > funcgraph_entry:                   |        __alloc_pages_noprof() {
+> > funcgraph_entry:                   |          __alloc_frozen_pages_nopr=
+of() {
+> > funcgraph_entry:        5.539 us   |            fs_reclaim_acquire();
+> > (ret=3D0xffffff80c7dcd580)
+> > funcgraph_entry:        5.077 us   |            fs_reclaim_release();
+> > (ret=3D0xffffff80c7dcd580)
+> > funcgraph_entry:                   |            __might_sleep() {
+> > funcgraph_entry:        5.153 us   |              __might_resched(); (r=
+et=3D0x0)
+> > funcgraph_exit:       + 16.230 us  |            } (ret=3D0x0)
+> > funcgraph_entry:        5.077 us   |
+> > __next_zones_zonelist(); (ret=3D0xffffffd055d598e0)
+> > funcgraph_entry:                   |            get_page_from_freelist(=
+) {
+> > funcgraph_entry:                   |              _raw_spin_trylock() {
+> > funcgraph_entry:        5.385 us   |
+> > do_raw_spin_trylock(); (ret=3D0x1)
+> > funcgraph_exit:       + 16.923 us  |              } (ret=3D0x1)
+> > funcgraph_entry:                   |              _raw_spin_unlock() {
+> > funcgraph_entry:        5.077 us   |
+> > do_raw_spin_unlock(); (ret=3D0x1)
+> > funcgraph_exit:       + 16.538 us  |              } (ret=3D0x100000001)
+> > funcgraph_exit:       + 54.231 us  |            } (ret=3D0xfffffffec051=
+c540)
+> > funcgraph_exit:       ! 123.462 us |          } (ret=3D0xfffffffec051c5=
+40)
+> > funcgraph_exit:       ! 134.692 us |        } (ret=3D0xfffffffec051c540=
+)
+> > funcgraph_entry:                   |        __free_pages() {
+> > funcgraph_entry:                   |          ___free_pages() {
+> > funcgraph_entry:                   |            __free_frozen_pages() {
+> > funcgraph_entry:        5.538 us   |
+> > __get_pfnblock_flags_mask.isra.0(); (ret=3D0x0)
+> > funcgraph_entry:                   |              _raw_spin_trylock() {
+> > funcgraph_entry:        5.077 us   |
+> > do_raw_spin_trylock(); (ret=3D0x1)
+> > funcgraph_exit:       + 16.538 us  |              } (ret=3D0x1)
+> > funcgraph_entry:        5.385 us   |
+> > free_frozen_page_commit(); (ret=3D0x1)
+> > funcgraph_entry:                   |              _raw_spin_unlock() {
+> > funcgraph_entry:        5.077 us   |
+> > do_raw_spin_unlock(); (ret=3D0x1)
+> > funcgraph_exit:       + 16.385 us  |              } (ret=3D0x100000001)
+> > funcgraph_exit:       + 75.000 us  |            } (ret=3D0x0)
+> > funcgraph_exit:       + 86.230 us  |          } (ret=3D0x0)
+> > funcgraph_exit:       + 97.384 us  |        } (ret=3D0x0)
+> > funcgraph_exit:       ! 262.846 us |      } (ret=3D0x0)
+> > funcgraph_exit:       ! 274.538 us |    } (ret=3D0x0)
+> > funcgraph_exit:       ! 309.077 us |  } (ret=3D0x0)
+> >
+> >
+> > And here are kernel logs for all the system's memory regions:
+> >
+> > Reserved memory: created DMA memory pool at 0x000000013ff00000, size 1 =
+MiB
+> > OF: reserved mem: initialized node audio-dma-pool, compatible id shared=
+-dma-pool
+> > OF: reserved mem: 0x000000013ff00000..0x000000013fffffff (1024 KiB)
+> > nomap non-reusable audio-dma-pool
+> > OF: reserved mem: 0x00000000ffe65000..0x00000000fff64fff (1024 KiB)
+> > map non-reusable ramoops
+> > Reserved memory: created DMA memory pool at 0x0000000050000000, size 41=
+ MiB
+> > OF: reserved mem: initialized node scp@50000000, compatible id shared-d=
+ma-pool
+> > OF: reserved mem: 0x0000000050000000..0x00000000528fffff (41984 KiB)
+> > nomap non-reusable scp@50000000
+> > cma: Reserved 16 MiB at 0x00000000c3000000
+> >
+> > Zone ranges:
+> >   DMA      [mem 0x0000000040000000-0x00000000c3ffffff]
+> >   DMA32    [mem 0x00000000c4000000-0x00000000ffffffff]
+> >   Normal   [mem 0x0000000100000000-0x000000013fffffff]
+> >
+> > Early memory node ranges
+> >   node   0: [mem 0x0000000040000000-0x000000004fffffff]
+> >   node   0: [mem 0x0000000050000000-0x00000000528fffff]
+> >   node   0: [mem 0x0000000052900000-0x00000000545fffff]
+> >   node   0: [mem 0x0000000054700000-0x00000000ffdfffff]
+> >   node   0: [mem 0x0000000100000000-0x000000013fefffff]
+> >   node   0: [mem 0x000000013ff00000-0x000000013fffffff]
+> >
+> > software IO TLB: area num 8.
+> > software IO TLB: mapped [mem 0x00000000bf000000-0x00000000c3000000] (64=
+MB)
+> >
+> >
+> > So I think it could be that the usable memory has all been given away t=
+o
+> > other bits? But then dma_alloc_contiguous() returned NULL.
+> >
+> >
+> > ChenYu
+>
+> --
+> =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
+=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
+=E0=AF=8D
