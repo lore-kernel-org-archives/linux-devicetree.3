@@ -1,271 +1,146 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D5D40801E
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCEF408008
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779204499; cv=none; b=l+cdiNTgsWZQe5yF5aOnRIkyYYTE2mm3S8pg7oJ4fH0KhKs6PtvchoT6c+/rUP1Dp/OTSPPaSOCn5bihh36wfrYqDIGwU7tRG/1hsqsmBhejK6Ixk2GXn4+yLuZWv0KxwZqe7cGqZvTAJz/D6PJ1JMebDgLf7H4+ejy3Ek9jQro=
+	t=1779204553; cv=none; b=YvBcTfTHR2aYDHd22OCsP8IYgKch/4W9Ry6Jb/IqjimI0QRTAbCQeOlho+PUFlr8MWdFv4W3vBhp4fKozgi2USX2v+2+2tPjDmL9QPbH+BwrQ0zv35D0uAYMs7uotwv4/B6TFeQ2Dm4qH8F/w2B8Qwhnh+8Fjt4ha77TSZN0dEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779204499; c=relaxed/simple;
-	bh=qaZwUWQxeXPjWRkxNfWYw6kUcDzps+t5748MTI9+Ldw=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l0UpUJfqB4LRgw47Ayh2z7J4G/ZqHRSqiLiMWxI9BYidJ41UFiIpe0Mzu+IScf0BlxCTPn+SVWFnkrsrjOV7IkkQyPBU2UgudCdhqVuSBKBr1F2HtBNJHRY12ZxWm/1M1z8xPH63V30libXizmpZgzxDY6DKmSWBRT0vk7F/Uog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KAgS6lpW; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1779204553; c=relaxed/simple;
+	bh=N0HBUn9Mh5pL+ucb5UEd0fgcswa/bdyHlGsPKKEWNpM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rH2sFCs2lsabKg7I5evzuY5OzJtHHn3otlOyaTmedi8pcNQeJ9YjqDcOKMbV8pVVqlpm1lRASQjpO0qHPY0s/ZepM3lwzk9stRF5WNjOMMINGa8B+BiQvfYFLUzvEF7RvnOzQN2SBUXfv0KY6XW9I1JqMi99E9e6ngpXFxbHR1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LaI3lp+S; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KAgS6lpW"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-43d77f6092eso2066377f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:28:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LaI3lp+S"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-304106b1204so260417eec.0
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:29:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779204497; x=1779809297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tAFD3a/xT9LTsvvD+jxa4TD+i5y2aSqMXXaQQCJTkcQ=;
-        b=KAgS6lpWQaECmwY+rhMs6EiMVwx+LIPqPv8pFV2PxB8bdEFdZWCFM4lXTie/3hHYiN
-         3t6F4C1Ij/jC2Lnwwu3acb+skG0B3q/aPRmn5BGIfvSXkecBtQCx0q+pJ8uf7/kXFa03
-         2u2T3oQ4lhFsb3lt9Zx36//pgef00r9LF9OzJH3kes1rnzSWr+W7Z6ymN4OQkNMRpHGq
-         tDfiE3qPEKF5mXRzwiCIiJGdmOaJKeLT7cGPRJ+KLzcU4nQmhyIM1ZgIHy4XJ6/sORGE
-         T6iIlEqHvc/gsXx4SD3If5+qCfRrToDad0EFwDyWbpV2CtZZRqhjPXztP3OLsiA0nDws
-         oziA==
+        d=gmail.com; s=20251104; t=1779204551; x=1779809351; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q/se++TNvk8+Q7Ds+IWKg6JPvzTs/UdaVZJDuU/0ji0=;
+        b=LaI3lp+SOHHGqWsTc3Y2udZlUufakS+84jpG2r+dx70bOviSCVyPWJFsi5TQK67sLq
+         ia8x0JO0piWSoMI+nt1ixS052TZTqLsZQqBAgvgYLoEyjy2mPRX7gCqvb39XrcjJL7sj
+         spm0gBta62dH0kNQcf7m0FXc3bxYrvZdbxwlA2DxGHBRFA4emmg4TD8SPbXZjdJgDHgo
+         nABPUFHjK24H84RtT5kG6/XmB5+CqevlhH3xxC+7Om0rwX1b40sRUZ97ApiWGx4WWYAt
+         fjJTfW5+ZpR7YEqLr/99HnA59oB2x4hI/je092DQ07UxXOff6uYPpMNFDS1hzXG1sZfY
+         QBUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779204497; x=1779809297;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=tAFD3a/xT9LTsvvD+jxa4TD+i5y2aSqMXXaQQCJTkcQ=;
-        b=Ey2Z06bL88ZFHdX8jmBNXsUV9T7ZkWwp6ySnlJmBKfdvccs9iZPHMHmPX4Re+3ks6Z
-         Q8QrZOm4CVgMKjbo4GmRGCt0Un8KLHNBPS2xUyMjpZcYeLdIjh8i94XxzG1xQOH4uDfO
-         m5cgPbKEABAyLmCXUumOnOxpWM8tDgTw1POZ+fe9SKR7ZzhDRIUQOBFd/pM2Gs6eW6t6
-         w6CH4xmN4Lz9DxgePm6gSeuNaK+T7Dbvnj3NZLuEmB8qmrBGRhFTuo2FnQvDs10onQn3
-         yipHeSKOpnZY750gK+KrLh4r5spoJ2I6kRfu6iu4tPMk9lcTOV8J6HxCV8RTHm8MIDyQ
-         uBVA==
-X-Forwarded-Encrypted: i=1; AFNElJ/sxREWtgqi5y1cog7Kf7k62lz9NfBC2LRyOuX+LG+7HKptKKu2BF5+C2UFJomjHjS3+oEFJwHIBM5d@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuJcKY/iG7/lyiroaYO9WOBHOUXDYcmaJbeJyIGZE7uTqdVyo7
-	BssT7Znuv/Ymc55wSW0gL0VTs/o3op1oDaIH7LbUS70iWmK9sZA9gzZa
-X-Gm-Gg: Acq92OGApo3oS1Xe5uLz51zQWWniU0SdQMPGRUnF2d8ns7QuqFr8feHZX2r9d5otNgW
-	fc58+l4Qh/6v39spsws8FSWK3bUHPtXz8j7/xdnpxiAhGynjKsVylhxNAnCCjJccFCuF1ODEhX4
-	vMUU66JMzKtWXQTtCFv9eQvr9BzYXAl+1GRxom9BuI9rfRid/TeN3ATjpRmWTfC5Cuqjrwl0CsY
-	sQq1jWdoj2x9lHiqNRo6ce6KyWkH/A+kpFiflBfZ4CypiHWSpdwKrkvAGDKAs1ec8smo4ABoKxs
-	/Sg7C8CUWnrIhhDi+0NIFZv3mfxmMBJHh5ZOiBSFZrzSjvT6AY+Wn0en28eCXBE4MxjDHtzBSHu
-	O4hs12hl1Eo9CrXcQAGXBGOY4cJ5BrlFO3O9N15dI5oUnpp+kp+hnLpStgsUb7faBuDECUSLu3C
-	E375k2W3y4xgVykSvJF5hKWbv2jyQSRO7zcj7bmEEfFlKCKcmkg55QVuljBuH8iwbznRsRNQsuW
-	RzyLzvLbw==
-X-Received: by 2002:a05:6000:2405:b0:43b:3e40:2223 with SMTP id ffacd0b85a97d-45e5c5b9673mr33073152f8f.19.1779204496633;
-        Tue, 19 May 2026 08:28:16 -0700 (PDT)
-Received: from Ansuel-XPS24 (host-82-55-252-101.retail.telecomitalia.it. [82.55.252.101])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-45da0a178adsm49005662f8f.18.2026.05.19.08.28.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 08:28:16 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] nvmem: airoha: Add support for SMC eFUSE
-Date: Tue, 19 May 2026 17:28:06 +0200
-Message-ID: <20260519152807.29407-3-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260519152807.29407-1-ansuelsmth@gmail.com>
-References: <20260519152807.29407-1-ansuelsmth@gmail.com>
+        d=1e100.net; s=20251104; t=1779204551; x=1779809351;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Q/se++TNvk8+Q7Ds+IWKg6JPvzTs/UdaVZJDuU/0ji0=;
+        b=lMMu7A+QPo08vv6JgmuBVFXpw5SRRD1nMh87u8OYFMauxSdUxubE8OFF6ifC8/q/LB
+         GRHknIeyu+w6LnLKR4CC7ieScSl7GtZyPbJMFhN/scVwo6RClSJiLiQnNkj58gGnLlHk
+         wHx9Yy2Oy5STWVogd/f0isaxyPfzJ0hxvhef40KVb9MKFPAOZgErN8jkgXwbALyi4qrs
+         2icfKwzlljH+mKZ2+xw9klYHPd6MqcecWIKXP3bRCYvuOALpl0vU2pCnWiMlrd/UtVuk
+         VBoOSM/uBcHxLsA1YXexUlDAJyz15q6o6m+yRxbd+o9eC3TenVisu+4JsrxAcivqX1W/
+         gBQA==
+X-Forwarded-Encrypted: i=1; AFNElJ+JwrWBQQQIGySe5SUhTCAn7GzhPRDyo5y6w1LgcXcaDX0kY/b2/Rf9ScLWnrMn+ItzQ5misr3u5S+1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZjNwsfBF+6QHFSCPOgf0AtY/J6wC0XW6okrXgal89OPcbQXfF
+	UtoLQ7X/+qKywgjf2R8gmW/uD+Q6Pt7SpV4S0neRvmWgouiiBREnGSFD
+X-Gm-Gg: Acq92OGnvR0zMPa6hYT+azVYzn2n8p1Nr0hJDnZdOsfzheV+HstJTxBI/zwClOC9i8i
+	Gnbr+vCxNeK74xyNkbaOO5LLcMjginzo4lGwArCxMHNqrccQPqd/c3NtnOa0kqF0fYzcNzrUIgP
+	wXktU3509NijsdUdLAr8yJGznKUtbytQQcQrc+HAeaqAKSZTfovJiISuWdyX8RsHL2CYT+HaYyZ
+	2IHtAzFbQl6NdKZLJLVaHwrkWI1xUxtjW2hYJHTfEoXYmiqsNlR7pfTBBE0cqIo+zCP8TAezdfR
+	PS4PgU1jY5n+QNW4ZFAJaEAiNx5YHHrMXdT5AeRLvU0PWvtKvFnJzxec4g5GJBTBfHsuP6QSqa0
+	Q0FV98Gx/3IIpGHRy/xyl8CRJTLJaAeNjKGLYNoyxl+1/lLym4n/APJypuTzdMbmVJ5pieMtvsR
+	RyMYvLtKKjHfc4JK3GhNyhRlkn+1TR38i86A9Y9POmpHq/D4nlFdTEUqx0T7ZRMrgv41PkegLl
+X-Received: by 2002:a05:7300:d4cf:b0:2ed:e14:42e6 with SMTP id 5a478bee46e88-303986bbe5bmr8933376eec.31.1779204551163;
+        Tue, 19 May 2026 08:29:11 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30296dcc458sm20207784eec.18.2026.05.19.08.29.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 08:29:10 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <51133193-57fb-4a22-bf9e-9817f1f52ad5@roeck-us.net>
+Date: Tue, 19 May 2026 08:29:09 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Add support for Infineon Digital eFuse XDP730
+To: ASHISH YADAV <ashishyadav78@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ashish Yadav <ashish.yadav@infineon.com>
+References: <20260519075558.91466-1-Ashish.Yadav@infineon.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260519075558.91466-1-Ashish.Yadav@infineon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add support for SMC eFUSE on AN7581 SoC. The SoC have 2 set of 2048 bits of
-eFUSE that are used to read calibration value for PCIe, Thermal, USB and
-other specific info of the SoC like revision and HW device present.
+On 5/19/26 00:55, ASHISH YADAV wrote:
+> From: Ashish Yadav <ashish.yadav@infineon.com>
+> 
+> Hi,
+> 
+> These patches add support for Infineon Digital eFuse XDP730.
+> XDP730 provides accurate system telemetry (V, I, P, T) and
+> reports analog current at the IMON pin for post-processing.
+> 
+> The Current and Power measurement depends on the RIMON and GIMON values.
+> Please look into data sheet sections 4.4.2 and 4.4.4 for more details:
+> https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp730-001-datasheet-en.pdf
+> 
 
-eFuse value are taken by sending SMC command. ATF is responsible of
-validaing the data and rejecting reading protected data (like Private
-Key). In such case the SMC command will return non-zero value on a0
-register.
+This driver is 99% identical to the xdp720 driver, except for the gimon
+constants. Please add support for this chip to that driver.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/nvmem/Kconfig             |  13 ++++
- drivers/nvmem/Makefile            |   2 +
- drivers/nvmem/airoha-smc-efuses.c | 125 ++++++++++++++++++++++++++++++
- 3 files changed, 140 insertions(+)
- create mode 100644 drivers/nvmem/airoha-smc-efuses.c
-
-diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-index 74ddbd0f79b0..95a399258538 100644
---- a/drivers/nvmem/Kconfig
-+++ b/drivers/nvmem/Kconfig
-@@ -28,6 +28,19 @@ source "drivers/nvmem/layouts/Kconfig"
- 
- # Devices
- 
-+config NVMEM_AIROHA_SMC_EFUSES
-+	tristate "Airoha SMC eFuse support"
-+	depends on ARCH_AIROHA || COMPILE_TEST
-+	depends on HAVE_ARM_SMCCC
-+	default ARCH_AIROHA
-+	help
-+	  Say y here to enable support for reading eFuses on Airoha AN7581
-+	  SoCs. These are e.g. used to store factory programmed
-+	  calibration data required for the PCIe or the USB-C PHY or Thermal.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called nvmem-airoha-smc-efuses.
-+
- config NVMEM_AN8855_EFUSE
- 	tristate "Airoha AN8855 eFuse support"
- 	depends on COMPILE_TEST
-diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
-index 7252b8ec88d4..f6f2bc51dee1 100644
---- a/drivers/nvmem/Makefile
-+++ b/drivers/nvmem/Makefile
-@@ -10,6 +10,8 @@ nvmem_layouts-y			:= layouts.o
- obj-y				+= layouts/
- 
- # Devices
-+obj-$(CONFIG_NVMEM_AIROHA_SMC_EFUSES)	+= nvmem-airoha-smc-efuses.o
-+nvmem-airoha-smc-efuses-y 		:= airoha-smc-efuses.o
- obj-$(CONFIG_NVMEM_AN8855_EFUSE)	+= nvmem-an8855-efuse.o
- nvmem-an8855-efuse-y 			:= an8855-efuse.o
- obj-$(CONFIG_NVMEM_APPLE_EFUSES)	+= nvmem-apple-efuses.o
-diff --git a/drivers/nvmem/airoha-smc-efuses.c b/drivers/nvmem/airoha-smc-efuses.c
-new file mode 100644
-index 000000000000..e56a99f4aa1f
---- /dev/null
-+++ b/drivers/nvmem/airoha-smc-efuses.c
-@@ -0,0 +1,125 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ *  Author: Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#include <linux/arm-smccc.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/nvmem-provider.h>
-+#include <linux/platform_device.h>
-+#include <linux/of.h>
-+#include <linux/regmap.h>
-+
-+#define AIROHA_SMC_EFUSE_FID		0x82000001
-+#define AIROHA_SMC_EFUSE_SUB_ID_READ	0x44414552
-+
-+#define AIROHA_EFUSE_CELLS		64
-+
-+struct airoha_efuse_bank_priv {
-+	u32 bank_index;
-+};
-+
-+static int airoha_efuse_read(void *context, unsigned int offset,
-+			     void *val, size_t bytes)
-+{
-+	struct regmap *regmap = context;
-+
-+	return regmap_bulk_read(regmap, offset,
-+				val, bytes / sizeof(u32));
-+}
-+
-+static int airoha_efuse_reg_read(void *context, unsigned int offset,
-+				 unsigned int *val)
-+{
-+	struct airoha_efuse_bank_priv *priv = context;
-+	struct arm_smccc_res res;
-+
-+	arm_smccc_1_1_invoke(AIROHA_SMC_EFUSE_FID,
-+			     AIROHA_SMC_EFUSE_SUB_ID_READ,
-+			     priv->bank_index, offset, 0, 0, 0, 0, &res);
-+
-+	/* check if SMC reported an error */
-+	if (res.a0)
-+		return -EIO;
-+
-+	*val = res.a1;
-+	return 0;
-+}
-+
-+static int airoha_efuse_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	int ret;
-+
-+	for_each_child_of_node_scoped(dev->of_node, child) {
-+		struct nvmem_config nvmem_config = {
-+			.size = AIROHA_EFUSE_CELLS * sizeof(u32),
-+			.stride = sizeof(u32),
-+			.word_size = sizeof(u32),
-+			.reg_read = airoha_efuse_read,
-+		};
-+		struct regmap_config regmap_config = {
-+			.reg_read = airoha_efuse_reg_read,
-+			.reg_bits = 32,
-+			.val_bits = 32,
-+			.reg_stride = 4,
-+		};
-+		struct airoha_efuse_bank_priv *priv;
-+		struct nvmem_device *nvmem;
-+		struct regmap *regmap;
-+		const char *name;
-+		u32 bank;
-+
-+		ret = of_property_read_u32(child, "reg", &bank);
-+		if (ret)
-+			return ret;
-+
-+		priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+		if (!priv)
-+			return -ENOMEM;
-+
-+		name = devm_kasprintf(dev, GFP_KERNEL, "airoha-efuse-%u",
-+				      bank);
-+		if (!name)
-+			return -ENOMEM;
-+
-+		priv->bank_index = bank;
-+
-+		regmap_config.name = name;
-+		regmap = devm_regmap_init(dev, NULL, priv,
-+					  &regmap_config);
-+		if (IS_ERR(regmap))
-+			return PTR_ERR(regmap);
-+
-+		nvmem_config.name = name;
-+		nvmem_config.priv = regmap;
-+		nvmem_config.dev = dev;
-+		nvmem_config.id = bank;
-+		nvmem_config.of_node = child;
-+		nvmem = devm_nvmem_register(dev, &nvmem_config);
-+		if (IS_ERR(nvmem))
-+			return PTR_ERR(nvmem);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id airoha_efuse_of_match[] = {
-+	{ .compatible = "airoha,an7581-efuses", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, airoha_efuse_of_match);
-+
-+static struct platform_driver airoha_efuse_driver = {
-+	.probe = airoha_efuse_probe,
-+	.driver = {
-+		.name = "airoha-efuse",
-+		.of_match_table = airoha_efuse_of_match,
-+	},
-+};
-+module_platform_driver(airoha_efuse_driver);
-+
-+MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
-+MODULE_DESCRIPTION("Driver for Airoha SMC eFUSEs");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+Thanks,
+Guenter
 
