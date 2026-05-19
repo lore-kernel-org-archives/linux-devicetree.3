@@ -1,98 +1,234 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516B63E0239
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:31:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B843E16B6
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:32:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779179480; cv=none; b=NhVIkadQfbE+VT/S2aJBkJHdQVKN22HPw5urONJWdQMVj2wuK/ncioRNTJIHiLzWH7wAVsicBV8SYUDkLvRIa4RLH7dR4oMuBuUFZMhmcu9JAANcLg7jmK/RYoIiorHQ7j/OtcSk+KYKwlCvjsKdavWU68MZl6m7oiIjqRdm4C0=
+	t=1779179524; cv=none; b=MlAHb1vvMAO9Qkj/TLixmLZsHH2OrB0tB4psDGayeW5AVB3QcjGhUXO2LSjxR1sk/P73rK8kMn8YO5OlCV11SsM8f7NtQpl/WLCMZLdn8NtBATROcg+pcTTe6Xtz0OGXvFM+mbpT0YFtLMX3v5hGG40Vd1OMbjw6ZBES+RGHZLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779179480; c=relaxed/simple;
-	bh=gYstxcuWc96pDbCmO9hN3d3Df6cw8nt86KfRpF2dMc0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hYm/E7M6I8E2cpdKlbSwkheOlqN5BRaLBoPGXip0ZFS+t/wH3+Qq/ooDGhwgqT+eWaCHDYjvChiVscUxuftDa9dZe+v13ErUwsCwWTfaYCOjJ9YCMW7eFBqhmA1TGby/AkuIfnxpd3r7mX8Js5yajTknDfLx5jT3rjBASXzGtTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcQmoS6G; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779179524; c=relaxed/simple;
+	bh=0Ht9Ns/k5QcYIpUrpU67o7Giqr+XUZ/CpMDBeiHtKSc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LI923Nndk9PXZPPr1WsUbAVpCvTyygI0nkCLvX6ISSyymJ5a+4nhqD3qqlgEDZQmFEZqcTac/LLV8D7AmYutlyLf7cQy4DFrM/hPyiZzliRo9wU1Oh8ykGd0WwRpckqxxhuej90R0tQ4Zu4THMwsNc089hcrOwlH8158et0bpDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CANbVqxf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcQmoS6G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1E8C2BCF6
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:31:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CANbVqxf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 445EAC2BCB3;
+	Tue, 19 May 2026 08:32:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779179480;
-	bh=gYstxcuWc96pDbCmO9hN3d3Df6cw8nt86KfRpF2dMc0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=dcQmoS6GLFi2R0yaK0C+WYP8gkJewzayiAjBXzXfT2KcyF9dSeBYIddmtSFZtBWHU
-	 O3DHth1w+2iP4VE1/+TCuDrZtuO/MvbRD+/IeJ7MCnPFz3/JCBhBrKwCjySS/kzVC6
-	 k0UtWCTfrG54Q87sNtpV2drr5qvL+Vh/SJi6BxmRE1hO/6PS9li7m+OvpeFZkNLibk
-	 oiEGK6BoYE7HYf8Q/6oXBtDdmTCTriNYHqCotL0fi4SZ09Wt21k4uNzeoakik30+lm
-	 xp/PeYQgwws2zh+kiQPKBaIpfFuiTkK9T+lvBcznaEzGQRP2vxEJqNZtuvC0yZzG9D
-	 /wIRXTeiCkuNA==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a88db610ccso3830281e87.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:31:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9TQVi0PxGx/zWMZyvKeq/8sD+Xai2QU6r+ZncVxpzEOGxb/rwpoJHmLxRxAbqGqIFCyuesxNIb5u/6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD3CZvRPWorRQ5mumafh3mgdvkDmiCoJ60+bPywbQfa59aCHpY
-	L9qi2SzbTtnLRlxFVPv+GS4kldjsgAfXlP0BRtzfxdGpKZ6pdXwKMbsBS95XdavIqtXIa1Z/kU6
-	m/gH5SPssz6+yCDT16DktUD8szKyYzeU=
-X-Received: by 2002:a05:6512:1286:b0:5a8:65c8:dd90 with SMTP id
- 2adb3069b0e04-5aa0e73f4d5mr5272064e87.4.1779179478814; Tue, 19 May 2026
- 01:31:18 -0700 (PDT)
+	s=k20201202; t=1779179524;
+	bh=0Ht9Ns/k5QcYIpUrpU67o7Giqr+XUZ/CpMDBeiHtKSc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=CANbVqxfu8zH4Nw5v7pzkerPRihcLvE6rKzaQh4DqwnFSadv9TEx19GQ4tRUYgppq
+	 QNOGEZtFkf4EGGDIHeCIwc917DewgPOKRj96TX5VAaBd9vPDEl7itY+SMgbATfG2Xj
+	 p1NC5096gqnGkb/lmtLRghXySaCPHPR3+LVx0YS41El8q+u76E591VF5c+eyvShFUr
+	 1n4cev8K6iUh/IF0ovY76+dOIEfEqPmEqBysP2koC7L62yL0N+IiMYLwNamX6UYDEW
+	 Fg0jPMJGt1tPmtE8ZQ5vx4SXAAchymUmjFsT20PsvNuP5GLC2Q02ZMshVLvoQb42BF
+	 qCENvhYxo+GtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] drm: panel: add support for the Renesas R63419
+ based dual-DSI video mode Display Panels
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260519-topic-sm8650-ayaneo-pocket-s2-r63419-v4-2-b8929af5e951@linaro.org>
+References: <20260519-topic-sm8650-ayaneo-pocket-s2-r63419-v4-2-b8929af5e951@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 08:32:03 +0000
+Message-Id: <20260519083204.445EAC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr> <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
-In-Reply-To: <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 19 May 2026 10:31:06 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
-X-Gm-Features: AVHnY4IFkYYcJkwE7oBtW7Rq4mnePDIoacVSym4JzKnPjR_3OiAFXxYaV2dbJIA
-Message-ID: <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before enabling pinctrl
-To: contact@alex-min.fr
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, iommu@lists.linux.dev, 
-	phone-devel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Alexandre,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] DCS initialization sequence sends SET_DISPLAY_ON before EXIT_SLEEP=
+_MODE.
+- [High] Incorrect hardware power sequencing during teardown risks hardware=
+ damage.
+- [High] Resource leak of `vdd_supplies` in the `renesas_r63419_prepare()` =
+error path.
+- [High] Panel is registered to DRM before DSI devices are attached, causin=
+g a race condition.
+- [High] Secondary DSI device is registered with the primary's `of_node`, c=
+ausing an unintended re-probe.
+- [Medium] Silent ignore of errors on the secondary DSI link in multi-conte=
+xt DCS sequences.
+--
 
-thanks for your patch!
+commit 536a4ce2d0cffbeb00543674b725c12c37ef3272
+Author: KancyJoe <kancy2333@outlook.com>
 
-On Tue, May 19, 2026 at 9:16=E2=80=AFAM Alexandre MINETTE via B4 Relay
-<devnull+contact.alex-min.fr@kernel.org> wrote:
+drm: panel: add support for the Renesas R63419 based dual-DSI video mode Di=
+splay Panels
+   =20
+Implement support for the Renesas 63419 based dual-DSI video mode
+Display Panels found in the Ayaneo gaming handled devices.
 
-> From: Alexandre MINETTE <contact@alex-min.fr>
->
-> pinctrl consumers can request states while the pinctrl core enables the
-> controller. On Qualcomm pinctrl drivers this can happen before the SoC
-> function list has been registered, which leaves the function table
-> incomplete during state lookup.
->
-> On APQ8064 this can fail while claiming pinctrl hogs:
->
->    apq8064-pinctrl 800000.pinctrl: invalid function ps_hold in map table
->    apq8064-pinctrl 800000.pinctrl: error claiming hogs: -22
->    apq8064-pinctrl 800000.pinctrl: could not claim hogs: -22
->
-> Register Qualcomm pinctrl with devm_pinctrl_register_and_init(), add the
-> SoC pin functions, and only then enable the pinctrl device.
->
-> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+> diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/d=
+rm/panel/panel-renesas-r63419.c
+> new file mode 100644
+> index 0000000000000..1643a9c78c3fd
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
+[ ... ]
+> +static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi[0] };
+> +	struct mipi_dsi_multi_context dsi_ctx1 =3D { .dsi =3D ctx->dsi[1] };
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx1);
+> +	mipi_dsi_msleep(&dsi_ctx, 150);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx1);
+> +	mipi_dsi_msleep(&dsi_ctx, 50);
 
-I think I've seen this one before, if Bj=C3=B6rn or someone else from Qualc=
-omm
-can review this and test on some other hardware it would be great.
+Are the DCS commands sent in the correct order? Standard MIPI DCS sequences
+require exiting sleep mode (0x11) and waiting for the hardware to wake up
+before setting the display on (0x29). Sending a Display On command while
+the panel is still in sleep mode can prevent the display from turning on.
 
-But if there is no reaction I might just merge it so something happens.
+Also, does this silently ignore errors on the secondary DSI link?
+If a command fails on dsi_ctx1, the error doesn't seem to be captured or
+checked here. Additionally, mipi_dsi_msleep() only checks the primary
+context, so if a failure occurs on the primary, the sleep is bypassed, and
+commands to the secondary are sent without the required delay.
 
-Yours,
-Linus Walleij
+> +
+> +	return dsi_ctx.accum_err;
+
+Should this return a combination of both dsi_ctx.accum_err and
+dsi_ctx1.accum_err?
+
+> +}
+[ ... ]
+> +static int renesas_r63419_prepare(struct drm_panel *panel)
+> +{
+> +	struct renesas_r63419_panel *ctx =3D to_renesas_r63419_panel(panel);
+> +	int ret;
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
+> +				    ctx->vdd_supplies);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	usleep_range(1000, 2000);
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
+> +				    ctx->vcc_supplies);
+> +	if (ret < 0)
+> +		return ret;
+
+If regulator_bulk_enable() for vcc_supplies fails here, does this leak the
+regulator reference for the already-enabled vdd_supplies?
+
+> +
+> +	usleep_range(1000, 2000);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +
+> +	usleep_range(3000, 4000);
+> +
+> +	ret =3D renesas_r63419_on(ctx);
+> +	if (ret < 0) {
+> +		dev_err(panel->dev, "Failed to initialize panel: %d\n", ret);
+> +		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
+> +				       ctx->vcc_supplies);
+> +		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
+> +				       ctx->vdd_supplies);
+> +
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+
+Could this hardware power sequencing risk hardware damage? The power
+regulators are disabled before the reset GPIO is asserted. Leaving a logic
+high voltage driven on an IO pin of an unpowered IC can back-power the
+chip through its ESD protection diodes. The reset GPIO should likely be
+asserted before disabling the regulators.
+
+> +
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int renesas_r63419_unprepare(struct drm_panel *panel)
+> +{
+> +	struct renesas_r63419_panel *ctx =3D to_renesas_r63419_panel(panel);
+> +
+> +	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies), ctx->vc=
+c_supplies);
+> +	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies), ctx->vd=
+d_supplies);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+
+The same power sequencing issue seems to exist here during teardown.
+
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
+> +{
+[ ... ]
+> +	/* Copy current DSI info */
+> +	strscpy(info.type, dsi->name, sizeof(info.type));
+> +	info.channel =3D dsi->channel;
+> +	info.node =3D dev_of_node(dev);
+> +
+> +	/* Register the second DSI device */
+> +	ctx->dsi[1] =3D devm_mipi_dsi_device_register_full(dev, dsi1_host, &inf=
+o);
+
+Could setting info.node to dev_of_node(dev) for the secondary DSI device
+cause an unintended re-probe loop? Because the secondary device shares the
+same of_node as the primary device, the MIPI DSI bus driver matching logic
+will match it against the same renesas_r63419_driver and invoke probe()
+again for the secondary device.
+
+> +	if (IS_ERR(ctx->dsi[1]))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
+> +				     "Failed to register second DSI device\n");
+> +
+> +	ctx->dsi[0] =3D dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	/* Get panel orientation */
+> +	ret =3D of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+> +	if (ret < 0 && ret !=3D -ENODEV)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get panel orientation\n");
+> +
+> +	ctx->panel.prepare_prev_first =3D true;
+> +
+> +	ret =3D drm_panel_of_backlight(&ctx->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+> +
+> +	ret =3D devm_drm_panel_add(dev, &ctx->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add panel\n");
+> +
+> +	/* Configure and attach both DSI devices */
+> +	for (i =3D 0; i < ARRAY_SIZE(ctx->dsi); i++) {
+> +		ctx->dsi[i]->lanes =3D ctx->desc->lanes;
+> +		ctx->dsi[i]->format =3D ctx->desc->format;
+> +		ctx->dsi[i]->mode_flags =3D ctx->desc->mode_flags;
+> +
+> +		ret =3D devm_mipi_dsi_attach(dev, ctx->dsi[i]);
+
+Does registering the panel to DRM before attaching the DSI devices
+introduce a race condition? Calling devm_drm_panel_add() makes the panel
+immediately visible to consumers. If a consumer prepares the panel right
+away, it will attempt to send DCS commands over unattached DSI links.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-topic-sm86=
+50-ayaneo-pocket-s2-r63419-v4-0-b8929af5e951@linaro.org?part=3D2
