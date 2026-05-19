@@ -1,370 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679104DB554;
-	Tue, 19 May 2026 12:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3091C84A2
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779193790; cv=none; b=LVnS0v7Pbu3aOuAQGcdO1chag1bHiJh4+NnQJ5KXFPZLvz7R/fDoYPBWcF5xC7UprEXCLI9lJt2p706mZ+mXL3ZOKvpwJNAIlI37rARCyY7u2qh2b4IqlaRX1p0l3pdSnKInKI52v4Ee7q7bUNSmbT0Ce1jJtQOvyazTyjW9ols=
+	t=1779193865; cv=none; b=s3ALee6zZ1Nvw2YeoGTUlxpZnERJ97MWWiAWqfSu0gl3+Z/aZKsIYaxPCUmGEbiP5e3rVIKAy8GacC1KSEW7APPxxoo4xbZPWkqZkdxE4qkLCmzmfM0qolUF7mnU1V40BprMJYsX7F+IlSoX7fLdWfSlOA4KM89XiVxLrWIJFIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779193790; c=relaxed/simple;
-	bh=3JvXRnQpZVlHPGCYeEr/g8lkDue3cr8PxiuolSK7hNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qmEXmbNKipsenR12mZ+9MBDDjSWAvGv0UrWsvjoz6SeN/K2YhSOo9u4IyVVDuozSOe4/G5yQFZqfO6iFp7xakuNzj99/PT1rQwvD1xrbYFbOPdwBZdJGAiM9ixftQkfUxXgTjN6HNRROvKwwzjFrXs7IOHoae3UhjfhI35scjJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S3psIJ1c; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1779193865; c=relaxed/simple;
+	bh=OuYJlCYRn9vh4P9tkKFr10xRkG/LgEO7ecrskFafRHU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O2C7rH/r84eMKokLdFNG/I0qQxE7DQRTmoLvY6j+ys0pTYfiQIY/6Byyh2Duj4F0+ejS8N4rA+3iXiSOrVsLn0kK6OIz+8Et5TcsTffui3ytI8ewm9tTVIqOxM/Psefzvdo4wtGnMgGQdmKaIlv1uijM3goUmuanZb9lCHucChE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXF5TgOk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S3psIJ1c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779193789; x=1810729789;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3JvXRnQpZVlHPGCYeEr/g8lkDue3cr8PxiuolSK7hNY=;
-  b=S3psIJ1cZx5SPA2268M3gANDnMznuN+NH21dkIAAy2d0GzWMpc8MqeJd
-   Jbq48QlYr5C2Oa13/+XjhdCWFhG7iv7IISLBLSgKl2C/cgOGWIhVVDzf5
-   zmRjzFdj2SJY52j0EBX9AAYebj0woPN8JmNTMMNca3yJIxCTfvyo48vd/
-   o6tz5padC2hXL+U1WemfyaiohYI9IgkPaDctkDulK01CwEC5y+4/c7HVN
-   ee8/9QsSYQCJjL1U6CI4P5pjV/jXMOLeQM4iW2VxtZ37WUfCSUGjxsVHj
-   Yr7hEz+xWe41YIZDbljDQz/nWeI2TIEm058WKc2kNAGk08zEU97itM3C4
-   g==;
-X-CSE-ConnectionGUID: 8zKVtsrSTRuX4zu45Jsvqw==
-X-CSE-MsgGUID: 21tH9z6xQfWlVUG0uUoVPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="79215360"
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
-   d="scan'208";a="79215360"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 May 2026 05:29:48 -0700
-X-CSE-ConnectionGUID: psAM+muJROaY7mtaGiVz+Q==
-X-CSE-MsgGUID: AsfMfCI2RTiSYCgTnbM38Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
-   d="scan'208";a="244726351"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.204])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 May 2026 05:29:43 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 77CFE120E58;
-	Tue, 19 May 2026 15:29:39 +0300 (EEST)
-Date: Tue, 19 May 2026 15:29:39 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: jai.luthra@linux.dev, laurent.pinchart@ideasonboard.com,
-	mripard@kernel.org, y-abhilashchandra@ti.com, devarsht@ti.com,
-	s-jain1@ti.com, vigneshr@ti.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, p.zabel@pengutronix.de,
-	conor+dt@kernel.org, hverkuil-cisco@xs4all.nl,
-	tomi.valkeinen@ideasonboard.com, jai.luthra@ideasonboard.com,
-	changhuang.liang@starfivetech.com, sjoerd@collabora.com,
-	dan.carpenter@linaro.org, hverkuil+cisco@kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v12 15/17] media: cadence: csi2rx: Support runtime PM
-Message-ID: <agxXs3irq0pZkg5O@kekkonen.localdomain>
-References: <20260313090701.646534-1-r-donadkar@ti.com>
- <20260313090701.646534-16-r-donadkar@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXF5TgOk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318F3C2BCB3;
+	Tue, 19 May 2026 12:30:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779193865;
+	bh=OuYJlCYRn9vh4P9tkKFr10xRkG/LgEO7ecrskFafRHU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=SXF5TgOk46wvIiibbGqcE9r2hhV+ioLktGesXi2oQevuVMQ6UmRhbiv6JKfV66/VV
+	 1gk34dWd7J2CMkqS616JJ2VTA5EyVrGfQOPPTg0STC4gUARH3WR429VqDl3WJVtV6U
+	 pUyU3ognD5exUZ7ZVMxuCakqomzh4NPSzqnMhIcZrd3zrx9AYMXkEJhqIfeu09ro4O
+	 W9T1Kfx+gVTf0LlBIFhXNpjq3GljMXADHOfGzb/oyuVODTbZ5449VsCnDE6uFBqsvS
+	 P/8LF2Zl6vrjFaO/n2LAETaCG/nKx0IPS/a0qV8qWH3afOzeqMo2sEBQ2I75oaTmy8
+	 9SiZOqlFFjbSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: mfd: sprd,sc2731: Include SC2730
+ regulator bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?T3R0byBQZmzDvGdlcg==?= <otto.pflueger@abscue.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260519-sc2730-regulators-v3-2-5bf0e02507e3@abscue.de>
+References: <20260519-sc2730-regulators-v3-2-5bf0e02507e3@abscue.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 12:30:57 +0000
+Message-Id: <20260519123058.318F3C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313090701.646534-16-r-donadkar@ti.com>
 
-Hi Rishikes,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The newly referenced `sprd,sc2730-regulator.yaml` schema contains =
+a critical bug that causes it to falsely reject valid device tree nodes.
+- [Medium] Unconditional relaxation of the `regulators` node schema permits=
+ incorrect hardware configurations to silently pass validation.
+--
 
-On Fri, Mar 13, 2026 at 02:36:59PM +0530, Rishikesh Donadkar wrote:
-> From: Changhuang Liang <changhuang.liang@starfivetech.com>
-> 
-> Use runtime power management hooks to save power when CSI-RX is not in
-> use. Also, shift to goto based error handling in
-> csi2rx_enable_streams() function
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> Tested-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> ---
->  drivers/media/platform/cadence/Kconfig       |   1 +
->  drivers/media/platform/cadence/cdns-csi2rx.c | 136 ++++++++++++-------
->  2 files changed, 88 insertions(+), 49 deletions(-)
-> 
-> diff --git a/drivers/media/platform/cadence/Kconfig b/drivers/media/platform/cadence/Kconfig
-> index 1aa608c00dbce..ea85ef82760e6 100644
-> --- a/drivers/media/platform/cadence/Kconfig
-> +++ b/drivers/media/platform/cadence/Kconfig
-> @@ -5,6 +5,7 @@ comment "Cadence media platform drivers"
->  config VIDEO_CADENCE_CSI2RX
->  	tristate "Cadence MIPI-CSI2 RX Controller"
->  	depends on VIDEO_DEV
-> +	depends on PM
->  	select MEDIA_CONTROLLER
->  	select VIDEO_V4L2_SUBDEV_API
->  	select V4L2_FWNODE
-> diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
-> index f34df341a2cac..18737d00a7d7a 100644
-> --- a/drivers/media/platform/cadence/cdns-csi2rx.c
-> +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
-> @@ -340,11 +340,6 @@ static int csi2rx_start(struct csi2rx_priv *csi2rx)
->  	u32 reg;
->  	int ret;
->  
-> -	ret = clk_prepare_enable(csi2rx->p_clk);
-> -	if (ret)
-> -		return ret;
-> -
-> -	reset_control_deassert(csi2rx->p_rst);
->  	csi2rx_reset(csi2rx);
->  
->  	if (csi2rx->error_irq >= 0)
-> @@ -385,7 +380,7 @@ static int csi2rx_start(struct csi2rx_priv *csi2rx)
->  		if (ret) {
->  			dev_err(csi2rx->dev,
->  				"Failed to configure external DPHY: %d\n", ret);
-> -			goto err_disable_pclk;
-> +			return ret;
->  		}
->  	}
->  
-> @@ -400,12 +395,6 @@ static int csi2rx_start(struct csi2rx_priv *csi2rx)
->  	 * hence the reference counting.
->  	 */
->  	for (i = 0; i < csi2rx->max_streams; i++) {
-> -		ret = clk_prepare_enable(csi2rx->pixel_clk[i]);
-> -		if (ret)
-> -			goto err_disable_pixclk;
-> -
-> -		reset_control_deassert(csi2rx->pixel_rst[i]);
-> -
->  		writel(CSI2RX_STREAM_CFG_FIFO_MODE_LARGE_BUF |
->  			       FIELD_PREP(CSI2RX_STREAM_CFG_NUM_PIXELS_MASK,
->  					  csi2rx->num_pixels[i]),
-> @@ -418,30 +407,8 @@ static int csi2rx_start(struct csi2rx_priv *csi2rx)
->  		       csi2rx->base + CSI2RX_STREAM_CTRL_REG(i));
->  	}
->  
-> -	ret = clk_prepare_enable(csi2rx->sys_clk);
-> -	if (ret)
-> -		goto err_disable_pixclk;
-> -
-> -	reset_control_deassert(csi2rx->sys_rst);
-> -
-> -	clk_disable_unprepare(csi2rx->p_clk);
->  
->  	return 0;
-> -
-> -err_disable_pixclk:
-> -	for (; i > 0; i--) {
-> -		reset_control_assert(csi2rx->pixel_rst[i - 1]);
-> -		clk_disable_unprepare(csi2rx->pixel_clk[i - 1]);
-> -	}
-> -
-> -	if (csi2rx->dphy) {
-> -		writel(0, csi2rx->base + CSI2RX_DPHY_LANE_CTRL_REG);
-> -		phy_power_off(csi2rx->dphy);
-> -	}
-> -err_disable_pclk:
-> -	clk_disable_unprepare(csi2rx->p_clk);
-> -
-> -	return ret;
->  }
->  
->  static void csi2rx_stop(struct csi2rx_priv *csi2rx)
-> @@ -450,10 +417,6 @@ static void csi2rx_stop(struct csi2rx_priv *csi2rx)
->  	u32 val;
->  	int ret;
->  
-> -	clk_prepare_enable(csi2rx->p_clk);
-> -	reset_control_assert(csi2rx->sys_rst);
-> -	clk_disable_unprepare(csi2rx->sys_clk);
-> -
->  	writel(0, csi2rx->base + CSI2RX_ERROR_IRQS_MASK_REG);
->  
->  	for (i = 0; i < csi2rx->max_streams; i++) {
-> @@ -468,14 +431,8 @@ static void csi2rx_stop(struct csi2rx_priv *csi2rx)
->  		if (ret)
->  			dev_warn(csi2rx->dev,
->  				 "Failed to stop streaming on pad%u\n", i);
-> -
-> -		reset_control_assert(csi2rx->pixel_rst[i]);
-> -		clk_disable_unprepare(csi2rx->pixel_clk[i]);
->  	}
->  
-> -	reset_control_assert(csi2rx->p_rst);
-> -	clk_disable_unprepare(csi2rx->p_clk);
-> -
->  	if (csi2rx->dphy) {
->  		writel(0, csi2rx->base + CSI2RX_DPHY_LANE_CTRL_REG);
->  
-> @@ -549,10 +506,15 @@ static int csi2rx_enable_streams(struct v4l2_subdev *subdev,
->  	 * enable the whole controller.
->  	 */
->  	if (!csi2rx->count) {
-> +		ret = pm_runtime_resume_and_get(csi2rx->dev);
-> +		if (ret < 0)
-> +			goto err;
-> +
->  		csi2rx_update_vc_select(csi2rx, state);
-> +
->  		ret = csi2rx_start(csi2rx);
->  		if (ret)
-> -			return ret;
-> +			goto err_put_pm;
->  	}
->  
->  	/* Start streaming on the source */
-> @@ -562,13 +524,20 @@ static int csi2rx_enable_streams(struct v4l2_subdev *subdev,
->  		dev_err(csi2rx->dev,
->  			"Failed to start streams %#llx on subdev\n",
->  			sink_streams);
-> -		if (!csi2rx->count)
-> -			csi2rx_stop(csi2rx);
-> -		return ret;
-> +		goto err_stop_csi;
->  	}
->  
->  	csi2rx->count++;
->  	return 0;
-> +
-> +err_stop_csi:
-> +	if (!csi2rx->count)
-> +		csi2rx_stop(csi2rx);
-> +err_put_pm:
-> +	if (!csi2rx->count)
-> +		pm_runtime_put(csi2rx->dev);
-> +err:
-> +	return ret;
->  }
->  
->  static int csi2rx_disable_streams(struct v4l2_subdev *subdev,
-> @@ -590,8 +559,10 @@ static int csi2rx_disable_streams(struct v4l2_subdev *subdev,
->  	csi2rx->count--;
->  
->  	/* Let the last user turn off the lights. */
-> -	if (!csi2rx->count)
-> +	if (!csi2rx->count) {
->  		csi2rx_stop(csi2rx);
-> +		pm_runtime_put(csi2rx->dev);
-> +	}
->  
->  	return 0;
->  }
-> @@ -1078,6 +1049,7 @@ static int csi2rx_probe(struct platform_device *pdev)
->  	if (ret)
->  		goto err_cleanup;
->  
-> +	pm_runtime_enable(csi2rx->dev);
->  	ret = v4l2_async_register_subdev(&csi2rx->subdev);
->  	if (ret < 0)
->  		goto err_free_state;
-> @@ -1092,6 +1064,7 @@ static int csi2rx_probe(struct platform_device *pdev)
->  
->  err_free_state:
->  	v4l2_subdev_cleanup(&csi2rx->subdev);
-> +	pm_runtime_disable(csi2rx->dev);
->  err_cleanup:
->  	v4l2_async_nf_unregister(&csi2rx->notifier);
->  	v4l2_async_nf_cleanup(&csi2rx->notifier);
-> @@ -1110,9 +1083,73 @@ static void csi2rx_remove(struct platform_device *pdev)
->  	v4l2_async_unregister_subdev(&csi2rx->subdev);
->  	v4l2_subdev_cleanup(&csi2rx->subdev);
->  	media_entity_cleanup(&csi2rx->subdev.entity);
-> +	pm_runtime_disable(csi2rx->dev);
->  	kfree(csi2rx);
->  }
->  
-> +static int csi2rx_runtime_suspend(struct device *dev)
-> +{
-> +	struct csi2rx_priv *csi2rx = dev_get_drvdata(dev);
-> +	unsigned int i;
-> +
-> +	reset_control_assert(csi2rx->sys_rst);
-> +	clk_disable_unprepare(csi2rx->sys_clk);
-> +
-> +	for (i = 0; i < csi2rx->max_streams; i++) {
+commit 0ef24a84813b14435877f202403f8d49b85173ac
+Author: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
 
-You could declare i here.
+dt-bindings: mfd: sprd,sc2731: Include SC2730 regulator bindings
 
-> +		reset_control_assert(csi2rx->pixel_rst[i]);
-> +		clk_disable_unprepare(csi2rx->pixel_clk[i]);
-> +	}
-> +
-> +	reset_control_assert(csi2rx->p_rst);
-> +	clk_disable_unprepare(csi2rx->p_clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static int csi2rx_runtime_resume(struct device *dev)
-> +{
-> +	struct csi2rx_priv *csi2rx = dev_get_drvdata(dev);
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(csi2rx->p_clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	reset_control_deassert(csi2rx->p_rst);
-> +
-> +	for (i = 0; i < csi2rx->max_streams; i++) {
-> +		ret = clk_prepare_enable(csi2rx->pixel_clk[i]);
-> +		if (ret)
-> +			goto err_disable_pixclk;
-> +
-> +		reset_control_deassert(csi2rx->pixel_rst[i]);
-> +	}
-> +
-> +	ret = clk_prepare_enable(csi2rx->sys_clk);
-> +	if (ret)
-> +		goto err_disable_pixclk;
-> +
-> +	reset_control_deassert(csi2rx->sys_rst);
-> +
-> +	return 0;
-> +
-> +err_disable_pixclk:
-> +	for (; i > 0; i--) {
+This commit updates the SC2731 MFD binding to allow using the SC2730
+regulator bindings for the regulators node. The SC2730 PMIC provides a
+different set of regulators than the SC2731.
 
-	while (i--) {
+> diff --git a/Documentation/devicetree/bindings/mfd/sprd,sc2731.yaml b/Doc=
+umentation/devicetree/bindings/mfd/sprd,sc2731.yaml
+> index b023e1ef8d3cc..e74ec49709941 100644
+> --- a/Documentation/devicetree/bindings/mfd/sprd,sc2731.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/sprd,sc2731.yaml
+> @@ -54,7 +54,9 @@ properties:
+> =20
+>    regulators:
+>      type: object
+> -    $ref: /schemas/regulator/sprd,sc2731-regulator.yaml#
+> +    oneOf:
+> +      - $ref: /schemas/regulator/sprd,sc2730-regulator.yaml#
 
-?
+Does the newly referenced sprd,sc2730-regulator.yaml schema contain an
+issue that causes it to falsely reject valid device tree nodes?
 
-> +		reset_control_assert(csi2rx->pixel_rst[i - 1]);
-> +		clk_disable_unprepare(csi2rx->pixel_clk[i - 1]);
+This issue appears to be introduced by the preceding patch in the series
+(commit "regulator: dt-bindings: Add Unisoc SC2730 PMIC") but manifests
+here because this commit adds the reference to the broken schema.
 
-Then you can refer to i here instead instead of i - 1.
+The sprd,sc2730-regulator.yaml file specifies "required: [compatible]"
+and "additionalProperties: false", but entirely omits the properties block
+necessary to define the compatible property.
 
-> +	}
-> +
-> +	reset_control_assert(csi2rx->p_rst);
-> +	clk_disable_unprepare(csi2rx->p_clk);
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct dev_pm_ops csi2rx_pm_ops = {
-> +	RUNTIME_PM_OPS(csi2rx_runtime_suspend, csi2rx_runtime_resume, NULL)
-> +};
-> +
->  static const struct of_device_id csi2rx_of_table[] = {
->  	{ .compatible = "starfive,jh7110-csi2rx" },
->  	{ .compatible = "cdns,csi2rx" },
-> @@ -1127,6 +1164,7 @@ static struct platform_driver csi2rx_driver = {
->  	.driver	= {
->  		.name		= "cdns-csi2rx",
->  		.of_match_table	= csi2rx_of_table,
-> +		.pm		= &csi2rx_pm_ops,
->  	},
->  };
->  module_platform_driver(csi2rx_driver);
+Because dt-schema rules forbid any property not explicitly defined when
+"additionalProperties: false" is set, it seems any device tree node
+defining an SC2730 regulator node will instantly fail dtbs_check for
+containing an additional property named compatible.
 
--- 
-Regards,
+Does this unconditional oneOf block permit incorrect hardware configurations
+to silently pass validation?
 
-Sakari Ailus
+This change replaces a single $ref for the regulators node with an
+unconditional oneOf block. This allows any PMIC compatible string
+supported by this MFD binding to legally declare either the SC2730 or
+SC2731 regulator bindings.
+
+Because the commit message correctly notes that the SC2730 provides a
+different set of regulators, should the schema strictly associate the
+regulator binding with the corresponding top-level PMIC compatible string?
+
+This could be implemented using an allOf list of if-then conditional blocks
+that evaluate the parent node's compatible string to selectively apply the
+correct $ref to the regulators node, preventing cross-generational hardware
+mismatches from silently passing validation.
+
+> +      - $ref: /schemas/regulator/sprd,sc2731-regulator.yaml#
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-sc2730-reg=
+ulators-v3-0-5bf0e02507e3@abscue.de?part=3D2
