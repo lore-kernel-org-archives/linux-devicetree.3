@@ -1,96 +1,196 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19024D90DF
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 16:37:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB504A33F0;
+	Tue, 19 May 2026 16:37:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779208642; cv=none; b=afUKjlY1DAn5wflXuYuuiIYYrD6pPRqGKktVVKcLUiShdgNbvUEZ1Zkfl9McimRMXcCiZ/7tLejP89DgzhPpePemHeCXtzPHKLCeaee6vcurepOaiCzMf0Fn8DaiqV6xjvmZgHdFBX3DS9RtnU9llrUAL+6/Rc8+YTbP0DB0iBI=
+	t=1779208655; cv=none; b=Mvm2xBZfk7zxBEQt0z6qX7Sm13B7JMPvuEsqrfJ7e1DitcCUvMECFiaPBawpYHa5fzlAtLGbbkhT+6a0AsWAtDf7BUEPDjS6RA6EENOVYag1vgdqUazluIO4YQswrlzsvUWDDhdW2pHToohcdDFQp8uv5dxjo7yfg0d07oeWrQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779208642; c=relaxed/simple;
-	bh=b4alJ7oYXavpOGq00ZcC7Hb3nTGtBUS/MEHzC+49o2M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kfGkRHR/8VPKC0djgJvDVDjWD9W+RWDbVUDATgtcufTW1eiso/ZXnPO3upC8SQeSUbtcnscbermMDGOLHIL7w04ylFPynXtgxE7lTNyVEecKGstxCSbX39KYAolQJQyORRBneu6mGeGTNaps4L9avi3CeVwaJiPR1YmljPBhffI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a42qx8xt; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779208655; c=relaxed/simple;
+	bh=nXLH0tkJ6RPAH/3BqTDoqsctKYpVGrgL/TN8VqnLZkY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nEoj4R3bUqqx4gyjhJRnYhnMplZ0v+HvdtM6O8eH6FJm7gXDrrzgR4WsTRhbc4EBvRsTiKYR30RrbIa947UnIpkh0DUkQjWhD03Ft7c5yZ7Y5SlAnjipGCU9IkC0nzkLaHLwoqYUn+wo9Ip/hoq9bJpuNvH6yyp9AQ/ZPi1Nv3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bqkpJkA5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a42qx8xt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306FDC2BCB3;
-	Tue, 19 May 2026 16:37:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bqkpJkA5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F60C2BCB3;
+	Tue, 19 May 2026 16:37:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779208642;
-	bh=b4alJ7oYXavpOGq00ZcC7Hb3nTGtBUS/MEHzC+49o2M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=a42qx8xtYgVSGP4msTCzuTCKZtLzLEoD0FiS2KH2N374ncEKJyfxgeMl+oNzpXHAP
-	 F+UHJWaXXOd8hQup9BrDMBSNko/Ex9v+Jj+RSq/1WQWHp8sc59X4K7LOiRjlvHjotv
-	 ZiAB/WsL2pyUIzb8h2nSFnerZjA9LLxjoLFwAdtJwC/HYxcJUkIm+qBfr0fvIJEQvO
-	 kdBGx63LRouGHQeXSqz2uk7m9hNLSH0ZDbQAstfwCfqmGPBmkj7WxY/9FmOIR2vAXK
-	 kp+6oaWWH/+Z/Siyylq8rRA3vci9Y7XV+7kHKQ3Lkp6hdncdOLX/pd2Tfej0ydmgYi
-	 xjzjAIM3xoifQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: Add Eliza CQS SoM platform
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519-eliza-dts-qcs-evk-v2-2-ad7303659d24@oss.qualcomm.com>
-References: <20260519-eliza-dts-qcs-evk-v2-2-ad7303659d24@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 16:37:20 +0000
-Message-Id: <20260519163722.306FDC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1779208655;
+	bh=nXLH0tkJ6RPAH/3BqTDoqsctKYpVGrgL/TN8VqnLZkY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bqkpJkA5InO1SyA2zR9VDsYzdqRyEGAoyJLPTNy+wgw2d/8XLzM6Crm2MCkv9up8G
+	 iWrDJREUDxWLTFZLnUqKBfN5US8G6JNnJgO65AI7VPg4aqVb3A3S5KEl8h3QVdMVuQ
+	 F2ZyAdtsMMTZAjbojPP0Sm54D/NF2OiKbtmQhJPZ+9kqDtqpTa2VPZQ1b4QpknAvix
+	 rkR6qSj37T3qE5BIM5gs4kb6EwVdY8ori834fDyhUC9STwCe1NsT5iOoLKgxJaVHwE
+	 +cYV6ok4k0wRI0/GWJJ/zOKod1K4pimD3+17bgkE7GEa2suEXxy3OEId/WVEso34F5
+	 FKHZTJROrlXNA==
+Date: Tue, 19 May 2026 17:37:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Teja Sai Charan B <tejaasaye@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: rtc: Convert rtc-cmos binding to YAML
+Message-ID: <20260519-reference-scrubbed-be351df412d3@spud>
+References: <20260519095929.76011-1-tejaasaye@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="q8ynMrF/pYs0LOKs"
+Content-Disposition: inline
+In-Reply-To: <20260519095929.76011-1-tejaasaye@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Undefined labels referenced in the device tree (`&sdhc_1`, `&remote=
-proc_adsp`, `&sdc1_default`, and `&sdc1_sleep`) will cause a Device Tree Co=
-mpiler (DTC) build failure.
---
 
-commit 7ca90443e3e2a64f1e18e601c91556491fa0f444
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+--q8ynMrF/pYs0LOKs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: qcom: Add Eliza CQS SoM platform
-
-This commit adds the Eliza CQS SoM DTSI so it can be included by the EVK
-board DTS. It describes the regulators and board clocks, enables eMMC
-support through SDHC1, specifies the ADSP firmware, and enables the ADSP
-remoteproc.
-
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi b/arch/arm64/boo=
-t/dts/qcom/eliza-cqs-som.dtsi
+On Tue, May 19, 2026 at 03:29:29PM +0530, Teja Sai Charan B wrote:
+> From: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+>=20
+> Convert the rtc-cmos devicetree bindings to dt schema.
+>=20
+> Signed-off-by: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+> ---
+>  .../devicetree/bindings/rtc/rtc-cmos.txt      | 27 ---------
+>  .../devicetree/bindings/rtc/rtc-cmos.yaml     | 55 +++++++++++++++++++
+>  2 files changed, 55 insertions(+), 27 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.txt
+>  create mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.txt b/Documen=
+tation/devicetree/bindings/rtc/rtc-cmos.txt
+> deleted file mode 100644
+> index 7d7b5f6bda65..000000000000
+> --- a/Documentation/devicetree/bindings/rtc/rtc-cmos.txt
+> +++ /dev/null
+> @@ -1,27 +0,0 @@
+> - Motorola mc146818 compatible RTC
+> -~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> -
+> -Required properties:
+> -  - compatible : "motorola,mc146818"
+> -  - reg : should contain registers location and length.
+> -
+> -Optional properties:
+> -  - interrupts : should contain interrupt.
+> -  - ctrl-reg : Contains the initial value of the control register also
+> -    called "Register B".
+> -  - freq-reg : Contains the initial value of the frequency register also
+> -    called "Register A".
+> -
+> -"Register A" and "B" are usually initialized by the firmware (BIOS for
+> -instance). If this is not done, it can be performed by the driver.
+> -
+> -ISA Example:
+> -
+> -	rtc@70 {
+> -	         compatible =3D "motorola,mc146818";
+> -	         interrupts =3D <8 3>;
+> -	         interrupt-parent =3D <&ioapic1>;
+> -	         ctrl-reg =3D <2>;
+> -	         freq-reg =3D <0x26>;
+> -	         reg =3D <1 0x70 2>;
+> -	 };
+> diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml b/Docume=
+ntation/devicetree/bindings/rtc/rtc-cmos.yaml
 > new file mode 100644
-> index 0000000000000..5e0f9c1698f88
+> index 000000000000..e368264ac483
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-
-[ ... ]
-
-> +&remoteproc_adsp {
-
-[Severity: Low]
-Are the labels &remoteproc_adsp, &sdhc_1, &sdc1_default, and &sdc1_sleep
-defined in the base eliza.dtsi?
-
-It appears that these labels are not defined anywhere in the SoC tree,
-nor are they provided by any included .dtsi files. This will cause a
-Device Tree Compiler (DTC) build failure due to undefined labels.
-
-> +	firmware-name =3D "qcom/eliza/adsp.mbn",
-> +			"qcom/eliza/adsp_dtb.mbn";
+> +++ b/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+> @@ -0,0 +1,55 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/rtc/rtc-cmos.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	status =3D "okay";
-> +};
+> +title: Motorola mc146818 compatible RTC
 > +
-> +&sdhc_1 {
-> +	vmmc-supply =3D <&vreg_l12b>;
-> +	vqmmc-supply =3D <&vreg_l1d>;
-> +	pinctrl-0 =3D <&sdc1_default>;
-> +	pinctrl-1 =3D <&sdc1_sleep>;
+> +maintainers:
+> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: motorola,mc146818
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-eliza-dts-=
-qcs-evk-v2-0-ad7303659d24@oss.qualcomm.com?part=3D2
+It's not a problem with the conversion per se, but as sashiko pointed out,
+there's an intel device with a soc-specific compatible.
+Could you document that here, with a fallback to this motorola one
+please?
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  ctrl-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Initial value of the control register
+> +      (also known as Register B).
+> +
+> +  freq-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Initial value of the frequency register
+> +      (also known as Register A).
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    bus {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <1>;
+> +
+> +        rtc@70 {
+> +            compatible =3D "motorola,mc146818";
+> +            reg =3D <1 0x70 2>;
+
+Please be consistent here about using only hex, even if the text file
+didn't do that.
+
+> +
+> +            interrupts =3D <8 3>;
+> +
+> +            ctrl-reg =3D <2>;
+> +            freq-reg =3D <0x26>;
+> +        };
+> +    };
+> --=20
+> 2.43.0
+>=20
+
+--q8ynMrF/pYs0LOKs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagyRywAKCRB4tDGHoIJi
+0o6CAP4j2M/Yr+cksOURVOftThiiuq6DI9l5GLHK4GCmTeliQgD+OPd3ZJ9zJef+
+P8uqrlqPOdGUmpNexYzpRYZ7bics+wQ=
+=XXqO
+-----END PGP SIGNATURE-----
+
+--q8ynMrF/pYs0LOKs--
