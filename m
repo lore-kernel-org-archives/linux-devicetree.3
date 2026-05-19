@@ -1,226 +1,264 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C9F407CEB
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 16:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948492E3709;
+	Tue, 19 May 2026 16:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779207015; cv=none; b=aleVbWYOAoDgaZ/4tEaHN4YkEHuOWKXMcsAkOLn1w7YhCOtHumIrdN3dGBfrZAFmanmlOTOpxBDz07u5p/tZvXvQcLTsw/Jd1z+g3sZhkzCuyDhYJ3MLTWlgljPZS9HADifbZYRiY4zS5gU3NiRzsveRCrE9vPVE+Hlc30+hO4w=
+	t=1779207076; cv=none; b=txrwEahvW6SvDak8ody5LgDCaPXNTUvjknzU40xFzDdyHCxQz9htmcM/gke2nubqLTFJvy8its3wMke1czs1WZadm+At2e0vvfZ9cA9RO370pNxcVUJ8rzK8T8E3+uRqL6IzHTpvpXfZ7GlFF6HkO3JWv0SYl000lga1EolIxSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779207015; c=relaxed/simple;
-	bh=XaLFT2fPvjtPhtK7EZGEuC2Ca9RbQSTVzO6T0boXsiQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Zbv9VfH2RbzRZBvRQnZPLuZPNHHwIZF8ENZLI79+G2sOLueZpLZ56xbKetazftcflGOrTSrCA+WqR9ULjKQTwkbCjIrPptUlOnmD6S6+1skl30C1pP83LTJm0bDIAoCSfhiyJ39vFbk9mJ18dXq9GmHLjVmqrrj+lEzs2AOdLMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J2NDAFGQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AX7f8sqC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779207076; c=relaxed/simple;
+	bh=trZIadoytzbfIBSQtzAvLSVb1hPuPoV+47zfFFPiINo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=laTHgzuz/fgAssTPRaekg0lFbL/jabZA1DRBa/WeQNENngQucM3xJF46U5gAL7TbLTcqUF5IxGCNi3dh636ljoM/W9eQ6tkzBZ5Gd+i56Yl75e+ficfvIjz3mV/Ysb39pBz2bQPGUQtHWgu/mHHKEG6k0OAFdHqKmvnC0s7PHq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VR96cqep; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J2NDAFGQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AX7f8sqC"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JExNaq2984433
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 16:10:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	03CoBdgzu91JgB76Y4skx50oH7eLVv6LNm1qf3EcnHs=; b=J2NDAFGQ6vMFWUns
-	24ItlkRHfM4MQU4ygdKZr6wW7kWazeAmmiS4Ya6pTgMB4fZCJS5HDJXDDd7fyRY5
-	N8dyl+KYSwECpB9iz0mzoefKkJNfgIqu49ddpIWQ5wCDERXW5ZTYtR3jp7Te58AK
-	vtbcGPWpDHlzVyqqFoeKRzSvC58MUA8YjjFYzkvB4j/NUIfcVYQWzfwI/gSNAAjk
-	bsHwUNFRZEX4VpZ7kJ4cRFXbLxXuxGzia38zaYAqO1GqdJ1tf7K5sZr9cGo+klqM
-	2EQz9NhW01k5ESig/BwDyYNrJsTd5JxB225tpejC1bY9yTU6el+SQe/v7kVxsE9I
-	7E53Ag==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3t0b09-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 16:10:13 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-43a0d22ba9bso8211974fac.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:10:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779207013; x=1779811813; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=03CoBdgzu91JgB76Y4skx50oH7eLVv6LNm1qf3EcnHs=;
-        b=AX7f8sqCgAWu4n23LyK+2VrqI12Shk+2oZ/z9nGvGD9S0T+3IUBrOgxoCkmDj9yF2B
-         ec5tz9bUjey2b31BALQeIwnMpXvEL2J+mSBdaRsWdEAO5EXp0NjGSQxZSLwq+g9mzFaE
-         PRG1EhC9acsEVc0KY/PGdsZdFrrM+sRmIajzpx9te/5UAVngaDRhl9LlInMTcesRFokU
-         IXqTZeVksEVMfvMLqjdcG7HdOYKiaMWdfbYENLslQCfzATnVIbnk2z2zWZjwu1JPdimH
-         J+lGJWnBhg9Msy8752PsjXrfBtIIzvLpEInepOxe0Ko6BBDWjFiQKbq7Va6X8/EvvqZo
-         wKsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779207013; x=1779811813;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=03CoBdgzu91JgB76Y4skx50oH7eLVv6LNm1qf3EcnHs=;
-        b=q+WSGxRkc46+IfGBnQklkXh03boFA/H1OdlOHpHtEzCoum68+fyn/22Zm0NgWoPxoe
-         pVq6bVvgxcalz9uYSxwLwNUAGNgdTXlkmjV0k9jnAdvehVhNFqTK73lVrI0YttJ3fKlp
-         NQQjovp85I451+jmyWJ9klnFDhtuvIUqKU+xr5GxWS/uJV173xXemcU8TX91aIuLXenR
-         JOZ99IIqPALrLicfEcvzChw835ooTiQQ0miCbL/XYYoTpUlUrkTVM92tfpqqFCRREJBi
-         SlL4YlgJulgCRFVQKwOJ7EEbtLQhfuXuyc/kgOf/FvIYv0wIPzRhLgM5iGQxybtdX6A/
-         wWNQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8W3uAZ60dpuwhVVAE9RbFYXEmVBI3wy8B1pNY0s2pULI9CD/coam8ws9RJk9rt3UBXp7dQO27khxqA@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpWYDVhufgGJNtlDJkbJ9W588BIrwsX8Yye4oMUZGCmWVhCetU
-	pole8K7IG3majekd3zupH9ixr4uB1G/uHVOe/fTu/mSVowUCS8pQPNVqmxb4lf0E+Ny3OM8nGQQ
-	pdETypWQahJJTGYpytIH2cDzbeRZ4SjusaO+1D4akHmsNy7b3Gj2cY9hyYPNSstAk
-X-Gm-Gg: Acq92OH/H5NKquHZXMOaoShfqBiE2VZjv9Cm5isibTuHSiZHC4vWxfbkN00Jvyzxtg6
-	XtgfnB9ZAIEFgh3EJOHd6JJ9ef3RtExkX9FUH3AgqtWp/rQq/pmLyeQHKKss86VYTXEEpeqEnDO
-	JjkOzb1pfwiCVe394YqUGLAH2JezuHtlRqziSk0/33FQRmQ7ab1xnUuZgfnuIVr0PpdG55pjThH
-	iw71FWVmvxim8BdrjhV2/tGzRRbbm5DmuDQAKUSp/8VQPMqSDH7XBOJHdTRHqLG1LlepMfBO3Xg
-	ciOqmUnSUo5QufX8Jb03XiotRmL5QYcDUAF65qzAM7lC1kg7AjOuKxJEaHVFJQv83ZdfiasYvn0
-	W7tiHUnQt9uIXI1PoRO3c8Fc+tTIwDww6o4vQ7GQ=
-X-Received: by 2002:a05:6820:6ac4:b0:67e:366b:53b7 with SMTP id 006d021491bc7-69c9bfc2b65mr13227708eaf.53.1779207012711;
-        Tue, 19 May 2026 09:10:12 -0700 (PDT)
-X-Received: by 2002:a05:6820:6ac4:b0:67e:366b:53b7 with SMTP id 006d021491bc7-69c9bfc2b65mr13227675eaf.53.1779207012146;
-        Tue, 19 May 2026 09:10:12 -0700 (PDT)
-Received: from hackbox.lan ([188.24.162.19])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5cab7c5sm357874915e9.12.2026.05.19.09.10.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 09:10:10 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Tue, 19 May 2026 19:09:54 +0300
-Subject: [PATCH v2 3/3] arm64: dts: qcom: Add Eliza CQS EVK board
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VR96cqep"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDC43C2BCB3;
+	Tue, 19 May 2026 16:11:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779207076;
+	bh=trZIadoytzbfIBSQtzAvLSVb1hPuPoV+47zfFFPiINo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=VR96cqepf/3WeIsg5BahVa1aibmQHaw0hjEjepqvQBNSgp7W2S2xZlg6In47BZHF2
+	 fBfIzpvClzDOfb9fGSDZc10m2nNe9mcg/vMLZfYI+mCHyI2U/Ak4bIT9OwIXaNjP1e
+	 vfw4AhEo3Sy3bHbbNVqLX4Czu4pcOcu9si1T0zmAouM5FR2KbV45Nr5Cdt8sL13Ke7
+	 icNy9/7q6yYLhlepmD4EJ4Le2O1iACs+AzKX2dW5Kr42LJElbc+8BNwxwdMrqloZx3
+	 ExxErugSKcKNa056cooZ5zFY1+J/U6Ax5w/KySLPQNkhGhxVpGT7CCmzn5d5A3+lGx
+	 ojeaqAwh0lsIg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v23 2/8] drm: bridge: cadence: Update mhdp8546 mailbox
+ access functions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+Cc: Frank.Li@kernel.org, vkoul@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20260519-dcss-hdmi-upstreaming-v23-2-5615524a9c63@oss.nxp.com>
+References: <20260519-dcss-hdmi-upstreaming-v23-2-5615524a9c63@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 16:11:15 +0000
+Message-Id: <20260519161115.CDC43C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-eliza-dts-qcs-evk-v2-3-ad7303659d24@oss.qualcomm.com>
-References: <20260519-eliza-dts-qcs-evk-v2-0-ad7303659d24@oss.qualcomm.com>
-In-Reply-To: <20260519-eliza-dts-qcs-evk-v2-0-ad7303659d24@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-bc6c4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2580;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=XaLFT2fPvjtPhtK7EZGEuC2Ca9RbQSTVzO6T0boXsiQ=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqDItaZYPiDky5mEpVGRNlrTpCFY1NgsqTEuCUr
- Abnk9DXveqJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCagyLWgAKCRAbX0TJAJUV
- VgCbEAC0cUSp6TBDbalA3qC29tZsKh/ot1VLuMcO3w6/Hrv++YawBM3h1gY+dTipm8GtfG/zrZT
- Vbv3QSHhUPTVRIxHLP05h8spR7uTxx9vVvNB4RGm3+4uBU305Gu7hTQmQ2up4Kc5NViLGPRDIIH
- 11PULt6pwqCn7keUz2zHw60Am9brPmUa4b7UhzRoaJUFs4v8yOZHIASQvTwLivrDwPClYcIjLGy
- PN//feq/dvzrz5/714zDbPYKs3Desi7fS3Ds9O+6axz+TEq2DYZYfzpRbq325nrmeXYppwUP/p4
- jhuK5+X39d7SxDDCdCYFqJg33sejAJM4vt1o6atv4oC9xhrgLQxMSwI/MYkYQRmCLohH3mHGvdl
- C2Nz5h40ICL7Zk7OBUhznpiO8Mza0f7zad4pMkyojL+KEoL54imi/e2UgbRJiqDF4P5E7EozhPR
- FeUePhU8ozzNnnWGSy3CXYYL9mO6kIj+WPiOwzk7cSqtYMbdwL8u2Mk7Uw/aEOj2WNQMmBIkupJ
- 2JIrRw+35wo8Va6sfksvAM2pOyAiLPH613PAsLDAAOL+nxH5xRZPR5tS5Tf6n2eEYvxOXERYzaq
- njlr4A+val8G/VaUtqo9oKamfhse1u9TUmyTXcp8aKP1boQ01pgLqBetvJ4MhkvdEK3kMBZdjbN
- L2IjobvFfs8ywXQ==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Authority-Analysis: v=2.4 cv=BOCDalQG c=1 sm=1 tr=0 ts=6a0c8b65 cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=eYxG+yUyFZr/0hLq1CKHgQ==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=nfd1YeTbQLvsyS6wM0MA:9 a=QEXdDO2ut3YA:10
- a=y8BKWJGFn5sdPF1Y92-H:22
-X-Proofpoint-ORIG-GUID: VD9dw6RFoqpwtCx_pU5l5p5wp4rCtQNe
-X-Proofpoint-GUID: VD9dw6RFoqpwtCx_pU5l5p5wp4rCtQNe
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDE2MCBTYWx0ZWRfX+2KBffiwJLtT
- k9sGNNKzP/Kp33hhVaLB2Es5dQ+RqATXB7tWLujrnO/jaiZcjfAVvk26EbJRtsz+KHnyqrha1pg
- sDI5m+pW362WrFSGsliYF7QVuvQ/nSira0U2jNx7cg3u8a6N2E3DLuS8wCgRP+Tzs9WNfWrDhv2
- qE+5F7Vx8AySpP4lCiaQPSODLCko/nAiX5D9ni1+wu8YAWpP1xE5JqWYG5esiR+NPQvmfRQA9a1
- Fh3XdHlp6PgPGVgoBXT6pg5lxbbOIw0urQHhWK9/2NNm+HMS0LRUxprT+DB9hOUdYEWYsdXUxTJ
- 3aOIP1CsLndiPbPb445dcaByWuG05v21xm6l0TA9swW7p8c0StaYTCoqlIH5+olroRa3p98OHY3
- g4Il7th352bVbqTU42xtScYhfnhKhCNnNGxQoFCJCmJm81+h4/cGkBjcm8it2sr5mKJobyPb5ZD
- jVqEte+NGj0RjfT233Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_04,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 malwarescore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190160
 
-The Eliza CQS EVK board combines the CQ7790S-based (Eliza) SoM with the
-common Eliza EVK base board, which provides connectors for different
-peripherals.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
 
-Add a common Eliza EVK dtsi for the base board bits that can be reused
-alongside other Eliza SoM variants. Then, add the final Eliza CQS EVK dts,
-including the CQS SoM and common EVK dtsi.
+New issues:
+- [High] Calling disable_irq() on a devm-managed IRQ permanently disables i=
+t across probe cycles.
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile          |  1 +
- arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts | 20 ++++++++++++++++++++
- arch/arm64/boot/dts/qcom/eliza-evk.dtsi    | 20 ++++++++++++++++++++
- 3 files changed, 41 insertions(+)
+Pre-existing issues:
+- [Critical] Stack-based buffer overflow when parsing HDCP receiver IDs.
+- [High] cdns_mhdp_get_edid_block() silently returns success when EDID bloc=
+k validation fails.
+- [High] IRQ handler is requested and enabled before the wait queues and wo=
+rk items it depends on are initialized.
+- [High] Work items are not cancelled on probe error paths, leading to use-=
+after-free.
+- [High] HDCP work items are intentionally not cancelled during driver remo=
+val, leading to use-after-free.
+- [High] Concurrent read-modify-write operations on mhdp->sw_events can res=
+ult in lost software events.
+- [High] Asynchronous firmware load callback can cause a use-after-free on =
+remove timeout.
+--
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 795cee4757ab..e244e808a647 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -14,6 +14,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= apq8094-sony-xperia-kitakami-karin_windy.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-db820c.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= apq8096sg-db820c.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-ifc6640.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= eliza-cqs-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= eliza-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= glymur-crd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
-diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts b/arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts
-new file mode 100644
-index 000000000000..d1cf08ce19d1
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/eliza-cqs-evk.dts
-@@ -0,0 +1,20 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "eliza-cqs-som.dtsi"
-+#include "eliza-evk.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Eliza CQS EVK";
-+	compatible = "qcom,eliza-cqs-evk", "qcom,eliza-cqs-som", "qcom,eliza";
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <20 4>,   /* NFC SPI */
-+			       <111 2>,  /* WCN UART1 */
-+			       <118 1>;  /* NFC Secure I/O */
-+};
-diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-new file mode 100644
-index 000000000000..e47b24f8b827
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-@@ -0,0 +1,20 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/ {
-+	aliases {
-+		serial0 = &uart13;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&uart13 {
-+	compatible = "qcom,geni-debug-uart";
-+
-+	status = "okay";
-+};
+commit 68527048a69af8f87537e4a9dc19aa348ad8c6b4
+Author: Sandor Yu <Sandor.yu@nxp.com>
+Subject: drm: bridge: cadence: Update mhdp8546 mailbox access functions
 
--- 
-2.54.0
+The patch replaces the basic mailbox access functions with new mailbox help=
+er
+functions for MHDP commands. All MHDP commands passed through the mailbox a=
+re
+rewritten to utilize these new helper routines.
 
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
+s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> index 064c6915c8960..cb151da0db13d 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+[ ... ]
+> @@ -418,28 +118,17 @@ int cdns_mhdp_get_edid_block(void *data, u8 *edid,
+>  	u8 msg[2], reg[2], i;
+>  	int ret;
+> =20
+> -	mutex_lock(&mhdp->mbox_mutex);
+> -
+>  	for (i =3D 0; i < 4; i++) {
+[ ... ]
+> +		ret =3D cdns_mhdp_mailbox_send_recv_multi(&mhdp->base,
+> +							MB_MODULE_ID_DP_TX,
+> +							DPTX_GET_EDID,
+> +							sizeof(msg), msg,
+> +							DPTX_GET_EDID,
+> +							sizeof(reg), reg,
+> +							length, edid);
+>  		if (ret)
+>  			continue;
+> =20
+> +		if (reg[0] =3D=3D length && reg[1] =3D=3D block / 2)
+>  			break;
+>  	}
+> =20
+> -	mutex_unlock(&mhdp->mbox_mutex);
+> -
+>  	if (ret)
+>  		dev_err(mhdp->dev, "get block[%d] edid failed: %d\n",
+>  			block, ret);
+> =20
+>  	return ret;
+
+[Severity: High]
+This is a pre-existing issue, but does this function silently return success
+when EDID block validation fails?=20
+
+If the loop retries 4 times and the condition checking the register values
+evaluates to false each time, the loop finishes with ret equal to 0.=20
+Could this cause the DRM subsystem to subsequently use an uninitialized or
+corrupt edid buffer?
+
+[ ... ]
+> @@ -2338,12 +2005,12 @@ static int cdns_mhdp_probe(struct platform_device=
+ *pdev)
+[ ... ]
+> -	irq =3D platform_get_irq(pdev, 0);
+> -	ret =3D devm_request_threaded_irq(mhdp->dev, irq, NULL,
+> +	mhdp->irq =3D platform_get_irq(pdev, 0);
+> +	ret =3D devm_request_threaded_irq(mhdp->dev, mhdp->irq, NULL,
+>  					cdns_mhdp_irq_handler, IRQF_ONESHOT,
+>  					"mhdp8546", mhdp);
+>  	if (ret) {
+> -		dev_err(dev, "cannot install IRQ %d\n", irq);
+> +		dev_err(dev, "cannot install IRQ %d\n", mhdp->irq);
+>  		ret =3D -EIO;
+>  		goto plat_fini;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but is the IRQ handler requested and enabled
+before the wait queues and work items it depends on are initialized?
+
+Looking further down in this function, the initialization for the work items
+and waitqueues occurs after this point. If an interrupt triggers in this
+window, could the handler call wake_up or schedule_work on uninitialized
+structures and cause a panic?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can concurrent read-modify-w=
+rite
+operations on the software events field result in lost events?=20
+
+The IRQ handler sets bits while the wait routine clears them. Is there a ra=
+ce
+condition here if neither operation is atomic and no lock protects them?
+
+[Severity: High]
+This is also a pre-existing issue, but are the work items properly cancelled
+on probe error paths?=20
+
+If probe fails after the IRQ is requested, for example during the firmware
+load phase, the devm cleanup will free the mhdp structure. Since the work
+items are not explicitly cancelled, could a queued work item execute after
+the memory is freed and cause a use-after-free?
+
+[ ... ]
+> @@ -2408,6 +2075,10 @@ static void cdns_mhdp_remove(struct platform_devic=
+e *pdev)
+> =20
+>  	drm_bridge_remove(&mhdp->bridge);
+> =20
+> +	disable_irq(mhdp->irq);
+> +	cancel_work_sync(&mhdp->modeset_retry_work);
+> +	flush_work(&mhdp->hpd_work);
+> +
+>  	ret =3D wait_event_timeout(mhdp->fw_load_wq,
+>  				 mhdp->hw_state =3D=3D MHDP_HW_READY,
+>  				 timeout);
+
+[Severity: High]
+Does calling disable_irq on a devm-managed IRQ permanently disable it across
+probe cycles?=20
+
+Since the devm cleanup does not reset the IRQ disable depth when it frees
+the irq, won't this leave the disable depth imbalanced if the driver is
+re-probed later, preventing it from receiving any interrupts?
+
+[Severity: High]
+This is a pre-existing issue, but can the asynchronous firmware load callba=
+ck
+cause a use-after-free on a remove timeout?=20
+
+If the wait condition times out, this function logs an error and proceeds,
+eventually allowing devm to free the mhdp structure. Since the asynchronous
+request does not cancel pending callbacks, could the delayed callback run a=
+nd
+dereference the freed pointer?
+
+[ ... ]
+> @@ -2433,8 +2104,7 @@ static void cdns_mhdp_remove(struct platform_device=
+ *pdev)
+>  	pm_runtime_put_sync(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+> =20
+> -	cancel_work_sync(&mhdp->modeset_retry_work);
+> -	flush_work(&mhdp->hpd_work);
+> +	mutex_destroy(&mhdp->base.mailbox_mutex);
+>  	/* Ignoring mhdp->hdcp.check_work and mhdp->hdcp.prop_work here. */
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but are the HDCP work items intentionally left
+uncancelled during driver removal?=20
+
+Because they are ignored here, couldn't they remain queued or actively
+executing after the mhdp structure is freed by devm cleanup, resulting in
+a use-after-free?
+
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-hdcp.c b/driver=
+s/gpu/drm/bridge/cadence/cdns-mhdp8546-hdcp.c
+> index 5cd0b873e16f9..1b5c90af63dee 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-hdcp.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-hdcp.c
+[ ... ]
+> @@ -170,98 +46,52 @@ static u8 cdns_mhdp_hdcp_handle_status(struct cdns_m=
+hdp_device *mhdp,
+[ ... ]
+>  static int cdns_mhdp_hdcp_rx_id_valid(struct cdns_mhdp_device *mhdp,
+>  				      u8 *recv_num, u8 *hdcp_rx_id)
+>  {
+>  	u8 rec_id_hdr[2];
+> -	u8 status;
+>  	int ret;
+> =20
+> -	mutex_lock(&mhdp->mbox_mutex);
+> -	ret =3D cdns_mhdp_secure_mailbox_send(mhdp, MB_MODULE_ID_HDCP_TX,
+> -					    HDCP_TRAN_IS_REC_ID_VALID, 0, NULL);
+[ ... ]
+> +	ret =3D cdns_mhdp_secure_mailbox_send_recv_multi(&mhdp->base,
+> +						       MB_MODULE_ID_HDCP_TX,
+> +						       HDCP_TRAN_IS_REC_ID_VALID,
+> +						       0, NULL,
+> +						       HDCP_TRAN_IS_REC_ID_VALID,
+> +						       sizeof(rec_id_hdr), rec_id_hdr,
+> +						       0, hdcp_rx_id);
+>  	if (ret)
+> -		goto err_rx_id_valid;
+> +		return ret;
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does this pattern allow a
+stack-based buffer overflow when parsing HDCP receiver IDs?=20
+
+If the pointer passed to this function points to a fixed-size stack array,
+and the mailbox helper relies on the receiver count from the external sink
+to determine how many bytes to write, could a malicious or malfunctioning
+sink returning a large receiver count write out of bounds?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-dcss-hdmi-=
+upstreaming-v23-0-5615524a9c63@oss.nxp.com?part=3D2
