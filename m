@@ -1,291 +1,164 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011009.outbound.protection.outlook.com [52.101.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522844921A3
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECD4481FBA;
+	Tue, 19 May 2026 11:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779189177; cv=pass; b=r4SFaHGFBpJhCeWKfXwzyha8ljyAb2sFDxFShW+wM5MTZchKXGrbmfYFkfPLtgfTIyFrNIoCxvw8N3W8zcKMwvD6nH9FLZWuSX+Ejk4xOf20V+KXdnt4qOiXopwI4XyY+xW415SNickENIWOdptqhuVaQHSuJl/kyhX8mGv0Svk=
+	t=1779189228; cv=fail; b=SPbs94Kawarm3vhqkf8oeNzKr+hlt8cYWePsabpkvmbRQjBp1f07DCLzsZHXj/W8l+7cwfkuCVF3ILHWVriZzurJg6ofXCXM19F2eqIdH/sBliK4eEe5U1mZ2rxX+wf4DID9tV5lGyspWQZmSFwXMKpmCBfB48n0o/qysRQA5I4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779189177; c=relaxed/simple;
-	bh=G0ThN/1d1oEYjKqmxKgM7/icL/xC1s/HQwJfFfdz33k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k0+XO2wI0ZeT8olYfUb9PuVHUpAQb4N8Ugr28BvZn2TqVjOoIef5Kg2GKto0Jcu1vweTCDT1uwgz4at5UE/eOlpxPu8Xy60x2+0P5zcMuqPsA9euWtH/Y0pwJeXSfxSjAVVxDnqnIXTppLbr0KyE4birOdlygROj6fYbNIKUwhU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PWwMGAML; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HWMkZjrI; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1779189228; c=relaxed/simple;
+	bh=hQIozGuP72Y46JgsqpUIUz3X5Xs+NSYVPc/tcZmCtXo=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=QWh5YWwJZmt7mfiGE3pSSLm4F3F7yrwb5ueXkYMctK2X9faWg4QkS4V91cZ2+ZwnILlLyDgyxblRLxloSVPBrcJwyySX3RVZLkefa18aG14Vrv9C5xaJqaMAPQyi3jehB7UuJ4C8ExnpHD/IltPS5g0F9YRqZ1aCVCZLInZTPy4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=jETVxXrU; arc=fail smtp.client-ip=52.101.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PWwMGAML";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HWMkZjrI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779189171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oXsqNQngsEDaEw4yQ657tilzkdXWVYHvbpp2A/ZUbBk=;
-	b=PWwMGAMLHUIlLTk6dYx/URA/ZmtB5UH5Pnv+7N6za9jAnAVfqR5+WVpoBrddddAZV+b9Tm
-	VZ6xld7Si9gJ6xZ+xq73tWMLuUz5760veqJMap0zcoTyIJ4vOsJNmKRkPYaS9VtgeEsHSo
-	A9T0gR6VFfK7rlK7eSH2bgYhpSYjFqs=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-574-87TVxIdjMFewmcz9XoRS2Q-1; Tue, 19 May 2026 07:12:49 -0400
-X-MC-Unique: 87TVxIdjMFewmcz9XoRS2Q-1
-X-Mimecast-MFC-AGG-ID: 87TVxIdjMFewmcz9XoRS2Q_1779189168
-Received: by mail-lf1-f70.google.com with SMTP id 2adb3069b0e04-5a86f40bffaso84132e87.1
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 04:12:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779189168; cv=none;
-        d=google.com; s=arc-20240605;
-        b=IsZt3nDkb4VKIktAUxmeS/wX2wOE3Fb/mP0oeP4rKz7huvHV3svkXKJGmv8K/WuZKw
-         fBGZLo0z17DYZRuZoxY9GC1/Zjeurjuq6BtSwsyYKblfbFZJpy0SZTTUmASry0UYzjji
-         JFYQK+KfMNF9tt5dwkf6zE+OYx4+To8P7zG1s7uukJ+vWhy0ozGMSNp5iUlOPWEC+o4I
-         qlY6nBIkfm1+oMYF+x2IrebDNlPnsaq0muxz9QzcY9VyJaD++PbFe9ztV8wXmaKiyKcm
-         BkoO2b9jyOhSg4skh+zmBV0aP1R67q8fQrLtKzmy1YTuuLJtXej/Hj1Ooq/Cl07OO27x
-         AX6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oXsqNQngsEDaEw4yQ657tilzkdXWVYHvbpp2A/ZUbBk=;
-        fh=VRwOaoX3okdRK2xLVRwYzfP/R4qLApQTVaZ0L991yI4=;
-        b=cc6WKuWd7UfDD1EkYxLkd9iwFTbn0f/mPwuqSCjwkySjB+PU9FrYvPDBZ5t475xX8J
-         1W2K/cvxUc6ilqcwfsXooHTM5Q4WG8Yyw5W6me57ar9k1Oq4C9ZkFkltzpB40g1MRwRg
-         rhJb5YfK5bvU9+vTP5CN2uqKbYiaPGdZd7W6bK4lFByVzNFMZ9AX9q9mKkdEEd+QCFgp
-         +uTl5pJQkyK6F1wPtyLjGHcXvx2lmg6+ypZrGyrP0/D+Qrx1mrYqI/oQyioK7YNQq9Lx
-         c5EKfy53eE0KafM8ggLklap5ER1MS9mENcMnbaqRMVHaQs4eW+NsWFKHT3nSO4QOV0An
-         C7ng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1779189168; x=1779793968; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oXsqNQngsEDaEw4yQ657tilzkdXWVYHvbpp2A/ZUbBk=;
-        b=HWMkZjrIQ+RTQ5eKH1BX1z+t/5W31yN3NBzsYBH2hHVKR0AIXlsZWG8vU+/5xkMOQu
-         bAkUkZeesFcvMeojqjGg/f6P8INPyYaoqWOma3Z7prB/GxUJvD4jGQWZFL3SVCYPf9MI
-         zx94xAQlXyzyyUrZjRnkUvP6taxqZeM2UavrfF5MpFVrNmGCt+RuIKsrZPu5LMfSBtLf
-         esMVZ6P2+seaA+hPmT1NyJtA504SbLjhbSE8cQpO4KK/KbM9SBQaOxloTQnfYSDm9177
-         aW873QXzYPgeSMsjgdxrC7McrHw+xQwZ5fglCZKBej77+4HYmF4JuQBS0S2GdgY76DTP
-         2Gkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779189168; x=1779793968;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=oXsqNQngsEDaEw4yQ657tilzkdXWVYHvbpp2A/ZUbBk=;
-        b=UvINfiqjAgMIJwERdNx6ttMGuQFPx5guy27ASISmypOPHdxMV9l0pCGXiYVq2SQQBY
-         vZwXBQOxjmahz1mepR+XVdJYs/MzvaZNUDq6qrTGdNX13qDlvumkCFCSQ7yLW+Hsi5ts
-         HwRQicfa0bmzjyZbrjyFkvSfiRHqRKCdItUpQxmJ3WYlYM6pqeSQaL9MiSrAf9DsyUHc
-         J5nNjyszQH7l9yzegi6l0mbJPdPbCYMFzCtpoyHPgFo3F1KtO6YCjB+n3kOTpzLjIa4D
-         dcbvkO/pGn5vTHZTa7Ja8b90UO0+wVkW3KnhDPyNVAuH/MIITDme5Q1lHj8eVyWR6Iez
-         gpDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ94lO0IvHvJAuLUfR+41QD5hN6UGrCakoDE+Qa/P5IBuORnaWZq/ofufTPmWX4Q9BLItfJ2oA3m0PfU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd3KBF8OowJT9hEQmyl3CrbN8YX3B9JFUfPmL6qNnfKxAzZd0+
-	X63pwA2S+WGozoljUMIpkHr4H1A/8feV12xMzmhFH/VsYfJG7qAuXizXd8yJNIP9X1naSZgA2ZK
-	ZtPOLtIyO5Zlr4EyvnwUDDlZ4Q/uYgmIArutb2+0kzNeEzE0DkB8ApMIuyr6WXggwupjUQxtbAc
-	rd6ro6Z++jORkcdb4lT+NvKbqrLXAeGAm03YSB9g==
-X-Gm-Gg: Acq92OH3b9NBJUhDXMG91/YehOoWyVjVNfcTB/HhFeRApnTkfLP7McKuf22Fvdfgnc8
-	TIYRQp/+SR5UT0YTnz5vXRTXY7OrhWXKt31kGxJEYoXzuqszEa9jYKS9vma+zLEFAspQGFg5JXh
-	jAjdqtD+3tSU6uwL4lV9UuqKAliavOUXCsoWSKbU6iwJQGiK7q5idLCUSryMzrDD5dz01cv7QLX
-	qM2AQ==
-X-Received: by 2002:a05:651c:4119:b0:390:f0e8:a0a6 with SMTP id 38308e7fff4ca-39561eca6a3mr18209451fa.7.1779189168278;
-        Tue, 19 May 2026 04:12:48 -0700 (PDT)
-X-Received: by 2002:a05:651c:4119:b0:390:f0e8:a0a6 with SMTP id
- 38308e7fff4ca-39561eca6a3mr18209371fa.7.1779189167744; Tue, 19 May 2026
- 04:12:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="jETVxXrU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=neKkCdWb9gsuqNmudKv34gdFMRwtb4FAy+JdtHH9aa1Jv92gIpBNGGhWT6MxsSeyTtD7ZFrKUHYJtNDKGhIwZwe299o/pu6HIALktn6l5rx5n2ONP0XlheKk3MKg3Cy3P0hU1UVDBSiQuNHkWgDNyapozl0ecJYogES7cbrkR+kufIYeFfSN7piK4e1WkH0oNrMhJK4tGFDdlRXoVllEKCBI68uBPzioDawQJbYEDBCpd0uHGUjnAfVqYwjGevMBdVA83g82h1LHoY9I56KA//WCIdbMaZBznhU/1WJubFT/gwmN5F91a/T5L49bX3ca4i9DevJiBX8yOPDOyJtlMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tdh3CjzuGSJEHNx0OU17jXPF/ORsSBQDgIZTXXSRpls=;
+ b=ouhYN9BfVgKM8NkrFMs5XocVAfWnbo8MVTXH0JMSTB0er6lrO5IJJiiGq8qFNBMCCNyMM8KEDZF5n/hcsRL03xaxkc0ljipgj8u89FAw1+1KVWcPBOu3DoJ1837FXZg+yjiquD8C6+kWfDAi37hVzw+5VymtmdJDpFw9cx8DyIwgkSsyY4oy7NJsMxwjnWkVN9I55Pqbvcesycn0op/5m0kAaKxoyxxFljlyWQb1XFsy3jb2/rcSLQjlc2MkKC19VmK2TbdWxIs90B/Xn6cVDGQtfKG2jJFXEXFX3yGPa7UhRxzIN/3TgeBvmFXjEcR1+W5BnyaVcwR2q2N8w+0mEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tdh3CjzuGSJEHNx0OU17jXPF/ORsSBQDgIZTXXSRpls=;
+ b=jETVxXrUxdEQiA+79dky5fdynpkkLy45di4mnSUGzsJWBxEfWPgx3QLAlpQ++kwk5BVwYBGUXzmUyqUcu59x3BgNkRdk5AkKlwMuN+8e9KBOfDFoeI3WWlDlCr3n4R7jGY+YJ2KdjMxviRK8DXFhPnwVlsrPIYNL61hrn4jsDbEUq3x6d+dpR/+ODPSNZPI7bjXMn+/M36/ZMVelyCM9/6glw1jxsOleCtiFV9SfMxi5rPlP6adGDpxRj7ZVnXrMs7TIcgo+c7o5KBpkuNGXK7n26FrymXBw3RsB2J72ccsosc6euL13AMej+GvXf6P5StNu+QGz6PbEPpWEqtTdiQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR04MB5765.eurprd04.prod.outlook.com (2603:10a6:20b:ae::26)
+ by DB9PR04MB10009.eurprd04.prod.outlook.com (2603:10a6:10:4ec::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
+ 2026 11:13:43 +0000
+Received: from AM6PR04MB5765.eurprd04.prod.outlook.com
+ ([fe80::bc76:f507:9b83:9d69]) by AM6PR04MB5765.eurprd04.prod.outlook.com
+ ([fe80::bc76:f507:9b83:9d69%5]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 11:13:43 +0000
+From: Joy Zou <joy.zou@nxp.com>
+Subject: [PATCH 0/5] arm64: dts: imx91-11x11-evk/imx91-9x9-qsb: misc
+ cleanups and improvements
+Date: Tue, 19 May 2026 19:15:14 +0800
+Message-Id: <20260519-b4-imx91-qsb-opt-v1-0-9b416d2dc224@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAENGDGoC/32NQQ6CMBBFr0Jm7Zi2UAuuvIdhQcsos4CWlhAM4
+ e5WDuDyveS/v0OiyJTgXuwQaeXEfsogLwW4oZvehNxnBiXUTWjZoK2Qx62ROCeLPiyo69KaWhI
+ pLSDPQqQXb2fy2WYeOC0+fs6HVf7sn9gqUaBzTWl7Yyqnuse0havzI7THcXwBU86mWq4AAAA=
+X-Change-ID: 20260519-b4-imx91-qsb-opt-583b781ee250
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>, 
+ Jacky Bai <ping.bai@nxp.com>, Peng Fan <peng.fan@nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Joy Zou <joy.zou@nxp.com>
+X-Mailer: b4 0.14.2
+X-ClientProxiedBy: MA5P287CA0352.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:219::16) To AM6PR04MB5765.eurprd04.prod.outlook.com
+ (2603:10a6:20b:ae::26)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com> <20260504131148.3622697-2-khristineandreea.barbulescu@oss.nxp.com>
-In-Reply-To: <20260504131148.3622697-2-khristineandreea.barbulescu@oss.nxp.com>
-From: Enric Balletbo i Serra <eballetb@redhat.com>
-Date: Tue, 19 May 2026 13:12:35 +0200
-X-Gm-Features: AVHnY4IysE9Si0e6LCWrqXrdQ4CUJp9E0s70DE65f5jtBnVk_MehFj_WtyF0KyM
-Message-ID: <CALE0LRs5XwjwVXkc+WGtkucs5WGjoHu-Dcd8fLBmqQjz16XdDw@mail.gmail.com>
-Subject: Re: [PATCH v9 1/7] pinctrl: s32cc: use dev_err_probe() and improve
- error messages
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Larisa Grigore <larisa.grigore@nxp.com>, 
-	Lee Jones <lee@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>, 
-	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org, 
-	Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Vincent Guittot <vincent.guittot@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB5765:EE_|DB9PR04MB10009:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6fdaedb-d625-41a4-928b-08deb597b00f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|7416014|52116014|1800799024|18002099003|56012099003|11063799006|38350700014|921020|3023799003;
+X-Microsoft-Antispam-Message-Info:
+	98ah0utQScVn7lkE3D6ud8lDLOi4AxFifA2QPqyV1Lv+uWqvkvp4Uz5r2m/g9sMLbFPP8jv/w4/3osxZhWAG7bplty+pu8QR/8Dbij5W+O2svSSYi/h4QpUAwFrmr85Lrd+FXwU8GVSdKg4RtV4YZ+SxbX2eaZhNVU4+u688Y45/vYX7jWrDwjAo81nnQ28HA1mpplueyReIy1v2LlAf517YYvz3TkQU2thK3PQU6/vk2VxH/OLtDECE+M2uIglTP0iOssfvoc1t6rxb6qy73NQFhAfzcxwBpA534tggrPrzfahNujsjR05wwfq/+eSGKW+EsXZcGv+3mjuUal4ouF8r7uqqIS3EXmGrKSM+EyJOMrJfRjpUXUiBHu2crfFarR39mIH1q8+5QwPc/tnvyYsJv2pRAPf3WR9J7qGnO96DZuxvk9bqzQE27L+2XpYV7KAK13+E3R23uXahV+umKMa78dQTe4eepAtV+DX/l8/+qa5l9J60hUK85MEmogcLhxywN4+bhh/SCtBR9kpWh/+UBWpUtD3zwe6z+zkxCE+QvEUP23cwI+OQnK+PvF54dfuimtbAOyqxHU3NcvAqLDUQ3rpsenI8o91ZTgHS9Hr0y37TNAbBzoQcKAN0Np60SSJ2xu12jc30k0rCaV+XaaN2HYYF5OFOqZxGcd+AFQ1rXux7oqDNmBvD2gm7HbwYgDk1VxwAHpbZ/lxQ4t0w5d265I0JFDU8KH+V2N1zYur8D7TndpJZaP81it7ZxPJK3polc4GvSK6llP6fkiaMRg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB5765.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(52116014)(1800799024)(18002099003)(56012099003)(11063799006)(38350700014)(921020)(3023799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y3QrejNBWFljWmZLR0dwWEJ5NjJrL0QrOWZBK2JDWEU3b2oyL0xSUHhjSHZm?=
+ =?utf-8?B?T2FVVVlZdnozSVN5czcrek5CZk1xdTJ2MjlVcHNRaDVSRjkyeG1MZzFMUElO?=
+ =?utf-8?B?R1VUZVB0aXhDeUl0d0UrTFN5WWhDQVRibmZMUUprUFlpMC8weWhRZzFzTUlX?=
+ =?utf-8?B?dnBZMkdHWVl2VUwwbytPeGZVRFgyQlZ2RWJrbU10TVNHazgvc1d5bGhMS2Nt?=
+ =?utf-8?B?MmZLR2JsaG01dGxJQytqM0FzYmJjUVdHRytYa3RFcVZhVW8xajdsNVN5SFc4?=
+ =?utf-8?B?ZDlXQTZXNWlJNWVjL2FObjYyVHpGMFdEc0pXWENQdDRVUWZOVHErRTlVYS9Q?=
+ =?utf-8?B?TDJ3c3A5S280TGZjOHIzSEFDWXBMRW9pd1ArRlVESEh1OFdNRklYc3gwbk1E?=
+ =?utf-8?B?KzJhT3hkREp2WktQOUFMSlBnQWZmbXBqU3FpdHhYOVJhbVVxeHVrOVFnVGF6?=
+ =?utf-8?B?UFNDbGVDZkpVWkpZTHJMYVdaSWhoK213NEVIL29QRHZsbG83SEltYnZNYS9H?=
+ =?utf-8?B?cVc5cDlSUEQvTU43TDNpdEhWMTI3U2ppVy9QNEhVcFZLRmdTb0k2TXR4VWJL?=
+ =?utf-8?B?YktlaWpxYWlPcTA2bkVKT3FFVU52cklOZXZSV1hYVkVvNFNTbVlZd1R6WDA0?=
+ =?utf-8?B?Y01UZ3ZmdVdaM09WeXhTbmdsTmZkNk5YSkJFcXptSmJ6ek1aeW5iUlU4WEtz?=
+ =?utf-8?B?K2loVWd5MU1ubkxUa2VNY2tITjdUME5GYW9vU3dkY2xiaHlvZmJNTjJSM2pZ?=
+ =?utf-8?B?bXNBbmg0elREU0NnRDNNWFFJaVk5eE01aVJvUm81ZjlsaWh2ZEx2OS9zU2xh?=
+ =?utf-8?B?RTNJTHlQSlZjNTlFVnlLckwxVmRkS1NTL1d6N0hjbjBtZStvbEhadi8vLytI?=
+ =?utf-8?B?bEpFYndkNkppdVFVbEZFanpqVklRaElPa1RYMjY0ZUk5WFNtUGsybjA2MzBi?=
+ =?utf-8?B?bmJZcndLNEwxdUdDU1krZVZpZ25FVHVYdEJDbW95dm9TR3hlc3JWZCtaRmdt?=
+ =?utf-8?B?bk1vNUJWRkYwUjlIQ0xYbDdQZGh1ekY3QTY3eWhmcFFXOFhXSmdmYTRhWUhJ?=
+ =?utf-8?B?cEU4dDRMcWc3RWE0S3FHUXU0OGI0SCtZcGdUS0tZRHcxem9TMHZ5L0NsZEJZ?=
+ =?utf-8?B?RzRqekVTUWcrbTNoSjhpQXRhbHd5YzliWTVwQVJyK2tPeDE2eGhoSzVUUisx?=
+ =?utf-8?B?S1h2ZXc0N3lsam5MQWp2WlBNeU1kdFg1MDE3TElhc3lEM0drNXhoYUVuRFRt?=
+ =?utf-8?B?NEl0VGlsUDJRMGhBaDhrcXZ2UUx3UzVPaUNNMTV2bmVXOHhnay9oT1AzcXhl?=
+ =?utf-8?B?UlZDUGEyS3BtUnBpUHVwS2lzRE5ubHlYbi9naTlaWWpabUdjVTFqeWlPcjBH?=
+ =?utf-8?B?MDlsQnJWNEU1RSttc2xXT3hkWDRHRnpZMmRlS0JEZ2YvMTJIMXFBaEYzWlJ0?=
+ =?utf-8?B?aGlFc2RESGY3SzFKUzhUS3l2R0JBdmhtdUI3WE8vMnF5cDR3alNsckNqaVJ2?=
+ =?utf-8?B?ZkhxNVQ4Mnp0ZG9mYmNBejMyS3U5ZEJ1bXBGTlhzWi9ncEd5amg5Ui90NlYr?=
+ =?utf-8?B?RDhyRlUvcTBLNDhpeWUvd0JxY0VLb3pYZ1ZuekNJUDFlWmFiOGdVT1AycWY4?=
+ =?utf-8?B?YUxvamtZMjJ0MnVxTWtBYnF2dlozTEx5OXV4dzUrTTFEcnZlNEtDYlNxODZo?=
+ =?utf-8?B?ZERtM3kybkFCK0xWd1E4T3pIUkpuQ3ZiaWJKV1VFKzNNMXRCU1hGT2tzK3pZ?=
+ =?utf-8?B?bURadjRNcDdkVXZ0TGFrS1Z2RnNHZFFXTmROREcyQjR0ZlFDc1U5S3BKYVQy?=
+ =?utf-8?B?SmhKUEhLdzFBNEpBY2JOOWJrSG5jVXBMMVRTZ1BwMTVHU2RPMmRVdGtVc3Ex?=
+ =?utf-8?B?R2FQc2liY21OaFdidXlFVm9PMkVGNndDNWJCcGlaRlkzK2h4T21QeU0wRXpm?=
+ =?utf-8?B?cDlLTWhIVkF1dU5nY1NQRXkydGpqQlZHQjJHNFFCSzhoRnZxb2NHYmVMS3FV?=
+ =?utf-8?B?TWtiZkhjNjF6RWJXR3I0R0kvNWhCemUrRHZQV1g1dGdnS1kyblZrNjBBMUxi?=
+ =?utf-8?B?bVM1T0ZBanRQb0hyYWZxeWdHbU1jWktUQXdYdEs5SEVnRkV5UWFTR2wxMkRZ?=
+ =?utf-8?B?ZThveDBLMjFSTWVSemJGY0lrMHptaEFET0RWWFRYM0FzNFI5R0hlVElIVXVh?=
+ =?utf-8?B?ODFTaFZtcG51aDFOb21QcjNpbDBzOFV1NVZua3pFTDJHTXAyMnZaWkhtUjNv?=
+ =?utf-8?B?ZWJvZ0hQamE0azVEZmZ2Wk9VN1JqdkJpWGVXcUE2NyttZi9lTGhVWS9VZDRr?=
+ =?utf-8?Q?rIEhoEvLgVL+nVNXjK?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6fdaedb-d625-41a4-928b-08deb597b00f
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB5765.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 11:13:43.2607
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8HlM3zvpVEtOIOhTVVze0tmRMs74uQJsw8pmnc1uU6zeJfxQuM3EnGh32eEaSXi0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB10009
 
-Hi,
+Remove unused clock-frequency property from mdio node for i.MX91 QSB.
 
-On Mon, May 4, 2026 at 3:12=E2=80=AFPM Khristine Andreea Barbulescu
-<khristineandreea.barbulescu@oss.nxp.com> wrote:
->
-> Change dev_err&return statements into dev_err_probe throughout the driver
-> on the probing path.
->
-> Signed-off-by: Andrei Stefanescu <andrei.stefanescu@oss.nxp.com>
-> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@=
-oss.nxp.com>
-> ---
->  drivers/pinctrl/nxp/pinctrl-s32cc.c | 64 ++++++++++++++---------------
->  1 file changed, 30 insertions(+), 34 deletions(-)
->
-> diff --git a/drivers/pinctrl/nxp/pinctrl-s32cc.c b/drivers/pinctrl/nxp/pi=
-nctrl-s32cc.c
-> index fe7cd641fddd..56be6e8d624e 100644
-> --- a/drivers/pinctrl/nxp/pinctrl-s32cc.c
-> +++ b/drivers/pinctrl/nxp/pinctrl-s32cc.c
-> @@ -2,7 +2,7 @@
->  /*
->   * Core driver for the S32 CC (Common Chassis) pin controller
->   *
-> - * Copyright 2017-2022,2024 NXP
-> + * Copyright 2017-2022,2024-2025 NXP
->   * Copyright (C) 2022 SUSE LLC
->   * Copyright 2015-2016 Freescale Semiconductor, Inc.
->   */
-> @@ -236,10 +236,10 @@ static int s32_dt_group_node_to_map(struct pinctrl_=
-dev *pctldev,
->         }
->
->         ret =3D pinconf_generic_parse_dt_config(np, pctldev, &cfgs, &n_cf=
-gs);
-> -       if (ret) {
-> -               dev_err(dev, "%pOF: could not parse node property\n", np)=
-;
-> -               return ret;
-> -       }
-> +       if (ret)
-> +               return dev_err_probe(dev, ret,
-> +                                    "%pOF: could not parse node property=
-\n",
-> +                                    np);
->
+Add watchdog pinctrl configuration for i.MX91 EVK and QSB to support
+external reset output.
 
-Nitpick: I think this is not part of the probe path but is called when
-a consumer requests a pin group, so using dev_err_probe is slightly
-misleading here, although I think it's harmless.
+Add Ethernet PHY reset GPIO configuration for i.MX91 EVK and QSB to
+ensure proper PHY initialization.
 
-In any case, with or without that change it looks good to me, so
+Signed-off-by: Joy Zou <joy.zou@nxp.com>
+---
+Joy Zou (5):
+      arm64: dts: imx91-9x9-qsb: remove unused property clock-frequency from mdio node
+      arm64: dts: imx91-9x9-qsb: add pinctrl for wdog3 reset
+      arm64: dts: imx91-11x11-evk: add pinctrl for wdog3 reset
+      arm64: dts: imx91-11x11-evk: add reset gpios for ethernet PHYs
+      arm64: dts: imx91-9x9-qsb: add reset gpios for ethernet PHYs
 
-Reviewed-by: Enric Balletbo i Serra <eballetb@redhat.com>
+ arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts | 14 ++++++++++++++
+ arch/arm64/boot/dts/freescale/imx91-9x9-qsb.dts   | 12 +++++++++++-
+ 2 files changed, 25 insertions(+), 1 deletion(-)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260519-b4-imx91-qsb-opt-583b781ee250
 
->         if (n_cfgs)
->                 reserve++;
-> @@ -763,15 +763,15 @@ static int s32_pinctrl_parse_groups(struct device_n=
-ode *np,
->         grp->data.name =3D np->name;
->
->         npins =3D of_property_count_elems_of_size(np, "pinmux", sizeof(u3=
-2));
-> -       if (npins < 0) {
-> -               dev_err(dev, "Failed to read 'pinmux' property in node %s=
-.\n",
-> -                       grp->data.name);
-> -               return -EINVAL;
-> -       }
-> -       if (!npins) {
-> -               dev_err(dev, "The group %s has no pins.\n", grp->data.nam=
-e);
-> -               return -EINVAL;
-> -       }
-> +       if (npins < 0)
-> +               return dev_err_probe(dev, -EINVAL,
-> +                                    "Failed to read 'pinmux' in node %s\=
-n",
-> +                                    grp->data.name);
-> +
-> +       if (!npins)
-> +               return dev_err_probe(dev, -EINVAL,
-> +                                    "The group %s has no pins\n",
-> +                                    grp->data.name);
->
->         grp->data.npins =3D npins;
->
-> @@ -812,10 +812,9 @@ static int s32_pinctrl_parse_functions(struct device=
-_node *np,
->         /* Initialise function */
->         func->name =3D np->name;
->         func->ngroups =3D of_get_child_count(np);
-> -       if (func->ngroups =3D=3D 0) {
-> -               dev_err(info->dev, "no groups defined in %pOF\n", np);
-> -               return -EINVAL;
-> -       }
-> +       if (func->ngroups =3D=3D 0)
-> +               return dev_err_probe(info->dev, -EINVAL,
-> +                                    "No groups defined in %pOF\n", np);
->
->         groups =3D devm_kcalloc(info->dev, func->ngroups,
->                                     sizeof(*func->groups), GFP_KERNEL);
-> @@ -886,10 +885,9 @@ static int s32_pinctrl_probe_dt(struct platform_devi=
-ce *pdev,
->         }
->
->         nfuncs =3D of_get_child_count(np);
-> -       if (nfuncs <=3D 0) {
-> -               dev_err(&pdev->dev, "no functions defined\n");
-> -               return -EINVAL;
-> -       }
-> +       if (nfuncs <=3D 0)
-> +               return dev_err_probe(&pdev->dev, -EINVAL,
-> +                                    "No functions defined\n");
->
->         info->nfunctions =3D nfuncs;
->         info->functions =3D devm_kcalloc(&pdev->dev, nfuncs,
-> @@ -919,18 +917,17 @@ static int s32_pinctrl_probe_dt(struct platform_dev=
-ice *pdev,
->  int s32_pinctrl_probe(struct platform_device *pdev,
->                       const struct s32_pinctrl_soc_data *soc_data)
->  {
-> -       struct s32_pinctrl *ipctl;
-> -       int ret;
-> -       struct pinctrl_desc *s32_pinctrl_desc;
-> -       struct s32_pinctrl_soc_info *info;
->  #ifdef CONFIG_PM_SLEEP
->         struct s32_pinctrl_context *saved_context;
->  #endif
-> +       struct pinctrl_desc *s32_pinctrl_desc;
-> +       struct s32_pinctrl_soc_info *info;
-> +       struct s32_pinctrl *ipctl;
-> +       int ret;
->
-> -       if (!soc_data || !soc_data->pins || !soc_data->npins) {
-> -               dev_err(&pdev->dev, "wrong pinctrl info\n");
-> -               return -EINVAL;
-> -       }
-> +       if (!soc_data || !soc_data->pins || !soc_data->npins)
-> +               return dev_err_probe(&pdev->dev, -EINVAL,
-> +                                    "Wrong pinctrl info\n");
->
->         info =3D devm_kzalloc(&pdev->dev, sizeof(*info), GFP_KERNEL);
->         if (!info)
-> @@ -965,10 +962,9 @@ int s32_pinctrl_probe(struct platform_device *pdev,
->         s32_pinctrl_desc->owner =3D THIS_MODULE;
->
->         ret =3D s32_pinctrl_probe_dt(pdev, ipctl);
-> -       if (ret) {
-> -               dev_err(&pdev->dev, "fail to probe dt properties\n");
-> -               return ret;
-> -       }
-> +       if (ret)
-> +               return dev_err_probe(&pdev->dev, ret,
-> +                                    "Fail to probe dt properties\n");
->
->         ipctl->pctl =3D devm_pinctrl_register(&pdev->dev, s32_pinctrl_des=
-c,
->                                             ipctl);
-> --
-> 2.34.1
->
+Best regards,
+-- 
+Joy Zou <joy.zou@nxp.com>
 
