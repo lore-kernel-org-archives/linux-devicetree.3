@@ -1,141 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCB531ED80;
-	Tue, 19 May 2026 08:31:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516B63E0239
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779179475; cv=none; b=mPBgGp70dCY4wLkILTNg0Hv061hvmrfmYU7DnhmOnqgGyPEbTrZqqBjpHh4ZYLLe4Z7EnVLjf6dBtJPLdHaS8f89lDD/nd93tVvsZSy3wFyqnpTylkODqDXei+nnTWbg5ODcHRFLYTClhn1llT01tK/M1x9dW0ckmr29fz7SHcc=
+	t=1779179480; cv=none; b=NhVIkadQfbE+VT/S2aJBkJHdQVKN22HPw5urONJWdQMVj2wuK/ncioRNTJIHiLzWH7wAVsicBV8SYUDkLvRIa4RLH7dR4oMuBuUFZMhmcu9JAANcLg7jmK/RYoIiorHQ7j/OtcSk+KYKwlCvjsKdavWU68MZl6m7oiIjqRdm4C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779179475; c=relaxed/simple;
-	bh=Io93NkVGqxQcKu7wcpYV8CEw6O34JYizbrdKAnre7Ss=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OP3HhHx6u/XfYpF5jpK+dDdF64HNLiFtSOMTz3/8GajHcxIu1FD3o5N+DzRY4h/uQIsv+oiiU+OhzrAMm7IOAzTPWtujn5PVBDE750Zkudsc3vftCdIGWWEAB8g5LCU48LzeAEjc8jaah5E/VCiE0dGzuI07qv1Ynl2N4Kb4gok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FokOUq18; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779179480; c=relaxed/simple;
+	bh=gYstxcuWc96pDbCmO9hN3d3Df6cw8nt86KfRpF2dMc0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hYm/E7M6I8E2cpdKlbSwkheOlqN5BRaLBoPGXip0ZFS+t/wH3+Qq/ooDGhwgqT+eWaCHDYjvChiVscUxuftDa9dZe+v13ErUwsCwWTfaYCOjJ9YCMW7eFBqhmA1TGby/AkuIfnxpd3r7mX8Js5yajTknDfLx5jT3rjBASXzGtTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcQmoS6G; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FokOUq18"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854ABC2BD04;
-	Tue, 19 May 2026 08:31:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcQmoS6G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1E8C2BCF6
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779179474;
-	bh=Io93NkVGqxQcKu7wcpYV8CEw6O34JYizbrdKAnre7Ss=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=FokOUq18e/ahZGUtWQF7In17uayLI5l2wmSyiRDl6ayoET+SuDCR/fY0OE/FQ/6O8
-	 +k6vxBTxUCN/sHhqVyoXaS7v+QvlaTG1fWfEe6FoEwMcA+91+sjlX8fzi+PEVhJpRZ
-	 60CUM42yaZef34CallSz2dma34h7JETu0gIEpE0SKW6FRKi64KDVMDwziMooU2E5KS
-	 pqA7MlwIuqDuujo87pUwpuSYZHLMKzyOf1PTX40OQjszxPbfH2KbNXnEnEUEiFbYGY
-	 1ZEz98FjCALD6DDeqavkUmMP+3j9UbVwyBCszicqLkl/1jythQnoiSHtDQA8iO/fcb
-	 0+r4C+n4W2u2Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] hwmon:(pmbus/xdp730) Add support for efuse xdp730
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "ASHISH YADAV" <ashishyadav78@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519075558.91466-3-Ashish.Yadav@infineon.com>
-References: <20260519075558.91466-3-Ashish.Yadav@infineon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 08:31:13 +0000
-Message-Id: <20260519083114.854ABC2BD04@smtp.kernel.org>
+	s=k20201202; t=1779179480;
+	bh=gYstxcuWc96pDbCmO9hN3d3Df6cw8nt86KfRpF2dMc0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=dcQmoS6GLFi2R0yaK0C+WYP8gkJewzayiAjBXzXfT2KcyF9dSeBYIddmtSFZtBWHU
+	 O3DHth1w+2iP4VE1/+TCuDrZtuO/MvbRD+/IeJ7MCnPFz3/JCBhBrKwCjySS/kzVC6
+	 k0UtWCTfrG54Q87sNtpV2drr5qvL+Vh/SJi6BxmRE1hO/6PS9li7m+OvpeFZkNLibk
+	 oiEGK6BoYE7HYf8Q/6oXBtDdmTCTriNYHqCotL0fi4SZ09Wt21k4uNzeoakik30+lm
+	 xp/PeYQgwws2zh+kiQPKBaIpfFuiTkK9T+lvBcznaEzGQRP2vxEJqNZtuvC0yZzG9D
+	 /wIRXTeiCkuNA==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a88db610ccso3830281e87.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:31:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9TQVi0PxGx/zWMZyvKeq/8sD+Xai2QU6r+ZncVxpzEOGxb/rwpoJHmLxRxAbqGqIFCyuesxNIb5u/6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwD3CZvRPWorRQ5mumafh3mgdvkDmiCoJ60+bPywbQfa59aCHpY
+	L9qi2SzbTtnLRlxFVPv+GS4kldjsgAfXlP0BRtzfxdGpKZ6pdXwKMbsBS95XdavIqtXIa1Z/kU6
+	m/gH5SPssz6+yCDT16DktUD8szKyYzeU=
+X-Received: by 2002:a05:6512:1286:b0:5a8:65c8:dd90 with SMTP id
+ 2adb3069b0e04-5aa0e73f4d5mr5272064e87.4.1779179478814; Tue, 19 May 2026
+ 01:31:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr> <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
+In-Reply-To: <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 19 May 2026 10:31:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
+X-Gm-Features: AVHnY4IFkYYcJkwE7oBtW7Rq4mnePDIoacVSym4JzKnPjR_3OiAFXxYaV2dbJIA
+Message-ID: <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before enabling pinctrl
+To: contact@alex-min.fr
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, iommu@lists.linux.dev, 
+	phone-devel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] Usage of firmware-specific `of_property_read_u32` instead of firmwa=
-re-agnostic `device_property_read_u32`.
-- [Low] The `xdp730_info` template structure is not marked as `const`.
-- [Low] Missing explicit `#include <linux/regulator/consumer.h>` for `devm_=
-regulator_get_enable()`.
---
+Hi Alexandre,
 
-commit c84eadae1a13e6d451b4eb98ba41bc9f1c1c537c
-Author: Ashish Yadav <ashish.yadav@infineon.com>
+thanks for your patch!
 
-hwmon:(pmbus/xdp730) Add support for efuse xdp730
+On Tue, May 19, 2026 at 9:16=E2=80=AFAM Alexandre MINETTE via B4 Relay
+<devnull+contact.alex-min.fr@kernel.org> wrote:
 
-Add the pmbus driver for Infineon XDP730 Digital eFuse Controller.
+> From: Alexandre MINETTE <contact@alex-min.fr>
+>
+> pinctrl consumers can request states while the pinctrl core enables the
+> controller. On Qualcomm pinctrl drivers this can happen before the SoC
+> function list has been registered, which leaves the function table
+> incomplete during state lookup.
+>
+> On APQ8064 this can fail while claiming pinctrl hogs:
+>
+>    apq8064-pinctrl 800000.pinctrl: invalid function ps_hold in map table
+>    apq8064-pinctrl 800000.pinctrl: error claiming hogs: -22
+>    apq8064-pinctrl 800000.pinctrl: could not claim hogs: -22
+>
+> Register Qualcomm pinctrl with devm_pinctrl_register_and_init(), add the
+> SoC pin functions, and only then enable the pinctrl device.
+>
+> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
 
-> diff --git a/drivers/hwmon/pmbus/xdp730.c b/drivers/hwmon/pmbus/xdp730.c
-> new file mode 100644
-> index 0000000000000..ea8968de9f267
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/xdp730.c
-> @@ -0,0 +1,128 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Hardware monitoring driver for Infineon XDP730 Digital eFuse Controll=
-er
-> + *
-> + * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-> + */
-> +
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/of_device.h>
-> +#include <linux/bitops.h>
-> +#include <linux/math64.h>
+I think I've seen this one before, if Bj=C3=B6rn or someone else from Qualc=
+omm
+can review this and test on some other hardware it would be great.
 
-Is it possible to explicitly include <linux/regulator/consumer.h>?
+But if there is no reaction I might just merge it so something happens.
 
-The driver invokes devm_regulator_get_enable() below but relies on indirect
-inclusion, which might break if subsystem headers are refactored in the
-future.
-
-> +#include "pmbus.h"
-> +
-> +/*
-> + * The IMON resistor required to generate the system overcurrent protect=
-ion.
-> + * Arbitrary default Rimon value: 2k Ohm
-> + */
-> +#define XDP730_DEFAULT_RIMON 2000000000 /* 2k ohm */
-> +#define XDP730_TELEMETRY_AVG 0xE9
-> +
-> +static struct pmbus_driver_info xdp730_info =3D {
-
-Could this template structure be marked as const?
-
-It is copied per-instance during probe via devm_kmemdup(), so declaring it
-const would move it to the read-only .rodata section and prevent accidental
-modifications.
-
-> +	.pages =3D 1,
-> +	.format[PSC_VOLTAGE_IN] =3D direct,
-> +	.format[PSC_VOLTAGE_OUT] =3D direct,
-
-[ ... ]
-
-> +	ret >>=3D 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
-> +	ret &=3D GENMASK(0, 0);
-> +	if (ret =3D=3D 1)
-> +		gimon =3D 20000; /* output gain 20 microA/A */
-> +	else
-> +		gimon =3D 10000; /* output gain 10 microA/A */
-> +
-> +	if (of_property_read_u32(client->dev.of_node,
-> +				 "infineon,rimon-micro-ohms", &rimon))
-
-Should this use device_property_read_u32(&client->dev, ...) instead?
-
-Using of_property_read_u32() restricts the driver to Device Tree-based
-systems. If the driver is instantiated via ACPI, client->dev.of_node will
-be NULL, causing the read to silently fail and fall back to the default val=
-ue.
-
-device_property_read_u32() from <linux/property.h> would seamlessly support
-DT, ACPI, and software nodes.
-
-> +		rimon =3D XDP730_DEFAULT_RIMON; /* Default if not set via DT */
-> +	if (rimon =3D=3D 0)
-> +		return -EINVAL;
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519075558.9146=
-6-1-Ashish.Yadav@infineon.com?part=3D2
+Yours,
+Linus Walleij
