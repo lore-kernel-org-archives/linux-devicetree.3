@@ -1,166 +1,181 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012039.outbound.protection.outlook.com [52.101.66.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A613C0619;
-	Tue, 19 May 2026 21:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779225876; cv=fail; b=ju+R81lHHAp5Yy7VaWueqRUNnihAMACD2iGQ3zfXOR9vgtgWIZOYwiCz7osViJIXD56dr+TL19jYHJb7Z4+lP6I94a6b7k7g9zvsZtOjOcARSCjDbDZxLvCDt+TvAJp+8yVvlrAJMnEro66ZR+IVWn8+TwOeSR7Zkj2TzlEbsnQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779225876; c=relaxed/simple;
-	bh=eTU+Fg4gEOZhtG3WFhWutNfn4xLqrxWsUhAwOPJZteo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oQbPLeL/ke3LeXCBnlwr+DMcGCxqwUGdLVl0MCfE5udyyTIBmopHSEBErui03ZgIzi3L6ECGWOEDL92ZYgduQkW2tz9E7aRd5SDKytrdn7jIFmhxKrrAcxZOtidUTpcyJbtbjdJKLyddaTkq5Upw+V99mI7u8ktQojrEqooul6A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=KvFyEDGH; arc=fail smtp.client-ip=52.101.66.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01101367B69
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 22:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779228507; cv=none; b=UyqJ7vNnajH8LPdZvXQuI5a+COV7V3+4HKKufYr+VeRt92hQ6hENniZLzrGcnAjWi9RHtfI+5sSvidAeva6Ygx1uDqG+P0xc5gVk1bK7ODyrPbhYs785Vg6ABc8XUfvyzakw2Uhl5b+xOG7ZBIDvl1XLOXZXuVyPqMEubbkoTqw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779228507; c=relaxed/simple;
+	bh=G/Nrw3cfains+j9k1LacJdGljge49H6XmskKVoFGD5I=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=hrai0OfMpS49E5ML8gkkVoqWLhVYJT/WYVPHpMfYjMRmGvUyDFhh1hUCsTNx1OFMpk1ljKh2x40ogOwr5qYPiGlJnNdZXELRi+fUyXV9pBFmFVjT5MDdErGkY/sT5VP7AEIdq/UhIJgQqeB2IN7htrnzUxOOIw/MgUL+8RmvkFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DlBwndkJ; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="KvFyEDGH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cbi1ABCYSnhWXNE3FsNvnDdBxIyw0aNLDmPywi8+seEqrczMgRonM49OMxCZMPVA+dW1UN+f5Ig4/DcIt3laQ3v5H+lzyEcxO4dmYdEzpvDHIGD1Q3dCfzOxzuMj5i8puJXT1z756/BpPQDgxWkFXhCzaJXDiBuFO0TCJqtq6l1EZJ0cW00hpgi0o0jysV5PrQF9AwN56t6elBz7rbSEBBBI7kSHSkhzLK+c3QkYTDkVcGjGBe8QAGHU6guPvuY3bJZaTjaWJQ5HAlrZMzQWn1dFjuxpsckr3wa3x86U1QBjRmrXbmcUSTlKEt1onoh5ikZVyXAR3hEOxAfLxXYk/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e7j1RIeWXFFkERxDoi1YTZj9Yg/v4yEl0amaPeV9rwU=;
- b=C3+VV5ABuyAYHoh1WUgblv3vi66jurAsXeyPfVIL1TBwNHYiKK6odJ82npbgZSogGrHzVnufNm+MJ1Sgn/R11gP+rCHRpRsm7f04cKTPbrD7XBA7RwDldovkw5u9WlHoyeZhP660OjD+Ioeu+qcTTBY1olGW0gDWKl5wNgT4YBtCwYmtJN9p5NdIPGDHqt+Xq6QT/Vy+Ti9ykVSm328vXwRxvAB9UoKwRpUScf4fZWd4dTa3rzoAF47sDiKt+/3t7JHgsSgDo9HEn1ROw+MnYaZQzpY+VYBSwTaLK703h0Q1Of8O+JLOdJYUnhgGZ5w+ouOasqMV0N0P6jllzzz0EA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e7j1RIeWXFFkERxDoi1YTZj9Yg/v4yEl0amaPeV9rwU=;
- b=KvFyEDGHjJQLwJ5p/jMDO/rY86RqXTV67RouvoEo32EIPuWvf6rnk/Eo7IVBIF93yXbxLgPNF6iwBWCiiuiXvYBXpydhCmqlnjw9eiXZ6qFkFZwwsmCRpia4cTy5gSReHmiEPLL8Deuq4GVTkv6DPbnkZqgqCeadYUOP1u2627g5CIGHrUi1VHSFoLD6ihQ9GZLf+J7Q362xDT3SDy6tqFdNdUf++MjkdoqbevssMTLg5EFpCMb05BHRor2UANtgaRtlWAmZQmXgF6mM/l9nbstTbpTJDuinsH8Z/NECmPlN9E7BVUvg13iNEojz9fqSe+FY1RYEOANQ3wl55jownA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM8PR04MB7762.eurprd04.prod.outlook.com (2603:10a6:20b:241::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Tue, 19 May
- 2026 21:24:32 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 21:24:31 +0000
-From: Frank.Li@oss.nxp.com
-To: s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	hongxing.zhu@nxp.com,
-	shawnguo@kernel.org,
-	Sherry Sun <sherry.sun@nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DlBwndkJ"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48d146705b4so45126175e9.3
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:08:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779228504; x=1779833304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=n9SmKxDkFJP0+we87jbRanJrpKrMwE9QMl+XapPOXtc=;
+        b=DlBwndkJWwBygXaDmUISDlV56F2Jr/umPToNDDosW5ygZuzlAwf3Cwke3MbHi3cDia
+         wi2BRNaB9agDP+VKaNK0L6KnxeSDZbz5Ir0n82uY8PvmALTh5ypUSBn7xjWTYhBnOoQf
+         N9lRv6ndQjaZ+exVwrNJE3MJnZGKrsoMIO97MtQQiyVsLK9rJRUL8llOxpMsyaLAiKYm
+         Y2O7WdSatxODwJw6MjzEtmxQiA2lXShlKvFgB2XjK2nfTHTQB6V8iRvkfQmsyngaojuT
+         hEy6gl8XyUc56UP2eFi68x4g2shXkT8GpVKlZiGih6bq131veqOU0Hy02F72qhz6DzL+
+         CAUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779228504; x=1779833304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=n9SmKxDkFJP0+we87jbRanJrpKrMwE9QMl+XapPOXtc=;
+        b=JepN2KGJTyrxm/VPKExZTjc+qBDzebrh/VpYHoJ4dPMf080tebmx3MnASWv3ZhbMhf
+         H4kcoQvplboY19W82ODJm3cp4jt4e3+Tu9rT+OFJzf/B6vnbBKE/d8Mzy+f01lRN/pdr
+         pk4WRveSWPKCj3/mPYW0olK3uaBsUPQ41ZjaE18NSw825vshaVE/y2LxXFjeHfjWT/JM
+         q1IVy7j6V4YhGC2w93qIxCik8d0cDwa3o2xImdCWrZw+VX1DVocLgc7W3TgXaGgNHgdv
+         AhS3tvWrtlziygZqBvnyO5Y+nJkcY2fDOFuG9NnJaxwdW3GjLWuhDW+wxLMkTTnfT36p
+         PK4Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/pSTPQDW4rFNXyOfU/EtBimdFUdDkKQJfLL73l9p3ihsthQC2ABmfq1GuiTj368kES3TqsdlEVwBS/@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSGsFOohpi+J5NbyMkkhffLzZRro8onycD5bWCCxZO6Ti1omyF
+	4bVejVAv/SC02StEQPTCsJ8Ayn5Mr5u5e7H+eZSHfAIuijdRbA5kdXhg
+X-Gm-Gg: Acq92OEETAaTHa23yKaFaiW+DnobLdVjNJdc+qBQHxa5YCxXE6GUhA0kVl3t3KEsUXf
+	jybEAePYVoWJdWqNoSV9YUGc1qG/EkdqBDsh514jjnA4EczxkL9CKVQ5FI0VfNUgmlNuHHzeIAX
+	T2MBaQJe09DtyE5rLzDqISiVrpdZ0l60sEZaj/+UOWyB8O9ZXjoIwuvKEiiqtamQfdMgDzbMaHD
+	XYcjDdjZUnwSZbfJlJu2S+3h7vFt/bwZLWGcBH+YcxmAnp4Bdxg0r3L0iQ/zVL1+q9nE/FBVx94
+	Mcwm1W8kWQ39C/v9l7swgGiOVlYTbuTfptXeTEhFON58Igcfs6081cOKjcLGJ6MLrn3WhvpOmc8
+	tJXGWbjDk6dFJ/k7re1u4mVvxjD4KG5R82P3HcA1G4QLJoK/OydZmNcvHijm3xmf5E848eB9vNm
+	vvwkOpmIPDR+5mpoUUNKRyu3JDksUrDJPU2SMI8OCs+OU/A6UU+LqsQBilH8M9/+Ls88IUaM0AF
+	oTCOpQMaQ==
+X-Received: by 2002:a05:600c:3493:b0:48f:d2fc:d042 with SMTP id 5b1f17b1804b1-48fe61f1a27mr348852915e9.13.1779228504201;
+        Tue, 19 May 2026 15:08:24 -0700 (PDT)
+Received: from Ansuel-XPS24 (host-82-55-252-101.retail.telecomitalia.it. [82.55.252.101])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-48febe585absm118304005e9.19.2026.05.19.15.08.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2026 15:08:23 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] arm64: dts: imx: Fix PCIe EP vpcie-supply properties
-Date: Tue, 19 May 2026 17:24:25 -0400
-Message-ID: <177922585671.3340498.10763283261621159089.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260509015411.3218700-1-sherry.sun@nxp.com>
-References: <20260509015411.3218700-1-sherry.sun@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0110.namprd04.prod.outlook.com
- (2603:10b6:806:122::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org
+Subject: [PATCH v7 0/6] airoha: an7581: USB support
+Date: Wed, 20 May 2026 00:08:05 +0200
+Message-ID: <20260519220813.28468-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7762:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe8f10ef-53b3-4406-12f4-08deb5ed0445
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|19092799006|1800799024|56012099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/D6N4OHoZsd1AE2y5Uu14A7tA7WxtGiYUJkYlRao953bAHAJBWA4736Edo0e/KQXyqNXDYJqMEGgPbucCXeyaHtMhTt+mBzJpFga7d6tJVDe8OIEE3QFavXcv7UEPn6Oc/cXejLTT9DuKdBO0gr54KfLjtUsAdYQFIA0SqBapnsJYLlUVzR49WV2o5X+wxwevqgrvT406VJuJawNCLs9rCF8H+iJU2cD1TIvMwjsBhHhNPYTnJ88+IxUE5l8+98FkPBey8KLpCJsC3iR9yXjaIy6jlctqDdj+Ujg6lK7MNaCzF5xDA3JNPR1QYcZ7Tp5T1gHiEsvg1VDVtJRcFX815GJjjUsrM3wcrXp4Q/jEipElMi2qRBFaLzJWHYNmvIL/HjXHHJk0IHCwuij7AbgeEX2SjyBz4Z+mcudlApuV3WtF5dY3AXFoyEu8NDJczsyiIREoy8ofJl33I8t0ew2C+kw4cmXWqBpRoR+LINrIUiZtEYM8gjvLTzMV//4ECRV+Il6YRoAWO9y3WlSesTgrolB+sHNP/e9W5eO8+Rf5IU7hXNATsWpB0fZ/BTh1hBP0I/zInsKu/mKsAGQnXFeE//v9/k8njCm8oSjhM2dY4e3dggMrgY+FU/3h3OgS8zfjB1DGKPvb78Ff/sLO9CG7Z2ECZKY0y+MGNxPGkyoe0eRw0d1fdMAOc5tgbp398yq
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(19092799006)(1800799024)(56012099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUxXNEhabXY3RmlTY3UxUWtWcjB2RXBWUmZGRzA3U2NrNnBNT1JmZERHQnFj?=
- =?utf-8?B?YXJkcW1jWWRka1N5emJNMUdVSkZmeGM2OUVocW01N2wxaTd2ekxGeno0WVBt?=
- =?utf-8?B?dWsyb25yL0d5M05MN21QOEhrcGpsM1Jpa051bVcxSFA3ZzZCUnpFSXdiVHUr?=
- =?utf-8?B?bzcyaWVYMTFqYzIwT0xMSzVsWEpxcm1ZQlowazhlS2NNbWh2RkE4WVpld0dv?=
- =?utf-8?B?YUJIL21na3F2N21BdmhteDl3eUI2ajFiWXhGaHBWUHlmSkN0SE9CZ21KOEUx?=
- =?utf-8?B?KzN1OFBtMS8rL1ZHV2Z4VHQzMFZlVThvWENYbm9hTUNBQjZ4TG1idFVBYmtD?=
- =?utf-8?B?TTNUTVhPaVFudUhsRzhXTW85ZmZvWm5PSnhYSHZ5d2RJK2RWa1RUd0xsa2Rv?=
- =?utf-8?B?cWZWeDlJZmpva2tNOEdIS0VRazZqUWhaODVjeDBwNldxWTNtWllNQ3Nkdms4?=
- =?utf-8?B?RnJNbjliQ3BGbzFZbE1hby9WcjU3YUd3dTlGQmttQ2QrOG4vRC9YdkdYTUNY?=
- =?utf-8?B?OUx0VEpSU2JUTzRPU0I5T1VMOVRpZ3FVOWRTVkJzMDg4UXBLMHJZbmR0SUFy?=
- =?utf-8?B?aWdFZGlSdzdhSkFrQU1OTnZkSTdQNkRZMTdEY0RxbC9JZTBFaTBHVEV1cER3?=
- =?utf-8?B?TzBCaDkzTVZUd0xEdEwrS2p3cTVPdGV4V3h2R2ZjK3VOUi9RZVpRWUxhL1cw?=
- =?utf-8?B?Rjk4NjJYRURaRzBlVVZxb3AzS1BSbkhPV0VVbm04b1AzMU04bHhaY2tDemtH?=
- =?utf-8?B?ajdxM0dQRmJsUE1BbUVaQllNTmZLRVduNk9vbHllZEEwUDdzbWxVazhUdW1M?=
- =?utf-8?B?YlZvRGdVU09uV3g5cEhvY1ZqMFdUNksveWQxREd0K1UxMHl3MkYyUHBaRGxx?=
- =?utf-8?B?TWd6Z25oSlpnNHUwa2xzdTMrclFMaytzQmRteldJZkE1ci9WWWE4dFhJc1RR?=
- =?utf-8?B?ZkxPREVxNUpHNHJaSmZ0VDVoS1hxR3dqbjVxajhqMlBaS3lmemU2K0lIMGc0?=
- =?utf-8?B?RW9SVDVkY1dNZUx3ZG5CMVJWZ202OHpaT1gzU3psYXJMVXdadHJNTTFvYlF0?=
- =?utf-8?B?eURyS05ueElXVHVkR2NBM2hYanpXNDJNQzNySzdPeEREdTNRdmJQNHRBVjVh?=
- =?utf-8?B?Q1JBQ09adllOS2lGOXRoOWhPSVZmeFFGNnVoRlVCbVJBS1dodUt4djFzY1oy?=
- =?utf-8?B?aHRPOHgxV3l1RzNRY29zUDhNalpDZlB5ZDB4NmpiY0UwRWtNR0w3VEhKZ3Nl?=
- =?utf-8?B?ekFEZW9VVnlldVVERnMxMzBJdk81SjdhbGlzWnpVK24yMGQ0R2l1U0sxN09J?=
- =?utf-8?B?SFFRaHBycDVXeTZ4cEJqOUFqc0NqdG1UTURpUXAvSWFpZC9yVmpUMlZIajAz?=
- =?utf-8?B?UGRoaWpOZERXRHExbnlwamZTYkxrZ1RqVzY1NU5KbkgrM1FMSkVyZU9yR2dh?=
- =?utf-8?B?TWlvR0dDR21ERVNhU28xTm1pdGFkdVkzOCtpV2E1L3pnZnZSNGJ4bzdEaHRs?=
- =?utf-8?B?QUR4WVFnbGtnZ0M5OVNPVnRLZGgyY1hWUHdQQXg1WUpvNnhORUhXTDQxYVNG?=
- =?utf-8?B?Z2k1cHNxRkpnWUhLK2ZtbXRUTmRjdktWMlVHUlR6VTkwOUxRU2ltWVczUjRi?=
- =?utf-8?B?UWEzOVFPeHZzblVkdnpTUWVFYzNTbVVlUmQyaGhNUVB3cm4rb01ZTEJoWmZM?=
- =?utf-8?B?QmQ2WXRCL2V4dkh1YnBHbkx1SHZhY1krTFlnNGl6RmVMb1JsL0svaGE0N3RH?=
- =?utf-8?B?Wi9PcXlxVjM1anJuM3ZZV0s0TFpXN21LYUY0TEQzS3pGK0ZLL3k4bk1hUENo?=
- =?utf-8?B?SzA2dHZRdS9CMExnK1BRYkRHN0dvZmczTXlFSnNLQU1raGZvdHlzT29LVmlR?=
- =?utf-8?B?ekE1Q0dUdE5Jb1AvUUMxYlRqZDJxZk85SlE1NEc3Q1duUUFrN0FQcXBlYWsw?=
- =?utf-8?B?aFFmc0FiakpkWENFejhmTXkrcW04UEg4aUJGWGJQYkc4L0hHbWRnVWxrYVNv?=
- =?utf-8?B?aVFoV0hYazdkT080OEU3VU1HTzV1MklKZDFOalBpMEM2dnFsZ01ITnpaYVFZ?=
- =?utf-8?B?dXpGQ0dxQlVGQ1pZRkNHZjNZSm9iQm9ZOGNkcHdMQkl6VjhKaHpDTFl6UCt3?=
- =?utf-8?B?UnZRWTlkdDlDVVpJT29tTjF6K2JSZFlLWXpVOEdCUHd1Vzc5L3huU0V2ekZs?=
- =?utf-8?B?empsQkxxL0ZiTG1CQlRFOGlZSHJoeHRzYnI1UlVwSVl4a1E4czhvc1U3SHRn?=
- =?utf-8?B?SW1SWDZmSHVJR1lwVkJjOENTeGc2Q0J1Q2R0RGhhZ0JFQWxqTDU5cnF5cUQx?=
- =?utf-8?B?SFZ4SmxrcGpHMmVMRWY2a0FvZFFid3Z3bEs4OU9SdGNLd3dFcEYrcTJnNnNk?=
- =?utf-8?Q?zG5W1VaZBHcazXApHKonlRHqADGf7XA2sevA2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe8f10ef-53b3-4406-12f4-08deb5ed0445
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 21:24:31.8725
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oIFbT90ANh+DaeU/TFEZtKDJL/mI/waM8mBwU/vxSrTBQMZXgAvL+lC8AqeiTlcI56gkLWNZRuxesttcLHiUH/kZyBaJuryW2N0vC69C/18AAOwf+jY9cBCtyEWGvwjm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7762
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+This is a major rework of the old v2 series.
 
+The SoC always support USB 2.0 but for USB 3.0 it needs additional
+configuration for the Serdes port. Such port can be either configured
+for USB usage or for PCIe lines or HSGMII and these are configured
+in the SCU space.
 
-On Sat, 09 May 2026 09:54:08 +0800, Sherry Sun wrote:
-> This series fixes PCIe endpoint mode vpcie-supply properties across
-> multiple i.MX platforms.
-> 
-> For PCIe endpoint mode, the vpcie-supply should either control the
-> actual M.2 power supply or be omitted if the power is always on and
-> uncontrollable.
-> 
-> [...]
+The previous implementation of a dedicated SSR driver was too
+complex and fragile for the simple task of configuring a register
+hence it was dropped and the handling is entirely in the PHY driver.
 
-Applied, thanks!
+Everything was reducted to the dt-bindings to describe the Serdes line.
 
-[1/3] arm64: dts: imx8dxl-evk: Remove unnecessary PCIe EP properties
-      commit: 538525f34158deb21b782164bde23ec07a353e4a
-[2/3] arm64: dts: imx8qxp-mek: Remove unnecessary PCIe EP vpcie-supply
-      commit: b5ba136d535f1060322af31c0cf74d85ea19892d
-[3/3] arm64: dts: imx95-19x19-evk: Fix PCIe EP vpcie-supply
-      commit: 596d0f9f4fefffbf783ab26cfa90cf50f5dd6bb0
+Also the property for the PHY are renamed to a more suitable name and
+everything is now mandatory to simplify the implementation.
+(the PHY are always present and active on the SoC)
 
-Best regards,
+Also other unrelated patch are dropped from this series.
+
+Changes v7:
+- Rework to double PHY implementation
+  (suggested by Rob)
+  Now the clk driver expose a PHY for Serdes port
+  USB PHY driver selects it
+- Rebase on top of linux-next
+
+Changes v6:
+- Fix kernel test robot (sparse warning)
+  Link: https://lore.kernel.org/all/20260306190156.22297-1-ansuelsmth@gmail.com/
+
+Changes v5:
+- Add Ack and Review tag from Connor
+- Implement Ethernet support in the USB driver
+  (testing support for this Serdes on a special reference board)
+- Use an7581 prefix for USB PHY driver
+  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
+
+Changes v4:
+- Rename PCIe and USB PHY to AN7581
+- Drop airoha,scu (handled directly in driver)
+- Drop dt-bindings for monitor clock in favor of raw values
+- Better describe the usage of airoha,usb3-serdes
+- Simplify values of dt-bindings SSR SERDES
+  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
+
+Changes v3:
+- Drop clk changes
+- Drop SSR driver
+- Rename property in Documentation
+- Simplify PHY handling
+- Move SSR handling inside the PHY driver
+  Link: https://lore.kernel.org/all/20251029173713.7670-1-ansuelsmth@gmail.com/
+
+Changes v2:
+- Drop changes for simple-mfd
+- Rework PHY node structure to single node
+- Drop port-id property in favor of serdes-port and
+  usb2-monitor-clock-sel
+- Make the SSR driver probe from the clock driver
+
+Christian Marangi (6):
+  dt-bindings: soc: Add bindings for Airoha SCU Serdes lines
+  dt-bindings: clock: airoha: Add PHY binding for Serdes port
+  dt-bindings: phy: Add documentation for Airoha AN7581 USB PHY
+  clk: en7523: Add support for selecting the Serdes port in SCU
+  phy: move and rename Airoha PCIe PHY driver to dedicated directory
+  phy: airoha: Add support for Airoha AN7581 USB PHY
+
+ .../bindings/clock/airoha,en7523-scu.yaml     |    9 +
+ .../bindings/phy/airoha,an7581-usb-phy.yaml   |   62 +
+ MAINTAINERS                                   |   11 +-
+ drivers/clk/Kconfig                           |    1 +
+ drivers/clk/clk-en7523.c                      |  207 ++-
+ drivers/phy/Kconfig                           |   11 +-
+ drivers/phy/Makefile                          |    4 +-
+ drivers/phy/airoha/Kconfig                    |   23 +
+ drivers/phy/airoha/Makefile                   |    4 +
+ drivers/phy/airoha/phy-an7581-pcie-regs.h     |  494 +++++++
+ drivers/phy/airoha/phy-an7581-pcie.c          | 1290 +++++++++++++++++
+ drivers/phy/airoha/phy-an7581-usb.c           |  562 +++++++
+ include/dt-bindings/soc/airoha,scu-ssr.h      |   11 +
+ 13 files changed, 2672 insertions(+), 17 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+ create mode 100644 drivers/phy/airoha/Kconfig
+ create mode 100644 drivers/phy/airoha/Makefile
+ create mode 100644 drivers/phy/airoha/phy-an7581-pcie-regs.h
+ create mode 100644 drivers/phy/airoha/phy-an7581-pcie.c
+ create mode 100644 drivers/phy/airoha/phy-an7581-usb.c
+ create mode 100644 include/dt-bindings/soc/airoha,scu-ssr.h
+
 -- 
-Frank Li <Frank.Li@nxp.com>
+2.53.0
+
