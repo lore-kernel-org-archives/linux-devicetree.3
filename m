@@ -1,118 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7800D3E7BD5
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:54:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CB23176E4
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:57:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779195255; cv=none; b=OaIctccIcpWRZDp6Po5LwyMRAjq1oqjS4bvR6P+VyEefVj+3WXpHfME0nKvODxl+C1AKpGp6CzL6ZLcULTw57PbH8KjktksnHYVL4sg97eXRZpPVMxcx3RO3UwBolEe7/YZpF7xCp+cGEJJ+nvRGOhaetk1x1+RMqkjbuQG0JjE=
+	t=1779195427; cv=none; b=uG2hRNxwz43UfvBnHOoV/c/Ozf6/FXw1Z04XkN1YG8Hanfn4BWnYc9kjG8FTO30iSyUreXxO0hXPhco74gvohF3PKJ68ontRID5mpcLZKBaVT4wdksNJxDygrP1KzkFKjtIp8DVttXIOGUjsNThohHBxORzrCMas3XmcQbMeKh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779195255; c=relaxed/simple;
-	bh=Ffy/Z03zf/pnlOYW0SqLI2Vu22pQHrZGXpNSKlKUEMo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QIMJv/GLd3FBjZO2SyzTOWtJa9PUR7aAM8RxnLc4J0Cj6lZvCLm1/9mZj6BLNvCXkCif4wzO5qtIsaMULOJho6DGE1pqOpUGXGp9Mk+fLlmOeuO83ehu1ZUv6qfLYP7CXwSoIHCc6QOY1tcotP2t9nvEtHN2CtPiK7TMmdUiItY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOU7ULhN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779195427; c=relaxed/simple;
+	bh=JSxBoC2uoLr6BLbqbSeKIFf7QHBtHs3aqqips2RK4jY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uFzpwXbeIsjwqR797MnMWwAhoI+wno9h13Uk0zr4BiF6Y0UfAPM86RP4rePUNKJClBgVWemmOVN3zV/QAO+bpb7NkKAV3TmAfCmAWTriYg0VcCiWqw9QwZEOZ0+6t39n+Hvzkr+jyUYv1w1pnWetRbCnZwPXSBDX510LoLCm9pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bbIeHj7f; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOU7ULhN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9941C2BCB3;
-	Tue, 19 May 2026 12:54:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779195255;
-	bh=Ffy/Z03zf/pnlOYW0SqLI2Vu22pQHrZGXpNSKlKUEMo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=IOU7ULhNBHREmUceYzja0MrwYjqpXhrfSIiAMu/riUTTCvFy9rhnGSPn5jnuWSGbd
-	 txYAgaaF/M3WtT/VxqRsEgq74rKKi2+m3RirmD07Oc0HzoS1gHikEYJ02ukjaMCuKn
-	 9s6+cfVdU76cjllpVNhXh2fS3Vc7Hxfg4ltMwQ3kMps0hQl3TiD+49h61QbIQ1PvRF
-	 ie9/V5879XGohPjUlMWzRPOmAbGcIYPAdWNEAOGciEWs9BsYuV8ua7rd/1wMenGBBz
-	 /Ih1wHPBa1d6xM7O+5o4ZtbLDXb49g1qAU62LUrwO6cF5ymQNn/xHX+w36Gb3U7wZG
-	 MPZxnu+YxtGkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] regulator: Add regulator driver for Unisoc
- SC2730 PMIC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?T3R0byBQZmzDvGdlcg==?= <otto.pflueger@abscue.de>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
-References: <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 12:54:14 +0000
-Message-Id: <20260519125414.D9941C2BCB3@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbIeHj7f"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2bab82d75fdso16174975ad.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 05:57:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779195425; x=1779800225; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4KyP1NebRw4SwpgMMJ6Ldhqk+fU8RP5i9hw4k9Hf88k=;
+        b=bbIeHj7fTIqHYKszvAeKqbfd/u5ltg/SZfRYWQE5itgNYAd7MR1MxsgRBIHp9541uD
+         1cdITlrnt0EXB3y/wCP+471O3xRRfOlyG0D1nFRoLmQoPT5CiZjSYYFiEdVal3tDpPlP
+         a8zacsG5SxbWal7eCgTo6e8nMFNquvdjwUDiu/9++BX8OrFQXSlWlI+b2E2AuTn8jUZ0
+         pafrvXhXgZuQ9uCsH5v0o8exxLBI1rpEDGD/UZDS5NG6JRNwvY7Y+IfXSJPk+kEd4OoR
+         9Fha4eTpozohom0DqzjPkFWgxYIzOfHuCIc93yP4pEY/E9FuzNkqxgMFeOa2Q2YnEbs7
+         /wMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779195425; x=1779800225;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4KyP1NebRw4SwpgMMJ6Ldhqk+fU8RP5i9hw4k9Hf88k=;
+        b=SqdvPVbBlkUgpmCWfkTa2HO4iQJ+g5uvUtOYT2KdC69PgTR9L/qpami3L3pp7hpaAf
+         hOmz8NOvrKVdVmQU/DJOxN9+zbsrsvng3eaXfhDu6DGtHURKUulxU9SAtKGEtwWRKHAL
+         QXeh4NisoYCcZ6ZzvQ2y5EvApLNIyJWMPotprJj3rY4AUcq6j4QU2qBROAd3ex+3O2zV
+         YG9ZhDR1JID7ORfiiBy5CYHFb04vnBVu7Y68F5okhopLZ6hU4JEZ0qNJloBfTHfqIfZQ
+         pGtMUxw2Ixiy3Kx8lGO0I6H+OKezz1s6rIAtrUNhX1YNnN7OUB9MgLRXWaF1IrYdrWZP
+         SVkg==
+X-Forwarded-Encrypted: i=1; AFNElJ86teER9qjuAefTEIuO/IfmnJvvliJ2iK0Amb+AzMgEgBomMW6VyeQ5yNLyifpfIKE2kuGH4iQbbYYK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVDgCOM0BdCYuYCy2CT19xISbZIl4dcFPRx66CbH8nRXKTJxVV
+	uIE1IU0FAHCJCm8gOXn9t63kdiD0BCnTrHDBXtZADVixZjkoaGMGGkpd
+X-Gm-Gg: Acq92OFWBVPmNTxiQwtusk4AiZug0TOdrBUYNIH4AS4d7SWJuKuM4w3UVY7DdojEuid
+	+9Pt2yYmKrDuA7KTwMx9QmKj8vinGRMQ8i24q4XAeTjdXv2SD2c29QZoaNkHjivh7SpiKjafm+e
+	P9pR9djTqY+g0OQRErpRyySU8QgLKDL6wf//iTZoTuB8/HY8+qH+hQZ+WqfhVWzg0OqQNcO4FAj
+	OavjeHdHbULiqcnGAoHoY8cC6NOAXXHAHXAXvbZNVCNCk8yN6BPwFsrsPZvG3WuRdCd8UhD56tF
+	p5MBxapNbjYou6s/b6nJFNWZJ06+YmMWpxpZbeWxPBZzZviGAOpt/ng32IVFRh35X9xbmksTnP1
+	/R/Yaiia75WQFQ8SfrQFwJ+8Mc+U1HLmYfZh6zH6CkgE2RksO2tbtT1pJoxgm0WHZZHUIIrvtR8
+	jOvWH/4ADD6tA9Q9Gzsa6DXMpI2lUCL1t5ahNRgTQx6J9nY/PL+BxVjF3XLA==
+X-Received: by 2002:a17:903:2ce:b0:2bd:6cab:85d with SMTP id d9443c01a7336-2bd7e782281mr204483575ad.3.1779195425227;
+        Tue, 19 May 2026 05:57:05 -0700 (PDT)
+Received: from localhost.localdomain ([2402:a00:163:2ce9:6421:6644:4454:28e9])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5d2360e8sm194025965ad.82.2026.05.19.05.57.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 19 May 2026 05:57:04 -0700 (PDT)
+From: Ajit Singh <blfizzyy@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ajit Singh <blfizzyy@gmail.com>
+Subject: [PATCH v3 0/3] arm64: dts: qcom: Add Vicharak Axon Mini
+Date: Tue, 19 May 2026 18:26:52 +0530
+Message-ID: <20260519125655.23796-1-blfizzyy@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The voltage control register for LDO_VDDCAMIO is defined with an i=
-ncorrect offset (0x28), which will corrupt unrelated PMIC hardware state wh=
-en written to.
---
+Add initial support for the Vicharak Axon Mini, a QCS6490-based
+single-board computer.
 
-commit d755f6665748cda3b92f492a8c7a6cfc5194b4c6
-Author: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
+This series adds the Vicharak vendor prefix, documents the board
+compatible, and adds the initial board DTS.
 
-regulator: Add regulator driver for Unisoc SC2730 PMIC
+Tested:
+- debug UART
+- eMMC
+- UFS
+- SDIO WLAN
+- USB 2.0 host
+- PCIe
 
-Add a regulator driver for the Spreadtrum/Unisoc SC2730 PMIC, used
-e.g. with the UMS512 and UMS9230 SoCs. This version of the driver is
-based on a downstream driver provided by Unisoc [1][2] and the existing
-SC2731 driver.
+Changes in v3:
+- Dropped unused regulators.
+- Pick up Acked-by tags for the binding patches.
 
-[1]: https://github.com/MotorolaMobilityLLC/kernel-sprd/commit/30be0ddfe6b9=
-a877fc9c328fbd2bae84e645eb31
-[2]: https://github.com/MotorolaMobilityLLC/kernel-sprd/blob/android-13-rel=
-ease-tla33/drivers/regulator/sc2730-regulator.c
+Link to V2: https://lore.kernel.org/all/20260518173039.20592-1-blfizzyy@gmail.com/
 
-> diff --git a/drivers/regulator/sc2730-regulator.c b/drivers/regulator/sc2=
-730-regulator.c
-> new file mode 100644
-> index 0000000000000..9e40c6eae4943
-> --- /dev/null
-> +++ b/drivers/regulator/sc2730-regulator.c
-> @@ -0,0 +1,411 @@
-[ ... ]
-> +/*
-> + * SC2730 enable register
-> + */
-> +#define SC2730_POWER_PD_SW		(SC2730_REGULATOR_BASE + 0x01c)
-> +#define SC2730_LDO_VDDRF18_PD		(SC2730_REGULATOR_BASE + 0x10c)
-> +#define SC2730_LDO_VDDCAMIO_PD		(SC2730_REGULATOR_BASE + 0x118)
-> +#define SC2730_LDO_VDDWCN_PD		(SC2730_REGULATOR_BASE + 0x11c)
-[ ... ]
-> +/*
-> + * SC2730 vsel register
-> + */
-[ ... ]
-> +#define SC2730_LDO_AVDD18_VOL		(SC2730_REGULATOR_BASE + 0x104)
-> +#define SC2730_LDO_VDDRF18_VOL		(SC2730_REGULATOR_BASE + 0x110)
-> +#define SC2730_LDO_VDDCAMIO_VOL		(SC2730_REGULATOR_BASE + 0x28)
+Changes in v2:
+- Drop unused Type-C VBUS regulator.
+- Drop invalid camera thermal zone.
+- Drop incorrect PM8350C thermal alarm override.
+- Fix PCIe1 3.3 V regulator name.
+- Drop redundant EUD disable override.
+- Keep ICE disabled due to fatal SError during qcom_ice_create().
+- Fix pinctrl property ordering.
+- Sort top-level label references.
+- Add blank lines before status properties.
 
-Is this offset for SC2730_LDO_VDDCAMIO_VOL correct?
+Ajit Singh (3):
+  dt-bindings: vendor-prefixes: Add prefix for Vicharak
+  dt-bindings: arm: qcom: Add Vicharak Axon Mini
+  arm64: dts: qcom: Add Vicharak Axon Mini
 
-In this driver, LDO voltage control registers (_VOL) appear to strictly fol=
-low
-their power-down registers (_PD) at a +4 byte offset (e.g., VDDRF18_PD is 0=
-x10c
-and VDDRF18_VOL is 0x110).
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../dts/qcom/qcs6490-vicharak-axon-mini.dts   | 1025 +++++++++++++++++
+ 4 files changed, 1029 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/qcs6490-vicharak-axon-mini.dts
 
-SC2730_LDO_VDDCAMIO_VOL is defined as (SC2730_REGULATOR_BASE + 0x28). This
-offset is outside the LDO register block (which spans 0x100 to 0x210) and
-sits between the global power register (0x1c) and the DCDC block (0x44). Wi=
-ll
-writing to 0x28 overwrite an unrelated PMIC register instead of setting the
-LDO voltage?
+-- 
+2.50.1 (Apple Git-155)
 
-Additionally, VDDCAMIO_PD is defined at 0x118, which leaves no room for a
-+4 byte _VOL register because VDDWCN_PD occupies 0x11c. Should VDDCAMIO_PD =
-be
-0x114 and VDDCAMIO_VOL be 0x118 to fit the established 8-byte register stri=
-de?
-
-> +#define SC2730_LDO_VDDWCN_VOL		(SC2730_REGULATOR_BASE + 0x120)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-sc2730-reg=
-ulators-v3-0-5bf0e02507e3@abscue.de?part=3D3
