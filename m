@@ -1,122 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFF53A1A58
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:33:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDF13DA7D0
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:33:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779176026; cv=none; b=mYYj+sqgeWfv/f++lOgO4Jcc8q4Wi507Ooqe1+0n6hx2+z3+Q08MZphdnFwCX4JdqY/W6aTV1yogW+WQ/Ent9bd6xTbLGi+LCDy2uiSBnKKJwuzeNth3kc/qe21xxXrfl9vr66hY1PgJIDX73LBYnbPMEDFDz3ZQ5yjG7cV9dHc=
+	t=1779176028; cv=none; b=SYOaNzxA/rWeMvdI/y8DYBICke4SKNPbdDPuOU0wM6HLYzJZFjKI/k6CCHrTZbniesaGy8Et4+FKOaB5RT02cYk4euXt5l7d2Csfhk9XUjmufsM3KRWDS9aYgB2FU4qVDLYoaT8qLA17dGzHUOKYKUoSw+Am8DFGMvfiX4AEyqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779176026; c=relaxed/simple;
-	bh=kO3/ntGo+m5RAcVFPTsPLt1JMQFHv2QCaQ4f4egQIM0=;
+	s=arc-20240116; t=1779176028; c=relaxed/simple;
+	bh=R2TpZUlwVakvyMjb1YBUdD04POap58ojOiVhaWrGIr0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z2xH7kkXOyap+cwc8yz7chIklumPYegn3ghBzPbdvD3a+S8YjI9hKsDHNjhv/Y1NWq/pZSkjlWYCTdoWbe72+onxOq57Y9TVoH4hYM/GG8zsbTZ6l2qKFAfBIV6tTeX18WvOx3FVyPklDQErtpN80DncSrY2eSG4wIUB1ERi7IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9N0A7qM; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=NC2zE3uwavDFO5lYfnWaVMRORo+GX50LxJsbkztVP6rLgXR2dxEiyen/yP+p2KdBaNxy0nX47gSb7KYbNzlhvEJ+Fi/SK4Zk8E5s7diqDwJVWuvpG6XWL6+oerzKkJpNI6obs+GPx+gBIpbDQJPLfUW5r1V0MDzS4LiXdIPrvRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNom61dk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9N0A7qM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21BE9C2BCB3;
-	Tue, 19 May 2026 07:33:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNom61dk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B999AC2BCB3;
+	Tue, 19 May 2026 07:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779176026;
-	bh=kO3/ntGo+m5RAcVFPTsPLt1JMQFHv2QCaQ4f4egQIM0=;
+	s=k20201202; t=1779176027;
+	bh=R2TpZUlwVakvyMjb1YBUdD04POap58ojOiVhaWrGIr0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=A9N0A7qMLuKULEprY5CmkKgGJDabKEXrHNvUY0i5l/bZu2Px6lhxD2HpwUxMsgfn7
-	 Q5PX12XKQZ6dClBXhVTM78u5OtgFb4O/xzqTVzOxH+lemfgVHBFoY9YONZXKtt2I1e
-	 iiCiF1sqQkLTleTpaeple4gPSB8N0/TQm3EdRi4+cjb2kdPol4OezXOzDKkOpEiFOY
-	 DInSDGnjCPdxUNuOeT8TwfGgTC877J9FRupfS3lljVDfVooGt4R5LLp8Kak2dKg1Wj
-	 yRQQ4A+XTD62Ch8rUEMSo76Pcs04vmMx9tEVTTnOkL2FKJHPUFx3/mF1CJTXMMK4MW
-	 iYkorbmnEyLtw==
+	b=bNom61dkzXK22NugcUZY5yLV2iPhNx73RkHCpCpYL9IHfalhbATY5IZ+F2o0VU/Do
+	 Bb3m09BUCEHqEIplBdA8Bm0WSzeBB55E86yAGpQXX4V2Rn0XJYbYpTq6qz75lSXRA4
+	 0ryq/t4jzS6w6zLcmxfmsvsRdddlgX5KkBrgQqU0/B8nLomgc/JOf05dDHo4qqp1aE
+	 ZBBIxvu2TmBHLI7dEH+y/jLizQioiELk2u6lO5MBFG8tXsQUE5vCmhuNpq3REL2bAN
+	 TKfIRi7V9TX5xqQ/cMEKQ3cWG/d7JRoy5jQ9OKEEqLCXXO1+ZUWpE7Y3rASURH5p09
+	 XvjO8YA12llfQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 01/16] arm64: dts: qcom: kodiak: Add EL2 overlay
+Subject: Re: [PATCH v6 03/16] firmware: qcom_scm: Migrate to generic PAS
+ service
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260518072856.22790-2-sumit.garg@kernel.org>
-References: <20260518072856.22790-2-sumit.garg@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260518072856.22790-4-sumit.garg@kernel.org>
+References: <20260518072856.22790-4-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 07:33:45 +0000
-Message-Id: <20260519073346.21BE9C2BCB3@smtp.kernel.org>
+Date: Tue, 19 May 2026 07:33:47 +0000
+Message-Id: <20260519073347.B999AC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `kodiak-el2.dtso` overlay omits the `iommus` configuration for=
- the `remoteproc_mpss` (modem) node.
-- [Medium] The commit message fails to explain why `gpu_zap_shader` and `ve=
-nus` are disabled, and why `watchdog` is enabled in the EL2 overlay.
+- [Medium] Missing NULL pointer check in `__qcom_scm_pas_metadata_release` =
+leads to a kernel warning on error paths.
 --
 
-commit b4ab2188dfbc3caab6111f1ec38bf830bc7a5ef3
-Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+commit d6345df3a23d159b333a40adf86ed6859c37ccc5
+Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-arm64: dts: qcom: kodiak: Add EL2 overlay
+firmware: qcom_scm: Migrate to generic PAS service
 
-This commit adds an EL2-specific DT overlay for Kodiak devices to boot
-without the Gunyah hypervisor. It configures the remote processor firmware
-IOMMU streams to be managed by the consumer rather than the hypervisor.
+With the availability of generic PAS service, let's add SCM calls as
+a backend to keep supporting legacy QTEE interfaces. The exported
+qcom_scm* wrappers will get dropped once all the client drivers get
+migrated as part of future patches.
 
-Link: https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boo=
-t-developer-touchpoints.html#uefi
-
-> When running under Gunyah, the remote processor firmware IOMMU
-> streams are controlled by Gunyah. However, without Gunyah, the IOMMU is
-> managed by the consumer of this DeviceTree. Therefore, describe the
-> firmware streams for each remote processor.
->
-> Add a EL2-specific DT overlay and apply it to Kodiak IOT variant
-> devices to create -el2.dtb for each of them alongside "normal" dtb.
->
-> [1]
-> https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boot-de=
-veloper-touchpoints.html#uefi
->
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> [SG: watchdog fixup]
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-
-This isn't a bug, but the commit message focuses solely on the IOMMU
-stream configurations. Could the message be updated to explain the
-rationale behind disabling the gpu_zap_shader and venus nodes, as well
-as enabling the watchdog?
-
-> diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/d=
-ts/qcom/kodiak-el2.dtso
-> new file mode 100644
-> index 0000000000000..0b3a69a0d7654
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> @@ -0,0 +1,35 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
+m_scm.c
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
 
 [ ... ]
 
-> +&remoteproc_adsp {
-> +	iommus =3D <&apps_smmu 0x1800 0x0>;
-> +};
-> +
-> +&remoteproc_cdsp {
-> +	iommus =3D <&apps_smmu 0x11a0 0x0400>;
-> +};
-> +
-> +&remoteproc_wpss {
-> +	iommus =3D <&apps_smmu 0x1c03 0x1>,
-> +		 <&apps_smmu 0x1c83 0x1>;
-> +};
+> -/**
+> - * qcom_scm_pas_metadata_release() - release metadata context
+> - * @ctx:	pas context
+> - */
+> -void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx)
+> +int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t siz=
+e,
+> +			    struct qcom_scm_pas_context *ctx)
+>  {
+> -	if (!ctx->ptr)
+> -		return;
+> +	return __qcom_scm_pas_init_image2(__scm->dev, pas_id, metadata, size,
+> +					  (struct qcom_pas_context *)ctx);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_scm_pas_init_image);
+> =20
+> +static void __qcom_scm_pas_metadata_release(struct device *dev,
+> +					    struct qcom_pas_context *ctx)
+> +{
+>  	if (ctx->use_tzmem)
+>  		qcom_tzmem_free(ctx->ptr);
 
-Is there a missing remoteproc_mpss node here?
+Since the original if (!ctx->ptr) check was removed here, could this result
+in calling qcom_tzmem_free(NULL) on error paths?
 
-The qcs6490-rb3gen2.dts board file enables remoteproc_mpss and
-configures it to load modem.mbn.
+Client drivers like qcom_q6v5_pas unconditionally call
+qcom_scm_pas_metadata_release() during cleanup, even if
+qcom_scm_pas_init_image() failed or was bypassed. In these cases, ctx->ptr
+would still be NULL.
 
-Since the MPSS streams are routed through the APPS SMMU on Kodiak devices,
-will the omission of the iommus property for the modem cause SMMU context
-translation faults and prevent the peripheral from booting?
+Calling qcom_tzmem_free(NULL) unconditionally triggers a warning inside the
+allocator.
+
+While this is fixed later in the patch series when all callers migrate to
+the generic PAS API and the legacy wrappers are dropped, does this
+intermediate patch break bisectability by introducing these warnings on
+error paths?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518072856.2279=
-0-1-sumit.garg@kernel.org?part=3D1
+0-1-sumit.garg@kernel.org?part=3D3
