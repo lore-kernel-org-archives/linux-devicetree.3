@@ -1,142 +1,334 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289154A33E2
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779190923; cv=none; b=eaxB/6sz6+u0HyT+zCem4Dp4yD8+lU9baaG+1bAiE0KRSNMF76ik/Zjw6Jli2qG+ecHqaRV7hOpm42SqMTZ1Z+Be6kcEWsqJpeLbtP+nxb2Uhglq+VDMbQ52hRCBsT1Rzi6U+ktlZT7AT+3Cquk7BBBtDbhKZ/mec/BmArTZvj8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779190923; c=relaxed/simple;
-	bh=iXaQej+aa3DbMyR4YHSetSZ0oLvnEXqSgtMh+UpQUEo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qarGpmZGwgEoqXf/N6s+xW9enaxFH1HIgOOxE1wY2raJzA0G3kVyUljiuxGGD8gLJsI7vv/ips/e+zbDY2OAWTsaTMZtyEQ2FEFJEkX6EpxK2TG2QPhpXwqynIM5Knx8m79gj08vPevby5m2HHEH5w3RRN7VDEuGNkm57L/tyPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=K+gY1OE9; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A84327C18
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779191162; cv=pass; b=rGQFvggPAScQosLxGs4atr+hxeT6QhULkfh1V7A5Hue5lcVsNoolr82Fyv7AV+QmTAF5uPplFcq8t+ZjC3pzauWeffx7tDThlQrWAssr5nnqGtTctHIC+mZ2A8cHTycDa/F53BJiWSKG3HDQa7cKbmTCtAPzEOxAYwguLXC6RrM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779191162; c=relaxed/simple;
+	bh=A8+zKWqKk7YrwMcoc1LvkIW72eVnzUrlq3AoF3y+mTw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SiZSP+F8qHaP33hKVK4MNUcJ0zFXcHuSBwu8aIBdhBlAGBCJKcZy1cjEGkAJQNVHYfWv3TaApC8CrOLRWBFfTb4jYezlwodnHyMiTr5wz77XHzx6O8RxVmbokA5ssClElcW8pmWyfo08Tf0ba9yFqjY6ENi73RJfgnHRmpfUyzA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RkvvLwi6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=k2gBkXHc; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="K+gY1OE9"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so28398025e9.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 04:42:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RkvvLwi6";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="k2gBkXHc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1779191158;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
+	b=RkvvLwi6oKBoYv8bKoVGvXWTJLyJQSJodNFOc/NPrZT4qguYgOhvuBPvv4WJbgG2Lxip2M
+	LagDehDvzq/zvTB4kcUQCRJpHVsrKy+1dnpsAH+ErqXcofIwM+2wBT1trX119oyc8SNP8w
+	B6zVBNLY+UXWF+fV/wJJx48nR/s+qqI=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-653-t7y0RizOMnyAMkPHKYyAuQ-1; Tue, 19 May 2026 07:45:57 -0400
+X-MC-Unique: t7y0RizOMnyAMkPHKYyAuQ-1
+X-Mimecast-MFC-AGG-ID: t7y0RizOMnyAMkPHKYyAuQ_1779191156
+Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5a8d72e2f0aso247149e87.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 04:45:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779191156; cv=none;
+        d=google.com; s=arc-20240605;
+        b=M5FmaH3WKotKv3X0fUwTwbjTptZQTYNRvNfZVD4Ujdz+mwfm+iEk2HoI4MmfTJekOr
+         bmV1L6vwNpvH9g/lZldP+iqniz0RbYT4sv6eWr7Op8UXRkOvC2zor2nw9nZhuU7yDDE+
+         ZULzvw+TqbONBZngzTpUodv4oUknUyuO7//CnjHLqu4/hZD+170+zxo2IBtV/71Yo6Sm
+         JQIBA2UfQrmQowddcZGupmjV2cLKrD5Ie9UN/fZaMkPPDSbZf2IVYRqYPj1KH4P07NmP
+         GxSLPG/DnHdHKShAUKoCbvIyJ4wK37XamJGI7+qBWcqwwxKIh8F935kDjOZh1RlNmN8V
+         k2Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
+        fh=O/VqEOoQUtr/+eQaOB0YDGGRDhxzRswTe+EsWz+aW+I=;
+        b=VkcHXsLnJuoYn7o78rd00Uhd8WUrzURtUftF2fRAAUZZB8FoQ/ANuoa3uUrBwiNwxK
+         blJjBQfHPgfwY7uTJvbuy2LVBXZvuo7cG5sI1iLKO3xKlKeGBVyJCTEKZP+1I4oJNNkZ
+         rVJAN9T83cTtPij2n/GbgJPY0eGE9tir+jLLgvrVi9eN2lXcfZPlOBTwn7Ai82LhePE+
+         4XCvniWa797phNZ6WKbnfaCUFNXwX0fXDivNMDY0ThmYEX/DfdW263gdMi9FzMmePBa7
+         hvrUc2VIRKpKSCFwJfFJvnjTaOQr+VklpC7ole0Xq9D9/1yXspGXSbn3++ZcpCWtCHVb
+         Lvzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779190920; x=1779795720; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gJoGNxpHwJXF2k7E+m5KPLxypZWZKLTX+aIvO0pTfwo=;
-        b=K+gY1OE9DhU903zmTSNokRe4DZws4D7Lxrtt0xgT3FBjwBBgwwZKav+DOrRc65MbL3
-         Cpw+pNbs6o/8ADeOcEUtEbiuuhml8q7GMQdIQ/xaOha7IDuxVCboBc6rpHPTFI4llNhA
-         3SMUYFP/diYDwHcZDlhrVu4OadZFj/26l9HoBeXqpeNHBvXqOxls0NAehlgg8SkD8xs0
-         8WpeZrJsnYn2/NGizUXsRccJvmgCJ8ks7wIoJqaTMp4t/5+tLaLTztYdYY7JWZ43UBIq
-         2RRx8UQbQNJ+a8UPSxZpy4DSkxOHtc1MqleoXhuwHLXSKCNHwYreHJsRT638OCK78JAV
-         0ExA==
+        d=redhat.com; s=google; t=1779191156; x=1779795956; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
+        b=k2gBkXHcfEQbfBka4XPZCMknDdmWT6tB2Xpf+C4IH7aHkDnkd4CZlZTWsRCLPXA9PO
+         DC/TTNbQNTi0mlw9T4KoH/ebUKyQN/LOqAhgwtfDrjrfPtkuiV12j4BQ2Yx5ScD8cjb1
+         aFiH0Ndj42fyV6RvLbFwmsQzB4AE1k8FQtRKAIEvqQ/6soPCqKs8gOnlqHuL1nvnnzOF
+         s7RYpamUhwXIucFAIuH9cmTxuHWDH07LjMNT2FnvChkTf2qxPk8cTRSgpajgGt2/Jde2
+         ivgTUA9xYRiKfVZCIi0yvMyfKJ1XaApc+cxgzisg10hZofq5gBeZbkxF6JFzqXcly2su
+         /24g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779190920; x=1779795720;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gJoGNxpHwJXF2k7E+m5KPLxypZWZKLTX+aIvO0pTfwo=;
-        b=RN54QHiyoYySeGRWtDVbRu5hRkcWQ5dQ8bfeskDWnMFOg+Ez2leJljKZSkzYddrA7i
-         yAZxi7ZvqM4C1T3WTwNcWweYwKxKPNGk7cau5kKvx/+coCBc+TML6d48asd05sLc92Is
-         1pEVYiPO3oZr3wneX3rte/MpVFFW9Qwl+XoUWzdF60sWeGv+kxp5MSiJGECp4wKmfZYz
-         nCTTG6jd0LEh0LOTl7G3pIkXi7seIKc5TfXyhbej5jUTln26vTk9YoBzl23A77IdGGvH
-         859PcOfErqMv0SgRQ6v7dLo17H1ODcTWafa2vzICNs4U5f0mdNuA9syBruf9QtZD312g
-         dxVw==
-X-Forwarded-Encrypted: i=1; AFNElJ937d4vxrO9Frnwt7udZFihWBAJKTQebxxWSuYYroIHMnXeGUYUHrBT67tC0cP9h0XxU/ZAriFYXZGK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxRjduX2vojq/oqLOfOB5DZGHh2BpCJEvqm3y57BYh1bcPjMPRc
-	YPMlva5hovA/Ng4OcdOcngS1eWda28XVXv1bg7RR3kM+cIkBvq5Tdy+DmPwe0qfiUnw=
-X-Gm-Gg: Acq92OFPWK+lMluCeCqRGUOlz6E5o5RbwEJe+4oeB5lTfjJ1bC/btQRdJf/A3lp3vsT
-	/s9kGirTE7QS0Z3NuwXbtJY0NPgt9YotNsGKrflpno15EmuYVkgUs6GM4a4VCzRSJ7C/X79RUDn
-	yvX7aHQfxlAJec8SzN0PhdpqkcXK0wqvAztASUC2GaQe4vdQyrmKI7xtDtZx/anRyTuL4AAl4ST
-	cOnZ2ZxnS7LZwRv1siz9aGvKIa3ybhbytKnpmYY0d/crMmvuJivO6IfSS4gM+f45qQ1gQo1mA2X
-	ICOHp3X8qFZKHLrbGO2VFHjOUpFZcXayuqTOwXhGcTmenZaNExL7L3s5cxkxbpz3uKadSM4/gOy
-	fm21IbO/h/63sR0jhHYMDt9LkC+FEu49hzMMUEkY9vtKh3u4AQiPp/WE4e5pPIG0NAfetzj+UsN
-	ePPjeZeYyFKVHmLhFmVRIaeuLVk8msZRdR2Q==
-X-Received: by 2002:a05:600c:848c:b0:48a:563c:c8c0 with SMTP id 5b1f17b1804b1-48fe60e51c6mr296433775e9.7.1779190920505;
-        Tue, 19 May 2026 04:42:00 -0700 (PDT)
-Received: from [192.168.0.35] ([51.37.145.233])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febf8305dsm152745015e9.9.2026.05.19.04.41.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 04:42:00 -0700 (PDT)
-Message-ID: <1485d619-35da-48e1-a108-60de1bd8b19b@linaro.org>
-Date: Tue, 19 May 2026 12:41:59 +0100
+        d=1e100.net; s=20251104; t=1779191156; x=1779795956;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
+        b=n+BdeD7ZCfDpN50iqeYNHmPjUkz8ri7RLD2JIob19vW4orMPx9W82VB99PVIDhLs+/
+         FYl78Dwd3V/shEsnI8ivOY1U1l8GOEEPh5nXroEKxhfK6ALN99YH4G3F3jINEpblEImp
+         s0QjeECJDj1Xr5IQsGH9NbQifLnJo25DgVy8eI984bEO68MA8NedgibjalenHaBy+Kqy
+         B+CUTfCjhc2wTczFc3Iy/kXmi7uVQCuOkTwgl9sLw+Jym0/FCxEyU84gWee57GJlYOJl
+         UL/LbnGvcgPnvZ9oMaZs2uYQ4aeiO/GE3nn6PMv5tgWf+atvgx7Pi6iegva/OfhJ0AX2
+         WhlA==
+X-Forwarded-Encrypted: i=1; AFNElJ84+lssgXmxhVnkVN9TY2tiZT+mChOt+YC5i+iwn493D3nq5Zo1Ji0B+gEFOxYZKZmTSIQ2pTrH6QnU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6tFaGDzfspXeKIYys1PHwblKs77Iynnx+QtUtQTFQtGWpTvlU
+	028iulWAFbxvw7EEbkO9hewy2tycwK1NbrsYcUUUcdruy4TRhNCA4fsd+eeQwdPOpQFBly9N+lc
+	CNYwCpaX1+PXIG9CtZuw1D/6XKEhK4UYNb4ZajVN0wZx2TFfGG8kQ2CDeESVRJLXCwIcaH/cfgn
+	C78As4+Tkee8DXHXV+81pfxZ3NW4mRQvSHGoqYbQ==
+X-Gm-Gg: Acq92OEBEtGQ0iatJ/2MPyzBBw4pnEMFHaYBtjEngJqkRiCv4G50+GfxqrWoyoXGQX8
+	1Q6XU51CPEuYSFF59X5psPjkER4eFC9ocTA3dGTLt87DBesLH1i9dmoydzcVbk3vBM8fQcTgK3+
+	MLILBW46u9dc3OwlYa+fU8530PmfCl94zjNolLdygLJX0XOyDyUotFZBUFx6rgcNMBABJyT2/WF
+	zghhw==
+X-Received: by 2002:a05:651c:548:b0:393:9110:fbac with SMTP id 38308e7fff4ca-39561d12c2cmr26805871fa.1.1779191156020;
+        Tue, 19 May 2026 04:45:56 -0700 (PDT)
+X-Received: by 2002:a05:651c:548:b0:393:9110:fbac with SMTP id
+ 38308e7fff4ca-39561d12c2cmr26805691fa.1.1779191155534; Tue, 19 May 2026
+ 04:45:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] usb: typec: tcpm: qcom: use connector to specify VBUS
- regulator.
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260519-fix-tcpm-vbus-v1-0-14754695282d@oss.qualcomm.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20260519-fix-tcpm-vbus-v1-0-14754695282d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260518061522.2884441-1-khristineandreea.barbulescu@oss.nxp.com> <20260518061522.2884441-2-khristineandreea.barbulescu@oss.nxp.com>
+In-Reply-To: <20260518061522.2884441-2-khristineandreea.barbulescu@oss.nxp.com>
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Date: Tue, 19 May 2026 13:45:44 +0200
+X-Gm-Features: AVHnY4IsU7fSSnNgUDdmrpcWXb8rpRp3nIWviV63aNNWwk4kg6ZdkU34h4HNbeA
+Message-ID: <CALE0LRtt8w6cAoCqKt-9YCuvjbVE95NdQPq3gXqRg-jhxKO4HA@mail.gmail.com>
+Subject: Re: [PATCH 1/1] arm64: dts: Add usbphynop and usbotg pinctrl for S32G platforms
+To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-kernel@lists.infradead.org, 
+	imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	NXP S32 Linux <s32@nxp.com>, Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 19/05/2026 11:48, Dmitry Baryshkov wrote:
-> The Qualcomm PMIC Type-C devices historically provided their own way of
-> specifying the VBUS regulator, via the device's vdd-vbus-supply node.
-> This is not ideal as the VBUS is supplied to the connector and not to
-> the Type-C block in the PMIC. In theory hardware can use different
-> regulators for VBUS, so specifying it in the PMIC DTSI is not correct.
-> Deprecate this property in favour of the standard way of specifying it
-> (via the connector's vbus-supply property).
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Hi,
+
+Thank you for the patch.
+
+On Mon, May 18, 2026 at 8:15=E2=80=AFAM Khristine Andreea Barbulescu
+<khristineandreea.barbulescu@oss.nxp.com> wrote:
+>
+> Add the usbphynop node and the usbotg pinctrl
+> support for the S32G2 and S32G3 SoCs.
+>
+> This enables the USB controller to reference the
+> generic PHY and use the required pinmux for USB OTG ops.
+>
+> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@=
+oss.nxp.com>
 > ---
-> Dmitry Baryshkov (6):
->        dt-bindings: usb: qcom,pmic-typec: deprecate device-specific VBUS
->        usb: typec: tcpm: qcom: prefer VBUS supply from the connector node
->        arm64: dts: qcom: pm4125: move vdd-vbus-supply to connector nodes
->        arm64: dts: qcom: pm7250b: move vdd-vbus-supply to connector nodes
->        arm64: dts: qcom: pm8150b: move vdd-vbus-supply to connector nodes
->        arm64: dts: qcom: pmi632: move vdd-vbus-supply to connector nodes
-> 
->   Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml |  4 ++--
->   arch/arm64/boot/dts/qcom/pm4125.dtsi                       |  1 -
->   arch/arm64/boot/dts/qcom/pm7250b.dtsi                      |  1 -
->   arch/arm64/boot/dts/qcom/pm8150b.dtsi                      |  1 -
->   arch/arm64/boot/dts/qcom/pmi632.dtsi                       |  1 -
->   arch/arm64/boot/dts/qcom/qrb2210-rb1.dts                   |  2 ++
->   arch/arm64/boot/dts/qcom/qrb4210-rb2.dts                   |  2 ++
->   arch/arm64/boot/dts/qcom/qrb5165-rb5.dts                   |  2 ++
->   arch/arm64/boot/dts/qcom/sdm632-fairphone-fp3.dts          |  2 ++
->   arch/arm64/boot/dts/qcom/sm6115-fxtec-pro1x.dts            |  2 ++
->   arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts          |  2 ++
->   arch/arm64/boot/dts/qcom/sm8150-hdk.dts                    |  2 ++
->   arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi   |  2 ++
->   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c         | 12 +++++++++++-
->   14 files changed, 29 insertions(+), 7 deletions(-)
-> ---
-> base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
-> change-id: 20260519-fix-tcpm-vbus-aabde21f339d
-> 
-> Best regards,
+>  .../boot/dts/freescale/s32gxxxa-evb.dtsi      | 53 ++++++++++++++++++-
+>  .../boot/dts/freescale/s32gxxxa-rdb.dtsi      | 53 ++++++++++++++++++-
+>  2 files changed, 104 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi b/arch/arm64=
+/boot/dts/freescale/s32gxxxa-evb.dtsi
+> index 803ff4531077..d096744cdb0f 100644
+> --- a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
+> @@ -1,12 +1,19 @@
+>  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+>  /*
+> - * Copyright 2024 NXP
+> + * Copyright 2024, 2026 NXP
+>   *
+>   * Authors: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+>   *          Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+>   *          Larisa Grigore <larisa.grigore@nxp.com>
+>   */
+>
+> +/ {
+> +       usbphynop: usbphynop {
+> +               compatible =3D "usb-nop-xceiv";
+> +               #phy-cells =3D <0>;
+> +       };
+> +};
+
+I'm wondering if it it would be more appropriate in the SoC-level dtsi
+(s32g2.dtsi/s32g3.dtsi), similar to other Freescale boards,it doesn't
+represent any board-specific hardware but a virtual NOP transceiver
+used by the SoC.
+
+> +
+>  &pinctrl {
+>         can0_pins: can0-pins {
+>                 can0-grp0 {
+> @@ -245,6 +252,39 @@ dspi5-grp4 {
+>                         bias-pull-up;
+>                 };
+>         };
+> +
+> +       usbotg_pins: usbotg_pins {
+> +               usbotg_grp0 {
+
+The label can remain usbotg_pins but node names should use hyphens
+
+usbotg_pins: usbotg-pins {
+    usbotg-grp0 {
+
+You can run this to catch this kind of issues:
+
+make W=3D1 CHECK_DTBS=3Dy ARCH=3Darm64 CROSS_COMPILE=3Daarch64-linux-gnu-
+freescale/s32g399a-rdb3.dtb
+
+
+> +                       pinmux =3D <0x3802>, <0x3812>,
+> +                               <0x3822>, <0x3832>,
+> +                               <0x3842>, <0x3852>,
+> +                               <0x3862>, <0x3872>,
+> +                               <0x37f2>, <0x3882>,
+> +                               <0x3892>;
+> +               };
+> +
+> +               usbotg_grp1 {
+> +                       pinmux =3D <0x3e1>, <0x3f1>,
+> +                               <0x401>, <0x411>,
+> +                               <0xbc1>, <0xbd1>,
+> +                               <0xbe1>, <0x701>;
+> +                       output-enable;
+> +                       input-enable;
+> +                       slew-rate =3D <208>;
+> +               };
+> +
+> +               usbotg_grp2 {
+> +                       pinmux =3D <0xb80>, <0xb90>, <0xbb0>;
+> +                       input-enable;
+> +                       slew-rate =3D <208>;
+> +               };
+> +
+> +               usbotg_grp3 {
+> +                       pinmux =3D <0xba1>;
+> +                       output-enable;
+> +                       slew-rate =3D <208>;
+> +               };
+> +       };
+>  };
+>
+>  &can0 {
+> @@ -304,3 +344,14 @@ &spi5 {
+>         pinctrl-names =3D "default";
+>         status =3D "okay";
+>  };
+> +
+> +&usbmisc {
+> +       status =3D "okay";
+> +};
+> +
+> +&usbotg {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&usbotg_pins>;
+> +       fsl,usbphy =3D <&usbphynop>;
+
+According to the binding this option is deprecated. Could you use
+"phys" instead?
+
+> +       status =3D "okay";
+> +};
+> diff --git a/arch/arm64/boot/dts/freescale/s32gxxxa-rdb.dtsi b/arch/arm64=
+/boot/dts/freescale/s32gxxxa-rdb.dtsi
+> index 979868f6d2c5..b756bcf6469d 100644
+> --- a/arch/arm64/boot/dts/freescale/s32gxxxa-rdb.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32gxxxa-rdb.dtsi
+> @@ -1,12 +1,19 @@
+>  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+>  /*
+> - * Copyright 2024 NXP
+> + * Copyright 2024, 2026 NXP
+>   *
+>   * Authors: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+>   *          Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+>   *          Larisa Grigore <larisa.grigore@nxp.com>
+>   */
+>
+> +/ {
+> +       usbphynop: usbphynop {
+> +               compatible =3D "usb-nop-xceiv";
+> +               #phy-cells =3D <0>;
+> +       };
+> +};
+> +
+>  &pinctrl {
+>         can0_pins: can0-pins {
+>                 can0-grp0 {
+> @@ -199,6 +206,39 @@ dspi5-grp4 {
+>                         bias-pull-up;
+>                 };
+>         };
+> +
+> +       usbotg_pins: usbotg_pins {
+> +               usbotg_grp0 {
+
+ditto
+
+> +                       pinmux =3D <0x3802>, <0x3812>,
+> +                               <0x3822>, <0x3832>,
+> +                               <0x3842>, <0x3852>,
+> +                               <0x3862>, <0x3872>,
+> +                               <0x37f2>, <0x3882>,
+> +                               <0x3892>;
+> +               };
+> +
+> +               usbotg_grp1 {
+> +                       pinmux =3D <0x3e1>, <0x3f1>,
+> +                               <0x401>, <0x411>,
+> +                               <0xbc1>, <0xbd1>,
+> +                               <0xbe1>, <0x701>;
+> +                       output-enable;
+> +                       input-enable;
+> +                       slew-rate =3D <208>;
+> +               };
+> +
+> +               usbotg_grp2 {
+> +                       pinmux =3D <0xb80>, <0xb90>, <0xbb0>;
+> +                       input-enable;
+> +                       slew-rate =3D <208>;
+> +               };
+> +
+> +               usbotg_grp3 {
+> +                       pinmux =3D <0xba1>;
+> +                       output-enable;
+> +                       slew-rate =3D <208>;
+> +               };
+> +       };
+>  };
+>
+>  &can0 {
+> @@ -257,3 +297,14 @@ &i2c4 {
+>         pinctrl-1 =3D <&i2c4_gpio_pins>;
+>         status =3D "okay";
+>  };
+> +
+> +&usbmisc {
+> +       status =3D "okay";
+> +};
+> +
+> +&usbotg {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&usbotg_pins>;
+> +       fsl,usbphy =3D <&usbphynop>;
+
+ditto
+
+> +       status =3D "okay";
+> +};
 > --
-> With best wishes
-> Dmitry
-> 
+> 2.34.1
+>
 
-It should be possible to use vbus from any source - and that vbus is 
-indeed port not controller specific.
-
-For the series
-
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-
----
-bod
