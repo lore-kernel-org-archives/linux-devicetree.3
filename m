@@ -1,63 +1,64 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AFD367B91
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 22:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD0E3438B7
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 22:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779229991; cv=none; b=X9aZ/OrW2AaHul6VJHkn2TJsVrwOgE4rijWMoeyOuplTPX1FJmIVqrxUs0D40wqgg66/rJeO3gOwKJvUO7KZ1hIrY2oYZ+0KntBguRhEct/MVvQN+5uSsUHmMt7awUuB35EGGCyAypLRbAJCVahriZeh9e0K/ZHkv2SLB6P/rkM=
+	t=1779229996; cv=none; b=MBUBK0mGh0rxo5u7KMgJw7rmRTPh5paUvE2bS3KoBTGtxsq5bvu98zbkWXQOMnzQjKR5I4y9LdO8h7D/NULeFuCrD1HDbOCzPlI9aR45BjQsjEErsacW5ouwKM4l8zxzsCwHF3iEksavc7ucls6E6gv/ysIP3hYCCuydJokVlFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779229991; c=relaxed/simple;
-	bh=eJkiww197X5VvhHmztEPAYPU7b+NTaIrdSyFEi3Aoog=;
+	s=arc-20240116; t=1779229996; c=relaxed/simple;
+	bh=pT5fXYUM/Vg8EfvGNeN1D8rz2V2b+bxX2V18x1wlzJo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OtnnVgH5ew3tRuswdS6P44F91e7yHni6b5evwc8AcJ7YXknyxnbxUCcu+K8I8iRHg7WjxxGfPzUOFqeehpKti+k1vpRlEJNqBUJiccWLx8IfgSrt6908L3UW35pIsyS5mrfbceI0DPpISnoNgOS6nKraIzBPXkG7RFkWhxaGg7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adVInQR3; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=NJBXiMWwvGFTYsoEKONCovh8UIFm0FSJSowJ1q+XtdaC147dlM+pDVNPECLwscYzBgE5n2u6NTjo2GmIMQYrD9njLP9znvdTj0HY92mU4jpLUdSiwHvmk5i/yaA/cqyxClIU/mxUsKObhJYN0jIu21lsDXeapFVTPC7xpEeXyMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lzBx9D4B; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adVInQR3"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-488a88aeec9so49390635e9.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:33:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lzBx9D4B"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso55340735e9.1
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:33:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779229988; x=1779834788; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779229990; x=1779834790; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rSWJVKglNpMUeLvf2TMVSbIheMkylfB7P/Qb2Y04AtU=;
-        b=adVInQR3z4AgxfN8AUkKYgnj2t4mR6f9PkDUE0CauBNuApu3D6GNaJLKinNXS4gOZn
-         IY/d8RCxJdcbaM/6jan7gG124I1rvIlHQnybdD5z/+/vtJ3ACIt7FqU4QB46XvoW35Av
-         qHLfkpGF68opluyyJ1p0mNdCbRpr8Y5L/GxAcv+6xC5u2RjKZX9tVu2nNBBUk9NWHG7j
-         /rGY/XBfXingwVNTKcb0o5n4CeqcfWiIVqZZ9jLsxnYpZy0xqu3KHfUDXS4Ph+QRKbTB
-         9Kh/Ot/vlqPDiWlop+jykeGZhuBdUpyMPEWNpZ6QXgWeD84GmdYRXMcYBzWMaDv91psR
-         B+Eg==
+        bh=BaMDXwQVRtxROg0BHKiUws/Sbvb5VHpQ+LiARB3jO4c=;
+        b=lzBx9D4B1VPuchGF6gpWopplbAdE76pui76OdaNBec5+8KT2lj1jZunmqZ7PlgEmWn
+         sPWUTjPaqwF6nc0/3/FEpPeb+UN1pldn1SQ/5JKxD9kBpf6PFl+sGp88qorNyMeAZVKY
+         nvMTCJXtlhwa5LEjhzrTNUHBZTcMAo+XYZMUgnrm0wOEzzH9177hiRbzTHyynDhsmwAK
+         BeT3h3slV050bk/3rpGYvywHvtbHWzG4sM9NOLJAJQO9EoCbuBMjvOsHmHJGmaS7L7sY
+         7s6Ddqx0o3h1TAuXY5ygrCoUcOsOgMQYpzigqOXrjSqJBCBI2IDd2URJqO1JBE01EI+A
+         ltHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779229988; x=1779834788;
+        d=1e100.net; s=20251104; t=1779229990; x=1779834790;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=rSWJVKglNpMUeLvf2TMVSbIheMkylfB7P/Qb2Y04AtU=;
-        b=bVDipbfeZe3gEkbA56LRCfdLRH/tZzu7beSVh+xJUeybhCZ7zSMhbdGquKIZ1bMqIt
-         QJnpt9Q7be4s9p3j7zCmVRU8OyY1TT0KzeSlXETn9PWslUiAmPTfiK4iENDKAuMGrryO
-         gR6vfqGn/Gxd2p1sNi6RtSOZ97Hk9W6k+PltNW19YqkTWdqLN8jayg/i8QDIi9f69zB7
-         e/3c3VQRJ0xP0xFIYMVj6ht8Wl6mTsDnukRPMrcet2JYfOnatffuJ50MjUsW+kSmmOOQ
-         Or3lc3Mf18FKLFwjywNkDRkyZGU50qtrtCrz9EPBX2I++WcRmcqQqxKXmK7JkxHbYMpc
-         l6Nw==
-X-Forwarded-Encrypted: i=1; AFNElJ9g0gVtJqpg7xJ9JQ1P7QYPw/ddC+cxu68u4pLOPtDF+em7KSl6YUxIynW9B2Qiv5Uc9D8OT0DLF3QK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC8ozWyG1Jn4r3OUy0ufsD5J6uRpHKpCjXwuVZ/mbxyRcWpj9d
-	RIruf7Z8CHMYri5gsEEBQ6dy4kSjXp2p5kfUcMz6TsB44Kak5+A9fxmS
-X-Gm-Gg: Acq92OH7RwWlF/RBAMRb32xew1UH/uNxaODOZG30ba5v+KzbSbkfQnBl8JLvV+pIFxb
-	eYax9QVn0shOqdUZ64zaIoMAU5TXUrB4BhSqGA1AvXcJVi4y50BqZ16cZyqe2pa13UnAAZdGMw4
-	SQ3VYH295CAGHHetpvN2TijzIrjKQh2w0kDfd3/2wQxTbmWnXYDwIcY+MPlJHcsqB6MN6zt43kj
-	FLn5a3nHAOcpVUI93stwf4IXW2JvGtXRMWfyFK2AVgTpCfMLiI9Q03JCjZKEIcz54oSwh2Mcbe/
-	kqK32FhKAAz9+h2tX7h+KRaGq5gL2F5n69xLGsBjWuA6+DagDiIkgmFwE7y5uYkGgyagTLsqb88
-	MLsQQoO3sTTqmcONyuDv5/9t+Zt+8K8TfXCIuhUjI5sYxOu5714I5zj9sUneZIpwfC+nPIEcvRC
-	HmQtbJhOTJ3xiX4f8TnEMoDUdr71rGIdmQ0X29NZib0mnA2Le9Tvs5OoNDGcVHHlde7AmQVbk=
-X-Received: by 2002:a05:600c:4504:b0:48f:d1b8:9a9c with SMTP id 5b1f17b1804b1-48fe60e14bamr314706265e9.7.1779229987604;
-        Tue, 19 May 2026 15:33:07 -0700 (PDT)
+        bh=BaMDXwQVRtxROg0BHKiUws/Sbvb5VHpQ+LiARB3jO4c=;
+        b=epLNn7C+IcqRsLdUrNtu1ZSa3m+VF8n4BYIGGdsC+75I8AYsNFyNCczDwgMmDGuEV4
+         IYH8XRukVyFDxNegEjdR4h6caeiBgpC+ycjbhoBXMU1mcTu4nBH0ais3MTleXbH0EnYk
+         8T2q2muaWJztarwvrnk9uqjwLV8ND7hNdh6ZFZ7Mc2fZm5Tce3GXEyh3qqREFnBw1dJa
+         cAH8BL5S1xstcrrhtdb79ab2nQv9lIrZwygJ9CYOdLbVrpTIUVFSBsTROIeJWav1nZSb
+         XDE+edQ67YCbVpDHEqc+we/b1FUAzyRDyJ6SyWmDj1d2TfCUOJBg81Yip5D77i3d5ZjC
+         mguw==
+X-Forwarded-Encrypted: i=1; AFNElJ9Xj1ssWnIinw3XZ+py7gCYOdSqNH+tg2+mgLYkQMbguhXTKUKUFaHixAxFeNu9kiQFLNOHz5HrF/fF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxX+hxMc53QZ+FnLqmdIixDdgHO24j3BC+Z5BpVslPktm2O9Ws/
+	EPCr3obs6ZkuVGfQK5fy7f1veoIlul3wb51r/zDooZ+iahD/7oKgQr9F
+X-Gm-Gg: Acq92OHfQ8UzA1lK1fjmREXAPIn4CsRHzM8ssZfQkvvhxrtqF/p/U6vgGcx4yJ1d7Af
+	XqUuwn5BTLT3YhC8mVKJiyPNFJ3aue1AjzeBh5GGH3hTAoMsbl4D2pxe4P2GLjxF9Gf4qM9DJC5
+	NoKjU4774z3Lp99nqlfXUtDyOddFqfe/vP+0XVaF/Y3M0ciPPnKRng+AsM5eKEQvlVMEcuxtVe2
+	8ojEMUtlrrFPeMp31I866VYTlQX+qfBnl+vx8fQVEziv/BooFjruM71buUUONTQcPjXH3F7b/mV
+	bxexQfWjp5P0PrR5ClXRmSfcZ2hF4gNxrPj6L6d4fPpXRYLfAt1L87WWKfAtLmp1lexAMwMF7eM
+	YBjfXrZQ8siyHQeKe55g60oEArmPu95+3PqtsxlcGaXE31NjtuhBthACnyvnC4+NtAxu/+7zw0O
+	tK61+fJMO1Tc7f7tvL/clxWdgMCRWux2JWpB0MAX1sHemWu2DzklPBnckkMiPdF0kLFvHWT+bLe
+	M6BjKW6yg==
+X-Received: by 2002:a05:600c:82c3:b0:490:778:4fe4 with SMTP id 5b1f17b1804b1-49007785080mr183034005e9.26.1779229990354;
+        Tue, 19 May 2026 15:33:10 -0700 (PDT)
 Received: from Ansuel-XPS24 (host-82-55-252-101.retail.telecomitalia.it. [82.55.252.101])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-48fe4c88495sm346659955e9.4.2026.05.19.15.33.06
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-48fe4c88495sm346659955e9.4.2026.05.19.15.33.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 15:33:07 -0700 (PDT)
+        Tue, 19 May 2026 15:33:09 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Stefan Roese <sr@denx.de>,
 	Andi Shyti <andi.shyti@kernel.org>,
@@ -72,9 +73,9 @@ To: Stefan Roese <sr@denx.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
 Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v3 1/5] i2c: mt7621: rework cmd/wait OPs to support atomic afer variant
-Date: Wed, 20 May 2026 00:32:43 +0200
-Message-ID: <20260519223253.1093-2-ansuelsmth@gmail.com>
+Subject: [PATCH v3 2/5] i2c: mt7621: clear pending interrupt on i2c reset
+Date: Wed, 20 May 2026 00:32:44 +0200
+Message-ID: <20260519223253.1093-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260519223253.1093-1-ansuelsmth@gmail.com>
 References: <20260519223253.1093-1-ansuelsmth@gmail.com>
@@ -86,160 +87,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-It was reported the need for atomic operation on some Airoha SoC that
-makes use of I2C bus. Rework the cmd/wait OPs to suppor the xfer_atomic
-variant. To support this it's mainlin needed to do the readl poll in
-atomic context.
+On resetting the i2c bus, clear any pending interrupt to have a more
+consistent state on the next operation.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/i2c/busses/i2c-mt7621.c | 56 ++++++++++++++++++++++-----------
- 1 file changed, 38 insertions(+), 18 deletions(-)
+ drivers/i2c/busses/i2c-mt7621.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
-index 0a288c998419..700beb9e7b1a 100644
+index 700beb9e7b1a..d8fa29e7e0fa 100644
 --- a/drivers/i2c/busses/i2c-mt7621.c
 +++ b/drivers/i2c/busses/i2c-mt7621.c
-@@ -67,14 +67,19 @@ struct mtk_i2c {
- 	struct clk *clk;
- };
- 
--static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
-+static int mtk_i2c_wait_idle(struct mtk_i2c *i2c, bool atomic)
- {
- 	int ret;
- 	u32 val;
- 
--	ret = readl_relaxed_poll_timeout(i2c->base + REG_SM0CTL1_REG,
--					 val, !(val & SM0CTL1_TRI),
--					 10, TIMEOUT_MS * 1000);
-+	if (atomic)
-+		ret = readl_relaxed_poll_timeout_atomic(i2c->base + REG_SM0CTL1_REG,
-+							val, !(val & SM0CTL1_TRI),
-+							10, TIMEOUT_MS * 1000);
-+	else
-+		ret = readl_relaxed_poll_timeout(i2c->base + REG_SM0CTL1_REG,
-+						 val, !(val & SM0CTL1_TRI),
-+						 10, TIMEOUT_MS * 1000);
- 	if (ret)
- 		dev_dbg(i2c->dev, "idle err(%d)\n", ret);
- 
-@@ -117,27 +122,28 @@ static int mtk_i2c_check_ack(struct mtk_i2c *i2c, u32 expected)
- 	return ((ack & ack_expected) == ack_expected) ? 0 : -ENXIO;
+@@ -101,6 +101,8 @@ static void mtk_i2c_reset(struct mtk_i2c *i2c)
+ 	iowrite32(((i2c->clk_div << 16) & SM0CTL0_CLK_DIV_MASK) | SM0CTL0_EN |
+ 		  SM0CTL0_SCL_STRETCH, i2c->base + REG_SM0CTL0_REG);
+ 	iowrite32(0, i2c->base + REG_SM0CFG2_REG);
++	/* Clear any pending interrupt */
++	iowrite32(1, i2c->base + REG_PINTEN_REG);
  }
  
--static int mtk_i2c_start(struct mtk_i2c *i2c)
-+static int mtk_i2c_start(struct mtk_i2c *i2c, bool atomic)
- {
- 	iowrite32(SM0CTL1_START | SM0CTL1_TRI, i2c->base + REG_SM0CTL1_REG);
--	return mtk_i2c_wait_idle(i2c);
-+	return mtk_i2c_wait_idle(i2c, atomic);
- }
- 
--static int mtk_i2c_stop(struct mtk_i2c *i2c)
-+static int mtk_i2c_stop(struct mtk_i2c *i2c, bool atomic)
- {
- 	iowrite32(SM0CTL1_STOP | SM0CTL1_TRI, i2c->base + REG_SM0CTL1_REG);
--	return mtk_i2c_wait_idle(i2c);
-+	return mtk_i2c_wait_idle(i2c, atomic);
- }
- 
--static int mtk_i2c_cmd(struct mtk_i2c *i2c, u32 cmd, int page_len)
-+static int mtk_i2c_cmd(struct mtk_i2c *i2c, u32 cmd, int page_len,
-+		       bool atomic)
- {
- 	iowrite32(cmd | SM0CTL1_TRI | SM0CTL1_PGLEN(page_len),
- 		  i2c->base + REG_SM0CTL1_REG);
--	return mtk_i2c_wait_idle(i2c);
-+	return mtk_i2c_wait_idle(i2c, atomic);
- }
- 
--static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
--			int num)
-+static int mtk_i2c_xfer_common(struct i2c_adapter *adap, struct i2c_msg *msgs,
-+			       int num, bool atomic)
- {
- 	struct mtk_i2c *i2c;
- 	struct i2c_msg *pmsg;
-@@ -152,12 +158,12 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 		pmsg = &msgs[i];
- 
- 		/* wait hardware idle */
--		ret = mtk_i2c_wait_idle(i2c);
-+		ret = mtk_i2c_wait_idle(i2c, atomic);
- 		if (ret)
- 			goto err_timeout;
- 
- 		/* start sequence */
--		ret = mtk_i2c_start(i2c);
-+		ret = mtk_i2c_start(i2c, atomic);
- 		if (ret)
- 			goto err_timeout;
- 
-@@ -173,7 +179,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 			len = 1;
- 		}
- 		iowrite32(addr, i2c->base + REG_SM0D0_REG);
--		ret = mtk_i2c_cmd(i2c, SM0CTL1_WRITE, len);
-+		ret = mtk_i2c_cmd(i2c, SM0CTL1_WRITE, len,
-+				  atomic);
- 		if (ret)
- 			goto err_timeout;
- 
-@@ -198,7 +205,7 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 				cmd = SM0CTL1_WRITE;
- 			}
- 
--			ret = mtk_i2c_cmd(i2c, cmd, page_len);
-+			ret = mtk_i2c_cmd(i2c, cmd, page_len, atomic);
- 			if (ret)
- 				goto err_timeout;
- 
-@@ -218,7 +225,7 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 		}
- 	}
- 
--	ret = mtk_i2c_stop(i2c);
-+	ret = mtk_i2c_stop(i2c, atomic);
- 	if (ret)
- 		goto err_timeout;
- 
-@@ -226,7 +233,7 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 	return i;
- 
- err_ack:
--	ret = mtk_i2c_stop(i2c);
-+	ret = mtk_i2c_stop(i2c, atomic);
- 	if (ret)
- 		goto err_timeout;
- 	return -ENXIO;
-@@ -237,6 +244,18 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 	return ret;
- }
- 
-+static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-+			int num)
-+{
-+	return mtk_i2c_xfer_common(adap, msgs, num, false);
-+}
-+
-+static int mtk_i2c_xfer_atomic(struct i2c_adapter *adap,
-+			       struct i2c_msg *msgs, int num)
-+{
-+	return mtk_i2c_xfer_common(adap, msgs, num, true);
-+}
-+
- static u32 mtk_i2c_func(struct i2c_adapter *a)
- {
- 	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_PROTOCOL_MANGLING;
-@@ -244,6 +263,7 @@ static u32 mtk_i2c_func(struct i2c_adapter *a)
- 
- static const struct i2c_algorithm mtk_i2c_algo = {
- 	.xfer = mtk_i2c_xfer,
-+	.xfer_atomic = mtk_i2c_xfer_atomic,
- 	.functionality = mtk_i2c_func,
- };
- 
+ static void mtk_i2c_dump_reg(struct mtk_i2c *i2c)
 -- 
 2.53.0
 
