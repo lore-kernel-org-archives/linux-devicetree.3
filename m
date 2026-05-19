@@ -1,266 +1,217 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB7E3E121D
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.229.168.213])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E55B93DD87F;
+	Tue, 19 May 2026 08:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.229.168.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779178451; cv=none; b=joAoA/ww/KO3hTpokDNlIGIqpflByTP0F+1pxZefai5SeA8ICs1lAvHTMBf/txiNmUnNA4qoNiPOtvS9KQIJUGomAm5oKCh1c7p8EEXH8/xUvUbQ3jPN948R4ifHnNiuodsju7a+0JxhpeeSmWEur0GyfrEzyUowo1dwOLU2Yhw=
+	t=1779178514; cv=none; b=PrxyFeEo6ZNhJrtyL4+CZDq10dbgbpXbfMJ9YEb4x1qCNHzctLClNoLfOQ10cFGsDtkn1DVjTJcybpu+cbQLz509dkAX88dp/WtaOUtkZVkGGV3j13ptrZ0BYIyAvLy4kag7goJhCgfUR3Fnt7coZDjiaHDcFcfnK3pWVyQCkrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779178451; c=relaxed/simple;
-	bh=dWLZe7QiX/lxLNJ9otbW4tMkazrMFLCdXjJlemEBlwE=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=oiaPUxDoXTldgdyE3XZdTYBLAegWjNySL+y7NE8IElBVTB2Hni0myIzgZviUz3U9mMgdgTnQBybBCzCo0is0imU9ZHMMLDafrjM+KUVcyF0IQHXEFKVcyONqadwLBmxHoTthz7HfVNzlNZpTUR6ClZ2TE8TAUtADHXOkaOGdcc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=p0S7z2rH; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="p0S7z2rH"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488a88aeec9so38319565e9.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:14:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779178447; x=1779783247; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vTT0TEmFoUeONXI3O0UhC63GEEGa26mb7fZ2wgQ6t/A=;
-        b=p0S7z2rHYfLMg5v1g8NyX7YB6Dji3dP34clONs9LA2P3KE1RdSG0L8Jo7mPUPhpl/G
-         Cy7b8+zwIUozhNbAUgg98W3ktKenLgSiDBbFrbcDIz21VJtaPUd4/rx7lSN/IXrHS3JY
-         TKw4o6dYrHBB7lgMXN/oN8d3/aBV6kaPRmMWjITGuqhcIpelW4/OVmPM0K4YUgIi2cMp
-         lvfN8ThVoqWkWhaTv6HiP8H6xTa/UXVOQO8ixf7Se4kAC6Atdxzr3FK1jZbKvETlaHJt
-         sS22a1J5GEogMgvPlJ0ngqbAItMJWwW27avG97YE3PF0CjtfQWEeWSlzvcjDm/tfli1O
-         0f8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779178447; x=1779783247;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vTT0TEmFoUeONXI3O0UhC63GEEGa26mb7fZ2wgQ6t/A=;
-        b=YtbNaH0sFVzbZLsjiPYDJSEpEz7C7422o5o3GabNey8ERZe0AOLXyfLy/Y4LmoOiHC
-         dgsV/IStiDtOEMzkB/ECCeWHIEqfzIoB+lF0eMbIrmDSovFSfs65PBAfnyIhLo8N26kk
-         xfMkzFSzdoy5bwxk7NkD6u6yFQOEFU2CaW2SdkrFswn2CS1zZS7wb1qckwhws+mdcR6x
-         CL2BZm2dC8U/5d54z8EslwdsuKNIr5IPywHKphQqzUP/tMPkRwbuSSWJTg4Fn9looC6a
-         BD7vuUnR+MQiPthd9JURtMOmUPI3U8dnq47lwbfMuUZMHF0IWmPOrg8+4mhauN+QB4x+
-         lS9g==
-X-Forwarded-Encrypted: i=1; AFNElJ90fAi10f3EKg4cit6u1JgcJjNeEBnjmktP9oKnF+YBvYvbnaKU9Rpgf96VaF6KrwzUe/EBVJBqSMVx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJiOpqeeQIW0zGno4IQuVOciQdSy080wFj8It9nw2loz5Qjpqx
-	SH85nzZmB3RbOYrECUFfb76cOfG+kWu1Q1lvGQxltapcTh4TbIzCG+zeL6ejpYgbnSw=
-X-Gm-Gg: Acq92OGHgrImkWPx0lLgNRZjmIydUNwAK55SJAuIbGcj5ulZ6gk7fm3vlcYAISFRHtQ
-	KacdCGUCeX+BC7B45goSJUDjyzWeaICqYrw3GNyYORtKaOVqrj/TLU/OznH4cGIV+gFXm4/92Tp
-	qEQEM2SLeXOI1/gxaIhUvJZrnHxgvywulqNdKObA1GaplR63HBN7Jr2QmO8NoqnE+Fls/M4mWd1
-	Y8Ta71FLGn444nl55veTNScYJNeASLeX4ckEZL2SoHdYYghyhEeLYA1j3rGD7C6tgwP8oYN4UjC
-	rk22AwR262m3/shmC5nzko3E4uZC0dttlA3f5S4F2qt6K+J++pji3eIUad35qsWQcakr24LBEvP
-	6HnmHcG6yzZhWW6zUxqKSP1qkVrb1MCGdzbEI8z4jC4QaW6KFh8m4dEtIVEbfPQdwGzB+lBkIiK
-	A5lBjKS3HAQ7VRdq7ghfpWagxOX0pFNJcBVqNYClY/l0gNpibQV80FjOI7l+vSBVw0dGvyPbX0r
-	Wsi
-X-Received: by 2002:a05:600c:3506:b0:48f:e44c:e058 with SMTP id 5b1f17b1804b1-48fe60e13e7mr274947375e9.1.1779178447146;
-        Tue, 19 May 2026 01:14:07 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:1d4b:274c:94d:a69f? ([2a01:e0a:106d:1080:1d4b:274c:94d:a69f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febe5bc94sm189230825e9.4.2026.05.19.01.14.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 01:14:06 -0700 (PDT)
-Message-ID: <bc61221c-f517-4c35-8fb0-265a0c34b442@linaro.org>
-Date: Tue, 19 May 2026 10:14:05 +0200
+	s=arc-20240116; t=1779178514; c=relaxed/simple;
+	bh=p0JJ3zONhx4U6NLm4HDeRG2U2IZtj1r4oOI8sbOIJKQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=RzbeQpR1e0qnRtR4xJvznLDGx7s7l+DhzRUCZ+eUfWVoPTlo+V3y5N4CFlBHxuW+RFJqqWkXV8Fkm0SuuSFUsngjq5o7JjEaQWrguXavM/VTo6PASs9lwTGcBJSZm5uwWGofK9FNb3H7dre6yhjPrOtj52/sYzhK6gnNrxjvYHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.229.168.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app2 (Coremail) with SMTP id TQJkCgBXbaDtGwxqFa0aAA--.20072S2;
+	Tue, 19 May 2026 16:14:38 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com,
+	benoit.monin@bootlin.com,
+	bmasney@redhat.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: [PATCH v6 0/3] Add driver support for ESWIN EIC7700 HSP clock and reset generator
+Date: Tue, 19 May 2026 16:14:31 +0800
+Message-Id: <20260519081431.1424-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/2] backlight: Add SY7758 6-channel High Efficiency
- LED Driver support
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
-References: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-0-308140640de9@linaro.org>
- <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-2-308140640de9@linaro.org>
- <agdJnpz9O00lywRm@aspen.lan>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <agdJnpz9O00lywRm@aspen.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgBXbaDtGwxqFa0aAA--.20072S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKw17Zr1UtrWUWFyDuFyxAFb_yoWxZw43pF
+	WxGF93Gr1DZrWI9rs7ta4I9FyfJa1xJFy5Cws7Ja47Zws0yryUCr40ka45AFWDZwn3Xr4U
+	J3W7ta409FWjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmjgxUUUUU=
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-Hi,
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-On 5/15/26 18:28, Daniel Thompson wrote:
-> On Thu, Apr 30, 2026 at 11:47:16AM +0200, Neil Armstrong wrote:
->> From: KancyJoe <kancy2333@outlook.com>
->>
->> Implement support for the Silergy SY7758 6-channel High Efficiency LED
->> Driver used for backlight brightness control in the Ayaneo Pocket S2
->> dual-DSI panel.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> Signed-off-by: KancyJoe <kancy2333@outlook.com>
->> ---
->>   drivers/video/backlight/Kconfig  |   8 +
->>   drivers/video/backlight/Makefile |   1 +
->>   drivers/video/backlight/sy7758.c | 311 +++++++++++++++++++++++++++++++++++++++
->>   3 files changed, 320 insertions(+)
->> <snip>
->> diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
->> new file mode 100644
->> index 000000000000..9b2d3bbb4ded
->> --- /dev/null
->> +++ b/drivers/video/backlight/sy7758.c
->> @@ -0,0 +1,311 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Silergy SY7758 6-channel High Efficiency LED Driver
->> + *
->> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
->> + * Copyright (C) 2026 Linaro Limited
->> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> I'm a bit confused by this comment. The git author and the
-> MODULE_AUTHOR() is Kancy Joe. What does this comment signify?
+Add support for the ESWIN EIC7700 HSP (high-speed peripherals). The drivers
+provide basic functionality to manage and control the clock and reset
+signals for EIC7700 HSP, including mmc, USB, ethernet, SATA and DMAC.
 
-I'll fix this in v3
+The clock and reset registers are mapped to overlapping I/O address ranges.
+This causes a resource conflict when two drivers attempt to request the
+same region. Use the auxiliary device framework: the main driver
+allocates the shared register region and passes it to auxiliary
+devices, avoiding resource contention and duplicate remapping.
 
-> 
-> 
->> + */
->> <snip>
->> +/* OTP memory */
->> +#define REG_OTP_CFG98 0x98
->> +#define REG_OTP_CFG9E 0x9E
->> +#define REG_OTP_CFG0 0xA0
->> +#define REG_OTP_CFG1 0xA1
->> +#define REG_OTP_CFG2 0xA2
->> +#define REG_OTP_CFG3 0xA3
->> +#define REG_OTP_CFG4 0xA4
->> +#define REG_OTP_CFG5 0xA5
->> +#define REG_OTP_CFG6 0xA6
->> +#define REG_OTP_CFG7 0xA7
->> +#define REG_OTP_CFG9 0xA9
->> +#define REG_OTP_CFGA 0xAA
->> +#define REG_OTP_CFGE 0xAE
-> 
-> There seems to be a lot of unused macros here, especially
-> combined with the unused bitfields that tell us how to interpret
-> the values.
-> 
-> Do we need them?
+Features:
+Implements support for the ESWIN EIC7700 HSP clock and reset controller.
+Provide API to manage clock and reset signals for the EIC7700 HSP.
 
-I'll drop those
+Supported chips:
+ESWIN EIC7700 series SoC.
 
-> 
-> 
->> <snip>
->> +static int sy7758_probe(struct i2c_client *client)
->> +{
->> +	struct backlight_properties props = { };
->> +	struct device *dev = &client->dev;
->> +	struct sy7758 *sydev;
->> +	unsigned int dev_id;
->> +	int ret;
->> +
->> +	sydev = devm_kzalloc(dev, sizeof(*sydev), GFP_KERNEL);
->> +	if (!sydev)
->> +		return -ENOMEM;
->> +
->> +	i2c_set_clientdata(client, sydev);
->> +
->> +	/* Initialize regmap */
->> +	sydev->client = client;
->> +	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
->> +	if (IS_ERR(sydev->regmap))
->> +		return dev_err_probe(dev, PTR_ERR(sydev->regmap),
->> +				     "failed to init regmap\n");
->> +
->> +	/* Get and enable regulators */
->> +	ret = devm_regulator_get_enable(dev, "vddio");
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to get regulator\n");
->> +
->> +	usleep_range(100, 200);
-> 
-> Any reason not to use fsleep() here?
+Test:
+Test this patch on the Sifive HiFive Premier P550 (which used the EIC7700
+SoC), include USB and other peripherals. All the drivers of these modules
+use the clock module and reset module.
 
-Thanks, I'll switch to fsleep
+Updates:
+  Changes in v6:
+  - Clock driver:
+    - Add 'select REGMAP_MMIO' for Kconfig entry (Sashiko review of v5).
+  - Reset driver:
+    - Add <linux/module.h> (Sashiko review of v5).
 
-> 
-> 
->> +	/* Get enable GPIO and set to high */
->> +	sydev->gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
->> +	if (IS_ERR(sydev->gpio))
->> +		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
->> +				     "failed to get enable GPIO\n");
->> +
->> +	/* Let some time for HW to settle */
->> +	usleep_range(10000, 11000);
-> 
-> And here?
-> 
-> 
->> +
->> +	/* try read and check device id */
->> +	ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
->> +	if (ret < 0)
->> +		return dev_err_probe(dev, ret, "failed to read device id\n");
->> +	if (dev_id != 0x63) {
->> +		dev_err(dev, "unexpected device id: 0x%02x\n", dev_id);
->> +		return -ENODEV;
->> +	}
->> +
->> +	/* Initialize and set default brightness */
->> +	ret = sy7758_init(sydev);
->> +	if (ret)
->> +		return ret;
->> +
->> +	props.type = BACKLIGHT_RAW;
->> +	props.max_brightness = MAX_BRIGHTNESS;
->> +	props.brightness = DEFAULT_BRIGHTNESS;
->> +	props.scale = BACKLIGHT_SCALE_LINEAR;
->> +
->> +	sydev->bl = devm_backlight_device_register(dev, "sy7758-backlight",
->> +						   dev, sydev, &sy7758_backlight_ops,
->> +						   &props);
->> +	if (IS_ERR(sydev->bl))
->> +		return dev_err_probe(dev, PTR_ERR(sydev->bl),
->> +				     "failed to register backlight device\n");
->> +
->> +	return backlight_update_status(sydev->bl);
->> +}
-> 
-> 
-> Daniel.
+  - Link to v5: https://lore.kernel.org/all/20260514114212.903-1-dongxuyang@eswincomputing.com/
 
-Thanks,
-Neil
+  Changes in v5:
+  - Clock driver:
+    - Add check for regmap_read().
+    - Add "Reviewed-by: Brian Masney <bmasney@redhat.com>".
+
+  - Link to v4: https://lore.kernel.org/all/20260512020432.671-1-dongxuyang@eswincomputing.com/
+
+  Changes in v4:
+  - Clock driver:
+    - Remove "Reviewed-by: Benoît Monin <benoit.monin@bootlin.com>" and
+      "Reviewed-by: Brian Masney <bmasney@redhat.com>", because the clock
+      driver has been updated.
+    - Remove inclusion of io.h.
+    - Add struct regmap to eic7700_hsp_clk_gate.
+      Replace 'void __iomem *reg' with 'unsigned int reg'.
+      Replace 'void __iomem *ref_reg' with 'unsigned int ref_reg'.
+      Replace long with int for 'offset' and 'ref_offset'.
+      Remove 'spinlock_t *lock'.
+      Apply the same changes to hsp_clk_register_gate().
+    - Remove the structure eic7700_hsp_regmap_lock, and the functions
+      eic7700_hsp_regmap_lock() and eic7700_hsp_regmap_unlock().
+    - Remove the 'guard(spinlock_irqsave)(gate->lock)' in
+      hsp_clk_gate_endisable().
+    - Replace readl() and writel() with regmap_assign_bits() in
+      hsp_clk_gate_endisable().
+    - Change the parameter enable from int to bool.
+    - Replace readl() with regmap_read() in hsp_clk_gate_is_enabled().
+    - Remove the lock_ctx variable.
+    - Move eic7700_hsp_regmap_config from inside the probe function to global
+      scope.
+      Remove '.lock', '.unlock' and 'lock_arg'.
+      Add '.fast_io = true' and '.use_raw_spinlock = true'.
+  - Reset driver:
+    - Add "Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>" for reset.
+    - Drop the temporary variable, just return regmap_assign_bits(...) directly.
+    - Replace -EINVAL with -ENODEV for dev_get_regmap() check.
+    - Drop the '_dt'.
+
+  - Link to v3: https://lore.kernel.org/all/20260423090904.2108-1-dongxuyang@eswincomputing.com/
+
+  Changes in v3:
+  - Bindings:
+    - Added "Acked-by: Conor Dooley <conor.dooley@microchip.com>" for bindings.
+  - Clock driver:
+    - Remove 'gate_flags'.
+    - Add __acquires for eic7700_hsp_regmap_lock() and add __releases for
+      eic7700_hsp_regmap_unlock().
+    - Move writel(USB_REF_XTAL24M, gate->ref_reg) into enable. Because this
+      is only used for USB gate clock on the enable path. And modify the
+      comments.
+    - Simplify to: 'return !!(readl(gate->reg) & BIT(gate->bit_idx));'.
+    - Drop const from eic7700_hsp_regmap_config.
+    - Declare eic7700_hsp_regmap_config as a regular variable at the top.
+
+  - Link to v2: https://lore.kernel.org/all/20260420093929.1895-1-dongxuyang@eswincomputing.com/
+
+  Changes in v2:
+  - Bindings:
+    - Remove "hsp_" from clock-names.
+    - Replace "eswin,eic7700-clock.yaml" and "eswin,eic7700-hspcrg.yaml" with
+      "eswin,eic7700*".
+    - Replace "eswin,eic7700-clock.h" and "eswin,eic7700-hspcrg.h" with
+      "eswin,eic7700*".
+  - Clock driver:
+    - Use guard(spinlock_irqsave)(gate->lock) instead of spin_lock_irqsave()
+      and remove spin_unlock_irqrestore().
+    - Remove the newline in function hsp_clk_gate_is_enabled().
+    - Use struct clk_init_data init = {}.
+    - Replace 'static struct clk_parent_data' with
+      'static const struct clk_parent_data'.
+    - Change '.fw_name' to '.index', because the function
+      eswin_clk_register_fixed_factor() uses .index.
+    - The structures of clocks should use static struct. When registering a clock,
+      the 'hw' field in the structure will be assigned.
+    - Remove __force.
+    - Create the regmap in the clock driver and remove (__force void*)data->base.
+      The reset driver uses dev_get_regmap() to get the regmap from the clock.
+    - Move 'const struct regmap_config eic7700_hsp_regmap_config' from reset
+      driver to clock driver.
+    - The USB clock gate (hsp_clk_gate_endisable) and the reset driver both
+      perform read-modify-write cycles on registers 0x800 and 0x900. Use
+      custom regmap lock callbacks so that regmap operations hold data->lock
+      with IRQs disabled, the same lock the clock gate path uses, preventing
+      concurrent RMW races on those shared registers.
+    - Change to 'ret = eswin_clk_register_fixed_factor(dev, eic7700_hsp_factor_clks,'.
+      The next line will be over 80 characters and under 100 characters.
+  - Reset driver:
+    - Remove 'depends on COMMON_CLK_EIC7700_HSP' and 'default COMMON_CLK_EIC7700_HSP'.
+    - Use regmap_assign_bits() in assert and deassert functions.
+    - Remove eic7700_hsp_reset_reset().
+    - The clock driver creates the regmap, and the reset driver uses dev_get_regmap().
+    - Remove of_reset_n_cells.
+
+  - Link to v1: https://lore.kernel.org/all/20260403093459.612-1-dongxuyang@eswincomputing.com/
+
+Xuyang Dong (3):
+  dt-bindings: clock: Add ESWIN eic7700 HSP clock and reset generator
+  clk: eswin: Add eic7700 HSP clock driver
+  reset: eswin: Add eic7700 HSP reset driver
+
+ .../bindings/clock/eswin,eic7700-hspcrg.yaml  |  63 ++++
+ MAINTAINERS                                   |   5 +-
+ drivers/clk/eswin/Kconfig                     |  13 +
+ drivers/clk/eswin/Makefile                    |   1 +
+ drivers/clk/eswin/clk-eic7700-hsp.c           | 341 ++++++++++++++++++
+ drivers/reset/Kconfig                         |  11 +
+ drivers/reset/Makefile                        |   1 +
+ drivers/reset/reset-eic7700-hsp.c             | 113 ++++++
+ .../dt-bindings/clock/eswin,eic7700-hspcrg.h  |  33 ++
+ .../dt-bindings/reset/eswin,eic7700-hspcrg.h  |  21 ++
+ 10 files changed, 600 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+ create mode 100644 drivers/clk/eswin/clk-eic7700-hsp.c
+ create mode 100644 drivers/reset/reset-eic7700-hsp.c
+ create mode 100644 include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+ create mode 100644 include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+
+--
+2.34.1
 
