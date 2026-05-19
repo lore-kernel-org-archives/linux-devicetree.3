@@ -1,157 +1,168 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCA03E63AD;
-	Tue, 19 May 2026 08:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD66D3E717D;
+	Tue, 19 May 2026 08:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779179134; cv=none; b=JotRE+k2f7aKSm2lnvU/mcQrCQqKAhyZsMlNzLa5aB6kozYMqpu5Dp0MS4Uz5g546dXmwYKq04UxEfHPpRQpVVMPqnhZiSHCyasGmyagUGlocTjFxyK2HQGiG+EOg1AivLnBwkBy+Ebf6970uQLiGKppHEYbbUGYtkhxvS6OmyA=
+	t=1779179136; cv=none; b=hqGvJX4qP0P5DXFOZygC0T0o4b2vQDnij5Mzzjijw4AaNMdjPqU9cAagI6PmGHvq6hY0GImRUbggaoAIAWanzDaa2//Iv0f8FxsFOE2/sROnrR9MOBVumGAo7DVk8PeEMJfmornyFs7ez6IBLpJP/atbK/X7iGiDxKqU/1Id/Zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779179134; c=relaxed/simple;
-	bh=bO8ZcC0RI0VrZiD9YVhbYmikJtDJp8PMmh9acP2Ak44=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S7xa03Ds8DrxMCwFFf+qDeU1YGLTgSN1GbTuWX58M1G8pyd9W/y/iV9ZCsnZ2QSfaW7C37sSfUA/E/Zge6mZouna0EOAvevlGwodET0RqjgCG5nWFs2JkZ0cWLPIhMVactSdf1qglg+m43HmfaRARW+QffmK+WDzPE2ol2117Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y36yw2a8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1779179136; c=relaxed/simple;
+	bh=3uqWbG8cOP/swZ717M7Z3NfWutbwVdO6ogtjzEWqFPc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=r3Ww6ntQi99/0XXh8oLSKaEuBZh/5rVhp+gE643msRuEiHnvMUEuNW13FlHnwFA0b4Lykg5RCurAgmy7Na4Zv9t1HEhKsb1SFbUhTAzhj8lkBuQ8VnFcnUtBqEntjvrleDDHJ+1NH1s5RKJPo5zk+I2rskJGZGJ3hf2CyUtmsGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0GzMSbM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y36yw2a8"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J7hC2A2975577;
-	Tue, 19 May 2026 08:25:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3mc8HnRDjIddYmMal9EmcvSda+GfdxLfGaL6wbNracc=; b=Y36yw2a806n1LUq8
-	SnGvMj63AiT8nSrvsRyUfKDdlDkZInfnl5M2PfKjW/ASBS14vypNiFGsd0g5wH5s
-	zxuspjIo1OeKso/Zw9Q9egmvaIPHa6lBLOje3vj4tVxhf2IMNeS191fYrwukDUUH
-	9H0i7duvzzjnQhSn5tEUbaODBnEFAQVc0Pa81zTyFkFBZOcBKyc9atxlMV+2YbOh
-	umVviIF8iFLIKcg05v/g8ZA1sPu+j1pWURXKQ9RFL/HkTszhZBS3qwGXDbCsQBmS
-	gzEbGq9c9phAfJ52+hTqjxaTHLrRxtIxasaFp1FqtXDYr18a9rLG2N71klEieYqj
-	ZJjfbA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e84v4behq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 08:25:30 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64J8PRV1026832;
-	Tue, 19 May 2026 08:25:27 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4e716dcr0w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 08:25:27 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64J8PRGC026826;
-	Tue, 19 May 2026 08:25:27 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 64J8PRQi026825
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 08:25:27 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 4B14DD3C; Tue, 19 May 2026 13:55:26 +0530 (+0530)
-Date: Tue, 19 May 2026 13:55:26 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-Message-ID: <20260519082526.odmn5dqi2jftwnln@hu-kotarake-hyd.qualcomm.com>
-References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
- <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
- <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0GzMSbM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A77EC2BCC9;
+	Tue, 19 May 2026 08:25:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779179136;
+	bh=3uqWbG8cOP/swZ717M7Z3NfWutbwVdO6ogtjzEWqFPc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=I0GzMSbMw5Q4+rAKTXTWiYkzP5UTuA0T1by8XBm/lggFukjJp1BLbIpXwXf2w/g9K
+	 38rOhfvHuLPGXley9m2EuSljc/Ug3kOIUKpKKOgzk5kpPvXMvLj5uaGJPl1IWzbVsy
+	 opIsPTI2GxQ5+DNIUj3zL455h/Ct3fbrLkhwuwQCqQoFa9CK21XtQUXSFUG/k8OlNp
+	 w9uEqGb2II3AmTkf/nFriSpspwnGXafpC5JiFPF8/EkWEkMfCi7HAlPsZloBGdiAf3
+	 bU6N9jc0p++sSY9PiTjSXKGN36zpZeCvK/HGxQGcAbk39cp4wn94abtGnT5MiXBIhC
+	 UqgiWDYPuYFdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 net-next 10/15] net: dsa: netc: introduce NXP NETC
+ switch driver for i.MX94
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wei Fang" <wei.fang@nxp.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
+In-Reply-To: <20260518082506.1318236-11-wei.fang@nxp.com>
+References: <20260518082506.1318236-11-wei.fang@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 08:25:35 +0000
+Message-Id: <20260519082536.4A77EC2BCC9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=VJPtWdPX c=1 sm=1 tr=0 ts=6a0c1e7a cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=8bFJG4ejbdCWVrgXlm8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: AbsmB0V4aGzKk5Fr5sq1AAt24NaAn71j
-X-Proofpoint-GUID: AbsmB0V4aGzKk5Fr5sq1AAt24NaAn71j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA4MiBTYWx0ZWRfX5Un0cfAipuJp
- rSq0A8eknN/LDPqX7ZVcSYQVeU0GGiCjgp1Nqrgp20QGqvz26I/WmMBE48gOIRxDeY8QFbtHX8k
- ZC5MmBZ48SZK+QmfNlhXkkzzw6mc6UMcBhqsdoB8ToxhG5BuV/lsKi9vIVRyzzf0PUaVd3S3Bj4
- TAnQvcifj4hHlsKKCMJTyVKcxdmAYi9OUjbBE9I4urSfdyyq0WFtbsgDmIhUOCQP9nEvfUm3LBQ
- 0Fz74kUaFhRG9TjETUNniuQOynqDPIU/JAikQXWu3HS3uHIomDYsqCwd2QE7Po8pESEH4arTwrd
- YuSmllfBPJjpe8ysmBn5GMQSTBXOasD0/jrmpAMT5UKroRhQPanWMwfWtjvKzaRng/dHS9STiPN
- EdlseIeJUut3KOKN9yH7AL171JLnbOLfCWhvfJ5mQDQIivJviEKbloY3dVg3957Pa556HKUlbKk
- XFTW9SZO3vAYOVtTlbw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 bulkscore=0
- spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1011 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190082
 
-On Mon, May 18, 2026 at 05:27:48PM +0200, Krzysztof Kozlowski wrote:
-> On 18/05/2026 15:49, Rakesh Kota wrote:
-> > Document the "qcom,batteryless" boolean device tree property
-> > for the PMIC Glink battery manager node.
-> > 
-> > When this property is present, the battery manager driver registers
-> > the power supply as POWER_SUPPLY_TYPE_MAINS instead of BATTERY.
-> > This is intended for 12V DC adapters, where presenting the supply
-> > as a battery would cause userspace to incorrectly trigger battery
-> > power-saving sequences.
-> > 
-> > Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> > ---
-> >  Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> > index ff01d2f3ee5be18e404591e3f0382ff2b3f7d168..5f7b90d37ea09d9aacff463b2ff4b76d218bbeac 100644
-> > --- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> > +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> > @@ -72,6 +72,14 @@ properties:
-> >        - const: charge_limit_end
-> >        - const: charge_limit_delta
-> >  
-> > +  qcom,batteryless:
-> > +    $ref: /schemas/types.yaml#/definitions/flag
-> > +    description:
-> > +      When present, the battery manager registers the power supply as
-> > +      POWER_SUPPLY_TYPE_MAINS instead of BATTERY. This is intended for
-> 
-> You described the desired Linux feature or behavior, not the actual
-> hardware. The bindings are about the latter, so instead you need to
-> rephrase the property and its description to match actual hardware
-> capabilities/features/configuration etc.
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Using device-managed memory allocations (`devm_`) and registration=
+s inside the DSA `setup` callback causes memory leaks and re-registration f=
+ailures.
+- [High] The `netc_switch_shutdown` handler does not disable device DMA, wh=
+ich can lead to memory corruption during kexec.
+--
 
-Thanks for the feedback! We'll update the description to reflect the
-actual hardware capability rather than the Linux behavior in next patch.
+commit 9bab65d8563212abf27d7fd39b5e794000f38524
+Author: Wei Fang <wei.fang@nxp.com>
 
-> And isn't lack of monitored battery property enough to indicate that?
+net: dsa: netc: introduce NXP NETC switch driver for i.MX94
 
-Regarding monitored-battery — its absence alone isn't sufficient. The
-BATT_ID line on debug boards is pulled to ~10kΩ, which is used during
-development phase where some battery properties are still present. The
-same ~10kΩ value is also used on some genuinely battery-less production
-platforms where no battery properties exist, making auto-detection
-unreliable. Hence the need for an explicit DT property to identify
-hardware platforms where no battery populated. 
+This commit introduces the NXP NETC switch driver for the i.MX94 series,
+integrating an 802.1Q Ethernet switch with the internal ENETC via a pseudo
+MAC. It provides basic probe and remove functionality.
 
-regards
-Rakesh
-> 
-> Best regards,
-> Krzysztof
+> diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc=
+_main.c
+> --- /dev/null
+> +++ b/drivers/net/dsa/netc/netc_main.c
+[ ... ]
+> +static int netc_port_create_emdio_bus(struct netc_port *np,
+> +				      struct device_node *node)
+> +{
+[ ... ]
+> +	bus =3D devm_mdiobus_alloc_size(dev, sizeof(*mdio_priv));
+> +	if (!bus)
+> +		return -ENOMEM;
+[ ... ]
+> +	err =3D devm_of_mdiobus_register(dev, bus, node);
+> +	if (err)
+> +		return dev_err_probe(dev, err,
+> +				     "Cannot register EMDIO bus\n");
+> +
+> +	np->emdio =3D bus;
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int netc_init_all_ports(struct netc_switch *priv)
+> +{
+[ ... ]
+> +	priv->ports =3D devm_kcalloc(dev, priv->info->num_ports,
+> +				   sizeof(struct netc_port *),
+> +				   GFP_KERNEL);
+> +	if (!priv->ports)
+> +		return -ENOMEM;
+> +
+> +	/* Some DSA interfaces may set the port even it is disabled, such
+> +	 * as .port_disable(), .port_stp_state_set() and so on. To avoid
+> +	 * crash caused by accessing NULL port pointer, each port is
+> +	 * allocated its own memory. Otherwise, we need to check whether
+> +	 * the port pointer is NULL in these interfaces. The latter is
+> +	 * difficult for us to cover.
+> +	 */
+> +	for (int i =3D 0; i < priv->info->num_ports; i++) {
+> +		np =3D devm_kzalloc(dev, sizeof(*np), GFP_KERNEL);
+> +		if (!np)
+> +			return -ENOMEM;
+> +
+> +		np->switch_priv =3D priv;
+> +		np->iobase =3D priv->regs.port + PORT_IOBASE(i);
+> +		netc_port_get_capability(np);
+> +		priv->ports[i] =3D np;
+> +	}
+
+Are these device-managed allocations safe inside the DSA setup path?
+
+The DSA subsystem allows the switch tree to be torn down and set up multiple
+times during the device's lifetime, such as when the conduit network interf=
+ace
+is unbound and re-bound.
+
+Because devm_ resources are tied to the PCI device's lifecycle rather than
+the DSA switch tree lifecycle, they are not freed during teardown().
+
+Will subsequent calls to setup() leak memory and fail to register the MDIO
+bus due to naming collisions?
+
+[ ... ]
+> +static int netc_init_all_cbdrs(struct netc_switch *priv)
+> +{
+> +	struct netc_switch_regs *regs =3D &priv->regs;
+> +	struct ntmp_user *ntmp =3D &priv->ntmp;
+> +	int i, err;
+> +
+> +	ntmp->cbdr_num =3D NETC_CBDR_NUM;
+> +	ntmp->dev =3D priv->dev;
+> +	ntmp->ring =3D devm_kcalloc(ntmp->dev, ntmp->cbdr_num,
+> +				  sizeof(struct netc_cbdr),
+> +				  GFP_KERNEL);
+
+Similarly, will this device-managed allocation leak memory when the switch
+is repeatedly set up?
+
+[ ... ]
+> +static void netc_switch_shutdown(struct pci_dev *pdev)
+> +{
+> +	struct netc_switch *priv =3D pci_get_drvdata(pdev);
+> +
+> +	if (!priv)
+> +		return;
+> +
+> +	dsa_switch_shutdown(priv->ds);
+> +	pci_set_drvdata(pdev, NULL);
+> +}
+
+Does this shutdown handler leave DMA active?
+
+The driver enables Bus Master DMA in netc_switch_pci_init() via
+pci_set_master(), but this function only brings down the network interfaces
+without clearing the Bus Master Enable bit (e.g., via pci_clear_master()).
+
+Could this cause silent memory corruption during a kexec, if the active PCI
+hardware continues transferring data into memory regions that are now owned
+by the new kernel?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518082506.1318=
+236-1-wei.fang@nxp.com?part=3D10
