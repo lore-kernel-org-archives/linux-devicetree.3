@@ -1,163 +1,152 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B480C3612D8;
-	Tue, 19 May 2026 06:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6551238B125
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171556; cv=none; b=CCDJLdO4z/gZe3m8o9ijkhbYVUgYOXKk0QwG+t/5zUI2W5KOQrhxQE7V5xKUzMQBgL9BGmUgUDehDGAMdumsM1MF84ilU92XKK4xRPCA/8qLFpSi4Ogsu8mZHlGl0seW6dMHDegvfS5Q9LbfGXnSGpfKOjaPoMyZL2M+42MA0z8=
+	t=1779171883; cv=none; b=rLU/N4yn62xpbKf8x8N2sNz+mYXMc5aKjSJJU5fMFw87wj5fNZ4um9Gv1/CWdSh1Yq1aDvNYj1FXx+alx3e2rt4d+EBj5SiHL1wXhkm0VLp0qc+jFMc91FHq+9liefsNXt24fglewIvQkvfqdZJIqDjsnnq3PQA3Qf2nRm8jk0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171556; c=relaxed/simple;
-	bh=rz0D5zfSNp1esvneIKvAlw/Q7/V7L+dv2t7L66cebPU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iQ5f9rAuikFZDEELi3G3ER5jaSTA2uVOMBNhXmBG5GEYFVM7rLuhvrNb9xqoLGkvF3xEDyGXT2mxH6au/R5/WZG3aeQA96VY2o/Xi7Y10dOEwaEZCh6HSrWhL0u8VT/7FFUQSOYrjv5E/0HpmvZOU+RmcoS2vvnMk3KLCmG8OLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HIkZL8Ek; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1779171883; c=relaxed/simple;
+	bh=ETi7lwNArEN5RcmsW98Yn9KiVogT7wbUsiY5AWvxxY0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CXFYLfpPL8TeWVj9s7oF5LpPpc1aCB05RLqdSqnBXSlJen8L3lSgGtQq1VlbYdqze734GIord6Hm3gNYUqjlxqbhFjagsCXUMskj7AWOMFUHZZ1jHbJFDzpAkA7jgWNWoljl9TKOEayJf77TlGDCzRozHfgQNa/OBGUnBxF/lm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fd6D9Xxo; arc=none smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HIkZL8Ek"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J4vPuQ2437943;
-	Tue, 19 May 2026 06:19:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SIMOVFbm6deHTaj515NmN9Qa1sUot9x/t5Mz5A9Iy8o=; b=HIkZL8Ek6kQ51qPU
-	XU/G7lD9K58ScHlQxdZ3iXVzhsByObKyQUkr1gdpHmxiYYb9xtzlcKEBZWkjtPuG
-	zu+RYJMhPLY2HwnrY0uRNXl6sxws0jQSzYKJCWl3dyeBUw/mOh1I3hn+f6kKkNw+
-	dlRoUXnh8Gnc0J2Em2Z0I7jlhW9l8TEMyQloWq8JNfLtnCtq8bmeuw1WzMxcopKH
-	6uH5iw9/al9iLLCrY0k1VIZ2FQvQDVdAK1dH2pbfITuJzuTXvIZbgBcy2EnTQF75
-	/ZzQfiaVddipI0ArACVDuQSWaBI+V31Ct8d3TvmdHJPHwQOCnlTW11VZgbQp+frR
-	OLpOkw==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e834v3ees-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 06:19:10 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64J6J7VR030837;
-	Tue, 19 May 2026 06:19:07 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4e716dbfd9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 06:19:07 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64J6J7FY030830;
-	Tue, 19 May 2026 06:19:07 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 64J6J722030829
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 06:19:07 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 66FCEB34; Tue, 19 May 2026 11:49:06 +0530 (+0530)
-Date: Tue, 19 May 2026 11:49:06 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        kamal.wadhwa@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com
-Subject: Re: [PATCH 2/2] soc: qcom: rpmpd: Add Shikra RPM Power Domains
-Message-ID: <20260519061906.wma2xeshjyzorh2i@hu-kotarake-hyd.qualcomm.com>
-References: <20260429-add_rpmpd_shikra-v1-0-fdba28564380@oss.qualcomm.com>
- <20260429-add_rpmpd_shikra-v1-2-fdba28564380@oss.qualcomm.com>
- <e032c072-57b3-44b4-84a7-5aff062b9c00@oss.qualcomm.com>
- <20260514084512.q5pzh226zdkuw53f@hu-kotarake-hyd.qualcomm.com>
- <ezpigr442rjnodqcg5fqsyaik3tkp4yyw3cbu6j75ra2vidnnj@7svqkcz45sdi>
- <d2025522-ac5c-4e45-8274-1cbb49b7b348@oss.qualcomm.com>
- <xr57rqikcxgrrlj7or42r5frwhvvateeryfnqz7q4wkhfxffzr@intm5itd3ue6>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fd6D9Xxo"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3939d2bd7ecso25037991fa.0
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:24:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779171879; x=1779776679; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xfehn+9PkhGKFVZuq9YJWpl/FHglNOxtCRjIV6IYwkY=;
+        b=fd6D9XxoencoRpTa13HKfDogDPwSX/ivrNv/ZDdFDQeVGRcvoVUoNfUjw322R4zzSC
+         m9hGE45xxaF/CGRhJGS+IxKbESma80/5MbM4NW7Nm4Krbc9vBrrMryvYj5LFQ/fIEOI8
+         8kE+LhmQtw5wBQu1qAA/LJijNKlTJc+7KnslQigKPAhkCfk+YKfPz80aieKrljHiaFoO
+         Cwovu5bD8AUj4qDV+l/E2JomKnl43Fj5WFg/ULZ1PP236Q8vCDlvESQGRmttQptATszr
+         KVTlKNUNMceZd1eHzcFKYi6U3Vy7p5tUUspnC9b8Rd0rDtHmsOcTxe2wILgUXEncszKg
+         3QVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779171879; x=1779776679;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xfehn+9PkhGKFVZuq9YJWpl/FHglNOxtCRjIV6IYwkY=;
+        b=UYru4GDxYbJuBgobkDF23cX43ugU5E0f/hSULwQOd3dkPXYd10DM+YEiHofn9R+Rk7
+         EiclHTY0YycYbq2oumh/m49o+NCEy++f7Wj2QGA8RaHkfc/Zpj/qWuhM962Oy6KVXdAD
+         baqAjXUisk5LRPEPgUiaa68Qqe/Mk0ilmOh9vF5x9oD6vA+rp7ApRQG2RGD4g9J+v4bs
+         lCfrJg3vvqIs/6pC238L9IKrHkh6/fpCLWnog+abqfoKn9Y1NPqKO44D3pAQgdqQRk2O
+         8ZM3XHc2LgAHaNvGvDaE9L8fF1o3GK6WFjsik050BTOtovxfkpg65koqbeyw4p0aSPni
+         Te/g==
+X-Forwarded-Encrypted: i=1; AFNElJ93JzAs7Vim4793dCZWPlFY1Cc5eVAYNf/2mABX/qbM+ASOPiJLY6JJat900htvmhJPjbND81ThKFnC@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxoY4RhKvvUA1uvJgzI5vnP3R/Eko1F0/TDvvF+2THt7+wqbpS
+	5+Ok1hnwGbPokXd1iijL8Xk0Hm+IqFsztvz27l0d/+IzjrRr3r4ZtYDE
+X-Gm-Gg: Acq92OGV8Gjn1UmDV+jJDlnVNSV46/kt+Ak0rUjU+hcTCPlWXXy+NMcRXJm2QEDS52r
+	gju9guvZWScSj9jsdgxBPEOyeqSEQ2ki5o4d+MxIOAejV+fOv695/8tAdBMeDy7T9m5dFTCh7CG
+	ckRuG01LrNmmIX8X4wyOfLERvBsLSMppD/td9BUF5rCWE9abyn4PSoHJq3eAWCMiOuvjCe6De33
+	Tc4xz2Vo21rtoQu1sTMvefJksT8z94ds7IqaSjlof63xibyjfOJPHZhO1ADzKTKz9tN5qL9cQuM
+	cJCN5JOea6+n6b3Q6uCIAOw6FRffzmQeoLKBC7IB77CuZ5fkFZpx447rb+Am20qYxGoPQFMw9AQ
+	siU+eix69CKQBvFdYA6s612k9RlU6pK/iA/d1afFpDCvGyQwxvQLNd68j8r9aBzb0NjZAaXnTRO
+	tzSsKjYmYA99VwJxIkbC+oR3NaYuMwqwDJq5xN2TFdRuki/daPWZvJwY17dXKIlk9xFi1N487q2
+	OiZ6Q6tK99RTDp8bWA=
+X-Received: by 2002:a2e:8e70:0:b0:38e:9b7e:edd7 with SMTP id 38308e7fff4ca-3945b6098f7mr35935391fa.17.1779171879360;
+        Mon, 18 May 2026 23:24:39 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887df055sm17666761fa.39.2026.05.18.23.24.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 23:24:38 -0700 (PDT)
+Message-ID: <16cf96a8-f559-4f2d-a50c-1c6a14ddf63c@gmail.com>
+Date: Tue, 19 May 2026 09:24:37 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] iio: light: veml6030: fix channel type when
+ pushing events
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>
+Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
+ <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
+ <9bb6db05-43c7-4bdf-88b0-b92525ad5cc9@gmail.com>
+ <2a0c777d-05ef-4721-b8ed-88297630ea94@baylibre.com>
+ <20260518162255.107faee8@jic23-huawei>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260518162255.107faee8@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <xr57rqikcxgrrlj7or42r5frwhvvateeryfnqz7q4wkhfxffzr@intm5itd3ue6>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=F9ZnsKhN c=1 sm=1 tr=0 ts=6a0c00df cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=SqZV5yZ3ZNr3PNtaPaEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: BUL3MfP4TwuLWGd3ndOZODSFxznGJNoW
-X-Proofpoint-GUID: BUL3MfP4TwuLWGd3ndOZODSFxznGJNoW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA1OSBTYWx0ZWRfX+P2WWK8OazWU
- GvF8kBpD9Kwq6yyJ145O337vgD8DISxcpUU0rz9pGWrib7mGl6O4vIqcWSwjjSELjzlPPNhhI/t
- Gd3HSdnIhJSZZEpqxy/stMupBdjcS7ku+LPjUNY/f317tl7pJRe0DkvVmaluCjhRmH3+LMPHU/Z
- 8WeQpR0wTYRXy43/7AAMR1Y4NXdoy89ZXguoo2+l9u6tLfraw2ExMV9zPDVQy2COF+rRZREC1pW
- zXaPDDRiJsP6oGZbQ5ffSXBAN16b/3ZydELiJsqFLeDnfXC5SAnVk5i7X9+Jgz2uJpEJREagN3+
- poN7dlQkd3sokq8G067NY+uelo0+ie150jO/xRw7Son9WGoJDZPBsfrP+8fJCY96B1NO5QF2Xhd
- DjBu+tlS+80XP3mS9pGKTMEwb8Ysg02DMYFkUhWtFGfldK4cdk6MkFQ2HeDeY6tTPjKGP2eSR9g
- pJT/8HZQ3I1c9+L5m5w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
- suspectscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605190059
 
-On Thu, May 14, 2026 at 12:32:37PM +0300, Dmitry Baryshkov wrote:
-> On Thu, May 14, 2026 at 11:23:39AM +0200, Konrad Dybcio wrote:
-> > On 5/14/26 11:16 AM, Dmitry Baryshkov wrote:
-> > > On Thu, May 14, 2026 at 02:15:12PM +0530, Rakesh Kota wrote:
-> > >> On Tue, May 12, 2026 at 02:16:07PM +0200, Konrad Dybcio wrote:
-> > >>> On 4/29/26 4:09 PM, Rakesh Kota wrote:
-> > >>>> Add RPM Power Domains support for the Shikra platform.
-> > >>>>
-> > >>>> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> > >>>> ---
-> > >>>>  drivers/pmdomain/qcom/rpmpd.c | 16 ++++++++++++++++
-> > >>>>  1 file changed, 16 insertions(+)
-> > >>>>
-> > >>>> diff --git a/drivers/pmdomain/qcom/rpmpd.c b/drivers/pmdomain/qcom/rpmpd.c
-> > >>>> index 15a11ff282c3f86b1e86c6604d165e297620f6cf..6f751ee5a7833912d54d2bcfd5d85837ab7a97d3 100644
-> > >>>> --- a/drivers/pmdomain/qcom/rpmpd.c
-> > >>>> +++ b/drivers/pmdomain/qcom/rpmpd.c
-> > >>>> @@ -863,6 +863,21 @@ static const struct rpmpd_desc sdm660_desc = {
-> > >>>>  	.max_state = RPM_SMD_LEVEL_TURBO,
-> > >>>>  };
-> > >>>>  
-> > >>>> +static struct rpmpd *shikra_rpmpds[] = {
-> > >>>> +	[RPMPD_VDDCX] =		&cx_rwcx0_lvl,
-> > >>>> +	[RPMPD_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
-> > >>>> +	[RPMPD_VDDCX_VFL] =	&cx_rwcx0_vfl,
-> > >>>> +	[RPMPD_VDDMX] =		&mx_rwmx0_lvl,
-> > >>>> +	[RPMPD_VDDMX_AO] =	&mx_rwmx0_lvl_ao,
-> > >>>> +	[RPMPD_VDDMX_VFL] =	&mx_rwmx0_vfl,
-> > >>>> +};
-> > >>>
-> > >>> This is identical to sm6125_rpmpds. If you're sure the list is correct
-> > >>> and complete (no LPI domains etc.), you can drop this patch, and proceed
-> > >>> with just this change:
-> > >>>
-> > >> There is one difference — the max_state for Shikra is
-> > >> RPM_SMD_LEVEL_TURBO_NO_CPR, whereas sm6125 uses RPM_SMD_LEVEL_BINNING. 
-> > > 
-> > > It's handled in the DT. As such, programming model and the domain list
-> > > looks the same and compatible.
-> > 
-> > Yes/no, this is an upper bound
-> > 
-> > one improvement we could still make to this patch is not to define
-> > shikra_rpmpds[], but refer to the existing sm6125 one
+On 18/05/2026 18:22, Jonathan Cameron wrote:
+> On Mon, 18 May 2026 09:48:39 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
 > 
-> SGTM
->
-posted the V2 as per suggestion.
-https://lore.kernel.org/all/20260514-add_rpmpd_shikra-v2-2-20bbd37592b0@oss.qualcomm.com/
+>> On 5/18/26 8:12 AM, Matti Vaittinen wrote:
+>>> On 13/05/2026 07:49, Javier Carrasco wrote:
+>>>> The events are registered for IIO_LIGHT and not for IIO_INTENSITY.
+>>>> Use the correct channel type.
+>>>> This bug was introduced in the first version of the driver.
+>>>>
+>>>> When at it, fix minor checkpatch code style warning (alignment).
+>>>>
+>>>> Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+>>>> ---
+>>>>    drivers/iio/light/veml6030.c | 8 +++++---
+>>>>    1 file changed, 5 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/iio/light/veml6030.c b/drivers/iio/light/veml6030.c
+>>>> index 745cf3ad7092..855f052b60c2 100644
+>>>> --- a/drivers/iio/light/veml6030.c
+>>>> +++ b/drivers/iio/light/veml6030.c
+>>>> @@ -871,9 +871,11 @@ static irqreturn_t veml6030_event_handler(int irq, void *private)
+>>>>        else
+>>>>            evtdir = IIO_EV_DIR_FALLING;
+>>>>    -    iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_INTENSITY,
+>>>> -                    0, IIO_EV_TYPE_THRESH, evtdir),
+>>>> -                    iio_get_time_ns(indio_dev));
+>>>> +    iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
+>>>> +                               0,
+>>>> +                               IIO_EV_TYPE_THRESH,
+>>>> +                               evtdir),
+>>>> +            iio_get_time_ns(indio_dev));
+>>>>          return IRQ_HANDLED;
+>>>>    }
+>>>>   
+>>>
+>>> Is this change reflected to the user-space? If so, is it safe? We shouldn't break the ABI, right?
+>>
+>> On things like this, we will sometime risk breaking userspace in hopes
+>> that no one was actually depending on it. If no one notices that we
+>> broke it, did we really break it?
+> 
+> If it's a bug we often just break ABI compatibility anyway.  If we get a report
+> we'll make it spit out both events (and someone doesn't handle an extra one
+> we point them at the docs - that hopefully exist ;) - that say you must handle
+> ones you don't expect).
 
-regards
-Rakesh
-> -- 
-> With best wishes
-> Dmitry
+Well, you guys are the ones being grilled if the brown thing hits the 
+fan. ;) So, if you're willing to take the risk, then I am not complaining :)
+
+Yours,
+	-- Matti
+
+-- 
+---
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
