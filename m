@@ -1,158 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023142.outbound.protection.outlook.com [52.101.127.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660C33290D5
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 03:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779159753; cv=none; b=bVHs/lFHNOPYds/8fOqYM7JeuE8KFnFWYkcemY6vQqaMjSc2orCi8jFvrBvzGzp8otFrKDIndWmmGv1oH6HQSmIcHVD3GGW47WRqpufyXZo+/KiKxelueCN2qkB6Ki7F4tCpOUyJ8XOydpaZF3tnP8kHXg0PtK+ZaTNwT+Wq9sU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779159753; c=relaxed/simple;
-	bh=cUsZU6cxHVkW5sQ2dfeJQ7nOpTq2keyKKa8B0dFTl3g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cgDy2qZLJSBGxVIuo+A0FGCoqBvEQOsGxzcbjB9xQe50DmL9UGHySnj4fWrCO8ZOvqJrIe4x0fSMA4RBlvfaAo5htwAU3c5xZ7Ke7Y/cIASnQ6vrby7QPgtgKT+QgAZs9evNJ8/F0/5dSihRUpnObhriupiZKV7T+Mgc76L2R6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhjsQh9/; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6DD4207A;
+	Tue, 19 May 2026 03:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.142
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779160497; cv=fail; b=hTJaIClZe0astxdnBhnZgozJ3dFDOUpCAB9WyS28TLW1K3Vm2lg/csKQV3JTEPg8QppBOd8+k4UxzIKqjyO4lL0aF/L9ZsKL1Fo4+nhGR/1GT5IkPQWOYFc8xBz/KymZHHfiR0qkxi0agpiFp/IgHs6v2nbvRB+/SNGlYTvkq6Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779160497; c=relaxed/simple;
+	bh=wDwdEDUcOvRgJczC/Pb2GZ5RGhhnw+OhgjLrodSfM8E=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nylhgAUwGuZgG1l1y0C2nQIRWlbZ/m1DIul5uJQ57yL1MGmvG5/5Lh1jz2QznCiVP2pIk/uIdjzQHSCdyNZ0rHOiRlnwHk2mZL6aF+MkEFxVYZqfdgxtJ2PSJuoDVvEzRTdlPztccpE/31PxUZJXg6wEAUSHhfj6FsOgTizqGpA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=e5tHBGjS; arc=fail smtp.client-ip=52.101.127.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhjsQh9/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBC2EC2BCB7;
-	Tue, 19 May 2026 03:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779159753;
-	bh=cUsZU6cxHVkW5sQ2dfeJQ7nOpTq2keyKKa8B0dFTl3g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=bhjsQh9/Ds9wnVkllxkhGFGSb+F13Fi8jmPatjW5Z4f3quzW+n81jbC/cuDumw2Ym
-	 EmxnQEiT+FpSLgZ0qier6mlZh429sjaCsdFzJsdRODFexEf0MMTpArgcFoFOrqAoRa
-	 sdIVeFMd0gdO5znGIAyFUcYoWOeJ7rNl/TkFk+76K7G2gTjGLpl0FIV7KxcC98Svxt
-	 tG1W15VELLZoVfG7TnTlCkWfAhWhZVMffM8paZ9B7nWzpmbF+1u9XbDg8yskKpPWIz
-	 IrS65ou8L1lVipl4pXjdS8ZNkCmvczyNxMwygku+gf4aOZ9RLnqY3MY/CrsdHMueuE
-	 gKJr9acyEkT6A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/3] media: mediatek: jpeg: add compatible for MT8189
- SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jianhua Lin" <jianhua.lin@mediatek.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519021726.19137-4-jianhua.lin@mediatek.com>
-References: <20260519021726.19137-4-jianhua.lin@mediatek.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="e5tHBGjS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bUwYzrs53lQfKXEt5OtYFoRX0rkg1N5MZF4QTxD9GYQ0DWlhDO334qQhof48UrWc05dCSoo+5pfsvRwrL5Kv9KW/9mczmsrfVsM9lZ4j6u2gQ+ken+sgWrqle8cvPOLCQYscqtpTgbZkfb50vWDOls9hxxMIjo9VZg2V61DuCOwPhTS/xMPge55slQZ6f5futx8ug0CpgrFkWxECJKcaSLcfe73vRS1zu5yhRnw2sIyzziT+R0hoa/7EG+p+sSrorihm7Uj9vrxUlDWFf/iHmX3AWdO4f83abXwyq98gi7xwDfYS1ScuJu6hawBHnQAY6q9POlzF43DEhy+x9H714Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wDwdEDUcOvRgJczC/Pb2GZ5RGhhnw+OhgjLrodSfM8E=;
+ b=gQcZVtqw43GTDk6vlAP1BkQ0nJW9Kah0WZMzUXn8mHnAO5IjpII6JX/BSuUKUtyBu57Mh2v9ZfAvPoQAucCvLtmeiEiYNXD6AJqn1j+9+2okMGu1fb+AeVJsxb5WH/MvSRtV62TO1Nufg7Sf94HMXVQ63pI6N5RFEpA6E5gyVAwf28PvTsWljTfbSbePK15+WAiKbLhw7mmq9kOUEkLKqhUG3IUcUA9KbiA0b3v2gUcfQF3UBmDfbx6ilit6lbkSN+KYDOVHL5RaMfKnGyvAZmQCCwzniXveAgcG7Z8ib6JppYx7S0vAvmnAl/A/9NtMwj11aU2rKY013VA6TwALxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wDwdEDUcOvRgJczC/Pb2GZ5RGhhnw+OhgjLrodSfM8E=;
+ b=e5tHBGjSO6XnHaosotgZ5HfRv/JR+1n1nt8J2DtkW73+Kaef/NlaJrsyxbrxA4OmPanMgmC8QSUNjbo/9t8F/hsIW5HDvTedZkA2i9JolW4Elr+F79BvOjvUukV1PDMyxXExjhox8ZLXWTbfCspsGVF23BQDWCBquv9S60zR6G0HQX9usEBBKpqQQ5XJj/7xRW82i1dsLgmfvD9WTuaFGXJCbyLwmInVk4nAHeKrkCeJC9q8vaZ71gOcLRbMkhGKP5MlPQO9AlBk3VgutjHlf/BrLM0XVIGbY/a1J8gc70vaxIJP2WfKcyJwqWB2J7HEYkj2YFguKEJTKGwkTeNtTA==
+Received: from OSQPR06MB7252.apcprd06.prod.outlook.com (2603:1096:604:29c::6)
+ by TYNPR06MB8475.apcprd06.prod.outlook.com (2603:1096:405:3b2::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Tue, 19 May
+ 2026 03:14:50 +0000
+Received: from OSQPR06MB7252.apcprd06.prod.outlook.com
+ ([fe80::92af:c9d9:8779:d19]) by OSQPR06MB7252.apcprd06.prod.outlook.com
+ ([fe80::92af:c9d9:8779:d19%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 03:14:50 +0000
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Linus Walleij <linusw@kernel.org>, Tony Lindgren <tony@atomide.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>, Bartosz Golaszewski <brgl@kernel.org>, Lee
+ Jones <lee@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	"patrickw3@meta.com" <patrickw3@meta.com>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, BMC-SW <BMC-SW@aspeedtech.com>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Andrew Jeffery
+	<andrew@aj.id.au>, "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc1-pinctrl
+Thread-Topic: [PATCH v3 2/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc1-pinctrl
+Thread-Index: AQHc5E588q9ImUX0F0Op+WUD84rxUbYPVlwAgAVbpcY=
+Date: Tue, 19 May 2026 03:14:50 +0000
+Message-ID:
+ <OSQPR06MB7252FFE3CCFC8767A0CFFC498B002@OSQPR06MB7252.apcprd06.prod.outlook.com>
+References: <20260515-pinctrl-single-bit-v3-0-e97da4312104@aspeedtech.com>
+ <20260515-pinctrl-single-bit-v3-2-e97da4312104@aspeedtech.com>
+ <20260515-verify-awhile-cb0c72d49e91@spud>
+In-Reply-To: <20260515-verify-awhile-cb0c72d49e91@spud>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OSQPR06MB7252:EE_|TYNPR06MB8475:EE_
+x-ms-office365-filtering-correlation-id: 447eb25c-b9ae-481e-9800-08deb554ca31
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021|56012099003|18002099003|4143699003|22082099003;
+x-microsoft-antispam-message-info:
+ 8dsRS0va34GT3RlT+SKq2Cn1nL1DqnvBrk8jI7V7RklOg0RPI9C7JqSy/3hBsbIPsCh27RyJIxRGeoXVByR8FnMVqtgPrJd7rk3G7+23A+0vqKbnQ1FsZKKb4ItUjTZbt9szkpn9JmjBKDzjpPdZzxHJsM/XdTF1eSSmGD4iv7m/6vwfWmFOD1xOFEPR/fHapIE3fox6mROw+M+hNnnlAkxTbNHtkkynUrJ9Afv6bKJWcIcUCsutyd7cyyHhFzJ50nWzuSt2tbiVGz4uK2Gr2HoYpFgp+a5POYEPV3CRmC6ctFi6o4eGEJYUvrg9prDeEuljTqhcJG3GirNj8NEy5wRoHsMF1JkASzDtLRjNUE8vCZbMiSuuybW7olszPxjpieY1zhjcbtMka69EtfeSJLt+t4oUJCXuAmNrXa2bN1bC33Bq5vFZ9EKdko+Uq6tDxkPA97b+k+CqwD9952W9hK9CMgtHld8gPq3Bs829JGHV9sMTyGANfxYf5258Em+0nnvtm9RslO3nYMhzo1RzdzWW8r3uu45TYt1QS4WN2NyKTQJovVJ+JGNz1D2YkT0zGmWcOQrhqf2iKzaS4efDCGQeahzfVS5Hu2nWeGYg3zkhD9bDiFu6vFbKQIZ+jHArFAoG/rUK7ngA+A5bRjGlitzfnfGyhF/oyVMVW+ToSi0sN3ULUZ6VaWrHSzRfo5HTj0Irz6P6+7F4KzMuJzh36OmdGmjCbIrWFawlhEt8UAZMNDozviL2gzQKi+wnzHN+
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7252.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(56012099003)(18002099003)(4143699003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?vr8Pd8qN5c48yr1MPibYEM9vxRvxF+7+cW0/AK9hSXQOVgGs38YvwV7jrL?=
+ =?iso-8859-1?Q?paBeffMu5XvPKcTvEx2iuWyOSLvA6yCDV8ti+aSST2Apb09lqOaq88xF8P?=
+ =?iso-8859-1?Q?7SchuaxdSzSkpjSq6N3muQKLQMzfU5uLAKf72JyhIpQfqzYZROSzuh+WQN?=
+ =?iso-8859-1?Q?INL/2fN6y7G8NPnXefLBBVYI7fD2UkxdfMFk/l8Ty9YVbGp6MC6bDh/V9e?=
+ =?iso-8859-1?Q?7ENGa2JC/sJVLw4TIJ2ru0nyyys7Nzy98+BkhWFdAe3Ii9wMTvZfapAp4W?=
+ =?iso-8859-1?Q?5XQuS5i0suIG05/MypWX9x/nngRfu05wZ6idSS3jMIDR22PhkcYui+aF48?=
+ =?iso-8859-1?Q?2fm+j5qiYSwlG3gn12l8x/hA6uEvkVvpox5QE2Q0gKXZs9HLnEL7hU+QZl?=
+ =?iso-8859-1?Q?goVmQsykw0d8I0S+/bJkUs3ydOLajehiDrR3i1kUKvFbti9V47uVpFOorh?=
+ =?iso-8859-1?Q?FDoyRxIQR1MwP8eQEUlv6/571EsecRi94x+LzHKaKvXKnv3jIfx1/IxKX6?=
+ =?iso-8859-1?Q?jNPtjUWDX0IyBXG3oLxlHzhXRcYI/rrWqN86ff4Jy3UyzbXST1pmGstRqN?=
+ =?iso-8859-1?Q?PlO/gOwKxcp+DVbYYHpfE2HozwZHiOk78KOAlRanCOVgzIyRc0Oyesw5NL?=
+ =?iso-8859-1?Q?ApgIlZkVSk4UlIa558d7SenI8DgONC1AlBdSKXIseHtPTHHRad3bExFT6a?=
+ =?iso-8859-1?Q?F3T70e/EuD1tEylM/tmXSf5qvzlqw+6Ehw1WspKE2mWMd/HkLnlccJlke5?=
+ =?iso-8859-1?Q?E3nOAWNk1g3ZuXEMrNiXTd63FWn3q8xyMF7ojYgtClDldZACear8DG4003?=
+ =?iso-8859-1?Q?zx88NGmj9DN+Eg9uG4ky1qsJH7xK+WWbpzZJ9zU2sNWA4FW2OcmB5vmTpx?=
+ =?iso-8859-1?Q?7Y1y1YJZpeaodm/IFg9JEtluR7L+t5K8SHnYoolOcnL0NVLL3/ejFsgpJI?=
+ =?iso-8859-1?Q?LUTsERwj/MWky3nZsq/EMyPiDD24ITSeKJxchv9yUbPMUeFZcCyS36qQWF?=
+ =?iso-8859-1?Q?XCvXYlqC4Aog+E2SB5bpbVjyjE+1YQwh0ZOquNe7SaK+drCmoTweS8gliV?=
+ =?iso-8859-1?Q?toHL3dqb0X5V+ySnv4VUuEPytcOb8xKbLCaPajAMj4w0oFSbmdw7jZzEH7?=
+ =?iso-8859-1?Q?BsPIwkAdXz5AQrx8XFgmVv3HBcx618agNF//no5KD6bCVrZnQNRspjhpXU?=
+ =?iso-8859-1?Q?n8FcaDY2KR+rJCwThI3GtNL9kAcKvbdI0vwkGh49mJoo/n/pnSEQ7YLuyG?=
+ =?iso-8859-1?Q?en+8vgQM3UoGYd8PbHefDG7/xhmqU8w8aimbyg14svrUfEtzV/c2jd7TFl?=
+ =?iso-8859-1?Q?OMtjVX2FqzTaMdzuaE3hvBU4EBNMQDgGIP01gPOH5EX3E1N5RV+hikNaZr?=
+ =?iso-8859-1?Q?gJSs3j+A58ep3c/Q9ow235BByx7E52Z+PmYnPDF3LYQW2rUav0bOWe5DmD?=
+ =?iso-8859-1?Q?0ama/P2BTF7SwxGS4MYjEIvaMDa01s7Ow/GPNZM+WWZB/rl6Ued6/2NWjT?=
+ =?iso-8859-1?Q?fL/Wc3bzWrEyNLn+HczPSHFqLpo/kwj9O5VrauTuAbRHr//xUbxoVUmJTV?=
+ =?iso-8859-1?Q?XXUzaXv8jpYn5kXxmNzk/k8Fsh9MaGiMR38JNvEHDCiDNuQDB96qWdqvSq?=
+ =?iso-8859-1?Q?hypPxOxSpVZ96KYSR1P4XtdNEaaUhE1cC6h4bBM9eKrjdQCOFumwpQvs3i?=
+ =?iso-8859-1?Q?2XcV/tUebjbIfgDihAaQzV85LtaqhZT5HzrxfrUeYeds1oZhM5pJMsEZ1l?=
+ =?iso-8859-1?Q?WNxjV3PftRS3fply1FzqWRyLWToZAmF6BjWuMHo4rp6R9bJFiq9Zk/I1iy?=
+ =?iso-8859-1?Q?IT6RWtbzpw=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 03:02:32 +0000
-Message-Id: <20260519030232.BBC2EC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7252.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 447eb25c-b9ae-481e-9800-08deb554ca31
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 03:14:50.7141
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RtaymiiFyxe790Nw2xkg+ZnxRcRD9Zx/+UznddmTINMc0kU8yp9FFFnsZDYDoRBQ1iDfDUvSd9RpSyIW9M4MWXgmFlZsgfrCsnA7bMgJSKk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB8475
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] Missing cancellation of `job_timeout_work` in `mtk_jpeg_remove=
-()` leads to a Use-After-Free.
-- [High] Variant structures use globally shared static arrays for clock def=
-initions, which are illegally mutated during device probe by `devm_clk_bulk=
-_get()`.
---
-
-commit 8f115ea6a1de2f80507b4b60d5ec40d3fdf1eb31
-Author: Jianhua Lin <jianhua.lin@mediatek.com>
-
-media: mediatek: jpeg: add compatible for MT8189 SoC
-
-The commit adds support for the MT8189 SoC's JPEG encoder and decoder by
-introducing new compatible strings. It also adds the associated driver data
-structures configuring the hardware for a 34-bit IOVA space and single
-clock setup.
-
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index d147ec4830811..14f2991a40535 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -1868,6 +1868,10 @@ static struct clk_bulk_data mt8173_jpeg_dec_clocks=
-[] =3D {
->  	{ .id =3D "jpgdec" },
->  };
-> =20
-> +static struct clk_bulk_data mtk_jpeg_dec_clocks[] =3D {
-> +	{ .id =3D "jpgdec" },
-> +};
-> +
->  static const struct mtk_jpeg_variant mt8173_jpeg_drvdata =3D {
->  	.clks =3D mt8173_jpeg_dec_clocks,
-
-[ ... ]
-
-> @@ -1899,6 +1903,38 @@ static const struct mtk_jpeg_variant mtk_jpeg_drvd=
-ata =3D {
->  	.multi_core =3D false,
->  };
-> =20
-> +static const struct mtk_jpeg_variant mtk8189_jpegenc_drvdata =3D {
-> +	.clks =3D mtk_jpeg_clocks,
-
-Does this code pass a shared static array to devm_clk_bulk_get()?
-
-During device probe, the global mtk_jpeg_clocks array is passed directly:
-
-mtk_jpeg_probe()
-    devm_clk_bulk_get(jpeg->dev, jpeg->variant->num_clks, jpeg->variant->cl=
-ks)
-
-The devm_clk_bulk_get() API modifies the array in-place by writing the
-acquired struct clk pointers into it.
-
-If multiple device instances probe, or if unbind/rebind cycles occur, could
-the clock pointers be clobbered by subsequent probes? This might lead to
-hardware lockups since clocks wouldn't be enabled or disabled properly, or
-use-after-free conditions when devres frees the clocks but dangling pointers
-remain in the global array.
-
-Should the driver dynamically allocate a per-device clk_bulk_data array
-during probe instead?
-
-> +	.num_clks =3D ARRAY_SIZE(mtk_jpeg_clocks),
-> +	.formats =3D mtk_jpeg_enc_formats,
-> +	.num_formats =3D MTK_JPEG_ENC_NUM_FORMATS,
-> +	.qops =3D &mtk_jpeg_enc_qops,
-> +	.irq_handler =3D mtk_jpeg_enc_irq,
-> +	.hw_reset =3D mtk_jpeg_enc_reset,
-> +	.m2m_ops =3D &mtk_jpeg_enc_m2m_ops,
-> +	.dev_name =3D "mtk-jpeg-enc",
-> +	.ioctl_ops =3D &mtk_jpeg_enc_ioctl_ops,
-> +	.out_q_default_fourcc =3D V4L2_PIX_FMT_YUYV,
-> +	.cap_q_default_fourcc =3D V4L2_PIX_FMT_JPEG,
-> +	.support_34bit =3D true,
-> +};
-> +
-
-This isn't a bug in this patch, but looking at the single-core implementati=
-on
-that this variant uses, mtk_jpeg_single_core_init() sets up the workqueue:
-
-mtk_jpeg_single_core_init()
-    INIT_DELAYED_WORK(&jpeg->job_timeout_work, mtk_jpeg_job_timeout_work);
-
-However, mtk_jpeg_remove() doesn't cancel this work:
-
-mtk_jpeg_remove()
-    pm_runtime_disable(&pdev->dev);
-    video_unregister_device(jpeg->vdev);
-    v4l2_m2m_release(jpeg->m2m_dev);
-    v4l2_device_unregister(&jpeg->v4l2_dev);
-
-If the driver is unbound while a job is active, mtk_jpeg_remove() will
-complete and the devm subsystem will free the jpeg structure. If the timeout
-work fires afterwards and executes mtk_jpeg_job_timeout_work(), will this
-result in a use-after-free when it dereferences the freed jpeg pointer?
-
-> +static const struct mtk_jpeg_variant mtk8189_jpegdec_drvdata =3D {
-> +	.clks =3D mtk_jpeg_dec_clocks,
-
-Does this structure also pass a shared static array to devm_clk_bulk_get(),
-similar to mtk8189_jpegenc_drvdata above?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519021726.1913=
-7-1-jianhua.lin@mediatek.com?part=3D3
+> > +=A0=A0=A0 properties:=0A=
+> > +=A0=A0=A0=A0=A0 function:=0A=
+> > +=A0=A0=A0=A0=A0=A0=A0 enum:=0A=
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - ADC0=0A=
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - ADC1=0A=
+=0A=
+> It'd be nice if you could use the other enum format I think so that=0A=
+> there's not 700 lines taken up by functions/groups/pins.=0A=
+=0A=
+I considered the inline format, but kept the one-item-per-line style=0A=
+intentionally: with 200+ entries in each enum, any future addition or=0A=
+rename produces a clean single-line diff. The inline format would=0A=
+require re-wrapping the entire list on every change, making those diffs=0A=
+significantly harder to review.=0A=
+=0A=
+> Otherwise, I really don't like this approach but it seems to be standard=
+=0A=
+> on aspeed so whatever.=0A=
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>=0A=
+> pw-bot: not-applicable=0A=
+=0A=
+Thank you for the review and the ack.=0A=
+=0A=
+Billy Tsai=0A=
