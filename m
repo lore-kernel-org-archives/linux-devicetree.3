@@ -1,81 +1,83 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F1C34251B
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A025B390CBF
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779172531; cv=none; b=PECKNw/quQj0xzOUMKQap7Y16JLX7ei1K6VbtHnsTXP6muc9jpMv8Fe2BGF1U+owk2j16dSfQd7x/FWtKVJGS29C0qcHkA7L7UfBl7HvVWIAXN+SjLmwptQemvPQmL+2dBmfD6kiVhi28sBTy4WFgttCDNuSVlqQ33zqbgBFXao=
+	t=1779172535; cv=none; b=W3XIopRuIQ8U0at7quJ0qDW0bb51Jm3PacwBWpB98MCXsOfzJ2KsETDt4P7pMDtNYH3x8EDgI94cLDnqfnYVrnxngFSg0d7JnWGDPdM3IN3E/XUANxn9i8qxqdFjm0o6b/cTg2vO7vslXsw/PVrOwS5/gmWDB6jFJbVJNbsRsek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779172531; c=relaxed/simple;
-	bh=NC/ZY+idUIZlGAn73lQ1rgtFKQ5JJg8HqlNadEGzgaE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fEsQZPr9mLdvGP3fB46v6s0EBQNpWw35nt4JXtypS+tn5K7+Kes5obJzfobeKmVMykcwR6NiFlwJTztz4gV2yUuI/vEute8gcWSY19xjOPSZYyH6ArHLObUF2iYaLNmdlC57nlNVn6yMS3ZBo5Q9yZr6odToC/QzG0i/w69zH1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a2kXfKGX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=foM0N+N+; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1779172535; c=relaxed/simple;
+	bh=hGQrKFRjP1hpdpAcZfNLfUIZIR31hJSwjPWTY95YuyQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SDmacu3EHDSLnsTjF8ZIlQbGIpXtODvDUOIk1zkKUwrByqMjuAlTmVyy+gWbGcoEVnf4O4d5LKqAh47fpS5+sa0koo/W2lX6jE98bMNDWU/SBmwaTpwT1Y5SZi0kqmqFpuDaTr1LFkOM3aZBy0mCiGHDUxAvPi5VjDZJCXhXH2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vr1niQA1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Sy7Vci6q; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a2kXfKGX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="foM0N+N+"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J5URqU2701160
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:35:29 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vr1niQA1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sy7Vci6q"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J4vPxm2437943
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:35:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=R+tevW8hmJ6cwfeoghQQ+v
-	saziQ6etj+POjKImStc6A=; b=a2kXfKGXI0wxv3ADNBYbtqLPHr1Sxli5q6pDIL
-	ulQBMeFjQ0mPz/b+BP+aUi+RoHap77eY+yD5qbqCSAy1/oQT/bhqUVnNRyH0qZT0
-	9TwMeqxJgp3O2W9rhZ++04yxhTys/WvOjThW99qOlNmmTYM+UIxDc6Vyoy7btcFJ
-	vRnmJrcU/yM3quQ15c8wwUSQGHT1GA6awSkWuvvOgukrJygQXE946LzFgBCw8tGn
-	1ZTRNxYTBQpm3JNYD4u2UVnTTE1QZFcjSZu8JXqH2AI6mkkRx5SRYQy/JZUtA9/R
-	G2+1W+4cNomtCz8KiRC+dZetmX0OLEfsZr32oTu526LBjv4g==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e82mekjay-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Z8ISBEru/rJ
+	YUpudCe+0ajVUfFZY8DjrezK4pf9ZH/M=; b=Vr1niQA1Ovyp2ai/etNo1y+o5pX
+	zgpiaiQNXjIIc5qiqR0L7PbwtQVcEDQAMDoNfkxJXc09zrE7knz3c4w7u82fTDpW
+	UiadLwUCOmKK9UaWczYZcDpFhdeg3TY+WmyU03Fhd6cpClVcL0s8FiIorDcvmjdS
+	osZ2a0A6Ami9m3RWTAnfjDYVuBrEXfaA2NrCc0OfYYjEod7+wKRCDox4+0m9i1K6
+	MhI1UOKnjenMwSLlKusUVl9rqcNdvD/h2d8ayufRvKLtavufvk+Y2dwEEOeyzyOO
+	gEOGlQ6b56d4GVg+XFDA+XNYfv6eAuTfORHJoLFodGsdr4i7ZajuCJ5g1ww==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e834v3gr2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:35:29 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1353ac304f3so5704494c88.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:35:28 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:35:33 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-12dc1c0b7ccso2823961c88.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:35:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779172528; x=1779777328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=R+tevW8hmJ6cwfeoghQQ+vsaziQ6etj+POjKImStc6A=;
-        b=foM0N+N+AkBlSHCc5v5OO6isW+TWRt0sPhDlPBQ8WIt2Wjtn5WLTa35K+Ex1qMGxgy
-         wKG2ZeMdcnfQworx2MGoDVY/qDxkZoOvpRlZ0Ttk+mwQQi9rejCTgd7492h/76be8ekA
-         Iybx85pjM2teVa42juUMBNMJbqjwkCN7YzJ2dc689OyouV5TckdYk88Jwo6jc3FMHlcX
-         fLNW7UzCnzoLzNxBd6dGkM2dQar3x0+Z3wbx7wcFyLiA3jBSKLksRXhCc5n0tO7bn9Ym
-         kvNzZ9bDWYl0JOmp93m8YPM2OW6bwj2IOhqZh9DkS2TWQ3PmxJ79ES0Lq0nd2U9c0SPC
-         Rf1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779172528; x=1779777328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1779172533; x=1779777333; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=R+tevW8hmJ6cwfeoghQQ+vsaziQ6etj+POjKImStc6A=;
-        b=B5U2mmO3YH0dHWRCudh/cYWKi6yqAAGDfyU9ovpjMYVzalFgIxHjCDFIzIbSJVQ6U/
-         j/M1Lfy38OCVBdK3nQ9BVjSms424JyrXzwhJ4i44fXpuBmUMcmnBWWSBrHdQheXUhMei
-         b0ePPGi4N9MIahrJY7d9HVQ0PD03WqJ+TQk9jbbzxEw6/RlgAKZs8ogaLLeI7BYRQevD
-         lQ15y2YauTEUMQcmONas+R8eb05N24/ObLEk+3pSjjpgnVZugxVSuWv9IJbSxrXNhqVa
-         +JZGdH610KX0l2zonfSsw3zIaxztSYEUIm75W8fBYjkz6p37pc8OeLt8FSIZHypWd/Dk
-         Tq7Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+6H+sGFdmYDnGoiwIwy8G5O1RDAlohvlhXFF7dnNm1KfUAW1ivcKyg+2+T/CTowCwO4G7lFGIQ4VSq@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNa0XWNKWHxXtfG9Ptl5K7f4dpF8gPsY4zAhEpL2ZU81f/OiiN
-	009lXSbx1BaWKfAHBWcPRwfV98ve4QJpMB420IxA7H/jmAFygvg6NuPnO+Cx3YqKdUTtto0tufM
-	+/PqInPbT1ohHWi6IBJx+QgsvECrTgXXal1TlBuHT7Chwln2B9mcbcpPUECy6dR34
-X-Gm-Gg: Acq92OFXc7bhhO6kB0pZQvFaB4nzhXN6ySzPkTxAwHaX4SeAWemzlLVS3cANt58yfO7
-	9kfqYWeLWDJ97tWriIistonISV6XGhE0wo/dEaJX1I4lyWo7hkYiyWFESGuLvZ6fzq0i2XrxQ8b
-	BHbt31BvsN4y4iL8n85y/IH4YGLEXjS1bcI+F9k0aWJMtUVLoQz5TXp7tchk7jWVEjXoEHOWDn8
-	RenQ836ma8QR/0PB01z6QSibeHhqvDJDbqpDu6xeXehntnVvweIhAVNEAPl2zwoPm6+v1DqLq9f
-	zoOuJ1S/483AIT8mnARN0yBgii/XSUm113I2DourvlJDXUBgzgZvscnRvLz8JaEA1CfR4pQucdY
-	HmWzYhMp6UfRkMu1AMxRnfJ6yXJVCxj0HPbxaweDsJjOPboan+HcmLNqwKK0Ehn/QcKanR5MpCO
-	iMQkOmEA==
-X-Received: by 2002:a05:7022:6082:b0:12b:f616:1a4e with SMTP id a92af1059eb24-13504740a2fmr7007226c88.23.1779172527821;
-        Mon, 18 May 2026 23:35:27 -0700 (PDT)
-X-Received: by 2002:a05:7022:6082:b0:12b:f616:1a4e with SMTP id a92af1059eb24-13504740a2fmr7007207c88.23.1779172527288;
-        Mon, 18 May 2026 23:35:27 -0700 (PDT)
+        bh=Z8ISBEru/rJYUpudCe+0ajVUfFZY8DjrezK4pf9ZH/M=;
+        b=Sy7Vci6qOqZtKvHETwI/c2MOMKpgv+CbtHPb20ZU6TSkEbDe1aeL5jkcHQA1JICRMi
+         YUj9AtnqS74MuJz1GMskSasQxgvfE7uKc/QF1YAuEej4BKZWUM3FvQ+UsPAG09f8FYm2
+         NI+7hAWVHX4k08hXz4kpW8AZ80Iw9nl62nlci83xeTpmf8Zqa7noylRhyf/bJdaoMIDe
+         1RagsCwSMDLmpyepbmdqxs3apXCjexaF5gmTXwDlFBJKegG5XoRA7/a5H2zHK51TgdtP
+         V8xFn6KumzMEWps27UkcBLaLzt0oYv0L6G2Hka451Yb4lmCGTXRfbKTCXGi6GjRS557K
+         qnPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779172533; x=1779777333;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Z8ISBEru/rJYUpudCe+0ajVUfFZY8DjrezK4pf9ZH/M=;
+        b=NFrt2J5y8hItjGxd/0oO9iPKVYCK8FS/zHKgkntgiq1E3HGa9NmCpAnWA1QTn4kRpi
+         B6RDgfEX7EePNRE5e8qlHWIXo8fopZnXu91Rgsa+XcVhAKW1osGS2szWE2JPyFSYc6ET
+         YNuFBPDvJFwFj3H7UlxofIuDyZcJV2MzodwIHoUx30CGA/EX+v4ICiwyAyY62PN/5ef0
+         d5bVRNtSOSLAUu6+M9KvpC7h0AfHuexpbk1Yzoe1HTvKkkasOjqywiDUcRYtFpSg1VZZ
+         GQIPGjF5MycCg7wwsIRZz0LglRrdJQqzUH4MpNgiZisunuQeobpcAI+eF6MsfKxne/ke
+         uCSA==
+X-Forwarded-Encrypted: i=1; AFNElJ8cnRSOpindHBDb8Krf5HqXo+nD4oDCx7F34SPjE5MnF5y/I4AR2BNB4gayy4lHtDiszGzJfVe5mZCb@vger.kernel.org
+X-Gm-Message-State: AOJu0YyAETwW9FGt0fwjckXVFOEkHRy2OM8ixvK5KYA3xvOy1GJStNeD
+	fIMvPGtSvsp0P671KFtZo9GtvI1cW6cbtj7BHxT0IixnbkTS3HnHa8TLkOVG6swW5enUBHkJjct
+	3rOtBk0p+6ODJLFkyQBDkGg2KcVkoInbZxNz5mCKfJLlXBoN7KzqteC93Jc2dfLXX
+X-Gm-Gg: Acq92OFiYCq05nfZIMMwkbQW77ldpR9t9oMCRZt1C19rPlASHZE+XHkaqzmkrS6+eA5
+	Cp6TjydbR4SUrRoOf2YD5nGKXZ4bq2U6fqsC3UGXNiIBcZ/PeJCIJh3mxDicC/78p8bTKD+K8Cf
+	CX9p5RuIAzyt2KPR5XMyPchY4TvETW5sSNVPCkOwJkjMu6TursgzQpDpogFOmWM/SMtKCT9pas9
+	T9eUyr12hoTjb3l0Jmo+OVvint9ZvWwlV2DtFYZNkKSkmIpIMUypFwIcipJSAoXjVoYKZqX7Qd2
+	aNOM/3Hbpp+Hik/TpMjDuJr5OMCS7Y0hmGPAke9QWcQLcyvXffgM5OciU0RksX1CrFzQlc5iQmo
+	Vb/Of7uNmfBPjqeTiJ/TMCRXgVwcH3pBr+06XhlmE6J1F73AEdJxURjVrDpeVCl4pEVQ8gN8XTF
+	5NdSxTWg==
+X-Received: by 2002:a05:7022:6607:b0:12c:9037:5126 with SMTP id a92af1059eb24-134c890fb8bmr10210485c88.9.1779172533294;
+        Mon, 18 May 2026 23:35:33 -0700 (PDT)
+X-Received: by 2002:a05:7022:6607:b0:12c:9037:5126 with SMTP id a92af1059eb24-134c890fb8bmr10210470c88.9.1779172532773;
+        Mon, 18 May 2026 23:35:32 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-134cbdcf140sm22614537c88.5.2026.05.18.23.35.22
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-134cbdcf140sm22614537c88.5.2026.05.18.23.35.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 23:35:27 -0700 (PDT)
+        Mon, 18 May 2026 23:35:32 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -87,101 +89,74 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Harshal Dev <harshal.dev@oss.qualcomm.com>,
         Herbert Xu <herbert@gondor.apana.org.au>, devicetree@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
         Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v2 0/8] Add initial device trees for Nord SA8797P
-Date: Tue, 19 May 2026 14:34:57 +0800
-Message-ID: <20260519063505.883379-1-shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v2 1/8] dt-bindings: arm: qcom,ids: Add SoC ID for Nord SA8797P
+Date: Tue, 19 May 2026 14:34:58 +0800
+Message-ID: <20260519063505.883379-2-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260519063505.883379-1-shengchao.guo@oss.qualcomm.com>
+References: <20260519063505.883379-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Tr7WQjXh c=1 sm=1 tr=0 ts=6a0c04b1 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rvxB5pMcHL_gHO18BLkA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-GUID: -TGyVoguv_7ImFKSvKzobgk337-ragNg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA2MiBTYWx0ZWRfX3pA0aEMPje3q
- 2nlZjj1CLA1SiN3GtcyMEcZ3edGmn93avZfqJ7rT+se5h7ltp9IiCt6L1FxXeOiQgN4gte8s4m1
- 13aD7vTbiHm2H5LSBFPnpMszYnsxulITIGYp/HMlfDD/woVKTUrvrWgxFLyDjWwPz1aTZ/t50QC
- C3K+MAFpHRBQhciGgp2ANLigIauUoFcEgliDHA5UGjYrZye5nIR9ck2tQKHUFomy87lXpuuf8Zx
- XtNKRpo1Wk5Lm0VSYdAAyysez9tqWO5/CsYFonxb35L+I33JO65WkW9EJmi/1qguoxFfin/fiva
- 4QXrjf7OD+Hj3npa4ShIBBWDabRqa2NoMmn2OK/3ZvNMPsdv3j04N08oKQQb6yQHxPFSVMFy13z
- PTawH0N9jl32mGLULnu1l1rWzfkEouUq7NKYxKvreIOqun8VeukF6Ua49OLlVzsW77QZC7CnNSQ
- GqP9vizV4wNiHcvzqGQ==
-X-Proofpoint-ORIG-GUID: -TGyVoguv_7ImFKSvKzobgk337-ragNg
+X-Authority-Analysis: v=2.4 cv=F9ZnsKhN c=1 sm=1 tr=0 ts=6a0c04b5 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=v3ITllUuhb3Bg83hOPoA:9 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-ORIG-GUID: 3RCtnuaEFGQaRaOUoAjybSHn5UIWXMAV
+X-Proofpoint-GUID: 3RCtnuaEFGQaRaOUoAjybSHn5UIWXMAV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA2MiBTYWx0ZWRfX1qmHT5Uqs+o/
+ 4pqevfbaKx4rwC/oT1JvD88m2G76TbQfbjDGhVmPOHsdY6i5BLlUIJ5ujCaQZcOi/hsbxs2PSxz
+ AXGLOtWEdZ+rV6m+pDNPkiEwxLgs9T70dxeQ+h8SM8aLsu3m2kaN+hKZL8AQVvDtI59ca/iNXKd
+ +Kt7nMF7Bxouoy/3TWB+657dHMU9H9a6OW4+qLNgbiY8ij/wq+x/iTgJpj5t8sgvMv+p+f4Tj1w
+ pfIgJsoeHzDGx0kRtH3Tp1/xEa6I8r1c1ePB2uGmI5Sq1qQPJdFCnnV+Zm9NzAcmY5UWA89uAsa
+ /AXei5xrHeivElPPgInXmmfrp/0HzajHLBEM442qUAjbFZDtcsx4ofj5v0lDoFXUGLr7774QvPj
+ tyQT/bEqhuVmfqIKLqQYYu2i/DyNfUpFrBI19KBXDdnhi+NK4Hc9EJv1IZQnqG6/9k6vvJC1r3i
+ qmRypa5LmEPFBKRO++A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0
  adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
  definitions=main-2605190062
 
-This series adds initial device tree support for Qualcomm's Nord SA8797P
-SoC and the SA8797P Ride reference board.
+From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-The Nord is a new generation of SoC series from Qualcomm built around
-18 Oryon cores (qcom,oryon-1-5) organized in three clusters. SA8797P
-is the automotive variant in the family.  The IoT variant IQ-10 will be
-added later, by sharing the base nord.dtsi with SA8797P.
+Nord is a SoC family from Qualcomm designed as the next generation of
+Lemans series. SA8797P is the automotive variant of Nord, where platform
+resources such as clocks, regulators, interconnects, etc. are managed
+by firmware through SCMI.
 
-Dependencies picked up but not hit next-20260518:
-- CPUCP mailbox: https://lore.kernel.org/all/20260427005236.230106-1-shengchao.guo@oss.qualcomm.com/
-- TCSR: https://lore.kernel.org/all/20260504081122.825635-1-shengchao.guo@oss.qualcomm.com/
-- TSENS: https://lore.kernel.org/all/20260504081236.825755-1-shengchao.guo@oss.qualcomm.com/
+Add SoC ID for Nord SA8797P.
 
-Dependencies to be picked up:
-- RPMH powerdomain: https://lore.kernel.org/all/20260414035909.652992-1-shengchao.guo@oss.qualcomm.com/
-- APSS SMMU: https://lore.kernel.org/all/20260519013950.873105-1-shengchao.guo@oss.qualcomm.com/
+Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ include/dt-bindings/arm/qcom,ids.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes for v2:
-- Rebase on next-20260518 and drop dependencies that hit linux-next
-- Include SoC ID changes into the series
-- Include ICE binding change into the series as the prerequisite change
-  from Harshal [1] was merged to qcom soc tree instead of crypto
-- Improve commit log of SA8797P Ride binding change
-- Use label in nord-sa8797p.dtsi for referencing nodes defined in
-  the base nord.dtsi
-- Link to v1: https://lore.kernel.org/all/20260427023455.236410-1-shengchao.guo@oss.qualcomm.com/
-
-[1] https://lore.kernel.org/all/20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com/
-
-Deepti Jaggi (4):
-  dt-bindings: arm: qcom,ids: Add SoC ID for Nord SA8797P
-  soc: qcom: socinfo: Add SoC ID for Nord SA8797P
-  arm64: dts: qcom: Add device tree for Nord SA8797P SoC
-  arm64: dts: qcom: Add device tree for SA8797P Ride board
-
-Shawn Guo (4):
-  soc: qcom: socinfo: Add PMIC PMAU0102
-  dt-bindings: crypto: qcom,inline-crypto-engine: Document Nord ICE
-  arm64: dts: qcom: Add device tree for Nord SoC series
-  dt-bindings: arm: qcom: Document SA8797P Ride board
-
- .../devicetree/bindings/arm/qcom.yaml         |    6 +
- .../crypto/qcom,inline-crypto-engine.yaml     |    2 +
- arch/arm64/boot/dts/qcom/Makefile             |    1 +
- arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi    |  937 ++++
- arch/arm64/boot/dts/qcom/nord.dtsi            | 4511 +++++++++++++++++
- arch/arm64/boot/dts/qcom/sa8797p-ride.dts     |  306 ++
- arch/arm64/boot/dts/qcom/scmi-common.dtsi     | 1918 +++++++
- drivers/soc/qcom/socinfo.c                    |    2 +
- include/dt-bindings/arm/qcom,ids.h            |    1 +
- 9 files changed, 7684 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi
- create mode 100644 arch/arm64/boot/dts/qcom/nord.dtsi
- create mode 100644 arch/arm64/boot/dts/qcom/sa8797p-ride.dts
- create mode 100644 arch/arm64/boot/dts/qcom/scmi-common.dtsi
-
+diff --git a/include/dt-bindings/arm/qcom,ids.h b/include/dt-bindings/arm/qcom,ids.h
+index bc65e233eb93..3b353c46b3ab 100644
+--- a/include/dt-bindings/arm/qcom,ids.h
++++ b/include/dt-bindings/arm/qcom,ids.h
+@@ -297,6 +297,7 @@
+ #define QCOM_ID_QCS8275			675
+ #define QCOM_ID_QCS9075			676
+ #define QCOM_ID_QCS615			680
++#define QCOM_ID_SA8797P			690
+ #define QCOM_ID_CQ7790M			731
+ #define QCOM_ID_CQ7790S			732
+ #define QCOM_ID_CQ2390M			756
 -- 
 2.43.0
 
