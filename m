@@ -1,99 +1,266 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917842D5432
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB7E3E121D
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779178344; cv=none; b=p7O8mkkWn3kNxN1LS8AFlrvEWXvmJDeWENBLT+iiTZ3gFbFYlIWMniwvZGbmZtOl2DEA8XKHpli8K9P0HLQy6QrpxlUpv2uFm8khYBq/POKqUUSLtKKTCOj3XhYHPTD9rDW6I+f9EI7qaSAsL5hZG8tqB+tryZx+jhQjZPQKVnk=
+	t=1779178451; cv=none; b=joAoA/ww/KO3hTpokDNlIGIqpflByTP0F+1pxZefai5SeA8ICs1lAvHTMBf/txiNmUnNA4qoNiPOtvS9KQIJUGomAm5oKCh1c7p8EEXH8/xUvUbQ3jPN948R4ifHnNiuodsju7a+0JxhpeeSmWEur0GyfrEzyUowo1dwOLU2Yhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779178344; c=relaxed/simple;
-	bh=qiA+hQSUNBI2C/a8HcNFqL911McXyQWMzr1Axpk+HTk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ulE2DvcuCkM38sdZ2YkNGU6HOdR/jbzJzBJjsWOv68RQt5Ao94OyyYnzWnzhf85PtKrbjTyjh5gZN+STesxDoQnTkcNW9ShfEqFSmxHAcymc6WdWgmP3VtzwEVZLcRKJ1Mz0o7FhU3INYZxd1760N3rBmeWw+Dc2gWGeArBv36s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iu6M9agX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779178451; c=relaxed/simple;
+	bh=dWLZe7QiX/lxLNJ9otbW4tMkazrMFLCdXjJlemEBlwE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=oiaPUxDoXTldgdyE3XZdTYBLAegWjNySL+y7NE8IElBVTB2Hni0myIzgZviUz3U9mMgdgTnQBybBCzCo0is0imU9ZHMMLDafrjM+KUVcyF0IQHXEFKVcyONqadwLBmxHoTthz7HfVNzlNZpTUR6ClZ2TE8TAUtADHXOkaOGdcc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=p0S7z2rH; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iu6M9agX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FB15C2BCB3;
-	Tue, 19 May 2026 08:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779178344;
-	bh=qiA+hQSUNBI2C/a8HcNFqL911McXyQWMzr1Axpk+HTk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=iu6M9agXsbhJnHT3AXeXr2fpxTaX/uhoyetrLUeZXI4y70nl6Zd2AZ/w0IXAcR4nB
-	 QZf3nrGGnQ+m6mUIQazrtLfLi04nFgDNFqaE49zq0i47UHnXa9KYMPafFWnlz4av1a
-	 SlGEJYdz60TI/AksRUA9fdp5wEpzPBULIYUjZjHHu035r+y4NEwDlPbwnrgR/iH9lm
-	 Afmc5FvlrmF3rz1pEfGn6uJGJqC0JS1I0GYr8GJ0r69LCtp3PwFXLhBl3Jdie96wOd
-	 aHbI1R+O0skDAILWoOrS2ADXIpwDqEGQpzI+FtnDRR74SvBe3pw8sy4NW+fxWmE27n
-	 Xnb1xMlJcmXRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before
- enabling pinctrl
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
-References: <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 08:12:23 +0000
-Message-Id: <20260519081224.4FB15C2BCB3@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="p0S7z2rH"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488a88aeec9so38319565e9.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:14:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779178447; x=1779783247; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vTT0TEmFoUeONXI3O0UhC63GEEGa26mb7fZ2wgQ6t/A=;
+        b=p0S7z2rHYfLMg5v1g8NyX7YB6Dji3dP34clONs9LA2P3KE1RdSG0L8Jo7mPUPhpl/G
+         Cy7b8+zwIUozhNbAUgg98W3ktKenLgSiDBbFrbcDIz21VJtaPUd4/rx7lSN/IXrHS3JY
+         TKw4o6dYrHBB7lgMXN/oN8d3/aBV6kaPRmMWjITGuqhcIpelW4/OVmPM0K4YUgIi2cMp
+         lvfN8ThVoqWkWhaTv6HiP8H6xTa/UXVOQO8ixf7Se4kAC6Atdxzr3FK1jZbKvETlaHJt
+         sS22a1J5GEogMgvPlJ0ngqbAItMJWwW27avG97YE3PF0CjtfQWEeWSlzvcjDm/tfli1O
+         0f8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779178447; x=1779783247;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=vTT0TEmFoUeONXI3O0UhC63GEEGa26mb7fZ2wgQ6t/A=;
+        b=YtbNaH0sFVzbZLsjiPYDJSEpEz7C7422o5o3GabNey8ERZe0AOLXyfLy/Y4LmoOiHC
+         dgsV/IStiDtOEMzkB/ECCeWHIEqfzIoB+lF0eMbIrmDSovFSfs65PBAfnyIhLo8N26kk
+         xfMkzFSzdoy5bwxk7NkD6u6yFQOEFU2CaW2SdkrFswn2CS1zZS7wb1qckwhws+mdcR6x
+         CL2BZm2dC8U/5d54z8EslwdsuKNIr5IPywHKphQqzUP/tMPkRwbuSSWJTg4Fn9looC6a
+         BD7vuUnR+MQiPthd9JURtMOmUPI3U8dnq47lwbfMuUZMHF0IWmPOrg8+4mhauN+QB4x+
+         lS9g==
+X-Forwarded-Encrypted: i=1; AFNElJ90fAi10f3EKg4cit6u1JgcJjNeEBnjmktP9oKnF+YBvYvbnaKU9Rpgf96VaF6KrwzUe/EBVJBqSMVx@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJiOpqeeQIW0zGno4IQuVOciQdSy080wFj8It9nw2loz5Qjpqx
+	SH85nzZmB3RbOYrECUFfb76cOfG+kWu1Q1lvGQxltapcTh4TbIzCG+zeL6ejpYgbnSw=
+X-Gm-Gg: Acq92OGHgrImkWPx0lLgNRZjmIydUNwAK55SJAuIbGcj5ulZ6gk7fm3vlcYAISFRHtQ
+	KacdCGUCeX+BC7B45goSJUDjyzWeaICqYrw3GNyYORtKaOVqrj/TLU/OznH4cGIV+gFXm4/92Tp
+	qEQEM2SLeXOI1/gxaIhUvJZrnHxgvywulqNdKObA1GaplR63HBN7Jr2QmO8NoqnE+Fls/M4mWd1
+	Y8Ta71FLGn444nl55veTNScYJNeASLeX4ckEZL2SoHdYYghyhEeLYA1j3rGD7C6tgwP8oYN4UjC
+	rk22AwR262m3/shmC5nzko3E4uZC0dttlA3f5S4F2qt6K+J++pji3eIUad35qsWQcakr24LBEvP
+	6HnmHcG6yzZhWW6zUxqKSP1qkVrb1MCGdzbEI8z4jC4QaW6KFh8m4dEtIVEbfPQdwGzB+lBkIiK
+	A5lBjKS3HAQ7VRdq7ghfpWagxOX0pFNJcBVqNYClY/l0gNpibQV80FjOI7l+vSBVw0dGvyPbX0r
+	Wsi
+X-Received: by 2002:a05:600c:3506:b0:48f:e44c:e058 with SMTP id 5b1f17b1804b1-48fe60e13e7mr274947375e9.1.1779178447146;
+        Tue, 19 May 2026 01:14:07 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:1d4b:274c:94d:a69f? ([2a01:e0a:106d:1080:1d4b:274c:94d:a69f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febe5bc94sm189230825e9.4.2026.05.19.01.14.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 01:14:06 -0700 (PDT)
+Message-ID: <bc61221c-f517-4c35-8fb0-265a0c34b442@linaro.org>
+Date: Tue, 19 May 2026 10:14:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 2/2] backlight: Add SY7758 6-channel High Efficiency
+ LED Driver support
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+References: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-0-308140640de9@linaro.org>
+ <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-2-308140640de9@linaro.org>
+ <agdJnpz9O00lywRm@aspen.lan>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <agdJnpz9O00lywRm@aspen.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Use-After-Free in system power-off path if probe fails
---
+Hi,
 
-commit 7e913e496347a43b567ce3ce3e00954f1fc74caf
-Author: Alexandre MINETTE <contact@alex-min.fr>
+On 5/15/26 18:28, Daniel Thompson wrote:
+> On Thu, Apr 30, 2026 at 11:47:16AM +0200, Neil Armstrong wrote:
+>> From: KancyJoe <kancy2333@outlook.com>
+>>
+>> Implement support for the Silergy SY7758 6-channel High Efficiency LED
+>> Driver used for backlight brightness control in the Ayaneo Pocket S2
+>> dual-DSI panel.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Signed-off-by: KancyJoe <kancy2333@outlook.com>
+>> ---
+>>   drivers/video/backlight/Kconfig  |   8 +
+>>   drivers/video/backlight/Makefile |   1 +
+>>   drivers/video/backlight/sy7758.c | 311 +++++++++++++++++++++++++++++++++++++++
+>>   3 files changed, 320 insertions(+)
+>> <snip>
+>> diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
+>> new file mode 100644
+>> index 000000000000..9b2d3bbb4ded
+>> --- /dev/null
+>> +++ b/drivers/video/backlight/sy7758.c
+>> @@ -0,0 +1,311 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Silergy SY7758 6-channel High Efficiency LED Driver
+>> + *
+>> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
+>> + * Copyright (C) 2026 Linaro Limited
+>> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> I'm a bit confused by this comment. The git author and the
+> MODULE_AUTHOR() is Kancy Joe. What does this comment signify?
 
-pinctrl: qcom: Register functions before enabling pinctrl
+I'll fix this in v3
 
-This commit changes the Qualcomm pinctrl initialization sequence to register
-functions before enabling the controller. It replaces devm_pinctrl_register=
-()
-with devm_pinctrl_register_and_init() and an explicit pinctrl_enable() call.
+> 
+> 
+>> + */
+>> <snip>
+>> +/* OTP memory */
+>> +#define REG_OTP_CFG98 0x98
+>> +#define REG_OTP_CFG9E 0x9E
+>> +#define REG_OTP_CFG0 0xA0
+>> +#define REG_OTP_CFG1 0xA1
+>> +#define REG_OTP_CFG2 0xA2
+>> +#define REG_OTP_CFG3 0xA3
+>> +#define REG_OTP_CFG4 0xA4
+>> +#define REG_OTP_CFG5 0xA5
+>> +#define REG_OTP_CFG6 0xA6
+>> +#define REG_OTP_CFG7 0xA7
+>> +#define REG_OTP_CFG9 0xA9
+>> +#define REG_OTP_CFGA 0xAA
+>> +#define REG_OTP_CFGE 0xAE
+> 
+> There seems to be a lot of unused macros here, especially
+> combined with the unused bitfields that tell us how to interpret
+> the values.
+> 
+> Do we need them?
 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pi=
-nctrl-msm.c
-> index 45b3a2763eb85..a2a1e0835735d 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-[ ... ]
-> @@ -1607,6 +1607,11 @@ int msm_pinctrl_probe(struct platform_device *pdev,
->  			return ret;
->  	}
-> =20
-> +	ret =3D pinctrl_enable(pctrl->pctrl);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "Couldn't enable pinctrl driver\n");
+I'll drop those
 
-This isn't a regression strictly introduced by this patch, but it adds a
-new failure path that could trigger an existing issue.
+> 
+> 
+>> <snip>
+>> +static int sy7758_probe(struct i2c_client *client)
+>> +{
+>> +	struct backlight_properties props = { };
+>> +	struct device *dev = &client->dev;
+>> +	struct sy7758 *sydev;
+>> +	unsigned int dev_id;
+>> +	int ret;
+>> +
+>> +	sydev = devm_kzalloc(dev, sizeof(*sydev), GFP_KERNEL);
+>> +	if (!sydev)
+>> +		return -ENOMEM;
+>> +
+>> +	i2c_set_clientdata(client, sydev);
+>> +
+>> +	/* Initialize regmap */
+>> +	sydev->client = client;
+>> +	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
+>> +	if (IS_ERR(sydev->regmap))
+>> +		return dev_err_probe(dev, PTR_ERR(sydev->regmap),
+>> +				     "failed to init regmap\n");
+>> +
+>> +	/* Get and enable regulators */
+>> +	ret = devm_regulator_get_enable(dev, "vddio");
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to get regulator\n");
+>> +
+>> +	usleep_range(100, 200);
+> 
+> Any reason not to use fsleep() here?
 
-Earlier in msm_pinctrl_probe(), msm_pinctrl_setup_pm_reset() is called,
-which assigns the devm-allocated pctrl to the global poweroff_pctrl pointer
-and sets the global pm_power_off callback.
+Thanks, I'll switch to fsleep
 
-If pinctrl_enable() fails, the probe function aborts and the devm framework
-will automatically free the pctrl memory. However, there is no corresponding
-teardown to clear the global pm_power_off callback or poweroff_pctrl pointe=
-r.
+> 
+> 
+>> +	/* Get enable GPIO and set to high */
+>> +	sydev->gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
+>> +	if (IS_ERR(sydev->gpio))
+>> +		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
+>> +				     "failed to get enable GPIO\n");
+>> +
+>> +	/* Let some time for HW to settle */
+>> +	usleep_range(10000, 11000);
+> 
+> And here?
+> 
+> 
+>> +
+>> +	/* try read and check device id */
+>> +	ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
+>> +	if (ret < 0)
+>> +		return dev_err_probe(dev, ret, "failed to read device id\n");
+>> +	if (dev_id != 0x63) {
+>> +		dev_err(dev, "unexpected device id: 0x%02x\n", dev_id);
+>> +		return -ENODEV;
+>> +	}
+>> +
+>> +	/* Initialize and set default brightness */
+>> +	ret = sy7758_init(sydev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	props.type = BACKLIGHT_RAW;
+>> +	props.max_brightness = MAX_BRIGHTNESS;
+>> +	props.brightness = DEFAULT_BRIGHTNESS;
+>> +	props.scale = BACKLIGHT_SCALE_LINEAR;
+>> +
+>> +	sydev->bl = devm_backlight_device_register(dev, "sy7758-backlight",
+>> +						   dev, sydev, &sy7758_backlight_ops,
+>> +						   &props);
+>> +	if (IS_ERR(sydev->bl))
+>> +		return dev_err_probe(dev, PTR_ERR(sydev->bl),
+>> +				     "failed to register backlight device\n");
+>> +
+>> +	return backlight_update_status(sydev->bl);
+>> +}
+> 
+> 
+> Daniel.
 
-If the system is later powered off, could the kernel invoke the callback and
-dereference the freed poweroff_pctrl pointer?
+Thanks,
+Neil
 
-> +
->  	ret =3D msm_gpio_init(pctrl);
->  	if (ret)
->  		return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-mainline-s=
-end-v1-sending-v3-0-3dd7aa125353@alex-min.fr?part=3D3
