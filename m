@@ -1,264 +1,278 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4681C84A2;
-	Tue, 19 May 2026 12:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0B34C6F18
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779193932; cv=none; b=YGAfZhHVX1WmeG3gD+rxX9kQ3QGFbuILdI46rnhDViBON2FftdYGQQq/JqNydYxeZad8/EHncDcDOP0Ry6NHU+l17iX8LjmTcaztF4m5HSCfg4cxpLSKeCpKY69EhHKXoylRYI66+zehknnArp8YSpyLIXThM+gwFTUIY9I3QuQ=
+	t=1779194014; cv=none; b=DWXNhNZcdqmBca3rDtUt01e8lkYaO96XKLs1npZIsol0K+OvaLEP6vqeQKqpVmDDjpKj0xyZVvOsuZuPMVttJobydmtD1pop1Z+HdaPAjUeLvSympRR2n7FpUj+gWi5z4tyK5YBQN+BPd/Sf96QpQV63Nk0PcXzZVQjuJFYx43w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779193932; c=relaxed/simple;
-	bh=WwXVI6JTFWUtylnkJLQNm4kYpNHWrg1WezSc3lEGbiw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oQMLkvAz6lz2RG9bt23Au/KyERA12GxPzBhOTdY5eVOgM+nD7uZfX2oQIGeU9/HDX/2xMraMPYSAnXPByflovg6zb8TMFdektVyu3KTZB4joeO0vkToyFgy8QJF1H55EvGSZG5QEl3A55G3Pm0Hr8kakRGgf5h0Lt5/u7ItNpec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b28d/LFB; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1779194014; c=relaxed/simple;
+	bh=4mY/hEM5AaZPgSsnVizOgAJ6pUgmTUk/0dnpQsV5zLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ki92wCfxkbqfNucCCLog3tsmKzx+P6+WKxGafy4g0qyGet/sO/B0z5By01bFB4bdVdVtQ4nNpF8WHImXazX9CwQYUqJ+flKtJaUdKxBTxvk2vcKD/StBOKwTdhsMR7WfLnFo7QeOPu+kMXeFhFwkz4R1HRbMC6hr+tyjUoSm2EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Eh5h0PT0; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b28d/LFB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779193931; x=1810729931;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WwXVI6JTFWUtylnkJLQNm4kYpNHWrg1WezSc3lEGbiw=;
-  b=b28d/LFBAzFr0IgqG+apmi1wXTVyW2zPmteb+xI8885cfqFMNMOOIdtZ
-   IIwjdeYZpRuYyWC2MytRxRRXV/tEau9zcPIjAXEhLWVqNps2epSEnmVjf
-   a8i0cue+yj48A1x6e4UGQja3XKGIPSodog7r+Mqr/0orKLud8jd+ISPQC
-   31HbbYW5Mzd+vK07J4vMViUXeZ3t4mRHe+rpeKJ5NY4XeRNBNlQ/N6+5B
-   L+SxMLTlwkga7GoVuHq8dBp6ooQjSUid3chzo98uDVfxFuDW0JEmYXn3l
-   Al0m8ayJ5HpEs4FcuOTPKtYnX2MS2FPVap8gvoJ5g/DetIlBImNYXCNEc
-   A==;
-X-CSE-ConnectionGUID: 8+3Z86ZJQ0ya7u0Y1VDHwQ==
-X-CSE-MsgGUID: 6i+cXvzuSh2gra2G5HXzWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="97637163"
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
-   d="scan'208";a="97637163"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 May 2026 05:32:06 -0700
-X-CSE-ConnectionGUID: COpbBXyVQL60BiEhUQa9Gg==
-X-CSE-MsgGUID: bJ4CRFipRFqIkn46HPqW/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
-   d="scan'208";a="235317591"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.204])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 May 2026 05:32:00 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id D2A66120E58;
-	Tue, 19 May 2026 15:31:56 +0300 (EEST)
-Date: Tue, 19 May 2026 15:31:56 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: jai.luthra@linux.dev, laurent.pinchart@ideasonboard.com,
-	mripard@kernel.org, y-abhilashchandra@ti.com, devarsht@ti.com,
-	s-jain1@ti.com, vigneshr@ti.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, p.zabel@pengutronix.de,
-	conor+dt@kernel.org, hverkuil-cisco@xs4all.nl,
-	tomi.valkeinen@ideasonboard.com, jai.luthra@ideasonboard.com,
-	changhuang.liang@starfivetech.com, sjoerd@collabora.com,
-	dan.carpenter@linaro.org, hverkuil+cisco@kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v12 16/17] media: ti: j721e-csi2rx: Support runtime
- suspend
-Message-ID: <agxYPM3mLwR302Za@kekkonen.localdomain>
-References: <20260313090701.646534-1-r-donadkar@ti.com>
- <20260313090701.646534-17-r-donadkar@ti.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Eh5h0PT0"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Y2ghU7/d9fJ2EwQStmvtFtgusc+xZLpmXAu1ErFav1s=;
+	b=Eh5h0PT0EuBlDi1k4OPGF9EmhX709ff2dOzaFYZw3Lvp7J00BI2gMczn+l0NvjuNn8HYpGCbR
+	WhWkueuLOaiLn6dwx8PaUhdsquk9E4JIXYcwfPBM4JJJFathFUb5c6dR0H1DlU1yLq9Ujc3Jm6E
+	lcwIx4QH9OrGalzbkkIH7Fo=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4gKYn23qG6zpStS;
+	Tue, 19 May 2026 20:26:14 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id C971F4056D;
+	Tue, 19 May 2026 20:33:26 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 19 May 2026 20:33:26 +0800
+Message-ID: <485362fe-9434-442f-8db1-1571430d8853@huawei.com>
+Date: Tue, 19 May 2026 20:33:26 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313090701.646534-17-r-donadkar@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 04/15] arm64: kexec_file: Fix potential buffer
+ overflow in prepare_elf_headers()
+To: <sashiko@lists.linux.dev>, <catalin.marinas@arm.com>, <leitao@debian.org>,
+	<bhe@redhat.com>
+CC: <devicetree@vger.kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>
+References: <20260511030454.1730881-5-ruanjinjie@huawei.com>
+ <20260512004533.B4863C2BCB0@smtp.kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260512004533.B4863C2BCB0@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-Hi Rishikesh,
 
-On Fri, Mar 13, 2026 at 02:37:00PM +0530, Rishikesh Donadkar wrote:
-> From: Jai Luthra <jai.luthra@ideasonboard.com>
+
+On 5/12/2026 8:45 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Memory leak of image->elf_headers on error paths in load_other_segments().
+> --
 > 
-> Add support for runtime power-management to enable powering off the
-> shared power domain between Cadence CSI2RX and TI CSI2RX wrapper when
-> the device(s) are not in use.
+> commit 176ac9ad5382c8a7611ce5e111bc472c392e772b
+> Author: Jinjie Ruan <ruanjinjie@huawei.com>
 > 
-> When powering off the IP, the PSI-L endpoint loses the paired DMA
-> channels. Thus we have to release the DMA channels at runtime suspend
-> and request them again at resume.
+> arm64: kexec_file: Fix potential buffer overflow in prepare_elf_headers()
 > 
-> Tested-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> Co-developed-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> ---
->  drivers/media/platform/ti/Kconfig             |  1 +
->  .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 55 ++++++++++++++++++-
->  2 files changed, 54 insertions(+), 2 deletions(-)
+> This commit fixes a race condition between the kexec_load() system call and
+> memory hotplug operations that can lead to a buffer overflow. It adds an
+> explicit bounds check to prevent out-of-bounds access when populating
+> the memory ranges array.
 > 
-> diff --git a/drivers/media/platform/ti/Kconfig b/drivers/media/platform/ti/Kconfig
-> index da33facf44678..d0cb05481bd85 100644
-> --- a/drivers/media/platform/ti/Kconfig
-> +++ b/drivers/media/platform/ti/Kconfig
-> @@ -83,6 +83,7 @@ config VIDEO_TI_J721E_CSI2RX
->  	depends on VIDEO_CADENCE_CSI2RX
->  	depends on PHY_CADENCE_DPHY_RX || COMPILE_TEST
->  	depends on ARCH_K3 || COMPILE_TEST
-> +	depends on PM
->  	select VIDEOBUF2_DMA_CONTIG
->  	select V4L2_FWNODE
->  	help
-> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> index dda8a66babeca..52c93a11ce8b7 100644
-> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> @@ -13,6 +13,7 @@
->  #include <linux/module.h>
->  #include <linux/of_platform.h>
->  #include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
->  #include <linux/property.h>
->  
->  #include <media/cadence/cdns-csi2rx.h>
-> @@ -966,12 +967,16 @@ static int ti_csi2rx_start_streaming(struct vb2_queue *vq, unsigned int count)
->  	unsigned long flags;
->  	int ret = 0;
+> Closes: https://sashiko.dev/#/patchset/20260323072745.2481719-1-ruanjinjie%40huawei.com
+> 
+>> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+>> index fba260ad87a96..df52ac4474c96 100644
+>> --- a/arch/arm64/kernel/machine_kexec_file.c
+>> +++ b/arch/arm64/kernel/machine_kexec_file.c
+>> @@ -59,6 +59,11 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+>>  	cmem->max_nr_ranges = nr_ranges;
+>>  	cmem->nr_ranges = 0;
+>>  	for_each_mem_range(i, &start, &end) {
+>> +		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
+>> +			ret = -ENOMEM;
+>> +			goto out;
+>> +		}
+>> +
+>>  		cmem->ranges[cmem->nr_ranges].start = start;
+>>  		cmem->ranges[cmem->nr_ranges].end = end - 1;
+>>  		cmem->nr_ranges++;
+> 
+> While reviewing this commit, I noticed a pre-existing issue in the
+> surrounding code.
+> 
+> Could the error paths in load_other_segments() leak the memory
+> allocated by prepare_elf_headers()?
+> 
+> If a failure occurs later in load_other_segments(), for example when
+> adding the initrd or dtb, the function jumps to out_err:
+> 
+> arch/arm64/kernel/machine_kexec_file.c:load_other_segments() {
+> 	[ ... ]
+> 		ret = kexec_add_buffer(&kbuf);
+> 		if (ret) {
+> 			vfree(headers);
+> 			goto out_err;
+> 		}
+> 		image->elf_headers = headers;
+> 	[ ... ]
+> 	if (initrd) {
+> 	[ ... ]
+> 		ret = kexec_add_buffer(&kbuf);
+> 		if (ret)
+> 			goto out_err;
+> 	[ ... ]
+> out_err:
+> 	image->nr_segments = orig_segments;
+> 	kvfree(dtb);
+> 	return ret;
+> }
+> 
+> The out_err path returns an error but does not free image->elf_headers.
+> 
+> This seems problematic because the caller in kexec_image.c
+> handles placement failures by erasing the segment and retrying in a loop:
+> 
+> arch/arm64/kernel/kexec_image.c:image_load() {
+> 	[ ... ]
+> 	while ((ret = kexec_add_buffer(&kbuf)) == 0) {
+> 		kernel_segment = &image->segment[kernel_segment_number];
+> 		ret = load_other_segments(image, kernel_segment->mem, ...);
+> 		if (!ret)
+> 			break;
+> 	[ ... ]
+> }
+> 
+> Does this retry loop unconditionally allocate new ELF headers on each
+> iteration and permanently leak the previously allocated buffers?
 
-Redundant initialisation.
+It seems this is a bug, and I plan to fix this issue as follows, and
+would appreciate your feedback on whether this is reasonable.
 
->  
-> +	ret = pm_runtime_resume_and_get(csi->dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	spin_lock_irqsave(&dma->lock, flags);
->  	if (list_empty(&dma->queue))
->  		ret = -EIO;
->  	spin_unlock_irqrestore(&dma->lock, flags);
->  	if (ret)
-> -		return ret;
-> +		goto err;
->  
->  	ret = video_device_pipeline_start(&ctx->vdev, &csi->pipe);
->  	if (ret)
-> @@ -993,6 +998,8 @@ static int ti_csi2rx_start_streaming(struct vb2_queue *vq, unsigned int count)
->  	writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
->  err:
->  	ti_csi2rx_cleanup_buffers(ctx, VB2_BUF_STATE_QUEUED);
-> +	pm_runtime_put(csi->dev);
-> +
->  	return ret;
->  }
->  
-> @@ -1012,6 +1019,7 @@ static void ti_csi2rx_stop_streaming(struct vb2_queue *vq)
->  
->  	ti_csi2rx_stop_dma(ctx);
->  	ti_csi2rx_cleanup_buffers(ctx, VB2_BUF_STATE_ERROR);
-> +	pm_runtime_put(csi->dev);
->  }
->  
->  static const struct vb2_ops csi_vb2_qops = {
-> @@ -1257,7 +1265,9 @@ static void ti_csi2rx_cleanup_notifier(struct ti_csi2rx_dev *csi)
->  
->  static void ti_csi2rx_cleanup_ctx(struct ti_csi2rx_ctx *ctx)
->  {
-> -	dma_release_channel(ctx->dma.chan);
-> +	if (!pm_runtime_status_suspended(ctx->csi->dev))
-> +		dma_release_channel(ctx->dma.chan);
-> +
->  	vb2_queue_release(&ctx->vidq);
->  
->  	video_unregister_device(&ctx->vdev);
-> @@ -1507,6 +1517,39 @@ static int ti_csi2rx_init_ctx(struct ti_csi2rx_ctx *ctx)
->  	return ret;
->  }
->  
-> +static int ti_csi2rx_runtime_suspend(struct device *dev)
-> +{
-> +	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
-> +	int i;
-> +
-> +	if (csi->enable_count != 0)
-> +		return -EBUSY;
-> +
-> +	for (i = 0; i < csi->num_ctx; i++)
+Decouple the ELF header allocation from the target-seeking
+retry loop. Since the contents and size of ELF headers only depend on
+the host memory layout and do not change with the kernel's physical
+placement, move prepare_elf_headers() completely outside and prior to
+the while retry loop in image_load().
 
-You could declare i here, and I'd use unsigned int.
+diff --git a/arch/arm64/include/asm/kexec.h b/arch/arm64/include/asm/kexec.h
+index 892e5bebda95..cc2f36b1b0d4 100644
+--- a/arch/arm64/include/asm/kexec.h
++++ b/arch/arm64/include/asm/kexec.h
+@@ -127,7 +127,8 @@ int arch_kimage_file_post_load_cleanup(struct kimage
+*image);
+ extern int load_other_segments(struct kimage *image,
+ 		unsigned long kernel_load_addr, unsigned long kernel_size,
+ 		char *initrd, unsigned long initrd_len,
+-		char *cmdline);
++		char *cmdline, void *headers, unsigned long headers_size);
++extern int prepare_elf_headers(void **addr, unsigned long *sz);
+ #endif
 
-> +		dma_release_channel(csi->ctx[i].dma.chan);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ti_csi2rx_runtime_resume(struct device *dev)
-> +{
-> +	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
-> +	unsigned int ret, i;
+ #endif /* __ASSEMBLER__ */
+diff --git a/arch/arm64/kernel/kexec_image.c
+b/arch/arm64/kernel/kexec_image.c
+index b70f4df15a1a..79efeaeb71e9 100644
+--- a/arch/arm64/kernel/kexec_image.c
++++ b/arch/arm64/kernel/kexec_image.c
+@@ -44,6 +44,11 @@ static void *image_load(struct kimage *image,
+ 	struct kexec_buf kbuf = {};
+ 	unsigned long text_offset, kernel_segment_number;
+ 	struct kexec_segment *kernel_segment;
++#ifdef CONFIG_CRASH_DUMP
++	/* load elf core header */
++	unsigned long headers_sz;
++	void *headers;
++#endif
+ 	int ret;
 
-Ret should be signed and could be declared below (up to you).
+ 	/*
+@@ -89,6 +94,18 @@ static void *image_load(struct kimage *image,
 
-> +
-> +	for (i = 0; i < csi->num_ctx; i++) {
+ 	kernel_segment_number = image->nr_segments;
 
-i could be declared here.
++#ifdef CONFIG_CRASH_DUMP
++	if (image->type == KEXEC_TYPE_CRASH) {
++		ret = prepare_elf_headers(&headers, &headers_sz);
++		if (ret) {
++			pr_err("Preparing elf core header failed\n");
++			return ERR_PTR(ret);
++		}
++		image->elf_headers = headers;
++		image->elf_headers_sz = headers_sz;
++	}
++#endif
++
+ 	/*
+ 	 * The location of the kernel segment may make it impossible to satisfy
+ 	 * the other segment requirements, so we try repeatedly to find a
+@@ -99,7 +116,8 @@ static void *image_load(struct kimage *image,
+ 		kernel_segment = &image->segment[kernel_segment_number];
+ 		ret = load_other_segments(image, kernel_segment->mem,
+ 					  kernel_segment->memsz, initrd,
+-					  initrd_len, cmdline);
++					  initrd_len, cmdline,
++					  headers, headers_sz);
+ 		if (!ret)
+ 			break;
 
-> +		ret = ti_csi2rx_init_dma(&csi->ctx[i]);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops ti_csi2rx_pm_ops = {
-> +	RUNTIME_PM_OPS(ti_csi2rx_runtime_suspend, ti_csi2rx_runtime_resume,
-> +		       NULL)
-> +};
-> +
->  static int ti_csi2rx_probe(struct platform_device *pdev)
->  {
->  	struct device_node *np = pdev->dev.of_node;
-> @@ -1562,6 +1605,9 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
->  			goto err_ctx;
->  	}
->  
-> +	pm_runtime_set_active(csi->dev);
-> +	pm_runtime_enable(csi->dev);
-> +
->  	ret = ti_csi2rx_notifier_register(csi);
->  	if (ret)
->  		goto err_ctx;
-> @@ -1592,6 +1638,9 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
->  	struct ti_csi2rx_dev *csi = platform_get_drvdata(pdev);
->  	unsigned int i;
->  
-> +	if (!pm_runtime_status_suspended(&pdev->dev))
-> +		pm_runtime_set_suspended(&pdev->dev);
-> +
->  	for (i = 0; i < csi->num_ctx; i++)
->  		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
->  
-> @@ -1599,6 +1648,7 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
->  	ti_csi2rx_cleanup_v4l2(csi);
->  	dma_free_coherent(csi->dev, csi->drain.len, csi->drain.vaddr,
->  			  csi->drain.paddr);
-> +	pm_runtime_disable(&pdev->dev);
->  }
->  
->  static const struct of_device_id ti_csi2rx_of_match[] = {
-> @@ -1613,6 +1663,7 @@ static struct platform_driver ti_csi2rx_pdrv = {
->  	.driver = {
->  		.name = TI_CSI2RX_MODULE_NAME,
->  		.of_match_table = ti_csi2rx_of_match,
-> +		.pm		= &ti_csi2rx_pm_ops,
->  	},
->  };
->  
+@@ -107,7 +125,7 @@ static void *image_load(struct kimage *image,
+ 		 * We couldn't find space for the other segments; erase the
+ 		 * kernel segment and try the next available hole.
+ 		 */
+-		image->nr_segments -= 1;
++		image->nr_segments = kernel_segment_number;
+ 		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
+ 		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+ 	}
+diff --git a/arch/arm64/kernel/machine_kexec_file.c
+b/arch/arm64/kernel/machine_kexec_file.c
+index e31fabed378a..daf81a873bbd 100644
+--- a/arch/arm64/kernel/machine_kexec_file.c
++++ b/arch/arm64/kernel/machine_kexec_file.c
+@@ -40,7 +40,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage
+*image)
+ }
 
--- 
-Regards,
+ #ifdef CONFIG_CRASH_DUMP
+-static int prepare_elf_headers(void **addr, unsigned long *sz)
++int prepare_elf_headers(void **addr, unsigned long *sz)
+ {
+ 	struct crash_mem *cmem;
+ 	unsigned int nr_ranges;
+@@ -92,7 +92,8 @@ int load_other_segments(struct kimage *image,
+ 			unsigned long kernel_load_addr,
+ 			unsigned long kernel_size,
+ 			char *initrd, unsigned long initrd_len,
+-			char *cmdline)
++			char *cmdline, void *headers,
++			unsigned long headers_sz)
+ {
+ 	struct kexec_buf kbuf = {};
+ 	void *dtb = NULL;
+@@ -105,16 +106,7 @@ int load_other_segments(struct kimage *image,
+ 	kbuf.buf_min = kernel_load_addr + kernel_size;
 
-Sakari Ailus
+ #ifdef CONFIG_CRASH_DUMP
+-	/* load elf core header */
+-	void *headers;
+-	unsigned long headers_sz;
+ 	if (image->type == KEXEC_TYPE_CRASH) {
+-		ret = prepare_elf_headers(&headers, &headers_sz);
+-		if (ret) {
+-			pr_err("Preparing elf core header failed\n");
+-			goto out_err;
+-		}
+-
+ 		kbuf.buffer = headers;
+ 		kbuf.bufsz = headers_sz;
+ 		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+@@ -128,9 +120,7 @@ int load_other_segments(struct kimage *image,
+ 			vfree(headers);
+ 			goto out_err;
+ 		}
+-		image->elf_headers = headers;
+ 		image->elf_load_addr = kbuf.mem;
+-		image->elf_headers_sz = headers_sz;
+
+ 		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx
+memsz=0x%lx\n",
+ 			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
+
+> 
+
