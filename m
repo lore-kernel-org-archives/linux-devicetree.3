@@ -1,247 +1,163 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B796039FCC7
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B480C3612D8;
+	Tue, 19 May 2026 06:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171440; cv=none; b=L84dhTJ5pLTd7T/kGs5r1wZ/KX1StzZ0TuskkNQiZn20OUjQO4nTVekj1bsyXc45zRN/l9rPp6qCludXvvID8UsELlFur9Wb24vN/wHiwMvCBJddklWyK/iktbXuLIGOtjcgRhHUAM8mXcL+8Us6i/NRpmz+bWIZoOh3b59Y6kc=
+	t=1779171556; cv=none; b=CCDJLdO4z/gZe3m8o9ijkhbYVUgYOXKk0QwG+t/5zUI2W5KOQrhxQE7V5xKUzMQBgL9BGmUgUDehDGAMdumsM1MF84ilU92XKK4xRPCA/8qLFpSi4Ogsu8mZHlGl0seW6dMHDegvfS5Q9LbfGXnSGpfKOjaPoMyZL2M+42MA0z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171440; c=relaxed/simple;
-	bh=bU61JmNF1c+b4KWRcgOhA/JRURr6NwQdOpuIqG8oVJ4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ItJOkAmpO2SjyAdEjh8peC3ZsTIx1I6veTrmkcp7yGfD6VIV/+py08UEeiAOB43TZR1509RNTmyXhuZEWmsfsPn3WlO0JZdjUzCyl6OAAZ/Mmd36KHu8C4IKMMIb2ZY4hLCJIzSohPZhoJhl4JJ1/zXcqFY8opvviUBPNaaodBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MqyVZFJ4; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779171556; c=relaxed/simple;
+	bh=rz0D5zfSNp1esvneIKvAlw/Q7/V7L+dv2t7L66cebPU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iQ5f9rAuikFZDEELi3G3ER5jaSTA2uVOMBNhXmBG5GEYFVM7rLuhvrNb9xqoLGkvF3xEDyGXT2mxH6au/R5/WZG3aeQA96VY2o/Xi7Y10dOEwaEZCh6HSrWhL0u8VT/7FFUQSOYrjv5E/0HpmvZOU+RmcoS2vvnMk3KLCmG8OLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HIkZL8Ek; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MqyVZFJ4"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-824c9da9928so1093626b3a.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:17:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779171438; x=1779776238; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mUJ15hFl2aQqTBGBClvDVjCEGpr2/Wz0MRwXGiLFc2Y=;
-        b=MqyVZFJ4W7kSPLkm6dFTus5gc1ftpQTHOg1+BfGiqUbg44O+DAql4ECEx8dzoKll3h
-         fUpaLb5k3F2SOoDzNeCd/po2z35NeSbwHHTTBsL9gZufPb+ENi9MxRYvWWlDxBjP1W8Y
-         jaRTgG3h0PqkyxldpwHFH+uGOuPIUl6TsyTDTq02uWRXZx6Eq+SUudm+GV5QUU4GbCo3
-         4zemHBfb7SjN2B32U89NYE8v4r5gu7oIEzYvrjmNm73Jy4qbvhVgFhmC8y3hdxImoiw0
-         aN6NdEkxBEl6xKi9VU0f39fXy+dBh5uUXyLg6cnBA9wmsCV+u9nOjclBJkzad2jr98Yj
-         QP2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779171438; x=1779776238;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mUJ15hFl2aQqTBGBClvDVjCEGpr2/Wz0MRwXGiLFc2Y=;
-        b=D9x9iGNAXS7Za0Z7B/5dZRJbqxkaoGL8JdlY4Qz0/3ecdPsforlBsDYQzkZYJmu1mO
-         uSF922r7SEV6XcXRAZXEFxDdr1dyDkf/vs0ybPYY1Pd4LiFHk5pv29TOUBA1ORSgNG5p
-         8oIonFSOecAK302by10B0xD/pyS5s53G51HVIEjSvMmgHu3wIjSReFX87LxDHiNvFWk5
-         W7wUQmEosTplLUhuzpzQRAdbUF92cmXqujAWCzQk95dmTjnK2Fii26UDCU1hKdjywEIs
-         NeISoRlxDuJwtsLz1FuPunDRp5LtsFzHIL5HDc/t18kTA5OZKEBg0KecFEwT8RZ65vSr
-         u1jA==
-X-Forwarded-Encrypted: i=1; AFNElJ+Ib7tZZdvNatruBkxoOx0Bydx89vCBD+aQPkk4/8BZtqXzyJ3g6L+Y91nPkitypi+c7OytkYJBLkDV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw16O2knQ2XD7/Y1ZiZznoBGSIrVWuJy4kw0I0d8zLz4Mhvai8+
-	OAZzZ1B9tINXOF6SMhEUM8tCuG/DRTVVLhfIDqiArVsXmoKJlukkjZeh
-X-Gm-Gg: Acq92OFQTA11qfTjnTZIlEyxb55r+vvDWFTIgZzpe0DXAjcr6Z5XhhJTSheQ+OIE8Cr
-	Jc06OgPZwh7ln2ddNWOendJLA5PjZBoVFJLkPghR4AP35Xvdtj0TxHGkFyN3eXeo5zrLkBtHXnh
-	2ZdSlUaZpQl6TkFmzQpptxyYb5uPgBH1uW3/B30eEXjC+9LlQG832pTT8cm7ZTQEaARxiz+IcdZ
-	sCTT6k5GQoInyf3UbSmTVGCJbNUrCJZQvvmRO5mIv+HYdhrVaKDvywRcUwioe5Y9MSO5/bw8BJa
-	PmVPd/HP8wsHVOaTo9d0uWwhLfE0KDn6Xq3PtWiQA/cCixjaTmTb/2eTb5mzcoG90NvEyPqH4dY
-	l/R416ALbpXD3DSCyh5IIKHqo51kYuw9wZf2jFOUqFjUNdG7ryJQ53YaBM+7DfWObezi9KKnZD8
-	dtEr7l4sgQj0untO8zKN50XdrMAhu/Fw==
-X-Received: by 2002:a05:6a00:8c2:b0:835:a682:a6d7 with SMTP id d2e1a72fcca58-83f33bae2camr18840919b3a.4.1779171437826;
-        Mon, 18 May 2026 23:17:17 -0700 (PDT)
-Received: from [10.240.146.115] ([2.27.148.101])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c7f202sm16112266b3a.43.2026.05.18.23.17.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 23:17:17 -0700 (PDT)
-From: Zhengyu He <hezhy472013@gmail.com>
-Date: Tue, 19 May 2026 14:15:57 +0800
-Subject: [PATCH 3/3] riscv: dts: spacemit: add QSPI support for K3 Pico-ITX
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HIkZL8Ek"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J4vPuQ2437943;
+	Tue, 19 May 2026 06:19:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SIMOVFbm6deHTaj515NmN9Qa1sUot9x/t5Mz5A9Iy8o=; b=HIkZL8Ek6kQ51qPU
+	XU/G7lD9K58ScHlQxdZ3iXVzhsByObKyQUkr1gdpHmxiYYb9xtzlcKEBZWkjtPuG
+	zu+RYJMhPLY2HwnrY0uRNXl6sxws0jQSzYKJCWl3dyeBUw/mOh1I3hn+f6kKkNw+
+	dlRoUXnh8Gnc0J2Em2Z0I7jlhW9l8TEMyQloWq8JNfLtnCtq8bmeuw1WzMxcopKH
+	6uH5iw9/al9iLLCrY0k1VIZ2FQvQDVdAK1dH2pbfITuJzuTXvIZbgBcy2EnTQF75
+	/ZzQfiaVddipI0ArACVDuQSWaBI+V31Ct8d3TvmdHJPHwQOCnlTW11VZgbQp+frR
+	OLpOkw==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e834v3ees-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 19 May 2026 06:19:10 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64J6J7VR030837;
+	Tue, 19 May 2026 06:19:07 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4e716dbfd9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 19 May 2026 06:19:07 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64J6J7FY030830;
+	Tue, 19 May 2026 06:19:07 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 64J6J722030829
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 19 May 2026 06:19:07 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 66FCEB34; Tue, 19 May 2026 11:49:06 +0530 (+0530)
+Date: Tue, 19 May 2026 11:49:06 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        kamal.wadhwa@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com
+Subject: Re: [PATCH 2/2] soc: qcom: rpmpd: Add Shikra RPM Power Domains
+Message-ID: <20260519061906.wma2xeshjyzorh2i@hu-kotarake-hyd.qualcomm.com>
+References: <20260429-add_rpmpd_shikra-v1-0-fdba28564380@oss.qualcomm.com>
+ <20260429-add_rpmpd_shikra-v1-2-fdba28564380@oss.qualcomm.com>
+ <e032c072-57b3-44b4-84a7-5aff062b9c00@oss.qualcomm.com>
+ <20260514084512.q5pzh226zdkuw53f@hu-kotarake-hyd.qualcomm.com>
+ <ezpigr442rjnodqcg5fqsyaik3tkp4yyw3cbu6j75ra2vidnnj@7svqkcz45sdi>
+ <d2025522-ac5c-4e45-8274-1cbb49b7b348@oss.qualcomm.com>
+ <xr57rqikcxgrrlj7or42r5frwhvvateeryfnqz7q4wkhfxffzr@intm5itd3ue6>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-k3-pico-itx-qspi-v1-v1-3-c32afeeaf741@gmail.com>
-References: <20260519-k3-pico-itx-qspi-v1-v1-0-c32afeeaf741@gmail.com>
-In-Reply-To: <20260519-k3-pico-itx-qspi-v1-v1-0-c32afeeaf741@gmail.com>
-To: Han Xu <han.xu@nxp.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-spi@vger.kernel.org, imx@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- Zhengyu He <hezhy472013@gmail.com>, Cody Kang <cody.kang.hk@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3723; i=hezhy472013@gmail.com;
- h=from:subject:message-id; bh=bU61JmNF1c+b4KWRcgOhA/JRURr6NwQdOpuIqG8oVJ4=;
- b=owEBbQKS/ZANAwAKAc32nDaAuA3YAcsmYgBqDABauY3HTSzF9IaJjmTv1VlCI5XJKn47n09ne
- KmVVyHfeyaJAjMEAAEKAB0WIQS9XD2kxy1NmfC2u/XN9pw2gLgN2AUCagwAWgAKCRDN9pw2gLgN
- 2LWxEACmEhpN3JONYcq7jJHX5BvuRUB0L5LCma+xBmD6vLDsejxKAsYsj4bSMJH7uS86Nu93PB6
- rvMXUOwBVqLAnumCrq+tNZFMJhMLQJaxVVf7bh8r6TJZvfbLmCzvl4MuZcBgVqAZqtqfdyBXLL0
- Re9uZbYv6ljHvmt52PZtbP9nj/ubdZ4CmauirDVhKchu9NZr+/ZEWiq5CdfRMhKriMBx6JYkQ5P
- A9tOrxhELRH+pHDWuSpCoMYayyZcFsuj1BbCziBG1/92yLzzjQNtKQFMTLehN3gEmZWBYKoBmBQ
- ja4bHaSYSs1YoLHgKy/G5KeCenUxE2PWEpVRfaWebd4c+tQQCOhx+M/xoRRob+KbS7sY5avYAEL
- Csv1PyAqYa6woB/tm9aaDBxGSR8a7a60q/C7KlYQPFVxF46s+SDr7u/6P76ZlW926hM1EC1WgLu
- 4tibWXk8npcEO/rlfVF/QX9HcJn8grFS9ArAoL3C1XWGoIwTEWBsGbGRh64SHYK3pqIPrCG+tMz
- C64OjXm5meqKr3zVeQrAnqyaw4FFtzKdW1Fyi7OV0YXwEOyM+4AH7v4FO7Ij0FMqy7KlBy5+7+J
- YjiaP/FS40AjJTj86I8VSyEYguOroOdif5NVgdJMz6LnZ9Ic2liTq2jYy0AWZtR2jjrTzxuYpiR
- OV9Z1ET8NUMcOQQ==
-X-Developer-Key: i=hezhy472013@gmail.com; a=openpgp;
- fpr=26CA97B1A229C229822278F254AF850165158959
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <xr57rqikcxgrrlj7or42r5frwhvvateeryfnqz7q4wkhfxffzr@intm5itd3ue6>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=F9ZnsKhN c=1 sm=1 tr=0 ts=6a0c00df cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=SqZV5yZ3ZNr3PNtaPaEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: BUL3MfP4TwuLWGd3ndOZODSFxznGJNoW
+X-Proofpoint-GUID: BUL3MfP4TwuLWGd3ndOZODSFxznGJNoW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA1OSBTYWx0ZWRfX+P2WWK8OazWU
+ GvF8kBpD9Kwq6yyJ145O337vgD8DISxcpUU0rz9pGWrib7mGl6O4vIqcWSwjjSELjzlPPNhhI/t
+ Gd3HSdnIhJSZZEpqxy/stMupBdjcS7ku+LPjUNY/f317tl7pJRe0DkvVmaluCjhRmH3+LMPHU/Z
+ 8WeQpR0wTYRXy43/7AAMR1Y4NXdoy89ZXguoo2+l9u6tLfraw2ExMV9zPDVQy2COF+rRZREC1pW
+ zXaPDDRiJsP6oGZbQ5ffSXBAN16b/3ZydELiJsqFLeDnfXC5SAnVk5i7X9+Jgz2uJpEJREagN3+
+ poN7dlQkd3sokq8G067NY+uelo0+ie150jO/xRw7Son9WGoJDZPBsfrP+8fJCY96B1NO5QF2Xhd
+ DjBu+tlS+80XP3mS9pGKTMEwb8Ysg02DMYFkUhWtFGfldK4cdk6MkFQ2HeDeY6tTPjKGP2eSR9g
+ pJT/8HZQ3I1c9+L5m5w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605190059
 
-Describe the K3 QSPI controller and the pin configuration needed by
-boards.
+On Thu, May 14, 2026 at 12:32:37PM +0300, Dmitry Baryshkov wrote:
+> On Thu, May 14, 2026 at 11:23:39AM +0200, Konrad Dybcio wrote:
+> > On 5/14/26 11:16 AM, Dmitry Baryshkov wrote:
+> > > On Thu, May 14, 2026 at 02:15:12PM +0530, Rakesh Kota wrote:
+> > >> On Tue, May 12, 2026 at 02:16:07PM +0200, Konrad Dybcio wrote:
+> > >>> On 4/29/26 4:09 PM, Rakesh Kota wrote:
+> > >>>> Add RPM Power Domains support for the Shikra platform.
+> > >>>>
+> > >>>> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> > >>>> ---
+> > >>>>  drivers/pmdomain/qcom/rpmpd.c | 16 ++++++++++++++++
+> > >>>>  1 file changed, 16 insertions(+)
+> > >>>>
+> > >>>> diff --git a/drivers/pmdomain/qcom/rpmpd.c b/drivers/pmdomain/qcom/rpmpd.c
+> > >>>> index 15a11ff282c3f86b1e86c6604d165e297620f6cf..6f751ee5a7833912d54d2bcfd5d85837ab7a97d3 100644
+> > >>>> --- a/drivers/pmdomain/qcom/rpmpd.c
+> > >>>> +++ b/drivers/pmdomain/qcom/rpmpd.c
+> > >>>> @@ -863,6 +863,21 @@ static const struct rpmpd_desc sdm660_desc = {
+> > >>>>  	.max_state = RPM_SMD_LEVEL_TURBO,
+> > >>>>  };
+> > >>>>  
+> > >>>> +static struct rpmpd *shikra_rpmpds[] = {
+> > >>>> +	[RPMPD_VDDCX] =		&cx_rwcx0_lvl,
+> > >>>> +	[RPMPD_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
+> > >>>> +	[RPMPD_VDDCX_VFL] =	&cx_rwcx0_vfl,
+> > >>>> +	[RPMPD_VDDMX] =		&mx_rwmx0_lvl,
+> > >>>> +	[RPMPD_VDDMX_AO] =	&mx_rwmx0_lvl_ao,
+> > >>>> +	[RPMPD_VDDMX_VFL] =	&mx_rwmx0_vfl,
+> > >>>> +};
+> > >>>
+> > >>> This is identical to sm6125_rpmpds. If you're sure the list is correct
+> > >>> and complete (no LPI domains etc.), you can drop this patch, and proceed
+> > >>> with just this change:
+> > >>>
+> > >> There is one difference — the max_state for Shikra is
+> > >> RPM_SMD_LEVEL_TURBO_NO_CPR, whereas sm6125 uses RPM_SMD_LEVEL_BINNING. 
+> > > 
+> > > It's handled in the DT. As such, programming model and the domain list
+> > > looks the same and compatible.
+> > 
+> > Yes/no, this is an upper bound
+> > 
+> > one improvement we could still make to this patch is not to define
+> > shikra_rpmpds[], but refer to the existing sm6125 one
+> 
+> SGTM
+>
+posted the V2 as per suggestion.
+https://lore.kernel.org/all/20260514-add_rpmpd_shikra-v2-2-20bbd37592b0@oss.qualcomm.com/
 
-Enable the bus on Pico-ITX because the board wires QSPI to NOR flash
-powered from the board 1.8 V QSPI rail.
-
-Signed-off-by: Zhengyu He <hezhy472013@gmail.com>
-Signed-off-by: Cody Kang <cody.kang.hk@outlook.com>
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 58 ++++++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 21 ++++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 16 ++++++++
- 3 files changed, 95 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index 4486dc1fe114..61cbf924830b 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -192,6 +192,64 @@ phy0: phy@1 {
- 	};
- };
- 
-+&pinctrl {
-+	qspi-cfg {
-+		qspi-pins {
-+			power-source = <1800>;
-+		};
-+
-+		qspi-cs0-pins {
-+			power-source = <1800>;
-+		};
-+	};
-+};
-+
-+&qspi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&qspi_cfg>;
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <26500000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <4>;
-+		vcc-supply = <&aldo2>; /* PMIC_VCC1V8_QSPI */
-+		m25p,fast-read;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			bootinfo@0 {
-+				reg = <0x0 0x20000>;
-+			};
-+
-+			fsbl@20000 {
-+				reg = <0x20000 0x80000>;
-+			};
-+
-+			env@a0000 {
-+				reg = <0xa0000 0x10000>;
-+			};
-+
-+			esos@b0000 {
-+				reg = <0xb0000 0x100000>;
-+			};
-+
-+			opensbi@1b0000 {
-+				reg = <0x1b0000 0x60000>;
-+			};
-+
-+			uboot@210000 {
-+				reg = <0x210000 0x5f0000>;
-+			};
-+		};
-+	};
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_0_cfg>;
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 23899d3f308a..5d9763791180 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -56,6 +56,27 @@ i2c8-pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	qspi_cfg: qspi-cfg {
-+		qspi-pins {
-+			pinmux = <K3_PADCONF(138, 0)>,	/* qspi dat0 */
-+				 <K3_PADCONF(139, 0)>,	/* qspi dat1 */
-+				 <K3_PADCONF(140, 0)>,	/* qspi dat2 */
-+				 <K3_PADCONF(141, 0)>,	/* qspi dat3 */
-+				 <K3_PADCONF(144, 0)>;	/* qspi clk */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+		};
-+
-+		qspi-cs0-pins {
-+			pinmux = <K3_PADCONF(142, 0)>;	/* qspi cs0 */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	uart0_0_cfg: uart0-0-cfg {
- 		uart0-0-pins {
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 815debd16409..800efc2929a4 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -836,6 +836,22 @@ pll: clock-controller@d4090000 {
- 			#clock-cells = <1>;
- 		};
- 
-+		qspi: spi@d420c000 {
-+			compatible = "spacemit,k3-qspi";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0x0 0xd420c000 0x0 0x1000>,
-+			      <0x0 0xb8000000 0x0 0xc00000>;
-+			reg-names = "QuadSPI", "QuadSPI-memory";
-+			clocks = <&syscon_apmu CLK_APMU_QSPI_BUS>,
-+				 <&syscon_apmu CLK_APMU_QSPI>;
-+			clock-names = "qspi_en", "qspi";
-+			resets = <&syscon_apmu RESET_APMU_QSPI>,
-+				 <&syscon_apmu RESET_APMU_QSPI_BUS>;
-+			interrupts = <117 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+		};
-+
- 		syscon_apmu: system-controller@d4282800 {
- 			compatible = "spacemit,k3-syscon-apmu";
- 			reg = <0x0 0xd4282800 0x0 0x400>;
-
--- 
-2.53.0
-
+regards
+Rakesh
+> -- 
+> With best wishes
+> Dmitry
