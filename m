@@ -1,114 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685D93E1220
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:25:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C291B3F0AB6
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779182757; cv=none; b=K9ayGLloXwmFjNdQcWK5R4gquLT0ejZ6/ufjczJMohMJQ2uku4s1arKfwK/lRv6aCnXAdQ3IBa2SVoQJ69AZCk6njXZzAnQipZ1ambdcdUF15y8TuEhDAyyR638mY+9nOEwNFtPtqzAFm8XKSqfWfTVlfVe8A4GI2AX6OhNZbZU=
+	t=1779183118; cv=none; b=juEmTbnxOzHGNrUV52AdaPlM7CUc6m4xoDjgxoVwhmVuidEBZb0HYtdNpA4SHmu+e9pgdcdRdc2eDg3NaoATfSkC+PgPD2G2ctYpEhE2DDFoDXCoVeSKj2pE1Xyu/tfiyXorZVAyfFvnK+VOnhrs27HHa8uA7TdC0zfd7STRmM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779182757; c=relaxed/simple;
-	bh=GtuOY6q4bTbJM9azaY+ssquKiGh41o0eV8c+Do8/7n8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J+v4hwhrk3/zISB5gl8943qhFvYNEWFOCBDa0R0ANUdjeehYI9rNat9HSH2GeyqjLT5Ok8fD4f9/TPrFCrU+3LVxcIjpx98ihvUEv4U5KLt62l5dmXQyTVrj1EdmzmjUpcorseKkjbAo2IjV2BuUxyyIjU0z848L8rkKNWx8d24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzQLzfJO; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzQLzfJO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62B4C2BCB3;
-	Tue, 19 May 2026 09:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779182757;
-	bh=GtuOY6q4bTbJM9azaY+ssquKiGh41o0eV8c+Do8/7n8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=KzQLzfJOuik1EdbdVilTGjeJZZ4Xq+OwdgWgFrusVAVISgQ7EGzuKAJmGJMJMCNtU
-	 qS9/oqk7SPEb6nQ0BIOosQX/+/de12HOxOGcwzrTqSCI1dTxxCxdp3ugIb3hKkCU+b
-	 98VWRh6S8HwweLOY3xFEqnIexnAiie+km+f9sLYeyz/02m1mr0IOw1Q69Aj9uNRWhv
-	 3yoBXhOh6YCg1n2QsPZpKP8XdF6QbfP6r+KWa6VPy8aYErNIDGoUE2qpRyI676i6mk
-	 4HVAcFEirEUucbXFR8Dkabah0CoJLqJhzSK34LUjS7CXQT9xXMJkrDuq+25cjwygoA
-	 +nQ9KnnBjb4Jw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/8] ARM: dts: qcom: apq8064: Fix USB controller
- clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260519-mainline-send-v1-sending-v3-6-3dd7aa125353@alex-min.fr>
-References: <20260519-mainline-send-v1-sending-v3-6-3dd7aa125353@alex-min.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 09:25:56 +0000
-Message-Id: <20260519092556.C62B4C2BCB3@smtp.kernel.org>
+	s=arc-20240116; t=1779183118; c=relaxed/simple;
+	bh=Mf2XoqrYRO333qV0Pq7IeJWLfaeqZ4CVJGnnWh+JqPo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZsKMV5zBmOZEVDU1p2fxsaOC0vTDVjJOLw2ODtfY3br9M9r1glx6bqn/tZRFs0V9yB+qq+pjRJFXUHr6mM0DRopqjnSQjzQi/mYoIlYKMNXiLjWVTjfbc+Hhtd8JtutOoChjdEXBLfB9regG4y2dachxeot4hZWfu8JG+njItIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9568159ee07so2321228241.1
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:31:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779183116; x=1779787916;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=h7mLu0pQK6X8KnQDNiHLkRRuhxqkx65FdTGE5tLTcw8=;
+        b=qcphO7g17BspK1M9TEoqIoGwiJBMkneXd8wGIOtoHW3Pjg95n2uV1nPN1CQsgqWrar
+         nTHx2bros5mHhJ1ZcZOAr44ybPRY39yxWkJHEV1WSV90vG0g2qLK0r44m6BdwlHNabxq
+         lTpoxoXSftWvTc1h3qL0iemxOORdgKuRYscMh13tOIZhpljgDYVkdKci/BJwmW15xsK/
+         PaCxCDKolTDRl0jdExdA/Cx6x5rR7htTtYOn/u63sh8xFfj46MEpFUCJuvsdhIQ4AZYJ
+         1KjvuHgk6OkIDq666Fw5xwXj5UEjc1T63xVm1nGgOS355KeLQZVx05WDq4fStfGcu97m
+         lXmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/HlWuDSzge+ZANJaixF5vhYVoq2EOoWoG3T9j+hN1utp906/9If/fEhD9IcQjbehtLNsLUKGZ2uSoE@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwB2/L+mb6ZtJ4Dm6TUZ+K1Rf9P0mK1FRCIwxpvNY/kF58vwKt
+	swWvw5AyJ2Db/09rp9gtv40XP4o9kY9mHz3agAeFnCNujX2YJ1Fgz99A5mTPDmme
+X-Gm-Gg: Acq92OEzF9T3sVWzE/qx92pvuRLZJc5EaG1+D4XFdA5KtbOoGqqB2u/0oa5hwvQ/ODi
+	5bGHg64oOChRkEDj/NoVjmtdgWLv+8tzp/YGiiInw7nzR8/mrFSRHvGZ2t4Vk4WF+iOsELuoiy6
+	VyP4uQdL7SfwuKPGFWfsuu3GbK/KUe5zWYWYFwBLh2Yv66TuUvVU5ZvpkoHMUsj+raiGywsmpEd
+	xRLNnk5m2lRlCmFfLSWDpgVp/bo2m1l1taR7rpEiMfVXkVkcJcTEKftwIDy/vSyAq/tBGZleYWB
+	/S/XIQJkW5v30yqFaK1M1ARnfkMTPT6uFPVAibbf3f4Lfc3YTOUU3fapXRWupCeUZc4r+O5Nf49
+	19IvhHje/rlaiCFhLfO5AGXkc0aOuRYQETad1eJSv8nmGV8dNwvXTpWv76urn7qXFZakeEuwP0W
+	NdrHyIbuAHcbIJKjpjftgBBauKlImTDR3wCXBkRMp2c/dNf6Pm7goXyyIqMdym9CS2qDuaT1o=
+X-Received: by 2002:a05:6102:6051:b0:634:8685:d335 with SMTP id ada2fe7eead31-63a3ec8c2efmr9002255137.14.1779183115677;
+        Tue, 19 May 2026 02:31:55 -0700 (PDT)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-63ce6ecd76dsm5770279137.7.2026.05.19.02.31.53
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 02:31:53 -0700 (PDT)
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-6312970d9e3so2501063137.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:31:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8J/NzmtqtG2+IZsotfc6e9PC7uNV81m8D5FogZ/b37uWaSpKDxDqrhrhAWqgSuv5lRu6ABARdL2m9n@vger.kernel.org
+X-Received: by 2002:a05:6102:598d:b0:633:d7ec:153e with SMTP id
+ ada2fe7eead31-63a3fc96982mr9701042137.28.1779183113287; Tue, 19 May 2026
+ 02:31:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
+ <20260512033750.3393050-2-linlin.zhang@oss.qualcomm.com> <20260514-clever-apricot-goose-acc827@quoll>
+ <CAMuHMdUzraGnOxRU=9bsxBBBFtVqudMGisfcAegUzk+_OS2+eQ@mail.gmail.com> <657a7b16-9036-42f9-b04a-503b5349f68a@kernel.org>
+In-Reply-To: <657a7b16-9036-42f9-b04a-503b5349f68a@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 19 May 2026 11:31:42 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXoDx2MFDvWByvUS+d65Lj6EsiecVLz5apT4oBc_Lf8KQ@mail.gmail.com>
+X-Gm-Features: AVHnY4Li7rFLZVAY1sX6NRmb7UDXsqvLWq9nv7KTFBeOAp2gXjwv7toqKRqt7Ng
+Message-ID: <CAMuHMdXoDx2MFDvWByvUS+d65Lj6EsiecVLz5apT4oBc_Lf8KQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: crypto: qcom,ice: Add sa8255p support
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S . Miller" <davem@davemloft.net>, devicetree@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Moving the transceiver clock (`USB_HSx_XCVR_CLK`) to the "fs" cloc=
-k causes it to be permanently disabled during normal operation, breaking US=
-B functionality.
-- [Medium] Adding a third clock to the `qcom,ci-hdrc` nodes violates the `m=
-axItems: 2` constraint in the `ci-hdrc-usb2.yaml` device tree binding schem=
-a.
---
+Hi Krzysztof,
 
-commit 5a018643b67a319b143bcd44640fccd2fe85acc0
-Author: Alexandre MINETTE <contact@alex-min.fr>
+On Tue, 19 May 2026 at 09:37, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> On 19/05/2026 09:30, Geert Uytterhoeven wrote:
+> > On Thu, 14 May 2026 at 14:56, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >> On Mon, May 11, 2026 at 08:37:48PM -0700, Linlin Zhang wrote:
+> >>> On sa8255p, resources such as PHY, clocks, regulators, and resets are
+> >>> managed by remote firmware via the SCMI power protocol. As a result, the
+> >>> ICE driver cannot directly access clocks and must instead use power-domains
+> >>> to request resource configuration.
+> >>
+> >> Then how can it be compatible with qcom,inline-crypto-engine?
+> >
+> > It is a pity there are such big differences between the SoC-integration
+> > "hardware" description in DT of systems with and without SCMI.
+> >
+> > For R-Car X5H, we proposed a difference approach[1].
+> > Linlin: do you think this would be a viable solution for your platform?
+>
+> In the cover letter I see:
+>
+> "This means Linux can no longer perform various system operations (e.g.
+> clock, power domain, and reset control)"
 
-ARM: dts: qcom: apq8064: Fix USB controller clocks
+"... by accessing the hardware directly."
 
-This commit reorganizes the clock descriptions for the APQ8064 HS USB
-controllers. It maps the RPM Daytona fabric clock to core, the AHB clock
-to iface, and the transceiver clock to fs.
+> I skimmed through the rest including bindings, and I do not see how you
+> did it differently. Patchset is mixing multiple subsystems and topics,
+> so it does not make easier to find what you meant.
 
-Link: https://lore.kernel.org/all/20260516-qcom-ci-hdrc-clock-fix-v2-1-aaec=
-8d33d0aa@smankusors.com/
+The gist is in:
+  clk: renesas: Add R-Car X5H CPG SCMI remapping driver
+  pmdomain: renesas: Add R-Car X5H MDLC SCMI remapping driver
 
-> diff --git a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi b/arch/arm/boot/dts=
-/qcom/qcom-apq8064.dtsi
-> index 09062b2ad8ba5..d64a162abdad4 100644
-> --- a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
-> +++ b/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
-> @@ -813,8 +813,10 @@ usb1: usb@12500000 {
->  			reg =3D <0x12500000 0x200>,
->  			      <0x12500200 0x200>;
->  			interrupts =3D <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
-> -			clocks =3D <&gcc USB_HS1_XCVR_CLK>, <&gcc USB_HS1_H_CLK>;
-> -			clock-names =3D "core", "iface";
-> +			clocks =3D <&gcc USB_HS1_H_CLK>,
-> +				 <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
-> +				 <&gcc USB_HS1_XCVR_CLK>;
-> +			clock-names =3D "iface", "core", "fs";
+FTR, this is what we discussed in Tokyo last December.
 
-Does adding a third clock here violate the maxItems: 2 constraint in the
-ci-hdrc-usb2.yaml device tree binding schema?
+> Can you point me directly how did you do it differently? And by "it" I
+> mean what you comment here - "such big differences between ... "?
 
-The qcom,ci-hdrc compatible string is validated by this schema. Expanding
-the device tree node to include three clocks without updating the
-corresponding YAML schema will cause the device tree to fail schema
-validation.
+1. Describe the actual hardware in DT (+ a firmware property linking
+   to SCMI)
+   For sa8255p, that would be a clock controller device node.
+2. Write Linux drivers that do not access the hardware directly, but map
+   operation to whatever mechanism the SCMI firmware does provide.
+   For sa8255p, that would be a clock driver that translates clock
+   enable/disable to power domain on/off.
 
-Will mapping the transceiver clock to the fs clock cause it to be permanent=
-ly
-disabled during normal operation?
+Thanks!
 
-In drivers/usb/chipidea/ci_hdrc_msm.c, the fs clock is used exclusively for
-a hardware reset sequence during probe. The driver calls
-clk_prepare_enable(ci->fs_clk), toggles the reset controller, and immediate=
-ly
-calls clk_disable_unprepare(ci->fs_clk). It is never re-enabled.
+Gr{oetje,eeting}s,
 
-Previously, the transceiver clock was mapped to core, which the driver keeps
-continuously enabled during normal operation. Since the qcom,usb-hs-phy
-driver does not independently request or enable the transceiver clock, this
-change appears to guarantee the transceiver will be clock-gated while the U=
-SB
-controller is actually running.
+                        Geert
 
-[ ... ]
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-mainline-s=
-end-v1-sending-v3-0-3dd7aa125353@alex-min.fr?part=3D6
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
