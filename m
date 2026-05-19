@@ -1,136 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57B63DCD8E;
-	Tue, 19 May 2026 08:21:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772723DCD8E;
+	Tue, 19 May 2026 08:21:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779178873; cv=none; b=siAZXZbbrB4c/yHcvpoTuhpGlm3FwdNU7+Txy5TSy7Qm4YHClh4ZFgWTVYQmw2SjPAsqYmaYn3sOztBco2ncc5r3u962XJbQoyUAxTpltuWWhIWgJzO7oF0exM9qyjx9ZcXUHWMxlt1YKmufF/XuBW3wa+sWyCFP6bE2892NWEQ=
+	t=1779178889; cv=none; b=rACzCTnnGzHlec0OX/sIa07tsLNqLtgOEUsa4JFq1CzvTjo66ly0jauk+znSlPHt+iMGC0kSThl6KNs41Q9Zi95t/Q2Mr98LhZtLob2m+n6AXJ8EGG0mM2q6tkItlVAVZDpYlQmSvtwEdXBdVCAGro0Qc0f1OoBu4xD9efeZKC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779178873; c=relaxed/simple;
-	bh=tDJ676BMgLDH5QXHQXESWIgejlRC5ysodvGdf6zhXJg=;
+	s=arc-20240116; t=1779178889; c=relaxed/simple;
+	bh=JwBi822Ajj19x+g1eK7MyFsiB0V4T6lj6bJTx+9LSY8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jmi9JI12GNy0J6G2CvwPOgxHP4x0k+1eACbUtn2dXCCBOaTO2C/GuwRCmPxWfayBDtJz3v5P1F5vE2l6s3xt4ZM6kKXD6BOIRBUZKjlTgsFmycdLvT8F6oXcJ4oYwkaZH2S/iyAPqGqbTW4NynwxBb5h9YMXf4m9a/TYTIOXHgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAT1d1pm; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=UnVleBxfUek8rjoEJvCNyxggtzCU1FDjZGQkzb3jJWAzM3kmTcatKIMIlGOslETYIEtQncLlC8Ewp2WEWm5Z0zBS4/QcqY26GjIf4hNcbDa0HC7BjIcz4P9sqC5jSy3z29tzLy8M7epV3GKKiZ2ZwdwK8pQzWzeClwmkNASGjNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sirw/sWH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAT1d1pm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47CEC2BCB3;
-	Tue, 19 May 2026 08:21:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sirw/sWH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5011C2BCB3;
+	Tue, 19 May 2026 08:21:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779178873;
-	bh=tDJ676BMgLDH5QXHQXESWIgejlRC5ysodvGdf6zhXJg=;
+	s=k20201202; t=1779178889;
+	bh=JwBi822Ajj19x+g1eK7MyFsiB0V4T6lj6bJTx+9LSY8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HAT1d1pm7N1FFCeffinmDHW6oJul7lkYiUgRe1Mu+RNcWdjjDJh3narpSaCw5Hz2r
-	 6NcopBBimft48kpIsCxDvfOaPOEHPvJ+8GT04NR4Fd62mwiGPWosuWQeWky387jWD0
-	 /rsVWQn4QroUCBgnBBn0QogA97u+vJsEhvT8mUEAbOIqoo42qa4T0RI23CgUztu6ta
-	 W7/SklrsUT5ejmrQ863MP0bFcktZPkslBF+2F2wL7994H+96gTHVBOb8ISrcCEUfnz
-	 98QCYHJGIrn5oMnTpKt0gTtiEjzzl/YaWwkQsOA/nSS7zU1wjoVa2Ka7E3oz3HKPY3
-	 cnEvMiZBQ32NQ==
-Date: Tue, 19 May 2026 10:21:10 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v7 03/10] net: airoha: Move airoha_qdma pointer
- in airoha_gdm_dev struct
-Message-ID: <agwddqW7CZQfYaPn@lore-desk>
-References: <20260516-airoha-eth-multi-serdes-v7-3-99e0093303e2@kernel.org>
- <20260517055811.39179C2BCB0@smtp.kernel.org>
+	b=Sirw/sWHYHpTcXCini08w2/3dB2nWyi30APscd2B8jDjYO+H5RlUHLxNfi24ncXxw
+	 N3evP8grBnH/AjKwjESK/uASbYJujai4zKepbzalV6KcqxUVQMSlrvPQfD1tcZUXMv
+	 qkGYNYUFkY0kkB9ealyDtNyy7XqYVe5B5hIuLRt/EulXhWxa+dXKQRTy8Uqiwab4GQ
+	 zCc3oQR39juUjIj4c/LEh6rfka+Wl0QIePym5iCvXB97j4NHZD/Sx7pxKOmDx6wCZp
+	 NqCE+bT+hrJq2xG+rR5bhv2EDW1UMRaFlrJRJai+67sy8ZAZ7lQT0dUYMbHbLr0/d1
+	 hZRhd96/zE6/Q==
+Date: Tue, 19 May 2026 10:21:26 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ajit Singh <blfizzyy@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add prefix for
+ Vicharak
+Message-ID: <20260519-elite-invaluable-zebu-8c7afb@quoll>
+References: <20260518110435.16262-1-blfizzyy@gmail.com>
+ <20260518173039.20592-2-blfizzyy@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LJ7Nk84mR0QUSsMi"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260517055811.39179C2BCB0@smtp.kernel.org>
+In-Reply-To: <20260518173039.20592-2-blfizzyy@gmail.com>
 
+On Mon, May 18, 2026 at 11:00:37PM +0530, Ajit Singh wrote:
+> Vicharak develops computing platforms and manufactures single-board
+> computers, including FPGA-integrated SBCs. Add a vendor prefix for
+> them.
+> 
+> Link: https://vicharak.in/
+> 
+> Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
 
---LJ7Nk84mR0QUSsMi
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] Deadlock risk due to using `spin_lock` instead of `spin_lock_bh`=
- in `airoha_update_hw_stats`.
-> --
->=20
-> commit af5b93ea60b28ce8a1ab1016b0911418480e766a
-> Author: Lorenzo Bianconi <lorenzo@kernel.org>
->=20
-> net: airoha: Move airoha_qdma pointer in airoha_gdm_dev struct
->=20
-> This commit moves the airoha_qdma pointer from the airoha_gdm_port
-> struct to airoha_gdm_dev, since the QDMA block depends on the net_device
-> configuration. This is a preliminary patch to support multiple
-> net_devices connected to the same port via an external hardware arbiter.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index 3ca0dbd19275a..6c9f4b289dba7 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> [ ... ]
-> > @@ -1560,9 +1564,10 @@ static void airoha_qdma_stop_napi(struct airoha_=
-qdma *qdma)
-> >  	}
-> >  }
-> > =20
-> > -static void airoha_update_hw_stats(struct airoha_gdm_port *port)
-> > +static void airoha_update_hw_stats(struct airoha_gdm_dev *dev)
-> >  {
-> > -	struct airoha_eth *eth =3D port->qdma->eth;
-> > +	struct airoha_gdm_port *port =3D dev->port;
-> > +	struct airoha_eth *eth =3D dev->eth;
-> >  	u32 val, i =3D 0;
-> > =20
-> >  	spin_lock(&port->stats.lock);
->=20
-> This isn't a regression introduced by this patch, but does this spin_lock=
-()
-> need to use the _bh variant to prevent a deadlock?
->=20
-> This function is called from ethtool paths like airoha_ethtool_get_mac_st=
-ats()
-> and airoha_ethtool_get_rmon_stats(), which run in process context. It is =
-also
-> called from airoha_dev_get_stats64() via ndo_get_stats64, which can be in=
-voked
-> from softirq context when queried by a bridging or bonding master or qdis=
-c in
-> the TX/RX paths.
->=20
-> If a process-context ethtool operation is preempted by a softirq on the s=
-ame
-> CPU that then invokes dev_get_stats(), could the softirq attempt to acqui=
-re
-> the already-held port->stats.lock and cause a deadlock?
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
-according to my understanding ndo_get_stats64() can't be invoked from softi=
-rq
-context.
+Best regards,
+Krzysztof
 
-Regards,
-Lorenzo
-
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260516-airoha-eth-=
-multi-serdes-v7-0-99e0093303e2@kernel.org?part=3D3
-
---LJ7Nk84mR0QUSsMi
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagwddgAKCRA6cBh0uS2t
-rAW/AP0aD9yWvysA4UQZWMt8KYNajMyf11KY05+00GEq79lH5AD/YUZPKzhQdrP7
-doMJF/1zsYgfpHeJZmwlhUdhbiqNpgM=
-=lPdz
------END PGP SIGNATURE-----
-
---LJ7Nk84mR0QUSsMi--
