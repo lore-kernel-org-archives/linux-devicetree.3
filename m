@@ -1,41 +1,86 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1007A376A18;
-	Tue, 19 May 2026 14:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFF63AFD02
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779202516; cv=none; b=NGettWX6GB5x549xl00zkMf0Gx7ad1yjxKMV9TjxPgl+W8zynBYdOY78yJX4D9WEDB8iYo84gQcoA0kz0+lG5QCyxPzccS++PBZlqkjuU5QIMHJBpyaNkNg07AkovFG/AoRr31l1UOn2fUjRxPm+3Fr+whvuRAgmMY99I9SA4XM=
+	t=1779202998; cv=none; b=rlJoVoD7lQZHksdKliYiTnJoqB87MqGUxDzGtlYyx106PgI4IwwZGWqeJ7C29vC3bXwbvbSx5cmA79K3/zn9Z+eb7DPGPbOHxkbHOu0a3f3XHBAc3Vo9t5/nb0gcD3n8DIJqMVmqWubPWIB2RH6N3MubY1lpZyN0n/ftyn1sPB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779202516; c=relaxed/simple;
-	bh=3NVlJUtwfMkx/hSLJA5LtQIHr3Op/o3df0L0eCKc4Cg=;
+	s=arc-20240116; t=1779202998; c=relaxed/simple;
+	bh=goujWWgxDAtQW0ZT93RntvBrZJtIcLJ/PvUYvvYOj1Q=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cf+bCZv8Sp31OHrhIa3TXnYUCLzlJ4sraCDYnSMY1Gj4aKOl4641uQ7eFhz/5OGZHdtMI3WPq1tDa01VND164z0e6lPYe0TlZ/s2EJFha+Vkc5wVNfc8xlnZWlWnRl+EZwXHFfDihJTpu7KVDsPY4SZh+hBudhiddYRGsycCFfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=lRJp8Wtq; arc=none smtp.client-ip=212.227.17.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	 In-Reply-To:Content-Type; b=qf0OvpS5Zoto0sU9AO+tvrBGe/9/YyrP0r2irF6zh1CTNREjFLM0ZsSanOzTWkM2SaCGgvoJVaKOiLatzN1tw6AGWpq0yU97D178frWCiM0htNQzQGZVnGlz56mJ4G5fpOBV1rJ89uiEo9upLsnPDEXn/LIpOwO5i4msHk6/iPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WHXNz3Sw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BG/n4KUi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="lRJp8Wtq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1779202511; x=1779807311; i=wahrenst@gmx.net;
-	bh=UenSn56tHjiovnvCW9LnUxXLUDHjuC4SqEgtGEyoh7A=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=lRJp8Wtq8l3pDwuqefw8UYtNPeDJvQrMdBbLzowtsqtbIzF1UDysk40nZliRnl7s
-	 GNdpspuTacM8WFI6mU0brBav1v7uwTX2B+He1+TRXRFFE+pmtqbMfwvlOwThKla8M
-	 m0UTtludjsxd9XFGcePx9ym1RZGBtLx++9yVEytOkEvXBVT10bWAqnQvfSADYztE1
-	 lRFGq0GE3zwkBaNk9UAwKV0Dvg9AMzNAk7dDJUag7tTJ4h5YnAJj/xSPW9+nFl/Tr
-	 NKK0u44aNPqtwTIW3n563aWDhXBJI+/QHLgzcke3dUCj8Fp5Kv5mH1zJQRi9+DiGq
-	 KaljbqpA1LK3EZhVjw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MRmjq-1wnzRl085K-00Vo0O; Tue, 19
- May 2026 16:55:11 +0200
-Message-ID: <d9e3e10a-c346-4391-b133-4b60fbee5dc3@gmx.net>
-Date: Tue, 19 May 2026 16:55:10 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WHXNz3Sw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BG/n4KUi"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JExM4Y1237958
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:03:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mHGL90YYCdoIftFeeZBzlNxa7STv1/CtE4HjA6UIQ9U=; b=WHXNz3SwSJSCYQ+s
+	7IhJEqNVgCyByrk3m3ETi1RAAK8rw37mdOM5zyT/qdbXSe5NCyc0T4fdWaMPh+CZ
+	8+IE3Apt/t5mK8p0cz6Ju1z+KQlfxDjBSBKUMS9f92VJFdqE1MJLkXHluW/EaTYD
+	Tki68w+zlgF4uKRtCOw667m0TBKZLfnFzI7REiGveDjs2AHqx9cN96OllftkB8/9
+	PhCsnaTRdIXx+yc/OYpSixmMrEo+geli3WaiT7gmW/D/Goe1Ej4d7F71olOjXIlG
+	9RPT32szx9qWe2/NQ+BXPE413GJXqCoqDWckhFkKsX2+jVmcGOLaO+k/7Kc06LJZ
+	SefC2Q==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3sr110-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:03:15 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b461b36990so35048835ad.3
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:03:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779202995; x=1779807795; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mHGL90YYCdoIftFeeZBzlNxa7STv1/CtE4HjA6UIQ9U=;
+        b=BG/n4KUi6+5JdhFFbCxhJkxsGpSO1gkSq3rIxGxP4Am/JVXLTz+jRTX/7ZmyzW9w/u
+         N5HO3Cs+SJAIZl/1Ri/CjcNoZmTQ+mEf2VLXt+jPhXZXUNdhiaM3yD04nmdo2UsN8ygA
+         toxXdMv6payCLvRnXR+ZDsquHi4SRYYqz824J3BGcwITbFJpVVM0zGTyjk2TeAyLzXi7
+         0PIljtkkLCKuGTG24pDHGER1d75PNxBqbnPbS+Mw3l1rn5mvpxNJs2X1pbNNSc5vIKG8
+         jHHXGWQuyuGQRFkXjnUSvMJVGV1dc0s5YoCpSdkPI2rRDprvYw2uSJySLbU5BgNMhtb6
+         Hp0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779202995; x=1779807795;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mHGL90YYCdoIftFeeZBzlNxa7STv1/CtE4HjA6UIQ9U=;
+        b=cmNOMTIDbTLh1O686kU4/voPIqumtxJWliDCK6B4x5Oz5UmGO12aseGoMpu64VJTgm
+         ncPBQxJ1l8L4uZEpo955oNkGrRYx3JHLiwa+f8rxqgVg0DRB4Uob1dTKDmpCRTyrcka4
+         Xuc4EbJMBCvrFnqFFQLgvNa13LHQqXIJIA6FTcCcC0va9jJiKt/fFZefSXQlMmZA6+XW
+         SNTZ03MklP8/i3D6/Kqexmw7DxBGaOiaYX0BMe79miL19Oq5ru6+Oe6voohFw80g0mm7
+         sS9bBRjvaM9wpQXJqQf/DjSgtUX/d8PScgEN+p1QNDj/NQeiuA5M7ydLe1jcbE6W02g3
+         OFLg==
+X-Forwarded-Encrypted: i=1; AFNElJ/V0f0jT4iDaLkClNfSeS5RAzOr54E6p2HVRUlAfIBvswrLmRgbPG+r2dNoEfThrK7TyDYLgewSsvW1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxP1AO8zUHaypB4ez5p5F1G+EspuZGDyK8G42aGJVzCeSy7+F69
+	uUDewamVRLadC6TVbHyfsgJ8ry8MYcduMMxFbzu+seK2lm4/1e6UeERRFIBD3xgYH2eafwF/mJ4
+	ZoKtu1FwbRrx/XZ3uCkmu0LUFb8IPWed693sIOmI8K9u44b8b7bNPY5xxph4R8IGH
+X-Gm-Gg: Acq92OEgcEoqMvi9JSgLmY7kANzfzC7qzKIi73AflNFHbbthrJ/Ue20djp3of8Rjo/l
+	EQywmtRq1Rl8mbULKDiiBDMjl4iERW/g7MCaOtAibWCxC3PYmNPdzDE5TLwMePfYmRiBUGwqfAM
+	Ajp+uciCb+wBRmhnI0OpSJbgiPuHv0BkIBO1MwLS7w/tqGzBvwdtVoxna9KuTDwGURWnr6iJ4HM
+	ImUn6La4hUM81kEv6Uw01W/RRqzWswGsok7xJ8Cv14zHkz6fcelvVfgCo4ez1lj81XRB4mOqzxX
+	RHLIhpJHI7s9MX/wzjbNCsvoxGQcEQpKFfiGjm0Ozhd0/SMN6N4B0cHLBKVoU184zFYRX8huY1Y
+	dZ+naAtq3Dop931VQFQSfZ7DjBNB5RoaDzr7cuFMi9mkZGZiv
+X-Received: by 2002:a17:903:280c:b0:2ba:6bd7:8efc with SMTP id d9443c01a7336-2bd7e991520mr120248475ad.40.1779202994463;
+        Tue, 19 May 2026 08:03:14 -0700 (PDT)
+X-Received: by 2002:a17:903:280c:b0:2ba:6bd7:8efc with SMTP id d9443c01a7336-2bd7e991520mr120248025ad.40.1779202993930;
+        Tue, 19 May 2026 08:03:13 -0700 (PDT)
+Received: from [10.219.57.29] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5d0fbc05sm185598545ad.57.2026.05.19.08.03.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 08:03:13 -0700 (PDT)
+Message-ID: <fd67b063-a986-4d34-99e6-fe55e72d0187@oss.qualcomm.com>
+Date: Tue, 19 May 2026 20:33:08 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,178 +88,182 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] nvmem: Add Raspberry Pi OTP nvmem driver
-To: Gregor Herburger <gregor.herburger@linutronix.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>,
- Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de>
+Subject: Re: [PATCH 2/2] remoteproc: qcom: pas: Add Shikra remoteproc support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+References: <20260514-shikra-rproc-v1-0-9afdedeee002@oss.qualcomm.com>
+ <20260514-shikra-rproc-v1-2-9afdedeee002@oss.qualcomm.com>
+ <g5wv5mi25l7jyq3vbe3dovriyxguw22m5uvyslkbjbyprbxfnq@kep4x3kxeqmj>
 Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de>
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <g5wv5mi25l7jyq3vbe3dovriyxguw22m5uvyslkbjbyprbxfnq@kep4x3kxeqmj>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:OnG+5dD0K7KxSjstX8VfXizzjE7eoOYGJavQEZ0TtkzGymWxZQv
- SCdtJhV18O1T3Er4NdL9lsXY1X1nEfNWrIip8BH6LijHZ+cZzWAddDEjnG24UlvsJMYRXMD
- LNZpQrqTRTl1ki9IrJkmcYGeRY/Peu9US1p/rXj2hUFGtJtLRMfC9x2ojbHGzE6vrZ6rlXU
- WnB8ubPUle9HUZcq7n/Ig==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ytHTOb0poPU=;G4uxAu2MvP1GjJhRRVWuBaP0l0W
- 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
- L2vODxmme9fsllNcUwDSzLKHsVo=
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: Einqp0dLfthbQJeseDfxLWmo9SUm6tHj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDE0OCBTYWx0ZWRfX0uiVV2eloHP7
+ OVYlX6qBhmhRgwUztc8yteeNDAE3jAzhRA3BOVnQBKcxl9njEOA5b99osXVawTtyZfo3gakXWOR
+ a7SExrh0UE1ZevPEQPveVTFMGdEPgZrPGVDz/lD7x+eIlMYZ62JhPfLe1W/pwV7wnyJCJG8P8Zh
+ /xmTaoOvCpgCJ/oxHnbXbq76slxBuVUzgDGiaMBFCEPjxWBXpsqo9PulMyz1hgd+YqSV9HomfcP
+ a1Zm1ksWqTHG7VfKlnTvWxF5WN9ZpkesDazwNaeVw1znpBqUCyGepWDlki+944D6KoAiEBm5HPC
+ 7mZRFtIRHtSwytWLCqQnwFqWROoKyT9uEXuEuS3wyH5el3StDI2TKj0IrzU46HqlMpT7qvMWgXD
+ tMBOEhT5ZIuNOmTe1/IP+4djaErvuw==
+X-Proofpoint-ORIG-GUID: Einqp0dLfthbQJeseDfxLWmo9SUm6tHj
+X-Authority-Analysis: v=2.4 cv=SNhykuvH c=1 sm=1 tr=0 ts=6a0c7bb3 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Mpj9RaW3nZ1247zTz0QA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_04,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
+ malwarescore=0 phishscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2605130000 definitions=main-2605190148
 
-Hi Gregor,
+On 5/14/2026 12:48 AM, Dmitry Baryshkov wrote:
+> On Thu, May 14, 2026 at 12:17:31AM +0530, Komal Bajaj wrote:
+>> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>>
+>> Add the CDSP, LPAICP and MPSS Peripheral Authentication Service support
+>> for the Qualcomm Shikra SoC.
+>>
+>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> ---
+>>   drivers/remoteproc/qcom_q6v5_pas.c | 51 ++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 51 insertions(+)
+>>
+>> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+>> index da27d1d3c9da..4d43201b9ada 100644
+>> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+>> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+>> @@ -1457,6 +1457,54 @@ static const struct qcom_pas_data sc7280_wpss_resource = {
+>>   	.ssctl_id = 0x19,
+>>   };
+>>   
+>> +static const struct qcom_pas_data shikra_cdsp_resource = {
+>> +	.crash_reason_smem = 601,
+>> +	.firmware_name = "cdsp.mbn",
+>> +	.pas_id = 18,
+>> +	.minidump_id = 7,
+>> +	.auto_boot = false,
+> Why? It should be true for CDSP.
 
-Am 08.05.26 um 16:42 schrieb Gregor Herburger:
-> Hi,
->
-> This series adds support for the Raspberry Pis OTP registers. The
-> Raspberry Pi has one or more OTP regions. These registers are accessible
-> through the firmware. Add a driver for it and add updates the devicetree
-> for the Raspberry Pi 5.
->
-> ---
-> Changes in v4:
-> - Additional patch to drop unnecessary select schema
-> - fix dt-bindings
-> - use __counted_by_le
-> - additional alignment check in read/write callbacks
-> - Link to v3: https://patch.msgid.link/20260506-rpi-otp-driver-v3-0-2946=
-02663695@linutronix.de
->
-> Changes in v3:
-> - dts: add "raspberrypi,bcm2835-firmware" as fallback and fix dt-binding=
-s
-> - Fix Kconfig depends
-> - Changed firmware data fields to __le32
-> - Add MODULE_ALIAS
-> - Link to v2: https://patch.msgid.link/20260505-rpi-otp-driver-v2-0-e917=
-6ec72837@linutronix.de
->
-> Changes in v2:
-> - register nvmem driver from firmware driver and drop firmware sub nodes
-> - Use struct_size and __counted_by for dynamic array
-> - Drop unneeded comment in Kconfig
-> - Use NVMEM_DEVID_NONE
-> - Use kzalloc
-> - Update module description
-> - Link to v1: https://patch.msgid.link/20260408-rpi-otp-driver-v1-0-e02d=
-1dbe6008@linutronix.de
->
-> ---
-> Gregor Herburger (5):
->        dt-bindings: raspberrypi,bcm2835-firmware: Add bcm2712-firmware c=
-ompatible
->        nvmem: Add the Raspberry Pi OTP driver
->        firmware: raspberrypi: register nvmem driver
->        arm64: dts: broadcom: bcm2712: add raspberrypi,bcm2712-firmware c=
-ompatible
->        dt-bindings: raspberrypi,bcm2835-firmware: Drop unnecessary selec=
-t
->
->   .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  20 ++--
->   .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |   4 +-
->   drivers/firmware/raspberrypi.c                     |  59 +++++++++-
->   drivers/nvmem/Kconfig                              |  10 ++
->   drivers/nvmem/Makefile                             |   1 +
->   drivers/nvmem/raspberrypi-otp.c                    | 130 +++++++++++++=
-++++++++
->   include/soc/bcm2835/raspberrypi-firmware.h         |  14 +++
->   7 files changed, 224 insertions(+), 14 deletions(-)
-since you plan to submit a V5 of this series, could you please append=20
-another patch to enable the driver as module for arm64/defconfig?
+Missed this, will mark it as true in next series.
 
-Thanks
+>
+>> +	.proxy_pd_names = (char *[]){
+>> +		"cx",
+>> +		NULL
+>> +	},
+> Hmm, SM6115 didn't have proxy votes here. Is it requried?
+
+
+If we refer to sm6115 remoteproc-specific DT entries, there is a 
+power-domain entry (CX only). So we would need to fix this by adding a
+proxy_pd entry for the sm6115 CDSP PAS resource. Would you prefer this 
+to be done as part of this series?
+
+In newer Qualcomm targets, the corresponding CDSP PAS entries include a 
+proxy_pd vote for the power-domain in DT [1][2].
+Therefore, it should be safe to add proxy votes in Shikra’s CDSP PAS 
+data as well.
+
+[1]: 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/sm8550.dtsi?h=next-20260518#n6002
+[2]: 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/remoteproc/qcom_q6v5_pas.c?h=next-20260518#n1406
+
+
+>
+>> +	.load_state = "cdsp",
+>> +	.ssr_name = "cdsp",
+>> +	.sysmon_name = "cdsp",
+>> +	.ssctl_id = 0x17,
+>> +	.smem_host_id = 5,
+>> +	.region_assign_vmid = QCOM_SCM_VMID_CDSP,
+> This makes no sense without region_assign_count
+
+Ack, Would address this in next revision. it would be NOP in this case 
+without region_assign_count and region_assign_idx.
+
+>> +};
+>> +
+>> +static const struct qcom_pas_data shikra_lpaicp_resource = {
+>> +	.crash_reason_smem = 682,
+>> +	.firmware_name = "lpaicp.mbn",
+>> +	.dtb_firmware_name = "lpaicp_dtb.mbn",
+>> +	.pas_id = 0x56,
+>> +	.dtb_pas_id = 0x57,
+>> +	.minidump_id = 0,
+>> +	.auto_boot = true,
+>> +	.ssr_name = "lpaicp",
+>> +	.sysmon_name = "lpaicp",
+>> +};
+>> +
+>> +static const struct qcom_pas_data shikra_mpss_resource = {
+>> +	.crash_reason_smem = 421,
+>> +	.firmware_name = "qdsp6sw.mbn",
+> Why is it not modem.mbn?
+
+Previously, for testing, we used pil-squasher to combine the split 
+images into a single mbn, typically named modem.mbn.
+However, in official Qualcomm releases, the modem firmware is provided 
+as qdsp6sw.mbn. Since Shikra now has proper released binaries, switch to 
+using qdsp6sw.mbn as the firmware name.
+
+>> +	.pas_id = 4,
+>> +	.minidump_id = 3,
+>> +	.auto_boot = false,
+>> +	.decrypt_shutdown = true,
+>> +	.proxy_pd_names = (char *[]){
+>> +		"cx",
+>> +		NULL
+>> +	},
+>> +	.load_state = "modem",
+>> +	.ssr_name = "mpss",
+>> +	.sysmon_name = "modem",
+>> +	.ssctl_id = 0x12,
+>> +	.region_assign_vmid = QCOM_SCM_VMID_MSS_MSA,
+> Again, this doesn't make sense without region_assign_count. At which
+
+Ack, I'll address it in next revision.
+
+> point you can use sc8180x_mpss_resource instead.
+
+minidump_id is required for Shikra. (decrypt_shutdown is not applicable 
+and will be removed in the next revision.)
+For minidump_id, we still need to use shikra_mpss_resource instead of 
+sc8180x_mpss_resource. <?>
+
+>> +};
+>> +
+>>   static const struct qcom_pas_data sm8650_cdsp_resource = {
+>>   	.crash_reason_smem = 601,
+>>   	.firmware_name = "cdsp.mdt",
+>> @@ -1571,6 +1619,9 @@ static const struct of_device_id qcom_pas_of_match[] = {
+>>   	{ .compatible = "qcom,sdm845-slpi-pas", .data = &sdm845_slpi_resource_init },
+>>   	{ .compatible = "qcom,sdx55-mpss-pas", .data = &sdx55_mpss_resource },
+>>   	{ .compatible = "qcom,sdx75-mpss-pas", .data = &sm8650_mpss_resource },
+>> +	{ .compatible = "qcom,shikra-cdsp-pas", .data = &shikra_cdsp_resource },
+>> +	{ .compatible = "qcom,shikra-lpaicp-pas", .data = &shikra_lpaicp_resource },
+>> +	{ .compatible = "qcom,shikra-mpss-pas", .data = &shikra_mpss_resource },
+>>   	{ .compatible = "qcom,sm6115-adsp-pas", .data = &adsp_resource_init },
+>>   	{ .compatible = "qcom,sm6115-cdsp-pas", .data = &cdsp_resource_init },
+>>   	{ .compatible = "qcom,sm6115-mpss-pas", .data = &sc8180x_mpss_resource },
+>>
+>> -- 
+>> 2.34.1
+>>
+
