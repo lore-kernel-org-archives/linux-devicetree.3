@@ -1,129 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7811B3DFC9C;
-	Tue, 19 May 2026 09:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB533EF0AF
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779182584; cv=none; b=FyBFe89EVvjQmSyOYcElJH5uRGQKsvArqbvVOLLJz/7mwcBasu8eUdAtbz+sX03wcKx1h7bBFGASvD3t/DDL9iExlxJ8n8pdx2TcL2erLflnFKUUyF0qRg0NvOmBQWoGuacq6UqTazHpTcVYvdk3A5jk9xj+4BKJDyaX72ctA0A=
+	t=1779182598; cv=none; b=R9LMqR6TLDOIG1mWCFSQYGTefSGCE5VXWEGPah1Z1WJuSpbrCNHbVzQ4cm04b/TJ9k8OyMWvNGWk8k9qnYYlr8/EA9+ehGjAmXffGj81Z9Zzx7DL/N5fhM2RdqhcQuEcbbmBmISqHw9Yj2rRHxzx5anc4kgbmZGR2exsUIW7x/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779182584; c=relaxed/simple;
-	bh=zoicHgt9O7RSwyA/8Yt8+UfNI+ddUfsokmOgEX1CF+Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YsvWjaY0eIaD01iaX+Znfs7ZqgCAAoq4YeRw0rhmBpA3XPvIoVkNAdvCvkxethh2BeFhZR1Gh4wIVgBE9o0W6JJXBQpluYalxTXcQ9L/ctgA04BpTxflS7R6McnH0mH8KHILwtCWCE5EdY+blBXPpSVvmM/XuSyH+Sh/nqiwBWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pddg1vFT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779182598; c=relaxed/simple;
+	bh=Ays/AOR03eQ9fnsVDYNlf8e3KW+AqPJ8S6XZihMvT+c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ii3B0rxUAmTDQy6j36ZjaYzknxviIfrb1aNcMJBaMCQtROPP2b0mYBMyppRHVZeiErSuHkgGvGn48MmdLAg6GABce9JzRHujqYyK+88sWTIioYhMemMDBWUzS52x5o/WproBcuv3/ArkskQA/dZbcB7S/HMTciQQJKb50+UzGSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RiHBahwW; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pddg1vFT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E254C2BCF5;
-	Tue, 19 May 2026 09:22:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779182584;
-	bh=zoicHgt9O7RSwyA/8Yt8+UfNI+ddUfsokmOgEX1CF+Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pddg1vFTCh1TukRUY0V4DNXlP+8KxkotVm9cx5a5akZSkmQJ2odYwd7pIU7+gpN8o
-	 tjnTCiM6/13XkQQSXuYmQgFOrTGugiwyU3kRtQwS2IODoBrZ7q7zh7FOMKoDxx0rAC
-	 j90xHw17PtS7VJf8jLbE5Ip8FJ1I34Ecj92IuWCahEDAWSHrugL4oHETq6VF4I7apI
-	 7lnaIJeLEOkYQhkCLSJ0unrz036rF1qkVLag1PEMQzH3HpPi8I/AKnC5G2n+PxRCOj
-	 trB4WR4fNvfFR8Xi7XF1qaU6TzsDFqRnPEGBM0N2wC8Sl12aJtCDOew9X21WHmJL5V
-	 RkVR7MV9cgSLw==
-Message-ID: <d12b5738-ca14-40aa-930f-eddf3199818d@kernel.org>
-Date: Tue, 19 May 2026 11:22:55 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RiHBahwW"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bd4f7f05e90so657599466b.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:23:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779182596; x=1779787396; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/acds5PobtVmDUQ4dCMZg0BCAmtwvenliLGdACo8DBc=;
+        b=RiHBahwWY0MDJ4aTNs/BMihA/xEMDRzefOchXUGvw6ukYXKJ4ISGElHuTfOE7q7pvZ
+         sgxQA4nTEugM64uHJNG/eJMBdSF9H8tVwhM4BRHNkT0WTj7vBjAjgASC2l+j1FAxHRdN
+         k3QkxaeJ0LZclrxuroWi1PXkJaC5S15RGMoYCFtoG6Byx8QPONldLZzLwOuvh4zkS1Py
+         NaJzVVXL5BtM9dQ0yv8wHuNVLyXNE4bvNvOhLRuUzuphOowhLgOxBtDp8GOM8gHyQ8jD
+         DR7mdEO+ZlcuZWvkfFVKJpc5RQmNL12qksfeLDZaB6yHXWOstvYo6D9iWf/+BdS5u/0x
+         UMhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779182596; x=1779787396;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/acds5PobtVmDUQ4dCMZg0BCAmtwvenliLGdACo8DBc=;
+        b=hAVB3dX9KyCyraw+HeU14sFL2RPZ/MFBxlIwSgB0YKZTEwy8Hm7xsrbMehVN9NrHSZ
+         REboRBbMvqvfvEG/IWViZ375W4ljjosU/uMwyDVvancJ0Fo3Mosf2+LV15tmEw8DuSaB
+         UJLJ+RAGNyr5tZKLHH3flMJJMW8ZKJKVPyq2GiywgqGyODPRfh5NpIcyH6tlVvp+COFh
+         j66WFC87xdmx1a0k4A1S5k1TgJHVKPBYPsfH800GPJ59pd+UE/oMujfgsG2n+7QvLpKa
+         QcrZFCIAjwMhXYnUenqFIcAH8gj4CM8yqcIDgGNeL6bEe29k4rbBHSY4Aoop1mJ4uxcE
+         7MSg==
+X-Forwarded-Encrypted: i=1; AFNElJ/J9Ec+Rov9Ojgh+Erh90h6DJNRfbP/4TdZSUFys7ndEgRsLMYuwfMZMVp+AuI9omymIjBPBJQeXoVH@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuTtYeVVM9m6+reQNJgK6MR2ZKHdUnLmUXzD29UuLnDJRdebgT
+	Ap04TqD9zjZOqIxt8z6HU6Rsl/Gjm7klOqERySqaqdwTSmS2XzCC+ufN
+X-Gm-Gg: Acq92OF6w5qokLhNRp7SMBRPrU9+NEEQJY2vvfMA9P6Rq25VDhesIYzy3XziIUyoGu3
+	K3lcdGkD8mmoAqK1uTm8OXkMWysL7zmgn2PYRKX7jKKJppyuhJViVyfsSXRDpIx9YEdsiFTwJDu
+	aoQvDcwZmYReSuQVIwE7F/wqILJqZJ6Uh+r75tvqNydxPAKCxGjdgvFwmrBPaH8eZ1nwOnzCx09
+	acd/Xly0tv/f/++5BA7ajwNPdDWRWUm0DEF8YJr0XrUgfONEIXK65yEK1i2+xsbAFAWZ50hTz7t
+	k6moC7Fsadxp0X8h8XwvXdwmOrAegmwF1igG/Exy4B5jC2rkV90jSZcjf5geTY1tNHWSrOvzsyw
+	4yB7f5dqiwV6GOt6r085ej7IPul0OxEBX5ktee7LmYFM0khCREbiIZEdJ+8ME5zYrUjNRlnRgpM
+	vrF+bOwN4riPggMlCzgxEWBzY7PrZGJIGX+Ft1Nw==
+X-Received: by 2002:a17:907:3d45:b0:bd5:27b7:adaf with SMTP id a640c23a62f3a-bd527b7af46mr818011166b.33.1779182595357;
+        Tue, 19 May 2026 02:23:15 -0700 (PDT)
+Received: from gmail.com ([212.75.105.246])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4dea93dsm675169366b.38.2026.05.19.02.23.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2026 02:23:15 -0700 (PDT)
+Date: Tue, 19 May 2026 11:23:13 +0200
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	devicetree@vger.kernel.org
+Subject: [PATCH v3 1/2] dt-bindings: iio: light: add Broadcom APDS9999
+Message-ID: <12b145839a1a9c5381946a9e5237bfe6fe0ae9a7.1779181370.git.azpijr@gmail.com>
+X-Mailer: git-send-email 2.54.0
+References: <cover.1779181370.git.azpijr@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/10] dt-bindings: firmware: add arm,ras-cper
-To: Ahmed Tiba <ahmed.tiba@arm.com>, rafael@kernel.org, bp@alien8.de,
- saket.dumbre@intel.com, will@kernel.org, xueshuai@linux.alibaba.com,
- mchehab@kernel.org, krzk+dt@kernel.org, dave@stgolabs.net,
- conor+dt@kernel.org, vishal.l.verma@intel.com, jic23@kernel.org,
- corbet@lwn.net, guohanjun@huawei.com, dave.jiang@intel.com,
- catalin.marinas@arm.com, lenb@kernel.org, tony.luck@intel.com,
- skhan@linuxfoundation.org, djbw@kernel.org, alison.schofield@intel.com,
- ira.weiny@intel.com, robh@kernel.org
-Cc: devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com,
- linux-cxl@vger.kernel.org, Michael.Zhao2@arm.com,
- acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org
-References: <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-0-42698675ba61@arm.com>
- <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-9-42698675ba61@arm.com>
- <5fb43b8d-e772-42af-ba78-d75abd87bd0c@kernel.org>
- <8bc812fd-cda5-485f-98d2-4901ec17c66f@arm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <8bc812fd-cda5-485f-98d2-4901ec17c66f@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1779181370.git.azpijr@gmail.com>
 
-On 19/05/2026 11:02, Ahmed Tiba wrote:
-> On 19/05/2026 08:04, Krzysztof Kozlowski wrote:
->> On 18/05/2026 13:57, Ahmed Tiba wrote:
->>> Describe the DeviceTree node that exposes the Arm firmware-first
->>> CPER provider and hook the file into MAINTAINERS so the
->>> binding has an owner.
->>>
->>> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
->>
->> Please implement previous comments.
-> 
-> Could you please clarify which previous DT comments you still see
-> as unaddressed?
-> 
-> My understanding was that I had addressed the earlier points on the YAML
-> description formatting, the `memory-region` description text, and the
-> example. If I missed a specific item beyond the one below, please point 
-> me to it.
+Add Device Tree binding for the Broadcom APDS9999 ambient light
+and proximity sensor. A separate binding file is used rather
+than merging with avago,apds9300.yaml because the APDS9999
+has an additional vled-supply for the VCSEL.
 
-You do not need other nodes for your device in the example. I asked why
-this is needed for the example, but there was no answer.
+The APDS9999 features individual R, G, B, and IR channels with
+a green channel that uses optical coating to approximate the
+human eye spectral response for ALS/lux measurements. Calibrated
+RGB color sensing is not yet implemented in the driver.
 
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+ .../bindings/iio/light/brcm,apds9999.yaml     | 54 +++++++++++++++++++
+ MAINTAINERS                                   |  6 +++
+ 2 files changed, 60 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
 
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml b/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
+new file mode 100644
+index 000000000000..4d9e9aff8894
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
+@@ -0,0 +1,54 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/light/brcm,apds9999.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++title: Broadcom APDS-9999 Digital Proximity and RGB Sensor
++
++maintainers:
++  - Jose A. Perez de Azpillaga <azpijr@gmail.com>
++
++description: |
++  Broadcom APDS-9999 is a digital proximity and RGB sensor with
++  ambient light sensing (ALS) capability. The device uses individual
++  R, G, B, and IR channels plus a Vertical Cavity Surface Emitting
++  Laser (VCSEL) for proximity detection.
++
++  Datasheet: https://docs.broadcom.com/docs/APDS-9999-DS
++
++properties:
++  compatible:
++    enum:
++      - brcm,apds9999
++
++  reg:
++    maxItems: 1
++
++  vdd-supply: true
++
++  vled-supply:
++    description: VCSEL power supply
++
++  interrupts:
++    maxItems: 1
++
++additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        light-sensor@52 {
++            compatible = "brcm,apds9999";
++            reg = <0x52>;
++            vdd-supply = <&vdd_reg>;
++            vled-supply = <&vled_reg>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1aa9c989973f..2d8d4e2eab6e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5000,6 +5000,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/brcm,apds9160.yaml
+ F:	drivers/iio/light/apds9160.c
+
++BROADCOM APDS9999 AMBIENT LIGHT SENSOR DRIVER
++M:	Jose A. Perez de Azpillaga <azpijr@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
++
+ BROADCOM ASP 2.0 ETHERNET DRIVER
+ M:	Justin Chen <justin.chen@broadcom.com>
+ M:	Florian Fainelli <florian.fainelli@broadcom.com>
+
