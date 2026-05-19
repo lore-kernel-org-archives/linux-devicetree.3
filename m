@@ -1,160 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9947495523
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289154A33E2
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:42:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779190911; cv=none; b=mEDeFyC4QIgfBu3+MTsWkQjlxDvxPmOt7jGX7hUQ2PDubKQnW4yc7qYpWo1Be8uezsI9ODYVTURIIeeA1pDIY5uCSjaoAzS542zxhmp3U6ejurmR8kDf5mKLPrMJSzTr4FEQt18hclwtOMN2zlX1NwuvBMRaLN4k4ENwcXkN5Dk=
+	t=1779190923; cv=none; b=eaxB/6sz6+u0HyT+zCem4Dp4yD8+lU9baaG+1bAiE0KRSNMF76ik/Zjw6Jli2qG+ecHqaRV7hOpm42SqMTZ1Z+Be6kcEWsqJpeLbtP+nxb2Uhglq+VDMbQ52hRCBsT1Rzi6U+ktlZT7AT+3Cquk7BBBtDbhKZ/mec/BmArTZvj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779190911; c=relaxed/simple;
-	bh=I/UIGNMO8EpW4rq9Hh0hRnsArLscyklt2gqBX4RPIwA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BGPe97z4wRZ2my0UANeHqz/fG+jk227vUTpdFybAquX7L0edDr4M9Osz8Z4iidvea1RRFkTG/HTXKtg3j+2ALSnAn2gkdSfiMf4Z60jf4aY0gTFQ4k/88vhTMuOfUsKm+6PoAPL8hY4oy1ZQoTLXR92WI59pkYI5FZKaLKcQZR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYAl/xqs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779190923; c=relaxed/simple;
+	bh=iXaQej+aa3DbMyR4YHSetSZ0oLvnEXqSgtMh+UpQUEo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qarGpmZGwgEoqXf/N6s+xW9enaxFH1HIgOOxE1wY2raJzA0G3kVyUljiuxGGD8gLJsI7vv/ips/e+zbDY2OAWTsaTMZtyEQ2FEFJEkX6EpxK2TG2QPhpXwqynIM5Knx8m79gj08vPevby5m2HHEH5w3RRN7VDEuGNkm57L/tyPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=K+gY1OE9; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYAl/xqs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53782C2BCB3;
-	Tue, 19 May 2026 11:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779190911;
-	bh=I/UIGNMO8EpW4rq9Hh0hRnsArLscyklt2gqBX4RPIwA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=gYAl/xqs2RAx/XYQni4XTEQ+aWaT4z1foon9P4UrGZGVupHp3L8EGLCrjw3FoLxc3
-	 iZyUVKGm5tiIzOSmGQGrPmMjbps+7c8yFoYd5+4wIu0vTFOvwY8r6fHl1DMTKPcnzf
-	 2SHd3BX9siWiElkRnjP/AKBaFTHmwVTGgOIeIdTaNvM9X1OdXT04vlMgBHKdmxfwP2
-	 FaUJQhbVwUZ4Q0rl4xKnLs49iUrExtnsBFTZbKsoA9dNHCjWGDWPXRJmPw1PgcxCIF
-	 TqVRpiw+5XtOLQkE1hAuLUiIcP+zJ+4WSckbM/ZwQeRpFqw5+K89WeMIjv3P902oaF
-	 WP8gF4tFFU/6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] pinctrl: aspeed: Add AST2700 SoC1 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Billy Tsai" <billy_tsai@aspeedtech.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519-pinctrl-single-bit-v4-3-5fe568a8ffde@aspeedtech.com>
-References: <20260519-pinctrl-single-bit-v4-3-5fe568a8ffde@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 11:41:49 +0000
-Message-Id: <20260519114151.53782C2BCB3@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="K+gY1OE9"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so28398025e9.0
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 04:42:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779190920; x=1779795720; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gJoGNxpHwJXF2k7E+m5KPLxypZWZKLTX+aIvO0pTfwo=;
+        b=K+gY1OE9DhU903zmTSNokRe4DZws4D7Lxrtt0xgT3FBjwBBgwwZKav+DOrRc65MbL3
+         Cpw+pNbs6o/8ADeOcEUtEbiuuhml8q7GMQdIQ/xaOha7IDuxVCboBc6rpHPTFI4llNhA
+         3SMUYFP/diYDwHcZDlhrVu4OadZFj/26l9HoBeXqpeNHBvXqOxls0NAehlgg8SkD8xs0
+         8WpeZrJsnYn2/NGizUXsRccJvmgCJ8ks7wIoJqaTMp4t/5+tLaLTztYdYY7JWZ43UBIq
+         2RRx8UQbQNJ+a8UPSxZpy4DSkxOHtc1MqleoXhuwHLXSKCNHwYreHJsRT638OCK78JAV
+         0ExA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779190920; x=1779795720;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gJoGNxpHwJXF2k7E+m5KPLxypZWZKLTX+aIvO0pTfwo=;
+        b=RN54QHiyoYySeGRWtDVbRu5hRkcWQ5dQ8bfeskDWnMFOg+Ez2leJljKZSkzYddrA7i
+         yAZxi7ZvqM4C1T3WTwNcWweYwKxKPNGk7cau5kKvx/+coCBc+TML6d48asd05sLc92Is
+         1pEVYiPO3oZr3wneX3rte/MpVFFW9Qwl+XoUWzdF60sWeGv+kxp5MSiJGECp4wKmfZYz
+         nCTTG6jd0LEh0LOTl7G3pIkXi7seIKc5TfXyhbej5jUTln26vTk9YoBzl23A77IdGGvH
+         859PcOfErqMv0SgRQ6v7dLo17H1ODcTWafa2vzICNs4U5f0mdNuA9syBruf9QtZD312g
+         dxVw==
+X-Forwarded-Encrypted: i=1; AFNElJ937d4vxrO9Frnwt7udZFihWBAJKTQebxxWSuYYroIHMnXeGUYUHrBT67tC0cP9h0XxU/ZAriFYXZGK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRjduX2vojq/oqLOfOB5DZGHh2BpCJEvqm3y57BYh1bcPjMPRc
+	YPMlva5hovA/Ng4OcdOcngS1eWda28XVXv1bg7RR3kM+cIkBvq5Tdy+DmPwe0qfiUnw=
+X-Gm-Gg: Acq92OFPWK+lMluCeCqRGUOlz6E5o5RbwEJe+4oeB5lTfjJ1bC/btQRdJf/A3lp3vsT
+	/s9kGirTE7QS0Z3NuwXbtJY0NPgt9YotNsGKrflpno15EmuYVkgUs6GM4a4VCzRSJ7C/X79RUDn
+	yvX7aHQfxlAJec8SzN0PhdpqkcXK0wqvAztASUC2GaQe4vdQyrmKI7xtDtZx/anRyTuL4AAl4ST
+	cOnZ2ZxnS7LZwRv1siz9aGvKIa3ybhbytKnpmYY0d/crMmvuJivO6IfSS4gM+f45qQ1gQo1mA2X
+	ICOHp3X8qFZKHLrbGO2VFHjOUpFZcXayuqTOwXhGcTmenZaNExL7L3s5cxkxbpz3uKadSM4/gOy
+	fm21IbO/h/63sR0jhHYMDt9LkC+FEu49hzMMUEkY9vtKh3u4AQiPp/WE4e5pPIG0NAfetzj+UsN
+	ePPjeZeYyFKVHmLhFmVRIaeuLVk8msZRdR2Q==
+X-Received: by 2002:a05:600c:848c:b0:48a:563c:c8c0 with SMTP id 5b1f17b1804b1-48fe60e51c6mr296433775e9.7.1779190920505;
+        Tue, 19 May 2026 04:42:00 -0700 (PDT)
+Received: from [192.168.0.35] ([51.37.145.233])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febf8305dsm152745015e9.9.2026.05.19.04.41.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 04:42:00 -0700 (PDT)
+Message-ID: <1485d619-35da-48e1-a108-60de1bd8b19b@linaro.org>
+Date: Tue, 19 May 2026 12:41:59 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] usb: typec: tcpm: qcom: use connector to specify VBUS
+ regulator.
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260519-fix-tcpm-vbus-v1-0-14754695282d@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260519-fix-tcpm-vbus-v1-0-14754695282d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] `ASPEED_G7_SOC1_MUX_FUNC_MASK` only masks 3 bits for a 4-bit mul=
-ti-function field.
-- [Medium] Semantic mismatch: explicit bias pull direction requests (`PIN_C=
-ONFIG_BIAS_PULL_DOWN` / `PIN_CONFIG_BIAS_PULL_UP`) are blindly mapped to a =
-generic enable.
-- [Low] Unnecessary code duplication of `pinctrl_generic_get_group_pins()`.
---
+On 19/05/2026 11:48, Dmitry Baryshkov wrote:
+> The Qualcomm PMIC Type-C devices historically provided their own way of
+> specifying the VBUS regulator, via the device's vdd-vbus-supply node.
+> This is not ideal as the VBUS is supplied to the connector and not to
+> the Type-C block in the PMIC. In theory hardware can use different
+> regulators for VBUS, so specifying it in the PMIC DTSI is not correct.
+> Deprecate this property in favour of the standard way of specifying it
+> (via the connector's vbus-supply property).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> Dmitry Baryshkov (6):
+>        dt-bindings: usb: qcom,pmic-typec: deprecate device-specific VBUS
+>        usb: typec: tcpm: qcom: prefer VBUS supply from the connector node
+>        arm64: dts: qcom: pm4125: move vdd-vbus-supply to connector nodes
+>        arm64: dts: qcom: pm7250b: move vdd-vbus-supply to connector nodes
+>        arm64: dts: qcom: pm8150b: move vdd-vbus-supply to connector nodes
+>        arm64: dts: qcom: pmi632: move vdd-vbus-supply to connector nodes
+> 
+>   Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml |  4 ++--
+>   arch/arm64/boot/dts/qcom/pm4125.dtsi                       |  1 -
+>   arch/arm64/boot/dts/qcom/pm7250b.dtsi                      |  1 -
+>   arch/arm64/boot/dts/qcom/pm8150b.dtsi                      |  1 -
+>   arch/arm64/boot/dts/qcom/pmi632.dtsi                       |  1 -
+>   arch/arm64/boot/dts/qcom/qrb2210-rb1.dts                   |  2 ++
+>   arch/arm64/boot/dts/qcom/qrb4210-rb2.dts                   |  2 ++
+>   arch/arm64/boot/dts/qcom/qrb5165-rb5.dts                   |  2 ++
+>   arch/arm64/boot/dts/qcom/sdm632-fairphone-fp3.dts          |  2 ++
+>   arch/arm64/boot/dts/qcom/sm6115-fxtec-pro1x.dts            |  2 ++
+>   arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts          |  2 ++
+>   arch/arm64/boot/dts/qcom/sm8150-hdk.dts                    |  2 ++
+>   arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi   |  2 ++
+>   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c         | 12 +++++++++++-
+>   14 files changed, 29 insertions(+), 7 deletions(-)
+> ---
+> base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
+> change-id: 20260519-fix-tcpm-vbus-aabde21f339d
+> 
+> Best regards,
+> --
+> With best wishes
+> Dmitry
+> 
 
-commit d9ccdda23e8e031171910f04fde503376a58dffc
-Author: Billy Tsai <billy_tsai@aspeedtech.com>
+It should be possible to use vbus from any source - and that vbus is 
+indeed port not controller specific.
 
-pinctrl: aspeed: Add AST2700 SoC1 support
+For the series
 
-This commit adds support for the AST2700 SoC1 pin controller. It implements
-pin multiplexing and configuration using static SoC data tables via the
-generic pinctrl, pinmux, and pinconf frameworks.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c b/drivers/pi=
-nctrl/aspeed/pinctrl-aspeed-g7-soc1.c
-> new file mode 100644
-> index 0000000000000..400fdcf7b4d18
-> --- /dev/null
-> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c
-
-[ ... ]
-
-> +#define ASPEED_G7_SOC1_MUX_BASE          0x400
-> +#define ASPEED_G7_SOC1_BIAS_BASE         0x480
-> +#define ASPEED_G7_SOC1_DRV_BASE          0x4C0
-> +#define ASPEED_G7_SOC1_PCIE_REG          0x908
-> +#define ASPEED_G7_SOC1_USB_MODE_REG      0x3B0
-> +#define ASPEED_G7_SOC1_SGMII_REG         0x47C
-> +
-> +#define ASPEED_G7_SOC1_MUX_FUNC_MASK 0x7
-> +#define ASPEED_G7_SOC1_MUX_BITS_PER_PIN 4
-
-Since ASPEED_G7_SOC1_MUX_BITS_PER_PIN is 4, should ASPEED_G7_SOC1_MUX_FUNC_=
-MASK
-be 0xF instead of 0x7? If the most significant bit (bit 3) is set by the
-bootloader and is part of the mux configuration, the driver might fail to c=
-lear
-it when updating the register via regmap_update_bits().
-
-[ ... ]
-
-> +static int aspeed_g7_soc1_pin_config_set(struct pinctrl_dev *pctldev,
-> +					 unsigned int pin,
-> +					 unsigned long *configs,
-> +					 unsigned int num_configs)
-> +{
-> +	struct aspeed_g7_soc1_pinctrl *pctl =3D pinctrl_dev_get_drvdata(pctldev=
-);
-> +	struct aspeed_g7_field field;
-> +	enum pin_config_param param;
-> +	int i, ret, ds_idx;
-> +	unsigned int val;
-> +	u32 arg;
-> +
-> +	if (pin > AC24)
-> +		return -EINVAL;
-> +
-> +	for (i =3D 0; i < num_configs; i++) {
-> +		param =3D pinconf_to_config_param(configs[i]);
-> +		arg =3D pinconf_to_config_argument(configs[i]);
-> +
-> +		switch (param) {
-> +		case PIN_CONFIG_BIAS_PULL_DOWN:
-> +		case PIN_CONFIG_BIAS_PULL_UP:
-> +		case PIN_CONFIG_BIAS_DISABLE:
-> +			field =3D aspeed_g7_soc1_bias_field_from_pin(pin);
-> +			val =3D (param =3D=3D PIN_CONFIG_BIAS_DISABLE) ? 1 : 0;
-> +			break;
-
-Is it safe to blindly map PIN_CONFIG_BIAS_PULL_DOWN and PIN_CONFIG_BIAS_PUL=
-L_UP
-to a generic enable (val =3D 0)? As noted in aspeed_g7_soc1_pin_config_get(=
-), the
-hardware pull direction is fixed in silicon. If a device tree requests a
-pull-down on a pin with a fixed pull-up, it will silently receive inverted
-hardware logic. Should the driver reject explicit direction requests it can=
-not
-guarantee and instead support PIN_CONFIG_BIAS_PULL_PIN_DEFAULT?
-
-[ ... ]
-
-> +static int aspeed_g7_soc1_get_group_pins(struct pinctrl_dev *pctldev,
-> +					 unsigned int selector,
-> +					 const unsigned int **pins,
-> +					 unsigned int *npins)
-> +{
-> +	struct group_desc *group;
-> +
-> +	group =3D pinctrl_generic_get_group(pctldev, selector);
-> +	if (!group)
-> +		return -EINVAL;
-> +
-> +	if (!group->grp.npins)
-> +		return -ENODEV;
-> +
-> +	*pins =3D group->grp.pins;
-> +	*npins =3D group->grp.npins;
-> +
-> +	return 0;
-> +}
-
-Is there a reason to implement this local helper instead of directly using =
-the
-exported pinctrl_generic_get_group_pins()? The local function seems to
-identically mimic the core function's behavior.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-pinctrl-si=
-ngle-bit-v4-0-5fe568a8ffde@aspeedtech.com?part=3D3
+---
+bod
