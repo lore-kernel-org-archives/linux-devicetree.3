@@ -1,150 +1,127 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8343B52F5;
-	Tue, 19 May 2026 07:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8333C3BC680
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779174611; cv=none; b=Ajs50P1xO2o6x5hh/3Gmc5W23rAkITan0szvwY5lvI6D4xeOyJB/Tw1UDtP8ZlXUbu0aKkYbzZyjj3XrbCqsuG/8ot6LN6vwr07gAlGZcZjx3hXckz9GklXb9Y8BI5nUBLO97jxatVHHtwL0YRcUxRZUl2yw2PEq9Yv6ht2FT/w=
+	t=1779174717; cv=none; b=uBNTtuKfFhbd5drrsy/9bS8N1vymJdDTvtQ5JLQYzeMumi8zW8+GkRKqQb+QxLM/AxjvygzOaw2QXzaB806Z+H+gsCsQGggD3xdwsKAeQ87SbBvRch8N533KG9fIWfpTnFItaxz2g9h3P6UhZmOttgHi7blBvUazBlx3H0S9moQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779174611; c=relaxed/simple;
-	bh=SNK7F3haMWlmkX9HnfIcT8fwpnfyNXlNzv5iBQCQCDQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BQhJLUn6M2qoisBjVGzOyWQG81CYF9/eyvPZK3FNCvBR9i5smxfaYuJlYVV5HP90i2lVawDQXceIK+OHmgvU1akfbF2pNB4jTYgQ+UF+o4LPT0WtZQ3svC82SYilb7oyXt5Ssv4TQMYrulQZ8YD1GS4cNcHfpIkL8IXaaEOE3Ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XTHPqkxE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1779174717; c=relaxed/simple;
+	bh=wztDeudGoUAJK/W//ID8zMxaTkHI3uWCRMPOPLm6LPk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dDE1aPvV/Uoxws4I8dU5qLJ7/kXgOUl/xAMZxES4lRXDmJ9L+J7GLciP1VE+de9PIDtpwnlpr3KRGp3utn4eNs8IM4if/xvHqKZ3CwpOjFIkY3BmqGAeXy8X4UoJSkeYEFIYMX/orC9kL0O2OQaOBtcoBgN0y3GLIzoHTTaksjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mjUlCDP8; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XTHPqkxE"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J5Jkct2482391;
-	Tue, 19 May 2026 07:10:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PxrK8tl2uJw6EcrSPVFkDMWf0SzRs0O5rIb+htk9QGU=; b=XTHPqkxEB2V8HWrU
-	qftlFwukOn7VlhNV3yLGlu+wyHYvcJRbADRs+PflKMKvoS1HJKixf6B+i2W4Kaz5
-	erG3SCwDKYkS0zhLiY19nfnSCS6B1wTca82zUtlJ+kkOpbWCIsK2aGkPCqfiBVMW
-	eJpiLuVBBhFqaPVWm40xEgmtkdO6/o3v7KRYy3CFlLgqrHnImNzQLy52QRqf1Zrf
-	Z++jSmFKPEtCEePmr9Xyd1qcsFYSDYUw8eVBTgtqFeZjVmgQ1ZQ5zjZ2xc7P0Tum
-	TX79VjaEuBQ+q2IkQN+XJHwXfUIsjCXVmfhwA62NZ4TA47qaadJt2t1S1SHADqvE
-	xAc5Og==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e81rvkxdj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 07:10:02 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64J79xM8031487;
-	Tue, 19 May 2026 07:09:59 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4e716dc0qp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 07:09:59 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64J79wPr031479;
-	Tue, 19 May 2026 07:09:58 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 64J79wmw031471
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 May 2026 07:09:58 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 10027B04; Tue, 19 May 2026 12:39:58 +0530 (+0530)
-Date: Tue, 19 May 2026 12:39:58 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-Message-ID: <20260519070958.vsoyrwr4iqmhzysi@hu-kotarake-hyd.qualcomm.com>
-References: <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
- <20260518135957.C942AC2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mjUlCDP8"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4890d945eb4so22336315e9.0
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 00:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779174712; x=1779779512; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xjjvfitJbUO5+jLc8/tMROrf3YtISQkTQKy+IqYQDo8=;
+        b=mjUlCDP8YywlfT2Esou3YpzxuaFoN5/JbU+g+6VrJp+vUJV4lNc4SSvZBElyAQQPVA
+         +sAp+/Ad5PTx9ciAtr/H0L5pne24TINvTB6ZoQAkQtHm5yD9bsrJroWRxg4Y1fgIMOKC
+         nRZQqc8VifCzIWfFs2ztXStM4SriFAFWXf7TrXJiA5GMq0v9mDiUY+aZHckT0NuK6xbo
+         TVZObx2uCcg1c6MajmAsVmmmONfHtWtGOskWf/5o6hsMPFO7SARiCBhqKM6GxpSZ0l+B
+         vddLXOPMLVCDVqkzar2xXwehUOzvUXHBGGmKUTFsyJmF8a8iSsbFumCf4qtBwMNHq5rM
+         g+cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779174712; x=1779779512;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xjjvfitJbUO5+jLc8/tMROrf3YtISQkTQKy+IqYQDo8=;
+        b=U3ovxFoysLV2cFe7f1poQt0URdHB7es0h7Fl4JnyuZwkiMtzYUbuVU1EE1yUzOdq4G
+         Y3MlAWcMQkjrTF4QULhCp3mgaa/y8eKMup4koHWUu9SH8rG2FaAskWPLwtf6qakalvWX
+         jvpDB1xWfo53R7jlyR0dWzdCD23TspKAiiVbHwqYHi8YZwpb6wzTwJIoaaxJHIufcmLT
+         c197AldcELrP3dWatPCzHrc/BiQeia7lBi9sTMDneaiXad9twkZk2QW0LDSJ9mZF41yq
+         tYo40ZbPtyTQO+0gvDCWe1w7n0+K0MztWK0PB3LN3MgRF+lJxARB4RgRrgnAPLpR0/o4
+         UxIw==
+X-Forwarded-Encrypted: i=1; AFNElJ+/8ovSJOiJn9RJLAY/jyb2nrxUV1RR/EYoBoTiyqitRApMwSeRZyQia0xE7138VVqswruI5FlhRNVw@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVGwwcDU2S0VyCHUnUVOczoGfL5VgMDSPb+I7vftEuoubq3HwM
+	lx3kDxIbSbDkEdZs9Ns0OpdzZvSKOXuP0lsj5/0yMyojtDt1oRf6HBfX
+X-Gm-Gg: Acq92OHVLhkR7NbJ8TFRnfCUUZaG22yf1XpoTtZ0GImeSmZrsCvi4G3hFYL9e6sSFkl
+	WqTTuh2IEeIGK3e+ud7s6L/LXmeaFpR5aII2YsbXpURgdUMzha8HWVc1n778wj7seddVW6qNADq
+	Pn3QbDROVJcukpiQDeaDblsuQTUd5YERDe9/YBEEOeDKAk91OfcEWbv8+h+fQTnGNBhSp7f9dN3
+	GVgDKi0CU7fRhqfBWGE3dReKp6ZHcInrnZJTbYG61+xmGgLxw5C00fHnVLc9HrHpGEVnccWbfff
+	ZvDjfk/jmJ0exEbNcPXOkXdOsieF7NQ8VKQVqHyXxbPo3VhHxT1Fd2hoWltdQZeR10tbshca8L7
+	AFrCISnArTvGmMavKRNCZO0nOUVHoY53j0fXaI6CvO6633jRYD1h3X+v1hVxg1TNVpQkVoNd9Pf
+	UDDoY2KdQObqQguVESMQaPNrT3q40QnoDjfe9JBdrFnMYlVKxWEI8IbQdCHMzQk+bsGmbJ
+X-Received: by 2002:a05:600c:a09:b0:485:3cef:d6ea with SMTP id 5b1f17b1804b1-48fe539198fmr259597035e9.13.1779174712366;
+        Tue, 19 May 2026 00:11:52 -0700 (PDT)
+Received: from ?IPV6:2a02:3033:6d8:15d8:ec15:f5ad:b85f:a3b8? ([2a02:3033:6d8:15d8:ec15:f5ad:b85f:a3b8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe53ab671sm309396375e9.1.2026.05.19.00.11.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 00:11:52 -0700 (PDT)
+Message-ID: <739f50f4-b2f5-4e5f-8d1b-d5a6429ece28@gmail.com>
+Date: Tue, 19 May 2026 09:11:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260518135957.C942AC2BCB7@smtp.kernel.org>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA2OCBTYWx0ZWRfX0cxZj8PXeteC
- FIZChFBTaMBH1ifpUkHi1bNdrHewkcDGPbOBsOPdMO2QUFRzZD0aTccSJZ93Seem/YbrKAvXzqt
- tV75ePhlTWQYPc8C0vaagAAd4h4fV/39I9a9RMrcTZXYsaLmhY/tUCh7Vv1uQsw77xByWQZa5Yv
- vkOw4TqqjnHYi9gnpNeodaIVMIG2s8yGFCeStxTRWoXxKO6PHDrhd26oV9YiRIDaP/yqSrFxIJA
- /QOS/MEZ8kLvLqjojLJQLQuWWH4C1MErMlgOXNkrbcITphEdNMnEzBHQLPLeKHgS07KyFv6XgZL
- 5xCnPmBB8KORSiBxIAnP3859/bYzqP+gf755N7RxmFmurPI2ADNuoMC2xDe9eNlSo2e8InYKuLx
- fCZUx6yMkRwK74zQ5mcGSBr0ORYJbXihrrzSvXjYgX899miz1GbdmgDFO0r2z768eIf1cjJ3Rgj
- CtjyQSiVvYNm9XqJ8MA==
-X-Proofpoint-GUID: _152B0j1IBG978f8GwCG2AMv0lDL0i7r
-X-Proofpoint-ORIG-GUID: _152B0j1IBG978f8GwCG2AMv0lDL0i7r
-X-Authority-Analysis: v=2.4 cv=Lf0MLDfi c=1 sm=1 tr=0 ts=6a0c0cca cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=8nJEP1OIZ-IA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=c92rfblmAAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=wDAayJjozdVIbgv9XzIA:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- adultscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190068
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] iio: dac: Add AD5529R DAC driver support
+To: David Lechner <dlechner@baylibre.com>,
+ Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
+ <20260508-ad5529r-driver-v2-2-e315441685d7@analog.com>
+ <2f74e76e-b066-40ac-9cb4-c75137c9825d@baylibre.com>
+Content-Language: en-US
+From: Janani Sunil <jan.sun97@gmail.com>
+In-Reply-To: <2f74e76e-b066-40ac-9cb4-c75137c9825d@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 18, 2026 at 01:59:57PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] The device tree binding description references Linux-specific subsystem constants and dictates OS software behavior instead of strictly describing the hardware.
-> --
-> 
-> commit 27eac983fdf61301b30bef6fc60e922a67eecbbd
-> Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> 
-> dt-bindings: soc: qcom: pmic-glink: Document batteryless property
-> 
-> This commit documents a new boolean property, qcom,batteryless, for the
-> PMIC Glink battery manager node. It is intended for systems powered by 12V
-> DC adapters rather than batteries.
-> 
-> > diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> > index ff01d2f3ee5be..5f7b90d37ea09 100644
-> > --- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> > +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-> 
-> [ ... ]
-> 
-> > @@ -72,6 +72,14 @@ properties:
-> >        - const: charge_limit_end
-> >        - const: charge_limit_delta
-> >  
-> > +  qcom,batteryless:
-> > +    $ref: /schemas/types.yaml#/definitions/flag
-> > +    description:
-> > +      When present, the battery manager registers the power supply as
-> > +      POWER_SUPPLY_TYPE_MAINS instead of BATTERY. This is intended for
-> > +      12V DC adapters, where exposing the supply as a battery would
-> > +      incorrectly trigger userspace battery power-saving sequences.
-> 
-> This isn't a bug, but does this description reference Linux-specific
-> subsystem constants rather than strictly describing the hardware?
-> 
-> Device tree bindings are expected to be OS-agnostic and describe physical
-> hardware characteristics. The current text explicitly mentions
-> POWER_SUPPLY_TYPE_MAINS, BATTERY, and userspace behavior.
-> 
-> Could this be rephrased to focus on the physical hardware state, such as
-> indicating the system is powered by a continuous fixed DC source, instead
-> of dictating OS driver behavior?
+
+On 5/16/26 21:35, David Lechner wrote:
+> On 5/8/26 6:55 AM, Janani Sunil wrote:
+>> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+>>
+> ...
 >
-You're right, thanks for the feedback! Will update the description to be
-OS-agnostic and focus on the physical hardware characteristics rather
-than Linux subsystem internals and userspace in next patch.
+>
+>> +		.realbits = (bits),				\
+>> +		.storagebits = 16,				\
+>> +	},							\
+>> +}
+>> +static struct regmap *ad5529r_get_regmap(struct ad5529r_state *st, unsigned int reg)
+>> +{
+>> +	if (reg <= AD5529R_8BIT_REG_MAX)
+>> +		return st->regmap_8bit;
+>> +
+>> +	return st->regmap_16bit;
+>> +}
+> Another way we have done this is make custom read/write functions for the
+> regmap itself so that we don't have to have two regmaps.
 
-regards
-Rakesh
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com?part=1
+Dual regmap approach was chosen here because:
+
+1) It leverages regmap's val_bits validation and endianness for 16 bit registers, rather than
+implementing them manually.
+
+2) The two distinct register banks- 8 bit and 16 bit map naturally to the separate regmap configs
+
+3) Each regmap has a focused rd_table/wr_table ranges matching the hardware, rather than a complex unified table
+
+The routing overhead is just an address comparison, similar to what custom functions would need, but with automatic validation
+and endianness handling
+
+Best Regards,
+Janani Sunil
+
