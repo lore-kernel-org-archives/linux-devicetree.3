@@ -1,290 +1,145 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0B734FF55
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 05:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196FF34D910;
+	Tue, 19 May 2026 05:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779169933; cv=none; b=JOUgralAjz7othGoMzVv4wod83dfRLCbzKVEUiEGBsHdNzUUgiHhKrCG3zVytVw4hVUeBOGqb4CLgzzwr2+4nrpV6bHmMW1WVWG6zP02WvNan12elIlTGFVlejXG9vo5Ve454/Cvlz9btvOa8GoqBRr3n+w/gjuMHhSV1/wGcdo=
+	t=1779169956; cv=none; b=mgKogYilTUliwsMwZjgCNPjDwtYRu6oOZwbv3UzqCpERl/RSmDSV6Yf2pgRaIMzYZC623nYdEFBSnq2awO03shGs575hDuc+OGjjP1m/FPIJh6LrMQ0r0IT/9nOHWnC15gLt3Z1f92fpBAlwBiVLVBUZ7XjNQSW5ZIa4LWU/+rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779169933; c=relaxed/simple;
-	bh=9PFoLWZw/d2eHT9wNJjBlZuTX37mryzwhE0FRtU992E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jNGofeC5bX6dejqdTL+4e1ZDfiqLJisCZk7gDXxejqS1eP9S6i+Z5196kvaCZjpYYXTssaWemEubcBasKcwyC+hVUIGo/yaxjvFJsCgUSCWf8HdodnVBfENSvIO63vbLCzlSs3v1714dGCPtl1uNmgR6zI3PKmmWGAypX4FLktg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDFR8hFz; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779169956; c=relaxed/simple;
+	bh=K7UKJ6sYP2y8DZracD2ty+9g+TETER+ES7eLcMmhpa0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RmTOTzqtxttlY+ECoqnlkSD9ogc2Npa2+CnICLKAO0O+JzFKKi44N57IhA4Ae96M+IcEAF9fcuclZlJDOfE9InB6wPywo9PWXDwXJ/CdrJtxUUe/5YEt965PtmXMcIjHa8Vy3el8m/1eYDTQJGs5V8uUxtmYDwzDCKngH3fzr+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hle+rkwI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDFR8hFz"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-83d31ac4017so1375410b3a.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:52:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779169931; x=1779774731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VGibKSdQf3IcDSU8T6R8Cil+pcTsme1TCnBNNHxsWpo=;
-        b=ZDFR8hFzRK6+HgMxQUsvrLPnD67ZYK1vc+Xpnb+GEgegGBdLs+TzwQOBrOFb5hDium
-         9tvVtXhVnY8kiTut3bZPNDzpI396a6MnZq8DmsPnL3t4yEQu1z7OdFNv9X3gtlSe1Y+m
-         1yC0gnKGvf+Jox3Qs7CsPWvETYZRseV3pM6dZxFSwoaFthUkyk5NhXgq5pJRTKHtBq0j
-         PHWwecY/0SpHDBIFEhhj/CMM9Qj72MJWBb1dDdxrYQKN53OWEgIM6XRUn+ZxoBhLdYhQ
-         9TBvNhrAsvbNPAeBTkw3VFMzzJXFUHaeM83klcu9VKRUHp4tSjMhD+zIK09slhU8YNZE
-         wgkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779169931; x=1779774731;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=VGibKSdQf3IcDSU8T6R8Cil+pcTsme1TCnBNNHxsWpo=;
-        b=mP5728wBTRh/CMdDVI4PyyEcGFgX4n1mWMZxSVpYClJxkRR4cKgtyQOC15TCV1gP7T
-         kWJeOZXssFWH4WGeS/e8vYhXMVtZGkbBbe0iMW6YEMuUWQ5OqSdX8CuAAYzKvdM2XusT
-         V8cSFFjQzQuByRFtE/c4B9TlIMr/L0ZAWvcPDT6HMjhNqsaRYJng62CSkc/kq8Xn//jn
-         hf5Yz0z9tWrtSevsJLBZzj+sfGxfkQja73xNPgUShP+nhSqbX5PWxJRAhkD54W7MZ4nP
-         51xRllM816RPSy19WjfW41CvES68nX6nH1cr6wlpxJod5zmVCApqzOKpbVh3bNflCQ07
-         NIXw==
-X-Forwarded-Encrypted: i=1; AFNElJ+23AcfVIfxG5dh7rnTLrN+/b3hZay1PmkyRjQow3znGokippfNb2M3YQhIHWdePe575SWrifufzHYb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDVlKEzF2Kzv3a7f8rr5AE3zrjLQ+j5qCUY/YG9fWnWNcYEMF4
-	e7QxJgXIvHEF1Xi/9tVwcu9hA/UZAzROV6cYNDAimQ8hzFisS3zI7fAd
-X-Gm-Gg: Acq92OG9r3l/bvo++M8hFv//aWtkVPRuFvQfbaJy2NpOHO1KoqHDE6vG+bEaEu+W/ZC
-	vfdEkOav6jcH45Od44SFUTzfkfXJS5hSKs2g+LwBHyQWsKXgIYIXnLItdQ9gqGvuVbNMHza3CwR
-	njoPBCHOLIZAMd1UA/AoCTDH/UK8aiiC5IL1Gwfjh0BmuSmDn41jpqKbaNw56coT/zrFBfNepiM
-	KR/l8kdRBWacapkK9sJ5PDCCXOsrPQaj32QUrhPHvcm4kEnQXu2fBOox0pwcN4RdId0m8tz4kWu
-	hfjJup+kTtwlrC9FR6+TnAY7+G9dh9RoaD3ze8tQghHjEQR3MfeWjh3bRnkUWFG5SrlZ+7lM8Gy
-	sqPrRC7YL/YC8wVa688G9vkjNInk9AnpwfdZXQ9uJXiWBlbTk4TvyqwcK3qnY8Vq/96NYFkFBny
-	sfNrHMGyGSxYPb66zHBbFGSYrdT6kc0sG8TbnNtTUs16FnfP0AW6+XyA0A/eBg86LXEAzycSk+9
-	U1+aSzpZcXg
-X-Received: by 2002:a05:6a00:4304:b0:82c:d7c4:4c5c with SMTP id d2e1a72fcca58-83f33d0399bmr17632560b3a.20.1779169931435;
-        Mon, 18 May 2026 22:52:11 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f8b9c2ea5sm2641252b3a.13.2026.05.18.22.52.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 22:52:11 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v2 4/4] drm/verisilicon: add Nuvoton MA35D1 DCU Lite display controller support
-Date: Tue, 19 May 2026 13:51:09 +0800
-Message-ID: <20260519055114.1886525-5-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260519055114.1886525-1-a0987203069@gmail.com>
-References: <20260519055114.1886525-1-a0987203069@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hle+rkwI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065E6C2BCB3;
+	Tue, 19 May 2026 05:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779169955;
+	bh=K7UKJ6sYP2y8DZracD2ty+9g+TETER+ES7eLcMmhpa0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hle+rkwIjgCpLvvRebMQjZUD4RpHe4vaD/NMGctxBCcJgKhOh/KxmTkh1IEWPeE0o
+	 HvgQadE+/aDUPAjYedw+3kXpGLh501Egr0d3XQUWNHNcZyIqtSmVCE+paU4g1TV3Yv
+	 mqX0kdDhiSwhrU8Q3e5Fi/sXH0TVxvuGTvwmLtXk8la7G8uqONvLtzi2UxI5LEJ3V5
+	 QK3zQ8TBGnDL3bLaILxx3Z9xPCMNObwlzppslIwRzOueLfLeqRiQf2T3Xdw2Ia2q5o
+	 Vc4zt4fBuUlGStJjsL5LNl3L1MAKli7+a3rCiBXuW7D+4MmTZ4Baf+hdRTTcW1mFL4
+	 fTuYlLiQaLyDA==
+Date: Tue, 19 May 2026 11:22:26 +0530
+From: "mani@kernel.org" <mani@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>, 
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
+	"festevam@gmail.com" <festevam@gmail.com>, "lpieralisi@kernel.org" <lpieralisi@kernel.org>, 
+	"kwilczynski@kernel.org" <kwilczynski@kernel.org>, "bhelgaas@google.com" <bhelgaas@google.com>, 
+	Hongxing Zhu <hongxing.zhu@nxp.com>, "l.stach@pengutronix.de" <l.stach@pengutronix.de>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
+ parsing Root Port properties
+Message-ID: <xyued2adtz2fs47nnl537aef7rsjuhswivcaieh6lxhlxpohkr@gpxmdcpczik7>
+References: <20260422093549.407022-3-sherry.sun@nxp.com>
+ <20260513224944.GA341451@bhelgaas>
+ <VI0PR04MB1211452312EB9BC6EF1ED2E0192032@VI0PR04MB12114.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <VI0PR04MB1211452312EB9BC6EF1ED2E0192032@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-The Nuvoton MA35D1 SoC integrates a Verisilicon DCU Lite display
-controller.  While its register layout is broadly similar to the DC8200,
-several differences require dedicated hardware ops:
+On Mon, May 18, 2026 at 08:42:38AM +0000, Sherry Sun wrote:
+> > Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
+> > parsing Root Port properties
+> > 
+> > On Wed, Apr 22, 2026 at 05:35:39PM +0800, Sherry Sun wrote:
+> > > Introduce generic helper functions to parse Root Port device tree
+> > > nodes and extract common properties like reset GPIOs. This allows
+> > > multiple PCI host controller drivers to share the same parsing logic.
+> > >
+> > > Define struct pci_host_port to hold common Root Port properties
+> > > (currently only list of PERST# GPIO descriptors) and add
+> > > pci_host_common_parse_ports() to parse Root Port nodes from device
+> > tree.
+> > >
+> > > Also add the 'ports' list to struct pci_host_bridge for better
+> > > maintain parsed Root Port information.
+> > > ...
+> > 
+> > > +static int pci_host_common_parse_port(struct device *dev,
+> > > +				      struct pci_host_bridge *bridge,
+> > > +				      struct device_node *node)
+> > > +{
+> > > +	struct pci_host_port *port;
+> > > +	int ret;
+> > > +
+> > > +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+> > > +	if (!port)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	INIT_LIST_HEAD(&port->perst);
+> > > +
+> > > +	ret = pci_host_common_parse_perst(dev, port, node);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	/*
+> > > +	 * 1. PERST# found in RP or its child nodes - list is not empty, continue
+> > > +	 * 2. PERST# not found in RP/children, but found in RC node - return -
+> > ENODEV
+> > > +	 *    to fallback legacy binding
+> > > +	 * 3. PERST# not found anywhere - list is empty, continue (optional
+> > PERST#)
+> > > +	 */
+> > > +	if (list_empty(&port->perst)) {
+> > > +		if (of_property_present(dev->of_node, "reset-gpios") ||
+> > > +		    of_property_present(dev->of_node, "reset-gpio"))
+> > > +			return -ENODEV;
+> > 
+> > This doesn't seem right to me.  The parser of per-Root Port properties should
+> > not be responsible for deciding whether legacy methods are valid, i.e.,
+> > whether a property is in the Root Complex node.  I think it's up to the caller
+> > to decide whether it needs to look elsewhere.
+> > 
+> > I don't think this even needs to return a "success/failure" value because there
+> > may be more properties in the future, and not all will be required.  This
+> > function can't tell which properties a specific driver requires and which are
+> > optional.
+> > 
+> > The caller can check whether we found what it needs and fall back to a legacy
+> > method as needed.
+> 
+> Hi Bjorn,
+> The code here was suggested by Mani, https://lore.kernel.org/all/lnzprzrdwra7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum/.
+> I think your suggestion here is reasonable, the per-Root Port parser shouldn't
+> check the RC-level binding. That's a policy decision that belongs to the caller.
+> 
+> Hi Mani, if you also agree, I'll rework this so that:
+> 1. pci_host_common_parse_port() only parses properties from the Root Port
+>     (and its children) without checking the RC node.
+> 2. The function won't return failure for "property not found" - it will only return
+>      errors for real failures (e.g., -ENOMEM, GPIO acquisition errors).
+> 3. The legacy fallback logic will be moved to the caller, which can inspect the
+>      parsed result and decide whether to fall back to the legacy binding.
+> 
 
-1. No CONFIG_EX commit path: framebuffer updates use enable (bit 0) and
-   reset (bit 4) bits in FB_CONFIG instead of the DC8200 staging registers
-   (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
-   PANEL_CONFIG_EX).
+Fine with me. The reason for suggesting fallback within this API itself was to
+avoid duplicating the fallback code as it will be mostly generic. But I do agree
+with Bjorn on the fact that individual host controller drivers might have
+optional properties in the RC node and we can't incorporate all of them here.
 
-2. No PANEL_START register: panel output starts when
-   PANEL_CONFIG.RUNNING is set; no multi-display sync start register
-   is used.
+But no need to rework this series as it got applied for v7.2. You can send
+rework patches on top of this series.
 
-3. Different IRQ registers: DCU Lite uses DISP_IRQ_STA (0x147C) /
-   DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
-   TOP_IRQ_EN (0x0014).
+- Mani
 
-4. Per-frame commit cycle: DCU Lite requires the VALID bit in FB_CONFIG
-   to be set at the start of each atomic commit (crtc_begin) and cleared
-   after (crtc_flush).
-
-5. Simpler clock topology: only "core" (bus gate) and "pix0" (pixel
-   divider) clocks; no axi or ahb clocks.  Make axi_clk and ahb_clk
-   optional (devm_clk_get_optional_enabled) so DCU Lite nodes without
-   those clocks are handled gracefully.
-
-Add vs_dcu_lite.c implementing the vs_dc_funcs vtable for the above
-differences.  After chip identity detection, vs_dc_probe() now selects
-vs_dcu_lite_funcs when the identified model is VSDC_MODEL_DCU_LITE
-(model register reads 0, revision 0x5560, customer_id 0x305).
-
-Extend Kconfig to allow building on ARCH_MA35 platforms.
-
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
----
- drivers/gpu/drm/verisilicon/Kconfig       |  2 +-
- drivers/gpu/drm/verisilicon/Makefile      |  2 +-
- drivers/gpu/drm/verisilicon/vs_dc.c       |  9 ++-
- drivers/gpu/drm/verisilicon/vs_dc.h       |  1 +
- drivers/gpu/drm/verisilicon/vs_dcu_lite.c | 78 +++++++++++++++++++++++
- 5 files changed, 87 insertions(+), 5 deletions(-)
- create mode 100644 drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-
-diff --git a/drivers/gpu/drm/verisilicon/Kconfig b/drivers/gpu/drm/verisilicon/Kconfig
-index 7cce86ec8603..295d246eb4b4 100644
---- a/drivers/gpu/drm/verisilicon/Kconfig
-+++ b/drivers/gpu/drm/verisilicon/Kconfig
-@@ -2,7 +2,7 @@
- config DRM_VERISILICON_DC
- 	tristate "DRM Support for Verisilicon DC-series display controllers"
- 	depends on DRM && COMMON_CLK
--	depends on RISCV || COMPILE_TEST
-+	depends on RISCV || ARCH_MA35 || COMPILE_TEST
- 	select DRM_BRIDGE_CONNECTOR
- 	select DRM_CLIENT_SELECTION
- 	select DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/verisilicon/Makefile b/drivers/gpu/drm/verisilicon/Makefile
-index f4fbd9f7d6a2..bf88f627e65c 100644
---- a/drivers/gpu/drm/verisilicon/Makefile
-+++ b/drivers/gpu/drm/verisilicon/Makefile
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
--verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
-+verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_dcu_lite.o vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
- 
- obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisilicon/vs_dc.c
-index c94957024189..77bc63c629f7 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.c
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-@@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		return PTR_ERR(dc->core_clk);
- 	}
- 
--	dc->axi_clk = devm_clk_get_enabled(dev, "axi");
-+	dc->axi_clk = devm_clk_get_optional_enabled(dev, "axi");
- 	if (IS_ERR(dc->axi_clk)) {
- 		dev_err(dev, "can't get axi clock\n");
- 		return PTR_ERR(dc->axi_clk);
- 	}
- 
--	dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
-+	dc->ahb_clk = devm_clk_get_optional_enabled(dev, "ahb");
- 	if (IS_ERR(dc->ahb_clk)) {
- 		dev_err(dev, "can't get ahb clock\n");
- 		return PTR_ERR(dc->ahb_clk);
-@@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
- 	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
- 		 dc->identity.revision, dc->identity.customer_id);
- 
--	dc->funcs = &vs_dc8200_funcs;
-+	if (dc->identity.model == VSDC_MODEL_DC8200)
-+		dc->funcs = &vs_dc8200_funcs;
-+	else
-+		dc->funcs = &vs_dcu_lite_funcs;
- 
- 	if (port_count > dc->identity.display_count) {
- 		dev_err(dev, "too many downstream ports than HW capability\n");
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h b/drivers/gpu/drm/verisilicon/vs_dc.h
-index 45172c1a525c..d77d4a1babdf 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.h
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-@@ -66,5 +66,6 @@ struct vs_dc {
- };
- 
- extern const struct vs_dc_funcs vs_dc8200_funcs;
-+extern const struct vs_dc_funcs vs_dcu_lite_funcs;
- 
- #endif /* _VS_DC_H_ */
-diff --git a/drivers/gpu/drm/verisilicon/vs_dcu_lite.c b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-new file mode 100644
-index 000000000000..11ef57d5ebaa
---- /dev/null
-+++ b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
-+ */
-+
-+#include <linux/regmap.h>
-+
-+#include "vs_crtc_regs.h"
-+#include "vs_dc.h"
-+#include "vs_primary_plane_regs.h"
-+
-+static void vs_dcu_lite_bridge_enable(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_RESET);
-+}
-+
-+static void vs_dcu_lite_bridge_disable(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_RESET);
-+}
-+
-+static void vs_dcu_lite_crtc_begin(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_VALID);
-+}
-+
-+static void vs_dcu_lite_crtc_flush(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_VALID);
-+}
-+
-+static void vs_dcu_lite_crtc_enable(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_ENABLE);
-+}
-+
-+static void vs_dcu_lite_crtc_disable(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_ENABLE);
-+}
-+
-+static void vs_dcu_lite_enable_vblank(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
-+			VSDC_DISP_IRQ_VSYNC(output));
-+}
-+
-+static void vs_dcu_lite_disable_vblank(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
-+			  VSDC_DISP_IRQ_VSYNC(output));
-+}
-+
-+static u32 vs_dcu_lite_irq_handler(struct vs_dc *dc)
-+{
-+	u32 irqs;
-+
-+	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-+	return irqs;
-+}
-+
-+const struct vs_dc_funcs vs_dcu_lite_funcs = {
-+	.bridge_enable		= vs_dcu_lite_bridge_enable,
-+	.bridge_disable		= vs_dcu_lite_bridge_disable,
-+	.crtc_begin		= vs_dcu_lite_crtc_begin,
-+	.crtc_flush		= vs_dcu_lite_crtc_flush,
-+	.crtc_enable		= vs_dcu_lite_crtc_enable,
-+	.crtc_disable		= vs_dcu_lite_crtc_disable,
-+	.enable_vblank		= vs_dcu_lite_enable_vblank,
-+	.disable_vblank		= vs_dcu_lite_disable_vblank,
-+	.irq_handler		= vs_dcu_lite_irq_handler,
-+};
 -- 
-2.43.0
-
+மணிவண்ணன் சதாசிவம்
