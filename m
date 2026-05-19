@@ -1,212 +1,118 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82AB4DD6DB;
-	Tue, 19 May 2026 12:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7800D3E7BD5
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779194534; cv=none; b=N4klqieOmfyvF4yy8Vc67LBfK+Ol1CuxOP8FJEb5Tl2VdppaYS0Z02jzF55mTPTjLvU0HL7S0mhMzqCkU7/WyvvkN+cmind6tzOBo59gDEVeYPNKGYFbV+KLeCT2L6LB5T85Wqb8LtkUucgcP5HASC7pHcmEPGoLEHaVy5A7+n8=
+	t=1779195255; cv=none; b=OaIctccIcpWRZDp6Po5LwyMRAjq1oqjS4bvR6P+VyEefVj+3WXpHfME0nKvODxl+C1AKpGp6CzL6ZLcULTw57PbH8KjktksnHYVL4sg97eXRZpPVMxcx3RO3UwBolEe7/YZpF7xCp+cGEJJ+nvRGOhaetk1x1+RMqkjbuQG0JjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779194534; c=relaxed/simple;
-	bh=eXsfyWpjoKyx+S3jo00ZmbgIJhM9/OKHb7VUAxkqqtg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=YLd6wXwQwv7cANdfnfH64dTC0A2zKEYLZ6fDes4lYV4fk3sOSSODDe871qWwgXFGZU5j5G8j87Eqo54Amq/wR1rKrs45X35BvL9ymqcT3sPwZHSTw20l4wtfgUdzmK+gPswXkokgMz5cPtzM54lsxR7uJ+zYO3iOciwTdnuhyX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Imw5scWN; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1779195255; c=relaxed/simple;
+	bh=Ffy/Z03zf/pnlOYW0SqLI2Vu22pQHrZGXpNSKlKUEMo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QIMJv/GLd3FBjZO2SyzTOWtJa9PUR7aAM8RxnLc4J0Cj6lZvCLm1/9mZj6BLNvCXkCif4wzO5qtIsaMULOJho6DGE1pqOpUGXGp9Mk+fLlmOeuO83ehu1ZUv6qfLYP7CXwSoIHCc6QOY1tcotP2t9nvEtHN2CtPiK7TMmdUiItY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOU7ULhN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Imw5scWN"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Ha3U5FJeF61nR13fqhapGOPU2jfN530U4ccDWtKILT0=;
-	b=Imw5scWNyENSClDDsm0aKoLrou92ErUJJIQORPJEcabYI3utCuQCW0cH+DSoBKS/L+LrRsUXe
-	4/57egHk9L82uCmnWMcuwAKP6ON3NWimFljmUY71FbmH/qt6gcc0LgcZJmkJ1LP6GuoGabpLGiL
-	lCnVxupN6NtwOTzTEcksGao=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4gKYyh0hJKzcZyg;
-	Tue, 19 May 2026 20:34:36 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 899C44056A;
-	Tue, 19 May 2026 20:42:08 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 19 May 2026 20:42:04 +0800
-Message-ID: <3ca700ed-e081-4c62-8289-5bbd4248e630@huawei.com>
-Date: Tue, 19 May 2026 20:42:04 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOU7ULhN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9941C2BCB3;
+	Tue, 19 May 2026 12:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779195255;
+	bh=Ffy/Z03zf/pnlOYW0SqLI2Vu22pQHrZGXpNSKlKUEMo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=IOU7ULhNBHREmUceYzja0MrwYjqpXhrfSIiAMu/riUTTCvFy9rhnGSPn5jnuWSGbd
+	 txYAgaaF/M3WtT/VxqRsEgq74rKKi2+m3RirmD07Oc0HzoS1gHikEYJ02ukjaMCuKn
+	 9s6+cfVdU76cjllpVNhXh2fS3Vc7Hxfg4ltMwQ3kMps0hQl3TiD+49h61QbIQ1PvRF
+	 ie9/V5879XGohPjUlMWzRPOmAbGcIYPAdWNEAOGciEWs9BsYuV8ua7rd/1wMenGBBz
+	 /Ih1wHPBa1d6xM7O+5o4ZtbLDXb49g1qAU62LUrwO6cF5ymQNn/xHX+w36Gb3U7wZG
+	 MPZxnu+YxtGkg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] regulator: Add regulator driver for Unisoc
+ SC2730 PMIC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?T3R0byBQZmzDvGdlcg==?= <otto.pflueger@abscue.de>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
+References: <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 12:54:14 +0000
+Message-Id: <20260519125414.D9941C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 04/15] arm64: kexec_file: Fix potential buffer
- overflow in prepare_elf_headers()
-To: Breno Leitao <leitao@debian.org>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <pmladek@suse.com>, <dapeng1.mi@linux.intel.com>,
-	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
-	<ebiggers@kernel.org>, <lirongqing@baidu.com>, <paulmck@kernel.org>,
-	<sourabhjain@linux.ibm.com>, <coxu@redhat.com>, <jbohac@suse.cz>,
-	<ryan.roberts@arm.com>, <osandov@fb.com>, <cfsworks@gmail.com>,
-	<tangyouling@kylinos.cn>, <ritesh.list@gmail.com>, <adityag@linux.ibm.com>,
-	<guoren@kernel.org>, <songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
-	<vishal.moola@gmail.com>, <junhui.liu@pigmoral.tech>,
-	<wangruikang@iscas.ac.cn>, <namcao@linutronix.de>, <chao.gao@intel.com>,
-	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
-	<chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>,
-	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <lizhengyu3@huawei.com>,
-	<x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-References: <20260511030454.1730881-1-ruanjinjie@huawei.com>
- <20260511030454.1730881-5-ruanjinjie@huawei.com> <agGkvrg06KNDNfDi@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <agGkvrg06KNDNfDi@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- dggpemf500011.china.huawei.com (7.185.36.131)
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The voltage control register for LDO_VDDCAMIO is defined with an i=
+ncorrect offset (0x28), which will corrupt unrelated PMIC hardware state wh=
+en written to.
+--
 
+commit d755f6665748cda3b92f492a8c7a6cfc5194b4c6
+Author: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
 
-On 5/11/2026 5:46 PM, Breno Leitao wrote:
-> On Mon, May 11, 2026 at 11:04:43AM +0800, Jinjie Ruan wrote:
->> There is a race condition between the kexec_load() system call
->> (crash kernel loading path) and memory hotplug operations that can
->> lead to buffer overflow and potential kernel crash.
->>
->> During prepare_elf_headers(), the following steps occur:
->> 1. The first for_each_mem_range() queries current System RAM memory ranges
->> 2. Allocates buffer based on queried count
->> 3. The 2st for_each_mem_range() populates ranges from memblock
->>
->> If memory hotplug occurs between step 1 and step 3, the number of ranges
->> can increase, causing out-of-bounds write when populating cmem->ranges[].
->>
->> This happens because kexec_load() uses kexec_trylock (atomic_t) while
->> memory hotplug uses device_hotplug_lock (mutex), so they don't serialize
->> with each other.
->>
->> Add the explicit bounds checking to prevent out-of-bounds access.
-> 
-> It seems you have a TOCTOU type of issue, and this seems to be shrinking
-> the window, but not fully solving it?
+regulator: Add regulator driver for Unisoc SC2730 PMIC
 
-I plan to fix this issue as follows, and would appreciate your feedback
-on whether this is reasonable.
+Add a regulator driver for the Spreadtrum/Unisoc SC2730 PMIC, used
+e.g. with the UMS512 and UMS9230 SoCs. This version of the driver is
+based on a downstream driver provided by Unisoc [1][2] and the existing
+SC2731 driver.
 
-Sashiko AI code review pointed out there is a TOCTOU (Time-of-Check to
-Time-of-Use) race condition in prepare_elf_headers() between the initial
-pass that counts System RAM ranges and the second pass that populates them.
-If a memory hotplug event occurs between these two steps, the number of
-memory regions may increase, causing an out-of-bounds write to
-the cmem->ranges[] array.
+[1]: https://github.com/MotorolaMobilityLLC/kernel-sprd/commit/30be0ddfe6b9=
+a877fc9c328fbd2bae84e645eb31
+[2]: https://github.com/MotorolaMobilityLLC/kernel-sprd/blob/android-13-rel=
+ease-tla33/drivers/regulator/sc2730-regulator.c
 
-To resolve this and ensure data consistency, this patch:
+> diff --git a/drivers/regulator/sc2730-regulator.c b/drivers/regulator/sc2=
+730-regulator.c
+> new file mode 100644
+> index 0000000000000..9e40c6eae4943
+> --- /dev/null
+> +++ b/drivers/regulator/sc2730-regulator.c
+> @@ -0,0 +1,411 @@
+[ ... ]
+> +/*
+> + * SC2730 enable register
+> + */
+> +#define SC2730_POWER_PD_SW		(SC2730_REGULATOR_BASE + 0x01c)
+> +#define SC2730_LDO_VDDRF18_PD		(SC2730_REGULATOR_BASE + 0x10c)
+> +#define SC2730_LDO_VDDCAMIO_PD		(SC2730_REGULATOR_BASE + 0x118)
+> +#define SC2730_LDO_VDDWCN_PD		(SC2730_REGULATOR_BASE + 0x11c)
+[ ... ]
+> +/*
+> + * SC2730 vsel register
+> + */
+[ ... ]
+> +#define SC2730_LDO_AVDD18_VOL		(SC2730_REGULATOR_BASE + 0x104)
+> +#define SC2730_LDO_VDDRF18_VOL		(SC2730_REGULATOR_BASE + 0x110)
+> +#define SC2730_LDO_VDDCAMIO_VOL		(SC2730_REGULATOR_BASE + 0x28)
 
-1. Wraps the counting and population passes with get_online_mems() and
-   crash_hotplug_lock(). This serializes the kexec_file_load() path
-   with concurrent memory hotplug operations, ensuring the memory
-   map remains consistent throughout the header preparation.
+Is this offset for SC2730_LDO_VDDCAMIO_VOL correct?
 
-2. Adds an explicit boundary check in prepare_elf64_ram_headers_callback().
-   If the number of ranges exceeds the allocated maximum, it now returns
-   -EAGAIN, which indicates a transient race, signaling userspace
-   kexec-tools to retry the syscall instead of leaving the system
-without a loaded crash kernel.
+In this driver, LDO voltage control registers (_VOL) appear to strictly fol=
+low
+their power-down registers (_PD) at a +4 byte offset (e.g., VDDRF18_PD is 0=
+x10c
+and VDDRF18_VOL is 0x110).
 
-index daf81a873bbd..546be6261177 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -15,6 +15,7 @@
- #include <linux/kexec.h>
- #include <linux/libfdt.h>
- #include <linux/memblock.h>
-+#include <linux/memory_hotplug.h>
- #include <linux/of.h>
- #include <linux/of_fdt.h>
- #include <linux/slab.h>
-@@ -40,7 +41,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage
-*image)
- }
+SC2730_LDO_VDDCAMIO_VOL is defined as (SC2730_REGULATOR_BASE + 0x28). This
+offset is outside the LDO register block (which spans 0x100 to 0x210) and
+sits between the global power register (0x1c) and the DCDC block (0x44). Wi=
+ll
+writing to 0x28 overwrite an unrelated PMIC register instead of setting the
+LDO voltage?
 
- #ifdef CONFIG_CRASH_DUMP
--int prepare_elf_headers(void **addr, unsigned long *sz)
-+static int __prepare_elf_headers(void **addr, unsigned long *sz)
- {
- 	struct crash_mem *cmem;
- 	unsigned int nr_ranges;
-@@ -59,6 +60,11 @@ int prepare_elf_headers(void **addr, unsigned long *sz)
- 	cmem->max_nr_ranges = nr_ranges;
- 	cmem->nr_ranges = 0;
- 	for_each_mem_range(i, &start, &end) {
-+		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
-+			ret = -EAGAIN;
-+			goto out;
-+		}
-+
- 		cmem->ranges[cmem->nr_ranges].start = start;
- 		cmem->ranges[cmem->nr_ranges].end = end - 1;
- 		cmem->nr_ranges++;
-@@ -81,6 +87,21 @@ int prepare_elf_headers(void **addr, unsigned long *sz)
- 	kfree(cmem);
- 	return ret;
- }
-+
-+int prepare_elf_headers(void **addr, unsigned long *sz)
-+{
-+	int ret;
-+
-+	crash_hotplug_lock();
-+	get_online_mems();
-+
-+	ret = __prepare_elf_headers(addr, sz);
-+
-+	put_online_mems();
-+	crash_hotplug_unlock();
-+
-+	return ret;
-+}
- #endif
+Additionally, VDDCAMIO_PD is defined at 0x118, which leaves no room for a
++4 byte _VOL register because VDDWCN_PD occupies 0x11c. Should VDDCAMIO_PD =
+be
+0x114 and VDDCAMIO_VOL be 0x118 to fit the established 8-byte register stri=
+de?
 
-> 
->> Cc: Catalin Marinas <catalin.marinas@arm.com>
->> Cc: Will Deacon <will.deacon@arm.com>
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Baoquan He <bhe@redhat.com>
->> Cc: Breno Leitao <leitao@debian.org>
->> Cc: stable@vger.kernel.org
->> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
->> Closes: https://sashiko.dev/#/patchset/20260323072745.2481719-1-ruanjinjie%40huawei.com
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  arch/arm64/kernel/machine_kexec_file.c | 5 +++++
->>  1 file changed, 5 insertions(+)
->>
->> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
->> index e31fabed378a..a67e7b1abbab 100644
->> --- a/arch/arm64/kernel/machine_kexec_file.c
->> +++ b/arch/arm64/kernel/machine_kexec_file.c
->> @@ -59,6 +59,11 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
->>  	cmem->max_nr_ranges = nr_ranges;
->>  	cmem->nr_ranges = 0;
->>  	for_each_mem_range(i, &start, &end) {
->> +		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
->> +			ret = -ENOMEM;
-> 
-> -ENOMEM seems to be the the wrong errno. This isn't an allocation
-> failure; it's a transient race. -EBUSY or -EAGAIN would be more honest
+> +#define SC2730_LDO_VDDWCN_VOL		(SC2730_REGULATOR_BASE + 0x120)
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-sc2730-reg=
+ulators-v3-0-5bf0e02507e3@abscue.de?part=3D3
