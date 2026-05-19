@@ -1,218 +1,171 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F032F391838
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD33A875F
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779173753; cv=none; b=jx6cpF5/zTB7KDAIu5fdTz2eTw3tVcoLMGQREW/KVJzVDJgrGhl1olK2f43k4PIqPw5YsItAYEDui2AFQllMamy6iOVdhwYjBsQTnpzoqhL74nDw0B347Xod5Oy43zSGNjuO4qDGc0bWGsj4HUgaxu3JfV5luD2HOaQpFb8K3qI=
+	t=1779173765; cv=none; b=ZXSeq0VCjDrGAX5VfLKjM+DjZR/3Osy80yc+PsIfLzGTrKR9BaFa7yb/NQfNHu12Ii9pqtkA9UaE11eKdv7bgsy4ZbgtAgYy7hYN1nomTTifVesFIyyWgbPIBeAP1TgAhYa/t3sazWLhVvgdWu7j+JDC1r+g9b6FmM6WuK4B0OI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779173753; c=relaxed/simple;
-	bh=dYE4AApZFhLZjpKQpGXrC4Tf3oqVMEplO+zE9uAR8cQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=LGYeeb7v57FMAq1TObuVyZ+kVf1w4B7R6M2FiLPsyUGS/78X+I//kTkrTGBuO9EJqNYgOM+0Iqo2iaMTZdSvjt/rcDVR63saAF57gy9IgirzSRI9ZhvfJmP5mUndNUpvvQ8LVHC6JWK/BmU1Kvsvqq0q9OFKshN9/2vPoWy3PTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=qz6FknnX; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1779173765; c=relaxed/simple;
+	bh=A+23uLQLzH2qQrDwu2mwAHSU4wNnmzaN26nspzv0uu8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Sr/rmQ1kCTbhARnMKtbHbw2PT+pvA+0c/uVFqcXwlmkgCkVqXCmh5fba9HOVrwUPJEc21KOEv0VQdSsL+jL7UTr/NXfZWVYLfIAq4oAZYW9HlCRwIhd6rkeSCs4qnOvFt+OGAsZESCU2gFKb+NuBck1LEpTiQBX8pPzd4DZwbVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a+di65vk; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="qz6FknnX"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a+di65vk"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4891c0620bcso19235275e9.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:56:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=BLCfAvmO7/A3EPN8rkPtqd9egvTbT4ODi
-	hJiZkiN3uM=; b=qz6FknnXYNblOLJsbXbgnAaNhXd5W95z7zRDtua2ubSQT6iqV
-	jQOyorm58Pq5bpAWcMn3nhNaNda+Tpom5GDEK8YdPcaXJntkRO9S4kbnHmG7pw7j
-	3Dvhv2E/pFyug8E3MykL3NFnTm4I63nQVc/19UhQkWJYenoASCxYBHrvdg=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUJ_CQxq3tIEAA--.6315S2;
-	Tue, 19 May 2026 14:55:59 +0800 (CST)
+        d=gmail.com; s=20251104; t=1779173762; x=1779778562; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=itPcGM/gwKQ3p1FhYekN6m8pyKpHNYH8z+J/IPhR2cE=;
+        b=a+di65vkzeNAlL1M26ty27XmMAR68h2B+P4COk+Xg7sE71SqeOwIqhZcuPfe70Txrf
+         M/2zJIqIeM0Lcvhc9I4lP2IasGlB1+7HFdEeL1kNGvaB0ow9uLKNDLDu9EjWFjW3uIGM
+         OQjGh7DjuKKp8bxakQBsuTESCxXsmMBG0d/UJG2rW06/Co6idvc01OkmbuWys4Ggr9m+
+         QNXNsHELV1Lb/LH1L9PMRKj+T0oixiNxSh3HpWSlOe5Ld3fHvyCcmIIBE+/Bve1ta1h1
+         6cSAfzPwRbljR3sxysnWO3J0aP3WDfzP0xx4ciey0GnbU+n/Vs1wBMbE0PbxNnY9PdCc
+         Abpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779173762; x=1779778562;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=itPcGM/gwKQ3p1FhYekN6m8pyKpHNYH8z+J/IPhR2cE=;
+        b=mMMtYtnvwImQdTLSYSVYHmiXpYzbeAfQnY45x53qOTcqs76iEY1rodfaHeEXFUMWto
+         TcTD2UpYJ+SAHCXPUnARm0t+x6Qd4YIreGQzCRykMC1XMtSS72aK1WuB4+gLIuISWbo3
+         ADL3iKwc2VkCyzExpB2I6h+Mj7HazeaOhPiRJFfMlqb2vnS4HHF2pD558BzHlLpT/CKi
+         d5L19/jVDtuytbYSWrHjDSfd3gQp1VLIYFWGjeO3DgicaH33TPOjtXh8NkCgVX/DrB9y
+         AOmPoFbmHPP3hB1KFqwjESlKl/4XTGS332gRTzFFHNBKg6x2qlv+MDDC6nPyRhJgd75k
+         NCeA==
+X-Forwarded-Encrypted: i=1; AFNElJ+0mnuwaJlMg89NxNrXxEoaMJx2oEMumkDG7eGq75MTE5gNvkqzhMoOIAO+irAHKXc/35Lj+GjGWZWt@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPQqV95zbUIhzo5actzsCKjovXDjWEogCO+U4VHDONml4voKUC
+	qb71cCYHI1/ZaANpBd8TuIZvmEpZdzEssAAfCvp4rD8gNcDXXYR+/8Vu
+X-Gm-Gg: Acq92OEsTg6nlJVKf4BUFN7omIZ0+J4Z+I30ymKGudd9WCIQu8g3DfGLDdOvL9h8ZlD
+	oUM1aYetVyIWo9F5H0sP+7rO9mGgbuZbBk3oIqzCEPbGqAYfWKTRA2UdXi3JtpkHDOwQy0ykBNV
+	0FLAia1iLntAhGU5flBUaHWO9KtmfqYRa/lpp+WwlhRfkxgoo2DtEpZHbxzlhj176hoplI/13Kx
+	nxtTynvVQRwz977hM/BKqFVQKIO+L2FIilvEQdoP0qy1d0pqffe60q85w0dpQzsOfi8Cyc2/Do5
+	lKxSRE4CFdhQ8PivPS+vHJP/JH1dSJmm3zkmTNgfvuf+GQaawtntq0fg1zqORgXkPCElUnObU9r
+	xZ8bmA3RvQ4KBSYJaWaxaeWm6sphlO1Gpg/VdxZQS9qoy5D15WKsawer9a71juMT6TL8recxQBf
+	V+KKOxM4RwQ5gunbntZLmulW7oZl3ii7Q7yIuId4NIP2OBhthIIC0xHEKNWE4N7TeSnCWujjxPG
+	0Gl7sw=
+X-Received: by 2002:a05:600c:a30a:b0:48e:62ec:f264 with SMTP id 5b1f17b1804b1-48fe61f29femr220648785e9.17.1779173761829;
+        Mon, 18 May 2026 23:56:01 -0700 (PDT)
+Received: from ?IPV6:2a02:3033:6c2:b9c5:ec15:f5ad:b85f:a3b8? ([2a02:3033:6c2:b9c5:ec15:f5ad:b85f:a3b8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5694f2csm306900785e9.4.2026.05.18.23.55.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 23:56:01 -0700 (PDT)
+Message-ID: <3d94a704-05e7-445c-9238-a77d22541ba3@gmail.com>
+Date: Tue, 19 May 2026 08:55:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 5/9] riscv: dts: ultrarisc: Add initial device tree for
- UltraRISC DP1000
-From: Jia Wang <wangjia@ultrarisc.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
- krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, 
- conor+dt@kernel.org
-In-Reply-To: <20260515020249.AAE16C2BCB3@smtp.kernel.org>
-References: <20260515-ultrarisc-pinctrl-v1-5-bf559589ea8a@ultrarisc.com>
- <20260515020249.AAE16C2BCB3@smtp.kernel.org>
-Date: Tue, 19 May 2026 14:55:18 +0800
-Message-Id: <177917371892.3328776.8027306472566945764.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779173719; l=5468;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=dYE4AApZFhLZjpKQpGXrC4Tf3oqVMEplO+zE9uAR8cQ=;
- b=y7WpbrtrUHKLtTBDhxKywax9V9Xxzi5xewjPmhllKJTC2ZutUOqD2I/Mf5V0FNGeE50DHnSKN
- u5GXMPXmRryDbiigoSMiKIy1T/jMpraxb94xqEOW4qopWdu6orhnU94
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnYUJ_CQxq3tIEAA--.6315S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuw45JFWrWw1xJr4xCr1xKrg_yoW7WrW5pa
-	y3WFW5Cr4kJr4IywsFqw1UAa43J3WDAFW3Wr1DCryY9rs09Fy0yrWIka1UXry8Xr4kuwnF
-	qF45u348tw1DuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
-	c2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWU
-	twCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgt
-	r4UUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQALEWoKjMQAHAACst
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: dac: Add AD5529R
+To: Jonathan Cameron <jic23@kernel.org>,
+ Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ rodrigo.alencar@analog.com
+References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
+ <20260508-ad5529r-driver-v2-1-e315441685d7@analog.com>
+ <20260508134843.7646c4f5@jic23-huawei>
+Content-Language: en-US
+From: Janani Sunil <jan.sun97@gmail.com>
+In-Reply-To: <20260508134843.7646c4f5@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-05-15 02:02 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] The `gpio-ranges` property values in `gpio_b`, `gpio_c`, and `gpio_d` incorrectly specify a local GPIO base that exceeds the available pins.
-> - [High] PCI I/O space is incorrectly mapped 1:1 to a high CPU address, breaking legacy PCI endpoints.
-> - [High] The Ethernet node incorrectly defines a broadcast MAC address as its local unicast MAC address.
-> - [Medium] Mismatch between CPU node unit addresses and their `reg` properties.
-> - [Medium] Ethernet compatible strings are listed in the wrong order.
-> - [Low] Clock node names contain underscores instead of hyphens.
-> --
-> 
-> commit f5aec289ca4daa2ae7f4c27bac4b1694ece4043b
-> Author: Jia Wang <wangjia@ultrarisc.com>
-> 
-> riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
-> 
-> Add the base device tree for the UltraRISC DP1000 SoC. It describes the
-> 8×CP100 CPU cores and essential SoC peripherals including the interrupt
-> controller, pinctrl, GPIO, UART, SPI, I2C, PCIe, GMAC and the DMA
-> controller.
-> 
-> Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-2-98935f6cdfb5@ultrarisc.com/
-> Link: https://lore.kernel.org/lkml/20260429-ultrarisc-serial-v7-3-e475cce9e274@ultrarisc.com/
-> 
-> > diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi
-> > new file mode 100644
-> > index 0000000000000..1aae53fc1a2b1
-> > --- /dev/null
-> > +++ b/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi
-> > @@ -0,0 +1,851 @@
-> [ ... ]
-> > +		cpu4: cpu@4 {
-> > +			compatible = "ultrarisc,cp100", "riscv";
-> > +			reg = <0x10>;
-> 
-> Does the unit address in the node name here correctly match the first
-> address specified in its reg property?
-> 
-> The Devicetree Specification mandates that the hexadecimal value after the @
-> must exactly match the reg value to avoid parser errors and dtc compiler
-> warnings. Should these be renamed to cpu@10, cpu@11, cpu@12, and cpu@13?
+
+On 5/8/26 14:48, Jonathan Cameron wrote:
+> On Fri, 8 May 2026 13:55:47 +0200
+> Janani Sunil <janani.sunil@analog.com> wrote:
 >
-
-The unit address should match the reg value. I'll rename them to
-cpu@10..cpu@13 in v2. Thanks.
- 
-> [ ... ]
-> > +	clocks {
-> > +		device_clk: device_clk {
-> 
-> Is it intended to use underscores in these clock node names?
-> 
-> Device tree naming conventions generally require node names to use hyphens
-> instead of underscores (e.g., device-clk) to avoid triggering strict
-> character warnings.
+>> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+>> buffered voltage output digital-to-analog converter (DAC) with an
+>> integrated precision reference.
+>>
+>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+>> ---
+>>   .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 96 ++++++++++++++++++++++
+>>   MAINTAINERS                                        |  7 ++
+>>   2 files changed, 103 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+>> new file mode 100644
+>> index 000000000000..f531b4865b01
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+>> @@ -0,0 +1,96 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC
+>> +  * Multiplexer for output voltage, load current sense and die temperature
+>> +
+>> +  Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/ad5529r.pdf
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: adi,ad5529r
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  spi-max-frequency:
+>> +    maximum: 50000000
+>> +
+>> +  reset-gpios:
+>> +    maxItems: 1
+>> +    description:
+>> +      GPIO connected to the RESET pin. Active low. When asserted low,
+>> +      performs a power-on reset and initializes the device to its default state.
+>> +
+>> +  vdd-supply:
+>> +    description: Digital power supply (typically 3.3V)
+>> +
+>> +  avdd-supply:
+>> +    description: Analog power supply (typically 5V)
+>> +
+>> +  hvdd-supply:
+>> +    description: High voltage positive supply (up to 40V for output range)
+>> +
+>> +  hvss-supply:
+>> +    description: High voltage negative supply (ground or negative voltage)
+> I don't mind doing it this way but in some similar cases where 0 is something that
+> can be considered the 'default' we've made the supply optional.  What was
+> your reasoning for requiring it in this case?
 >
-
-Will rename to use hyphens in v2.
- 
-> [ ... ]
-> > +			gpio_b: gpio-port@1 {
-> > +				compatible = "snps,dw-apb-gpio-port";
-> > +				reg = <1>;
-> > +				gpio-controller;
-> > +				#gpio-cells = <2>;
-> > +				snps,nr-gpios = <8>;
-> > +				gpio-ranges = <&pmx0 16 0 8>;
-> 
-> Will operations on local GPIOs 0-7 have a valid pinmux mapping with this
-> configuration?
-> 
-> The gpio-ranges property uses the format <pinctrl_phandle gpio_base
-> pinctrl_base count>. By specifying a local gpio_base of 16 for a port with
-> only 8 pins, it seems gpiolib will fail to configure pins 0-7 correctly.
-> 
-> Should this be inverted to <&pmx0 0 16 8> to map local GPIOs 0-7 to
-> pinctrl pins 16-23? This appears to be similarly configured for gpio_c and
-> gpio_d as well.
+> dt-bindings should be as complete as we can make them - with that in mind...
 >
+> There are some more interesting corners on this device the binding doesn't
+> currently cover such as mux_out pin.  We'd normally do that by making the
+> driver potentially a client of an ADC
+>
+> Easier though is !alarm which smells like an interrupt.
+> !clear probably a gpio. TG0-3 also GPIOs.
 
-Good catch. Will fix the gpio-ranges mapping for gpio_b, gpio_c, and gpio_d
-in v2. Thanks.
- 
-> [ ... ]
-> > +		pcie_x16: pcie@21000000 {
-> > +			compatible = "ultrarisc,dp1000-pcie";
-> > +			reg = <0x0 0x21000000 0x0 0x01000000>,
-> > +			      <0x0 0x4fff0000 0x0 0x00010000>;
-> > +			reg-names = "dbi", "config";
-> > +			ranges = <0x81000000  0x0 0x4fbf0000  0x0 0x4fbf0000  0x0 0x00400000>,
-> 
-> Can legacy PCI endpoints and HBAs that only decode 16-bit I/O addresses
-> successfully initialize with this mapping?
-> 
-> The ranges property maps the CPU MMIO address 0x4fbf0000 directly to the
-> PCI bus I/O address 0x4fbf0000 (indicated by the 0x81000000 bitfield).
-> Would it be better to map the CPU MMIO region to a PCI bus I/O address of 0
-> instead?
-> 
-
-Will change PCI I/O address to 0 in v2.
-
-> [ ... ]
-> > +		ethernet: ethernet@38000000 {
-> > +			compatible = "snps,dwmac", "snps,dwmac-5.10a";
-> 
-> Could the OS prematurely bind to the generic driver before applying
-> hardware-specific driver quirks with this ordering? Device tree bindings
-> typically require the compatible array to be ordered from most specific to
-> least specific.
-> 
-
-Will reorder in v2.
-
-> > +			reg = <0x00 0x38000000 0x00 0x1000000>;
-> > +			clocks = <&csr_clk>;
-> > +			clock-names = "stmmaceth";
-> > +			interrupt-parent = <&plic>;
-> > +			interrupts = <84>;
-> > +			interrupt-names = "macirq";
-> > +			local-mac-address = [ff ff ff ff ff ff];
-> 
-> Will the network driver initialize with an invalid broadcast MAC address if
-> the bootloader does not dynamically overwrite this value?
-> 
-> Using a broadcast address as a source MAC violates IEEE 802.3 standards,
-> and upstream network switches may drop packets sent by this interface.
-> Should this be omitted or zeroed out as a placeholder?
-> 
-
-Will remove the local-mac-address placeholder in v2. Thanks.
-
-> > +			max-speed = <1000>;
-> > +			phy-mode = "rgmii-id";
-> > +			snps,txpbl = <8>;
-> > +			snps,rxpbl = <8>;
-> > +		};
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=5
-> 
+You are right, for unipolar operation, HVSS can default to ground. I will make HVSS optional.
+I will also add bindings for alarm/clear/TG1, TG2, TG3 and mux out.
 
 Best Regards,
-Jia Wang
-
+Janani Sunil
 
