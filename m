@@ -1,100 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CB62836F
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 15:04:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C913E3AFCE7;
+	Tue, 19 May 2026 15:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779203071; cv=none; b=oZk4CyEoAEXt/0H50FZ6cfkbrqQYYnd3jbE/2zM8Ju1deFkEMEVTpaIVeeYBQaMiwkHRA+o2CNAUGPCpgQceECfd/m8+mF4IHweOw51u8j1403lfltv74RUb4eca43iQYLRDBCjRxUi3gpoTkbZoqpnHOa1lfKRoPlTSbRBhPzE=
+	t=1779203167; cv=none; b=gB/oYcfz8DDbpr5Zdj1LckzrApq8FVgahjvq2RyIRYBwM28C9cA6VoLTuifw+rnR4X4KdEriE9pGeifofrkDiRG6+DrgVPNIrivzRo0koaomVMHm4KfvPlHw97xTG4CpBQ0fKeJqk6+i2WJXRKe5KmEIhyXgsYw4T0qHJtg6UxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779203071; c=relaxed/simple;
-	bh=FNkCdrFk5GxcooG4Ka1j4WhPHVTMz05H/O1GBEgxhGs=;
+	s=arc-20240116; t=1779203167; c=relaxed/simple;
+	bh=DMFV9uBMZekgXlaVW/Eg6OWqQPHj5WhH0ysdpCmCSsE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O1CrYeJ1flDJ/dYx0BDRMBOkA0HUzdXSPF/ClD34lmMSgtxG8xba2SNqBZB8FPQQc3qoyeO7admgS4fjffL36f3U+tyukcyJtpVYomMY7p+W0SQ/618sMu32T4pSREbDa6/B+3Xa7bWIiAx7Yns7w7cgzG3iWtK/xvHV1pwVgeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itFgw5ee; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=j/U/EqhQvMRXo5xX6b4wm2dV3j34XheBhW6xrBYFHQzqNUsiXuFrZiitby7byLbOaVDI1YAT5/hixHGIAge58rPGcvmHJe9hETVpotOMMkyzYGXDxgE4iP1GvDYWqOeF4Eq9j2kTiAACxvaIAlTnpuTLJ5L2tzrVJVuEVWlULPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLYS9NID; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itFgw5ee"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E642DC2BCB3;
-	Tue, 19 May 2026 15:04:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLYS9NID"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9E5AC2BCB3;
+	Tue, 19 May 2026 15:06:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779203071;
-	bh=FNkCdrFk5GxcooG4Ka1j4WhPHVTMz05H/O1GBEgxhGs=;
+	s=k20201202; t=1779203167;
+	bh=DMFV9uBMZekgXlaVW/Eg6OWqQPHj5WhH0ysdpCmCSsE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=itFgw5eeamGAesgBs7dlLCl6kVPqezJY+zlOquXpcxEriIERspwrFxDl1jAGe/U0O
-	 pwzHkHqqWPwuO0wwQdtXMMb+4gUALgn9WGH19TsYc+izqoMwCe/2/CWPlGYXi2dxr+
-	 Cw3ggJ8rcW/nyt8d4db4UvRnQp7jcFOb9tYqESw6uZY0OFbBhnIItevD0mpaKF/w2/
-	 YzehspHsuvPnWReZ/U39stajl1sV9Oor+NIVL/keywy2MvZlJzZ+EVGJNLqa5b8p6a
-	 NAeEgBj2PhEPr/hm9VhkrAHfQWZD5RMLPj82BAGu6yca0zyMsfslpGjaNkRIAtLDXM
-	 EPLo5MctlUI7g==
+	b=mLYS9NIDpjzBuXGupRQTNIXW+MdlHM35a8Bt/FinIvGWie9+hDAtAKLwvR7VIpY9x
+	 vkMsBAbfCPDl0JvWCDZRFJyiDlutaeVKWto77amlT6M5/6GgbP8wplPQnLlNq4E9jA
+	 +kPFvdq3crnpLqY0g1i14l96K5cjbTz6GutH4y5LnP2PuRnTXsYtWZA20BUC5s5vTf
+	 E3AD+rN2AO9wIRsimiiLSgt06//hsNddq/Y/zmd43DdkFTHaB7GNt8zlSdZC2stSJs
+	 lOzgURlvm/DbtVILqr7ZELhKoXU/7+NINQCz65fUdilzPZm0QEA02Dtpnuv9nZyIBx
+	 DPVYtL69A5ivg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] arm64: dts: ti: Add audio overlay for
- k3-j721s2-evm
+Subject: Re: [PATCH v23 1/8] soc: cadence: Create helper functions for
+ Cadence MHDP
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Moteen Shah" <m-shah@ti.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519142341.2531948-3-m-shah@ti.com>
-References: <20260519142341.2531948-3-m-shah@ti.com>
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, imx@lists.linux.dev, neil.armstrong@linaro.org, vkoul@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org
+In-Reply-To: <20260519-dcss-hdmi-upstreaming-v23-1-5615524a9c63@oss.nxp.com>
+References: <20260519-dcss-hdmi-upstreaming-v23-1-5615524a9c63@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 15:04:30 +0000
-Message-Id: <20260519150430.E642DC2BCB3@smtp.kernel.org>
+Date: Tue, 19 May 2026 15:06:06 +0000
+Message-Id: <20260519150606.D9E5AC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The audio device tree overlay fails to disable conflicting CAN n=
-ode devices from the base board, causing McASP audio signal routing to be s=
-ilently broken when CAN interfaces are brought up.
+- [High] Buffer overflow in cdns_mhdp_secure_mailbox_send_recv_multi() due =
+to ignored bounds check.
+- [High] Mailbox size validation bypass and permanent FIFO desynchronizatio=
+n for opcode 0x09.
+- [Medium] Mailbox RX FIFO is not properly drained on error paths, leading =
+to permanent desynchronization.
 --
 
-commit c1ba2c3319437f9663a75e0a335a9f4615ec2ea6
-Author: Jayesh Choudhary <j-choudhary@ti.com>
+commit c962067d82ee12edcd834501898758652f04fb81
+Author: Sandor Yu <Sandor.yu@nxp.com>
+soc: cadence: Create helper functions for Cadence MHDP
 
-arm64: dts: ti: Add audio overlay for k3-j721s2-evm
+This commit introduces mailbox communication helper functions for Cadence=20
+MHDP IPs. It adds support for both secure and non-secure mailbox access,=20
+along with register and DPCD read/write helpers.
 
-Add device tree overlay to enable analog audio support on J721S2-EVM
-using PCM3168A codec connected to McASP4 serializers.
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso b/arch/arm64=
-/boot/dts/ti/k3-j721s2-evm-audio.dtso
+> diff --git a/drivers/soc/cadence/cdns-mhdp-helper.c b/drivers/soc/cadence=
+/cdns-mhdp-helper.c
 > new file mode 100644
-> index 0000000000000..6ed4d6fc414d9
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
+> +++ b/drivers/soc/cadence/cdns-mhdp-helper.c
 [ ... ]
-> +&mux0 {
-> +	idle-state =3D <0>;
-> +};
+> +static int mhdp_mailbox_recv_header(struct cdns_mhdp_base *base,
+> +				    u8 module_id, u8 opcode,
+> +				    u16 req_size, bool secure)
+> +{
+[ ... ]
+> +	/*
+> +	 * If the message in mailbox is not what we want, we need to
+> +	 * clear the mailbox by reading its contents.
+> +	 * Response data length for HDCP TX HDCP_TRAN_IS_REC_ID_VALID depend on
+> +	 * case.
+> +	 */
+> +	if (opcode !=3D header[0] ||
+> +	    module_id !=3D header[1] ||
+> +	   (opcode !=3D HDCP_TRAN_IS_REC_ID_VALID && req_size !=3D mbox_size)) {
+
+Does this bypass apply to any module using opcode 0x09?
+
+Looking at the command definitions, DPTX_TRAINING_CONTROL also uses 0x09,
+which means it would inadvertently bypass this size validation check since
+the module_id isn't checked here.
+
+Additionally, if this check is bypassed and the firmware actually sends an
+mbox_size larger than what is dynamically read, will those unread bytes
+remain in the RX FIFO? Could the next mailbox command end up reading those
+stale leftover bytes as its response header, breaking synchronization?
+
+> +		for (i =3D 0; i < mbox_size; i++) {
+> +			if (secure)
+> +				ret =3D mhdp_mailbox_read_secure(base);
+> +			else
+> +				ret =3D mhdp_mailbox_read(base);
+> +			if (ret < 0)
+> +				break;
+> +		}
 > +
-> +&mux1 {
-> +	idle-state =3D <0>;
-> +};
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int mhdp_mailbox_recv_data(struct cdns_mhdp_base *base,
+> +				  u8 *buff, u16 buff_size, bool secure)
+> +{
+> +	u32 i;
+> +	int ret;
+> +
+> +	for (i =3D 0; i < buff_size; i++) {
+> +		if (secure)
+> +			ret =3D mhdp_mailbox_read_secure(base);
+> +		else
+> +			ret =3D mhdp_mailbox_read(base);
+> +		if (ret < 0)
+> +			return ret;
 
-Will this signal routing be silently broken if the CAN interfaces are broug=
-ht
-up?
+If readx_poll_timeout() fails during the read, does returning directly here
+leave the rest of the message stuck in the RX FIFO?
 
-The base board device tree (k3-j721s2-common-proc-board.dts) enables
-main_mcan3 and main_mcan5, which use PHYs configured with mux-states =3D <&=
-mux0 1>
-and <&mux1 1>. The McASP node here does not claim the mux via the mux-contr=
-ol
-API, relying entirely on the idle-state fallback.
+If a read times out or fails, could the next thread to acquire the
+mailbox_mutex parse these leftover bytes as a new response header? Should t=
+he
+FIFO be explicitly drained when an error occurs to maintain state machine
+synchronization?
 
-When the CAN interfaces are brought up (e.g., ifconfig can3 up), the CAN PHY
-driver will call mux_state_select(), actively driving the mux controllers to
-state 1. This overrides the idle-state 0 required for audio, physically bre=
-aking
-the McASP signal routing without the audio driver's knowledge.
+> +
+> +		buff[i] =3D ret;
+> +	}
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +int cdns_mhdp_secure_mailbox_send_recv_multi(struct cdns_mhdp_base *base,
+> +					     u8 module_id, u8 opcode,
+> +					     u16 msg_size, u8 *msg,
+> +					     u8 opcode_resp,
+> +					     u16 resp1_size, u8 *resp1,
+> +					     u16 resp2_size, u8 *resp2)
+> +{
+[ ... ]
+> +	ret =3D mhdp_mailbox_recv_data(base, resp1, resp1_size, true);
+> +	if (ret) {
+> +		dev_err(base->dev, "ModuleID=3D%d, Resp_CMD=3D%d recv data1 failed: %d=
+\n",
+> +			module_id, opcode_resp, ret);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * Response data length for HDCP TX HDCP_TRAN_IS_REC_ID_VALID depend on
+> +	 * the number of HDCP receivers in resp1[0].
+> +	 * 1 for regular case, more can be in repeater.
+> +	 */
+> +	if (module_id =3D=3D MB_MODULE_ID_HDCP_TX &&
+> +	    opcode =3D=3D HDCP_TRAN_IS_REC_ID_VALID)
+> +		ret =3D mhdp_mailbox_recv_data(base, resp2, 5 * resp1[0], true);
 
-Should the overlay explicitly disable main_mcan3 and main_mcan5 to prevent =
-this
-hardware conflict?
+Could this dynamically calculated length exceed the caller-provided
+resp2_size buffer capacity?
+
+Since resp1[0] is read directly from the hardware response and could be up
+to 255, this might result in writing up to 1275 bytes into the resp2
+buffer. Does this need a bounds check against resp2_size to prevent memory
+corruption if a misbehaving or compromised device sends a large value?
+
+> +	else
+> +		ret =3D mhdp_mailbox_recv_data(base, resp2, resp2_size, true);
+> +	if (ret)
+> +		dev_err(base->dev, "ModuleID=3D%d, Resp_CMD=3D%d recv data2 failed: %d=
+\n",
+> +			module_id, opcode_resp, ret);
+> +	return ret;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519142341.2531=
-948-1-m-shah@ti.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-dcss-hdmi-=
+upstreaming-v23-0-5615524a9c63@oss.nxp.com?part=3D1
