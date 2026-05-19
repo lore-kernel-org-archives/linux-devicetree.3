@@ -1,166 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713B93F0ABA;
-	Tue, 19 May 2026 10:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB16439D6C8
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 10:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779184804; cv=none; b=h1mQ/w1L4vGhxgozZCtAone+r80lZTmBZkPSGmFEfTgrz2nE4KkOslWuncYOVCqXQuws0Lkpr8sLE5V3jx9b4IOq7RFLEiOFzOnG5eKmfUwJNKWFGOZcLkN8G2wBPpzVYt1/aeII+5Dk6hEhS+IlwKXIqyFHoXnVKmqhPAFiOKE=
+	t=1779184829; cv=none; b=ngMNsFDkwl6FSGUySsjc7/Vvx1WVtYnUNav0b7ana6tKmk1WW+euSXo8TVz8IcxgKnXzDM7bOPOCeIcWJuuTdbhgf9lS1HP5/LaqjDH5T1ljyfqdRQIc+ruvKQjSrsENGh/Z2a5T95NjSRADZ4DEBTyS00fAQH3cNnAeJjO1Zbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779184804; c=relaxed/simple;
-	bh=uAiScvczUI4O3IsIs5+lkIvh8gaciDdlXIubMhnM/Ns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HEABA7Sy5ZHSYuKP6kDLsdpSlDHTha4c3Yfr/V7lqB58PnakFJinycCDu1zXi+3I5ytXn287N1el5/X9TP/fyBkackKI+hNXShg3Ffo4mCYFWxPl51G9iE9Ow7QPz884GSmZOCMIpygXBVVbQ13rn/UxY568fQehS4jNhn4fUOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gct/8KWP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779184829; c=relaxed/simple;
+	bh=Z2cv8nB9Bo7eZRD2JKwwYfhOOJYfZGL2ji6ed9VXFpY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I/1ZTsTSQedMDuWIgu6LnyPx2imiFko/gX10Mi0M1qqM5x/6RZ2+rvWHw/LXUXCk+v7/7YWf5PJIrU5ypsgd5Bvh02mV32JOri2GgH9H/SM/n6gwU6W6XsoGGRt5uILU9+/DOqhtv8Mqx0b9kKyC/EGRJnGxugNLF9rpGibLpyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZPHgXDBY; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gct/8KWP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DC3C2BCC6;
-	Tue, 19 May 2026 10:00:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779184804;
-	bh=uAiScvczUI4O3IsIs5+lkIvh8gaciDdlXIubMhnM/Ns=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Gct/8KWPNYNL0cizP6viBRRDzICv+sJIt1OIlTDUboCm/cyeRRneaX04JU9lDNpqJ
-	 JbcThIHqxwlCCaVsh3QNNbphNiAS2ASHg7I7YWQsneEJqdaD+KHCxj/452N/yrSY/l
-	 xEDEDag8+ZHMXV/ltaQArvyR8P562k66ybKDNZTgKAsmZYExJW5uJ/hNQn3Qf1d82t
-	 htzgXf8w8gyx2yhNQAk+oAw+a6r9JAbT/kGg2SuWmMNaxOWmRoXXkwosPMI2SF4G09
-	 OAm7OIeJvQJUeg03Qhz3KxuCyi0WiZ23VT1lg45wsRxLAdKOFdl6OQT7NJiXvntpMB
-	 N59HylcbfD+GQ==
-Date: Tue, 19 May 2026 10:59:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZPHgXDBY"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-488ff90d6c7so24624475e9.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 03:00:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779184826; x=1779789626; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=gPMXDUV8ksnki0TYxYEX3U0Fj0wzSQ7y1+fTHl/YrAI=;
+        b=ZPHgXDBY7XjeK57L8im+ZR98TvpUzebjFaPDMrH6vkI+6UeGOFDai8BlQVa6y8Fkg3
+         eH6oPY5p0cmNwZa7Yq3uKM4DB/f6qt+xcvzGsJWyWX4SzrkQ7lFW2aKZVG6aOv508EaM
+         eouf+4KsagbRrz6OcZOHvgevCI7OECQykOr3nkjY6u6fMfyRytHFWOc3ZxzvyrpQ0aKQ
+         VUSIQ8N5VkISTNqaMsW29FMQgC/54RH+BqDlWTlKNRzlJXt9rd7tKzxiWuKX8ZDcC6/W
+         UUt3qU999jNegD9XLIM9H9iHovCcLakDo1xZDhO+NoovEHoX+trTt1l4m0lgpRsFQfDw
+         MAhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779184826; x=1779789626;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gPMXDUV8ksnki0TYxYEX3U0Fj0wzSQ7y1+fTHl/YrAI=;
+        b=Tfd5f/G8XfJoOlMry1JtwtSJjTiDebp87JdxjPi2bvZRBTu+b7OTco1wM/1QxGH6Sd
+         XKI3FaJ9+KYp+Uk7g6lYaWW0psRrO8nq3atdML5tWhg47becnd2FXBKc3enuph1ljsJC
+         jcRqVbh82cK8uTyxWEEaNnHNvDTgxhfJQGeN45vqNgl5wy/4fmAYO3S5BO9BKbkyHu7a
+         lmlq2p/5vrZnkpRkIMFu7KyLB4He3urllHkRJMiZ8ewe4BMtDCGFg2ywzMxL/flERl8s
+         FADfdrhqT7r5ePFaSsoeDpfRj1CcqUdVCLCY7OyjDDIuNlnklF5ZZqZVNcyUApfGQ5Wk
+         APZw==
+X-Forwarded-Encrypted: i=1; AFNElJ+KQHowRr4xbfcXULl3a0k2Hd91HZ27XTHv1iYvTWc87kPja0QUkiTTAP+QibUgHzQz4/lc4RXikbxE@vger.kernel.org
+X-Gm-Message-State: AOJu0YywE8EmHuobJEUZA2R7peoclk55EdPRgKwVnjexZI7HLr6d3956
+	q3GkAyDM2jgjAsfJW853HMR3HN+3YJkxoXUScnIHYCEaWRIDbXlzZD2x
+X-Gm-Gg: Acq92OGHrr8BQxAc7Dj+Y/tn2HuH2Xd6rVuUD1N5WGAwEWB2gHnU1FOFhhZIqAnBbpf
+	5KoTENQOICHFKv/mqt2z1HhmV13+pIZBD/akBlIWpD1TCD3s+K1nrhNeBysgsk5nDm/7D3Qks+i
+	ciOd7+/gbauIfhPgBjCqOmnN8sY3k3/17lUBcaAYhFRQiOj5HGdz18r9HdWorJIe93pxRA8w+7W
+	5biw6rUHxtYSrW4/tu4P6EF28/x8jMd2KSDudt8RFfx2jkHa1xWgb68wnew5sn4klHxnkVQ+pEv
+	LCANG+b8R7qS61dtrVm/7xAMnzhU68hAL5JxChS9N189h1TwYREI2qXgy75O/qWNnNDCvWG1t+r
+	RhxNxTTpJrnJwz5//lOxb+DnIKv8B9MGKgxqA8jmosDOVxl4MqF9NNRyAFqCpYkvQoGMXvglDO7
+	FAg5rQEc2YyhoRltcIeDYQFJqY/4if5KLMgJ8NxxaisH+h2yXs
+X-Received: by 2002:a05:600c:34d4:b0:48f:e230:c3fa with SMTP id 5b1f17b1804b1-48fe6626a58mr296997035e9.32.1779184826098;
+        Tue, 19 May 2026 03:00:26 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a700:7301:4abf:a82a:41d5:6663])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febc56f89sm131791455e9.3.2026.05.19.03.00.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2026 03:00:25 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>
-Subject: Re: [PATCH v1 1/2] bindings: iio: adc: Add StarFive JHB100 SARADC
-Message-ID: <20260519-undoing-ambitious-012d608ebd7f@spud>
-References: <20260518081852.116909-1-xingyu.wu@starfivetech.com>
- <20260518081852.116909-2-xingyu.wu@starfivetech.com>
- <20260518-elderly-barman-2b1abfc3755c@spud>
- <NTZPR01MB095679F35A873BBBA304655F9F002@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH 0/2] Enable RSCI interfaces on RZ/G3L SMARC EVK
+Date: Tue, 19 May 2026 11:00:16 +0100
+Message-ID: <20260519100022.116318-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cVzWKkqrBwvAqBeG"
-Content-Disposition: inline
-In-Reply-To: <NTZPR01MB095679F35A873BBBA304655F9F002@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+Content-Transfer-Encoding: 8bit
 
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
---cVzWKkqrBwvAqBeG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Enable device rsci{1,2,3} nodes for the RZ/G3L SMARC EVK.
 
-On Tue, May 19, 2026 at 09:26:03AM +0000, Xingyu Wu wrote:
-> On 2026/5/19 00:24, Conor Dooley wrote:
-> >=20
-> > On Mon, May 18, 2026 at 04:18:51PM +0800, Xingyu Wu wrote:
-> > > Add the new documentation of SAR-ADC for the StarFive JHB100 SoC.
-> > >
-> > > Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
-> > > ---
-> > >  .../iio/adc/starfive,jhb100-saradc.yaml       | 62 +++++++++++++++++=
-++
-> > >  1 file changed, 62 insertions(+)
-> > >  create mode 100644
-> > > Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc.yaml
-> > >
-> > > diff --git
-> > > a/Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc.yam
-> > > l
-> > > b/Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc.yam
-> > > l
-> > > new file mode 100644
-> > > index 000000000000..ba8e19b72ad7
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc
-> > > +++ .yaml
-> > > @@ -0,0 +1,62 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause) %YAML 1.2
-> > > +---
-> > > +$id:
-> > > +http://devicetree.org/schemas/iio/adc/starfive,jhb100-saradc.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Successive Approximation Register (SAR) A/D converter for the
-> > > +StarFive JHB100 SoC
-> > > +
-> > > +maintainers:
-> > > +  - Xingyu Wu <xingyu.wu@starfivetech.com>
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: starfive,jhb100-saradc
-> > > +
-> > > +  reg:
-> > > +    maxItem: 1
-> > > +
-> > > +  interrupts:
-> > > +    maxItems: 1
-> > > +
-> > > +  clocks:
-> > > +    maxItems: 1
-> > > +
-> > > +  resets:
-> > > +    maxItems: 2
-> > > +
-> > > +  "#io-channel-cells":
-> > > +    const: 1
-> > > +
-> > > +  upper-bound-mv:
-> > > +    description: The upper bound voltage value of the monitor.
-> > > +    $ref: /schemas/types.yaml#/definitions/uint16
-> > > +
-> > > +  lower-bound-mv:
-> > > +    description: The lower bound voltage value of the monitor.
-> > > +    $ref: /schemas/types.yaml#/definitions/uint16
-> > > +
-> > > +  scan-freq:
-> > > +    description: Number of the scan cycle interval.
-> > > +    $ref: /schemas/types.yaml#/definitions/uint16
-> >=20
-> > Can you explain why any of these three properties are something that sh=
-ould be in
-> > the devicetree rather than software controlled?
->=20
-> My intention is to be able to obtain the initial values from the devicetr=
-ee during probe and preset them.
-> Do I need to drop them and just set them through sysfs?
+This patch series depend upon [1]
+[1] https://lore.kernel.org/all/20260505123708.134069-1-biju.das.jz@bp.renesas.com/
 
-Unless the hardware configuration determines the values (which I can't
-really see being the case for scan-freq at least) then yes, you need to
-drop and set them via sysfs.
+Biju Das (2):
+  arm64: dts: renesas: r9a08g046: Add rsci{0..3} device nodes
+  arm64: dts: renesas: r9a08g046l48-smarc: Enable rsci{1,2,3} nodes
 
-> > How are the bounds calculated?
->=20
-> The measurement range of this ADC hardware is from 0 to 1800 mV. This set=
- value cannot exceed it. This explanation will be added later.
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 84 +++++++++++++++++++
+ .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 59 +++++++++++++
+ 2 files changed, 143 insertions(+)
 
-I'm asking how this is calculated so that I can tell if you the property
-is permitted or not.=20
+-- 
+2.43.0
 
-Cheers,
-Conor.
-
---cVzWKkqrBwvAqBeG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagw0nwAKCRB4tDGHoIJi
-0hCiAQCUqcpmQkzaUypN9U0GqbGgA3LpY8xMgAIm4L+K8XQaiQEA4V2Z0epYb85N
-XR1/AqfdtL5G5oynVOg0Vv/ReV12iA4=
-=+IcM
------END PGP SIGNATURE-----
-
---cVzWKkqrBwvAqBeG--
