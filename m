@@ -1,78 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026D1370ADB;
-	Tue, 19 May 2026 10:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE6D32B139;
+	Tue, 19 May 2026 10:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779187725; cv=none; b=hYT221CrJvMkq4drY6TIUl3AF4sI/ZO8J8DX/xzoj/G0FP1ntaVxZwmYyvh9Ne6cmF2jSQIoT+NrT4suuHkTnoLCbVZImCSa4N0awyFg9G521ISsta4RO1whRNk6hagg4Gss1q/7ZrAciwATu90vEcF0DiMurn2/wR5CTk4QsoU=
+	t=1779187767; cv=none; b=fNW6+kdia2EFNIJhSC5lCFzaq040MId1c0tB5OusJsK9Ar74oxtoj/bQnZ7bHjBkXvpDV2Mng+elJVBXTzPcN1S9qOAqLtcjfD2+YkgReQ05U1473NG8HTCKYZ98QmFDP9PUCtqFkz7BUjKSwA7KtU9PuFq5dj/YfgFBjwVa99g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779187725; c=relaxed/simple;
-	bh=O3osayXAPVNKmdWCcmEqTldGekty8xNwlWaSW/MioZA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=KiTdqQvJyrxMcPuRmKvhvVxXDS7YANV9DMHXSqNL3j7SnZkhULZ2LgIwBZVtGKtJekkJpBuAao8Yp0ZpQexOlPGm20K4xE5jkMm6odJvvAkmNN8O6tB4lJqSK5eyz5c05t2I93XKLQiErXYfmcXQXmZ3TOlbgpaLMorwYWnGpko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzldBPFF; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779187767; c=relaxed/simple;
+	bh=wZv6gplc2qVX06ILrybYyEpnPth2NWx47dgHVn4qhiY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hb3WqeZ2uXE05/HhaSLTMt6tmFRqqrKaTmQ3xDxngWMGrdKsLma31Tz7YDrr7fSSnalk5oW7AqrUllmTx+YGHmbrTM+mpMx/h2eqxy3RShzRLPFFJAzEAULleCzAISEgHTzUYer2FDC0b03JArcJkMmq+gHpZzpdlwBGl1F5VT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=un5SayZX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzldBPFF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F0F1C2BCB3;
-	Tue, 19 May 2026 10:48:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="un5SayZX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84531C2BCB3;
+	Tue, 19 May 2026 10:49:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779187724;
-	bh=O3osayXAPVNKmdWCcmEqTldGekty8xNwlWaSW/MioZA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=LzldBPFF+eqnDubxLjtWtrpweaDXNUytgGbfbtIo5/cPOwqeVSn+mF9p58LYSwzqc
-	 Hj7rjyXUok0kx4uRKK8FrDwNtW/zLo2LRb/4dJqd+HVatFT5jw2I7clDqlWCMetgk9
-	 fd5SayJquedFgAzxno/KHlAjYIQ0QXCzQ1f1c49HwhY3hhO2iZ/MCDNd7f+8Gq11zQ
-	 f5UsF/cssHWuC9F6RmkrtknM+dV/M1tG1JPa8pcE+6JA3WLKSaIpGFv5XcKd5dJ5MJ
-	 PZBZrlD3morwde3vrPNQqkQynXZRO/azap+4e0R5xqVCRtmCMgmzb7OsXJOjCRti2Q
-	 0Ux0t0MuUqCww==
-From: Vinod Koul <vkoul@kernel.org>
-To: neil.armstrong@linaro.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, johan@kernel.org, linux-phy@lists.infradead.org, 
- Ioana Ciornei <ioana.ciornei@nxp.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260518142026.3098496-1-ioana.ciornei@nxp.com>
-References: <20260518142026.3098496-1-ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v4 linux-phy 0/3] phy: ti: add driver for TI DS125DF111
- Dual-Channel Retimer
-Message-Id: <177918772208.269794.12633369479244518899.b4-ty@kernel.org>
-Date: Tue, 19 May 2026 16:18:42 +0530
+	s=k20201202; t=1779187766;
+	bh=wZv6gplc2qVX06ILrybYyEpnPth2NWx47dgHVn4qhiY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=un5SayZXfaykg3e2JzexiAFygxvT1/PzbC+rx/KWvi7g+pvC6uw3i+VUCHvHDhcLi
+	 6ByoepCpdvmMUrS3qm/5dGxFxfTkR0wwLSWmq9MGrrphtekbkJwl2FoeToGmxHL1Xl
+	 QVPtOH6ZsSpMdnJ38z0W7Grq6HJdTIzlpGiNAHELfKzsc4+PhXonwV9qwImOyT/DXm
+	 WEUBJiPsuKi4kKdyA24LC41RLORfttBO+SwTBUpzNNvB8UqmGkjua5Y8Zv9Ena4S/1
+	 MsD7EUM3KeAlHdXvXIq99owYcc62UqxDaVbSJzA4gEImqkC0QJEluRfF+VnZyym/Ep
+	 lmYPwWpWLuFHg==
+Message-ID: <832d31a1-60fc-4af1-aa8e-8b417fce206c@kernel.org>
+Date: Tue, 19 May 2026 12:49:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
+ batteryless property
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
+ <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
+ <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
+ <20260519082526.odmn5dqi2jftwnln@hu-kotarake-hyd.qualcomm.com>
+ <20260519-first-wine-bulldog-a6a4c7@quoll>
+ <ef1edc3b-a34a-48cd-bf68-572fa57babee@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <ef1edc3b-a34a-48cd-bf68-572fa57babee@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-On Mon, 18 May 2026 17:20:23 +0300, Ioana Ciornei wrote:
-> This patch set adds a generic PHY driver and the corresponding DT
-> binding for the TI DS125DF111 Dual-Channel retimer. The datasheet on
-> which this driver was based on can be found at -
-> https://www.ti.com/lit/gpn/DS125DF111.
+On 19/05/2026 12:47, Konrad Dybcio wrote:
+> On 5/19/26 12:35 PM, Krzysztof Kozlowski wrote:
+>> On Tue, May 19, 2026 at 01:55:26PM +0530, Rakesh Kota wrote:
+>>>
+>>>> And isn't lack of monitored battery property enough to indicate that?
+>>>
+>>> Regarding monitored-battery — its absence alone isn't sufficient. The
+>>> BATT_ID line on debug boards is pulled to ~10kΩ, which is used during
+>>> development phase where some battery properties are still present. The
+>>> same ~10kΩ value is also used on some genuinely battery-less production
+>>> platforms where no battery properties exist, making auto-detection
+>>> unreliable. Hence the need for an explicit DT property to identify
+>>> hardware platforms where no battery populated. 
+>>
+>> I don't understand this logic. So you claim you have debug boards which
+>> do not have battery, but define monitored-battery? Then these are wrong
+>> and fix them first.
 > 
-> A separate generic PHY is registered for each of the two channels of the
-> retimer, so consumers can drive each channel independently. This allows
-> for independent control of the channels, which is especially important
-> since each channel can be routed to different SerDes lanes and it is not
-> guaranteed that the same retimer will do both directions of SerDes lane.
+> I don't think any pmic-glink device defines a monitored-battery node
 > 
-> [...]
+> The firmware is in full control of the battery charger (maybe with the
+> exception of some coordination with ECs on some laptops and maybe if
+> the vendor has some very in-depth custom charging hw, but that's
+> educated guesses)
 
-Applied, thanks!
-
-[1/3] dt-bindings: phy: add PHY bindings for the TI DS125DF111 Retimer PHY
-      commit: a62d9440ebbce3d9f0bd6c346a7fda2a53726850
-[2/3] phy: ti: alphabetically sort Kconfig and Makefile
-      commit: 711f64979e500799b27b33a8f030e2fd939fd07f
-[3/3] phy: ti: add PHY driver for TI DS125DF111 Dual-Channel Retimer
-      commit: 9bf5c16a6e63ebf2803deb32ba984a7fcf2c5ed7
+If you are saying that monitored-battery is not applicable here, then it
+feels like "battery-less" is not applicable as well.
 
 Best regards,
--- 
-~Vinod
-
-
+Krzysztof
