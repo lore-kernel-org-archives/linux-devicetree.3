@@ -1,225 +1,130 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051213DA7F3;
-	Tue, 19 May 2026 07:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12DA3D1712;
+	Tue, 19 May 2026 07:37:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779176256; cv=none; b=AuICVm5Zw916caiwt1uM3t0qEDRQbB3O6whqfdw6ets0nmnXl9OKhHV0+5sF3iYQoF/WQ9yEpELBdDaiE+/v4+Oc1J9nmUrsX0ZyHsvJwCeEmKLQnAPPSJX/Rtefd0xLnKR8TmpH5Qxu3L+yww85K41EiB5ha4RclfWeZQzSf9A=
+	t=1779176264; cv=none; b=IKhxsBN0kWrR1le8CseEW3G3SNx9TNOE97y8S5TMnWRWNK2ctlJrKCRMl3cStNfUHTsBTxHMLAOaOcD8A5ch0dVgdL8T1DcMmYak8kA9z6B0siMQqS5onWxlv/jO8qzcJ1h+C6DjPVlfi/G+J99zBw9amMjGKfCoKPSR2hTFbcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779176256; c=relaxed/simple;
-	bh=doYT2zWrOTvodP4eBAE9NoxXLg8Uct2b6p3ijpjJ5U8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eT8lB9RuNqRjAgjt2US+WJ95M4MLNexunJmxWgb10l5EIdlHboYIqbvy9XCfPNksljq5t62BZyyL1eBQ86+t8snnfWusxS8PexlRO3Ay4IrzYMWbfO2yAu9xnaMy3BwgWjBLzLhbNpPsQmkT1ywlXh28v29bBmjTTXaL0JnLQJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-01 (Coremail) with SMTP id qwCowABXAGwuEwxq+0++EA--.3719S2;
-	Tue, 19 May 2026 15:37:19 +0800 (CST)
-Message-ID: <5b7b28558aece1d99e93c1d69ce2c381929813a2.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: add model ID constants and DCU
- Lite chip identity
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 19 May 2026 15:37:17 +0800
-In-Reply-To: <20260519055114.1886525-3-a0987203069@gmail.com>
-References: <20260519055114.1886525-1-a0987203069@gmail.com>
-	 <20260519055114.1886525-3-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1779176264; c=relaxed/simple;
+	bh=MZEX1HwRq8qSCYuzNHDYkdoAAEWycnZOjlzq2uCdPBA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cTya1HXf2ufjqXLiMIbN4kDIEQghIvoR72pDMoE4rMajulj8NfTIFxcDvz/gqICQK3tLf4tOedYSKpRCjG1r61I2QAb7XtWXHp5osejadmD+O1WYNR8/ss1fUXJ4ypVfWPll5pmPIiMp19FfX8vMPtSmQ8hphEqy9iXe58sVI8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVK+aqjQ; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVK+aqjQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B889C2BCB3;
+	Tue, 19 May 2026 07:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779176264;
+	bh=MZEX1HwRq8qSCYuzNHDYkdoAAEWycnZOjlzq2uCdPBA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UVK+aqjQze5pLkpP7SA5ZrJFY+F5g4gE25lFmOnX0uRoRozEVu7OH0JXytr8MPqP1
+	 x4Wyr3HTNJafNV4AAkFkFg/u+roUA4sezax0RjE/eBZzy0emzfKPfCH+daxtnvxFJ8
+	 72OLxBRlW7ZTihVfMz1nykzr1QOKK8CMu4dd9yL6XJo1WfVYSN+0rcMNTqMxDXKREF
+	 zvgghxsvYA/n5rYU9t6VzRAk2jEE/bc/xrcUEOdA7FN0cm5DRsrZqC5oguwl8ZZgsj
+	 UvjJpyQBLbIk5pjz02pfc+ZsVGktpjqcRV0StMFFPALase94pSDQC0qxc7sFTQKra9
+	 Ht8uuKpH7kPsw==
+Message-ID: <657a7b16-9036-42f9-b04a-503b5349f68a@kernel.org>
+Date: Tue, 19 May 2026 09:37:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowABXAGwuEwxq+0++EA--.3719S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF17JrW3Kr15ur4fZFWxCrg_yoW7XF4UpF
-	47AFWvk3yrA39aq3s7AryjkFyay3Z7Ja1fWr1kZrWYvr4rtw1UWry7X34Y9FWDXr97Ja4I
-	gFsakF47urW2yF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxU7UDGUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: crypto: qcom,ice: Add sa8255p support
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Linlin Zhang <linlin.zhang@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S . Miller" <davem@davemloft.net>, devicetree@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
+ <20260512033750.3393050-2-linlin.zhang@oss.qualcomm.com>
+ <20260514-clever-apricot-goose-acc827@quoll>
+ <CAMuHMdUzraGnOxRU=9bsxBBBFtVqudMGisfcAegUzk+_OS2+eQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CAMuHMdUzraGnOxRU=9bsxBBBFtVqudMGisfcAegUzk+_OS2+eQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-=E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 13:51 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> Introduce symbolic constants VSDC_MODEL_DC8200 and
-> VSDC_MODEL_DCU_LITE
-> to replace magic numbers in the hardware database and probe path.
->=20
-> Register the DCU Lite chip identity (model 0x0, revision 0x5560,
-> customer_id 0x305) in vs_chip_identities[], making the existing
-> vs_fill_chip_identity() path able to recognise Nuvoton MA35D1
-> hardware
-> purely through register reads.
+On 19/05/2026 09:30, Geert Uytterhoeven wrote:
+> On Thu, 14 May 2026 at 14:56, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>> On Mon, May 11, 2026 at 08:37:48PM -0700, Linlin Zhang wrote:
+>>> On sa8255p, resources such as PHY, clocks, regulators, and resets are
+>>> managed by remote firmware via the SCMI power protocol. As a result, the
+>>> ICE driver cannot directly access clocks and must instead use power-domains
+>>> to request resource configuration.
+>>
+>> Then how can it be compatible with qcom,inline-crypto-engine?
+> 
+> It is a pity there are such big differences between the SoC-integration
+> "hardware" description in DT of systems with and without SCMI.
+> 
+> For R-Car X5H, we proposed a difference approach[1].
+> Linlin: do you think this would be a viable solution for your platform?
 
-The HWDB change should be added in the end of the series, making it a
-gate to the newly added changes that is finally opened when
-everything's ready.
+In the cover letter I see:
 
->=20
-> Also add three register-level macros for forthcoming DCU Lite
-> support:
-> - VSDC_DISP_IRQ_VSYNC(n) in vs_crtc_regs.h, for per-output VSYNC IRQ
-> =C2=A0 bits used by the DCU Lite IRQ enable/status registers.
-> - VSDC_FB_CONFIG_ENABLE, VSDC_FB_CONFIG_VALID and
-> VSDC_FB_CONFIG_RESET
-> =C2=A0 in vs_primary_plane_regs.h, for the framebuffer enable and
-> =C2=A0 commit-cycle bits used by the DCU Lite plane update path.
+"This means Linux can no longer perform various system operations (e.g.
+clock, power domain, and reset control)"
 
-Maybe you can split the register change=20
+I skimmed through the rest including bindings, and I do not see how you
+did it differently. Patchset is mixing multiple subsystems and topics,
+so it does not make easier to find what you meant.
 
->=20
-> No behaviour change for existing DC8200 platforms.
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc_regs.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 16 ++++++++++++--
-> --
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 +++
-> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane_regs.h=C2=A0 |=C2=A0 3 +++
-> =C2=A04 files changed, 19 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> index c7930e817635..d4da22b08cd5 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> @@ -54,6 +54,7 @@
-> =C2=A0#define VSDC_DISP_GAMMA_DATA(n)			(0x1460 +
-> 0x4 * (n))
-> =C2=A0
-> =C2=A0#define VSDC_DISP_IRQ_STA			0x147C
-> +#define VSDC_DISP_IRQ_VSYNC(n)			BIT(n)
-> =C2=A0
-> =C2=A0#define VSDC_DISP_IRQ_EN			0x1480
-> =C2=A0
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> index 09336af0900a..a25c4b16181d 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -90,7 +90,7 @@ static const struct vs_formats
-> vs_formats_with_yuv444 =3D {
-> =C2=A0
-> =C2=A0static struct vs_chip_identity vs_chip_identities[] =3D {
-> =C2=A0	{
-> -		.model =3D 0x8200,
-> +		.model =3D VSDC_MODEL_DC8200,
+Can you point me directly how did you do it differently? And by "it" I
+mean what you comment here - "such big differences between ... "?
 
-I don't think such a macro is needed.
-
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D ~0U,
-> =C2=A0
-> @@ -98,7 +98,7 @@ static struct vs_chip_identity vs_chip_identities[]
-> =3D {
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> =C2=A0	},
-> =C2=A0	{
-> -		.model =3D 0x8200,
-> +		.model =3D VSDC_MODEL_DC8200,
-> =C2=A0		.revision =3D 0x5721,
-> =C2=A0		.customer_id =3D 0x30B,
-> =C2=A0
-> @@ -106,7 +106,7 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> =C2=A0	},
-> =C2=A0	{
-> -		.model =3D 0x8200,
-> +		.model =3D VSDC_MODEL_DC8200,
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D 0x310,
-> =C2=A0
-> @@ -114,13 +114,21 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.formats =3D &vs_formats_with_yuv444,
-> =C2=A0	},
-> =C2=A0	{
-> -		.model =3D 0x8200,
-> +		.model =3D VSDC_MODEL_DC8200,
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D 0x311,
-> =C2=A0
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> =C2=A0	},
-> +	{
-> +		.model =3D VSDC_MODEL_DCU_LITE,
-
-The number is 0x0 and the whole public name of this IP is
-"DCUltraLite", w/o any numbers.
-
-I suggest leave it at 0x0 and add a comment saying this is DCUltraLite
--- Verisilicon people are abusing suffix for their IP names now.
-
-> +		.revision =3D 0x5560,
-> +		.customer_id =3D 0x305,
-> +
-> +		.display_count =3D 1,
-> +		.formats =3D &vs_formats_no_yuv444,
-> +	},
-> =C2=A0};
-> =C2=A0
-> =C2=A0int vs_fill_chip_identity(struct regmap *regs,
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> index 92192e4fa086..cca126bd2da5 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> @@ -9,6 +9,9 @@
-> =C2=A0#include <linux/regmap.h>
-> =C2=A0#include <linux/types.h>
-> =C2=A0
-> +#define VSDC_MODEL_DC8200 0x8200
-> +#define VSDC_MODEL_DCU_LITE 0x0
-> +
-> =C2=A0struct vs_formats {
-> =C2=A0	const u32 *array;
-> =C2=A0	unsigned int num;
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> index cbb125c46b39..67d4b00f294e 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> @@ -16,6 +16,9 @@
-> =C2=A0#define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
-> =C2=A0
-> =C2=A0#define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
-> +#define VSDC_FB_CONFIG_ENABLE			BIT(0)
-> +#define VSDC_FB_CONFIG_VALID			BIT(3)
-> +#define VSDC_FB_CONFIG_RESET			BIT(4)
-
-Should the new IRQ register to be added here too?
-
-Thanks,
-Icenowy
-
-> =C2=A0#define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
-> =C2=A0#define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13,
-> 11)
-> =C2=A0#define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
-
+Best regards,
+Krzysztof
