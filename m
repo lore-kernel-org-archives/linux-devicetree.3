@@ -1,248 +1,175 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACB43A0B05;
-	Tue, 19 May 2026 22:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3F63A2E3F
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 22:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779231302; cv=none; b=SuGwneBxdfxSjwvqx6BoqxJRL0S6CIxniV6t2hxHi5+PKXGyZK4kv7PLhNl+w1bngbHwrpJMJUlngqMG/LL3YVt0CHj/GmMmeQ0WEtxGhoUCZVgXal1YNTZxcQ2mPTqzHZahFZM0qbI2mCAkvyIt8EAZxMl88RyaUX/n08Sn8fA=
+	t=1779231344; cv=none; b=J84D69KMVLRcVYvWGJswwMnF32rHq2Q8jdwziuWrl9UScXXy+lDQUWraXyziWzHddtDF6gewBCfOvVopEzXOLR3fzY7HXZGSzfLTkoco0pJx5vrqfLkgkN1E5cXAIaPxqsBdxt0Je1PlkzWrLQ9zWJtwLu3IYAaC50IzRYcKo3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779231302; c=relaxed/simple;
-	bh=CPzCK5QGY3IBZVvr1cXgpkykNusJXWFMCjWtw+Cy5BU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tbVhLYzGLHzsdmukRZsmcBiqKf5hz0sW8x0FpPm1WH9t1efY5Y733SJxL898ftqCJKZpx4l/IzCPekK0BxAX6aLVUA1noHOVkNewSG0YqHyDXsjEL5KKDH3Az5igVCbvtyYaGffBgzqtQdHkTOxqN9evFzX39sB1i3GhJgPZsOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WYXse9LJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1779231344; c=relaxed/simple;
+	bh=gbwS0Qu1/8MpBkadoNzQKVzYZcMLXrqBIYXpkew+2MM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dRgYdUFwCRr4ufnKOfJsrQJPY9kKWOHy/hpYN0gsEV7yWPVHv7GIfdS1ZpBjT0w9hEG5DZmzrDZLJ5AbGYl+Ub5ZtGzjzd/NZ8AdsmRF2rrj0zW62XmpLTjQx7vnvTz8jrmskzBGKrC9/SaaweH9JmoLjp5uFomVPNLqEkPlBn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gn0YbGGE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WYXse9LJ"
-Received: from killaraus.ideasonboard.com (unknown [IPv6:2a01:cb1d:8ee:8600:346a:417a:479f:f6a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E093E55;
-	Wed, 20 May 2026 00:54:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779231282;
-	bh=CPzCK5QGY3IBZVvr1cXgpkykNusJXWFMCjWtw+Cy5BU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WYXse9LJFfqo4bMINyiIs3ae84T9m6PmAduMf4ndBYQz62iXcLxDcOMm7c+eiNEMb
-	 OVBCoqbb8tmYHf+UMt5HRecYnfzqw46005FMjzdqMUiVsDDkLPzSyS4namSH4BXIeB
-	 4lDsRkY1YONdldclXYThLnsvtOT5hnEQdeu5ITvM=
-Date: Wed, 20 May 2026 00:54:53 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: Add Sony IMX678
-Message-ID: <20260519225453.GI16205@killaraus.ideasonboard.com>
-References: <20260516-imx678-v2-0-4854ac61d6fb@ideasonboard.com>
- <20260516-imx678-v2-1-4854ac61d6fb@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gn0YbGGE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F84F1F000E9;
+	Tue, 19 May 2026 22:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779231341;
+	bh=kMdgjfAybJrgZH+28+IJIH0ywc6iUvTzLrENDIICB6c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gn0YbGGECsfbQg70Y26yiqWRHax8/zBzBmDEybmmo1JqNIUAYjeoeaTBvNs+73Ezx
+	 Om+Rx5GEgrd+9cxaOSxlOtDlvga+Vyzf+3axlsSDfi5AT1jERZwu7i7VlNkb0ZmVef
+	 wdNRVyaUMxuzKEgei6rjVMysW44LYB6hNUZtRsM6k/nR5JVS+1kj0f8vXpceBVoerP
+	 YE4ZTcEr1Euuv8V7GmAv9qaDsNGSVYVl0LB9XtwPNF3RQLoT5z0UijqdYIylfx6hH1
+	 6pWDX1k0doaq38dV2NcO8bN+gSAS66qfnEdNWEuY2MpBp5EyJIq+TxIGZLxrypQxEj
+	 oCJ/4BMCPBDYQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/5] i2c: mt7621: rework cmd/wait OPs to support
+ atomic afer variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260519223253.1093-2-ansuelsmth@gmail.com>
+References: <20260519223253.1093-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 22:55:40 +0000
+Message-Id: <20260519225541.5F84F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260516-imx678-v2-1-4854ac61d6fb@ideasonboard.com>
 
-Hi Jai,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Thank you for the patch.
+New issues:
+- [High] The atomic transfer error path incorrectly calls `device_reset()`,=
+ which uses mutexes and sleepable functions, leading to a sleeping-in-atomi=
+c bug.
+- [High] The atomic hardware polling loop spins for up to 1 second, which c=
+an cause severe CPU stalls and trigger hardware watchdogs.
 
-On Sat, May 16, 2026 at 07:49:10PM +0530, Jai Luthra wrote:
-> Sony IMX678 is an 8.4 Megapixel (3856x2180) CMOS sensor, that can output
-> pixels over MIPI CSI-2 bus. Add bindings for it.
-> 
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> ---
-> Changes in v2:
-> - Add per-variant compatibles for mono and colour, alongside the
->   generic fallback, so the variant can be declared without powering
->   the sensor at probe.
-> - Rename reset GPIO to xclr as that's what it's called in the
->   datasheet, and how it behaves
+Pre-existing issues:
+- [High] Uninitialized kernel stack memory is written to the I2C data hardw=
+are registers for transfers shorter than 8 bytes.
+--
 
-For standard functions such as reset or power down, the preferred and
-recommended naming scheme is to use the function name instead of the
-signal name. "reset-gpios" is the right name for the property
-corresonding to the XCLR signal. The signal name is then documented in
-the description.
+commit 23969b8ae7fc1346d150b2481900eddb6e43c094
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-> - Reference the generic video interface devices schema and switch to
->   unevaluatedProperties.
-> - Drop "link-frequencies: true"
-> - Drop the T: entry for media.git from MAINTAINERS.
-> ---
->  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 129 +++++++++++++++++++++
->  MAINTAINERS                                        |   6 +
->  2 files changed, 135 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> new file mode 100644
-> index 000000000000..8f12853f40e6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> @@ -0,0 +1,129 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2026 Ideas on Board Oy
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sony IMX678 Sensor
-> +
-> +maintainers:
-> +  - Jai Luthra <jai.luthra@ideasonboard.com>
-> +
-> +description:
-> +  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
-> +  image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - sony,imx678
-> +      - sony,imx678-aamr
-> +      - sony,imx678-aaqr
-> +    description:
-> +      The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
-> +      variant (IMX678-AAMR). An internal register can also help detect this at
-> +      runtime.
+i2c: mt7621: rework cmd/wait OPs to support atomic afer variant
 
-The description should explain how the three compatible strings differ.
-The difference between sony,imx678-aamr and sony,imx678-aaqr is quite
-evident, but it's not clear to the reader if they should pick
-sony,imx678 or one of the other two values.
+This commit reworks the command and wait operations in the mt7621 i2c driver
+to support atomic transfers. It adds an atomic parameter to the common tran=
+sfer
+path and uses readl_relaxed_poll_timeout_atomic for hardware polling when
+executing in an atomic context.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: |
-> +      Input clock (INCK). Only the rates listed in the datasheet are supported:
-> +      13.5, 18, 24, 27, 36, 37.125, 72, and 74.25 MHz.
-> +    maxItems: 1
-> +
-> +  avdd-supply:
-> +    description: Analog power supply (3.3V)
-> +
-> +  ovdd-supply:
-> +    description: Interface power supply (1.8V)
-> +
-> +  dvdd-supply:
-> +    description: Digital power supply (1.2V)
-> +
-> +  xclr-gpios:
-> +    description: Sensor XCLR GPIO
-> +    maxItems: 1
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            oneOf:
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +                  - const: 3
-> +                  - const: 4
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +                  - const: 3
-> +                  - const: 4
-> +                  - const: 5
-> +                  - const: 6
-> +                  - const: 7
-> +                  - const: 8
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +
-> +    required:
-> +      - endpoint
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - avdd-supply
-> +  - ovdd-supply
-> +  - dvdd-supply
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        camera@1a {
-> +            compatible = "sony,imx678";
-> +            reg = <0x1a>;
-> +            clocks = <&imx678_clk>;
-> +
-> +            avdd-supply = <&camera_avdd_3v3>;
-> +            ovdd-supply = <&camera_ovdd_1v8>;
-> +            dvdd-supply = <&camera_dvdd_1v2>;
-> +
-> +            xclr-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>;
-> +
-> +            port {
-> +                imx678: endpoint {
-> +                    remote-endpoint = <&cam>;
-> +                    data-lanes = <1 2 3 4>;
-> +                    link-frequencies = /bits/ 64 <720000000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2fb1c75afd16..6b368345a771 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24911,6 +24911,12 @@ T:	git git://linuxtv.org/media.git
->  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
->  F:	drivers/media/i2c/imx415.c
->  
-> +SONY IMX678 SENSOR DRIVER
-> +M:	Jai Luthra <jai.luthra@ideasonboard.com>
-> +L:	linux-media@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> +
->  SONY MEMORYSTICK SUBSYSTEM
->  M:	Maxim Levitsky <maximlevitsky@gmail.com>
->  M:	Alex Dubov <oakad@yahoo.com>
+> diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7=
+621.c
+> index 0a288c998419b..700beb9e7b1a8 100644
+> --- a/drivers/i2c/busses/i2c-mt7621.c
+> +++ b/drivers/i2c/busses/i2c-mt7621.c
+> @@ -67,14 +67,19 @@ struct mtk_i2c {
+>  	struct clk *clk;
+>  };
+> =20
+> -static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
+> +static int mtk_i2c_wait_idle(struct mtk_i2c *i2c, bool atomic)
+>  {
+>  	int ret;
+>  	u32 val;
+> =20
+> -	ret =3D readl_relaxed_poll_timeout(i2c->base + REG_SM0CTL1_REG,
+> -					 val, !(val & SM0CTL1_TRI),
+> -					 10, TIMEOUT_MS * 1000);
+> +	if (atomic)
+> +		ret =3D readl_relaxed_poll_timeout_atomic(i2c->base + REG_SM0CTL1_REG,
+> +							val, !(val & SM0CTL1_TRI),
+> +							10, TIMEOUT_MS * 1000);
 
--- 
-Regards,
+[Severity: High]
+Is this timeout too long for an atomic polling loop?
 
-Laurent Pinchart
+TIMEOUT_MS is defined as 1000, which means this loop will spin using udelay=
+()
+for up to 1,000,000 microseconds (1 full second).
+
+Spinning for a full second in an atomic context stops other critical tasks
+from executing, which could trigger RCU stall warnings or the hardware
+hard-lockup watchdog timer.
+
+[ ... ]
+
+> @@ -198,7 +205,7 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, str=
+uct i2c_msg *msgs,
+>  				cmd =3D SM0CTL1_WRITE;
+>  			}
+> =20
+> -			ret =3D mtk_i2c_cmd(i2c, cmd, page_len);
+> +			ret =3D mtk_i2c_cmd(i2c, cmd, page_len, atomic);
+
+[Severity: High]
+This is a pre-existing issue, but does this write uninitialized kernel stack
+memory to the hardware registers?
+
+In mtk_i2c_xfer_common(), the data array is allocated on the stack:
+
+	u32 data[2];
+
+During a write transfer with a page_len less than 8, memcpy() only initiali=
+zes
+the first page_len bytes of the data array. The code then unconditionally
+writes the full 8 bytes to the IO registers:
+
+	iowrite32(data[0], i2c->base + REG_SM0D0_REG);
+	iowrite32(data[1], i2c->base + REG_SM0D1_REG);
+
+Could this leak uninitialized stack memory to the I2C peripheral?
+
+[ ... ]
+
+> @@ -237,6 +244,18 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, st=
+ruct i2c_msg *msgs,
+>  	return ret;
+>  }
+> =20
+> +static int mtk_i2c_xfer_atomic(struct i2c_adapter *adap,
+> +			       struct i2c_msg *msgs, int num)
+> +{
+> +	return mtk_i2c_xfer_common(adap, msgs, num, true);
+> +}
+
+[Severity: High]
+Can the error path in this atomic transfer trigger a sleep in atomic contex=
+t?
+
+If an error occurs in mtk_i2c_xfer_common() (such as a hardware timeout), t=
+he
+code jumps to err_timeout and resets the device:
+
+mtk_i2c_xfer_atomic()
+  mtk_i2c_xfer_common()
+    goto err_timeout;
+
+err_timeout:
+  mtk_i2c_reset(i2c);
+    device_reset(i2c->adap.dev.parent);
+
+The device_reset() function maps to __device_reset(), which calls
+__reset_control_get(). This sequence acquires multiple mutexes
+(reset_list_mutex and rcdev->lock) and can allocate memory with GFP_KERNEL.
+
+Since mtk_i2c_xfer_atomic() can be executed with IRQs disabled or during a
+kernel panic, won't these blocking operations trigger a scheduling while at=
+omic
+system panic?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519223253.1093=
+-1-ansuelsmth@gmail.com?part=3D1
