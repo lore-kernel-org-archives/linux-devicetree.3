@@ -1,105 +1,96 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ECA369D57
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA26A351C30;
+	Tue, 19 May 2026 11:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779188945; cv=none; b=KqT4gxs+YF9BpEYrQ0bwyekewzcCHb8QyOAvqLAkmnqpWLwecwGDe5UYZ240vaEXmEuahy7WBuGGH4eXcsEPaXlpZVR/zWzGa52bZULNT4wz21/Y39aWGHWjgRXPQfAscR5Pg7t20TML8Gi0BZgKddlNlXI5L10h1+7an6yAWYc=
+	t=1779189133; cv=none; b=ne1c+UlXfElNb6OTykAE136x9Xa4BFMy2Utow1fDTMNRrNBOvuYuiWHeaUxn3qSIXMz5BrhG7NZkrtYsAE/mBoAPeHokztvxsakxPEA7urdJCWa0sfb6XN5eZRITSkNv0lPuvJZ7vyIxJgtnKgaKAYqy+lVPQCTXrmsD8x0vC8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779188945; c=relaxed/simple;
-	bh=681A8bOyXqK28c3Ht6DftfP9GE23z2tPCwXhhgzdcHE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=erNMFzUdrZLxhjEKW6jQ8NvACkjAB7/IFj18X83gSweNVugbHD0z4eE4t7A90wZp6qLibGDiadzU0YzJVPqV0udWsrVGqNknl0/YHPI0SdZhs5/yd3XyrMtc12jGnlVsWaBb6hsoQPqK89v3EE6XML0WyPHR/4i1yp4KC1XxO9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lPPJ03+b; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1779189133; c=relaxed/simple;
+	bh=NL6pEr0lVE0Oz7Jb/DAMuCo4R+Mm/eFSUhMuWgkPAbo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RhkUZDu6QSW44yZfJSgtu9MYMI2IvwPv2FF2xqZMKXZ8XrpVIvcbn65co3x4v2mO7LdcnkcsdrkZg9UZslqvJ0/ED6y4KpEyOc6IhCVggF0sFIILM4EdUVbBMMbsdaxKAXDbB3jZZzgfd7pzgUHACOkJ17giKFzzhakqFPC1SvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URIZmETK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lPPJ03+b"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 382FC4E42CEF;
-	Tue, 19 May 2026 11:09:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D99A0606E9;
-	Tue, 19 May 2026 11:09:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 115D5107E8B31;
-	Tue, 19 May 2026 13:08:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1779188939; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=rZpvAdTidzv5frFA2Fh59VQYe4hvOqmAQpFG53pkriM=;
-	b=lPPJ03+beU7EqTBcCvAJlMCYn4/SnelIvqTJz0zwMbjb08bZHBlSuK8JTIQ4+0DVnfCr46
-	yvyCl6mMLegw+jVfHXVbvNa7IiW1FgaGBLE6+7zJBeOKrD8zGLYlVYy7AkT6JFsJApPs0K
-	9+v70l4hOu8w7CIXxQAVLnQ5+UfxFJ1bk9goDmnsWq9qc5fPFXtpkC8eW+6ODZzAcp5ns5
-	7ya1T7M3Ozz4N7mOGMzhYeQY5GBha93i11thrrL6mpl2VY23vJON/iwSxeqjperT0VmeCM
-	i8QrljjzudkimZwllny+bcsjBmbZZpiea83vxwFXZHwRP4smcr6j/dExBvVBig==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URIZmETK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9AC6C2BCB3;
+	Tue, 19 May 2026 11:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779189133;
+	bh=NL6pEr0lVE0Oz7Jb/DAMuCo4R+Mm/eFSUhMuWgkPAbo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=URIZmETKsBQ5byM1ozAVlSsAG8aUFBpapNYQe3hyVXQdMo+yfRyktc3g6GM/Ix0Jb
+	 bA4rRysax9+BYaAJlM/ybDihO55TO87uEXSffLKX7Fbdelif8h4C4xa0WQoRK35c9z
+	 aZyJokmZ9DyW5PrCb/WOgzGPo+qmPpN7sHQ1cBo0XwGnMhrpKJQQgrWxkq8Z0fMpHH
+	 ZZ+SMC3E16JMvX+JXCSe1umDxp4asrtBquapf9BQBIsFwIazWXV1KXvWXr63gPpXxp
+	 HpKehiQpZXw+J9QkT1fGigyN384lf7VoMpa23iw0YQjcyixDIPzrfzkmtmLR4+xaCs
+	 UBd0R5V9inZsw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: freescale: add ULP watchdog nodes
+ for i.MX platforms
+Reply-To: sashiko-reviews@lists.linux.dev
+To: alice.guo@oss.nxp.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260519105517.3638614-3-alice.guo@oss.nxp.com>
+References: <20260519105517.3638614-3-alice.guo@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 11:12:12 +0000
+Message-Id: <20260519111212.C9AC6C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 05/12] drm/bridge: synopsys: dw-dp: Add follow-up
- bridge support
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-5-d7e7f6bac77f@collabora.com>
-References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
- <20260501-synopsys-dw-dp-improvements-v2-5-d7e7f6bac77f@collabora.com>
-Date: Tue, 19 May 2026 13:08:43 +0200
-Message-Id: <177918892313.537125.10814687633426590148.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 01 May 2026 00:20:32 +0200, Sebastian Reichel <sebastian.reichel@collabora.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Invalid full-width semicolon used to terminate the `bootph-all` pro=
+perty in `imx7ulp.dtsi`.
+- [Low] Commit message prefix does not accurately reflect the changes.
+--
 
-Hello Sebastian,
+commit bf6ac00d8852230a7eddc4b1f0a7d7bed4fb72cd
+Author: Alice Guo <alice.guo@nxp.com>
 
->
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> index fc4ddb7792d7..ccc55e40e81c 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -2064,6 +2064,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
->  		goto unregister_aux;
->  	}
->  
-> +	next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
+arm64: dts: freescale: add ULP watchdog nodes for i.MX platforms
 
-devm_drm_of_get_bridge() looks for either a panel or a bridge. Is it
-possible to have a panel connected here?
+This commit adds ULP watchdog nodes to several i.MX device trees, bringing
+in previously missing watchdog instances. All added nodes are disabled by
+default and include the bootph-all property.
 
-If it isn't, then using of_drm_get_bridge_by_endpoint() which has just been
-merged [0] would be much simpler and cleaner.
+> arm64: dts: freescale: add ULP watchdog nodes for i.MX platforms
 
-[0] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/03d1078112fddd706b2c1e4a7d98cf18700eb5df
+This isn't a bug, but the commit prefix specifically mentions arm64, while
+the patch also modifies an arm 32-bit device tree in
+arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi. Would it be better to split this
+into separate patches for each architecture, or adjust the prefix?
 
-Luca
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi b/arch/arm/boot/dts/n=
+xp/imx/imx7ulp.dtsi
+> index 1355feda1aa72..892799e1fe852 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
+> @@ -325,6 +325,18 @@ smc1: clock-controller@40410000 {
+[ ... ]
+> +		wdog2: watchdog@40430000 {
+> +			compatible =3D "fsl,imx7ulp-wdt";
+> +			reg =3D <0x40430000 0x10000>;
+> +			interrupts =3D <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&pcc2 IMX7ULP_CLK_WDG2>;
+> +			assigned-clocks =3D <&pcc2 IMX7ULP_CLK_WDG2>;
+> +			assigned-clock-parents =3D <&scg1 IMX7ULP_CLK_FIRC_BUS_CLK>;
+> +			timeout-sec =3D <40>;
+> +			status =3D "disabled";
+> +			bootph-all=EF=BC=9B
+> +		};
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Does this property definition end with a full-width Unicode semicolon rather
+than a standard ASCII semicolon? It appears this might lead to a syntax err=
+or
+when the device tree compiler processes the file.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519105517.3638=
+614-1-alice.guo@oss.nxp.com?part=3D3
