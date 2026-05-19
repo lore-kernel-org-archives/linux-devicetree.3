@@ -1,364 +1,792 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from out28-53.mail.aliyun.com (out28-53.mail.aliyun.com [115.124.28.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BB1405C4B
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 10:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779187838; cv=pass; b=rXtpf43v4aya2I4PjyULPd30+c+43afoT6CKr3uGqCCDx+9cP9ZFKvh8D74Q/g/OrNrnjYlzh3RmI/M6n4SUWWSPNlWIhwa/YwtdHoA/rrg4YoNHkKfgjzKWWnBOIJhipQRnY61OnI+5mQle54YyPmGd8TZpnoufJzpjo7p4FS4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779187838; c=relaxed/simple;
-	bh=cyC64b1IdudV6BmVyvS2FCZeravUj92HSF7yWMV8NGg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lOMAFtFMivMvqDNf9q1ktQEg8NQ90Qvp0ZIEP3RJrVH434HqJ9ojoLVg8slPBixY2fmXt8clrvw/u3reyB3CDE2T+ZuhtWxsXsJE1WDSJY4SjCuOABXnhhTE+03kV5P2BuLylPq5GVRQLH1W2utSO7RRHOIgLLCuy5IaIQsIrm8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fnEswBOe; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gIBI4RV6; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857CB40756E;
+	Tue, 19 May 2026 10:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779187840; cv=none; b=FZfLGPkYkQo6S9G3RKxu/9sUNsywMo3VNfiZxqYIy/lK/1Tg+z1jB1nFKRJtNsB+OlByCzqMfp9m66yWBYDHmuWkkMyOzwHbMs/mdsEhhq3FNykfFqMVkXvLfAOIknt5D40cmQjiIcRo8WiCfWidJHcAs0lKGfGojLj+/N7Zz/I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779187840; c=relaxed/simple;
+	bh=7bSgngUy6P5wPIXNseG/RcyZlAvAU94Gpq/0kHqjxls=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ba7M2KEYfrP5G38QjbQP2Ffe+fzsGDw2WGuu1U386TpHuWFLgCFsOQm4NDj5m3lmCk6Y/LrhZD11qw736eTIqum6Un/nEQbO0LUI/bpZ/4hf473usjrAR0OUjyeY3r0e63Bby9x6c1Ljv620ahEmdK0URsW+0znLj6S+mQsB+64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=uPBrxou6; arc=none smtp.client-ip=115.124.28.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fnEswBOe";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gIBI4RV6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779187835;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
-	b=fnEswBOeNwTBUJsJQjwbZjXZi0BFIQsEhgjd3NBNfXPZMz3xpbBLK3JIw79jUT11G0zxdi
-	YxB5gOgU7WShXGdSFIFQYkO+TrVNzjymD0WUdVA1Ci4QybdJWVseAHbkcjjRetMN5dO5AW
-	7gM/sfbjEW94SH7YyHtTnhO895p3IIg=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-214-hE9T8xhmOGC-peGZ9lRtQQ-1; Tue, 19 May 2026 06:50:33 -0400
-X-MC-Unique: hE9T8xhmOGC-peGZ9lRtQQ-1
-X-Mimecast-MFC-AGG-ID: hE9T8xhmOGC-peGZ9lRtQQ_1779187832
-Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5a3fe53da58so92989e87.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 03:50:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779187832; cv=none;
-        d=google.com; s=arc-20240605;
-        b=h7QSk4+QvvnEfi773uCdbH7lfqT+n6c1bpD/yCsp5sFqke5AMCep6JDgJNkN7ejqWb
-         bKF2NtzGu8FzTycQYZaiK0gqFP9idbrs3bTu4ZM91cn7GuByDwBiMN6nQuCixgPukTBw
-         gcKRXvscDaS/TDw6wYNYBB0aUtmvympdbJtXY8Kcan40qavaLBEmkF9+f6dHuqNi5ADI
-         1OtTpgF6pbj4esF8+jdtnf6dAgZyQPYlRkOgODZi1a2gbojRseJMy4KTvPAah13WOpdW
-         l7smfrUV1rS1w8Is/VNdk1m+Yf0eMtU8wTzqMJI1889lCo1NmDRAcJ0UONIp6YJ/UuQl
-         +mvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
-        fh=xwF45ObcJZujdCxaYsrXk+DdF3Agf5QwCITIR4AOnzY=;
-        b=COcI4w95Evdb3rHPylrwPDOlP5VK8dp+QnyE9B5/xB3tFYUM6DR3mfZutjuJImtT/w
-         Fk5PTTZyRbORf5ld2/XUUXUGvMLjgBEXYzc3TiNPWUtcGzaVl+VstNSghJ6A2dCLq9Fh
-         arMa54tX+Zi15DGpKeixFlCooA5+lxtqEF0dXLewQzvhbwF9zVxAFsTt40aBcOIXxs1k
-         q5I/UYgsOX6w1fWhlzWlMm/PUgTUJx+anINOB4WnX3oRlJ/NyTTbw8euJmeP2kx5RX3x
-         fIbEL/NG+Npdwx7pCaKfFOAHds/uEznnwkceHxc4a+YshX2P74/xpMe+A7lqhxwSFIIv
-         J7kg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1779187832; x=1779792632; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
-        b=gIBI4RV68fM/B0DhDpJuML3g8Pi0XEUrEzOU7S3ZF97L6kZMRBvS9P0QFCnBkIW7ZQ
-         Vas4ya1PYktiYtAHYpbC/k8Ubr7d0zDWWfbdBu5xsjgHsT8ZdKCEOptQU4C31UlBdVmH
-         ZQv7E28iHvgWEVGzE+1xeR3e099blQ6JMiis5Z7Flnl685pFxC5EUmk4R8mcwcBoqaaQ
-         4vpnrQ0fMewlCgvPZcnOh4afNn8yhQg+gKFtmJahZZRZwSTd/dqZYrdWWctYXTfpmvD6
-         R9oP2JMpBj5wzmdcMLIqOl7ChGPEciBr/FZI4PlUTkxanoW+Gvntl4wpNSqeekiw5RzB
-         QrMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779187832; x=1779792632;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
-        b=W8Dwv6XvCMbNlUTaLVhsLldTVwTLeawRFsC88lUzHtTwCeMIPuZ9nTvzUrbHabUBmQ
-         Qexz3diQaBOtfSkUywG5qxS9sLdQjTgO/TTXXGglHcygFWV8CpIVP2STBXR002RBa3q6
-         QG/0Y063NVdDzSrJIj7aij3Z6t4rW/CpbJdyAg2P59uJ0NB0wkPRZ8c+s8HbzQMLJAnD
-         0kslMaVv8lGyKbAt4dfdUfxTWpeB7XsRQFFfaPw0rXgtnBnYqOGo7sKgI5paXARGHOOh
-         71MkUd7LR7dzCMR9ung84FI/i+sGAg67ibaKonCA0fb3IGvyWuP5cvw7agDZMO0MBmYk
-         Aepw==
-X-Forwarded-Encrypted: i=1; AFNElJ97zR39BJA14LTMPuoEGqkdOJvuJ8vIJF2Bnkmv4YgOVIf8tx/N1HPver1Kr+wuSBikMLrsI8ghyJEC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd2kuUZa3wzhr5wc6K1czSSHFMXXpcvGMIk41POGPWKX48sxHl
-	DjHRZFJLdO2cPU6TN53JL82yLLo9DUsvxS4vI6nW6NOTIyipjuLm7oloJDr8tggHb643BXI/0da
-	Uq+KDiUURUCW0HRgRHrGM+Vgb8LY8bECpJA92A1Z5UyRu4Go+wNJ7cIYli1lXHcgXmp9AUqb/6B
-	DJ97EH4HIR2dt7FSmEQn/flm0gN5XpT8XsNwCPiQ==
-X-Gm-Gg: Acq92OEuea/4whKpEzJ2lGEI0Y9s/4+Hr//q1U/Xh43Pp+g5sAT5G0eQ3/BapdUU3fv
-	XL+Bjkyv7xNPWEMxgC98St9n05e4ikGUOdf8i5oU7SPgNioUI7DqagUjnNUAIh1niPg6rDq1gYN
-	bKRZAP0qMcLoFOzcKaiL9JuGeSWKfhx7c5JVfUeRhFSokctCTHv5wMx1yUU/nLuIaY4Cv1JG6oG
-	iwY6NgR2hxPMoat
-X-Received: by 2002:a05:651c:e19:b0:38e:2183:2287 with SMTP id 38308e7fff4ca-39561da3d23mr11613891fa.6.1779187831964;
-        Tue, 19 May 2026 03:50:31 -0700 (PDT)
-X-Received: by 2002:a05:651c:e19:b0:38e:2183:2287 with SMTP id
- 38308e7fff4ca-39561da3d23mr11613641fa.6.1779187831311; Tue, 19 May 2026
- 03:50:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="uPBrxou6"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1779187828; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=iN4PKsza+Xa9DpiCWMM/RMWKTImur1ze1Ufb0D4krNQ=;
+	b=uPBrxou6T5pPJai2JjiH7c1oUq2fw2mb1kLnWae1XrEzdMcBdxCHyD/uoogqV7s/S4eQ9onA49tbfEq5SXVYIBWs2tatFvMHvaLPW+ibeth5Mj4r7iS8JzoDNkawrgVXU5AqixXa1AM+tAKbUcTNTRDqlRc/u6dTR1ukNoDa0nEgEXGLOf+SNW7AhoiFCL3hp/td1zrTsO8HloPoDuSO4SlXP0AJ6DdUs5rtWKz3G8AUH7u1stsAkXws949strJRpVa3ObmlKXklPaST0/bNIcI+7R+VYqNuypso53GCcnADqjNITPz3o2zwSzEQWnwFJABGLnzSXvUZyCx4p9Q8cA==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00515167-0.000353307-0.994495;FP=18328311670539642618|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=syyang@lontium.com;NM=1;PH=DS;RN=21;RT=21;SR=0;TI=SMTPD_---.hb62lCy_1779187825;
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hb62lCy_1779187825 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 19 May 2026 18:50:26 +0800
+From: syyang@lontium.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	maarten.lankhorst@linux.intel.com,
+	rfoss@kernel.org,
+	mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	tzimmermann@suse.de,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	xmzhu@lontium.corp-partner.google.com,
+	xmzhu@lontium.com,
+	rlyu@lontium.com,
+	xbpeng@lontium.com,
+	Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v9 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+Date: Tue, 19 May 2026 18:50:19 +0800
+Message-Id: <20260519105019.22622-3-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260519105019.22622-1-syyang@lontium.com>
+References: <20260519105019.22622-1-syyang@lontium.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com>
-In-Reply-To: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com>
-From: Enric Balletbo i Serra <eballetb@redhat.com>
-Date: Tue, 19 May 2026 12:50:19 +0200
-X-Gm-Features: AVHnY4LAnrM7CYLVC2t872uBzKbq5fK7Xe0LmiuWNlKH-VqYUuotXoVDaWFXXlg
-Message-ID: <CALE0LRv3WrwdKhQ=drkco-7AFsgPC-cMc8rvE7TxkgUQvYCfOw@mail.gmail.com>
-Subject: Re: [PATCH v9 0/7] gpio: siul2-s32g2: add initial GPIO driver
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Larisa Grigore <larisa.grigore@nxp.com>, 
-	Lee Jones <lee@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>, 
-	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org, 
-	Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Vincent Guittot <vincent.guittot@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Sunyun Yang <syyang@lontium.com>
 
-Thank you to send these patches upstream
+Add support for the Lontium LT7911EXC bridge chip, which converts
+eDP input to MIPI DSI output using an internal firmware-controlled
+pipeline.
 
-On Mon, May 4, 2026 at 3:12=E2=80=AFPM Khristine Andreea Barbulescu
-<khristineandreea.barbulescu@oss.nxp.com> wrote:
->
-> This patch series adds support for basic GPIO
-> operations(set, get, direction_output/input, set_config).
->
-> There are two SIUL2 hardware modules: SIUL2_0 and SIUL2_1.
-> However, this driver exports both as a single GPIO driver.
-> This is because the interrupt registers are located only
-> in SIUL2_1, even for GPIOs that are part of SIUL2_0.
->
+The driver provides:
+- DRM bridge integration for eDP-to-DSI routing
+- MIPI DSI host interface for downstream panel attachment
+- Firmware upgrade mechanism over I2C (erase/program/verify)
+- GPIO-based reset and regulator management
 
-With gpioinfo I see
+Display timing and DSI packet generation are handled by the chip
+firmware and are not configured by the driver.
 
-> There are two gaps in the GPIO ranges:
-> - 102-111(inclusive) are invalid
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/bridge/Kconfig             |  16 +
+ drivers/gpu/drm/bridge/Makefile            |   1 +
+ drivers/gpu/drm/bridge/lontium-lt7911exc.c | 657 +++++++++++++++++++++
+ 3 files changed, 674 insertions(+)
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 
-line 102: unnamed          input consumer=3Dkernel
-line 103: unnamed          input consumer=3Dkernel
-line 104: unnamed          input consumer=3Dkernel
-line 105: unnamed          input consumer=3Dkernel
-line 106: unnamed          input consumer=3Dkernel
-line 107: unnamed          input consumer=3Dkernel
-line 108: unnamed          input consumer=3Dkernel
-line 109: unnamed          input consumer=3Dkernel
-line 110: unnamed          input consumer=3Dkernel
-line 111: unnamed          input consumer=3Dkernel
-
-> - 123-143(inclusive) are invalid
->
-
-line 123: "PH_11"          input consumer=3D"kernel"
-line 124: "PH_12"          input consumer=3D"kernel"
-line 125: "PH_13"          input consumer=3D"kernel"
-line 126: "PH_14"          input consumer=3D"kernel"
-line 127: "PH_15"          input consumer=3D"kernel"
-line 128: "PI_00"          input consumer=3D"kernel"
-line 129: "PI_01"          input consumer=3D"kernel"
-line 130: "PI_02"          input consumer=3D"kernel"
-line 131: "PI_03"          input consumer=3D"kernel"
-line 132: "PI_04"          input consumer=3D"kernel"
-line 133: "PI_05"          input consumer=3D"kernel"
-line 134: "PI_06"          input consumer=3D"kernel"
-line 135: "PI_07"          input consumer=3D"kernel"
-line 136: "PI_08"          input consumer=3D"kernel"
-line 137: "PI_09"          input consumer=3D"kernel"
-line 138: "PI_10"          input consumer=3D"kernel"
-line 139: "PI_11"          input consumer=3D"kernel"
-line 140: "PI_12"          input consumer=3D"kernel"
-line 141: "PI_13"          input consumer=3D"kernel"
-line 142: "PI_14"          input consumer=3D"kernel"
-line 143: "PI_15"          input consumer=3D"kernel"
-
-> Writing and reading GPIO values is done via the PGPDO/PGPDI
-> registers(Parallel GPIO Pad Data Output/Input) which are
-> 16 bit registers, each bit corresponding to a GPIO.
->
-> Note that the PGPDO order is similar to a big-endian grouping
-> of two registers:
-> PGPDO1, PGPDO0, PGPDO3, PGPDO2, PGPDO5, PGPDO4, gap, PGPDO6.
->
-
-I can also read the correct values from an input pin connected to a
-external switch.
-
-]# gpioget "PB_05"
-"PB_05"=3Dinactive
-]# gpioget "PB_05"
-"PB_05"=3Dactive
-# gpiodetect
-gpiochip0 [4009c240.pinctrl] (191 lines)
-gpiochip1 [0-0022] (24 lines)
-
-So,
-
-Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
-
-> v9 -> v8
-> - remove the SIUL2 syscon child nodes from the
-> device tree and DT bindings
-> - remove syscon child handling from the MFD
-> and pinctrl drivers
-> - remove the MFD driver and use a single monolithic
-> pinctrl/gpio/irqchip driver
-> - add a new compatible for the pinctrl+gpio binding
-> while keeping the previous compatible for the legacy
-> pinctrl-only binding
-> - update bindings to include the PGPDO/PGPDI and
-> IRQ register regions in the DT node for the
-> pinctrl/gpio/irq binding
-> - add IRQ-related entries in the bindings to
-> document the intended hierarchy; IRQ support
-> itself will be added in a future patch series
-> - update DT nodes to match the new hierarchy and
-> compatible scheme
-> - fix dtb warnings
-> - reorder commits: bug fixes, API changes, DT bindings,
-> driver implementation, DTS changes
-> - split commits further to separate minor
-> style-only adjustments
->
-> v8 -> v7
-> - remove all ': true' lines from properties in dt bindings
-> - remove NVMEM MFD cell from SIUL2 in dtsi
-> - remove NVMEM driver and configs
-> - expose SoC information via syscon cells SIUL2_0
-> and SIUL2_1 in MFD driver
-> - add SIUL2_0 and SIUL2_1 syscon nodes in dtsi
-> - add patternProperties for "^siul2_[0-1]$" for syscon nodes
-> - update example to include syscon cells with proper format
-> - remove `reg` property from pinctrl node in dt binding
-> - update Kconfig help text to reflect new syscon structure
-> instead of NVMEM for SoC information
-> - squash deprecated SIUL2 pinctrl binding with new MFD binding
-> - dropped "nxp,s32g3-siul2" from MFD driver match table
-> - fixed commit messages
-> - fixed dtb warnings
->
-> v7 -> v6
-> - fixed MAINTAINERS wrong file path
-> - add unevaluatedProperties, change siul2 node name, remove
->   jtag_pins label in the device tree schema
-> - change compatible definition in schema
-> - change node name in dtsi
-> - mentioned binding deprecation in commit messages
-> - split mfd cell conversion commit in two: one for the
->   previous refactoring, one for the mfd cell conversion
-> - removed Acked-by: Linus Walleij from commit:
->   "pinctrl: s32: convert the driver into an mfd cell"
->   because of changes to that commit
-> - deprecate the nxp,s32g2-siul2-pinctrl binding
-> - add NVMEM MFD cell for SIUL2
-> - made the GPIO driver not export invalid pins
->   (there are some gaps 102-111, 123-143)
-> - removed the need for gpio-reserved-ranges
-> - force initialized pinctrl_desc->num_custom_params to 0
->
-> v6 -> v5
-> - removed description for reg in the dt-bindings and added
->   maxItems
-> - dropped label for example in the dt-bindings
-> - simplified the example in the dt-bindings
-> - changed dt-bindings filename to nxp,s32g2-siul2.yaml
-> - changed title in the dt-bindings
-> - dropped minItmes from gpio-ranges/gpio-reserved-ranges
->   and added maxItems to gpio-reserved-ranges
-> - added required block for -grp[0-9]$ nodes
-> - switch to using "" as quotes
-> - kernel test robot: fixed frame sizes, added description
->   for reg_name, fixed typo in gpio_configs_lock, removed
->   uninitialized ret variable usage
-> - ordered includes in nxp-siul2.c, switched to dev-err-probe
->   added a mention that other commits will add nvmem functionality
->   to the mfd driver
-> - switched spin_lock_irqsave to scoped_guard statement
-> - switched dev_err to dev_err_probe in pinctrl-s32cc in places
->   reached during the probing part
->
-> v5 -> v4
-> - fixed di_div error
-> - fixed dt-bindings error
-> - added Co-developed-by tags
-> - added new MFD driver nxp-siul2.c
-> - made the old pinctrl driver an MFD cell
-> - added the GPIO driver in the existing SIUL2 pinctrl one
-> - Switch from "devm_pinctrl_register" to
->   "devm_pinctrl_register_and_init"
->
-> v4 -> v3
-> - removed useless parentheses
-> - added S32G3 fallback compatible
-> - fixed comment alignment
-> - fixed dt-bindings license
-> - fixed modpost: "__udivdi3"
-> - moved MAINTAINERS entry to have the new GPIO driver
->   together with other files related to S32G
->
-> v3 -> v2
-> - fix dt-bindings schema id
-> - add maxItems to gpio-ranges
-> - removed gpio label from dt-bindings example
-> - added changelog for the MAINTAINERS commit and
->   added separate entry for the SIUL2 GPIO driver
-> - added guard(raw_spinlock_irqsave) in
->   'siul2_gpio_set_direction'
-> - updated the description for
->   'devm_platform_get_and_ioremap_resource_byname'
->
-> v2 -> v1
-> dt-bindings:
-> - changed filename to match compatible
-> - fixed commit messages
-> - removed dt-bindings unnecessary properties descriptions
-> - added minItems for the interrupts property
-> driver:
-> - added depends on ARCH_S32 || COMPILE_TEST to Kconfig
-> - added select REGMAP_MMIO to Kconfig
-> - remove unnecessary include
-> - add of_node_put after `siul2_get_gpio_pinspec`
-> - removed inline from function definitions
-> - removed match data and moved the previous platdata
->   definition to the top of the file to be visible
-> - replace bitmap_set/clear with __clear_bit/set_bit
->   and devm_bitmap_zalloc with devm_kzalloc
-> - switched to gpiochip_generic_request/free/config
-> - fixed dev_err format for size_t reported by
->   kernel test robot
-> - add platform_get_and_ioremap_resource_byname wrapper
->
-> Andrei Stefanescu (2):
->   pinctrl: s32cc: change to "devm_pinctrl_register_and_init"
->   pinctrl: s32cc: implement GPIO functionality
->
-> Khristine Andreea Barbulescu (5):
->   pinctrl: s32cc: use dev_err_probe() and improve error messages
->   pinctrl: s32cc: add/fix some comments
->   pinctrl: s32cc: remove inline specifiers
->   dt-bindings: pinctrl: s32g2-siul2: describe GPIO and EIRQ resources
->   arm64: dts: s32g: describe GPIO and EIRQ resources in SIUL2 pinctrl
->     node
->
->  .../pinctrl/nxp,s32g2-siul2-pinctrl.yaml      | 107 ++-
->  arch/arm64/boot/dts/freescale/s32g2.dtsi      |  26 +-
->  arch/arm64/boot/dts/freescale/s32g3.dtsi      |  26 +-
->  drivers/pinctrl/nxp/pinctrl-s32.h             |  15 +-
->  drivers/pinctrl/nxp/pinctrl-s32cc.c           | 646 ++++++++++++++----
->  drivers/pinctrl/nxp/pinctrl-s32g2.c           |  25 +-
->  6 files changed, 707 insertions(+), 138 deletions(-)
->
-> --
-> 2.34.1
->
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index c3209b0f4678..013e431e8871 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -132,6 +132,22 @@ config DRM_ITE_IT6505
+ 	help
+ 	  ITE IT6505 DisplayPort bridge chip driver.
+ 
++config DRM_LONTIUM_LT7911EXC
++	tristate "Lontium eDP/MIPI DSI bridge"
++	depends on OF
++	depends on I2C
++	select CRC32
++	select DRM_PANEL
++	select DRM_MIPI_DSI
++	select DRM_KMS_HELPER
++	select FW_LOADER
++	select REGMAP_I2C
++	help
++	  DRM driver for the Lontium LT7911EXC bridge
++	  chip.The LT7911EXC converts eDP input to MIPI
++	  DSI output.
++	  Please say Y if you have such hardware.
++
+ config DRM_LONTIUM_LT8912B
+ 	tristate "Lontium LT8912B DSI/HDMI bridge"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+index beab5b695a6e..70ddca75dd3a 100644
+--- a/drivers/gpu/drm/bridge/Makefile
++++ b/drivers/gpu/drm/bridge/Makefile
+@@ -13,6 +13,7 @@ obj-$(CONFIG_DRM_I2C_NXP_TDA998X) += tda998x.o
+ obj-$(CONFIG_DRM_INNO_HDMI) += inno-hdmi.o
+ obj-$(CONFIG_DRM_ITE_IT6263) += ite-it6263.o
+ obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
++obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
+ obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
+ obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
+ obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
+diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+new file mode 100644
+index 000000000000..e94188e7987a
+--- /dev/null
++++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+@@ -0,0 +1,657 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Lontium Semiconductor, Inc.
++ */
++
++#include <linux/crc32.h>
++#include <linux/delay.h>
++#include <linux/firmware.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/of_graph.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
++
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_of.h>
++#include <video/mipi_display.h>
++
++#define FW_SIZE (64 * 1024)
++#define LT_PAGE_SIZE 32
++#define FW_FILE  "Lontium/lt7911exc_fw.bin"
++#define LT7911EXC_PAGE_CONTROL 0xff
++
++struct lt7911exc_dsi_output {
++	struct mipi_dsi_device *dev;
++	struct drm_panel *panel;
++	struct drm_bridge *bridge;
++	};
++
++struct lt7911exc {
++	struct device *dev;
++	struct i2c_client *client;
++	struct drm_bridge bridge;
++	struct work_struct work;
++	struct mipi_dsi_host dsi_host;
++	struct lt7911exc_dsi_output output;
++
++	struct regmap *regmap;
++	/* Prevents concurrent register accesses by multiple read/write operations in the driver */
++	struct mutex ocm_lock;
++	struct gpio_desc *reset_gpio;
++	int fw_version;
++	bool upgrade;
++};
++
++static const struct regmap_range_cfg lt7911exc_ranges[] = {
++	{
++		.name = "register_range",
++		.range_min =  0,
++		.range_max = 0xe8ff,
++		.selector_reg = LT7911EXC_PAGE_CONTROL,
++		.selector_mask = 0xff,
++		.selector_shift = 0,
++		.window_start = 0,
++		.window_len = 0x100,
++	},
++};
++
++static const struct regmap_config lt7911exc_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = 0xe8ff,
++	.ranges = lt7911exc_ranges,
++	.num_ranges = ARRAY_SIZE(lt7911exc_ranges),
++};
++
++static u32 cal_crc32_custom(const u8 *data, u64 length)
++{
++	u32 crc = 0xffffffff;
++	u8 buf[4];
++	u64 i;
++
++	if (!length || (length & 3))
++		return 0;
++
++	for (i = 0; i < length; i += 4) {
++		buf[0] = data[i + 3];
++		buf[1] = data[i + 2];
++		buf[2] = data[i + 1];
++		buf[3] = data[i + 0];
++		crc = crc32_be(crc, buf, 4);
++	}
++
++	return crc;
++}
++
++static inline struct lt7911exc *bridge_to_lt7911exc(struct drm_bridge *bridge)
++{
++	return container_of(bridge, struct lt7911exc, bridge);
++}
++
++static inline struct lt7911exc *dsi_host_to_lt7911exc(struct mipi_dsi_host *host)
++{
++	return container_of(host, struct lt7911exc, dsi_host);
++}
++
++/*
++ * Purpose of this function is rest gpio: high -> low -> high
++ * This clears the previous configuration in the chip,
++ * and finally remains high to allow the firmware to run again.
++ */
++static void lt7911exc_reset(struct lt7911exc *lt7911exc)
++{
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
++	msleep(20);
++
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
++	msleep(20);
++
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
++	msleep(400);
++
++	dev_dbg(lt7911exc->dev, "lt7911exc reset.\n");
++}
++
++static int lt7911exc_hw_mcu_halt(struct lt7911exc *lt7911exc)
++{
++	return regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
++}
++
++static int lt7911exc_hw_mcu_run(struct lt7911exc *lt7911exc)
++{
++	return regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
++}
++
++static int lt7911exc_regulator_enable(struct lt7911exc *lt7911exc)
++{
++	int ret;
++
++	ret = devm_regulator_get_enable(lt7911exc->dev, "vcc");
++	if (ret < 0)
++		return dev_err_probe(lt7911exc->dev, ret, "failed to enable vcc regulator\n");
++
++	usleep_range(5000, 10000);
++
++	ret = devm_regulator_get_enable(lt7911exc->dev, "vdd");
++	if (ret < 0)
++		return dev_err_probe(lt7911exc->dev, ret, "failed to enable vdd regulator\n");
++
++	return 0;
++}
++
++static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
++{
++	u8 buf[3];
++	int ret;
++
++	/* no need to halt MCU for this register access */
++	ret = regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, ARRAY_SIZE(buf));
++	if (ret)
++		return ret;
++
++	return (buf[0] << 16) | (buf[1] << 8) | buf[2];
++}
++
++static int lt7911exc_block_erase(struct lt7911exc *lt7911exc)
++{
++	struct device *dev = lt7911exc->dev;
++	const u32 addr = 0x00;
++	int ret;
++
++	const struct reg_sequence seq_write[] = {
++		REG_SEQ0(0xe0ee, 0x01),
++		REG_SEQ0(0xe054, 0x01),
++		REG_SEQ0(0xe055, 0x06),
++		REG_SEQ0(0xe051, 0x01),
++		REG_SEQ0(0xe051, 0x00),
++		REG_SEQ0(0xe054, 0x05),
++		REG_SEQ0(0xe055, 0xd8),
++		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
++		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
++		REG_SEQ0(0xe05c, addr & 0xff),
++		REG_SEQ0(0xe051, 0x01),
++		REG_SEQ0(0xe050, 0x00),
++	};
++
++	ret = regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
++	if (ret)
++		return ret;
++
++	msleep(200);
++	dev_dbg(dev, "erase flash done.\n");
++
++	return 0;
++}
++
++static int lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
++{
++	int ret;
++
++	const struct reg_sequence seq_write[] = {
++		REG_SEQ0(0xe0ee, 0x01),
++		REG_SEQ0(0xe05f, 0x01),
++		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
++		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
++		REG_SEQ0(0xe05c, addr & 0xff),
++	};
++
++	ret = regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static int lt7911exc_write_data(struct lt7911exc *lt7911exc, const struct firmware *fw, u64 addr)
++{
++	struct device *dev = lt7911exc->dev;
++	int ret;
++	int page = 0, num = 0, page_len = 0;
++	u64 size, offset;
++	const u8 *data;
++
++	data = fw->data;
++	size = fw->size;
++	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
++	if (page * LT_PAGE_SIZE > FW_SIZE) {
++		dev_err(dev, "firmware size out of range\n");
++		return -EINVAL;
++	}
++
++	dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
++
++	for (num = 0; num < page; num++) {
++		offset = num * LT_PAGE_SIZE;
++		page_len = (offset + LT_PAGE_SIZE <= size) ? LT_PAGE_SIZE : (size - offset);
++		ret = lt7911exc_prog_init(lt7911exc, addr);
++		if (ret)
++			return ret;
++
++		ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, &data[offset], page_len);
++		if (ret) {
++			dev_err(dev, "write error at page %d\n", num);
++			return ret;
++		}
++
++		if (page_len < LT_PAGE_SIZE) {
++			regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
++			regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
++			//hardware requires delay
++			usleep_range(1000, 2000);
++		}
++
++		regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
++		addr += LT_PAGE_SIZE;
++	}
++
++	return 0;
++}
++
++static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u32 crc32, u64 addr)
++{
++	u8 crc[4];
++	int ret;
++
++	crc[0] = crc32 & 0xff;
++	crc[1] = (crc32 >> 8) & 0xff;
++	crc[2] = (crc32 >> 16) & 0xff;
++	crc[3] = (crc32 >> 24) & 0xff;
++
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
++	regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
++	regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
++	regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
++
++	ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
++	if (ret)
++		return ret;
++
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
++	usleep_range(1000, 2000);
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
++
++	return 0;
++}
++
++static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc, u32 crc32)
++{
++	struct device *dev = lt7911exc->dev;
++	u32 read_hw_crc = 0;
++	u8 crc_tmp[4];
++	int ret;
++
++	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
++	regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
++	regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
++	msleep(150);
++	ret = regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, ARRAY_SIZE(crc_tmp));
++	if (ret) {
++		dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
++		return ret;
++	}
++	regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
++
++	read_hw_crc = ((u32)crc_tmp[0] << 24) | ((u32)crc_tmp[1] << 16) |
++				((u32)crc_tmp[2] << 8) | ((u32)crc_tmp[3]);
++
++	if (read_hw_crc != crc32) {
++		dev_err(dev, "lt7911exc firmware upgrade failed, expected CRC=0x%08x, read CRC=0x%08x\n",
++			crc32, read_hw_crc);
++		return -EIO;
++	}
++
++	dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=0x%08x\n", read_hw_crc);
++	return 0;
++}
++
++static void lt7911exc_firmware_upgrade_work(struct work_struct *work)
++{
++	struct lt7911exc *lt7911exc = container_of(work, struct lt7911exc, work);
++	struct device *dev = lt7911exc->dev;
++	const struct firmware *fw;
++	u8 *buffer;
++	size_t total_size = FW_SIZE - 4;
++	u32 crc32;
++	int ret;
++
++	ret = request_firmware(&fw, FW_FILE, dev);
++	if (ret) {
++		dev_err(dev, "failed to load '%s'\n", FW_FILE);
++		goto out_status_only;
++	}
++
++	if (fw->size > total_size) {
++		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
++		goto out_release_fw;
++	}
++
++	buffer = kmalloc(total_size, GFP_KERNEL);
++	if (!buffer) {
++		ret = -ENOMEM;
++		goto out_release_fw;
++	}
++
++	memset(buffer, 0xff, total_size);
++	memcpy(buffer, fw->data, fw->size);
++	crc32 = cal_crc32_custom(buffer, total_size);
++	kfree(buffer);
++
++	mutex_lock(&lt7911exc->ocm_lock);
++
++	lt7911exc_reset(lt7911exc);
++
++	lt7911exc_hw_mcu_halt(lt7911exc);
++	ret = lt7911exc_block_erase(lt7911exc);
++	if (ret) {
++		dev_err(dev, "failed to block erase.\n");
++		goto out_unlock;
++	}
++
++	ret = lt7911exc_write_data(lt7911exc, fw, 0);
++	if (ret < 0) {
++		dev_err(dev, "failed to write firmware data\n");
++		goto out_unlock;
++	}
++
++	ret = lt7911exc_write_crc(lt7911exc, crc32, FW_SIZE - 4);
++	if (ret < 0) {
++		dev_err(dev, "failed to write firmware crc\n");
++		goto out_unlock;
++	}
++
++	lt7911exc_reset(lt7911exc);
++	ret = lt7911exc_upgrade_result(lt7911exc, crc32);
++	if (ret)
++		dev_err(dev, "firmware verification failed\n");
++
++out_unlock:
++	lt7911exc_hw_mcu_run(lt7911exc);
++	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
++	lt7911exc->upgrade = false;
++	mutex_unlock(&lt7911exc->ocm_lock);
++
++out_release_fw:
++	release_firmware(fw);
++	return;
++
++out_status_only:
++	mutex_lock(&lt7911exc->ocm_lock);
++	lt7911exc->upgrade = false;
++	mutex_unlock(&lt7911exc->ocm_lock);
++}
++
++static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struct drm_atomic_state *state)
++{
++	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
++
++	if (lt7911exc->upgrade)
++		return;
++
++	//enable mipi stream
++	regmap_write(lt7911exc->regmap, 0xe0b0, 0x01);
++}
++
++static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
++{
++	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
++
++	if (lt7911exc->upgrade)
++		return;
++
++	//disable mipi stream
++	regmap_write(lt7911exc->regmap, 0xe0b0, 0x00);
++}
++
++static int lt7911exc_bridge_attach(struct drm_bridge *bridge,
++				   struct drm_encoder *encoder,
++				   enum drm_bridge_attach_flags flags)
++{
++	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
++
++	if (!lt7911exc->output.bridge) {
++		dev_warn(lt7911exc->dev, "Next bridge/panel not attached yet, deferring\n");
++		return -EPROBE_DEFER;
++	}
++
++	return drm_bridge_attach(encoder, lt7911exc->output.bridge, bridge, flags);
++}
++
++static const struct drm_bridge_funcs lt7911exc_bridge_funcs = {
++	.attach = lt7911exc_bridge_attach,
++	.atomic_pre_enable = lt7911exc_atomic_pre_enable,
++	.atomic_post_disable = lt7911exc_atomic_post_disable,
++	.atomic_reset = drm_atomic_helper_bridge_reset,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++};
++
++static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct mipi_dsi_device *dev)
++{
++	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
++	struct drm_bridge *bridge;
++	struct drm_panel *panel;
++	int ret;
++
++	ret = drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel, &bridge);
++	if (ret)
++		return ret;
++
++	if (panel) {
++		bridge = drm_panel_bridge_add_typed(panel, DRM_MODE_CONNECTOR_DSI);
++		if (IS_ERR(bridge))
++			return PTR_ERR(bridge);
++	}
++	lt7911exc->output.dev = dev;
++	lt7911exc->output.bridge = bridge;
++	lt7911exc->output.panel = panel;
++
++	drm_bridge_add(&lt7911exc->bridge);
++	return 0;
++}
++
++static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct mipi_dsi_device *dev)
++{
++	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
++
++	drm_bridge_remove(&lt7911exc->bridge);
++	if (lt7911exc->output.panel)
++		drm_panel_bridge_remove(lt7911exc->output.bridge);
++
++	return 0;
++}
++
++/*
++ * The internal firmware controls the panel initialization
++ * sequence and handles all MIPI DSI command transmission.
++ */
++static ssize_t lt7911exc_dsi_host_transfer(struct mipi_dsi_host *host,
++					   const struct mipi_dsi_msg *msg)
++{
++	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
++
++	if (msg->rx_len) {
++		dev_warn(lt7911exc->dev, "MIPI DSI read is not supported\n");
++		return -EOPNOTSUPP;
++	}
++
++	switch (msg->type) {
++	case MIPI_DSI_DCS_SHORT_WRITE:
++	case MIPI_DSI_DCS_SHORT_WRITE_PARAM:
++	case MIPI_DSI_DCS_LONG_WRITE:
++	case MIPI_DSI_GENERIC_SHORT_WRITE_0_PARAM:
++	case MIPI_DSI_GENERIC_SHORT_WRITE_1_PARAM:
++	case MIPI_DSI_GENERIC_SHORT_WRITE_2_PARAM:
++	case MIPI_DSI_GENERIC_LONG_WRITE:
++	break;
++	default:
++	return -EOPNOTSUPP;
++	}
++
++	if (lt7911exc->upgrade)
++		return -EBUSY;
++
++	return msg->tx_len;
++}
++
++static const struct mipi_dsi_host_ops lt7911exc_dsi_host_ops = {
++	.attach = lt7911exc_dsi_host_attach,
++	.detach = lt7911exc_dsi_host_detach,
++	.transfer = lt7911exc_dsi_host_transfer,
++};
++
++static ssize_t lt7911exc_firmware_store(struct device *dev, struct device_attribute *attr,
++					const char *buf, size_t len)
++{
++	struct lt7911exc *lt7911exc = dev_get_drvdata(dev);
++
++	mutex_lock(&lt7911exc->ocm_lock);
++	if (lt7911exc->upgrade) {
++		mutex_unlock(&lt7911exc->ocm_lock);
++		return -EBUSY;
++	}
++
++	lt7911exc->upgrade = true;
++	mutex_unlock(&lt7911exc->ocm_lock);
++
++	schedule_work(&lt7911exc->work);
++
++	return len;
++}
++
++static ssize_t lt7911exc_firmware_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	struct lt7911exc *lt7911exc = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "0x%04x\n", lt7911exc->fw_version);
++}
++
++static DEVICE_ATTR_RW(lt7911exc_firmware);
++
++static struct attribute *lt7911exc_attrs[] = {
++	&dev_attr_lt7911exc_firmware.attr,
++	NULL,
++};
++
++static const struct attribute_group lt7911exc_attr_group = {
++	.attrs = lt7911exc_attrs,
++};
++
++static const struct attribute_group *lt7911exc_attr_groups[] = {
++	&lt7911exc_attr_group,
++	NULL,
++};
++
++static int lt7911exc_probe(struct i2c_client *client)
++{
++	struct lt7911exc *lt7911exc;
++	struct device *dev = &client->dev;
++	struct device_node *np = dev->of_node;
++	int ret;
++
++	if (!np)
++		return -ENODEV;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
++
++	lt7911exc = devm_drm_bridge_alloc(dev, struct lt7911exc, bridge, &lt7911exc_bridge_funcs);
++	if (IS_ERR(lt7911exc))
++		return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge alloc failed.\n");
++
++	dev_set_drvdata(dev, lt7911exc);
++
++	lt7911exc->client = client;
++	lt7911exc->dev = dev;
++	lt7911exc->upgrade = false;
++
++	ret = devm_mutex_init(dev, &lt7911exc->ocm_lock);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to init mutex\n");
++
++	lt7911exc->regmap = devm_regmap_init_i2c(client, &lt7911exc_regmap_config);
++	if (IS_ERR(lt7911exc->regmap))
++		return dev_err_probe(dev, PTR_ERR(lt7911exc->regmap), "regmap i2c init failed\n");
++
++	/*
++	 * reset GPIO is defined as active low in device tree.
++	 * gpiod_set_value_cansleep() uses logical value:
++	 * 1 -> asserted (active)  -> physical low  -> reset enabled -> chip stop
++	 * 0 -> deasserted (inactive) -> physical high -> reset released -> chip run
++	 */
++	lt7911exc->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(lt7911exc->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(lt7911exc->reset_gpio),
++				     "failed to acquire reset gpio\n");
++
++	ret = lt7911exc_regulator_enable(lt7911exc);
++	if (ret)
++		return ret;
++
++	lt7911exc_reset(lt7911exc);
++
++	mutex_lock(&lt7911exc->ocm_lock);
++
++	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
++
++	mutex_unlock(&lt7911exc->ocm_lock);
++
++	if (lt7911exc->fw_version < 0)
++		return dev_err_probe(dev, lt7911exc->fw_version, "failed read version of chip\n");
++
++	lt7911exc->dsi_host.dev = dev;
++	lt7911exc->dsi_host.ops = &lt7911exc_dsi_host_ops;
++	lt7911exc->bridge.of_node = np;
++
++	INIT_WORK(&lt7911exc->work, lt7911exc_firmware_upgrade_work);
++
++	i2c_set_clientdata(client, lt7911exc);
++
++	return mipi_dsi_host_register(&lt7911exc->dsi_host);
++}
++
++static void lt7911exc_remove(struct i2c_client *client)
++{
++	struct lt7911exc *lt7911exc = i2c_get_clientdata(client);
++
++	mipi_dsi_host_unregister(&lt7911exc->dsi_host);
++	cancel_work_sync(&lt7911exc->work);
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
++}
++
++static const struct i2c_device_id lt7911exc_i2c_table[] = {
++	{"lt7911exc"},
++	{/* sentinel */}
++};
++
++MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
++
++static const struct of_device_id lt7911exc_devices[] = {
++	{.compatible = "lontium,lt7911exc"},
++	{/* sentinel */}
++};
++MODULE_DEVICE_TABLE(of, lt7911exc_devices);
++
++static struct i2c_driver lt7911exc_driver = {
++	.id_table	= lt7911exc_i2c_table,
++	.probe		= lt7911exc_probe,
++	.remove		= lt7911exc_remove,
++	.driver		= {
++		.name	= "lt7911exc",
++		.of_match_table = lt7911exc_devices,
++		.dev_groups = lt7911exc_attr_groups,
++	},
++};
++module_i2c_driver(lt7911exc_driver);
++
++MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
++MODULE_DESCRIPTION("Lontium LT7911EXC EDP to MIPI DSI bridge driver");
++MODULE_LICENSE("GPL");
++MODULE_FIRMWARE(FW_FILE);
+-- 
+2.34.1
 
