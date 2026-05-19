@@ -1,193 +1,298 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013029.outbound.protection.outlook.com [52.101.83.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4EA3B27F1;
-	Tue, 19 May 2026 07:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779174021; cv=fail; b=Tpj2epXFa4VgOcBBXswgor7fizyDyBdXlNoCFvwRthQuJQtEM1A33dJEfcxfQQZrGUtO7NedP+vWpM/LHMfoplIxKQEr9htpjQpWOfNjbC/1QZCTYqE4uZYAdiknCrEnIpjSV0bDLnMJzQmXel89QOOIApE7p36U2NzBtDRSGPM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779174021; c=relaxed/simple;
-	bh=p0sn3X7C7SYtrh0BuxUP1Z0XjvsDmjk7IzD82E0sdfk=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=REGfCBBYVjOPoyxNod+bfa+2nN38GHE63LB35hADCOOAJN+Vguy+4fljBe6irA7qhaDpDUOkmg7meoLp3u/yeOS62PcD1q2ftKn1UmCrS/yyYNh0wkck64okUMXO+gdx71itIvcUcGq3FJl6t8bQtNerWWBgiY5J8KrrXBRVNMg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=cjFrOguG; arc=fail smtp.client-ip=52.101.83.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B592F83A0
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779174276; cv=none; b=fG4JETJzvDKjht2oQg3YjwC7pShv5uOsusX/7AM5I0TdaZ66xlItvfbZW3+JgBaRg2vD8rLyN7vQp/PhpC5TJFpK7A99nfhgU7sZc3sklv/ZKesl+haxeqwI5/t063LMTLjSc5UbSDudWlb3441ifT35zBuK5OYtEadjYyITTNE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779174276; c=relaxed/simple;
+	bh=Kvo2bP7sF0ZsQRtWDKTiW903tqF1p3n28QXipRihoxM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Tl9/TIS83reqDFRVj6Zs4D2vtz4GcKsU2bkSqY+CuRo0UjYHz37n5EhZRLtdzsTQxnlA0JVina7kCJ2nkWt+01xvkflMniqZy5y5CrgRJ4L2F4w/55azCh1xxG9PfyhUelqxosQOHGkZ4vC+fhLYOOE3/BU8ZwUhgA2X1+XyI7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PamhpUBW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="cjFrOguG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q4WTyzL2KyUf3G1f6p94x8lDH2PBNJxn641wBRGfgTr953pFjSaQJmjOy7JYeXX+w+nJfBtvu4J0aOziCVuDCcYBzBMh0vQpggi8nw5eSU5+k3hMuurPHtIl+Mo5s98o3nKr5IpySHVISWz4UWs3TFACv8/8dN3ogILwMsOpqrsJ2bso/npuPDRkohp+yIZT6se6Xa0694iVd2ruQume+3p2s9qJohVfI5Q+HfZCzp7JaE3uAaZppGivO7RrCD3hUyx2LxpORJaZloLQIOTSeN6xvk75rQvYGuU85Rmb3bTDRHZSXzgScsTDNPY9/ytH8A94OIcphyy8s3a/X8kz1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Va0iJQ3QkztTydIHP6G79UQcuYZ9DLCUZfSNk2pPJs0=;
- b=oSc3ntLG/9bwTF0b/RHFgn6J67w1ns2GGn/Xd20YKWZtRCdR2Y39Hau5zG7aRVeKtHyPl9Xif1/Q/8+BpFq+valfgaFMZ7M9UY+SJdm5IyE9d/3BkfyXLOp0z+WW8ZkcKdW07BHvgilgwZmFdyl9OAiH0Fp/A0zdrgktZ2PbiutZin1js3C+9vSfIMQIluk3MJcMo94tqYepprVMKx2pntM25DkzFYzGjO2xl8pUPRPc7o7h7gJkW3OKrUjQRzsza25IlDU6CW8paqLJEhZYqlme7xyWwggf7DAoLm/j5m/8AL0iFRUj6souaOl+HxT9RS3BS9+s6ehHDXDeNJ1P0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Va0iJQ3QkztTydIHP6G79UQcuYZ9DLCUZfSNk2pPJs0=;
- b=cjFrOguG3uvVSs6VflfQeg1W5DEaUs66QPlAPeDuDovdWwfbJCMjaFTOdw0kVFP6QPteV3ukM5BUxt6z4G3kDUxlV2C+hRxSkAVa0zVd1xde2PLv2p/K7m6DRRsQ3Wm2XSB3rjqTAVvbJf5MtRjjxBPS8gfp+hWMBeQwGXNLzlztbP2CNmSkMEQ3y6asZQwev4evW8zsfMnWN4CWsvx8GZBauuFG+8UPCV8yFG/bv79aQVIJTc7aFpjoMzJUO5RE+wg7HLCc8wX1bgF4AUFphjTZdMr9cAKRucrngf4bqrnb97jtijUdSkIvG0tOU1e51bENtOjb9DRD8OeCbfew/A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- (2603:10a6:150:30c::14) by DU0PR04MB9273.eurprd04.prod.outlook.com
- (2603:10a6:10:354::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
- 2026 07:00:15 +0000
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe]) by GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 07:00:15 +0000
-From: Richard Zhu <hongxing.zhu@nxp.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	frank.li@nxp.com,
-	s.hauer@pengutronix.de,
-	festevam@gmail.com
-Cc: kernel@pengutronix.de,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Richard Zhu <hongxing.zhu@nxp.com>
-Subject: [PATCH v6] arm64: dts: imx95: Correct PCIe outbound address space configuration
-Date: Tue, 19 May 2026 15:02:23 +0800
-Message-Id: <20260519070223.361106-1-hongxing.zhu@nxp.com>
-X-Mailer: git-send-email 2.37.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5PR01CA0216.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f3::6) To GV2PR04MB12019.eurprd04.prod.outlook.com
- (2603:10a6:150:30c::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PamhpUBW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C703C2BCB3;
+	Tue, 19 May 2026 07:04:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779174275;
+	bh=Kvo2bP7sF0ZsQRtWDKTiW903tqF1p3n28QXipRihoxM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=PamhpUBWS9wmvdIMar2N3auVL8RGrj/X1bs6Cx+TMYoSZsk9n/OqdOsqWfQSnR2uU
+	 xm5DEfSSRSifNA5OX8dWzmaXfiCD6k+6VZb7xUX/nCTLrri/rvzlXFThlRG2k1dFOM
+	 lPpQAqZA1dzwRs6PBf+XqR3gR1fCYYSn0Jcrp2oD+W55PkcbWDH2IRY5QC3kXLafAs
+	 xt1g+H58ffM9MVUzbTRS0c6tfzIDI+ZE7XAqxxYJhgznApqSwuDvoXxmPMRvui4I42
+	 +kLAcxXMv5X62+sy1z1Vzwpf2rLoXjEqX9S84Gv4u+k3gFR3KiOHszV53obsTpyrUM
+	 sSSOF41gsi96Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: Add device tree for Nord SoC
+ series
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260519063505.883379-6-shengchao.guo@oss.qualcomm.com>
+References: <20260519063505.883379-6-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 07:04:34 +0000
+Message-Id: <20260519070435.6C703C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12019:EE_|DU0PR04MB9273:EE_
-X-MS-Office365-Filtering-Correlation-Id: da4e66d9-c899-42e4-bca7-08deb5744721
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|7416014|376014|52116014|38350700014|56012099003|18002099003|11063799003;
-X-Microsoft-Antispam-Message-Info:
-	UUXkEpjClb4QqQruMKk2sF0r7wai0P5I/r6U1AmD9q5AC5cWn83EXD97qBSYnpG/kWUt3MWaZoHRJkrydX16zi6ArsE0K6wQ5DGDcd9rgPjCAZW74h02umU2PQ9gfhoJTs+/m3f2ktV64U9D5fU5AlalBENvqQUFRIFvdfu2+DmQ5JxGoDg8kqQLCnxudPg024jdRKzhSQg3IOnU03/sTkAnIGbztXS6i5Y2wheLydII/Bzd25BwLJ0ro+w5rqD0aErz4MYt9R+jSMiLSP/fTPj75ev9fiOY2/kONo+d46Vj3QvND3GAV3jyRf0O3KdIThupAZ1M5z+mr9oPfpkNDMCMbi415o0ARvYWzXBn8DnoQqBzXyvb/ojXI+UrUPZuZr4tm0kKojqEcTdGENBdSG/9z1xHN39xirtlbhhgI6KAbgcsVHtwHE5q89yvKrmMYTyt2V7IUgn8Paenjp2jCmJtoEgsCzvO93nYgDjSJMBF30AIVv9QuVb6QJmriSQCip8/Lg5Z50J5GpYJOcYs4g/5X/U2Tlq81FS0Wf0nws+y2wx0gdMdJDy8xLVZk4AszEOpCbdDY+8gPExFN+JtNuxMZR9nBlm7wuAenRS5xlQD8Tb7x3waizP/eEmrfmlPPsoeuSlMRtDdQOPKwtWIOfGqM18hM5FeZJmPnfTIFdtZDAgSQiwZwbDjycwKNmCh+GMfdUYGVBjCsFOTnbQFA165hRahAvNmqCHbfy+WMPpP1OoFbCiaSsKQoOXxZ52j
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12019.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(52116014)(38350700014)(56012099003)(18002099003)(11063799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?urZmM+ly6yO84sBZdvVuPKJVPdAafTp5QsWB8pSUrbLZaK3tRcUIcqx7CZd+?=
- =?us-ascii?Q?5G5ACZsEeMOeA5AwOSs97OcO9NNdPslKS1DTsnsDkAdfjxL/YCowj9/zOSql?=
- =?us-ascii?Q?D5xyrkVCP2eggE62iLPDbNR/4J9fPI+ethukSbPIoRcBmb5czTFYx8BBLO5L?=
- =?us-ascii?Q?gr29PsBZtuTrK4gqubS6TckiD0h5lZzIDmON+s/osAPe7w0HkPK9kj9tmx8j?=
- =?us-ascii?Q?dSYVqnkkXIwGY2kc1D12OgNMrvSbwxdUuJxlqK73E8A/50oM0UFJumK+qvhM?=
- =?us-ascii?Q?dtB+5MegtWP2l890KXbbHK+Yzazbe/tXCLVuOYF7/aORmHOTQ8bDV/9U9woG?=
- =?us-ascii?Q?9G9I8lIOHTb8MgnUwK9BPYb1RzKiHU8lR84+/MsQSLUJJDyH5mwsD9vKyJuJ?=
- =?us-ascii?Q?KMSnAbx56lPDIwU+XrbBIoeW+IvGd6h/cu7X46QCwH3bT2rNj6w8jGxGAdrK?=
- =?us-ascii?Q?OlLsNN07xo7cCbi2kp1UohuDMq6BjYuY97AUX5u6XaAF1g7Gf2imFALhXKQF?=
- =?us-ascii?Q?SR+U8Op8G89cDwH9U3hGMilr+IPtz1YvqXUVZktFFPtdOz4wmQ+ebxiI/LbT?=
- =?us-ascii?Q?I31OCAJNehOEbZR7F1f6CmblYJmUGXno1yPaKQjTciJBMQA80Ra0mumL3Sm7?=
- =?us-ascii?Q?ZZ++BNqSVdfbQHJeugUDVksVsg8dXTEFpIXOL1IF4Micc0Uuiml2KtGkYF/t?=
- =?us-ascii?Q?tTwqA13UGlMn0ox+LMuHHVF046w2+cWBU3tPZQdxkdn4qjEum/COe7gDaelp?=
- =?us-ascii?Q?t+cNzNlWUqpE1EHQwko70QyzXrB+LZOlw8SqXikc3UjOsC8xWilIupVdw/zf?=
- =?us-ascii?Q?zn5wf6u7Wjyr6pUt2ZpGZ1gVZKbx56AlAiZTgYY3kSZxAQHDALuGaAsNoCDy?=
- =?us-ascii?Q?lfegKJGkon6mekYXWftfzD2ESHaMNyqcsvHu3uPv3xJq1/lZ0xSkJVYxz2zK?=
- =?us-ascii?Q?HyNtIWftoHo3cPxk0RAXt0zsVTAb3wZv/sj62jauSxanpnoqTGI1gsIvNEnC?=
- =?us-ascii?Q?Zm/h/cBt0lwTuivB+MnvTFKDr8xOWTHsF5RI3gTexRf2WRf1nmCfcCO5EAM/?=
- =?us-ascii?Q?wynPEkfxEx9YqacrjIQ2uUmy3aGU4SiA+rwrfFbHrPcyjM/tnEKvcT4ZDrdy?=
- =?us-ascii?Q?S4ZIZ+xvvAkPa1/TR0YG90LbxAHf3MxSjQXwHycD7T+0OIxnN/FyAVP0cYRZ?=
- =?us-ascii?Q?RwBH01Cv6i2kVulucyFFGALVJG6DoFNjVRrQDPiAfrExM5cuhce2aXGIvgdf?=
- =?us-ascii?Q?n57hcZjuBmSONutpT7OARak7as+/XdqEW/EweysCxXv1txxL3624buFBxxAN?=
- =?us-ascii?Q?zrcFkBk3guqEsqS2Ivw6Yxo/enCXmuzqBDfOrQDehn5R4F+Qq6Kzek4oQe2r?=
- =?us-ascii?Q?KFXrxlby9ludFQ7B7PWklTywOzAeBoyZpS30u6v95R32qZM5KuWBqO8RGDDJ?=
- =?us-ascii?Q?oluSyy4ueN5X3P9FotpeMCpcyMqyjLIRyegQ3plXtT20znHyzA7O5+IK324e?=
- =?us-ascii?Q?A8BKjRoBN8EsXBoglaSoeLFwwBMD0M6I6ifL/o3tReYPcIiYIoumuaugbAUV?=
- =?us-ascii?Q?fJI3OfXJAZ2vLbVh4HUk4tiQzd0V/q+rhiF0ONm1zJ41BXOWwgKfD4rVkTAl?=
- =?us-ascii?Q?XGnCIC07AbeNi4sEgcioSYi1NAEHLg+oMs1FMCgUl8yIH42As3hqscs/A+Ax?=
- =?us-ascii?Q?QO4hRkNVuuBxEtgGTLJSag56s4413wkqdJmeBZAkZYf6Vmeibzd9WZ07oY7g?=
- =?us-ascii?Q?VzvrPERHoQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da4e66d9-c899-42e4-bca7-08deb5744721
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12019.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 07:00:15.0083
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p9m9zQgwGK45PUgK04hcUtOrJuU0BvgofpHim0eoCoiLGmhaayAy1RGSp6/Jhcgv6LJrwQ4qsgqz0LRb8j/q4w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9273
 
-Fix the PCIe outbound memory ranges for both pcie0 and pcie1
-controllers on i.MX95.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] The `ufs_mem_hc` node is missing the required `reg` property.
+- [High] The CPU idle state `core_off_c4` is improperly wired to power doma=
+ins instead of CPU nodes.
+- [High] The `arch_timer` node incorrectly uses the legacy GICv2 `GIC_CPU_M=
+ASK_SIMPLE(8)` macro for its interrupts in a GICv3 system.
+- [Medium] The `pdp_scmi` node provides fewer `shmem` entries than `mboxes`=
+, which breaks channel assignments.
+- [Medium] The `i2c15` and `spi15` nodes are missing their `compatible` pro=
+perties.
+- [Low] The `pdp0_a2p` shared memory node has a mismatched unit address in =
+its name.
+- [Low] The `l2-cache` nodes are incorrectly placed as nested children insi=
+de the `cpu` nodes.
+--
 
-The memory window size was incorrectly set to 256MB during initial
-bring-up, but the hardware supports up to 4GB of outbound address space
-per controller. Expand the memory region from 256MB (0x10000000) to
-~3840MB (0xf0000000), starting at the base of each controller's
-assigned CPU address range (0x9_00000000 for pcie0, 0xa_00000000 for
-pcie1).
+commit e4aaf34e88835bde7e82aca29bb473de34bfe007
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-Additionally, ECAM cannot be mapped as I/O space. Use a memory region
-to map the I/O space instead, and relocate the 1MB I/O region to
-immediately follow the memory region at offset 0xf0000000 within each
-window.
+arm64: dts: qcom: Add device tree for Nord SoC series
 
-Fixes: 3b1d5deb29ff ("arm64: dts: imx95: add pcie[0,1] and pcie-ep[0,1] support")
-Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx95.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
----
-Changes in v6:
-- Set the PCI I/O bus address starting at 0x0000_0000, while keeping the
-CPU-side mapping at 0x9_f000_0000.
+This commit adds the base device tree include (nord.dtsi) for the Nord SoC =
+series.
+It describes the core hardware components including CPUs, GICv3 interrupt
+controller, TLMM, SMMU instances, QUPv3 blocks, SCMI, and timers.
 
-Changes in v5:
-- Expand the outbound address space from 256MB to 3840MB, starting at the
-base of each controller's assigned CPU address range.
-- Use a memory region to map the I/O space.
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> new file mode 100644
+> index 0000000000000..b425a91a7890a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+> @@ -0,0 +1,4511 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +/ {
+> +	interrupt-parent =3D <&intc>;
+> +	#address-cells =3D <2>;
+> +	#size-cells =3D <2>;
+> +
+> +	cpus {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <0>;
+> +
+> +		cpu0: cpu@0 {
+> +			device_type =3D "cpu";
+> +			compatible =3D "qcom,oryon-1-5";
+> +			reg =3D <0x0 0x0>;
+> +			enable-method =3D "psci";
+> +			power-domains =3D <&cpu0_pd>;
+> +			power-domain-names =3D "psci";
+> +			next-level-cache =3D <&l2_0>;
+> +			clocks =3D <&cpu_perf 0>;
+> +
+> +			l2_0: l2-cache {
+> +				compatible =3D "cache";
+> +				cache-level =3D <2>;
+> +				cache-unified;
+> +			};
 
-Changes in v4:
-Update the flag from 0x82000000 to 0x83000000 to declare a 64-bit PCI space.
+Are these l2-cache nodes correctly placed?
 
-Changes in v3:
-Update the commit message, and set the region size to the max hardware-supported memory space 4G.
+The l2_0 (and other L2 cache) nodes are declared directly inside their
+respective CPU nodes. The cpus.yaml schema forbids cache nodes as children
+of a CPU node; they must be declared as peer nodes within the /cpus
+hierarchy and referenced via next-level-cache phandles.
 
-Changes in v2:
-Add the Fixes tag, and rebase to latest imx/dt64 branch.
+> +		};
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
-index adcc0e1d3696..18eeb6286db7 100644
---- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-@@ -1939,8 +1939,8 @@ pcie0: pcie@4c300000 {
- 			      <0 0x4c360000 0 0x10000>,
- 			      <0 0x4c340000 0 0x4000>;
- 			reg-names = "dbi", "config", "atu", "app";
--			ranges = <0x81000000 0x0 0x00000000 0x0 0x6ff00000 0 0x00100000>,
--				 <0x82000000 0x0 0x10000000 0x9 0x10000000 0 0x10000000>;
-+			ranges = <0x82000000 0x0 0x00000000 0x9 0x00000000 0x0 0xf0000000>,
-+				 <0x81000000 0x0 0x00000000 0x9 0xf0000000 0x0 0x00100000>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			device_type = "pci";
-@@ -2014,8 +2014,8 @@ pcie1: pcie@4c380000 {
- 			      <0 0x4c3e0000 0 0x10000>,
- 			      <0 0x4c3c0000 0 0x4000>;
- 			reg-names = "dbi", "config", "atu", "app";
--			ranges = <0x81000000 0 0x00000000 0x8 0x8ff00000 0 0x00100000>,
--				 <0x82000000 0 0x10000000 0xa 0x10000000 0 0x10000000>;
-+			ranges = <0x82000000 0x0 0x00000000 0xa 0x00000000 0x0 0xf0000000>,
-+				 <0x81000000 0x0 0x00000000 0xa 0xf0000000 0x0 0x00100000>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			device_type = "pci";
--- 
-2.37.1
+[ ... ]
 
+> +	firmware: firmware {
+> +		scm {
+> +			compatible =3D "qcom,scm-nord",
+> +				     "qcom,scm";
+> +			qcom,dload-mode =3D <&tcsr 0x79000>;
+> +		};
+> +
+> +		pdp_scmi: scmi {
+> +			compatible =3D "arm,scmi";
+> +			mboxes =3D <&pdp0_mbox 0>,
+> +				 <&pdp0_mbox 11>,
+> +				 <&pdp0_mbox 1>;
+> +			mbox-names =3D "tx",
+> +				     "tx_reply",
+> +				     "rx";
+> +			shmem =3D <&pdp0_a2p>,
+> +				<&pdp0_p2a>;
+
+Does this configuration provide enough shmem entries for the defined mailbo=
+xes?
+
+The SCMI node defines 3 mailboxes (tx, tx_reply, rx) but only 2 shmem
+phandles. The SCMI driver maps shared memory regions to mailbox channels
+sequentially.
+
+This mismatch causes the tx_reply channel to erroneously bind to the p2a
+buffer, and leaves the rx channel without any shared memory, which will
+break SCMI notifications and split completions.
+
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+
+[ ... ]
+
+> +		tme_crash_dump_mem: tme-crash-dump-region@87000000 {
+> +			reg =3D <0x0 0x87000000 0x0 0xa0000>;
+> +			no-map;
+> +		};
+> +
+> +		pdp0_a2p: scmi-shmem@87060180 {
+> +			compatible =3D "arm,scmi-shmem";
+> +			reg =3D <0x0 0x87608180 0x0 0x80>;
+
+Is there a typo in the unit address for this node?
+
+The node is named scmi-shmem@87060180, but its reg property maps address
+0x87608180. According to Device Tree specifications, the unit address in
+the node name must exactly match the base address in the reg property.
+
+> +			no-map;
+> +		};
+
+[ ... ]
+
+> +	psci {
+> +		compatible =3D "arm,psci-1.0";
+> +		method =3D "smc";
+> +
+> +		cpu0_pd: power-domain-cpu0 {
+> +			#power-domain-cells =3D <0>;
+> +			power-domains =3D <&cluster0_pd>;
+> +			domain-idle-states =3D <&core_off_c4>;
+> +		};
+
+Is core_off_c4 properly wired to this power domain?
+
+The core_off_c4 idle state has compatible =3D "arm,idle-state", making it
+a CPU idle state. However, it is assigned via the domain-idle-states
+property inside CPU power domain nodes instead of the cpu-idle-states
+property inside the CPU nodes.=20
+
+The domain-idle-states property only accepts targets with
+compatible =3D "domain-idle-state". Due to this mismatch, the cpuidle driver
+will not discover the CPU idle states, preventing the cores from entering
+intended retention states.
+
+> +
+> +		cpu1_pd: power-domain-cpu1 {
+> +			#power-domain-cells =3D <0>;
+
+[ ... ]
+
+> +		qupv3_2: geniqup@8c0000 {
+> +			compatible =3D "qcom,geni-se-qup";
+> +			reg =3D <0x0 0x008c0000 0x0 0x2000>;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			iommus =3D <&apps_smmu_0 0x15a3 0x0>;
+> +			ranges;
+> +
+> +			i2c14: i2c@880000 {
+
+[ ... ]
+
+> +			uart14: serial@880000 {
+> +				compatible =3D "qcom,geni-uart";
+> +				reg =3D <0x0 0x00880000 0x0 0x4000>;
+> +				interrupts =3D <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +				status =3D "disabled";
+> +			};
+> +
+> +			i2c15: i2c@884000 {
+> +				reg =3D <0x0 0x00884000 0x0 0x4000>;
+> +				interrupts =3D <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +				status =3D "disabled";
+> +			};
+> +
+> +			spi15: spi@884000 {
+> +				reg =3D <0x0 0x00884000 0x0 0x4000>;
+> +				interrupts =3D <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +				status =3D "disabled";
+> +			};
+
+Are these i2c15 and spi15 nodes missing their compatible strings?
+
+They lack a compatible property (e.g., "qcom,geni-i2c"). Although
+currently marked as disabled, any board device tree that sets them to okay
+will find them completely non-functional because the kernel driver model
+requires a compatible string to bind the correct device driver.
+
+> +
+> +			uart15: serial@884000 {
+> +				compatible =3D "qcom,geni-debug-uart";
+
+[ ... ]
+
+> +		ufs_mem_hc: ufshc@1d44000 {
+> +			compatible =3D "qcom,nord-ufshc",
+> +				     "qcom,ufshc",
+> +				     "jedec,ufs-2.0";
+> +			interrupts =3D <GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>;
+> +			lanes-per-direction =3D <2>;
+> +			iommus =3D <&apps_smmu_0 0x14c0 0x0>;
+> +			dma-coherent;
+> +			msi-parent =3D <&gic_its 0x14c0>;
+> +		};
+
+Is this node missing its reg property?
+
+The ufshc@1d44000 node defines a unit address but omits the reg property
+entirely. This will prevent the UFS host controller driver from mapping its
+memory-mapped I/O registers during probe, rendering this hardware block
+non-functional.
+
+> +
+> +		tcsr_mutex: hwlock@1f40000 {
+
+[ ... ]
+
+> +	arch_timer: timer {
+> +		compatible =3D "arm,armv8-timer";
+> +		interrupts =3D <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LO=
+W)>,
+> +			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
+> +	};
+
+Can the GIC_CPU_MASK_SIMPLE(8) macro be used safely here for a GICv3 system?
+
+For an arm,gic-v3 interrupt controller, bits 8-15 of the third interrupt
+cell specify the PPI partition number, not a CPU mask. Using
+GIC_CPU_MASK_SIMPLE(8) resolves to (0xff << 8), setting the GICv3 PPI
+partition number to an invalid 255. This will cause the architectural timer
+interrupts to be misrouted or fail mapping altogether.
+
+> +
+> +	thermal_zones: thermal-zones {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519063505.8833=
+79-1-shengchao.guo@oss.qualcomm.com?part=3D5
