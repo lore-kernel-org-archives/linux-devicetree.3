@@ -1,174 +1,189 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012013.outbound.protection.outlook.com [52.101.66.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB533EF0AF
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779182598; cv=none; b=R9LMqR6TLDOIG1mWCFSQYGTefSGCE5VXWEGPah1Z1WJuSpbrCNHbVzQ4cm04b/TJ9k8OyMWvNGWk8k9qnYYlr8/EA9+ehGjAmXffGj81Z9Zzx7DL/N5fhM2RdqhcQuEcbbmBmISqHw9Yj2rRHxzx5anc4kgbmZGR2exsUIW7x/E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779182598; c=relaxed/simple;
-	bh=Ays/AOR03eQ9fnsVDYNlf8e3KW+AqPJ8S6XZihMvT+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ii3B0rxUAmTDQy6j36ZjaYzknxviIfrb1aNcMJBaMCQtROPP2b0mYBMyppRHVZeiErSuHkgGvGn48MmdLAg6GABce9JzRHujqYyK+88sWTIioYhMemMDBWUzS52x5o/WproBcuv3/ArkskQA/dZbcB7S/HMTciQQJKb50+UzGSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RiHBahwW; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AD53ED123
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779182611; cv=fail; b=VMU+4Ueb5bs5FgUjUUuNvdIhJCNHgJUVxxC2i2NGPjyWWJn/p8aoKPK7uSwosSu525igg7Xd3l0k3gc9Tw2Hk+2i6a6eIOHj/GC0GEnj8c+YPAP98TFHUkyQnRiqSC1cGOwWXSQbe+C8L6S/VaB0GCE8xgCFHXqjkiKBeB94Auc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779182611; c=relaxed/simple;
+	bh=qYwWWH1AKi41B+YhY0AJRyducvT79e+Yy8keVN7PBiU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=OBgJL2Xw39VacmU2l1FhFTkUIb7kEAeW7MOvk/nEz12U1nzPo/t26hBF6e8VOEsK9Yi3vkFBZO2/gLNJvVtLES5xm9V3OWXsRsls1gQ/MbepMzaGCV1o6nz7RJnsW1nqwT63q9hLJ6fnFgdX0Wc4m3v0hv0uLbznSt+LPl0wYEQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=YvRrWGjR; arc=fail smtp.client-ip=52.101.66.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RiHBahwW"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bd4f7f05e90so657599466b.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:23:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779182596; x=1779787396; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=/acds5PobtVmDUQ4dCMZg0BCAmtwvenliLGdACo8DBc=;
-        b=RiHBahwWY0MDJ4aTNs/BMihA/xEMDRzefOchXUGvw6ukYXKJ4ISGElHuTfOE7q7pvZ
-         sgxQA4nTEugM64uHJNG/eJMBdSF9H8tVwhM4BRHNkT0WTj7vBjAjgASC2l+j1FAxHRdN
-         k3QkxaeJ0LZclrxuroWi1PXkJaC5S15RGMoYCFtoG6Byx8QPONldLZzLwOuvh4zkS1Py
-         NaJzVVXL5BtM9dQ0yv8wHuNVLyXNE4bvNvOhLRuUzuphOowhLgOxBtDp8GOM8gHyQ8jD
-         DR7mdEO+ZlcuZWvkfFVKJpc5RQmNL12qksfeLDZaB6yHXWOstvYo6D9iWf/+BdS5u/0x
-         UMhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779182596; x=1779787396;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/acds5PobtVmDUQ4dCMZg0BCAmtwvenliLGdACo8DBc=;
-        b=hAVB3dX9KyCyraw+HeU14sFL2RPZ/MFBxlIwSgB0YKZTEwy8Hm7xsrbMehVN9NrHSZ
-         REboRBbMvqvfvEG/IWViZ375W4ljjosU/uMwyDVvancJ0Fo3Mosf2+LV15tmEw8DuSaB
-         UJLJ+RAGNyr5tZKLHH3flMJJMW8ZKJKVPyq2GiywgqGyODPRfh5NpIcyH6tlVvp+COFh
-         j66WFC87xdmx1a0k4A1S5k1TgJHVKPBYPsfH800GPJ59pd+UE/oMujfgsG2n+7QvLpKa
-         QcrZFCIAjwMhXYnUenqFIcAH8gj4CM8yqcIDgGNeL6bEe29k4rbBHSY4Aoop1mJ4uxcE
-         7MSg==
-X-Forwarded-Encrypted: i=1; AFNElJ/J9Ec+Rov9Ojgh+Erh90h6DJNRfbP/4TdZSUFys7ndEgRsLMYuwfMZMVp+AuI9omymIjBPBJQeXoVH@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuTtYeVVM9m6+reQNJgK6MR2ZKHdUnLmUXzD29UuLnDJRdebgT
-	Ap04TqD9zjZOqIxt8z6HU6Rsl/Gjm7klOqERySqaqdwTSmS2XzCC+ufN
-X-Gm-Gg: Acq92OF6w5qokLhNRp7SMBRPrU9+NEEQJY2vvfMA9P6Rq25VDhesIYzy3XziIUyoGu3
-	K3lcdGkD8mmoAqK1uTm8OXkMWysL7zmgn2PYRKX7jKKJppyuhJViVyfsSXRDpIx9YEdsiFTwJDu
-	aoQvDcwZmYReSuQVIwE7F/wqILJqZJ6Uh+r75tvqNydxPAKCxGjdgvFwmrBPaH8eZ1nwOnzCx09
-	acd/Xly0tv/f/++5BA7ajwNPdDWRWUm0DEF8YJr0XrUgfONEIXK65yEK1i2+xsbAFAWZ50hTz7t
-	k6moC7Fsadxp0X8h8XwvXdwmOrAegmwF1igG/Exy4B5jC2rkV90jSZcjf5geTY1tNHWSrOvzsyw
-	4yB7f5dqiwV6GOt6r085ej7IPul0OxEBX5ktee7LmYFM0khCREbiIZEdJ+8ME5zYrUjNRlnRgpM
-	vrF+bOwN4riPggMlCzgxEWBzY7PrZGJIGX+Ft1Nw==
-X-Received: by 2002:a17:907:3d45:b0:bd5:27b7:adaf with SMTP id a640c23a62f3a-bd527b7af46mr818011166b.33.1779182595357;
-        Tue, 19 May 2026 02:23:15 -0700 (PDT)
-Received: from gmail.com ([212.75.105.246])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4dea93dsm675169366b.38.2026.05.19.02.23.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 02:23:15 -0700 (PDT)
-Date: Tue, 19 May 2026 11:23:13 +0200
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: linux-iio@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	devicetree@vger.kernel.org
-Subject: [PATCH v3 1/2] dt-bindings: iio: light: add Broadcom APDS9999
-Message-ID: <12b145839a1a9c5381946a9e5237bfe6fe0ae9a7.1779181370.git.azpijr@gmail.com>
-X-Mailer: git-send-email 2.54.0
-References: <cover.1779181370.git.azpijr@gmail.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="YvRrWGjR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ujtXFJFj0PF6X79eQPB1LL538ueRzHkX8Gev5VcYzoB91YovzUgxgiNaAn5NbMixFfVm0B3mHOCA0RVnUwhGqdyF+4o10wAjWkENKGA5TqcM7XX8HrO2druIpG4LgPYNNvp3LSw+pyF3D19NVIKaJHHnv9U5V8Y24bFkm2MzMRjR6s3XizkEpZGuiRPUiWY6yaFaY+NqeI7OWfNU6UtzxFQI9/3zIedKeDUT49/XYsSELkHPgWhvsU7oVHeGpZ7MTY0EmIQBBTHDij7prqX7FaQYWRGgpCO8I2214wsnbLkVcNKxmS9521YYk06HpB0kzEhGrpdsZEpjcf7d2jK+Zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pvHa2r62TBQvGPurHsbxLQKHIWTBhxt6vssEU0daLOo=;
+ b=I6mEx5+JEsysrp2P82UAp/3x4t1dwwwrEDM1ybgCsZI65havbZqyaWONwWZLNUEYo4CKrHLSxbUlmXn59OyflejpxNjKqNiEGL1xtfAMHNPx0l7iZ2Ya9933Ql71/+U2TffL++f09QXiZy7Ap5roZLOVmxwhLW5/V+xkoZLPvTILC3rh/HrlHB5vYh/n+M7OGI/81WFP88Qqnshr+oMVxut53iXode+jZgg8WDOkqeFyEi9nBs18SggJs5Kw+y9v/F6E41nZYLRr3yGuE1o3c/yeK7bblAtG4vNtP/zxaJIi8zuJDDGVEsW4zaYdgSpXKb7QAkLuRUWXZO01b/Kt0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pvHa2r62TBQvGPurHsbxLQKHIWTBhxt6vssEU0daLOo=;
+ b=YvRrWGjRYH/d3Hyq1+qzyzpZpmn/0o3x/dSUSCoZll/KqpoCSUCVpPiInANA35pm5/+v92I+0kwVkLH/JTolxGo5VGzoOGZkI/jkfzV6bt4j8q70E+K0awzIwbx2wvuZsGee4P/hnO2zCWMbPgJY81eB1Q0vcR1wwEQLkqUvrVBgaJBRw6xNkWSu15TORcGOy/yNe85KJxzFIxbeXvMuVd7xx30n/7vSQSilGUmla6VxHkrnYcyS5WakCjBBV8uTXkx0Eq7C3Q4PGx/F2QQkrNowyWX/C0q2plR8ZEmzXuF4wflvBsoESvFspmxsbnTlXxwBPPJ7fz9cTAdepb9HVg==
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
+ by DB9PR04MB8377.eurprd04.prod.outlook.com (2603:10a6:10:25c::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
+ 2026 09:23:27 +0000
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9913.009; Tue, 19 May 2026
+ 09:23:26 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+CC: "conor+dt@kernel.org" <conor+dt@kernel.org>, "robh@kernel.org"
+	<robh@kernel.org>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: RE: [PATCH v8 net-next 09/15] net: dsa: add NETC switch tag support
+Thread-Topic: [PATCH v8 net-next 09/15] net: dsa: add NETC switch tag support
+Thread-Index: AQHc5p+zeOkrNVowXEyHCQIZICFFkrYVBN+AgAAPw8A=
+Date: Tue, 19 May 2026 09:23:26 +0000
+Message-ID:
+ <DBBPR04MB75000698156070EBCC44E89788002@DBBPR04MB7500.eurprd04.prod.outlook.com>
+References: <20260518082506.1318236-10-wei.fang@nxp.com>
+ <20260519082533.A9D7DC2BCB3@smtp.kernel.org>
+In-Reply-To: <20260519082533.A9D7DC2BCB3@smtp.kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DBBPR04MB7500:EE_|DB9PR04MB8377:EE_
+x-ms-office365-filtering-correlation-id: 35b57288-6a37-46ec-f424-08deb5884853
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|19092799006|366016|376014|1800799024|22082099003|18002099003|56012099003|11063799006|38070700021|4143699003|3023799003;
+x-microsoft-antispam-message-info:
+ oWTZDtxDMX/5QrBcQLxBFg6wahrSjISpUOO8gvjiLyGjH9AjJiPoEJWU/6GxsDDgkrgDM2wI77qbGP/rqh9kSESfvNMAE36k9vzcvBGpsECfqGN6yzWH6lRF8R1lpWdZL+nZ3geC5zs3w7LVsu+I8Puau4gZRDdSovrhp+BDBuhkAfkWSaOvVHu7BkaB9Ci2bPsocW4m6QrWFCiw+GSfXJM5vBtKXNgAc1zQTAVtZciMgWgSTTM5u6h8MAOHVjKVDBE7sZo65IAmdBwul7bOv5n+LbpHwMxDBlbDsr8TPe/sfWx6jBA+h9/jJ4zjOa0jlPD+TlB5ECE1u+fO6ERvw9AbP3t/pgdQ9BWoUvqMHVCg417bsaFseg0TeFOLKnVVhp2tiJ7wrRES3BOPnJ8xzlaFKVXzYIta3FUuU8dqtxQv1PftiF4OAaIUDf0fsjvcmvFn9INrBzQBkM+wW1qo8c8vKmJGto6pypmiNMV0cYBGyUUtUCBT2ztlAtOhQ8DRUOUTN2aCDv0YqvXDQAH2LDdnANLbxNyq4Z3Pz5eHWRDQXo7eMmVF/5he6kPZ2iwPOx+A5/U3GPC4Ve1lS432LGfkJV28vIrFTh1uwFJMzJ2GDTYRGkZ0W4le3mIKgDtcKkM17s8PtxdfRDvIvnSkeydsj9ET1b5ilek6Dv7x1t5d1OlJZve0j0a9Hh3mKmgFIrPufSUux5pZJqQy9jaBCRdsinOgWdL/6nJOqw1ZLZVI8G7PEO0ycfNxVtR3RvPv
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099003)(11063799006)(38070700021)(4143699003)(3023799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?g66J+lgJrOjh1oUDE9HDU0iLDpxsJwelpZUGYEPjcmNmFqxb1MraDaYafvnZ?=
+ =?us-ascii?Q?pelnHV8drUr1mWIsHZsLZBvZ3ztwOq0/Af7SbjqGzETBkXleHVuNtL4e0YK7?=
+ =?us-ascii?Q?qw3tiFbRUfeBtdn1CewPlbb4Sy1h94yxiyO0bEUHjyOSHwFz4MMcAMw758rP?=
+ =?us-ascii?Q?cWfP7NI/9xToGfHB6V+zrMaNWXrV50zNzbx/CZkkLpd+85IlbY71/i0hI4LA?=
+ =?us-ascii?Q?c2rnOsae3/7sYxZJ/kxOXwRxKYOsW87Xgpd+Zpgl+hRPiYe4b9sTN2TWjJDn?=
+ =?us-ascii?Q?m73gSaYQWFAzSb77OFKWuukvwqK8UcZcHMkZ9AkVbNFShP8QItZ405J9hhZ2?=
+ =?us-ascii?Q?KCg9mdFztX7mB8Zeb5C0NFbj/c/TsJM9CW3q1DYR5LJyvnPk0jG1LQfdNPNX?=
+ =?us-ascii?Q?weZt5gxC+Q7IBCJsgeiP0oAbgQ48u2geenCdAI7S1CqLcRMG7LhpQ9Vs+djD?=
+ =?us-ascii?Q?klTKMNh/b1NmBNY5Ix7iY1NcbOFegtgh7Ww5BVCb2Kv3/x5+xPK+GKXErKaG?=
+ =?us-ascii?Q?wxafMopRFwKFtsu4i2aU15lNde/tB46IS9to+h9IrJBceK0GrqIqRCfuaxkd?=
+ =?us-ascii?Q?4zLwHLUBBYD0nblhccVxGkC6D0NOyyLVzdtG37WzA1oFOyG81VBGXPSe3cI3?=
+ =?us-ascii?Q?4yqdgo3thY+Tn5ApDD9tRGckYimX3PF9jotDNsVMbiiRosuwr0TUNiZIHoBQ?=
+ =?us-ascii?Q?fowBNEKbzHZRmJzNfZjAO+QdKzl+8hN0ZzcPsAANefz4VW38KM7ChOv8u7Ef?=
+ =?us-ascii?Q?uw1PcupT9YMIQsRyRhAGybMaWEgAagJuw8AAY0jdkfM0QU4qC58wKqC1p+vw?=
+ =?us-ascii?Q?ULGDgbUlAW9ZA5gyzBnNHme4W+OxBfv495R6aE8aC52PEn4zrUA9gmNjDiq2?=
+ =?us-ascii?Q?llJabxNZRMPMTXJSE1KjvwrgHmznPuOb1e7Q9vSHKZHvpnxb8rFq9Nj0Vd96?=
+ =?us-ascii?Q?047ZFiVelH8gTrAQRnoCpd5B+hUtwBaPrW31j0g1vZRunRmoNZGIarNMOhBG?=
+ =?us-ascii?Q?BHnGAWDIPi+z1EogLp3hdg3yzddo+YuNuXTjzswTeK8jtaID9UHio+y5j+ZI?=
+ =?us-ascii?Q?ras93+4lyQC2f9N4mGLGgRS4ctRf8uxRek8vIZsmIhXo5dnzVC+eDxljulZj?=
+ =?us-ascii?Q?+uCsk28VtqnzqWwrAGxgZeVg/Xhl2kKM9wX9CHbVeumwpgCInY0sPEzodWsC?=
+ =?us-ascii?Q?0N0RTbNiYjQQ00D3NzTVMjD1Bylw2Fr6vkm6jKY5vGPUND9AM+KrPguvtb4E?=
+ =?us-ascii?Q?ljHZs9mOvCn5uyaYmjueSXsf3843qc9FP4RXxm+eJCUd34Ujp5pRLG1kiAl0?=
+ =?us-ascii?Q?MpydfCKNCXDmul6wu0mxh4KSOzJU00u7b5CY0hMcbsyi9v1UHUyNt2plG6ot?=
+ =?us-ascii?Q?bXz0yu3A5vSaqpnHl7SMEk4JCyJQ8iGisnXVCTRfmpfK5PA/846ANxY+3lky?=
+ =?us-ascii?Q?ylZKuMm6ps49oJbiLHjO8SFKchoNoBFGJ20TJi0Tp6YlpLRZupAJ92bOMOJz?=
+ =?us-ascii?Q?TthJeKK9+rAFilnrLaHYfPbsbeXQR+aPRzijXI+57nt5pEfGMFZD9/NwMAJI?=
+ =?us-ascii?Q?17Q680sgQri2IEsQBSjVFndSmuZTfIC+FKwYaEUiI4kCzrbHcl/YUss5bV04?=
+ =?us-ascii?Q?CSE+75rw1BTMdDkbUBi+ayBWY0OZg+3haDEfOAPlY0R3k9DkstrKTh7m4dQy?=
+ =?us-ascii?Q?fzYd3nNhbQPjrvssobm9P1d99M8i3S3So/zic1sk2rC0AHii?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1779181370.git.azpijr@gmail.com>
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35b57288-6a37-46ec-f424-08deb5884853
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 09:23:26.6776
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DWjslj2LG4fcP/mQlw94R8ULDJYAwQI+BoeSizX+omLc0kwuw93Q3RbUlufRhn0XHGeAOMc4kTVWhTeNqkf4wg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8377
 
-Add Device Tree binding for the Broadcom APDS9999 ambient light
-and proximity sensor. A separate binding file is used rather
-than merging with avago,apds9300.yaml because the APDS9999
-has an additional vled-supply for the VCSEL.
+> > diff --git a/net/dsa/tag_netc.c b/net/dsa/tag_netc.c
+> > new file mode 100644
+> > index 0000000000000..ccedfe3a80b64
+> > --- /dev/null
+> > +++ b/net/dsa/tag_netc.c
+> > @@ -0,0 +1,214 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright 2025-2026 NXP
+> > + */
+> > +
+> > +#include <linux/dsa/tag_netc.h>
+> > +
+> > +#include "tag.h"
+>=20
+> This isn't a bug, but should linux/bitfield.h be explicitly included here=
+?
+> This file uses the FIELD_GET and FIELD_PREP macros.
+>=20
+> [ ... ]
+>=20
+> > +static void netc_flow_dissect(const struct sk_buff *skb, __be16 *proto=
+,
+> > +			      int *offset)
+> > +{
+> > +	struct netc_tag_cmn *tag_cmn =3D (struct netc_tag_cmn *)(skb->data - =
+2);
+> > +	int subtype =3D FIELD_GET(NETC_TAG_SUBTYPE, tag_cmn->type);
+> > +	int type =3D FIELD_GET(NETC_TAG_TYPE, tag_cmn->type);
+> > +	int tag_len =3D netc_get_rx_tag_len(type, subtype);
+> > +
+> > +	/* The RX minimum frame length of the NETC switch port is 64 bytes,
+> > +	 * and the frame is received by the ENETC driver. From the hardware
+> > +	 * perspective, the receive buffer of RX BD is at least 128 bytes,
+> > +	 * so the switch tag header is guaranteed to be in the linear region
+> > +	 * of the skb.
+> > +	 */
+> > +	*offset =3D tag_len;
+> > +	*proto =3D ((__be16 *)skb->data)[(tag_len / 2) - 1];
+>=20
+> Can this cause an out-of-bounds read if an skb is injected from userspace
+> (e.g., via raw sockets, traffic control filters, or BPF) directed at the
+> conduit interface?
 
-The APDS9999 features individual R, G, B, and IR channels with
-a green channel that uses optical coating to approximate the
-human eye spectral response for ALS/lux measurements. Calibrated
-RGB color sensing is not yet implemented in the driver.
+No, I do not think so. ETH_P_XDSA is only set on the RX path by
+eth_type_trans(). All locally injected packets travel on the TX path, and
+skb->protocol retains its original value instead of ETH_P_XDSA. Therefore,
+the DSA guard condition proto =3D=3D htons(ETH_P_XDSA) in __skb_flow_dissec=
+t()
+is not true, and .flow_dissect() will not be called.
 
-Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
----
- .../bindings/iio/light/brcm,apds9999.yaml     | 54 +++++++++++++++++++
- MAINTAINERS                                   |  6 +++
- 2 files changed, 60 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
-
-diff --git a/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml b/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
-new file mode 100644
-index 000000000000..4d9e9aff8894
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
-@@ -0,0 +1,54 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/light/brcm,apds9999.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+title: Broadcom APDS-9999 Digital Proximity and RGB Sensor
-+
-+maintainers:
-+  - Jose A. Perez de Azpillaga <azpijr@gmail.com>
-+
-+description: |
-+  Broadcom APDS-9999 is a digital proximity and RGB sensor with
-+  ambient light sensing (ALS) capability. The device uses individual
-+  R, G, B, and IR channels plus a Vertical Cavity Surface Emitting
-+  Laser (VCSEL) for proximity detection.
-+
-+  Datasheet: https://docs.broadcom.com/docs/APDS-9999-DS
-+
-+properties:
-+  compatible:
-+    enum:
-+      - brcm,apds9999
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+  vled-supply:
-+    description: VCSEL power supply
-+
-+  interrupts:
-+    maxItems: 1
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        light-sensor@52 {
-+            compatible = "brcm,apds9999";
-+            reg = <0x52>;
-+            vdd-supply = <&vdd_reg>;
-+            vled-supply = <&vled_reg>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1aa9c989973f..2d8d4e2eab6e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5000,6 +5000,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/brcm,apds9160.yaml
- F:	drivers/iio/light/apds9160.c
-
-+BROADCOM APDS9999 AMBIENT LIGHT SENSOR DRIVER
-+M:	Jose A. Perez de Azpillaga <azpijr@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
-+
- BROADCOM ASP 2.0 ETHERNET DRIVER
- M:	Justin Chen <justin.chen@broadcom.com>
- M:	Florian Fainelli <florian.fainelli@broadcom.com>
+>=20
+> If the injected skb has zero headroom (skb->data =3D=3D skb->head), readi=
+ng
+> skb->data - 2 will underflow the allocated buffer.
+>=20
+> Similarly, if the injected skb is fragmented and lacks sufficient data in
+> the linear region, reading the inner protocol directly from skb->data
+> could read past the valid linear area.
+>=20
+> Since the skb is passed as const to flow_dissect, pskb_may_pull cannot
+> be used. Would it be better to use skb_header_pointer to safely access
+> these packet headers?
+>=20
 
