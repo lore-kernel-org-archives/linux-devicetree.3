@@ -1,229 +1,181 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA79C37DE9B
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171311; cv=pass; b=Rnq3uGm1WiLrcCHVIYeVYO/ZigHB3SCZ7pCiCF/iiucA51DQ39ApPTEdml4pvB6JQkEIJofMfELJNetXc14SBjjh+cU4bNLE+8O40GwIrBfCDFQlwujSLZv3CKYiDc3pblNTpT8IO38P3g/afTCDs2vhFBESZ6ozbp/eN7st3nQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171311; c=relaxed/simple;
-	bh=QPv9NrKqks25XdbSHhPFI546BElb5U2rT+BiAzKQ+7M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mMIFGy3MNoEMIldirlUWWY2SsY/A6wW2O25GKZfXGScy6U1QyWmIADUunLj1VkNZ6pFmQ0vj3q4EPVfbA1B8sztR0zDvKKBIKeQyFfw49l1yvrIzyD7svmv2g5el2M0tXdhr4nWKPh4gafWd1w2sBlfamwKywoPKHgu+YS/YiG4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0xIF9nJ; arc=pass smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C23195FC
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779171312; cv=none; b=E6QAOk1VHffdAUKKjumNhrcujcVvF9LVQXqi/2k4zroym9TdP74nj5A5ceMMAtqm3S2MId7kU5cGcfllSOi2LdBMxJw6j8pvtxMmg+iTkaHX21WrhuMDRd7a6Lz65UrSq3pxh9jNTplSIklrX/gpPxWu4BnYmfQ8VUpe1kSCLf8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779171312; c=relaxed/simple;
+	bh=d5evMYJEyqW09q3MWTsN8RAQKKXeMF5B0uZ6YrfTpLs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NhTO7r0CupsssF90vNUsbjagq2QG0qnloqPyFM+87wmVHNoi1BFo1MrdbSqdY4z8TqlkkcztWTezVNuyzCcIJT/Q81PzuAA+kRARNBC/qIiiVD+z08ZulTnEGdYqw9LTJLHd1QITOtJfj9TblC1rXf+85rRBV31h3ish39Ya4nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uVxdWq0O; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0xIF9nJ"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-2f0d3e07e30so11935153eec.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:15:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779171309; cv=none;
-        d=google.com; s=arc-20240605;
-        b=WsGtMc6qDkMvri3+WpBrvQubvGEKD/atdcei/lPMpCtcpBC0xsNUf8JKA5u7nG6tEa
-         y/XPoN0rdahqNvyyNiCZVO0rdQk1OFi1yIqNzBPCF5OxbN/tIo8kQJjsNS4lEIA/qIDi
-         K26lvaGa1PzgpTBNfpcBYE7TopIPs2itP2qu1ih1YMqy23Ua4Jgy9oI03eQ3jJErRmwJ
-         AIcx0OTimVbm1jbjXxsmRa7JBB6Ns+Nxtcv2WbHT6Dzrvp+ki6uQEsJhs4c+Lm7wJaSW
-         X4tA8cZbMw4zVwOfQxv3E7rs1bIU3oBJvlOzWyzMYxLupBD6zfyvaZ/ct0+LNdgq3tTQ
-         L0Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e3rxUJ/0l+GpFnRLs/exHMJwdlcSweb1iM7tuoW5l3A=;
-        fh=Qwk4W1NQcM3ldqtQ3VTIcpoas6hwa4XEKahq3sGlKig=;
-        b=EGjhDMzzwlv3CmPJyPwCQpmI2N+v1QUhm5koSC5J27nAhApHasgpJ6vK/V311/Inpz
-         Ly2nvfuOITBKkVt6qJUOxRMCItKVQloLn2cqHPIPchxcnN8bAsbwqwe5MuwoWoRISwPn
-         73pMf5dqfNeL7wE6YPL2CnlhLXjhL4AHjO0VwJSIO6MumAElST8/gqH/NMITWsWqkWv9
-         kWjH31anQ+2dZq3yij31bCSzvYVEjmfCPg2VJ935DYJs9y2Uv6kHeVXSgPRKzMctYiKd
-         g+eNqBO76gcRLmywUyihPTP8p0ORjrPyfc+bIlXZGQtyD0qDo0oz4RmW2oFKedXZw2Y9
-         e5YA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779171309; x=1779776109; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e3rxUJ/0l+GpFnRLs/exHMJwdlcSweb1iM7tuoW5l3A=;
-        b=K0xIF9nJkPkPRVvHiSwlUbkwOna/D1U7CNVoC2deCiQWXFHenpjXwiBqd7Bie5r6fe
-         f0s1+5TexX8TcakVB9gHtxoPgrwxm4OhTInS+wgU+mftW3dCw/H37e9b038U+6FwD01K
-         dSVH+FVkOdKXctiGcv3+amRo9xlhA+zwudrZHN4ZjF2BFzHCg+Es2NwVu9AHsSxWwawH
-         IO0GT42qOuSSHbSNs7Md4qBoSck17yZoG7gVmwcst4LlV7TXLiUnHAK9XXDMFClAzTCx
-         1Oh+2vneMPrJqRQwxynJvAXSK1oxcHjHt6rIdtCch1ca5pWXivYNbPO4fmIlsvFgsnsW
-         ig2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779171309; x=1779776109;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=e3rxUJ/0l+GpFnRLs/exHMJwdlcSweb1iM7tuoW5l3A=;
-        b=kuNSnk695gUFlSo/70ryldbtLnF8VB97jURGCjL5O7nzUeqVrpyQjq56KpCz9RqTZl
-         fWjb7i/hca/Cwn2H8tCiPDGuIRPHyq9KDT7AKBSgnQrrQLNl12B+QwqC++q5AHdK6S8A
-         I8EywwFH4AJM92nX0/cTuGBLSTyuvx7y3RR7E0pD3YKP5vOO+5EYH+XqHE7UXhAqnzeI
-         sOkczvbLa3voMYj8jP+GORvfwYtka0Iqst8Wtj7s3O97KcUWQaKbgXkrsIVLv75mzjPG
-         GNJM7gAEqjd3DGOUEKulXnswxNjv8yB+/7ZxhsK/0aSg71siCXdJjK679BWW0hIaoRz7
-         Pv3w==
-X-Forwarded-Encrypted: i=1; AFNElJ9wqRVNrRwwHoE+EX4Nk4B0nwfFEySW9ZAnl2xicxOEP4SM78VOYtyMqLsbJUZZjXbfbwvZSqXO2Q8Z@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8ZsFRCeXu0OoN+cRBt7ErjiqtZN9eqDG1sCj2BZo6vQzn8Yti
-	Q5nmgF7Kaf2NBzA83t0vUr/g5re4wkulYbyc1lr3d4Xp3/ooH9bhANhwhtcT2zRW2ajzrjDngDH
-	BXLvoQVwBcbiwXcVwJFndyaJap5BYePs=
-X-Gm-Gg: Acq92OEgtAVt02Ql50Mdh9w7biKMM32fIG16rNXyVyWjLuF/QOGkR0QN9IGlUvALC1q
-	M0LYzTt79Yn46Aidm1ErA2VZEZIAZjWv04Ofu61HAv9NHZaGWNsdwiJgnoO+xG4fET0CpLAcies
-	Aza5fm6v/mALquoRNtQmnTwSEbN74F4FluAb94U4OAEBGebetTQXRlPAVqA7HzUxDBsLDKGZIwi
-	Vf7rQUMwBI2/eCYaatGgzoVU6WO/bKCW0VjJvpSBsbjPZtietvD3v1SSZWrGfgcK+Ul97+ak19w
-	02XwX463
-X-Received: by 2002:a05:7300:a984:b0:2c5:b23e:48a9 with SMTP id
- 5a478bee46e88-303986a160emr7175515eec.25.1779171308865; Mon, 18 May 2026
- 23:15:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uVxdWq0O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57082C2BCFD;
+	Tue, 19 May 2026 06:15:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779171311;
+	bh=d5evMYJEyqW09q3MWTsN8RAQKKXeMF5B0uZ6YrfTpLs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=uVxdWq0OBmCak6a0HVBwUhcvEB1adrXo+QDCamQByYd9HdEJtM61mMXUyGcj2PqeE
+	 EAn0c8ROzq+VHSVSGR7LuUT4UjxsJL51m+dq/eTVCSItUXQ4QaB5JNadoMvuh4gj6S
+	 5AWyT1+EPy1MF95XT0H4Mvylqi1ru8O9DBZKJvNakTVcIl6MTAfzvW/N4f3qY4bePy
+	 GRAJ2QMswZENrS2/BsZW5vyBDG73tReKUpMbKlAi4VwmbJf67nRy5go+5U/xMImn65
+	 i/KTGuET0Lmx7zizkdq65SWhZaa3uguW3XM7+FiZggMsL2IVJpLXnxNnjb/1avg8PA
+	 tWbLlhnBfJ1ug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon,dc: generalize
+ for  single-output variants
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260519055114.1886525-2-a0987203069@gmail.com>
+References: <20260519055114.1886525-2-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 06:15:10 +0000
+Message-Id: <20260519061511.57082C2BCFD@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260511135703.62470-1-clamor95@gmail.com> <20260511135703.62470-6-clamor95@gmail.com>
- <20260515-utopian-malamute-of-patience-367e8e@quoll> <CAPVz0n2wrAdU0JKx7eb7uosCcoGayqNchK591VPph-5_nBAMXg@mail.gmail.com>
- <20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll>
-In-Reply-To: <20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 19 May 2026 09:14:56 +0300
-X-Gm-Features: AVHnY4IxlqAJY6NaFP2GVNqF_snPzx1hM2RZ9fLkqEGHKp_bJ_sC8-qzf4i8pFA
-Message-ID: <CAPVz0n3C+g9zLaq9gN1OFnC=19oRwoZon_E0q0oFKbn-dG-FaA@mail.gmail.com>
-Subject: Re: [PATCH v1 5/6] dt-bindings: phy: tegra: Document Nvidia Tegra
- XMM6260 PHY
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=BF=D0=BD, 18 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 15:1=
-4 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Fri, May 15, 2026 at 11:37:34AM +0300, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 15 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
-11:20 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Mon, May 11, 2026 at 04:57:00PM +0300, Svyatoslav Ryhel wrote:
-> > > > Document the XMM6260 PHY used by various devices based on the Nvidi=
-a Tegra
-> > > > SoC, describing its usage
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  .../bindings/phy/nvidia,tegra-xmm6260.yaml    | 58 +++++++++++++++=
-++++
-> > > >  1 file changed, 58 insertions(+)
-> > > >  create mode 100644 Documentation/devicetree/bindings/phy/nvidia,te=
-gra-xmm6260.yaml
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm=
-6260.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..0346433c9772
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.ya=
-ml
-> > > > @@ -0,0 +1,58 @@
-> > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/phy/nvidia,tegra-xmm6260.yaml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: Nvidia Tegra PHY for XMM6260 modem
-> > >
-> > > XMM6260 is Infineon modem, so any combination with nvidia,tegra is ve=
-ry
-> > > confusing.
-> > >
-> >
-> > May you please suggest how to adjust the name then? Thank you.
->
-> Depending what is that. Start describing hardware, not driver behavior
-> to help in that.
->
-> >
-> > > > +
-> > > > +description:
-> > > > +  A hardware configuration used in Tegra SoCs to provide proper in=
-teraction
-> > > > +  between the application processor and the modem, as well as cont=
-rol over
-> > > > +  one of the SoC's USB lines for the modem.
-> > > > +
-> > > > +maintainers:
-> > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    const: nvidia,tegra-xmm6260
-> > >
-> > > Also here.
-> > >
-> > > What sort of phy is this? So far looks more like a software construct=
-.
-> > >
-> >
-> > Infineon XMM6260 does not work as an ordinary USB modem, it is a
-> > standalone CPU which just exposes itself to AP via USB. In order to do
-> > so, it has to have control over a USB bus of AP which is dedicated to
-> > it. In case of Tegra - XMM6260 interaction it looks like this: second
-> > Tegra USB controller is set into HSIC mode and is dedicated solely to
-> > the modem, modem controls this USB bus. Then the main XMM6260 driver
-> > performs power and init sequence and once it is ready it calls phy to
-> > register controller. Phy has its own supply, controls USB controller
-> > de/register and using enable GPIO sends signal to modem to proceed.
-> > Additionally, since some XMM626 versions have a few steps to setup
-> > exposing different USB devices, phy handles controller reinit for each
-> > step. If treat XMM6260 as an simple USB modem it will never init.
-> >
-> > One more benefit of having PHY is that modem driver itself is generic
-> > and PHY handles SoC specific configurations required by the modem.
-> > Since this modem was used on a variety of different SoC's (Exynos and
-> > OMAP for example) they can reuse modem's driver and provide only PHY
-> > which handles modem interactions with the USB bus.
->
-> Without any registers here, this is not a PHY but a power sequencing,
-> just like we do for other USB or PCI devices.
->
-> Optionally, it could be part of existing USB phy, when configuring it in
-> HSIC mode, but it seems you add here supplies for the modem, not actual
-> phy as the phy is undefined.
->
-> The problem is that in the patch and explanation you mix driver model
-> and driver behavior, so I really don't know what is this hardware. And
-> it is not my job to guess, btw. A partial argument/proof why this is not
-> a PHY, is that you reference the USB in the node, so phy-provider
-> references the phy-consumer. That's reverse. If this is PHY, it's USB's
-> HSIC phy, thus this needs to be referenced by USB.
->
-> If this is power sequencing, then it can be represented as USB device,
-> just like we do for all USB devices, but then it is not PHY and
-> phy-cells are not appropriate.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Missing explicit array length constraints in variant-specific cond=
+itional blocks.
+- [High] Generic catch-all compatible string enforces SoC-specific limitati=
+ons and leaves array contents unvalidated.
+- [Medium] Incomplete schema topology enforcement allows conflicting 'port'=
+ and 'ports' properties.
+--
 
-I was looking into power sequencing and using it instead of phy is
-perfectly fine for me. How I see XMM modem configuration:
-- main device which handles most of generic power sequences,
-init/deinit and detection for USB device (both, target USB device and
-intermediate stages for fw loading)
-- phy or power seq, does not matter, both fit, that performs
-manipulations with SoC specific USB controller in order to ensure
-correct modem boot
+commit e03be5624915d85b3073bbb37ac0fe652c0887cc
+Author: Joey Lu <a0987203069@gmail.com>
 
-If I use power seq then modem will require link to power seq and power
-seq will work with USB line, this should not create confusion of phy
-acquiring USB that is phy consumer. Will this approach be acceptable?
+dt-bindings: display: verisilicon,dc: generalize for single-output variants
 
->
->
-> Best regards,
-> Krzysztof
->
+This commit updates the verisilicon,dc display controller binding to support
+single-output variants like the Verisilicon DCU Lite. It transitions the
+schema to use an allOf/if-then-else structure to differentiate between the
+existing dual-port th1520-dc8200 and a new generic verisilicon,dc compatibl=
+e.
+The top-level constraints are relaxed, with variant-specific rules intended
+to be enforced in the conditional blocks.
+
+> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
+l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> index 9dc35ab973f20..3a814c2e083ee 100644
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+
+[ ... ]
+
+> @@ -75,9 +69,75 @@ required:
+> -  - ports
+> =20
+> -additionalProperties: false
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: thead,th1520-dc8200
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: DC Core clock
+> +            - description: DMA AXI bus clock
+> +            - description: Configuration AHB bus clock
+> +            - description: Pixel clock of output 0
+> +            - description: Pixel clock of output 1
+> +
+> +        clock-names:
+> +          items:
+> +            - const: core
+> +            - const: axi
+> +            - const: ahb
+> +            - const: pix0
+> +            - const: pix1
+> +
+> +        resets:
+> +          items:
+> +            - description: DC Core reset
+> +            - description: DMA AXI bus reset
+> +            - description: Configuration AHB bus reset
+> +
+> +        reset-names:
+> +          items:
+> +            - const: core
+> +            - const: axi
+> +            - const: ahb
+
+Does JSON schema validation require explicit minItems and maxItems here to
+override the top-level ranges?
+
+At the top level, clocks has minItems: 2 and maxItems: 5, and resets has
+minItems: 1 and maxItems: 3. Providing an items array inside a conditional
+block does not override those top-level ranges unless explicitly redefined.
+
+Could a device tree node for the thead variant incorrectly pass validation
+with only 2 clocks or 1 reset, completely bypassing the intended strict
+hardware constraints?
+
+> +
+> +      required:
+> +        - ports
+
+Since the top-level schema now evaluates the port property globally, should
+this branch explicitly forbid it?
+
+Without rejecting port, for example by using properties: { port: false } or
+not: { required: [port] }, could a malformed device tree node for the thead
+variant define both port and ports simultaneously without triggering a sche=
+ma
+validation error?
+
+> +
+> +    else:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: Bus clock that gates register access
+> +            - description: Pixel clock divider for display timing
+> +
+> +        clock-names:
+> +          items:
+> +            - const: core
+> +            - const: pix0
+
+The top-level rules allow up to maxItems: 5 for clock-names, but this block
+only lists 2 items without setting an explicit maxItems: 2 constraint.
+
+Could a node supply 3 to 5 clocks with unconstrained, undocumented string
+names that completely bypass standard schema validation?
+
+> +
+> +        resets:
+> +          maxItems: 1
+> +          description:
+> +            Reset line for the display controller.
+
+This branch represents a generic fallback for verisilicon,dc, but caps rese=
+ts
+at 1, which appears to be a Nuvoton-specific constraint.
+
+Will this cause validation failures for future hardware integrations of this
+IP that require multiple resets?
+
+Should this binding use a specific compatible string for the Nuvoton hardwa=
+re,
+such as nuvoton,ma35d1-dcu, instead of enforcing these limits on a generic
+catch-all string?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519055114.1886=
+525-1-a0987203069@gmail.com?part=3D1
