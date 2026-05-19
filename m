@@ -1,415 +1,211 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9502C3E7BCC
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:43:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27973E8326
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779180232; cv=none; b=jeXyDzfYbs7txCWirgYgoBjYQzKQpaR77ABhmGnBy7TMLPiWs2POgz1on9jwuWMHI2w4gLBs6poUzuy1WMm5SKU5nQBs6aTeChJIpauw56GCwAYYPsJlQeXwdqGtUPFXqo3oLbZvWEn9RZ+tUTw7Ra+G6hdc3dBwHqfvLg4E5zo=
+	t=1779180234; cv=none; b=VnknVcfh9KQzC7VzuGPv5Wr5e4IKZDpwLGUUZaXn+rKA6nrF7TugpylXiTAMnmLX4Mae44s8IvpS4b2MGfQr7EG+zjj1VRFVEzbtTQ6QhvVflBdNf5Oq6oU4QUiMWje6m5PgPypFsw4pIYFu2HtMc5swU+M/6eih30xtelBx4dI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779180232; c=relaxed/simple;
-	bh=+UmLm2la6J+9CZ1tOqDl3OuAY4zUNXxkK2YXwTA6dfQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YOjvkNH2omdvRFMipxv9FsboNuSaeEp0+394YOhJb09kyFwD1nWifUAKyIotVFPmMSgXgAaT0SHvFw1p3feUty5/uxtCDlTDY6++0Ph9oUsJs217MxlhY8PqdawhxLpMPL4Ne4v+Tp1PqKbGltkTEarF3SAmr/v7SDLKypXHff8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MmqyCuRl; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779180234; c=relaxed/simple;
+	bh=ML8Ctl/JCwpkRJcz+9uLrMFDdrS06nzomOLqlqMrF2I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rWUQCCZn4S0E3YnIVZoXNoXR5nfNnDc1wuoQjuPwrQ2TezhVRAFMx7r9xElUhcFPvG0tYaZdgzkbUuir2WFUVbNw+NZDEmV7ec8wsvZ8NDff34Hr/TXhTEpbWZcAO5FX86XILJte6jmrkkXKLA+RWrmjtX+Q7F9f1NuqQnrgG8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c09MsG9z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bMQKz13m; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MmqyCuRl"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43d73422431so2205354f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:43:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c09MsG9z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bMQKz13m"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J4sSV9254218
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:43:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1Fvqj985nSMOY/viawN0/qJe1y6pa0P2ETL6bY1gUxo=; b=c09MsG9zdsLarGZ5
+	83aumy8Edmlu/NUfIY9inIvDjzDLw4WnkIQh3LmjkUrDHY43/aCMngA+1bbKVdy3
+	PFLZy4WyDSus1UPaWiYowgLPC/4YKJT8NR4m8ANKJCFeXtefb1yIR06dSniZe2OT
+	y828zTZdJ73BzQhf09jZ+UW9BuhI2J5iFxP/gUXgaTqrfyhzwdSe5CGRlZrXhKJV
+	D1Gcsr/YNtKDL2PK5jeWV6lSgcD/oqaN4NK2PP011vyQo6I8B9nynyKFdcLFNl0c
+	vIFlWNdRaCzqkv+2LhK+sABdKADBZK1sF9uaJBtZArS2FXxGXb371CG+39X/PkYL
+	GwAbOQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8h87rxr4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:43:49 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ba6fe41283so34241125ad.1
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:43:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779180225; x=1779785025; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8V8owIkqb0IXOMsCbYYf82xOEW2gHUB6FosAIwSfRW8=;
-        b=MmqyCuRlgnlYlakVU2NI644WGV05Ur92di8kDV//pwIzfvs5aXScyBVM7F4FtxXQAb
-         rbs+5hM277Zag8TPQkWllTLzqtYjR4R2CSBT9CW4kQMhqErYPv6vQBp2AuEirPBU90mR
-         2leJTfBBxgtQ5zlJrGfGtP2OumaKmv/hEF23h2RYk/B6T4oxXQ5VTi+xmf7fXrKvbGYC
-         ETXrNOVw228/GgfdjyEKGI6cEV8UPG/vKeBLRVL6LaR1Vjam2zLabkCFz+y33bOCXzwb
-         0vJ1hKWhsp1xpb5ubFh8sW4fmPD1uz1yBpWYOTE5NFV2GrzfICgvFGJFqGIekBPTuVdR
-         k4EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779180225; x=1779785025;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+        d=oss.qualcomm.com; s=google; t=1779180228; x=1779785028; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=8V8owIkqb0IXOMsCbYYf82xOEW2gHUB6FosAIwSfRW8=;
-        b=cUY6l3kcIYwLsPgLg+lRurQn1kfy/fU75/H0bDkdxtPYNbB1S7YZsh7KQbbDXlhOKb
-         Y1MhRsaHBUwv+ayer7CSuhlQecAXQgZ+FWRppcfwB5cKSZEG6biki18JEqR9asOq0m3b
-         wYCPU5JySNCGAmPuPtke+tOnM6cvm0SaVNsiLg91LiO9MiCq1XMB9HyFkVnkvGFEPswD
-         dIabWOM9WjDRsD8EeQ2z9SNJ/wiJZf22pxG0HoSGEf5cXZlwS+77CmxF8F6azz4dIkHi
-         YEVVF4UEelbMVtv2lnApPlx09xLCpEBlUBtR1Gt9g5gD5LmWLZVdPN2Hcc9xoz+ju/XM
-         ovZA==
-X-Forwarded-Encrypted: i=1; AFNElJ8iqOAik1uwv3CDEsvIdtrfz+Zgrq5kw+TbFiwazEWarTq2bZHptQFgfoXxvf1DD6DUEdO7GYwWnLuu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoiigOHxUFiqgq0zZffS9dkEmaNOITmgeDbnzvdbAXkZzbQ677
-	oBy2tBROKzGvPGctg0ARBCZQsVvkxAP4+Jy+BLLSBqBZrUa3KrqaFU8LPPh9b11mPKk=
-X-Gm-Gg: Acq92OHxw1d/pWkBjb/rGXo125o/HF5/NEtn1oGgDtpWgNAqmqiXWM+wihIMNXja6m6
-	lqp1/COdbQqvq8PhOS08XQ9CljmNl01hn8CzIQgyKg9neBK98u3vPjCavSH31/uu3KubJkUlmem
-	2PGPC9jRLdZc5HW49hZuvsiRnpw1BmsbYD4zA2GFhCewWB8+C7Zs+WaCuFEaDAG0i7g3IyCr3u1
-	mMWbXK4HgTWUvuCCir9nsIFf+CYZb1N9CTU6GFD/2sIfFaTIjIsOld8LEH8T3uJAcf6koqNAgMB
-	W71CU8Ln66J0MG2iPxLKvFBB/x763CcXNpOzl3lXSOPJoJsIsKD4ypwGCibWB2bwCJIFIRl4DLL
-	HVHDP/Qfa7xuOrWC4Azku/p47UMbJXQ4hWJInFuAxETVLsxD5PKLQ/3pHeyhOV36SypQ/tSH+/f
-	JWsOk7gSZ6JgmJelaHcswheQ7Bm4RbWREYxL/p/Vj4jS4f
-X-Received: by 2002:a05:6000:2503:b0:43d:d037:d59c with SMTP id ffacd0b85a97d-45e5c5ca060mr31027168f8f.16.1779180224776;
-        Tue, 19 May 2026 01:43:44 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0fe1a41sm47709855f8f.31.2026.05.19.01.43.44
+        bh=1Fvqj985nSMOY/viawN0/qJe1y6pa0P2ETL6bY1gUxo=;
+        b=bMQKz13m2Jjyx9O3MIUV0dHo6ckwAFXAX9fod9WeclZQst4ewJn6cIySw9u1UrIiv5
+         CzFmO5BSb2VSRP09U5NTiy6c+hoyTnz6fvjmYKmlPrbI9ciWK2/l79MYTbM8rAH7D1xS
+         C8CLgnz9GEaIfdhF47gXk6lxjb75xDaKzm5qH8f2YVseDX3cyFcUW/flkTTnGrBOYI5H
+         /Xc42RieqsAxdHyMwJjBdo+9d6+GYPFs2cpYpYqgoMET6fTe8ryFDii1NGRzl5/sVZXd
+         xkh2cYnoz4BsjvMNMt2GGnxoh8szLVPQtn+e7+BK+551Yv7P8e8lJo9XOnEhN8YghpqK
+         lNDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779180228; x=1779785028;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Fvqj985nSMOY/viawN0/qJe1y6pa0P2ETL6bY1gUxo=;
+        b=hJYywiSz/7+/t9z2J1Sh42UEcp5fEU/nxLc/xpKJR5Xhhi/D66kwA2hOLobn7G0Hzq
+         WJdc9bzV8U9zcYGmoZBWAWFMKvPKMS0AvESJNOmlQp8OvGITc0+V22CBcfDBcczQ4bdW
+         eLmHMExcEILPF1EIjZHRRRMLMerIeb4LzGQ587o9TTrt9qXTlq+XQC8Zc9d0VTKktK0k
+         Tgd1nGGticv7nw+D6iivQkNdeEHTUpsWgWAJp5ofoNqCpxOGe1rlm4xDixYmzX1yfg/K
+         xuCk66B+gycvKsX8KHt6JHZ/xM9SQi1wJSPq//15YZkopc3bnm7rcCUVEgDx6lsu5cLH
+         8rSQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9wmfqv+mUiQnBOU1oHoTBgqW6xz3h4VCc/mKgc7R04JwlHr/uDvo6Iu6TFnKK5mWJHU5TT5z/9RqyC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyfwu+D8SkVwh9+RTzcb/vkYus76aSU4pgGldaIoqc/t7qNgP/M
+	Td1lsGrIRy+GmI/9iY4yd6wSf8hGXh6YF1AD+tJe5+4AbHEMpxogBoIr2fuscisUcMS4LUd8FyE
+	Le+TZib+fAjiLWwgIGn5IFDEN9tO6eA51lf91nnr4NdizlsealNqC2HKa0iOu5rMmZ+ppGn1e
+X-Gm-Gg: Acq92OGqjWn+lYYxCzSjBAUX44XgFmGr+lZGxnbHBkUlJumr2DBrXEb0eLBRyDVCB4w
+	dxQdLOF5Lh/b6OqXZDgE/TkHUnSEhysEUo3qXf8zzVKAdvQAY7fe9qAjF/Vo6DIJ864WarbDZKZ
+	rrCFgaw7+lk0msqY1XupLwRwxDw1zFgjdCvPg8iwz9ggzg4X21x9B2NVwuNhQq1By0tz2guIaQn
+	WS6DgOP/4+EcKeiCjYJUFDWxTXakG6wcW4tbmmw3TtGAdpkxwuH50Gh/XFANdfww9vpYeEONqWS
+	WekOYT2ldkbRqA/coT6XXoTKA49V727jo2MzGP0b4xrDTMrdHfEcuSw1IGC3HIAkDgUBzB1/bZG
+	B19jbKuLdvMxzxtHZj/whSWX1wQ0qFudmNdraCRYE/IjsIyJs
+X-Received: by 2002:a17:902:b181:b0:2b0:608d:d8a8 with SMTP id d9443c01a7336-2bd7e862606mr134007135ad.1.1779180227961;
+        Tue, 19 May 2026 01:43:47 -0700 (PDT)
+X-Received: by 2002:a17:902:b181:b0:2b0:608d:d8a8 with SMTP id d9443c01a7336-2bd7e862606mr134006875ad.1.1779180227348;
+        Tue, 19 May 2026 01:43:47 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5d11cbdesm178173755ad.71.2026.05.19.01.43.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 01:43:44 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 19 May 2026 10:43:39 +0200
-Subject: [PATCH v3 2/2] backlight: Add SY7758 6-channel High Efficiency LED
- Driver support
+        Tue, 19 May 2026 01:43:47 -0700 (PDT)
+Date: Tue, 19 May 2026 14:13:40 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: firmware: qcom,scm: Add minidump SRAM
+ property
+Message-ID: <20260519084340.x7tdie5uahaxldbn@hu-mojha-hyd.qualcomm.com>
+References: <20260507080727.3227367-1-mukesh.ojha@oss.qualcomm.com>
+ <20260507080727.3227367-2-mukesh.ojha@oss.qualcomm.com>
+ <c0def708-4d95-4398-8a20-8d4a7533fcf1@oss.qualcomm.com>
+ <CAL_JsqJNn=k64unun=k+3FOem74x452WuXKS7fZCL0Vxmcy9Uw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-2-ec8194bbc885@linaro.org>
-References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
-In-Reply-To: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9072;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=wb7mo6LEArl0Je+5k74ZTD2ybJAQuH2n+ORe4rJ9pdM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqDCK9zoderLsc8QhTndVTQm+bNlrG/gTaYVNw3qVT
- 7agj8MWJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCagwivQAKCRB33NvayMhJ0aRTEA
- DAYCVPIR5BYMJF25xPixbYB9+ChXuRKhxjdIOjvUvHx6pppz+ppOfFeWBo+UcP2DwJ3euz+jzQnDiX
- yh935UGHrfMAMlY9Wi3JYwHYhYiYhELv2SElU362IA5z2iVVYtY2lUAcFUYHa/ayLCboim6qDNCI1b
- yomUiUKYTAIj+ZJhr7/5FTNgVlrPD2+lnv7qfT6Zfy9q80mDqYABWBCFHfK6xi43u8gZPPvdlyGUkx
- QSxii+gNVDI7JsJ2Jgne2eStQAs8H33LZvnEx3apgBmVuqdYzCm6GTCL3V5c6WEgw8XTcJrTwrDx3b
- 6r+IGuvkUcrJaU498vVd1C39w9ySvbkIQj31BP/3XYC2Alk1o7KnwRyWxeKKrNtcLXyRy0SFXJd0KE
- Vp6GswHg7tolpatNb1z/N4/RKtIRSSVfdiTby1gg9pUeJr/IfElApZSjGAJ23yWsAiKsD9TJP/2aZM
- OT+G+UvezdAHGoH//Ayk2tAzB18jtR5NmZgdNbYcLg5bPpTs5Zf5RQsSGWG5tyMU6zH7lYVUzVTZeP
- rAm08YL++MxL3p6kDLHgYKhAAnKSgK6v7ZoKW2+BKem5rq5AtKEw2VoaMJ4nAo2Sw63a0oG3ezHkeB
- F2lvSJ6WwFNKD/z8BiS0DIY73hRl9VnkQUBCF66xuOIOg/dfO7BTd18+njxg==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL_JsqJNn=k64unun=k+3FOem74x452WuXKS7fZCL0Vxmcy9Uw@mail.gmail.com>
+X-Proofpoint-GUID: ks9nsaV8aZe_kV57Tw0PeEcmksI8Uq87
+X-Proofpoint-ORIG-GUID: ks9nsaV8aZe_kV57Tw0PeEcmksI8Uq87
+X-Authority-Analysis: v=2.4 cv=a9sAM0SF c=1 sm=1 tr=0 ts=6a0c22c5 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=rnkpo5U1iQQg37PeS5sA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA4NSBTYWx0ZWRfX56Wf8QrxiOL/
+ aG2wv9k7fCN/n6li71ShgxElezz6kVt9jrKMriFmmMEOH60aNH1pN+uQlQJcdPmEY7ljJNC6P3l
+ p9xQgHAuEU04C6z2shOFxMznc9q6lQR3KTlronT0tpzrEUR91Br0POXbq4CNDbpRhT7H3mhfvbI
+ E4HD1R3nS/h2E3aURhBDxsVn6gyJtuYYetkFZElkAO1Fp92JGMehX1A/SJ45LPrB4RNH1qeiHU4
+ FB+IbYe1oKfrsj+e0CLhtsOOMdpFzlUC5H+t+T7eqbONDCDDx+PmYtJNuhoqC6GSREtH7f3Z73y
+ FedJM5Zr1peeJ8/IdNF0M+rrC4uvIEwtklYmYQoMyJK5lYGXvkR6rUBlhqtcmURZ+lOcDudK15P
+ rppJMx8oc8GMirEFM8+jaFlbo3ULS15K6f2kgw4Z2Hnd8WTYdTw86f2GSJOJvFTKq0T++Ql+u89
+ yPiGxE2SSJjYRShfhtA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190085
 
-From: KancyJoe <kancy2333@outlook.com>
+On Fri, May 08, 2026 at 07:09:50AM -0500, Rob Herring wrote:
+> On Fri, May 8, 2026 at 5:50 AM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+> >
+> > On 5/7/26 10:07 AM, Mukesh Ojha wrote:
+> > > On most Qualcomm SoCs where minidump is supported, a word in always-on
+> > > SRAM is shared between the kernel and boot firmware. Before DDR is
+> > > initialised on the warm reset following a crash, firmware reads this
+> > > word to decide if minidump is enabled and collect a minidump and where
+> > >  to deliver it (USB upload to a host, or save to local storage).
+> > >
+> > > Add 'sram' and 'sram-names' properties to the SCM binding to describe
+> > > a region in always-on SRAM where the minidump download destination
+> > > value could be written. Boot firmware reads it before DDR is initialised
+> > > on a warm reset to decide where to store the minidump either to host
+> > > PC or to on device storage.
+> > >
+> > > Most of the Qualcomm SoC supporting minidump supports this, added the
+> > > kaanapali SoC for now.
+> > >
+> > > Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> > > ---
+> > >  .../bindings/firmware/qcom,scm.yaml           | 57 +++++++++++++++++++
+> > >  1 file changed, 57 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+> > > index 7918d31f58b4..6813081fd74a 100644
+> > > --- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+> > > +++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+> > > @@ -127,6 +127,22 @@ properties:
+> > >            - description: offset of the download mode control register
+> > >      description: TCSR hardware block
+> > >
+> > > +  sram:
+> > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > > +    description:
+> > > +      Phandle to a region in always-on SRAM used to store the download
+> > > +      mode value for boot firmware to read before DDR is initialised on
+> > > +      the next warm reset.
+> > > +    maxItems: 1
+> > > +
+> > > +  sram-names:
+> > > +    items:
+> > > +      - const: minidump
+> > > +
+> > > +dependencies:
+> > > +  sram: [ sram-names ]
+> > > +  sram-names: [ sram ]
+> > > +
+> > >  allOf:
+> > >    # Clocks
+> > >    - if:
+> > > @@ -229,6 +245,18 @@ allOf:
+> > >        properties:
+> > >          memory-region: false
+> > >
+> > > +  - if:
+> > > +      not:
+> > > +        properties:
+> > > +          compatible:
+> > > +            contains:
+> > > +              enum:
+> > > +                - qcom,scm-kaanapali
+> >
+> > This list will grow super large - like mentioned in the commit message,
+> > to list almost all platforms.. I don't know if it makes sense to limit
+> > this. Krzysztof/Rob?
+> 
+> Probably not. If sram is not valid for a platform, you'd have to go
+> out of your way to first add it and to have any effect if you did.
+>
 
-Implement support for the Silergy SY7758 6-channel High Efficiency LED
-Driver used for backlight brightness control in the Ayaneo Pocket S2
-dual-DSI panel.
+Sure, will remove restriction.
 
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/video/backlight/Kconfig  |   8 ++
- drivers/video/backlight/Makefile |   1 +
- drivers/video/backlight/sy7758.c | 259 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 268 insertions(+)
-
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index a7a3fbaf7c29..052ac80c8213 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -207,6 +207,14 @@ config BACKLIGHT_KTZ8866
- 		Say Y to enable the backlight driver for the Kinetic KTZ8866
- 		found in Xiaomi Mi Pad 5 series.
- 
-+config BACKLIGHT_SY7758
-+	tristate "Backlight Driver for Silergy SY7758"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the backlight driver for the Silergy SY7758
-+	  backlight controller found in Ayaneo Socket S2.
-+
- config BACKLIGHT_LM3533
- 	tristate "Backlight Driver for LM3533"
- 	depends on MFD_LM3533
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 794820a98ed4..39ef588b1cf2 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -56,6 +56,7 @@ obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
- obj-$(CONFIG_BACKLIGHT_QCOM_WLED)	+= qcom-wled.o
- obj-$(CONFIG_BACKLIGHT_RT4831)		+= rt4831-backlight.o
- obj-$(CONFIG_BACKLIGHT_SAHARA)		+= kb3886_bl.o
-+obj-$(CONFIG_BACKLIGHT_SY7758)		+= sy7758.o
- obj-$(CONFIG_BACKLIGHT_SKY81452)	+= sky81452-backlight.o
- obj-$(CONFIG_BACKLIGHT_TPS65217)	+= tps65217_bl.o
- obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
-diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
-new file mode 100644
-index 000000000000..a6087e687b64
---- /dev/null
-+++ b/drivers/video/backlight/sy7758.c
-@@ -0,0 +1,259 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Silergy SY7758 6-channel High Efficiency LED Driver
-+ *
-+ * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
-+ * Copyright (C) 2026 Linaro Limited
-+ * Author: Neil Armstrong <neil.armstrong@linaro.org>
-+ */
-+#include <linux/backlight.h>
-+#include <linux/module.h>
-+#include <linux/i2c.h>
-+#include <linux/of.h>
-+#include <linux/err.h>
-+#include <linux/bits.h>
-+#include <linux/regmap.h>
-+#include <linux/bitfield.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define DEFAULT_BRIGHTNESS	1024
-+#define MAX_BRIGHTNESS		4080
-+#define REG_MAX			0xAE
-+
-+/* Registers */
-+#define REG_DEV_CTL		0x01
-+#define REG_DEV_ID		0x03
-+#define REG_BRT_12BIT_L		0x10
-+#define REG_BRT_12BIT_H		0x11
-+
-+/* OTP memory */
-+#define REG_OTP_CFG0		0xA0
-+#define REG_OTP_CFG1		0xA1
-+#define REG_OTP_CFG2		0xA2
-+#define REG_OTP_CFG5		0xA5
-+#define REG_OTP_CFG9		0xA9
-+
-+/* Fields */
-+#define BIT_DEV_CTL_FAST	BIT(7)
-+#define MSK_DEV_CTL_BRT_MODE	GENMASK(2, 1)
-+#define BIT_DEV_CTL_BL_CTLB	BIT(0)
-+
-+#define MSK_BRT_12BIT_L		GENMASK(7, 0)
-+#define MSK_BRT_12BIT_H		GENMASK(3, 0)
-+#define MSK_LED_ENABLE		GENMASK(5, 0)
-+
-+#define MSK_CFG0_CURRENT_LOW	GENMASK(7, 0)
-+
-+#define BIT_CFG1_PDET_STDBY	BIT(7)
-+#define MSK_CFG1_CURRENT_MAX	GENMASK(6, 4)
-+#define MSK_CFG1_CURRENT_HIGH	GENMASK(3, 0)
-+
-+#define BIT_CFG2_UVLO_EN	BIT(5)
-+#define BIT_CFG2_UVLO_TH	BIT(4)
-+#define BIT_CFG2_BL_ON		BIT(3)
-+#define BIT_CFG2_ISET_EN	BIT(2)
-+#define BIT_CFG2_BST_ESET_EN	BIT(1)
-+
-+#define BIT_CFG5_PWM_DIRECT	BIT(7)
-+#define MSK_CFG5_PS_MODE	GENMASK(6, 4)
-+#define MSK_CFG5_PWM_FREQ	GENMASK(3, 0)
-+
-+#define MSK_CFG9_VBST_MAX	GENMASK(7, 5)
-+#define BIT_CFG9_JUMP_EN	BIT(4)
-+#define MSK_CFG9_JUMP_TH	GENMASK(3, 2)
-+#define MSK_CFG9_JUMP_VOLTAGE	GENMASK(1, 0)
-+
-+struct sy7758 {
-+	struct i2c_client *client;
-+	struct regmap *regmap;
-+	struct gpio_desc *gpio;
-+	struct backlight_device *bl;
-+};
-+
-+static const struct regmap_config sy7758_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = REG_MAX,
-+};
-+
-+static int sy7758_backlight_update_status(struct backlight_device *backlight_dev)
-+{
-+	struct sy7758 *sydev = bl_get_data(backlight_dev);
-+	unsigned int brightness = backlight_get_brightness(backlight_dev);
-+	int ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
-+			   FIELD_PREP(MSK_BRT_12BIT_L,
-+				      brightness & 0xff));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
-+			   FIELD_PREP(MSK_BRT_12BIT_H,
-+				      (brightness >> 8) & 0xf));
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct backlight_ops sy7758_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = sy7758_backlight_update_status,
-+};
-+
-+static int sy7758_init(struct sy7758 *sydev)
-+{
-+	int ret = 0;
-+
-+	ret = regmap_write(sydev->regmap, REG_DEV_CTL,
-+			   BIT_DEV_CTL_FAST | BIT_DEV_CTL_BL_CTLB |
-+			   FIELD_PREP(MSK_DEV_CTL_BRT_MODE, 2));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
-+			   FIELD_PREP(MSK_BRT_12BIT_L,
-+				      DEFAULT_BRIGHTNESS & 0xff));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
-+			   FIELD_PREP(MSK_BRT_12BIT_H,
-+				      (DEFAULT_BRIGHTNESS >> 8)));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG5,
-+			   FIELD_PREP(MSK_CFG5_PS_MODE, 6) |
-+			   FIELD_PREP(MSK_CFG5_PWM_FREQ, 4));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG0,
-+			   FIELD_PREP(MSK_CFG0_CURRENT_LOW, 85));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG1,
-+			   BIT_CFG1_PDET_STDBY |
-+			   FIELD_PREP(MSK_CFG1_CURRENT_MAX, 1) |
-+			   FIELD_PREP(MSK_CFG1_CURRENT_HIGH, 10));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG9,
-+			   FIELD_PREP(MSK_CFG9_VBST_MAX, 4));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG2,
-+			   BIT_CFG2_BL_ON | BIT_CFG2_UVLO_EN);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int sy7758_probe(struct i2c_client *client)
-+{
-+	struct backlight_properties props = { };
-+	struct device *dev = &client->dev;
-+	struct sy7758 *sydev;
-+	unsigned int dev_id;
-+	int ret;
-+
-+	sydev = devm_kzalloc(dev, sizeof(*sydev), GFP_KERNEL);
-+	if (!sydev)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, sydev);
-+
-+	/* Initialize regmap */
-+	sydev->client = client;
-+	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
-+	if (IS_ERR(sydev->regmap))
-+		return dev_err_probe(dev, PTR_ERR(sydev->regmap),
-+				     "failed to init regmap\n");
-+
-+	/* Get and enable regulators */
-+	ret = devm_regulator_get_enable(dev, "vddio");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get regulator\n");
-+
-+	fsleep(100);
-+
-+	/* Get enable GPIO and set to high */
-+	sydev->gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
-+	if (IS_ERR(sydev->gpio))
-+		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
-+				     "failed to get enable GPIO\n");
-+
-+	/* Let some time for HW to settle */
-+	fsleep(10000);
-+
-+	/* try read and check device id */
-+	ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to read device id\n");
-+	if (dev_id != 0x63) {
-+		dev_err(dev, "unexpected device id: 0x%02x\n", dev_id);
-+		return -ENODEV;
-+	}
-+
-+	/* Initialize and set default brightness */
-+	ret = sy7758_init(sydev);
-+	if (ret)
-+		return ret;
-+
-+	props.type = BACKLIGHT_RAW;
-+	props.max_brightness = MAX_BRIGHTNESS;
-+	props.brightness = DEFAULT_BRIGHTNESS;
-+	props.scale = BACKLIGHT_SCALE_LINEAR;
-+
-+	sydev->bl = devm_backlight_device_register(dev, "sy7758-backlight",
-+						   dev, sydev, &sy7758_backlight_ops,
-+						   &props);
-+	if (IS_ERR(sydev->bl))
-+		return dev_err_probe(dev, PTR_ERR(sydev->bl),
-+				     "failed to register backlight device\n");
-+
-+	return backlight_update_status(sydev->bl);
-+}
-+
-+static void sy7758_remove(struct i2c_client *client)
-+{
-+	struct sy7758 *sydev = i2c_get_clientdata(client);
-+
-+	backlight_disable(sydev->bl);
-+}
-+
-+static const struct i2c_device_id sy7758_ids[] = {
-+	{ "sy7758" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, sy7758_ids);
-+
-+static const struct of_device_id sy7758_match_table[] = {
-+	{ .compatible = "silergy,sy7758", },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, sy7758_match_table);
-+
-+static struct i2c_driver sy7758_driver = {
-+	.driver = {
-+		.name = "sy7758",
-+		.of_match_table = sy7758_match_table,
-+	},
-+	.probe = sy7758_probe,
-+	.remove = sy7758_remove,
-+	.id_table = sy7758_ids,
-+};
-+
-+module_i2c_driver(sy7758_driver);
-+
-+MODULE_DESCRIPTION("Silergy SY7758 Backlight Driver");
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
-+MODULE_LICENSE("GPL");
+> Rob
 
 -- 
-2.34.1
-
+-Mukesh Ojha
