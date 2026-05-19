@@ -1,82 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8F237C913
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:10:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BD637F728;
+	Tue, 19 May 2026 06:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171001; cv=none; b=mDagll/QLSoqym0Vm26eaJx+kDOWImCs0mzgstnFvo5fCs100POkVD0kGczAQLGyX79TFQEUuRKTdbB3FfRG685VadFmtkej0DCAx2DbVpu8deRScRwyr/8+18QA9L124b7O05Lh9hI/rEMwyMHpJX0u1Aw3bVg5VPhb2Vbsgjw=
+	t=1779171010; cv=none; b=dIpyC/5NNQmMnAMyZW97e7W9VQ2xOe70L1nWBL8IPrMxTwU9BDwlrSVImpjRmcVgyQ7cJPdLoVsE+kBT7mPTw04k2X+kTk1oQlLsrl1ENsWsmZ6+q+MGfp0277scRyQPMfXkAqy+pNbs4iYJ2Un0YEwCTlsQCw8jTjp2mZZ3BKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171001; c=relaxed/simple;
-	bh=uCn9+Ea9EmyReZNVQnl290VyGe66Yfpuyhu1nfAFBZU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m0/Mt9kSfhH0We+ZJLAhmf1fcWBCoO3d+j0Uu5JJINMebEOVeqcyhuVChs2DTU01pQkWMoyN843bfZY+yMQ9DE6hfyJqlB4KZ/zihgfarv6RD2oFf0osmcn8xcJgz03qk9KNKh2gByXwFyryt3UW1YolkClJlT7vQukIAWrJhmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tn0exEEc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779171010; c=relaxed/simple;
+	bh=hBz6LTYI5t7x4hreKVlmTXs2Mvl6FjET6EY5b5DiR2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ILIs7OzLQ4rGfGfsYFg74UgodqMbLS3LzjZlDXmSZn2plzsbKl3R5CLTe3QSfvVSbE52W3KG1WEAXOz1OcFPdHZ6Nn6cPgq7qbBvAZ07YYRt6bC9sYC0blp05UIk/9fe3YDi/pzGRKNXTgjupWt0dj8i27DyYTehUJkoH+x7f/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJkI6Igx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tn0exEEc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD84FC2BCB3;
-	Tue, 19 May 2026 06:09:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJkI6Igx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E16C2BCC9;
+	Tue, 19 May 2026 06:10:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779171000;
-	bh=uCn9+Ea9EmyReZNVQnl290VyGe66Yfpuyhu1nfAFBZU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Tn0exEEc1EHAYQJEn/Kq/bQ4jsUZVXmJzfm4AltkzyqNfoc1QCrmIjv6rFfbuP1oy
-	 BpCwyKAkklBB6LwT9AbsgQ6qDsBrvvFXtgAjVBQvLJduCyUbS0HBpgQLMb7IpnaQX6
-	 FKnQW3oHAXDlIazwwUdjmh8lTKUniCciLTdB4Rgfhz4a0L20BWB/DzSP59uU4r1xZh
-	 D8IP+9TwwEY6ZuA99wBdTDTvNgeI1BY4of5jzk+O7Ufv3CIY0uWMhJVX8tRUq0c3ic
-	 sNPQX/xgd/ay1gzO5c2uMNOM/hqL1a2b7ZS6V9c+XT8t8xy2rCYm59zvJJTPix+k5O
-	 IaMgaFiL/iGZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: ipq5018: Correct CMN PLL reference
- clock rate
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem via B4 Relay" <devnull+george.moussalem.outlook.com@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260519-ipq5018-cmn-pll-rate-fix-v1-1-3c83a173c27f@outlook.com>
-References: <20260519-ipq5018-cmn-pll-rate-fix-v1-1-3c83a173c27f@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 06:09:59 +0000
-Message-Id: <20260519060959.CD84FC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1779171009;
+	bh=hBz6LTYI5t7x4hreKVlmTXs2Mvl6FjET6EY5b5DiR2c=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nJkI6IgxQsCL7Ma5BbnEobWmhUntrZtd3CIDhqFvt18kfF4Hlf31g38SSadKQ8EGa
+	 bxhrdWdjNXrgPcdiiMk3Plov1BHMujcvw+xSc0aPqE5TehGJNTtkbUCUKlJwgSpAFh
+	 j/d7i4yYTs8HbWGmhRPL13mr5E1+6Zv+bN8zClLAztoKGlnwqE+MK4BR/ptD6TEwVv
+	 dujm0n6g1ryvpUqFWYGfpGD5NsXgE7820+OELuqZuvIszSkYfwp3bh9F3e4/9vSfvA
+	 mq7SF3a1fzy0jS2maJeR5PERs86IyHPfALkuK35ApjUBb39kG1PIO+NuyN6JTA/rcJ
+	 RFkebmK5d+6xg==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-i3c@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] i3c: dw: Add apb reset support
+Date: Tue, 19 May 2026 13:51:01 +0800
+Message-ID: <20260519055105.13079-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The commit message incorrectly refers to 4.8 GHz as the 'CMN PLL re=
-ference clock rate'.
---
+Add support of apb reset which is to reset the APB interface.
+The first patch is to document the exisiting reset dt-binding. 2nd patch
+is to add apb reset dt-binding. The last patch is to add apb reset
+support.
 
-commit 4cb93e818beccfa0a5e9ea288ba3c76a08ea178c
-Author: George Moussalem <george.moussalem@outlook.com>
 
-arm64: dts: qcom: ipq5018: Correct CMN PLL reference clock rate
+Since v2:
+  - remove "_rst" suffix
 
-This commit corrects the CMN PLL clock rate configuration for the IPQ5018
-in the device tree to 4.8 GHz, aligning it with the driver's updated clock
-divider math.
+Since v1:
+  - add dt-binding
 
-> arm64: dts: qcom: ipq5018: Correct CMN PLL reference clock rate
->
-> The correct CMN PLL reference clock rate for IPQ5018 is 4.8 GHz.
->
-> The CMN PLL driver did not account for the ref clock divider which is 2
-> for IPQ5018. Therefore, the computed rate was twice the actual output.
 
-This isn't a bug in the device tree changes, but does the commit message
-conflate the output rate with the input reference clock rate?
+Jisheng Zhang (4):
+  i3c: dw: Remove core reset "_rst" suffix
+  dt-bindings: i3c: dw: Describe core reset
+  dt-bindings: i3c: dw: Add apb reset
+  i3c: dw: Add apb reset support
 
-In PLL terminology, the input reference clock for the IPQ5018 CMN PLL is
-96 MHz. The 4.8 GHz value being configured via assigned-clock-rates-u64
-is the output (or VCO) rate of the CMN PLL, rather than the reference
-clock rate.
+ .../devicetree/bindings/i3c/snps,dw-i3c-master.yaml    | 10 ++++++++++
+ drivers/i3c/master/dw-i3c-master.c                     |  9 ++++++++-
+ drivers/i3c/master/dw-i3c-master.h                     |  1 +
+ 3 files changed, 19 insertions(+), 1 deletion(-)
 
-Could the subject and commit message be updated to clarify that 4.8 GHz
-is the output rate?
+-- 
+2.53.0
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-ipq5018-cm=
-n-pll-rate-fix-v1-1-3c83a173c27f@outlook.com?part=3D1
