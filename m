@@ -1,80 +1,80 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012015.outbound.protection.outlook.com [40.93.195.15])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010067.outbound.protection.outlook.com [52.101.56.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E932C492528;
-	Tue, 19 May 2026 14:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0343ED3A9;
+	Tue, 19 May 2026 14:24:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779200666; cv=fail; b=SELE2LlHzDts+VDGSvMoLnX54bmii+YYC/3myt8u9rcV4oNe904Couo1bKUpBuxIweUkNlzYN5ay2aMoKI+rNKm9oQgcaRDTv7i6Cw5/J4oDMuRNsuc7Z9f/EOuz6/+P+lA05EWWenP9K6TQ6docVQ0wHBPBN+oD3S5reKYljO0=
+	t=1779200674; cv=fail; b=ML0XWV2QKk6XEzSyEDZsNJyuQomoT797Gqt2PUl33Iab9MXAwSs0+456AwBuvutdJOJcV2NTYnzey0+sG6IaYslsraCOXk2A8n66ybSnfLUNAeOlpuoKU914U/Jr6HJsqimLRFkVg4pZGiyblCUeoHx6KK8A9y1MXXY2gK2R7B4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779200666; c=relaxed/simple;
-	bh=uitqTXi2CMsXiJooQXFH1ZnUa0KCSbHepnCqt0mEbHI=;
+	s=arc-20240116; t=1779200674; c=relaxed/simple;
+	bh=UbjTYeE9hWtRb0VfpffwqfWH2FNzqqdbfsnukehIjx4=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jfLp+6H959Q3vIQ96Kvlw/q307xZomv2c+ygde4uim6n8y5fk+TD3QlBBVsaaTIXDSR0EXuDzHdiPTyCRx4P3syY8wRr79M5Gplq8BhbypYy2LtYG1Qw0hf05dhAVKnMX4W+z7B0UXNidzWVxDPQtDZvL2ytfuDvpsHgddXxUQY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=QuN8s6uN; arc=fail smtp.client-ip=40.93.195.15
+	 MIME-Version:Content-Type; b=QksVPY09b1VvmAIT5bSqufLI/4MN+lvzDwWDvTLEjLn7jquFGeAOV1YBC8QtAHPErdwfdNuFyBgX7zeQUm69qp96fb2Ag3xmB3LZ/w7E9Ad3gUdE79bVnJZlmy4emYzpA+7cv+xWsGeFI2n0FgAN6V5JxLF3iMX5jcGkfOLPqjU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=tLBnEOge; arc=fail smtp.client-ip=52.101.56.67
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="QuN8s6uN"
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="tLBnEOge"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kq1UTNH1zdI+6emPyg23FzPoS3WUbpWzeckLCJoY0vRFOF5nBFejd+HE9HKwSmeUcheB1E6G7Z9Kj1ocMRNKSYyCZbGdXcPCfPXMtjCW+4tLK9Zy7RBxBGACGwB645ed95CWHI3ZZFk51MDXlF3vbBIA86Wy11G7sqi7bQpQXxZ0hd872AZwbxVilbUkgAiNprUp/06/HOsd4/jh89uHfWNP7ISt2borwC17hQZqOhqd2++EdtzcHXUdDwt6ZM8utctSzavi3P70FdVHTx97nNOzFU+BHuApepAa4ivAlQP0Bv5hLUSXmUgn9lYkKkg4IyjBHSCYcQ+w7pAVj/sC6A==
+ b=G2aEkee7Uk6wxcbgQh0NcolLfVybpF3KmpeusZD0RssPtr5HJkAQQh7IdkKDR3uv+ynPlZsvGo3PK/6v6oFrUDdnTSkuyKoyWnE97vF79KqmmxjBvu61IfnAGC9blQ9W8vE54rV3WODy0wsyUn/rxhKYVZbuw/5N+JvxV2AP8LKN2A0WGMDcvkIKqk0v3EG6fY7ihyPlT82OqRBji5hr3LyjcTIZepcqFIGKLtoOwGd5FKL3rfTyImUCAIapnSkSDP5zbIhFXnViFXV41t9Yf7UffV0aHx9nc6HuM/32znimNCSPdO1OY6c9YkCu2w9kcfrOxGd4fby2svGAF/Theg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dHaz1qcofpb0p8LeTttGRwJDhLLxhNbYkdT0EuGuR40=;
- b=upygdtb+jboxrlu79KkqUUTBKSYnjdhK+RuOKXj95F0WcoVKgCu3M0uni65RpbZYhf+CRQ/4nlIiIk7Uqeo3z4ztmTxht8oA1tG4O/zsUJ7cjXKngpvMzN16UsycGgCzxOzObryPLSU3pdguC0WvH9CFZdesoMyohMUgfHk43YZ53hmMKgLu3M5LGMY3gc4z2NpLOj2bIySnnYx2UOwhctxZY+V7OO4RV/6k/qk0plohml/wvR1fcTg70sW/n2WRHzuN2BJd91Pxz7YrzBx1MVK08qgGe4mTlVPXzio/HJtRh1UmPuU3nA4Tth04FAo8iVXE3Kxb1Wj91aCQY53NGA==
+ bh=q+erK0bGW29K0SJeHxD4PubkWllmjltfCuqMutxnnws=;
+ b=hKSQBTit0EvvNYyNyYuuMbdbDHxRlBLSdbVTpwksvV59ONFKXP6S+z29FVNr8D41RDVYQO3L2kHQuke1eS717Nto3N7inGQQWcyIm7BCLnuWnqYuHH1j0Ov9xvSqb/VDmvuGZ+rVd6rDv9uvFqR5fIuXhxfwa669fvmBI+2AwlUxE1FZ9N05FNBcW/RYIDiuYmiBYtjCVImBisWKZVeirXEBO0p3yp8KxNnigcLCgmIoQuwKPIQfJbCwABkfCBAboUvcDBu/DfImdcVzAs0GCPyHcAHUWvAm7KiqwWHQgZbdX0TxXQGZv/Xi5EtEc+xnmtR2qwh+p2rQs9w5PzwEqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dHaz1qcofpb0p8LeTttGRwJDhLLxhNbYkdT0EuGuR40=;
- b=QuN8s6uNVh3aJsHm4YCX+suf/aSp6coNgSTRkbjUaBb2eNNR9q1dI63jMKagc3y6Hqz0fo1+u2MfwV6PDY5VzKphpMgt1jS38O/7OfYXLAp6EcHfL3wj78iX+a8R07RUlAbMUDhzxTK+tegBwFNjOEbDVYwZAoFmwuovPXO/g+c=
-Received: from BN9PR03CA0186.namprd03.prod.outlook.com (2603:10b6:408:f9::11)
- by MN0PR10MB6007.namprd10.prod.outlook.com (2603:10b6:208:3c9::16) with
+ bh=q+erK0bGW29K0SJeHxD4PubkWllmjltfCuqMutxnnws=;
+ b=tLBnEOgesQT7bBwvCUMfzqBlA1gDSWb+U4TFSECFDIRG/EXsqRW2lE8vhukrxXohpMMjxFdVTkKYI7WdV/a0+klkUWcmDbzEDhkXQwzW7AXBFABf4KHGJsHfkjHfEGshu0UjHiYQV2BcXfWXpk6y3N6pk7Cegol9T6PUv6us3Jo=
+Received: from CH2PR07CA0051.namprd07.prod.outlook.com (2603:10b6:610:5b::25)
+ by DM3PPF4A29B3BB2.namprd10.prod.outlook.com (2603:10b6:f:fc00::c25) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.21; Tue, 19 May
- 2026 14:24:21 +0000
-Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
- (2603:10b6:408:f9:cafe::ba) by BN9PR03CA0186.outlook.office365.com
- (2603:10b6:408:f9::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.14 via Frontend Transport; Tue, 19
- May 2026 14:24:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Tue, 19 May
+ 2026 14:24:29 +0000
+Received: from DS2PEPF00003442.namprd04.prod.outlook.com
+ (2603:10b6:610:5b:cafe::75) by CH2PR07CA0051.outlook.office365.com
+ (2603:10b6:610:5b::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.24 via Frontend Transport; Tue, 19
+ May 2026 14:24:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
  smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
  action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Tue, 19 May 2026 14:24:21 +0000
-Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.48.11 via Frontend Transport; Tue, 19 May 2026 14:24:28 +0000
+Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 19 May
- 2026 09:23:50 -0500
-Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 09:23:54 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE210.ent.ti.com
+ (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 19 May
- 2026 09:23:50 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 09:23:54 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 19 May 2026 09:23:50 -0500
+ Transport; Tue, 19 May 2026 09:23:54 -0500
 Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64JENgoU4183406;
-	Tue, 19 May 2026 09:23:47 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64JENgoV4183406;
+	Tue, 19 May 2026 09:23:50 -0500
 From: Moteen Shah <m-shah@ti.com>
 To: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
 	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>
 CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
 	<y-abhilashchandra@ti.com>, <m-shah@ti.com>
-Subject: [PATCH v4 1/2] dt-bindings: ti: Update audio-refclk binding and j721e system controller
-Date: Tue, 19 May 2026 19:53:40 +0530
-Message-ID: <20260519142341.2531948-2-m-shah@ti.com>
+Subject: [PATCH v4 2/2] arm64: dts: ti: Add audio overlay for k3-j721s2-evm
+Date: Tue, 19 May 2026 19:53:41 +0530
+Message-ID: <20260519142341.2531948-3-m-shah@ti.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260519142341.2531948-1-m-shah@ti.com>
 References: <20260519142341.2531948-1-m-shah@ti.com>
@@ -89,85 +89,248 @@ Content-Type: text/plain
 X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|MN0PR10MB6007:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0de75999-1c4d-4b7f-a630-08deb5b251d0
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|DM3PPF4A29B3BB2:EE_
+X-MS-Office365-Filtering-Correlation-Id: ccc3b494-9357-4dd6-88b9-08deb5b255ef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|22082099003|56012099003|18002099003|3023799003;
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|3023799003|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	t99ubpHnikmd8hWgP1Yy79TDO8y4wl2eeswUpw6loAPKjA+v7SYtZzMF9Lcm8GX6j+lop7bPlNPUGLs0UJ1RLvgJuHa1/G1paY0cMpKoqOGB9FmCQQbxqyTQHnqlJnnTSjlKgllSwQ456JrgYLkCGZy1MnGs+kZfaO4+zhvN1A36MIt+E/gO0wiuMrXmFlLmbodY5uAP45jq5gQMco3u5uVbQuIlJ2agnZzx6NokxB5a2ReIRXsnSK5xS4pn1/kcV0dS11+buJ388OPPnZod3el2hZFbxTDvR44gM02Yew8y4b5FviZVDHNp+8/lZWBcglbDsFXBrr20pkbO28Zw+HVzSpy9eAgbFcnB3vClyfdgvQhauo0Wnp3geiyo4kit9tEDEgEPuMYqPIZI7t9FzRYvAbuDiB5Yf6Vaxh8/yJd9DqugmXzgT9X/BFRi68Y3Wm86FatjPtDFZEq1CeY5Mtq9+7vjmQzk4foH3Lcztf4ikmKzMK7d1weFN4DHx+P3b5XF+HmjtOUD0IXCjkZp2EqlvFsijoYqs+DOU81jcbvFScCtSq5oygg5eloW+Hp1w6aAGqMiWcJr0X7bpR+VOJTobyPcNn3tdl5d71ZD2gh5pHp6o13gND/Kp/PMU9DrQ+grPP1cbzawpux5ICMQKPDvNyQd8OSp4HUywUmNF0SntlMF/oEx6dIqOjzpzv4CYsLbLiYnBVZnhdRgTfaI/gDjtFElGru2868jKLiWmCk=
+	5cbLGcCoBBFgLHkevfLuxGdslTLnMyJbdFIvMrmOux4MfmTTM35dARpsZ4KHUgAfJPW1uXGJic9sbGHw1p+OZFV+rF6UbXr2dmESiRsw8qMSm3uOU/Bvhsl89/UrCbAqsSEqBnSHtfLZPOiWtDRW4maHZnv4p4S1gbuqFC+YeUWA6c2XuQiP0RxFfeQxyVGY1FRKXavlWm5Newty2S+ULhjZ6KMKNAeXPod+hD2xbeHK9HgdE4uv2HK/GjJwlWwlS65DULCPbWpxngLHcyNJpsc6PP7MKfIJIUlKucMRSZB34l3r8hjS196UqOGlSudhURtVyECHyBVupMhrT2T8qYnqbXZb5Lw9L+1HgGPqTjct08dBiPOE2pdMcH8klyYw6Iy+ZoKG97cflsaxRDBVYuDO6VvL9Z+5QU63g0s08Gs3YZh6QW5jCWxbzo7EA7+TVC3XFpUvOShQbBW4jKZOZsasdLDU0HLci7sSE1h/AsV8aNo08lTkNbQtFUaltUuTGitzhlbCoN/uCB1hqYeX4XM+vtgdkcfHckilGMbQUDwVuLS8mvPMHcpcqLSgqrjKnFLWTrcmtUIauzxp6rxlZvBH0//mGRQ/knNdvTRtoFmAo2eibXbhMdtrV67MTQ+EI0tqkBhDiUD+mLBqMQwBHk6Uns/nJWEyqR7LWSGZRU4=
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(22082099003)(56012099003)(18002099003)(3023799003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(3023799003)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	n9oWbBxjG3Gy3RJZVCOEaRY07QRNxE15FcC8yH9g2RZDefOQZ1Se8Z8I+FD4h0hYS8bigkNj6jmvN6Qwb0Ra7sFgHrhYSVomjCvxSe13i+ChqsGQsdAcMl/xPNSdk+DK1oCJhJ2HewA4dXGhQHVgupx9U/0AnfFEqEkUQXyd+eBut9pwYlRjbqQBQZcipCYXd/hO/cZRLXBY38DiFnlynAa+vAQFpCtEf/6AJ/m2Km7UWD3ZWG3XwhkQFDWULOG7VWJNZrn4LUZOQZqnlOOilWWeFVdh+N/FJmrNRX4hzoZf3cftswd2kptTUFy1gi3v+QNQIpNYrk/IGoat+WBwe2F6QjkxFVk2fkk2eW7owjFJD9LfHxGfEwD7RgQ0VJR0DbqPKW6EMuZoq1Dc9DpKpAzqdRuk1BEWzPnbL6NpDLgT1KUpBXcJhi4LTNzf+JyT
+	oUneiO9xbMD8FuECm9fwMPJHG8pOaprZ7yWUSj+RY7/7pC42To3sk9Me2vyMfivEF7nOFWIwjE/ctKkLCC3sTfnnCJGmcComoQrsauaxoCe447h33liLrauCuYe+PGSSx4dKBwFFboDCUR9nz2UFu8eTZBQWMdGPD753kns/X03JKI2t3bQ+LvHyxbtE7fXRuOaiu7b2beYPsAM/x1ZvqNHHAeuuuaSbp3lIK1ugxllCYLN44sNIYG7faQRS/zmrahbSBXUBF86HyOrpl8PVLkppsv/XjHZlUpBoOjInwnSbacSJyhe9TtilvyJCkaG5eaYAW5UCXfxyVOR+kwg9JZpGKbfyGDQxJuzJoRCzE6GFa0h2/9ezXI53xoCOEVvoq5AlWacqFautRdGlyroRQc68C1A5XNpY14h6ZeFZSSSLzXYRhlSvzE6VwNz6GFGX
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 14:24:21.3441
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 14:24:28.2697
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0de75999-1c4d-4b7f-a630-08deb5b251d0
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccc3b494-9357-4dd6-88b9-08deb5b255ef
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0DF.namprd04.prod.outlook.com
+	DS2PEPF00003442.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR10MB6007
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF4A29B3BB2
 
-Add ti,j721s2-audio-refclk as a supported compatible string in the
-ti,am62-audio-refclk binding. J721S2 uses the same audio reference
-clock IP block first introduced on AM62. Per writing-bindings
-guidelines, the J721S2-specific compatible is added as the primary
-string with ti,am62-audio-refclk as the fallback.
+From: Jayesh Choudhary <j-choudhary@ti.com>
 
-Also extend the ti,j721e-system-controller clock-controller@ child
-pattern to accept audio-refclk schemas alongside ehrpwm-tbclk via a
-oneOf constraint, fixing the alphanumerical ordering of $refs.
+Add device tree overlay to enable analog audio support on J721S2-EVM
+using PCM3168A codec connected to McASP4 serializers.
 
+- Add nodes for sound-card, audio codec, I2C3 and McASP4
+- Add pinmux for I2C3, McASP4, AUDIO_EXT_REFCLK1 and WKUP_GPIO_0
+- Add GPIO expander (TCA6408) for codec control
+- Add GPIO hogs to route I2C3 lines and McASP serializers
+- Set idle-state to 0 in mux0 and mux1 for McASP signal routing
+
+Reviewed-by: Hari Prasath Gujulan Elango <gehariprasath@ti.com>
+Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
+Co-developed-by: Moteen Shah <m-shah@ti.com>
 Signed-off-by: Moteen Shah <m-shah@ti.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/clock/ti,am62-audio-refclk.yaml   | 8 ++++++--
- .../bindings/soc/ti/ti,j721e-system-controller.yaml       | 6 ++++--
- 2 files changed, 10 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../boot/dts/ti/k3-j721s2-evm-audio.dtso      | 161 ++++++++++++++++++
+ 2 files changed, 165 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
 
-diff --git a/Documentation/devicetree/bindings/clock/ti,am62-audio-refclk.yaml b/Documentation/devicetree/bindings/clock/ti,am62-audio-refclk.yaml
-index b2e40bd39a3a..6c8fb0793070 100644
---- a/Documentation/devicetree/bindings/clock/ti,am62-audio-refclk.yaml
-+++ b/Documentation/devicetree/bindings/clock/ti,am62-audio-refclk.yaml
-@@ -11,8 +11,12 @@ maintainers:
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index ba01a929e06f..17048f2f5043 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -138,6 +138,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-common-proc-board.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-gesi-exp-board.dtbo
+ k3-j721s2-evm-dtbs := k3-j721s2-common-proc-board.dtb k3-j721s2-evm-gesi-exp-board.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-audio.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-pcie1-ep.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-usb0-type-a.dtbo
  
- properties:
-   compatible:
--    items:
--      - const: ti,am62-audio-refclk
-+    oneOf:
-+      - items:
-+          - const: ti,am62-audio-refclk
-+      - items:
-+          - const: ti,j721s2-audio-refclk
-+          - const: ti,am62-audio-refclk
- 
-   reg:
-     maxItems: 1
-diff --git a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
-index f3bd0be3b279..364be49f8c7c 100644
---- a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
-+++ b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
-@@ -53,9 +53,11 @@ patternProperties:
- 
-   "^clock-controller@[0-9a-f]+$":
-     type: object
--    $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
-+    oneOf:
-+      - $ref: /schemas/clock/ti,am62-audio-refclk.yaml#
-+      - $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
-     description:
--      Clock provider for TI EHRPWM nodes.
-+      Clock provider for TI EHRPWM or Audio Reference Clock nodes.
- 
-   "phy@[0-9a-f]+$":
-     type: object
+@@ -264,6 +265,8 @@ k3-j721e-evm-pcie1-ep-dtbs := k3-j721e-common-proc-board.dtb \
+ 	k3-j721e-evm-pcie1-ep.dtbo
+ k3-j721e-sk-csi2-dual-imx219-dtbs := k3-j721e-sk.dtb \
+ 	k3-j721e-sk-csi2-dual-imx219.dtbo
++k3-j721s2-evm-audio-dtbs := k3-j721s2-common-proc-board.dtb \
++	k3-j721s2-evm-audio.dtbo
+ k3-j721s2-evm-pcie1-ep-dtbs := k3-j721s2-common-proc-board.dtb \
+ 	k3-j721s2-evm-pcie1-ep.dtbo
+ k3-j721s2-evm-usb0-type-a-dtbs := k3-j721s2-common-proc-board.dtb \
+@@ -328,6 +331,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-j721e-evm-pcie0-ep.dtb \
+ 	k3-j721e-evm-pcie1-ep.dtb \
+ 	k3-j721e-sk-csi2-dual-imx219.dtb \
++	k3-j721s2-evm-audio.dtb \
+ 	k3-j721s2-evm-pcie1-ep.dtb \
+ 	k3-j721s2-evm-usb0-type-a.dtb \
+ 	k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso b/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
+new file mode 100644
+index 000000000000..6ed4d6fc414d
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
+@@ -0,0 +1,161 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Device Tree Overlay for J721S2 Audio Support
++ *
++ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++#include "k3-pinctrl.h"
++
++&{/} {
++	codec_audio: sound {
++		compatible = "ti,j7200-cpb-audio";
++		model = "j721s2-cpb";
++
++		ti,cpb-mcasp = <&mcasp4>;
++		ti,cpb-codec = <&pcm3168a_1>;
++
++		clocks = <&k3_clks 213 0>, <&k3_clks 213 1>,
++			 <&k3_clks 157 299>, <&k3_clks 157 328>;
++		clock-names = "cpb-mcasp-auxclk", "cpb-mcasp-auxclk-48000",
++			      "cpb-codec-scki", "cpb-codec-scki-48000";
++	};
++
++	i2c_mux: mux-controller-2 {
++		compatible = "gpio-mux";
++		#mux-state-cells = <1>;
++		mux-gpios = <&wkup_gpio0 54 GPIO_ACTIVE_HIGH>;
++		idle-state = <1>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&main_i2c3_mux_pins_default>;
++	};
++};
++
++&main_pmx0 {
++	mcasp4_pins_default: mcasp4-default-pins {
++		pinctrl-single,pins = <
++			J721S2_IOPAD(0x0c8, PIN_OUTPUT_PULLDOWN, 1) /* (AD28) MCASP4_ACLKX */
++			J721S2_IOPAD(0x06c, PIN_OUTPUT_PULLDOWN, 1) /* (V26) MCASP4_AFSX */
++			J721S2_IOPAD(0x068, PIN_INPUT_PULLDOWN, 1) /* (U28) MCASP4_AXR1 */
++			J721S2_IOPAD(0x0c4, PIN_OUTPUT_PULLDOWN, 1) /* (AB26) MCASP4_AXR2 */
++			J721S2_IOPAD(0x070, PIN_OUTPUT_PULLDOWN, 1) /* (R27) MCASP4_AXR3 */
++		>;
++	};
++
++	audio_ext_refclk1_pins_default: audio-ext-refclk1-default-pins {
++		pinctrl-single,pins = <
++			J721S2_IOPAD(0x078, PIN_OUTPUT, 1) /* (Y25) MCAN2_RX.AUDIO_EXT_REFCLK1 */
++		>;
++	};
++};
++
++&wkup_pmx2 {
++	main_i2c3_mux_pins_default: main-i2c3-mux-default-pins {
++		pinctrl-single,pins = <
++			J721S2_WKUP_IOPAD(0x038, PIN_OUTPUT, 7) /* (B27) WKUP_GPIO0_54 */
++		>;
++	};
++};
++
++&exp2 {
++	p09-hog {
++		/* P09 - MCASP/TRACE_MUX_S0 */
++		gpio-hog;
++		gpios = <9 GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "MCASP/TRACE_MUX_S0";
++	};
++
++	p10-hog {
++		/* P10 - MCASP/TRACE_MUX_S1 */
++		gpio-hog;
++		gpios = <10 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "MCASP/TRACE_MUX_S1";
++	};
++};
++
++&mux0 {
++	idle-state = <0>;
++};
++
++&mux1 {
++	idle-state = <0>;
++};
++
++&scm_conf {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	audio_refclk1: clock-controller@42e4 {
++		compatible = "ti,j721s2-audio-refclk", "ti,am62-audio-refclk";
++		reg = <0x42e4 0x4>;
++		clocks = <&k3_clks 157 299>;
++		assigned-clocks = <&k3_clks 157 299>;
++		assigned-clock-parents = <&k3_clks 157 328>;
++		#clock-cells = <0>;
++	};
++};
++
++&k3_clks {
++	/* Configure AUDIO_EXT_REFCLK1 pin as output */
++	pinctrl-names = "default";
++	pinctrl-0 = <&audio_ext_refclk1_pins_default>;
++};
++
++&main_i2c3 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_i2c3_pins_default>;
++	clock-frequency = <400000>;
++	mux-states = <&i2c_mux 1>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	exp3: gpio@20 {
++		compatible = "ti,tca6408";
++		reg = <0x20>;
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-line-names = "CODEC_RSTZ", "CODEC_SPARE1",
++				  "UB926_RESETN", "UB926_LOCK",
++				  "UB926_PWR_SW_CNTRL", "UB926_TUNER_RESET",
++				  "UB926_GPIO_SPARE";
++	};
++
++	pcm3168a_1: audio-codec@44 {
++		compatible = "ti,pcm3168a";
++		reg = <0x44>;
++		#sound-dai-cells = <1>;
++		reset-gpios = <&exp3 0 GPIO_ACTIVE_LOW>;
++		clocks = <&audio_refclk1>;
++		clock-names = "scki";
++		VDD1-supply = <&vsys_3v3>;
++		VDD2-supply = <&vsys_3v3>;
++		VCCAD1-supply = <&vsys_5v0>;
++		VCCAD2-supply = <&vsys_5v0>;
++		VCCDA1-supply = <&vsys_5v0>;
++		VCCDA2-supply = <&vsys_5v0>;
++	};
++};
++
++&mcasp4 {
++	status = "okay";
++	#sound-dai-cells = <0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&mcasp4_pins_default>;
++	op-mode = <0>;          /* MCASP_IIS_MODE */
++	tdm-slots = <2>;
++	auxclk-fs-ratio = <256>;
++	serial-dir = <	/* 0: INACTIVE, 1: TX, 2: RX */
++		0 2 1 1
++		0 0 0 0
++		0 0 0 0
++		0 0 0 0
++	>;
++};
 -- 
 2.34.1
 
