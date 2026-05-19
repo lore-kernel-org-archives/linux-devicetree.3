@@ -1,141 +1,117 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520193016E0
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33723AE706;
+	Tue, 19 May 2026 06:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779173975; cv=none; b=fEvh+KtXBeWlOq4r6EexfWSq5v4avR/RVKKT+j5iKgzNQ07HCyDq4dA2+cZMLRSfw5zVj46F7tWlCsXNlTiO+3kMsigR6bp6NS6hovsJ/1zBOa+9y+wjZDd4s474QbqnfaQvigbzH8NHx2WieMMkC8BI54lPXSVHwNMHBFQJx94=
+	t=1779173989; cv=none; b=mB1CBxGWBKzky8+Cojbkrzo/Qsog0dL6YVxqeX36YwFQMyEpGfd+rKzNlfjQMaaISrdON3bzBvunFWhfQWoDvDM5Y1GohHSEVZlfIzFoFhzY3zMI7bq/OOpqyqer7stMUuuxiJyEbRxwbWzaTNjDqs5CSn7qG3IRYp2uQ20/Bag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779173975; c=relaxed/simple;
-	bh=0BUhj6j3hrklauwfy+i/h/s8xlX/MYhRh465WVn2hLE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gtmyS21eY4Em3D5tJvT/gKIH8cFGZ/kFR1T84icXufTpHp7N9SeNWFVcunMKFOnNq1npoeYM6ZcRf84AJlERuR9K41BkJzSfWD5PIOvrvPt7SZrPJ2h1R6VYGiD3PtkajgUw3ryEOlc+tXK56s6W2I09ZHKjNChHCCq5Lw6eUlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAk4FSBV; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779173989; c=relaxed/simple;
+	bh=Rq8wj6ZachvdoaG8KOSQQ7hllWfNNda+9Uu/hpQzTuY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c9gqFI+qGmxJkfMReV/zpVhD0MGGgENcfLChQiMHk7xkcP9je56CpeQaReq+KvaEMLt7bU+yjOf6EuunWS48b3bZXXeRVTkzkPbF/1C3Dd/5RgQysqXndvVD2z/gpACJ6Lir+QbTWl9v8hIajUBsOZBrwn1lmbz1gRRqEE4lIdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=e5ncw4m4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAk4FSBV"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48fe26a177cso22348665e9.1
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:59:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779173972; x=1779778772; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gF5Z1qKa3/ePayEWJpcu7Cbt4cEhhoyI3/LeiuP7Ies=;
-        b=MAk4FSBVZdYEtSXDCJVHAy6HwIuYO1y7zU9AaEJ23cjjxSOJioRz1BBlFKSs2ns/gB
-         v3iWIZwcegLaqF4IeppnCt7DzcSLc2MresRoCAzV0pKasLnHkys0MihfsEVWVBKOT5ZK
-         +ug0dqRuAmaPBtg8GhJmR7YleUwAvwewy65+l72mU+9/MBjwHk7lR46KafUCsBZTehSm
-         v0SRbEYT5ECZDjIsmqXGw/LiRFHqMQ0aHfFcOIGicUoR2hwFxMuMrmbv+DvjdWNriDOy
-         jQ5mICK1BT3VOGcwqFzJcou47u26sST8mL9k7gSFcry6jMTdcEmiT7mDitDH9+JYDNNB
-         YvNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779173972; x=1779778772;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gF5Z1qKa3/ePayEWJpcu7Cbt4cEhhoyI3/LeiuP7Ies=;
-        b=lG/iVS/owEYZ9GIziK6e8zpcSv4HEEMObGCfp2poErc3ZpLCqims0hum4ndUp9wGgm
-         ou/g+05Dnkh1It8g2pVZqXE078oHNI1Zsn+Rbj1IiD1jrlOnJBFA78HqOIe8pI0Rw/Kc
-         ql5Mof5TYdy2NB/5VWToYRNLziVYyK8Va4pQJ8Xglyq+2UHs5QtKBo0gSnz7JCqyClSq
-         IUgyd2DULyn/+lQlznLaCyTFeIID4RWUdjvVR+k14jJTsEgG7Iy5m0CDwdqY/LeOR2h9
-         CnTJHjSgeesN3yUHwUOIXOdDmKmhsoCu+LieVUwmKXiE0pHwCrVgFUAJ0f6+yw0Gng3/
-         K8kQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+2AhaAxHAdt2aoRI1vP8Syw+Pz1QaBZmenK4uDtGsyLPpbdKNkSptOvF/MmJF7+jkGfjcFbGRqMIC8@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3aZVOZLCcopxk+DzB4qrKvsLnH/vwhCstDou10fbN6gVQicyR
-	Y95KOSGUby6UsrjxBCBmLw5FG7ZfhTZpz+ZcBuG/cR5St5PB6pBGpxeN
-X-Gm-Gg: Acq92OGpnQw4jUxwwALc/N/kojk06wCE+dX+r6yoXLS1/0QP6PZIU9zhP3FKc7d5+pr
-	fGySPO5SJmHE2M/HJ1UEaFY/CPOLluWUlOjb4mAiD4yblH2rFWfXY+5F/newWeP+d7bngHbU39W
-	ZJtOlBEzM7SnilXlwddEcx8umCzhBFMJTbpHDebKf45utJYcZoLF6gr7c/K1S95+jRqoWM6n5Pe
-	A2ZxoMg6Bbkqlj1aKzuHhqSK8x3zzRflPfUoZkQAJQBmz0hMQ32E52YlcWe/DUiW65H+Y2b+Aww
-	OSGgHYZ9LEMr0NqJaRkuAHMO2i0Fbt4tQyezkmjToYSVLJbIcTIRbIcsbuX0QkrLZpqGG80VVgJ
-	JX/a/HhRRGpa+h41PLWR42kcR5MMTS/VwT9Caxohk9HLV5k0LWzmCIsjl+gtmHRmnfkBYPpV9Op
-	QP7B3yVur4plZZJtH9UjEUgMwrHhHHG1Q+EtHtDqV99OU+U2YAoEzqhl20sTpD620EPS/1
-X-Received: by 2002:a05:600c:8189:b0:488:ac01:72b6 with SMTP id 5b1f17b1804b1-48fe6323addmr275170575e9.21.1779173971682;
-        Mon, 18 May 2026 23:59:31 -0700 (PDT)
-Received: from ?IPV6:2a02:3033:6c2:b9c5:ec15:f5ad:b85f:a3b8? ([2a02:3033:6c2:b9c5:ec15:f5ad:b85f:a3b8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4900c16c744sm126227455e9.3.2026.05.18.23.59.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 May 2026 23:59:31 -0700 (PDT)
-Message-ID: <3932472e-91aa-400b-a1a4-03f520706890@gmail.com>
-Date: Tue, 19 May 2026 08:59:19 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="e5ncw4m4"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J4sSBx254218;
+	Tue, 19 May 2026 06:59:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Wx436S53oPnOtFPP+0Yx5o2L
+	YPL/1e7mpm7eOeOw/pg=; b=e5ncw4m4wkP926U+bCtuZuPeRdgkBL3Xf78aUocB
+	5atSG1ThXulKQwqtS/S25rqi/pWPGgbyBrQQ9hcsRTr++VPRUFnAQFRhkZKx9+N5
+	y5WUvJkyNQ9VgtheMGIrklhkQiPqc0Qo1WVi8LZuCMW0pKc5HN8qYfWpOrUTe4bE
+	3+KM6T5rDyublSkvi3smBxWXc4OvzxVJ2sLsQnW+A7V1B3gxtw5BPqHVeTw7lwNg
+	MviAd+gFzP++IUwoVZ/G1Z4Ya0Un1NPn2feLRZq3fjuYnTT8Ma4EB2duSXFE28ao
+	Eyjk56gCdbBpNozSkbWiGkAqn2emjG0YFML67Ks0y4MlZw==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8h87rfvx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 19 May 2026 06:59:43 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64J6xdTb016580;
+	Tue, 19 May 2026 06:59:39 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4e716dbv93-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 19 May 2026 06:59:39 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64J6xd7g016575;
+	Tue, 19 May 2026 06:59:39 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 64J6xd2e016574
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 19 May 2026 06:59:39 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 6D44CB04; Tue, 19 May 2026 12:29:38 +0530 (+0530)
+Date: Tue, 19 May 2026 12:29:38 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH 0/2] qcom_battmgr: Add batteryless DC-adapter MAINS
+ support
+Message-ID: <20260519065938.4i5wot72pfxy4m3d@hu-kotarake-hyd.qualcomm.com>
+References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
+ <56a54a34-1040-44ae-92e2-ce65a3d3acb5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: iio: dac: Add AD5529R
-To: Jonathan Cameron <jic23@kernel.org>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- rodrigo.alencar@analog.com
-References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
- <20260508-ad5529r-driver-v2-1-e315441685d7@analog.com>
- <20260508134843.7646c4f5@jic23-huawei> <20260508140814.67800e4a@jic23-huawei>
-Content-Language: en-US
-From: Janani Sunil <jan.sun97@gmail.com>
-In-Reply-To: <20260508140814.67800e4a@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <56a54a34-1040-44ae-92e2-ce65a3d3acb5@oss.qualcomm.com>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: XR8B5TFRA3ScnVXlztk3RBeh_FgRYVka
+X-Proofpoint-ORIG-GUID: XR8B5TFRA3ScnVXlztk3RBeh_FgRYVka
+X-Authority-Analysis: v=2.4 cv=a9sAM0SF c=1 sm=1 tr=0 ts=6a0c0a5f cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=bdXQ0qEb_Vu53zfW-1IA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA2NyBTYWx0ZWRfXyq4LJnGe03z2
+ MOu+QYnN7JFl2vpX0Ih4IqJg80Gp/pdNWzqlQNRBVm7OrweJW1vHLE+PWC4j7a2SkCNOsVAgMNE
+ 0hbzVj23ubQZjyStJusEdU/tsVxnrYpSg1SCSLv8z2jEXu4UiWraQricdIoJ2dhNAkaEy8muHt9
+ d6dkjR0aIrcjJm1zszXugBKM/zpV9FGRQ7kwEXDy+pkSh6S2OV6GJKLuUDKaAdAA9G1omWyR/xq
+ 4mSeTGEYSKOjx7UfmxqALBC5Z1lkaqeyHkZHdUMTDXwpllsRZIWCwli90MFp/IkXgGutu90LG4S
+ aZVHZrzwAilna9bqjBJbhuIbDbVsM3r6yZa7OAnT6vhrmRwSmR01Fm+f7pePfMqpFcL8TTLmeGu
+ +OYblkMk5yk5LdTf2etcx3/C9nlRclkX0wBG5rBuhuwUwR/EBOMogJBrpBraY2bgIkyvWHWn6qu
+ 9mQnFh0I76V21K7qHjA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190067
 
-
-On 5/8/26 15:08, Jonathan Cameron wrote:
-> On Fri, 8 May 2026 13:48:43 +0100
-> Jonathan Cameron <jic23@kernel.org> wrote:
+On Mon, May 18, 2026 at 04:36:32PM +0200, Konrad Dybcio wrote:
+> On 5/18/26 3:49 PM, Rakesh Kota wrote:
+> > On batteryless boards powered by 12V DC adapters, registering the
+> > power supply as BATTERY causes userspace to incorrectly trigger
+> > battery power-saving sequences.
+> 
+> Does battman really offer no way of differentiating whether a battery
+> is *actually* present in such cases?
 >
->> On Fri, 8 May 2026 13:55:47 +0200
->> Janani Sunil <janani.sunil@analog.com> wrote:
->>
->>> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
->>> buffered voltage output digital-to-analog converter (DAC) with an
->>> integrated precision reference.
->>>
->>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
->>> ---
->>>   .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 96 ++++++++++++++++++++++
->>>   MAINTAINERS                                        |  7 ++
->>>   2 files changed, 103 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
->>> new file mode 100644
->>> index 000000000000..f531b4865b01
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
->>> @@ -0,0 +1,96 @@
->>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC
->> How is one device bother 12 and 16-bit? That sometimes happens for
->> ADCs where it is really reflecting oversampling or for device with hardware
->> FIFOs where storage space is saved by using lower bit rate. I'm not sure either
->> applies here.
-> Having read the driver I now understand. This is supporting two parts and
-> doing device ID based detection.  In an unusual step for Analog they have
-> the same base part number with a post fix.  Whilst this approach works today
-> it fundamentally breaks fallback dt-compatibles being used in future (the
-> driver fails for any non match of WHOAMI value as it needs them to look
-> up device specific data)  As such I think you need to have separate
-> compatibles for the 12 and 16 bit versions.
+> What boards are affected?
+>
+Currently, batteryless support is only implemented for the
+qcs6490-rb3gen2(Kodiak) board.
 
-AD5529R supports two variants- AD5529R-12 bit and AD5529R-16 bit. They share the same register interface and pin configuration
-but differ in DAC resolution. I will add separate compatibles for this case.
-
-Best Regards,
-Janani Sunil
-
+regards
+Rakesh
+> Konrad
