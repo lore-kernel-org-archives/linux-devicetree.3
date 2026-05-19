@@ -1,336 +1,1044 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010067.outbound.protection.outlook.com [52.101.56.67])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0343ED3A9;
-	Tue, 19 May 2026 14:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779200674; cv=fail; b=ML0XWV2QKk6XEzSyEDZsNJyuQomoT797Gqt2PUl33Iab9MXAwSs0+456AwBuvutdJOJcV2NTYnzey0+sG6IaYslsraCOXk2A8n66ybSnfLUNAeOlpuoKU914U/Jr6HJsqimLRFkVg4pZGiyblCUeoHx6KK8A9y1MXXY2gK2R7B4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779200674; c=relaxed/simple;
-	bh=UbjTYeE9hWtRb0VfpffwqfWH2FNzqqdbfsnukehIjx4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QksVPY09b1VvmAIT5bSqufLI/4MN+lvzDwWDvTLEjLn7jquFGeAOV1YBC8QtAHPErdwfdNuFyBgX7zeQUm69qp96fb2Ag3xmB3LZ/w7E9Ad3gUdE79bVnJZlmy4emYzpA+7cv+xWsGeFI2n0FgAN6V5JxLF3iMX5jcGkfOLPqjU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=tLBnEOge; arc=fail smtp.client-ip=52.101.56.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1854028F8
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 14:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779200717; cv=none; b=dLVct30aVw/5XNQ/kfa2htBfrENBI7OKjXnn8Jp5BlvL5Z5bnaFmAYveCLIm2GH7Mtis//3sEqnkh8KKo75aBI6BwHaGDSpNr1LmG+mtmRLRwRJyb0GAl1q5ZVyuVWAdFqTTt7ZlipzjquNx0t0lzTskEj7cP4G+jbT6kyjKt6M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779200717; c=relaxed/simple;
+	bh=1JgAE+H2TYQZ0hn1cQ+7hGp3mtswKFmNa7SuysiHgbM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=t34U/7BVDWN00RZZarzDgszaiU4tT8xZY8jMnS5F9D3EOEXaI1PLmzQMmhZ1dxAV8X/9ixxvejssooa8S87iu7BJMd+FlhzLFx1d06UP5d20o7fp950NM9wb4m3vq0N627AKSYvlOoy2C1Ywd9nuph2M6wyNU3WzmIATI2rwWJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OdzvfiMP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YuV5rd6P; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="tLBnEOge"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G2aEkee7Uk6wxcbgQh0NcolLfVybpF3KmpeusZD0RssPtr5HJkAQQh7IdkKDR3uv+ynPlZsvGo3PK/6v6oFrUDdnTSkuyKoyWnE97vF79KqmmxjBvu61IfnAGC9blQ9W8vE54rV3WODy0wsyUn/rxhKYVZbuw/5N+JvxV2AP8LKN2A0WGMDcvkIKqk0v3EG6fY7ihyPlT82OqRBji5hr3LyjcTIZepcqFIGKLtoOwGd5FKL3rfTyImUCAIapnSkSDP5zbIhFXnViFXV41t9Yf7UffV0aHx9nc6HuM/32znimNCSPdO1OY6c9YkCu2w9kcfrOxGd4fby2svGAF/Theg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q+erK0bGW29K0SJeHxD4PubkWllmjltfCuqMutxnnws=;
- b=hKSQBTit0EvvNYyNyYuuMbdbDHxRlBLSdbVTpwksvV59ONFKXP6S+z29FVNr8D41RDVYQO3L2kHQuke1eS717Nto3N7inGQQWcyIm7BCLnuWnqYuHH1j0Ov9xvSqb/VDmvuGZ+rVd6rDv9uvFqR5fIuXhxfwa669fvmBI+2AwlUxE1FZ9N05FNBcW/RYIDiuYmiBYtjCVImBisWKZVeirXEBO0p3yp8KxNnigcLCgmIoQuwKPIQfJbCwABkfCBAboUvcDBu/DfImdcVzAs0GCPyHcAHUWvAm7KiqwWHQgZbdX0TxXQGZv/Xi5EtEc+xnmtR2qwh+p2rQs9w5PzwEqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q+erK0bGW29K0SJeHxD4PubkWllmjltfCuqMutxnnws=;
- b=tLBnEOgesQT7bBwvCUMfzqBlA1gDSWb+U4TFSECFDIRG/EXsqRW2lE8vhukrxXohpMMjxFdVTkKYI7WdV/a0+klkUWcmDbzEDhkXQwzW7AXBFABf4KHGJsHfkjHfEGshu0UjHiYQV2BcXfWXpk6y3N6pk7Cegol9T6PUv6us3Jo=
-Received: from CH2PR07CA0051.namprd07.prod.outlook.com (2603:10b6:610:5b::25)
- by DM3PPF4A29B3BB2.namprd10.prod.outlook.com (2603:10b6:f:fc00::c25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Tue, 19 May
- 2026 14:24:29 +0000
-Received: from DS2PEPF00003442.namprd04.prod.outlook.com
- (2603:10b6:610:5b:cafe::75) by CH2PR07CA0051.outlook.office365.com
- (2603:10b6:610:5b::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.24 via Frontend Transport; Tue, 19
- May 2026 14:24:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Tue, 19 May 2026 14:24:28 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 19 May
- 2026 09:23:54 -0500
-Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 19 May
- 2026 09:23:54 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 19 May 2026 09:23:54 -0500
-Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64JENgoV4183406;
-	Tue, 19 May 2026 09:23:50 -0500
-From: Moteen Shah <m-shah@ti.com>
-To: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
-	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
-	<y-abhilashchandra@ti.com>, <m-shah@ti.com>
-Subject: [PATCH v4 2/2] arm64: dts: ti: Add audio overlay for k3-j721s2-evm
-Date: Tue, 19 May 2026 19:53:41 +0530
-Message-ID: <20260519142341.2531948-3-m-shah@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260519142341.2531948-1-m-shah@ti.com>
-References: <20260519142341.2531948-1-m-shah@ti.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OdzvfiMP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YuV5rd6P"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JAcSIv4130965
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 14:25:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=C7Equ0yxlu0MdQOY/PqtdW
+	6bHRt3KS2U3fNAjGqperA=; b=OdzvfiMPNLUc44+M5HNAAM1oM3E8W7rY3L+mHD
+	cNTPcza3k+aflRlsWekDY9Uw9DyOYi6+Ucw2HVPGFYFsCDJB9dqHztMXfjwlV5PB
+	nbAjgpDZqpJbDvp+bnW1djPqWVP0lL/S+tH0zlKEP1U+/L/EExNLvUd4SqjQVfAz
+	loT6SmjPnIRg9u2S1pPGshhwz33x8bUqJL8HmKrN7l7R449WxG87HhGuXTEJPjLa
+	oB4OXijaFNkpnRnARARo9PMTE1auon6WkHrtQCKWJO4FzJabiTwE3xPAhc5ORfVf
+	PQVqUBMiWKbpIUjPmokqFBq4l7Poal9847FuMJ1ON9/Xff3A==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8ht1j6td-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 14:25:12 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2fded513994so16047313eec.1
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:25:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779200712; x=1779805512; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=C7Equ0yxlu0MdQOY/PqtdW6bHRt3KS2U3fNAjGqperA=;
+        b=YuV5rd6PZciftYGB/4oq3bqVwt2UMwoOIumNXJJoSJjDiSyt9rmYlG1+gUYkYGXtXY
+         hWigXDyHkDnHXGXigbz48ypWc4w0vy/50t7ErFY4DaZ4ISc8GxSa2TsaRpERFbV6zJlU
+         48A4GXhpDj6Fsh5YY6CRW+1oslyyY/McQdPSxKO6sf3wWlpIxv0trb5RHxVZs5UJkb6J
+         7RAqhEf1w+I9XAu2+sWHB4hXj4U6aFXX9h55Iq7l5byECkDo9uTqHakS9fZHcOfl5UpP
+         cOh40TW7toA0Ng97rupZHiDAc+nG6fAP17k0cSqOkzBlxgaHBZr4mHv5Nd9bupvYvX/V
+         rU5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779200712; x=1779805512;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C7Equ0yxlu0MdQOY/PqtdW6bHRt3KS2U3fNAjGqperA=;
+        b=CQGqUTnl0+BDRIdQui16yTYKcMm2Fi7yr3/5W8EDFrjTyjoQGvo6YSAqc+reTONfPX
+         1XE84hLOzK5EboRyDRtDdCj39jZVamJfdRUrk/Z9pPxtYNLG3MmTevqalfETwEq/QJkr
+         8rlYH6ZMCVteOnGaTB+eva8KqaWEjuXcEPOzA5Af7o5YoUA5h6/fIHu2MiyyEmuw80AK
+         wGFUpY0Rr1W4ao9kLgTI90Ir6R8j8cMt63P3QiGUoD6q8/+qLBqD4/5yfZwtFuoCtquJ
+         XNas8cUtO141q+NTBsHENDQ/eKAjsOA4BaIeQQtjGu03YSfOcDtFK0zfjRcUVXEz6J7N
+         PKhQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+GdyY6o32pFojVabJyQP2M6vZ2fCh+fOZ73tlxmd9Db/x59H/+eFxdil59UFJVu+iijDKjr5COIVla@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1W56IUoJ1SNEupwW1RCGZFejlXeZWvvExECnZQqHZ/4dOpTws
+	Tw+QJKmzoNo1UjkWeOsIaX4j7d36rG/NCdafQBHMUeE05zmNopv2Opeb67lESCf1CuwvRck5i9z
+	SGh7hddfh9ud2UNWovDJbdcQEYV5PfZ17u8h7Z8jIPgDEjVLV7YlRGJqfxKA05ZBg
+X-Gm-Gg: Acq92OEFzB7dBg7wgm0gMQB+MFFLY2jxqEEJAau7BPGGIFJU7I8fQma+kKrxbCFHCOP
+	U+0PVNUChHNGQg/VboPMGaj8BiU7f4mtlZF3QSTStaza0Yun1JpjDicLpBpvHZteVk810ZTVi9J
+	lJPyTi9L9Je2ATxWOA2l3ozqein+1NI8cpKDx8mJARIwuzgu8AiYS25fye8TJiL0ToAxkDfZHNB
+	krv8XUC9wWY2z8SwAPDsuJ3pCrNAJoJbrSQeMGbajXZhf5pduYI8456s0POVFdpz9+QbYru+D+S
+	Umqod1xx27+oaYFelLnWiyL5cfqhxAH72lbAWk66OA4kXRzWhYOd+ZzoKFeMP9Lo6e7+S4wJ2mN
+	dkyuy3qi5nvd/r4uFnu7/+k0NY3YMq2OIiG7IWv67pxACodezzZWF+uJbmbDmEhiY8ijjisHmLN
+	xdnzpYoELmoA==
+X-Received: by 2002:a05:7301:608a:b0:2f2:8857:1804 with SMTP id 5a478bee46e88-303982ac591mr9357992eec.9.1779200712053;
+        Tue, 19 May 2026 07:25:12 -0700 (PDT)
+X-Received: by 2002:a05:7301:608a:b0:2f2:8857:1804 with SMTP id 5a478bee46e88-303982ac591mr9357965eec.9.1779200711490;
+        Tue, 19 May 2026 07:25:11 -0700 (PDT)
+Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30296dcb6f6sm20765333eec.17.2026.05.19.07.25.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2026 07:25:11 -0700 (PDT)
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Date: Tue, 19 May 2026 07:25:07 -0700
+Subject: [PATCH v2] arm64: dts: qcom: glymur-crd: Move common board nodes
+ to shared DTSI
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|DM3PPF4A29B3BB2:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccc3b494-9357-4dd6-88b9-08deb5b255ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|3023799003|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	5cbLGcCoBBFgLHkevfLuxGdslTLnMyJbdFIvMrmOux4MfmTTM35dARpsZ4KHUgAfJPW1uXGJic9sbGHw1p+OZFV+rF6UbXr2dmESiRsw8qMSm3uOU/Bvhsl89/UrCbAqsSEqBnSHtfLZPOiWtDRW4maHZnv4p4S1gbuqFC+YeUWA6c2XuQiP0RxFfeQxyVGY1FRKXavlWm5Newty2S+ULhjZ6KMKNAeXPod+hD2xbeHK9HgdE4uv2HK/GjJwlWwlS65DULCPbWpxngLHcyNJpsc6PP7MKfIJIUlKucMRSZB34l3r8hjS196UqOGlSudhURtVyECHyBVupMhrT2T8qYnqbXZb5Lw9L+1HgGPqTjct08dBiPOE2pdMcH8klyYw6Iy+ZoKG97cflsaxRDBVYuDO6VvL9Z+5QU63g0s08Gs3YZh6QW5jCWxbzo7EA7+TVC3XFpUvOShQbBW4jKZOZsasdLDU0HLci7sSE1h/AsV8aNo08lTkNbQtFUaltUuTGitzhlbCoN/uCB1hqYeX4XM+vtgdkcfHckilGMbQUDwVuLS8mvPMHcpcqLSgqrjKnFLWTrcmtUIauzxp6rxlZvBH0//mGRQ/knNdvTRtoFmAo2eibXbhMdtrV67MTQ+EI0tqkBhDiUD+mLBqMQwBHk6Uns/nJWEyqR7LWSGZRU4=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(3023799003)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oUneiO9xbMD8FuECm9fwMPJHG8pOaprZ7yWUSj+RY7/7pC42To3sk9Me2vyMfivEF7nOFWIwjE/ctKkLCC3sTfnnCJGmcComoQrsauaxoCe447h33liLrauCuYe+PGSSx4dKBwFFboDCUR9nz2UFu8eTZBQWMdGPD753kns/X03JKI2t3bQ+LvHyxbtE7fXRuOaiu7b2beYPsAM/x1ZvqNHHAeuuuaSbp3lIK1ugxllCYLN44sNIYG7faQRS/zmrahbSBXUBF86HyOrpl8PVLkppsv/XjHZlUpBoOjInwnSbacSJyhe9TtilvyJCkaG5eaYAW5UCXfxyVOR+kwg9JZpGKbfyGDQxJuzJoRCzE6GFa0h2/9ezXI53xoCOEVvoq5AlWacqFautRdGlyroRQc68C1A5XNpY14h6ZeFZSSSLzXYRhlSvzE6VwNz6GFGX
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 14:24:28.2697
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccc3b494-9357-4dd6-88b9-08deb5b255ef
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003442.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF4A29B3BB2
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260519-glymur-mahua-common-nodes-v2-1-9f1b89a3f398@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMJyDGoC/42NUQqDMBBEryL73ZW4FtF+9R7Fj6hRAyap2SoV8
+ e5dPUEZGHjD7OwObKI1DI9kh2hWyzZ4Abol0I7aDwZtJwykqFA5FThMm1siOj0uGtvgXPDoQ2c
+ Yyyrvu1KJ2gbk/h1Nb7/X9qsWHi1/QtyuV2t2pv+srhmKqGmoqEgZfX8G5nRe9HTWUjGoj+P4A
+ cfU0v/JAAAA
+X-Change-ID: 20260326-glymur-mahua-common-nodes-893fd80808cb
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, sibi.sankar@oss.qualcomm.com,
+        rajendra.nayak@oss.qualcomm.com,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779200710; l=18517;
+ i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
+ h=from:subject:message-id; bh=1JgAE+H2TYQZ0hn1cQ+7hGp3mtswKFmNa7SuysiHgbM=;
+ b=6PzxtXrdoyIZVcK1orF4tphhvNDO3u3zs1WIUL8rB7mPeF1jgh674iDDhlKrKdrFxD8/J9DFg
+ T+SOY3WklzECjnFUxWnb0PV4lobChm6xs83Vp63G2D/jpkDfj/BpFYS
+X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
+ pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
+X-Authority-Analysis: v=2.4 cv=JKULdcKb c=1 sm=1 tr=0 ts=6a0c72c8 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EGdizXfL7dkd5kc_kBAA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: Q69WYSATp_Jq2eGBo1HKEZOoPUn-Gema
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDE0MiBTYWx0ZWRfX83PqJj8C4zU9
+ aW9gZlJEcJrR2n6ub94WBJbYMzbv7D5LTD/N9m1sbFAwiYx5iOjyihSc6FhSwidv/C0B8Z62Kfk
+ nDwntHMMxL7v74m3p/ZgiOD0g1ZhYQici/Lrt1i2Uz7sW02Pj0cqPXkK2sMlKQL3z4cK0y10fDt
+ z4ZGE4uBHP/LOefVtH6hqmGbgx8KtjKPB7Gp7qJgpvodDyGxmfrYRNknSruX5LVJC6CkV8D1Ied
+ +SzdG4cbXYHlZ8NDQNLD8TnZD+7ahcxpNCsux2QUTXLgLazfkuS25KTlJmbSH7W511AnEWAYMyJ
+ 8bfpPc43XuEpBJpdmXG3ZZKvlPqUdDwXB3ltoDx+nvpdZ0pzeUbzDJlTPuonn89EH3MPYG6e5D8
+ nAGLujQOFURqCdV0nTrkcjBiASPpKxOzZySjIZNFtHdHpS7lDx0dXD6R8zaY6rCrZHAZc2srdW4
+ t6rPElsuOjsrIG02hbA==
+X-Proofpoint-ORIG-GUID: Q69WYSATp_Jq2eGBo1HKEZOoPUn-Gema
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190142
 
-From: Jayesh Choudhary <j-choudhary@ti.com>
+The Glymur and Mahua CRDs use the same board-level hardware for the
+eDP display panel, MDSS DP3 controller and PHY, USB-C ports (via
+pmic-glink), USB 0/1/HS/MP controllers, QMP PHYs, eUSB2 repeaters,
+HID peripherals (touchpad, keyboard, touchscreen) and their dependent
+regulators and pin control states. This has been verified against
+both CRD schematics.
 
-Add device tree overlay to enable analog audio support on J721S2-EVM
-using PCM3168A codec connected to McASP4 serializers.
+Move these nodes from glymur-crd.dts to glymur-crd.dtsi to enable code
+reuse with the Mahua CRD.
 
-- Add nodes for sound-card, audio codec, I2C3 and McASP4
-- Add pinmux for I2C3, McASP4, AUDIO_EXT_REFCLK1 and WKUP_GPIO_0
-- Add GPIO expander (TCA6408) for codec control
-- Add GPIO hogs to route I2C3 lines and McASP serializers
-- Set idle-state to 0 in mux0 and mux1 for McASP signal routing
-
-Reviewed-by: Hari Prasath Gujulan Elango <gehariprasath@ti.com>
-Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-Co-developed-by: Moteen Shah <m-shah@ti.com>
-Signed-off-by: Moteen Shah <m-shah@ti.com>
+Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/ti/Makefile               |   4 +
- .../boot/dts/ti/k3-j721s2-evm-audio.dtso      | 161 ++++++++++++++++++
- 2 files changed, 165 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
+Changes in v2:
+- Rebased on top of next-20260518
+- Updated subject to include glymur-crd scope prefix
+- Rewrote commit message to describe the actual shared physical hardware
+  rather than the code-sharing intent; the commonality was verified
+  against Glymur CRD and Mahua CRD schematics
+- Link to v1: https://lore.kernel.org/r/20260326-glymur-mahua-common-nodes-v1-1-12bb26920ea4@oss.qualcomm.com
+---
+ arch/arm64/boot/dts/qcom/glymur-crd.dts  | 399 -------------------------------
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 396 ++++++++++++++++++++++++++++++
+ 2 files changed, 396 insertions(+), 399 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index ba01a929e06f..17048f2f5043 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -138,6 +138,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-common-proc-board.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-gesi-exp-board.dtbo
- k3-j721s2-evm-dtbs := k3-j721s2-common-proc-board.dtb k3-j721s2-evm-gesi-exp-board.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-audio.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-pcie1-ep.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-usb0-type-a.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dts b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+index c98dfb3941fa..6125617de82a 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-crd.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+@@ -8,198 +8,9 @@
+ #include "glymur.dtsi"
+ #include "glymur-crd.dtsi"
  
-@@ -264,6 +265,8 @@ k3-j721e-evm-pcie1-ep-dtbs := k3-j721e-common-proc-board.dtb \
- 	k3-j721e-evm-pcie1-ep.dtbo
- k3-j721e-sk-csi2-dual-imx219-dtbs := k3-j721e-sk.dtb \
- 	k3-j721e-sk-csi2-dual-imx219.dtbo
-+k3-j721s2-evm-audio-dtbs := k3-j721s2-common-proc-board.dtb \
-+	k3-j721s2-evm-audio.dtbo
- k3-j721s2-evm-pcie1-ep-dtbs := k3-j721s2-common-proc-board.dtb \
- 	k3-j721s2-evm-pcie1-ep.dtbo
- k3-j721s2-evm-usb0-type-a-dtbs := k3-j721s2-common-proc-board.dtb \
-@@ -328,6 +331,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-j721e-evm-pcie0-ep.dtb \
- 	k3-j721e-evm-pcie1-ep.dtb \
- 	k3-j721e-sk-csi2-dual-imx219.dtb \
-+	k3-j721s2-evm-audio.dtb \
- 	k3-j721s2-evm-pcie1-ep.dtb \
- 	k3-j721s2-evm-usb0-type-a.dtb \
- 	k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso b/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
-new file mode 100644
-index 000000000000..6ed4d6fc414d
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
-@@ -0,0 +1,161 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Device Tree Overlay for J721S2 Audio Support
-+ *
-+ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
-+ */
+-#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+-
+ / {
+ 	model = "Qualcomm Technologies, Inc. Glymur CRD";
+ 	compatible = "qcom,glymur-crd", "qcom,glymur";
+-
+-	pmic-glink {
+-		compatible = "qcom,glymur-pmic-glink",
+-			     "qcom,pmic-glink";
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		connector@0 {
+-			compatible = "usb-c-connector";
+-			reg = <0>;
+-			power-role = "dual";
+-			data-role = "dual";
+-
+-			ports {
+-				#address-cells = <1>;
+-				#size-cells = <0>;
+-
+-				port@0 {
+-					reg = <0>;
+-
+-					pmic_glink_hs_in: endpoint {
+-						remote-endpoint = <&usb_0_dwc3_hs>;
+-					};
+-				};
+-
+-				port@1 {
+-					reg = <1>;
+-
+-					pmic_glink_ss_in: endpoint {
+-						remote-endpoint = <&usb_0_qmpphy_out>;
+-					};
+-				};
+-			};
+-		};
+-
+-		connector@1 {
+-			compatible = "usb-c-connector";
+-			reg = <1>;
+-			power-role = "dual";
+-			data-role = "dual";
+-
+-			ports {
+-				#address-cells = <1>;
+-				#size-cells = <0>;
+-
+-				port@0 {
+-					reg = <0>;
+-
+-					pmic_glink_hs_in1: endpoint {
+-						remote-endpoint = <&usb_1_dwc3_hs>;
+-					};
+-				};
+-
+-				port@1 {
+-					reg = <1>;
+-
+-					pmic_glink_ss_in1: endpoint {
+-						remote-endpoint = <&usb_1_qmpphy_out>;
+-					};
+-				};
+-			};
+-		};
+-	};
+-
+-	vreg_edp_3p3: regulator-edp-3p3 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "VREG_EDP_3P3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-
+-		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&edp_reg_en>;
+-		pinctrl-names = "default";
+-
+-		regulator-boot-on;
+-	};
+-
+-	vreg_misc_3p3: regulator-misc-3p3 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "VREG_MISC_3P3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-
+-		gpio = <&pmh0110_f_e0_gpios 6 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&misc_3p3_reg_en>;
+-		pinctrl-names = "default";
+-
+-		regulator-boot-on;
+-	};
+-};
+-
+-&i2c0 {
+-	clock-frequency = <400000>;
+-
+-	status = "okay";
+-
+-	touchpad@2c {
+-		compatible = "hid-over-i2c";
+-		reg = <0x2c>;
+-
+-		hid-descr-addr = <0x20>;
+-		interrupts-extended = <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
+-
+-		vdd-supply = <&vreg_misc_3p3>;
+-		vddl-supply = <&vreg_l15b_e0_1p8>;
+-
+-		pinctrl-0 = <&tpad_default>;
+-		pinctrl-names = "default";
+-
+-		wakeup-source;
+-	};
+-
+-	keyboard@3a {
+-		compatible = "hid-over-i2c";
+-		reg = <0x3a>;
+-
+-		hid-descr-addr = <0x1>;
+-		interrupts-extended = <&tlmm 67 IRQ_TYPE_LEVEL_LOW>;
+-
+-		vdd-supply = <&vreg_misc_3p3>;
+-		vddl-supply = <&vreg_l15b_e0_1p8>;
+-
+-		pinctrl-0 = <&kybd_default>;
+-		pinctrl-names = "default";
+-
+-		wakeup-source;
+-	};
+-};
+-
+-&i2c8 {
+-	clock-frequency = <400000>;
+-
+-	status = "okay";
+-
+-	touchscreen@38 {
+-		compatible = "hid-over-i2c";
+-		reg = <0x38>;
+-
+-		hid-descr-addr = <0x1>;
+-		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
+-
+-		vdd-supply = <&vreg_misc_3p3>;
+-		vddl-supply = <&vreg_l15b_e0_1p8>;
+-
+-		pinctrl-0 = <&ts0_default>;
+-		pinctrl-names = "default";
+-	};
+-};
+-
+-&i2c5 {
+-	clock-frequency = <400000>;
+-
+-	status = "okay";
+-
+-	ptn3222_0: redriver@43 {
+-		compatible = "nxp,ptn3222";
+-		reg = <0x43>;
+-
+-		reset-gpios = <&tlmm 8 GPIO_ACTIVE_LOW>;
+-
+-		vdd3v3-supply = <&vreg_l8b_e0_1p50>;
+-		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
+-
+-		#phy-cells = <0>;
+-	};
+-
+-	ptn3222_1: redriver@47 {
+-		compatible = "nxp,ptn3222";
+-		reg = <0x47>;
+-
+-		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
+-
+-		vdd3v3-supply = <&vreg_l8b_e0_1p50>;
+-		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
+-
+-		#phy-cells = <0>;
+-	};
+-};
+-
+-&mdss {
+-	status = "okay";
+ };
+ 
+ &mdss_dp0 {
+@@ -217,213 +28,3 @@ &mdss_dp1 {
+ &mdss_dp1_out {
+ 	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+ };
+-
+-&mdss_dp3 {
+-	/delete-property/ #sound-dai-cells;
+-
+-	status = "okay";
+-
+-	aux-bus {
+-		panel {
+-			compatible = "samsung,atna60cl08", "samsung,atna33xc20";
+-			enable-gpios = <&tlmm 18 GPIO_ACTIVE_HIGH>;
+-			power-supply = <&vreg_edp_3p3>;
+-
+-			pinctrl-0 = <&edp_bl_en>;
+-			pinctrl-names = "default";
+-
+-			port {
+-				edp_panel_in: endpoint {
+-					remote-endpoint = <&mdss_dp3_out>;
+-				};
+-			};
+-		};
+-	};
+-};
+-
+-&mdss_dp3_out {
+-	data-lanes = <0 1 2 3>;
+-	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+-
+-	remote-endpoint = <&edp_panel_in>;
+-};
+-
+-&mdss_dp3_phy {
+-	vdda-phy-supply = <&vreg_l2f_e1_0p83>;
+-	vdda-pll-supply = <&vreg_l4f_e1_1p08>;
+-
+-	status = "okay";
+-};
+-
+-&pmh0110_f_e0_gpios {
+-	misc_3p3_reg_en: misc-3p3-reg-en-state {
+-		pins = "gpio6";
+-		function = "normal";
+-		bias-disable;
+-		input-disable;
+-		output-enable;
+-		drive-push-pull;
+-		power-source = <1>; /* 1.8 V */
+-		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+-	};
+-};
+-
+-&smb2370_j_e2_eusb2_repeater {
+-	vdd18-supply = <&vreg_l15b_e0_1p8>;
+-	vdd3-supply = <&vreg_l7b_e0_2p79>;
+-};
+-
+-&smb2370_k_e2_eusb2_repeater {
+-	vdd18-supply = <&vreg_l15b_e0_1p8>;
+-	vdd3-supply = <&vreg_l7b_e0_2p79>;
+-};
+-
+-&tlmm {
+-	edp_bl_en: edp-bl-en-state {
+-		pins = "gpio18";
+-		function = "gpio";
+-		drive-strength = <16>;
+-		bias-disable;
+-	};
+-
+-	edp_reg_en: edp-reg-en-state {
+-		pins = "gpio70";
+-		function = "gpio";
+-		drive-strength = <16>;
+-		bias-disable;
+-	};
+-
+-	kybd_default: kybd-default-state {
+-		pins = "gpio67";
+-		function = "gpio";
+-		bias-disable;
+-	};
+-
+-	tpad_default: tpad-default-state {
+-		pins = "gpio3";
+-		function = "gpio";
+-		bias-disable;
+-	};
+-
+-	ts0_default: ts0-default-state {
+-		int-n-pins {
+-			pins = "gpio51";
+-			function = "gpio";
+-			bias-disable;
+-		};
+-
+-		reset-n-pins {
+-			pins = "gpio48";
+-			function = "gpio";
+-			drive-strength = <16>;
+-			bias-disable;
+-		};
+-	};
+-};
+-
+-&usb_0 {
+-	status = "okay";
+-};
+-
+-&usb_0_dwc3_hs {
+-	remote-endpoint = <&pmic_glink_hs_in>;
+-};
+-
+-&usb_0_hsphy {
+-	vdd-supply = <&vreg_l3f_e0_0p72>;
+-	vdda12-supply = <&vreg_l4h_e0_1p2>;
+-
+-	phys = <&smb2370_j_e2_eusb2_repeater>;
+-
+-	status = "okay";
+-};
+-
+-&usb_0_qmpphy {
+-	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
+-	vdda-pll-supply = <&vreg_l3f_e0_0p72>;
+-	refgen-supply = <&vreg_l2f_e0_0p82>;
+-
+-	status = "okay";
+-};
+-
+-&usb_0_qmpphy_out {
+-	remote-endpoint = <&pmic_glink_ss_in>;
+-};
+-
+-&usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3_hs {
+-	remote-endpoint = <&pmic_glink_hs_in1>;
+-};
+-
+-&usb_1_hsphy {
+-	vdd-supply = <&vreg_l3f_e0_0p72>;
+-	vdda12-supply = <&vreg_l4h_e0_1p2>;
+-
+-	phys = <&smb2370_k_e2_eusb2_repeater>;
+-
+-	status = "okay";
+-};
+-
+-&usb_1_qmpphy {
+-	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
+-	vdda-pll-supply = <&vreg_l1h_e0_0p89>;
+-	refgen-supply = <&vreg_l2f_e0_0p82>;
+-
+-	status = "okay";
+-};
+-
+-&usb_1_qmpphy_out {
+-	remote-endpoint = <&pmic_glink_ss_in1>;
+-};
+-
+-&usb_hs {
+-	status = "okay";
+-};
+-
+-&usb_hs_phy {
+-	vdd-supply = <&vreg_l2h_e0_0p72>;
+-	vdda12-supply = <&vreg_l4h_e0_1p2>;
+-
+-	phys = <&ptn3222_1>;
+-
+-	status = "okay";
+-};
+-
+-&usb_mp {
+-	status = "okay";
+-};
+-
+-&usb_mp_hsphy0 {
+-	vdd-supply = <&vreg_l2h_e0_0p72>;
+-	vdda12-supply = <&vreg_l4h_e0_1p2>;
+-
+-	phys = <&ptn3222_0>;
+-
+-	status = "okay";
+-};
+-
+-&usb_mp_hsphy1 {
+-	vdd-supply = <&vreg_l2h_e0_0p72>;
+-	vdda12-supply = <&vreg_l4h_e0_1p2>;
+-
+-	status = "okay";
+-};
+-
+-&usb_mp_qmpphy0 {
+-	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
+-	vdda-pll-supply = <&vreg_l2h_e0_0p72>;
+-	refgen-supply = <&vreg_l4f_e1_1p08>;
+-
+-	status = "okay";
+-};
+-
+-&usb_mp_qmpphy1 {
+-	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
+-	vdda-pll-supply = <&vreg_l2h_e0_0p72>;
+-	refgen-supply = <&vreg_l4f_e1_1p08>;
+-
+-	status = "okay";
+-};
+diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+index e784b538f42e..1de3a49f49e4 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+@@ -11,6 +11,7 @@
+ #include "smb2370.dtsi"         /* SPMI2: SID-9/10/11            */
+ 
+ #include <dt-bindings/input/gpio-keys.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ 
+ / {
+ 	model = "Qualcomm Technologies, Inc. Glymur CRD";
+@@ -68,6 +69,101 @@ switch-lid {
+ 		};
+ 	};
+ 
++	pmic-glink {
++		compatible = "qcom,glymur-pmic-glink",
++			     "qcom,pmic-glink";
++		#address-cells = <1>;
++		#size-cells = <0>;
 +
-+/dts-v1/;
-+/plugin/;
++		connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++			power-role = "dual";
++			data-role = "dual";
 +
-+#include <dt-bindings/gpio/gpio.h>
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
 +
-+#include "k3-pinctrl.h"
++				port@0 {
++					reg = <0>;
 +
-+&{/} {
-+	codec_audio: sound {
-+		compatible = "ti,j7200-cpb-audio";
-+		model = "j721s2-cpb";
++					pmic_glink_hs_in: endpoint {
++						remote-endpoint = <&usb_0_dwc3_hs>;
++					};
++				};
 +
-+		ti,cpb-mcasp = <&mcasp4>;
-+		ti,cpb-codec = <&pcm3168a_1>;
++				port@1 {
++					reg = <1>;
 +
-+		clocks = <&k3_clks 213 0>, <&k3_clks 213 1>,
-+			 <&k3_clks 157 299>, <&k3_clks 157 328>;
-+		clock-names = "cpb-mcasp-auxclk", "cpb-mcasp-auxclk-48000",
-+			      "cpb-codec-scki", "cpb-codec-scki-48000";
++					pmic_glink_ss_in: endpoint {
++						remote-endpoint = <&usb_0_qmpphy_out>;
++					};
++				};
++			};
++		};
++
++		connector@1 {
++			compatible = "usb-c-connector";
++			reg = <1>;
++			power-role = "dual";
++			data-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					pmic_glink_hs_in1: endpoint {
++						remote-endpoint = <&usb_1_dwc3_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					pmic_glink_ss_in1: endpoint {
++						remote-endpoint = <&usb_1_qmpphy_out>;
++					};
++				};
++			};
++		};
 +	};
 +
-+	i2c_mux: mux-controller-2 {
-+		compatible = "gpio-mux";
-+		#mux-state-cells = <1>;
-+		mux-gpios = <&wkup_gpio0 54 GPIO_ACTIVE_HIGH>;
-+		idle-state = <1>;
++	vreg_edp_3p3: regulator-edp-3p3 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "VREG_EDP_3P3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++
++		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&edp_reg_en>;
 +		pinctrl-names = "default";
-+		pinctrl-0 = <&main_i2c3_mux_pins_default>;
-+	};
-+};
 +
-+&main_pmx0 {
-+	mcasp4_pins_default: mcasp4-default-pins {
-+		pinctrl-single,pins = <
-+			J721S2_IOPAD(0x0c8, PIN_OUTPUT_PULLDOWN, 1) /* (AD28) MCASP4_ACLKX */
-+			J721S2_IOPAD(0x06c, PIN_OUTPUT_PULLDOWN, 1) /* (V26) MCASP4_AFSX */
-+			J721S2_IOPAD(0x068, PIN_INPUT_PULLDOWN, 1) /* (U28) MCASP4_AXR1 */
-+			J721S2_IOPAD(0x0c4, PIN_OUTPUT_PULLDOWN, 1) /* (AB26) MCASP4_AXR2 */
-+			J721S2_IOPAD(0x070, PIN_OUTPUT_PULLDOWN, 1) /* (R27) MCASP4_AXR3 */
-+		>;
++		regulator-boot-on;
 +	};
 +
-+	audio_ext_refclk1_pins_default: audio-ext-refclk1-default-pins {
-+		pinctrl-single,pins = <
-+			J721S2_IOPAD(0x078, PIN_OUTPUT, 1) /* (Y25) MCAN2_RX.AUDIO_EXT_REFCLK1 */
-+		>;
-+	};
-+};
++	vreg_misc_3p3: regulator-misc-3p3 {
++		compatible = "regulator-fixed";
 +
-+&wkup_pmx2 {
-+	main_i2c3_mux_pins_default: main-i2c3-mux-default-pins {
-+		pinctrl-single,pins = <
-+			J721S2_WKUP_IOPAD(0x038, PIN_OUTPUT, 7) /* (B27) WKUP_GPIO0_54 */
-+		>;
-+	};
-+};
++		regulator-name = "VREG_MISC_3P3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
 +
-+&exp2 {
-+	p09-hog {
-+		/* P09 - MCASP/TRACE_MUX_S0 */
-+		gpio-hog;
-+		gpios = <9 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "MCASP/TRACE_MUX_S0";
++		gpio = <&pmh0110_f_e0_gpios 6 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&misc_3p3_reg_en>;
++		pinctrl-names = "default";
++
++		regulator-boot-on;
 +	};
 +
-+	p10-hog {
-+		/* P10 - MCASP/TRACE_MUX_S1 */
-+		gpio-hog;
-+		gpios = <10 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "MCASP/TRACE_MUX_S1";
-+	};
-+};
-+
-+&mux0 {
-+	idle-state = <0>;
-+};
-+
-+&mux1 {
-+	idle-state = <0>;
-+};
-+
-+&scm_conf {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	audio_refclk1: clock-controller@42e4 {
-+		compatible = "ti,j721s2-audio-refclk", "ti,am62-audio-refclk";
-+		reg = <0x42e4 0x4>;
-+		clocks = <&k3_clks 157 299>;
-+		assigned-clocks = <&k3_clks 157 299>;
-+		assigned-clock-parents = <&k3_clks 157 328>;
-+		#clock-cells = <0>;
-+	};
-+};
-+
-+&k3_clks {
-+	/* Configure AUDIO_EXT_REFCLK1 pin as output */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&audio_ext_refclk1_pins_default>;
-+};
-+
-+&main_i2c3 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_i2c3_pins_default>;
+ 	vreg_nvme: regulator-nvme {
+ 		compatible = "regulator-fixed";
+ 
+@@ -444,6 +540,135 @@ vreg_l4h_e0_1p2: ldo4 {
+ 	};
+ };
+ 
++&i2c0 {
 +	clock-frequency = <400000>;
-+	mux-states = <&i2c_mux 1>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
 +
-+	exp3: gpio@20 {
-+		compatible = "ti,tca6408";
-+		reg = <0x20>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		gpio-line-names = "CODEC_RSTZ", "CODEC_SPARE1",
-+				  "UB926_RESETN", "UB926_LOCK",
-+				  "UB926_PWR_SW_CNTRL", "UB926_TUNER_RESET",
-+				  "UB926_GPIO_SPARE";
-+	};
-+
-+	pcm3168a_1: audio-codec@44 {
-+		compatible = "ti,pcm3168a";
-+		reg = <0x44>;
-+		#sound-dai-cells = <1>;
-+		reset-gpios = <&exp3 0 GPIO_ACTIVE_LOW>;
-+		clocks = <&audio_refclk1>;
-+		clock-names = "scki";
-+		VDD1-supply = <&vsys_3v3>;
-+		VDD2-supply = <&vsys_3v3>;
-+		VCCAD1-supply = <&vsys_5v0>;
-+		VCCAD2-supply = <&vsys_5v0>;
-+		VCCDA1-supply = <&vsys_5v0>;
-+		VCCDA2-supply = <&vsys_5v0>;
-+	};
-+};
-+
-+&mcasp4 {
 +	status = "okay";
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&mcasp4_pins_default>;
-+	op-mode = <0>;          /* MCASP_IIS_MODE */
-+	tdm-slots = <2>;
-+	auxclk-fs-ratio = <256>;
-+	serial-dir = <	/* 0: INACTIVE, 1: TX, 2: RX */
-+		0 2 1 1
-+		0 0 0 0
-+		0 0 0 0
-+		0 0 0 0
-+	>;
++
++	touchpad@2c {
++		compatible = "hid-over-i2c";
++		reg = <0x2c>;
++
++		hid-descr-addr = <0x20>;
++		interrupts-extended = <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
++
++		vdd-supply = <&vreg_misc_3p3>;
++		vddl-supply = <&vreg_l15b_e0_1p8>;
++
++		pinctrl-0 = <&tpad_default>;
++		pinctrl-names = "default";
++
++		wakeup-source;
++	};
++
++	keyboard@3a {
++		compatible = "hid-over-i2c";
++		reg = <0x3a>;
++
++		hid-descr-addr = <0x1>;
++		interrupts-extended = <&tlmm 67 IRQ_TYPE_LEVEL_LOW>;
++
++		vdd-supply = <&vreg_misc_3p3>;
++		vddl-supply = <&vreg_l15b_e0_1p8>;
++
++		pinctrl-0 = <&kybd_default>;
++		pinctrl-names = "default";
++
++		wakeup-source;
++	};
 +};
++
++&i2c5 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	ptn3222_0: redriver@43 {
++		compatible = "nxp,ptn3222";
++		reg = <0x43>;
++
++		reset-gpios = <&tlmm 8 GPIO_ACTIVE_LOW>;
++
++		vdd3v3-supply = <&vreg_l8b_e0_1p50>;
++		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
++
++		#phy-cells = <0>;
++	};
++
++	ptn3222_1: redriver@47 {
++		compatible = "nxp,ptn3222";
++		reg = <0x47>;
++
++		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
++
++		vdd3v3-supply = <&vreg_l8b_e0_1p50>;
++		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
++
++		#phy-cells = <0>;
++	};
++};
++
++&i2c8 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	touchscreen@38 {
++		compatible = "hid-over-i2c";
++		reg = <0x38>;
++
++		hid-descr-addr = <0x1>;
++		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
++
++		vdd-supply = <&vreg_misc_3p3>;
++		vddl-supply = <&vreg_l15b_e0_1p8>;
++
++		pinctrl-0 = <&ts0_default>;
++		pinctrl-names = "default";
++	};
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_dp3 {
++	/delete-property/ #sound-dai-cells;
++
++	status = "okay";
++
++	aux-bus {
++		panel {
++			compatible = "samsung,atna60cl08", "samsung,atna33xc20";
++			enable-gpios = <&tlmm 18 GPIO_ACTIVE_HIGH>;
++			power-supply = <&vreg_edp_3p3>;
++
++			pinctrl-0 = <&edp_bl_en>;
++			pinctrl-names = "default";
++
++			port {
++				edp_panel_in: endpoint {
++					remote-endpoint = <&mdss_dp3_out>;
++				};
++			};
++		};
++	};
++};
++
++&mdss_dp3_out {
++	data-lanes = <0 1 2 3>;
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++
++	remote-endpoint = <&edp_panel_in>;
++};
++
++&mdss_dp3_phy {
++	vdda-phy-supply = <&vreg_l2f_e1_0p83>;
++	vdda-pll-supply = <&vreg_l4f_e1_1p08>;
++
++	status = "okay";
++};
++
+ &pcie3b {
+ 	vddpe-3v3-supply = <&vreg_nvmesec>;
+ 
+@@ -562,6 +787,19 @@ key_vol_up_default: key-vol-up-default-state {
+ 	};
+ };
+ 
++&pmh0110_f_e0_gpios {
++	misc_3p3_reg_en: misc-3p3-reg-en-state {
++		pins = "gpio6";
++		function = "normal";
++		bias-disable;
++		input-disable;
++		output-enable;
++		drive-push-pull;
++		power-source = <1>; /* 1.8 V */
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++	};
++};
++
+ &pmk8850_rtc {
+ 	qcom,no-alarm;
+ };
+@@ -585,17 +823,47 @@ &remoteproc_cdsp {
+ 	status = "okay";
+ };
+ 
++&smb2370_j_e2_eusb2_repeater {
++	vdd18-supply = <&vreg_l15b_e0_1p8>;
++	vdd3-supply = <&vreg_l7b_e0_2p79>;
++};
++
++&smb2370_k_e2_eusb2_repeater {
++	vdd18-supply = <&vreg_l15b_e0_1p8>;
++	vdd3-supply = <&vreg_l7b_e0_2p79>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <4 4>, /* EC TZ Secure I3C */
+ 			       <10 2>, /* OOB UART */
+ 			       <44 4>; /* Security SPI (TPM) */
+ 
++	edp_bl_en: edp-bl-en-state {
++		pins = "gpio18";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-disable;
++	};
++
++	edp_reg_en: edp-reg-en-state {
++		pins = "gpio70";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-disable;
++	};
++
+ 	hall_int_n_default: hall-int-n-state {
+ 		pins = "gpio92";
+ 		function = "gpio";
+ 		bias-disable;
+ 	};
+ 
++	kybd_default: kybd-default-state {
++		pins = "gpio67";
++		function = "gpio";
++		bias-disable;
++	};
++
+ 	pcie4_default: pcie4-default-state {
+ 		clkreq-n-pins {
+ 			pins = "gpio147";
+@@ -688,6 +956,27 @@ wake-n-pins {
+ 		};
+ 	};
+ 
++	tpad_default: tpad-default-state {
++		pins = "gpio3";
++		function = "gpio";
++		bias-disable;
++	};
++
++	ts0_default: ts0-default-state {
++		int-n-pins {
++			pins = "gpio51";
++			function = "gpio";
++			bias-disable;
++		};
++
++		reset-n-pins {
++			pins = "gpio48";
++			function = "gpio";
++			drive-strength = <16>;
++			bias-disable;
++		};
++	};
++
+ 	wcn_wlan_bt_en: wcn-wlan-bt-en-state {
+ 		pins = "gpio116", "gpio117";
+ 		function = "gpio";
+@@ -726,3 +1015,110 @@ bluetooth {
+ 		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+ 	};
+ };
++
++&usb_0 {
++	status = "okay";
++};
++
++&usb_0_dwc3_hs {
++	remote-endpoint = <&pmic_glink_hs_in>;
++};
++
++&usb_0_hsphy {
++	vdd-supply = <&vreg_l3f_e0_0p72>;
++	vdda12-supply = <&vreg_l4h_e0_1p2>;
++
++	phys = <&smb2370_j_e2_eusb2_repeater>;
++
++	status = "okay";
++};
++
++&usb_0_qmpphy {
++	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
++	vdda-pll-supply = <&vreg_l3f_e0_0p72>;
++	refgen-supply = <&vreg_l2f_e0_0p82>;
++
++	status = "okay";
++};
++
++&usb_0_qmpphy_out {
++	remote-endpoint = <&pmic_glink_ss_in>;
++};
++
++&usb_1 {
++	status = "okay";
++};
++
++&usb_1_dwc3_hs {
++	remote-endpoint = <&pmic_glink_hs_in1>;
++};
++
++&usb_1_hsphy {
++	vdd-supply = <&vreg_l3f_e0_0p72>;
++	vdda12-supply = <&vreg_l4h_e0_1p2>;
++
++	phys = <&smb2370_k_e2_eusb2_repeater>;
++
++	status = "okay";
++};
++
++&usb_1_qmpphy {
++	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
++	vdda-pll-supply = <&vreg_l1h_e0_0p89>;
++	refgen-supply = <&vreg_l2f_e0_0p82>;
++
++	status = "okay";
++};
++
++&usb_1_qmpphy_out {
++	remote-endpoint = <&pmic_glink_ss_in1>;
++};
++
++&usb_hs {
++	status = "okay";
++};
++
++&usb_hs_phy {
++	vdd-supply = <&vreg_l2h_e0_0p72>;
++	vdda12-supply = <&vreg_l4h_e0_1p2>;
++
++	phys = <&ptn3222_1>;
++
++	status = "okay";
++};
++
++&usb_mp {
++	status = "okay";
++};
++
++&usb_mp_hsphy0 {
++	vdd-supply = <&vreg_l2h_e0_0p72>;
++	vdda12-supply = <&vreg_l4h_e0_1p2>;
++
++	phys = <&ptn3222_0>;
++
++	status = "okay";
++};
++
++&usb_mp_hsphy1 {
++	vdd-supply = <&vreg_l2h_e0_0p72>;
++	vdda12-supply = <&vreg_l4h_e0_1p2>;
++
++	status = "okay";
++};
++
++&usb_mp_qmpphy0 {
++	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
++	vdda-pll-supply = <&vreg_l2h_e0_0p72>;
++	refgen-supply = <&vreg_l4f_e1_1p08>;
++
++	status = "okay";
++};
++
++&usb_mp_qmpphy1 {
++	vdda-phy-supply = <&vreg_l4h_e0_1p2>;
++	vdda-pll-supply = <&vreg_l2h_e0_0p72>;
++	refgen-supply = <&vreg_l4f_e1_1p08>;
++
++	status = "okay";
++};
+
+---
+base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
+change-id: 20260326-glymur-mahua-common-nodes-893fd80808cb
+
+Best regards,
 -- 
-2.34.1
+Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
