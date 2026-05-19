@@ -1,137 +1,261 @@
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013047.outbound.protection.outlook.com [52.101.72.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C291B3F0AB6
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779183118; cv=none; b=juEmTbnxOzHGNrUV52AdaPlM7CUc6m4xoDjgxoVwhmVuidEBZb0HYtdNpA4SHmu+e9pgdcdRdc2eDg3NaoATfSkC+PgPD2G2ctYpEhE2DDFoDXCoVeSKj2pE1Xyu/tfiyXorZVAyfFvnK+VOnhrs27HHa8uA7TdC0zfd7STRmM4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779183118; c=relaxed/simple;
-	bh=Mf2XoqrYRO333qV0Pq7IeJWLfaeqZ4CVJGnnWh+JqPo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZsKMV5zBmOZEVDU1p2fxsaOC0vTDVjJOLw2ODtfY3br9M9r1glx6bqn/tZRFs0V9yB+qq+pjRJFXUHr6mM0DRopqjnSQjzQi/mYoIlYKMNXiLjWVTjfbc+Hhtd8JtutOoChjdEXBLfB9regG4y2dachxeot4hZWfu8JG+njItIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9568159ee07so2321228241.1
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:31:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779183116; x=1779787916;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h7mLu0pQK6X8KnQDNiHLkRRuhxqkx65FdTGE5tLTcw8=;
-        b=qcphO7g17BspK1M9TEoqIoGwiJBMkneXd8wGIOtoHW3Pjg95n2uV1nPN1CQsgqWrar
-         nTHx2bros5mHhJ1ZcZOAr44ybPRY39yxWkJHEV1WSV90vG0g2qLK0r44m6BdwlHNabxq
-         lTpoxoXSftWvTc1h3qL0iemxOORdgKuRYscMh13tOIZhpljgDYVkdKci/BJwmW15xsK/
-         PaCxCDKolTDRl0jdExdA/Cx6x5rR7htTtYOn/u63sh8xFfj46MEpFUCJuvsdhIQ4AZYJ
-         1KjvuHgk6OkIDq666Fw5xwXj5UEjc1T63xVm1nGgOS355KeLQZVx05WDq4fStfGcu97m
-         lXmQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/HlWuDSzge+ZANJaixF5vhYVoq2EOoWoG3T9j+hN1utp906/9If/fEhD9IcQjbehtLNsLUKGZ2uSoE@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwB2/L+mb6ZtJ4Dm6TUZ+K1Rf9P0mK1FRCIwxpvNY/kF58vwKt
-	swWvw5AyJ2Db/09rp9gtv40XP4o9kY9mHz3agAeFnCNujX2YJ1Fgz99A5mTPDmme
-X-Gm-Gg: Acq92OEzF9T3sVWzE/qx92pvuRLZJc5EaG1+D4XFdA5KtbOoGqqB2u/0oa5hwvQ/ODi
-	5bGHg64oOChRkEDj/NoVjmtdgWLv+8tzp/YGiiInw7nzR8/mrFSRHvGZ2t4Vk4WF+iOsELuoiy6
-	VyP4uQdL7SfwuKPGFWfsuu3GbK/KUe5zWYWYFwBLh2Yv66TuUvVU5ZvpkoHMUsj+raiGywsmpEd
-	xRLNnk5m2lRlCmFfLSWDpgVp/bo2m1l1taR7rpEiMfVXkVkcJcTEKftwIDy/vSyAq/tBGZleYWB
-	/S/XIQJkW5v30yqFaK1M1ARnfkMTPT6uFPVAibbf3f4Lfc3YTOUU3fapXRWupCeUZc4r+O5Nf49
-	19IvhHje/rlaiCFhLfO5AGXkc0aOuRYQETad1eJSv8nmGV8dNwvXTpWv76urn7qXFZakeEuwP0W
-	NdrHyIbuAHcbIJKjpjftgBBauKlImTDR3wCXBkRMp2c/dNf6Pm7goXyyIqMdym9CS2qDuaT1o=
-X-Received: by 2002:a05:6102:6051:b0:634:8685:d335 with SMTP id ada2fe7eead31-63a3ec8c2efmr9002255137.14.1779183115677;
-        Tue, 19 May 2026 02:31:55 -0700 (PDT)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-63ce6ecd76dsm5770279137.7.2026.05.19.02.31.53
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 02:31:53 -0700 (PDT)
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-6312970d9e3so2501063137.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:31:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8J/NzmtqtG2+IZsotfc6e9PC7uNV81m8D5FogZ/b37uWaSpKDxDqrhrhAWqgSuv5lRu6ABARdL2m9n@vger.kernel.org
-X-Received: by 2002:a05:6102:598d:b0:633:d7ec:153e with SMTP id
- ada2fe7eead31-63a3fc96982mr9701042137.28.1779183113287; Tue, 19 May 2026
- 02:31:53 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20F63DB65A
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779183264; cv=fail; b=DOv+b6MGtlqLSw9dKI2IomzMcu5x+LGKNL8/WfTtMaOdLha+1YKCeXdfxYYeV915UagFFKAta4y9UWQdw9Ta20NJxZZeWE+1lRilpjuIC99D5wRL6KPjKRWZ+rioIfudU116E2mn9pRgQnv+u1VlywKwsco+S3/Ja/m7tK05kE4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779183264; c=relaxed/simple;
+	bh=rXy4WLydPV5n6F2MoGCLx0/wnQSAL1GxzPbVf9z3JRs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=BDT2iC/Euc5snN+DiFy4+s5vAI1wkrzsXQJIe82ZALVpg1UWK1lrfScQesUiogQ7Rs0gCjPkOxNGjAiI4jNEcJdQaxju7giVBW68bNZ1LEqj68byFe3l0NFgAp+HI7qWXn/JxvPAO4ovlO7Y/OKkRVgiFMJIN4FmQESImL082aU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nMQPgQrp; arc=fail smtp.client-ip=52.101.72.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nMQPgQrp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=StiEw7mB2QQirqwMyVatpuw/XNKnJ9Os4SDB6y74dgQuQuaScWOjAmUW16T3u31wpgoZYCCGmMab5QZOlEmTk4lgfLy3JSQudDahEAWQ+EQ/VGJVC71nr37/6pYN0MWuKztGqis/AMH4Hn4o3tR5Zcyez7onxcX1S5fK1o+5/ssI56VmyPtQ4F3m+/WlKUEuaRCySsZ+6S9u9Zy3E7mmSclmnu1jZ6k+1JFKgHHiE4NFVonH3z7QX8jLEMrysOILJfJMdxpefnStygAZqbSmpU1zFYo/9/uMVCRcROKAxBVSjQvD3qps7MqExYhx05jtn0dSu3rfQhtbm4NDRASrDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XuVzhkMheTFf7AmuziPSoGXNwpiC5BD94sm98q6qy68=;
+ b=Gadc77GjTjvbCDmURu3Lp+qPUKvfta2Kd4PqcrnUOQ7QqNJYiqk7x629MsVT0xD1/ToqMBnCFe6C4XLArTcLAYQ3l9+Xvm4G2WzZCOkJx2J9BCmUcVRk325HwgHVr13YcGXaTNvVt6UK3Lsl6Aq3kilrq57aXdFCP95hpcsavuxMLoCePFY1hyRY4GhmRhsVxyCv8n0433S5FweYPDkhs4Xse/Gr/+l79nchZapJHU58dYmFMoXaeKTvUcj4+9rfIn1UtyBV2T1WiSwWoaP+DIIlewvyLPs+MAt9IukfQxu5zjHUcwywKyWdGySBDR1L+WhxKYOL4lunjefg/Xi02w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XuVzhkMheTFf7AmuziPSoGXNwpiC5BD94sm98q6qy68=;
+ b=nMQPgQrpkXFn6EkkOZBWAXRD6/5bwvLYW1TaAYUD37Z188JGcSURhtWamAf746v+r2IcqEIBeKVweOuyMB7MWERCETU722a/QhQCMDBy5kg8Xsz4MQn0TCKcBgvomH3eYIrCUAsXoTyBgSiuNZiUpxA6emdsrWgvB2lD1kFNSybqaDT32QP0qJYpbUIoXr2OQbuFEbQGzsxJAp1PfIDoCS0V7gWF7VLR1wZFICOO2+KLbOXCd0N3T0c2ODSo9758UUfNcstpfzta3OxyzQrsoztg67Mt784EaPnm+8UEP427SvR+kipv4l3YD8BaibBcFDznCDktcPUZbDyT5bliwg==
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
+ by AM9PR04MB8339.eurprd04.prod.outlook.com (2603:10a6:20b:3e6::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Tue, 19 May
+ 2026 09:34:20 +0000
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9913.009; Tue, 19 May 2026
+ 09:34:19 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+CC: "Frank.Li@kernel.org" <Frank.Li@kernel.org>, "robh@kernel.org"
+	<robh@kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>
+Subject: RE: [PATCH v8 net-next 10/15] net: dsa: netc: introduce NXP NETC
+ switch driver for i.MX94
+Thread-Topic: [PATCH v8 net-next 10/15] net: dsa: netc: introduce NXP NETC
+ switch driver for i.MX94
+Thread-Index: AQHc5p+5fKWu3KTmt0uDCfaU5+bK+LYVBOGAgAARwXA=
+Date: Tue, 19 May 2026 09:34:19 +0000
+Message-ID:
+ <DBBPR04MB75006F761A909CB36C6D84A588002@DBBPR04MB7500.eurprd04.prod.outlook.com>
+References: <20260518082506.1318236-11-wei.fang@nxp.com>
+ <20260519082536.4A77EC2BCC9@smtp.kernel.org>
+In-Reply-To: <20260519082536.4A77EC2BCC9@smtp.kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DBBPR04MB7500:EE_|AM9PR04MB8339:EE_
+x-ms-office365-filtering-correlation-id: 4f2eca2b-d3c8-4970-dff9-08deb589cdb2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|19092799006|56012099003|22082099003|18002099003|11063799006|38070700021|4143699003;
+x-microsoft-antispam-message-info:
+ 4Xx5uzG/3Sg43PUigNIvzvpsKlPCdicDum4i9l6JHxVV032iljaOfyuEsqtHZ6a4wJNOMA6KvS4CGjjUmGIvh2FNkyixoSaV16Q3wqhwtQqfhNR+HzXtLXTdY2ncULGJoNRZqK7tB7U5uwHKhzRd0rdr64q5tVY74bAgAlz/Jm6PbxFfrs+fImxjqEJu2NgI1S6Z7MrRIbgTy1Lz0DS53QhSeKl9Y2fxBtEABQjvR4P7mgOx9tT80c3/62f9kSvPX9aYMiHBkmoks6gPsq8K638V/quoqnZCVhFAIfvSyRg6UfC0IhvvBrKO9EKeC5wz8FUcMNphwonRvrNIO5fGqEeruNeRznS15bdbuMInFB1uPkbhKDVUeEnk4enI5pqKix+fhl5pp5kR4oEKwTk6gIKRmabiYlV95GBrUAsV0I+uNByy3HcLUhoHOkYDocT3vTBfYJvCI0QwESN+/HUKNMZbBV5Dnc9DbwWYTGQHK38ip/qTq9fW4SdNgVlhwh7CbVDTJIHFCLes3e1cVk8oW5gBnisyPYZfX2gmsZi/JJUqopbv7qfn0a9DkEa7d5Qo9K1kMZxp8N3YSfNVvRC0dZ25uA9lCNSElQcQGqInIrEhFfbHOSUsTb7ZaBCL+V7E97R7MePhFxe3olROu6lOpmo5eQKoWIft8x5ZCy7MqL1bsCn2KMeO4vCubcwf0iA5Ri52LzdGZ0KqnEdj9irRe0aQqmb/GoGvbdifpPCKPboCwrjfHEs53Au1s2UWbJ00
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(19092799006)(56012099003)(22082099003)(18002099003)(11063799006)(38070700021)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?koi8-r?Q?baV8wcQ2c7Mnu2+rqhgyISHCnqsilpMdogG30p7QfbyqVWlNnk86wxNCBTQLKK?=
+ =?koi8-r?Q?t/Inni2M4x8vmZEi0J83NtJVXYbgGTNdG/uDoO+JokYn7N3NPYkis10nCSxIjF?=
+ =?koi8-r?Q?/FaP7lI0DYbCcOLCmAwboAioHSEdnKz43QwtZwcVLjKccfwgj8D3VIyvfLOJ6Z?=
+ =?koi8-r?Q?8s55ZJrBVBiGfXbaAvfhlKV4Cz1pTIHzXPG022M2SVkgPTkQ/QMeTMG6l5lWDF?=
+ =?koi8-r?Q?dsr8iSZwomwckjzIkHm6NTu87cBiIitIV62TRA9yFWbLGG7+4WpYBr5NOM4ehU?=
+ =?koi8-r?Q?zV9vnYsQFZrCOjZOkwkkOovFuZ5ZFP3iqQNfItfqbHhgCRzAg4W+DWLzYLXSkY?=
+ =?koi8-r?Q?gg006aHSymBE8Bkq/FBSkCMji84BZTIKogBY9DKp1j5pAslRK71HGJjiV+pmC9?=
+ =?koi8-r?Q?2wCcQj0HFeWBf/TvynlPcSWzDoMo/+Ynvfbr9zJbYQhDhHEpvqtooEiHB3XffB?=
+ =?koi8-r?Q?FeX7pG0NkBIEWKw6D6qUa1/Wdu4F1hS2V6LmQ7xTWOCZVDLzt8e/Z/CD0eHg7u?=
+ =?koi8-r?Q?vNIZK3mLS0NJMAC7A0kbZBeSReZdti0pFZ2JYHdpvbWHTzYMjkLIjzzUb0NLxV?=
+ =?koi8-r?Q?SPStz4G4Mb8cA9kWxBF0rVj3G6bocaHvSWzgRazgDHAZOc2ALChr1ynFbktle3?=
+ =?koi8-r?Q?FBpV9+T/ZllAr97Z8VpGid1dUYO6Tt7IoIXGdNzXM50ELtz/jKWAA+5/ZQYtMI?=
+ =?koi8-r?Q?1e9LPJXGD7mU/1C04VQpCuKTyl53iOqi32TwqgXvIBZkxM9ooXkOpZbRCUOwuL?=
+ =?koi8-r?Q?XocRDAQYPz2XlNbBhpOShi7we153BhtfHGU8naUcmQ8y13Op+mR+VaHfZ40VM0?=
+ =?koi8-r?Q?cmbaRUEK6wliyxq7Uh5+elzs2vD4WbyjlvkjST5Uk+IkK3MemhcY7b1PgINqx3?=
+ =?koi8-r?Q?uEawPkNzVI7y1G6TlyjV/Zx4f7wFRkxnadycQiiFepUbWjLHy0Nz4Jt2T0w2Tn?=
+ =?koi8-r?Q?CPzYJu2wU/7lqKtxozCRqebVv8XpeT/S6Nsqm7WYTHO00cvbmYQxoFagKN4by6?=
+ =?koi8-r?Q?v+gFj88QhWIZq7w032U0254mXaq6lqmZ+35maZFLdDnrhBLf/e3Vr1wHCCP+LX?=
+ =?koi8-r?Q?aZ2OQL0u/BeKuMusTVL90r7pynM0gJza4UaS2Edgmu62izz4bYySzQ3Zhu0wCD?=
+ =?koi8-r?Q?cHMbQkq1rmmd7ml3whwsFXI/iFm3mOQDgBaReSHSpL/XzHSZd5tq/NoBKb27AZ?=
+ =?koi8-r?Q?c/z+LavP2QaSL9LKI2LwIFo1/Pp+NId2Q+OQGkkqE0aTPv2YT1OT3VD//Nbyrs?=
+ =?koi8-r?Q?ylxPfJugXIIx490XWq0hEjWawtlLJ1bv9AgU/Q/HDpCV1JWoYkwBkQ5o/Gu096?=
+ =?koi8-r?Q?ykhkLiFXuuHjxTd6o/++YZRUkTDvfJBK9JQ8OoK60MyFzIjyXWu9JBG+qlZfwN?=
+ =?koi8-r?Q?t9yzuhmv68e3wfyQThdXt4Kuyx/e8Vak1mES2muOvit6qdrjZknN9ktrL35es4?=
+ =?koi8-r?Q?pnISHAs4td/9CX0SK3YOtkkKoUQYrlrcr8b6yngJ2e1eXzuPHA0337CWBG2WgN?=
+ =?koi8-r?Q?62DcUBkQmKyqCV7pVFeECJkru+J00zfkv0BN5fMlv83f2pVwTS0LLxpmMMQSGd?=
+ =?koi8-r?Q?Uj5NyCgjLJ9FgUtulLBSsorBzGLzhWSrNdX0yDHA/WPvxgy1yqgIZIGgnaO7ZV?=
+ =?koi8-r?Q?bCGZXQR03YhkrAgEkGfdstuWbqTS3aE6VEBVWna9LP9hnIKE1t+BVI?=
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
- <20260512033750.3393050-2-linlin.zhang@oss.qualcomm.com> <20260514-clever-apricot-goose-acc827@quoll>
- <CAMuHMdUzraGnOxRU=9bsxBBBFtVqudMGisfcAegUzk+_OS2+eQ@mail.gmail.com> <657a7b16-9036-42f9-b04a-503b5349f68a@kernel.org>
-In-Reply-To: <657a7b16-9036-42f9-b04a-503b5349f68a@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 19 May 2026 11:31:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXoDx2MFDvWByvUS+d65Lj6EsiecVLz5apT4oBc_Lf8KQ@mail.gmail.com>
-X-Gm-Features: AVHnY4Li7rFLZVAY1sX6NRmb7UDXsqvLWq9nv7KTFBeOAp2gXjwv7toqKRqt7Ng
-Message-ID: <CAMuHMdXoDx2MFDvWByvUS+d65Lj6EsiecVLz5apT4oBc_Lf8KQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: crypto: qcom,ice: Add sa8255p support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S . Miller" <davem@davemloft.net>, devicetree@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f2eca2b-d3c8-4970-dff9-08deb589cdb2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 09:34:19.8826
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uCO/WJOAnzbiG9OequCWsr0iJUXPjVg4maPalLXJSKF4t9bHuHMTWUrRZ5rWRrRuIU9gM2nGxdMmMHHx5R6IRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8339
 
-Hi Krzysztof,
+> > +static int netc_init_all_ports(struct netc_switch *priv)
+> > +{
+> [ ... ]
+> > +	priv->ports =3D devm_kcalloc(dev, priv->info->num_ports,
+> > +				   sizeof(struct netc_port *),
+> > +				   GFP_KERNEL);
+> > +	if (!priv->ports)
+> > +		return -ENOMEM;
+> > +
+> > +	/* Some DSA interfaces may set the port even it is disabled, such
+> > +	 * as .port_disable(), .port_stp_state_set() and so on. To avoid
+> > +	 * crash caused by accessing NULL port pointer, each port is
+> > +	 * allocated its own memory. Otherwise, we need to check whether
+> > +	 * the port pointer is NULL in these interfaces. The latter is
+> > +	 * difficult for us to cover.
+> > +	 */
+> > +	for (int i =3D 0; i < priv->info->num_ports; i++) {
+> > +		np =3D devm_kzalloc(dev, sizeof(*np), GFP_KERNEL);
+> > +		if (!np)
+> > +			return -ENOMEM;
+> > +
+> > +		np->switch_priv =3D priv;
+> > +		np->iobase =3D priv->regs.port + PORT_IOBASE(i);
+> > +		netc_port_get_capability(np);
+> > +		priv->ports[i] =3D np;
+> > +	}
+>=20
+> Are these device-managed allocations safe inside the DSA setup path?
+>=20
+> The DSA subsystem allows the switch tree to be torn down and set up multi=
+ple
+> times during the device's lifetime, such as when the conduit network inte=
+rface
+> is unbound and re-bound.
 
-On Tue, 19 May 2026 at 09:37, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On 19/05/2026 09:30, Geert Uytterhoeven wrote:
-> > On Thu, 14 May 2026 at 14:56, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >> On Mon, May 11, 2026 at 08:37:48PM -0700, Linlin Zhang wrote:
-> >>> On sa8255p, resources such as PHY, clocks, regulators, and resets are
-> >>> managed by remote firmware via the SCMI power protocol. As a result, the
-> >>> ICE driver cannot directly access clocks and must instead use power-domains
-> >>> to request resource configuration.
-> >>
-> >> Then how can it be compatible with qcom,inline-crypto-engine?
-> >
-> > It is a pity there are such big differences between the SoC-integration
-> > "hardware" description in DT of systems with and without SCMI.
-> >
-> > For R-Car X5H, we proposed a difference approach[1].
-> > Linlin: do you think this would be a viable solution for your platform?
->
-> In the cover letter I see:
->
-> "This means Linux can no longer perform various system operations (e.g.
-> clock, power domain, and reset control)"
+The switch driver is removed if the conduit interface is unbound. A device =
+link is
+created between the switch and the conduit interface. See dsa_conduit_setup=
+():
 
-"... by accessing the hardware directly."
+if (!netif_is_lag_master(dev)) {
+		consumer_link =3D device_link_add(ds->dev, dev->dev.parent,
+						DL_FLAG_AUTOREMOVE_CONSUMER);
+		if (!consumer_link)
+			netdev_err(dev,
+				   "Failed to create a device link to DSA switch %s\n",
+				   dev_name(ds->dev));
+}
 
-> I skimmed through the rest including bindings, and I do not see how you
-> did it differently. Patchset is mixing multiple subsystems and topics,
-> so it does not make easier to find what you meant.
+For NETC switch it does not support LAG, so the consumer_link is created
+when dsa_conduit_setup() is called. netc_setup() is called only once during
+the lifetime of the switch device. The call stack is show below.
+netc_switch_probe()
+	=84=80=80dsa_register_switch()
+		 =84=80=80 dsa_switch_probe()
+			   =84=80=80 dsa_tree_setup()
+				     =84=80=80 dsa_tree_setup_switches()
+						   =84=80=80 dsa_switch_setup()
 
-The gist is in:
-  clk: renesas: Add R-Car X5H CPG SCMI remapping driver
-  pmdomain: renesas: Add R-Car X5H MDLC SCMI remapping driver
+So the reported issue is false positive.
 
-FTR, this is what we discussed in Tokyo last December.
+>=20
+> Because devm_ resources are tied to the PCI device's lifecycle rather tha=
+n
+> the DSA switch tree lifecycle, they are not freed during teardown().
+>=20
+> Will subsequent calls to setup() leak memory and fail to register the MDI=
+O
+> bus due to naming collisions?
+>=20
+> [ ... ]
+> > +static int netc_init_all_cbdrs(struct netc_switch *priv)
+> > +{
+> > +	struct netc_switch_regs *regs =3D &priv->regs;
+> > +	struct ntmp_user *ntmp =3D &priv->ntmp;
+> > +	int i, err;
+> > +
+> > +	ntmp->cbdr_num =3D NETC_CBDR_NUM;
+> > +	ntmp->dev =3D priv->dev;
+> > +	ntmp->ring =3D devm_kcalloc(ntmp->dev, ntmp->cbdr_num,
+> > +				  sizeof(struct netc_cbdr),
+> > +				  GFP_KERNEL);
+>=20
+> Similarly, will this device-managed allocation leak memory when the switc=
+h
+> is repeatedly set up?
 
-> Can you point me directly how did you do it differently? And by "it" I
-> mean what you comment here - "such big differences between ... "?
+Likewise.
 
-1. Describe the actual hardware in DT (+ a firmware property linking
-   to SCMI)
-   For sa8255p, that would be a clock controller device node.
-2. Write Linux drivers that do not access the hardware directly, but map
-   operation to whatever mechanism the SCMI firmware does provide.
-   For sa8255p, that would be a clock driver that translates clock
-   enable/disable to power domain on/off.
+>=20
+> [ ... ]
+> > +static void netc_switch_shutdown(struct pci_dev *pdev)
+> > +{
+> > +	struct netc_switch *priv =3D pci_get_drvdata(pdev);
+> > +
+> > +	if (!priv)
+> > +		return;
+> > +
+> > +	dsa_switch_shutdown(priv->ds);
+> > +	pci_set_drvdata(pdev, NULL);
+> > +}
+>=20
+> Does this shutdown handler leave DMA active?
 
-Thanks!
+No, see below.
 
-Gr{oetje,eeting}s,
+>=20
+> The driver enables Bus Master DMA in netc_switch_pci_init() via
+> pci_set_master(), but this function only brings down the network interfac=
+es
+> without clearing the Bus Master Enable bit (e.g., via pci_clear_master())=
+.
+>=20
+> Could this cause silent memory corruption during a kexec, if the active P=
+CI
+> hardware continues transferring data into memory regions that are now own=
+ed
+> by the new kernel?
+>=20
 
-                        Geert
+NETC switch is PCIe device, what I learned from pci_device_shutdown() is th=
+at
+it is unnecessary to call pci_clear_master() in netc_switch_shutdown().
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+See the comment from pci_device_shutdown():
+    /*
+	 * If this is a kexec reboot, turn off Bus Master bit on the
+	 * device to tell it to not continue to do DMA. Don't touch
+	 * devices in D3cold or unknown states.
+	 * If it is not a kexec reboot, firmware will hit the PCI
+	 * devices with big hammer and stop their DMA any way.
+	 */
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+So the bus master bit will be cleared, the reported issue is a false positi=
+ve.
+
