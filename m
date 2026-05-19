@@ -1,113 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA6938F244
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:09:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FBD328B71;
+	Tue, 19 May 2026 09:12:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779181743; cv=none; b=rtxOMc4Dwr9psODZWcEcm0oIAJLMCd7zDbFfcIiAx2Vy+CsqDovPNFc8ELbGSvooX7a1WgdwnskAEwt2Yz3+2igyAnmaOYGTAmd34re6CWy2AfEOIJl68luKSeUwdZIIaxjFEVMrVVhOw5sTbhAkot9DF8OCNUreVBy2ooYloRk=
+	t=1779181923; cv=none; b=jXBd5w1Zgl2tl0BRiCp1PsE32DK6pZHHy/fPCb0RxM/iZiZv9BC+IdC1LdFQNt7Z18weDisyTGcO/Xxtg0Cvs3BNjPx+5i4ik/jclYSt4MRn7+P0s4EC4cods9iq7IflYMmKlwB+A2OgywN9v/gstY7S8oIxSejBMAS5qnfgXBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779181743; c=relaxed/simple;
-	bh=pSva4WJuG2ymZ/Kn6ETNYpZ/ixhdPe9iccI4/YsAWVQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j/HsZsdmqtWgkIyfg9fjwc4XOoLn4ukPZSnZoA9EMeKOiR/D9wm8t7uL/LhUHHxXETqyFuD2zwjEMrGr0VQ48f5CHQkojypWELZAtLSxkI0dMLWICIbCF0/CLumbwkgfIRqWe1AgR4+6Dy0sm7s4ajEyDl6Pdqs5ZybT9Amadfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bx2gMJFz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779181923; c=relaxed/simple;
+	bh=yI3Dqx5BLQpj6PCjamarP/QvxpJ6J2brIIh9AtfKL7s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vDgQ4tLzdcdh1+6r5d0dLgtuU9fLMUwLRNipQqTnSg/58Smjdw/CJjJP7hHTzX//H2btR3I5bBlHRwvqOXPpazIpbMT0JjBVt9BN/jq+zQfuZHjns5uT5vNNP3RCIrNPZBCfywv6esdSQ3N4Qg/6L0+Nz61M48y0PIPb/yFNduE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bh6bRTrC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bx2gMJFz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC5BC2BCB3;
-	Tue, 19 May 2026 09:09:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bh6bRTrC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D1BC2BCB3;
+	Tue, 19 May 2026 09:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779181743;
-	bh=pSva4WJuG2ymZ/Kn6ETNYpZ/ixhdPe9iccI4/YsAWVQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=bx2gMJFzVIQdieFtQpDGxPeQQEAncL84E2wFAQU4tsHDql29jjZP/mhg2l9+QSJCk
-	 zDK0PRuC+liZTPtZovsC76eC89KryHvdynmBq+aQ7gIlfS01O9kCqesWXBG8RkAFlW
-	 F8DAZ7HgJPWKvDY8tH9ZXaC6NDZDCz+cHICqfq3Ki/96RQ9wYF4uG8iVHJvCusLACY
-	 1YZ6biPrCTJ2kdBkzwqE8bATMCNU4EWZHeJE9nDMrO9ccSnOdBYepsQXRw0k6RMBtA
-	 s6+BcNPGVBJonvT8X4U4dYtplpx6lnjpkwQ/92gAqSnt+HFA1Ao/N1UvRbbgmkeZhx
-	 n0d8GvyF0TvDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] of: reserved_mem: clean up redundant
- alloc_reserved_mem_array() call
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519082427.4181476-3-chenwandun@lixiang.com>
-References: <20260519082427.4181476-3-chenwandun@lixiang.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 09:09:02 +0000
-Message-Id: <20260519090902.BAC5BC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1779181922;
+	bh=yI3Dqx5BLQpj6PCjamarP/QvxpJ6J2brIIh9AtfKL7s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bh6bRTrCy7FhE8SXLhwbL5Uy5BX9vNP+EU2grHUiTalo8hYOJGnQVH1v6bhLutruJ
+	 A+OpMyG2F4CSHfkIDQoSSZCTVEzkc7DN5IH4/K6ccqwCCAX4+MF+bfp9MLZGTGNGaE
+	 oTxxDyVbo+QJBEMGXF/KTD+TgD9R5iu3XP+qpzaPHoBlmXDDijpgD98tzS5Jw4/VKb
+	 +WZNSGOyV1wlQVl14NQZv2QVOzlafeuisWWmLC0F1K4AlEYAfZwgIOXzUrbyxQBTV0
+	 PHBSb+7N2hSXWs02Pzkouctq0c0ycX13lzFrFsn82SkqCINrd8BeU96WVbbTMnsT50
+	 GXzz2JlqRCpfA==
+Date: Tue, 19 May 2026 10:11:59 +0100
+From: Conor Dooley <conor@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: lizhi2@eswincomputing.com, robh@kernel.org, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH net v2 1/5] dt-bindings: ethernet: eswin: add optional
+ TXD and RXD delay register offsets
+Message-ID: <20260519-thinness-slashing-cc0310904419@spud>
+References: <20260518022023.427-1-lizhi2@eswincomputing.com>
+ <20260519022334.35742C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lIFGvHYWqI+iA/o3"
+Content-Disposition: inline
+In-Reply-To: <20260519022334.35742C2BCB7@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] Missing bounds check on `dynamic_nodes_cnt` in `fdt_scan_reser=
-ved_mem()` allows out-of-bounds writes to the stack array `dynamic_nodes`.
-- [High] Error handling in `alloc_reserved_mem_array()` fails to reset `tot=
-al_reserved_mem_cnt` on allocation failure, leading to a buffer overflow on=
- the static `reserved_mem_array`.
---
 
-commit 7ce94f9c503bebcfe72a546d200327f9bde1957e
-Author: Wandun Chen <chenwandun1@gmail.com>
+--lIFGvHYWqI+iA/o3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-of: reserved_mem: clean up redundant alloc_reserved_mem_array() call
+On Tue, May 19, 2026 at 02:23:33AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Missing `minItems: 4` constraint makes the newly added optiona=
+l cells mandatory, breaking schema backward compatibility.
+> --
+>=20
+> commit 2992483df88af2823c275fc86187f7e38acbee5c
+> Author: Zhi Li <lizhi2@eswincomputing.com>
+>=20
+> dt-bindings: ethernet: eswin: add optional TXD and RXD delay register off=
+sets
+>=20
+> This commit documents two optional cells in the eswin,hsp-sp-csr property
+> for the TXD and RXD delay control register offsets.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.ya=
+ml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+> > --- a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+> > +++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+>=20
+> [ ... ]
+>=20
+> > @@ -82,6 +91,8 @@ properties:
+> >            - description: Offset of AXI clock controller Low-Power requ=
+est
+> >                           register
+> >            - description: Offset of register controlling TX/RX clock de=
+lay
+> > +          - description: Optional offset of register controlling TXD d=
+elay
+> > +          - description: Optional offset of register controlling RXD d=
+elay
+>=20
+> Will this make the two new offsets strictly required instead of optional?
+>=20
+> In dt-schema, when an items list defines a tuple, minItems implicitly
+> defaults to the total number of items in that list. By increasing the list
+> from 4 to 6 items without adding a minItems: 4 constraint to the inner it=
+ems
+> list, won't validation now strictly require exactly 6 items?
+>=20
+> Could this cause dt_binding_check to fail for existing device trees that
+> correctly specify only the original 4 elements?
 
-This commit skips calling alloc_reserved_mem_array() if total_reserved_mem_=
-cnt
-is 0 after fdt_scan_reserved_mem(). This avoids executing dynamic allocation
-logic when there are no reserved memory regions to save.
+Looks like a valid complaint to me.
+pw-bot: changes-requested
 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 7856dc857d650..462e7c3078a3a 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -270,6 +270,9 @@ void __init fdt_scan_reserved_mem_late(void)
->  		return;
->  	}
-> =20
-> +	if (!total_reserved_mem_cnt)
-> +		return;
-> +
->  	/* Attempt dynamic allocation of a new reserved_mem array */
->  	alloc_reserved_mem_array();
+Cheers,
+Conor.
 
-This problem wasn't introduced by this patch, but if alloc_reserved_mem_arr=
-ay()
-fails (e.g. memblock_alloc() fails or alloc_size =3D=3D SIZE_MAX), it retur=
-ns
-without resetting total_reserved_mem_cnt to MAX_RESERVED_REGIONS.
+--lIFGvHYWqI+iA/o3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Because total_reserved_mem_cnt can exceed MAX_RESERVED_REGIONS, and
-reserved_mem would still point to the static reserved_mem_array, would the
-boundary check in fdt_init_reserved_mem_node() fail to stop insertions at
-MAX_RESERVED_REGIONS?
+-----BEGIN PGP SIGNATURE-----
 
-Can this result in an out-of-bounds write into the static array?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagwpXwAKCRB4tDGHoIJi
+0gMKAP0TPiXIF9Qusg/774FYoNcuauITKDygcm3ZuxByKU7inwEAvCXf11tVbL+E
++bGPEBkuHlFCfZNtim9Y9vF3hSxjSwE=
+=ri7E
+-----END PGP SIGNATURE-----
 
-Also not introduced by this patch, there appears to be a missing bounds
-check in fdt_scan_reserved_mem():
-
-drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem() {
-	int dynamic_nodes_cnt =3D 0, count =3D 0;
-	int dynamic_nodes[MAX_RESERVED_REGIONS];
-	...
-		if (err =3D=3D -ENOENT && of_get_flat_dt_prop(child, "size", NULL)) {
-			dynamic_nodes[dynamic_nodes_cnt] =3D child;
-			dynamic_nodes_cnt++;
-		}
-	...
-}
-
-If a device tree contains more dynamically sized reserved memory nodes than
-MAX_RESERVED_REGIONS, could this overwrite the bounds of the dynamic_nodes
-stack array?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519082427.4181=
-476-1-chenwandun@lixiang.com?part=3D2
+--lIFGvHYWqI+iA/o3--
