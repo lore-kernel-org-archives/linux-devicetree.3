@@ -1,139 +1,170 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D2F3AD50E
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 20:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8883B0AF0
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 20:07:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779221035; cv=none; b=HdTwvHVsYNQHJYKtREu4QTiDQbD2ao407Q2NiO0tl69CX4T8iVERWtxWNV20UsQNminJdPj50XmmHb1iwX7YC7boAAe4snrCqWnFMwvCl5/2Jf7bYqvzycrundXRs9DFaYIJI/N8Ci0kiAqTTen7jeQGtvYu97c5eMSQyASkoGM=
+	t=1779221239; cv=none; b=kgcTRFBCGaEw6iHcNUzcRBEpt1ELSEauaDckMzfTdcGUD1QIBg9sXbLy3tGL3SFp8qpejVUg/GQo8IbbAHqrcE0F0K4pnVpHDxq3WymuV0q3v3GxDg4lmtje/WrQWtdkICMmJ7llZPOFW5BigeXQ2hEqQEtz40KhWLvszG73Qp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779221035; c=relaxed/simple;
-	bh=kH1E0yOCfv8A4tsoQ88g4hFit1daNXlye+KSvBBfJds=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ahLrlmRS7zmlQ12feEMGH+hIRFjz2A/iNh3wMWX1TCPPjSR/YuWIP7XVcgh+bEcSFBZPwwhUnbPkSEWgDvxRt5u/EzcPERnGXv53xOnFIDZ/q1EX/dGOvm5wgWerAt/iZhTulntT+zH+GXL33WDp1yo+S0gT8Dax5UAcku73LN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WLu1jdGh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dRzb33bX; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1779221239; c=relaxed/simple;
+	bh=I3qvf3gT0P0uVoQM2XWb30Vlt4Ack09Ywc4NZ7C3l9o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HEsokt6JVvqoQEnZIkzsCZMZn7xbSZdRGOEYCgpRHegOzQjvjFWKODm8hix8X/6vV62XVxaHRZm5anS+W87ok4euNFqNTQZKZ1S+uWkAARH9A3wZbF1I7k0Z7VVWfAfzVST2ZbQUGrOeRjpddCW+Q7kSvGKB40fvoUXQelDJF/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KsWt/+Ay; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ISZrEDpt; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WLu1jdGh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dRzb33bX"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KsWt/+Ay";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ISZrEDpt"
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JExRpO2143956
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 20:03:52 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JExIKf2143760
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 20:07:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DSbBZ3BwAYUcEgXqfoZ6S/QTWv2PnMSP7E1mGCzbAk8=; b=WLu1jdGh5SpXwr/y
-	XOY/4kT+1VKREbTH+U9vJDiFmxmt0WkqUX0xM9TNWfxrFjmrKk1fTr7+9TMN/FmC
-	NUNoZruv3CaQinmJm1IZ6UFBdpe9f0Ca6zMGgrHVNefiY/LJXwSgLnyqLxe+D3mC
-	A+1Ua7TGfbVrV2Uc+eOCZ+cz2sCa2nsiTpzP+lSYD17hb9K/oFd++bSLctKUMoug
-	ndDLKnmckx0x2HLDxljCw5lB0913+PIgSQASVFJfwT2oKXamRfnn3MSu0hEwe0Lw
-	WQiFg/ctDLHvRgR1vh8HPBikJYlchUt/u99O9CE70a+3vv1uIGrWNWOGnkZ+Mqzl
-	jTYSUg==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3thad0-1
+	ba9sE4umteuJuCK8CmKc37MvnxwnoKBH6bwhBFlN/h4=; b=KsWt/+AyyZ18HDOx
+	3R8LW0sLoYxT/yBK++2NzOnX6QsXBuM6qaIFxOhY9uM0QMxP89hsXS+STtIVIjZb
+	q6Q+66jkiZi6a6AKeFu3gMWazqKWXFocy3QtkjQkRc01JXxcGT1V42WmLUq7EW4u
+	c5DVIvmzOBUshd7rFamrs39ROOZ9oi2QGNO57J63HrrglLeeMaqeRUHznzVrYKop
+	4Y1viN1hJSt6mj0IHah6oSkP7Q4D4z7+hLGJT8DEM8R2btZAPkrUCgywyxKI2gZK
+	udS1x+f4qzqBb+KvCsEay/rZSX12ClS+9THvcYLnynXzpb8IEKMkGxDOHhHnn64L
+	syErBA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3thasr-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 20:03:52 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-56fab6d9242so11026083e0c.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 13:03:52 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 20:07:16 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5756024c77eso9346334e0c.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 13:07:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779221032; x=1779825832; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DSbBZ3BwAYUcEgXqfoZ6S/QTWv2PnMSP7E1mGCzbAk8=;
-        b=dRzb33bX7lR3U0H4XTqm6aITnPlv0spnUB7PuDGO7qZEBzz02/ng2sN2eNIgQVNxNu
-         GrCUw/j53gU+4jfeJ7nRHcfqcMAaBiet2q/EG/GZF4xj0dNwbtxSHeBR/goeBAAMfRaW
-         mXKqcIES9HOPGUBzLpPom4BPVeX3oySra3B5OZTo0OVGlpZto0sVlvKKT/EfHH+bcXhs
-         xv9bbQfDLTIwteTMnW5KeqItEMpx0InGx1Oq5pMHcMP+iNHjUTHzntRUaukZgID1OeKm
-         2pUVXyUSJb6lZNevU90xS6suIFLs/qrxbC72hTJ9yfj6oMcp9PJA357nUnG42U6gVV+g
-         VUEg==
+        d=oss.qualcomm.com; s=google; t=1779221236; x=1779826036; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ba9sE4umteuJuCK8CmKc37MvnxwnoKBH6bwhBFlN/h4=;
+        b=ISZrEDptLp7DO+R19eTuEkzoV26Ure506CtZ48cjGROq/f1oz/XJLiY7xk38kHc3AX
+         TYVjCzyqjcUEwmFQCTjngoBv0zEq10t3nRkgmZ1waBCUiPdSYGrp7HCYStTkVsDwAcDW
+         hzNrnHo/txykXwz0Gd6h620WXO+dsXeMIjUv3qND9cZ7/Z/zWAq8BeWZcZD6FWm4SmJV
+         bIcj7Pfu2NwfR8ArmwV5dWl4To6gI+4vWUscWtHp6prdgH94bNExIe7kPumsSwsXqc1x
+         iMfbTsFYf3eitCv09lyaFu4mET2qgtpf9WpXO0T5WbP/Qm3X6jro+6oKvlVMgcLDAhOU
+         M/eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779221032; x=1779825832;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DSbBZ3BwAYUcEgXqfoZ6S/QTWv2PnMSP7E1mGCzbAk8=;
-        b=G1mSozf3mz8wZP1nNAnvY18F0cqvEryrP9XRMFN36rKu59E/oHfPFS4q0PlYvFulPy
-         Z4GTIwhSPm/sKyq8DpqhLzZ5nPa4/R4M6aJq9AEI7TcQmQzkZjjZjO74xIegXzV2JXsq
-         m1lD0gIt1Cd+yVvDBpnI1iWHw2tBJaiDd+34ln+/QF1BMP/8ndCxj0NDdMWxTOG1AtxZ
-         TAnp1H+OmG+ZloF9+FYMekEfZXpurbuPSExFEFmeEBEuhRbjbpCZRbjh1TRZdD+XGye8
-         qu6ALU6mz6/vC1Wh9dK1HCQ1sA5wnEigmlJq24DRRfvsC+c3DA5PpZlPTJJzj/e5DQH0
-         iBsg==
-X-Forwarded-Encrypted: i=1; AFNElJ9vYh5T+XWQvd4rlJ5IYmL1xppzW3+GygRx4YFQst2R1udkkq59SdKtn0jwyRFHceB3OHUK6u287RUY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5UV+B4vDFUJ9hiW+5bcJIKAy+ynKiUqKlJA8Di/sak1bPbgWD
-	Ol1zPeH4t6wfY5Jfo0D+4KznL/xZYifYYoe5KY+DzCRTMr7Vvo6eb0EluDPFIPQi9hn/h4TvQ4L
-	1eB8k3zdOyXuSsVntezNmC+52DCuxYzzUvhxM4x3VZmup/yqta0rPMkdFWN98r2Y0
-X-Gm-Gg: Acq92OEP0ON1AFXAnnZExe9ufmM+60zlyHhQps/nawy/+QfKNuWWgD7zAtSYBQDEU/Z
-	aVsiCnL2uyZSQEZHEtRf2y/04tbi/ynhZpv4wTDMlZi5woE2jrNV2rDPKdYvtXtfClC+U3xmXC4
-	kuHPn+P/vyvnw24SY2RkoQLWorUCG4sn5e/Z/dUQpeDomNwVrqkqIA1s92Udv3bejErhgVh8DJC
-	DKMonaNhoBszeE/54ExA5M5cY+/Oo8uC/7NoT/mnmpptsBlLlJhoJ7ONR9yh5y/fJxj3RXx91Lv
-	01yc9ug3VekS7P+AmzabzMTMQpeKL/0dfSRDMeYMvp4FPekznF0DFQAwn/MeEJlTWk5MEhbC9ph
-	VjBB1cfunGHC3iHnkIEZHUL6BE7O++MzzWFICyAt7G/Cp
-X-Received: by 2002:a05:6122:2881:b0:56f:6b46:28be with SMTP id 71dfb90a1353d-5760bfc8fadmr12044236e0c.8.1779221031853;
-        Tue, 19 May 2026 13:03:51 -0700 (PDT)
-X-Received: by 2002:a05:6122:2881:b0:56f:6b46:28be with SMTP id 71dfb90a1353d-5760bfc8fadmr12044190e0c.8.1779221031371;
-        Tue, 19 May 2026 13:03:51 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febe794e7sm112085175e9.30.2026.05.19.13.03.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 13:03:50 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Tue, 19 May 2026 22:03:20 +0200
-Subject: [PATCH 3/3] dt-bindings: arm: qcom-soc: Validate nodes with
- fallbacks
+        d=1e100.net; s=20251104; t=1779221236; x=1779826036;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ba9sE4umteuJuCK8CmKc37MvnxwnoKBH6bwhBFlN/h4=;
+        b=Gg0hnbngsBs+NvLhZK5jfim2inGDFtqp4PBO3Wzw84duhnZNmx+++o82zwSHlTxKv5
+         U4xBDKinjrRO9b6fGnqrE+QFZAm4Rbdh/WXsZEpN6N6BPGp8QIeAlQ8zPE5s2q7pDV60
+         b6EruEQ5NQO9b205XP5J40GfyaqEzRk9NVBEriu0Z7iwbCT55G1hKQf1lSOiVG5PKcp2
+         P83LJ3nCzX46EdsabeMwPfxHlVT00Cii3eXKhuarWwkzrg3oIU8c6BYhc0o92NoTxyyF
+         NFO/HdWx/BLWOTiuvy6Nr7io2A00BaUI5naRaDuV37EdMT+wxhu8faCPTS4wbQuPTwPq
+         7UWQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8RI+1ASsUtheqQHRWP1bS9/HfZOjEI94V8D0TXNyLgkfoFtS2Cq2G14e/yGdJbdqGiJrmfAUYn3hy4@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAegya3+rpfFu0wRGvxBipZmNHRL8Avz4yga3oMw8yCoUtZX7w
+	XkbtXAnvFFJyLu195FfLkLK5Vlr92OXc6olSINtgxgqUKP9dPEwVRLMrf8FyG4EvSxadhSEkBT+
+	wKUfRKR/ilHEepvg2zaEkG0gmswZsD5eAhmWqbJH8VvE3M55I61BMOtbYecQYrexJ
+X-Gm-Gg: Acq92OH5wxXLOBG8qmgBGo5RbMR8mNK6NE/YdT0PffFSyqMgckS4TdJlju9ANYPKOBj
+	Mhth10Is8nsNtfPjWARykTFQAelC0huYQ/pX6ordK8B+XJ8nMxJtMSdy9QrLDrpN/ugm1GYYvqh
+	PQJEQBQxfAf3cTxl4uKnOgeDHucwKGdDjDKSivPKa3ZeXfNAkzZwgahf46DSBhep55FrG5kFdJB
+	NfkbA2s1yGTeoHLdUoEaD5zOim8Dqgn3XevSA2FIREh+m4jED07M3zRIBNt2IjPZjkibHgWpgaF
+	Jf4RPPCyqAV6b1sO/mzFmj6xHS7F/igTFvUZBQWVwtFAAys4x4wTP74CWJn9wxYiRjTdFoCCDxg
+	zyxSPRb+ZsegOYPRploxn/pbTJtLrmDi74192/82oBy5srUAy/N4K9bOXdBw=
+X-Received: by 2002:a05:6123:128:b0:575:d035:8cb1 with SMTP id 71dfb90a1353d-5760c096bc8mr12568319e0c.13.1779221236342;
+        Tue, 19 May 2026 13:07:16 -0700 (PDT)
+X-Received: by 2002:a05:6123:128:b0:575:d035:8cb1 with SMTP id 71dfb90a1353d-5760c096bc8mr12568308e0c.13.1779221235900;
+        Tue, 19 May 2026 13:07:15 -0700 (PDT)
+Received: from [192.168.1.29] ([178.197.219.94])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48feae166dasm131131645e9.9.2026.05.19.13.07.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 13:07:14 -0700 (PDT)
+Message-ID: <e8a78a17-7ed6-40e0-9da1-2e70be5560f1@oss.qualcomm.com>
+Date: Tue, 19 May 2026 22:07:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-dt-bindings-qcom-soc-naming-v1-3-005d29d261ae@oss.qualcomm.com>
-References: <20260519-dt-bindings-qcom-soc-naming-v1-0-005d29d261ae@oss.qualcomm.com>
-In-Reply-To: <20260519-dt-bindings-qcom-soc-naming-v1-0-005d29d261ae@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: arm-smmu: Constrain clocks for newer
+ Qualcomm variants
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10108;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=kH1E0yOCfv8A4tsoQ88g4hFit1daNXlye+KSvBBfJds=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqDMIcZNm5mcwuqWuKWVbNIBU5mqfbLE3UU4evA
- G9QcEsW3w+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCagzCHAAKCRDBN2bmhouD
- 1zV/EACL6H6Ua8NrWAQjTyQM2XZM8aDgGEzr/2u4wknqJAe5E5rNMBicPYiwVZ4AI/DaIMyfGz1
- bEf2CCd9CEJh9QFTyrdYkvjkYcs4jawzZXd0IR3/F+/Baw5x8hBYErxJHPmQRZjqcBtQOxXRp45
- 6qZYibgLAGiQAbfg4Oj05L4djfqK7wTmoOkTaDgJJTCqheBCsnKOhgypx/WVS/mzSC9I5Q+k7ex
- Kz6vEL4rGD73CQQdJuzuBFZ/p13eDTvY5CZecaKW/znd7UXqbU34Wehr7JAq8Oo9oSdixHWj2uW
- oHobLBCf8cWDGj53N2DW+CjswksQLAxf+8thqIQXEC5iS0QjgLvjP5bmof6CBLO1ttfknxJqpmQ
- ZxhsxvUMtZ/aIgYVCiB7gWRu4CEPvb6JT6o+P0Y+UwT7BsaUvGZjgENZ5paGOnqHR6E8CTZw2K+
- dUSoLe7ulA7nj1TPyB09c9TncJeMEPiP9aVid9kcWvL0234Me+qj7MWxy7s2nQdILC9XhYY1oz4
- sX2tvyNfs9my5AcA0nLcMdcU2SOGT9tetiJVdo07HPRpt/RoLr9laVAxhrjriGY+M5yt10yOj3n
- WkwOseyGKmklWcZle0bdZ7W3OmOe9OsRBEjocq207rpqLxaAuU+UH3S+6/NsrQnWasYoLPXyF+a
- V+m+xRD1CVY5Y/w==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=feCdDUQF c=1 sm=1 tr=0 ts=6a0cc228 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: catalin.marinas@arm.com, kernel-team@android.com,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+References: <20260519074059.61405-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <177919680700.851863.10253442471292780349.b4-ty@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
+ 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
+ cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
+In-Reply-To: <177919680700.851863.10253442471292780349.b4-ty@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=feCdDUQF c=1 sm=1 tr=0 ts=6a0cc2f4 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=jA2l_eq6Qs303fORPCoA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-ORIG-GUID: pV72p6bTMcUzfS8cZc3jFKM6fxYRi5as
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDIwMCBTYWx0ZWRfX9oqKvn01LyZN
- sDABsMbM9WY2VyzkFkFFOWITETzM+G9vJwGNlDkTDqhBHtqhR93it6DY1vvardhkkALNJvmokf1
- cHLRAHBH7NPjsIQlQYg1FKLi3PBJwz1NpcIipGa8u4w4GRolXcImEvq9ij7RqnD34nxyzjc5FHs
- 34TRC0BnoCt0hP/LNcZCXNFYPvTCGYHfWzISMMo2PLXad2aHaCjGRW6zXQryI3P1SBldlRFdU9D
- w7yskB/l7Byip9kSQHfjmFKngFYK5izkv8LGCPK5/iv8C6Cyi9IvEHxanhIXiVt3v0J6RCmoNpi
- dJQQXJs4Hv3Pu45aj+FevqE60KjznoRefZ3zF452urAPBe72e3wiT10JgWbWKUgFebd/4eg2juH
- q1eQcnw9aU2ZyVzR6RNr3Pj8Ja++qSa1xFSflUYX1UYr8A+8zReXq31Rz546guCljCQVsnYDggF
- 8nW6a9yT7IYxWQG1ozA==
-X-Proofpoint-GUID: pV72p6bTMcUzfS8cZc3jFKM6fxYRi5as
+ a=-VkZa0qGcWT4bW_tupkA:9 a=QEXdDO2ut3YA:10 a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-ORIG-GUID: faE9erpN47lULWIs5eNpb9JQu6kGKSwm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDIwMSBTYWx0ZWRfX5AuBHc6Y2jfj
+ cCJntB4sVTpK1ccyqoTWmorSVxGdh0+2VdOHHkMC7ZmfrNSXCZgeZ+C61vIzJcDY92TALFu8ze5
+ EDVPlyd4WuLX9pVOs/+W1W/zVOSO5JOEhmrZE0aDeTfPdzACzSlsiCJpk3lh/XzL4eVOr0FJNnv
+ 6ZXYVe9cexGPT8Wp+36NGH/0ZlG2ZbeU0xMq2666/vHXPjNEKAJbFxTkB6rl9BJfkVCfnbZoUyE
+ zVfF9egtePUaJYV9qOtZTyxXzYWmqZxhyLqnCtYsiuwslMaY4tEoKxg1Yra7jrQmMhCEYn0z753
+ JtBbKAZk2eQUF+qm23KtEniD7eO9u3Ce6NveKLEeGGsbD+h+auIlkih9FVWXGbcNmJlG0nMykrg
+ myCXj64VPVa8HdlyO1b7aDIUk2f+NBuHXCGmqO3poodcE6dYLC/kGR2TZci45zAmFt+8PsxbpRR
+ IkWc+/igCoYQhIaMc2w==
+X-Proofpoint-GUID: faE9erpN47lULWIs5eNpb9JQu6kGKSwm
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-19_05,2026-05-18_01,2025-10-01_01
@@ -141,249 +172,28 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  adultscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
  priorityscore=1501 clxscore=1015 suspectscore=0 phishscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190200
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190201
 
-The schema checking for expected naming patterns for SoC IP block nodes
-was really incomplete and was checking only nodes with single
-compatible.  Fixing this and applying schema for nodes with fallbacks is
-not trivial, because obvious solution like:
+On 19/05/2026 17:23, Will Deacon wrote:
+> On Tue, 19 May 2026 09:41:00 +0200, Krzysztof Kozlowski wrote:
+>> Many of SMMU on Qualcomm SoCs come in two flavors using the same front
+>> compatible but a bit different fallback:
+>>
+>> 1. For application processor, usually without any controllable
+>>    clocks,
+>>
+>> 2. For the Adreno GPU, with some controllable clock(s) and using
+>>    additionally qcom,adreno-smmu fallback compatible.
+>>
+>> [...]
+> 
+> !! Please note: this conflicted with the Glymur GPU bindings update. That
+>    was trivial to fix, but I've also queued an update adding
+>    "qcom,shikra-smmu-500" which you may want in your list of platforms
+>    where clocks are disallowed?
+> 
 
-  minItems: 1
-  items:
-    - oneOf:
-        - pattern: ...
-        - pattern: ...
-    - {}
-    - {}
+Thanks, I will double check and send a followup if needed.
 
-is not allowed by dtschema.  The binding should also skip root nodes,
-which have SoC-based fallback, but completely random front compatibles.
-
-Solve this all by:
-1. Extending the select pattern to match all nodes except root node.
-2. Apply schema to all items of "compatible" property, which means it
-   will be evaluating also all sorts of generic compatibles like
-   "syscon".  List them all and let's hope that fallback list will not
-   grow too much, because generic compatible fallbacks are discouraged.
-
-The benefit is that this schema is finally very specific and evaluates
-all nodes for desired naming.
-
-Diff is a bit obfuscated, due to indentation change so briefly
-explaining:
-1. None of the patterns are changed (neither in "Preferred naming style"
-   group nor in "Legacy namings").
-2. None of the enums with "Legacy namings" and "Legacy compatibles with
-   wild-cards" are changed.
-3. Add pattern for sound cards.
-4. Add list with all used generic fallbacks.
-
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../devicetree/bindings/arm/qcom-soc.yaml          | 182 ++++++++++++++++-----
- 1 file changed, 137 insertions(+), 45 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-index d7d64e0e146b..e27701261509 100644
---- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-@@ -22,58 +22,150 @@ description: |
- 
- select:
-   properties:
-+    # Select all nodes which have SoC-based compatibles, but not the root
-+    # "/" node, because its front compatibles do not follow any SoC patterns
-+    $nodename:
-+      pattern: "[^/]"
-     compatible:
--      oneOf:
--        - pattern: "^qcom,.*(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sar|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
--        - pattern: "^qcom,.*(eliza|kaanapali|glymur|hawi|mahua|milos|shikra).*$"
-+      contains:
-+        oneOf:
-+          - pattern: "^qcom,.*(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sar|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-+          - pattern: "^qcom,.*(eliza|kaanapali|glymur|hawi|mahua|milos|shikra).*$"
-   required:
-     - compatible
- 
- properties:
-   compatible:
--    oneOf:
--      # Preferred naming style for compatibles of SoC components:
--      - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$"
--      - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
--      - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
--      - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|milos|shikra)-.*$"
-+    # SoC specific compatibles can appear alone or be followed by another SoC
-+    # specific compatible or generic fallbacks, therefore check for compatible
-+    # should use ideally:
-+    #
-+    #   minItems: 1
-+    #   items:
-+    #     - oneOf:
-+    #         - pattern: ...
-+    #         - pattern: ...
-+    #     - {}
-+    #     - {}
-+    #
-+    # but that is not allowed by dtschema ("oneOf" cannot be used as an item
-+    # for a compatible).  Work around this by defining schema for all items,
-+    # but drawback is that we need also to list all known generic fallbacks
-+    # like "syscon" etc.
-+    minItems: 1
-+    maxItems: 4
-+    items:
-+      # Use anyOf, because soundcards will match few patterns
-+      anyOf:
-+        # Preferred naming style for compatibles of SoC components:
-+        - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$"
-+        - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
-+        - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
-+        - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|milos|shikra)-.*$"
- 
--      # Legacy namings - variations of existing patterns/compatibles are OK,
--      # but do not add completely new entries to these:
--      - pattern: "^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
--        # qcom,apss-wdt with codenames
--      - pattern: "^qcom,apss-wdt-[a-z]+$"
--      - pattern: "^qcom,kpss-gcc-(apq|ipq|mdm|msm)[0-9]+.*$"
--      - pattern: "^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
--      - pattern: "^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
--      - pattern: "^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
--      - pattern: "^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
--      - pattern: "^qcom,rpmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
--      - pattern: "^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sar?|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
--        # qcom,scm with codenames
--      - pattern: "^qcom,scm-[a-z]+$"
--      - pattern: "^qcom,tcsr-(apq|ipq|mdm|msm)[0-9]+.*$"
--      - pattern: "^qcom,usb-hs-phy-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
--      - enum:
--          - qcom,dsi-ctrl-6g-qcm2290
--          - qcom,gpucc-sdm630
--          - qcom,gpucc-sdm660
--          - qcom,lcc-apq8064
--          - qcom,lcc-ipq8064
--          - qcom,lcc-mdm9615
--          - qcom,lcc-msm8960
--          - qcom,lpass-cpu-apq8016
--          - qcom,usb-ss-ipq4019-phy
--          - qcom,usb-hs-ipq4019-phy
--          - qcom,vqmmc-ipq4019-regulator
-+        # Legacy namings - variations of existing patterns/compatibles are OK,
-+        # but do not add completely new entries to these:
-+        - pattern: "^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-+          # qcom,apss-wdt with codenames
-+        - pattern: "^qcom,apss-wdt-[a-z]+$"
-+        - pattern: "^qcom,kpss-gcc-(apq|ipq|mdm|msm)[0-9]+.*$"
-+        - pattern: "^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-+        - pattern: "^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-+        - pattern: "^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-+        - pattern: "^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-+        - pattern: "^qcom,rpmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$"
-+        - pattern: "^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sar?|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
-+          # qcom,scm with codenames
-+        - pattern: "^qcom,scm-[a-z]+$"
-+        - pattern: "^qcom,tcsr-(apq|ipq|mdm|msm)[0-9]+.*$"
-+        - pattern: "^qcom,usb-hs-phy-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
- 
--      # Legacy compatibles with wild-cards - list cannot grow with new bindings:
--      - enum:
--          - qcom,ipq806x-ahci
--          - qcom,ipq806x-gmac
--          - qcom,ipq806x-nand
--          - qcom,ipq806x-sata-phy
--          - qcom,ipq806x-usb-phy-ss
--          - qcom,ipq806x-usb-phy-hs
-+        - enum:
-+            - qcom,dsi-ctrl-6g-qcm2290
-+            - qcom,gpucc-sdm630
-+            - qcom,gpucc-sdm660
-+            - qcom,lcc-apq8064
-+            - qcom,lcc-ipq8064
-+            - qcom,lcc-mdm9615
-+            - qcom,lcc-msm8960
-+            - qcom,lpass-cpu-apq8016
-+            - qcom,usb-ss-ipq4019-phy
-+            - qcom,usb-hs-ipq4019-phy
-+            - qcom,vqmmc-ipq4019-regulator
-+
-+        # Legacy compatibles with wild-cards - list cannot grow with new bindings:
-+        - enum:
-+            - qcom,ipq806x-ahci
-+            - qcom,ipq806x-gmac
-+            - qcom,ipq806x-nand
-+            - qcom,ipq806x-sata-phy
-+            - qcom,ipq806x-usb-phy-ss
-+            - qcom,ipq806x-usb-phy-hs
-+
-+        # Schema matches also sound card nodes and its front compatibles can be anything
-+        - pattern: "^.*,.*sndcard$"
-+
-+        # List all used generic fallbacks. The list can grow, but in practice
-+        # it is not expected, because specific compatibles are preferred for
-+        # fallbacks as well.
-+        - enum:
-+            - arm,gic-v3
-+            - arm,mmu-500
-+            - generic-ahci
-+            - jedec,ufs-2.0
-+            - mmio-sram
-+            - qcom,adreno-smmu
-+            - qcom,aoss-qmp
-+            - qcom,cpr
-+            - qcom,cpufreq-epss
-+            - qcom,cpufreq-hw
-+            - qcom,dcc
-+            - qcom,dwc3
-+            - qcom,epss-l3
-+            - qcom,eud
-+            - qcom,glink-smd-rpm
-+            - qcom,inline-crypto-engine
-+            - qcom,ipcc
-+            - qcom,kpss-gcc
-+            - qcom,kpss-timer
-+            - qcom,kpss-wdt
-+            - qcom,mdp5
-+            - qcom,mdss-dsi-ctrl
-+            - qcom,msm-iommu-v1
-+            - qcom,msm-iommu-v2
-+            - qcom,msm-timer
-+            - qcom,osm-l3
-+            - qcom,pcie2-phy
-+            - qcom,pdc
-+            - qcom,pmic-glink
-+            - qcom,qce
-+            - qcom,qfprom
-+            - qcom,qspi-v1
-+            - qcom,qusb2-v2-phy
-+            - qcom,rpm-proc
-+            - qcom,rpmh-rsc
-+            - qcom,rpmcc
-+            - qcom,saw2
-+            - qcom,scm
-+            - qcom,sdhci-msm-v4
-+            - qcom,sdhci-msm-v5
-+            - qcom,sec-qfprom
-+            - qcom,smd-rpm
-+            - qcom,smmu-500
-+            - qcom,smmu-v2
-+            - qcom,snps-dwc3
-+            - qcom,ssc-block-bus
-+            - qcom,tcsr-mutex
-+            - qcom,trng
-+            - qcom,tsens-v0_1
-+            - qcom,tsens-v1
-+            - qcom,tsens-v2
-+            - qcom,ufshc
-+            - qcom,usb-hs-phy
-+            - qcom,usb-snps-hs-5nm-phy
-+            - qcom,usb-snps-hs-7nm-phy
-+            - simple-mfd
-+            - snps,dwmac
-+            - syscon
- 
- additionalProperties: true
-
--- 
-2.51.0
-
+Best regards,
+Krzysztof
