@@ -1,168 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5850F3E0C67
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1083EE1CC
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779180611; cv=none; b=j5YxqfJoVZgJRuai/ULVegJHVI6/E2yz5BvngV8lGVZllwxFV9LHkuE7rdcmwrEcWBXBqj+oaKWHGin/DUA3EBNhmFVIpphLxXLCxvyF4pifo5cT/Nf9599g/19xR6iFcbEzJI6JSt1k6b1k6iJKsWC7OmWXt6hvb2LxJLct1TI=
+	t=1779180707; cv=none; b=TIPHLPfBXeDvl2yxcNJzEz8enMYmeHvinzpHKVV5R4dJXW7wKQ8btblabfOLH7wZJHkVZx1SlK5gdpU68r2yyYA76T77T9LCPkMKVYB/6rGC4pEcff65SajZRAtF2Lr/ttiI2VP2iRVh3GjbHMFJMDgok2Lp8kYZkbpvjm8oIrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779180611; c=relaxed/simple;
-	bh=qO9OQkbrpxgoymEUi8XxSIQ1hb0/JFhnaJJzFviE5S0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kJjvC12+ZOMq0AsG0yGQbP9bzzKCz/o0PveTegYgE/2FyuKTb2JeLnRl8O1SmFO34CD9SdnHwSNIC2kfvQUXNd9MNHuGPof11I07VRK5gtfJCS6jF5QIaCUmzZHUgPfk43sDimnKYBFHfRfi1I+5PF/gsfOy/FXRNfINgb982Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nbv3bfVc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779180707; c=relaxed/simple;
+	bh=GA49J4exmrjJ5Cw8xW0ziAcuryiSXaGjbrMDvlc/OY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C8DKUuYett5UYY+8wbAcDwumeKQj7yTkNeKJpx0OFgeOpZAaHaBtIgrJjj4QdVjMPh228++5zGC0xi7IxYZ8Vb/Dwr7R2Tu27prCwxL5UOcqmS7xqlLbNI/lwWkIvBwjcGwg0BchtNR2EC24DlutBwC1HdRK7MomIxfdagQfUAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MoJ7bkg1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LlIo1kmV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nbv3bfVc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8FA3C2BCB3;
-	Tue, 19 May 2026 08:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779180611;
-	bh=qO9OQkbrpxgoymEUi8XxSIQ1hb0/JFhnaJJzFviE5S0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Nbv3bfVc/zyOLtqKsuN2vo7zQ2bnW0GrBKTAUeDCJwhw3Txb4H3GV6otnJ4r2iTAY
-	 6S+FXrFKBGJtb5umAh1me3+fAV9DhS57/DrCemefgyzUblKYV54HdDNSx5e6n0oxEh
-	 2WXMkEz+4nHGyhY6eXfTo6qiSk7bCZyjBHKKnfFo1clSfi7x4fYz5zRAc+Hrba4NBu
-	 6aWUVF5J1duO13+2uls1Loeipe4HHryFfAxAkGm2FNcL+ECKNaWMWURe1XCHyoNhr7
-	 v8LnIOlSwvUE6sWXjtztgsXJMeyQWUQnlesAxym0hHqwtmQl/LE34Czf37Q3MxY0si
-	 yDuMH8h7EKMtw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support
- for subsystems
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jingyi Wang" <jingyi.wang@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
-References: <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 08:50:10 +0000
-Message-Id: <20260519085010.D8FA3C2BCB3@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MoJ7bkg1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LlIo1kmV"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J5aIEC867230
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:51:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ezYP126K612czxcRfGpCOxRI
+	cGp9OLiayoTZvHdNYZk=; b=MoJ7bkg1kn7E1kmsA5AEINaYh1G4LZuFE09oLhOe
+	jMNuvBzkxPvOe3skDA5/25OV+vAruPkynyaBaKWglIkwoz/pyPUzZI9XF9Lnmpah
+	4xGngbd2xF/zHNO+Cdn5A7nSGR/TSjROT0txtfbUM1Hdd2i/LRvHPXKltcZdr0/Z
+	Q7Dr7FsSsLLDYFgudwtxDzkUc29FX4BfbePO0eD0QdxOfcVZsXQFp4YownLhWvYA
+	RvyXfVzrAsZZj0dcTmFecjPxlhy42lo7nhW6oLAO55//+klIvLBoYm7z1YraOYp5
+	7WP2XJ5WnFzy6W+K9nDpiADlZ/Qp5EQ+/Xx7xhXmPkNnsw==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8hv1gtvh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:51:44 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c8271fb43d0so1822752a12.1
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:51:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779180703; x=1779785503; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ezYP126K612czxcRfGpCOxRIcGp9OLiayoTZvHdNYZk=;
+        b=LlIo1kmVU+Q9/pTY5+KUZL14PHPEF4MkU0wUft7/3LN4E/Z5QraTg3luQZ2ipfNPdp
+         jf4AWYoUYivL4tl5c2YCbxYlbBfGi4dahm5GgNa82s19pinvZXmoIb+mpbmoh8GF0Wd4
+         HuBB+9NL3fpKQsDg33Zvwzdm0tAa8U97wFzgui1hwDcLoZzuX/PwzRkihCRsjaRsr85B
+         gKjuioQ5uYI4110ijRfdrWyFiRhASKM0N8XmV358vjf6/25CBhAuTSE+7WUKAEfdDqWh
+         P8pVYeiTxQuh3VGkquqoOKL+uYBRXxR6IkxJwO/WVUe7VDMn9EDOxRC1W/1BxSEhvZv5
+         BKVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779180703; x=1779785503;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ezYP126K612czxcRfGpCOxRIcGp9OLiayoTZvHdNYZk=;
+        b=L6OJn+sh3YyZiaO3mIs9mGSoJtXm68dahjtzTyS1oQu14DcOp77hLo8XyLZntqCsJK
+         weXFETtCzIRIkcEvYpzqKh6p1obs+igTJz42YuxQx2K0Qci5nFD4ArhiclwvraGN8Rek
+         +Epuanfh01jOacaraey5O4iU7w8jpUNJCUC/HbwPxgVpcOhu+u3LfdT3wPV4+nB5i0vx
+         4Ae7lzwcyhuRwwpmKDTs7BtkuEeMkh31GkMkRpz+ioXkC6PZBjocOjgIMpRPT6kNWkkC
+         OP7B3NMI4Vae8d2paynMrwC6KhOrFINiWWnnIpEKZOwwztp8f/5WUd1xsg53XfWwg7QR
+         Qycg==
+X-Forwarded-Encrypted: i=1; AFNElJ96So8VDzW2QC28Q9gc3NDjoSY7quGtwDI+uSjMXywaf7exf8d+FWMQ1sWhGh2s0gyinXixeMsBuX0a@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwULHwOCzUCdTr+4qhFnd2YMh4tFMUrMmW//l0Cy3pR5+YpI7o
+	TzXL4AcXFq6lTMUA9E5/V2btbWd43UdQvIJdqAR/EAdpSN1tDs/EQnKuI1oZmIBWhQU9UvTog3e
+	kMYn6tTJWtSDTc/TZh8wY2S+GBcBIyp+wbUUSHwRL/xV3UBuYzayeQdTtURiML4ZQ
+X-Gm-Gg: Acq92OG1cEJTBd2ROC9MIRTgdOjkjE48wBQSItykS/y0vwHWC+/s7M/5O5kXmjSUZJ6
+	gFu73V7lR7Uob6St4PILb8WVRcRoUHeo1ZQ0/EKWzLq9NVUgxewiQqCJzuIk9uyl3fNnjnYHO5B
+	Wj/FxukDuiwq6UuaH5iDjc+4v3sQjeFmSbpj4bz407f6YASrbIuRUC8YmmL2HawchE9oJYy4/5v
+	A4L4T4TBm4A5F5YzPBGl6nQ8n63wvtmrU2hjyGEOhqlc4O1jrY82bEGOK7bUXAprW9yCdNosj1i
+	w55PoR/Hhpr90CRFmShosislLr5R5Bk5pL6fb/PN7fIX/KnjNKzYYBecRxOWNk+erqK1Id5CIAf
+	qCXIeeH/aBSnccJynRJfgtSBB7Ercc1I7EiMazV3m0xTXDnSPbwPeGM79sQQ=
+X-Received: by 2002:a05:6a00:3992:b0:82f:de7:d29 with SMTP id d2e1a72fcca58-83f33c60b33mr19177138b3a.31.1779180703267;
+        Tue, 19 May 2026 01:51:43 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3992:b0:82f:de7:d29 with SMTP id d2e1a72fcca58-83f33c60b33mr19177119b3a.31.1779180702650;
+        Tue, 19 May 2026 01:51:42 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c5b71fsm16021123b3a.29.2026.05.19.01.51.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2026 01:51:42 -0700 (PDT)
+Date: Tue, 19 May 2026 14:21:36 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: Drop unused remoteproc_adsp_glink label
+Message-ID: <20260519085136.saub3m6tnnnvhxcr@hu-mojha-hyd.qualcomm.com>
+References: <20260409181329.556899-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260409181329.556899-1-mukesh.ojha@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA4NyBTYWx0ZWRfX1bVBK+vwScu7
+ MAdclFwcIzUwvjyh7JfZ7tJc8jFqom/1uc6WN9SJgILArt+y5HoiMnBta26pCj0alSocA9YlFU7
+ zyXQdc3KT7Uf1UKHhMfO/wMwX6MagWxpokHmpEoEgbkeiULJrsubeueu5KT7uMJ5em8Hcps23i+
+ IdWx321E6xpSeCHl4Hfwagwwn509BMBD6iKRYNn5FZCpxNJEh60x14nt9LO3a8yZhV0ATqV/zrt
+ yOXRErxzYSvLa0hR0lLtv20AyhQLsOxO2QBOcl+UZWvqewmesl8P2Qrepj9r2xXkMt4BMFmHjAe
+ Y1zB5zYgdnNfLwV0hVcZ9OV3AlF01mmilB/l85lTodIQu/fcH4aOGznZ7CFCSzrAc7DAegCVs7u
+ 4BDeCa8K8lhHFD82vMGi3LX8um4NVDV4HcpwXYFYv4nrh+kYxWHWAwTUlv7WRZSE30Gdul7mGVZ
+ yVWLTa+rK+pnFykWjhg==
+X-Proofpoint-GUID: inBWhfNuK8Qz58eDLqikAKP44dHLwkZ-
+X-Proofpoint-ORIG-GUID: inBWhfNuK8Qz58eDLqikAKP44dHLwkZ-
+X-Authority-Analysis: v=2.4 cv=WZM8rUhX c=1 sm=1 tr=0 ts=6a0c24a0 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=dLF_TAHiO-yvSCDL95MA:9 a=CjuIK1q_8ugA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ phishscore=0 spamscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605190087
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] Calling `rproc_report_crash()` followed by returning an error =
-from `.attach()` causes critical Use-After-Free vulnerabilities.
-- [High] Returning `-EINVAL` when the subsystem is not ready breaks the int=
-ended fallback to offline boot and causes device probe failure.
-- [Medium] The `handover_irq` is left enabled on multiple error paths, caus=
-ing an unbalanced IRQ enablement depth.
---
+On Thu, Apr 09, 2026 at 11:43:29PM +0530, Mukesh Ojha wrote:
+> The remoteproc_adsp_glink label on the ADSP glink-edge node has no
+> users in the upstream tree across all affected SoCs. The only user
+> of this label is qcs6490-audioreach.dtsi which references the label
+> defined in its own SoC dtsi and is left untouched.
+> 
+> Remove the label from kaanapali, kodiak, lemans, monaco,
+> sar2130p, sc8180x, sc8280xp, sm8450, sm8550, sm8650 and sm8750.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
 
-commit 1111bc6bad772baf2e724e0d339a047f01859d2f
-Author: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Floating this up for pick up..
 
-remoteproc: qcom: pas: Add late attach support for subsystems
-
-This commit adds late attach support for subsystems brought out of reset by
-early bootloaders. It introduces qcom_pas_attach() to check subsystem state
-via SMP2P bits, reporting crashes or falling back to offline mode.
-
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-
-[ ... ]
-
-> @@ -510,6 +511,57 @@ static unsigned long qcom_pas_panic(struct rproc *rp=
-roc)
->  	return qcom_q6v5_panic(&pas->q6v5);
->  }
-> =20
-> +static int qcom_pas_attach(struct rproc *rproc)
-> +{
-> +	int ret;
-> +	struct qcom_pas *pas =3D rproc->priv;
-> +	bool ready_state;
-> +	bool crash_state;
-> +
-> +	pas->q6v5.handover_issued =3D true;
-> +	enable_irq(pas->q6v5.handover_irq);
-> +
-> +	pas->q6v5.running =3D true;
-> +	ret =3D irq_get_irqchip_state(pas->q6v5.fatal_irq,
-> +				    IRQCHIP_STATE_LINE_LEVEL, &crash_state);
-> +
-> +	if (ret)
-> +		goto disable_running;
-
-If ret is non-zero, we jump to disable_running and return an error without
-calling disable_irq(). Does this leave the handover_irq enabled?
-
-Since the attach fails, the remoteproc core never calls the stop callback,
-meaning qcom_q6v5_unprepare() is bypassed. This might permanently leak the
-IRQ enable count.
-
-> +
-> +	if (crash_state) {
-> +		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
-> +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
-> +		ret =3D -EINVAL;
-> +		goto disable_running;
-> +	}
-
-Could calling rproc_report_crash() and then returning an error lead to
-use-after-free conditions?
-
-rproc_report_crash() asynchronously queues the crash_handler work on
-rproc_recovery_wq. If auto_boot is true, the attach failure causes
-rproc_add() to abort, and devres will free the rproc object. The queued
-crash handler is not explicitly cancelled during cleanup, so it may
-dereference the freed rproc memory when it executes.
-
-If auto_boot is false, rproc isn't freed, but rproc_attach() cleans up its
-failure by calling rproc_disable_iommu(), which frees rproc->domain. The
-async crash handler later executes, fails to abort on the RPROC_DETACHED
-state, sets the state to RPROC_CRASHED, and triggers recovery. The recovery
-process calls rproc_stop() -> qcom_pas_stop() -> qcom_pas_unmap_carveout(),
-which unconditionally dereferences the freed rproc->domain via
-iommu_unmap().
-
-Additionally, does this path leave the handover_irq enabled as well?
-
-> +
-> +	ret =3D irq_get_irqchip_state(pas->q6v5.ready_irq,
-> +				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
-> +
-> +	if (ret)
-> +		goto disable_running;
-> +
-> +	if (unlikely(!ready_state)) {
-> +		/*
-> +		 * The bootloader may not support early boot, mark the state as
-> +		 * RPROC_OFFLINE so that the PAS driver can load the firmware and
-> +		 * start the remoteproc.
-> +		 */
-> +		dev_err(pas->dev, "Failed to get subsystem ready interrupt\n");
-> +		pas->rproc->state =3D RPROC_OFFLINE;
-> +		disable_irq(pas->q6v5.handover_irq);
-> +		ret =3D -EINVAL;
-> +		goto disable_running;
-> +	}
-
-Does returning -EINVAL here prevent the intended fallback to offline boot?
-
-If the device has auto_boot enabled, rproc_add() treats the -EINVAL from
-the auto-boot attempt as a fatal error. It executes goto rproc_remove_dev,
-which destroys the remoteproc device entirely and fails the driver probe.
-This makes the intended fallback impossible, as the device is never
-registered.
-
-> +
-> +	return 0;
-> +
-> +disable_running:
-> +	pas->q6v5.running =3D false;
-> +
-> +	return ret;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-knp-soccp-=
-v6-0-cf5d0e194b5f@oss.qualcomm.com?part=3D5
+-- 
+-Mukesh Ojha
