@@ -1,388 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B024EA397;
-	Tue, 19 May 2026 16:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779209244; cv=none; b=KLzuTLM0xIucDHHh33mHzOMTq27s2vDZPAojwklmzElV9V2AqWaBewJnavUb9t7tldezpvmlwnTvxEiJhGpxIEAhqfg5ziDX+Bsx5BGOBBSqdhAy6wf//YXQpSKo7g5u+5Du+lEIRaVc/m24UtV0+MkK9n81Y981INlhiM4EOeA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779209244; c=relaxed/simple;
-	bh=wtsvs+5IaNBl2MEy4x4JHMc9B3fizNNrV8z58n7rl3Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j7mOzTj3A13lix9QuM9ZpwTkhudo1NmPOIgGWcBVoiw92t3WDuApa6pfvlOKSTtpbWbbHc6a8Ly8WuyOyCzn2+rF7Hs49mad35aoCt87q4mHaGrzgC/yeiqW+G8OwBoXfk8wvDPycMGUlCS7TP1MC9z/ayFYCLfSaL56DMOPlrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WqAV1/vU; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D053F47886E
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 16:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779209339; cv=pass; b=uBVVHvG8VZI8d6Yzf9Vs8yaBK6gfGWaeFV5FmlIg5tEaOW6opr1V0hO5bgoV0kGqMlr0GZREWRpVVL1HlMnMkMRoCDQhBRZAp2no++agcQuYzKFCJIk1VL8Rd7GvpXHUCmkqt5rOETs0hYbHlyJtyoIdqWKLdeiMtgoMJ55DXJU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779209339; c=relaxed/simple;
+	bh=oH9Nrh5PMk8EWsTbmczz+vb5WQ2yNIkfnpOjRyzWjGA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Z0ZM/t8VXM/2UtHxVN1q+hPKxctX2Q4oKqiWQ+rSFw8+TO38TJkwWM9qcOW+s76f7ezU1NnW05hdGrWATeAOqPzxuopwcV5dlExElPHf3Z9K4pwWMHaIiFVOnbjPABUDy78EtKYOa2VnipgwfbjANpsQmCJ5Kw87UhrfSV0YoVE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gLVtO780; arc=pass smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WqAV1/vU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFFB4C2BCB3;
-	Tue, 19 May 2026 16:47:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779209244;
-	bh=wtsvs+5IaNBl2MEy4x4JHMc9B3fizNNrV8z58n7rl3Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WqAV1/vUS+qzidkcmOrFrxDBIjC1CilEtL+cxPm9lawvbyeBb6HyNrQVnHEOVcRO7
-	 rqgQak6iN7cLfYL7IZIagj2/u0KIgR8pWXqmX2aadlCeNI27TrvlcLk4uwY6HNF8Jg
-	 vYKFvr8xivTgaR0M/iebob0DyCqwwOdF90luF6xvRS3aWKbSBJK7w0AsOhfo9srFWY
-	 DwICPR6YaNW3MsUbVmqQvx23Oy7kN0gGBLIuiomaOMZd4XLflzdJNEt6S9dAVE2Yeq
-	 dSBmJJLNzhy2vi0Y/hd7hiMgNGFA3XpfycvSG6sSjvuyKyFVkm73C/a3Xoig6mh+RC
-	 6AmzOFJrfOffw==
-Date: Tue, 19 May 2026 17:47:18 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
-	yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon, dc: generalize
- for  single-output variants
-Message-ID: <20260519-fretful-blush-1aac18fa1360@spud>
-References: <20260519055114.1886525-1-a0987203069@gmail.com>
- <20260519055114.1886525-2-a0987203069@gmail.com>
- <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gLVtO780"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39380e79936so40741791fa.2
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:48:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779209336; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cncKn7G/4l84XdIzLLprCQyzWseZEhiIR6JkYqpgE1E66He/OqY504YyN7SeHsvyoS
+         pp4XSA3Gd1SmGwOeM+j73CnXQZpKFHdoagjI+9ovmWCKphGeXxgHj9jRPmyuycoWIEY/
+         t0jKP2KpVfQw2OK2zpIKMhMsc1WJ/sTY0EYsAvzaEM5FZ5bmRvkJxxqWbTyTzH2vUSNi
+         6T7un97LkRRJBQTpE/dEUB4oLZgaQbz0bkKTbkB3Ipw6vgvsiz/9RHZgKlXSB7ElTiDE
+         MUIOKKtryvXOlgzKJD+yOAVWcUJ/jPbqqGUVBUCdL9nBXrGFfj4xIvWN7I8Mocfso9fT
+         nTqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=11HZunJH70CHsRXR3sppB58SVfwXvxQdgkcAB3E60NY=;
+        fh=mUhZ+smMEQcyMFXEN9FmC16NDxLhWdiVj35F5/wSYCw=;
+        b=KPEx39Fo1yCDa7/YgmB4Xe23IYh7sB26tGUpLL56bHtXJ4Zda0fky/RPtExT/RLVke
+         /14U/Y0WPhn6pE5Ph+0hL8aTiU9Y1QQCPfNARlX6upcaBvsVV224aJI3uv9yuOJyx7Yk
+         X5mXfrfJVGE+h0uZ/0fQpv7W0Ao5IY7rQKQFRn9mMvmyMLJgDq6u4NratUQpPRO9hZwG
+         eqIWB7jO3DeJy7yEsDJU0GkUBKL5xayNufL5E6cK6HipRvtQE8el6qsr8IH6NAPGO5iN
+         9o7ig6+wUzOyQXMXiPc830peP0LSBennc37QPYdw6FrZyAJUpEhEghc6PFglmdjMj2Gw
+         CEaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779209336; x=1779814136; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=11HZunJH70CHsRXR3sppB58SVfwXvxQdgkcAB3E60NY=;
+        b=gLVtO780K47SFspwGpqSc7Hn+QCwa47HcFq9d5Fs2eigtexzUDgZp69UV7YJpNLLmm
+         4yjJKMJFBW4droeX6NihF1HnMZFhcSf8AW2S3UysJIQsIUZqTyjIqG2TqOViDSIE47nL
+         y9jQbQPl6jlBE5YMZcp8BpzHuqjDCr8msZcPIdSJZWWMqtWFwSs8nmh7/hhZjQKSeclu
+         LfOTEuSb5WEdb9R04BdXXdvF6CeuxqTkUvLIqS55cV8DX/7pozi32y8Uo1Spfvyy0oYr
+         QMmS39yXl0xLcgb6RfajpccClgzVYEr4NFdruagWCBfaW7Ncp5mg2VKbAtQznRBI+qoV
+         eI3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779209336; x=1779814136;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=11HZunJH70CHsRXR3sppB58SVfwXvxQdgkcAB3E60NY=;
+        b=k6cbDG0PCuOa1ONmNc5rrKVZX6/v0K+kwFRQoEvxTQ2ozka16ydRmN3kiKlLxDuZNe
+         II93uYx6PXQijUgFt50rWteZzCoJDjlJkPAI02sVxebDFpO5AR4iE+fm3Ps6Je/ubmLw
+         /JaFS5acPSf7VFehgpDqwYF22/5AebbwTrtmYZdAvjlfWZr1rjjoVmNhndEYIqcD2Vs/
+         07k5olln43iHHYcywOVHZbpW3PKJu3Amk+d7Mxf3xezxf3UJshjUOzytbZIxmjwOedUU
+         WG3PH4cyaqK5R/495SJ4VhRKOxF5w3tcY+q1JeitrqvKl5MPgO+TYNG69+4tXgPfrdqV
+         kXRg==
+X-Forwarded-Encrypted: i=1; AFNElJ9rGplVbccKDl+zaV9WG15Z+v8xC9A+Eb/Aw423d+UdJkDscnjEqMr9wWrxMUIMKaunahDPaTItmCpX@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLVAqB6B98W8s1X0ySEpfAmeCcoHcK63RJjSJFM+7SWL9qN0cZ
+	MtFA/XUHP4WVBrKMvwuhM0JXq4Du5UFIS+1py1S+JGZWD0ScT/Es0b8wTg3kBjBsWbOstGdLbFS
+	D/1q8AayiOGGqIzwXow2REQz+isG/APE=
+X-Gm-Gg: Acq92OE0aDskZ0vS3z5DcVI/S8B+yeHfs5IwYVuT++a31tKugSjc/LazeenJzoZ5i/r
+	+LTVVRC8HXLqf59rozXDxnwftft/bPI4Sw9j0Ls+nxWCexdueIgh+hX3iv8ffvT2M3H8p/iJvz6
+	RI2hUH/evMUfI+zCXc/hrt9ZdfLNXeh+Km6TnJS7CceybW60vyMy/PRH/ktccmh8uICPRgdXh0b
+	H16y8AhJ36klE+fux0LLtU31RgI5uowqB0F8/iUzD0Wgj++Vub1eaEMUcz74wtFe0IdwXSFXkwA
+	BBJcZ7qxTbh6X4NHF9cwU2ZdJwzOTA0kfyAL7mg4HlRVJAsV2dUR6Xw8Ak8DjoRBdyK7
+X-Received: by 2002:a05:651c:3252:b0:393:cdbb:2253 with SMTP id
+ 38308e7fff4ca-39561adf7e7mr61614631fa.5.1779209335774; Tue, 19 May 2026
+ 09:48:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f26V0jFOIw6+Q/+q"
-Content-Disposition: inline
-In-Reply-To: <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
-
-
---f26V0jFOIw6+Q/+q
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20260515-tegra194-qspi-iommu-v1-0-57dfb63cd3d6@gmail.com>
+ <d10a46b8-2a01-45d8-b1a4-7d003fdb25bd@nvidia.com> <91fc534a-6529-4880-8c92-a8713118242d@nvidia.com>
+In-Reply-To: <91fc534a-6529-4880-8c92-a8713118242d@nvidia.com>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Tue, 19 May 2026 11:48:44 -0500
+X-Gm-Features: AVHnY4Ko7WL-VuNyAXTNlEEFJFIPxQ3R5xh1-foib4BiOS2nRxwB08ZNB4h1Wpw
+Message-ID: <CALHNRZ_Ke_pC4tept4_vGOB0ArwjcaMu=mc=wJrQ0x79MKid-A@mail.gmail.com>
+Subject: Re: [PATCH 0/3] arm64: tegra: Add iommu and dma properties for
+ Tegra194 QSPI
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 19, 2026 at 03:26:58PM +0800, Icenowy Zheng wrote:
-> =E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 13:51 +0800=EF=BC=8CJoey Lu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> > The existing schema assumes a fixed clock/reset topology and dual-
-> > output
-> > port structure matching the DC8200 IP block.=C2=A0 This prevents reuse =
-for
-> > single-output variants such as the Verisilicon DCU Lite used in the
-> > Nuvoton MA35D1 SoC.
-> >=20
-> > Rework the schema so that variant-specific constraints are expressed
-> > via allOf/if-then-else:
-> >=20
-> > - The thead,th1520-dc8200 compatible keeps its existing five-clock,
-> > =C2=A0 three-reset, dual-port requirements.
-> >=20
-> > - A standalone verisilicon,dc compatible covers IPs whose identity is
-> > =C2=A0 discovered entirely through hardware registers; these have flexi=
-ble
-> > =C2=A0 clock and reset counts, a single 'port' property, and no 'ports'
-> > =C2=A0 requirement.
-> >=20
-> > Changes to the base schema:
-> > - Replace the fixed clock/reset items lists with minItems/maxItems
-> > =C2=A0 ranges; variant sub-schemas tighten the constraints via if-then-
-> > else.
-> > - Add a 'port' property (graph.yaml single-port alias) alongside the
-> > =C2=A0 existing 'ports', for single-output variants.
-> > - Drop the unconditional 'ports' requirement; each if-branch enforces
-> > =C2=A0 its own port topology.
-> > - Tighten additionalProperties to unevaluatedProperties to allow
-> > =C2=A0 per-variant schemas to add their own constraints cleanly.
-> > - Fix a stray space in the port@0 description.
-> > - Add a DT example for the generic verisilicon,dc compatible
-> > =C2=A0 (Nuvoton MA35D1 DCU Lite).
-> >=20
-> > Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> > ---
-> > =C2=A0.../bindings/display/verisilicon,dc.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 135 ++++++++++++++--
-> > --
-> > =C2=A01 file changed, 108 insertions(+), 27 deletions(-)
-> >=20
-> > diff --git
-> > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > index 9dc35ab973f2..3a814c2e083e 100644
-> > --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > @@ -14,10 +14,12 @@ properties:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 pattern: "^display@[0-9a-f]+$"
-> > =C2=A0
-> > =C2=A0=C2=A0 compatible:
-> > -=C2=A0=C2=A0=C2=A0 items:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th1520-=
-dc8200
->=20
-> You should add a fallback compatible here for your SoC, in case its
-> integration gets something quirky; this compatible is usually not
-> consumed by the driver (see how thead,th1520-dc8200 exists in the
-> binding but not the driver).
+On Tue, May 19, 2026 at 10:50=E2=80=AFAM Jon Hunter <jonathanh@nvidia.com> =
+wrote:
+>
+>
+> On 19/05/2026 15:43, Jon Hunter wrote:
+> >
+> > On 15/05/2026 21:35, Aaron Kling via B4 Relay wrote:
+> >> The reason for this is to properly support the spi nor chip on the
+> >> Jetson Xavier NX module. Prior to this, it would time out on all
+> >> transfers and sometimes even trigger a cbb fault, locking up the entir=
+e
+> >> unit. With this, reading and writing to the flash memory works as
+> >> expected.
+> >
+> > What kernel's do you see this on? With the latest mainline/-next I do
+> > see ...
+> >
+> >   tegra-qspi 3270000.spi: cannot use DMA: -19
+> >   tegra-qspi 3270000.spi: falling back to PIO
+> >
+> > But I don't see the crash. However, on linux-6.1.y I do see the crash .=
+..
+> >
+> >   tegra-qspi 3270000.spi: cannot use DMA: -19
+> >   tegra-qspi 3270000.spi: falling back to PIO
+> >   tegra-qspi 3270000.spi: transfer timeout
+> >   tegra-qspi 3270000.spi: error in transfer, fifo status 0x20400006
+> >   CPU:0, Error: cbb-noc@2300000, irq=3D15
+> >
+> > So I believe recent upstream changes in the Tegra210 QSPI driver have
+> > fixed this.
+> >
+> > This series does fix the issue on linux-6.1.y but I believe that is
+> > because this is really enabling DMA support and so PIO is still broken.
+> > Ideally, PIO should work if DMA support is missing in device-tree.
+> >
+> > IMO this series simply enables DMA support. May be we should clarify
+> > this in the commit message, but otherwise, I am fine with these changes=
+.
+>
+> BTW, that said. This is a much simpler way to avoid the hang on earlier
+> kernels. So I would be happy to get this merged and backport to stable
+> as a fix. Again may be we just need to clarify this a bit more in the
+> commit message.
 
-s/fallback compatible/soc-specific compatible/, but yes.
-NAK to what's been done here, especially after the discussions on
-earlier versions of this verisilicon binding.
-pw-bot: changes-requested
+I could update the commit message to be more like 'Enable DMA support
+for Tegra194 QSPI', sure.
 
->=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs have d=
-iscoverable ID/revision
-> > registers
-> > +=C2=A0=C2=A0=C2=A0 oneOf:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 - thead,th1520-dc8200
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisi=
-licon,dc
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc=C2=A0 # DC IPs =
-have discoverable
-> > ID/revision registers
-> > =C2=A0
-> > =C2=A0=C2=A0 reg:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > @@ -26,32 +28,24 @@ properties:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > =C2=A0
-> > =C2=A0=C2=A0 clocks:
-> > -=C2=A0=C2=A0=C2=A0 items:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core clock
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus clock
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bus cl=
-ock
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output 0
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output 1
-> > +=C2=A0=C2=A0=C2=A0 minItems: 2
-> > +=C2=A0=C2=A0=C2=A0 maxItems: 5
-> > =C2=A0
-> > =C2=A0=C2=A0 clock-names:
-> > -=C2=A0=C2=A0=C2=A0 items:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix0
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix1
-> > +=C2=A0=C2=A0=C2=A0 minItems: 2
-> > +=C2=A0=C2=A0=C2=A0 maxItems: 5
-> > =C2=A0
-> > =C2=A0=C2=A0 resets:
-> > -=C2=A0=C2=A0=C2=A0 items:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core reset
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus reset
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bus re=
-set
-> > +=C2=A0=C2=A0=C2=A0 minItems: 1
-> > +=C2=A0=C2=A0=C2=A0 maxItems: 3
-> > =C2=A0
-> > =C2=A0=C2=A0 reset-names:
-> > -=C2=A0=C2=A0=C2=A0 items:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
-> > +=C2=A0=C2=A0=C2=A0 minItems: 1
-> > +=C2=A0=C2=A0=C2=A0 maxItems: 3
-> > +
-> > +=C2=A0 port:
-> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
-> > +=C2=A0=C2=A0=C2=A0 description: Single video output port for single-ou=
-tput
-> > variants.
->=20
-> Maybe the endpoint numbering rule needs a move to here? (I am not very
-> sure).
->=20
-> > =C2=A0
-> > =C2=A0=C2=A0 ports:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/ports
-> > @@ -59,7 +53,7 @@ properties:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port@0:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.y=
-aml#/properties/port
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first outp=
-ut channel , endpoint 0 should be
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first outp=
-ut channel, endpoint 0 should be
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 used for D=
-PI format output and endpoint 1 should be used
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for DP for=
-mat output.
-> > =C2=A0
-> > @@ -75,9 +69,75 @@ required:
-> > =C2=A0=C2=A0 - interrupts
-> > =C2=A0=C2=A0 - clocks
-> > =C2=A0=C2=A0 - clock-names
-> > -=C2=A0 - ports
-> > =C2=A0
-> > -additionalProperties: false
-> > +allOf:
-> > +=C2=A0 - if:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 con=
-st: thead,th1520-dc8200
-> > +=C2=A0=C2=A0=C2=A0 then:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: DC Core clock
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: DMA AXI bus clock
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: Configuration AHB bus clock
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: Pixel clock of output 0
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: Pixel clock of output 1
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: core
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: axi
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: ahb
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: pix0
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: pix1
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: DC Core reset
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: DMA AXI bus reset
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: Configuration AHB bus reset
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: core
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: axi
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: ahb
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
-> > +
-> > +=C2=A0=C2=A0=C2=A0 else:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: Bus clock that gates register access
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: Pixel clock divider for display timing
->=20
-> Please don't make compatible-specific description strings for
-> individual compatibles, and keep these descriptions outside of the if.
-> The compatible-specific part should be used to specify what's required
-> for the specific SoC, for dt validation purpose.
->=20
-> BTW if the clock is both the working clock and bus clock for the
-> controller, I suggest listing it twice, except if the IP core is
-> provided without a dedicated core clock (in the case I suggest to use
-> "bus" only).
+The primary kernel version I'm working on currently is 6.18,
+specifically googles android common kernel fork of it. I also
+replicated the issue on 6.12 and android-mainline which is currently
+7.0-ish.
 
-I agree. If the same clock is provided to two+ ports on the IP, that
-should still be two+ clocks in the devicetree.
+I was not normally seeing issues on boot, though I think I did hit
+that a couple times when jumping around versions. Where I had trouble
+was active use of the flash chip, like read/writing the slot metadata
+for a/b support or writing the flash for inline bootloader updates.
+The issue wasn't always triggering a cbb panic, but it was (almost?)
+always timing out and failing to read or write the flash chip.
 
->=20
-> Here's an example for "listing it twice":
-> ```
-> clocks =3D <&clk DCU_GATE>, <&clk DCU_GATE>, <&clk DCUP_DIV>;
-> clock-names =3D "core", "bus", "pix0";
-> ```
->=20
-> Well nonetheless the name "core" does not match the description "Bus
-> clock that gates register access".
->=20
-> Thanks,
-> Icenowy
->=20
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: core
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: pix0
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Res=
-et line for the display controller.
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - c=
-onst: core
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - port
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 not:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
-> > +
-> > +unevaluatedProperties: false
-> > =C2=A0
-> > =C2=A0examples:
-> > =C2=A0=C2=A0 - |
-> > @@ -120,3 +180,24 @@ examples:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > =C2=A0=C2=A0=C2=A0=C2=A0 };
-> > +
-> > +=C2=A0 - |
-> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/interrupt-controller/arm-gic.=
-h>
-> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
-> > +
-> > +=C2=A0=C2=A0=C2=A0 display@40260000 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =3D "verisilicon=
-,dc";
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =3D <0x40260000 0x20000=
->;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 interrupts =3D <GIC_SPI 20 =
-IRQ_TYPE_LEVEL_HIGH>;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D <&clk DCU_GATE>,=
- <&clk DCUP_DIV>;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =3D "core", "pi=
-x0";
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets =3D <&sys MA35D1_RES=
-ET_DISP>;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names =3D "core";
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dpi=
-_out: endpoint {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 remote-endpoint =3D <&panel_in>;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > +=C2=A0=C2=A0=C2=A0 };
-
---f26V0jFOIw6+Q/+q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagyUFgAKCRB4tDGHoIJi
-0sbiAPwJC8osMDE74fZTkyhgPXzZeXZJdccgsP75N5NjzLdv5wEAgd75XJxx7BeV
-SgKcLb/YWHbIxZ+4xA0QzhhyhYQfTAI=
-=e1q6
------END PGP SIGNATURE-----
-
---f26V0jFOIw6+Q/+q--
+Aaron
