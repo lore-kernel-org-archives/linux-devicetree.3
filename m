@@ -1,155 +1,190 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011039.outbound.protection.outlook.com [40.107.130.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C77F2EFD9B;
-	Tue, 19 May 2026 02:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779157071; cv=none; b=kOLpSsMwUytGE33cgtOjs5SzbY3fEZ24hQMxfYIDOTPyg7CzImx/079fdBSdzyVzm+3jcGBUXupXnTpto5PiatiF4H29VlQjCFeGiJG8P0Jj4ZKTyki5Gjgy2nxli/PU7R4pcSK0+3X1dZDvSztqx7UZefic10mo5GxUXtmbr3I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779157071; c=relaxed/simple;
-	bh=1VcW7FVWiSaCZRxMalfs60Qi8NxvnIEEcpBDehCFm+Q=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ppNTM93BKQSkaq2Nm5wPl+TxL3GMVPo0GO0h++CYMgYDmM28oYnE9pAP7AyQmwBf4oh9h4sUYKFcMJX95OSSkSccT11937Dchx9E1wVRckm6G2ulHjd7ndQyvNni9irqJCWgsWiIIkQ2Ts1oeYdI14U0C8Xkh5PEQJFjuCTHjvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=e2R5n5Uv; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8531A30C15F;
+	Tue, 19 May 2026 02:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779157219; cv=fail; b=Exho3smejChCmoW53JLwI4rTO7/4mReRy7ovLOfpARCYMyWuDtV8/jUsG5tDgMoFUx6b+9/GNZ8d5jEdfgLTONsQVK0aGJukUu2+/d8CgSsq2W5mD/AbQ5Kj2FrIUcLu2yLop+IfshxoyfBRXUbFW7zqi+N4lL8nIx6bht8fMls=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779157219; c=relaxed/simple;
+	bh=WmfU0Nes2LynEjGkOLMP40tRii+XnaRR1CU4cx9GoAM=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=fe8wJEuVMpLcA9DIKzb9usHpTgLeWn1LqvN4BBSJ/fGF3dhjg9lK4yrboa8pLtmYe6/raK88cI1DSbmxTdICLbpQ/yGsM3aXzzRrTJu1JKU75AQTKpFQWe/FcWQ/NV/uE9OFZVlyPiP/C2rShgk6zTlLVsJtiYuz6gPF0Rc37OQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=l5F14lkP; arc=fail smtp.client-ip=40.107.130.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="e2R5n5Uv"
-X-UUID: eae4bbc4532811f1b5a00d44d12bea5a-20260519
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=y33sl6LlKQwmsMxpToD1qauD4dOYyjLtnlR4y1Y+rgA=;
-	b=e2R5n5UvtstjsPgnHrDclLQ2ibSoHDmBWh915DaNPm0hxB4NYXM4kPiWqWUEeYg7sxRzdGXaRuE+SakepHObiJsr6bYhTfyZqp3NocbkT0g8toSsQs2QM8+INgOVOGdWWGNAMfHHsSFk1cmxwl6Jj+9kjFVtDMRKNjq73bsm1BI=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.14,REQID:8a352510-c1fc-4b9f-9532-f220ac9b9902,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:9091e75,CLOUDID:8cda1346-e650-4d81-a877-d298d8f44b5d,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
-	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: eae4bbc4532811f1b5a00d44d12bea5a-20260519
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw01.mediatek.com
-	(envelope-from <jianhua.lin@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 921811248; Tue, 19 May 2026 10:17:42 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 19 May 2026 10:17:42 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 19 May 2026 10:17:41 +0800
-From: Jianhua Lin <jianhua.lin@mediatek.com>
-To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
-	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
-Subject: [PATCH v8 3/3] media: mediatek: jpeg: add compatible for MT8189 SoC
-Date: Tue, 19 May 2026 10:17:26 +0800
-Message-ID: <20260519021726.19137-4-jianhua.lin@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260519021726.19137-1-jianhua.lin@mediatek.com>
-References: <20260519021726.19137-1-jianhua.lin@mediatek.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="l5F14lkP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YmmfkWzsXEi6uR6A7BhptjFBYlNh9et2W05CC56DfNuKLOB6E/r9jScPcvo1cQv6BzCf8eJXatcSuUnY+v3IJo0hW1txpdxwqtQejEEgdl3aIv9LiXp1jpeddKb9LrLNjMEt6XJOY8RjnUWljVVZAx62fQp3vkw465BRWxkA73HuuQa+lSAVw8HTdB/lcJGO4B/QlaFVXFceY9/YbyKrR2qqO3tbl3vmeJo0A6JZ/VlyjJl7teCjb9pDoBdPy2JJ8C5MWEl+HgoZ9Z78g1/5qUirqJp47n1ozOP1gS7TEZBe7+7XlSjfOAv6j3lz+Mh4yj37Tydz4eKeXFJhrvjE9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KMcFSGdey+AVH2PmztZ7EqIsVRm+rNBNJ0J+9fY3wZ4=;
+ b=VWnxHjEXr08FtP07mejW9yWeQsA6l2vcAbSJFTwqzewwdqBVIZLmAGqgY/zTogDtZq5/4YpXlLSZ/wGEdoLz/+vRbwuVdYweosW0R4nyTz4a+jXIgUUab50bI/nyaq6PGUjzP4ziNGSiBK1oVzxsRwIg1YOost4XOomjEbGL2h2wZ3kL675UQGOgzo5qGvdiJ09BfjWFPhO8MJZM4a/n99+tV/BZ9c5qQGtGRALModBTuDwqaqbphTtmAEKgT++LqwsCug2CqlyMwk1Q/fAeHvOphucHO/kNzQ2mWSddej3iI+FjHd5BP7LdfjTcqDJiZ6aZC+nCAj3ZhT3QCtsSkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KMcFSGdey+AVH2PmztZ7EqIsVRm+rNBNJ0J+9fY3wZ4=;
+ b=l5F14lkPtT1s2DSZxdYZWfqJaEjWES4ahLQvxeF9NBxmsZ8huxO9TiB31HlgqDrshJIfpE9Hv7NyvBcNstQodPImdL9HFpOF3jmfZJS9bQ6xgfZShMEtQyr5FiaNMDTQSbviiYhnhxeVTGw9IpOHUTbPhF2yJn+cgqqBF6HXnR6oUeGIGi+vc9PIzJJ+7jX+iMfOaQxgQdVPpC0xDnczStrlWzd/wNXaVj36/u6ImJrcgWQ9dB1XbgJp+tcbPM2uKZDiXFMtBruTqDShcEZB+eAb+94D9kVbE9/S7v3b9OzzsE+U1ouxKUZvIjC2iF6bCmanJO5OUetzLHkJDw0DuQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
+ (2603:10a6:150:30c::14) by DB5PR04MB12203.eurprd04.prod.outlook.com
+ (2603:10a6:10:64b::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 19 May
+ 2026 02:20:13 +0000
+Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
+ ([fe80::ed75:bac1:2554:5cbe]) by GV2PR04MB12019.eurprd04.prod.outlook.com
+ ([fe80::ed75:bac1:2554:5cbe%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 02:20:13 +0000
+From: Richard Zhu <hongxing.zhu@nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	frank.li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com
+Cc: kernel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Richard Zhu <hongxing.zhu@nxp.com>
+Subject: [PATCH v5] arm64: dts: imx95: Correct PCIe outbound address space configuration
+Date: Tue, 19 May 2026 10:22:20 +0800
+Message-Id: <20260519022220.57686-1-hongxing.zhu@nxp.com>
+X-Mailer: git-send-email 2.37.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SGBP274CA0021.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::33)
+ To GV2PR04MB12019.eurprd04.prod.outlook.com (2603:10a6:150:30c::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12019:EE_|DB5PR04MB12203:EE_
+X-MS-Office365-Filtering-Correlation-Id: fde1485d-3f97-45cb-e5a5-08deb54d28d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|7416014|376014|52116014|1800799024|366016|38350700014|18002099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info:
+	otYJcY2/QfbfFHXQ5a+3ofJeVE8X2IKFLoHVeaqR26StHKibHgMjWIxEA32PBoDdFN7Ef5f3PPfLHMZ1fOASLNcQ9+2d7xAUQPiO5Yll1rJyj6YmfLXyZ1VM20ldNNRXNnBY+qb0zTP5+26GeJ6nG4csZooUH8Xg5YGKNQc3Y+RsFApJnsffOe8FEKzSARWZZlRHT0dLNxRPsva3fp8ECOlDfTYvP3PIOeFHI7wHPOyRLyv8I7zW3Fb4ntxloi9FzWBiLZkj+aD2WjIZGr9lw8JBYGtY1EoLaWYGBSm3j+T9vZUmv9IFD0SMI/XlOzx8NUmog+M49vtFpvQcIJO/W6rfaJNFdDFJas4FrGOSOalSOcXs6ahtZmAy9uaiY3u04hNHdGm2VBk0JV8tIBQh/uKT5m8QPEWCo5GynwHb35S+R60Xqp5Jl9npXP/DedgTHAxY3rKEVM3qryKjqt/1BkMvExX1aLy8zHRuYGNxAcdeUtAKPdfQaHwPJgcBwzMew1lEB6ULLIdipJL67HPOkh/fEe6ZXbSN/m2fXLVmVNRcpmYRegv3H+gc2iywJf9vpz6KK1IzKa45spnPW5nySv3J56peR4ec/ANquoin+zo6qoDsn82LhyBg1FGbiQ6uz0fkklJmxf08Vajn/d1sdAXQRQl5MiHXGGSkN5VYgbiBEcITznJAk90oBJ9CwC8G/nBMi+mrA9yTCF3/AvECIHiIZ2lHqO8V7XpFWLzgI5rKwCC52Twp6Q996I6eAN0F
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12019.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(52116014)(1800799024)(366016)(38350700014)(18002099003)(56012099003)(11063799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2ckpBsxgo5wrc717EGJl15runOGKLN895KG7t5/ox+MBNHMlV5MhrxtknKjz?=
+ =?us-ascii?Q?RbinUxTAz7/3GuWAEhOKDfol++Gu8+NqOrsHUWG4enLncIvcbSoU6lYbI8iz?=
+ =?us-ascii?Q?Whnal74W45ST8DMS3Mw3WR8XHK+rlN/H5LUOv4QrvGxYltv41EQH8anxXP/T?=
+ =?us-ascii?Q?1wm3oETN1YOnGP9wUNlHNQoW7QzPAiUO9FE4YXt+5xOn1DvKtL4r21fF4BID?=
+ =?us-ascii?Q?KbuknO6ItZRBGC4EeFLtTt93pEb3ZMIFKhCklbIVUMc9M9FVXnpgJl2fjkd2?=
+ =?us-ascii?Q?6XnWYivWB5Coa1MxRXZSLKIbI2FVQxNvZX1M6liU1t0ZE40nyBGG7PXFNt8B?=
+ =?us-ascii?Q?IPudWgsWIIXtpm4hXLLUudGwarInCCCw+VKTsU2zOiKl4IdQWEDPAMXIbvUe?=
+ =?us-ascii?Q?YlcyWffu4+aAPN48TdUi5gYRcUwPuEiP/TRLkcvug1v+4CEkX9a3XNsRrICJ?=
+ =?us-ascii?Q?D4LRLYDJ4O03iAJt84W9sGV/C038/g8FdEUTsJ1IyWuTaxuw8s9r9SBwPmPK?=
+ =?us-ascii?Q?cXSe1nJe2ipKwoPiUrAFoI6KbILleAu5Vws2saDzX5x6m+ecSaenvnOk/pXC?=
+ =?us-ascii?Q?/dIogRwFtwQ7K1KEQEzKrzBEYMDUKjHPRVlOqa2DuduYLK4isYKI1IF94Ibu?=
+ =?us-ascii?Q?uXGQTkU/Pho0oOHytIRRbMfkdb6Vpc8YpWrXTan3wFxQ3KT7qh3gLd2TPoQZ?=
+ =?us-ascii?Q?vJxIE/PJH3FdLaNo5GGrCLKaOpok0AHMEI3IMpw/qQd2bSzJ/eSi8hOogyiY?=
+ =?us-ascii?Q?nIJSdUGb/RN5oziQv/zicbX8K3hNpTLV5a0YnMN9vmBJdF8wELI0ItpJAC6r?=
+ =?us-ascii?Q?OKN69LSzH7iVbilcFGBRT3ktYFAReSwqd3yLI4PFisx1ZnJteIbNAflducIe?=
+ =?us-ascii?Q?foaDRtDi/mKci9wr6A3Oom+kygjPrvltczDQ9fRibhzr7Cue7zmDPU7qLkgq?=
+ =?us-ascii?Q?xjatj8LIwve/dbIW18PmL/vTv3CUt6D18dm2ofAdaTJoZ4VhqMb/EChFOKXq?=
+ =?us-ascii?Q?sDtHnkUPb5vzH8uwC7Hc4Tm4BXtHSJj2edcQaw5ZjZMbSA16cOeQ18KzaXNk?=
+ =?us-ascii?Q?X7HEhLgYtRV3U/ROlIE1+XhC6K+PCbb3lijm0MCpNq5mZf9c2scd6yHFqbWt?=
+ =?us-ascii?Q?tUNwE59B3V0cdqzAus8vO5mbDjczh+ukm8BgIchCXDy2Mm47DhlVxzS9r9fP?=
+ =?us-ascii?Q?zaA6PRwbc3Kt8LFBnll+6ZlWHkex9HfrVxKxOGYd5Iofa/VayQP0iLhGuKSp?=
+ =?us-ascii?Q?wBbB3Q3BeGvbzjDVQrYLnwY1eYatybDAgczYHMsilEwXZzASrLUwu648nIzh?=
+ =?us-ascii?Q?7HmwgNy4e3OLH99CrYA6mUmA875v4w79BdLWhfH/xEBJC0XlaB5nsfFtufR1?=
+ =?us-ascii?Q?cb7K50cah8iw30QWgg9FXcfoZdOIpuP3VlZKG/tjvEtyMGOvXz4Sq9LSYaLW?=
+ =?us-ascii?Q?WlJUP3ts8J48le3unStt/cg1k+d3MHSYfALklRtX1Lu4sc2fU1ntC4Bac+Gj?=
+ =?us-ascii?Q?rdm5jL/Nq1QoJY12+Mkzt4FrwzlJfbNRr2BnTyAetp+I3D5iXPiqL4JEzGfq?=
+ =?us-ascii?Q?gdQyGcbzO9puCMZHgf+Dv9wm+TfyUlfaH6mjTE5wqlLL7lk6y+xZ38Qjwqmj?=
+ =?us-ascii?Q?dBrQjxEYbM47bf2fPp06v49YY4ueRbDInKjzQq5lrjpPwtq7+IKM0oFPaW29?=
+ =?us-ascii?Q?akz1fVLQDUMOKnx0v7Lamq/eqJAZp6Dgpj8t+zzlWAnQ8fgTnFyMy+51sTXR?=
+ =?us-ascii?Q?mi/eblx2yg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fde1485d-3f97-45cb-e5a5-08deb54d28d5
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12019.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 02:20:13.6920
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3Xu87UjkCJAzqljWlN1pN6MWgpoD/bYwcHPcrzw1eVg7lFf1oHwoeNNDUNr6V4x0tCNAeAwKne2/bGVWNtCAUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR04MB12203
 
-Compared to the previous generation ICs, the MT8189 uses a 34-bit IOVA
-address space (16GB) and requires a single clock configuration.
+Fix the PCIe outbound memory ranges for both pcie0 and pcie1
+controllers on i.MX95.
 
-Therefore, add new compatible strings ("mediatek,mt8189-jpgenc" and
-"mediatek,mt8189-jpgdec") along with their specific driver data to
-support the JPEG encoder and decoder of the MT8189 SoC.
+The memory window size was incorrectly set to 256MB during initial
+bring-up, but the hardware supports up to 4GB of outbound address space
+per controller. Expand the memory region from 256MB (0x10000000) to
+~3840MB (0xf0000000), starting at the base of each controller's
+assigned CPU address range (0x9_00000000 for pcie0, 0xa_00000000 for
+pcie1).
 
-Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
+Additionally, ECAM cannot be mapped as I/O space. Use a memory region
+to map the I/O space instead, and relocate the 1MB I/O region to
+immediately follow the memory region at offset 0xf0000000 within each
+window.
+
+Fixes: 3b1d5deb29ff ("arm64: dts: imx95: add pcie[0,1] and pcie-ep[0,1] support")
+Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
 ---
- .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 44 +++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ arch/arm64/boot/dts/freescale/imx95.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+---
+Changes in v5:
+- Expand the outbound address space from 256MB to 3840MB, starting at the
+base of each controller's assigned CPU address range.
+- Use a memory region to map the I/O space.
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index d147ec483081..14f2991a4053 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1868,6 +1868,10 @@ static struct clk_bulk_data mt8173_jpeg_dec_clocks[] = {
- 	{ .id = "jpgdec" },
- };
- 
-+static struct clk_bulk_data mtk_jpeg_dec_clocks[] = {
-+	{ .id = "jpgdec" },
-+};
-+
- static const struct mtk_jpeg_variant mt8173_jpeg_drvdata = {
- 	.clks = mt8173_jpeg_dec_clocks,
- 	.num_clks = ARRAY_SIZE(mt8173_jpeg_dec_clocks),
-@@ -1899,6 +1903,38 @@ static const struct mtk_jpeg_variant mtk_jpeg_drvdata = {
- 	.multi_core = false,
- };
- 
-+static const struct mtk_jpeg_variant mtk8189_jpegenc_drvdata = {
-+	.clks = mtk_jpeg_clocks,
-+	.num_clks = ARRAY_SIZE(mtk_jpeg_clocks),
-+	.formats = mtk_jpeg_enc_formats,
-+	.num_formats = MTK_JPEG_ENC_NUM_FORMATS,
-+	.qops = &mtk_jpeg_enc_qops,
-+	.irq_handler = mtk_jpeg_enc_irq,
-+	.hw_reset = mtk_jpeg_enc_reset,
-+	.m2m_ops = &mtk_jpeg_enc_m2m_ops,
-+	.dev_name = "mtk-jpeg-enc",
-+	.ioctl_ops = &mtk_jpeg_enc_ioctl_ops,
-+	.out_q_default_fourcc = V4L2_PIX_FMT_YUYV,
-+	.cap_q_default_fourcc = V4L2_PIX_FMT_JPEG,
-+	.support_34bit = true,
-+};
-+
-+static const struct mtk_jpeg_variant mtk8189_jpegdec_drvdata = {
-+	.clks = mtk_jpeg_dec_clocks,
-+	.num_clks = ARRAY_SIZE(mtk_jpeg_dec_clocks),
-+	.formats = mtk_jpeg_dec_formats,
-+	.num_formats = MTK_JPEG_DEC_NUM_FORMATS,
-+	.qops = &mtk_jpeg_dec_qops,
-+	.irq_handler = mtk_jpeg_dec_irq,
-+	.hw_reset = mtk_jpeg_dec_reset,
-+	.m2m_ops = &mtk_jpeg_dec_m2m_ops,
-+	.dev_name = "mtk-jpeg-dec",
-+	.ioctl_ops = &mtk_jpeg_dec_ioctl_ops,
-+	.out_q_default_fourcc = V4L2_PIX_FMT_JPEG,
-+	.cap_q_default_fourcc = V4L2_PIX_FMT_YUV420M,
-+	.support_34bit = true,
-+};
-+
- static struct mtk_jpeg_variant mtk8195_jpegenc_drvdata = {
- 	.formats = mtk_jpeg_enc_formats,
- 	.num_formats = MTK_JPEG_ENC_NUM_FORMATS,
-@@ -1938,6 +1974,14 @@ static const struct of_device_id mtk_jpeg_match[] = {
- 		.compatible = "mediatek,mtk-jpgenc",
- 		.data = &mtk_jpeg_drvdata,
- 	},
-+	{
-+		.compatible = "mediatek,mt8189-jpgenc",
-+		.data = &mtk8189_jpegenc_drvdata,
-+	},
-+	{
-+		.compatible = "mediatek,mt8189-jpgdec",
-+		.data = &mtk8189_jpegdec_drvdata,
-+	},
- 	{
- 		.compatible = "mediatek,mt8195-jpgenc",
- 		.data = &mtk8195_jpegenc_drvdata,
+Changes in v4:
+Update the flag from 0x82000000 to 0x83000000 to declare a 64-bit PCI space.
+
+Changes in v3:
+Update the commit message, and set the region size to the max hardware-supported memory space 4G.
+
+Changes in v2:
+Add the Fixes tag, and rebase to latest imx/dt64 branch.
+
+diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
+index adcc0e1d3696..c43f2bec99d0 100644
+--- a/arch/arm64/boot/dts/freescale/imx95.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
+@@ -1939,8 +1939,8 @@ pcie0: pcie@4c300000 {
+ 			      <0 0x4c360000 0 0x10000>,
+ 			      <0 0x4c340000 0 0x4000>;
+ 			reg-names = "dbi", "config", "atu", "app";
+-			ranges = <0x81000000 0x0 0x00000000 0x0 0x6ff00000 0 0x00100000>,
+-				 <0x82000000 0x0 0x10000000 0x9 0x10000000 0 0x10000000>;
++			ranges = <0x82000000 0x0 0x00000000 0x9 0x00000000 0x0 0xf0000000>,
++				 <0x81000000 0x0 0xf0000000 0x9 0xf0000000 0x0 0x00100000>;
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			device_type = "pci";
+@@ -2014,8 +2014,8 @@ pcie1: pcie@4c380000 {
+ 			      <0 0x4c3e0000 0 0x10000>,
+ 			      <0 0x4c3c0000 0 0x4000>;
+ 			reg-names = "dbi", "config", "atu", "app";
+-			ranges = <0x81000000 0 0x00000000 0x8 0x8ff00000 0 0x00100000>,
+-				 <0x82000000 0 0x10000000 0xa 0x10000000 0 0x10000000>;
++			ranges = <0x82000000 0x0 0x00000000 0xa 0x00000000 0x0 0xf0000000>,
++				 <0x81000000 0x0 0xf0000000 0xa 0xf0000000 0x0 0x00100000>;
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			device_type = "pci";
+
+base-commit: 5f9e9f83aee0fa8f2124c6f192505de2cdf7c5dc
 -- 
-2.45.2
+2.37.1
 
