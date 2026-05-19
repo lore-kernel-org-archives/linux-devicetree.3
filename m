@@ -1,66 +1,86 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDF83B3C14
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2994F3B27C7
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779174427; cv=none; b=GE2G2zjOy61+Dak7OScOAXZ2q6fceq5iV23B1CuknH5RXAqi7qOk79A0lx8iZTwh8DtM87bQ9x9q3MkntKfCkETUkGLgCOFIIndTGIwBOJtlGepJPlYHuiI7v2evog/F1N+DjATPOVLjjjXWuGUznINlo9QvsgmGMGkRXXkadEg=
+	t=1779174578; cv=none; b=XVcSPKa42UUmsfWDaMNBj8ZLd0SXLNRNefWIEnxcmb+aCU7fxplEmY4oRpZ/sbs0lxljNF6P1+EXiNzA5ayUgwVoMhmKWLc7+gW4zheZ+n2BF9UyD8akNyaRnpuiWP3X1lIZiZ1BdFEp/WuSGej/lJvyn04EXO2b/hvCxAXQBcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779174427; c=relaxed/simple;
-	bh=BMcuZpgrheTtw8YzlMY85egTpgVnX4SxV15uvlEKhA0=;
+	s=arc-20240116; t=1779174578; c=relaxed/simple;
+	bh=HwXDOwJ/n8kwN5m65KMuiRC57ObOd4uZu5RS7F3aRHw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ix1rChj+h08s9pZrouv25zY8IUCH3VanNqGFD4yJmzAdtbjuANv4MxeXtywOoBB8aulfxm3v7FyZfrzPFhMLSBDF7sSO0NYf6mBHmrd1JaQOeQA3u2HmotOFwmSKrhvWSjxwoPIPmuhMDMdosVao4feovia0dgAr+RXoHBeWg70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHqpetAH; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=WDRGz2IO9yccsCSODi+39ERJlbdiqsPRBwPBTYSP13pHLzACIYKs5SC7ZyxWLVSTjzxnN7/ZP1a9V7DvRnn75aHjawBCYuXS/RGazT4KkNHLJvECk21GMCumt3Hqz/+2Yi+M1/XC6uUiovULjokkm2vmOM3xZT/VOWDiAufzIy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k8TnIJgz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KAueQnj/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHqpetAH"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4585a116a4aso2550680f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 00:07:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k8TnIJgz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KAueQnj/"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J5USBq2438091
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:09:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	flpjn8w2XFi3HDGFXRZoiV0RXVmGTmh3woS4zlIQX2s=; b=k8TnIJgzFnzTAcNk
+	Xznrj3F6dsjV/bSW5iDpbg8odUQ1Ym0tIJhj7zRmnUu8YclwkG506SS5Mv4S1e/d
+	oOpn6g4mKRqAL4PQSa0k2Uu+B2Lb0CQK30evFwtOxxX12iFnz9c4V7vbosXDVTEo
+	kWgnCIwPsmLT48erBtYQnli4qUhxsNQiy0tnQojDVBst2f6p4zoMnd4R0VDmWsCL
+	W1R7QJWgDTEj1kzjOja1pA7c4CYtNCKJ6N1/sh/a98aX3wTNM+1eehcrvrzHJOig
+	hvN0U8L9wQlO3sYbzOcy1y3vpFJIxwAExe/KvB4h6dJnDqppoYt59kTUNGSw4l+n
+	IaK/cA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e834v3ndp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:09:36 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c82bd90afbbso1684887a12.0
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 00:09:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779174425; x=1779779225; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1779174576; x=1779779376; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jyEEvS9/Ik69rxCZnXUKAzpf2s9PN8D1R1Hqx/eCkrg=;
-        b=YHqpetAHI1jQxLGxEd1pIGnfIcAU33q5IrPJ1/kHLAhrWFoFRuDeZfd5lu71uwi9FF
-         v9NQqdgh/b8r1rASk3LeM3/wuOvzqd9ALgJOJUlBliHVsh8pzZtHtjguRqfUmXaouJV7
-         NB5VjA+nzvnb0eeDzBztDqM+7MP8ruC/lebiSWqn0rCMua+YCchXZNQxyBY3PKXBLkSZ
-         Iwc4aWhoTuWEClNs3FfPcE4rjGnfbklPBDnh9cMqQN3LK6x32vPHFX1AFaKWmEG4Qkpx
-         4AJCx0A/10FWncuG2Ip9sexds/FMr3pdeZwpxQpq8bkuETcPBX8FGm5WKqL2YjgqO1pB
-         qDrQ==
+        bh=flpjn8w2XFi3HDGFXRZoiV0RXVmGTmh3woS4zlIQX2s=;
+        b=KAueQnj/Sk42xz+DEI30livgaBIsFHXbtVokiCm25E1hwRFUn7KDAQcvwcBxzCD5OQ
+         o5WOihfokimBXC3uhkz+Go8Aa+wY+vDj8yd8HRwh8yuX07Q4xqvYGGA/GfQ1vBznlJv9
+         wO4Dh/DXKgk6s4BsdjiqkOYRACaZnYv44QPRVcz/CB15Hq0VYiWrG802+E9txRrHrDyd
+         0VmXl9e4cO/HxtNZ83KXlIVwfI20POZjOk4k9T9YeInHDVcQA82l2n/VTNPD1XcftrWd
+         9NDc+aM+2zDJiMnvsBQykusZv0rZgR0Inpv/pWt07W9xYkpZiD+Yqn5i1ifKEsNN8TEv
+         fpTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779174425; x=1779779225;
+        d=1e100.net; s=20251104; t=1779174576; x=1779779376;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=jyEEvS9/Ik69rxCZnXUKAzpf2s9PN8D1R1Hqx/eCkrg=;
-        b=cJ6FiFfaNpJ/grkLB/5UkaFEbAwvJvq5+4EQQFvDK6z5TE2jymrEMqOTNzi9WI9L1e
-         AvoWKNOCHvp91HaSWe/xuebbsYG1kr6Fdu+pfLQQLvxs15yP/Ok4NoDNeN3JzmrzrY6e
-         q0yHSQwWCKWVZkKAF9GtgF44zCXCiXyOPj1wwXQ/zD425B3DmsbOM7ieGhq+QwqZqEkJ
-         C3EfPDQm2dxPhDJ6LEVY6vxwt4Ok63Q718v4lyaBQb37ZuiqdOJ48FTSIc11oVtdnHou
-         SyNX9k1SxxAoQExS3KWX6HiJ1xZIoyOpUIjT/xE+R6TpWqYkiPcPNf8xVbsNFV3kMT6T
-         OTfA==
-X-Forwarded-Encrypted: i=1; AFNElJ/L3T0BqCjjvvCXB06iIVrFpIduOYhbGLkT6D/EaMUGPdG/VyqGK+5ZbxstfRa96ZRaJFC4pxXLrSIe@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyc7GgOPcBCmT0xplxYCRIc5kUgQZgCzvXqlmMgJ4p+K4FM+t2L
-	F4OOlxSKNvoleNzR4x88o7QphG+xkCjXhFZDjfLJEVXKoiH45Rkf7os6
-X-Gm-Gg: Acq92OH3usXCuK4iNrQaxhhj3IzVRONMTmF0c6PVVSiMm5s+nEWH2/BjLssMJ24kBjO
-	7sq+LrxGmQFiULIXZKUXWNFm0X4Abqbib6XDDdbeQO/x9H30rv9+n6JoHllxaT1bPNzjg1KRXdc
-	6px+wYWEG8lkRBXosERPuGMVOQ8JenrQh0WWDQCwgMyCwCYUqzrolBxS5vBmmIa+WmsZ9W4ndcv
-	xJJFad6FZEtLHykQM9/4iTAt0hFb/denWwRRK4bdcLWnQhObq7/OxhMdc6VeBr/yTKOIl4Mfs4H
-	N2RGwthOAu8151U6zblmbfKJZGCcls7UDzhjHDX0Yjbj+XlDO6bHUIh1lAqkgcIaUEAHqlh0ZPq
-	QVoB1pdOpx+NRhxHBzoHnIBsvLjDwyjMLuxzWD07kDumxcp624O9XfvWsLeUBomLneaEKJMt4ou
-	oo2vY/Y9BeBJwpFvEVOkoqbGTmEnry9JAdfE7v7cDHo1O6UcUSJN74xZDnhR4TLgf3LXZC
-X-Received: by 2002:a5d:5f45:0:b0:45b:d891:56bb with SMTP id ffacd0b85a97d-45e5c5db696mr28861409f8f.38.1779174424577;
-        Tue, 19 May 2026 00:07:04 -0700 (PDT)
-Received: from ?IPV6:2a02:3033:6d8:15d8:ec15:f5ad:b85f:a3b8? ([2a02:3033:6d8:15d8:ec15:f5ad:b85f:a3b8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9ec39ff1sm46305257f8f.10.2026.05.19.00.07.02
+        bh=flpjn8w2XFi3HDGFXRZoiV0RXVmGTmh3woS4zlIQX2s=;
+        b=kHHV82BBBj90ki0FDLWhC+9StWWgud3KIPlrxJW5nXq3GiiyIr3+5ZawiL8N3cK3jF
+         D5AOLTTvVZ1bn+UFlFoWxIRbQAPXI/Zzw+f3xfcJP9q33YJCZAfLs0FA8TVihXIRcq/L
+         CiADZ6ZoxxCyJDIDi/g+zPur5jZsnks1Q/quUWpcdcQCnKRUX+om8fwBYdU0yHxj+uei
+         zofahIylK9eyj4D5H52urSe5P7BAYxAlM88lZqKXzKsxiznpplTKCUS61eQ6v5DhPnYA
+         pQLqg1Gpzl5uN3vpFEUBDX7iHaG3WcQ6yr3xAPJEbE38nB8UVdebbWONHU1CkVvO00V1
+         OAfA==
+X-Forwarded-Encrypted: i=1; AFNElJ9M36LmYvNbceTzE6jitxtM4TfyoNMPi3znHio3QpgIou60po3RUglOiGkUT9Ah3AOdqoW7fLCFYj4L@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUGzbUnvuRZVfA2A35C4RE+jHf6PWj4wUwSmFSJ/7Xyy06dakq
+	lqTegLM9PiLz8o2hahhg5O6AdZUk8zbNNGLCa7nqFq5ngF9zRediL8OcVrui9XL1nXShTjZmQV5
+	1yW5eeaT8N/9m/LVx7Lrk0FVdYFt3Iwe2MbDyZ8GODe/e0gkp4V0pLNFDIcIWv7uq
+X-Gm-Gg: Acq92OEZ1sVo/dtZ5oLTGhJfWzhd8ABmaHihceIn0KowUOj/rbXkyRYfxqrtc83PJjG
+	vx+5KQk4dw/ZGYCrhGy2Eyqj8cflt42qakEVx8HMoQetGR+gFmbVoJVSDt7NBqFYVo0D5I5QfWG
+	Cl3u6n7JYbfOtJiO0eUx01AlIk5Oi8mir3N3UuDko3qNTub0TfTmv1HbTjeG3VXJxRCmpf4gl/Z
+	qAjNOo4enDnK3XYu3JSYff34LABztWDn2NqpPFT107OgdOCZzh9rsLXahtvAzXqC8DKG0Tm8+zt
+	Hua1RvRYnmMT/t/9ysyWg3nadQBZvyPevZnZ9BkygEvpUFYVdrt0Mv0f68X6TsaWJq/XJ/46fA+
+	OnhxuUJa03yX1XF6Zxqj5dQP4Um2DbIV+zIssReheGTyftRZNjrl9
+X-Received: by 2002:a05:6a00:4fc8:b0:82f:48e:241c with SMTP id d2e1a72fcca58-83f33d8ba87mr18630226b3a.23.1779174575614;
+        Tue, 19 May 2026 00:09:35 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4fc8:b0:82f:48e:241c with SMTP id d2e1a72fcca58-83f33d8ba87mr18630188b3a.23.1779174575082;
+        Tue, 19 May 2026 00:09:35 -0700 (PDT)
+Received: from [10.92.176.107] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c7f202sm16288753b3a.43.2026.05.19.00.09.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 00:07:04 -0700 (PDT)
-Message-ID: <233a93d1-1901-440b-902b-f0e482d9a1a4@gmail.com>
-Date: Tue, 19 May 2026 09:07:01 +0200
+        Tue, 19 May 2026 00:09:34 -0700 (PDT)
+Message-ID: <f40798ef-e066-4814-a26c-729dcdb9f5b1@oss.qualcomm.com>
+Date: Tue, 19 May 2026 12:39:27 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,151 +88,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] iio: dac: Add AD5529R DAC driver support
-To: Jonathan Cameron <jic23@kernel.org>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
- <20260508-ad5529r-driver-v2-2-e315441685d7@analog.com>
- <20260508143017.28f86551@jic23-huawei>
+Subject: Re: [PATCH 1/3] dt-bindings: crypto: qcom-qce: Document the Shikra
+ crypto engine
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dmaengine@vger.kernel.org
+References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
+ <20260515-shikra_qcrypto-v1-1-80f07b345c29@oss.qualcomm.com>
+ <181abfec-a6f9-49d3-9428-21a169a94246@kernel.org>
 Content-Language: en-US
-From: Janani Sunil <jan.sun97@gmail.com>
-In-Reply-To: <20260508143017.28f86551@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <181abfec-a6f9-49d3-9428-21a169a94246@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=F9ZnsKhN c=1 sm=1 tr=0 ts=6a0c0cb0 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=nVgdB394IWv0AcZ3mQQA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: L72wE4R5ebMJI6QuSelr1FciMD4nfDH8
+X-Proofpoint-GUID: L72wE4R5ebMJI6QuSelr1FciMD4nfDH8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA2OCBTYWx0ZWRfX5uR/B021g1gY
+ lN7j4SbPqNYLa2/I2Os8uUv+L1jRT1h/U9fiM3L7TtYSfmyRkLPXtcwBdhWOS7mQr00Oid7ILIa
+ WOMTOAM9LlSW6h1hTUXDr/GZZ58TGWgdT1bXoK5WsgYK2uBkoJ6aFCsNaVU4QMezWd+9nmvGde/
+ 3Bgp9ZnfH7/ijmdELF4AHpTGlHz7mfXwVlFUYg8Vxs0oh5xDhQ0fUt22PlzA4g4yeWgGgz5russ
+ qdyodYVVHtiejRWjbZNBQ1ESg3sK5O7SmrP6VIeURn2Pu73JfC2b+9Ko2kJYdUH4TSwcxdj7bA+
+ MZ1XWT9OwT//8XPCCQB+G7wdctEF5JPTezoLiDMH3LG+S0LuU+OZJX/w4jaw9sMvmECfswJ1E9s
+ Mo/PF1xcWBTzIZnbgjwo1ilG12JtjKiIWYY0bqGRJM/izoYg62U/yRjyJB30lboHydqaRySHuuz
+ eFNQqrXWEm04aIjScVQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605190068
 
-
-On 5/8/26 15:30, Jonathan Cameron wrote:
-> On Fri, 8 May 2026 13:55:48 +0200
-> Janani Sunil <janani.sunil@analog.com> wrote:
->
->> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+On 15-05-2026 16:30, Krzysztof Kozlowski wrote:
+> On 14/05/2026 21:23, Kuldeep Singh wrote:
+>> Document the crypto engine on the Shikra platform.
 >>
->> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
->> +/* Register Map */
->> +#define AD5529R_REG_INTERFACE_CONFIG_A		0x00
->> +#define AD5529R_REG_INTERFACE_CONFIG_B		0x01
->> +#define AD5529R_REG_DEVICE_CONFIG		0x02
->> +#define AD5529R_REG_CHIP_TYPE			0x03
->> +#define AD5529R_REG_PRODUCT_ID_L		0x04
->> +#define AD5529R_REG_PRODUCT_ID_H		0x05
->> +#define AD5529R_REG_CHIP_GRADE			0x06
->> +#define AD5529R_REG_SCRATCH_PAD			0x0A
->> +#define AD5529R_REG_SPI_REVISION		0x0B
->> +#define AD5529R_REG_VENDOR_L			0x0C
->> +#define AD5529R_REG_VENDOR_H			0x0D
->> +#define AD5529R_REG_STREAM_MODE			0x0E
->> +#define AD5529R_REG_TRANSFER_CONFIG		0x0F
->> +#define AD5529R_REG_INTERFACE_CONFIG_C		0x10
->> +#define AD5529R_REG_INTERFACE_STATUS_A		0x11
->> +
->> +/* Configuration registers */
->> +#define AD5529R_REG_MULTI_DAC_CH_SEL		(0x14 + 1)
-> Feels like this would all be simpler if you used autoincrement rather than
-> default value of autdecrement.  What breaks if you do that?
-> Superficially feels like all the +1 would go away - though with need
-> for a byte swap?  Might be worth that pain for the simpler code.
-> Should just be a regmap_config parameter.
+>> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+>> ---
+> 
+> Same comments as for IPQ, Nord. I gave the same feedback internally more
+> than once.
 
-Switching to auto increment is feasible. I'll switch to auto increment and
-eliminate all the +1 offsets.
+If i understand you correctly, you are looking for more descriptive
+commit message?
 
->> +
->> +static const struct regmap_range ad5529r_8bit_readable_ranges[] = {
->> +	regmap_reg_range(AD5529R_REG_INTERFACE_CONFIG_A, AD5529R_REG_CHIP_GRADE),
->> +	regmap_reg_range(AD5529R_REG_SCRATCH_PAD, AD5529R_REG_VENDOR_H),
->> +	regmap_reg_range(AD5529R_REG_STREAM_MODE, AD5529R_REG_INTERFACE_STATUS_A),
->> +};
->> +
->> +static const struct regmap_range ad5529r_16bit_readable_ranges[] = {
-> Tricky bit here is you are saying it's a 16 bit regmap but then providing
-> address ranges including the ones we shouldn't use. We need to hide those
-> intermediate addresses.  Various things might work depending on the addresses.
-> Can we hide the bottom bit of each address then write it to appropriate value
-> under the hood. That is divide addresses by 2?
-
-I'll address this by using reg_stride = 2 in the 16-bit regmap configuration,
-which automatically handles the address spacing and eliminates the need for manual
-address range exclusion.
-
->> +	int ret;
->> +
->> +	switch (mask) {
->> +	case IIO_CHAN_INFO_RAW:
->> +		reg_addr = AD5529R_REG_DAC_INPUT_A(chan->channel);
->> +		ret = regmap_read(st->regmap_16bit, reg_addr, &reg_val_h);
->> +		if (ret)
->> +			return ret;
->> +
->> +		*val = reg_val_h;
->> +
->> +		return IIO_VAL_INT;
->> +	case IIO_CHAN_INFO_SCALE:
->> +		/*
->> +		 * Using default 0-5V range: VOUTn = A × D/2^N + B
->> +		 * where A = 5V, B = 0V, D = digital code, N = resolution
->> +		 * Scale = 5000mV / 2^resolution
-> See the comment on the dt-binding. I think we need support for
-> dt described output ranges from the start. This is a rare multi range
-> device where we could set a safe default but to me it makes little sense
-> and the driver will be doing something unexpected if a newer DT is
-> provided with a different range.
-
-I will add devicetree properties for per channel output range configuration.
-
->> +
->> +static int ad5529r_probe(struct spi_device *spi)
->> +{
->> +	struct device *dev = &spi->dev;
->> +	struct iio_dev *indio_dev;
->> +	struct ad5529r_state *st;
->> +	int ret;
->> +
->> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
->> +	if (!indio_dev)
->> +		return -ENOMEM;
->> +
->> +	st = iio_priv(indio_dev);
->> +
->> +	st->spi = spi;
->> +
->> +	ret = devm_regulator_bulk_get_enable(dev, AD5529R_NUM_SUPPLIES,
->> +					     ad5529r_supply_names);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to get and enable regulators\n");
->> +
->> +	st->regmap_8bit = devm_regmap_init_spi(spi, &ad5529r_regmap_8bit_config);
->> +	if (IS_ERR(st->regmap_8bit))
->> +		return dev_err_probe(dev, PTR_ERR(st->regmap_8bit),
->> +				     "Failed to initialize 8-bit regmap\n");
->> +
->> +	st->regmap_16bit = devm_regmap_init_spi(spi, &ad5529r_regmap_16bit_config);
->> +	if (IS_ERR(st->regmap_16bit))
->> +		return dev_err_probe(dev, PTR_ERR(st->regmap_16bit),
->> +				     "Failed to initialize 16-bit regmap\n");
->> +
->> +	ret = ad5529r_reset(st);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to reset device\n");
->> +
->> +	ret = ad5529r_detect_device(st);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to detect device variant\n");
-> No to this. It breaks the use of fallback device tree compatibles.  As such we
-> never fail on an ID missmatch. Instead we just believe firmware when it says
-> whatever is there is compatible with this device. See below on why I think
-> we need to break this into separate compatibles.
-
-I'll create separate compatibles and remove the device ID detection logic.
-
-Best Regards,
-Janani Sunil
+-- 
+Regards
+Kuldeep
 
