@@ -1,181 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C23195FC
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D485E37F740
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171312; cv=none; b=E6QAOk1VHffdAUKKjumNhrcujcVvF9LVQXqi/2k4zroym9TdP74nj5A5ceMMAtqm3S2MId7kU5cGcfllSOi2LdBMxJw6j8pvtxMmg+iTkaHX21WrhuMDRd7a6Lz65UrSq3pxh9jNTplSIklrX/gpPxWu4BnYmfQ8VUpe1kSCLf8=
+	t=1779171426; cv=none; b=sx/Y/S2ASi19eZ3NY8KztlZcRw8VGlQgpzDVVyaFq1gd+h5GXw9Em2Rh1cyh9Vqx0qUw2VRVki7lMpB/d77cMOhnXqxV9mgI4acg8vph48gM7xUsn95N0JQGPQn/tynBeGdJ5x3dXyh8VVKCrGtrzsZcbA7j1acrk+ds+MWOOig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171312; c=relaxed/simple;
-	bh=d5evMYJEyqW09q3MWTsN8RAQKKXeMF5B0uZ6YrfTpLs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NhTO7r0CupsssF90vNUsbjagq2QG0qnloqPyFM+87wmVHNoi1BFo1MrdbSqdY4z8TqlkkcztWTezVNuyzCcIJT/Q81PzuAA+kRARNBC/qIiiVD+z08ZulTnEGdYqw9LTJLHd1QITOtJfj9TblC1rXf+85rRBV31h3ish39Ya4nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uVxdWq0O; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779171426; c=relaxed/simple;
+	bh=IRf66rMUn0EauExfU5hPO+7wssB+4ZO7/x8sY0FiJIk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=B210NrsHUwFqABPgBMwUvSPGYGboE0veeLn0wJV6J8OPsLhTKsXGQNGoDyhBnOwlMBY0KmU89ia3de5YhKiBfyjL9CsNd1+iAWI0H4RQh3nhO6/rsKqapX+yrVxPoB8o4UQnZ6vVb6nBGwRU6pajBmbC7cENrcLqHKiIoeylvEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XF91ZQsy; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uVxdWq0O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57082C2BCFD;
-	Tue, 19 May 2026 06:15:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779171311;
-	bh=d5evMYJEyqW09q3MWTsN8RAQKKXeMF5B0uZ6YrfTpLs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=uVxdWq0OBmCak6a0HVBwUhcvEB1adrXo+QDCamQByYd9HdEJtM61mMXUyGcj2PqeE
-	 EAn0c8ROzq+VHSVSGR7LuUT4UjxsJL51m+dq/eTVCSItUXQ4QaB5JNadoMvuh4gj6S
-	 5AWyT1+EPy1MF95XT0H4Mvylqi1ru8O9DBZKJvNakTVcIl6MTAfzvW/N4f3qY4bePy
-	 GRAJ2QMswZENrS2/BsZW5vyBDG73tReKUpMbKlAi4VwmbJf67nRy5go+5U/xMImn65
-	 i/KTGuET0Lmx7zizkdq65SWhZaa3uguW3XM7+FiZggMsL2IVJpLXnxNnjb/1avg8PA
-	 tWbLlhnBfJ1ug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon,dc: generalize
- for  single-output variants
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519055114.1886525-2-a0987203069@gmail.com>
-References: <20260519055114.1886525-2-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 06:15:10 +0000
-Message-Id: <20260519061511.57082C2BCFD@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XF91ZQsy"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-836ed29d1e5so1280843b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779171424; x=1779776224; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=l4dJkPtRJlrakoxNtYsMbmeYzTOO5LSMpVcjFeyWMwk=;
+        b=XF91ZQsyiObH/rcqi+wWzh2c+XdhYjP/YDHp1Yo4rzrgPeoVRyjt6UGa48dHHagY7C
+         ymr8YQ6f7/tgB336QbLN/Nc0BR0ycxthm5uEC2QyPJyLL1zuezZPXMTXnQs35m3HDlza
+         DCM4uKQ/xgWQp1B3B8FtI5rK64eR0guAB30viejPVz0PLD9J7kh7iH/rr9bXpz+2S/n7
+         QIaH0o8M6aq53ezc5slt4vsqrCMvBrmpe4o9Os8/WfqmFrtsYHcYHYZ4OoK9/Xulx22t
+         fVn64Nngah1frvgE6IIZcarJ/dGFpJUbIpSw2n7BNdjI+cJHhXbhOTpYvAXQuSxjl70I
+         dKzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779171424; x=1779776224;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=l4dJkPtRJlrakoxNtYsMbmeYzTOO5LSMpVcjFeyWMwk=;
+        b=iXiSlLMx5OCC132MUttsrg2WJ5iMlapi8U4kggdXfZBtZbpg320Kr5OEOu/19dbj21
+         8Sh97NshfH8uNA5sqc7f+1nljy9ibPSYX6o37uHDqt3vpt1xPM+XNqa0QlItpEEEc9GU
+         b8V+xIPjxZKBHFR2i7ZEpUI3oXKZiL7/YiICkiR6OwZWq0gInEoQssE2K3Lu7B/Oc+yy
+         cH5xIj9pP9AJDpZ1EwXo4WepA12jTrUjq7Im0xitGrx2L3+gmI1shCHUjMnhmtEmJ4TB
+         /Tg8MkbIrw+EaJdmCTMhHd2DZHUA9gajOgnBIirdh6dah40GIeWxmk8fcuTaE92u+ePS
+         Ql7g==
+X-Forwarded-Encrypted: i=1; AFNElJ+nGkTZ5xRdGVhMpdNU9NofYfP0XFzpG2sdXwXY5fN8ccUZ//7CqAK2bOmKOf8HmuXBXUgIJoF90z5q@vger.kernel.org
+X-Gm-Message-State: AOJu0YwuElM4t1/WmRvmSzZ7E9mBc+/0ukuecN/ex+RloX9jrjN7DTjo
+	km6kCKzE4WCbd9FgEKKI4tZhy51u77Ls8rejlkvan+Kd55VMb4mfwGiS
+X-Gm-Gg: Acq92OH8wkfvyB49qLSnmX3e7LsnyAnuNpB00UlFWTcVYOsBackvCjxwlHnEhvyVE01
+	XJVoPFSjfl1AiZHbnbrKuEf81glaQZTSFYBM1udPC5iuwX23nfXcDYNyf68O+UxNAUdBoXUyoUt
+	HSSql+l1jTIiHK/QIl9MOW7LNYZ4thfCh8PjqV3PzCnwUfXP3Cs0QSLhmHG/vivFcqoqzE2dIvO
+	uIsQG0eZMLG1uW07/gOfNV637x+d11/46esSZj0mtRwfxEDasPEXZlwn7gAle1Xi1eKgw8pkzza
+	YfQsar1qZfxD2UkHcVZIfOJihkSiJ59DqDUX1wqAtRQytcjoPHqWziRkWBEoAGluSvJwkKG+2Ck
+	nN7ZQDzXieItMam+fzThsPV/Nv/FUe+7dMRU+1izOU0PHfuL81E3jkOUZrx8WaQj5xWZHkdjOyY
+	3aE7iAMiIT3XSYJn+opQdKlxaUBfTQdFMy7KC9nRkg
+X-Received: by 2002:aa7:8882:0:b0:82a:6f69:7f72 with SMTP id d2e1a72fcca58-83f33f0fddcmr18309030b3a.47.1779171424126;
+        Mon, 18 May 2026 23:17:04 -0700 (PDT)
+Received: from [10.240.146.115] ([2.27.148.101])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c7f202sm16112266b3a.43.2026.05.18.23.16.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 23:17:03 -0700 (PDT)
+From: Zhengyu He <hezhy472013@gmail.com>
+Subject: [PATCH 0/3] spi: enable the SpacemiT K3 SoC QSPI
+Date: Tue, 19 May 2026 14:15:54 +0800
+Message-Id: <20260519-k3-pico-itx-qspi-v1-v1-0-c32afeeaf741@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7bkGtPPSV6BC21hKoaUgQ/j3pO
+ AwzL2RKTBkm8UKiwpmDb6A6AfZY/U7IW2PQUhs5KoNnj5FtQL4fvHJkLAodyaFJbYfRQStjIsf
+ Pf52XWj8cBcVXZQAAAA==
+X-Change-ID: 20260516-k3-pico-itx-qspi-v1-fe040512c45f
+To: Han Xu <han.xu@nxp.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-spi@vger.kernel.org, imx@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ Zhengyu He <hezhy472013@gmail.com>, Cody Kang <cody.kang.hk@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1315; i=hezhy472013@gmail.com;
+ h=from:subject:message-id; bh=IRf66rMUn0EauExfU5hPO+7wssB+4ZO7/x8sY0FiJIk=;
+ b=owEBbQKS/ZANAwAKAc32nDaAuA3YAcsmYgBqDABSfcnC9ZjpkklceVU1Dc84Db35p/VpVrwwE
+ QDGds/SgceJAjMEAAEKAB0WIQS9XD2kxy1NmfC2u/XN9pw2gLgN2AUCagwAUgAKCRDN9pw2gLgN
+ 2HqzD/0VAmqmljFG81AwhK9sHmx+W7G0+tQQEk/jObuf+VKS7IU2TNYECbcuBa/u6SMRj0B5R4v
+ mas/Bvw0fsXZ8tUPIoblkQNY6illXhaf4Ptj+k/atW51oI7U/6A3o3Fm+3mypFodkn1bLzNoKXH
+ SOuiD+fKWCg6LqOMKhkIGSwQ59akev0vQCKY3UV0u0fzC13IdjEFyVfadZ6pw1z8tYVQkPTmt0Y
+ ryg3W44kH75nsUbpIEPp3gl35SpGNrK6eVAwUJn8rFryxFcIXiiyhNhvOQ6Szn5PtJrAcRJ/Vur
+ fJwYIceLo3QSBxv9yFttP8SjD7Et9BFN2V9bC8htLx39j5Q53pqJWpfbW0/Ul1QuG+PNm92dbPD
+ tliQeDh3FbQgvfX8HPO7Ca1c0AVh7+HolFliXHliJK13cDsN3rGTsljCdqtLJBjJ+wHtNsUk6/i
+ qIFs2XgDOjBepZq2zwwndBURVG6gYRI7MBiqWPnraOjZgcJ083gVbxwiOXLlpf7unGoWDZ4C/ks
+ INTULC98JS7VaoVJqBUGys8eIetJoB52S20S/JpxLCikDKkFXXh6hePzehXnIAYB0Hg1TxmIRvE
+ 295eKmyvRMfiX7X//ERs8MSS9yCA/sg222P5Haf5mgRz+O1AAsRCVwi6Y54Pn3fWg5QSV5Lqzrd
+ PiBjAzVbs7knGjw==
+X-Developer-Key: i=hezhy472013@gmail.com; a=openpgp;
+ fpr=26CA97B1A229C229822278F254AF850165158959
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing explicit array length constraints in variant-specific cond=
-itional blocks.
-- [High] Generic catch-all compatible string enforces SoC-specific limitati=
-ons and leaves array contents unvalidated.
-- [Medium] Incomplete schema topology enforcement allows conflicting 'port'=
- and 'ports' properties.
---
+This series adds support for the SpacemiT K3 SoC QSPI and enables
+the SPI NOR flash on the K3 Pico-ITX board.
 
-commit e03be5624915d85b3073bbb37ac0fe652c0887cc
-Author: Joey Lu <a0987203069@gmail.com>
+The K3 QSPI controller can be supported by the existing fsl-qspi
+driver with K3-specific device type data.  The changes are:
+  - Documenting the SpacemiT K3 QSPI compatible
+  - Adding SpacemiT K3 device type data to the fsl-qspi driver
+  - Enabling the QSPI controller and SPI NOR flash on K3 Pico-ITX
 
-dt-bindings: display: verisilicon,dc: generalize for single-output variants
+This series is available here:
+  https://github.com/imguoguo/linux/tree/k3-pico-itx-qspi-v1
 
-This commit updates the verisilicon,dc display controller binding to support
-single-output variants like the Verisilicon DCU Lite. It transitions the
-schema to use an allOf/if-then-else structure to differentiate between the
-existing dual-port th1520-dc8200 and a new generic verisilicon,dc compatibl=
-e.
-The top-level constraints are relaxed, with variant-specific rules intended
-to be enforced in the conditional blocks.
+Signed-off-by: Zhengyu He <hezhy472013@gmail.com>
+---
+Zhengyu He (3):
+      spi: dt-bindings: fsl-qspi: support SpacemiT K3
+      spi: fsl-qspi: add SpacemiT K3 support
+      riscv: dts: spacemit: add QSPI support for K3 Pico-ITX
 
-> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
-l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index 9dc35ab973f20..3a814c2e083ee 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+ .../devicetree/bindings/spi/fsl,spi-fsl-qspi.yaml  |  5 +-
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts       | 58 ++++++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       | 21 ++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi               | 16 ++++++
+ drivers/spi/spi-fsl-qspi.c                         |  1 +
+ 5 files changed, 100 insertions(+), 1 deletion(-)
+---
+base-commit: 6916d5703ddf9a38f1f6c2cc793381a24ee914c6
+change-id: 20260516-k3-pico-itx-qspi-v1-fe040512c45f
 
-[ ... ]
+Best regards,
+-- 
+Zhengyu He <hezhy472013@gmail.com>
 
-> @@ -75,9 +69,75 @@ required:
-> -  - ports
-> =20
-> -additionalProperties: false
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: thead,th1520-dc8200
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: DC Core clock
-> +            - description: DMA AXI bus clock
-> +            - description: Configuration AHB bus clock
-> +            - description: Pixel clock of output 0
-> +            - description: Pixel clock of output 1
-> +
-> +        clock-names:
-> +          items:
-> +            - const: core
-> +            - const: axi
-> +            - const: ahb
-> +            - const: pix0
-> +            - const: pix1
-> +
-> +        resets:
-> +          items:
-> +            - description: DC Core reset
-> +            - description: DMA AXI bus reset
-> +            - description: Configuration AHB bus reset
-> +
-> +        reset-names:
-> +          items:
-> +            - const: core
-> +            - const: axi
-> +            - const: ahb
-
-Does JSON schema validation require explicit minItems and maxItems here to
-override the top-level ranges?
-
-At the top level, clocks has minItems: 2 and maxItems: 5, and resets has
-minItems: 1 and maxItems: 3. Providing an items array inside a conditional
-block does not override those top-level ranges unless explicitly redefined.
-
-Could a device tree node for the thead variant incorrectly pass validation
-with only 2 clocks or 1 reset, completely bypassing the intended strict
-hardware constraints?
-
-> +
-> +      required:
-> +        - ports
-
-Since the top-level schema now evaluates the port property globally, should
-this branch explicitly forbid it?
-
-Without rejecting port, for example by using properties: { port: false } or
-not: { required: [port] }, could a malformed device tree node for the thead
-variant define both port and ports simultaneously without triggering a sche=
-ma
-validation error?
-
-> +
-> +    else:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Bus clock that gates register access
-> +            - description: Pixel clock divider for display timing
-> +
-> +        clock-names:
-> +          items:
-> +            - const: core
-> +            - const: pix0
-
-The top-level rules allow up to maxItems: 5 for clock-names, but this block
-only lists 2 items without setting an explicit maxItems: 2 constraint.
-
-Could a node supply 3 to 5 clocks with unconstrained, undocumented string
-names that completely bypass standard schema validation?
-
-> +
-> +        resets:
-> +          maxItems: 1
-> +          description:
-> +            Reset line for the display controller.
-
-This branch represents a generic fallback for verisilicon,dc, but caps rese=
-ts
-at 1, which appears to be a Nuvoton-specific constraint.
-
-Will this cause validation failures for future hardware integrations of this
-IP that require multiple resets?
-
-Should this binding use a specific compatible string for the Nuvoton hardwa=
-re,
-such as nuvoton,ma35d1-dcu, instead of enforcing these limits on a generic
-catch-all string?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519055114.1886=
-525-1-a0987203069@gmail.com?part=3D1
