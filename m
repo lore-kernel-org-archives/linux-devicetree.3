@@ -1,264 +1,317 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2101.outbound.protection.partner.outlook.cn [139.219.17.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99B33DA7D2
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.101
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779176669; cv=fail; b=qp6Q4d1kkOUrNhraZ7CcYyxF/j7AlZuAvJieeP0uP73E1MqzkalOU+LnNZW8i67VAkeHcMJRfRdYeyEgT2hEgAJ3+RjcgX7/CoAEB0+wyXpt4d1HFuJTfR/JMetTYSzde/493L+axShTHc69tMqxspn/DxA6h+7kzZq1jwdVHkE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779176669; c=relaxed/simple;
-	bh=K01Vcq1sKMEP6j60YFrnIEtexOmQw5mPh5stY3ITfI4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=AV4G6pqzx23nEG1wXKawFlIcrV9r6dHfoaKKNt5Q9bZuSOQmg/R6Y+x45nGeLkjU3LCgecM944TxueaIn98NWxQG9qai94GkAkdzPr9kxUB8u3VgObbFkwatl8eFkeWU3fbHMYQHGYrc3qPg5RvQKzidW3kqGFuQWlSTG/J6e8M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ARqKprjjjS+zl42j5I1PXGT7mGYv+ztflpkFmD/U8b3Cjd2d0pO2npQkykRsMnhHx2doidXu0dSm3X9BAwYbxKoo9083Ei+oyfd7O6EaNxKtTixqJPPoUEAOWjFtLlArIDumUCvuCNq4y1x6nufCb67wvNxyP560LY+8sxTryFLXFpuQmUs1XIA9cVOF4lvTlEY19yeyWIsBwdUuFVQKKB93WLBurRcF5/pvmoXgknI54Ur6BbG2qj/Zpbkw4toN3FxttnIWW9w6vF29JbMI8az8SSROBTB8JrmVUvpEOFqcyFqG6tOH7YPEwpTg5ogxlQnQQVrxXLDOnclj20UgMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K01Vcq1sKMEP6j60YFrnIEtexOmQw5mPh5stY3ITfI4=;
- b=EZvgPpAsty8Z25cyH3ZRkEELY6auO0rejiYkUp4ztaEoEcmGierrz/S5vlM07lcK0ljWzdDju15dXVs00K5mQ24Zhbyc0EGGHQ9EfWOZNJDVkrCTUVxJf/Uowz0Ze38+t4rqeernAyot7pWx/nAEUgwbqEnEvGSAqhTYBdfUvdT7Cr3GxYVqyZRGjx732fqVDEt4qayU19UNT/+xYrAcK8IbLuykCcc1V4i8+VZPiHeIKeUw127FvFnS5L9/OZYPWJt/3NGVIrKmoN7NiG2A6LV9gp+LGoL+88Ct6uwFHuvCU5aBwmBr5OTg9/VO7kmrPVx5vVDVk4vy1TqbZtgF4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1014.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.25; Tue, 19 May
- 2026 07:44:13 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%6]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 07:44:13 +0000
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-CC: "robh@kernel.org" <robh@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
-Subject:
- =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggdjIgMi8yXSBod3JuZzogc3RhcmZpdmU6IFVwZGF0?=
- =?utf-8?Q?e_clk_and_reset_sequence?=
-Thread-Topic: [PATCH v2 2/2] hwrng: starfive: Update clk and reset sequence
-Thread-Index: AQHc5pLy9w1xwXARrE+0p/F1NUBdwrYTZfMAgAFy2BA=
-Date: Tue, 19 May 2026 07:44:13 +0000
-Message-ID:
- <ZQ0PR01MB1269097E7C25236C6BA697FF82002@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
-References: <20260518065243.20865-3-lianfeng.ouyang@starfivetech.com>
- <20260518074008.C09EBC2BCB7@smtp.kernel.org>
-In-Reply-To: <20260518074008.C09EBC2BCB7@smtp.kernel.org>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1014:EE_
-x-ms-office365-filtering-correlation-id: bebd1e5a-6d2e-4a97-3986-08deb57a6beb
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|38070700021|22082099003|56012099003|18002099003|4143699003;
-x-microsoft-antispam-message-info:
- U/sI88jmCoNHDDywWC/9A937O6jjCNAuZOyaQwNLzL/bXxMqmlfMcP6XA3p/Luk+GUqLb/6367hdm1HtGMocfqhXAfnHbQnPG3Zrz1lbYbwzOtmvfiww9xPt/y9/eXecucvawHpU8nfvvXNREZXMS8EFV+aqDtPBm52DC0cyEmeOz31pz5UpIb1QeSPuZBeVBedn+ocQISpj0iguAuEywxbt6XXFO/QuFUmpuH/VpwjxSKvh/RYbJFJhM8VQJpKKfD6RMyxNNzRyjpVTd9qP5v6oFOfVUPLm7G/hKx97zGKbyDBeFx+dpWkz1oTWiiRoO0+S4ANn33EG9QGJ7aTcRQmPeEBnrqe1UpXwNHLz8gY6wG9xfrg3rhVkLbgawjpk58TPeDEbvxKjBu6RbsS0KN/RorLgw1UP7XQe4F197MjKESwwXgguPXCsbCbKd0unceGdFZ8wjQStbeBLwdL0z6dvPBwgdmXZTHiWCfdmVjK/RjW5skar9Mod039dTDB/OSFxYoggkbpsn6t+fCAmeok5Uk3fnxoSf82967/YE9MObpZVIhnJ8IBYsgc20iVz
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(22082099003)(56012099003)(18002099003)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?c0xHNXZkUHRqOFRiclFSQmcyMFBtVnpNc3VuS0gzK3JXL2VtYy9NU1I2UHpX?=
- =?utf-8?B?UzZ0bGVpNGhUOCtLT2VSaHBMQ09kNkVnNFYzcUZZWXViVUtFWHpsemwwTUxx?=
- =?utf-8?B?RE5Nc0pvZjgyVmFaWjFGajdVNUNJNWFvUXJJbWJjREtqaTVxTE9xWGFNZlQ3?=
- =?utf-8?B?VjkwTmFxK2JScEFGZ244VEZ6ZDhHWEdsd2VEMjVNRDI0RHYyeFljQnNYZ3Y4?=
- =?utf-8?B?WVBnUlVsblNES251MTZHMEtKVUlvNUVYWThyNFFJdjR5ZW1pQTAzYWpZYU8x?=
- =?utf-8?B?ckJ6ME9qN3AvNHVSMHV2Y0czYVNUZjVRcGRXT3FQQlhEZ0dpQ0wzcDdMV1h5?=
- =?utf-8?B?OG5MSGs3bnRONzVTWnl6NVh3WmNOZms0MjMyYVZtY2pITmRiSTB1aTFRK3p6?=
- =?utf-8?B?LzNzZkxiZnVPSnJtVWgxYTFrbkcrVXVEZGxZTG03UlJ3Z0x4b3JqL04zUk5M?=
- =?utf-8?B?eENkdzZKajcza1ZHcy9UMk0zZEpmZDl5U255Qnh3MEowaXNRVDJscGhGeG4y?=
- =?utf-8?B?dEkzQ0pNRWVPK2IzSDN0YUJpYzBBek95c0c3MHBqd2FXN0RINHJrVnN6Zjhz?=
- =?utf-8?B?Ykd2RDVDb3BuUW43MmdHZGtZZ1RSak5iYW5aQmwySjhzUWNmUm9LOTZTWmUv?=
- =?utf-8?B?SmtCVDNzWnpwSHI1eXEvR0tEZ0I3QjhERkJrQjdWUUlpcDFTUStaYlJTaklM?=
- =?utf-8?B?VlRRUzhvTmtYVVFBTUx0M0xPQURoOXdpM1NNT3l3UHAvR0NCRE50aTUxVG90?=
- =?utf-8?B?ZnBxRkx5LzZBcUFuR053WVpEZlRHa1ZIUEZaMHBCdkg0aVV2RWtNLzlDNEJN?=
- =?utf-8?B?NW1Ocm5Vck9MY01lS1ltRHRqUHgvQ0VwUkwvcjU3eDhEYnlUam9ZTUNNNGMv?=
- =?utf-8?B?THBQTVVMY3g1VFZvQk5qOVhsUTc5RnV6bU5NWUhaaWdjYzk2U29semU2Um55?=
- =?utf-8?B?KzZrbHI3bnVrNnRmbWRmdWpiSGNheEJlL1JxR3NmdG9UWFI3VDRhR21JM2t6?=
- =?utf-8?B?dlY5K29lTk1TdmhGSkcweVdkUEZyVU9OZUQzRFk3RXJXeCszbGdwL3JnbStK?=
- =?utf-8?B?NGJiSGFSN0w5aC9RY2tDZVN4bi9OWlkya1VhZnArMzduSHl2d3ErT0hFYTU1?=
- =?utf-8?B?UFc4c0t3aEJJNE1aaFdONEQ2YWdnZHdtNkh0RjNSM1VnMkw2enJyYks4S3ZF?=
- =?utf-8?B?cE9FOEY4bVBaZ28vRi9FUmUySXZxd242eUw3MklMRDd0THdzWTQ2V1dZM2FD?=
- =?utf-8?B?Z0xzNzFOeTJ1Tm5nUUk4NDJrSy9ESmdua0MxYVZkQWdvOVlHSjVyRXhSc0tN?=
- =?utf-8?B?cW9DaWRrUWx6YnJ1aWx0U1ZhM3J4ZGd3a3VpYWZRSWhEU2Z5SkhueFZwSXcz?=
- =?utf-8?B?STBLNWJkcGprNDZpbjkvV2xOM291SVduTWJ2b3BXZjZvcGN5S25URkZZSXRI?=
- =?utf-8?B?MDNST1JBV1FXeXU5N3V3MTc4T2x6MHlJUnVzeXpKVDk4LzdPdThrMjVwZ2lY?=
- =?utf-8?B?NjcvUEMyOFFoTHFWeHZ5K1l4cERYWUJPSkZBYk51aTNJOHlJUnFFcHlDZTdk?=
- =?utf-8?B?VVI4c0F2bFFIUW4rU1g0SEVjTzBNa2NDd2oxVzlVZU9zQVp4dkQzMmFxM0VP?=
- =?utf-8?B?WXFFalZvVmQyQVd5Q2F3ZFo3WG5rNG5qdU9GUEFTN1F0RFFVeTBRNkU0QUNp?=
- =?utf-8?B?VWJTZFNza09Ec2hxYjJGejl2MDdYbkpXSmtGNngyVnBRVXFNbVkyeWJiU2Rp?=
- =?utf-8?B?ajNLZ1R2OEJvUEl1TU03bzdXRktPbmFpaDNxL3FDaWZtUHFpMjNJS1oySFdV?=
- =?utf-8?B?UXQ1WHhvZjRzL2xFdC9KVTNQK0ltRWoxY2FEQ2prVExlL0lxTU5PamgwdDYx?=
- =?utf-8?B?VlBpTW9oMDZENDIybk53OHJtcEpqSWYrcWVPMEZxU2pIaDJCMTl5N1dRMHNp?=
- =?utf-8?B?WlZmTGE5MjdSTnZCMXk4NEdQZ3JXcnVUL3FtZk9hOEcySWF5Wm5ibnV5Z1dT?=
- =?utf-8?B?SzFrN0ZlYTVKeHI1S0pid0c5VFRqcmhNb3IramlEMjN0aXJCcC9ZVTFheVZo?=
- =?utf-8?B?b2c4enpUc0Z4WTNuNkI1SVlKeW1INkhodzRGeTZ1cGFvSWQ5M3VyRjY4Sm9B?=
- =?utf-8?B?UG91Tlg0a1Z3OWJLdUhQbFZYUEoySlJSM2d1cGg1R3MxRjdKOFVTQ1VGS1Za?=
- =?utf-8?B?YlF5NzE4RU5EYUVxM0pvSW9MenZWbWUrRlpXVkVBMGdxVFNucHBoOVNxN2dP?=
- =?utf-8?B?RTU0Y1VYMmtBd0F1TGdVWUwwQStKSlg2RU5seFZBaStFRUdmc05GTTdFVlhq?=
- =?utf-8?B?dHVtQllQNnlkeXRnanlXanZQZWw3dnYwZFJPeFkwamN6N3VMc1ROS2o3WnJ0?=
- =?utf-8?Q?u8mvick+o5pCYGV8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11F23DA7D2;
+	Tue, 19 May 2026 07:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779176674; cv=none; b=ch/lAiUAQimBInvyKoRoSK0rjzcDbrSOEOyCM64IGQXwbHST5IPPjGvFE4QR1JIDqC+dQn6G+6Tuir1u3WBzKvBLzeRvsVkc+IQLJfygKLrQFXw5g+pT7vQybk+9cWc5gC9jrI3gYfmDevoQLVQ977YbGE2K01LGkmk1JB+XVvg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779176674; c=relaxed/simple;
+	bh=Wr8xjqN5zDn1K2dg7YY/+m5DKGnR4Ys5NJy7MuVhRuQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pfBVAm8bEKYjkyHwjo2zTS9ISsBx2E+w3MChGvhj5y45rhrfWtJtS1d35os/t0g/pdToU79O8TPP45a4tKsNLQ1Vmgxf1vd+ke6cWZRfOZfGIyzkhv2b3t2FNVCf28HuL09+8j2aiFLUVoRIIhDpCnBkS9nVCMfZCdIGUeTHkJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
+	by APP-01 (Coremail) with SMTP id qwCowADXQ2_QFAxqX3u+EA--.2222S2;
+	Tue, 19 May 2026 15:44:17 +0800 (CST)
+Message-ID: <4d3c239ff1c560791668e571c5e6ab58c08ea002.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 4/4] drm/verisilicon: add Nuvoton MA35D1 DCU Lite
+ display controller support
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 19 May 2026 15:44:16 +0800
+In-Reply-To: <20260519055114.1886525-5-a0987203069@gmail.com>
+References: <20260519055114.1886525-1-a0987203069@gmail.com>
+	 <20260519055114.1886525-5-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: bebd1e5a-6d2e-4a97-3986-08deb57a6beb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 07:44:13.3319
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZvA5qlBB6JXUd/u+jz2qjWSucTdqscQVl0++AJZKjyGtSTxn2Nqb6/V+ARncvy5Ach0x8r/s/L6Hok9QGfakSKDvffUGd8tXoPk/uLH0IuICoo6pNcqW6wW//LiK3MmM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1014
+X-CM-TRANSID:qwCowADXQ2_QFAxqX3u+EA--.2222S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtr15KrWkGFWxuw45WFyrCrg_yoW3tw4xpF
+	Wvyay8ur4rAa4I9r9rJFy0yF98Cw1xt3yfW3y7W3s093s0yFyUWFW0kFy8XFWDXr97AryI
+	qrsY9w47CrW7AFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUqVcEUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-DQpIaSwgQ29ub3INCg0KVGhhbmtzIGZvciB0aGUgcmV2aWV3Lg0KDQo+IC0tLS0t6YKu5Lu25Y6f
-5Lu2LS0tLS0NCj4g5Y+R5Lu25Lq6OiBzYXNoaWtvLWJvdEBrZXJuZWwub3JnIDxzYXNoaWtvLWJv
-dEBrZXJuZWwub3JnPg0KPiDlj5HpgIHml7bpl7Q6IDIwMjblubQ15pyIMTjml6UgMTU6NDANCj4g
-5pS25Lu25Lq6OiBMaWFuZmVuZyBPdXlhbmcgPGxpYW5mZW5nLm91eWFuZ0BzdGFyZml2ZXRlY2gu
-Y29tPg0KPiDmioTpgIE6IHJvYmhAa2VybmVsLm9yZzsgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5v
-cmc7IGNvbm9yK2R0QGtlcm5lbC5vcmcNCj4g5Li76aKYOiBSZTogW1BBVENIIHYyIDIvMl0gaHdy
-bmc6IHN0YXJmaXZlOiBVcGRhdGUgY2xrIGFuZCByZXNldCBzZXF1ZW5jZQ0KPiANCj4gVGhhbmsg
-eW91IGZvciB5b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQgNiBwb3Rl
-bnRpYWwgaXNzdWUocykgdG8NCj4gY29uc2lkZXI6DQo+IC0gW0hpZ2hdIFVuaGFuZGxlZCBlcnJv
-ciBmcm9tIGBwbV9ydW50aW1lX2dldF9zeW5jKClgIGxlYWRzIHRvIHVuc2FmZSByZWdpc3Rlcg0K
-PiBhY2Nlc3MuDQo+IC0gW0hpZ2hdIGBzdGFyZml2ZV90cm5nX3JlbGVhc2UoKWAgY2F1c2VzIGEg
-Y2xvY2sgZG91YmxlLWRpc2FibGUgYW5kIGhhcmR3YXJlDQo+IHNlcXVlbmNlIHZpb2xhdGlvbiBp
-ZiB0aGUgZGV2aWNlIGlzIHN1c3BlbmRlZC4NCj4gLSBbSGlnaF0gRGV2cmVzIG9yZGVyaW5nIGNy
-ZWF0ZXMgYSByYWNlIGNvbmRpdGlvbiB3aGVyZSB0aGUgSVJRIGhhbmRsZXINCj4gcmVtYWlucyBh
-Y3RpdmUgYWZ0ZXIgY2xvY2tzIGFyZSBkaXNhYmxlZC4NCj4gLSBbSGlnaF0gVGhlIElSUSBoYW5k
-bGVyIGFjY2Vzc2VzIGhhcmR3YXJlIHJlZ2lzdGVycyB3aXRob3V0IHZlcmlmeWluZyB0aGUNCj4g
-ZGV2aWNlJ3MgUE0gc3RhdGUuDQo+IC0gW0hpZ2hdIFRoZSBJUlEgaGFuZGxlciBpcyByZWdpc3Rl
-cmVkIGJlZm9yZSBoYXJkd2FyZSBjbG9ja3MgYXJlIGVuYWJsZWQsDQo+IGNyZWF0aW5nIGEgd2lu
-ZG93IGZvciBhIGZhdGFsIGNyYXNoLg0KPiAtIFtIaWdoXSBBIHN0YWxlIElSUSBjb21wbGV0aW9u
-IHJhY2UgYWxsb3dzIGBzdGFyZml2ZV90cm5nX3JlYWQoKWAgdG8gcmV0dXJuDQo+IG5vbi1yYW5k
-b20gYnl0ZXMgcHJlbWF0dXJlbHkuDQo+IC0tDQo+IA0KPiBjb21taXQgOWZlODI2MzU3NmI0NDZj
-YThjMDhkMzA4YjM2NWZmNzYwMWNlZjQ2OA0KPiBBdXRob3I6IExpYW5mZW5nIE91eWFuZyA8bGlh
-bmZlbmcub3V5YW5nQHN0YXJmaXZldGVjaC5jb20+DQo+IFN1YmplY3Q6IGh3cm5nOiBzdGFyZml2
-ZTogVXBkYXRlIGNsayBhbmQgcmVzZXQgc2VxdWVuY2UNCj4gDQo+IFRoaXMgY29tbWl0IHVwZGF0
-ZXMgdGhlIGNsb2NrIGFuZCByZXNldCBzZXF1ZW5jaW5nIGZvciB0aGUgU3RhckZpdmUgVFJORw0K
-PiBkcml2ZXIgdG8gcHJldmVudCBnbGl0Y2hlcyBvbiB0aGUgamhiMTAwIHBsYXRmb3JtLiBJdCBp
-bnRyb2R1Y2VzIGEgc3BlY2lmaWMgcmVsZWFzZQ0KPiBmdW5jdGlvbiBhbmQgaW50ZWdyYXRlcyBy
-dW50aW1lIFBNIGFjcm9zcyBpbml0aWFsaXphdGlvbiwgcmVhZGluZywgYW5kIGNsZWFudXAuDQo+
-IA0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2NoYXIvaHdfcmFuZG9tL2poNzExMC10cm5nLmMN
-Cj4gPiBiL2RyaXZlcnMvY2hhci9od19yYW5kb20vamg3MTEwLXRybmcuYw0KPiA+IC0tLSBhL2Ry
-aXZlcnMvY2hhci9od19yYW5kb20vamg3MTEwLXRybmcuYw0KPiA+ICsrKyBiL2RyaXZlcnMvY2hh
-ci9od19yYW5kb20vamg3MTEwLXRybmcuYw0KPiA+IEBAIC0xMzgsNiArMTQzLDIzIEBAIHN0YXRp
-YyBpbmxpbmUgdm9pZA0KPiBzdGFyZml2ZV90cm5nX2lycV9tYXNrX2NsZWFyKHN0cnVjdCBzdGFy
-Zml2ZV90cm5nICp0cm5nKQ0KPiA+ICAJd3JpdGVsKGRhdGEsIHRybmctPmJhc2UgKyBTVEFSRklW
-RV9JU1RBVCk7ICB9DQo+ID4NCj4gPiArc3RhdGljIHZvaWQgc3RhcmZpdmVfdHJuZ19yZWxlYXNl
-KHZvaWQgKmRhdGEpIHsNCj4gPiArCXN0cnVjdCBzdGFyZml2ZV90cm5nICp0cm5nID0gZGF0YTsN
-Cj4gPiArDQo+ID4gKwlwbV9ydW50aW1lX2Rpc2FibGUodHJuZy0+ZGV2KTsNCj4gPiArCXBtX3J1
-bnRpbWVfZG9udF91c2VfYXV0b3N1c3BlbmQodHJuZy0+ZGV2KTsNCj4gPiArDQo+ID4gKwlpZiAo
-dHJuZy0+aHdfc2VxID09IEhXX1NFUV9SRVNFVF9GSVJTVF9USEVOX0NMSykNCj4gPiArCQlyZXNl
-dF9jb250cm9sX2Fzc2VydCh0cm5nLT5yc3QpOw0KPiA+ICsNCj4gPiArCWNsa19kaXNhYmxlX3Vu
-cHJlcGFyZSh0cm5nLT5haGIpOw0KPiA+ICsJY2xrX2Rpc2FibGVfdW5wcmVwYXJlKHRybmctPmhj
-bGspOw0KPiANCj4gSWYgdGhlIGRldmljZSBpcyBhbHJlYWR5IHJ1bnRpbWUtc3VzcGVuZGVkIChl
-LmcuLCBhdXRvc3VzcGVuZCB0aW1lciBleHBpcmVkKSwNCj4gc3RhcmZpdmVfdHJuZ19zdXNwZW5k
-KCkgd291bGQgaGF2ZSBhbHJlYWR5IGRpc2FibGVkIHRoZXNlIGNsb2Nrcy4gU2luY2UNCj4gcG1f
-cnVudGltZV9kaXNhYmxlKCkgZG9lcyBub3Qgd2FrZSB1cCBhIHN1c3BlbmRlZCBkZXZpY2UsIHdp
-bGwgY2FsbGluZw0KPiBjbGtfZGlzYWJsZV91bnByZXBhcmUoKSBoZXJlIHJlc3VsdCBpbiBhIGNs
-b2NrIGVuYWJsZSBjb3VudCB1bmRlcmZsb3c/DQo+IA0KPiBBbHNvLCBmb3IgdGhlIEhXX1NFUV9S
-RVNFVF9GSVJTVF9USEVOX0NMSyB2YXJpYW50LCBjb3VsZCB0aGlzIGFzc2VydCB0aGUNCj4gaGFy
-ZHdhcmUgcmVzZXQgb24gYSBjbG9jay1nYXRlZCBJUCBibG9jaz8gU2hvdWxkIHRoZSByZWxlYXNl
-IGZ1bmN0aW9uIHdha2UgdGhlDQo+IGRldmljZSAodmlhIHBtX3J1bnRpbWVfZ2V0X3N5bmMpIGJl
-Zm9yZSBwZXJmb3JtaW5nIGhhcmR3YXJlIHRlYXJkb3duPw0KDQpUaGFuayB5b3UgZm9yIHBvaW50
-aW5nIGl0IG91dC4gVGhlcmUgaXMgaW5kZWVkIGEgaGlkZGVuIGRhbmdlciBoZXJlLCBhbmQgSSBo
-YXZlIGZpeGVkIGl0IGluIHRoZSBjb2RlIHVzaW5nIHBtX3J1bnRpbWVfZ2V0LXN5bmMgYW5kIHBt
-X3J1bnRpbWVfcHV0X25vaWRlDQoNCj4gDQo+IFsgLi4uIF0NCj4gPiBAQCAtMTc0LDEzICsxOTYs
-MTYgQEAgc3RhdGljIGludCBzdGFyZml2ZV90cm5nX2luaXQoc3RydWN0IGh3cm5nICpybmcpDQo+
-ID4gew0KPiA+ICAJc3RydWN0IHN0YXJmaXZlX3RybmcgKnRybmcgPSB0b190cm5nKHJuZyk7DQo+
-ID4gIAl1MzIgbW9kZSwgaW50ciA9IDA7DQo+ID4gKwlpbnQgcmV0Ow0KPiA+ICsNCj4gPiArCXBt
-X3J1bnRpbWVfZ2V0X3N5bmModHJuZy0+ZGV2KTsNCj4gDQo+IElzIGl0IHNhZmUgdG8gaWdub3Jl
-IHRoZSByZXR1cm4gdmFsdWUgb2YgcG1fcnVudGltZV9nZXRfc3luYygpIGhlcmU/IElmIHRoZQ0K
-PiBkZXZpY2UgZmFpbHMgdG8gcmVzdW1lLCBpdCByZXR1cm5zIGEgbmVnYXRpdmUgZXJyb3IgY29k
-ZS4gV291bGQgdGhlIHN1YnNlcXVlbnQNCj4gcmVnaXN0ZXIgYWNjZXNzZXMgKGxpa2Ugd3JpdGVs
-L3JlYWRsKSBvY2N1ciBvbiBhIGRldmljZSB3aXRoIGRpc2FibGVkIGNsb2NrcywNCj4gcG90ZW50
-aWFsbHkgY2F1c2luZyBhIHN5bmNocm9ub3VzIGV4dGVybmFsIGFib3J0Pw0KPiANCj4gRG9lcyB0
-aGlzIHNhbWUgdW5oYW5kbGVkIHJldHVybiB2YWx1ZSBpc3N1ZSBhcHBseSB0byB0aGUNCj4gcG1f
-cnVudGltZV9nZXRfc3luYygpIGNhbGxzIGFkZGVkIGluIHN0YXJmaXZlX3RybmdfcmVhZCgpIGFu
-ZA0KPiBzdGFyZml2ZV90cm5nX2NsZWFudXAoKSBhcyB3ZWxsPw0KDQpZZXMsIHJldHVybiB2YWx1
-ZSB2ZXJpZmljYXRpb24gaXMgcmVxdWlyZWQgZm9yIGFsbCBjYWxscyB0byBwbV9ydW50aW1lX2dl
-dC1zeW5jIGluIHRoZSBlbnRpcmUgZHJpdmVyLiBJIHdpbGwgZml4IHRoaXMgaW4gdGhlIGNvZGUu
-IFRoYW5rIHlvdQ0KDQo+IA0KPiBbIC4uLiBdDQo+ID4gQEAgLTI1NywyNCArMjkyLDI2IEBAIHN0
-YXRpYyBpbnQgc3RhcmZpdmVfdHJuZ19yZWFkKHN0cnVjdCBod3JuZyAqcm5nLA0KPiB2b2lkICpi
-dWYsIHNpemVfdCBtYXgsIGJvb2wgd2FpDQo+ID4gIAlpZiAod2FpdCkgew0KPiA+ICAJCXJldCA9
-IHN0YXJmaXZlX3Rybmdfd2FpdF9pZGxlKHRybmcpOw0KPiA+ICAJCWlmIChyZXQpDQo+ID4gLQkJ
-CXJldHVybiAtRVRJTUVET1VUOw0KPiA+ICsJCQlnb3RvIGVuZDsNCj4gPiAgCX0NCj4gPg0KPiA+
-ICAJcmV0ID0gc3RhcmZpdmVfdHJuZ19jbWQodHJuZywgU1RBUkZJVkVfQ1RSTF9HRU5FX1JBTkRO
-VU0sIHdhaXQpOw0KPiANCj4gRXZlbiB0aG91Z2ggc3RhcmZpdmVfdHJuZ193YWl0X2lkbGUoKSBw
-b2xscyB1bnRpbCB0aGUgaGFyZHdhcmUgaXMgaWRsZSwgY291bGQNCj4gdGhlcmUgc3RpbGwgYmUg
-YSBwZW5kaW5nIElSUSBmcm9tIGEgcHJldmlvdXMgb3BlcmF0aW9uIHRoYXQgaGFzbid0IGJlZW4N
-Cj4gcHJvY2Vzc2VkIGJ5IHRoZSBDUFUgeWV0Pw0KPiANCj4gSWYgdGhhdCBwZW5kaW5nIElSUSBp
-cyBoYW5kbGVkIHJpZ2h0IGFmdGVyIHJlaW5pdF9jb21wbGV0aW9uKCkgaXMgY2FsbGVkIGluc2lk
-ZQ0KPiBzdGFyZml2ZV90cm5nX2NtZCgpLCB3b3VsZCBpdCBjb21wbGV0ZSB0aGUgcmFuZG9tX2Rv
-bmUgY29tcGxldGlvbiBlYXJseSwNCj4gY2F1c2luZyB0aGlzIGZ1bmN0aW9uIHRvIHJlYWQgZnJv
-bSBTVEFSRklWRV9SQU5EMCB3aGlsZSB0aGUgaGFyZHdhcmUgaXMgc3RpbGwNCj4gYWN0aXZlbHkg
-Z2VuZXJhdGluZyB0aGUgbmV3IHJhbmRvbSBudW1iZXI/DQoNClNvcnJ5LCBJIGRpZG4ndCB1bmRl
-cnN0YW5kIHRoZSBwcm9ibGVtIGhlcmUgYmVjYXVzZSBldmVyeSB0aW1lIHRoZSBjb3JyZXNwb25k
-aW5nIA0KdmFsdWUgaXMgd3JpdHRlbiB0byB0aGUgU1RBUkZJVkUtQ1RSTCByZWdpc3RlciwgdGhl
-IGNvcnJlc3BvbmRpbmcgaW50ZXJydXB0IGlzIHRyaWdnZXJlZCwNCiBhbmQgdGhlbiB0aGUgY29y
-cmVzcG9uZGluZyBjb21wbGV0aW9uIGFtb3VudCBpcyBjb21wbGV0ZWQuIFRoYXQgaXMgdG8gc2F5
-LCANCmV2ZW4gaWYgdGhlcmUgaXMgYW4gaW50ZXJydXB0IGFmdGVyIGNhbGxpbmcgcmVpbml0X2Nv
-bXBsZXRpb24oKSwgaXQgaXMgbm90IHJlbGF0ZWQgdG8gdGhlDQogY3VycmVudCBjb21wbGV0aW9u
-IGFtb3VudCBiZWluZyBwcm9jZXNzZWQgYmVjYXVzZSB0aGUgY29ycmVzcG9uZGluZyBjb21wbGV0
-aW9uIA0KYW1vdW50IGhhcyBhbHJlYWR5IGJlZW4gcHJvY2Vzc2VkIGluIGVhY2ggcmVpbml0X2Nv
-bXBsZXRpb24gYW5kIHdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dA0KDQo+IA0KPiBbIC4uLiBd
-DQo+ID4gQEAgLTI4MywyMSArMzIwLDIyIEBAIHN0YXRpYyBpbnQgc3RhcmZpdmVfdHJuZ19wcm9i
-ZShzdHJ1Y3QNCj4gPiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+IFsgLi4uIF0NCj4gPiAgCWlu
-aXRfY29tcGxldGlvbigmdHJuZy0+cmFuZG9tX2RvbmUpOw0KPiA+ICAJaW5pdF9jb21wbGV0aW9u
-KCZ0cm5nLT5yZXNlZWRfZG9uZSk7DQo+ID4gIAlzcGluX2xvY2tfaW5pdCgmdHJuZy0+d3JpdGVf
-bG9jayk7DQo+ID4NCj4gPiAtCXJldCA9IGRldm1fcmVxdWVzdF9pcnEoJnBkZXYtPmRldiwgaXJx
-LCBzdGFyZml2ZV90cm5nX2lycSwgMCwgcGRldi0+bmFtZSwNCj4gPiArCXJldCA9IGRldm1fcmVx
-dWVzdF9pcnEoJnBkZXYtPmRldiwgdHJuZy0+aXJxLCBzdGFyZml2ZV90cm5nX2lycSwgMCwNCj4g
-PiArcGRldi0+bmFtZSwNCj4gPiAgCQkJICAgICAgICh2b2lkICopdHJuZyk7DQo+IA0KPiBUaGlz
-IHJlZ2lzdGVycyB0aGUgSVJRIGJlZm9yZSB0aGUgaGFyZHdhcmUgY2xvY2tzIGFyZSBlbmFibGVk
-IGJlbG93LiBJZiBhbg0KPiBpbnRlcnJ1cHQgaXMgcGVuZGluZyBmcm9tIGEgcHJpb3IgYm9vdCBz
-dGFnZSwgd2lsbCBzdGFyZml2ZV90cm5nX2lycSgpIGZpcmUNCj4gaW1tZWRpYXRlbHkgYW5kIGF0
-dGVtcHQgdG8gcmVhZCBTVEFSRklWRV9JU1RBVCB3aGlsZSBjbG9ja3MgYXJlIHN0aWxsIGdhdGVk
-IG9mZiwNCj4gcG90ZW50aWFsbHkgdHJpZ2dlcmluZyBhIGJ1cyBmYXVsdD8NCg0KVGhlcmUgc2hv
-dWxkIGJlIG5vIHByb2JsZW0gaGVyZS4gQWZ0ZXIgZGV2bV9yZXF1ZXN0X2lycSBhbmQgYmVmb3Jl
-IHRoZSBjbG9jayBpcyBlbmFibGVkLA0KdGhlIGRyaXZlciBkaWQgbm90IGluaXRpYWxpemUgdGhl
-IFRSTkcgaGFyZHdhcmUsIHNvIGl0IHdpbGwgbm90IHRyaWdnZXIgYW4gaW50ZXJydXB0LiBUaGUg
-VFJORyBoYXJkd2FyZSBpcyBpbml0aWFsaXplZCBpbiBybmcuaW5pdA0KDQo+IA0KPiBBZGRpdGlv
-bmFsbHksIGRvZXMgc3RhcmZpdmVfdHJuZ19pcnEoKSBuZWVkIHRvIGNoZWNrIHRoZSBQTSBzdGF0
-ZSB1c2luZw0KPiBwbV9ydW50aW1lX2dldF9pZl9hY3RpdmUoKSBiZWZvcmUgYWNjZXNzaW5nIHJl
-Z2lzdGVycz8gSWYgYSBzcHVyaW91cyBvciBkZWxheWVkDQo+IGludGVycnVwdCBmaXJlcyB3aGls
-ZSB0aGUgZGV2aWNlIGlzIHJ1bnRpbWUgc3VzcGVuZGVkLCB0aGUgaGFuZGxlciBjdXJyZW50bHkN
-Cj4gcmVhZHMgcmVnaXN0ZXJzIHVuY29uZGl0aW9uYWxseS4NCg0KVGhpcyBpcyBhIGdyZWF0IHN1
-Z2dlc3Rpb24uIEkgaGF2ZSBhbHJlYWR5IGFkZGVkIGl0IHRvIHRoZSBjb2RlLiBUaGFuayB5b3Ug
-Zm9yIHRoZSByZW1pbmRlcg0KDQo+IA0KPiBbIC4uLiBdDQo+ID4gIAlwbV9ydW50aW1lX3VzZV9h
-dXRvc3VzcGVuZCgmcGRldi0+ZGV2KTsNCj4gPiAgCXBtX3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5k
-X2RlbGF5KCZwZGV2LT5kZXYsIDEwMCk7DQo+ID4gKwlwbV9ydW50aW1lX3NldF9hY3RpdmUoJnBk
-ZXYtPmRldik7DQo+ID4gIAlwbV9ydW50aW1lX2VuYWJsZSgmcGRldi0+ZGV2KTsNCj4gPg0KPiA+
-IC0JcmV0ID0gZGV2bV9od3JuZ19yZWdpc3RlcigmcGRldi0+ZGV2LCAmdHJuZy0+cm5nKTsNCj4g
-PiAtCWlmIChyZXQpIHsNCj4gPiAtCQlwbV9ydW50aW1lX2Rpc2FibGUoJnBkZXYtPmRldik7DQo+
-ID4gLQ0KPiA+IC0JCXJlc2V0X2NvbnRyb2xfYXNzZXJ0KHRybmctPnJzdCk7DQo+ID4gLQkJY2xr
-X2Rpc2FibGVfdW5wcmVwYXJlKHRybmctPmFoYik7DQo+ID4gLQkJY2xrX2Rpc2FibGVfdW5wcmVw
-YXJlKHRybmctPmhjbGspOw0KPiA+ICsJcmV0ID0gZGV2bV9hZGRfYWN0aW9uX29yX3Jlc2V0KCZw
-ZGV2LT5kZXYsIHN0YXJmaXZlX3RybmdfcmVsZWFzZSwNCj4gPiArdHJuZyk7DQo+IA0KPiBEZXZy
-ZXMgYWN0aW9ucyBleGVjdXRlIGluIHJldmVyc2Ugb3JkZXIgb2YgY3JlYXRpb24uIFNpbmNlDQo+
-IGRldm1fcmVxdWVzdF9pcnEoKSBpcyBjYWxsZWQgYmVmb3JlIGRldm1fYWRkX2FjdGlvbl9vcl9y
-ZXNldCgpLCB3b24ndA0KPiBzdGFyZml2ZV90cm5nX3JlbGVhc2UoKSBydW4gZmlyc3QgZHVyaW5n
-IGRldmljZSB1bmJpbmQgYW5kIGRpc2FibGUgdGhlIGNsb2NrcywNCj4gbGVhdmluZyB0aGUgSVJR
-IGFjdGl2ZT8NCj4gDQo+IElmIGFuIGludGVycnVwdCBmaXJlcyBkdXJpbmcgdGhpcyB3aW5kb3cs
-IHdvdWxkbid0IGl0IGNhdXNlIGEgYnVzIGZhdWx0IHdoZW4gdGhlDQo+IGhhbmRsZXIgcmVhZHMg
-ZnJvbSBhIGNsb2NrLWdhdGVkIElQPw0KDQpUaGlzIGlzc3VlIHNob3VsZCBleGlzdCwgYW5kIGlu
-IGZ1dHVyZSB2ZXJzaW9ucywgSSB3aWxsIHR1cm4gb2ZmIGludGVycnVwdHMgbGlrZSBDbGVhbnVw
-IGFuZCB0aGVuIHR1cm4gb2ZmIHRoZSBjbG9jaw0KDQo+IC0tDQo+IFNhc2hpa28gQUkNCj4gcmV2
-aWV3IMK3IGh0dHBzOi8vc2FzaGlrby5kZXYvIy9wYXRjaHNldC8yMDI2MDUxODA2NTI0My4yMDg2
-NS0xLWxpYW5mZW5nLm91DQo+IHlhbmdAc3RhcmZpdmV0ZWNoLmNvbT9wYXJ0PTINCg==
+=E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 13:51 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> The Nuvoton MA35D1 SoC integrates a Verisilicon DCU Lite display
+> controller.=C2=A0 While its register layout is broadly similar to the
+> DC8200,
+> several differences require dedicated hardware ops:
+>=20
+> 1. No CONFIG_EX commit path: framebuffer updates use enable (bit 0)
+> and
+> =C2=A0=C2=A0 reset (bit 4) bits in FB_CONFIG instead of the DC8200 stagin=
+g
+> registers
+> =C2=A0=C2=A0 (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG=
+,
+> =C2=A0=C2=A0 PANEL_CONFIG_EX).
+>=20
+> 2. No PANEL_START register: panel output starts when
+> =C2=A0=C2=A0 PANEL_CONFIG.RUNNING is set; no multi-display sync start reg=
+ister
+> =C2=A0=C2=A0 is used.
+>=20
+> 3. Different IRQ registers: DCU Lite uses DISP_IRQ_STA (0x147C) /
+> =C2=A0=C2=A0 DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
+> =C2=A0=C2=A0 TOP_IRQ_EN (0x0014).
+>=20
+> 4. Per-frame commit cycle: DCU Lite requires the VALID bit in
+> FB_CONFIG
+> =C2=A0=C2=A0 to be set at the start of each atomic commit (crtc_begin) an=
+d
+> cleared
+> =C2=A0=C2=A0 after (crtc_flush).
+>=20
+> 5. Simpler clock topology: only "core" (bus gate) and "pix0" (pixel
+> =C2=A0=C2=A0 divider) clocks; no axi or ahb clocks.=C2=A0 Make axi_clk an=
+d ahb_clk
+> =C2=A0=C2=A0 optional (devm_clk_get_optional_enabled) so DCU Lite nodes w=
+ithout
+> =C2=A0=C2=A0 those clocks are handled gracefully.
+>=20
+> Add vs_dcu_lite.c implementing the vs_dc_funcs vtable for the above
+> differences.=C2=A0 After chip identity detection, vs_dc_probe() now
+> selects
+> vs_dcu_lite_funcs when the identified model is VSDC_MODEL_DCU_LITE
+> (model register reads 0, revision 0x5560, customer_id 0x305).
+>=20
+> Extend Kconfig to allow building on ARCH_MA35 platforms.
+>=20
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/verisilicon/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+|=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 9 ++-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dcu_lite.c | 78
+> +++++++++++++++++++++++
+> =C2=A05 files changed, 87 insertions(+), 5 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dcu_lite.c
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/Kconfig
+> b/drivers/gpu/drm/verisilicon/Kconfig
+> index 7cce86ec8603..295d246eb4b4 100644
+> --- a/drivers/gpu/drm/verisilicon/Kconfig
+> +++ b/drivers/gpu/drm/verisilicon/Kconfig
+> @@ -2,7 +2,7 @@
+> =C2=A0config DRM_VERISILICON_DC
+> =C2=A0	tristate "DRM Support for Verisilicon DC-series display
+> controllers"
+> =C2=A0	depends on DRM && COMMON_CLK
+> -	depends on RISCV || COMPILE_TEST
+> +	depends on RISCV || ARCH_MA35 || COMPILE_TEST
+> =C2=A0	select DRM_BRIDGE_CONNECTOR
+> =C2=A0	select DRM_CLIENT_SELECTION
+> =C2=A0	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/verisilicon/Makefile
+> b/drivers/gpu/drm/verisilicon/Makefile
+> index f4fbd9f7d6a2..bf88f627e65c 100644
+> --- a/drivers/gpu/drm/verisilicon/Makefile
+> +++ b/drivers/gpu/drm/verisilicon/Makefile
+> @@ -1,5 +1,5 @@
+> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
+> =C2=A0
+> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
+> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_dcu_lite.o vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
+> =C2=A0
+> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
+> b/drivers/gpu/drm/verisilicon/vs_dc.c
+> index c94957024189..77bc63c629f7 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device
+> *pdev)
+> =C2=A0		return PTR_ERR(dc->core_clk);
+> =C2=A0	}
+> =C2=A0
+> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
+> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
+> =C2=A0	if (IS_ERR(dc->axi_clk)) {
+> =C2=A0		dev_err(dev, "can't get axi clock\n");
+> =C2=A0		return PTR_ERR(dc->axi_clk);
+> =C2=A0	}
+> =C2=A0
+> -	dc->ahb_clk =3D devm_clk_get_enabled(dev, "ahb");
+> +	dc->ahb_clk =3D devm_clk_get_optional_enabled(dev, "ahb");
+> =C2=A0	if (IS_ERR(dc->ahb_clk)) {
+> =C2=A0		dev_err(dev, "can't get ahb clock\n");
+> =C2=A0		return PTR_ERR(dc->ahb_clk);
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
+> *pdev)
+> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
+> >identity.model,
+> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
+> =C2=A0
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.model =3D=3D VSDC_MODEL_DC8200)
+
+Don't do that. The model value is only for matching hardware values,
+not for detecting what's present. Don't forget that DC8000 has a model
+value of 0x8000, but behaves similarly with DCUltraLite with a model
+value of 0x0.
+
+I suggest adding another field for assigning helper functions.
+
+My suggestion is here:
+
+```
+enum vs_dc_generation {
+	VSDC_GEN_DC8000,
+	VSDC_GEN_DC8200
+};
+```
+
+Thanks,
+Icenowy
+
+> +		dc->funcs =3D &vs_dc8200_funcs;
+> +	else
+> +		dc->funcs =3D &vs_dcu_lite_funcs;
+> =C2=A0
+> =C2=A0	if (port_count > dc->identity.display_count) {
+> =C2=A0		dev_err(dev, "too many downstream ports than HW
+> capability\n");
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
+> b/drivers/gpu/drm/verisilicon/vs_dc.h
+> index 45172c1a525c..d77d4a1babdf 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
+> @@ -66,5 +66,6 @@ struct vs_dc {
+> =C2=A0};
+> =C2=A0
+> =C2=A0extern const struct vs_dc_funcs vs_dc8200_funcs;
+> +extern const struct vs_dc_funcs vs_dcu_lite_funcs;
+> =C2=A0
+> =C2=A0#endif /* _VS_DC_H_ */
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
+> b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
+> new file mode 100644
+> index 000000000000..11ef57d5ebaa
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
+> @@ -0,0 +1,78 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
+> + */
+> +
+> +#include <linux/regmap.h>
+> +
+> +#include "vs_crtc_regs.h"
+> +#include "vs_dc.h"
+> +#include "vs_primary_plane_regs.h"
+> +
+> +static void vs_dcu_lite_bridge_enable(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dcu_lite_bridge_disable(struct vs_dc *dc, unsigned
+> int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dcu_lite_crtc_begin(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dcu_lite_crtc_flush(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dcu_lite_crtc_enable(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dcu_lite_crtc_disable(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dcu_lite_enable_vblank(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static void vs_dcu_lite_disable_vblank(struct vs_dc *dc, unsigned
+> int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			=C2=A0 VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static u32 vs_dcu_lite_irq_handler(struct vs_dc *dc)
+> +{
+> +	u32 irqs;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
+> +	return irqs;
+> +}
+> +
+> +const struct vs_dc_funcs vs_dcu_lite_funcs =3D {
+> +	.bridge_enable		=3D vs_dcu_lite_bridge_enable,
+> +	.bridge_disable		=3D
+> vs_dcu_lite_bridge_disable,
+> +	.crtc_begin		=3D vs_dcu_lite_crtc_begin,
+> +	.crtc_flush		=3D vs_dcu_lite_crtc_flush,
+> +	.crtc_enable		=3D vs_dcu_lite_crtc_enable,
+> +	.crtc_disable		=3D vs_dcu_lite_crtc_disable,
+> +	.enable_vblank		=3D vs_dcu_lite_enable_vblank,
+> +	.disable_vblank		=3D
+> vs_dcu_lite_disable_vblank,
+> +	.irq_handler		=3D vs_dcu_lite_irq_handler,
+> +};
+
