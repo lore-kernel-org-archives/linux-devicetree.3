@@ -1,334 +1,214 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A84327C18
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:45:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779191162; cv=pass; b=rGQFvggPAScQosLxGs4atr+hxeT6QhULkfh1V7A5Hue5lcVsNoolr82Fyv7AV+QmTAF5uPplFcq8t+ZjC3pzauWeffx7tDThlQrWAssr5nnqGtTctHIC+mZ2A8cHTycDa/F53BJiWSKG3HDQa7cKbmTCtAPzEOxAYwguLXC6RrM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779191162; c=relaxed/simple;
-	bh=A8+zKWqKk7YrwMcoc1LvkIW72eVnzUrlq3AoF3y+mTw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SiZSP+F8qHaP33hKVK4MNUcJ0zFXcHuSBwu8aIBdhBlAGBCJKcZy1cjEGkAJQNVHYfWv3TaApC8CrOLRWBFfTb4jYezlwodnHyMiTr5wz77XHzx6O8RxVmbokA5ssClElcW8pmWyfo08Tf0ba9yFqjY6ENi73RJfgnHRmpfUyzA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RkvvLwi6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=k2gBkXHc; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8DF330652
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 11:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779191258; cv=none; b=ow5idugSvXjCOmLxS++MtbhC6HRYkImgAjdj1J3gNyy2PdqmAYakNTdb1qL6QlTP3hvL+JAnteVILBM8V/8YbG1ZZzDP+mCLuHYb6Qy5rn+GArMU6+gYxG1HTR0odR2hu2LtIWVSLBdGghYdQto21wPY0BHhz/reMkuynrQPN0M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779191258; c=relaxed/simple;
+	bh=edZUHM4oy/ZnaWenXyHT3ZSTtu52A/pGcuZ62FCM+n8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XVuCHGW4v0unlPqrxcpQL5oQOkp0z0zEDWik0FBAKdrR+r5iGMAURYFro9bTh7yIu/jP2rXevXXmDjC3h+fRXb/C2B9ReBA0APKCmcrj05RHWCCUaAzKRNlRyNSEUkcSVmiz0pPlJLG3NflQSbErd36ThtVvyAgCnNPwC/JX5PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnDhVVYX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RkvvLwi6";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="k2gBkXHc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779191158;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
-	b=RkvvLwi6oKBoYv8bKoVGvXWTJLyJQSJodNFOc/NPrZT4qguYgOhvuBPvv4WJbgG2Lxip2M
-	LagDehDvzq/zvTB4kcUQCRJpHVsrKy+1dnpsAH+ErqXcofIwM+2wBT1trX119oyc8SNP8w
-	B6zVBNLY+UXWF+fV/wJJx48nR/s+qqI=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-653-t7y0RizOMnyAMkPHKYyAuQ-1; Tue, 19 May 2026 07:45:57 -0400
-X-MC-Unique: t7y0RizOMnyAMkPHKYyAuQ-1
-X-Mimecast-MFC-AGG-ID: t7y0RizOMnyAMkPHKYyAuQ_1779191156
-Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5a8d72e2f0aso247149e87.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 04:45:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779191156; cv=none;
-        d=google.com; s=arc-20240605;
-        b=M5FmaH3WKotKv3X0fUwTwbjTptZQTYNRvNfZVD4Ujdz+mwfm+iEk2HoI4MmfTJekOr
-         bmV1L6vwNpvH9g/lZldP+iqniz0RbYT4sv6eWr7Op8UXRkOvC2zor2nw9nZhuU7yDDE+
-         ZULzvw+TqbONBZngzTpUodv4oUknUyuO7//CnjHLqu4/hZD+170+zxo2IBtV/71Yo6Sm
-         JQIBA2UfQrmQowddcZGupmjV2cLKrD5Ie9UN/fZaMkPPDSbZf2IVYRqYPj1KH4P07NmP
-         GxSLPG/DnHdHKShAUKoCbvIyJ4wK37XamJGI7+qBWcqwwxKIh8F935kDjOZh1RlNmN8V
-         k2Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
-        fh=O/VqEOoQUtr/+eQaOB0YDGGRDhxzRswTe+EsWz+aW+I=;
-        b=VkcHXsLnJuoYn7o78rd00Uhd8WUrzURtUftF2fRAAUZZB8FoQ/ANuoa3uUrBwiNwxK
-         blJjBQfHPgfwY7uTJvbuy2LVBXZvuo7cG5sI1iLKO3xKlKeGBVyJCTEKZP+1I4oJNNkZ
-         rVJAN9T83cTtPij2n/GbgJPY0eGE9tir+jLLgvrVi9eN2lXcfZPlOBTwn7Ai82LhePE+
-         4XCvniWa797phNZ6WKbnfaCUFNXwX0fXDivNMDY0ThmYEX/DfdW263gdMi9FzMmePBa7
-         hvrUc2VIRKpKSCFwJfFJvnjTaOQr+VklpC7ole0Xq9D9/1yXspGXSbn3++ZcpCWtCHVb
-         Lvzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1779191156; x=1779795956; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
-        b=k2gBkXHcfEQbfBka4XPZCMknDdmWT6tB2Xpf+C4IH7aHkDnkd4CZlZTWsRCLPXA9PO
-         DC/TTNbQNTi0mlw9T4KoH/ebUKyQN/LOqAhgwtfDrjrfPtkuiV12j4BQ2Yx5ScD8cjb1
-         aFiH0Ndj42fyV6RvLbFwmsQzB4AE1k8FQtRKAIEvqQ/6soPCqKs8gOnlqHuL1nvnnzOF
-         s7RYpamUhwXIucFAIuH9cmTxuHWDH07LjMNT2FnvChkTf2qxPk8cTRSgpajgGt2/Jde2
-         ivgTUA9xYRiKfVZCIi0yvMyfKJ1XaApc+cxgzisg10hZofq5gBeZbkxF6JFzqXcly2su
-         /24g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779191156; x=1779795956;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nbjFHJj+U7uIM+Cg25ETbUEUNoe3mdFwTNg+mtbLNPk=;
-        b=n+BdeD7ZCfDpN50iqeYNHmPjUkz8ri7RLD2JIob19vW4orMPx9W82VB99PVIDhLs+/
-         FYl78Dwd3V/shEsnI8ivOY1U1l8GOEEPh5nXroEKxhfK6ALN99YH4G3F3jINEpblEImp
-         s0QjeECJDj1Xr5IQsGH9NbQifLnJo25DgVy8eI984bEO68MA8NedgibjalenHaBy+Kqy
-         B+CUTfCjhc2wTczFc3Iy/kXmi7uVQCuOkTwgl9sLw+Jym0/FCxEyU84gWee57GJlYOJl
-         UL/LbnGvcgPnvZ9oMaZs2uYQ4aeiO/GE3nn6PMv5tgWf+atvgx7Pi6iegva/OfhJ0AX2
-         WhlA==
-X-Forwarded-Encrypted: i=1; AFNElJ84+lssgXmxhVnkVN9TY2tiZT+mChOt+YC5i+iwn493D3nq5Zo1Ji0B+gEFOxYZKZmTSIQ2pTrH6QnU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6tFaGDzfspXeKIYys1PHwblKs77Iynnx+QtUtQTFQtGWpTvlU
-	028iulWAFbxvw7EEbkO9hewy2tycwK1NbrsYcUUUcdruy4TRhNCA4fsd+eeQwdPOpQFBly9N+lc
-	CNYwCpaX1+PXIG9CtZuw1D/6XKEhK4UYNb4ZajVN0wZx2TFfGG8kQ2CDeESVRJLXCwIcaH/cfgn
-	C78As4+Tkee8DXHXV+81pfxZ3NW4mRQvSHGoqYbQ==
-X-Gm-Gg: Acq92OEBEtGQ0iatJ/2MPyzBBw4pnEMFHaYBtjEngJqkRiCv4G50+GfxqrWoyoXGQX8
-	1Q6XU51CPEuYSFF59X5psPjkER4eFC9ocTA3dGTLt87DBesLH1i9dmoydzcVbk3vBM8fQcTgK3+
-	MLILBW46u9dc3OwlYa+fU8530PmfCl94zjNolLdygLJX0XOyDyUotFZBUFx6rgcNMBABJyT2/WF
-	zghhw==
-X-Received: by 2002:a05:651c:548:b0:393:9110:fbac with SMTP id 38308e7fff4ca-39561d12c2cmr26805871fa.1.1779191156020;
-        Tue, 19 May 2026 04:45:56 -0700 (PDT)
-X-Received: by 2002:a05:651c:548:b0:393:9110:fbac with SMTP id
- 38308e7fff4ca-39561d12c2cmr26805691fa.1.1779191155534; Tue, 19 May 2026
- 04:45:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnDhVVYX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70CD0C2BCB3;
+	Tue, 19 May 2026 11:47:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779191257;
+	bh=edZUHM4oy/ZnaWenXyHT3ZSTtu52A/pGcuZ62FCM+n8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=cnDhVVYX2B/4xBARtG6J89RTM1E5ruIlMT5A/kOSV9hPHHL4suxJ/B6e1ztgE/OQt
+	 m5b1avlSw0e3eVVwPLdfbBiWndTiIc84D+KVCzAKymONbqL4epYSiOZLlqOYGUTVnA
+	 69b2M26Z7zbNFNgf6W1Szdt2EqSFGmKSLI/KLGyqD9rcGNWIeKDMksrCUdZIbFkhyt
+	 qnI+nbyBj7oDDIBSNMXPUY0P6nKRqVmp/Aor/oyqrJx6cP+5JmYJluLxvWbFjP9BJg
+	 HgfWTzMiG5O421WLdNfe9L/8ad+nE9ZLz+jbs2CxKX9mYHLNLtO71EB4J7ABaTLxvZ
+	 ir1Ym0fD4lZSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/5] arm64: dts: qcom: Introduce Shikra SoC base dtsi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260519-shikra-dt-v2-2-c01b90fb4395@oss.qualcomm.com>
+References: <20260519-shikra-dt-v2-2-c01b90fb4395@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 11:47:36 +0000
+Message-Id: <20260519114737.70CD0C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260518061522.2884441-1-khristineandreea.barbulescu@oss.nxp.com> <20260518061522.2884441-2-khristineandreea.barbulescu@oss.nxp.com>
-In-Reply-To: <20260518061522.2884441-2-khristineandreea.barbulescu@oss.nxp.com>
-From: Enric Balletbo i Serra <eballetb@redhat.com>
-Date: Tue, 19 May 2026 13:45:44 +0200
-X-Gm-Features: AVHnY4IsU7fSSnNgUDdmrpcWXb8rpRp3nIWviV63aNNWwk4kg6ZdkU34h4HNbeA
-Message-ID: <CALE0LRtt8w6cAoCqKt-9YCuvjbVE95NdQPq3gXqRg-jhxKO4HA@mail.gmail.com>
-Subject: Re: [PATCH 1/1] arm64: dts: Add usbphynop and usbotg pinctrl for S32G platforms
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-Cc: Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-kernel@lists.infradead.org, 
-	imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	NXP S32 Linux <s32@nxp.com>, Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] Incorrect PPI numbers are specified for the ARM architected ti=
+mers and GIC maintenance interrupts.
+- [High] The base memory node specifies an incorrect start address, obscuri=
+ng 512MB of DDR system RAM and breaking reservations.
+- [Medium] The `sdhc_1` node incorrectly references a power domain specific=
+ to a different SoC.
+- [Medium] The logical `cpu-map` splits CPUs into two clusters, contradicti=
+ng physical MPIDR topology and shared cache.
+- [Medium] The `usb_1` node is missing MPM-routed interrupts for USB 2.0 wa=
+ke from deep sleep.
+--
 
-Thank you for the patch.
+commit 32b9841bdefaa72fe3d5267070711875edaaafa0
+Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-On Mon, May 18, 2026 at 8:15=E2=80=AFAM Khristine Andreea Barbulescu
-<khristineandreea.barbulescu@oss.nxp.com> wrote:
->
-> Add the usbphynop node and the usbotg pinctrl
-> support for the S32G2 and S32G3 SoCs.
->
-> This enables the USB controller to reference the
-> generic PHY and use the required pinmux for USB OTG ops.
->
-> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@=
-oss.nxp.com>
-> ---
->  .../boot/dts/freescale/s32gxxxa-evb.dtsi      | 53 ++++++++++++++++++-
->  .../boot/dts/freescale/s32gxxxa-rdb.dtsi      | 53 ++++++++++++++++++-
->  2 files changed, 104 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi b/arch/arm64=
-/boot/dts/freescale/s32gxxxa-evb.dtsi
-> index 803ff4531077..d096744cdb0f 100644
-> --- a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
-> @@ -1,12 +1,19 @@
->  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
->  /*
-> - * Copyright 2024 NXP
-> + * Copyright 2024, 2026 NXP
->   *
->   * Authors: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
->   *          Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
->   *          Larisa Grigore <larisa.grigore@nxp.com>
->   */
->
-> +/ {
-> +       usbphynop: usbphynop {
-> +               compatible =3D "usb-nop-xceiv";
-> +               #phy-cells =3D <0>;
-> +       };
+arm64: dts: qcom: Introduce Shikra SoC base dtsi
+
+Add initial device tree support for the Qualcomm Shikra SoC, an
+IoT-focused platform built around a heterogeneous CPU cluster
+(Cortex-A55 + Cortex-A78C) with RPM-based power and clock management.
+
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> new file mode 100644
+> index 0000000000000..31d0126e5b3ee
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> @@ -0,0 +1,981 @@
+
+[ ... ]
+
+> +		cpu-map {
+> +			cluster0 {
+> +				core0 {
+> +					cpu =3D <&cpu0>;
+> +				};
+> +
+> +				core1 {
+> +					cpu =3D <&cpu1>;
+> +				};
+> +
+> +				core2 {
+> +					cpu =3D <&cpu2>;
+> +				};
+> +			};
+> +
+> +			cluster1 {
+> +				core0 {
+> +					cpu =3D <&cpu3>;
+> +				};
+> +			};
+> +		};
+
+Is this logical topology misaligned with the physical MPIDR topology?
+
+The CPU reg values (0x0, 0x100, 0x200, 0x300) have their Aff2 bits set to 0,
+meaning they physically reside in the same cluster. The A55 cores and A78C
+core also share the same L3 cache.
+
+Does splitting cpu0-cpu2 into cluster0 and cpu3 into cluster1 violate
+DynamIQ specifications and confuse the scheduler's task migration and
+domains?
+
+[ ... ]
+
+> +	memory@a0000000 {
+> +		device_type =3D "memory";
+> +		/* We expect the bootloader to fill in the size */
+> +		reg =3D <0x0 0xa0000000 0x0 0x0>;
+> +	};
+
+Is this base address correct?
+
+The reserved-memory list allocates memory regions well below this address,
+such as hyp@80000000 and smem@86000000.
+
+Does starting the system RAM at 0xa0000000 cause the kernel to disregard the
+0x80000000-0x9fffffff region, effectively losing 512MB of RAM and
+potentially causing the reservations to fail?
+
+[ ... ]
+
+> +		sdhc_1: mmc@4744000 {
+> +			compatible =3D "qcom,shikra-sdhci", "qcom,sdhci-msm-v5";
+> +
+> +			reg =3D <0x0 0x04744000 0x0 0x1000>,
+
+[ ... ]
+
+> +			interconnects =3D <&system_noc MASTER_SDCC_1 RPM_ALWAYS_TAG
+> +					&mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>,
+> +					<&mem_noc MASTER_AMPSS_M0 RPM_ACTIVE_TAG
+> +					&config_noc SLAVE_SDCC_1 RPM_ACTIVE_TAG>;
+> +			interconnect-names =3D "sdhc-ddr",
+> +					     "cpu-sdhc";
+> +
+> +			power-domains =3D <&rpmpd QCM2290_VDDCX>;
+
+Is this a copy-paste error?
+
+The gcc node correctly uses the generic or Shikra-specific RPMPD_VDDCX.
+
+Could referencing a QCM2290-specific power domain macro here result in the
+hardware attempting to scale the wrong voltage domain or cause an
+out-of-bounds array access in the driver?
+
+[ ... ]
+
+> +		usb_1: usb@4e00000 {
+> +			compatible =3D "qcom,shikra-dwc3", "qcom,snps-dwc3";
+> +			reg =3D <0x0 0x04e00000 0x0 0xfc100>;
+> +
+> +			clocks =3D <&gcc GCC_CFG_NOC_USB3_PRIM_AXI_CLK>,
+
+[ ... ]
+
+> +			interrupts-extended =3D <&intc GIC_SPI 255 IRQ_TYPE_LEVEL_HIGH 0>,
+> +					      <&intc GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH 0>,
+> +					      <&intc GIC_SPI 260 IRQ_TYPE_LEVEL_HIGH 0>,
+> +					      <&intc GIC_SPI 254 IRQ_TYPE_LEVEL_HIGH 0>,
+> +					      <&mpm 12 IRQ_TYPE_LEVEL_HIGH>;
+
+Is this missing MPM-routed interrupts for USB 2.0 wake from deep sleep?
+
+The mpm node explicitly maps pins 90 and 91 for QUSB2_PHY DM and DP, but
+usb_1 does not include them here.
+
+Because the main GIC is powered down during deep sleep, will USB 2.0 devices
+be incapable of waking the system from suspend without these interrupts?
+
+[ ... ]
+
+> +		intc: interrupt-controller@f200000 {
+> +			compatible =3D "arm,gic-v3";
+> +			reg =3D <0x0 0xf200000 0x0 0x10000>,
+> +			      <0x0 0xf240000 0x0 0x80000>;
+> +
+> +			interrupts =3D <GIC_PPI 8 IRQ_TYPE_LEVEL_HIGH 0>;
+
+Is this the correct PPI for the GIC maintenance interrupt?
+
+The architecturally mandated GIC maintenance interrupt is PPI 9, rather than
+PPI 8.
+
+[ ... ]
+
+> +	timer {
+> +		compatible =3D "arm,armv8-timer";
+> +
+> +		interrupts =3D <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW 0>,
+> +			     <GIC_PPI 2 IRQ_TYPE_LEVEL_LOW 0>,
+> +			     <GIC_PPI 3 IRQ_TYPE_LEVEL_LOW 0>,
+> +			     <GIC_PPI 0 IRQ_TYPE_LEVEL_LOW 0>;
+> +	};
 > +};
 
-I'm wondering if it it would be more appropriate in the SoC-level dtsi
-(s32g2.dtsi/s32g3.dtsi), similar to other Freescale boards,it doesn't
-represent any board-specific hardware but a virtual NOP transceiver
-used by the SoC.
+Are these PPI numbers correct for the ARM architected timers?
 
-> +
->  &pinctrl {
->         can0_pins: can0-pins {
->                 can0-grp0 {
-> @@ -245,6 +252,39 @@ dspi5-grp4 {
->                         bias-pull-up;
->                 };
->         };
-> +
-> +       usbotg_pins: usbotg_pins {
-> +               usbotg_grp0 {
+The architecturally hardwired ARM core timer PPIs are 13 (Secure),
+14 (Non-Secure), 11 (Virtual), and 10 (Hypervisor).
 
-The label can remain usbotg_pins but node names should use hyphens
+Could specifying these incorrect numbers prevent the kernel from receiving
+timer ticks and cause the system to hang during boot?
 
-usbotg_pins: usbotg-pins {
-    usbotg-grp0 {
-
-You can run this to catch this kind of issues:
-
-make W=3D1 CHECK_DTBS=3Dy ARCH=3Darm64 CROSS_COMPILE=3Daarch64-linux-gnu-
-freescale/s32g399a-rdb3.dtb
-
-
-> +                       pinmux =3D <0x3802>, <0x3812>,
-> +                               <0x3822>, <0x3832>,
-> +                               <0x3842>, <0x3852>,
-> +                               <0x3862>, <0x3872>,
-> +                               <0x37f2>, <0x3882>,
-> +                               <0x3892>;
-> +               };
-> +
-> +               usbotg_grp1 {
-> +                       pinmux =3D <0x3e1>, <0x3f1>,
-> +                               <0x401>, <0x411>,
-> +                               <0xbc1>, <0xbd1>,
-> +                               <0xbe1>, <0x701>;
-> +                       output-enable;
-> +                       input-enable;
-> +                       slew-rate =3D <208>;
-> +               };
-> +
-> +               usbotg_grp2 {
-> +                       pinmux =3D <0xb80>, <0xb90>, <0xbb0>;
-> +                       input-enable;
-> +                       slew-rate =3D <208>;
-> +               };
-> +
-> +               usbotg_grp3 {
-> +                       pinmux =3D <0xba1>;
-> +                       output-enable;
-> +                       slew-rate =3D <208>;
-> +               };
-> +       };
->  };
->
->  &can0 {
-> @@ -304,3 +344,14 @@ &spi5 {
->         pinctrl-names =3D "default";
->         status =3D "okay";
->  };
-> +
-> +&usbmisc {
-> +       status =3D "okay";
-> +};
-> +
-> +&usbotg {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&usbotg_pins>;
-> +       fsl,usbphy =3D <&usbphynop>;
-
-According to the binding this option is deprecated. Could you use
-"phys" instead?
-
-> +       status =3D "okay";
-> +};
-> diff --git a/arch/arm64/boot/dts/freescale/s32gxxxa-rdb.dtsi b/arch/arm64=
-/boot/dts/freescale/s32gxxxa-rdb.dtsi
-> index 979868f6d2c5..b756bcf6469d 100644
-> --- a/arch/arm64/boot/dts/freescale/s32gxxxa-rdb.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/s32gxxxa-rdb.dtsi
-> @@ -1,12 +1,19 @@
->  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
->  /*
-> - * Copyright 2024 NXP
-> + * Copyright 2024, 2026 NXP
->   *
->   * Authors: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
->   *          Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
->   *          Larisa Grigore <larisa.grigore@nxp.com>
->   */
->
-> +/ {
-> +       usbphynop: usbphynop {
-> +               compatible =3D "usb-nop-xceiv";
-> +               #phy-cells =3D <0>;
-> +       };
-> +};
-> +
->  &pinctrl {
->         can0_pins: can0-pins {
->                 can0-grp0 {
-> @@ -199,6 +206,39 @@ dspi5-grp4 {
->                         bias-pull-up;
->                 };
->         };
-> +
-> +       usbotg_pins: usbotg_pins {
-> +               usbotg_grp0 {
-
-ditto
-
-> +                       pinmux =3D <0x3802>, <0x3812>,
-> +                               <0x3822>, <0x3832>,
-> +                               <0x3842>, <0x3852>,
-> +                               <0x3862>, <0x3872>,
-> +                               <0x37f2>, <0x3882>,
-> +                               <0x3892>;
-> +               };
-> +
-> +               usbotg_grp1 {
-> +                       pinmux =3D <0x3e1>, <0x3f1>,
-> +                               <0x401>, <0x411>,
-> +                               <0xbc1>, <0xbd1>,
-> +                               <0xbe1>, <0x701>;
-> +                       output-enable;
-> +                       input-enable;
-> +                       slew-rate =3D <208>;
-> +               };
-> +
-> +               usbotg_grp2 {
-> +                       pinmux =3D <0xb80>, <0xb90>, <0xbb0>;
-> +                       input-enable;
-> +                       slew-rate =3D <208>;
-> +               };
-> +
-> +               usbotg_grp3 {
-> +                       pinmux =3D <0xba1>;
-> +                       output-enable;
-> +                       slew-rate =3D <208>;
-> +               };
-> +       };
->  };
->
->  &can0 {
-> @@ -257,3 +297,14 @@ &i2c4 {
->         pinctrl-1 =3D <&i2c4_gpio_pins>;
->         status =3D "okay";
->  };
-> +
-> +&usbmisc {
-> +       status =3D "okay";
-> +};
-> +
-> +&usbotg {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&usbotg_pins>;
-> +       fsl,usbphy =3D <&usbphynop>;
-
-ditto
-
-> +       status =3D "okay";
-> +};
-> --
-> 2.34.1
->
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-shikra-dt-=
+v2-0-c01b90fb4395@oss.qualcomm.com?part=3D2
