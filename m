@@ -1,172 +1,364 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721C33F4DD2
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 10:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779187833; cv=none; b=E5RS50pLP2nRGeb+yJUs07AVlWeer/BC+Cr1r7jr3aqX1uYzrjaHlk4wYVHfqXmHTveqWMahG0VDvOO0gNjLr+S2mTk70gHqu8JlP24P7LSNB+2KfkqkviSaYaC5ApPrKppHRRAZNeKCuCBr7JfTqD2tT4CNzdhuexr0r0egvLI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779187833; c=relaxed/simple;
-	bh=QkBvjzgzUPS7j6rbYYt0+plzzSIJ+yEdKR2h5bans+I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZsukTPh7/qQGbiruulgMRXxJ+1d9R0lf81C2VheUg9OVHmbWWvInp4yJS0eUsePdg4rMxWfJ6+dugFDh4lOcygZ4mCpXnA+9ih6IRV1mSV2982vCvZwMyBU4Xfignl6xNqKh+LPrINfPFEiGgxUa3OIUiDrhfIptan29TbJMn+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WZe77LZc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MCm1EZo9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BB1405C4B
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 10:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779187838; cv=pass; b=rXtpf43v4aya2I4PjyULPd30+c+43afoT6CKr3uGqCCDx+9cP9ZFKvh8D74Q/g/OrNrnjYlzh3RmI/M6n4SUWWSPNlWIhwa/YwtdHoA/rrg4YoNHkKfgjzKWWnBOIJhipQRnY61OnI+5mQle54YyPmGd8TZpnoufJzpjo7p4FS4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779187838; c=relaxed/simple;
+	bh=cyC64b1IdudV6BmVyvS2FCZeravUj92HSF7yWMV8NGg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lOMAFtFMivMvqDNf9q1ktQEg8NQ90Qvp0ZIEP3RJrVH434HqJ9ojoLVg8slPBixY2fmXt8clrvw/u3reyB3CDE2T+ZuhtWxsXsJE1WDSJY4SjCuOABXnhhTE+03kV5P2BuLylPq5GVRQLH1W2utSO7RRHOIgLLCuy5IaIQsIrm8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fnEswBOe; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gIBI4RV6; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WZe77LZc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MCm1EZo9"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JA8Jud4130457
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 10:50:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jD4A3DvHqusxb6pJNGa2ldrzXIBVdy3bObx9T0M3r9k=; b=WZe77LZctWPVbHmC
-	vPpddlNZhWFfM9Ue2oc1UBvOf6pMrLYI3iJs9GYi7NuCqTtfXYt3mBhBoQX7ZVV3
-	W1dWTqHETPMPBtHHPMrgq7Ulgquh+EqEIoTJwr/9hgQ+8/5GHyGnqSSZbvxWbtL2
-	tiAOzL8AqIxAOcZ/d4gx5msq4HxeXLOTXTdiTrnKj3FUuT5zpUq4RDyqRJN5pk2O
-	ufGhaq8giaj/nvs8wazW5NCli83ZjFDmu6wISfB1pbDnkrb6cP1e4Lr5iqhtVbNw
-	Dw9+ZhV3V+km0ZZp4qXbpLU2UKqXMAai36mmQ7SQV0vl12x47NbSF1Q8mDvtPXFY
-	sqKm6g==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8ht1hb6x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 10:50:31 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c828659ecd4so1510314a12.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 03:50:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fnEswBOe";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gIBI4RV6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1779187835;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
+	b=fnEswBOeNwTBUJsJQjwbZjXZi0BFIQsEhgjd3NBNfXPZMz3xpbBLK3JIw79jUT11G0zxdi
+	YxB5gOgU7WShXGdSFIFQYkO+TrVNzjymD0WUdVA1Ci4QybdJWVseAHbkcjjRetMN5dO5AW
+	7gM/sfbjEW94SH7YyHtTnhO895p3IIg=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-214-hE9T8xhmOGC-peGZ9lRtQQ-1; Tue, 19 May 2026 06:50:33 -0400
+X-MC-Unique: hE9T8xhmOGC-peGZ9lRtQQ-1
+X-Mimecast-MFC-AGG-ID: hE9T8xhmOGC-peGZ9lRtQQ_1779187832
+Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5a3fe53da58so92989e87.0
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 03:50:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779187832; cv=none;
+        d=google.com; s=arc-20240605;
+        b=h7QSk4+QvvnEfi773uCdbH7lfqT+n6c1bpD/yCsp5sFqke5AMCep6JDgJNkN7ejqWb
+         bKF2NtzGu8FzTycQYZaiK0gqFP9idbrs3bTu4ZM91cn7GuByDwBiMN6nQuCixgPukTBw
+         gcKRXvscDaS/TDw6wYNYBB0aUtmvympdbJtXY8Kcan40qavaLBEmkF9+f6dHuqNi5ADI
+         1OtTpgF6pbj4esF8+jdtnf6dAgZyQPYlRkOgODZi1a2gbojRseJMy4KTvPAah13WOpdW
+         l7smfrUV1rS1w8Is/VNdk1m+Yf0eMtU8wTzqMJI1889lCo1NmDRAcJ0UONIp6YJ/UuQl
+         +mvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
+        fh=xwF45ObcJZujdCxaYsrXk+DdF3Agf5QwCITIR4AOnzY=;
+        b=COcI4w95Evdb3rHPylrwPDOlP5VK8dp+QnyE9B5/xB3tFYUM6DR3mfZutjuJImtT/w
+         Fk5PTTZyRbORf5ld2/XUUXUGvMLjgBEXYzc3TiNPWUtcGzaVl+VstNSghJ6A2dCLq9Fh
+         arMa54tX+Zi15DGpKeixFlCooA5+lxtqEF0dXLewQzvhbwF9zVxAFsTt40aBcOIXxs1k
+         q5I/UYgsOX6w1fWhlzWlMm/PUgTUJx+anINOB4WnX3oRlJ/NyTTbw8euJmeP2kx5RX3x
+         fIbEL/NG+Npdwx7pCaKfFOAHds/uEznnwkceHxc4a+YshX2P74/xpMe+A7lqhxwSFIIv
+         J7kg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779187831; x=1779792631; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jD4A3DvHqusxb6pJNGa2ldrzXIBVdy3bObx9T0M3r9k=;
-        b=MCm1EZo9NZAdAp1loIb1RNLVY7iTL6Am5H9z/UGDVjlvh3nGzTTSVhcK4xXQvzVgU1
-         HtkL63l7PQfDBUoHfdy2iGZeN6B+3PPnYH6+ANHK+oC60MW1iBwA8jG55ci3YUQ+xKLV
-         7fphrFQFzlMeEWnSN6WWJf8wwJ3q5eKHUMkj3ZOK56Qs7XYt/7ZePr4fxCAm1Q6f6xUX
-         bMA49qY9dUYK6wfJTDAfTS1LRx5gvkw708bUa9H3YYtqENUUYYipIk2iV0e5BHh+z8+2
-         tm8Ao6YglCVJdAwF/uyp31we9HF/1VTQ/WUbbiDT5Nws0Hts/WeDGgoltGfADhj+xbCc
-         8O9g==
+        d=redhat.com; s=google; t=1779187832; x=1779792632; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
+        b=gIBI4RV68fM/B0DhDpJuML3g8Pi0XEUrEzOU7S3ZF97L6kZMRBvS9P0QFCnBkIW7ZQ
+         Vas4ya1PYktiYtAHYpbC/k8Ubr7d0zDWWfbdBu5xsjgHsT8ZdKCEOptQU4C31UlBdVmH
+         ZQv7E28iHvgWEVGzE+1xeR3e099blQ6JMiis5Z7Flnl685pFxC5EUmk4R8mcwcBoqaaQ
+         4vpnrQ0fMewlCgvPZcnOh4afNn8yhQg+gKFtmJahZZRZwSTd/dqZYrdWWctYXTfpmvD6
+         R9oP2JMpBj5wzmdcMLIqOl7ChGPEciBr/FZI4PlUTkxanoW+Gvntl4wpNSqeekiw5RzB
+         QrMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779187831; x=1779792631;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=jD4A3DvHqusxb6pJNGa2ldrzXIBVdy3bObx9T0M3r9k=;
-        b=plEM6RseV9hB9p+PCFxb95x8uZ6hYL7QYMSSeZkD/QFjlLgNyhCkH2LDXBCMGORKag
-         Lhosec1hFfZx5W8R0YVigtulIo5Ypm/0oCXxQUuXtt7wZTLp2VJiyxqR2ITnBQBWAmFf
-         AS5vSjjgalHYeJF5+VXgB/IR4d5URff5zJgtUVGHi10c/PL769PltXKeQ+u2Mv1fe2fq
-         gp32lgDP1BMvDBfse5N0U/apgb2eQQbvfEuy3Xq01g9jyDKVNC2WQS3zNF4q5p8135J8
-         Kg+BffX3jiyJaZyU3wqyJ27GoCCWESApCEq9m5X9NGXGf1pSgI8eKgMubkj71iPQSVRO
-         30NA==
-X-Forwarded-Encrypted: i=1; AFNElJ+vgbB8rKajJ+JuGPvkNGBWDZiDhoBqfn2E0TSIdyzVkJg+2x+t/E718V+11mojZ19W4DQiWd3vhsx+@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQEFoR/B7fgBalrSA9r798He4V0DTsddk4dzJv2R7fhks/7iMU
-	h3L+wjXILkiHsadhkIV08ejW7zPV49K2AADniH+9EUJKZjiygDqbkqJVFjR4Zkdr5XKBdOHL2Yg
-	MQNSj3e6Dhp1/tyTMzjRtQmbLDCZEZS8eGRBGfXEvMFDJBnKJqZs4fpKBEdVcaDTzxpNgyOae
-X-Gm-Gg: Acq92OEUfK9eOOSFQClKsZM29zUzL1yRsMtIWJFNMjCMrDKnzwD1f+QPifyRQS3EwKi
-	HkCo6I+8FpRSRnXlGAI40gqW4H+wuPVmmaNqIXu+IosNIEg+khnY5vZEtwlc4s0Ll9Q2M1K12wk
-	zP1x8T/90FnzfmY/Rxn9SqONejxnrVHggpxHVwTejZfhHv+VqI5DfyBVMQEGFOXtTIsKXw9utPq
-	UujHeh5cRecVrfmGBGeOGK07JKclCCXeUjhBKiAvnei2qL+rbjbUAnEal+5+cfWYykkurqyebJ2
-	jSAXfgBPbQRXOZa3wdPrmzXUmPRBdgw4yMnxSeM4428kxWhWQupkdKGroYF5BJuwnkOhJD+4YDl
-	6PhK6PAWZP//U0XykiRrj0bSZdSF6Vphwio4Gf46/7M06Io8gq1ouMSzo
-X-Received: by 2002:a05:6300:218e:b0:3a2:bd1d:d68c with SMTP id adf61e73a8af0-3b22ecb3630mr22180403637.50.1779187831062;
+        d=1e100.net; s=20251104; t=1779187832; x=1779792632;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=FNYjy48Qe/rJr9n5fbbJJkzIk+utflxbYUG55L8i+pw=;
+        b=W8Dwv6XvCMbNlUTaLVhsLldTVwTLeawRFsC88lUzHtTwCeMIPuZ9nTvzUrbHabUBmQ
+         Qexz3diQaBOtfSkUywG5qxS9sLdQjTgO/TTXXGglHcygFWV8CpIVP2STBXR002RBa3q6
+         QG/0Y063NVdDzSrJIj7aij3Z6t4rW/CpbJdyAg2P59uJ0NB0wkPRZ8c+s8HbzQMLJAnD
+         0kslMaVv8lGyKbAt4dfdUfxTWpeB7XsRQFFfaPw0rXgtnBnYqOGo7sKgI5paXARGHOOh
+         71MkUd7LR7dzCMR9ung84FI/i+sGAg67ibaKonCA0fb3IGvyWuP5cvw7agDZMO0MBmYk
+         Aepw==
+X-Forwarded-Encrypted: i=1; AFNElJ97zR39BJA14LTMPuoEGqkdOJvuJ8vIJF2Bnkmv4YgOVIf8tx/N1HPver1Kr+wuSBikMLrsI8ghyJEC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyd2kuUZa3wzhr5wc6K1czSSHFMXXpcvGMIk41POGPWKX48sxHl
+	DjHRZFJLdO2cPU6TN53JL82yLLo9DUsvxS4vI6nW6NOTIyipjuLm7oloJDr8tggHb643BXI/0da
+	Uq+KDiUURUCW0HRgRHrGM+Vgb8LY8bECpJA92A1Z5UyRu4Go+wNJ7cIYli1lXHcgXmp9AUqb/6B
+	DJ97EH4HIR2dt7FSmEQn/flm0gN5XpT8XsNwCPiQ==
+X-Gm-Gg: Acq92OEuea/4whKpEzJ2lGEI0Y9s/4+Hr//q1U/Xh43Pp+g5sAT5G0eQ3/BapdUU3fv
+	XL+Bjkyv7xNPWEMxgC98St9n05e4ikGUOdf8i5oU7SPgNioUI7DqagUjnNUAIh1niPg6rDq1gYN
+	bKRZAP0qMcLoFOzcKaiL9JuGeSWKfhx7c5JVfUeRhFSokctCTHv5wMx1yUU/nLuIaY4Cv1JG6oG
+	iwY6NgR2hxPMoat
+X-Received: by 2002:a05:651c:e19:b0:38e:2183:2287 with SMTP id 38308e7fff4ca-39561da3d23mr11613891fa.6.1779187831964;
         Tue, 19 May 2026 03:50:31 -0700 (PDT)
-X-Received: by 2002:a05:6300:218e:b0:3a2:bd1d:d68c with SMTP id adf61e73a8af0-3b22ecb3630mr22180368637.50.1779187830541;
-        Tue, 19 May 2026 03:50:30 -0700 (PDT)
-Received: from hu-manafm-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19fa869esm20877879b3a.61.2026.05.19.03.50.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 03:50:29 -0700 (PDT)
-From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Date: Tue, 19 May 2026 16:19:51 +0530
-Subject: [PATCH 3/3] arm64: dts: qcom: glymur: Enable SPEL powercap driver
+X-Received: by 2002:a05:651c:e19:b0:38e:2183:2287 with SMTP id
+ 38308e7fff4ca-39561da3d23mr11613641fa.6.1779187831311; Tue, 19 May 2026
+ 03:50:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-qcom_spel_driver_upstream-v1-3-75356d1b7f94@oss.qualcomm.com>
-References: <20260519-qcom_spel_driver_upstream-v1-0-75356d1b7f94@oss.qualcomm.com>
-In-Reply-To: <20260519-qcom_spel_driver_upstream-v1-0-75356d1b7f94@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779187810; l=1088;
- i=manaf.pallikunhi@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=QkBvjzgzUPS7j6rbYYt0+plzzSIJ+yEdKR2h5bans+I=;
- b=kdvWLzdOynXwDBoB2O6Sije04VhkPQ32HFwYGtVfrdeV/M/jABz/cCEHZAaxKeeyGpWxv3tMz
- mbI5Yxlk7YkAjF9/AxW3B2mTSCZFacwYRr24sphwJ08M2pMuYIbXEr7
-X-Developer-Key: i=manaf.pallikunhi@oss.qualcomm.com; a=ed25519;
- pk=oZ3x9jh+FDyPwxHmCbyzEMQHMzKqrH6hUbbL7dEBe2g=
-X-Authority-Analysis: v=2.4 cv=JKULdcKb c=1 sm=1 tr=0 ts=6a0c4077 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=0DiunMzU2dUnP_sjRnAA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: Xf_PzhbNdF6MUqFrtKyLmzFbtnXDuorc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDEwNiBTYWx0ZWRfX7EH6vUlLIAiA
- CMgUa8OqLx3IkNM+pFuZJTmXZCEv3zZU2Dx1ZcGSRu0SMDUpyHSu32jXs22d/0/2sr55nPnH/6F
- 43eZDniKMWeCdo+qYcv31Ys9eTh5tGLc01U4UJrWoSoPjRv5c5Tet+iFHJduCe2Wf9Sft+9XVot
- YYJj2dFKQ+U+hMjVJ0pGL95lxvrX2EC/856RdpE/qXQEPgN/bythURuReN6hITIwBV+/BZYVrJw
- tS+FJB/wejYxee02LqcKU5DJbBdvHcS0g/TbRilZVR/URV5i8Yl3uV734azxZxjD3gNLP9EJD4R
- WeO3kSAG+Eejml+XGO1SGG6H/9KWbRfwI3PXqjbzE1Onb5YZ0rb3QWwz2EMpsudxug8O+g4zWwK
- oczZCTB7xB6nFYi+r1hd9PajLfzpmUcH0sfRVJ+6nASa44ztR4O+dOnnLMK4IxlDCdzBBYKDs+L
- R+WCjXfrDhMvJeDOrIw==
-X-Proofpoint-ORIG-GUID: Xf_PzhbNdF6MUqFrtKyLmzFbtnXDuorc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190106
+References: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com>
+In-Reply-To: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com>
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Date: Tue, 19 May 2026 12:50:19 +0200
+X-Gm-Features: AVHnY4LAnrM7CYLVC2t872uBzKbq5fK7Xe0LmiuWNlKH-VqYUuotXoVDaWFXXlg
+Message-ID: <CALE0LRv3WrwdKhQ=drkco-7AFsgPC-cMc8rvE7TxkgUQvYCfOw@mail.gmail.com>
+Subject: Re: [PATCH v9 0/7] gpio: siul2-s32g2: add initial GPIO driver
+To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Larisa Grigore <larisa.grigore@nxp.com>, 
+	Lee Jones <lee@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>, 
+	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org, 
+	Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Vincent Guittot <vincent.guittot@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Qualcomm SoC Power and Electrical Limits (SPEL) provides hardware
-based power monitoring and limiting capabilities for various power
-domains including System, SoC, CPU clusters, GPU, and various other
-subsystems for glymur.
+Hi,
 
-Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Thank you to send these patches upstream
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 72c7dc6e4f09..c0ba8740ae41 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -5033,6 +5033,16 @@ spmi_bus2: spmi@c48000 {
- 			};
- 		};
- 
-+		power-controller@ef3b000 {
-+			compatible = "qcom,spel";
-+			reg = <0x0 0x0ef3e000 0x0 0x1000>,
-+			      <0x0 0x0ef3d000 0x0 0x1000>,
-+			      <0x0 0x0ef3b000 0x0 0x1000>;
-+			reg-names = "nodes",
-+				    "constraints",
-+				    "config";
-+		};
-+
- 		tlmm: pinctrl@f100000 {
- 			compatible = "qcom,glymur-tlmm";
- 			reg = <0x0 0x0f100000 0x0 0xf00000>;
+On Mon, May 4, 2026 at 3:12=E2=80=AFPM Khristine Andreea Barbulescu
+<khristineandreea.barbulescu@oss.nxp.com> wrote:
+>
+> This patch series adds support for basic GPIO
+> operations(set, get, direction_output/input, set_config).
+>
+> There are two SIUL2 hardware modules: SIUL2_0 and SIUL2_1.
+> However, this driver exports both as a single GPIO driver.
+> This is because the interrupt registers are located only
+> in SIUL2_1, even for GPIOs that are part of SIUL2_0.
+>
 
--- 
-2.43.0
+With gpioinfo I see
+
+> There are two gaps in the GPIO ranges:
+> - 102-111(inclusive) are invalid
+
+line 102: unnamed          input consumer=3Dkernel
+line 103: unnamed          input consumer=3Dkernel
+line 104: unnamed          input consumer=3Dkernel
+line 105: unnamed          input consumer=3Dkernel
+line 106: unnamed          input consumer=3Dkernel
+line 107: unnamed          input consumer=3Dkernel
+line 108: unnamed          input consumer=3Dkernel
+line 109: unnamed          input consumer=3Dkernel
+line 110: unnamed          input consumer=3Dkernel
+line 111: unnamed          input consumer=3Dkernel
+
+> - 123-143(inclusive) are invalid
+>
+
+line 123: "PH_11"          input consumer=3D"kernel"
+line 124: "PH_12"          input consumer=3D"kernel"
+line 125: "PH_13"          input consumer=3D"kernel"
+line 126: "PH_14"          input consumer=3D"kernel"
+line 127: "PH_15"          input consumer=3D"kernel"
+line 128: "PI_00"          input consumer=3D"kernel"
+line 129: "PI_01"          input consumer=3D"kernel"
+line 130: "PI_02"          input consumer=3D"kernel"
+line 131: "PI_03"          input consumer=3D"kernel"
+line 132: "PI_04"          input consumer=3D"kernel"
+line 133: "PI_05"          input consumer=3D"kernel"
+line 134: "PI_06"          input consumer=3D"kernel"
+line 135: "PI_07"          input consumer=3D"kernel"
+line 136: "PI_08"          input consumer=3D"kernel"
+line 137: "PI_09"          input consumer=3D"kernel"
+line 138: "PI_10"          input consumer=3D"kernel"
+line 139: "PI_11"          input consumer=3D"kernel"
+line 140: "PI_12"          input consumer=3D"kernel"
+line 141: "PI_13"          input consumer=3D"kernel"
+line 142: "PI_14"          input consumer=3D"kernel"
+line 143: "PI_15"          input consumer=3D"kernel"
+
+> Writing and reading GPIO values is done via the PGPDO/PGPDI
+> registers(Parallel GPIO Pad Data Output/Input) which are
+> 16 bit registers, each bit corresponding to a GPIO.
+>
+> Note that the PGPDO order is similar to a big-endian grouping
+> of two registers:
+> PGPDO1, PGPDO0, PGPDO3, PGPDO2, PGPDO5, PGPDO4, gap, PGPDO6.
+>
+
+I can also read the correct values from an input pin connected to a
+external switch.
+
+]# gpioget "PB_05"
+"PB_05"=3Dinactive
+]# gpioget "PB_05"
+"PB_05"=3Dactive
+# gpiodetect
+gpiochip0 [4009c240.pinctrl] (191 lines)
+gpiochip1 [0-0022] (24 lines)
+
+So,
+
+Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
+
+> v9 -> v8
+> - remove the SIUL2 syscon child nodes from the
+> device tree and DT bindings
+> - remove syscon child handling from the MFD
+> and pinctrl drivers
+> - remove the MFD driver and use a single monolithic
+> pinctrl/gpio/irqchip driver
+> - add a new compatible for the pinctrl+gpio binding
+> while keeping the previous compatible for the legacy
+> pinctrl-only binding
+> - update bindings to include the PGPDO/PGPDI and
+> IRQ register regions in the DT node for the
+> pinctrl/gpio/irq binding
+> - add IRQ-related entries in the bindings to
+> document the intended hierarchy; IRQ support
+> itself will be added in a future patch series
+> - update DT nodes to match the new hierarchy and
+> compatible scheme
+> - fix dtb warnings
+> - reorder commits: bug fixes, API changes, DT bindings,
+> driver implementation, DTS changes
+> - split commits further to separate minor
+> style-only adjustments
+>
+> v8 -> v7
+> - remove all ': true' lines from properties in dt bindings
+> - remove NVMEM MFD cell from SIUL2 in dtsi
+> - remove NVMEM driver and configs
+> - expose SoC information via syscon cells SIUL2_0
+> and SIUL2_1 in MFD driver
+> - add SIUL2_0 and SIUL2_1 syscon nodes in dtsi
+> - add patternProperties for "^siul2_[0-1]$" for syscon nodes
+> - update example to include syscon cells with proper format
+> - remove `reg` property from pinctrl node in dt binding
+> - update Kconfig help text to reflect new syscon structure
+> instead of NVMEM for SoC information
+> - squash deprecated SIUL2 pinctrl binding with new MFD binding
+> - dropped "nxp,s32g3-siul2" from MFD driver match table
+> - fixed commit messages
+> - fixed dtb warnings
+>
+> v7 -> v6
+> - fixed MAINTAINERS wrong file path
+> - add unevaluatedProperties, change siul2 node name, remove
+>   jtag_pins label in the device tree schema
+> - change compatible definition in schema
+> - change node name in dtsi
+> - mentioned binding deprecation in commit messages
+> - split mfd cell conversion commit in two: one for the
+>   previous refactoring, one for the mfd cell conversion
+> - removed Acked-by: Linus Walleij from commit:
+>   "pinctrl: s32: convert the driver into an mfd cell"
+>   because of changes to that commit
+> - deprecate the nxp,s32g2-siul2-pinctrl binding
+> - add NVMEM MFD cell for SIUL2
+> - made the GPIO driver not export invalid pins
+>   (there are some gaps 102-111, 123-143)
+> - removed the need for gpio-reserved-ranges
+> - force initialized pinctrl_desc->num_custom_params to 0
+>
+> v6 -> v5
+> - removed description for reg in the dt-bindings and added
+>   maxItems
+> - dropped label for example in the dt-bindings
+> - simplified the example in the dt-bindings
+> - changed dt-bindings filename to nxp,s32g2-siul2.yaml
+> - changed title in the dt-bindings
+> - dropped minItmes from gpio-ranges/gpio-reserved-ranges
+>   and added maxItems to gpio-reserved-ranges
+> - added required block for -grp[0-9]$ nodes
+> - switch to using "" as quotes
+> - kernel test robot: fixed frame sizes, added description
+>   for reg_name, fixed typo in gpio_configs_lock, removed
+>   uninitialized ret variable usage
+> - ordered includes in nxp-siul2.c, switched to dev-err-probe
+>   added a mention that other commits will add nvmem functionality
+>   to the mfd driver
+> - switched spin_lock_irqsave to scoped_guard statement
+> - switched dev_err to dev_err_probe in pinctrl-s32cc in places
+>   reached during the probing part
+>
+> v5 -> v4
+> - fixed di_div error
+> - fixed dt-bindings error
+> - added Co-developed-by tags
+> - added new MFD driver nxp-siul2.c
+> - made the old pinctrl driver an MFD cell
+> - added the GPIO driver in the existing SIUL2 pinctrl one
+> - Switch from "devm_pinctrl_register" to
+>   "devm_pinctrl_register_and_init"
+>
+> v4 -> v3
+> - removed useless parentheses
+> - added S32G3 fallback compatible
+> - fixed comment alignment
+> - fixed dt-bindings license
+> - fixed modpost: "__udivdi3"
+> - moved MAINTAINERS entry to have the new GPIO driver
+>   together with other files related to S32G
+>
+> v3 -> v2
+> - fix dt-bindings schema id
+> - add maxItems to gpio-ranges
+> - removed gpio label from dt-bindings example
+> - added changelog for the MAINTAINERS commit and
+>   added separate entry for the SIUL2 GPIO driver
+> - added guard(raw_spinlock_irqsave) in
+>   'siul2_gpio_set_direction'
+> - updated the description for
+>   'devm_platform_get_and_ioremap_resource_byname'
+>
+> v2 -> v1
+> dt-bindings:
+> - changed filename to match compatible
+> - fixed commit messages
+> - removed dt-bindings unnecessary properties descriptions
+> - added minItems for the interrupts property
+> driver:
+> - added depends on ARCH_S32 || COMPILE_TEST to Kconfig
+> - added select REGMAP_MMIO to Kconfig
+> - remove unnecessary include
+> - add of_node_put after `siul2_get_gpio_pinspec`
+> - removed inline from function definitions
+> - removed match data and moved the previous platdata
+>   definition to the top of the file to be visible
+> - replace bitmap_set/clear with __clear_bit/set_bit
+>   and devm_bitmap_zalloc with devm_kzalloc
+> - switched to gpiochip_generic_request/free/config
+> - fixed dev_err format for size_t reported by
+>   kernel test robot
+> - add platform_get_and_ioremap_resource_byname wrapper
+>
+> Andrei Stefanescu (2):
+>   pinctrl: s32cc: change to "devm_pinctrl_register_and_init"
+>   pinctrl: s32cc: implement GPIO functionality
+>
+> Khristine Andreea Barbulescu (5):
+>   pinctrl: s32cc: use dev_err_probe() and improve error messages
+>   pinctrl: s32cc: add/fix some comments
+>   pinctrl: s32cc: remove inline specifiers
+>   dt-bindings: pinctrl: s32g2-siul2: describe GPIO and EIRQ resources
+>   arm64: dts: s32g: describe GPIO and EIRQ resources in SIUL2 pinctrl
+>     node
+>
+>  .../pinctrl/nxp,s32g2-siul2-pinctrl.yaml      | 107 ++-
+>  arch/arm64/boot/dts/freescale/s32g2.dtsi      |  26 +-
+>  arch/arm64/boot/dts/freescale/s32g3.dtsi      |  26 +-
+>  drivers/pinctrl/nxp/pinctrl-s32.h             |  15 +-
+>  drivers/pinctrl/nxp/pinctrl-s32cc.c           | 646 ++++++++++++++----
+>  drivers/pinctrl/nxp/pinctrl-s32g2.c           |  25 +-
+>  6 files changed, 707 insertions(+), 138 deletions(-)
+>
+> --
+> 2.34.1
+>
 
