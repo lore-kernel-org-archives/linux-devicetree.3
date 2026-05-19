@@ -1,236 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F8F3F8EA7;
-	Tue, 19 May 2026 08:58:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E04D3F65E8
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:00:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779181126; cv=none; b=XwnsU9F7uj5nB3HIus3qBsjocHT+jTuiym53J0gH92QKIAAjFBpG3RjPlD67GZXMLoeY9yM8f31wD8/6C/8kRRFjL18fpGFq+IS2GFdEdR/Cc6GXcX2v0SOn6hbYAGFTWHdjRMFrzaUNRBsp8zHH804Anqg7vM1XfXbUFZd12oY=
+	t=1779181235; cv=none; b=Lf+iQinxbaNcLVt/Tqk+UNDTB/dWtAjLJTSqZ2zDarAPz6cPOC6oCnQWCNt92TDSBeksTi6OPIRTiU6kIJ7lLPOuOyC1xa/UKyAl52Dr5dGab9a4XEiwMFZHbTp1p/Yn103psP6frILuoQxnBezbIJt0ga3MK5MmqblnywN4mOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779181126; c=relaxed/simple;
-	bh=kIZ7hSTUwleZoENzPyp+m6OfOT2FDYmUobikUdJcGFc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FanHjAQebCy2sOL0YIvAHsmCbshseXKzeHhArGUD/vCewAuZXPfCPceFfZtBLqZZLKaovRWAfBG0IomXbbSQhPpDEFSOTpUpplE4/U5u1KwFu+eq9fA8zxL7fH9GakbRCiRrtoI4zVnVASGDqflraBZvVQrdzrWkGb9rskdrYa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jMb/JSaP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779181235; c=relaxed/simple;
+	bh=efdJhcdNTNClGIRIiCwauBeBM5Wu2us5hH1ciqzfgiE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TpsVSH0R0gMFn+cRRREokVD7NutcRfbNNmdSNrFXWATa1OMlmaO/w8BU8cRKXIYz/S7odDaJE0WhNH21C7PtVtRtIlXLZTapjj6dWS2GjOUy7Z0T0sNV4Xc8fUwx4ntrtcoI/Jq9MWaIFOJ83DAOk7RO/XBGswSCZw2jPr5WTvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTWrpCr+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jMb/JSaP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DA6C2BCF5;
-	Tue, 19 May 2026 08:58:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTWrpCr+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCED6C2BCB3;
+	Tue, 19 May 2026 09:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779181126;
-	bh=kIZ7hSTUwleZoENzPyp+m6OfOT2FDYmUobikUdJcGFc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=jMb/JSaPqDZV6oxNIbKf9yWe5bo5/ol7/nzazi+OlaTPtwHG43EpIJRVrxDbpvTDq
-	 QwcCrmy8HD7TkGITgX8p5O9vrjt6c159m/RSVVJ671qJ4NmnuukYPXU9iT8e6g5RiH
-	 AuE5xRPHcB8CZ2fCbXFZ628zpN/gMzCb/i/gMj34zGr9JZP6lSUbEaf0AXNxNszIUK
-	 6a6280pQhO1ylsSeX9KPEN3+TEUz2+YIcnhH0BaTK669y2ItXHY58MwZ8eLYMDNN9O
-	 IB+zOkRGplzCI6Y+zW3YUT3PHqTQNZXQZD6Qe3CAp0Z6uQpc6uDybNn4nprTH33Bv4
-	 KDq/zFFty40lQ==
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-Date: Tue, 19 May 2026 10:57:53 +0200
-Subject: [PATCH net-next v8 10/10] net: airoha: Support multiple LAN/WAN
- interfaces for hw MAC address configuration
+	s=k20201202; t=1779181235;
+	bh=efdJhcdNTNClGIRIiCwauBeBM5Wu2us5hH1ciqzfgiE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=FTWrpCr+2RT3wVElosrnKKQFqbi1B0V3YsAZByQC9DkdjgZwOjyTRrxlKrP8b3vcB
+	 5HO8NB23yuJKmQpK8CidI+SVj7x32yO/zRBp+pnp/ZknIW+kvfXw/PMcp2r2h+D/e2
+	 Kg/daYZ+gXDyPves3QbHe+nGMCAbomBwOlw9Gey8YmqAOE11IGIyxJWN6HAe8INlb6
+	 yIGapPGwnfOxXNaFMyrQLFDYetdj+xqJMox1NWoZf+dDiPIfaYVQ1JS93reOeSc/HD
+	 OlV0AHDyUNf1/dDrTUEXggO9wbvTcjlDliWz5qSOre/6+zCBfUio2RKNpEO627nMdH
+	 B+ukkfpSmnINQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/3] clk: eswin: Add eic7700 HSP clock driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: dongxuyang@eswincomputing.com
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260519081627.1591-1-dongxuyang@eswincomputing.com>
+References: <20260519081627.1591-1-dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 09:00:34 +0000
+Message-Id: <20260519090034.CCED6C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-airoha-eth-multi-serdes-v8-10-6bd70e329df6@kernel.org>
-References: <20260519-airoha-eth-multi-serdes-v8-0-6bd70e329df6@kernel.org>
-In-Reply-To: <20260519-airoha-eth-multi-serdes-v8-0-6bd70e329df6@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>, 
- Benjamin Larsson <benjamin.larsson@genexis.eu>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- Madhur Agrawal <madhur.agrawal@airoha.com>
-X-Mailer: b4 0.14.3
 
-The EN7581 and AN7583 SoCs provide registers to configure hardware LAN/WAN
-MAC addresses, used to determine whether received traffic is destined for
-this host or should be forwarded to another device.
-The SoC hardware design assumes all interfaces configured as LAN (or WAN)
-share a common upper MAC address, which is programmed into the
-REG_FE_{LAN,WAN}_MAC_H register. The lower bytes of 'local' addresses can
-be expressed as a range via the REG_FE_MAC_LMIN and REG_FE_MAC_LMAX
-registers.
-Previously, only a single interface was considered when programming these
-registers. Extend the logic to derive the correct minimum and maximum
-values for REG_FE_MAC_LMIN/REG_FE_MAC_LMAX when two or more interfaces are
-configured as LAN or WAN.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Global static clock arrays are modified during probe without lockin=
+g, breaking support for multiple instances.
+- [Low] The Kconfig symbol `COMMON_CLK_EIC7700_HSP` lacks the `default ARCH=
+_ESWIN` property, which is inconsistent with the base clock driver.
+--
 
-Tested-by: Madhur Agrawal <madhur.agrawal@airoha.com>
-Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
----
- drivers/net/ethernet/airoha/airoha_eth.c | 77 +++++++++++++++++++++++++++-----
- drivers/net/ethernet/airoha/airoha_eth.h |  2 +-
- drivers/net/ethernet/airoha/airoha_ppe.c |  4 +-
- 3 files changed, 68 insertions(+), 15 deletions(-)
+commit 5c87f865ca8ae746d80ff71fdbbce73f7be502ec
+Author: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index 328f94fef2e2..9ae1ba433309 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -71,20 +71,69 @@ static void airoha_qdma_irq_disable(struct airoha_irq_bank *irq_bank,
- 	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
- }
- 
--static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *addr)
-+static int airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *addr)
- {
-+	u8 ref_addr[ETH_ALEN] __aligned(2);
- 	struct airoha_eth *eth = dev->eth;
--	u32 val, reg;
-+	u32 reg, val, lmin, lmax;
-+	int i;
-+
-+	eth_zero_addr(ref_addr);
-+	lmin = (addr[3] << 16) | (addr[4] << 8) | addr[5];
-+	lmax = lmin;
-+
-+	for (i = 0; i < ARRAY_SIZE(eth->ports); i++) {
-+		struct airoha_gdm_port *port = eth->ports[i];
-+		int j;
-+
-+		if (!port)
-+			continue;
-+
-+		for (j = 0; j < ARRAY_SIZE(port->devs); j++) {
-+			struct airoha_gdm_dev *iter_dev;
-+			struct net_device *netdev;
-+
-+			iter_dev = port->devs[j];
-+			if (!iter_dev || iter_dev == dev)
-+				continue;
-+
-+			if (airoha_is_lan_gdm_dev(iter_dev) !=
-+			    airoha_is_lan_gdm_dev(dev))
-+				continue;
-+
-+			netdev = iter_dev->dev;
-+			if (netdev->reg_state != NETREG_REGISTERED)
-+				continue;
-+
-+			ether_addr_copy(ref_addr, netdev->dev_addr);
-+			val = (netdev->dev_addr[3] << 16) |
-+			      (netdev->dev_addr[4] << 8) | netdev->dev_addr[5];
-+			if (val < lmin)
-+				lmin = val;
-+			if (val > lmax)
-+				lmax = val;
-+		}
-+	}
-+
-+	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3)) {
-+		/* According to the HW design, hw mac address MS bits
-+		 * must be the same for each net_device with the same
-+		 * LAN/WAN configuration.
-+		 */
-+		netdev_err(dev->dev, "wrong mac addr for shared GDM port\n");
-+		return -EINVAL;
-+	}
- 
- 	reg = airoha_is_lan_gdm_dev(dev) ? REG_FE_LAN_MAC_H : REG_FE_WAN_MAC_H;
- 	val = (addr[0] << 16) | (addr[1] << 8) | addr[2];
- 	airoha_fe_wr(eth, reg, val);
- 
--	val = (addr[3] << 16) | (addr[4] << 8) | addr[5];
--	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), val);
--	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), val);
-+	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), lmin);
-+	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), lmax);
- 
--	airoha_ppe_init_upd_mem(dev);
-+	airoha_ppe_init_upd_mem(dev, addr);
-+
-+	return 0;
- }
- 
- static void airoha_set_gdm_port_fwd_cfg(struct airoha_eth *eth, u32 addr,
-@@ -1824,13 +1873,18 @@ static int airoha_dev_stop(struct net_device *netdev)
- static int airoha_dev_set_macaddr(struct net_device *netdev, void *p)
- {
- 	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-+	struct sockaddr *addr = p;
- 	int err;
- 
--	err = eth_mac_addr(netdev, p);
-+	err = eth_prepare_mac_addr_change(netdev, p);
- 	if (err)
- 		return err;
- 
--	airoha_set_macaddr(dev, netdev->dev_addr);
-+	err = airoha_set_macaddr(dev, addr->sa_data);
-+	if (err)
-+		return err;
-+
-+	eth_commit_mac_addr_change(netdev, p);
- 
- 	return 0;
- }
-@@ -1935,6 +1989,7 @@ static int airoha_dev_init(struct net_device *netdev)
- {
- 	struct airoha_gdm_dev *dev = netdev_priv(netdev);
- 	struct airoha_gdm_port *port = dev->port;
-+	int err;
- 
- 	switch (port->id) {
- 	case AIROHA_GDM3_IDX:
-@@ -1959,12 +2014,12 @@ static int airoha_dev_init(struct net_device *netdev)
- 	}
- 
- 	airoha_dev_set_qdma(dev);
--	airoha_set_macaddr(dev, netdev->dev_addr);
-+	err = airoha_set_macaddr(dev, netdev->dev_addr);
-+	if (err)
-+		return err;
- 
- 	if (!airoha_is_lan_gdm_dev(dev) &&
- 	    (port->id == AIROHA_GDM3_IDX || port->id == AIROHA_GDM4_IDX)) {
--		int err;
--
- 		err = airoha_set_gdm2_loopback(dev);
- 		if (err)
- 			return err;
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-index a2241520f2e2..364ca76eb3a6 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -684,7 +684,7 @@ void airoha_ppe_check_skb(struct airoha_ppe_dev *dev, struct sk_buff *skb,
- int airoha_ppe_setup_tc_block_cb(struct airoha_ppe_dev *dev, void *type_data);
- int airoha_ppe_init(struct airoha_eth *eth);
- void airoha_ppe_deinit(struct airoha_eth *eth);
--void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev);
-+void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev, const u8 *addr);
- u32 airoha_ppe_get_total_num_entries(struct airoha_ppe *ppe);
- struct airoha_foe_entry *airoha_ppe_foe_get_entry(struct airoha_ppe *ppe,
- 						  u32 hash);
-diff --git a/drivers/net/ethernet/airoha/airoha_ppe.c b/drivers/net/ethernet/airoha/airoha_ppe.c
-index 194cd50b2c74..531ce33528b9 100644
---- a/drivers/net/ethernet/airoha/airoha_ppe.c
-+++ b/drivers/net/ethernet/airoha/airoha_ppe.c
-@@ -1482,12 +1482,10 @@ void airoha_ppe_check_skb(struct airoha_ppe_dev *dev, struct sk_buff *skb,
- 	airoha_ppe_foe_insert_entry(ppe, skb, hash, rx_wlan);
- }
- 
--void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev)
-+void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev, const u8 *addr)
- {
- 	struct airoha_gdm_port *port = dev->port;
--	struct net_device *netdev = dev->dev;
- 	struct airoha_eth *eth = dev->eth;
--	const u8 *addr = netdev->dev_addr;
- 	u32 val;
- 
- 	val = (addr[2] << 24) | (addr[3] << 16) | (addr[4] << 8) | addr[5];
+clk: eswin: Add eic7700 HSP clock driver
 
--- 
-2.54.0
+Add driver for the ESWIN EIC7700 high-speed peripherals system clock
+controller and register an auxiliary device for system reset controller
+which is named as "hsp-reset".
 
+> diff --git a/drivers/clk/eswin/Kconfig b/drivers/clk/eswin/Kconfig
+> index 0406ec499ec9c..37857bd773356 100644
+> --- a/drivers/clk/eswin/Kconfig
+> +++ b/drivers/clk/eswin/Kconfig
+[ ... ]
+> @@ -13,3 +13,16 @@ config COMMON_CLK_EIC7700
+>  	  SoC. The clock controller generates and supplies clocks to various
+>  	  peripherals within the SoC.
+>  	  Say yes here to support the clock controller on the EIC7700 SoC.
+> +
+> +config COMMON_CLK_EIC7700_HSP
+> +	tristate "EIC7700 HSP Clock Driver"
+> +	depends on ARCH_ESWIN || COMPILE_TEST
+
+This isn't a bug, but should this config have default ARCH_ESWIN to match
+the base clock driver? Without it, the high-speed peripheral clocks might
+be unexpectedly disabled by default on ESWIN platforms.
+
+> +	select AUXILIARY_BUS
+> +	select COMMON_CLK_EIC7700
+> +	select RESET_EIC7700_HSP if RESET_CONTROLLER
+> +	select REGMAP_MMIO
+
+[ ... ]
+> diff --git a/drivers/clk/eswin/clk-eic7700-hsp.c b/drivers/clk/eswin/clk-=
+eic7700-hsp.c
+> new file mode 100644
+> index 0000000000000..3383aa64948a6
+> --- /dev/null
+> +++ b/drivers/clk/eswin/clk-eic7700-hsp.c
+[ ... ]
+> +static struct eswin_fixed_factor_clock eic7700_hsp_factor_clks[] =3D {
+> +	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_CFG_DIV2, "factor_hsp_cfg_div2",
+> +		     hsp_cfg, 1, 2, 0),
+> +	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_CFG_DIV4, "factor_hsp_cfg_div4",
+> +		     hsp_cfg, 1, 4, 0),
+> +	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_MMC_DIV10, "factor_hsp_mmc_div10",
+> +		     hsp_mmc, 1, 10, 0),
+> +};
+[ ... ]
+> +static int eic7700_hsp_clk_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct auxiliary_device *adev;
+> +	struct eswin_clock_data *data;
+> +	struct regmap *regmap;
+> +	struct clk_hw *hw;
+> +	int i, ret;
+> +
+> +	data =3D eswin_clk_init(pdev, EIC7700_HSP_NR_CLKS);
+> +	if (IS_ERR(data))
+> +		return dev_err_probe(dev, PTR_ERR(data),
+> +				     "failed to get clk data!\n");
+> +
+> +	regmap =3D devm_regmap_init_mmio(dev, data->base,
+> +				       &eic7700_hsp_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap),
+> +				     "failed to get regmap!\n");
+> +
+> +	ret =3D eswin_clk_register_fixed_factor(dev, eic7700_hsp_factor_clks,
+> +					      ARRAY_SIZE(eic7700_hsp_factor_clks),
+> +					      data);
+
+Is it safe to pass the global static array eic7700_hsp_factor_clks to this
+function?
+
+Looking at eswin_clk_register_fixed_factor() in drivers/clk/eswin/clk.c, it
+modifies the array during probe:
+
+int eswin_clk_register_fixed_factor(...)
+{
+    ...
+        clks[i].hw =3D *clk_hw;
+        data->clk_data.hws[clks[i].id] =3D clk_hw;
+    ...
+}
+
+If multiple instances of this driver probe concurrently or defer, could this
+data race corrupt the CCF parent-child linkages? The same pattern appears
+to affect eic7700_hsp_gate_clks and eic7700_hsp_mux_clks.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519081431.1424=
+-1-dongxuyang@eswincomputing.com?part=3D2
