@@ -1,160 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0F52F7EF5
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 23:47:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEED3A6F11;
+	Tue, 19 May 2026 23:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779234438; cv=none; b=llaS9GLlQUcdZJsmfMWOJ0i5x6kWx0mXs2oCMk2YtuQkPl77Q5GsMDQmkx3UY/1QFOtfySSnyspxgalAmFTEVaiMcPgjZ2OMMtk6nOpgPE8E/CtBLGjtcEOh8c3J9Sc+LQti0dU+0uXaV1aBvlaC//FPNCsGluKR34qQ7CaPMPI=
+	t=1779234978; cv=none; b=SIAko3GbhOIQZh7bqkGZNv6/Xdxq/nLmMsxpkfFIiSyFug9MJ3pDXZLQMe0439rBaDhHcCv9nw1SSIdPDSxtydhQbYlKdKB4yDywIeB6ITI7DFEb/bRKM8LCGSPNAtrTnEywf9m6Bsn+gKh66nJ42bGsQSkE9bvOzY8o8ybfJtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779234438; c=relaxed/simple;
-	bh=FinhY/rORv6tWym9lGOQIoAdbz0gvsKmZG/RGXpp05s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Eclk9gJfTkofbr27DpBNIWGaPMqSZnv9VebVRyunD/MOznsqrwUvDCcBc3Yr9iBP2Xh3bUitj6DZ8mQGNSjUxRlXOFFbeY4JaVXtt883CPXhsJr9K4Ow9NzkcVRLBXLHo8Z9ezF6grVrX9XIXN6EMi3ZZNPjrSRJ+Sb+o0RbT1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSsVhLKg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779234978; c=relaxed/simple;
+	bh=JGnldyeEPx8P9iWWf0ERkeNUkQXBUBWnno5F1gsDARc=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=iv5ammb9ko/9kIxtMHEcmFCPgsNf2X2RuEObrGq6kzea/R3r8nl4dFKkSthi0gP4gNRiOatU6OnMfW3WUVrMdwvA9ZPUWTbfutS0Flf2uvGMsEucv+FWDP+Yz+CMCTBwGMD8KkdARw8LcZ9fC9ht83pRRPDk9VXzbe1hCj18CXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ITgCsbAp reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSsVhLKg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165581F000E9;
-	Tue, 19 May 2026 23:47:16 +0000 (UTC)
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ITgCsbAp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75CC1F000E9;
+	Tue, 19 May 2026 23:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779234437;
-	bh=9uQ+oEp5doyOD4SCp82fAGi2AD9ukumF4sZ0qgTtv6k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OSsVhLKgevg6dWHreTza1qGJFZzziK/7ej5gi0QtKJJYSBTY2EkwrE5zIgY1QjkFP
-	 aGmHD+4sf/qxBgHt5AAisyOshAuhS5sghuDqXPr/FRTohO+zER2Q/bGd+LHknbqUs7
-	 H1FaOfAHpMdAPhcQdGmqemsaqKTk8wfR+KhRf70A+N6Bj3CzalQtvrQZiZxOwfh7rx
-	 HsUB4YSiHQuh9WEo+N6lJsxVFP58A5/6myeJKw5xD3KhNt3VBaApaseIHgyp6/sNTh
-	 1dfV/1xWEkFQTwYjSgYgCG5W790LQsfDBt808zxmy6jaoSqPTSgzFkoDiFo1OPgte+
-	 ixPWKgvwZcTGA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] thermal/drivers: airoha: Add support for AN7583
- Thermal Sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519222433.29684-6-ansuelsmth@gmail.com>
-References: <20260519222433.29684-6-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 23:47:16 +0000
-Message-Id: <20260519234717.165581F000E9@smtp.kernel.org>
+	s=k20260515; t=1779234976;
+	bh=ukgYR5BtEQdugnAz4VPVz+2e+UlKz5nd+3j0OI16ln4=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=ITgCsbApRnISwFXd+7nDHGWsemcR7I27duxBJfhG8hIWKuR5Tq0B4Z7LVjNIDndsE
+	 77fbqQyE0rCVoTnsINS1XO+Qej9x3kzZ/KWkp8Eh51yHnBfLftfUBCqHCV/M32mlfA
+	 NMzIJnLhBntmIiessOCv1EVmf6PzKFrqBX1CPPYMLwnBxLPcSFsk7ydtsysApSFL/k
+	 ufrbNksCKkodEpM5q49etK/qe/VFCo3Y7FBFpGN5Fd3AYyrQCg/G8XOEyZK/xJG9JP
+	 QfueaxUyrC9S3Gg0TzIS9Midq/d2uSenLxZ4LiFZrUaukhDjiwIY23au/bX9Ov7tsG
+	 hHHPEh9SLuHSA==
+Date: Tue, 19 May 2026 18:56:16 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260519-dt-bindings-qcom-soc-naming-v1-3-005d29d261ae@oss.qualcomm.com>
+References: <20260519-dt-bindings-qcom-soc-naming-v1-0-005d29d261ae@oss.qualcomm.com>
+ <20260519-dt-bindings-qcom-soc-naming-v1-3-005d29d261ae@oss.qualcomm.com>
+Message-Id: <177923497620.3650559.15856076545077851448.robh@kernel.org>
+Subject: Re: [PATCH 3/3] dt-bindings: arm: qcom-soc: Validate nodes with
+ fallbacks
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Incorrect error check variable in `an7583_thermal_probe` bypasses =
-failure detection, leading to a potential kernel panic.
-- [High] Swapped arguments in `airoha_set_thermal_mux()` calls corrupt hard=
-ware multiplexer configuration.
-- [High] Unhandled division by zero vulnerability in `an7583_thermal_get_te=
-mp` during temperature calculation.
---
 
-commit 1f81ce385fe12681e718cd3a620514ac2170aa8d
-Author: Christian Marangi <ansuelsmth@gmail.com>
+On Tue, 19 May 2026 22:03:20 +0200, Krzysztof Kozlowski wrote:
+> The schema checking for expected naming patterns for SoC IP block nodes
+> was really incomplete and was checking only nodes with single
+> compatible.  Fixing this and applying schema for nodes with fallbacks is
+> not trivial, because obvious solution like:
+> 
+>   minItems: 1
+>   items:
+>     - oneOf:
+>         - pattern: ...
+>         - pattern: ...
+>     - {}
+>     - {}
+> 
+> is not allowed by dtschema.  The binding should also skip root nodes,
+> which have SoC-based fallback, but completely random front compatibles.
+> 
+> Solve this all by:
+> 1. Extending the select pattern to match all nodes except root node.
+> 2. Apply schema to all items of "compatible" property, which means it
+>    will be evaluating also all sorts of generic compatibles like
+>    "syscon".  List them all and let's hope that fallback list will not
+>    grow too much, because generic compatible fallbacks are discouraged.
+> 
+> The benefit is that this schema is finally very specific and evaluates
+> all nodes for desired naming.
+> 
+> Diff is a bit obfuscated, due to indentation change so briefly
+> explaining:
+> 1. None of the patterns are changed (neither in "Preferred naming style"
+>    group nor in "Legacy namings").
+> 2. None of the enums with "Legacy namings" and "Legacy compatibles with
+>    wild-cards" are changed.
+> 3. Add pattern for sound cards.
+> 4. Add list with all used generic fallbacks.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/arm/qcom-soc.yaml          | 182 ++++++++++++++++-----
+>  1 file changed, 137 insertions(+), 45 deletions(-)
+> 
 
-thermal/drivers: airoha: Add support for AN7583 Thermal Sensor
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit adds support for the Airoha AN7583 Thermal driver. It drops
-support for the PTP_THERMAL subsystem for this chip, reading temperature
-directly from the BGA sensor instead. The set_thermal_mux function is
-also extended to handle sensor multiplexing.
+yamllint warnings/errors:
 
-> diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_th=
-ermal.c
-> index a062922cb116c..c190b696d3a8c 100644
-> --- a/drivers/thermal/airoha_thermal.c
-> +++ b/drivers/thermal/airoha_thermal.c
-[ ... ]
-> @@ -516,6 +593,71 @@ static int en7581_thermal_post_probe(struct platform=
-_device *pdev)
-[ ... ]
-> +static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *=
-temp)
-> +{
-> +	struct airoha_thermal_priv *priv =3D thermal_zone_device_priv(tz);
-> +	int sensor_idx;
-> +	int delta_diode, delta_gain;
-> +	int coeff, slope, offset;
-> +
-> +	int diode_zero, diode_d0, diode_d1;
-> +
-> +	/* Always read sensor AN7583_BGP_TEMP_SENSOR */
-> +	sensor_idx =3D AN7583_BGP_TEMP_SENSOR;
-> +
-> +	coeff =3D an7583_thermal_coeff[sensor_idx];
-> +	slope =3D an7583_thermal_slope[sensor_idx];
-> +	offset =3D an7583_thermal_offset[sensor_idx];
-> +
-> +	airoha_set_thermal_mux(priv, sensor_idx, AN7583_ZERO_TADC);
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,usb-hsic-phy.example.dtb: phy (qcom,usb-hsic-phy-msm8974): compatible:0: 'anyOf' conditional failed, one must be fixed:
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,sar[0-9]+[a-z]?-.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,(eliza|kaanapali|glymur|hawi|mahua|milos|shikra)-.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,apss-wdt-[a-z]+$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,kpss-gcc-(apq|ipq|mdm|msm)[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,rpmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sar?|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,scm-[a-z]+$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,tcsr-(apq|ipq|mdm|msm)[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' does not match '^qcom,usb-hs-phy-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy-msm8974' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,gpucc-sdm630', 'qcom,gpucc-sdm660', 'qcom,lcc-apq8064', 'qcom,lcc-ipq8064', 'qcom,lcc-mdm9615', 'qcom,lcc-msm8960', 'qcom,lpass-cpu-apq8016', 'qcom,usb-ss-ipq4019-phy', 'qcom,usb-hs-ipq4019-phy', 'qcom,vqmmc-ipq4019-regulator']
+	'qcom,usb-hsic-phy-msm8974' is not one of ['qcom,ipq806x-ahci', 'qcom,ipq806x-gmac', 'qcom,ipq806x-nand', 'qcom,ipq806x-sata-phy', 'qcom,ipq806x-usb-phy-ss', 'qcom,ipq806x-usb-phy-hs']
+	'qcom,usb-hsic-phy-msm8974' does not match '^.*,.*sndcard$'
+	'qcom,usb-hsic-phy-msm8974' is not one of ['arm,gic-v3', 'arm,mmu-500', 'generic-ahci', 'jedec,ufs-2.0', 'mmio-sram', 'qcom,adreno-smmu', 'qcom,aoss-qmp', 'qcom,cpr', 'qcom,cpufreq-epss', 'qcom,cpufreq-hw', 'qcom,dcc', 'qcom,dwc3', 'qcom,epss-l3', 'qcom,eud', 'qcom,glink-smd-rpm', 'qcom,inline-crypto-engine', 'qcom,ipcc', 'qcom,kpss-gcc', 'qcom,kpss-timer', 'qcom,kpss-wdt', 'qcom,mdp5', 'qcom,mdss-dsi-ctrl', 'qcom,msm-iommu-v1', 'qcom,msm-iommu-v2', 'qcom,msm-timer', 'qcom,osm-l3', 'qcom,pcie2-phy', 'qcom,pdc', 'qcom,pmic-glink', 'qcom,qce', 'qcom,qfprom', 'qcom,qspi-v1', 'qcom,qusb2-v2-phy', 'qcom,rpm-proc', 'qcom,rpmh-rsc', 'qcom,rpmcc', 'qcom,saw2', 'qcom,scm', 'qcom,sdhci-msm-v4', 'qcom,sdhci-msm-v5', 'qcom,sec-qfprom', 'qcom,smd-rpm', 'qcom,smmu-500', 'qcom,smmu-v2', 'qcom,snps-dwc3', 'qcom,ssc-block-bus', 'qcom,tcsr-mutex', 'qcom,trng', 'qcom,tsens-v0_1', 'qcom,tsens-v1', 'qcom,tsens-v2', 'qcom,ufshc', 'qcom,usb-hs-phy', 'qcom,usb-snps-hs-5nm-phy', 'qcom,usb-snps-hs-7nm-phy', 
+ 'simple-mfd', 'snps,dwmac', 'syscon']
+	from schema $id: http://devicetree.org/schemas/arm/qcom-soc.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,usb-hsic-phy.example.dtb: phy (qcom,usb-hsic-phy-msm8974): compatible:1: 'anyOf' conditional failed, one must be fixed:
+	'qcom,usb-hsic-phy' does not match '^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,sar[0-9]+[a-z]?-.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,(eliza|kaanapali|glymur|hawi|mahua|milos|shikra)-.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,apss-wdt-[a-z]+$'
+	'qcom,usb-hsic-phy' does not match '^qcom,kpss-gcc-(apq|ipq|mdm|msm)[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,rpmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sar?|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,scm-[a-z]+$'
+	'qcom,usb-hsic-phy' does not match '^qcom,tcsr-(apq|ipq|mdm|msm)[0-9]+.*$'
+	'qcom,usb-hsic-phy' does not match '^qcom,usb-hs-phy-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,usb-hsic-phy' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,gpucc-sdm630', 'qcom,gpucc-sdm660', 'qcom,lcc-apq8064', 'qcom,lcc-ipq8064', 'qcom,lcc-mdm9615', 'qcom,lcc-msm8960', 'qcom,lpass-cpu-apq8016', 'qcom,usb-ss-ipq4019-phy', 'qcom,usb-hs-ipq4019-phy', 'qcom,vqmmc-ipq4019-regulator']
+	'qcom,usb-hsic-phy' is not one of ['qcom,ipq806x-ahci', 'qcom,ipq806x-gmac', 'qcom,ipq806x-nand', 'qcom,ipq806x-sata-phy', 'qcom,ipq806x-usb-phy-ss', 'qcom,ipq806x-usb-phy-hs']
+	'qcom,usb-hsic-phy' does not match '^.*,.*sndcard$'
+	'qcom,usb-hsic-phy' is not one of ['arm,gic-v3', 'arm,mmu-500', 'generic-ahci', 'jedec,ufs-2.0', 'mmio-sram', 'qcom,adreno-smmu', 'qcom,aoss-qmp', 'qcom,cpr', 'qcom,cpufreq-epss', 'qcom,cpufreq-hw', 'qcom,dcc', 'qcom,dwc3', 'qcom,epss-l3', 'qcom,eud', 'qcom,glink-smd-rpm', 'qcom,inline-crypto-engine', 'qcom,ipcc', 'qcom,kpss-gcc', 'qcom,kpss-timer', 'qcom,kpss-wdt', 'qcom,mdp5', 'qcom,mdss-dsi-ctrl', 'qcom,msm-iommu-v1', 'qcom,msm-iommu-v2', 'qcom,msm-timer', 'qcom,osm-l3', 'qcom,pcie2-phy', 'qcom,pdc', 'qcom,pmic-glink', 'qcom,qce', 'qcom,qfprom', 'qcom,qspi-v1', 'qcom,qusb2-v2-phy', 'qcom,rpm-proc', 'qcom,rpmh-rsc', 'qcom,rpmcc', 'qcom,saw2', 'qcom,scm', 'qcom,sdhci-msm-v4', 'qcom,sdhci-msm-v5', 'qcom,sec-qfprom', 'qcom,smd-rpm', 'qcom,smmu-500', 'qcom,smmu-v2', 'qcom,snps-dwc3', 'qcom,ssc-block-bus', 'qcom,tcsr-mutex', 'qcom,trng', 'qcom,tsens-v0_1', 'qcom,tsens-v1', 'qcom,tsens-v2', 'qcom,ufshc', 'qcom,usb-hs-phy', 'qcom,usb-snps-hs-5nm-phy', 'qcom,usb-snps-hs-7nm-phy', 'simple-
+ mfd', 'snps,dwmac', 'syscon']
+	from schema $id: http://devicetree.org/schemas/arm/qcom-soc.yaml
 
-[Severity: High]
-Are the arguments for airoha_set_thermal_mux in the correct order?
+doc reference errors (make refcheckdocs):
 
-The function signature was extended earlier in the patch to:
-airoha_set_thermal_mux(struct airoha_thermal_priv *priv, int tdac_idx,
-                       int sensor_idx)
+See https://patchwork.kernel.org/project/devicetree/patch/20260519-dt-bindings-qcom-soc-naming-v1-3-005d29d261ae@oss.qualcomm.com
 
-Passing sensor_idx as the second argument and the TADC constant as the
-third argument appears to swap the tdac_idx and sensor_idx values, which
-could misconfigure the hardware multiplexer.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-> +	diode_zero =3D airoha_get_thermal_ADC(priv);
-> +	airoha_set_thermal_mux(priv, sensor_idx, AN7583_D0_TADC);
-> +	diode_d0 =3D airoha_get_thermal_ADC(priv);
-> +	airoha_set_thermal_mux(priv, sensor_idx, AN7583_D1_TADC);
-> +	diode_d1 =3D airoha_get_thermal_ADC(priv);
-> +
-> +	delta_diode =3D diode_d1 - diode_d0;
-> +	delta_gain =3D (delta_diode * coeff) / 100 + (diode_zero - diode_d1);
-> +	*temp =3D (slope * delta_diode * 10) / delta_gain - offset * 10;
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-[Severity: High]
-Is there a chance delta_gain could evaluate to zero if the underlying
-hardware returns identical readings for diode_zero, diode_d0, and
-diode_d1?
+pip3 install dtschema --upgrade
 
-If the hardware is unresponsive or uninitialized, these values could
-all be zero, causing delta_gain to evaluate to zero. This division
-by zero would cause a kernel panic when reading the temperature.
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-> +	*temp *=3D 100;
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int an7583_thermal_probe(struct platform_device *pdev,
-> +				struct airoha_thermal_priv *priv)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	int i;
-> +
-> +	priv->chip_scu =3D device_node_to_regmap(dev->of_node);
-> +	if (IS_ERR(priv->map))
-> +		return PTR_ERR(priv->map);
-
-[Severity: High]
-Does this error check evaluate the correct variable? The result of
-device_node_to_regmap is assigned to priv->chip_scu, but the error
-check tests priv->map.
-
-Since priv is zero-allocated during probe, IS_ERR on the uninitialized
-priv->map will return false. This allows a potentially invalid
-priv->chip_scu pointer to bypass the error check and be used later in
-devm_regmap_field_alloc, causing a panic.
-
-> +
-> +	for (i =3D 0; i < AIROHA_THERMAL_FIELD_MAX; i++) {
-> +		struct regmap_field *field;
-> +
-> +		field =3D devm_regmap_field_alloc(dev, priv->chip_scu,
-> +						an7583_chip_scu_fields[i]);
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519222433.2968=
-4-1-ansuelsmth@gmail.com?part=3D5
