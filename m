@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8534D8D9D
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A0E4DA537
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779193647; cv=none; b=e7jr8KkBTrCYJyEtxWbUhRpiDir/YXFq+S/pQjt/3tBnzvepyNZuBjstBlxxtwZB0r/hb03PLW6c6MBKf+gE2mCIPrVoHG0jpNtu8CqbIcsVxeXyh/vZXvl5ktWk8Tg0c8FRihoCSwHh29SxacMUQZskH7uEL7HMJpclxgg4Q5M=
+	t=1779193648; cv=none; b=qbFbIgFKeUhBby7JZ6ZBB2xoF/CvHHkVDjhGmgjxjtjuWgfMLC6XmTEL7E3zAF64NdOxBJyYQG8TOHVPtH+TZmyYkOnvkNL/HzJ839qgJX+AfGjOaJG2PggY3plp/C6rcL7JM+s3L/SulHqLKX3OZNuxaDkl8L6+1RsqfmjJ4CM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779193647; c=relaxed/simple;
-	bh=CMWd55Hvg7GmggU/uNdpCxjfA4oUHF7FPS9Myn1tXss=;
+	s=arc-20240116; t=1779193648; c=relaxed/simple;
+	bh=euMBiIE/55KtTuXxyv1/vYth8GxBlVAV01Guu9xaA3Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=q5PlxzbsgLRzumFNxDjkTY3R5wqFRBINnzC3AWC0OVmalNBIrIyuiEGeyDajj1t4CaG646C1ySudxreTu7OSAeaT4kBKhBF6/ih1N4Xf5WAecjUlNsZQmiXNNHq8qLgjFyqW7ksxyWBjt0zvi+5NV9syWqOxD30Hmcyoc5uxVn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bC//DXOa; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=EbC6G4Vo79OpgYLhHukAEWbBsPoHY27mG9n2ZrpsCQhbpeHIC7gYSvf+728o/C2hNqY57ZWDRt3Dtxg8xQGiRaaPSOksbNLm+24p4VcUtUkNgDT9eXQBEmqWRebRqh9mBFA9ak7KVtV+PAppbHsQZyGYqWq8+cq2Ck9u/AMsjeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnAOCEFQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bC//DXOa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0831C2BCB3;
-	Tue, 19 May 2026 12:27:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnAOCEFQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC98C2BCB3;
+	Tue, 19 May 2026 12:27:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1779193647;
-	bh=CMWd55Hvg7GmggU/uNdpCxjfA4oUHF7FPS9Myn1tXss=;
+	bh=euMBiIE/55KtTuXxyv1/vYth8GxBlVAV01Guu9xaA3Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=bC//DXOamACvNX8OG8SUhqkO8qdP4FocGs/PpxnV5wLtIWX8QLct/zR9apFeqEvwC
-	 m8PH2v6OyWPTzw3ACYu0lh3LQc8iODBUScKexLUTZqv8IQJ6N7HsLL763fOezfKU1J
-	 XehLdWSJlt11sFqmgcp64Iyo7f0QbtNWkQnoggnxfYmCymsjC3bKTHBkJnalzx+q0O
-	 wHv4nrKWHYjE5cM88r6Ckzb8CxYs1HytVdcO+Sqs9w9DWKeUIhIvgouaFK+0lEXwwR
-	 Iu9/QrAYUoL4tTZWB+exBsprdGL+jlhTukeZz/9TkcNuHr6T9jYZJnld3paEXK2G/B
-	 XVVEGRc3HhOrQ==
+	b=lnAOCEFQXR8XDzyaQBNzIFYjGwqwp57NG8yZUvjbtwr8G9lYwEJDhKM6dP4w6xauL
+	 jUaFmnTGIe5+qHbNVeEGC2TPs+qj9vwXFdfZwzH0JkGU0+Ko1/Gicijg9vTcdoKKRV
+	 7oUVF9+it+x74eKuz/UndiPO1DyN9wMhKeXIGiytAlbPOh93ZZnZtwHn4GcOKgglHw
+	 yJt2h1JQPuW24MpLuZ6QZdlbJ5TdnuIambmuE85TU8N9Ng3QPc1Ulh5yG12g9sKcU0
+	 o88Gm87kjzfjaRofq8f36rGXxDbn/U2p8WCE6ijxRPunRbTjLp3TDThty7Fxb/HY7O
+	 bbDc/a6vkcsEw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 8/9] net: dsa: lan9645x: add mdb management
+Subject: Re: [PATCH net-next v5 9/9] net: dsa: lan9645x: add port statistics
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260518-dsa_lan9645x_switch_driver_base-v5-8-968fbf34ffa3@microchip.com>
-References: <20260518-dsa_lan9645x_switch_driver_base-v5-8-968fbf34ffa3@microchip.com>
+In-Reply-To: <20260518-dsa_lan9645x_switch_driver_base-v5-9-968fbf34ffa3@microchip.com>
+References: <20260518-dsa_lan9645x_switch_driver_base-v5-9-968fbf34ffa3@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 12:27:26 +0000
-Message-Id: <20260519122726.D0831C2BCB3@smtp.kernel.org>
+Date: Tue, 19 May 2026 12:27:27 +0000
+Message-Id: <20260519122727.ABC98C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,97 +45,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Deleting a port from an L2 MDB entry can fail with -ENOSPC, leavin=
-g the port permanently active in the hardware multicast group.
-- [High] IP multicast frames may be duplicated to the CPU port because the =
-CPU port is specified in both the MAC inline portmask and the `MAC_CPU_COPY=
-` flag.
+- [High] Deadlock due to `spin_lock()` being used in both process and softi=
+rq contexts without disabling bottom halves.
+- [Medium] Duplication of standard kernel statistics in the driver-private =
+`ethtool -S` interface.
 --
 
-commit 12dd40a6c7c29e212ec6866149d379306e63d403
+commit 59f4819b8342d3e4580ddccbc972e0d8f002441f
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
-net: dsa: lan9645x: add mdb management
+Date:   Mon May 18 12:25:04 2026 +0000
 
-Add support for dsa mdb callbacks to handle L2 multicast and IP multicast,=
-=20
-using PGID indices for L2 and inline port masks for IP multicast.
+net: dsa: lan9645x: add port statistics
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_mdb.c b/drivers/=
-net/dsa/microchip/lan9645x/lan9645x_mdb.c
+This commit adds support for maintaining and updating a 64-bit software
+cache of 32-bit hardware port counters. It introduces multiple ethtool
+and netlink statistics callbacks to expose these counters.
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driver=
+s/net/dsa/microchip/lan9645x/lan9645x_stats.c
 > new file mode 100644
-> index 0000000000000..0ba3e0974dc08
+> index 0000000000000..e38f510eb8f66
 > --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_mdb.c
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
 [ ... ]
-> +static int lan9645x_mdb_update_dest(struct lan9645x *lan9645x,
-> +				    struct lan9645x_mdb_entry *mdb_entry,
-> +				    enum macaccess_entry_type type,
-> +				    struct lan9645x_pgid_entry *new_pgid,
-> +				    u16 new_ports)
+> +static const struct lan9645x_ethtool_stat lan9645x_port_ethtool_stats[] =
+=3D {
+> +	{ "rx_cat_drop",        SCNT_RX_CAT_DROP },
+[ ... ]
+> +	{ "rx_green_prio_7",    SCNT_RX_GREEN_PRIO_7 },
+> +	{ "tx_drop",            SCNT_TX_DROP },
+
+Is it necessary to include tx_drop in the private ethtool strings?
+
+The networking subsystem guidelines indicate that counters with a standard
+uAPI should use that standard interface instead of the driver-private ethto=
+ol
+output. Since tx_drop is already aggregated and exposed via the standard
+netlink interface in lan9645x_stats_get_stats64(), could this be removed
+from the private stats?
+
+[ ... ]
+> +static void __lan9645x_stats_view_idx_update(struct lan9645x *lan9645x,
+> +					     enum lan9645x_view_stat_type vtype,
+> +					     int idx)
 > +{
-> +	struct lan9645x_pgid_entry *old_pgid;
-> +	unsigned char mac[ETH_ALEN];
-> +	int err, pgid_index;
-> +	bool cpu_copy;
+> +	struct lan9645x_stats *s =3D lan9645x->stats;
 > +
-> +	old_pgid =3D mdb_entry->pgid;
-> +	lan9645x_mdb_encode_mac(mac, mdb_entry->mac, new_ports, type);
-> +	cpu_copy =3D !!(new_ports & BIT(CPU_PORT));
+> +	lockdep_assert_held(&s->hw_lock);
+> +
+> +	if (!__lan9645x_stats_view_idx_hw_read(lan9645x, vtype, idx)) {
+> +		spin_lock(&s->sw_lock);
 
-Can IP multicast frames be duplicated to the CPU port when both the
-destination mask and the explicit CPU extraction queue are configured?
+Can a deadlock occur here if the CPU is interrupted by a softirq?
 
-When new_ports includes the CPU port, it appears to be both encoded into
-the MAC address bytes via lan9645x_mdb_encode_mac() and explicitly passed
-as the cpu_copy flag to lan9645x_mact_learn_cpu_copy().
-
-Should the CPU_PORT bit be explicitly stripped from the portmask before
-encoding it into the MAC address, similar to how it is stripped for L2
-multicast PGIDs?
+The sw_lock is acquired with spin_lock() in process-context functions like
+this one (which is called via a periodic workqueue), but it is also acquired
+in lan9645x_stats_get_stats64() below:
 
 [ ... ]
-> +static int __lan9645x_mdb_del(struct lan9645x *lan9645x, int chip_port,
-> +			      const unsigned char addr[ETH_ALEN], u16 vid,
-> +			      enum macaccess_entry_type type)
+> +/* Called in atomic context */
+> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
+> +				struct rtnl_link_stats64 *stats)
 > +{
-> +	struct lan9645x_pgid_entry *new_pgid;
-> +	struct lan9645x_mdb_entry *mdb_entry;
-> +	u16 new_ports;
-> +	int err;
+> +	struct lan9645x_stats *s =3D lan9645x->stats;
+> +	u64 *c;
 > +
-> +	mdb_entry =3D lan9645x_mdb_entry_lookup(lan9645x, addr, vid);
-> +	if (!mdb_entry)
-> +		return -ENOENT;
+> +	c =3D STAT_COUNTERS(lan9645x, LAN9645X_STAT_PORTS, port);
 > +
-> +	if (!(mdb_entry->ports & BIT(chip_port)))
-> +		return 0;
-> +
-> +	new_ports =3D mdb_entry->ports & ~BIT(chip_port);
-> +
-> +	if (!new_ports) {
-[ ... ]
-> +		lan9645x_mdb_entry_dealloc(lan9645x, mdb_entry);
-> +		return 0;
-> +	}
-> +
-> +	/* Update PGID ptr for non-IP entries (L2 multicast) */
-> +	new_pgid =3D lan9645x_mdb_pgid_entry_get(lan9645x, new_ports, type);
-> +	if (IS_ERR(new_pgid))
-> +		/* Continue forwarding to old port group. */
-> +		return PTR_ERR(new_pgid);
+> +	spin_lock(&s->sw_lock);
 
-Will an out-of-resources condition here cause the port to remain permanently
-active in the hardware multicast group?
+Since lan9645x_stats_get_stats64() can be called from atomic or softirq
+context during packet processing, if a softirq interrupts a process holding
+the lock on the same CPU, it seems it would spin forever.
 
-If lan9645x_mdb_pgid_entry_get() returns -ENOSPC because all hardware PGIDs
-are in use, the deletion aborts and the hardware is not updated. Because the
-bridge network stack ignores errors from port_mdb_del, the software state
-would diverge from the hardware state.
-
-Would it be possible to reuse and update the existing PGID in-place if its
-reference count is exactly 1?
+Should the process-context paths use spin_lock_bh() instead to prevent this?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518-dsa_lan964=
-5x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com?part=3D8
+5x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com?part=3D9
