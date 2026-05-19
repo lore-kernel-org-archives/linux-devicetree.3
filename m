@@ -1,298 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B592F83A0
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:04:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46DE2874E3;
+	Tue, 19 May 2026 07:04:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779174276; cv=none; b=fG4JETJzvDKjht2oQg3YjwC7pShv5uOsusX/7AM5I0TdaZ66xlItvfbZW3+JgBaRg2vD8rLyN7vQp/PhpC5TJFpK7A99nfhgU7sZc3sklv/ZKesl+haxeqwI5/t063LMTLjSc5UbSDudWlb3441ifT35zBuK5OYtEadjYyITTNE=
+	t=1779174290; cv=none; b=uCO+4A73M2sSEcwhzvjFBUquXjc8frqW9/9vK/7TbJKGXwO9AQoRztMjmxTQmxiKxSl+ZB6LEK0gqMDM3LviPgJ+yd0zX3MRgiYnZ8kVo2ns7wSeu0dQvCP0CMUTLHO49OOwjpDd7E8MX6TcYYDC/dUrd4fxtHocEloCo289T8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779174276; c=relaxed/simple;
-	bh=Kvo2bP7sF0ZsQRtWDKTiW903tqF1p3n28QXipRihoxM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Tl9/TIS83reqDFRVj6Zs4D2vtz4GcKsU2bkSqY+CuRo0UjYHz37n5EhZRLtdzsTQxnlA0JVina7kCJ2nkWt+01xvkflMniqZy5y5CrgRJ4L2F4w/55azCh1xxG9PfyhUelqxosQOHGkZ4vC+fhLYOOE3/BU8ZwUhgA2X1+XyI7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PamhpUBW; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779174290; c=relaxed/simple;
+	bh=1irEky9aWBq8MFj23jSIgVbynmrjBX1upwAhF7Njc9k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XBtyy7GgIdGDE+AQLDeoaCmIruRvHUBZxhRx/I1vPTU6Z64G3ZL7FtdEWzXCfXPNel7f8vjPPv/vaDd1C1n54Y0/A3sDSevVH3dFRV5FwDS3MY3V8eoeVxzPmviW1NHIUPDNaMCvtwNJNkvJXafGyZ91D02stAHTGpqYGrqVRLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pmteWGt5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PamhpUBW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C703C2BCB3;
-	Tue, 19 May 2026 07:04:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pmteWGt5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9667C2BCB3;
+	Tue, 19 May 2026 07:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779174275;
-	bh=Kvo2bP7sF0ZsQRtWDKTiW903tqF1p3n28QXipRihoxM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=PamhpUBWS9wmvdIMar2N3auVL8RGrj/X1bs6Cx+TMYoSZsk9n/OqdOsqWfQSnR2uU
-	 xm5DEfSSRSifNA5OX8dWzmaXfiCD6k+6VZb7xUX/nCTLrri/rvzlXFThlRG2k1dFOM
-	 lPpQAqZA1dzwRs6PBf+XqR3gR1fCYYSn0Jcrp2oD+W55PkcbWDH2IRY5QC3kXLafAs
-	 xt1g+H58ffM9MVUzbTRS0c6tfzIDI+ZE7XAqxxYJhgznApqSwuDvoXxmPMRvui4I42
-	 +kLAcxXMv5X62+sy1z1Vzwpf2rLoXjEqX9S84Gv4u+k3gFR3KiOHszV53obsTpyrUM
-	 sSSOF41gsi96Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: Add device tree for Nord SoC
- series
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260519063505.883379-6-shengchao.guo@oss.qualcomm.com>
-References: <20260519063505.883379-6-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 07:04:34 +0000
-Message-Id: <20260519070435.6C703C2BCB3@smtp.kernel.org>
+	s=k20201202; t=1779174289;
+	bh=1irEky9aWBq8MFj23jSIgVbynmrjBX1upwAhF7Njc9k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pmteWGt56uJcXCo5A+rXNj7VwcTV1m1gvqCSUJ40cdwhP4SSi7VbDTBMZo/fjoB9O
+	 jVxK69lU43R7NADVOysrSDc3m/mhP3lpBbVbHObVGLE1m+QDJfq7GmF6zvjiGaQHpW
+	 tFmQRi90LF3riJQNuT9HHpkG5cGnwcbedNqETXQHLfV7YA+I3Dtfhx71CtjVdfD45x
+	 mHMbL1NXUf6sq59kbKkDLtpknsoeAJKU5zJ0helOQO9hdh8Cae4G9u+Trh9Veek3cK
+	 uPj4zTiuPfFP5LGzuX7alpo+ZUrr20vOXf8dWnikAvhSr+QcidzusPcgxbQK4X3Ech
+	 LtZ5NX5RAo2ZA==
+Message-ID: <5fb43b8d-e772-42af-ba78-d75abd87bd0c@kernel.org>
+Date: Tue, 19 May 2026 09:04:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/10] dt-bindings: firmware: add arm,ras-cper
+To: Ahmed Tiba <ahmed.tiba@arm.com>, rafael@kernel.org, bp@alien8.de,
+ saket.dumbre@intel.com, will@kernel.org, xueshuai@linux.alibaba.com,
+ mchehab@kernel.org, krzk+dt@kernel.org, dave@stgolabs.net,
+ conor+dt@kernel.org, vishal.l.verma@intel.com, jic23@kernel.org,
+ corbet@lwn.net, guohanjun@huawei.com, dave.jiang@intel.com,
+ catalin.marinas@arm.com, lenb@kernel.org, tony.luck@intel.com,
+ skhan@linuxfoundation.org, djbw@kernel.org, alison.schofield@intel.com,
+ ira.weiny@intel.com, robh@kernel.org
+Cc: devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com,
+ linux-cxl@vger.kernel.org, Michael.Zhao2@arm.com,
+ acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org
+References: <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-0-42698675ba61@arm.com>
+ <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-9-42698675ba61@arm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-9-42698675ba61@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] The `ufs_mem_hc` node is missing the required `reg` property.
-- [High] The CPU idle state `core_off_c4` is improperly wired to power doma=
-ins instead of CPU nodes.
-- [High] The `arch_timer` node incorrectly uses the legacy GICv2 `GIC_CPU_M=
-ASK_SIMPLE(8)` macro for its interrupts in a GICv3 system.
-- [Medium] The `pdp_scmi` node provides fewer `shmem` entries than `mboxes`=
-, which breaks channel assignments.
-- [Medium] The `i2c15` and `spi15` nodes are missing their `compatible` pro=
-perties.
-- [Low] The `pdp0_a2p` shared memory node has a mismatched unit address in =
-its name.
-- [Low] The `l2-cache` nodes are incorrectly placed as nested children insi=
-de the `cpu` nodes.
---
+On 18/05/2026 13:57, Ahmed Tiba wrote:
+> Describe the DeviceTree node that exposes the Arm firmware-first
+> CPER provider and hook the file into MAINTAINERS so the
+> binding has an owner.
+> 
+> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
 
-commit e4aaf34e88835bde7e82aca29bb473de34bfe007
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Please implement previous comments.
 
-arm64: dts: qcom: Add device tree for Nord SoC series
 
-This commit adds the base device tree include (nord.dtsi) for the Nord SoC =
-series.
-It describes the core hardware components including CPUs, GICv3 interrupt
-controller, TLMM, SMMU instances, QUPv3 blocks, SCMI, and timers.
-
-> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
-m/nord.dtsi
+> ---
+>  .../devicetree/bindings/firmware/arm,ras-cper.yaml | 71 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  5 ++
+>  2 files changed, 76 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
 > new file mode 100644
-> index 0000000000000..b425a91a7890a
+> index 000000000000..81dc37390af5
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-> @@ -0,0 +1,4511 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+> +++ b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
+> @@ -0,0 +1,71 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/firmware/arm,ras-cper.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +title: Arm RAS CPER provider
 > +
-> +/ {
-> +	interrupt-parent =3D <&intc>;
-> +	#address-cells =3D <2>;
-> +	#size-cells =3D <2>;
+> +maintainers:
+> +  - Ahmed Tiba <ahmed.tiba@arm.com>
 > +
-> +	cpus {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <0>;
+> +description:
+> +  Arm Reliability, Availability and Serviceability (RAS) firmware can expose
+> +  a firmware-first CPER error source directly via DeviceTree. Firmware
+> +  provides the CPER Generic Error Status block and notifies the OS through
+> +  an interrupt.
 > +
-> +		cpu0: cpu@0 {
-> +			device_type =3D "cpu";
-> +			compatible =3D "qcom,oryon-1-5";
-> +			reg =3D <0x0 0x0>;
-> +			enable-method =3D "psci";
-> +			power-domains =3D <&cpu0_pd>;
-> +			power-domain-names =3D "psci";
-> +			next-level-cache =3D <&l2_0>;
-> +			clocks =3D <&cpu_perf 0>;
+> +properties:
+> +  compatible:
+> +    const: arm,ras-cper
 > +
-> +			l2_0: l2-cache {
-> +				compatible =3D "cache";
-> +				cache-level =3D <2>;
-> +				cache-unified;
-> +			};
+> +  memory-region:
+> +    oneOf:
+> +      - items:
+> +          - description:
+> +              CPER Generic Error Status block exposed by firmware
+> +      - items:
+> +          - description:
+> +              CPER Generic Error Status block exposed by firmware.
 
-Are these l2-cache nodes correctly placed?
+Also, this is just a list with minItems. No need for oneOf.
 
-The l2_0 (and other L2 cache) nodes are declared directly inside their
-respective CPU nodes. The cpus.yaml schema forbids cache nodes as children
-of a CPU node; they must be declared as peer nodes within the /cpus
-hierarchy and referenced via next-level-cache phandles.
-
-> +		};
-
-[ ... ]
-
-> +	firmware: firmware {
-> +		scm {
-> +			compatible =3D "qcom,scm-nord",
-> +				     "qcom,scm";
-> +			qcom,dload-mode =3D <&tcsr 0x79000>;
-> +		};
-> +
-> +		pdp_scmi: scmi {
-> +			compatible =3D "arm,scmi";
-> +			mboxes =3D <&pdp0_mbox 0>,
-> +				 <&pdp0_mbox 11>,
-> +				 <&pdp0_mbox 1>;
-> +			mbox-names =3D "tx",
-> +				     "tx_reply",
-> +				     "rx";
-> +			shmem =3D <&pdp0_a2p>,
-> +				<&pdp0_p2a>;
-
-Does this configuration provide enough shmem entries for the defined mailbo=
-xes?
-
-The SCMI node defines 3 mailboxes (tx, tx_reply, rx) but only 2 shmem
-phandles. The SCMI driver maps shared memory regions to mailbox channels
-sequentially.
-
-This mismatch causes the tx_reply channel to erroneously bind to the p2a
-buffer, and leaves the rx channel without any shared memory, which will
-break SCMI notifications and split completions.
-
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-
-[ ... ]
-
-> +		tme_crash_dump_mem: tme-crash-dump-region@87000000 {
-> +			reg =3D <0x0 0x87000000 0x0 0xa0000>;
-> +			no-map;
-> +		};
-> +
-> +		pdp0_a2p: scmi-shmem@87060180 {
-> +			compatible =3D "arm,scmi-shmem";
-> +			reg =3D <0x0 0x87608180 0x0 0x80>;
-
-Is there a typo in the unit address for this node?
-
-The node is named scmi-shmem@87060180, but its reg property maps address
-0x87608180. According to Device Tree specifications, the unit address in
-the node name must exactly match the base address in the reg property.
-
-> +			no-map;
-> +		};
-
-[ ... ]
-
-> +	psci {
-> +		compatible =3D "arm,psci-1.0";
-> +		method =3D "smc";
-> +
-> +		cpu0_pd: power-domain-cpu0 {
-> +			#power-domain-cells =3D <0>;
-> +			power-domains =3D <&cluster0_pd>;
-> +			domain-idle-states =3D <&core_off_c4>;
-> +		};
-
-Is core_off_c4 properly wired to this power domain?
-
-The core_off_c4 idle state has compatible =3D "arm,idle-state", making it
-a CPU idle state. However, it is assigned via the domain-idle-states
-property inside CPU power domain nodes instead of the cpu-idle-states
-property inside the CPU nodes.=20
-
-The domain-idle-states property only accepts targets with
-compatible =3D "domain-idle-state". Due to this mismatch, the cpuidle driver
-will not discover the CPU idle states, preventing the cores from entering
-intended retention states.
-
-> +
-> +		cpu1_pd: power-domain-cpu1 {
-> +			#power-domain-cells =3D <0>;
-
-[ ... ]
-
-> +		qupv3_2: geniqup@8c0000 {
-> +			compatible =3D "qcom,geni-se-qup";
-> +			reg =3D <0x0 0x008c0000 0x0 0x2000>;
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			iommus =3D <&apps_smmu_0 0x15a3 0x0>;
-> +			ranges;
-> +
-> +			i2c14: i2c@880000 {
-
-[ ... ]
-
-> +			uart14: serial@880000 {
-> +				compatible =3D "qcom,geni-uart";
-> +				reg =3D <0x0 0x00880000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +				status =3D "disabled";
-> +			};
-> +
-> +			i2c15: i2c@884000 {
-> +				reg =3D <0x0 0x00884000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +				status =3D "disabled";
-> +			};
-> +
-> +			spi15: spi@884000 {
-> +				reg =3D <0x0 0x00884000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +				status =3D "disabled";
-> +			};
-
-Are these i2c15 and spi15 nodes missing their compatible strings?
-
-They lack a compatible property (e.g., "qcom,geni-i2c"). Although
-currently marked as disabled, any board device tree that sets them to okay
-will find them completely non-functional because the kernel driver model
-requires a compatible string to bind the correct device driver.
-
-> +
-> +			uart15: serial@884000 {
-> +				compatible =3D "qcom,geni-debug-uart";
-
-[ ... ]
-
-> +		ufs_mem_hc: ufshc@1d44000 {
-> +			compatible =3D "qcom,nord-ufshc",
-> +				     "qcom,ufshc",
-> +				     "jedec,ufs-2.0";
-> +			interrupts =3D <GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>;
-> +			lanes-per-direction =3D <2>;
-> +			iommus =3D <&apps_smmu_0 0x14c0 0x0>;
-> +			dma-coherent;
-> +			msi-parent =3D <&gic_its 0x14c0>;
-> +		};
-
-Is this node missing its reg property?
-
-The ufshc@1d44000 node defines a unit address but omits the reg property
-entirely. This will prevent the UFS host controller driver from mapping its
-memory-mapped I/O registers during probe, rendering this hardware block
-non-functional.
-
-> +
-> +		tcsr_mutex: hwlock@1f40000 {
-
-[ ... ]
-
-> +	arch_timer: timer {
-> +		compatible =3D "arm,armv8-timer";
-> +		interrupts =3D <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LO=
-W)>,
-> +			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
-> +	};
-
-Can the GIC_CPU_MASK_SIMPLE(8) macro be used safely here for a GICv3 system?
-
-For an arm,gic-v3 interrupt controller, bits 8-15 of the third interrupt
-cell specify the PPI partition number, not a CPU mask. Using
-GIC_CPU_MASK_SIMPLE(8) resolves to (0xff << 8), setting the GICv3 PPI
-partition number to an invalid 255. This will cause the architectural timer
-interrupts to be misrouted or fail mapping altogether.
-
-> +
-> +	thermal_zones: thermal-zones {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519063505.8833=
-79-1-shengchao.guo@oss.qualcomm.com?part=3D5
+Best regards,
+Krzysztof
