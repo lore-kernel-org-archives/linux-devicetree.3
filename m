@@ -1,33 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46DE2874E3;
-	Tue, 19 May 2026 07:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDF83B3C14
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779174290; cv=none; b=uCO+4A73M2sSEcwhzvjFBUquXjc8frqW9/9vK/7TbJKGXwO9AQoRztMjmxTQmxiKxSl+ZB6LEK0gqMDM3LviPgJ+yd0zX3MRgiYnZ8kVo2ns7wSeu0dQvCP0CMUTLHO49OOwjpDd7E8MX6TcYYDC/dUrd4fxtHocEloCo289T8Y=
+	t=1779174427; cv=none; b=GE2G2zjOy61+Dak7OScOAXZ2q6fceq5iV23B1CuknH5RXAqi7qOk79A0lx8iZTwh8DtM87bQ9x9q3MkntKfCkETUkGLgCOFIIndTGIwBOJtlGepJPlYHuiI7v2evog/F1N+DjATPOVLjjjXWuGUznINlo9QvsgmGMGkRXXkadEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779174290; c=relaxed/simple;
-	bh=1irEky9aWBq8MFj23jSIgVbynmrjBX1upwAhF7Njc9k=;
+	s=arc-20240116; t=1779174427; c=relaxed/simple;
+	bh=BMcuZpgrheTtw8YzlMY85egTpgVnX4SxV15uvlEKhA0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XBtyy7GgIdGDE+AQLDeoaCmIruRvHUBZxhRx/I1vPTU6Z64G3ZL7FtdEWzXCfXPNel7f8vjPPv/vaDd1C1n54Y0/A3sDSevVH3dFRV5FwDS3MY3V8eoeVxzPmviW1NHIUPDNaMCvtwNJNkvJXafGyZ91D02stAHTGpqYGrqVRLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pmteWGt5; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=Ix1rChj+h08s9pZrouv25zY8IUCH3VanNqGFD4yJmzAdtbjuANv4MxeXtywOoBB8aulfxm3v7FyZfrzPFhMLSBDF7sSO0NYf6mBHmrd1JaQOeQA3u2HmotOFwmSKrhvWSjxwoPIPmuhMDMdosVao4feovia0dgAr+RXoHBeWg70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHqpetAH; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pmteWGt5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9667C2BCB3;
-	Tue, 19 May 2026 07:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779174289;
-	bh=1irEky9aWBq8MFj23jSIgVbynmrjBX1upwAhF7Njc9k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pmteWGt56uJcXCo5A+rXNj7VwcTV1m1gvqCSUJ40cdwhP4SSi7VbDTBMZo/fjoB9O
-	 jVxK69lU43R7NADVOysrSDc3m/mhP3lpBbVbHObVGLE1m+QDJfq7GmF6zvjiGaQHpW
-	 tFmQRi90LF3riJQNuT9HHpkG5cGnwcbedNqETXQHLfV7YA+I3Dtfhx71CtjVdfD45x
-	 mHMbL1NXUf6sq59kbKkDLtpknsoeAJKU5zJ0helOQO9hdh8Cae4G9u+Trh9Veek3cK
-	 uPj4zTiuPfFP5LGzuX7alpo+ZUrr20vOXf8dWnikAvhSr+QcidzusPcgxbQK4X3Ech
-	 LtZ5NX5RAo2ZA==
-Message-ID: <5fb43b8d-e772-42af-ba78-d75abd87bd0c@kernel.org>
-Date: Tue, 19 May 2026 09:04:40 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHqpetAH"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4585a116a4aso2550680f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 00:07:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779174425; x=1779779225; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jyEEvS9/Ik69rxCZnXUKAzpf2s9PN8D1R1Hqx/eCkrg=;
+        b=YHqpetAHI1jQxLGxEd1pIGnfIcAU33q5IrPJ1/kHLAhrWFoFRuDeZfd5lu71uwi9FF
+         v9NQqdgh/b8r1rASk3LeM3/wuOvzqd9ALgJOJUlBliHVsh8pzZtHtjguRqfUmXaouJV7
+         NB5VjA+nzvnb0eeDzBztDqM+7MP8ruC/lebiSWqn0rCMua+YCchXZNQxyBY3PKXBLkSZ
+         Iwc4aWhoTuWEClNs3FfPcE4rjGnfbklPBDnh9cMqQN3LK6x32vPHFX1AFaKWmEG4Qkpx
+         4AJCx0A/10FWncuG2Ip9sexds/FMr3pdeZwpxQpq8bkuETcPBX8FGm5WKqL2YjgqO1pB
+         qDrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779174425; x=1779779225;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jyEEvS9/Ik69rxCZnXUKAzpf2s9PN8D1R1Hqx/eCkrg=;
+        b=cJ6FiFfaNpJ/grkLB/5UkaFEbAwvJvq5+4EQQFvDK6z5TE2jymrEMqOTNzi9WI9L1e
+         AvoWKNOCHvp91HaSWe/xuebbsYG1kr6Fdu+pfLQQLvxs15yP/Ok4NoDNeN3JzmrzrY6e
+         q0yHSQwWCKWVZkKAF9GtgF44zCXCiXyOPj1wwXQ/zD425B3DmsbOM7ieGhq+QwqZqEkJ
+         C3EfPDQm2dxPhDJ6LEVY6vxwt4Ok63Q718v4lyaBQb37ZuiqdOJ48FTSIc11oVtdnHou
+         SyNX9k1SxxAoQExS3KWX6HiJ1xZIoyOpUIjT/xE+R6TpWqYkiPcPNf8xVbsNFV3kMT6T
+         OTfA==
+X-Forwarded-Encrypted: i=1; AFNElJ/L3T0BqCjjvvCXB06iIVrFpIduOYhbGLkT6D/EaMUGPdG/VyqGK+5ZbxstfRa96ZRaJFC4pxXLrSIe@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc7GgOPcBCmT0xplxYCRIc5kUgQZgCzvXqlmMgJ4p+K4FM+t2L
+	F4OOlxSKNvoleNzR4x88o7QphG+xkCjXhFZDjfLJEVXKoiH45Rkf7os6
+X-Gm-Gg: Acq92OH3usXCuK4iNrQaxhhj3IzVRONMTmF0c6PVVSiMm5s+nEWH2/BjLssMJ24kBjO
+	7sq+LrxGmQFiULIXZKUXWNFm0X4Abqbib6XDDdbeQO/x9H30rv9+n6JoHllxaT1bPNzjg1KRXdc
+	6px+wYWEG8lkRBXosERPuGMVOQ8JenrQh0WWDQCwgMyCwCYUqzrolBxS5vBmmIa+WmsZ9W4ndcv
+	xJJFad6FZEtLHykQM9/4iTAt0hFb/denWwRRK4bdcLWnQhObq7/OxhMdc6VeBr/yTKOIl4Mfs4H
+	N2RGwthOAu8151U6zblmbfKJZGCcls7UDzhjHDX0Yjbj+XlDO6bHUIh1lAqkgcIaUEAHqlh0ZPq
+	QVoB1pdOpx+NRhxHBzoHnIBsvLjDwyjMLuxzWD07kDumxcp624O9XfvWsLeUBomLneaEKJMt4ou
+	oo2vY/Y9BeBJwpFvEVOkoqbGTmEnry9JAdfE7v7cDHo1O6UcUSJN74xZDnhR4TLgf3LXZC
+X-Received: by 2002:a5d:5f45:0:b0:45b:d891:56bb with SMTP id ffacd0b85a97d-45e5c5db696mr28861409f8f.38.1779174424577;
+        Tue, 19 May 2026 00:07:04 -0700 (PDT)
+Received: from ?IPV6:2a02:3033:6d8:15d8:ec15:f5ad:b85f:a3b8? ([2a02:3033:6d8:15d8:ec15:f5ad:b85f:a3b8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9ec39ff1sm46305257f8f.10.2026.05.19.00.07.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 00:07:04 -0700 (PDT)
+Message-ID: <233a93d1-1901-440b-902b-f0e482d9a1a4@gmail.com>
+Date: Tue, 19 May 2026 09:07:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,123 +68,151 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/10] dt-bindings: firmware: add arm,ras-cper
-To: Ahmed Tiba <ahmed.tiba@arm.com>, rafael@kernel.org, bp@alien8.de,
- saket.dumbre@intel.com, will@kernel.org, xueshuai@linux.alibaba.com,
- mchehab@kernel.org, krzk+dt@kernel.org, dave@stgolabs.net,
- conor+dt@kernel.org, vishal.l.verma@intel.com, jic23@kernel.org,
- corbet@lwn.net, guohanjun@huawei.com, dave.jiang@intel.com,
- catalin.marinas@arm.com, lenb@kernel.org, tony.luck@intel.com,
- skhan@linuxfoundation.org, djbw@kernel.org, alison.schofield@intel.com,
- ira.weiny@intel.com, robh@kernel.org
-Cc: devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com,
- linux-cxl@vger.kernel.org, Michael.Zhao2@arm.com,
- acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org
-References: <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-0-42698675ba61@arm.com>
- <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-9-42698675ba61@arm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 2/3] iio: dac: Add AD5529R DAC driver support
+To: Jonathan Cameron <jic23@kernel.org>,
+ Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
+ <20260508-ad5529r-driver-v2-2-e315441685d7@analog.com>
+ <20260508143017.28f86551@jic23-huawei>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-9-42698675ba61@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 18/05/2026 13:57, Ahmed Tiba wrote:
-> Describe the DeviceTree node that exposes the Arm firmware-first
-> CPER provider and hook the file into MAINTAINERS so the
-> binding has an owner.
-> 
-> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
-
-Please implement previous comments.
+From: Janani Sunil <jan.sun97@gmail.com>
+In-Reply-To: <20260508143017.28f86551@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-> ---
->  .../devicetree/bindings/firmware/arm,ras-cper.yaml | 71 ++++++++++++++++++++++
->  MAINTAINERS                                        |  5 ++
->  2 files changed, 76 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
-> new file mode 100644
-> index 000000000000..81dc37390af5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
-> @@ -0,0 +1,71 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/firmware/arm,ras-cper.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Arm RAS CPER provider
-> +
-> +maintainers:
-> +  - Ahmed Tiba <ahmed.tiba@arm.com>
-> +
-> +description:
-> +  Arm Reliability, Availability and Serviceability (RAS) firmware can expose
-> +  a firmware-first CPER error source directly via DeviceTree. Firmware
-> +  provides the CPER Generic Error Status block and notifies the OS through
-> +  an interrupt.
-> +
-> +properties:
-> +  compatible:
-> +    const: arm,ras-cper
-> +
-> +  memory-region:
-> +    oneOf:
-> +      - items:
-> +          - description:
-> +              CPER Generic Error Status block exposed by firmware
-> +      - items:
-> +          - description:
-> +              CPER Generic Error Status block exposed by firmware.
+On 5/8/26 15:30, Jonathan Cameron wrote:
+> On Fri, 8 May 2026 13:55:48 +0200
+> Janani Sunil <janani.sunil@analog.com> wrote:
+>
+>> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+>>
+>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+>> +/* Register Map */
+>> +#define AD5529R_REG_INTERFACE_CONFIG_A		0x00
+>> +#define AD5529R_REG_INTERFACE_CONFIG_B		0x01
+>> +#define AD5529R_REG_DEVICE_CONFIG		0x02
+>> +#define AD5529R_REG_CHIP_TYPE			0x03
+>> +#define AD5529R_REG_PRODUCT_ID_L		0x04
+>> +#define AD5529R_REG_PRODUCT_ID_H		0x05
+>> +#define AD5529R_REG_CHIP_GRADE			0x06
+>> +#define AD5529R_REG_SCRATCH_PAD			0x0A
+>> +#define AD5529R_REG_SPI_REVISION		0x0B
+>> +#define AD5529R_REG_VENDOR_L			0x0C
+>> +#define AD5529R_REG_VENDOR_H			0x0D
+>> +#define AD5529R_REG_STREAM_MODE			0x0E
+>> +#define AD5529R_REG_TRANSFER_CONFIG		0x0F
+>> +#define AD5529R_REG_INTERFACE_CONFIG_C		0x10
+>> +#define AD5529R_REG_INTERFACE_STATUS_A		0x11
+>> +
+>> +/* Configuration registers */
+>> +#define AD5529R_REG_MULTI_DAC_CH_SEL		(0x14 + 1)
+> Feels like this would all be simpler if you used autoincrement rather than
+> default value of autdecrement.  What breaks if you do that?
+> Superficially feels like all the +1 would go away - though with need
+> for a byte swap?  Might be worth that pain for the simpler code.
+> Should just be a regmap_config parameter.
 
-Also, this is just a list with minItems. No need for oneOf.
+Switching to auto increment is feasible. I'll switch to auto increment and
+eliminate all the +1 offsets.
 
-Best regards,
-Krzysztof
+>> +
+>> +static const struct regmap_range ad5529r_8bit_readable_ranges[] = {
+>> +	regmap_reg_range(AD5529R_REG_INTERFACE_CONFIG_A, AD5529R_REG_CHIP_GRADE),
+>> +	regmap_reg_range(AD5529R_REG_SCRATCH_PAD, AD5529R_REG_VENDOR_H),
+>> +	regmap_reg_range(AD5529R_REG_STREAM_MODE, AD5529R_REG_INTERFACE_STATUS_A),
+>> +};
+>> +
+>> +static const struct regmap_range ad5529r_16bit_readable_ranges[] = {
+> Tricky bit here is you are saying it's a 16 bit regmap but then providing
+> address ranges including the ones we shouldn't use. We need to hide those
+> intermediate addresses.  Various things might work depending on the addresses.
+> Can we hide the bottom bit of each address then write it to appropriate value
+> under the hood. That is divide addresses by 2?
+
+I'll address this by using reg_stride = 2 in the 16-bit regmap configuration,
+which automatically handles the address spacing and eliminates the need for manual
+address range exclusion.
+
+>> +	int ret;
+>> +
+>> +	switch (mask) {
+>> +	case IIO_CHAN_INFO_RAW:
+>> +		reg_addr = AD5529R_REG_DAC_INPUT_A(chan->channel);
+>> +		ret = regmap_read(st->regmap_16bit, reg_addr, &reg_val_h);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		*val = reg_val_h;
+>> +
+>> +		return IIO_VAL_INT;
+>> +	case IIO_CHAN_INFO_SCALE:
+>> +		/*
+>> +		 * Using default 0-5V range: VOUTn = A × D/2^N + B
+>> +		 * where A = 5V, B = 0V, D = digital code, N = resolution
+>> +		 * Scale = 5000mV / 2^resolution
+> See the comment on the dt-binding. I think we need support for
+> dt described output ranges from the start. This is a rare multi range
+> device where we could set a safe default but to me it makes little sense
+> and the driver will be doing something unexpected if a newer DT is
+> provided with a different range.
+
+I will add devicetree properties for per channel output range configuration.
+
+>> +
+>> +static int ad5529r_probe(struct spi_device *spi)
+>> +{
+>> +	struct device *dev = &spi->dev;
+>> +	struct iio_dev *indio_dev;
+>> +	struct ad5529r_state *st;
+>> +	int ret;
+>> +
+>> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+>> +	if (!indio_dev)
+>> +		return -ENOMEM;
+>> +
+>> +	st = iio_priv(indio_dev);
+>> +
+>> +	st->spi = spi;
+>> +
+>> +	ret = devm_regulator_bulk_get_enable(dev, AD5529R_NUM_SUPPLIES,
+>> +					     ad5529r_supply_names);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to get and enable regulators\n");
+>> +
+>> +	st->regmap_8bit = devm_regmap_init_spi(spi, &ad5529r_regmap_8bit_config);
+>> +	if (IS_ERR(st->regmap_8bit))
+>> +		return dev_err_probe(dev, PTR_ERR(st->regmap_8bit),
+>> +				     "Failed to initialize 8-bit regmap\n");
+>> +
+>> +	st->regmap_16bit = devm_regmap_init_spi(spi, &ad5529r_regmap_16bit_config);
+>> +	if (IS_ERR(st->regmap_16bit))
+>> +		return dev_err_probe(dev, PTR_ERR(st->regmap_16bit),
+>> +				     "Failed to initialize 16-bit regmap\n");
+>> +
+>> +	ret = ad5529r_reset(st);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to reset device\n");
+>> +
+>> +	ret = ad5529r_detect_device(st);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to detect device variant\n");
+> No to this. It breaks the use of fallback device tree compatibles.  As such we
+> never fail on an ID missmatch. Instead we just believe firmware when it says
+> whatever is there is compatible with this device. See below on why I think
+> we need to break this into separate compatibles.
+
+I'll create separate compatibles and remove the device ID detection logic.
+
+Best Regards,
+Janani Sunil
+
