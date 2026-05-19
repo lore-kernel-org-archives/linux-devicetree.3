@@ -1,94 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5162D47E9;
-	Tue, 19 May 2026 03:36:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB572D249B;
+	Tue, 19 May 2026 03:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779161767; cv=none; b=gPnfv62XO0fErDa0crhb7nXHD6eeM3VGsRq9GpVs2nACzBtuDYq65nOuKe9HWQUtRwpoHMX6+2zScTGp46ZSs4b8KQV82zGUGmacE65echGIvFOA2LgPPVIQdGM/67W35B/Izld3bI9mMVjgztXQUX4Cnpu4DyLaB7V6c9ueSJE=
+	t=1779161835; cv=none; b=fcuzgrf6xHfgpp7ZJHF9s6Yl1agHVEGbW1YY3JyPzWM+qgiJCl5ZsRXHp3evPbf/nd/fVzqnJErxP7q3qckBD25Zp1silqEfQ/jzldh+GjheG0GS8rD4N+XINR5elRNBFyy/7//1eIGdCL9EoXaj+asmlmJKfdSoTrdRa5SaqDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779161767; c=relaxed/simple;
-	bh=9wUT23wJRSWBAy7V49IVwor34TwuZpIjPh5K+j8ijq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n5rKwm2ZWXDdxQTCcjs+m+i5kKHTI9vK0pcdRyLFz1UfdNNGlCcuw79t4BqkUMLsCf+gv6HxakDgY5t1lFn39d5dN5tU0kaFMRuhZodBhbWzfrOymYbUp5LN9aJu6SFpIbKpG/+wNmVGLTVDPshYOYsyKm6owV2jytzOKOsZ2A4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PiKVIS8w; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779161835; c=relaxed/simple;
+	bh=jDpIpoeOuuZpMhAxA+QmW/ZhmfNfnugCjkKuwRo7s4I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l2HdoJUziOVe3MA4pKgz/TmR0UiJScSkSbYXL6zmwvdvSc22XAug5TSW9XcZ5sHdhopBrKOtply72QXyO03YaDpLuq4HDVXABJCWBfsvvnJiwOd83nwQIMzsFEju2FWM2NfWg/LUt7l9fpoDHQgO8E+TQCxEhgw3h6pFLYOwIfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxWAHbGW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PiKVIS8w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2AAC2BCB3;
-	Tue, 19 May 2026 03:36:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxWAHbGW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68FFC2BCB3;
+	Tue, 19 May 2026 03:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779161767;
-	bh=9wUT23wJRSWBAy7V49IVwor34TwuZpIjPh5K+j8ijq4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PiKVIS8wLRB18sksYpfRX3It4h4TEMc+BqFKb+DkibU0mMJmeaaJaDfz4hu5Z3QPp
-	 8wE04z2yn/z5QMEYtne9uTXqQ/qNSI6J0nmNSK5msKru7sFZ2wFTCtdaVc7QWN8dzf
-	 MDFni9FiKgB8JHUK2mOLuy89rQLFH/b6r0yzfLmdk5nU9jU472SSQvuDaqRY5x7crG
-	 fR386/ue/K9GSgRXMSUOnqonEFRZjgwom+ARcT0s4bVYmwe+idxly7RmI9pl3Dz+6h
-	 g4jt9jf3VfIZpC7qMvRzYS2pLtGDK/A9lKKq1Dd3QR8MzLAlmqBg4T1ps1rvx8YJrq
-	 83lzvCwAaUF7g==
-Date: Mon, 18 May 2026 22:36:03 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alexander Koskovich <akoskovich@pm.me>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] pinctrl: qcom: eliza: Merge QUP1_SE4 lane
- functions
-Message-ID: <agvaboztafz63P2y@baldur>
-References: <20260515-eliza-tlmm-group-qup1-se4-lanes-v2-0-ebb630de0dcf@oss.qualcomm.com>
+	s=k20201202; t=1779161835;
+	bh=jDpIpoeOuuZpMhAxA+QmW/ZhmfNfnugCjkKuwRo7s4I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=mxWAHbGWi1Ot5XAOApLONBwb/kyd8pOYB9TIQEMDtgZgm+Jr81dV77vj1MrXywx2a
+	 FaBfa+hHsrc97FWZ83Ar/qGk1lYsb60jLpU8abRG4j8fYrX9YObABT/zdw6g/xpZTl
+	 lw3DC19MIi+ompfGBttQzIEUQoNJdXywS3A3rMWXEHotQ0qgamyeUOnyVelOHzHqKj
+	 8UgmcntFrhwTldV5BsxDiVYtkOlYTtNNrGbi7LSPkApwTdPNEVi0BZGooK0SDPfYRh
+	 WHqtrxe/BM45pmi0yQ4dtbeaOq1RFZGPmYUyFMuQsVOLG4OV6ns/PxovO2l/ilPSHn
+	 lP26wudtksy+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/6] media: synopsys: Add support for multiple
+ streams
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260519-csi2_imx95-v4-3-84ea4bb78a88@oss.nxp.com>
+References: <20260519-csi2_imx95-v4-3-84ea4bb78a88@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 03:37:14 +0000
+Message-Id: <20260519033714.C68FFC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260515-eliza-tlmm-group-qup1-se4-lanes-v2-0-ebb630de0dcf@oss.qualcomm.com>
 
-On Fri, May 15, 2026 at 02:21:50PM +0300, Abel Vesa wrote:
-> QUP1_SE4 uses GPIO36 and GPIO37 for two selectable lane pairs.
-> Splitting into function per lane works, but it forces the devicetree to
-> describe a state per pin while these are usually configured in pairs.
-> 
-> Follow the pair-wise scheme used on Qualcomm Hawi platform and expose
-> the two selectable pairs as qup1_se4_01 and qup1_se4_23 in both the
-> binding and the driver.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect pad arguments to `v4l2_subdev_state_xlate_streams()` sil=
+ently corrupt stream masks and cause PM runtime underflows.
+- [High] Propagating a remote subdevice disable error causes state desynchr=
+onization and double PM runtime put on retry.
+--
 
-Given how fresh this binding is, I think it's okay to make the change.
+commit dc1fc68d798970cf70a238272f82256db2545536
+Author: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
+media: synopsys: Add support for multiple streams
 
-Regards,
-Bjorn
+The driver is updated to support multiple concurrent streams by tracking
+enabled streams with a bitmask, instead of only supporting single stream
+operation. The hardware is now initialized only once for the first stream.
 
-> This has been proposed here:
-> https://lore.kernel.org/all/agIZOAa6nYSb5PWX@baldur/
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Explicitly mentioned "per-lane qup1_se4_l[0-3] names" in the
->   bindings commit message, as Krzysztof suggested.
-> - Picked up Krzysztof's A-b tag for the bindings patch.
-> - Link to v1: https://patch.msgid.link/20260513-eliza-tlmm-group-qup1-se4-lanes-v1-0-1babc6118829@oss.qualcomm.com
-> 
-> ---
-> Abel Vesa (2):
->       dt-bindings: pinctrl: qcom,eliza-tlmm: Merge QUP1_SE4 lane functions
->       pinctrl: qcom: eliza: Merge QUP1_SE4 lanes in groups
-> 
->  .../bindings/pinctrl/qcom,eliza-tlmm.yaml          |  4 +--
->  drivers/pinctrl/qcom/pinctrl-eliza.c               | 32 +++++++---------------
->  2 files changed, 12 insertions(+), 24 deletions(-)
-> ---
-> base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-> change-id: 20260513-eliza-tlmm-group-qup1-se4-lanes-2861e6928685
-> 
-> Best regards,
-> --  
-> Abel Vesa <abel.vesa@oss.qualcomm.com>
-> 
+> diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/m=
+edia/platform/synopsys/dw-mipi-csi2rx.c
+> index f45466ede2bb7..92178a3dec5d5 100644
+> --- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> +++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+[ ... ]
+> @@ -539,26 +540,33 @@ static int dw_mipi_csi2rx_enable_streams(struct v4l=
+2_subdev *sd,
+>  					       DW_MIPI_CSI2RX_PAD_SRC,
+>  					       &streams_mask);
+> =20
+> -	ret =3D pm_runtime_resume_and_get(dev);
+> -	if (ret)
+> -		goto err;
+> +	if (!csi2->enabled_streams) {
+> +		ret =3D pm_runtime_resume_and_get(dev);
+
+Does this sequence properly handle the streams_mask translation?
+
+The .enable_streams() and .disable_streams() operations are exclusively
+invoked on source pads, meaning streams_mask represents the streams on
+DW_MIPI_CSI2RX_PAD_SRC.
+
+When calling v4l2_subdev_state_xlate_streams(), the driver passes
+DW_MIPI_CSI2RX_PAD_SINK as pad0 and DW_MIPI_CSI2RX_PAD_SRC as pad1. However,
+the helper expects *streams to be the mask for pad0.
+
+Because the helper evaluates the SRC streams mask against route->sink_strea=
+m,
+translation will fail for any asymmetric routing where sink and source stre=
+am
+IDs differ.
+
+On failure, streams_mask is mutated to 0. In enable_streams(), this results
+in pm_runtime_resume_and_get() executing, but csi2->enabled_streams remaini=
+ng
+0.
+
+Since the V4L2 core still marks the stream as enabled, userspace could
+interleave symmetric and asymmetric stream enable/disable calls (e.g., enab=
+le
+symmetric -> PM get; enable asymmetric -> no PM get; disable symmetric ->
+PM put; disable asymmetric -> PM put).
+
+Could this sequence underflow the PM runtime usage counter and PHY power
+count, breaking device power management?
+
+[ ... ]
+> @@ -583,10 +591,15 @@ static int dw_mipi_csi2rx_disable_streams(struct v4=
+l2_subdev *sd,
+>  					       &streams_mask);
+> =20
+>  	ret =3D v4l2_subdev_disable_streams(remote_sd, remote_pad->index, mask);
+> +	if (ret)
+> +		dev_err(dev, "failed to disable streams on remote subdev: %d\n", ret);
+> =20
+> -	dw_mipi_csi2rx_stop(csi2);
+> +	csi2->enabled_streams &=3D ~streams_mask;
+> =20
+> -	pm_runtime_put(dev);
+> +	if (!csi2->enabled_streams) {
+> +		dw_mipi_csi2rx_stop(csi2);
+> +		pm_runtime_put(dev);
+> +	}
+> =20
+>  	return ret;
+
+Could propagating the remote disable error here cause state synchronization
+issues with the V4L2 core?
+
+If v4l2_subdev_disable_streams() on the remote subdevice fails, the driver
+proceeds to clear its local state (csi2->enabled_streams &=3D ~streams_mask=
+),
+shuts down the hardware, and calls pm_runtime_put() if the mask becomes 0.
+
+The driver then returns the error to the V4L2 core. Because of this error,
+the V4L2 core aborts and skips marking the stream as disabled, meaning the
+framework still considers the stream active.
+
+If userspace retries the disable operation, the driver will be invoked agai=
+n.
+Since csi2->enabled_streams was already cleared, !csi2->enabled_streams wou=
+ld
+evaluate to true again. This results in a redundant dw_mipi_csi2rx_stop() a=
+nd
+pm_runtime_put() being executed.
+
+Could this lead to a PM usage underflow and illegal writes to powered-off
+PHY registers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-csi2_imx95=
+-v4-0-84ea4bb78a88@oss.nxp.com?part=3D3
