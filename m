@@ -1,224 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3629330E0E9
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 22:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACB43A0B05;
+	Tue, 19 May 2026 22:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779230624; cv=none; b=Ke2uy2QRSleos3d+mNwkSHZcQRh/jC7JvS7VshSnKn+VLogqPmQQk7bi8k3AL2imfVaWiCLQKeeFF9/cNB5K7zWCruzgNDmQOHBGR3iO/cH5lZbHC/xRl7utnA99U9kbP+cnEUEpZB5ueFjcHo/7R++afBSXTALfBaEJSlANH1o=
+	t=1779231302; cv=none; b=SuGwneBxdfxSjwvqx6BoqxJRL0S6CIxniV6t2hxHi5+PKXGyZK4kv7PLhNl+w1bngbHwrpJMJUlngqMG/LL3YVt0CHj/GmMmeQ0WEtxGhoUCZVgXal1YNTZxcQ2mPTqzHZahFZM0qbI2mCAkvyIt8EAZxMl88RyaUX/n08Sn8fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779230624; c=relaxed/simple;
-	bh=nEAFKDxJm7Mca1JBGBBoDSpQmFiYl6rPc1ntEomE4so=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z/aqJrB33l7Lpwx0j1X/QWBJPlxQXnyyFvoTC9yNagCxrthq5JQYdmcKFT5RI0TpdyRhMxaz0pco+XHAQV1GN6k1eGm4ODXlKyiKd6BVUIgS+W6lOzbMvelzsIe3tnBiYJKUjxQflPIpmy1b4FlH2ndgOBfE5G4UGuGJxPqBi4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGReAfbF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779231302; c=relaxed/simple;
+	bh=CPzCK5QGY3IBZVvr1cXgpkykNusJXWFMCjWtw+Cy5BU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tbVhLYzGLHzsdmukRZsmcBiqKf5hz0sW8x0FpPm1WH9t1efY5Y733SJxL898ftqCJKZpx4l/IzCPekK0BxAX6aLVUA1noHOVkNewSG0YqHyDXsjEL5KKDH3Az5igVCbvtyYaGffBgzqtQdHkTOxqN9evFzX39sB1i3GhJgPZsOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WYXse9LJ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGReAfbF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E401F000E9;
-	Tue, 19 May 2026 22:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779230623;
-	bh=k0SEi6AbzBzqNY0v2mI50AQJ6wZUg6tMkiXbtL5KJVE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eGReAfbFt97XbgvpxFizER465KSJOGdlaeerX7zFlpU1Y6NrPuamM9a4ll3OMrL3V
-	 yHxkeQOe/+8f2uqfSLZnuAGrsUJ6A8nPiWWCroNgedSwZf83o4TsX2rnMUgxa216zy
-	 iVvXvHsLQ16hvPcpyC8kvlEsu3uIiKKtx2MJvqYts0fX7Q1ovvJMGFR2d8LVDgP/5w
-	 785o3hdRWmh+sUCyYSZYX+D02El9EBN9FYVbd4Hr3MfH9uKe7dMQMTlam1NbxR139W
-	 CtnRzEXXVujQcoc8DWL1euYHG7Pmc93tLxfxBeeFyHakib4R9WlgVUyEhDyzqzH4KW
-	 sQFGl5BMW2zXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/5] thermal/drivers: airoha: Convert to regmap API
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519222433.29684-2-ansuelsmth@gmail.com>
-References: <20260519222433.29684-2-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 22:43:42 +0000
-Message-Id: <20260519224342.E0E401F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WYXse9LJ"
+Received: from killaraus.ideasonboard.com (unknown [IPv6:2a01:cb1d:8ee:8600:346a:417a:479f:f6a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E093E55;
+	Wed, 20 May 2026 00:54:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1779231282;
+	bh=CPzCK5QGY3IBZVvr1cXgpkykNusJXWFMCjWtw+Cy5BU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WYXse9LJFfqo4bMINyiIs3ae84T9m6PmAduMf4ndBYQz62iXcLxDcOMm7c+eiNEMb
+	 OVBCoqbb8tmYHf+UMt5HRecYnfzqw46005FMjzdqMUiVsDDkLPzSyS4namSH4BXIeB
+	 4lDsRkY1YONdldclXYThLnsvtOT5hnEQdeu5ITvM=
+Date: Wed, 20 May 2026 00:54:53 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: Add Sony IMX678
+Message-ID: <20260519225453.GI16205@killaraus.ideasonboard.com>
+References: <20260516-imx678-v2-0-4854ac61d6fb@ideasonboard.com>
+ <20260516-imx678-v2-1-4854ac61d6fb@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260516-imx678-v2-1-4854ac61d6fb@ideasonboard.com>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+Hi Jai,
 
-New issues:
-- [High] Copy-paste error when writing the low temperature offset.
-- [Medium] Return values of regmap_read() are ignored, leading to the poten=
-tial use of uninitialized stack variables.
+Thank you for the patch.
 
-Pre-existing issues:
-- [High] Copy-paste error when clamping the low temperature limit.
-- [High] Premature IRQ registration leading to potential NULL pointer deref=
-erence and incorrect devres teardown order.
-- [High] Duplicate bitfield mask used, leaving sensor interval unconfigured.
-- [High] Simultaneous high and low temperature interrupts are completely ig=
-nored by the IRQ handler.
---
+On Sat, May 16, 2026 at 07:49:10PM +0530, Jai Luthra wrote:
+> Sony IMX678 is an 8.4 Megapixel (3856x2180) CMOS sensor, that can output
+> pixels over MIPI CSI-2 bus. Add bindings for it.
+> 
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> ---
+> Changes in v2:
+> - Add per-variant compatibles for mono and colour, alongside the
+>   generic fallback, so the variant can be declared without powering
+>   the sensor at probe.
+> - Rename reset GPIO to xclr as that's what it's called in the
+>   datasheet, and how it behaves
 
-commit 4a56a8551e5214de07751cb7408cbc139cfff0cd
-Author: Christian Marangi <ansuelsmth@gmail.com>
+For standard functions such as reset or power down, the preferred and
+recommended naming scheme is to use the function name instead of the
+signal name. "reset-gpios" is the right name for the property
+corresonding to the XCLR signal. The signal name is then documented in
+the description.
 
-thermal/drivers: airoha: Convert to regmap API
-   =20
-In preparation for support of Airoha AN7583, convert the driver to
-regmap API. This is needed as Airoha AN7583 will be based on syscon
-regmap.
+> - Reference the generic video interface devices schema and switch to
+>   unevaluatedProperties.
+> - Drop "link-frequencies: true"
+> - Drop the T: entry for media.git from MAINTAINERS.
+> ---
+>  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 129 +++++++++++++++++++++
+>  MAINTAINERS                                        |   6 +
+>  2 files changed, 135 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> new file mode 100644
+> index 000000000000..8f12853f40e6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> @@ -0,0 +1,129 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (C) 2026 Ideas on Board Oy
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sony IMX678 Sensor
+> +
+> +maintainers:
+> +  - Jai Luthra <jai.luthra@ideasonboard.com>
+> +
+> +description:
+> +  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
+> +  image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
+> +
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - sony,imx678
+> +      - sony,imx678-aamr
+> +      - sony,imx678-aaqr
+> +    description:
+> +      The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
+> +      variant (IMX678-AAMR). An internal register can also help detect this at
+> +      runtime.
 
-> diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_th=
-ermal.c
-> index b9fd6bfc88e5e..01ed49a4887e1 100644
-> --- a/drivers/thermal/airoha_thermal.c
-> +++ b/drivers/thermal/airoha_thermal.c
+The description should explain how the three compatible strings differ.
+The difference between sony,imx678-aamr and sony,imx678-aaqr is quite
+evident, but it's not clear to the reader if they should pick
+sony,imx678 or one of the other two values.
 
-[ ... ]
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: |
+> +      Input clock (INCK). Only the rates listed in the datasheet are supported:
+> +      13.5, 18, 24, 27, 36, 37.125, 72, and 74.25 MHz.
+> +    maxItems: 1
+> +
+> +  avdd-supply:
+> +    description: Analog power supply (3.3V)
+> +
+> +  ovdd-supply:
+> +    description: Interface power supply (1.8V)
+> +
+> +  dvdd-supply:
+> +    description: Digital power supply (1.2V)
+> +
+> +  xclr-gpios:
+> +    description: Sensor XCLR GPIO
+> +    maxItems: 1
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          data-lanes:
+> +            oneOf:
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
+> +                  - const: 5
+> +                  - const: 6
+> +                  - const: 7
+> +                  - const: 8
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - avdd-supply
+> +  - ovdd-supply
+> +  - dvdd-supply
+> +  - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        camera@1a {
+> +            compatible = "sony,imx678";
+> +            reg = <0x1a>;
+> +            clocks = <&imx678_clk>;
+> +
+> +            avdd-supply = <&camera_avdd_3v3>;
+> +            ovdd-supply = <&camera_ovdd_1v8>;
+> +            dvdd-supply = <&camera_dvdd_1v2>;
+> +
+> +            xclr-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>;
+> +
+> +            port {
+> +                imx678: endpoint {
+> +                    remote-endpoint = <&cam>;
+> +                    data-lanes = <1 2 3 4>;
+> +                    link-frequencies = /bits/ 64 <720000000>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 2fb1c75afd16..6b368345a771 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24911,6 +24911,12 @@ T:	git git://linuxtv.org/media.git
+>  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+>  F:	drivers/media/i2c/imx415.c
+>  
+> +SONY IMX678 SENSOR DRIVER
+> +M:	Jai Luthra <jai.luthra@ideasonboard.com>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> +
+>  SONY MEMORYSTICK SUBSYSTEM
+>  M:	Maxim Levitsky <maximlevitsky@gmail.com>
+>  M:	Alex Dubov <oakad@yahoo.com>
 
-> @@ -277,15 +277,15 @@ static int airoha_thermal_set_trips(struct thermal_=
-zone_device *tz, int low,
->  			      RAW_TO_TEMP(priv, FIELD_MAX(EN7581_DOUT_TADC_MASK)));
-> =20
->  		/* We offset the low temp of 1=C2=B0C to trigger correct event */
-> -		writel(TEMP_TO_RAW(priv, low) >> 4,
-> -		       priv->base + EN7581_TEMPOFFSETL);
-> +		regmap_write(priv->map, EN7581_TEMPOFFSETL,
-> +			     TEMP_TO_RAW(priv, high) >> 4);
+-- 
+Regards,
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the clamp function right
-above this code evaluate the high parameter instead of low?
-
-if (low !=3D -INT_MAX) {
-    /* Validate low and clamp it to a supported value */
-    low =3D clamp_t(int, high, RAW_TO_TEMP(priv, 0), ...);
-
-Could this overwrite the intended low threshold with the clamped high thres=
-hold?
-
-[Severity: High]
-Is the TEMP_TO_RAW conversion now passing high instead of low? This appears=
- to
-write the high temperature limit into the low temperature limit register.
-
-> =20
->  		enable_monitor =3D true;
->  	}
-
-[ ... ]
-
-> @@ -302,7 +302,7 @@ static irqreturn_t airoha_thermal_irq(int irq, void *=
-data)
->  	bool update =3D false;
->  	u32 status;
-> =20
-> -	status =3D readl(priv->base + EN7581_TEMPMONINTSTS);
-> +	regmap_read(priv->map, EN7581_TEMPMONINTSTS, &status);
-
-[Severity: Medium]
-Should the return value of regmap_read be checked here? Unlike readl,
-regmap_read can fail and leave the status variable unmodified. This might
-cause the driver to evaluate uninitialized memory from the stack if an MMIO
-read fails.
-
->  	switch (status & (EN7581_HOFSINTSTS0 | EN7581_LOFSINTSTS0)) {
-
-[Severity: High]
-This is a pre-existing issue, but does this switch statement handle the case
-where both high and low threshold interrupts are asserted simultaneously?
-
-If both bits are set in the status variable, the bitwise AND matches neither
-case, which would cause the interrupts to be dropped and reset without being
-processed.
-
->  	case EN7581_HOFSINTSTS0:
->  		event =3D THERMAL_TRIP_VIOLATED;
-
-[ ... ]
-
-> @@ -336,11 +336,11 @@ static void airoha_thermal_setup_adc_val(struct dev=
-ice *dev,
->  	/* sleep 10 ms for ADC to enable */
->  	usleep_range(10 * USEC_PER_MSEC, 11 * USEC_PER_MSEC);
-> =20
-> -	efuse_calib_info =3D readl(priv->base + EN7581_EFUSE_TEMP_OFFSET_REG);
-> +	regmap_read(priv->map, EN7581_EFUSE_TEMP_OFFSET_REG, &efuse_calib_info);
-
-[Severity: Medium]
-Could a failure in regmap_read leave efuse_calib_info uninitialized before =
-it
-is evaluated in the conditional statement immediately following it?
-
->  	if (efuse_calib_info) {
->  		priv->default_offset =3D FIELD_GET(EN7581_EFUSE_TEMP_OFFSET, efuse_cal=
-ib_info);
->  		/* Different slope are applied if the sensor is used for CPU or for pa=
-ckage */
-> -		cpu_sensor =3D readl(priv->base + EN7581_EFUSE_TEMP_CPU_SENSOR_REG);
-> +		regmap_read(priv->map, EN7581_EFUSE_TEMP_CPU_SENSOR_REG, &cpu_sensor);
-
-[ ... ]
-
-> @@ -391,40 +391,52 @@ static void airoha_thermal_setup_monitor(struct air=
-oha_thermal_priv *priv)
->  	 * in the order of half a =C2=B0C and is acceptable in the context
->  	 * of triggering interrupt in critical condition.
->  	 */
-> -	writel(FIELD_PREP(EN7581_ADC_VOLTAGE_SHIFT, 4),
-> -	       priv->base + EN7581_TEMPADCVOLTAGESHIFT);
-> +	regmap_write(priv->map, EN7581_TEMPADCVOLTAGESHIFT,
-> +		     FIELD_PREP(EN7581_ADC_VOLTAGE_SHIFT, 4));
-
-[ ... ]
-
->  	/*
->  	 * filt interval is 1 * 52.715us =3D 52.715us,
->  	 * sen interval is 379 * 52.715us =3D 19.97ms
->  	 */
-> -	writel(FIELD_PREP(EN7581_FILT_INTERVAL, 1) |
-> -	       FIELD_PREP(EN7581_FILT_INTERVAL, 379),
-> -	       priv->base + EN7581_TEMPMONCTL2);
-> +	regmap_write(priv->map, EN7581_TEMPMONCTL2,
-> +		     FIELD_PREP(EN7581_FILT_INTERVAL, 1) |
-> +		     FIELD_PREP(EN7581_FILT_INTERVAL, 379));
-
-[Severity: High]
-This is a pre-existing issue, but does the second FIELD_PREP reuse the
-EN7581_FILT_INTERVAL mask instead of a sensor interval macro? This might
-leave the sensor interval unconfigured and overwrite the filter interval
-configuration.
-
-> =20
->  	/* AHB poll is set to 146 * 68.64 =3D 10.02us */
-
-[ ... ]
-
-> @@ -462,8 +474,8 @@ static int airoha_thermal_probe(struct platform_devic=
-e *pdev)
->  	platform_set_drvdata(pdev, priv);
-> =20
->  	/* Enable LOW and HIGH interrupt */
-> -	writel(EN7581_HOFSINTEN0 | EN7581_LOFSINTEN0,
-> -	       priv->base + EN7581_TEMPMONINT);
-> +	regmap_write(priv->map, EN7581_TEMPMONINT,
-> +		     EN7581_HOFSINTEN0 | EN7581_LOFSINTEN0);
-> =20
->  	return 0;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but looking at airoha_thermal_probe, the
-driver calls devm_request_threaded_irq before devm_thermal_of_zone_register
-initializes priv->tz.
-
-If an interrupt triggers early, could airoha_thermal_irq dereference a NULL
-priv->tz?
-
-Also, during module unload, devres would free the thermal zone before
-removing the IRQ handler. Does this create a use-after-free window?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519222433.2968=
-4-1-ansuelsmth@gmail.com?part=3D1
+Laurent Pinchart
