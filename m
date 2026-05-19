@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAA42F9985
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:34:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73F13DA7E2
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:35:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779176050; cv=none; b=b6v8t5SPWVW4+VAGuNBo/yMJordEMmGF5NtzqZ/Ps30lv0qVoZdhEhScDI1P6cGzrLltQ6IrqzsfsdGDQgTG7VHUOiELbkXXmi1jctYZw7P35xvHYHlKURQewm0l4qrCMTCDiWLXYFEAUVzSGaKebEs5bS/Jiskv0OvYxXAgnuY=
+	t=1779176160; cv=none; b=FFbThaWjLSxm3xH6yc6hCOOjXyHHRiilHg0wrD9H/CeFXVqL32ANmPeUGwbADEdDWaHtrN13NUYZSwSDrBYtkQOTIy+vHF2/vK4FWGSgewW/sT8/7qC4ekNBPXkAcwXTBMwgvKp4BEvp+V6I+ND+0pWW+3O908aBde9fAGfp+Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779176050; c=relaxed/simple;
-	bh=5VNNNqw0/Q+qcL8GFWplL22mvozurBq0Pwimb4UJN10=;
+	s=arc-20240116; t=1779176160; c=relaxed/simple;
+	bh=co+ehvt9DDbgqhQECIDonHiltKE1gk/Dp9hE7jZsTBI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ibBkee0TFd1gyYV+dW9SZAZnQPCB0SgNgMsT6blx/lJpNKOW5h2OfANcEczGC8UhcEQaz8vGRGxyL0lQC0Nw+eSx/zIIowxxHQQ475njxCFJXHU8QH+qDO7lDDok8pVDP1qxG+tzkC0cBr1Oe1W3n234ueJRySLUO4JLU68kgtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTGnKsUX; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=VwKUQ73rs02ZI07D/OLhhFE4zUonUnxl1Rbzfu3HD6Y0ve5oeBnXpj7dUd9kNcPfcfstrMrcUEZU3y/LtEa4fLNZX8xTl+Nyn8BMSORPiMqHWu0fIFnmAtABsAW4K844og/qY6nYW8h66HAwEAbPaswghRKIYJiJ4WGCJvsKVLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WeUmQ+1j; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTGnKsUX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91EC8C2BCB3;
-	Tue, 19 May 2026 07:34:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WeUmQ+1j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E042C2BCB3;
+	Tue, 19 May 2026 07:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779176049;
-	bh=5VNNNqw0/Q+qcL8GFWplL22mvozurBq0Pwimb4UJN10=;
+	s=k20201202; t=1779176159;
+	bh=co+ehvt9DDbgqhQECIDonHiltKE1gk/Dp9hE7jZsTBI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=KTGnKsUXRs5O1xFpN1sYbVWWKYqZn2jX4f6OMsp818Baq7KenJfBWPIrDXPAxk4xo
-	 CgDPB4qWWshCnX0VacEBMthTGv9mZoEWP+gws9SSzpU6aiP7uWfJ/YfqAjLUjD7fcA
-	 Gg2Oz/zDhmce8tag0TubbP5A4uzd6BPPPZd4qy5o8Wva39rNhgyPu3Ms6hcTQqitZC
-	 dN4oh4muUohgDzkgnhZ8M1KeYKJF6OSKzbIfQU6qruipCH//vYZmNntMzwC0QoGCQX
-	 d3yzYgecPy97nFNFJB1CHyYj65zce1J2Buu+OTd/P0mvzLFYX6NWzJP470uT2iELxh
-	 CGY1JTjcQvwuQ==
+	b=WeUmQ+1jJbocVYmI5exl/2yBDZOAfHYLZXhUyUFNzjUAk10CfbpnfOx+AbEBrjCd4
+	 9Tm2AOEm10ch/D9deQATmW0NiKRpz0duA/DWQRp24+mNNA8vvX8vvkWLh81xAOqRJ/
+	 zLA71x+5TTd1eBQw1H6QwZXUUQOvQb1tzlZD+Vf5OMQ+BxVnndTRsTJbAPqAWekqtZ
+	 M+wEQO87zmdI7zC7XcmnvGAM7alLT/7tIS6VtkI77fCXT69/A/JAw+CCWLeczhI+Mv
+	 D+SoStlwE44wXOfzQ3yPOwv4kUDb3XxIbIRpuQ4Wf70x5HL2fCPniseibuWQ1ZKaH5
+	 SvGMZzTgzyNYg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/16] wifi: ath12k: Switch to generic PAS TZ APIs
+Subject: Re: [PATCH v2 8/8] arm64: dts: qcom: Add device tree for SA8797P
+ Ride board
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260518072856.22790-15-sumit.garg@kernel.org>
-References: <20260518072856.22790-15-sumit.garg@kernel.org>
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260519063505.883379-9-shengchao.guo@oss.qualcomm.com>
+References: <20260519063505.883379-9-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 07:34:08 +0000
-Message-Id: <20260519073409.91EC8C2BCB3@smtp.kernel.org>
+Date: Tue, 19 May 2026 07:35:58 +0000
+Message-Id: <20260519073559.5E042C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,60 +46,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The transition from `QCOM_SCM` to the generic `QCOM_PAS` framework=
- introduces an asynchronous probing bug where `ath12k` fails to check if th=
-e PAS backend is available, causing permanent probe failures.
+- [High] Flawed thermal zone configurations with incorrect types, descendin=
+g order, and identical duplicate trip points.
 --
 
-commit 9d619dc2a0265a4c4b222e1e790293c324c3c591
-Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
+commit feec939ce542144572175512accde079d1c6829f
+Author: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-wifi: ath12k: Switch to generic PAS TZ APIs
+arm64: dts: qcom: Add device tree for SA8797P Ride board
 
-This commit switches the ath12k client driver over to the generic PAS TZ
-APIs. This abstracts the TZ implementation, allowing the driver to support
-multiple backends such as the QTEE based SCM PAS service or OP-TEE based
-PAS service.
+This commit adds the initial device tree for the Qualcomm SA8797P Ride
+reference board. It configures UART ports, enables UFS storage, and
+defines various thermal zones using the SCMI sensor protocol.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless=
-/ath/ath12k/ahb.c
-> --- a/drivers/net/wireless/ath/ath12k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath12k/ahb.c
+> diff --git a/arch/arm64/boot/dts/qcom/sa8797p-ride.dts b/arch/arm64/boot/=
+dts/qcom/sa8797p-ride.dts
+> new file mode 100644
+> index 0000000000000..2eab2c6fc173d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sa8797p-ride.dts
 
 [ ... ]
 
-> @@ -420,7 +420,7 @@ static int ath12k_ahb_power_up(struct ath12k_base *ab)
-> =20
->  	if (ab_ahb->scm_auth_enabled) {
->  		/* Authenticate FW image using peripheral ID */
-> -		ret =3D qcom_scm_pas_auth_and_reset(pasid);
-> +		ret =3D qcom_pas_auth_and_reset(pasid);
->  		if (ret) {
->  			ath12k_err(ab, "failed to boot the remote processor %d\n", ret);
->  			goto err_fw2;
+> +	pm_kobra_thermal: pm-a-die-thermal {
+> +		polling-delay-passive =3D <100>;
+> +		polling-delay =3D <0>;
+> +		thermal-sensors =3D <&scmi23_sensor 3>;
+> +
+> +		trips {
+> +			trip0 {
+> +				temperature =3D <135000>;
+> +				hysteresis =3D <5000>;
+> +				type =3D "passive";
+> +			};
+> +
+> +			pm_kobra_trip1: trip1 {
+> +				temperature =3D <115000>;
+> +				hysteresis =3D <5000>;
+> +				type =3D "passive";
+> +			};
+> +		};
+> +	};
 
-Does this change introduce an asynchronous probing failure?
+Should trip0 be configured as an emergency hardware shutdown trip point
+instead of passive, considering the high 135C temperature limit?
 
-Since the generic QCOM_PAS layer allows its backends (like QCOM_SCM or
-QCOM_PAS_TEE) to be built as loadable modules, the ath12k_ahb driver might
-probe before the backend has registered its operations.
+Also, does the thermal framework expect these trip points to be defined in
+ascending order of temperature rather than descending?
 
-If that happens, qcom_pas_auth_and_reset() returns -ENODEV:
+[ ... ]
 
-drivers/firmware/qcom/qcom_pas.c:qcom_pas_auth_and_reset() {
-	if (!ops_ptr)
-		return -ENODEV;
+> +	pm_kai_ufs_thermal: ufs-thermal {
+> +		polling-delay-passive =3D <0>;
+> +		polling-delay =3D <0>;
+> +		thermal-sensors =3D <&scmi23_sensor 0>;
+> +
+> +		trips {
+> +			trip0 {
+> +				temperature =3D <125000>;
+> +				hysteresis =3D <5000>;
+> +				type =3D "passive";
+> +			};
+> +
+> +			trip1 {
+> +				temperature =3D <125000>;
+> +				hysteresis =3D <5000>;
+> +				type =3D "passive";
+> +			};
+> +		};
+> +	};
 
-	return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
-}
+Are these duplicate trip points intentional? Both trip0 and trip1 are defin=
+ed
+with the exact same temperature, hysteresis, and passive type.
 
-Because this returns -ENODEV instead of -EPROBE_DEFER, the ath12k_ahb driver
-will treat this as a fatal hardware initialization error. The kernel driver
-core will not retry the probe, resulting in a permanent failure.
-
-Should the driver be updated to check if the PAS backend is available and
-explicitly return -EPROBE_DEFER if it is not yet registered?
+Is it possible that trip1 was intended to have a higher temperature and
+serve as a different type of trip point?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518072856.2279=
-0-1-sumit.garg@kernel.org?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519063505.8833=
+79-1-shengchao.guo@oss.qualcomm.com?part=3D8
