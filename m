@@ -1,159 +1,168 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ED63EEAF1;
-	Tue, 19 May 2026 08:48:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5850F3E0C67
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779180541; cv=none; b=BHng3LO+DCIEzqk7cxOukpeuo3xtlOrHHi+51dgtbcowSh3DFZXNRhfGaqUYbfR7rLiEukD0FYt/hOQmjSu0zmBposB8Axgg/1xIhD+MdnjcfD41SP67WoSmbSrZl/L45+1Duj+OMhbu8id0FXt9NVx5jWHDE8YYXiVSyvySCQY=
+	t=1779180611; cv=none; b=j5YxqfJoVZgJRuai/ULVegJHVI6/E2yz5BvngV8lGVZllwxFV9LHkuE7rdcmwrEcWBXBqj+oaKWHGin/DUA3EBNhmFVIpphLxXLCxvyF4pifo5cT/Nf9599g/19xR6iFcbEzJI6JSt1k6b1k6iJKsWC7OmWXt6hvb2LxJLct1TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779180541; c=relaxed/simple;
-	bh=0R6tgNs7XNPthelErmwGT4ZGv+aYiUM/RQr+NH310yc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=sOWlVfLCaKSCimr09Y92RDVyWbgZRjP58zA2dBDgeFPjvxujv6grFz5yFfG1+D56vKzJwoeljQ4mGCTC7zO7guEUNyjvMRCgM2Ap0naZRYkCx9VzANVszoxODQzktaZgvCXa8Y7o6DHnnNirSqztF7AjpmrrTpxSAW8EBRfqjk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=F85fbw/+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CjZsoEZg; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
+	s=arc-20240116; t=1779180611; c=relaxed/simple;
+	bh=qO9OQkbrpxgoymEUi8XxSIQ1hb0/JFhnaJJzFviE5S0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kJjvC12+ZOMq0AsG0yGQbP9bzzKCz/o0PveTegYgE/2FyuKTb2JeLnRl8O1SmFO34CD9SdnHwSNIC2kfvQUXNd9MNHuGPof11I07VRK5gtfJCS6jF5QIaCUmzZHUgPfk43sDimnKYBFHfRfi1I+5PF/gsfOy/FXRNfINgb982Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nbv3bfVc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="F85fbw/+";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CjZsoEZg"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 11560EC026C;
-	Tue, 19 May 2026 04:48:58 -0400 (EDT)
-Received: from phl-imap-03 ([10.202.2.93])
-  by phl-compute-04.internal (MEProxy); Tue, 19 May 2026 04:48:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1779180538;
-	 x=1779266938; bh=abYMyDQFoR6Lu3Pj6ylmgRRpraIjYYCfuZS78X7Ygwo=; b=
-	F85fbw/+3MbXuusQwUxFHgM2k3osbciJPnsFVyZby9969JTmWurDaD9ihx0hdHSS
-	fuKw60kdlipczmZiVm2klmtBoHguwBz3BCzoLO0jXFNp3l1az+fyBJHY0MYYfVCf
-	XRK9V5eS5xZrfCImVrLsyG7FE5GQAMSupeJrU0ycA/E7GjaI5Kvtf3WsbkcXaPrw
-	Vu2BVUhC0zTCbQ7UveUVvIkT54Qrub0/6Hks5XFJ/qWpUKoY0v8IGxp87D793gjt
-	dS0pIWTXeHNnVVgpdI7MYRbLbZHh9SqNBwiwR7rPLO1bVhp2F3XFZwFderGrnEM3
-	qU2Jq6tzwjpgopZRjNCZXw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1779180538; x=
-	1779266938; bh=abYMyDQFoR6Lu3Pj6ylmgRRpraIjYYCfuZS78X7Ygwo=; b=C
-	jZsoEZgvwnuZLhr4hEMBxwDyJuDfrNY8HpmA+zGxPztuk3y5yrQrM5RIRWbPaSEb
-	iXF7E22gMg/rhAI/oHprcLbWNSMl8xuqEk/jGPUzfz7SSEOgzql8h5++nvUGiBqw
-	LMRbYnDam0DV/eY2jX/POEJ50dy//qR/nZ/iNBHcUfuf6ZP3I/sMmFgGf6rvlyjo
-	DCwMK4sYlN6QUaor/UaX8tEzy61e7Ybg2utq8tVqeiJpl+C/bM2Kp786c/T0Ycpq
-	cn4d5CaCDm9iSqnKvLmqRvWuuUCuAgtBPY46LZT6wtiNa8v3hjmDfWNN/+RfVEav
-	Zaz7t/o85X6ZBygiZsMRQ==
-X-ME-Sender: <xms:-CMMaoL9vca9oy6TPbFIioD25iTUnMlvqz_nSkWaSrlJBB_lJsHbEg>
-    <xme:-CMMai-QDpwakfTh8BTgfPquqpAGGSzTPOThX0-_28dR6RI_3si85JaSotOfZ7aIv
-    FAO7Y5AeCC6sfgGz8dumM7jrc6NPp4kVQxuf5WupLr3LgyIKoZM4g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddugedufeduucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepofggfffhvfevkfgjfhfutgfgsehtqhertdertdejnecuhfhrohhmpedfoffkpffg
-    vffvgfcutehlvgigrghnughrvgdfuceotghonhhtrggtthesrghlvgigqdhmihhnrdhfrh
-    eqnecuggftrfgrthhtvghrnheptdeutdeftdduudegtdeugfegtdeikeehhfetfedvteeu
-    veehgeehhfefteefjefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
-    hilhhfrhhomheptghonhhtrggtthesrghlvgigqdhmihhnrdhfrhdpnhgspghrtghpthht
-    ohepvddvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehjohhroheskegshihtvg
-    hsrdhorhhgpdhrtghpthhtoheprhhosghinhdrmhhurhhphhihsegrrhhmrdgtohhmpdhr
-    tghpthhtoheplhhinhhugiesghhurhhuuggrshdruggvvhdprhgtphhtthhopehgphhitg
-    gtohhlihesihhgrghlihgrrdgtohhmpdhrtghpthhtohepthhonhihrdhluhgtkhesihhn
-    thgvlhdrtghomhdprhgtphhtthhopegrnhguvghrshhsohhnsehkvghrnhgvlhdrohhrgh
-    dprhgtphhtthhopegtohhnohhrodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohep
-    khgvvghssehkvghrnhgvlhdrohhrghdprhgtphhtthhopehkohhnrhgrugihsggtihhose
-    hkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:-CMMagIGcaPPLO3RKgklQYCzEFkYTnnAPRANuiJ6ZE0LwZR1hN3zCQ>
-    <xmx:-CMMalBOrmovJhYppY26P1TvvRn1fWSOJZVa50xSwhzRsbiIObGB0w>
-    <xmx:-CMMauRIf_BZAnaDyJpcQjwt1m2l8yHaFlqUFXnfYX1zLY5wwuvVtQ>
-    <xmx:-CMMavewgbgQDoCu-3t9ifQ2kKUJuDjjDZx9WPhh_MUUNUc1x_5L5Q>
-    <xmx:-iMMahzT8EEEBkuqfhMQDMUYmFL5I3oXzTk4vskXSas19CZs7-6X0BHT>
-Feedback-ID: i72694427:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 5E7B918E006C; Tue, 19 May 2026 04:48:56 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nbv3bfVc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8FA3C2BCB3;
+	Tue, 19 May 2026 08:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779180611;
+	bh=qO9OQkbrpxgoymEUi8XxSIQ1hb0/JFhnaJJzFviE5S0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Nbv3bfVc/zyOLtqKsuN2vo7zQ2bnW0GrBKTAUeDCJwhw3Txb4H3GV6otnJ4r2iTAY
+	 6S+FXrFKBGJtb5umAh1me3+fAV9DhS57/DrCemefgyzUblKYV54HdDNSx5e6n0oxEh
+	 2WXMkEz+4nHGyhY6eXfTo6qiSk7bCZyjBHKKnfFo1clSfi7x4fYz5zRAc+Hrba4NBu
+	 6aWUVF5J1duO13+2uls1Loeipe4HHryFfAxAkGm2FNcL+ECKNaWMWURe1XCHyoNhr7
+	 v8LnIOlSwvUE6sWXjtztgsXJMeyQWUQnlesAxym0hHqwtmQl/LE34Czf37Q3MxY0si
+	 yDuMH8h7EKMtw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support
+ for subsystems
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jingyi Wang" <jingyi.wang@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+References: <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 08:50:10 +0000
+Message-Id: <20260519085010.D8FA3C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: A511MZycEBGs
-Date: Tue, 19 May 2026 10:48:20 +0200
-From: "MINETTE Alexandre" <contact@alex-min.fr>
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Guru Das Srinagesh" <linux@gurudas.dev>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
- "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
- "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
- phone-devel@vger.kernel.org
-Message-Id: <298550eb-1bdf-4d7c-8111-8b8f0b5dc056@app.fastmail.com>
-In-Reply-To: 
- <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
-References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
- <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
- <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before enabling pinctrl
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Thanks a lot Linus!
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] Calling `rproc_report_crash()` followed by returning an error =
+from `.attach()` causes critical Use-After-Free vulnerabilities.
+- [High] Returning `-EINVAL` when the subsystem is not ready breaks the int=
+ended fallback to offline boot and causes device probe failure.
+- [Medium] The `handover_irq` is left enabled on multiple error paths, caus=
+ing an unbalanced IRQ enablement depth.
+--
 
-This patch is required for my Samsung Galaxy S4 GT-I9505 to boot but I a=
-lso
-have confirmation from another contributor that the same pinctrl patch
-helped boot the ASUS Nexus 7 (2013), codenamed flo, which is also based
-on APQ8064.
+commit 1111bc6bad772baf2e724e0d339a047f01859d2f
+Author: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+
+remoteproc: qcom: pas: Add late attach support for subsystems
+
+This commit adds late attach support for subsystems brought out of reset by
+early bootloaders. It introduces qcom_pas_attach() to check subsystem state
+via SMP2P bits, reporting crashes or falling back to offline mode.
+
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+
+[ ... ]
+
+> @@ -510,6 +511,57 @@ static unsigned long qcom_pas_panic(struct rproc *rp=
+roc)
+>  	return qcom_q6v5_panic(&pas->q6v5);
+>  }
+> =20
+> +static int qcom_pas_attach(struct rproc *rproc)
+> +{
+> +	int ret;
+> +	struct qcom_pas *pas =3D rproc->priv;
+> +	bool ready_state;
+> +	bool crash_state;
+> +
+> +	pas->q6v5.handover_issued =3D true;
+> +	enable_irq(pas->q6v5.handover_irq);
+> +
+> +	pas->q6v5.running =3D true;
+> +	ret =3D irq_get_irqchip_state(pas->q6v5.fatal_irq,
+> +				    IRQCHIP_STATE_LINE_LEVEL, &crash_state);
+> +
+> +	if (ret)
+> +		goto disable_running;
+
+If ret is non-zero, we jump to disable_running and return an error without
+calling disable_irq(). Does this leave the handover_irq enabled?
+
+Since the attach fails, the remoteproc core never calls the stop callback,
+meaning qcom_q6v5_unprepare() is bypassed. This might permanently leak the
+IRQ enable count.
+
+> +
+> +	if (crash_state) {
+> +		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
+> +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
+> +		ret =3D -EINVAL;
+> +		goto disable_running;
+> +	}
+
+Could calling rproc_report_crash() and then returning an error lead to
+use-after-free conditions?
+
+rproc_report_crash() asynchronously queues the crash_handler work on
+rproc_recovery_wq. If auto_boot is true, the attach failure causes
+rproc_add() to abort, and devres will free the rproc object. The queued
+crash handler is not explicitly cancelled during cleanup, so it may
+dereference the freed rproc memory when it executes.
+
+If auto_boot is false, rproc isn't freed, but rproc_attach() cleans up its
+failure by calling rproc_disable_iommu(), which frees rproc->domain. The
+async crash handler later executes, fails to abort on the RPROC_DETACHED
+state, sets the state to RPROC_CRASHED, and triggers recovery. The recovery
+process calls rproc_stop() -> qcom_pas_stop() -> qcom_pas_unmap_carveout(),
+which unconditionally dereferences the freed rproc->domain via
+iommu_unmap().
+
+Additionally, does this path leave the handover_irq enabled as well?
+
+> +
+> +	ret =3D irq_get_irqchip_state(pas->q6v5.ready_irq,
+> +				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
+> +
+> +	if (ret)
+> +		goto disable_running;
+> +
+> +	if (unlikely(!ready_state)) {
+> +		/*
+> +		 * The bootloader may not support early boot, mark the state as
+> +		 * RPROC_OFFLINE so that the PAS driver can load the firmware and
+> +		 * start the remoteproc.
+> +		 */
+> +		dev_err(pas->dev, "Failed to get subsystem ready interrupt\n");
+> +		pas->rproc->state =3D RPROC_OFFLINE;
+> +		disable_irq(pas->q6v5.handover_irq);
+> +		ret =3D -EINVAL;
+> +		goto disable_running;
+> +	}
+
+Does returning -EINVAL here prevent the intended fallback to offline boot?
+
+If the device has auto_boot enabled, rproc_add() treats the -EINVAL from
+the auto-boot attempt as a fatal error. It executes goto rproc_remove_dev,
+which destroys the remoteproc device entirely and fails the driver probe.
+This makes the intended fallback impossible, as the device is never
+registered.
+
+> +
+> +	return 0;
+> +
+> +disable_running:
+> +	pas->q6v5.running =3D false;
+> +
+> +	return ret;
+> +}
 
 --=20
-  MINETTE Alexandre
-  contact@alex-min.fr
-
-Mar 19 mai 2026, =C3=A0 10:31, Linus Walleij a =C3=A9crit=E2=80=AF:
-> Hi Alexandre,
->
-> thanks for your patch!
->
-> On Tue, May 19, 2026 at 9:16=E2=80=AFAM Alexandre MINETTE via B4 Relay
-> <devnull+contact.alex-min.fr@kernel.org> wrote:
->
->> From: Alexandre MINETTE <contact@alex-min.fr>
->>
->> pinctrl consumers can request states while the pinctrl core enables t=
-he
->> controller. On Qualcomm pinctrl drivers this can happen before the SoC
->> function list has been registered, which leaves the function table
->> incomplete during state lookup.
->>
->> On APQ8064 this can fail while claiming pinctrl hogs:
->>
->>    apq8064-pinctrl 800000.pinctrl: invalid function ps_hold in map ta=
-ble
->>    apq8064-pinctrl 800000.pinctrl: error claiming hogs: -22
->>    apq8064-pinctrl 800000.pinctrl: could not claim hogs: -22
->>
->> Register Qualcomm pinctrl with devm_pinctrl_register_and_init(), add =
-the
->> SoC pin functions, and only then enable the pinctrl device.
->>
->> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
->
-> I think I've seen this one before, if Bj=C3=B6rn or someone else from =
-Qualcomm
-> can review this and test on some other hardware it would be great.
->
-> But if there is no reaction I might just merge it so something happens.
->
-> Yours,
-> Linus Walleij
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-knp-soccp-=
+v6-0-cf5d0e194b5f@oss.qualcomm.com?part=3D5
