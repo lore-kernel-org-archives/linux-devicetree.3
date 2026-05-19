@@ -1,195 +1,128 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7998D3E1203
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB3241C62;
+	Tue, 19 May 2026 08:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779179231; cv=none; b=kypimvCpLhUU0dSrRgUj32hJYDOf7RiqqI+YpDwhz94nQgavAmlZtw5LxULNGgt1hNBDKB4YWtRAfkDLdjfT2A1izUOy3xITdGu/LA14KQy+kF705Mp3K1pSq/m1eTcin1xzsDqJZ5mgL17SqjAckXKkqR0lqz47GFnpg63lPoI=
+	t=1779179393; cv=none; b=pY+xW/TaK2Os2EPIyBPUSqXQroWHObpOa3vxXe4bumWez2tmsX5Gt7waY3++giBfgBtPx5RScgdaP7sxKCHtXFkYme3pR3u8aOYIWZmV9z9F2KL+2kgJYB+mU3jTES/u9YZ8Xl6DQib6xfj3aHwqz88ny/arTxpnb8qdRO4y568=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779179231; c=relaxed/simple;
-	bh=vHq/QwysCAgnNKiBTbbYeanowaRKF+5PysX/4OYh2GU=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ASvO0Di1fT4y2wB4pohr71uirSTUmnV2cZ/U3UHkXdIrAkq/JW8kIZkR4egZzaBdjgid2Z9O4K40yOUJ1TNt9uilOhpjuIuv5qzgOsu1/FeDGI4fsFnyQPrCkxOZTUbKXnkDd/GldZuJh9/2d8mD8x6IkLyE9M77Kd5elQupw7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RkbciwYY; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779179393; c=relaxed/simple;
+	bh=sxi4Nd3428EAjrfiX0HNjbsVsdPmFrqLWCGIPz6abEI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NiXSvRyK5/dICgs/NU2eItsvT0ncNHAfuClzZqtw5LI6g2tD+lREuxRS62syUbWzBu1QT/LGmmKqsKZPxnWsEPLSculIPWNHYD35snURsbYhKtkBtLVhz7v9ybUuou8FY7FxqnSGzvCvYmEqNx5u+tPmn2bb73+2TkoWtT7T7xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N0cgEBog; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RkbciwYY"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48984d29fe3so35683265e9.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:27:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779179228; x=1779784028; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=li8pLXuBuaVtnggQNVW2WcAL7ywg8DDPWHRsGjdEDzE=;
-        b=RkbciwYYvBEL7DAvnjuDiFDpzmTh1zqQVKaKTkk9rH7s2UF8XJK6cTEoZEPehsoV7D
-         9kUtoTjgOmSa9LrAKLOxz5bqOB4hptsIR49clXXdiSvmc26z046nTZId7wbs4b+ElB6b
-         GcbuPkhdpJ5fsmqmMwG6QwVe27713cgPkYz+7rKkk5u4KqYBFVLqiqZM06J3cfC+1kL+
-         Izhg6SJuVHd7nNE2H8Uq23tYhZHg4MLkWJmnrZ+VuUFGTYFNSOXIiTpBXqwneNWlvE3Y
-         tDSLddflQnhxzs+vRnQS/qbhcgjgCEY9494KaVGQrD7Hjy9erDq+BEiNnLplZgST0xju
-         X7HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779179228; x=1779784028;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=li8pLXuBuaVtnggQNVW2WcAL7ywg8DDPWHRsGjdEDzE=;
-        b=blIgBCiqCZpstTRZma6sgWKnfQWMsDMuabjBB5AwBJQxiGuPXBgFPW5NWSCDw4agh1
-         jCMZTmMe7bmMof4QNgs44KiX3sqUPuuJFUz6/6T5f59zkOf5QUlISa+L7tPJruUpR8O0
-         bClh41KDCd47X4KuPDaF2WGNnSML+UafFo6C9vVuny1frKXpcjWDDrD1OlGgVyBCPsP+
-         ED2ZbgKu7IFagjJDOmaDtwFwnB2cSPoxy/MpOpiAClbSkClthH9VJRY5KAhLD/6ZsOWf
-         R5gvtJhe8XxraKNRPz0Bi8Opfcr30LwKb/Xa0TnvdaLRZA14UghY+e0YbNVNAuY6gCRi
-         xu+w==
-X-Forwarded-Encrypted: i=1; AFNElJ8n5zR5aDXbKCFz+dNAHHBewznuRQz+VBcf5A8IkLHMLM0EP6LA0KJaQVN8J/CwNuASR+ygUA4t3G7f@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvKuYmzLcKXu7V5suR3PT1yro+wQKfI3JtMH2LlrsYPi9fmeHG
-	ph69F2zoumPymgk3FC6w3xaKd7vdS6UbFfm1894b+ANHBi5rtLD+ZkLNBPCbEkBwn0qgtx4WB1c
-	CY1Lh
-X-Gm-Gg: Acq92OGmcWPv6IVNXbw+2HfDPI11dy6GAC1XRhkUx8Aq5JP75yzW0isNh612VoYwLhv
-	L2i+n+xJEjz9X7hj6jhowGQ4kEAwTBROmC2S9fgeRvh7Hhkixab0/kXlvu59pKAWu701JhbYrBF
-	HpY8g4UWZUKjHR6ltvvLgvYki3bfsW8w0sjGU3luldAtFH6OJOCCkfLUHqWXxQdoRrDg0nW3F8/
-	4LQ41K856+V+bOPbFtqCbwBUImTalZeCR1Gl5jNPmEg0NjTAnP7Sv7sRxmVnrJpegBczbJZWWLJ
-	HfEpjQs6G8NEIIkPtp5h4lqEvCT9Nqv3fJl/Ozri9jdcU0qJSLMh/ek1o/mD0J29tLRn5hA2+Ng
-	9xpvKStDGoNtlQVyP9Pwz199LEgtpn/6GvEa4YDGJH1zJb2F7su95vD5R8gOiMK4ccC9WfkpUJU
-	Pd4HV5M5zHbGk7krrIbwgbSD7g6hQiR5wY3RpGCgnSDKCNhQye9sY5MRWl+MajlOitvQtMC3/aQ
-	7vlcfM74jBW5Mg=
-X-Received: by 2002:a05:600c:a406:b0:48e:82cc:4d4c with SMTP id 5b1f17b1804b1-48fe6514939mr226969685e9.23.1779179227682;
-        Tue, 19 May 2026 01:27:07 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:1d4b:274c:94d:a69f? ([2a01:e0a:106d:1080:1d4b:274c:94d:a69f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe5cab7c5sm328708975e9.12.2026.05.19.01.27.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 01:27:07 -0700 (PDT)
-Message-ID: <cfc5814b-fcee-4d61-83bd-6a977b792cc2@linaro.org>
-Date: Tue, 19 May 2026 10:27:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N0cgEBog"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF03C2BCB3;
+	Tue, 19 May 2026 08:29:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779179393;
+	bh=sxi4Nd3428EAjrfiX0HNjbsVsdPmFrqLWCGIPz6abEI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=N0cgEBogM3z+HeA/OXJOJ2GxWoPy8vgw4rkhTieDJOdOOcdM6JqbMBZAhJxziSrrR
+	 ZiVCL98OhiOOQF714K+o0uEE3cwuOqTQc6jFtALsCuHLI3rHX9N+RjM7DPIucbLyIs
+	 TKTz8Yt21LLhJdLZ+aJ08Oe9LEQlKudXiKniDXktGDayEp9ef88qx4VWsJtD2Hd3K0
+	 8TxhN5l9nFsCd4TplzqT9ZaMvIlwkrSnTzd4jbEwHtacuzSvI+m90o6HH6b7m2wTMq
+	 lQJFknLZNhTFDNYHkmqM/Tpd+Fr+xxdoIc/ofp9F8AE7daqpTM2aVcGfRApQG837fr
+	 7cf/QlG7APnhQ==
+Date: Tue, 19 May 2026 10:29:50 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chancel Liu <chancel.liu@nxp.com>
+Cc: "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
+	"festevam@gmail.com" <festevam@gmail.com>, "mturquette@baylibre.com" <mturquette@baylibre.com>, 
+	"sboyd@kernel.org" <sboyd@kernel.org>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>, 
+	"Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>
+Subject: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector binding
+Message-ID: <20260519-macho-degu-from-nibiru-960af2@quoll>
+References: <20260509024846.2094049-1-chancel.liu@nxp.com>
+ <20260509024846.2094049-3-chancel.liu@nxp.com>
+ <20260515-resourceful-singing-roadrunner-ce25ec@quoll>
+ <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
+ <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
+ <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: document the Renesas
- R63419 based dual-DSI video mode Display Panels
-To: sashiko-reviews@lists.linux.dev
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260519-topic-sm8650-ayaneo-pocket-s2-r63419-v4-1-b8929af5e951@linaro.org>
- <20260519081829.6B1B7C2BCB3@smtp.kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260519081829.6B1B7C2BCB3@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
 
-On 5/19/26 10:18, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [Medium] The `reg` property is omitted from the `required` list.
-> - [Medium] Schema validation bypass for dual-DSI ports structure.
-> - [Medium] Flipped positive/negative voltage regulator assignments in the dt-binding example.
-> --
+On Tue, May 19, 2026 at 02:56:24AM +0000, Chancel Liu wrote:
+> > >>> +description:
+> > >>> +  The NXP I/O connector represents a physically present I/O
+> > >>> +connector on the
+> > >>> +  base board. It acts as a nexus that exposes a constrained set of
+> > >>> +I/O
+> > >>> +  resources, such as GPIOs, clocks, PWMs and interrupts, through
+> > >>> +fixed
+> > >>> +  electrical wiring. All actual hardware providers reside on the base
+> > board.
+> > >>> +  The connector node only defines index-based mappings to those
+> > >> providers.
+> > >>> +
+> > >>> +properties:
+> > >>> +  compatible:
+> > >>> +    const: fsl,io-connector
+> > >>
+> > >> Everything is IO. Everything is connector, so your compatible does
+> > >> not match requirements from writing bindings.
+> > >>
+> > >
+> > > Yes, this compatible is too generic. I will rename the compatible to
+> > > fsl,aud-io-connector.
+> > 
+> > aud is not much better. Which boards have it? What's the pinout? What's
+> > standard? Is it described anywhere? If so, provide reference to spec/docs.
+> >
 > 
-> commit b7585613be27a07063e2837b4b237f47e298a1f5
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> dt-bindings: display: panel: document the Renesas R63419 based dual-DSI video mode Display Panels
-> 
-> This commit documents the Renesas R63419 generic DDIC used to control
-> dual-DSI LCD panels, specifically for the Ayaneo gaming handheld devices.
-> 
->> diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
->> new file mode 100644
->> index 0000000000000..e4db01f88302c
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
-> 
-> [ ... ]
-> 
->> +description:
->> +  The Renesas R63419 is a generic DDIC used to control dual-DSI LCD panels.
->> +
->> +allOf:
->> +  - $ref: panel-common.yaml#
-> 
-> Since this documents a dual-DSI panel, should this reference
-> panel-common-dual.yaml# instead?
-> 
-> Referencing panel-common-dual.yaml# would correctly enforce the dual-DSI
-> topology constraints and validate the ports structure for dual-link DSI
-> panels.
+> This is not an industry standard electrical interface. This connector
 
-Good point
+Then if you do not have standard, then you have board specific layouts
+thus you need board-specific compatibles. You can use fallbacks. Generic
+fallback could work, but both io-connector and aud-io-connector are just
+too generic. Every connector is "connector" and "io", thus absolutely
+anything can be "io-connector". "aud" improves it only a bit, thus
+honestly I would go with board specific fallback as well.
 
+> is present on i.MX95-19x19-EVK and i.MX952-EVK. For example, the
+> "i.MX 95 19mm x 19mm Evaluation Kit" homepage[1] publicly documents an
+> audio board connection through which IMX-AUD-IO card is connected. The
+> detailed user manual (UM12022) is listed as official documentation[2],
+> but it is behind an NXP login, so it is not suitable as a public
+> reference for upstream. Therefore I list it here to illustrate it's
+> mechanism:
 > 
-> [ ... ]
+> +-----------------------------+                      
+> |        Base Board           |                      
+> |   +-----+      +---------+  |           +---------+
+> |   | SPI +------+         |  |           |         |
+> |   +-----+      |         |  | GPIO MAP  |         |
+> |                |         +--|-----------+         |
+> |   +-----+      |         |  |           |         |
+> |   | I2C +------+         |  |           |         |
+> |   +-----+      |         |  | CLOCK MAP |  AUD-IO |
+> |                |connector+--|-----------+   CARD  |
+> |   +-----+      |         |  |           |         |
+> |   | I2S +------+         |  |           |         |
+> |   +-----+      |         |  |           |         |
+> |                |         |  | INT MAP   |         |
+> |   +-----+      |         +--|-----------+         |
+> |   | I/O +------+         |  |           |         |
+> |   +-----+      +---------+  |           +---------+
+> +-----------------------------+                      
 > 
->> +required:
->> +  - compatible
->> +  - vdd-supply
->> +  - vddio-supply
->> +  - vsp-supply
->> +  - vsn-supply
->> +  - vci-supply
->> +  - backlight
->> +  - reset-gpios
->> +  - ports
-> 
-> Should reg be included in this required list?
-> 
-> The Renesas R63419 is a DSI peripheral and must be instantiated as a child
-> node under a DSI controller bus, which inherently requires a reg property for
-> its virtual channel. Omitting it from the required list allows incomplete
-> nodes to pass validation.
+> [1]https://www.nxp.com/design/design-center/development-boards-and-designs/IMX95LPD5EVK-19
+> [2]https://docs.nxp.com/bundle/UM12022/page/topics/pcie_interface1.html
 
-Good point
-
-> 
-> [ ... ]
-> 
->> +            reset-gpios = <&gpio 176 GPIO_ACTIVE_LOW>;
->> +
->> +            vdd-supply = <&vdd_3v0_lcd>;
->> +            vddio-supply = <&vdd_1v8_io>;
->> +            vsn-supply = <&vdd_5v0_pos>;
->> +            vsp-supply = <&vdd_5v0_neg>;
-> 
-> Are the voltage regulator assignments flipped in this example?
-> 
-> It looks like vsn-supply (Voltage Supply Negative) is mapped to the positive
-> regulator, while vsp-supply (Voltage Supply Positive) is mapped to the
-> negative one.
-
-Good finding even if it's only an example, will fix
-
-> 
-> [ ... ]
-> 
+Best regards,
+Krzysztof
 
