@@ -1,124 +1,178 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2123.outbound.protection.partner.outlook.cn [139.219.146.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C3D4A2E1E
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 10:14:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779185669; cv=none; b=Ee/P8GnZ94gd5Z8iJQ5Z3xS4sTz2KlwfcAjMgRnBBGpExT3drmo5W0cSBCL6pRbltx8onoxoXeJRAFjtUeSO5jvSoWsJ0h30Tlk70TsC0Dr/Sl2jJpRfLI9aLaizjFPzuzSbOznTQqQuuPMjFJTkZl7cy36mr93RcaoTvNkCuEo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779185669; c=relaxed/simple;
-	bh=MlZzsCiCJz/qU1zTGyvtf9iZTc9M1v0MuPCcay3MIV0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=JfvCtQrGMIVzT+aBxM+sE+mg5/MUkNxGgOOMuLYzsArMyabTG0X/wlj0Ej6XpsfMnuCPN87WSMvxt8pNMqVlkWh8eeA2E7e6FL/vGoGilbfZP8TKwrJdaZWbrHnIugO6FrurswOcOXQe941ymh10wkLkqiVg4Spdm2Pr/Hwyt34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Dfa7yMlZ; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Dfa7yMlZ"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-48e82c23840so26479955e9.3
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 03:14:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779185661; x=1779790461; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=68UC5v88IYbqRoSyuw3awSX++kyoya+p9VCms7nJOuE=;
-        b=Dfa7yMlZhiDDdJG1CoBkmsZlBIG5QtQ2+LwnK0D1vZNbwDN7OChr2wewIbaU0x1vfy
-         ojN5Y+uxuSo9g9fTh4nOpBLS+f41tntgzH39bBFX03l5eU+RhLvEJ1rMsq7DrgWWtAuE
-         3vgh1YDSQheGGs+yX7wlo4HHzMUjWDQxZOHx4/4SKaAm3xVXxgQgRx6Oh0BPsj2HFbmk
-         JoJEq2tld03RdB/TG+UJjrOB6is2a+juejyfhGe+0M7pWE5MnpkPnp+r+vb+3dAyrU1v
-         V7Zr9TI/9560UXge1JLK9dE2FBXLn0hnZFlzlb2Piln6XhToil0kzWp3eqBiAl2DFXKu
-         HrVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779185661; x=1779790461;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=68UC5v88IYbqRoSyuw3awSX++kyoya+p9VCms7nJOuE=;
-        b=js+vHSMxQZ8WUBBRqRoRDMH1ugH3sYinvrRP1UmRr5n+H49ekZWq7NNC+CaYN12rrb
-         D0536g5F0CZaY1UqGgDkRu/IAxTDzTBFcIj6XbffbD4WJsSAARHN3oP9VAXyC6Y1Ts5Y
-         RB3zJGlWu78eiFhJ/aFokw/Al5DuAAV6jqn9lFsJwrjuprQmSKTgD/oDh4IwF/AhnWGC
-         Klx8akKkVYkJufXMMD/kG3hj44WCAVCO1FhQAt+SZAvssSF/6rhAaY0JZaC05RxkU38i
-         PwXdnUqFjTxsc0fp8cU7sbvRsuq+a3ak6whWRvKsGL7G9kJZpisoRp/m5jNrfQulDbX7
-         oFPQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8yzamQ6zKGNse9699h1L3Eq+VyW+lv0W6efXy/blUMrMTyvXGWmwjS9Txaw3xCHcgpaBXfVRyantE8@vger.kernel.org
-X-Gm-Message-State: AOJu0YycexkBYUsY15F/C52KW7pwfp6Us9DkMGZOP/mEsZtgp4UkE6hQ
-	H/WxOhUS8OxsropgeNJOmPSxxyQjOp2ELSlNkoZxpmdGyR+xeoKIp6TtLJ9j3omPPQw=
-X-Gm-Gg: Acq92OGZ6Y9iyB5MO6w+aOVhwA20fakYUs2EV97R96I96tWPpPe9vzuqy4Uot67z9jf
-	WBfAAH7eY+iN0/KU9ymAvtJ/fc5uv3tQpxpp+DoOTEN3JcattfG47QKoMInrqEcUxcLoA0Jf753
-	FOQk9MWr+sIOXNOyVmtVPhXwOpoVLC08WaqN34Ld+YsofljwOU+0gbIaNLbuwx3TFMTDq+huJD4
-	WT57DfWW+0z1ZFsI0OPJ+vKP6ojrpIkO9Qm22EFyMmEfp4nhWJdn7uhq4co2T5rffN1nlw7iM6a
-	A7wYqSdCWUT0yn2//NATL3RnF5iZaREZQ/vsvVxbO0EKM7ufPXUPAGe4rGZrHN2Xa6SMg7tAlmI
-	rpR5crwneZ9PFzYP4s2yhRjZBgKpF9eAy4ozcoRoKgdUwtm3xhEHlCGfa3A8DijJflinBmmVje0
-	jimA57/WUTseIfqjkF+St8v8UefvY2luhSIA==
-X-Received: by 2002:a05:600c:6383:b0:489:1c1f:35f9 with SMTP id 5b1f17b1804b1-48fe60ea4ebmr288426235e9.9.1779185661151;
-        Tue, 19 May 2026 03:14:21 -0700 (PDT)
-Received: from [192.168.0.35] ([51.37.145.233])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9ec39ff1sm47579782f8f.10.2026.05.19.03.14.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 03:14:20 -0700 (PDT)
-Message-ID: <f8bda354-ca64-433e-9e9a-4eabeb9a7169@linaro.org>
-Date: Tue, 19 May 2026 11:14:19 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6CB4A33FB;
+	Tue, 19 May 2026 10:14:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779185712; cv=fail; b=cZ3Ied8+aY8bauT1UOzYnvUTUYXO2AWBXxyw9GHmAg3Cfvvr5cAus96/+BYEjROkZrCcyfHuHZ4ExYt2vzNHxLg8P+cLOFoDEMNYUyiu2qO8MigX2CjRKUQefu8MYRsxWdYhjB1kQ6zgOo9whvov+HPw3mCjQL9qwsnxWIcOp7A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779185712; c=relaxed/simple;
+	bh=mVO7anEhTFDp2TX9uHz/68ASSMN4HYA+bKpZ59ARWJk=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=eccEiMipiPGI8viOmzzbBdbzvXqkgoEp4SwSy644TnUXy55/0l5dL8/ds42jT/oZaKhrgmiwRo+8Vg+lTgbfsosn/CzJxpocjMOuXUg+9YjUOjCXTb8aMWRiAlwssObpkGMk4s9jzxd53TQYhAw0IkGJRiHGxwD3XvpbTIGBAOM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EaCBwvG+qjMrEqSZK5rc90D2klYqbvK1J2rFP5vFU9ejQB1RTMJINkvvKwTlZqCuXQ4UY0OgWkBP3ZYFrpO7sx3sNCD0R5CqY19c43OtAL6MqDNnvwM33oBsnBWBqs2AAhSoUipyj6JFskqlcfeFb/+msU3L/POuf/pJjeisGcO1LOAvpETqppn9kRGTxXyVNhFfXhJRCDn4cfsNL8Jg9cYZz63niC/kyK+3FlFRios1y3PowwdAzu7kamT5PmJPG/0I71eFbF5ZDMdz8t7w2WPszplqZPate2KXFCl0qGopu7Fryifp4G+WZacr2CZvUKpuzP33YACG8uVfb38IGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hsCfx2zhMAYoryjAATowvXJhgPBLHdWMfe98M6ClXjQ=;
+ b=c1NFvIv7MQHv9zrPFgMrBQ3uyKsLA07N56YYe6YUQAD53KnHhn9dUbeMv/f9MlMQK1Nq7/MP5b2RBKf5o0L+ZjMGdDlRbREVWb5GiwTsmiqkDQATI/I3/kR+PDammzuqg8Msy7vHkrFFhUErkuGs1+OM52+6Nw4vK1JUBHPLgyFRMN9VlHL/JIfUrWm7rDbpqeaLwp+9ht9ApP5KRdxFACqIvmJoURf4h+VrSXvP+o/jtQAPaxVbYEsur+Bp/lj1Hr4TwWCMi7pqJ/7SLvBJ37HFtzM3Zscbq1hje5fzDWSQc1ilDKoI+S9Km4xDbG/t5od0JLkuvEYjb8sYruYetg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0493.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1e::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
+ 2026 10:14:45 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9b99:12dc:a115:b90f]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
+ with mapi id 15.20.9891.021; Tue, 19 May 2026 10:14:45 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	devicetree@vger.kernel.org,
+	Minda Chen <minda.chen@starfivetech.com>
+Subject: [net-next v4 0/5] Add StarFive jhb100 soc SGMII GMAC support
+Date: Tue, 19 May 2026 18:14:31 +0800
+Message-Id: <20260519101436.111476-1-minda.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: BJXPR01CA0056.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:12::23) To SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: usb: qcom,pmic-typec: Drop redundant
- port
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260519100014.282058-3-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20260519100014.282058-3-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0493:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ade10d7-f847-47ae-c788-08deb58f737a
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|52116014|376014|7416014|1800799024|18002099003|56012099003|38350700014|921020;
+X-Microsoft-Antispam-Message-Info:
+	t3NhCwLozv9HmMYgU42uvnPRt7CkpKzN/Gb/00sWs5jY5H5D5Rl6DzSadUTE7d0urYB6JnvTcP2Gg4lBZ9511cmLODfuFaagWj8oux+vk7cNLQOqg08c4BEfyEbCl8Mxn7z9I2hSQe/dn34002IBhCaejBzrbwADGjvayb4l2zymCZ2QLQlBjj8O5YxVr6vaKGfNuOQksH4TRhunDmQ1Rjm9IJJWNG9QgGDgWpj+3ppbIzLSVYoVtcYh72dKA1K9W0tZ+UkdBRxtaKF6aFCjXkusyWFT4d7v7TSjPOr7LyYVYkeCBuw7AA5no8sNQ3AnpabYLQUJCdGwrMQ3D7t0mQDlK7RadRyg6dKr+eqU+HPD5wlXVNgCqAWiyaZ0dbfQgI3AnUMi8WO0jtlCm1nVOsqM+RIKRX07hgHheiN9L4nxuca+IGbJ4/HZqU6VDKltJIoX2JsNg4xIjL8sJlP+3O8zaojMek6qXsk64w5w7Xk5tme9WnGKMuJAnF4MI9qgZ6Uxtvc2VsEtLJOJK1OuiXxNLA07ies190uDPSBQ461mmME+xtw/2zex4mYNWazdkoye65ia38Tem4bnZLcLiA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(7416014)(1800799024)(18002099003)(56012099003)(38350700014)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wXLmKfo6pnxWcDpX+jF6bvTqiAGNqEcOgpB/DffDyif72N7s409Ptn3JYtP+?=
+ =?us-ascii?Q?G918ifvEnbmX7PH4tKYZ0gdZw448jpQV/MkGF8Nq6spzrG3anvTg2RwdmxRD?=
+ =?us-ascii?Q?lt+Lw4nJoiFn5HlXjhiO8vNnSbMsIpoojGR88STTMz/UsKUt5U+cKPmyCFKd?=
+ =?us-ascii?Q?nOAQTtUmU3veCSFjsB0tuOZHOArcUu1m1Q37h2ziaVFIjscIEokm7w+COVxK?=
+ =?us-ascii?Q?Sd7ZQU3EAHjbiOKSHOU4UTQP8CuHL8pNIsza8dt+VNi32T6n9Kd8wqNW6sN7?=
+ =?us-ascii?Q?sj2l+4Aximuy7BzE8596ZLvUFNwwEWWhS9s9HnEYIXbXwAdKpCs0WgLfyi9S?=
+ =?us-ascii?Q?1jXF9KjES2H/5D+kYzA78r+qcnib47Bif2DiFQeC2KXzdnVbscSOd61FBCqW?=
+ =?us-ascii?Q?/vHPJVlu280PFWe9r14+4tb/QVv9W58MK37k6h2YB3v2pq/NVWkp51pq0g8B?=
+ =?us-ascii?Q?cyJjIPzKexg8s1G6YuCx0mhV0UrBKIVX/hsOHvGg5Tq7mmUTarzpt6nXtRdU?=
+ =?us-ascii?Q?KrijAYP9unHoBrUmsg0yShjD1zI1C5ZpKqTSjboS+u6S7xiujtEUgfjWQpF7?=
+ =?us-ascii?Q?lSPACwC9c3e2DttNNUOCDj0QgU8s13F9YSsmiOcSmYQcTDphufvsIGc1pxUI?=
+ =?us-ascii?Q?+vBCSYfUrZUtw/GSKg1JARaWUhoLnPopXrvD5xUoBocye4OAX6iTQ+s8MoXk?=
+ =?us-ascii?Q?LLTh0cqYD25NyYU9e8581F5pYkcYXIp+otFT6Gmyq8EpUP+Gozbutyy4qMg/?=
+ =?us-ascii?Q?ve1ygdQzXl61q4hr3dF/cfESNUjwXQCeVH93mX4Qozp2onLnF9dqn0Lby7gg?=
+ =?us-ascii?Q?e89jnpevJffMAhXxZGoHzGbpBuH2HwJNGdU4qwe2J0bSwlG2k733Dg6i0J8l?=
+ =?us-ascii?Q?B/Y1/HmlILSAPpp9mHSPwXYbr6tJQrj8IagRcQ+Mf8JuhxKpWcgQi3uDNHSp?=
+ =?us-ascii?Q?aAt1H2yV1IkJQI21GoIxq16MJ7YEW96VZAp6Nop/JGH6M8KEi30h3xJ8soz0?=
+ =?us-ascii?Q?7JrCP7gISPTynTF2Z+cxoHpC+qW/J9mnTJOiOwkbP8rmkcGFkx+OfKUeS18J?=
+ =?us-ascii?Q?nX6CzeUuYV6FwG4IoVszUVRTpQZibplb+X5lrarbaFs0AFE/2gLvhx5wl4TE?=
+ =?us-ascii?Q?K48TKWQjdnPaX8vMamppbHh3paUoKZOmU/T5elKmimapXOlIvP5ZR85rH+JR?=
+ =?us-ascii?Q?QR0Xoap/kO/3GN0/zfNdSlhWCbUksC1w6byevFj3frLq2cxQz+oCekNkvQca?=
+ =?us-ascii?Q?C8CqktRKpDZjVQOUuVKDoYkQBrex9LFcRuLjkfwlmRpG9mBaOkCTsRMKhERm?=
+ =?us-ascii?Q?M301mqXKHfgC6xFzi+TEC3hg/9LznMLPH62buHa4wDf284TxDdk/aZNQz1Wk?=
+ =?us-ascii?Q?0rb/fvGAn9hNog36jvbf85VuHeZ5F7TRPM/vv/5qzunPYanLj45jioVncGI1?=
+ =?us-ascii?Q?3u6+kzBsiDPmDGP3RgfjVmuHMryyrHOcpXEZDECp5YGBMyOCLV3AFh73lEOe?=
+ =?us-ascii?Q?5Z2AddxaJ/pkc/V/B37Yq+Ajax62ZGhJ2oliJfzJfCgsbROqQYP5ABAetZ3z?=
+ =?us-ascii?Q?Ag5poFuUCOt9HLwlJAtPgkfk3cfTgm5ZrVzc17K2JUjmUWFRLfu4x12FGqhg?=
+ =?us-ascii?Q?fY0EpHjY5OQnkWptr7a++mUK+GrqEW3r8wjJsTc4c2jfO8cm4+/PeKtqt+hb?=
+ =?us-ascii?Q?7lR6NYBk3fQfg4kJjVR128iuOEIVblcvS/+zARObcQwfw23zH81yMpHotH2w?=
+ =?us-ascii?Q?FAr0DUG2uM69MGt3IKuXGq39hT0qjkY=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ade10d7-f847-47ae-c788-08deb58f737a
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 10:14:45.7204
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +/xNFDK8n/HeZvJKDqGhsflhh/x+ZYavA2J5aFBWb11uCKFbP1vG64S+OZ8iuyWTz5rDeQWRioedsVb/UcHNgkMfP9rwfaqP3NR/KJichcs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0493
 
-On 19/05/2026 11:00, Krzysztof Kozlowski wrote:
-> The binding defines both "port" and "connector" properties, where the
-> "port" is claimed to be for "data-role switching messages".  There is no
-> such dedicated data port for this device and role switching is part of
-> connector ports - the port going to the USB controller.
-> 
-> The driver does not use the "port" property and there is no upstream DTS
-> which would have it.  It looks like it's left-over of early versions of
-> this patchset and is completely redundant now, so let's drop it.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 5 -----
->   1 file changed, 5 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
-> index 6d3fa2bc9cee..975032ba6004 100644
-> --- a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
-> +++ b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
-> @@ -84,11 +84,6 @@ properties:
->     vdd-pdphy-supply:
->       description: VDD regulator supply to the PDPHY.
->   
-> -  port:
-> -    $ref: /schemas/graph.yaml#/properties/port
-> -    description:
-> -      Contains a port which produces data-role switching messages.
-> -
->   required:
->     - compatible
->     - reg
+jhb100 is a Starfive new RISC-V SoC for datacenter BMC (BaseBoard
+Managent Controller). Similar with Aspeed 27x0.
 
-True, the ports are in the connector now.
+The jhb100 minimal system upstream is in progress:
+https://patchwork.kernel.org/project/linux-riscv/cover/20260508053632.818548-1-changhuang.liang@starfivetech.com/
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+jhb100 GMAC still using designware GMAC core like JH7100 and JH7110,
+and contains 2 SGMII interfaces, 1 RGMII/RMII interface, 1 RMII
+interface. In JH7100/JH7110 dwmac-starfive.c have supported RGMII/RMII
+interface. So require to add SGMII support to dwmac-starfive.c for JHB100.
 
----
-bod
+SGMII serdes PHY has been integrated in JHB100 and do not have driver
+setting.
+
+In JHB100 EVB board, SGMII connect with motorcomm YT8531s external PHY
+and support RJ45 ethernet port.
+
+The patch base net-next (base commit list below)
+
+previous patch link:
+v2: https://patchwork.kernel.org/project/netdevbpf/cover/20260417024523.107786-1-minda.chen@starfivetech.com/
+v3: https://patchwork.kernel.org/project/netdevbpf/cover/20260507094115.8355-1-minda.chen@starfivetech.com/
+
+changes
+v4: patch1 and patch5 add review tag
+patch 3 add sgmii clock dts setting more elegant and simple
+patch 4 remove redundant compatible and (void *)
+
+v3:
+patch2: Add jhb100 attach to jh7110 compatibible, remove redundant commit
+message. just descript the jhb100 hardware.
+patch3: Add oneOf 5 clocks / 6 clocks to claim the clocks and make it
+pass yaml test.
+patch4: Add review tag and unused tag to phy interface.
+
+v2:
+1. patch1 Add the remove reason
+2. patch2 rename rx clock to sgmii_rx
+3. patch4 confirm sgmii rx clock exist, or will probe error
+   sgmii will not call starfive_dwmac_set_mode() 
+
+Minda Chen (5):
+  dt-bindings: net: starfive,jh7110-dwmac: Remove jh8100
+  dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 support
+  dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 sgmii rx clk
+  net: stmmac: starfive: Add jhb100 SGMII interface
+  net: stmmac: starfive: Add STMMAC_FLAG_SPH_DISABLE flag
+
+ .../bindings/net/starfive,jh7110-dwmac.yaml   | 31 ++++++----
+ .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 58 ++++++++++++++-----
+ 2 files changed, 64 insertions(+), 25 deletions(-)
+
+
+base-commit: 7af2a94f4dcf53a45f3be5870ebeb195402866d1
+-- 
+2.17.1
+
