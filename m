@@ -1,165 +1,159 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011069.outbound.protection.outlook.com [52.101.65.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880513ED3CB;
-	Tue, 19 May 2026 19:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779217964; cv=fail; b=jViWFxz1JpIa2e3/X6U09HvRUveVFMX0BG/hMIFvByxINKfuG1Pp92L764MtY8HZbn2sz9P8ldGxndXoSEtdgJIfj9WIyiXYMUGuUaKZHGGpa3LrcIBp+AqvKZ0VzTp08Kz4zNnTznYh9rbmHuR7lYApn6ScSWxvKVi6snL5bkQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779217964; c=relaxed/simple;
-	bh=x6gXSjc1lBc0OmfbOt/t6pQ15CXtPaHKdSNYuei/kbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q2BwaJID2C4DwXUzxTxCvrLPHeUysrvDv+UpxF2AlJUgb6Ylh0hc/FAROgzdEL9781iOn7Ko+neYR68JV5UhnQ5bCV/ycy8kybwgB+UVcnNkbYxk7Xkcrz1dMhB5vxh/MA/aP/U+2nK3flUp0BkJDS1BxzLLmJzW12F28PIBAFM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=rKD/OgEs; arc=fail smtp.client-ip=52.101.65.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E8F29B228
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 19:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779218254; cv=none; b=Xlig2wgxJxK6eOaCjee2GQzSqSQXN1DVmKvJDpxMMhuVQYXogA+eksQqbzaC2NiOvPvtBc+0VFOMzLb5WzVdNsBigsX5Z/EzEFjuaoLNBiP+wP/HkTqiNFzUmgG4aOvkxDPfQfQGAcybmEZxoidkG1iXxZVXBgoEP0C9f4lFG7M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779218254; c=relaxed/simple;
+	bh=CpE3e+wT2o9VhRKJ6u188w8lcH+A3ufuq3DEhK8jOw0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O08CkeHADuwKsjtSIdyUpWDqiWtftH8TetEIoAbtAwadT/EjeU5Xr7eBnrVvrWvIiUpJneGecMKHjjoHiyuEw2WYAAItt9Ll0u1DtwmZtgI5oAfjprReS/0TIouT72cdqbJ8/ODheFka6gdKBMtwSh8m9F4hwzHfGq4+sohlv54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/vi5kWT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="rKD/OgEs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rC5saeC9dPd/09m+Paz1foudcRJTwt2M2/mmIzS/nXnRiJQ/xpCRNkw4f7iIfXLzYZQfzDYwH023I9wS4kVb6kR9cSudbJL/7ysNtRFbftTNOhivEupwT+zSN53DBU8u8joF6GbnwtizmIalE5ek94NmxB2RUkEnrMER+JZ4KLL3F4aGfxGEjsw0pURTqWOhiwH1RXsW29/I2cef65Wom5/9aQUlCjRH/wn2MHUQOci7SgtizHP0zIOIm0pFUN74rBqPLhQWrf5NJKdgx9eKX90aOOyOBaMMzwhC0CoQ4RML3HkEdGmla8uFUNFdIuOWomvdNTFMXEuRJYXst1u8xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zd/ZTVZhfit0/kxZEAn8ROoCGLAoxqZ5qW8pIIz412U=;
- b=gRAcmD6MWeD5GpNKPMxnxWOt9JsxODchWbTX/mbA5KbFbr3iw81CJD3lBQ3QT7TRagW+q7CmqFL4ySbhDg/5Qx3wRtb9PcRrR2xLHlroDpCKvNv9Nq4ZFeUWkjnf38gssguA1oNdEjW0XIonnrK4/g3OQYJnqb/MX+SoOUga3ONglSB9/TnYqi+tR/MI8nrrqURnbLTtSXlSk3Xl1C/aiQx+YntkjnXOwPQAOE14YL+IqaQB5KXNJ/iVnGvLV6zgbVQpQZXJ8a5Cqk1vlXEPoaCIxA8Z9iaaInvHYr4QztqBPyJ7gN5IKtIaD0sV3gCsme9y9Ge2D0lgmRI7Uvfsyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zd/ZTVZhfit0/kxZEAn8ROoCGLAoxqZ5qW8pIIz412U=;
- b=rKD/OgEsbnFOyc+7XxJccipljS6SrBenVGS2l+K461nQ2Dt7qYXD/bJ9exqXDnPv1rCAyI9EGOc2phLyIJ4OEJzR8x62Fe5O7+9CxkX2jOWXhZ8bg4/D3gGfLg4V+mKGdRyNbOq7wccL/Prvst5X6K/ISu9IQIBHqctIrv09xD4eaP0qf6wQkv6y6r6T9Omqbl5EGFLCLa+cqKmC6XF4qb+O9lxl8Cp6KLfUFHVeshm3IJAuhZEUIi1TUl0/C8+Fpud8oIm8WIJRe7OubepMnfDpqk0K0ACPBs4ljYynor8f1PdELDoroaVe2CosNsZgkgBGb9rs2O3VdbxrYTSLpA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV2PR04MB11397.eurprd04.prod.outlook.com (2603:10a6:150:2af::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 19:12:40 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 19:12:40 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Primoz Fiser <primoz.fiser@norik.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	upstream@lists.phytec.de
-Subject: Re: [PATCH 1/3] arm64: dts: freescale: imx{91,93}-phycore-som: Set BUCK5 in FPWM mode
-Date: Tue, 19 May 2026 15:12:31 -0400
-Message-ID: <177921784142.3033084.3141629456597441423.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260507062058.1711292-1-primoz.fiser@norik.com>
-References: <20260507062058.1711292-1-primoz.fiser@norik.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR13CA0092.namprd13.prod.outlook.com
- (2603:10b6:a03:2c5::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/vi5kWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372C81F000E9;
+	Tue, 19 May 2026 19:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779218253;
+	bh=6zVRp6scrsWaOVkixA65J+KMby8d+skwCCxeLxnhowY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Q/vi5kWTAUY6ShZtHlNPN3x5Pu45Z4rvP2gHQqoVxiBzbsfbrue6dFu72UlkZrJrT
+	 gPniXcymCDKP95RDSFpQhw/S/Ht3v8Pm2h6KztRUPW8zEm0wPoUed0emJROaKtNZjL
+	 HfOniR30H70On0XWWsDBhbdGHC9+JVA2ue+0OLIIaRiVXWerX75U8V2z6uMEpQZZq6
+	 z7bzf2nAZrBnPBlX1OzNGJMpDkOkicvCsFUN+pQb7j7tZMfQ8PQyQjMTcj/wua+TZ6
+	 0ZRdbjE+p4BdzkVuMw0efO7XocznBGJYwF2z2+DZiELOR4Jrq184JquoRZXcnHFAoD
+	 l4JQ5q6SON81g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: Document CDSP Power
+ Management
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vignesh Viswanathan" <vignesh.viswanathan@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260520-cdsp-power-v1-1-85eb9501a1cd@oss.qualcomm.com>
+References: <20260520-cdsp-power-v1-1-85eb9501a1cd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 19:17:32 +0000
+Message-Id: <20260519191733.372C81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV2PR04MB11397:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67da5105-fae7-4934-00c1-08deb5da9855
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|7416014|376014|366016|3023799007|11063799006|56012099003|22082099003|18002099003|18092099006;
-X-Microsoft-Antispam-Message-Info:
-	21DkEMbRCpS32Osk8naiujXo7H2rukuDU0yrNMupD8ee8Pnd3eoaH6q7iMRQ2qJ5JUTkDohQI31hoOg79XsbBsM/FhO5dohOiOwSEDwDyweNqn5fB8tZ3cUihk3+7dbXh9e5rnk7UA/UJyO5ti913Xj8g08QDHixbg5Re2ETY8ib5WORw48xacSXn1CQtMHvfsdzj+nPCVqRB9c11+sTo1QZXJlwN4AcZ2r801qip3qxvsjCHkNflKgOpgFW0Vsny3/l808TCTuE5kplRnmS9ZprVBipsQ8wNYyqAPF0LUZGTsPx0eYmJuYeLZE3WeINePp0jzajQea3OjWCPuEcBD4sN9Xq495y9L64+CdxJtZVc8c5z7kQGYA2mUVRirkyAO7Qtg7XptKH+Mw/xNflRRyxlroE/HJMZoMLzWYAFqqIYXvUnDI1EaLVDzeHcT2TSnSSDU6260Fpx/jJt2sw9meIWfJiOd0VRf9emocNJ2wlDEnN9UdSEneIUTcB60PoXh9ui4h491P1Ry0Rg77c7E5oRTVJk8j4HW3kYoU8NAd29n7p+owuJnX8z43DtjW1qvb/8LbMUHDu4HFhc6CmZxDghKvpTqJzDuoh4dX9mJImMZgnYrGhp2bbWmDsvtKAvlaPRRG68xkVHUSIMsq5MzFKYoT2H8VSuNepHyU1KlYoEFFv9jhcXoyPGBkIP5Gb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(7416014)(376014)(366016)(3023799007)(11063799006)(56012099003)(22082099003)(18002099003)(18092099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S1MrSVkyUzJ5cDkvcmZ4c3h0VlRjUkRZemY2VWdJSEZRMm9wOXdLdHhMd3Fz?=
- =?utf-8?B?MUUrOWFDNEpTcnhqZHhkYmI5S09BZDZCWSs5eURrc1NmR0tEVlBKS3c5a0Rm?=
- =?utf-8?B?SVdJa3JvUVg3YXUreGlHbHBxQkZMdGpTT2tJTzRGbjl2ZkU4MUJoSUh0MlJo?=
- =?utf-8?B?dDJLY3Z2TEhrMzV3eXBkSlI5UHhVRnc1RjZyYTllUlZFK2JSaTV6SXRST1oy?=
- =?utf-8?B?emk0Ym9yYVBiQXBSTDZnWDYwdHk2V3Rud1BIRE5VWTV3ZGYwY0JNZ0RoZUYv?=
- =?utf-8?B?eHk5U3ZneFhwNG9qcWF6ek1KNlAxNzBpVFhWRXZ1bGl3YkRkTTRWbWJPV0lt?=
- =?utf-8?B?aVBsSjA0Zzl6MThiZ24zWWdQRUdTdEdlL3QrbVVsa0lzWVEvTE1zTERZSHlI?=
- =?utf-8?B?SjdVOUFseGRQUitCc09SZVI1QU51ZHBSVGFEQnpvdmNtK3M5d1o2T253ZTkx?=
- =?utf-8?B?aHBQUDJUMXZJTkZMa3J5bHdkQitWcmx1cVFVTXBuTmMwdkJ0R1lwYkZteXFO?=
- =?utf-8?B?WG1Pd3VwUUlGam5FWFFoQ2lQTk9YaXpCM0poenJ5eThxL01KL3lNUi9WU0ZV?=
- =?utf-8?B?ZHY3TFA2UjRhODNpU2tzU0xJdUJwRjFBVWZHakhnL1ZoRXNCSVltcmU5WHBa?=
- =?utf-8?B?SXVMWENLTXVYSkhsem5qVVNrOERmL0NBYU9RWDM1UXNLYVU0SzJPbEFmUFpp?=
- =?utf-8?B?TzlvUE0yeWlDd0xnWmdxNnB2UjIzWHJ3bmYvd09HYnJrclBKaGM5R1Y0bmZx?=
- =?utf-8?B?eWlEaUJBRElETkFlQURORE9HWFhkMEZtbkpaNUdVclRzTEJQSU1KSkswUFBo?=
- =?utf-8?B?cjZtcVEwK2NBYlpMYkdIcXFNekxTNjg5LzBGVjhrcS9nZzkwbkNYclZjYW1U?=
- =?utf-8?B?L0lNNlorNUF6WVZsajdZRE9qb0FBdXRWVCtTaFFIUmtyMkcrTStYOGFnM2VK?=
- =?utf-8?B?bnc0dzR5VnhqR0ZRUDE4SnhCS2pxV1BmRU0xb3dQaStIYVNqb0pEM2FDbU5R?=
- =?utf-8?B?eU1nMXNveFJhbmQrSUZjWEFZcXJNZ2w3SU8rLzZsaXUxTG1qcFFFcFNyUC9i?=
- =?utf-8?B?MzJJT0RsU2F6SUZYcXFidEVPaXAxa1I5VHY3cGVxT0h3ZUZnTlZtV2tEQ2dj?=
- =?utf-8?B?Y0VSUGp4UTFiam1WYmZZQW02b1I2M285WHc2ZHhTTWdIWEVYWkd2eVdIL3I3?=
- =?utf-8?B?KytQeWdLVGlPWGhlL0ZGdUNhZkRBWUhSanZSaTJGOUtRN1IvdXJnYVEvakpv?=
- =?utf-8?B?Q2pSMjZ3bU9DUVo4Ukd5enFCY1RVeG1Bd1ZnWUhOWENjaURWTkl0cWR5S1pR?=
- =?utf-8?B?R0JadDNZR3NqRjRkak9pT0duWHhzN3VpTDdMYnhpL1VwbXN1b2kwcEdCa3NM?=
- =?utf-8?B?NTRFRkRvVVJyTXAvaGUwSDBiRkdlUHgzU25RT1pEV3JVcnl5Z1pXcW9CMXZP?=
- =?utf-8?B?dVdJRmloR2tEVncwTEdFSHk3UkdpcWs0NHlYdWFnbU5nZDYvcXpTeDEwMnhR?=
- =?utf-8?B?Smc2bTNzbFkxMzdDOWFEb2pEbld6UldGL0ppYTFmQ2drUWJsQmdEYVE3Q0No?=
- =?utf-8?B?WUR0VW5NWTlhOTh0ZHluSkczdzNwYUtSc2IvRG15REdhenROQ0pwTGJMUUJj?=
- =?utf-8?B?OHFiMkVQMS9mb2U5MDEvSisrZ3NGUi9LQ0NUWUtrTmFTNy9aWllaeWpFN2lM?=
- =?utf-8?B?QUNyVUQ0c2tYTERQSFlZZEdZQm93RCt3QzhReXIrOXdPSWxHMFlLTERmTVRp?=
- =?utf-8?B?a1hUSm50K3ZOQkhmZ05pUGJNblh6SjZDQmxvSjA3ZThkbTJVcENiUVNGOU03?=
- =?utf-8?B?eG5MZVA4OHduNWlIMFZCdEkyOUNxZ3hUMlAzcGVVMjY3NDM3TmFYMExGM2w2?=
- =?utf-8?B?Y2lzbkFoOVVEcTF2VGFEVE1hMk5qOGFMbkU5VmhSS0VNN2xlaGdsZkFwSjVG?=
- =?utf-8?B?b2d5VkNGcTNsWjNtZTRmOExxQ1dLL0FoVWdCeXI2UEJtaklmeUNxQTFCUHZZ?=
- =?utf-8?B?eEs3QjR3ZUFlZDZHZFdhUm51WU5iRlIza3U3TktRUjQvdnVuSmxJV25TbUlE?=
- =?utf-8?B?NmlCTkE0SFBsejdNV1Zoc3RJTXdjcW1NdWIvRDJSclg5REZWTHJPT0E3RG5R?=
- =?utf-8?B?VndPN05kc2dNSG9JeFoxRVR6TE8vWDZOcFBBL1pwVitYd0lDbko2NHlYa3Zm?=
- =?utf-8?B?M1pYckJudjVGeXdxOXZUOFdaUVpWY3VBSWpaV01KUU5ydVBCck1tK2hCUEpv?=
- =?utf-8?B?NE1Lc2lKTFdCcFhLRHA4d0VJNFpoYXBFb3BLS0pZaFlOWE1Tc0VsYVBsVHpx?=
- =?utf-8?B?S3NtekxwTDZDL0J2MXFJeXRITWFKb1g2YW5QWjNoTU0rOEZNVDlsS2hERUo1?=
- =?utf-8?Q?rLLOVTRGMA6SmleIdgfEt/5DtYlHhdFFrwtjW?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67da5105-fae7-4934-00c1-08deb5da9855
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 19:12:40.0683
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: peg+1J7f260QB1MYlOsJXFmtldCpjuWAv2cPa6hAYlOVN4NarpbSJmCKxEDMzu3ENpnLQfkJgoPRNsGiODSrowO9ka6E8O2tX3OxjpBSifEAVMBMmTByyJ6Q5uV0JsiU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11397
 
-From: Frank Li <Frank.Li@nxp.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The schema explicitly defines and requires 'interrupts-extended'=
+ instead of the standard 'interrupts' property.
+- [Low] The example uses a 4-cell interrupt specifier for the ARM GIC, whic=
+h only accepts 3 cells.
+--
 
+commit 4faf2370824eaf5bd43284e69168484a422966ae
+Author: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
 
-On Thu, 07 May 2026 08:20:56 +0200, Primoz Fiser wrote:
-> Set PMIC BUCK5 mode to forced PWM (Pulse Width Modulation) mode instead
-> of the default automatic PFM and PWM transition mode. FPWM mode produces
-> less ripple on the output voltage rail under light load conditions. And
-> since BUCK5 supplies SoC internal ADC reference voltage we need to keep
-> voltage ripple to a minimum. This solves issues with the occasional ADC
-> calibration procedure failures on phyCORE-i.MX91/93 SoM based boards.
-> 
-> [...]
+dt-bindings: soc: qcom: Document CDSP Power Management
 
-Applied, thanks!
+This commit adds device tree binding documentation for the CDSP Power
+Management driver. It describes the properties needed for DCVS requests via
+SMEM, LPM transitions via MPM handshakes, and virtual regulators used by the
+remoteproc driver.
 
-[1/3] arm64: dts: freescale: imx{91,93}-phycore-som: Set BUCK5 in FPWM mode
-      commit: 5601ee1b64da17d2df2e657a7f1582ad468ed4d2
-[2/3] arm64: dts: freescale: imx{91,93}-phycore-som: Adjust PHY RST drive-strength
-      commit: e1b256ccc5cc3fc59a67a261d711bbbb989d7512
-[3/3] arm64: dts: freescale: imx{91,93}-phycore-som: Improve USDHC signals
-      commit: a6254c90e14b5b9d0b2222b2121598fe12f55ca5
+> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,cdsp-power.y=
+aml b/Documentation/devicetree/bindings/soc/qcom/qcom,cdsp-power.yaml
+> new file mode 100644
+> index 0000000000000..f0f89fdeba4ef
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,cdsp-power.yaml
+> @@ -0,0 +1,138 @@
+[ ... ]
+> +properties:
+> +  compatible:
+> +    const: qcom,cdsp-power
+> +
+> +  reg:
+> +    items:
+> +      - description: MPM (Modem Power Manager) register region
+> +      - description: RSCC (RSC Configuration) register region
+> +
+> +  reg-names:
+> +    items:
+> +      - const: mpm
+> +      - const: rscc
+> +
+> +  interrupts-extended:
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+[Severity: Medium]
+Should this property be defined as interrupts instead?
+
+The core dt-schema tooling automatically permits and validates
+interrupts-extended usage in device trees against the standard interrupts
+schema definition.
+
+By explicitly defining interrupts-extended, this forces device tree
+authors to use the extended format and prevents them from using the
+standard interrupts property with an interrupt-parent.
+
+> +    items:
+> +      - description: LPM (Low Power Mode) interrupt from MPM
+> +      - description: DCVS (Dynamic Clock and Voltage Scaling) interrupt =
+from IPCC
+[ ... ]
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts-extended
+
+[Severity: Medium]
+Should this require the standard interrupts property rather than
+interrupts-extended?
+
+> +  - interrupt-names
+> +  - mboxes
+> +  - qcom,smem-item
+> +  - vdd-cx-supply
+> +  - regulators
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+> +
+> +    soc {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+> +
+> +        cdsp_power: cdsp-power@4ae000 {
+> +            compatible =3D "qcom,cdsp-power";
+> +            reg =3D <0x0 0x004ae000 0x0 0x1000>,
+> +                  <0x0 0x26018018 0x0 0x4>;
+> +            reg-names =3D "mpm", "rscc";
+> +
+> +            interrupts-extended =3D <&intc GIC_SPI 65 IRQ_TYPE_EDGE_RISI=
+NG 0>,
+
+[Severity: Low]
+Does this ARM GIC interrupt specifier have an extra cell?
+
+The standard ARM GIC binding expects exactly 3 cells for the specifier type,
+number, and flags.
+
+The trailing 0 appears to be an extra 4th cell that might cause a cell-count
+mismatch during validation.
+
+> +                                  <&ipcc IPCC_CLIENT_CDSP
+> +                                         IPCC_MPROC_SIGNAL_PING
+> +                                         IRQ_TYPE_EDGE_RISING>;
+> +            interrupt-names =3D "lpm", "dcvs";
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-cdsp-power=
+-v1-0-85eb9501a1cd@oss.qualcomm.com?part=3D1
