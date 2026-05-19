@@ -1,95 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486FE492519
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:28:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7444B8DE7;
+	Tue, 19 May 2026 12:28:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779193713; cv=none; b=W9dyU0JAO8Yg35IPOs5RbKtsrm9OodZsba9yHK6y4qZ7S40P0wH+4orNfmFcoiT7QscPqAuDaU9Go/iBb2eMNSbQ1xV6YpXsHzLcpHZoJsgYJvW8t5CRavKKMfNj7+m+pmUSNUY+/ZsRcvC0qTN+wcPZxDQz5Z+I2bWELY/Wigw=
+	t=1779193738; cv=none; b=LsJK7YxIjFUMwiyaNwFsMgJp2HMXze95MJu09gVpR0pFOllC7CK6dm+bJM3z8vs81tB7zcfCMdymOsWnsG+Fty6ORS5qePX7X8im06bGqiwq7PudF40r7kTfhB2RL7utsFU1A+dDPW77crUcjkZTlJ51G+zADJXwdDR1yu+6X+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779193713; c=relaxed/simple;
-	bh=ny8zBbGNmK8IVEJHpgtkuPZNJMzorH7PV2NgLW1VfJ4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XHFoJnAWJR5859PRYuG/SAFR+7o0MIBE3OWXSxCaaQVB4AWPo1lgRWhzhicNDM2DcTCIRWFp1zwlnKIsIdorAlqc0SBOD1282iubP126EXRPVD1Yr+lh/ITDZyGJbEHjjGF7goqGR8Q0PkzKoKBJmvGd6qF/R26PScyi2Sry7Tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5+/EIw+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779193738; c=relaxed/simple;
+	bh=om82qKwrc/AIC3/1p1oC7XNBF2pxoCEEOVi39Yh6YnU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type; b=cJ5uVpm1vE/rjfksx9S3SeZjzNPPbcUCuelDmkFUbQzE8b4pivulpc/lcKMV3RlYaR3MweTgjXHNqGeKNDhhTplnoIOITuvoUJIimuIaF+EwQ59DtwKD8S/Uc+Uw7mPaScQxDGwyB867hiyn77Zt+txzkJoMa58+NbCIQ/3bcpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hy5by4aS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5+/EIw+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780DCC2BCB3;
-	Tue, 19 May 2026 12:28:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hy5by4aS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D50C2BCC6;
+	Tue, 19 May 2026 12:28:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779193712;
-	bh=ny8zBbGNmK8IVEJHpgtkuPZNJMzorH7PV2NgLW1VfJ4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=K5+/EIw+rTG/BoxqsGBcdoozHXcciEl9cJCYZevYf/OuHU/okKn6CwmRh5WoXiVHY
-	 aHk9xssicbG3ImMYyMc/QsTC25EIr4f7KLCJBbhWS0QV1YeGLYbnMHYGbBBIlVnNOw
-	 VBt0LC1pife5ffXw22xTureGMSVNdHP9L9VKpnurpV9tQmaA67J5Kzlz1QaEwIVbpr
-	 He1teIFFeH31PO8/5rHeAxQwqbSrEx+GaFYLxThJEmj6gFY+uLi/65yApT1boU5EJ4
-	 34/dqrJQ8llJgTV3sIcc50Z2kzz0dpRTpxRaKBrjVlTcs2jDxO4MJ6m//pPU7cAI+1
-	 EtS8QOocjaDiw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 1/6] dt-bindings: iio: adc: add AD4691 family
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260519-ad4692-multichannel-sar-adc-driver-v12-1-5b335162aa51@analog.com>
-References: <20260519-ad4692-multichannel-sar-adc-driver-v12-1-5b335162aa51@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 12:28:32 +0000
-Message-Id: <20260519122832.780DCC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1779193737;
+	bh=om82qKwrc/AIC3/1p1oC7XNBF2pxoCEEOVi39Yh6YnU=;
+	h=Date:From:Subject:To:From;
+	b=Hy5by4aSmLi293uNgLpLKupJfFptICD2qBOtSaKua8wTqQ4gthmC36wsOJCnGs5P7
+	 u3VAhwIAtEka/vtQWFmTzE4hvpxQNl60UerWTRwB0VKLvc5Ic/FuCShnomzl7NG1cP
+	 Tpot1GMxbV6q+EhlLLSW0niGOlv+IoOeLhD0Y1seDf/8Yqh/obnJedvof+rReU/jf+
+	 ZrfvS/HLCf2FbtGo4+MH3t6zT8Va0/ZgluZ191LI8g/Y89ywaUMqCN+7Nj62yUMuBn
+	 YBKSJ7nOidM8nbwJ6yg3Y8ZzD/AKYCSyxnniSlci5ZIbzP7rxcWvgp611WnoC6vH5T
+	 o3qPMaIeI2eYQ==
+Message-ID: <1668071d-6e18-4379-bf44-b82065731148@kernel.org>
+Date: Tue, 19 May 2026 14:28:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Subject: [ANNOUNCEMENT / CFP] LPC 2026 Devicetree Microconference CFP
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+To: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor@kernel.org>, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree-compiler@vger.kernel.org,
+ devicetree-spec@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The binding defines GPIO controller capabilities but omits `gpio=
--controller` and `#gpio-cells` from the `required` list.
---
+Hey there,
 
-commit 96f168db5f8432c094e1917f0e5c69f84e070941
-Author: Radu Sabau <radu.sabau@analog.com>
+There will be a dedicated Devicetree Microconference on Linux Plumbers
+2026 in October in Prague. Call For Papers is currently open.
 
-dt-bindings: iio: adc: add AD4691 family
+https://lpc.events/event/20/contributions/2317/
 
-This commit adds device tree bindings for the Analog Devices AD4691 family
-of multichannel SAR ADCs. It describes the hardware connections including
-power domains, optional PWM for CNV Burst Mode, reset GPIO, and GP pins
-usable as interrupts or GPIOs.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
-> new file mode 100644
-> index 0000000000000..af28a0c1cfa9e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
-[ ... ]
-> +  gpio-controller: true
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  '#trigger-source-cells':
-> +    description:
-> +      This node can act as a trigger source. The single cell in a consum=
-er
-> +      reference specifies the GP pin number (0-3) used as the trigger ou=
-tput.
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - avdd-supply
-> +  - vio-supply
+The Devicetree Microconference focuses on discussing and solving
+problems present in the systems using Devicetree as firmware
+representation. This notably is Linux kernel and U-Boot, which share the
+Devicetree bindings and sources, but also can cover topics relevant to
+Zephyr or System Devicetrees.
 
-Should gpio-controller and #gpio-cells be added to the required list here?
 
-When a hardware variant provides GPIO controller capabilities, these
-properties generally need to appear in the required list.
+Topics suggested for discussion are mentioned in "Ongoing problems" in
+session description (link above), but of course are not limited to
+these. Topics should obviously follow standard Microconference
+expectation, that is to be discussion oriented.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-ad4692-mul=
-tichannel-sar-adc-driver-v12-0-5b335162aa51@analog.com?part=3D1
+We discuss and try to solve actual problems, thus if one wants to
+present his new patchset, then that patchset must have been already
+reviewed on the list with inconclusive result thus having another
+discussing in person would be beneficial.
+
+Allocated time per slot will be between 15 to 30 minutes (20 minutes
+last year).
+
+
+CFP end is not fixed yet, but it will be some time after end of "Kernel
+Summit" CFP, so *probably middle of July*. I will confirm that later.
+
+
+Proposals can be submitted here:
+https://lpc.events/event/20/abstracts/
+
+Please remember to choose "Devicetree MC" as the track.
+
+Best regards,
+Krzysztof
+
