@@ -1,135 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404303EFFC2;
-	Tue, 19 May 2026 09:25:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685D93E1220
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 09:25:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779182717; cv=none; b=eAzsjPBnzqsCC5t5tubNxBWq/zitFaT+ET7we6fEapoqbo+nEoj9VUcFQlGbJVMhVKEdglU8ZP3X+Lmjr9EgXxew+CNSAyvsCTwfaOdL/PwlGieVbNkJQ6xZd4SBSP0FJp3keSxKQJBa3BGfIryEzkQdTObpUdIRIWe7b1JzeD0=
+	t=1779182757; cv=none; b=K9ayGLloXwmFjNdQcWK5R4gquLT0ejZ6/ufjczJMohMJQ2uku4s1arKfwK/lRv6aCnXAdQ3IBa2SVoQJ69AZCk6njXZzAnQipZ1ambdcdUF15y8TuEhDAyyR638mY+9nOEwNFtPtqzAFm8XKSqfWfTVlfVe8A4GI2AX6OhNZbZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779182717; c=relaxed/simple;
-	bh=LY4j+awKez8uEwIL98fiH+gRN9x2qY9yTM+7byFWkT8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=XCSl0BY8V4bYQ3ZfJUW8JzCjdyVSVA1JdAMye6F9RT09/6ZVi4tqCYNzKtbJVQ0hrvJPfvEaN6ihBi7UVxpl1sYsrEtFqfw2or4R+ivLaggUrtopJu1xMqBFYJ/D+rXuOyT3R1PDVN50+nIFUwf9C5lggQ8nMtkk+DUR8f8vsso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qvFv9gRo; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779182757; c=relaxed/simple;
+	bh=GtuOY6q4bTbJM9azaY+ssquKiGh41o0eV8c+Do8/7n8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=J+v4hwhrk3/zISB5gl8943qhFvYNEWFOCBDa0R0ANUdjeehYI9rNat9HSH2GeyqjLT5Ok8fD4f9/TPrFCrU+3LVxcIjpx98ihvUEv4U5KLt62l5dmXQyTVrj1EdmzmjUpcorseKkjbAo2IjV2BuUxyyIjU0z848L8rkKNWx8d24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzQLzfJO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qvFv9gRo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7643C2BCB3;
-	Tue, 19 May 2026 09:25:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzQLzfJO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62B4C2BCB3;
+	Tue, 19 May 2026 09:25:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779182717;
-	bh=LY4j+awKez8uEwIL98fiH+gRN9x2qY9yTM+7byFWkT8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=qvFv9gRojvXoDWo7++gx8YgEHwBhplYpFEZMoqsGTigFypLqJomaA0Z0B4o7GyCD2
-	 utPNm/g4AFtD8Y7osfFHEYhQ3pWI6+0kjRAfmW368l2B6/pLxfQvSdAMdSG8N0Z9vt
-	 vLlAbg/xv3ZInCD10jp2pPWut9YR+mIacjErV0fi0z9yNgLgCcUk4Jazp8+t60gbMK
-	 pXyX1UiEbIlUFHQVH1p6hTHUWdBcRJK0/64QTtKcjqu4DGTXkXmMCJhyoh33xgIOn+
-	 DKfC6+YYc0X5FS5IIEO1Gm1D7hZA/PvNbHs0GsnFsFRzKBq0RNR8/Lg7alnQpqZyF7
-	 H1QbEGEsNJILg==
-From: Mark Brown <broonie@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Herve Codina <herve.codina@bootlin.com>
-Cc: linux-sound@vger.kernel.org, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Christophe Leroy <chleroy@kernel.org>
-In-Reply-To: <20260513081702.317117-1-herve.codina@bootlin.com>
-References: <20260513081702.317117-1-herve.codina@bootlin.com>
-Subject: Re: [PATCH v3 00/17] ASoC: Add support for GPIOs driven amplifiers
-Message-Id: <177912269514.352391.10184061127272991864.b4-ty@b4>
-Date: Mon, 18 May 2026 17:44:55 +0100
+	s=k20201202; t=1779182757;
+	bh=GtuOY6q4bTbJM9azaY+ssquKiGh41o0eV8c+Do8/7n8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=KzQLzfJOuik1EdbdVilTGjeJZZ4Xq+OwdgWgFrusVAVISgQ7EGzuKAJmGJMJMCNtU
+	 qS9/oqk7SPEb6nQ0BIOosQX/+/de12HOxOGcwzrTqSCI1dTxxCxdp3ugIb3hKkCU+b
+	 98VWRh6S8HwweLOY3xFEqnIexnAiie+km+f9sLYeyz/02m1mr0IOw1Q69Aj9uNRWhv
+	 3yoBXhOh6YCg1n2QsPZpKP8XdF6QbfP6r+KWa6VPy8aYErNIDGoUE2qpRyI676i6mk
+	 4HVAcFEirEUucbXFR8Dkabah0CoJLqJhzSK34LUjS7CXQT9xXMJkrDuq+25cjwygoA
+	 +nQ9KnnBjb4Jw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 6/8] ARM: dts: qcom: apq8064: Fix USB controller
+ clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260519-mainline-send-v1-sending-v3-6-3dd7aa125353@alex-min.fr>
+References: <20260519-mainline-send-v1-sending-v3-6-3dd7aa125353@alex-min.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 09:25:56 +0000
+Message-Id: <20260519092556.C62B4C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3526; i=broonie@kernel.org;
- h=from:subject:message-id; bh=LY4j+awKez8uEwIL98fiH+gRN9x2qY9yTM+7byFWkT8=;
- b=kA0DAAoBJNaLcl1Uh9AByyZiAGoMLHijtKhg2bzH9vN5cJeX23ssUzW9D4fCBT4nDr/XZaEGz
- YkBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqDCx4AAoJECTWi3JdVIfQA98H/A0n
- 6RYuh8WJgFqu9o0qrpi6xiTm+AFuikj7qx/QqA1NaYOX+V4TqaAfjOy4wmLTL4eNR1ItCGX8AQb
- Mi599fXxb/Ru2fPh5glNkYVHs/DC1kRZ2ABo/79uxr58dhNy+GkY4Ce7AEgqsKgHNI0RS1A93a8
- YIbXkgXwzhv7dM7SSXB4KO5Kfl3DYoBCYnwK/AfxglmtzcaNtOW3S7HPsc9DtDzRktXvMlFvp+0
- VmCpGf5rOgWUlseQyN9hPShB7VVoUr66TG1WGmOFytXEujNiS00h9i7lEUdEGchh9BOSEarUB1U
- VVKMk9FtEsbzTNQ4klCx1Rd+G/QhLEx2TsYpwKI=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 13 May 2026 10:16:44 +0200, Herve Codina wrote:
-> ASoC: Add support for GPIOs driven amplifiers
-> 
-> On some embedded system boards, audio amplifiers are designed using
-> discrete components such as op-amp, several resistors and switches to
-> either adjust the gain (switching resistors) or fully switch the
-> audio signal path (mute and/or bypass features).
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Moving the transceiver clock (`USB_HSx_XCVR_CLK`) to the "fs" cloc=
+k causes it to be permanently disabled during normal operation, breaking US=
+B functionality.
+- [Medium] Adding a third clock to the `qcom,ci-hdrc` nodes violates the `m=
+axItems: 2` constraint in the `ci-hdrc-usb2.yaml` device tree binding schem=
+a.
+--
 
-Applied to
+commit 5a018643b67a319b143bcd44640fccd2fe85acc0
+Author: Alexandre MINETTE <contact@alex-min.fr>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+ARM: dts: qcom: apq8064: Fix USB controller clocks
 
-Thanks!
+This commit reorganizes the clock descriptions for the APQ8064 HS USB
+controllers. It maps the RPM Daytona fabric clock to core, the AHB clock
+to iface, and the transceiver clock to fs.
 
-[01/17] of: Introduce of_property_read_s32_index()
-        https://git.kernel.org/broonie/sound/c/37dba38ac8d0
-[02/17] ASoC: dt-bindings: Add support for the GPIOs driven amplifier
-        https://git.kernel.org/broonie/sound/c/04a1fe8e6582
-[03/17] ASoC: simple-amplifier: Remove DRV_NAME defined value
-        https://git.kernel.org/broonie/sound/c/28188a6d8869
-[04/17] ASoC: simple-amplifier: Add missing headers
-        https://git.kernel.org/broonie/sound/c/23cf9e3ca498
-[05/17] ASoC: simple-amplifier: Remove CONFIG_OF flag and of_match_ptr()
-        https://git.kernel.org/broonie/sound/c/2c562adb159e
-[06/17] ASoC: simple-amplifier: Rename drv_event() function
-        https://git.kernel.org/broonie/sound/c/dc8beaad2926
-[07/17] ASoC: simple-amplifier: Use 'simple_amp' variable name instead of 'priv'
-        https://git.kernel.org/broonie/sound/c/34ddd2d368c3
-[08/17] ASoC: simple-amplifier: Remove DAPM widgets and routes from the ASoC component driver
-        https://git.kernel.org/broonie/sound/c/4d84b75e5eec
-[09/17] ASoC: simple-amplifier: Introduce support for gpio-audio-amp
-        https://git.kernel.org/broonie/sound/c/41e3ebbfcab1
-[10/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for extra power supplies
-        https://git.kernel.org/broonie/sound/c/f68933d0eb67
-[11/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for mute gpio
-        https://git.kernel.org/broonie/sound/c/432331970eca
-[12/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for bypass gpio
-        https://git.kernel.org/broonie/sound/c/46c21e55c3bf
-[13/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for basic gain
-        https://git.kernel.org/broonie/sound/c/5796026b8e90
-[14/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for gain-ranges
-        https://git.kernel.org/broonie/sound/c/d25e00ecd5c5
-[15/17] ASoC: simple-amplifier: gpio-audio-amp: Add support for gain-labels
-        https://git.kernel.org/broonie/sound/c/fb757dfa039f
-[16/17] ASoC: simple-amplifier: Update author and copyright
-        https://git.kernel.org/broonie/sound/c/7b295a6fc632
-[17/17] MAINTAINERS: Add the ASoC gpio audio amplifier entry
-        https://git.kernel.org/broonie/sound/c/5bd8c4b7d3bb
+Link: https://lore.kernel.org/all/20260516-qcom-ci-hdrc-clock-fix-v2-1-aaec=
+8d33d0aa@smankusors.com/
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> diff --git a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi b/arch/arm/boot/dts=
+/qcom/qcom-apq8064.dtsi
+> index 09062b2ad8ba5..d64a162abdad4 100644
+> --- a/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
+> +++ b/arch/arm/boot/dts/qcom/qcom-apq8064.dtsi
+> @@ -813,8 +813,10 @@ usb1: usb@12500000 {
+>  			reg =3D <0x12500000 0x200>,
+>  			      <0x12500200 0x200>;
+>  			interrupts =3D <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&gcc USB_HS1_XCVR_CLK>, <&gcc USB_HS1_H_CLK>;
+> -			clock-names =3D "core", "iface";
+> +			clocks =3D <&gcc USB_HS1_H_CLK>,
+> +				 <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
+> +				 <&gcc USB_HS1_XCVR_CLK>;
+> +			clock-names =3D "iface", "core", "fs";
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Does adding a third clock here violate the maxItems: 2 constraint in the
+ci-hdrc-usb2.yaml device tree binding schema?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+The qcom,ci-hdrc compatible string is validated by this schema. Expanding
+the device tree node to include three clocks without updating the
+corresponding YAML schema will cause the device tree to fail schema
+validation.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Will mapping the transceiver clock to the fs clock cause it to be permanent=
+ly
+disabled during normal operation?
 
-Thanks,
-Mark
+In drivers/usb/chipidea/ci_hdrc_msm.c, the fs clock is used exclusively for
+a hardware reset sequence during probe. The driver calls
+clk_prepare_enable(ci->fs_clk), toggles the reset controller, and immediate=
+ly
+calls clk_disable_unprepare(ci->fs_clk). It is never re-enabled.
 
+Previously, the transceiver clock was mapped to core, which the driver keeps
+continuously enabled during normal operation. Since the qcom,usb-hs-phy
+driver does not independently request or enable the transceiver clock, this
+change appears to guarantee the transceiver will be clock-gated while the U=
+SB
+controller is actually running.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-mainline-s=
+end-v1-sending-v3-0-3dd7aa125353@alex-min.fr?part=3D6
