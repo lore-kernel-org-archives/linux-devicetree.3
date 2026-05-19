@@ -1,128 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB3241C62;
-	Tue, 19 May 2026 08:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCB531ED80;
+	Tue, 19 May 2026 08:31:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779179393; cv=none; b=pY+xW/TaK2Os2EPIyBPUSqXQroWHObpOa3vxXe4bumWez2tmsX5Gt7waY3++giBfgBtPx5RScgdaP7sxKCHtXFkYme3pR3u8aOYIWZmV9z9F2KL+2kgJYB+mU3jTES/u9YZ8Xl6DQib6xfj3aHwqz88ny/arTxpnb8qdRO4y568=
+	t=1779179475; cv=none; b=mPBgGp70dCY4wLkILTNg0Hv061hvmrfmYU7DnhmOnqgGyPEbTrZqqBjpHh4ZYLLe4Z7EnVLjf6dBtJPLdHaS8f89lDD/nd93tVvsZSy3wFyqnpTylkODqDXei+nnTWbg5ODcHRFLYTClhn1llT01tK/M1x9dW0ckmr29fz7SHcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779179393; c=relaxed/simple;
-	bh=sxi4Nd3428EAjrfiX0HNjbsVsdPmFrqLWCGIPz6abEI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NiXSvRyK5/dICgs/NU2eItsvT0ncNHAfuClzZqtw5LI6g2tD+lREuxRS62syUbWzBu1QT/LGmmKqsKZPxnWsEPLSculIPWNHYD35snURsbYhKtkBtLVhz7v9ybUuou8FY7FxqnSGzvCvYmEqNx5u+tPmn2bb73+2TkoWtT7T7xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N0cgEBog; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779179475; c=relaxed/simple;
+	bh=Io93NkVGqxQcKu7wcpYV8CEw6O34JYizbrdKAnre7Ss=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OP3HhHx6u/XfYpF5jpK+dDdF64HNLiFtSOMTz3/8GajHcxIu1FD3o5N+DzRY4h/uQIsv+oiiU+OhzrAMm7IOAzTPWtujn5PVBDE750Zkudsc3vftCdIGWWEAB8g5LCU48LzeAEjc8jaah5E/VCiE0dGzuI07qv1Ynl2N4Kb4gok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FokOUq18; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N0cgEBog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF03C2BCB3;
-	Tue, 19 May 2026 08:29:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FokOUq18"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854ABC2BD04;
+	Tue, 19 May 2026 08:31:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779179393;
-	bh=sxi4Nd3428EAjrfiX0HNjbsVsdPmFrqLWCGIPz6abEI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=N0cgEBogM3z+HeA/OXJOJ2GxWoPy8vgw4rkhTieDJOdOOcdM6JqbMBZAhJxziSrrR
-	 ZiVCL98OhiOOQF714K+o0uEE3cwuOqTQc6jFtALsCuHLI3rHX9N+RjM7DPIucbLyIs
-	 TKTz8Yt21LLhJdLZ+aJ08Oe9LEQlKudXiKniDXktGDayEp9ef88qx4VWsJtD2Hd3K0
-	 8TxhN5l9nFsCd4TplzqT9ZaMvIlwkrSnTzd4jbEwHtacuzSvI+m90o6HH6b7m2wTMq
-	 lQJFknLZNhTFDNYHkmqM/Tpd+Fr+xxdoIc/ofp9F8AE7daqpTM2aVcGfRApQG837fr
-	 7cf/QlG7APnhQ==
-Date: Tue, 19 May 2026 10:29:50 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chancel Liu <chancel.liu@nxp.com>
-Cc: "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
-	"festevam@gmail.com" <festevam@gmail.com>, "mturquette@baylibre.com" <mturquette@baylibre.com>, 
-	"sboyd@kernel.org" <sboyd@kernel.org>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>, 
-	"Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>
-Subject: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector binding
-Message-ID: <20260519-macho-degu-from-nibiru-960af2@quoll>
-References: <20260509024846.2094049-1-chancel.liu@nxp.com>
- <20260509024846.2094049-3-chancel.liu@nxp.com>
- <20260515-resourceful-singing-roadrunner-ce25ec@quoll>
- <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
- <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
+	s=k20201202; t=1779179474;
+	bh=Io93NkVGqxQcKu7wcpYV8CEw6O34JYizbrdKAnre7Ss=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=FokOUq18e/ahZGUtWQF7In17uayLI5l2wmSyiRDl6ayoET+SuDCR/fY0OE/FQ/6O8
+	 +k6vxBTxUCN/sHhqVyoXaS7v+QvlaTG1fWfEe6FoEwMcA+91+sjlX8fzi+PEVhJpRZ
+	 60CUM42yaZef34CallSz2dma34h7JETu0gIEpE0SKW6FRKi64KDVMDwziMooU2E5KS
+	 pqA7MlwIuqDuujo87pUwpuSYZHLMKzyOf1PTX40OQjszxPbfH2KbNXnEnEUEiFbYGY
+	 1ZEz98FjCALD6DDeqavkUmMP+3j9UbVwyBCszicqLkl/1jythQnoiSHtDQA8iO/fcb
+	 0+r4C+n4W2u2Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] hwmon:(pmbus/xdp730) Add support for efuse xdp730
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "ASHISH YADAV" <ashishyadav78@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260519075558.91466-3-Ashish.Yadav@infineon.com>
+References: <20260519075558.91466-3-Ashish.Yadav@infineon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 08:31:13 +0000
+Message-Id: <20260519083114.854ABC2BD04@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
 
-On Tue, May 19, 2026 at 02:56:24AM +0000, Chancel Liu wrote:
-> > >>> +description:
-> > >>> +  The NXP I/O connector represents a physically present I/O
-> > >>> +connector on the
-> > >>> +  base board. It acts as a nexus that exposes a constrained set of
-> > >>> +I/O
-> > >>> +  resources, such as GPIOs, clocks, PWMs and interrupts, through
-> > >>> +fixed
-> > >>> +  electrical wiring. All actual hardware providers reside on the base
-> > board.
-> > >>> +  The connector node only defines index-based mappings to those
-> > >> providers.
-> > >>> +
-> > >>> +properties:
-> > >>> +  compatible:
-> > >>> +    const: fsl,io-connector
-> > >>
-> > >> Everything is IO. Everything is connector, so your compatible does
-> > >> not match requirements from writing bindings.
-> > >>
-> > >
-> > > Yes, this compatible is too generic. I will rename the compatible to
-> > > fsl,aud-io-connector.
-> > 
-> > aud is not much better. Which boards have it? What's the pinout? What's
-> > standard? Is it described anywhere? If so, provide reference to spec/docs.
-> >
-> 
-> This is not an industry standard electrical interface. This connector
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] Usage of firmware-specific `of_property_read_u32` instead of firmwa=
+re-agnostic `device_property_read_u32`.
+- [Low] The `xdp730_info` template structure is not marked as `const`.
+- [Low] Missing explicit `#include <linux/regulator/consumer.h>` for `devm_=
+regulator_get_enable()`.
+--
 
-Then if you do not have standard, then you have board specific layouts
-thus you need board-specific compatibles. You can use fallbacks. Generic
-fallback could work, but both io-connector and aud-io-connector are just
-too generic. Every connector is "connector" and "io", thus absolutely
-anything can be "io-connector". "aud" improves it only a bit, thus
-honestly I would go with board specific fallback as well.
+commit c84eadae1a13e6d451b4eb98ba41bc9f1c1c537c
+Author: Ashish Yadav <ashish.yadav@infineon.com>
 
-> is present on i.MX95-19x19-EVK and i.MX952-EVK. For example, the
-> "i.MX 95 19mm x 19mm Evaluation Kit" homepage[1] publicly documents an
-> audio board connection through which IMX-AUD-IO card is connected. The
-> detailed user manual (UM12022) is listed as official documentation[2],
-> but it is behind an NXP login, so it is not suitable as a public
-> reference for upstream. Therefore I list it here to illustrate it's
-> mechanism:
-> 
-> +-----------------------------+                      
-> |        Base Board           |                      
-> |   +-----+      +---------+  |           +---------+
-> |   | SPI +------+         |  |           |         |
-> |   +-----+      |         |  | GPIO MAP  |         |
-> |                |         +--|-----------+         |
-> |   +-----+      |         |  |           |         |
-> |   | I2C +------+         |  |           |         |
-> |   +-----+      |         |  | CLOCK MAP |  AUD-IO |
-> |                |connector+--|-----------+   CARD  |
-> |   +-----+      |         |  |           |         |
-> |   | I2S +------+         |  |           |         |
-> |   +-----+      |         |  |           |         |
-> |                |         |  | INT MAP   |         |
-> |   +-----+      |         +--|-----------+         |
-> |   | I/O +------+         |  |           |         |
-> |   +-----+      +---------+  |           +---------+
-> +-----------------------------+                      
-> 
-> [1]https://www.nxp.com/design/design-center/development-boards-and-designs/IMX95LPD5EVK-19
-> [2]https://docs.nxp.com/bundle/UM12022/page/topics/pcie_interface1.html
+hwmon:(pmbus/xdp730) Add support for efuse xdp730
 
-Best regards,
-Krzysztof
+Add the pmbus driver for Infineon XDP730 Digital eFuse Controller.
 
+> diff --git a/drivers/hwmon/pmbus/xdp730.c b/drivers/hwmon/pmbus/xdp730.c
+> new file mode 100644
+> index 0000000000000..ea8968de9f267
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/xdp730.c
+> @@ -0,0 +1,128 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Hardware monitoring driver for Infineon XDP730 Digital eFuse Controll=
+er
+> + *
+> + * Copyright (c) 2026 Infineon Technologies. All rights reserved.
+> + */
+> +
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/init.h>
+> +#include <linux/kernel.h>
+> +#include <linux/of_device.h>
+> +#include <linux/bitops.h>
+> +#include <linux/math64.h>
+
+Is it possible to explicitly include <linux/regulator/consumer.h>?
+
+The driver invokes devm_regulator_get_enable() below but relies on indirect
+inclusion, which might break if subsystem headers are refactored in the
+future.
+
+> +#include "pmbus.h"
+> +
+> +/*
+> + * The IMON resistor required to generate the system overcurrent protect=
+ion.
+> + * Arbitrary default Rimon value: 2k Ohm
+> + */
+> +#define XDP730_DEFAULT_RIMON 2000000000 /* 2k ohm */
+> +#define XDP730_TELEMETRY_AVG 0xE9
+> +
+> +static struct pmbus_driver_info xdp730_info =3D {
+
+Could this template structure be marked as const?
+
+It is copied per-instance during probe via devm_kmemdup(), so declaring it
+const would move it to the read-only .rodata section and prevent accidental
+modifications.
+
+> +	.pages =3D 1,
+> +	.format[PSC_VOLTAGE_IN] =3D direct,
+> +	.format[PSC_VOLTAGE_OUT] =3D direct,
+
+[ ... ]
+
+> +	ret >>=3D 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
+> +	ret &=3D GENMASK(0, 0);
+> +	if (ret =3D=3D 1)
+> +		gimon =3D 20000; /* output gain 20 microA/A */
+> +	else
+> +		gimon =3D 10000; /* output gain 10 microA/A */
+> +
+> +	if (of_property_read_u32(client->dev.of_node,
+> +				 "infineon,rimon-micro-ohms", &rimon))
+
+Should this use device_property_read_u32(&client->dev, ...) instead?
+
+Using of_property_read_u32() restricts the driver to Device Tree-based
+systems. If the driver is instantiated via ACPI, client->dev.of_node will
+be NULL, causing the read to silently fail and fall back to the default val=
+ue.
+
+device_property_read_u32() from <linux/property.h> would seamlessly support
+DT, ACPI, and software nodes.
+
+> +		rimon =3D XDP730_DEFAULT_RIMON; /* Default if not set via DT */
+> +	if (rimon =3D=3D 0)
+> +		return -EINVAL;
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519075558.9146=
+6-1-Ashish.Yadav@infineon.com?part=3D2
