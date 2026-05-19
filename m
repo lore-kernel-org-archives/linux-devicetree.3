@@ -1,152 +1,204 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F03E4BC030
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 14:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D91A3ED3A9;
+	Tue, 19 May 2026 14:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779200843; cv=none; b=eKrkV9ZLxfOyMKcTaOKwbL7CE8BRuET1uofJRA7KtgIccbNDksNTJOHbWTQjiUZeL2WR/MG5ko8vZAxJnBicm3WiGXORi/YCUdLlUJgPmqfX3E31lbK0AT3sggS6Yz/XgMZgx7nUQ3ouxBrrig0edsnPo+b4iGjHmwclja/celE=
+	t=1779200847; cv=none; b=QY/sLCmnZdJ7TJ8eSpeKf0W83+nRzP4YQu5Y2XZswrmET1DErkiZWH1y5TJGniK2G10MnR0VwgYQ/KVrjNzOdXEYsSp/CirLSHQKdQ/rCXnvn3Jk7wBG2wGQPUgslRgFRCK/bWkn5IOZ6m9gzLlsVQABCMwl3spssKYgpEB2IuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779200843; c=relaxed/simple;
-	bh=J1fIsSHzHA0cszZYZdv5tqXM8txWfOWm6rrYcIkswk4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Bvt1hmnKL4gM2GPPq1bJK6j61U90eQUgHR9glh72ZK2rNf/o1EIhbLTo3iY4N62voAO2HIf3IGjUNhVUmzPEv4GWTTMS+MBVE3bx/vC3qeiBEWkIMKEz24xM1bO/nq/S2pzb4CBTkv/P4ud/hhwa7toS/YD4rEyP0oR+/oJZEWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c1Xj7Qj+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fL8BltYS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779200847; c=relaxed/simple;
+	bh=CsyBFvXqGhh2VAsblhztuusrlYLD11BESexns8Cx6Q4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=prLOo5cwJoP7VMBR0cm1ITAFoBvDKf8MTekGCWDjW2NFThR1SEOr2mgbQ7snOgZxyEgYrUXBUgVptFeuzU/+8yVh83SAG7C69d9zopmTfhQ/9irWHl4bonUm+SfuHGmJW5xhWdx+UBxs97MThC/fpqzX2Dac9hYvub1i8nP5Gj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rn2SfyEp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c1Xj7Qj+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fL8BltYS"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JCJLUH1737101
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 14:27:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zEjqKkH3DhRxJE8KbXYEAt37DhNV09bfllpxwdO6tRQ=; b=c1Xj7Qj+y951pKcH
-	uJ+Yl/3DY/8BXEx+ZlTKrXTGbbvrzmwMIyoBGeH3lFeMseGuIZS0/wiGe+r6J/X6
-	ilx6hDAzNUbj7AjoUK9VnoQ6PX6yhMU3S1RzzEfs2Y0AXYRiRA8T4bC9eG/UgVxw
-	/VfBzwmDKSM6DdE1WQtv2a1+mUYBouFwKHWY2n+2NHp/PDYjD6nRzGctUjCQf9Ip
-	I/erEXcBAXT5nI64Zio4hTX0y3pyxfcfswOrUMl2FczqNb4yle30+FbL47UfcePA
-	YjwqMYYVUdk4vV3H2W3unntEOlO8KaN1y7NpyJoaacoEcNTw3b8YLdjZLQ2YXhqn
-	RD5gYg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8ju91vkm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 14:27:21 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8397b14a689so2511312b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 07:27:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779200841; x=1779805641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zEjqKkH3DhRxJE8KbXYEAt37DhNV09bfllpxwdO6tRQ=;
-        b=fL8BltYSasUtctsJmpu76QICz+0UmEy4fgZ5DeA+waavv79vNSnXxfogWCZqpnUgwx
-         opnAVbF2m/NEVUmQq7WlOBBIEVSOQW6FXQLyVjYS4W4qhkubX2Y7BBQ3CegWXEWj4ke5
-         jQLGL9vKZbhppsyQatzc1OUM852X16vAG+ULtk2UHDdno1ELeTPRbGdq/8r89DUfnA25
-         geZUiW3A89yvaSzo4UxlWyw62FYrksjKtHoXqB8c726WfYHioP6yTjfcA6e9IgG42qlH
-         O6k1WUBKDTzwOXUs/zVY/zq/GIyS7UP772iXeyFlviMp4Odk7Ya44QxtO+TNhUnwpXw2
-         E6CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779200841; x=1779805641;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=zEjqKkH3DhRxJE8KbXYEAt37DhNV09bfllpxwdO6tRQ=;
-        b=HU+3VEgVy3hKu8Ge6qjgS38V5YiJvaAyHIORqtC1J47JEvwEVwI9oA9RM8vqK1F8T2
-         ZOHN/u8CNA6Oa338HDMSnYtJs/Zshpcs9PTtXxWGsllwDj91TndY1DLecR++J0SBNKuq
-         /89k3N7Qv115bvKKSkRMciIvtah6qW6Vrwwe1RCPpoPsdktnaVow7d6vYujfsYgKXRsX
-         OwYX1CkQln1/z5zhwb+cpruBo34SVKaXQ3cA9KB7pPDySKi7VHAV3bh4azQYhzwdecJz
-         2P7V2bNfkXsDsrjBtjuYJmu9CH8FPgFsHeh2F2zxuzicBNM6ingkw7zBN4tJvrec449J
-         l5SA==
-X-Gm-Message-State: AOJu0Yz91KpmafJ/SB0pACxlpAy1KbH3XDSYRnrXG9UGgzPJKHpt4kte
-	IiSMJebb6m/ay+9TYXhPwB5PEYyy4A4QXvD3gW3jqosu3K0vRwV/1ZauJWIFqUy7t/oWqToNzNS
-	ZeZBVnfCELev7vyRBeJZVsp6crf7pgX344BVhwT+UwlODf1EQpyC3wduFVvlmxNNh
-X-Gm-Gg: Acq92OHC8p7/JjdReKIrRKaLoKg2Tfx8hpbnmJOKLagxgTJwPDfYWIYvfmatIBZIc1o
-	Zq9spMz+oKOonEja1n4KNwwYXSLqpg0aE6x7iBnFUtZz5ECUItzRTsF0MNG0sHul8C5UtVFb/Nm
-	56LqWTOsOKqL24r5iofABioUD3Wx7Z7ogRQ+oUCLxA24iyCI0JskhNfIfH4Wh9GblvSCPoWR4tI
-	B5ksk9Kh/i7+VczNLZvUdncSNc/4z91J5OhucjgyT2DrqmvX0Bsq5IirHfH2Eu0Ta+NnTyb6UP4
-	PwHddwHvDdDIfHvqVhQfz0b4SmbYoHxcOMsSgMiQJIrzhcaE2yXa4qJnkA5+q/x1XkQob13ET9V
-	MbwxUU8WynAociS5nTq0t
-X-Received: by 2002:a05:6a00:2e89:b0:837:80a:5ac7 with SMTP id d2e1a72fcca58-83f33f0fde7mr20707748b3a.45.1779200840896;
-        Tue, 19 May 2026 07:27:20 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2e89:b0:837:80a:5ac7 with SMTP id d2e1a72fcca58-83f33f0fde7mr20707691b3a.45.1779200840172;
-        Tue, 19 May 2026 07:27:20 -0700 (PDT)
-Received: from [192.168.1.11] ([120.56.207.212])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f67eff284sm7640033b3a.8.2026.05.19.07.27.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 07:27:19 -0700 (PDT)
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Google-Original-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Ryder Lee <ryder.lee@mediatek.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>
-Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Dan Carpenter <error27@gmail.com>
-In-Reply-To: <20260512103347.1751080-1-wenst@chromium.org>
-References: <20260512103347.1751080-1-wenst@chromium.org>
-Subject: Re: [PATCH] PCI: mediatek-gen3: fix incorrectly skipped pwrctrl
- error message
-Message-Id: <177920083522.97175.591150691760691771.b4-ty@kernel.org>
-Date: Tue, 19 May 2026 19:57:15 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rn2SfyEp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957D7C2BCB8;
+	Tue, 19 May 2026 14:27:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779200846;
+	bh=CsyBFvXqGhh2VAsblhztuusrlYLD11BESexns8Cx6Q4=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=Rn2SfyEpYRQi8u+wqmOeRK107JDCqkmYYzIL2yizZU9TJ9DQ62Emt6dUbRxvIPKE1
+	 bg8rl3xFsUo0EBXOtLxQKuTuhqNaXVpZVOLi2LNZxTKLY6BoxIM6G+x91z/Qy3wSip
+	 2bq4mTJALbrTYnVmjDVXBcN1pZCkmo0CQ1yXcofoP5jwh4n8XkmFPCpJH008X1Nlx4
+	 8I6+ESq6491ogZqHzAsX1If7nOGlUKtXkZslbRRNQFoUbt8vnxwSHHk+YVdanQm+3z
+	 dXDAhXWRffDRqUlcKqYryp18c4wCVobyLPNfkuOh9qAfwXVuB3ftGm77JYPRptcfnw
+	 vH/AOIhuzP/CA==
+Message-ID: <245d49ac-7b9d-45b1-833d-437984716db5@kernel.org>
+Date: Tue, 19 May 2026 15:27:24 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] nvmem: airoha: Add support for SMC eFUSE
+To: Christian Marangi <ansuelsmth@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260518142042.8331-1-ansuelsmth@gmail.com>
+ <20260518142042.8331-3-ansuelsmth@gmail.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260518142042.8331-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: Np4rTZNxrbmsIENamjkUQt37pKWGajKt
-X-Authority-Analysis: v=2.4 cv=eeUNubEH c=1 sm=1 tr=0 ts=6a0c7349 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=1gRTTRxgmbTSdBvl+srOOw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=bpYmCipijB_Evp6s3csA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDE0MyBTYWx0ZWRfX2JXfR+07x+HJ
- +PZd0lLF+YzI1Tkvu5KfzFD30LwiyatFms7C4GrpH1hGHWcZrJu6cOEPgHu3qLND682oHUwSx+V
- s3tk7ztc1JtEIYcxJWJrHHQ8NbtGw7w8mo3iaPgSf6oWyOjoGitcZrEcjw5n2FNqvisOQb2so8w
- oTU8tf/O5dDMtnD61QjcnlhVNySBLpwD9n07BPuoRUU32BWCbpwnA9wbM5mmX7G+BVGRdxts70O
- un1Qsn0rWtc09197/CJiXJ/LSsgdv1nBmlEPMVd4BQgKJTlzOHbzXtpVQ18TEyL78CfVg/iDl83
- nku0iA68otTZFwLo1Edu3EC/Y2rUyOeeSQkYN9nmobFrdxd1YFK11CZZ105jqwIqGKvBwYzIn5i
- V36SFUAGFRJBacqhd+cYnFX2LCAP0Rl53vIIBBHH7hGtSu0CIZX2dTt0YN2UgPEvCyUCphh6smf
- SPa/7RzryfyyI6CuN0A==
-X-Proofpoint-ORIG-GUID: Np4rTZNxrbmsIENamjkUQt37pKWGajKt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 adultscore=0 priorityscore=1501 clxscore=1015
- impostorscore=0 phishscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190143
 
 
-On Tue, 12 May 2026 18:33:45 +0800, Chen-Yu Tsai wrote:
-> When pwrctrl integration was added, the error message for when
-> pci_pwrctrl_create_devices() fails was incorrectly put after the error
-> goto statement, causing it to be skipped.
+
+On 5/18/26 3:20 PM, Christian Marangi wrote:
+> Add support for SMC eFUSE on AN7581 SoC. The SoC have 2 set of 2048 bits of
+> eFUSE that are used to read calibration value for PCIe, Thermal, USB and
+> other specific info of the SoC like revision and HW device present.
 > 
-> Move the goto statement after the dev_err_probe() call so that the
-> error message actually gets printed (or saved if probe is deferred).
+> eFuse value are taken by sending SMC command. ATF is responsible of
+> validaing the data and rejecting reading protected data (like Private
+> Key). In such case the SMC command will return non-zero value on a0
+> register.
 > 
-> [...]
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/nvmem/Kconfig             |  13 ++++
+>  drivers/nvmem/Makefile            |   2 +
+>  drivers/nvmem/airoha-smc-efuses.c | 118 ++++++++++++++++++++++++++++++
+>  3 files changed, 133 insertions(+)
+>  create mode 100644 drivers/nvmem/airoha-smc-efuses.c
+> 
+> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+> index 74ddbd0f79b0..95a399258538 100644
+> --- a/drivers/nvmem/Kconfig
+> +++ b/drivers/nvmem/Kconfig
+> @@ -28,6 +28,19 @@ source "drivers/nvmem/layouts/Kconfig"
+>  
+>  # Devices
+>  
+> +config NVMEM_AIROHA_SMC_EFUSES
+> +	tristate "Airoha SMC eFuse support"
+> +	depends on ARCH_AIROHA || COMPILE_TEST
+> +	depends on HAVE_ARM_SMCCC
+> +	default ARCH_AIROHA
+> +	help
+> +	  Say y here to enable support for reading eFuses on Airoha AN7581
+> +	  SoCs. These are e.g. used to store factory programmed
+> +	  calibration data required for the PCIe or the USB-C PHY or Thermal.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called nvmem-airoha-smc-efuses.
+> +
+>  config NVMEM_AN8855_EFUSE
+>  	tristate "Airoha AN8855 eFuse support"
+>  	depends on COMPILE_TEST
+> diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
+> index 7252b8ec88d4..f6f2bc51dee1 100644
+> --- a/drivers/nvmem/Makefile
+> +++ b/drivers/nvmem/Makefile
+> @@ -10,6 +10,8 @@ nvmem_layouts-y			:= layouts.o
+>  obj-y				+= layouts/
+>  
+>  # Devices
+> +obj-$(CONFIG_NVMEM_AIROHA_SMC_EFUSES)	+= nvmem-airoha-smc-efuses.o
+> +nvmem-airoha-smc-efuses-y 		:= airoha-smc-efuses.o
+>  obj-$(CONFIG_NVMEM_AN8855_EFUSE)	+= nvmem-an8855-efuse.o
+>  nvmem-an8855-efuse-y 			:= an8855-efuse.o
+>  obj-$(CONFIG_NVMEM_APPLE_EFUSES)	+= nvmem-apple-efuses.o
+> diff --git a/drivers/nvmem/airoha-smc-efuses.c b/drivers/nvmem/airoha-smc-efuses.c
+> new file mode 100644
+> index 000000000000..bb279d149519
+> --- /dev/null
+> +++ b/drivers/nvmem/airoha-smc-efuses.c
+> @@ -0,0 +1,118 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + *  Author: Christian Marangi <ansuelsmth@gmail.com>
+> + */
+> +
+> +#include <linux/arm-smccc.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/nvmem-provider.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/of.h>
+> +#include <linux/regmap.h>
+> +
+> +#define AIROHA_SMC_EFUSE_FID		0x82000001
+> +#define AIROHA_SMC_EFUSE_SUB_ID_READ	0x44414552
+> +
+> +#define AIROHA_EFUSE_CELLS		64
+> +
+> +struct airoha_efuse_bank_priv {
+> +	u8 bank_index;
+> +};
+> +
+> +static int airoha_efuse_read(void *context, unsigned int offset,
+> +			     void *val, size_t bytes)
+> +{
+> +	struct regmap *regmap = context;
+> +
+> +	return regmap_bulk_read(regmap, offset,
+> +				val, bytes / sizeof(u32));
+> +}
+> +
+> +static int airoha_efuse_reg_read(void *context, unsigned int offset,
+> +				 unsigned int *val)
+> +{
+> +	struct airoha_efuse_bank_priv *priv = context;
+> +	struct arm_smccc_res res;
+> +
+> +	arm_smccc_1_1_invoke(AIROHA_SMC_EFUSE_FID,
+> +			     AIROHA_SMC_EFUSE_SUB_ID_READ,
+> +			     priv->bank_index, offset, 0, 0, 0, 0, &res);
+> +
+> +	/* check if SMC reported an error */
+> +	if (res.a0)
+> +		return -EIO;
+> +
+> +	*val = res.a1;
+> +	return 0;
+> +}
+> +
+> +static const struct regmap_config airoha_efuse_regmap_config = {
+> +	.reg_read = airoha_efuse_reg_read,
+> +	.reg_bits = 32,
+> +	.val_bits = 32,
+> +	.reg_stride = 4,
+> +};
+> +
+> +static int airoha_efuse_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	int ret;
+> +
+> +	for_each_child_of_node_scoped(dev->of_node, child) {
+> +		struct nvmem_config airoha_nvmem_config = {
+> +			.name = "airoha-efuse",
+> +			.size = AIROHA_EFUSE_CELLS * sizeof(u32),
+> +			.stride = sizeof(u32),
+> +			.word_size = sizeof(u32),
+> +			.reg_read = airoha_efuse_read,
+> +		};
+> +		struct airoha_efuse_bank_priv *priv;
+> +		struct nvmem_device *nvmem;
+> +		struct regmap *regmap;
+> +		u32 bank;
+> +
+> +		ret = of_property_read_u32(child, "reg", &bank);
+> +		if (ret)
+> +			return ret;
+> +
+> +		priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +		if (!priv)
+> +			return -ENOMEM;
+> +
+> +		priv->bank_index = bank;
 
-Applied, thanks!
+bank is 32 bit value now stored in 8 bit variable.
 
-[1/1] PCI: mediatek-gen3: fix incorrectly skipped pwrctrl error message
-      commit: 8ba433753d9b131c2e43b1ff7ba8c5730cef8231
+can we make bank_index 32 bit wide?
 
-Best regards,
--- 
-Manivannan Sadhasivam <mani@kernel.org>
+
 
