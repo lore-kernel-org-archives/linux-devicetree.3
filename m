@@ -1,66 +1,66 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5A339E162
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B796039FCC7
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171434; cv=none; b=Caqw6qbVm6q+hVZlBhhQDdzXa4st0A2AeuLuCbuCztVtuv4Za5U7B634bNwV0msGUdBjKNdAdgJ+qaIGwJUa50+IqlwPKwTx9XNHUU5HMhrrPVqVzg9EGkaaMU9n8ciaa5ba0hcWQfWJfyXWU2N+tiVbZoC6CwRoVj8Q7W0eVBw=
+	t=1779171440; cv=none; b=L84dhTJ5pLTd7T/kGs5r1wZ/KX1StzZ0TuskkNQiZn20OUjQO4nTVekj1bsyXc45zRN/l9rPp6qCludXvvID8UsELlFur9Wb24vN/wHiwMvCBJddklWyK/iktbXuLIGOtjcgRhHUAM8mXcL+8Us6i/NRpmz+bWIZoOh3b59Y6kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171434; c=relaxed/simple;
-	bh=QQ5srJ1k52NpjI+Q3HaLSa9pVnjXdE8OZht6hpCEbfA=;
+	s=arc-20240116; t=1779171440; c=relaxed/simple;
+	bh=bU61JmNF1c+b4KWRcgOhA/JRURr6NwQdOpuIqG8oVJ4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cx98XiHm4KRyLkfpSgZnUdvgblqhIBIyI4sAQm08XGQMZSAa4FHw5G/AxHLkLLzR2OcTvTvEM4zVVjcE7umv6HUCPkfBur5lmCHMucK5Hj55AUmzboDNFCRsr3sF/aQH1urimmJME/zZdOAzpdARxt6fQ0flAgEvcEiOwXv3bYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rgPQoMFP; arc=none smtp.client-ip=209.85.210.170
+	 In-Reply-To:To:Cc; b=ItJOkAmpO2SjyAdEjh8peC3ZsTIx1I6veTrmkcp7yGfD6VIV/+py08UEeiAOB43TZR1509RNTmyXhuZEWmsfsPn3WlO0JZdjUzCyl6OAAZ/Mmd36KHu8C4IKMMIb2ZY4hLCJIzSohPZhoJhl4JJ1/zXcqFY8opvviUBPNaaodBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MqyVZFJ4; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rgPQoMFP"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-82fbdd60b64so2576811b3a.3
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:17:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MqyVZFJ4"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-824c9da9928so1093626b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:17:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779171433; x=1779776233; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779171438; x=1779776238; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0chwJesI0BcvhVwn8jIR2v8RSVOpIFD5ULcDL4OMxNA=;
-        b=rgPQoMFPLle+28rH1tSBPZIzNWSx/GoxgwnkZcpGHsRJu1fkpOdfWB7yoIAordyTXV
-         kUMsJNfxbnRNcky2AulPpg8LrksLZPx81alNSAiBC8jh78iIuSoBedlomplm3BimyiTA
-         Wg/wu3W3PgErxcOy3mxdeTVzX3Gw50K+3I6KfXBwDoXYzqGXbtLq2ShhaSjtpETMHjnJ
-         cpkLYlGQ/44Gflqrm/2lXyypyBB/4jGFqaZULwlA3efe4fziefVuHy5detvzZeVKR2uR
-         ZH9zLaq9w9EQcNGNwsPchHJWX0T4HN4XbQsEka4jIB9+oFU013YWvYaT9esHYt+kcsEq
-         46xA==
+        bh=mUJ15hFl2aQqTBGBClvDVjCEGpr2/Wz0MRwXGiLFc2Y=;
+        b=MqyVZFJ4W7kSPLkm6dFTus5gc1ftpQTHOg1+BfGiqUbg44O+DAql4ECEx8dzoKll3h
+         fUpaLb5k3F2SOoDzNeCd/po2z35NeSbwHHTTBsL9gZufPb+ENi9MxRYvWWlDxBjP1W8Y
+         jaRTgG3h0PqkyxldpwHFH+uGOuPIUl6TsyTDTq02uWRXZx6Eq+SUudm+GV5QUU4GbCo3
+         4zemHBfb7SjN2B32U89NYE8v4r5gu7oIEzYvrjmNm73Jy4qbvhVgFhmC8y3hdxImoiw0
+         aN6NdEkxBEl6xKi9VU0f39fXy+dBh5uUXyLg6cnBA9wmsCV+u9nOjclBJkzad2jr98Yj
+         QP2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779171433; x=1779776233;
+        d=1e100.net; s=20251104; t=1779171438; x=1779776238;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=0chwJesI0BcvhVwn8jIR2v8RSVOpIFD5ULcDL4OMxNA=;
-        b=iXi5fwmumG4dUU48lnB0eHE4j46muFIiInoiJTBjGkPuGBNQPIDv3Uy7nsLlSoovWU
-         V6wDeSGeOHi/ncEhjmdYWJSBbBM9ocdFWAGi0AW5lVZrKqBVeGmuwPGAntMfuWkMHWkw
-         evMtZ11zH2Q4H480K8FgVQjpL+NZUT4EC8ddmn1ngetNMzjtWM+mDPqRs2rULFUtE7Cb
-         QrghXMbvEtnno/1q1bauIknQ3AKsXxPZtqVR86lyUkq+RdXYneyvAkkv5aWrNg42qONy
-         xdVxazV7kjWhIg0tC9yb35+nytn+jbiYC0Jp7MoYUBaNYGlRNfVjdofqBYfBSHIZ52es
-         EYqQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9BarUebRogdRIpfEKk8H/vCzg8d4vUba5MNtPjfKWyk0ahQQN9cViYMA8726p7OdjiB64vuQxRtHoj@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAZOZkcEeVFr4c9ld5mloKeB3mt2ep47O+hu8zpdKXnH/ApAB5
-	rsz65I8SyXQoKEzBnDuvvXKdCo/v5AtSClMLAsDTDL2OcKqgFUlEnoMA
-X-Gm-Gg: Acq92OH68/mVj7rO7LYAZR3Lqay26jEEPaBDLlXW0IZmPMN4HIRGECwaCN/1Tq81wzR
-	HaXTxeovNH/3N5pVZ5bAUYYBOPL/XicQ+GMTjLnngOZL6ntDJO94LsBmJCGijzAG+lMLaD/b9vE
-	tWfr22Y5fFIQy1mhzn/+eaAaXXT2JXRsEht0ahAjjWp7GFdROkXahRhTdkZiiguWwSgSJ9R/Jno
-	zPD8Jswo79igOhZPyyCrmTBDv6glwJwev5CjkFBEZpYbUtuUYZb4w3rGS3q7lgRH74gmqYcfvHK
-	DDGCE9jZVMPzqoeLAFfLb4TzZQ6jH/NMcLSV+PArzHZpSOpF61NM36kq+5HijMK3aztXa6tRqW0
-	eRUizH9B5g1DV51Pr71NDXyldc52WuzGhxNHaD3eARThw0WhBMI/IesLxsh4I0efCy8NDCOUrQj
-	Ht0mNaNBy7N1oRUbFFl2MKrvN/EmqvNQ==
-X-Received: by 2002:a05:6a00:1797:b0:835:5aa3:2dab with SMTP id d2e1a72fcca58-83f33c333f4mr18789859b3a.6.1779171433260;
-        Mon, 18 May 2026 23:17:13 -0700 (PDT)
+        bh=mUJ15hFl2aQqTBGBClvDVjCEGpr2/Wz0MRwXGiLFc2Y=;
+        b=D9x9iGNAXS7Za0Z7B/5dZRJbqxkaoGL8JdlY4Qz0/3ecdPsforlBsDYQzkZYJmu1mO
+         uSF922r7SEV6XcXRAZXEFxDdr1dyDkf/vs0ybPYY1Pd4LiFHk5pv29TOUBA1ORSgNG5p
+         8oIonFSOecAK302by10B0xD/pyS5s53G51HVIEjSvMmgHu3wIjSReFX87LxDHiNvFWk5
+         W7wUQmEosTplLUhuzpzQRAdbUF92cmXqujAWCzQk95dmTjnK2Fii26UDCU1hKdjywEIs
+         NeISoRlxDuJwtsLz1FuPunDRp5LtsFzHIL5HDc/t18kTA5OZKEBg0KecFEwT8RZ65vSr
+         u1jA==
+X-Forwarded-Encrypted: i=1; AFNElJ+Ib7tZZdvNatruBkxoOx0Bydx89vCBD+aQPkk4/8BZtqXzyJ3g6L+Y91nPkitypi+c7OytkYJBLkDV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw16O2knQ2XD7/Y1ZiZznoBGSIrVWuJy4kw0I0d8zLz4Mhvai8+
+	OAZzZ1B9tINXOF6SMhEUM8tCuG/DRTVVLhfIDqiArVsXmoKJlukkjZeh
+X-Gm-Gg: Acq92OFQTA11qfTjnTZIlEyxb55r+vvDWFTIgZzpe0DXAjcr6Z5XhhJTSheQ+OIE8Cr
+	Jc06OgPZwh7ln2ddNWOendJLA5PjZBoVFJLkPghR4AP35Xvdtj0TxHGkFyN3eXeo5zrLkBtHXnh
+	2ZdSlUaZpQl6TkFmzQpptxyYb5uPgBH1uW3/B30eEXjC+9LlQG832pTT8cm7ZTQEaARxiz+IcdZ
+	sCTT6k5GQoInyf3UbSmTVGCJbNUrCJZQvvmRO5mIv+HYdhrVaKDvywRcUwioe5Y9MSO5/bw8BJa
+	PmVPd/HP8wsHVOaTo9d0uWwhLfE0KDn6Xq3PtWiQA/cCixjaTmTb/2eTb5mzcoG90NvEyPqH4dY
+	l/R416ALbpXD3DSCyh5IIKHqo51kYuw9wZf2jFOUqFjUNdG7ryJQ53YaBM+7DfWObezi9KKnZD8
+	dtEr7l4sgQj0untO8zKN50XdrMAhu/Fw==
+X-Received: by 2002:a05:6a00:8c2:b0:835:a682:a6d7 with SMTP id d2e1a72fcca58-83f33bae2camr18840919b3a.4.1779171437826;
+        Mon, 18 May 2026 23:17:17 -0700 (PDT)
 Received: from [10.240.146.115] ([2.27.148.101])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c7f202sm16112266b3a.43.2026.05.18.23.17.09
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c7f202sm16112266b3a.43.2026.05.18.23.17.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 23:17:12 -0700 (PDT)
+        Mon, 18 May 2026 23:17:17 -0700 (PDT)
 From: Zhengyu He <hezhy472013@gmail.com>
-Date: Tue, 19 May 2026 14:15:56 +0800
-Subject: [PATCH 2/3] spi: fsl-qspi: add SpacemiT K3 support
+Date: Tue, 19 May 2026 14:15:57 +0800
+Subject: [PATCH 3/3] riscv: dts: spacemit: add QSPI support for K3 Pico-ITX
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-k3-pico-itx-qspi-v1-v1-2-c32afeeaf741@gmail.com>
+Message-Id: <20260519-k3-pico-itx-qspi-v1-v1-3-c32afeeaf741@gmail.com>
 References: <20260519-k3-pico-itx-qspi-v1-v1-0-c32afeeaf741@gmail.com>
 In-Reply-To: <20260519-k3-pico-itx-qspi-v1-v1-0-c32afeeaf741@gmail.com>
 To: Han Xu <han.xu@nxp.com>, Mark Brown <broonie@kernel.org>, 
@@ -82,46 +82,165 @@ Cc: linux-spi@vger.kernel.org, imx@lists.linux.dev,
  linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
  Zhengyu He <hezhy472013@gmail.com>, Cody Kang <cody.kang.hk@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1005; i=hezhy472013@gmail.com;
- h=from:subject:message-id; bh=QQ5srJ1k52NpjI+Q3HaLSa9pVnjXdE8OZht6hpCEbfA=;
- b=owEBbQKS/ZANAwAKAc32nDaAuA3YAcsmYgBqDABXIRd9mve9a3LQBUJIUGDCj75EfmGr6SWgm
- EgLvgHfmoaJAjMEAAEKAB0WIQS9XD2kxy1NmfC2u/XN9pw2gLgN2AUCagwAVwAKCRDN9pw2gLgN
- 2B0UEACbVrBMVl9AKoDlOthIdXOqinDtkvcCtGfWilREm6uKD0VHDaDqUbYqUyyngN2LzVqqsbM
- 4fPTAtLTqOVySq3qbYFX3li10q48NOGWn5QFQ5v+JNkNd/Fe2l8mLhiSiKRtYG4M34VtWUBChoL
- L4FVnsJ7mLlU5zChZFZYySvPDRsgheMHCJpL1MUvfnB3Ln3iitWB2cyhV1Ir1LHYUnALTrVSzIU
- X7a/fAWMFmGN3z3Oiow1a11VMmZPFgW3jtrXMavZ3hVCYbUtnpZkwuYRUAReJqNEdFfm4m2WOYe
- +8PnK2BUOn2U7pnF4I8qnlcAqU2h1xxUGSXXywuRLuPigKDnpTAmhYwhtZqkpJTt4UDNkMbt57j
- JwzUhz1F16xy8nm2mHzgB2folx/0lKSpcxEz9VkjmixyFn6WA/SAUzBCQnK84kXdhFuJxavaN0v
- YeIJ9Fms027WtDd8alyE6tnGz5Nue//wz9sXiIcd9dbi/Y3vA6y5gMtXVsQ80hTZ9XkfEcm1n0S
- orR0nudtNEWioux2TH/BmzcDbRE/rxyUAzeC5Y6Be484DxyHtGdNjw1RxFS4WKD4ZJs8PaHivbf
- B0OcC9+Y6MuCpmZjh0N8Cb22uSIcdI9nfNP5iPdRJNBPgeWp0uaweU83FV4ew/fE7d6tYYYY267
- UwbX6qasCIKqbwQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3723; i=hezhy472013@gmail.com;
+ h=from:subject:message-id; bh=bU61JmNF1c+b4KWRcgOhA/JRURr6NwQdOpuIqG8oVJ4=;
+ b=owEBbQKS/ZANAwAKAc32nDaAuA3YAcsmYgBqDABauY3HTSzF9IaJjmTv1VlCI5XJKn47n09ne
+ KmVVyHfeyaJAjMEAAEKAB0WIQS9XD2kxy1NmfC2u/XN9pw2gLgN2AUCagwAWgAKCRDN9pw2gLgN
+ 2LWxEACmEhpN3JONYcq7jJHX5BvuRUB0L5LCma+xBmD6vLDsejxKAsYsj4bSMJH7uS86Nu93PB6
+ rvMXUOwBVqLAnumCrq+tNZFMJhMLQJaxVVf7bh8r6TJZvfbLmCzvl4MuZcBgVqAZqtqfdyBXLL0
+ Re9uZbYv6ljHvmt52PZtbP9nj/ubdZ4CmauirDVhKchu9NZr+/ZEWiq5CdfRMhKriMBx6JYkQ5P
+ A9tOrxhELRH+pHDWuSpCoMYayyZcFsuj1BbCziBG1/92yLzzjQNtKQFMTLehN3gEmZWBYKoBmBQ
+ ja4bHaSYSs1YoLHgKy/G5KeCenUxE2PWEpVRfaWebd4c+tQQCOhx+M/xoRRob+KbS7sY5avYAEL
+ Csv1PyAqYa6woB/tm9aaDBxGSR8a7a60q/C7KlYQPFVxF46s+SDr7u/6P76ZlW926hM1EC1WgLu
+ 4tibWXk8npcEO/rlfVF/QX9HcJn8grFS9ArAoL3C1XWGoIwTEWBsGbGRh64SHYK3pqIPrCG+tMz
+ C64OjXm5meqKr3zVeQrAnqyaw4FFtzKdW1Fyi7OV0YXwEOyM+4AH7v4FO7Ij0FMqy7KlBy5+7+J
+ YjiaP/FS40AjJTj86I8VSyEYguOroOdif5NVgdJMz6LnZ9Ic2liTq2jYy0AWZtR2jjrTzxuYpiR
+ OV9Z1ET8NUMcOQQ==
 X-Developer-Key: i=hezhy472013@gmail.com; a=openpgp;
  fpr=26CA97B1A229C229822278F254AF850165158959
 
-K3 uses the FSL QSPI controller with the same programming model as the
-existing SpacemiT integration, but has its own compatible string.
+Describe the K3 QSPI controller and the pin configuration needed by
+boards.
 
-Add the match entry so DTs using the K3 compatible bind to the driver.
+Enable the bus on Pico-ITX because the board wires QSPI to NOR flash
+powered from the board 1.8 V QSPI rail.
 
 Signed-off-by: Zhengyu He <hezhy472013@gmail.com>
 Signed-off-by: Cody Kang <cody.kang.hk@outlook.com>
 ---
- drivers/spi/spi-fsl-qspi.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 58 ++++++++++++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 21 ++++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 16 ++++++++
+ 3 files changed, 95 insertions(+)
 
-diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
-index 57358851029b..bb94fae32609 100644
---- a/drivers/spi/spi-fsl-qspi.c
-+++ b/drivers/spi/spi-fsl-qspi.c
-@@ -1015,6 +1015,7 @@ static const struct of_device_id fsl_qspi_dt_ids[] = {
- 	{ .compatible = "fsl,ls1021a-qspi", .data = &ls1021a_data, },
- 	{ .compatible = "fsl,ls2080a-qspi", .data = &ls2080a_data, },
- 	{ .compatible = "spacemit,k1-qspi", .data = &spacemit_k1_data, },
-+	{ .compatible = "spacemit,k3-qspi", .data = &spacemit_k1_data, },
- 	{ /* sentinel */ }
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index 4486dc1fe114..61cbf924830b 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -192,6 +192,64 @@ phy0: phy@1 {
+ 	};
  };
- MODULE_DEVICE_TABLE(of, fsl_qspi_dt_ids);
+ 
++&pinctrl {
++	qspi-cfg {
++		qspi-pins {
++			power-source = <1800>;
++		};
++
++		qspi-cs0-pins {
++			power-source = <1800>;
++		};
++	};
++};
++
++&qspi {
++	pinctrl-names = "default";
++	pinctrl-0 = <&qspi_cfg>;
++	status = "okay";
++
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <26500000>;
++		spi-rx-bus-width = <4>;
++		spi-tx-bus-width = <4>;
++		vcc-supply = <&aldo2>; /* PMIC_VCC1V8_QSPI */
++		m25p,fast-read;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			bootinfo@0 {
++				reg = <0x0 0x20000>;
++			};
++
++			fsbl@20000 {
++				reg = <0x20000 0x80000>;
++			};
++
++			env@a0000 {
++				reg = <0xa0000 0x10000>;
++			};
++
++			esos@b0000 {
++				reg = <0xb0000 0x100000>;
++			};
++
++			opensbi@1b0000 {
++				reg = <0x1b0000 0x60000>;
++			};
++
++			uboot@210000 {
++				reg = <0x210000 0x5f0000>;
++			};
++		};
++	};
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_0_cfg>;
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index 23899d3f308a..5d9763791180 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -56,6 +56,27 @@ i2c8-pins {
+ 		};
+ 	};
+ 
++	/omit-if-no-ref/
++	qspi_cfg: qspi-cfg {
++		qspi-pins {
++			pinmux = <K3_PADCONF(138, 0)>,	/* qspi dat0 */
++				 <K3_PADCONF(139, 0)>,	/* qspi dat1 */
++				 <K3_PADCONF(140, 0)>,	/* qspi dat2 */
++				 <K3_PADCONF(141, 0)>,	/* qspi dat3 */
++				 <K3_PADCONF(144, 0)>;	/* qspi clk */
++
++			bias-disable;
++			drive-strength = <25>;
++		};
++
++		qspi-cs0-pins {
++			pinmux = <K3_PADCONF(142, 0)>;	/* qspi cs0 */
++
++			bias-disable;
++			drive-strength = <25>;
++		};
++	};
++
+ 	/omit-if-no-ref/
+ 	uart0_0_cfg: uart0-0-cfg {
+ 		uart0-0-pins {
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 815debd16409..800efc2929a4 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -836,6 +836,22 @@ pll: clock-controller@d4090000 {
+ 			#clock-cells = <1>;
+ 		};
+ 
++		qspi: spi@d420c000 {
++			compatible = "spacemit,k3-qspi";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x0 0xd420c000 0x0 0x1000>,
++			      <0x0 0xb8000000 0x0 0xc00000>;
++			reg-names = "QuadSPI", "QuadSPI-memory";
++			clocks = <&syscon_apmu CLK_APMU_QSPI_BUS>,
++				 <&syscon_apmu CLK_APMU_QSPI>;
++			clock-names = "qspi_en", "qspi";
++			resets = <&syscon_apmu RESET_APMU_QSPI>,
++				 <&syscon_apmu RESET_APMU_QSPI_BUS>;
++			interrupts = <117 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
+ 		syscon_apmu: system-controller@d4282800 {
+ 			compatible = "spacemit,k3-syscon-apmu";
+ 			reg = <0x0 0xd4282800 0x0 0x400>;
 
 -- 
 2.53.0
