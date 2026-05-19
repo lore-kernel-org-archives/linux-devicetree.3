@@ -1,228 +1,143 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAE52DCBEC;
-	Tue, 19 May 2026 02:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53BB2D5932;
+	Tue, 19 May 2026 02:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779158517; cv=none; b=qTTioAxLitFJFXNz2AoHcDpZjJEb6xAnXt56GCgxVlzk4ttN0pBDc7sAyVeETs4juPj+Z2Wmvj0ECxP6bAVWtEQOO6/+o97gqbRkDFVIX47JJZqKlNYKhu4d07ksDOkSO90Rj1y1H2k5O51oZzNlFExoApm06Erb+Tm6fLCQrV0=
+	t=1779158544; cv=none; b=Mbmda8SGbMA+u1Io/Rk0ngMHLYV4cXua+uSgogVZXRyt4ERapqNSBlkrJaqc1mQ2HfH5BA0R2QrS+kVWsFnHYxKeL8YHc3EU8GIoaVargmJfI+f12lLY6svNJLnuvU6z8BPzpH2XdFEUYJIxYcu7QTBukrLMvb6/lDU7mADcxys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779158517; c=relaxed/simple;
-	bh=R0bw45W4CGsbembmwVaCzRAcowRsSDgWPJsqgFxagAo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=h1hFSlpCXaeyvagr7a1yAqMpbPaVccUDMzJOgf5/GeWVMXWqRBJUOkzh/XF81TsmCLJhSPMaHrIPU3d9M44UdCrazOB4OhOQ7pgJttDo36qXv1wd2zQhGjubQ305JcsWU6f2p0mlqk4LFLEAm7mcD2ypJVX1vciuUsW0C5Lj7hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Zk5jYLge; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1779158544; c=relaxed/simple;
+	bh=1K3I+qAdALng4cy8421G7GIIKDWaReyylNTdq/gKKqU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZxEXL9VwMzCkqLPsf//Q4JS6eZJr1OljwWy/scCq2yFB1vMgXrKTotvrnTAzLl7Ig5KrYKUIWrqUqax9VrvqKPeCYuMcN1OdJszS1O8YNK9myHaHdzgFgBwxyS3tkBNu3dLmO4Whbk7AwtkUOkh/RBfoFN0XWQkOMNrejwYzYUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pOU8AdLs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Zk5jYLge"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gKJpl2Z2Vz9v86;
-	Tue, 19 May 2026 04:41:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1779158512;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bDcRH1NI5ohQC+8+KyXW8eoTp/NLzHa6GAXlQDvIRGo=;
-	b=Zk5jYLgezbUaeotn+EN1Af21OuqAYuWUYfpzSTIhirx7abiMuM8yP5JWHDwnqCpzVyCnFv
-	8Gig1TpFtxTNadWAdpvDlvuAVb62sSD0ZJK1jAMZKcMe7SUGGjYF+PFZRmZNA6lbAn/2Hb
-	aHo3Qa4MbnyczPDG4FMGDCScl/LAET0BKyhEQ6dJn/ASJCxI61KnVtTZurAMgKDAbE1szw
-	+MlE1M5B2xODK5690RFdle8g6oVXGNCzUl3rBj+eskBvGAi9rLw1dHhWhfSDxEQch1mZT5
-	rv2HNctFuKV3Mc7mLiytV682F7+m42xwVbbFqI/Qzh2OF7gkAoUfecX3d/EN+A==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pOU8AdLs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45A4C2BCB7;
+	Tue, 19 May 2026 02:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779158544;
+	bh=1K3I+qAdALng4cy8421G7GIIKDWaReyylNTdq/gKKqU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=pOU8AdLsdqIQEriXfpvwbSmgMggMnfSUkRXGmvk0+MTXep7DmEmY3kbNy6Rk3Bf88
+	 gUXF4ZvzEg+T1iz8Oq0tBpLahbNxzcvIDZFNdsuwuL+0rwO/S3+hKi0h999tqjfpSe
+	 tv95LzDFZUIAZzAEhG76A4oc3/qDDoDNoGLmf/v+KeTTxXGKAB7IG4H9P/8NTEVIg2
+	 btaYUR0yB0fFu605ocNIeBVBhIYjLii9jTt/zV7/SPRbnVG4AcwUzzFGSmq/Ye5UNU
+	 agH9C0PUotOpvsfCW9QSxFK1aFcLf6WKdop7sug2b047V2K+FUgkhdQywaPBzpAIG2
+	 JztfI29TDJvRA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/6] media: synopsys: Fix IPI using hardcoded
+ datatype
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260519-csi2_imx95-v4-1-84ea4bb78a88@oss.nxp.com>
+References: <20260519-csi2_imx95-v4-1-84ea4bb78a88@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 02:42:23 +0000
+Message-Id: <20260519024223.B45A4C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 10:41:27 +0800
-Message-Id: <DIMB1PN1XURX.2SKN1XCULACU7@mailbox.org>
-From: "Shuwei Wu" <shuwei.wu@mailbox.org>
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Daniel Lezcano"
- <daniel.lezcano@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz
- Luba" <lukasz.luba@arm.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Vincent
- Legoll" <legoll@online.fr>, "Gong Shuai" <gsh517025@gmail.com>
-Subject: Re: [PATCH v5 3/3] riscv: dts: spacemit: Add thermal sensor for K1
- SoC
-References: <20260427-k1-thermal-v5-0-df39187480ed@mailbox.org>
- <20260427-k1-thermal-v5-3-df39187480ed@mailbox.org>
- <20260519002602-GKE3679294@kernel.org>
-In-Reply-To: <20260519002602-GKE3679294@kernel.org>
-X-MBO-RS-META: a8gyojcb1u79paamze3ow1xuowf3feiy
-X-MBO-RS-ID: c3256d9df03ab1dced4
 
-Hi Yixun,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] If userspace starts streaming without explicitly calling `VIDIOC_S=
+UBDEV_S_FMT`, the driver will use an incorrect hardware datatype due to a m=
+ismatch between the probe-time pointer and the V4L2 default state.
+- [High] Caching the active format in a device-global pointer (`csi2->forma=
+ts`) during `set_fmt` circumvents the V4L2 subdev state API, causing state =
+corruption and hardware misconfiguration when multiple streams are used.
+- [Medium] The patch confusingly repurposes an array pointer (`csi2->format=
+s`) into a single active state pointer, while retaining its paired array-bo=
+unds variable.
+--
 
-On Tue May 19, 2026 at 8:26 AM CST, Yixun Lan wrote:
-> Hi Shuwei,
->
-> On 15:15 Mon 27 Apr     , Shuwei Wu wrote:
->> Include the Thermal Sensor node in the SpacemiT K1 dtsi
->> with definitions for registers, clocks, and interrupts.
->> Additionally, configure thermal zones for the soc, package, gpu, and
->> clusters to enable temperature monitoring via the thermal framework.
->>=20
->> Tested-by: Vincent Legoll <legoll@online.fr> # OrangePi-RV2
->> Tested-by: Gong Shuai <gsh517025@gmail.com>
->> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
->>=20
->> ---
->> Changes in v2:
->> - Update compatible to "spacemit,k1-tsensor"
->> ---
->>  arch/riscv/boot/dts/spacemit/k1.dtsi | 101 ++++++++++++++++++++++++++++=
-+++++++
->>  1 file changed, 101 insertions(+)
->>=20
->> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/=
-spacemit/k1.dtsi
->> index 529ec68e9c23..e9952204224e 100644
->> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
->> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
->> @@ -339,6 +339,96 @@ osc_32k: clock-32k {
->>  		};
->>  	};
->> =20
->> +	thermal-zones {
->> +		soc-thermal {
->> +			polling-delay-passive =3D <0>;
->> +			polling-delay =3D <0>;
->> +			thermal-sensors =3D <&thermal 0>;
->> +
->> +			trips {
->> +				soc-crit {
->> +					temperature =3D <115000>;
->> +					hysteresis =3D <0>;
->> +					type =3D "critical";
->> +				};
->> +			};
->> +		};
->> +
->> +		package-thermal {
->> +			polling-delay-passive =3D <0>;
->> +			polling-delay =3D <0>;
->> +			thermal-sensors =3D <&thermal 1>;
->> +
->> +			trips {
->> +				package-crit {
->> +					temperature =3D <115000>;
->> +					hysteresis =3D <0>;
->> +					type =3D "critical";
->> +				};
->> +			};
->> +		};
->> +
->> +		gpu-thermal {
->> +			polling-delay-passive =3D <100>;
->> +			polling-delay =3D <0>;
->> +			thermal-sensors =3D <&thermal 2>;
->> +
->> +			trips {
->> +				gpu-alert {
->> +					temperature =3D <85000>;
->> +					hysteresis =3D <2000>;
->> +					type =3D "passive";
->> +				};
->> +
->> +				gpu-crit {
->> +					temperature =3D <115000>;
->> +					hysteresis =3D <0>;
->> +					type =3D "critical";
->> +				};
->> +			};
->> +		};
->> +
->> +		cluster0-thermal {
->> +			polling-delay-passive =3D <100>;
->> +			polling-delay =3D <0>;
->> +			thermal-sensors =3D <&thermal 3>;
->> +
->> +			trips {
->> +				cluster0-alert {
->> +					temperature =3D <85000>;
->> +					hysteresis =3D <2000>;
->> +					type =3D "passive";
->> +				};
->> +
->> +				cluster0-crit {
->> +					temperature =3D <115000>;
->> +					hysteresis =3D <0>;
->> +					type =3D "critical";
->> +				};
->> +			};
->> +		};
->> +
->> +		cluster1-thermal {
->> +			polling-delay-passive =3D <100>;
->> +			polling-delay =3D <0>;
->> +			thermal-sensors =3D <&thermal 4>;
->> +
->> +			trips {
->> +				cluster1-alert {
->> +					temperature =3D <85000>;
->> +					hysteresis =3D <2000>;
->> +					type =3D "passive";
->> +				};
->> +
->> +				cluster1-crit {
->> +					temperature =3D <115000>;
->> +					hysteresis =3D <0>;
->> +					type =3D "critical";
->> +				};
->> +			};
->> +		};
->> +	};
->> +
->>  	soc {
->>  		compatible =3D "simple-bus";
->>  		interrupt-parent =3D <&plic>;
->> @@ -494,6 +584,17 @@ syscon_apbc: system-controller@d4015000 {
->>  			#reset-cells =3D <1>;
->>  		};
->> =20
->> +		thermal: thermal@d4018000 {
->> +			compatible =3D "spacemit,k1-tsensor";
->> +			reg =3D <0x0 0xd4018000 0x0 0x100>;
->> +			clocks =3D <&syscon_apbc CLK_TSEN>,
->> +				 <&syscon_apbc CLK_TSEN_BUS>;
->> +			clock-names =3D "core", "bus";
->> +			interrupts =3D <61>;
->> +			resets =3D <&syscon_apbc RESET_TSEN>;
->> +			#thermal-sensor-cells =3D <1>;
->> +		};
-> Ok, so if I understand correctly the thermal is a SoC feature, so with
-> above it will be enabled by default for all boards, but for the conventio=
-n
-> we usually disable it in dtsi file, and enable it at board dts level
->
-> Please convince me doing above is better? as I'm not sure if there is
-> cases that user want it disabled (but could possible)..
+commit ac0f1e2d8d5a5aefaf04a50efcbfbc4c7693090d
+Author: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-I had two reasons for keeping the thermal node enabled in k1.dtsi,
-rather than requiring each board to opt in:
+media: synopsys: Fix IPI using hardcoded datatype
 
-1. Other SoCs follow the same pattern: the RISC-V JH7110 and Allwinner D1s
-both define their thermal sensor nodes and thermal-zones in the SoC dtsi
-without status =3D "disabled".
+This commit updates the set_fmt callback to reflect the negotiated active
+format by storing it in csi2->formats. This ensures the IPI configuration
+matches the runtime datatype instead of the probe-time default.
 
-2. Thermal protection is safety-critical, and the silicon trip points
-don't vary between boards. Leaving it disabled by default risks boards
-booting without thermal shutdown.
+> diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/m=
+edia/platform/synopsys/dw-mipi-csi2rx.c
+> index 02eb4a6cafade..0b80e84983f9e 100644
+> --- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> +++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> @@ -311,7 +311,7 @@ dw_mipi_csi2rx_find_format(struct dw_mipi_csi2rx_devi=
+ce *csi2, u32 mbus_code)
+>  	WARN_ON(csi2->formats_num =3D=3D 0);
+> =20
+>  	for (unsigned int i =3D 0; i < csi2->formats_num; i++) {
+> -		const struct dw_mipi_csi2rx_format *format =3D &csi2->formats[i];
+> +		const struct dw_mipi_csi2rx_format *format =3D &formats[i];
+
+Does this repurpose the csi2->formats array pointer to store a single active
+format, while leaving csi2->formats_num as the array length?
+
+This decouples the pointer from its length variable. Iterating over a global
+formats array instead of the instance fields might also bypass device
+encapsulation and create a semantic mismatch.
+
+[ ... ]
+
+> @@ -470,6 +470,17 @@ static int dw_mipi_csi2rx_set_fmt(struct v4l2_subdev=
+ *sd,
+> =20
+>  	*src =3D *sink;
+> =20
+> +	/* Store the CSIS format descriptor for active formats. */
+> +	if (format->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE) {
+> +		csi2->formats =3D fmt ? :
+> +			dw_mipi_csi2rx_find_format(csi2, default_format.code);
+
+Does caching the active format in a device-global pointer (csi2->formats)
+circumvent the V4L2 subdev state API?
+
+If multiple streams are configured via V4L2_SUBDEV_FL_STREAMS, it appears t=
+his
+single pointer would be repeatedly overwritten, storing only the format of =
+the
+last configured stream.
+
+Could this create a regression when the streams are enabled? The hardware w=
+ould
+be programmed with this last format, which could cause issues for any strea=
+ms
+that negotiated a different format. Would it be better to retrieve the acti=
+ve
+format dynamically from sd->active_state via v4l2_subdev_state_get_format()
+during stream enablement?
+
+Additionally, does this introduce a regression if userspace starts streaming
+without explicitly calling VIDIOC_SUBDEV_S_FMT?
+
+During probe, csi2->formats is initialized to the base of the formats array,
+pointing to the first element (MEDIA_BUS_FMT_YUYV8_1X16). The V4L2 subdev
+active state is initialized to default_format (MEDIA_BUS_FMT_SRGGB10_1X10).
+
+If set_fmt(ACTIVE) is never called, csi2->formats is never updated. The
+hardware would then be configured for YUV422_8B instead of the expected RAW=
+10,
+causing a mismatch between the active V4L2 state and the actual hardware
+configuration.
+
+> +		if (!csi2->formats) {
+> +			dev_err(csi2->dev, "Failed to find valid format\n");
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+>  	return 0;
+>  }
 
 --=20
-Best regards,
-Shuwei Wu
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-csi2_imx95=
+-v4-0-84ea4bb78a88@oss.nxp.com?part=3D1
