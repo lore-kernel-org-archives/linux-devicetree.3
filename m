@@ -1,99 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBCE4DC54C
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 12:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82AB4DD6DB;
+	Tue, 19 May 2026 12:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779194260; cv=none; b=IuleCaZcGWlGSXd8wY4R+DMS5NLULxWxy0afzH2HgedQbb3IUpw1qIagyB/Zdh5vMm8HdAzbJraKx5Hh/tvolOEc/S6qCKUYxkVU8TmamB1xUeeEz9bMsLJSDW4kq9PkgkemTORAL/9JzX1y4YWmgj7FDoVpZk8QTLfVoL6sBa0=
+	t=1779194534; cv=none; b=N4klqieOmfyvF4yy8Vc67LBfK+Ol1CuxOP8FJEb5Tl2VdppaYS0Z02jzF55mTPTjLvU0HL7S0mhMzqCkU7/WyvvkN+cmind6tzOBo59gDEVeYPNKGYFbV+KLeCT2L6LB5T85Wqb8LtkUucgcP5HASC7pHcmEPGoLEHaVy5A7+n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779194260; c=relaxed/simple;
-	bh=L7JK1gcKM7XKCe2n937PVWSkpUHU1UiF00vrV9Zwo6Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KpVfZLUORJhpeawcHp/X2q3jiB/t8pPqgE1Q7cDkIK1AjmGNR+TvtuDMDQfXYkbOPV4JEad6vPcMChhGWDB/KPl0Q5dupkC4fvZ/JgM4K5Iwkbv+AqFrk5U7atWVAx3UxBvBKIzalaPOSAPg1EXYcYqmDpeqHxJEJ4/VFL9IXU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DR0cpmWs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779194534; c=relaxed/simple;
+	bh=eXsfyWpjoKyx+S3jo00ZmbgIJhM9/OKHb7VUAxkqqtg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=YLd6wXwQwv7cANdfnfH64dTC0A2zKEYLZ6fDes4lYV4fk3sOSSODDe871qWwgXFGZU5j5G8j87Eqo54Amq/wR1rKrs45X35BvL9ymqcT3sPwZHSTw20l4wtfgUdzmK+gPswXkokgMz5cPtzM54lsxR7uJ+zYO3iOciwTdnuhyX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Imw5scWN; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DR0cpmWs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9C3C2BCB3;
-	Tue, 19 May 2026 12:37:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779194259;
-	bh=L7JK1gcKM7XKCe2n937PVWSkpUHU1UiF00vrV9Zwo6Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=DR0cpmWsBNZkSY1Qee+OrGjSjCkE5x0PAejExelgF9Q00nX/RzFC1mix48USvW7DN
-	 XfpwoYgLBDLp3I1yY16Z0nxOyiFVBzJYacpcls2cW/EeRXh8bc3nToDPn0qhn8+lUu
-	 1Fw7/yLH9Wv3DbSp7HnyK/YzetMDlJ6UnRkD3ZN5KDMku9XhYZ4hD0+zot87C/20TZ
-	 SeSUgICnnhm5NUpIGA+wM5yHZDNAOMXq8/b+y+J/VUqQax1Brd0qa+14R0YuimGDEk
-	 UM7g9Gabq4B1a1bn7gexgKK1M8WH4xaIfhA9AVucxE7VLeuj4MsKN2WeE2IuO2m04j
-	 BknMjvNjEqHZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: Add Shikra EVK boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260519-shikra-dt-v2-5-c01b90fb4395@oss.qualcomm.com>
-References: <20260519-shikra-dt-v2-5-c01b90fb4395@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 12:37:37 +0000
-Message-Id: <20260519123738.BD9C3C2BCB3@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Imw5scWN"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Ha3U5FJeF61nR13fqhapGOPU2jfN530U4ccDWtKILT0=;
+	b=Imw5scWNyENSClDDsm0aKoLrou92ErUJJIQORPJEcabYI3utCuQCW0cH+DSoBKS/L+LrRsUXe
+	4/57egHk9L82uCmnWMcuwAKP6ON3NWimFljmUY71FbmH/qt6gcc0LgcZJmkJ1LP6GuoGabpLGiL
+	lCnVxupN6NtwOTzTEcksGao=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4gKYyh0hJKzcZyg;
+	Tue, 19 May 2026 20:34:36 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 899C44056A;
+	Tue, 19 May 2026 20:42:08 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 19 May 2026 20:42:04 +0800
+Message-ID: <3ca700ed-e081-4c62-8289-5bbd4248e630@huawei.com>
+Date: Tue, 19 May 2026 20:42:04 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 04/15] arm64: kexec_file: Fix potential buffer
+ overflow in prepare_elf_headers()
+To: Breno Leitao <leitao@debian.org>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
+	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
+	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<rdunlap@infradead.org>, <pmladek@suse.com>, <dapeng1.mi@linux.intel.com>,
+	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
+	<ebiggers@kernel.org>, <lirongqing@baidu.com>, <paulmck@kernel.org>,
+	<sourabhjain@linux.ibm.com>, <coxu@redhat.com>, <jbohac@suse.cz>,
+	<ryan.roberts@arm.com>, <osandov@fb.com>, <cfsworks@gmail.com>,
+	<tangyouling@kylinos.cn>, <ritesh.list@gmail.com>, <adityag@linux.ibm.com>,
+	<guoren@kernel.org>, <songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
+	<vishal.moola@gmail.com>, <junhui.liu@pigmoral.tech>,
+	<wangruikang@iscas.ac.cn>, <namcao@linutronix.de>, <chao.gao@intel.com>,
+	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
+	<chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>,
+	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <lizhengyu3@huawei.com>,
+	<x86@kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>
+References: <20260511030454.1730881-1-ruanjinjie@huawei.com>
+ <20260511030454.1730881-5-ruanjinjie@huawei.com> <agGkvrg06KNDNfDi@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <agGkvrg06KNDNfDi@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] shikra-cqs-evk.dts incorrectly includes the modem-enabled SoM dtsi=
- file (shikra-cqm-som.dtsi) instead of its corresponding CQS dtsi file.
---
 
-commit f25002d6be7ef75f4f5e2dd5f32e45a22f06fc01
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-arm64: dts: qcom: Add Shikra EVK boards
+On 5/11/2026 5:46 PM, Breno Leitao wrote:
+> On Mon, May 11, 2026 at 11:04:43AM +0800, Jinjie Ruan wrote:
+>> There is a race condition between the kexec_load() system call
+>> (crash kernel loading path) and memory hotplug operations that can
+>> lead to buffer overflow and potential kernel crash.
+>>
+>> During prepare_elf_headers(), the following steps occur:
+>> 1. The first for_each_mem_range() queries current System RAM memory ranges
+>> 2. Allocates buffer based on queried count
+>> 3. The 2st for_each_mem_range() populates ranges from memblock
+>>
+>> If memory hotplug occurs between step 1 and step 3, the number of ranges
+>> can increase, causing out-of-bounds write when populating cmem->ranges[].
+>>
+>> This happens because kexec_load() uses kexec_trylock (atomic_t) while
+>> memory hotplug uses device_hotplug_lock (mutex), so they don't serialize
+>> with each other.
+>>
+>> Add the explicit bounds checking to prevent out-of-bounds access.
+> 
+> It seems you have a TOCTOU type of issue, and this seems to be shrinking
+> the window, but not fully solving it?
 
-This commit adds device trees for the Shikra EVK platform, combining differ=
-ent
-Shikra SoM variants with a common carrier board. It introduces three specif=
-ic
-EVK board configurations: CQM (with modem), CQS (no modem), and IQS (no
-modem), along with a shared common include file.
+I plan to fix this issue as follows, and would appreciate your feedback
+on whether this is reasonable.
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boo=
-t/dts/qcom/shikra-cqs-evk.dts
-> new file mode 100644
-> index 0000000000000..ee460d8c6a877
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-> @@ -0,0 +1,61 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "shikra-cqm-som.dtsi"
+Sashiko AI code review pointed out there is a TOCTOU (Time-of-Check to
+Time-of-Use) race condition in prepare_elf_headers() between the initial
+pass that counts System RAM ranges and the second pass that populates them.
+If a memory hotplug event occurs between these two steps, the number of
+memory regions may increase, causing an out-of-bounds write to
+the cmem->ranges[] array.
 
-The commit message states that shikra-cqs-evk.dts pairs with the CQ2390S SoM
-which has no modem support. Does this incorrectly include the modem-enabled
-SoM file instead of its corresponding CQS dtsi file?
+To resolve this and ensure data consistency, this patch:
 
-Inheriting the hardware description of the CQM board might lead to incorrect
-behavior, such as wasted reserved-memory allocations, or potential probe
-failures when the kernel attempts to initialize the non-existent modem.
+1. Wraps the counting and population passes with get_online_mems() and
+   crash_hotplug_lock(). This serializes the kexec_file_load() path
+   with concurrent memory hotplug operations, ensuring the memory
+   map remains consistent throughout the header preparation.
 
-> +#include "shikra-evk.dtsi"
-> +
-> +/ {
-> +	model =3D "Qualcomm Technologies, Inc. Shikra CQS EVK";
-> +	compatible =3D "qcom,shikra-cqs-evk", "qcom,shikra-cqs-som", "qcom,shik=
-ra";
+2. Adds an explicit boundary check in prepare_elf64_ram_headers_callback().
+   If the number of ranges exceeds the allocated maximum, it now returns
+   -EAGAIN, which indicates a transient race, signaling userspace
+   kexec-tools to retry the syscall instead of leaving the system
+without a loaded crash kernel.
 
-[ ... ]
+index daf81a873bbd..546be6261177 100644
+--- a/arch/arm64/kernel/machine_kexec_file.c
++++ b/arch/arm64/kernel/machine_kexec_file.c
+@@ -15,6 +15,7 @@
+ #include <linux/kexec.h>
+ #include <linux/libfdt.h>
+ #include <linux/memblock.h>
++#include <linux/memory_hotplug.h>
+ #include <linux/of.h>
+ #include <linux/of_fdt.h>
+ #include <linux/slab.h>
+@@ -40,7 +41,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage
+*image)
+ }
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-shikra-dt-=
-v2-0-c01b90fb4395@oss.qualcomm.com?part=3D5
+ #ifdef CONFIG_CRASH_DUMP
+-int prepare_elf_headers(void **addr, unsigned long *sz)
++static int __prepare_elf_headers(void **addr, unsigned long *sz)
+ {
+ 	struct crash_mem *cmem;
+ 	unsigned int nr_ranges;
+@@ -59,6 +60,11 @@ int prepare_elf_headers(void **addr, unsigned long *sz)
+ 	cmem->max_nr_ranges = nr_ranges;
+ 	cmem->nr_ranges = 0;
+ 	for_each_mem_range(i, &start, &end) {
++		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
++			ret = -EAGAIN;
++			goto out;
++		}
++
+ 		cmem->ranges[cmem->nr_ranges].start = start;
+ 		cmem->ranges[cmem->nr_ranges].end = end - 1;
+ 		cmem->nr_ranges++;
+@@ -81,6 +87,21 @@ int prepare_elf_headers(void **addr, unsigned long *sz)
+ 	kfree(cmem);
+ 	return ret;
+ }
++
++int prepare_elf_headers(void **addr, unsigned long *sz)
++{
++	int ret;
++
++	crash_hotplug_lock();
++	get_online_mems();
++
++	ret = __prepare_elf_headers(addr, sz);
++
++	put_online_mems();
++	crash_hotplug_unlock();
++
++	return ret;
++}
+ #endif
+
+> 
+>> Cc: Catalin Marinas <catalin.marinas@arm.com>
+>> Cc: Will Deacon <will.deacon@arm.com>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Baoquan He <bhe@redhat.com>
+>> Cc: Breno Leitao <leitao@debian.org>
+>> Cc: stable@vger.kernel.org
+>> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
+>> Closes: https://sashiko.dev/#/patchset/20260323072745.2481719-1-ruanjinjie%40huawei.com
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  arch/arm64/kernel/machine_kexec_file.c | 5 +++++
+>>  1 file changed, 5 insertions(+)
+>>
+>> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+>> index e31fabed378a..a67e7b1abbab 100644
+>> --- a/arch/arm64/kernel/machine_kexec_file.c
+>> +++ b/arch/arm64/kernel/machine_kexec_file.c
+>> @@ -59,6 +59,11 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+>>  	cmem->max_nr_ranges = nr_ranges;
+>>  	cmem->nr_ranges = 0;
+>>  	for_each_mem_range(i, &start, &end) {
+>> +		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
+>> +			ret = -ENOMEM;
+> 
+> -ENOMEM seems to be the the wrong errno. This isn't an allocation
+> failure; it's a transient race. -EBUSY or -EAGAIN would be more honest
+
