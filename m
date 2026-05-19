@@ -1,534 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01C235B63D
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 05:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A7B34D910
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 05:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779169654; cv=none; b=mRmPe9yJhQU4ijH+bw7jPs4IlyDYKbze9hH42qzQBRQqr9L23SVtJy+TDC2nUrBJEbHJs5wNftEXFRmPnsKcZEcCnENkobzqpcdTqdM/uWZJtQSEb0A9QTuXtbAPYHqYIsZgz+z4cxu7uTR4zmLE5QdcVpzBeo3gK+GJ8mZiMrU=
+	t=1779169920; cv=none; b=U9+tLJSpxg0vEuEgzBapNFbbMXN4E2U8HXkXfweJ2esGiT+8p9OupYsQu1fftnQq/nSH/wxFbI5+0iCG3K3NEwacfpmFHc3DsfxjGm94N/9BgowmIyQdXHSFo2k9LHpBNbgzeGZ8ZgnPVMNafj+eXspp84H9r0d07cFr4z3Ao9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779169654; c=relaxed/simple;
-	bh=bW+/hvA+Pca7K41++Idj5IJ3xMCsvbz/R0Wz9A6pciE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jgTT7tKF7XakERKQBpuaphtQke5Kh5US8rH+AwMCph8V3QmpvjYqfD99mAp1DSXFHuFBEIXykuL1xavPhwEB1n2cd/J+XGQYY3sl9Hu9aEVeNVXPe1wWVEn2e31CZPOkBP6TMxhoVWCR6plf6Ey7NgEjA8iz7DdqdYTJ7tS73jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cyeOhdOW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MBsFB0Kf; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779169920; c=relaxed/simple;
+	bh=yg5X2+G6j9XIgwns/fMKSvLnhPKx6m7uwNbB+8kiUsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iI/CE6yDPYS4i4BT79gf+Jo/pwQ27YOKLQI7ftFe/eiDqgJuMXkX0z6AD635DZxQeje2k0XChMlAKhN2ZQ7kEAwPIX2gFMahd0+bKPBO6j8N1mkDo5ZFwdKkcCPzmm5vnm8FfRypSSAr84XV0DNAVo+bGTcqwNN21rk0KTGLsjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SvL/W2+y; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cyeOhdOW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MBsFB0Kf"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J5WHiL4130977
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 05:47:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c5z2BAfF7u/3eYBoDRRCGBrxkUNywNEGnlBXzSLGwNk=; b=cyeOhdOWp6otu7eQ
-	5E1rjcikwJvifydOLrPNvh8uyUcq51oquMvvAtCBAikQzcencPJciSO+kKpf9y4S
-	xPSsyuHucAa+JwquIsnz575lIrJqeA/baUDMmAKa7qOXgJRGMh6O2FxTQ9qr0O6P
-	4dVzqzGBnXdUmw6ZWMQqwLQ6m6L3c+0Y2T+ilAzjVajO+EatCtywqrywWVYXO4wX
-	MBQmL0i1lUA+q/JumqT0QAq/B7LLsh1/Np7OEmz1FDTSQXDQ3fGfPAuNisZk1h86
-	rwJDQTKldVcxMGCYLhYHQVWbf09R7TZ6NeiFwI1rCRB5lechvFuEWhNLO2AoGyl6
-	IQTy5A==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8ht1g1u7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 05:47:30 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2efc342ef15so4359899eec.1
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:47:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SvL/W2+y"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-82f8893bff3so1396976b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 22:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779169650; x=1779774450; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=c5z2BAfF7u/3eYBoDRRCGBrxkUNywNEGnlBXzSLGwNk=;
-        b=MBsFB0KftWUFd9hIYFa8hoFKKbC7natGwx2FP4U8vGwn/zv7cOYJrthHurekZfyNgF
-         /Vql64llOBWYzOwg4eoADKNOTnxRQ9tsTTs5ihkT1X5w0X9enlOPVfB8H0IL4ttfWClq
-         UumyZByDfDTEz//JrZRaJqPsVvQr15HNffk2T1izSCZWPOMEBco6cLDcV6rSBOPuMz3U
-         cGj9YLMvoXJa414BNXne2SL3EGQg4NUjIvvA4GrMI0QUmYVLToxg58htVo0Y/ua0+qMv
-         w7dG3cwn8qWDsJgZxilXF/wTohsQq8rdqVCiilsWc7aocgVfTz7YPMAlEy+NpnWmVfbT
-         VZkg==
+        d=gmail.com; s=20251104; t=1779169918; x=1779774718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=At2RDd/JrXkyJVQsow486779/5ZNt3HX5SfY5tKfcDY=;
+        b=SvL/W2+yaA2vX5yIEGX7/skmuCg8uO9RadFuwHJZV1RaUzw+W5Tdi7K4KgN6Z9iAVQ
+         PGNd5QL42RRp+pt/Se/Zo7GQ67jSfQlVrTqxxj4uv8xaHV9rc2DeCXr5S+iTBfwNVRDX
+         FD9df61nwkri9Q5XQ50pQ6pHGlo9SJfVsUeAdg5fUUK8tOGvqvFDSgf4+Km+/CpOPPAw
+         VLf/29tZ5t08mtjudDTKajy0v8afPE5ToizNLlQGDKJ22eBwivuOQhqcgWfJ0PW6TPO4
+         bJvvrOmPH9JEqvn59o2x5BIkfCChZVLRiVNiDMILl3n2kQDZFjCODDJ5KMN2t4lYB32U
+         8dgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779169650; x=1779774450;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=c5z2BAfF7u/3eYBoDRRCGBrxkUNywNEGnlBXzSLGwNk=;
-        b=GWHAsILLiZBmeOh+KHikXtC4ocP4CVmFygQ/Jh/DhWk3GGWpIJdK4DsHabE18HDp5r
-         7pvg44TlJhln3BHyrLgilqqvrLYmslC87xGPpny7qP5tAqCEhqGMAN9HJlS6aQWAcs6e
-         ksbMnqlOXzG+vVSqo7Fojysx6s8VpUcuW7nBwF04w5GEOcmtuAA3usPS26Uf2lHy4KXC
-         kjPyDC37mJFR0vUVL0wUZ4+NFTLU398Hnz1RBfbDNemQilgELsv3EneQpPqt6vEdJAnQ
-         4CdtaP9vlaUAbnL7vj1tOd2cnBj3fCmaucq1OIor5DhSnWU1fSeTH/urE30E8SmT6ojV
-         4miw==
-X-Forwarded-Encrypted: i=1; AFNElJ/yjA7gULCdKamGdxKxplvK+9s3GKJYqdcn3gxmxqxk44SYAsBLCLsz8B0GD21+1iFv9ANtXF/PwEdJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy3gEvaHTLjmDLihH2PzVIZIUUePYXtL1jsztbhLvThZwRkh6Tg
-	hLG4HMzKdkvfwJ+lxSyD+Rb7RfnsVWpShjpKHnIhPYvY3wYNAuq17CHePP/mt1+2woCuutL0qZN
-	WkBHJdsDZNiJJz1UsQZH4NusZfWucpErJTohm21P2jHMzPNZPg1qJQa5j8oRlThpi
-X-Gm-Gg: Acq92OES/twuWezTBajZHzbkP5My9m71mADZs53qmwZpqL34CcSsp0VJPkuIokdlUkk
-	WJhfQ7mLR8PkbwpH7z/iVEglhK0G12ABohYEfjEX1jH4TaX5CwgNw310VJbuFJCimlSdUyx+F3H
-	9pdfR32OuG6DX0fhiJJzUMTWaE4tNg6G89E+O0PKPscYO+Kg+1hgbehk4mLpgXrx1eB8HXTQudQ
-	7aBIQyzk0i1F/ThKa3oKmuFM6XROd9vYRvyczzltm1Ramfp2kDQo93rjbvjkxQc5nmlBIYjs8SC
-	bLt6wZJhf/lkQ/fjhhnsM+I3ujm6ZDr7ftl+0skprrYBIzQiqHB8ck1rqsNx47vfcae7GipKZZT
-	iftEVdpCUwf4shANXmbjR9PnCHTrPBwGi6UEWzevlNALezuD56kMPy7jUntCRxW+UbkDP
-X-Received: by 2002:a05:7301:688:b0:2e6:ff79:e356 with SMTP id 5a478bee46e88-303982bf6a8mr7850208eec.11.1779169649992;
-        Mon, 18 May 2026 22:47:29 -0700 (PDT)
-X-Received: by 2002:a05:7301:688:b0:2e6:ff79:e356 with SMTP id 5a478bee46e88-303982bf6a8mr7850186eec.11.1779169649356;
-        Mon, 18 May 2026 22:47:29 -0700 (PDT)
-Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-302944ffdf0sm16288683eec.8.2026.05.18.22.47.28
+        d=1e100.net; s=20251104; t=1779169918; x=1779774718;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=At2RDd/JrXkyJVQsow486779/5ZNt3HX5SfY5tKfcDY=;
+        b=iCaW9KOxvYYFrQHv+s+/SCsWJ9+XVzTeGoawpLMGtRZ14K08sKRs/Qcpc/eZM3B5Y+
+         +tweJUIwnxPJLhwsobzgET62Z4m6r7R/nKb6zV6cECrFB8AgcBWMDM5bt6Vtd3j3rm0U
+         +aJKTdM5lvR19zfl+omWDmmlr/JjxKxWU0pvOSlBKpikS0F9keb8uH+G5OJsWiXsEAqe
+         e2/iMCIWOxnuEmabBTlBruuwUo+GdwKt40xxi6sZavqeJpZohqJP5a+8UhpYAP7KxgPn
+         kKbUSCNhUyYQYY46mp8l885dn3wiM3RsR6Fz1qktPOMtus+CK8YzhAUS5fMKZ123i34F
+         l+zg==
+X-Forwarded-Encrypted: i=1; AFNElJ/BkcLi4Qyf1D96RaR8X7P//1nmVCpAUkXzFeT1CE7KkqSQgYrfPFc2Xo1J0SI20sIeo/A/+BQ6Fixo@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmrMOtf8uyLGPMlVOVWdJkjVqMeKR/eRkX3fLOF2ooz0zovkAl
+	mjPSNeevYTXZApqlys1vka8Mrn3jQPMyCISJsFfYPv8sch9wSoMbr9rJ
+X-Gm-Gg: Acq92OFdvE7OzHC2246d/bdfFCIrH4ZWJLsVkp4GEACQmraYJKD6FcJjxxJ4By8Qk7L
+	Umj8W2VkckLNDtK9w9/d9JOLwRy7nv0P/Pgmwh6ycOTuwJCz5VbzdMQDQZ3gl1cPZv2tDoiyllp
+	RJRmK9FcEYEwm/ZeIJhFVYpqny6uXulB+vkcpxQbJ/B+mGOpi4w5YdeuSauGbpYsRZwSLHTe/dG
+	1TgUIl91wZ7MrEcXiV+KCejXcVuOK/2nT9hV2SrXwXLJT1n0+z+83NtVHMjoYAMM6Gduw/PygX/
+	/mi+Wvbs5qHtWmKDESAboKUlOy2ePaYVqs+dvlbl8+pyXSXmKSKFRjA31MJS/bjpZdBgD6kYJfL
+	5WWTMWoEg8mRfFPCBqTbOIfpN//pnMiqstGlng2SLPFlYMEAg5TMfiFi2OTlFvHApMV5lInfL/M
+	miVkelAm9w/UZDytS8E38TpfhtfkMZGIyaTpeLwveqekfVe/9ol7GyzNaygsbHi4bFdRCJUqnwf
+	E9JusWBdaMs
+X-Received: by 2002:a05:6a00:1f09:b0:835:41f3:f453 with SMTP id d2e1a72fcca58-83f33c45ccemr17469354b3a.17.1779169917992;
+        Mon, 18 May 2026 22:51:57 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f8b9c2ea5sm2641252b3a.13.2026.05.18.22.51.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 22:47:28 -0700 (PDT)
-From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Date: Mon, 18 May 2026 22:47:20 -0700
-Subject: [PATCH RFC v4 9/9] arm64: dts: qcom: glymur: Wire PCIe3a/3b to
- shared Gen5x8 PHY
+        Mon, 18 May 2026 22:51:57 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v2 0/4] drm/verisilicon: add Nuvoton MA35D1 DCU Lite support
+Date: Tue, 19 May 2026 13:51:05 +0800
+Message-ID: <20260519055114.1886525-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260518-link_mode_0519-v4-9-269cd73cc5d1@oss.qualcomm.com>
-References: <20260518-link_mode_0519-v4-0-269cd73cc5d1@oss.qualcomm.com>
-In-Reply-To: <20260518-link_mode_0519-v4-0-269cd73cc5d1@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779169640; l=11412;
- i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
- bh=bW+/hvA+Pca7K41++Idj5IJ3xMCsvbz/R0Wz9A6pciE=;
- b=Gc3x6Yj04vzFPxwg9xMR5HbWgn4tBQNvte92tobbGvtxvLZHz43eBWpWc6QyQJgjyzlfCyFOy
- 67J3rYRXSnWCxCuQlIN64vxIIN7JJXQnQUyRDx4kFj+bMvE3lhpQpv4
-X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
- pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
-X-Authority-Analysis: v=2.4 cv=JKULdcKb c=1 sm=1 tr=0 ts=6a0bf972 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=XVFuNizlLJlILrWKUTkA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: DeKCAKLyI7ZfEqbM35j3yxFxZ_Exv0av
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA1MyBTYWx0ZWRfX+zPoQKBOsG09
- mMHvicMJWnzW+TisxQVApM60vre3D78xHozSHgcKXwPvo0H+ataZhXBdNLcVgbOotgPqYRHYAvX
- LtPKA6tTMDm/uJm43hlaGerhM8OXmuL9Tni/zf+Pd9aPkm2QbkDKncg73krZP1ZfUnmTPudsUmy
- T6eEjEneoO3wwmia5QPSR4oo96GqKhAVetzts+FKLsmL1l5DJMtvEw/TlrJd0ti03z3Gjmtjv3U
- R3/cncxadL333Poy7iZLahtBDDSYlmvtXkVP1eMsnRdcYUwQfNjypOUWrDqxCPszIMfw239g7Oa
- wzHi/GAL4zvJATf5d6trji2gZXRQrLrcRJweaG52WGH53Osl3sA96Mxq/1TMpanmrBwQU3mNiXd
- yD6xXPgQvZz9ctqBfn+ucgiez6QZufmpxMRlKxKMwiRcbKdWndFgj60w1VYC+EFfpgYVO9gP8PC
- RoqEsWAgXjFHjHWBYnw==
-X-Proofpoint-ORIG-GUID: DeKCAKLyI7ZfEqbM35j3yxFxZ_Exv0av
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190053
+Content-Transfer-Encoding: 8bit
 
-Glymur PCIe3 uses a single shared Gen5x8 QMP PHY block. Model PCIe3a and
-PCIe3b as consumers of that shared PHY provider instead of separate PHY
-nodes.
+This series adds support for the Verisilicon DCU Lite display controller
+as integrated in the Nuvoton MA35D1 SoC.
 
-Update the DTS wiring to:
-- point GCC PCIe3A/3B pipe parents to the shared PHY clock outputs
-- add PCIe3a controller node and route PCIe3a/PCIe3b port phys to
-  &pcie3_phy using two-cell PHY arguments
-- configure the shared PHY node with link-mode and dual pipe outputs
+The Verisilicon DC driver and its DT binding were originally written by
+Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC, which
+carries a DC8200 IP block.  The present series builds on that foundation
+with gratitude to Icenowy for the original work.
 
-Use QMP_PCIE_GLYMUR_MODE_* dt-binding macros for mode selection.
+The DCU Lite is a different variant in the DC IP family.  While the two
+IPs share a broadly similar register layout, a number of differences
+prevent the existing driver from working on the MA35D1 without
+modification:
 
-Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi |   5 +
- arch/arm64/boot/dts/qcom/glymur.dtsi     | 333 ++++++++++++++++++++++++++++++-
- 2 files changed, 336 insertions(+), 2 deletions(-)
+  - No CONFIG_EX commit path: the DC8200 staging registers
+    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
+    PANEL_CONFIG_EX) are absent.  The DCU Lite uses enable (bit 0) and
+    reset (bit 4) bits in FB_CONFIG for direct framebuffer updates, and
+    requires a per-frame VALID bit toggle (FB_CONFIG bit 3) to latch
+    configuration changes.
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-index 6e2e06ae6c8a..72a86881d36c 100644
---- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-@@ -451,6 +451,11 @@ &pcie3b {
- 	pinctrl-names = "default";
- };
- 
-+&pcie3_phy {
-+	vdda-phy-supply = <&vreg_l3c_e1_0p89>;
-+	vdda-pll-supply = <&vreg_l2c_e1_1p14>;
-+};
-+
- &pcie3b_port0 {
- 	reset-gpios = <&tlmm 155 GPIO_ACTIVE_LOW>;
- 	wake-gpios = <&tlmm 157 GPIO_ACTIVE_LOW>;
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 9ea297588d07..87530c233050 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -757,8 +757,8 @@ gcc: clock-controller@100000 {
- 				 <0>,				/* USB 2 Phy PCIE PIPEGMUX */
- 				 <0>,				/* USB 2 Phy PIPEGMUX */
- 				 <0>,				/* USB 2 Phy SYS PCIE PIPEGMUX */
--				 <0>,				/* PCIe 3a */
--				 <0>,				/* PCIe 3b */
-+				 <&pcie3_phy 0>,		/* PCIe 3a pipe */
-+				 <&pcie3_phy 1>,		/* PCIe 3b pipe */
- 				 <&pcie4_phy>,			/* PCIe 4 */
- 				 <&pcie5_phy>,			/* PCIe 5 */
- 				 <&pcie6_phy>,			/* PCIe 6 */
-@@ -2285,6 +2285,59 @@ &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
- 			};
- 		};
- 
-+		pcie3_phy: phy@f00000 {
-+			compatible = "qcom,glymur-qmp-gen5x8-pcie-phy";
-+			reg = <0x0 0x00f00000 0x0 0x10000>,
-+			      <0x0 0x00f10000 0x0 0x10000>;
-+
-+			clocks = <&gcc GCC_PCIE_PHY_3A_AUX_CLK>,
-+				 <&gcc GCC_PCIE_3A_CFG_AHB_CLK>,
-+				 <&tcsr TCSR_PCIE_3_CLKREF_EN>,
-+				 <&gcc GCC_PCIE_3A_PHY_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE_3A_PIPE_CLK>,
-+				 <&gcc GCC_PCIE_PHY_3B_AUX_CLK>,
-+				 <&gcc GCC_PCIE_3B_CFG_AHB_CLK>,
-+				 <&gcc GCC_PCIE_3B_PHY_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE_3B_PIPE_CLK>,
-+				 <&gcc GCC_PCIE_3B_PIPE_DIV2_CLK>;
-+			clock-names = "aux",
-+				      "cfg_ahb",
-+				      "ref",
-+				      "rchng",
-+				      "pipe",
-+				      "phy_b_aux",
-+				      "cfg_ahb_b",
-+				      "rchng_b",
-+				      "pipe_b",
-+				      "pipediv2_b";
-+
-+			resets = <&gcc GCC_PCIE_3A_PHY_BCR>,
-+				 <&gcc GCC_PCIE_3A_NOCSR_COM_PHY_BCR>,
-+				 <&gcc GCC_PCIE_3B_PHY_BCR>,
-+				 <&gcc GCC_PCIE_3B_NOCSR_COM_PHY_BCR>;
-+			reset-names = "phy",
-+				      "phy_nocsr",
-+				      "phy_b",
-+				      "phy_b_nocsr";
-+
-+			assigned-clocks = <&gcc GCC_PCIE_3A_PHY_RCHNG_CLK>,
-+					  <&gcc GCC_PCIE_3B_PHY_RCHNG_CLK>;
-+			assigned-clock-rates = <100000000>, <100000000>;
-+
-+			power-domains = <&gcc GCC_PCIE_3A_PHY_GDSC>,
-+					<&gcc GCC_PCIE_3B_PHY_GDSC>;
-+
-+			qcom,link-mode = <&tcsr 0x5000 QMP_PCIE_GLYMUR_MODE_X4X4>;
-+
-+			#clock-cells = <1>;
-+			clock-output-names = "pcie3a_pipe_clk",
-+					     "pcie3b_pipe_clk";
-+
-+			#phy-cells = <1>;
-+
-+			status = "disabled";
-+		};
-+
- 		usb_hs_phy: phy@fa0000 {
- 			compatible = "qcom,glymur-m31-eusb2-phy",
- 				     "qcom,sm8750-m31-eusb2-phy";
-@@ -3647,6 +3700,282 @@ pcie3b_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie3_phy 1>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
-+
-+		pcie3a: pci@1c10000 {
-+			device_type = "pci";
-+			compatible = "qcom,glymur-pcie", "qcom,pcie-x1e80100";
-+			reg = <0x0 0x01c10000 0x0 0x3000>,
-+			      <0x0 0x70000000 0x0 0xf20>,
-+			      <0x0 0x70000f40 0x0 0xa8>,
-+			      <0x0 0x70001000 0x0 0x4000>,
-+			      <0x0 0x70100000 0x0 0x100000>,
-+			      <0x0 0x01c13000 0x0 0x1000>;
-+			reg-names = "parf",
-+				    "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "config",
-+				    "mhi";
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			ranges = <0x01000000 0x0 0x00000000 0x0 0x70200000 0x0 0x100000>,
-+				 <0x02000000 0x0 0x70000000 0x0 0x70300000 0x0 0x3d00000>,
-+				 <0x03000000 0x7 0x00000000 0x7 0x00000000 0x0 0x40000000>,
-+				 <0x43000000 0x70 0x00000000 0x70 0x00000000 0x10 0x00000000>;
-+
-+			bus-range = <0 0xff>;
-+
-+			dma-coherent;
-+
-+			linux,pci-domain = <3>;
-+			num-lanes = <8>;
-+
-+			operating-points-v2 = <&pcie3a_opp_table>;
-+
-+			msi-map = <0x0 &gic_its 0xb0000 0x10000>;
-+			iommu-map = <0x0 &pcie_smmu 0x30000 0x10000>;
-+
-+			interrupts = <GIC_SPI 948 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 949 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 844 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 845 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 846 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 847 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 942 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc 0 0 0 848 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &intc 0 0 0 849 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &intc 0 0 0 850 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &intc 0 0 0 851 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			clocks = <&gcc GCC_PCIE_3A_AUX_CLK>,
-+				 <&gcc GCC_PCIE_3A_CFG_AHB_CLK>,
-+				 <&gcc GCC_PCIE_3A_MSTR_AXI_CLK>,
-+				 <&gcc GCC_PCIE_3A_SLV_AXI_CLK>,
-+				 <&gcc GCC_PCIE_3A_SLV_Q2A_AXI_CLK>,
-+				 <&gcc GCC_AGGRE_NOC_PCIE_3A_WEST_SF_AXI_CLK>;
-+			clock-names = "aux",
-+				      "cfg",
-+				      "bus_master",
-+				      "bus_slave",
-+				      "slave_q2a",
-+				      "noc_aggr";
-+
-+			assigned-clocks = <&gcc GCC_PCIE_3A_AUX_CLK>;
-+			assigned-clock-rates = <19200000>;
-+
-+			interconnects = <&pcie_west_anoc MASTER_PCIE_3A QCOM_ICC_TAG_ALWAYS
-+					&mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+					<&hsc_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+					&pcie_west_slv_noc SLAVE_PCIE_3A QCOM_ICC_TAG_ALWAYS>;
-+			interconnect-names = "pcie-mem",
-+					     "cpu-pcie";
-+
-+			resets = <&gcc GCC_PCIE_3A_BCR>,
-+				 <&gcc GCC_PCIE_3A_LINK_DOWN_BCR>;
-+			reset-names = "pci",
-+				      "link_down";
-+
-+			power-domains = <&gcc GCC_PCIE_3A_GDSC>;
-+
-+			eq-presets-8gts = /bits/ 16 <0x5555 0x5555 0x5555 0x5555
-+						     0x5555 0x5555 0x5555 0x5555>;
-+			eq-presets-16gts = /bits/ 8 <0x55 0x55 0x55 0x55 0x55 0x55 0x55 0x55>;
-+			eq-presets-32gts = /bits/ 8 <0x55 0x55 0x55 0x55 0x55 0x55 0x55 0x55>;
-+
-+			status = "disabled";
-+
-+			pcie3a_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				/* GEN 1 x1 */
-+				opp-2500000-1 {
-+					opp-hz = /bits/ 64 <2500000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <250000 1>;
-+					opp-level = <1>;
-+				};
-+
-+				/* GEN 1 x2 */
-+				opp-5000000-1 {
-+					opp-hz = /bits/ 64 <5000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <500000 1>;
-+					opp-level = <1>;
-+				};
-+
-+				/* GEN 1 x4 */
-+				opp-10000000-1 {
-+					opp-hz = /bits/ 64 <10000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <1000000 1>;
-+					opp-level = <1>;
-+				};
-+
-+				/* GEN 1 x8 */
-+				opp-20000000-1 {
-+					opp-hz = /bits/ 64 <20000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <2000000 1>;
-+					opp-level = <1>;
-+				};
-+
-+				/* GEN 2 x1 */
-+				opp-5000000-2 {
-+					opp-hz = /bits/ 64 <5000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <500000 1>;
-+					opp-level = <2>;
-+				};
-+
-+				/* GEN 2 x2 */
-+				opp-10000000-2 {
-+					opp-hz = /bits/ 64 <10000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <1000000 1>;
-+					opp-level = <2>;
-+				};
-+
-+				/* GEN 2 x4 */
-+				opp-20000000-2 {
-+					opp-hz = /bits/ 64 <20000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <2000000 1>;
-+					opp-level = <2>;
-+				};
-+
-+				/* GEN 2 x8 */
-+				opp-40000000-2 {
-+					opp-hz = /bits/ 64 <40000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <4000000 1>;
-+					opp-level = <2>;
-+				};
-+
-+				/* GEN 3 x1 */
-+				opp-8000000-3 {
-+					opp-hz = /bits/ 64 <8000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <984500 1>;
-+					opp-level = <3>;
-+				};
-+
-+				/* GEN 3 x2 */
-+				opp-16000000-3 {
-+					opp-hz = /bits/ 64 <16000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <1969000 1>;
-+					opp-level = <3>;
-+				};
-+
-+				/* GEN 3 x4 */
-+				opp-32000000-3 {
-+					opp-hz = /bits/ 64 <32000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <3938000 1>;
-+					opp-level = <3>;
-+				};
-+
-+				/* GEN 3 x8 */
-+				opp-64000000-3 {
-+					opp-hz = /bits/ 64 <64000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+					opp-peak-kBps = <7876000 1>;
-+					opp-level = <3>;
-+				};
-+
-+				/* GEN 4 x1 */
-+				opp-16000000-4 {
-+					opp-hz = /bits/ 64 <16000000>;
-+					required-opps = <&rpmhpd_opp_svs>;
-+					opp-peak-kBps = <1969000 1>;
-+					opp-level = <4>;
-+				};
-+
-+				/* GEN 4 x2 */
-+				opp-32000000-4 {
-+					opp-hz = /bits/ 64 <32000000>;
-+					required-opps = <&rpmhpd_opp_svs>;
-+					opp-peak-kBps = <3938000 1>;
-+					opp-level = <4>;
-+				};
-+
-+				/* GEN 4 x4 */
-+				opp-64000000-4 {
-+					opp-hz = /bits/ 64 <64000000>;
-+					required-opps = <&rpmhpd_opp_svs>;
-+					opp-peak-kBps = <7876000 1>;
-+					opp-level = <4>;
-+				};
-+
-+				/* GEN 4 x8 */
-+				opp-128000000-4 {
-+					opp-hz = /bits/ 64 <128000000>;
-+					required-opps = <&rpmhpd_opp_svs>;
-+					opp-peak-kBps = <15753000 1>;
-+					opp-level = <4>;
-+				};
-+
-+				/* GEN 5 x1 */
-+				opp-32000000-5 {
-+					opp-hz = /bits/ 64 <32000000>;
-+					required-opps = <&rpmhpd_opp_nom>;
-+					opp-peak-kBps = <3938000 1>;
-+					opp-level = <5>;
-+				};
-+
-+				/* GEN 5 x2 */
-+				opp-64000000-5 {
-+					opp-hz = /bits/ 64 <64000000>;
-+					required-opps = <&rpmhpd_opp_nom>;
-+					opp-peak-kBps = <7876000 1>;
-+					opp-level = <5>;
-+				};
-+
-+				/* GEN 5 x4 */
-+				opp-128000000-5 {
-+					opp-hz = /bits/ 64 <128000000>;
-+					required-opps = <&rpmhpd_opp_nom>;
-+					opp-peak-kBps = <15753000 1>;
-+					opp-level = <5>;
-+				};
-+
-+				/* GEN 5 x8 */
-+				opp-256000000-5 {
-+					opp-hz = /bits/ 64 <256000000>;
-+					required-opps = <&rpmhpd_opp_nom>;
-+					opp-peak-kBps = <31506000 1>;
-+					opp-level = <5>;
-+				};
-+			};
-+
-+			pcie3a_port0: pcie@0 {
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie3_phy 0>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
+  - No PANEL_START register: panel output begins when
+    PANEL_CONFIG.RUNNING is set; the DC8200 multi-display sync start
+    register at 0x1CCC does not exist.
+
+  - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
+    0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TOP_IRQ_EN at
+    0x0014.
+
+  - Simpler clock topology: two clocks ("core" bus gate and "pix0" pixel
+    divider); no axi or ahb clocks required.
+
+  - Single display output: no per-output indexing beyond index 0 is
+    needed.
+
+  - Hardware-discoverable identity: the DCU Lite exposes chip identity
+    registers whose model field reads 0x0 (revision 0x5560,
+    customer_id 0x305), allowing the existing vs_fill_chip_identity()
+    path to identify the variant purely through register reads.  No
+    separate OF compatible string is introduced.
+
+Patch 1 generalises the verisilicon,dc DT binding to accommodate
+variants with flexible clock/reset counts and a single output, using
+allOf/if-then-else to keep per-variant constraints in-schema.
+
+Patches 2-4 introduce the driver changes in three logical steps:
+register-level constants and the DCU Lite chip identity table entry;
+the vs_dc_funcs hardware ops table with DC8200 ops extracted into
+vs_dc8200.c; and finally the DCU Lite ops in vs_dcu_lite.c with the
+necessary Kconfig and clock-optionality changes.
+
+All patches have been tested on Nuvoton MA35D1 hardware.
+
+Changes from v1:
+  - Corrected "DC8000" to "DC8200" throughout (the existing supported
+    IP is DC8200, not DC8000).
+  - Dropped the separate nuvoton,ma35d1-dcu.yaml; variant constraints
+    are now expressed inline in verisilicon,dc.yaml via allOf/if-then-else.
+    The MA35D1 uses the generic "verisilicon,dc" compatible string.
+  - Replaced the vs_dc_info platform-data flags approach with a
+    vs_dc_funcs hardware ops table, giving cleaner per-variant dispatch
+    without scattering if/else branches across multiple files.
+  - DCU Lite variant is identified through hardware registers rather than
+    the OF match table.
+  - Series split from 2 patches to 4 for clearer logical progression.
+  - Renamed plane ops in vs_dc_funcs: plane_enable/disable to
+    plane_enable_ex/disable_ex, plane_update_ext to plane_update_ex.
+
+Joey Lu (4):
+  dt-bindings: display: verisilicon,dc: generalize for  single-output
+    variants
+  drm/verisilicon: add model ID constants and DCU Lite chip identity
+  drm/verisilicon: introduce per-variant hardware ops table
+  drm/verisilicon: add Nuvoton MA35D1 DCU Lite display controller
+    support
+
+ .../bindings/display/verisilicon,dc.yaml      | 135 ++++++++++++++----
+ drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+ drivers/gpu/drm/verisilicon/Makefile          |   2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +--
+ drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 ++++-
+ drivers/gpu/drm/verisilicon/vs_crtc_regs.h    |   1 +
+ drivers/gpu/drm/verisilicon/vs_dc.c           |  13 +-
+ drivers/gpu/drm/verisilicon/vs_dc.h           |  33 +++++
+ drivers/gpu/drm/verisilicon/vs_dc8200.c       | 107 ++++++++++++++
+ drivers/gpu/drm/verisilicon/vs_dcu_lite.c     |  78 ++++++++++
+ drivers/gpu/drm/verisilicon/vs_hwdb.c         |  16 ++-
+ drivers/gpu/drm/verisilicon/vs_hwdb.h         |   3 +
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +----
+ .../drm/verisilicon/vs_primary_plane_regs.h   |   3 +
+ 14 files changed, 398 insertions(+), 85 deletions(-)
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dcu_lite.c
 
 -- 
-2.34.1
+2.43.0
 
