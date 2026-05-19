@@ -1,152 +1,141 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6551238B125
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3732637CD5C
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 06:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171883; cv=none; b=rLU/N4yn62xpbKf8x8N2sNz+mYXMc5aKjSJJU5fMFw87wj5fNZ4um9Gv1/CWdSh1Yq1aDvNYj1FXx+alx3e2rt4d+EBj5SiHL1wXhkm0VLp0qc+jFMc91FHq+9liefsNXt24fglewIvQkvfqdZJIqDjsnnq3PQA3Qf2nRm8jk0A=
+	t=1779171909; cv=none; b=ic1trhVzrbEwlT8+wV6NXQ39JSQF1uxaxDl0M6lm5aApfv2sLtQ2a2GdzoNefskmhfs1RymIZH4BATdgTVAvu0HCZHW28Ib/Yf0riPbzkIkRAy9/LPNwG7ihgQM/fQLcCVCyZph4dLUALp3B9uZl4f5rjOOrrDN1nLqXN1Hu06U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779171883; c=relaxed/simple;
-	bh=ETi7lwNArEN5RcmsW98Yn9KiVogT7wbUsiY5AWvxxY0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CXFYLfpPL8TeWVj9s7oF5LpPpc1aCB05RLqdSqnBXSlJen8L3lSgGtQq1VlbYdqze734GIord6Hm3gNYUqjlxqbhFjagsCXUMskj7AWOMFUHZZ1jHbJFDzpAkA7jgWNWoljl9TKOEayJf77TlGDCzRozHfgQNa/OBGUnBxF/lm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fd6D9Xxo; arc=none smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779171909; c=relaxed/simple;
+	bh=Iz3yYT7+05lk/diU2ygXiNeRiCLFV7qv26avU8tyxcI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GGdL1Myubm0V88CzbHr2AI2NHnOT20e6Oa5/1HpoD+W+8FaeygvqdiFIKbuD/pxMeQe0HExDe74FZNImLzNcosKW9wTqT6Qty+C4uerNUI+xfTPTDt2g63pY4nfqR9DdOSsIfi/fVrNxmERlPG+UDHdg54m/DIELzcchrIUL4go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s73cesPc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fd6D9Xxo"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3939d2bd7ecso25037991fa.0
-        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 23:24:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779171879; x=1779776679; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xfehn+9PkhGKFVZuq9YJWpl/FHglNOxtCRjIV6IYwkY=;
-        b=fd6D9XxoencoRpTa13HKfDogDPwSX/ivrNv/ZDdFDQeVGRcvoVUoNfUjw322R4zzSC
-         m9hGE45xxaF/CGRhJGS+IxKbESma80/5MbM4NW7Nm4Krbc9vBrrMryvYj5LFQ/fIEOI8
-         8kE+LhmQtw5wBQu1qAA/LJijNKlTJc+7KnslQigKPAhkCfk+YKfPz80aieKrljHiaFoO
-         Cwovu5bD8AUj4qDV+l/E2JomKnl43Fj5WFg/ULZ1PP236Q8vCDlvESQGRmttQptATszr
-         KVTlKNUNMceZd1eHzcFKYi6U3Vy7p5tUUspnC9b8Rd0rDtHmsOcTxe2wILgUXEncszKg
-         3QVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779171879; x=1779776679;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xfehn+9PkhGKFVZuq9YJWpl/FHglNOxtCRjIV6IYwkY=;
-        b=UYru4GDxYbJuBgobkDF23cX43ugU5E0f/hSULwQOd3dkPXYd10DM+YEiHofn9R+Rk7
-         EiclHTY0YycYbq2oumh/m49o+NCEy++f7Wj2QGA8RaHkfc/Zpj/qWuhM962Oy6KVXdAD
-         baqAjXUisk5LRPEPgUiaa68Qqe/Mk0ilmOh9vF5x9oD6vA+rp7ApRQG2RGD4g9J+v4bs
-         lCfrJg3vvqIs/6pC238L9IKrHkh6/fpCLWnog+abqfoKn9Y1NPqKO44D3pAQgdqQRk2O
-         8ZM3XHc2LgAHaNvGvDaE9L8fF1o3GK6WFjsik050BTOtovxfkpg65koqbeyw4p0aSPni
-         Te/g==
-X-Forwarded-Encrypted: i=1; AFNElJ93JzAs7Vim4793dCZWPlFY1Cc5eVAYNf/2mABX/qbM+ASOPiJLY6JJat900htvmhJPjbND81ThKFnC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxoY4RhKvvUA1uvJgzI5vnP3R/Eko1F0/TDvvF+2THt7+wqbpS
-	5+Ok1hnwGbPokXd1iijL8Xk0Hm+IqFsztvz27l0d/+IzjrRr3r4ZtYDE
-X-Gm-Gg: Acq92OGV8Gjn1UmDV+jJDlnVNSV46/kt+Ak0rUjU+hcTCPlWXXy+NMcRXJm2QEDS52r
-	gju9guvZWScSj9jsdgxBPEOyeqSEQ2ki5o4d+MxIOAejV+fOv695/8tAdBMeDy7T9m5dFTCh7CG
-	ckRuG01LrNmmIX8X4wyOfLERvBsLSMppD/td9BUF5rCWE9abyn4PSoHJq3eAWCMiOuvjCe6De33
-	Tc4xz2Vo21rtoQu1sTMvefJksT8z94ds7IqaSjlof63xibyjfOJPHZhO1ADzKTKz9tN5qL9cQuM
-	cJCN5JOea6+n6b3Q6uCIAOw6FRffzmQeoLKBC7IB77CuZ5fkFZpx447rb+Am20qYxGoPQFMw9AQ
-	siU+eix69CKQBvFdYA6s612k9RlU6pK/iA/d1afFpDCvGyQwxvQLNd68j8r9aBzb0NjZAaXnTRO
-	tzSsKjYmYA99VwJxIkbC+oR3NaYuMwqwDJq5xN2TFdRuki/daPWZvJwY17dXKIlk9xFi1N487q2
-	OiZ6Q6tK99RTDp8bWA=
-X-Received: by 2002:a2e:8e70:0:b0:38e:9b7e:edd7 with SMTP id 38308e7fff4ca-3945b6098f7mr35935391fa.17.1779171879360;
-        Mon, 18 May 2026 23:24:39 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395887df055sm17666761fa.39.2026.05.18.23.24.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 May 2026 23:24:38 -0700 (PDT)
-Message-ID: <16cf96a8-f559-4f2d-a50c-1c6a14ddf63c@gmail.com>
-Date: Tue, 19 May 2026 09:24:37 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s73cesPc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85D53C2BCB3;
+	Tue, 19 May 2026 06:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779171908;
+	bh=Iz3yYT7+05lk/diU2ygXiNeRiCLFV7qv26avU8tyxcI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=s73cesPcjrS34WSKUlrgs/+kT67zbqq6ruhr2oBB1cNT540iIo2wmW3a+7vBsawUJ
+	 ZrKv5azQEHGdoMufCj6y1PIlYzsaOJ2d4Z1q1xuAk19qZ5TcNJEhubvF3en9gcgVnY
+	 LKKPCeWZcV6lMBPV5aO7412b73dw6RBn8K+H8LE1Lasvbh6wGobIATYdcuwFBqfs75
+	 pPISbUI8UElQg4jGGIOtyHq3Nx5TE7+2qysnGa9sYOrJ4QCnj7aPUc/56gReQoKBMa
+	 PhZPi+S2kO/M1XU/1Sr5NEqvilphk4+oBSYSZDMyIV0KUP2FdwP8DThDu9SNINOSJ3
+	 b3enccdb69arQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] drm/verisilicon: add model ID constants and DCU
+ Lite chip identity
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260519055114.1886525-3-a0987203069@gmail.com>
+References: <20260519055114.1886525-3-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 06:25:08 +0000
+Message-Id: <20260519062508.85D53C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] iio: light: veml6030: fix channel type when
- pushing events
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
- <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
- <9bb6db05-43c7-4bdf-88b0-b92525ad5cc9@gmail.com>
- <2a0c777d-05ef-4721-b8ed-88297630ea94@baylibre.com>
- <20260518162255.107faee8@jic23-huawei>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20260518162255.107faee8@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 18/05/2026 18:22, Jonathan Cameron wrote:
-> On Mon, 18 May 2026 09:48:39 -0500
-> David Lechner <dlechner@baylibre.com> wrote:
-> 
->> On 5/18/26 8:12 AM, Matti Vaittinen wrote:
->>> On 13/05/2026 07:49, Javier Carrasco wrote:
->>>> The events are registered for IIO_LIGHT and not for IIO_INTENSITY.
->>>> Use the correct channel type.
->>>> This bug was introduced in the first version of the driver.
->>>>
->>>> When at it, fix minor checkpatch code style warning (alignment).
->>>>
->>>> Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
->>>> ---
->>>>    drivers/iio/light/veml6030.c | 8 +++++---
->>>>    1 file changed, 5 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/drivers/iio/light/veml6030.c b/drivers/iio/light/veml6030.c
->>>> index 745cf3ad7092..855f052b60c2 100644
->>>> --- a/drivers/iio/light/veml6030.c
->>>> +++ b/drivers/iio/light/veml6030.c
->>>> @@ -871,9 +871,11 @@ static irqreturn_t veml6030_event_handler(int irq, void *private)
->>>>        else
->>>>            evtdir = IIO_EV_DIR_FALLING;
->>>>    -    iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_INTENSITY,
->>>> -                    0, IIO_EV_TYPE_THRESH, evtdir),
->>>> -                    iio_get_time_ns(indio_dev));
->>>> +    iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
->>>> +                               0,
->>>> +                               IIO_EV_TYPE_THRESH,
->>>> +                               evtdir),
->>>> +            iio_get_time_ns(indio_dev));
->>>>          return IRQ_HANDLED;
->>>>    }
->>>>   
->>>
->>> Is this change reflected to the user-space? If so, is it safe? We shouldn't break the ABI, right?
->>
->> On things like this, we will sometime risk breaking userspace in hopes
->> that no one was actually depending on it. If no one notices that we
->> broke it, did we really break it?
-> 
-> If it's a bug we often just break ABI compatibility anyway.  If we get a report
-> we'll make it spit out both events (and someone doesn't handle an extra one
-> we point them at the docs - that hopefully exist ;) - that say you must handle
-> ones you don't expect).
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Specific chip identities in the `vs_chip_identities[]` array are p=
+ermanently shadowed by an earlier wildcard entry, making them unreachable.
+- [High] Missing error checks on `regmap_read()` cause uninitialized stack =
+variables to be used in hardware matching.
+--
 
-Well, you guys are the ones being grilled if the brown thing hits the 
-fan. ;) So, if you're willing to take the risk, then I am not complaining :)
+commit d87a3d0928c8de1f7d370f6130d55b01b2660eb9
+Author: Joey Lu <a0987203069@gmail.com>
 
-Yours,
-	-- Matti
+drm/verisilicon: add model ID constants and DCU Lite chip identity
 
--- 
----
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+This commit introduces symbolic constants for model IDs to replace magic
+numbers and adds the DCU Lite chip identity to vs_chip_identities[]. It also
+adds register-level macros for forthcoming DCU Lite support.
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/veri=
+silicon/vs_hwdb.c
+> index 09336af0900ae..a25c4b16181d6 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> @@ -90,7 +90,7 @@ static const struct vs_formats vs_formats_with_yuv444 =
+=3D {
+> =20
+>  static struct vs_chip_identity vs_chip_identities[] =3D {
+>  	{
+> -		.model =3D 0x8200,
+> +		.model =3D VSDC_MODEL_DC8200,
+>  		.revision =3D 0x5720,
+>  		.customer_id =3D ~0U,
+
+This isn't a bug introduced by this patch, but does this first entry with
+.customer_id =3D ~0U permanently shadow the later entries for the same model
+and revision?
+
+The loop in vs_fill_chip_identity() evaluates these sequentially and returns
+on the first match. Since ~0U acts as a wildcard, it appears the later
+specific entries for revision 0x5720 (like customer 0x310 which enables
+YUV444) will never be reached.
+
+[ ... ]
+
+> @@ -114,13 +114,21 @@ static struct vs_chip_identity vs_chip_identities[]=
+ =3D {
+>  		.formats =3D &vs_formats_with_yuv444,
+>  	},
+>  	{
+> -		.model =3D 0x8200,
+> +		.model =3D VSDC_MODEL_DC8200,
+>  		.revision =3D 0x5720,
+>  		.customer_id =3D 0x311,
+> =20
+>  		.display_count =3D 2,
+>  		.formats =3D &vs_formats_no_yuv444,
+>  	},
+> +	{
+> +		.model =3D VSDC_MODEL_DCU_LITE,
+> +		.revision =3D 0x5560,
+> +		.customer_id =3D 0x305,
+> +
+> +		.display_count =3D 1,
+> +		.formats =3D &vs_formats_no_yuv444,
+> +	},
+>  };
+> =20
+>  int vs_fill_chip_identity(struct regmap *regs,
+>  			  struct vs_chip_identity *ident)
+
+Also not introduced by this patch, but looking at the rest of
+vs_fill_chip_identity() just below this array, do we need to check the retu=
+rn
+values of the regmap_read() calls?
+
+It looks like the model, revision, and customer_id variables are declared on
+the stack without initialization:
+
+    u32 model;
+    u32 revision;
+    u32 customer_id;
+
+    regmap_read(regs, VSDC_TOP_CHIP_MODEL, &model);
+    regmap_read(regs, VSDC_TOP_CHIP_REV, &revision);
+    regmap_read(regs, VSDC_TOP_CHIP_CUSTOMER_ID, &customer_id);
+
+If regmap_read() fails (e.g., due to an unclocked device or hardware
+timeout), it would leave these variables uninitialized.
+
+Could this lead to undefined behavior when they are evaluated in the
+vs_chip_identities loop condition, potentially matching a random hardware
+profile?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519055114.1886=
+525-1-a0987203069@gmail.com?part=3D2
