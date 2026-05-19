@@ -1,288 +1,270 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011020.outbound.protection.outlook.com [52.101.70.20])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC41332637;
-	Tue, 19 May 2026 02:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4301E33260B
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779159390; cv=fail; b=fI5yIzcCtxIo60+OmWDWPzww+im6JeuRZtd1S/MvYv5+j1I9iQlW5EcPR+Jutk3ngBsQJ8LmK1FKoixFa2OooMonEcjLG04M6En7KvU8gsrprinbhSEyRyeBRQNtUTa/ch04H1LcDbQumB6lHKfNjENc16F9phPdHY5EnrTtjLE=
+	t=1779159531; cv=pass; b=ZDSMYWbNe0dJhdnehuqjgMWsx7XCG5SlPX2PtYodWuNDgR/gz9IX8oPQEdX6dVxpOs7XnBhKYYGTGXaAkG0b/IxBWaDyQCdKjsRc5V3h/4PjywbaFVi586Z0EEmwUv9qcJMT/uFOqbV9GaZ1l9z1nzp1NkwhLmD9hFHV2sCk3j0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779159390; c=relaxed/simple;
-	bh=KQkS0frqjZKUIbV5Kzk+4CmnljKwV/YJkEEtXWlf7iQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=F1jTf9ktF7fMHEKpe3wbSV+S0x4A5PTQcW4YBIw1+Gy1dnHyhpj1OoCA9vrDfH6mxILcbx8x4GGVYx++AWUSnXB00d1oTo85eLeDBwvoP09yV2TXqXiOq5okKeZa2/XXtXvrJi6XE4WJSk6y1pzVr/aJZAmMZ3RPHDNAJL32ctM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=HRx7+HU0; arc=fail smtp.client-ip=52.101.70.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1779159531; c=relaxed/simple;
+	bh=tDJJIZdHHeYBMT8QHjP9BeHDpFpK/+ux/cgHMkuzpRY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pHPdh6yv5agnxJNPzbkNOa2LthBaeq+3Vcg+Oz96qeMU2bcfIFgLmi5IdlDPCXhrEgKYfssKayBUm9h/KHmMOeofOgNFT6U7qxaXPBuXwt2g9ME6gzAWWhHwImth+1I3fgu5Z8HfSfIwhkYI7aRq/JWLjv37l8Dq5/4dY6aNunw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MkFVTV1a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G4OsQdlq; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="HRx7+HU0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bzG17UL6KRjj+fnsO0REr+v3hiTJIBVhGoVTBCwNMAJKdPgXJXZMXt0KiMCGEylEjDbVUMAo6jV1LvYviub7ecsagQZ1FZgjHEVO45pyQHuETH4Ly0blhP78XzQrabu8Vz7b3eelVoDepzbyWQ/IG5jE5DWOyo8l/tMF9OnaHjDa4ph55sddK4gENbpEItzacTGMlyk9Vf6UWcD3E0jLIfwj7my0lmptcVIdv0y22jbyZs6/aX6ES5aYAlNaUL616PUZvd4fyFDQTJsp7v/eKyNzlq1HmZQ5qqVY+MGrLlBXzFVzS4vZDrg4gwMV5Amw6EOTiEqihK+ANivB8SSKvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QsID7ws4fVr+aLcNw3M5NI70HA1odCS1dpeAYMn6EKo=;
- b=d3xjpAyDMUw6lKAlbIqh0vI+s4ndz2uen6CI3LbkseXo6UdtTjDdhnhpSnz/FGaPW44IxYVCultUsDLedS6JcGkaIn+iYoBOgsTNnD/Gdede19/eWSHCIZO2rPETdrCo+0AC/hbOqzMnnaOIt7UY54JjfW6IdMcEQYnDzB0mwGWD+BzEiRgFxgSecGdimn9aTNc6e/Bf+x8vCvqF2WkHlgv8Rd8ypV4pd7rxvijCWT+tayLNPXfRfyiQSPcaY9skNw7LVr1qXbr5CydqIZXPkzFzMwu/pPSAYmW3DUjlBI1UESZq/Ofr3H5RHhFFM9bjfVng/S1r9WREape01910Xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QsID7ws4fVr+aLcNw3M5NI70HA1odCS1dpeAYMn6EKo=;
- b=HRx7+HU041RN/8Ca/bx8x8LK0Ro8KgSKf4cfn9JHaoOMf1z0l2+SIz7kT9iQwM5r0ECJVGgnPit/3iWXjv8kNebkagKr8e9wOQeNhLY8zdqOHb/Xk66o6r5WVv95vM+Bg70j/m/Zs/2To1Hsqbjie7gi8zMKiBhbDsZCjSsQKcPVN52rjCJml/0owJBc1SZ+3nb3zUHwIQN++LlHwGpkGBykZlaemAKC3tSAcSrFp6kjgarQHsDjxlo3vy2N4aLStTaWT28bqflct5FxiRc25opk3XSqsJ1EndtdQbenHg/lgAmpJafkBbCX56t7jLQHkqP8/uKb5P2oEOCx1RI/iw==
-Received: from AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
- by GV2PR04MB12213.eurprd04.prod.outlook.com (2603:10a6:150:336::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.13; Tue, 19 May
- 2026 02:56:25 +0000
-Received: from AM9PR04MB8353.eurprd04.prod.outlook.com
- ([fe80::46ae:f774:f04c:a1bc]) by AM9PR04MB8353.eurprd04.prod.outlook.com
- ([fe80::46ae:f774:f04c:a1bc%5]) with mapi id 15.20.9870.023; Tue, 19 May 2026
- 02:56:24 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, Frank Li
-	<frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"festevam@gmail.com" <festevam@gmail.com>, "mturquette@baylibre.com"
-	<mturquette@baylibre.com>, "sboyd@kernel.org" <sboyd@kernel.org>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>
-Subject: RE: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector
- binding
-Thread-Topic: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector
- binding
-Thread-Index: AQHc5zsU/NqCypptskSrs2h09QI2ww==
-Date: Tue, 19 May 2026 02:56:24 +0000
-Message-ID:
- <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
-References: <20260509024846.2094049-1-chancel.liu@nxp.com>
- <20260509024846.2094049-3-chancel.liu@nxp.com>
- <20260515-resourceful-singing-roadrunner-ce25ec@quoll>
- <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
-In-Reply-To: <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM9PR04MB8353:EE_|GV2PR04MB12213:EE_
-x-ms-office365-filtering-correlation-id: 4673c762-e119-4e9a-6229-08deb5523713
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|366016|4143699003|11063799003|38070700021|3023799003|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- 01mQgD10AGm89Rv0pOUqku1YlFLrbFIQFePnoCQf8TS7vM1BcRaB20FRk+gXDSQHxxk/DKMqio25FCQSaY3uQP2ixpNk4T613kqIOWmDQiKFDumRNo3qdmPC9rmJeAhKRxFldU4lG2FkDpGBJPNr/BpdKG4GMMWHQfBOdlARZvlmG7ZhI95UgFTvtaFTMAr1xSL/79E6HJ0PioX2KbvuyulAPZ+HH4ACeeVL0fhfxBMmaIQHmKyPyYtgda13Xdgr5WiBapH2uOVoiCwLwYNMDhA9hYhu1Vj7XeDdHbbLyzk2jL+RMpFWYKuBkNaEHAQ0+coRyU1p7o6NxvRooB5FZLOhWwr1iZ6U4LfI8X03XUpvAWg17ETmhkx6ndTfUfDjCOABqJBXaJjUXnnyf5GOvx5EScBnSAOaS130mRVpMjYBVskvYh7DSzcWJPYEJu8hCryZLIHEdDErspTPwCmQ++tIRCsdxy8nVURKPLssyLRBvsTV8N/SSz5lhGdkx/ldUzIQaCBMLI4cCZKg/sB5jvYUNBzGioQKVh9X6ZUi2SJBx1B9oMM+HIElEDGRULMOYYZOFHCzpndzOGFltndTJEAHs7UHDD/sq2ieqhs421zYQCeCDtNwxu57+6JFwGIp31oJcpqtaL8Pf2mQfVy1/toHB5auH/mahVTI5eSRMrkk9642em0F9ThaW0TMYk/fh4XD9NYQQ63FTbiVEmfqew==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8353.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(366016)(4143699003)(11063799003)(38070700021)(3023799003)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-2022-jp?B?NThqckpDczJxRnQvdmlTNERPT0t1Uko5L0UxZjRPa09VdGQ5anh3dWkz?=
- =?iso-2022-jp?B?VUN5cmVQcm8zUHJzcGhEenI0MWlubzc5SEp2YXZCeE5SQnJhWlk3Qm1E?=
- =?iso-2022-jp?B?VGY5bTUzOXBoMnYwT3VXa08reEpMWjhIbVNnYkhyamRnMHNkUkptN2lu?=
- =?iso-2022-jp?B?QU4zb3BWbUl6akQrTFJJcWZRRG9mY0laeGVWOE13c1dJRGE3dS8xUW5W?=
- =?iso-2022-jp?B?VmN4eEZxbW1GUWsvc2E1YUE3YkhvQzgvV0pGT0pnVFZPQ2VDR1llUlhS?=
- =?iso-2022-jp?B?QS9qMjhJYjJFbnFqM0JxSFk1eTl0VUJzdkhNNzh1QlRMa2hwcGZLWHlK?=
- =?iso-2022-jp?B?ZFJ1V1NMaHFaWENPQXpOcHU4SmsyMXczZ3NvVktLaFNmV2p2UHh1RkRD?=
- =?iso-2022-jp?B?SGZrZXM4aUNGOE5IWEdpa1kySllqZGx5ZFF6Z0lMNHN6OGhCQzhFVWNC?=
- =?iso-2022-jp?B?amNZbDVZeDl1c29JMnBGbHY5Qk5JZEtiSkpkV2FqYTVGV3JIZm1TbExM?=
- =?iso-2022-jp?B?NFlHcXI1MVpGS29vT1ZmNmpJK0ZkNzZJU0RpdHNYTlZQVFA2dHAwZDhu?=
- =?iso-2022-jp?B?U0Vrd1RXSHA0NFZKWVRPeGdXMDdYak9qeDNlUEsxOFBWb0NwU1FqckRX?=
- =?iso-2022-jp?B?NWdjejNmTmljbjZ5NUlzTityR1RERUxLVUgyYTc5cnc1bVBqMTUyUml1?=
- =?iso-2022-jp?B?Y3ZBWC9aR21idHZHNHJpcDNxdVhCZXNmLzEwWHFkK1NrRktrb3d3bkdT?=
- =?iso-2022-jp?B?anBMeDVFRGFJYURXektiZ0FhU2FGZHpzRVJRU00wNlJ1N3lZRzJhV2Nj?=
- =?iso-2022-jp?B?aURwSU1nT0RwTlBKVlpteEkvYzNMSExlM3pQZlRXWG5ZQUNrSGVjSEUz?=
- =?iso-2022-jp?B?WE5SQkdRL1VJeWptY3dqWjMzQm9yZ3cvajh0bGpJVjB1OFVsb1owL2VV?=
- =?iso-2022-jp?B?eEpMUFNiWXp6RFBScE1GZVZLQmhkOWJ4aDNmaWhKa29sZTMzMDFzZUFB?=
- =?iso-2022-jp?B?UDVsakVrZlpuNnExODJ5QkJoQW56bUhvZ2s5UjByTWtyNWNyT3U0R3N6?=
- =?iso-2022-jp?B?TzhFblpFUmdEejNwVFRqc25Ua083NWRucStyejh1UWdpaUJ6V04yNTJP?=
- =?iso-2022-jp?B?d3NrVjVNN2tjQk1xV1hsNkdGcnRYQS9GSGJ1a21RK2hMeFUvd29xdWtx?=
- =?iso-2022-jp?B?cVN0dzZ5bXRhbzZvTk5vRy9JYlBSOE42alROYk5RWWRJdVJFd1pKSUpy?=
- =?iso-2022-jp?B?MkVWdlJpWUtpaXRtL2haVVNHSmNXL1N5bDhLdzlJQnA3eGIyNldCSG5H?=
- =?iso-2022-jp?B?RE9HcnFZRmM4UWszM2E3SUo3WkV5Z0JuNldCVjY4UEhPcnQ3UEdNL3VY?=
- =?iso-2022-jp?B?dTB1VnJzM1RRL3djU1dGVTZ2OFc5NTVCZkhZbjNIVjNJR080b1UwVVRu?=
- =?iso-2022-jp?B?UFRCaDB3L1o3a3pIeDdJL3kwdGhIZjV3ZjByOWU2VDI1cVdzMy9kWFdO?=
- =?iso-2022-jp?B?VlFLc1h4cjJPRmVjQWZ2cVJsRkVKdGsyNk55ZzBuaGRDYUlLV3h6alV2?=
- =?iso-2022-jp?B?ek5QVXd1Tno1a29xakdmT0c1b0dhUWEvTmpCcHl0UzZrSGhSVnU0RGpF?=
- =?iso-2022-jp?B?SllBQ09iT2NNb1BXV09XYmNrVHd0MzJ3SzJTbFFwL2wyQVN0bTBLTXBV?=
- =?iso-2022-jp?B?WUtlR0RTUE1BZWxNNkhjOU5hdW13TS9veHlMRnhvYmRCWEFKbjFkdWVw?=
- =?iso-2022-jp?B?WFR6amIydWYxNkFQSmFjZ2RxVkt5Z0M1TjZrNWZHU1VDYUtJWk1pNGdn?=
- =?iso-2022-jp?B?bVhlaDA3aTNNa1VvODQ1VHpvNWswelBRVnFDQXY4VGZxK25YNXB5OHhH?=
- =?iso-2022-jp?B?cjdQbWxRVEFyYnRWaGhhTG83cU5hc2wyWmFSR0xnTlcvdVNnZmNmcGhZ?=
- =?iso-2022-jp?B?VGROY2NrcGVkNUhoMFRqc0xOdzhycyt2U2lDN2toSnI0Q2FWYmFVQThJ?=
- =?iso-2022-jp?B?U3Y1b3dGY1ZtbGJybUdsTlpWUkRIcWwzY0Vsd0tkR1JINC9iT1QvZTdo?=
- =?iso-2022-jp?B?bExSSVVMU1NqQjVJbC9saDYyMkJUUkMvRW9LakEyWng2WFlHMzhqUWMv?=
- =?iso-2022-jp?B?b242amQ2NDFpNEcxNzc2Y2V1b3dZRSt0dmIvdjJhaktQcHczOFBoQUdL?=
- =?iso-2022-jp?B?VysxekVEaCtGRTFvcHpFNmVCMk1rMnlVcWdYMkdiYmZ5NHJkTkt2V0dG?=
- =?iso-2022-jp?B?eFJaVGZkVzZBMFE0TG8xNFdrZS9ZNzZ3YXJTTE5kVlVzekY4S0JraTR5?=
- =?iso-2022-jp?B?VjJqK0tjZnJxQ3d4b2RFb2RwTVlJbDVsd3RQNEgyeUNnOWRLeER1MW4x?=
- =?iso-2022-jp?B?TGEyWnhXOG04b0tYS1lpMnpuVDFFMUF1UStwWUd3eEdTaFY2cHc5M3Z4?=
- =?iso-2022-jp?B?citHZzVuOEV6VnN6cVhRcDNXZXFLazU2VTJxMDFMaHJpYW1mSzFiOHQ3?=
- =?iso-2022-jp?B?ODkrQ0lP?=
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MkFVTV1a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G4OsQdlq"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64IGLEi42091264
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:58:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7T6HxxfYbMXy8mZgRtMzDKdv8XFY+6b8//+YsG7AGNI=; b=MkFVTV1aG/qrMgwL
+	Wpc+MWIQZOnTDk0Gkz5QvPr4OKJ6KGixXTZa6b03iQCpc6nyaC28hcYJnO3+CwVN
+	gnMmuvdP+VvJJhqzbt2efdDIg5ct1FmARF3m9agxL4vJLblzOiknrL+NlBC0uAZe
+	7hpugVcAneHxjCBhV1xlDy4FXOKYDGA2PF+R2yBvxDrW3Ol/rP5kvEDpppT4VFiT
+	lwZNtm7GDmFqH+uewvaYGuZBm9O8HfmzxbogtheMgUtPYe1zYWCcYZfHRWV7R2+E
+	2Z4+yHaPQSV0fbQEOT7BrWoUXyqNIFqwYyg9yca5hduCbyYP0upFyP2rVIpWtENp
+	HazNoA==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e80rpkcm1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:58:49 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-7bd6f72e5aeso46560087b3.1
+        for <devicetree@vger.kernel.org>; Mon, 18 May 2026 19:58:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779159529; cv=none;
+        d=google.com; s=arc-20240605;
+        b=dPQLOrvtPDx1kFNbPRkTF81WQMWDEltrP0yOlRXh8xZiOJ0dMlIXZ54Hw33lzu7wZE
+         6GxHeZR/hzBfr0A+BNDKt9pUkAD2WMfZ5/e2aN4ZwQkgULvTiltUgI230SmSeRJoCAXE
+         hN+lMdg1TVKJWLdboBdxxOZG0bwOKSFs1dF2jBXA6m1WToeeEXYxGrFnkr/+04B54aH2
+         Kr4s0kHzxzLt6DBMuyjC1RSW0pQVZod2UQzPcAuJx5i28ITpZI0kiA25Aae9cATHoNxl
+         xKksmrohf+8Hh7aGlCZ/ZFKbEEUvAPfHlp+GMA11RQql5X721EdbXYzxjQwQ2lZoj1Ax
+         gOpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7T6HxxfYbMXy8mZgRtMzDKdv8XFY+6b8//+YsG7AGNI=;
+        fh=5N7CabdChxVbHhZBpD1xL7mqPGcU8HP9lziLWBVAPgU=;
+        b=fLVFignDk5wyjYDiXK5OBqRAC/wvBE81Iu1H+GzKxAb5JAC80H1AGr9SdxyquO/Fkr
+         gVhsNJuO0NKFWPa2KjJj8d8BOFQVG7VyKcdsSZZbreMmffhCZDM7GP3RKOS3BtmmH3FZ
+         iU5HKcfQsXtVOUP6bG8KmXeuFpiNjfIA5ETBTwV5i65ONWo4k9JaaV3tXVbY7qYXHTlT
+         vPZp3gBcG6hO2eOm4ApRHs2i6BB6xGbbIyLOT9PjFtemZckwYflUE5/thtQHAjjbxAL3
+         zDeZGCdF6qmLIY2RWS4Y8E19w2YEARQ8mY/wEmEIKS15GmUSAtjFPjOQkqJDd3Tv8lMo
+         zRHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779159529; x=1779764329; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7T6HxxfYbMXy8mZgRtMzDKdv8XFY+6b8//+YsG7AGNI=;
+        b=G4OsQdlqtcinmF12SZqgKMdcbwCRQA8bAH2QfPIUMOw/tKIzG0i6MsohPyHTdt3HyM
+         812Tme4tYjg99pM8YoZk2VBeqm5F3UakiuyqrPm7UcdGFuel05TLA/miiP2qPsDms76E
+         yPbd/T5sHwWZOpobxvmy8qzzYTxuQ6Og25VgBwipmChu19EooRV+OTqAoMLamKdRhmCE
+         CMh5YpIctMRmF5j2L2Jrsw7KCOWwo9nxGx9apClyufTOhChz7POvjfzqlJQfw+BSCzac
+         2kcP5qdRkhCT/WnHp4pSOYDRGpT9d52jK+ZcEzTQJrN5YI7AsXukweiLV7kLfEkXQrJd
+         u8PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779159529; x=1779764329;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=7T6HxxfYbMXy8mZgRtMzDKdv8XFY+6b8//+YsG7AGNI=;
+        b=BIKA5L1RhjHcDdVmYtyZhXbr0m5UEM3bSkSyi6k2aDHqegIalTL0hMZn0k6AEv9703
+         ULdp9F8BEaub8wmnMp2QwBydNEqkq3qzMGoHLOSv0aXP71wt5sraq9H+vu3WDAU4PpXh
+         Ie8gsMLW60nKYbiYsjZh69jKMTXgyjVfSQiQ+90I8oC7b4lYmoz/qhml7pozxrR6QExT
+         koVOiO4PDHcC/LrWWJgRA6bcFX6dQyRoiCf+Jm+N+ePCh34jZ/zFRTZjxH/to2ArFmME
+         2g9eE7/VOTK9YYTKP2MBbf3P+pG7WrqWHjnuj+Z5I32ekn12rcyJangVB9Ht31Sei6Jr
+         1vXA==
+X-Forwarded-Encrypted: i=1; AFNElJ8uzIrwr+mD1PH9PncvieJec32mTaDGBuvANbPNuEdS1lYKXQpAuoNVcHuxj8Zc7AQyZUZbzZPcNye9@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGJFW3iruUWMN4WHEUNmdBBM7+Ae4BHZaTrH3cPkw6Vv1fl0Bt
+	nuKD/+mJkIXkQxNEf/ZwsoiHN1qwSSytwh1FuipcIXC94Y6jQkoH4TNrhgFUfB2OD352pb7Jb4t
+	RVLgNaBAaFGmO8fCD4lqNE4L4C2J7heAEalnbjs7gaIisLCWqRf/OXOyVx+8qCbI59QD5c343+7
+	5b0Ut1tUh+L/Q2+b0+L/0OFd2tgbucu1I8t1P2is8=
+X-Gm-Gg: Acq92OGDyt81S91fvq+5sV5EnML4PJDE+EpSmmdeFE0UZRvpvQr6abfIMHnrVC/8H/C
+	i8xrd8XJmwnObUhzCC/wb/ks7UvRXxTKJ0GidHS1Ioc/kQvfzAKxlFghRLT2QdGyE+bOrpmBFW3
+	gREcyOscBmEIUt9WEE/ScWAagC7L20idsLbMIdmcSlCednGUO2UOvjEIpTee2FgPfgMwXmyv0DN
+	3xLbas=
+X-Received: by 2002:a05:690c:86:b0:7c9:30f5:203e with SMTP id 00721157ae682-7c95d9a0e49mr185757717b3.45.1779159528552;
+        Mon, 18 May 2026 19:58:48 -0700 (PDT)
+X-Received: by 2002:a05:690c:86:b0:7c9:30f5:203e with SMTP id
+ 00721157ae682-7c95d9a0e49mr185757637b3.45.1779159528162; Mon, 18 May 2026
+ 19:58:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8353.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4673c762-e119-4e9a-6229-08deb5523713
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 02:56:24.9107
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: g+LwTJK1bnW40quUZkIWU5mPj6MqFLOcCsdo4sMX4lbX+X6/eSCmxzyUkfZij2CSrFf6WsjWkdl/rH+5HUDeoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB12213
+References: <20260511-linux-next-v3-1-3e22737e71eb@oss.qualcomm.com>
+ <920223a6-4e4a-4ebc-8a1c-c37d0923a470@oss.qualcomm.com> <a79100cd-0e33-4eb6-9452-c4458ea40bc0@oss.qualcomm.com>
+ <b71f7653-78bb-49eb-b4c4-3fa8bca3e705@oss.qualcomm.com>
+In-Reply-To: <b71f7653-78bb-49eb-b4c4-3fa8bca3e705@oss.qualcomm.com>
+From: Qian Zhang <qian.zhang@oss.qualcomm.com>
+Date: Tue, 19 May 2026 10:58:12 +0800
+X-Gm-Features: AVHnY4KBa8D76YJCnG0Vw9p4xe2pQaka3Hy8P5fFd-k18lgxW6Ot2JsNRSos1dY
+Message-ID: <CALC2J1PqdKGozWX-WapCZSkjGZcM_JjOX29HQ8r7ghKyaBXj_A@mail.gmail.com>
+Subject: Re: [PATCH v3] arm64: dts: qcom: arduino-monza: add WLAN enable and
+ rfkill GPIO
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: y99CAXob39cg-RTSJbJlQWnIzxkB07DI
+X-Proofpoint-ORIG-GUID: y99CAXob39cg-RTSJbJlQWnIzxkB07DI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDAyNSBTYWx0ZWRfX2IVJagY+aQM1
+ ZgqshvtIODwWlcneuOOqcQvbyggCopbg9LM9Ep8/TdEJ5XYgBF0PiNKbk7JiLLFgGR5JC+KRVOG
+ sEcmeBUBkNr9aJLPldruVsmCaFycwqY30+aduABRZTy9eEsNSIRI2qyf4+CTV6R/6pdZTfNv6dM
+ 5guYa6lAUXX5nirTGRZPp+WIAaQ8jyofNrHc5ML6fmj8UYZTXlgcGFGxsVVJQ/C/lGd/yMqFAe4
+ 9w4tQHP8pZrL8Ujxl0IIPPA8brag415Aai46bbiPJP6b7vxLUxlKMyOxPoL9eRKPJAVIGPKWINE
+ dduGz6z/9xjxa8VOcUnMUK+9HQGecHsiug059jtLB3nCpbtAYmgGq5dbZBhQNsjF4maM+ZKCSrs
+ RE57it3YSZ760qGUiHzaS9WyBUcM6P5Y4aUKbJR/eZnEKZ8+j7QyyvNQU1prR5cmij6kKyXyC+r
+ UhmNVYSVeai3dx6+YIQ==
+X-Authority-Analysis: v=2.4 cv=ecMNubEH c=1 sm=1 tr=0 ts=6a0bd1e9 cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=PzQuETEFkMCL5wnd60kA:9
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10 a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190025
 
-> >>> +description:
-> >>> +  The NXP I/O connector represents a physically present I/O
-> >>> +connector on the
-> >>> +  base board. It acts as a nexus that exposes a constrained set of
-> >>> +I/O
-> >>> +  resources, such as GPIOs, clocks, PWMs and interrupts, through
-> >>> +fixed
-> >>> +  electrical wiring. All actual hardware providers reside on the bas=
-e
-> board.
-> >>> +  The connector node only defines index-based mappings to those
-> >> providers.
-> >>> +
-> >>> +properties:
-> >>> +  compatible:
-> >>> +    const: fsl,io-connector
-> >>
-> >> Everything is IO. Everything is connector, so your compatible does
-> >> not match requirements from writing bindings.
-> >>
-> >
-> > Yes, this compatible is too generic. I will rename the compatible to
-> > fsl,aud-io-connector.
->=20
-> aud is not much better. Which boards have it? What's the pinout? What's
-> standard? Is it described anywhere? If so, provide reference to spec/docs=
-.
+You're right that GPIO 56 (wlan_en) is consumed by pwrseq-qcom-wcn
+through the wcn6855-pmu node =E2=80=94 apologies for the confusion in my
+earlier reply.
+Let me explain the hardware on this board, because it
+differs slightly from the typical WCN6855 reference design and is the
+source of a problem we're now stuck on.
+
+Hardware
+
+The WLAN module fitted on Monaco-Monza is not a bare WCN6855 =E2=80=94 it
+contains an additional, module-internal PMU (PMCA6850) that gates
+power to the WCN6855 die. So the signal chain is:
+
+SoC TLMM gpio56 (wlan_en) =E2=94=80=E2=94=80=E2=96=BA PMCA6850 EN =E2=94=80=
+=E2=94=80=E2=96=BA WCN6855 rails =E2=94=80=E2=94=80=E2=96=BA PCIe link up
+
+wlan_en is therefore the enable pin of PMCA6850, not of the
+WCN6855 itself. From the host's point of view, asserting wlan_en
+brings the module out of reset; the WCN6855 only becomes visible on
+PCIe after PMCA6850 has finished its own ramp-up.
+
+Initially we reused the qcom,wcn6855-pmu compatible so that
+pwrseq-qcom-wcn would drive wlan_en for us. But we hit a
+resource-allocation issue this hardware behavior creates.
+
+The problem
+
+Because PMCA6850's enable is driven by pwrseq (which runs after the
+PCI host bridge has scanned the bus), WCN6855 only appears on the bus
+ ~10 s after PCIe enumeration has already finished, with no resources
+reserved for it.
+
+Topology =E2=80=94 WCN6855 sits behind a Pericom PI7C9X2G304 switch alongsi=
+de
+  a TI USB controller:
+
+pcie0 RC =E2=94=80=E2=94=80 00:00.0 =E2=94=80=E2=94=80 01:00.0 (switch UP)
+                       =E2=94=9C=E2=94=80=E2=94=80 02:01.0 (DN) =E2=94=80=
+=E2=94=80 03:00.0  WCN6855  (BAR0 =3D 2
+MB, appears late)
+                       =E2=94=94=E2=94=80=E2=94=80 02:02.0 (DN) =E2=94=80=
+=E2=94=80 04:00.0  TUSB7340 (BAR0 =3D
+64K, BAR2 =3D 8K, present at boot)
+
+dmesg (kernel 6.8.0-1071-qcom):
+[    5.545559] qcom-pcie 1c00000.pci: PCIe Gen.2 x1 link up
+[    5.882178] pci 0000:00:00.0: bridge window [mem
+0x40400000-0x404fffff]: assigned
+[    5.912197] pci 0000:02:01.0: PCI bridge to [bus 03]
+[    5.917368] pci 0000:04:00.0: BAR 0 [mem 0x40400000-0x4040ffff
+64bit]: assigned
+[    5.924919] pci 0000:04:00.0: BAR 2 [mem 0x40410000-0x40411fff
+64bit]: assigned
+[   16.476921] pci 0000:03:00.0: [17cb:1103] type 00 class 0x028000
+PCIe Endpoint
+[   16.477176] pci 0000:03:00.0: BAR 0 [mem 0x00000000-0x001fffff 64bit]
+[   16.516689] pcieport 0000:02:01.0: bridge window [mem size
+0x00200000]: can't assign; no space
+[   16.516704] pcieport 0000:02:01.0: bridge window [mem size
+0x00200000]: failed to assign
+[   16.516713] pci 0000:03:00.0: BAR 0 [mem size 0x00200000 64bit]:
+can't assign; no space
+[   16.516720] pci 0000:03:00.0: BAR 0 [mem size 0x00200000 64bit]:
+failed to assign
+[   18.093137] ath11k_pci 0000:03:00.0: Adding to iommu group 24
+[   18.101694] ath11k_pci 0000:03:00.0: BAR 0 [??? 0x00000000 flags
+0x20000000]: can't assign; bogus alignment
+[   18.101724] ath11k_pci 0000:03:00.0: failed to assign pci resource: -22
+[   18.108613] ath11k_pci 0000:03:00.0: failed to claim device: -22
+[   18.115481] ath11k_pci: probe of 0000:03:00.0 failed with error -22
+
+At the initial scan the PCI core sizes the root-port window to 1 MB
+based only on the TI USB endpoint that is currently visible, and
+gives the 02:01.0 downstream port no MMIO window at all. When
+WCN6855 appears later it requires a 2 MB BAR0 and there is nowhere
+to put it.
+
+Thanks,
+Qian
+
+On Fri, May 15, 2026 at 8:22=E2=80=AFPM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
 >
-
-This is not an industry standard electrical interface. This connector
-is present on i.MX95-19x19-EVK and i.MX952-EVK. For example, the
-"i.MX 95 19mm x 19mm Evaluation Kit" homepage[1] publicly documents an
-audio board connection through which IMX-AUD-IO card is connected. The
-detailed user manual (UM12022) is listed as official documentation[2],
-but it is behind an NXP login, so it is not suitable as a public
-reference for upstream. Therefore I list it here to illustrate it's
-mechanism:
-
-+-----------------------------+                     =20
-|        Base Board           |                     =20
-|   +-----+      +---------+  |           +---------+
-|   | SPI +------+         |  |           |         |
-|   +-----+      |         |  | GPIO MAP  |         |
-|                |         +--|-----------+         |
-|   +-----+      |         |  |           |         |
-|   | I2C +------+         |  |           |         |
-|   +-----+      |         |  | CLOCK MAP |  AUD-IO |
-|                |connector+--|-----------+   CARD  |
-|   +-----+      |         |  |           |         |
-|   | I2S +------+         |  |           |         |
-|   +-----+      |         |  |           |         |
-|                |         |  | INT MAP   |         |
-|   +-----+      |         +--|-----------+         |
-|   | I/O +------+         |  |           |         |
-|   +-----+      +---------+  |           +---------+
-+-----------------------------+                     =20
-
-[1]https://www.nxp.com/design/design-center/development-boards-and-designs/=
-IMX95LPD5EVK-19
-[2]https://docs.nxp.com/bundle/UM12022/page/topics/pcie_interface1.html
-
+> On 5/15/26 2:08 PM, Qian Zhang wrote:
 > >
-> >>> +
-> >>> +  gpio-controller: true
-> >>> +
-> >>> +  '#gpio-cells':
-> >>> +    const: 2
-> >>> +
-> >>> +  gpio-map:
-> >>> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> >>
-> >> You do not need to redefine the types. You need constraints, though.
-> >>
 > >
-> > OK. I will add proper constraints.
-> >
-> >>> +
-> >>> +  gpio-map-mask:
-> >>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> >>> +
-> >>> +  gpio-map-pass-thru:
-> >>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> >>> +
-> >>> +  '#clock-cells':
-> >>> +    const: 1
-> >>> +
-> >>> +  clock-map:
-> >>> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> >>> +
-> >>> +  clock-map-mask:
-> >>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> >>> +
-> >>> +  clock-map-pass-thru:
-> >>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > On 5/15/2026 6:51 PM, Konrad Dybcio wrote:
+> >> On 5/11/26 10:48 AM, Qian Zhang via B4 Relay wrote:
+> >>> From: Qian Zhang <qian.zhang@oss.qualcomm.com>
+> >>>
+> >>> The QCNFA765 M.2 PCIe WLAN module requires GPIO56 (wlan_en) to be
 > >>
-> >> I do not see these defined anywhere. I also checked cover letter for
-> >> references for pulls to dtschema.
+> >> But isn't that just the wlan-en pin that the power sequencing driver
+> >> takes?
 > >>
+> >> ref: drivers/power/sequencing/pwrseq-qcom-wcn.c
+> >>
+> >> Konrad
+> > Thanks for the review.
+> > It's not the same pin functionally, though they share the same name. Th=
+ere are two key differences:
 > >
-> > Nexus nodes are already in the device-tree specification=1B$B!'=1B(B
-> > https://github.com/devicetree-org/devicetree-specification/blob/v0.4/so=
-urce/chapter2-devicetree-basics.rst#nexus-nodes-and-specifier-mapping
-> > For reference, current kernel has supported it:
-> > * Nexus OF support:
-> > commit bd6f2fd5a1d5 ("of: Support parsing phandle argument lists
-> > through a nexus node")
-> > * GPIO adoption:
-> > commit c11e6f0f04db ("gpio: Support gpio nexus dt bindings")
-> > * PWM adoption:
-> > commit e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings")
-> > Clock adoption is ongoing:
-> > https://lore.kernel.org/all/20260327-schneider-v7-0-rc1-crypto-v1-10-5e=
-6ff7853994@bootlin.com/
+> >
+> > Different power topology: The pwrseq-qcom-wcn.c driver targets WLAN
+> > hips powered by an on-board PMU via the power sequencing framework. In =
+our case (VENTUNO Q), the WLAN module has its own internal PMU, and wlan_en=
+ controls the power-on/off of that internal PMU =E2=80=94 it is not part of=
+ the board-level power sequencing.
 >
-> DT spec only mentions nexuses, but it is only a spec. Each property from
-> the spec must be defined in dtschema or kernel bindings.
->=20
-> I do not see any dependency mentioned in the cover letter, so how do you
-> think we can figure out where is this definition of clock nexus?
->=20
->=20
-
-I initially tried to add support for clock nexus dt bindings in patch 1,
-but I noticed there is already an ongoing series doing the same thing.
-([PATCH 10/16] clk: Add support for clock nexus dt bindings). Since that
-work is in progress, I think it's better not duplicate it here.
-
-I think we can add a dedicated binding defining the clock nexus
-properties(#clock-cells, clock-map, clock-map-mask, clock-map-pass-thru),
-in reference of existing pwm-nexus-node.yaml.
-
-In the next revision I will also update the cover letter to explicitly
-mention that clock nexus support is ongoing.
-
-> Best regards,
-> Krzysztof
-
-Regards,=20
-Chancel Liu
+> I don't believe what you said about the pwrseq driver is true.
+>
+> > PCIe probe ordering: The WLAN module connects to the PCIe root complex =
+through a PCIe bridge that does not currently support hotplug. If we were t=
+o use a similar node configuration as in pwrseq-qcom-wcn.c, there is no gua=
+rantee that the WLAN module would be powered on before the PCIe root comple=
+x probes, which would cause enumeration failure.
+>
+> What do you mean by "*currently* does not support hotplug"? Does that
+> depend on some more code changes?
+>
+> Konrad
