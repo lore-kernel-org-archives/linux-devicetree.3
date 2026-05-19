@@ -1,259 +1,229 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287FD3E2754
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666CA3E5A2F
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779180158; cv=none; b=V4kN1JjkUI4f/G1WGWzy6ajzOEd5yTPS+ov2awiseS2pn8OpvPdkjFlGcsYD8kY2L4E+uZVhowrccRkC1TWnfQF/XDevoxoqDPfox6qn7T9iGbjUFxHEix6XXneR2Kkn7UtkRP97XSNZ3en3DDfLu3LK4Mvtd+g/QxsjgKRj/XI=
+	t=1779180192; cv=none; b=P+gEuo2rN1emgshWx30AvfMKr0p6wGg9SLPzfpeszj0etbqMelCat6j55sjLewwFWg86aITGhAzvUYSERve0KNTtum6o2o5gMCdAGhU+btssyXMes35kAv+IBeB0/KFy1JOvr5vIoJJumgpIVsZVsSdFuw1ym10lAbNmxDEzlBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779180158; c=relaxed/simple;
-	bh=0m2b/SksJcOAFPjMQPTWeZcO/lplBz+CZOC1BuzElpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BoKI/g8m8r2QclMz4OPhwKs4CxjogY5QGrk6ae0L4DIzWoTFZ07UQCwLZ2XkGJBqiHH4Vb4ghrM7SMLcS5VwD+37Hm1PvRx6hYqndwr/N5BAIebZ9lvzZe6GujZCSYJBImZ+ZNY7j5oQSGikZgP1z5vUl3NnHI3jubnrCZhL8VM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bVfZs8cJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AkFCp6+W; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779180192; c=relaxed/simple;
+	bh=GZByO2VDIprL7smzrTiU2wMTuNMdmVEjQ7Th5ILaSAE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=o1tlODAPz8vXm/NfxS7XamzhMdJ3ARlLlCa/U0KAQg74KHhk1B4R579Z2rJ7mKoOMILvDad1eIS9AlfavJm8IFy24mio5omDgBDBQcjbq8P23IIwGrUxw8skKwAybSPaFj9J7zlnnY/lpcPDq1jO2ZVEonUL+uMRN3ZrO8+jsAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=geOMkfgD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bVfZs8cJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AkFCp6+W"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64J3I8fA2091264
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:42:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Kv7IMgrAnrqVIrZvkc8Dgwy+Yh+GluIWmluC1cHmISQ=; b=bVfZs8cJ8RmdGXrH
-	oph0ED/BLqIJjiY7JtZzhi9yoO5NaW1fmQKhwTIEGIj/htqUK0NwcTuGkkSq1EvW
-	3AlyZB8gtVAQ/mvrTxfnJ/ihQQqFLXqs8LOLd7mSCrFqjd2vNjqRFaTc3V5gZI20
-	q6v3Xy2fh45ceXB0Kwvmj46Q1Bj1Abx1QxT38XqusSDb4i36O3aT5mPaedtw8V5o
-	EgQXpJlkkCZa6Tdn1/bbCuTeGnjT7wGf8ZYuFX2oT03O1uO5LbZdk5r81zO3kBjT
-	t+5dZKypZZV4vvSYEn2PiVd4MPkODdWbsN810czL2CpuzZZMXAvgqouzbKVfkfWd
-	3FHLfQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e80rpmn90-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 08:42:36 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-365fd467cf6so2756495a91.0
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 01:42:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779180155; x=1779784955; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Kv7IMgrAnrqVIrZvkc8Dgwy+Yh+GluIWmluC1cHmISQ=;
-        b=AkFCp6+WMyq5BxbmlFPS9QG5t8kmQjTojS3AA+niYakv37XrzY0ATQxj/TYzxSFIqN
-         vLP+RsbiCpO+y2s64w9jq1265RcusFlUxDzOeCkaK/tQIPANuxC1OTcJRC1f+x3ZrdJS
-         9RgfiUmccjjvV1a9+6EEH1JKPnX+SC30rahcIPjOKQ6HtHSnruQgnnIYRKIEyv4TiafK
-         4pKyZw5rFS557nDzJdTPIqsNGFr6GmOYVdouBjafbkM5azsq6lleWembqOFPt8+sBgwx
-         GO2Qi5hoEDtD164z5kziX19Vx4Fjm2pI2W59jSOVNNr5VtsvDwp81/NAMIwYZKFgSPFP
-         2p9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779180155; x=1779784955;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Kv7IMgrAnrqVIrZvkc8Dgwy+Yh+GluIWmluC1cHmISQ=;
-        b=OIKU9CddjQJWnjyZB0Y+R5Z6THmmkX2NaYa0m37Fyxdvxe+c2XVj1Jmz7vFyTDH3ZE
-         mNlqqdhbXusnJoH1pN/BgBDw5kJZcVwanHGSUvwt/ycSrOtc/QTNNYle2AHN+40EZ7WJ
-         87fhIBb1COMjYluaGGk8wRCiAZg1eIwHiIIzkCNqUvwnaV+4CIoJCV2D7Xdoy1PQk5rz
-         ejAFuDhJmvELTNcQu4BIZM8AGs+Vuyy5Ie5M6j4rOcprLEVr06sfdQNwhUR1m0bMNzpK
-         jExNhzDgu7nEK/JSsn/kLjA+gyFoc9OkABvGsoYF0VQLM3PQPrR18GSTvOFHJwsjsISW
-         dq9A==
-X-Forwarded-Encrypted: i=1; AFNElJ8NQtJgRqmFgOdf1uNCyK8YPAlzJ/CdCKnsERCiJsNFQsCImEq0kAScKExrRsSS5cy3EbcGywBklPiR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSCECHK+gl5nHEsw5gLWRt2YaAzJjKBdtzKWVtwc7MsLmlHCgM
-	reobxHaAy/AoK3VBt/mRYdy9c4+JMYb+gSptR+01VJxRutT6u7TCYKhaMuE1FpCkLE8PG9/miye
-	2zfXakTE52f7sKHV1UDeAV5Vx+dZWCZJdRsaI3f5BcXrnp1GzNglCnfeTv/URPD+X
-X-Gm-Gg: Acq92OHVlknVSFhDO36SD1myQR5EfFfKmmUD8kc4viu4tu4DPyLC6D/XpZ5+I56PGf7
-	G9r7od2z7Ad6RmRzfOC+qpJbvDm8GlrJC4PSNgP5di28/Y6tnFB+2bdbbp4CJFSdoj9UoRirUw4
-	1gSDa5HTtgE5T8Ipeu0Ehxhgj9ppN9SNlVHeNneQWinrPfG/HfxK599NfYycGjLBjujQ8NawbBQ
-	UGh4KmnQxJ4aNHDbmy4OkUWZ/QUqgLOT9DKa1qkDHVkeeamxIe1oY0GdJnc1D3u9MjPs3A2YIJz
-	kviduaJtFmZjIAlwfjK/VOtPSgOusK6+4EP+DCXQUwzJ9dt+QAuctgOXfU7tBqgP4ZMi9L+1AH2
-	3Kz6UGm33uW0Ydjp8OEIaZmMFl1/Whgm1gxwb9fLaBAwblryD
-X-Received: by 2002:a17:90b:3146:b0:367:f76c:4cbb with SMTP id 98e67ed59e1d1-36951b97b5dmr19072849a91.18.1779180154991;
-        Tue, 19 May 2026 01:42:34 -0700 (PDT)
-X-Received: by 2002:a17:90b:3146:b0:367:f76c:4cbb with SMTP id 98e67ed59e1d1-36951b97b5dmr19072809a91.18.1779180154335;
-        Tue, 19 May 2026 01:42:34 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-369c4bb4d4dsm3055289a91.1.2026.05.19.01.42.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2026 01:42:34 -0700 (PDT)
-Date: Tue, 19 May 2026 14:12:27 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 1/4] dt-bindings: firmware: qcom,scm: Add minidump SRAM
- property
-Message-ID: <20260519084227.pfkasblfliqyxqxx@hu-mojha-hyd.qualcomm.com>
-References: <20260507080727.3227367-1-mukesh.ojha@oss.qualcomm.com>
- <20260507080727.3227367-2-mukesh.ojha@oss.qualcomm.com>
- <CAL_JsqJJ9ma2wTwyrV6AmkGULJk7YMU6qm3Guj+jC0t_-hfV+g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="geOMkfgD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81A0C2BCB3;
+	Tue, 19 May 2026 08:43:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779180192;
+	bh=GZByO2VDIprL7smzrTiU2wMTuNMdmVEjQ7Th5ILaSAE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=geOMkfgDuDiAtI941M18j+Pf2UpIZ1j8Zdi5hu/1smSeg57NfbIsLU1v/iRtlE1sR
+	 H1pLsZ1VhUisluD/8yqwOZqd/CR/QacUmB/gafMydNiq8iATvUfkyjYjEwzQfFExus
+	 /s8AjGsR341EEXA4OTyR1ZlcG5JjtLSrFkdOv+kAi/PtBBe6FdkzKo8XP/whOQ8Ce9
+	 Xaw2H4uikOBpzmj7M3kN+mMWdM0L+Ym6fg2MhqmV1dRggH0uZ/vWUPWcexUtIMRMJF
+	 OMShaWhEg1KvKGzMxWSuJEBqwo80/+YAmeZC8ANO+yYGWe3WzhCGAyZtfM3Ioks55t
+	 RHhEGFUDqsIgg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/8] iommu/msm: Look up masters per IOMMU instance
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260519-mainline-send-v1-sending-v3-4-3dd7aa125353@alex-min.fr>
+References: <20260519-mainline-send-v1-sending-v3-4-3dd7aa125353@alex-min.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 May 2026 08:43:05 +0000
+Message-Id: <20260519084305.A81A0C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAL_JsqJJ9ma2wTwyrV6AmkGULJk7YMU6qm3Guj+jC0t_-hfV+g@mail.gmail.com>
-X-Proofpoint-GUID: P07-NsFmUGZKpDR_D8xH3jDwbjDmJbax
-X-Proofpoint-ORIG-GUID: P07-NsFmUGZKpDR_D8xH3jDwbjDmJbax
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDA4NSBTYWx0ZWRfX31Mp+r9Jhkng
- o2/6whbHKbVCceKZfVf/WwdLTzCDmGrAuRl7c7VgyZZ56SXHxSqttRHg9wfRdEYZhlUjWUAYnbh
- fd1CJSxJ56juhw68KJIEqXg4epadpa9a8cEsyluyxkOdp+1wgL/m/FWQdHadN34Ezz30TDn5nNK
- LviNutfEGYboExn/ErWA6YSKDTqNuyjrglSNA1Zv4GTasbJsgJz/HP+rXGBxgQJPsnxLiFmO0Wh
- vZk7B+osCJ1AhelDWv74PjG6V5qN2sJoA9NqRYGGbN6SaDloQPrxoaWQoZaQNIJK5PFQWS96MNz
- ImBXhvcrAwgTSFqyjh+O41mpXzrfwLth1hiCU73TbhefPUUlahnAxVvnXTVrGqVpnq6759Xz0de
- 7Qeg29TGlocdztqDOjUYux7yEXQv5v1lR72iqmQLzG4i2GCpE/VdehETrr5njqPC0T+mt4+jjGH
- 9mOUoDQb5cuI26t/Wlg==
-X-Authority-Analysis: v=2.4 cv=ecMNubEH c=1 sm=1 tr=0 ts=6a0c227c cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=HagyCSpqj1WAloSUK8IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-19_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
- phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605190085
 
-On Fri, May 08, 2026 at 07:07:14AM -0500, Rob Herring wrote:
-> On Thu, May 7, 2026 at 3:07 AM Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> wrote:
-> >
-> > On most Qualcomm SoCs where minidump is supported, a word in always-on
-> > SRAM is shared between the kernel and boot firmware. Before DDR is
-> > initialised on the warm reset following a crash, firmware reads this
-> > word to decide if minidump is enabled and collect a minidump and where
-> >  to deliver it (USB upload to a host, or save to local storage).
-> >
-> > Add 'sram' and 'sram-names' properties to the SCM binding to describe
-> > a region in always-on SRAM where the minidump download destination
-> > value could be written. Boot firmware reads it before DDR is initialised
-> > on a warm reset to decide where to store the minidump either to host
-> > PC or to on device storage.
-> >
-> > Most of the Qualcomm SoC supporting minidump supports this, added the
-> > kaanapali SoC for now.
-> >
-> > Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > ---
-> >  .../bindings/firmware/qcom,scm.yaml           | 57 +++++++++++++++++++
-> >  1 file changed, 57 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-> > index 7918d31f58b4..6813081fd74a 100644
-> > --- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-> > +++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-> > @@ -127,6 +127,22 @@ properties:
-> >            - description: offset of the download mode control register
-> >      description: TCSR hardware block
-> >
-> > +  sram:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> 
-> Drop. This is a common property though we need to create a common definition.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] msm_iommu_attach_dev and detach unconditionally loop over all =
+shared masters, breaking IOMMU isolation, causing attach failures, and corr=
+upting domain lists.
+- [High] msm_iommu_iova_to_phys() performs address translation using the wr=
+ong hardware context bank for shared IOMMUs.
+- [High] Error path in msm_iommu_attach_dev leaks IOMMU clocks.
+- [High] Buffer overflow in insert_iommu_master when writing stream IDs to =
+master->mids array.
+- [High] msm_iommu_probe modifies a global list without acquiring the requi=
+red lock, causing race conditions.
+--
 
-Did you mean to just drop ref for now? And common definition could be followed later or
-create one as part of the series.
+commit a857d6e3a3b0380237f9c6c7b9ba76932246dfa4
+Author: Alexandre MINETTE <contact@alex-min.fr>
 
-> 
-> > +    description:
-> > +      Phandle to a region in always-on SRAM used to store the download
-> > +      mode value for boot firmware to read before DDR is initialised on
-> > +      the next warm reset.
-> > +    maxItems: 1
-> > +
-> > +  sram-names:
-> > +    items:
-> > +      - const: minidump
-> 
-> You don't need -names with 1 entry and sram-names is not a common property.
+iommu/msm: Look up masters per IOMMU instance
 
-Will drop it.
+This commit updates the MSM IOMMU driver to look up context descriptors on
+each IOMMU instance instead of using a global device provider. It introduces
+a helper to search the target IOMMU context list when probing and attaching
+devices. This aims to prevent null pointer dereferences when a device
+references multiple IOMMU provider nodes.
 
-> > +
-> > +dependencies:
-> > +  sram: [ sram-names ]
-> > +  sram-names: [ sram ]
-> > +
-> >  allOf:
-> >    # Clocks
-> >    - if:
-> > @@ -229,6 +245,18 @@ allOf:
-> >        properties:
-> >          memory-region: false
-> >
-> > +  - if:
-> > +      not:
-> > +        properties:
-> > +          compatible:
-> > +            contains:
-> > +              enum:
-> > +                - qcom,scm-kaanapali
-> > +    then:
-> > +      properties:
-> > +        sram: false
-> > +        sram-names: false
-> > +
-> >  required:
-> >    - compatible
-> >
-> > @@ -247,3 +275,32 @@ examples:
-> >              clock-names = "core", "bus", "iface";
-> >          };
-> >      };
-> > +
-> > +  - |
-> > +    /* kaanapali — minidump SRAM */
-> > +    / {
-> > +        #address-cells = <2>;
-> > +        #size-cells = <2>;
-> > +
-> > +        sram@14680000 {
-> > +            compatible = "qcom,kaanapali-imem", "mmio-sram";
-> > +            reg = <0x0 0x14680000 0x0 0x1000>;
-> > +            ranges = <0x0 0x0 0x14680000 0x1000>;
-> > +            no-memory-wc;
-> > +            #address-cells = <1>;
-> > +            #size-cells = <1>;
-> > +
-> > +            minidump_config: minidump-config@1c {
-> > +                reg = <0x1c 0x4>;
-> > +            };
-> > +        };
-> 
-> You don't need providers in examples. Really, don't need a whole other
-> example for 1 added property.
+> diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
+> index 0ad5ff431d5b6..9c03878d0d2cb 100644
+> --- a/drivers/iommu/msm_iommu.c
+> +++ b/drivers/iommu/msm_iommu.c
+> @@ -357,17 +357,25 @@ static int msm_iommu_domain_config(struct msm_priv =
+*priv)
+>  	return 0;
+>  }
+> =20
+> +static struct msm_iommu_ctx_dev *find_iommu_master(struct msm_iommu_dev =
+*iommu,
+> +						   struct device *dev)
+> +{
+> +	struct msm_iommu_ctx_dev *master;
+> +
+> +	list_for_each_entry(master, &iommu->ctx_list, list)
+> +		if (master->of_node =3D=3D dev->of_node)
+> +			return master;
+> +
+> +	return NULL;
+> +}
 
-Sure, will drop it.
+Since this patch allows multiple masters to be added to an IOMMU's ctx_list,
+are there other functions that still assume the list only contains a single
+element?
 
-> 
-> > +
-> > +        firmware {
-> > +            scm {
-> > +                compatible = "qcom,scm-kaanapali", "qcom,scm";
-> > +                sram = <&minidump_config>;
-> > +                sram-names = "minidump";
-> > +                #reset-cells = <1>;
-> > +            };
-> > +        };
-> > +    };
-> > --
-> > 2.53.0
-> >
+For example, doesn't msm_iommu_iova_to_phys() hardcode
+list_first_entry(&iommu->ctx_list, ...) to select the master and query its
+specific hardware context bank?
 
--- 
--Mukesh Ojha
+If translation is requested for any device other than the first one attached
+to the IOMMU, could the driver read the hardware registers for the wrong
+context bank, returning incorrect physical addresses?
+
+>  /* Must be called under msm_iommu_lock */
+>  static struct msm_iommu_dev *find_iommu_for_dev(struct device *dev)
+>  {
+>  	struct msm_iommu_dev *iommu, *ret =3D NULL;
+> -	struct msm_iommu_ctx_dev *master;
+> =20
+>  	list_for_each_entry(iommu, &qcom_iommu_devices, dev_node) {
+
+This problem wasn't introduced by this patch, but msm_iommu_probe() adds the
+newly allocated device to the global qcom_iommu_devices list without holding
+the msm_iommu_lock spinlock:
+
+msm_iommu_probe() {
+    ...
+    list_add(&iommu->dev_node, &qcom_iommu_devices);
+    ...
+}
+
+Since other functions (like find_iommu_for_dev) concurrently access this
+list under the lock, could this unprotected list mutation lead to list
+corruption or a crash in asynchronous probing scenarios?
+
+> -		master =3D list_first_entry(&iommu->ctx_list,
+> -					  struct msm_iommu_ctx_dev,
+> -					  list);
+> -		if (master->of_node =3D=3D dev->of_node) {
+> +		if (find_iommu_master(iommu, dev)) {
+>  			ret =3D iommu;
+>  			break;
+>  		}
+
+[ ... ]
+
+> @@ -405,10 +413,7 @@ static int msm_iommu_attach_dev(struct iommu_domain =
+*domain, struct device *dev,
+> =20
+>  	spin_lock_irqsave(&msm_iommu_lock, flags);
+>  	list_for_each_entry(iommu, &qcom_iommu_devices, dev_node) {
+> -		master =3D list_first_entry(&iommu->ctx_list,
+> -					  struct msm_iommu_ctx_dev,
+> -					  list);
+> -		if (master->of_node =3D=3D dev->of_node) {
+> +		if (find_iommu_master(iommu, dev)) {
+>  			ret =3D __enable_clocks(iommu);
+>  			if (ret)
+>  				goto fail;
+
+With this change, multiple masters can be present in the ctx_list, but
+msm_iommu_attach_dev() and msm_iommu_identity_attach() still unconditionally
+iterate over the entire ctx_list instead of filtering for the target master:
+
+msm_iommu_attach_dev() {
+    ...
+    if (find_iommu_master(iommu, dev)) {
+        ...
+        list_for_each_entry(master, &iommu->ctx_list, list) {
+            ...
+
+When the first device attaches, does this incorrectly provision hardware
+contexts for all shared devices using its own domain, breaking IOMMU
+isolation?
+
+Also, because msm_iommu_alloc_ctx() can return 0, the safety check
+if (master->num) evaluates to false for context bank 0. When a subsequent
+device attaches, the loop re-allocates contexts and executes
+list_add(&iommu->dom_node, &priv->list_attached) a second time. Could this
+result in corruption of the doubly-linked domain list, leading to an
+infinite loop and hang?
+
+If a non-zero context bank was allocated, subsequent attaches hit
+if (master->num) and unconditionally fail with -EEXIST. Would this prevent
+shared IOMMUs from functioning?
+
+Furthermore, does detaching one device via msm_iommu_identity_attach()
+unintentionally tear down active DMA mappings for all other shared devices?
+
+If the loop encounters a master with a non-zero context bank
+(if (master->num)), it sets ret =3D -EEXIST and goes to the fail label:
+
+msm_iommu_attach_dev() {
+    ...
+    if (master->num) {
+        dev_err(dev, "domain already attached");
+        ret =3D -EEXIST;
+        goto fail;
+    }
+
+Since the fail label unlocks the spinlock and returns without calling
+__disable_clocks(iommu), and shared IOMMUs will hit this reliably, does
+this cause a permanent clock resource leak during probe/attach?
+
+[ ... ]
+
+> @@ -601,10 +606,10 @@ static int insert_iommu_master(struct device *dev,
+>  				struct msm_iommu_dev **iommu,
+>  				const struct of_phandle_args *spec)
+>  {
+> -	struct msm_iommu_ctx_dev *master =3D dev_iommu_priv_get(dev);
+> +	struct msm_iommu_ctx_dev *master =3D find_iommu_master(*iommu, dev);
+>  	int sid;
+> =20
+> -	if (list_empty(&(*iommu)->ctx_list)) {
+> +	if (!master) {
+>  		master =3D kzalloc_obj(*master, GFP_ATOMIC);
+>  		if (!master) {
+>  			dev_err(dev, "Failed to allocate iommu_master\n");
+> @@ -612,7 +617,6 @@ static int insert_iommu_master(struct device *dev,
+>  		}
+>  		master->of_node =3D dev->of_node;
+>  		list_add(&master->list, &(*iommu)->ctx_list);
+> -		dev_iommu_priv_set(dev, master);
+>  	}
+> =20
+>  	for (sid =3D 0; sid < master->num_mids; sid++)
+
+This wasn't introduced by this patch, but does this function lack bounds
+checking when appending stream IDs to the master->mids array?
+
+If a maliciously crafted or malformed Device Tree provides more than
+MAX_NUM_MIDS (32) stream IDs for a single device, could this result in an
+out-of-bounds write, corrupting adjacent heap memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-mainline-s=
+end-v1-sending-v3-0-3dd7aa125353@alex-min.fr?part=3D4
