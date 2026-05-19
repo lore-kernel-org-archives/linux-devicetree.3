@@ -1,107 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244851EEA49;
-	Tue, 19 May 2026 02:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542C430FC1C
+	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 02:35:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779157882; cv=none; b=LotiYADCx4E+cIJZ4sSyzRrPC3dyDpu57A0yFd/PDJS4+IeIoVR4T6RXOxohOeNe8r3D5IK/4VoUEGyUrL6WwIr02mb10lPYRsUISX72EDF6ow5Cto1CS60qqEcArBO8GDL2XhknctuYRkHQ+W8HNtiK1rp6S40JOXLAdDR+/GM=
+	t=1779158152; cv=none; b=FramUtskLoVslMC8Ma6LgpJcifAo+e9B7jVfaZHqxnCHB1s0N5VIvNaDn46vRBM9DtFlEDpiavH3V6J5QVHNvrgIdNqYNUyRtw08ZS9SVVq2Jf7cNJitE4xG4k030XugHyV2EZ+V51P/3GVEjb1nC0YZ/a2T/1juGF5GFi/WJu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779157882; c=relaxed/simple;
-	bh=SUcy34kMcitMYVpLWBH/2/LPY63ECz3VupHu74uPHxg=;
+	s=arc-20240116; t=1779158152; c=relaxed/simple;
+	bh=RHyvPd7fbU3h0d1H041du+gwX8UBl76Zmp2W5tBbTkk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bPx5kAtZN8pmP0VdalB5Ycq6XF/+esQucvhZJuSqPoL4a+zp0jnN/SbhhOScB/pYuq2ItjqKDGqVcftj68UjiJ6PMNwBA/Y/PJAVwMJyjs94aFH8ge9aEJsKEA4GbnzcOdWfsFZAUiS5cdtX1+7NQpwI4S9Bv5cz1DNRXx50orE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLT4yQhh; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=jipFivgp2gvNMkDO2zs4cxg8Puu+NXHwwArd82kvmH4T44nBV4Gt55rbusz+LiJlCorOwTOo5nfY6HZnZBf5p4PcKS4KWAjHh9ixOgpsbiWtOwQ9hrTHsHLFQQEjsGzblOzpJE5gK0JuN3fIMAikC6jwyforISzLrWgNtLS6yvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGb4wao3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLT4yQhh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61501C2BCB7;
-	Tue, 19 May 2026 02:31:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGb4wao3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B50ECC2BCB7;
+	Tue, 19 May 2026 02:35:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779157881;
-	bh=SUcy34kMcitMYVpLWBH/2/LPY63ECz3VupHu74uPHxg=;
+	s=k20201202; t=1779158152;
+	bh=RHyvPd7fbU3h0d1H041du+gwX8UBl76Zmp2W5tBbTkk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=TLT4yQhhu6rNbMKUOGyNVKNrSfckw8PgdHJymYY2H5m04ZW8lVtmkEue8OC78AtFF
-	 OD2SZsD4EPGCzCQ/C0OMY6eFf7sQvyQT6/RJw8UNQb1AiAgwS4j7t6IvKaAbIF0hi4
-	 pkpGDLIdIHzAhmVN1Oz4OPGffzcRkKn+1mJky3n4TstFttENXQnxkdtq/AbpefW3jK
-	 YcwKOEMF+NJiLbJ+Q+MdVBDDLO+xIohvRmb4FqNj+jP6dGxkSIC/YD8f8a/egOSu9h
-	 SqWuuyXUtBAMdNpzXaCGbVxqzfb9tY4rS9zyUqXIQeE8B0jXq6SAa7WF8954cilgUW
-	 xm53RblkGEIpA==
+	b=QGb4wao3YUQ5eYVNpLXJnVExYwIX1w5MhxgyU/JavvppFKSv2oDteIvl74NMPP+gW
+	 rMsiVYvtjhutsSrMHfLB6nhjHjr/CyTuQSSBwzX5WRNZMyWMHPxn4+sTAbYhsQZezw
+	 wl04kSvmQTGMPyRjSz/+Nl6ZSLqqe8pAEQDOUrRQKL1l3A5MDIpInLTPd+FrvIFvfm
+	 AUqTZXDdAKE4okoMB9kEVWNwYHzeCdGEnIXJCyNoPEFtkzubjKE4Fa9P6NPDtdpkk9
+	 CoKPv+bzVDbwk7Guqy0lQj4OiPx8EKCeFhXweROzvJ+Jo0QFqWZrktiABewh6100Yr
+	 deT27U+JROgow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5] arm64: dts: imx95: Correct PCIe outbound address
- space configuration
+Subject: Re: [PATCH v8 2/3] dt-bindings: media: mediatek-jpeg-encoder: add
+ MT8189 compatible string
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Zhu" <hongxing.zhu@nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260519022220.57686-1-hongxing.zhu@nxp.com>
-References: <20260519022220.57686-1-hongxing.zhu@nxp.com>
+To: "Jianhua Lin" <jianhua.lin@mediatek.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260519021726.19137-3-jianhua.lin@mediatek.com>
+References: <20260519021726.19137-3-jianhua.lin@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 02:31:20 +0000
-Message-Id: <20260519023121.61501C2BCB7@smtp.kernel.org>
+Date: Tue, 19 May 2026 02:35:51 +0000
+Message-Id: <20260519023551.B50ECC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The PCI child bus address for the I/O space is incorrectly set to =
-0xf0000000, which breaks devices that rely on 16-bit I/O addressing.
+- [Medium] The commit silently introduces a new `mediatek,larb` property an=
+d makes it mandatory for the MT8189 variant without any mention in the comm=
+it message.
+- [Low] The new compatible string `mediatek,mt8189-jpgenc` is defined using=
+ an `enum` containing a single item instead of `const`.
 --
 
-commit ce14f8afc3b0f35c82afa68f19826408baa01125
-Author: Richard Zhu <hongxing.zhu@nxp.com>
+commit de42f55ad078326b54b85cf561d120b901b074be
+Author: Jianhua Lin <jianhua.lin@mediatek.com>
 
-arm64: dts: imx95: Correct PCIe outbound address space configuration
+dt-bindings: media: mediatek-jpeg-encoder: add MT8189 compatible string
 
-This commit updates the PCIe outbound memory ranges for pcie0 and pcie1
-on i.MX95 to expand the memory window from 256MB to roughly 3840MB. It
-also relocates the 1MB I/O region to immediately follow the memory region.
+This commit adds the compatible string for the JPEG encoder block found
+in the MediaTek MT8189 SoC. It is added as a standalone compatible string
+without falling back to the generic identifier to ensure proper 34-bit IOVA
+address space support.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/d=
-ts/freescale/imx95.dtsi
-> index adcc0e1d3696b..c43f2bec99d0a 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> @@ -1939,8 +1939,8 @@ pcie0: pcie@4c300000 {
->  			      <0 0x4c360000 0 0x10000>,
->  			      <0 0x4c340000 0 0x4000>;
->  			reg-names =3D "dbi", "config", "atu", "app";
-> -			ranges =3D <0x81000000 0x0 0x00000000 0x0 0x6ff00000 0 0x00100000>,
-> -				 <0x82000000 0x0 0x10000000 0x9 0x10000000 0 0x10000000>;
-> +			ranges =3D <0x82000000 0x0 0x00000000 0x9 0x00000000 0x0 0xf0000000>,
-> +				 <0x81000000 0x0 0xf0000000 0x9 0xf0000000 0x0 0x00100000>;
+> diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-encode=
+r.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
+> index 5b15f8977f67f..f75871e72633b 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
+> @@ -14,13 +14,17 @@ description: |-
+> =20
+>  properties:
+>    compatible:
+> -    items:
+> +    oneOf:
+>        - enum:
+> -          - mediatek,mt2701-jpgenc
+> -          - mediatek,mt8183-jpgenc
+> -          - mediatek,mt8186-jpgenc
+> -          - mediatek,mt8188-jpgenc
+> -      - const: mediatek,mtk-jpgenc
+> +          - mediatek,mt8189-jpgenc
 
-Will setting the PCI child bus address for the I/O space to 0xf0000000
-cause issues for devices that rely on 16-bit I/O addressing?
+This isn't a bug, but dt_binding_check usually warns about using an enum wi=
+th
+a single item. Should this use const instead?
 
-The previous configuration used a PCI bus address of 0x00000000. While the
-parent CPU address is correctly offset to 0x9_f0000000, applying the same
-offset to the child PCI address forces the Linux PCI core to allocate I/O
-ports starting at 0xf0000000 on the PCI bus.
-
-Many legacy PCIe endpoint devices and PCI-to-PCI bridges only decode
-16-bit I/O addresses up to 0xffff. Assigning an I/O base address of
-0xf0000000 could cause allocations to conflict or fail completely for
-these devices.
-
-Should the child PCI address for the I/O ranges remain 0x0 0x00000000?
+> +      - items:
+> +          - enum:
+> +              - mediatek,mt2701-jpgenc
+> +              - mediatek,mt8183-jpgenc
+> +              - mediatek,mt8186-jpgenc
+> +              - mediatek,mt8188-jpgenc
+> +          - const: mediatek,mtk-jpgenc
+> +
 
 [ ... ]
 
-> @@ -2014,8 +2014,8 @@ pcie1: pcie@4c380000 {
->  			      <0 0x4c3e0000 0 0x10000>,
->  			      <0 0x4c3c0000 0 0x4000>;
->  			reg-names =3D "dbi", "config", "atu", "app";
-> -			ranges =3D <0x81000000 0 0x00000000 0x8 0x8ff00000 0 0x00100000>,
-> -				 <0x82000000 0 0x10000000 0xa 0x10000000 0 0x10000000>;
-> +			ranges =3D <0x82000000 0x0 0x00000000 0xa 0x00000000 0x0 0xf0000000>,
-> +				 <0x81000000 0x0 0xf0000000 0xa 0xf0000000 0x0 0x00100000>;
+> @@ -45,6 +49,10 @@ properties:
+>        Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for de=
+tails.
+>        Ports are according to the HW.
+> =20
+> +  mediatek,larb:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: A phandle to the smi_larb node.
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -54,6 +62,16 @@ required:
+>    - power-domains
+>    - iommus
+> =20
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: mediatek,mt8189-jpgenc
+> +    then:
+> +      required:
+> +        - mediatek,larb
 
-This has the same child I/O bus address concern as pcie0 above. Could this
-also be updated to use 0x0 0x00000000 for the child PCI address?
+The commit message mentions the standalone compatible string is needed for
+34-bit IOVA address space support, but it doesn't mention adding the new
+mediatek,larb property or making it mandatory for the MT8189 variant.
+
+Could the commit message be updated to explain the purpose and necessity of
+this new hardware constraint?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519022220.5768=
-6-1-hongxing.zhu@nxp.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519021726.1913=
+7-1-jianhua.lin@mediatek.com?part=3D2
