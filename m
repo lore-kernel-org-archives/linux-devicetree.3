@@ -1,268 +1,310 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FCA409611
-	for <devicetree@vger.kernel.org>; Tue, 19 May 2026 13:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B202523392F;
+	Tue, 19 May 2026 13:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779198131; cv=none; b=WB6bg0Hds/QhgdHTcx69tSoNw875qu3Jjuot+hsB1uXC2fFmPrih6qI6Kj42T2cPphglY+a37E/Ht4GVd4uu3lO5Lwl7C1P/e0cGvqxqHMRTYu/AyphUyRS0rHC+zcqbuRXY2IaAtDfDI3yFSfjePq4y26zhS5nO2gx4I/LzPkc=
+	t=1779198219; cv=none; b=KgZJ3JvlwBbCQnzP0EKCoOD1TlDuFyzmXWAMuNTiJTwLH/jvauyakz/GXpAPtHfjqvWriLxYSPEqsQnZPlS7zAyDAXHJFvY/RY3ifzPTVJdNXQDjU6VNi70Ucu8U4nSNTpYt1VD60/dA1z/EtLbxfOS/0Vyqsho6Wga0273qtWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779198131; c=relaxed/simple;
-	bh=HtdRs3Uqg+p6PqisYQ0w/4qm9PjmYomA6LmeIU9zvq8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AP3k9fLxRC4YZj5FC05LvnQOd3/P/mV4vOiLxXngt9kOoBU8QunaXIBqlQzqSUvGLjAmXZUV1Ufx6FESrK9qapCcGMNno38D9wCErOsNRmYoPyUZ/RR9vYcmt0eLM83vBf8OTUH8kUPisKTy3uKX4fxHeO7E1euHdLHyv4qidFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IPD+Eqie; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779198219; c=relaxed/simple;
+	bh=exV8hygySw1KI0J7oiVeWZSbjE1gtP4/UQEEL14ddOw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LJGA37zM0Q9vVjDAkw69SGLqEprHBohs7w3J0ZvUQrwSzsJ/FRnmWBypNF9wwkHu0bFvxW6uD+mC2vTTLKM3PNYN3WUSeJvmO3WQe2zrv87wlluU8XPfzNP2cjNvXPlLypSXZ4MAZYxj35jANP7JkH8qfXgzuHd6tDE/zazTBBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RYSIwX7N; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IPD+Eqie"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330B2C2BCB3;
-	Tue, 19 May 2026 13:42:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779198131;
-	bh=HtdRs3Uqg+p6PqisYQ0w/4qm9PjmYomA6LmeIU9zvq8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=IPD+EqieRAeFMMmRtaGhNwZNctVv+/4+K8kQGDsllV5cKFO4F3CtldFAQ6jPWTuYI
-	 ICY/Oy0CzrPVe8Tyjza9LEar+5yFJZMfgUU/YY6IxJlURwr+YNZHeI7hhd6V2XYI9g
-	 5fbY8e4+rgH1onnkqdfTmuJ3vmI3pDIUsYIBlaWa79EAk2bwL2ZItLITZrAuqRqbPe
-	 MqDQGzBIi2Dvemyi5la5i25gHkoixSBecnOpwRLo79eX/fbtK7Kg3NZ6qiDDucrfj6
-	 +E8rICfkt0dSDkdPlASjvhYMXH1+boYX5i0s/p9DveNjMowck94BuHZtNWEzp5oP17
-	 5dD4oQ5ZYnJyA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 3/6] iio: adc: ad4691: add triggered buffer support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519-ad4692-multichannel-sar-adc-driver-v12-3-5b335162aa51@analog.com>
-References: <20260519-ad4692-multichannel-sar-adc-driver-v12-3-5b335162aa51@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 May 2026 13:42:10 +0000
-Message-Id: <20260519134211.330B2C2BCB3@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RYSIwX7N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779198217; x=1810734217;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=exV8hygySw1KI0J7oiVeWZSbjE1gtP4/UQEEL14ddOw=;
+  b=RYSIwX7NvfJJViTs73HlGYV/rZmrolReajSUCgpSQRgVFoVyaqZC1fQK
+   iHPzmgtY6A6xddxctD7dj6iQkQXh+kvmRpgrGZWSjrucZy6LBSsCOHriC
+   qfjm87brnhWPJSfQyv/lV0z5zZIbzOYJgqyc08F7vwiKOm4pzpj+4XpMo
+   O2j/nxZsTS+JG6cc6deRjV1b8ml4NGephfSw3vU98tnQDlQSXCtdE6hyc
+   8LpmohmQxF0swbWP/YvXuVvqcmDZ7ZbVFdr1G8OnBPG+Jp8bUcMud0gms
+   PyUFPJ2281hYMmsd4DWiCaQA0/OqhJkISBkBcBuuw/WchUblmTglBkEnQ
+   A==;
+X-CSE-ConnectionGUID: tSv32extR3CejKh7Gd5Ljg==
+X-CSE-MsgGUID: 8qfIBq5WTF2gOyNlW7MnTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="80127268"
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
+   d="scan'208";a="80127268"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 May 2026 06:43:35 -0700
+X-CSE-ConnectionGUID: JZZhgaONSbu9Kph92VzKig==
+X-CSE-MsgGUID: Yw2KK65NR8eVdiGAgLaHAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
+   d="scan'208";a="263555729"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 19 May 2026 06:43:27 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 7C24995; Tue, 19 May 2026 15:43:26 +0200 (CEST)
+Date: Tue, 19 May 2026 16:43:14 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Chaoyi Chen <kernel@airkyi.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Peter Chen <hzpeterchen@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Yubing Zhang <yubing.zhang@rock-chips.com>,
+	Frank Wang <frank.wang@rock-chips.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Amit Sunil Dhamne <amitsd@google.com>,
+	Dragan Simic <dsimic@manjaro.org>, Johan Jonker <jbx6244@gmail.com>,
+	Diederik de Haas <didi.debian@cknow.org>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Hugh Cole-Baker <sigmaris@gmail.com>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: Re: [PATCH v15 0/9] Add Type-C DP support for RK3399 EVB IND board
+Message-ID: <agxo8ic94e81nQRx@kuha>
+References: <20260304094152.92-1-kernel@airkyi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260304094152.92-1-kernel@airkyi.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Reference leak of IIO trigger on probe error or deferral
-- [High] Array out-of-bounds writes due to unskipped soft timestamp channel
-- [High] Integer overflow in `sampling_frequency_store` leading to Division=
- by Zero kernel panic
-- [Medium] Unchecked `spi_sync` return value in trigger handler pushes stal=
-e data
---
+Hi,
 
-commit eeeb18b7f3745a473a0f530dd91677719c56522a
-Author: Radu Sabau <radu.sabau@analog.com>
+On Wed, Mar 04, 2026 at 05:41:43PM +0800, Chaoyi Chen wrote:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> 
+> This series focuses on adding Type-C DP support for USBDP PHY and DP
+> driver. The USBDP PHY and DP will perceive the changes in cable status
+> based on the USB PD and Type-C state machines provided by TCPM. Before
+> this, the USBDP PHY and DP controller of RK3399 sensed cable state
+> changes through extcon, and devices such as the RK3399 Gru-Chromebook
+> rely on them. This series should not break them.
 
-iio: adc: ad4691: add triggered buffer support
+What's the status with this series?
+Are these inteded to go via the DRM tree?
 
-This commit adds buffered capture support using the IIO triggered buffer
-framework. It supports both CNV Burst Mode and Manual Mode, sharing the same
-trigger handler to push a complete scan to the buffer.
+thanks,
 
-> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
-> index 2d58df8621422..ed60ed5b488c2 100644
-> --- a/drivers/iio/adc/ad4691.c
-> +++ b/drivers/iio/adc/ad4691.c
+> ====
+> 1. DisplayPort HPD status notify
+> 
+> Before v7, I implemented a variety of DP HPD status notify. However,
+> they all had various problems and it was difficult to become a generic
+> solution.
+> 
+> Under the guidance of Heikki and Dmitry, a decoupled notification
+> method between the TypeC and DRM subsystems was introduced in v7.
+> First, a notification is sent when TypeC registers a new altmode.
+> Then, a generic DP AUX HPD bridge is implemented on the DRM side.
+> 
+> During v7-v10, we added a new notifier in typec to notify the altmode
+> device register event. With the help of Greg and Heikki, we implemented
+> the reuse of notifiers for the type bus itself in patch1 of v11.
+> 
+> The USB subsystem related parts have already been merged into the
+> usb-next branch in v13 [0][1]. Therefore, this series no longer includes
+> these patches starting from v14. Thanks to Greg and Heikki!
+> 
+> [0]: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git/commit/?h=usb-next&id=67ab45426215c7fdccb65aecd4cac15bbe4dfcbb
+> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git/commit/?h=usb-next&id=4dee13db29de6dd869af9b3827e1ff569644e838
+> 
+> That makes it redundant for each Type-C controller driver to implement
+> a similar DP AUX HPD bridge in embedded scenarios.
+> 
+> ====
+> 2. Altmode switching and orientation switching for USBDP PHY
+> 
+> For USB Type-C interfaces, an external Type-C controller chip assists
+> by detecting cable attachment, determining plug orientation, and
+> reporting USB PD message. The USB/DP combo PHY supports software
+> configurable pin mapping and DisplayPort lane assignment. Based on
+> these message, the combo PHY can perform both altmode switching and
+> orientation switching via software.
+> 
+> The RK3399 EVB IND board has a Type-C interface DisplayPort. It use
+> fusb302 chip as Type-C controller. The connection diagram is shown below:
+> 
+> fusb302 chip +---> USB2.0 PHY ----> DWC3 USB controller
+>              |
+>              +---> USB/DP PHY0 +--> CDN-DP controller
+>                                |
+>                                +--> DWC3 USB controller
+> 
+> ====
+> 3. Multiple bridge model for RK3399 CDN-DP
+> 
+> The RK3399 has two USB/DP combo PHY and one CDN-DP controller. And
+> the CDN-DP can be switched to output to one of the PHYs.
+> 
+> USB/DP PHY0 ---+
+>                | <----> CDN-DP controller
+> USB/DP PHY1 ---+
+> 
+> In previous versions, if both PHY ports were connected to DP,
+> the CDN-DP driver would select the first PHY port for output.
+> 
+> On Dmitry's suggestion, we introduced a multi-bridge model to support
+> flexible selection of the output PHY port. For each PHY port, a
+> separate encoder and bridge are registered.
+> 
+> The change is based on the DRM AUX HPD bridge, rather than the
+> extcon approach. This requires the DT to correctly describe the
+> connections between the first bridge in bridge chain and DP
+> controller. And Once the first bridge is obtained, we can get the
+> last bridge corresponding to the USB-C connector, and then set the
+> DRM connector's fwnode to the corresponding one to enable HPD
+> notification.
+> 
+> ====
+> Patch1 add generic USB Type-C DP HPD bridge (Dmitry, Heikki).
+> Patch2 add new API drm_aux_bridge_register_from_node() (Neil) .
+> Patch3 add new Type-C mode switch for RK3399 USBDP phy binding (Krzysztof).
+> Patch4 add typec_mux and typec_switch for RK3399 USBDP PHY.
+> Patch5 add DRM AUX bridge support for RK3399 USBDP PHY (Neil).
+> Patch6 drops CDN-DP's extcon dependency when Type-C is present (Dmitry).
+> Patch7 add multiple bridges to support PHY port selection (Dmitry, Luca).
+> Patch8 add missing dp_out port for RK3399 CDN-DP.
+> Patch9 add Type-C DP support for RK3399 EVB IND board (Diederik, Peter).
+> 
+> Changes in v15:
+> - Link to V14: https://lore.kernel.org/all/20260119073100.143-1-kernel@airkyi.com/
+> - Improve clarity by inlining drm_bridge_get() in assignment (Luca).
+> 
+> Changes in v14:
+> - Link to V13: https://lore.kernel.org/all/20251208015500.94-1-kernel@airkyi.com/
+> - Drop the patches for the USB Type-C subsusytem part, as they have
+>   already been merged into usb-next.
+> 
+> Changes in v13:
+> - Link to V12: https://lore.kernel.org/all/20251204063109.104-1-kernel@airkyi.com/
+> - Only register drm dp hpd bridge for typec port altmode device.
+> 
+> Changes in v12:
+> - Link to V11: https://lore.kernel.org/all/20251128020405.90-1-kernel@airkyi.com/
+> - Add missing Signed-off-by line.
+> 
+> Changes in v11:
+> - Link to V10: https://lore.kernel.org/all/20251120022343.250-1-kernel@airkyi.com/
+> - Switch to using typec bus notifiers.
+> 
+> Changes in v10:
+> - Link to V9: https://lore.kernel.org/all/20251111105040.94-1-kernel@airkyi.com/
+> - Notify TYPEC_ALTMODE_UNREGISTERED when altmode removed. 
+> - Add drm_aux_bridge_register_from_node().
+> - Fix refcount usage of drm_bridge.
+> 
+> Changes in v9:
+> - Link to V8: https://lore.kernel.org/all/20251029071435.88-1-kernel@airkyi.com/
+> - Remove the exposed DRM_AUX_HPD_BRIDGE option, and select
+> DRM_AUX_HPD_TYPEC_BRIDGE when it is available.
+> - Add usb role switch for Type-C.
+> - Remove USB2 PHY in Type-C connection.
+> - ...
+> 
+> Changes in v8:
+> - Link to V7: https://lore.kernel.org/all/20251023033009.90-1-kernel@airkyi.com/
+> - Export all typec device types for identification.
+> - Merge generic DP HPD bridge into one module.
+> - Fix coding style.
+> 
+> Changes in v7:
+> - Link to V6: https://lore.kernel.org/all/20251016022741.91-1-kernel@airkyi.com/
+> - Add notifier functions for Type-C core.
+> - Add generic USB Type-C DP HPD bridge.
+> 
+> Changes in v6:
+> - Link to V5: https://lore.kernel.org/all/20251011033233.97-1-kernel@airkyi.com/
+> - Fix depend in Kconfig.
+> - Check DP svid in tcphy_typec_mux_set().
+> - Remove mode setting in tcphy_orien_sw_set().
+> - Rename some variable names.
+> - Attach the DP bridge to the next bridge.
+> 
+> Changes in v5:
+> - Link to V4: https://lore.kernel.org/all/20250922012039.323-1-kernel@airkyi.com/
+> - Remove the calls related to `drm_aux_hpd_bridge_notify()`.
+> - Place the helper functions in the same compilation unit.
+> - Add more comments about parent device.
+> - Add DRM AUX bridge support for RK3399 USBDP PHY
+> - By parsing the HPD bridge chain, set the connector's of_node to the
+> of_node corresponding to the USB-C connector.
+> - Return EDID cache when other port is already enabled.
+> 
+> Changes in v4:
+> - Link to V3: https://lore.kernel.org/all/20250729090032.97-1-kernel@airkyi.com/
+> - Add default HPD device for DisplayPort altmode.
+> - Introduce multiple bridges for CDN-DP.
+> - ...
+> 
+> Changes in v3:
+> - Link to V2: https://lore.kernel.org/all/20250718062619.99-1-kernel@airkyi.com/
+> - Add more descriptions to clarify the role of the PHY in switching.
+> - Fix wrong vdo value.
+> - Fix port node in usb-c-connector.
+> 
+> Changes in v2:
+> - Link to V1: https://lore.kernel.org/all/20250715112456.101-1-kernel@airkyi.com/
+> - Reuse dp-port/usb3-port in rk3399-typec-phy binding.
+> - Fix compile error when CONFIG_TYPEC is not enabled.
+> - Notify DP HPD state by USB/DP PHY.
+> - Ignore duplicate HPD events.
+> - Add endpoint to link DP PHY and DP controller.
+> - Fix devicetree coding style.
+> 
+> Chaoyi Chen (9):
+>   drm/bridge: Implement generic USB Type-C DP HPD bridge
+>   drm/bridge: aux: Add drm_aux_bridge_register_from_node()
+>   dt-bindings: phy: rockchip: rk3399-typec-phy: Support mode-switch
+>   phy: rockchip: phy-rockchip-typec: Add typec_mux/typec_switch support
+>   phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
+>   drm/rockchip: cdn-dp: Support handle lane info without extcon
+>   drm/rockchip: cdn-dp: Add multiple bridges to support PHY port
+>     selection
+>   arm64: dts: rockchip: Add missing dp_out port for RK3399 CDN-DP
+>   arm64: dts: rockchip: rk3399-evb-ind: Add support for DisplayPort
+> 
+>  .../phy/rockchip,rk3399-typec-phy.yaml        |   6 +
+>  arch/arm64/boot/dts/rockchip/rk3399-base.dtsi |  10 +-
+>  .../boot/dts/rockchip/rk3399-evb-ind.dts      | 147 +++++++
+>  drivers/gpu/drm/bridge/Kconfig                |  10 +
+>  drivers/gpu/drm/bridge/Makefile               |   1 +
+>  drivers/gpu/drm/bridge/aux-bridge.c           |  24 +-
+>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  |  49 +++
+>  drivers/gpu/drm/rockchip/Kconfig              |   1 +
+>  drivers/gpu/drm/rockchip/cdn-dp-core.c        | 349 +++++++++++++---
+>  drivers/gpu/drm/rockchip/cdn-dp-core.h        |  18 +-
+>  drivers/phy/rockchip/Kconfig                  |   3 +
+>  drivers/phy/rockchip/phy-rockchip-typec.c     | 373 +++++++++++++++++-
+>  include/drm/bridge/aux-bridge.h               |   6 +
+>  13 files changed, 913 insertions(+), 84 deletions(-)
+>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> 
+> -- 
+> 2.51.1
 
-[ ... ]
-
-> @@ -548,13 +619,397 @@ static int ad4691_reg_access(struct iio_dev *indio=
-_dev, unsigned int reg,
->  	return regmap_write(st->regmap, reg, writeval);
->  }
-> =20
-> +static int ad4691_set_pwm_freq(struct ad4691_state *st, unsigned int fre=
-q)
-> +{
-> +	if (!freq)
-> +		return -EINVAL;
-> +
-> +	st->cnv_period_ns =3D DIV_ROUND_UP(NSEC_PER_SEC, freq);
-
-Could this cause an integer overflow on 32-bit architectures?=20
-
-A very large value for freq combined with NSEC_PER_SEC could wrap around in=
-=20
-the DIV_ROUND_UP macro addition, resulting in a numerator that evaluates to=
-=20
-zero.
-
-If st->cnv_period_ns becomes zero, would the division in=20
-sampling_frequency_show() later trigger a division by zero?
-
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int ad4691_manual_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int k, i;
-> +	int ret;
-> +
-> +	memset(st->scan_xfers, 0, sizeof(st->scan_xfers));
-> +	memset(st->scan_tx, 0, sizeof(st->scan_tx));
-> +
-> +	spi_message_init(&st->scan_msg);
-> +
-> +	k =3D 0;
-> +	iio_for_each_active_channel(indio_dev, i) {
-
-Does this loop explicitly need to skip the software timestamp channel?
-
-Since iio_for_each_active_channel() iterates over all set bits in the scan
-mask, including the timestamp channel if enabled by userspace, could k reach
-17?
-
-If k reaches 17, it appears this would write past the end of the 17-element
-scan_tx array here:
-
-> +		/*
-> +		 * Channel-select command occupies the first (high) byte of the
-> +		 * 16-bit DIN frame; the second byte is a don't-care zero pad.
-> +		 * put_unaligned_be16() writes [cmd, 0x00] in memory so the
-> +		 * SPI controller sends the command byte first on the wire.
-> +		 */
-> +		put_unaligned_be16((u16)(AD4691_ADC_CHAN(i) << 8), &st->scan_tx[k]);
-
-[ ... ]
-
-> +static int ad4691_cnv_burst_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int acc_mask, std_seq_config;
-> +	unsigned int k, i;
-> +	int ret;
-> +
-> +	memset(st->scan_xfers, 0, sizeof(st->scan_xfers));
-> +	memset(st->scan_tx, 0, sizeof(st->scan_tx));
-> +
-> +	spi_message_init(&st->scan_msg);
-> +
-> +	/*
-> +	 * Each AVG_IN read needs two transfers: a 2-byte address write phase
-> +	 * followed by a 2-byte data read phase. CS toggles between channels
-> +	 * (cs_change=3D1 on the read phase of all but the last channel).
-> +	 */
-> +	k =3D 0;
-> +	iio_for_each_active_channel(indio_dev, i) {
-> +		put_unaligned_be16(0x8000 | AD4691_AVG_IN(i), &st->scan_tx[k]);
-> +		st->scan_xfers[2 * k].tx_buf =3D &st->scan_tx[k];
-> +		st->scan_xfers[2 * k].len =3D sizeof(*st->scan_tx);
-> +		spi_message_add_tail(&st->scan_xfers[2 * k], &st->scan_msg);
-> +		st->scan_xfers[2 * k + 1].rx_buf =3D &st->vals[k];
-> +		st->scan_xfers[2 * k + 1].len =3D sizeof(*st->scan_tx);
-> +		st->scan_xfers[2 * k + 1].cs_change =3D 1;
-> +		spi_message_add_tail(&st->scan_xfers[2 * k + 1], &st->scan_msg);
-> +		k++;
-> +	}
-> +
-> +	/*
-> +	 * Append a 4-byte state-reset transfer [addr_hi, addr_lo,
-> +	 * STATE_RESET_ALL, OSC_EN=3D1]. CS is asserted throughout, so
-> +	 * ADDR_DESCENDING writes byte[3]=3D1 to OSC_EN_REG (0x180) as a
-> +	 * deliberate side-write, keeping the oscillator enabled.
-> +	 * STATE_RESET_ALL starts the next burst; the hardware does not
-> +	 * accumulate new conversions until after a STATE_RESET pulse, so
-> +	 * no in-progress data is lost.  No cs_change here =E2=80=94 CS must
-> +	 * deassert normally at end of message to frame the next command.
-> +	 */
-> +	put_unaligned_be16(AD4691_STATE_RESET_REG, st->scan_tx_reset);
-> +	st->scan_tx_reset[2] =3D AD4691_STATE_RESET_ALL;
-> +	st->scan_tx_reset[3] =3D 1;
-> +	st->scan_xfers[2 * k].tx_buf =3D st->scan_tx_reset;
-
-Similarly to the manual mode preenable function, does this loop need to skip
-the software timestamp channel?
-
-If the timestamp channel is included, k would reach 17, and 2 * k would be =
-34,
-which appears to write out of bounds of the 34-element scan_xfers array.
-
-> +	st->scan_xfers[2 * k].len =3D sizeof(st->scan_tx_reset);
-
-[ ... ]
-
-> +static void ad4691_read_scan(struct iio_dev *indio_dev, s64 ts)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	spi_sync(st->spi, &st->scan_msg);
-
-Is it safe to ignore the return value of spi_sync() here?=20
-
-If the SPI transfer fails due to a bus error or timeout, could this silently
-push uninitialized or stale data from st->vals to userspace?
-
-> +
-> +	/*
-> +	 * rx_buf pointers in scan_xfers point directly into scan.vals, so no
-> +	 * copy is needed. The scan_msg already includes a STATE_RESET at the
-> +	 * end (appended in preenable), so no explicit reset is needed here.
-> +	 */
-> +	iio_push_to_buffers_with_ts(indio_dev, st->vals, sizeof(st->vals), ts);
-> +}
-
-[ ... ]
-
-> +static int ad4691_setup_triggered_buffer(struct iio_dev *indio_dev,
-> +					 struct ad4691_state *st)
-> +{
-
-[ ... ]
-
-> +	/*
-> +	 * CNV burst mode: allocate an internal trigger driven by the
-> +	 * DATA_READY IRQ on the GP pin.
-> +	 */
-> +	trig =3D devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
-> +				      iio_device_id(indio_dev));
-> +	if (!trig)
-> +		return -ENOMEM;
-> +
-> +	trig->ops =3D &ad4691_trigger_ops;
-> +	iio_trigger_set_drvdata(trig, st);
-> +
-> +	ret =3D devm_iio_trigger_register(dev, trig);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "IIO trigger register failed\n");
-> +
-> +	indio_dev->trig =3D iio_trigger_get(trig);
-> +
-> +	/*
-> +	 * The GP pin named in interrupt-names asserts at end-of-conversion.
-> +	 * The IRQ handler fires the IIO trigger so the trigger handler can
-> +	 * read and push the sample to the buffer. The IRQ is kept disabled
-> +	 * until the buffer is enabled.
-> +	 */
-> +	irq =3D -ENXIO;
-> +	for (i =3D 0; i < ARRAY_SIZE(ad4691_gp_names); i++) {
-> +		irq =3D fwnode_irq_get_byname(dev_fwnode(dev),
-> +					    ad4691_gp_names[i]);
-> +		if (irq > 0 || irq =3D=3D -EPROBE_DEFER)
-> +			break;
-> +	}
-> +	if (irq < 0)
-> +		return dev_err_probe(dev, irq, "failed to get GP interrupt\n");
-
-If ad4691_setup_triggered_buffer() returns an error here (or in the
-subsequent setup steps below) and probe aborts, will the reference count
-acquired by iio_trigger_get() be leaked?
-
-Since iio_device_register() would not be reached, the devres cleanup won't
-invoke iio_device_unregister_trigger_consumer() to call iio_trigger_put().
-
-> +
-> +	st->irq =3D irq;
-> +
-> +	ret =3D ad4691_gpio_setup(st, i);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-ad4692-mul=
-tichannel-sar-adc-driver-v12-0-5b335162aa51@analog.com?part=3D3
+-- 
+heikki
