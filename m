@@ -1,116 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3F439C00D
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CAC4964F
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:59:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779267575; cv=none; b=kCjl0rWPvDUPvKi1nuFIsUNDBQYv+3F0Ih2Aj0vV3FfWQBiEX2yKW/WJcvAHXfRZIjMWsSGzwCDN7eQlInL/W5U+FNDv/l3ac6mf+Yg3A8O3V7Ek21vXS8kuAwDEuxRimIIPvw8QiN7/yEM2CmBprJBsS66ySu5/nDqk6edK1Lg=
+	t=1779267577; cv=none; b=jthI2lqR01NwGCYFxQ8y5HK12YeQhZQsEdsfc27jtVTPsuB72jfO2VstJSdWr7kcUkAAerU5sj7BJlUa6jrJLEwksDPR+h65gG/aU5kLcr7nWWv5qzylcpY3zMn7XtomAnv7Dd2zYlDdEZd/WHiy+UWx9RMaataAHvzj5cMW+E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779267575; c=relaxed/simple;
-	bh=ALVPyjs2Yxz8nNxYKSL+tPFeEC9NZ92kfG1INWfibxI=;
+	s=arc-20240116; t=1779267577; c=relaxed/simple;
+	bh=ZIaPIi7sksc4MHHjmkewKSBdXIcSZGNGRmsX3DnwtBg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qpu8vohwmk3gnr/tlABFV16YTX/iYcw0tUU8SADqfmMP5tBVlzXuyGBF3Q7JE1vWzEQHGR4jK3se+suSSawNM8lwBYuVqFVQs6LlVpiiYap/pyuEoPSw/06t+s785+axWcAH4TmR8BNrSKNzLQf0I6f5tGypHfBGoXmjQ2RtgWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pg4j4NDi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MApaeMq9pOnmEbvhgqxOooPBBNI0oMCdE2qBrCQplWTJmRePvHydNHB0efphaZoasfqctoJ14kNLt7A9e8pdla7aSN8zKx1yw+0aHe284ECFYdDdWRgXz+36+pChLLmvH5JuZhp1nSBsmOKe8I+slKM9axcXMCqdTLtjCCX9M2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiJNEEZs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pg4j4NDi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9473C1F000E9;
-	Wed, 20 May 2026 08:59:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiJNEEZs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D171F00897;
+	Wed, 20 May 2026 08:59:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779267572;
-	bh=eMa8RVgH1cIOC4Z2AmJZWsVxO5KdtkjuQCWAMuNISkc=;
+	s=k20260515; t=1779267573;
+	bh=kV6kS6eDvRZ27F40oavk75hK6JqHmEtix+AlIXx2hhI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pg4j4NDil6K9IxQ2POB8GgpSP7LH1txwKqKGaseA5nKo5Rf0zJxpgyHlL9z3ZF4OO
-	 o+io71ENwaJFBc529dkCyZ59gM3qACu2ptmkD3lacf7rprbyQTvDc0KdoWnETEsFf/
-	 td6+9jqP4+Bl3/LGHCtTbNDST1qS0qERMzEbQ0IOMi7x8rzIfig+rMySmG5ZMmUANw
-	 4QYon3Sf++agYh+53Mbr3ZcEE7JkRYNLYHP5hQ/8R4fb/y/cGWnCAeJrTVUQ5y5HKI
-	 r/lgg3YD/nEaLJurOUpg6zqtS/lk1nDGGqvuNSmfb2yb1/ezSErb+1gNGAXVRZPosz
-	 spG/Xui+GYnhg==
+	b=WiJNEEZsUH8k75PPMy/vhwjTQ7V6Yzx4O/X1gNHgaslW+foF18R73c0WJ3AiXpEWM
+	 RAtSeC/mjvnfYeJS72IxRCzcH+3QUOWOWtxsQwB7E0ogR8sNyYfBBdEq6RIrKfx+3D
+	 opwFhgBijSCIQUNCCvZGi1PC21YzpIcKb67TIcLfwhLudRAwf1pVJbW1M1IwD4wbOK
+	 F4tecD8G42gIw3Ec/2opqn+diL+/0hUODE7QaCwXypL7owNaIzKMAeDS3uUlVoq6JL
+	 baoJzZ3BGMmdfWkQTgqcfFMBQ0yZMQIV+X4RODOdeCwiHDEoyII6IBioUOOa5/R52Y
+	 V+klmHHGydFaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v8 02/10] net: airoha: Introduce airoha_gdm_dev
- struct
+Subject: Re: [PATCH net-next v8 07/10] net: airoha: Support multiple
+ net_devices for a single FE GDM port
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260519-airoha-eth-multi-serdes-v8-2-6bd70e329df6@kernel.org>
-References: <20260519-airoha-eth-multi-serdes-v8-2-6bd70e329df6@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260519-airoha-eth-multi-serdes-v8-7-6bd70e329df6@kernel.org>
+References: <20260519-airoha-eth-multi-serdes-v8-7-6bd70e329df6@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Wed, 20 May 2026 08:59:32 +0000
-Message-Id: <20260520085932.9473C1F000E9@smtp.kernel.org>
+Message-Id: <20260520085933.35D171F00897@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Potential deadlock in `airoha_update_hw_stats()` due to using `spi=
-n_lock()` instead of `spin_lock_bh()`.
+- [High] Port-wide hardware configuration is improperly modified via per-ne=
+t_device callbacks, breaking the newly introduced 1:N relationship.
+- [High] Sequential initialization of multiple net_devices sharing a GDM po=
+rt silently overwrites singleton hardware loopback and WAN configuration re=
+gisters.
 --
 
-commit 6823c137925a562390270eb1ce7967caaa011b7b
+commit d922e17d3b113696fc139ac4b2b3ef81e2b9ad50
 Author: Lorenzo Bianconi <lorenzo@kernel.org>
 
-net: airoha: Introduce airoha_gdm_dev struct
+net: airoha: Support multiple net_devices for a single FE GDM port
 
-This commit introduces the airoha_gdm_dev struct to collect net_device rela=
-ted
-info, accommodating future support for connecting multiple external SerDes =
-to
-GDM3 or GDM4 ports via a hardware arbiter.
+This commit introduces support for multiple net_devices connected to the
+same Frame Engine (FE) GDM port (GDM3 or GDM4) via an external hw arbiter.
+It updates the airoha_gdm_port structure to hold an array of devices instead
+of a single device.
+
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
+net/airoha/airoha_eth.h
+> index fbb50dc73af84..fc49f0049983e 100644
+> --- a/drivers/net/ethernet/airoha/airoha_eth.h
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
+[ ... ]
+> @@ -540,19 +541,20 @@ struct airoha_qdma {
+>  struct airoha_gdm_dev {
+>  	struct airoha_gdm_port *port;
+>  	struct airoha_qdma *qdma;
+> -	struct net_device *dev;
+>  	struct airoha_eth *eth;
+> +	struct net_device *dev;
+> =20
+>  	DECLARE_BITMAP(qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS);
+>  	/* qos stats counters */
+>  	u64 cpu_tx_packets;
+>  	u64 fwd_tx_packets;
+> +
+> +	int nbq;
+>  };
+> =20
+>  struct airoha_gdm_port {
+> -	struct airoha_gdm_dev *dev;
+> +	struct airoha_gdm_dev *devs[AIROHA_MAX_NUM_GDM_DEVS];
+>  	int id;
+> -	int nbq;
+
+This introduces a 1:N relationship between a GDM port and net_devices, but
+are the net_device lifecycle and MTU callbacks updated to account for shared
+ports?
+
+Looking at airoha_dev_stop(), the driver unconditionally drops all traffic
+for the port:
+
+airoha_dev_stop()
+    airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id), FE_PS=
+E_PORT_DROP);
+   =20
+Since this modifies the forwarding configuration for the entire GDM port,
+does stopping just one net_device silently drop all traffic for the port,
+breaking any other active net_devices sharing it?
+
+Similarly, airoha_dev_change_mtu() overwrites port-wide hardware registers
+such as REG_GDM_LEN_CFG. Could this lower the port MTU while another device
+still requires a larger MTU?
+
+I note this regression is addressed later in the series by commit
+646f1e7bb6021 (net: airoha: Do not stop GDM port if it is shared).
 
 > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
 net/airoha/airoha_eth.c
-> index 5a027cc7ffcb1..5335271ea8654 100644
+> index 27b214ce2a4ed..8d36ab6cd7854 100644
 > --- a/drivers/net/ethernet/airoha/airoha_eth.c
 > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-
 [ ... ]
-
-> @@ -1877,10 +1888,11 @@ static int airoha_dev_init(struct net_device *dev)
->  	return 0;
->  }
+> @@ -1830,7 +1831,7 @@ static int airoha_set_gdm2_loopback(struct airoha_g=
+dm_dev *dev)
+>  	airoha_fe_clear(eth, REG_FE_VIP_PORT_EN, BIT(AIROHA_GDM2_IDX));
+>  	airoha_fe_clear(eth, REG_FE_IFC_PORT_EN, BIT(AIROHA_GDM2_IDX));
 > =20
-> -static void airoha_dev_get_stats64(struct net_device *dev,
-> +static void airoha_dev_get_stats64(struct net_device *netdev,
->  				   struct rtnl_link_stats64 *storage)
->  {
-> -	struct airoha_gdm_port *port =3D netdev_priv(dev);
-> +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> +	struct airoha_gdm_port *port =3D dev->port;
->  	unsigned int start;
+> -	src_port =3D eth->soc->ops.get_sport(port, port->nbq);
+> +	src_port =3D eth->soc->ops.get_sport(port, dev->nbq);
+>  	if (src_port < 0)
+>  		return src_port;
 > =20
->  	airoha_update_hw_stats(port);
 
-This isn't a bug introduced by this patch, but could this lead to a deadloc=
-k?
+When multiple net_devices sharing a GDM port are sequentially initialized
+via ndo_init (airoha_dev_init()), they unconditionally call
+airoha_set_gdm2_loopback().
 
-Because airoha_dev_get_stats64() is registered as the ndo_get_stats64 callb=
-ack,
-it can be called from both process context (e.g., via user-space netlink du=
-mps)
-and software interrupt context (BH) (e.g., via bonding or teaming drivers).
+Inside this function, global singleton hardware registers are modified:
 
-Looking at airoha_update_hw_stats(), it uses spin_lock() to protect the
-hardware statistics update:
+airoha_set_gdm2_loopback()
+    airoha_fe_rmw(eth, REG_FE_WAN_PORT,
+                  WAN1_EN_MASK | WAN1_MASK | WAN0_MASK,
+                  FIELD_PREP(WAN0_MASK, src_port));
 
-drivers/net/ethernet/airoha/airoha_eth.c:airoha_update_hw_stats() {
-	...
-	spin_lock(&port->stats.lock);
-	u64_stats_update_begin(&port->stats.syncp);
-	...
-}
+Does initializing the second device on the same port silently overwrite
+the hardware loopback and WAN configuration of the previously initialized
+device?
 
-Because spin_lock() disables preemption but not softirqs, if a process cont=
-ext
-call is interrupted by a BH call on the same CPU, the BH handler will attem=
-pt
-to acquire the already-held lock.
-
-Should this be upgraded to spin_lock_bh() to prevent a potential deadlock?
+I see this regression is resolved later in the series by commit
+8a565b44990bb (net: airoha: Introduce WAN device flag).
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519-airoha-eth=
--multi-serdes-v8-0-6bd70e329df6@kernel.org?part=3D2
+-multi-serdes-v8-0-6bd70e329df6@kernel.org?part=3D7
