@@ -1,109 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC9B35F610
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:32:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83652355F2A
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779319975; cv=none; b=aboR2aZ+QMdURbbKShpsKVDMconphobmNBWDHI1oaveSAgvllsZXVrcBWvh24b4ohz3GJiidSs76QBecCznt04sSIDYVW2OrUBdbp5xOkAT6KAsEBVezlLZRXC1ef8unMtP3JFM9sJgXvz7MAVlUQMm2GZzJaW5bcKW5J6e8sB8=
+	t=1779320027; cv=none; b=pdIuomV+Xhn/GXeSSztawVXa6kTz+0+A5yZHifhuwpxRRwcjIzxpLuNRol3bJkm72Sh/mIyfqmQHh+HYQfK5HTjH3vXmdHYHulYizKy39x0CTAnB3zbr3tndkn8PRwnlxhJQFjEcwdUhZ5w2FsqtebzB4nUBjO3v4Sl6f/pko9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779319975; c=relaxed/simple;
-	bh=7bqVQ+qteYD5vXSGk8/XvhDdMGCbs97yyju4KWi4ZC4=;
+	s=arc-20240116; t=1779320027; c=relaxed/simple;
+	bh=cjTYJ2S4GVYuucIuUli1Qf7rKs+Ort2Z4DuY62RWKic=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dWeZR4kyBflNwO1WB4YrxA2KMSJ2mEpWZSCgroZMvlAhPRcAYQo8XJRhV2qrF/0znoyoLShEX0Vx89Yu51gzCh+k9XywPsT3mooYAnLK048DzHdaQf0geh6f5GXPrtDjiSCGq6rSmd+cUh+mFY60o1OYp531kedUEMx1/7cXa58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DmiYNEcc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Lv2OTXj4uZ0QgkY+cAcAOKWPEj+/hFhZTFq6+u5nIyBm9tUbZ0InmqKMZ2PbVAL5s1PO4QdexicwuNZmRP9sTjjqSEgrC1dWuY6U76E5Jx5t13YnuplyyU21takAjn+Cw0OxMyLo7KfhUe49BYbs9fg6vxE6AjJ82q86w6sqDNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lKBrclEj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DmiYNEcc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029D31F000E9;
-	Wed, 20 May 2026 23:32:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lKBrclEj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF031F000E9;
+	Wed, 20 May 2026 23:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779319974;
-	bh=xZEIyl8416GQWahlwNlyRZ5Lj/CVECCC7lzV2HBiSog=;
+	s=k20260515; t=1779320026;
+	bh=HlwKcJJgi0hcd6lSLK9VSLhik+k8RD8oGmXhFeuSRm8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DmiYNEccGAg4KwoeADjnTwobnJ4S51ufv5GfD7aXTYujQSU2lCDT0s3V0W+BPN2E4
-	 KNv0tULIJvrTpmqGKpDZOLvvComPdBcrJd7XVBTPTW9wOrv08GPLCTyz6Ev41wXSNO
-	 sJAcveHRW59Cuq4AziVJyZyJ9ijtr43RFnswZ1atO7wgGa/TBa8cApm+91iDMq2Eiq
-	 FnSWIIspHU3sasI5Bb9HXXW5ICujiR4qCcRCmQCklGBcDwnjrPuV2vitleQ5einXJn
-	 KzViQzNQT+6Y1uYEmvan4waFD8ph31wLVN5QxzHCQMikuwIE19yJCKdcH/XPSgOM+1
-	 6Jftjv2To5VVg==
+	b=lKBrclEjPsPxAQKqQI07SEvLuB/FDc1Pjf5te5mD8LKB96dAgzRW7AYs37f/UdtgI
+	 qdYJ3Gej++e2IH4cJCLY5UTTVKqc3nsyKXjtaffACnTxcVEh9boPvzRvaQW/h2oyqZ
+	 wM8uvogKDnGGTMUk8JKQW43N5BhGms12W2unmTjXxXZXEsbsgDX937rJYAGV6d8JxZ
+	 W6/epBtw/R8ZjyC79S4/rgBXB8LTKAI6cgGT5zS9LUcQO6001dzQ4GZhaPS8v21Y4R
+	 fKMctTDNR/WNQiUNAKfJ8T6bSQRtF0AnA9lE3slsBL2YfAQBRroVQsC+nm4VAf4iCZ
+	 SkohtXPZADedg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/28] media: rockchip: rga: avoid odd frame sizes
- for YUV formats
+Subject: Re: [PATCH v7 21/28] media: rockchip: rga: share the interrupt when
+ an external iommu is used
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260521-spu-rga3-v7-12-3f33e8c7145f@pengutronix.de>
-References: <20260521-spu-rga3-v7-12-3f33e8c7145f@pengutronix.de>
+In-Reply-To: <20260521-spu-rga3-v7-21-3f33e8c7145f@pengutronix.de>
+References: <20260521-spu-rga3-v7-21-3f33e8c7145f@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 23:32:53 +0000
-Message-Id: <20260520233254.029D31F000E9@smtp.kernel.org>
+Date: Wed, 20 May 2026 23:33:45 +0000
+Message-Id: <20260520233345.DBF031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [Critical] Accessing hardware registers in the shared interrupt handler w=
+hile the device is runtime suspended causes a bus fault and system crash.
+- [High] The interrupt handler unconditionally returns `IRQ_HANDLED`, viola=
+ting shared interrupt semantics and breaking spurious interrupt detection.
+
 Pre-existing issues:
-- [High] Crop rectangles in `vidioc_s_selection` lack alignment constraints=
-, enabling users to bypass the frame size protection and trigger the hardwa=
-re hang.
+- [High] Missing early returns after `WARN_ON` checks leads to deterministi=
+c NULL pointer dereferences in the interrupt handler.
 --
 
-commit f1e6772c26f6e4894e7ba2cdfff4714d5507ebb4
-Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+commit d55d317809ea4314d29aae5edd3429021099007b
+Author: Michael Olbrich <m.olbrich@pengutronix.de>
 
-media: rockchip: rga: avoid odd frame sizes for YUV formats
+media: rockchip: rga: share the interrupt when an external iommu is used
 
-The patch updates vidioc_try_fmt to enforce a 2-byte alignment on width and
-height for YUV formats. This is intended to prevent undefined behavior and
-hardware hangs, particularly on RGA3.
+This commit updates the RGA driver to request a shared interrupt when
+paired with an external IOMMU, allowing both drivers to share the IRQ line.
 
 > diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
 atform/rockchip/rga/rga.c
-> index f599c992829dd..77b8c7ab74274 100644
+> index e3c99c3f7c5be..cda3cecb1ce8c 100644
 > --- a/drivers/media/platform/rockchip/rga/rga.c
 > +++ b/drivers/media/platform/rockchip/rga/rga.c
-
+> @@ -767,7 +767,8 @@ static int rga_probe(struct platform_device *pdev)
 [ ... ]
+> -	ret =3D devm_request_irq(rga->dev, irq, rga_isr, 0,
+> +	ret =3D devm_request_irq(rga->dev, irq, rga_isr,
+> +			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
 
-> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *p=
-riv, struct v4l2_format *f)
->  	if (!fmt)
->  		fmt =3D &hw->formats[0];
-> =20
-> -	pix_fmt->width =3D clamp(pix_fmt->width,
-> -			       hw->min_width, hw->max_width);
-> -	pix_fmt->height =3D clamp(pix_fmt->height,
-> -				hw->min_height, hw->max_height);
-> -
-> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frms=
-ize);
+[Severity: Critical]
+If the external IOMMU triggers an interrupt while the RGA device is idle
+and its clocks are disabled via rga_runtime_suspend(), will rga_isr() still
+attempt to read the hardware registers?
+
+Since rga->hw->handle_irq(rga) directly reads RGA_INT, could this cause an
+external abort or bus fault? Does the ISR need to verify the device's
+power state with pm_runtime_active() before accessing registers?
 
 [Severity: High]
-This is a pre-existing issue, but does enforcing alignment here fully
-prevent the hardware hang?
+With IRQF_SHARED added, does rga_isr() correctly return IRQ_NONE when the
+RGA hardware didn't generate the interrupt?
 
-The RGA hardware derives its processing dimensions from the crop rectangle.
-While this patch ensures a valid even-sized format via VIDIOC_S_FMT, the
-vidioc_s_selection handler directly accepts user-supplied coordinates witho=
-ut
-enforcing alignment checks for YUV formats.
+If it unconditionally returns IRQ_HANDLED even when rga->hw->handle_irq(rga)
+returns false, could this defeat the spurious interrupt detection mechanism
+and lead to lockups during an interrupt storm?
 
-A user could negotiate an even-sized format but subsequently use
-VIDIOC_S_SELECTION to apply an odd crop size (e.g., 129x129). Since these
-odd dimensions are programmed into the hardware registers when streaming
-starts, could this bypass the frame size protection and still trigger
-the exact hang vulnerability this patch aims to resolve?
+[Severity: High]
+This is a pre-existing issue, but does adding IRQF_SHARED make the
+WARN_ON(!ctx) check in rga_isr() susceptible to a NULL pointer dereference?
 
->  	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->heig=
-ht);
->  	pix_fmt->field =3D V4L2_FIELD_NONE;
->
+If an IOMMU interrupt fires while RGA is idle and rga->curr is NULL, and
+reading gated registers returns 0xFFFFFFFF, handle_irq might incorrectly
+return true. Since the WARN_ON(!ctx) lacks an early return, will this
+proceed to call v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx) and dereference
+the NULL pointer?
+
+>  			       dev_name(rga->dev), rga);
+>  	if (ret < 0) {
+>  		dev_err(rga->dev, "failed to request irq\n");
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-spu-rga3-v=
-7-0-3f33e8c7145f@pengutronix.de?part=3D12
+7-0-3f33e8c7145f@pengutronix.de?part=3D21
