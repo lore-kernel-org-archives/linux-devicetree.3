@@ -1,102 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282C332A3D7;
-	Wed, 20 May 2026 10:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD5A78F2F
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779272247; cv=none; b=j9TeHGgYpBbXH+EtBozUsx/L22jdGetg4ke5LFLzre4PJaYR2r/vrwFwTQIYSD458SwpJvrSVP3Jax/O3KIDjnny+0/K6jUAjY8BBhoQyzVq1Vvz7zGfXZikaLuNbGX/tV2smFKJ+DS9coSZpnM3wDWXcxgX/R70idvQpB978Lc=
+	t=1779272326; cv=none; b=OL+nNXo3pPs4sjW7QyYp7+D8V8NoKNquUoPJZFqVzFQ6V3BWB5g2OlpzOkVmojftTPjxNoP5kBT7uFFtIYxKm0Nc725NFIqVuqlRdaOlO1G6w1hrtIO1sJoMVpnD4oRZHXJzTHODM8PBZmQaIidv3IO1VhxuffwcJylIV+UXCpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779272247; c=relaxed/simple;
-	bh=aqbExOtAGFdXsi44I6ZW9ObkM3OPKSb7xeLFB5wsQls=;
+	s=arc-20240116; t=1779272326; c=relaxed/simple;
+	bh=9GvTCEpKamo7Puzjy5EVV1bfnNMCGtFBMZiQDoyLqgE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UPB53kxoFXLd6WR/BQvGk+Uga9od+NHLSsicwvGv7jUFr0QIqKNgUGZw8E7bH37QPm1P/yzYyQdM693jGpDZzJJirpiIXioHXeQUoTcGO7nWCnEIjQLflVoOt4eT/c3eLyvYush+9G3f8G7Qc2caxF+wnm/aOGp/Irlw1rV4wVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djxyHMt5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kv9wa84LifPKHm4RcHZt0uQsp9R7YJv94wTT6Lwhy2RaDItpvZwtjtnZjpynIRadNErKRqlJrp4aQUl3pbRE8FsAh319o4lLrN76NUJzvrIbG9NCuhPIhibsjz/ICuywzkAsdkvCkUg55NR6zNv8cLzSFIw9XtEPvP9LH6DFrYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T5A5FBU8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ku1N3QbL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djxyHMt5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757791F00893;
-	Wed, 20 May 2026 10:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779272244;
-	bh=mQ6Cp1sdBOxnl8/slSDJi8hlFkG1VQs+A0zGZ75H7XQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=djxyHMt5Zyl+huLO0UhXZHSzQKsCbID+w6RbO3XjziDXYoItwzdpo2jt7YNWUDTrT
-	 F0fvPQg64Ohpa3rrFlxTVLS7xOMK67N+VzCpI15gdhnjtcsxmydw630lMos5MkTqyG
-	 lAgmg95HFa+roCXrYRJUQDp+GyeB67JckmJS0GX8ApBleA3cX2ON686wWsK5R/qgyk
-	 6Gx9+UqzO37WLxUfKG89gZuN1fzgLKIx98vkob1ITk9M3fHz4+ZmfJkaAvSpase8F+
-	 kgYnrES8IfThjMEzLgLtjYslMxngXLzWQnx/9CxRH7WYkGKx5C3XYnVEi+a6d6wRT2
-	 7UiNrRA4/1voQ==
-Date: Wed, 20 May 2026 12:17:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T5A5FBU8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ku1N3QbL"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K9lfwC266956
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:18:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=+k+oT4e6hBc5LIJSb/AfTwEM
+	WHG0zOLB6Gqph0QfZLc=; b=T5A5FBU8B4Q49FYw6rsT+wuTQ1paFOGadPVRhIXk
+	/I44B6NrnHNaxKO8yFIc2n1wxV/1tAfgq0BLZoOwssO+FBr2294U/r0rcjgCjWPH
+	qSs28psZkfWx+V5KMxH1aB5icaQKhc0Wi5vTKnNk4iT+kxPFDSr5pEVt4gSvrbA1
+	D7Q0F61L9IJu30hwCYZ55/wFWJZf1jtsnyjWGQInP9v2TQchtGLqPnKmmglfHmZh
+	mCPIyD3lXpioILVw1HmEcyNWXBL9PDMnMhjSW2e2IT8oPvedqy5F99X8C4xYzF6T
+	dG6TQYwPk+CNhK+Yuj/ExUV0fv7f3QBuDB8JIh+O7aJ4ig==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9amxr3rc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:18:38 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3041ab826ddso597665eec.0
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 03:18:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779272318; x=1779877118; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=+k+oT4e6hBc5LIJSb/AfTwEMWHG0zOLB6Gqph0QfZLc=;
+        b=ku1N3QbLSrdyrL+/Pb3++SEhkOor2R3bg8JMZl9PmDcNsSaFd4rYgc3nvESeCHY/cU
+         0/vUNlv0PvB9oeRGEmnnxx2cCDocW3tifXazvFYc76fQCqCJq+2vVINAC8Mi720kaxH+
+         lXILxisaj4DFseLO5Ze8CMo/08UA8GVOW/4NUvd6x4IUR1QUCZaM7DORnI/t6P0F1TYJ
+         ab2H8Kv+0/LapooyV3cm8d4Ikdyu5j0tIIMVzY2VR0pfCSnztuKz19vg0MfK6mg6HcP7
+         GxtBPAAyBINonjqqfKtB3598RxqvuRewPMV68OpJxYptUfigmE/WJRepOucK4CD4KqaP
+         HSKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779272318; x=1779877118;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+k+oT4e6hBc5LIJSb/AfTwEMWHG0zOLB6Gqph0QfZLc=;
+        b=BdC5k+oAGCKFuZhbC7HOTFy5Vm0GglY+crxkzGkxXnkpyx5DWsxFFopIR6E9FqEUqA
+         hh83Nj3kTKln06uWfrBvXz1N2IFMHw6oqnwX1NrkKhieuGIBFFD/sDJ4YZ6CbRh199cL
+         SNMrdjHX0m7IdunEQonpbpu2pJSjPcmZPR0xBkfyke5NITCiHKkeh1+4AjfFRJh/FTW+
+         0EvLBGQlokzKWnzL0rA9MSKC19HBlmXNFacZEaQ1YnWrZ3HBzOJI+K6+vYvizQ/zCWG0
+         EHOmzwaS5mS2CItrqzyaQKUo+NY0kdiyEnh0WQoLTikgiDxJlBWwFqCO6j8VL5xPz6Cs
+         CNGQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8aIv6VvpvZybkqDkh2jV1+4zfVXUf/M5XdHcp7BWX/KZIsTCkwb8fUNQur5SqcC3Vp+m/Z+l0ZSTvY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhxG99XpnBvoaWt97vr5XlCYXuF6bHJeXMQtf46mcSTzoeDVFg
+	i7YoA6Jdcy42UWaip1+b3nPDPTJd2Q55wwWecF+/aphY+DW2t22h4MOkjRtkZyVBEPZZQKEXlWS
+	mecYV4jr49lZh1QgsTZTqoHya3lJ9HOCPDaZPuyHpHAsiP3MbwHalQtM2iiJH2MlG
+X-Gm-Gg: Acq92OG/1rQQ2Mf0pCQ79QHOiYcUbI2rJQcMALnQ4tnG9hwWB7QNbbd9nM5i1grs+ZJ
+	+7o/EGaVYtADPLHfHvdtse9qoOR8sDsH2bOrAdU8DYimmzyZYN2Htk9oxq6EKEDDZph0zRAOoG6
+	JR3Fa4v5v2AHGq6MtK0GytETZhQkpBjF+pB7jE8GorurWYbWjPQ/AkKJXor4YPwc+wr2HZUsLKE
+	BquWktgNpVWS11RiGr632Qzq7O9zaT3IJ3vYBVJ2FKfzbR81GVa0O/omLCmFsHFbx2d3KsJpmdA
+	eA1HKYm6FZBEldqT1L9T2z2uilEcVvB8lPQv/LmS5ohPqJv++xfjoUPh/bx0UNaxkUeA4eOhdgc
+	nBSeBR0ny3XA5HyoGYEHw/K8rmMXWWtJsZL6X0gtiD6RsbhzAX/OEjXfFxc6TjLDl
+X-Received: by 2002:a05:7300:e430:b0:2c1:558c:16e1 with SMTP id 5a478bee46e88-303982865cfmr10691301eec.4.1779272317894;
+        Wed, 20 May 2026 03:18:37 -0700 (PDT)
+X-Received: by 2002:a05:7300:e430:b0:2c1:558c:16e1 with SMTP id 5a478bee46e88-303982865cfmr10691266eec.4.1779272317278;
+        Wed, 20 May 2026 03:18:37 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3041ab8282bsm1006139eec.31.2026.05.20.03.18.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 03:18:36 -0700 (PDT)
+Date: Wed, 20 May 2026 18:18:29 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: firmware: qcom,scm: Add minidump
- SRAM property
-Message-ID: <20260520-hopeful-beautiful-agama-ecbebf@quoll>
-References: <20260519171442.1582987-1-mukesh.ojha@oss.qualcomm.com>
- <20260519171442.1582987-2-mukesh.ojha@oss.qualcomm.com>
+Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, aiqun.yu@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support
+ for subsystems
+Message-ID: <ag2KdR9ljtpEsmUa@QCOM-aGQu4IUr3Y>
+References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
+ <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+ <20260520082747.7seyyua4gfv256ev@hu-mojha-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260519171442.1582987-2-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260520082747.7seyyua4gfv256ev@hu-mojha-hyd.qualcomm.com>
+X-Proofpoint-GUID: RwmEmhrtDI5u3cwqemWPtd061UqPW4on
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5OCBTYWx0ZWRfX+W9I7+Hx1Zp9
+ /lLYHzCLPuGQJisaP8WrPyctcvBujUFaqmMyjlS6pquOMmSG8o2LRSJBYV+lW3kblOpyb5WvaTh
+ tiLWjOZxUYU8v9Vh0DY46k2vJS+TI/j88XCugJZ/h7WHelFh/fyAup39urvpItS7FC16CAVLuJp
+ HqjM9bOftyRo626CpILCiPga/l7LWnYS7dYmPn3KKFo1CeHYiv3NrAkdwBeTADMMXWdMbTzWy1w
+ K72xxVyFS+2PV/2ELkoMydBkbhDXVnU5d/pCJ8qQMjxtjnH6f4XWb7EJSB2I2oPqrKxch0cDAKc
+ +vkilfz96B3r9G3+31i+ZFis5lQ3vRix5bc64ySMVcZiNE33J+6NbgT1QYgB3GJfR2laGos0bfi
+ xgkmdKLq7/zjRfxHc5rnc7SSB91YWgDTZgcXDmz8ehBHlYV0HXPZIfEaNpPQYKBPKQvQGlLLjyZ
+ y/P69gO4wGIFAElrcFw==
+X-Authority-Analysis: v=2.4 cv=TO11jVla c=1 sm=1 tr=0 ts=6a0d8a7e cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=aI_LCnMVjoIqU1kGItIA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: RwmEmhrtDI5u3cwqemWPtd061UqPW4on
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605200098
 
-On Tue, May 19, 2026 at 10:44:39PM +0530, Mukesh Ojha wrote:
-> On most Qualcomm SoCs where minidump is supported, a word in always-on
-> SRAM is shared between the kernel and boot firmware. Before DDR is
-> initialised on the warm reset following a crash, firmware reads this
-> word to decide if minidump is enabled and collect a minidump and where
->  to deliver it (USB upload to a host, or save to local storage).
+On Wed, May 20, 2026 at 01:57:47PM +0530, Mukesh Ojha wrote:
+> On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
+> > Subsystems can be brought out of reset by entities such as bootloaders.
+> > As the irq enablement could be later than subsystem bring up, the state
+> > of subsystem should be checked by reading SMP2P bits.
+> > 
+> > A new qcom_pas_attach() function is introduced. if a crash state is
+> > detected for the subsystem, rproc_report_crash() is called. If the ready
+> > state is detected, it will be marked as "attached", otherwise it could
+> > be the early boot feature is not supported by other entities. In this
+> > case, the state will be marked as RPROC_OFFLINE so that the PAS driver
+> > can load the firmware and start the remoteproc.
+> > 
+> > Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+> > Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+> > Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> > ---
+> >  drivers/remoteproc/qcom_q6v5_pas.c | 58 ++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 58 insertions(+)
+> > 
+> > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> > index da27d1d3c9da..ac2a00aacd2e 100644
+> > --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> > @@ -60,6 +60,7 @@ struct qcom_pas_data {
+> >  	int region_assign_count;
+> >  	bool region_assign_shared;
+> >  	int region_assign_vmid;
+> > +	bool early_boot;
+> >  };
+> >  
+> >  struct qcom_pas {
+> > @@ -510,6 +511,57 @@ static unsigned long qcom_pas_panic(struct rproc *rproc)
+> >  	return qcom_q6v5_panic(&pas->q6v5);
+> >  }
+> >  
+> > +static int qcom_pas_attach(struct rproc *rproc)
+> > +{
+> > +	int ret;
+> > +	struct qcom_pas *pas = rproc->priv;
+> > +	bool ready_state;
+> > +	bool crash_state;
+> > +
+> > +	pas->q6v5.handover_issued = true;
+> > +	enable_irq(pas->q6v5.handover_irq);
+> > +
+> > +	pas->q6v5.running = true;
+> > +	ret = irq_get_irqchip_state(pas->q6v5.fatal_irq,
+> > +				    IRQCHIP_STATE_LINE_LEVEL, &crash_state);
+> > +
+> > +	if (ret)
+> > +		goto disable_running;
+> > +
+> > +	if (crash_state) {
+> > +		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
+> > +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
 > 
-> Add a 'sram' property to the SCM binding to describe a region in
-> always-on SRAM where the minidump download destination value could be
-> written. Boot firmware reads it before DDR is initialised on a warm
-> reset to decide where to store the minidump either to host PC or to
-> on device storage.
+> I am not sure if this is already discussed, but what if it is the first
+> crash with recovery and coredump enabled? What would be in the dump,
+> nothing? As there is no segment, is it expected since Linux did not load
+> this?
 > 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/firmware/qcom,scm.yaml   | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-> index 25f62bacbc91..27422d00b8fc 100644
-> --- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-> +++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-> @@ -129,6 +129,13 @@ properties:
->            - description: offset of the download mode control register
->      description: TCSR hardware block
->  
-> +  sram:
-> +    description:
-> +      Phandle to a region in always-on SRAM used to store the download
-> +      mode value for boot firmware to read before DDR is initialised on
-> +      the next warm reset.
-> +    maxItems: 1
-> +
->  allOf:
->    # Clocks
->    - if:
-> @@ -250,3 +257,12 @@ examples:
->              clock-names = "core", "bus", "iface";
->          };
->      };
-> +
-> +  - |
-> +    firmware {
-> +        scm {
-> +            compatible = "qcom,scm-kaanapali", "qcom,scm";
+> This is even true if it is a crash after a successful attach.
 
-Incomplete, missing interrupts.
+Good point, Mukesh!
 
-Best regards,
-Krzysztof
+I guess we can have a check in qcom_pas_minidump() to do nothing 
+in case state is RPROC_ATTACHED?
 
+Shawn
