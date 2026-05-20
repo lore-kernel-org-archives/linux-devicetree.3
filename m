@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA98C37A4BA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50A032B123;
 	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779295242; cv=none; b=tzwv7IPvdEayZP+ZEMYBHAC+V4pVTSm9hhqeNHHqub07gsSUYDsyP8WNohxAARrCVD86SCN/ytbstrhnichAhQC9PbNsAuYEvqem15awvgGyFKQNhcKV4+CWBTPJlpfnCrnXcCXUCDMw0+V4sc8qCiNzZ50GKWcw1CbQy9RKvgk=
+	t=1779295242; cv=none; b=MIs/DT1hHecEfVsvDgQZ1bwfVeJoiOe7PSSgXAZrIKOvumz/VttulPC8wiTaagFPFsqTlTX5RlCncsRbW9K5pgB0uG453peTW4vLhJnkg2kg/D69dFogJkXGGAH0sDMbYf4bZBnLQbCR1CZ6pghLwE7/zt78AxNszBaBOx76vDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779295242; c=relaxed/simple;
-	bh=Mu9cAq/bK2HeYMImJlap8nXy6uvMFEKZPyKWOMasao4=;
+	bh=xEDVCdkua/7iBsfv2z75bWb1evX4JvLZuoi6otdCeQY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aoLbHa+V0wvC85Cma9ghSClNU71M+IZg/uvDPnjbngQuc0K2g1kFYm909q0V8RQE3rv6MnkdhW4Tz/P2ZpejvIVkz7hPhDZPwDcl/wsV66/icPHgtqOPbBZUfLvoKgYF5hNICVOIDKoG1gND7ErUU+hqegmPLkfHW2Tf7PE6Glo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfeDeNt+; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=APVYHDZ+Ls7+jeo5E9MjB+7eVoFStvwvoNx3g8ePBbfXP0Tcs9b8TasuDyu83qdrWmNasZVkmHKnf3mNDSa3adZEWnymNl11E9xnJRIn5/CfvGSg4LJT2nPWrwfn2tad90o8de3haRsTYa5dYGsCL1lndsCl79Gc+ITLZLB88Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5wA2z0r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfeDeNt+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D6F1C2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5wA2z0r"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7F103C2BCFC;
 	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1779295242;
-	bh=Mu9cAq/bK2HeYMImJlap8nXy6uvMFEKZPyKWOMasao4=;
+	bh=xEDVCdkua/7iBsfv2z75bWb1evX4JvLZuoi6otdCeQY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dfeDeNt+x4sgDIbwsODNMrUukL9VYJOD7OSkZU225gb0lmTd1f20xN3ers3UuwnnG
-	 hf4L7WaLJalGZjpa7SXxOvD9IVtZUY8TesWl20G2HOapKI3a5Ud/b/SFYNHpwPWtJs
-	 hgZWhb0s7lutPkFmeW5WEFXZYPJ3RdmxbNKIMs8kzo6uRmV4I4utaQf8D4eCusA7lF
-	 JGIMCOVfpYWqgRT4HOY8K0/0cufs/er0TJBK5inlDaov7jFlFaSL/hmx5lg4G+MAsn
-	 LyaXnh4+vOAwefuYCu8CWprv1yIE0cetRxl5n1Zo+w+MGBTTOHXg0O+1OjiwE4jqEz
-	 4EYhsldpgKy7g==
+	b=G5wA2z0rJweQK5zrc5Se1Sa6RzlOwp/uFy7jdlMULH/6pW5ii4YHl7hMQMLeB3tGh
+	 2vm8fe1G22CwWgzwpoddsTZxTlxjpCSCqxILcYNwtxdIu7RDAJrOYYLlgoFEt0zmO8
+	 SdtW3rIFzIMD1Fl1Ax07uKuLvRGTX/mEp0vtgVjBcweFBH5I6J5xARGUNFjz58kjFs
+	 qV4TzRYZkCHHPqhOkYVlUafTXfN8FEMG2Fykro69xNfuXMXrFB32zPph4KKcdWGq28
+	 Q19UxCHdn5OK/3TaRhP1CLCqFIAF6yfcCkcMsE0Icx2bt/OL2Kz7Ql4ix4kcwZUSei
+	 fRyK7oPZxPa+g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 840BECD5BA4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72931CD4F3D;
 	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:15 +0200
-Subject: [PATCH 11/11] arm64: dts: qcom: sc8280xp-arcata: Drop duplicate
- DMIC supplies
+Date: Wed, 20 May 2026 18:40:14 +0200
+Subject: [PATCH 10/11] arm64: dts: qcom: sc8280xp-arcata: Switch to uefi
+ rtc offset
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-11-9df52552bf87@gmail.com>
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-10-9df52552bf87@gmail.com>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
@@ -58,13 +58,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
  =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>
+ Johan Hovold <johan@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1355;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1302;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=zKav9HnHTj8DgP+Z9y+E814drSGNPU5bW2do5oedD5A=;
- b=jd63XVNVGo/QGrpVcEm+/DDF4Q/3SVr5c2azDz7Dhq8sS+H+BzUrp5rqDGwTydj26e1IU4R6W
- aMgOb7aIf4zD9WFH9SSEPHvEOAEo9UHNfDMJOBHTLhsuIHiZdo0YfNQ
+ bh=U33Edd1LJ3viLModpsBHxlsQb9yGXvyVVmxT4ozJBOg=;
+ b=asv2ZIpTTgM/SJ1GCriLiQm1TaOlO+NniVF0jnu8gepeegudJvUl5sTQf3BFgvV5YhTt5uqmi
+ WZO21yXZaRZBRVHWnIDLaoAMxtkMj03jiaiKyGyO87HeWLxRhE3HADp
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -74,38 +74,47 @@ Reply-To: jerome.debretagne@gmail.com
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Align with the reference implementation from the ThinkPad X13s.
+Align with the reference implementation from the ThinkPad X13s:
 
-The audio-routing setup specifies two power supplies for each DMIC,
-but only one of them can be active at the same time.
+Switch to using the Qualcomm specific UEFI variable that is used by the
+UEFI firmware (and Windows) to store the RTC offset.
 
-Drop the redundant routes to the pull-up "VA MIC BIASn" supplies as
-done in commit a2e617f4e698 ("arm64: dts: qcom: sc8280xp-x13s: Drop
-duplicate DMIC supplies").
+Use the new 'qcom,uefi-rtc-info' property to indicate that the offset is
+stored in a UEFI variable so that the OS can determine whether to wait
+for it to become available.
 
-There is no functional difference except that we skip briefly switching
-to pull-up mode when shutting down the microphone.
-
-Cc: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: Johan Hovold <johan@kernel.org>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 3 ---
- 1 file changed, 3 deletions(-)
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index ae0a054f2f9d90c9341766528d6be0b9561a530f..f938e68c69ea9276ca89d75b659dbea6a7a832f7 100644
+index 52d8e9527bd26f97305905650e2486a59e6d7157..ae0a054f2f9d90c9341766528d6be0b9561a530f 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -793,9 +793,6 @@ &sound {
- 			"VA DMIC0", "MIC BIAS1",
- 			"VA DMIC1", "MIC BIAS1",
- 			"VA DMIC2", "MIC BIAS3",
--			"VA DMIC0", "VA MIC BIAS1",
--			"VA DMIC1", "VA MIC BIAS1",
--			"VA DMIC2", "VA MIC BIAS3",
- 			"TX SWR_ADC1", "ADC2_OUTPUT";
+@@ -749,20 +749,11 @@ &pmk8280_pon_resin {
+ };
  
- 	wcd-playback-dai-link {
+ &pmk8280_rtc {
+-	nvmem-cells = <&rtc_offset>;
+-	nvmem-cell-names = "offset";
++	qcom,uefi-rtc-info;
+ 
+ 	status = "okay";
+ };
+ 
+-&pmk8280_sdam_6 {
+-	status = "okay";
+-
+-	rtc_offset: rtc-offset@bc {
+-		reg = <0xbc 0x4>;
+-	};
+-};
+-
+ &qup0 {
+ 	status = "okay";
+ };
 
 -- 
 2.47.3
