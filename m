@@ -1,183 +1,267 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022116.outbound.protection.outlook.com [40.107.75.116])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A03200C2;
-	Wed, 20 May 2026 05:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.116
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779256057; cv=fail; b=txhQ/FgmswvvNZAY7mSH8OM8ImnRjT/drsN9YDxRMMd17jfp4x7gsQzZyXdYR/RFItx/YZpyJEtv2cknb8Wvk1EYHi8vWS0EM4QWr9o3TsonkQE6hhd8VcnLSc63Vy+xT/qtjFPuy28ajccpoqhJwpMCnRu67mX4mWDREpl4LyE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779256057; c=relaxed/simple;
-	bh=uAudWDDIGdjirPdIT8iOhrylrqonp3ohVH0w2KgSIZY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=qSAmylr/AbzLHfn1GycufLidBXPOONRcUsME4z1DJ/g4YrL9BonqONho0clGgr3RotR4fyPRJYYWKG6UeYfuQF1POhkvhqrYRbkZfM4yVWtZlg+bkHg+1zQNUBPaIcTPBv2vX7qvQL0yTIZnt4W1rr/x6kD4ttQwppUczjQPKwI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=puJRa+t+; arc=fail smtp.client-ip=40.107.75.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66713546CB;
+	Wed, 20 May 2026 05:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779256508; cv=none; b=pC+5RNNskBc4Emwy1IpE1kwEzGTd9M1M68KTw7P+8v9KR2z/4MIZwpSa4ow6RxguXL+zMo6PgVlzYB92KxuD/ZW7dXRwC7TzFJc8i+9ymoJCk4e+kEpm+aE9KMzC6JMaASFKUtfQoiCJGrfkB8PHUdXelTIvp7xwDmQPNPQj8CU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779256508; c=relaxed/simple;
+	bh=9vRTrtgP4u/BymLLAeZUbCGTpbUypIKMl/yWHBf8UZQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HpTmPPwwdZDhXZpG/oYMR6m3ICjHzsJW4ZXbX/01GWBttKUVBvzSrFbJ6+tydOHSw7fW4V2HBTWLE39Ogc9wJYGHx9s7MuPLSTuUdJhGyVjL9RXfX4dOBZqGd+6hz2m3O1yY5T/aOKJZvavX0ULeBWZSqd2hM9NmAwIvdRqaOKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=onRhW8hC; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="puJRa+t+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k6i5qXqxJ8rOeJrnAH2/lOzmsdaRMwX2T2BOvXjNLv/uKqSeANK63Vns8ODQylBP02HCAe1oNsdZqjFNMIBetEhVPYjwAL8Bnt/kdFXNs94x3Vzl8g4fxZm7qa+manoPXNgP1XUMzqsLrdM4QizZj+bgPBKRpBUVQFRSZxGkpkPZ79fE7/wKYPhkXXL8CuWrGjvJZBsX1+0RSYxRGVa7M9TJx7n3a6g/HmXWrnPDu3eqPkfcFJZvhUQK68M8eoZzjRvnEerhbPF4Ayb4AG3IePMBU/bzxrT3FkB3u9VYj3i6oKFr74FTD2HCHmpTnCVlzC2eCfP6Dw/hUCqOMaxoTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9ZAbD2kuO5id/dqaG0reeCxIkdx0hVg9tJGGtFqLm7o=;
- b=cmjwDK3D/5kmz2fpwKZt5i9c1gKghKz8QQM55eZETmc92UHSfeEVkLsg6HcILV47apLZZMHj9KO/asr2g5SuVlfnf3C/XvxhauaFpvEYR7Ws4ICg9p+VYQQIYpHmECLR6qGYO/qULvrupf0mYHk1JSatGSGob4DPvE2ya6cNZ0Dn0DFd7kwAbyDz26Te0WGpj7DIgmJ89s9GLrU/S88p0oxC3tUMY8HY9Xhhw0AAVQuaDbO7MUTenPGsqIbFYNYQVr8OK9TWrd9IffVRe7CDW+j48tZF4zBxY+NR3Z5Hfk/ov0nWhDhj57K/Z8j67qN4djhkXtFCjPfnzNEV0UUggA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9ZAbD2kuO5id/dqaG0reeCxIkdx0hVg9tJGGtFqLm7o=;
- b=puJRa+t+ct1IUR+1ZGuMe04++Fsuf2vrpwaM8FeonbYa/dLirBCwU4qN7kONBE90apcuNBdrGNioMLO59es9tSpooF4w0O3KADLxAyC9QEnRY7CxiTPeUPrTch9rtBZdOhi3++7nuj69GD90ty6OKYAZ/1hzAiYcC4neBrJgjPXPKKTsjR3UOygGBapNN+7wbtf25BreeaKa2VAuwAoyzU8QHhyPFJiWhdQFh7oXf4Kex3KmjA4qzWpUx5ZGPGS2+2woRk7oyHiJPtb7wA4+uz0T1SGo8rTWbe+RDl3Tv9N1S0AFIulPpPoJCVPdoZYgfb7i7xnlgJEiiInfRY9Hdg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
- by KUYPR03MB10359.apcprd03.prod.outlook.com (2603:1096:d10:9a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.13; Wed, 20 May
- 2026 05:47:31 +0000
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0048.010; Wed, 20 May 2026
- 05:47:31 +0000
-Message-ID: <8d89b669-e72e-4663-9596-999a12922d32@amlogic.com>
-Date: Wed, 20 May 2026 13:47:27 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
- pre-divider
-To: Jerome Brunet <jbrunet@baylibre.com>,
- Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Xianwei Zhao <xianwei.zhao@amlogic.com>, Kevin Hilman
- <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
- <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
- <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
-From: Jian Hu <jian.hu@amlogic.com>
-In-Reply-To: <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SEWP216CA0083.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2bc::8) To KL1PR03MB7149.apcprd03.prod.outlook.com
- (2603:1096:820:ca::7)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="onRhW8hC"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1779256498; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=xMPSO73IWGk2hZS1TCz+JCCfIYv2zI+oGe5qmaNSKhE=;
+	b=onRhW8hC1y9LvGCZijPIJx+wY/3cI+tziYNtQmRHcyeTFZmliEho31VmMxz1QmRDFLDcNvqipEuNsgrBJ6EGwfYC6qG4Iu4rv1pCo2khDc5XlQgIffI42JnL3+JriJmFACScCHn07d9Ry0rdGiv/aIO0eCxznpaQSOghSlc9/F4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=tianruidong@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0X3Hek0d_1779256496;
+Received: from 30.74.144.211(mailfrom:tianruidong@linux.alibaba.com fp:SMTPD_---0X3Hek0d_1779256496 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 20 May 2026 13:54:57 +0800
+Message-ID: <3715e240-0a86-4011-a55b-a8b6d85ac4a1@linux.alibaba.com>
+Date: Wed, 20 May 2026 13:54:56 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|KUYPR03MB10359:EE_
-X-MS-Office365-Filtering-Correlation-Id: ade9f45f-50a2-4166-4594-08deb6334870
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|4143699003|22082099003|56012099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	1AArEbfbiy8SZiFwKVLN+rnGt1/xzuV847V8hksi5WeADKfoLfH6LqjhA1jYMpPP8xNsM5euk/DgrOcASk4mOym6Z2tI/BngKTaSY7z3ZHE5akPhqMkY64lGI/+vBAfpTGGeblHqRaYjEvrQzUFghxfWYhtynttoj6Zkhi1xDfTW4ZDa36K8XBzO3V+U1/10zAd9IGYIizHCg9SRpzhfKo6HgLktABplcRz3Pn6jTSOwmwU2lAk+ffEn8Az4vigO+ZpFfYtklS//Nwc8ynxi5hrnNmEGTnFZkdBYrkYcBqZmhoZMP9rkfUwqSl40Kg47zqeg2CvU5AaGyZV8YnFlyAmfV38+udqGFh8kbsFXpLELZJNmSuUk20zKp9ScW9zuFabh7mENTZJsvZqaHW8izQ9uh8dnTiTpX/zGlCv99DBHhmdPcSPlreGs/W6aqRQ1S43YOj1PV+66QadgWRjaiWxgDhdwDMypz9abggQ+tS/G02YYH0VmP53mqkfSXN5h9zhVX/C9x1S82W66yQ65QeNaHkAEiL+fSyHCGVU1OPiYAzpgArcJ/FwUbX/FCY8MwEBz4XBV2na0FB9M2LTJ474xNT14CEdRFyoNqJGInF8i23GHuGg1yC7ySFqUJfoSjrzzlCNck1EzgsRH+cjbIqD4DW2ab/vkQ3+x4EWRLnCLX7rlLArwNqeeY3uellIa
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(4143699003)(22082099003)(56012099003)(11063799006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QlRjMndjc3pORU9FTS9hUGdlNG85TVZtS0g0T3l1N1NMREd2WE51VnZUTUFn?=
- =?utf-8?B?T1Y2SlFzT0tDTGU0ZlJJaEdnVFA3cGFjdkh6alU1cHdaV2c3U0VYeGtaWDZY?=
- =?utf-8?B?eldPS003NEJXMmZSUGpPL1NWclU5N05PMGVXM1FVZVNtQXoydUZMbzhpVThM?=
- =?utf-8?B?TTR3UUJFTnpmSHJpRUhYcXhnYkJ0UmhTWDQ3eXlBbnkvb3FITzVUNGhjbHlx?=
- =?utf-8?B?S1BldmZXSWt1aTNMb1psaGRGeThkTXF5TDRYaW9QU1Q0V2MyZVNvMXdNQjdQ?=
- =?utf-8?B?ci9GNStBcW5YZEFPMUVodC9FVUFCeTlhZnRsdlZGaHJxbVF4aHMzc0tnanBZ?=
- =?utf-8?B?RUFETkYvTXBFb3E1Z0hJSUVrRFE2K0lJYnhnTy9Wc2J1ZERKQ0paRktVWndF?=
- =?utf-8?B?YkRWTDl6NEtyeHBTZElpaUlTVU9OMkQwWUZUeGN1WkpqQndLMmFZZW9HUlcx?=
- =?utf-8?B?TjlmeUQva1RGYjBQR1ZmMTFEdWVlaXd6d1IyTWFaMnc0RC9jbitzSVNmVnFs?=
- =?utf-8?B?WmpMYnp4QnEycEhrYVYwOUs5b204a2dXemFKK09GV0xPalZ5MVFJTkYzR3cy?=
- =?utf-8?B?Zkp6L2Fqc1lyeC9ESUJRUklQK3d3aWhGanRQVkM3Nlk3OVRNL0IxZlZXL0JY?=
- =?utf-8?B?MXZiSzluQjg1aEM0Wmp6QXVPVTJmY1pQU1oxY2d5RmFpQ0tmdHkrTzVHL1d2?=
- =?utf-8?B?TndLN2JmYjBzQ0xhSFVScEYrbzdxeW9Xc0MyVkxFRC8zbklkNEhIQmsxdDlK?=
- =?utf-8?B?dzFpbVVYZ3RGOUlMSkhFNWZVc0tyVUNNUk5RNlAzRW15ZkNreHh3ZlNhNlF0?=
- =?utf-8?B?bWxUS1RxcGhoU3djdEJXU3Z2TlI4VUdlMkhVcWZJUHBLR0JRbCtXalpVNHVY?=
- =?utf-8?B?U0I2VXdaVWxWRUZqWWQrbVRuRjI3dnZGaWwvMUMrNWp2R3V3eG1Fd0NESmpl?=
- =?utf-8?B?Vk5qazE3RGN5YS9aWS96N1hGQktYOEVIeE90MEd2WjVyRnNjeDlFVXNiWDRs?=
- =?utf-8?B?NFdYMEx6VExxdGpXTGtmb2x4TnVYT3p6eHMxZy84RmI5UjhUR2NKNFN0dTA0?=
- =?utf-8?B?bDErYURDUFRSdnQ4UDFuVWFRSWRTWWZvSG1mNjVGN1RZcUF2MnhIQXdtank1?=
- =?utf-8?B?TXgwOTE2cGtuOEl6OGlhWGdsMDR3b3dYbEZTdFNPNzljdCtSemFmMEcwYjRT?=
- =?utf-8?B?UnNqSzBqZjFYeW41bEZ2ZnZzWGpSUDBRWTdSeEdCZVhSTGVFTkZYZFI4MVRP?=
- =?utf-8?B?ZVNzOGgzYldJR0ozUnpqU01UYnhLS25WMXV4WXZ1QnZ3RFNDL0NWMUNEb29q?=
- =?utf-8?B?SDRTUFViN3Zvb1dydlVwTnpXRTR4bEhkVHo1YWx1T0RtUExWUTNESDE5d0I0?=
- =?utf-8?B?UXVmeVdjZ0M1Q3diamM4dmgwbXpWMXRIRnd5Z3g2bzFobnlNNFMvRnRtYnpt?=
- =?utf-8?B?dDU4RU5PL0hWOEhwR1dGNkFNeFR2K1QydzRzMVNhc1o1RUhjOTYwc082eTJo?=
- =?utf-8?B?WkRKWjdVbm04Z3FsTm0xRXJmQzdlczBhemlJNXBoNloxRTV5NWtlKzdYZG9B?=
- =?utf-8?B?SDIxcGk5SE4zbHZ4ckJjTVZYTDRqdEdHciszMC8weUV5K0xEZUlzaFR2OUpl?=
- =?utf-8?B?NTFsSE5vTFB2SEZkVkdqUENKd0s2cjlLYmhjWElEYmUrRjlpOGdWTDJpT2V0?=
- =?utf-8?B?b1VVeG5yQi9wRTIwcVZ4d01uUURvVjhJOS9xSCtEeWE0VnVMUDArYkRoRjBG?=
- =?utf-8?B?NGh5dmdzM0JGUUVqSDBET2d5czR4TVpnL2JKVUd4NzN6b3lpQmNvdUxEd0lW?=
- =?utf-8?B?eG93bjljS2t5bFhmOGVRZmh3VjIzUHQ4T09kYnFjMXpiMzNvYVIzRlpsMHlB?=
- =?utf-8?B?YVUvelUzZDBqQWZXQ2xYQWw0U2xPejRzTDRxUm9tZW9Tdk9ibFdMZ0t3NTR2?=
- =?utf-8?B?YStLdVVuWUZLWGV2WFpwN2Y3Y2tZSktBdTlDTzFFWVg2VEMvQzdPMGoybi9T?=
- =?utf-8?B?NlBTa2d2N0pnTW1keGVlN0NtVTc3elIxT1JTOEM2RExwc0tPZk82VzlqRDA2?=
- =?utf-8?B?RWZKSXJMMWpWQ0pTOGZ5S3B6dEVYOVllWkx1QnIxdTVhK2VmdjFvRDJmUUFH?=
- =?utf-8?B?T3ozazBOWVoyb21vZ1UwSGVmSEJKd2RzVVBYaGVnbHJOMFNFZnJIUlRPUmlM?=
- =?utf-8?B?S2U5MGNzS0xPMVZ3STdaN2xrTjA5dTRaZVQ4TERNZmdVN1pPNGJScE5XQVBV?=
- =?utf-8?B?TjMwU2QzT25OK3dhQ3A2REtqOXBBdWtYVEhJSW5xeHAvUEtZYThwd3JYb3ls?=
- =?utf-8?B?S2NOaEpLdnZEM0pkekZZY05pTy9lTG1wUG44em9CY29zZXFtbEM4Zz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ade9f45f-50a2-4166-4594-08deb6334870
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 05:47:31.0042
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kvkZYNv3EM9e7ngRRQQAudARN7Xt+SDR8QpbUMFjkrQMuq1y4Zp2MxqT0o2c1AJqkVnzcTYBDF8jC8e4zoJcFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR03MB10359
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] ras: aest: extend AEST support to Device Tree
+ frontend
+To: Umang Chheda <umang.chheda@oss.qualcomm.com>,
+ Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
+ will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
+ mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
+ <8f1529af-f6fe-44bc-a4b1-c47a19824d1e@linux.alibaba.com>
+ <f95584f8-220f-4bd1-a189-dc05ffd2a9bc@oss.qualcomm.com>
+From: Ruidong Tian <tianruidong@linux.alibaba.com>
+In-Reply-To: <f95584f8-220f-4bd1-a189-dc05ffd2a9bc@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 5/14/2026 11:11 PM, Jerome Brunet wrote:
-> [ EXTERNAL EMAIL ]
->
-> On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
->
->> From: Jian Hu <jian.hu@amlogic.com>
+
+
+在 2026/5/12 14:45, Umang Chheda 写道:
+> Hi Ruidong,
+> 
+> 
+> On 5/6/2026 1:40 PM, Ruidong Tian wrote:
+>> Hi Umang,
 >>
->> The A9 PLL pre-divider uses a division factor of 2^n to ensure a clock
->> duty cycle of 50% after predivision.
+>> Thanks for your patch.
 >>
->> Add flag 'CLK_MESON_PLL_N_POWER_OF_TWO' to indicate that the PLL
->> pre-divider division factor is 2^n.
-> I understand what you are doing here but I have to ask why this can't be
-> implemented with independent dividers that already supports power of 2 ?
+>> Would it be okay if I include this patch in the next version of the AEST
+>> patch series? I will make sure to add your Signed-off-by line.
+> 
+> 
+> Yes, you can include this patch in the next version - we will represent
+> it and respond to all of the queries received on DT specific patches.
+> 
+> How should I be sharing the patch fixes based on comments received from
+> maintainers to you ? so that you can include in your patch series ?
+> 
+> Also, when is your plan to post the next version fixing the comments
+> received ?
+> 
+> 
+> Thanks,
+> Umang
 
+Hi Umang,
 
-If we use independent dividers, the n member would have to be removed 
-from meson_clk_pll_data.
+Thanks for your feedback.
 
-However, n is referenced 35 times in clk-pll.c, which means we would 
-need to modify all
-related logic across the file. This would be a relatively large change.
+I plan to complete the development of the next version within the next 
+two weeks. During this period, there may still be some issues or 
+questions, and I will bring them up for discussion as they arise.
 
-
-Moreover, for all Amlogic chips, the n divider is an indispensable part 
-of the DCO clock.
-The difference between SoC generations is as follows:
-     Previous SoCs PLL: n = 1, 2, 3, 4... (linear divider)
-     A9 SoC PLL:            n = 2^0, 2^1, 2^2, 2^3, 2^4... (power-of-two 
-divider)
-
-Therefore, splitting out the n divider from the DCO clock might not be a 
-good design choice.
-
-
-[...]
+Once all the comments and related issues are resolved, I will post the 
+updated version of the patch series.
 
 Best regards,
-
-Jian
-
+Ruidong
+> 
+> 
+>>
+>> Best regards,
+>> Ruidong
+>>
+>> 在 2026/5/5 20:23, Umang Chheda 写道:
+>>> This series extends Tian Ruidong’s [1] ACPI-based AEST support series
+>>> to also cover Device Tree based platforms.
+>>>
+>>> While the existing AEST driver relies on the AEST ACPI table [3], many
+>>> embedded Arm platforms use Device Tree exclusively and cannot use the
+>>> driver today. This series adds a DT frontend that mirrors the ACPI
+>>> implementation and feeds the same core driver, keeping ACPI and DT
+>>> paths functionally equivalent.
+>>>
+>>> Along the way, several correctness issues were identified in the core
+>>> driver and are fixed in the first part of this series.
+>>>
+>>> The DT frontend is mutually exclusive with ACPI and does not introduce
+>>> any DT-specific logic into the core.
+>>>
+>>> How to test with QEMU
+>>> --------------------------
+>>> Tian Ruidong's QEMU fork [2] emulates AEST MMIO error records on the
+>>> virt machine.  To test the DT frontend:
+>>>
+>>> 1. Build QEMU:
+>>>
+>>>        git clone https://github.com/winterddd/qemu.git
+>>>        cd qemu
+>>>        git checkout c5e2d5dec9fd62ba622314c40bff0fbecb4dfb34
+>>>        ./configure --target-list=aarch64-softmmu
+>>>        make -j$(nproc)
+>>>
+>>> 2. Build the kernel with:
+>>>
+>>>        CONFIG_OF_AEST=y
+>>>        CONFIG_AEST=y
+>>>        CONFIG_ARM64_RAS_EXTN=y
+>>>        CONFIG_RAS=y
+>>>
+>>> 3. Add the following DT node to your virt machine DTB.  The QEMU
+>>>      fork maps DRAM error records at 0x090d0000 (SPI 44) and CMN
+>>>      vendor records at 0x090e0000 (SPI 45):
+>>>
+>>>        aest {
+>>>            compatible = "arm,aest";
+>>>            #address-cells = <2>;
+>>>            #size-cells = <2>;
+>>>            ranges;
+>>>            interrupt-parent = <&gic>;
+>>>
+>>>            /* DRAM memory node — MMIO at 0x090d0000, SPI 44 */
+>>>            aest-dram0@90d0000 {
+>>>                compatible               = "arm,aest-memory";
+>>>                arm,interface-type       = <1>;
+>>>                arm,group-format         = <0>;
+>>>                arm,interface-flags      = <0x22>;
+>>>                arm,num-records          = <4>;
+>>>                arm,record-impl          = /bits/ 64 <0x0>;
+>>>                arm,status-report        = /bits/ 64 <0x0>;
+>>>                arm,addr-mode            = /bits/ 64 <0x0>;
+>>>                arm,proximity-domain     = <0>;
+>>>                reg                      = <0x0 0x090d0000 0x0 0x1000>,
+>>>                                           <0x0 0x090d0800 0x0 0x200>,
+>>>                                           <0x0 0x090d0e00 0x0 0x100>;
+>>>                reg-names                = "errblock", "fault-inject",
+>>>                                           "err-group";
+>>>                interrupts               = <GIC_SPI 44
+>>> IRQ_TYPE_LEVEL_HIGH>;
+>>>                interrupt-names          = "fhi";
+>>>            };
+>>>      };
+>>>
+>>> 4. Boot QEMU with acpi=off:
+>>>
+>>>        ./qemu-system-aarch64 \
+>>>          -machine virt,accel=tcg,gic-version=3 \
+>>>          -cpu cortex-a57 -m 2G -smp 4 \
+>>>          -kernel Image -dtb virt-aest.dtb \
+>>>          -append "console=ttyAMA0 acpi=off earlycon" \
+>>>          -nographic
+>>>
+>>> 5. Verify probe:
+>>>
+>>>        dmesg | grep "DT AEST"
+>>>        # Expected: DT AEST: registered 1 AEST error source(s) from DT
+>>>        ls /sys/kernel/debug/aest/
+>>>
+>>> 6. Inject a CE error via the QEMU MMIO fault injection registers.
+>>>      The QEMU device accepts 64-bit accesses only (use devmem with
+>>>      the 64-bit width flag):
+>>>
+>>>        devmem 0x090d0808 64 0x80000040   # CDOFF | CE inject
+>>>
+>>>      This triggers QEMU's error_record_inj_write() which sets
+>>>      ERR<n>STATUS.V=1 and asserts the IRQ.  The kernel driver's
+>>>      aest_irq_func() fires, reads the status, and logs:
+>>>
+>>>        AEST: {1}[Hardware Error]: Hardware error from AEST memory.90d0000
+>>>        AEST: {1}[Hardware Error]: Error from memory at SRAT proximity
+>>> domain 0x0
+>>>
+>>> Testing
+>>> -------
+>>> - Validated on Qualcomm's lemans-evk and monaco-evk board with DT boot.
+>>> - Validated CE and UE injection via debugfs soft_inject.
+>>> - Tested ACPI path is unaffected: ACPI boot continues to use
+>>>     drivers/acpi/arm64/aest.c unchanged.
+>>>
+>>> [1] https://lore.kernel.org/lkml/20260122094656.73399-1-
+>>> tianruidong@linux.alibaba.com/
+>>> [2] https://github.com/winterddd/qemu/tree/error_record
+>>> [3] https://developer.arm.com/documentation/den0085/0200/
+>>>
+>>> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+>>> ---
+>>> Umang Chheda (8):
+>>>         ras: aest: Fix shared processor node handling and error log
+>>> messages
+>>>         ras: aest: Fix CE/UE error counts not incrementing in debugfs
+>>>         ras: aest: Skip unimplemented records in debugfs
+>>>         ras: aest: Add panic_on_ue module parameter
+>>>         dt-bindings: arm: ras: Introduce bindings for ARM AEST
+>>>         ras: aest: Add DT frontend for ARM AEST RAS error sources
+>>>         arm64: dts: qcom: lemans: add AEST error nodes
+>>>         arm64: dts: qcom: monaco: add AEST error nodes
+>>>
+>>>    .../devicetree/bindings/arm/arm,aest.yaml          | 406 +++++++++++++
+>>>    arch/arm64/boot/dts/qcom/lemans.dtsi               |  41 ++
+>>>    arch/arm64/boot/dts/qcom/monaco.dtsi               |  41 ++
+>>>    drivers/ras/aest/Kconfig                           |  15 +-
+>>>    drivers/ras/aest/Makefile                          |   2 +
+>>>    drivers/ras/aest/aest-core.c                       |  63 +-
+>>>    drivers/ras/aest/aest-of.c                         | 673 +++++++++++
+>>> ++++++++++
+>>>    drivers/ras/aest/aest-sysfs.c                      |  27 +-
+>>>    drivers/ras/aest/aest.h                            |  15 +-
+>>>    include/dt-bindings/arm/aest.h                     |  43 ++
+>>>    10 files changed, 1310 insertions(+), 16 deletions(-)
+>>> ---
+>>> base-commit: a67b7fd0dd1f6ccf3d128dc2099cdb07af1f6a09
+>>> change-id: 20260505-aest-devicetree-support-a3722d90e1f5
+>>> prerequisite-message-id: <20260122094656.73399-1-
+>>> tianruidong@linux.alibaba.com>
+>>> prerequisite-patch-id: c5a7c6431c6c1e6351241e694ee053800039d41d
+>>> prerequisite-patch-id: 1f6e2c20829eee41a210dd8a538f1e8efcc65872
+>>> prerequisite-patch-id: 5556287e3f46c2ed2c0431c53c7782e87bcbd866
+>>> prerequisite-patch-id: 2edae0a136d7779b8f686181720e71d044a73311
+>>> prerequisite-patch-id: b5190b2844dcb01e72f87a59f3a29548795fdb82
+>>> prerequisite-patch-id: 7ba848583708b2ae776a7ce847bb056e3de7f77b
+>>> prerequisite-patch-id: 397e5b22802b67942435f4f2968f0b1e210ba0e8
+>>> prerequisite-patch-id: 2169f4b65537eecbd0ccbd2ad6b28c64ec44655d
+>>> prerequisite-patch-id: b626f85d98747595b3240bc49e6ad9c9dd5c0fa9
+>>> prerequisite-patch-id: 1323dfd2eebad2ef6514dbbce58ba08e8859f894
+>>> prerequisite-patch-id: 95b826e5e329408437a3ef336c4f45d4d74f82bb
+>>> prerequisite-patch-id: b60ff489a5a33c5d5220fa8144af7b7511769cba
+>>> prerequisite-patch-id: 43f35a52b8a3d13c938ff08083403c1d3bd0df8b
+>>> prerequisite-patch-id: c55d4e9117ca36d3c2cba82d550a618cb82bb745
+>>> prerequisite-patch-id: 3885e10f318ae8101d6909b35d92a976cc359e3c
+>>> prerequisite-patch-id: 92958cde05577f069c5659018a274bb39cfb6b24
+>>>
+>>> Best regards,
+>>> -- 
+>>> Umang Chheda <umang.chheda@oss.qualcomm.com>
+>>>
+>>
 
