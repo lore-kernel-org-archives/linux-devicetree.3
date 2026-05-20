@@ -1,179 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CA13ED125
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:20:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5592E21ABD7;
+	Wed, 20 May 2026 15:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779290458; cv=none; b=eI3a1Vv7fuTJ7105kbCW3kGmZvbQYjS21OwwWWynzBDL6T7Ewe+HnQLLA7D5Spd3mCXuKQDbZbYxhgG5wwiGCCVJBpteOY0SmhK3M8/pkvZCd/KhVpbKtP8DPGStKMtxtZwTtHxakMQ0WYZ1Z15GVCTE5jg6rB333wns2fXFiGU=
+	t=1779290787; cv=none; b=D0FUAU8czOkY0AeaqLy6OrTkJQoWfubNJ9JG88MEoJlOAPomxtvF8o44yTtSWjtK79sc959Pltn9f300dyNUqKbEgVpm/BQbh01xROrK/hkQ6YmEoXTHOyzkJyqpzGJmoZ8GC2oavKKSr0LWr2KeVk5+j6HCB7CQGalmqubgwRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779290458; c=relaxed/simple;
-	bh=KFL5GTCAvk1c+j5Va3JOJCqqeLKFxgbwNyKarrYsSF4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WV9D480utI/KNjo6pt+Sb2TnnTl6W2qhVlKytTx+r3VV3BRNmQ1+mJqiOIi9Lyc+KDF1rfLe1FnOy06JQWe2D0icEOdGVmEEahb1cFirND8sLbsuY4qkCwgoNZD/iibz2eJMGEFS6Ni6Dd7NTDpVsZXiSo+VU2xPt1+yho8X7Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/UNZfEe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779290787; c=relaxed/simple;
+	bh=wlo7UvgwYP16eDLQsjqB5+4swMbRE2kBVvvln25PfYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NVeRPVDEUM+pLSn+F224QMJIucQlVSXB/YfzQyAmOZ9Tax/x5yDjXs3/fyhCy8Vf1vTUzrYa+1Zl9hLScXSb5ursZoHKs6EGJv4P7GFO/E12AdhY8LeHljL9GDbPYSJafhS5h3dr9FY19gzVjSFwYF7C5GcG9KS5rF+0XBNEeY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Utyz6gxc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/UNZfEe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215E81F000E9;
-	Wed, 20 May 2026 15:20:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Utyz6gxc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56FCD1F000E9;
+	Wed, 20 May 2026 15:26:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779290457;
-	bh=jjyA7T21uEb/7VKspBpd8f2VgAykRtNr2FCWxH3XFBM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l/UNZfEems1rTTWX8O1HsGUiJysqVrYqjluCmyWRbTihklxNS1T6XisJIHN8pczVx
-	 r0W8dR7HZMknu707Hcjwgpb+gnynREjznXr6WmA4FRnztuAp4w+4ZH/X7hkTCDzsZM
-	 tBFfkJr3JjxXgh1HYUyXVo9DLeHik9AA5yVojwiXFvD58mTg7ctvp3sjqCW+7PPAe2
-	 M8tkBZYfVkDhdcB6PNMGiDXSjPQ4owCzGExgJ3pMqUEOKdWlWxC/peBZp8heLnktnK
-	 muCIXhBoT+8wBBrNSFFIIqytH2zBKyyM+BlPo+YvBJTRaGKSS5MRytTe8nPGHidD65
-	 kfSbxEcu9lyzw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 6/6] leds: is31fl32xx: Move pwm frequency setting to
- init_regs()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260520133343.1423946-7-jerrysteve1101@gmail.com>
-References: <20260520133343.1423946-7-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 15:20:56 +0000
-Message-Id: <20260520152057.215E81F000E9@smtp.kernel.org>
+	s=k20260515; t=1779290786;
+	bh=VX5QXlO/FmCYpxFmNVmPdJNwz7Cx3UHOIbX66s/Mns0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Utyz6gxcGJ/e6rblW1DQ0G1pWtzHJG2lFS62wmEW3iLIWhn8CHeO7KI3ClxopW/Y/
+	 SxRS9vFZZsFRfa997iibKorGr6b3JL4+cTTYbLv2e6intFRz9lkEIQmE8IGsVdsw8l
+	 bYdf3ckKyC8tLDdH3bM/D0zsHxveal8mXz0pOKPWSZahVf25w8rcY4rVKz/PE+SkiU
+	 g/WXTep89HTWJYh7pYAqsh49kSObGBk+kmHopqCQWrjZGbc09Uc0FhNGQ5EBvigCkR
+	 RaZHlyKcOy6ZhBBFgu8VmhWv4jSxpdCPOLT6SDObwbt1WlMkD2xP8BzZ/VfmS3mre3
+	 z6aUT/LNKrJvA==
+Date: Wed, 20 May 2026 16:26:19 +0100
+From: Lee Jones <lee@kernel.org>
+To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v2 03/10] mfd: rz-mtu3: use device-managed
+ mfd_add_devices()
+Message-ID: <20260520152619.GI2767592@google.com>
+References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260410163530.383818-4-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260507124620.GJ305027@google.com>
+ <TYYPR01MB156155337B60155F08D6346EB853C2@TYYPR01MB15615.jpnprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TYYPR01MB156155337B60155F08D6346EB853C2@TYYPR01MB15615.jpnprd01.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Thu, 07 May 2026, Cosmin-Gabriel Tanislav wrote:
 
-Pre-existing issues:
-- [High] LED class devices are registered before hardware initialization co=
-mpletes, causing race conditions and state loss.
-- [High] Missing initialization of `output_frequency_setting_reg` for IS31F=
-L3293 causes erroneous I2C writes to register 0x00.
-- [High] The current limit calculation in `is31fl3293_reset()` incorrectly =
-uses `max()` instead of `min()`, risking hardware damage.
-- [High] Concurrent brightness updates on different channels can cause torn=
- multi-byte PWM writes and visible glitches.
---
+> > From: Lee Jones <lee@kernel.org>
+> > Sent: Thursday, May 7, 2026 3:46 PM
+> > 
+> > On Fri, 10 Apr 2026, Cosmin Tanislav wrote:
+> > 
+> > > Replace mfd_add_devices() and the custom cleanup action with
+> > > devm_mfd_add_devices().
+> > >
+> > > Remove the ret variable as it is now unused.
+> > 
+> > Do this first, then the changes in the first patch make more sense.
+> > 
+> 
+> Doing the devm_mfd_add_devices() conversion first would not be a simple
+> replacement, as devm_add_action_or_reset() would also need to be moved
+> before it to keep the intermediate patch correct.
+> 
+> Otherwise, on release, the reset will be asserted before the MFD devices
+> are removed. Doing the reset conversion first fixes that without extra
+> logic changes.
+> 
+> Alternatively, we can squash the two conversions to avoid the
+> intermediate states entirely, and remove struct rz_mtu3_priv::rstc in a
+> new separate patch. What do you think about this variant?
 
-commit 7b1ac7769467fbaf4418cb18df93e48ba5bbff75
-Author: Jun Yan <jerrysteve1101@gmail.com>
+As you wish.
 
-leds: is31fl32xx: Move pwm frequency setting to init_regs()
-
-Commit a18983b95a61 swapped the order of is31fl32xx_parse_dt() and
-is31fl32xx_init_regs(). This patch moves the PWM frequency setting logic fr=
-om
-is31fl32xx_parse_dt() to is31fl32xx_init_regs() to prevent the configuration
-from being overwritten by the register reset operation.
-
-> diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32x=
-x.c
-> index 5678c2273bbd9..3e86e414c532b 100644
-> --- a/drivers/leds/leds-is31fl32xx.c
-> +++ b/drivers/leds/leds-is31fl32xx.c
-[ ... ]
-> @@ -346,6 +347,14 @@ static int is31fl32xx_init_regs(struct is31fl32xx_pr=
-iv *priv)
->  	if (ret)
->  		return ret;
-> =20
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the current limit calcula=
-tion
-in is31fl3293_reset() risking hardware damage?
-
-The function calculates the operating current limit using
-max(led_data->max_microamp, IS31FL3293_MAX_MICROAMP). If the device tree
-requests a lower limit like 5000 microamps, max() will override it to 20000
-microamps, potentially overdriving the LED hardware.
-
-Furthermore, if a limit larger than 20mA is requested, the calculated value
-exceeds 255. When passed to the 8-bit is31fl32xx_write(), it will silently
-truncate and result in an unpredictable current limit setting.
-
-Should this logic use min() instead to safely enforce the hardware constrai=
-nt?
-
-> +	if ((cdef->output_frequency_setting_reg !=3D IS31FL32XX_REG_NONE) &&
-> +		priv->pwm_22khz) {
-
-[Severity: High]
-This is a pre-existing issue, but does this check work correctly for the
-IS31FL3293 chip?
-
-The is31fl3293_cdef structure omits the initialization of
-.output_frequency_setting_reg, so it defaults to 0x00. Since
-IS31FL32XX_REG_NONE is 0xFF, this condition evaluates to true.
-
-If the device tree contains the "issi,22khz-pwm" property for an IS31FL3293
-device, will the driver incorrectly write the 22kHz setting to register 0x0=
-0?
-
-> +		ret =3D is31fl32xx_write(priv, cdef->output_frequency_setting_reg,
-> +				       		IS31FL32XX_PWM_FREQUENCY_22KHZ);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-[ ... ]
-> @@ -420,7 +429,6 @@ static struct is31fl32xx_led_data *is31fl32xx_find_le=
-d_data(
->  static int is31fl32xx_parse_dt(struct device *dev,
->  			       struct is31fl32xx_priv *priv)
->  {
-> -	const struct is31fl32xx_chipdef *cdef =3D priv->cdef;
->  	int ret =3D 0;
-
-[Severity: High]
-This is a pre-existing issue, but does the current driver initialization fl=
-ow
-expose LEDs to userspace before the hardware is ready?
-
-In is31fl32xx_probe(), is31fl32xx_parse_dt() is called before
-is31fl32xx_init_regs(). is31fl32xx_parse_dt() registers the LED devices via
-devm_led_classdev_register_ext(), making them available to userspace and the
-kernel LED subsystem immediately.
-
-If default triggers or userspace actions configure the PWM registers before
-is31fl32xx_init_regs() runs, wouldn't the subsequent hardware reset wipe out
-those user configurations?
-
-[ ... ]
-> -	if ((cdef->output_frequency_setting_reg !=3D IS31FL32XX_REG_NONE) &&
-> -	    of_property_read_bool(dev_of_node(dev), "issi,22khz-pwm")) {
-> -
-> -		ret =3D is31fl32xx_write(priv, cdef->output_frequency_setting_reg,
-> -				       IS31FL32XX_PWM_FREQUENCY_22KHZ);
-> -
-> -		if (ret) {
-> -			dev_err(dev, "Failed to write output PWM frequency register\n");
-> -			return ret;
-> -		}
-> -	}
-> +	priv->pwm_22khz =3D of_property_read_bool(dev_of_node(dev), "issi,22khz=
--pwm");
-
-[Severity: High]
-This is a pre-existing issue, but are concurrent brightness updates suscept=
-ible
-to torn multi-byte PWM writes?
-
-The is31fl32xx_brightness_set() function lacks driver-level locking. For
-chips like IS31FL3293 that require two consecutive I2C writes (low byte then
-high byte) per channel, could concurrent updates break the atomicity of the
-12-bit PWM update?
-
-For example, if Thread A writes the low byte for LED 1, and Thread B
-concurrently writes the high byte for LED 2 and triggers the Update registe=
-r,
-could the chip latch LED 1's new low byte with its old high byte?
-
-Does this sequence require a mutex to serialize the multi-byte PWM write?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520133343.1423=
-946-1-jerrysteve1101@gmail.com?part=3D6
+-- 
+Lee Jones
