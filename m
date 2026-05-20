@@ -1,174 +1,138 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C8643C9426
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E0E3CF049;
+	Wed, 20 May 2026 09:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779270008; cv=none; b=EWCGn8U3C56BCI/sPKEm+i1I16qfSe4yjpdjnspJeCeuJgDnTLGd1iMNFRTWJiCrfPCL2s6hGCDy5wTSzShtn/uNA6PHYy5JpEwxYRB+5Ih8UNUf9G6qsYVM27k7gQ4CUb2/rdjJWXqISR/M5rARu2FoH+MW1N/R78yy4+6gCxQ=
+	t=1779270104; cv=none; b=f/hDA2DjptiMh61f+HnXNdeSaYkLpLQYTcB+n0gOCXmqAOzyJqGvHrEnEpy2SKZIEcgm+3fLk/pp8HL5Ho37vQAE5Zvh8FZYtpLuxitl7Mc8FbZzEyQQWxuhESN7+mcqGhA2Vb2iCPfTbFLU89APoPj194aLB7H2YIdc/TiY8A0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779270008; c=relaxed/simple;
-	bh=2/RyurmNHH2WY/wo+sv7UyB7+FpGY+NxS2Wf8peT32c=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=g7dL4bzAd4EYRCucSLTITTfNAbZ5ty6UNm1RgS22j0+QSgON/FxVe8Q0FjRXvck9VJB2CN8vgTKI2+vLSuKsxDATX8gqa0y/tazy8YtGQp3EqTUoz6rktaFOtZfjAP0qh821R9A76smCukOYMdDjtIXLpK3VChYe48arcg0WvOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Ln3TjSBj; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1779270104; c=relaxed/simple;
+	bh=igeRWNg6IVtLdMLgIkGN99uIFttIbOmuORlcqnAfonI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UGpu5n2pPSzuWq+GbpUHWPCjj+jxTCMFJIv1GbadnlJeVKbiVisNrpGBjXcLHLU346w0iL1DUNGjN1L6Et0aww5Y7YsvfQHwZfu39ca8DO6ldUCx5K5fRShtSpHfET935DzETvcG5BI2uNcrzbr5HSPYccqM5UXPHP5oT9f4xFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=duYycovM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Ln3TjSBj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=iMz+PI7CIo0HmAyICAXdHA8CpLRCcd0q4
-	l43IWGSuUE=; b=Ln3TjSBjpkedopafP3M3LE//C8uihY92p+OCqHX5m3C6ceoVr
-	CbbLEh5fhIEaMymk+4Vs3T88FUYhwvjjy6aPwQVxKO+FiORZhO18gs/BXh64H7Eo
-	B5846o4y73v+t5Hpn26nfaRgqEBF0pDbuaHgQ9+G0Py5d7GtqJ4TvcAKjk=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkORgQ1qNPAEAA--.6815S2;
-	Wed, 20 May 2026 17:40:33 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="duYycovM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B491F000E9;
+	Wed, 20 May 2026 09:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779270098;
+	bh=QzScM81tzS6Eotxw9vObBZVuGOy7ADyFT+pJ4sgoFxc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=duYycovM2OKOPuKU7rZixagilV6euM4g/2ojJ0cuFft9XMDjJtM3huVEJ1hmlgApm
+	 k3XvuOLfjdQkyykd3fmLymKDapWRTuLZYsID/lDCGFp2ILGDhjLsvAtMs37M/pg7eV
+	 qjs0OF3KP+ZjoUUjoEyQS0E4m/jCUBeyWTLSlItVoy0C1sxEsugTnsyqfHMxDLMgCl
+	 o8YmC/3rDfy7xq+XRG2kbP00cSF+OGXUAoSO5UmqBn2/1n7WyW5fT2TVirXL7pDgy3
+	 gVs3RQPZIz5rmSXCR7+t53LlghGlcu5UgbZk3ZBlpPo/6RPM8DbHvLcTFTnVyoGXhK
+	 cnvZElzBhpmkA==
+Date: Wed, 20 May 2026 10:41:26 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <jan.sun97@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Janani Sunil
+ <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ rodrigo.alencar@analog.com
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: dac: Add AD5529R
+Message-ID: <20260520104126.22a04a79@jic23-huawei>
+In-Reply-To: <e245de68-555a-42c8-900b-a4abbaa4ea3e@gmail.com>
+References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
+	<20260508-ad5529r-driver-v2-1-e315441685d7@analog.com>
+	<20260508134843.7646c4f5@jic23-huawei>
+	<53d547ee-1ac3-42b9-92a6-e7f48b72fee3@baylibre.com>
+	<e245de68-555a-42c8-900b-a4abbaa4ea3e@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 8/9] riscv: dts: ultrarisc: add Milk-V Titan board
- device tree
-From: Jia Wang <wangjia@ultrarisc.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
- conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, 
- robh@kernel.org
-In-Reply-To: <20260515025043.D1C5BC2BCB3@smtp.kernel.org>
-References: <20260515-ultrarisc-pinctrl-v1-8-bf559589ea8a@ultrarisc.com>
- <20260515025043.D1C5BC2BCB3@smtp.kernel.org>
-Date: Wed, 20 May 2026 17:39:52 +0800
-Message-Id: <177926999235.943957.8105503287379543005.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779269992; l=3659;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=2/RyurmNHH2WY/wo+sv7UyB7+FpGY+NxS2Wf8peT32c=;
- b=DEhWnHmb/gMKxp1FQ6uWk8zxPIAUIohffRq0BWlbMwMsi8BNQPVCsy4NHWUAgVIHva688HwZY
- 2vii8KTLjlOCdN0aZyUm4ohHJWQOMx28E8OkcOH5nh0YeE6Y+Um+P2b
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnEkORgQ1qNPAEAA--.6815S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxurWUZw15CryrtrWDCr4xXrb_yoW5KF4UpF
-	ZxGFW5GFZ7JFWrtw42vFW5Cr13Jr4rCFW3Ar1UKFy8Arn8uw1vyw1vkwsYvF4kXrWkWw1U
-	ur15uryIyw1v93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
-	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	boKZAUUUUU=
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQANEWoNL8UAJwABs2
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 2026-05-15 02:50 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The GPIO pins used for board-level multiplexers (`PA5`, `PA6`, `PA7`) are configured with the `gpio` pinmux function but are not driven to any defined state.
-> - [Low] The `gpio-poweroff` and `gpio-restart` nodes are explicitly defined in the board device tree but are left with `status = "disabled";`.
-> --
-> 
-> commit f0b973e0e230934a238fa1f5d39b91d61efc3d7b
-> Author: Jia Wang <wangjia@ultrarisc.com>
-> 
-> riscv: dts: ultrarisc: add Milk-V Titan board device tree
-> 
-> This commit adds the device tree for the Milk-V Titan motherboard based on
-> the dp1000 soc.
-> 
-> > diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-> > index 0000000000000..053206190ec75
-> > --- /dev/null
-> > +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-> [ ... ]
-> > +	mux_dcdc_pins: mux-dcdc-pins {
-> > +		pins = "PA5";
-> > +		function = "gpio";
-> > +	};
-> > +
-> > +	mux_i2c3_pins: mux-i2c3-pins {
-> > +		pins = "PA6";
-> > +		function = "gpio";
-> > +	};
-> > +
-> > +	mux_uart0_pins: mux-uart0-pins {
-> > +		pins = "PA7";
-> > +		function = "gpio";
-> > +	};
-> 
-> [ ... ]
-> 
-> > diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-> > index 0000000000000..21d85c03abe12
-> > --- /dev/null
-> > +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-> [ ... ]
-> > +	gpio-poweroff {
-> > +		compatible = "gpio-poweroff";
-> > +		gpios = <&gpio_b 0 GPIO_ACTIVE_LOW>;
-> > +		active-delay-ms = <100>;
-> > +
-> > +		status = "disabled";
-> > +	};
-> > +
-> > +	gpio-restart {
-> > +		compatible = "gpio-restart";
-> > +		gpios = <&gpio_b 1 GPIO_ACTIVE_LOW>;
-> > +		active-delay = <100>;
-> > +
-> > +		status = "disabled";
-> > +	};
-> 
-> Is it intended to leave these nodes disabled in a final board device tree?
-> 
-> Defining board-level features only to disable them might leave functionality
-> unexpectedly unavailable or litter the tree with dead code. If the hardware
-> supports these features, should they be enabled to provide power-off and
-> restart functionality?
->
+On Tue, 19 May 2026 09:13:24 +0200
+Janani Sunil <jan.sun97@gmail.com> wrote:
 
-The platform uses the OpenSBI SRST extension for reset/poweroff, so these
-disabled GPIO nodes are unnecessary. 
-
-I'll drop them in v2.
- 
-> [ ... ]
-> > +&gpio {
-> > +	pinctrl-names = "default";
-> > +	pinctrl-0 = <&io_pins &mux_dcdc_pins &mux_i2c3_pins &mux_uart0_pins>;
-> > +};
+> On 5/16/26 21:25, David Lechner wrote:
+> > On 5/8/26 7:48 AM, Jonathan Cameron wrote:  
+> >> On Fri, 8 May 2026 13:55:47 +0200
+> >> Janani Sunil <janani.sunil@analog.com> wrote:
+> >>  
+> >>> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+> >>> buffered voltage output digital-to-analog converter (DAC) with an
+> >>> integrated precision reference.
+> >>>
+> >>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> >>> ---  
+> > ...
+> >  
+> >>> +  * Multiplexer for output voltage, load current sense and die temperature
+> >>> +
+> >>> +  Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/ad5529r.pdf
+> >>> +
+> >>> +properties:
+> >>> +  compatible:
+> >>> +    const: adi,ad5529r
+> >>> +
+> >>> +  reg:
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  spi-max-frequency:
+> >>> +    maximum: 50000000
+> >>> +
+> >>> +  reset-gpios:
+> >>> +    maxItems: 1
+> >>> +    description:
+> >>> +      GPIO connected to the RESET pin. Active low. When asserted low,
+> >>> +      performs a power-on reset and initializes the device to its default state.
+> >>> +
+> >>> +  vdd-supply:
+> >>> +    description: Digital power supply (typically 3.3V)
+> >>> +
+> >>> +  avdd-supply:
+> >>> +    description: Analog power supply (typically 5V)
+> >>> +
+> >>> +  hvdd-supply:
+> >>> +    description: High voltage positive supply (up to 40V for output range)
+> >>> +
+> >>> +  hvss-supply:
+> >>> +    description: High voltage negative supply (ground or negative voltage)  
+> >> I don't mind doing it this way but in some similar cases where 0 is something that
+> >> can be considered the 'default' we've made the supply optional.  What was
+> >> your reasoning for requiring it in this case?
+> >>
+> >> dt-bindings should be as complete as we can make them - with that in mind...
+> >>
+> >> There are some more interesting corners on this device the binding doesn't
+> >> currently cover such as mux_out pin.  We'd normally do that by making the
+> >> driver potentially a client of an ADC
+> >>
+> >> Easier though is !alarm which smells like an interrupt.
+> >> !clear probably a gpio. TG0-3 also GPIOs.  
+> > also optional vref-supply for external vs internal reference  
 > 
-> Does this configuration leave the multiplexer pins in a floating state?
+> I will add bindings for optional Vref supply in the next version.
 > 
-> The mux_dcdc_pins, mux_i2c3_pins, and mux_uart0_pins configure the PA5, PA6,
-> and PA7 pins to act as gpios and are applied to the default state of the gpio
-> controller here. However, configuring a pin to gpio mode only routes it to
-> the gpio controller without configuring the direction or output level.
+> Best Regards,
+> Janani Sunil
+Hi Janil
+
+One of those process things.  Don't reply to a review to say you
+are going to do something suggested - just save us all reading an email
+by making that clear in the change log for the next version.
+
+Lots of folk are over enthusiastic in replying like you have done initially.
+They only begin to appreciate why this is a bad idea when they start trying
+to keep up with the mailing list firehoses!
+
+Jonathan
+
 > 
-> Without a driver or gpio-hog nodes explicitly setting these pins as outputs
-> and driving them high or low, they will default to inputs. This might lead to
-> unpredictable hardware behavior, potentially disabling the dcdc converter,
-> i2c bus, or the system console. Could this be addressed by adding gpio-hog
-> configurations?
->
-
-You're right that these pins would default to inputs. I'll address this by
-adding the appropriate gpio-hog configurations in v2.
-
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=8
-> 
-
-Best Regards,
-Jia Wang
-
 
