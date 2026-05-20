@@ -1,368 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022116.outbound.protection.outlook.com [40.107.75.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC158367B64;
-	Wed, 20 May 2026 05:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779255636; cv=none; b=e/6fLOx0SNS5+mB9V807H589L6Fq8b4EeGJyNl++uD0x4Ul/BZGz7qBVSb6UOzwOAcPMpivXqu8i2NfKQ3SQiGFuvQeD0P5D3dpoyjtwclJNJgeFaiuzxenVMlpnjtYvvqwAmEofbmCA6oNR8cQchzMmV5HWPjhSocyJ7PJd2+g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779255636; c=relaxed/simple;
-	bh=VuooxCFR+YW8anJ4giZslVX0LMLOwsj+bJQuiWE6wPI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cQ9AQfL7e3NmH+hhzDEl43XmseZHz9bdPJFN0TtF5t3oLX1cFtyDfHpizvcISLpUXEy2HK27eDXC5cSz3VaBj0+8aRO989jFeR/kCvPTiZ0XPax03fQ86h1/1kfCdG8Acphf8bcnuvY95/r4MjwmaHqv4rz1M37i40gvkpyEx64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOojaKv3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A03200C2;
+	Wed, 20 May 2026 05:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.116
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779256057; cv=fail; b=txhQ/FgmswvvNZAY7mSH8OM8ImnRjT/drsN9YDxRMMd17jfp4x7gsQzZyXdYR/RFItx/YZpyJEtv2cknb8Wvk1EYHi8vWS0EM4QWr9o3TsonkQE6hhd8VcnLSc63Vy+xT/qtjFPuy28ajccpoqhJwpMCnRu67mX4mWDREpl4LyE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779256057; c=relaxed/simple;
+	bh=uAudWDDIGdjirPdIT8iOhrylrqonp3ohVH0w2KgSIZY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qSAmylr/AbzLHfn1GycufLidBXPOONRcUsME4z1DJ/g4YrL9BonqONho0clGgr3RotR4fyPRJYYWKG6UeYfuQF1POhkvhqrYRbkZfM4yVWtZlg+bkHg+1zQNUBPaIcTPBv2vX7qvQL0yTIZnt4W1rr/x6kD4ttQwppUczjQPKwI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=puJRa+t+; arc=fail smtp.client-ip=40.107.75.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOojaKv3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2752B1F000E9;
-	Wed, 20 May 2026 05:40:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779255634;
-	bh=cBiAOBqWBPw6WJam/PhetWRcYOFQszAvib0dqlXq/Us=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LOojaKv3t2d+4qbiHKoBgp/pFQlQt1PDoNL3XD6WNbGqEeEqqY7UFjLXMdSNuLaNP
-	 hy0HSDae0QpLAFg7yGDGoL93IXKP7+DPLcEYKn9FTrvDG1kCU9wl5l/ULK6WfVEk6t
-	 DYIO6964beul5ORUCeVOdz+EJJxEq0fGlc1+FM10RLoSB0/9TfN77K0zmGLDDpppGd
-	 aujnD/b5l6Ew9be3Pdoju62jIeTd4gQ1XLQTbfTXHEp49Mon51dyQ9gP3mP+QzXohs
-	 8beQ870LMboCwIZIDLlZh1n5pA9vUOvNvRUW+vku0rG09akH4wKcvAy8WA63zqDtZk
-	 ZXOW7+1c94Y9A==
-From: Yixun Lan <dlan@kernel.org>
-Date: Wed, 20 May 2026 05:40:10 +0000
-Subject: [PATCH 2/2] riscv: dts: spacemit: k3: Initial support for
- CoM260-IFX board
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="puJRa+t+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k6i5qXqxJ8rOeJrnAH2/lOzmsdaRMwX2T2BOvXjNLv/uKqSeANK63Vns8ODQylBP02HCAe1oNsdZqjFNMIBetEhVPYjwAL8Bnt/kdFXNs94x3Vzl8g4fxZm7qa+manoPXNgP1XUMzqsLrdM4QizZj+bgPBKRpBUVQFRSZxGkpkPZ79fE7/wKYPhkXXL8CuWrGjvJZBsX1+0RSYxRGVa7M9TJx7n3a6g/HmXWrnPDu3eqPkfcFJZvhUQK68M8eoZzjRvnEerhbPF4Ayb4AG3IePMBU/bzxrT3FkB3u9VYj3i6oKFr74FTD2HCHmpTnCVlzC2eCfP6Dw/hUCqOMaxoTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9ZAbD2kuO5id/dqaG0reeCxIkdx0hVg9tJGGtFqLm7o=;
+ b=cmjwDK3D/5kmz2fpwKZt5i9c1gKghKz8QQM55eZETmc92UHSfeEVkLsg6HcILV47apLZZMHj9KO/asr2g5SuVlfnf3C/XvxhauaFpvEYR7Ws4ICg9p+VYQQIYpHmECLR6qGYO/qULvrupf0mYHk1JSatGSGob4DPvE2ya6cNZ0Dn0DFd7kwAbyDz26Te0WGpj7DIgmJ89s9GLrU/S88p0oxC3tUMY8HY9Xhhw0AAVQuaDbO7MUTenPGsqIbFYNYQVr8OK9TWrd9IffVRe7CDW+j48tZF4zBxY+NR3Z5Hfk/ov0nWhDhj57K/Z8j67qN4djhkXtFCjPfnzNEV0UUggA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9ZAbD2kuO5id/dqaG0reeCxIkdx0hVg9tJGGtFqLm7o=;
+ b=puJRa+t+ct1IUR+1ZGuMe04++Fsuf2vrpwaM8FeonbYa/dLirBCwU4qN7kONBE90apcuNBdrGNioMLO59es9tSpooF4w0O3KADLxAyC9QEnRY7CxiTPeUPrTch9rtBZdOhi3++7nuj69GD90ty6OKYAZ/1hzAiYcC4neBrJgjPXPKKTsjR3UOygGBapNN+7wbtf25BreeaKa2VAuwAoyzU8QHhyPFJiWhdQFh7oXf4Kex3KmjA4qzWpUx5ZGPGS2+2woRk7oyHiJPtb7wA4+uz0T1SGo8rTWbe+RDl3Tv9N1S0AFIulPpPoJCVPdoZYgfb7i7xnlgJEiiInfRY9Hdg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by KUYPR03MB10359.apcprd03.prod.outlook.com (2603:1096:d10:9a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.13; Wed, 20 May
+ 2026 05:47:31 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0048.010; Wed, 20 May 2026
+ 05:47:31 +0000
+Message-ID: <8d89b669-e72e-4663-9596-999a12922d32@amlogic.com>
+Date: Wed, 20 May 2026 13:47:27 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
+ pre-divider
+To: Jerome Brunet <jbrunet@baylibre.com>,
+ Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, Kevin Hilman
+ <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
+ <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
+ <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
+From: Jian Hu <jian.hu@amlogic.com>
+In-Reply-To: <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SEWP216CA0083.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2bc::8) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-02-k3-com260-ifx-v1-2-3e17055dd488@kernel.org>
-References: <20260520-02-k3-com260-ifx-v1-0-3e17055dd488@kernel.org>
-In-Reply-To: <20260520-02-k3-com260-ifx-v1-0-3e17055dd488@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8327; i=dlan@kernel.org;
- h=from:subject:message-id; bh=VuooxCFR+YW8anJ4giZslVX0LMLOwsj+bJQuiWE6wPI=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqDUlE3qXGrOsMwfv3OROe8uIc+ksaK8wLFqw9j
- S/gr1g4JKGJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCag1JRBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+0cnA/9GIpv3Qa90oUS9kTiBQv2yfET2dkfCnt/hnS9PyiF1jAb4ybexTgFE
- Ge9SXMQQowxiOqgMAbEUbAGysK9fIRX/4vkfqqqbMRUaq4w3fi61hl08MHGumQiDYPo0WPwEFUs
- UMjM/JMl+alxe0uiH/oNGRNKS5ZXj2PeXP9pGz4Zx2QNFvo1SMT/F20TlbhGE509zkl9a+Omazj
- QFTeQrtMDhQ7Sw0RqBhwzFndyfTxUhu1dsoFiVIM1RiuyX4REf/0po4hFrEg9T9f9ky5TDldZOm
- 9pnTB9GTyGGCeGWLxfUXBBm4npDVXillREXN0ICA6DNaIdAZQkZ2Fg7On4jKDLx+rWcBdcgqxPi
- VhqgYgZSYH9AOFSHRKHXN5IKv9hRhLPZHelFT42neTusPD7Nm3TE4wWemx0GH9tCg9vRJqngmcZ
- Cr9SHDp6MIwsK0wiIuUXqH4EdTnV5dL0C3SKj2Vmvm/+3Pq8FNVuG5rJBoFpZKoEc1EI3VIj08E
- TEE8i9WqHoMkiD4LazAhVWOeJTKcG/eTJV5L2huNMy0NyEf0q+lbAK8IXUq1IxLL9piX8uej9Lt
- rSXwmu7YPPSu51Lh8X5bI+2fRbL1F0+Aqxkk7xw4QUFudXWlAYh86O/qAENIQ1eR81JmMz188uw
- FKg6nEVGlxX5vIU4qep2J7joQs6jtY=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|KUYPR03MB10359:EE_
+X-MS-Office365-Filtering-Correlation-Id: ade9f45f-50a2-4166-4594-08deb6334870
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|4143699003|22082099003|56012099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1AArEbfbiy8SZiFwKVLN+rnGt1/xzuV847V8hksi5WeADKfoLfH6LqjhA1jYMpPP8xNsM5euk/DgrOcASk4mOym6Z2tI/BngKTaSY7z3ZHE5akPhqMkY64lGI/+vBAfpTGGeblHqRaYjEvrQzUFghxfWYhtynttoj6Zkhi1xDfTW4ZDa36K8XBzO3V+U1/10zAd9IGYIizHCg9SRpzhfKo6HgLktABplcRz3Pn6jTSOwmwU2lAk+ffEn8Az4vigO+ZpFfYtklS//Nwc8ynxi5hrnNmEGTnFZkdBYrkYcBqZmhoZMP9rkfUwqSl40Kg47zqeg2CvU5AaGyZV8YnFlyAmfV38+udqGFh8kbsFXpLELZJNmSuUk20zKp9ScW9zuFabh7mENTZJsvZqaHW8izQ9uh8dnTiTpX/zGlCv99DBHhmdPcSPlreGs/W6aqRQ1S43YOj1PV+66QadgWRjaiWxgDhdwDMypz9abggQ+tS/G02YYH0VmP53mqkfSXN5h9zhVX/C9x1S82W66yQ65QeNaHkAEiL+fSyHCGVU1OPiYAzpgArcJ/FwUbX/FCY8MwEBz4XBV2na0FB9M2LTJ474xNT14CEdRFyoNqJGInF8i23GHuGg1yC7ySFqUJfoSjrzzlCNck1EzgsRH+cjbIqD4DW2ab/vkQ3+x4EWRLnCLX7rlLArwNqeeY3uellIa
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(4143699003)(22082099003)(56012099003)(11063799006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QlRjMndjc3pORU9FTS9hUGdlNG85TVZtS0g0T3l1N1NMREd2WE51VnZUTUFn?=
+ =?utf-8?B?T1Y2SlFzT0tDTGU0ZlJJaEdnVFA3cGFjdkh6alU1cHdaV2c3U0VYeGtaWDZY?=
+ =?utf-8?B?eldPS003NEJXMmZSUGpPL1NWclU5N05PMGVXM1FVZVNtQXoydUZMbzhpVThM?=
+ =?utf-8?B?TTR3UUJFTnpmSHJpRUhYcXhnYkJ0UmhTWDQ3eXlBbnkvb3FITzVUNGhjbHlx?=
+ =?utf-8?B?S1BldmZXSWt1aTNMb1psaGRGeThkTXF5TDRYaW9QU1Q0V2MyZVNvMXdNQjdQ?=
+ =?utf-8?B?ci9GNStBcW5YZEFPMUVodC9FVUFCeTlhZnRsdlZGaHJxbVF4aHMzc0tnanBZ?=
+ =?utf-8?B?RUFETkYvTXBFb3E1Z0hJSUVrRFE2K0lJYnhnTy9Wc2J1ZERKQ0paRktVWndF?=
+ =?utf-8?B?YkRWTDl6NEtyeHBTZElpaUlTVU9OMkQwWUZUeGN1WkpqQndLMmFZZW9HUlcx?=
+ =?utf-8?B?TjlmeUQva1RGYjBQR1ZmMTFEdWVlaXd6d1IyTWFaMnc0RC9jbitzSVNmVnFs?=
+ =?utf-8?B?WmpMYnp4QnEycEhrYVYwOUs5b204a2dXemFKK09GV0xPalZ5MVFJTkYzR3cy?=
+ =?utf-8?B?Zkp6L2Fqc1lyeC9ESUJRUklQK3d3aWhGanRQVkM3Nlk3OVRNL0IxZlZXL0JY?=
+ =?utf-8?B?MXZiSzluQjg1aEM0Wmp6QXVPVTJmY1pQU1oxY2d5RmFpQ0tmdHkrTzVHL1d2?=
+ =?utf-8?B?TndLN2JmYjBzQ0xhSFVScEYrbzdxeW9Xc0MyVkxFRC8zbklkNEhIQmsxdDlK?=
+ =?utf-8?B?dzFpbVVYZ3RGOUlMSkhFNWZVc0tyVUNNUk5RNlAzRW15ZkNreHh3ZlNhNlF0?=
+ =?utf-8?B?bWxUS1RxcGhoU3djdEJXU3Z2TlI4VUdlMkhVcWZJUHBLR0JRbCtXalpVNHVY?=
+ =?utf-8?B?U0I2VXdaVWxWRUZqWWQrbVRuRjI3dnZGaWwvMUMrNWp2R3V3eG1Fd0NESmpl?=
+ =?utf-8?B?Vk5qazE3RGN5YS9aWS96N1hGQktYOEVIeE90MEd2WjVyRnNjeDlFVXNiWDRs?=
+ =?utf-8?B?NFdYMEx6VExxdGpXTGtmb2x4TnVYT3p6eHMxZy84RmI5UjhUR2NKNFN0dTA0?=
+ =?utf-8?B?bDErYURDUFRSdnQ4UDFuVWFRSWRTWWZvSG1mNjVGN1RZcUF2MnhIQXdtank1?=
+ =?utf-8?B?TXgwOTE2cGtuOEl6OGlhWGdsMDR3b3dYbEZTdFNPNzljdCtSemFmMEcwYjRT?=
+ =?utf-8?B?UnNqSzBqZjFYeW41bEZ2ZnZzWGpSUDBRWTdSeEdCZVhSTGVFTkZYZFI4MVRP?=
+ =?utf-8?B?ZVNzOGgzYldJR0ozUnpqU01UYnhLS25WMXV4WXZ1QnZ3RFNDL0NWMUNEb29q?=
+ =?utf-8?B?SDRTUFViN3Zvb1dydlVwTnpXRTR4bEhkVHo1YWx1T0RtUExWUTNESDE5d0I0?=
+ =?utf-8?B?UXVmeVdjZ0M1Q3diamM4dmgwbXpWMXRIRnd5Z3g2bzFobnlNNFMvRnRtYnpt?=
+ =?utf-8?B?dDU4RU5PL0hWOEhwR1dGNkFNeFR2K1QydzRzMVNhc1o1RUhjOTYwc082eTJo?=
+ =?utf-8?B?WkRKWjdVbm04Z3FsTm0xRXJmQzdlczBhemlJNXBoNloxRTV5NWtlKzdYZG9B?=
+ =?utf-8?B?SDIxcGk5SE4zbHZ4ckJjTVZYTDRqdEdHciszMC8weUV5K0xEZUlzaFR2OUpl?=
+ =?utf-8?B?NTFsSE5vTFB2SEZkVkdqUENKd0s2cjlLYmhjWElEYmUrRjlpOGdWTDJpT2V0?=
+ =?utf-8?B?b1VVeG5yQi9wRTIwcVZ4d01uUURvVjhJOS9xSCtEeWE0VnVMUDArYkRoRjBG?=
+ =?utf-8?B?NGh5dmdzM0JGUUVqSDBET2d5czR4TVpnL2JKVUd4NzN6b3lpQmNvdUxEd0lW?=
+ =?utf-8?B?eG93bjljS2t5bFhmOGVRZmh3VjIzUHQ4T09kYnFjMXpiMzNvYVIzRlpsMHlB?=
+ =?utf-8?B?YVUvelUzZDBqQWZXQ2xYQWw0U2xPejRzTDRxUm9tZW9Tdk9ibFdMZ0t3NTR2?=
+ =?utf-8?B?YStLdVVuWUZLWGV2WFpwN2Y3Y2tZSktBdTlDTzFFWVg2VEMvQzdPMGoybi9T?=
+ =?utf-8?B?NlBTa2d2N0pnTW1keGVlN0NtVTc3elIxT1JTOEM2RExwc0tPZk82VzlqRDA2?=
+ =?utf-8?B?RWZKSXJMMWpWQ0pTOGZ5S3B6dEVYOVllWkx1QnIxdTVhK2VmdjFvRDJmUUFH?=
+ =?utf-8?B?T3ozazBOWVoyb21vZ1UwSGVmSEJKd2RzVVBYaGVnbHJOMFNFZnJIUlRPUmlM?=
+ =?utf-8?B?S2U5MGNzS0xPMVZ3STdaN2xrTjA5dTRaZVQ4TERNZmdVN1pPNGJScE5XQVBV?=
+ =?utf-8?B?TjMwU2QzT25OK3dhQ3A2REtqOXBBdWtYVEhJSW5xeHAvUEtZYThwd3JYb3ls?=
+ =?utf-8?B?S2NOaEpLdnZEM0pkekZZY05pTy9lTG1wUG44em9CY29zZXFtbEM4Zz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ade9f45f-50a2-4166-4594-08deb6334870
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 05:47:31.0042
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kvkZYNv3EM9e7ngRRQQAudARN7Xt+SDR8QpbUMFjkrQMuq1y4Zp2MxqT0o2c1AJqkVnzcTYBDF8jC8e4zoJcFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR03MB10359
 
-The K3 CoM260-IFX board combine with one 260 pins "Gold Finger" computer
-module with a carrier board. The module integrates the K3 SoC, LPDDR5,
-UFS storage, Gigabit Ethernet, Micro SD card, PMIC Chip. The board offers
-a comprehensive array of interfaces, including MIPI-DSI, MIPI-CSI,
-DisplayPort, SDIO, SPI, I2S, I2C, CAN-FD, PWM, UART, USB, PCIe, and GMAC.
+On 5/14/2026 11:11 PM, Jerome Brunet wrote:
+> [ EXTERNAL EMAIL ]
+>
+> On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
+>
+>> From: Jian Hu <jian.hu@amlogic.com>
+>>
+>> The A9 PLL pre-divider uses a division factor of 2^n to ensure a clock
+>> duty cycle of 50% after predivision.
+>>
+>> Add flag 'CLK_MESON_PLL_N_POWER_OF_TWO' to indicate that the PLL
+>> pre-divider division factor is 2^n.
+> I understand what you are doing here but I have to ask why this can't be
+> implemented with independent dividers that already supports power of 2 ?
 
-Add initial support for enabling Serial UART and ethernet.
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
- arch/riscv/boot/dts/spacemit/Makefile          |   1 +
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts |  21 +++
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi    | 190 +++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi   |  33 +++++
- 4 files changed, 245 insertions(+)
+If we use independent dividers, the n member would have to be removed 
+from meson_clk_pll_data.
 
-diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
-index acb993c452ba..28ec9e1e0a62 100644
---- a/arch/riscv/boot/dts/spacemit/Makefile
-+++ b/arch/riscv/boot/dts/spacemit/Makefile
-@@ -4,5 +4,6 @@ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-milkv-jupiter.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-musepi-pro.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-r2s.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-rv2.dtb
-+dtb-$(CONFIG_ARCH_SPACEMIT) += k3-com260-ifx.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-deepcomputing-fml13v05.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-pico-itx.dtb
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-new file mode 100644
-index 000000000000..238bb03d0e9e
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-+ * Copyright (c) 2026 Yixun Lan <dlan@kernel.org>
-+ */
-+
-+#include "k3-com260.dtsi"
-+
-+/ {
-+	model = "SpacemiT K3 CoM260 IFX";
-+	compatible = "spacemit,k3-com260-ifx", "spacemit,k3-com260", "spacemit,k3";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		ethernet0 = &eth1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-new file mode 100644
-index 000000000000..1801a44d4355
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -0,0 +1,190 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-+ * Copyright (c) 2026 Yixun Lan <dlan@kernel.org>
-+ */
-+#include <dt-bindings/gpio/gpio.h>
-+
-+#include "k3.dtsi"
-+#include "k3-pinctrl.dtsi"
-+
-+/ {
-+	model = "SpacemiT K3 CoM260 Module";
-+	compatible = "spacemit,k3-com260", "spacemit,k3";
-+
-+	memory@100000000 {
-+		device_type = "memory";
-+		reg = <0x1 0x00000000 0x4 0x00000000>;
-+	};
-+
-+	reg_5v_sys: regulator-5v-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "P5V0_SYS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+
-+	p1@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
-+		vin1-supply = <&reg_5v_sys>;
-+		vin2-supply = <&reg_5v_sys>;
-+		vin3-supply = <&reg_5v_sys>;
-+		vin4-supply = <&reg_5v_sys>;
-+		vin5-supply = <&reg_5v_sys>;
-+		vin6-supply = <&reg_5v_sys>;
-+		aldoin-supply = <&reg_5v_sys>;
-+		dldoin1-supply = <&buck4>;
-+		dldoin2-supply = <&buck4>;
-+
-+		regulators {
-+			buck1: buck1 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2: buck2 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3: buck3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4: buck4 {
-+				regulator-min-microvolt = <2100000>;
-+				regulator-max-microvolt = <2100000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6: buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <500000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2: aldo2 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo3: aldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo4: aldo4 {
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo1: dldo1 {
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2: dldo2 {
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo3: dldo3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo4: dldo4 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo5: dldo5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo6: dldo6 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo7: dldo7 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+		};
-+	};
-+};
-+
-+&eth1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac1_rgmii_0_cfg>, <&gmac1_phy_0_cfg>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&phy1>;
-+	status = "okay";
-+
-+	mdio {
-+		phy1: phy@1 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <1>;
-+			reset-gpios = <&gpio 1 5 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <10000>;
-+		};
-+	};
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_0_cfg>;
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 23899d3f308a..04efe64b8a3a 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -45,6 +45,39 @@ gmac0-phy-0-pins {
- 		};
- 	};
- 
-+	gmac1_rgmii_0_cfg: gmac1-rgmii-0-cfg {
-+		gmac1_base_pins: gmac1-0-pins {
-+			pinmux = <K3_PADCONF(21, 1)>,	/* gmac1_rxdv  */
-+				 <K3_PADCONF(22, 1)>,	/* gmac1 rx d0 */
-+				 <K3_PADCONF(23, 1)>,	/* gmac1 rx d1 */
-+				 <K3_PADCONF(24, 1)>,	/* gmac1 rx_clk */
-+				 <K3_PADCONF(25, 1)>,	/* gmac1 rx d2 */
-+				 <K3_PADCONF(26, 1)>,	/* gmac1 rx d3 */
-+				 <K3_PADCONF(27, 1)>,	/* gmac1 tx d0 */
-+				 <K3_PADCONF(28, 1)>,	/* gmac1 tx d1 */
-+				 <K3_PADCONF(29, 1)>,	/* gmac1 tx clk */
-+				 <K3_PADCONF(30, 1)>,	/* gmac1 tx d2 */
-+				 <K3_PADCONF(31, 1)>,	/* gmac1 tx d3 */
-+				 <K3_PADCONF(32, 1)>,	/* gmac1 tx_en */
-+				 <K3_PADCONF(33, 1)>,	/* gmac1 mdc */
-+				 <K3_PADCONF(34, 1)>;	/* gmac1 mdio */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+	};
-+
-+	gmac1_phy_0_cfg: gmac1-phy-0-cfg {
-+		gmac1-phy-0-pins {
-+			pinmux = <K3_PADCONF(35, 1)>;	/* gmac1 int */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	i2c8_cfg: i2c8-cfg {
- 		i2c8-pins {
+However, n is referenced 35 times in clk-pll.c, which means we would 
+need to modify all
+related logic across the file. This would be a relatively large change.
 
--- 
-2.54.0
+
+Moreover, for all Amlogic chips, the n divider is an indispensable part 
+of the DCO clock.
+The difference between SoC generations is as follows:
+     Previous SoCs PLL: n = 1, 2, 3, 4... (linear divider)
+     A9 SoC PLL:            n = 2^0, 2^1, 2^2, 2^3, 2^4... (power-of-two 
+divider)
+
+Therefore, splitting out the n divider from the DCO clock might not be a 
+good design choice.
+
+
+[...]
+
+Best regards,
+
+Jian
+
 
