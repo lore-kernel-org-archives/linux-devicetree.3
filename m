@@ -1,178 +1,225 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E003D330A
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A6E3D091B;
+	Wed, 20 May 2026 09:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779270884; cv=none; b=jbu3v6M8c2rT9qwqCFrMR/LeXNyWROV2yy8WTzMcw/YcLin2CEScch1P+TFU/vOgPXw33cl+O0RVdGYTVg0BzCMNtt3yyHVeWh8XljpqHcF2/4OsPpztpVWJj4GUsHYk4nzj9mX54itmxUcKTz7xWZ/ir4AwgEt48DzPjQGTbAM=
+	t=1779270905; cv=none; b=kDcSiq2ZLYP7XvksrljRQo+a6WQB0iD8ts48vWuS2EQx4IGaYSrZ8+21A950mG2bEqXZpVqD/3x8PuVIrAGYC37vtw3jISKV1exRdh8rlEJUCb1KqdhyFJIqdP+zE5cHWrJmgKH4I3rSJ7SAwLSkEWuF3BXNSEBBPH6kB5zDI1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779270884; c=relaxed/simple;
-	bh=Vj4+oo81rmJlqOMEGHmWK78WOY1h7oRumK4LiWBULcQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Q6DkeFChWBHlG3dcjaRjLNA5NT4X90H2/i86dk9aJ47gTPXdsNHXLIzi7Cmp/stUROAXHUy5jF5sStlf60xe0niYE8LyIlZjl65FGAcPcJ9JzFH6DLeeM+eJB6KeTgTx+dIMJRw1mwSC8A22tfjouvFrjn8lWk0YxG1/U9JkSZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lvXE2y7w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cCXgKyWu; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779270905; c=relaxed/simple;
+	bh=W/ETVLQPiLWnEVzKK7qPp+AucWqlm4vH3u/jl9ung40=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=m1F9ZmgLEuR9lZ35rDeQRCyMM02aM+8ThBLgf3jUsH/N/CIOpizzxrye4jWHrF4nSg1ZP35vDviMWp865M+TWv+gYAm4rZbu8fTTpn6xF/5OL8/kUlA8U1WbJwB/tSEntl43touSjZsgjs4XGyL7r1CMDX8B1GdJl6VAQC+/Rp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kubQ3jql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lvXE2y7w";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cCXgKyWu"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K9oLkQ1177853
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:54:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=ka61IIK+ns+3eFQU2HkmKW
-	/PVhZJfUX5hk+AG1Fu9I8=; b=lvXE2y7wNFmuXASdy8xKPX+g8s+ASfU2P5CN92
-	GDjrvgIR+LB/oyj/7GOk7ihSkVh8WFtIrmdecBvQ3s3cdzW8kC4ankoQncYJw6sl
-	q9WMy3ip8fVI4bO/JRiHdrvR5fTVQLuYPa8rtE9UolBj4k7B2Z7LrfgNNPTUWpB0
-	pidxHdaOxcr2Br8ZLtMoen6oYXhzBtg8/Hvp2h37cvA4lyP/d/VF3htyEyXvSVbL
-	VPPGq5GurXjdy/fuh6gocdMEL44nLLIpfSMq9s/T4e8KOh1CYoYwi/3zpamsg0Hu
-	PLZqUj8xOtU6WLm9o5e3buCsYl2BTJifS0uStkJVKrVcR0xw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ap6r0ge-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:54:41 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d812c898cso131280301cf.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 02:54:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779270881; x=1779875681; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ka61IIK+ns+3eFQU2HkmKW/PVhZJfUX5hk+AG1Fu9I8=;
-        b=cCXgKyWubsOAd+t5rTua0WJTG4Ep3X15kDkp8Sj5iUmzOZusHZZhER6eMsFggYvlRf
-         x+QZmykWxJ/SfqGc9gOgcSWBykKBVrbAKSeZzmF4GMTNYUTuETNguORN0ik0wPMzAv4A
-         dNK1oOp9+WU837elcJVT/HPso+XGGL/jh0cdPUroQQvSYiID1Yndcg9BODEG1lFdbCWb
-         7SyrxKr4J3NIrXJrkQV2CN1msM5ebscPpW4CnTljSrQj3SKq9X7XJ2vp5hGe2yRLnCuJ
-         9HojEQrQNQ0VmhjvFLJS4oXdWsqMCz7d/Wr4cmYlEOICGHbZQmY56ngpL9zSK0qP/Iax
-         8Alw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779270881; x=1779875681;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ka61IIK+ns+3eFQU2HkmKW/PVhZJfUX5hk+AG1Fu9I8=;
-        b=Atqxfx/Fz5ekySiju0JoJzzN8A6fxMC74aKBtGYA9gZ8sh5C5m/zHP2j+hqmjggIxu
-         Um7EgNdqnV4q3jzGVzTxMnXqH2HIfhTr66TvPpSxYexhFpI2d8XCumVfZdQ3glPUnG0B
-         aSY8JOpL0I8XTZne8oqqsK2TDarrTsMX0GGZ0j/CucWluCXy7e5I4fIsYklKh1JeFEQA
-         xLoZlPEKg8LYpQ84e4jMG3NDfQCBBIlRkyvixjHQsmJF18/RIeuQbYM/+5QnCT17FINm
-         tZHhCo3rk195w1MTG2UudUwPXoDtrVEQFo+IeXJGMi85sFdcT+1TEPB6+LSAImaJUdPg
-         4wVg==
-X-Forwarded-Encrypted: i=1; AFNElJ/aLy2knvw0cdyk5b2UhMIWGa0Iglpe0haF53ToCxMyehf9fLxM06YIF1rpznX4TeeMDJQsGA4uzAaD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJSXJrzts8XfLrMZtjEdtDJUn0Wxzilje/iIEzh0iDSNeaGceZ
-	4gmbZvj70fIPGybe2GCGfxAQoJKBQrflA944+5WBZrTvQdIxJDaj/mJy51mPopVCKCOkRIHIsOr
-	4+IonpTBhJGcU53XXhfw/Jae92sigPfknNHZ9gNnKLlyXH19xODrA+UF7o78khk24
-X-Gm-Gg: Acq92OEGcZ4cFTyh8FIWUxPoMH5D6BiwaKR+lifcXJW/VwDkv2a6sT1Mej8JKvdVTMx
-	7rfomT7uQFcnbm0TIPU6uPoLSy211rR6Ox1/hfVeW7mvszsyvboJYoLt/KsWg3V37E0m+ltDr7d
-	o9LDDNp63rbmLJmKWA9ROUynB19yczSv72jOXXrzG0U4yVywNUp+xoYAJfic3AJBdrlEXnQ5nAP
-	fnZOVw+HVNctvui5v4hBchHxJR9z115mIw9PGHWd6zy9l9Tn/oVnIeuQQ+tMVc8KRYHsTDR04nM
-	8adsAtQUYxTFgMpsV8AkyZxhWct6R6i3wMnpZQhU0XU+Cb7WxKAeTQ8CMDee6QD0xiMtkbUlwC3
-	1v/dHANWVKtqAmy4mmic26UgjkYPE7W0OFBggzcqfYuneW8DnpMShnNL41c27f0l25mwTvGT/3y
-	aYVW2GE3hcNjj6xnJKTaOSTxxRyBcNbvI8w80=
-X-Received: by 2002:a05:622a:30e:b0:50e:5cc3:6f3a with SMTP id d75a77b69052e-5165a07df9amr339060241cf.26.1779270880855;
-        Wed, 20 May 2026 02:54:40 -0700 (PDT)
-X-Received: by 2002:a05:622a:30e:b0:50e:5cc3:6f3a with SMTP id d75a77b69052e-5165a07df9amr339059981cf.26.1779270880378;
-        Wed, 20 May 2026 02:54:40 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39588750063sm27747751fa.24.2026.05.20.02.54.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 02:54:39 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 20 May 2026 12:54:37 +0300
-Subject: [PATCH] arm64: dts: qcom: qcs6490-rb3gen2: add rmtfs node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kubQ3jql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BEB21F000E9;
+	Wed, 20 May 2026 09:54:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779270903;
+	bh=1rR11SLMve5z99TMpOCckaXfI3pjGLYjtT01yolVcVA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kubQ3jqlcjIHtJBWJBC/to3LSIkAaMm0l7XhtMWuGGmjExiV5CkoCbKTUfd3BvVhj
+	 eoS3nNKCqeYOwtIRPbX9yNtLX5Q0aMkyU0vxOdFjrnWPWo+D9A27XF+2A/bF71fC2/
+	 qMKLiG3fY/sZZZLYyNuL/nsSrYJQz/eEtNKr1beBxg4CPz4j4HqGkkmPj8jXYWGYUi
+	 +2s+wVVk70cgtJFgWGgQ9kcnhHkp+x97sWJ41S6cdb8sO5WKyo8D0cP2Cgy3VdKM9d
+	 6eeeQIeBT3FHMyWMXtOcnlKqyxJmAtteMMhXQe0T3nJRFXcERFCpdBcykGgGXJ07Zv
+	 k2yiMhfy9ywyQ==
+Date: Wed, 20 May 2026 10:54:50 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>,
+ rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v4 09/10] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
+Message-ID: <20260520105450.7fae5de1@jic23-huawei>
+In-Reply-To: <pkx5v4od3wkyyzxomfrjf4ei7leboadzth262xnl55fvu76pf3@yqrezmo6gtq7>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+	<20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
+	<20260517155843.7f833658@jic23-huawei>
+	<yrabhhhdkzmiuxlqzrrj6a47ftlzwvva7r2korzeszdy4yqrin@xl6obhhnnas4>
+	<20260518144537.7c998308@jic23-huawei>
+	<pkx5v4od3wkyyzxomfrjf4ei7leboadzth262xnl55fvu76pf3@yqrezmo6gtq7>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-rb3g2-rmtfs-ipa-v1-1-8b3942ded279@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANyEDWoC/y2Nyw6CMBBFf4XM2sZSQCO/Yli0dYpjUh4zxZAQ/
- t0qLk9y7rkbCDKhQFtswPgmoXHIUJ4K8E879KjokRmMNhfdGK3YVb1RHFMQRZNVWJd4q0Kj66u
- DvJoYA62/4r07WBb3Qp++mb/BOC/5Kh0aOCuo/BgjpbYYcE3naCUhQ7fvH/kDbx2iAAAA
-X-Change-ID: 20260520-rb3g2-rmtfs-ipa-e41e93f5047b
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1310;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Vj4+oo81rmJlqOMEGHmWK78WOY1h7oRumK4LiWBULcQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqDYTeYRxXiFKatYpSg8wFiQMqrBiD2jQp465/3
- cS1NVzhwn2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCag2E3gAKCRCLPIo+Aiko
- 1X28B/9Ll0yM/1m7vl9i6TpeNuzy51v5aTc/vkTSqZ8hF1ZgeioVU4JojdNuvuY9xRmQ6DnVXjp
- XvzdJlJ4p/l221LwjfiGGzv637cUAJnnMxbPnrO/geWzXhGZCj9UWgXo8o+Jlm+PZvSdmdsgiZt
- JVsUlGtblUFHf84WUHoybrfMUTUrA9/Gyd2GhaGcgONa10UpW2ff5CSIaKtAnG87t6ZGsDEYmxc
- M4a8TGKTKpgy7HzEZax8CH4x6iYKeL28yIOP6CUBquvxi6THW5VYsxmHEA+4hIj0nZK8R+4hgbN
- dI/bbsPennWTEAq+JhZZJehehWdtcoc0xvZr6WoHVqzqQmlz
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 9HBnBMd1la00pZ8jd-02XzcG4tp06eYE
-X-Proofpoint-ORIG-GUID: 9HBnBMd1la00pZ8jd-02XzcG4tp06eYE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5MyBTYWx0ZWRfX1xLV46GSuMZ4
- FiInaMnIdIXG1HDqEh+B8mKNTDAFG5pBpiOBqVfUBZEQBqttXpt/mrM+4gIcfup4Atk4rlEGMhK
- NwpOkfkqdiYdoyQufhPqTVBTHJA7Tw/ss4BQlh9mNIqt4ct3j/S+E8yJ3GOcsotV9BpLmQ1Qp6j
- t2elbeQ/ci2Vnokui2MAd1g+bpq8zxXqCNuJos52jGYWZOSAloO6uHS9zRdv3OeXU3Gz+uVGrbL
- TqqW1Vu/vbmdUtPl1C58CmXeDOU6RH7a/MQyZOCFXtFQMhrdEgKVsTo6b4CxBAR79ewuoAJB1jS
- Jcw04C8USvx2EcxAC8Et+hHFASH6EJG65Yp187zH+6jMgBYZD9UopekFM6CJALCt6djsAoYwFlX
- sKIP2NMFsG0FQRcL4AaiHfPGLhT/hKHjr5NVoyBXc9tIcXenenRF5Tz4sj7O/9R+0Z1TpyWkchu
- WsU49oXkxA/UJophuXw==
-X-Authority-Analysis: v=2.4 cv=FesHAp+6 c=1 sm=1 tr=0 ts=6a0d84e1 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=Z-PxJsM1GSiCisScR-AA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200093
 
-Downstream kernels for RB3 Gen2 don't specify the RMTFS address, instead
-the kernel is supposed to allocate rmtfs buffers dynamically. The
-upstream kernel doesn't support dynamic allocation of RMTFS buffers, so
-use the fixed allocation. The RMTFS node (and corresponding interface)
-is required for the modem DSP to work (which otherwise would crash).
+On Mon, 18 May 2026 16:27:23 +0100
+Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> On 26/05/18 02:45PM, Jonathan Cameron wrote:
+> > On Sun, 17 May 2026 18:30:27 +0100
+> > Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+> >   
+> > > On 26/05/17 03:58PM, Jonathan Cameron wrote:  
+> > > > On Fri, 08 May 2026 18:00:25 +0100
+> > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> > > >     
+> > > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > > > 
+> > > > > Add custom ABI documentation file for the DDS AD9910 with sysfs entries to
+> > > > > control Parallel Port, Digital Ramp Generator and OSK parameters.
+> > > > > 
+> > > > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>    
+> > > > I'm fine with phase and frequency as defined, but for the scaling it made me wonder.
+> > > > For outvoltage0 channels the assumption the value is the peak voltage so if
+> > > > we know what input to be modulated by the ramp generator can we express them
+> > > > in volts (well milivolts) rather than as a scaling multiplier?    
+> > > 
+> > > The DAC output is current-based and differential. Voltage conversion would happen
+> > > outside the device...  
+> > 
+> > Why aren't we representing this as out_altcurrentX-Y_xxxx?  
+> 
+> Good point! altcurrent makes more sense than altvoltage if we want to use raw to
+> control the output level rather than scale, which would be a constant to convert
+> raw into current units (what is the one that is used in the sysfs ABI? Ampere, mA or uA?)
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index ceb68a890bf4..37a3b51323ce 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -165,6 +165,15 @@ debug_vm_mem: debug-vm@d0600000 {
- 			reg = <0x0 0xd0600000 0x0 0x100000>;
- 			no-map;
- 		};
-+
-+		rmtfs_mem: memory@f8500000 {
-+			compatible = "qcom,rmtfs-mem";
-+			reg = <0x0 0xf8500000 0x0 0x600000>;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>, <QCOM_SCM_VMID_NAV>;
-+		};
- 	};
- 
- 	gpio-keys {
+Same as non alternating version so mA (which is a historical design error we have
+long been stuck with :()  The altvoltageY_raw docs don't give a unit either.
+If you don't mind, please send a patch adding that whilst you are here.
+Same mid to peak - hopefully that is what any users not modifying to RMS have
+been doing!
 
----
-base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
-change-id: 20260520-rb3g2-rmtfs-ipa-e41e93f5047b
+Seems we either never had one or that particular bit of ABI doc is missing.
+Please add an entry for altcurrentX_raw
 
-Best regards,
---  
-With best wishes
-Dmitry
+> 
+> Not sure about the benefits on setting "differential" in channel spec.. the name would
+> become out_altcurrentX-altcurrentY_xxxxx...
+
+Becomes a question of whether it is useful to represent that - maybe not
+in this particular case.
+
+> 
+> Is there any modifier for amplitude/peak/envelope? I see IIO_MOD_RMS, which could be used
+> if adding a 1/sqrt(2) factor to the fixed scale.
+
+For altcurrent / altvoltage assumption is it's mid to peak.  Unless the modifier switches
+it to RMS as you've noted.
+
+> 
+> Then, I would consider something like out_altcurrent_rms_xxxx as a good alternative.
+> 
+> "scale" would be a constant in the top-level phy channel
+> 
+> single tone profile channels would have:
+> - frequency
+> - phase
+> - raw
+> 
+> drg ramp up/down channels:
+> - frequency and frequency_roc
+> - phase and phase_roc
+> - raw and raw_roc
+> 
+> parallel port channel(s):
+> - frequency_scale and frequency_offset (frequency destination)
+> - phase_offset (polar destination)
+> - offset (polar destination)
+> 
+> osk channel:
+> - raw
+> - raw_roc
+> 
+> raw_roc could be just roc, but that sounds like it carries the scale and refers to
+> a current value? and maybe that breaks consistency with other destination attributes?
+> I am fine with just roc if that refers to the raw value, not (raw * scale).
+
+This is a good question.  We ran into ambiguity with events where we have to derive
+if it is _raw or _processed for the thresholds based on whether the main attribute
+is _raw or _processed.  Nice to avoid doing that again.
+
+I'd be interesting in others views on this but to me raw_roc seems fine.
+
+> 
+> With all the above, still using altvoltage is not incorrect, just a matter on how
+> we want to express the units.
+
+Agreed - but to get to directly useable values we'd need to provide info on the
+external circuit - and given we are dealing with AC signals that is tricky to do
+in a compact way.
+
+
+> Note that using raw instead of scale to control the
+> amplitude is just another option to tackle the problem. I suppose that the
+> important thing here is being technically corrent and consistent in terms of
+> usage. Maybe out_altcurrent_rms_* is more clear in terms of amplitude level.
+
+Agreed.  It is always (?) possible to switch between scale and raw.
+For an ADC the distinction is clear as we can't control _raw. For a DAC it all gets
+rather value as we can logically control both and for an AC type of DAC / DDS it
+all gets less intuitive.  As you say, consistency is key.
+
+I'd like us to at least be consistent across DDS devices. Perhaps we need some
+general documentation on whatever the outcome of this discussion is to record
+some of the logic behind those decisions.
+
+> 
+> > 
+> >   
+> > > using a resistor load or an op-amp transimpedance stage,
+> > > and I am no expert on that, but that often requires impedance matching so voltage
+> > > levels may depend on the frequency. Then, I suppose that voltage is not the right
+> > > unit to use.  
+> > 
+> > Understood that it can get complex!  
+> > > 
+> > > The scale here controls the amplitude of the varying signal. Assuming the peak voltage
+> > > (amplitude) is constant means we have a constant envelope, but that should not mean
+> > > we can't control it or it should not mean that the hardware can have other ways to
+> > > control it. That said, scale behaves as a "gain multiplier".  
+> > Understood. Given it's the envelope then if scale happened to be 1 always it would
+> > be presented as _processed. So this is consistent with other channel types.
+> >   
+> > >   
+> > > > 
+> > > > That seems to me like it fits better with the overall ABI.
+> > > >     
+> > > > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_offset
+> > > > > +KernelVersion:
+> > > > > +Contact:	linux-iio@vger.kernel.org
+> > > > > +Description:
+> > > > > +		For a channel that allows amplitude control through buffers, this
+> > > > > +		represents the value for a base amplitude scale. The actual output
+> > > > > +		amplitude scale is a result with the sum of this value.
+> > > > > +    
+> > > >     
+> > > > > +
+> > > > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_roc    
+> > > > 
+> > > > Silly question perhaps but can work out how this related to millivolts/sec
+> > > > That might make a more intuitive interface than scaling multiplier per sec
+> > > > Perhaps the combination with offset makes this impossible though maybe that
+> > > > could be a expressed as a voltage offset?  Afterall if the amplitude being
+> > > > scaled is 5V then 5 * (offset + scale) = 5 * offset + 5 * scale
+> > > >      
+> > > > > +KernelVersion:
+> > > > > +Contact:	linux-iio@vger.kernel.org
+> > > > > +Description:
+> > > > > +		Amplitude scale rate of change in 1/s for channels that ramp
+> > > > > +		amplitude. This value may be influenced by the channel's
+> > > > > +		sampling_frequency setting.    
+> > > > 
+> > > >     
+> > >   
+> >   
+> 
 
