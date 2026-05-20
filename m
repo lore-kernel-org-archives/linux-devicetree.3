@@ -1,131 +1,121 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171093DA7E0
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CE93D7D9E;
+	Wed, 20 May 2026 11:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779275575; cv=none; b=pHGmMeiRlk2OA66Si2ui8tIQ8i9kJRVK+XY8s7cZMNXQ8k3QHDchXHEC+uQrWfm4yY9eTSBpF+T+k7foDSxnLdRzNOCe4RIi6BL2DJdqbKaHtb9c1hynYwD/156NHscrnhAaTVfFfFlYp+W/ZKTVNTQ2M8kde7nFy2X37WfS9yg=
+	t=1779275612; cv=none; b=czRRWWA2y9ezmJMaW02VH9Hiz1WtODnYrprXkv9RqpjfU2rAAEITIlufIrSCcutGmeRArpDC0q57TeWMu5SqbKL6/J08OgobXcxF93h6coahXADEZhOYxBjNVvsMs3fhXm/NA2BbKlEoi7yF/ctgu6uSTPKEZ/vWOLBn8wWfVhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779275575; c=relaxed/simple;
-	bh=/5mZ4vEYwygrUeR+eebBg7UtHWLg/gMI2VfnFbye610=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lypqiXAwmbOrYjQa/3O3/Cm6RUOBFxPrj3J9NYBm4YB7YMR0UsdvP5c8W0890wL1c5wFd1YarUXCKvsJcYIRogfRYQUern2QJYr/IWqSRheagGXdWYX4eoFoeywdRz8E/e4LxNGzpMPvA/pHx4OlLbEAbAyO6uPd1hyKPpAwBWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TT+3S/0C; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=BvMOqBxt; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1779275612; c=relaxed/simple;
+	bh=JRJUo4PXuYN1XhJVP15C+J6R1n1WzcWxMs+6lKcGyXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GnOu/2lB6/l5BBG4titUuNsvHqU8YgV5xd3DxnyUuGJESR5Xy1nJ2mlecE/3W7mqHGgCqpiRHTbUOoqhRAIWDCwmyhPU+j3skvTvx3VOv/Muh5whLeXk/3t0G4XCAGXa0nlsoaqkOYPhTOtWoQu+bDwRAzfydqGd5Qo7uRHfExM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=UIMfPi0n; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TT+3S/0C";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="BvMOqBxt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779275572;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=PqGQtbCak1DjkDn83NNdBzK9LLbqEMF51G2q8Su3L7g=;
-	b=TT+3S/0CRaSAdZyVwJOZni3tAUCNkqhu/orzmhmKbl2IumiG4U1p7GwWxQqeNjQxpaXFzj
-	82qOeVc4WJYOSb8cn3LY2+9wXo9GHG4v+O2uS1CGxehthsA5d6f1HKa15lgoQTKyUyTNHT
-	1Kzof/4710LzuBAHL5hHCTSd1n23p+g=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-3-zNGl0Ck2OF6nHTpKFVuA3Q-1; Wed, 20 May 2026 07:12:50 -0400
-X-MC-Unique: zNGl0Ck2OF6nHTpKFVuA3Q-1
-X-Mimecast-MFC-AGG-ID: zNGl0Ck2OF6nHTpKFVuA3Q_1779275570
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5104b861649so194865661cf.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:12:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1779275570; x=1779880370; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PqGQtbCak1DjkDn83NNdBzK9LLbqEMF51G2q8Su3L7g=;
-        b=BvMOqBxtf+l/AzXLS9rbjvyeB+DT+bcEIapRBAnSECW00LjqTRhh/usj696FIQ7W2t
-         GjFx437q6upbq/NbxDcKuzUfYgW3Vk9wvn5zuaB40DPEd1w+QL+DHTkOkBt3WYV6Biyp
-         iXYqgbgy1Tv/3anfIxvRCLlpHPOKiiv+0yDHlEfyqydmVnNNvmCWupT4OiFW2RjIfXJo
-         6W+DEDBo1FOlZF2AaoC81rJ7W6rwUX3zSzMjwqXHZZOVdWuK8Z306TYXbgFMgkpaeeqr
-         a1zaBxZ+uOUHUpf5cxGL6JXSJPuIGpa+mT8Fy31l0//TnGbd0MzHNdtxkkzK5WEtqMO1
-         kicA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779275570; x=1779880370;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PqGQtbCak1DjkDn83NNdBzK9LLbqEMF51G2q8Su3L7g=;
-        b=ofI5aJ5ZfCmK2mo3Acnu+defKNQyMCHZxomOR7lM8TqzZ7I49IjVXHx0KY++cP1h1q
-         nXidULsNvNegWPvc6z3EaQ6KoeXvhnr5Zp+kHEzunhblPxe+LX+uzLGPvuu3G5AKdQWh
-         PF2XPgXOR0edW6k1nsxuRMt4ZDd10slA+GL2K/PE12/a7NpbZZpbMm9reCFw6Z+rM/71
-         f4Cb0k2Xex4WqOxYiwQIHEvpbgKatz0TkWjCAUh8nuq/Y8Abg7dcjGf8dWA6FNKb1rHg
-         DolXLSlOb3XO/y85y6p/x1aiI4jfcp/v51Z+L9o93DywvnPmkZjit5+4mp8Slnyu8kWK
-         g+Mg==
-X-Forwarded-Encrypted: i=1; AFNElJ9zE0hWcQnWZpCjhuYbW5rcWGg0P7yo35n5d63SzmtnntI2YCcVgX7KZezU7NA6/49mzWfkDRx1TicO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd1ONd5BjUFzB+lx+VO7yz0ZnhdjjG7g5hJNsupHixm64ijZTJ
-	aGgUX4xMD19hB57VdAw9wHoy4TAnKSSWCz/UgZhlBjAacQMeRu7z9ORznK0P+0vBcEHUltNMVbp
-	gDdiu96E3PRohFsjlOtSMYqbm3BZY6Uq//z3Y/vr4+864bvYeUZFOLbv+kcdsXz0=
-X-Gm-Gg: Acq92OH18MmnSREblby0u584bfJuqB6alO6pcia5BJk4QV6VKfBfPtk+x139bSxJrKH
-	WnfIdM0RnPpW0ge/eksuNxeMGBFQG1x9nZl2sIJLOuzGsZk67aMOUKbpIqhd/RE1Z6gCSsaF8Ay
-	yx0otyTSaRK0RhLC6HXKlNvfDPQ7Xl5BGzozDOk/OzIA+F/ZQkxfOTKKgBtT3UkOXkDpTIBzpVH
-	H2C32DFqs6BLwxboxIbedSwEKXvO5Wu9oNW3gZ1eRnQMcz+PLMlR2odaQBz6mjKMftTs3FR/CJi
-	HimZ4sMUjpL95WTW+qaDWLkFjCym/nM7eT5G3msJP1TDMkjPZdxP+iAujb8huQay122LiVbkZd9
-	du+h/rDGpe0P8
-X-Received: by 2002:a05:622a:489b:b0:50f:bdc1:3bbc with SMTP id d75a77b69052e-5165a1e3c7cmr308794361cf.45.1779275570360;
-        Wed, 20 May 2026 04:12:50 -0700 (PDT)
-X-Received: by 2002:a05:622a:489b:b0:50f:bdc1:3bbc with SMTP id d75a77b69052e-5165a1e3c7cmr308793991cf.45.1779275569917;
-        Wed, 20 May 2026 04:12:49 -0700 (PDT)
-Received: from rhdev.redhat.com ([2600:1700:f361:20bf::14c1])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ca360979c2sm119479176d6.18.2026.05.20.04.12.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 04:12:49 -0700 (PDT)
-From: Jennifer Berringer <jberring@redhat.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Hendrik Hamerlinck <hendrik.hamerlinck@hammernet.be>
-Cc: spacemit@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jennifer Berringer <jberring@redhat.com>
-Subject: [PATCH] riscv: dts: spacemit: set console baud rate on OrangePi RV2
-Date: Wed, 20 May 2026 07:11:50 -0400
-Message-ID: <20260520111150.3300707-1-jberring@redhat.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="UIMfPi0n"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=JRJUo4PXuYN1XhJVP15C+J6R1n1WzcWxMs+6lKcGyXw=; b=UIMfPi0n+2sixL8bSd9VaSky4K
+	RHWEU0+Im4DinWDobN+TIklEhd6YinjY5ra47zGedlGtmCK3VcLA4SdnC/T9Wz+xbv787uc9NCmur
+	oE/Pb9YEfcxcHLNfgJgespEqEWtw4n5OmHUUJpLH4OusgknEWNuQPRuBNqljFKhUo5+wDF9F6HKDp
+	7be2MVHEYOcgda44vWIrGG8KrxbAhoTugxFAOK6tqo9T6Y/e1aUu/oa9ixbiz6AQcrrmBIpaKFezU
+	Ywj+BMGYYbwcxGr5YO+NvKrymVGhCxN9ndMlH+BhpCaopR6UWjmoW1Bez1Zy8MLmFiEb1e5C3LRV6
+	xx0+IXow==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Peter Chen <hzpeterchen@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Yubing Zhang <yubing.zhang@rock-chips.com>,
+ Frank Wang <frank.wang@rock-chips.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
+ Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
+ Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
+ Chaoyi Chen <kernel@airkyi.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject:
+ Re: [PATCH v15 7/9] drm/rockchip: cdn-dp: Add multiple bridges to support PHY
+ port selection
+Date: Wed, 20 May 2026 13:12:49 +0200
+Message-ID: <12511061.0AQdONaE2F@phil>
+In-Reply-To: <20260304094152.92-8-kernel@airkyi.com>
+References:
+ <20260304094152.92-1-kernel@airkyi.com>
+ <20260304094152.92-8-kernel@airkyi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Set the baud rate to 115200, matching what is used by U-Boot on this
-platform so that the console is usable even when console options are not
-specified in cmdline.
+Am Mittwoch, 4. M=C3=A4rz 2026, 10:41:50 Mitteleurop=C3=A4ische Sommerzeit =
+schrieb Chaoyi Chen:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>=20
+> The RK3399 has two USB/DP combo PHY and one CDN-DP controller. And
+> the CDN-DP can be switched to output to one of the PHYs. If both ports
+> are plugged into DP, DP will select the first port for output.
+>=20
+> This patch adds support for multiple bridges, enabling users to flexibly
+> select the output port. For each PHY port, a separate encoder and bridge
+> are registered.
+>=20
+> The change is based on the DRM AUX HPD bridge, rather than the
+> extcon approach. This requires the DT to correctly describe the
+> connections between the first bridge in bridge chain and DP
+> controller. For example, the bridge chain may be like this:
+>=20
+> PHY aux birdge -> fsa4480 analog audio switch bridge ->
+> onnn,nb7vpq904m USB reminder bridge -> USB-C controller AUX HPD bridge
+>=20
+> In this case, the connection relationships among the PHY aux bridge
+> and the DP contorller need to be described in DT.
+>=20
+> In addition, the cdn_dp_parse_next_bridge_dt() will parses it and
+> determines whether to register one or two bridges.
+>=20
+> Since there is only one DP controller, only one of the PHY ports can
+> output at a time. The key is how to switch between different PHYs,
+> which is handled by cdn_dp_switch_port() and cdn_dp_enable().
+>=20
+> There are two cases:
+>=20
+> 1. Neither bridge is enabled. In this case, both bridges can
+> independently read the EDID, and the PHY port may switch before
+> reading the EDID.
+>=20
+> 2. One bridge is already enabled. In this case, other bridges are not
+> allowed to read the EDID. So we will try to return the cached EDID.
+>=20
+> Since the scenario of two ports plug in at the same time is rare,
+> I don't have a board which support two TypeC connector to test this.
+> Therefore, I tested forced switching on a single PHY port, as well as
+> output using a fake PHY port alongside a real PHY port.
+>=20
+> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Fixes: bab8dea259100 ("riscv: dts: spacemit: Add OrangePi RV2 board device tree")
-Signed-off-by: Jennifer Berringer <jberring@redhat.com>
----
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 7c49bce427f30..07dbd292eee33 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -22,7 +22,7 @@ aliases {
- 	};
- 
- 	chosen {
--		stdout-path = "serial0";
-+		stdout-path = "serial0:115200n8";
- 	};
- 
- 	pcie_vcc3v3: regulator-pcie-vcc3v3 {
-
-base-commit: e2518e8cb1dde64af2d1bb246639bb7ef7523f7a
--- 
-2.53.0
 
