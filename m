@@ -1,147 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910832701C4;
-	Wed, 20 May 2026 18:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA004239E76
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779303514; cv=none; b=eWwV1D46arI6qJ+egC3mmKqbKwBZxj8JxepzmxVBL94ZViRYGTJPlJ0XumY3XXbDFbwkDHTeuGH+mcpNPbnmoSPHLQGDNyu+KNbqMQgLO2NLtxHUyGjX2gxt1P9pPcg3lXLnh9ekRmlATEVm8L+QTZN/p+NpOWcJe38wPTVjhYM=
+	t=1779304089; cv=none; b=VJRi2+lFWZzgJxs3nNMFcXKyXVt74tQpdAXbSFr9N6NqyoRITJu18AeDAgLANr2mRbibDyowGoiCk1opeKWT1IfaN4VK8Z4B/TBVj7SdGNwTmbqpCDuRsC1b24WFWVuKmieMM78OmNu/hKBVGotD0k0mR6svVm6ERuD8Y4RXb9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779303514; c=relaxed/simple;
-	bh=g8ARzZZplRFCCw5mAhE4rnYD32JwcQ9twUtXcgPIOoc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tvkoxdSsd+0pPxMA26xKvs5uCqlMHpalmRaff+eXm+wRo7+x8DSjeVzRM6dBBxksdEHpVtoyFX2B6/KxWK8W8bqK7XbEU/on6tbt/0S7yh54kwf6jGYWZWXBxLsqXeqlgBeHdEPXqAx2bXldchsYW4K7KrYBj/wR8ZmbUo8m8SM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=To391V5a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779304089; c=relaxed/simple;
+	bh=q8M/88NsgvWcaWZoCqE8PcQ9T1YIepm8y4D3AgJU9Fo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SJY8ykIsC6UDtFZOBHENr5WCdHcNorIXFDvBiaDhZdGBkY1EcMILdQZcK3chHVQ2tPzCG3OAN2NgoQawha1aArIkudXdANl839ZNbrlgYegi3FuCEE4oy5zOV4k9AcTWUIwadN7LcAQfP5cZnodWvih3XWXfNJlYoPetm0GHP8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U5q7Hljv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="To391V5a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8F91F000E9;
-	Wed, 20 May 2026 18:58:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U5q7Hljv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509871F000E9;
+	Wed, 20 May 2026 19:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779303513;
-	bh=FxJ/JthfCMKn/1Vz2RVfV2EGcIa2+pZDdNovaeFcIBI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=To391V5alUIcyijicmPW8ZT+NSY73HPuWaUBC9CezoIFYve7RYd5SIQG0knFbR2k8
-	 ndKICDdsSjh+C2tHrruoVQOGI1m+SS9ie6b4WQaiujqH4DEYOUqH6VGRpm8ccOa0j7
-	 kd7bDya/TSJR31IRWhai6goUW6WCPhrgpXGqy7IUB7za9haDtuunBPeheQJuBNOTSV
-	 Xubxzkst2rkf/iec8sUfwfuRh8QNzMyFqtqC7451/3+2SZOLr9bUWW8m9Y+IT51P1W
-	 0xLJ034AbBZAuk0JxGU1ePTIsxwtsiyi7657rT8YnStckT4qDmo9vN/hFCGk2QkDoK
-	 Zl/Shf2evXPIg==
-Date: Wed, 20 May 2026 19:58:23 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, nuno.sa@analog.com,
- Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v1 3/4] iio: adc: ltc2378: Enable high-speed data
- capture
-Message-ID: <20260520195823.43b9ff2f@jic23-huawei>
-In-Reply-To: <ag3wB-dAHnm67kZu@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1779117444.git.marcelo.schmitt1@gmail.com>
-	<580ce8e03cdbda8ec20fed2e26f2226872ffcef3.1779117444.git.marcelo.schmitt1@gmail.com>
-	<20260520172740.783c8866@jic23-huawei>
-	<ag3wB-dAHnm67kZu@debian-BULLSEYE-live-builder-AMD64>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779304087;
+	bh=bGPK79O0nKKLADFHkavFm72Or8xf31L3eIXvjPB8S30=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=U5q7Hljv7G+GR3+zoR4k34pB/MvlBbrMWYjxl9Q1DtTK0TvoSh56TfKt3KbqmMEm5
+	 yRyn1gRIDsMHOQGx654YHi5X55SyJm2aDXMS8zMozO0sDV7aJ6wqB4OcNDBxPOeucR
+	 JGXKqcLwpIPoailhsR6u/1MANFfXXRBTlcRlGW+2BlssAXb/QbCDG3pYVPa8mOexJ8
+	 cyKTksKVL46fFLAzNgIAvUXe2J51SxDoqeOWNZwwgmuItcfrnstWfMeF7taAzTcm1X
+	 MLSVoALKRttEIAD7fhEXpY7pzWVkJlorv9FpqOfGPNEwtSU+Scsa4tsGxJJAoohgRO
+	 vS9rnyxOyMFcg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] interconnect: qcom: x1e80100: Revert ABI break
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260520184944.182148-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260520184944.182148-3-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 19:08:06 +0000
+Message-Id: <20260520190807.509871F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 20 May 2026 14:31:51 -0300
-Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> > > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> > > index 70fec8e3e891..b5368ee783f7 100644
-> > > --- a/drivers/iio/adc/Kconfig
-> > > +++ b/drivers/iio/adc/Kconfig
-> > > @@ -944,6 +944,7 @@ config LTC2378
-> > >  	depends on SPI
-> > >  	depends on GPIOLIB || PWM
-> > >  	select IIO_BUFFER
-> > > +	imply LTC2378_OFFLOAD_BUFFER
-> > >  	help
-> > >  	  Say yes here to build support for Analog Devices LTC2378-20 and
-> > >  	  similar analog to digital converters.
-> > > @@ -951,6 +952,17 @@ config LTC2378
-> > >  	  This driver can also be built as a module. If so, the module will
-> > >  	  be called ltc2378.
-> > >  
-> > > +config LTC2378_OFFLOAD_BUFFER
-> > > +	bool "Offloaded data capture with LTC2378"
-> > > +	depends on SPI && LTC2378
-> > > +	depends on SPI_OFFLOAD=y
-> > > +	depends on PWM=y
-> > > +	depends on SPI_OFFLOAD_TRIGGER_PWM=y
-> > > +	depends on IIO_BUFFER_DMA=y
-> > > +	depends on IIO_BUFFER_DMAENGINE=y  
-> > 
-> > why do all these have to be built in?  In general I think we need to jusitfy
-> > why this driver needs to work on systems with out this stuff being built.
-> > I.e. why do we need the separate optional file at all?  
-> 
-> Hi Jonathan, thank you for your review.
-> 
-> I've applied fixes to all issues reported by sashiko, except for Kconfig
-> configuration (see below) and the is_visible() thing I'm still working on.
-> 
-> My intent with this design choice was to keep chip intrinsic dependencies
-> separate from SPI offload dependencies. The indented benefit is to enable using
-> the device without having to enable SPI_OFFLOAD (which is boolean and might not
-> be supported on all platforms). The offload feature is indeed highly desirable
-> hence the imply on the main driver Kconfig entry. The other symbols are tristate
-> so, if we keep this approach, will drop =y.
+Pre-existing issues:
+- [High] Returning directly on `-EPROBE_DEFER` during QoS clock initializat=
+ion bypasses node cleanup, leaking nodes and causing a Use-After-Free on pr=
+obe retry.
+--
 
-I can see there will be platforms where SPI_OFFLOAD doesn't make sense, but 
-are there cases where it can't be built anyway?  It's not that big and doesn't
-seem to have dependencies beyond those of SPI.
-> 
-> The separate optional file is part of the push for dependency separation. It
-> helps avoid #ifdef in c code. If the proposal is not far from something
-> acceptable, I'd like to have another try of making it work. Still, it's arguable
-> that the real interest is only on supporting the offload thing. Also, since I
-> don't have any request to support these without offload, I think it will also be
-> okay to have everything combined into a single driver. 
+commit dc792c2aa6455fa0377849e9d95a326611b7bb15
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+interconnect: qcom: x1e80100: Revert ABI break
 
-I don't mind the separate file, but I do mind the need for so much to be built
-in rather than modular. So I think the Kconfig needs some changes rather than
-it being a fundamental problem.
+This patch reverts the enablement of QoS configuration for the x1e80100=20
+interconnect driver. It removes the QoS box definitions and the requirement
+for QoS clocks, as QoS is not mandatory for the device to operate.
 
-Jonathan
+Closes: https://krzk.eu/#/builders/102/builds/70/steps/23/logs/warnings__3_
 
-> 
-> Will follow all the other suggestions.
-> 
-> >   
-> > > +	help
-> > > +	  Say yes here to build support for high speed data capture with LTC2378
-> > > +
-> > >  config LTC2471
-> > >  	tristate "Linear Technology LTC2471 and LTC2473 ADC driver"
-> > >  	depends on I2C
-> > > diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-> > > index 1814fb78dde3..2fa5dce0ceea 100644
-> > > --- a/drivers/iio/adc/Makefile
-> > > +++ b/drivers/iio/adc/Makefile
-> > > @@ -82,6 +82,7 @@ obj-$(CONFIG_LPC18XX_ADC) += lpc18xx_adc.o
-> > >  obj-$(CONFIG_LPC32XX_ADC) += lpc32xx_adc.o
-> > >  obj-$(CONFIG_LTC2309) += ltc2309.o
-> > >  obj-$(CONFIG_LTC2378) += ltc2378.o
-> > > +obj-$(CONFIG_LTC2378_OFFLOAD_BUFFER) += ltc2378-offload-buffer.o  
-> > 
-> > Hmm. This is odd. The driver can be modular but not this and it's build seperately
-> > rather than as part of the module. I think these bit needs a redesign.
-> > We definitely want this extra support to be part of the module.  See how something
-> > like the ADIS IMU library in iio/imu/Makefile is done.  
-> 
-> Will check this out too.
-> 
-> >   
-> > >  obj-$(CONFIG_LTC2471) += ltc2471.o
-> > >  obj-$(CONFIG_LTC2485) += ltc2485.o
-> > >  obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o  
-> 
+> diff --git a/drivers/interconnect/qcom/x1e80100.c b/drivers/interconnect/=
+qcom/x1e80100.c
+> index 8075e0ff20597..2ba2823c7860e 100644
+> --- a/drivers/interconnect/qcom/x1e80100.c
+> +++ b/drivers/interconnect/qcom/x1e80100.c
+[ ... ]
+> @@ -1795,21 +1466,11 @@ static struct qcom_icc_node * const aggre1_noc_no=
+des[] =3D {
+>  	[SLAVE_A1NOC_SNOC] =3D &qns_a1noc_snoc,
+>  };
+> =20
+> -static const struct regmap_config x1e80100_aggre1_noc_regmap_config =3D {
+> -	.reg_bits =3D 32,
+> -	.reg_stride =3D 4,
+> -	.val_bits =3D 32,
+> -	.max_register =3D 0x14400,
+> -	.fast_io =3D true,
+> -};
+> -
+>  static const struct qcom_icc_desc x1e80100_aggre1_noc =3D {
+> -	.config =3D &x1e80100_aggre1_noc_regmap_config,
+>  	.nodes =3D aggre1_noc_nodes,
+>  	.num_nodes =3D ARRAY_SIZE(aggre1_noc_nodes),
+>  	.bcms =3D aggre1_noc_bcms,
+>  	.num_bcms =3D ARRAY_SIZE(aggre1_noc_bcms),
+> -	.qos_requires_clocks =3D true,
+>  };
 
+[Severity: High]
+This is a pre-existing issue, but it looks like reverting the
+qos_requires_clocks flag here might be masking a severe structural flaw
+in qcom_icc_rpmh_probe() that triggers a use-after-free on probe retry.
+
+In qcom_icc_rpmh_probe(), interconnect nodes are created via
+icc_node_create_dyn() and added to the provider, with their pointers stored
+in the driver's statically allocated qnodes definitions (qn->node).
+
+If the subsequent call to devm_clk_bulk_get_all() returns -EPROBE_DEFER
+(which only happens when qos_requires_clocks is true), the function
+executes return dev_err_probe(...) and returns immediately. This completely
+bypasses the err_remove_nodes cleanup path which calls icc_nodes_remove().
+
+Because of this bypass:
+1. The provider struct is freed by devres, but the nodes remain registered
+globally in icc_idr with a dangling node->provider pointer.
+2. On probe retry, the driver sees qn->node is already non-NULL and reuses
+the old node.
+3. The subsequent icc_node_add() hits WARN_ON(node->provider) (since it
+points to the freed provider) and returns early without updating the pointe=
+r.
+4. Any later interconnect operation (like qcom_icc_set()) dereferences the
+dangling node->provider, leading to a guaranteed use-after-free.
+
+Does this framework bug explain why enabling the clocks broke the ABI and
+caused warnings?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520184944.1821=
+48-3-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
