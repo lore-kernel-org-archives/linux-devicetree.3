@@ -1,129 +1,135 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7533DB308
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:34:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AFB548EE;
+	Wed, 20 May 2026 11:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779276850; cv=none; b=RnK+eg59o6dYRQduUZ0zouaih6zxFM+alZYgZPPtR24pkzjF4eTmY4pjid0MfZk/3nHWJRCix8eMCqC7fyVA76fNOzJPc5V/pyQKov+FPZT61hEWec2pL4raIan6tgJ6Q1Gah+KM4E5ScFzrpySazYLXHQEaeEIiCOaIF4wcSeU=
+	t=1779276997; cv=none; b=WNC1IZOFhFxLmA2+4uq+QjwQ6wcVpN21rkty7ynzKf9pg1uslb5HutpTEGX8+tYyWwg3xXjUuVsG7B8ONWxz3AG2AgRJS+AC/RTOkZOzjWsul/Rce4ZpidjXwdPKqBQvVP5O1pfI9vDiiHI3rqJi/qLCuoK83wLYDOkyRRDj/zE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779276850; c=relaxed/simple;
-	bh=mZf398tO0M7pGAFleQA1/zDCux+F0MFC2QT8L3t3rwk=;
+	s=arc-20240116; t=1779276997; c=relaxed/simple;
+	bh=pt5s+8VqY9gzjyhGDvxKdUz/CP+gdiVXU9zfBbubgVc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gsmizns4BWf5RSv5LCUnXCs7TnzfncPTFDZuK0DijhzzFbmL2Fi6t+8Yxm7EQ5ckj+7/19DctzMkFk0NtwuWq7JNK46UlMM8d5hpx1MQSGg7nq0DFHIbzJvz060xow2Ok0YrJNNsiSqlivp0nB95uOsSdoXNx7MjU2Ye8B3ZZ6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mGelq+eF; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=mz8KOYiWu7rzKtxDt+Vkr9Y7OOW0v4Pt3Mc/E7l0zEulJn2H5prmvicGcIDfJLNMzW1NLeBX0TznCy2BALHn59+cRw6NE6tKDEhVTG8YV56LIuIEck77P3BmQ8WFmVIOZmr975GNb1xo2Ay/YEqJfsVDjIBmCA9zFdKKm4h5PKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LyCHvUq6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mGelq+eF"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-441209fb77eso2943713f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:34:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779276847; x=1779881647; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=mZf398tO0M7pGAFleQA1/zDCux+F0MFC2QT8L3t3rwk=;
-        b=mGelq+eF10VeFQ4swjLpv6f1AzLthYvfWv8m53VQxEOgbkeNSsvQX5dqM5MHSS03X9
-         dLK/z728gk02Dbmw8cXWf29NSbiXw4zsiZzPydWAc4gj1LtJFwSX2NnDRhbNATntUky6
-         ETqhWkq7evR+BvT3PcXVDfDkCygD4qmuUF9MEMqZxxZ2Q0LGNhdhfRUQeRSZR6G2jE1r
-         u0Qikq0UKNGemgFOh8FKlGOs9Q9npIHWtXCVVwXNLcb00VL1a4mFu3j05Hotik8yxZrW
-         nRw038+Ct7YhGqOAigrfEL/IscyZOpdizaJ7+Ttnx+NJF+brSBZJbiNdATC8i50Kix+g
-         k/2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779276847; x=1779881647;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mZf398tO0M7pGAFleQA1/zDCux+F0MFC2QT8L3t3rwk=;
-        b=X5y7luYd4K1nmE7LZ4dAbTPq5YeA2VEtHrPPg7NqIqamKwKPhIXrxQAnEFnXgjLBKj
-         SfEc3Rjxr7X5gwh5JpeipWEISWPTEU0buWQZqg8vMLXPJoiCCPpgy4QUFRO3zpcsozcC
-         QnrCozaVVlYurdIcFd8+Njet70+hYpxiO6fcBRTNaUQlfl3CYPFmHOc1y/Zc0ocV3d7C
-         0IsPFQ9Er5T5XtUN9eXNZF1u0J0c29aCpvHK1uh7FwkoHzkuT77ube82OOvvwT6/Puif
-         Dl33j4/WPp6a2yblrn2KGaDLuMhYvAsnRNQsQhers4ilnua2gh1RFxd8siZDWfbDaIgK
-         6mEQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9c+sQd3hn8xxnqa/xS/oCCFCu+fVeXv44z106gvqkJ7Ya+XD3oH36KE++HZXgW+13iPFkXlt+Y4NiY@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEHp/WdyBx38r494Vv143F2Kb3uN2d6ZdFy6sCxMI1wAR9ZP0D
-	fDmv3DKus+hPCDw+Lmbv68QzNUFQdbj9hAgUXMGklMpsQEjv++1dUOdE
-X-Gm-Gg: Acq92OF/bXf55mos+iVgp5HtpFrAzFl1a1p2/+tHZk9MG6IUnCmAATul6JCxAkBnMdf
-	q3sPkP4EC9atVstkRUz5OGMNcYGEolx6A94H2fHft6auUEwv2AhcnyQQMqOMATLfCn+hnGo1ucz
-	1qecHhh4IBHQnpbTXEVo8WLGKNZwW1426RyKfLtkWH9HmIWF7kJKl0Z1KvHjeLjcL9S5iANpnn2
-	eCqvpPxgWM9NaZHfiJQNC2Qwpfjr2rJozxMJS55RKCfs7j05/y4EnMF3xTXMW2Y9PtbwSewnBJY
-	dWz1TlStiHT7iaFeViPAs2OsmGCfCxWa4yEZRTgLSEDTiRf75A43uyN+ir3ZlUwAew1M4deLSpD
-	jAlUXz1hr6PobnEH+mVLttn4ja2c2l1LYBt3jerxaz8nMA+yC/y/rqer8WpiCqA2tiTWo2DvHRP
-	C9/wMx7P431OdRMMf+XI9Yhhv/fXLCAAgv+PK9Dka/C+xY7Tqu5QFSiYo3WvnAshHJsps4p5aeO
-	v0nrXsyeQuqpIFHVhK4gzZ0
-X-Received: by 2002:a05:6000:1949:b0:45e:7792:6e6d with SMTP id ffacd0b85a97d-45e7792716cmr16972746f8f.13.1779276846874;
-        Wed, 20 May 2026 04:34:06 -0700 (PDT)
-Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0fe0f72sm56958318f8f.25.2026.05.20.04.34.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 04:34:04 -0700 (PDT)
-Date: Wed, 20 May 2026 13:34:02 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: webgeek1234@gmail.com
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] spi: dt-bindings: tegra: Support IOMMU property for
- Tegra194 QSPI
-Message-ID: <ag2bxqDmZsCuOfOJ@orome>
-References: <20260515-tegra194-qspi-iommu-v1-0-57dfb63cd3d6@gmail.com>
- <20260515-tegra194-qspi-iommu-v1-1-57dfb63cd3d6@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LyCHvUq6"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K8uaZd4115171;
+	Wed, 20 May 2026 11:36:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=MaVVDbsg0Qf1q7ZkzeGs0e6M
+	s+o5j/imjdgouDQWfhI=; b=LyCHvUq6GXZ5kGYGD2mLYhq0urwUgKA4cyDe45Qa
+	Q2H6uetACVOQbnnPSSRPumoWWwM+Dl07RAqt0O+2Hh2eBbfyngfkHMzOclSq4lbm
+	XLUnX/eI8NdAOllkXzrq007sJ7Nacu7ASll9yfIGGtA/WwnjUUU+2U/7q8dvZCN2
+	YGGu/mlOcoWxl6Ppqu6yaX4UuLgC0yIQpHuy1P0Mc7QQDsdjzr1Jn22uPYM5zQci
+	xiEU5qWHn5CM5eYTf5XRcsorqGz7ZYAssMW7DgVRHs0kPnz3Zt070UD4L1rUDFlQ
+	NONWL4MFCZCRCTpGvqIA8RSo9PeNsxANpvEAFCa2Eie9TA==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e99w0gke0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 11:36:32 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64KBaS20017167;
+	Wed, 20 May 2026 11:36:28 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4e712fys9w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 11:36:28 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64KBaS6i017160;
+	Wed, 20 May 2026 11:36:28 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 64KBaSVo017159
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 11:36:28 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 94D8CB31; Wed, 20 May 2026 17:06:27 +0530 (+0530)
+Date: Wed, 20 May 2026 17:06:27 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: qcom,usb-vbus-regulator: add
+ qcom,pm4125-vbus-reg
+Message-ID: <20260520113627.mbstqbtdr6hfunwn@hu-kotarake-hyd.qualcomm.com>
+References: <20260520-add_pm4125-vbus-reg-v1-0-f6d15d7dbbe8@oss.qualcomm.com>
+ <20260520-add_pm4125-vbus-reg-v1-1-f6d15d7dbbe8@oss.qualcomm.com>
+ <wobourxqghhmi4htonf2ls24mcaeca7chytmyxihbxokc55cbc@jayo6u2azowq>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lkhs67mbj3gk5ko5"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260515-tegra194-qspi-iommu-v1-1-57dfb63cd3d6@gmail.com>
+In-Reply-To: <wobourxqghhmi4htonf2ls24mcaeca7chytmyxihbxokc55cbc@jayo6u2azowq>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: hTFYv9dg0c2zlcN2AoqnMQ_436kw9y1z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDExMiBTYWx0ZWRfX+uuLweIKa9xq
+ /Q5N1ThljmLrSN+Wr1M+xqm4et685lO4JKLvuuY3nDD/GEqzxOUy5l2EeZHFI542OHMMAp2ZUsY
+ Lh7Qv0KDazWJCUNGsOQLiDA0ZRlHe60MFT2GiOhq9L7aUiF9cQfYwyh79Q+GCGShuq2mFTPEzs1
+ H0gRalYgEdMSvFTy31DNrNBVMNUmdnYt3MSSUSNw3pKCpu0QE8Lrf6+f0xALMjaIQhgGqoepODH
+ BzWU8jSCQkqvnwnovjeiek/AcxWibxnE2nIAIJ/85GriMxuvV2vJN/TNEwOOrcOSknF9FIl179A
+ K4mqTKdM5pNirhY/wT0V6HTu66re+Kmn+5H4FCAbzFaL94/ob7SN7IOAMyKtNsLSwLvbRtm1M+y
+ m/S+K7xF+fzrUjd+4R44F1se7kT2RQz9XBf78V2eJm9uDlTGDz0GqSjCPvIfeIPzYw2nRpnrDln
+ gw/G+LUpwPR0d9Hz5iw==
+X-Authority-Analysis: v=2.4 cv=RZigzVtv c=1 sm=1 tr=0 ts=6a0d9cc0 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=vsn15EuVot32RTnektwA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: hTFYv9dg0c2zlcN2AoqnMQ_436kw9y1z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200112
 
+On Wed, May 20, 2026 at 12:58:35PM +0300, Dmitry Baryshkov wrote:
+> On Wed, May 20, 2026 at 02:37:11PM +0530, Rakesh Kota wrote:
+> > The pm4125 PMIC uses a different USB VBUS register layout than pm8150b.
+> > It uses a 2-bit VBOOST voltage selector supporting output voltages of
+> > 4.25 V, 4.5 V, 4.75 V and 5.0 V, instead of a current-limit selector.
+> 
+> Is it only PM4125? What about other PMICs which have the VBUS regulator
+> (e.g. PMI632)?
+>
+Yes, this change is specific to PM4125. I have verified that PM6150,
+PM7250B, and PMI632 all use the same register offsets (0x40, 0x52
+and 0x53) as PM8150B, so no changes are required for those PMICs.
 
---lkhs67mbj3gk5ko5
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/3] spi: dt-bindings: tegra: Support IOMMU property for
- Tegra194 QSPI
-MIME-Version: 1.0
-
-On Fri, May 15, 2026 at 03:35:27PM -0500, Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
->=20
-> This is supported via an external dma controller
-
-You say this yourself: it's supported via an external controller,
-therefore the QSPI controller on Tegra194 (and earlier) does not need
-the iommus property because it does not itself perform the DMA.
-
-The GPC DMA has the iommus property, QSPI doesn't need it. This is
-different on Tegra234 and later where the QSPI has a built-in DMA
-controller and does not rely on GPC DMA any longer.
-
-Thierry
-
---lkhs67mbj3gk5ko5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoNnCcACgkQ3SOs138+
-s6Ee+A//TcqYANcnvRvUOXYnvdCKnAT1aTtAka+rNPvueTfMKdR+PtQxYe8Fx4/n
-Yq0iOO4mkYCsMPRpemuE31RDDsUh3MRByyQcpBVa2MgCt0iqTRxV3N7E5hD3OnOv
-yFUrnH+lmW7HhOL8m4dDkIr+frii+LMfQpFrIa4jrCJBLkg99gFKSESHlYWQQVt+
-/dRje9aazDTmvbzOOSwP4l9RwbNeCLnfHD7ygqCO4nT2rlbWZBo6cURB54Kx/hIS
-bS9CrCrYQMpe4HmkPtPGUmhY3enm+RjkNjCswejk2QA8v+gzPlsJwSSfQf6VmfXQ
-rr+ZMgTH/agjidFQnWMOZPdyT4PnmHK2BmYkF6kNCWqv2SKNLl1yenGlWrJekzqa
-+Ru8z4O2JJ1E6eX4/4tTzBcGVi5gTtHM78nAdGb864vUwAqxh5bFxv2PIb8BmBzo
-qzDsJ/dwIQWCdRulC0eD3ZnY3ugVghNPlkufaAM4ix9DvfSpr+ZijpEgU2C5nL2p
-oyQ4BaRxAbYi6XL4CwQWPJtuNRQEmN8M86y5t45Dj5i7GskDqrIQmVuI/n/ky4ip
-rqC88oHfZ/jC5uOchcXYomZWZvt1GNhU+zDHwZoe0WScrz463Znfx4BLK845QM+H
-35MHF4oR8Vpd5s48VinW5a93mbGtLMwWG7lKhsY5vh/W/nfY5kk=
-=7UYw
------END PGP SIGNATURE-----
-
---lkhs67mbj3gk5ko5--
+regards
+Rakesh
+> > 
+> > Move qcom,pm4125-vbus-reg from the pm8150b fallback items list into the
+> > standalone enum since the driver handles it with its own match-data and
+> > register layout.
+> > 
+> > Make regulator-min/max-microamp conditional so they are only required
+> > for current-limit variants (pm8150b, pm6150, pm7250b, pmi632). Add an
+> > if/then condition for qcom,pm4125-vbus-reg requiring regulator-min/
+> > max-microvolt instead, and update the pm4125 example accordingly.
+> > 
+> > Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> > ---
+> >  .../regulator/qcom,usb-vbus-regulator.yaml         | 50 +++++++++++++++++++---
+> >  1 file changed, 45 insertions(+), 5 deletions(-)
+> > 
+> 
+> -- 
+> With best wishes
+> Dmitry
