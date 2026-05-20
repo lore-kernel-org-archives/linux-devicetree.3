@@ -1,152 +1,160 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC82A36F421
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 17:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779298204; cv=pass; b=gKNGGKww2pMGDMhevhmh0KWQksHltICg2APa+E1At+Zf/MOZL9pz2VpdIykMfVlsw44+uq9YCtxXINKoAOiiJN3P3RrmAm1YOKsXf5wOZ0ZfAB9mRWcMnsoTwDgx/NduQr1tORXI1bHbaWVd0GB/q4oxT6YsG4RqnXpllIZ+5Rw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779298204; c=relaxed/simple;
-	bh=AxJKt3npx/5olYpRGoq298LXQ/po4wFjS8RwWFAvF84=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IcjgI9Vlke9Y2f5s5r281DvVKvWqgarVjHq4GB1I7qS2P5rlYzvXc2Yv9UKFmcOi1VK2Cn1Ktu3BeL3AmVzELsXIcEbaIjPPWNRXWAbRXzLE0/KFf20lfYEli1ip/bfxPVfwDZo36s+qNVVDTDgs9Ot0/kmfo+6Jd+mCMkhvFQk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pCiTtgM9; arc=pass smtp.client-ip=209.85.208.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAE531282F
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 17:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779298299; cv=none; b=ASRqzMU9Bz42EO07u2h3OKoC28ctdg4M9WMOB6oProS6rDa0ne7BnkpXkMwEz9RBgrLhtE47A5l0NvMzgj0nqXcO0YXnJRH6EqqorfIZslAWDQhMVlXMS7/DVVHh8xGPONmkh/tpUjVqZdxINsqEziW3K/VtjImjAEdJxkL/8iU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779298299; c=relaxed/simple;
+	bh=bq8bw6vwJh2kQuhVxT3kCdfwUyONAsS13CxP4mbE1Nc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rxGnkx88gJ4VQPmURrrojX9sz7MttuEBO6Q+U+rCphB9BNzhizW9J++meA8eI3CPBxadG5TghiNe32h9EQHIt3e7aSsvehaTtzvs5ajh+1xh0lnPb5ZsANh/f513OxWsQkfJD0er8kec0+QNr1QwO4Bdi48caRX6U0tHdZlYVOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qvu5+nsP; arc=none smtp.client-ip=209.85.221.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pCiTtgM9"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-393800f638bso40855181fa.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:30:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779298201; cv=none;
-        d=google.com; s=arc-20240605;
-        b=G1qi2oBKudCry+XugzIYnzsiJwDMvMHdScuah7JD7mG+gFyxZrEcJ/rfYcFbjzjzDC
-         nAfpsbWDGlCuU4ismoZqPNxjFUbiSPUgRa20hhbKBkYtf8wdCZXYSl9SU8yWohOUDJ+2
-         qv08Sww169Mh+6xLBs8GFYpQVGNALx8GSpMw579sGe9EZ1r6mA2fpINaXS6OdCCTRAbK
-         /cmji5cSaSwOe4R1ZgDWohzjlQHxsLj/ttxYRRfxKdCIS3yQNNpsNtWZrb1bDoFg6gdy
-         SJAe+8dFnMkP7rUyUKBReSR0L5BKXXx8g5SeQA7jKRvVEfXfV88RjF821bGJHKa3lyLB
-         nVAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sqX6X7nWtjyIR3qederrBeJlDMfIxrgMnvzCbwNNfdY=;
-        fh=6Nv8/VJ4BkVxpyC1EDtVGpNcabydOtUtAGuSaM0PK+8=;
-        b=Mt4d7g8S9vSLLcGax8G9q3kB7Idm6Jk2LojJ0T6X0ZXxgvXaG6mxW9rQ50XoZdyZQw
-         HgcxdYTXGiT2TIqsCnrZ6ctT03pdc+s4r61r1IblX+4BWm510uLWWubUNW+JyBNl7g9T
-         ihRvfkEP1RGc7y3iIoH3v2UcGIBp/MXyuw42ipWUo7Nad6dClbmaj1/yWwsl77PNzhVF
-         vQ5Ex+kpgmAU88OKMzb5MS9jW45msXKu59bdhvssA7+f4gWsBFVy0DfcPJmo4706Y79r
-         7T8LTfHNp4cWDURroEGwvVj1GZEVGrStjvqLc71OloLYbfh9xlEg8KAM/YYqX9STzxDb
-         I3Qw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qvu5+nsP"
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-57611a6a69eso1465095e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:31:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779298201; x=1779903001; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sqX6X7nWtjyIR3qederrBeJlDMfIxrgMnvzCbwNNfdY=;
-        b=pCiTtgM9+8Bg8icQNwyyQj8BmgJ4pc7kwCekh88YUppF1+v4ke+830RzDiJ08r5jK5
-         IR5P9TAhoz1+ma6fv6i9QUVg4X5u0k8cV9NOJZt/rnDPBGuRo/M+2nIor5TPltBPA4gk
-         TOQMUj5m8g9D6JHlv4mpZsVxstIs8m+u0Z5jEDttAsJ21VdKEWjirrKSGzyVrSQwWS5T
-         oTlgHZRnDVeWwKWYyJQ+AVfqI0By7JqiyN20e85pLwjpRRbYnX4F5mePTouyuaqYPNIo
-         c++oS6LQaCvrpAXGjDyNCGry1+AeWM7EnE95UUJ/qXzbWkkzf1kkvEII8C9rYBPwat/M
-         1FZg==
+        d=gmail.com; s=20251104; t=1779298297; x=1779903097; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=NoU4YuxRQKK2zoh0YbbDzimdEIINpcIXLiLGPEgByIY=;
+        b=qvu5+nsP9XbziYrVP6CzDF8NtvaCdxIwczfLCUgZYA4jcRzTFSVQWy/NOcaF9UyCZR
+         XPZMhvLKll04OVZYQUi4CCTzPJn60FCDJCLH/e6RW0HRS0FVQe0wBvaz9gh9UrpwN5Zb
+         e30eBdjokRApvXsaGMzcmuK4LwXD0UUhTomO+PqrFmo5KaIq5dHx9APNzj6LXQPcww4Y
+         ubJHeUAgaAU89Yu7o7xPXK8uqIE1guFBRfb37jlPV0qWZDDQP5JINghRD04AfdIQQJoa
+         bMN1lHUjUdjTjhXf9Co2xI5mnd79XBzQ90P0rhZ/y2eebtPeGkcIajKja6BuvVp1jIJb
+         ucMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779298201; x=1779903001;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=sqX6X7nWtjyIR3qederrBeJlDMfIxrgMnvzCbwNNfdY=;
-        b=Nvh03GVka/0g36HHSm4bVA4YtH9J9fpFA9TC9ytH5uhBj0nmGrO+7KL8zwfudScH/B
-         2D4dWZRo5PYCeLCOpVo9gP0AOVs/kAhbaXtCOIaLCDMLgKRE+kkpDWnHWbXTWVs0Kzlj
-         e0pczcMvsM7jtaNrG/i+SX2sB5xRo+AJpJfKd/Qf+SX4MSApM1Rtmkh24Oiv3/EvkYQz
-         0vAImKdhNVMtURxQXxWtQwVkV99Mej0p0pa0rT2WW+/3q7FLwU/l16K6fWJ0c642trrO
-         fHFPZOiGzghavPN3hO3mqBceTVe4EcLXkTO08vTcYaYJCcf8S2cKcA4hCIQjc57Dh/mH
-         Xg5A==
-X-Forwarded-Encrypted: i=1; AFNElJ+7p0/qpJ4atiAGWHicNtEQC8TVJz40hlQ9WG9qMq/LkGWQTnZUpiBGPsc61kfstsJacRM5nUAlUFgV@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbTs6ZtpkT2EhpCjvGOmSaFE4UOoQRmjFw7Fk6lNEFjYM1CdMS
-	5mnxovkdBjEFYF33aSF7iNLRqMSkccFhhCQYtnTNb9m+4nIpA02FLq5joOWt357QsKGlVyx/OsB
-	oY83tkxHRjUh01nxPwy1yxjpL6Th42YM=
-X-Gm-Gg: Acq92OF2gBigO4QmzL8EWf+smF6ej8Nps3IXYEElpmLwqaCyKFTL8kYz73Q9mdIEYzB
-	4gRjB7Jo/BSgVeeTmstD1SBhAB4s2nufij408NizMqIbDl/PXJmItd0RETfoJ9KfgynSGnHbGdZ
-	ZsQ9cbSTywB4JsXgOOk+/0Pt+BjgNwTreUzv6tWjG8qdgzPaAncZ62lWuiyccU9U48Tnr+9LiUc
-	Kx7Gc86uiHYZ2mseWCDckXwGDXAnsMeHib924HOVTiSp0s/U/uaGWyys+oGRZRKmzDyfpJROy8b
-	LFF3PFhdU1mRHa9pmNQfD3Y3gzXLApQrJuIHPNabS/lPWurd0hAYA5T0k+W9sxRbsCreapghlmq
-	b5iw=
-X-Received: by 2002:a05:651c:4187:b0:394:378:b53c with SMTP id
- 38308e7fff4ca-39561f312afmr68643811fa.29.1779298200654; Wed, 20 May 2026
- 10:30:00 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779298297; x=1779903097;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NoU4YuxRQKK2zoh0YbbDzimdEIINpcIXLiLGPEgByIY=;
+        b=GZwoePdk68esWEscs1g6b8aWHjEiHNpX9S3I5w/7Xxy2oUOJO/wd8mUT/70EuNJusx
+         ppPFM1g4vnd1HQduFiBy8ViEKn+Xk+qYQ9l7zDq+nOAtLkveqPcJ1uxyaGFt/b9q/meh
+         DoO2q1y6R+HYLy6EHAX5gfnGQLRkbBeReAoqYZWsban/1iuIYfDy5h8lJzxlvMQLDnej
+         TLwbzD7udI7SMsKF4/oIH6BCY7wmHlSBbvRb5HJcoV9+cr1jFtn07nZzvwWWBcpNwZzy
+         xQcKfruqSLUaOBLmPepx79YHsLO71769UPQNKz6FT7EhmwMfULubYxISsZPdyn4f+q25
+         V8hw==
+X-Forwarded-Encrypted: i=1; AFNElJ/IV7XESVGGTeDF+hNG+huKx8gbr1/1HJf8ANX9hZqvFy6Lxl2OUcGrv1W+M7s6iRQ18RLjn2jqMZlr@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLthfOWFtKZz/R4pbnukTpu94J5/jKzfqL6V4H2XYGZ3tv+ORq
+	NnEzlwlzmEiyxlHuXWgqh2FI+L9Er1dEOB2nz8SQIGlp1f/pI2e0l9Rk
+X-Gm-Gg: Acq92OHiP1QzWVAGleGuHIfKtkFqfc2kDkLRkK5bM07I6TjPVFvY+OTDNrf/4Ai+Jsm
+	SsXSMhWhh0/+B3XVtD7cUhJuMg5E8h4TP1IYA3S2xXu7RcZvB5NgcANjHzpezzcHLYwxoRwEk0M
+	wqsR1gmAXhVEbc4NkwlxiAEUrFq9jwpb0AXugrO2KSlIlzyAiJ1Vnpc0Skw5/yJpxkchyYXbSvK
+	MpghRXwb5Sl5bUuM43oHKfXN5bR1exAj6dFO6LkJezs7g2MbFey/xjJ5eYLoaf6lCuiNqWvTRE+
+	sVlGSMNNh7mXP3jgtWPdi36Bv860mT7dpqki7gvXWO/eN7zWIk3VQL7saLo3u3+9ZjcoTJoiCQf
+	/L0LC7oeel67zkHJfuzPDmFPe17Ug2/DDDOFAPglPDlymuE2R6rkqxNaSuYvvMTYfWPDk8IS1SD
+	RNhE2nyQ+bKQu9NBfTZwETThiy73TRhTm9
+X-Received: by 2002:a05:6122:e18c:b0:56c:da22:6921 with SMTP id 71dfb90a1353d-5760be4b464mr13831128e0c.5.1779298296647;
+        Wed, 20 May 2026 10:31:36 -0700 (PDT)
+Received: from localhost ([2804:30c:1f02:6000:8b59:7c96:762e:9faa])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5760faa5645sm12288301e0c.14.2026.05.20.10.31.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 10:31:35 -0700 (PDT)
+Date: Wed, 20 May 2026 14:31:51 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nuno.sa@analog.com,
+	Michael.Hennerich@analog.com, dlechner@baylibre.com,
+	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v1 3/4] iio: adc: ltc2378: Enable high-speed data capture
+Message-ID: <ag3wB-dAHnm67kZu@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1779117444.git.marcelo.schmitt1@gmail.com>
+ <580ce8e03cdbda8ec20fed2e26f2226872ffcef3.1779117444.git.marcelo.schmitt1@gmail.com>
+ <20260520172740.783c8866@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515-tegra194-qspi-iommu-v1-0-57dfb63cd3d6@gmail.com>
- <20260515-tegra194-qspi-iommu-v1-3-57dfb63cd3d6@gmail.com> <ag2fjPWwKJmrdYMl@orome>
-In-Reply-To: <ag2fjPWwKJmrdYMl@orome>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Wed, 20 May 2026 12:29:49 -0500
-X-Gm-Features: AVHnY4LvroBWjQk9zP1yNxXjFt1vwSYbmuS4SgnDFGII4R-emIrKxrHn6Q0vFZ0
-Message-ID: <CALHNRZ9+X-QMmse-+KOAgt4psobecQvizqXMPufx-BnEd2wujA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] arm64: tegra: Add iommu and dma properties for
- Tegra194 QSPI
-To: Thierry Reding <thierry.reding@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520172740.783c8866@jic23-huawei>
 
-On Wed, May 20, 2026 at 6:49=E2=80=AFAM Thierry Reding <thierry.reding@gmai=
-l.com> wrote:
->
-> On Fri, May 15, 2026 at 03:35:29PM -0500, Aaron Kling via B4 Relay wrote:
-> > From: Aaron Kling <webgeek1234@gmail.com>
-> >
-> > Without iommu and dma enabled, flash storage such as the spi-nor on the
-> > p3668 module times out and cannot complete any transfers.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/nvidia/tegra194.dtsi | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot=
-/dts/nvidia/tegra194.dtsi
-> > index 1d659454a6f9fe..0e0a20befe9e68 100644
-> > --- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> > +++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> > @@ -923,6 +923,10 @@ spi@3270000 {
-> >                                <&bpmp TEGRA194_CLK_QSPI0_PM>;
-> >                       clock-names =3D "qspi", "qspi_out";
-> >                       resets =3D <&bpmp TEGRA194_RESET_QSPI0>;
-> > +                     iommus =3D <&smmu TEGRA194_SID_GPCDMA_0>;
-> > +                     dma-coherent;
-> > +                     dmas =3D <&gpcdma 5>, <&gpcdma 5>;
-> > +                     dma-names =3D "rx", "tx";
->
-> dmas and dma-names are the only properties that you should need here.
+> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> > index 70fec8e3e891..b5368ee783f7 100644
+> > --- a/drivers/iio/adc/Kconfig
+> > +++ b/drivers/iio/adc/Kconfig
+> > @@ -944,6 +944,7 @@ config LTC2378
+> >  	depends on SPI
+> >  	depends on GPIOLIB || PWM
+> >  	select IIO_BUFFER
+> > +	imply LTC2378_OFFLOAD_BUFFER
+> >  	help
+> >  	  Say yes here to build support for Analog Devices LTC2378-20 and
+> >  	  similar analog to digital converters.
+> > @@ -951,6 +952,17 @@ config LTC2378
+> >  	  This driver can also be built as a module. If so, the module will
+> >  	  be called ltc2378.
+> >  
+> > +config LTC2378_OFFLOAD_BUFFER
+> > +	bool "Offloaded data capture with LTC2378"
+> > +	depends on SPI && LTC2378
+> > +	depends on SPI_OFFLOAD=y
+> > +	depends on PWM=y
+> > +	depends on SPI_OFFLOAD_TRIGGER_PWM=y
+> > +	depends on IIO_BUFFER_DMA=y
+> > +	depends on IIO_BUFFER_DMAENGINE=y
+> 
+> why do all these have to be built in?  In general I think we need to jusitfy
+> why this driver needs to work on systems with out this stuff being built.
+> I.e. why do we need the separate optional file at all?
 
-This is where I started and it didn't work. Without the iommu
-properties, I get endless mmu faults upon accessing the qspi flash
-device:
+Hi Jonathan, thank you for your review.
 
-[   62.313833] tegra-mc 2c00000.memory-controller: axisw: secure write
-@0x00000003ffffff00: VPR violation ((null))
-[   62.324542] arm-smmu 12000000.iommu: Unhandled context fault:
-fsr=3D0x402, iova=3D0xcd21d000, fsynr=3D0x80012, cbfrsynra=3D0x820, cb=3D1
+I've applied fixes to all issues reported by sashiko, except for Kconfig
+configuration (see below) and the is_visible() thing I'm still working on.
 
-I know downstream kernels aren't always (normally...) the arbiter of
-sanity, but I did pull these from the Nvidia downstream 5.10 kernel,
-which is where Nvidia was starting to try to align with mainline
-paradigms. All of these properties are set there.
+My intent with this design choice was to keep chip intrinsic dependencies
+separate from SPI offload dependencies. The indented benefit is to enable using
+the device without having to enable SPI_OFFLOAD (which is boolean and might not
+be supported on all platforms). The offload feature is indeed highly desirable
+hence the imply on the main driver Kconfig entry. The other symbols are tristate
+so, if we keep this approach, will drop =y.
 
-If the qspi node isn't supposed to set iommu directly, then there's a
-larger problem here that I don't even know where to begin to look
-into. All I can say is that dma fails with faults if they are not set
-and works when they are.
+The separate optional file is part of the push for dependency separation. It
+helps avoid #ifdef in c code. If the proposal is not far from something
+acceptable, I'd like to have another try of making it work. Still, it's arguable
+that the real interest is only on supporting the offload thing. Also, since I
+don't have any request to support these without offload, I think it will also be
+okay to have everything combined into a single driver. 
 
-Aaron
+Will follow all the other suggestions.
+
+> 
+> > +	help
+> > +	  Say yes here to build support for high speed data capture with LTC2378
+> > +
+> >  config LTC2471
+> >  	tristate "Linear Technology LTC2471 and LTC2473 ADC driver"
+> >  	depends on I2C
+> > diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> > index 1814fb78dde3..2fa5dce0ceea 100644
+> > --- a/drivers/iio/adc/Makefile
+> > +++ b/drivers/iio/adc/Makefile
+> > @@ -82,6 +82,7 @@ obj-$(CONFIG_LPC18XX_ADC) += lpc18xx_adc.o
+> >  obj-$(CONFIG_LPC32XX_ADC) += lpc32xx_adc.o
+> >  obj-$(CONFIG_LTC2309) += ltc2309.o
+> >  obj-$(CONFIG_LTC2378) += ltc2378.o
+> > +obj-$(CONFIG_LTC2378_OFFLOAD_BUFFER) += ltc2378-offload-buffer.o
+> 
+> Hmm. This is odd. The driver can be modular but not this and it's build seperately
+> rather than as part of the module. I think these bit needs a redesign.
+> We definitely want this extra support to be part of the module.  See how something
+> like the ADIS IMU library in iio/imu/Makefile is done.
+
+Will check this out too.
+
+> 
+> >  obj-$(CONFIG_LTC2471) += ltc2471.o
+> >  obj-$(CONFIG_LTC2485) += ltc2485.o
+> >  obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o
