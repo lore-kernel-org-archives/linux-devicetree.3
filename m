@@ -1,153 +1,165 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307FD233958
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 13:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021A23A5422
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 13:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779282142; cv=none; b=AaqDAHXDxYq9Jmc8HqElrxFQ5yksRas270OrTvEUAf8ajcrsjv8cemXReius9prXh4Rbb1hm6bZRrO6Zwnh8vpEV3/HMKO5TrbrY5KhBF0jVJULdcVdseQQ3ozk33GYiVaqAiZBqBrj3ErrWhkx+brsEBhmfS2goVLpcL2PMN2I=
+	t=1779282393; cv=none; b=Q+pU9J8Fe7aHiFW4Uz5oM2h+IZME3aRnv/6Y1DfFY8NHDsSUCYapClQF60WPsk2KrfBh28OslLJVo7/9q/g3d3i31hVmUnty4i0DHGyfR+bq4rZ/pCSRcM/z29XaeYECdmWybrtu9qevdbTDtcp9orUhzVeS0DIOjVabWh3ULY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779282142; c=relaxed/simple;
-	bh=j93IPlCCC0jhu4kbRm23KfYZcJ6s0/Cninai6kJslvQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jKZZpfmzQJlc5jbgauqTeV17a/uq5e+Z4w0DcSGXsbl6Foy3mD/SK/n1toKrYAnodKtMX0c0Bz7ka7zRtMU50dHqiIqxXIkynvRG0Er6dfB8YZz2DvZZVQ82meLRTeQv7nwriAdZR0ATn2I19xQKeg5CLXYxmtT5d86BYlc5/X4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmtbibEN; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1779282393; c=relaxed/simple;
+	bh=MyyMxbHX/jzj54c8s808sA/jSnaAMjMXtqmmODzzfHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NUvuyzqBscLDTmHS5QGT3eHgZbR+fNSve5XElUdwwvhKeg4CtobfC3G7MarSfHb8OvPz+QCiSsdnObnnavd311suMvcalvZHp/+6ObP8RbNnqyt6Mpsz0O33X0q/TtT/N4JvmapsH0g0cbSWDZBzNSalvC1haMZUW5IfxxkbRPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hQIKPF4i; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmtbibEN"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-2f30a4601bbso4567851eec.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 06:02:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hQIKPF4i"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-43d77f6092eso2748080f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 06:06:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779282140; x=1779886940; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=jBCWXLaXY0vvy4Zwxt1nquC/ity0PlQlsj91NUuNTVc=;
-        b=KmtbibENgx0P4RVGCfHFyO2ij9X6Ok24dyKQ+NHFRl06yJ7SnB12km4pxt4DXjYMbV
-         t9HWd/vfOfJmY/LtAyIWE6wmXUZMHPWP+/w4ynaWl4zGOPoBfslHOn8IT5voZjVXLGS9
-         PyI3mR2K8ADH3+0ak6EyL+Fst/3soGY0vx3TJk6nQ5hRuUU1tFvmhs98b81lv9v06tcJ
-         haXbJzfEDYBbMZM5fBA1W6GSEt85q5E2D56/qBRdwG9tyl8n1dyQIcmSzqaZntUUKenM
-         Qfexkwf4tHA/Nauv08vODFcLfKzTlfImlMIuG0TpS66yXR4hJm3BykQoDQyCR3KzTs1G
-         MutQ==
+        d=gmail.com; s=20251104; t=1779282387; x=1779887187; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=quzmPB2mAFZ3y1nGKH7QHLGF8YVjh01j8l7CgpxBccw=;
+        b=hQIKPF4i5/HH7nsLP2MvQ8eGspI93jG1IuyWreET0ixhkTIHw2FDSKY+MqqpYaTXK+
+         kHtDx58oUHxBzaq1L9HeocOVXh01O5z6jyDmrb/EUsfom5wL0LBA6mUanA+Kre39Gjbq
+         zmzEOFlsSwWfhu6VvNQ/M+m8N3u2HG9RS2u4dhaBsOUdV8uIPVlPeAYJbjrm0B/T3FGn
+         3+Vl13vCrWMNbR8aDtyIB+CMXafdSTH7eU6nHlaNw7ON5N/G2zbwFNW2UrfAlLG4yEnZ
+         cYChv2YsU/GCNWYuuEaYjwnHvGspZjE3C34k3H3eNgPOI9U6Eapz/79Cc/4bEWv67uyt
+         Gk3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779282140; x=1779886940;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jBCWXLaXY0vvy4Zwxt1nquC/ity0PlQlsj91NUuNTVc=;
-        b=Dnhnu1e/32C+Rd1tm1OwRIokutSUbvRgNQ6uivCxk4Ikm912l8i/evNgUMeqq7IbvH
-         fyWw3isDX5Uz2WmjUOxruf+6DBXNawBTsjFIQUYAnuPv8WPhLwVCoa8L9hOoMWOAJXmY
-         JBlSrDat7p/mxQHKBibTWtSYvF1fVsNQHekze9KpYUGCstauQYgNGPHu3+k3ky83hhxj
-         9jbrp57A4aqn/rk6J8bxg6Dz4MsdNGbxZEHMI6Q1zfwFn+PE3rM9P21aTuaImugfEnTE
-         YTRw2mZ6NAbtLUlth9erHloRC/lNj3leIP7cBZdy5zFdY7ah6VwAiF/HF9sm1eOuk41k
-         t8Xg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Sdkj9BfPpc/iuM8SJdME/tnYleSOkgsuvaL8C+vvlN1wThbEvGN1Xu94bDN8qtWYLdKB2nUV4P57+@vger.kernel.org
-X-Gm-Message-State: AOJu0YypivEPt2JI9OQofspzXrsg8O4hzTr3AeWeP7DzvUzkNtnXSd6t
-	2kCVysRWr5cU/lf1nHbPZ3+cAb5PuHdekOu5n8lOPKOlI1nC9pTa/0Lb
-X-Gm-Gg: Acq92OEkilfhaSNTnV5BliyrTLExo3eqsBWWYBoZjK+6qp5qz2KZw7uIab4EK9mSocw
-	iNKYhxfVGhSmL0M+TzElblGUSDVXu7DacmO874aipW/SwEC6X9bEn2CwOCPx5kfPDraAVF1k/je
-	6YOKrvOrPygtcz/VPWAyjXtsOU2DyJhhCPKDJrSIWVcXfB+Rt+18s7ZbZleSZmZZJHi0TDSJJbt
-	DCR55yueN9FqRkJLwpfa3bBsA+KUS3XbJZBon19Qq9gfkCeJ5F1sbEfSfcZHzLbh70vNaT2N3Bb
-	HTVdBxaxpdmEPnvVKdVBVNGUTM3TXZ0JdQaFE7mO5iwfddWL2FHzQIZ6hkSBxD8HS7VFiYnxVlG
-	YBqANERBjEYB2jD4c3S8gu+prPoBvo663bHb2dBuiEmPeh+2nZSh/6rT1NutlWWIEqb38l5mYpI
-	tJRGt42+fg+S7AkHVSGV0C9EQbHY2s6g==
-X-Received: by 2002:a05:7300:7241:b0:2d9:a799:3c4f with SMTP id 5a478bee46e88-303986a68d3mr12488515eec.24.1779282140215;
-        Wed, 20 May 2026 06:02:20 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-302973bcc5asm18539569eec.22.2026.05.20.06.02.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 May 2026 06:02:19 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <dacef233-ce52-44b4-a74c-8d0935668caa@roeck-us.net>
-Date: Wed, 20 May 2026 06:02:18 -0700
+        d=1e100.net; s=20251104; t=1779282387; x=1779887187;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=quzmPB2mAFZ3y1nGKH7QHLGF8YVjh01j8l7CgpxBccw=;
+        b=mMVsuzao46C1PRfIXyTrGR6QRodHpOrZvn5v/SgblFjpdH3BXAfrKAVKm5IY/V23Hd
+         Z9LHT5oRqPXzIGRKNw52Pwkjn83PyWHYddIYAsGwHpqmpgrSe1cmZcKkCPY28Hbmiz4T
+         BrOrr+gxvTvO565NS9OvUpn7kwVQ1JCQQvfvQ0myggVawhLns4mM5xuInUk/J3XLhtY6
+         1QJ/RQMezthjsw0UDbAcXe1ZwgTAdKlsWFa59ioacdxk+yLNRI2lHqthTb8WgQ7uhOWd
+         458bKIhMUWxICuHBymcxpgsJ/4IZhmgfCu/JT+qCe0IkfC2SaHIoAxESRsOp0NDY40lS
+         ctpw==
+X-Forwarded-Encrypted: i=1; AFNElJ9i61O83ybQ3JXD5SGVSXoNgih+Tvfun+ZUw3fZQzyrshjMyJC8NHTePWhv2RrT6N6U7jEHLwNxrrmH@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdcHXk3YTP/FVfaMRrVJKOAzlvvYNAkD3IsuFPGrfJnd315461
+	itcW+1B5o9816Zaqhwb1fmgXgGPPygZyV9O6sFBlyeGbGlMQtP3CWVgj
+X-Gm-Gg: Acq92OHQnGLIQMq8fXOlBbRCgkJ7pufvmN6eA89T9aRH9ICimL81t9OONd8TCSqYo//
+	/XkZPqQztOYhFcT0yietT3P7YhQf3v2YmeWm/LHd/6R4Mizku5y8omkdmY47dYxQqv8OCSWWPPQ
+	UO3QZPwNIyAbZaOEG0fnF4Nc5LZbCZgCROpQi8Ttmm5zHaf8ALYQFjkH6CjrNwRmV9m7TXxV853
+	rPSb95vtbE9kzffRV2uRJ0fpeJ9fLFjbPJByi/Q1V+QrrXLyewTLoTYNgflnwC5mgTEmBLr1nuo
+	kWkLbWvVZSc9ILyvVfX+bOYXfbKkOgDLnMCnaqrINjly9H6T+NKWa+BHEbb7W2F3VFEdLfAYiOP
+	jzow6c1CSlxo6m0BkKXQl/isws1skX/EmEdx9sGGd+VtPZRlNK33wVR2ynrY15AVlbrCkyC1DMh
+	FFHqhQ4XY5AU1fvjBXSn9ofDuUJl38fdE3sjmfZ8gY58bzEbTw5aov/dUBbDI55Rc1skCP
+X-Received: by 2002:a05:6000:2c09:b0:45e:73b9:fdeb with SMTP id ffacd0b85a97d-45e73b9fe1amr25795817f8f.8.1779282386765;
+        Wed, 20 May 2026 06:06:26 -0700 (PDT)
+Received: from mamamia.internal (a89-182-141-216.net-htp.de. [89.182.141.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0fe2464sm55001966f8f.32.2026.05.20.06.06.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 06:06:26 -0700 (PDT)
+From: Andre Heider <a.heider@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: Trevor Gamblin <tgamblin@baylibre.com>,
+	Iker Pedrosa <ikerpedrosam@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v11] riscv: dts: spacemit: k1-musepi-pro: add SD card support with UHS modes
+Date: Wed, 20 May 2026 15:06:23 +0200
+Message-ID: <20260520130624.1763487-1-a.heider@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add support for Infineon Digital eFuse XDP730
-To: ashish yadav <ashishyadav78@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ashish Yadav <ashish.yadav@infineon.com>
-References: <20260519075558.91466-1-Ashish.Yadav@infineon.com>
- <51133193-57fb-4a22-bf9e-9817f1f52ad5@roeck-us.net>
- <CAJKbuCbW9frUay5Z1NzF+RbiCEU6t+-p20YTwNhdWjnxJu_FOg@mail.gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CAJKbuCbW9frUay5Z1NzF+RbiCEU6t+-p20YTwNhdWjnxJu_FOg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 5/19/26 23:40, ashish yadav wrote:
-> Hi Guenter,
-> 
-> Thanks for your time and response.
-> You are entirely correct that the XDP720 and XDP730 drivers are 99% identical.
-> The only functional difference between the two variants lies within
-> their GIMON values.
-> 
-> To programmatically identify whether the current target device is an
-> XDP720 or an XDP730, the system must query the MFR_MODEL register.
-> Because this register is 8 bytes long, it requires an I2C Block Read
-> operation to retrieve the model identifier string.
-> However, some embedded I2C controllers do not natively support I2C Block Reads.
-> It is precisely due to this hardware controller limitation that we
-> proposed developing two separate drivers, ensuring reliable
-> compatibility across different system architectures.
-> 
+From: Trevor Gamblin <tgamblin@baylibre.com>
 
-All you need to do is to add the second compatible to the first driver,
-and use driver_data (i2c_device_id) and data (of_device_id) to
-distinguish the chips. Many other drivers do just that.
+Update the Muse Pi Pro devicetree with SD card support to match what
+was done for the OrangePi RV2 in [1]. More precisely:
 
-Guenter
+- Enable sdhci0 controller with 4-bit bus width
+- Configure card detect GPIO with internal pull-up support
+- Connect vmmc-supply to buck4 for 3.3V card power
+- Connect vqmmc-supply to aldo1 for 1.8V/3.3V I/O switching
+- Add dual pinctrl states for voltage-dependent pin configuration
+- Support UHS-I SDR25, SDR50, and SDR104 modes
+- Add stable MMC device aliases (mmc0 = eMMC, mmc1 = SD card)
+
+[1] https://lore.kernel.org/linux-riscv/20260316-orangepi-sd-card-uhs-v3-0-aefd3b7832df@gmail.com/T/#
+
+Tested-by: Andre Heider <a.heider@gmail.com>
+Signed-off-by: Trevor Gamblin <tgamblin@baylibre.com>
+Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+Signed-off-by: Andre Heider <a.heider@gmail.com>
+---
+
+Hi,
+
+this is just a rebase of Iker's v10 4/4 patch[0] on top of my merged
+musepi-pro series[1].
+
+[0] https://lore.kernel.org/all/20260515-orangepi-sd-card-uhs-v10-4-094af27e310d@gmail.com/
+[1] https://lore.kernel.org/all/20260513071958.29574-1-a.heider@gmail.com/
+
+
+ .../riscv/boot/dts/spacemit/k1-musepi-pro.dts | 22 ++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
+
+diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+index 4aef287353cab..0d809e4ad3b1f 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+@@ -19,6 +19,8 @@ aliases {
+ 		serial0 = &uart0;
+ 		i2c2 = &i2c2;
+ 		i2c8 = &i2c8;
++		mmc0 = &emmc;
++		mmc1 = &sdhci0;
+ 	};
+ 
+ 	chosen {
+@@ -218,7 +220,7 @@ buck6 {
+ 				regulator-always-on;
+ 			};
+ 
+-			aldo1 {
++			aldo1: aldo1 {
+ 				regulator-min-microvolt = <500000>;
+ 				regulator-max-microvolt = <3400000>;
+ 				regulator-boot-on;
+@@ -384,3 +386,21 @@ hub_3_0: hub@2 {
+ 		reset-gpios = <&gpio K1_GPIO(123) GPIO_ACTIVE_LOW>; /* HUB_RST */
+ 	};
+ };
++
++&sdhci0 {
++	pinctrl-names = "default", "uhs";
++	pinctrl-0 = <&mmc1_cfg>;
++	pinctrl-1 = <&mmc1_uhs_cfg>;
++	bus-width = <4>;
++	cd-gpios = <&gpio K1_GPIO(80) (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
++	no-mmc;
++	no-sdio;
++	disable-wp;
++	cap-sd-highspeed;
++	vmmc-supply = <&buck4_3v3>;
++	vqmmc-supply = <&aldo1>;
++	sd-uhs-sdr25;
++	sd-uhs-sdr50;
++	sd-uhs-sdr104;
++	status = "okay";
++};
+-- 
+2.53.0
 
