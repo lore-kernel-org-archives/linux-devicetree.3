@@ -1,181 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FAC369D64;
-	Wed, 20 May 2026 16:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EEA221F2F;
+	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779294823; cv=none; b=qbqVu7GWr2VruUcwkwk7LMMM0BRMyWM6g4DV/yGbxaLtapJLYBQCCWeCvGoxehxDCtUSb9O3RgHm+U2xjldhowKAU6wmkrnnrxmzJaKoNbW9hupWg72J4j2chsPVWPQgkFwcu1vtVa1PGFeYhInpd/wuYtZBn8LqQP4knrn1R6U=
+	t=1779295242; cv=none; b=l6Qp+ERA6Q3FkNi5dxpIDLVvzw1mQRJa3WmvCAzUTMD5Ucf8RcVkMv0L2ajd4ct2Y1m6GEv9R08EugxAVBZWlg+shQlN5hoxXGHfoV8xBxThJBA3gwIH/6943lUDU0FZ07Xa/buitxjUiqJ6VBNxT2nFv9ZLMcaI1Za//PU1GPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779294823; c=relaxed/simple;
-	bh=Dg3jYGGBVZIpejkXSZNeznAE6mS8nAvhVjrJgbMBotE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eBpADh9GirEJeTr7Ivt4ZH1F+1ckRa/vRB+fcYq90FVQBzYOrj8RJbEwf2ZcXw1SY4ibefGFAb04Ad5q2mZjMlunsIjUcNqN77nc/y1r+mwsWiIe/xj10EmXXi7/bHrVNnouRf4TR/zzudpQgkhXpv95DENTi/e+rULIo8NChnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVBTou3o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779295242; c=relaxed/simple;
+	bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ft2D4Ze/CRIwovc3hxRrWSIO4xeSuEHpp0Mammf2coCSTMt6wQBp4YPsUcJbwFWp5otqy/9ZUL35OfUrA78ELXsKklcultP4TO5q4veO0q3K+yFeL2t1Qsui3d17EQrIObExpgs2IsiEkW0izfdElxtQKbqCR27KcgASGC4tz9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bM2vWTiB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVBTou3o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757DF1F000E9;
-	Wed, 20 May 2026 16:33:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779294822;
-	bh=QuvAeovgYbXlcjbl/ERzZ79WVydxOAiAHGfibxIYKCY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nVBTou3oxSQaKh0ayQ4sn1ipUzWw8t//+zmJ8XyS3ekbUv7N61rZh93M0fhxM1FfP
-	 Bs/SenIuppucf+kZ9+HtSrLcKkCa+8cilt6Ehlu22tLAmw58foW+L+sOp3jNgfsl0H
-	 oBNmbNhPihgufixxe/uBAZwhgo/un1Mz52h43ToHOcgjK69vvVYAyr155MCywS/LNJ
-	 1IsaLecrJoSS5gwwQHRp/luIfYAXzwRaPKpNRiTm6EcP8YNRDyXiqX0MVOBw0DxHna
-	 FRDAFNoUKHKljbbfwoxDXaTevEVzQ+wDCW3iCSR7QZfEp6boZ7Ojjih8FZ+tbuj38y
-	 x29x9M7X0DDkQ==
-Date: Wed, 20 May 2026 17:33:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 1/3] dt-bindings: iio: imu: add Open Sensor Fusion
- UART binding
-Message-ID: <20260520-ozone-broadband-566893108675@spud>
-References: <20260520072843.3593-1-kimjinseob88@gmail.com>
- <20260520072843.3593-2-kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bM2vWTiB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B3C15C2BCB0;
+	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779295241;
+	bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=bM2vWTiB3uWVR0vB6KYNd9Ft82YThNYWg+mwz5z6zUdP6SltRenR20T2V/wUx9APL
+	 DdTSYki+5OMp46KbFrx6w06L2eMbD7hZQmOWk5omXPnoej+wLtGfTSCoYbWjmC2e77
+	 iGkd6gL7g+tcSS+lloy8ckbvdOSqj1V9fVyjmhoIQWUOyv0NK0PIjFqT0j1jadHuGa
+	 z1H4k17qaQTKvi4HIte71E/JID6isEidTVy/pMcchBMRVFIqCiQKhO1KArKkwRbDjo
+	 9GcIoykYJsSDIoR7Rg8OnOcbt8EgseFMfG36QMq9S09niQX3HSvI2isVrMZshdfuAz
+	 r91eRTjqQermg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5F73CD5BA4;
+	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
+Subject: [PATCH 00/11] Microsoft Surface Pro 9 5G update
+Date: Wed, 20 May 2026 18:40:04 +0200
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TX8QxEPIzEcsatEW"
-Content-Disposition: inline
-In-Reply-To: <20260520072843.3593-2-kimjinseob88@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAOTjDWoC/x3MwQ6CMAyA4VchPVtTF2HiqxgP2+igl0FaJCSEd
+ 3d6/A7/f4CxChs8mwOUNzGZS8Xt0kCaQhkZZagGR66j1hHaR3NIjLb02I6YZ8XC+4r+0fsUI+W
+ 7S1DrRTnL/j+/3tUxGGPUUNL0+23+SnCeX4YdOrKAAAAA
+X-Change-ID: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
+To: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Johan Hovold <johan@kernel.org>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1578;
+ i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
+ bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
+ b=TxYunP+RMjqX6ztukqcbFSA9ok7XwP4bO3nlR9H9+xVWj1Xay+n9Ee8UnjAKgLVtfFf5+ndDL
+ lfsAqQJ15CeBEwbFacPNIhbr5cf+0/QkZR0U+O/1CQ1wqrd3TNeUcLZ
+X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
+ pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
+X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
+ with auth_id=785
+X-Original-From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+Reply-To: jerome.debretagne@gmail.com
+
+This series updates the support for the Microsoft Surface 9 5G
+(Arcata), bringing it more up-to-date and aligned with the other
+sc8280xp models such as the Lenovo ThinkPad X13s.
+
+As highlights, it finally enables the built-in screen, it fixes
+Display Port alt mode on the top left-side USB-C port, it enables
+the volume up/down keys and the lid switch.
+
+Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+---
+Jérôme de Bretagne (11):
+      drm/panel: edp: Add LG LP129WT232166 panel
+      arm64: dts: qcom: sc8280xp-arcata: Enable backlight
+      arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
+      arm64: dts: qcom: sc8280xp-arcata: add USB-C orientation GPIOs
+      arm64: dts: qcom: sc8280xp-arcata: Fix top USB-C DP alt mode
+      arm64: dts: qcom: sc8280xp-arcata: Enable 4-lane DP support
+      arm64: dts: qcom: sc8280xp-arcata: Add volume up/down GPIO keys
+      arm64: dts: qcom: sc8280xp-arcata: Add lid switch
+      arm64: dts: qcom: sc8280xp-arcata: model the PMU of the on-board wcn6855
+      arm64: dts: qcom: sc8280xp-arcata: Switch to uefi rtc offset
+      arm64: dts: qcom: sc8280xp-arcata: Drop duplicate DMIC supplies
+
+ .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 301 ++++++++++++++++++---
+ drivers/gpu/drm/panel/panel-edp.c                  |   1 +
+ 2 files changed, 266 insertions(+), 36 deletions(-)
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
+
+Best regards,
+-- 
+Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
 
---TX8QxEPIzEcsatEW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, May 20, 2026 at 04:28:41PM +0900, Jinseob Kim wrote:
-> Add a binding for a UART-attached Open Sensor Fusion device.
->=20
-> The device is exposed as a serdev child node using the
-> opensensorfusion,osf-uart compatible string.
-
-> Keep Raspberry Pi overlay and
-> test notes outside the binding.
-
-This should not be in the commit message, it's not relevant info.
-
-> The binding has been checked with dt_binding_check.
-
-This is a requirement, there's no reason to state it in the commit
-message.
-
->=20
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-> ---
->  .../iio/imu/opensensorfusion,osf-uart.yaml    | 33 +++++++++++++++++++
->  1 file changed, 33 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/imu/opensensorf=
-usion,osf-uart.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/imu/opensensorfusion,o=
-sf-uart.yaml b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,o=
-sf-uart.yaml
-> new file mode 100644
-> index 000000000..6f329c326
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart=
-=2Eyaml
-
-I find it hard to believe that this is an "imu". It sounds more like
-this is a bus or remoteproc than anything else.
-
-> @@ -0,0 +1,33 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/imu/opensensorfusion,osf-uart.yam=
-l#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Open Sensor Fusion UART Sensor Aggregation Device
-> +
-> +maintainers:
-> +  - Jinseob Kim <kimjinseob88@gmail.com>
-> +
-> +description: |
-> +  Open Sensor Fusion is a UART-attached sensor aggregation device. The d=
-evice
-
-What actually is this device?
-Googling "open sensor fusion" gives me
-https://github.com/memsindustrygroup/Open-Source-Sensor-Fusion
-and
-https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-OPEN-SOURCE-SEN=
-SOR-FUSION
-but neither of these explain to me what sort of device we are looking at
-here. Seems as if it is not /a/ device at all, but could be one of many
-devices, provided that they implement the other side of the protocol?
-
-> +  exposes an OSF protocol v0 data stream over its host UART interface an=
-d may
-
-What does "v0" mean here? Is the data format not complete yet?
-Are versions of the protocol likely to be backwards compatible?
-Will the device identify what version of the protocol it implements?
-
-> +  report capabilities and samples for multiple sensor classes.
-
-Yeah, then definitely this is not an "imu".
-
-> +
-> +properties:
-> +  compatible:
-> +    const: opensensorfusion,osf-uart
-
-If this is some sort of remote processor slaved to the os, it seems possible
-that the may be required to do turn its power or reset it somehow. Having
-nothing but a compatible seems incomplete to me but I have no idea what
-the complete set of properties would actually be.
-
-Probably a good bit of discussion is needed here, but for now:
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    serial {
-> +        sensor {
-> +            compatible =3D "opensensorfusion,osf-uart";
-> +        };
-> +    };
-> +...
-> --=20
-> 2.43.0
->=20
->=20
-
---TX8QxEPIzEcsatEW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag3iYgAKCRB4tDGHoIJi
-0vckAQDLbiqksyHZ2KXnVctQ1a7OmmtkRm5ToYvW0NsbR6GUrAD7B0Csl89UP7WV
-ACzV719XTyDY2Sasg9dIJxC6N2A2WQY=
-=Lkes
------END PGP SIGNATURE-----
-
---TX8QxEPIzEcsatEW--
