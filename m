@@ -1,87 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD14322A1F
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77AF3A2556
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779264223; cv=none; b=djDI2R8VjmPco6eum6d+fu0NFijP65Dw3tLmsWs0Hv/MrRIOQrFLNPf99DxejPSuLS5Fsn+Ee+kjEsAARZSnBAPrLYv1BuIVYhSMVgR/4dIdTkBrKycGy+VLblw/TZ/qcnlLWt5xi2ywHW1YIorG5ITPkH11RuRlCId8klcFLug=
+	t=1779264236; cv=none; b=pVktK5e3cYx6WDUzlzfFHGKRoCUHTMo7FFUZ/mMT2/ahxFBOWwPLuytKelEpxKbBIgDZhfG55SBRHeHT65aXjEHLtYtc3frroUZkP1JJuROhLA4Nq++aflF7Et9td/vgiLrdx5M6jQ7f3ABLZN0y4JeU5H+aEUuADac0LR2CWPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779264223; c=relaxed/simple;
-	bh=UjkOdyeYirZYcH6GIGnMNzee78aWr/iN0JunIZf/+cU=;
+	s=arc-20240116; t=1779264236; c=relaxed/simple;
+	bh=05WQlFCqkNTf3GyTitJ0XJCe2vv1RfwvLI1D5eOFLT0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Mp9UJmDjzJLe3YecKF6QPernP6JEJmU4jusynkLWDZmNYa2fwPmFdgbRd8enZHA+ZncOGlHvH5gwra33itASfSVD9w2FyvzXWEy5USilkfJU2iHBmbUI4l5oP72DJekRcv4Fv7pACpZ/ViSBGYPWDtHRR7I8rl49NvqJRM6Bbxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nfn0VbQa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jtGobZvx; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=f81hB0zfeZJ8dzupaTP0i+SuVZsQ9xxjRZQrrA6taDJ6pMML3aRmrKCa55G/5NiprmRdK83NphfkMKNYHwt1bSyjtJtYJmAayE0vAc2XPrTa9ye+SYJVbNFN2VMfJ4wJ8/2bD+VMEalz58PFe5VujV40+TgyqCXSpGkn2Tb329I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=luM+++5c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WJ3epMvj; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nfn0VbQa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jtGobZvx"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K7SxVQ2984776
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:40 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="luM+++5c";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WJ3epMvj"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K7EsRv1637020
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zAX0bs0UOHJYNMBN18iZfCUndGbpOKo08NnjEnlmcqM=; b=nfn0VbQaRMQ3aUJi
-	qWigyQpoqyIrJBUtb/2DDjGv2eYvomIF5q9queEEbSoMNsCkdfo4Zklk/9Jybk5h
-	DfQevKWPJZCtkZ4ZB394E2ee2QNX7XMZ8CKZxXXn0aeVq3pjUe/588ucxlpfZ82s
-	LGRZR9HQEdaMHEcdRIvW/yCYB6AtPrIY60Xab+VecCEa2e4uOasTTfejQAGg5s2J
-	U8u1I404AtKi5QRqEpZKe0NySnKhGOR+zYXRKkyp6RqQM5bR9AqhYNdu9M09nfqw
-	JRoUINtS1CF4pkP96EEYdfPHtL+TsSHrAfCXTmJ7X+spp9pGGJCEfWoy665uISII
-	rVkMkA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3t3s48-1
+	gXN8U+lu0TOvT7NP9tTGGGw5W2W1/7IB2Iy+LKjXH2U=; b=luM+++5cgw90nkNo
+	5Zd0jhfTVMw5CDRRadpgCFomLuNTbxIHLp3U6lTjTQCcWznOS5C4xB0FQmcY1ljZ
+	OgL3dXMNPmNOcMbfrRnPZQwnHm3KbTosZ6tHrH0IQT6poxwkexxlBTId/cDR/cem
+	GEE6UBFCLGcQ5j7zMioKhjmkXcTp0g5D4wwrp9NEsW0wCJKxy5x1584PDOmMjFu9
+	johrHH0PgwKI6aix2qxpesOck+IjR/gDowjJUKKXsdtxR/QfKcrc2Pdp8UsfBg8/
+	6ZPI0f/UGDNUP2WXxfwRCQMxP4m7AvLTxSblN9cQABYRxslL4HvBKx0xad/ZihTf
+	S2ed7g==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3sbju5-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:40 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36641fe4aedso9055667a91.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 01:03:40 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:52 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-365ff2ab7beso4683250a91.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 01:03:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779264220; x=1779869020; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1779264231; x=1779869031; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zAX0bs0UOHJYNMBN18iZfCUndGbpOKo08NnjEnlmcqM=;
-        b=jtGobZvxtNPA8qk43VnzSH2pPOpDmOKXrNE9Xzi6phbeYm82HASkkux8MPTCtlvhTQ
-         LhuUrZ3Qz9IyCFDdxpQXtnSGDCvd9s/CbqgCbuK5ivKHZYWCSszBCVe5OFoF+1VZMNei
-         JfsMYI+S02vVVLI7Mo+OZbfZbclepLOjToQ82HgA18nX+8xMTpwQD00Lyh9dZ7CyJ+i3
-         mGod08odf3adqJgJdPqjN3SAqLiKPVM0jkBSF8OIKWfHtbCjYXnrC/hrNu0op+pkfSPk
-         o5Bbo/iYlTRuy7UNcaJUTs/7gk/3s33jMdshTnVzUjwvbUlkSAU0SlaS0SRm2WCk7xhe
-         3p8Q==
+        bh=gXN8U+lu0TOvT7NP9tTGGGw5W2W1/7IB2Iy+LKjXH2U=;
+        b=WJ3epMvjhxbapCyeStBvzPNKiN0odCa7qb66qkGuh3ACvvuDikAwO6VZiddlcX3ypA
+         RS5XhOVjX6whkBZjt9b1tIXyM0W74QaXn0rPEPzf2pus5QLXrdCvmrRy1nU8hyMcx4Lr
+         bOXeKcoojMzMRsOQamoaMj7RD6cmnY2q44wsM3YsogvgqukcNNFe/2Zo+kZjsW53bAjP
+         hVCFRUTI3Dzef1mGq+M8ovfUpbCeBbb2vIqRo3hMnbLquZWPeBAggk7bRr/78hZMQzwS
+         Zksuf/tDeBlv2UXR4dGoMGHXCvi1bZpvjuBg9NymrQcFAlvMuwPKLiUAGK/42pkUvrN5
+         980g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779264220; x=1779869020;
+        d=1e100.net; s=20251104; t=1779264231; x=1779869031;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=zAX0bs0UOHJYNMBN18iZfCUndGbpOKo08NnjEnlmcqM=;
-        b=JVf3RXY9+Hd/M2ruA+rNK/pdpWPyGoEr6XKl14gzXJV2oZess1EJ337q8QLD9lmXQm
-         JtbTVBnHIVSEVFl0bQl7gkW6ZRAByGa5awEIdbJOa2Nwk8ZyHKzlKxAHkW2a92U/KWH+
-         vZpW9otPyXAe8espytKZdgp/u21e4mB2UwbzFjLpRJAWZdnQnKu6d26r2T/HB9QPkdjA
-         EdXZspywgXTvE1wKIgF6RrLKVPXUned6FD21mHG1qyPgVREsk39KTVoIwyG1KDTUfWc/
-         GlgialIJ5kXwinvBo5wAbU+F/FThLEnG9WfmjKJARUXs56uzedOPoJs8oVSEOVFpbxjI
-         YRAw==
-X-Forwarded-Encrypted: i=1; AFNElJ/PVR6dDTipw06efzXuHofZtYQOdQWuFmvOa5HWIrDSIU262J0aWl8EEeIS4W1A531SWL95JOQC6C4t@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1DHxRddWTPg939xscKj8fn7Ty0E71r/HONrcfeAgwFn+7KnR8
-	yGiq6W7ACdmhgXDPjVAJo3zefk0S/uL/hX6XPG8aZwspD3NBssGFh8UK0k3xkuTpRjRL2RE7D7F
-	R422SE+eh5i8WwjRfiIBfLBmxih3XBgxsfx2zK51W65pTuXZZMoQWxjeBcFmhmZD9
-X-Gm-Gg: Acq92OHP5xYiErmcpzx4LW+JGu6EQQ6G9wXa3ky2RnIPoUwMckfsydd+rL+wBf2vzeu
-	NJQoc+IMPnfXrU/Ka66Vg60n1bf4bPGMiqC6moi24tQsX6v2x6ArLozY1pyfNlXoeyH2cuOdOXY
-	BeUgvcXjP1+w62KdKxS9HACXOEaBEvthcMu01QCp5MWc1VEac3L5zRXW1bGl/EejnDHliIGYLWz
-	0Bq3y42JCOzBfP9ImenxqRiR1jLjcI8fc+MDZbuCqIDwzLYAeVbymajeFtuO1YcHVH7aPPOKQBx
-	1mh8KmycRscJng6EjcW5cQHfyQy2BtZOoX8bc2SS98EHIT/ZHdnrNDWIDBp9SAnn7c/KYbgkqeZ
-	72zWU1nc7zqHZYvG/5i9S/6WsQK4OXtepGgIBFNNKILb44m77VTOZGBwJ
-X-Received: by 2002:a17:90b:5284:b0:367:bafd:9431 with SMTP id 98e67ed59e1d1-369519e1633mr22595508a91.8.1779264219616;
-        Wed, 20 May 2026 01:03:39 -0700 (PDT)
-X-Received: by 2002:a17:90b:5284:b0:367:bafd:9431 with SMTP id 98e67ed59e1d1-369519e1633mr22595478a91.8.1779264218991;
-        Wed, 20 May 2026 01:03:38 -0700 (PDT)
+        bh=gXN8U+lu0TOvT7NP9tTGGGw5W2W1/7IB2Iy+LKjXH2U=;
+        b=BnH6wSu/W2uJyDEeopSkK5RtBFDdle/J8PIB24nF5DO4LeEfyZOhi7uejsxYBcDqi1
+         b604kogn88mpenREpfydOlCu1pQUx7D+QvKBdpVV9kCXsbDglqAzwxyS7/7Wl3dTUz36
+         RVhKGtHC/e6ueiScg/6taIEMT4Cl3o+8rjwCgXuKtU6/Zto+M/p4JHmT/22qR8eLZ0OC
+         CwdErbhgkhli3M+Gkg+yMzZAg4jHDWKihopVpJsuZWj4l8uwGXVAJQu/2nv4Ra7M6Nwe
+         rJhws54IFxSDvzyZDXLiy4ED7fnvfNQAs3pgTwPoX8/NB237cj7YliwH5Xf8SCD6I5p1
+         rUpg==
+X-Forwarded-Encrypted: i=1; AFNElJ8P4NajA2exR/r91gXvcyoezTfo9GcsLpdN9mGmQq8ZS04R53yXSnqNh4nmQUCS8xVs7Uw3S46K+MST@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCXNvprXp9rs9v5NOw7OUWjqocB11ZuYepOGQf4/YWvUAYpBUW
+	YAHXSVFjRAvkEnqe2LJM4y/DM6fFgrqO6LdUHvbnAkFU7NEMbIhWfEukSJ5hg4eFG3hoIQN+xOk
+	0SwjjLi1snXYIjttALcRZ5XPL/deJ0UE73S+7215WQm17BOlYptaFXZdpzsxr7w3OKCdEAcYR
+X-Gm-Gg: Acq92OGy4928koMI4KyVZhB35RMQRd1rYO9aNIoGhiYi9zJTETqJnPQ8jXolg6kYwgW
+	BnVUS1M8kwe/VyfMCZp8c0m9YNGFTp2/ur9izc5L8cPEeCFIGAok74jKT+DhBZsdOiDT5ycrW9K
+	dVCOPYCI0WE7dj6hNIniX1Ro2hL1bXttEXt73T3J9YCj+5omr0u87qKqM04oXlGy+MW33f2ZJXc
+	1ndaO+l+295AGbwyJmO6Qz0mkQD0bWkNsVRXAzye+lBjkWZ9fEqoFhuJ93xg/18IDQctM9pwhMt
+	+QiCw0qCXC9L+8EOTwUemYAX2d5FKELLfbsfH1xm2QGdfUa3obzjAYOm478SKnyjlphzYO/XAwN
+	hM3PrQaKm6LGau3xnrXxCqu7NNZljC9VzkjAnos3ng2D6KjvVzuQjo1ZE
+X-Received: by 2002:a17:90b:38c9:b0:369:9469:aeba with SMTP id 98e67ed59e1d1-3699469b41cmr11587680a91.1.1779264231273;
+        Wed, 20 May 2026 01:03:51 -0700 (PDT)
+X-Received: by 2002:a17:90b:38c9:b0:369:9469:aeba with SMTP id 98e67ed59e1d1-3699469b41cmr11587664a91.1.1779264230586;
+        Wed, 20 May 2026 01:03:50 -0700 (PDT)
 Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-369517aa6f8sm20889290a91.11.2026.05.20.01.03.28
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-369517aa6f8sm20889290a91.11.2026.05.20.01.03.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 01:03:38 -0700 (PDT)
+        Wed, 20 May 2026 01:03:49 -0700 (PDT)
 From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Date: Wed, 20 May 2026 13:32:41 +0530
-Subject: [PATCH v15 2/3] of: Factor arguments passed to of_map_id() into a
- struct
+Date: Wed, 20 May 2026 13:32:42 +0530
+Subject: [PATCH v15 3/3] of: Respect #{iommu,msi}-cells in maps
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +88,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-parse_iommu_cells-v15-2-b5f99ad4e7e8@oss.qualcomm.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260520-parse_iommu_cells-v15-3-b5f99ad4e7e8@oss.qualcomm.com>
 References: <20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com>
 In-Reply-To: <20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com>
 To: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
@@ -123,512 +122,362 @@ Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
         Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
         Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779264185; l=18841;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779264185; l=12523;
  i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
- bh=6eRMuWmhXjbnSJYvhbFJSC2KZDtKKNJ6RzoqGThjaBE=;
- b=H2g9vgK02I3T4O6EdZXAAnBqjw3fraE5pi5lJGY4/8oSX9KrrD03/2/7CvTY5mLSSZL0oWoT+
- H/nqjclTyZlBS2tPFxoTfXmitFEc3PNM9lTC2gn2+3kLY7BGJX/hilE
+ bh=xwYkAEs+q6jRw+I3dHPltl1MmPPWsBwiOXNPNgKt/0c=;
+ b=wcATq9lX5Bq1e8erTyBpni5Dih/s1c6wO9/NnG4qxR1ffvxl+OPEk6rtMC5rr4W4VoKcAWrsQ
+ FdmlXhXN/pYDkytoi0wtNZgLMf9D1M6bGdq1x4YOiNvy+TxTUK7PV8y
 X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
  pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
-X-Authority-Analysis: v=2.4 cv=BOCDalQG c=1 sm=1 tr=0 ts=6a0d6adc cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA3NiBTYWx0ZWRfXyWcRxnpLWzRq
+ 4Ox+Z7IufezpPQ3sc7UgJsBPTcfhILXbq26D8Y7c1rs8apRSrNEtpQsxSi83j7J7s+Yyu+s2QKc
+ lQPQg5JQ+NQnJbYEF6Y0+XdOdjdL3fnAUvNIXV7BG+/zqsXGzau9bNU021lWGk6poUT+4JP23PM
+ 2/pxcFN3c1n/oPu49jwVDm1+XlkVDQkYDbE2btM5WhN8e1tA4h2xReEvhQ6JXb4mbb3pGwNOTuu
+ D8rkVNdeCyIbf+qOe8md/kXcgEDiqXdBaoE4BIxmiOdLWT5OTnO+W7vPI32TZlNllilzSNAexU2
+ Bajmv2WIausf8Q5fESAHf0vM+w0cr9DA4QGPZ0QcLOcwax9Bdm2/4iI+1B096KHgGyRoK0ftKXC
+ p40/l8KCkNMQWHgjq4xAPUYuf6WEzABhQEodAjthK47H88S/TxpA81J/Expw+ZdiUTx9adXdszp
+ ehW29nRRalGNHN/20Sw==
+X-Authority-Analysis: v=2.4 cv=Oc6oyBTY c=1 sm=1 tr=0 ts=6a0d6ae8 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=8AirrxEcAAAA:8 a=VwQbUJbxAAAA:8 a=YNKo5iN9BcXwmsqDYIQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
- a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-ORIG-GUID: C5JP2r_bn65Lvw6dd0Njh86xyAciuYDD
-X-Proofpoint-GUID: C5JP2r_bn65Lvw6dd0Njh86xyAciuYDD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA3NiBTYWx0ZWRfX1i/bKmKPv7W1
- mA5l9k7nbWi4sbrRZWkBCfF4BSU3o4JXvFeyiH3rOBw3j5YdUvGyU6IGHqjL2q/Jpp92iLxrn2Q
- z3ofGtzyzx+dTBRw8hitprE9wlCxLyqWcdkdZnVHwpJiyc59zfinio4ks6L95qWq3VaomAzKw7P
- D5il2gKowOGveN3rd7rvgSWJEwB/aUx2R/wFzK4WQf2d1t6UprWyjY8OfjfBOQdp01UMChVS+G5
- OpdmtgzgrhsqxgGvlvb6twyfVu4mCEub7FVyWL21KgEE4KUMsXvtN2r4e20J0VuK8ec0SPo+yoI
- XUJoc4wiaNdsPrpkrUyiwek+E7fbreIBQzu4mVeifa0Ii2Bx0tljxJSd1r9Shz2Dnd2hYPc3Ter
- D3eWJInZDegCnFqfTlHbBbUxdZloWwGzBS4c0HjrDxDI6ah+klXLLI5PJ5913cdrEyiF4vQLF43
- AbMG1Ru6ieOoI3lwQ0g==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=9707C7GnR82a18xSEiYA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: ANDHQc5QLqE4vOSM9W7Zfd0-qYdXrdS0
+X-Proofpoint-ORIG-GUID: ANDHQc5QLqE4vOSM9W7Zfd0-qYdXrdS0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 malwarescore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200076
+ suspectscore=0 adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605200076
 
-From: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+From: Robin Murphy <robin.murphy@arm.com>
 
-Change of_map_id() to take a pointer to struct of_phandle_args
-instead of passing target device node and translated IDs separately.
-Update all callers accordingly.
+So far our parsing of {iommu,msi}-map properties has always blindly
+assumed that the output specifiers will always have exactly 1 cell.
+This typically does happen to be the case, but is not actually enforced
+(and the PCI msi-map binding even explicitly states support for 0 or 1
+cells) - as a result we've now ended up with dodgy DTs out in the field
+which depend on this behaviour to map a 1-cell specifier for a 2-cell
+provider, despite that being bogus per the bindings themselves.
 
-Add an explicit filter_np parameter to of_map_id() and of_map_msi_id()
-to separate the filter input from the output. Previously, the target
-parameter served dual purpose: as an input filter (if non-NULL, only
-match entries targeting that node) and as an output (receiving the
-matched node with a reference held). Now filter_np is the explicit
-input filter and arg->np is the pure output.
+Since there is some potential use in being able to map at least single
+input IDs to multi-cell output specifiers (and properly support 0-cell
+outputs as well), add support for properly parsing and using the target
+nodes' #cells values, albeit with the unfortunate complication of still
+having to work around expectations of the old behaviour too.
 
-Previously, of_map_id() would call of_node_put() on the matched node
-when a filter was provided, making reference ownership inconsistent.
-Remove this internal of_node_put() call so that of_map_id() now always
-transfers ownership of the matched node reference to the caller via
-arg->np. Callers are now consistently responsible for releasing this
-reference with of_node_put(arg->np) when done.
+Since there are multi-cell output specifiers, the callers of of_map_id()
+may need to get the exact cell output value for further processing.
+Update of_map_id() to set args_count in the output to reflect the actual
+number of output specifier cells.
 
-Acked-by: Frank Li <Frank.Li@nxp.com>
-Suggested-by: Rob Herring (Arm) <robh@kernel.org>
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Robin Murphy <robin.murphy@arm.com>
 Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
 Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
 ---
- drivers/cdx/cdx_msi.c                    |  7 ++--
- drivers/iommu/of_iommu.c                 |  4 +-
- drivers/irqchip/irq-gic-its-msi-parent.c | 10 +++--
- drivers/of/base.c                        | 71 ++++++++++++++++++--------------
- drivers/of/irq.c                         | 24 ++++++++---
- drivers/pci/controller/dwc/pci-imx6.c    | 53 ++++++++++++------------
- drivers/pci/controller/pcie-apple.c      |  5 ++-
- drivers/xen/grant-dma-ops.c              |  4 +-
- include/linux/of.h                       | 16 ++++---
- 9 files changed, 114 insertions(+), 80 deletions(-)
+ drivers/of/base.c  | 166 +++++++++++++++++++++++++++++++++++++++++------------
+ include/linux/of.h |   6 +-
+ 2 files changed, 134 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/cdx/cdx_msi.c b/drivers/cdx/cdx_msi.c
-index 78edb7308856..c8d832b0b1f5 100644
---- a/drivers/cdx/cdx_msi.c
-+++ b/drivers/cdx/cdx_msi.c
-@@ -121,22 +121,23 @@ static int cdx_msi_prepare(struct irq_domain *msi_domain,
- 			   struct device *dev,
- 			   int nvec, msi_alloc_info_t *info)
- {
-+	struct of_phandle_args msi_spec = {};
- 	struct cdx_device *cdx_dev = to_cdx_device(dev);
- 	struct device *parent = cdx_dev->cdx->dev;
- 	struct msi_domain_info *msi_info;
--	u32 dev_id;
- 	int ret;
- 
- 	/* Retrieve device ID from requestor ID using parent device */
--	ret = of_map_msi_id(parent->of_node, cdx_dev->msi_dev_id, NULL, &dev_id);
-+	ret = of_map_msi_id(parent->of_node, cdx_dev->msi_dev_id, NULL, &msi_spec);
- 	if (ret) {
- 		dev_err(dev, "of_map_msi_id failed for MSI: %d\n", ret);
- 		return ret;
- 	}
-+	of_node_put(msi_spec.np);
- 
- #ifdef GENERIC_MSI_DOMAIN_OPS
- 	/* Set the device Id to be passed to the GIC-ITS */
--	info->scratchpad[0].ul = dev_id;
-+	info->scratchpad[0].ul = msi_spec.args[0];
- #endif
- 
- 	msi_info = msi_get_domain_info(msi_domain->parent);
-diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-index a511ecf21fcd..a18bb60f6f3d 100644
---- a/drivers/iommu/of_iommu.c
-+++ b/drivers/iommu/of_iommu.c
-@@ -45,10 +45,10 @@ static int of_iommu_configure_dev_id(struct device_node *master_np,
- 				     struct device *dev,
- 				     const u32 *id)
- {
--	struct of_phandle_args iommu_spec = { .args_count = 1 };
-+	struct of_phandle_args iommu_spec = {};
- 	int err;
- 
--	err = of_map_iommu_id(master_np, *id, &iommu_spec.np, iommu_spec.args);
-+	err = of_map_iommu_id(master_np, *id, &iommu_spec);
- 	if (err)
- 		return err;
- 
-diff --git a/drivers/irqchip/irq-gic-its-msi-parent.c b/drivers/irqchip/irq-gic-its-msi-parent.c
-index b63343a227a9..b9257103a999 100644
---- a/drivers/irqchip/irq-gic-its-msi-parent.c
-+++ b/drivers/irqchip/irq-gic-its-msi-parent.c
-@@ -152,6 +152,8 @@ static int its_v5_pci_msi_prepare(struct irq_domain *domain, struct device *dev,
- static int of_pmsi_get_msi_info(struct irq_domain *domain, struct device *dev, u32 *dev_id,
- 				phys_addr_t *pa)
- {
-+	struct device_node *msi_ctrl = NULL;
-+	struct of_phandle_args msi_spec = {};
- 	struct of_phandle_iterator it;
- 	int ret;
- 
-@@ -178,9 +180,11 @@ static int of_pmsi_get_msi_info(struct irq_domain *domain, struct device *dev, u
- 		}
- 	}
- 
--	struct device_node *msi_ctrl __free(device_node) = NULL;
--
--	return of_map_msi_id(dev->of_node, dev->id, &msi_ctrl, dev_id);
-+	ret = of_map_msi_id(dev->of_node, dev->id, &msi_ctrl, &msi_spec);
-+	if (!ret)
-+		*dev_id = msi_spec.args[0];
-+	of_node_put(msi_spec.np);
-+	return ret;
- }
- 
- static int its_pmsi_prepare(struct irq_domain *domain, struct device *dev,
 diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 1e9b9692c0d9..d658c2620135 100644
+index d658c2620135..f436e2676381 100644
 --- a/drivers/of/base.c
 +++ b/drivers/of/base.c
-@@ -2122,36 +2122,40 @@ int of_find_last_cache_level(unsigned int cpu)
+@@ -2116,19 +2116,49 @@ int of_find_last_cache_level(unsigned int cpu)
+ 	return cache_level;
+ }
+ 
++/*
++ * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
++ * specifying only 1 cell. Fortunately they all consist of value '1'
++ * as the 2nd cell entry with the same target, so check for that pattern.
++ *
++ * Example:
++ *	IOMMU node:
++ *		#iommu-cells = <2>;
++ *
++ *	Device node:
++ *		iommu-map = <0x0000 &smmu 0x0000 0x1>,
++ *			    <0x0100 &smmu 0x0100 0x1>;
++ */
++static bool of_check_bad_map(const __be32 *map, int len)
++{
++	__be32 phandle = map[1];
++
++	if (len % 4)
++		return false;
++	for (int i = 0; i < len; i += 4) {
++		if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
++			return false;
++	}
++	return true;
++}
++
+ /**
+  * of_map_id - Translate an ID through a downstream mapping.
+  * @np: root complex device node.
   * @id: device ID to map.
   * @map_name: property name of the map to use.
++ * @cells_name: property name of target specifier cells.
   * @map_mask_name: optional property name of the mask to use.
-- * @target: optional pointer to a target device node.
-- * @id_out: optional pointer to receive the translated ID.
-+ * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
-+ *	If non-NULL, the map property must exist (-ENODEV if absent). If
-+ *	*filter_np is also non-NULL, only entries targeting that node match.
-+ * @arg: pointer to a &struct of_phandle_args for the result. On success,
-+ *	@arg->args[0] will contain the translated ID. If a map entry was
-+ *	matched, @arg->np will be set to the target node with a reference
-+ *	held that the caller must release with of_node_put().
+  * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
+  *	If non-NULL, the map property must exist (-ENODEV if absent). If
+  *	*filter_np is also non-NULL, only entries targeting that node match.
+  * @arg: pointer to a &struct of_phandle_args for the result. On success,
+- *	@arg->args[0] will contain the translated ID. If a map entry was
+- *	matched, @arg->np will be set to the target node with a reference
+- *	held that the caller must release with of_node_put().
++ *	@arg->args_count will be set to the number of output specifier cells
++ *	as defined by @cells_name in the target node, and
++ *	@arg->args[0..args_count-1] will contain the translated output
++ *	specifier values. If a map entry was matched, @arg->np will be set
++ *	to the target node with a reference held that the caller must release
++ *	with of_node_put().
   *
   * Given a device ID, look up the appropriate implementation-defined
   * platform ID and/or the target device which receives transactions on that
-- * ID, as per the "iommu-map" and "msi-map" bindings. Either of @target or
-- * @id_out may be NULL if only the other is required. If @target points to
-- * a non-NULL device node pointer, only entries targeting that node will be
-- * matched; if it points to a NULL value, it will receive the device node of
-- * the first matching target phandle, with a reference held.
-+ * ID, as per the "iommu-map" and "msi-map" bindings.
-  *
+@@ -2137,11 +2167,13 @@ int of_find_last_cache_level(unsigned int cpu)
   * Return: 0 on success or a standard error code on failure.
   */
  int of_map_id(const struct device_node *np, u32 id,
- 	       const char *map_name, const char *map_mask_name,
--	       struct device_node **target, u32 *id_out)
-+	       struct device_node * const *filter_np, struct of_phandle_args *arg)
+-	       const char *map_name, const char *map_mask_name,
++	       const char *map_name, const char *cells_name,
++	       const char *map_mask_name,
+ 	       struct device_node * const *filter_np, struct of_phandle_args *arg)
  {
  	u32 map_mask, masked_id;
- 	int map_len;
+-	int map_len;
++	int map_bytes, map_len, offset = 0;
++	bool bad_map = false;
  	const __be32 *map = NULL;
  
--	if (!np || !map_name || (!target && !id_out))
-+	if (!np || !map_name || !arg)
- 		return -EINVAL;
-+	/* Ensure bypass/no-match success never returns a stale target node. */
-+	arg->np = NULL;
+ 	if (!np || !map_name || !arg)
+@@ -2149,7 +2181,7 @@ int of_map_id(const struct device_node *np, u32 id,
+ 	/* Ensure bypass/no-match success never returns a stale target node. */
+ 	arg->np = NULL;
  
- 	map = of_get_property(np, map_name, &map_len);
+-	map = of_get_property(np, map_name, &map_len);
++	map = of_get_property(np, map_name, &map_bytes);
  	if (!map) {
--		if (target)
-+		if (filter_np)
+ 		if (filter_np)
  			return -ENODEV;
- 		/* Otherwise, no map implies no translation */
--		*id_out = id;
-+		arg->args[0] = id;
-+		arg->args_count = 1;
+@@ -2159,11 +2191,9 @@ int of_map_id(const struct device_node *np, u32 id,
  		return 0;
  	}
  
-@@ -2193,18 +2197,14 @@ int of_map_id(const struct device_node *np, u32 id,
+-	if (!map_len || map_len % (4 * sizeof(*map))) {
+-		pr_err("%pOF: Error: Bad %s length: %d\n", np,
+-			map_name, map_len);
+-		return -EINVAL;
+-	}
++	if (map_bytes % sizeof(*map))
++		goto err_map_len;
++	map_len = map_bytes / sizeof(*map);
+ 
+ 	/* The default is to select all bits. */
+ 	map_mask = 0xffffffff;
+@@ -2176,39 +2206,93 @@ int of_map_id(const struct device_node *np, u32 id,
+ 		of_property_read_u32(np, map_mask_name, &map_mask);
+ 
+ 	masked_id = map_mask & id;
+-	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
++
++	while (offset < map_len) {
+ 		struct device_node *phandle_node;
+-		u32 id_base = be32_to_cpup(map + 0);
+-		u32 phandle = be32_to_cpup(map + 1);
+-		u32 out_base = be32_to_cpup(map + 2);
+-		u32 id_len = be32_to_cpup(map + 3);
++		u32 id_base, phandle, id_len, id_off, cells = 0;
++		const __be32 *out_base;
++
++		if (map_len - offset < 2)
++			goto err_map_len;
++
++		id_base = be32_to_cpup(map + offset);
+ 
+ 		if (id_base & ~map_mask) {
+-			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
+-				np, map_name, map_name,
+-				map_mask, id_base);
++			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
++			       np, map_name, map_mask_name, map_mask, id_base);
+ 			return -EFAULT;
+ 		}
+ 
+-		if (masked_id < id_base || masked_id >= id_base + id_len)
+-			continue;
+-
++		phandle = be32_to_cpup(map + offset + 1);
+ 		phandle_node = of_find_node_by_phandle(phandle);
  		if (!phandle_node)
  			return -ENODEV;
  
--		if (target) {
--			if (*target)
--				of_node_put(phandle_node);
--			else
--				*target = phandle_node;
--
--			if (*target != phandle_node)
--				continue;
-+		if (filter_np && *filter_np && *filter_np != phandle_node) {
++		if (bad_map) {
++			cells = 1;
++		} else if (of_property_read_u32(phandle_node, cells_name, &cells)) {
++			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
++			of_node_put(phandle_node);
++			return -EINVAL;
++		}
++
++		if (cells > MAX_PHANDLE_ARGS) {
++			pr_err("%pOF: %s cell count %d exceeds maximum\n",
++			       phandle_node, cells_name, cells);
++			of_node_put(phandle_node);
++			return -EINVAL;
++		}
++
++		if (offset == 0 && cells == 2) {
++			bad_map = of_check_bad_map(map, map_len);
++			if (bad_map) {
++				pr_warn_once("%pOF: %s has 1-cell entries targeting 2-cell %s, treating as 1-cell output\n",
++					     np, map_name, cells_name);
++				cells = 1;
++			}
++		}
++
++		if (map_len - offset < 3 + cells) {
++			of_node_put(phandle_node);
++			goto err_map_len;
++		}
++
++		out_base = map + offset + 2;
++		offset += 3 + cells;
++
++		id_len = be32_to_cpup(map + offset - 1);
++		id_off = masked_id - id_base;
++		if (masked_id < id_base || id_off >= id_len) {
 +			of_node_put(phandle_node);
 +			continue;
++		}
++		if (id_len > 1 && cells > 1) {
++			/*
++			 * With 1 output cell we reasonably assume its value
++			 * has a linear relationship to the input; with more,
++			 * we'd need help from the provider to know what to do.
++			 */
++			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
++			       np, map_name, id_len, cells);
++			of_node_put(phandle_node);
++			return -EINVAL;
++		}
++
+ 		if (filter_np && *filter_np && *filter_np != phandle_node) {
+ 			of_node_put(phandle_node);
+ 			continue;
  		}
  
--		if (id_out)
--			*id_out = masked_id - id_base + out_base;
-+		arg->np = phandle_node;
-+		arg->args[0] = masked_id - id_base + out_base;
-+		arg->args_count = 1;
+ 		arg->np = phandle_node;
+-		arg->args[0] = masked_id - id_base + out_base;
+-		arg->args_count = 1;
++		for (int i = 0; i < cells; i++)
++			arg->args[i] = id_off + be32_to_cpu(out_base[i]);
++		arg->args_count = cells;
  
  		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
- 			np, map_name, map_mask, id_base, out_base,
-@@ -2213,11 +2213,11 @@ int of_map_id(const struct device_node *np, u32 id,
+-			np, map_name, map_mask, id_base, out_base,
+-			id_len, id, masked_id - id_base + out_base);
++			np, map_name, map_mask, id_base,
++			cells ? be32_to_cpup(out_base) : 0,
++			id_len, id,
++			cells ? id_off + be32_to_cpup(out_base) : id_off);
+ 		return 0;
  	}
  
- 	pr_info("%pOF: no %s translation for id 0x%x on %pOF\n", np, map_name,
--		id, target && *target ? *target : NULL);
-+		id, filter_np && *filter_np ? *filter_np : NULL);
- 
- 	/* Bypasses translation */
--	if (id_out)
--		*id_out = id;
-+	arg->args[0] = id;
-+	arg->args_count = 1;
+@@ -2219,6 +2303,10 @@ int of_map_id(const struct device_node *np, u32 id,
+ 	arg->args[0] = id;
+ 	arg->args_count = 1;
  	return 0;
++
++err_map_len:
++	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
++	return -EINVAL;
  }
  EXPORT_SYMBOL_GPL(of_map_id);
-@@ -2227,17 +2227,19 @@ EXPORT_SYMBOL_GPL(of_map_id);
-  * @np: root complex device node.
+ 
+@@ -2228,18 +2316,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
   * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
   *      stream/device ID) used as the lookup key in the iommu-map table.
-- * @target: optional pointer to a target device node.
-- * @id_out: optional pointer to receive the translated ID.
-+ * @arg: pointer to a &struct of_phandle_args for the result. On success,
-+ *	@arg->args[0] contains the translated ID. If a map entry was matched,
-+ *	@arg->np holds a reference to the target node that the caller must
-+ *	release with of_node_put().
+  * @arg: pointer to a &struct of_phandle_args for the result. On success,
+- *	@arg->args[0] contains the translated ID. If a map entry was matched,
+- *	@arg->np holds a reference to the target node that the caller must
+- *	release with of_node_put().
++ *	@arg->args_count will be set to the number of output specifier cells
++ *	and @arg->args[0..args_count-1] will contain the translated output
++ *	specifier values. If a map entry was matched, @arg->np holds a
++ *	reference to the target node that the caller must release with
++ *	of_node_put().
   *
-  * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
+- * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
++ * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
++ * and "iommu-map-mask".
   *
   * Return: 0 on success or a standard error code on failure.
   */
  int of_map_iommu_id(const struct device_node *np, u32 id,
--		    struct device_node **target, u32 *id_out)
-+		    struct of_phandle_args *arg)
+ 		    struct of_phandle_args *arg)
  {
--	return of_map_id(np, id, "iommu-map", "iommu-map-mask", target, id_out);
-+	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
+-	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
++	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
  }
  EXPORT_SYMBOL_GPL(of_map_iommu_id);
  
-@@ -2246,16 +2248,21 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
-  * @np: root complex device node.
-  * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
-  *      stream/device ID) used as the lookup key in the msi-map table.
-- * @target: optional pointer to a target device node.
-- * @id_out: optional pointer to receive the translated ID.
-+ * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
-+ *	If non-NULL, the map property must exist (-ENODEV if absent). If
-+ *	*filter_np is also non-NULL, only entries targeting that node match.
-+ * @arg: pointer to a &struct of_phandle_args for the result. On success,
-+ *	@arg->args[0] contains the translated ID. If a map entry was matched,
-+ *	@arg->np holds a reference to the target node that the caller must
-+ *	release with of_node_put().
+@@ -2252,17 +2343,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
+  *	If non-NULL, the map property must exist (-ENODEV if absent). If
+  *	*filter_np is also non-NULL, only entries targeting that node match.
+  * @arg: pointer to a &struct of_phandle_args for the result. On success,
+- *	@arg->args[0] contains the translated ID. If a map entry was matched,
+- *	@arg->np holds a reference to the target node that the caller must
+- *	release with of_node_put().
++ *	@arg->args_count will be set to the number of output specifier cells
++ *	and @arg->args[0..args_count-1] will contain the translated output
++ *	specifier values. If a map entry was matched, @arg->np holds a
++ *	reference to the target node that the caller must release with
++ *	of_node_put().
   *
-  * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
+- * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
++ * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
++ * and "msi-map-mask".
   *
   * Return: 0 on success or a standard error code on failure.
   */
  int of_map_msi_id(const struct device_node *np, u32 id,
--		  struct device_node **target, u32 *id_out)
-+		  struct device_node * const *filter_np, struct of_phandle_args *arg)
+ 		  struct device_node * const *filter_np, struct of_phandle_args *arg)
  {
--	return of_map_id(np, id, "msi-map", "msi-map-mask", target, id_out);
-+	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
+-	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
++	return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
  }
  EXPORT_SYMBOL_GPL(of_map_msi_id);
-diff --git a/drivers/of/irq.c b/drivers/of/irq.c
-index e37c1b3f8736..e63a43be6c4a 100644
---- a/drivers/of/irq.c
-+++ b/drivers/of/irq.c
-@@ -796,14 +796,15 @@ static int of_check_msi_parent(struct device_node *dev_node, struct device_node
- /**
-  * of_msi_xlate - map a MSI ID and find relevant MSI controller node
-  * @dev: device for which the mapping is to be done.
-- * @msi_np: Pointer to target MSI controller node
-+ * @msi_np: Pointer to target MSI controller node, or NULL if the caller
-+ *           only needs the translated ID without receiving the controller node.
-+ *           If non-NULL and pointing to a non-NULL node, only entries targeting
-+ *           that node will be matched. If non-NULL and pointing to NULL, it will
-+ *           receive the first matching target node with a reference held.
-  * @id_in: Device ID.
-  *
-  * Walk up the device hierarchy looking for devices with a "msi-map"
-  * or "msi-parent" property. If found, apply the mapping to @id_in.
-- * If @msi_np points to a non-NULL device node pointer, only entries targeting
-- * that node will be matched; if it points to a NULL value, it will receive the
-- * device node of the first matching target phandle, with a reference held.
-  *
-  * Returns: The mapped MSI id.
-  */
-@@ -817,8 +818,21 @@ u32 of_msi_xlate(struct device *dev, struct device_node **msi_np, u32 id_in)
- 	 * "msi-map" or an "msi-parent" property.
- 	 */
- 	for (parent_dev = dev; parent_dev; parent_dev = parent_dev->parent) {
--		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &id_out))
-+		struct of_phandle_args msi_spec = {};
-+
-+		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &msi_spec)) {
-+			if (msi_spec.np) {
-+				/* msi-map matched: use the translated ID and target node */
-+				if (msi_spec.args_count > 0)
-+					id_out = msi_spec.args[0];
-+				if (msi_np && !*msi_np)
-+					*msi_np = of_node_get(msi_spec.np);
-+				of_node_put(msi_spec.np);
-+			}
-+			/* msi-map present but no match → stop walking */
- 			break;
-+		}
-+		/* -ENODEV: msi-map absent → check for msi-parent */
- 		if (!of_check_msi_parent(parent_dev->of_node, msi_np))
- 			break;
- 	}
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index c863c7b02289..105038c15aa8 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -1121,41 +1121,42 @@ static void imx_pcie_remove_lut(struct imx_pcie *imx_pcie, u16 rid)
- 
- static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
- {
-+	struct of_phandle_args iommu_spec = {};
-+	struct of_phandle_args msi_spec = {};
- 	struct device *dev = imx_pcie->pci->dev;
--	struct device_node *target;
-+	struct device_node *msi_filter = NULL;
- 	u32 sid_i, sid_m;
- 	int err_i, err_m;
- 	u32 sid = 0;
- 
--	target = NULL;
--	err_i = of_map_iommu_id(dev->of_node, rid, &target, &sid_i);
--	if (target) {
--		of_node_put(target);
--	} else {
--		/*
--		 * "target == NULL && err_i == 0" means RID out of map range.
--		 * Use 1:1 map RID to streamID. Hardware can't support this
--		 * because the streamID is only 6 bits
--		 */
--		err_i = -EINVAL;
-+	err_i = of_map_iommu_id(dev->of_node, rid, &iommu_spec);
-+	if (!err_i) {
-+		if (!iommu_spec.np)
-+			/*
-+			 * "iommu_spec.np == NULL && err_i == 0" means RID out of map
-+			 * range. Use 1:1 map RID to streamID. Hardware can't support
-+			 * this because the streamID is only 6 bits.
-+			 */
-+			err_i = -EINVAL;
-+		else
-+			sid_i = iommu_spec.args[0];
- 	}
-+	of_node_put(iommu_spec.np);
- 
--	target = NULL;
--	err_m = of_map_msi_id(dev->of_node, rid, &target, &sid_m);
--
-+	err_m = of_map_msi_id(dev->of_node, rid, &msi_filter, &msi_spec);
- 	/*
--	 *   err_m      target
--	 *	0	NULL		RID out of range. Use 1:1 map RID to
--	 *				streamID, Current hardware can't
--	 *				support it, so return -EINVAL.
--	 *      != 0    NULL		msi-map does not exist, use built-in MSI
--	 *	0	!= NULL		Get correct streamID from RID
--	 *	!= 0	!= NULL		Invalid combination
-+	 *   err_m      msi_spec.np
-+	 *	0	!= NULL		Got correct streamID from RID via msi-map
-+	 *	0	NULL		msi-map present but RID out of range
-+	 *	-ENODEV	NULL		msi-map absent, use built-in MSI controller
- 	 */
--	if (!err_m && !target)
--		return -EINVAL;
--	else if (target)
--		of_node_put(target); /* Find streamID map entry for RID in msi-map */
-+	if (!err_m) {
-+		if (!msi_spec.np)
-+			/* msi-map present but RID out of range */
-+			return -EINVAL;
-+		sid_m = msi_spec.args[0];
-+	}
-+	of_node_put(msi_spec.np);
- 
- 	/*
- 	 * msi-map        iommu-map
-diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
-index a0937b7b3c4d..c2cffc0659f4 100644
---- a/drivers/pci/controller/pcie-apple.c
-+++ b/drivers/pci/controller/pcie-apple.c
-@@ -755,6 +755,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
- {
- 	u32 sid, rid = pci_dev_id(pdev);
- 	struct apple_pcie_port *port;
-+	struct of_phandle_args iommu_spec = {};
- 	int idx, err;
- 
- 	port = apple_pcie_get_port(pdev);
-@@ -764,10 +765,12 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
- 	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
- 		pci_name(pdev->bus->self), port->idx);
- 
--	err = of_map_iommu_id(port->pcie->dev->of_node, rid, NULL, &sid);
-+	err = of_map_iommu_id(port->pcie->dev->of_node, rid, &iommu_spec);
- 	if (err)
- 		return err;
- 
-+	of_node_put(iommu_spec.np);
-+	sid = iommu_spec.args[0];
- 	mutex_lock(&port->pcie->lock);
- 
- 	idx = bitmap_find_free_region(port->sid_map, port->sid_map_sz, 0);
-diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-index 1b7696b2d762..2aa1a772a0ff 100644
---- a/drivers/xen/grant-dma-ops.c
-+++ b/drivers/xen/grant-dma-ops.c
-@@ -319,13 +319,13 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
- 					   struct device_node *np,
- 					   domid_t *backend_domid)
- {
--	struct of_phandle_args iommu_spec = { .args_count = 1 };
-+	struct of_phandle_args iommu_spec = {};
- 
- 	if (dev_is_pci(dev)) {
- 		struct pci_dev *pdev = to_pci_dev(dev);
- 		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
- 
--		if (of_map_iommu_id(np, rid, &iommu_spec.np, iommu_spec.args)) {
-+		if (of_map_iommu_id(np, rid, &iommu_spec)) {
- 			dev_dbg(dev, "Cannot translate ID\n");
- 			return -ESRCH;
- 		}
 diff --git a/include/linux/of.h b/include/linux/of.h
-index 721525334b4b..ea50b45d9ff7 100644
+index ea50b45d9ff7..374b249766a2 100644
 --- a/include/linux/of.h
 +++ b/include/linux/of.h
-@@ -466,13 +466,15 @@ bool of_console_check(const struct device_node *dn, char *name, int index);
+@@ -465,7 +465,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
+ bool of_console_check(const struct device_node *dn, char *name, int index);
  
  int of_map_id(const struct device_node *np, u32 id,
- 	       const char *map_name, const char *map_mask_name,
--	       struct device_node **target, u32 *id_out);
-+	       struct device_node * const *filter_np,
-+	       struct of_phandle_args *arg);
+-	       const char *map_name, const char *map_mask_name,
++	       const char *map_name, const char *cells_name,
++	       const char *map_mask_name,
+ 	       struct device_node * const *filter_np,
+ 	       struct of_phandle_args *arg);
  
- int of_map_iommu_id(const struct device_node *np, u32 id,
--		    struct device_node **target, u32 *id_out);
-+		    struct of_phandle_args *arg);
- 
- int of_map_msi_id(const struct device_node *np, u32 id,
--		  struct device_node **target, u32 *id_out);
-+		  struct device_node * const *filter_np,
-+		  struct of_phandle_args *arg);
- 
- phys_addr_t of_dma_get_max_cpu_address(struct device_node *np);
- 
-@@ -949,19 +951,21 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
+@@ -950,7 +951,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
+ }
  
  static inline int of_map_id(const struct device_node *np, u32 id,
- 			     const char *map_name, const char *map_mask_name,
--			     struct device_node **target, u32 *id_out)
-+			     struct device_node * const *filter_np,
-+			     struct of_phandle_args *arg)
+-			     const char *map_name, const char *map_mask_name,
++			     const char *map_name, const char *cells_name,
++			     const char *map_mask_name,
+ 			     struct device_node * const *filter_np,
+ 			     struct of_phandle_args *arg)
  {
- 	return -EINVAL;
- }
- 
- static inline int of_map_iommu_id(const struct device_node *np, u32 id,
--				  struct device_node **target, u32 *id_out)
-+				  struct of_phandle_args *arg)
- {
- 	return -EINVAL;
- }
- 
- static inline int of_map_msi_id(const struct device_node *np, u32 id,
--				struct device_node **target, u32 *id_out)
-+				struct device_node * const *filter_np,
-+				struct of_phandle_args *arg)
- {
- 	return -EINVAL;
- }
 
 -- 
 2.34.1
