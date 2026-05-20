@@ -1,63 +1,63 @@
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com [209.85.215.193])
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com [209.85.210.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CE63BCD3A
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10903AEF33
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779268752; cv=none; b=XBR1Zm0fdayJL+l6nsd9LoXej/dktH3oCY1pXVo0aWXrHrdONR34unRmrYKmqcf78HDQ83yNrcuv0nxfVNTwUFOCSeNGcJUn0v5k41TLj/DXY7bJVZfK+Tx2IQmIEBnI8SdaZ3CZmnXDCKLsgH8faM8Ejd3gee3r64f8eagHcLQ=
+	t=1779268762; cv=none; b=n/pgmILdklgDFitxgvQvc1YK6qMUc9hgoVx1GdzG/MfMK2MldzbkETeWp9yw+d8oiwsprE6ghzr03BO0/st+DjKKgVjc/KoIpLd9lkTVOyKtkcerSBPi6L/eteSZlCPJHLgrlWAo+hk3Rn/8XcUUHGtCGMvpEE4kvxQnCsLYdM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779268752; c=relaxed/simple;
-	bh=hg5xbWLp3AkSvJFbtRJektVz3soiPhwBudcg+chCZNQ=;
+	s=arc-20240116; t=1779268762; c=relaxed/simple;
+	bh=1mrJpHLdgZoQ9z8hnMeKjo6Nk1qat8gxfyVXkzyrD20=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s7zLUbS2hpAkl2mrAZYnJ4GgpIO7iQdJf9zdbrdZ2hP5RGk9NpOMUGmqltpCOYazlkI/N85BeJ6AQVdqrXcfmIBJ9oackASygVfz45COCwVhfAXD89swBEL1E8FaDjoSa4ZOrRFHSXbU968HfNHeC4XqpiIvQraXtt/RGNvHGtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B8X7RU3L; arc=none smtp.client-ip=209.85.215.193
+	 MIME-Version; b=mUVHRM0xiTz7S+rf82IV6B0HuusCCHO4lfl4nUHDC9HkKS7f0qiCwcSkfKqOCd8aJgaMXDhGWyVi8kBylOm2HY2d0mhRP814RGWOd6384xi/12Nz2yFru/kZv517ZdBkPCDRwJlgs4ircwQW9ti91Mq3u3PwWu+Myw1bg7D8vj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GwLq39LR; arc=none smtp.client-ip=209.85.210.194
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B8X7RU3L"
-Received: by mail-pg1-f193.google.com with SMTP id 41be03b00d2f7-c82a6278a4cso3571314a12.3
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 02:19:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GwLq39LR"
+Received: by mail-pf1-f194.google.com with SMTP id d2e1a72fcca58-82faf871346so3619844b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 02:19:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779268751; x=1779873551; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779268761; x=1779873561; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tlJTNnuSEkuOFcK//QE/3Ty9SdRnFwE8BVFotGGF+Qo=;
-        b=B8X7RU3LGCDvangQc9LkyR00ShOVybh/2rn89RSEzVp7VU0jIB3YRVvrM+qucwcJFe
-         GEf/nsf6t6Ty2Xo/b5bPmNyeysa3JAAITWWfkzWndxN8tvW0CrLUqgFrNb4Z7U7QVKfz
-         pwdjrEdvez7f+N2AnUSoJHQdhF9QfQKqEIXEPllICtzLG7ipqDaBjuS6/njB3SfMu7yF
-         gp2wKmMba30eGf76nnIlGnCdbmkgKh5Szl2zQd2sYquOj3jqhxCod9YvV1OY1mAG9xx7
-         UPn6dxT2XHDGLAucqjm9ILxMgZnck+1661MgBeuLJ3uAIAiVSU6ng3gZTG/9VvFHpR3t
-         HFxg==
+        bh=9oyw9vanLGG7tQ9dBSW9pJHSWXBGqZj5GxnQmef6pVg=;
+        b=GwLq39LRIUNkKgBqO6N2HEA8OiLYOWUugIClJQwmCsqqtyLOAi9T6hAxa/XX71i7mR
+         mQk+G2B65k2NC2X34EYv2tE+BrI8uoQIUr+YX0mSbVCxkD5BA7LkIKx+hPkod5o7IaEb
+         Wt0X2WIiZvw256O2xG5te/wPn7hZO1Grto6iloLUh4q5p0lu+LlOHJyFRElUMVvZrG2E
+         zL6MB9wxVoA6906DbxHOm8tOwV20m/PqoHNNX4DRS0eaGjurrL4fwJ7XaNQ8ok7NOp33
+         2ZTbe/gRnMfud2GBLhc2xcY0lVHnw3t9045R6sxkOjlnoXQtEtDOte86mfmrB+WFF4Nn
+         ho7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779268751; x=1779873551;
+        d=1e100.net; s=20251104; t=1779268761; x=1779873561;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=tlJTNnuSEkuOFcK//QE/3Ty9SdRnFwE8BVFotGGF+Qo=;
-        b=qlxA/BfEBpKDQEmhNlJ78ekkBMUaGswpD3gLz7AzWtHCYR2c8gcgaU+pTJY7iFYDML
-         kdqxkOTLpoc++PfRKO8H8TcObG/IPqTCCRaUXKYHf54zk0suheHIKHlLHP536HOT1Sra
-         BZusVwLAaGPPuiH1/9qCKVZmS+4y5iOvj4d/mlVRQmF8/4rWjvopqoON2/lJKBEeifAy
-         OGiIcbEqbzKCuxaj8l6gzJIHGrdPfjlgw0kTvmqlx//8eMkxjNxfM1kQ0UwmYypoEV0Z
-         wju8IPaRe+Bs9EieFgbcIFjzN7LFOf+ybDrhmDyyAFaHVpjSD6xytECcvnrj1CFq6Qu7
-         4nTQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8E+PXjPvJ2kvUgSKPJDRzRyUlV0DPkbdyZs3qmXVVQVONJ4X0vtWvzIVPYI4FYJVCgiMS834hU44Rw@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw6ercRq8seEguUOPebvfYFDVWflHpLfVDYtXQtGCmZLNHA57P5
-	FaKIJlbMOY0M39QvHMu3zPCwQE5hWgXREiVetMuWSUjxVe1qK1Q0ntII
-X-Gm-Gg: Acq92OHnQPpekwK6TOkSjdh8la9X+ylBUTSDRkXqcwsfwsf2buLtsaFSaO7uFqLXx9a
-	L0trLWdEGCfwYCEU7EqiEkh6GpPnIanpVc+krpqy7eRhX6szpnyr8Wt9TEf4ongjG6KFnM1oOWC
-	sh8MB30GjYjVOBkYBXxupNQpOb/YEDmh1QKCNetMVQiNnNIoSqEvs72abP0ybZvSIZl4xFwQ4nU
-	luMATL5H4w7U22wNlTQAJqAN1YttztMSRLV+Iwsqyrdc/95Dp7IYcUzSiNYzXF623CS9MqIBXl6
-	4LmH0+K3WlYHRGT9zBjRsfaW3aAVZcUPu60Sxzuh+89DbKAvyf57pRMJS1jsp5HPVQqKODrlKxb
-	PaUX2luhAFTZ7aQK5z5FR/T8Y8ifhR+6Tev52znaESzncarJkFOA+vNdtW2EOCQXpGjZmOYRkQH
-	0SMpPECDFZAr9XMEP6iI5fiTN7djn6Ueik55CPYw==
-X-Received: by 2002:a05:6a20:2454:b0:3aa:ec28:edc6 with SMTP id adf61e73a8af0-3b22ec63eaamr26158763637.39.1779268750848;
-        Wed, 20 May 2026 02:19:10 -0700 (PDT)
+        bh=9oyw9vanLGG7tQ9dBSW9pJHSWXBGqZj5GxnQmef6pVg=;
+        b=bWqv21tAfxcfDF2bEOFlHHffhfg8SNcbWM1gbxnopPOi6ILJVooBFGoH/hXEsmNI/F
+         37V9E8Fc71p2y8IzuyaMvPOZ1ArX3raURByF1S74dZkx6rfhs43wXqxJJvhNddIBlaAz
+         YV9RMO5lQuIQz46elTJNixL7H6yvNT5caB34Z3M6uhRH76v58L8qLJ8OyiQWcRUXp/sx
+         IWGrGEvDInfxKW5v+93Y0h3930MoMfKOcotsR4zkBqtFGbdnF0W5/ynHDYuoHkjT58Le
+         ddaADxNIlX4oEch3RXwZaxF0uBOHGz6ljVGzS68AN8acE4CzbucPF0+eI096xgIXLfUL
+         DoQg==
+X-Forwarded-Encrypted: i=1; AFNElJ8SIP1j/s/zJerZ/8DTe1CKDy6vrBFsC86+KaJSXpMhLXf18y/xFt75/AeXy9FXD2459SwRDSsjOagD@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEnIOhn+jgGOeFk4Bq26SZaXQbPklZ+dxb5ZpTtu/yba9nIo3w
+	xXTPyMJcu53l0ejK/2k3k3Ch3z3eXbT5cX9g74xX4AvAToFgY9ZobzI2
+X-Gm-Gg: Acq92OFvIRlDnyM1km1q6YTqXGy9L1Ej3g4GggrtW7iwNUR7JfPxHyxBE0lQNzHEtDe
+	PvhbldVHLNwcK00zNaMTw45H7xagcptPPCvTXS6xBwFpMa4ZrDCQW0W4oDu9V7J9hIymRSPL2Y7
+	xDM+mptA13D8Fzwy6/2jqvC5kvOtUnlg+FsQQcLC0WqNonhiTL6nDMLcbScBK6QQXGB7JM0wtPm
+	WrdPPsEEqwznbvjUDEnox3vHORuYq0gOuoSf1TwqUowiqQrnbz9I8eHvARrUBlGT5ovhY+moMQN
+	ngDW1u3W2HuoEcdFxT8tqFA3fD2oVQCV9gnEWQPnX51sb4/qGZZtBM4MOEBQl+XHf44ESM5gnbF
+	2P+56r2BEZ8xuYGOq5SY48ree3wbmgcUDR5b0/SyP4Xxa+ro3AGOqDs1ybbp5BD68oE/dEHMJdG
+	wQdAzvBCM80qs/vchuFAPDe5J29dax8YDUdrEAbg==
+X-Received: by 2002:a05:6a00:3289:b0:82a:7aa3:a2fb with SMTP id d2e1a72fcca58-83f33c9b2dcmr22248125b3a.37.1779268761111;
+        Wed, 20 May 2026 02:19:21 -0700 (PDT)
 Received: from intel.company.local ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f63bb986dsm10208967b3a.48.2026.05.20.02.19.00
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f63bb986dsm10208967b3a.48.2026.05.20.02.19.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 02:19:10 -0700 (PDT)
+        Wed, 20 May 2026 02:19:20 -0700 (PDT)
 From: Wandun Chen <chenwandun1@gmail.com>
 X-Google-Original-From: Wandun Chen <chenwandun@lixiang.com>
 To: linux-arm-kernel@lists.infradead.org,
@@ -91,9 +91,9 @@ Cc: catalin.marinas@arm.com,
 	coxu@redhat.com,
 	tangyouling@kylinos.cn,
 	songshuaishuai@tinylab.org
-Subject: [PATCH v2 1/8] of: reserved_mem: handle NULL name in of_reserved_mem_lookup()
-Date: Wed, 20 May 2026 17:18:37 +0800
-Message-ID: <20260520091844.592753-2-chenwandun@lixiang.com>
+Subject: [PATCH v2 2/8] kexec/crash: provide crash_exclude_mem_range() stub when CONFIG_CRASH_DUMP=n
+Date: Wed, 20 May 2026 17:18:38 +0800
+Message-ID: <20260520091844.592753-3-chenwandun@lixiang.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260520091844.592753-1-chenwandun@lixiang.com>
 References: <20260520091844.592753-1-chenwandun@lixiang.com>
@@ -109,30 +109,34 @@ From: Wandun Chen <chenwandun1@gmail.com>
 
 From: Wandun Chen <chenwandun@lixiang.com>
 
-Prepare for an upcoming change that appends /memreserve/ entries to
-reserved_mem[]; such entries have no name.
+Prepare for an upcoming change that excludes non-dumpable reserved
+regions from the kdump vmcore and will call crash_exclude_mem_range()
+from generic, non-arch code.
 
 No functional change.
 
 Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
 ---
- drivers/of/of_reserved_mem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/linux/crash_core.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 8d5777cb5d1b..313cbc57aa45 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -788,7 +788,8 @@ struct reserved_mem *of_reserved_mem_lookup(struct device_node *np)
+diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+index c1dee3f971a9..0033d4777648 100644
+--- a/include/linux/crash_core.h
++++ b/include/linux/crash_core.h
+@@ -87,6 +87,12 @@ static inline int kexec_should_crash(struct task_struct *p) { return 0; }
+ static inline int kexec_crash_loaded(void) { return 0; }
+ static inline void crash_save_cpu(struct pt_regs *regs, int cpu) {};
+ static inline int kimage_crash_copy_vmcoreinfo(struct kimage *image) { return 0; };
++static inline int crash_exclude_mem_range(struct crash_mem *mem,
++					  unsigned long long mstart,
++					  unsigned long long mend)
++{
++	return 0;
++}
+ #endif /* CONFIG_CRASH_DUMP*/
  
- 	name = kbasename(np->full_name);
- 	for (i = 0; i < reserved_mem_count; i++)
--		if (!strcmp(reserved_mem[i].name, name))
-+		if (reserved_mem[i].name &&
-+		    !strcmp(reserved_mem[i].name, name))
- 			return &reserved_mem[i];
- 
- 	return NULL;
+ #ifdef CONFIG_CRASH_DM_CRYPT
 -- 
 2.43.0
 
