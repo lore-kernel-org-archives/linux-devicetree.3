@@ -1,238 +1,142 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34133DB310;
-	Wed, 20 May 2026 13:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5C826B756;
+	Wed, 20 May 2026 13:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779282907; cv=none; b=XdAQ0tB6tmeBa2jlxfecNTN9HXiY/4p+yiCYmqWrwjuU2b6vwiwBS60ZTf7Y5LnJnWn2GZLiqW8vHIGODvmbK0cSBWS/CkTR8GzHkkHN2Klr6xLLL/G/FnqwnTolmA/wHIID6czS3JX1i4igmNa4tZxwV3U903bcnyc3n/GNAF0=
+	t=1779283183; cv=none; b=AFplmVMfdA42Iuk0GQcQQNMbjE5dVfyhRwqRsXgvE1mubKylIrZm/Q2l7L3M21JQAMEZ07JK3LV55PYwrgEHPzjIsWadTB1ufYSegd8jt0Oxdcx/D7TKkOBfkyAAojw12duZQqotiwDTDv4mbl3kyivy8cuDbPx2w3oX+CD09Xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779282907; c=relaxed/simple;
-	bh=p6JhUk/QCPu3Ceszn4wC1ZtmRnN1mBXz+DFHYbZKdoU=;
+	s=arc-20240116; t=1779283183; c=relaxed/simple;
+	bh=MrDoz8p8BpqxjSMWlXlgStqn2S11rF1ikzgKA/fCWQI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mxn2lZ4hXGyDp440GyfkoA+8ti+OSO7H9WU6dkFcISJ6Pm/j6pJ+oHeCaukQQJ8IJkzlk+DO0Aa7KvM2/z6jPcLZS3EfZCjNH8IpT7XWLfrxoHGqkQjWulGUSnz2nixNMTDPy6cQFZffJZuZeCDyBXLnCuvti+8pWzlYM0HP9o0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=bRj/oVxq; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	 In-Reply-To:Content-Type; b=psriI+EusqiWsvLh5rAVC+0cUmTpfPhwD1Q4cVraxBpRZzDOlKzLnvpRITw8a2uVLKCzFMTUbGkDIJgzfiVtTWuS57+53AqLi0wXj4DMAZSLAK4SJZEuiIWhoJwKutWxoDBgPGy8y1Bh9XizpK1NeYSJkgOFy8wAD0BWYayd4UY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ehSkrEv3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="bRj/oVxq"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 14BC2434F14;
-	Wed, 20 May 2026 15:14:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1779282896; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=0FsuxVeXijvwiF0XWTrA9FENYRux1wdKVJSgIRmPFrQ=;
-	b=bRj/oVxqmBfStdkPBII2DqzZWMMwBdHXJBsKJBpZHI4Cr+ZCWQPQRKsSG/Lbdfne4CZ66u
-	8bFUa9Ojes7u3fbANA2n5VzEh8AHwT5uSWBt82cgntl3VDJYITjSGUlySqvT5VvyA4koaf
-	ZfCwMP6glic0yjCWEXF2FWBfSm/sUK4DYtMDBM+agwZvFD07LhqnYveGcbKbFSI2zRz3kP
-	wrUoJG1DoK+/0NxrLqCp7Tc2fuswf6kMBAF/l06IHLZJ2IWKKgwwxV3izbJKgVXGtnXKu1
-	MdOY16xl1YeDiAiWK1GSSu3Ubd0YABTw7AuGuvanqB9/4kC4JFtVCPi1h6rRaA==
-Message-ID: <1552f47b-7542-414e-ab6a-a07efc8e81e5@cjdns.fr>
-Date: Wed, 20 May 2026 15:14:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ehSkrEv3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F0B1F000E9;
+	Wed, 20 May 2026 13:19:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779283179;
+	bh=GG83Da2bZfgnrhBfPbuMwe1laETea54AdqfsrALLjx8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ehSkrEv3h0lHTtwa42RC1cX1jWDUGpWRAyZ47a8t2mvFRkeVvtt+cwg1yRD071ZSV
+	 blvW8JitKGjmFB/jNVGy50oEaefDn7ETCH/6yjkS3PtKQnaMJoKLXL/AzO9tsCZhO4
+	 4V+h4KKo6F5JKcqhUhEHtb/h3W4c8xVjIaknH5KRyaZnHAcU+Bw/uLl2PBPyV9OQ2U
+	 xqryTIPMJxeEbvBv1FRHMlPeEW390+LtRjrj0ypr0lLyv9TTNvVj7WSoJYBgW85g3b
+	 O7lXwJelaFxOko0iVihHSHDTShVg6v1Qhk17Wmd3Qa+xlu2EKfZUTIabtsWvC280qB
+	 Ah3Dt2l5uu4ng==
+Message-ID: <d8faa1aa-e752-4d67-b6a3-20883ceb6eb0@kernel.org>
+Date: Wed, 20 May 2026 15:19:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v7 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, Bjorn Helgaas <helgaas@kernel.org>,
- robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-References: <20260514151318.3444959-3-cjd@cjdns.fr>
- <20260514210141.2DEF2C2BCB3@smtp.kernel.org>
- <22d7274b-640a-470e-86b0-997a4b6e102d@cjdns.fr>
- <ihqxutsgrcrbusbtblxmaq3swcp3xtiq6ycnpi7nl45fup36ym@6kvdzwu4zivy>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
+ panel controller
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ dmitry.baryshkov@oss.qualcomm.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,
+ Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>, rajeevny@qti.qualcomm.com
+References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
+ <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
+ <20260519-curly-courageous-sturgeon-2facfe@quoll>
+ <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <ihqxutsgrcrbusbtblxmaq3swcp3xtiq6ycnpi7nl45fup36ym@6kvdzwu4zivy>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Thanks for weighing in
-
-
-On 20/05/2026 10:34, Manivannan Sadhasivam wrote:
-> On Fri, May 15, 2026 at 03:34:53PM +0200, Caleb James DeLisle wrote:
->> Regarding this, I could use some advice. Bjorn I tagged you in because
->> you're probably best to have an opinion here.
+On 20/05/2026 14:40, Arpit Saini wrote:
+> Hi Krzysztof , Dmitry
+> 
+> On 5/19/2026 4:02 PM, Krzysztof Kozlowski wrote:
+>> On Mon, May 18, 2026 at 04:34:12PM +0530, Arpit Saini wrote:
+>>> ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
+>>> The DLC DLC0697 1080x1920 LCD panel is based on this controller.
+>>>
+>>> The panel requires a reset GPIO, backlight enable GPIO, I/O voltage
 >>
+>> If panel requires it, so should the binding.
 >>
->> On 14/05/2026 23:01, sashiko-bot@kernel.org wrote:
->>> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
->>> - [High] mtk_pcie_retrain() iterates the PCI bus without locks and holds an unreferenced device pointer, leading to a Use-After-Free.
->>> - [High] mtk_pcie_retrain() only retrains the first root port, silently ignoring any other ports on the same host.
->>> - [High] Link retraining occurs after downstream endpoint drivers are probed, causing a race condition that can lead to system crashes.
->>> - [High] Calling virt_to_phys() on an __iomem pointer causes undefined behavior and potential memory corruption.
->>> - [Medium] The IS_BUILTIN() workaround silently degrades hardware capabilities when the driver is compiled as a module.
->>> --
->>>
->>> commit 08338fe344200ef55148194108ab3b65616af7c7
->>> Author: Caleb James DeLisle <cjd@cjdns.fr>
->>> Subject: PCI: mediatek: Add support for EcoNet EN7528 SoC
->>>
->>> This commit adds support for the PCIe controller found on EcoNet EN7528 SoCs.
->>> It introduces a hardware quirk to retrain the link after startup, as some
->>> ports capable of Gen2 operation will initially start at Gen1 speeds.
->>>
->>>> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
->>>> --- a/drivers/pci/controller/pcie-mediatek.c
->>>> +++ b/drivers/pci/controller/pcie-mediatek.c
->>> [ ... ]
->>>> @@ -753,6 +764,135 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
->>> [ ... ]
->>>> +	/* Activate INTx interrupts */
->>>> +	val = readl(port->base + PCIE_INT_MASK);
->>>> +	val &= ~INTX_MASK;
->>>> +	writel(val, port->base + PCIE_INT_MASK);
->>>> +
->>>> +	if (IS_ENABLED(CONFIG_PCI_MSI))
->>>> +		mtk_pcie_enable_msi(port);
->>> Is it safe to call mtk_pcie_enable_msi() here? Looking at
->>> mtk_pcie_enable_msi(), it calculates the message address using:
->>>
->>>       virt_to_phys(port->base + PCIE_MSI_VECTOR)
->>>
->>> Since port->base is an ioremapped __iomem pointer, passing it to
->>> virt_to_phys() produces undefined behavior and could return a garbage
->>> physical address. If this address overlaps with valid physical RAM mapped
->>> for DMA, could memory writes from the PCIe endpoint corrupt random system
->>> memory?
->> Learned a few things from that note. Seems ioremap is just giving us a KSEG1
->> address and virt_to_phys() is getting the real address back. In any case I'm
->> just doing what the driver already does.
-> This looks definitely wrong because virt_to_phys() is supposed to be used for
-> virtual address, not the ioremapped address. virt_to_phys() will calculate the
-> physical address using the page offset, which doesn't apply to ioremapped
-> address.
->
-> Correct way would be to store the physical address while doing the ioremap:
->
-> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-> index 75722524fe74..c503fbd774d0 100644
-> --- a/drivers/pci/controller/pcie-mediatek.c
-> +++ b/drivers/pci/controller/pcie-mediatek.c
-> @@ -175,6 +175,7 @@ struct mtk_pcie_soc {
->   /**
->    * struct mtk_pcie_port - PCIe port information
->    * @base: IO mapped register base
-> + * @phys_base: Physical address of the I/O register base region
->    * @list: port list
->    * @pcie: pointer to PCIe host info
->    * @reset: pointer to port reset control
-> @@ -196,6 +197,7 @@ struct mtk_pcie_soc {
->    */
->   struct mtk_pcie_port {
->          void __iomem *base;
-> +       phys_addr_t phys_base;
->          struct list_head list;
->          struct mtk_pcie *pcie;
->          struct reset_control *reset;
-> @@ -405,7 +407,7 @@ static void mtk_compose_msi_msg(struct irq_data *data, struct msi_msg *msg)
->          phys_addr_t addr;
->   
->          /* MT2712/MT7622 only support 32-bit MSI addresses */
-> -       addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
-> +       addr = port->phys_base + PCIE_MSI_VECTOR;
->          msg->address_hi = 0;
->          msg->address_lo = lower_32_bits(addr);
->   
-> @@ -520,7 +522,7 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
->          u32 val;
->          phys_addr_t msg_addr;
->   
-> -       msg_addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
-> +       msg_addr = port->phys_base + PCIE_MSI_VECTOR;
->          val = lower_32_bits(msg_addr);
->          writel(val, port->base + PCIE_IMSI_ADDR);
->   
-> @@ -953,6 +955,7 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
->          struct mtk_pcie_port *port;
->          struct device *dev = pcie->dev;
->          struct platform_device *pdev = to_platform_device(dev);
-> +       struct resource *res;
->          char name[20];
->          int err;
->   
-> @@ -961,7 +964,14 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
->                  return -ENOMEM;
->   
->          snprintf(name, sizeof(name), "port%d", slot);
-> -       port->base = devm_platform_ioremap_resource_byname(pdev, name);
-> +       res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
-> +       if (!res) {
-> +               dev_err(dev, "failed to get port%d base\n", slot);
-> +               return -EINVAL;
-> +       }
-> +
-> +       port->phys_base = res->start;
-> +       port->base = devm_ioremap_resource(&pdev->dev, res);
->          if (IS_ERR(port->base)) {
->                  dev_err(dev, "failed to map port%d base\n", slot);
->                  return PTR_ERR(port->base);
->
-> I see a couple of other drivers also doing something similar. So I'll try to
-> send fixes for all of them separately.
-If you want me to integrate this fix in my patchset to avoid merge 
-conflicts, just let me know.
->>>> +
->>>> +	/* Set AHB to PCIe translation windows */
->>> [ ... ]
->>>> +static int mtk_pcie_retrain(struct device *dev, struct pci_host_bridge *host)
->>>> +{
->>>> +	struct pci_dev *rp;
->>>> +	int ret = -ENOENT;
->>>> +	u16 lnksta = 0;
->>>> +	u32 speed;
->>>> +
->>>> +	/* Should already have been warned about during startup_port */
->>>> +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK))
->>>> +		return 0;
->>>> +
->>>> +	for_each_pci_bridge(rp, host->bus) {
->>>> +		if (pci_pcie_type(rp) == PCI_EXP_TYPE_ROOT_PORT)
->>>> +			goto found_port;
->>>> +	}
->>>> +
->>>> +	/* Should not happen */
->>>> +	return dev_err_probe(dev, ret, "root port not found\n");
->>>> +
->>>> +found_port:
->>> The commit message mentions that it is most convenient to retrain every port
->>> after startup. Does the goto found_port here unintentionally skip all
->>> subsequent root ports by breaking out of the loop after the first match?
->> There aren't any.
-> That's today, not tomorrow. You should do retrain for each of the Root Port
-> detected, and not the first one. Also, the driver is structured to handle
-> multiple Root Ports. So bailing out during first Root Port is not correct.
-Okay I'll change that.
->
->>> Also, is it safe to traverse host->bus->devices via for_each_pci_bridge()
->>> without holding the pci_bus_sem read lock? If a device is concurrently added
->>> or removed, this might lead to list corruption.
->>>
->>> Finally, pcie_retrain_link() is a sleepable function. Because the code does
->>> not acquire a reference to the root port via pci_dev_get() before sleeping,
->>> could a concurrent removal event free the pci_dev structure and result in a
->>> use-after-free?
-> This is concern is not valid. mtk_pcie_retrain() is getting called during
-> controller driver probe(), so there is almost no chance that the Root Port will
-> get removed during pcie_retrain_link().
+> Ack, I will update.
+>> ...
+>>
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +    description: DSI virtual channel
+>>> +
+>>> +  reset-gpios: true
+>>> +
+>>> +  backlight-en-gpios:
+>>> +    description: Backlight enable GPIO (active high)
+>>
+>> What is the name of the pin in ili7807s device?
+>>
+> Display daughter card has WLED driver as well as LCD bias driver.
+> 
+> The WLED driver's Enable is coming from WLED_P1_EN and PWM is coming 
+> from LCD_CABC output of the panel.
 
-Okay thanks for the guidance here, I couldn't really quantify the risk 
-but the complexity of trying to eliminate it was becoming a concern.
+WLED driver is not ili7807s. LCD bias driver also sounds like something
+else than ili7807s.
 
+So my question stays.
 
-I'll be back soon with v8
-
-
-Thanks,
-
-Caleb
-
->
-> - Mani
->
+Best regards,
+Krzysztof
