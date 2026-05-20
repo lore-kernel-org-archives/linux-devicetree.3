@@ -1,157 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9583431F2
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:08:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84A2352024
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:11:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779293293; cv=none; b=rWnZpt1C1BetG9egVnenG1/OWcBSmjht/18QlQi1Atgn3LlXXtXE5esnwP33u6oLOrA2dxyqq6tqI0U+FZNyn0MKmlSb7TX6yZnzR3ByJMmrldS/r3X6mxk1IsUdNKW1bd8fuHc0vgX/WxAxEr2JedJWsYSOTZfCRfquALvGfbQ=
+	t=1779293485; cv=none; b=tgg7Hykh+i0cF40OFhvMnrlcGOz+ED2s8WarUubeaYXuFyxijb4x+unJA+e4Y7bbIyu/CJmO9bgy1+vZRvKyozfnMBhRpNQnLj3UFu7LyUpTiuwmdd0s9g4VoBOz2jo2x69/zswbIppGG7qYr3oXq0JvE1Hkt1LQFhzhK0mDMiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779293293; c=relaxed/simple;
-	bh=Un2JkRzt/3Utv9l/X4ONPK2t0HZg1Oy6LZ/r0Uxj1/U=;
+	s=arc-20240116; t=1779293485; c=relaxed/simple;
+	bh=VcViSfCqKuzRHJHzNBajDg/V1DBPt5STBVHZ1i/cIrU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SPJPmzbI3i+PLOBpK+RFX7PsYSVVOQoG90XrrJUL68+csCGwTiewo3hiv5gGRRwiyOmdT6Fl9fxVcsB8KF4jjDe4+/L+4EgqB1W9JLGh8zYJVol7KOetaAmg1nyROK+03yhsdV/c6AIyI0YKwocZJEg7xe5M9URxZ1XA5EdLTxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bS/Vwlvt; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RsKYLZKlbfu0c4x9kzUD9eoFG4LPE035POXe0S9tMUOBktvhTNSFxSdVmJ3pcayK1IuRNPusMO0abieRaDZxDQvCPh46LmcojqHILjPDpyz8nI2GY2FZ7GJ2In9qb3jsTbHAUul6ufxYiVdGLpM4kbvqw4xVI1pYD8cGMTagkXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JyQktzbl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bS/Vwlvt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AB01F000E9;
-	Wed, 20 May 2026 16:08:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JyQktzbl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0291F000E9;
+	Wed, 20 May 2026 16:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779293291;
-	bh=ui1iMjrzzzuggV49+TmuauPNdcMmuOAYXZ5lVWTcYVE=;
+	s=k20260515; t=1779293483;
+	bh=aWqgRPW6W/P6RXTfg8d65pUNlrgUfF/Ex4LHRj3mF4E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bS/Vwlvtcc93t/24bY82CfSywAU2okyrk6QbvAabC47rKz9yvuWR4MAQrjTG3o76u
-	 M+cjfczNhHMc4SZJa5Q0K8i5a9bOtr87ZccpuPrjFVNa1aPnQ8qy45wriyp5vac/Ti
-	 B7NlA/jNldvl+1AmgjPIjgLDsBoYn4WSP55e8MKEDFQ058BkMSzwKgUz1RMnlVlu2P
-	 Doeio0n4BoYhYscNrQUgzkZD9/0K+axvFhQmOOkLNUvM/d1IAEMjb0T7nt4/XRXylO
-	 5Z+igO3r03qc8Zwad0iO3wuHO2YQrkPTOJgAEgFafLAJNWzFsRwACACf4z9wwHxsqo
-	 FAfGoMZ5gpUMw==
+	b=JyQktzblYKfCSr3/81ZGoNQnCm5ERgGlEdOCuHlyD3sBo8cSQnM7M116c8Ys9ONf9
+	 RxrG5biE/OhZ27Qq548M7ZfrSyrNIXgZpnIV95wfKWBCIni0yCLov6R1ccw+Z1E/GK
+	 EqOHHyUFxvaOid99Un+5uEc0Y/Qb9nImASmBnl3DL8gI0W7vvMvbZfDznFk0bAjmIs
+	 QWw5vsUW/u/rrTcV6UcHSiLChxGmtPGy84m7jMs0oew3/TRft6p0ifDvCMOWVzwPZV
+	 bWBNowuyAfDFKXJ3Qq/Q4jCyE2k0i2z6qZ9Z8qII6slK8/b1y/avhfqbqdBUprVvE8
+	 8r6dHDpw8Zc5g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/8] nvmem: core: Enforce stride and alignment checks
- for nvmem_device functions
+Subject: Re: [PATCH v5 1/7] thermal/drivers: airoha: fix copy paste error on
+ clamp_t low temp
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260520-rpi-otp-driver-v5-2-b26e5908eeac@linutronix.de>
-References: <20260520-rpi-otp-driver-v5-2-b26e5908eeac@linutronix.de>
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260520155525.22239-2-ansuelsmth@gmail.com>
+References: <20260520155525.22239-2-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 16:08:11 +0000
-Message-Id: <20260520160811.99AB01F000E9@smtp.kernel.org>
+Date: Wed, 20 May 2026 16:11:22 +0000
+Message-Id: <20260520161123.0F0291F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Unconditionally enforcing `word_size` alignment in `nvmem_device_r=
-ead` breaks existing in-kernel consumers and backend drivers that safely su=
-pport unaligned reads.
-- [Medium] The `IS_ALIGNED` macro is incorrectly used with `nvmem->stride` =
-and `nvmem->word_size`, which are not guaranteed to be powers of two.
-
 Pre-existing issues:
-- [High] Missing bounds checking in `nvmem_device_read` and `nvmem_device_w=
-rite` against `nvmem->size` exposes the system to out-of-bounds memory acce=
-sses.
-- [High] Backend drivers perform SLAB out-of-bounds reads when processing w=
-rites for bit-offset cells due to mismatched buffer sizes.
+- [High] The driver fails to clear old thresholds or disable the thermal mo=
+nitor when trip points are disabled, potentially causing an interrupt storm.
+- [High] The interrupt handler uses a `switch` statement on a bitmask, sile=
+ntly dropping events if both hot and cold interrupts are asserted simultane=
+ously.
+- [High] The thermal interrupt is requested before the thermal zone is regi=
+stered, which can lead to a NULL pointer dereference.
 --
 
-commit d59bc7c372de847ac014e9a361f8f7bf075ff75c
-Author: Gregor Herburger <gregor.herburger@linutronix.de>
+commit e9247122d90d0d1f57f8075a6a171215a771b2d6
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-nvmem: core: Enforce stride and alignment checks for nvmem_device functions
+thermal/drivers: airoha: fix copy paste error on clamp_t low temp
 
-This commit adds alignment checks for offset and bytes against stride and
-word_size to the nvmem_device_read and nvmem_device_write functions.
+In airoha_thermal_set_trips, there is a copy paste error on clamping the
+value for the low trip temp point. Fix it to the correct value and actually
+clamp for the low variable.
 
-> diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-> index 311cb2e5a5c02..6b313f63d07ef 100644
-> --- a/drivers/nvmem/core.c
-> +++ b/drivers/nvmem/core.c
-> @@ -2068,6 +2068,12 @@ int nvmem_device_read(struct nvmem_device *nvmem,
->  	if (!nvmem)
->  		return -EINVAL;
+> diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_th=
+ermal.c
+> index b9fd6bfc88e5e..439aa011b75c7 100644
+> --- a/drivers/thermal/airoha_thermal.c
+> +++ b/drivers/thermal/airoha_thermal.c
+> @@ -273,7 +273,7 @@ static int airoha_thermal_set_trips(struct thermal_zo=
+ne_device *tz, int low,
 > =20
-> +	if (!IS_ALIGNED(offset, nvmem->stride))
-> +		return -EINVAL;
-> +
-> +	if (!IS_ALIGNED(bytes, nvmem->word_size))
-> +		return -EINVAL;
-
-[Severity: Medium]
-Is the IS_ALIGNED() macro safe to use here? Looking at include/vdso/align.h,
-IS_ALIGNED(x, a) is implemented using bitwise arithmetic:
-(((x) & ((typeof(x))(a) - 1)) =3D=3D 0)
-
-This macro is mathematically valid only when the alignment is a power of tw=
-o.
-Since the nvmem subsystem doesn't enforce power-of-two constraints for stri=
-de
-or word_size during registration, if a driver defines a non-power-of-two
-value, wouldn't this macro evaluate incorrectly and reject valid alignments?
-
-[Severity: High]
-Could this unconditional word_size check break existing backend drivers that
-safely support unaligned reads?
-
-Historically, nvmem_device_read() permitted unaligned lengths, delegating t=
-he
-read to the backend's reg_read function. Since the framework lacks separate
-read and write constraints, many drivers specify a larger word_size to
-enforce constraints strictly on writes, but gracefully handle arbitrary-siz=
-ed
-unaligned reads internally (e.g., using bounce buffers).=20
-
-Returning -EINVAL here might break legitimate read operations for dynamic
-payload lengths.
-
->  	rc =3D nvmem_reg_read(nvmem, offset, buf, bytes);
-
-[Severity: High]
-This is a pre-existing issue, but does this function need bounds checking
-against nvmem->size?
-
-Currently, nvmem_device_read() passes the unchecked offset directly to back=
-end
-callbacks. If an in-kernel caller provides an out-of-bounds offset, many
-hardware driver callbacks lack complete internal bounds checking, which mig=
-ht
-lead to arbitrary out-of-bounds MMIO accesses or integer underflow issues.
-
-[ ... ]
-
-> @@ -2096,6 +2102,12 @@ int nvmem_device_write(struct nvmem_device *nvmem,
->  	if (!nvmem)
->  		return -EINVAL;
+>  	if (low !=3D -INT_MAX) {
+>  		/* Validate low and clamp it to a supported value */
+> -		low =3D clamp_t(int, high, RAW_TO_TEMP(priv, 0),
+> +		low =3D clamp_t(int, low, RAW_TO_TEMP(priv, 0),
+>  			      RAW_TO_TEMP(priv, FIELD_MAX(EN7581_DOUT_TADC_MASK)));
 > =20
-> +	if (!IS_ALIGNED(offset, nvmem->stride))
-> +		return -EINVAL;
-> +
-> +	if (!IS_ALIGNED(bytes, nvmem->word_size))
-> +		return -EINVAL;
-> +
->  	rc =3D nvmem_reg_write(nvmem, offset, buf, bytes);
+>  		/* We offset the low temp of 1=C2=B0C to trigger correct event */
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is it possible for backend
-drivers to perform SLAB out-of-bounds reads when processing writes for
-bit-offset cells?
+This is a pre-existing issue, but does this function properly handle the ca=
+se
+where trip points are disabled?
 
-While this patch enforces word_size aligned lengths on direct nvmem writes,
-__nvmem_cell_entry_write() bypasses these checks and calls nvmem_reg_write()
-with a dynamically allocated buffer that is exactly cell->bytes long.
+If a trip point boundary is disabled (e.g., passing INT_MAX for the high tr=
+ip),
+its corresponding threshold register (EN7581_TEMPOFFSETH) is not updated. If
+both boundaries are disabled, enable_monitor is set to false, and the monit=
+or is
+never explicitly disabled via EN7581_TEMPMONCTL0.
 
-If a bit-offset cell spans 1 byte, but the backend driver assumes all
-operations are word_size aligned (e.g., casting buf to a u32 pointer and
-writing 4 bytes), could the backend perform a SLAB out-of-bounds read by
-dereferencing 4 bytes from a 1-byte heap allocation?
+This leaves stale thresholds active in hardware. If the temperature crosses
+these stale thresholds, the hardware will continue asserting interrupts.
+Because the trip is disabled in software, the thermal core will not take
+action to adjust the boundaries, which could lead to an unhandled interrupt
+storm that can render the system unusable.
+
+
+[Severity: High]
+This is another pre-existing issue, but could the interrupt handler silently
+drop events if both hot and cold interrupts assert simultaneously?
+
+Looking at airoha_thermal_irq():
+
+drivers/thermal/airoha_thermal.c:airoha_thermal_irq() {
+	...
+	status =3D readl(priv->base + EN7581_TEMPMONINTSTS);
+	switch (status & (EN7581_HOFSINTSTS0 | EN7581_LOFSINTSTS0)) {
+	case EN7581_HOFSINTSTS0:
+		event =3D THERMAL_TRIP_VIOLATED;
+		update =3D true;
+		break;
+	case EN7581_LOFSINTSTS0:
+		event =3D THERMAL_EVENT_UNSPECIFIED;
+		update =3D true;
+		break;
+	default:
+		/* Should be impossible as we enable only these Interrupt */
+		break;
+	}
+
+	/* Reset Interrupt */
+	writel(status, priv->base + EN7581_TEMPMONINTSTS);
+
+	if (update)
+		thermal_zone_device_update(priv->tz, event);
+	...
+}
+
+If the hardware asserts both the hot and cold interrupt bits simultaneously
+(e.g., due to a delayed IRQ handler combined with temperature fluctuations,
+or a hardware glitch), the bitmask value matches neither case.
+
+It will fall through to default, leaving update =3D false, and clear both
+interrupts in hardware without notifying the thermal core.
+
+
+[Severity: High]
+This is also a pre-existing issue, but could requesting the interrupt before
+registering the thermal zone lead to a NULL pointer dereference?
+
+Looking at airoha_thermal_probe():
+
+drivers/thermal/airoha_thermal.c:airoha_thermal_probe() {
+	...
+	ret =3D devm_request_threaded_irq(&pdev->dev, irq, NULL,
+					airoha_thermal_irq, IRQF_ONESHOT,
+					pdev->name, priv);
+	...
+	priv->tz =3D devm_thermal_of_zone_register(dev, 0, priv, &thdev_ops);
+	...
+}
+
+The driver does not explicitly disable or clear hardware interrupts prior to
+requesting the IRQ.
+
+If a bootloader or previous kernel left the thermal monitor running and
+interrupts enabled, an interrupt can fire immediately upon request. The
+handler airoha_thermal_irq() will execute and call
+thermal_zone_device_update(priv->tz, event).
+
+Because priv->tz is not yet populated, this would cause a NULL pointer
+dereference during initialization.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-rpi-otp-dr=
-iver-v5-0-b26e5908eeac@linutronix.de?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520155525.2223=
+9-1-ansuelsmth@gmail.com?part=3D1
