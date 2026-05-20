@@ -1,135 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1763403F3;
-	Wed, 20 May 2026 19:28:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6732F5487;
+	Wed, 20 May 2026 19:33:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779305301; cv=none; b=U6t9PhvopX+SRvFgesE+YyyY8oh8R4nhAav5VAcZtXxrHzw2Rhuz/ckn/oKmxQnrQ9d/C5ZRmB6KxJpufJIPg+KdnvPoPn2OfG5T3czbQX/MRvKVHYXlXHq7HLGapxnMY/y03ERC6gg/8Yj5f4osZkXGcT8WTKvvxgp+dfViXyw=
+	t=1779305638; cv=none; b=UDJE0GeIXs70IdC1CySCOxIAQRUFFFVppJYzMbjZ9lTybnFSE5MLDVclaXcWsGjYn0awK09Yp4k70V+jGYvUKASELP0Gw646hHGOwExyZjO82hEzZ170oih/Lrr0b2iQ4R6gek/5nNp6uoqJwr8dz88M106IWkrsrWfzHwW4f8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779305301; c=relaxed/simple;
-	bh=LmQ6lnqRA4s4CZ3Lbhu3jdZSE6S3hW7M7u/DZ7lLQlA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EwuUllNpSaRLK3uvmz9xY8eDzDKg8VXcYjeenqeuUe2aT5KxBLZfa9W6L0lec+bei6E936sbx8hGnSR/DxJwIdJENu0kWwpvCJSymR1uphuBtGVBblq+96tqP9xT72NH3I4SKfk0h5su/8zNiTxlWnAm/7vO/hYzBpZjfZzVQIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eebYPSnA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779305638; c=relaxed/simple;
+	bh=hP/QvGLqAiBzZVHn5zGbr/LAb2mLcc3F4+LaKejHdGs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hT7WQMff0TDjZ7q31HKBbhmJkA8jm7TU/Ted1c3BCtGCbLBex3ci/nwFH+zFskKONpC7eAxdosg5WBuM+IQJs0FMLYCEObSju6+9LhWxy45p3LiGiXCr24iPq6w/dzAruwtqs9ZzR23d874syzWEMsbQaEUmBI+CzZEtJq6LQ9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQgLjYmC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eebYPSnA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629261F00894;
-	Wed, 20 May 2026 19:28:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQgLjYmC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EABB71F000E9;
+	Wed, 20 May 2026 19:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779305299;
-	bh=R1p8w1drNI+AR0PuSgVW+GhI1+mq2HwsvaVlruKlb84=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eebYPSnAyKm43Fr10MfhwIXYUpFqqOZccQ+RzIvZ+/0ihK/+I2c5AnvTLiVIBHP34
-	 vhtGIU8USMiSVSJbpuRCyW/Hwo1NYFhsJ/rVnF6V9g9BWy3YhKnczQKghNu42SzNmF
-	 O0TL6I/6Wo88GehvVno2tznAx/6c6OzuVH2Q7a9FuTtirVf4Yh2XvZUWdJMCenp0th
-	 Ol394Ltpr3MVAKRk6jOkZ1Vxy/496Gx0idIi1N2aPeVpTHRpMRuSEPPYygQsCxcaNl
-	 u0pS38I5eZhtvzBCv4J1Q7Ro6xmltM/5+6VoxsQSftKNE7HeJNWui5zbb8JW7Fe3Zp
-	 thkOOHq1L6Ddg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/6] mfd: motorola-cpcap: diverge configuration
- per-board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260520182124.117863-6-clamor95@gmail.com>
-References: <20260520182124.117863-6-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 19:28:18 +0000
-Message-Id: <20260520192819.629261F00894@smtp.kernel.org>
+	s=k20260515; t=1779305637;
+	bh=FwdNDljaMGup73w381sOoa6+KsM3P76fAXNy3Gbdf8w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MQgLjYmCkaBH3Tq2jLhFH41A2c/JLSOSb8EorHlVTcCGFOAnE32p0fxg+4PWYE27e
+	 6+jdxoAWCdVpauFKxN4WmmYBlNxcvWejVUx28CC9dAB/e4hUqB95XauYMnrqGtVYAO
+	 QwBt5+B8Ynn8VqMq45VE6P3SfKDlbfj5EzSxxnDhkPcjS1SwTLhBOMvxKj7ZzlPNga
+	 YKgRUUMvnO+akHcZh29unWQKhzMaNK56D5KW/iWmykRTiQUtzZvt4Lkt045arwrbpD
+	 lTFyRtE5L9wThuDFjdkT4ukzggrECpRaFh6iVyFuQrLi7u5VBK1VVsAmLlCsVhVZDI
+	 qNNctqIvMNOQg==
+Message-ID: <12e149c4-60f9-4ffb-b066-7611bdd15786@kernel.org>
+Date: Wed, 20 May 2026 21:33:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: interconnect: qcom,x1e80100-rpmh: add
+ clocks property to enable QoS
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Georgi Djakov <djakov@kernel.org>
+Cc: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rajendra Nayak
+ <quic_rjendra@quicinc.com>, Abel Vesa <abelvesa@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260422-x1e80100_qos-v1-0-bcc2afe4cc78@oss.qualcomm.com>
+ <20260422-x1e80100_qos-v1-1-bcc2afe4cc78@oss.qualcomm.com>
+ <20260423-thick-beneficial-capuchin-e4aaad@quoll>
+ <99830e85-5837-4ed5-8f89-fea5d3e632f8@kernel.org>
+ <c583a03f-381d-4af9-acb0-ac47a1e35b47@kernel.org>
+ <7oador7jxw443astffc6hjuf3gots64fqmvsjdsshfhhonc2l7@2unu723p2orx>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <7oador7jxw443astffc6hjuf3gots64fqmvsjdsshfhhonc2l7@2unu723p2orx>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] Modifying the OF match table breaks backward compatibility wit=
-h existing Device Trees.
-- [Low] Casting a pointer directly to an enum causes a `-Wpointer-to-int-ca=
-st` compiler warning on 64-bit architectures.
---
+On 20/05/2026 21:27, Dmitry Baryshkov wrote:
+> On Wed, May 20, 2026 at 10:11:47PM +0300, Georgi Djakov wrote:
+>> On 5/20/26 9:51 PM, Krzysztof Kozlowski wrote:
+>>> On 23/04/2026 10:38, Krzysztof Kozlowski wrote:
+>>>> On Wed, Apr 22, 2026 at 02:05:11AM +0000, Raviteja Laggyshetty wrote:
+>>>>> Some interconnect nodes on X1E80100 have QoS registers located inside
+>>>>> a block whose interface is clock-gated. For those nodes, driver
+>>>>> must enable the corresponding clock(s) before accessing the
+>>>>> registers. Add the 'clocks' property so the driver can obtain
+>>>>> and enable the required clock(s).
+>>>>>
+>>>>> Only interconnects that have clock-gated QoS register interface
+>>>>> use this property; it is not applicable to all interconnect nodes.
+>>>>>
+>>>>> Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+>>>>> ---
+>>>>>   .../bindings/interconnect/qcom,x1e80100-rpmh.yaml  | 62 ++++++++++++++++++++++
+>>>>>   1 file changed, 62 insertions(+)
+>>>>
+>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>
+>>> And unreviewed as it breaks users:
+>>> https://krzk.eu/#/builders/102/builds/70/steps/23/logs/warnings__3_
+>>>
+>>
+>> I will just drop these patches for now, i have put them in a separate branch anyway.
+> 
+> I think, dropping 'required' clause would be the easiest fix. Or just
+> wait for Bjorn to pick up the DT changes.
 
-commit d4fffaca1e4a78c4406875cbdeef7c59b0fe0b1a
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Could be, initially I thought this is actual impact on users, but indeed
+now I recall that driver prints "info" message and continues. So the
+binding is not correct.
 
-mfd: motorola-cpcap: diverge configuration per-board
-
-This commit introduces board-specific subdevice configurations for the
-Motorola CPCAP MFD. It defines common, default, and mapphone device lists
-and uses SPI/OF match data to select the variant.
-
-> diff --git a/drivers/mfd/motorola-cpcap.c b/drivers/mfd/motorola-cpcap.c
-> index d8243b956f875..5b6ca6b81c232 100644
-> --- a/drivers/mfd/motorola-cpcap.c
-> +++ b/drivers/mfd/motorola-cpcap.c
-[ ... ]
-> @@ -241,62 +229,58 @@ static int cpcap_resume(struct device *dev)
-[ ... ]
->  static int cpcap_probe(struct spi_device *spi)
->  {
->  	struct cpcap_ddata *cpcap;
-> +	const struct mfd_cell *cells;
-> +	unsigned int num_cells;
->  	int ret;
-> =20
->  	cpcap =3D devm_kzalloc(&spi->dev, sizeof(*cpcap), GFP_KERNEL);
->  	if (!cpcap)
->  		return -ENOMEM;
-> =20
-> +	cpcap->variant =3D (enum cpcap_variant)spi_get_device_match_data(spi);
-
-[Severity: Low]
-Does this direct cast from a pointer to an enum cause a compiler warning on
-64-bit architectures?
-
-spi_get_device_match_data() returns a const void *, which is 64-bit on
-64-bit architectures, while enum cpcap_variant is typically a 32-bit intege=
-r.
-Casting directly from a 64-bit pointer to a 32-bit enum can trigger a
--Wpointer-to-int-cast warning and cause build failures when compiled with
--Werror.
-
-Should the pointer be cast to an intermediate integer type like
-(uintptr_t) or (unsigned long) first?
-
-[ ... ]
-> @@ -331,10 +315,29 @@ static int cpcap_probe(struct spi_device *spi)
-[ ... ]
-> +static const struct of_device_id cpcap_of_match[] =3D {
-> +	{ .compatible =3D "motorola,cpcap", .data =3D (void *)CPCAP_DEFAULT },
-> +	{ .compatible =3D "motorola,mapphone-cpcap", .data =3D (void *)CPCAP_MA=
-PPHONE },
-> +	{ /* sentinel */ }
-> +};
-
-[Severity: Critical]
-Does this modification to the OF match table break backward compatibility w=
-ith
-existing Device Trees?
-
-The Device Tree is considered a stable ABI in the kernel. This change reass=
-igns
-the existing "motorola,cpcap" compatible string to map to CPCAP_DEFAULT ins=
-tead
-of preserving its legacy behavior (which included Mapphone-specific child
-nodes).
-
-Older DTBs rely on "motorola,cpcap" to instantiate devices such as the batt=
-ery
-charger and Mapphone-specific ADC/regulator/USB-PHY. By mapping to
-CPCAP_DEFAULT, the MFD core uses generic compatible strings (e.g.,
-"motorola,cpcap-adc" instead of "motorola,mapphone-cpcap-adc") and entirely
-omits the charger. As a result, the child devices fail to match their DT no=
-des,
-leaving them without of_node pointers and breaking critical functionality.
-
-Additionally, could the complete removal of the "st,6556002" compatible str=
-ing
-(mentioned in the commit message) break devices relying on it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520182124.1178=
-63-1-clamor95@gmail.com?part=3D5
+Best regards,
+Krzysztof
