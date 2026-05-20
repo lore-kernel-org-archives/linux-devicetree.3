@@ -1,61 +1,63 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6646371048
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 18:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BEF3F9296
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 18:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779301398; cv=none; b=f94ZYBAGyx9i70KjqSfm+JlEZGPsEof70EdNECSkj6XdVzfr4yayPfnj8zi9F51EMjXHbDzj9SsnnGS3AIcMY945W+vUkuo9QedVsMDsgN2eGWlm0Q/fhTI2v5XejgmIXDJFRvv8gfnAtzJaKWuUsu7wEtdibtDEgw2IfsksMMQ=
+	t=1779301400; cv=none; b=dbnUwDnfE6EkfKRqjzy9bOi4ennEcDlpIpTcpqFjJuIvuILdEgdoEg3BKC429Sm8S3NLXJenEfZ27T3e7rJPsrR9K476VsgFyvfMu8LKZJaOrjUZZb48akInGQbny9uc4WlPOrQDdb67mRBDoUcY71vY9SZEHqfZDJMlQsx7Vf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779301398; c=relaxed/simple;
-	bh=u2OLiahfl07CNATXuFabWWh9FHbJAKKwBhG0BfZL37o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bh3UNj7FY+zzT8YLd1N14i/2snHTSQ0HE5qxYzPZHcyuEzYVDdJEalKQjk+tZ5UacaLdTr8Ge8Na/pyQH+wlgCq7R1AAY2ZzgqoktJBk5/7u0Lf/M9Apk9WXjmPo2lwNWzWWA1PlNs997T8rf9Dc/j1MHgTbalJTTwATh66DYxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DzNk9hke; arc=none smtp.client-ip=209.85.221.42
+	s=arc-20240116; t=1779301400; c=relaxed/simple;
+	bh=DrNGeBlRxTjZoXBtwt3WHPiWKByZ7OZ+6oYAQENqEx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bmUysX0k1w9gK9seXps/XunyV5UmWD+s5/1zrnjb+n4gJ4CFfEsXJ5h19noIjQ5OverKykkyRa9BX7tv4ms/UmDil+pzIY3gOjCihRUISS14QXFs7GzXhRQA4yVJitpcQMOAODAzmXj5G5ljPDz0W1wkEsWb53wjGhsW5h7shm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akt16iCY; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DzNk9hke"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-444826c16ffso4696959f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:23:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akt16iCY"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-44509921fbcso3346732f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:23:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779301395; x=1779906195; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YOOkfLDGxoFwS+H8nJxSYqxjZdBzyZuCgc0/2jHIOOo=;
-        b=DzNk9hkeA5tH0IcOuG4LNn2Pt1H0Baagmyfj2myXoEdVJb2uimWH2UhtK5DFJ18l6R
-         ZTrq93rHGKC9SSzsnDKzepy4pQ2XDUZufdlmHO+dWswFqHTvKbN4QbfZ0m9fayvUVyiM
-         rMC+LtlKNPVPDW4oQV7aEbyuA7CRxehWcmlzhD/ZZrDRWbZiofpj+CYM4qg8yEf1sOG7
-         GK1IcoPIhyTQbtsCZ05fYuKYuD+yeBgLl4lBMUmfSqPORgm4rnAs1peUog0OACwvYzO/
-         ZmcgbGwX9cysd2hcKbfYXz+k8IHruYhjZavmIaOLo86hMvylXAaVvge8VK5fRm4dPp7a
-         9qkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779301395; x=1779906195;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1779301397; x=1779906197; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YOOkfLDGxoFwS+H8nJxSYqxjZdBzyZuCgc0/2jHIOOo=;
-        b=T1QMWT/E9C79nfgYkht2DNIYpSoQH2FCxUvRCS85q6cMNS7o2d18lh/WDgJkfUcp06
-         W+T5XhGIK2xmO5SGf2X7/beHfsenxGPWOKyk5tVC5AZl0JufkfEOiZHGrjBFlHxPuYwU
-         +4qhfhQGOhEKk9YwxFJNG/wbMhHtJ70WNQDaobSbE+E7doL9mXycPxw2ZuXOY3h/zp/8
-         Ca4urLhx97PaeHj2o7SPwznQkSEKYnqiu39FEzU2bXr2dGXz7KY2VgP7vKILI2IvyG5F
-         bsNdzDsZhBiUyxivXYD4JG3BmV7iT6fP1jKbrs6Zmrm8Q9sFeP24dt0AoVq7MJBosf90
-         Pfkw==
-X-Forwarded-Encrypted: i=1; AFNElJ+XgEcq+aYrxYj5r2tvfIjZ+4sGk5yp5z4nMkhEvfMIa7ve5HP+lVSgjYjZBPSRgRYIwZYtgQnMYSnP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxu5PSA19io40jLEUhv0RmdjVswySvBEkJyB/nyzl2CFb4hYz3w
-	H+d+ay6ZVNGCTYEo1GHC34JflY+J4z70ZDZveytbR8sS9djLYcY5SKHT
-X-Gm-Gg: Acq92OF/obT2Paj4Ow/a4xE8Ch8kFOZ6sY2lXmvwgwYtYRuNZJh/ma/GKah90BTDof5
-	+CsYkW6rtE/0c9yoQOAsnRox9Mt9ciZa9T2+kh0Za+76pwoAeDT/BVo8/kAWu4h01BAcdyG2wgE
-	UKbU6fl/+NloRyGn5p8eh84Vqyb20amBEI5j53omxJlAplEu7yHhWirmu5bun5pBCzwh+D6dZ4Q
-	T8ak+ysj8fQGKfVLK9il3YY5PGDIbDkzmHdOvoAOf5vtPCsdy+gox/8cII3d1cnVAO3/89relRZ
-	HK0NSlPWJIdSEvKdLyjFdq7bYPZlN+Q/Hrfx8xABJVDs2D6Gz0AUDJTY9iDXoGKJRub+Liop76X
-	EuzEkyvO0kMFrpKAOIiux+Wf2aSDK4XH7QgKnPxVYOidWhqwzIsICCtgMAdbQi65v43XFIcFEJN
-	KuMhsAKbdUBQB8f9jdwte+ULA=
-X-Received: by 2002:a05:6000:2f83:b0:43b:3d02:7806 with SMTP id ffacd0b85a97d-45e5c58ed80mr42266150f8f.28.1779301395198;
-        Wed, 20 May 2026 11:23:15 -0700 (PDT)
+        bh=KFT7mMG9k0k/BXen8CQg8hnB8vdYe60xOPZB+uYBrVs=;
+        b=akt16iCYWyGuFuq/BySn+yBAP22U+VauCP1VfFjlxMpEu0M2DrcMBMHrTJ9padWPYD
+         BiBtSU0CWO+TPWZ9cpQNi6LhC6EljQflx2K8LEl+lsb/iwLG7y49IGopsXLElVo83Wsc
+         H9iMB1H2w68rIl444/CBLzCxoEVIXN4v9qfoTHrKG8622u16TJ07FF1LOEAWyJw4RPN6
+         r1XI/8HeaxlPKUV5K/03OEmk8qdrg51CKoX8UPZY9OpN0Ym7O5kaytnAzbxhTVhZGZmH
+         ZwvUb4z6B1A46gCpoZ8D4ljd/zsPNJqWVp9bcvEoMJICk55tzBXaYwW4K16g4468CzDp
+         E/kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779301397; x=1779906197;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KFT7mMG9k0k/BXen8CQg8hnB8vdYe60xOPZB+uYBrVs=;
+        b=F3f9/doaput+1J9Ed1taZUewXl3/xOrOA4bpilin2q4enbZbKQMng9B8oS45bYws8T
+         835DEgPKcsq304JL27/eJK/WQB1FRKlFW6hUoox6+QMDnXsfLspDQ6g49O01oPwJMf7s
+         RQigivb0RgkXgvGso7igyssjcJLh9kSFD02M4uM9BWPyV7E/Tljezw/Di5pPAtcPdiSN
+         tvKT6DX0fJnYEgZGhLW7QVtm1FauRbC3KTqg0jk7ZPem2Eoa26MuqDM8SliuisfY3R2m
+         wzhfpODbCO/1nTDwvyOaRbZJlNIe8H/otiXBdQrg0HYU85FvdW8gMBt4jli9PdHdRInO
+         ekYg==
+X-Forwarded-Encrypted: i=1; AFNElJ8+nc3oUvHTwoPkG1zipWEnJooQtyLRrwfi9pElXelpwehT5m9EB+UGjRft9XgJ9FGswUJprEwExEh+@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwFSVriqjVCT76RazshANgldPSmenpe2dVm0O6rpX0l1blwtaU
+	eOMAzOk9nk/yOZiv3rxZaDEiNzSYDLgWm8H3l/JRFq71GluOKZYHJmz1xNLRGA==
+X-Gm-Gg: Acq92OGKDDfBXV2lvqgRQZ+K+EVkuezapeQLQs45urvShAbnvomRtcAeqaZ2f54X4pe
+	Up8q78ZmHGtD0AZOA0F1fsnQTC4F5GnhqYjVudmEGYG7M7/zbZdmvO/RWP3HFGaQhrNlIFvvYRI
+	2/ZeCv4qSdIP4pBtcT1HeXX82F0glEJQ0xTfpfOvcWIsadDdF1WTAqcRjgmE19tOdmHJb4dTjNs
+	E1xuHcAON7SDZ4xle+LFkfDLO0eWpOC9H+me/J8wh6sf6d3Us4pMKmszeGvprdIbKchd0q8EeXX
+	XXV+Dg35eaLhRQ8X9q7oXOEFQhe6Am8774L2hXkeAtXtMiAAB9fOPAiUXNo9Jfo5PRSdZCqPUEW
+	AFW7samhJSe/MxatwlsITFn8yTYnC2I1lcsdJOQ8m+HoJMM3N6Mq/TaEbuM2F36wy6YvuJnPMKl
+	E6v7W1Y2j7hlfy
+X-Received: by 2002:a05:6000:24c9:b0:43c:ffee:ee94 with SMTP id ffacd0b85a97d-45e5c5a0198mr43839740f8f.11.1779301396553;
+        Wed, 20 May 2026 11:23:16 -0700 (PDT)
 Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9ec3b18fsm51297739f8f.11.2026.05.20.11.23.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9ec3b18fsm51297739f8f.11.2026.05.20.11.23.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 11:23:14 -0700 (PDT)
+        Wed, 20 May 2026 11:23:16 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
@@ -68,10 +70,12 @@ Cc: linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-leds@vger.kernel.org
-Subject: [PATCH v6 0/6] mfd: cpcap: convert documentation to schema and add Mot board support
-Date: Wed, 20 May 2026 21:21:18 +0300
-Message-ID: <20260520182124.117863-1-clamor95@gmail.com>
+Subject: [PATCH v6 1/6] dt-bindings: leds: leds-cpcap: convert to DT schema
+Date: Wed, 20 May 2026 21:21:19 +0300
+Message-ID: <20260520182124.117863-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260520182124.117863-1-clamor95@gmail.com>
+References: <20260520182124.117863-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,72 +84,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The initial goal was only to add support for the CPCAP used in the Mot
-Tegra20 board; however, since the documentation was already partially
-converted, I decided to complete the conversion to schema too.
+Convert LEDs devicetree bindings for the Motorola CPCAP MFD from TXT to
+YAML format. This patch does not change any functionality; the bindings
+remain the same.
 
-The CPCAP regulator, leds, rtc, pwrbutton and core files were converted
-from TXT to YAML while preserving the original structure. Mot board
-compatibility was added to the regulator and core schema. Since these
-were one-line patches, they were not separated into dedicated commits;
-however, the commit message notes this for both cases.
-
-Finally, the CPCAP MFD was slightly refactored to improve support for
-multiple subcell compositions.
-
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-Changes in v2:
-- fixed code style
-- rtc conversion was picked, so patch dropped
-- added audio ports description into mfd schema
-- splitted schema conversion and compatible addition
-- minor style improvements and typo fixes
-
-Changes in v3:
-- added regulator node names list into pattern
-- filled spi_device_id with driver data
-- ADC patches were picked, so changes dropped
-
-Changes in v4:
-- dropped regulator patches (applied)
-
-Changes in v5:
-- switched to MFD_CELL_* macros
-- switched to use determinator of model
-- switched to spi_get_device_match_data
-
-Changes in v6:
-- removed address-cells and size-cells from main node
-- changed macros formatting and OF matches
-- factored out common devices and made device addition staged
-- dropped cpcap->variant check for 0
-- EINVAL > ENODEV in variant checking switch
----
-
-Svyatoslav Ryhel (6):
-  dt-bindings: leds: leds-cpcap: convert to DT schema
-  dt-bindings: input: cpcap-pwrbutton: convert to DT schema
-  dt-bindings: mfd: motorola-cpcap: convert to DT schema
-  dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
-  mfd: motorola-cpcap: diverge configuration per-board
-  mfd: motorola-cpcap: add support for Mot CPCAP composition
-
- .../bindings/input/cpcap-pwrbutton.txt        |  20 -
- .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
- .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
- .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
- .../bindings/mfd/motorola,cpcap.yaml          | 408 ++++++++++++++++++
- .../bindings/mfd/motorola-cpcap.txt           |  78 ----
- drivers/mfd/motorola-cpcap.c                  | 143 +++---
- include/linux/mfd/motorola-cpcap.h            |   7 +
- 8 files changed, 571 insertions(+), 188 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwrbutton.txt
- create mode 100644 Documentation/devicetree/bindings/input/motorola,cpcap-pwrbutton.yaml
+ .../devicetree/bindings/leds/leds-cpcap.txt   | 29 -------------
+ .../bindings/leds/motorola,cpcap-leds.yaml    | 42 +++++++++++++++++++
+ 2 files changed, 42 insertions(+), 29 deletions(-)
  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap.txt
  create mode 100644 Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
- create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
- delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cpcap.txt
 
+diff --git a/Documentation/devicetree/bindings/leds/leds-cpcap.txt b/Documentation/devicetree/bindings/leds/leds-cpcap.txt
+deleted file mode 100644
+index ebf7cdc7f70c..000000000000
+--- a/Documentation/devicetree/bindings/leds/leds-cpcap.txt
++++ /dev/null
+@@ -1,29 +0,0 @@
+-Motorola CPCAP PMIC LEDs
+-------------------------
+-
+-This module is part of the CPCAP. For more details about the whole
+-chip see Documentation/devicetree/bindings/mfd/motorola-cpcap.txt.
+-
+-Requires node properties:
+-- compatible: should be one of
+-   * "motorola,cpcap-led-mdl"		(Main Display Lighting)
+-   * "motorola,cpcap-led-kl"		(Keyboard Lighting)
+-   * "motorola,cpcap-led-adl"		(Aux Display Lighting)
+-   * "motorola,cpcap-led-red"		(Red Triode)
+-   * "motorola,cpcap-led-green"		(Green Triode)
+-   * "motorola,cpcap-led-blue"		(Blue Triode)
+-   * "motorola,cpcap-led-cf"		(Camera Flash)
+-   * "motorola,cpcap-led-bt"		(Bluetooth)
+-   * "motorola,cpcap-led-cp"		(Camera Privacy LED)
+-- label: see Documentation/devicetree/bindings/leds/common.txt
+-- vdd-supply: A phandle to the regulator powering the LED
+-
+-Example:
+-
+-&cpcap {
+-	cpcap_led_red: red-led {
+-		compatible = "motorola,cpcap-led-red";
+-		label = "cpcap:red";
+-		vdd-supply = <&sw5>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml b/Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
+new file mode 100644
+index 000000000000..c8e7b88a05cc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
+@@ -0,0 +1,42 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/motorola,cpcap-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Motorola CPCAP PMIC LEDs
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++description:
++  This module is part of the Motorola CPCAP MFD device. For more details
++  see Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml. LEDs are
++  represented as sub-nodes of the PMIC node on the device tree.
++
++allOf:
++  - $ref: /schemas/leds/common.yaml#
++
++properties:
++  compatible:
++    enum:
++      - motorola,cpcap-led-adl # Display Lighting
++      - motorola,cpcap-led-blue # Blue Triode
++      - motorola,cpcap-led-bt # Bluetooth
++      - motorola,cpcap-led-cf # Camera Flash
++      - motorola,cpcap-led-cp # Camera Privacy LED
++      - motorola,cpcap-led-green # Green Triode
++      - motorola,cpcap-led-kl # Keyboard Lighting
++      - motorola,cpcap-led-mdl # Main Display Lighting
++      - motorola,cpcap-led-red # Red Triode
++
++  vdd-supply: true
++
++required:
++  - compatible
++  - label
++  - vdd-supply
++
++unevaluatedProperties: false
++
++...
 -- 
 2.51.0
 
