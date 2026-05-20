@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1863A450A;
-	Wed, 20 May 2026 11:22:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF7B3BE162;
+	Wed, 20 May 2026 11:22:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779276129; cv=none; b=MIaMjWlJ1y+SrmU1JgLsfpgKdAiaTAsFxAsYT3dzGPgTyB8n2fbWGgIscONIkgjT4q11wyK6iL5PrXxkgz54D1qnJdMysSNY+dyriFzy+ZpZrEZWtGpxbvzMffaAeV4yuXiWaSfPM5NliFRPzptEjgOcI8IL5AEmpgfQSxr3T64=
+	t=1779276176; cv=none; b=BUrYf26dBsbqAiTL/4u00+7tiTlrCJnQHLEL5gQsOvh5pXC+4jLeEQyVXgUtfG1DNBRIfGLkOIb9GjcdP6KdyLxAvwbCbn0dGhhsOgxMSSaREls6p9mDYnDD9kYWk0DRcvzGJgnEL5foy5fOeVS0Z944FqW2QyVImDvoQYSGGNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779276129; c=relaxed/simple;
-	bh=QNpq3Jj9DzkYTI0WUypOaSJkFwfZPIxLJFJsu0s/HQk=;
+	s=arc-20240116; t=1779276176; c=relaxed/simple;
+	bh=SKwSxi91nC9vP8K9tYjtbhP/Ua26jzgSM4tbX2Y3xsM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GkJPa7X/821pR/sDhFoApPFP5sMqahL1TFDOxsktLxNymGAgnAAFL2gINX4bziacf0AcUzAC6jGS2HmWKToinDKOXb4PCeOSBSUzqJYX5mCTuab9ruTvmSAKd+64RbrdPDgYdmIbXgI7cs7VRYXaY1y7TSvkkAhth5DQKNu7ukg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mf/ic+Hd; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=DManl0Gb5xTxb/9h+iRFy01sSId33ov3QJohfh6zPAOjCGonZVGDBPMIIL6YTttCnJWECYVHiHLg3ME5WuAAhSLQoqUBtUPkw3HHKo1Z8E+/diKg6sM8p1OIpQRBIyxEzq9IYoLIQI0Zvl+uqPiQkgVq2sKdh5DVTACg0q0owjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Icn9+7of; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mf/ic+Hd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5141F000E9;
-	Wed, 20 May 2026 11:22:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Icn9+7of"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A8E1F000E9;
+	Wed, 20 May 2026 11:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779276127;
-	bh=G2CsxJ/VImy8jJ3Owd0aWo2po2plOLiVms9IwK9U6Ww=;
+	s=k20260515; t=1779276175;
+	bh=Hp+Jmq+uiuX41rhxEqpANqNaAHyAYT3Z4AqTaIWzOqo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Mf/ic+HdvlYcafQx6VesOvz1OWBkukK5u2WTc156tHJYlsfP/9G7XNdkzspwwHyE2
-	 jHXNqvJtJCWXYDpSZsarWQzO4ReszCDcAtWdy0BVK/WENOCn+WjkonJxj1qlxW0e5L
-	 wSebxGFqthbAStpIfXZ59wQnbVtSqvDN9BeixQoCqNl1RVvwPtxAh7j6TybRLTYk6C
-	 l7eUuwnAABHWAGbspYXBXOP/4E1K1QCa6gXPBQ1NFTe792EHEvCanzQhPG39KbjO6+
-	 Vkfjk6Jr+A/NQFsHovMt6CiMnvleIpELY3V9+0A0kkfUxf+CvkkGKzy0G0xuagOjW1
-	 sWtNKan7qXxBw==
-Message-ID: <4a61c0e2-5e35-4d58-9977-d9984bbfb6cc@kernel.org>
-Date: Wed, 20 May 2026 13:22:03 +0200
+	b=Icn9+7of3PUE09Jyr9mNk+XTTXnDQkRO+l/5Zdqy+PbDnyNs5aJ0XpKAxllgy+l3H
+	 QWYrWE6wcu0NzGo2Dy4EXXHVbWIo2ij1cLkq/9a9KWmqcmmEida++rL0k6Cx5wtSRP
+	 cDwX4aJYzo5JuQcs4gu6NgiuXqzAXOsK/+9EGgKvgSwHfsJXLz0nVi9sX8nABQqsd0
+	 CQnhEQyIsq/TQHr8KOKlByD/plrldKj4Iss9/rt+32NhPDtgMbEKYhqcTQUeMWZpJp
+	 N+fW/kDvRihDlyEILfiPa3bAuW+0RGKCxg0HgTeyKxvgbsDlwzD3g+yoK+WuJV3MXT
+	 FJ7SLMEEvERiw==
+Message-ID: <566e5978-0f7c-4de9-b2aa-1bc37bf1457b@kernel.org>
+Date: Wed, 20 May 2026 13:22:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: monaco-monza-som: Enable USB0 DRD
- mode
+Subject: Re: [PATCH 0/3] Add Cypress CYPD6129 UCSI support for monza SOM USB0
+ DRD
 To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -46,7 +46,6 @@ To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
 References: <20260520093902.2064730-1-akash.kumar@oss.qualcomm.com>
- <20260520093902.2064730-3-akash.kumar@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,47 +91,33 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260520093902.2064730-3-akash.kumar@oss.qualcomm.com>
+In-Reply-To: <20260520093902.2064730-1-akash.kumar@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 20/05/2026 11:37, Akash Kumar wrote:
-> Enable USB0 dual-role mode on monza SOM using the Cypress CYPD6129 UCSI
-> controller.
+> Hi all,
 > 
-> Switch the controller node to I2C12, configure the required pinctrl and
-> interrupt settings, and wire the USB2/USB3 endpoints for the USB-C
-> connector.
+> This series adds support for the Cypress/Infineon CYPD6129 UCSI controller,
+> used on the monza SOM platform for USB0 dual-role operation.
 > 
-> Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
-> ---
->  .../arm64/boot/dts/qcom/monaco-monza-som.dtsi | 57 +++++++++++++++++++
->  1 file changed, 57 insertions(+)
+> The series consists of:
+>   1. A dt-binding update to document the CYPD6129 compatible string for the
+>      existing CCGx binding.
+>   2. A driver update to bind the UCSI CCG driver to CYPD6129.
+>   3. A board DTS update to enable USB0 DRD mode on monza SOM using the
+>      CYPD6129 controller over I2C12.
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi b/arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi
-> index 9b5ed55939b8..8e3af6018dfc 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi
-> @@ -194,6 +194,52 @@ &iris {
->  	status = "okay";
->  };
->  
-> +&i2c12 {
-> +	pinctrl-0 = <&qup_i2c12_data_clk>, <&usb0_intr_state>;
-> +	pinctrl-names = "default";
-> +	status = "okay";
-> +
-> +	typec@8 {
-> +		compatible = "cypress,cypd6129";
-> +		reg = <0x08>;
-> +		interrupt-parent = <&tlmm>;
-> +		interrupts = < 3 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		status = "okay";
+> This enables the USB-C controller, connector, interrupt routing, and the
+> USB2/USB3 endpoints required for DRD operation on the platform.
+> 
+> Akash Kumar (3):
+>   dt-bindings: usb: typec: Add Cypress CYPD6129 UCSI controller compatible
+>   usb: ucsi: ccg: Add support for CYPD6129 (CCG6)
+>   arm64: dts: qcom: monaco-monza-som: Enable USB0 DRD mode
 
-Why do you need to enable it? Who disabled this node?
+Why are you mixing USB with DTS (don't! we asked many times already),
+and in completely random order (read submitting patches in DT dir).
 
 Best regards,
 Krzysztof
