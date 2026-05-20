@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EEA221F2F;
-	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49078363C74;
+	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779295242; cv=none; b=l6Qp+ERA6Q3FkNi5dxpIDLVvzw1mQRJa3WmvCAzUTMD5Ucf8RcVkMv0L2ajd4ct2Y1m6GEv9R08EugxAVBZWlg+shQlN5hoxXGHfoV8xBxThJBA3gwIH/6943lUDU0FZ07Xa/buitxjUiqJ6VBNxT2nFv9ZLMcaI1Za//PU1GPQ=
+	t=1779295242; cv=none; b=eijFr1cJ+3o3Ko3pEU8ajfCIvt0hreknVTUnwKvcNim+6HVy/MUEaulpCIvRCu4jt9RtJ66GrtrhXG5lah8vjSC1dwdCUU4/eOo+0VGCE/b/Lnr1sLdfqZdgJXGKcygfRXyaWUhlGgOPGnePqZMNLYrA8UfVl+eN8xFFUfWfxJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779295242; c=relaxed/simple;
-	bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ft2D4Ze/CRIwovc3hxRrWSIO4xeSuEHpp0Mammf2coCSTMt6wQBp4YPsUcJbwFWp5otqy/9ZUL35OfUrA78ELXsKklcultP4TO5q4veO0q3K+yFeL2t1Qsui3d17EQrIObExpgs2IsiEkW0izfdElxtQKbqCR27KcgASGC4tz9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bM2vWTiB; arc=none smtp.client-ip=10.30.226.201
+	bh=MyekTXthbD77XbAAilufOkHi42iN9IphYUU9ktVwJcM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=R+IMgrS6eXoW8myl1JNUhmm25ct1Sl0XQ3Tc96zDwGRQ4hs97sWztSqtatoggeD4E8+aOaY/aqTmQXxwMt99tEa48F3Z9BhI5HKlH3A6wAZ5g6qnceqAYGzBD7dIlaLWKgHhWoGBp61AUpnFP/2gx0ufcrAAD5VUuXIRMvTIkII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbVkFlg+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bM2vWTiB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B3C15C2BCB0;
-	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbVkFlg+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 153E2C2BCFF;
+	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779295241;
-	bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=bM2vWTiB3uWVR0vB6KYNd9Ft82YThNYWg+mwz5z6zUdP6SltRenR20T2V/wUx9APL
-	 DdTSYki+5OMp46KbFrx6w06L2eMbD7hZQmOWk5omXPnoej+wLtGfTSCoYbWjmC2e77
-	 iGkd6gL7g+tcSS+lloy8ckbvdOSqj1V9fVyjmhoIQWUOyv0NK0PIjFqT0j1jadHuGa
-	 z1H4k17qaQTKvi4HIte71E/JID6isEidTVy/pMcchBMRVFIqCiQKhO1KArKkwRbDjo
-	 9GcIoykYJsSDIoR7Rg8OnOcbt8EgseFMfG36QMq9S09niQX3HSvI2isVrMZshdfuAz
-	 r91eRTjqQermg==
+	s=k20201202; t=1779295242;
+	bh=MyekTXthbD77XbAAilufOkHi42iN9IphYUU9ktVwJcM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=XbVkFlg+Ax/Scz2iA8PTbPWoC1HZnoXuGyZLdJHZjtqdI70vkq8jppocBN85035aB
+	 tEf+Bl3EaTfRxihMxxa79GuYJ3E87ExgDb3Da3N/D2ko4gg0PElJ9fteMjykI4ZMtj
+	 HETVYgS+o1rROPNdk79lHuDFQUv5sHnvADYIYrTJJ40YqzcHhSpm6PdlgbEOvVNEw5
+	 OAdDVdfj9NkrLvUm46gpaKksqbbBKLYC1JLObaQymBejEe0zE5BCb1RdP1I0VXeX2e
+	 aKqaBH+aHAyJWvhvX+44oqoFyh7ijDCnceQd/T4ebmOMPQEt9ABnfKBrlt5ULt2GdE
+	 BP3oQjquAZaUw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5F73CD5BA4;
-	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05A6CCD4F3C;
+	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Subject: [PATCH 00/11] Microsoft Surface Pro 9 5G update
-Date: Wed, 20 May 2026 18:40:04 +0200
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+Date: Wed, 20 May 2026 18:40:08 +0200
+Subject: [PATCH 04/11] arm64: dts: qcom: sc8280xp-arcata: add USB-C
+ orientation GPIOs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOTjDWoC/x3MwQ6CMAyA4VchPVtTF2HiqxgP2+igl0FaJCSEd
- 3d6/A7/f4CxChs8mwOUNzGZS8Xt0kCaQhkZZagGR66j1hHaR3NIjLb02I6YZ8XC+4r+0fsUI+W
- 7S1DrRTnL/j+/3tUxGGPUUNL0+23+SnCeX4YdOrKAAAAA
-X-Change-ID: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-4-9df52552bf87@gmail.com>
+References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -57,16 +57,13 @@ To: Douglas Anderson <dianders@chromium.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>, 
- Bartosz Golaszewski <brgl@kernel.org>, Johan Hovold <johan@kernel.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1578;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=901;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=C+bAsxrO7Hwqd7h3A17Hh+Wk9te7bvjVSu4G652FOSE=;
- b=TxYunP+RMjqX6ztukqcbFSA9ok7XwP4bO3nlR9H9+xVWj1Xay+n9Ee8UnjAKgLVtfFf5+ndDL
- lfsAqQJ15CeBEwbFacPNIhbr5cf+0/QkZR0U+O/1CQ1wqrd3TNeUcLZ
+ bh=OCnS+HjzBDa6iYYkNDmwKoF2GY8YnhPkJ574zoElZT8=;
+ b=dYr8V+M6VjVVKDNeSUyd5gbt1Y0kPZPTcYrZhl4EbeFe+Xej59AGvGTYxnmSdW829SB6NT2DV
+ THeXK6yf8prAazQS2BexcN1jEEvy9tQ5sdSUYLBqeGxk+qJZqzrpdj9
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -74,38 +71,31 @@ X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
 X-Original-From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
 Reply-To: jerome.debretagne@gmail.com
 
-This series updates the support for the Microsoft Surface 9 5G
-(Arcata), bringing it more up-to-date and aligned with the other
-sc8280xp models such as the Lenovo ThinkPad X13s.
+From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-As highlights, it finally enables the built-in screen, it fixes
-Display Port alt mode on the top left-side USB-C port, it enables
-the volume up/down keys and the lid switch.
+Define the USB-C orientation GPIOs so that the USB-C ports orientation
+is known without having to resort to the alt mode notifications.
 
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
-Jérôme de Bretagne (11):
-      drm/panel: edp: Add LG LP129WT232166 panel
-      arm64: dts: qcom: sc8280xp-arcata: Enable backlight
-      arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
-      arm64: dts: qcom: sc8280xp-arcata: add USB-C orientation GPIOs
-      arm64: dts: qcom: sc8280xp-arcata: Fix top USB-C DP alt mode
-      arm64: dts: qcom: sc8280xp-arcata: Enable 4-lane DP support
-      arm64: dts: qcom: sc8280xp-arcata: Add volume up/down GPIO keys
-      arm64: dts: qcom: sc8280xp-arcata: Add lid switch
-      arm64: dts: qcom: sc8280xp-arcata: model the PMU of the on-board wcn6855
-      arm64: dts: qcom: sc8280xp-arcata: Switch to uefi rtc offset
-      arm64: dts: qcom: sc8280xp-arcata: Drop duplicate DMIC supplies
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 301 ++++++++++++++++++---
- drivers/gpu/drm/panel/panel-edp.c                  |   1 +
- 2 files changed, 266 insertions(+), 36 deletions(-)
----
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
-change-id: 20260520-surface-sp9-5g-for-next-7897cbb0f42c
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+index 7f1cc1899002529b7ac7340974c99f6ed493d410..49c0ecfc6c055ef2cd85db022d9340ecb88b7fc4 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+@@ -61,6 +61,8 @@ pmic-glink {
+ 
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
++		orientation-gpios = <&tlmm 166 GPIO_ACTIVE_HIGH>,
++				    <&tlmm 49 GPIO_ACTIVE_HIGH>;
+ 
+ 		/* Left-side top port */
+ 		connector@0 {
 
-Best regards,
 -- 
-Jérôme de Bretagne <jerome.debretagne@gmail.com>
+2.47.3
 
 
