@@ -1,283 +1,98 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011001.outbound.protection.outlook.com [52.101.125.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9AB3002DD;
-	Wed, 20 May 2026 05:36:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.1
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779255364; cv=fail; b=FNMaswWfX4xeyQoxOBE7coA8Mi5cmsEWtbL5othdOaiZgqfosHD+hO1bMS4tnbtWWjZ+coX2uvppK0J4+pqlVKBmeFGrIHcnHqECddEgrF9vai1Tp+NOs8Mcf6asJhCP3/iwrrafBWsp4492ByKb06+Oe/UZ6se+m131kjp7X28=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779255364; c=relaxed/simple;
-	bh=pRAFOrkEoVDPB8LJMQ42TG9LSQ2dbTD5cd0siPnFoXI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=PhDZPHd0ZkDZLS/1nFDxGwm/+aBWILSjqxwzIetVlxqs57WEBsq8UMda1z0vvT+murzNTnSWK1EcWzCTL5/oxsUVRKsanRu0iIv+HyO4McMl+R0krR/PRYFdMnKhNoolIIlZ6X81spyUCutiZEhXi/V8ayysaznngho8sVFi40I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=sqB9lVbH; arc=fail smtp.client-ip=52.101.125.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CC632AAA7;
+	Wed, 20 May 2026 05:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779255628; cv=none; b=s2N0tcjrt/tPPu8/aeOeKNDhLGGBuQB6GFHR/OIwElCK7F+fkEcCY1QJ9hQlN9VvNUSM21EN70Yteq9lcKtojscJqmRg7lrnu5d5Z+yrC3qx1et3ai92E3C/603lVjbJMkVdWWYFsah3ZdO5F2Rvi1yWX4oDgGEYPXsZ1o2yRAY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779255628; c=relaxed/simple;
+	bh=Y8PjvZ7mPoBrPXkY4y6yoQNzP77kDpkGlwcWTLE9+kM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Y/bMmAzIAG9MKjgtpp6mWbYLOnYXF8q6CIWtw+MQUCumOOTxGz78U9fnDWPykCb4vPFxTtXv6Gv1dfsEYqKUlsyQWumZvMFl8TUHkPKQiUwiNIfIxwat46Ce8NR3qnFm3VQmesmlFGZAh3cFQ3AtfgoZpDhpZpb5vwAlDnH4gXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRJfWQkT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="sqB9lVbH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O1HWce3xgkOBFFbnHvXzpvveIuhja0KjJ2dQroax9Kf1LJ0xM9bsUbDff558CtWLnDClV/u4tuJjqvGIaiiGmE7vZLATZLDM9FR3GaWu/0HywpB1+UYSm3OvIeteRegQaRMUOsUfuaLp3RT1ydhXdCy1SO2oQyzzXAK0HIZ7CnANhriPbWjMLF2WzXLBze6m69WxQ76szBz47OEfgseFETfr7eEPxbBFvAnRazu7z580FnM5EBne6ORskhtJ2vAYKZKRT7tGHqnQiMTjwF+ASfCuf4X3XylN5SnMkZPJIOIce5etxseZFRpTwGDMnKEBhQ4O7k2TujB0SKO8oNt4ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ost2K5+6d6YAFzZHs66M47yZz7OYyk/khOHI8JBhAnE=;
- b=V4PAaI2Vc39LggKw66QQtIQsbtQOQCLEldigFwcW4GM+a4cxQJ/YtcV/reAk3BsH59Z+799Ud0XeodkC+xEdc09J23oz1BUczAeNURgKtJf1uXF50Mc2+LHeTABiL/ayXE+RcQYz9NtkWCMjgX9bmfYk4F3pX+KFufp4U6HNKckfEvbplQCAV8bLcA+AAIVnriLpHmTTi/uE70E+XvhaCDMLfvrYaJBM4vKUwhDCTpiwWqbhD++zjQixpTJqxJvp3Dsii7M7IF9WqmyC/PprBMC6N7NWm6p/aEWSgcArrEgIrKYcN2KhHUukEy4QC/8TkAQFYk8HqCFlkZ8LUrTHxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ost2K5+6d6YAFzZHs66M47yZz7OYyk/khOHI8JBhAnE=;
- b=sqB9lVbHO98EhDXMHAF4XPLEiOM1KBSfSw3a4K8tMepryGv8EW0DRGPa/AmgRotmI+okJJnPw1qHcCI59EZJHK5pecXdPz7I9+jg7FXoFMhD5bOvlSZntPoJ6MDYY4w4+n3+qAUnYdnSJrRYNwC2tKi1XjYqThTXzmkHB25kgqM=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OSZPR01MB8687.jpnprd01.prod.outlook.com (2603:1096:604:15e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 05:35:58 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0025.023; Wed, 20 May 2026
- 05:35:54 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>, Laurent Pinchart
-	<laurent.pinchart+renesas@ideasonboard.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	magnus.damm <magnus.damm@gmail.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Fabrizio
- Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v4 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-SoC clock limits
-Thread-Topic: [PATCH v4 4/5] drm: renesas: rz-du: Move mode_valid logic to
- per-SoC clock limits
-Thread-Index: AQHc56nK9BJ9tFiG1kiCI4Ue74glYbYWZP+A
-Date: Wed, 20 May 2026 05:35:54 +0000
-Message-ID:
- <TY3PR01MB11346AD5B7CDBB72EC8FEA16686012@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260519160825.4082566-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To:
- <20260519160825.4082566-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSZPR01MB8687:EE_
-x-ms-office365-filtering-correlation-id: 73686d1b-7c6f-4fcd-4c81-08deb631a93e
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|4143699003|11063799006|22082099003|56012099003|18002099003|38070700021|3023799007|921020|5023799004;
-x-microsoft-antispam-message-info:
- D/gblkspdyRfIy1jCHe/K3LaN0W9cAgu5bvlA7LNISJNeHoqZIgbfKWj1DYCWsymJRfVsG8K68zUsy6b4V7Z09mOw+Vubib3HQ+fSy/ugHF8oSjEmvtJKy/njeKO5kcSQksm35/tu8Dm2FYOa8QaAOxVsbiQBCqCsLsH6SHratCwZzZRYT9QRB26SGWqLYmPmrTgl7OXCtX/LXO+noyV5VWNum/JCvD6fGrGITq9zCnfPXdLeYb2Ii7/tGBelniDL0ZnO10UQ4kxpDYF1R+OqJjKNTIHGGk1KqnNm/hf3VHRc/gr9BDY66GdgoGkdDAnQaD83MAuhQC6Q8gFjOzGhvaFVgW7X7dSKQpUePYFv2AJ6MxCRQMDwSW8JByWiik7dlaVtos8hQtInoCYx5hC5sbVPPvm7V8yIIVLUGNDYOSAKItYWXpIRrexZ17A+pHZ5fGLT2+3Eb8JTT684zz9nGO+JpAhY3nb/7ClaVbq8hCT0LKK7mIvUl6ADMJvwS6sIl8Zxg0EqslbXA3Z5CW8L9voxqB/H/W4DMJBU/7aM0XXBw4z0uwWlnlXiqmv8kRBN7kLcKF6R/N7zewtlpplj99hRCqUsIGwPvUQvdNdFANi+++oLaWdvPPSXg+jyqz8ojWnE27L8ZcSrclS7nw5FKC41gGL5z3GWZjNK3NS7OyWu94qmDsb24zjSErXyYObadTcCtXrLmPGVNdJ0O5HNviiOJfsAt9+qJIpZ8wXrXfKAhMGiS9c0hfmzOayJPDrsvI3eQq8rCZ/QDy0Kgmm5g==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(4143699003)(11063799006)(22082099003)(56012099003)(18002099003)(38070700021)(3023799007)(921020)(5023799004);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?nwJxiMNJksPFNEXj2OgLUbMXesNBVDpoHzrxNIf3Isf8U/LpOGcHWKsPOLBr?=
- =?us-ascii?Q?4gPmgkRYjPX99q/pZQONsBFLNtmTvPO5a4Ih4IXz7dH5idzv3s1wM8MyG/XC?=
- =?us-ascii?Q?GqX9/wtVp//qMhTh7h50elQJiKDi7ZEWDrLNgj3M3YS6uxNiVnZc2vaN2RP1?=
- =?us-ascii?Q?pw8XtQ937s8PsyTlrUxOAXDs6hn9LV9xTaWbw6EiCmJxpNhTsbB639eWdCsn?=
- =?us-ascii?Q?9K/zaNMAzcWSL94agadwKy3GgjzUgy6/A8nJLsemboGg0poklPWNiyPJLCWl?=
- =?us-ascii?Q?IomVuS2I4FY3EXcnUe7xnUe4gZglSjXcFTx7yH3d56UqQ6oYCNziHrQLQgcu?=
- =?us-ascii?Q?efZymyhrwPzd51V/bkCzBqu2j54Ivku2VYbwUYnvxt+AOEZB+LnUKZapUl4X?=
- =?us-ascii?Q?+e78dV1dQ/RpLlTW+FZEpnSMBTz0XGodQvE1JLLhdugyqCxc9TcNmB0VAcCk?=
- =?us-ascii?Q?bSZNwy4vmQllKyXhX5l4RNz7mwb1Lu8rAElAOsUD7Tz3YrsR+L6XMDA3Ro3Z?=
- =?us-ascii?Q?7hZQ8rXBn3QZvupNjHIjH9uGj8Piw/CspUB5vO6RBYnHMula1cYDFuQHXT/G?=
- =?us-ascii?Q?kaPnno7h2RPJafhUckgZwfBnHNiW+TK5Fn+v6nK3Uv+a/rVuCmuR2pWVrdKC?=
- =?us-ascii?Q?E/xqSY5SrgZF2kUns0C46NN2/77b4W+hR84OOpW5ieU+d2/Z9r+E1mqm0wBj?=
- =?us-ascii?Q?BX63P+y5kyi4HJDkePZQiF3Abt3fr3HZ9wVqaDftQNnx5OFUGWaWW5b8jAqE?=
- =?us-ascii?Q?s/pF8wFnoZdhZwEtF03w5ASlPDHFXJigwfh8Gs3IAUgFrnIQ3LYLcz4YbVrD?=
- =?us-ascii?Q?87MF3FLq5S3lhvWl+gQp3GOt5FHg0N1Y8zoaFMFETqKBz56ygoCJ/o+moQwG?=
- =?us-ascii?Q?ol52wzK4H1HP3qMo4Gj81kbEKxTr4zyZA/ePfpD0f2ErzqWsCO7z3eyKkpfS?=
- =?us-ascii?Q?LrGanvSaACha8R/ZjdCYQAdqW77XpBABuXgyu8gbouPv7WOZc6C/9cjfMyz0?=
- =?us-ascii?Q?8PKStp/pFZNN1tH5jQsqu0yN93qfBV3uKUEBjof7kHM3OWvr57ZE4rmnMUI3?=
- =?us-ascii?Q?xaol3IxH0bSG7gqMcT5dZ9teI3SRj3vfTfQ6g86jEUBt9NRwNpnQt37tXya8?=
- =?us-ascii?Q?IryAH2ZYP1A+200GxDZo+kEwfhlyJWTSBovOBbMiZV0G3GgYHJ/+BAyL5Hvb?=
- =?us-ascii?Q?LuDt/7t6v0hkFw+mAWtvoZzsm13ZaGNDITkdHzc8iBgbIZmTy91w5ghrg1es?=
- =?us-ascii?Q?QyK/xMe2HDv85Wnuq0EBbGzp57Cae9q1hxTpicWN4wRmNyFOQJIqvG8BQxfJ?=
- =?us-ascii?Q?R+pFnCWippYNHaZ7VJM/OkEWbu2CwxrUuoV0L61a6JSCRDWONMpJXF/bJlwH?=
- =?us-ascii?Q?zWf5HBF1kQuc8OEWZ7YJo9KyhNaDJVCNhgwKf/LqUuICZJ+GYG1tNcgL1fsa?=
- =?us-ascii?Q?0HCxVUnpbOH8SltL9hzgWCzjZJrM5okKNKGtbVUUD7EYbEMEqpkty2ESRFgx?=
- =?us-ascii?Q?kc4fALDQqbZYxX/iVh+VVVnxiCqa4YpXfnJtCKM6aW4A1qPSXJCSwa2ZPerQ?=
- =?us-ascii?Q?yQv0dPrt4ieWN9Qszh5QM/Nke0pyh2oOlgtTN5PXQNpcH5Buz8T7v80RZmpw?=
- =?us-ascii?Q?SEPtXtFi5uVzJfPdBCFcRlNibZn3WkOlaFy4aOlghAkZriG81Tt3/EsTlb4+?=
- =?us-ascii?Q?EkWmsU6NS/M2iMv+9GcVaTS0GAXM3j5dL+Wcmw6mxVa6wvRredkwt7z1DBcG?=
- =?us-ascii?Q?QFPVlqIv0w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRJfWQkT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AAF61F000E9;
+	Wed, 20 May 2026 05:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779255627;
+	bh=VXWU7r0c9VKxC/LLgGie8gWxBd1YPuZj7z3fEqvPJz0=;
+	h=From:Subject:Date:To:Cc;
+	b=HRJfWQkTrCwoF4h2BMFlzFSpVisS7rn8JLtYksB2VEf767X7mxqjrGaixOxJJDDP1
+	 xgJ+9RX+r6lcl88FCfn2pGpJlckWLfgkosAGqZXJCGpGWSDzydkUhiuJ/FuFTfBAgH
+	 C55OGfY0vemUoM4tUmUd4OeWCoC6WgSUpFGTRj1AYQ5WXGmGG3LwfEwbkH0ytXx4AS
+	 xwWFsRYM4vJC2s8PC79OSKDeHMjPEsYaxaJvm1oxNUsfbr1vFpzrgBGXRyNQqjVwR8
+	 7Q46oxyFdQx01te4la0DxnVlDnKqUDuYuPxNfhx5Jay9EGfnc7YXFrfkdbxQO89Ef4
+	 xuVeTABcFfNbw==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH 0/2] spacemit: k3: Add support for CoM260-IFX board
+Date: Wed, 20 May 2026 05:40:08 +0000
+Message-Id: <20260520-02-k3-com260-ifx-v1-0-3e17055dd488@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73686d1b-7c6f-4fcd-4c81-08deb631a93e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2026 05:35:54.1383
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TtGo1LUw6o8Sz/2jhI6S77EICPyrzxHiCijePRQ7kX0EzXLwe8Sq0RvZtSvxMZkbCkIgOz21fphyqHpzKDf8wey9tt8v3oZA0z7SMLXv4MU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8687
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIADhJDWoC/yXMTQ5AMBBA4avIrE0yKghXEYuqwRA/aRGJuLti+
+ S3eu8CxFXZQBBdYPsTJMntEYQCm13PHKI03KFIpJVGOpHCM0SyTN0p7otaxojonTpMMfLZabuX
+ 8lmX12+31wGZ7P3DfDxH5wdl0AAAA
+X-Change-ID: 20260519-02-k3-com260-ifx-aa320b90e657
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1135; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=Y8PjvZ7mPoBrPXkY4y6yoQNzP77kDpkGlwcWTLE9+kM=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqDUk9077NYFsddRGvdQNDUmaSQ0iEVX36QrNeQ
+ w1J1a08DxiJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCag1JPRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+3vWxAAjCKUOgm90oQlWZGUQxI/ihraT8IRK1N0SXpUK1u3JbIXywZWswUEn
+ k9pTcqiIceiG2wXlQL1klO32Oa5wfa8QnppBrMmiLBmxtrJ0fVIncVH2411s4yakpkC2VaTuOi1
+ WFFoSKiakNHB3NrVVSNqPy+KhW3GWzxmqZYIAGmv00qUOr7hUzUAoGqfkPZg7sLPbVZm758GUrk
+ N/uuXBrA0XcZFFRjUjSDnDbI3bncdyqiz6XTU7FnBT1Mfo+6CiuSkogRmXH/DdNQxd8BDLy+h9+
+ u0sPxkEqyFJNxR8ViGOhDNoO8coYKEeue6l+KpOcvUhrWYxw21lQpS7RhqTfxf//69Qrg9BCiLj
+ jQ9Ur85Rd8aOQ7FwM+OUO4QipLn1/d0GFxpIaY0+higZ34qQMHpmW21LffuEoHsYcoMOHW1xOn7
+ P+wDVFvsfUampNAl+bwqLQ7CHQihxrNvydHP3FI9r0S9nx27AKKr5nRr0AZtoIyAIz8rH3t+3B7
+ gn2OJFxYXM42eKZdsJ6YLK5KZqzXtxDPO1pE6yzjl2cd/wi1C0nBAPH4sf/50bLqiLMxbewCsWe
+ G+RJW8SJKNk6ULlC2ajH+KkUgAHeKSyPJB2OYv5s+JXDT8yxv3/fjrUdRgww/icTHMmFK32rXOn
+ h8hD7m7a9XJM7MdqgIovp2Rj2O3lQM=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Hi Prabhakar,
+This patch series try to add initial support for SpacemiT K3 CoM260-IFX
+board which combines a 69.6 × 45 mm compute module with a reference carrier
+board.
 
-Thanks for the patch.
+The first patch introduce new dt bindings for the module and board, the
+second patch enable support for serial console and ethernet.
 
-> -----Original Message-----
-> From: Prabhakar <prabhakar.csengg@gmail.com>
-> Sent: 19 May 2026 17:08
-> Subject: [PATCH v4 4/5] drm: renesas: rz-du: Move mode_valid logic to per=
--SoC clock limits
->=20
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Move pixel clock validation from a fixed encoder check to per SoC constra=
-ints stored in
-> rzg2l_du_device_info.
->=20
-> Pixel clock limits differ across SoCs in the RZ DU family and cannot be e=
-xpressed by a single shared
-> rule. For example, RZ/G2UL and RZ/G2L limit the DPAD0 pixel clock to a na=
-rrow window, while other SoCs
-> such as RZ/T2H require a wider operating range.
->=20
-> Add mode_clock_min and mode_clock_max fields to rzg2l_du_device_info to d=
-escribe the supported pixel
-> clock range for each SoC. Update
-> rzg2l_du_encoder_mode_valid() to check these bounds when evaluating
-> DPAD0 outputs, returning MODE_CLOCK_LOW when the pixel clock falls below =
-mode_clock_min and
-> MODE_CLOCK_HIGH when it exceeds mode_clock_max.
->=20
-> Populate the pixel clock limits for both the RZ/G2UL (R9A07G043U) and RZ/=
-G2L (R9A07G044) variants to a
-> minimum of 20875 kHz and a maximum of
-> 83500 kHz.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v3->v4:
-> - Dropped per pad limits
-> - Updated commit message to reflect the change in approach.
->=20
-> v2->v3:
-> - Moved clock limits from device_info to output_routing to allow
->   per-output constraints.
-> - Updated commit message to reflect the change in approach.
->=20
-> v1->v2:
-> - Dropped storing info pointer in struct rzg2l_du_encoder as it's not nee=
-ded.
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 6 +++++-
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 9 ++++++++-
->  3 files changed, 17 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_drv.c
-> index 0fef33a5a089..1e4b9f38c55b 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> @@ -35,6 +35,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07=
-g043u_info =3D {
->  			.port =3D 0,
->  		},
->  	},
-> +	.mode_clock_min =3D 20875,
-> +	.mode_clock_max =3D 83500,
->  };
->=20
->  static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info =3D { @=
-@ -48,7 +50,9 @@ static const
-> struct rzg2l_du_device_info rzg2l_du_r9a07g044_info =3D {
->  			.possible_outputs =3D BIT(0),
->  			.port =3D 1,
->  		}
-> -	}
-> +	},
-> +	.mode_clock_min =3D 20875,
-> +	.mode_clock_max =3D 83500,
->  };
->=20
->  static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info =3D { d=
-iff --git
-> a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/=
-rz-du/rzg2l_du_drv.h
-> index 58806c2a8f2b..885558eb9547 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> @@ -44,10 +44,14 @@ struct rzg2l_du_output_routing {
->   * struct rzg2l_du_device_info - DU model-specific information
->   * @channels_mask: bit mask of available DU channels
->   * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_=
-OUTPUT_*)
-> + * @mode_clock_min: minimum pixel clock in kHz
-> + * @mode_clock_max: maximum pixel clock in kHz
->   */
->  struct rzg2l_du_device_info {
->  	unsigned int channels_mask;
->  	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
-> +	u32 mode_clock_min;
-> +	u32 mode_clock_max;
->  };
->=20
->  #define RZG2L_DU_MAX_CRTCS		1
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/g=
-pu/drm/renesas/rz-
-> du/rzg2l_du_encoder.c
-> index 0e567b57a408..56220139a149 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> @@ -50,8 +50,15 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encode=
-r,
->  			    const struct drm_display_mode *mode)  {
->  	struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
-> +	struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.dev);
-> +	const struct rzg2l_du_device_info *info =3D rcdu->info;
->=20
-> -	if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83500)
-> +	if (renc->output !=3D RZG2L_DU_OUTPUT_DPAD0)
-> +		return MODE_OK;
-> +
-> +	if (info->mode_clock_min && mode->clock < info->mode_clock_min)
+Link: https://spacemit.com/community/document/info?lang=zh&nodepath=hardware/eco/k3_com260/root_overview.md
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Yixun Lan (2):
+      dt-bindings: riscv: spacemit: Add K3 CoM260-IFX board
+      riscv: dts: spacemit: k3: Initial support for CoM260-IFX board
 
-I will avoid checking the first part as it is mandatory for SoCs with DPI s=
-upport
-and DPI check above make sure that this part of the code is reachable only =
-for DPI
-output.
+ .../devicetree/bindings/riscv/spacemit.yaml        |   5 +
+ arch/riscv/boot/dts/spacemit/Makefile              |   1 +
+ arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts     |  21 +++
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi        | 190 +++++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       |  33 ++++
+ 5 files changed, 250 insertions(+)
+---
+base-commit: e2518e8cb1dde64af2d1bb246639bb7ef7523f7a
+change-id: 20260519-02-k3-com260-ifx-aa320b90e657
 
-> +		return MODE_CLOCK_LOW;
-> +	if (info->mode_clock_max && mode->clock > info->mode_clock_max)
-
-Same here.=20
-
-Cheers,
-Biju
-
->  		return MODE_CLOCK_HIGH;
->=20
->  	return MODE_OK;
-> --
-> 2.54.0
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
