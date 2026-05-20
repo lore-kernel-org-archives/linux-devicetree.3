@@ -1,181 +1,388 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BE53806C6
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D5C39A7E7
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779321413; cv=none; b=ZAmjdcHEwIIav5rOJixNw4LRPD3ZlFbc4R+GXxH/Qkp5T0UQAM3QG/YZ/U9Z0KkUsUHs5jrGxlcbhKWMVEDejwZBbIkGm3DBTi9buqOQ7Fh6MwY6i0cPGnM9pWdxnJ/y4g/bctIg7lvYGYrD9AoNtWZJ/3v2Sh8WOqsg+ygujS4=
+	t=1779321542; cv=none; b=enph3t261gf29Im1ubJg8heZg4Ua3wDnpJzLsS2iSnnX8k042OiSMCXFbQAeYb/T3Q8hl6/ufpAHAlrUojzWAwG+ntnux8GVXiJOvgFrP4+oL3v0QpIwc0yX+BeUOTIGK6qC3GPqdT0n5ZMBXoJfcKcsHJF9+Srb6jxobw2vV4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779321413; c=relaxed/simple;
-	bh=moc/C/hxlezPQ1M+gC9AJqvzkkTyWztlJQm5e3MVXGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lH/8WNoaLbmd23XSjapi4wQIc/im+VET29viCYk0Lx3l5VvDYDhyuGwZNSWJJPSFhH/SBmq4807yBAQF40K3hVTwx6fdNWmFGmpyVkia2cHO/ucdi01POC4tsHbqhhf5rkg1d0+y37w4bKHzXCQ/mrW6bfLlgiNi9ZC1Az5wbz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EKkppX3r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FwH1dwmz; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779321542; c=relaxed/simple;
+	bh=joPSnpUtrDJM3RSpJxT3RlTsp7Yuvzim4L7lc4TnBTg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PCUNn2M2SPDBUvElSrnRBntaISWK2Xclql5m6bGt3qgRtM/Ahrw8yqlorp4RWGLAKarqQUc2lWBp1fKRmeH6elalPsFl1GwC8x5D9JgTRec3PyRRYGPeOiQCLOHpVYscnuWZSgYv0IQtQ7P4tHoDGESbLV9vnluy6ljq/WIFdeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=BgYPaL4a; arc=none smtp.client-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EKkppX3r";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FwH1dwmz"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KFUe0S4115208
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:56:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=HA94vrokU8Taiu6igumszTTL
-	8SiU4GRGCJMCNdjBwRc=; b=EKkppX3rRK069sgIL0n4j9+8QXCnTjcL4GZnYTzj
-	YRXhQgnMwep/qQELTkj1u98kzF3jdJqIiMrvekfSYSjxciaosIjJccLFwzDDJahB
-	8lO9oAh0SJpzA6PhbGVqd9/z/oT5ipLsavRGysfs5Dsi1LnG5KOWMhbRVRzFYtGO
-	Vc3WQ/ijCvEgQN9C06WViEOXaqO09KWMYpR+4WW4dkCpzxIEjPXR48zeIQLIePIx
-	piNN6Xo+r6Z8z7wCrjcWmqJSI8YOpmkYl3U9u0sxzPNxeMNgoQChGSDdzX1F7kAN
-	NCeOKUJ0dSK07XoO+x19ONqjfERxsD97DEJSzNrBdxvggg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e99w0ka2e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:56:48 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50f13da9684so71566721cf.3
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:56:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="BgYPaL4a"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-393da8f389bso51127581fa.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:59:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779321408; x=1779926208; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=HA94vrokU8Taiu6igumszTTL8SiU4GRGCJMCNdjBwRc=;
-        b=FwH1dwmzaSBjUqlRDe6poZi2y9kp0I/L98RQcm5n5KwG3/EATdpMvbPQ3kK5MICqJp
-         ePxg9mEz4N8Pj2NS2TJYUJlAgZG3Mm0pYU3J3dmIvjCHPQ0fBd6C4BAQuikcozfbxJyK
-         Le9h9NWvUNS8AYfdqFoyzBwi2p0iFo1TW/dQeODqX3RX/92UTbYhnTBlfaUmeHfdVr/Q
-         d6ytlFVZ/gySl90IUvY8ym+dmxnPsCVY3ZsbryJ7j9+wPoRYikNMNf9Xq8OY6EpaJ4oN
-         Bml6vB8Q8ru/LNGJyLt6U5XrVVGD9elMDplo/m+vsc3AsN11YFxW5c8t0zFcOqJJbt2q
-         EdYw==
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1779321539; x=1779926339; darn=vger.kernel.org;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BEhywNjRyQXniz/pcQ13Co3tXpnmGzhcmCEno154HXY=;
+        b=BgYPaL4aY4WaQTaVLYH6EXoIqgGHH1c50q6rY5qwy77W19wTTQTQdWm679F1X+uS2W
+         /cDGlF/P/g1I+RzD4HxufmQ698Bv6rW4SIEWBGXMbESdTJIG7GkNOaX/mXar+mDf2hQ2
+         RR+h1C+j81OOOKjKawzD6ka3HdK42CP6XJ+XkrPBeXEnN8x43Si+2DDuVTYDVnxyZsDm
+         34rgyKzSxl4zT257u7ZAGzU8ToYOzpF9jEr9ggPMJqzcUoMecedwT8VCWj4x2hxBzk8S
+         Zoky3NV6SVQsdFJK2iEfOijvGuTY4CbccTde59RmlsM01eY3CTqBfrupCJ+wdgwS9fTq
+         fTWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779321408; x=1779926208;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1779321539; x=1779926339;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=HA94vrokU8Taiu6igumszTTL8SiU4GRGCJMCNdjBwRc=;
-        b=HtKiJcVrfdSBnUXVpcbtet/RtWzxhmSbfGyWKb7Xof643bSKvpSR8+4FnEaZ3gzcVm
-         0FGiijeg8CMXnBn+EuaJ9y32m9xXEMNMvmn7qz7tbAMqFgAevWmFUTGuAvE/Y6ut7pgT
-         VGx4Wk15vTlhQJzLYYPXvNBHCFlsjM60Bh/frj8O22eWzwTxBA4KV4MC6NgOThuwLQGa
-         SMlx76MQh7kQr4yWJV+lM0QHW867bPnQ31Vk3HdM/DTbhhKJuoHXEzogeO9p4hOOjLzz
-         wg7e8pqRLb/Mx0y6Yis/MMiQb0EZ1xaDkYFMPjmE0QsOzu+X3YTpSpBoOki3qQHe+omL
-         uzjg==
-X-Forwarded-Encrypted: i=1; AFNElJ/qttZtxGa9hzWQETFsxaRlZciY842VWAMwJEOfZoJAIYQUWmgV6tlyqw+lB9rLwqgnvvQLureNeunp@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTA/08+shFwz0mnbQnCnkbYSezmRox/Cb7VTezyN7D/RiWgGcY
-	fYnzrGgKzIdPZPtedp4kI0cbT4nZCDFGOeeQC4FCMi5XrG1n+M6e0S10mP2EaFfEjwmgCxUtXu9
-	GGwkpPVwzGqeMGA74hYsGMFpScmh+yVHth0OBwQ+bFc4rzAlv+j9u0FDPSg/cTGFw
-X-Gm-Gg: Acq92OEgUCT9c66s9BGBxzVWKvxsYiCY6FHFYwL77/r7YfRM0/9dY+ehpvJ6M2UwL0e
-	9IB0wv8rH6UnnDmbfYh0ix0Cjr7wil7eZPjERtpuvfOPndGWJjaZnKAPog4o5uPsu5P8d+3JHU7
-	DP0nKhXWGqhcZgPN+G3daq8vg14KGTJAWbKTz8+QWyhXJSOGMWKLT/IVei/8s23dd2iFFMT4+ad
-	NxSOyW/KZbVkZzoO6iBZI1bJnpQ/qFFeQbHYsaXsSabycmyFdCtOOePOzHXKy/qyA6lvXi1+qHx
-	gJ3FN3Gv/yGIXymsv3p80oytpkp5kj5XMRjvtj9vU/ZEiGp5gZkFHqQx7Lh3+NPTbexlLTLWOET
-	bnctEEDkvczzEiFUwhH3wubVbx4jBg8Yp34vA8bvrhrgCWfreZ6iwi4DVvgNMY0e5Esdd6BpaZh
-	jqMcjEhsrNQ0zoVRjB6Cs5M25oQXtjlCPA0ck=
-X-Received: by 2002:a05:622a:199a:b0:50d:cd5a:577b with SMTP id d75a77b69052e-516c558d6a6mr10277351cf.35.1779321407735;
-        Wed, 20 May 2026 16:56:47 -0700 (PDT)
-X-Received: by 2002:a05:622a:199a:b0:50d:cd5a:577b with SMTP id d75a77b69052e-516c558d6a6mr10276991cf.35.1779321407260;
-        Wed, 20 May 2026 16:56:47 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a9164cec52sm5289053e87.72.2026.05.20.16.56.43
+        bh=BEhywNjRyQXniz/pcQ13Co3tXpnmGzhcmCEno154HXY=;
+        b=sYsuHjg6s35DE/+NQvXpCT8TkL+SXgrAvah0wD9k9r2txgo8jnZw5q90OCn/1R0t9D
+         QoOe22h3T2Bl4L5w/6wbuRSkqcrfbnw+ViyDfNFx2YyPVTDiBvpWdrfPmvTLMJ+gVpgK
+         6CvorUVkz7+hExcHyc9m5yHut0ljzZXXuhic3GJFkjYi0NUIRmvusuz8OHUyXHBCXKsN
+         UvVgpn7+/o3IoJpM0ASG5CRHKkTIQTHIDlGIP5kLb2wlKF6H6l2PAIicWgTbIzrH772P
+         y1Htdgcmx9hD2xXGLqMg+wvSmS2VfuQgDUBopXLcfAnqFzuIwGIQs+0syZ5zYVpl8JRJ
+         e41w==
+X-Forwarded-Encrypted: i=1; AFNElJ+/un8Uq4beD4aXqUOKmXgNX3QbtEl7iz17zGQPK+0AnpFjSc+bstdh6alTSIKeDRL0XwcHdyvgPQvR@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjLP6m+vG2pK1yRihjWcr8k1uWZ4ZELznEpPEjjzFpSVsr8/jD
+	pac77RJ9Pzg5sEr7o9ttD4XIH+cYdC2O/shTrFibwyAHcoEGfxXPJ5Tt1I2JfyqbnKo=
+X-Gm-Gg: Acq92OHFLtuPMBqY1SmNrdJb1DTwj9E+EZ8hBWkc5KYrdTcM8geTq3QI7Ip+5zZZ825
+	9AEfejEuhjb9p8DPGPlDMZYpTsbGupScS8YJ5VCKs+iXDOOK/zI3BYLFua9mhO3tWFzWu14/n2w
+	s2c90OcTw6iDs0Umrn4Q0JOQRrFs2Jgpj12EQt1GmZVtYuKr6jYGnZmgSW55lPRaVW62rX30fh2
+	iPIqacgtiQiK0rcRBnVJ4wl8a4qPnphwG22Iz01nWsOaa9qePcVMgfNsU7QxfcznzhjYAZOMZF1
+	BajuxfleVJMFAkbfaPQ7rUOXh9tU8PyGoW52FTgEHQ1zix1cMG/DJePpNBA0qsM018tLbbAHEH4
+	JVzJVMLgJvbUZmPkLKJ096uuULEfuYWKIH9y4ZSi+lWDlg29YS5XOuOiGeDkFlG4+aoDvrLQxIY
+	C6F0EVz9ibIoapHdGFxtLx0ms69zQF0+lCD1GovQBvrn57oUDVHEK+ukW31z6VfQowhUU8exEhU
+	WNP8cA=
+X-Received: by 2002:a2e:bd17:0:b0:393:d6dd:e8a1 with SMTP id 38308e7fff4ca-395ca24e814mr1927031fa.2.1779321538328;
+        Wed, 20 May 2026 16:58:58 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395882d28f4sm33341501fa.17.2026.05.20.16.58.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 16:56:44 -0700 (PDT)
-Date: Thu, 21 May 2026 02:56:41 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Georgi Djakov <djakov@kernel.org>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: interconnect: qcom,x1e80100-rpmh: add
- clocks property to enable QoS
-Message-ID: <nr62mvz6qrpb6moqyasniqcqtfltsx4qtr3lteeixwutindqri@5joujdvn4r3q>
-References: <20260422-x1e80100_qos-v1-0-bcc2afe4cc78@oss.qualcomm.com>
- <20260422-x1e80100_qos-v1-1-bcc2afe4cc78@oss.qualcomm.com>
- <20260423-thick-beneficial-capuchin-e4aaad@quoll>
- <99830e85-5837-4ed5-8f89-fea5d3e632f8@kernel.org>
- <c583a03f-381d-4af9-acb0-ac47a1e35b47@kernel.org>
- <7oador7jxw443astffc6hjuf3gots64fqmvsjdsshfhhonc2l7@2unu723p2orx>
- <12e149c4-60f9-4ffb-b066-7611bdd15786@kernel.org>
+        Wed, 20 May 2026 16:58:57 -0700 (PDT)
+Message-ID: <5eeeaa5979a3f16ec8397b62bc35fd9b08d36032.camel@ndufresne.ca>
+Subject: Re: [PATCH v7 17/28] media: rockchip: rga: check scaling factor
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@pengutronix.de, 
+	sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
+	p.zabel@pengutronix.de
+Date: Wed, 20 May 2026 19:58:53 -0400
+In-Reply-To: <20260521-spu-rga3-v7-17-3f33e8c7145f@pengutronix.de>
+References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+	 <20260521-spu-rga3-v7-17-3f33e8c7145f@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-rdFBmfYTegp3nVJVJScl"
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <12e149c4-60f9-4ffb-b066-7611bdd15786@kernel.org>
-X-Proofpoint-ORIG-GUID: sqnGlhDPO649myOcB1I3fQAcg-TMFmS4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDIzNSBTYWx0ZWRfXzt80FSZaUvdZ
- X5wbpbiNmUFKuKiZafnSETtMGZHh6AgJwGk4WLIQLGTT+jHOdRcX0nSllaF1st+lHgo5b5QH225
- KxGxmM01HfusC7FqFk1vo3zoDHKBBiIKRX7cCP6RmA/VwanxSB57wnhBLrCGF5YIQl1oDSOHw8y
- 9OCPAQw7r6MbaROB51YMHwesbTWZEIXcxkmb+KcxdXAlVKjTmKplfdKBtyuS5cP6tf+yD+EC2ll
- LCJPvI99hYBD3LlsmDhu+KKLz7u2tJMBhh75xvBXCiu80x4CKmxI6IhzmYttP5qC2WBZgautFAp
- QAKTXISkqLfoWjF5s7UlWxVQbAQJxctA9/iXFXCuf2vbyEmVN6rLe/bsNryBoM3f1FlofaoRyqG
- XR0q3EYFvejv3JQImHS142OobAv0rNAksF7uVuaHWEFdhh23LZYUHDM+lTxQ4JeedkJEx591TBB
- LuITnQIkv/bX32XNk4w==
-X-Authority-Analysis: v=2.4 cv=RZigzVtv c=1 sm=1 tr=0 ts=6a0e4a40 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=Qe6B47XUAAAA:8
- a=EUspDBNiAAAA:8 a=4Vwit0Qz_EnXXS5uuC8A:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=QWPKR-PWjQKaio0naagv:22
-X-Proofpoint-GUID: sqnGlhDPO649myOcB1I3fQAcg-TMFmS4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200235
 
-On Wed, May 20, 2026 at 09:33:52PM +0200, Krzysztof Kozlowski wrote:
-> On 20/05/2026 21:27, Dmitry Baryshkov wrote:
-> > On Wed, May 20, 2026 at 10:11:47PM +0300, Georgi Djakov wrote:
-> >> On 5/20/26 9:51 PM, Krzysztof Kozlowski wrote:
-> >>> On 23/04/2026 10:38, Krzysztof Kozlowski wrote:
-> >>>> On Wed, Apr 22, 2026 at 02:05:11AM +0000, Raviteja Laggyshetty wrote:
-> >>>>> Some interconnect nodes on X1E80100 have QoS registers located inside
-> >>>>> a block whose interface is clock-gated. For those nodes, driver
-> >>>>> must enable the corresponding clock(s) before accessing the
-> >>>>> registers. Add the 'clocks' property so the driver can obtain
-> >>>>> and enable the required clock(s).
-> >>>>>
-> >>>>> Only interconnects that have clock-gated QoS register interface
-> >>>>> use this property; it is not applicable to all interconnect nodes.
-> >>>>>
-> >>>>> Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-> >>>>> ---
-> >>>>>   .../bindings/interconnect/qcom,x1e80100-rpmh.yaml  | 62 ++++++++++++++++++++++
-> >>>>>   1 file changed, 62 insertions(+)
-> >>>>
-> >>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> >>>
-> >>> And unreviewed as it breaks users:
-> >>> https://krzk.eu/#/builders/102/builds/70/steps/23/logs/warnings__3_
-> >>>
-> >>
-> >> I will just drop these patches for now, i have put them in a separate branch anyway.
-> > 
-> > I think, dropping 'required' clause would be the easiest fix. Or just
-> > wait for Bjorn to pick up the DT changes.
-> 
-> Could be, initially I thought this is actual impact on users, but indeed
-> now I recall that driver prints "info" message and continues. So the
-> binding is not correct.
 
-I'd say, the binding was not correct: the hardware has the clocks and
-the requires them to function completely correctly. I think, the problem
-is that we allowed incomplete drivers and incomplete bindings (Without
-QoS support).
+--=-rdFBmfYTegp3nVJVJScl
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-With best wishes
-Dmitry
+Le jeudi 21 mai 2026 =C3=A0 00:44 +0200, Sven P=C3=BCschel a =C3=A9crit=C2=
+=A0:
+> Check the scaling factor to avoid potential problems. This is relevant
+> for the upcoming RGA3 support, as it can hang when the scaling factor
+> is exceeded.
+>=20
+> The check is done at streamon when the other side is already streaming
+> to avoid incorrectly failing if the application configures the other
+> side after calling streamon. As try_fmt shouldn't be state aware,
+> it cannot be used to limit the format based on the scaling factor.
+> Therefore the check is done just before the actual streaming would be
+> started.
+>=20
+> As the driver allows changing the rotation and selection while
+> streaming, add additional checks to ensure these changes
+> don't exceed the scaling factor.
+>=20
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+>=20
+> ---
+> Changes in v6:
+> - Dropped scaling adjustment in s_fmt, as this didn't match the try_fmt
+> =C2=A0 result (which shouldn't have it to avoid making it stateful)
+> - Moved scaling check to the prepare_streaming callback instead of
+> =C2=A0 overwriting the ioctl directly
+> - Consider rotation when checking the scaling
+> - Check scaling factor when adjusting rotation and selection while
+> =C2=A0 streaming
+> ---
+> =C2=A0drivers/media/platform/rockchip/rga/rga-buf.c | 28 ++++++++++++
+> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.c=C2=A0 |=C2=A0 1 +
+> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.h=C2=A0 |=C2=A0 1 +
+> =C2=A0drivers/media/platform/rockchip/rga/rga.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 63 +++++++++++++++++++++++++--
+> =C2=A0drivers/media/platform/rockchip/rga/rga.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 4 ++
+> =C2=A05 files changed, 94 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/medi=
+a/platform/rockchip/rga/rga-buf.c
+> index ffc6162b2e681..dcaba66f5c1fc 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-buf.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-buf.c
+> @@ -197,6 +197,33 @@ static void rga_buf_return_buffers(struct vb2_queue =
+*q,
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> +static int rga_buf_prepare_streaming(struct vb2_queue *q)
+> +{
+> +	struct rga_ctx *ctx =3D vb2_get_drv_priv(q);
+> +	const struct rga_hw *hw =3D ctx->rga->hw;
+> +	int ret;
+> +
+> +	/* It's safe to check the streaming state of the other queue,
+> +	 * as the streamon ioctl's can't race due to the lock set in
+> +	 * the queue_init function.
+> +	 */
+> +	if ((V4L2_TYPE_IS_OUTPUT(q->type) &&
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m=
+2m_ctx))) ||
+> +	=C2=A0=C2=A0=C2=A0 (V4L2_TYPE_IS_CAPTURE(q->type) &&
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m=
+2m_ctx)))) {
+> +		/*
+> +		 * As the other side is already streaming,
+> +		 * check that the max scaling factor isn't exceeded.
+> +		 */
+> +		ret =3D rga_check_scaling(hw, &ctx->in.crop, &ctx->out.crop,
+> +					ctx->rotate);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> =C2=A0static int rga_buf_start_streaming(struct vb2_queue *q, unsigned in=
+t count)
+> =C2=A0{
+> =C2=A0	struct rga_ctx *ctx =3D vb2_get_drv_priv(q);
+> @@ -232,6 +259,7 @@ const struct vb2_ops rga_qops =3D {
+> =C2=A0	.buf_prepare =3D rga_buf_prepare,
+> =C2=A0	.buf_queue =3D rga_buf_queue,
+> =C2=A0	.buf_cleanup =3D rga_buf_cleanup,
+> +	.prepare_streaming =3D rga_buf_prepare_streaming,
+> =C2=A0	.start_streaming =3D rga_buf_start_streaming,
+> =C2=A0	.stop_streaming =3D rga_buf_stop_streaming,
+> =C2=A0};
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
+/platform/rockchip/rga/rga-hw.c
+> index 567d39e58d33f..f2900812ba76f 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+> @@ -584,6 +584,7 @@ const struct rga_hw rga2_hw =3D {
+> =C2=A0	.max_width =3D MAX_WIDTH,
+> =C2=A0	.min_height =3D MIN_HEIGHT,
+> =C2=A0	.max_height =3D MAX_HEIGHT,
+> +	.max_scaling_factor =3D MAX_SCALING_FACTOR,
+> =C2=A0	.stride_alignment =3D 4,
+> =C2=A0
+> =C2=A0	.setup_cmdbuf =3D rga_hw_setup_cmdbuf,
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media=
+/platform/rockchip/rga/rga-hw.h
+> index c2e34be751939..805ec23e5e3f4 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.h
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.h
+> @@ -14,6 +14,7 @@
+> =C2=A0
+> =C2=A0#define MIN_WIDTH 34
+> =C2=A0#define MIN_HEIGHT 34
+> +#define MAX_SCALING_FACTOR 16
+> =C2=A0
+> =C2=A0#define RGA_TIMEOUT 500
+> =C2=A0
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index 394b14b9469df..22954bbae55fc 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -127,7 +127,9 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
+> =C2=A0{
+> =C2=A0	struct rga_ctx *ctx =3D container_of(ctrl->handler, struct rga_ctx=
+,
+> =C2=A0					=C2=A0=C2=A0 ctrl_handler);
+> +	const struct rga_hw *hw =3D ctx->rga->hw;
+> =C2=A0	unsigned long flags;
+> +	int ret =3D 0;
+> =C2=A0
+> =C2=A0	spin_lock_irqsave(&ctx->rga->ctrl_lock, flags);
+> =C2=A0	switch (ctrl->id) {
+> @@ -138,6 +140,13 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
+> =C2=A0		ctx->vflip =3D ctrl->val;
+> =C2=A0		break;
+> =C2=A0	case V4L2_CID_ROTATE:
+> +		if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)) &&
+> +		=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ct=
+x))) {
+> +			ret =3D rga_check_scaling(hw, &ctx->in.crop,
+> +						&ctx->out.crop, ctrl->val);
+> +			if (ret < 0)
+> +				goto s_ctrl_done;
+> +		}
+> =C2=A0		ctx->rotate =3D ctrl->val;
+> =C2=A0		break;
+> =C2=A0	case V4L2_CID_BG_COLOR:
+> @@ -145,8 +154,10 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
+> =C2=A0		break;
+> =C2=A0	}
+> =C2=A0	ctx->cmdbuf_dirty =3D true;
+> +
+> +s_ctrl_done:
+> =C2=A0	spin_unlock_irqrestore(&ctx->rga->ctrl_lock, flags);
+> -	return 0;
+> +	return ret;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static const struct v4l2_ctrl_ops rga_ctrl_ops =3D {
+> @@ -182,6 +193,38 @@ static int rga_setup_ctrls(struct rga_ctx *ctx)
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> +static bool check_scaling_factor(const struct rga_hw *hw, u32 src_size,
+> +				 u32 dst_size)
+> +{
+> +	if (src_size < dst_size)
+> +		return src_size * hw->max_scaling_factor >=3D dst_size;
+> +	else
+> +		return dst_size * hw->max_scaling_factor >=3D src_size;
+> +}
+> +
+> +int rga_check_scaling(const struct rga_hw *hw, const struct v4l2_rect *c=
+rop_in,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct v4l2_rect *crop_out, u32 r=
+otate)
+> +{
+> +	u32 scaled_width;
+> +	u32 scaled_height;
+> +
+> +	if (rotate =3D=3D 90 || rotate =3D=3D 270) {
+> +		scaled_width =3D crop_out->height;
+> +		scaled_height =3D crop_out->width;
+> +	} else {
+> +		scaled_width =3D crop_out->width;
+> +		scaled_height =3D crop_out->height;
+> +	}
+> +
+> +	if (!check_scaling_factor(hw, crop_in->width, scaled_width))
+> +		return -EINVAL;
+> +
+> +	if (!check_scaling_factor(hw, crop_in->height, scaled_height))
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> =C2=A0static struct rga_fmt *rga_fmt_find(struct rockchip_rga *rga, u32 p=
+ixelformat)
+> =C2=A0{
+> =C2=A0	unsigned int i;
+> @@ -525,7 +568,6 @@ static int vidioc_s_selection(struct file *file, void=
+ *priv,
+> =C2=A0	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
+> =C2=A0	struct rockchip_rga *rga =3D ctx->rga;
+> =C2=A0	struct rga_frame *f;
+> -	int ret =3D 0;
+> =C2=A0
+> =C2=A0	f =3D rga_get_frame(ctx, s->type);
+> =C2=A0	if (IS_ERR(f))
+> @@ -569,10 +611,25 @@ static int vidioc_s_selection(struct file *file, vo=
+id *priv,
+> =C2=A0		return -EINVAL;
+> =C2=A0	}
+> =C2=A0
+> +	if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)) &&
+> +	=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx=
+))) {
+> +		int ret =3D 0;
+> +
+> +		if (V4L2_TYPE_IS_OUTPUT(s->type))
+> +			ret =3D rga_check_scaling(rga->hw, &s->r, &ctx->out.crop,
+> +						ctx->rotate);
+> +		else
+> +			ret =3D rga_check_scaling(rga->hw, &ctx->in.crop, &s->r,
+> +						ctx->rotate);
+> +
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> =C2=A0	f->crop =3D s->r;
+> =C2=A0	ctx->cmdbuf_dirty =3D true;
+> =C2=A0
+> -	return ret;
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static const struct v4l2_ioctl_ops rga_ioctl_ops =3D {
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index 5360f092fecf0..df525c6aea8b6 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -123,6 +123,9 @@ static inline struct rga_vb_buffer *vb_to_rga(struct =
+vb2_v4l2_buffer *vb)
+> =C2=A0
+> =C2=A0struct rga_frame *rga_get_frame(struct rga_ctx *ctx, enum v4l2_buf_=
+type type);
+> =C2=A0
+> +int rga_check_scaling(const struct rga_hw *hw, const struct v4l2_rect *c=
+rop_in,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct v4l2_rect *crop_out, u32 r=
+otate);
+> +
+> =C2=A0/* RGA Buffers Manage */
+> =C2=A0extern const struct vb2_ops rga_qops;
+> =C2=A0
+> @@ -151,6 +154,7 @@ struct rga_hw {
+> =C2=A0	size_t cmdbuf_size;
+> =C2=A0	u32 min_width, min_height;
+> =C2=A0	u32 max_width, max_height;
+> +	u8 max_scaling_factor;
+> =C2=A0	u8 stride_alignment;
+> =C2=A0
+> =C2=A0	void (*setup_cmdbuf)(struct rga_ctx *ctx);
+
+--=-rdFBmfYTegp3nVJVJScl
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCag5KvQAKCRDZQZRRKWBy
+9E9rAQDiJbGoDoukTZoC800Ujw8eKYRfiw95dLx/TYGqe+Q0sgD7B6/L2PKKbwBM
+wjRPxzakETkICLxJ+XtnlfrFYSrmBAo=
+=Il/H
+-----END PGP SIGNATURE-----
+
+--=-rdFBmfYTegp3nVJVJScl--
