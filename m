@@ -1,116 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8D92C11CB
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 05:56:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B70727B32C;
+	Wed, 20 May 2026 06:23:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779256597; cv=none; b=GKjSv3qcw0kwtqNgcVuFCE59rnRovC0P57grQqamMUfmz4p4iiqqyJ+x+UvYMomct4rvX+2IffHB48NOfcKZWQnVxRS5U1s0ZihD8de8eqVsvmsmajEo3eo+RyTUagLuT0F1ri+yjINI+Rkh6YghMvaW3uiiEpyKdP6xn60eLfk=
+	t=1779258194; cv=none; b=RhmFSizyMkPXDS8IsOvCSZoJvwNlnhKH0wRPOGf0cV3fq5f0Kv/GFMmRC88kV9VM0t3gkiZN5UtrWe0lRWXYVh5wfE30sEXmLtIUgA+8bGb4tIx1+pTIIYbfL1nn3XL0ExJisl1EsPUwjmRX/rLWnyvb3RO/9Ec4JEdkLp0e/Yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779256597; c=relaxed/simple;
-	bh=lg/UiRY72XCAB17blRbtxaQT2BGie8hd1wOZaiQ7//o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jalsmt7KTruHI1w5SozvBbVkcpnccuEc/r/Lh0SnIuRN+x1aUybYiSPJ1rXN0TjTSJ1astvIbmg0sFhzVr594h2x+dfmdw2BRl0jBiXTYz2PoSxQzdhaKf2b3N3qMe3AU91odbchuuqEkzFioch6GhtC6eRpnTWOV0eby9RqxTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e169tBQ3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779258194; c=relaxed/simple;
+	bh=zKtZBs4+DNKlTJleTEkfKxS92FfxfBpi6JQq3Do+za4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jr/s0UL7E5p0Zi/CY/u0h3OteM9B4REoziBy0mD8knnyoA3GYmgY1AWPdhL1dBfMn+fU57e+QDAGQgSbx7Ai1LaaPDFi0qcAsA8lx/iuHnur7BQiZZKqKyiqyREJzwJXAylzNg+z5T/ptv57+Zf6GtHQRMuSNqkm4wrnF7VA1c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BawfeZcw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e169tBQ3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2B61F000E9;
-	Wed, 20 May 2026 05:56:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BawfeZcw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05D91F000E9;
+	Wed, 20 May 2026 06:23:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779256595;
-	bh=ZBERNZG61n82/2V3mw4S2slT/zqHMfd5gHXrJJsH3yg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e169tBQ3CDkZ3Q6bnrbn5Ck+Xqgq5tBtxlbxwPKW9K3bgDYzaurufv9OvjI+nW2+s
-	 wA9CkkYDKss7dbclg9UDg+dXygxOh00dxHEUpuwXHcc6oWShucwc+lKP8+AOaE0OAE
-	 4yJIUC9HuEeyd5GpSoujasqIedkQklSbhHgg+N2tCEhwvpazK9CVIDRrPjy7NWqsbg
-	 26TlJR5YbfN9WQ0Ik08NjQyKHxLRpzDsOq1kxt6b5F9ONdbz7BO7KobdmTxuTL3OfJ
-	 cRiGLmHQzOuTW78wgbjQ+OBDYHpxwzwT2xONpRUZrsed88ACAZ+9FszcoWFswYu1Z5
-	 D1+HB0EK5Q9aw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: k3: Initial support for
- CoM260-IFX board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260520-02-k3-com260-ifx-v1-2-3e17055dd488@kernel.org>
-References: <20260520-02-k3-com260-ifx-v1-2-3e17055dd488@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 05:56:34 +0000
-Message-Id: <20260520055635.5F2B61F000E9@smtp.kernel.org>
+	s=k20260515; t=1779258193;
+	bh=OE2c8bPw7nhkBWpehAwsa5TVWWPe81JyALMv/ywT5ls=;
+	h=From:To:Cc:Subject:Date;
+	b=BawfeZcwx/l62q4AD+Bv9vp+17T1tfp7BSedNUh6JNX99A9lD+yUu3UI8Ek2m9sWa
+	 dBlToWhOXyN1uYRA5a3JUBw9crZ8V7/x8kkuqcZMIaYyVmkeN0YbBk8G04x0Ri+aTV
+	 JknkdWXDPCPH89ucQBAEyA2ZlxYtNNRfcw8A+Xp0tyGVyzEOhHk3Z99trgUtdZLCa3
+	 rQi7DGzZYsWVOcT5w/qN+RJPMo/lbcNlUq2RDPlCGbvpSbKtGvpUZ0bm4TuY/xVgsS
+	 H9cr8jVTfKLX/2jt5g1+ZvXBGaALxrHWvBiklSIV3GVrOsJMA8zVS3PICaNTnG3nIK
+	 4OknLK6HZbCdA==
+From: Drew Fustini <fustini@kernel.org>
+To: Tomasz Jeznach <tomasz.jeznach@linux.dev>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: iommu@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Drew Fustini <fustini@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Nicholas Piggin <npiggin@gmail.com>
+Subject: [PATCH v2] dt-bindings: iommu: riscv: Add bindings for Tenstorrent RISC-V IOMMU
+Date: Tue, 19 May 2026 23:16:28 -0700
+Message-ID: <20260520061855.1623468-4-fustini@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The PMIC node is incorrectly named `p1@41` instead of using a gener=
-ic name.
-- [Low] The pinctrl node for `gmac1` defines an unused label `gmac1_base_pi=
-ns:` and uses an inconsistent subnode name compared to `gmac0`.
---
+From: Nicholas Piggin <npiggin@gmail.com>
 
-commit be83cb21ec8e4b52ccd315661d69460e85196cef
-Author: Yixun Lan <dlan@kernel.org>
+Extend the binding to cover details specific to the Tenstorrent RISC-V
+IOMMU. In particular, a second register range is added which contains
+M-privileged registers, e.g., PMAs and PMPs.
 
-riscv: dts: spacemit: k3: Initial support for CoM260-IFX board
+The RISC-V spec S-privileged registers remain in the first register
+range and are compatible with "riscv,iommu" so the Linux driver does not
+notice any difference, but the binding will be used by OpenSBI and
+potentially other M-mode software.
 
-This commit introduces initial device tree support for the K3 CoM260-IFX
-board, which combines a 260-pin compute module with a carrier board. It
-enables basic features including Serial UART, ethernet, and the onboard PMI=
-C.
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+Acked-by: Joerg Roedel <joerg.roedel@amd.com>
+Signed-off-by: Nicholas Piggin <npiggin@gmail.com>
+[fustini: fix dt_binding_check errors]
+Signed-off-by: Drew Fustini <fustini@kernel.org>
+---
+v2 changes:
+- Fix dt_binding_check errors
+- Add the Acked-by: from Joerg
+- Drop RFC prefix
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boo=
-t/dts/spacemit/k3-com260.dtsi
-> new file mode 100644
-> index 0000000000000..1801a44d43559
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-[ ... ]
-> +&i2c8 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&i2c8_cfg>;
-> +	status =3D "okay";
-> +
-> +	p1@41 {
+Link to v1:
+https://lore.kernel.org/lkml/20260310003850.3837030-1-npiggin@gmail.com/
 
-[Severity: Low]
-This isn't a bug, but according to the Devicetree specification, node names
-should be generic and reflect the function of the device rather than the ch=
-ip
-name. Could this be named pmic@41 instead of p1@41?
+ .../bindings/iommu/riscv,iommu.yaml           | 62 ++++++++++++++++---
+ 1 file changed, 55 insertions(+), 7 deletions(-)
 
-> +		compatible =3D "spacemit,p1";
-> +		reg =3D <0x41>;
-> +		interrupts =3D <64 IRQ_TYPE_LEVEL_HIGH>;
-[ ... ]
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/bo=
-ot/dts/spacemit/k3-pinctrl.dtsi
-> index 23899d3f308a0..04efe64b8a3a2 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-[ ... ]
-> @@ -45,6 +45,39 @@ gmac0-phy-0-pins {
->  		};
->  	};
-> =20
-> +	gmac1_rgmii_0_cfg: gmac1-rgmii-0-cfg {
-> +		gmac1_base_pins: gmac1-0-pins {
+diff --git a/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml b/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
+index d4838c3b3741..5aad8cf67840 100644
+--- a/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
++++ b/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
+@@ -32,22 +32,35 @@ properties:
+   # should be specified along with 'reg' property providing MMIO location.
+   compatible:
+     oneOf:
+-      - items:
++      - description: Platform (non-PCIe) IOMMU implementations
++        items:
+           - enum:
+               - qemu,riscv-iommu
+           - const: riscv,iommu
+-      - items:
++      - description: PCIe IOMMU implementations
++        items:
+           - enum:
+               - pci1efd,edf1
+           - const: riscv,pci-iommu
++      - description: Tenstorrent IOMMUs implementing "riscv,iommu"
++        items:
++          - enum:
++              - tenstorrent,riscv-iommu
++          - const: riscv,iommu
+ 
+   reg:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
+     description:
+-      For non-PCI devices this represents base address and size of for the
+-      IOMMU memory mapped registers interface.
+-      For PCI IOMMU hardware implementation this should represent an address
+-      of the IOMMU, as defined in the PCI Bus Binding reference.
++      For non-PCI devices the first item represents base address and size of
++      for the IOMMU memory mapped registers interface.
++      For PCI IOMMU hardware implementation the first item should represent
++      an address of the IOMMU, as defined in the PCI Bus Binding reference.
++
++  reg-names:
++    items:
++      - const: base
++      - const: machine
+ 
+   '#iommu-cells':
+     const: 1
+@@ -75,6 +88,31 @@ required:
+ 
+ additionalProperties: false
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - tenstorrent,riscv-iommu
++    then:
++      properties:
++        reg:
++          items:
++            - description: IOMMU base registers
++            - description: Tenstorrent IOMMU machine mode registers.
++        reg-names:
++          items:
++            - const: base
++            - const: machine
++              description:
++                Region containing platform specific MMRs for machine-mode
++                configuration, such as PMA and PMP registers.
++    else:
++      properties:
++        reg:
++          maxItems: 1
++
+ examples:
+   - |+
+     /* Example 1 (IOMMU device with wired interrupts) */
+@@ -145,3 +183,13 @@ examples:
+             };
+         };
+     };
++
++  - |+
++    /* Example 5 (Tenstorrent IOMMU device with MSIs) */
++    iommu5: iommu@d2020000 {
++        compatible = "tenstorrent,riscv-iommu", "riscv,iommu";
++        reg = <0xd2020000 0x10000 0xaa000000 0x10000>;
++        reg-names = "base", "machine";
++        msi-parent = <&imsics_smode>;
++        #iommu-cells = <1>;
++    };
+-- 
+2.43.0
 
-[Severity: Low]
-This isn't a bug, but the gmac1_base_pins label appears to be unused.
-
-Also, is there a reason this subnode is named gmac1-0-pins instead of
-following the gmac0-rgmii-0-pins naming convention seen elsewhere?
-
-> +			pinmux =3D <K3_PADCONF(21, 1)>,	/* gmac1_rxdv  */
-> +				 <K3_PADCONF(22, 1)>,	/* gmac1 rx d0 */
-> +				 <K3_PADCONF(23, 1)>,	/* gmac1 rx d1 */
-> +				 <K3_PADCONF(24, 1)>,	/* gmac1 rx_clk */
-> +				 <K3_PADCONF(25, 1)>,	/* gmac1 rx d2 */
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-02-k3-com2=
-60-ifx-v1-0-3e17055dd488@kernel.org?part=3D2
