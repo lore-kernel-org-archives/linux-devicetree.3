@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409E1305686;
-	Wed, 20 May 2026 15:48:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142BB31E828;
+	Wed, 20 May 2026 15:49:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779292119; cv=none; b=ueaFW3vPM89LfMslidoWiRFK5RMwumJPZxmeG2GjQ9Str+CqD+wac1kFbkQUVWRWx7oycdArZAL5C/b9qG/1NH9vI5Nhk8GX67nxBsf/pWeLey9ERu+MF5ZIzqKKh3Whq0TxnXrx6H+SegobG47sxnTlLb2X+qkC1cWawjMTYRs=
+	t=1779292179; cv=none; b=G1PBXvGo0qQhuZsTeZoRUvVF8WwGI58Js3+Nrdlx87yMP5/RTDvDLG8Ln5BDClWeH5mKi2cTiIqKAYnZd61jJaKROOT6nKlG0LslblbCd4qZfY2jJCF/kf0qQyznEycHVd4umKjUbnqqpLf/L/MQJyM+SO7SQVACMIMsVDl0o7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779292119; c=relaxed/simple;
-	bh=q5iLEkyr6gKjoQ2BfLoHbYWrZ2V0cT4H7XMhmlMJU/c=;
+	s=arc-20240116; t=1779292179; c=relaxed/simple;
+	bh=uzq9ZNe4Ju2i9x4FQZIAPLQgVsHYvvOKpgIVfD7yzyI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gc8fuVQyK4c0cKLudk5u9tF+1rcqS9rQ+WgMxXGQ7PfKd6bt0UNihQRF38jAGgUX7FjvsuFhwgAUV8J3vi6vAyfAhxwI8dHOLGVeNI/uzUZQCjnUCFHnKAUfv/n7HF7i0ivWdkFevmXYw+pmHzCmIgfARQPz2R5ghVgDJ7Ex1MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELKIBl2v; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=R7CVfpbxU0dGq15XkKc3vHZI5NwkETN1YZVFk9I9MLrbivW5ThqjazoLpJvAOSLNe+f8hEy5Cu+Gfm+CVVJlEDlqgPm7H7fG7eRklzgwNCRF/pkndTsfK/D+nxOb5Rs4WaVHvLYXXHMBrJBOrYP9ulS68DUnZySQ69EowEBYqA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TzAW5I8O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELKIBl2v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D661F000E9;
-	Wed, 20 May 2026 15:48:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TzAW5I8O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C891F000E9;
+	Wed, 20 May 2026 15:49:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779292117;
-	bh=nlwJwYF7az4RAtKKKBvp5m+7EtzDniGgGIAKI3MlR48=;
+	s=k20260515; t=1779292177;
+	bh=msoNP98X9TIxX7NoNwzaqySzNM1G8U+6UESCKSkm6qA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ELKIBl2vaz+2brBFPMOQ6o9lOTR5t6T/nzuxzjsKHqblQDRy9f+q0gU06ROh6GmT5
-	 bBGUElG1nGQwTXwTEIEyFgL4fqhryrSJkrvP47+THml6mxQVDjQgCQo5a1IhxzQjad
-	 5gwfeQyCvcqJgn8irdUQc2Q7csRBc0paCj4f2CEqFSvCLBs6g5o4HwHduBKjX2dbWV
-	 yTRTKEyuh5caXW8cE2DsIvCItAVhMI0KUKYdOmLPZAI3gxBT//Jj58fcHTLHv5+4Ih
-	 ozJR4bCMYLKlzy6PDg22+F0YtmXn8Wbfl25s3uJzXIm/1S3GANm17wZSG6DjYXzHdy
-	 tc8e7zv7GK2+A==
-Date: Wed, 20 May 2026 16:48:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	b=TzAW5I8OdwnywObXjHsKrGC7033vSs7Zjf5/OeBCkFCeb5UACy2QbBKAYFxYXM/X7
+	 Ix21ccOOrz5SOJIjOBUVSJpHqzqbJSqyEg1fGoVpE/MFGIiEk8fKuaHmvmuTZudrjl
+	 VQlkkt6L7rgVC+z5x5gGighmOQcVk0FlURgm6nHbaNxml/KwwoyWowbL0LZaCA1LLC
+	 tuGZ1dlgbPjFEA17n75ushCRISquVMVgMTMI7drMLtsyjbMFgXBo/p2Ekg43q1TFcX
+	 u9QIgg+jJI8US6Oy0o2531uCdMwwKX38l/hs7Xyt3+dte6780LVPZfM0tpPVwige9h
+	 l5yhWeU7C7ttA==
+Date: Wed, 20 May 2026 16:49:33 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Stefan Roese <sr@denx.de>, Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Zhongfa Wang <zhongfa.wang@unisoc.com>
-Subject: Re: [PATCH v3 3/3] regulator: Add regulator driver for Unisoc SC2730
- PMIC
-Message-ID: <7daddfb0-4bec-42c5-a381-d3e938a2e146@sirena.org.uk>
-References: <20260519-sc2730-regulators-v3-0-5bf0e02507e3@abscue.de>
- <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v3 3/5] dt-bindings: i2c: mt7621: Document an7581
+ compatible
+Message-ID: <20260520-ample-ultimatum-b947112dfc5c@spud>
+References: <20260519223253.1093-1-ansuelsmth@gmail.com>
+ <20260519223253.1093-4-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,41 +50,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p+ntJXcBgVP6K1OX"
+	protocol="application/pgp-signature"; boundary="N8qZPmLSc3aPNqva"
 Content-Disposition: inline
-In-Reply-To: <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
-X-Cookie: Natural laws have no pity.
+In-Reply-To: <20260519223253.1093-4-ansuelsmth@gmail.com>
 
 
---p+ntJXcBgVP6K1OX
-Content-Type: text/plain; charset=iso-8859-1
+--N8qZPmLSc3aPNqva
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 19, 2026 at 02:06:13PM +0200, Otto Pfl=FCger wrote:
+On Wed, May 20, 2026 at 12:32:45AM +0200, Christian Marangi wrote:
+> Airoha SoC implement the same Mediatek logic for I2C bus with the only
+> difference of not having a dedicated reset line to reset it.
+>=20
+> Add a dedicated compatible for the Airoha AN7581 SoC and reject the
+> unsupported property.
+>=20
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/i2c/mediatek,mt7621-i2c.yaml          | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.ya=
+ml b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+> index 118ec00fc190..8223fbc74f14 100644
+> --- a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+> @@ -14,7 +14,9 @@ allOf:
+> =20
+>  properties:
+>    compatible:
+> -    const: mediatek,mt7621-i2c
+> +    enum:
+> +      - airoha,an7581-i2c
+> +      - mediatek,mt7621-i2c
+> =20
+>    reg:
+>      maxItems: 1
+> @@ -38,6 +40,16 @@ required:
+>    - "#address-cells"
+>    - "#size-cells"
+> =20
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        const: airoha,an7581-i2c
+> +then:
+> +  properties:
+> +    resets: false
+> +    reset-names: false
 
-> +static const struct platform_device_id sc2730_regulator_id_table[] =3D {
-> +	{ "sc2730-regulator" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(platform, sc2730_regulator_id_table);
+The sashiko report looks valid here.
+pw-bot: changes-requested
 
-Unless you modify the MFD to register this child device it won't be
-instantiated - how did you test this?
+> +
+>  unevaluatedProperties: false
+> =20
+>  examples:
+> --=20
+> 2.53.0
+>=20
 
---p+ntJXcBgVP6K1OX
+--N8qZPmLSc3aPNqva
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoN19AACgkQJNaLcl1U
-h9AMrAf/Qfc3vXwwm7dJJ28i9AOsr0/vY0kmVtk0u2H3g41mEhPBzgSGskMawzGQ
-HBxFoiyrrrf55G7NNp7BrWv4eWpiqcMhs4FmgMPG/i45Omwv16/eEEXR4k41sobI
-ILw0oXs/Lk7aU+3U6mNV7cUxXuBkkr0E0fc9EvJTK4rVq0unmNbugxw2xwbDMeP1
-Jgftn/wL1MLmDIpufGB1DHPdPsfpU6f287Iu2kPD4fICWNNB3wvehuGtdEL0G2RE
-WIHzAGrwHAdRtIoScMX2OTmq0crkdUqS2CR+Gh3g/41t5yWhv4Ux1hkCuYSMLrRd
-PFyXPAbhmX4BytL32g5XCQyGqRoF9w==
-=/sys
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag3YDQAKCRB4tDGHoIJi
+0nwoAQD5LVwdLYofHn+NnDry6+KleqvkZPQ+C/mqn6QwtJmgpAD/elTm5Vluv3Mc
+pu12sSvva0dnNq60VV/jPiXwB7tT+AU=
+=l22U
 -----END PGP SIGNATURE-----
 
---p+ntJXcBgVP6K1OX--
+--N8qZPmLSc3aPNqva--
