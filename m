@@ -1,188 +1,283 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011001.outbound.protection.outlook.com [52.101.125.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2762E34041E
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 05:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779253473; cv=none; b=Ehj8TUTwOcNUY2+vI5HSb5a0Ok/ppMQ462dw91H3aY29MKyrCv31+6hBWp0G3Z1Vx9gOhsOP09ldBD+RrsUf+OGMHKWKDNYIiUvCVRqV8XRIwiWY+bF8Qd2RExgL23U5fZtz6du73QiL/qPW5VWLyz7TG58ajFr81V5WrLK5JOo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779253473; c=relaxed/simple;
-	bh=GBw4sTQ51qv3RHbSz6bJbjqhdBcQ63A9uBz66nhSXZ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eTbMyHPLhLxhR3d5ElN0t4SJDzQkxIl80NpCGRoZRBK9SvkizLJm8F1WwfCI779gWStv6oCgCZGdcjv84Y3+8C1YAXPyeDuFUwoLnaCgIUfHJF3y1lXLJhOCTY1LP7ow22PMEwnfpaKzVVUeQgnSNf9MSKuOeJjsaWDXFSF4s5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AGxCSdId; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fBT6J5w8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9AB3002DD;
+	Wed, 20 May 2026 05:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779255364; cv=fail; b=FNMaswWfX4xeyQoxOBE7coA8Mi5cmsEWtbL5othdOaiZgqfosHD+hO1bMS4tnbtWWjZ+coX2uvppK0J4+pqlVKBmeFGrIHcnHqECddEgrF9vai1Tp+NOs8Mcf6asJhCP3/iwrrafBWsp4492ByKb06+Oe/UZ6se+m131kjp7X28=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779255364; c=relaxed/simple;
+	bh=pRAFOrkEoVDPB8LJMQ42TG9LSQ2dbTD5cd0siPnFoXI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PhDZPHd0ZkDZLS/1nFDxGwm/+aBWILSjqxwzIetVlxqs57WEBsq8UMda1z0vvT+murzNTnSWK1EcWzCTL5/oxsUVRKsanRu0iIv+HyO4McMl+R0krR/PRYFdMnKhNoolIIlZ6X81spyUCutiZEhXi/V8ayysaznngho8sVFi40I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=sqB9lVbH; arc=fail smtp.client-ip=52.101.125.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AGxCSdId";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fBT6J5w8"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JM86Sg2867863
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 05:04:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OmSQknuukmFtpHIF3IEi2WKgAfnolG31trNYBiHuO94=; b=AGxCSdIdhznPmytD
-	r5V/e9lDrCuH3/0gRJtb8HQ1SX6d/D4TTxqd452zKW/4bVNVhKdIOtWoTy7rkUtz
-	oaHp51iBf5NigPanwjK9HgCS1hdYtLEI9UqckFlx/NNqSrCGnFInTO6ibecveqO8
-	by2G3adovXR4GpPtgBxlOAlBCIQNRTTOrWK0Kr1FrGr4Hr+cmXpnt1mDNd8jfAm5
-	qThdm3DxJPNVxI8uZV/X+ZlYS64CfDduc/Cps0PSv3bvVO6u9PrbDFSLQbHgcsvV
-	ei7VuDKkJjQP7E0DGy/2l/GoktWqN2/s+cHPdy68a/MxslOAhMj3ikC6biXtdyQQ
-	sv3Q7w==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3wb1ah-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 05:04:31 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ba0c548e6aso8866005ad.2
-        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 22:04:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779253470; x=1779858270; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OmSQknuukmFtpHIF3IEi2WKgAfnolG31trNYBiHuO94=;
-        b=fBT6J5w8af8boljQ5ifhwwhAbnTAWqATRGdNUqLM8Y9FhLKSdleIFHBnFIB/FWD/Vo
-         +go76bZLayzU4nR3N0md5WCf08Wdm0dYRISSGbcwkj52Kr/2yDvLoyNUdOcMdnepgMnk
-         HLzNC+MGVRRnTt3DV2dJPYhYNFH8aZOjdGUsTEUMfporaS6LuCUGeCWi285UaeI5EpSk
-         5ZRiD+bDmdwjFa+Ftmxt8H3t1glbX7geBQiQG60rpcughej9yjyHgKSyBwR9AV7vrnB9
-         i5qqQkgCHt9KOlH6ooADj46+haK3OvYiKtQPiRiMrr+tIYjugBd33+mogn65miNAKipr
-         REEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779253470; x=1779858270;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OmSQknuukmFtpHIF3IEi2WKgAfnolG31trNYBiHuO94=;
-        b=APOO603Nl4Pbt8Uq8bb1+7WmtjEwzfGyFOkj3pPlj0Avsb1BJnPvEJF+Tj5JPmg6l+
-         6udEe/newVzboebbrrpNRur0s+NFtH74dF7L3JcR47iKhd68f63nhdqfJOK/AjkZxV31
-         kNTVj34XekSTVPF8kF+/h8xDvnefHP5V1YNIoLbh4yjKQD0E6UFdvt2VhLosNs4WlLRx
-         sHiImho9DI7KAK6+G3qYtqorX0rpzyAvUs/e8ayjGWtnErC7yCrNb68ZGyB4EMNjj4Qn
-         jRzUWqvcwamn7Mod6XsnTq7P50MnA9Q17vH2tQdmJeRL5YYzCa0OlK4J13lXBFaGC56j
-         BkRw==
-X-Forwarded-Encrypted: i=1; AFNElJ/Dfp5XgG0/wi6Se4jq71xbYxWOStnr8CY2Q8XluhdMpqg54FWBbpjRRmt5zwvhTkSGYZb/qO21o3eh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+O+Wefe62wa+LkCMXQyELp9gW8Dmv8OF0cGUzS+AVkyNiJ1qQ
-	axZIK5oxKFh2sXO5DTZ1u2s432GGzXiByrzE+qdwSbDxfYgGLwLX2No5iqK0LPjcEn92cZD+zVm
-	ivw+m5NFbYYKOF16oXCk9wouz4C+kvEX9968Hr8tshunmt/8+Q6g8V2j65EtiiSWd
-X-Gm-Gg: Acq92OGqVb77kkIjZgBF+5UkSAf1w/tlu749CQeWlqcL6GYJFh3SERyCNdwztS41053
-	k65vKgdtilJBFx8mm+WrzFydUhkUDQf2qVHiV1FJEBqv9jgBuuLAqTIWF1ikD9pmIWE0kndAGP1
-	yho2Z1iDqiVWTsJIbCCRFiPj2YvMefmvOGUUshWFWjyn8PYlVVVMFebdCTW/uHIprmqa8GKG8I/
-	OcMHk7SodcU8UM5R639vlVfMrKI4Q9DiMwwu3qdu7Rcs4W3Y2+dODikIZCpRBVMtP4P8mgNfGwx
-	FzMBZjlisyb+vOpoU7OW3xkURcCUxmWEq3H6Y312pMsg5FwF+1TGss8VgvEvpAT+o/Ag2U95po4
-	QbLAu2/1QYE+LBouetM1Ghy1HxSVM7iQ8G9WLQiqa8UK5pYswfW4fF3YsGSgthw5oNg0p8DLA0j
-	GQpdZxYA==
-X-Received: by 2002:a17:903:3c6e:b0:2bc:cb8f:c286 with SMTP id d9443c01a7336-2bd7e8cfe0cmr139206365ad.7.1779253470283;
-        Tue, 19 May 2026 22:04:30 -0700 (PDT)
-X-Received: by 2002:a17:903:3c6e:b0:2bc:cb8f:c286 with SMTP id d9443c01a7336-2bd7e8cfe0cmr139206045ad.7.1779253469796;
-        Tue, 19 May 2026 22:04:29 -0700 (PDT)
-Received: from ?IPV6:2406:b400:b5:60e5:312a:8741:b738:744? ([2406:b400:b5:60e5:312a:8741:b738:744])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5c05f287sm270216785ad.24.2026.05.19.22.04.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 May 2026 22:04:29 -0700 (PDT)
-Message-ID: <55470717-3e9e-4548-b12a-8e2a2e1f6c63@oss.qualcomm.com>
-Date: Wed, 20 May 2026 10:34:19 +0530
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="sqB9lVbH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O1HWce3xgkOBFFbnHvXzpvveIuhja0KjJ2dQroax9Kf1LJ0xM9bsUbDff558CtWLnDClV/u4tuJjqvGIaiiGmE7vZLATZLDM9FR3GaWu/0HywpB1+UYSm3OvIeteRegQaRMUOsUfuaLp3RT1ydhXdCy1SO2oQyzzXAK0HIZ7CnANhriPbWjMLF2WzXLBze6m69WxQ76szBz47OEfgseFETfr7eEPxbBFvAnRazu7z580FnM5EBne6ORskhtJ2vAYKZKRT7tGHqnQiMTjwF+ASfCuf4X3XylN5SnMkZPJIOIce5etxseZFRpTwGDMnKEBhQ4O7k2TujB0SKO8oNt4ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ost2K5+6d6YAFzZHs66M47yZz7OYyk/khOHI8JBhAnE=;
+ b=V4PAaI2Vc39LggKw66QQtIQsbtQOQCLEldigFwcW4GM+a4cxQJ/YtcV/reAk3BsH59Z+799Ud0XeodkC+xEdc09J23oz1BUczAeNURgKtJf1uXF50Mc2+LHeTABiL/ayXE+RcQYz9NtkWCMjgX9bmfYk4F3pX+KFufp4U6HNKckfEvbplQCAV8bLcA+AAIVnriLpHmTTi/uE70E+XvhaCDMLfvrYaJBM4vKUwhDCTpiwWqbhD++zjQixpTJqxJvp3Dsii7M7IF9WqmyC/PprBMC6N7NWm6p/aEWSgcArrEgIrKYcN2KhHUukEy4QC/8TkAQFYk8HqCFlkZ8LUrTHxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ost2K5+6d6YAFzZHs66M47yZz7OYyk/khOHI8JBhAnE=;
+ b=sqB9lVbHO98EhDXMHAF4XPLEiOM1KBSfSw3a4K8tMepryGv8EW0DRGPa/AmgRotmI+okJJnPw1qHcCI59EZJHK5pecXdPz7I9+jg7FXoFMhD5bOvlSZntPoJ6MDYY4w4+n3+qAUnYdnSJrRYNwC2tKi1XjYqThTXzmkHB25kgqM=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OSZPR01MB8687.jpnprd01.prod.outlook.com (2603:1096:604:15e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 05:35:58 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0025.023; Wed, 20 May 2026
+ 05:35:54 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>, Laurent Pinchart
+	<laurent.pinchart+renesas@ideasonboard.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	magnus.damm <magnus.damm@gmail.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v4 4/5] drm: renesas: rz-du: Move mode_valid logic to
+ per-SoC clock limits
+Thread-Topic: [PATCH v4 4/5] drm: renesas: rz-du: Move mode_valid logic to
+ per-SoC clock limits
+Thread-Index: AQHc56nK9BJ9tFiG1kiCI4Ue74glYbYWZP+A
+Date: Wed, 20 May 2026 05:35:54 +0000
+Message-ID:
+ <TY3PR01MB11346AD5B7CDBB72EC8FEA16686012@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260519160825.4082566-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260519160825.4082566-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To:
+ <20260519160825.4082566-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSZPR01MB8687:EE_
+x-ms-office365-filtering-correlation-id: 73686d1b-7c6f-4fcd-4c81-08deb631a93e
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|4143699003|11063799006|22082099003|56012099003|18002099003|38070700021|3023799007|921020|5023799004;
+x-microsoft-antispam-message-info:
+ D/gblkspdyRfIy1jCHe/K3LaN0W9cAgu5bvlA7LNISJNeHoqZIgbfKWj1DYCWsymJRfVsG8K68zUsy6b4V7Z09mOw+Vubib3HQ+fSy/ugHF8oSjEmvtJKy/njeKO5kcSQksm35/tu8Dm2FYOa8QaAOxVsbiQBCqCsLsH6SHratCwZzZRYT9QRB26SGWqLYmPmrTgl7OXCtX/LXO+noyV5VWNum/JCvD6fGrGITq9zCnfPXdLeYb2Ii7/tGBelniDL0ZnO10UQ4kxpDYF1R+OqJjKNTIHGGk1KqnNm/hf3VHRc/gr9BDY66GdgoGkdDAnQaD83MAuhQC6Q8gFjOzGhvaFVgW7X7dSKQpUePYFv2AJ6MxCRQMDwSW8JByWiik7dlaVtos8hQtInoCYx5hC5sbVPPvm7V8yIIVLUGNDYOSAKItYWXpIRrexZ17A+pHZ5fGLT2+3Eb8JTT684zz9nGO+JpAhY3nb/7ClaVbq8hCT0LKK7mIvUl6ADMJvwS6sIl8Zxg0EqslbXA3Z5CW8L9voxqB/H/W4DMJBU/7aM0XXBw4z0uwWlnlXiqmv8kRBN7kLcKF6R/N7zewtlpplj99hRCqUsIGwPvUQvdNdFANi+++oLaWdvPPSXg+jyqz8ojWnE27L8ZcSrclS7nw5FKC41gGL5z3GWZjNK3NS7OyWu94qmDsb24zjSErXyYObadTcCtXrLmPGVNdJ0O5HNviiOJfsAt9+qJIpZ8wXrXfKAhMGiS9c0hfmzOayJPDrsvI3eQq8rCZ/QDy0Kgmm5g==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(4143699003)(11063799006)(22082099003)(56012099003)(18002099003)(38070700021)(3023799007)(921020)(5023799004);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?nwJxiMNJksPFNEXj2OgLUbMXesNBVDpoHzrxNIf3Isf8U/LpOGcHWKsPOLBr?=
+ =?us-ascii?Q?4gPmgkRYjPX99q/pZQONsBFLNtmTvPO5a4Ih4IXz7dH5idzv3s1wM8MyG/XC?=
+ =?us-ascii?Q?GqX9/wtVp//qMhTh7h50elQJiKDi7ZEWDrLNgj3M3YS6uxNiVnZc2vaN2RP1?=
+ =?us-ascii?Q?pw8XtQ937s8PsyTlrUxOAXDs6hn9LV9xTaWbw6EiCmJxpNhTsbB639eWdCsn?=
+ =?us-ascii?Q?9K/zaNMAzcWSL94agadwKy3GgjzUgy6/A8nJLsemboGg0poklPWNiyPJLCWl?=
+ =?us-ascii?Q?IomVuS2I4FY3EXcnUe7xnUe4gZglSjXcFTx7yH3d56UqQ6oYCNziHrQLQgcu?=
+ =?us-ascii?Q?efZymyhrwPzd51V/bkCzBqu2j54Ivku2VYbwUYnvxt+AOEZB+LnUKZapUl4X?=
+ =?us-ascii?Q?+e78dV1dQ/RpLlTW+FZEpnSMBTz0XGodQvE1JLLhdugyqCxc9TcNmB0VAcCk?=
+ =?us-ascii?Q?bSZNwy4vmQllKyXhX5l4RNz7mwb1Lu8rAElAOsUD7Tz3YrsR+L6XMDA3Ro3Z?=
+ =?us-ascii?Q?7hZQ8rXBn3QZvupNjHIjH9uGj8Piw/CspUB5vO6RBYnHMula1cYDFuQHXT/G?=
+ =?us-ascii?Q?kaPnno7h2RPJafhUckgZwfBnHNiW+TK5Fn+v6nK3Uv+a/rVuCmuR2pWVrdKC?=
+ =?us-ascii?Q?E/xqSY5SrgZF2kUns0C46NN2/77b4W+hR84OOpW5ieU+d2/Z9r+E1mqm0wBj?=
+ =?us-ascii?Q?BX63P+y5kyi4HJDkePZQiF3Abt3fr3HZ9wVqaDftQNnx5OFUGWaWW5b8jAqE?=
+ =?us-ascii?Q?s/pF8wFnoZdhZwEtF03w5ASlPDHFXJigwfh8Gs3IAUgFrnIQ3LYLcz4YbVrD?=
+ =?us-ascii?Q?87MF3FLq5S3lhvWl+gQp3GOt5FHg0N1Y8zoaFMFETqKBz56ygoCJ/o+moQwG?=
+ =?us-ascii?Q?ol52wzK4H1HP3qMo4Gj81kbEKxTr4zyZA/ePfpD0f2ErzqWsCO7z3eyKkpfS?=
+ =?us-ascii?Q?LrGanvSaACha8R/ZjdCYQAdqW77XpBABuXgyu8gbouPv7WOZc6C/9cjfMyz0?=
+ =?us-ascii?Q?8PKStp/pFZNN1tH5jQsqu0yN93qfBV3uKUEBjof7kHM3OWvr57ZE4rmnMUI3?=
+ =?us-ascii?Q?xaol3IxH0bSG7gqMcT5dZ9teI3SRj3vfTfQ6g86jEUBt9NRwNpnQt37tXya8?=
+ =?us-ascii?Q?IryAH2ZYP1A+200GxDZo+kEwfhlyJWTSBovOBbMiZV0G3GgYHJ/+BAyL5Hvb?=
+ =?us-ascii?Q?LuDt/7t6v0hkFw+mAWtvoZzsm13ZaGNDITkdHzc8iBgbIZmTy91w5ghrg1es?=
+ =?us-ascii?Q?QyK/xMe2HDv85Wnuq0EBbGzp57Cae9q1hxTpicWN4wRmNyFOQJIqvG8BQxfJ?=
+ =?us-ascii?Q?R+pFnCWippYNHaZ7VJM/OkEWbu2CwxrUuoV0L61a6JSCRDWONMpJXF/bJlwH?=
+ =?us-ascii?Q?zWf5HBF1kQuc8OEWZ7YJo9KyhNaDJVCNhgwKf/LqUuICZJ+GYG1tNcgL1fsa?=
+ =?us-ascii?Q?0HCxVUnpbOH8SltL9hzgWCzjZJrM5okKNKGtbVUUD7EYbEMEqpkty2ESRFgx?=
+ =?us-ascii?Q?kc4fALDQqbZYxX/iVh+VVVnxiCqa4YpXfnJtCKM6aW4A1qPSXJCSwa2ZPerQ?=
+ =?us-ascii?Q?yQv0dPrt4ieWN9Qszh5QM/Nke0pyh2oOlgtTN5PXQNpcH5Buz8T7v80RZmpw?=
+ =?us-ascii?Q?SEPtXtFi5uVzJfPdBCFcRlNibZn3WkOlaFy4aOlghAkZriG81Tt3/EsTlb4+?=
+ =?us-ascii?Q?EkWmsU6NS/M2iMv+9GcVaTS0GAXM3j5dL+Wcmw6mxVa6wvRredkwt7z1DBcG?=
+ =?us-ascii?Q?QFPVlqIv0w=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] arm64: dts: qcom: monaco: add AEST error nodes
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Ruidong Tian <tianruidond@linux.alibaba.com>,
-        Tony Luck
- <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
-        will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
-        mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
- <20260505-aest-devicetree-support-v1-8-d5d6ffacf0a5@oss.qualcomm.com>
- <71eee892-1c0b-49e7-a82d-9016c56e8592@oss.qualcomm.com>
-Content-Language: en-US
-From: Umang Chheda <umang.chheda@oss.qualcomm.com>
-In-Reply-To: <71eee892-1c0b-49e7-a82d-9016c56e8592@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA0NiBTYWx0ZWRfXyHTH3ERlEwl6
- sHrxF7DoImDGqSL0PtaoqpI9CzXGLFGPnqd3i1PKcGINxtokBiekr6EbK7rKi913Goz+BoyAjlP
- 7rooe8k7SAbAgSknOR2IJq5u8XGILDFg6GJXQrwPuavy1lncZLPjr3C/MmuUG3ecydq599Yrdoi
- lMAq482yYD9xh46FSOsTJHolWm2QZ1NHHmSh50mnuE8SDbHzWPOnmVXP4OULVThdoe7DfTlh0i9
- 3hLR+77qZI22s0kpOQl4byifZOjkJtW3JKQIIS3NPmhHmzH1aQ5d8KYmHsTwzlVuGAKUTT78t+I
- PW7BxtS1TLZvarodwWK7u5Z9rvBcIzJmZtzaJ8AdteRySeSonP7Ex5/DM7mIgnB6wa2ZC/K/X4I
- UU7o7ODUXgOdK+FrrqRLB0oV7n+ueJAqraGzbfu0/1cB/ZXHvzCPSRYPyrETCE42SYx3PtJNArn
- fnUygv/W6tC0qEscy6w==
-X-Authority-Analysis: v=2.4 cv=Q/viJY2a c=1 sm=1 tr=0 ts=6a0d40df cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=8C-fUGBXRnHmYMWNGq8A:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: GoYFyqCitgBOvNAuqfiRziBkwdojc9Zv
-X-Proofpoint-ORIG-GUID: GoYFyqCitgBOvNAuqfiRziBkwdojc9Zv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
- spamscore=0 clxscore=1015 phishscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200046
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73686d1b-7c6f-4fcd-4c81-08deb631a93e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2026 05:35:54.1383
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TtGo1LUw6o8Sz/2jhI6S77EICPyrzxHiCijePRQ7kX0EzXLwe8Sq0RvZtSvxMZkbCkIgOz21fphyqHpzKDf8wey9tt8v3oZA0z7SMLXv4MU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8687
 
+Hi Prabhakar,
 
+Thanks for the patch.
 
-On 5/12/2026 4:58 PM, Konrad Dybcio wrote:
-> On 5/5/26 2:23 PM, Umang Chheda wrote:
->> Add AEST RAS error source nodes for the Monaco SoC.
->>
->> The DT describes a processor error source covering all CPU cores and a
->> shared L3 cache error source for the cluster. These nodes model the
->> hardware error reporting blocks and associated interrupts as required
->> by the Arm AEST specification.
->>
->> Co-developed-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
->> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
->> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/monaco.dtsi | 41 ++++++++++++++++++++++++++++++++++++
->>  1 file changed, 41 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
->> index 7b1d57460f1e..8e43ceed7d84 100644
->> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
->> @@ -3,6 +3,7 @@
->>   * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>   */
->>  
->> +#include <dt-bindings/arm/aest.h>
->>  #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
->>  #include <dt-bindings/clock/qcom,qcs8300-gcc.h>
->>  #include <dt-bindings/clock/qcom,rpmh.h>
->> @@ -29,6 +30,46 @@ / {
->>  	#address-cells = <2>;
->>  	#size-cells = <2>;
->>  
->> +	aest {
->> +		compatible = "arm,aest";
->> +		#address-cells = <2>;
->> +		#size-cells = <2>;
->> +		ranges;
-> 
-> These 3 properties aren't necessary if none of the subnodes have a
-> 'reg' property
-Ack
+> -----Original Message-----
+> From: Prabhakar <prabhakar.csengg@gmail.com>
+> Sent: 19 May 2026 17:08
+> Subject: [PATCH v4 4/5] drm: renesas: rz-du: Move mode_valid logic to per=
+-SoC clock limits
+>=20
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> Move pixel clock validation from a fixed encoder check to per SoC constra=
+ints stored in
+> rzg2l_du_device_info.
+>=20
+> Pixel clock limits differ across SoCs in the RZ DU family and cannot be e=
+xpressed by a single shared
+> rule. For example, RZ/G2UL and RZ/G2L limit the DPAD0 pixel clock to a na=
+rrow window, while other SoCs
+> such as RZ/T2H require a wider operating range.
+>=20
+> Add mode_clock_min and mode_clock_max fields to rzg2l_du_device_info to d=
+escribe the supported pixel
+> clock range for each SoC. Update
+> rzg2l_du_encoder_mode_valid() to check these bounds when evaluating
+> DPAD0 outputs, returning MODE_CLOCK_LOW when the pixel clock falls below =
+mode_clock_min and
+> MODE_CLOCK_HIGH when it exceeds mode_clock_max.
+>=20
+> Populate the pixel clock limits for both the RZ/G2UL (R9A07G043U) and RZ/=
+G2L (R9A07G044) variants to a
+> minimum of 20875 kHz and a maximum of
+> 83500 kHz.
+>=20
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v3->v4:
+> - Dropped per pad limits
+> - Updated commit message to reflect the change in approach.
+>=20
+> v2->v3:
+> - Moved clock limits from device_info to output_routing to allow
+>   per-output constraints.
+> - Updated commit message to reflect the change in approach.
+>=20
+> v1->v2:
+> - Dropped storing info pointer in struct rzg2l_du_encoder as it's not nee=
+ded.
+> ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 6 +++++-
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 9 ++++++++-
+>  3 files changed, 17 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/d=
+rm/renesas/rz-
+> du/rzg2l_du_drv.c
+> index 0fef33a5a089..1e4b9f38c55b 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> @@ -35,6 +35,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07=
+g043u_info =3D {
+>  			.port =3D 0,
+>  		},
+>  	},
+> +	.mode_clock_min =3D 20875,
+> +	.mode_clock_max =3D 83500,
+>  };
+>=20
+>  static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info =3D { @=
+@ -48,7 +50,9 @@ static const
+> struct rzg2l_du_device_info rzg2l_du_r9a07g044_info =3D {
+>  			.possible_outputs =3D BIT(0),
+>  			.port =3D 1,
+>  		}
+> -	}
+> +	},
+> +	.mode_clock_min =3D 20875,
+> +	.mode_clock_max =3D 83500,
+>  };
+>=20
+>  static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info =3D { d=
+iff --git
+> a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/=
+rz-du/rzg2l_du_drv.h
+> index 58806c2a8f2b..885558eb9547 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> @@ -44,10 +44,14 @@ struct rzg2l_du_output_routing {
+>   * struct rzg2l_du_device_info - DU model-specific information
+>   * @channels_mask: bit mask of available DU channels
+>   * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_=
+OUTPUT_*)
+> + * @mode_clock_min: minimum pixel clock in kHz
+> + * @mode_clock_max: maximum pixel clock in kHz
+>   */
+>  struct rzg2l_du_device_info {
+>  	unsigned int channels_mask;
+>  	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
+> +	u32 mode_clock_min;
+> +	u32 mode_clock_max;
+>  };
+>=20
+>  #define RZG2L_DU_MAX_CRTCS		1
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/g=
+pu/drm/renesas/rz-
+> du/rzg2l_du_encoder.c
+> index 0e567b57a408..56220139a149 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> @@ -50,8 +50,15 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encode=
+r,
+>  			    const struct drm_display_mode *mode)  {
+>  	struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
+> +	struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.dev);
+> +	const struct rzg2l_du_device_info *info =3D rcdu->info;
+>=20
+> -	if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83500)
+> +	if (renc->output !=3D RZG2L_DU_OUTPUT_DPAD0)
+> +		return MODE_OK;
+> +
+> +	if (info->mode_clock_min && mode->clock < info->mode_clock_min)
 
-> 
-> Konrad
+I will avoid checking the first part as it is mandatory for SoCs with DPI s=
+upport
+and DPI check above make sure that this part of the code is reachable only =
+for DPI
+output.
 
-Thanks,
-Umang
+> +		return MODE_CLOCK_LOW;
+> +	if (info->mode_clock_max && mode->clock > info->mode_clock_max)
+
+Same here.=20
+
+Cheers,
+Biju
+
+>  		return MODE_CLOCK_HIGH;
+>=20
+>  	return MODE_OK;
+> --
+> 2.54.0
+
