@@ -1,368 +1,315 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814FE3CE4A2;
-	Wed, 20 May 2026 23:45:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D03833B6F6
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779320764; cv=none; b=WwI+sMNwLszx5fpoGXchOEmneCcKRnI3osTHPmGZ+hf7xX7htCpcMIod/5/DcQXdcMCTSsivfUydWSH+qPLsM9OcccKw9THViztXmTZLpqdv+PFh9w3A15VLj4gqr1dFRZ1im+V1SQC6kWMwhKNJjG25XB/9+BSIoqGCxeI7lAU=
+	t=1779320945; cv=none; b=GpHLQFgarzxqnGVp6WH1mxXvYGJFR5CbujIIyYLJg7/DWOVKMSV3oFUAW7P+K/ozpcV8V+wWEiAzMhMYyXr8qG30W/rwnPnQk4cAR6rwxylHjaEv5Q5AUWRwi/jmJIadfsrEU6B5ANfLTkALHT2P8zXiuUna7J+auED8bij2baQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779320764; c=relaxed/simple;
-	bh=pCoM421K8kgqKzsXzQD0fy74WvtHahuTLCXv0h16ijE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Am1RFwtM8oI0FtF3e2AhkhZp0Zr7huA7smS6tyKwqCPjhZqWDKwq/NsTK45ugZzeIw7031cu+dyHofdHMzR1/gcASApKWpBicpm97aPB2jULa5VrsFwWf5+MWhq0PnDfbXGsVrbrmJet7E6B9qwepy1q6eIZRJlrhpvtaL4Uoiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtsUeWxZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779320945; c=relaxed/simple;
+	bh=oL+Jm993JMu3H+FBsZbdv1hcADypLittE0xvdPbSBhM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DWWLbhYnCNl995DGehuVvoSuLfo4V3byHBgHS8rgt8cZzXUp9am078LccuxKs0/sUBCxq/gb80m8Hemwc9UniR6AR/k/FAivObUGHXX1mgpgBBGvKiXjGaGWrp2xKc38CxtLzbajGIMI0OAqR5CQ9QVno07XRSk/gBQNGB7bk74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=w5nafVyv; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtsUeWxZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B7D1F00A3A;
-	Wed, 20 May 2026 23:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779320754;
-	bh=szDZdNAgveKUHUTIebhoFRjDlb6oPtf/oFq+3CG0hf8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=QtsUeWxZzY5IdiJWjJfUqYIrY/YjPGXGQ9GCfeQj5Js5m7J462Arufe4P6KDHc4mh
-	 VYLBuCAiMZWN2sEdozGsEW+Fq6dhiby/shmoCAUx6fE5ngw2m1Wb+qQnz6KXJyRmGD
-	 EqySHSHAwvmvzDGtn2YfCLam5XVhJyUkHV2dRZA1PlF+iigZokwtms7+z6VLXulIBl
-	 JdaVtMzIfLuZ0q7af6ffv51cOsHLkOtNXxEJlgcOtFXi1mugS+c+vtfiuwmSqHsE7w
-	 uCM+IB9wcrfrBzaxYWatXSL2d1eZH5mogryUvJ7mWywafx/gj9ygYEr2sW7XmTOiG3
-	 YATfc/ULfYsWA==
-From: Yixun Lan <dlan@kernel.org>
-Date: Wed, 20 May 2026 23:45:28 +0000
-Subject: [PATCH v2 2/2] riscv: dts: spacemit: k3: Initial support for
- CoM260-IFX board
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="w5nafVyv"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-911af978bf2so640691585a.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:49:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1779320941; x=1779925741; darn=vger.kernel.org;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=8FV7VoDr0F8Nqcq9fLS/TUF5Lj6uNIEv1Mp2biqd2wU=;
+        b=w5nafVyvNA6TGobWxvvsiuGHEx4yEL4sSkvnokU/G6mimgmvYPkqDdDO7bI0QTmWXH
+         fYZaYMwvflqadfnv5QSPsFEAsWO9CO+KbBhAkam/AyrL6PlW5b+ivA6gLnMapnIwZCYU
+         TcbZ6VMNB36pBGxqz5xLmcmbU6U6tN8srt5L3o4WuPtuOMD26UviRrPlZMVZhBMnwW/O
+         sHKuWFPr2jlMU5gTGdYbPUcgJOJAL3dcH+y7CBKkjZMpULj8059wYevDkYpmVNzLQspb
+         sf1miJVMZe52S+suhQVflMugFnzAOwewLyaq41Um7fYb65j4jaM0b7Kg16/OOlMqS79V
+         jGIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779320941; x=1779925741;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8FV7VoDr0F8Nqcq9fLS/TUF5Lj6uNIEv1Mp2biqd2wU=;
+        b=CfvrEG5nOqt1kaIcyf8CK2OjSAZqxbUd8+tBB75JbN6fbfUV66e1f3n1e6hED0nq+/
+         oAI8i1r2e2702mtkcN+BE2DTfr/l1goTiFWTqXIw6SWDL/TSadOSwnGQjDkRPvw6NDui
+         agYqWe5kf49SsvC68p7i5Smu7IuYGSE0Q+6QkiJ8LX9fPuDeqINP/QVctDjnUj81y2Y5
+         xOOltOaiBhbvoBtHOEyrmrWGtG/jrcSIxVFwuouHDqADJ+Aj1CVYSk0LsIgTw1NjMakr
+         3DlYSviNUiDj1aXTf/JfVYd/+oNslyMotK1/tqZB9dGW5Gk7WdL+wAItRHnSaLQTD61C
+         +qTA==
+X-Forwarded-Encrypted: i=1; AFNElJ8XpRaYgpfswSB6iDBR49TU1IvF0/55vvvMj+3+eZW82gNJgWOn00lm543LFk31nzp4+ZV4NgJ8tF7/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCirvThny4othl3EwiY/pXP2uTO/Zt1nghelcxrxzlxrjT8rIM
+	H0hKEjovgd3LO/MVWNjx4ikCByiY1/NG2YvxC3SzTekB0r+/lFmCW+Kby4dT35z+9TI=
+X-Gm-Gg: Acq92OE4rLayaGG7S4jEJ8DId4l4S1mV85lImPtR4LwsOa6/FmHALdD3Cll+EpmZiSO
+	XoxSl/Xlu/vw5TF9eDf4GNX/tmiUhTc8QAVyC7EE1jAbID/9yqRF5akbZzcAlPQVm8Dj4E53s6f
+	R3nDyrdSOw5pC1iFkfBJgRJN+SI/0oGfysfYFgWK8CGaS8EHlXUNqXGyhMfxjCmYn8RLh2mfPQt
+	NJ/ifs5bxLd0no4F4oakryQWBAwAkwn6rARhaBItNneebV4xEoLNIl1RNi5SfZ8PRxEySCOyZbK
+	4HeDZOBNZC5/aj3HAw7mWjZP4qFBCf1LxNb4VBIHoD8PnNK0tnXFsWYvTSVQGR2uoarAWBCuBpx
+	m60XvH5MEzrx29dB30o49OXRgyaxe3Kz+TbpZBrQupC/Uc1Bs+ylI6dndrhGzDuWTp9HLN2cx7S
+	NJFRuCONVae8lYYJc+cJ3ZRDrATsq8u7+7pP6sJSyfo3dl2yFB23ZefXXjFAtG4Ft1xmX4
+X-Received: by 2002:a05:620a:4093:b0:8eb:10d4:a46c with SMTP id af79cd13be357-914a2d017bfmr60714585a.35.1779320940615;
+        Wed, 20 May 2026 16:49:00 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-910ba182535sm2267012385a.8.2026.05.20.16.48.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 16:48:59 -0700 (PDT)
+Message-ID: <e086dce57bc881f7eba2ad85869f81a81f8d84f3.camel@ndufresne.ca>
+Subject: Re: [PATCH v7 05/28] media: v4l2-common: add
+ v4l2_fill_pixfmt_mp_aligned helper
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@pengutronix.de, 
+	sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
+	p.zabel@pengutronix.de
+Date: Wed, 20 May 2026 19:48:58 -0400
+In-Reply-To: <20260521-spu-rga3-v7-5-3f33e8c7145f@pengutronix.de>
+References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+	 <20260521-spu-rga3-v7-5-3f33e8c7145f@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-gxCVbPi2dtnLUStIFdG9"
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-02-k3-com260-ifx-v2-2-d55095457cf0@kernel.org>
-References: <20260520-02-k3-com260-ifx-v2-0-d55095457cf0@kernel.org>
-In-Reply-To: <20260520-02-k3-com260-ifx-v2-0-d55095457cf0@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8318; i=dlan@kernel.org;
- h=from:subject:message-id; bh=pCoM421K8kgqKzsXzQD0fy74WvtHahuTLCXv0h16ijE=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqDken/05dOPbfuzd1fFBzNWddhAqh795YKXLVd
- k3uLtfsEbyJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCag5HpxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+0E4A/9FWqJ0lrXy1OXxvLgwARuJnZC9GJbYfml+YnsteaqLGa2oWo937tdi
- GGZRv52dcp0luyGQ+SmI4xlzzbN41W/Qdkpwi3nwicTPFsADWYTlneZLDwwCLM4KepyVRPFP/p+
- 9qhV0t9qln9cdn6koLp42sYwuc2xmOV32vVvI8r7pHq1h9+o26pCmyCcqOytAkFap05GAD6ix85
- 2rXiuBqz0WLPTkm8nFHn/KcBuCp324najU0NB2vTRl+u/Is8wndYCzOT3tKBIm6aMKoXnBvhiRs
- lvTzWcQSP0LxJtKutisGY+J9ryXtQjtau2lEMAl3VEzu/AJr9R5vO5xECKoK4/0ItvhMKAb0OCJ
- 9Q3ik1SsSO9QEuWOIa7Y4Ji7EV3qoqQwcGQ4i5nqoCu/6Xi3dDefD18TCv5Y1NoiSnr+PBzDMxt
- EOD9uFPANOj8dDZ8VTYV3iJDdfMVDV4gfYieUtosha/D699VNHQ6rEOdWA6uEpsP2fjZqg7KIsE
- nR3wXDtb4nGEynnK7tr5TCf55iggWYPJE+Zuhu23ulq7aZaMtULxN+BkGfGBPv5JEs5WZVbu1up
- l4jPn4ep6DQOW76nRrjyNtf5Xfi6VhS4d86L07ir0RJNW18aPuOgBHWnMhSKASS7LyH58DB11Rc
- vmJmeLMHxScfoaznBTM3KqjbdQYGpQ=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-The K3 CoM260-IFX board combine with one 260 pins "Gold Finger" computer
-module with a carrier board. The module integrates the K3 SoC, LPDDR5,
-UFS storage, Gigabit Ethernet, Micro SD card, PMIC Chip. The board offers
-a comprehensive array of interfaces, including MIPI-DSI, MIPI-CSI,
-DisplayPort, SDIO, SPI, I2S, I2C, CAN-FD, PWM, UART, USB, PCIe, and GMAC.
 
-Add initial support for enabling Serial UART and ethernet.
+--=-gxCVbPi2dtnLUStIFdG9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
- arch/riscv/boot/dts/spacemit/Makefile          |   1 +
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts |  21 +++
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi    | 190 +++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi   |  33 +++++
- 4 files changed, 245 insertions(+)
+Le jeudi 21 mai 2026 =C3=A0 00:44 +0200, Sven P=C3=BCschel a =C3=A9crit=C2=
+=A0:
+> Add a v4l2_fill_pixfmt_mp_aligned helper which allows the user to
+> specify a custom stride alignment in bytes. This is necessary for
+> hardware like the Rockchip RGA3, which requires the stride value to be
+> aligned to a 16 bytes boundary.
+>=20
+> The code makes some assumptions about the v4l2 format to simplify the
+> calculation. They currently hold for all known v4l2 formats.
+>=20
+> v4l2_format_plane_stride uses an unsigned int as argument type to avoid
+> the later multiplication from overflowing the u8 value. All other places
+> use u8, as no practical use cases for a larger alignment are known at
+> the moment.
+>=20
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
-index acb993c452ba..28ec9e1e0a62 100644
---- a/arch/riscv/boot/dts/spacemit/Makefile
-+++ b/arch/riscv/boot/dts/spacemit/Makefile
-@@ -4,5 +4,6 @@ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-milkv-jupiter.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-musepi-pro.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-r2s.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-rv2.dtb
-+dtb-$(CONFIG_ARCH_SPACEMIT) += k3-com260-ifx.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-deepcomputing-fml13v05.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-pico-itx.dtb
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-new file mode 100644
-index 000000000000..238bb03d0e9e
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-+ * Copyright (c) 2026 Yixun Lan <dlan@kernel.org>
-+ */
-+
-+#include "k3-com260.dtsi"
-+
-+/ {
-+	model = "SpacemiT K3 CoM260 IFX";
-+	compatible = "spacemit,k3-com260-ifx", "spacemit,k3-com260", "spacemit,k3";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		ethernet0 = &eth1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-new file mode 100644
-index 000000000000..a38d7b738258
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -0,0 +1,190 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-+ * Copyright (c) 2026 Yixun Lan <dlan@kernel.org>
-+ */
-+#include <dt-bindings/gpio/gpio.h>
-+
-+#include "k3.dtsi"
-+#include "k3-pinctrl.dtsi"
-+
-+/ {
-+	model = "SpacemiT K3 CoM260 Module";
-+	compatible = "spacemit,k3-com260", "spacemit,k3";
-+
-+	memory@100000000 {
-+		device_type = "memory";
-+		reg = <0x1 0x00000000 0x4 0x00000000>;
-+	};
-+
-+	reg_5v_sys: regulator-5v-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "P5V0_SYS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
-+		vin1-supply = <&reg_5v_sys>;
-+		vin2-supply = <&reg_5v_sys>;
-+		vin3-supply = <&reg_5v_sys>;
-+		vin4-supply = <&reg_5v_sys>;
-+		vin5-supply = <&reg_5v_sys>;
-+		vin6-supply = <&reg_5v_sys>;
-+		aldoin-supply = <&reg_5v_sys>;
-+		dldoin1-supply = <&buck4>;
-+		dldoin2-supply = <&buck4>;
-+
-+		regulators {
-+			buck1: buck1 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2: buck2 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3: buck3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4: buck4 {
-+				regulator-min-microvolt = <2100000>;
-+				regulator-max-microvolt = <2100000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6: buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <500000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2: aldo2 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo3: aldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo4: aldo4 {
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo1: dldo1 {
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2: dldo2 {
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo3: dldo3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo4: dldo4 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo5: dldo5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo6: dldo6 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo7: dldo7 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+		};
-+	};
-+};
-+
-+&eth1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac1_rgmii_0_cfg>, <&gmac1_phy_0_cfg>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&phy1>;
-+	status = "okay";
-+
-+	mdio {
-+		phy1: phy@1 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <1>;
-+			reset-gpios = <&gpio 1 5 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <10000>;
-+		};
-+	};
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_0_cfg>;
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 23899d3f308a..fbaf71fd7e96 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -45,6 +45,39 @@ gmac0-phy-0-pins {
- 		};
- 	};
- 
-+	gmac1_rgmii_0_cfg: gmac1-rgmii-0-cfg {
-+		gmac1-rgmii-0-pins {
-+			pinmux = <K3_PADCONF(21, 1)>,	/* gmac1_rxdv  */
-+				 <K3_PADCONF(22, 1)>,	/* gmac1 rx d0 */
-+				 <K3_PADCONF(23, 1)>,	/* gmac1 rx d1 */
-+				 <K3_PADCONF(24, 1)>,	/* gmac1 rx_clk */
-+				 <K3_PADCONF(25, 1)>,	/* gmac1 rx d2 */
-+				 <K3_PADCONF(26, 1)>,	/* gmac1 rx d3 */
-+				 <K3_PADCONF(27, 1)>,	/* gmac1 tx d0 */
-+				 <K3_PADCONF(28, 1)>,	/* gmac1 tx d1 */
-+				 <K3_PADCONF(29, 1)>,	/* gmac1 tx clk */
-+				 <K3_PADCONF(30, 1)>,	/* gmac1 tx d2 */
-+				 <K3_PADCONF(31, 1)>,	/* gmac1 tx d3 */
-+				 <K3_PADCONF(32, 1)>,	/* gmac1 tx_en */
-+				 <K3_PADCONF(33, 1)>,	/* gmac1 mdc */
-+				 <K3_PADCONF(34, 1)>;	/* gmac1 mdio */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+	};
-+
-+	gmac1_phy_0_cfg: gmac1-phy-0-cfg {
-+		gmac1-phy-0-pins {
-+			pinmux = <K3_PADCONF(35, 1)>;	/* gmac1 int */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	i2c8_cfg: i2c8-cfg {
- 		i2c8-pins {
+Thanks for the update, my Rb still hold.
 
--- 
-2.54.0
+Nicolas
 
+>=20
+> ---
+> Changes in v7:
+> - Also adjust alignment when C plane is larger than the Y plane
+> =C2=A0 Flagged by Sashiko:
+> =C2=A0 https://sashiko.dev/#/patchset/20260515-spu-rga3-v6-0-e547152eb9c9=
+%40pengutronix.de?part=3D5
+>=20
+> Changes in v6:
+> - Fixed alignment multiplication of 0 for NV24 - flagged by Sashiko:
+> =C2=A0 https://sashiko.dev/#/patchset/20260428-spu-rga3-v5-0-eb7f5d019d86=
+%40pengutronix.de?part=3D5
+> - Changed v4l2_format_plane_stride alignment parameter type to
+> =C2=A0 avoid overflow for 64/128 byte alignment by multiplication.
+> =C2=A0 Flagged by Sashiko URL above.
+> ---
+> =C2=A0drivers/media/v4l2-core/v4l2-common.c | 58 ++++++++++++++++++++++++=
++++--------
+> =C2=A0include/media/v4l2-common.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +++
+> =C2=A02 files changed, 50 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
+ore/v4l2-common.c
+> index 3cc8b04e1ea63..b771ed9b659b0 100644
+> --- a/drivers/media/v4l2-core/v4l2-common.c
+> +++ b/drivers/media/v4l2-core/v4l2-common.c
+> @@ -432,14 +432,35 @@ static inline unsigned int v4l2_format_block_height=
+(const struct v4l2_format_inf
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline unsigned int v4l2_format_plane_stride(const struct v4=
+l2_format_info *info, int plane,
+> -						=C2=A0=C2=A0=C2=A0 unsigned int width)
+> +						=C2=A0=C2=A0=C2=A0 unsigned int width, unsigned int byte_alignment=
+)
+> =C2=A0{
+> =C2=A0	unsigned int hdiv =3D plane ? info->hdiv : 1;
+> =C2=A0	unsigned int aligned_width =3D
+> =C2=A0		ALIGN(width, v4l2_format_block_width(info, plane));
+> =C2=A0
+> -	return DIV_ROUND_UP(aligned_width, hdiv) *
+> -	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 info->bpp[plane] / info->bpp_div[p=
+lane];
+> +	/*
+> +	 * Formats with a single memory plane derive the stride of the
+> +	 * other planes from the y stride. To avoid hardware or software
+> +	 * deriving a different stride for the composite plane,
+> +	 * multiply the alignment accordingly.
+> +	 *
+> +	 * It assumes the following format properties:
+> +	 * - bpp_div[0] =3D=3D bpp_div[1]
+> +	 * - The multiplication factor doesn't differ between the non y planes
+> +	 * - The multiplication factor is a power of 2
+> +	 */
+> +	if (info->mem_planes =3D=3D 1 && info->comp_planes > 1) {
+> +		if (plane =3D=3D 0)
+> +			byte_alignment *=3D DIV_ROUND_UP(
+> +				info->hdiv * info->bpp[0], info->bpp[1]);
+> +		else
+> +			byte_alignment *=3D DIV_ROUND_UP(
+> +				info->bpp[1], info->hdiv * info->bpp[0]);
+> +	}
+> +
+> +	return ALIGN(DIV_ROUND_UP(aligned_width, hdiv) * info->bpp[plane] /
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 info->bpp_div[plane],
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 byte_alignment);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline unsigned int v4l2_format_plane_height(const struct v4=
+l2_format_info *info, int plane,
+> @@ -453,9 +474,10 @@ static inline unsigned int v4l2_format_plane_height(=
+const struct v4l2_format_inf
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline unsigned int v4l2_format_plane_size(const struct v4l2=
+_format_info *info, int plane,
+> -						=C2=A0 unsigned int width, unsigned int height)
+> +						=C2=A0 unsigned int width, unsigned int height,
+> +						=C2=A0 u8 stride_alignment)
+> =C2=A0{
+> -	return v4l2_format_plane_stride(info, plane, width) *
+> +	return v4l2_format_plane_stride(info, plane, width, stride_alignment) *
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 v4l2_format_plane_height(info=
+, plane, height);
+> =C2=A0}
+> =C2=A0
+> @@ -476,8 +498,9 @@ void v4l2_apply_frmsize_constraints(u32 *width, u32 *=
+height,
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL_GPL(v4l2_apply_frmsize_constraints);
+> =C2=A0
+> -int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+> -			u32 pixelformat, u32 width, u32 height)
+> +int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
+> +				u32 pixelformat, u32 width, u32 height,
+> +				u8 stride_alignment)
+> =C2=A0{
+> =C2=A0	const struct v4l2_format_info *info;
+> =C2=A0	struct v4l2_plane_pix_format *plane;
+> @@ -494,23 +517,34 @@ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mpla=
+ne *pixfmt,
+> =C2=A0
+> =C2=A0	if (info->mem_planes =3D=3D 1) {
+> =C2=A0		plane =3D &pixfmt->plane_fmt[0];
+> -		plane->bytesperline =3D v4l2_format_plane_stride(info, 0, width);
+> +		plane->bytesperline =3D v4l2_format_plane_stride(info, 0, width,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 stride_alignment);
+> =C2=A0		plane->sizeimage =3D 0;
+> =C2=A0
+> =C2=A0		for (i =3D 0; i < info->comp_planes; i++)
+> =C2=A0			plane->sizeimage +=3D
+> -				v4l2_format_plane_size(info, i, width, height);
+> +				v4l2_format_plane_size(info, i, width, height,
+> +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 stride_alignment);
+> =C2=A0	} else {
+> =C2=A0		for (i =3D 0; i < info->comp_planes; i++) {
+> =C2=A0			plane =3D &pixfmt->plane_fmt[i];
+> =C2=A0			plane->bytesperline =3D
+> -				v4l2_format_plane_stride(info, i, width);
+> +				v4l2_format_plane_stride(info, i, width,
+> +							 stride_alignment);
+> =C2=A0			plane->sizeimage =3D plane->bytesperline *
+> =C2=A0				v4l2_format_plane_height(info, i, height);
+> =C2=A0		}
+> =C2=A0	}
+> =C2=A0	return 0;
+> =C2=A0}
+> +EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp_aligned);
+> +
+> +int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+> +			u32 pixelformat, u32 width, u32 height)
+> +{
+> +	return v4l2_fill_pixfmt_mp_aligned(pixfmt, pixelformat,
+> +					=C2=A0=C2=A0 width, height, 1);
+> +}
+> =C2=A0EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp);
+> =C2=A0
+> =C2=A0int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelforma=
+t,
+> @@ -530,12 +564,12 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt=
+, u32 pixelformat,
+> =C2=A0	pixfmt->width =3D width;
+> =C2=A0	pixfmt->height =3D height;
+> =C2=A0	pixfmt->pixelformat =3D pixelformat;
+> -	pixfmt->bytesperline =3D v4l2_format_plane_stride(info, 0, width);
+> +	pixfmt->bytesperline =3D v4l2_format_plane_stride(info, 0, width, 1);
+> =C2=A0	pixfmt->sizeimage =3D 0;
+> =C2=A0
+> =C2=A0	for (i =3D 0; i < info->comp_planes; i++)
+> =C2=A0		pixfmt->sizeimage +=3D
+> -			v4l2_format_plane_size(info, i, width, height);
+> +			v4l2_format_plane_size(info, i, width, height, 1);
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt);
+> diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
+> index 401d8506c24b5..edd416178c333 100644
+> --- a/include/media/v4l2-common.h
+> +++ b/include/media/v4l2-common.h
+> @@ -558,6 +558,10 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt,=
+ u32 pixelformat,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 u32 width, u32 height);
+> =C2=A0int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt, u32 =
+pixelformat,
+> =C2=A0			u32 width, u32 height);
+> +/* @stride_alignment is a power of 2 value in bytes */
+> +int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
+> +				u32 pixelformat, u32 width, u32 height,
+> +				u8 stride_alignment);
+> =C2=A0
+> =C2=A0/**
+> =C2=A0 * v4l2_get_link_freq - Get link rate from transmitter
+
+--=-gxCVbPi2dtnLUStIFdG9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCag5IagAKCRDZQZRRKWBy
+9B3EAQCblctzmCHnE4IzNyxPTekjBtwM2DOnr9we8+22BNglvwD/eI83aZeZuwIs
+wByreLbm+gvFWRPRBbD3+tScLz5pWQo=
+=CuZo
+-----END PGP SIGNATURE-----
+
+--=-gxCVbPi2dtnLUStIFdG9--
