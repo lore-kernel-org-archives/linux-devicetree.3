@@ -1,324 +1,646 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012021.outbound.protection.outlook.com [52.101.48.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482603DDDCB;
-	Wed, 20 May 2026 12:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779278596; cv=fail; b=hvQkGVCtlKI73i3KMqwH+ORoozeR2yhms3HjBE+nkhzCcS2R0R0U8ZFpQJVGO9AkQTHCUG/Vl9wPhrepvQFMvO1iy9ub/YcDtWR+fn/OmDVNzbGKY3zxadNx+FKKz1ZorXkcMFkTdHGoe1AEVR1WK5/tuC3TUNHrnGPDqKG85LY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779278596; c=relaxed/simple;
-	bh=rulxTz2J2jNI9cxOLILr18FLmrbI2P+4fU5t1F28q7U=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cKuEp2CSuAztJIC4dHetNsOfEj1fahhGSWy2+LI8ltJmqCjLJm6pZvU1xgnlPqETH67hrFyonO3p+LPdN4yyZmJ8bRFE8x83gCmB402KKmkcw5gMQHeEGR9CPsYUgjpJY5QQVD3qhULHL0ts0whPboYVUquPYffH1ZgutEr+p4c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=garucca5; arc=fail smtp.client-ip=52.101.48.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CB63D3D01;
+	Wed, 20 May 2026 12:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779278743; cv=none; b=C39JrvecnpESaSrg4z+SE2yHT0K7LHC8yQ0uQ2IRdxISD+2PWUv8hP95UlgYLPI9r8p8EpWS2RqE3wKH1wQi1lzUguD+tVf7O6nE0jP1J6uZZVueymOd3lUhyNnTqTwfR1d7xxqaGPuBvN+ANNHZ+AQV9fP8YpwLBlrNul+DbFI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779278743; c=relaxed/simple;
+	bh=gtaIzIKdPT1IRRHAErnRuoi1PyhDH/Ur18sK+yaPlfU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SwUuLtVsPo/oQWD0MrK/XEJ7jeXHgXZazqGlYgNoO5BGHI34AyLyGvxpzMIjxjuk5NRqTyD6cbBzrhmy3/yy40B/vg9OdAHKMk2XwVISixnRFdoaao92iJp2DBr3WdIWwFfJeK4SqiI+FyX9JsoSThAw7Jb7AK1ZzdVZ8qYt4/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WioeESbr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="garucca5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iP4hKYJpC4eaz6bgp4lp+gdwshGjrUlWFmz9Uts0ECoTlMEh2vDwpCAds7Bx9s9Z4SvQX5wOFupBmJvnvY3Tn3bCH1OCBm9ZvAmjMpxIERbP9PzZ92dNle1KM5uwtTugoli4gZhryMhk4IA+kqaJITdJWh74LJ/LK9uHY3mQArVrEYs5Rz260avmxxEuL23PS6bw2cG9ODWBvHDt/lrXSqoziXzR+JCS/2pZU0RKOJKLpVkhkgmO1j543c9i2GaAyUhsTv9DlX2Pv8+ijD+IxjyeR6pbzohdeGMeQchl8RGwbUDzGFmaIexgU0MTQZD6hse8YDUb3x8Vau328SWlMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jiUjxvQAivtEqLejQ48o5KNl6cE2AkwYWjEIuCKdHRk=;
- b=HI/gPi3XSpW0PnR++MTS8qcyOLex/OYWSecOApcNGzX0LOxdxVr1GbZSN+oCQtXD5IQgCmZdRuvJAzWLewRzet9yu2uM2uksyQ4nsFf6LByvM7UFP5McmThliQTxYbGwzEBHdkByqfJIPrIRY5xti355basw8lqfJHbDx2YC2lmsT8boST5J4up5tcD9huI2TGcFar1MClEeBxj+y4kDjM3colrpy7vYsgmkspt3DMjhaSh76T8oPN1EmGnLFCbTAKHkO336eWI3Kn3sRmaT4iA2PlNi2b8nEGxQV03JBobvq8d/5tB4OuIzyxoBRPU1Gw44m9uG5fviPSgL355pHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jiUjxvQAivtEqLejQ48o5KNl6cE2AkwYWjEIuCKdHRk=;
- b=garucca5+5FFMBa0BH1jAWUxvqx5LoFZuZyKCnQpVOew0cLQZ4mTwUwxnxRhcS7RB7qTA8lXejqLYpFMqvfIYxDiipd2yRcrxXZGNSsojvE2Jh0UdgURlhC54vtcBaWdAmkPv27DMMLiwzHCmAC35SmPjOC4vMOfJYKJTof0d8w=
-Received: from DM6PR07CA0087.namprd07.prod.outlook.com (2603:10b6:5:337::20)
- by DS7PR10MB5975.namprd10.prod.outlook.com (2603:10b6:8:9d::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.14; Wed, 20 May 2026 12:03:13 +0000
-Received: from DS1PEPF00017095.namprd03.prod.outlook.com
- (2603:10b6:5:337:cafe::3b) by DM6PR07CA0087.outlook.office365.com
- (2603:10b6:5:337::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
- May 2026 12:03:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- DS1PEPF00017095.mail.protection.outlook.com (10.167.17.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 12:03:11 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
- 2026 07:02:31 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
- 2026 07:02:31 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Wed, 20 May 2026 07:02:31 -0500
-Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [172.24.233.149])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64KC0N3g1914726;
-	Wed, 20 May 2026 07:02:24 -0500
-From: Rishikesh Donadkar <r-donadkar@ti.com>
-To: <jai.luthra@linux.dev>, <laurent.pinchart@ideasonboard.com>,
-	<mripard@kernel.org>
-CC: <r-donadkar@ti.com>, <y-abhilashchandra@ti.com>, <devarsht@ti.com>,
-	<s-jain1@ti.com>, <vigneshr@ti.com>, <mchehab@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <p.zabel@pengutronix.de>, <conor+dt@kernel.org>,
-	<sakari.ailus@linux.intel.com>, <hverkuil-cisco@xs4all.nl>,
-	<tomi.valkeinen@ideasonboard.com>, <jai.luthra@ideasonboard.com>,
-	<changhuang.liang@starfivetech.com>, <jack.zhu@starfivetech.com>,
-	<sjoerd@collabora.com>, <dan.carpenter@linaro.org>,
-	<hverkuil+cisco@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: [PATCH v13 17/17] media: ti: j721e-csi2rx: Support system suspend using pm_notifier
-Date: Wed, 20 May 2026 17:30:22 +0530
-Message-ID: <20260520120022.539913-18-r-donadkar@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260520120022.539913-1-r-donadkar@ti.com>
-References: <20260520120022.539913-1-r-donadkar@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WioeESbr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B091F000E9;
+	Wed, 20 May 2026 12:05:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779278741;
+	bh=YQeI5Pe0M7sD9o6abmKRyl6FWUX73SwdYop7Z57B4UY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WioeESbrAeDmuGu8byeRJuW3AACLHN8Qe+FY9zfuBRJ5tYesd7m1lUNe3BmLrF0d6
+	 /jJcT0Tbv6SiGA091lckr4yaOTXvBimuZ2bq8goQ7Hb9M6SMDkbHRfP4vTZI9NCR9w
+	 Uzkq8Z8C+tbO+ZbHYmx98+kBRGUXRbHV+pnPhiLh0PTrwvqNZuVQVKUa4vzkm3v52y
+	 29gPRHIM8Jf5uxoLlMDNBL7q4gEYHnsZc70iBo2ywsvIN2gIrlB19C+zuj3J6mBNCd
+	 Bxagiv50OsD/7/PY1By/41xpNgu62OG4SGN+c3BW4Tm+BxB9rJgLcTwBi3snnds6Ug
+	 yQtPj1nD4YbYA==
+Date: Wed, 20 May 2026 13:05:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] iio: adc: Add StarFive SAR-ADC driver
+Message-ID: <20260520130532.15e65a18@jic23-huawei>
+In-Reply-To: <20260518081852.116909-3-xingyu.wu@starfivetech.com>
+References: <20260518081852.116909-1-xingyu.wu@starfivetech.com>
+	<20260518081852.116909-3-xingyu.wu@starfivetech.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017095:EE_|DS7PR10MB5975:EE_
-X-MS-Office365-Filtering-Correlation-Id: 559c2025-e807-4898-55f1-08deb667c40a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|82310400026|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	o2xvRL0fG2xXeOGUmHJL4jGmEsf2vg0nEICBrHnQg1JcNUhjiTt9K1d43FOyuc8F2CyWv5qqL2E8Q8ipf9doRsr/9F6hJ/ak3TeEMY2Qxhp8+wBhK5Dv4B2mjeoLVShuEyvYHc8f2f5EKL3E1LHeDiBBWg+NqWDblczPD286hiwTPeHPkI5WR3h5u+rNNpD285gpZTd/J2pS2QBPYYoH+y1AIe1wQJXyKbTs8hRFMyNa0zLD1nxWoK0pM0dG1ZUHDuU9b4xGhb+f8QasGzvPhhTxpmD5UaVlwWWJKWOzyM+hnZZtOaGR5lA1IVlC7sC9K8jt9zghD4F4snFEDX5TNHLrJAt58OLIM/TD0VcyLprmbMn3NkxJCg1zUzN7SkhftSw+FpHlNxxYYbzZ96fSkx6ny5gTJ6N/FDIu6AZL1ncGV/rZdtnwJJxRmdi8W2Ds7rBJ78q5+kR6t0dV0TGUdw2yxs+X6e5L9/B0yyn6JYyukEXM0D4ISsbQktlfbCKPon/HGF1QDXFHsxZ+2c7D2Sh1yDC7NNcz23yw8UbPZOylBP8rNnX3uq0orOUofF0jjnxD87gsnX3VogfwbjFccntnEvxxXne/RwfipJ/cxpnszsL2PviELmci2gaSr78oqRZnnpueT3Ly20MW/7Hph/COxa+i7sFwICcnoftUKGmh9IL4hcvoM8QypHT8rAhE0Yt4Tz5aEeT+mjjeubNjya0aY/YfhaxHjC9hFDXJeOE=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(82310400026)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Pa7AsUY7LGqtNhY4YuQtXkdEayUwKNCoIykGG7FemO8vgJXxPvljjtL4etII06QpySCCJKlTLPj6GWepOdg7zyRapuqi1Sk6JYe2gjzXaLNEedqBAA2pGiwp/1e+WmoDp5fBXs41KXPZ2PsZFBNL2RiH62pkPUcgsn+a64YZ6Sv0RpIuCvyJx75PntuNN1BtSve47bmp0oL74aB0NxzBOoeE8utG63HILCDoZLSiLF+X7NDtlpH1pp4HcNAZsLUzfHowprB9Dt2j6i8pTZPq4/GwE3zCWx7IsKnTDEubCYCbym8GE00vMliOda32MJWq8aV1t3A3BZEJ3N85Qyyn5hhWerWMjvlcyNyVg3FP2Z5nqx6EgoO+BP/Hkg9NMzLGaQVM64DyffEX1Pl/hMndCSCiotoy2+Uyus1HlW9eJX00bMEx8eurF09CEUdRJ27i
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 12:03:11.9032
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 559c2025-e807-4898-55f1-08deb667c40a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017095.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5975
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Jai Luthra <jai.luthra@ideasonboard.com>
+On Mon, 18 May 2026 16:18:52 +0800
+Xingyu Wu <xingyu.wu@starfivetech.com> wrote:
 
-As this device is the "orchestrator" for the rest of the media
-pipeline, we need to stop all on-going streams before system suspend and
-enable them back when the system wakes up from sleep.
+> Add a new IIO ADC driver for the StarFive JHB100 SAR ADC controller.
+> 
+> The hardware provides 12-bit conversion precision and up to 8 input
+> channels. This driver supports single-shot channel reads and exposes
+> standard IIO interfaces for raw ADC values, processed voltages, and
+> scale reporting. The driver also supports channel monitor mode with
+> out-of-bound detection and scan frequency configuration.
+> 
+> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
+Hi
 
-Using .suspend/.resume callbacks does not work, as the order of those
-callbacks amongst various devices in the camera pipeline like the sensor,
-FPD serdes, CSI bridge etc. is impossible to enforce, even with
-device links. For example, the Cadence CSI bridge is a child device of
-this device, thus we cannot create a device link with the CSI bridge as
-a provider and this device as consumer. This can lead to situations
-where all the dependencies for the bridge have not yet resumed when we
-request the subdev to start streaming again through the .resume callback
-defined in this device.
+Welcome to IIO.
+As Andy indicated there is quite a lot of work to do here.
+As such I did a quick review, but a lot of the code will change anyway
+as a result of ripping out the custom ABI and the dt-binding changes
+requested.
 
-Instead here we register a notifier callback with the PM framework
-which is triggered when the system is fully functional. At this point we
-can cleanly stop or start the streams, because we know all other devices
-and their dependencies are functional. A downside of this approach is
-that the userspace is also alive (not frozen yet, or just thawed), so
-the suspend notifier might complete before the userspace has completed
-all ioctls, like QBUF/DQBUF/STREAMON/STREAMOFF.
+Jonathan
 
-Tested-by: Rishikesh Donadkar <r-donadkar@ti.com>
-Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 135 ++++++++++++++++++
- 1 file changed, 135 insertions(+)
+> diff --git a/drivers/iio/adc/starfive-saradc.c b/drivers/iio/adc/starfive-saradc.c
+> new file mode 100644
+> index 000000000000..78409cb1bcb2
+> --- /dev/null
+> +++ b/drivers/iio/adc/starfive-saradc.c
 
-diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-index d68b8d6ffeb1..21388284cbaa 100644
---- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-+++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-@@ -131,6 +131,7 @@ struct ti_csi2rx_dev {
- 	struct v4l2_subdev		*source;
- 	struct v4l2_subdev		subdev;
- 	struct ti_csi2rx_ctx		ctx[TI_CSI2RX_MAX_CTX];
-+	struct notifier_block		pm_notifier;
- 	u8				pix_per_clk;
- 	/* Buffer to drain stale data from PSI-L endpoint */
- 	struct {
-@@ -1544,6 +1545,124 @@ static int ti_csi2rx_runtime_resume(struct device *dev)
- 	return 0;
- }
- 
-+static int ti_csi2rx_suspend(struct device *dev)
-+{
-+	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
-+	enum ti_csi2rx_dma_state state;
-+	struct ti_csi2rx_ctx *ctx;
-+	struct ti_csi2rx_dma *dma;
-+	unsigned long flags = 0;
-+	int i, ret = 0;
-+
-+	/* If device was not in use we can simply suspend */
-+	if (pm_runtime_status_suspended(dev))
-+		return 0;
-+
-+	/*
-+	 * If device is running, assert the pixel reset to cleanly stop any
-+	 * on-going streams before we suspend.
-+	 */
-+	writel(0, csi->shim + SHIM_CNTL);
-+
-+	for (i = 0; i < csi->num_ctx; i++) {
-+		ctx = &csi->ctx[i];
-+		dma = &ctx->dma;
-+
-+		spin_lock_irqsave(&dma->lock, flags);
-+		state = dma->state;
-+		spin_unlock_irqrestore(&dma->lock, flags);
-+
-+		if (state != TI_CSI2RX_DMA_STOPPED) {
-+			/* Disable source */
-+			ret = v4l2_subdev_disable_streams(&csi->subdev,
-+							  TI_CSI2RX_PAD_FIRST_SOURCE + ctx->idx,
-+							  BIT(0));
-+			if (ret)
-+				dev_err(csi->dev, "Failed to stop subdev stream\n");
-+		}
-+
-+		/* Stop any on-going streams */
-+		writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
-+
-+		/* Drain DMA */
-+		ti_csi2rx_drain_dma(ctx);
-+
-+		/* Terminate DMA */
-+		ret = dmaengine_terminate_sync(ctx->dma.chan);
-+		if (ret)
-+			dev_err(csi->dev, "Failed to stop DMA\n");
-+	}
-+
-+	return ret;
-+}
-+
-+static int ti_csi2rx_resume(struct device *dev)
-+{
-+	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
-+	struct ti_csi2rx_ctx *ctx;
-+	struct ti_csi2rx_dma *dma;
-+	struct ti_csi2rx_buffer *buf;
-+	unsigned long flags = 0;
-+	unsigned int reg;
-+	int i, ret = 0;
-+
-+	/* If device was not in use, we can simply wakeup */
-+	if (pm_runtime_status_suspended(dev))
-+		return 0;
-+
-+	/* If device was in use before, restore all the running streams */
-+	reg = SHIM_CNTL_PIX_RST;
-+	writel(reg, csi->shim + SHIM_CNTL);
-+
-+	for (i = 0; i < csi->num_ctx; i++) {
-+		ctx = &csi->ctx[i];
-+		dma = &ctx->dma;
-+		spin_lock_irqsave(&dma->lock, flags);
-+		if (dma->state != TI_CSI2RX_DMA_STOPPED) {
-+			/* Re-submit all previously submitted buffers to DMA */
-+			list_for_each_entry(buf, &ctx->dma.submitted, list) {
-+				ti_csi2rx_start_dma(ctx, buf);
-+			}
-+			spin_unlock_irqrestore(&dma->lock, flags);
-+
-+			/* Restore stream config */
-+			ti_csi2rx_setup_shim(ctx);
-+
-+			ret = v4l2_subdev_enable_streams(&csi->subdev,
-+							 TI_CSI2RX_PAD_FIRST_SOURCE + ctx->idx,
-+							 BIT(0));
-+			if (ret)
-+				dev_err(ctx->csi->dev, "Failed to start subdev\n");
-+		} else {
-+			spin_unlock_irqrestore(&dma->lock, flags);
-+		}
-+	}
-+
-+	return ret;
-+}
-+
-+static int ti_csi2rx_pm_notifier(struct notifier_block *nb,
-+				 unsigned long action, void *data)
-+{
-+	struct ti_csi2rx_dev *csi =
-+		container_of(nb, struct ti_csi2rx_dev, pm_notifier);
-+
-+	switch (action) {
-+	case PM_HIBERNATION_PREPARE:
-+	case PM_SUSPEND_PREPARE:
-+	case PM_RESTORE_PREPARE:
-+		ti_csi2rx_suspend(csi->dev);
-+		break;
-+	case PM_POST_SUSPEND:
-+	case PM_POST_HIBERNATION:
-+	case PM_POST_RESTORE:
-+		ti_csi2rx_resume(csi->dev);
-+		break;
-+	}
-+
-+	return NOTIFY_DONE;
-+}
-+
- static const struct dev_pm_ops ti_csi2rx_pm_ops = {
- 	RUNTIME_PM_OPS(ti_csi2rx_runtime_suspend, ti_csi2rx_runtime_resume,
- 		       NULL)
-@@ -1617,6 +1736,20 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
- 		goto err_notifier;
- 	}
- 
-+	/*
-+	 * Use PM notifier instead of .suspend/.resume callbacks because the
-+	 * ordering of callbacks among camera pipeline devices (sensor, serdes,
-+	 * CSI bridge) cannot be enforced even with device links. The notifier
-+	 * is called when the system is fully functional, ensuring all
-+	 * dependencies are available when stopping/starting streams.
-+	 */
-+	csi->pm_notifier.notifier_call = ti_csi2rx_pm_notifier;
-+	ret = register_pm_notifier(&csi->pm_notifier);
-+	if (ret) {
-+		dev_err(csi->dev, "Failed to create PM notifier: %d\n", ret);
-+		goto err_notifier;
-+	}
-+
- 	return 0;
- 
- err_notifier:
-@@ -1644,6 +1777,8 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
- 		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
- 
- 	ti_csi2rx_cleanup_notifier(csi);
-+	unregister_pm_notifier(&csi->pm_notifier);
-+
- 	ti_csi2rx_cleanup_v4l2(csi);
- 	dma_free_coherent(csi->dev, csi->drain.len, csi->drain.vaddr,
- 			  csi->drain.paddr);
--- 
-2.34.1
+> +
+> +#define SARADC_CHAN(_index) {					\
+> +	.type = IIO_VOLTAGE,					\
+> +	.indexed = 1,						\
+> +	.channel = _index,					\
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
+> +			BIT(IIO_CHAN_INFO_PROCESSED),		\
+See below.
+
+> +	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SCALE),	\
+> +	.datasheet_name = "SARADC_"#_index,			\
+> +	.scan_index = _index,					\
+Not used.
+> +	.scan_type = {						\
+> +		.sign = 'u',					\
+> +		.realbits = SARADC_REALBITS,			\
+> +		.endianness = IIO_CPU,				\
+Not used - so don't specify it.
+> +	},							\
+> +}
+
+> +
+> +static const struct iio_chan_spec starfive_saradc_iio_channels[] = {
+> +	SARADC_CHAN(0),
+> +	SARADC_CHAN(1),
+> +	SARADC_CHAN(2),
+> +	SARADC_CHAN(3),
+> +	SARADC_CHAN(4),
+> +	SARADC_CHAN(5),
+> +	SARADC_CHAN(6),
+> +	SARADC_CHAN(7),
+
+SARADC is a common name, so prefix macros etc with something related
+to starfive.
+
+> +};
+
+> +
+> +static void starfive_saradc_ch_lower_bound_set(struct starfive_saradc *priv,
+> +					       int ch, u32 data)
+> +{
+> +	void __iomem *base = priv->base + SARADC_ULB_CHX_REG_GET(ch);
+> +	u32 reg = readl(base) & ~ADC_LOWER_BOUND_MSK;
+> +
+> +	writel(FIELD_PREP(ADC_LOWER_BOUND_MSK, data) | reg, base);
+These helpers don't really help much. I'd just put the readl/writel inline
+where it's needed.
+
+> +}
+
+> +
+> +static struct attribute *starfive_saradc_attributes[] = {
+> +	&iio_dev_attr_scan_frequency.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage0_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage1_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage2_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage3_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage4_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage5_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage6_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage7_upper.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage0_lower.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage1_lower.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage2_lower.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage3_lower.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage4_lower.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage5_lower.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage6_lower.dev_attr.attr,
+> +	&iio_dev_attr_in_voltage7_lower.dev_attr.attr,
+> +	&iio_dev_attr_voltage_monitor_channel.dev_attr.attr,
+> +	&iio_dev_attr_voltage_monitor_en.dev_attr.attr,
+
+Look at IIO event support and use that. I'm not seeing anything
+in here that should be provided as custom attributes.
+
+Basic rule is that if you add any custom attributes your driver
+will get a lot more push back. Key is that
+custom attributes == no userspace support in standard code == not much used.
+
+
+> +	NULL,
+> +};
+> +
+> +static const struct attribute_group starfive_saradc_attr_group = {
+> +	.attrs = starfive_saradc_attributes,
+> +};
+> +
+> +static int starfive_saradc_read(struct starfive_saradc *priv)
+> +{
+> +	unsigned int tmp;
+> +	int ret;
+> +
+> +	starfive_saradc_ch_dis_save(priv);
+> +	if (!starfive_saradc_is_ready(priv)) {
+> +		dev_err(priv->dev, "ADC do not ready, please try again later!\n");
+
+Generally just return -EBUSY for this - no print because otherwise you provide
+a userspace path to spam the kernel logs. If a print is really needed it should
+be rate limited.
+
+> +		starfive_saradc_ch_stop(priv);
+> +		return -EBUSY;
+> +	}
+> +
+> +	priv->err = false;
+> +	starfive_saradc_ch_start(priv);
+> +
+> +	tmp = starfive_saradc_data_get(priv);
+> +	/* Check that the data is ready to be read. */
+> +	if (!(tmp & ADC_DAT_RDY_MSK)) {
+> +		ret = readl_poll_timeout(priv->base + SARADC_DATAX_REG_GET(priv->using_ch), tmp,
+> +					 (tmp & ADC_DAT_RDY_MSK), 10, SARADC_TIMEOUT);
+> +		if (ret) {
+> +			priv->err = true;
+> +			dev_err(priv->dev, "channel%d is still not ready to be read! Timeout!\n",
+> +				priv->using_ch);
+> +		}
+> +	}
+> +
+> +	if (priv->err)
+> +		tmp = 0;
+> +
+> +	starfive_saradc_ch_stop(priv);
+> +
+> +	return (int)(tmp & ADC_DAT_MSK);
+
+Prefer FIELD_GET() for all value extraction.
+
+> +}
+> +
+> +static int starfive_saradc_read_raw(struct iio_dev *indio_dev,
+> +				    struct iio_chan_spec const *chan,
+> +				    int *val, int *val2, long mask)
+> +{
+> +	struct starfive_saradc *priv = iio_priv(indio_dev);
+> +	int ret;
+> +	u64 tmp;
+> +
+> +	mutex_lock(&priv->lock);
+guard() and acquire for PM (see below).
+But try to do these in the same order in all functions. Makes reasoning
+about what is protected simpler.  Normally I'd turn the power on first
+as that is reference counted anyway so doesn't need to be under the lock.
+
+> +	priv->using_ch = chan->channel;
+> +	ret = pm_runtime_get_sync(priv->dev);
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(priv->dev);
+As below. the call that failed doesn't have side effects on failure so this
+smells like an underflow.
+
+> +		mutex_unlock(&priv->lock);
+> +		return ret;
+> +	}
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = starfive_saradc_read(priv);
+> +		if (ret < 0)
+> +			break;
+> +
+> +		*val = ret;
+> +		ret = IIO_VAL_INT;
+> +		break;
+> +
+> +	case IIO_CHAN_INFO_PROCESSED:
+
+Don't provide both processed and raw for a channel.
+
+If the transform is linear then _raw + _scale if not then _processed.
+
+> +		ret = starfive_saradc_read(priv);
+> +		if (ret < 0)
+> +			break;
+> +
+> +		/* VIN = AVDD * data[11:0] / 4096. (AVDD = 1.8v) */
+> +		tmp = SARADC_RAW_TO_VDD_ADJ(ret);
+> +		*val = (int)(tmp / 1000000);
+> +		*val2 = (int)(tmp % 1000000);
+> +		ret = IIO_VAL_INT_PLUS_MICRO;
+> +		break;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/*
+> +		 * AVDD is fixed at 1.8v.
+> +		 * 1.8 / (1 << 12) * 1000000
+> +		 */
+> +		*val = 0;
+> +		*val2 = SARADC_AVDD_VOL / (1 << SARADC_REALBITS);
+
+> +		ret = IIO_VAL_INT_PLUS_MICRO;
+> +		break;
+> +
+> +	default:
+> +		ret = -EINVAL;
+> +	}
+> +
+> +	pm_runtime_put_autosuspend(priv->dev);
+> +	mutex_unlock(&priv->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static irqreturn_t starfive_saradc_mon_stop_threadfn(int irq, void *data)
+> +{
+> +	struct starfive_saradc *priv = data;
+> +	u8 ch = priv->mon_ch;
+> +	u32 up, low, raw;
+> +
+> +	mutex_lock(&priv->lock);
+guard()
+
+> +	if (!priv->mon_en) {
+
+How would we get here?  If it's a race on shut down of events then normally
+we wouldn't worry as that's just precise timing of disable vs this thread
+running.
+
+> +		mutex_unlock(&priv->lock);
+> +		return IRQ_HANDLED;
+> +	}
+> +
+> +	raw = readl(priv->base + SARADC_DATAX_REG_GET(ch)) & ADC_DAT_MSK;
+> +	up = starfive_saradc_ch_upper_bound_get(priv, ch);
+> +	low = starfive_saradc_ch_lower_bound_get(priv, ch);
+> +	dev_err(priv->dev,
+> +		"channel %d is out of bounds. sample data: %dmv (range: %dmv ~ %dmv)\n",
+> +		ch, (SARADC_RAW_TO_VDD_ADJ(raw) / 1000),
+> +		priv->low_bounds[ch], priv->up_bounds[ch]);
+
+We have the IIO events infrastructure to report these to userspace. Use it
+or drop this. dev_err is not a valid way to report this sort of threshold
+events.
+
+> +
+> +	starfive_saradc_ch_monitor_stop(priv, ch);
+
+Why stop it?  Add a comment.  We aren't interested in future events?
+
+> +	pm_runtime_put_autosuspend(priv->dev);
+> +	mutex_unlock(&priv->lock);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static irqreturn_t starfive_saradc_irq_handler(int irq, void *data)
+> +{
+> +	struct starfive_saradc *priv = data;
+> +	u32 irq_err = readl(priv->base + SARADC_IRQ_EN_ST);
+> +
+> +	if (!priv->mon_working)
+
+How do we hit this condition? If it's a race thing then add a comment
+on what that race is. If it's not our interrupt then return IRQ_NONE.
+
+> +		return IRQ_HANDLED;
+> +
+> +	/* Error of out of bounds */
+> +	if (irq_err & BIT(priv->mon_ch)) {
+> +		/* Clear the interrupt */
+> +		writel(irq_err, priv->base + SARADC_IRQ_EN_ST);
+> +		priv->err = true;
+> +		return IRQ_WAKE_THREAD;
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void starfive_saradc_init(struct starfive_saradc *priv)
+> +{
+This will probably go away anyway but comments inline for future reference.
+
+> +	bool use_def = false;
+> +	u16 up, low, scan, tmp;
+> +	u32 upmv, lowmv;
+> +	int i;
+> +
+> +	if (of_property_read_u16(priv->dev->of_node, "upper-bound-mv", &tmp)) {
+
+Use property.h accessors for new drivers, not the of_ones.
+They are cleaner and maybe this driver will one day be used with other firmware
+types.  Also I don't want of specific code in IIO drivers because it gets cut
+and paste into others where another firmware type is actually likely.
+
+
+> +		use_def = true;
+> +	} else {
+> +		up = SARADC_VDD_MV_TO_RAW(tmp);
+> +		if (up > ADC_UPPER_BOUND_DEF)
+
+If DT provide an invalid input fail to probe. We need that fixed.
+If it was a missing property then current convention is to use a check on the property
+existing as a separate call before reading it.  That provides neater error handling.
+
+
+Mind you as per he discussion in that dt-binding thread this is going away.
+
+> +			use_def = true;
+> +		else
+> +			upmv = tmp;
+> +	}
+> +
+> +	if (use_def) {
+> +		up = ADC_UPPER_BOUND_DEF;
+> +		upmv = SARADC_RAW_TO_VDD_ADJ(up);
+> +		use_def = false;
+> +	}
+> +
+> +	if (of_property_read_u16(priv->dev->of_node, "lower-bound-mv", &tmp)) {
+Same for all of these as commnets above. 
+> +		use_def = true;
+> +	} else {
+> +		low = SARADC_VDD_MV_TO_RAW(tmp);
+> +		if (low > ADC_UPPER_BOUND_DEF)
+> +			use_def = true;
+> +		else
+> +			lowmv = tmp;
+> +	}
+> +
+> +	if (use_def) {
+> +		low = ADC_LOWER_BOUND_DEF;
+> +		lowmv = SARADC_RAW_TO_VDD_ADJ(low);
+> +	}
+> +
+> +	if (of_property_read_u16(priv->dev->of_node, "scan-freq", &scan))
+> +		scan = ADC_SCAN_FREQ_DEF;
+> +
+> +	if ((scan & ADC_SCAN_FREQ_MSK) < ADC_SCAN_FREQ_MIN) {
+> +		dev_warn(priv->dev, "The scan_freq is out of range and use the default value!\n");
+> +		scan = ADC_SCAN_FREQ_DEF;
+> +	}
+> +
+> +	starfive_saradc_scan_freq_set(priv, scan);
+> +
+> +	for (i = 0; i < SARADC_MAX_CHANNELS; i++) {
+> +		starfive_saradc_ch_upper_bound_set(priv, i, up);
+> +		starfive_saradc_ch_lower_bound_set(priv, i, low);
+> +		priv->up_bounds[i] = upmv;
+> +		priv->low_bounds[i] = lowmv;
+> +	}
+> +}
+> +
+> +static int starfive_saradc_reg_access(struct iio_dev *indio_dev, unsigned int reg,
+> +				      unsigned int writeval, unsigned int *readval)
+> +{
+> +	struct starfive_saradc *priv = iio_priv(indio_dev);
+> +	int ret = 0;
+> +
+> +	if (reg % 4 || reg > SARADC_SCAN_FREQ)
+> +		return -EINVAL;
+> +
+> +	ret = pm_runtime_get_sync(priv->dev);
+Look at  PM_RUNTIME_ACQUIRE_AUTOSUSPEND() 
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(priv->dev);
+
+Why? It failed so we should not have a refcount to drop.
+
+> +		return ret;
+> +	}
+> +
+> +	mutex_lock(&priv->lock);
+In combination with  the acquire mentioned above, use a guard() for the mutex.
+> +
+> +	if (readval)
+> +		*readval = readl(priv->base + reg);
+> +	else if (reg < SARADC_ULB_CH0)
+> +		/* Allowed to write from SARADC_ULB_CH0 to SARADC_SCAN_FREQ */
+> +		ret = -EINVAL;
+With the changes above you can just return here.
+
+> +	else
+> +		writel(writeval, priv->base + reg);
+> +
+> +	mutex_unlock(&priv->lock);
+> +	pm_runtime_put_sync_autosuspend(priv->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct iio_info starfive_saradc_iio_info = {
+> +	.read_raw = starfive_saradc_read_raw,
+> +	.debugfs_reg_access = starfive_saradc_reg_access,
+> +	.attrs = &starfive_saradc_attr_group,
+> +};
+> +
+> +static int starfive_saradc_probe(struct platform_device *pdev)
+> +{
+> +	struct starfive_saradc *priv;
+> +	struct iio_dev *indio_dev;
+> +	int irq, ret;
+Worth using a local struct device.
+e.g.
+	struct device *dev = &pdev->dev;
+just to shorten the various lines where it's used.
+
+> +
+> +	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*priv));
+> +	if (!indio_dev)
+> +		return dev_err_probe(&pdev->dev, -ENOMEM, "failed allocating iio device\n");
+This print is a noop for -ENOMEM so don't bother having it.
+	if (!indio_dev)
+		return -ENOMEM;
+
+
+> +
+> +	priv = iio_priv(indio_dev);
+> +	platform_set_drvdata(pdev, indio_dev);
+> +	priv->dev = &pdev->dev;
+> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->base))
+> +		return PTR_ERR(priv->base);
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return dev_err_probe(&pdev->dev, irq,
+> +				     "failed to get irq\n");
+
+One line. Note that going slightly over 80 chars is fine if it helps
+readability. I think this one is just under 80 anyway.
+
+> +
+> +	ret = devm_request_threaded_irq(&pdev->dev, irq,
+> +					starfive_saradc_irq_handler,
+> +					starfive_saradc_mon_stop_threadfn,
+> +					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+
+Trigger direction should come from DT.  So don't set it here.
+We do this historically in some drivers and can't fix it now because some
+board might rely on it.  Don't introduce it in a new driver.
+
+> +					dev_name(&pdev->dev), priv);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "failed to request irq handler\n");
+> +
+> +	priv->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+> +	if (IS_ERR(priv->clk))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(priv->clk),
+> +				     "failed to get clock\n");
+
+As sashiko pointed out this might result in a clock underflow.  Fixing
+that the mess of devm + runtime pm and working out general patterns is
+still a work in progress. For now maybe just check if you get such a warning.
+
+
+> +
+> +	priv->rst = devm_reset_control_array_get_shared(&pdev->dev);
+> +	if (IS_ERR(priv->rst))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(priv->rst),
+> +				     "failed to get resets\n");
+> +
+> +	ret = reset_control_deassert(priv->rst);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "failed to deassert reset\n");
+> +
+> +	indio_dev->name = dev_name(&pdev->dev);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->info = &starfive_saradc_iio_info;
+> +	indio_dev->channels = starfive_saradc_iio_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(starfive_saradc_iio_channels);
+> +
+> +	starfive_saradc_init(priv);
+> +	mutex_init(&priv->lock);
+> +
+> +	pm_runtime_set_active(&pdev->dev);
+> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 50);
+> +	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	return devm_iio_device_register(&pdev->dev, indio_dev);
+> +}
+> +
+> +static void starfive_saradc_remove(struct platform_device *pdev)
+> +{
+> +	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+
+This is out of order wrt to the setup in probe.   I suspect you can use
+devm_pm_runtime_enable() instead and drop remove entirely.
+
+> +}
+> +
+> +static int starfive_saradc_runtime_suspend(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct starfive_saradc *priv = iio_priv(indio_dev);
+> +
+> +	starfive_saradc_pwr_on(priv, false);
+
+Having a function called pwr_on() is missleading given you use it
+to turn the power off. Rename it simply pwr() Or consider if it is
+worth having the helper at all as it's very small and maybe having
+the code inline is simpler.
+
+
+> +	clk_disable_unprepare(priv->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int starfive_saradc_runtime_resume(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct starfive_saradc *priv = iio_priv(indio_dev);
+> +	int ret = clk_prepare_enable(priv->clk);
+> +
+> +	if (ret)
+> +		return ret;
+slight preference for
+
+	int ret;
+
+	ret = clk_prepare_enable(priv->clk);
+	if (ret)
+		return ret;
+
+as it keeps the set of ret and it's check right next to each other.
+> +
+> +	starfive_saradc_pwr_on(priv, true);
+> +	/* Need time to completely power on. */
+> +	msleep(20);
+
+fsleep() preferred. Takes time in usecs but the point is it will use
+the generally right call for whatever the sleep is. That means readers
+don't have to think about it. See the docs for the implementation of fsleep()
+for more info on how it decides whether to call msleep or not.
+
+If possible reference a datasheet section / table or similar for this sleep
+length.  That is helpful if turns out to be too short on some device in
+the future.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static DEFINE_RUNTIME_DEV_PM_OPS(starfive_saradc_pm_ops,
+> +				 starfive_saradc_runtime_suspend,
+> +				 starfive_saradc_runtime_resume, NULL);
+> +
+> +static const struct of_device_id starfive_saradc_of_match[] = {
+> +	{ .compatible = "starfive,jhb100-saradc", },
+> +	{ }
+> +};
+> +
+> +static struct platform_driver starfive_saradc_driver = {
+> +	.probe	= starfive_saradc_probe,
+> +	.remove	= starfive_saradc_remove,
+> +	.driver	= {
+> +		.name = "starfive_saradc",
+> +		.of_match_table = starfive_saradc_of_match,
+> +		.pm = pm_ptr(&starfive_saradc_pm_ops)
+> +	},
+> +};
+
+common practice to not have a blank line here. Dropping it makes
+a clear association between the struct platform_driver and the macro
+that uses it.
+
+> +
+> +module_platform_driver(starfive_saradc_driver);
+> +
+> +MODULE_AUTHOR("Xingyu Wu <xingyu.wu@starfivetech.com>");
+> +MODULE_DESCRIPTION("StarFive Successive Approximation Register ADC driver");
+> +MODULE_LICENSE("GPL");
 
