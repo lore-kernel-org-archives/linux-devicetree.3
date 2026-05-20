@@ -1,45 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6550E343894;
-	Wed, 20 May 2026 07:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EA43630A3
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779261824; cv=none; b=W+kVRpbTOSvdS84FKsMTo/WqW66KHVIqQLJyqktu06DAchtzxG4xp2630pHoGfLSP/g9qFfAaArXc0/j4XGHvuKt5k52SkUY1jnKuTSOxU+2X7hgkMNCybsy7voJPlm5CEVDovOG7F6HFGKb1uchiR9EsU12obZM2AMJ7/ooN9A=
+	t=1779261859; cv=none; b=XXzllhKDvzcHiC0uk8sZceNxX6i/9w7YNz0p3/y2pHY6WxC8aD5qnCC3EAt2zaNIWdY7py1RDNX7DUOoev8k29HSPW+qnUxHOzsVrDR+Lfi3kvA9n/Qd9kQBxXjVm1nEg2pZA2ytCFMJ2iNWKhQ/+uVlVHdpmTRLCacLhgiu00M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779261824; c=relaxed/simple;
-	bh=xmiRPxCBH7GPfG08J2ZzLKv5GxDZuxfckaIKbi652Ms=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4g5LKG04Ouz15QqtYavjd0jLlYx8x6B3d13ybIlnEMeb1cICiuoR8YQlSns5zk1HM8phqa9LxYEe7b2+X9hyZ8cd3yQoWzjtfNCHWqqbd8pg/7BN6peuq+ZaYBTQC7/iJHyJYlQBgav89M6fdoc3vJU6A79sc5PlVNrEWt/RAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFrdZHtZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779261859; c=relaxed/simple;
+	bh=LiJQwR7qa/406sDVkH8ncImAJWYszlpBwFuZAZgKn98=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=SeOvU7E0WxTMGwVXJHDvck7wv2ffUxRhBCRnyR6ge9YR1yHQqza97lBDL/R7tjRQkqdTq+3IALfV8kHMqzZBS8FqA/Vf96nlBkUB9CD6qwFCZWO+2OD+wXrVVD8+NnNtoCvVcapYQAMCCWpptzJG6QF9c9A/5BpOD2nSaApV53c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gh916ten; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFrdZHtZ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7433F1F000E9;
-	Wed, 20 May 2026 07:23:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779261823;
-	bh=8xQgA71V4vIl0iOx8Oyd4aAiIzP0/Qoc2K+94QVYh2E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TFrdZHtZIn7ax0x8jQ0//YASeNbeZk5duDR/kzVYhOLH0aloFP8Sa+0yaaMyZA9tP
-	 MeFMsfaJXicg9SGFQ8vKJAlXj/4ZKnApNPEpK+1ze70h17gt0dfQZFpQAc84pb3W8p
-	 ela3f1kiOdsR+EYYvOzHszBHbG/N7rOv0dTiQugjwa5uLUgjpS2kc/EIo7rD8qo6tO
-	 Bj7IHykluCj53io/zckbaw6iUYN84T3rS0Qmc0alNAyrLKotE2nfoukWObj4AZZEp7
-	 8a0EkL3nJ+yj68Xf2brav15NR6T3HtTHu4SuFSBJjkV1jJTFdXrpwzvFZH1nYgD97c
-	 08fhk6An/dJlQ==
-Date: Wed, 20 May 2026 09:23:40 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Otto =?utf-8?Q?Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] regulator: dt-bindings: Add Unisoc SC2730 PMIC
-Message-ID: <20260520-exotic-marvellous-doberman-eebc0b@quoll>
-References: <20260519-sc2730-regulators-v3-0-5bf0e02507e3@abscue.de>
- <20260519-sc2730-regulators-v3-1-5bf0e02507e3@abscue.de>
- <20260519-grazing-although-18c95489592f@spud>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gh916ten"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488b3f8fa2bso43608425e9.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:24:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1779261855; x=1779866655; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ohsf7Kwxw4dURrBVAg9+548r3Hkt++rO/LjKiVp3o1A=;
+        b=gh916tenH5Lh9fLo/zUm4UgM7MV2D051M1xb5hIrK46JsksEBIJqNbJvPrImCrTgOd
+         k957Eu9dcb/IUKbrw77958w8eu2cnNzDlxGKBacIeEsu2uxYUIExEvf/ouWME2CtFEyX
+         2hOyXATK8fGHLVDPsXymdsyxpKvd9czw5wODCgYnFBiRJZ3xjgjjUqvI2/6A9Osi4rHi
+         m41yRrFj4nem/cxgPWpZORwwQk5VsQ+V2WvIIYYbL/Hfxc4thX36FAdziihNeNpNTLv+
+         EgfjxLstSi9kci8LR3pjRS/aXw1I2QhtHsPAqMvkWjuSHkQyB1Ge+9BttlEqDJs0D6XS
+         f3Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779261855; x=1779866655;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ohsf7Kwxw4dURrBVAg9+548r3Hkt++rO/LjKiVp3o1A=;
+        b=QWWVc0WZ42TDtzfCSoE/SEqiyl18KCvfWL7xYPYU/f9xnw3+nKUIf4Z/AcEZcoLh0W
+         pYk1T9fBpEo503cEpe4gmt7Ycmr7nRoqiUt2teO0eaocwph9gV2atUzoKUu+VnkQ9LNo
+         9ajIhWoRRMyT7xc0m1ASQ2nxd0dcw9N7BUwfUhY//5A97qwnS4LlMdvHokCrhDLaE07h
+         bGGFh3qshlTRF0YYsrXkyTkr7uR+nUJgwiACBmIaXoq1nYXtSuC9vM0sy334kakvx8Dm
+         Enm1FBurm583oC/Y00cGPNfWIir5eW4YX343ko5dWFaiWQmU6uVgDoSWY23tLhmWx+w4
+         RKqA==
+X-Forwarded-Encrypted: i=1; AFNElJ+WUQ1x4xgIMn4L6Z36Q47AuOAPj4XxuUiQe99yWbRBiyHMq/btw7JboweDAxI/ajA36qaXWi20VXL1@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTwBCw/rOmxooXPwi8va55AsqGpL0GXAWDkyS0iGA+f3eOtNhD
+	chUP9dYVPhvbohykAuDROTohXBXN5gtXvT9SFQy++qNeqbG/ZHGMnj+vtHpwWBY5qUU9+rZgVIR
+	OGkMj6YQ=
+X-Gm-Gg: Acq92OE8X48kfsELQlJi7sm1OUqGrYPhawpJL0tCOyilYrtqnUjItRnTlN9o2wM7qUB
+	DpE7jOE47/pMhMequmflPzPJhcXXLwnkhEtihmOMPZjKuKXj+rrhaiLwKPqTGKJ8M+c5gFDPBkE
+	61n6zz2xsWmjYSvTK72gJgQiNnF05hQrNaTWuJuVoSG0nrHJyn79wnQ1Ft0UpzP9/A7uV5zlATU
+	ER/OjNGH8uhKVH38wMVTATZPaDeNKTSKrA928Z54559tr03L9BBLv5bPG2du6tYoxPcy+bvUiR9
+	Iqe2VlKFaLW78/4YJB/1ohs8IrZqJuPwQg9duRmUyixCilSwbzaGbk5LTwhJq1rkx+Vwwu+wwCc
+	tG+Sd1GkAmlUyeHi9auVQxcY1SjTWYHl9tLPNkO7yFHRe9bjNF+2oi/AjnhmPm6BoMU/PNehVdl
+	gc3sC2ZUMCo4zuP3RZqC3Qpw==
+X-Received: by 2002:a05:600c:c0d0:b0:48a:761:5816 with SMTP id 5b1f17b1804b1-48fe53774b4mr270166855e9.8.1779261855105;
+        Wed, 20 May 2026 00:24:15 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:fa19:c0c9:991f:186d])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49008c047absm86786415e9.0.2026.05.20.00.24.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 00:24:14 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jian Hu <jian.hu@amlogic.com>
+Cc: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>,  Michael
+ Turquette <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,
+  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Neil Armstrong
+ <neil.armstrong@linaro.org>,  Xianwei Zhao <xianwei.zhao@amlogic.com>,
+  Kevin Hilman <khilman@baylibre.com>,  Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,  linux-kernel@vger.kernel.org,
+  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,
+  linux-amlogic@lists.infradead.org,  linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 05/10] clk: amlogic: PLL l_detect signal supports
+ active-high configuration
+In-Reply-To: <d023303e-e785-4b60-85cd-c83cc3f890e4@amlogic.com> (Jian Hu's
+	message of "Wed, 20 May 2026 11:25:35 +0800")
+References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
+	<20260511-b4-a9_clk-v1-5-41cb4071b7c9@amlogic.com>
+	<1jse7u6n3q.fsf@starbuckisacylon.baylibre.com>
+	<d023303e-e785-4b60-85cd-c83cc3f890e4@amlogic.com>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Wed, 20 May 2026 09:24:12 +0200
+Message-ID: <1jwlwy5ysj.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,48 +88,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260519-grazing-although-18c95489592f@spud>
 
-On Tue, May 19, 2026 at 06:28:24PM +0100, Conor Dooley wrote:
-> On Tue, May 19, 2026 at 02:06:11PM +0200, Otto Pfl=C3=BCger wrote:
-> > Add bindings for the regulators found in the Spreadtrum/Unisoc SC2730
-> > PMIC, used e.g. with the UMS512 and UMS9230 SoCs.
-> >=20
-> > Signed-off-by: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
-> > ---
-> >  .../bindings/regulator/sprd,sc2730-regulator.yaml  | 47 ++++++++++++++=
-++++++++
-> >  1 file changed, 47 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/regulator/sprd,sc2730-re=
-gulator.yaml b/Documentation/devicetree/bindings/regulator/sprd,sc2730-regu=
-lator.yaml
-> > new file mode 100644
-> > index 000000000000..5b91c7b7f3ee
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/regulator/sprd,sc2730-regulator=
-=2Eyaml
-> > @@ -0,0 +1,47 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/regulator/sprd,sc2730-regulator.yam=
-l#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Unisoc SC2730 Power Management IC regulators
-> > +
-> > +maintainers:
-> > +  - Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
->=20
-> How is this binding meant to apply without a compatible?
-> pw-bot: changes-requested
+On mer. 20 mai 2026 at 11:25, Jian Hu <jian.hu@amlogic.com> wrote:
 
-Through $ref on parent device binding. This as well could have been
-folded into the parent, but we do have cases like here.
+> On 5/14/2026 11:13 PM, Jerome Brunet wrote:
+>> [ EXTERNAL EMAIL ]
+>>
+>> On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.amlo=
+gic.com@kernel.org> wrote:
+>>
+>>> From: Jian Hu <jian.hu@amlogic.com>
+>>>
+>>> l_detect controls the enable/disable of the PLL lock-detect module.
+>>>
+>>> For A9, the l_detect signal is active-high:
+>>> 0 -> Disable lock-detect module;
+>>> 1 -> Enable lock-detect module.
+>>>
+>>> Here, a flag CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH is added to handle cases
+>>> like A9, where the signal is active-high.
+>>>
+>>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+>>> ---
+>>>   drivers/clk/meson/clk-pll.c | 9 +++++++--
+>>>   drivers/clk/meson/clk-pll.h | 2 ++
+>>>   2 files changed, 9 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
+>>> index 1ea6579a760f..5a0bd75f85a9 100644
+>>> --- a/drivers/clk/meson/clk-pll.c
+>>> +++ b/drivers/clk/meson/clk-pll.c
+>>> @@ -388,8 +388,13 @@ static int meson_clk_pll_enable(struct clk_hw *hw)
+>>>        }
+>>>
+>>>        if (MESON_PARM_APPLICABLE(&pll->l_detect)) {
+>>> -             meson_parm_write(clk->map, &pll->l_detect, 1);
+>>> -             meson_parm_write(clk->map, &pll->l_detect, 0);
+>>> +             if (pll->flags & CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH) {
+>>> +                     meson_parm_write(clk->map, &pll->l_detect, 0);
+>>> +                     meson_parm_write(clk->map, &pll->l_detect, 1);
+>>> +             } else {
+>>> +                     meson_parm_write(clk->map, &pll->l_detect, 1);
+>>> +                     meson_parm_write(clk->map, &pll->l_detect, 0);
+>>> +             }
+>> I'm not a fan of this code duplication.
+>> Use the introduced CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH to compute the
+>> first value, then flip the bit.
+>
+>
+> Ok, I will update this in the next version.
+>
+> Here is the updated code:
+>
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (MESON_PARM_APPLICABLE(&pll->l_detect)) {
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 meson_parm_write(clk->map, &pll->l_detect,
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 !(pll->flags &
+> CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH));
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 meson_parm_write(clk->map, &pll->l_detect,
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 !!(pll->flags &
+> CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH));
 
-Best regards,
-Krzysztof
+Please use a variable. Make it clean=20
 
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
+>
+>>>        }
+>>>
+>>>        if (meson_clk_pll_wait_lock(hw))
+>>> diff --git a/drivers/clk/meson/clk-pll.h b/drivers/clk/meson/clk-pll.h
+>>> index 949157fb7bf5..97b7c70376a3 100644
+>>> --- a/drivers/clk/meson/clk-pll.h
+>>> +++ b/drivers/clk/meson/clk-pll.h
+>>> @@ -29,6 +29,8 @@ struct pll_mult_range {
+>>>
+>>>   #define CLK_MESON_PLL_ROUND_CLOSEST  BIT(0)
+>>>   #define CLK_MESON_PLL_NOINIT_ENABLED BIT(1)
+>>> +/* l_detect signal is active-high */
+>>> +#define CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH   BIT(2)
+>>>
+>>>   struct meson_clk_pll_data {
+>>>        struct parm en;
+>> --
+>> Jerome
+>
+> Best regards,
+>
+> Jian
+
+--=20
+Jerome
