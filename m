@@ -1,173 +1,134 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7027D3DB322;
-	Wed, 20 May 2026 11:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E29A3C9EC3;
+	Wed, 20 May 2026 11:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779276409; cv=none; b=HfpN9TQ6hWVx6xBdIyPA6C57XjDnzi0sq+cfjjAZJ3EE0nHYw5x2tDmxnU/5gJVTspRb6Dyrtd0WQ9kxzDxi7p26sZmjgOszx+LjXirTPjJNHWmsvCVXqfUhikkZHWPNLzhGGKi5QRUa44D5p/jlAbFRClqbbp/7BUsS2o7qBhU=
+	t=1779276571; cv=none; b=nhYuMv1RGEsb/Q5+IYgvFbXB7+9kuvJHKUvAGfpAkcBCXryKG5QBCL6VV4yUXCPPaQH6n9zPBEoalrkd1f2VDTdILfOG7sEBMQngBTBNBEizFp2ulY7P1gdGi5lZoG7p9idieuJ+sxofLYbDz4+eNXxnhMF2Tnx7MS9m+HV6iUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779276409; c=relaxed/simple;
-	bh=uk3KlzLDz/RNxns7096r7xifjYgyvp1l4LW0K6Y5DKI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IIc8mBm+VrAx0x3X7KascgrPPSrwWWeV3vKmD8DujH4jOnvC7t8NFCj6m7SeNnMn4zu/4G2fYGiaiHPX25leimGoCfJiIEUmnXVVPiUFNahFYtIA3Or7GI1IG+36Q2o4F+3xYS/H8mfVtdwfEquu3DbcyRkPWzz1T8ybtESECwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=LN20goIK; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1779276571; c=relaxed/simple;
+	bh=GWFKGVfOWD/d0OJEF/xtYaKbKFwepHPfU17HCLbBHCg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZoinPWW3co+8xL/LcZin9kZzqXwT6X6b36ZYVpCCAgAd5CZ9qnIg6/xNng5MbltYHdQD499CPBLTqIjUFFSEf3EwhhUG2QL8RdryqEHsf0PJjZ04AMr6s0qJdGKlM2JRqG8IP5CQawXzsF1sBxI8/HIaIYd081+AZpdBd2BvdnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmTPCI7O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="LN20goIK"
-X-UUID: c41383ec543e11f1a3561939bc42ff46-20260520
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=1piNjmrlWSwikIHnqy+RsZoVhgioTg2emaClTHlJItE=;
-	b=LN20goIK3JgYnXxlMPdzdH6bYrvYZJEVLJxKPeyzmRgqbGFIEuCI6v4kAVw0pBFz/6ChRXNuL3r8ATRkmEgtmGgoIs0skvGNzpRg+Hu3xDDyDdnk6X/xgbQ1o9FRrhXYgU/QgGViwt+dc/WiPVLofD0nIw8aQklGgP6y8tQDOIg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.14,REQID:b2e2d4b1-581b-45bd-8713-0d755f7062f4,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:9091e75,CLOUDID:7fbd2322-bef7-463f-902c-5f40f7404c33,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
-	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c41383ec543e11f1a3561939bc42ff46-20260520
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
-	(envelope-from <arnab.layek@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1911022330; Wed, 20 May 2026 19:26:37 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 20 May 2026 19:26:36 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 20 May 2026 19:26:36 +0800
-From: Arnab Layek <arnab.layek@mediatek.com>
-To: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>,
-	<andersson@kernel.org>, <mathieu.poirier@linaro.org>,
-	<linux-remoteproc@vger.kernel.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Arnab Layek
-	<arnab.layek@mediatek.com>
-Subject: [PATCH v4 1/1] dt-bindings: remoteproc: mtk,scp: Allow multiple memory regions for MT8188
-Date: Wed, 20 May 2026 19:26:29 +0800
-Message-ID: <20260520112629.3420612-2-arnab.layek@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260520112629.3420612-1-arnab.layek@mediatek.com>
-References: <20260520112629.3420612-1-arnab.layek@mediatek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmTPCI7O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E585F1F000E9;
+	Wed, 20 May 2026 11:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779276570;
+	bh=qvoG4aNz4WjwJv+2yN4cJ2o3T9asOyX6Zi51zffP2Kg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HmTPCI7OdHOccAFE8nIsgJQVTZZmw015qWpJZXOxZSBmBr17yApZjWlKB/MMpaosl
+	 wt0qhZkAQ7d8L06PcrnSyEocMNDYhKTHAtMbHMEHvbjBGqS7wgt+8XLBynYTuJkPX+
+	 QRI9Md1HezBxCtoJntdxZxqRLR4AGXDKK1G7vp6mGZxz0w6HF9olIe3WGOaIoa/GmF
+	 jN04P3X4kRM8pa/E0uGeiBsl4k9uVJDHVUCIx+USD+88EgN7xCjM7ykYfqT6RqPKf6
+	 2omsaZPt11n2eKLR9QHCn4BaJQQJXRfpPanK8pXnWiHcUavXlW2DTwI4dI5XFbDLfR
+	 rMhHAeKRnkZDw==
+Message-ID: <f097c75a-0c33-499b-9910-b23182d4472b@kernel.org>
+Date: Wed, 20 May 2026 13:29:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V6 5/5] arm64: dts: qcom: glymur-crd: add Audio sound card
+ node
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, robh@kernel.org,
+ srini@kernel.org, amahesh@qti.qualcomm.com, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260325035338.1393287-1-sibi.sankar@oss.qualcomm.com>
+ <20260325035338.1393287-6-sibi.sankar@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260325035338.1393287-6-sibi.sankar@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The MT8188 SCP can use either one or two reserved memory regions:
-- Required: Main SCP SRAM memory region (mandatory for SCP operation)
-- Optional: SCP L1TCM memory region (Level 1 Tightly Coupled Memory,
-  used for performance optimization when available, but not required
-  for basic SCP functionality)
+On 25/03/2026 04:53, Sibi Sankar wrote:
+> From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> 
+> Add the sound card of Glymur-crd board with the routing for speakers.
+> 
+> Add device nodes for the sound support with WSA884x smart speakers
+> and playback via speakers and recording via DMIC microphones.
+> 
+> Co-developed-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 110 +++++++++++++++++++++++
+>  1 file changed, 110 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> index 690b90e3d6ce..88a5c63e8ac2 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -118,6 +118,54 @@ vreg_wwan: regulator-wwan {
+>  		pinctrl-0 = <&wwan_reg_en>;
+>  		pinctrl-names = "default";
+>  	};
+> +
+> +	sound {
+> +		compatible = "qcom,glymur-sndcard";
+> +		model = "glymur-crd";
 
-Other MediaTek SoCs (MT8183, MT8186, MT8192, MT8195) use only a single
-memory region and must remain restricted to one region for backward
-compatibility.
+That's not the name which was already used in Audioreach topology and
+maybe other places.
 
-Update the base schema to allow 1-2 memory regions (minItems: 1,
-maxItems: 2), following the pattern used by other MediaTek dt-bindings
-like mediatek,vcodec-encoder.yaml where the base property defines a
-permissive range accommodating all device variants.
+While it is fine to use whatever case you wish, please also fix that
+users of this name.
 
-Add two conditionals:
-1. Explicitly restrict non-MT8188 devices to maxItems: 1
-2. Document MT8188's two regions with descriptions (minItems: 1 makes
-   the L1TCM region optional, allowing boards to specify 1-2 regions
-   based on hardware configuration)
-
-This approach maintains backward compatibility while enabling MT8188 to
-specify 1-2 memory regions depending on board design and performance
-requirements.
-
-Signed-off-by: Arnab Layek <arnab.layek@mediatek.com>
----
- .../bindings/remoteproc/mtk,scp.yaml          | 45 ++++++++++++++++++-
- 1 file changed, 43 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-index bdbb12118da4..fca9b0675eae 100644
---- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-@@ -55,7 +55,8 @@ properties:
-       initializing SCP.
- 
-   memory-region:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
- 
-   cros-ec-rpmsg:
-     $ref: /schemas/embedded-controller/google,cros-ec.yaml
-@@ -123,7 +124,8 @@ patternProperties:
-           initializing sub cores of multi-core SCP.
- 
-       memory-region:
--        maxItems: 1
-+        minItems: 1
-+        maxItems: 2
- 
-       cros-ec-rpmsg:
-         $ref: /schemas/embedded-controller/google,cros-ec.yaml
-@@ -205,6 +207,45 @@ allOf:
-           items:
-             - const: cfg
-             - const: l1tcm
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - mediatek,mt8183-scp
-+            - mediatek,mt8186-scp
-+            - mediatek,mt8192-scp
-+            - mediatek,mt8195-scp
-+            - mediatek,mt8195-scp-dual
-+    then:
-+      properties:
-+        memory-region:
-+          maxItems: 1
-+      patternProperties:
-+        "^scp@[a-f0-9]+$":
-+          properties:
-+            memory-region:
-+              maxItems: 1
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - mediatek,mt8188-scp
-+            - mediatek,mt8188-scp-dual
-+    then:
-+      properties:
-+        memory-region:
-+          minItems: 1
-+          items:
-+            - description: Main SCP SRAM memory region
-+            - description: Optional SCP L1TCM memory region
-+      patternProperties:
-+        "^scp@[a-f0-9]+$":
-+          properties:
-+            memory-region:
-+              minItems: 1
-+              items:
-+                - description: Main SCP SRAM memory region
-+                - description: Optional SCP L1TCM memory region
- 
- additionalProperties: false
- 
--- 
-2.45.2
+Best regards,
+Krzysztof
