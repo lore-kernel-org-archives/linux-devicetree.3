@@ -1,320 +1,162 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00283BADA9
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:07:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC5D3BADA7
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:19:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779268060; cv=none; b=LNXCUElgzdo4X1H2lhk79/aRd+sHdGs0lfw22KEvkWIePbNI9h86sy38E/NDjk0BUI/sagfe0rhk583miTbU7ZGvQ4DzONEDQLp0zsbYHDHK0ZZ3y2wJ0UAwWcJ4tkdpBZ7opRJCLJ3za8Gz3h027RS4PRveXCHEPMRmks3/ZK8=
+	t=1779268743; cv=none; b=fWEb/wkfmOTFq5sFSybY9OhuSxlroc7LPl6Qm7nMVe6aSuP7MvVJU1JT+ao5IMpCZ2pdKRYew6o0hAB5QBGfs2enGdyXdvxISfKvA+GkY3l1S5BPqJBUP9O3wvWUwLx6hdU8+usxOeKFanTmFIHTR36dvuCiOP+NRL+K76RCydM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779268060; c=relaxed/simple;
-	bh=vo9QszaRVCVBLynmMk2Tlo0NH6xJ4ftEm46gUfYlE+w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YmALTw1yXo/zWdEGKIjYgLWtlhEAw3buEe9ysEmbztf9EQI2FwByM58kWQqst0Iga7X2w5ADceJBpRDw50Lvf3tYunJ6fAs7qf+SSydd/jDM3Y6mdLZd7CBcLPYLKmJRcLVc/MvDB5qtEbfExOZtr4k2smGRSKmM5dY29sKpJoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pyYLx734; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XjyiShJG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779268743; c=relaxed/simple;
+	bh=VdYMZfmdWGinCscf69KLX3fpX4Qe2QiLkBtyEy1U2/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ulJ72zR4WTD8S2dBLF3DT0BUkD47QGRfSPMIZKP0MK9GBUMRA+9+5G28mmAwotFYmqauykHBpoC0lhqZRHL9C9dBK6Y9Fu6/JFLQajA3t3ZfGSa9Gli9dwsqh9028jpZ2xXMpyTYHzo+xL/cxIDoh3Q2eo1qvSirX32ApJSz0w4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BtooWC93; arc=none smtp.client-ip=209.85.210.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pyYLx734";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XjyiShJG"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K8umD94115399
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:07:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PhUsGD2Ij6JrjuwQpUKSKSZDLzGC8nTynYmL00kksfY=; b=pyYLx734wvdTDEjn
-	eapAre0PHFOkv0lyBh10TmY+vlamvFnytEFBhxHUZginb1a0U7sEaHDpMVu1c+FE
-	F28+ojGyfRyIi6mMnpvANYltcNm8OSQhLn/yUUryEQyELv2EkDD/qFF4NEUSCQl/
-	Gcn4Oh99ytDgD5ZT/D8Fmb/PMp3bxSe1ecMpY4FpA3QHoyYvEPk721ROtBAuWf8H
-	iAEdiVh8M3jYR93HIlf112nvegmU+mYJtauGgsJZNre25b6DtGbWWD2uRfcBmgh+
-	fIFa0HmqoJWnmGGbqfnP2h9yu7SJW/fuY9EGwZyaJo3pig4JY4TVzbJiZFpgO/UM
-	oLIZmQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e99w0g1hp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:07:33 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-36642d2f4deso10119239a91.3
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 02:07:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BtooWC93"
+Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-82f8893bff3so2117249b3a.2
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 02:19:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779268052; x=1779872852; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PhUsGD2Ij6JrjuwQpUKSKSZDLzGC8nTynYmL00kksfY=;
-        b=XjyiShJGIPIxRirJKuAN6fmP+Mk2sYSuvWItqGyZDUm5F/89Rg9TfNe1Jh4uv09EcG
-         6chLmD6YjrGzQg9233vKPBra1zy/cQxSAlvCPT2v+gU/0hVmhCJlOK5TXxkjiThHWHNk
-         mMp+i794ZF6kM86VMcusbeAPp+DTbIhimx7ZIarLyNZaJo24jSDIIkYWwbGAlacqYxy3
-         JxUy9z+nxaNNh7lssMOARarY72Eocewqg0A1sBaCBQ4fBg05jMB2xpWHu96zW2Z3K8mW
-         IDMeLx6P6HShr2SZRPpYEOexrx0E9BrLk54lOaNIi4OH3glhGuafkFxX7r2yEN9AUBkr
-         +B3A==
+        d=gmail.com; s=20251104; t=1779268740; x=1779873540; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mxzEWL1R2sDou1abx9yR2WoOGdqqnaGEsR/cU7KUoPM=;
+        b=BtooWC93+hQlHYWDD6xoXSp5cU10Z4Bo3OLd/OqQBEGxJyR2GEUFsqT1WZYYgLsWny
+         64NUzVAnxIp7SCGa9vIKPGD0PiLf6KSHWert9D5coQXC/zibtHOr9pH2gxKWgaLx4avR
+         xdO9JUslEEeOMsPqAUIgxA2BUwmpEMiderzC1JqvDJpW/QTQplBMvER4I68LhHcdThrs
+         C3gOtTZeJdO4iKGx+y4vbHs2Hy62LWHy20WK+N4TF5Lu/T/5O/eDJSCTD4iTqTM21w25
+         dj0xVcU+7gVcJuAgxs7IGSjLo/Skvv0ilG99KoaEPJVAT/iC87d7iDRYoln4/hl0Wu6f
+         xV0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779268052; x=1779872852;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PhUsGD2Ij6JrjuwQpUKSKSZDLzGC8nTynYmL00kksfY=;
-        b=pT1wSW4/6YishwiWKQ5DCu2oJvEG+dEy/xK0TLKnmkRo4Sp0Paw3iVa4lYWdUrcqEw
-         Q8NEskAvJOTqEhrVJRdmwzzFd6K1gz96z+1xZtX7e+gtDTU/4bqDm1qKfEMHIgb9QYk4
-         inEyn4noUFcaek7eU7D4dOq6Y3K09cgFEJR2gRKacYxCmnfrAukgLhYwVknKjbIwCtk7
-         YeT42GQ2uxRDcY81CAGIs0p3ys40VDStZpFiJTC3P0IWA+Yhy7LehaU0uStJ6DsH+hq8
-         2yEK4bMxdtosvhRyMsttkjc+Q/f4slFeJGk7P4hte3l9TIViAkG/n0U44ZMrGxN8rYC7
-         MFEw==
-X-Forwarded-Encrypted: i=1; AFNElJ9noWLY4EeD3Q9KjyMUZ5iT4sP0sRDq4WrXghBaynb9vIfPJLEhuoIj4E+DlX9bB2FQjBNLRzC9pqDj@vger.kernel.org
-X-Gm-Message-State: AOJu0YzORtFtD6t2qrSr/YWfVckDzRiHJF6nncDD0mJ4yx6eg/sVxtzj
-	Eq32HK9mUaiOA6vuALCR/O7rpbvqUXGsnxrp+JAwiycTHC10YgZnYzZgGEoWVI11bzk40OAcUkP
-	jjJ9Bipx7L0zTbsZ0KRvOggiracVffofJCT7b7zf+gXUQdy8Gb5gHYH652TcDnLY=
-X-Gm-Gg: Acq92OHuDuPabsAhviz4xCNq7geZ8XLPaQqTGfsoL/wOzq79LavT9IjiLmmnzy+5WB5
-	LtqOzLOAIePbYuSOVNiSLcv6yMyq/e+3yNLordWw84yQD0ge+6Z0CQM7dKE/zxSwh92qveF61pX
-	AmctoTegu9zOj0ePq49aOlHvX+SoYG1f9h2KPU46OjZI/sVjV7uLiCQXiP55yR8xfsK45O6U+pf
-	+fwZlZ71s8UI9pG7D5JOR8F7TBdkdq3NaEBr4TxnU8+gZJ+1DIE8Rv8S9Am+FA9BShRpnqDetwr
-	XPasM3j0Q+M330dckZ7oZxJxavocDc2FyK4kFlzbSnQZ5sOrerczYl66JLhgDYjlNO8wxddvXd0
-	p67j4TvLJF2IMhhM4Byols5LOVdN6yTz6E07fVGqNZnir6VymI3vrqVxhQsXNgQ==
-X-Received: by 2002:a17:90b:4c:b0:366:19da:832f with SMTP id 98e67ed59e1d1-36951b75e31mr23314346a91.17.1779268052171;
-        Wed, 20 May 2026 02:07:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c:b0:366:19da:832f with SMTP id 98e67ed59e1d1-36951b75e31mr23314303a91.17.1779268051647;
-        Wed, 20 May 2026 02:07:31 -0700 (PDT)
-Received: from hu-kotarake-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-369517a8612sm17079903a91.12.2026.05.20.02.07.27
+        d=1e100.net; s=20251104; t=1779268740; x=1779873540;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mxzEWL1R2sDou1abx9yR2WoOGdqqnaGEsR/cU7KUoPM=;
+        b=WeaLMf9Vf9ScoDgPcXWScnP1sBbzXgShC3WW0jdcrGFvfpsZQzmRRrSHxiKNI3sP+L
+         HfPLILoY45+gKJKMZNfehAtinQ4t8UHvDqunoPGIsXNTXaPWO9sC98aX83WwR6HvYyZy
+         uwY8p2mWDXyD7Y+MwC2PM1AfU9Dw7Z3pY6Gmcn+ozcyr4jSPJCUkgCUIGS+4jiuwzlkx
+         3WmPns+7M/ewIUeaZR4Dzi5+dUWxDslpcNwGhvf1Fe0klc/znOAlyj3CgXRkwlPNOy+6
+         mE7VmzqYGdxSs1p5R5+bt5o3hK6hOespvpqW0vt3LIQhjvh2jIBMVOy0w7lRpqDQii6S
+         9dwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/FDTc1c8VDxJouQrtNDBu8+mSgqoRQ4dv50plSt2U/8LM2C/RLkiX/HfHoY69Bd8NANfLoJrLfrXlF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw07AHR1dPXB/f35brJzfS/42sGZp8UPWbW93+MugM3CEIUEttH
+	c/aBbA/gHAPit1BXX9faLsybmWTyftQ9cegL1aulwkNj/qF7NgHkMCyh
+X-Gm-Gg: Acq92OEg+N3IwmZ4P/mjWfleQQKMeSVYrZsMOr7Da7WzuArGPRwDTVGZ4BH5mxjcdry
+	ZrAQTrAMclyUAhP5dK2aphkiuivV5/M2YzC+BQ1WwPlD4hWXobbmnA/o/73JZqxq3nA6Jtu9C31
+	HHl8tm/+yQsoCj4qcrIMDvgdHvg7mTLT74nSM49CbEXSderIXQGZJDyKPqc7zz4fZTsmxkAadVN
+	LuaQ0XzLc/L6lsCo2+bR4WPSvnQQqHxPl6OVoZc0t22J22irao0QXBUUNajSeOCIhb8V/0GFkVZ
+	88r6BLqinJBQtmSkO8aaVorlsjgxPQUrluNQAlREFtb0EgppnKRQtvRgLLB3Gfl+NRy6stTK1cv
+	NLbViicQp4UmSdNeEj1s9t23UZvOb9FpUo+Eh1a78zcSPCYKRPPOLejMD5xUeaOZ4L/mgD4ytY4
+	rQ/hV5tfnah93nyLlYIchJ4HyxYE1T6lsclatHBQ==
+X-Received: by 2002:a05:6a00:2c95:b0:82c:e816:4135 with SMTP id d2e1a72fcca58-83f33de9724mr22532227b3a.47.1779268740373;
+        Wed, 20 May 2026 02:19:00 -0700 (PDT)
+Received: from intel.company.local ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f63bb986dsm10208967b3a.48.2026.05.20.02.18.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 02:07:31 -0700 (PDT)
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Date: Wed, 20 May 2026 14:37:12 +0530
-Subject: [PATCH 2/2] regulator: qcom_usb_vbus: add support for
- qcom,pm4125-vbus-reg
+        Wed, 20 May 2026 02:18:59 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+X-Google-Original-From: Wandun Chen <chenwandun@lixiang.com>
+To: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	iommu@lists.linux.dev,
+	zhaomeijing@lixiang.com
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	akpm@linux-foundation.org,
+	bhe@redhat.com,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	m.szyprowski@samsung.com,
+	robin.murphy@arm.com,
+	leitao@debian.org,
+	kees@kernel.org,
+	coxu@redhat.com,
+	tangyouling@kylinos.cn,
+	songshuaishuai@tinylab.org
+Subject: [PATCH v2 0/8] kdump: reduce vmcore size and capture time
+Date: Wed, 20 May 2026 17:18:36 +0800
+Message-ID: <20260520091844.592753-1-chenwandun@lixiang.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-add_pm4125-vbus-reg-v1-2-f6d15d7dbbe8@oss.qualcomm.com>
-References: <20260520-add_pm4125-vbus-reg-v1-0-f6d15d7dbbe8@oss.qualcomm.com>
-In-Reply-To: <20260520-add_pm4125-vbus-reg-v1-0-f6d15d7dbbe8@oss.qualcomm.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, jishnu.prakash@oss.qualcomm.com,
-        kamal.wadhwa@oss.qualcomm.com,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779268039; l=6127;
- i=rakesh.kota@oss.qualcomm.com; s=20250919; h=from:subject:message-id;
- bh=vo9QszaRVCVBLynmMk2Tlo0NH6xJ4ftEm46gUfYlE+w=;
- b=5oRumBCBbUQiupUigj6X/K4pwShmcJcZu8NFnst5iC/MrZgyo6e+UoBVpLJNTk9JHbmssG1UE
- gO6dez28JwtAaRgcK6iTYmLXbJbbei3eeXiMA8IkEfhMz+18eZ1eme7
-X-Developer-Key: i=rakesh.kota@oss.qualcomm.com; a=ed25519;
- pk=dFhv9yPC8egZglsSLDMls08cOvZKZkG6QQn1a/ofwNU=
-X-Proofpoint-ORIG-GUID: Tbr8dqM6SpN3EPohCx1bQFCq9gWO2YY5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA4NyBTYWx0ZWRfXwqXmELnVnLYd
- 5ZVv/FHTDGkbfXg3ttz0H0ZABZNq8ZddYlcssmo5MGKuYr/KON7pQ2ge85jTiDCpo/1fT464hOV
- 2ZkuT2Io3dlqmovY5qdAq7OWOFLsZYtSRS1hfD/IL5P8CKVJ4hqcGG04aXGP/pezgsZzRXMRhcl
- R09pXMwe1dKQEsg+JGaF4n4fiBFqlwBxCQB190iuvNZSgveOBP7EyTBJ3QX/y/SDCK3qIeKgQms
- FtD6KGTmwL9Ki3zm61RcpajHqW9Z+v9qMO1hPdltus3AGg9U4gmNlYxkrrMmcDL3aRpzqHIuN0h
- f1oLqaKlzJ0kW4VA8kjIcRkqVd4R+9ZPEBYMckxxlSdnrWYov0bnqdHEg3KVuSy4VQXphi8sc1X
- sk+GNOjWW1l4Mtrlxqxm75f6Ezwe4JYJ3l/F5CMu+fnNJYoteQqZrPtZ2fXPEUqq6+baTHL4rOC
- Uib+++EYeKVAvCH24ig==
-X-Authority-Analysis: v=2.4 cv=RZigzVtv c=1 sm=1 tr=0 ts=6a0d79d5 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=xNrmRdIuzdWpR3jzgYgA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: Tbr8dqM6SpN3EPohCx1bQFCq9gWO2YY5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200087
+Content-Transfer-Encoding: 8bit
 
-The PM4125 PMIC uses a different register layout for USB VBUS control
-compared to PM8150B. On PM4125, CMD_OTG is at offset 0x50, OTG_CFG is
-at 0x56, and offset 0x52 is a 2-bit VBOOST voltage selector rather than
-a current-limit selector.
+This is v2 of the vmcore size optimization series.
 
-Introduce per-compatible regulator descriptor data to accommodate these
-differences. This keeps the existing PM8150B current-limit logic intact
-while adding a dedicated voltage-selector path for PM4125.
+The original v1 [1] contains two parts of work:
+ - Bug fixes and small cleanups about reserved memory.
+ - A vmcore size optimization that excludes reserved memory out of
+   vmcore.
 
-Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
----
- drivers/regulator/qcom_usb_vbus-regulator.c | 102 ++++++++++++++++++++++++----
- 1 file changed, 88 insertions(+), 14 deletions(-)
+For the convenience of review, I have split it into two independent
+patchsets. This patchset focuses on the vmcore size optimization.
 
-diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regulator/qcom_usb_vbus-regulator.c
-index cd94ed67621fee9f6d7a0327054db0ebab6cc7ee..3d425452a0b35b35c4b454f84eb28e87cc8ba4f8 100644
---- a/drivers/regulator/qcom_usb_vbus-regulator.c
-+++ b/drivers/regulator/qcom_usb_vbus-regulator.c
-@@ -20,10 +20,35 @@
- #define OTG_CFG				0x53
- #define OTG_EN_SRC_CFG			BIT(1)
- 
-+#define PM4125_CMD_OTG			0x50
-+#define PM4125_VBOOST_CFG		0x52
-+#define PM4125_VBOOST_CFG_MASK		GENMASK(1, 0)
-+#define PM4125_OTG_CFG			0x56
-+#define PM4125_OTG_EN_SRC_CFG          BIT(0)
-+
-+struct qcom_usb_vbus_reg_data {
-+	u16 cmd_otg;
-+	u16 otg_cfg;
-+	u8  otg_en_src_cfg;
-+	u16 csel_reg;
-+	u8 csel_mask;
-+	const unsigned int *curr_table;
-+	unsigned int n_current_limits;
-+	u16 vsel_reg;
-+	u8 vsel_mask;
-+	const unsigned int *volt_table;
-+	unsigned int n_voltages;
-+	const struct regulator_ops *ops;
-+};
-+
- static const unsigned int curr_table[] = {
- 	500000, 1000000, 1500000, 2000000, 2500000, 3000000,
- };
- 
-+static const unsigned int pm4125_vboost_table[] = {
-+	4250000, 4500000, 4750000, 5000000,
-+};
-+
- static const struct regulator_ops qcom_usb_vbus_reg_ops = {
- 	.enable = regulator_enable_regmap,
- 	.disable = regulator_disable_regmap,
-@@ -32,19 +57,43 @@ static const struct regulator_ops qcom_usb_vbus_reg_ops = {
- 	.set_current_limit = regulator_set_current_limit_regmap,
- };
- 
--static struct regulator_desc qcom_usb_vbus_rdesc = {
--	.name = "usb_vbus",
--	.ops = &qcom_usb_vbus_reg_ops,
--	.owner = THIS_MODULE,
--	.type = REGULATOR_VOLTAGE,
-+static const struct regulator_ops qcom_usb_vbus_pm4125_reg_ops = {
-+	.enable = regulator_enable_regmap,
-+	.disable = regulator_disable_regmap,
-+	.is_enabled = regulator_is_enabled_regmap,
-+	.get_voltage_sel = regulator_get_voltage_sel_regmap,
-+	.set_voltage_sel = regulator_set_voltage_sel_regmap,
-+	.list_voltage = regulator_list_voltage_table,
-+};
-+
-+static const struct qcom_usb_vbus_reg_data pm8150b_data = {
-+	.cmd_otg = CMD_OTG,
-+	.otg_cfg = OTG_CFG,
-+	.otg_en_src_cfg = OTG_EN_SRC_CFG,
-+	.csel_reg = OTG_CURRENT_LIMIT_CFG,
-+	.csel_mask = OTG_CURRENT_LIMIT_MASK,
- 	.curr_table = curr_table,
- 	.n_current_limits = ARRAY_SIZE(curr_table),
-+	.ops = &qcom_usb_vbus_reg_ops,
-+};
-+
-+static const struct qcom_usb_vbus_reg_data pm4125_data = {
-+	.cmd_otg = PM4125_CMD_OTG,
-+	.otg_cfg = PM4125_OTG_CFG,
-+	.otg_en_src_cfg = PM4125_OTG_EN_SRC_CFG,
-+	.vsel_reg = PM4125_VBOOST_CFG,
-+	.vsel_mask = PM4125_VBOOST_CFG_MASK,
-+	.volt_table = pm4125_vboost_table,
-+	.n_voltages = ARRAY_SIZE(pm4125_vboost_table),
-+	.ops = &qcom_usb_vbus_pm4125_reg_ops,
- };
- 
- static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-+	const struct qcom_usb_vbus_reg_data *data;
- 	struct regulator_dev *rdev;
-+	struct regulator_desc *rdesc;
- 	struct regmap *regmap;
- 	struct regulator_config config = { };
- 	struct regulator_init_data *init_data;
-@@ -57,27 +106,51 @@ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	data = of_device_get_match_data(dev);
-+	if (!data)
-+		return -EINVAL;
-+
- 	regmap = dev_get_regmap(dev->parent, NULL);
- 	if (!regmap) {
- 		dev_err(dev, "Failed to get regmap\n");
- 		return -ENOENT;
- 	}
- 
--	init_data = of_get_regulator_init_data(dev, dev->of_node,
--					       &qcom_usb_vbus_rdesc);
-+	rdesc = devm_kzalloc(dev, sizeof(*rdesc), GFP_KERNEL);
-+	if (!rdesc)
-+		return -ENOMEM;
-+
-+	rdesc->name = "usb_vbus";
-+	rdesc->ops = data->ops;
-+	rdesc->owner = THIS_MODULE;
-+	rdesc->type = REGULATOR_VOLTAGE;
-+	rdesc->enable_reg = base + data->cmd_otg;
-+	rdesc->enable_mask = OTG_EN;
-+
-+	if (data->curr_table) {
-+		rdesc->curr_table = data->curr_table;
-+		rdesc->n_current_limits = data->n_current_limits;
-+		rdesc->csel_reg = base + data->csel_reg;
-+		rdesc->csel_mask = data->csel_mask;
-+	}
-+
-+	if (data->volt_table) {
-+		rdesc->volt_table = data->volt_table;
-+		rdesc->n_voltages = data->n_voltages;
-+		rdesc->vsel_reg = base + data->vsel_reg;
-+		rdesc->vsel_mask = data->vsel_mask;
-+	}
-+
-+	init_data = of_get_regulator_init_data(dev, dev->of_node, rdesc);
- 	if (!init_data)
- 		return -ENOMEM;
- 
--	qcom_usb_vbus_rdesc.enable_reg = base + CMD_OTG;
--	qcom_usb_vbus_rdesc.enable_mask = OTG_EN;
--	qcom_usb_vbus_rdesc.csel_reg = base + OTG_CURRENT_LIMIT_CFG;
--	qcom_usb_vbus_rdesc.csel_mask = OTG_CURRENT_LIMIT_MASK;
- 	config.dev = dev;
- 	config.init_data = init_data;
- 	config.of_node = dev->of_node;
- 	config.regmap = regmap;
- 
--	rdev = devm_regulator_register(dev, &qcom_usb_vbus_rdesc, &config);
-+	rdev = devm_regulator_register(dev, rdesc, &config);
- 	if (IS_ERR(rdev)) {
- 		ret = PTR_ERR(rdev);
- 		dev_err(dev, "not able to register vbus reg %d\n", ret);
-@@ -85,13 +158,14 @@ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
- 	}
- 
- 	/* Disable HW logic for VBUS enable */
--	regmap_update_bits(regmap, base + OTG_CFG, OTG_EN_SRC_CFG, 0);
-+	regmap_update_bits(regmap, base + data->otg_cfg, data->otg_en_src_cfg, 0);
- 
- 	return 0;
- }
- 
- static const struct of_device_id qcom_usb_vbus_regulator_match[] = {
--	{ .compatible = "qcom,pm8150b-vbus-reg" },
-+	{ .compatible = "qcom,pm8150b-vbus-reg", .data = &pm8150b_data },
-+	{ .compatible = "qcom,pm4125-vbus-reg", .data = &pm4125_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, qcom_usb_vbus_regulator_match);
+Motivation
+==========
+
+On SoCs that carve out large firmware-owned reserved memory (GPU
+firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
+those carveouts as part of system RAM even though their contents are
+firmware state that is not useful for kernel crash analysis.
+
+This series excludes /reserved-memory regions from vmcore by default,
+and also for /memreserve/ firmware regions. The corresponding kdump
+time has decreased, and the vmcore size has become smaller.
+
+v1 --> v2:
+1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
+   feedback [2], v2 drop that property and exclude reserve memory
+   by default.
+2. Split some prepared patches from the original patches.
+3. Address coding-style comments on patch 5 from Rob.
+
+[1] https://lore.kernel.org/lkml/20260429065831.1510858-1-chenwandun@lixiang.com/
+[2] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
+
+Wandun Chen (8):
+  of: reserved_mem: handle NULL name in of_reserved_mem_lookup()
+  kexec/crash: provide crash_exclude_mem_range() stub when
+    CONFIG_CRASH_DUMP=n
+  of: reserved_mem: add dumpable flag to opt-in vmcore
+  of: reserved_mem: save /memreserve/ entries into the reserved_mem
+    array
+  of: reserved_mem: add kdump helpers to exclude non-dumpable regions
+  arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
+  riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
+  loongarch: kdump: exclude non-dumpable reserved memory regions from
+    vmcore
+
+ arch/arm64/kernel/machine_kexec_file.c     |  6 ++
+ arch/loongarch/kernel/machine_kexec_file.c |  6 ++
+ arch/riscv/kernel/machine_kexec_file.c     |  4 +
+ drivers/of/fdt.c                           |  5 ++
+ drivers/of/of_private.h                    |  2 +
+ drivers/of/of_reserved_mem.c               | 92 +++++++++++++++++++++-
+ include/linux/crash_core.h                 |  6 ++
+ include/linux/of_reserved_mem.h            | 15 ++++
+ kernel/dma/contiguous.c                    |  1 +
+ 9 files changed, 136 insertions(+), 1 deletion(-)
 
 -- 
-2.34.1
+2.43.0
 
