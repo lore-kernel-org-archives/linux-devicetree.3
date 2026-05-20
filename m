@@ -1,176 +1,179 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2F133EB1B;
-	Wed, 20 May 2026 19:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0383403E6
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779304670; cv=none; b=CIFRErwqTOJq6T0s4y2ruQ/wjbxE29wCt7j+Q92SOExgxjog06RdwqTLta2eLjUbXxnYMavEoi9epP0dU/MKlHtKOTfddQxKv2ILibqUqQ5KUkhJMCfPuofsML71YaPZBXOza3QXayxrudqnpyGMCxxO6cZ4upQu3RWvK/spiZs=
+	t=1779304816; cv=none; b=NHkjz+ConS+ASoYxahodAQX/+VhJsh2DBXkH2d6RWALLlhN9vIqaZ9V4C5b+YgKeU47ip0cBpGEWg9KGLaYxfgenUX99NundlkHaquipWjEze2refkhwcI42JndighGLsAsG3/ldBzasI4ZyWuyLQwzE0TkLqEx7JDph50Cjiio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779304670; c=relaxed/simple;
-	bh=RtgRUzZZHxu4PmTMk54J6cdnfQUwHkSJi5CLymbqwCY=;
+	s=arc-20240116; t=1779304816; c=relaxed/simple;
+	bh=qa6+Eq6ywhjy1RaYO2MeVgoTr/wcu9OhO6BnZE8WvQg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LL/S39Uq33ozeGYfg2lfyT5i6GbaoTXUkcjkXyJkTLlGWlBYsFC9cTg3TJNxdvYYZfNUx02RCU6CD9HwrCuiMncq2nW1DXgga2NfKmSuGybahg+WoE0VHX4YtSnQ+1IKSJO+zCzd82VhR89V2i/o+a30P5Ru6DwLjCciVmGAkpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=RB3WV9zk; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	 In-Reply-To:Content-Type; b=AXctCNKVkAtSLTjE/ly1KOmMf14gcLM5LnE39v7XvfOoEFpYikH7llNGs/WUVcwTS+tEevLlu9M9mqUfcLbGq/eV9PnhnuwZ04RqRxqZUi5KYN+gKjFQ4avDlpxNFpYUU/ctsBUwpyc3khEz2GffvqSC98avpxYdltRFlAG/DWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VldpI+mu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ng4yzRGA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="RB3WV9zk"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 216A243E3CF;
-	Wed, 20 May 2026 21:17:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1779304663; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Od3JjqsxO5DW0D/LfjwnDigdaqm7px/QiBLhicHEbLU=;
-	b=RB3WV9zk8G5mp0x8BMy1t8a6gkk9BQRxFupC2dtg/XF6QQu9c/bWxSo7fQt2hKSDAyF/Ua
-	Z/qwz5kGmUcxNhaPCiXT/BYhpDlrdzw+5+836EYyJiqEnRO8xgtJSti0AklsZEu88fBKjh
-	jq9Y1veXT5iGetpbMeN3ys8T+hE/s8AmlUqT3lAWr0kxCn7mYxrUH2wpbgZHlszsmCJb35
-	7Yxt473IGeTUYIec8EKrXb7G0uAPY8z1zYhuEjdYDhRQJM8c47H6QBITU5O1pF1OqzuIUO
-	OqwP7KI6dN11APmdhbPRS2Bm+leh2TQvpeqjeWdWfAWd0Hy0bwUNm1up7s0b8g==
-Message-ID: <afd47d4b-8309-4025-a40b-29606fed3c50@cjdns.fr>
-Date: Wed, 20 May 2026 21:17:35 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VldpI+mu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ng4yzRGA"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KE6Tj6118986
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:20:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	e/jyzG/ZAC8KIXqiPNpp29r/OrayvB6GEHbVuvdxf0Q=; b=VldpI+muLBHRlOYV
+	GMg2X2/4sOgAw5yJdp4ncDbTIih4aUVsX5UG5vy3rXCMICZKdtzDKl0YpV1LQLDg
+	Xj81jfb9By5PE3ZoXtdLhiGS+0Q8PEOu7rI05fG/Ed/NePsAm24fL2seQjr2COuM
+	quJup8MV57vGS86ZNc2kEmaURDadLFxe9mVH2mU8L8pVycAqhQalktyQ2GlTwX0I
+	+akZfaU+4KFaezwcSJKRp/Z5YMpjFUWYgeg8k2vF4aOulJv8PgivfBRFfssDDjDT
+	uR2UM9KrRIph9wdBNNeocL6qQOcOVu8DUvWXEYO6b9MfbDWCI0t9f1c5eTzP7GpW
+	R5oxxg==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee89e3u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:20:14 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-631a49033bbso2936500137.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 12:20:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779304813; x=1779909613; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=e/jyzG/ZAC8KIXqiPNpp29r/OrayvB6GEHbVuvdxf0Q=;
+        b=Ng4yzRGAMEs4kGiLxUxj0MYlushPItQXLUErJXk5rH8rOAQ9cjMH5scFERHqqz6vvq
+         HAzNBk1FG3gfukpvTnG3zR5KWWuxwWGeF7eVSvzL2e6i6MLDRV+9hTAH5pp+r07BLkDw
+         JGt4DTos4apzDDje74oGy2IMcnaoRIFcxDV3ZXNdAerSA1GCuZ2wXSWV1PKcHgRAEGik
+         9oV5sqVn21wmyM89yBMDhedy79wxNk0+OTKnv99uG/WplrREDSyu1Y1oeZ7td5fiY2aA
+         l5sdKfH1IQGEhN3YwpK6Iyxxr64GKiR8y1YGaqt8C1oifreGbVA8W3JibGYHOhW340MH
+         g1xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779304813; x=1779909613;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e/jyzG/ZAC8KIXqiPNpp29r/OrayvB6GEHbVuvdxf0Q=;
+        b=QstgZE/x7cFyba1uBNBWWgL/pJHc7SDvnif01s4ImZZgUI4P74S/abOiSigR3XjngE
+         sCBfVbsA1UQTiZSzLb+H5gox4+CpWA1JRtPUskwGnlIwkI7+0l7UzpH/VbNtPv2PTPHY
+         86B2avn14yF/C3A4+0MB+7YcALY7ZCXuR7W0rq5iUW3XhbIl3aXwtZ63jnuMRxXN3kii
+         x3D9xNEoCR1SjKcpn1ZrXBwXHUXV1LCGmp5NRt8HBwOw2rG7pZjhZFjT2rhDBNz3lMtL
+         23yEBqAXaGYCbcV99pZ6Syzwqr9+HDW90w7Fzbfiaofv73BVsYCi7JRXQmgDKp4Pewy6
+         dy/w==
+X-Forwarded-Encrypted: i=1; AFNElJ+1iG3GzIjqKjrVbfTNUGvwhc1H6IeUCEb2AnImSZOVNApDOEvwyCjEigQdHD7ZbIIN0iJ/AAJJ3cdm@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDGnLHm13HvpA6ncPQu871LfhWSM254CIg88Uo3tN3aUYXLhUS
+	VocWNExcvGwZzh85XeD2MTLGGXgIcmnyLNb1065pC3Zz9fCduowriDdy9/1G3qob5mH+uQHWpcn
+	w3aHP5vpdxPQFeXFDXwqickiZrN6lmIeoXYwChmJ3YHYOnb7cuy73Ym6KPRSuqxraZ0FsRZuW
+X-Gm-Gg: Acq92OEA66QZ09QCDzwQCKFjCrjFhLFJ+B0nVhMFsMMU6MxhIITDmqMj6GWQ7Yl0EUu
+	2as65PAm2Aik4Aw2yE6oGqV6W7WzkqpQ0KwxULqbWHShlga7tjj4YprOgB1DUyERe9jXpzfW4lu
+	TpWz3ruav/YLVcgz/odnotkYRIpax8MF4Z3DXKNMrx9Gi7dYVCfs1YVrEpTCep/AzDL8lOpKgpp
+	/rkRRCf5QBkSBxnLHsHthpH5yMqZggpoe9Tv0gzd9T2b5b1P7jL5INqphvb0G+qNu1TNzP3w5mx
+	846uEJVMpbeFfUOso9zQVHhp/i3eqKKLSDophTMlHjx7hYIj9HALCBxe7CpT4/9NDua/5ylZEdS
+	vbY25ATAYf9KHICLaXf1mL+z1Gi6tCrFEmwVr5SonUkO/OTsU
+X-Received: by 2002:a05:6102:4b8a:b0:631:487a:23ab with SMTP id ada2fe7eead31-63a3cc0b924mr14710588137.5.1779304813535;
+        Wed, 20 May 2026 12:20:13 -0700 (PDT)
+X-Received: by 2002:a05:6102:4b8a:b0:631:487a:23ab with SMTP id ada2fe7eead31-63a3cc0b924mr14710578137.5.1779304813106;
+        Wed, 20 May 2026 12:20:13 -0700 (PDT)
+Received: from [192.168.1.29] ([178.197.219.94])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0a19c2dsm57065016f8f.21.2026.05.20.12.20.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 May 2026 12:20:12 -0700 (PDT)
+Message-ID: <c8011903-1d6f-4f17-9efa-f3567f556029@oss.qualcomm.com>
+Date: Wed, 20 May 2026 21:20:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v8 1/3] PCI: mediatek: Use actual physical address instead
- of virt_to_phys()
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
- naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
- kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-References: <20260520185534.GA72799@bhelgaas>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] interconnect: qcom: x1e80100: Revert ABI break
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+References: <20260520184944.182148-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260520190807.509871F000E9@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260520185534.GA72799@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
+ 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
+ cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
+In-Reply-To: <20260520190807.509871F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: BsufnTYmWdb0cN_evTZ_jss32yE80rao
+X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0e096e cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=wspJ9bN9QRu-DSE6Ws4A:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE4OSBTYWx0ZWRfX+cd+1c6P7kb+
+ fFcymAvdkfGNI9J0Pq+6EV0ZPmST+Kb8hUKLTrLKZ24FkpC1A632eQgu/QkZ0n7Z2nLgO6XsIdw
+ xX17XsKAYIPOZj0v/BN7U4ZSieInHI7YZ46mWKD+IczkdUqxo/5NLX3mN6YR/3ntKr+MWL0k+OQ
+ y/gR5k0+7EJVoP0xUUPLKO3dIF0zdigcHTQanZj77UqykaimswhoAcZfKvuuwPd1xeCnNrtcCo3
+ LeMgY+7GXNoexQH7l9AmuFRBKXquMJCHQ9ThKKaKP++XovnZU+RJt6d1+DbwExCj/DDHtHcf68w
+ bjNEnM+uVKnaz0uQnxu8uaxwHdng0CxpJPPOx7FUU9Cho+WE2eHDwau1TWF69x+dWQxk8dE5Gsc
+ 30q9Qc47LGNnUnXto3VYAYsWh1K3u1otF4AD9fy3uX8fvnLx32ZgRTwGheVTut4J9aBuj9/YlhF
+ oT/skZM5wdfX4uUq17g==
+X-Proofpoint-GUID: BsufnTYmWdb0cN_evTZ_jss32yE80rao
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200189
 
+On 20/05/2026 21:08, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] Returning directly on `-EPROBE_DEFER` during QoS clock initialization bypasses node cleanup, leaking nodes and causing a Use-After-Free on probe retry.
 
-On 20/05/2026 20:55, Bjorn Helgaas wrote:
-> On Wed, May 20, 2026 at 06:38:25PM +0000, Caleb James DeLisle wrote:
->> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->>
->> The driver previously used virt_to_phys() on the ioremapped register base
->> (port->base) to compute the MSI message address. Using virt_to_phys() on an
->> IO mapped address is incorrect because it expects a kernel virtual address.
->>
->> To fix it, store the physical start of the I/O register region in
->> mtk_pcie_port->phys_base and use it to build the MSI address. This replaces
->> the incorrect virt_to_phys() usage and ensures MSI addresses are generated
->> correctly.
->>
->> Fixes: 43e6409db64d ("PCI: mediatek: Add MSI support for MT2712 and MT7622")
->> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->> Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
->> ---
->>   drivers/pci/controller/pcie-mediatek.c | 16 +++++++++++++---
->>   1 file changed, 13 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
->> index 75722524fe74..c503fbd774d0 100644
->> --- a/drivers/pci/controller/pcie-mediatek.c
->> +++ b/drivers/pci/controller/pcie-mediatek.c
->> @@ -175,6 +175,7 @@ struct mtk_pcie_soc {
->>   /**
->>    * struct mtk_pcie_port - PCIe port information
->>    * @base: IO mapped register base
->> + * @phys_base: Physical address of the I/O register base region
->>    * @list: port list
->>    * @pcie: pointer to PCIe host info
->>    * @reset: pointer to port reset control
->> @@ -196,6 +197,7 @@ struct mtk_pcie_soc {
->>    */
->>   struct mtk_pcie_port {
->>   	void __iomem *base;
->> +	phys_addr_t phys_base;
->>   	struct list_head list;
->>   	struct mtk_pcie *pcie;
->>   	struct reset_control *reset;
->> @@ -405,7 +407,7 @@ static void mtk_compose_msi_msg(struct irq_data *data, struct msi_msg *msg)
->>   	phys_addr_t addr;
->>   
->>   	/* MT2712/MT7622 only support 32-bit MSI addresses */
->> -	addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
->> +	addr = port->phys_base + PCIE_MSI_VECTOR;
-> This doesn't look right because the MSI address is a PCI bus address,
-> and port->phys_base is a CPU physical address.  Often a PCI bus
-> address is the same as the CPU physical address, but not always.
-> I think the DT 'ranges' property tells you the translation.
+Pre-existing issue, I'll fix it.
 
-
-This is all still a little over my head here, but my understanding was 
-that this is in the middle of the device's register map because the DT 
-has the following:
-
-reg = <0x1fb83000 0x1000>;
-reg-names = "port1";
-
-Per the manual, that offset (base + 0xc0) is in undocumented area but 
-it's in the registers.
-
-
-The PCI memory is 0x20000000 - 0x2fffffff and we split it between the 
-two devices. Here's the one using the upper half:
-
-         ranges = <0x81000000 0 0x00000000 0x1f608000 0 0x00008000>,  (IO)
-
-              <0x82000000 0 0x28000000 0x28000000 0 0x08000000>;      (MEM)
-
-
-Hope I'm adding something useful here... Let me know if you want me to 
-get or test anything else.
-
-Thanks,
-
-Caleb
-
-
->>   	msg->address_hi = 0;
->>   	msg->address_lo = lower_32_bits(addr);
->>   
->> @@ -520,7 +522,7 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
->>   	u32 val;
->>   	phys_addr_t msg_addr;
->>   
->> -	msg_addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
->> +	msg_addr = port->phys_base + PCIE_MSI_VECTOR;
->>   	val = lower_32_bits(msg_addr);
->>   	writel(val, port->base + PCIE_IMSI_ADDR);
->>   
->> @@ -953,6 +955,7 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
->>   	struct mtk_pcie_port *port;
->>   	struct device *dev = pcie->dev;
->>   	struct platform_device *pdev = to_platform_device(dev);
->> +	struct resource *res;
->>   	char name[20];
->>   	int err;
->>   
->> @@ -961,7 +964,14 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
->>   		return -ENOMEM;
->>   
->>   	snprintf(name, sizeof(name), "port%d", slot);
->> -	port->base = devm_platform_ioremap_resource_byname(pdev, name);
->> +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
->> +	if (!res) {
->> +		dev_err(dev, "failed to get port%d base\n", slot);
->> +		return -EINVAL;
->> +	}
->> +
->> +	port->phys_base = res->start;
->> +	port->base = devm_ioremap_resource(&pdev->dev, res);
->>   	if (IS_ERR(port->base)) {
->>   		dev_err(dev, "failed to map port%d base\n", slot);
->>   		return PTR_ERR(port->base);
->> -- 
->> 2.39.5
->>
+Best regards,
+Krzysztof
