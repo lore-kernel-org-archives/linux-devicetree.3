@@ -1,182 +1,148 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B67F38F95B;
-	Wed, 20 May 2026 21:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E519A3A16B9
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 21:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779312796; cv=none; b=jN0f/CgzU0641xc+iPhTXPGvWji0QsfHZqObdc1boRaEVtKdLoS6O6J/HknzwV+cd638WOdaYsa77znUMGUB7pfxC72uH6u7z9Z3berfxpP5n3lXYdifBZco14gtQwdN7h+tQlHhZ1X24rn/BqZqH9MuQm81vXuehCj37hxsxbM=
+	t=1779314009; cv=none; b=qq6iC4S7b8RaIMdVgdFNxkTkrieU6g93PKxFh36ZIIaRnw6MH1kctSsSj3aPlTkVZvVPowxoH4t2JpB4X2CJBZep92Ces5A9nPNRmYEKqLyf9vFGsLRXHjGMcuDD+vQtVE3VYmDzIPWMAsNNH+g8T3wba9yf2cCkNh4rKuZbi5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779312796; c=relaxed/simple;
-	bh=L/KHVtTDW88QxjxlnEFS3VYmEGhFfqA/+fZQrK+UQoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nnvp8DnNrZy69V0F8MlG3DhWY9BtRLm1G87TJqOZeAdK3977c8p2yHt9lggP8dzQqSbIrtoW8SUINl/2Co63unn+jDzh4ZQLkSIJI2trwe6daIv9FZS3brpo59TAnF/uqaDsDwUv9bdBZnDkRtNM1G9e6kHsePqDEbsDE2n0lzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=pPW3ypHb; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1779314009; c=relaxed/simple;
+	bh=2jpczetlLozyTiVeyts3vv9EERY5zylmKwvuFDOsQLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=buKKTbQ+rTFd1UfE+ceAYjgrDacB05VW64b0o/g4rjQ9YjDpJ9bS95/EIpu3qM3z7QlQK+evbXeE0Z/eF98NK3Jrr+W6gwC1L8SUoY44hpk0GOp5q2NPgrb+94p8G+MScPnPd7fNyktm4FPRivgsO9Q1vNlk0RPsoMtBN0yhen4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbW10wzS; arc=none smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="pPW3ypHb"
-Received: from killaraus.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:42d6:38fa:3bdf:70df])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CCB7C42B;
-	Wed, 20 May 2026 23:32:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779312779;
-	bh=L/KHVtTDW88QxjxlnEFS3VYmEGhFfqA/+fZQrK+UQoQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pPW3ypHbJo5+ceeia8lepbKyFjdpFKAQy9hXuyC+lKEDGPgm7jVYeBw9+Evjs/Qm1
-	 QLY+YWPzkAdUjouo6v9VSJl5ASsANjFBIdU9Ocsv2Jr4XTJ230Ws5nMkoq8/qf13Pg
-	 Qiympsnp+IgQ/sva+hZS9Vz1OaUwQJNaFw33zhsM=
-Date: Wed, 20 May 2026 23:33:12 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <frank.li@nxp.com>,
-	imx@lists.linux.dev, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 1/2] media: dt-bindings: Add CSI Pixel Formatter DT
- bindings
-Message-ID: <20260520213312.GD9017@killaraus.ideasonboard.com>
-References: <20260518-csi_formatter-v7-0-562b750557e3@oss.nxp.com>
- <20260518-csi_formatter-v7-1-562b750557e3@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbW10wzS"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7bd5e373d07so56191267b3.2
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:53:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779314007; x=1779918807; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=USZ1ZPEwAt0buJ1raktBiS8fu4e5iLdAr8IWfRSGWK0=;
+        b=cbW10wzS/cJoRo+4RsmAlOwjzhYjEyQxF91zaX+ul5Lt/52bXcEEGPMa2c/c0EuTRY
+         vp82V2PoG3Zu5Ymid+lEKNkfg1b0wxxXwFj9ET9H+cRCcoFVEPCU8oCxYzIwpskcpfmn
+         BmOTaXbgNWJDgfbmKDvVFxSYjiCoj8fllT6dJGlYDezQlgH3AAJ4tvdzzxq6BxUNGxwv
+         /c6JJBzaVgB2wR9qnppbjK1P+CKfUl9nrZhmsj4o0aCdBq5808erbo7mXgKs7VlcM2HZ
+         93xKQOirZdslIjQCr+7Vzx9r0vSVOe/1L5czWmAeM7I3EDgMzf6Hges1EmFa8l0Tapnv
+         969g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779314007; x=1779918807;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=USZ1ZPEwAt0buJ1raktBiS8fu4e5iLdAr8IWfRSGWK0=;
+        b=mMJTmWHt7877WXvkcwxYv+Q4z5GAYo4bkfbTOaptx6W6oD4xrCcgXvChKqUeVC3q7s
+         rkRRiT9KcHxB3PPYrZA14dSlKhitkGRaBgiVWdd0kYwF3pD9WVSraGwjGsGl2bTqUFSc
+         FwWSCm2XGsChB4unEAkU2QtWwFFI2WEADC7xHbpwxfuN0H81vtv/Hbjfvc7QH/OhVwY3
+         HQptVsiCX3zCCTfg56SQGrRGJZdPUPL1Zk/zpugr7LpOk0tgsI086dIMjuKnEbECeRvX
+         wEMNoi+LqHAMq3aMpoewz1bKSBBxMJYh/Fts4tqDtD14NyyUv7/+PTztYaqKRUGbgcO7
+         dnpg==
+X-Forwarded-Encrypted: i=1; AFNElJ+H0ag7wqqgyQEEc5PjN3YG9fZuxNGPqtPrRLamt7SKbmB0Y1KnBQrneT8NtH7NF82Z0KxIuIzF/p8T@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXKSXw1wdV25iT1FZq9LjkvnN5zQQHw2q3ys767Xhph/XQDyqo
+	OCYMglcMrMTqQQoVymnsMWIRsbY8uBa8qFMTFjNptzq2df5TseNAj2aW
+X-Gm-Gg: Acq92OFzzBOp8vmrnyI6MFDZHeSk+rSJVVgdX/aRxn2LEcf9t51WcFjpIcHNaRsuOXb
+	wj5bd4xGkWZ957O6Wuyg8SdDezpX43g3emMqs6jqAALy1YfDHxy9gFGSskWRB8X8R95xKXlQ85j
+	ZWsWWad5TiVrdYSE9wOdNeaHoY3sIs9bG4ddS5uwh6Wq/QLLRK0lCPf4yAA9AGfJMSGGbIVzddF
+	5xkuxmWThTkNZLhaXUjfaSsN+4J9IqUIr/dAWB02jSt52Olwy8dSpPreS399dM8pyfM6Jx8F8HM
+	IxN1SRjlRc3gMZWAGhcJmwP4fTXDQ4stY+6gGu69fRPtxYatOm9bKIs6hQ6IUJCVkwHVI1R02A4
+	gE+Y02skpJ1SY85DzYLQEYrCwDIwG3uXhYUU4DZcCTUe8/n/cVg81LT7lj9BFjOq4ys2qRO/AUN
+	Kr1HWfgQHiyxkTAQPBsuCH99PLl+wtrpv7NTPs1jwnfw==
+X-Received: by 2002:a05:690c:c4c5:b0:7d0:b4d:e03f with SMTP id 00721157ae682-7d20a7a9720mr3219537b3.9.1779314007072;
+        Wed, 20 May 2026 14:53:27 -0700 (PDT)
+Received: from fsh.attlocal.net ([2600:1702:56e9:4b40:ed8c:6b8b:1fa3:d14b])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7cc9bc0dafdsm59071347b3.30.2026.05.20.14.53.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 14:53:26 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+To: xuwei5@hisilicon.com
+Cc: krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: hisilicon: hi3660-hikey960: move role-switch endpoint into connector
+Date: Wed, 20 May 2026 16:53:25 -0500
+Message-ID: <20260520215325.55353-1-akash.sukhavasi@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260518-csi_formatter-v7-1-562b750557e3@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Guoniu,
+The rt1711h Type-C controller on the HiKey960 has the USB role-switch
+endpoint placed as a top-level 'port' node, outside the connector
+subnode. This triggers two dtbs_check warnings against
+richtek,rt1711h.yaml:
 
-Thank you for the patch.
+  - 'port' does not match any of the regexes: '^pinctrl-[0-9]+$'
+  - connector:ports: 'port@0' is a required property
 
-On Mon, May 18, 2026 at 10:19:46AM +0800, Guoniu Zhou wrote:
-> From: Guoniu Zhou <guoniu.zhou@nxp.com>
-> 
-> The i.MX95 CSI pixel formatting module uses packet info, pixel and
-> non-pixel data from the CSI-2 host controller and reformat them to
-> match Pixel Link(PL) definition.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
-> ---
-> Changes in v7:
-> - Change compatible to imx95-csi-formatter as IP is i.MX95 specific per Marco's suggestion
->   Link: https://lore.kernel.org/linux-media/20260511-csi_formatter-v6-0-01028e312e2b@oss.nxp.com/T/#mcd135b3de179b3cb69daa1fd6e0e8e27c85b3332
-> ---
->  .../bindings/media/fsl,imx95-csi-formatter.yaml    | 87 ++++++++++++++++++++++
->  1 file changed, 87 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
-> new file mode 100644
-> index 000000000000..28adea06c494
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
-> @@ -0,0 +1,87 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/fsl,imx95-csi-formatter.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: i.MX95 CSI Pixel Formatter
-> +
-> +maintainers:
-> +  - Guoniu Zhou <guoniu.zhou@nxp.com>
-> +
-> +description:
-> +  The CSI pixel formatting module found on i.MX95 uses packet info, pixel
-> +  and non-pixel data from the CSI-2 host controller and reformat them to
-> +  match Pixel Link(PL) definition.
-> +
-> +properties:
-> +  compatible:
-> +    const: fsl,imx95-csi-formatter
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: MIPI CSI-2 RX IDI interface
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
+Move the role-switch endpoint into the connector's port@0, which is
+where usb-connector.yaml expects it. Update the DWC3 remote-endpoint
+phandle accordingly.
 
-What properties defined in video-interfaces.yaml do you expect ? The
-example below does not use any, and the driver in 2/2 doesn't appear to
-parse any either.
+The TCPM core (tcpm.c) looks up the role switch starting from the
+connector fwnode via fwnode_usb_role_switch_get(). With the endpoint
+inside the connector's port@0, it is found through the primary lookup
+path rather than the device-level fallback.
 
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Pixel Link Interface
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - power-domains
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
-> +
-> +    formatter@20 {
-> +        compatible = "fsl,imx95-csi-formatter";
-> +        reg = <0x20 0x100>;
-> +        clocks = <&cameramix_csr IMX95_CLK_CAMBLK_CSI2_FOR0>;
-> +        power-domains = <&scmi_devpd 3>;
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +
-> +                endpoint {
-> +                    remote-endpoint = <&mipi_csi_0_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +
-> +                endpoint {
-> +                    remote-endpoint = <&isi_in_2>;
-> +                };
-> +            };
-> +        };
-> +    };
+Cross-compiled for arm64. Verified with dt_binding_check and
+dtbs_check. Not runtime-tested on hardware.
 
+Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+---
+ .../boot/dts/hisilicon/hi3660-hikey960.dts      | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
+index c6056a85c..27fb08d34 100644
+--- a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
++++ b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
+@@ -550,6 +550,12 @@ usb_con: connector {
+ 			ports {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
++				port@0 {
++					reg = <0>;
++					usb_con_hs: endpoint {
++						remote-endpoint = <&dwc3_role_switch>;
++					};
++				};
+ 				port@1 {
+ 					reg = <1>;
+ 					usb_con_ss: endpoint {
+@@ -558,15 +564,6 @@ usb_con_ss: endpoint {
+ 				};
+ 			};
+ 		};
+-		port {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			rt1711h_ep: endpoint@0 {
+-				reg = <0>;
+-				remote-endpoint = <&dwc3_role_switch>;
+-			};
+-		};
+ 	};
+ 
+ 	adv7533: adv7533@39 {
+@@ -683,7 +680,7 @@ port {
+ 		#size-cells = <0>;
+ 		dwc3_role_switch: endpoint@0 {
+ 			reg = <0>;
+-			remote-endpoint = <&rt1711h_ep>;
++			remote-endpoint = <&usb_con_hs>;
+ 		};
+ 
+ 		dwc3_ss: endpoint@1 {
 -- 
-Regards,
+2.54.0
 
-Laurent Pinchart
