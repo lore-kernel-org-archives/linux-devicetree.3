@@ -1,162 +1,149 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013054.outbound.protection.outlook.com [40.93.196.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F393E3D812D
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE13C3D9049;
+	Wed, 20 May 2026 11:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779278175; cv=pass; b=XXXvWigAfuJLeBxcJkChPSfmAQ6ML0a2nRfJUYvm9d+HCc11Qy7HKAcccx7QX/qLMyoWG7uj19w7AQ51cAwFoLFMAA3ngprK8y4YV9gNI3VOPAvmlxxQ7k7SJtE+rgxkYAtlUue9App6uqDvoyINw+32B3fidispXfEqeHu+8JM=
+	t=1779278176; cv=fail; b=ThI71AKdicxRiV10Aklts9NgMTTctURTJSSP/UOUr+5ubTq6rbkNtGEWTnflrs3nShw73tvD+2PkR0VBM5eVO6kM49y/F6KaiDQaQdFn5Gl8xjluFjgfa68p2GzlSIoVvTpKi+vpmxxNPCbq6dc6JUTKlQhLucJdSvtIQXW66qY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779278175; c=relaxed/simple;
-	bh=I4SvhXPS8Ge8iiszZsgMBFDfyiyXtqJH1BB6jNaAL3I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XqnDTvxDXhaLwY/qfHhOjkjIUuHC2x0vspYb6bLKyttbsOlY5wtheM/IfYRygIca31KoSXKkGe8FKsJH+bkHU/7obyhrPoNnhy0UxvJbkxOpGCyXz74dpPtET4jte8B5l7AbSHqlOkVSftnHIng6Lx8cQd8Lrp0uuO3ng3m3Mw8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gxd/z3lQ; arc=pass smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779278176; c=relaxed/simple;
+	bh=R7sSkFRXPXT6ckPvMWq77xB+Og9KZPDGS2qsUQZ5mxw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Pa3xbsnVuxwAuVTPAsTtvxwmNibzX+8INlmig6SjeSthh76jJMs+a9m89kvnt/ylj0IHzRFCndjSqED1slSbDCSPp/5PRC9RWl0AQMT4KXVOyKMgmY1joDAVm36wtpsDRdfLMv1bP3M/0RcDrciegjTle/3/GEcJIt6cwjE/UB8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=M9AWMXh1; arc=fail smtp.client-ip=40.93.196.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gxd/z3lQ"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-bce386d5b85so789958566b.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:56:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779278172; cv=none;
-        d=google.com; s=arc-20240605;
-        b=UL40hcFb1/r6T7rtKJ3nqV1IeINWp1TEu9jLMqBD/Q/KYzhkF0nSs1ZXB3xPsSCZ/y
-         9Ehr1EOrJMJnLHZfRTCc5xT6DlOdjus9ddDt8z9c+mhbwvWvdYOeS2MDZxtS3UpORtTD
-         A8UIagZDDMbSpnXlzsUcmKVEEEKvAUTZBQ18gc2CeAFsIHJIL5jgPRcemte5DXrEwWvd
-         QoetmgnNU5hhOKe0sJtAIgoupQtreLRTB45tZEzR7gJ28oKqY0LQdgZgkUq+mGXO2J0m
-         ZZh4GJ4YXOknPNpLiTD6Nz1XRslRKDjoxF22gOiO7podnAGGG5DesIXpN1r0F7CoFu3+
-         4sJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6I/A82YX8z6OO2krWYOPssthDRygskaDMocR9Ah5D0I=;
-        fh=Ul4ZFJfjy6sMUYHoU+Ua7eVtlR37mFYqimLhH1tG78w=;
-        b=Fi7pZ4y2h4j2Eh1T4hgNwqpjc8UVlLHux3T9eSMLrHy+VtyvF7d4K6vGNiwUl/FDAk
-         s3Jikgni9pTHtIF6iq9OurPkAWxAnvXnBiGo0wVlZRN0QoS7kzpEFX+65iR8SwnI7fLw
-         Qf2KnKcOYmGmNyZlg1lpOZxIhx6ENY1StXkRVAFYQxL8B+JhS4jU9T7EaG+mhh0gvovj
-         W0d+N+7FPmGVDpIMCYlkoxzZomCyBI9xVTr3jB+9vjPes1h0vKNgP5yPL1vHEd5xOTwm
-         6K6jaZbx/V4ByfHvL2CMpRzLFLOrF78NDnOVyx7Q8pY7ERDLNIif1wOFcbLdDQp73RhY
-         Mw4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779278172; x=1779882972; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6I/A82YX8z6OO2krWYOPssthDRygskaDMocR9Ah5D0I=;
-        b=gxd/z3lQXG96sL7Nf7KKBVK7kAW8W+4+L1VThP9fABVfZWixeJoh/mSStTcNFc1tPN
-         flv/5gzaR4V0FscaJvWiGF2dnUdbkn5HdusybpI3r5AHcCmKxo5OACkaXKytwQ+GQa37
-         W0gHCsIGT65F+XV8Yw61nsQUozH2p+RvwThFHXTbbzEhD5DYJeR98bjhdK8sUATee5MY
-         wkglLAQz7Un1flTLxOrOzSf9196ZpJtHrI/1Gu7u27+e4yCPjvVQ8RuiqwKyWexfKWbX
-         XC7wsthI/YAdEducWokQWS9g3Jn9426pm8+OcmpBATqq2MG4GExQ0QquDHXapdgxrueo
-         SZOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779278172; x=1779882972;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=6I/A82YX8z6OO2krWYOPssthDRygskaDMocR9Ah5D0I=;
-        b=iD4mVUvToRidPcO1qVxbAYXef8CTeozMhkyE1iDqTTdJUpoSiqmCE+UyOmiYvIKLTX
-         R3JyL1KyzHip4DbUQJEl75xDeS8pj9d7W+GwyMd5EuxybbCGymxChNsTNlm+Wlt59hvw
-         pn7PKfDeV25Sb18NWzTXeDpN2rfky0MvSxoQQZwreFfYCqJVZHq9nSkmhxLUeq6H9xnl
-         uI8TtjqcHe6z5YV7MtzG/6r5G6AW7wiaLc2kF01byqoY5chRoeBbSa1aNueZ98aWeVog
-         st198kYRtdGFTqdskdMZzD8hYwXIP9cY3EOi9K0wJhJa97qxTJ1k3pX3Ny3OMIvOq0Ze
-         lVZw==
-X-Forwarded-Encrypted: i=1; AFNElJ+rAj0/ol6e2zPGOKNpeVzfhtFulw8XLE15xQroUGnootL2M5YpSW8M8ToY7QAkWA9jkmFemyGyqznC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwigOYo4W48UEM0aqbknzegJQyrlAsQRkRzSwfBmKLlGmz5U+E3
-	f1I2OkcsaMCYZX6Yg6l/28qLhHc6UMZDQSnJUqtAqvm2hJ6qc+O56KlfWuLlYZhNXtOSQ0MzN24
-	XhNrOEtLn3Asp+FLnzxKKUo/fZfyyup0=
-X-Gm-Gg: Acq92OE8qiTichLIZmNyqwtx70KuuQfpH+sQMARRi7/nOYxclEa/rSo3V1Saer4tb4Z
-	VfoK0JcyvuhyP7F8D615+MSrm255+b7Ob7N6orFPb82EhRFgSmflkcyN92CkPKpEnTP2ViWpVDF
-	Vof4DneV9jQUCjDxOs+6/KZmt4ld4xOiOB/ZzDcEmpwmIN0XYWjoYJaeP9qfKAbkDKL7kwGqSZt
-	l8zWQmKM7evA0X+KILfsQBjLrnB5I8IQ4G7PI5QZ1W1iQK2vYQ8CH4kU2H7YleFkw9UGKXiQYkd
-	iFX7ztf/EVsl6tANoq/pvrlVbrctS/hCFtVnNtZX2cTDcIzkoeW8PB7vr0GVbDNhTlQCbkXrjxx
-	g+So8z4P3
-X-Received: by 2002:a17:907:d411:b0:bd3:897c:7800 with SMTP id
- a640c23a62f3a-bd5177ebb17mr1398529166b.15.1779278172121; Wed, 20 May 2026
- 04:56:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="M9AWMXh1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TjPQ8AR0J2t4Z/m6mxO5+0Z3HezyFzzCUzhy4Go3FaKYf0lI5nf8BlJG9UG3wVTcez2vDSSDMeXCQN0YHgmis9xmHUwdXIiYCwfpid3lRPuFEdBc547wjG+Xryr/Efg5Ys99NmxDcYiUqRtjELBotF+r8feYJmez1VNh/cm7rfAAUFhSyQQHfa1ZREm2238KBhHqOUr1SjNbLezc7wSCfC6vBfOCohk5kAWfnx7/VXveN9IzQtQcZcjZ6i1RchQLa7G4pEiUT61+dC7dMgzMhRxfHLawOrwSh7RzzccTiaoSe7zyDXdb/ReRKTuI0nJ7XSFGzfxKxvdZ6eep36HYhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O0JFhd1tNG2bzMtkMXOi2iF0dmLTfQcqjoiCGtr8AeY=;
+ b=oAf/Xz0Rp8OsfRPvQyl9ymdNze3Yk+eVVG9HG9n1WC1SvsxveMnvxl7mRmkTiYnDGaFw6fWdDJfEJA+qFg8fqSJ4pmtkRCGtdaUsiOxrXWEhcZMv8CTSc0/6KkgmWqDzew/NZem7JtXzHn4g5zeoCBm8AxatRZVwvZOJtdQMi/OunCLGnxWgZ7CuCVOZhZDIxtyiEfFR0AGCO1c5fA2MIbqcXmCNpHObt/XlSbkbal95K83b6isgDdJ8ZmY1SEDr1646uWccmiNvGDZnnp9JnWY38zmtt0gzqeBUlDPNs+y8vNBeJ9EkJd1hY76UGdiT25um0Uteknk4MBm4AbxOuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O0JFhd1tNG2bzMtkMXOi2iF0dmLTfQcqjoiCGtr8AeY=;
+ b=M9AWMXh19WZb915B9L2X/OQwsXRz0W5zil+TsBJpw6q0az/UShYrme3+MkrAhVo6HjCdFLDYSwNt0PUGnW+src9IGstcaXZzR3ugqsGP5Sg8Bw+kvV3AkJxYfw86zZPquBEZf3/Y32EXHwd7wS01wHumvOQPbjhMB2IaMBPnLwo=
+Received: from CYXPR02CA0011.namprd02.prod.outlook.com (2603:10b6:930:cf::25)
+ by SJ5PPF2C6461432.namprd10.prod.outlook.com (2603:10b6:a0f:fc02::799) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 11:56:11 +0000
+Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
+ (2603:10b6:930:cf:cafe::32) by CYXPR02CA0011.outlook.office365.com
+ (2603:10b6:930:cf::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
+ May 2026 11:56:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 11:56:08 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 06:56:08 -0500
+Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 06:56:08 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 20 May 2026 06:56:08 -0500
+Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64KBu3SV1386033;
+	Wed, 20 May 2026 06:56:04 -0500
+From: Moteen Shah <m-shah@ti.com>
+To: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
+	<y-abhilashchandra@ti.com>, <m-shah@ti.com>
+Subject: [PATCH v5 0/2] Enable audio support for J721S2 EVM
+Date: Wed, 20 May 2026 17:26:01 +0530
+Message-ID: <20260520115603.2662930-1-m-shah@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260520072843.3593-1-kimjinseob88@gmail.com>
-In-Reply-To: <20260520072843.3593-1-kimjinseob88@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 20 May 2026 14:55:35 +0300
-X-Gm-Features: AVHnY4L4aitoKa_0WRF4H0ViCogDLK9J7rRSZAZRx-vweqx6tym1NL58_C8VI1w
-Message-ID: <CAHp75VeHif8zzYg-4qKxwA=q3emszTzyoQEtpoK7QbcwDhQZKw@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/3] iio: add Open Sensor Fusion UART driver
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|SJ5PPF2C6461432:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03ffbab9-ff42-47d0-7b5c-08deb666c7e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	0zFYlJ+iTkJk3CuwyHm0NXGPqIzpkffa7Jq+LmJFDkvdkTUs0vLEkEVEzFJe7e9q6xE7VDpbkMvgUq9O1G1ZnGCvRreWEVYcpbXLzYhY3U8qkp7Rl/wxQ4PVSEiHnIKrNkB7wf6XQTbmelvFLkjmLZZBOdhrEuHtVX0hBA1lm9QG7g5nDwpvUae/95VzIoseYk2eas5r/QLmkE7WkCejYkpp+MSJ9rLswIBMSUjXCo4gs5Sru9F59mXptwNaJpEJvcybR53gxvIPzbB02XlOSI++KESabtImoBOrtxDp/mCEBDhF3fzwSIGtmv28PRBYREKyVOwzhWWChP467NXezrIdDeZt820jtMMauADBhkxiVfZTC5tH3Ij+SdSWgMwzNHY5mdr2ZXPrVyjTQPkQ9WBpOYNkSRQRLoBwa91cATxMJ+DK2bOB4XOUuburNPYaJkwRL6YOj7ErvqWEqgeF/svcyFtYxNAvnHf+8RJ/aRWEw3oNH7/MPlc4NRyosYREdH/JbXvZu51Ki3m0gD1+Rw1zDXFq2VS+ZVD+1MpQzfFrY9XXV4Ug1US7hwVoIa3Hea06TVD+5DwOhIDM3qAXaNodvK5pBuY1RG5vvosjtqp6MrnQZNWvGbWJ/fbXLQBrDkf/xdgqKGi1ZKHKHnv0BZv6Hr/6KH/r4jfsiSgtpqFrGN0D0haM9jCFMN9ZK28j
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LxStTWc2UI7ZTxWLgbo37UY6DAzuuBM9t/F1IGYNpRINtqqI1NtT5w0/5z7gyVR5UfV9CwPWGj2d/zE8048WSfN41oPvvxibVgq6x/lxrpod7BVio9Ca1tXVKblYi83d/IT3uq0kLrmPfFYTkq8wR4g4IiFu0QbTRDyYlC7NEEP4r1D226lZoko8gi+Xu/B5Z3ai8Kl/mKr+7cM2GR3xFvkLpY5oulNXOZdhUqeqNCNV7hBAmqFd4PS05GdNC+wtfNJjR6rsJRRvL3P2s5c7WRiiCL6y3R10cIz4mQu/XBFOhO/Zs5oPTER67XeqRoiFYo5ZFi21pNmHhtIZRE00wE8FnQlb5ImEusGtne4fu1Kl8IoK+BasqqO4izwpzX1BihtAW+mcqy+Ruug5CFkujTPdwXosG0DjinnA1s48MWux4uNUqsZmemNHFEl6TO1l
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 11:56:08.8742
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03ffbab9-ff42-47d0-7b5c-08deb666c7e3
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF2C6461432
 
-On Wed, May 20, 2026 at 1:47=E2=80=AFPM Jinseob Kim <kimjinseob88@gmail.com=
-> wrote:
->
-> Open Sensor Fusion is a UART-attached sensor aggregation device. The curr=
-ent
-> prototype sends OSF protocol v0 frames over a host UART link. This RFC ad=
-ds the
-> first Linux IIO receive path for that UART stream.
->
-> The first transport is serdev UART. USB, real sensor reads, fusion output=
-, and
-> production timestamp correlation are intentionally left out of this serie=
-s.
->
-> The driver code is kept in one patch for the first RFC to avoid intermedi=
-ate
-> non-buildable states. The internal files are still split by protocol, str=
-eam,
-> core, transport, and IIO code.
->
-> Current validation coverage:
->
-> - STM32F405 test firmware OSF protocol v0 UART stream at 115200 8N1.
-> - Raspberry Pi 4 serdev probe and receive path to osf_core_receive_frame(=
-).
-> - CAPABILITY_REPORT-driven IIO device registration.
-> - IIO read_raw for accel, gyro, magn, and temp samples.
-> - IIO software kfifo buffer userspace read.
-> - scan decode helper for buffered samples.
-> - dt_binding_check pass for the binding.
-> - checkpatch.pl --strict with ERROR 0, WARNING 0, CHECK 0.
-> - W=3D1 source compile/link phase clean in the staging kernel tree.
-> - modpost unresolved symbol warnings came from the staging tree missing
->   Module.symvers.
->
-> Known limits:
->
-> - The sample source is synthetic stream data, not real ICM-42688-P or MMC=
-5983MA
->   sensor reads.
-> - The IIO timestamp is Linux host receive time. Device time correlation i=
-s still
->   open.
-> - Runtime capability removal is not implemented.
-> - The staging layout uses drivers/iio/opensensorfusion/. The final direct=
-ory is
->   open for review.
->
-> Review feedback wanted on the IIO device layout, timestamp policy, bindin=
-g
-> shape, and driver directory.
+Earlier version of the patchset sent upstream[0] was rejected as
+its dependency[1], which resolves the DTBS check errors introduced
+by [0] also got rejected on the grounds of ABI breakage.
 
+Another solution to fix the DTBS check errors introduced by [0] is
+to modify the ti,j721e-system-controller.yaml binding to allow
+audio-refclk as clock-controller child. This is done in the first
+patch of this series.
 
->  16 files changed, 1706 insertions(+)
+Changes sinve v4:
+Link to v4: https://lore.kernel.org/all/20260519142341.2531948-1-m-shah@ti.com/
+- Explicitly diasble main_mcan3 and Main_mcan5 as thy will silently break mcasp audio routing
 
-No.
-Split it to at least 5 patches (as far as I can briefly see it's
-achievable): base + feature1 + feature2 + =E2=80=A6
+Link to v3: https://lore.kernel.org/all/20260330094459.128648-1-m-shah@ti.com/
+Link to v2: https://lore.kernel.org/all/20260205130707.2033197-1-m-shah@ti.com/
+Link to v1: https://lore.kernel.org/all/20260112104536.83309-1-m-shah@ti.com/
 
---=20
-With Best Regards,
-Andy Shevchenko
+Bootlogs: https://gist.github.com/Jamm02/f586087dad227450abe8637e8a688c68
+
+Jayesh Choudhary (1):
+  arm64: dts: ti: Add audio overlay for k3-j721s2-evm
+
+Moteen Shah (1):
+  dt-bindings: ti: Update audio-refclk binding and j721e system
+    controller
+
+ .../bindings/clock/ti,am62-audio-refclk.yaml  |   8 +-
+ .../soc/ti/ti,j721e-system-controller.yaml    |   6 +-
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../boot/dts/ti/k3-j721s2-evm-audio.dtso      | 171 ++++++++++++++++++
+ 4 files changed, 185 insertions(+), 4 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
+
+-- 
+2.34.1
+
