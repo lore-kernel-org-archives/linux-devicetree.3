@@ -1,162 +1,265 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4961A3DA7F1
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370643D1CA2;
+	Wed, 20 May 2026 11:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779275499; cv=none; b=Huau+CJ/jg/cJFwck54ILz6B1IEFL9HbbC6++iZlaNm05dHgSILQIVeia16GPRsqKFL4pXhsZrSWmG/+yfwxxIK9wCE/glx4hYBYhAPly8ta9ckI2sCtDiCLG8uIUt9Fwf4gKCtrmYyix0LocrIW7E8CtV1WDcN85PWLCr08mnc=
+	t=1779275550; cv=none; b=aPk2Hzjn9b4adYPbK35qmQ6EGoCo2OeisFYNt21cO+GcPbOlZeOMJk5OYR4uezJoxjQ0S1aZ33eYf/OCT8LKiUw3ZbiNphvQM46NQWp5J1+sUFPPaksjiLityErLvv8xfkFJUDdcswqTc2tyVIoDRlgBsIII50u8vYuKZcqOPAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779275499; c=relaxed/simple;
-	bh=cfAIhH8OlC/rUFBfMHcfbIEw1X3DBJ4OiDfy5zoYzMg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eGZ2GMEsaNA4Qv950tCezLLNSAnU3nx/slbF56qh7y0QFMiTt3k2WCx2f/FF7qsVBubZx0YOa8NkVw2ahfrs4WKlTU1XOyaSYsNIrRfVkJ/gPyxgpObabZ7qQdcn8FJ72/L47yzNmPC37Mo1ldlmZKTmrKHcKeYPZCBMi0OVHUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HRs3QHil; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1779275550; c=relaxed/simple;
+	bh=FBkXh2DAt3yR5Q+EdWlUaLDmI+m3OYCBiIvZuMcVWHs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k1+OG/o0n8/x0Km44/MQL0rpDNiu5Dtg3YHsDma/1rK1jLs9jkA6VOog7+S6zK8yve6touQis8Gv63slB7z/bW6jO5o25Dd+sSNpQPrDp8djmA5WaDdl5LmEb6AfTG6x2RgOEt713DAYiN5FVsUAB6exG1eziKAA8MSiZ9qDK/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=COltNvxS; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HRs3QHil"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-911449d9d03so567096985a.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:11:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1779275496; x=1779880296; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lIkzPbGJvuJiBs7z1ji9U2DALkh6krIE8tTV4POiT4k=;
-        b=HRs3QHil29I/u+1orVRsSwdHu6prg4wSZbVhHdL/zsHLvYK9P7l2E0hR5hwc8m6IVS
-         /tHf8X+RzCwBpX+B/4UtQyQMa+iXxj831o+f1/WwuvMvZ2Xot6ZqR+6ltLULJgMBdzd5
-         JzI9nlxdXCqHZXaEOoRefY2zH4VwaujwX4cWiXsqHTPq/QT+mV25am8AcWOyvCbie0A0
-         Vd6yaoPjL1knK2OJBrdjFij88E0ypq9nUpq1Gb3UZfnOU5rI20Mq5K1wFj+OJUUOcqYa
-         Wc3KItyPcViQLb+d7CNxa7oekRGtcp6lwPT42mvWjHF4fi0Ko/H1JN+FpPYInlAYAk6Q
-         tAeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779275496; x=1779880296;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lIkzPbGJvuJiBs7z1ji9U2DALkh6krIE8tTV4POiT4k=;
-        b=nk3vgXPJeeiavCus1DZTF0Vh1KRaagB/K+QQWvNxJhfK/owSWkERPHby2IZrXy9RmV
-         QnMxf3GeoKAskXO7a96HIHjRMdtEyGZ88L11KYLjDMTJSSWdUPMpFWnNRnHU2T3rhGEI
-         SMq0/kOJFkWcPfKrfHoLAbSLJxLU0Hac2BdbqP3kb8IibR675sy4JRhI43QEy3LRv/+U
-         1DePx1ThY1uEJ/vA4OnXkZnPPy41xypoJDyKMfQ2Bei0JJ5DR9MuZIcClBwhd/SrHMS7
-         k1lvTc0wqfre0ubL/GNHKEy1sVF4AQegor7m3I++UOUexz2QkYfn6kuaFF67VNRcYg05
-         2KZw==
-X-Forwarded-Encrypted: i=1; AFNElJ+KVBHIMThxGpzOChyO1k+bYwZPYN5qDUiXKtRTqemwXWXlUJDHtU8UDJeEtczebyypt4S+EA1Js0oN@vger.kernel.org
-X-Gm-Message-State: AOJu0YxdpoGs30rMzAQKCx0x0nZyK4oeQvSYFj8SoLyD8B+/Pq76rC2B
-	RaKULndpglPamJtkb+ojw5mmWOOTu/XH24HqFohmQMVVcjjs5Hg75rvLBeBfoPA5zHQ=
-X-Gm-Gg: Acq92OF5TssAmZDT8WsCpQLAI3+UgObc1oyOK+7Is2ePX05nfzdvmEn7tnQBJg1mCAs
-	KmDyUxpHjUYppCZMpXZEwc+wSGb+08y14qph36UaYcj0xAcR1gPtUo9h3byTPrtIfqqECoZbixz
-	HlCCXEkd+LCAqD0yVMIwXCgNjN8mJv/6ebOdd1vixv8VAwG7/IZq+8320n5TvRHSOn9kC9KxfXB
-	j6lSZFynQ6PjuANrup5cFHAWfF2Xja5NcW9NJ9V8+rgxUYX51PUEP/shft/o0LfvrMJJmt0sSY2
-	xMn3WdADinaQe2kjs351chVSTUL8yEyu+J/L+GDrItbPXZHNMmw9glZdzvlkQ1pu7ISO0ANYFV5
-	pbFyDJ7Cpb7gcNRUVp+oMuo1Rhtpt9DHVxTw+Zqee38uhhxVviys571WHEdNuk7crK0jVJhJIAZ
-	nMSBo9N8eEo+/cgTXKEucl4naA6gSeAmxFVDqTsx+c0AEDEx3F34MIHrFPUtpTczZJ4jQqEWIso
-	16y
-X-Received: by 2002:a05:620a:1a0a:b0:90f:6d8b:2654 with SMTP id af79cd13be357-911ce332987mr3395608885a.22.1779275496216;
-        Wed, 20 May 2026 04:11:36 -0700 (PDT)
-Received: from ?IPV6:2001:1970:3847:e000:9cf2:2d6b:fbf2:991c? ([2001:1970:3847:e000:9cf2:2d6b:fbf2:991c])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9138a830c89sm1320813985a.6.2026.05.20.04.11.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 May 2026 04:11:35 -0700 (PDT)
-Message-ID: <86ac46cd-b7bc-42cc-8c29-996ae21f3654@baylibre.com>
-Date: Wed, 20 May 2026 07:11:32 -0400
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="COltNvxS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=DvDE/I3kIC9czXIH3YDGbEAbi1K+WHiThr0tZnRFv0A=; b=COltNvxSD5z1NoIbqfBPogFhg1
+	P88gRrYk1nrFrCD+hIFYlFdhPiIhZwhK1hPtYvacl+SYssTgKEAL5OLYbxBWGs9v2C85JEgo58jIu
+	kcHw41JFdGUME51MglSbdh/12VIMxgu1JhTe8aNqvn4ItcwuNnTBAIRTThFS8llkddSE3ObHm0TVg
+	dJD+wWiqT8iHtnMmumi7J8EXhRm2kUiXjil9alnTHlrKrlBlspMSnneQYWuezqkrT6nTerTYEST9T
+	krTTxAXhhxOxHLqJ2UtVXiX07mcTKhgp76pPqqlwKmR9NZoNn+KyWZhj8Ab9Jkr+bQFNcqcqfZYG3
+	jloVPwfQ==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wPeqc-000Hff-1t;
+	Wed, 20 May 2026 13:12:22 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wPeqc-000C6O-26;
+	Wed, 20 May 2026 13:12:22 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Michael Riesch <michael.riesch@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Frank Li <Frank.Li@nxp.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Subject: Re: [PATCH v4 4/6] media: synopsys: Add PHY stopstate wait for i.MX93
+Date: Wed, 20 May 2026 13:12:20 +0200
+Message-ID: <10853728.nUPlyArG6x@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260519-csi2_imx95-v4-4-84ea4bb78a88@oss.nxp.com>
+References:
+ <20260519-csi2_imx95-v4-0-84ea4bb78a88@oss.nxp.com>
+ <20260519-csi2_imx95-v4-4-84ea4bb78a88@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v10 0/4] riscv: spacemit: enable SD card support
- with UHS modes for OrangePi RV2
-To: Andre Heider <a.heider@gmail.com>, Yixun Lan <dlan@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Ulf Hansson <ulfh@kernel.org>, Iker Pedrosa <ikerpedrosam@gmail.com>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>,
- Michael Opdenacker <michael.opdenacker@rootcommit.com>,
- Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- Anand Moon <linux.amoon@gmail.com>, Vincent Legoll <legoll@online.fr>,
- Margherita Milani <margherita.milani@amarulasolutions.com>,
- Aurelien Jarno <aurelien@aurel32.net>
-References: <20260515-orangepi-sd-card-uhs-v10-0-094af27e310d@gmail.com>
- <177889984452.2298656.1074391459031404894.b4-ty@b4>
- <7e68e745-0d70-46db-9475-38d3dd5b9cf4@baylibre.com>
- <6b945153-5a7b-415e-904a-1c350b7d52ee@gmail.com>
-Content-Language: en-US
-From: Trevor Gamblin <tgamblin@baylibre.com>
-In-Reply-To: <6b945153-5a7b-415e-904a-1c350b7d52ee@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28006/Wed May 20 08:25:19 2026)
+
+Hi,
+
+Am Dienstag, 19. Mai 2026, 04:07:41 CEST schrieb Guoniu Zhou:
+> Implement waiting for D-PHY lanes to enter stop state on i.MX93. This
+> ensures proper PHY initialization by verifying that the clock lane and
+> all active data lanes have entered the stop state before proceeding with
+> further operations.
+>=20
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+> Changes in v2:
+> - Removes redundant register availability check
+> - Uses read_poll_timeout() with dw_mipi_csi2rx_read() instead of
+>   readl_poll_timeout() with direct register address
+> - Fixes stopstate condition logic
+> - Check PHY stopstate after sensor enable instead of before to ensure
+>   correct timing.
+> - Optimize PHY stopstate polling parameters (1000us->10us, 2s->1ms) to
+>   balance performance and responsiveness.
+> ---
+>  drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 36 ++++++++++++++++++=
+++++++
+>  1 file changed, 36 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/m=
+edia/platform/synopsys/dw-mipi-csi2rx.c
+> index 92178a3dec5d..8a34aec550ad 100644
+> --- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> +++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/io.h>
+> +#include <linux/iopoll.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/phy/phy.h>
+> @@ -35,6 +36,8 @@
+>  #define DW_REG_EXIST		BIT(31)
+>  #define DW_REG(x)		(DW_REG_EXIST | (x))
+> =20
+> +#define DPHY_STOPSTATE_CLK_LANE		BIT(16)
+> +
+>  #define DPHY_TEST_CTRL0_TEST_CLR	BIT(0)
+> =20
+>  #define IPI_VCID_VC(x)			FIELD_PREP(GENMASK(1, 0), (x))
+> @@ -65,6 +68,7 @@ enum dw_mipi_csi2rx_regs_index {
+>  	DW_MIPI_CSI2RX_PHY_TST_CTRL0,
+>  	DW_MIPI_CSI2RX_PHY_TST_CTRL1,
+>  	DW_MIPI_CSI2RX_PHY_SHUTDOWNZ,
+> +	DW_MIPI_CSI2RX_PHY_STOPSTATE,
+>  	DW_MIPI_CSI2RX_IPI_DATATYPE,
+>  	DW_MIPI_CSI2RX_IPI_MEM_FLUSH,
+>  	DW_MIPI_CSI2RX_IPI_MODE,
+> @@ -87,6 +91,7 @@ struct dw_mipi_csi2rx_drvdata {
+>  	void (*dphy_assert_reset)(struct dw_mipi_csi2rx_device *csi2);
+>  	void (*dphy_deassert_reset)(struct dw_mipi_csi2rx_device *csi2);
+>  	void (*ipi_enable)(struct dw_mipi_csi2rx_device *csi2);
+> +	int (*wait_for_phy_stopstate)(struct dw_mipi_csi2rx_device *csi2);
+>  };
+> =20
+>  struct dw_mipi_csi2rx_format {
+> @@ -139,6 +144,7 @@ static const u32 imx93_regs[DW_MIPI_CSI2RX_MAX] =3D {
+>  	[DW_MIPI_CSI2RX_PHY_SHUTDOWNZ] =3D DW_REG(0x40),
+>  	[DW_MIPI_CSI2RX_DPHY_RSTZ] =3D DW_REG(0x44),
+>  	[DW_MIPI_CSI2RX_PHY_STATE] =3D DW_REG(0x48),
+> +	[DW_MIPI_CSI2RX_PHY_STOPSTATE] =3D DW_REG(0x4c),
+>  	[DW_MIPI_CSI2RX_PHY_TST_CTRL0] =3D DW_REG(0x50),
+>  	[DW_MIPI_CSI2RX_PHY_TST_CTRL1] =3D DW_REG(0x54),
+>  	[DW_MIPI_CSI2RX_IPI_MODE] =3D DW_REG(0x80),
+> @@ -556,10 +562,19 @@ static int dw_mipi_csi2rx_enable_streams(struct v4l=
+2_subdev *sd,
+>  	if (ret)
+>  		goto err_csi_stop;
+> =20
+> +	if (!csi2->enabled_streams &&
+> +	    csi2->drvdata->wait_for_phy_stopstate) {
+> +		ret =3D csi2->drvdata->wait_for_phy_stopstate(csi2);
+> +		if (ret)
+> +			goto err_disable_streams;
+> +	}
+> +
+>  	csi2->enabled_streams |=3D streams_mask;
+> =20
+>  	return 0;
+> =20
+> +err_disable_streams:
+> +	v4l2_subdev_disable_streams(remote_sd, remote_pad->index, mask);
+>  err_csi_stop:
+>  	/* Stop CSI hardware if no streams are enabled */
+>  	if (!csi2->enabled_streams)
+> @@ -871,11 +886,32 @@ static void imx93_csi2rx_dphy_ipi_enable(struct dw_=
+mipi_csi2rx_device *csi2)
+>  	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_IPI_MODE, val);
+>  }
+> =20
+> +static int imx93_csi2rx_wait_for_phy_stopstate(struct dw_mipi_csi2rx_dev=
+ice *csi2)
+> +{
+> +	struct device *dev =3D csi2->dev;
+> +	u32 stopstate_mask;
+> +	u32 val;
+> +	int ret;
+> +
+> +	stopstate_mask =3D DPHY_STOPSTATE_CLK_LANE | GENMASK(csi2->lanes_num - =
+1, 0);
+> +
+> +	ret =3D read_poll_timeout(dw_mipi_csi2rx_read, val,
+> +				(val & stopstate_mask) =3D=3D stopstate_mask,
+> +				 10, 1000, true,
+> +				 csi2, DW_MIPI_CSI2RX_PHY_STOPSTATE);
+> +	if (ret)
+> +		dev_err(dev, "lanes are not in stop state: %#x, expected %#x\n",
+> +			val, stopstate_mask);
+
+Did you actually test this on imx93? I'm trying to get my imx327 sensor to
+run, but only run into this error message:
+dw-mipi-csi2rx 4ae00000.mipi-csi: lanes are not in stop state: 0x0, expecte=
+d 0x10003
+
+Currently I'm using this DT node:
+=2D-8<--
+mipi_csi: mipi-csi@4ae00000 {
+	compatible =3D "fsl,imx93-mipi-csi2";
+	reg =3D <0x4ae00000 0x10000>;
+	interrupts =3D <GIC_SPI 175 IRQ_TYPE_LEVEL_HIGH>;
+	clocks =3D <&clk IMX93_CLK_MIPI_CSI_GATE>,
+			<&clk IMX93_CLK_CAM_PIX>;
+	clock-names =3D "per", "pixel";
+	assigned-clocks =3D <&clk IMX93_CLK_CAM_PIX>;
+	assigned-clock-parents =3D <&clk IMX93_CLK_VIDEO_PLL>;
+	assigned-clock-rates =3D <140000000>;
+	power-domains =3D <&media_blk_ctrl IMX93_MEDIABLK_PD_MIPI_CSI>;
+	phys =3D <&dphy_rx>;
+	phy-names =3D "dphy-rx";
+	status =3D "disabled";
+
+	ports {
+		#address-cells =3D <1>;
+		#size-cells =3D <0>;
+
+		port@0 {
+			reg =3D <0>;
+
+			mipi_from_sensor: endpoint {
+				data-lanes =3D <1 2>;
+				bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
+			};
+		};
+
+		port@1 {
+			reg =3D <1>;
+
+			mipi_to_isi: endpoint {
+				remote-endpoint =3D <&isi_in>;
+			};
+		};
+	};
+};
+=2D-8<--
+
+Am I'm missing something?
+
+best regards,
+Alexander
+
+> +
+> +	return ret;
+> +}
+> +
+>  static const struct dw_mipi_csi2rx_drvdata imx93_drvdata =3D {
+>  	.regs =3D imx93_regs,
+>  	.dphy_assert_reset =3D imx93_csi2rx_dphy_assert_reset,
+>  	.dphy_deassert_reset =3D imx93_csi2rx_dphy_deassert_reset,
+>  	.ipi_enable =3D imx93_csi2rx_dphy_ipi_enable,
+> +	.wait_for_phy_stopstate =3D imx93_csi2rx_wait_for_phy_stopstate,
+>  };
+> =20
+>  static const struct of_device_id dw_mipi_csi2rx_of_match[] =3D {
+>=20
+>=20
 
 
-On 2026-05-20 03:53, Andre Heider wrote:
-> Hi Trevor,
->
-> On 16.05.26 2:35 PM, Trevor Gamblin wrote:
->>
->> On 2026-05-15 22:57, Yixun Lan wrote:
->>> On Fri, 15 May 2026 12:48:58 +0200, Iker Pedrosa wrote:
->>>> This series enables complete SD card support for the Spacemit K1-based
->>>> OrangePi RV2 board, including UHS (Ultra High Speed) modes for
->>>> high-performance SD card operation.
->>>>
->>>> Background
->>>>
->>>> The Spacemit K1 SoC includes an SDHCI controller capable of supporting
->>>> SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
->>>> currently lacks basic SD controller configuration, SDHCI driver
->>>> enhancements for voltage switching and tuning, and power management
->>>> infrastructure.
->>>>
->>>> [...]
->>> Hi Iker,
->>> I've picked patch 1-3, for [4/4] I think it should be merged after
->>> https://lore.kernel.org/all/20260513071958.29574-1-a.heider@gmail.com/
->>
->> Hi Yixun,
->>
->> That makes sense. In response to your earlier feedback I had drafted 
->> a more
->> complete dts after another schematic comparison, but Iker and I 
->> discussed it
->> and opted to avoid changing scope too much. Andre's series includes 
->> the bits I
->> wanted to add and more, so that works out.
->
-> I have 4/4 rebased on my series anyway, do you want me to send it?
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
 
-If you have an update to make, please do!
 
-Trevor
-
->
-> Thanks,
-> Andre
->
->>
->> Thanks!
->>
->> Trevor
->>
->>>
->>> Applied, thanks!
->>>
->>> [1/4] riscv: dts: spacemit: k1: add SD card controller and pinctrl 
->>> support
->>> https://github.com/spacemit-com/linux/commit/2d77e577109967ef65f269c1fc1d6a659d4260fb
->>> [2/4] riscv: dts: spacemit: k1-orangepi-rv2: add SD card support 
->>> with UHS modes
->>> https://github.com/spacemit-com/linux/commit/2585c60ce2f977b13f14a67d1e3ed9c73fd7f381
->>> [3/4] riscv: dts: spacemit: k1-bananapi-f3: add SD card support with 
->>> UHS modes
->>> https://github.com/spacemit-com/linux/commit/c76e2f058cbcab84e4a703f26857a58bdf6a0042
->>>
->>> Best regards,
->
