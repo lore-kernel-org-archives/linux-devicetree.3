@@ -1,117 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4700828DC4
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:01:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E1E248891;
+	Wed, 20 May 2026 00:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779235292; cv=none; b=M1Mx9kRflRbgIsGP4zKx8Xx6FwM8AJgKpP/CWMjwVy8VR8D8GweQNrBrHBKHwTgvWEwzRKta7y7sOvCOSgsKscOTjaf8k5p3073H31uV94iGwPwpd/Qy1D+zPEZA2hX3Y4H5HnM7EgSPrdFpOF/z1pp62NOYVWpwBV2ufkmAQpE=
+	t=1779238067; cv=none; b=NdZYDUh9z8I7U8CiW8eKqe6aN0o83QdTZhXn7H8jHVuj6Kna/4ykA5iku9XGi+ggdC80guNU3OYMpueGQ8xCK0B8Ccw0vYTaClL6Zilq3sMtLXjv5NFCxlPoCryr/YApVpauZteWVzxOSt3ljKZpv7PZ619kdOEsUpPPgskNd98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779235292; c=relaxed/simple;
-	bh=ED2avvaZ4HKQRUzDJpkqWQjrdjLMupzz5F0vgv3/AZ4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TkNVHt0uC4bqASfMkbRQoeBeu+bZOJlZPWKzKkX3FBXmYN4EfjdcgTNud0lsp4s+jLaOfFAWEDArBPaQSXjtWSnL+Qt1GK/gcMoC97WOF0CMbLmGOuSknvs7fUVGDE8qp1seR4AADLlU0cOCHIYnXDK/fzacvsRJvXm4nvLhILk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i05RUWhK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779238067; c=relaxed/simple;
+	bh=AlfeGIex8acgaQlBvVAJC3Hn7prtf8cr9o1AsZjmSHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nebLrM96f1OpvQN3PUsBet9r+BEYbboQ0Di8DBj9EIe4OFhVNdSFi3Xxmz7oDJIrhM2dOPnngOJ+vUkb0BexOpE06au1rA+VosiZKT796ratndKW+jLrl8IOfAF4GYEDIxOCs1ck7SzfKQi2Hte8jzt775xwUdxKgOQF7JQbkTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQRizg74; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i05RUWhK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB311F000E9;
-	Wed, 20 May 2026 00:01:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQRizg74"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BB761F000E9;
+	Wed, 20 May 2026 00:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779235290;
-	bh=FecKT9/6SizZRuRc95oZh1GsnrtV2oGuue3IYqPLhCs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i05RUWhKmPxH0/+QdTO5iyttbUFH05FNWuEBqMIo9MIkp5hsy9ZgG1JlAi+K2ferv
-	 YOJI5G2Br8Y7haDV5e6pbkSJKJS543ly7qQ2wGbk1qsffpV8eNECtUSp3ZL6OX1fAR
-	 UlJD9LqaHL5a3w7DjuKJnPFs11W8hARuXcIfmuJihogACj6eKC091sqBd56+uhTjWY
-	 v+uk8DRBCX67UWLVIXCVmAAVbv4UFfrFqOmPib74+WRkydqqQX+TFfyZxG+rciIfEJ
-	 iKfDKXraISnUscY6zNnxAx1C3Ml7d4xrrGkcjrR5vLjgA04SDUaRuVpYQsnUCIyvJl
-	 m61kt0oj6Bk1w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] i2c: mt7621: make device reset optional
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260519223253.1093-6-ansuelsmth@gmail.com>
-References: <20260519223253.1093-6-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 00:01:30 +0000
-Message-Id: <20260520000130.ABB311F000E9@smtp.kernel.org>
+	s=k20260515; t=1779238066;
+	bh=nuuKFj60ZRWnxMPfd6Npm27bww2j10ECDUt/wSu+QTA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SQRizg74chhPQa21LJ72S+JpA1iGw6xE0JO7HAfxC7LeREFjo7w7TcK+odaCfJaiK
+	 Iitb4zNLhnO+XE3XMuhDotpXo6wKhCXyXmxsrYd9tdY4HMxdfcTAm0qwc6o/ZYriPx
+	 qQwRwlajoAR7qKY05Ru4KicHC0VG8RdVeWLCmmP5JgbnKW/u4sfhbvbw6l6TeF+/Hy
+	 W0pB9oiWsmi58qkYvGtEp53U+/YfpmSJ4YCW+pv7A4MqjPOVmywW5+fjvPA+/f5kIc
+	 MsrgHRshP5bl4G660A2NRvN1n/458ZqalC2KlEOjGMvioDbDf9aePzR2r/D0iPFxxC
+	 AqdIGSTeWeDwQ==
+From: Jakub Kicinski <kuba@kernel.org>
+To: robert.marko@sartura.hr
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	o.rempel@pengutronix.de,
+	kory.maincent@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	luka.perkov@sartura.hr
+Subject: Re: [PATCH net-next v2 2/2] net: pse-pd: pd692x0: support disabling disable ports GPIO
+Date: Tue, 19 May 2026 17:47:36 -0700
+Message-ID: <20260520004735.4027213-2-kuba@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260515115050.691119-2-robimarko@gmail.com>
+References: <20260515115050.691119-2-robimarko@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+This is an AI-generated review of your patch. The human sending this
+email says "nit picks but why not.."
+---
+net: pse-pd: pd692x0: support disabling disable ports GPIO
 
-Pre-existing issues:
-- [High] Calling `device_reset_optional()` dynamically retrieves the reset =
-control, acquiring mutexes, which causes a sleep-in-atomic panic during ato=
-mic I2C transfers.
-- [High] Probe deferrals (-EPROBE_DEFER) and fatal reset errors are ignored=
-, causing the driver to initialize unreset hardware.
---
+This commit adds support for parsing the disable ports GPIO on Microchip
+PSE controllers and configuring its default state to enable PoE during probe.
 
-commit 9cb04554e65951eee40dcf78d9e980702bbacb5d
-Author: Christian Marangi <ansuelsmth@gmail.com>
+> So lets support parsing that GPIO and using the GPIO flags to set it to
+> output high by default and enable PoE on all ports during probe.
 
-i2c: mt7621: make device reset optional
+Does the commit message contradict the implementation? 
 
-This commit changes the I2C reset logic in the Mediatek I2C driver to use
-device_reset_optional() instead of device_reset(). This accommodates Airoha
-SoCs that share the driver but lack a dedicated reset line.
+The message mentions setting the GPIO to "output high by default", but the
+code below uses GPIOD_OUT_LOW. 
 
-> diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7=
-621.c
-> index 3cde43c57a2bc..fb9d9701bb10d 100644
-> --- a/drivers/i2c/busses/i2c-mt7621.c
-> +++ b/drivers/i2c/busses/i2c-mt7621.c
-> @@ -91,7 +91,7 @@ static void mtk_i2c_reset(struct mtk_i2c *i2c)
->  	u32 reg;
->  	int ret;
-> =20
-> -	ret =3D device_reset(i2c->adap.dev.parent);
-> +	ret =3D device_reset_optional(i2c->adap.dev.parent);
+While setting a "disable-ports" pin low to enable PoE makes logical sense,
+could the commit message be updated to accurately reflect the code's behavior?
 
-[Severity: High]
-This is a pre-existing issue, but does this dynamic reset lookup cause a
-sleep-in-atomic panic during atomic transfers?
+> diff --git a/drivers/net/pse-pd/pd692x0.c b/drivers/net/pse-pd/pd692x0.c
+> index 4a3c852780f58..6c5c5a26bbaa6 100644
+> --- a/drivers/net/pse-pd/pd692x0.c
+> +++ b/drivers/net/pse-pd/pd692x0.c
+[ ... ]
+> @@ -1780,6 +1782,11 @@ static int pd692x0_i2c_probe(struct i2c_client *client)
+>  	priv->client = client;
+>  	i2c_set_clientdata(client, priv);
+>  
+> +	disable_ports = devm_gpiod_get_optional(dev, "disable-ports", GPIOD_OUT_LOW);
+> +	if (IS_ERR(disable_ports))
+> +		return dev_err_probe(&client->dev, PTR_ERR(disable_ports),
+> +				     "Failed to get disable ports GPIO\n");
 
-If a transaction times out in mtk_i2c_xfer_atomic(), the code branches to
-the err_timeout label and calls mtk_i2c_reset(). This function invokes
-device_reset_optional(), which dynamically looks up the reset line via
-__device_reset() and __fwnode_reset_control_get().
+This isn't a bug, but should this use the local 'dev' variable instead of
+dereferencing '&client->dev' again? 
 
-This lookup acquires the reset_list_mutex and performs memory allocations,
-which could trigger a scheduling-while-atomic panic since
-mtk_i2c_xfer_atomic() runs in an atomic context.
-
-Would it be safer to fetch and cache the reset control at probe time using
-devm_reset_control_get_optional_exclusive() and only call
-reset_control_reset() during runtime?
-
->  	if (ret)
->  		dev_err(i2c->dev, "I2C reset failed!\n");
-
-[Severity: High]
-This is also a pre-existing issue, but does swallowing the error code here
-break probe deferral?
-
-During driver initialization, mtk_i2c_probe() calls mtk_i2c_init(), which
-in turn calls mtk_i2c_reset(). If the reset controller is defined in the
-device tree but its driver has not yet probed, device_reset_optional()
-will return -EPROBE_DEFER.
-
-Since mtk_i2c_reset() returns void and only logs the error, the I2C driver
-incorrectly succeeds in probing instead of propagating -EPROBE_DEFER to the
-driver core.
-
-Does this leave the hardware in an unpredictable state from the bootloader?
-
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519223253.1093=
--1-ansuelsmth@gmail.com?part=3D5
+The 'dev' variable is used in the devm_gpiod_get_optional() call just above
+this line.
+-- 
+pw-bot: cr
