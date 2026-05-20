@@ -1,165 +1,108 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540F43F23DA
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51763F4DFC
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779289261; cv=none; b=sUpsTQwYea582ipiKUU/wF3GuhGPUPbyOAYPEn3z90ThPSOrH1lihS5Ox3ZTq3cZSHYdBX1qvReHPV47IxezMLcT5aNMVfvIaBWCjicgOf6eRsyrfEaX0UG5uz1gXVtq7KdkWIy+4Vy8b6Pu0y0J8/+QmDqSCHN0ckee4/kv47o=
+	t=1779289282; cv=none; b=dmzAv3UIjqwQCZFTakOOh/rncbNoBpQEl3Jsry+/Gn1/EOdnHS1ihvSeEPQm/XzUz5JyKz31kU5fAbvU2Ifw+z5ugZdnY79xBkq81JR9B1xXxAoT2KAIROBICZ0m6plWaVCvSjBJo0adANW2vFylnpfpHnaqLAxYexk1GBsgcEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779289261; c=relaxed/simple;
-	bh=aNbycyeVQwWYgZDB8FQamAj2BcWvwEi9XM8FsrbOPLI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lR6FHWpbHM/Vr0kID95JzqG3w+s65HldSDWzU546mV3w5BczgAT3foOH1Y3N44BpQNBF/91Hp1z3XPlzBlRhkYl4o6shjplbEYRxbtPnCVTWTekiPZL2Xc7tV0d9wy/yArXqqqqV0z8RIL+rJmP+63NA6XQg4rs5xBSqYxIBviQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ABLGKSIO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bL/IEetL; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779289282; c=relaxed/simple;
+	bh=zXItqWiDsxVGuwrKkRKKnlvSuQgrJAxuLG7PITqkoyI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=C1W77wSVJJxtRRxaZY9S67DLpQPHhcSphS3mvh2DgSdeYWgtllqOCN23r6+0Eq+bJ4bQpEdsVvjk0efMv4AlBcuaFzhqcuoZk4ALWE7x5/WeMYdF4pCBqSnGko1QM4brRUGc634iu7u6UDSzmnNPoYuzzPMIcFLDhjnoXulzGD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HMPAACyL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ABLGKSIO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bL/IEetL"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KDY51I1798819
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:00:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hPMPfV+jKeq4uiwFwz14y19nQWZZMUfkCMfocNcW+AU=; b=ABLGKSIOt3Awpp/C
-	5ZWvF6iwOAygNmdFQmXFukdPtes2guRmKs1MnwQ/AQFPh9yx07KVHraQKnYLUVKv
-	ZQNTvmNptsKzErI1YzDqE2dOMvvGrULAShj0jifF5Uv4ZgvfXw8D3V1WGYgx5dSm
-	U0d5pH5UDoG4JK3Q8DasGUYXmimmPAywxgKG5Vg3poAn8u5jqWVDbFhqOPhj/HKD
-	CjjXgoVdyWRg94fFC/ZGjh6BfGIWE0F7yU/CLGeP2fjQDF4qib2/UbdDAfXIfSyj
-	fxMv+r+jV2TP1/RceK/AuLuO1KuDigNveBYVkOsqr3whThwpdfPRErcDyixBpNhr
-	mXNMqw==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9dxu0bah-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:00:50 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-43a886fe459so10489060fac.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:00:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779289250; x=1779894050; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hPMPfV+jKeq4uiwFwz14y19nQWZZMUfkCMfocNcW+AU=;
-        b=bL/IEetLK8zhflnFZ9Ch1MqXmosAPohiABo0SlJP3lj5DNFZVpk5d9n8GNYX13sh8+
-         EQACm6Dp4UurVjR8OrB7Rt9x+HxEGqIgakC6v1Bgnu6SAXvhtcrRst7evfBIcqJ9hxQl
-         DKVp+Ybb/3AE8QzxquYqFSKZJ/cIqFn4QREXZ6Na+lhMNwXHvp5QnRFgTg554+x0ACjl
-         Lxc7rsN7MsyGUW4hmld2MMCSNewZw0ohsWZCbAwgXYtq+2k1NotfCdYQsNDj2SXn57jy
-         Tn2j8fk94Ykh5RA3LqPfisxTcPpRjyU6bzfMTyeDfJXnwJZB0y8szBWpJzXTVJd+LNII
-         1WIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779289250; x=1779894050;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hPMPfV+jKeq4uiwFwz14y19nQWZZMUfkCMfocNcW+AU=;
-        b=ClF6KggoelF6S+9Gu6Jou4BmM4sUtr3bU6N5oaVSyaPWWSbzYmq7hqcs6Y0WK0DWpr
-         /TcTQ0O2aseiicQCOJZnvmVvc4EbaL37ENySDipDM67CnBhAJ11yc5+tRyzhmXfS5du0
-         SKCEyFRlIU9vh1vLQLwzYfRvMWlT2Kqu3pDM5e5KD3Yjv08Mh0m5EUQyYAi+GI8Ax6Tv
-         bwa/0Wac3N6Z6KNk6RtFphilvNL21Pi6tcUmAoteuhVSqw7fC23M/dpwK/OzHLtQ6iCP
-         N/PJgntPsnsbW6lZREygvAgHFw6FpiR9rqjEtkb81XvpQH0ID/2ZxMaOv848MpNkpqPw
-         4RNA==
-X-Forwarded-Encrypted: i=1; AFNElJ+zkaY4KEbV/9uq8O3Xw2MHh66mnsKka/JTcOM77fufXhMBsZpR/OcH3pb3Y5BkYH9NMjCW8JCn8I8G@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzk1q7beWTJW2559ze3kKUyzFcAFT/dtuXDOtVBFDrF535JMCsB
-	oaZ9wFexFUqZpqU3o48pW6e3IjTK8Zg1dykiZ6WKvGpiwM7iH2pL+n/tIGLgGX4yc+BhkZQUG5T
-	UTN44dUrCTE8As+xIudnjHubhZAM5WD8WmUoXaGSBuYKO6UnJJGzdZIvmICMSsIe7
-X-Gm-Gg: Acq92OFSvKlZzv0RI3ShlJBb4xXMrLVhUibHjJ2LoRGLSwT/IAzAr8goNWdflTw9NdJ
-	kJoxOA5nyzrJliEC65ODeUhi3uqqvKKqaKZkGYRG1sq8PYQHWPOtsSa13CCNszxdTcjsAKe8KuP
-	LlD0FS0bYDTgpGAEo/TOUIWAPTt7e5a0lIBtT3NBEyZVlm3Ldf4EI5L0Oxdh/dYy9QipP6ANZm/
-	GdvU+tPkQY0cJZYWF1HUXdUT6gRPx8b7yB83KrGbJvlnIA+BMIoG44PWho6UCeIHSnZaJW/LRzQ
-	zbZiimMlFEpU9yvRFCkjsX7tKk3SnSbG3BsKtfny+A+6VMcLTKzZa3aOWxFYpsWD/ACiZyQmnhk
-	NerR3gfgSvU/iWNcaaTj8dBfPoR0O9bSmOij4krS/jeF2bpfmvRmlju27dII7mq8k7PFRV2SsB+
-	yuScw239mT3DIoP6olv2n2rTA1HjoUD47q3XU=
-X-Received: by 2002:a05:6808:124e:b0:47b:d914:48c3 with SMTP id 5614622812f47-482e55c73fdmr15061058b6e.10.1779289249645;
-        Wed, 20 May 2026 08:00:49 -0700 (PDT)
-X-Received: by 2002:a05:6808:124e:b0:47b:d914:48c3 with SMTP id 5614622812f47-482e55c73fdmr15061024b6e.10.1779289249148;
-        Wed, 20 May 2026 08:00:49 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39588791302sm29267721fa.32.2026.05.20.08.00.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 08:00:47 -0700 (PDT)
-Date: Wed, 20 May 2026 18:00:46 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: =?utf-8?B?0JzQsNC60YHQuNC8INCk0YPRgNC80LDQvQ==?= <taygoth@gmail.com>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Casey Connolly <casey.connolly@linaro.org>
-Subject: Re: [PATCH 0/6] usb: typec: add Qualcomm PMI8998 USB Type-C
- role-switch support
-Message-ID: <s4zaqmrpqdsrbygydvvr2dv6dxqx2y5ntgl4xmzp3s6s3iceax@wcebv6a6fvnu>
-References: <cover.1779127507.git.taygoth@gmail.com>
- <918adf8c-14d0-4d9b-93d8-d34592aa04a9@linaro.org>
- <CAFPzRonyVt9Kd+Sc0ooNz8By6b-Zr_jHr0sBXv-M25dQ0w9Cjg@mail.gmail.com>
- <ee9061ea-8f70-4b54-af87-420179da9c06@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HMPAACyL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9DC1F000E9;
+	Wed, 20 May 2026 15:01:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779289280;
+	bh=D+A7KLGH+vUkFIwe6y0zlIyHYqFL5mMqBDMVfVT5jAc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HMPAACyLyfl6Opv05e769MmC+eq4qA0vJUVf9M99RF0VBaqnLDHVLa8h/0Lkth1W6
+	 1JwlTfPsJyG523ynIrrl6xpc7vUnHhEzF0t5hpdr5iGW3x/gCGKzoJOo8MBuza3gGk
+	 C++CTpIJ2UyBy4zzuWjuPu2HHNUcWpG05Z34S0EF/TOZxj89QQphqblUs46pPh+sCU
+	 CHWKqyWbOmeTV+84nDwboKKupdxl7Wob5jAl6XfxN67PzjRAbTzI1dYAPqVhmm/QGo
+	 T/lzuTH+ueGegyXvQu1ZYI05yDF8VosjeeX7iqglvZq3tQQdhvcWVaYVVVoNdOqeRL
+	 GgtzApVaEKSAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: qcom,shikra-pas:
+ Document Shikra PAS remoteprocs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260520-shikra-rproc-v2-1-583a2e413a3a@oss.qualcomm.com>
+References: <20260520-shikra-rproc-v2-1-583a2e413a3a@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 15:01:19 +0000
+Message-Id: <20260520150119.AA9DC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ee9061ea-8f70-4b54-af87-420179da9c06@linaro.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE0NiBTYWx0ZWRfXxPCm0HKX+URi
- aRYyI2zYC7Wp06RDfzCazhKZuhhG1X4dJF60lHH5vai6sORVtaq2BnBdwrMQXyT387WOLWm3r6c
- NFoGqgwee6RQrO9QF/WDDAtekOQp8iUEbTldnsEem/wn/pGyaslvk3GenPiWVFxjsC0sZ6zouXa
- RSuUzlVr3vrbvpCbi9ICNhQHx+QfpSUrEleunrLUMq9tz6yysaGnxbWBkBdkKofcrWGKBLdEk9B
- bmMed2cfldil9wRISqFh9fzEm2lAdLjy/mjPFHBcPro4mH4/Qc1QbE4sNdS3ZJgCFlih3s9nmCr
- Mg2zUAEeaHoyjDxypjxg/jJOl/7CGHGq97pqPA65rkcxMA5fnCvF4+tkFCrU1C3RmMbfGkw/YOO
- VLXJIQFbo6y/y/eQJ2bZ3Rebx9xypYR9l18ISOzzUwUbSQGtFaiaWXTVWHN1prq9fnoyyyVOAWR
- da7gtGdRzn6xpHN9m8A==
-X-Authority-Analysis: v=2.4 cv=Zckt8MVA c=1 sm=1 tr=0 ts=6a0dcca2 cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=LqtK9fWK-9dyvnwHZvUA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=y8BKWJGFn5sdPF1Y92-H:22
-X-Proofpoint-GUID: 3lL0yziDfQn41URtEhAgNYTojTnfMO6w
-X-Proofpoint-ORIG-GUID: 3lL0yziDfQn41URtEhAgNYTojTnfMO6w
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200146
 
-On Tue, May 19, 2026 at 12:43:13AM +0100, Bryan O'Donoghue wrote:
-> On 19/05/2026 00:37, Максим Фурман wrote:
-> > Three shapes for adding a second port handler to the existing driver:
-> >    (a) extracted ops -- pmic_typec_port_ops with chip-specific get_cc /
-> >        get_vbus / set_mode / set_vconn / start_toggling, refactor PM8150B
-> >        code into the ops, add parallel PMI8998 implementation
-> >    (b) parallel port file -- keep PM8150B code untouched, add a sibling
-> >        source file with the same tcpc_dev callback surface
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The dt-binding example incorrectly mixes SMD RPM components with RP=
+Mh power domain constants.
+--
 
-2c, my preference would be this option.
+commit 69848c4ac32e863c52c6df41cb4da6b7c711fe47
+Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-> >    (c) per-chip register table + per-chip decode helpers in the same file
-> > 
-> > Bryan, do you have a preference? I'd rather match your taste than guess,
-> > since you'll be maintaining the merged result.
-> 
-> Taste - loaded with honey, chilli and salt please chef and add the whole
-> clove of garlic....
-> 
-> My feeling is sibling file but please use your own taste/discretion.
-> 
-> ---
-> bod
+dt-bindings: remoteproc: qcom,shikra-pas: Document Shikra PAS remoteprocs
 
--- 
-With best wishes
-Dmitry
+This commit documents the device tree bindings for the CDSP, LPAICP, and
+MPSS Peripheral Authentication Service (PAS) on the Qualcomm Shikra SoC.
+
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas=
+.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> new file mode 100644
+> index 0000000000000..f0b9e04d84620
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> @@ -0,0 +1,157 @@
+[ ... ]
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,rpmcc.h>
+> +    #include <dt-bindings/interconnect/qcom,icc.h>
+> +    #include <dt-bindings/interconnect/qcom,rpm-icc.h>
+> +    #include <dt-bindings/interconnect/qcom,shikra.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    remoteproc@b300000 {
+> +        compatible =3D "qcom,shikra-cdsp-pas";
+> +        reg =3D <0x0b300000 0x100000>;
+[ ... ]
+> +        clocks =3D <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> +        clock-names =3D "xo";
+> +
+> +        interconnects =3D <&mem_noc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
+> +                         &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
+> +
+> +        power-domains =3D <&rpmpd RPMHPD_CX>;
+
+[Severity: Low]
+Is this using the correct power domain constant for the Shikra SoC?
+
+The example appears to mix SMD RPM components with RPMh power domain consta=
+nts.
+It uses an SMD RPM clock (RPM_SMD_XO_CLK_SRC) and the rpmpd phandle, but
+assigns RPMHPD_CX to the power domain, which is an RPMh constant.
+
+Since Shikra is an SMD RPM SoC, should this use an SMD RPM constant like
+RPMPD_VDDCX instead to prevent semantic inaccuracies and potential copy-pas=
+te
+errors in actual device trees?
+
+> +        power-domain-names =3D "cx";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-shikra-rpr=
+oc-v2-0-583a2e413a3a@oss.qualcomm.com?part=3D1
