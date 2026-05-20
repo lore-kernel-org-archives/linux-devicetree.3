@@ -1,236 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B5D29B8D0;
-	Wed, 20 May 2026 16:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A9032B9B5
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779293155; cv=none; b=FEmEo8JIQoe2BxIc44Abdt9kkrsMVv4uFwzrXzIU4RBZvKDzxEHIIfJtKfcBlz/bjFP9IFIBraFXOchzPvLwZMXd1/cWPs8J+NWmIvM5fLsd7VQFgpUozgJyPsKzsrfC9qkZr/DxvaNSocIk9ge7kPBI8cSbNTkebqUucAXPaNY=
+	t=1779293190; cv=none; b=IkZDs9TayA1g2/clJiGWSRV01yrB1RprfFD6Wi7z1H41m20uBrhd/hCpjz7qHskRX5hCxGyuUqO2Vbjth19hVWHI79ulT4ZwCHysQtBjUGI/chEpP0Ts8DjS1tfX1BgmzOMmZdcBCNnm8nKISbUapQL6MxlXHq8dWRHNDKO0GwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779293155; c=relaxed/simple;
-	bh=yOhsqo7A1an5K36V6ciR4QgdBXrXhQJSvGzDPOSYsX8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B9IB5BgHKHkBI0QFhu3NhD1u0DyZEna0pgZVbWWp9SpxdcaBqyICrwNpMWbFEw+Ao03bqM0U7RBECFe8fvZPGRpjoGUKhuAyrd57jRm7nG3g9DJQaBm94q/xZvgfrCcuXKiEHFm5hqqP5yT/ruaNgce2Zzi3B9ih8EDWq1dbBwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OH/uNL6z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779293190; c=relaxed/simple;
+	bh=m6JPhIJbQ0gEyv8AT7Djg+r0/yXuFuEOF6/cwQNjcNQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=gaKXRAr/vyoC+E9niRM1atT6J9TCKt6Ei1E15cl86bh0hubIe6IitdLEr2Rk8Mrpt6OaRk5tNgWqcDlmht9HJ406A2iqf3ylQ79bhTQgssI6nKJfaXXQLS1dCVfkHtd838QoQ4C6wl0+l/2hQ3Knelr6PREhlTt5UM7Wfgt7mYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=m23EGLF2; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OH/uNL6z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B5D1F000E9;
-	Wed, 20 May 2026 16:05:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779293154;
-	bh=r8XeWwPGiLxyObP8wbpH25CTUC+fb/5+tcRkNc9nH9Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OH/uNL6zULW2clXNBipy9sSPm2QBRqJFKHbqH1U3MLkKgvmQhvNk7Hqg46ZNZANNt
-	 IFT3uHvwTbBSSZMD/3fnXUzdd0QedF2hs2qzekIfLcp9Vg/Zz6DbYSpPi6PAchxaq+
-	 DUNC0HicLdVHDyJMsMyYnbe9bGtO+UuWMkJgDLtQELCbJPJR+D0iE8OjeLqH4OpQEn
-	 5kIrsG6D8y7RFXi75Is9/+iD9lO3YZAkc9av4Z2d76tlNGeXLAuZdySbol9RLjwK0M
-	 OshJ8QkSwhhgJ+CeP9O/TEK7ba3h/x98rvs31UnrGvMFpqas4PNt3yySAGGWe4/FXw
-	 hbDm0aLTKUPvg==
-Date: Wed, 20 May 2026 17:05:48 +0100
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Tony Lindgren <tony@atomide.com>, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org
-Subject: Re: [PATCH v5 5/6] mfd: motorola-cpcap: diverge configuration
- per-board
-Message-ID: <20260520160548.GK2767592@google.com>
-References: <20260510110804.33045-1-clamor95@gmail.com>
- <20260510110804.33045-6-clamor95@gmail.com>
- <20260520150758.GG2767592@google.com>
- <CAPVz0n0t4PXfmgWYQ1vSTFwfg=+g4oGU+-dwgnBVKxUoUwHGqw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="m23EGLF2"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-bd8f6ef4ba6so710638966b.3
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:06:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779293187; x=1779897987; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TgkFusfrsQUtnPD0k3UI2UziIOgmFiUaBBrm2kUxAis=;
+        b=m23EGLF2t51KKyqgatk6/NM1c4Iuvx8QyMohPw4bQciJ8nJzJX86tJqO/zPPL1Yr2y
+         dPiCOaUsCDg2h/VCcK2f1sfLKJBRDQZveyeM1bjo4trvLNXCVFrS85ZycRHg3c8ZnWup
+         6eM+vv8+IOVN43stYr3umMYu++tf22cUwHM0YaZ6LBBy0QXH+vvYekn5ONS5fc7JtEze
+         EOJEi0J1FrS7H3kaDSNO2I23Gxpz3F2EodJObI995NeiiXj3628KaUjs4UHBe0FnYidN
+         YbgPl7ZUF07aBRZI+W3AzgDqzSEAkCdS90gc5Dvh2ZnPLJftlbGCP+qaRzH75Cqs2A2+
+         03xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779293187; x=1779897987;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=TgkFusfrsQUtnPD0k3UI2UziIOgmFiUaBBrm2kUxAis=;
+        b=gnCn4+SbK5zhrs7PFtdx4IBRx06w9GNGA+Gjadmc3eMYoorv/9rerEJDdoeMHf6YTa
+         YXgEw0ZxR3jLsPob+c6+aSaSL7NYENC0Xv6PdlHUQTekILAumBuEAFJmfw7Y0k94C48l
+         wh7/VyMutawIxwuuL3+35AiGttayqCTTKmhrrAGi+2ROSh9jb/N9bFjz/2x6j6D3llOn
+         miH3LnJSdYSB+NOe8CHK76T1ZM2VBVL+f3jw9KQ4IKKy/ao9gtCZIwBoSkkj1mdw3wC9
+         bKycePyc2iHqkPjAfr4hpomz2boPL6eV50jWvnXcTEvIMxHFNOxHXFufdUHN+QA0Qoz3
+         NPSg==
+X-Forwarded-Encrypted: i=1; AFNElJ+Q+eT/VrfaBcaKl+Itn6z5YsHytqC0axeHayXo7mGZxMOmN+bDYgQkBv4NY5yOrxpHjx5/TJ107X82@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/7qAd6UMdFRfQcg6ycFB1f4EvtOy+w6LqLqIJA6RBmupbZEzc
+	sN4nN1uGTcQfKdJxLcsckHLKIXoBkW4TV7AXKZk5BWIBBgw/urYSdCyobFF1hx0rL9U=
+X-Gm-Gg: Acq92OHQNyu/FJ33sV6lS1rvb5x4+7zyPJjEeFXw4letY4FpqOe3XeapMHuHGUwNF2p
+	/E0jQ330ddhjbC2mHuJCcy6xu1XmJh3wC1iUwI1FUIwc+N90Scixv9YOgc9HJU0Biw/mq3JHz13
+	NcR5n6cYlDCTke6ellYZEN/wH6VWXEb5C3hITsQZFlwkrRIh+Bjw5xnDfc9LFHgpXdpbNleAcjF
+	VbyK0Ji5u8J1aajfHdwqgJWfKu9gGagAcFIcCUc9guveLkT6gMeAJjoBoB6do+1rYdLu2o6s6kR
+	kThxL9/xQ7H6HKvGMUvYuTOC5tGfcKtKeA5C5e0GRaDWTlhp2wJqDMWb+yJQkHEIc7ja85ymJHK
+	qcRjd8gKGuPRMkFulSgP00ctPMg7oHJ4b6YfpvnvFcNNDxgSHFy0s6tYsWYXegoNgp75O4LiSv+
+	r9waLMCgAIkwboj6rKAaeE1A7/e8halitJlImff+dKJJZK8xDePcsFGpq6xVrCzuZkLP841GhIm
+	ugBQD+4mTsxEhevgAmOFxZq
+X-Received: by 2002:a17:907:e104:b0:bd2:c919:22c9 with SMTP id a640c23a62f3a-bd5179311e1mr921917166b.35.1779293186834;
+        Wed, 20 May 2026 09:06:26 -0700 (PDT)
+Received: from localhost ([94.4.195.193])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4e21235sm868671666b.43.2026.05.20.09.06.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 May 2026 09:06:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n0t4PXfmgWYQ1vSTFwfg=+g4oGU+-dwgnBVKxUoUwHGqw@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 20 May 2026 17:06:25 +0100
+Message-Id: <DINMSL1LPPCF.1U0AO6MYUFTN2@linaro.org>
+Cc: <linux-samsung-soc@vger.kernel.org>, <sashiko-reviews@lists.linux.dev>,
+ <conor+dt@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v4 3/6] soc: samsung: exynos-pmu: generalise
+ gs101-specific cpu{idle,hotplug} for Exynos SoCs
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: <krzk@kernel.org>, <alim.akhtar@samsung.com>, <peter.griffin@linaro.org>
+X-Mailer: aerc 0.21.0
+References: <20260513-exynos850-cpuhotplug-v4-3-54fec5f65362@linaro.org>
+ <20260514053037.BB9A1C2BCB7@smtp.kernel.org>
+In-Reply-To: <20260514053037.BB9A1C2BCB7@smtp.kernel.org>
 
-On Wed, 20 May 2026, Svyatoslav Ryhel wrote:
+(adding samsung list and other folks back in c/c)
 
-> ср, 20 трав. 2026 р. о 18:08 Lee Jones <lee@kernel.org> пише:
-> >
-> > On Sun, 10 May 2026, Svyatoslav Ryhel wrote:
-> >
-> > > MFD have rigid subdevice structure which does not allow flexible dynamic
-> > > subdevice linking. Address this by diverging CPCAP subdevice composition
-> > > to take into account board specific configuration.
-> > >
-> > > Create a common default subdevice composition, rename existing subdevice
-> > > composition into cpcap_mapphone_mfd_devices since it targets mainly
-> > > Mapphone board.
-> > >
-> > > Removed st,6556002 as it is no longer applicable to all cases and
-> > > duplicates motorola,cpcap, which is used as the default composition.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/mfd/motorola-cpcap.c       | 142 ++++++++++++++++-------------
-> > >  include/linux/mfd/motorola-cpcap.h |   6 ++
-> > >  2 files changed, 87 insertions(+), 61 deletions(-)
-> >
-> > Looking much better, thanks.
-> >
-> > Nit: A patch-level changelog really is much more helpful to reviewers.
-> >
-> 
-> Noted, but I will not guarantee that I will do patch-level changelogs, sorry.
+On Thu May 14, 2026 at 6:30 AM BST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
+> - [High] Hardware register misprogramming due to incorrect CPU index from=
+ smp_processor_id().
+> - [High] Use-After-Free of device node intr_gen_node.
+> - [High] Missing teardown of global notifiers on probe failure causes Use=
+-After-Free.
+> - [Medium] Missing of_node_put() on error path causes a device node refer=
+ence leak.
+> --
 
-That's fine.  All I can do is ask.
+Sashiko reported quite good findings. I'd say that most of them were
+present in the code one way or another before my series.
+They look fixable.
+I'd rather need then two series: first one with fixes and then
+generalisation of cpuhp for Exynos but first one will be listed as a
+dependency (but dependency will indicate order of how series should
+be applied). Is that okay with you to proceed this way?
 
-Note that, helping out reviewers usually ends up helping you too.
+Best regards,
+Alexey
 
-[...]
 
-> > > +static const struct mfd_cell cpcap_default_mfd_devices[] = {
-> > > +     MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0, "motorola,cpcap-adc"),
-> > > +     MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0,
-> > > +                 "motorola,cpcap-battery"),
-> > > +     MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0,
-> > > +                 "motorola,cpcap-regulator"),
-> > > +     MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rtc"),
-> > > +     MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0,
-> > > +                 "motorola,cpcap-pwrbutton"),
-> > > +     MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0,
-> > > +                 "motorola,cpcap-usb-phy"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-led-red"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-led-green"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-led-blue"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-led-adl"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-led-cp"),
-> > > +     MFD_CELL_NAME("cpcap-codec"),
-> > > +};
-> >
-> > Nit: I wouldn't complain if you wanted to have all of these on a single
-> > line for neatness.
-> >
-> 
-> Noted
-> 
-> > > +static const struct mfd_cell cpcap_mapphone_mfd_devices[] = {
-> > > +     MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0,
-> > > +                 "motorola,mapphone-cpcap-adc"),
-> > > +     MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0,
-> > > +                 "motorola,cpcap-battery"),
-> > > +     MFD_CELL_OF("cpcap-charger", NULL, NULL, 0, 0,
-> > > +                 "motorola,mapphone-cpcap-charger"),
-> > > +     MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0,
-> > > +                 "motorola,mapphone-cpcap-regulator"),
-> > > +     MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rtc"),
-> > > +     MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0,
-> > > +                 "motorola,cpcap-pwrbutton"),
-> > > +     MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0,
-> > > +                 "motorola,mapphone-cpcap-usb-phy"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-led-red"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-led-green"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-led-blue"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-led-adl"),
-> > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-led-cp"),
-> > > +     MFD_CELL_NAME("cpcap-codec"),
-> > >  };
-> >
-> > A lot of these are duplicated, right?
-> >
-> > I would have a comment set, then the differences in separate containers.
-> 
-> It may be impossible to predict a generic setup since some devices may
-> require unique compatibles, other may not have LEDs, third may be
-> partially incompatible with existing cells. In other mfd cases
-> creating a generic bundle might be good, but in this case I would
-> suggest better to keep these separate entirely per-device. They will
-> not take much space, nor add confusion with these macros.
+> commit 00ecbc34b3961a015d2064ffdbd5f20fb602ef73
+> Author: Alexey Klimov <alexey.klimov@linaro.org>
+>
+> soc: samsung: exynos-pmu: generalise gs101-specific cpu{idle,hotplug} for=
+ Exynos SoCs
+>
+> This patch generalises cpuhotplug and cpuidle support for GS101-based SoC=
+s
+> to be reused for other Exynos-based SoCs. It introduces cpu_pmu_offline a=
+nd
+> cpu_pmu_online callbacks in exynos_pmu_data and updates gs101 platform da=
+ta
+> to use them.
+>> diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exyn=
+os-pmu.c
+>> index d58376c38179b..660416c0db432 100644
+>> --- a/drivers/soc/samsung/exynos-pmu.c
+>> +++ b/drivers/soc/samsung/exynos-pmu.c
+> [ ... ]
+>> @@ -425,6 +346,11 @@ static int setup_cpuhp_and_cpuidle(struct device *d=
+ev)
+>>  		return 0;
+>>  	}
+>> =20
+>> +	if (!pmu_context->pmu_data->cpu_pmu_offline || !pmu_context->pmu_data-=
+>cpu_pmu_online) {
+>> +		dev_err(dev, "PMU write/read sequence is not present for cpuhotplug a=
+nd cpuidle\n");
+>> +		return -ENODEV;
+>> +	}
+>> +
+>
+> Does this return path leak the intr_gen_node device node reference?
+> of_parse_phandle() acquires a reference to it earlier in this function,
+> which needs to be released via of_node_put() before returning.
+>
+> [ ... ]
+>> @@ -458,17 +384,17 @@ static int setup_cpuhp_and_cpuidle(struct device *=
+dev)
+>> =20
+>>  	/* set PMU to power on */
+>>  	for_each_online_cpu(cpu)
+>> -		gs101_cpuhp_pmu_online(cpu);
+>> +		exynos_cpuhp_pmu_online(cpu);
+>> =20
+>>  	/* register CPU hotplug callbacks */
+>>  	cpuhp_setup_state(CPUHP_BP_PREPARE_DYN,	"soc/exynos-pmu:prepare",
+>> -			  gs101_cpuhp_pmu_online, NULL);
+>> +			  exynos_cpuhp_pmu_online, NULL);
+>> =20
+>>  	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "soc/exynos-pmu:online",
+>> -			  NULL, gs101_cpuhp_pmu_offline);
+>> +			  NULL, exynos_cpuhp_pmu_offline);
+>> =20
+>>  	/* register CPU PM notifiers for cpuidle */
+>> -	cpu_pm_register_notifier(&gs101_cpu_pm_notifier);
+>> +	cpu_pm_register_notifier(&exynos_cpu_pm_notifier);
+>>  	register_reboot_notifier(&exynos_cpupm_reboot_nb);
+>>  	return 0;
+>>  }
+>
+> This problem wasn't introduced by this patch, but is there a use-after-fr=
+ee
+> of intr_gen_node in setup_cpuhp_and_cpuidle()?
+>
+> of_node_put(intr_gen_node) is called immediately after of_address_to_reso=
+urce(),
+> but later the node pointer is passed to of_syscon_register_regmap():
+>
+> 	ret =3D of_address_to_resource(intr_gen_node, 0, &intrgen_res);
+> 	of_node_put(intr_gen_node);
+> 	...
+> 	ret =3D of_syscon_register_regmap(intr_gen_node,
+> 					pmu_context->pmuintrgen);
+>
+> Also, this problem wasn't introduced by this patch, but does this functio=
+n
+> need to provide a teardown mechanism for these global notifiers?
+>
+> If exynos_pmu_probe() fails after this point, the devres-managed pmu_cont=
+ext
+> will be freed.
+>
+> Since cpuhp_setup_state() and cpu_pm_register_notifier() don't use devm_
+> variants, subsequent CPU hotplug or idle events could invoke the dangling
+> callbacks and access the freed pmu_context, potentially causing a
+> use-after-free.
+>
+>> diff --git a/drivers/soc/samsung/gs101-pmu.c b/drivers/soc/samsung/gs101=
+-pmu.c
+>> index 17dadc1b9c6ec..5f2a599241447 100644
+>> --- a/drivers/soc/samsung/gs101-pmu.c
+>> +++ b/drivers/soc/samsung/gs101-pmu.c
+> [ ... ]
+>> @@ -322,11 +322,68 @@ static const struct regmap_access_table gs101_pmu_=
+wr_table =3D {
+>>  	.n_no_ranges =3D ARRAY_SIZE(gs101_pmu_ro_registers),
+>>  };
+>> =20
+>> +/*
+>> + * gs101_cpu_pmu_ prefix functions are common code shared by CPU PM not=
+ifiers
+>> + * (CPUIdle) and CPU hotplug callbacks. Functions should be called with=
+ IRQs
+>> + * disabled and cpupm_lock held.
+>> + */
+>> +static int gs101_cpu_pmu_online(struct exynos_pmu_context *pmu_context,=
+ unsigned int cpu)
+>> +	__must_hold(&pmu_context->cpupm_lock)
+>> +{
+>> +	unsigned int cpuhint =3D smp_processor_id();
+>
+> This problem wasn't introduced by this patch, but will smp_processor_id()
+> return the correct CPU index during hotplug startup?
+>
+> During CPU hotplug startup, exynos_cpuhp_pmu_online() is called via
+> CPUHP_BP_PREPARE_DYN, which executes on the Boot Processor.
+>
+> As a result, smp_processor_id() returns the Boot Processor's ID instead o=
+f the
+> target CPU's ID, which could misconfigure the Boot Processor's register w=
+hile
+> leaving the target CPU uninitialized.
 
-I'm not sure we're understanding each other.  Let me give you an example:
-
-static const struct mfd_cell cpcap_common_devices[] = {
-     MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0, "motorola,cpcap-battery"),
-     MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rtc"),
-     MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0, "motorola,cpcap-pwrbutton"),
-     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-led-red"),
-     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-led-green"),
-     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-led-blue"),
-     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-led-adl"),
-     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-led-cp"),
-     MFD_CELL_NAME("cpcap-codec"),
-};
-
-static const struct mfd_cell cpcap_default_devices[] = {
-     MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0, "motorola,cpcap-adc"),
-     MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0, "motorola,cpcap-regulator"),
-     MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0, "motorola,cpcap-usb-phy"),
-};
-
-static const struct mfd_cell cpcap_mapphone_devices[] = {
-     MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0, "motorola,mapphone-cpcap-adc"),
-     MFD_CELL_OF("cpcap-charger", NULL, NULL, 0, 0, "motorola,mapphone-cpcap-charger"),
-     MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0, "motorola,mapphone-cpcap-regulator"),
-     MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0, "motorola,mapphone-cpcap-usb-phy"),
-};
-
-This way, it's super easy to read / maintain the common and unique devices.
-
-The only potential drawback would be 2 calls to mfd_add_devices() but
-that's common practice.
-
-Also notice that I droped the "_mfd" parts, which you should too.
-
-> > >  static int cpcap_probe(struct spi_device *spi)
-> > >  {
-> > >       struct cpcap_ddata *cpcap;
-> > > +     const struct mfd_cell *cells;
-> > > +     unsigned int num_cells;
-> > >       int ret;
-> > >
-> > >       cpcap = devm_kzalloc(&spi->dev, sizeof(*cpcap), GFP_KERNEL);
-> > >       if (!cpcap)
-> > >               return -ENOMEM;
-> > >
-> > > +     cpcap->variant = (enum cpcap_variant)spi_get_device_match_data(spi);
-> > > +     if (!cpcap->variant)
-> > > +             return -ENODEV;
-> >
-> > Isn't this covered in the 'default' below?
-> >
-> 
-> This is for case cpcap->variant = 0, it should never happen, but check
-> will not cause harm
-
-The 'default' branch in the switch below will pick that up too.  This
-check is superfluous.
-
-> > > +     switch (cpcap->variant) {
-> > > +     case CPCAP_DEFAULT:
-> > > +             cells = cpcap_default_mfd_devices;
-> > > +             num_cells = ARRAY_SIZE(cpcap_default_mfd_devices);
-> > > +             break;
-> > > +     case CPCAP_MAPPHONE:
-> > > +             cells = cpcap_mapphone_mfd_devices;
-> > > +             num_cells = ARRAY_SIZE(cpcap_mapphone_mfd_devices);
-> > > +             break;
-> > > +     default:
-> > > +             return dev_err_probe(&spi->dev, -EINVAL,
-> > > +                                  "Unknown device %d\n", cpcap->variant);
-> >
-> > This should be -ENODEV.
-> >
-> 
-> hm, match is ENODEV cause it looks for device, here driver checks
-> id/variant, so shouldn't it be EINVAL? I assume error message should
-> be "Unknown device version" or "Unknown device ID"
-
-All of your supported devices are represented in this switch statement.
-Any other request, regardless of the reason should results in
-"Unsupported device" and a -ENODEV - same as your check for
-!cpcap->variant above.
-
--- 
-Lee Jones
