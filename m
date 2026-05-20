@@ -1,153 +1,123 @@
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684003B6BEE
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DBF3BF685
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779268816; cv=none; b=t8cYjG8hq33wYpsFYt6fIfDY4ljMweFJpPdB6/zI4M9LDLEzGFvDUPVpLAXe1mkaTj5SbjQjDph2EGPsZP+GHXmAOfN6r/AOHD/LChsgXKaDjDN1KcHdMPV6XFD+dIz+UbC5HVkZyzD2PUlvlG6JY8thKJgnrkpdEwfdva4iGXk=
+	t=1779268819; cv=none; b=WAR8HEygHl7q3E78N88wX3UdxBoM8caPMUaTMH5SuDqNiWbybCqFg/bEM0wH8ycFaoQWRNUcHP20mU/MvB9cfFrsWFIuZ0MX+w/eNavrv817wNX4yR38kRFCHISLvWakyXo58m4dXFON8YQlUIJYV0YQQyC+KwEyBgcFb99/erA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779268816; c=relaxed/simple;
-	bh=tykyc4F6DdCin3fut0O+1NMZ9opVL5h+xA3WkGtbPlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=frTuCmCR+lfTAAEvysfsPZcKbvA41jghTfX/Zu/Xxg2pHrwIYj8sJxGagyeyDy/4peWPYknSxCBriiUi8091OA+Yd/9hMQ3VGmxjOmMnqrG811w99JO6V21uHq2CzVO3KmgxOYFhtev4v6isxP/hdiicp8lBsHydFQMh1oX1a/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IRa4+0Bh; arc=none smtp.client-ip=209.85.210.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779268819; c=relaxed/simple;
+	bh=CMyYvMbrlLKZPW5/P3Mh4MVx058aw4LL2Rmzn4Gc+K8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aWI7vLBMax3IZ8BM/zLOxvmwY+uGYfiClMpRgjhoxuSILtir66FhFoH7qdCL/HWZ+Iq1NtMZnabZd+i7anjWzSwTc2/HDfcT0VIPT2hPxPTcv/SeSqJOQbjUoiKFTF41+u5spI3JBRQ3RgS1PAOh7Z7dDXYOcVe/jtN4fpIhfXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Blyza42V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IRa4+0Bh"
-Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-83d5bbef760so1952731b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 02:20:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779268813; x=1779873613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qTVbMKm3/twtkQTkDovvFEvZk7HsMSG4qE1A6oaHTA8=;
-        b=IRa4+0Bhg051i2FZirMci8CSAsqqxdsUOU1OH8Ij+JJrNcjllHOKaxTKN81K3+IU7j
-         yfT4uM5LSQhFSOxWKW1z6H0mFtpNklXj/26VL5L4u/C2adlVglhLjdBfj/UF4l6FgMC6
-         U1a5Rryy7BzS3ulyxMBW102L9zcbRPJOcemzWw7r6fTwfE4Zhjh6WblFgJy2rYc1XRLA
-         GDJLs40aiLwWWM7sr1k4DP1E1Vhmei8RW1Hxc+We1SkISPZbmY+MeGwRrrYx3+XW2KpU
-         jr5l2zx3pbihGEqm1cGQ36YC/kdvrLK6kiIZC9HzAaqNbT9Jb7e9ClfzwULTILi5VJE0
-         Ye5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779268813; x=1779873613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=qTVbMKm3/twtkQTkDovvFEvZk7HsMSG4qE1A6oaHTA8=;
-        b=Ck9uEjPqlqC7yklANdQvUldLWg+4tMTt9+7SNjSza37h0gQzWDOz9cEjh0HYZE2+r8
-         1kbXcYkXepVtA11vdf9GscvGFL7VtqxNH2GRTFAbwEMVutVjXigXxWbZD3kj1eh3Tpmy
-         juzhS4RRk28S5BMjLLxhbTqAFXERRtlFJzkaq3p6Yi4ctwQAhCfwmIqfy5LppACRL2xI
-         Z4tIrYFs5us/4qTZfc9otostrwsctG1+3QMJkkToRQWedTUmjJ9jhwt98bmbZ2JsJygy
-         MO87PQPODffJTZB/M4BohvLoKYT6P2g65BSNx+j6FRFirh13CMddWLQOnH6EE092L0vY
-         /f+g==
-X-Forwarded-Encrypted: i=1; AFNElJ+M/w9bjiv8irIXwNn6mXKIajDTBMZv/7LR6f9HGuaeUipNjLXdGPy2Y0w/kE50dwRpSMeEcXN+BRGY@vger.kernel.org
-X-Gm-Message-State: AOJu0YytvbdbGgYcyH38lsWabjuCJxlwF4jHLNs5ihIKkAAmKKuEAMg4
-	gdouhcipvE4HRs724ocDuRxQTxLZB818Xchs8oeuE9r5Imi+yQ8nqtmd
-X-Gm-Gg: Acq92OGGD9z3/A4PP+UlbhbxFmO0gJxFsSPYiDBPpkHd4TuV99WyHnxd9XcOBvMDgSw
-	daxJqYnUk5WK4t0VEvmVgaUjYdeJw289X8YrDYtduyA3z3WlwqsVBdATN1UVIUe4lQGjFLy/GcZ
-	1XZgPx/9+5Wz710Qk5N+T/NsiL4w+E93r8UaPoE4AerJnpgHW5rbXCH6gpnmhIPgy3vGjkhyvt1
-	+Ha7tpdg4DQXOxVdGRdDmqbmdLApIneGQ25TyWi2oaqr8+L1Hy8EoPImykabek6ZpUReGgXVsC1
-	cLdMebXyyfFsgb28bRHAilQcszhj8O0sYXUqxG7/3tTZvr+KIHX/Rb0VsoRE0UCbevW3kSKFOVL
-	IS5fJli9bwlxQEGpnG9xGETg+LX0FWcNOGnLEFbnkCXHBJafF/DgkopltnqZC3LVPeOo3RIcXDN
-	ALgticr3sleHUTm2uS8lo7cTNaJzWAW6NHaFN3M8Vh31sEinLZ
-X-Received: by 2002:a05:6a00:2295:b0:82f:832a:75cd with SMTP id d2e1a72fcca58-83f33d547ccmr23996834b3a.39.1779268812696;
-        Wed, 20 May 2026 02:20:12 -0700 (PDT)
-Received: from intel.company.local ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f63bb986dsm10208967b3a.48.2026.05.20.02.20.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 02:20:12 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-X-Google-Original-From: Wandun Chen <chenwandun@lixiang.com>
-To: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	iommu@lists.linux.dev,
-	zhaomeijing@lixiang.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	bhe@redhat.com,
-	rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	m.szyprowski@samsung.com,
-	robin.murphy@arm.com,
-	leitao@debian.org,
-	kees@kernel.org,
-	coxu@redhat.com,
-	tangyouling@kylinos.cn,
-	songshuaishuai@tinylab.org
-Subject: [PATCH v2 7/8] riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
-Date: Wed, 20 May 2026 17:18:43 +0800
-Message-ID: <20260520091844.592753-8-chenwandun@lixiang.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260520091844.592753-1-chenwandun@lixiang.com>
-References: <20260520091844.592753-1-chenwandun@lixiang.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Blyza42V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCBEE1F00893;
+	Wed, 20 May 2026 09:20:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779268818;
+	bh=m25VWtHhrEPcG2n9Qncg0J5boIQQL3r/M+d5r3U+Hps=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Blyza42VhCEIXhz/AEjpM4KomomLERaoQwItK3uz0FDmVAWKS8BDD/bbftFm2bZ5E
+	 X1z8gXlsJ3gQdI7sASnF342nKXe648fp95bK/c8oNdfrWzJtotcs/F35EmjiPALAeK
+	 GyeJLMe94vrf29vq6XaF9c7TLcnEPjvNwT/IlR9+EgYuCtbs/L2NDbChKyPf0ckgRr
+	 qcZH+3fzYS0ZtP+Hbcp7WZZjxdQGsc0GP2ilRmxwbuoAxTYkNo/6IK8ohc6KzWRYjC
+	 GTBl8O5Xt2yKxyIDbaHDYB9J6pzhXXIwEkbXZmCxjHgeo40JvSF/reMRAwfniSz1CU
+	 5dumOLdJgBrng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: qcom,usb-vbus-regulator:
+ add qcom,pm4125-vbus-reg
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rakesh Kota" <rakesh.kota@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260520-add_pm4125-vbus-reg-v1-1-f6d15d7dbbe8@oss.qualcomm.com>
+References: <20260520-add_pm4125-vbus-reg-v1-1-f6d15d7dbbe8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 09:20:17 +0000
+Message-Id: <20260520092017.DCBEE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Wandun Chen <chenwandun1@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Removing the fallback compatible string for `qcom,pm4125-vbus-reg`=
+ breaks backwards compatibility and schema validation for existing device t=
+rees.
+- [Low] Unit-address mismatch in the newly added pm4125 device tree example=
+ causes a dtc compiler warning/error.
+--
 
-From: Wandun Chen <chenwandun@lixiang.com>
+commit d88778938ce0889e7c6904b04eca901125a815cb
+Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 
-Apply the same non-dumpable reserved memory filtering to RISC-V kdump
-as was done for arm64. Use of_reserved_mem_kdump_exclude() to drop
-flagged regions from the elfcorehdr PT_LOAD segments, and
-of_reserved_mem_kdump_nr_ranges() to pre-size the crash_mem array.
+dt-bindings: regulator: qcom,usb-vbus-regulator: add qcom,pm4125-vbus-reg
 
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
----
- arch/riscv/kernel/machine_kexec_file.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This commit moves qcom,pm4125-vbus-reg from the fallback items list into
+a standalone enum since it has a different register layout. It also updates
+the required properties for this variant to use microvolt instead of
+microamp, and adds a new example.
 
-diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-index 54e2d9552e93..c359cf714c79 100644
---- a/arch/riscv/kernel/machine_kexec_file.c
-+++ b/arch/riscv/kernel/machine_kexec_file.c
-@@ -10,6 +10,7 @@
- #include <linux/elf.h>
- #include <linux/slab.h>
- #include <linux/of.h>
-+#include <linux/of_reserved_mem.h>
- #include <linux/libfdt.h>
- #include <linux/types.h>
- #include <linux/memblock.h>
-@@ -63,6 +64,7 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
- 
- 	nr_ranges = 1; /* For exclusion of crashkernel region */
- 	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-+	nr_ranges += of_reserved_mem_kdump_nr_ranges();
- 
- 	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
- 	if (!cmem)
-@@ -76,6 +78,8 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
- 
- 	/* Exclude crashkernel region */
- 	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
-+	if (!ret)
-+		ret = of_reserved_mem_kdump_exclude(cmem);
- 	if (!ret)
- 		ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
- 
--- 
-2.43.0
+> diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-re=
+gulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-re=
+gulator.yaml
+> --- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator=
+.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator=
+.yaml
 
+[ ... ]
+
+>  properties:
+>    compatible:
+>      oneOf:
+>        - enum:
+>            - qcom,pm8150b-vbus-reg
+> +          - qcom,pm4125-vbus-reg
+>        - items:
+>            - enum:
+> -              - qcom,pm4125-vbus-reg
+>                - qcom,pm6150-vbus-reg
+>                - qcom,pm7250b-vbus-reg
+
+[Severity: High]
+Does removing this fallback compatible string break backwards compatibility
+for existing device trees?
+
+Previously, the binding allowed the compatible string list to be
+qcom,pm4125-vbus-reg, qcom,pm8150b-vbus-reg, which is currently used in
+arch/arm64/boot/dts/qcom/pm4125.dtsi.
+
+Additionally, the required properties for qcom,pm4125-vbus-reg are changed
+from regulator-min/max-microamp to regulator-min/max-microvolt. Since
+existing device trees like qrb2210-rb1.dts rely on the microamp properties,
+will this cause make dtbs_check to fail for existing in-tree device trees?
+
+[ ... ]
+
+> +  - |
+> +     pmic {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        usb-vbus-regulator@5000 {
+> +            compatible =3D "qcom,pm4125-vbus-reg";
+> +            reg =3D <0x1100>;
+
+[Severity: Low]
+Will this unit-address mismatch cause a compiler warning during validation?
+
+The node name specifies an address of 5000, but the reg property specifies
+0x1100. This usually triggers a unit_address_vs_reg warning from the dtc
+compiler during make dt_binding_check.
+
+Should the node name be updated to match the reg property address?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-add_pm4125=
+-vbus-reg-v1-0-f6d15d7dbbe8@oss.qualcomm.com?part=3D1
