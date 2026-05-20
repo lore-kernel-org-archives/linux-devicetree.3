@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F893655CC;
-	Wed, 20 May 2026 06:56:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8864A35;
+	Wed, 20 May 2026 07:01:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779260208; cv=none; b=rKTTKmskUCINfxFq1sYAyauSyJaNMasE2njnnOe1MYz3v0206VPiGjJl5u4Ka9GHStf2q/miUJeu4LbiXNSBCOLinISkYlkGIx6ZsVFN1xpAIy9dLm/oOuEcicnRrQWsyOaaLEZRX6QQJi06D3U51mq7/BimFaO0wVa2E20XQLM=
+	t=1779260486; cv=none; b=hfqdGuBeLwHrnfDABB3l3ml0/qGnEVwpz2yMl6ZhchGDu4kepeVieJXOnprtAgst9q9LQAeZaMLb8yIf8qZV0JzthMZgHnlC/p88yY5rtijv0k7vAgj6aUWA/g0Dq9+YetL4ADvqzUwbcj6I5tc/ZY4eLM67fGU7Cj/UzlnPmk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779260208; c=relaxed/simple;
-	bh=Ze64cwqL5R2/ljmPISDVWQnEFLqY5BnIu7Zn+TlBPT4=;
+	s=arc-20240116; t=1779260486; c=relaxed/simple;
+	bh=9mncF9Shx4CK/YgCTF7h6deYqIGsQgQg8jwcVl3AWdk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ID0ljzXh7Rkwtd9rXRmhNP1CIA7gh3AcBZ5EKu+Up3+OMO1BmGvkN2bMEzYF9x64I0sNCOVq6nPmBQFI4uf7ZHzKEop91oa1ZTIlPHRT6cHukpkLY2ANTfSSA9/0fcDxRUIZQxRBidEkdHVZipR+5f/+ErGcpFBlYe1oc0uhgac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mr5M2KeX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=W1qTNdcbn2i6iCx5RA7ufztXInZU0Uy+Ipv9Xko+WqYqZMugz76cOfpvq91jB1r0a7tThvcblgpK/aQyPdFI/+WRsQ1mgVrqDCSdniuh6xFfTkPSsRkGaqpOewy0aqz6BbZ7EJvbTJFdOBU+Ad+fLv/OPsBO1j+NaN5REaAGc3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+dR/U/8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mr5M2KeX"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6917E1F00893;
-	Wed, 20 May 2026 06:56:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+dR/U/8"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 028221F000E9;
+	Wed, 20 May 2026 07:01:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779260207;
-	bh=myHqjK9JV6RGlCTmrEqpEM2dzr181ww6aDV0V5o//wU=;
+	s=k20260515; t=1779260485;
+	bh=9mncF9Shx4CK/YgCTF7h6deYqIGsQgQg8jwcVl3AWdk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mr5M2KeXzvmbhG2dY9eXSwDHckR31Nb0NV3DhNd65V6bi1tG7f3QO6i5aoZcPYTEO
-	 km5yv6Ix1R2ZJGrmPtuaEq8FO5vCmS++ahiabeIR26MDt0yLWHlxyBYZq6nguQpPsK
-	 zN1WKwmJ470e1rkOPYFgmFLuhbVbH0uMf9vqhLDOXaltjnQ4UdcbrKxLrLKrivh2ml
-	 TaIJYuv1qDPcSZNrFm+IgTqZ8nnC3uK3CCC/oMMxAzoRBI4Lk5GtX+yc2fIqeLtzHT
-	 Gz7K/mWCK7jNDNCELo3lYdUlDyKpEPEeG3xbfay4AvsaYOBsksenyaycxg0ZXSG7+k
-	 1vwSfBiNP8BHA==
-Date: Wed, 20 May 2026 08:56:44 +0200
+	b=c+dR/U/88H4GvIermWZjDj9yZyf5fd8XF2FXjK2tpVGzjMe7gYW/3SDXitKcHFMzl
+	 jO7Fk/dxst9gyxp7RfLM91KAXP6Jf3MaQ0gboQDH2XXpsIxocVtC1JsxQ4Gd9VYVtB
+	 35boDq+0aKtL9FaGSTQkcVOgYixCF7ufEjP9VgYs1PKO9RKCfIjXFdRGTSfpWr1Dla
+	 UBmgCFxp+ssCkiU/DIhtCSKx1gUsXHrF/0clxP3c5zb5yIqZ8BKou9F0gjIXAA8kdL
+	 a2RPOoRdd8PtNtm6Rt8OUFjexjiDDiX+PQYjaafTYCW+Bo3te6Rm/KEg+V3YO+eY6M
+	 Y2+sxYRj7XMow==
+Date: Wed, 20 May 2026 09:01:23 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, 
-	iommu@lists.linux.dev, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] dt-bindings: arm-smmu: Add compatible for Qualcomm
- Nord SoC
-Message-ID: <20260520-bulky-intelligent-wren-cffca0@quoll>
-References: <20260519013950.873105-1-shengchao.guo@oss.qualcomm.com>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>, Rob Herring <robh+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	devicetree@vger.kernel.org
+Subject: Re: [net-next v4 3/5] dt-bindings: net: starfive,jh7110-dwmac: Add
+ jhb100 sgmii rx clk
+Message-ID: <20260520-acrid-kickass-kittiwake-6d4247@quoll>
+References: <20260519101436.111476-1-minda.chen@starfivetech.com>
+ <20260519101436.111476-4-minda.chen@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,21 +50,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260519013950.873105-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260519101436.111476-4-minda.chen@starfivetech.com>
 
-On Tue, May 19, 2026 at 09:39:50AM +0800, Shawn Guo wrote:
-> Document Applications Processor Subsystem (APSS) SMMU on Qualcomm
-> Nord SoC.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
-> Hi Will,
-> 
-> It has a dependency on Krzysztof's clock constraint change [1].
-> 
-> [1] https://lore.kernel.org/all/20260505071453.34000-2-krzysztof.kozlowski@oss.qualcomm.com/
+On Tue, May 19, 2026 at 06:14:34PM +0800, Minda Chen wrote:
+> jhb100 SGMII interface tx/rx mac clock is split and require to
+> set clock rate in 10M/100M/1000M speed. So dts need to add a
+> new rx clock in code, dts and dt binding doc.
+> So in jhb100 SGMII interface contain 6 clocks, RMII/RGMII
+> interface still contail 5 clocks.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+If this is for jhb100, why isn't this part of previous patch?
+
+Does this need constraints per variant of the device?
 
 Best regards,
 Krzysztof
