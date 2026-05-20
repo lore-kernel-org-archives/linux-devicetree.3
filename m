@@ -1,140 +1,385 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1703A7F75
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:37:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6FC3C0601;
+	Wed, 20 May 2026 10:39:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779273456; cv=none; b=TaSS1Vi+1XyR9MuXPEyf1GG1H/2ThBaeJl+WRsCZ31Xc3VlcX6FrEz+6jbfe0tZbGsBQTrgy8vC0ttAP7yW+T19sT0/4FUGGwDs4w0F16oOjbIIS9iprJ32QWWS+mES3a4+SFy/6ub7Qf6dCARMYSB05WCkQz9+Q1gLhOI14TB8=
+	t=1779273600; cv=none; b=NHRJTFPhiJdK2gd16Kzcw7IBOPtgq5yrhD9OvYar3JdZq06zEiqRMFVmfSQuTU5G803H69ef61YCWiCZV4g66wYhUsYK+/30v+Eni9k2ggHZG4vkEvqU72qDX9N7Ra3pFmRZkZz1eGSvDXyeEvuRSwdHi6/ctJzfvJNQuONZnhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779273456; c=relaxed/simple;
-	bh=b1KS4ve7nKCZnietzA3JqZt5Sc/XivNo+XmABNMV1yg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rz6L9GAtotXelEPN/4P6bnG+ItHAu2VifPHoBddTZJOiOsrZtib6uyti6NKErFPCxsqZmZYD5EBwJbP3NlPahhqHzOqVfQc2Sq6W3yza3e6CocQ787LbU0FYS+60eb8L5Wup7oXXVww6+vrg86OGuavWKA7+nqM5EDjc4eo79L0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4xKdNfy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779273600; c=relaxed/simple;
+	bh=wGCBJwVR2BqRUlN7ZNYNR9/tQEJ6K4h0nOwf4I8vkjg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IO1Cco5jXUXKKZlaiw8ZLWjcySvrx2drQ+XtRWS2KhdYgJM0LtzyeWK9cHxNjeY1Kx5WMukdJnUDJMx7Mgo8/NZHGXIE0rZ/Yw6/X/1TH4+LAEoWGufSKCYiP1VYDumhviuYhYFNFwSo8IdlCcSyiesH3/N09Wwe1ZNlZd4bG/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ov+ZfuPj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4xKdNfy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDFA1F000E9;
-	Wed, 20 May 2026 10:37:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ov+ZfuPj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843AB1F000E9;
+	Wed, 20 May 2026 10:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779273454;
-	bh=Wo5xbYL+itlqTvl7Ze4s4sO7SYGNulrf+hWbS5SGRVs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=I4xKdNfykyy8WG9EJfc4LSXD4ZoZWi3ubi5ZM9pyt59y/RHAOmSGh63QfL1a/chAM
-	 +dkhG9Qvf2wht/3qOo7Rvog/FBzmtRLBkjdGnUaKDpYNwddE+YJOrNCeqF/jpCEKPj
-	 1lw1sW357clg1p6/qehnme0aPfZFxNwS76yxJmtunvTNnASWDFyP7K2laIJ777N+Ul
-	 /cDnXQ7N3NyJ7njzUGpduI1wkXUPZRCoqQE+emenoc90jTywE7eZUV4tX9Qw9WiTIG
-	 AIztDSFGAvGZc/kZYcLjYip6EUif5wzBecDNtceNTHA+nJl+h5A0YSNmuo7PZIb2iA
-	 1+vDA2LaTglaQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/8] of: reserved_mem: save /memreserve/ entries into
- the reserved_mem array
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260520091844.592753-5-chenwandun@lixiang.com>
-References: <20260520091844.592753-5-chenwandun@lixiang.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 10:37:33 +0000
-Message-Id: <20260520103734.2CDFA1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779273596;
+	bh=qXGlQ4S6PRaBvBMqUGp7m2mgi/ugw8+PBi3RqYGvSkM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ov+ZfuPjPHrlUwW8RHIuXWMkX/DBLlzRgv6ENTUL4zOubNDj9A9Z5DAp1YsMepjW1
+	 873xvqbeywoGIyDI+EDyWcmhcuu4pTH9gz18TKOdgX3bA676CY9G90jyUcmesc1ROu
+	 mSGCPqsCQR84mACqmvPlLZDewHOz+5V9ks7tV40CrnSXhK+ktijZSvdgtbbAmLqUIA
+	 eelCyjs4lAK39acrsqlwEx3HFk35zpnQ7tNVVDURYvXa4Q1uRxRARBxpYWZNUklEF/
+	 19J3a/MKfwc2ZZohYvhRqTzLKi3RFN5jCtRvczcFTSz5nZvcGw4dQNVT/qUL1urgmA
+	 0Tg5knaMRbhGw==
+Date: Wed, 20 May 2026 12:39:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+Cc: Saravanan Sekar <sravanhome@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
+Subject: Re: [PATCH 2/2] regulator: mp8899: Add MPS MP8899 PMIC regulator
+ driver
+Message-ID: <20260520-luminous-tacky-swallow-a455d3@quoll>
+References: <20260519-mp8899-regulator-driver-v1-0-30d14421b7f1@oss.qualcomm.com>
+ <20260519-mp8899-regulator-driver-v1-2-30d14421b7f1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260519-mp8899-regulator-driver-v1-2-30d14421b7f1@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Out-of-bounds write to the statically allocated `reserved_mem_arra=
-y` due to inflated `total_reserved_mem_cnt` without guaranteed array reallo=
-cation.
---
-
-commit cac834a48f61205ebaa2a6eaf1bc2f735c0a6c46
-Author: Wandun Chen <chenwandun1@gmail.com>
-
-of: reserved_mem: save /memreserve/ entries into the reserved_mem array
-
-This commit saves /memreserve/ entries into the reserved_mem array so they
-can be excluded from kdump vmcores. Overlapping entries are marked as dumpa=
-ble
-to ensure useful crash analysis data is retained.
-
-> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> index 82f7327c59ea9..d2bcaf149fe81 100644
-> --- a/drivers/of/fdt.c
-> +++ b/drivers/of/fdt.c
-[ ... ]
-> @@ -516,7 +517,9 @@ void __init early_init_fdt_scan_reserved_mem(void)
->  		if (!size)
->  			break;
->  		memblock_reserve(base, size);
-> +		nr_memreserve++;
->  	}
-> +	fdt_reserved_mem_account_memreserve(nr_memreserve);
->  }
-[ ... ]
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 313cbc57aa453..6dfe9e03c535d 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-[ ... ]
-> @@ -241,6 +241,43 @@ static void __init __rmem_check_for_overlap(void)
->  	}
->  }
-> =20
-> +static void __init fdt_reserved_mem_add_memreserve(phys_addr_t base,
-> +						   phys_addr_t size)
+On Tue, May 19, 2026 at 11:51:06PM +0530, Vignesh Viswanathan wrote:
+> +static int mp8899_parse_cb(struct device_node *np,
+> +			   const struct regulator_desc *desc,
+> +			   struct regulator_config *config)
 > +{
-> +	struct reserved_mem *rmem;
-> +	bool dumpable =3D false;
-> +	int i;
+> +	struct mp8899_regulator_info *info = config->driver_data;
+> +	struct regulator_desc *rdesc;
+> +	int buck_id = desc->id;
+> +	int ret;
+> +	u8 val;
 > +
-> +	if (reserved_mem_count =3D=3D total_reserved_mem_cnt) {
-> +		pr_err("not enough space for memreserve regions.\n");
-> +		return;
-> +	}
+> +	/* Read buck phase delay from DTS */
+> +	ret = of_property_read_u8(np, "mps,buck-phase-delay", &val);
 
-[Severity: High]
-Could this lead to an out-of-bounds write to the statically allocated
-reserved_mem_array during early boot?
+NAK
 
-fdt_reserved_mem_account_memreserve() increments total_reserved_mem_cnt
-by the number of /memreserve/ entries. However, if the device tree lacks
-a /reserved-memory node, fdt_scan_reserved_mem_late() returns early and
-alloc_reserved_mem_array() is bypassed.
-
-If this happens, the reserved_mem pointer continues to point to the
-statically allocated array with a fixed capacity of MAX_RESERVED_REGIONS.
-
-Since the check above compares against the inflated total_reserved_mem_cnt,=
- it
-appears we could write past the end of the static array if the device tree
-contains 64 or more /memreserve/ entries?
-
-> +
-> +	for (i =3D 0; i < reserved_mem_count; i++) {
-> +		rmem =3D &reserved_mem[i];
-> +
-> +		if (!rmem->dumpable)
-> +			continue;
-> +
-> +		if (base < rmem->base + rmem->size && rmem->base < base + size) {
-> +			dumpable =3D true;
-> +			break;
+> +	if (!ret) {
+> +		ret = regmap_update_bits(config->regmap,
+> +					 MP8899_BUCK_REG(buck_id, MP8899_BUCK1_CTL1),
+> +					 MP8899_PHASE_DELAY_MASK,
+> +					 (val & 3) << MP8899_PHASE_DELAY_SHIFT);
+> +		if (ret) {
+> +			dev_err(config->dev, "Failed to set phase delay for buck%d: %d\n",
+> +				buck_id + 1, ret);
+> +			return ret;
 > +		}
 > +	}
 > +
-> +	rmem =3D &reserved_mem[reserved_mem_count];
-> +	rmem->base =3D base;
-> +	rmem->size =3D size;
-> +	rmem->dumpable =3D dumpable;
+> +	/* Read buck soft start from DTS */
+> +	ret = of_property_read_u8(np, "mps,buck-softstart", &val);
+> +	if (!ret) {
+> +		rdesc = &info->rdesc[buck_id];
+> +		rdesc->soft_start_val_on = (val & 3) << MP8899_SOFT_START_TIME_SHIFT;
+> +	}
 > +
-> +	reserved_mem_count++;
+> +	/* Read buck soft stop enable and configuration from DTS */
+> +	if (of_property_read_bool(np, "mps,buck-softstop-enable")) {
+> +		/* Enable soft stop */
+> +		ret = regmap_update_bits(config->regmap,
+> +					 MP8899_BUCK_REG(buck_id, MP8899_BUCK1_CTL2),
+> +					 MP8899_SOFT_STOP_EN_MASK,
+> +					 MP8899_SOFT_STOP_EN_MASK);
+> +		if (ret) {
+> +			dev_err(config->dev, "Failed to enable soft stop for buck%d: %d\n",
+> +				buck_id + 1, ret);
+> +			return ret;
+> +		}
+> +
+> +		/* Read soft stop timing configuration */
+> +		ret = of_property_read_u8(np, "mps,buck-softstop", &val);
+> +		if (!ret) {
+> +			ret = regmap_update_bits(config->regmap,
+> +						 MP8899_BUCK_REG(buck_id, MP8899_BUCK1_CTL2),
+> +						 MP8899_SOFT_STOP_TIME_MASK,
+> +						 val & 3);
+> +			if (ret) {
+> +				dev_err(config->dev, "Failed to set soft stop timing for buck%d: %d\n",
+> +					buck_id + 1, ret);
+> +				return ret;
+> +			}
+> +		}
+> +	}
+> +
+> +	/* OVP disable configuration */
+> +	if (of_property_read_bool(np, "mps,buck-ovp-disable")) {
+> +		ret = regmap_update_bits(config->regmap,
+> +					 MP8899_BUCK_REG(buck_id, MP8899_BUCK1_CTL1),
+> +					 MP8899_VOUT_OVP_EN_MASK, 0);
+> +		if (ret) {
+> +			dev_err(config->dev, "Failed to disable OVP for buck%d: %d\n",
+> +				buck_id + 1, ret);
+> +			return ret;
+> +		}
+> +		dev_info(config->dev, "OVP disabled for buck%d\n", buck_id + 1);
+> +	}
+> +
+> +	return 0;
 > +}
-[ ... ]
+> +
+> +/**
+> + * mp8899_parse_dt() - Parse global device tree properties
+> + * @dev: Device pointer
+> + * @info: Pointer to mp8899_regulator_info structure
+> + *
+> + * Parses global device tree properties that apply to all buck converters,
+> + * such as switching frequency configuration.
+> + */
+> +static void mp8899_parse_dt(struct device *dev,
+> +			    struct mp8899_regulator_info *info)
+> +{
+> +	struct device_node *np = dev->of_node;
+> +	int ret;
+> +	u8 freq;
+> +
+> +	np = of_get_child_by_name(np, "regulators");
+> +	if (!np) {
+> +		dev_err(dev, "missing 'regulators' subnode in DT\n");
+> +		return;
+> +	}
+> +
+> +	/* Read switching frequency from DTS */
+> +	ret = of_property_read_u8(np, "mps,switch-freq", &freq);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520091844.5927=
-53-1-chenwandun@lixiang.com?part=3D4
+NAK, you don't have such property. Test your DTS first.
+
+This is not really acceptable quality of a driver.
+
+> +	if (!ret) {
+> +		ret = regmap_update_bits(info->regmap, MP8899_SYSTEM2,
+> +					 MP8899_FREQ_MASK,
+> +					 (freq & 7) << 5);
+> +		if (ret)
+> +			dev_err(dev, "Failed to set switching frequency: %d\n", ret);
+> +	}
+> +
+> +	of_node_put(np);
+> +}
+> +
+> +/* Initialize debugfs for reg_addr and reg_value only */
+> +static void mp8899_debugfs_init(struct mp8899_regulator_info *info,
+> +				struct i2c_client *client)
+> +{
+> +	char name[16];
+> +
+> +	/* Create root debugfs directory: /sys/kernel/debug/mp8899-<bus>-<addr> */
+> +	snprintf(name, sizeof(name), "mp8899-%d-%04x",
+> +		 client->adapter->nr, client->addr);
+> +	info->debugfs_root = debugfs_create_dir(name, NULL);
+> +	if (IS_ERR_OR_NULL(info->debugfs_root)) {
+> +		dev_warn(info->dev, "Failed to create debugfs root directory\n");
+
+No, drop
+
+> +		info->debugfs_root = NULL;
+> +		return;
+> +	}
+> +
+> +	/* Create generic register access files at root level */
+> +	debugfs_create_file("reg_addr", 0644, info->debugfs_root, info,
+> +			    &mp8899_debugfs_reg_addr_fops);
+> +	debugfs_create_file("reg_value", 0644, info->debugfs_root, info,
+> +			    &mp8899_debugfs_reg_value_fops);
+> +}
+> +
+> +/* Cleanup debugfs */
+> +/**
+> + * mp8899_debugfs_exit() - Cleanup debugfs interface
+> + * @info: Pointer to mp8899_regulator_info structure
+> + *
+> + * Removes all debugfs entries created for the MP8899 device.
+> + */
+> +static void mp8899_debugfs_exit(struct mp8899_regulator_info *info)
+> +{
+> +	debugfs_remove_recursive(info->debugfs_root);
+> +}
+> +
+> +/**
+> + * mp8899_identify_device() - Verify MP8899 device presence
+> + * @info: Pointer to mp8899_regulator_info structure
+> + *
+> + * Reads and validates the vendor ID from SYSTEM4 register to confirm
+> + * the device is a genuine MP8899 PMIC.
+> + *
+> + * Return: 0 on success, -ENODEV if vendor ID doesn't match
+> + */
+> +static int mp8899_identify_device(struct mp8899_regulator_info *info)
+> +{
+> +	unsigned int vendor_id;
+> +	int ret;
+> +
+> +	ret = regmap_read(info->regmap, MP8899_SYSTEM4, &vendor_id);
+> +	if (ret) {
+> +		dev_err(info->dev, "Failed to read vendor ID: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	vendor_id = (vendor_id & MP8899_VENDOR_ID_MASK) >> 4;
+> +	if (vendor_id != MP8899_VENDOR_ID_VALUE) {
+> +		dev_err(info->dev, "Invalid vendor ID: 0x%x\n", vendor_id);
+> +		return -ENODEV;
+> +	}
+> +
+> +	dev_dbg(info->dev, "PMIC MP8899 device detected\n");
+> +	return 0;
+> +}
+> +
+> +/**
+> + * mp8899_i2c_probe() - I2C driver probe function
+> + * @client: I2C client device
+> + *
+> + * Initializes the MP8899 PMIC driver:
+> + * 1. Allocates driver data structures
+> + * 2. Initializes I2C regmap interface
+> + * 3. Verifies device identity
+> + * 4. Parses device tree configuration
+> + * 5. Read the BUCK1_CTL3 register of each buck and configure the linear ranges accordingly
+> + * 6. Registers regulator devices
+> + *
+> + * Return: 0 on success, negative error code on failure
+
+Why do you have kerneldoc for probe? Actually - why do you have
+kerneldoc everywhere?
+
+> + */
+> +static int mp8899_i2c_probe(struct i2c_client *client)
+> +{
+> +	struct mp8899_regulator_info *info;
+> +	struct regulator_config config = {};
+> +	struct device *dev = &client->dev;
+> +	struct regulator_dev *rdev;
+> +	struct regmap *regmap;
+> +	unsigned int vout_select;
+> +	int i, ret;
+> +
+> +	info = devm_kzalloc(dev, sizeof(struct mp8899_regulator_info), GFP_KERNEL);
+
+This is some very old code. If you were working on upstream, you would
+notice that syntax is sizeof(*). But NOW the syntax is even simpler: kzalloc_obj().
+
+
+> +	if (!info)
+> +		return -ENOMEM;
+> +
+> +	/* Allocate separate regulator_desc array for dynamic configuration */
+> +	info->rdesc = devm_kmemdup(dev, mp8899_regulators_desc,
+> +				   sizeof(mp8899_regulators_desc), GFP_KERNEL);
+> +	if (!info->rdesc)
+> +		return -ENOMEM;
+> +
+> +	info->dev = dev;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &mp8899_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "Failed to allocate regmap\n");
+> +
+> +	info->regmap = regmap;
+> +	i2c_set_clientdata(client, info);
+> +
+> +	/* Identify the device */
+> +	ret = mp8899_identify_device(info);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Parse device tree properties */
+> +	if (client->dev.of_node)
+> +		mp8899_parse_dt(&client->dev, info);
+> +
+> +	/* Configure linear ranges for each buck based on VOUT_SELECT */
+> +	for (i = 0; i < MP8899_MAX_REGULATORS; i++) {
+> +		ret = regmap_read(info->regmap,
+> +				  MP8899_BUCK_REG(i, MP8899_BUCK1_CTL3),
+> +				  &vout_select);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to read VOUT_SELECT for buck%d: %d\n", i + 1, ret);
+> +			return ret;
+> +		}
+> +
+> +		if (vout_select & MP8899_VOUT_SELECT_MASK) {
+> +			/* 1.0mV step mode */
+> +			info->rdesc[i].linear_ranges = mp8899_buck_ranges_1000uv;
+> +			info->rdesc[i].n_linear_ranges = ARRAY_SIZE(mp8899_buck_ranges_1000uv);
+> +			info->rdesc[i].n_voltages = MP8899_N_VOLTAGES_1MV;  /* 3201 voltages */
+> +			dev_dbg(dev, "Buck%d: 1.0mV step mode\n", i + 1);
+> +		} else {
+> +			/* 0.5mV step mode */
+> +			info->rdesc[i].linear_ranges = mp8899_buck_ranges_500uv;
+> +			info->rdesc[i].n_linear_ranges = ARRAY_SIZE(mp8899_buck_ranges_500uv);
+> +			info->rdesc[i].n_voltages = MP8899_N_VOLTAGES;  /* 3296 voltages */
+> +			dev_dbg(dev, "Buck%d: 0.5mV step mode\n", i + 1);
+> +		}
+> +	}
+> +
+> +	config.dev = dev;
+> +	config.regmap = regmap;
+> +	config.driver_data = info;
+> +
+> +	/* Register regulators */
+> +	for (i = 0; i < MP8899_MAX_REGULATORS; i++) {
+> +		rdev = devm_regulator_register(dev, &info->rdesc[i], &config);
+> +		if (IS_ERR(rdev))
+> +			return dev_err_probe(dev,
+> +					     PTR_ERR(rdev),
+> +					     "Failed to register regulator %d\n",
+> +					     i);
+> +
+> +		info->rdev[i] = rdev;
+> +	}
+> +
+> +	/* Initialize debugfs interface */
+> +	mp8899_debugfs_init(info, client);
+> +
+> +	/* Register panic notifier for PMIC state dump */
+> +	info->panic_notifier.notifier_call = mp8899_panic_handler;
+> +	info->panic_notifier.priority = 0;
+> +	ret = atomic_notifier_chain_register(&panic_notifier_list, &info->panic_notifier);
+> +	if (ret)
+> +		dev_info(dev, "Failed to register panic notifier: %d\n", ret);
+> +
+> +	dev_info(dev, "MP8899 regulator driver registered successfully\n");
+
+Drop
+
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * mp8899_i2c_remove() - I2C driver remove function
+> + * @client: I2C client device
+> + *
+> + * Cleanup function called when the driver is unloaded:
+> + * 1. Unregister panic handler from notifier chain
+> + * 2. Cleanup debugfs interface
+> + *
+> + * Return: 0 on success
+> + */
+> +static void mp8899_i2c_remove(struct i2c_client *client)
+> +{
+> +	struct mp8899_regulator_info *info = i2c_get_clientdata(client);
+> +
+> +	/* Unregister panic handler */
+> +	atomic_notifier_chain_unregister(&panic_notifier_list, &info->panic_notifier);
+> +
+> +	/* Cleanup debugfs */
+> +	mp8899_debugfs_exit(info);
+> +
+> +	dev_info(&client->dev, "MP8899 PMIC regulator driver removed\n");
+
+Really, drop. We really do not print such messages in upstream. Look at
+other drivers.
+
+Best regards,
+Krzysztof
+
