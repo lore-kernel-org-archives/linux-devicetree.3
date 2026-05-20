@@ -1,41 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C33DE427;
-	Wed, 20 May 2026 12:28:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3303DBD5C;
+	Wed, 20 May 2026 12:30:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779280123; cv=none; b=FuCxnQE3kdBWh8pvPA8e+GqPM4mF0TyKM+0liRJq7DcnN+Pr6GNcVQdBkcRlGhfgP54cHrOqF33ElEFO0txwIgvHFBky0mYBluZDzdQlc4Pxd/x2x3QAbOr7B+RQ5iA0zDVWrZJUkQoli87LReEGn/U5p96eIKyo0hTYilXPob0=
+	t=1779280221; cv=none; b=oy53FcFBBtEtIvwopXVUmQ1RmgufmBralHya/ELK0iapJxnVQc4Z/chxSYFiWOQxiwHj4/cK6d1ouAEcP3Km3NUAbH228/TwzKPTRtD+jON1pC4035xchSYVxwWO1miENuMbLqmH9lnsl727X1LC0MkoIcmBw6A5QMy4q8tzgoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779280123; c=relaxed/simple;
-	bh=u0M4354NcRaRw6UV2ZqR75Z7RSZiD8Qk15kGhL8vtIw=;
+	s=arc-20240116; t=1779280221; c=relaxed/simple;
+	bh=FTaRA2YjGl2K1/xslVnikdDeu3hE9dGxjLe/neN56D4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kVSEUBKwy6SfLnbyStr/226n+FQgReUpT3FnPGetdjO4dDqiHmORMTgJ8BRYZkH43MWOTJT9clAuQSHBadCwxplu4ouo5huNg/vktLlqRq5dDM3OBKExqXqBhtSHSb1Nnix199KqUE1LgXr5Q6Lj2uLcVnELmobDzK3QOV9h9B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RL3me7op; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=iUeTlpxDoYEuzt6zsc6gxOwYxvgcA8I+521/u0O8FpD4eCi1frIKHFMfunmd8b0wUmwfjknnVEYL16dnyiGJ2jC0K2jIWkNwTjZgZJNmRrW/pYYuTDwHQtSfNUEjR4s49Hsa7n9JIRMMjKxIwdu7i/DYWTLeu8fcUi1yvvD2pNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiVmyEM5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RL3me7op"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630B41F000E9;
-	Wed, 20 May 2026 12:28:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiVmyEM5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152661F000E9;
+	Wed, 20 May 2026 12:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779280120;
-	bh=9QGGlk3LDXhixnD+kizSU53+b+n8Av5GKm/+8vIIvWg=;
+	s=k20260515; t=1779280219;
+	bh=t1MVIZyDYSn4EA+qs4g0ehxcOyCqZliMlPiFzAgsY7I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RL3me7op5+Ne284qNANnRtEVsnHsTWjWIztw4vNU3VsQ2GOxCYonftnAgUARHgGOo
-	 ySQpBay1EpB6b4guqnOMA4uatrGwNyYmAd5DHgpW79Qrg+58hsdoTJtOPWRkR2TSnl
-	 GNtZG2YwTWfjeEvYave3oE8OWSoH4tnvQTtc8s1tEE6t+lTIYbbhmflEiVPZmdE19b
-	 Vuv5CRlatIzI3GldO2Fdz2qq/TwBc9HXoXpYw9UJ8CUuD5EZs2pzcdNZ9so2658oXA
-	 DpGlXxziOQV8WF0nn9HWcBkVgbDTTPoWPh/7b/0KQ1iLrK76aFUe5wRga606fKzy0H
-	 V0GR+Ce39u1tw==
-Date: Wed, 20 May 2026 14:28:38 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v8 07/10] net: airoha: Support multiple
- net_devices for a single FE GDM port
-Message-ID: <ag2o9qLAa2HXN5es@lore-desk>
-References: <20260519-airoha-eth-multi-serdes-v8-7-6bd70e329df6@kernel.org>
- <20260520085933.35D171F00897@smtp.kernel.org>
+	b=fiVmyEM5x1LJLJ5DXOurWWtA9O6gkFLDswvqHbkK7YAso6Qvi1TXmm9ksbX+dsnFQ
+	 bbUhFBQGXzrdzqv63e+wCGUiRwVFFVmik4FUA3FVLoe2FlLu8gPAM5G33HmlbOZcWY
+	 p1S10t6Nu+tUOn8ydRoZH3d6PTm1GvbzupVcjAI7n3Ayx9FbwjXWLhiWNIR/BJGx7L
+	 tE2vcKidVP5hz9nw70ZSzRnO1gtRsQTuzSsTxGKEVzAPXqXBxowQwiUOR+MjMYjWaV
+	 Myai5jbN55S6u/bIBaagTQeppzcEOqQDobpBsavf0otlsOyQhU7XkJ+f4gikSHBwPC
+	 m3yc+D04aoLdw==
+Date: Wed, 20 May 2026 13:30:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] spi: dt-bindings: cdns,xspi: add sdma-io-width
+Message-ID: <de325dba-0b82-4808-910b-68f0f6426c5f@sirena.org.uk>
+References: <20260511031732.3199-1-jszhang@kernel.org>
+ <20260511031732.3199-2-jszhang@kernel.org>
+ <20260515-expert-devious-cricket-faff56@quoll>
+ <agz0kDsQBaeQPPQ4@xhacker>
+ <21d30826-bfe6-44cd-8c89-c1986f539e48@kernel.org>
+ <ag2fjCX0DuSVxubv@xhacker>
+ <14719378-7bf5-4688-81e9-bccedf618d18@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,145 +49,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hdgogd+ttgvpRBQT"
+	protocol="application/pgp-signature"; boundary="nSgqLWzClL9/i+0W"
 Content-Disposition: inline
-In-Reply-To: <20260520085933.35D171F00897@smtp.kernel.org>
+In-Reply-To: <14719378-7bf5-4688-81e9-bccedf618d18@kernel.org>
+X-Cookie: Natural laws have no pity.
 
 
---hdgogd+ttgvpRBQT
-Content-Type: text/plain; charset=iso-8859-1
+--nSgqLWzClL9/i+0W
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] Port-wide hardware configuration is improperly modified via per-=
-net_device callbacks, breaking the newly introduced 1:N relationship.
-> - [High] Sequential initialization of multiple net_devices sharing a GDM =
-port silently overwrites singleton hardware loopback and WAN configuration =
-registers.
-> --
->=20
-> commit d922e17d3b113696fc139ac4b2b3ef81e2b9ad50
-> Author: Lorenzo Bianconi <lorenzo@kernel.org>
->=20
-> net: airoha: Support multiple net_devices for a single FE GDM port
->=20
-> This commit introduces support for multiple net_devices connected to the
-> same Frame Engine (FE) GDM port (GDM3 or GDM4) via an external hw arbiter.
-> It updates the airoha_gdm_port structure to hold an array of devices inst=
-ead
-> of a single device.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/eth=
-ernet/airoha/airoha_eth.h
-> > index fbb50dc73af84..fc49f0049983e 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-> [ ... ]
-> > @@ -540,19 +541,20 @@ struct airoha_qdma {
-> >  struct airoha_gdm_dev {
-> >  	struct airoha_gdm_port *port;
-> >  	struct airoha_qdma *qdma;
-> > -	struct net_device *dev;
-> >  	struct airoha_eth *eth;
-> > +	struct net_device *dev;
-> > =20
-> >  	DECLARE_BITMAP(qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS);
-> >  	/* qos stats counters */
-> >  	u64 cpu_tx_packets;
-> >  	u64 fwd_tx_packets;
-> > +
-> > +	int nbq;
-> >  };
-> > =20
-> >  struct airoha_gdm_port {
-> > -	struct airoha_gdm_dev *dev;
-> > +	struct airoha_gdm_dev *devs[AIROHA_MAX_NUM_GDM_DEVS];
-> >  	int id;
-> > -	int nbq;
->=20
-> This introduces a 1:N relationship between a GDM port and net_devices, but
-> are the net_device lifecycle and MTU callbacks updated to account for sha=
-red
-> ports?
->=20
-> Looking at airoha_dev_stop(), the driver unconditionally drops all traffic
-> for the port:
->=20
-> airoha_dev_stop()
->     airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id), FE_=
-PSE_PORT_DROP);
->    =20
-> Since this modifies the forwarding configuration for the entire GDM port,
-> does stopping just one net_device silently drop all traffic for the port,
-> breaking any other active net_devices sharing it?
->=20
-> Similarly, airoha_dev_change_mtu() overwrites port-wide hardware registers
-> such as REG_GDM_LEN_CFG. Could this lower the port MTU while another devi=
-ce
-> still requires a larger MTU?
->=20
-> I note this regression is addressed later in the series by commit
-> 646f1e7bb6021 (net: airoha: Do not stop GDM port if it is shared).
+On Wed, May 20, 2026 at 02:16:21PM +0200, Krzysztof Kozlowski wrote:
+> On 20/05/2026 13:48, Jisheng Zhang wrote:
 
-as pointed out here, this is resolved from a patch in the same series.
+> > If you mean "Why this cannot be deduced from the compatible?", I think
+> > the slave dma port is part of the cdns xspi, so its io width belongs
+> > to xSPI device property.
+> > From another side, we have seen such property in other drivers such as
+> > the reg-io-width for the dw spi DW_SPI_DR port io width.
 
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index 27b214ce2a4ed..8d36ab6cd7854 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> [ ... ]
-> > @@ -1830,7 +1831,7 @@ static int airoha_set_gdm2_loopback(struct airoha=
-_gdm_dev *dev)
-> >  	airoha_fe_clear(eth, REG_FE_VIP_PORT_EN, BIT(AIROHA_GDM2_IDX));
-> >  	airoha_fe_clear(eth, REG_FE_IFC_PORT_EN, BIT(AIROHA_GDM2_IDX));
-> > =20
-> > -	src_port =3D eth->soc->ops.get_sport(port, port->nbq);
-> > +	src_port =3D eth->soc->ops.get_sport(port, dev->nbq);
-> >  	if (src_port < 0)
-> >  		return src_port;
-> > =20
->=20
-> When multiple net_devices sharing a GDM port are sequentially initialized
-> via ndo_init (airoha_dev_init()), they unconditionally call
-> airoha_set_gdm2_loopback().
->=20
-> Inside this function, global singleton hardware registers are modified:
->=20
-> airoha_set_gdm2_loopback()
->     airoha_fe_rmw(eth, REG_FE_WAN_PORT,
->                   WAN1_EN_MASK | WAN1_MASK | WAN0_MASK,
->                   FIELD_PREP(WAN0_MASK, src_port));
->=20
-> Does initializing the second device on the same port silently overwrite
-> the hardware loopback and WAN configuration of the previously initialized
-> device?
->=20
-> I see this regression is resolved later in the series by commit
-> 8a565b44990bb (net: airoha: Introduce WAN device flag).
+> So you mean it depends on SPI device? Then why spi-peripheral-props is
+> not applicable here?
 
-as pointed out here, this is resolved from a patch in the same series.
+That will be controller side, not device side.
 
-Regards,
-Lorenzo
+> If this is not bus width, but DMA-something, is not really then SPI
+> device dependent, but rather DMA controller limitation, so either
+> deducible from compatible or something else is missing here.
 
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260519-airoha-eth-=
-multi-serdes-v8-0-6bd70e329df6@kernel.org?part=3D7
+My understanding is that this is a connection between the SPI and DMA
+controllers so it's not as obvious as it could be which side of that
+link should have the property, eg:
 
---hdgogd+ttgvpRBQT
-Content-Type: application/pgp-signature; name=signature.asc
+  https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/silicon-solutions/design-ip/controller-ip-qspi.pdf
+
+shows a separate direct connection between the DMA controller and the
+xSPI controller, the DMA controller isn't interacting with registers on
+the CPU visible buses.  The width is probably a design time configurable
+option on both sides of the link.
+
+--nSgqLWzClL9/i+0W
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCag2o9gAKCRA6cBh0uS2t
-rKsLAQCTKSY91GpYjO0OdC90ZCeNmsb/wVXSqWIzNa6HMKz23gD/X3yJnMzsvJgg
-vTiV8EEIEjiuSBUZ3pzo0yDDhflWiwA=
-=6JIv
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoNqVYACgkQJNaLcl1U
+h9Ao/Af+PSsl/Li7lNbMEuFf+phKcwklDPCIDBA8LerfGeFmFPiFG9+J2qEqNrRZ
+CQ4tZTQ64Ap0s+PcYWRhelQZ3Id5ZqRj1HE/9Pq9IxGoMm9aDX0jrPJiaTFm+6xi
+QQehe8LTcCD2VNbTywyqFmLOvlyvT/ujNTCkjHl9JQefSYqun1wYqPYO59qfbXKo
+1lS8G5lkDcgOUaHGL1L1n59TAi9DJ1TjRICHCnHLNt+ch0hmscRAehF4H9OjPvo3
+PU07o1lAqV4U2IOduCtajjiQdmlCD8knuWasSwuarE7xPRiMPD/8BonDRRGFqmPK
+8n0s0D8nwmWbbnmoI9j7DRxx8T141g==
+=Fgg2
 -----END PGP SIGNATURE-----
 
---hdgogd+ttgvpRBQT--
+--nSgqLWzClL9/i+0W--
