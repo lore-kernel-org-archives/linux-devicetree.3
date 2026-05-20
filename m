@@ -1,201 +1,335 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7162F3DCD9F
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779294553; cv=none; b=t2PW8b3e6DQp7gefFj3V8HH97X2pkwdyFpJw7QM6w6bzivGObVXvYbCwy5T2rBT+NOsTesAAZsHK5XOc1FXv2NSMFlP6U+gBqK70SIirsaKIpEto3URshQ1HLgGEv8vknH6npDKukRP3TMVC6FqogZrjtOl5hrKSg3LyM3tsULY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779294553; c=relaxed/simple;
-	bh=guKwrZEYvB5h2JRruAj/qRVD+1cfikuiDLMfNbEldiA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ScTRnkn5QKLIVMNfYslxPiKV1nPh/mHeJEm+/X1FIVmjgaBPJsRk+XXE7zkq5mKu3vJfIaBpWmEakhuyknvfD+DTqAl+hPUkMVF923poKqJdpuvyxyGDQ1/xgRPfypixpSRTc8Ne4lFpZ4HwceltNiotJ+A8F0sOS79vHrJUtXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X8a9Qk1U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=embpuFkg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316D923B61B
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779294647; cv=pass; b=rO8HVvY98GakA0wEOmb2Do5tiL0SDLcVVPo9Oolq3HSC6jhSMWILdZ8h/kBrdyqCRBJK7prvM3VC1mhtK5hvB0mahd2cgfsFDzzB2opPR3NGEWozSF8/ZfCstaM+m7hX9TL3YvIvLzhlkeUJ0Ydncjo/7sBHJ9GoiNnSBXLNpiQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779294647; c=relaxed/simple;
+	bh=lqFBKQb+Gdpn+xtwjBFEch2E3UDsPsxKMgztcPJtks8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RjDsCdlKvN5iCRtJRG6Djm7hllc7DDpwaOsuG16gvxjr/Dxw90uP4yWTBmF+VZHkjyO1RJezYb1bU3YV7h/IJo4lkaTtVi3RJ7rlMcF/owOMi3ghnHKnoWJrf+UoqJZIIYERpfXU5Mh+8zG8V3Z5lfmjDmcR75E2BrKhXmXrFqU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GsT4DFcB; arc=pass smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X8a9Qk1U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="embpuFkg"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KEFatd963772
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:29:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=bUSeSLkufQVYtp8EUHyZA6H3
-	W15KD1f1Veui0HYJlds=; b=X8a9Qk1UgXPMXI+4yNaim+sV9mWAN1MGIsGOW0gB
-	nOqUYN+coVA1beMx/Oz5randUXeF5OIE/Q1dYTLaCCJnvbry7RvJGJj1gbTo4pMQ
-	s+VhLdXx/Y2fEmJ0L7MX2sW/XpMeG/slgziMF7n/U0u9WfTAWuoLRFw2kHdtl/3G
-	A29KHT8+bu4NMtcE01+4g+6ep4GgpiIgtjUMe+9K4FSVyZk3U2On6ncoxwmWWF1z
-	GTO2hMsYfpnf9rfR5GoPq2I9GSj35rSCx0Ozm22I7rVAhnanCUazY5MTrHJri0Da
-	T/B0CRC+1Cel4zDBQ2wACLZuSQAFmsuulX7m2uMHB8ZNqg==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ejh0k5e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:29:11 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-575427e5360so5102186e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:29:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GsT4DFcB"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3042a388168so101593eec.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:30:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779294644; cv=none;
+        d=google.com; s=arc-20240605;
+        b=aGcCjBUcp5c+7+fU14am+dg6tyCHsNHbj5f2nySCYy1dNzQF3x+Wdg23wAvGkMsZOx
+         +QvoNY9esj9V8XN/c2Hro64Ht8AhBE8XaMWsQvMyt9Uy5B4Y/KLSiTNajenvWLFeWXZH
+         AWE/BMKdGxG6kfDSr5b06y6fsUV4e6kzJT1xaYVrQJmIAy/2Js+Un+QFutCvL2N3T9zY
+         4Cb+QtPTlrvJS/eZBXhLTMYIn7eh5zpK2usIU0tyE6qsPnfpT9CYP5gWetfC16nbttFa
+         b6n6/Hf3diYLa/+JmyFeISsKUJY2/uDi7B3+2ISk7vtlYs4KsUayu8oWOgzNTMo9GtlQ
+         Vi6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=b+JhhmILz9tlrVY7OUaZADi1RQEkDpXxHbma3Cjgx2o=;
+        fh=6n+idP6Ny+ZxvT1EqYlyFmtSI4kg2nyORI2wEvlJh6E=;
+        b=Fhy+g1+a2plfMuYx6X74ap+iHaAo/g8GvtcJOhU7dVYVv+7ZAxdiS53MOlSpeeh607
+         2QiLXQOe9UGw7mLyFDArIigRnVmcKkRC01E+Ad3CiBxepB2/KX8WAVcCakPxkQAg0SpF
+         eyijwjfp4SMvO87AGOUL8K5RM9IK0UmohGnivBCYPmn+LkuLlAlw7MRurvJu2hQxMqd4
+         RFJR4QWGMYtIbNPFWfnITwklaJ1YNhSmCdfJkcUszIxD4zaoBga5teZIkp7kj2MiF+Yk
+         mx5gsRDxao0pKM1ixasED8njLcZq9hr9F9D8Ke20K66n9kdWB/1YkixNwaMSDl3+NRUQ
+         eXgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779294550; x=1779899350; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=bUSeSLkufQVYtp8EUHyZA6H3W15KD1f1Veui0HYJlds=;
-        b=embpuFkgOMFWIIPgyYe68rR1ZQ1oxEvwPN3ZJNgLz7EjIVTZ24ENmrkLlCJUVN9+g6
-         obzFTUjv3V/K3jcIAG8bEe+SwaTagtX7Uj6iH0ppgtG4e1zdN6e01pD2+FCWzSMRPcQp
-         9fe822+16ke1sJKo5chOLChnBTWm+4GYKSandfs5w45R+f6d8C1F5ZprxJBfD237ucGL
-         ENWkH7/VbYjahxuKbWnhf4/UeAIduQYcKRDZFrVsesmEPeR5ta+puqBvwwx/riGfOj66
-         T0Hvui/4otySPOnefPXDmpm1QjpYg//9FcUfQt3LaZ8G9zbbkgNgG8gL2c6ycmTOuiAi
-         PUFQ==
+        d=gmail.com; s=20251104; t=1779294644; x=1779899444; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=b+JhhmILz9tlrVY7OUaZADi1RQEkDpXxHbma3Cjgx2o=;
+        b=GsT4DFcBQgp80xs1xENIvwYc2WOm8v7zjQq/LF08lflb23Pk9qvyjJTGlTfhvqhGrm
+         jdJ1LvS4D7uUsu3k35K6+ttEST+hhIY96mKx/uwde0Kc6zbbIzVp368cpbOqa9SkWcYY
+         /cVCjNhJcoJ3q72++496ROxA1wKyQSdqqEn7plfo2a1GW/Cpteie71ogQq/xbazrI7pQ
+         1T+E3FHNFl+X6q8WR2fIRwyzNepd0sNb6nnI41Ev719nlqiEfnG9fzsmFaC/E1chb7JV
+         /rBa9+0GlHXmtWnIzkm0JpZHo7YZlAsRdtrEyqMTVOR5/ez774WkCukHDOWPrIldCVYO
+         gBXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779294550; x=1779899350;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bUSeSLkufQVYtp8EUHyZA6H3W15KD1f1Veui0HYJlds=;
-        b=iDkDUqesyAXJBBjPZDhhxMy4QmTS7pERxxRw+QHvr/CZ9hTNp1huljOB44HY9ptBHk
-         QOXmpBb+0YSdJ6IB7XSceL4KtTSeV7MobzyhNJ+0KufECkqDDzRyiM5d5UkB4jRZ1hVD
-         Ofssr+3s1cqHymQ2ARzXi/j0c2rJIYKkD39EnpyAZ64Naz6/dQsck0bmMEDQ8BjFckW7
-         AmU8UQcZr9XBcm8DFkcRwkxDaamNThUSV+GnGfF90Yqbob2un+TJiU7aObwVvA7G7QLC
-         Nyup4zbJmSsDyMGK08tnTADBckIcmHhqFehwyQyG07nyv1kkWRMvVi7Pl2IvFAdNv8wL
-         srMw==
-X-Forwarded-Encrypted: i=1; AFNElJ8mjmYbvjh0wIhBAhfgy1pxxuQSCaSbzlufnCDsZwcNUuYi5Act28zcUQDwfCeTZ6QOdhjHCubvxzzt@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoQC2vrq2RPQP3aJL6A3cCPM1YDuwbxiW+piWL00OEhBlmHh5o
-	6/RG+ad9Tbk9IlOJhdCth/ZOUun7ImWs2CuWOJk7RUi8ZzFyM94bTl/k3huhSnWUKJJD0RbBTG+
-	MqXZvQjqVzxh90p17HHEB4svX/ibaUdj36gq+1Yn/AHPGR1ZdVQrPrbUwPGPCTBzK
-X-Gm-Gg: Acq92OHFvsWMm16AklVGNofD3ypGVg+Zc9rw/QDxBQsJ132AfL554qekcXbUoc10YLQ
-	xmsS7hsF7PJJF54SkhXUAx/SxzSjoAjmwHVttov+6ePpw+gliCFEkuvu2cjQc80w41wTDXUqDj4
-	AejontEGgrrwgr1XYWCkTNWm1FFGY/qQgR2b0L/JV95cC4fnFAitFrOVbtjrBp7yb+mnyXldfQ0
-	1nwoslsRTnx/GNKc/gxAMxMuJrNkedH8Y/V6wD/yAjQ69CeTqWAX9b1zJLuk0v5Oto+CY7K7ZNN
-	FSjDrOsQ26lmtP1DzLWjRprpgxYaubdH5JLeudyP2j/4co2GOgF4yoAZFEvRXKaKqW0XuLm714S
-	PjMll3gco1C+y16VWi0MEkzSidjYh7Gr6bgzab/770Zw8A0jlboi3xaTdY+aV74dxdMz+8V3EnX
-	R7rQ+GzJf9OVJeL6t6sgbEkB7gDsuNYkh1C/A=
-X-Received: by 2002:a05:6122:d15:b0:575:24a9:78da with SMTP id 71dfb90a1353d-5760c013206mr14705270e0c.11.1779294550513;
-        Wed, 20 May 2026 09:29:10 -0700 (PDT)
-X-Received: by 2002:a05:6122:d15:b0:575:24a9:78da with SMTP id 71dfb90a1353d-5760c013206mr14705226e0c.11.1779294550062;
-        Wed, 20 May 2026 09:29:10 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a91a6a1906sm5061603e87.79.2026.05.20.09.29.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 09:29:09 -0700 (PDT)
-Date: Wed, 20 May 2026 19:29:07 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] clk: qcom: Add support for Display Clock Controller
- on Shikra
-Message-ID: <dv5rw3gkmy7evlv3bm5ryewy6ppojxgcklamqmc3x567isomtx@3oonu5gtzwq6>
-References: <20260513-shikra-dispcc-gpucc-v1-0-5fd673146ab2@oss.qualcomm.com>
- <20260513-shikra-dispcc-gpucc-v1-3-5fd673146ab2@oss.qualcomm.com>
- <n4wgnno2td3xmdsgwadvdtvr4ncitzio3ufufg5bp7wnga4ouw@mj76764e3uus>
- <dt5j7khzvgoj5qdrnfoi6ssye23jve5gjta5qx2ubuvufjzr2w@puacv5jgosmb>
- <1cf064d0-14b9-489f-964f-614aeed4fcbd@oss.qualcomm.com>
- <qg2n6pwjcoz7262eylept4mec2l74h2owfbhjykfxap6qwgzuq@oawiwgok4hhi>
- <1c0bb8ff-eaca-4779-9b2f-4d564abd8670@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1779294644; x=1779899444;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=b+JhhmILz9tlrVY7OUaZADi1RQEkDpXxHbma3Cjgx2o=;
+        b=jsqC77Lhv09GFp8l+FYALR2GOMUa37ZASU3BnyNLamb21vhNErSjn2EXUPMUC4LQWZ
+         VJFZwOQBrHMlTZnd2z6SlHmBUvANs4J9UM87QruKcLxY//yFkYJA8Ct0Ykat5r6lRK1M
+         +BTTZnqrxqqmBlWmMv+ynZoY8WaamRTWrdih3kTG2ZwB/5bVAhr1sO4j5ECHUZeWZ8Hs
+         BGGnrxfHeNrQI7Nlya0o6yJaIyksKLAWSCpqfue44DJvxxoY75JxMEuF15zdbuPafgZG
+         RNUN4DJHY0C9od7/BfDLRTVjdRx0tSlqFQNEpOKyf49OwzfeS2M6vBZ7lQLsPrV9yNxK
+         6qbg==
+X-Forwarded-Encrypted: i=1; AFNElJ9JX5PiQ4KVNJJMP24rN411XKHHl+Sq4oujt9LRdTItH+s+o/Sv6Eebu3dOA7lseefZduEIFE3SXhOv@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKA9YQXE6AQZltgnmZJWs4/tsCCGwK+xbQxJuMlC/zbmAUa4fY
+	RpRGgWWxanXJrKPDwe4iL3DX+SOgyjOIx3gz1Q9OEZZOf1BvIhJYec74jfI7UC7g2o4Oijrsjoh
+	+4x9ePj6o6GJsC6Lvo/LN/RuOYnm+sDY=
+X-Gm-Gg: Acq92OEiDtdFKUhNHnbOhrLFTkwJb4L9UngySmF3gBGj0NBs5WoRkCUOUJykbZFdueG
+	mW3KaHLrV7U7DAFvV2UHYzorcZBORir6SxX/sZF0qgRnWNOPYP5U0HSUzptQ9ZqJDcu8tr6Fphn
+	x/yKZi8o465gOVUL15ytGvnqL3SlkSeg6BklTqnoxViB1/UD5t178xPbYkJpo2KSWYDOQC2w813
+	Mmj7feJuCAuRfVF9OaDmVkAAQUB7Hdh0T1HTPII8gEGd401pJ9SMf/edxQYWtGyoNY+nRhsONQz
+	EPx+IZrnPTkC32spUCk=
+X-Received: by 2002:a05:7300:430d:b0:2d9:db50:c6ce with SMTP id
+ 5a478bee46e88-3042b30f58emr133987eec.3.1779294644194; Wed, 20 May 2026
+ 09:30:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1c0bb8ff-eaca-4779-9b2f-4d564abd8670@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=QptuG1yd c=1 sm=1 tr=0 ts=6a0de157 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=2jIkRjB_xXtrPJ-GUZgA:9 a=CjuIK1q_8ugA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE2MCBTYWx0ZWRfX0ftGNILBM6mv
- yBuMWjh8gEhkDyJuzmnq9aMTXx8bGjP2PvMyUPMryb4ww/7Nezw2wk7wSN/lRlPfmDB/BtAyMHz
- MeilK+Ux81XfDt1Q4X00MZQUwFfMxNRcBKzFfFsthAGcbhchNx02lfYrkF3tMyhP1KQcF+XmAkM
- dMkJ7gM4gFHAegjGe9dZhJxO8zaLmRJ4j9NJEFnRtKS30imB7GEOrxkxuOFEbooZLRgZv2ufiB+
- 0ycE0iYFJO1GdX7jhJR7HYvbV9/2KmfXJJBocQU8SQaYeDW4PMnDbsroPzkZFmt3yBqhbnuHr50
- c0rQ1iPvFZEuanPGTU7RH+tH6wL45xP/zkuzuqaf2P+TFzZ/+Yg+b5MLg9FeT6jBeEX5T760QPW
- 6Bs3JD/t/PRDyqStKsl0T0wrAdrcJbXdJ1mC4iIKH+cJMtaiXbgGKkRskuDagPdSyy7VZ6fVh6V
- LCgGnN465kx171iN+Hw==
-X-Proofpoint-GUID: NRT6DhKqt_IOOyc_SiVF01bx0I1gXSNv
-X-Proofpoint-ORIG-GUID: NRT6DhKqt_IOOyc_SiVF01bx0I1gXSNv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200160
+References: <20260510110804.33045-1-clamor95@gmail.com> <20260510110804.33045-6-clamor95@gmail.com>
+ <20260520150758.GG2767592@google.com> <CAPVz0n0t4PXfmgWYQ1vSTFwfg=+g4oGU+-dwgnBVKxUoUwHGqw@mail.gmail.com>
+ <20260520160548.GK2767592@google.com>
+In-Reply-To: <20260520160548.GK2767592@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 20 May 2026 19:30:33 +0300
+X-Gm-Features: AVHnY4JmTvba-tTOAJoJtR9Zh7F3ke9BpWduNjiTbbw6Iohr70Fgqlb_QaNL6ZQ
+Message-ID: <CAPVz0n2s32uYP76R9VNtWYnHrDQJKK+qC1uRRdkaX1ekF15Pww@mail.gmail.com>
+Subject: Re: [PATCH v5 5/6] mfd: motorola-cpcap: diverge configuration per-board
+To: Lee Jones <lee@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Tony Lindgren <tony@atomide.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 19, 2026 at 09:34:09AM +0530, Imran Shaik wrote:
-> 
-> 
-> On 13-05-2026 08:38 pm, Dmitry Baryshkov wrote:
-> > On Wed, May 13, 2026 at 04:51:03PM +0200, Konrad Dybcio wrote:
-> > > On 5/13/26 4:06 PM, Dmitry Baryshkov wrote:
-> > > > On Wed, May 13, 2026 at 05:01:16PM +0300, Dmitry Baryshkov wrote:
-> > > > > On Wed, May 13, 2026 at 07:10:38PM +0530, Imran Shaik wrote:
-> > > > > > Add a driver for the Display clock controller on Qualcomm Shikra SoC.
-> > > > > > 
-> > > > > > Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> > > > > > ---
-> > > > > >   drivers/clk/qcom/Kconfig         |  10 +
-> > > > > >   drivers/clk/qcom/Makefile        |   1 +
-> > > > > >   drivers/clk/qcom/dispcc-shikra.c | 565 +++++++++++++++++++++++++++++++++++++++
-> > > > > >   3 files changed, 576 insertions(+)
-> > > > > > 
-> > > > > 
-> > > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > 
-> > > > After comparing the files...
-> > > > 
-> > > > Can we use dispcc-qcm2290.c instead? It uses clock-names instead of
-> > > > clock-indices, but I think it should be fine to use clock-names as a
-> > > > one-off.
-> > > 
-> > > Or we can convert it to use indices, since those are stable for agatti
-> > > too - the names would remain in the binding, just unused by the driver
-> > 
-> > Either is fine for me.
-> > 
-> 
-> Hi,
-> 
-> In Agatti, apart from the clock-names difference, I see that the AHB/XO
-> clocks are not handled as always-on via the probe and instead rely on pm_clk
+=D1=81=D1=80, 20 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 19:0=
+5 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, 20 May 2026, Svyatoslav Ryhel wrote:
+>
+> > =D1=81=D1=80, 20 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
+18:08 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Sun, 10 May 2026, Svyatoslav Ryhel wrote:
+> > >
+> > > > MFD have rigid subdevice structure which does not allow flexible dy=
+namic
+> > > > subdevice linking. Address this by diverging CPCAP subdevice compos=
+ition
+> > > > to take into account board specific configuration.
+> > > >
+> > > > Create a common default subdevice composition, rename existing subd=
+evice
+> > > > composition into cpcap_mapphone_mfd_devices since it targets mainly
+> > > > Mapphone board.
+> > > >
+> > > > Removed st,6556002 as it is no longer applicable to all cases and
+> > > > duplicates motorola,cpcap, which is used as the default composition=
+.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  drivers/mfd/motorola-cpcap.c       | 142 ++++++++++++++++---------=
+----
+> > > >  include/linux/mfd/motorola-cpcap.h |   6 ++
+> > > >  2 files changed, 87 insertions(+), 61 deletions(-)
+> > >
+> > > Looking much better, thanks.
+> > >
+> > > Nit: A patch-level changelog really is much more helpful to reviewers=
+.
+> > >
+> >
+> > Noted, but I will not guarantee that I will do patch-level changelogs, =
+sorry.
+>
+> That's fine.  All I can do is ask.
+>
+> Note that, helping out reviewers usually ends up helping you too.
+>
+> [...]
+>
+> > > > +static const struct mfd_cell cpcap_default_mfd_devices[] =3D {
+> > > > +     MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0, "motorola,cpcap-ad=
+c"),
+> > > > +     MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0,
+> > > > +                 "motorola,cpcap-battery"),
+> > > > +     MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0,
+> > > > +                 "motorola,cpcap-regulator"),
+> > > > +     MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rt=
+c"),
+> > > > +     MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0,
+> > > > +                 "motorola,cpcap-pwrbutton"),
+> > > > +     MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0,
+> > > > +                 "motorola,cpcap-usb-phy"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-le=
+d-red"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-le=
+d-green"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-le=
+d-blue"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-le=
+d-adl"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-le=
+d-cp"),
+> > > > +     MFD_CELL_NAME("cpcap-codec"),
+> > > > +};
+> > >
+> > > Nit: I wouldn't complain if you wanted to have all of these on a sing=
+le
+> > > line for neatness.
+> > >
+> >
+> > Noted
+> >
+> > > > +static const struct mfd_cell cpcap_mapphone_mfd_devices[] =3D {
+> > > > +     MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0,
+> > > > +                 "motorola,mapphone-cpcap-adc"),
+> > > > +     MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0,
+> > > > +                 "motorola,cpcap-battery"),
+> > > > +     MFD_CELL_OF("cpcap-charger", NULL, NULL, 0, 0,
+> > > > +                 "motorola,mapphone-cpcap-charger"),
+> > > > +     MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0,
+> > > > +                 "motorola,mapphone-cpcap-regulator"),
+> > > > +     MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rt=
+c"),
+> > > > +     MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0,
+> > > > +                 "motorola,cpcap-pwrbutton"),
+> > > > +     MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0,
+> > > > +                 "motorola,mapphone-cpcap-usb-phy"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-le=
+d-red"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-le=
+d-green"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-le=
+d-blue"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-le=
+d-adl"),
+> > > > +     MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-le=
+d-cp"),
+> > > > +     MFD_CELL_NAME("cpcap-codec"),
+> > > >  };
+> > >
+> > > A lot of these are duplicated, right?
+> > >
+> > > I would have a comment set, then the differences in separate containe=
+rs.
+> >
+> > It may be impossible to predict a generic setup since some devices may
+> > require unique compatibles, other may not have LEDs, third may be
+> > partially incompatible with existing cells. In other mfd cases
+> > creating a generic bundle might be good, but in this case I would
+> > suggest better to keep these separate entirely per-device. They will
+> > not take much space, nor add confusion with these macros.
+>
+> I'm not sure we're understanding each other.  Let me give you an example:
+>
+> static const struct mfd_cell cpcap_common_devices[] =3D {
+>      MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0, "motorola,cpcap-batte=
+ry"),
+>      MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rtc"),
+>      MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0, "motorola,cpcap-pwr=
+button"),
+>      MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-led-red")=
+,
+>      MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-led-green=
+"),
+>      MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-led-blue"=
+),
+>      MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-led-adl")=
+,
+>      MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-led-cp"),
+>      MFD_CELL_NAME("cpcap-codec"),
+> };
+>
+> static const struct mfd_cell cpcap_default_devices[] =3D {
+>      MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0, "motorola,cpcap-adc"),
+>      MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0, "motorola,cpcap-reg=
+ulator"),
+>      MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0, "motorola,cpcap-usb-p=
+hy"),
+> };
+>
+> static const struct mfd_cell cpcap_mapphone_devices[] =3D {
+>      MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0, "motorola,mapphone-cpcap-=
+adc"),
+>      MFD_CELL_OF("cpcap-charger", NULL, NULL, 0, 0, "motorola,mapphone-cp=
+cap-charger"),
+>      MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0, "motorola,mapphone-=
+cpcap-regulator"),
+>      MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0, "motorola,mapphone-cp=
+cap-usb-phy"),
+> };
+>
+> This way, it's super easy to read / maintain the common and unique device=
+s.
+>
+> The only potential drawback would be 2 calls to mfd_add_devices() but
+> that's common practice.
+>
+> Also notice that I droped the "_mfd" parts, which you should too.
+>
 
-There is no pm_clk handling in Agatti driver.
+What if next added device does not have cpcap-battery, cpcap-led-adl,
+cpcap-pwrbutton, uses external codec and would require cpcap-watchdog
+which is not yet present. This will cause issues. Even Mot introduces
+in the last patch of this patchset has slightly different composition.
 
-> style handling, whereas Shikra follows the newer pattern by marking required
-> CBCRs as critical during probe. I think that attempting to modify this
-> approach into Agatti may introduce unnecessary complexity.
+> > > >  static int cpcap_probe(struct spi_device *spi)
+> > > >  {
+> > > >       struct cpcap_ddata *cpcap;
+> > > > +     const struct mfd_cell *cells;
+> > > > +     unsigned int num_cells;
+> > > >       int ret;
+> > > >
+> > > >       cpcap =3D devm_kzalloc(&spi->dev, sizeof(*cpcap), GFP_KERNEL)=
+;
+> > > >       if (!cpcap)
+> > > >               return -ENOMEM;
+> > > >
+> > > > +     cpcap->variant =3D (enum cpcap_variant)spi_get_device_match_d=
+ata(spi);
+> > > > +     if (!cpcap->variant)
+> > > > +             return -ENODEV;
+> > >
+> > > Isn't this covered in the 'default' below?
+> > >
+> >
+> > This is for case cpcap->variant =3D 0, it should never happen, but chec=
+k
+> > will not cause harm
+>
+> The 'default' branch in the switch below will pick that up too.  This
+> check is superfluous.
+>
 
-Well, you can start by explaining what caused the difference and the
-result of those differences.
+Noted
 
-> 
-> And the Agatti DISPCC doesn't have the DT_DSI1 bindings exposed, and
-> updating this might break the ABI with respect to bindings, and DT.
+> > > > +     switch (cpcap->variant) {
+> > > > +     case CPCAP_DEFAULT:
+> > > > +             cells =3D cpcap_default_mfd_devices;
+> > > > +             num_cells =3D ARRAY_SIZE(cpcap_default_mfd_devices);
+> > > > +             break;
+> > > > +     case CPCAP_MAPPHONE:
+> > > > +             cells =3D cpcap_mapphone_mfd_devices;
+> > > > +             num_cells =3D ARRAY_SIZE(cpcap_mapphone_mfd_devices);
+> > > > +             break;
+> > > > +     default:
+> > > > +             return dev_err_probe(&spi->dev, -EINVAL,
+> > > > +                                  "Unknown device %d\n", cpcap->va=
+riant);
+> > >
+> > > This should be -ENODEV.
+> > >
+> >
+> > hm, match is ENODEV cause it looks for device, here driver checks
+> > id/variant, so shouldn't it be EINVAL? I assume error message should
+> > be "Unknown device version" or "Unknown device ID"
+>
+> All of your supported devices are represented in this switch statement.
+> Any other request, regardless of the reason should results in
+> "Unsupported device" and a -ENODEV - same as your check for
+> !cpcap->variant above.
+>
 
-You can add Shikra-specific bindings. See how it's handled for other
-dispcc drivers.
+Noted
 
-> Given these and considering that Agatti is already stable, keeping the
-> Shikra as separate GPUCC/DISPCC drivers is better to avoid the risk of
-> regressions and complexity.
-
-I think you've provided arguments for merging two drivers. It would
-allow us to modernize Agatti driver and also to make sure that both
-platforms use the well-tested code pattern.
-
--- 
-With best wishes
-Dmitry
+> --
+> Lee Jones
