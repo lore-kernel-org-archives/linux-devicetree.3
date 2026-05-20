@@ -1,193 +1,265 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010038.outbound.protection.outlook.com [52.101.193.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBAA3DB300;
-	Wed, 20 May 2026 11:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779278098; cv=none; b=IGoSKXcivTmXLQm7PGrjhQCFLfVNMarmZu9mgWGgYb4PeJYcWojOUlXLpBqf2J/HyYHI0rZSo2YfP+hRyvLo/SFBRE9hsnjGQphRQcnNDNZj0P9fkSdXnsqEBgn3GEbfF6jww/jGb34zzfKN76sGxOkcklyB/TlTKGOCu0VlmYY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779278098; c=relaxed/simple;
-	bh=N5X/mrqYmwZGAzyZKMJSaN/92M1L0Sa3KtmUBnve4qk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JB+84Rv9527eMzssgz40gkpM++QYGBr4cIfPGM4WJq4OlyfhcwSMyboAS+qCrTDdvc4TbtxkVY+lYu39kFO1m93gqbVAkVWN6Yj/mmK/QuznM4XJFM9WC1hlPC8/rY4k2zeGXRVu+js16N6yv43ckcljsEA8Z377rF4vi8A8XLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gXt7WJLI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682D034388E;
+	Wed, 20 May 2026 11:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779278170; cv=fail; b=Jx9doJHkks/tDOWU6Jw9a9oQ8bR56Nb4vYL3y7Zcg8iREEqxTgiS132VMhj/s/vH3k+MEVMYmOYzc/pFG5RdAIoh8MNbha3b2db8A6fyCIWGoe2Mmg6z9s1NfTj7GwaHWKKn7U8H05DThKuqOBtGVPtzsLOFOapBdQGiwbY3BFc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779278170; c=relaxed/simple;
+	bh=frUC3fwJu69GzUM6YR5ailZk9GUCxBlZzLdmliGnAp8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=nH6sim6kZ7B1/nJi6menNPWnbvmd48ltS//YezXpJLrG7xtwQc/Zz2or6p6bwRAeTr5lQKSawsEQ1flSsX9ptV4u7M32FiCUwfLcKDeBgY1tRBTaiID5orG5ZQpwVODUXFsnaqqRN7O4tNEDPmxYrTjK2bZN0AOoIbUjpNyPUJQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=H5r2gIzI; arc=fail smtp.client-ip=52.101.193.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gXt7WJLI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41DA1F000E9;
-	Wed, 20 May 2026 11:54:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779278096;
-	bh=IJC/LZZlKdVUpV20DiYB7Yt+OMYSPwnfW0oK1GGKTO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gXt7WJLI87j1XA0CEpw3sUx3a9DW0TckAy7tNAn15a1FVFszOgfqqkmTu9INtTROM
-	 6U4D6YcBpog/qxpStuM9fGIjIsraRynve4wkC3/wf1YLmbrWjC5sOIH2VgsjAGIeqS
-	 jMBcz7A8iA69bHHJCfkhCjua2pzYL/Sd/7NdMdPYqS5ZMIEvQjVKNZRVEOdJGhP6tQ
-	 CVFsa/ts4xVkaII74xNgOcEqIStW6gvXRO8hYtjYTQSeGDV7W5G515TFhIkY1X+q7J
-	 DPU+7dYeBMOWmWu9EGEh2D5rkhb4nC+6rIxjzOjIOsym7aLT1ZMjm5Iko5GCvlo0wp
-	 OX9wVXQuBVQAA==
-Message-ID: <cee001b1-eca4-427d-8803-56eb620a698c@kernel.org>
-Date: Wed, 20 May 2026 13:54:51 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="H5r2gIzI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g5+eTfHfCpXGv8pIM+5XJ6WJREZtMnef4zi5d7krvhnjX9EIGXz7KeKs9cFa6K9PMUuw+DcvggNHae+zUW3devsdz32ReQAoTV7mSno2uUtpQZGD6ZqQvGZGdbXXf0/Xo+0qLEY6LrwrHWE7BmO9uAJ0x2rFdnY/3XkKd1+yiRMwiUWwMj8m7/25tynM4Qf+NhYeKKxqdo+fr5gSS+wgd6Nf27oSSnfqk1pMC0a9dcAVH8MdjuqGSsE5h2cXIQFNsdmSj0x+LKRhR95brYSpoUnjBGDh2ONdjH3YFOCQCi4ZJwptDxidHtiB02a0hmquL/nYbd7Yy5rrJDQhgDv0hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WH1TYXWpwAW4Y4n28ukZw5TCIsuM9Hh1NUaGOvqdngU=;
+ b=Oj0qz0kGbckAFlJEgv32U1qDwfV8sSlmZfZqm6+sgcLD9f+V/PSXtrWERX9KFwKaLaMMhYrLCHptI7hOZbw+qMhbWCr1QPYepRJ6wyirTTvod03uYBCbdUyw4Vk1QZZ4OZMXsMKSQJbW0uFCVnBsr9dQe9RNJHh1FZrX/waLqBkfZDsjYOyEcE50y3agqxkMJxnFd8GxJqv6NKd2y85MHUiXmxNouLCFOQSmU5QP3oPDk5xpFj1sQLUiqnzjK/qOvcopkFcd4mhlMenOHm3c52FsP+e9drj/jyShy5U4gKoFifPgR8LnhogfbMbvhem5ZqvTsHG9+65l2llBhh5+DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WH1TYXWpwAW4Y4n28ukZw5TCIsuM9Hh1NUaGOvqdngU=;
+ b=H5r2gIzI7kWJj7d0S61yNwBw8xyGvBddnGk7CSXsSFrpfez0FBxVfM/zQotca2y1PsjICpPv1UtLgMcdDEPA9S/KN48K3p7ZmFFU725RrIAby6G1Lt3E8pDoJxaYYddwbuwCGyHoIyUlhjYOCB0QeoBK5GJdQQO01ckguhpVnkE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
+ by MW6PR12MB8960.namprd12.prod.outlook.com (2603:10b6:303:23e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 11:56:02 +0000
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d%5]) with mapi id 15.21.0048.013; Wed, 20 May 2026
+ 11:56:02 +0000
+Message-ID: <acff898d-529b-4a24-9173-ad21cea08d45@amd.com>
+Date: Wed, 20 May 2026 17:25:53 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] dt-bindings: usb: dwc3-xilinx: Add MMI USB support
+ on Versal Gen2 platform
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, michal.simek@amd.com, Thinh.Nguyen@synopsys.com,
+ p.zabel@pengutronix.de, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, git@amd.com
+References: <20260429173050.1772377-1-radhey.shyam.pandey@amd.com>
+ <20260429173050.1772377-2-radhey.shyam.pandey@amd.com>
+ <20260503-enchanted-galago-of-relaxation-dcda7f@quoll>
+ <f9f25ef4-a541-45a2-b98c-4a411239993b@amd.com>
+ <a51d0e53-3134-475d-a19f-67d7d0695cfe@kernel.org>
+Content-Language: en-US
+From: "Pandey, Radhey Shyam" <radheys@amd.com>
+In-Reply-To: <a51d0e53-3134-475d-a19f-67d7d0695cfe@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4PR01CA0096.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2af::8) To CY1PR12MB9697.namprd12.prod.outlook.com
+ (2603:10b6:930:107::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] bindings: iio: adc: Add StarFive JHB100 SARADC
-To: Xingyu Wu <xingyu.wu@starfivetech.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org
-References: <20260518081852.116909-1-xingyu.wu@starfivetech.com>
- <20260518081852.116909-2-xingyu.wu@starfivetech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260518081852.116909-2-xingyu.wu@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|MW6PR12MB8960:EE_
+X-MS-Office365-Filtering-Correlation-Id: ade7141d-93b8-4649-64f5-08deb666c3d4
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|3023799007|11063799006|22082099003|56012099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	JlqMILnIIYrwfckDK7/+1LNHflPkXvOX8O8Css/iihdX+/exneVXAo23A/DJV5wFQjivToSILdd8HVfwW6uMsEW4XO0aHa1nF+9b9ufnzz02n4zHivWh6AoEw0dr0OMEeNH5t3tv9JdO8pmvGfFO9XhxpLdv648HvtYelIvy2Lj12zLhcsjVpFzwMPGMC3RLDGGD4szW/u5jXSmaIqKi98lgW+CI7vjE9UD0rCeJBchXJW6HRM8bE6paF4qzZJHIPm9WIMHEGDHjXmS4uR4n/shRrpBXtoY4Z2Dg6VZQddyjopS7k6i0SY6JoCIlVwIPmQqkMyXkEZar/QDml3o+pbJsoCFlVfBgkbEhqQSp9An+1RCNQ1qPlvbdOZ6ce5Twt2d6uY9haARkq6+Kn8Hg8l1F+t8wvBn046HRsM9Yz8sbyKpCM0TpnLXWHWNYwwTetMNDz2S27gJJPOdvIirR/3FwyKc9ofQd6KtFeN2raAkRs4rxNG/Aacp70ayMztglPVC4EJMur6b5CHwRrnjaieEcyhZbWPn07vkVp3Ukq7PxVlGGsZmKlaX2vLUzjMaunHJ+eFMcmmYLLCUF1iSOp5YFofjj2DQ7zmgVzl1t8RVK5Tu9HB5gXJtbcVCYlXq3RzpV0wtuIZz7ghpO4WfHZSZVTwmgtDabVpHhq7rrJIUU9iyBaCCtojJlZ0PO0cDE
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(3023799007)(11063799006)(22082099003)(56012099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R3F0SnUvQmprTlk0OEg3L0NHZERRQ3crMDFKUk1KT29jellKbmhZTC9yVEVS?=
+ =?utf-8?B?bytuRXBNQVVyTlNENWVKVDMvK0k3US8zZzdDbCtNVGpmbUZhMTFLRGhCOG1S?=
+ =?utf-8?B?RWhtdFl4eEkvaWFOL2ptOUZQS3JEejJiSU5xV2lYMUc3dThQSXU2MjBNbExK?=
+ =?utf-8?B?OGNLRC83VzY5dUJSWHY0NmwyMjd2WmRMMjRRbFdBd1FjUzVnL3dqK3J0SXZp?=
+ =?utf-8?B?cUdHUmtZTXJHV1FmSmVFK1NmLytHRHppYXhYUk4xRHYwUWdUT2FURHFEN2hz?=
+ =?utf-8?B?aTE1cVJsOVdjWTNPZ0xSNEx4WnNxSFEzSlkxUU1hYmF6VGlhRGtsVzlId0Jx?=
+ =?utf-8?B?UVZmeXhYVXZieDFTSXY5WEdkQXo5QlhTb3ZMZVViOTdzRWNvNmRVdEs5VVNp?=
+ =?utf-8?B?MHVJZ0lQVEtJWGFhNDdwcnNWcW1qNjVKVUp3MzhHK055OFk0YlRwa3N3Nkpy?=
+ =?utf-8?B?RXpyQUhRTzJkdmczOVVnb29DVjBLTWoybFFCQndTdTRVRmdoTXlDSWlibGp4?=
+ =?utf-8?B?ZGdWTmtBVlR4cVV5YzUwTVJ5OUxncFI1SmQzV1FyT0hkV0lRNjJZa2l4SzZO?=
+ =?utf-8?B?ZTRpNW1LTU9tbUtYS3IrSlBTcURmNDJJcWhhbEh6UGxjZzFOZkdnN09kTVJn?=
+ =?utf-8?B?RVRWL2IwcmVjTlhFcGJ2cnlKdVpFNUNLbHVaNkVobmkyUFo5Wk5QZVhXN2Zi?=
+ =?utf-8?B?NDZjUVc1Z2ZEZFl3TUIrZk9uWHF5enYzWnJjY0llWkI0SGQ1TzEyckd6NnpN?=
+ =?utf-8?B?djNESVM3WTFVQ1FDVC9KSVpZZFlTRSthZlVEUVJxUy8rSHdYTUJSdEJTMnR1?=
+ =?utf-8?B?ZzlZeTlzQ2ZLV2NzV0dRYlNBZE9TU1FRcWtVRVl2OHhQQmZUdUtEZkZibHdM?=
+ =?utf-8?B?S21YU1hMM1IvaytTNWdOL2xXQjRtZWxFQzZJWnBxS0U3VWNXQWFFYnB0OWEv?=
+ =?utf-8?B?QmVxRy9IRjlvQlROZFpuRm9DN0hEV1NObG9PVGYrMXh5VjJhQ0xSejNOVk8z?=
+ =?utf-8?B?QnRsY2I4WXZMeUxUbStKK1hHUzRXSmh0TEFNL3ZMRTNuK04zaG03MDM3QzUv?=
+ =?utf-8?B?K2ZHYWdCYnQ2Vlk1bWV2dUpjU3d6SVFaQ0hTdnZwVm5UMGkxcjhQYXZXTGNw?=
+ =?utf-8?B?dUE5RTh5b092VU9EOENoQllIbmVLS3FkMkJoSjAra3ZXMGJ1MlAyUDBFQVdI?=
+ =?utf-8?B?TWM5NWl1K3U0T0VxMFBROTVIbUlJL21yNk5sM0N6dGE1RS9ZOWxUQTJ4eTc3?=
+ =?utf-8?B?TEErM3BZTkZiWk5ML3JXMjBKL2lFU0NGZTU5TWVTTmMrNzAwdFN1c1VJbFlQ?=
+ =?utf-8?B?dEt6Y1VjY3ovREgrYjdXWjlMaHhlYnRwRXAzZmFKTmhIWkpuNElibllSQ1J2?=
+ =?utf-8?B?RnBrYVdSRGR6dkgxMWtrVlJQM05LWUdVK3JtWDA4Qk1wT3pubmFSYkVxMmEw?=
+ =?utf-8?B?bGNxV0g4bjJTQVc1QmQxejU5cWUvdXB4d2N0eStwVnF2NzFKREpGUEN4YWxY?=
+ =?utf-8?B?VzRlOXNLQVExRzNBM1A3SVZENVEzYllONFpITmFSRzZySVlmazRxWndOdXEr?=
+ =?utf-8?B?eVBmZEwvZ0UxeWZTUVVkT05hVnNDM3hCdzQ4VmZyaDcreDcxSThjMHJiTEVy?=
+ =?utf-8?B?MUlGSkdDWFFSM29vUi9lY3RNMEpuR0J4KzR3cGJKQlF4bkhVQlR0dzZSUllJ?=
+ =?utf-8?B?VTNpSjVaRnBzOXJvSlc3cDgra3RKNjNRT2l2QkZXaXppUVEzRGNUZG1ROHB2?=
+ =?utf-8?B?YnhXNjFOOWtwdXNRQTMrcVJGMENtNE1XL3J0U25jYVRKODFQSXBSUUNqYUU2?=
+ =?utf-8?B?NjlsMWI1TWFYT0oyWTJNbGdBNFcvTmVMWlBzdkJnT3dHcGtXMGoxTnZWWDFP?=
+ =?utf-8?B?ajVPMTlKZU9tZnBScFdtSk0vNVJQRllQMlM4ay85VXVYRzhGc2tFK2NBS1k1?=
+ =?utf-8?B?Vndveit0d1RvRXF2bWpiT1pGYTF4WW5DTkRlUGY1MEh2bERtUy8ydmUydFZO?=
+ =?utf-8?B?SFcyL2xaVmZkTWhjcE9XZUdoV01RWXQxaUcwMXZQOE1JMXd0WjRTam9jU3pQ?=
+ =?utf-8?B?L0ltK3hPRkZ1WjRMNjdwb3JMZndtVE9VNlpqRWVxOTNJUSs2bG8yYm51UUNE?=
+ =?utf-8?B?NlQ1TFVST1dSNjlrZ1hBQUVMYVRBYnVId1NnaWIvcnlKaG1JVDgySk8zSldJ?=
+ =?utf-8?B?R3d6ZDNqSGZVcVE2cWdvRjdHdy90NUxRS0J4dWk5V1R4UTJsVWlTTGdSNzVh?=
+ =?utf-8?B?bmUySjBtYXNJVWNmOGNDYWFKZk04c1ZaN1F6dmNRalFXWnJ4WEwvQU15OXFR?=
+ =?utf-8?B?TkpBUGszcnRpZWFnaE5lTkhQMXU4QWJTNGpmWTkyQ3V3MW4wcDB6dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ade7141d-93b8-4649-64f5-08deb666c3d4
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 11:56:02.4769
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U88nrXllRBktbFvM22P9UPW9nk7DXMrbF2oip9t68HXUX9T5U0FaDxovm+qpgoK2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8960
 
-On 18/05/2026 10:18, Xingyu Wu wrote:
-> Add the new documentation of SAR-ADC for the StarFive JHB100 SoC.
+On 5/14/2026 9:30 PM, Krzysztof Kozlowski wrote:
+> On 07/05/2026 21:01, Pandey, Radhey Shyam wrote:
+>>> On Wed, Apr 29, 2026 at 11:00:47PM +0530, Radhey Shyam Pandey wrote:
+>>>>    additionalProperties: false
+>>>>    
+>>>>    examples:
+>>>> @@ -156,3 +193,30 @@ examples:
+>>>>                };
+>>>>            };
+>>>>        };
+>>>> +  - |
+>>>> +    #include <dt-bindings/power/xlnx-zynqmp-power.h>
+>>>> +    #include <dt-bindings/reset/xlnx-zynqmp-resets.h>
+>>>> +    #include <dt-bindings/phy/phy.h>
+>>>> +    usb {
+>>>> +        #address-cells = <1>;
+>>>> +        #size-cells = <1>;
+>>> Please follow DTS coding style.
+>> Thanks for the review. will fix it in next version.
+>>>> +        compatible = "xlnx,versal2-mmi-dwc3";
+>>> I really doubt that DWC3 block comes without addressing space
+>>> (registers), so either you just misrepresented things, like created a
+>>> fake block and syscon, or forgot to combine DWC3 with the wrapper.
+>>>
+>>> And if you built with W=1 your DTS you would see errors. How do you see
+>>> it now? Where do you place it? Wrapper must be outside of soc, but DWC3
+>>> child must be inside. Did you read submitting patches and writing
+>>> bindings documents?
+>> Apologies for missing the DTS sanity check earlier. I am summarizing the
+>> problem statement and possible solution. Please review.
+>>
+>> For MMI USB in current implementation it need a parent/child
+>> representation. However, the parent IP is shared across DP, USB,
+>> and HDCP, so it cannot have a USB-dedicated parent reg space.
+>>
+>> 1. Versal platform
+>>     - Parent: USB wrapper IP → has its own I/O space
+>>     - Child: USB DWC3
+>>
+>> 2. Versal Gen2 platform - MMI USB
+>>     - Parent subsystem combines DP, USB, and HDCP in a single I/O space
+>>     - Children:
+>>       - USB DWC3
+>>       - DP
+>>       - HDCP
+>>
+>> To model the Versal Gen2 MMI USB parent register space, I introduced
+>> xlnx,usb-syscon, allowing the DWC3 driver to access parent registers
+>> via a syscon handle, addressing the v1 review comment.
 > 
-> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
-
-Please use subject prefixes matching the subsystem. You can get them for
-example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
-
-> ---
->  .../iio/adc/starfive,jhb100-saradc.yaml       | 62 +++++++++++++++++++
->  1 file changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc.yaml
+> Syscon phandle is not to express such relationsship.
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc.yaml
-> new file mode 100644
-> index 000000000000..ba8e19b72ad7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/starfive,jhb100-saradc.yaml
-> @@ -0,0 +1,62 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/starfive,jhb100-saradc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Successive Approximation Register (SAR) A/D converter for the StarFive JHB100 SoC
-> +
-> +maintainers:
-> +  - Xingyu Wu <xingyu.wu@starfivetech.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: starfive,jhb100-saradc
-> +
-> +  reg:
-> +    maxItem: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 2
-
-Need to list items. See writing bindings.
-
-> +
-> +  "#io-channel-cells":
-> +    const: 1
-> +
-> +  upper-bound-mv:
-> +    description: The upper bound voltage value of the monitor.
-
-Please read writing bindings about proper naming.
-
-
-> +    $ref: /schemas/types.yaml#/definitions/uint16
-> +
-> +  lower-bound-mv:
-> +    description: The lower bound voltage value of the monitor.
-> +    $ref: /schemas/types.yaml#/definitions/uint16
-> +
-> +  scan-freq:
-> +    description: Number of the scan cycle interval.
-> +    $ref: /schemas/types.yaml#/definitions/uint16
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - resets
-> +  - "#io-channel-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    adc@11be1400 {
-> +      compatible = "starfive,jhb100-saradc";
-> +      reg = <0x11be1400 0x400>;
-> +      interrupts = <172>;
-> +      clocks = <&per0crg 18>;
-> +      resets = <&per0crg 11>, <&per0crg 46>;
-> +      #io-channel-cells = <1>;
-> +      };
-
-Messed indentation.
+>>
+>> However, making reg optional satisfies schema validation but fails
+>> DTB checks.
+>>
+>> versal2.dtsi:1: Warning (simple_bus_reg):
+>> /axi/mmi-usb: missing or empty reg/ranges property
+> 
+> Yep, exactly.
+> 
+>>
+>> To fix it i think we can switch from parent/child representation to
+>> flat DT representation for the Versal Gen2 platform, similar to
+>> existing implementations in qcom,snps-dwc3 and Google Tensor G5 DWC3
+>> bindings[1].
+>>
+>> The Google Tensor DWC3 binding uses a syscon phandle to access USB
+>> configuration registers, which aligns well with the Versal Gen2 MMI
+> 
+> Not true. Just read the binding. If you refer to Tensor, then to access
+> A FEW configuration registers. If you refer to LGA, then it has address
+> space.
+> 
+>> USB IP, where wrapper subsystem shares a common register space for
+>> USB along with other IPs.
+> 
+> 
+> 
+>>
+>> If this approach looks fine , will create binding for MMI USB using
+>> this flat representation and send out next version.
+>>
+>> usb@fe200000 {
+>> compatible = "xlnx,versal2-mmi-dwc3";
+>> reg = <0xfe200000 0x40000>;
+>> xlnx,usb-syscon = <&udh_slcr 0x005c 0x0070 0x00c4 0x00f8>;
+>> <snip>
+>> };
+> 
+> So I am confused. We ask, since long time, to have unified child.
+> Several platforms were already converted. What are you discussing with
+> in such case?
+> 
+> Are you going to have unified node or not?
+> 
 
 
-Best regards,
-Krzysztof
+Yes, in next version will switch to a unified node representation for
+Versal Gen2 MMI USB.
+
+Based on your feedback:
+
+-the fake wrapper hierarchy will be removed.
+-parent node without reg will be dropped.
+-syscon will not be used to model hierarchy.
+
+Instead, I will introduce a separate unified-node binding for Versal
+Gen2 MMI USB where: the USB controller register space is described
+directly in the USB node, auxiliary USB configuration registers in
+UDH SLCR are accessed through a syscon phandle only for sideband
+configuration access.
+
+New DT representation using single unified node.
+
+usb@0xedec0000 {
+     compatible = "xlnx,versal2-mmi-dwc3", "snps,dwc3";
+     reg = <...>;
+
+     xlnx,usb-syscon = <&udh_slcr>;
+     <snip>
+};
+
+Thanks,
+Radhey
+
