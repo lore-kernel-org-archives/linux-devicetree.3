@@ -1,86 +1,73 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010024.outbound.protection.outlook.com [52.101.61.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E550D3A4F55
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779264359; cv=none; b=MsUS0vkEbOf1aUQ7ZsfFX7QEItVsNLF7my3hfJ4ns3nQa1CvE9Bf389IKUVlDyiT78BnDrNYld5jtFOXIv/37xZAofkiNu58w3sg2niK5aGmW5RsZCVB8m1ke5fCS5Zg6X/prj8Ub9TVks5FD+aEWR0GgCZxRm1v1zho5GOITyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779264359; c=relaxed/simple;
-	bh=KUaCdDomY2qU9nG60VsZNCEO7wba/w9qv4eRI81YKo4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PiX5Rlx5o6IEPiM8zJV6xnElcMsGFp25T+FZbOWjAjCcfP6+J3soaHLpQfPFy20hgscM+RTnSIKNoMd4jNThiWgMP2PNUuiV9ZjbGiTNho6lkjvYuIlfwCI1yie07aTJDao8k8y0/CH07hhKdZnLqubeEX9lcVp85Ao9eVQHqys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZaRSheFu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VuBL/fce; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D5F36C5BB;
+	Wed, 20 May 2026 08:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779264371; cv=fail; b=DzUgEgFsVS7YZhUp9BDDlFxk67VVpJLiiNZclweAe6pLL5Xw0y6NbdY6vLzKr+kImmH7L0Ulls5Rwj9w5dQ+o8RiExx+LAxksbkKnbN6Mxzo82WmC/7NUkxn2AZPtjQHE0k2jDPdH64IkiZCPYKswPsyl1zojhTXxL/hfaSAo/M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779264371; c=relaxed/simple;
+	bh=5moltNm6tj4QN/VLffYSG3oyUediCegD2l2omqlAqOc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=rHBTlItJb6iJTzLqm0EgzwSFXGYqM71eoMZ0NmaXX/NYoHOhozW0kklT7CCCVSZI2vyVDGKiNDaVox8dDdqGWsVD2VbwD4vtI6wdWDodWBrwf8TQ3dYCVVsSYvfTaVzPWwUkN465v6EGaT+bZdSJUe/oGCN4IqUluIfpROSpL0w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=UX5kmpL8; arc=fail smtp.client-ip=52.101.61.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZaRSheFu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VuBL/fce"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K6f79A2868052
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:05:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	h4o4tguLJ2M8UFVCSQAOmrgjGYGYAaNNp+BkOJSYljs=; b=ZaRSheFuPELGrHrU
-	5bq5fVMfyqResKiQ70JQ9GcmVcwVO++BNdtAGa8VE2RcuXKOS1fdXMzwTJtDbph5
-	Kdz4noyWWRWd6d23UxPQMSbSlVPYhaCaEpU8/dR7MIrPBCAKu4u2eeLWD7A9h8Ru
-	U3reVb2kI1+5mBFvP29oQxg4eDYm25BSrQS33OCcAsX2dxLWXMzwkxEAzAllr/T5
-	SbMuaMtk4zoKuAm4QahqJUCu0TasoEKPmouhj+BzAYKQPlph23Nquuv+5EWqtMuO
-	plY7E2DXbNgLQ53IfLC/cnaAcIDD30ZwYB/zcqQY/p+D8n8MDMmrXgdUON6gqfI7
-	uk+kjg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3wbqs0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:05:54 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c829366cf25so7021172a12.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 01:05:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779264354; x=1779869154; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=h4o4tguLJ2M8UFVCSQAOmrgjGYGYAaNNp+BkOJSYljs=;
-        b=VuBL/fceh5Ece1PXQOSfa42Xn/BfhtInYmw1tzmg/mCFuIR9AvRBemthybBkBYGyuT
-         l1aN5WXvh/d1k9HifM5Q5KHjfjV8E2xSd2hqkUutdob6AoDWrgxahqbhd3fwaS6pniEA
-         fmZ4dcf02QzSLtPZi1F1u77S5mKvhzlK4KoUnNbCd6whLfmZTqRNECZYZNIXz3MRrAzT
-         ZDMkZ8Q028IMCiGRuYTbyqGur6/QHEMBy+K6M6ZGywlRKv7PXdHfUnhowyhsklEHU6+f
-         3mj/+9y3LZIDcROOWc7NWK1I3X0rEZOYiuuKLZTwRRh0brbizGc0stzt0spH53XN5NHD
-         TzYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779264354; x=1779869154;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=h4o4tguLJ2M8UFVCSQAOmrgjGYGYAaNNp+BkOJSYljs=;
-        b=mvwVC4MtxcJSDatTSCgBHOLaEyjjYlvNpiCe/tdl1B6hBSUaQyVl07ygzUmwXuo4el
-         n+fgk4wybMO7eTasxRhez/8m9gsJA0ODBbZZgYuvYn9zMfR4yjDS+mpGFoEWKopaC7cJ
-         duGalKzB3jqMFe05w0BkzD0kHrHbtkhuzUA7k/zEd3FnOfCzHM8o/uu7PFv2Ht0DU96o
-         LJDvb1N+rhP27+blZ8xewqlOmmea2J7/ELHtWkSEm8LpPo/tCbRa+SC67cTNDbJBtBvT
-         r2Vhq84WDcoLsZsn0MhgzXAvUUgXDSxNNe4yPuzHa1708dwyGKqrxeA8Hx/OgDyiOCEV
-         x0tQ==
-X-Forwarded-Encrypted: i=1; AFNElJ//5MGDRsVx0zdF+CGWpeGEgOFL2sRVT5pabOBpjGiiNsSymO4GhO318FfA8M5slYwoV3IiRZXA66Fx@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWj7rYtsHjf0AnEybrNcTgwxMzlrHseoJ31Zf4MXd4SJ2d5YKt
-	buElKJC5ho9aMiqW/eTAhre6BSxrO4+t/QPEDIYAho41tIqyh7vHcpU6Yg/HvBS8GpmigkqaHqE
-	b96wK1yWNBaVXESUCs057UPZ6XK0vN/aHRZhpaMqN1HHgHPBMd7M6i218mQvKwXUf
-X-Gm-Gg: Acq92OE2Bf228XDvxgucldjwaY3WuTU1uKn7tsR2sOTtILEBunKufWh3rWK+nh1OuoV
-	PmHreAIzaU/bt7DEE4XcsnvwJYIBb7BTOrl+Pm3wMXKoJZCCUTXOYYYNiJKf4CadR3/A2xFkLXI
-	SIKd1e6QkSNvGciQGJ+j47+98ootNE+zRTgKskrhHovia2e+zBdyKYgKaweCDg5MLVnxZFCGY1r
-	1zV2ppRosoSMKhJ8rrGNbu9n8GD5C/2qYpMx0gv280gwVj+MbRL8m/jd9/UKImGiDOOQPXwxJU8
-	R9EQgwN+XdVDABLrWdITVX8FFvm8TEM5cu3E+jHYARq7lhfFgsa9Vy92DT46IfXbxjplhbytLY+
-	osgPe68RTUbWFI4WazVluzTNgVI4mYQGZa8h1KgneDGJwj1DGpIPZqRFy3RYsuSKCkTQ=
-X-Received: by 2002:a05:6a20:7d9f:b0:398:ac0d:9a0b with SMTP id adf61e73a8af0-3b22ecb031amr25955124637.50.1779264353650;
-        Wed, 20 May 2026 01:05:53 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7d9f:b0:398:ac0d:9a0b with SMTP id adf61e73a8af0-3b22ecb031amr25955066637.50.1779264353199;
-        Wed, 20 May 2026 01:05:53 -0700 (PDT)
-Received: from [10.219.57.109] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c82bb11683fsm18637582a12.26.2026.05.20.01.05.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 May 2026 01:05:52 -0700 (PDT)
-Message-ID: <11b91838-9b24-4a62-8760-fdeb3703afc4@oss.qualcomm.com>
-Date: Wed, 20 May 2026 13:35:30 +0530
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="UX5kmpL8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O+ZSofVNB/m6K9TIefM3fKTwYP6aTNME0ZPFPmhRvDyQqKewXZUo6sHoN7CK+jhdJ3jXOB+1rT1aC9W0fvZAiMUu+BOOT2Kn15AIfwE1YFPXBLuD08QoO7Akw3oHzLbBg4bXZZ+x+0hPwvKvfAXae2DY1+fsgx5DMzCUlhhlFIbq68EJPJ57IIGDd1QLP1MVthqPG6diQ4NT+spsbiiNLbs/m0FtHO51D4yw29jf3KvqXXfBUCij71tLqlFvQ8sL6U4QRtR9R1MnXjCY3ivYIDpF0Qkn5m4AqcvVnOYRIEDNzW0orhPL4F0FoeWlAL1RKbROFk7XmB6TZ6xeis52Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p3tRspF2EqpkUMpuEqSz36am5V1A7PAdiZ7mKj0qlw4=;
+ b=Denn/GVYhYsZv21+SsXlKPM5zJNklv9R/rKvuR5Z2MSDzGHiLN9QjpT+Nfkbz9pnv+VUe0Raz7g3q7qNVUxJTOQyVJrNpgtfbgpZOtBxYhH5POYw6ZtCJwi+0r7Lpap5EJhpucNmoEmgbz0kEKaz9/SnrLIw43bpKiHsC3mAEMjqLVVNWL9L2lvqTM3VzQCz1XbewVI63G0qGgPTQtwcxiGqQB0AQk2Zm2RWicoNFLa88CWoZeoRPd4MRxA9PCokVMC8HYw15Vpaf+BFth6CnEpLG3FO0RL8KVFbGW1xR/A9rTxCETZlvGMXgZCWzovJmsSnrc79w0jUU8dwqymygg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p3tRspF2EqpkUMpuEqSz36am5V1A7PAdiZ7mKj0qlw4=;
+ b=UX5kmpL8HGaVSiU0AN4SEAIZw+wDN41+sYohREBqG7B4QJ9zmL71aiRmyga8NjToWKA15/AizlG3IJYT7bHnxxPgXoioO/IFiRaJbUBevxQIE1nC+8WWbsvRpqIaBYt8pLEWBgMr+vUF+lZm8Uvh+7yFtKSZC/m+LvX84mtAlpo=
+Received: from BN9PR03CA0054.namprd03.prod.outlook.com (2603:10b6:408:fb::29)
+ by IA4PR10MB8325.namprd10.prod.outlook.com (2603:10b6:208:55e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Wed, 20 May
+ 2026 08:05:59 +0000
+Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
+ (2603:10b6:408:fb:cafe::f2) by BN9PR03CA0054.outlook.office365.com
+ (2603:10b6:408:fb::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.14 via Frontend Transport; Wed, 20
+ May 2026 08:05:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.0 via Frontend Transport; Wed, 20 May 2026 08:05:59 +0000
+Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 03:05:58 -0500
+Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE209.ent.ti.com
+ (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 03:05:58 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE206.ent.ti.com
+ (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 20 May 2026 03:05:58 -0500
+Received: from [172.24.233.149] (ws.dhcp.ti.com [172.24.233.149])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64K85pGi1040621;
+	Wed, 20 May 2026 03:05:52 -0500
+Message-ID: <c3caaaed-902c-4247-9f0a-4e62c07f32df@ti.com>
+Date: Wed, 20 May 2026 13:35:51 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,109 +75,243 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 0/3] of: parsing of multi #{iommu,msi}-cells in maps
-To: Rob Herring <robh@kernel.org>
-Cc: Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil Agarwal
- <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas
- <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski
- <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-References: <20260424-parse_iommu_cells-v14-0-fd02f11b6c38@oss.qualcomm.com>
- <20260506221915.GA3290640-robh@kernel.org>
+Subject: Re: [PATCH v12 16/17] media: ti: j721e-csi2rx: Support runtime
+ suspend
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+CC: <jai.luthra@linux.dev>, <laurent.pinchart@ideasonboard.com>,
+	<mripard@kernel.org>, <y-abhilashchandra@ti.com>, <devarsht@ti.com>,
+	<s-jain1@ti.com>, <vigneshr@ti.com>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <p.zabel@pengutronix.de>, <conor+dt@kernel.org>,
+	<hverkuil-cisco@xs4all.nl>, <tomi.valkeinen@ideasonboard.com>,
+	<jai.luthra@ideasonboard.com>, <changhuang.liang@starfivetech.com>,
+	<sjoerd@collabora.com>, <dan.carpenter@linaro.org>,
+	<hverkuil+cisco@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>
+References: <20260313090701.646534-1-r-donadkar@ti.com>
+ <20260313090701.646534-17-r-donadkar@ti.com>
+ <agxYPM3mLwR302Za@kekkonen.localdomain>
 Content-Language: en-US
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-In-Reply-To: <20260506221915.GA3290640-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Rishikesh Donadkar <r-donadkar@ti.com>
+In-Reply-To: <agxYPM3mLwR302Za@kekkonen.localdomain>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA3NiBTYWx0ZWRfX7OWygnazeEyD
- klFldhFK8k5utPshLI1xFD2HDg3b0TbuqVmJ5mpKK33FU7qPYF+gwgSGi5CzR7QgWCgRiLg0Imx
- rQJNn71ljaLq23rdEm3jv/0XfFRo5tg7TbE1HFUo7R1Syrb95N076Tgbe6EN/0BdpxnOtuyTx/g
- u/TNJ7mGE6mew/ehg5LuNfxzjzSFh/kqIJT0NnO0Ar3i82CPVUpYHKa5Be/NfA36e8QZ06n7bC3
- 3e1gJIgNttJaaIDUMlHCXTUN2xv60NofpF50/Vt/uQW7AmSsFZMoiXmYUIbzyHFUI5XmRLkwZIL
- S8weHWi42qYLyDn5B2gYoQ6+mbpNukLk09OftLRBomeVY3HXiXqcXw6otzwuFGnJwMY/lTwwbK3
- Rsq0i3a3IljsmM0vVhPOnrTUy1LrSYt2ic5JMtFWyj7ab5vrZQIkN/qlZv/CweKtpRHBvJ8SdRX
- N2KgSvNP3U1hdiTHQPA==
-X-Authority-Analysis: v=2.4 cv=Q/viJY2a c=1 sm=1 tr=0 ts=6a0d6b62 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=zmrd7r8un3QtD10oEDQA:9
- a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: r9CJiXAxeJ9xPIPDUaK-tc9bDszJYLw6
-X-Proofpoint-ORIG-GUID: r9CJiXAxeJ9xPIPDUaK-tc9bDszJYLw6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
- spamscore=0 clxscore=1015 phishscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200076
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|IA4PR10MB8325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 127332b7-ec6e-4490-507e-08deb646a0bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|4143699003|22082099003|56012099003|18002099003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	WjmQfE9Smz8hVDcqOSyawpprXGhAWDMnh5qARCxyHh8D3c2Xv4MbHApT6Dm3dg7ScoB/X9xiHToil55cgFeE575t0NQ58pqhxN6kac7WJe65W3CWAmRrfVPlrmujHFUx52okTiTBizGXCEN0IoTQN31xYriBG4qll6r+D//tqyTuA7RUHZ4Bffjez1CYbobPKQGaGlWFGH/548JnqP2OGCnj2cufbSf0RzF0LZkcE0QfpimLZAMSMXpoTulBpd5A0ckjKbsDa6+FqNP7cONxVV98G2Y/X6YptmYNzzEdG07SvNTyIE80O8PM4lJuT5TtOa/6vufOBWjJrrUqAAOJwzk0XxkVqqz8e779O5Hc0hWAoYWnXr4glMbGYexUJyaW27Wofbd+xk7PNzGmHve4AJFPZLL0bNjd1bGhTo32rjCQvaFOSgWHEGmpp4Pysb+fsAqubKRycKPtlr5aDu90FlAnKI0fSu6fiF3is3BCR35pokXYZojS+yhCeK5h4h7aYVkBJtANUR6k1OApjejh+TYCzRujvKacVyc2AU1rQIEBevpFGu2GVqyd0KJLOVS5ZdL/bV8R0FKjmenq8jq93nSXYi/QTzRQXwGd1FB0oe/DpsOWfHXCYpVTZM9JOQ0Wmkk6cL7eC6Bc6WgLJa4G0dbxmQ0EZOCJiJH1OfA2tMeofiiKBtcClxd4LTKohCvieXOCCTR5zotaYYbbWQQG9iiyEg4K5Nh6OjpVtuG9JXk=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(4143699003)(22082099003)(56012099003)(18002099003)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6CHVz52RVxZv0cP8/JEmRSvUa0m/HLjnC29go4iWuTKAlj3AgQc90wf2rKBoK6eg9W69DFFsJV8nMB1ez85FyvT0IZSN8TLEdWO+P6ac9c5Vx98hCYByuCC7l0OR4Z2pYMtw5UkCZW7mopwiV2LvOBCgdsetATVWRhNkkxBq69w76AvbFghg5QcH9y/+Yy60pTsG+zb8aGpj3PiWkh92YZklKw/dWwMQi27ho1ATNLkY7fCEX5ev4dQwAsXFmmIsdMgvg05NGaaZ830QGJfK8HfNK3WoY+voQAMXBeR2EwfMeEQZALX+L4mpOOGwkrwg+UradauXDvKhHRE7VgEnYHSW4yU8kY77x3Yt8VVXHN857XAMIjSkeNZCpQyOR+adNfEt21jo3srVwpAQqM8H3Ftf2ZFLgcX1gzANi1Ce4yzEnIUMSLifEJAjP0ZWzlTN
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 08:05:59.2532
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 127332b7-ec6e-4490-507e-08deb646a0bb
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055DB.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR10MB8325
 
 
+On 19/05/26 18:01, Sakari Ailus wrote:
+> Hi Rishikesh,
 
-On 5/7/2026 3:49 AM, Rob Herring wrote:
-> On Fri, Apr 24, 2026 at 11:26:07AM +0530, Vijayanand Jitta wrote:
->> So far our parsing of {iommu,msi}-map properties has always blindly
->> assumed that the output specifiers will always have exactly 1 cell.
->> This typically does happen to be the case, but is not actually enforced
->> (and the PCI msi-map binding even explicitly states support for 0 or 1
->> cells) - as a result we've now ended up with dodgy DTs out in the field
->> which depend on this behaviour to map a 1-cell specifier for a 2-cell
->> provider, despite that being bogus per the bindings themselves.
+Hi Sakari,
+
+Thank you for the review !
+
+>
+> On Fri, Mar 13, 2026 at 02:37:00PM +0530, Rishikesh Donadkar wrote:
+>> From: Jai Luthra <jai.luthra@ideasonboard.com>
 >>
->> Since there is some potential use[1] in being able to map at least
->> single input IDs to multi-cell output specifiers (and properly support
->> 0-cell outputs as well), add support for properly parsing and using the
->> target nodes' #cells values, albeit with the unfortunate complication of
->> still having to work around expectations of the old behaviour too.
->> 							-- Robin.
+>> Add support for runtime power-management to enable powering off the
+>> shared power domain between Cadence CSI2RX and TI CSI2RX wrapper when
+>> the device(s) are not in use.
 >>
->> Unlike single #{}-cell, it is complex to establish a linear relation
->> between input 'id' and output specifier for multi-cell properties, thus
->> it is always expected that len never going to be > 1.
+>> When powering off the IP, the PSI-L endpoint loses the paired DMA
+>> channels. Thus we have to release the DMA channels at runtime suspend
+>> and request them again at resume.
 >>
->> These changes have been tested on QEMU for the arm64 architecture.
+>> Tested-by: Rishikesh Donadkar <r-donadkar@ti.com>
+>> Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+>> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+>> Co-developed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+>> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+>> ---
+>>   drivers/media/platform/ti/Kconfig             |  1 +
+>>   .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 55 ++++++++++++++++++-
+>>   2 files changed, 54 insertions(+), 2 deletions(-)
 >>
->> Since, this would also need update in dt-schema, raised PR[2] for the
->> same.
-> 
-> Sashiko has some thoughts on the series:
-> 
-> https://sashiko.dev/#/patchset/20260424-parse_iommu_cells-v14-0-fd02f11b6c38%40oss.qualcomm.com
-> 
-> Rob
+>> diff --git a/drivers/media/platform/ti/Kconfig b/drivers/media/platform/ti/Kconfig
+>> index da33facf44678..d0cb05481bd85 100644
+>> --- a/drivers/media/platform/ti/Kconfig
+>> +++ b/drivers/media/platform/ti/Kconfig
+>> @@ -83,6 +83,7 @@ config VIDEO_TI_J721E_CSI2RX
+>>   	depends on VIDEO_CADENCE_CSI2RX
+>>   	depends on PHY_CADENCE_DPHY_RX || COMPILE_TEST
+>>   	depends on ARCH_K3 || COMPILE_TEST
+>> +	depends on PM
+>>   	select VIDEOBUF2_DMA_CONTIG
+>>   	select V4L2_FWNODE
+>>   	help
+>> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+>> index dda8a66babeca..52c93a11ce8b7 100644
+>> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+>> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+>> @@ -13,6 +13,7 @@
+>>   #include <linux/module.h>
+>>   #include <linux/of_platform.h>
+>>   #include <linux/platform_device.h>
+>> +#include <linux/pm_runtime.h>
+>>   #include <linux/property.h>
+>>   
+>>   #include <media/cadence/cdns-csi2rx.h>
+>> @@ -966,12 +967,16 @@ static int ti_csi2rx_start_streaming(struct vb2_queue *vq, unsigned int count)
+>>   	unsigned long flags;
+>>   	int ret = 0;
+> Redundant initialisation.
+>
+>>   
+>> +	ret = pm_runtime_resume_and_get(csi->dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>>   	spin_lock_irqsave(&dma->lock, flags);
+>>   	if (list_empty(&dma->queue))
+>>   		ret = -EIO;
+>>   	spin_unlock_irqrestore(&dma->lock, flags);
+>>   	if (ret)
+>> -		return ret;
+>> +		goto err;
+>>   
+>>   	ret = video_device_pipeline_start(&ctx->vdev, &csi->pipe);
+>>   	if (ret)
+>> @@ -993,6 +998,8 @@ static int ti_csi2rx_start_streaming(struct vb2_queue *vq, unsigned int count)
+>>   	writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
+>>   err:
+>>   	ti_csi2rx_cleanup_buffers(ctx, VB2_BUF_STATE_QUEUED);
+>> +	pm_runtime_put(csi->dev);
+>> +
+>>   	return ret;
+>>   }
+>>   
+>> @@ -1012,6 +1019,7 @@ static void ti_csi2rx_stop_streaming(struct vb2_queue *vq)
+>>   
+>>   	ti_csi2rx_stop_dma(ctx);
+>>   	ti_csi2rx_cleanup_buffers(ctx, VB2_BUF_STATE_ERROR);
+>> +	pm_runtime_put(csi->dev);
+>>   }
+>>   
+>>   static const struct vb2_ops csi_vb2_qops = {
+>> @@ -1257,7 +1265,9 @@ static void ti_csi2rx_cleanup_notifier(struct ti_csi2rx_dev *csi)
+>>   
+>>   static void ti_csi2rx_cleanup_ctx(struct ti_csi2rx_ctx *ctx)
+>>   {
+>> -	dma_release_channel(ctx->dma.chan);
+>> +	if (!pm_runtime_status_suspended(ctx->csi->dev))
+>> +		dma_release_channel(ctx->dma.chan);
+>> +
+>>   	vb2_queue_release(&ctx->vidq);
+>>   
+>>   	video_unregister_device(&ctx->vdev);
+>> @@ -1507,6 +1517,39 @@ static int ti_csi2rx_init_ctx(struct ti_csi2rx_ctx *ctx)
+>>   	return ret;
+>>   }
+>>   
+>> +static int ti_csi2rx_runtime_suspend(struct device *dev)
+>> +{
+>> +	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
+>> +	int i;
+>> +
+>> +	if (csi->enable_count != 0)
+>> +		return -EBUSY;
+>> +
+>> +	for (i = 0; i < csi->num_ctx; i++)
+> You could declare i here, and I'd use unsigned int.
+>
+>> +		dma_release_channel(csi->ctx[i].dma.chan);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int ti_csi2rx_runtime_resume(struct device *dev)
+>> +{
+>> +	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
+>> +	unsigned int ret, i;
+> Ret should be signed and could be declared below (up to you).
+>
+>> +
+>> +	for (i = 0; i < csi->num_ctx; i++) {
+> i could be declared here.
 
-Thanks for the feedback, I have Posted v15 addressing comments from Sashiko.
 
-v15: https://lore.kernel.org/all/20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com/
+Thanks for pointing out, Will do all the changes in v13
 
-Thanks,
-Vijay
+
+Rishikesh
+
+>
+>> +		ret = ti_csi2rx_init_dma(&csi->ctx[i]);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static const struct dev_pm_ops ti_csi2rx_pm_ops = {
+>> +	RUNTIME_PM_OPS(ti_csi2rx_runtime_suspend, ti_csi2rx_runtime_resume,
+>> +		       NULL)
+>> +};
+>> +
+>>   static int ti_csi2rx_probe(struct platform_device *pdev)
+>>   {
+>>   	struct device_node *np = pdev->dev.of_node;
+>> @@ -1562,6 +1605,9 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
+>>   			goto err_ctx;
+>>   	}
+>>   
+>> +	pm_runtime_set_active(csi->dev);
+>> +	pm_runtime_enable(csi->dev);
+>> +
+>>   	ret = ti_csi2rx_notifier_register(csi);
+>>   	if (ret)
+>>   		goto err_ctx;
+>> @@ -1592,6 +1638,9 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
+>>   	struct ti_csi2rx_dev *csi = platform_get_drvdata(pdev);
+>>   	unsigned int i;
+>>   
+>> +	if (!pm_runtime_status_suspended(&pdev->dev))
+>> +		pm_runtime_set_suspended(&pdev->dev);
+>> +
+>>   	for (i = 0; i < csi->num_ctx; i++)
+>>   		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
+>>   
+>> @@ -1599,6 +1648,7 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
+>>   	ti_csi2rx_cleanup_v4l2(csi);
+>>   	dma_free_coherent(csi->dev, csi->drain.len, csi->drain.vaddr,
+>>   			  csi->drain.paddr);
+>> +	pm_runtime_disable(&pdev->dev);
+>>   }
+>>   
+>>   static const struct of_device_id ti_csi2rx_of_match[] = {
+>> @@ -1613,6 +1663,7 @@ static struct platform_driver ti_csi2rx_pdrv = {
+>>   	.driver = {
+>>   		.name = TI_CSI2RX_MODULE_NAME,
+>>   		.of_match_table = ti_csi2rx_of_match,
+>> +		.pm		= &ti_csi2rx_pm_ops,
+>>   	},
+>>   };
+>>   
