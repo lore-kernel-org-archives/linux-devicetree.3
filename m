@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8E93CBE96
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:44:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B78C3CF664
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:44:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779317084; cv=none; b=cTJXVmIdTDp+6JGK2MEh7s4MrN+nOgsnUkfdsX9MJULrgEvI1arvvWRwgdorKZnGNsNT5P0tGyfYFMEjs3ZKLZ0viwJfzEwE5EHZ9KccR3l+5WXPGo50NFPE9PQY7SSNLE7SLmM4FIX7R5br+Pil+M6hFNyoRXYQjx6vHQ/GzOw=
+	t=1779317085; cv=none; b=r6Xwu5oxIXlzeH05KOUngudV5U9HGXsjGTDKvan7j+fVOF5j7gzsn+71pMVcxnGF6WeCtGFAmzlOkaOebhH1L2j38f67WIVRfVQcAv7hi/UfbeX7QjJ1e/Sgyk0i/7QyQo1aAE7AUSx8R1Y4ebfVfxf/pRkrKEWeSFscyIJNi8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779317084; c=relaxed/simple;
-	bh=ljhyyAVAsaT41Rpt30YyAO53+U3vqFIqV/OgI67rHP8=;
+	s=arc-20240116; t=1779317085; c=relaxed/simple;
+	bh=071e3CWRai5RdT/lah5eGyVEiMIYDUc5iHEnKYu4oJI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m4P34/u4M/HQHCQzMgBLAIgPKQChS/4eYPH94It7xu3nSOI5r1bIZaa6MKN1CBmGJJptG8ew1LqOx0DT38VtWkGFDEbyYnBvs0GnSWVCG58MoZ3WjsyiUmVzoQCZ0VKi5FM9bad1w0sjWV+bHiruGtiinUgvSZkJ07cMKhHedks=
+	 In-Reply-To:To:Cc; b=bijIg3NA7J8JcmW24SGcMVAoaLANU+q2KnlChfYQYtLHjn/D56nvBl/Eek/qRgKhLNADg8eDUCT83vQXVxxWC/htnGnmhU/hRD4Y7NgnfR6MHej2vYVWaNdqAp1U7OYSL4rp/vWwoBoBe8pv9ll6IpRF+63Z5AUiSvMB8IbK+t8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wPpeL-0005vy-DY; Thu, 21 May 2026 00:44:25 +0200
+	id 1wPpeO-0005vy-Q8; Thu, 21 May 2026 00:44:28 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Thu, 21 May 2026 00:44:06 +0200
-Subject: [PATCH v7 01/28] media: dt-bindings: media: rockchip-rga: add
- rockchip,rk3588-rga3
+Date: Thu, 21 May 2026 00:44:08 +0200
+Subject: [PATCH v7 03/28] media: v4l2-common: add missing 1 and 2 byte RGB
+ formats to v4l2_format_info
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260521-spu-rga3-v7-1-3f33e8c7145f@pengutronix.de>
+Message-Id: <20260521-spu-rga3-v7-3-3f33e8c7145f@pengutronix.de>
 References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 In-Reply-To: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -44,76 +44,58 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
  p.zabel@pengutronix.de, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add a new compatible for the RGA3 (Raster Graphic Acceleration 3)
-peripheral found on the RK3588 SoC. Also specify an iommu property,
-as the RGA3 contains the generic rockchip iommu. While other versions
-also have an iommu, it's usually specific to them.
+Add all missing one and two byte RGB formats to v4l2_format_info. This
+allows drivers to more consistently use v4l2_format_info, as it now
+covers all currently defined RGB formats.
 
-The RK3588 contains one RGA2-Enhance core (also contained on the RK3399)
-and two RGA3 cores. Both feature a similar functionality of scaling,
-cropping and rotating of up to two input images into one output image.
-Key differences of the RGA3 are:
-
-- supports 10bit YUV output formats
-- supports 8x8 tiles and FBCD as inputs and outputs
-- supports BT2020 color space conversion
-- max output resolution of (8192-64)x(8192-64)
-- MMU can map up to 32G DDR RAM
-- fully planar formats (3 planes) are not supported
-- max scale up/down factor of 8 (RGA2 allows up to 16)
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
-Changed in v3/v4:
-- Dropped Acked-by: Krzysztof Kozlowski due to the added iommus property
-  and description adjustments.
----
- Documentation/devicetree/bindings/media/rockchip-rga.yaml | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/media/v4l2-core/v4l2-common.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip-rga.yaml b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
-index ac17cda65191b..7bd92f7336664 100644
---- a/Documentation/devicetree/bindings/media/rockchip-rga.yaml
-+++ b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
-@@ -9,7 +9,11 @@ title: Rockchip 2D raster graphic acceleration controller (RGA)
- description:
-   RGA is a standalone 2D raster graphic acceleration unit. It accelerates 2D
-   graphics operations, such as point/line drawing, image scaling, rotation,
--  BitBLT, alpha blending and image blur/sharpness.
-+  BitBLT, alpha blending and image blur/sharpness. There exist many versions
-+  of this unit that differ in the supported inputs/output formats,
-+  the attached IOMMU and the supported operations on the input. As some SoCs
-+  include multiple RGA units with different versions, a more specific
-+  compatible name to differentiate the concrete unit is used for them.
+diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+index f6cb7e14f2236..b55ab72958eaa 100644
+--- a/drivers/media/v4l2-core/v4l2-common.c
++++ b/drivers/media/v4l2-core/v4l2-common.c
+@@ -246,8 +246,29 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
+ {
+ 	static const struct v4l2_format_info formats[] = {
+ 		/* RGB formats (1 or 2 bytes per pixel) */
++		{ .format = V4L2_PIX_FMT_RGB332,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 1, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_RGB444,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_ARGB444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_XRGB444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_RGBA444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_RGBX444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_ABGR444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_XBGR444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_BGRA444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_BGRX444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+ 		{ .format = V4L2_PIX_FMT_RGB555,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_ARGB555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_XRGB555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_RGBA555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_RGBX555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_ABGR555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_XBGR555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_BGRA555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_BGRX555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+ 		{ .format = V4L2_PIX_FMT_RGB565,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_RGB555X,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_ARGB555X, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_XRGB555X, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+ 		{ .format = V4L2_PIX_FMT_RGB565X,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
  
- maintainers:
-   - Jacob Chen <jacob-chen@iotwrt.com>
-@@ -20,6 +24,7 @@ properties:
-     oneOf:
-       - const: rockchip,rk3288-rga
-       - const: rockchip,rk3399-rga
-+      - const: rockchip,rk3588-rga3
-       - items:
-           - enum:
-               - rockchip,rk3228-rga
-@@ -45,6 +50,9 @@ properties:
-   power-domains:
-     maxItems: 1
- 
-+  iommus:
-+    maxItems: 1
-+
-   resets:
-     maxItems: 3
- 
+ 		/* RGB formats (3 or 4 bytes per pixel) */
 
 -- 
 2.54.0
