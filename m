@@ -1,124 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E7224E4A1
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 12:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D34C352001
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 12:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779281923; cv=none; b=DPAMldiP2gtl9/kFWuZaynHYgykYQzQhka5X4bJ1HoydVIOoTu+OU2j04QeoaX9E+1q+k6418JDYbYFxftQAT44IS8U2dcgrPd508pK7jICiL7Po4WDwXlXL2LZnkVN6+XsW0of4wYyeZ+ySr7JtV29xqBISB7u+7OjRTlBkpnI=
+	t=1779281948; cv=none; b=iG/t3YMBUf1dUWnVZ59IiN0NU+QHdks6HS/cHU8yNPcB9swuXRCu9lbPlO/TrBLCRpQfBx74sSiHP/7x82i1TYKpBUfHm5RPKgOZmko1XDkeMLf7R84YDOEsF+e+o+kEZqmNMF/SmNaB1NX6CClnCXOAv8PI3qunz1eTC8V7iGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779281923; c=relaxed/simple;
-	bh=iWkLxQT8eG5JD/yANK40cbDsfewiXq4s/r2/LlK8OsM=;
+	s=arc-20240116; t=1779281948; c=relaxed/simple;
+	bh=2mhk7rGujPTlL8hrC8aOBubRwN7Pweuf4Tr8vFbOn1U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ORKTe4ZLgDuCzoj5QGf8p3GYMyCBCJvWqbMfhEd/C+M00dn2SqjhzsX/ZBwh3sYXto2bCNle8YOtVXBRr8PCBi8K72lRXzQgkjNLlJdiX4TN5OUHu7IR6v5GseqXY//+MukZWmCgMcScu26yXfuRZUc68GZ6BXRY+3NIt7eLX5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtwAxDvt; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tYlYtdp6cH0FJ1I31OqhmeV7r0woVYqqtJoWEtjP8fD4xQl0y6y4aFSGU90ENuYk/uJnwvXFtTiwIOmLX+L8KJ+ge5QawM9HXuhK6KpcCbzIvVgAanYneWAy4lP92Hwz/6NYYwUHF4J4ryepT4Xkg4cKM9K/XWvVA5fsPjlVZBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5MmG2Yt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtwAxDvt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F35631F000E9;
-	Wed, 20 May 2026 12:58:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5MmG2Yt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152F51F000E9;
+	Wed, 20 May 2026 12:59:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779281922;
-	bh=jq7HAdQJ1JPNPsQYzBUMcqZ+BW+mjiGTekLVqTiAnQg=;
+	s=k20260515; t=1779281946;
+	bh=Bl1Q72qg4WZKjQkqHbWz1XkZiuXY9vvmLOgDjYKf59s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gtwAxDvtmEMDzCfl1uSQGPrKfxSPlFAKRl6+iaaJ7ZrPuXJBxqLRunPEMg/DWjZ1Z
-	 RsmMXcrD4fR13W8Ker5qjEsZMdwzKmduyA5aSqHsWwLWJkRN3Ed6goBlFUOueynvsB
-	 kRJROjBDhcb09EgIQ0/qGqYYrY5dRBFQtMf/U2hV+f2e8dabTFOsA3wUxWWtkZ1o0a
-	 RfwEu75kR82sKxvuMe+0TTejTlOmhjchdAuSfn5EocqNTBjRogXUKp/P1YMfYNOOz3
-	 gUC4+zTZC+y7ZiLXoN65+Ed9xPd09poxB4G7ZZwexouwjz3eVtzC3xe1dJh7B6fP9c
-	 yW0Pm3+joLYmg==
+	b=e5MmG2YtkBAWLiMh2Ep5hI+DfAXOJP38mx3oMVU04xg8xfOYe9VTU6YeI498zbx6C
+	 PLeBzS57wTtbQcphnOnmYQoKxpVb/+AY2v9A3OS5Ff9YHw9hiaQzvETWxXt8Zl2Ia+
+	 ipSvNqeaI3sJIF32HPH/7p505kOPubgZ+Q0Kh+WitlwYZSVjzusx7UsejTUxeGJ+DN
+	 oBdsx+n5MZjz6rsE1SpiqnF3hY7ZyGuemn2DEX4OmrvyM0Bf+ZzBirSxf9h9GH4FTa
+	 mhL5ryOtyZGCBwxkKyneWQfxa1JD7oPRat/I7xyMKlI6lg//eEAN5odQKwlelmTyiY
+	 zMqu6sKpI50sQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 11/17] media: cadence: csi2rx: add multistream
- support
+Subject: Re: [PATCH v13 13/17] media: ti: j721e-csi2rx: Submit all available
+ buffers
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rishikesh Donadkar" <r-donadkar@ti.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260520120022.539913-12-r-donadkar@ti.com>
-References: <20260520120022.539913-12-r-donadkar@ti.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260520120022.539913-14-r-donadkar@ti.com>
+References: <20260520120022.539913-14-r-donadkar@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 12:58:41 +0000
-Message-Id: <20260520125841.F35631F000E9@smtp.kernel.org>
+Date: Wed, 20 May 2026 12:59:04 +0000
+Message-Id: <20260520125906.152F51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The hardware reference counter `csi2rx->count` counts API calls in=
-stead of enabled streams, leading to premature hardware shutdown or resourc=
-e leaks.
+- [Critical] Use-after-free risk due to calling `vb2_buffer_done` before `l=
+ist_del`.
+- [High] The loop in `ti_csi2rx_dma_submit_pending` overwrites its return v=
+alue, masking errors or propagating late failures that leak active DMA tran=
+sfers.
 --
 
-commit dc92c5b7cb43fb07195719c19a138fea74234e1c
+commit 24ec89ac37ff48257e9071eff4f7a9e983db636d
 Author: Jai Luthra <jai.luthra@linux.dev>
 
-media: cadence: csi2rx: add multistream support
+media: ti: j721e-csi2rx: Submit all available buffers
 
-This commit adds multi-stream support to the Cadence CSI-2 bridge IP,
-allowing for 1-to-1 mapping of virtual channels from sink to source pads.
+This commit moves the logic for submitting available buffers to DMA into
+a separate function. It then uses this new function during stream start
+so all queued buffers are submitted before starting the stream.
 
-> diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media=
-/platform/cadence/cdns-csi2rx.c
-> index bba0e4c0a34da..8931e824c597c 100644
-> --- a/drivers/media/platform/cadence/cdns-csi2rx.c
-> +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
+> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/driv=
+ers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+> index 1ec63715baf2c..071ad969dfa68 100644
+> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
 [ ... ]
-> @@ -471,18 +499,57 @@ static int csi2rx_log_status(struct v4l2_subdev *sd)
-[ ... ]
->  static int csi2rx_enable_streams(struct v4l2_subdev *subdev,
->  				 struct v4l2_subdev_state *state, u32 pad,
->  				 u64 streams_mask)
->  {
->  	struct csi2rx_priv *csi2rx =3D v4l2_subdev_to_csi2rx(subdev);
-> +	u64 sink_streams;
->  	int ret;
-> =20
-> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state, pad,
-> +						       CSI2RX_PAD_SINK,
-> +						       &streams_mask);
+> @@ -663,11 +663,32 @@ static int ti_csi2rx_drain_dma(struct ti_csi2rx_ctx=
+ *ctx)
+> +static int ti_csi2rx_dma_submit_pending(struct ti_csi2rx_ctx *ctx)
+> +{
+> +	struct ti_csi2rx_dma *dma =3D &ctx->dma;
+> +	struct ti_csi2rx_buffer *buf;
+> +	int ret =3D 0;
 > +
->  	/*
->  	 * If we're not the first users, there's no need to
->  	 * enable the whole controller.
->  	 */
->  	if (!csi2rx->count) {
-> +		csi2rx_update_vc_select(csi2rx, state);
->  		ret =3D csi2rx_start(csi2rx);
->  		if (ret)
->  			return ret;
-> @@ -490,10 +557,11 @@ static int csi2rx_enable_streams(struct v4l2_subdev=
- *subdev,
-> =20
->  	/* Start streaming on the source */
->  	ret =3D v4l2_subdev_enable_streams(csi2rx->source_subdev, csi2rx->sourc=
-e_pad,
-> -					 BIT_U64(0));
-> +					 sink_streams);
+> +	/* If there are more buffers to process then start their transfer. */
+> +	while (!list_empty(&dma->queue)) {
+> +		buf =3D list_entry(dma->queue.next, struct ti_csi2rx_buffer, list);
+> +		ret =3D ti_csi2rx_start_dma(ctx, buf);
 
 [Severity: High]
-Since the V4L2 streams API allows enabling or disabling multiple streams
-simultaneously using the streams_mask bitmask, does this create a tracking
-issue for the hardware reference counter?
+Does this code overwrite the return value on each iteration?
 
-If a caller enables multiple streams in a single call (for example,
-streams_mask =3D BIT(0) | BIT(1)), csi2rx->count will only increment by 1
-because it counts API calls rather than the actual number of enabled stream=
-s.
+If an earlier buffer succeeds but a subsequent buffer fails, the function
+will return the error code.
 
-If the caller subsequently disables those streams sequentially in separate
-calls (for example, disable_streams(BIT(0)) followed by disable_streams(BIT=
-(1))),
-the first call will decrement csi2rx->count to 0.
+If this error is returned to ti_csi2rx_sd_enable_streams(), the stream
+initialization will abort, but the DMA hardware will already be active
+with the successfully submitted buffers.
 
-Would this trigger csi2rx_stop(csi2rx) and shut down the entire CSI-2
-receiver hardware prematurely, while the second stream is still actively
-streaming?
+Could this lead to silent memory corruption if V4L2 reclaims the buffers
+and userspace frees them while the hardware is still writing to them?
 
-Could the driver track the actual number of enabled streams using
-hweight64() on the active streams mask instead?
+> +		if (ret) {
+> +			dev_err(ctx->csi->dev,
+> +				"Failed to queue the next buffer for DMA\n");
+> +			vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_ERROR);
+> +			list_del(&buf->list);
+
+[Severity: Critical]
+Is there a use-after-free risk here if the buffer is accessed after
+vb2_buffer_done() is called?
+
+Calling vb2_buffer_done() relinquishes ownership of the buffer back to
+videobuf2, which wakes up any process waiting on VIDIOC_DQBUF.
+
+Since the vb2 queue mutex is not held here, a concurrent thread could issue
+a VIDIOC_REQBUFS ioctl to free the buffer memory.
+
+If that happens, would the subsequent list_del(&buf->list) execute on freed
+memory and corrupt the slab?
+
+> +		} else {
+> +			list_move_tail(&buf->list, &dma->submitted);
+> +		}
+> +	}
+> +	return ret;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520120022.5399=
-13-1-r-donadkar@ti.com?part=3D11
+13-1-r-donadkar@ti.com?part=3D13
