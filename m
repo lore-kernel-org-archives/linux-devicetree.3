@@ -1,586 +1,182 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B18437C0E2
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 21:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B67F38F95B;
+	Wed, 20 May 2026 21:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779311781; cv=none; b=RBkRrUjF4Ipdt3R2i75H9MdnRKKzKqVhF50MBKNTN6zYHVF4OcGPqN3pqu8H7qrJ2lyJx6+J4XJbbc++U4ApTrcl5laQ82+QbHDCe8kW/GcPi5a9oxFIUF/DWCkLrrMRgVKq9sFMUg8dU9kPAbJ/0cvUg8ANmL8CxxQvrHUys8Q=
+	t=1779312796; cv=none; b=jN0f/CgzU0641xc+iPhTXPGvWji0QsfHZqObdc1boRaEVtKdLoS6O6J/HknzwV+cd638WOdaYsa77znUMGUB7pfxC72uH6u7z9Z3berfxpP5n3lXYdifBZco14gtQwdN7h+tQlHhZ1X24rn/BqZqH9MuQm81vXuehCj37hxsxbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779311781; c=relaxed/simple;
-	bh=jcxmhUYCLzvJomDllJwXOr8J+/4SyOyHiCVicCdhhyM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tEkVO6F9WTKM9/bAipj4AJQhcUJUDCkJFVYyy+LPWtncYJQfTgNKlrhcgNUwC0eOLcmFMU1rZiS+kui2sIdr963/9gvvX398uxnEfprhMJ9Go0jSIxETX8sHW+2rBq/elqmAOWSLag2K9N4hdIL2PoqvIJCTuzGuACXi2pmQER4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YlgrCGBW; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779312796; c=relaxed/simple;
+	bh=L/KHVtTDW88QxjxlnEFS3VYmEGhFfqA/+fZQrK+UQoQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nnvp8DnNrZy69V0F8MlG3DhWY9BtRLm1G87TJqOZeAdK3977c8p2yHt9lggP8dzQqSbIrtoW8SUINl/2Co63unn+jDzh4ZQLkSIJI2trwe6daIv9FZS3brpo59TAnF/uqaDsDwUv9bdBZnDkRtNM1G9e6kHsePqDEbsDE2n0lzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=pPW3ypHb; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YlgrCGBW"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so43890625e9.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:16:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779311778; x=1779916578; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=k2Wno4iGEmIqRcLVb/jC6n8e0g4QLXyqrnnmfOd1vJA=;
-        b=YlgrCGBWb9S1iUZagYuRuDRQc0mB2/KuSxgFRjDcqTdbtmdTUOS7Jn9hCZACbAvs/L
-         WmNt58bYUve4aCQOLw19iq67i5z2qIFoaa2LlRvC7U0EKXWVBpKHcxYzOOcx0FnJWz4m
-         vgpoJFWMYnKMfwmNwqlKx6S1O+ZbFlsQ9gUCZR7c7N1+XA6gThO5ro9khAfOG7RFCgj5
-         VLaAXeq5nPpMqcmEMSBp462iRcJVUDD4mJl+i4pmJXYmCJ9PP0kf4IjljhEh0Gubl/vr
-         8kgeR/j9a9+rzk4Ske07K1y3apHGKEezYz7FK3m2qh93ROVxIhLnp/fK/ydKUsGkUGLz
-         2fPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779311778; x=1779916578;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=k2Wno4iGEmIqRcLVb/jC6n8e0g4QLXyqrnnmfOd1vJA=;
-        b=oR2E4PUWU/XGFN05MkyRV7ipME75HQ4BqFa2HIP6FuURW1zJrhTU2Ze7iySV9Acgwn
-         nLcGwo6ANolMi4IWey0QvEGx4B8yoc5vVqcKzXuZrHIg6mVS4/D0FZDeQnFoHUhmQO3F
-         s8sv5SI9TTPhnlVQeSwxHqm/7g7Qv2XvKowmEYTLJ5pI2BM97F2R9i5PRMrl7PK44txN
-         +7745ihkReSZvSAuHZy/13xkMS7UaeaUDfznmlb3Bic0Nq5Bp4kKOoRu2QdbIdTDUfoi
-         BIsnxyHLPf+MpQDwDzFjq10Y683ZJ8NjdN9zZg/NbPRGjzUJdFTks1VMltlbms34JpZp
-         QUYw==
-X-Forwarded-Encrypted: i=1; AFNElJ8i9By7bU0lDo+tDm3kROkyFdzQCgFunjqYBgHVKUUyLavbokHH/USRcKvrZ7BWjJ2hdH+27JmQJLiW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw92gqzLJLZioyZAspZgeX34GlOiRABY04ZEEzCgLdCtq80ifo3
-	fyVqhhVjnGEB84LvNO6dnKmZI1B6M0W95A6FmUJPupduWYAssVJrtOsr
-X-Gm-Gg: Acq92OEqP01PZALoU2sNNukENv0y0mloLMiqLOFhjwPcdtf/oyCg4yhJcyJLjqHh8W8
-	TgbFM1PPwveVOKjpY8PYH3r9bFTCZHXpXmpFOq3jLXskK314FSdwM8ZVOk3/fd5Ki7Fdj2ckRvT
-	yVRJDlyixDfbI8COd5C3vVj7hnHt0W4ZwSRigvgyq75Nm1o91xR1IbbsTkIZjm6OBTKVlg5ZPdV
-	gE67kaSuPnEXEX5lEaggJcr350MZGtr0CzrrQm8m3GzHH0FuFKP+6Dj+lxngTMdKc5D+aUzb9Rl
-	+HlvoUKY+kaBqvKLIVZKoedCkixYO2PPnye5/jcXb0xena9p3Cz43SX87AcE4HMvgGD/Ch98X5P
-	SakSVT9rqBrr/2YSOitZZTZQx2dpNYSmn/Vcl/kNv44qJFbEwE/Ng0h7Yo4Tu0RoAYWUm/iSIJ1
-	jFH9cY1Y3QkySa6L99FLw+OvLrdHKNU8UujHIQ9jk+lHVYDCPeWcIJOIm3dPo1CrgsJaEcxw3at
-	7DcM2W1rJEe7ryNMBLymqAj/U/wSlWPpTeTHFuNDBDrxieEjqsYeSfC6Bj0BSAOXcb2B+xVHCKy
-	lHyHu3cWwZGOrH8fMg2j5p5JhOpA5gDatEDUv7NNWqwZKLmy2GT01W9JYjnZqHaRXO696reXAOI
-	y42o=
-X-Received: by 2002:a05:600c:5298:b0:48a:563c:c8c0 with SMTP id 5b1f17b1804b1-49036034241mr669855e9.7.1779311777792;
-        Wed, 20 May 2026 14:16:17 -0700 (PDT)
-Received: from systembl0wer.localdomain (ip-86-49-246-187.bb.vodafone.cz. [86.49.246.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49033d5987esm16499845e9.12.2026.05.20.14.16.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 14:16:17 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Wed, 20 May 2026 23:15:38 +0200
-Subject: [PATCH v2 2/2] iio: light: veml3328: add support for new device
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="pPW3ypHb"
+Received: from killaraus.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:42d6:38fa:3bdf:70df])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CCB7C42B;
+	Wed, 20 May 2026 23:32:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1779312779;
+	bh=L/KHVtTDW88QxjxlnEFS3VYmEGhFfqA/+fZQrK+UQoQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pPW3ypHbJo5+ceeia8lepbKyFjdpFKAQy9hXuyC+lKEDGPgm7jVYeBw9+Evjs/Qm1
+	 QLY+YWPzkAdUjouo6v9VSJl5ASsANjFBIdU9Ocsv2Jr4XTJ230Ws5nMkoq8/qf13Pg
+	 Qiympsnp+IgQ/sva+hZS9Vz1OaUwQJNaFw33zhsM=
+Date: Wed, 20 May 2026 23:33:12 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <frank.li@nxp.com>,
+	imx@lists.linux.dev, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 1/2] media: dt-bindings: Add CSI Pixel Formatter DT
+ bindings
+Message-ID: <20260520213312.GD9017@killaraus.ideasonboard.com>
+References: <20260518-csi_formatter-v7-0-562b750557e3@oss.nxp.com>
+ <20260518-csi_formatter-v7-1-562b750557e3@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-veml3328-v2-2-a57f0d9e28d4@gmail.com>
-References: <20260520-veml3328-v2-0-a57f0d9e28d4@gmail.com>
-In-Reply-To: <20260520-veml3328-v2-0-a57f0d9e28d4@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
- Rishi Gupta <gupt21@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779311774; l=13434;
- i=joshua.crofts1@gmail.com; s=20260516; h=from:subject:message-id;
- bh=jcxmhUYCLzvJomDllJwXOr8J+/4SyOyHiCVicCdhhyM=;
- b=e6cztAnbWfR4Oq5Kx5j+AzARS/kwrjvNW+++YOCDNHi3yWRTtHWBnMt4Onsh9UKdz0Fdm62Zn
- mCXhqdRmJWGBi8/dqYL/JjHxBLY6SgTORYLhXII33uRNJkggLaa9jWi
-X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
- pk=d2X8EVKEB2uF4AaPPi3iSSI+IJF3/9kOoDYVVmc+G1o=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260518-csi_formatter-v7-1-562b750557e3@oss.nxp.com>
 
-Add support for the Vishay VEML3328 RGB/IR light sensor communicating
-via I2C (SMBus compatible).
+Hi Guoniu,
 
-Also add a new entry for said driver into Kconfig and Makefile.
+Thank you for the patch.
 
-Assisted-by: Gemini:3.1-Pro
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
- MAINTAINERS                  |   5 +
- drivers/iio/light/Kconfig    |  11 ++
- drivers/iio/light/Makefile   |   1 +
- drivers/iio/light/veml3328.c | 416 +++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 433 insertions(+)
+On Mon, May 18, 2026 at 10:19:46AM +0800, Guoniu Zhou wrote:
+> From: Guoniu Zhou <guoniu.zhou@nxp.com>
+> 
+> The i.MX95 CSI pixel formatting module uses packet info, pixel and
+> non-pixel data from the CSI-2 host controller and reformat them to
+> match Pixel Link(PL) definition.
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
+> ---
+> Changes in v7:
+> - Change compatible to imx95-csi-formatter as IP is i.MX95 specific per Marco's suggestion
+>   Link: https://lore.kernel.org/linux-media/20260511-csi_formatter-v6-0-01028e312e2b@oss.nxp.com/T/#mcd135b3de179b3cb69daa1fd6e0e8e27c85b3332
+> ---
+>  .../bindings/media/fsl,imx95-csi-formatter.yaml    | 87 ++++++++++++++++++++++
+>  1 file changed, 87 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
+> new file mode 100644
+> index 000000000000..28adea06c494
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/fsl,imx95-csi-formatter.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: i.MX95 CSI Pixel Formatter
+> +
+> +maintainers:
+> +  - Guoniu Zhou <guoniu.zhou@nxp.com>
+> +
+> +description:
+> +  The CSI pixel formatting module found on i.MX95 uses packet info, pixel
+> +  and non-pixel data from the CSI-2 host controller and reformat them to
+> +  match Pixel Link(PL) definition.
+> +
+> +properties:
+> +  compatible:
+> +    const: fsl,imx95-csi-formatter
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: MIPI CSI-2 RX IDI interface
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d6c3c7d22403..8236ba0c41ca 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28386,6 +28386,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
- F:	drivers/iio/light/veml3235.c
- 
-+VISHAY VEML3328 RGB IR LIGHT SENSOR DRIVER
-+M:	Joshua Crofts <joshua.crofts1@gmail.com>
-+S:	Maintained
-+F:	drivers/iio/light/veml3328.c
-+
- VISHAY VEML6030 AMBIENT LIGHT SENSOR DRIVER
- M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
- S:	Maintained
-diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index eff33e456c70..1c00bb0de6c8 100644
---- a/drivers/iio/light/Kconfig
-+++ b/drivers/iio/light/Kconfig
-@@ -699,6 +699,17 @@ config VEML3235
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called veml3235.
- 
-+config VEML3328
-+	tristate "VEML3328 RGBCIR light sensor"
-+	select REGMAP_I2C
-+	depends on I2C
-+	help
-+	  Say Y here if you want to build a driver for the Vishay VEML3328
-+	  RGB IR light sensor.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called veml3328
-+
- config VEML6030
- 	tristate "VEML6030 and VEML6035 ambient light sensors"
- 	select REGMAP_I2C
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index c0048e0d5ca8..e03c6e23a9a4 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -65,6 +65,7 @@ obj-$(CONFIG_US5182D)		+= us5182d.o
- obj-$(CONFIG_VCNL4000)		+= vcnl4000.o
- obj-$(CONFIG_VCNL4035)		+= vcnl4035.o
- obj-$(CONFIG_VEML3235)		+= veml3235.o
-+obj-$(CONFIG_VEML3328)		+= veml3328.o
- obj-$(CONFIG_VEML6030)		+= veml6030.o
- obj-$(CONFIG_VEML6040)		+= veml6040.o
- obj-$(CONFIG_VEML6046X00)	+= veml6046x00.o
-diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
-new file mode 100644
-index 000000000000..fdfa8fd1666b
---- /dev/null
-+++ b/drivers/iio/light/veml3328.c
-@@ -0,0 +1,416 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Vishay VEML3328 RGBCIR light sensor driver
-+ *
-+ * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
-+ *
-+ * Datasheet: https://www.vishay.com/docs/84968/veml3328.pdf
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define VEML3328_REG_CONF		0x00
-+#define VEML3328_REG_ID			0x0c
-+#define VEML3328_REG_DATA_C		0x04
-+#define VEML3328_REG_DATA_R		0x05
-+#define VEML3328_REG_DATA_G		0x06
-+#define VEML3328_REG_DATA_B		0x07
-+#define VEML3328_REG_DATA_IR		0x08
-+
-+#define VEML3328_CONF_IT_MASK		GENMASK(5, 4)
-+#define VEML3328_CONF_GAIN_MASK		GENMASK(11, 10)
-+
-+#define VEML3328_MAX_IT_TIME		(400 * USEC_PER_MSEC)
-+
-+#define VEML3328_ID_VAL			0x28
-+
-+#define VEML3328_SHUTDOWN		(BIT(0) | BIT(15))
-+
-+struct veml3328_data {
-+	struct regmap *regmap;
-+};
-+
-+static const struct regmap_config veml3328_regmap_config = {
-+	.name = "veml3328",
-+	.reg_bits = 8,
-+	.val_bits = 16,
-+	.max_register = VEML3328_REG_ID,
-+	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-+};
-+
-+#define VEML3328_CHAN_SPEC(_color, _addr) { \
-+	.type = IIO_INTENSITY, \
-+	.modified = 1, \
-+	.channel2 = IIO_MOD_LIGHT_##_color, \
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-+	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME) | \
-+				   BIT(IIO_CHAN_INFO_SCALE), \
-+	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) | \
-+					     BIT(IIO_CHAN_INFO_SCALE), \
-+	.address = _addr, \
-+}
-+
-+static const struct iio_chan_spec veml3328_channels[] = {
-+	{
-+		.type = IIO_LIGHT,
-+
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME),
-+		.address = VEML3328_REG_DATA_G,
-+	},
-+	VEML3328_CHAN_SPEC(CLEAR, VEML3328_REG_DATA_C),
-+	VEML3328_CHAN_SPEC(RED, VEML3328_REG_DATA_R),
-+	VEML3328_CHAN_SPEC(GREEN, VEML3328_REG_DATA_G),
-+	VEML3328_CHAN_SPEC(BLUE, VEML3328_REG_DATA_B),
-+	VEML3328_CHAN_SPEC(IR, VEML3328_REG_DATA_IR),
-+};
-+
-+/* scale values per datasheet */
-+static const int veml3328_scale_vals[][2] = {
-+	{ 0, 500000 },
-+	{ 1, 0 },
-+	{ 2, 0 },
-+	{ 4, 0 },
-+};
-+
-+/* integration times in microseconds */
-+static const int veml3328_it_times[][2] = {
-+	{ 0, 50 * USEC_PER_MSEC },
-+	{ 0, 100 * USEC_PER_MSEC },
-+	{ 0, 200 * USEC_PER_MSEC },
-+	{ 0, 400 * USEC_PER_MSEC },
-+};
-+
-+static int veml3328_power_down(struct veml3328_data *data)
-+{
-+	return regmap_set_bits(data->regmap, VEML3328_REG_CONF,
-+			       VEML3328_SHUTDOWN);
-+}
-+
-+static int veml3328_power_up(struct veml3328_data *data)
-+{
-+	int ret;
-+
-+	ret = regmap_clear_bits(data->regmap, VEML3328_REG_CONF,
-+				VEML3328_SHUTDOWN);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Sleep for maximum integration time to ensure sensor is powered on
-+	 * correctly.
-+	 */
-+	fsleep(VEML3328_MAX_IT_TIME);
-+
-+	return 0;
-+}
-+
-+static void veml3328_power_down_action(void *data)
-+{
-+	veml3328_power_down(data);
-+}
-+
-+static int veml3328_read_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct veml3328_data *data = iio_priv(indio_dev);
-+	struct regmap *regmap = data->regmap;
-+	struct device *dev = regmap_get_device(regmap);
-+	unsigned int reg_val;
-+	int ret;
-+	int reg;
-+
-+	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
-+		return ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = regmap_read(regmap, chan->address, &reg_val);
-+		if (ret)
-+			return ret;
-+
-+		*val = reg_val;
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_INT_TIME:
-+		ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
-+		if (ret)
-+			return ret;
-+
-+		reg = FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
-+		if (reg >= ARRAY_SIZE(veml3328_it_times))
-+			return -EINVAL;
-+
-+		*val = veml3328_it_times[reg][0];
-+		*val2 = veml3328_it_times[reg][1];
-+		return IIO_VAL_INT_PLUS_MICRO;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
-+		if (ret)
-+			return ret;
-+
-+		if (chan->type == IIO_LIGHT) {
-+			int it_inx, gain_inx;
-+			int it_us, scale_u;
-+
-+			it_inx = FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
-+			gain_inx = FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
-+
-+			if (it_inx >= ARRAY_SIZE(veml3328_it_times) ||
-+			    gain_inx >= ARRAY_SIZE(veml3328_scale_vals))
-+				return -EINVAL;
-+
-+			it_us = veml3328_it_times[it_inx][1];
-+
-+			/*
-+			 * Equation for calculating ambient light scale:
-+			 * Scale = 0.384 * (50000 / Current_IT) * (1x / Current_Gain)
-+			 */
-+			scale_u = 384 * USEC_PER_MSEC;
-+			scale_u = scale_u  * 50000 / it_us;
-+
-+			switch (gain_inx) {
-+			case 0:
-+				scale_u *= 2;
-+				break;
-+			case 1:
-+				break;
-+			case 2:
-+				scale_u /= 2;
-+				break;
-+			case 3:
-+				scale_u /= 4;
-+				break;
-+			default:
-+				return -EINVAL;
-+			}
-+
-+			*val = 0;
-+			*val2 = scale_u;
-+
-+			return IIO_VAL_INT_PLUS_MICRO;
-+		}
-+
-+		reg = FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
-+		if (reg >= ARRAY_SIZE(veml3328_scale_vals))
-+			return -EINVAL;
-+
-+		*val = veml3328_scale_vals[reg][0];
-+		*val2 = veml3328_scale_vals[reg][1];
-+		return IIO_VAL_INT_PLUS_MICRO;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int veml3328_read_avail(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       const int **vals, int *type, int *length,
-+			       long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_INT_TIME:
-+		*length = ARRAY_SIZE(veml3328_it_times) * 2;
-+		*vals = (const int *)veml3328_it_times;
-+		*type = IIO_VAL_INT_PLUS_MICRO;
-+		return IIO_AVAIL_LIST;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		*length = ARRAY_SIZE(veml3328_scale_vals) * 2;
-+		*vals = (const int *)veml3328_scale_vals;
-+		*type = IIO_VAL_INT_PLUS_MICRO;
-+		return IIO_AVAIL_LIST;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int veml3328_write_raw(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int val, int val2, long mask)
-+{
-+	struct veml3328_data *data = iio_priv(indio_dev);
-+	struct regmap *regmap = data->regmap;
-+	struct device *dev = regmap_get_device(regmap);
-+	int ret;
-+	int i;
-+
-+	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
-+		return ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_INT_TIME:
-+		if (val != 0)
-+			return -EINVAL;
-+
-+		for (i = 0; i < ARRAY_SIZE(veml3328_it_times); i++) {
-+			if (veml3328_it_times[i][1] == val2)
-+				break;
-+		}
-+
-+		if (i == ARRAY_SIZE(veml3328_it_times))
-+			return -EINVAL;
-+
-+		return regmap_update_bits(regmap, VEML3328_REG_CONF,
-+					  VEML3328_CONF_IT_MASK,
-+					  FIELD_PREP(VEML3328_CONF_IT_MASK, i));
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		for (i = 0; i < ARRAY_SIZE(veml3328_scale_vals); i++) {
-+			if (val == veml3328_scale_vals[i][0] &&
-+			    val2 == veml3328_scale_vals[i][1])
-+				break;
-+		}
-+
-+		if (i == ARRAY_SIZE(veml3328_scale_vals))
-+			return -EINVAL;
-+
-+		return regmap_update_bits(regmap, VEML3328_REG_CONF,
-+					  VEML3328_CONF_GAIN_MASK,
-+					  FIELD_PREP(VEML3328_CONF_GAIN_MASK, i));
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info veml3328_info = {
-+	.read_raw = veml3328_read_raw,
-+	.write_raw = veml3328_write_raw,
-+	.read_avail = veml3328_read_avail,
-+};
-+
-+static int veml3328_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct veml3328_data *data;
-+	struct iio_dev *indio_dev;
-+	unsigned int reg_val;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	data = iio_priv(indio_dev);
-+	i2c_set_clientdata(client, indio_dev);
-+
-+	data->regmap = devm_regmap_init_i2c(client, &veml3328_regmap_config);
-+	if (IS_ERR(data->regmap))
-+		return dev_err_probe(dev, PTR_ERR(data->regmap),
-+				     "Failed to initialize regmap\n");
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
-+
-+	ret = regmap_read(data->regmap, VEML3328_REG_ID, &reg_val);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read ID register\n");
-+
-+	if ((reg_val & 0xff) != VEML3328_ID_VAL)
-+		dev_warn(dev, "Unknown device ID: 0x%02x\n", reg_val & 0xff);
-+
-+	ret = veml3328_power_up(data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to power on sensor\n");
-+
-+	ret = devm_add_action_or_reset(dev, veml3328_power_down_action, data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to register teardown\n");
-+
-+	indio_dev->name = "veml3328";
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->info = &veml3328_info;
-+	indio_dev->channels = veml3328_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(veml3328_channels);
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_set_autosuspend_delay(dev, 2000);
-+	pm_runtime_use_autosuspend(dev);
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static int veml3328_runtime_suspend(struct device *dev)
-+{
-+	struct veml3328_data *data = iio_priv(dev_get_drvdata(dev));
-+	int ret;
-+
-+	ret = veml3328_power_down(data);
-+	if (ret)
-+		dev_err(dev, "Failed to suspend: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int veml3328_runtime_resume(struct device *dev)
-+{
-+	struct veml3328_data *data = iio_priv(dev_get_drvdata(dev));
-+	int ret;
-+
-+	ret = veml3328_power_up(data);
-+	if (ret)
-+		dev_err(dev, "Failed to resume: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(veml3328_pm_ops,
-+				 veml3328_runtime_suspend,
-+				 veml3328_runtime_resume,
-+				 NULL);
-+
-+static const struct of_device_id veml3328_of_match[] = {
-+	{ .compatible = "vishay,veml3328" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, veml3328_of_match);
-+
-+static const struct i2c_device_id veml3328_id[] = {
-+	{ .name = "veml3328" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, veml3328_id);
-+
-+static struct i2c_driver veml3328_driver = {
-+	.driver = {
-+		.name = "veml3328",
-+		.of_match_table = veml3328_of_match,
-+		.pm = pm_ptr(&veml3328_pm_ops),
-+	},
-+	.probe = veml3328_probe,
-+	.id_table = veml3328_id,
-+};
-+module_i2c_driver(veml3328_driver);
-+
-+MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
-+MODULE_DESCRIPTION("VEML3328 RGBCIR Light Sensor");
-+MODULE_LICENSE("GPL");
+What properties defined in video-interfaces.yaml do you expect ? The
+example below does not use any, and the driver in 2/2 doesn't appear to
+parse any either.
+
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Pixel Link Interface
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - power-domains
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
+> +
+> +    formatter@20 {
+> +        compatible = "fsl,imx95-csi-formatter";
+> +        reg = <0x20 0x100>;
+> +        clocks = <&cameramix_csr IMX95_CLK_CAMBLK_CSI2_FOR0>;
+> +        power-domains = <&scmi_devpd 3>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +
+> +                endpoint {
+> +                    remote-endpoint = <&mipi_csi_0_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +
+> +                endpoint {
+> +                    remote-endpoint = <&isi_in_2>;
+> +                };
+> +            };
+> +        };
+> +    };
 
 -- 
-2.34.1
+Regards,
 
+Laurent Pinchart
