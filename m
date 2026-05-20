@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750CA34DCC8;
-	Wed, 20 May 2026 07:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D3B25742F;
+	Wed, 20 May 2026 07:09:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779260929; cv=none; b=RixnZ3vnlHPBjhzbGxkHQ9jpg6y1r4VJoAaabpYO9su0k1aYu5+T2EWfP18KwqQQJ/OvKyySxmj+4V99UcesS/ATfRCuC3kxigMfpCW+h/zzpwocURWMeka9KVq8Nov/plEbvWUcSAwyMsJ9h5zZGc6Gf2iADm0/43qwqtuQ8Rg=
+	t=1779261000; cv=none; b=kXKN1CQNTG6OzBUxMMNkxfhX42VdlWOsUpyv+5WmX3RitGkySYUlOfcT5AtFxv5RTfwhRuT+75HkPlD7vgHzHYWZXHylwUP7IZdfekAiTZfM/FBw5OdyJfGjVIzS2NeZBQm1pGGy/3fouDfKwa7Om9DWfBOv5GE5t1RlzWIg5M0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779260929; c=relaxed/simple;
-	bh=cHsla/zNIEn/HMJjSW7hwYgnB9sKgdnBigr/N0K3iDU=;
+	s=arc-20240116; t=1779261000; c=relaxed/simple;
+	bh=9IViVaf+Wszx8ZhNtH9hghH9H9OH40GFse+I8qT/1M4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=upSYCNqTWtvoCG5iIfEGizO+t4iKpHC0emRYl9zWakLFBfrCTWnB+JzgFUzDfo7g4rtBGfXphuktHLaiPVSJxoOgNGdx28SyVUPW3gpZnutzU6Kk9CyeN7CkysOEQmSzIpI7Bgn9G+Edd7PDjVtHCBrrFCK652WehIwJFI9x6UA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9Bu3nZD; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=pgj8TlWVG7MzAhagCsTcKju38h6xCC3IWV52UqT6aOgciSHr2DUk1ws0XIIxEq0BThs/EBhelb7Ybgt/HQE1C6WsyS7fQWpci+oEU3l5ooXvbeAi5lPP3rMA6k9bGBEELNixFCduTM8kh4W9JFNG+XozW+9LB/TfFmEngPk4+ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxM6tUI3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9Bu3nZD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4391F000E9;
-	Wed, 20 May 2026 07:08:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxM6tUI3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C92E1F000E9;
+	Wed, 20 May 2026 07:09:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779260928;
-	bh=5sJis8pObID1kGXbTsB3IgBpTH0zVnG6Ljg/eY2IOOw=;
+	s=k20260515; t=1779260999;
+	bh=yCEx1ZgD7hquCJpA2zMjQAl8AHM2PWKyoyzhPNTgAHg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=A9Bu3nZDhvaFcfELXf4UkmdvoHWG8zM8SVVoHH7y6l+aB2QgVl8ziyb6OuCzbkNyF
-	 5UIZamzIkBLHtjR6dG+v9RE+0sfdwvGqQ4ZABQFXrHKtZ7e9Wsz8Nyv0Gh/9suiH58
-	 9Z/uuZdPald2ZugknTF69bFdLoqzoPSwGRbNU4+UAIfTrF4o5UKmmzV62LLo7gx71B
-	 uH+M69vBBd2wuT98G+aEoquU/Txyr825E2Lv9AJjia5z2fF3NQ60Gw01SIi7t6LVEe
-	 gUuc5o7RNTlNTvxtKtS5r3MCQIqXIJmyI420QmmU62ZW1N2dGmpg0HrL+PoAfPnN34
-	 Dc40T4gV6/cbg==
-Message-ID: <e23a610f-e1ad-4536-80fb-8b5707e77f39@kernel.org>
-Date: Wed, 20 May 2026 09:08:42 +0200
+	b=lxM6tUI3fPPhuJL503kwN3wymSlUNBBp5VUdvmUfbJgD1EfZBKNcsWDx+f/sxenPF
+	 GAcEi//fkRN/z9vSVfD0bLajEk6UcICb61Do/Jo1WOOB+m9Hl59Z//c43/qAiTL7ZB
+	 c4PGZtF9g4+u/6eNBSxkEiiHIVNZhS7wEvJK4pN1a5IJhcvEzpMejHomlldBSbDPGj
+	 ph2vYyAb10bmPuwvopL4YtShZvcE6ksLi+MkRPP9G0KkHFea6s1DjO8uBIMt3y5+4K
+	 d1aDrhDZQq2nhuGN+QVK/dK8ZppS6cQ5lgHfX3sv2M2hilDrzKNMKWAgMCQ5IeiHsM
+	 5lnE/svX97DaQ==
+Message-ID: <21d30826-bfe6-44cd-8c89-c1986f539e48@kernel.org>
+Date: Wed, 20 May 2026 09:09:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,31 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector binding
-To: "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>,
- Chancel Liu <chancel.liu@nxp.com>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "mturquette@baylibre.com" <mturquette@baylibre.com>,
- "sboyd@kernel.org" <sboyd@kernel.org>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
-References: <20260509024846.2094049-1-chancel.liu@nxp.com>
- <20260509024846.2094049-3-chancel.liu@nxp.com>
- <20260515-resourceful-singing-roadrunner-ce25ec@quoll>
- <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
- <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <20260519-macho-degu-from-nibiru-960af2@quoll>
- <AM9PR04MB8353B563519EBC1AD6C5BFE1E3012@AM9PR04MB8353.eurprd04.prod.outlook.com>
+Subject: Re: [PATCH 1/2] spi: dt-bindings: cdns,xspi: add sdma-io-width
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260511031732.3199-1-jszhang@kernel.org>
+ <20260511031732.3199-2-jszhang@kernel.org>
+ <20260515-expert-devious-cricket-faff56@quoll> <agz0kDsQBaeQPPQ4@xhacker>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -105,79 +89,60 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <AM9PR04MB8353B563519EBC1AD6C5BFE1E3012@AM9PR04MB8353.eurprd04.prod.outlook.com>
+In-Reply-To: <agz0kDsQBaeQPPQ4@xhacker>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20/05/2026 07:02, Chancel Liu (OSS) wrote:
->>>>>>> +description:
->>>>>>> +  The NXP I/O connector represents a physically present I/O
->>>>>>> +connector on the
->>>>>>> +  base board. It acts as a nexus that exposes a constrained set
->> of
->>>>>>> +I/O
->>>>>>> +  resources, such as GPIOs, clocks, PWMs and interrupts, through
->>>>>>> +fixed
->>>>>>> +  electrical wiring. All actual hardware providers reside on the
->> base
->>>> board.
->>>>>>> +  The connector node only defines index-based mappings to those
->>>>>> providers.
->>>>>>> +
->>>>>>> +properties:
->>>>>>> +  compatible:
->>>>>>> +    const: fsl,io-connector
->>>>>>
->>>>>> Everything is IO. Everything is connector, so your compatible does
->>>>>> not match requirements from writing bindings.
->>>>>>
->>>>>
->>>>> Yes, this compatible is too generic. I will rename the compatible to
->>>>> fsl,aud-io-connector.
->>>>
->>>> aud is not much better. Which boards have it? What's the pinout?
->> What's
->>>> standard? Is it described anywhere? If so, provide reference to
->> spec/docs.
->>>>
+On 20/05/2026 01:38, Jisheng Zhang wrote:
+> On Fri, May 15, 2026 at 10:00:50AM +0200, Krzysztof Kozlowski wrote:
+>> On Mon, May 11, 2026 at 11:17:31AM +0800, Jisheng Zhang wrote:
+>>> The cdns xspi controller SDMA data port may support wider I/O width.
+>>> Wider I/O width can benefit performance. A simple test with QSPI nor
+>>> flash on one arm64 platform:
 >>>
->>> This is not an industry standard electrical interface. This connector
+>>> 1 byte io width (default):
+>>>  # dd if=/dev/mtdblock0 of=/dev/null bs=8192 count=1000
+>>>  1000+0 records in
+>>>  1000+0 records out
+>>>  8192000 bytes (7.8MB) copied, 1.368735 seconds, 5.7MB/s
+>>>
+>>> 4 bytes io width:
+>>>  # dd if=/dev/mtdblock0 of=/dev/null bs=8192 count=1000
+>>>  1000+0 records in
+>>>  1000+0 records out
+>>>  8192000 bytes (7.8MB) copied, 1.088787 seconds, 7.2MB/s
+>>>
+>>> Improved by 26.3%!
+>>>
+>>> Add dt binding for sdma-io-width.
+>>>
+>>> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+>>> ---
+>>>  Documentation/devicetree/bindings/spi/cdns,xspi.yaml | 6 ++++++
+>>>  1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
+>>> index 38a5795589de..1fd4b6dfd417 100644
+>>> --- a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
+>>> +++ b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
+>>> @@ -40,6 +40,12 @@ properties:
+>>>    interrupts:
+>>>      maxItems: 1
+>>>  
+>>> +  sdma-io-width:
+>>> +    description: Slave DMA data port I/O width (in bytes)
 >>
->> Then if you do not have standard, then you have board specific layouts
->> thus you need board-specific compatibles. You can use fallbacks. Generic
->> fallback could work, but both io-connector and aud-io-connector are just
->> too generic. Every connector is "connector" and "io", thus absolutely
->> anything can be "io-connector". "aud" improves it only a bit, thus
->> honestly I would go with board specific fallback as well.
+>> Waht is SDMA? What is Slave DMA? The same?
 >>
+>> Why this cannot be deduced from the compatible? DMA is fixed per
+>> platform and SDMA do not sound like SPI device (so slave in older
+>> terminology) property.
 > 
-> How about board specific + common fallback compatible like this:
->   compatible:
->     items:
->       - enum:
->           - fsl,imx95-19x19-evk-aud-io-connector
->           - fsl,imx952-evk-aud-io-connector
->       - const: fsl,imx-aud-io-connector
-> Since the daughter board is named “IMX-AUD-IO” in publicly available
+> in cdns xspi, sdma == slave dma. It can be read by any master, such
+> as DMA engine or CPU. Its purpose and usage is similar as the data
+> reg in other spi controllers, e.g the DW_SPI_DR in dw spi. 
 
-I don't think it is named like that.
-
-git grep -i imx-aud-io
-
-> documentation, common compatible clearly indicates that this connector
-> is intended for that.
-> 
-> Also, I want to talk about the topic of generic connector. It's a common
-> design that daughter board is connected to base board through a
-> connector. This connector more often acts as a nexus that exposes a
-> constrained subset of GPIO, clock, PWM and interrupt resources to the
-> daughter board. Can we document this kind of connector as a generic
-> binding?
-
-So this binding is the connector between carrier and some addon? Then
-you don't get a compatible for that at all, because it is not necessary,
-not useful and NEVER used. Do you see socket LGA "connector" bindings? No.
-
+You did not really answer the questions.
 
 Best regards,
 Krzysztof
