@@ -1,224 +1,146 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92C53F23A1
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779290293; cv=pass; b=SFyJOou2cY3IN6fg/LJ3k+HippFhT8LPoFR8kIg7bBdXtrulxXnqpSOhrtBVBD/cgW74tpnT8QicHanjD3q/nmGCMo1ZThLA1d25DrZr2obBK0/ze3qFeDmw8Bm2Jg1gwusV0HcdEgNE47seeh17NwHnz1HfHPbnZbPpaOhRIFE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779290293; c=relaxed/simple;
-	bh=eiOOIR+BuCgNoFXzdn/1KJetRl3m/Y+Ifs/Wqtp9Tg4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c8xrvlWaTW3/7zFda+xRP0qHFMb3xgcVAbCnlx28vzSBFm2MvYjXf9tOXhqL6fsztgUP8L3Q3+Wbn/vk+7pxiiF8C5Ykuj5jhSZ4JE2UMO4DmjTTMR4bienJDKabsBkRXXppADouqOyD1CVaI+D24pqhsE5K2H+DCENtAVLo+Jk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h8sogdFH; arc=pass smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D363F6C3D;
+	Wed, 20 May 2026 15:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779290298; cv=none; b=OjeUxglVNQvacoYp7XzwzmFPvd/9PWU4I5rzCnY9vHM9K8f1wPLg7OfPEsRWkf8s567lazmEkmkpURWU4EyZ5HpydOszbFEy4qPrunmDcsFVRn9xdUqb4WduEgJTMJcpOtHacj3ci6V2Y4fV8Nm2lXdrSXU7Te5iG/HkhPXt9xk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779290298; c=relaxed/simple;
+	bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r8GkpJdBp1qqdxVcJDM0mVTZDVA9kiahKdCvk+CAK+aUFshdoiHj9iFSbXwNQmIbNSgaVqF+5kplfaxixzNnS+rks1qaINTeC2cljOGbAfLJV8+56ODb0r7/dYvVaq99Y5N6/7QcFxkHkhtjTrAXYZbf3iRYsbphjPZAm1eaTF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ou5uPaKM; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h8sogdFH"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-67c1e0229acso8397427a12.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:18:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779290289; cv=none;
-        d=google.com; s=arc-20240605;
-        b=iAHx9ppipqLK9W1N/ZBUfrzW3M9zT64jJCuM4lmYWiDwqfpj0XQvWHijF50wAmRJZy
-         GizILWeB51Uir/2mHY0tFeDsZpemXZA5Iiy09H/e7vGRqsBqbr3LMfLFFyIFN1Ta7OO+
-         dUOyxRnTDYJHeZFpOqt4rqqLdL6r40o2nrBJtA2wh/4kLU+EkWEiAPRTEIuNrlKkjpou
-         FPn30WqFllWa9Rv1rKbw9D1RvymuIiIfmzkLkjyF30/R7PbkfkKtODGUXfN4NqlAiTTE
-         cg49YzVbzSljPN4MOac9YRyajAQo2W7DG7NTK7MPRY/Xj2s392HY16O7EFW1nrnN5p+k
-         T35A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m9qLByd2PzQi0vKZgnHfAth5+WLU5IX+PErom9/qoQk=;
-        fh=SkufWz++dgrcFQOyXZMLL41Gwzw6B9RjqoHO+4R+pgw=;
-        b=bk8kQK+CVGxshkRgO66PVFjGOansamqpwPOTWDAhWoly56JTFezR9/OlOwuWbAY5zD
-         9e8DecWza8O2E215WO9VgRBrhdoe611hULlETJMdBqUySAzafRZP6tNUbSrt3WG1tRKl
-         YkJ3iOEL4C/4FBMRt7KAm7KBTI8LCd49VTNWN1yLY1ma7pJOaK2lIWew87xpX38+4c8z
-         jnt0/F0Wm1xKYtnvxai6LJzUXsmpY55T/9XaVF/+GLFMcUhIDw3Xqb6r5CL4aNXEdpAX
-         330LAALtapKa4e91jFCBpLKy1DyGjsiGGOBNdOFTF8i1G3h+v0Zfk9XSNDIHdNVsdzp2
-         lqXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779290289; x=1779895089; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m9qLByd2PzQi0vKZgnHfAth5+WLU5IX+PErom9/qoQk=;
-        b=h8sogdFH2cYt4F/ShN5FoLrwrLKsUN5lhQEpBx3CYNijo/kidvmkwn+AVnCC6cryw4
-         jOGh49qn2vQRvIzlx50T46iavk7ghjO8Amvr4MRtsi8bbB01HTEzAbw75Qxb33OjTxNc
-         5pbij6JSFLFhUqIXzYTmr7rEVu1RpyWwUwWs6PYsivM/Q6hxKyClHE9Uf9q2ls5vqmXy
-         r1qb6HQiAi6rA1cWUefkA7Wfqlax+Fqrt/m2cqmIMiHv4gQbBAFdIPah7aX6J2MSDhYq
-         X1a0tRAG6t5oL+ZHzOiRvI9cpF2XCM8EkgB4cClok31AbVYQcp1jWxTaVfY9xNCaPVHx
-         nFeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779290289; x=1779895089;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=m9qLByd2PzQi0vKZgnHfAth5+WLU5IX+PErom9/qoQk=;
-        b=HfVU4zaYUE1joglaw1c/ESkdMLoTGON6xYr0+OT2z2BvLN5qgEK4FfHtWs5oTBozLA
-         l9UBZ/Di+7mWkHEgywGyxN6QReOInBKLy5TVXwDXMCVB9BDsSDXCuVhrlRR4ZXVpCkgw
-         ejeP3cYSs8dPfYa203lKFmWOrN235ZtN0Yq4xwFWV37LZE97Ax0IXnr3m2fj5Jeez0Fq
-         YDdFQSRJp/FdGBrD/90jY2dSU2fSIprOUjcEDgIK7b3dseCJYCOuA/1pwjOACrJxS1EF
-         4Wx/VIvCxhkNu2sQ00Ha9Wff+/NJ7b3yiVqU9/7F9qyJwRPBg6W8mS5DgDq7TK81dhGI
-         Z+kg==
-X-Forwarded-Encrypted: i=1; AFNElJ+ECpeMz7OckLbhZrz5xvAkVbAL0QqRXlH7dahvnZM+b11tmY0ouA76nKuzcp+KS1KudNYrso+OLMWZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+xB1GdtHmictygbtAGIaeT1WLJSeDFBqRobAkIDrIUb74ptt8
-	Inr0sV0munrZx+/49qTiXF+tZOkZNxKLHT1qHbDJ10atP0thmfxwAv+uDmHmeIo0Op116XPaZdW
-	uqrAph1LZzVmBT4O1As5aq/mt3yQ/GfM=
-X-Gm-Gg: Acq92OHL4QWNzH6H5PQWVjWQ9BM+nGtfTI6CtuIUP10vzecRgh6LQYdLWBzVIokdAj+
-	Qp3N8opDdmp2LHqRxF8W/1z/IioAv27OVftjqPgAMhqHA0EuFMQB37DisAFXY4HjIaqAhP8EaXJ
-	+WZo5HEMAwsYaOwICMhn9/jVDLjj/eA1OlL5xDj4Xg83m3hPVQM9BUKRI4KdcG8HoYYY7za83Tb
-	uLca8phLdifLMqpF478g5wEr4qwYy/an32eTHrfC0lHi9vfUa6/7UvoviugQc54qpodJopw1/nV
-	XpxMDh6jdjJc9oc2h3SSta79EnW6FlWoV1eZUtOVqrizsU+14wpkfC7K7nUpUosw
-X-Received: by 2002:a17:907:998d:b0:bd5:5834:1d3f with SMTP id
- a640c23a62f3a-bd558341ef5mr1219917066b.22.1779290288833; Wed, 20 May 2026
- 08:18:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ou5uPaKM"
+Received: from mail.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:ad48:920a:da6f:a034])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 25D05E9C;
+	Wed, 20 May 2026 17:18:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1779290281;
+	bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
+	h=From:Subject:Date:To:Cc:From;
+	b=ou5uPaKMr0jVBZ/TatiTQsMQXWlQrTUWBfmMdcneO/3e/RH+kmTqCv4gEKBnADocE
+	 2YLhy2TAI1Uekhu9KL6+/02QcE089A6tM/H0PbCHuxCCb5gLg7joNHezigpli4nKWL
+	 TRXOVnbLvuXZTTODuVoHp1wZ74bZl4plwoGlY3t8=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v3 0/2] media: Add bindings and driver for Sony IMX678
+Date: Wed, 20 May 2026 17:17:24 +0200
+Message-Id: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260518155324.168948-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260518155324.168948-2-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdW1m1bUJY+7AF+W7hZ_zpcBt=nbJivjr-nrmSLBiZv8qw@mail.gmail.com>
-In-Reply-To: <CAMuHMdW1m1bUJY+7AF+W7hZ_zpcBt=nbJivjr-nrmSLBiZv8qw@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 20 May 2026 16:17:42 +0100
-X-Gm-Features: AVHnY4JybpRBzBUvxwIH8V6FnXAx2_urpMr8NNxvoYafQOv4Ri8o8_Tz826UNqQ
-Message-ID: <CA+V-a8uY0Bit=3g-3ZMB+nDyMXoCqHuqQiusi-c29DWMfWHJ_w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: PCI: renesas,r9a08g045-pcie: Add
- RZ/V2H(P) support
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Rob Herring <robh@kernel.org>, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, sashiko-bot@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Py04DMQxFf2WUNUFxXjPTFf+BWDiJQ7OYSUmGU
+ VHVf8dtJYQEy3vtc2RfRKdWqIvDcBGN9tJLXTmYp0HEI67vJEviLLTSXjkwsixnP07SRUCiOUK
+ KWfDyqVEu57vo9Y3zsfSttq+7d4db+0exg1TSqBzdbChNGV9KIux1DRVbeo51ETfTrn/T/ofWT
+ NvJWYweks/hH/r6OKzRxyc/tj2uEwE7SZ4vZTsM2tlsZ28sEXgcDcBok0YyNkSnQnLZOuKaZdd
+ vrGC78y0BAAA=
+X-Change-ID: 20260513-imx678-5c1aee9c1dcf
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Lachlan Michael <Lachlan.Michael@sony.com>, 
+ Ryuichi Tadano <Ryuichi.Tadano@sony.com>, 
+ Kengo Hayasaka <Kengo.Hayasaka@sony.com>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3127;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqDdCnucBzfzlJUeBqWOyA3Jc3ATOXm/I9Gt6SZ
+ eNllYUe7OaJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCag3QpwAKCRBD3pH5JJpx
+ RamUD/9zr9+iL6juuUhBvab8yQsAJOu+JppIMW6Breo+RrHwukp96OUqXfdL358R2e1yM5/i8Nq
+ QhHzRcUwz8MOmpms7UvOeDyEpFAvk89DSWwF+wJzpdTWSiCq8DMMntqgUg4YmLCxOBmqpXWMSpM
+ 8buVEI4h8R6GhOPpY5vsxakt39jvgcIEMvPGdfJRkX40LQp6HE2bmJK2m/CY7IJUC4SeJ4XsuKh
+ 4EzLrUG0dkrcDmfGTLQmN04tu/TCDa1ZN4uAQouWNfSX9YKWbc/9lmE5D3vP7ZwY9uysFeHWnuZ
+ kBCM6G1k1mcOPt0LLEsGCK3VfQbCtHQ92nx0uxzzkmHRqSbZ4Nlvx5L86Nw3PbvKmViC542eckP
+ D2GhZpODRtvRRvSG9CfBlnpzqKdr7qSUCYD11Fv1E/hlmu8i22RiyzClEWjK47f3WiG9Hcv6uiN
+ R8Ri3lI2aBFq+8Ta7lGpTfXSOocC81L5kW1q6YnExX1R1I05inPzoFJtwchq7OVe2X30M9wv2Zi
+ JP+5PmVV+6fQ8InB76eXlVvti7QzjgTFDVo9b0Lz1qXP7dd2swmIv7hJAb3+TT7UaIHrG0HfMvX
+ Ie30lMeSxgbFK11DO8dUAd/si+sCxSYOtmBGi+TtpC423pel3k98m4AdXVcz9BSSgHROkNsAq01
+ WpeuUoZ82UUz2/A==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-Hi Geert,
+Hi,
 
-Thank you for the review.
+This series adds dt-bindings and a V4L2 driver for Sony IMX678 camera
+sensor.
 
-On Tue, May 19, 2026 at 7:57=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68=
-k.org> wrote:
->
-> Hi Prabhakar,
->
-> On Mon, 18 May 2026 at 17:53, Prabhakar <prabhakar.csengg@gmail.com> wrot=
-e:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Add support for the PCIe controller found on the Renesas RZ/V2H(P) SoC.
-> >
-> > The RZ/V2H(P) controller is similar to the RZ/G3E variant but includes
-> > additional registers and configuration bits for PCIe lane control. It
-> > supports multilink operation configured as either a single x4 link
-> > or two independent x2 link controllers.
-> >
-> > Unlike earlier SoCs supported by this driver which only feature a singl=
-e
-> > PCIe controller, the RZ/V2H(P) SoC implements two controllers. Both
-> > controllers rely on the system controller (`sysc`) for configuration,
-> > but the required registers reside at different offsets for each instanc=
-e.
-> > To correctly identify the controller instance and map the corresponding
-> > system controller registers, make the "linux,pci-domain" and "num-lanes=
-"
-> > properties mandatory for this SoC and restrict their values according t=
-o
-> > the hardware capabilities.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Thanks for your patch!
->
-> > --- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
-> > +++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
->
-> > @@ -235,6 +238,20 @@ allOf:
-> >            maxItems: 1
-> >          reset-names:
-> >            maxItems: 1
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: renesas,r9a09g057-pcie
-> > +    then:
-> > +      properties:
-> > +        linux,pci-domain:
-> > +          enum: [0, 1]
->
-> Sashiko has the following comments about this property[1]:
->
-> | Is it appropriate to use linux,pci-domain to identify the hardware
-> | controller instance?
-> | Device Tree is designed to describe hardware rather than software polic=
-y
-> | or configuration. The linux,pci-domain property is an OS-specific hint
-> | used to assign logical PCI domain numbers.
-> | Using it to identify hardware instances strictly couples the hardware
-> | register mapping to an OS numbering scheme.
->
-> and
->
-> | Does limiting this to [0, 1] cause a regression for valid software
-> | configurations?
-> | For example, if a board with multiple PCIe controllers assigns domains =
-2
-> | and 3 to these instances to avoid conflicts, the binding will fail
-> | validation and the driver will fail to probe.
-> | Could the hardware instances instead be identified via standard hardwar=
-e
-> | descriptive mechanisms, such as their physical base address (reg),
-> | standard aliases, or by adding a phandle specifier argument to
-> | renesas,sysc?
->
-> dtschema/schemas/pci/pci-host-bridge.yaml states:
->
-> | linux,pci-domain:
-> |   description:
-> |     If present this property assigns a fixed PCI domain number to a
-> host bridge,
-> |     otherwise an unstable (across boots) unique number will be assigned=
-.
-> |     It is required to either not set this property at all or set it for=
- all
-> |     host bridges in the system, otherwise potentially conflicting
-> domain numbers
-> |     may be assigned to root buses behind different host bridges.  The d=
-omain
-> |     number for each host bridge in the system must be unique.
->
-> In the RZ/V2H case, the number is local to the SYSC instance referenced
-> by the renesas,sysc property, while linux,pci-domain is global to the
-> full system by definition. Fixing the numbers to zero and one works,
-> until some other controller in the system has conflicting requirements.
->
-> I do see a future case where this may break: if Renesas would release a
-> new SoC containing two RZ/V2H dies, there would be four PCIe controllers
-> and two SYSC controllers.  This would require two PCIe controllers to
-> have linux,pci-domain =3D <0>, and two having linux,pci-domain =3D <1>,
-> which is not permitted.
->
-Agreed.
+More details about the sensor and features supported in the driver are
+in the relevant patches.
 
-> Hence adding a second cell to the renesas,sysc property, to specify
-> the base offset of the PCIe-related registers inside SYSC seems like
-> the best way to go?
->
-Ok, I will change renesas,sysc to use phandle-array so that we can
-pass the controller index.
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+---
+Changes in v3:
+- Use `reset-gpios`, mentioning the sensor XCLR acts like RESETN, instead of `xclr-gpios`
+- Update minimum crop width and height according to the PIX_[HV]WIDTH
+  register limits
+- Expect the user to first select a crop rectangle using S_SELECTION,
+  and then choose one of two sizes (non-binned or binned) in S_FMT. This
+  matches what IMX296 already does, simplifying the selection logic
+  quite a bit.
+- Enumerate only the frame sizes possible for the current crop rectangle
+  in ENUM_FRAMESIZES
+- Link to v2: https://lore.kernel.org/r/20260516-imx678-v2-0-4854ac61d6fb@ideasonboard.com
 
-Cheers,
-Prabhakar
+Changes in v2:
+PATCH 1:
+    - Add per-variant compatibles for mono and colour, alongside the
+      generic fallback, so the variant can be declared without powering
+      the sensor at probe.
+    - Rename reset GPIO to xclr as that's what it's called in the
+      datasheet, and how it behaves.
+    - Reference the generic video interface devices schema and switch to
+      unevaluatedProperties.
+    - Drop "link-frequencies: true"
+    - Drop the T: entry for media.git from MAINTAINERS.
+PATCH 2:
+    - Treat the pixel rate as a fixed sensor property rather than deriving
+      it from link frequency and bit depth. Removes the iclk<->pixel
+      conversion helpers, instead using a fixed 8x ratio.
+    - Express HBLANK in pixels with a step of 8.
+    - Make VBLANK step = 2 and rewrite the exposure register when VBLANK
+      changes, so the effective exposure does not silently shift.
+    - Fix power sequencing: hold the sensor in reset until power_on, add the
+      missing post-reset delay, and disable the clock before the regulators
+      on power_off.
+    - Drop the "common regs written" flag, program them in power_on.
+    - Add variant match data and cross-check the register-reported type
+      against DT; rename detect() to identify_model().
+    - Use v4l2_link_freq_to_bitmap() and expose the full link frequency menu
+      with the configured one as the selected RO option.
+    - Drop unused includes and defines, misc cleanups
+    - Kconfig: depend on OF_GPIO
+- Link to v1: https://lore.kernel.org/r/20260513-imx678-v1-0-30fc593ed8fa@ideasonboard.com
+
+---
+Jai Luthra (2):
+      dt-bindings: media: i2c: Add Sony IMX678
+      media: i2c: imx678: Add driver for Sony IMX678
+
+ .../devicetree/bindings/media/i2c/sony,imx678.yaml |  129 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   11 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/imx678.c                         | 1599 ++++++++++++++++++++
+ 5 files changed, 1747 insertions(+)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260513-imx678-5c1aee9c1dcf
+
+Best regards,
+-- 
+Jai Luthra <jai.luthra@ideasonboard.com>
+
