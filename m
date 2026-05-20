@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8213636EAB8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA98C37A4BA;
 	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779295242; cv=none; b=aU963gQN5y7QdbcTs678oo7DnxuK1NEuRFGCQaIaj4IvgCPJr/bYDtMuLCdEJWsdWQX8BmCBKI+S3W8f8ncpRaxQxq77d2osAbKyqFiyKsik5ASgu9BVkM2DrjWMyc2H8p9g7IvJgVDcLhccHTuH3UR26pGuBtawy2f//5d/XZA=
+	t=1779295242; cv=none; b=tzwv7IPvdEayZP+ZEMYBHAC+V4pVTSm9hhqeNHHqub07gsSUYDsyP8WNohxAARrCVD86SCN/ytbstrhnichAhQC9PbNsAuYEvqem15awvgGyFKQNhcKV4+CWBTPJlpfnCrnXcCXUCDMw0+V4sc8qCiNzZ50GKWcw1CbQy9RKvgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779295242; c=relaxed/simple;
-	bh=G7HxiM6tVHMRA1+SUDkrf/cDunwAcZHJbVy1FJcDaBs=;
+	bh=Mu9cAq/bK2HeYMImJlap8nXy6uvMFEKZPyKWOMasao4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CenH9srNocywnGBfZSIV0VYoKHOZMZLHU+BA8FW59EbpGntbU4qfKUOVidqpFvjm8SqdkDGsuVeOnBFW36ABxto9Rz2w5ck8sQQQd538aqB+/jYZQk2/gRXlk/VuwNyw28i8t59gjPBxXkO3eQpmbBtW0d/U0oT0LMIwj9nFtyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SsiHupVj; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=aoLbHa+V0wvC85Cma9ghSClNU71M+IZg/uvDPnjbngQuc0K2g1kFYm909q0V8RQE3rv6MnkdhW4Tz/P2ZpejvIVkz7hPhDZPwDcl/wsV66/icPHgtqOPbBZUfLvoKgYF5hNICVOIDKoG1gND7ErUU+hqegmPLkfHW2Tf7PE6Glo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfeDeNt+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SsiHupVj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5CF49C2BCB4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfeDeNt+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D6F1C2BCF6;
 	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1779295242;
-	bh=G7HxiM6tVHMRA1+SUDkrf/cDunwAcZHJbVy1FJcDaBs=;
+	bh=Mu9cAq/bK2HeYMImJlap8nXy6uvMFEKZPyKWOMasao4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SsiHupVjJo9Ps48QsvW/PQvk/eAYIKe589CRtEep7PkhnsBEHJfsadgOzZ6z27abX
-	 lqn1HZZoew+jYCBV53QWZdGx5/o4s4DXpe2Jsmvix6zUcqprFvYhjm4X97KidIY3Co
-	 1q4G+n2GIrPd1TDeaDeWycVuYjL1quTHsc70HGrrE7Ce5sCuO+HgsX5W2HL7AlA9H4
-	 D4+OLrBnGyPUCys25snvgivi+JFgosTjYRneOI3vTfNpHMkvYT7WX8pazGetLDmVmj
-	 jG3f0nSIVAnZJ/V6GBkWCPt4KB8uk/y756nr4pg7vRB2LQyVgz90hXnRfyN9pcmTcc
-	 h7PD4SxFpDkTw==
+	b=dfeDeNt+x4sgDIbwsODNMrUukL9VYJOD7OSkZU225gb0lmTd1f20xN3ers3UuwnnG
+	 hf4L7WaLJalGZjpa7SXxOvD9IVtZUY8TesWl20G2HOapKI3a5Ud/b/SFYNHpwPWtJs
+	 hgZWhb0s7lutPkFmeW5WEFXZYPJ3RdmxbNKIMs8kzo6uRmV4I4utaQf8D4eCusA7lF
+	 JGIMCOVfpYWqgRT4HOY8K0/0cufs/er0TJBK5inlDaov7jFlFaSL/hmx5lg4G+MAsn
+	 LyaXnh4+vOAwefuYCu8CWprv1yIE0cetRxl5n1Zo+w+MGBTTOHXg0O+1OjiwE4jqEz
+	 4EYhsldpgKy7g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50AEECD4F3C;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 840BECD5BA4;
 	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:12 +0200
-Subject: [PATCH 08/11] arm64: dts: qcom: sc8280xp-arcata: Add lid switch
+Date: Wed, 20 May 2026 18:40:15 +0200
+Subject: [PATCH 11/11] arm64: dts: qcom: sc8280xp-arcata: Drop duplicate
+ DMIC supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-8-9df52552bf87@gmail.com>
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-11-9df52552bf87@gmail.com>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
@@ -56,13 +57,14 @@ To: Douglas Anderson <dianders@chromium.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1758;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1355;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=GHQeiThCwLf6jCuaGumAVOSJSuFkPcBJgAyN9IpZc40=;
- b=TFq+TLgkt9rh2mmnQxevAtdFZW/mL6bEj3bCiaQuvnsozIHkbcz0PNr48IunEMKbZPEb4babO
- Rh0qYueURAZD0ClBY6MYkYiNZDPJfD5h1ABfmEBMd1FYvX2voBDBNqM
+ bh=zKav9HnHTj8DgP+Z9y+E814drSGNPU5bW2do5oedD5A=;
+ b=jd63XVNVGo/QGrpVcEm+/DDF4Q/3SVr5c2azDz7Dhq8sS+H+BzUrp5rqDGwTydj26e1IU4R6W
+ aMgOb7aIf4zD9WFH9SSEPHvEOAEo9UHNfDMJOBHTLhsuIHiZdo0YfNQ
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -72,65 +74,38 @@ Reply-To: jerome.debretagne@gmail.com
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Enable the lid switch for the Microsoft Surface Pro 9 5G using
-GPIO pin 180.
+Align with the reference implementation from the ThinkPad X13s.
 
+The audio-routing setup specifies two power supplies for each DMIC,
+but only one of them can be active at the same time.
+
+Drop the redundant routes to the pull-up "VA MIC BIASn" supplies as
+done in commit a2e617f4e698 ("arm64: dts: qcom: sc8280xp-x13s: Drop
+duplicate DMIC supplies").
+
+There is no functional difference except that we skip briefly switching
+to pull-up mode when shutting down the microphone.
+
+Cc: Stephan Gerhold <stephan.gerhold@linaro.org>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- .../arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index a300069b5960dbba28601c418951869c94b63938..4daff3a0ecf48ad2081a2fe98910adf0debef88f 100644
+index ae0a054f2f9d90c9341766528d6be0b9561a530f..f938e68c69ea9276ca89d75b659dbea6a7a832f7 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -7,6 +7,7 @@
+@@ -793,9 +793,6 @@ &sound {
+ 			"VA DMIC0", "MIC BIAS1",
+ 			"VA DMIC1", "MIC BIAS1",
+ 			"VA DMIC2", "MIC BIAS3",
+-			"VA DMIC0", "VA MIC BIAS1",
+-			"VA DMIC1", "VA MIC BIAS1",
+-			"VA DMIC2", "VA MIC BIAS3",
+ 			"TX SWR_ADC1", "ADC2_OUTPUT";
  
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/gpio-keys.h>
-+#include <dt-bindings/input/input.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "sc8280xp.dtsi"
-@@ -60,7 +61,7 @@ backlight: backlight {
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
--		pinctrl-0 = <&vol_down_n>, <&vol_up_n>;
-+		pinctrl-0 = <&hall_int_n_default>, <&vol_down_n>, <&vol_up_n>;
- 		pinctrl-names = "default";
- 
- 		key-vol-down {
-@@ -80,6 +81,15 @@ key-vol-up {
- 			linux,can-disable;
- 			wakeup-source;
- 		};
-+
-+		switch-lid {
-+			label = "lid";
-+			gpios = <&tlmm 180 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			wakeup-source;
-+			wakeup-event-action = <EV_ACT_DEASSERTED>;
-+		};
- 	};
- 
- 	pmic-glink {
-@@ -1032,6 +1042,13 @@ edp_reg_en: edp-reg-en-state {
- 		bias-disable;
- 	};
- 
-+	hall_int_n_default: hall-int-n-state {
-+		pins = "gpio180";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	nvme_reg_en: nvme-reg-en-state {
- 		pins = "gpio135";
- 		function = "gpio";
+ 	wcd-playback-dai-link {
 
 -- 
 2.47.3
