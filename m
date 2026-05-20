@@ -1,103 +1,89 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796A815665C
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409E1305686;
+	Wed, 20 May 2026 15:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779291943; cv=none; b=Vl9/Y3z616/RZDxlxmKylxM7Gr49akWkC8T1yaY3/z8ejIb7zOICKuOrYHM6rHT5IYHry0sEmylVfB5uaK4X3yE6IgOsKzZwSfUrXHgcCrNbfrBalBoR/BSxVDGpUzh5ERDKvKCZrJXqvgefHUfHHwa5DjLWAemD4OjwtRir16k=
+	t=1779292119; cv=none; b=ueaFW3vPM89LfMslidoWiRFK5RMwumJPZxmeG2GjQ9Str+CqD+wac1kFbkQUVWRWx7oycdArZAL5C/b9qG/1NH9vI5Nhk8GX67nxBsf/pWeLey9ERu+MF5ZIzqKKh3Whq0TxnXrx6H+SegobG47sxnTlLb2X+qkC1cWawjMTYRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779291943; c=relaxed/simple;
-	bh=hAQpaUeqyhjDCK1Iia1roJOSowifAjlE5E49UsNO+Co=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BlSfdyyiWUA+Jm6OvblCPDFF/KqwpqRCIjl7Ty9YnbrrcW/iP5Dw6BwWhXxosD5WT7Oo2NGm406C+xrgV10/UhRWem1AvyAM7CDwsFAjTjvC9DONyTdK5jS72HBM/0P9FAb7BK6MYJUGaufVerNILMMpX+M2+ullQd3Uj4dIxP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J4F05Xhu; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779292119; c=relaxed/simple;
+	bh=q5iLEkyr6gKjoQ2BfLoHbYWrZ2V0cT4H7XMhmlMJU/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gc8fuVQyK4c0cKLudk5u9tF+1rcqS9rQ+WgMxXGQ7PfKd6bt0UNihQRF38jAGgUX7FjvsuFhwgAUV8J3vi6vAyfAhxwI8dHOLGVeNI/uzUZQCjnUCFHnKAUfv/n7HF7i0ivWdkFevmXYw+pmHzCmIgfARQPz2R5ghVgDJ7Ex1MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELKIBl2v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J4F05Xhu"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-366330b6751so4003088a91.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:45:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779291942; x=1779896742; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TpopC6v8EomR9W5ZKOKbW/NCwE4S6cDDtON1l5Oqp0c=;
-        b=J4F05Xhu+wkAHwRKSoetlW2h8nuFdA3JjSA8swplt79fLowafh30CDJH9H2N1CX7M5
-         OCjNpFaAXjrEnougFssXB1WPqwXPYK4RYDc7+DUZJ+JgpwO2J5MP2cD6GEaNKUvwkMFd
-         XS2dxPlHZ+NsFPtrjHomGZG0qPRxMYLM+ceTZATu6vNOIzaUZqwIBFkq1e2MV63pyk1H
-         k7j+UUXzFGeIXHQh/4vrv2bM6ArNz8t3vAzb133bNAEzA55NovhwkSssekROgojt5dcN
-         rXQOCTbxlR4suuhQVbEF/cNxwPf6rNLemZ4CV9b0H/RAZyUVrXStrf//d8zWiDJAIi04
-         VHeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779291942; x=1779896742;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TpopC6v8EomR9W5ZKOKbW/NCwE4S6cDDtON1l5Oqp0c=;
-        b=IEp5HaD7mM9WH+C3WgPTe20tOtLou9c7iJAgoZvEQR3DY8bDNI2duOb1CbzmEIjm6/
-         4Qdj7MriBzya7Kf3g0iVvhbLsYkYmOknVK6PCEkiLokoSKj8uH4zjfpg9nO6EgbfwN/b
-         Igu38ZmsPdx1d4KPmthKfRmMQH9gbvLjOd7kVslsKkFaFOAIG36JuhwHcM68paz53aWu
-         AiNX2lrzkufjqRCzk1qK4GgvmFQrVn17d91iKDDb8wxc+cwadLQOFYGTfWHwBJbAIQkU
-         SSRqVUczsSKHAsMWqoYVCCTsXdJYCNcnsEYJrsHwwZ22TtgKDFOsLdLndqmmP0jXWove
-         INyw==
-X-Forwarded-Encrypted: i=1; AFNElJ/QvpZEJTthd06S9R46ys8HH3UDwJRVt8jG66fIK5ex2ujbbwxR4RYDugND0sZN+bLeOU2JRXTkRVpu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwArtSY4Y8xS2ShVb3Am2NBnBnRv40exzVioAr6pFUaQTYxulFH
-	o9rBtP70T7hf0fHZD5fkH8Tb4KQVi6FpINekU5Dd8kh05B7el9i8N1bZ
-X-Gm-Gg: Acq92OHTtqJItbR7NkZ8Z7qluN2sMBECZeq5BI9GAHPoFz7TjGsJqfkFLgPF/8SMzOv
-	QvDyAUE4MuKSiUlSXO+SW16U0Hng4DASUQ8+ikeVSlFLwp6B/6krjE6Vip/FD7V/tq0rTdVbmks
-	To3cQWmqtzWOH8ypLywhz4kMRODnWBNUygsP9qOiJT3XWRYqOS9B1WVvyFc56XfZ+SSpxMBd24T
-	zZapgyTgBzxPSGP10I5j46e2XGK6ujlgj33n0JgN+jKxXy+U0ebxXnMbhuaHgp77tWDMyx9+MGU
-	B4FIU83yNNQlFxQ2JA2ui64sspv2WG30J4BUxeRu14BqKcyOqpGEH3wWYpcgw5D+h4L7TlaAski
-	blCQXqBpOum+ssQNbCMbq90x4OUTFf+m3navcuDDcYKyHLAf8qFXgYCazMExkeIUl1JJyG+ahcP
-	/rfQpFY9lNJeFjFdSVHYMszTe9tcnGUYR2iVax3DiXjTeCbQxsggZzuxMViCPYCsa5/X64PGT5d
-	fF523usbyjqnHDy
-X-Received: by 2002:a17:902:b181:b0:2bc:6784:5260 with SMTP id d9443c01a7336-2bd7e966018mr183964975ad.37.1779291941864;
-        Wed, 20 May 2026 08:45:41 -0700 (PDT)
-Received: from rohaniyaa-Vivobook-ASUSLaptop.. ([2409:40c2:103b:4191:71f1:6e4:a162:9164])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5c05f9d0sm225400775ad.31.2026.05.20.08.45.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 08:45:41 -0700 (PDT)
-From: Rohaniyaa <rohanmithari09@gmail.com>
-To: robh@kernel.org
-Cc: krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	peng.hao2@zte.com.cn,
-	Rohan Mithari <rohanmithari09@gmail.com>
-Subject: [PATCH] dt-bindings: misc: pvpanic-mmio: fix grammar in binding description
-Date: Wed, 20 May 2026 21:15:31 +0530
-Message-Id: <20260520154531.601160-1-rohanmithari09@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELKIBl2v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D661F000E9;
+	Wed, 20 May 2026 15:48:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779292117;
+	bh=nlwJwYF7az4RAtKKKBvp5m+7EtzDniGgGIAKI3MlR48=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ELKIBl2vaz+2brBFPMOQ6o9lOTR5t6T/nzuxzjsKHqblQDRy9f+q0gU06ROh6GmT5
+	 bBGUElG1nGQwTXwTEIEyFgL4fqhryrSJkrvP47+THml6mxQVDjQgCQo5a1IhxzQjad
+	 5gwfeQyCvcqJgn8irdUQc2Q7csRBc0paCj4f2CEqFSvCLBs6g5o4HwHduBKjX2dbWV
+	 yTRTKEyuh5caXW8cE2DsIvCItAVhMI0KUKYdOmLPZAI3gxBT//Jj58fcHTLHv5+4Ih
+	 ozJR4bCMYLKlzy6PDg22+F0YtmXn8Wbfl25s3uJzXIm/1S3GANm17wZSG6DjYXzHdy
+	 tc8e7zv7GK2+A==
+Date: Wed, 20 May 2026 16:48:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Zhongfa Wang <zhongfa.wang@unisoc.com>
+Subject: Re: [PATCH v3 3/3] regulator: Add regulator driver for Unisoc SC2730
+ PMIC
+Message-ID: <7daddfb0-4bec-42c5-a381-d3e938a2e146@sirena.org.uk>
+References: <20260519-sc2730-regulators-v3-0-5bf0e02507e3@abscue.de>
+ <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p+ntJXcBgVP6K1OX"
+Content-Disposition: inline
+In-Reply-To: <20260519-sc2730-regulators-v3-3-5bf0e02507e3@abscue.de>
+X-Cookie: Natural laws have no pity.
 
-From: Rohan Mithari <rohanmithari09@gmail.com>
 
-Signed-off-by: Rohan Mithari <rohanmithari09@gmail.com>
----
- Documentation/devicetree/bindings/misc/pvpanic-mmio.txt | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+--p+ntJXcBgVP6K1OX
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/devicetree/bindings/misc/pvpanic-mmio.txt b/Documentation/devicetree/bindings/misc/pvpanic-mmio.txt
-index 985e90736780..28187d3bf546 100644
---- a/Documentation/devicetree/bindings/misc/pvpanic-mmio.txt
-+++ b/Documentation/devicetree/bindings/misc/pvpanic-mmio.txt
-@@ -1,8 +1,7 @@
- * QEMU PVPANIC MMIO Configuration bindings
- 
- QEMU's emulation / virtualization targets provide the following PVPANIC
--MMIO Configuration interface on the "virt" machine.
--type:
-+MMIO configuration interface on the "virt" machine with:
- 
- - a read-write, 16-bit wide data register.
- 
--- 
-2.34.1
+On Tue, May 19, 2026 at 02:06:13PM +0200, Otto Pfl=FCger wrote:
 
+> +static const struct platform_device_id sc2730_regulator_id_table[] =3D {
+> +	{ "sc2730-regulator" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(platform, sc2730_regulator_id_table);
+
+Unless you modify the MFD to register this child device it won't be
+instantiated - how did you test this?
+
+--p+ntJXcBgVP6K1OX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoN19AACgkQJNaLcl1U
+h9AMrAf/Qfc3vXwwm7dJJ28i9AOsr0/vY0kmVtk0u2H3g41mEhPBzgSGskMawzGQ
+HBxFoiyrrrf55G7NNp7BrWv4eWpiqcMhs4FmgMPG/i45Omwv16/eEEXR4k41sobI
+ILw0oXs/Lk7aU+3U6mNV7cUxXuBkkr0E0fc9EvJTK4rVq0unmNbugxw2xwbDMeP1
+Jgftn/wL1MLmDIpufGB1DHPdPsfpU6f287Iu2kPD4fICWNNB3wvehuGtdEL0G2RE
+WIHzAGrwHAdRtIoScMX2OTmq0crkdUqS2CR+Gh3g/41t5yWhv4Ux1hkCuYSMLrRd
+PFyXPAbhmX4BytL32g5XCQyGqRoF9w==
+=/sys
+-----END PGP SIGNATURE-----
+
+--p+ntJXcBgVP6K1OX--
