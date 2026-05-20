@@ -1,96 +1,90 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354883E9F71
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:15:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B349C3E9C10
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779286514; cv=none; b=KjizlggKaHInypA7L38SI8i0V315Mhqz9Mv45yOpVXAeGWHsJdS+s45wdTWUoHukGYD3N2PD2uYo4R6SXW6ML7Zka+djTjcqyWCN7jH3EJFMI6Fg91/ygxMvOwyFZFYV2Mq8URC998wDqlTpE7DMUIHqQwZ38i2gJN/h94XsS80=
+	t=1779286726; cv=none; b=qX+dPvsVlzWaxlgFwyaUlZfJWWruLLOOSp/eVceY3t3Ntf2A6so3NC3RSrSRNe36KxzWWdZgeoprNkqi6YrylSc9kdPWmktvcGybSjT1L+2uzaYM90Rk5ZaCDlCk1k9Fj/FJVBH8AgW/Af6Tx83Ukfl5wyXonSiH/iW4JSTylkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779286514; c=relaxed/simple;
-	bh=38REJZzZ6Gkdb7cbpjFbicsseIUrU9NKmuQG5Z/mc4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dO00pZCXVAapCx14Edd0xwcXcAcWxG6dG2wO5o8t4R5bzLf709576nWzRKKWcHeI3fXFRMrcQPJCDabHDt8Zn0UYaj7gd/Ptt7D58Gzcn7c/RS5uMSlSFj2NdUxzijECfzUjIgjM1oivkygTxi1I6gR3DzH0uwDlePBu0VYkRH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fSHumoyv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HQ5tNaeX; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1779286726; c=relaxed/simple;
+	bh=WJud/LzUXHpuZnvmDnaaNQCWHb2XT5oMZj3y1B4DnHA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FBruTnnG3mYpH7jabhTMS0AI5XUUG+PLEEYORZaUBlfhMwLW4epC4F/sJz79gSCmyCRV7hE7CuDrMLY1OEQ9yj/afSN1W/v0yl8CoqZxQ/DISoWLWwgBp7EutXY9VxqqPpJHj2JBYMzLK+eN3AfDGo6xRg1inqvXp5wXKko+/sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eEONiNEw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MJ8AFLgs; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fSHumoyv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HQ5tNaeX"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KDuQ3N3680274
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:15:12 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eEONiNEw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MJ8AFLgs"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KEFYsG963697
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:18:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=1dHudBN89V8earjzqk3Mx0Toeoyaw7SN5qC
-	KeHJ90Lc=; b=fSHumoyv/a1D/Af3nEDLRCtwadpHfd+7mBmvPUDvwnITyhQ3MCr
-	ZWpTW42r8csORwGG9nH2gTlPNeDtCkMzvuWzPB+H3/MVYFmZ02NtoHC/mTK6CsVn
-	/OtDYA3En0QlWc7otwNNs2FApspNtdz50LgoWXsfE+YCAUgQjEiK97nRpuPaKD0B
-	ePxQ8RU15V074W+59iqCPFD1GNmK+j3JWTjUyaYb9EeO3PUDMn1GFOnlI2Vbz8Dm
-	ndSnoH2HX1rqbf+00O2i9hoLSE1GT0b4qyL1WWPkaziUYt5B66CT88jPzdvCcJzb
-	GJAGXUCskyeftWTaxCkhAB0IDFxxe6T4sZQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9e9j02bf-1
+	:subject:to; s=qcppdkim1; bh=Uz7tDg3ey8acYtYjEq8oOd5DW80KoUUi9kI
+	sP4bdi/8=; b=eEONiNEwzUNSNUCwpBRbHeHyr+P5mGB35dBF5TtVdNmEH7HnbQZ
+	hbF4uSol8c999Afy5lZ49Vk+2U4t5TgpwGb/n4rN5nUJ1uRot1L2lOXD5j1hcCf/
+	zW+2tt7NVSRI86r5wSnT3XDfVCttJxDJBAZacvaVBC7AIXgAc0cO9LJKw4gErxR3
+	Znov/Du8a09sPJsCt9eU4OemxFkSmWAvyO0sLNB7VCfHRQlkf0wk7f0xC6if4/3f
+	liRQCn4mBuWMU6WaYhzaKIHmWEquxfm6od+Dh31NUA22bxsLMvaxyvv2EXaH+C5x
+	DiU0oo1cKKeY9gnpPNGd5XVpRicXDSE8U0w==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ejh00bq-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:15:12 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2efc342ef15so6280348eec.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:15:12 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:18:36 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-83f7e7f7457so2504477b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:18:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779286512; x=1779891312; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1779286716; x=1779891516; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1dHudBN89V8earjzqk3Mx0Toeoyaw7SN5qCKeHJ90Lc=;
-        b=HQ5tNaeXSqWJmr4ZpoOtmtkKtH2iyNjObY9LqcyFSSTYnVuDbgdeNZahsIag2QBJ00
-         hDgEuMQmWvNRjfV3KwXP+MDuCL+TgxVpOo1UU6oSPIbYKqo9tYg+yFDEBk+BOVQvMY17
-         US0sjgrmMkuhHHlbjfvbei/Z/7uO5N93Ki1iJ57A0yC691FgB3s/xoWz/zQTccDgCeSB
-         StyTa43wsuvVLG2NWlM5VbE5VsS+YrxiO1phR2LarrE+h24c72BrbJW1X44u4tWMLYeq
-         Dw9zoFqd8XnN8GyHpHE7QiynWeyqXEZyCKhE6qfDqnLYUbWBWoZObwdAy1dbOABJFVvW
-         HZlg==
+        bh=Uz7tDg3ey8acYtYjEq8oOd5DW80KoUUi9kIsP4bdi/8=;
+        b=MJ8AFLgsZNo4okCz2zFjVQ5+uNM5EgPFfQm0g4A+VMQset+7h9+3/fzqzl7ksOrRMc
+         K4eCmAnJvFgArB7nDmCaeG5X+kzSHvM5n5ugjYuR3WBRwuGJ65SZjM1MN5i6T2MIESC2
+         lP+rWePoC6gCN8oru7ytFb5k2S7saJ4B8PbNQIorH05xEktpwQP1jNf0Dax7SzZMilqS
+         LojHw/H91P8oVv3s7aGuWwvhAYnebswOZwJpNCYGHHrsGLJXYNEc2AgnNpaxRYK6DrZ6
+         Np66VYxtgIEq/AP0t5BtW6nFeWO67flH0jTfxRiA5+BJ/STLiuSrmNDr+87uQbQXx3mo
+         1t3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779286512; x=1779891312;
+        d=1e100.net; s=20251104; t=1779286716; x=1779891516;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1dHudBN89V8earjzqk3Mx0Toeoyaw7SN5qCKeHJ90Lc=;
-        b=rkLk4BTD+x364QjzBe8lZbrdyw3pzHX3CR5YmjAh3vVd/ekztaGwFiaNidPF2R9Sf4
-         HDvhpmirG5/asj6VbOkjBRy6z+y0pDyqr0t1J8OiHv7vBulHXtTcTG7F8TN8jb0yyTqY
-         OiI6ilRZkk+ndsiLUgjhctdl5t+Sa4gu0kKzvZVjkQRMkDGiAW1GOjXaLj5ggSzba/pg
-         yjaSx3MeZgAHcQiNCupocF0B5NAu3YwdcpoPBFv60uICRtK/STfAvejZa1HFQH7nVXs0
-         Z5wbEXMb/KCZ6/y80TG5cU5m4GtYG01d78RvM0rvIyI7+9v/DKRTb1rSPQ9zbwS6Btbc
-         SjKQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/m3yj509OKtH6q2KljhnqLSuXg653VivmQmA9UG3xv8g/2OayOc7wMHtIJ5wzVmnRrFFYJS2UYAzWD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZi8DZ+IGOrJTKWXsr9+W/n61aFBZO/4tB02nXd/FO2yNyefIO
-	K6XOLNof5kXb3ApN0+whqJn5qF46ChyReCBbO5l//5IVk9BGZLl12VU9bje4JfF1hFG76ySHHXC
-	I4f0RJqdCNQ30qHsTfgYvw/C7yuya5u5Jr+VlrwTEetZMg4cdToV6HO4aonPy1Mkp
-X-Gm-Gg: Acq92OErZklstCN9521p3bGAYQN2ec9f0+WD+Fl/RbOPBr9Crrg0RQ6Rf/SYSFjweC7
-	ROI1ogJNdYnH4ImdCBmvzx6GSZKeu/Rvb6tXrkjkOaRtL/CpEEjmjdYE1DsJiiyIel10Qqvc/T3
-	oXurmAKA00/psZ0KWcjTUiH5d6V6QoeX9dFAl8HXkC+B6IsGiEqvO7Mx97rcMi0y7MYXinj/lfN
-	UnFZM9GGq9PTzgvYH1IfB2Uo4AsmC+69li/40PW+dPoKFVkoIM/RI/7WTnS3fkuDAVsvRwYbHRz
-	vsupT29tC+HubdwTFCrzkl/X5iHcE/UOstPWC5q6/0w+LxSLhLwg4I9pKBT7uNfzh3cFvqhtmW7
-	UJQaKgxAGsQKEeVYT7TUiU3ClhdLBhoWdMQF7by55KxiBPOCJmrb3n11E4o24xiZIGja5xHc2Rc
-	jFSvD0Jw==
-X-Received: by 2002:a05:7300:fd16:b0:2f2:6dde:df66 with SMTP id 5a478bee46e88-3039868c86cmr12429721eec.22.1779286510893;
-        Wed, 20 May 2026 07:15:10 -0700 (PDT)
-X-Received: by 2002:a05:7300:fd16:b0:2f2:6dde:df66 with SMTP id 5a478bee46e88-3039868c86cmr12429694eec.22.1779286510153;
-        Wed, 20 May 2026 07:15:10 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30296dcb6f6sm24052943eec.17.2026.05.20.07.15.06
+        bh=Uz7tDg3ey8acYtYjEq8oOd5DW80KoUUi9kIsP4bdi/8=;
+        b=sxXqBfk7uyjiQz2U3R9yFiNWI+kHQtrQf4cPPHNhFl2Da1ivYetj8Ku1z08M/ZTAZG
+         pXuB8RNIYa2HhPjRF0S3DXgF5cfPEyWQmzHOfa6c3lE6Wt5BV0kMhO1CwHAQqaKtQdyD
+         qV/kolBWrkolq/unvSkfKZGQmUj1HvMDqLQZ4UoHZsnwLwK+iTV2FPjUXEwVH0ln4eef
+         gvR4cFMeDtftyw5x8vf0/vAD6URganenQhIP0d2eOkSb3/8DNcm3OVtOLTQi0eDMuERB
+         0/rZ7F18JNNgEQvB8EfMXFfpyRQ+wshsKfV0sKiBZrpqffpugqxZETrPCKUfN6W/EZ4v
+         yo+g==
+X-Forwarded-Encrypted: i=1; AFNElJ8EmUh1e9pff9pw1TbpVEWPJ5ED03fBMvjwu52+SinYySYf7M5jiSZ+MWY+C+TKBO2kL80y6TEzrCS7@vger.kernel.org
+X-Gm-Message-State: AOJu0YwAbKz/Km7OIOHd5tdkuXNxKOSlD9/zTtUvvEcdApQ+3Jb0NdkW
+	LxKHHTKpGxy054mDp72TWRjtFbcc1IcH6BF2WtWgdF9wUnBY67aM07GBV2P3YfB9X8YTZSGpblK
+	UV647+UBzW150nY2NW2O4CKjB2LIbdKnr4aB/BAGDEvOyig0JLv6HNHd5SHgS+il3
+X-Gm-Gg: Acq92OGjdJIfoAVT3iWXtSnF4omv4CilVZQJBmFljMJ8tZ11g7AYRnbJNkVgmBYrZfw
+	Tk++LaWqrKSXqSKMQutjT+DlqwBiGsCOZ1B0ZMkHGp0gQ+G/jDBZMJAu2y02i/qdxVvMwPQN+o+
+	BkWVVhRxYkWsCxquEgMpHJ38htLWoQbyZ7dgaeCAyNtEXU+aBte2KdYDd+7D1N9I6mq2H3NIb1T
+	vj6Fgkj5P8ctOcMajAWQ1OksOBAD5RyVjA8rRZN48ItGdFK1upBbXLR+kZL9hC4pOP8173hXJW1
+	GR6RUi2RExZWtAW1DqBm+E6NQ/R8VbkBRppjqFeoydI+4FDVInVYfeD1aXh3VEKaGBHeYg2xZDS
+	tCdqIsrvwIjerKaiJky2YgNuJx80US8ewdhiPu05EJ4uP987/bNVEg8Reo+Y7WK7T08JEYc8M/D
+	iI8qUBNWlxyzkoX1NXYGs3WkswizNsoSpvNIxu
+X-Received: by 2002:a05:6a00:806:b0:837:8342:abe5 with SMTP id d2e1a72fcca58-83f18e7709cmr23766517b3a.18.1779286715859;
+        Wed, 20 May 2026 07:18:35 -0700 (PDT)
+X-Received: by 2002:a05:6a00:806:b0:837:8342:abe5 with SMTP id d2e1a72fcca58-83f18e7709cmr23766483b3a.18.1779286715246;
+        Wed, 20 May 2026 07:18:35 -0700 (PDT)
+Received: from hu-sibis-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19775c97sm21990803b3a.15.2026.05.20.07.18.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 07:15:09 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Wasim Nazir <wasim.nazir@oss.qualcomm.com>,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        Andrew Halaney <ahalaney@redhat.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: Remove sa8775p-ride board
-Date: Wed, 20 May 2026 22:14:57 +0800
-Message-ID: <20260520141457.988130-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 20 May 2026 07:18:34 -0700 (PDT)
+From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+To: robh@kernel.org, srini@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH V8 0/2] Enable ADSP and CDSP for Glymur SoC
+Date: Wed, 20 May 2026 19:48:26 +0530
+Message-Id: <20260520141828.2724689-1-sibi.sankar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,233 +92,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=bfhbluPB c=1 sm=1 tr=0 ts=6a0dc1f0 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Authority-Analysis: v=2.4 cv=QptuG1yd c=1 sm=1 tr=0 ts=6a0dc2bc cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=20KFwNOVAAAA:8 a=jldscSqegy-hU8fF55UA:9
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: LV6kpbZxzvUw8d18X2BoDCcS4fYG4Jl9
-X-Proofpoint-ORIG-GUID: LV6kpbZxzvUw8d18X2BoDCcS4fYG4Jl9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDEzOCBTYWx0ZWRfX1YOGyxIUSS79
- X0kDqR1RmbcCOGQPlCSH7ow8N6aW5GLciR5hxpAL+R9/xarJXkGhJlyAgDeqmsoZbYQ3Eb/UEyf
- QHYn7ssPTf5de06yGgBTovnoCEcKMFZRP/HrDvafViaUEfjmberjO/qbuhb2yFD14WnXpGav8yS
- 5PNy2hrNwCiamu3dTtkFl18YQ6iX+kXbiMpkvMzwuK7KljiMfVEIvDvbBXPr7JhlbeaHWHdnKC5
- Ilrmof+0AY2pIgQIoR/8Woc/iqqWd1ZnNk2SWngUdceJ0gR11PLXo7fiFoT+ke+GJ7IXpHgUgv+
- ft0JTLyPjUdMJ8zhZELggQ1ZGMaQf0xB8pxN/84t0BFm6SkLsdIwpMkMw8NaUB2h77XEhdBCFIz
- RpLDJWCRJldV0j6TiEqBtkc7HalLY7rI4DE5GnmutgiyTvUkbsJeGAxNd2/aZjSB2W/WaPrt/TJ
- jcv7ufUI6W325CHeAuw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=9v-nsc7hOUgGWHzJVNoA:9 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDEzOCBTYWx0ZWRfXzJxiPFr6Huk7
+ np84SG1fUO17mFMGbdUZSiU6V49uHyXdgt5r/37boRb4VyZ/Re960v/zQT8AcklTwtZ5LsvlDQS
+ EuzFe23ar4R2bmCGYypAEp7yppPHGHzMWKGnDu00NS2hXJfYscUmklpihx4E5TMVdZ7lqz47DK3
+ SLDpMv59Gxclk6BhMdBFarUrP4IjNMovd+iQD4ILiM/mWNUQyvKkI4WVK6G291I6tG8c05Qq5v5
+ qlSpwTe//9RsbaWVL+9Z3WNeyMNUQaZ9Fw+zxGzec3e7+KviTDcrV/1CLJZH3XOWaddBy9fex2m
+ zLQiu4UaMw0tdWHxMPS2i3jQjf+xN+Lr2KcetJD8zeWLMOsi5Buj/35N20a0KA6+o1N+e+SUeUb
+ GaA9ylROuSFv7nGg4KIUCrPLvL+j8aptZZg0BwNjb0vvbwhkDbnPO1bCNWNroSFXAHWzokGf/+3
+ tpPKx2hbBTwM4moNsgQ==
+X-Proofpoint-GUID: W47lWQ83ftKpULt4BhJk7gT141m5rOqU
+X-Proofpoint-ORIG-GUID: W47lWQ83ftKpULt4BhJk7gT141m5rOqU
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- bulkscore=0 clxscore=1015 adultscore=0 spamscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605200138
+ spamscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200138
 
-The sa8775p-ride board development mostly happened back to year 2023,
-and it hadn't got any major update since then, except Wasim's refactor[1]
-last year which had no functional change for the board.
+Qualcomm Glymur SoC variants predominantly boot Linux at EL2. This means
+that the firmware streams of the remote processors are managed in kernel
+and not in Gunyah hypervisor. Given that the Peripheral Image Loader for
+Qualcomm SoCs now support running Linux Host at EL2 [1], this series
+documents and enables ADSP and CDSP on Qualcomm Glymur SoCs with its
+fastrpc nodes. A few variants of the SoC are expected to run Linux at EL1
+hence the iommus properties are left optional.
 
-Propose to stop maintaining the board for reasons below.
+[1] - https://lore.kernel.org/all/20260105-kvmrprocv10-v10-0-022e96815380@oss.qualcomm.com/
 
-- The Lemans development had moved to QCS9100/9075 EVK and Ride board
-  for a long time.
+Changes in v8:
+- Drop bindings and remoteproc nodes since they've already been picked up by Greg/Bjorn.
+- Fix SID duplication between gpr and fastrpc nodes. [Sibi]
+- Fix Incomplete DCO. [Krzysztof]
+- Match model name to the one already used in Audioreach topology. [Krzysztof]
+- Link to v7: https://lore.kernel.org/lkml/20260331032121.1279203-1-sibi.sankar@oss.qualcomm.com/
 
-- Qualcomm stopped maintaining Meta Build (NHLOS firmware) for this target
-  years ago. There is not too much point to continuing maintaining the DT,
-  as DT usually depends on NHLOS firmware.
+Changes in v7:
+- Rebased on the latest Linux-next
+- Split patch series so that Greg can pick this one up so that
+  the dt changes can be picked up by Bjorn.
+- Link to v6: https://lore.kernel.org/lkml/20260325035338.1393287-1-sibi.sankar@oss.qualcomm.com/
 
-Link: https://lore.kernel.org/all/20250803110113.401927-1-wasim.nazir@oss.qualcomm.com/ [1]
-Cc: Wasim Nazir <wasim.nazir@oss.qualcomm.com>
-Cc: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
-Cc: Andrew Halaney <ahalaney@redhat.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
-It supersedes patch "arm64: dts: qcom: Remove lemans-auto.dtsi":
-https://lore.kernel.org/all/20260508022912.1046618-1-shengchao.guo@oss.qualcomm.com/
+Changes in v6:
+- Pick the audio series up. [Srini]
+- Pickup Rbs from the list.
+- Rebase on top of the lastest linux-next.
+- Fix up address size and other misc fixes. [Konrad]
+- Fix the ordering the various audio nodes. [Sibi]
+- Link to v5: https://lore.kernel.org/lkml/20260313120814.1312410-1-sibi.sankar@oss.qualcomm.com/
+- Link to v0 audio series: https://lore.kernel.org/lkml/20260311124230.2241781-1-srinivas.kandagatla@oss.qualcomm.com/
 
- arch/arm64/boot/dts/qcom/Makefile            |   2 -
- arch/arm64/boot/dts/qcom/lemans-auto.dtsi    | 104 -------------------
- arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dts |  17 ---
- arch/arm64/boot/dts/qcom/sa8775p-ride.dts    |  17 ---
- 4 files changed, 140 deletions(-)
- delete mode 100644 arch/arm64/boot/dts/qcom/lemans-auto.dtsi
- delete mode 100644 arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dts
- delete mode 100644 arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+Changes in v5:
+- Fix commit messages (patch 1/2) to accurately describe compatibility [Krzysztof]
+- Link to v4: https://lore.kernel.org/lkml/20260310033617.3108675-1-sibi.sankar@oss.qualcomm.com/
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 795cee4757ab..d383e98842cf 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -216,8 +216,6 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qru1000-idp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sa8155p-adp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sa8295p-adp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sa8540p-ride.dtb
--dtb-$(CONFIG_ARCH_QCOM)	+= sa8775p-ride.dtb
--dtb-$(CONFIG_ARCH_QCOM)	+= sa8775p-ride-r3.dtb
- sc7180-acer-aspire1-el2-dtbs	:= sc7180-acer-aspire1.dtb sc7180-el2.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-acer-aspire1.dtb sc7180-acer-aspire1-el2.dtb
- sc7180-ecs-liva-qc710-el2-dtbs	:= sc7180-ecs-liva-qc710.dtb sc7180-el2.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/lemans-auto.dtsi b/arch/arm64/boot/dts/qcom/lemans-auto.dtsi
-deleted file mode 100644
-index 8db958d60fd1..000000000000
---- a/arch/arm64/boot/dts/qcom/lemans-auto.dtsi
-+++ /dev/null
-@@ -1,104 +0,0 @@
--// SPDX-License-Identifier: BSD-3-Clause
--/*
-- * Copyright (c) 2023, Linaro Limited
-- */
--
--/dts-v1/;
--
--#include "lemans.dtsi"
--
--/delete-node/ &pil_camera_mem;
--/delete-node/ &pil_adsp_mem;
--/delete-node/ &q6_adsp_dtb_mem;
--/delete-node/ &q6_gdsp0_dtb_mem;
--/delete-node/ &pil_gdsp0_mem;
--/delete-node/ &pil_gdsp1_mem;
--/delete-node/ &q6_gdsp1_dtb_mem;
--/delete-node/ &q6_cdsp0_dtb_mem;
--/delete-node/ &pil_cdsp0_mem;
--/delete-node/ &pil_gpu_mem;
--/delete-node/ &pil_cdsp1_mem;
--/delete-node/ &q6_cdsp1_dtb_mem;
--/delete-node/ &pil_cvp_mem;
--/delete-node/ &pil_video_mem;
--/delete-node/ &gunyah_md_mem;
--
--/ {
--	reserved-memory {
--		#address-cells = <2>;
--		#size-cells = <2>;
--		ranges;
--
--		tz_ffi_mem: tz-ffi@91c00000 {
--			compatible = "shared-dma-pool";
--			reg = <0x0 0x91c00000 0x0 0x1400000>;
--			no-map;
--		};
--
--		pil_camera_mem: pil-camera@95200000 {
--			reg = <0x0 0x95200000 0x0 0x500000>;
--			no-map;
--		};
--
--		pil_adsp_mem: pil-adsp@95c00000 {
--			reg = <0x0 0x95c00000 0x0 0x1e00000>;
--			no-map;
--		};
--
--		pil_gdsp0_mem: pil-gdsp0@97b00000 {
--			reg = <0x0 0x97b00000 0x0 0x1e00000>;
--			no-map;
--		};
--
--		pil_gdsp1_mem: pil-gdsp1@99900000 {
--			reg = <0x0 0x99900000 0x0 0x1e00000>;
--			no-map;
--		};
--
--		pil_cdsp0_mem: pil-cdsp0@9b800000 {
--			reg = <0x0 0x9b800000 0x0 0x1e00000>;
--			no-map;
--		};
--
--		pil_gpu_mem: pil-gpu@9d600000 {
--			reg = <0x0 0x9d600000 0x0 0x2000>;
--			no-map;
--		};
--
--		pil_cdsp1_mem: pil-cdsp1@9d700000 {
--			reg = <0x0 0x9d700000 0x0 0x1e00000>;
--			no-map;
--		};
--
--		pil_cvp_mem: pil-cvp@9f500000 {
--			reg = <0x0 0x9f500000 0x0 0x700000>;
--			no-map;
--		};
--
--		pil_video_mem: pil-video@9fc00000 {
--			reg = <0x0 0x9fc00000 0x0 0x700000>;
--			no-map;
--		};
--
--		audio_mdf_mem: audio-mdf-region@ae000000 {
--			reg = <0x0 0xae000000 0x0 0x1000000>;
--			no-map;
--		};
--
--		hyptz_reserved_mem: hyptz-reserved@beb00000 {
--			reg = <0x0 0xbeb00000 0x0 0x11500000>;
--			no-map;
--		};
--
--		trusted_apps_mem: trusted-apps@d1900000 {
--			reg = <0x0 0xd1900000 0x0 0x3800000>;
--			no-map;
--		};
--	};
--
--	firmware {
--		scm {
--			memory-region = <&tz_ffi_mem>;
--		};
--	};
--};
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dts b/arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dts
-deleted file mode 100644
-index b25f0b2c9410..000000000000
---- a/arch/arm64/boot/dts/qcom/sa8775p-ride-r3.dts
-+++ /dev/null
-@@ -1,17 +0,0 @@
--// SPDX-License-Identifier: BSD-3-Clause
--/*
-- * Copyright (c) 2023, Linaro Limited
-- */
--
--/dts-v1/;
--
--#include "lemans-auto.dtsi"
--
--#include "lemans-pmics.dtsi"
--#include "lemans-ride-common.dtsi"
--#include "lemans-ride-ethernet-aqr115c.dtsi"
--
--/ {
--	model = "Qualcomm SA8775P Ride Rev3";
--	compatible = "qcom,sa8775p-ride-r3", "qcom,sa8775p";
--};
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts b/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
-deleted file mode 100644
-index 2d9028cd60be..000000000000
---- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
-+++ /dev/null
-@@ -1,17 +0,0 @@
--// SPDX-License-Identifier: BSD-3-Clause
--/*
-- * Copyright (c) 2023, Linaro Limited
-- */
--
--/dts-v1/;
--
--#include "lemans-auto.dtsi"
--
--#include "lemans-pmics.dtsi"
--#include "lemans-ride-common.dtsi"
--#include "lemans-ride-ethernet-88ea1512.dtsi"
--
--/ {
--	model = "Qualcomm SA8775P Ride";
--	compatible = "qcom,sa8775p-ride", "qcom,sa8775p";
--};
+Changes in v4:
+- Fix SID used in ADSP/CDSP for correctness [Konrad]
+- Link to v3: https://lore.kernel.org/lkml/20260129001358.770053-1-sibi.sankar@oss.qualcomm.com/
+
+Changes in v3:
+- A few variants of the SoC are expected to run Linux at EL1 hence the
+  iommus properties are left optional.
+- Add fastrpc bindings and nodes.
+- Link to v2: https://lore.kernel.org/all/20251029-knp-remoteproc-v2-0-6c81993b52ea@oss.qualcomm.com/
+
+Changes in v2:
+- Combined into Kaanapali series since they are fully compatible.
+- Link to v1: https://lore.kernel.org/all/20250924183726.509202-1-sibi.sankar@oss.qualcomm.com/
+
+Srinivas Kandagatla (2):
+  arm64: dts: glymur: Add LPASS macro codecs and pinctrl
+  arm64: dts: qcom: glymur-crd: add Audio sound card node
+
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 110 ++++++++++
+ arch/arm64/boot/dts/qcom/glymur.dtsi     | 263 +++++++++++++++++++++++
+ 2 files changed, 373 insertions(+)
+
+
+base-commit: 6a50ba100ace43f43c87384367eb2d2605fcc16c
 -- 
-2.43.0
+2.34.1
 
