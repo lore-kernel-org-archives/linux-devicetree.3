@@ -1,147 +1,148 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2094.outbound.protection.partner.outlook.cn [139.219.146.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADC53438B1;
-	Wed, 20 May 2026 07:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779263477; cv=fail; b=AtnMD1FDOabF7c6uct1WoRx2qcrfOaujWoX08Uxg8jxQziOXFVTlYYTJX/FyClRYyv5TNG+3bcEWEeMgMg13Sb8d/kizGbsT0OF0D2DDznhjgcy56rWqpRUOZwUOdXI9cLG7HLD2HrNmW3bz7S64ZitDrAjGOi2yyL5Go7BVsZM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779263477; c=relaxed/simple;
-	bh=tBYwTIkg7Rl5r0EYU1wwfTNBwZ8E/1c9Rrr0lpOOcJw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ohNfyROGt2ZzpL2G7ilpft9RPikEwNKQ40bWnFUL2HXPkbG5kZP5FfC79BDJLTzarevdsCbPd9ixYcxhujJkYWba7y2b0Nxg0vQqH967HuEjWOh5OMoCWSSieVN4Fv2ZAokn0jeH72TSgFhI4hHfHR0Io73+jjj4zxCB0eZTqv8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=adfXoRakl4+ua9TEhRAnGBlbCxa8llx9ycRxyfIqTqFHIV7xMCJewPFqYKjgS07NLdA0GWjwRpM3rsQ/qVz1XkZCDU+NS6gLk2vgkewcgM8UmedNVrp9OXXM3xoScMfwcLNw8AtR65rVpR28xRK0Ao69OC9568AvY98uiiBHMkLS0ajk1ZLDpxHQSdF2H6alpsX0sfSXVG2og0zfTKwi13218u2wZzuBY23VfQ417ewoxp/XIXf9oAE0PyBEmk4OVr6QUS/Kb3oNlM9fbVc/1nDwEshzHjMvo6+0wugmEJW+tHye9BBFhcNoQzdTxOBB1OuW+6W0tdTDE5bu1Uk99w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tBYwTIkg7Rl5r0EYU1wwfTNBwZ8E/1c9Rrr0lpOOcJw=;
- b=m+6G54rpofBJUPSs/EBQBR7sc/eGtvT28yjcrNMCp86CiydgCKkyB8s7Zr97/NiZJI5QucsQvEJnI5b2wiChRUG/LQSBoRg8pUTfFb9EOhRKoCOXWrHDkgnfWZ+R7opcFgR3f9jiLv1YysDSOvgg9YHnCGGNP47jjtDiXa/mVAVFrXBZwVjz/7UOKd0sTedspou9ZIUO/qtoc3eORKodOiiArTsuZcUbFKyyvba52hAWxJplcqZ/DptiRmCDAReq5hDCUKsfL9+/Dl0cRAcpC19HkhYZK3YZrJcyasEQlH5DDUPDCwj4DZhGlQGDw/nDrkVrwHU/ZvRUzNaRFWQ+0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15) by SHXPR01MB0893.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1c::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.15; Wed, 20 May
- 2026 07:18:22 +0000
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- ([fe80::9b99:12dc:a115:b90f]) by
- SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
- with mapi id 15.20.9891.021; Wed, 20 May 2026 07:18:22 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Alexandre Torgue <alexandre.torgue@foss.st.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Emil Renner
- Berthing <emil.renner.berthing@canonical.com>, Rob Herring
-	<robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-stm32@st-md-mailman.stormreply.com"
-	<linux-stm32@st-md-mailman.stormreply.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [net-next v4 3/5] dt-bindings: net: starfive,jh7110-dwmac: Add
- jhb100 sgmii rx clk
-Thread-Topic: [net-next v4 3/5] dt-bindings: net: starfive,jh7110-dwmac: Add
- jhb100 sgmii rx clk
-Thread-Index: AQHc53hT59M+uKUzr0qKiLTpANMLHLYWff6AgAAEvlA=
-Date: Wed, 20 May 2026 07:18:22 +0000
-Message-ID:
- <SHXPR01MB086346EAB66ACAFAE228E290E6012@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
-References: <20260519101436.111476-1-minda.chen@starfivetech.com>
- <20260519101436.111476-4-minda.chen@starfivetech.com>
- <20260520-acrid-kickass-kittiwake-6d4247@quoll>
-In-Reply-To: <20260520-acrid-kickass-kittiwake-6d4247@quoll>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0893:EE_
-x-ms-office365-filtering-correlation-id: 77a6f82c-33af-4eb8-cdcb-08deb63ff9dc
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700021|22082099003|56012099003|18002099003|3023799007|4143699003;
-x-microsoft-antispam-message-info:
- hoGusLfIeh7bK3rl/T6DqKOQcNuAGIPHOUaIPZ0yK8ywTnaxG/xONYJwXP94Md78KDUadKZ8uc36LZiDlB33esvsgB0x3HNtmyox7bEUKa7fH7ep3UfoQYyph2a/JPyAnS5xr1ghJnEuhShTGUnmcjuvJ1yaA7McehTQqPkH0XEVxm/uboYh+R+KNq7wgLcYJmRZsPhRMrdrhcl0n0Er06OJTCUwYPz5Rq1R6EmLeg39KN+VToLhrQ1YErqiTzhz332iJ7r4miS3j5TBHvwH7Gi/ypo8Ek59UhrinrcXOmIW7UBz5UTak428jXchc3UT/DFy51Io3IVbbSZi1sTbWdudeYL26GomiRkYYL+8sWGRebTIWdjiwhsnZw8xw5/Oi5l00t+Ehx+tfqJojlNqd8nfMvUt4GsP5ObIolkq0L2ZGV6jX/TffDujfavJj6/ooab12tVnBD78/7HxnNS/kRQ2ZTQOxPr5o+l6q5IBHkSVD6vtnKau/0/EJz+G9ZcSGFiaVQzc06KRySZl+ZkwFSEwVKe/B/ifUiI9XjMxegsIGikoDNRfJ2SZp85o0ToG
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(22082099003)(56012099003)(18002099003)(3023799007)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bHh3ZkpxamlKL3I1eDZtWkZ3S05hNWQxNkE1RFE4WjdqRWtrb1hVeDlBUjM4?=
- =?utf-8?B?ai9SNG1JWklnbnVhNGtIY1NVdVNnaTRPZHZjRzB6VEUza1Z2dExFZkk1d0FC?=
- =?utf-8?B?aEZUSFhtRkd3dzlKUWNTemlXMXozRGlZQktlTDJ2SHlqbWZzT1M4azNhSXNQ?=
- =?utf-8?B?N0ZXZVdUMlBQamNXYXNiUXVBRDc0K3dxaVl1c21GYkxGdDR3cGV2bFpPY25x?=
- =?utf-8?B?bDJ3TmFnUm4zc29JWk1wbXg0YjgzU0FBWmMzMzJ3RjhsTm5MNndIdllRUFJZ?=
- =?utf-8?B?cFZpQ3Y1bnh5L1VZN2U1WVR3cVhDb2VmK1NiSG1jOGc4MWZpUWltQzNkbUxH?=
- =?utf-8?B?VUlqbjZtRTROdmNSZkxmbEVFT050cDdWTkt4a3lreEpFejNVb0o4UTdiZHRY?=
- =?utf-8?B?RGZ3RG1FL3ZRbGREREdEd1k4a2RWbHpnaVR1eFBHcWxuVnNmd0JhZS9GSUpF?=
- =?utf-8?B?RGk0M2Y5ZzQxUjNNR25qT2lNa0dEODdIUmZmNUVRU1FDOEFoOHdtZWRrMWpj?=
- =?utf-8?B?eEpIUUdQZ25WWldKeVdrRno5aWwvRlFOdExybExxeW82UVJaNm1nblJ2M1lp?=
- =?utf-8?B?ZXY4RVAzcGxKN3JuNlZMK2xSRUwweXJBYXdPRHRRclVDdnVKR3hpNzcyWk5O?=
- =?utf-8?B?MWNvVjBqWEpCZDFFN0tLOEZZcnIrZUFocCtnYzJjL2ROKzRTZGhPeDlTSEJU?=
- =?utf-8?B?NjFWVHlSaFRWVGRsVnpZeVhVNzN0RndmWDg1TjJiNEFqTytpWWVYSjJyTVdM?=
- =?utf-8?B?Q1BxT25lek9senZzSDlBcjVqN2Q1NzBBQnVHMlI5RVpNZTI4aUNpc3VsQzZC?=
- =?utf-8?B?QUJTTkZQMnZLbVpsVEJhVWp1VjRBc3BFdzlXcEZyK1F3UyszM3RFUS9VZ0Nz?=
- =?utf-8?B?RDlBZ3lzcVZzWFN3RWxNUmFUQTVpV09ZOWEyWlhhMXNWOUJrNmVtREJKNlVT?=
- =?utf-8?B?QUluWnNQZWdnc01yMklYa0NPZFVPNTNMYm9OazhCTS9yTENaVW9VdlAvelht?=
- =?utf-8?B?YW56MHhjbXJrQW43Z2lsV3ArRTJ3L2Q0WWwxL3cvay9EdElsV2QrOHJWOGo4?=
- =?utf-8?B?NW9iZFBmenVrc2tySWM3NERGWmZoN3VxbGU5eWpHNHhLSDgwQkNqc0k4S3Bt?=
- =?utf-8?B?VGZBT1lScDN1cEovYXNXQUtTQmlXODBvajY3VEJKNTRZeEJtMkFidTlYV3A1?=
- =?utf-8?B?OWk5NXlpMjhSa0tFcHJOOVVSV0x6YW1CaWVnOUVibng0NFpOOUFiZThTVUFQ?=
- =?utf-8?B?SGNyWU0zM09rekpocjhaNkZzc3ZMbVZENDRlWWthcERjN2UyMFhlUDErQ2wx?=
- =?utf-8?B?MFE1M3phRHNzZEl2VzlNeUtZVVRISkNxWDk1YjhtMTdqc2wvYmEyVGpDVGZ3?=
- =?utf-8?B?R1NDWGc5ZlJ5TytIMVFJWTdKaThOcHJ1OVUvRGwxa3plTUNwTmZLVFMxemE2?=
- =?utf-8?B?M080RklZNDF4UFpCSW1jYjJmWm5lRkhSb0NpL3Y5cGhpbndhb2lUc01VR3Fx?=
- =?utf-8?B?S1kyRXRCYlErMzZaanA2ZCtXbS9VZno2NENVY0JaRGszTEQrUTMwYnErTjdm?=
- =?utf-8?B?anAxUlBiaHFVYld4MWl5ZmVqdERBOXg5ZG1aYnlxMFl3S1NxTHBHSjR0bUVF?=
- =?utf-8?B?TE9KNEx0bjArNHRaZU9CbEhmVUNURGxSb3ZTWFo3V0NwUmR0RHlZZ1dMNGV4?=
- =?utf-8?B?OGRiSnpFMHlleGVsMFVvQ1h6QnFmKzhlZGNEbWJVWUxJNmc0cnZBZ29jcXNw?=
- =?utf-8?B?Q0YxUGRCbmJiYmNRanQwUG02U3hmUURIQkwzdFZtbEd3d0pUdWpvdDRWZGlM?=
- =?utf-8?B?bHkyaVBsTkdYbCsrSkg4SElDVVJjQ3hiWG5tQ3M0SmtGckpXK0tPUEtQaGZ5?=
- =?utf-8?B?ZGJ5NDhYRHEzVWFJWDVuZjJUdDFjRWErV3hDVFNYWVIwVWJCb3RmUzNpK3Bx?=
- =?utf-8?B?MUtvOS94TDdqdlF2WFF6cmg4aVE1cFFUUTJhRWRBQ0puK1diWkg3ZUI1UE1p?=
- =?utf-8?B?ajlzcDJGanlNdGd0VVh0RUpvdE4rN1pJTGcwZ0NnbHZuM1lzNTNOZ3dZWEs3?=
- =?utf-8?B?NVVVVFN2SDRxQ0w3UGFLT0ZxUUJzaFE5bDZlQlFoUmRNNDNiQXR5djIxdGEz?=
- =?utf-8?B?UU04cGdCVTBoUWV1RS9Qa3Z6YTE1RldReWRUN3FnLzd2QlAwNHNjOXowZkRY?=
- =?utf-8?B?TGhLVm9PL0dmdkJKbE5qWVM0WDdGQzFVQVJ5NXRUQkpGSmVzeW9kclg4MTVj?=
- =?utf-8?B?RDBRM1JpQ0tPUndZNjFmcTRYNUszWUo3U3ArUlVCdmJqWEhwaU5WVG9MUXQx?=
- =?utf-8?B?YTFvcU9YbUJ5a1pvYis0UGNMclhlRnVPM1hEZjJaNnJ6L1p1cyt2UT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B49329C54
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779263635; cv=none; b=dZ9hhgKwo9YfsE2QfgbNF7PbWhdkqrjMewJ/hkXOR2WkQPpryH9lIARDuU6beaTd/5ajvWtHaFOKjT7qnbKGHh3+dmj3O15cyIxHYV1Dzr1NQ/mxkqpEshe4wkTQ4NN/U13cQmrcbi69jPr/cAIogR1pjE+ckAQ+DePMkt4qtIw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779263635; c=relaxed/simple;
+	bh=hWRBU29dNFkhPABz8wMZX5qI45LPRwRDkloljDEwgiY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Sc++gXTTanzqN/wrTaukm7VVtlqq+pybVvjwe0PnDkfZYpgJOVxjpkjXXMCx+Gf7y/CLxO26E5ahDPDITYxLOodkjjE4ZZ21qPx40mvMhQoJODodueEhWbWvbhD50qX5koh7M4M04k2Pp+VV8/umD55nUYpPVqY1e2xl5d1k/Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dWpDVy6A; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dWpDVy6A"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488d2079582so43761665e9.2
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:53:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779263631; x=1779868431; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sLZA4hvW9xs9FgysnR1c1k6UhOsTdTrM6VQ3/eZLexk=;
+        b=dWpDVy6AmfAhrxStW6mbQVcxb4p0KD5F5GbZqISVTMhfn/jY2+4RnhbVu/GYx4QXjM
+         s9ZTbRf+P59cbLyf+dSt7uaQYVumuKdBjzu+bNak6RVXI7yJx0bSQgBA6L6UBHsDifWF
+         9hQ4Og+EiDAk2orVNTG42eFyhj+BG3yExPk38IhBu5kb0xml12tekPU6MYAQDDLONKC3
+         NCQCWeQlSu6ivJyQG9OQwOzaqAfu+vEuccK2QsF+NnNf1P876oGAETp6/U8V0QqlACtu
+         5CbGacZf4EHScp9x+l64FY6rO5k9Y+vxW8VdHJkcUd7LDxDvXx+tXU8JOHdFWmB3eZWa
+         DI9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779263631; x=1779868431;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sLZA4hvW9xs9FgysnR1c1k6UhOsTdTrM6VQ3/eZLexk=;
+        b=P7D+IhLsXp6UkGwDgOR86mXDNOnSv9UOhenh5w5WiqNtXMe4NZweEjwLlb8oRNnEGo
+         088inwbE750S/sILN+o6BI6QDA1ZRN4TLZMs5kFo9oVyKXJMbgWeNXutHdXhl5xTE9Ii
+         Xk0xbskcwyJ9rv6xamZPnM/z20BuiKbNnROSITCe9ew/qcTIb4TxcU+C5nxndIVhT8wL
+         Yc9jMTZ86I1WhpKkiGgvOlIna5XJNzxuu8OJqdWuvNOouEY4SGhApYWvXRe1RrbpfXLu
+         FqGyQpRUDcWcpt98uwb1hMnxZ3TNJwmBSg7NHxmqpM/d6oCCoTKhX1PTLs9llGDIVB/K
+         sYfQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+8H9rygGxoB1Hcx5q+2H657Ax4XCSSwCbNxCJg5e1qOuXjSZhwsUYP2DkSTFm26B9oo0u7OQqfYAU9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy34FHRcnp2s6lpGUHybnmQUH0stTTr6i97nifotZfFA6Xb89fd
+	XRiPmoWGkFNaQzD+wr1JcWLXxh1vS/H5xmihN5DlRFQ5X42/M5xEgPY2
+X-Gm-Gg: Acq92OHTNrIhZboCuI2R9taW1oZRCDoWaM4sCx1nK0ITB9tdpdG9Tm68J2nquAAJuVl
+	X2qxE8yPzwV6AYbWDb9oWfPLN+Z7eCB2mANikTiHykiLWYM7/7HOT8gPDBAmShg+MOwr5ToaRJc
+	pHjVp4NJgBlvwOtK9ccD1NsXt0aHbZJ8xN57machS5NzJZ/BqD5q8RGnfcmZEQsVRBzTuCGlGqW
+	RymvRVlGPaVnrB8LEunI1WP53CP0cJ5FzoEqS0Pkq/H4xTAP50SFXuMfFxotX5DKPJYDL8zrU0F
+	VLBqRcvMNzA/WJsip9SVcloXeuKyjkZwP62F+Uf53HcT0ib636heBCWmTfKffN9dzCqzHl6kvFz
+	zGZpPxLXGlVIr95PgfrN7PLDNFbeLF2TB7n5s2N64NzEouqxSSrZWPSqKg3WzmPenlTVxlC3FKT
+	b4N/o5mUnneJEyM74QMeH6mLKq23hxDU8rQlsWrnfgnyzl4MFVu3C9qhaucUTEqK815FhmmMFzf
+	okQ
+X-Received: by 2002:a05:600c:a309:b0:486:fba7:b150 with SMTP id 5b1f17b1804b1-48fe61f20a7mr291977335e9.15.1779263630727;
+        Wed, 20 May 2026 00:53:50 -0700 (PDT)
+Received: from [192.168.0.40] (a89-182-137-241.net-htp.de. [89.182.137.241])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48ffed60c8esm91723435e9.10.2026.05.20.00.53.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 May 2026 00:53:50 -0700 (PDT)
+Message-ID: <6b945153-5a7b-415e-904a-1c350b7d52ee@gmail.com>
+Date: Wed, 20 May 2026 09:53:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77a6f82c-33af-4eb8-cdcb-08deb63ff9dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2026 07:18:22.3909
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jFbaBn3+/kBRV+RTYgiwzxnmJV+2Sl+4jPHK/EgxYE2r+BEb8716LW3BEvqvUAh10/jtZSyfQI5AGnLsNp2C69zf5MltnEkp0w4eC9G9Skg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0893
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH v10 0/4] riscv: spacemit: enable SD card support
+ with UHS modes for OrangePi RV2
+To: Trevor Gamblin <tgamblin@baylibre.com>, Yixun Lan <dlan@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Ulf Hansson <ulfh@kernel.org>, Iker Pedrosa <ikerpedrosam@gmail.com>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>,
+ Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Anand Moon <linux.amoon@gmail.com>, Vincent Legoll <legoll@online.fr>,
+ Margherita Milani <margherita.milani@amarulasolutions.com>,
+ Aurelien Jarno <aurelien@aurel32.net>
+References: <20260515-orangepi-sd-card-uhs-v10-0-094af27e310d@gmail.com>
+ <177889984452.2298656.1074391459031404894.b4-ty@b4>
+ <7e68e745-0d70-46db-9475-38d3dd5b9cf4@baylibre.com>
+From: Andre Heider <a.heider@gmail.com>
+Content-Language: de-DE
+In-Reply-To: <7e68e745-0d70-46db-9475-38d3dd5b9cf4@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-DQoNCj4gDQo+IE9uIFR1ZSwgTWF5IDE5LCAyMDI2IGF0IDA2OjE0OjM0UE0gKzA4MDAsIE1pbmRh
-IENoZW4gd3JvdGU6DQo+ID4gamhiMTAwIFNHTUlJIGludGVyZmFjZSB0eC9yeCBtYWMgY2xvY2sg
-aXMgc3BsaXQgYW5kIHJlcXVpcmUgdG8gc2V0DQo+ID4gY2xvY2sgcmF0ZSBpbiAxME0vMTAwTS8x
-MDAwTSBzcGVlZC4gU28gZHRzIG5lZWQgdG8gYWRkIGEgbmV3IHJ4IGNsb2NrDQo+ID4gaW4gY29k
-ZSwgZHRzIGFuZCBkdCBiaW5kaW5nIGRvYy4NCj4gPiBTbyBpbiBqaGIxMDAgU0dNSUkgaW50ZXJm
-YWNlIGNvbnRhaW4gNiBjbG9ja3MsIFJNSUkvUkdNSUkgaW50ZXJmYWNlDQo+ID4gc3RpbGwgY29u
-dGFpbCA1IGNsb2Nrcy4NCj4gDQo+IElmIHRoaXMgaXMgZm9yIGpoYjEwMCwgd2h5IGlzbid0IHRo
-aXMgcGFydCBvZiBwcmV2aW91cyBwYXRjaD8NCj4gDQo+IERvZXMgdGhpcyBuZWVkIGNvbnN0cmFp
-bnRzIHBlciB2YXJpYW50IG9mIHRoZSBkZXZpY2U/DQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IEty
-enlzenRvZg0KDQpPa2F5LiBJIHdpbGwgbWVyZ2UgdGhpcyB0byBwYXRjaDIuIA0KDQo=
+Hi Trevor,
+
+On 16.05.26 2:35 PM, Trevor Gamblin wrote:
+> 
+> On 2026-05-15 22:57, Yixun Lan wrote:
+>> On Fri, 15 May 2026 12:48:58 +0200, Iker Pedrosa wrote:
+>>> This series enables complete SD card support for the Spacemit K1-based
+>>> OrangePi RV2 board, including UHS (Ultra High Speed) modes for
+>>> high-performance SD card operation.
+>>>
+>>> Background
+>>>
+>>> The Spacemit K1 SoC includes an SDHCI controller capable of supporting
+>>> SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
+>>> currently lacks basic SD controller configuration, SDHCI driver
+>>> enhancements for voltage switching and tuning, and power management
+>>> infrastructure.
+>>>
+>>> [...]
+>> Hi Iker,
+>> I've picked patch 1-3, for [4/4] I think it should be merged after
+>> https://lore.kernel.org/all/20260513071958.29574-1-a.heider@gmail.com/
+> 
+> Hi Yixun,
+> 
+> That makes sense. In response to your earlier feedback I had drafted a more
+> complete dts after another schematic comparison, but Iker and I discussed it
+> and opted to avoid changing scope too much. Andre's series includes the bits I
+> wanted to add and more, so that works out.
+
+I have 4/4 rebased on my series anyway, do you want me to send it?
+
+Thanks,
+Andre
+
+> 
+> Thanks!
+> 
+> Trevor
+> 
+>>
+>> Applied, thanks!
+>>
+>> [1/4] riscv: dts: spacemit: k1: add SD card controller and pinctrl support
+>>        https://github.com/spacemit-com/linux/commit/2d77e577109967ef65f269c1fc1d6a659d4260fb
+>> [2/4] riscv: dts: spacemit: k1-orangepi-rv2: add SD card support with UHS modes
+>>        https://github.com/spacemit-com/linux/commit/2585c60ce2f977b13f14a67d1e3ed9c73fd7f381
+>> [3/4] riscv: dts: spacemit: k1-bananapi-f3: add SD card support with UHS modes
+>>        https://github.com/spacemit-com/linux/commit/c76e2f058cbcab84e4a703f26857a58bdf6a0042
+>>
+>> Best regards,
+
