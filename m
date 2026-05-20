@@ -1,135 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A483F3BED2D;
-	Wed, 20 May 2026 09:46:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 964203CF69D
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779270403; cv=none; b=ogp1gLMVVhVWtaMWYEt+KkeZbi7D4Gh+5uvZ7IYxwhYnLO8avzrZOgShPYFGb6w0oIc39TQQntwzTfvzfRgc+TN8cxMdy6VzzfjSRDQkhxYF+yQJIk5Um7IzjwhnEA0xcIEFUMN+MD+3QH5mD601dnM+2tLUju+JIDbk019qHk8=
+	t=1779270590; cv=none; b=R3o3tQ8pNMbFGPXxwKkbG0s3d3sX2C9ronEw0/LujtrpI5Et998oEihOUfL88THoY6jvjJdOutBeYB2URxbxsYDFGFPlstWa3QaPQMpGbbVm0yrDDgtazA4h2VUVHPq4a9oOwjNHfpcPNLXJ3i/JTmvD5BnS7LxqQH49dHSL6z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779270403; c=relaxed/simple;
-	bh=EjFdKQ8CGoaMUVFQ/t0GZQkRQGadEJgFQiiP570rkks=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=qZmwE6ZcMNNfD40FQzYAgUVUY3+qL5L3pVoWLwhqJ8WBEzINz+WR350WMp9I6nTiIiSYtyMuHkn7xDOmbk4ZYt1iJ2egu/74YKWVWTceusHNOrPIcBmfqyWBW1luvl2JQiFYkEmha2ebRSAsT9SRguf6eAxTrmI5untPpQthh6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gd9GYWNd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779270590; c=relaxed/simple;
+	bh=tbZBdoarp2sMNF7McNT4lu1FRi1CirgdzAxImMKKYNQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=IIBIpHs3K6vUMfk8VgYdHs09wGoqz7ONBS0HYJNIyo/0YoVlzCMmqCVB9GnGL0v2BTXSCLjVewMGPevDD0IkVUFYPAVHWjKZ1kdvZgWP1EVmuAqzvZnbbASw/fxL4c/ThFMUwzxKuW0s9YJNN8GoL2U71I0lok9/hicFDIusBWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Uig7OxAw; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gd9GYWNd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE5F1F000E9;
-	Wed, 20 May 2026 09:46:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779270402;
-	bh=7g7ebGGGoRfzY1NTn+zFiwuAbXAmqwEDckP3uODYaEs=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Gd9GYWNdY/yRCgwpC2ZGDjYaqg/SWaGu6+7E/6R0qVqg3EkkSvx8iUq5bdwIywlwe
-	 niz2/UVWqRsVkQWMOp3enj9g6vWW+smg/8xBW84qFRMpEyGSItyk3slSYGgNP3lzcI
-	 RM5W9EsflbxqL0PMVbzBj/4lL4H9Zhj7CQT0aqpnGBr/AY5UwOYxzAWenclvuESRb6
-	 1PE35AovyhhX7FUVIG/V+BTq+/vb2i2mlZSHCuirtJd9cg/rgdDmTfhnSIzLV1OUmh
-	 bRnDumFsYFVF0nsDHhg3t0gwzq3/B3kFvc0LFkVs576XZfRrsaTq32m5q76uMCJY4Y
-	 iWra1OPA4A7JQ==
-Message-ID: <439bcc77-c1ed-497a-948d-692b5145149c@kernel.org>
-Date: Wed, 20 May 2026 11:46:37 +0200
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Uig7OxAw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=TbLDLhyU9bxJ7UXpA/7PbPwCImZmP1A41
+	0Qyc+w2VoA=; b=Uig7OxAwl2XqIC6rhfooBYdmnLWpfg5DFR5OEIoGnX8mFu3cW
+	6785I6Ep6fxsxKBPbqro74cbyjzZqTg7up3KMULChj3fIMkMNzIjFGE82lo4vsS0
+	Df/bDeea7k0j3DHPRjaxlm9Jwpw/xvzh2Ku4i7iONz/6W5jvacZHM2jYK4=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEELdgw1qZ_AEAA--.6755S2;
+	Wed, 20 May 2026 17:50:21 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] dt-bindings: arm: qcom: Document SA8797P Ride
- board
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
- Harshal Dev <harshal.dev@oss.qualcomm.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260519063505.883379-1-shengchao.guo@oss.qualcomm.com>
- <20260519063505.883379-8-shengchao.guo@oss.qualcomm.com>
- <20260520-acoustic-inchworm-of-education-2fb9ba@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260520-acoustic-inchworm-of-education-2fb9ba@quoll>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 9/9] riscv: defconfig: enable ARCH_ULTRARISC
+From: Jia Wang <wangjia@ultrarisc.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
+ robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, 
+ conor+dt@kernel.org
+In-Reply-To: <20260515025935.36F07C2BCB3@smtp.kernel.org>
+References: <20260515-ultrarisc-pinctrl-v1-9-bf559589ea8a@ultrarisc.com>
+ <20260515025935.36F07C2BCB3@smtp.kernel.org>
+Date: Wed, 20 May 2026 17:49:40 +0800
+Message-Id: <177927058085.943957.1239618570843676347.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779270581; l=1741;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=tbZBdoarp2sMNF7McNT4lu1FRi1CirgdzAxImMKKYNQ=;
+ b=Qk6zp9Om2sePZWG2IwsvFdWLSR79H5DetARYG8n+U2MtlsFyvt+LaRxWWVB29V5KzjHsrJXTZ
+ twykCUYa0OiA1Ssn+8oV64Kc47sTjF8Rv1hkeOiDgro2B1eJkD+Zj+6
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDXEELdgw1qZ_AEAA--.6755S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur47Ary3Ww4kAF48Cr1kuFg_yoW8AF4Dpr
+	s8JF45CF1rGF1rGayxArWku3W0yws3XrW5Jr1jgr15ArWfu34xCrykKw42g3Wqgr9rWw1I
+	kF9Yk3sFyw1UA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvYb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
+	MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
+	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
+	jFhFcUUUUU=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQANEWoNL8UAJwACs1
 
-On 20/05/2026 09:38, Krzysztof Kozlowski wrote:
-> On Tue, May 19, 2026 at 02:35:04PM +0800, Shawn Guo wrote:
->> The Nord is a new generation of SoC series from Qualcomm, and SA8797P
->> is the automotive variant of Nord. SA8797P Ride is the automotive‑grade
->> development board built on SA8797P SoC. Document the board with a fallback
->> on SA8797P and Nord compatible.
->>
->> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
->> ---
->>  Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
->>  1 file changed, 6 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
->> index af266d584fae..ab25323c3581 100644
->> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
->> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
->> @@ -303,6 +303,12 @@ properties:
->>                - xiaomi,sagit
->>            - const: qcom,msm8998
->>  
->> +      - items:
->> +          - enum:
->> +              - qcom,sa8797p-ride
->> +          - const: qcom,sa8797p
+On 2026-05-15 02:59 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The Kconfig symbol `ARCH_ULTRARISC` is not defined anywhere in the kernel tree.
+> --
 > 
-> We do not use model compatibles for Shikra, Eliza, Hawi, Glymur etc, so
-> this is inconsistent and should be somehow explained in the commit msg.
+> commit c77ace3a44699f903221665a56d7714a8cd6cf21
+> Author: Jia Wang <wangjia@ultrarisc.com>
+> 
+> riscv: defconfig: enable ARCH_ULTRARISC
+> 
+> This commit adds the CONFIG_ARCH_ULTRARISC symbol to the default RISC-V
+> defconfig file.
+> 
+> Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-1-98935f6cdfb5@ultrarisc.com/
+> 
+> > diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+> > index c2c37327b9877..9fdc4d1831ed9 100644
+> > --- a/arch/riscv/configs/defconfig
+> > +++ b/arch/riscv/configs/defconfig
+> > @@ -32,6 +32,7 @@ CONFIG_SOC_STARFIVE=y
+> >  CONFIG_ARCH_SUNXI=y
+> >  CONFIG_ARCH_TENSTORRENT=y
+> >  CONFIG_ARCH_THEAD=y
+> > +CONFIG_ARCH_ULTRARISC=y
+> 
+> Is ARCH_ULTRARISC defined anywhere in the kernel tree?
+> 
+> It appears that the Kconfig entry for ARCH_ULTRARISC is missing. Adding an
+> undefined symbol to a defconfig has no effect because the Kconfig system will
+> silently discard it during .config generation, which would prevent the
+> intended components from being built.
+> 
+> Was a prerequisite patch that adds the ARCH_ULTRARISC definition accidentally
+> left out of this patch series?
+> 
 
-With explanation why dedicated model compatible for Nord makes sense:
+The ARCH_ULTRARISC Kconfig definition is in the patch referenced by the
+Link: tag in both the commit message and the cover letter. This defconfig
+change depends on that patch.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=9
+> 
 
-Best regards,
-Krzysztof
+
