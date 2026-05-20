@@ -1,148 +1,148 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B49329C54
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C937F3769E8
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779263635; cv=none; b=dZ9hhgKwo9YfsE2QfgbNF7PbWhdkqrjMewJ/hkXOR2WkQPpryH9lIARDuU6beaTd/5ajvWtHaFOKjT7qnbKGHh3+dmj3O15cyIxHYV1Dzr1NQ/mxkqpEshe4wkTQ4NN/U13cQmrcbi69jPr/cAIogR1pjE+ckAQ+DePMkt4qtIw=
+	t=1779263703; cv=none; b=Rkxa41HizDmNUDIn2IpkxqYYCoHSym9zNSMNNGSplGA7DyOFn99feApss+O0pIgwCtj6pzn54v4hIi0sIDEW5zfRKhFJILvfpFs+0u9Tv1wji/FsvDb35iwdNRX/4jBwTAFI2RYLChNUdJHqPxkzAypeqx9JW4tiz1baa668W50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779263635; c=relaxed/simple;
-	bh=hWRBU29dNFkhPABz8wMZX5qI45LPRwRDkloljDEwgiY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Sc++gXTTanzqN/wrTaukm7VVtlqq+pybVvjwe0PnDkfZYpgJOVxjpkjXXMCx+Gf7y/CLxO26E5ahDPDITYxLOodkjjE4ZZ21qPx40mvMhQoJODodueEhWbWvbhD50qX5koh7M4M04k2Pp+VV8/umD55nUYpPVqY1e2xl5d1k/Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dWpDVy6A; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779263703; c=relaxed/simple;
+	bh=aoh+innGstPtXL4+Bt+0lxHkcZ0ylk7ryHmbDhKW6Jk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mBN3q64HpwSpXo6OCn2L4T5NcGzKht3uwYY/EeXosP99VVeAEnYSCVRStj6YMqnaMQrhlEEnKJIL4bkzVHitFKv0Q+Lx8GIkKW1ly90nlay8AFaGb3veH+u1I697ampbVvJML9Az1S6HTeSmXQYLfGLvAhtKo4q9mzhcQ6WXmt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=biiKYnVZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IDDRBtKu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dWpDVy6A"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488d2079582so43761665e9.2
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:53:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="biiKYnVZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IDDRBtKu"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K7qk1L2064625
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:55:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=/fhMLuyQzIu5qdG02+whMf2PIVo3KhkuqRW
+	4D1KGHH8=; b=biiKYnVZk8i+ZVw2cARiqxTdq+6DzrDKx35mnHxn/O5ZP8YHRfz
+	zhApiY0WpmjZmA9lckSbbr75sh8ji191jVvAEf7wZRAxSSpnpWQLpsdLXmRHWtl0
+	pIYruWR8lX5HMAR0oswxabvsD8s2cACFOGmzQUtEikKiDc73bBZxHIRKbY2jp5ET
+	uEr/bYBpbYPdaPRYLta4XHNYB/jXB60knY2yu1HGCWBybiOkOMZIT/HXQzpf0/FA
+	Li5V054hGbxAFU5ZHZVNKbdrcWuK2XP0jNl9B6AgwRPCdm7h9bKOFJiyat0XXQRQ
+	w9ddcmNVFVgJzizBueAnj0pGNJq42iGzz+Q==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3t3kj5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:55:00 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8353fbc7ad5so2386780b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:55:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779263631; x=1779868431; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sLZA4hvW9xs9FgysnR1c1k6UhOsTdTrM6VQ3/eZLexk=;
-        b=dWpDVy6AmfAhrxStW6mbQVcxb4p0KD5F5GbZqISVTMhfn/jY2+4RnhbVu/GYx4QXjM
-         s9ZTbRf+P59cbLyf+dSt7uaQYVumuKdBjzu+bNak6RVXI7yJx0bSQgBA6L6UBHsDifWF
-         9hQ4Og+EiDAk2orVNTG42eFyhj+BG3yExPk38IhBu5kb0xml12tekPU6MYAQDDLONKC3
-         NCQCWeQlSu6ivJyQG9OQwOzaqAfu+vEuccK2QsF+NnNf1P876oGAETp6/U8V0QqlACtu
-         5CbGacZf4EHScp9x+l64FY6rO5k9Y+vxW8VdHJkcUd7LDxDvXx+tXU8JOHdFWmB3eZWa
-         DI9g==
+        d=oss.qualcomm.com; s=google; t=1779263700; x=1779868500; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/fhMLuyQzIu5qdG02+whMf2PIVo3KhkuqRW4D1KGHH8=;
+        b=IDDRBtKu2MJHWfmCsyEcGPw7rWDoxLqsBk5Q2xVmBvwRUR/JoLjKRVub5fXBpT8uo2
+         TQMQeWaOouxJQzYDAJcPcRPmF9xDsmCvYrps9Zc0Xdt0ebn6eQxHVIs3TLqh/C9e3YV6
+         JpKg5zhKkp01M5JsuocNhbe1ZCipNuCPGEkD0wqRsMOKDj+TWCS7AfRIf5L9YouWOocb
+         IhAKt780vPe2q1QfUt1M42qpN++w68CxtDj5wMgfC7pnbnH98xvqKzJY/N5GBX6zCm5e
+         KpG3ya2+ukMPp/7fp+12zufFS6gU8/1TS1NhNyzuAUOaca2hjUS4xAPoSdaIUmYCUfaA
+         QrDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779263631; x=1779868431;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sLZA4hvW9xs9FgysnR1c1k6UhOsTdTrM6VQ3/eZLexk=;
-        b=P7D+IhLsXp6UkGwDgOR86mXDNOnSv9UOhenh5w5WiqNtXMe4NZweEjwLlb8oRNnEGo
-         088inwbE750S/sILN+o6BI6QDA1ZRN4TLZMs5kFo9oVyKXJMbgWeNXutHdXhl5xTE9Ii
-         Xk0xbskcwyJ9rv6xamZPnM/z20BuiKbNnROSITCe9ew/qcTIb4TxcU+C5nxndIVhT8wL
-         Yc9jMTZ86I1WhpKkiGgvOlIna5XJNzxuu8OJqdWuvNOouEY4SGhApYWvXRe1RrbpfXLu
-         FqGyQpRUDcWcpt98uwb1hMnxZ3TNJwmBSg7NHxmqpM/d6oCCoTKhX1PTLs9llGDIVB/K
-         sYfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+8H9rygGxoB1Hcx5q+2H657Ax4XCSSwCbNxCJg5e1qOuXjSZhwsUYP2DkSTFm26B9oo0u7OQqfYAU9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy34FHRcnp2s6lpGUHybnmQUH0stTTr6i97nifotZfFA6Xb89fd
-	XRiPmoWGkFNaQzD+wr1JcWLXxh1vS/H5xmihN5DlRFQ5X42/M5xEgPY2
-X-Gm-Gg: Acq92OHTNrIhZboCuI2R9taW1oZRCDoWaM4sCx1nK0ITB9tdpdG9Tm68J2nquAAJuVl
-	X2qxE8yPzwV6AYbWDb9oWfPLN+Z7eCB2mANikTiHykiLWYM7/7HOT8gPDBAmShg+MOwr5ToaRJc
-	pHjVp4NJgBlvwOtK9ccD1NsXt0aHbZJ8xN57machS5NzJZ/BqD5q8RGnfcmZEQsVRBzTuCGlGqW
-	RymvRVlGPaVnrB8LEunI1WP53CP0cJ5FzoEqS0Pkq/H4xTAP50SFXuMfFxotX5DKPJYDL8zrU0F
-	VLBqRcvMNzA/WJsip9SVcloXeuKyjkZwP62F+Uf53HcT0ib636heBCWmTfKffN9dzCqzHl6kvFz
-	zGZpPxLXGlVIr95PgfrN7PLDNFbeLF2TB7n5s2N64NzEouqxSSrZWPSqKg3WzmPenlTVxlC3FKT
-	b4N/o5mUnneJEyM74QMeH6mLKq23hxDU8rQlsWrnfgnyzl4MFVu3C9qhaucUTEqK815FhmmMFzf
-	okQ
-X-Received: by 2002:a05:600c:a309:b0:486:fba7:b150 with SMTP id 5b1f17b1804b1-48fe61f20a7mr291977335e9.15.1779263630727;
-        Wed, 20 May 2026 00:53:50 -0700 (PDT)
-Received: from [192.168.0.40] (a89-182-137-241.net-htp.de. [89.182.137.241])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48ffed60c8esm91723435e9.10.2026.05.20.00.53.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 May 2026 00:53:50 -0700 (PDT)
-Message-ID: <6b945153-5a7b-415e-904a-1c350b7d52ee@gmail.com>
-Date: Wed, 20 May 2026 09:53:48 +0200
+        d=1e100.net; s=20251104; t=1779263700; x=1779868500;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/fhMLuyQzIu5qdG02+whMf2PIVo3KhkuqRW4D1KGHH8=;
+        b=KhaI9ofSuUhq8kEH9PcB5RNIgi7ojrySrOIMJt7GtarotY7KflJGQKxA8NoZ1AB9CO
+         MyRAsPGJguFj7acv3CzEiAOoabkLCMiEjbuUNHio2ns09ph1rUwrwWHxyUJnNbVEW6Ev
+         iDyBEPsw2KG0iRo3pa8DzK8WTAgCT4pcMZ1K7DZlE6n+D9z3oR6UQs0Hxpo2OnKP445E
+         xonUHCnU/5i/jcQrgBE8+TW8RCtENWtTiXb5FcBpwyMTrMAb8p9mAMWq3seDIsQzNQ7i
+         m22yVuP8ELONPRj640lSMH55E7FGvrOfYmah05tRk7Rtc266RT943f9txcjvbj7CGgNN
+         pOPg==
+X-Forwarded-Encrypted: i=1; AFNElJ+GmKdw0ViCIOs6wrdfTAk3BrkSYh6kZptYt0VX54eKZLR4PTMwTDosMGv8lMP+wcPsPFcUujHYRv9y@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdgvAVkICSsCPqruQwF8uqXLwWwZl8pgZVDANpuSN0s1pDrxtR
+	lXDCkg7kg9UsVXrq9d13lCMq6+Ca8SECTpciZl8H7xn1urxe9mrt5DnCYzgI0LF4hA8jjU6ReLZ
+	MwjdNx1iifGaoycUssLRNdTwlDWeWwzVp0cP8ifOKNK6GJfrIP4t52Gxu9d9C/l/l
+X-Gm-Gg: Acq92OHVuPRqwIkjBBiNRrLKgP3/pUYQL2kTJMA68oUdYsPwHuNlzdGLceYFW79DnSH
+	nppmNYrT28cS1oennkqZN3Pk+jNiLXXAe6k6C0JbDMZvRoLKR3//l0XKhhTKcE0b/ZLWrcp6lRx
+	I/zwrGAiaW+JSMLpou4HebPGd1g5qqqqurKKLRJ7kCEP0PkNk0I8nuihETAu1V8h/+Xn7kftcO2
+	I/NrGw3m3PIX7ryiNqpAaCQrTVVykPdSHqk81AUanT0zX+jeZjJrRgWcYM30Mmk/U+npkJ+ilWy
+	8eZQUws+vIp36/GfXQSH4E5vYZFG0JGyRBc0/pMS8VP6Ewu+Oynf4Wcr8NNsBar7nC7PMgnbb8p
+	P8dfvTo/QidqOQBPoONpmcSlT24GxIPsqtRKRYr4dqQvLN1Ae
+X-Received: by 2002:a05:6a00:3028:b0:837:8c8f:8f51 with SMTP id d2e1a72fcca58-83f33db3f0dmr23589493b3a.47.1779263699436;
+        Wed, 20 May 2026 00:54:59 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3028:b0:837:8c8f:8f51 with SMTP id d2e1a72fcca58-83f33db3f0dmr23589464b3a.47.1779263698940;
+        Wed, 20 May 2026 00:54:58 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c5b296sm18827998b3a.32.2026.05.20.00.54.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 00:54:58 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: mmc: sdhci-msm: qcom: Add Hawi compatible
+Date: Wed, 20 May 2026 13:24:45 +0530
+Message-ID: <20260520075445.2146152-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v10 0/4] riscv: spacemit: enable SD card support
- with UHS modes for OrangePi RV2
-To: Trevor Gamblin <tgamblin@baylibre.com>, Yixun Lan <dlan@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Ulf Hansson <ulfh@kernel.org>, Iker Pedrosa <ikerpedrosam@gmail.com>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>,
- Michael Opdenacker <michael.opdenacker@rootcommit.com>,
- Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- Anand Moon <linux.amoon@gmail.com>, Vincent Legoll <legoll@online.fr>,
- Margherita Milani <margherita.milani@amarulasolutions.com>,
- Aurelien Jarno <aurelien@aurel32.net>
-References: <20260515-orangepi-sd-card-uhs-v10-0-094af27e310d@gmail.com>
- <177889984452.2298656.1074391459031404894.b4-ty@b4>
- <7e68e745-0d70-46db-9475-38d3dd5b9cf4@baylibre.com>
-From: Andre Heider <a.heider@gmail.com>
-Content-Language: de-DE
-In-Reply-To: <7e68e745-0d70-46db-9475-38d3dd5b9cf4@baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: -Z53r6wlVh8zrbL_DObgGf0t-UT8n426
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA3NCBTYWx0ZWRfX4d8+eqazNdav
+ i2GJhXWMcsu1rIw9Wao5KOBCbGUSOV/RNAI+9pHPVMzf0GONRNZl9ZeplRc6zGgeKb4vSH0JOFf
+ uk9/hMM1W3G7syvdCk6cBtqgSdQryXb+dRKtYs1bMyoTsH/fukU33Kizx1fipgIOr8NniLTqIoO
+ X3S4fkkP65x+E4bytvAh1iVeK6gXgpFg3C4ATk6xDA4Fbrsq98GWtnO71UULUo3KSQmTgnp5fIS
+ 35jOvhc09xqIfdqUsbGIBGIXDX6pku/28Ns0Pce4r5HgdFQ5/wkiPOEXiFGda3EvB3g/H3WJ0nC
+ lO++fzs6OnxZ+VxfX8yw360v/OvWznfw0KBI8lUVZCcrfi7xDsB6GD0BxIAEpC+BGvU2b7yk+Wp
+ N6Qg84ReQuDOq5XaEkQTFp4A23A+miwja9q0Zg+6f/fQ4a0r/J6qgNek8Xbu3CyLrXC6WhWgUUC
+ w3LnT6GTxM9q5WJCnZQ==
+X-Proofpoint-ORIG-GUID: -Z53r6wlVh8zrbL_DObgGf0t-UT8n426
+X-Authority-Analysis: v=2.4 cv=C4LZDwP+ c=1 sm=1 tr=0 ts=6a0d68d4 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=2NBLM9u9rd1IYMrnCwYA:9 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200074
 
-Hi Trevor,
+From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
 
-On 16.05.26 2:35 PM, Trevor Gamblin wrote:
-> 
-> On 2026-05-15 22:57, Yixun Lan wrote:
->> On Fri, 15 May 2026 12:48:58 +0200, Iker Pedrosa wrote:
->>> This series enables complete SD card support for the Spacemit K1-based
->>> OrangePi RV2 board, including UHS (Ultra High Speed) modes for
->>> high-performance SD card operation.
->>>
->>> Background
->>>
->>> The Spacemit K1 SoC includes an SDHCI controller capable of supporting
->>> SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
->>> currently lacks basic SD controller configuration, SDHCI driver
->>> enhancements for voltage switching and tuning, and power management
->>> infrastructure.
->>>
->>> [...]
->> Hi Iker,
->> I've picked patch 1-3, for [4/4] I think it should be merged after
->> https://lore.kernel.org/all/20260513071958.29574-1-a.heider@gmail.com/
-> 
-> Hi Yixun,
-> 
-> That makes sense. In response to your earlier feedback I had drafted a more
-> complete dts after another schematic comparison, but Iker and I discussed it
-> and opted to avoid changing scope too much. Andre's series includes the bits I
-> wanted to add and more, so that works out.
+Document the compatible string for the SDHCI controller on the
+Qualcomm Hawi platform.
 
-I have 4/4 rebased on my series anyway, do you want me to send it?
+Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/mmc/sdhci-msm.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks,
-Andre
-
-> 
-> Thanks!
-> 
-> Trevor
-> 
->>
->> Applied, thanks!
->>
->> [1/4] riscv: dts: spacemit: k1: add SD card controller and pinctrl support
->>        https://github.com/spacemit-com/linux/commit/2d77e577109967ef65f269c1fc1d6a659d4260fb
->> [2/4] riscv: dts: spacemit: k1-orangepi-rv2: add SD card support with UHS modes
->>        https://github.com/spacemit-com/linux/commit/2585c60ce2f977b13f14a67d1e3ed9c73fd7f381
->> [3/4] riscv: dts: spacemit: k1-bananapi-f3: add SD card support with UHS modes
->>        https://github.com/spacemit-com/linux/commit/c76e2f058cbcab84e4a703f26857a58bdf6a0042
->>
->> Best regards,
+diff --git a/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml
+index 695a95e8f35d..acbbbeb2be45 100644
+--- a/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml
++++ b/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml
+@@ -37,6 +37,7 @@ properties:
+           - const: qcom,sdhci-msm-v4 # for sdcc versions less than 5.0
+       - items:
+           - enum:
++              - qcom,hawi-sdhci
+               - qcom,ipq5018-sdhci
+               - qcom,ipq5210-sdhci
+               - qcom,ipq5332-sdhci
+-- 
+2.53.0
 
