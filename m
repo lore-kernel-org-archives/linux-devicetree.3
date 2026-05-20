@@ -1,127 +1,192 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C81E22A4E9;
-	Wed, 20 May 2026 07:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0590133A032;
+	Wed, 20 May 2026 07:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779262784; cv=none; b=SzPXYATFqYeWBbxr/uz6UvGDovKOqwOYh3tHW7Dc1wY7Vz2sW05JZVsHZ3YjGDP237CfB8xur3/UMXehZsgf1f+QOUWD3FGqW3QrpvzCydfGZeM6ozbaYIGa8OMLeSrjmI4pii5JTDSrHY6sRt7J1tS98i7tlkdwLV2QeqpmE3Q=
+	t=1779262936; cv=none; b=Pj/wmKNjpBabX8BkNPpxxg65FDrIUe+UUCATb8x6Zc2z45bKyMWlmHukFw97m12xw2L+hFrO/0p1OBEDkspBjpvv+p5z9nAQtdSn0Pb6er/w508Z42vRl96DJchLyZGO77sbzTeuYD/ER/yE/8bQyrBJAoHX4L5589fKtzB1JAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779262784; c=relaxed/simple;
-	bh=d2Ugzmt6F1039hqAPqlsjlFEKCPpU4Bgx2uEbLBfRqs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=jW4eKB2qvnfXultIpH6SW55v3cSZPHrpaTjNLBZpwTJLDt5+Nn8SpZ45G1gzxZSVFLq1OQP978+3h0XjVJOXFDgRn0Z6tV2q/b7KAg/BZguYSUaykJyBsbxRWs/sZjuCmIp7JEjrHm2DpLhUnRGxtQd+7Cizr3hhDCURIkvh9JA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Wed, 20 May 2026 15:39:21 +0800 (GMT+08:00)
-Date: Wed, 20 May 2026 15:39:21 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
-	dongxuyang@eswincomputing.com, benoit.monin@bootlin.com,
-	bmasney@redhat.com, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v6 2/3] clk: eswin: Add eic7700 HSP clock driver
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260519090034.CCED6C2BCB3@smtp.kernel.org>
-References: <20260519081627.1591-1-dongxuyang@eswincomputing.com>
- <20260519090034.CCED6C2BCB3@smtp.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1779262936; c=relaxed/simple;
+	bh=+6j/12T/uyCXOeH/G1xEYvJwsZuNRjrP3/Z+vFO7tQs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CYp5Lt37o6Sj6TCTF7oj/yn9QzfuBcwiIyoOi86vycAv5zI1eujJQfEqGR49d4kMxwiQVI5cPILBdud8lvp6Mcw38R0py4HE6Wv2KtSgm6/4R9LZwgii6q3w9d52Qw6NraE7s+AQ7WY2kRGm/Lms7fIMycaQ9LGhrgCx4YNVyww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WP0WNUni; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WP0WNUni"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779262934; x=1810798934;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=+6j/12T/uyCXOeH/G1xEYvJwsZuNRjrP3/Z+vFO7tQs=;
+  b=WP0WNUni+V0XAzVhHznsgmUxOUqfjx0JCmU57KrLJ92QiwJkX7CJiVsr
+   xlLCDb70gKd1c0DJxO8pHazVN6P56l0NvGdEg859RfrQ9y/00Fd6+IsTj
+   BDdgECdnCLdAVL725N8s41Jyz9CsQzHYtUW/v2voYxfcqia7FzA1vQyrw
+   /8VwaPZ5EreGL5LrXyhNX1PlQeo/0K2wL8Alu4Vtd869cHAOo1F9zepDU
+   qpUbw3rz3eQaS3zoLRhMSjz1dpc0GSdqc2RrUSLfrsHl+XoQN9I7z/Q8/
+   MAiUQrakgnsqULygcamodAwRyGTX8d3VJj8DiiojKtsuXFKLT95aFsqet
+   Q==;
+X-CSE-ConnectionGUID: 1EnRaEnOSeGTakg6kQmmSA==
+X-CSE-MsgGUID: Jn1I4pmTQCuwKrVIbVnOVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="97583263"
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
+   d="scan'208";a="97583263"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 00:42:13 -0700
+X-CSE-ConnectionGUID: 8y2cbZ6JT/yrMv6Zgp7rOw==
+X-CSE-MsgGUID: ogvFp3V3SK+AXbUSyqY8jQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
+   d="scan'208";a="235800876"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.115])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 00:42:08 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8E8EF121C8A;
+	Wed, 20 May 2026 10:42:05 +0300 (EEST)
+Date: Wed, 20 May 2026 10:42:05 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Rishikesh Donadkar <r-donadkar@ti.com>
+Cc: jai.luthra@linux.dev, laurent.pinchart@ideasonboard.com,
+	mripard@kernel.org, y-abhilashchandra@ti.com, devarsht@ti.com,
+	s-jain1@ti.com, vigneshr@ti.com, mchehab@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, p.zabel@pengutronix.de,
+	conor+dt@kernel.org, hverkuil-cisco@xs4all.nl,
+	tomi.valkeinen@ideasonboard.com, jai.luthra@ideasonboard.com,
+	changhuang.liang@starfivetech.com, sjoerd@collabora.com,
+	dan.carpenter@linaro.org, hverkuil+cisco@kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v12 09/17] media: cadence: csi2rx: add get_frame_desc
+ wrapper
+Message-ID: <ag1lzfCfCZWok1E9@kekkonen.localdomain>
+References: <20260313090701.646534-1-r-donadkar@ti.com>
+ <20260313090701.646534-10-r-donadkar@ti.com>
+ <agxP_eCovgSpdYnZ@kekkonen.localdomain>
+ <429ae839-6669-4e2f-afee-56d36b19f92d@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <61fe8681.6622.19e44532865.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgA3TJ8pZQ1qFOsaAA--.4457W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgENAmoMkRIVB
-	gAAs6
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <429ae839-6669-4e2f-afee-56d36b19f92d@ti.com>
 
-PiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
-b3VuZCAyIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiAtIFtMb3ddIEdsb2JhbCBz
-dGF0aWMgY2xvY2sgYXJyYXlzIGFyZSBtb2RpZmllZCBkdXJpbmcgcHJvYmUgd2l0aG91dCBsb2Nr
-aW5nLCBicmVha2luZyBzdXBwb3J0IGZvciBtdWx0aXBsZSBpbnN0YW5jZXMuCj4gLSBbTG93XSBU
-aGUgS2NvbmZpZyBzeW1ib2wgYENPTU1PTl9DTEtfRUlDNzcwMF9IU1BgIGxhY2tzIHRoZSBgZGVm
-YXVsdCBBUkNIX0VTV0lOYCBwcm9wZXJ0eSwgd2hpY2ggaXMgaW5jb25zaXN0ZW50IHdpdGggdGhl
-IGJhc2UgY2xvY2sgZHJpdmVyLgo+IC0tCj4gCj4gY29tbWl0IDVjODdmODY1Y2E4YWU3NDZkODBm
-ZjcxZmRiYmNlNzNmN2JlNTAyZWMKPiBBdXRob3I6IFh1eWFuZyBEb25nIDxkb25neHV5YW5nQGVz
-d2luY29tcHV0aW5nLmNvbT4KPiAKPiBjbGs6IGVzd2luOiBBZGQgZWljNzcwMCBIU1AgY2xvY2sg
-ZHJpdmVyCj4gCj4gQWRkIGRyaXZlciBmb3IgdGhlIEVTV0lOIEVJQzc3MDAgaGlnaC1zcGVlZCBw
-ZXJpcGhlcmFscyBzeXN0ZW0gY2xvY2sKPiBjb250cm9sbGVyIGFuZCByZWdpc3RlciBhbiBhdXhp
-bGlhcnkgZGV2aWNlIGZvciBzeXN0ZW0gcmVzZXQgY29udHJvbGxlcgo+IHdoaWNoIGlzIG5hbWVk
-IGFzICJoc3AtcmVzZXQiLgo+IAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvY2xrL2Vzd2luL0tj
-b25maWcgYi9kcml2ZXJzL2Nsay9lc3dpbi9LY29uZmlnCj4gPiBpbmRleCAwNDA2ZWM0OTllYzlj
-Li4zNzg1N2JkNzczMzU2IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9jbGsvZXN3aW4vS2NvbmZp
-Zwo+ID4gKysrIGIvZHJpdmVycy9jbGsvZXN3aW4vS2NvbmZpZwo+IFsgLi4uIF0KPiA+IEBAIC0x
-MywzICsxMywxNiBAQCBjb25maWcgQ09NTU9OX0NMS19FSUM3NzAwCj4gPiAgCSAgU29DLiBUaGUg
-Y2xvY2sgY29udHJvbGxlciBnZW5lcmF0ZXMgYW5kIHN1cHBsaWVzIGNsb2NrcyB0byB2YXJpb3Vz
-Cj4gPiAgCSAgcGVyaXBoZXJhbHMgd2l0aGluIHRoZSBTb0MuCj4gPiAgCSAgU2F5IHllcyBoZXJl
-IHRvIHN1cHBvcnQgdGhlIGNsb2NrIGNvbnRyb2xsZXIgb24gdGhlIEVJQzc3MDAgU29DLgo+ID4g
-Kwo+ID4gK2NvbmZpZyBDT01NT05fQ0xLX0VJQzc3MDBfSFNQCj4gPiArCXRyaXN0YXRlICJFSUM3
-NzAwIEhTUCBDbG9jayBEcml2ZXIiCj4gPiArCWRlcGVuZHMgb24gQVJDSF9FU1dJTiB8fCBDT01Q
-SUxFX1RFU1QKPiAKPiBUaGlzIGlzbid0IGEgYnVnLCBidXQgc2hvdWxkIHRoaXMgY29uZmlnIGhh
-dmUgZGVmYXVsdCBBUkNIX0VTV0lOIHRvIG1hdGNoCj4gdGhlIGJhc2UgY2xvY2sgZHJpdmVyPyBX
-aXRob3V0IGl0LCB0aGUgaGlnaC1zcGVlZCBwZXJpcGhlcmFsIGNsb2NrcyBtaWdodAo+IGJlIHVu
-ZXhwZWN0ZWRseSBkaXNhYmxlZCBieSBkZWZhdWx0IG9uIEVTV0lOIHBsYXRmb3Jtcy4KPiAKCkhp
-IFNhc2hpa28sCgpUaGUgSFNQIGNsb2NrIHJlc2V0IGRldmljZSBjYW4gYmUgYnVpbHQgYXMgYSBr
-ZXJuZWwgbW9kdWxlLsKgCkhvd2V2ZXIsIGlmICdkZWZhdWx0IEFSQ0hfRVNXSU4nIGlzIHNldCwg
-aXQgd2lsbCBiZSBjb21waWxlZCBkaXJlY3RsecKgCmludG8gdGhlIGtlcm5lbCBpbnN0ZWFkIG9m
-IGFzIGEgbW9kdWxlLgoKPiA+ICsJc2VsZWN0IEFVWElMSUFSWV9CVVMKPiA+ICsJc2VsZWN0IENP
-TU1PTl9DTEtfRUlDNzcwMAo+ID4gKwlzZWxlY3QgUkVTRVRfRUlDNzcwMF9IU1AgaWYgUkVTRVRf
-Q09OVFJPTExFUgo+ID4gKwlzZWxlY3QgUkVHTUFQX01NSU8KPiAKPiBbIC4uLiBdCj4gPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9jbGsvZXN3aW4vY2xrLWVpYzc3MDAtaHNwLmMgYi9kcml2ZXJzL2Ns
-ay9lc3dpbi9jbGstZWljNzcwMC1oc3AuYwo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGlu
-ZGV4IDAwMDAwMDAwMDAwMDAuLjMzODNhYTY0OTQ4YTYKPiA+IC0tLSAvZGV2L251bGwKPiA+ICsr
-KyBiL2RyaXZlcnMvY2xrL2Vzd2luL2Nsay1laWM3NzAwLWhzcC5jCj4gWyAuLi4gXQo+ID4gK3N0
-YXRpYyBzdHJ1Y3QgZXN3aW5fZml4ZWRfZmFjdG9yX2Nsb2NrIGVpYzc3MDBfaHNwX2ZhY3Rvcl9j
-bGtzW10gPSB7Cj4gPiArCUVTV0lOX0ZBQ1RPUihFSUM3NzAwX0hTUF9DTEtfRkFDX0NGR19ESVYy
-LCAiZmFjdG9yX2hzcF9jZmdfZGl2MiIsCj4gPiArCQkgICAgIGhzcF9jZmcsIDEsIDIsIDApLAo+
-ID4gKwlFU1dJTl9GQUNUT1IoRUlDNzcwMF9IU1BfQ0xLX0ZBQ19DRkdfRElWNCwgImZhY3Rvcl9o
-c3BfY2ZnX2RpdjQiLAo+ID4gKwkJICAgICBoc3BfY2ZnLCAxLCA0LCAwKSwKPiA+ICsJRVNXSU5f
-RkFDVE9SKEVJQzc3MDBfSFNQX0NMS19GQUNfTU1DX0RJVjEwLCAiZmFjdG9yX2hzcF9tbWNfZGl2
-MTAiLAo+ID4gKwkJICAgICBoc3BfbW1jLCAxLCAxMCwgMCksCj4gPiArfTsKPiBbIC4uLiBdCj4g
-PiArc3RhdGljIGludCBlaWM3NzAwX2hzcF9jbGtfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2Rldmlj
-ZSAqcGRldikKPiA+ICt7Cj4gPiArCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4g
-PiArCXN0cnVjdCBhdXhpbGlhcnlfZGV2aWNlICphZGV2Owo+ID4gKwlzdHJ1Y3QgZXN3aW5fY2xv
-Y2tfZGF0YSAqZGF0YTsKPiA+ICsJc3RydWN0IHJlZ21hcCAqcmVnbWFwOwo+ID4gKwlzdHJ1Y3Qg
-Y2xrX2h3ICpodzsKPiA+ICsJaW50IGksIHJldDsKPiA+ICsKPiA+ICsJZGF0YSA9IGVzd2luX2Ns
-a19pbml0KHBkZXYsIEVJQzc3MDBfSFNQX05SX0NMS1MpOwo+ID4gKwlpZiAoSVNfRVJSKGRhdGEp
-KQo+ID4gKwkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQVFJfRVJSKGRhdGEpLAo+ID4gKwkJ
-CQkgICAgICJmYWlsZWQgdG8gZ2V0IGNsayBkYXRhIVxuIik7Cj4gPiArCj4gPiArCXJlZ21hcCA9
-IGRldm1fcmVnbWFwX2luaXRfbW1pbyhkZXYsIGRhdGEtPmJhc2UsCj4gPiArCQkJCSAgICAgICAm
-ZWljNzcwMF9oc3BfcmVnbWFwX2NvbmZpZyk7Cj4gPiArCWlmIChJU19FUlIocmVnbWFwKSkKPiA+
-ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihyZWdtYXApLAo+ID4gKwkJCQkg
-ICAgICJmYWlsZWQgdG8gZ2V0IHJlZ21hcCFcbiIpOwo+ID4gKwo+ID4gKwlyZXQgPSBlc3dpbl9j
-bGtfcmVnaXN0ZXJfZml4ZWRfZmFjdG9yKGRldiwgZWljNzcwMF9oc3BfZmFjdG9yX2Nsa3MsCj4g
-PiArCQkJCQkgICAgICBBUlJBWV9TSVpFKGVpYzc3MDBfaHNwX2ZhY3Rvcl9jbGtzKSwKPiA+ICsJ
-CQkJCSAgICAgIGRhdGEpOwo+IAo+IElzIGl0IHNhZmUgdG8gcGFzcyB0aGUgZ2xvYmFsIHN0YXRp
-YyBhcnJheSBlaWM3NzAwX2hzcF9mYWN0b3JfY2xrcyB0byB0aGlzCj4gZnVuY3Rpb24/Cj4gCj4g
-TG9va2luZyBhdCBlc3dpbl9jbGtfcmVnaXN0ZXJfZml4ZWRfZmFjdG9yKCkgaW4gZHJpdmVycy9j
-bGsvZXN3aW4vY2xrLmMsIGl0Cj4gbW9kaWZpZXMgdGhlIGFycmF5IGR1cmluZyBwcm9iZToKPiAK
-PiBpbnQgZXN3aW5fY2xrX3JlZ2lzdGVyX2ZpeGVkX2ZhY3RvciguLi4pCj4gewo+ICAgICAuLi4K
-PiAgICAgICAgIGNsa3NbaV0uaHcgPSAqY2xrX2h3Owo+ICAgICAgICAgZGF0YS0+Y2xrX2RhdGEu
-aHdzW2Nsa3NbaV0uaWRdID0gY2xrX2h3Owo+ICAgICAuLi4KPiB9Cj4gCj4gSWYgbXVsdGlwbGUg
-aW5zdGFuY2VzIG9mIHRoaXMgZHJpdmVyIHByb2JlIGNvbmN1cnJlbnRseSBvciBkZWZlciwgY291
-bGQgdGhpcwo+IGRhdGEgcmFjZSBjb3JydXB0IHRoZSBDQ0YgcGFyZW50LWNoaWxkIGxpbmthZ2Vz
-PyBUaGUgc2FtZSBwYXR0ZXJuIGFwcGVhcnMKPiB0byBhZmZlY3QgZWljNzcwMF9oc3BfZ2F0ZV9j
-bGtzIGFuZCBlaWM3NzAwX2hzcF9tdXhfY2xrcy4KPiAKCk5vLiBUaGVyZSBpcyBvbmx5IG9uZSBj
-b21wYXRpYmxlIHN0cmluZyBpbiB0aGUgRFRTLCBzbyB0aGVyZSB3aWxsIG9ubHkgYmUKYSBzaW5n
-bGUgZHJpdmVyIGluc3RhbmNlLiBUaGVyZWZvcmUsIGNvbmN1cnJlbnQgcHJvYmluZyBjYW5ub3Qg
-b2NjdXIsIGFuZMKgCnRoZSBDQ0YgcGFyZW50LWNoaWxkIGxpbmthZ2VzIHdpbGwgbm90IGJlIGNv
-cnJ1cHRlZCBieSBhIGRhdGEgcmFjZS7CoAoKQmVzdCByZWdhcmRzLApYdXlhbmcgRG9uZwoKPiAt
-LSAKPiBTYXNoaWtvIEFJIHJldmlldyDCtyBodHRwczovL3Nhc2hpa28uZGV2LyMvcGF0Y2hzZXQv
-MjAyNjA1MTkwODE0MzEuMTQyNC0xLWRvbmd4dXlhbmdAZXN3aW5jb21wdXRpbmcuY29tP3BhcnQ9
-Mgo=
+Hi Rishikesh,
+
+On Wed, May 20, 2026 at 12:14:34PM +0530, Rishikesh Donadkar wrote:
+> 
+> On 19/05/26 17:26, Sakari Ailus wrote:
+> > Hi Rishikesh,
+> 
+> 
+> Hi Sakari,
+> 
+> Thank you for the review !
+> 
+> > 
+> > On Fri, Mar 13, 2026 at 02:36:53PM +0530, Rishikesh Donadkar wrote:
+> > > From: Pratyush Yadav <p.yadav@ti.com>
+> > > 
+> > > J721E wrapper CSI2RX driver needs to get the frame descriptor from the
+> > > source to find out info about virtual channel. This driver itself does
+> > > not touch the routing or virtual channels in any way. So simply pass the
+> > > descriptor through from the source.
+> > > 
+> > > Signed-off-by: Pratyush Yadav <p.yadav@ti.com>
+> > > Signed-off-by: Jai Luthra <j-luthra@ti.com>
+> > > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > Reviewed-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+> > > Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> > > Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+> > > ---
+> > >   drivers/media/platform/cadence/cdns-csi2rx.c | 24 ++++++++++++++++++++
+> > >   1 file changed, 24 insertions(+)
+> > > 
+> > > diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
+> > > index 2b25314ba6ab0..52ca940acd7d0 100644
+> > > --- a/drivers/media/platform/cadence/cdns-csi2rx.c
+> > > +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
+> > > @@ -229,6 +229,21 @@ static const struct csi2rx_fmt *csi2rx_get_fmt_by_code(u32 code)
+> > >   	return NULL;
+> > >   }
+> > > +static int csi2rx_get_frame_desc_from_source(struct csi2rx_priv *csi2rx,
+> > > +					     struct v4l2_mbus_frame_desc *fd)
+> > > +{
+> > > +	struct media_pad *remote_pad;
+> > > +
+> > > +	remote_pad = media_entity_remote_source_pad_unique(&csi2rx->subdev.entity);
+> > > +	if (!remote_pad) {
+> > media_entity_remote_source_pad_unique() returns an error code on error,
+> > never NULL.
+> 
+> 
+> Will fix the error handling
+> 
+> 
+> > 
+> > Could you use you use v4l2_subdev_get_frame_desc_passthrough()
+> 
+> 
+> Yes, v4l2_subdev_get_frame_desc_passthrough() can be directly used as
+> .get_frame_desc helper, but will need the
+> csi2rx_get_frame_desc_from_source() in ([PATCH 11/17] media: cadence:
+> csi2rx: add multistream support) as we used the VCs in the fd to configure
+> the IP.
+> 
+> 
+> So, I will drop this patch and add csi2rx_get_frame_desc_from_source() with
+> improved error handling in PATCH 11/17
+
+It's fine as-is if you switch to v4l2_subdev_get_frame_desc_passthrough()
+later on in the set (but please still fix error handling).
+
+> 
+> 
+> Rishikesh
+> 
+> > 
+> > > +		dev_err(csi2rx->dev, "No remote pad found for sink\n");
+> > > +		return -ENODEV;
+> > > +	}
+> > > +
+> > > +	return v4l2_subdev_call(csi2rx->source_subdev, pad, get_frame_desc,
+> > > +				remote_pad->index, fd);
+> > > +}
+> > > +
+> > >   static inline
+> > >   struct csi2rx_priv *v4l2_subdev_to_csi2rx(struct v4l2_subdev *subdev)
+> > >   {
+> > > @@ -611,12 +626,21 @@ int cdns_csi2rx_negotiate_ppc(struct v4l2_subdev *subdev, unsigned int pad,
+> > >   }
+> > >   EXPORT_SYMBOL_FOR_MODULES(cdns_csi2rx_negotiate_ppc, "j721e-csi2rx");
+> > > +static int csi2rx_get_frame_desc(struct v4l2_subdev *subdev, unsigned int pad,
+> > > +				 struct v4l2_mbus_frame_desc *fd)
+> > > +{
+> > > +	struct csi2rx_priv *csi2rx = v4l2_subdev_to_csi2rx(subdev);
+> > > +
+> > > +	return csi2rx_get_frame_desc_from_source(csi2rx, fd);
+> > > +}
+> > > +
+> > >   static const struct v4l2_subdev_pad_ops csi2rx_pad_ops = {
+> > >   	.enum_mbus_code	= csi2rx_enum_mbus_code,
+> > >   	.get_fmt	= v4l2_subdev_get_fmt,
+> > >   	.set_fmt	= csi2rx_set_fmt,
+> > >   	.enable_streams         = csi2rx_enable_streams,
+> > >   	.disable_streams        = csi2rx_disable_streams,
+> > > +	.get_frame_desc	= csi2rx_get_frame_desc,
+> > >   };
+> > >   static const struct v4l2_subdev_core_ops csi2rx_core_ops = {
+
+-- 
+Regards,
+
+Sakari Ailus
