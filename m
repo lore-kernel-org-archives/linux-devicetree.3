@@ -1,148 +1,103 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D327135AC18;
-	Wed, 20 May 2026 17:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAED03BE165
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 17:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779297584; cv=none; b=PjBEnuJbLyS2hdFojiCqmg/huWF10R9GxiKAXbvb/ha976C0y4543LE5P20PfEL7C23vFcJ1CthO7xLJWrGval67bj1lYRPCqPSDSovT7uVFsk1TrD2oI/eEAX+bwNbjd6iomkUP498aLxPYYBHVs9Zo4JXZJR2/oWlDTri6O8g=
+	t=1779297619; cv=none; b=A1jZeuEL8UXpqtL+HHMyJjqBZsvFnuZYIn6dDloBDPcLdAVM+BRH5dFWR8B5ta6tJJc/9EK7SZko4vcEElO5mMqorha9mwlUnZnb75zAuiXX5OFoE72mR4uJD6DX3wC/NC2l8nQnMSvyx5BpNTH0LshasSoyxnyvReb01Gk+1LU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779297584; c=relaxed/simple;
-	bh=YGUOvZisXTQXeFd+HUnwWWyKzPimkENrKtF68voXF88=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=HF0R6Y2OrTjFeRsfZrPqMEvnkKukZFGn1RnQlZZ5NntR1s7SlhnzX6E1czKNKjwwtilgEN3IqyLWzUg1URoEJ2kX9CdhnS7co1auPJ2wSS5/jo2gYUi4OfBZoOHhegZ0jnMfaKqLGa2vaKhJRTwCgToeVZfRemmgnQPkAh50YsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IQ5JZ0MQ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1779297619; c=relaxed/simple;
+	bh=p9zKe/MlMCldreju0tGffI//50L879Yaf+vCuZSeEb8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KEKQMfV6gaUk1IkzaRvbubhyCOJYnjCKZFWD7iwFlfIdjDF2enEhq4Rpegjo6/Ix1dKs5o5zYbkJIZ3qdD28m0ndBwQoEq0GTpFTEUs/uzw4ULrb/DSxUaAuwV5GItgUv1PDun9M99PMAsD96YshYwPor/lwcweYCacDhsvmP1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeLPLmPH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IQ5JZ0MQ"
-Received: from mail.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:ad48:920a:da6f:a034])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 846D9268;
-	Wed, 20 May 2026 19:19:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779297567;
-	bh=YGUOvZisXTQXeFd+HUnwWWyKzPimkENrKtF68voXF88=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=IQ5JZ0MQgtZNHiHrlJcNfPxrajzPaKnzlOnIgItUJ1f4X88md6Nhb1cF60RZGkT6U
-	 NhYw5Z2/brO9GE5k42yCgSzw/D6V889Gjpnfn9rJtjeTZvS6Sg9WkATyjIy5XeVWin
-	 nU1CQaD4UoN4q23uWcaesbWv2jMw4SztfQ9JvsLg=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeLPLmPH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86FF71F000E9;
+	Wed, 20 May 2026 17:20:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779297618;
+	bh=0sKxqgOYINsArl1OexxPWdzcJGosPxOp56KsMuO5o50=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AeLPLmPH+K1ju9W2h6cvdjiAMY9i6EXMpaL3Qf6TcGhjwfz4IgnzB2cDy1p90hftQ
+	 qLgPFWXlFj3qt3ZjimMuv/Q1aO2+qh4h9mnTbJw9N5REuuqTpqXaE6AN82OH7x5kcg
+	 9hyo8IQtp/VJZwbTD4KwPhzBEKflOPiSug2oovMY4fxjmo/qSgS5JKKHk4k+M0HvaO
+	 JJssSwsrxjvK0vDDeJKngJtHACZCRe5CXqRRWG+cXAR4YToC7HdBCIK1nGX43E/z0p
+	 7Vm6Z8q6WSnrFOEokCwqeHFa1FEPdESRJRiFvm2DFku+yX3vfzQGGbXRuzh0FCPtju
+	 XO6wXhFepN3Zw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/8] firmware: raspberrypi: register nvmem driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gregor Herburger" <gregor.herburger@linutronix.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260520-rpi-otp-driver-v5-5-b26e5908eeac@linutronix.de>
+References: <20260520-rpi-otp-driver-v5-5-b26e5908eeac@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 17:20:18 +0000
+Message-Id: <20260520172018.86FF71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260520-crusher-species-cf707a9a8b46@spud>
-References: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com> <20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com> <20260520-crusher-species-cf707a9a8b46@spud>
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add Sony IMX678
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Lachlan Michael <Lachlan.Michael@sony.com>, Ryuichi Tadano <Ryuichi.Tadano@sony.com>, Kengo Hayasaka <Kengo.Hayasaka@sony.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Conor Dooley <conor@kernel.org>
-Date: Wed, 20 May 2026 19:19:36 +0200
-Message-ID: <177929757691.2341049.18374545669142492074@selene>
-User-Agent: alot/0.12.dev70+g31692a239
 
-Hi Conor,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Thank you for the review.
+Pre-existing issues:
+- [High] Lockless access to `platform_get_drvdata` in `rpi_firmware_get` le=
+ads to a TOCTOU Use-After-Free race with driver unbind.
+--
 
-Quoting Conor Dooley (2026-05-20 17:56:29)
-> On Wed, May 20, 2026 at 05:17:25PM +0200, Jai Luthra wrote:
-> > Sony IMX678 is an 8.4 Megapixel (3856x2180) CMOS sensor, that can output
-> > pixels over MIPI CSI-2 bus. Add bindings for it.
-> >=20
-> > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> > ---
-> > Changes in v3:
-> > - Use `reset-gpios`, mentioning the sensor XCLR acts like RESETN, inste=
-ad of `xclr-gpios`
-> > Changes in v2:
-> > - Add per-variant compatibles for mono and colour, alongside the
-> >   generic fallback, so the variant can be declared without powering
-> >   the sensor at probe.
-> > - Rename reset GPIO to xclr as that's what it's called in the
-> >   datasheet, and how it behaves
-> > - Reference the generic video interface devices schema and switch to
-> >   unevaluatedProperties.
-> > - Drop "link-frequencies: true"
-> > - Drop the T: entry for media.git from MAINTAINERS.
-> > ---
-> >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 129 +++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |   6 +
-> >  2 files changed, 135 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.ya=
-ml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > new file mode 100644
-> > index 000000000000..d85745ddbefd
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > @@ -0,0 +1,129 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +# Copyright (C) 2026 Ideas on Board Oy
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Sony IMX678 Sensor
-> > +
-> > +maintainers:
-> > +  - Jai Luthra <jai.luthra@ideasonboard.com>
-> > +
-> > +description:
-> > +  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type sol=
-id-state
-> > +  image sensor with a square pixel array and 8.40M (3856x2180) effecti=
-ve pixels.
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - sony,imx678
-> > +      - sony,imx678-aamr
-> > +      - sony,imx678-aaqr
-> > +    description:
-> > +      The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a=
- mono
-> > +      variant (IMX678-AAMR). An internal register can also help detect=
- this at
-> > +      runtime.
->=20
-> I don't understand the compatibles here. If aaqr is tge colour variant,
-> and aamr is mono, what does the suffix-less compatible represent?
+commit 4d3a36b9dad7b2f3acf0486917ea6908b89eb46f
+Author: Gregor Herburger <gregor.herburger@linutronix.de>
 
-Sorry, I had seen Laurent's comment on this area in v2 but forgot to update
-it in this revision.
+firmware: raspberrypi: register nvmem driver
 
-The suffix-less compatible is for the cases where a product comes in two
-variants with the sensor being either mono or color. It allows sharing DT
-blobs amongst the two variants, where the driver powers the sensor on and
-reads the register to figure out if it is mono or color.
+The Raspberry Pi firmware exposes two regions with otp registers. The
+first region called "customer otp" is available on all Raspberry Pi
+models. The second is only available on the Raspberry Pi 5 (bcm2712).
 
->=20
-> Your commit message says:
-> > - Add per-variant compatibles for mono and colour, alongside the
-> >   generic fallback, so the variant can be declared without powering
-> >   the sensor at probe.
-> But that's not what you have permitted in the binding, you've described
-> 3 different variants and using the one with no suffix as a fallback will
-> produce validation errors.
->=20
+> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
+i.c
+> index 0aa322e9a2e73..e24636feae0ea 100644
+> --- a/drivers/firmware/raspberrypi.c
+> +++ b/drivers/firmware/raspberrypi.c
 
-"fallback" was a wrong choice of word, I'll update the description in v4.
+[ ... ]
 
-> I think this probably is
-> pw-bot: changes-requested
->=20
-> Thanks,
-> Conor.
+> @@ -327,12 +373,23 @@ static void rpi_firmware_remove(struct platform_dev=
+ice *pdev)
+>  	rpi_hwmon =3D NULL;
+>  	platform_device_unregister(rpi_clk);
+>  	rpi_clk =3D NULL;
+> +	platform_device_unregister(rpi_otp_customer);
+> +	rpi_otp_customer =3D NULL;
+> +	platform_device_unregister(rpi_otp_private);
+> +	rpi_otp_private =3D NULL;
+> =20
+>  	rpi_firmware_put(fw);
 
-Thanks,
-    Jai
+[Severity: High]
+This isn't a bug introduced by this patch, but I wanted to ask about a
+potential pre-existing race condition here with driver unbind.
+
+When the driver is unbound (e.g., via sysfs), rpi_firmware_remove() is
+called, which drops the reference count here and frees the firmware object.
+
+Could a concurrent call to rpi_firmware_get() retrieve the fw pointer via
+platform_get_drvdata() without holding the device_lock before the drvdata
+is cleared?
+
+If rpi_firmware_get() does not serialize with driver unbind, would it be
+possible for it to execute kref_get_unless_zero() after the firmware
+object has already been freed by rpi_firmware_put(), leading to a
+use-after-free?
+
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-rpi-otp-dr=
+iver-v5-0-b26e5908eeac@linutronix.de?part=3D5
