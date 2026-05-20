@@ -1,470 +1,205 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8718D30F548;
-	Wed, 20 May 2026 04:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB241373BE7
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779250049; cv=none; b=QqhLosJlaAjiR2F/OyQSVoDof05/x/M/a85Z2yQ7oxyl3qiIs2HGn08LVSqoLRdi6cttowBwv0VXdDgPug1c6Jrl6BZnMhaoOh1IvXRQUtiWlvRr3KK7gFeaS0GgvtUhJC3nozGvtGF7z1wMKc/obHlbr+iaczatJorxIEDkACY=
+	t=1779250327; cv=none; b=CmPX0ik6mgAjZeJLQOvSncXJ3DeNWyrrXZJxoNDKTQYu3CAc0LCwb0W8Me15o/RJC74E+USCMbaQgWcEfS9/dlgyRdxyPhLn0+atDN0XZaNx/11+/tCP5PIywl/zG1oK/Dn1pq4CkXkrZJBwR8Vmxa4D9Kq4ONUuuTmjpbtAuzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779250049; c=relaxed/simple;
-	bh=gp6xx4lrq7cky21Snk4hohuVusyGXGaKTdVgk3mOlXA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dGx3BLHhHNIpwFjK6nJUZfWz9f0xUHQJ83OVZ0jVi3uQfFzkFTmHbiRKdC5xr9o8qM9dNBx8ChORmLOZeHfMk6QNSREF+4vLsIR+ioR+gFVw5331MogRfxWZqxxel12z1UXNB4HJ+tOpSef3nekVcDE4XqJz3Xf4gBOYoA3gsm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.115])
-	by APP-03 (Coremail) with SMTP id rQCowABXddxrMw1q8pmgEQ--.8708S2;
-	Wed, 20 May 2026 12:07:08 +0800 (CST)
-Message-ID: <47a06094541da642cabcb6b7d2f92d5125d365ea.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon, dc:
- generalize for single-output variants
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, Conor Dooley <conor@kernel.org>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
- krzk+dt@kernel.org, 	conor+dt@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, yclu4@nuvoton.com, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 20 May 2026 12:07:06 +0800
-In-Reply-To: <a112cb8b-21fb-4c33-89a3-14a4feb5e3f9@gmail.com>
-References: <20260519055114.1886525-1-a0987203069@gmail.com>
-	 <20260519055114.1886525-2-a0987203069@gmail.com>
-	 <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
-	 <20260519-fretful-blush-1aac18fa1360@spud>
-	 <a112cb8b-21fb-4c33-89a3-14a4feb5e3f9@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1779250327; c=relaxed/simple;
+	bh=hRI6xWNJhE5ETvgqRxmnzoAXjP1dG9fiu+8Iq8NoKVw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZFxozK1Y2NoOrtfiiGO3OZg5H7WbIT2vo5BCTUBWJ2aZvV4xonfa/EH0Pj0KzflBUQ3oKDN2LOGNMXs8iiP9NthB/kP7bbMXQiURaOvyEf5jQiCyzzhzJAdopYGbUnqvNRYvRcX0YZJyimr5/HZPvkKaWBmWFwOHZVONMM2T5O0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mvNIbbCC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a/W2xhep; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mvNIbbCC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a/W2xhep"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64JLkvCu1725756
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:12:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BgEDiQF38ipxx7swqVfhVvhL/Rs0sn4zwDldOHSa3cA=; b=mvNIbbCC/Vgc7nXs
+	kN3VOfJo460AA0qwx/oPDrMtQUcpyls0+QNmcRhs/j9pOxxqnCPTPQhIoSZk+gMx
+	Q4QcQiLM+Sc7Zk5DXRxDSWsRvvuKbIuW9pKBN718ZQYiTQYo/UvZHR31OMp9lDYD
+	NCDTiOy4mhRRXqObO+SKjC9BYkJuA3wov+1+zUP12Emd1Pc3N3K4fcTQdVyMV/fR
+	YLQQZxViyC03azYq5JdpkARKikuKTrwkHaT5e/iQ3EEM29tL50+ARFhL4PYZ9ZxR
+	6OIiUxmWKJk/x0XafkrcBLNLlvVKPCaLfPGDRZTLfed5bq+5q9YjDRGqgVZKJtHR
+	7Ercnw==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3qjv3j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:12:01 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82fa7c6699fso7153833b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 19 May 2026 21:12:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779250321; x=1779855121; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=BgEDiQF38ipxx7swqVfhVvhL/Rs0sn4zwDldOHSa3cA=;
+        b=a/W2xhepNSCollPZV7nHb7NIEs1T8hs/wz+dNB6pbgPy0M/WXcP8M/sKCj8XFvYpcR
+         aks66DHQEf+fjOE5yxju3I6ChRl+8PH6j8hFxc2IySponuQ7YTShfkgJQxXJbO4Doa2o
+         5vmJzmkbFBlzR7irBZgjSbpzZD+B9t3xZ9j4ndmDAO8LpO5aqjBOejgzvctfh2APB1Vg
+         g8Xogj9NwBEPCWLXgid3vUKx9f8O0kHIA/Q9uY80gLdAOn3oDWnMlaVZx2vhNEztjdkD
+         cx8nhFoybNGORg1anFrnBtDGo/C4ywJ3GsvPNVkcsciU0AGzWSn6Sg51nwAmRAoMOEgz
+         sU1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779250321; x=1779855121;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BgEDiQF38ipxx7swqVfhVvhL/Rs0sn4zwDldOHSa3cA=;
+        b=OiPOILh3JVq4LmfftY1w/OD/JZeZAmUMEPO2j6WnXQLSUNJNzHAjEXEMOGcx4O4KvU
+         woWEoK6em9WVjCL4NA8sD1wQy3Ujio1fUOoG8QYUFzg/TDVed/oRFG13mF1M2d7QDdTq
+         ZU86HEKY+PqpCASfe7iG0/zlFjrrfKAhrmQh2siO1jn+rTLAVywy805ySJfuliUEUEoo
+         VfJoLZ+wGKLeP9ZcPOjxk+JCH/PRUQhbCGUzZ50z2yVi6feFAOot9pGjDt1AedeZCYac
+         Efbb5+oHR9DjUkC4x4RZ6DkovcFmKpej/VeUdtaT5kmoW2ntIAh1lTTvgEdRZrG8clxL
+         ULeQ==
+X-Gm-Message-State: AOJu0Yzd1I6nF2rg8Uz4Zrw0tRPiwKs8fvsPzH8IpLyKfflmslCTxvWA
+	AZZp+M+kM8oPomyCxz5Vb2sKdRw52tEuI2fymj1FahIZUpzS/KufOFh+3S+XWADaiSD81tVuo+X
+	45L9XHB0IM0zZ+RovjIDV0HfyQvl0Rxy6ig49rTX5ppV+hVyAWuSrNBXkfRVGM0Y4gEdFg1I5Ta
+	U=
+X-Gm-Gg: Acq92OE6fs6gHK3jSfpzEgcX8B5KnMYm7zuzsBK1E9DQ9Yp5Wj0SoalFVgmKI9hpbMx
+	H9t9JoI1oFRxZllq3kEbnemWFKQ3tDwiEE5kYhTdRqbzm3M1SOwfMJrMr+MDcK9oq+cMsIdkglZ
+	OnSKKCAjJ6CHswONJB3nffNtuqNRQ/9qd1i0StWuxI5wLED6stjDe3JrhnuZWMnHkQiQEiRcQFt
+	RcC+GRdhEhadXjiZ3YYPnzvGw6TBclW1YEevHxXfhU7oeFRtUmXBf2HdMukykmDozIv/MKXUrFc
+	J3Xcxm9gvBXwMNyxVRIwurFZgz2cJZwNYVG19ZwkunNTKQq818ZU+U9m6pO0n3flHnwiLPauTfT
+	GSxpMA+X31Fl3HeAftRv6Mchm9TV9tWnPbGiF8Gm+GB/YTbpXRoAGTijcHKXjvNhCqa3zLVnJg7
+	lEwNsL8OiwS2EXTr+3
+X-Received: by 2002:a05:6a00:448a:b0:838:1c02:276c with SMTP id d2e1a72fcca58-83f33dee8b8mr22252083b3a.40.1779250321070;
+        Tue, 19 May 2026 21:12:01 -0700 (PDT)
+X-Received: by 2002:a05:6a00:448a:b0:838:1c02:276c with SMTP id d2e1a72fcca58-83f33dee8b8mr22252050b3a.40.1779250320584;
+        Tue, 19 May 2026 21:12:00 -0700 (PDT)
+Received: from [10.133.33.112] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c5be71sm18569319b3a.39.2026.05.19.21.11.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 May 2026 21:12:00 -0700 (PDT)
+Message-ID: <7724b8c5-3822-4b98-a29c-bb4a99dd858a@oss.qualcomm.com>
+Date: Wed, 20 May 2026 12:11:55 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowABXddxrMw1q8pmgEQ--.8708S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3Zr45Wry5Aw4ruw1rXrykAFb_yoW8Jry8Jo
-	W7Kr1fJr15Xr1UWryUJw4DGr13tw18JrnrtryUGry7Ar1Iy3WUA3y8AryUtay7Gr18GF1U
-	J34UJ34UAFyUZF1fn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUYa7k0a2IF6w4kM7kC6x804xWl14x267AKxVW5JVWrJwAFc2x0
-	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj4
-	1l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0
-	I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IUYsSdPUUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/6] dt-bindings: remoteproc: qcom: Document pas for
+ SoCCP on Hawi SoC
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+        trilok.soni@oss.qualcomm.com,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        shengchao.guo@oss.qualcomm.com,
+        Manivannan Sadhasivam <mani@kernel.org>, yijie.yang@oss.qualcomm.com,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        linux-remoteproc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, tingwei.zhang@oss.qualcomm.com,
+        Luca Weiss <luca.weiss@fairphone.com>
+References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
+ <20260519-knp-soccp-v6-4-cf5d0e194b5f@oss.qualcomm.com>
+ <177918447247.2753487.2425115852853158786.robh@kernel.org>
+Content-Language: en-US
+From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+In-Reply-To: <177918447247.2753487.2425115852853158786.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDAzNyBTYWx0ZWRfX5CX5ngtCS9a4
+ xbmXhstXQH2+Bu6/ssRF70Yiht9D1kh4rIoFSG3sx1DlK0g8j0iVxCXkOdleGSBJCnoPiU9YeSM
+ Fim0Pd9ihgJNfyOLV2IiDLY3AULTmdajk8kxOv5SPgjyW2IOHkj3ppiWLcrg2nILW+SLeEN14pN
+ fgUbaFy0g6f6uC8On9F3sQdO27C9kjA+9fiO3MU2vOMIKG+cWk1Vmo+iZjKWfFH8duxvUB+NWaK
+ ujVKjDJogYKD6P7cqbxgGNO9DUvw7dry9uYwlw7ArKYnXURotpWbri3ibcSB13sWO66F1iByjJe
+ EMWeCtn/l949pcNtJ8MmopAdg1BaZuKba4OU4qM6k2tlebyFinZeBl68Pr3fZEEJmJJUR4Rw0v/
+ bOfzD8VlWB6HXCvO/CVhQm6jFhvWzAVLkz09VDLfE0eNe1SKQB0Z6lhBYDIxu0MwttZIGlBrAIv
+ 2bS3P69I99dEBaSqPPA==
+X-Authority-Analysis: v=2.4 cv=N9cZ0W9B c=1 sm=1 tr=0 ts=6a0d3491 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=gEfo2CItAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SdGosrV6Qt3YffhYJa8A:9
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: HkHafrTHy7Hwby6kun7e1VK_rIoNgI-2
+X-Proofpoint-ORIG-GUID: HkHafrTHy7Hwby6kun7e1VK_rIoNgI-2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605200037
 
-=E5=9C=A8 2026-05-20=E4=B8=89=E7=9A=84 11:06 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> On 5/20/2026 12:47 AM, Conor Dooley wrote:
-> > On Tue, May 19, 2026 at 03:26:58PM +0800, Icenowy Zheng wrote:
-> > > =E5=9C=A8 2026-05-19=E4=BA=8C=E7=9A=84 13:51 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > > The existing schema assumes a fixed clock/reset topology and
-> > > > dual-
-> > > > output
-> > > > port structure matching the DC8200 IP block.=C2=A0 This prevents
-> > > > reuse for
-> > > > single-output variants such as the Verisilicon DCU Lite used in
-> > > > the
-> > > > Nuvoton MA35D1 SoC.
-> > > >=20
-> > > > Rework the schema so that variant-specific constraints are
-> > > > expressed
-> > > > via allOf/if-then-else:
-> > > >=20
-> > > > - The thead,th1520-dc8200 compatible keeps its existing five-
-> > > > clock,
-> > > > =C2=A0=C2=A0 three-reset, dual-port requirements.
-> > > >=20
-> > > > - A standalone verisilicon,dc compatible covers IPs whose
-> > > > identity is
-> > > > =C2=A0=C2=A0 discovered entirely through hardware registers; these =
-have
-> > > > flexible
-> > > > =C2=A0=C2=A0 clock and reset counts, a single 'port' property, and =
-no
-> > > > 'ports'
-> > > > =C2=A0=C2=A0 requirement.
-> > > >=20
-> > > > Changes to the base schema:
-> > > > - Replace the fixed clock/reset items lists with
-> > > > minItems/maxItems
-> > > > =C2=A0=C2=A0 ranges; variant sub-schemas tighten the constraints vi=
-a if-
-> > > > then-
-> > > > else.
-> > > > - Add a 'port' property (graph.yaml single-port alias)
-> > > > alongside the
-> > > > =C2=A0=C2=A0 existing 'ports', for single-output variants.
-> > > > - Drop the unconditional 'ports' requirement; each if-branch
-> > > > enforces
-> > > > =C2=A0=C2=A0 its own port topology.
-> > > > - Tighten additionalProperties to unevaluatedProperties to
-> > > > allow
-> > > > =C2=A0=C2=A0 per-variant schemas to add their own constraints clean=
-ly.
-> > > > - Fix a stray space in the port@0 description.
-> > > > - Add a DT example for the generic verisilicon,dc compatible
-> > > > =C2=A0=C2=A0 (Nuvoton MA35D1 DCU Lite).
-> > > >=20
-> > > > Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> > > > ---
-> > > > =C2=A0=C2=A0.../bindings/display/verisilicon,dc.yaml=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 135
-> > > > ++++++++++++++--
-> > > > --
-> > > > =C2=A0=C2=A01 file changed, 108 insertions(+), 27 deletions(-)
-> > > >=20
-> > > > diff --git
-> > > > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > > > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > > > index 9dc35ab973f2..3a814c2e083e 100644
-> > > > ---
-> > > > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > > > +++
-> > > > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > > > @@ -14,10 +14,12 @@ properties:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pattern: "^display@[0-9a-f]+$"
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0 compatible:
-> > > > -=C2=A0=C2=A0=C2=A0 items:
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th1=
-520-dc8200
-> > > You should add a fallback compatible here for your SoC, in case
-> > > its
-> > > integration gets something quirky; this compatible is usually not
-> > > consumed by the driver (see how thead,th1520-dc8200 exists in the
-> > > binding but not the driver).
-> > s/fallback compatible/soc-specific compatible/, but yes.
-> > NAK to what's been done here, especially after the discussions on
-> > earlier versions of this verisilicon binding.
-> > pw-bot: changes-requested
-> Understood. I will add `nuvoton,ma35d1-dcu` as the SoC-specific=20
-> compatible string paired with `verisilicon,dc` as the generic
-> fallback,=20
-> matching the pattern used for `thead,th1520-dc8200`. The standalone=20
-> `verisilicon,dc` compatible will be removed from the binding. The
-> driver=20
 
-No, please don't remove compatible strings from existing binding, and
-the generic compatible is still used for driver binding.
 
-The SoC-specific compatible is informative here, it needs to exist, but
-it doesn't supersede "verisilicon,dc" .
+On 5/19/2026 5:54 PM, Rob Herring (Arm) wrote:
+> 
+> On Tue, 19 May 2026 00:24:22 -0700, Jingyi Wang wrote:
+>> From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+>>
+>> Document SoCCP remote processor used on Hawi SoC which is fully
+>> compatible with Kaanapali.
+>>
+>> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+>> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/remoteproc/qcom,kaanapali-soccp-pas.yaml         | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml: properties:qcom,smem-states:items:1: 'anyOf' conditional failed, one must be fixed:
+> 	'items' is a required property
+> 	'minItems' is a required property
+> 	'maxItems' is a required property
+> 	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+> 
+> doc reference errors (make refcheckdocs):
+> 
+> See https://patchwork.kernel.org/project/devicetree/patch/20260519-knp-soccp-v6-4-cf5d0e194b5f@oss.qualcomm.com
+> 
+> The base for the series is generally the latest rc1. A different dependency
+> should be noted in *this* patch.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your schema.
+> 
 
-In addition, the SoC-specific compatible is also used for verification
-of the SoC device tree, which is the reason if clauses exist with
-compatible match and additional constraints (e.g. for the nuvoton DCU
-it's invalid to have a 2nd output port).
+Hi Rob,
 
-> match table is not changed since hardware detection is done via ID=20
-> registers.
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs ha=
-ve discoverable
-> > > > ID/revision
-> > > > registers
-> > > > +=C2=A0=C2=A0=C2=A0 oneOf:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 - thead,th1520-dc8200
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ve=
-risilicon,dc
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc=C2=A0 # DC =
-IPs have discoverable
-> > > > ID/revision registers
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0 reg:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > > > @@ -26,32 +28,24 @@ properties:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0 clocks:
-> > > > -=C2=A0=C2=A0=C2=A0 items:
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core clock
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus clock
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bu=
-s clock
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of outpu=
-t 0
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of outpu=
-t 1
-> > > > +=C2=A0=C2=A0=C2=A0 minItems: 2
-> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 5
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0 clock-names:
-> > > > -=C2=A0=C2=A0=C2=A0 items:
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix0
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix1
-> > > > +=C2=A0=C2=A0=C2=A0 minItems: 2
-> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 5
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0 resets:
-> > > > -=C2=A0=C2=A0=C2=A0 items:
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core reset
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus reset
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bu=
-s reset
-> > > > +=C2=A0=C2=A0=C2=A0 minItems: 1
-> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 3
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0 reset-names:
-> > > > -=C2=A0=C2=A0=C2=A0 items:
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
-> > > > +=C2=A0=C2=A0=C2=A0 minItems: 1
-> > > > +=C2=A0=C2=A0=C2=A0 maxItems: 3
-> > > > +
-> > > > +=C2=A0 port:
-> > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
-> > > > +=C2=A0=C2=A0=C2=A0 description: Single video output port for singl=
-e-output
-> > > > variants.
-> > > Maybe the endpoint numbering rule needs a move to here? (I am not
-> > > very
-> > > sure).
-> I will add a description to the `port` property noting that endpoint
-> 0=20
-> is used for DPI output, which is the only output type for
-> DCUltraLite.
+Will fix in next version.
 
-Please note that DC8000 exists, which is single-port but supports both
-DPI and DP.
-
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0=C2=A0 ports:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/propertie=
-s/ports
-> > > > @@ -59,7 +53,7 @@ properties:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port@0:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schem=
-as/graph.yaml#/properties/port
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first =
-output channel , endpoint 0
-> > > > should be
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first =
-output channel, endpoint 0
-> > > > should be
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-used for DPI format output and endpoint 1 should be
-> > > > used
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-for DP format output.
-> > > > =C2=A0=20
-> > > > @@ -75,9 +69,75 @@ required:
-> > > > =C2=A0=C2=A0=C2=A0 - interrupts
-> > > > =C2=A0=C2=A0=C2=A0 - clocks
-> > > > =C2=A0=C2=A0=C2=A0 - clock-names
-> > > > -=C2=A0 - ports
-> > > > =C2=A0=20
-> > > > -additionalProperties: false
-> > > > +allOf:
-> > > > +=C2=A0 - if:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- const: thead,th1520-dc8200
-> > > > +=C2=A0=C2=A0=C2=A0 then:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: DC Core clock
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: DMA AXI bus clock
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: Configuration AHB bus clock
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: Pixel clock of output 0
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: Pixel clock of output 1
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: core
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: axi
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: ahb
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: pix0
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: pix1
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: DC Core reset
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: DMA AXI bus reset
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: Configuration AHB bus reset
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: core
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: axi
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: ahb
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 else:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: Bus clock that gates register
-> > > > access
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - description: Pixel clock divider for display
-> > > > timing
-> > > Please don't make compatible-specific description strings for
-> > > individual compatibles, and keep these descriptions outside of
-> > > the if.
-> > > The compatible-specific part should be used to specify what's
-> > > required
-> > > for the specific SoC, for dt validation purpose.
-> > >=20
-> > > BTW if the clock is both the working clock and bus clock for the
-> > > controller, I suggest listing it twice, except if the IP core is
-> > > provided without a dedicated core clock (in the case I suggest to
-> > > use
-> > > "bus" only).
-> > I agree. If the same clock is provided to two+ ports on the IP,
-> > that
-> > should still be two+ clocks in the devicetree.
-> >=20
-> > > Here's an example for "listing it twice":
-> > > ```
-> > > clocks =3D <&clk DCU_GATE>, <&clk DCU_GATE>, <&clk DCUP_DIV>;
-> > > clock-names =3D "core", "bus", "pix0";
-> > > ```
-> > >=20
-> > > Well nonetheless the name "core" does not match the description
-> > > "Bus
-> > > clock that gates register access".
-> > >=20
-> > > Thanks,
-> > > Icenowy
->=20
-> Understood. I will remove all description strings from the if/else=20
-> branches; the if/then clauses will only constrain clock-names and=20
-> reset-names items (name values only, no descriptions). Regarding
-> clock=20
-
-Well I think a required properties list is also needed in the if/then
-clause, to prevent DT's from lacking properties.
-
-> naming: DCU_GATE on MA35D1 is a peripheral gate clock without a
-> separate=20
-> dedicated core working clock, so I will keep "core" as the name and
-
-Do you mean there's no seperate dedicated bus clock? I find that in the
-clock driver dcu_gate has no parent as bus clocks -- its parent is
-dcu_mux, and dcu_mux's 2 parents are both pll ("epll_div2" and
-"syspll").
+FYI, seems this err cannot be found on the latest 2026.4 schema, need to update
+to the latest 2026.5.dev9+gdf9ad30c5 dev branch and reproduce this.
 
 Thanks,
-Icenowy
+Jingyi
 
-> drop=20
-> the misleading description "Bus clock that gates register access".
-> The=20
-> description mismatch was entirely in the if/else strings which are
-> now=20
-> removed.
->=20
-> Thanks.
->=20
-> > >=20
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: core
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: pix0
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description=
-:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- Reset line for the display controller.
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- - const: core
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - port
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 not:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - ports
-> > > > +
-> > > > +unevaluatedProperties: false
-> > > > =C2=A0=20
-> > > > =C2=A0=C2=A0examples:
-> > > > =C2=A0=C2=A0=C2=A0 - |
-> > > > @@ -120,3 +180,24 @@ examples:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > +
-> > > > +=C2=A0 - |
-> > > > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/interrupt-controller/arm-=
-gic.h>
-> > > > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/clock/nuvoton,ma35d1-clk.=
-h>
-> > > > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/reset/nuvoton,ma35d1-rese=
-t.h>
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 display@40260000 {
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =3D "verisil=
-icon,dc";
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =3D <0x40260000 0x2=
-0000>;
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 interrupts =3D <GIC_SPI=
- 20 IRQ_TYPE_LEVEL_HIGH>;
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D <&clk DCU_GA=
-TE>, <&clk DCUP_DIV>;
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =3D "core",=
- "pix0";
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets =3D <&sys MA35D1=
-_RESET_DISP>;
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names =3D "core";
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port {
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- dpi_out: endpoint {
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 remote-endpoint =3D <&panel_in>;
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- };
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > +=C2=A0=C2=A0=C2=A0 };
+
+
+
+
+
+
+
 
