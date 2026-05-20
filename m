@@ -1,155 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A84436E460;
-	Wed, 20 May 2026 16:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066D1285061;
+	Wed, 20 May 2026 16:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779295242; cv=none; b=Ez6Va0zOvhHK1sgfpIlmWj8TjDPTDQDxLnLlXDNrnMxc+M/hW+fnYSiiwzn8TrzM/T4tQJE9vf/sbIpk8TYnR37/fZ1cb9oNxWi6LbMOLzJL8cf6Ixl816nz8S5DOlQfldWVysnninyB5RuEoZ9cfGgBj75PkGAnAfcmMB25AZQ=
+	t=1779295349; cv=none; b=WlpbxY2d6hsnqgUvNeNIvLT5ZMtH7qQGdSayPwNbdDVODDWIBVtc+XJnXsf2EqFMtMkYf5AvO+r7ujqd93toV3ErWyTRRYYCGAo3axaWcHRTWZPXCbRvFn4etuBedUZac6+bWaeEV8owA7EBcdYZQXlPJNxLQ0AIYpVA3EqGWDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779295242; c=relaxed/simple;
-	bh=yjbTv7IE3rnG+foAIeVCcQYWym1cEuH3YQsEYTkU92o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FtaOxoxAVjtgXXViBFdT4tEMnKHHSB3Brpx+MidxsHj5Q8vEDqbDYaCqEMeG1ha/WrWzW3uJabXavDxfo3TjEEX4P3IgccHX8O1XJMZHTLS+h4Wm8CjeVHaLG6Rg5iLmyvF2D8FuA17GEtM0DZ8COLuzmmjqnw6oDOY8KyflvRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chXvXKf/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779295349; c=relaxed/simple;
+	bh=ChL4BOxkqN74TFi3krExsDxWI2icza5/FfUdO/bCSuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DYiYuDSydG3wEvjKAZV7oS/HV6B9Op+brA2H/pn275yuImKvqf8pQE2J0g78nXpnTZM2FrS8Gg49QvtPU32C0fotJabxyj9QgBWOQDQb85KXZgCShhe+Cb1YFrGqdCgSbmFtCjVfSzT33hO9MDZsavNkzDJw03501rZVdQJZA18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZDQv/fWp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chXvXKf/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 49AABC32782;
-	Wed, 20 May 2026 16:40:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779295242;
-	bh=yjbTv7IE3rnG+foAIeVCcQYWym1cEuH3YQsEYTkU92o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=chXvXKf/C7UETP35+/ZNkk75kc604OtSLqgxuB+GL4ZCZIgdRDIfv2qbiDSsLJdpn
-	 rMQC2P0pf+1147LdfuwPexomC2QYmBPQ1cIX4ScZ+XCagyZO40frvn8UCay/4gJK2G
-	 /N31KsBxSbYybvuoKDqIR+T3H2o05F1r97tTJs4pXM+DRhqWPXJrJhiOfxU4zD3/vJ
-	 laSW8CvrTIUHP9lDBhSAPfANHGadZkGni36xZj3pGUxC41uUB8vPJMwwEGWOTXKTHg
-	 S9FqHwODbgtfxLQx4yXlwK0glhbZr78tCKnOv3Wpxwt/Gun5ouKl2+ezLgxvTUXXpP
-	 muR2icHa886Hw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F081CD5BAA;
-	Wed, 20 May 2026 16:40:42 +0000 (UTC)
-From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:11 +0200
-Subject: [PATCH 07/11] arm64: dts: qcom: sc8280xp-arcata: Add volume
- up/down GPIO keys
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZDQv/fWp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738CF1F000E9;
+	Wed, 20 May 2026 16:42:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779295347;
+	bh=GC+j82qSY+zJAwat3LurcWTkfdtSSywc65VonLyYicg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZDQv/fWpSChLPviHjk6cFBB1XDarcIA8D/EPZDe9bX1KzTHR98tkq8imsKYX6rgKY
+	 r3Q23lI+akkmk/Le7vQTS9KcDWs4tONw0AgyWipqtaF6NFict6SrzEvjKxtVRew8FP
+	 PCkUCUHjBbClAL9EFA0KjO2Ee3qF+UvHaBA3hRObAfJYP6QPDScRCy6C3Vf1y78/JP
+	 niq9lXmiJbgavWbiMum7EN0jnwAI/E86hvd2lZK6kk2hHq6SJUw68Qf2JGU8mPHOWB
+	 LhgKD8FjzFmk+L93FeySIhOa491xDnbOh5GSXZBjMQhEhJ8R+zRlYMJJ97z0hltvgr
+	 oh3zZOiSJ0fLQ==
+Date: Wed, 20 May 2026 17:42:17 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH V8 02/10] dt-bindings: iio: imu: icm42600: Add icm42607
+ binding
+Message-ID: <20260520174217.6ca98524@jic23-huawei>
+In-Reply-To: <20260518200526.458421-3-macroalpha82@gmail.com>
+References: <20260518200526.458421-1-macroalpha82@gmail.com>
+	<20260518200526.458421-3-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-7-9df52552bf87@gmail.com>
-References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
-In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
-To: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=2039;
- i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=CfiRUKjuOkBz4gm02vzH1uF4ZTJ7kW7Ou28mRmrz7TE=;
- b=Y/MRBh06KA8oGhSHijX6zyf2PvGCEcP/zUixmH66wBm/zVVlyf3jKtq9AuHmwqKrgUOUPewvp
- eYV7SvmddAzCbGlo9tR7NQNdmx6UsFCbWIHFlviE3I7VXNzzRbZc4/D
-X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
- pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
-X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
- with auth_id=785
-X-Original-From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
-Reply-To: jerome.debretagne@gmail.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+On Mon, 18 May 2026 15:05:17 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
 
-Configure gpio6 to serve as volume down and gpio9 as volume up to enable
-the volume up/down keys located at the top of the screen.
+> From: Chris Morgan <macromorgan@hotmail.com>
+> 
+> Add devicetree binding for the Invensense ICM42607 and Invensense
+> ICM42607P inertial measurement unit. This unit is a combined
+> accelerometer, gyroscope, and thermometer available via I2C or SPI.
+> 
+> This device is functionally very similar to the icm42600 series with a
+> very different register layout.
+> 
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Note that Sashiko has highlighted that the binding this being added to
+has a potential problem.
 
-Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
----
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 42 ++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+interrupts are required but interrupt-names are not.
+That would be fine but the binding doesn't say there is a default
+ordering for the interrupts - so if we don't have names we have no
+idea which interrupt it is.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index 2a6f0c9de7c85a4f0659237846b0430a0b021a40..a300069b5960dbba28601c418951869c94b63938 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -6,6 +6,7 @@
- /dts-v1/;
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "sc8280xp.dtsi"
-@@ -56,6 +57,31 @@ backlight: backlight {
- 		pinctrl-names = "default";
- 	};
- 
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&vol_down_n>, <&vol_up_n>;
-+		pinctrl-names = "default";
-+
-+		key-vol-down {
-+			label = "Volume Down";
-+			gpios = <&pmc8280_1_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-vol-up {
-+			label = "Volume Up";
-+			gpios = <&pmc8280_1_gpios 9 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
- 	pmic-glink {
- 		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
- 
-@@ -939,6 +965,22 @@ edp_bl_en: edp-bl-en-state {
- 		pins = "gpio8";
- 		function = "normal";
- 	};
-+
-+	vol_down_n: vol-down-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
-+
-+	vol_up_n: vol-up-n-state {
-+		pins = "gpio9";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
- };
- 
- &pmc8280_2_gpios {
+This needs fixing - probably by adding a default
 
--- 
-2.47.3
+Jonathan
 
+> ---
+>  .../devicetree/bindings/iio/imu/invensense,icm42600.yaml        | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+> index 9b2af104f186..b69c6bbb6f6b 100644
+> --- a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+> +++ b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+> @@ -30,6 +30,8 @@ properties:
+>        - invensense,icm42600
+>        - invensense,icm42602
+>        - invensense,icm42605
+> +      - invensense,icm42607
+> +      - invensense,icm42607p
+>        - invensense,icm42622
+>        - invensense,icm42631
+>        - invensense,icm42686
 
