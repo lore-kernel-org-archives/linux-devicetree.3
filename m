@@ -1,198 +1,197 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013039.outbound.protection.outlook.com [40.107.162.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201D13EA979;
-	Wed, 20 May 2026 18:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779303156; cv=fail; b=EX4Cbs0auGwHvpgv0V9kT51y2eEZmIML13wKMKDc8TOKZV6I08w0Xp7UcsBttfnPhpA8/sL+fGsqqN8WZrCHvX+ssGd6M1zTUsyDMS3icxPIueAZRKVxkKWOdAxsSmrbiSbvZz3mA/3/UGMS6iUS+/3DrsFSr+B82OP/WEwhXyU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779303156; c=relaxed/simple;
-	bh=cYMaqaZ9+QjvcVRxOa7gLfKw/h/OXbUmW8h3DP7R3HU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mF065qsvXSt8JDo0M+izEtGzu5AsHN7gi3BpqAIuHx99vEFdJ7V0/2ZEjxAG7cBaGxu5jsnptYr+IQqzsmUXhwHrVozY7wsmruHJ342MYADFcORqE9E2yPDzB11HztA0gqZiYlopG16gUtq+55MoRoRVnJAC7OM9I2CpwIKu1o4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=OYnRyqkk; arc=fail smtp.client-ip=40.107.162.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA4E272E56;
+	Wed, 20 May 2026 18:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779303199; cv=none; b=ahklsaQFp2UEG86MjMveoO4leShp0duMpCNkyBcqoAWwFaiT33hSJqDs0sskemfUMVnPyVfVD6X7xNYvUZ6YsFCRvqZEh3WYFF3ex6Lm2BkkOByyIbJKn0duVyiocZ07Rk8FPiAUb4NT2HkPWauHKT88oteOc0C9M5F6hYzliOc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779303199; c=relaxed/simple;
+	bh=Ywx1mGdSgqbv5k9HmpLCR0s+Q572k8jWkACMalkVr/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HoHgq5XUqvhUk1kKw0lUZVvGEdNeO3l9etBR5tzQWBigBMSnxu14/qg+8wbyv8N027vi1cEupuhM7X1gCM4ZGfCfeLRmqRFhxHjcWrNioKas4QU9/0sHdjcJhscaluakEMeDR7ExqE6cYEVDqfyHiHBTNg6qwO09pE+A5id6XMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IggBUpcT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="OYnRyqkk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NQawPG8OhfIEGN6nLRWIm46THzxpfbLT+p6fsMHsQYHxdgt2J9rlDYCRwg3VoX+OUQNIUj8msDTanGjcOU3emyVwTny3ZdE2DBdKnvjSXROVrf1qZjUdaToiRHmWqmKiabkOVDVyu0sGWgAektr+V2SSyodsRPTtrQzzkzoTa6EFg8dDm5aeU/cIJppB3sW+AYyrTl8MvAVyypEZAorFrax6vry7cdG3xDrOkoKsvn0n+VrJIvagRfdsryobmVsCr9ZnywdPgx2dlzAmez4gO5TNQkYVax0imNb+nYTgD6mntM3V6SpoFI9iRvkgycToQOtEGvy2yF3usp58QUgStQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XvgUB7u+QoMR3oBi/J+RWO7KhGkHgcoLzVUiQYdyRLA=;
- b=KEJ3d5L9tUttRh/Ga1ngLqB2YUIiHlQ1O9gJb3lCuiDQ3x25btUu97e0q49/LVGnRxWo9GstwHiKsmxsNzaNOkYpNc5mW8cauPXy50zS2B5AlNZj7t6VdYpKGzRY2HV9SL19TMY3kr0YvoKti85RTI+t306ouVvMQ/hxHk40fz9gKpNlVwCOyZI6hRF4E8GY5LxwJS849K6gRs81S+fyZKFhx1EFys4bW0EBwJp/iBI2vHOAu1UY+AmcSFatNIHsiQWnhoGMIMu2hH2hrgHoUlZPaDEYnoAaHvg0s2sODXZWLnnNTMVgq/nrQ2X/ZNOKl2nDggnTYRIDuOX1Zjy2LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XvgUB7u+QoMR3oBi/J+RWO7KhGkHgcoLzVUiQYdyRLA=;
- b=OYnRyqkkvjXmCQHxNk9FoSbFUdGAzDoERACsonK+EIdx2Ae9oaOCnu7nfHR120aOCz2fqlNtGeS0T62aKfiBX9dst985dXV52y3M1dpn7kn5i15Vrb/C+6Kk6b30z1Kue2iHDtpPIHu28c9qamjlYp0zzfmftngBZnhL91v+kyKTA6BfXYvMqPgIGvUz9ppvOnzhFYzrEkR49Be9oFt+YjMjeYImaKuy4a6NR/cFo8T/+235Xz68dC8EwcVk+v1bELB/xD57nvVNkijzKVVopgOgX+vRo0StnjMwYOZx3st4DPgIILIhs12WM54xciNyJFYpS5OueaRsLtH1BiIgeg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by PAXPR04MB8173.eurprd04.prod.outlook.com (2603:10a6:102:1ca::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 18:52:30 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0048.013; Wed, 20 May 2026
- 18:52:30 +0000
-Date: Wed, 20 May 2026 14:52:24 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Robby Cai <robby.cai@nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	s.hauer@pengutronix.de, festevam@gmail.com,
-	sebastian.krzyszkowiak@puri.sm, kernel@pengutronix.de,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] arm64: dts: imx8mq-evk: Enable MIPI CSI and dual
- OV5640 cameras
-Message-ID: <ag4C6MjnOJGjEpKN@lizhi-Precision-Tower-5810>
-References: <20260515111143.2980956-1-robby.cai@nxp.com>
- <agcnS4H_XJRL7duw@lizhi-Precision-Tower-5810>
- <20260520065452.GA2269979@shlinux88>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260520065452.GA2269979@shlinux88>
-X-ClientProxiedBy: SA1P222CA0099.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:35e::13) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IggBUpcT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4A901F000E9;
+	Wed, 20 May 2026 18:53:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779303198;
+	bh=tdxodyJKcIQWQQePbZ1iQzbrwRLc3HZLKX6TGNn3DJg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IggBUpcTMOD7KV5y7K3N5L0xosHIkx8y+TVtDSuHdZzDglbbW+mvovC06wfxbhVwD
+	 X8cD8qBFKK2y9FafiB7lErihgowON3bsLpwrHIzmEcr/k4uiG3F/W4guY8ThhF0Kd9
+	 EX/DDUPxdsMy9vAIYgA+Y6HVVGIqm6BZOzX3tsmZtbwcSd3ChQCq1q3rT21+NWblBR
+	 ZH5nSFcP7Uf30dbU8ywktbuzS5tvQIviQaLohjMV5GpPgUNaIW4fRS/2SmZctWpGRD
+	 no1V7oRHXRzZvAn+WFGQZeXAUvD1+Wlnlsq0RtprmPbn7emTLv1UxDHJ3qtMOw/QrJ
+	 ZJuVpq8v5jObA==
+Date: Wed, 20 May 2026 19:53:07 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Liviu Stan <liviu.stan@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, "Rob Herring" <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, Francesco Lavra
+ <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux@analog.com>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 7/7] iio: temperature: ltc2983: Add support for
+ ADT7604
+Message-ID: <20260520195307.6c06760d@jic23-huawei>
+In-Reply-To: <20260520181940.548759-1-liviu.stan@analog.com>
+References: <20260518145802.49a3bc94@jic23-huawei>
+	<20260520181940.548759-1-liviu.stan@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PAXPR04MB8173:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e5ce3dd-6bbb-4ff0-7a76-08deb6a0f1f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|376014|7416014|52116014|1800799024|38350700014|6133799003|18002099003|56012099003|22082099003|11063799006|5023799004|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	J8mXbsInFO22yqTId4TBJfl2Nd7NmRsCge91HZA4+ax6yia4nWAxOkDV50yLTHBruFkpnXyaJTH5r086XrfwjgxDyTKz+K7Eb0R0UrZRXj2An8yHvehiZcN2x/+vzSnmuj57k9Y9E3RA+N78sF6BLlbTpZemU1uoPVeeHZQ3SoI2ZAFr5Ya1L7+NDBCR2ljU7H3YwXEtc98Gxu5F5SHyG9W9ak4ogdDvPBQ69ajwGRs+8AgThsTJgdAVZZdQGJJJSDXt5PK+/bg/dGJbbQWpabCz/KYL19UNQBpk0PF8pwt7cbZzVC7yJ1xB+tx4ymOTKe2GDoZI2Gs4Hz3PHJwZL8VUv8Hn6lkxUnIYplHPS8NJhegFJc4Xv0QII2nos6dFhHrZV0crVFK+S5kqr914nbqMvm0ulvBBQGoRKjC4M5gHKtLLagmFjFTo4v8dbE6vrGROyPGLbBwtk/+r9NJL7T3fioOFwiexoNwQ76d+cWugmY0HiraiTTTBs/l/zFj1wZHXgrutVP5OCYs4ncx9VKRNydaLvFXjuh/WXLw9Y1MhqAsv9we+KiZVvXWoDAkke9Lc/W9hRsR15u+iObQJbiVVMtXfwNe5CFTG4duholJ9cLSTUAWCXk3GbRTHWh2Avz/hWJHHLlSXoI0lErl8f/JXJ6mNwtju6v/a8S8e46omHTBaYqwHpEy/3yiOmdRDmYbH9rEBaereqlAbeKILbqm9mJ3vPBYKmj+KPJFKvfCMWoLLuo3GYcP2qxgPTM5e
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(7416014)(52116014)(1800799024)(38350700014)(6133799003)(18002099003)(56012099003)(22082099003)(11063799006)(5023799004)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?r/dA6t9BcK3HjMPo0LYQE/7oSCA70Frxs4MoTL+ahkJ4WZjkSg11hduWYrRU?=
- =?us-ascii?Q?hVBR3gnkdhaFeMPGpgwYm0qKG2GWKfwhY1fRwPSDIIWMzuAZpce1h0Z4yzER?=
- =?us-ascii?Q?KCThK6bPDTwsr+nnIIeb0W+Yz8KGDRPCYSm+ru6GDr8K35ho04jztGKkq7Lb?=
- =?us-ascii?Q?g6dSlHmkE3KatKmoKgseQUkPxYFYPoo52eHw4BsWEcbChd7BPgy+HmjXk3jB?=
- =?us-ascii?Q?rcvsoLKx3tM6gWu4wlobgKiug/1UCmEhIXqfS5csUjcwR+FgzPBdutlhWmgG?=
- =?us-ascii?Q?Po57av4plqkL3F5EZ8hyjdc/3Yz3rLeeNUGMO7/969LBn1/AwDpS6Yjr+Ouu?=
- =?us-ascii?Q?NELIqLEwl+ciFDvJpcBQqEUAoKQUn0l6aRsDgufB9xCWVP5sWFOUvrsd9ikS?=
- =?us-ascii?Q?ZB/xDKCttmaeEsPACScUtqq0JvE/kYjXKlU399pSvOWxj2DcOvz5gYDvdN2x?=
- =?us-ascii?Q?9gEbrTIL4k+VTlHeSEbO1KDKUSmyJw8vXyzl2XuylXmuTpQe8NqDE/bSp527?=
- =?us-ascii?Q?2QwdXnhICdkIfE0GZNCnTr6AqEuJOm+yG/+77GVt/CbgooYyxt+jsFhdpM72?=
- =?us-ascii?Q?Dy/1RfnHo4Kb4194AZ7vkjIxRwcP4lngt1bX3tTxJFxBTYHfSgpjeV/K00tm?=
- =?us-ascii?Q?PyNvo8WzmIrbPVZQ8GSt1e3VAxXNEISAHxe3Yzr1uF81OWvhDIR3bfQKFOIi?=
- =?us-ascii?Q?2+mXykN3tLFEcauuBFr+HnxNa+M6cfXE/tpKLKNinSSE/IdS6LL+tdDFW66v?=
- =?us-ascii?Q?WLJbeiQB3/qXwoRZM47lkw7HcpGeASrcre0UZe6/U60tWQBqzbQRlWI/uuAJ?=
- =?us-ascii?Q?gniceDU6O/aKVPQY0GmbiQZCF4SWMRF/QD+2jFVpmtD3/phT3RAbS9cRupPz?=
- =?us-ascii?Q?u0HV/LmPNe0TB6brs/NdI6Fg2veMCL+LCHytV1xNLP3FOW/z71WL+sv9CFw6?=
- =?us-ascii?Q?a/IAL4SwnPYuBhr3q9iPlC3e4QrwZjbw9jkRXgE69bmb2PHlWhJb0LtHQqdS?=
- =?us-ascii?Q?QZ2/PkVzl0Q3qLOOUQ6okjH8kwG32fMsEhmIg9pGnL2unUuOnQVCw/hd2eLA?=
- =?us-ascii?Q?iAHm1RI7/xlwsSo+hL/qNZ5TIfXUFin5EBk3DQaBVevdRROjD5s6LiuOcqMJ?=
- =?us-ascii?Q?yE2rF8HXFoET+oFyZxGaBYD90pgTJU7GVs8ZYqk0n5dpuFSym2uu4GKGLziG?=
- =?us-ascii?Q?D3SoGDjfcpv93xMqtBlBS9Qkw0oUmmRNocAezTsG5EgHCQcDNeCru4Enfk30?=
- =?us-ascii?Q?c0sONo4w9ho/ZgHqDfm1g4KLh+tKONnYJbXOnsExYtfoxbWGgrWiWNEjYr5b?=
- =?us-ascii?Q?VNxczRjvcONiiLjylrxvnJOlHeJqbVYhcIb7AL2D2CAJpnTzJDgJ3I4hUlpd?=
- =?us-ascii?Q?6im259O+fAcpyIgK/n+mSJanLhVtc1jq0KMHGHvL5HP7QA2irdnhNdwMi2e/?=
- =?us-ascii?Q?g1nyhc/sWWPuLqOg7umlz9Pnbdbgyn+Y33IRAT/msZv4L/CewpNKIkQT6+0a?=
- =?us-ascii?Q?/sC1fzM5mvqqvwyf20lqGVizuAPDr9LERFBMvqWLSX2ao/Sshqjq0gsKm94l?=
- =?us-ascii?Q?oC24zCeeDp7CA8ZbO3yJNsR7xi5A0RdFSG5haX6TcsXgVeLihSMThgCI1FTc?=
- =?us-ascii?Q?VuBPsCFZLySjtmCwmelVgb4DMAEgbmx6HTKC0PWdvcQHek+++PDtabIKkeSs?=
- =?us-ascii?Q?ux7+BXV8SoVvK+GSMgAWRVtLeatiOea8EckoboymYgOaZiJG?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e5ce3dd-6bbb-4ff0-7a76-08deb6a0f1f4
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 18:52:30.5202
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vpzxxwtz/oTn9xaI1AH5PxqV7wwX4egtKdd9MSZxUPPQqSuJ/KAWfcoPwZ45G4YTdmDu80b0mCpZTYaDu0RUAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8173
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, May 20, 2026 at 02:54:52PM +0800, Robby Cai wrote:
-> On Fri, May 15, 2026 at 10:01:47AM -0400, Frank Li wrote:
-> > On Fri, May 15, 2026 at 07:11:43PM +0800, Robby Cai wrote:
-> > > Enable the MIPI CSI bridges and corresponding CSI-2 host interfaces
-> > > on the i.MX8MQ EVK, and add two OV5640 camera sensors.
-> > >
-> > > The sensors are connected via I2C1 and I2C2, each with proper
-> > > endpoint descriptions to form complete media pipelines.
-> > >
-> > > The resulting pipelines are:
-> > >
-> > >   - OV5640 (I2C2) -> MIPI CSI1 -> CSI1 bridge
-> > >   - OV5640 (I2C1) -> MIPI CSI2 -> CSI2 bridge
-> > >
-> > > Both pipelines have been validated on the i.MX8MQ EVK using the
-> > > upstream OV5640 driver.
-> > >
-> > > Both OV5640 sensors share a single reset GPIO on this board,
-> > > which prevents independent hardware reset when both cameras
-> > > are enabled. As a result, the reset line is kept deasserted
-> > > via a GPIO hog, and sensor reset is performed via software.
-> >
-> > Does reset_control_get_shared() resolve this problem?
-> >
->
-> No, reset_control_get_shared() does not really solve this issue.
->
-> The problem here is not about software coordination, but about the
-> hardware topology: both sensors are physically tied to the same reset
-> line. This means any reset operation will always affect both devices
-> simultaneously, regardless of how the reset framework is used.
+On Wed, 20 May 2026 21:19:37 +0300
+Liviu Stan <liviu.stan@analog.com> wrote:
 
-Reset framework is resolve this problem. It is quite common that many devices
-shared one reset pin.
+> On Mon, 18 May 2026 14:58:02 +0100 Jonathan Cameron <jic23@kernel.org> wrote:
+> ...
+> > > > > +		    !(st->info->supported_sensors & BIT_ULL(sensor.type)))
+> > > > > +			return dev_err_probe(dev, -EINVAL,
+> > > > > +					     "sensor type %d not supported on %s\n",
+> > > > > +					     sensor.type, st->info->name);
+> > > > > +
+> > > > > +		dev_dbg(dev, "Create new sensor, type %u, channel %u",
+> > > > >  			sensor.type, sensor.chan);
+> > > > >      
+> > > >     
+> > > > > @@ -1445,8 +1782,9 @@ static int ltc2983_eeprom_cmd(struct ltc2983_data *st, unsigned int cmd,
+> > > > >  
+> > > > >  static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
+> > > > >  {
+> > > > > -	u32 iio_chan_t = 0, iio_chan_v = 0, chan, iio_idx = 0, status;
+> > > > >  	struct device *dev = &st->spi->dev;
+> > > > > +	u32 iio_chan_t = 0, iio_chan_v = 0, iio_chan_r = 0, iio_chan_c = 0;
+> > > > > +	u32 chan, iio_idx = 0, status;
+> > > > >  	int ret;
+> > > > >  
+> > > > >  	/* make sure the device is up: start bit (7) is 0 and done bit (6) is 1 */
+> > > > > @@ -1493,8 +1831,26 @@ static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
+> > > > >  		    !assign_iio)
+> > > > >  			continue;
+> > > > >  
+> > > > > +		/*
+> > > > > +		 * Copper trace and leak detector sensors without a custom table
+> > > > > +		 * produce only a resistance result; the chip does not populate
+> > > > > +		 * the temperature result register. Emit only an IIO_RESISTANCE
+> > > > > +		 * channel in this case.    
+> > > > 
+> > > > Do we care?  That is are they useful without the table? We could just make it
+> > > > required in the binding.
+> > > >     
+> > > 
+> > > The datasheet specifies the table is optional. But more practically, in order to
+> > > be able to add accurate values to the custom table, the users first need to measure
+> > > the sensor's resistance at multiple known conditions, so I think the resistance-only
+> > > output is useful during that characterization phase, before the table exists. Making
+> > > it required would force users to provide placeholder values just to get the driver
+> > > to probe.  
+> > Who cares of datasheet is crazy :)  
+> 
+> Fair enough :)
 
->
-> While reset_control_get_shared() introduces reference counting to avoid
-> unintended assertions, it does not allow independent reset control.
-> In particular:
->
->   - A reset operation (assert) will still impact both sensors.
+Nice if I could type "if" obviously!
 
-yes, only when first devices toggle reset signal. Second device do nothing.
+> 
+> > 
+> > The initial case could I think be handled by an 'identity' table. 
+> > If it's useful in more general cases maybe we should always put out the resistance
+> > channels? This would be a bit like we often do for ambient light sensors, where
+> > we have a computed illuminance channel (IIO_LIGHT) + the data it comes from
+> > (IIO_INTENSITY)  
+> 
+> I checked internally and we could make the table required for leak detectors. For
+> copper traces, sub-ohms variants cannot have one, but we could make it required
+> for > 1ohm ones.
+Great. Thanks for chasing that down.
 
->   - It does not solve the requirement for per-device hardware reset.
+> 
+> This means we could remove the LTC2983_SENSOR_LEAK_DETECTOR from the if condition,
+> and have something like this in ltc2983_setup:
+> 
+> if (st->sensors[chan]->type == LTC2983_SENSOR_COPPER_TRACE) {
+>     if (st->sensors[chan]->n_iio_chan == 1) {
+>         st->iio_chan[iio_idx++] =
+>             LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
+>         continue;
+>     }
+> }
+> + the n_iio_chan == 2 check at the end
+> 
+> or drop the n_iio_chan == 2 check and do something like:
+> 
+> if (st->sensors[chan]->type == LTC2983_SENSOR_COPPER_TRACE) {
+>     if (st->sensors[chan]->n_iio_chan == 1) {
+>         st->iio_chan[iio_idx++] =
+>             LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
+>     } else {
+>         st->iio_chan[iio_idx++] =
+>             LTC2983_CHAN(IIO_TEMP, iio_chan_t++, chan);
+>         st->iio_chan[iio_idx++] =
+>             LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
+>     }
+>     continue;
+> }
+> 
+> if (st->sensors[chan]->type == LTC2983_SENSOR_LEAK_DETECTOR) {
+>     st->iio_chan[iio_idx++] =
+>         LTC2983_CHAN(IIO_COVERAGE_PERCENT, iio_chan_c++, chan);
+>     st->iio_chan[iio_idx++] =
+>         LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
+>     continue;
+> }
+> 
+> or use a switch case:
+> 
+> switch (st->sensors[chan]->type) {
+> case LTC2983_SENSOR_COPPER_TRACE:
+>     if (st->sensors[chan]->n_iio_chan == 1) {
+>         st->iio_chan[iio_idx++] =
+>             LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
+>     } else {
+>         st->iio_chan[iio_idx++] =
+>             LTC2983_CHAN(IIO_TEMP, iio_chan_t++, chan);
+>         st->iio_chan[iio_idx++] =
+>             LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
+>     }
+>     continue;
+> case LTC2983_SENSOR_LEAK_DETECTOR:
+>     st->iio_chan[iio_idx++] =
+>         LTC2983_CHAN(IIO_COVERAGE_PERCENT, iio_chan_c++, chan);
+>     st->iio_chan[iio_idx++] =
+>         LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
+>     continue;
+> case LTC2983_SENSOR_DIRECT_ADC:
+>     chan_type = IIO_VOLTAGE;
+>     iio_chan = &iio_chan_v;
+>     break;
+> default:
+>     chan_type = IIO_TEMP;
+>     iio_chan = &iio_chan_t;
+>     break;
+> }
+> st->iio_chan[iio_idx++] = LTC2983_CHAN(chan_type, (*iio_chan)++, chan);
+> 
+> What do you think?
+> 
+I don't immediately have a strong opinion. So choose which ever
+looks most readable in situ.
 
-It is hardware limitation.
+Jonathan
 
->
-> Therefore, using a shared reset control does not provide true isolation
-> between the two OV5640 instances.
 
-It is not isolation. Just don't allow second device to toggle reset pin.
+> Thanks,
+> Liviu
 
->
-> Keeping the reset line permanently deasserted (e.g. via GPIO hog) and
-> handling initialization through software/power sequencing is a valid
-> and practical solution for this hardware design.
-
-If use i2c gpio, expandor driver may probe after sensor driver probe. So
-reset may happen after sensor driver probe.
-
-Frank
->
-> This matches the intention of the upstream changes as well, where GPIO-
-> based resets are treated as simple control signals rather than fully
-> isolated reset domains.
->
-> In practice, using a shared reset here can even introduce subtle
-> interference between the two cameras during probe or power cycling,
-> so it is safer to avoid using reset for runtime control entirely.
->
-> Regards,
-> Robby
->
