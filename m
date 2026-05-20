@@ -1,151 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6E83F929E
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 17:04:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AD8366075
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 17:04:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779296664; cv=none; b=GOK7+NRotD/tUsoLnsJiSo26ZhS4WiD+DbNihw1/pyLvHXMi0ebSvWYlVZA157t7IA8eoYxe7oInB5SSBJHV7/r7/Rj6Jfq7g6sui5abuFLPYn1jaJYKI9Pnc6SpC45CCe1saHko+16Mh8Rt/7nJx+nimUWSCfZF2lERq1kC4tE=
+	t=1779296689; cv=none; b=Hi7PUEMvm0YzoqWQWnOmw2j4O7X4kd5Dt8T43ideu9WMH72C/8jYTVOscHnZLXAARe75EQ/juh6pjWoIbx8BSKM0VmzZdNE0lREI50gYi/zCEKlQX+NIAESqR2I2G/4b90W1GbhUu+6ih+dvxRp1hVfkVj8vuS7rP+KleavR0HI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779296664; c=relaxed/simple;
-	bh=ABLS89GogwxuSpH+7xOK9mftRbMOmlJc/2wcmRcOkEk=;
+	s=arc-20240116; t=1779296689; c=relaxed/simple;
+	bh=RyfV0hJkk3uiafdy4V4W1ViPgaCwoFNpaVQ9i6j1maI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=M7leLC0LTiR7O+bI00e4c5zJXtUBPWysZ+aPpOff7BzNLl0C4qTAe0L1Xf5TolCnHbe0D7TPaNh7Ogl+fbjaK9sDV+0WXWfgcKjOSt2RPK5JWKworD0DTLtExT2EH7xNefQD6zNzXyeaE3Dc6zYYG8o19DEf1/w5Ple6/Rshe0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzOdRs1l; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Z9zlaOQRKF+/4VBLvMC4mLFfgw4dgNs3JEC7UXtNWRkqMxHc4rCzOPBA+cXm0IWu3+W1YZxJDkq8pgK0ThtBH16CLrwEr02ltg34iNByzOi0uaQG9JQelPuvF1Dq3EqjftkD7N4ioGuBUHylHg2sIUE0ch+9zDEu/ncMpMEpDvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bs5c2ubp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzOdRs1l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E07B1F000E9;
-	Wed, 20 May 2026 17:04:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bs5c2ubp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20BAC1F00893;
+	Wed, 20 May 2026 17:04:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779296663;
-	bh=vgzCXrY7OVN3UjPtZ2OukZnuN1ljc7DAkOWS4yi2WK0=;
+	s=k20260515; t=1779296688;
+	bh=h/V/esAVfFJbW+E7Pli9v7rDm6GIVMXWixK2YHxaarA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bzOdRs1lKDtx6NQ1Yalxs0SemoWXtZZNhvUuXIzbzQ1Ks+HAyAMfbGpv6+t5JCttJ
-	 S/FpzVAyUbsdDLPJVzo/u4BnJ/ruAM7lY2wHxsQ+aDQXafHn9Br+CmSs7j4gqPEJ3k
-	 CfYueH0oe46yisejgofS7i23hGm0lwlzOstwXHKOjG/fVKCS8ukuaz4OonLEV8TT9X
-	 16xgI3W0ZSGgr0KQwwE+7ut0+RYag/188A91huUwwZTTQFo+dEfMV9Es0+eObnozpC
-	 xpPxG/xh3OvEsREeeTJtXGjnC0+iPxJRAChQxm3oBFJ/3ggBk4781gBbKSWC2Uba3S
-	 P0SDieNhVrueA==
+	b=bs5c2ubpAcrXLgIszlvpm1zTpT8jepe+f6ktp6iQni81QDoPGi2cHuUxeJTUE7NdN
+	 YmrGRNG8y6QM6u4MrEpj6pe13vw4VZE4aknDNHmx+eJzEt5/xZ22Z5E5ATVAtjQLIZ
+	 TNk5Mes6tHrn5XiVd6Tl7OlHC5Z81uK+lqJ1ZQP3FRfzFQqrPw7QWUQEuAZa40V7MU
+	 B32oujROZZBFVxLmWjrRXN2PnP5iVsESxvf9d59ZfaYEZXnhq7yirMKjKoptS9bYjI
+	 g7MMYN4ntvP9ICs1DK1w3HaX3zVVPNM7UhSXkgZ/0G/KHrFrWZ61LcfzV3lNpATqqK
+	 0rNIe/oIoy+tw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/11] arm64: dts: qcom: sc8280xp-arcata: Enable the eDP
- display
+Subject: Re: [PATCH v5 4/7] thermal/drivers: airoha: Generalize probe
+ function
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SsOpcsO0bWUgZGUgQnJldGFnbmUgdmlhIEI0IFJlbGF5?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-3-9df52552bf87@gmail.com>
-References: <20260520-surface-sp9-5g-for-next-v1-3-9df52552bf87@gmail.com>
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260520155525.22239-5-ansuelsmth@gmail.com>
+References: <20260520155525.22239-5-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 17:04:21 +0000
-Message-Id: <20260520170422.7E07B1F000E9@smtp.kernel.org>
+Date: Wed, 20 May 2026 17:04:47 +0000
+Message-Id: <20260520170448.20BAC1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The patch silently removes the `&dispcc1` status override, disab=
-ling the secondary Display Clock Controller.
-- [Low] The patch alters global power behavior by implicitly removing `regu=
-lator-always-on` from `vreg_l6b`.
-- [Low] Usage of the deprecated top-level `data-lanes` property in the Disp=
-layPort controller node.
+
+New issues:
+- [High] Unchecked return value from device_get_match_data() leads to a NUL=
+L pointer dereference.
+
+Pre-existing issues:
+- [High] IRQ registered before thermal zone initialization is complete, cau=
+sing a race condition and devm teardown use-after-free.
 --
 
-commit a8b912654646fb57f736aa1acf5bb9207884cc9d
-Author: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+commit f9520e831723d0643c683a7acaaf6600c5487d0a
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
+thermal/drivers: airoha: Generalize probe function
 
-This commit adds the vreg_edp_3p3, edp_reg_en, and mdss0_dp3 nodes to
-enable the eDP-based LCD display on the Surface Pro 9 5G. It also maps
-GPIO 36 for panel enable based on decompiled ACPI dumps.
+This commit generalizes the Airoha thermal probe function to prepare for
+supporting the Airoha AN7583 SoC. It introduces a match_data struct
+to define SoC-specific probe and post_probe functions, thermal ops, and
+PLLRG protect values.
 
-Link: https://github.com/alexVinarskis/qcom-aeob-dumps/blob/master/microsof=
-t-surface-pro-9-5G-1996/qcdxkmext8280_ARC_part2.json#L156-L168
-
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arc=
-h/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> index 14287092fb07e..7f1cc18990025 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-
+> diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_th=
+ermal.c
+> index b63893a8997a3..ebb47ae5f2cee 100644
+> --- a/drivers/thermal/airoha_thermal.c
+> +++ b/drivers/thermal/airoha_thermal.c
 [ ... ]
-
-> @@ -361,7 +377,6 @@ vreg_l6b: ldo6 {
->  			regulator-max-microvolt =3D <880000>;
->  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
->  			regulator-boot-on;
-> -			regulator-always-on;	// FIXME: VDD_A_EDP_0_0P9
-
-[Severity: Low]
-Is it intentional to leave this removal out of the commit message?
-
-The commit correctly reassigns the vreg_l6b regulator to be dynamically
-managed by the eDP PHY and removes its always-on property, resolving the
-FIXME comment. While logically correct, this change in the power
-lifecycle is an undocumented side effect. Could this be noted in the
-commit message?
-
->  		};
->  	};
-
-[ ... ]
-
-> @@ -465,10 +480,6 @@ &dispcc0 {
->  	status =3D "okay";
->  };
+> @@ -455,18 +463,55 @@ static int airoha_thermal_probe(struct platform_dev=
+ice *pdev)
+>  		return irq;
 > =20
-> -&dispcc1 {
-> -	status =3D "okay";
-> -};
-> -
+>  	ret =3D devm_request_threaded_irq(&pdev->dev, irq, NULL,
+> -					airoha_thermal_irq, IRQF_ONESHOT,
+> +					en7581_thermal_irq, IRQF_ONESHOT,
+>  					pdev->name, priv);
 
-[Severity: Medium]
-Does this silently disable the secondary Display Clock Controller?
+[Severity: High]
+This is a pre-existing issue, but does requesting the interrupt here before
+the thermal zone is registered create a race condition?
 
-While this might be an intentional cleanup since mdss1 is not enabled on
-this board and dispcc0 is used for the eDP, removing a major clock
-controller is an implicit behavioral change. Could this modification be
-explicitly documented in the commit message to prevent confusion?
+If an interrupt fires early (e.g., from a pending bootloader interrupt),
+en7581_thermal_irq() will run and call thermal_zone_device_update() before
+priv->tz is initialized, leading to a NULL pointer dereference.
 
->  &gpi_dma0 {
->  	status =3D "okay";
->  };
+Additionally, because devres teardown executes in reverse allocation order,
+the thermal zone is destroyed before the IRQ is freed during module removal.
+Could this lead to a use-after-free if an interrupt fires during teardown
+and accesses the freed priv->tz?
 
 [ ... ]
-
-> @@ -511,6 +522,42 @@ &mdss0_dp1_out {
->  	remote-endpoint =3D <&usb_1_qmpphy_dp_in>;
->  };
-> =20
-> +&mdss0_dp3 {
-> +	compatible =3D "qcom,sc8280xp-edp";
-> +	/delete-property/ #sound-dai-cells;
+> +static int airoha_thermal_probe(struct platform_device *pdev)
+> +{
+> +	const struct airoha_thermal_soc_data *soc_data;
+> +	struct airoha_thermal_priv *priv;
+> +	struct device *dev =3D &pdev->dev;
+> +	int ret;
 > +
-> +	data-lanes =3D <0 1 2 3>;
+> +	soc_data =3D device_get_match_data(dev);
+> +
+> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->pllrg_protect =3D soc_data->pllrg_protect;
 
-[Severity: Low]
-Is it correct to use the data-lanes property at the top level of the
-DisplayPort controller node?
+[Severity: High]
+Does this code lead to a NULL pointer dereference if the driver is bound
+manually via sysfs?
 
-According to the MSM DP controller YAML binding schema
-(Documentation/devicetree/bindings/display/msm/dp-controller.yaml),
-defining data-lanes at the top level is explicitly marked as deprecated.
-
-To comply with standard graph bindings, should this property be placed
-inside the controller's output endpoint instead (for example, inside the
-&mdss0_dp3_out port@1/endpoint)?
+device_get_match_data() returns NULL when the driver is bound manually
+rather than through Device Tree matching. If soc_data is NULL, accessing
+soc_data->pllrg_protect will trigger a kernel panic. Should soc_data be
+checked for NULL before being dereferenced?
 
 > +
-> +	status =3D "okay";
+> +	if (!soc_data->probe)
+> +		return -EINVAL;
 > +
-> +	aux-bus {
-> +		panel {
-> +			compatible =3D "edp-panel";
+> +	ret =3D soc_data->probe(pdev, priv);
+> +	if (ret)
+> +		return ret;
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-surface-sp=
-9-5g-for-next-v1-0-9df52552bf87@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520155525.2223=
+9-1-ansuelsmth@gmail.com?part=3D4
