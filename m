@@ -1,144 +1,178 @@
-Received: from mail-qt1-f228.google.com (mail-qt1-f228.google.com [209.85.160.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054753C0600
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:26:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD8C340401
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:27:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779319582; cv=none; b=SOLxG4GJqYO49j1QRnX7AvW2DVCZTZF6ThxiXPKZH1Y6+49JsSd8GwjGiAdS8BctuhqsGIjFid/nRQb4ifZGiDimHIEKnUG5breNVZ5M0nxobqqskgNq0d5LNSf7ldsdWKBK/GDAs8ju66vgKK2/AVzgTlKl5RevKb5q/jjI8sQ=
+	t=1779319638; cv=none; b=kgt0cmcG/Yp2y9sTJNn3ErMAAwR1QWHmQsHdPDuHSUdWNjf7AFYzr4R0huaPD+VRQqFCLN8SFlWyWHN5U2RIFbJuN4cq7tkBzKqoSe9g3L85oP15VDbXH25ABcD1vzWBjn01UBUbMSR9cIxtWfsBCXDSsiCjGtsjJpX/XWhlVnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779319582; c=relaxed/simple;
-	bh=8gXgK/h0hCmwe9qiJV/0itGnM6zW+O4ZE6UeaQBjOvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Inmham7XKlaO3fHi7zyUxb4ouQHT4mfQYGhhWQXK8n3s82prexJ6p96Bn38ytXRYTVGuREJtY1f7VS8Z+jLX/g5gCcg948gtqtn0oM93S6C3peTNYA/cVGRHw0twgj3fLwtkz59eMSUn+PQ5TX9Z0ztyK5bdVRFT3A7nQHpBMvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=CTr7o5rK; arc=none smtp.client-ip=209.85.160.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1779319638; c=relaxed/simple;
+	bh=gra2Pu9+akw5IpukbaRnuuRxBqg4ayq1oxBXlXIeT5I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=V+y3ZrUfaINPIsaGTNes3OSd16RekuI9DIhhbhOqutxRYkqbVyaagiiXSk2D7cuL2a5nQia2rfMK22WDsJBP9qpnEdHIQjjsSAwIOdHXoQyRGbNFLXAHRvCUyzmyleYGhh1fEhEnfHoumc8c3xo22ECafO/GK9R9KI2I/mCERpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUsdRbDo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="CTr7o5rK"
-Received: by mail-qt1-f228.google.com with SMTP id d75a77b69052e-50d880e6fbbso68587501cf.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:26:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779319580; x=1779924380;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=of8goAcgo6BFYI2D0ojfLUYu7ENvlbSg6CCV/wxzOBw=;
-        b=Dn9xc6MHzImFh+h+yyzDoR7f9lIDvcFlrvzstrwAhSyKz40tdyZnOh+YVJ6ueNtIhQ
-         Tg+wEbX+5CQn0cIqALgXQ8a6LSCekxKyXZH33hdxs+LBsVFpw+m7vCMpmD9IV1bwbGK9
-         PEvT0hbs5v3oMoiXwi5fLqOq/XHUjwAOtEFPGcW2jpMLNGZAu++gTSgn96fHSFViJf2L
-         pBPIa+z1lAVgpqZYKnevaugHbsjULIu/Z6TkgP3KkU4NUk+Rkl5uHZD3g0qRJCaQc4+B
-         5BqjKnqVdAeFrrgJIzw62Dg7vlc/l5vuE7hhZ7+K/XzPBAdP/CT6tUYUgI8VVQlKz1gF
-         a8Rw==
-X-Forwarded-Encrypted: i=1; AFNElJ9vRUHR2gQmmGsZo20vc+fNM3s4FuzWBU90tRjWXSR3NDEFJ9xeJl9V8NWmY6Xn1OdbsY8MZsRIY0DA@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjaGZyHO4ja1Fh+q3Y+gAqfEwORN+6vMF5sckb+TBSjs9SRe+v
-	F8x7bUhC8lLyXWeQhajMZS0OAvGwRvX0j2iEKKHtOCTYLJ/NE1YRDooCi72GT1JDWfCH14ODTJW
-	Jseb6fGHNBZBbUB3irnpRegWE4EwLzfJZnRYfID+4tQOwBC2wsqfu8bxb5hreE+1bDA2ORYkk8Q
-	0Lr0tmIyUtkuRMvJdZMyPwJ4JnS0w7awgLNNs5rZeCTf0wfJMV5+HXH/pQBxHzWbQ/TNB+LVykT
-	+Lbcd9QkWRK+UmUeKBUNw==
-X-Gm-Gg: Acq92OGPNjo3l4RJwStFjm7PPmkbRqc9urgvWw7PwYyfEayITGmpKhlxDZwYID3yzOV
-	HJyHodCHyOtxp+Pj+2ltn+YmEP48zLEET1WgCt+yppjNzoGa7RBN0N16ID8xUviu7Z4rJ8Elq4K
-	kW9SbU+A+BvemX9ecEYWQ8OkzkAhwBS9/+xYclI76bCBSdVa5pqrZVxQT2uc4hMD0x/1rPweBJt
-	JfZcFfLNOqfdiexwrolhoIphh5JafwbyVQIzKsA7DeMbxZ9J3C5lEwThyrOIxyhPvtq7S3+bRPf
-	nzVKMVH8OUqW9k3Qy/jELvonT0gcebDnTIS+9roA6tvFqNH7NhUzh7Rx0HF2gBYue5dfDU9PIPN
-	ENYgw7kavTnoGunaP2aDaChVqp/usdOjTaY1rFlFTEOHYlr1ZeVvn/32GIK7YU1rnTe5ZmwaXiZ
-	aHoJEoZOOjhEjSR0hsySOFUoqjFTef7z2qifOtjyfO0JhjXwS4SJo4bACwRI+ewaks
-X-Received: by 2002:a05:622a:5586:b0:509:11bd:9d3 with SMTP id d75a77b69052e-516c5847b04mr7570101cf.1.1779319579670;
-        Wed, 20 May 2026 16:26:19 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
-        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-51645687d52sm11557341cf.2.2026.05.20.16.26.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 20 May 2026 16:26:19 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-12df8bc580cso2829126c88.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:26:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1779319578; x=1779924378; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=of8goAcgo6BFYI2D0ojfLUYu7ENvlbSg6CCV/wxzOBw=;
-        b=CTr7o5rKmqpHpSCnq/t8YTDpPUaE/oe4il0K3ZBjH4ZphB3pZd882Erfuzf2WtuSB6
-         PZZzLf09rjblmPzxgesbj322bUFRq1UYX9NV3OLA1+7zdOBraz/XH/W56Mlt0x4hqaGF
-         RLHNR5J9OTvIF+ABbSSNuxGESr1wOCdc57/jI=
-X-Forwarded-Encrypted: i=1; AFNElJ8TPidRAONR7baUw5TJqH0VBZ7mK9qDzwn+W9+yY7EfppBrlPFcX3E60MPTZCH6Ne9ecWxNAq1yVslT@vger.kernel.org
-X-Received: by 2002:a05:7022:699b:b0:135:e8f4:2926 with SMTP id a92af1059eb24-13634938515mr206332c88.3.1779319578325;
-        Wed, 20 May 2026 16:26:18 -0700 (PDT)
-X-Received: by 2002:a05:7022:699b:b0:135:e8f4:2926 with SMTP id a92af1059eb24-13634938515mr206311c88.3.1779319577703;
-        Wed, 20 May 2026 16:26:17 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-134cbed2232sm28875493c88.7.2026.05.20.16.26.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 May 2026 16:26:17 -0700 (PDT)
-Message-ID: <0ae5c657-91a6-4ab0-ac53-c419427ff4dc@broadcom.com>
-Date: Wed, 20 May 2026 16:26:16 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUsdRbDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C741F000E9;
+	Wed, 20 May 2026 23:27:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779319636;
+	bh=UEs175ANJcMxxHtc1eYJcfv2k6nAzYx2VQ0/tjG9I/g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iUsdRbDodz1WWLyW8yLxFk23WxzQ3tpx5wX/jWjjkdmlplxlcDikeZtdLOSmdJXRX
+	 mW9V1Z1e07ADI7cOxcuYzk/GLEeqfkCF/WtCh58OdMChrDVY87uC1bR2SdoB53TQ1D
+	 kfvWUaHpcgsKcPOiy3NkIknUUR+h82cMSgHhM2lVIG0oNjbRsFkhKH9zhTqtEjj2cD
+	 LRuwqymGDjZiRfkCEEN41jXY8d7XEdjmMWZOdm6Gqg8lcbT4DZjJnB8AlU4REBcY3p
+	 LAmeHW2psRmqnsauyQ5m7J9CuByn8261z/Y3/3rDo7T1PoP7LeWPMC5GMYKHTtiaJJ
+	 0qvcfUl93eFnw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 07/28] media: rockchip: rga: use clk_bulk api
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521-spu-rga3-v7-7-3f33e8c7145f@pengutronix.de>
+References: <20260521-spu-rga3-v7-7-3f33e8c7145f@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 23:27:16 +0000
+Message-Id: <20260520232716.A5C741F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: dts: BCM5301X: R6300v2: fix USB3
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <zajec5@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- "moderated list:BROADCOM BCM5301X ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260406220453.101185-1-rosenp@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260406220453.101185-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 4/6/26 15:04, Rosen Penev wrote:
-> USB3 needs GPIO to be pulled HIGH in order to function. Add vcc-gpio to
-> do so.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Applied, thanks!
--- 
-Florian
+New issues:
+- [High] The transition to `devm_clk_bulk_get_all()` removes the strict req=
+uirement for device clocks, creating a silent failure that leads to a syste=
+m crash if clocks are missing in the device tree.
+
+Pre-existing issues:
+- [Critical] The device removal process incorrectly orders the teardown ste=
+ps and destroys memory while the V4L2 device may still be open in userspace=
+, leading to a Use-After-Free.
+- [Critical] The interrupt handler accesses hardware registers without ensu=
+ring the device is in an active power state.
+- [High] Hardware resets are asserted and deasserted while the core, AXI, a=
+nd AHB clocks are disabled.
+- [High] The driver calls a streaming DMA sync function on a coherent DMA a=
+llocation and uses an out-of-bounds size.
+--
+
+commit 6a4ac27640e49302f448a7b359bc524f23fc7a61
+Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+
+media: rockchip: rga: use clk_bulk api
+   =20
+Use the clk_bulk API to avoid code duplication for each of the three
+clocks.
+
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index fea63b94c5f3d..4e710a050cb7c 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+[ ... ]
+> @@ -771,23 +733,12 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+>  	udelay(1);
+>  	reset_control_deassert(ahb_rst);
+
+[Severity: High]
+This is a pre-existing issue, but are these hardware resets effective when
+the clocks are disabled?
+
+The core, axi, and ahb reset lines are pulsed here before the corresponding
+clocks are enabled. For synchronous hardware blocks like AXI/AHB and IP
+cores, the clock usually must be active for the reset signal to propagate
+correctly through the internal state machine.
+
+Could pulsing resets while clocks are gated leave the hardware in an
+undefined state and lead to DMA corruption or hardware hangs?
+
+> -	rga->sclk =3D devm_clk_get(rga->dev, "sclk");
+> -	if (IS_ERR(rga->sclk)) {
+> -		dev_err(rga->dev, "failed to get sclk clock\n");
+> -		return PTR_ERR(rga->sclk);
+> -	}
+[ ... ]
+> +	ret =3D devm_clk_bulk_get_all(rga->dev, &rga->clks);
+> +	if (ret < 0) {
+> +		dev_err(rga->dev, "failed to get clocks\n");
+> +		return ret;
+>  	}
+> +	rga->num_clks =3D ret;
+
+[Severity: High]
+Does this missing clock check lead to a synchronous external abort?
+
+devm_clk_bulk_get_all() returns the number of clocks successfully obtained,
+or 0 if none are specified in the device tree.
+
+By only checking ret < 0, a return value of 0 is treated as a success,
+setting num_clks =3D 0. The driver will then successfully call
+clk_bulk_prepare_enable(0, ...) which does nothing, and immediately attempt
+to access unclocked hardware registers.
+
+On ARM platforms, accessing unclocked hardware domains can trigger a
+synchronous external abort (bus fault).
+
+Should this code assert that ret > 0 to ensure the mandatory clocks were
+acquired?
+
+[ ... ]
+
+While reviewing this patch, I noticed a few other pre-existing issues in
+the driver:
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does the teardown order in
+rga_remove() cause a use-after-free?
+
+The driver unregisters the video device (video_unregister_device) and
+completely tears down the context (v4l2_m2m_release), relying on devres to
+free the rockchip_rga structure upon returning.
+
+However, video_unregister_device does not forcefully close existing
+userspace file descriptors. If a userspace process holds an open FD and
+later closes it, rga_release() executes and dereferences the already freed
+rga structure.
+
+[Severity: Critical]
+This is a pre-existing issue, but can rga_isr() access unclocked hardware
+when the device is runtime-suspended?
+
+The interrupt handler rga_isr() unconditionally reads the hardware register
+RGA_INT. A subsequent patch in this series changes the driver to request a
+shared interrupt (IRQF_SHARED).
+
+This means the ISR will be invoked whenever the IOMMU (or another sharing
+device) triggers an interrupt, which can occur while the RGA device is
+runtime-suspended and its clocks are disabled. Reading from unclocked RGA
+registers causes a synchronous external abort.
+
+Should the handler use pm_runtime_get_if_active() before accessing hardware?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does rga_cmd_set() perform a
+streaming DMA sync on a coherent allocation?
+
+cmdbuf_virt is allocated using dma_alloc_attrs() with DMA_ATTR_WRITE_COMBIN=
+E,
+returning a coherent DMA allocation. However, in rga_cmd_set(), the driver
+calls dma_sync_single_for_device() on this buffer.
+
+Streaming DMA sync functions must not be used on coherent allocations. Doing
+so violates the DMA API and can trigger system faults on strict
+architectures.
+
+Furthermore, it synchronizes PAGE_SIZE bytes, but the buffer size is only
+RGA_CMDBUF_SIZE (0x80 bytes). Could this create an out-of-bounds DMA
+operation that corrupts adjacent memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-spu-rga3-v=
+7-0-3f33e8c7145f@pengutronix.de?part=3D7
