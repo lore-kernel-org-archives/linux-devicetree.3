@@ -1,83 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010017.outbound.protection.outlook.com [52.101.69.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CD729B8D0;
-	Wed, 20 May 2026 18:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779301522; cv=none; b=Aau8rgpYpV9LgQa6mGKvs2y6HyISDJYTZvNrKQxPXeOljmGIRkIi1/Zh8t90OCEbFbq2ZcfMv3zxCkdPlIByfiM+pmcu3x1Ctu6XdC3MPUtd84+KqTllRgDSS0NbVU3lP2Ia6CIBWZ4AYzbRCy+GQwt9HlNKGUzAFinw6BQCF5U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779301522; c=relaxed/simple;
-	bh=A+o7XzfWfBrZrOx8gkzhQVkEzOrLMDiQpkXtYhDZM3g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=puAUBiKJIQ52pC8SfymIdiqdEOM+qtLYuQC2UapAJi42Il2KwM3Oeur/DABHg2HfZbcbF7uzaZfTfmbiTXxS1Hpiug1PKhhyFW9zaZDYsqlZOShXCixS2WVcbbTlt5YoaRA/QsaVFI4lYwfkmztiKf57UcoWau8TEgaFPUSfnNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KfUi31sE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C925347514
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 18:37:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779302229; cv=fail; b=NcsW8/rWbq4ovCEP3iPttD/KKWVoOcemAxL3e4uFN3T4f4VpoqfgNtSFtnrqIn8UlaOt/5IuE9SthbPzgioXwQczzvbMGmeRDENA9mjSG2H0e/bw8t1+6UpnidgpkBCeSD9vJVdtcZLeGxVRag7rHmTiF7ZFpKUCZ8ccx7ZZBSk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779302229; c=relaxed/simple;
+	bh=pq6S6wOaIH4gDL1zcV8e1TbcReU31Sfs91il9aj/3lE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=cFekfhwpYOonhbCuc+8Py4d5+ESF6olX9WrA5fZpENbKsmZKXVoEzPjAFYseeeE7YC4G7Ftaahclt4noxedgN8BNNdDxAj6lsbbEf+2tR5GeKitmYd/zuEXJ/Nad/5x2nbgTWzWi7hTSY0LgfzOf9YtKVBDjcmOxMB2l5t3z7Rc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=fail (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=GoOxpvDZ reason="signature verification failed"; arc=fail smtp.client-ip=52.101.69.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KfUi31sE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A668B1F000E9;
-	Wed, 20 May 2026 18:25:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779301521;
-	bh=qC3laSeJVYxtXQW1VP6ZHwBO3kT+Jq0l1y1d3tRQhlw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KfUi31sEzWWY99MWECO8x9Yww8S3TwnQFcnQilGBH37r0zUWUMXAVgtvGwOG+/j1/
-	 DJGcbxN+XLgITyazTmod6aaY8dsBE3W2pP5dNn8yMQuZuZ/vuV3d61rybSVKBt8WZO
-	 K19mRMw0mlf1GtEzqyahnzS8sApV17VLItLJ4PqvoYujDr5GrLVN9bUknoiFCJBpNU
-	 U87UyL6dvSjTK+YEXX5f7VZ0f1FHlCPGd3BbEwgckAhA8lrabxeG6/lmmbOs1RCgGu
-	 lpQwov3SGzvjX1JxumS9H8XMiltztJrtAalxoyATEQ18a2yeg1f85Or/RYO7cBQkLA
-	 scFxm+ajpFu9w==
-Date: Wed, 20 May 2026 19:25:10 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V7 09/11] iio: imu: inv_icm42607: Add Wake on Movement
- to icm42607
-Message-ID: <20260520192510.7b6fa723@jic23-huawei>
-In-Reply-To: <20260515203629.3dbf7133@jic23-huawei>
-References: <20260515130018.237378-1-macroalpha82@gmail.com>
-	<20260515130018.237378-10-macroalpha82@gmail.com>
-	<20260515203629.3dbf7133@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="GoOxpvDZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=leCKBAkD/iFQ+7v7qit5rO3MXJO+ak5y5g3OeZQkQ/wIlBil549QA834OZo+hkN2YDPhIz+lufUpWJaW6xQUtD2fSgTm7QtTY9GQOZf3q9R8odCR06PnbP6UXOuAnNQ1JWRJid1+REym1X/CdxPCh3AgYUv17GtaZ5D7SSW8w5m/1aWn6j5tIPBcTia8yTdsoTs/QopoO5/aoHTsaY4YSrbjl+VdvNyfcuDJOHinFh48nrIBxPtq3+v9AxT9k5eoMgtN0AX3MDWlJ+oS0bDovFvdx9dW8etN4iMelxR+d3eQM0SnHipHz6CUmckZzenWERL3pZCeMMQP2a/RwwwG0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4IMX6c8dJSkEcmBok5f8xSux72we50Qc4er9R+Vv9vE=;
+ b=Eon1Czwl3xf8SZru1uREOqPhEkfy0FAumSv1rtgfDfvym4QbDo8yyUNl1tc4QRpyMB6peO+FG/03xNZ9RlOyqNSzusXGP5qvO2vfJYFCGRWfRxlWPgKTfLWT3BXLo1F9tf6Q/AERTsYxJh4LIWuJpWy3oXYYRlbJvSKg05JTTXrZAb1HLOd20l69/qSr6e+pStzjBMKbbClinFXi9DZGMe2VcEsJrnwnWa6SWH3pLO3pH64vijRD+4/346wMVZ6FMy8cfB6QhWWqGKQx29Kfn1F3gS2XNnd1zH0MGxI0chuq6FvGhlonD6HaoX7U+HISLQnwkNvp5FO4e4rVJ9LvBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4IMX6c8dJSkEcmBok5f8xSux72we50Qc4er9R+Vv9vE=;
+ b=GoOxpvDZOJXbkV1b9WNr6OGoCexiNF42Z0T2ERH4MghBxdSWgGImrWJumY25baa+I/D+fQ16LNJhtKU7YTjLviufLNwPKhv+y+gUtuli83Yx0UkA2BJbJc00B2ON1RKn4gDINi7K3fZs+Fs/7DXKhktjSziKiGYDmESaE93HeMT6ldBIo5oH8cCAo2QUET/3kpQR4Svrrvlqp/qFXN7Kf0e6w7jTswDN8k4eH90ezBcLSwOQlPWjt/qs0xldMTHZ4roEr/9HD5PhLu5/nzTvtuWLs6XLm5nsknNuEYjezQE6m1i1zyzQ5mOWK9voYB0srQMNHq8AR2uwGdsH2223ww==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AMBPR04MB12312.eurprd04.prod.outlook.com (2603:10a6:20b:723::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Wed, 20 May
+ 2026 18:37:05 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0048.013; Wed, 20 May 2026
+ 18:37:05 +0000
+Date: Wed, 20 May 2026 14:36:59 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Franz Schnyder <fra.schnyder@gmail.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: freescale: imx95-aquila: Add Clover
+ carrier board
+Message-ID: <ag3_S6vQ_8mmVfKD@lizhi-Precision-Tower-5810>
+References: <20260520-add-aquila-imx95-v2-3-06424a51e33a@toradex.com>
+ <20260520121639.97C711F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260520121639.97C711F000E9@smtp.kernel.org>
+X-ClientProxiedBy: SN1PR12CA0066.namprd12.prod.outlook.com
+ (2603:10b6:802:20::37) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AMBPR04MB12312:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fa59e4e-5d0c-44d7-bf5a-08deb69ecaa7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|52116014|1800799024|11063799006|22082099003|56012099003|6133799003|18002099003|38350700014|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	wIu6zYby0WSjA3FgiT1hawgxkywrhBbi4wvTs0wjwNgyl2Aw+Io2bxuMl5z/+SkIr5clRlCZnd/gBeEa1cwTju2bu40MYc57TwlER/C9fMIczXXOHAyYQlM/szU7Br+Da9JPewWuzezWt4FQmFPWrkSewBezwVwFRZpji9cjlaREz3BX0Ubfjf1C3jALGASo3NL6s0D7T3OIOVRsOz+tAmEHTxvTVZ1VAiDjufUjOwUzWxxjNLsV7mTPDDmqHbq9ZBqVC3crIFyF7f0sKO8VoUw8MUfOcDTle2YLLHhjIqjtw5oIMfGZ2RmZ7Zqn1zSdkzb8/jplvp+8Gey4THiq/521iBhwuALkyVBKwWcAAy1GwO3ZjQ2A10dsxzoFMdnGubxQR0E7gtzE69ABL0Axm0L4/hIwpAp35HWTWXZ9oXSkp9jBwjE8KAODFRkT58kHvv0k00plK4gC41Dy0JyJzrc7Bbyagk7+6DcpCqIrRHwLlthB2V++L9I/5Hm6tneWfBny/OuG6YbEbgVd+w18UzSQxWOtrrg0sLS+Fk+YqffcuMC6XwflFt7EApx9CW6T/1ZzLQ1XbPP2o68Coq9J/WnyMMcwlggUOS4Y2afCBK4AAcb3Kub0AY2oNOI5EZGYdVBuil8CPTkSfniid9VHd4OO0auZaWeuhMXyZjVFhDt1OMZ7YTdXP823NBnmHs7F
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(52116014)(1800799024)(11063799006)(22082099003)(56012099003)(6133799003)(18002099003)(38350700014)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?l0lbZNOkMqrqhCH16rvQeKo0TxAhHwBTm1ro11hLfWG/1q1Ce8toOCc2wG?=
+ =?iso-8859-1?Q?+fwozucUc8MXxUdA2gvng2+F4I7zdzDquL4vEUVYETwn3NyAl/rAsq651k?=
+ =?iso-8859-1?Q?FC4WSZe4kHZyJcr4sQOk9IMx/I8/9IEFeqAPCnjd+PIXtHYbXhC2c6RJ4I?=
+ =?iso-8859-1?Q?piopbaLfwI6X5LsLAodX3doUjg3EkXAtt3zvhQ56eYZ3pwJ59D8QncpJ23?=
+ =?iso-8859-1?Q?92bNzCa80EmeXSTerIjgU2LN/AhW7ITKANlsRwy6apZAirRDnJR0fvlYpf?=
+ =?iso-8859-1?Q?QOer8unWja7f1bFyrQqZZR1CEnHE29Qi0SiB8ge5ybp0CY3DMSjJ5Dq96G?=
+ =?iso-8859-1?Q?J/gNIZwdVTOCFUHf+RYxOA5pjYb6+l2W1Ew2h88l2RgCUO83SiKr2E2PhD?=
+ =?iso-8859-1?Q?QabN2nem2qxVXRhtTFYMQ6zIu5rsn9QrO+a8+uu26KArqrC766pXPGtC21?=
+ =?iso-8859-1?Q?Ga8yZ0cljtzNJFvXXPo70+jKuq763RA7BMcxwzoWh2wIe2V6lQffg+5W5n?=
+ =?iso-8859-1?Q?98w85qI5gidDvbqpuEuOChr/OcOAqtU9MTrRsAK3EHAPAuFtFNPkdQHeWA?=
+ =?iso-8859-1?Q?VfgtrEM1aJVVo22FMbcoxNgGW4TbFfe87ofbM+5soBuPgZP6J5gBqDS+QZ?=
+ =?iso-8859-1?Q?WiF/N6LXi8JvtNYQ/+lSF5J/B560RcXLJA1NscmxQPTPPQK8+p/DTwDYdF?=
+ =?iso-8859-1?Q?QZl9WEHuep0yp2/T9cP1sigjLxW3K8HAgc0Qc8m4Va/TD61epvHSC+seQw?=
+ =?iso-8859-1?Q?lYXR5fcV0uA81qzymdujkXVAaPDO5neuK9AgZ6onOoMEy11LFHpfYPbxPh?=
+ =?iso-8859-1?Q?lya946tEEyD1rGHcwNs7EkTztVMk7cc9rJd2xJThDNtSN3IOGIqGoISfdT?=
+ =?iso-8859-1?Q?ocBluNvTQYjS46AEWIJw15WuvB5FS0FroOWFPtpbUPpOI/02JB+vhmQ5I7?=
+ =?iso-8859-1?Q?IoTv2Pd77hbhL+FI2AtfP7IzBciYQJ+Jm1VDAcleavu94DJPgKeZoUKuCM?=
+ =?iso-8859-1?Q?UAu+ymyCqkdogEn0AHxIRDC5XgWG6GY1zFNz9PDgym8b7KsNhruL98RL1t?=
+ =?iso-8859-1?Q?FQ5Zu4Fp76uDibRbh/1M9FZEyaU82FcUj26yEJAVonhVYYvqAm00O9FWX8?=
+ =?iso-8859-1?Q?CvczCQAll3wqIw4n3D20rxIF+8FPSDNz0NRSqKslTalmi1x/D0TvwxveuS?=
+ =?iso-8859-1?Q?kPCfmS6EfacWsZRpvYAzIzQ2pFyk4bAGa8J69okm+Wb9TQ42gH2EQJ/9vd?=
+ =?iso-8859-1?Q?l/lgjxU4C74Gw3oulFzWBge0lg4QKDEj74/UIcQ62kgsOITPH9UvIbbdfD?=
+ =?iso-8859-1?Q?94q0GUoSoh7MkVN9f9JAFBybgXCQPmQSbj0BaIOjzvJc7NPWVkTvvsSp3n?=
+ =?iso-8859-1?Q?V5rwOX6W7W1g2N1Dxe6qhFCVNdtSFycNPgNkYJHA2e+USFEZYugWcH5RZb?=
+ =?iso-8859-1?Q?qLcYp6FcosCdMPYBEGKj/u0K5RrLAMep3SiP4/KqCamJgX0iToylYCUOmd?=
+ =?iso-8859-1?Q?8NzXF1aUVN9f3IMqnH13csM9UFQ9r7nHRniBtxQjR7uff245wedJ1WxkHK?=
+ =?iso-8859-1?Q?EJEzrl49TykLWgXNnxkrBrJHPh8t3tqe6mPHyNKPFo5dmKRoEMIjIMQV9m?=
+ =?iso-8859-1?Q?7NDr71Wsp9YP72aSaaCOxAwrtD3GYNU3FTZlX3NBQtk5yZ907LMGAoFKyY?=
+ =?iso-8859-1?Q?Q1SReVs/nWC/kaHET0itRGgClHvjPaOHzyokw+qw9PMz/6CU/vQix5i4By?=
+ =?iso-8859-1?Q?+OhR/024zpcvSaRsxD/dus/C/z4ulLjl3SnZPUZMhZWN/3?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fa59e4e-5d0c-44d7-bf5a-08deb69ecaa7
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 18:37:05.5621
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R0dZPjL3ypvUnRO6vhiejN1WH9ZEdvNA10RfyQ2qjjmpuAW4NcmEaxXEj1GOsz8J3+mngGPqaYHgW5F6ndK5Zw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB12312
 
-On Fri, 15 May 2026 20:36:29 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Wed, May 20, 2026 at 12:16:38PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] The flexspi1 flash node incorrectly uses Cadence QSPI specific properties (cdns,*) with an NXP FlexSPI controller.
+> --
+>
+> commit 58fa26ce8327e303e6d4b9e4915178ba8d66e5b7
+> Author: Antoine Gouby <antoine.gouby@toradex.com>
+>
+> arm64: dts: freescale: imx95-aquila: Add Clover carrier board
+>
+> This commit adds device tree support for the Aquila i.MX95 SoM mated with
+> the Clover carrier board. It configures basic interfaces including DP,
+> Ethernet, CAN, and the FlexSPI controller.
+>
+> Link: https://www.toradex.com/computer-on-modules/aquila-arm-family/nxp-imx95
+> Link: https://www.toradex.com/products/carrier-board/clover
+>
+> > diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
+> > new file mode 100644
+> > index 0000000000000..021d437763412
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
+>
+> [ ... ]
+>
+> > +/* Aquila QSPI_1 */
+> > +&flexspi1 {
+> > +	pinctrl-0 = <&pinctrl_flexspi1_4bit>,
+> > +		    <&pinctrl_qspi_cs1>;
+> > +
+> > +	status = "okay";
+> > +
+> > +	flash@0 {
+> > +		compatible = "jedec,spi-nor";
+> > +		reg = <0x0>;
+> > +		spi-max-frequency = <66000000>;
+> > +		spi-rx-bus-width = <4>;
+> > +		spi-tx-bus-width = <4>;
+> > +		cdns,read-delay = <0>;
+> > +		cdns,tchsh-ns = <3>;
+> > +		cdns,tsd2d-ns = <10>;
+> > +		cdns,tshsl-ns = <30>;
+> > +		cdns,tslch-ns = <8>;
+>
+> [Severity: Low]
+> Are these cdns,* properties intended for the NXP FlexSPI controller?
 
-> On Fri, 15 May 2026 08:00:14 -0500
-> Chris Morgan <macroalpha82@gmail.com> wrote:
-> 
-> > From: Chris Morgan <macromorgan@hotmail.com>
-> > 
-> > Add support for wake on movement for the icm42607 driver.  
-> Could you add a bit on what is supported on each of the two parts.
-> Not everything on the 42607P it seems.
-> 
-> There is quite a lot of fairly complex feedback on this in sashiko.
-> 
-> Obviously we are late in the game and I should have suggested
-> this earlier but I would have dropped this for the initial driver
-> just to keep it more manageable to review.
-With hindsight / v8 I failed to say I meant just the bits related
-to wake on motion. I'd failed to notice that the fifo interrupt
-handling is in here as well. That bit is definitely needed.
+It makes sense. Can you remove it even AI mark it as low
 
-> 
-> It's very much an add on feature.
-> 
-> Jonathan
-> 
-> > 
-> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>  
-> 
+Frank
 
+>
+> The imx95 SoC utilizes the NXP FlexSPI controller, but these cdns properties
+> are specific to the Cadence QSPI driver. The NXP FlexSPI driver does not
+> parse or support any cdns,* properties, so these timing configurations will
+> be silently ignored by the kernel.
+>
+> > +	};
+> > +};
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260520-add-aquila-imx95-v2-0-06424a51e33a@toradex.com?part=3
