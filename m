@@ -1,107 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B033A9639;
-	Tue, 19 May 2026 23:58:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4700828DC4
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779235083; cv=none; b=IZLYd3ikoCyDTo6zHCjkrGN8c6GWrmZQNXzNJAxEMhIAGIR7+99x1PH1B86K9IKtBmCrUzB4rq+m/MM6hf/+oeP4tWJpm9Op/UHaqJsSt4UOK2swW+dGaJ27TDFqm0zX+MTOM6HM/GiNqjICjsI//jZDvfbTUjezHinHRKjN9Os=
+	t=1779235292; cv=none; b=M1Mx9kRflRbgIsGP4zKx8Xx6FwM8AJgKpP/CWMjwVy8VR8D8GweQNrBrHBKHwTgvWEwzRKta7y7sOvCOSgsKscOTjaf8k5p3073H31uV94iGwPwpd/Qy1D+zPEZA2hX3Y4H5HnM7EgSPrdFpOF/z1pp62NOYVWpwBV2ufkmAQpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779235083; c=relaxed/simple;
-	bh=UZB2gJv7Eua3b6/ty7CAgxdUlu6EnBC5uRJW0JSUq2w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LRyIqNJsc/QrGlwJVPfrnGnkDDdAAZDhthXV+tiBapbtafu9sx7/dHIdAOp+2y1eXL8dAWfh3Fbb6uBhgnmGBYo9DDBiHHAQ7xaAO7fgxlsbcNJocCbpDl3yPIbewORPO6fkSJyImUx0MJUQctbxtgMB6sAGGq4GqrjOpmASGY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKZRsj3Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779235292; c=relaxed/simple;
+	bh=ED2avvaZ4HKQRUzDJpkqWQjrdjLMupzz5F0vgv3/AZ4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TkNVHt0uC4bqASfMkbRQoeBeu+bZOJlZPWKzKkX3FBXmYN4EfjdcgTNud0lsp4s+jLaOfFAWEDArBPaQSXjtWSnL+Qt1GK/gcMoC97WOF0CMbLmGOuSknvs7fUVGDE8qp1seR4AADLlU0cOCHIYnXDK/fzacvsRJvXm4nvLhILk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i05RUWhK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKZRsj3Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1D41F000E9;
-	Tue, 19 May 2026 23:57:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i05RUWhK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB311F000E9;
+	Wed, 20 May 2026 00:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779235081;
-	bh=biegBtBAJyaxEtr+wkxtFAFUiqS6ZZ0rr/349L/9430=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hKZRsj3Yq8Q4RT9ZRobhmqCflSngVRGEXwhq2TTwTCoKjcujnymtd813UZsyZymYT
-	 Bg8Ie6wdejrCJnvvQxIVWel8jUvipcOVC4EEYAG4gvy71TMMULGwWTEBlapBRVxfzd
-	 w6MkbnNZVGTv0TyOzmcUVX5EJa62PcmwlrkV7aepb/ObIftPJ3wukOuzHXGcH8GfsD
-	 mMMDWh+RNlsQCcbLB+3va1ZgrAqJDXBrlA6H0oQ4ZAWNOqhaqmYScC5PVo97PbujTQ
-	 OKDxZJYf+uXd7WjMN48kqVKmKufOsiw7YUMuPj9oQBaSu9JXql9YsWvAToRc5qTT80
-	 NJd479zVhs92A==
-Date: Wed, 20 May 2026 07:38:56 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] spi: dt-bindings: cdns,xspi: add sdma-io-width
-Message-ID: <agz0kDsQBaeQPPQ4@xhacker>
-References: <20260511031732.3199-1-jszhang@kernel.org>
- <20260511031732.3199-2-jszhang@kernel.org>
- <20260515-expert-devious-cricket-faff56@quoll>
+	s=k20260515; t=1779235290;
+	bh=FecKT9/6SizZRuRc95oZh1GsnrtV2oGuue3IYqPLhCs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i05RUWhKmPxH0/+QdTO5iyttbUFH05FNWuEBqMIo9MIkp5hsy9ZgG1JlAi+K2ferv
+	 YOJI5G2Br8Y7haDV5e6pbkSJKJS543ly7qQ2wGbk1qsffpV8eNECtUSp3ZL6OX1fAR
+	 UlJD9LqaHL5a3w7DjuKJnPFs11W8hARuXcIfmuJihogACj6eKC091sqBd56+uhTjWY
+	 v+uk8DRBCX67UWLVIXCVmAAVbv4UFfrFqOmPib74+WRkydqqQX+TFfyZxG+rciIfEJ
+	 iKfDKXraISnUscY6zNnxAx1C3Ml7d4xrrGkcjrR5vLjgA04SDUaRuVpYQsnUCIyvJl
+	 m61kt0oj6Bk1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] i2c: mt7621: make device reset optional
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260519223253.1093-6-ansuelsmth@gmail.com>
+References: <20260519223253.1093-6-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 00:01:30 +0000
+Message-Id: <20260520000130.ABB311F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260515-expert-devious-cricket-faff56@quoll>
 
-On Fri, May 15, 2026 at 10:00:50AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, May 11, 2026 at 11:17:31AM +0800, Jisheng Zhang wrote:
-> > The cdns xspi controller SDMA data port may support wider I/O width.
-> > Wider I/O width can benefit performance. A simple test with QSPI nor
-> > flash on one arm64 platform:
-> > 
-> > 1 byte io width (default):
-> >  # dd if=/dev/mtdblock0 of=/dev/null bs=8192 count=1000
-> >  1000+0 records in
-> >  1000+0 records out
-> >  8192000 bytes (7.8MB) copied, 1.368735 seconds, 5.7MB/s
-> > 
-> > 4 bytes io width:
-> >  # dd if=/dev/mtdblock0 of=/dev/null bs=8192 count=1000
-> >  1000+0 records in
-> >  1000+0 records out
-> >  8192000 bytes (7.8MB) copied, 1.088787 seconds, 7.2MB/s
-> > 
-> > Improved by 26.3%!
-> > 
-> > Add dt binding for sdma-io-width.
-> > 
-> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > ---
-> >  Documentation/devicetree/bindings/spi/cdns,xspi.yaml | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
-> > index 38a5795589de..1fd4b6dfd417 100644
-> > --- a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
-> > +++ b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
-> > @@ -40,6 +40,12 @@ properties:
-> >    interrupts:
-> >      maxItems: 1
-> >  
-> > +  sdma-io-width:
-> > +    description: Slave DMA data port I/O width (in bytes)
-> 
-> Waht is SDMA? What is Slave DMA? The same?
-> 
-> Why this cannot be deduced from the compatible? DMA is fixed per
-> platform and SDMA do not sound like SPI device (so slave in older
-> terminology) property.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-in cdns xspi, sdma == slave dma. It can be read by any master, such
-as DMA engine or CPU. Its purpose and usage is similar as the data
-reg in other spi controllers, e.g the DW_SPI_DR in dw spi. 
-> 
-> Anyway, there is generic property reg-io-width if this is for MMIO,
-> bus-width and spi-tx/rx-bus-width.
+Pre-existing issues:
+- [High] Calling `device_reset_optional()` dynamically retrieves the reset =
+control, acquiring mutexes, which causes a sleep-in-atomic panic during ato=
+mic I2C transfers.
+- [High] Probe deferrals (-EPROBE_DEFER) and fatal reset errors are ignored=
+, causing the driver to initialize unreset hardware.
+--
 
-Indeed, spi dw driver uses reg-io-width to specify the io width which
-is for accessing DW_SPI_DR. But I have one question: the "sdma" name
-is from cdns xspi HW, I'm not sure whether reg-io-width is better. If
-you prefer reg-io-width, I will do it in v2
+commit 9cb04554e65951eee40dcf78d9e980702bbacb5d
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-Thanks
+i2c: mt7621: make device reset optional
+
+This commit changes the I2C reset logic in the Mediatek I2C driver to use
+device_reset_optional() instead of device_reset(). This accommodates Airoha
+SoCs that share the driver but lack a dedicated reset line.
+
+> diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7=
+621.c
+> index 3cde43c57a2bc..fb9d9701bb10d 100644
+> --- a/drivers/i2c/busses/i2c-mt7621.c
+> +++ b/drivers/i2c/busses/i2c-mt7621.c
+> @@ -91,7 +91,7 @@ static void mtk_i2c_reset(struct mtk_i2c *i2c)
+>  	u32 reg;
+>  	int ret;
+> =20
+> -	ret =3D device_reset(i2c->adap.dev.parent);
+> +	ret =3D device_reset_optional(i2c->adap.dev.parent);
+
+[Severity: High]
+This is a pre-existing issue, but does this dynamic reset lookup cause a
+sleep-in-atomic panic during atomic transfers?
+
+If a transaction times out in mtk_i2c_xfer_atomic(), the code branches to
+the err_timeout label and calls mtk_i2c_reset(). This function invokes
+device_reset_optional(), which dynamically looks up the reset line via
+__device_reset() and __fwnode_reset_control_get().
+
+This lookup acquires the reset_list_mutex and performs memory allocations,
+which could trigger a scheduling-while-atomic panic since
+mtk_i2c_xfer_atomic() runs in an atomic context.
+
+Would it be safer to fetch and cache the reset control at probe time using
+devm_reset_control_get_optional_exclusive() and only call
+reset_control_reset() during runtime?
+
+>  	if (ret)
+>  		dev_err(i2c->dev, "I2C reset failed!\n");
+
+[Severity: High]
+This is also a pre-existing issue, but does swallowing the error code here
+break probe deferral?
+
+During driver initialization, mtk_i2c_probe() calls mtk_i2c_init(), which
+in turn calls mtk_i2c_reset(). If the reset controller is defined in the
+device tree but its driver has not yet probed, device_reset_optional()
+will return -EPROBE_DEFER.
+
+Since mtk_i2c_reset() returns void and only logs the error, the I2C driver
+incorrectly succeeds in probing instead of propagating -EPROBE_DEFER to the
+driver core.
+
+Does this leave the hardware in an unpredictable state from the bootloader?
+
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519223253.1093=
+-1-ansuelsmth@gmail.com?part=3D5
