@@ -1,121 +1,310 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8C1392C5F
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19AF10F2;
+	Wed, 20 May 2026 15:08:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779289617; cv=none; b=OJAJv2dyTOtlW7cUaHqPEPW8y6tusjQKrZmUj3qY3Tbx1STi0KmKCZKr3dUp9JLTyFsGbi5B80WNb2/i26kviKBCWHespNXbHWkzAKS9EAbr1bndanBDEcuTRMy5auyP1cqpFhLU76XIKABYuLztOC0uNOzY2AayrzsSOTMH6so=
+	t=1779289685; cv=none; b=nvp+7O/f/PI4lw/0Zqdg4Og7z1dz+FcnH69vcGsDUQHOE586wnCsz1nrJk/mFJxK9sCJVGYphqVnFhqV/V5r50GCOt1S7vdS5WSPrgwksUuu+EnM1v/7pq4ACVy3JkjiJ01bcFCXQOdjNd+F/s2Nv2hwB15LUjv49JLweDH7Fa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779289617; c=relaxed/simple;
-	bh=Xu6quwpldsVK+JaB6APinYDaGuB72GfCHhH2IxyrwbI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JUsgcCYyvoH3VXYiA8YEI16HDEOj90W+aMrp2G1ylGe57s2cYvwBPdjKg5Kg0ljSnJes4WjBZ5IUEERJJWJPoNAvPajRICNo4k9IaH4FZYrI1/aOom3tfyBkAeUpEJOJYfum96JMBoQTgrurWAiHq9h369Su/LNOzJJEIyefSZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUk5MIqL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779289685; c=relaxed/simple;
+	bh=WKzZhkxSD2vjx19jSDYx0VUqsCI8L+jsxSncyjMjA2U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XDrlVwidBPdRxsjwaqDw5xCm6bHeOHsLt+iH0rhLy03P2t2dh0YHp7GdA89b1Sgd3h3NJn9B+1vjYCN4yj4IfyJXJwosA2ahEb4gEJISYN4proPjAcKa4o+kOH/0Mp8568T3X91FQrxFnwIFrmkZLSbCcxk4vQ4rnLvyZcTsjUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFwE8lvh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUk5MIqL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCAB41F000E9;
-	Wed, 20 May 2026 15:06:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFwE8lvh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3461F000E9;
+	Wed, 20 May 2026 15:08:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779289616;
-	bh=7noMjEJiyhncX9hIpPPKFZgleyAb+LR9BVe3ZTsJ8Yc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VUk5MIqLjDgI08X9+4b/CAvfFBLWvzl+ehfIfYS7swuFzGuWzsGX9c11yaFqSdDLu
-	 sPAK0kIycLw8Lg+IwcKvgIU2C9cILYtu3cLc3KCPWIvMpJOgQ/lggbfQbLLDrU2qK1
-	 Uc9QMf4MCPEJ5TfjnWPCxamIQJ2b/8WszFeM6ZywNOBFpseelgeE03NulpB5+kM4T8
-	 DZ0S9f9rAZsui5p9BCEZQgnrmmT4PtfV3abHZd/CCfHg5GOEMcpx9GISPwhfpVSb9R
-	 8PdmQzV/F9wJlFVHtHve7Ul2di1fNOI+ic6QkUwAcPw5KCqUqVYxd4teIchtVZaPYZ
-	 m2ugOSjUokbKw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V8 2/2] arm64: dts: qcom: glymur-crd: add Audio sound
- card node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sibi Sankar" <sibi.sankar@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260520141828.2724689-3-sibi.sankar@oss.qualcomm.com>
-References: <20260520141828.2724689-3-sibi.sankar@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 15:06:55 +0000
-Message-Id: <20260520150655.DCAB41F000E9@smtp.kernel.org>
+	s=k20260515; t=1779289683;
+	bh=IKmMpMg4DrMfxRhRBYRMJ99H/RQUX43Fsv/O/+DPp24=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HFwE8lvh0+WnNx2yTmxrCZxwz30Egm8oBS+3cKp+XCh0DNDwsgq0z+yGwNO2SH3gi
+	 +gEOBVoPNHgvfCJ5sV5DIUVGa0sh3z4YXCB9wzTkIsORLepcWJnJ5BPFNlu5W2FARO
+	 wCyHArTD7ZWFcIxDcy0kP70jJwzbsgK0ke/YtWmZUCNsGrR/IqNkHRv7E4z2iLg6D6
+	 Yi++zPeTNRL19mawv4vZAMOjR5Svyr1+anPCdtC93Y8LcKDeGNyjhLKgWvdPN6Oy95
+	 s1/Wr/FoASRV1Yuu8AEocgI+snWaK18Z4MvEdTeSXgxloaEVs8tanj5LZMOgpl3xXu
+	 1sI2k9qROO2Ig==
+Date: Wed, 20 May 2026 16:07:58 +0100
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Tony Lindgren <tony@atomide.com>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org
+Subject: Re: [PATCH v5 5/6] mfd: motorola-cpcap: diverge configuration
+ per-board
+Message-ID: <20260520150758.GG2767592@google.com>
+References: <20260510110804.33045-1-clamor95@gmail.com>
+ <20260510110804.33045-6-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260510110804.33045-6-clamor95@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `audio-routing` property uses lowercase strings, which will fa=
-il to match the dynamically created ALSA ASoC DAPM widgets, leaving the spe=
-akers disconnected.
-- [High] The right woofer is incorrectly routed to the SPK2 output instead =
-of SPK1, which breaks the audio stream routing.
---
+On Sun, 10 May 2026, Svyatoslav Ryhel wrote:
 
-commit 4086f61ae4a41fcc2e29b8dbcc7878956275252b
-Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> MFD have rigid subdevice structure which does not allow flexible dynamic
+> subdevice linking. Address this by diverging CPCAP subdevice composition
+> to take into account board specific configuration.
+> 
+> Create a common default subdevice composition, rename existing subdevice
+> composition into cpcap_mapphone_mfd_devices since it targets mainly
+> Mapphone board.
+> 
+> Removed st,6556002 as it is no longer applicable to all cases and
+> duplicates motorola,cpcap, which is used as the default composition.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/mfd/motorola-cpcap.c       | 142 ++++++++++++++++-------------
+>  include/linux/mfd/motorola-cpcap.h |   6 ++
+>  2 files changed, 87 insertions(+), 61 deletions(-)
 
-arm64: dts: qcom: glymur-crd: add Audio sound card node
+Looking much better, thanks.
 
-This commit adds the sound card node for the Glymur-crd board. It defines
-the audio routing for speakers and adds device nodes for the WSA884x
-smart speakers and DMIC microphones.
+Nit: A patch-level changelog really is much more helpful to reviewers.
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
-ts/qcom/glymur-crd.dtsi
-> index e784b538f42e1..4c00d09f766c2 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> @@ -68,6 +68,54 @@ switch-lid {
->  		};
->  	};
-> =20
-> +	sound {
-> +		compatible =3D "qcom,glymur-sndcard";
-> +		model =3D "GLYMUR-CRD";
-> +		audio-routing =3D "wooferleft in", "wsa wsa_spk1 out",
-> +				"tweeterleft in", "wsa wsa_spk2 out",
-> +				"wooferright in", "wsa2 wsa_spk2 out",
+> diff --git a/drivers/mfd/motorola-cpcap.c b/drivers/mfd/motorola-cpcap.c
+> index d8243b956f87..f5a7fdd89dd5 100644
+> --- a/drivers/mfd/motorola-cpcap.c
+> +++ b/drivers/mfd/motorola-cpcap.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+>  #include <linux/mod_devicetable.h>
+> +#include <linux/property.h>
+>  #include <linux/regmap.h>
+>  #include <linux/sysfs.h>
+>  
+> @@ -30,6 +31,7 @@ struct cpcap_ddata {
+>  	struct regmap_irq_chip_data *irqdata[CPCAP_NR_IRQ_CHIPS];
+>  	const struct regmap_config *regmap_conf;
+>  	struct regmap *regmap;
+> +	enum cpcap_variant variant;
+>  };
+>  
+>  static int cpcap_sense_irq(struct regmap *regmap, int irq)
+> @@ -195,20 +197,6 @@ static int cpcap_init_irq(struct cpcap_ddata *cpcap)
+>  	return 0;
+>  }
+>  
+> -static const struct of_device_id cpcap_of_match[] = {
+> -	{ .compatible = "motorola,cpcap", },
+> -	{ .compatible = "st,6556002", },
+> -	{},
+> -};
+> -MODULE_DEVICE_TABLE(of, cpcap_of_match);
+> -
+> -static const struct spi_device_id cpcap_spi_ids[] = {
+> -	{ .name = "cpcap", },
+> -	{ .name = "6556002", },
+> -	{},
+> -};
+> -MODULE_DEVICE_TABLE(spi, cpcap_spi_ids);
+> -
+>  static const struct regmap_config cpcap_regmap_config = {
+>  	.reg_bits = 16,
+>  	.reg_stride = 4,
+> @@ -241,62 +229,76 @@ static int cpcap_resume(struct device *dev)
+>  
+>  static DEFINE_SIMPLE_DEV_PM_OPS(cpcap_pm, cpcap_suspend, cpcap_resume);
+>  
+> -static const struct mfd_cell cpcap_mfd_devices[] = {
+> -	{
+> -		.name          = "cpcap_adc",
+> -		.of_compatible = "motorola,mapphone-cpcap-adc",
+> -	}, {
+> -		.name          = "cpcap_battery",
+> -		.of_compatible = "motorola,cpcap-battery",
+> -	}, {
+> -		.name          = "cpcap-charger",
+> -		.of_compatible = "motorola,mapphone-cpcap-charger",
+> -	}, {
+> -		.name          = "cpcap-regulator",
+> -		.of_compatible = "motorola,mapphone-cpcap-regulator",
+> -	}, {
+> -		.name          = "cpcap-rtc",
+> -		.of_compatible = "motorola,cpcap-rtc",
+> -	}, {
+> -		.name          = "cpcap-pwrbutton",
+> -		.of_compatible = "motorola,cpcap-pwrbutton",
+> -	}, {
+> -		.name          = "cpcap-usb-phy",
+> -		.of_compatible = "motorola,mapphone-cpcap-usb-phy",
+> -	}, {
+> -		.name          = "cpcap-led",
+> -		.id            = 0,
+> -		.of_compatible = "motorola,cpcap-led-red",
+> -	}, {
+> -		.name          = "cpcap-led",
+> -		.id            = 1,
+> -		.of_compatible = "motorola,cpcap-led-green",
+> -	}, {
+> -		.name          = "cpcap-led",
+> -		.id            = 2,
+> -		.of_compatible = "motorola,cpcap-led-blue",
+> -	}, {
+> -		.name          = "cpcap-led",
+> -		.id            = 3,
+> -		.of_compatible = "motorola,cpcap-led-adl",
+> -	}, {
+> -		.name          = "cpcap-led",
+> -		.id            = 4,
+> -		.of_compatible = "motorola,cpcap-led-cp",
+> -	}, {
+> -		.name          = "cpcap-codec",
+> -	}
+> +static const struct mfd_cell cpcap_default_mfd_devices[] = {
+> +	MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0, "motorola,cpcap-adc"),
+> +	MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0,
+> +		    "motorola,cpcap-battery"),
+> +	MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0,
+> +		    "motorola,cpcap-regulator"),
+> +	MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rtc"),
+> +	MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0,
+> +		    "motorola,cpcap-pwrbutton"),
+> +	MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0,
+> +		    "motorola,cpcap-usb-phy"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-led-red"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-led-green"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-led-blue"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-led-adl"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-led-cp"),
+> +	MFD_CELL_NAME("cpcap-codec"),
+> +};
 
-[Severity: High]
-ALSA DAPM string matching for audio routing is exact and case-sensitive.
-The widgets are created with names derived from sound-name-prefix (e.g.,
-WooferLeft) and the widget type suffix (e.g., IN), making the expected name
-"WooferLeft IN".
+Nit: I wouldn't complain if you wanted to have all of these on a single
+line for neatness.
 
-Similarly, the WSA macros create widgets with uppercase names like
-"WSA WSA_SPK1 OUT".
+> +static const struct mfd_cell cpcap_mapphone_mfd_devices[] = {
+> +	MFD_CELL_OF("cpcap_adc", NULL, NULL, 0, 0,
+> +		    "motorola,mapphone-cpcap-adc"),
+> +	MFD_CELL_OF("cpcap_battery", NULL, NULL, 0, 0,
+> +		    "motorola,cpcap-battery"),
+> +	MFD_CELL_OF("cpcap-charger", NULL, NULL, 0, 0,
+> +		    "motorola,mapphone-cpcap-charger"),
+> +	MFD_CELL_OF("cpcap-regulator", NULL, NULL, 0, 0,
+> +		    "motorola,mapphone-cpcap-regulator"),
+> +	MFD_CELL_OF("cpcap-rtc", NULL, NULL, 0, 0, "motorola,cpcap-rtc"),
+> +	MFD_CELL_OF("cpcap-pwrbutton", NULL, NULL, 0, 0,
+> +		    "motorola,cpcap-pwrbutton"),
+> +	MFD_CELL_OF("cpcap-usb-phy", NULL, NULL, 0, 0,
+> +		    "motorola,mapphone-cpcap-usb-phy"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 0, "motorola,cpcap-led-red"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 1, "motorola,cpcap-led-green"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 2, "motorola,cpcap-led-blue"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 3, "motorola,cpcap-led-adl"),
+> +	MFD_CELL_OF("cpcap-led", NULL, NULL, 0, 4, "motorola,cpcap-led-cp"),
+> +	MFD_CELL_NAME("cpcap-codec"),
+>  };
 
-Does using lowercase names here cause snd_soc_dapm_add_route() to silently
-fail to find the matching widgets, leaving the speakers disconnected?
+A lot of these are duplicated, right?
 
-[Severity: High]
-The right_woofer node defines qcom,port-mapping =3D <1 2 3 7 12 14>, which
-corresponds to the first SoundWire stream on the WSA2 macro. This first
-stream connects to the WSA2 WSA_SPK1 OUT DAPM widget.
+I would have a comment set, then the differences in separate containers.
 
-Could routing wooferright to wsa2 wsa_spk2 out connect the woofer to the
-tweeter's stream instead, breaking the crossover and preventing the right
-woofer from receiving its proper audio stream?
+>  static int cpcap_probe(struct spi_device *spi)
+>  {
+>  	struct cpcap_ddata *cpcap;
+> +	const struct mfd_cell *cells;
+> +	unsigned int num_cells;
+>  	int ret;
+>  
+>  	cpcap = devm_kzalloc(&spi->dev, sizeof(*cpcap), GFP_KERNEL);
+>  	if (!cpcap)
+>  		return -ENOMEM;
+>  
+> +	cpcap->variant = (enum cpcap_variant)spi_get_device_match_data(spi);
+> +	if (!cpcap->variant)
+> +		return -ENODEV;
 
-[ ... ]
+Isn't this covered in the 'default' below?
 
-> +&swr3 {
-> +	status =3D "okay";
+
+> +	switch (cpcap->variant) {
+> +	case CPCAP_DEFAULT:
+> +		cells = cpcap_default_mfd_devices;
+> +		num_cells = ARRAY_SIZE(cpcap_default_mfd_devices);
+> +		break;
+> +	case CPCAP_MAPPHONE:
+> +		cells = cpcap_mapphone_mfd_devices;
+> +		num_cells = ARRAY_SIZE(cpcap_mapphone_mfd_devices);
+> +		break;
+> +	default:
+> +		return dev_err_probe(&spi->dev, -EINVAL,
+> +				     "Unknown device %d\n", cpcap->variant);
+
+This should be -ENODEV.
+
+> +	}
 > +
-> +	/* WSA8845, Right Woofer */
-> +	right_woofer: speaker@0,0 {
-> +		compatible =3D "sdw20217020400";
-> +		reg =3D <0 0>;
-> +		reset-gpios =3D <&lpass_tlmm 13 GPIO_ACTIVE_LOW>;
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "WooferRight";
-> +		vdd-1p8-supply =3D <&vreg_l15b_e0_1p8>;
-> +		vdd-io-supply =3D <&vreg_l18b_e0_1p2>;
-> +		qcom,port-mapping =3D <1 2 3 7 12 14>;
-> +	};
+>  	cpcap->spi = spi;
+>  	spi_set_drvdata(spi, cpcap);
+>  
+> @@ -331,10 +333,28 @@ static int cpcap_probe(struct spi_device *spi)
+>  	spi->dev.coherent_dma_mask = 0;
+>  	spi->dev.dma_mask = &spi->dev.coherent_dma_mask;
+>  
+> -	return devm_mfd_add_devices(&spi->dev, 0, cpcap_mfd_devices,
+> -				    ARRAY_SIZE(cpcap_mfd_devices), NULL, 0, NULL);
+> +	return devm_mfd_add_devices(&spi->dev, 0, cells, num_cells, NULL, 0, NULL);
+>  }
+>  
+> +static const struct of_device_id cpcap_of_match[] = {
+> +	{
+> +		.compatible = "motorola,cpcap",
+> +		.data = (void *)CPCAP_DEFAULT
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520141828.2724=
-689-1-sibi.sankar@oss.qualcomm.com?part=3D2
+Single line should be fine.
+
+> +	}, {
+> +		.compatible = "motorola,mapphone-cpcap",
+> +		.data = (void *)CPCAP_MAPPHONE
+> +	},
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, cpcap_of_match);
+> +
+> +static const struct spi_device_id cpcap_spi_ids[] = {
+> +	{ "cpcap", CPCAP_DEFAULT },
+> +	{ "mapphone-cpcap", CPCAP_MAPPHONE },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, cpcap_spi_ids);
+> +
+>  static struct spi_driver cpcap_driver = {
+>  	.driver = {
+>  		.name = "cpcap-core",
+> diff --git a/include/linux/mfd/motorola-cpcap.h b/include/linux/mfd/motorola-cpcap.h
+> index 981e5777deb7..1a85b06272c8 100644
+> --- a/include/linux/mfd/motorola-cpcap.h
+> +++ b/include/linux/mfd/motorola-cpcap.h
+> @@ -25,6 +25,12 @@
+>  #define CPCAP_REVISION_2_0	0x10
+>  #define CPCAP_REVISION_2_1	0x11
+>  
+> +enum cpcap_variant {
+> +	CPCAP_DEFAULT = 1,
+> +	CPCAP_MAPPHONE,
+> +	CPCAP_MAX
+> +};
+> +
+>  /* CPCAP registers */
+>  #define CPCAP_REG_INT1		0x0000	/* Interrupt 1 */
+>  #define CPCAP_REG_INT2		0x0004	/* Interrupt 2 */
+> -- 
+> 2.51.0
+> 
+
+-- 
+Lee Jones
