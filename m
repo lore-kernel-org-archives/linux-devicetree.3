@@ -1,106 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3303DBD5C;
-	Wed, 20 May 2026 12:30:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E180373BE0
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 12:32:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779280221; cv=none; b=oy53FcFBBtEtIvwopXVUmQ1RmgufmBralHya/ELK0iapJxnVQc4Z/chxSYFiWOQxiwHj4/cK6d1ouAEcP3Km3NUAbH228/TwzKPTRtD+jON1pC4035xchSYVxwWO1miENuMbLqmH9lnsl727X1LC0MkoIcmBw6A5QMy4q8tzgoU=
+	t=1779280347; cv=none; b=UP+q/oVGfoJztjBsdjagogxdwiSljhjaMNbmrieXczqeivmoStRHJEb2Fpy42Y0wVsPgcoPXZC8qtxaN+lguaefsv+tzyk24KPshecRNE7Y+N6oHShwHhdoxONVCtpDwYZ2MD9Skcrhf6O/UbEaKE0bmdQd+rP8JpeG5e2oXpno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779280221; c=relaxed/simple;
-	bh=FTaRA2YjGl2K1/xslVnikdDeu3hE9dGxjLe/neN56D4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iUeTlpxDoYEuzt6zsc6gxOwYxvgcA8I+521/u0O8FpD4eCi1frIKHFMfunmd8b0wUmwfjknnVEYL16dnyiGJ2jC0K2jIWkNwTjZgZJNmRrW/pYYuTDwHQtSfNUEjR4s49Hsa7n9JIRMMjKxIwdu7i/DYWTLeu8fcUi1yvvD2pNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiVmyEM5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779280347; c=relaxed/simple;
+	bh=A/yHZX2IBqXiZgYerJ4DAcH7PdLXGVb+lvkeocA5cVo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Vk03oM6qTkl2Wa5+6pnXbieFZ++8NWt6vmkj8k7zDH5pN1UOe3v0S0Lovts+vNnK5ckl1wmldmCMNhD+nGYybQ1RaHZzW+B1+9ZAIwc7AQoE5LoqSCLkc+Yp+pojByOfRySsV3CjmLrITuuaAMhSb6Yp49xmvCodDOfJo3liHAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mnqYFKVC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiVmyEM5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152661F000E9;
-	Wed, 20 May 2026 12:30:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mnqYFKVC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52731F000E9;
+	Wed, 20 May 2026 12:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779280219;
-	bh=t1MVIZyDYSn4EA+qs4g0ehxcOyCqZliMlPiFzAgsY7I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fiVmyEM5x1LJLJ5DXOurWWtA9O6gkFLDswvqHbkK7YAso6Qvi1TXmm9ksbX+dsnFQ
-	 bbUhFBQGXzrdzqv63e+wCGUiRwVFFVmik4FUA3FVLoe2FlLu8gPAM5G33HmlbOZcWY
-	 p1S10t6Nu+tUOn8ydRoZH3d6PTm1GvbzupVcjAI7n3Ayx9FbwjXWLhiWNIR/BJGx7L
-	 tE2vcKidVP5hz9nw70ZSzRnO1gtRsQTuzSsTxGKEVzAPXqXBxowQwiUOR+MjMYjWaV
-	 Myai5jbN55S6u/bIBaagTQeppzcEOqQDobpBsavf0otlsOyQhU7XkJ+f4gikSHBwPC
-	 m3yc+D04aoLdw==
-Date: Wed, 20 May 2026 13:30:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] spi: dt-bindings: cdns,xspi: add sdma-io-width
-Message-ID: <de325dba-0b82-4808-910b-68f0f6426c5f@sirena.org.uk>
-References: <20260511031732.3199-1-jszhang@kernel.org>
- <20260511031732.3199-2-jszhang@kernel.org>
- <20260515-expert-devious-cricket-faff56@quoll>
- <agz0kDsQBaeQPPQ4@xhacker>
- <21d30826-bfe6-44cd-8c89-c1986f539e48@kernel.org>
- <ag2fjCX0DuSVxubv@xhacker>
- <14719378-7bf5-4688-81e9-bccedf618d18@kernel.org>
+	s=k20260515; t=1779280346;
+	bh=eo/4EYoBjeQQUHJXsNKIbQTSU0gKddxfMvMAXZdeS+0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mnqYFKVCSbvR/khuDuB8yn54Z/MN7+7ljPfNaXsJ1JEKMiYlNEl3Pol9b5Gx1SFw8
+	 iLx7jVjhTcTl0nLwmv0nvEmqKat4+ZYsSexRX42QZqU8rRQmZ5VYXxOck4SruWw7pP
+	 UyO/AN2Tb7GiNHKg6UB2Jb8EncS74WphBcCfi/hoPHS2iJqwySic6nYltuUebhMFsW
+	 61akXvXqFV8v0TOTyBtV+XYsiAZVCfQmKImzw/Qu7Rju4UtrpcnzejrgXOCTZEUATP
+	 noVxVSaOhACDZUhI2htMfk+bWCRyIbyqHPQ5Su9ZjsMEpzeWAOwP5g3w0wRQLrybpG
+	 LL+WWB14TurAw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 05/17] media: ti: j721e-csi2rx: allocate DMA channel
+ based on context index
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rishikesh Donadkar" <r-donadkar@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260520120022.539913-6-r-donadkar@ti.com>
+References: <20260520120022.539913-6-r-donadkar@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 12:32:25 +0000
+Message-Id: <20260520123225.A52731F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nSgqLWzClL9/i+0W"
-Content-Disposition: inline
-In-Reply-To: <14719378-7bf5-4688-81e9-bccedf618d18@kernel.org>
-X-Cookie: Natural laws have no pity.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---nSgqLWzClL9/i+0W
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pre-existing issues:
+- [High] Asymmetric teardown order in device removal causes the context to =
+be destroyed before the async notifier is unregistered, leading to a Use-Af=
+ter-Free.
+--
 
-On Wed, May 20, 2026 at 02:16:21PM +0200, Krzysztof Kozlowski wrote:
-> On 20/05/2026 13:48, Jisheng Zhang wrote:
+commit 01daa1621b3fa2d32690b729a7af218eef61295a
+Author: Pratyush Yadav <p.yadav@ti.com>
 
-> > If you mean "Why this cannot be deduced from the compatible?", I think
-> > the slave dma port is part of the cdns xspi, so its io width belongs
-> > to xSPI device property.
-> > From another side, we have seen such property in other drivers such as
-> > the reg-io-width for the dw spi DW_SPI_DR port io width.
+media: ti: j721e-csi2rx: allocate DMA channel based on context index
 
-> So you mean it depends on SPI device? Then why spi-peripheral-props is
-> not applicable here?
+With multiple contexts, there needs to be a different DMA channel for
+each context. Earlier, the DMA channel name was hard coded to "rx0" for
+the sake of simplicity. Generate the DMA channel name based on its index
+and get the channel corresponding to the context.
 
-That will be controller side, not device side.
+> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/driv=
+ers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+> index 4adfae425f192..c781b312cea82 100644
+> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+> @@ -1036,9 +1036,11 @@ static int ti_csi2rx_init_dma(struct ti_csi2rx_ctx=
+ *ctx)
+>  	struct dma_slave_config cfg =3D {
+>  		.src_addr_width =3D DMA_SLAVE_BUSWIDTH_16_BYTES,
+>  	};
+> +	char name[5];
+>  	int ret;
+> =20
+> -	ctx->dma.chan =3D dma_request_chan(ctx->csi->dev, "rx0");
+> +	snprintf(name, sizeof(name), "rx%u", ctx->idx);
+> +	ctx->dma.chan =3D dma_request_chan(ctx->csi->dev, name);
+>  	if (IS_ERR(ctx->dma.chan))
+>  		return PTR_ERR(ctx->dma.chan);
+> =20
 
-> If this is not bus width, but DMA-something, is not really then SPI
-> device dependent, but rather DMA controller limitation, so either
-> deducible from compatible or something else is missing here.
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a potential
+use-after-free regression regarding context cleanup during device removal
+that was not fixed by subsequent commits in this patch series.
 
-My understanding is that this is a connection between the SPI and DMA
-controllers so it's not as obvious as it could be which side of that
-link should have the property, eg:
+In ti_csi2rx_remove(), ti_csi2rx_cleanup_ctx() is called before
+ti_csi2rx_cleanup_notifier():
 
-  https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/silicon-solutions/design-ip/controller-ip-qspi.pdf
+drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c:ti_csi2rx_remove() {
+	...
+	for (i =3D 0; i < TI_CSI2RX_NUM_CTX; i++)
+		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
 
-shows a separate direct connection between the DMA controller and the
-xSPI controller, the DMA controller isn't interacting with registers on
-the CPU visible buses.  The width is probably a design time configurable
-option on both sides of the link.
+	ti_csi2rx_cleanup_notifier(csi);
+	...
+}
 
---nSgqLWzClL9/i+0W
-Content-Type: application/pgp-signature; name="signature.asc"
+If a subdevice probes concurrently and triggers the async notifier completi=
+on
+callback, the callback will attempt to register video devices for contexts
+that have already had their resources (such as mutexes, DMA channels, and
+vb2_queues) destroyed by ti_csi2rx_cleanup_ctx().
 
------BEGIN PGP SIGNATURE-----
+If userspace opens this newly registered video node, it will access freed
+memory and destroyed locks, which could result in a use-after-free or memory
+corruption.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoNqVYACgkQJNaLcl1U
-h9Ao/Af+PSsl/Li7lNbMEuFf+phKcwklDPCIDBA8LerfGeFmFPiFG9+J2qEqNrRZ
-CQ4tZTQ64Ap0s+PcYWRhelQZ3Id5ZqRj1HE/9Pq9IxGoMm9aDX0jrPJiaTFm+6xi
-QQehe8LTcCD2VNbTywyqFmLOvlyvT/ujNTCkjHl9JQefSYqun1wYqPYO59qfbXKo
-1lS8G5lkDcgOUaHGL1L1n59TAi9DJ1TjRICHCnHLNt+ch0hmscRAehF4H9OjPvo3
-PU07o1lAqV4U2IOduCtajjiQdmlCD8knuWasSwuarE7xPRiMPD/8BonDRRGFqmPK
-8n0s0D8nwmWbbnmoI9j7DRxx8T141g==
-=Fgg2
------END PGP SIGNATURE-----
+Should the async notifier be unregistered before cleaning up the context
+resources to ensure proper synchronization?
 
---nSgqLWzClL9/i+0W--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520120022.5399=
+13-1-r-donadkar@ti.com?part=3D5
