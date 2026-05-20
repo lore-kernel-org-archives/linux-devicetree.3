@@ -1,234 +1,150 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D563A6B99;
-	Wed, 20 May 2026 18:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D961372B31
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 18:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779301210; cv=none; b=ar/9ZFD6oBVNWUz/SLRdydwsAf2bYjQ3m+Ody7FkEtgh+yxuZcEZxiqvap+OK58sbEpQcaRAgZg188xvKDfG6OESU9+r4cfV4pt/99nKJAQqbiJfIhJ0v/cPcUD1aRUBS0aaYHP7TRKy4s/9YkvGiQ39ga5jLgyCF0xWAOuzCc0=
+	t=1779301392; cv=none; b=S2rJPAmedXujKCd44VYQ7tVGAQlSJYDaVfwJl9kuTyc0vhmQ46J8ofGXjZARXjp4ShTe0lbjRFQVskxr8Dkqht6bWI8cEvp2P+VkkpmmHyOOfIKHxH2eltaVJvCAB5McV34xIxhaT14Qq59SgJMW8ijEil9eseaiyUzw/9pvJM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779301210; c=relaxed/simple;
-	bh=5kKsuOwfJfrcZs58nRlKq2lOcw+su6ViD5dTtabf2/Y=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BQqlJ6luDGdXvtyDMM1ArzgOzIqyYfYqqpSayqFDBGzutJflQn50Rb8zIs8kbFeKSuFY0vgP8L1EG1mIJVHYfyrifvSRHKP4djLYymI+92z9g+YpjhZ9LlGtK/tbyZlVq0fpy0LwlKLKaBbgQ7E/PDW6k7CTOYblR7UAPs+5PIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=nVeGxpKj; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1779301392; c=relaxed/simple;
+	bh=XeV1aWDitY2Uc/Q25ms4y2sAr3ivbUnsqVyl65VKAB8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l2xyDUr/rP+rIFN+fCud1rWL+L4kAzWiEnxrVmJg+PfTg/D051T5TljgaIEn+YhCn0y5O4LSo57a1kS1/dIalWpWavG35Ju6qztrz1+FMw0Bhli73CpCL9wnK9TK+xNnYeE5l+xQLr3TFG7+pXSjftfD3Is3FqHDFsf9D4wLZp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VrO8p/AM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="nVeGxpKj"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KDopJX416888;
-	Wed, 20 May 2026 14:19:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=NqWwN
-	kNZZcF7rAIasVqF0QpBlWWMevk4YAQsojXwevA=; b=nVeGxpKj3O9ahcuGhHhJD
-	Gexz34rW/IdBQ66oJR/I4q89vRSE52rXdyPsdzWRTLjSXZc3kfibGIBu3cwTl2eo
-	VparHouce/2QS5gu8pFDmfHU0rMDvO0ds79qlM1z8I/yERxwaLGgKwLbKJ4cHXf2
-	7FQMgHtvgYF2QF5Jvujiz7h15BbUWUBwGNabFf5WpIad1/jZMTQpxWGsom2wv2K/
-	mK61RdrDY6Qarn5GHFqZSdu6W7ZuLShxS4Xo+oJlVUf7SSLmzcR1gw7rWuPhDVPc
-	Vdkg8SoV6cdZLgcKW4Nlxf2DrkKxMmDHL6LAL6r4pRzXoz7E9NT+mSXIrLHqnF60
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4e9e6wryuc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 20 May 2026 14:19:59 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64KIJwO7052865
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 20 May 2026 14:19:58 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Wed, 20 May 2026 14:19:58 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Wed, 20 May 2026 14:19:57 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Wed, 20 May 2026 14:19:57 -0400
-Received: from HYB-MkYHBcJRSnh.ad.analog.com (HYB-MkYHBcJRSnh.ad.analog.com [10.48.65.148])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64KIJiKo030378;
-	Wed, 20 May 2026 14:19:46 -0400
-From: Liviu Stan <liviu.stan@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>
-CC: Liviu Stan <liviu.stan@analog.com>, David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko
-	<andy@kernel.org>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        "Rob
- Herring" <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        "Conor
- Dooley" <conor+dt@kernel.org>,
-        Antoniu Miclaus <antoniu.miclaus@analog.com>,
-        Francesco Lavra <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 7/7] iio: temperature: ltc2983: Add support for ADT7604
-Date: Wed, 20 May 2026 21:19:37 +0300
-Message-ID: <20260520181940.548759-1-liviu.stan@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260518145802.49a3bc94@jic23-huawei>
-References:
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VrO8p/AM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF28C1F00894;
+	Wed, 20 May 2026 18:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779301391;
+	bh=O8pZXT88JamUOEed+p0VRDdpFezDMQUWHy5KfPCJ8UA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VrO8p/AMcDA4prnhPQKZPU/r0NwjL012ao+Z11dfCzhTxxH88F88NloBkfaivVqKa
+	 dw6iv2NYB+xgbQv1V+zhy+X0g+r3ii+kjrMk7oV6Stb0RKqpWMnU1o4GZfumGTtfxC
+	 FWtTXBlXMbrhEugq28Tq5RTEkKzjQlAO/gjJAAMGWkx8nS6/4YjdlOnSZV1OFT1D7t
+	 +lmd2y+/IDO/V+yJc2Wd/lWoMPSTufw48/kNbu6l6bCD0xQpt9z0Q/XSPtfkyXYZqw
+	 cpfOHCCgPz3p4zrzB7z1Dai/hmzLiFPLWW2dgtHkW3DdDPHDt6FjGKOYGEJOVjTJIa
+	 QvRzN5LyqhtEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/6] phy: realtek: usb2: introduce
+ vstatus/new_reg_req variables to driver data
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rustam Adilov" <adilov@disroot.org>
+Cc: neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, vkoul@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260520175728.720877-2-adilov@disroot.org>
+References: <20260520175728.720877-2-adilov@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 18:23:10 +0000
+Message-Id: <20260520182310.AF28C1F00894@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: -Q2oC0WsZjWx2SHQzAmmedjMvjdqL4nl
-X-Proofpoint-ORIG-GUID: -Q2oC0WsZjWx2SHQzAmmedjMvjdqL4nl
-X-Authority-Analysis: v=2.4 cv=K8gS2SWI c=1 sm=1 tr=0 ts=6a0dfb4f cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=VwQbUJbxAAAA:8 a=dzM6K9NnNKbWQKe0cTMA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE3OSBTYWx0ZWRfXyEyYp5ycarKZ
- 5FP7bfOA/6zskAYuRfjB49UJ3ccryETPThYXDkz4gMWQ9o5CJmPVWx3hM5a71wMDRVnbMqZbeHr
- V+wwWvx7JRt8meSA7PLbijJAv4ZaMB9vntUJ3qMCG8ykJyfxBIVJRYk+4TMUBaifpcQ14H7+53I
- 2495KtQkXipzBtZ7bpV5G954NyqPOCe8SkDKeYUh9tcw6OpM4zgFJyajsNdV07WhVuevIKintus
- Lb7h/BmwZ2Y+gmO5wPlnlUHwoyJghqaZBlnWSHUfuFVyadpDgqaXsCMQylOVd5e7MdWKrTPsVen
- ilJLMJJAkcrtiIZO6DxJfdvAei3vgWJiMopRXD0rLD1W8+9iWOKx3vLXGUziKc6oNtaQbnAV2OC
- TSq+tSq9CseS9CgWw52fNsU5U5iX+BgV01elkS7S0GR4fKKsI62nf5a0ff7rtHDlJjxQfT+UImv
- +I2biID1uT8XeCuQ0gA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200179
 
-On Mon, 18 May 2026 14:58:02 +0100 Jonathan Cameron <jic23@kernel.org> wrote:
-...
-> > > > +		    !(st->info->supported_sensors & BIT_ULL(sensor.type)))
-> > > > +			return dev_err_probe(dev, -EINVAL,
-> > > > +					     "sensor type %d not supported on %s\n",
-> > > > +					     sensor.type, st->info->name);
-> > > > +
-> > > > +		dev_dbg(dev, "Create new sensor, type %u, channel %u",
-> > > >  			sensor.type, sensor.chan);
-> > > >    
-> > >   
-> > > > @@ -1445,8 +1782,9 @@ static int ltc2983_eeprom_cmd(struct ltc2983_data *st, unsigned int cmd,
-> > > >  
-> > > >  static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
-> > > >  {
-> > > > -	u32 iio_chan_t = 0, iio_chan_v = 0, chan, iio_idx = 0, status;
-> > > >  	struct device *dev = &st->spi->dev;
-> > > > +	u32 iio_chan_t = 0, iio_chan_v = 0, iio_chan_r = 0, iio_chan_c = 0;
-> > > > +	u32 chan, iio_idx = 0, status;
-> > > >  	int ret;
-> > > >  
-> > > >  	/* make sure the device is up: start bit (7) is 0 and done bit (6) is 1 */
-> > > > @@ -1493,8 +1831,26 @@ static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
-> > > >  		    !assign_iio)
-> > > >  			continue;
-> > > >  
-> > > > +		/*
-> > > > +		 * Copper trace and leak detector sensors without a custom table
-> > > > +		 * produce only a resistance result; the chip does not populate
-> > > > +		 * the temperature result register. Emit only an IIO_RESISTANCE
-> > > > +		 * channel in this case.  
-> > > 
-> > > Do we care?  That is are they useful without the table? We could just make it
-> > > required in the binding.
-> > >   
-> > 
-> > The datasheet specifies the table is optional. But more practically, in order to
-> > be able to add accurate values to the custom table, the users first need to measure
-> > the sensor's resistance at multiple known conditions, so I think the resistance-only
-> > output is useful during that characterization phase, before the table exists. Making
-> > it required would force users to provide placeholder values just to get the driver
-> > to probe.
-> Who cares of datasheet is crazy :)
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Fair enough :)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the driver fails=
+ to check the return value of `of_iomap()`, which can lead to a NULL pointe=
+r dereference.
+- [High] This problem wasn't introduced by this patch, but incorrect pointe=
+r arithmetic on a `void __iomem *` pointer results in unaligned I/O memory =
+accesses for multi-port setups.
+- [High] This problem wasn't introduced by this patch, but I/O memory mappi=
+ngs created by `of_iomap()` are never unmapped, leading to resource leaks.
+- [High] This problem wasn't introduced by this patch, but multi-port PHY c=
+onfigurations concurrently modify shared hardware registers without synchro=
+nization or a read-modify-write cycle.
+--
 
-> 
-> The initial case could I think be handled by an 'identity' table. 
-> If it's useful in more general cases maybe we should always put out the resistance
-> channels? This would be a bit like we often do for ambient light sensors, where
-> we have a computed illuminance channel (IIO_LIGHT) + the data it comes from
-> (IIO_INTENSITY)
+commit 734507efb75a6be151dcde389bfc7f0e1df95132
+Author: Rustam Adilov <adilov@disroot.org>
 
-I checked internally and we could make the table required for leak detectors. For
-copper traces, sub-ohms variants cannot have one, but we could make it required
-for > 1ohm ones.
+phy: realtek: usb2: introduce vstatus/new_reg_req variables to driver data
 
-This means we could remove the LTC2983_SENSOR_LEAK_DETECTOR from the if condition,
-and have something like this in ltc2983_setup:
+This commit introduces vstatus_offset, vstatus_busy, and new_reg_req variab=
+les=20
+to the driver data to handle different register offsets and busy bit=20
+definitions in the RTL9607C SoC. These variables are added to the existing=
+=20
+PHY configuration structures and assigned default values.
 
-if (st->sensors[chan]->type == LTC2983_SENSOR_COPPER_TRACE) {
-    if (st->sensors[chan]->n_iio_chan == 1) {
-        st->iio_chan[iio_idx++] =
-            LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
-        continue;
-    }
-}
-+ the n_iio_chan == 2 check at the end
+> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy=
+-rtk-usb2.c
+> index 248550ef98cab..bd9ee895b9f90 100644
+> --- a/drivers/phy/realtek/phy-rtk-usb2.c
+> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
 
-or drop the n_iio_chan == 2 check and do something like:
+[ ... ]
 
-if (st->sensors[chan]->type == LTC2983_SENSOR_COPPER_TRACE) {
-    if (st->sensors[chan]->n_iio_chan == 1) {
-        st->iio_chan[iio_idx++] =
-            LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
-    } else {
-        st->iio_chan[iio_idx++] =
-            LTC2983_CHAN(IIO_TEMP, iio_chan_t++, chan);
-        st->iio_chan[iio_idx++] =
-            LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
-    }
-    continue;
-}
+> @@ -194,25 +200,26 @@ static int rtk_phy_write(struct phy_reg *phy_reg, c=
+har addr, char data)
+>  	int ret =3D 0;
+> =20
+>  	/* write data to VStatusOut2 (data output to phy) */
+> -	writel((u32)data << shift_bits, reg_wrap_vstatus);
+> +	writel((u32)data << shift_bits,
+> +	       reg_wrap_vstatus + phy_reg->vstatus_offset);
 
-if (st->sensors[chan]->type == LTC2983_SENSOR_LEAK_DETECTOR) {
-    st->iio_chan[iio_idx++] =
-        LTC2983_CHAN(IIO_COVERAGE_PERCENT, iio_chan_c++, chan);
-    st->iio_chan[iio_idx++] =
-        LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
-    continue;
-}
+[Severity: High]
+This is a pre-existing issue, but does writing directly to this register
+without a read-modify-write cycle overwrite the configuration for other
+ports?
 
-or use a switch case:
+In multi-port setups, all PHY instances appear to share this same base
+address, and a direct writel() could clear the bits belonging to other PHYs.
 
-switch (st->sensors[chan]->type) {
-case LTC2983_SENSOR_COPPER_TRACE:
-    if (st->sensors[chan]->n_iio_chan == 1) {
-        st->iio_chan[iio_idx++] =
-            LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
-    } else {
-        st->iio_chan[iio_idx++] =
-            LTC2983_CHAN(IIO_TEMP, iio_chan_t++, chan);
-        st->iio_chan[iio_idx++] =
-            LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
-    }
-    continue;
-case LTC2983_SENSOR_LEAK_DETECTOR:
-    st->iio_chan[iio_idx++] =
-        LTC2983_CHAN(IIO_COVERAGE_PERCENT, iio_chan_c++, chan);
-    st->iio_chan[iio_idx++] =
-        LTC2983_CHAN(IIO_RESISTANCE, iio_chan_r++, chan);
-    continue;
-case LTC2983_SENSOR_DIRECT_ADC:
-    chan_type = IIO_VOLTAGE;
-    iio_chan = &iio_chan_v;
-    break;
-default:
-    chan_type = IIO_TEMP;
-    iio_chan = &iio_chan_t;
-    break;
-}
-st->iio_chan[iio_idx++] = LTC2983_CHAN(chan_type, (*iio_chan)++, chan);
+Is there also a need for synchronization to prevent concurrent writes across
+different ports?
 
-What do you think?
+> =20
+> -	ret =3D utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
+> +	ret =3D utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
+>  	if (ret)
+>  		return ret;
 
-Thanks,
-Liviu
+[ ... ]
+
+> @@ -974,6 +982,9 @@ static int parse_phy_data(struct rtk_phy *rtk_phy)
+>  		phy_parameter->phy_reg.reg_wrap_vstatus =3D of_iomap(np, 0);
+>  		phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the driver need to
+check the return value of of_iomap() here?
+
+If the mapping fails, this would leave the pointers as NULL and cause a
+dereference during I/O operations.
+
+[Severity: High]
+This is a pre-existing issue, but does adding index directly to the
+void __iomem * returned by of_iomap() result in exactly a 1-byte offset
+when index > 0?
+
+If so, this could cause an unaligned memory access fault on ARM
+architectures. Should the index be scaled appropriately?
+
+[Severity: High]
+This is also a pre-existing issue, but does the driver leak these I/O
+mappings?
+
+The driver maps the memory here using of_iomap(), but there does not
+appear to be a matching iounmap() in the driver cleanup paths. Would
+using devm_of_iomap() prevent this leak?
+
+>  		phy_parameter->phy_reg.vstatus_index =3D index;
+> +		phy_parameter->phy_reg.vstatus_offset =3D phy_cfg->vstatus_offset;
+> +		phy_parameter->phy_reg.vstatus_busy =3D phy_cfg->vstatus_busy;
+> +		phy_parameter->phy_reg.new_reg_req =3D phy_cfg->new_reg_req;
+> =20
+>  		if (of_property_read_bool(np, "realtek,inverse-hstx-sync-clock"))
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520175728.7208=
+77-1-adilov@disroot.org?part=3D1
