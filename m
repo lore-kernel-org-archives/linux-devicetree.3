@@ -1,188 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD696361670;
-	Wed, 20 May 2026 19:59:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C941C283CB5;
+	Wed, 20 May 2026 20:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779307143; cv=none; b=lHfX/KNtrJ+7tg3S3v65m47DW8BTO8GRe8DL2RtCvII+44iivQXsoMMigoYw4AeF9ADPhEkcg2uE+r/C+GnHGJAbOQVTY01PVF7qN8uthw5mPDXA1edNFpr+IVifI5a+cdfHQHBDG+WtUMm95jdFatRK47LNJmGfYEswRfFlCuw=
+	t=1779308020; cv=none; b=uQAb5fj3NIFPALtpHfCohqZY6eovuOdaBc9H+BmZdaF+B/mZns7jIj8aS2YYCDOUsbvw8mcHUcgWk9mGdf8RF5+DVhmBQvC2J4wHYLvjHm8QenbupOlZdCKfmbjPLGSVcLaIapZZrw7aTtaXkBVtipgxswsKv3120ILzdgFiVmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779307143; c=relaxed/simple;
-	bh=Bz05hZqUiRaxeMa30drXVtsWG8NAqGrcAzLb8JM+ddA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=PXVsusHd8b0D1nGl2FPhFp8FpNf3T26vvdL48y6h/IYBVL6pAXoTIGZKxnQrUYJj6k9utOiFD9pqZWv6SyCZAsClqa6xTuwMB4D7SZnoeVqRTo34emRsCymgZdogl0SP0NpDlXwkwXLP9SIpPn+r6F68MbZeU101GVl3yVYLc4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KkG0h3HZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779308020; c=relaxed/simple;
+	bh=YWOykokvSunWlJGCv6gQh8IA9UYPjKXXXSSKo+kEn/s=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=lH+Vzf4w4diyuigAFRd3hmKINwbZormJdoIsuoEzkeqEWP0h/e0w4gpKWnixQEvRU97UH8Rc6tq5v2B0EYNZj82PzkWRNR38fnwGjxuFXoBvg+79QFzXVmHdP5VkxqqTPq1Bvnfo7AoL65E3DO7PKog0jiJeaUKJGe3JLbUf7O0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWLxi8Tg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KkG0h3HZ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 47DCB1F00893;
-	Wed, 20 May 2026 19:59:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWLxi8Tg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 681021F000E9;
+	Wed, 20 May 2026 20:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779307141;
-	bh=cBYu2GQc6MoTLCxtxKTqbYy4E2npoA7fcMHsRIGQpuM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=KkG0h3HZCk2u4rbRBRv1CRod6SfsAyCcBeaNM8cXJDiOoqTVrKR15PLdmEaPWSnNl
-	 pxPerPBzkwH1UCir9Njn+6W9nb5LQP/AZ7ySB5sXMV/LDLVfjYjyTUZy2ilvSocas8
-	 IQjfxSBYl31SiQ4AKTPF/MweXa5NRZpbOQhaF0knIXM2IXpJ7nFVh9qMppxMCP25mP
-	 xWzwu8YiYpH39K8q5reCKndbBuvClS30jWNCOKawY0diQkct9rl3NlbRtwfzmreS9V
-	 nrKAcd0S1yjwPdZolN+5R7KHUrhT73680UQIEiOfBBcDozpi7OE+vxVN625y0knHD1
-	 BzVOFOEIe1Y/g==
-Date: Wed, 20 May 2026 14:59:00 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
-	naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH v8 1/3] PCI: mediatek: Use actual physical address
- instead of virt_to_phys()
-Message-ID: <20260520195900.GA86018@bhelgaas>
+	s=k20260515; t=1779308019;
+	bh=ip8UhnLhZVRUTvuSbuKZx7fgIiSx5T5PZckISIMWYfE=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=TWLxi8TgKxQ3k8C7+9KG/U8oP1M8SJFzfPB+hcGLPzBzW+6rGWCUhiqvnYnsjJMew
+	 2avm8TLFjmEYxYUEHSV1JGMOfxUkM8Ed8LggOG6if9NVyrj+ydujJkBklJ24rJeQZ6
+	 tujD0sOXDSxM2ETNC8BxV55BAHeII01Ccf5XKUafSxV3ztQ7ZT26/cDv5D0kYaAW34
+	 TIEoEKzI5+hh25BEyRZ8Ip1HuD777XwkiP5pkDryAejBKoV/y2+Wb7U1JqESSHDMa7
+	 Ft+OqTIoqY+YPhDHgaI+gRoAfKxOkyd4xhMle6wvOoPC9pFnK6P4lwOYCTs5ThUW8Z
+	 uu+G1yudgqzzQ==
+Date: Wed, 20 May 2026 15:13:38 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <afd47d4b-8309-4025-a40b-29606fed3c50@cjdns.fr>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+In-Reply-To: <20260520182124.117863-2-clamor95@gmail.com>
+References: <20260520182124.117863-1-clamor95@gmail.com>
+ <20260520182124.117863-2-clamor95@gmail.com>
+Message-Id: <177930801788.740456.10278434130014876879.robh@kernel.org>
+Subject: Re: [PATCH v6 1/6] dt-bindings: leds: leds-cpcap: convert to DT
+ schema
 
-On Wed, May 20, 2026 at 09:17:35PM +0200, Caleb James DeLisle wrote:
+
+On Wed, 20 May 2026 21:21:19 +0300, Svyatoslav Ryhel wrote:
+> Convert LEDs devicetree bindings for the Motorola CPCAP MFD from TXT to
+> YAML format. This patch does not change any functionality; the bindings
+> remain the same.
 > 
-> On 20/05/2026 20:55, Bjorn Helgaas wrote:
-> > On Wed, May 20, 2026 at 06:38:25PM +0000, Caleb James DeLisle wrote:
-> > > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > > 
-> > > The driver previously used virt_to_phys() on the ioremapped register base
-> > > (port->base) to compute the MSI message address. Using virt_to_phys() on an
-> > > IO mapped address is incorrect because it expects a kernel virtual address.
-> > > 
-> > > To fix it, store the physical start of the I/O register region in
-> > > mtk_pcie_port->phys_base and use it to build the MSI address. This replaces
-> > > the incorrect virt_to_phys() usage and ensures MSI addresses are generated
-> > > correctly.
-> > > 
-> > > Fixes: 43e6409db64d ("PCI: mediatek: Add MSI support for MT2712 and MT7622")
-> > > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > > Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
-> > > ---
-> > >   drivers/pci/controller/pcie-mediatek.c | 16 +++++++++++++---
-> > >   1 file changed, 13 insertions(+), 3 deletions(-)
-> > > 
-> > > diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-> > > index 75722524fe74..c503fbd774d0 100644
-> > > --- a/drivers/pci/controller/pcie-mediatek.c
-> > > +++ b/drivers/pci/controller/pcie-mediatek.c
-> > > @@ -175,6 +175,7 @@ struct mtk_pcie_soc {
-> > >   /**
-> > >    * struct mtk_pcie_port - PCIe port information
-> > >    * @base: IO mapped register base
-> > > + * @phys_base: Physical address of the I/O register base region
-> > >    * @list: port list
-> > >    * @pcie: pointer to PCIe host info
-> > >    * @reset: pointer to port reset control
-> > > @@ -196,6 +197,7 @@ struct mtk_pcie_soc {
-> > >    */
-> > >   struct mtk_pcie_port {
-> > >   	void __iomem *base;
-> > > +	phys_addr_t phys_base;
-> > >   	struct list_head list;
-> > >   	struct mtk_pcie *pcie;
-> > >   	struct reset_control *reset;
-> > > @@ -405,7 +407,7 @@ static void mtk_compose_msi_msg(struct irq_data *data, struct msi_msg *msg)
-> > >   	phys_addr_t addr;
-> > >   	/* MT2712/MT7622 only support 32-bit MSI addresses */
-> > > -	addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
-> > > +	addr = port->phys_base + PCIE_MSI_VECTOR;
-> >
-> > This doesn't look right because the MSI address is a PCI bus address,
-> > and port->phys_base is a CPU physical address.  Often a PCI bus
-> > address is the same as the CPU physical address, but not always.
-> > I think the DT 'ranges' property tells you the translation.
-
-Oops, sorry, I muddied the waters here.
-
-'ranges' tells you the translation applied by a bridge, e.g., when a
-CPU does a load/store, the PCI host bridge turns it into a PCI
-read/write transaction.  The bridge might add an offset to the CPU
-load/store physical address to get the PCI read/write bus address.
-
-But that's not the issue here.  The MSI is basically a DMA write
-performed by the PCI device, not a store done by a CPU, so I don't
-think 'ranges' is the right thing to look at.
-
-Based on this:
-https://elinux.org/Device_Tree_Usage#PCI_DMA_Address_Translation
-I think 'dma-ranges' is the relevant property.  I don't think your DT
-includes a 'dma-ranges' property, and in that case the default is that 
-the system bus (CPU) address is the same as the PCI address.
-
-So I think this patch works because it assumes DMA addresses like the
-MSI address are mapped to identical system bus addresses.
-
-It still seems to me that drivers should be prepared for the presence
-of dma-ranges and use it when computing the MSI target address.  But I
-don't think any drivers really do that, so for now I think you should
-pretend that I never responded about this patch.
-
-> This is all still a little over my head here, but my understanding was that
-> this is in the middle of the device's register map because the DT has the
-> following:
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/leds/leds-cpcap.txt   | 29 -------------
+>  .../bindings/leds/motorola,cpcap-leds.yaml    | 42 +++++++++++++++++++
+>  2 files changed, 42 insertions(+), 29 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap.txt
+>  create mode 100644 Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
 > 
-> reg = <0x1fb83000 0x1000>;
-> reg-names = "port1";
-> 
-> Per the manual, that offset (base + 0xc0) is in undocumented area but it's
-> in the registers.
-> 
-> The PCI memory is 0x20000000 - 0x2fffffff and we split it between the two
-> devices. Here's the one using the upper half:
-> 
->         ranges = <0x81000000 0 0x00000000 0x1f608000 0 0x00008000>,  (IO)
-> 
->              <0x82000000 0 0x28000000 0x28000000 0 0x08000000>;      (MEM)
-> 
-> Hope I'm adding something useful here... Let me know if you want me to get
-> or test anything else.
 
-Obviously it's over my head too, so I'm sorry I confused the
-situation.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-> > >   	msg->address_hi = 0;
-> > >   	msg->address_lo = lower_32_bits(addr);
-> > > @@ -520,7 +522,7 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
-> > >   	u32 val;
-> > >   	phys_addr_t msg_addr;
-> > > -	msg_addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
-> > > +	msg_addr = port->phys_base + PCIE_MSI_VECTOR;
-> > >   	val = lower_32_bits(msg_addr);
-> > >   	writel(val, port->base + PCIE_IMSI_ADDR);
-> > > @@ -953,6 +955,7 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
-> > >   	struct mtk_pcie_port *port;
-> > >   	struct device *dev = pcie->dev;
-> > >   	struct platform_device *pdev = to_platform_device(dev);
-> > > +	struct resource *res;
-> > >   	char name[20];
-> > >   	int err;
-> > > @@ -961,7 +964,14 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
-> > >   		return -ENOMEM;
-> > >   	snprintf(name, sizeof(name), "port%d", slot);
-> > > -	port->base = devm_platform_ioremap_resource_byname(pdev, name);
-> > > +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
-> > > +	if (!res) {
-> > > +		dev_err(dev, "failed to get port%d base\n", slot);
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	port->phys_base = res->start;
-> > > +	port->base = devm_ioremap_resource(&pdev->dev, res);
-> > >   	if (IS_ERR(port->base)) {
-> > >   		dev_err(dev, "failed to map port%d base\n", slot);
-> > >   		return PTR_ERR(port->base);
-> > > -- 
-> > > 2.39.5
-> > > 
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+
+
+doc reference errors (make refcheckdocs):
+Warning: Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+Warning: Documentation/devicetree/bindings/mfd/motorola-cpcap.txt references a file that doesn't exist: Documentation/devicetree/bindings/leds/leds-cpcap.txt
+Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml: Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+Documentation/devicetree/bindings/mfd/motorola-cpcap.txt: Documentation/devicetree/bindings/leds/leds-cpcap.txt
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260520182124.117863-2-clamor95@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
