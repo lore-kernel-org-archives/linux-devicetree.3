@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370CE362143;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D43A367B8D;
 	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779295242; cv=none; b=Psy7ccVM8SSAxrxAheFeHJ9M483/n2hsWqNy6Xvu+qtCsHr1HISwRcGz23vg9pbmoAygpypGqtQ1D5/2CxEkhmSKNsGuiwNhHcwLJ7WkQ65eheADC61RJIevtluweHq0bOZIemKcJfXJetDci+bNSu7TnVuLbqASlLPNG2cuDD8=
+	t=1779295242; cv=none; b=WsUDfzHuFtRkQLmC2D2YpfB3jspf1Y9cvpuPlJhtPnmkRLMGb+ChvLzB9YI7aBbXsLwhqfMQSdIz4zuolg1Lkmk8s0ujfWuhpaOTTej5QKe1QsxOHe1AH0YAOoOIXicb7bYB06xQIH63RQ/PNZwQfRQJhwn0rDXhph4SmlLf1Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779295242; c=relaxed/simple;
-	bh=P+0MEBbeeFMbG6eaiUA50b7PTzX8O3CPgXO1+hTm8r4=;
+	bh=T7ixgJATbtiNqWCiShqQhrQpfemSzKpwMeeRfU+mkZI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aIWG1AKXVJFnoYr3+bMXXJWv4cB/q7rByxMrDw8mflzToY3KV52ZRhZKRgqpOQChaN3/lChXL8HIoS04bwQkstTvLYZdihO4pVPKjw9qW7m0zTu9q5b565Z08+sOAAsSJWp0qX6gJqi1nQyBupEw5h8Gz8qZmB6N1q2N7QVvF2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fmb9cZN4; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=S/ZEtoUJEqgYOIGSrbVHmym73U/yZd6VPI+BBio5UyVLEPbIvNUB77CrC5W4kOFCb/qa+Lr+zFm6MBrzqFVUhAoVmmRMqQ7s7Y8T5lM8dRjXCBJ1Id8/bkPJJkhBr8+0LcqPNYMPQxbY0u9FVCLbUFxmk4uMLQgSoTzI2rT5SEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Od3vVqIC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fmb9cZN4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D65D9C2BCB4;
-	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Od3vVqIC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 22214C2BCF5;
+	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779295241;
-	bh=P+0MEBbeeFMbG6eaiUA50b7PTzX8O3CPgXO1+hTm8r4=;
+	s=k20201202; t=1779295242;
+	bh=T7ixgJATbtiNqWCiShqQhrQpfemSzKpwMeeRfU+mkZI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Fmb9cZN4HR9gC2/23MQ32OCgZ8QYXo4XtY7cnE0FSjGt8bz1UscXJVgoqE9H+5+FE
-	 Giz5wYEDyUtqx4pjSFeIQnlqa7SAKpjBjYGn9B7a95I2wno0Gf/ontcE7nNAwA9PSX
-	 NGLHdZNqIHOt0vPGRnwlTKX6CtfFMAOuCHKLaJE0G8OFKgjdf4t+RG9KhBqTAGiCDt
-	 /aqYPPUPKDxY8g+dh85nLRbazfDq9fhYZnzYRLRRh5QY4UuyXWHIHZsX2l99pI4XeP
-	 a4lcy1fVhbJPg7rZ8z9+UkpkqN3HjKi+CpHilDUFXDlbkyL35jysHfEuX2Z1cEZW5J
-	 QzP4Z2RGkE9dA==
+	b=Od3vVqICKDYQkDCwvE3Fl20ylnBWY5UucRCCEWHD8CsvrLX9fxEbVpL8bRHykcTmv
+	 PnlN1fqK7W+OomO9Cko8dthzBBHa/pfXnb2NUDWGtH0QnFJP7KbKDwMdgO8Vzy/GcF
+	 COY0pYikMkAhkyqktaBFE3l3+hEk1io+SJnFDT70bbZuZ0yi7pzv/Px7Bv1VLB7n9d
+	 uu1piYhyJ5jmh/4c972gn/2qFPA37Hkl+m8py4nwYRxaU0S1DECfb4+vApmtWCV+a7
+	 XXXb9DMQM0cvJNYvQyI1MIQGi5OTv6FS8QACcHvD8tyKb81h0jjPSjhjeDCSrLxTtX
+	 trTO/o0QSaJDA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE570CD4F3C;
-	Wed, 20 May 2026 16:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19616CD5BAB;
+	Wed, 20 May 2026 16:40:42 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 18:40:05 +0200
-Subject: [PATCH 01/11] drm/panel: edp: Add LG LP129WT232166 panel
+Date: Wed, 20 May 2026 18:40:09 +0200
+Subject: [PATCH 05/11] arm64: dts: qcom: sc8280xp-arcata: Fix top USB-C DP
+ alt mode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260520-surface-sp9-5g-for-next-v1-1-9df52552bf87@gmail.com>
+Message-Id: <20260520-surface-sp9-5g-for-next-v1-5-9df52552bf87@gmail.com>
 References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
 To: Douglas Anderson <dianders@chromium.org>, 
@@ -56,13 +57,14 @@ To: Douglas Anderson <dianders@chromium.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1891;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779295238; l=1796;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=tHgNfvGMlnmFZXZkNh+6YfvXvVf/DcuqMDaolZYKux8=;
- b=G/9cCj3ftv34zFnJlbaPYRueYnY93DaRgqWvlQmn4g8AN4468H6z5LNKpCulkpXEHlhv/FEYw
- AZCDq7GoWC2AYPBdFB48f2yYeFpzFBCtzxI26eYDx04W7qgBCXU667Z
+ bh=laHptHDVcqodWotuInI4TOhBzYCitWFmkNnL90r2puk=;
+ b=ELGTpbD9se5Jeclc7Z5xfOhf29cTYVC0764Fc3jfUQH3LSJDDj6Pe2ah4ok9/i2Q5vEoQT5ep
+ 9Q0nCe0e86TC7VwgFU+gILU9Hf54Np/JLzKhTJNbSgbtvG6GU4VowFY
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -72,46 +74,47 @@ Reply-To: jerome.debretagne@gmail.com
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Add an entry for the eDP LG LP129WT232166 panel used in
-the Microsoft Surface Pro 9 5G.
+The top USB-C port (usb0) didn't switch to DP alt mode, as reusing the
+same GPIO 101 as on the SC8280XP CRD or Lenovo ThinkPad X13s was not
+working on the Surface Pro 9 5G.
 
-edid-decode (hex):
+Investigation [1] by Jens on the Windows Dev Kit (WDK2023), the other
+sc8280xp-based "blackrock" model from Microsoft, found a reference
+to GPIO 100 in the DSDT in addition to 101. Switching to GPIO 100
+fixed the issue on blackrock, as it does on arcata to enable
+external screen when using the left-side top USB-C port.
 
-00 ff ff ff ff ff ff 00 30 e4 b2 06 a1 25 10 00
-00 1f 01 04 a5 1b 12 78 01 ef 70 a7 51 4c a8 26
-0e 4f 53 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 fd 00 18 78 f1
-f1 48 01 0a 20 20 20 20 20 20 00 00 00 fe 00 4c
-47 44 5f 4d 50 31 2e 30 5f 0a 20 20 00 00 00 fe
-00 4c 50 31 32 39 57 54 32 33 32 31 36 36 01 23
+[1] https://lore.kernel.org/all/20250609-blackrock-usb0-mux-v1-1-7903c3b071e4@oldschoolsolutions.biz/
 
-70 13 79 00 00 03 01 14 56 16 01 88 3f 0b 4f 00
-07 80 1f 00 7f 07 55 00 47 00 07 00 03 01 14 56
-16 01 08 3f 0b 4f 00 07 80 1f 00 7f 07 2b 08 47
-00 07 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 2c 90
-
+Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+Fixes: f6231a2eefd4 ("arm64: dts: qcom: sc8280xp: Add Microsoft Surface Pro 9 5G")
 ---
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 679f4af5246d8a984387002c3fb0c6283cc21cb2..7eff79e80fa0578755a0b688cf792f58d8abcbe5 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2080,6 +2080,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0567, &delay_200_500_e200_d200, "Unknown"),
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x05af, &delay_200_500_e200_d200, "Unknown"),
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x05f1, &delay_200_500_e200_d200, "Unknown"),
-+	EDP_PANEL_ENTRY('L', 'G', 'D', 0x06b2, &delay_200_500_e200_d200, "LP129WT232166"),
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, "134WT1"),
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+index 49c0ecfc6c055ef2cd85db022d9340ecb88b7fc4..50fabf8961fd9869a31f24a69da854348fc1d891 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+@@ -287,7 +287,7 @@ map1 {
+ 	usb0-sbu-mux {
+ 		compatible = "pericom,pi3usb102", "gpio-sbu-mux";
  
- 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1511, &delay_200_500_e50, "LQ140M1JW48"),
+-		enable-gpios = <&tlmm 101 GPIO_ACTIVE_LOW>;
++		enable-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
+ 		select-gpios = <&tlmm 164 GPIO_ACTIVE_HIGH>;
+ 
+ 		pinctrl-0 = <&usb0_sbu_default>;
+@@ -1101,7 +1101,7 @@ tx-pins {
+ 
+ 	usb0_sbu_default: usb0-sbu-state {
+ 		oe-n-pins {
+-			pins = "gpio101";
++			pins = "gpio100";
+ 			function = "gpio";
+ 			bias-disable;
+ 			drive-strength = <16>;
 
 -- 
 2.47.3
