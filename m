@@ -1,938 +1,287 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA4D345CBD;
-	Wed, 20 May 2026 23:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362523D16EA
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779321017; cv=none; b=fFT01UIZ0mIe5gqXtBCRJCjEjYmwDuZ1hCa9b3zp68dAXaNgCCMVHIJkJf67U/xspKiG+6o9cQt+EjIlZOBn8UoVYCuEFAP9SNcmR0t9/qa2CcGHL+jG+mGID6qbN2w9bQ3DtQUuDnH0K8GXXCETf9SnHQzN2OXYbRwmaDUUu+4=
+	t=1779321343; cv=none; b=UbRkWNu4Gs6K4sUwEbnGi571acgz3oDuAWMfnb9dtMYNVw7LvnzMOVhUJ5upoL8fFZIk66PFkuR4q6OTfLwhmJ8MF1y6MiBAu97ws6uMwGr6iSp/MGH0l01Wuprqzj1Q2xvnLi3kxWR00lliXJIw9x+e8S0mFgUw+TMgjZxj8bU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779321017; c=relaxed/simple;
-	bh=AbbSz4LthpMXKRACSrwXbomjYt9uXXl5/u2EyMaNhik=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NOXj/w7Wfat1Zcf/qcQbstYdpqQ3UH20+NiuX0cyxp+bSIIrO9rPGcTKvkJR8XOKVN3FdJ6/blxEn7s5rkvLM++D0emqmrtYGzMaSTAttOo6wBirvLdb8EVHggSU4qjvLjg+T+lKfv/JwX3pKe+zviPf4LdlLvfMTeAQyeyBr0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2VptDsE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779321343; c=relaxed/simple;
+	bh=/xbpYJYyTd1UKE8Lzer4LO7cC73Dak7ZfajrqiKOVHo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=F4F0D3GPzcDgJe1a2nM4v4WUKMftQbgwVIqDVkydeOAXd8e2fxf5M5EB8ftnW+N+V267IA7z/KBXXBaRVo6dU7my3tiUKYpP7Kr2/S3iAwit2CzdPq7iJUDWGuK/bMXVVQ9QBmglnxg6/scl/Tf8K6dGXJ7itlN09KONHEq89zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=rkTl979M; arc=none smtp.client-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2VptDsE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86BE1F000E9;
-	Wed, 20 May 2026 23:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779320997;
-	bh=xjuAmu848cUm0BYqU0QDEvIwlbDtmRBEIx8pj1h/PmA=;
-	h=From:Date:Subject:To:Cc;
-	b=O2VptDsE3qKaTvMs3fQgzml1/T9tFGIJkZIhS8NsN7WTJVWOe+vGM/PgnW2uOaB4Y
-	 X7aqaq+YyRyghGgWvtQia/Qr4iDX+Ol3vK/koHwiuWXpPddZ6ReRoezmyucb+qFWNJ
-	 CHmUXWuxDwnXEtaOH5JIfJXWFOxwaedl+MfSesI8o36R9fceMUFOpqNcmK+bC4sWDo
-	 t6bg/kzSKzwspu58vlUb9lg5ZJH4qVTARzeDA3eaNvRP7NhpEuwpZGqb73JTDs0V5r
-	 24rgWfxbbsLWUxJOnjEpe639q2aOKp5bLuc7doloUc9agM2OHQuM9mS88SRctb1eBd
-	 XrZwAXOxO/WxA==
-From: Yixun Lan <dlan@kernel.org>
-Date: Wed, 20 May 2026 23:49:41 +0000
-Subject: [PATCH v3] riscv: dts: spacemit: k3: Add pwm support
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="rkTl979M"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-9144163319fso490950085a.2
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1779321334; x=1779926134; darn=vger.kernel.org;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WO2Jlnfwd8E/DGsD03RFdw4xjY/iz1az5ExsXccXSE8=;
+        b=rkTl979M6Ci3kL+s8oClot+pn+Ucw9w7zJakSlfvjPsQl7KMBtB0QTk+No8KYqUP+Q
+         4xKdq+8EGDenYHKIaEwitlttYQs8yJnrbHMPGIsUuRmanKmw3aOVpbb15z4lyzuPVREg
+         +Yic64J8FWItUaA1OOn0T2W7yevEvkfwQQHc2qOw/2zwneeOMb7Bl6LnlcP6o9ZZU+1N
+         ey9YPTSvCv1kkv4EWmZzYbypupMkXAfTq+YyHx03bNxS4a+Jrsj7bUF13txhy4ARHhLm
+         8W+nNxpdW7wgT5/L6pO0WvuQYgsVxkKlCRw9aqISJbvAc0UI2obWCjLRypWdRgCHNVfQ
+         J3LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779321334; x=1779926134;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WO2Jlnfwd8E/DGsD03RFdw4xjY/iz1az5ExsXccXSE8=;
+        b=h1W2I38Iok2u0fk7PzKRF2ZIrOryO3yTIOEjE6a5lj/hoUkibBi7S0avWoH1C0XSnq
+         hlRUuf6QPauqJ918vH3TpGRddV4k5SwxqcnvRnqpFPVwaCyH/3iocgOA5WKhFfzHmLsl
+         n76OiFu9y5XCzAgw4tGtmvVhxBWmjULSxeQJvqTamBAlEF2IoeAYGMYjPL0GQM5XG3aA
+         YxKYw1XHR7BZvS1v8QXOOinleXHo+h/en9t07F1omEINcFrr8mPhq92Ea+qKSZ6AwrwH
+         dYnHt+gfEifeKINJLuoHxZfIGBVKnqFwznUgTqaLfmY3Q+DlhMWhrMgVBmqxnysBtGeT
+         zgPQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8ufso4gCC/NoT3vIru9S2GnjpbtfnNFZNlHE4VPpu4xEQ3uyf/J9Y3XbDzP5g1uUpexw33Z7Cb1jz0@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVuMkTxC6qv75C8eaPo7Kar9huDBLNMDywreDsfBoXdtWKFqUr
+	4aVGmHVzX88Tup2JQC/aH/m0GTAZLOqN5T6GRv9zOn5HxuJgEiCtUno9pmcI63JV8uY=
+X-Gm-Gg: Acq92OGnTBhwTjV/okxOvZmvrm/4C2UDpBimas6j9q0ksX9aY58i6YtD+KUTU/dUlD0
+	3QKZsBdDfd1Tmy6fX0EdCUSLaIe9nCte1n2Yu4UdDUpfZ36GouUBY5KewTIARVtrpgzPcDb2cFh
+	d1ATPRslYf07WKDIFwPerz2usZAn7hyeExunPamibyqiMmfSMSwGBGhsqGad/il8ZWcuFSeIeLG
+	t8CjkAzZq2qCAd3a42i1UGrAypQf9/UIUsRJD7OiwnFEcVxtYq3cLijOn//Jc5LLa5w/ikadYnx
+	6EVMhl9gn1ARB5NJbs2xx7rwfIb8Zbrfr2W7yJSBWrO/qhBE6CUHBw0qmnCL+R7rGetfy8yF9v5
+	e1m0nZpMoEJnOOrt5ZlOnKoy2CFkdGZ+5lPTfkiJlytaDi8YBFuKgpzK225VTJ9EgpJMS/v3/0+
+	/RyUEK5triBpzncjMbvX/Of2F+ZzoBXJ8GjmQitCxRh1d2keNQRkPYEx+xGwo2tWESZDA1
+X-Received: by 2002:a05:620a:f01:b0:90f:b39e:ec8 with SMTP id af79cd13be357-914a2a6220fmr67310485a.17.1779321334282;
+        Wed, 20 May 2026 16:55:34 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-910bcf3732dsm2241597285a.33.2026.05.20.16.55.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 16:55:32 -0700 (PDT)
+Message-ID: <01ed1968d49691b47da056d5e07b376e5a2ef028.camel@ndufresne.ca>
+Subject: Re: [PATCH v7 16/28] media: rockchip: rga: reuse cmdbuf contents
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@pengutronix.de, 
+	sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
+	p.zabel@pengutronix.de
+Date: Wed, 20 May 2026 19:55:31 -0400
+In-Reply-To: <20260521-spu-rga3-v7-16-3f33e8c7145f@pengutronix.de>
+References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+	 <20260521-spu-rga3-v7-16-3f33e8c7145f@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-iE9F37poAHpBbdW9jc1N"
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-04-k3-pwm-dts-v3-1-974add67c592@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAJRIDmoC/13MQQ6CMBCF4auQrh3TaQEbV97DuIB2Cg0KpCVVQ
- 7i7BTfK8r3k/2YWyDsK7JzNzFN0wQ19GvKQMd1WfUPgTNpMcFFyKRB4Dp2E8fkAMwVAg6UolOV
- GcJaa0ZN1r8273tJuXZgG/974iOv7lQrcSxEBQaHVhlCd0KpLR76n+3HwDVupKH5ztc9FyjXXu
- q5yyava/uXLsnwAb/oG8+oAAAA=
-X-Change-ID: 20260321-04-k3-pwm-dts-1d16258f0d20
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=19891; i=dlan@kernel.org;
- h=from:subject:message-id; bh=AbbSz4LthpMXKRACSrwXbomjYt9uXXl5/u2EyMaNhik=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqDkifdhsibj89zHEJ3r00IBL55tQZFcmRWw7Ey
- ZKjJnpTYfeJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCag5InxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+3xzw//S3A+59heJxeQDvhliK9FQto3pvPYgPeM0Qx+dPFYrx2hOiB8S8u0B
- 2TupJS3JsrV5/JN2xjWPjW5QNwdxoFFzDnajNnKwkgzt8HF/PIs1pquzVousSrVYx951/iJ6OJ6
- NGaNWIawgvT9/5LtVkwbgKNvQO8eANIIz9FPeRrZkUUp5u8wC7SS48OjwGeqpkoPETb/61JKsZa
- RFTsq5s6bNQvnOtYINybD/W0IOU8/m4wd9q8vvm6Sk7cKxvhBiX9KF2I31u+mE7XZvnvm8lqWND
- LppxWaz9iAlF7jH4CgtclJa4u2W8wNz2RPlMn8fZItSGRqxzjeOXWerekBovrKfzjZDfpVgEgIn
- /MYJ9R++t7SKcTig0M/PzqTxdTwKDfIfzIbBBKEy2Gcw1KlrjuSCNKY0rIphbY8OnCvQP61LwKW
- aqO1ehHQcvjd9jcXFoBGSE0ok79T8Ulx1VDEFbH0kvnyM1BeSfb6LEpnlfoPpZAv/xJE9ygDsY7
- DU87Vxs4MGnmuYYok/6eOfQu6PSAUFMxzdrvjU25gMxvOkWIthheFaffxlrvitOWIxL5o7J6bYn
- poyUeMqun/45XlFVUml0apc5O2U7ffkwUKuLcvEzCojr2brrGv44iKCsRaQicMIbKBIgK73dwwx
- xehn/6JXk+ghXEQaD6Ld5mx72bAgfA=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Populate all pwm device tree nodes for SpacemiT K3 SoC, also documents
-the pinctrl info which would easily help to enable them in future.
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
-Although we have not enabled any specific pwm device in this patch..
-but should be easy to achieve that.
+--=-iE9F37poAHpBbdW9jc1N
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For test purpose, we've used pwm11 as the instance to test functions.
+Le jeudi 21 mai 2026 =C3=A0 00:44 +0200, Sven P=C3=BCschel a =C3=A9crit=C2=
+=A0:
+> Reuse the command buffer contents instead of completely writing it
+> for every frame. Therefore we only need to replace the source and
+> destination addresses for each frame. This reduces the amount of CPU
+> and memory operations done in each frame. A new cmdbuf_dirty flag notes
+> if the cmdbuf has to be rewritten on the next frame.
+>=20
+> The initial idea of initializing the cmdbuf on streamon broke the
+> ability to update controls while streaming (e.g. mirroring).
+>=20
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-Please note, to make PWM work, it need to pull the change of K3's pwm
-driver which was already merged, see
-https://lore.kernel.org/all/agbgG00YENm388dd@monoceros/
----
-Changes in v3:
-- Again, fix pwm1_1 pinctrl info
-- Link to v2: https://patch.msgid.link/20260518-04-k3-pwm-dts-v2-1-c0ccba430abf@kernel.org
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Changes in v2:
-- Fix pwm1_1 pinctrl name
-- Link to v1: https://patch.msgid.link/20260511-04-k3-pwm-dts-v1-1-81fcde1871f8@kernel.org
----
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 590 +++++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 220 ++++++++++
- 2 files changed, 810 insertions(+)
+>=20
+> ---
+> Changes in v6:
+> - Reworked the commit to not setup the cmdbuf on streamon but rather
+> =C2=A0 re-initialize it on the next frame when something changed.
+> - Sasahiko flagged the cmdbuf setup at streamon:
+> =C2=A0 https://sashiko.dev/#/patchset/20260428-spu-rga3-v5-0-eb7f5d019d86=
+%40pengutronix.de?part=3D17
+> - Dropped Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> =C2=A0 due to the reworked patch and commit message contents
+>=20
+> Changes in v5:
+> - Don't set the flipping and rotation values at streamon and preventing
+> =C2=A0 the userspace from chainging them at runtime
+> ---
+> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.c | 13 +++++++++----
+> =C2=A0drivers/media/platform/rockchip/rga/rga.c=C2=A0=C2=A0=C2=A0 | 11 ++=
++++++++--
+> =C2=A0drivers/media/platform/rockchip/rga/rga.h=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 2 ++
+> =C2=A03 files changed, 20 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
+/platform/rockchip/rga/rga-hw.c
+> index dac3cb6aa17d3..567d39e58d33f 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+> @@ -417,8 +417,6 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+> =C2=A0{
+> =C2=A0	struct rockchip_rga *rga =3D ctx->rga;
+> =C2=A0
+> -	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
+> -
+> =C2=A0	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
+> =C2=A0	/*
+> =C2=A0	 * Due to hardware bug,
+> @@ -427,11 +425,9 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+> =C2=A0	rga_cmd_set_src1_addr(ctx, dst->dma_desc_pa);
+> =C2=A0
+> =C2=A0	rga_cmd_set_dst_addr(ctx, dst->dma_desc_pa);
+> -	rga_cmd_set_mode(ctx);
+> =C2=A0
+> =C2=A0	rga_cmd_set_src_info(ctx, &src->offset);
+> =C2=A0	rga_cmd_set_dst_info(ctx, &dst->offset);
+> -	rga_cmd_set_trans_info(ctx);
+> =C2=A0
+> =C2=A0	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
+> =C2=A0
+> @@ -440,6 +436,14 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+> =C2=A0				=C2=A0=C2=A0 PAGE_SIZE, DMA_BIDIRECTIONAL);
+> =C2=A0}
+> =C2=A0
+> +static void rga_hw_setup_cmdbuf(struct rga_ctx *ctx)
+> +{
+> +	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
+> +
+> +	rga_cmd_set_mode(ctx);
+> +	rga_cmd_set_trans_info(ctx);
+> +}
+> +
+> =C2=A0static void rga_hw_start(struct rockchip_rga *rga,
+> =C2=A0			 struct rga_vb_buffer *src,=C2=A0 struct rga_vb_buffer *dst)
+> =C2=A0{
+> @@ -582,6 +586,7 @@ const struct rga_hw rga2_hw =3D {
+> =C2=A0	.max_height =3D MAX_HEIGHT,
+> =C2=A0	.stride_alignment =3D 4,
+> =C2=A0
+> +	.setup_cmdbuf =3D rga_hw_setup_cmdbuf,
+> =C2=A0	.start =3D rga_hw_start,
+> =C2=A0	.handle_irq =3D rga_handle_irq,
+> =C2=A0	.get_version =3D rga_get_version,
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index d080cb672740b..394b14b9469df 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -38,6 +38,11 @@ static void device_run(void *prv)
+> =C2=A0	unsigned long flags;
+> =C2=A0
+> =C2=A0	spin_lock_irqsave(&rga->ctrl_lock, flags);
+> +	if (ctx->cmdbuf_dirty) {
+> +		ctx->cmdbuf_dirty =3D false;
+> +		rga->hw->setup_cmdbuf(ctx);
+> +	}
+> +	spin_unlock_irqrestore(&rga->ctrl_lock, flags);
+> =C2=A0
+> =C2=A0	rga->curr =3D ctx;
+> =C2=A0
+> @@ -47,8 +52,6 @@ static void device_run(void *prv)
+> =C2=A0	dst =3D v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
+> =C2=A0
+> =C2=A0	rga->hw->start(rga, vb_to_rga(src), vb_to_rga(dst));
+> -
+> -	spin_unlock_irqrestore(&rga->ctrl_lock, flags);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static irqreturn_t rga_isr(int irq, void *prv)
+> @@ -141,6 +144,7 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
+> =C2=A0		ctx->fill_color =3D ctrl->val;
+> =C2=A0		break;
+> =C2=A0	}
+> +	ctx->cmdbuf_dirty =3D true;
+> =C2=A0	spin_unlock_irqrestore(&ctx->rga->ctrl_lock, flags);
+> =C2=A0	return 0;
+> =C2=A0}
+> @@ -228,6 +232,7 @@ static int rga_open(struct file *file)
+> =C2=A0		ret =3D -ENOMEM;
+> =C2=A0		goto rel_ctx;
+> =C2=A0	}
+> +	ctx->cmdbuf_dirty =3D true;
+> =C2=A0
+> =C2=A0	ctx->rga =3D rga;
+> =C2=A0	/* Set default formats */
+> @@ -448,6 +453,7 @@ static int vidioc_s_fmt(struct file *file, void *priv=
+, struct v4l2_format *f)
+> =C2=A0	frm->crop.height =3D pix_fmt->height;
+> =C2=A0
+> =C2=A0	frm->pix =3D *pix_fmt;
+> +	ctx->cmdbuf_dirty =3D true;
+> =C2=A0
+> =C2=A0	v4l2_dbg(debug, 1, &rga->v4l2_dev,
+> =C2=A0		 "[%s] fmt - %p4cc %dx%d (stride %d, sizeimage %d)\n",
+> @@ -564,6 +570,7 @@ static int vidioc_s_selection(struct file *file, void=
+ *priv,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	f->crop =3D s->r;
+> +	ctx->cmdbuf_dirty =3D true;
+> =C2=A0
+> =C2=A0	return ret;
+> =C2=A0}
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index 38518146910a6..5360f092fecf0 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -55,6 +55,7 @@ struct rga_ctx {
+> =C2=A0
+> =C2=A0	void *cmdbuf_virt;
+> =C2=A0	dma_addr_t cmdbuf_phy;
+> +	bool cmdbuf_dirty;
+> =C2=A0
+> =C2=A0	int osequence;
+> =C2=A0	int csequence;
+> @@ -152,6 +153,7 @@ struct rga_hw {
+> =C2=A0	u32 max_width, max_height;
+> =C2=A0	u8 stride_alignment;
+> =C2=A0
+> +	void (*setup_cmdbuf)(struct rga_ctx *ctx);
+> =C2=A0	void (*start)(struct rockchip_rga *rga,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct rga_vb_buffer *src, struct =
+rga_vb_buffer *dst);
+> =C2=A0	bool (*handle_irq)(struct rockchip_rga *rga);
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 23899d3f308a..28cb0490de3b 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -56,6 +56,596 @@ i2c8-pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	pwm0_0_cfg: pwm0-0-cfg {
-+		pwm0-0-pins {
-+			pinmux = <K3_PADCONF(0, 3)>;	/* pwm0 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm0_1_cfg: pwm0-1-cfg {
-+		pwm0-0-pins {
-+			pinmux = <K3_PADCONF(42, 6)>;	/* pwm0 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm1_0_cfg: pwm1-0-cfg {
-+		pwm1-0-pins {
-+			pinmux = <K3_PADCONF(1, 3)>;	/* pwm1 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm1_1_cfg: pwm1-1-cfg {
-+		pwm1-1-pins {
-+			pinmux = <K3_PADCONF(43, 6)>;	/* pwm1 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm1_2_cfg: pwm1-2-cfg {
-+		pwm1-0-pins {
-+			pinmux = <K3_PADCONF(95, 6)>;	/* pwm1 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm2_0_cfg: pwm2-0-cfg {
-+		pwm2-0-pins {
-+			pinmux = <K3_PADCONF(2, 3)>;	/* pwm2 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm2_1_cfg: pwm2-1-cfg {
-+		pwm2-0-pins {
-+			pinmux = <K3_PADCONF(44, 6)>;	/* pwm2 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm2_2_cfg: pwm2-2-cfg {
-+		pwm2-0-pins {
-+			pinmux = <K3_PADCONF(96, 6)>;	/* pwm2 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm2_3_cfg: pwm2-3-cfg {
-+		pwm2-0-pins {
-+			pinmux = <K3_PADCONF(134, 4)>;	/* pwm2 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm3_0_cfg: pwm3-0-cfg {
-+		pwm3-0-pins {
-+			pinmux = <K3_PADCONF(3, 3)>;	/* pwm3 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm3_1_cfg: pwm3-1-cfg {
-+		pwm3-0-pins {
-+			pinmux = <K3_PADCONF(45, 6)>;	/* pwm3 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm3_2_cfg: pwm3-2-cfg {
-+		pwm3-0-pins {
-+			pinmux = <K3_PADCONF(97, 6)>;	/* pwm3 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm3_3_cfg: pwm3-3-cfg {
-+		pwm3-0-pins {
-+			pinmux = <K3_PADCONF(135, 4)>;	/* pwm3 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm4_0_cfg: pwm4-0-cfg {
-+		pwm4-0-pins {
-+			pinmux = <K3_PADCONF(4, 3)>;	/* pwm4 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm4_1_cfg: pwm4-1-cfg {
-+		pwm4-0-pins {
-+			pinmux = <K3_PADCONF(46, 6)>;	/* pwm4 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm4_2_cfg: pwm4-2-cfg {
-+		pwm4-0-pins {
-+			pinmux = <K3_PADCONF(136, 4)>;	/* pwm4 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm5_0_cfg: pwm5-0-cfg {
-+		pwm5-0-pins {
-+			pinmux = <K3_PADCONF(5, 3)>;	/* pwm5 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm5_1_cfg: pwm5-1-cfg {
-+		pwm5-0-pins {
-+			pinmux = <K3_PADCONF(47, 6)>;	/* pwm5 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm5_2_cfg: pwm5-2-cfg {
-+		pwm5-0-pins {
-+			pinmux = <K3_PADCONF(137, 4)>;	/* pwm5 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm6_0_cfg: pwm6-0-cfg {
-+		pwm6-0-pins {
-+			pinmux = <K3_PADCONF(6, 3)>;	/* pwm6 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm6_1_cfg: pwm6-1-cfg {
-+		pwm6-0-pins {
-+			pinmux = <K3_PADCONF(145, 3)>;	/* pwm6 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm6_2_cfg: pwm6-2-cfg {
-+		pwm6-0-pins {
-+			pinmux = <K3_PADCONF(48, 6)>;	/* pwm6 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm7_0_cfg: pwm7-0-cfg {
-+		pwm7-0-pins {
-+			pinmux = <K3_PADCONF(7, 3)>;	/* pwm7 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm7_1_cfg: pwm7-1-cfg {
-+		pwm7-0-pins {
-+			pinmux = <K3_PADCONF(146, 3)>;	/* pwm7 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm7_2_cfg: pwm7-2-cfg {
-+		pwm7-0-pins {
-+			pinmux = <K3_PADCONF(49, 6)>;	/* pwm7 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm8_0_cfg: pwm8-0-cfg {
-+		pwm8-0-pins {
-+			pinmux = <K3_PADCONF(8, 3)>;	/* pwm8 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm8_1_cfg: pwm8-1-cfg {
-+		pwm8-0-pins {
-+			pinmux = <K3_PADCONF(147, 3)>;	/* pwm8 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm8_2_cfg: pwm8-2-cfg {
-+		pwm8-0-pins {
-+			pinmux = <K3_PADCONF(50, 6)>;	/* pwm8 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm9_0_cfg: pwm9-0-cfg {
-+		pwm9-0-pins {
-+			pinmux = <K3_PADCONF(9, 3)>;	/* pwm9 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm9_1_cfg: pwm9-1-cfg {
-+		pwm9-0-pins {
-+			pinmux = <K3_PADCONF(148, 3)>;	/* pwm9 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm9_2_cfg: pwm9-2-cfg {
-+		pwm9-0-pins {
-+			pinmux = <K3_PADCONF(51, 6)>;	/* pwm9 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm10_0_cfg: pwm10-0-cfg {
-+		pwm10-0-pins {
-+			pinmux = <K3_PADCONF(10, 3)>;	/* pwm10 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm10_1_cfg: pwm10-1-cfg {
-+		pwm10-0-pins {
-+			pinmux = <K3_PADCONF(52, 6)>;	/* pwm10 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm10_2_cfg: pwm10-2-cfg {
-+		pwm10-0-pins {
-+			pinmux = <K3_PADCONF(141, 4)>;	/* pwm10 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm11_0_cfg: pwm11-0-cfg {
-+		pwm11-0-pins {
-+			pinmux = <K3_PADCONF(53, 6)>;	/* pwm11 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm11_1_cfg: pwm11-1-cfg {
-+		pwm11-0-pins {
-+			pinmux = <K3_PADCONF(140, 4)>;	/* pwm11 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm12_0_cfg: pwm12-0-cfg {
-+		pwm12-0-pins {
-+			pinmux = <K3_PADCONF(54, 6)>;	/* pwm12 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm12_1_cfg: pwm12-1-cfg {
-+		pwm12-0-pins {
-+			pinmux = <K3_PADCONF(139, 4)>;	/* pwm12 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm13_0_cfg: pwm13-0-cfg {
-+		pwm13-0-pins {
-+			pinmux = <K3_PADCONF(55, 6)>;	/* pwm13 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm13_1_cfg: pwm13-1-cfg {
-+		pwm13-0-pins {
-+			pinmux = <K3_PADCONF(138, 4)>;	/* pwm13 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm13_2_cfg: pwm13-2-cfg {
-+		pwm13-0-pins {
-+			pinmux = <K3_PADCONF(13, 3)>;	/* pwm13 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm14_0_cfg: pwm14-0-cfg {
-+		pwm14-0-pins {
-+			pinmux = <K3_PADCONF(56, 6)>;	/* pwm14 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm14_1_cfg: pwm14-1-cfg {
-+		pwm14-0-pins {
-+			pinmux = <K3_PADCONF(144, 4)>;	/* pwm14 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm14_2_cfg: pwm14-2-cfg {
-+		pwm14-0-pins {
-+			pinmux = <K3_PADCONF(14, 3)>;	/* pwm14 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm15_0_cfg: pwm15-0-cfg {
-+		pwm15-0-pins {
-+			pinmux = <K3_PADCONF(57, 6)>;	/* pwm15 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm15_1_cfg: pwm15-1-cfg {
-+		pwm15-0-pins {
-+			pinmux = <K3_PADCONF(142, 4)>;	/* pwm15 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm15_2_cfg: pwm15-2-cfg {
-+		pwm15-0-pins {
-+			pinmux = <K3_PADCONF(21, 3)>;	/* pwm15 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm16_0_cfg: pwm16-0-cfg {
-+		pwm16-0-pins {
-+			pinmux = <K3_PADCONF(58, 6)>;	/* pwm16 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm16_1_cfg: pwm16-1-cfg {
-+		pwm16-0-pins {
-+			pinmux = <K3_PADCONF(143, 4)>;	/* pwm16 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm16_2_cfg: pwm16-2-cfg {
-+		pwm16-0-pins {
-+			pinmux = <K3_PADCONF(22, 3)>;	/* pwm16 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm17_0_cfg: pwm17-0-cfg {
-+		pwm17-0-pins {
-+			pinmux = <K3_PADCONF(23, 3)>;	/* pwm17 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm17_1_cfg: pwm17-1-cfg {
-+		pwm17-0-pins {
-+			pinmux = <K3_PADCONF(59, 6)>;	/* pwm17 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm17_2_cfg: pwm17-2-cfg {
-+		pwm17-0-pins {
-+			pinmux = <K3_PADCONF(105, 6)>;	/* pwm17 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm18_0_cfg: pwm18-0-cfg {
-+		pwm18-0-pins {
-+			pinmux = <K3_PADCONF(24, 3)>;	/* pwm18 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm18_1_cfg: pwm18-1-cfg {
-+		pwm18-0-pins {
-+			pinmux = <K3_PADCONF(60, 6)>;	/* pwm18 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm18_2_cfg: pwm18-2-cfg {
-+		pwm18-0-pins {
-+			pinmux = <K3_PADCONF(106, 6)>;	/* pwm18 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm19_0_cfg: pwm19-0-cfg {
-+		pwm19-0-pins {
-+			pinmux = <K3_PADCONF(25, 3)>;	/* pwm19 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm19_1_cfg: pwm19-1-cfg {
-+		pwm19-0-pins {
-+			pinmux = <K3_PADCONF(61, 6)>;	/* pwm19 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm19_2_cfg: pwm19-2-cfg {
-+		pwm19-0-pins {
-+			pinmux = <K3_PADCONF(107, 6)>;	/* pwm19 */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	uart0_0_cfg: uart0-0-cfg {
- 		uart0-0-pins {
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index e6faf8d8759e..e331adbcb11a 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -797,6 +797,226 @@ i2c8: i2c@d401d800 {
- 			status = "disabled";
- 		};
- 
-+		pwm0: pwm@d401a000 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401a000 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM0>,
-+				 <&syscon_apbc CLK_APBC_PWM0_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM0>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm1: pwm@d401a400 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401a400 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM1>,
-+				 <&syscon_apbc CLK_APBC_PWM1_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM1>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm2: pwm@d401a800 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401a800 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM2>,
-+				 <&syscon_apbc CLK_APBC_PWM2_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM2>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm3: pwm@d401ac00 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401ac00 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM3>,
-+				 <&syscon_apbc CLK_APBC_PWM3_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM3>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm4: pwm@d401b000 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401b000 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM4>,
-+				 <&syscon_apbc CLK_APBC_PWM4_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM4>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm5: pwm@d401b400 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401b400 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM5>,
-+				 <&syscon_apbc CLK_APBC_PWM5_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM5>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm6: pwm@d401b800 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401b800 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM6>,
-+				 <&syscon_apbc CLK_APBC_PWM6_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM6>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm7: pwm@d401bc00 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd401bc00 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM7>,
-+				 <&syscon_apbc CLK_APBC_PWM7_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM7>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm8: pwm@d4020000 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4020000 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM8>,
-+				 <&syscon_apbc CLK_APBC_PWM8_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM8>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm9: pwm@d4020400 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4020400 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM9>,
-+				 <&syscon_apbc CLK_APBC_PWM9_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM9>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm10: pwm@d4020800 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4020800 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM10>,
-+				 <&syscon_apbc CLK_APBC_PWM10_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM10>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm11: pwm@d4020c00 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4020c00 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM11>,
-+				 <&syscon_apbc CLK_APBC_PWM11_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM11>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm12: pwm@d4021000 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4021000 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM12>,
-+				 <&syscon_apbc CLK_APBC_PWM12_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM12>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm13: pwm@d4021400 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4021400 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM13>,
-+				 <&syscon_apbc CLK_APBC_PWM13_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM13>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm14: pwm@d4021800 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4021800 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM14>,
-+				 <&syscon_apbc CLK_APBC_PWM14_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM14>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm15: pwm@d4021c00 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4021c00 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM15>,
-+				 <&syscon_apbc CLK_APBC_PWM15_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM15>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm16: pwm@d4022000 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4022000 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM16>,
-+				 <&syscon_apbc CLK_APBC_PWM16_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM16>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm17: pwm@d4022400 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4022400 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM17>,
-+				 <&syscon_apbc CLK_APBC_PWM17_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM17>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm18: pwm@d4022800 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4022800 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM18>,
-+				 <&syscon_apbc CLK_APBC_PWM18_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM18>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm19: pwm@d4022c00 {
-+			compatible = "spacemit,k3-pwm", "marvell,pxa910-pwm";
-+			reg = <0x0 0xd4022c00 0x0 0x10>;
-+			clocks = <&syscon_apbc CLK_APBC_PWM19>,
-+				 <&syscon_apbc CLK_APBC_PWM19_BUS>;
-+			clock-names = "func", "bus";
-+			resets = <&syscon_apbc RESET_APBC_PWM19>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
- 		pinctrl: pinctrl@d401e000 {
- 			compatible = "spacemit,k3-pinctrl";
- 			reg = <0x0 0xd401e000 0x0 0x1000>;
+--=-iE9F37poAHpBbdW9jc1N
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
----
-base-commit: f068b204555ad62d6a841a49feb4ea8c4f45b25c
-change-id: 20260321-04-k3-pwm-dts-1d16258f0d20
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
---  
-Yixun Lan <dlan@kernel.org>
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCag5J8wAKCRDZQZRRKWBy
+9DAZAP9Xf7IdErtf/h9OYj66sgKI7S2PALOfOoCONV6yRBPk5wEA8266iKH8r1NF
+zwhjBDfN6Qioq0E01auxFy1Gft3WbAw=
+=ULXz
+-----END PGP SIGNATURE-----
 
+--=-iE9F37poAHpBbdW9jc1N--
