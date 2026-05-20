@@ -1,228 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E04372B31;
-	Wed, 20 May 2026 10:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137273D7D7A;
+	Wed, 20 May 2026 10:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779272445; cv=none; b=EwnH7yffiMgactoMkSRSE3Osfh4LJ9Vjq3f21SjxTbCkFPoCxO48G4bk90wrYA87K8Xg0TlxlVSCY1OW0D9MQQcRM0Fv1QXEjda4IrXUEBmx/Yabo7MqtL5QkAj99bBKfWOGHSd9Nkbeu57H8oERA3qdEAtZr4zVJrrD/vySP8U=
+	t=1779272526; cv=none; b=S1eKJ3MFzwPxuuoiEhwxvoquAIYRTvCC567QYLLZpBRxH6DRApYdRL8E7oMkYMxchzyCu7Y/aLnCYNVlt5mr9nx/zc2YRDo707Hjpgts4AWtN5kdxjwLeE8iEI5/nNYkrZlB/+KzBFApT/v9qvgdGuJItRJnRmIZZDTHB/VpRqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779272445; c=relaxed/simple;
-	bh=i8YXp88SBrjSfaEabpCqCwQuLWqcSJRB7zqdNAJQHeI=;
+	s=arc-20240116; t=1779272526; c=relaxed/simple;
+	bh=sw0zCXDAtm9dTIH3UUHXuCi6iSS/VhVtc4yoLlK5/HM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EvZ2kkI0PxcCuLzEKxaW32ODLQ6ZoZzBfZloPNy6iUc9SI6t9pqvyPzF+uE6qSzLp4aKVxQ/9/wK9Xl1D2QI7rLKR7GgpTY6J8I0gAmoQHS1Drnzp/1Q8KOTyOSl50R5yioJjAh1obW0sKZe8yN2ZOHmQL01kZZ/t/U64vCS5SY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQZZVvlL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UvkQSRJkUgAuhn+FNIZWMCywvKoVUi6pG5TBBuYZP2BV0XjsYdYTHSbJb1hqMRu6XAk0zjkE06/wp6s445sTBnezO+LTqBqk4Roei3avVNdmCoCKrjoe86/FKIKZq8/TqeqNRCuDqLGnclqApZN74EGIRX4jeCkMEKwsA4uosls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mjobRMVF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQZZVvlL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD0B1F000E9;
-	Wed, 20 May 2026 10:20:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779272439;
-	bh=6g9ajzLqaEWEZ3KYt0gRi4e7YSp9lg1KdLS1jVzQoSo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AQZZVvlLPqBw2UoxzkuD5EIcIzW5wozB3Tz2HC1nrXxhcttdIZyLbH9HAIumgriVM
-	 xpaw0MOFiD0lsN4PZM20uRz4DZ3yLXtTCYbth/2fn9Ja7SEMwAckeBtqxNCEEAum5c
-	 ++eomNgH4DF5mTJOBDL7hByDsqM1SxOYNtBsi0YonPhHUiNt+tci7/436imEJ1495N
-	 tXSdH1DZzid6s7lVAVQjcXvqGuNnuFmxFxKUdXSygaIoG10/bu4qrslaBucHABOtDf
-	 9PX1Gy2DhrFe7twM9xULskYEU/R1tJ20wCYG8iF6KgDpyaRnqczMn2OLTKiDgJSztk
-	 iPlBefVyNu6Hg==
-Date: Wed, 20 May 2026 12:20:37 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: cpufreq: qcom-hw: Document Shikra
- CPUFREQ Hardware
-Message-ID: <20260520-hissing-rook-of-penetration-b4d6c5@quoll>
-References: <20260519-shikra-cpufreq-scaling-v2-0-2b09f0e1c9d8@oss.qualcomm.com>
- <20260519-shikra-cpufreq-scaling-v2-1-2b09f0e1c9d8@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mjobRMVF"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K7ZSpr341432;
+	Wed, 20 May 2026 10:21:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=dK6fMAvOEgBu9zZPgmFRg++L
+	vQnT9Vjed2gZEFG4UMY=; b=mjobRMVFUDM5OCIeYZEnO5G23KJZb/j6QAgBDsir
+	DZnjQpZOqE5lDbxhzlcYZTFglk4sqtsh36vrKiqEP31FPApzjMHl5A56WkkCzX8S
+	teggsDunA55BL/lp/urTEW9AqlQh5bjwx9KkSWGSZGeJKIAIn6BUvIj5hkNVBJPW
+	HlL4pikkGgwRi/kvUB+2FJvx23kI7P0pLUmeMOkY3D70gOO184mnN36P2A9jyDtM
+	VmgrZk6SfIwRwYG3SqP17KdAcfOYZbTpCxMz+EsbAx+O8RmorFfnX8ce0VlT2FFD
+	ITuVoo6VhXhDMRfWw7jP+6jru8WTPSD9S3H63a64hxe/wg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3vc7w9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 10:21:46 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64KAIWZT014901;
+	Wed, 20 May 2026 10:21:42 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4e712fy4cd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 10:21:42 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64KALghn018580;
+	Wed, 20 May 2026 10:21:42 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 64KALfSq018579
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 10:21:42 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 6C29EB38; Wed, 20 May 2026 15:51:41 +0530 (+0530)
+Date: Wed, 20 May 2026 15:51:41 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: qcom,usb-vbus-regulator: add
+ qcom,pm4125-vbus-reg
+Message-ID: <20260520102141.22jzflg5fp726x4h@hu-kotarake-hyd.qualcomm.com>
+References: <20260520-add_pm4125-vbus-reg-v1-0-f6d15d7dbbe8@oss.qualcomm.com>
+ <20260520-add_pm4125-vbus-reg-v1-1-f6d15d7dbbe8@oss.qualcomm.com>
+ <253db4e4-7b69-466f-b4b6-59a77609b9fe@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260519-shikra-cpufreq-scaling-v2-1-2b09f0e1c9d8@oss.qualcomm.com>
+In-Reply-To: <253db4e4-7b69-466f-b4b6-59a77609b9fe@oss.qualcomm.com>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: XXMRPtgkANjVAPnfnRTjyUaiHAWoHDkz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5OSBTYWx0ZWRfX/dlW7IyYCFkq
+ u5bA26SCydIBKW3c9nCk0t2ksdBZ7UlLhviT47YCDqW5YuVLHBFOp58FkHbOmWtp13qTf6TaCXq
+ kID1/4aPGxNxaEzVLFk8VWJ7VdAdFhwe5/cBrqYE7WX/pMVhBHYnyva+8I2VkL408OYiSN2teQh
+ AeIvxYA/T+lmClY4fo+DKUzOtKioJsU+PmptgmhgZjT8/4pZQE8jRezVsmHfbMjJqPPTYVekkHq
+ KcjMuUOGJRb1bkhwUEXWMnGreHcMaw9PCuDRuSPNP5ANb0u3GdeCf3V8l2GGWqov8+4KH+n2oMu
+ 4E/a9qj3OluraurSlCrRlLUq2aZ1DTt/YmosWBw1CPM2+oL1gJCBnY5YQBgHW/KTf1EkrhIoUi4
+ RYh6tTOZxjCs+h/jHSV3XBGDsKK6kvV42edkHnGj+mi3nQf2WvwsUQVNfX70kBNOp+U+NY18QYw
+ 7LGn39VDUVEIeelOZ3g==
+X-Authority-Analysis: v=2.4 cv=JuPBas4C c=1 sm=1 tr=0 ts=6a0d8b3a cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=K117WDCKKrbTuwPAyMAA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: XXMRPtgkANjVAPnfnRTjyUaiHAWoHDkz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ phishscore=0 impostorscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200099
 
-On Tue, May 19, 2026 at 10:58:03PM +0530, Imran Shaik wrote:
-> The Qualcomm Shikra cpufreq hardware is functionally identical to EPSS,
-> but supports only up to 12 frequency lookup table (LUT) entries. Introduce
-> Shikra specific bindings to represent this constrained EPSS variant.
+On Wed, May 20, 2026 at 11:44:42AM +0200, Konrad Dybcio wrote:
+> On 5/20/26 11:07 AM, Rakesh Kota wrote:
+> > The pm4125 PMIC uses a different USB VBUS register layout than pm8150b.
+> > It uses a 2-bit VBOOST voltage selector supporting output voltages of
+> > 4.25 V, 4.5 V, 4.75 V and 5.0 V, instead of a current-limit selector.
+> > 
+> > Move qcom,pm4125-vbus-reg from the pm8150b fallback items list into the
+> > standalone enum since the driver handles it with its own match-data and
+> > register layout.
+> > 
+> > Make regulator-min/max-microamp conditional so they are only required
+> > for current-limit variants (pm8150b, pm6150, pm7250b, pmi632). Add an
+> > if/then condition for qcom,pm4125-vbus-reg requiring regulator-min/
+> > max-microvolt instead, and update the pm4125 example accordingly.
+> > 
+> > Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> > ---
+> >  .../regulator/qcom,usb-vbus-regulator.yaml         | 50 +++++++++++++++++++---
+> >  1 file changed, 45 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> > index fcefc722ee2a495837fedba026669de97350c566..7c74573848bcdafbf6260f69cfcd7a9b58bc9f2d 100644
+> > --- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> > +++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> > @@ -14,17 +14,21 @@ description: |
+> >    regulator will be enabled in situations where the device is required to
+> >    provide power to the connected peripheral.
+> >  
+> > -allOf:
+> > -  - $ref: regulator.yaml#
+> > +  The pm8150b variant uses an OTG current-limit selector, supporting limits
+> > +  of 500 mA, 1000 mA, 1500 mA, 2000 mA, 2500 mA and 3000 mA.
+> > +
+> > +  The pm4125 variant uses a different register layout with a 2-bit VBOOST
+> > +  voltage selector supporting output voltages of 4.25 V, 4.5 V, 4.75 V
+> > +  and 5.0 V.
+> >  
+> >  properties:
+> >    compatible:
+> >      oneOf:
+> >        - enum:
+> >            - qcom,pm8150b-vbus-reg
+> > +          - qcom,pm4125-vbus-reg
+> >        - items:
+> >            - enum:
+> > -              - qcom,pm4125-vbus-reg
+> >                - qcom,pm6150-vbus-reg
+> >                - qcom,pm7250b-vbus-reg
+> >                - qcom,pmi632-vbus-reg
 > 
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> ---
->  .../bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml   | 133 +++++++++++++++++++++
-
-Filename must match compatible. Please read writing-bindings doc.
-
->  1 file changed, 133 insertions(+)
+> This change needs to be paired with an update to the existing DTS users,
+> or validation will fail
 > 
-> diff --git a/Documentation/devicetree/bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml b/Documentation/devicetree/bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..52079ed661671554fcca8677409ee11199f5727b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml
-> @@ -0,0 +1,133 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/cpufreq/shikra-cpufreq-qcom-hw.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: CPUFREQ HW for Qualcomm Shikra SoC
-> +
-> +maintainers:
-> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
-> +  - Taniya Das <taniya.das@oss.qualcomm.com>
-> +
-> +description: |
-> +
+sure, I will include the DT changes in the same patch
+series to keep things atomic and ensure dtbs_check compliance.
 
-Drop blank line
-
-> +  CPUFREQ HW is a hardware engine used by some Qualcomm SoCs to manage
-> +  frequency in hardware. It is capable of controlling frequency for
-> +  multiple clusters.
-> +
-> +  The Qualcomm Shikra CPUFREQ HW supports up to 12 frequency lookup table
-> +  (LUT) entries.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,shikra-cpufreq-epss
-
-cpufreq is Linux term. How the device called in manual? EPSS? cpufreq?
-cpufreq-epss?
-
-> +
-> +  reg:
-> +    items:
-> +      - description: Frequency domain 0 register region
-> +      - description: Frequency domain 1 register region
-> +
-> +  reg-names:
-> +    items:
-> +      - const: freq-domain0
-> +      - const: freq-domain1
-> +
-> +  clocks:
-> +    items:
-> +      - description: XO Clock
-> +      - description: GPLL0 Clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: xo
-> +      - const: alternate
-> +
-> +  interrupts:
-> +    items:
-> +      - description: IRQ line for DCVSH 0
-> +      - description: IRQ line for DCVSH 1
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: dcvsh-irq-0
-> +      - const: dcvsh-irq-1
-> +
-> +  '#freq-domain-cells':
-> +    const: 1
-> +
-> +  '#clock-cells':
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - '#freq-domain-cells'
-
-Why interrupts are not required?
-
-Why clock-cells are missing? The device is a clock provider, no? Does it
-differ per each board?
-
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,rpmcc.h>
-> +
-> +      cpus {
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +
-> +        cpu0: cpu@0 {
-> +          device_type = "cpu";
-> +          compatible = "arm,cortex-a55";
-> +          reg = <0x0 0x0>;
-> +          enable-method = "psci";
-> +          qcom,freq-domain = <&cpufreq_hw 0>;
-> +          clocks = <&cpufreq_hw 0>;
-> +        };
-> +
-> +        cpu1: cpu@100 {
-> +          device_type = "cpu";
-> +          compatible = "arm,cortex-a55";
-> +          reg = <0x0 0x100>;
-> +          enable-method = "psci";
-> +          qcom,freq-domain = <&cpufreq_hw 0>;
-> +          clocks = <&cpufreq_hw 0>;
-> +        };
-> +
-> +        cpu2: cpu@200 {
-> +          device_type = "cpu";
-> +          compatible = "arm,cortex-a55";
-> +          reg = <0x0 0x200>;
-> +          enable-method = "psci";
-> +          qcom,freq-domain = <&cpufreq_hw 0>;
-> +          clocks = <&cpufreq_hw 0>;
-> +        };
-> +
-> +        cpu3: cpu@300 {
-> +          device_type = "cpu";
-> +          compatible = "arm,cortex-a78c";
-> +          reg = <0x0 0x300>;
-> +          enable-method = "psci";
-> +          qcom,freq-domain = <&cpufreq_hw 1>;
-> +          clocks = <&cpufreq_hw 1>;
-> +        };
-> +      };
-
-Drop all nodes above.
-
-> +
-> +    soc {
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-> +
-> +      cpufreq@fd91000 {
-> +        compatible = "qcom,shikra-cpufreq-epss";
-> +        reg = <0x0fd91000 0x1000>, <0x0fd92000 0x1000>;
-> +        reg-names = "freq-domain0", "freq-domain1";
-> +
-> +        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>, <&gpll0>;
-> +        clock-names = "xo", "alternate";
-
-Incomplete example.
-
-> +
-> +        #freq-domain-cells = <1>;
-> +        #clock-cells = <1>;
-> +      };
-> +    };
-> +...
+> [...]
 > 
-> -- 
-> 2.34.1
+> > +     pmic {
+> > +        #address-cells = <1>;
+> > +        #size-cells = <0>;
+> > +
+> > +        usb-vbus-regulator@5000 {
+> > +            compatible = "qcom,pm4125-vbus-reg";
+> > +            reg = <0x1100>;
 > 
+> This should fail make dt_binding_check, as the reg value doesn't match the
+> unit address (after the @ sign)
+>
+Ok, I will fix the node name to usb-vbus-regulator@1100 in the next version.
+
+regards
+Rakesh
+> Konrad
