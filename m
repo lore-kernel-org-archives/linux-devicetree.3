@@ -1,151 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B7233ADB3
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:01:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEC0344DB5
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779292883; cv=none; b=BS/6eFQmAFiGqBYoVYe1h/Ya1AIVJNLtuQwaTHiikJjgWjej1PTc+Olb4RNvZeS63YXKowMsQLbSQy9AoEGHYE8x84Z0QM//+G+aPrnIxhNPoLtae7mdq5PqKpvJqt896bgfq53Y2Hqdc5gDaCDXMR6AoDiVOVAnLPBqth6WaCs=
+	t=1779293037; cv=none; b=u9WEzwxpIs9p5LXkM20qhoqHjZ5G8xlYfRRcwqIHoora5P68LkrzKjV4J1Fiw1mfhiAm/0g22RGZ/5LGRM38aR7rVvZ3VxMyjQbaRxY9b6QOcisS3Lfu7+oGGLWbiXgEpng1uIX9yWJNP6Q/H5Mda5jGKE52/XKfRpYQizWVtOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779292883; c=relaxed/simple;
-	bh=Qyg/N0RPWRdjh49dRdZFz6LZc2ehONUDsrWnJo4MvBA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D2DEzCSCMWAJvQH3Wpr1o/Xqm1+eQwj58SIEQWBl7aa7KFp4TCHdVZrqsV0ragA1t1hwu+lksxay0L4L7G6+gaAnYEcbNsWUsH4ZQgbkCImfN0axI/KKykdoZh7dD3ddRmmfX34lua9j6MiiqpPYOLUAlER0pKS5N9/XjOOCvVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/usQ1Qw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779293037; c=relaxed/simple;
+	bh=n4pLhxe10aAsAHunyY5VXGOUYx5L8re42WC5ZFN4Xz8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pbWhK2saJc5quU4C/NkD1ArFr/FjldSEGXDXGIdtbod3iOn9U9R0Kc7y+Upw3yw7G2D2P2HQiKjccBzmhBrO3Eo+C+2CTzMoMt8hy0KulMlLihj0NLTi/bLQ65r4q4gQ9EY3uQ8PBjipMGr1zQFgC8X00krXapRyGnlV/9w3iOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DhYG29It; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/usQ1Qw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75651F0089E
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DhYG29It"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F3C1F000E9;
+	Wed, 20 May 2026 16:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779292881;
-	bh=Qyg/N0RPWRdjh49dRdZFz6LZc2ehONUDsrWnJo4MvBA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=X/usQ1QwCSwG8o7OoxDK5LlZCyymqvRBUw8VjlJEpylcAPKlZoQfiVF/O/h2zPIGs
-	 81394m/ZfWr/Q4J/Mckik9lffmjvezKZSSTV13Y5ku+1oojI0BrlX4qiRKcsTOqyAi
-	 jm2K5SNkl582Ua8XlCTjdEjJHrq14kKlmo+M1+Jg/4PXBM/eoutf1TpHIJEfGVSvP5
-	 xJ5BgDhwVVGW+Wy8Hj6YGEnP0Im6y6spd+XOU/zoaiWcm9S6aZiGTrYZaxAwOQ2HqB
-	 7C5A6/UaBuQI+L4YwWae5GXBJopsbclqgjNJA5pslY7juhn7ldrephedFNMRwwGcQm
-	 5RkqtAalGKwsA==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39393ec4ed0so47665241fa.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:01:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+cRuom63ZjfZWDRW8eN+L4SrQ08f9STAku0IeY/r4yuKhfKHEepZNNvpcJu8irSRPSiR7wVu4m+i/M@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2V8VFj3H/RM4IXJUltLSmgebDcWrSaOVKQugAFmze0CyQyf7J
-	0HVr70fTzfRXmt+XyoWWzIZTJRIN67FewIexTrZcqQNrkwK4PCCP+sT082b5rHr1G08C1D4RWA9
-	gr8X0hNOOxtRH0CNgcvY8rQMSoawTNm6+wDiL1eQbag==
-X-Received: by 2002:a2e:be8b:0:b0:394:1b05:4554 with SMTP id
- 38308e7fff4ca-395619eff61mr78938081fa.4.1779292880531; Wed, 20 May 2026
- 09:01:20 -0700 (PDT)
+	s=k20260515; t=1779293035;
+	bh=vC6FBxkJOurXjbtx7Ud+M3mgbkXTGk+vlBfotO7mVG0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DhYG29ItXfylxnZlNwMQTvUeLTwlovvfBdNiNpaJKUOkA4T9TD7g9q+7mwqMXv64b
+	 QK19NtqiyLyiponZXQgJZKI6cN5FT0u7RuTbOMYKmsNtBIztqtN0SRya6OpcLfWE5I
+	 x5rceT+ZuxC/bZ/nmxNn7hEjNJI2hTpWv6TWuqj/hgtz54OhVfENa40EDcKCGW02Vl
+	 VsZQrxkUMd49PbvJ3DIj6Yii0XA0e8CWIcgRjHJqlmUg6u3ov0Oel1b0zav0Y+iRUO
+	 uIbc7bQhfvv4pItztEPesOKJBnM9DbT0009CqjH7OiRjGWcxnfW+b3HRFamq84DqVr
+	 mc6DR33mpbPvw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 6/6] leds: is31fl32xx: Move pwm frequency setting to
+ init_regs()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jun Yan" <jerrysteve1101@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260520135659.1430008-7-jerrysteve1101@gmail.com>
+References: <20260520135659.1430008-7-jerrysteve1101@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 16:03:55 +0000
+Message-Id: <20260520160355.A8F3C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260515090149.3169406-1-wenst@chromium.org>
-In-Reply-To: <20260515090149.3169406-1-wenst@chromium.org>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Wed, 20 May 2026 18:01:08 +0200
-X-Gmail-Original-Message-ID: <CAMRc=MdnjRRMVzxPkkrPhQ4dz7rsK8-HKUp9cQ0z11apL3escQ@mail.gmail.com>
-X-Gm-Features: AVHnY4JiBPEmzMVtIpn3-9v_DqTGvSLjQ-NfRiMDk-zVR0iQCEFF2AVZFIteHmE
-Message-ID: <CAMRc=MdnjRRMVzxPkkrPhQ4dz7rsK8-HKUp9cQ0z11apL3escQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 00/12] arm64: mediatek: Add M.2 E-key slot on Chromebooks
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 15, 2026 at 11:02=E2=80=AFAM Chen-Yu Tsai <wenst@chromium.org> =
-wrote:
->
-> Hi everyone,
->
-> This series is my attempt at enabling power sequencing for USB to support
-> the USB connection on M.2 E-key slots. M.2 E-key was enabled in v7.1-rc1
-> with just PCIe and UART supported [1].
->
-> Most of the series is based on next-20260508, while the DT changes also
-> depend on some other DT cleanup patches I sent [2][3].
->
->
-> Patch 1 reworks the power sequencing framework to allow matching against
-> different USB ports. The consumer API gains an "index" parameter (which
-> is the USB port number on the hub), while the provider API is reworked
-> to pass the index to the matching function of the providing driver.
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Sigh... I would really prefer to avoid going in this direction. IMO
-it's not very clear what this index actually refers to in generic
-terms, given that pwrseq is flexible on purpose and there's no
-specific, well-defined DT property which could have an "index".
+Pre-existing issues:
+- [High] LED class devices are registered and exposed to userspace before t=
+he hardware is fully initialized, allowing initial states to be overwritten=
+ by the subsequent hardware reset.
+- [High] The driver tears down the hardware manually in `remove()` while th=
+e LED class devices are still accessible to userspace.
+- [High] Incorrect logic when calculating maximum current limits for IS31FL=
+3293 leads to broken limit enforcement and truncation.
+--
 
-> Patch 2 implements the index matching in the pcie-m2 driver. Matching
-> only happens when a valid (>=3D 0) index is given.
->
-> Patch 3 reworks the power sequencing targets for the E-key connector in
-> the pcie-m2 driver to add targets for USB and SDIO. The former is used
-> later on in this series.
->
-> Patch 4 reworks the USB hub driver to return the actual error code from
-> hub_configure() in hub_probe(). This is needed in the next patch to
-> correctly return -EPROBE_DEFER.
->
-> Patch 5 lets the USB hub driver look for power sequencers for each port.
-> Currently this only works for M.2 E-key connections, but it could be
-> extended to cover other cases. It should also make port reset via turning
-> off the port VBUS work, even when VBUS is not directly controlled by the
-> hub.
->
-> I expect some discussion on this patch, because a) it adds some
-> OF-specific code into an otherwise generic (core) driver, and
-> b) it doesn't yet handle USB 2.0 / 3.x shared ports; it ends up powering
-> on the port twice, which negates the port reset part.
->
+commit 4a46eb293f0e15dbc00b614e110870654f6c33ca
+Author: Jun Yan <jerrysteve1101@gmail.com>
 
-I understand that you do this because the port device has no OF node
-assigned. If we wanted to call pwrseq_get() for the port device, is
-there really no other way to associate it with the correct pwrseq
-provider?
+leds: is31fl32xx: Move pwm frequency setting to init_regs()
 
-Does the child index in hub_configure() relate to the port index as
-defined by the unit address of the port DT node? I'm talking about the
-X in port@X?
+This commit moves the PWM frequency setting logic from is31fl32xx_parse_dt()
+to is31fl32xx_init_regs(). This separates device tree parsing from hardware
+initialization and prevents the configuration from being overwritten.
 
-> Patch 6 reverts an incorrectly modeled OF graph connection for the
-> MediaTek XHCI controller.
->
-> Patch 7 then adds a proper representation.
->
-> Patches 8 through 12 enable the M.2 E-key slots (used for WiFi/BT) and
-> USB type-A connectors found on MediaTek-based Chromebooks. These are
-> provided in this series for reference. The USB type-A connector changes,
-> while not directly related, have overlapping context, and was easier to
-> include. They were also used to test some extra local changes I tried
-> to convert the USB A connector from an onboard USB device to a power
-> sequencing provider.
->
->
-> As this series changes existing power sequencing API, and also uses the
-> changed API in subsequent patches, I think the best way to merge this
-> is for Bartosz to take the power sequencing patches and provide an
-> immutable tag for Greg to merge and then merge the USB patches.
->
-> The DT patches can go through the soc tree once all the driver and DT
-> binding changes are merged.
->
->
-> Thanks
-> ChenYu
->
-> P.S. I'll be at Embedded Recipes if anyone wants to discuss details.
->
+Fixes: a18983b95a61 ("leds: is31f132xx: Add support for is31fl3293")
 
-I'll be there too! Or should i say "here"? I live here after all. :) Let's =
-talk!
+> diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32x=
+x.c
+> index 2d7ff4c5a08c7..c545a3b7a05a1 100644
+> --- a/drivers/leds/leds-is31fl32xx.c
+> +++ b/drivers/leds/leds-is31fl32xx.c
+[ ... ]
+> @@ -420,7 +429,6 @@ static struct is31fl32xx_led_data *is31fl32xx_find_le=
+d_data(
+>  static int is31fl32xx_parse_dt(struct device *dev,
+>  			       struct is31fl32xx_priv *priv)
+>  {
+> -	const struct is31fl32xx_chipdef *cdef =3D priv->cdef;
+>  	int ret =3D 0;
+> =20
+>  	/* Driving this GPIO line low takes the chip out of shutdown,
+> @@ -431,17 +439,7 @@ static int is31fl32xx_parse_dt(struct device *dev,
+>  		return dev_err_probe(dev, PTR_ERR(priv->powerdown_gpio),
+>  				"Failed to get powerdown gpio\n");
+> =20
+> -	if ((cdef->output_frequency_setting_reg !=3D IS31FL32XX_REG_NONE) &&
+> -	    of_property_read_bool(dev_of_node(dev), "issi,22khz-pwm")) {
+> -
+> -		ret =3D is31fl32xx_write(priv, cdef->output_frequency_setting_reg,
+> -				       IS31FL32XX_PWM_FREQUENCY_22KHZ);
+> -
+> -		if (ret) {
+> -			dev_err(dev, "Failed to write output PWM frequency register\n");
+> -			return ret;
+> -		}
+> -	}
+> +	priv->pwm_22khz =3D of_property_read_bool(dev_of_node(dev), "issi,22khz=
+-pwm");
+> =20
+>  	for_each_available_child_of_node_scoped(dev_of_node(dev), child) {
+>  		struct led_init_data init_data =3D {};
 
-Bart
+[Severity: High]
+This isn't a regression introduced by this patch, but since this commit
+relates to initialization order, does registering the LEDs here before
+hardware is fully initialized cause a regression?
+
+Looking at the driver sequence, is31fl32xx_parse_dt() registers each LED by
+calling devm_led_classdev_register_ext(), exposing them to userspace early.
+The LED subsystem then evaluates properties like default-state and triggers,
+performing asynchronous I2C writes to set initial brightness.
+
+However, is31fl32xx_init_regs() runs afterward and performs a full register
+reset via is31fl32xx_reset_regs().
+
+Could this sequence allow boot-time configurations and early userspace
+settings to be lost when the hardware is unconditionally reset?
+
+[Severity: High]
+This is also a pre-existing regression, but I noticed the driver relies on
+devm_led_classdev_register_ext() for unregistration. Does this create a
+race condition during device teardown?
+
+The driver manually resets and powers down the hardware in
+is31fl32xx_remove(). Because devres cleanup executes after remove()
+completes, the LED devices seem to remain fully accessible to userspace
+for a short window.
+
+If a brightness change is requested during this window, would I2C writes be
+dispatched to an uninitialized or powered-down chip, potentially causing
+bus timeouts or stalls?
+
+While reviewing the hardware initialization logic, I noticed another issue
+in the maximum current calculations:
+
+[Severity: High]
+This is a pre-existing regression, but does the maximum current calculation
+in is31fl3293_reset() correctly enforce the limits?
+
+It calculates the limit using max(led_data->max_microamp,
+IS31FL3293_MAX_MICROAMP). If the device tree specifies a limit below the
+20mA chip maximum (e.g., 10mA), max() overrides it with 20mA, which defeats
+the protection. If a value above 20mA is specified, max() retains the larger
+value, causing the resulting current_level calculation to exceed 255.
+
+Since is31fl32xx_write() takes a u8 for the value, this current_level would
+be silently truncated (e.g., 382 becomes 126), resulting in an incorrectly
+low limit.
+
+Should the driver use min() instead of max() to properly enforce the limit,
+and perhaps supply a fallback when the property is 0?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520135659.1430=
+008-1-jerrysteve1101@gmail.com?part=3D6
