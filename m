@@ -1,150 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D961372B31
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 18:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6646371048
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 18:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779301392; cv=none; b=S2rJPAmedXujKCd44VYQ7tVGAQlSJYDaVfwJl9kuTyc0vhmQ46J8ofGXjZARXjp4ShTe0lbjRFQVskxr8Dkqht6bWI8cEvp2P+VkkpmmHyOOfIKHxH2eltaVJvCAB5McV34xIxhaT14Qq59SgJMW8ijEil9eseaiyUzw/9pvJM0=
+	t=1779301398; cv=none; b=f94ZYBAGyx9i70KjqSfm+JlEZGPsEof70EdNECSkj6XdVzfr4yayPfnj8zi9F51EMjXHbDzj9SsnnGS3AIcMY945W+vUkuo9QedVsMDsgN2eGWlm0Q/fhTI2v5XejgmIXDJFRvv8gfnAtzJaKWuUsu7wEtdibtDEgw2IfsksMMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779301392; c=relaxed/simple;
-	bh=XeV1aWDitY2Uc/Q25ms4y2sAr3ivbUnsqVyl65VKAB8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l2xyDUr/rP+rIFN+fCud1rWL+L4kAzWiEnxrVmJg+PfTg/D051T5TljgaIEn+YhCn0y5O4LSo57a1kS1/dIalWpWavG35Ju6qztrz1+FMw0Bhli73CpCL9wnK9TK+xNnYeE5l+xQLr3TFG7+pXSjftfD3Is3FqHDFsf9D4wLZp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VrO8p/AM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779301398; c=relaxed/simple;
+	bh=u2OLiahfl07CNATXuFabWWh9FHbJAKKwBhG0BfZL37o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bh3UNj7FY+zzT8YLd1N14i/2snHTSQ0HE5qxYzPZHcyuEzYVDdJEalKQjk+tZ5UacaLdTr8Ge8Na/pyQH+wlgCq7R1AAY2ZzgqoktJBk5/7u0Lf/M9Apk9WXjmPo2lwNWzWWA1PlNs997T8rf9Dc/j1MHgTbalJTTwATh66DYxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DzNk9hke; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VrO8p/AM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF28C1F00894;
-	Wed, 20 May 2026 18:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779301391;
-	bh=O8pZXT88JamUOEed+p0VRDdpFezDMQUWHy5KfPCJ8UA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VrO8p/AMcDA4prnhPQKZPU/r0NwjL012ao+Z11dfCzhTxxH88F88NloBkfaivVqKa
-	 dw6iv2NYB+xgbQv1V+zhy+X0g+r3ii+kjrMk7oV6Stb0RKqpWMnU1o4GZfumGTtfxC
-	 FWtTXBlXMbrhEugq28Tq5RTEkKzjQlAO/gjJAAMGWkx8nS6/4YjdlOnSZV1OFT1D7t
-	 +lmd2y+/IDO/V+yJc2Wd/lWoMPSTufw48/kNbu6l6bCD0xQpt9z0Q/XSPtfkyXYZqw
-	 cpfOHCCgPz3p4zrzB7z1Dai/hmzLiFPLWW2dgtHkW3DdDPHDt6FjGKOYGEJOVjTJIa
-	 QvRzN5LyqhtEQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/6] phy: realtek: usb2: introduce
- vstatus/new_reg_req variables to driver data
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rustam Adilov" <adilov@disroot.org>
-Cc: neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, vkoul@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260520175728.720877-2-adilov@disroot.org>
-References: <20260520175728.720877-2-adilov@disroot.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 18:23:10 +0000
-Message-Id: <20260520182310.AF28C1F00894@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DzNk9hke"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-444826c16ffso4696959f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779301395; x=1779906195; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YOOkfLDGxoFwS+H8nJxSYqxjZdBzyZuCgc0/2jHIOOo=;
+        b=DzNk9hkeA5tH0IcOuG4LNn2Pt1H0Baagmyfj2myXoEdVJb2uimWH2UhtK5DFJ18l6R
+         ZTrq93rHGKC9SSzsnDKzepy4pQ2XDUZufdlmHO+dWswFqHTvKbN4QbfZ0m9fayvUVyiM
+         rMC+LtlKNPVPDW4oQV7aEbyuA7CRxehWcmlzhD/ZZrDRWbZiofpj+CYM4qg8yEf1sOG7
+         GK1IcoPIhyTQbtsCZ05fYuKYuD+yeBgLl4lBMUmfSqPORgm4rnAs1peUog0OACwvYzO/
+         ZmcgbGwX9cysd2hcKbfYXz+k8IHruYhjZavmIaOLo86hMvylXAaVvge8VK5fRm4dPp7a
+         9qkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779301395; x=1779906195;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YOOkfLDGxoFwS+H8nJxSYqxjZdBzyZuCgc0/2jHIOOo=;
+        b=T1QMWT/E9C79nfgYkht2DNIYpSoQH2FCxUvRCS85q6cMNS7o2d18lh/WDgJkfUcp06
+         W+T5XhGIK2xmO5SGf2X7/beHfsenxGPWOKyk5tVC5AZl0JufkfEOiZHGrjBFlHxPuYwU
+         +4qhfhQGOhEKk9YwxFJNG/wbMhHtJ70WNQDaobSbE+E7doL9mXycPxw2ZuXOY3h/zp/8
+         Ca4urLhx97PaeHj2o7SPwznQkSEKYnqiu39FEzU2bXr2dGXz7KY2VgP7vKILI2IvyG5F
+         bsNdzDsZhBiUyxivXYD4JG3BmV7iT6fP1jKbrs6Zmrm8Q9sFeP24dt0AoVq7MJBosf90
+         Pfkw==
+X-Forwarded-Encrypted: i=1; AFNElJ+XgEcq+aYrxYj5r2tvfIjZ+4sGk5yp5z4nMkhEvfMIa7ve5HP+lVSgjYjZBPSRgRYIwZYtgQnMYSnP@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxu5PSA19io40jLEUhv0RmdjVswySvBEkJyB/nyzl2CFb4hYz3w
+	H+d+ay6ZVNGCTYEo1GHC34JflY+J4z70ZDZveytbR8sS9djLYcY5SKHT
+X-Gm-Gg: Acq92OF/obT2Paj4Ow/a4xE8Ch8kFOZ6sY2lXmvwgwYtYRuNZJh/ma/GKah90BTDof5
+	+CsYkW6rtE/0c9yoQOAsnRox9Mt9ciZa9T2+kh0Za+76pwoAeDT/BVo8/kAWu4h01BAcdyG2wgE
+	UKbU6fl/+NloRyGn5p8eh84Vqyb20amBEI5j53omxJlAplEu7yHhWirmu5bun5pBCzwh+D6dZ4Q
+	T8ak+ysj8fQGKfVLK9il3YY5PGDIbDkzmHdOvoAOf5vtPCsdy+gox/8cII3d1cnVAO3/89relRZ
+	HK0NSlPWJIdSEvKdLyjFdq7bYPZlN+Q/Hrfx8xABJVDs2D6Gz0AUDJTY9iDXoGKJRub+Liop76X
+	EuzEkyvO0kMFrpKAOIiux+Wf2aSDK4XH7QgKnPxVYOidWhqwzIsICCtgMAdbQi65v43XFIcFEJN
+	KuMhsAKbdUBQB8f9jdwte+ULA=
+X-Received: by 2002:a05:6000:2f83:b0:43b:3d02:7806 with SMTP id ffacd0b85a97d-45e5c58ed80mr42266150f8f.28.1779301395198;
+        Wed, 20 May 2026 11:23:15 -0700 (PDT)
+Received: from xeon ([188.163.112.61])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45d9ec3b18fsm51297739f8f.11.2026.05.20.11.23.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 11:23:14 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org
+Subject: [PATCH v6 0/6] mfd: cpcap: convert documentation to schema and add Mot board support
+Date: Wed, 20 May 2026 21:21:18 +0300
+Message-ID: <20260520182124.117863-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+The initial goal was only to add support for the CPCAP used in the Mot
+Tegra20 board; however, since the documentation was already partially
+converted, I decided to complete the conversion to schema too.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the driver fails=
- to check the return value of `of_iomap()`, which can lead to a NULL pointe=
-r dereference.
-- [High] This problem wasn't introduced by this patch, but incorrect pointe=
-r arithmetic on a `void __iomem *` pointer results in unaligned I/O memory =
-accesses for multi-port setups.
-- [High] This problem wasn't introduced by this patch, but I/O memory mappi=
-ngs created by `of_iomap()` are never unmapped, leading to resource leaks.
-- [High] This problem wasn't introduced by this patch, but multi-port PHY c=
-onfigurations concurrently modify shared hardware registers without synchro=
-nization or a read-modify-write cycle.
---
+The CPCAP regulator, leds, rtc, pwrbutton and core files were converted
+from TXT to YAML while preserving the original structure. Mot board
+compatibility was added to the regulator and core schema. Since these
+were one-line patches, they were not separated into dedicated commits;
+however, the commit message notes this for both cases.
 
-commit 734507efb75a6be151dcde389bfc7f0e1df95132
-Author: Rustam Adilov <adilov@disroot.org>
+Finally, the CPCAP MFD was slightly refactored to improve support for
+multiple subcell compositions.
 
-phy: realtek: usb2: introduce vstatus/new_reg_req variables to driver data
+---
+Changes in v2:
+- fixed code style
+- rtc conversion was picked, so patch dropped
+- added audio ports description into mfd schema
+- splitted schema conversion and compatible addition
+- minor style improvements and typo fixes
 
-This commit introduces vstatus_offset, vstatus_busy, and new_reg_req variab=
-les=20
-to the driver data to handle different register offsets and busy bit=20
-definitions in the RTL9607C SoC. These variables are added to the existing=
-=20
-PHY configuration structures and assigned default values.
+Changes in v3:
+- added regulator node names list into pattern
+- filled spi_device_id with driver data
+- ADC patches were picked, so changes dropped
 
-> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy=
--rtk-usb2.c
-> index 248550ef98cab..bd9ee895b9f90 100644
-> --- a/drivers/phy/realtek/phy-rtk-usb2.c
-> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
+Changes in v4:
+- dropped regulator patches (applied)
 
-[ ... ]
+Changes in v5:
+- switched to MFD_CELL_* macros
+- switched to use determinator of model
+- switched to spi_get_device_match_data
 
-> @@ -194,25 +200,26 @@ static int rtk_phy_write(struct phy_reg *phy_reg, c=
-har addr, char data)
->  	int ret =3D 0;
-> =20
->  	/* write data to VStatusOut2 (data output to phy) */
-> -	writel((u32)data << shift_bits, reg_wrap_vstatus);
-> +	writel((u32)data << shift_bits,
-> +	       reg_wrap_vstatus + phy_reg->vstatus_offset);
+Changes in v6:
+- removed address-cells and size-cells from main node
+- changed macros formatting and OF matches
+- factored out common devices and made device addition staged
+- dropped cpcap->variant check for 0
+- EINVAL > ENODEV in variant checking switch
+---
 
-[Severity: High]
-This is a pre-existing issue, but does writing directly to this register
-without a read-modify-write cycle overwrite the configuration for other
-ports?
+Svyatoslav Ryhel (6):
+  dt-bindings: leds: leds-cpcap: convert to DT schema
+  dt-bindings: input: cpcap-pwrbutton: convert to DT schema
+  dt-bindings: mfd: motorola-cpcap: convert to DT schema
+  dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
+  mfd: motorola-cpcap: diverge configuration per-board
+  mfd: motorola-cpcap: add support for Mot CPCAP composition
 
-In multi-port setups, all PHY instances appear to share this same base
-address, and a direct writel() could clear the bits belonging to other PHYs.
+ .../bindings/input/cpcap-pwrbutton.txt        |  20 -
+ .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
+ .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
+ .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
+ .../bindings/mfd/motorola,cpcap.yaml          | 408 ++++++++++++++++++
+ .../bindings/mfd/motorola-cpcap.txt           |  78 ----
+ drivers/mfd/motorola-cpcap.c                  | 143 +++---
+ include/linux/mfd/motorola-cpcap.h            |   7 +
+ 8 files changed, 571 insertions(+), 188 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwrbutton.txt
+ create mode 100644 Documentation/devicetree/bindings/input/motorola,cpcap-pwrbutton.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap.txt
+ create mode 100644 Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cpcap.txt
 
-Is there also a need for synchronization to prevent concurrent writes across
-different ports?
+-- 
+2.51.0
 
-> =20
-> -	ret =3D utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
-> +	ret =3D utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
->  	if (ret)
->  		return ret;
-
-[ ... ]
-
-> @@ -974,6 +982,9 @@ static int parse_phy_data(struct rtk_phy *rtk_phy)
->  		phy_parameter->phy_reg.reg_wrap_vstatus =3D of_iomap(np, 0);
->  		phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the driver need to
-check the return value of of_iomap() here?
-
-If the mapping fails, this would leave the pointers as NULL and cause a
-dereference during I/O operations.
-
-[Severity: High]
-This is a pre-existing issue, but does adding index directly to the
-void __iomem * returned by of_iomap() result in exactly a 1-byte offset
-when index > 0?
-
-If so, this could cause an unaligned memory access fault on ARM
-architectures. Should the index be scaled appropriately?
-
-[Severity: High]
-This is also a pre-existing issue, but does the driver leak these I/O
-mappings?
-
-The driver maps the memory here using of_iomap(), but there does not
-appear to be a matching iounmap() in the driver cleanup paths. Would
-using devm_of_iomap() prevent this leak?
-
->  		phy_parameter->phy_reg.vstatus_index =3D index;
-> +		phy_parameter->phy_reg.vstatus_offset =3D phy_cfg->vstatus_offset;
-> +		phy_parameter->phy_reg.vstatus_busy =3D phy_cfg->vstatus_busy;
-> +		phy_parameter->phy_reg.new_reg_req =3D phy_cfg->new_reg_req;
-> =20
->  		if (of_property_read_bool(np, "realtek,inverse-hstx-sync-clock"))
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520175728.7208=
-77-1-adilov@disroot.org?part=3D1
