@@ -1,90 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEF7272E61;
-	Wed, 20 May 2026 14:43:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FD63ED3C2
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779288214; cv=none; b=EwuM5U1KpXIIWhVQtdM2UHd1lEtkkT6IJtP8PPkSQd1JHRyr3o3WBferqdwAVyyBJj/orCczE4L3tsqpYpOZNVt3NZyBTXrzhppYa/iuSFuAsKq+w+Qm6bIHPnb4RYsA6K3lw9Ox8f0GyJel+b/tHqNxw1LaJQTL0THOK6AyKDg=
+	t=1779288276; cv=none; b=otDSSGXe3pPoMu3kvOwwQ8fS71B+mtOvtYs/nKdQvIUzBlkEs+LcGMb0b/YNwyQS/tG0zs2iNKdQzlXp3Fe3v9+PaFJ8G/KHxGLN0cha7UVmOKBCln/QzsDHthz1NWWNcYCTEdJxIdWC2bdQdfN19GdLmBx6ejXIHhAh6K11Ozk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779288214; c=relaxed/simple;
-	bh=C78k4C1+t/CRfddPyFQ2Rl+kG8vf7Tb76KfkXjAEprU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HcTVrI7WYI5CsrsrEBDEreQGZIXkAu/7cwGSA15WM3iQ0b93hobb2sTzyunUz/o50C0nqOddMNVB88dRwMmlBzPbHhjuJzCzmqLEq/jRjngHqaQ6OK1amoWIvcrgEYu2kYNGAAoFo8qDi7wQ4DAaCGa+E+T0tRGb3ZTJkdYrJuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MEYFAo/s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779288276; c=relaxed/simple;
+	bh=8NG1pViDaPqTiMNUdgTFDtjmF583VvIbbcHWNKKdJhc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rh1fkwdQ+pPAqkMdL08AjkIRbrcRWH/xF0zTkrDJCrPY0dORTBuV15rabi1lBQfNSTfU3PsF5S7AlptA2Ac4kyXz02ZhkrwD3H9INm024gNXDmZlS14V0BpMsc8ct+KKkJb2dNMVL4f9r9zP4YzHnZCWY0EZUl6cDq9EHAnr0ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LYWUySr6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MEYFAo/s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43DE61F00893;
-	Wed, 20 May 2026 14:43:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LYWUySr6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 006F21F000E9;
+	Wed, 20 May 2026 14:44:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779288212;
-	bh=dQbuftW1Dswfh8UjRtvt8jMWgNKtgGpobxc7mm/y8M8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MEYFAo/sifgemFgE3i2c/qG0t36EfY4Vm8VA6haQyEKuAPOKWhwYAvREwF30EcIJ+
-	 idMTk38KIuZ7UmRhX+7E4W94DWidnrTjobRmZVjvFtR739eHNPepO0YSa3z7LTCIEs
-	 EYg5JEAqiduiOsJ//BLw58uKmr7rOk8ELb4QbsnM3nYDfcdEdnORaid5pl2iBg9uVV
-	 vFp1JA07vMb2hpQgqfHIUjpq3C3CZrKTF1zPE0sHjuyaTi9fDOZ/cKT6Aj1lVk37OR
-	 Rs8BoDIFlxaSenFjEnsmQcofS8cRMab87wKT/ix8M5OmV/RX4u8tLOeDk/okJc+6C4
-	 xuRPeJx8L88/g==
-Date: Wed, 20 May 2026 15:43:26 +0100
-From: Lee Jones <lee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Billy Tsai <billy_tsai@aspeedtech.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v9 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
- AST2700 SCU0
-Message-ID: <20260520144326.GE2767592@google.com>
-References: <20260506-upstream_pinctrl-v9-0-0636e22343ad@aspeedtech.com>
- <20260506-upstream_pinctrl-v9-2-0636e22343ad@aspeedtech.com>
- <CAD++jL=3p9BvDgaot3=emM4Zn5jU-ZAUKtB4UwT1HzDiyzKq4Q@mail.gmail.com>
+	s=k20260515; t=1779288274;
+	bh=y3zKHGmtnSl0avmVhXhqZdKZZIFMKY9PO5CQpKnX0mM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LYWUySr6z+zQdBs7pNlabTztlbWFbn1dL/QzJCNziqnPVfxMQo1xn7ZpUSXw3BHdP
+	 DoueLXENS4hB2weGD0kOqoJdcM2gs7/27pN+vBYSPiXmtFGL1yyPT9aNWTCZzlPFRQ
+	 dqo+R9NbXFW+fY7Uu3AKdKz42gCQ12nfOT3NRXj5nMhU8gWaxlfzI5pJld/qEbwkZY
+	 cZ0G6lNHWGSekOIeI7mccK+tyPVrceQcWY+XMVz7jdkvreNcrOnKqaDFMUUBoDQa8T
+	 NmLXYHM4mx3kwMEQ4xF75mj9c45YQfYT963oj72IVMRi2f0lOkedMT8u4hemUv1K94
+	 yhaEg7lWIagyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V8 1/2] arm64: dts: glymur: Add LPASS macro codecs and
+ pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sibi Sankar" <sibi.sankar@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260520141828.2724689-2-sibi.sankar@oss.qualcomm.com>
+References: <20260520141828.2724689-2-sibi.sankar@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 14:44:32 +0000
+Message-Id: <20260520144434.006F21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=3p9BvDgaot3=emM4Zn5jU-ZAUKtB4UwT1HzDiyzKq4Q@mail.gmail.com>
 
-On Mon, 11 May 2026, Linus Walleij wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The SoundWire nodes ('swr0' and 'swr3') define 17 elements for 'qco=
+m,ports-*' arrays, which violates the DT binding schema.
+--
 
-> On Wed, May 6, 2026 at 10:07 AM Billy Tsai <billy_tsai@aspeedtech.com> wrote:
-> 
-> > AST2700 consists of two interconnected SoC instances, each with its own
-> > System Control Unit (SCU). The SCU0 provides pin control, interrupt
-> > controllers, clocks, resets, and address-space mappings for the
-> > Secondary and Tertiary Service Processors (SSP and TSP).
-> >
-> > Describe the SSP/TSP address mappings using the standard
-> > memory-region and memory-region-names properties.
-> >
-> > Disallow legacy child nodes that are not present on AST2700, including
-> > p2a-control and smp-memram. The latter is unnecessary as software can
-> > access the scratch registers via the SCU syscon.
-> >
-> > Also allow the AST2700 SoC0 pin controller to be described as a child
-> > node of the SCU0, and add an example illustrating the SCU0 layout,
-> > including reserved-memory, interrupt controllers, and pinctrl.
-> >
-> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-> 
-> This is an MFD patch in the middle of a pinctrl series, I think Lee
-> should apply this.
-> FWIW:
-> Acked-by: Linus Walleij <linusw@kernel.org>
+commit 46878976f64d7da2480d0d9a2b1541da162ac28d
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-Already applied v8.
+arm64: dts: glymur: Add LPASS macro codecs and pinctrl
 
--- 
-Lee Jones
+Add LPASS macro codecs, LPASS TLMM pin controller, and GPR node along with
+APM and PRM audio services on Qualcomm glymur for proper sound support.
+
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/q=
+com/glymur.dtsi
+> index 72c7dc6e4f098..f89b9c3b54521 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+
+[ ... ]
+
+> +		swr0: soundwire@6c80000 {
+> +			compatible =3D "qcom,soundwire-v3.1.0";
+> +			reg =3D <0x0 0x06c80000 0x0 0x10000>;
+> +			interrupts =3D <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&lpass_wsamacro>;
+> +			clock-names =3D "iface";
+> +			label =3D "WSA";
+> +
+> +			pinctrl-0 =3D <&wsa_swr_active>;
+> +			pinctrl-names =3D "default";
+> +
+> +			qcom,ports-block-pack-mode =3D	/bits/ 8 <0x00 0x01 0x01 0x00 0x01 0x0=
+1 0x00 0x00 0x00  0x00 0x00 0x01 0x01 0x00 0x00 0x01 0x01>;
+> +			qcom,ports-word-length =3D	/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0x=
+08 0xff 0xff 0xff 0xff 0xff 0xff 0x18 0x18 0xff 0xff>;
+> +			qcom,ports-offset1 =3D		/bits/ 8 <0x01 0x03 0x05 0x02 0x04 0x15 0x00 =
+0xff  0xff 0xff 0xff 0x06 0x0d 0x0  0x19 0x06 0x06>;
+> +			qcom,ports-offset2 =3D		/bits/ 8 <0xff 0x07 0x1f 0xff 0x07 0x1f 0xff =
+0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
+> +			qcom,ports-sinterval =3D		/bits/ 16 <0x07 0x1f 0x3f 0x07 0x1f 0x3f 0x=
+c8 0xff 0xff 0xff 0xff 0x0f 0x0f 0x31f 0x31f 0x0f 0x0f >;
+> +			qcom,ports-hstart =3D		/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0x08 0=
+xff 0xff 0xff 0xff 0xff 0xff  0xf 0xf 0xff 0xff>;
+> +			qcom,ports-hstop =3D		/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0x08 0x=
+ff 0xff 0xff 0xff 0xff 0xff 0x0f 0x0f 0xff 0xff>;
+> +			qcom,ports-lane-control =3D	/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0=
+xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
+> +			qcom,ports-block-group-count =3D	/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0=
+xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
+
+[Severity: Low]
+Is it possible that these arrays define too many elements for the binding
+schema?
+
+The DT binding schema for qcom,soundwire enforces a maximum of 16 items for
+properties like qcom,ports-block-pack-mode and qcom,ports-word-length. It
+appears these arrays define 17 elements, which might cause DT validation to
+fail during dtbs_check.
+
+[ ... ]
+
+> +		swr3: soundwire@6ca0000 {
+> +			compatible =3D "qcom,soundwire-v3.1.0";
+> +			reg =3D <0x0 0x06ca0000 0x0 0x10000>;
+> +			interrupts =3D <GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&lpass_wsa2macro>;
+> +			clock-names =3D "iface";
+> +			label =3D "WSA2";
+> +
+> +			pinctrl-0 =3D <&wsa2_swr_active>;
+> +			pinctrl-names =3D "default";
+> +
+> +			qcom,ports-block-pack-mode =3D	/bits/ 8 <0x00 0x01 0x01 0x00 0x01 0x0=
+1 0x00 0x00 0x00  0x00 0x00 0x01 0x01 0x00 0x00 0x01 0x01>;
+> +			qcom,ports-word-length =3D	/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0x=
+08 0xff 0xff 0xff 0xff 0xff 0xff 0x18 0x18 0xff 0xff>;
+> +			qcom,ports-offset1 =3D		/bits/ 8 <0x01 0x03 0x05 0x02 0x04 0x15 0x00 =
+0xff  0xff 0xff 0xff 0x06 0x0d 0x0  0x19 0x06 0x06>;
+> +			qcom,ports-offset2 =3D		/bits/ 8 <0xff 0x07 0x1f 0xff 0x07 0x1f 0xff =
+0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
+> +			qcom,ports-sinterval =3D		/bits/ 16 <0x07 0x1f 0x3f 0x07 0x1f 0x3f 0x=
+c8 0xff 0xff 0xff 0xff 0x0f 0x0f 0x31f 0x31f 0x0f 0x0f >;
+> +			qcom,ports-hstart =3D		/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0x08 0=
+xff 0xff 0xff 0xff 0xff 0xff  0xf 0xf 0xff 0xff>;
+> +			qcom,ports-hstop =3D		/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0x08 0x=
+ff 0xff 0xff 0xff 0xff 0xff 0x0f 0x0f 0xff 0xff>;
+> +			qcom,ports-lane-control =3D	/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0xff 0=
+xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
+> +			qcom,ports-block-group-count =3D	/bits/ 8 <0xff 0xff 0xff 0xff 0xff 0=
+xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
+
+[Severity: Low]
+Could this node also trigger the same validation issue?
+
+These arrays similarly define 17 elements.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520141828.2724=
+689-1-sibi.sankar@oss.qualcomm.com?part=3D1
