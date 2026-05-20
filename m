@@ -1,180 +1,162 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29783346FA7
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFF3346A1F
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779305905; cv=none; b=ZCadJovW3Y7th+63DbaeXYluVW1z0bE5SIiuvxSBw8jQO7szRQbvq3Hawe2MNjnuMbnHmg32ypHtjTZv4Cx7E9MJuIb3BNHlw4+RKgR/MmIqBT0GoqURn6ZcQv+/Qds8/y88JNHfRmmlazfKJTUhssycVSnUk9NxsQgi2uHAOKE=
+	t=1779306722; cv=none; b=i+MBw6fVTiS4GXRAgc6FROyfEoE92BOVFHxrs11+RBX4Pu+CHypGtywTnjsR20vNGdL17oHqiQkKNYzxfmHzDFj9PdonFqGk8bK1O2HUjI/Xb1AMojeQmjjif4dmxlvNsl3n4FUyhaoc7+4FSqN/SP5cTRhvjHRkNV1iszhl1TU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779305905; c=relaxed/simple;
-	bh=/V2i2aN9ElYzM1ebwDQYVP2EYIEQj7BDWotrGak3l3M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xp98jCvXSaT/97KKfKJpMIRvnvzOYqH99ISCAyYfivKct2JPizRcu/rMv8c2bByY8TLzsyrwkOedGQBh4Jzluv9++XavZDoxVD0rmXJBk8G4bz2boUk2xjMB4fDe1QtmSX9AoBPUzWGZH9wB2Mqsc136OVHXmqUCPt8jmX6KpNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MyKqtiok; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bh0HK1Pi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779306722; c=relaxed/simple;
+	bh=ZxH6qDDxliBSFL1kA4dNCgc0NySsg1Wg2gDHFLWR590=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=G+xDDP9TN0q93s1YxEW0PW8vIrs0UC3ta1Eg5PpimmrHzuIU4TgbVzIiUGId1qeRC77rfM0NPkhbRARuh2Wn1y1JMeqswSDAYSv0GoVkXKcc84xOdde9r/F27KKNlNP/nUN6TSPwp6xzhjgqjcW89XmRsjijqMC4hOkT/N1gUjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wpuh8+ZI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MyKqtiok";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bh0HK1Pi"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KGFfYT1178126
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:38:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=; b=MyKqtiok2N+ELTCL
-	/G41MzOXI5sSKnKAYPPi9+YEzNMQC6FtVm2VIwSGycBLu4m7SjicOj1IuDOIrbyD
-	QRbjYWeqOJtbIZGoaKlrKSqEIYQ+v2tN0Cg9rTRzHKz8ndTRxmQ6Rk0rI0uYIcdi
-	H9zTeayd3WGe2hzxdv3fnxadwWvWCKjC1q7kJEX2sZwVQJCnIjA/gh5thdHWl2YM
-	rLATqRcQtaRJlc9pUD+Pm3K+erSBRM2zoEjJBNJJW7tdOETVMMPrMIOO3mO/NFTy
-	GYZm8rduLfpyO2P4yjWRjr9CWXHjJwdRMGg6mOJgCpgjxiTxJPs4i+YN+2bTH+CQ
-	kY4DXA==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ap6tb0v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:38:21 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-83f7e7f7457so2718061b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 12:38:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779305901; x=1779910701; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=;
-        b=bh0HK1PiGoWWnUHW5Tkpjj4j9YGCMHhnnu7Ko17K4eS0cKRu+RviSQZNwUfTfqeA2A
-         hl94aw62LV6VF9Msw30+yJ7HsMOyHcQBJwOAe7vDJSD6Vlw/RBXAUI85Qcm5LgzN38O7
-         ZetqrAyO/mg1/X8o/zUms/LKRmDsiD+EBG1UM3b76Uu5V7PSHIBzf8YTEq52vdeKy3LZ
-         7vUURRgGlMR96YDZkocmeuILCin04cGTWXuHOwuR47jh7bD1enIP1oIWlaEsaFiOmIeX
-         vbW49cFVYGrTSf/jPyGU8wN5u9hKUe+yp1kPt7acc1xds0poYWFAkmoHkopugD5FyEWy
-         HI8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779305901; x=1779910701;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5LFMGD840PvGCPwkDPrhg8qGWW+uSOyb0Wppoq8dMT0=;
-        b=hvg35prwC51rOcro9HifODR382goHqCwoF4CRYOvGVqIBAJd+1gHTXERvy3ZNZ4y8Z
-         QkbvQ6RdURBmjkQcosKPSqjApnoFQY+swkcWMmzxqmkHM48drqMxkC/cIuXqnzERtxsw
-         maD511CiU0/1mzyaC/mt37t+brxSXfQ3ecMVFDRuXTBAbTmC+k+dg3D2/Ey5TxWsPvTG
-         ins6hrzhSLBz3DsWZGXuiKzyKGz5f6Aik+h1Kb6O5b44TibfLEnZm883qGnFDMoHjeqb
-         RuVWfhhYy86iGsjvf8IIQ7GKpGm71vGBuF8pqHRVgjWdVlI8PSyK+qsgmkRocYVBbxhq
-         ev3A==
-X-Forwarded-Encrypted: i=1; AFNElJ/f3Dy3ozk0KshBgpJFb0BkmnQJIujDGxuwkvBUrrJpbQsig9FQM4WmGOEi9FeTzVXX/1bS2slz/ai/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjA/gbzwshRaHM7zmcJOe1uoVP0T/+9HKI8O18yxHvIKhQIRmu
-	KmyZLuxkGhaVHsJNjLXKt06+esJ5cHDJHtn7Vs8E1D7aNCrRXdmVRAQmi3uJ6FBSJNimF3SYu2X
-	gLChFoYsLroUIakcgBj3JWfhKryIW/qdmjPnxrDd4npDvbubtio/OywWqGYZGlQli
-X-Gm-Gg: Acq92OG0tRvtX6AMKV815JAiyqEKcbaScG3BaIAARgh+hyIYObFhxodl4bejGmB4mA1
-	zBr+IeiMntUXIfMbVOYPPC8nKLzO/UlyajaUWRQx3R8EBAyTXbc0MLo2JnBOUc9nfLfs1Hp5a2f
-	iUqtDeWW2BehdNAYgnKJcLT9gznd4767ic6voZ7+Go2T73CbZqU6J5m0Ml5n/xrGIXl8XbVhH2S
-	eDWA6NlkWcKZl0GVMt+hpQjSMze2L9XntM+lL7XgpwKDAEmiu4ppjdqpmrlVywizt4OMDOlSB7o
-	tdhl/KEpgpuCKBDDtyZZHBA6wZ4kNCg5eWv+Y1gUyIUn4//k5siWPUCUI18MqGkIY7TQVr4BWuH
-	y3xku+/Hc6O7Xpuv46vFn6HdVT9yOw58Jci2dcyHfdrBtVBGi0SXd0YS6FqVLndNh/0rP6z8UN1
-	QXmoTGtNpl
-X-Received: by 2002:a05:6a00:a10:b0:835:36f5:17c9 with SMTP id d2e1a72fcca58-8414864d999mr613735b3a.2.1779305900546;
-        Wed, 20 May 2026 12:38:20 -0700 (PDT)
-X-Received: by 2002:a05:6a00:a10:b0:835:36f5:17c9 with SMTP id d2e1a72fcca58-8414864d999mr613692b3a.2.1779305900001;
-        Wed, 20 May 2026 12:38:20 -0700 (PDT)
-Received: from ?IPV6:2401:4900:9074:ce4a:59fb:b330:7e10:e1ac? ([2401:4900:9074:ce4a:59fb:b330:7e10:e1ac])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19f7ccc7sm26114065b3a.58.2026.05.20.12.38.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 May 2026 12:38:19 -0700 (PDT)
-Message-ID: <01b424f6-6617-442a-a77f-9b7a8472c447@oss.qualcomm.com>
-Date: Thu, 21 May 2026 01:08:06 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wpuh8+ZI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578AA1F000E9;
+	Wed, 20 May 2026 19:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779306719;
+	bh=Sr700ZLkhK3DU+BHdplyKh4fOsWZkqc+eF3VoCNCO78=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Wpuh8+ZI35IFIiV9dQ1wKZUnY3OsYHVZg9LYyBd9YOEO2nPBLJ59PV4zIUKzyc88t
+	 YMVR75EgJjDMZq8IAoOYJHNiwgYwS++S1bzdI0oa0VP8b0786/0itWMwtojrPs4Iju
+	 PmAy1SNPjMDMCEiow3AEiEVs1qzpvD8EptNMmeFQ1+JC+UNmweHmHgx6T8f1VMfzVg
+	 Yah7DyFXQb5NpEQ9yeYGtNpcawO4IWURXTqI3KsI70oCZNx/4wz8RYmo+2kI7bcjvs
+	 P197tjXiYaS1n8A5VXGj7MbojOYtMTLWalWMycXHQ7DQCniygfNnTuw6kf66IAqn2L
+	 T5YsitrzJDDDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 5/6] phy: realtek: usb2: add support for RTL9607C
+ USB2 PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rustam Adilov" <adilov@disroot.org>
+Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20260520175728.720877-6-adilov@disroot.org>
+References: <20260520175728.720877-6-adilov@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 19:51:58 +0000
+Message-Id: <20260520195159.578AA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 0/7] Add support for Adreno 810 GPU
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Alexander Koskovich <akoskovich@pm.me>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Luca Weiss
- <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
- <3dc009dc-8f36-4735-b849-d952fb626cf4@oss.qualcomm.com>
- <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: XQ2xs4CmjYIcwNUaRXwwNpwJn-bRjm3r
-X-Proofpoint-ORIG-GUID: XQ2xs4CmjYIcwNUaRXwwNpwJn-bRjm3r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE5MiBTYWx0ZWRfX4BlzoS5XeUgM
- 3XGzfgs7c5Aj80BiOS6aAIRn/52bXs6qHTBg5G98IkJ1n/STQOYljpr8LDOYx2dql6kn15BCpLX
- +3XxERPvtPNwXsoKLt1JgpqtYFBIlFWgtovZ7OZ8JTbe0EVNDGz9rqJRD8KfLD72EzuCiBE8fSo
- DbUD645gq/wftR/m20uM5yh9DsXb5fhBAMCcVrJG7fAPx1MVL8Qav1qssf6QjaUFX8Nc0GdRFVI
- ugxcyURu88/OwZK1L6TpW6xPOYemKe399EapIl3IeN7ZrfH1ZrkGwL6RzPSnLZFDD+RVJfjdPyQ
- 9Y/Sc43w2ALZH3EizLKbCHugqReRtirM2AyNODPNGpAGHHdac8+FE2n4L8NSp8BQGRqB36IeoQ/
- 1V/hmO0DPKF65wASMFI9JP9NvITigZLrONMWZEeuFRzICWcQ01YvuxwG6OaFtf09tqRjbikzJdz
- S0zK3oCuOjBCvxGYbQQ==
-X-Authority-Analysis: v=2.4 cv=FesHAp+6 c=1 sm=1 tr=0 ts=6a0e0dad cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=6H0WHjuAAAAA:8 a=vrFTKMbr3VGxMADgOxUA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200192
 
-On 5/17/2026 11:54 PM, Dmitry Baryshkov wrote:
-> On Sat, May 16, 2026 at 03:52:08AM +0530, Akhil P Oommen wrote:
->> On 5/15/2026 10:38 AM, Alexander Koskovich wrote:
->>> Adreno 810 is present in the Milos SoC and is the first GPU to be released in
->>> the A8x family.
->>>
->>> This series is marked as RFC because it depends on a few other in review
->>> series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2], and devicetree
->>> support for Glymur [3] (for a8xx RSCC offset fix and X2-185 bindings change).
->>>
->>> Also depends on the GXCLKCTL block for Milos [4], but this is no longer in
->>> review and has been applied.
->>>
->>> [1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com
->>> [2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017cc642db@pm.me
->>> [3]: https://lore.kernel.org/linux-arm-msm/20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com
->>> [4]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com
->>>
->>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
->>
->> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>
->> For the rest of the patches that doesn't have my R-b tag in this series.
-> 
-> Unfortunately patchwork doesn't capture tags from the responses to the
-> cover letter. I'd kindly ask to spam the list with individual r-b's.
-> 
-> 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-There will be another rev to remove the RFC tag which will hopefully
-have my R-b tag. ;)
+Pre-existing issues:
+- [High] Missing error handling for of_iomap() leads to NULL pointer derefe=
+rence
+- [High] Incorrect pointer arithmetic on void __iomem * causes unaligned me=
+mory accesses
+- [High] Resource leak of I/O memory mappings
+--
 
--Akhil
+commit 45e50610a9cf3e4d1ba9824c0450199938805d5b
+Author: Rustam Adilov <adilov@disroot.org>
+
+phy: realtek: usb2: add support for RTL9607C USB2 PHY
+
+This commit adds support for the USB2 PHY of RTL9607C-based SoCs. It includ=
+es
+macros, a PHY config structure, and logic to clear a "force host disconnect"
+bit before writing parameters.
+
+> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy=
+-rtk-usb2.c
+> index 16c5fc3191dec..69f0f5279b5ef 100644
+> --- a/drivers/phy/realtek/phy-rtk-usb2.c
+> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
+[ ... ]
+> @@ -600,6 +617,19 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, =
+int index)
+>  		goto do_toggle;
+>  	}
+> =20
+> +	if (phy_cfg->force_host_disconnect) {
+> +		/* disable force-host-disconnect */
+> +		void __iomem *vstatus =3D phy_reg->reg_wrap_vstatus;
+> +		u32 temp;
+> +
+> +		temp =3D phy_reg->read(vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but missing error handling for
+of_iomap() in parse_phy_data() could lead to a NULL pointer dereference her=
+e.
+
+drivers/phy/realtek/phy-rtk-usb2.c:parse_phy_data() {
+    ...
+    phy_parameter->phy_reg.reg_wrap_vstatus =3D of_iomap(np, 0);
+    phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
+    ...
+}
+
+If the mapping fails, phy_reg->reg_wrap_vstatus will be NULL.
+
+Does this new code risk dereferencing a NULL vstatus pointer if the device
+tree is invalid or memory is exhausted?
+
+[Severity: High]
+This is a pre-existing issue, but does the driver leak the I/O memory mapped
+by of_iomap()?
+
+Since devm_of_iomap() is not used and there are no corresponding iounmap()
+calls anywhere in the driver, could this exhaust I/O memory upon probe
+failure or driver unbinding?
+
+> +
+> +		temp &=3D ~PHY_9607_FORCE_DISCONNECT_BIT;
+> +		phy_reg->write(temp, vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+> +
+> +		usleep_range(10000, 11000);
+> +	}
+> +
+>  	/* Set page 0 */
+>  	phy_data_page =3D phy_cfg->page0;
+>  	rtk_phy_set_page(phy_reg, 0);
+[ ... ]
+> @@ -1374,6 +1404,33 @@ static const struct phy_cfg rtd1315e_phy_cfg =3D {
+>  	.write =3D rtk_usb2phy_write,
+>  };
+> =20
+> +static const struct phy_cfg rtl9607_phy_cfg =3D {
+> +	.page0_size =3D MAX_USB_PHY_PAGE0_DATA_SIZE,
+> +	.page0 =3D { [0] =3D {0xe0, 0x95},
+> +		   [4] =3D {0xe4, 0x6a},
+> +		  [12] =3D {0xf3, 0x31}, },
+> +	.page1_size =3D MAX_USB_PHY_PAGE1_DATA_SIZE,
+> +	.page1 =3D { [0] =3D {0xe0, 0x26}, },
+> +	.page2_size =3D MAX_USB_PHY_PAGE2_DATA_SIZE,
+> +	.page2 =3D { [7] =3D {0xe7, 0x33}, },
+> +	.num_phy =3D 1,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the pointer arithmetic
+incorrectly misalign the base pointer when num_phy > 1?
+
+drivers/phy/realtek/phy-rtk-usb2.c:parse_phy_data() {
+    ...
+    for (index =3D 0; index < rtk_phy->num_phy; index++) {
+        ...
+        phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
+    ...
+}
+
+Since of_iomap() returns a void __iomem *, adding index increments the
+pointer by exactly index bytes.
+
+Could this cause an unaligned memory access exception (leading to a kernel
+panic) or fail to map the correct register index from the device tree?
+
+> +	.check_efuse_version =3D CHECK_EFUSE_V2,
+> +	.efuse_dc_driving_rate =3D EFUS_USB_DC_CAL_RATE,
+> +	.dc_driving_mask =3D 0x1f,
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520175728.7208=
+77-1-adilov@disroot.org?part=3D5
