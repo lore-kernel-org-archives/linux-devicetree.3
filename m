@@ -1,87 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860D126FD9B;
-	Wed, 20 May 2026 07:38:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C81E22A4E9;
+	Wed, 20 May 2026 07:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779262704; cv=none; b=bc/yGw335AoCJsZvQHeYNVW6s0qtF+ssSivjyTUb1AKXeqyyUi4EvpUFH3BjNBb/tfbYH9Aj+LIvG8kDZee55iv0UvQxwS4Czli2wStu+eDq6Fi7alAhuzpqS/ryd0MFCqd9+VrYGr4Z2FRG3t6QVRgYr9fX6x1KoVos23t5RWU=
+	t=1779262784; cv=none; b=SzPXYATFqYeWBbxr/uz6UvGDovKOqwOYh3tHW7Dc1wY7Vz2sW05JZVsHZ3YjGDP237CfB8xur3/UMXehZsgf1f+QOUWD3FGqW3QrpvzCydfGZeM6ozbaYIGa8OMLeSrjmI4pii5JTDSrHY6sRt7J1tS98i7tlkdwLV2QeqpmE3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779262704; c=relaxed/simple;
-	bh=2iGajhYPoM8w5pDSxhmkY2B2ciIGFlcRmO+klsGO2Gk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rY6/zVGgcPk8IlU9L+aVV4FSU+SKfx0LLn37At6BXJbmG+DGNwTC1AcL5odZFaTwJCYdAZJlim8KKGqB0dX+j+lOS6PZM07v2s5ywM5YVX8Ktk1bIXAEqZ5A1bFbQ1lmfnCJcKT8x2yeB2tCsPF7g+tCY/nvnEpfrPa0EI6p9HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iiJ/qGGq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iiJ/qGGq"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 22B501F000E9;
-	Wed, 20 May 2026 07:38:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779262703;
-	bh=sxRRDOsCoNih4UGH+8mNEikLC6FHjrh1h3Cp++QBsh4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iiJ/qGGqNeg9Trqa6wRxz2h6uDUlJSLAlM2IgqujfjtZBANlQgSsHakoq7ecA8Cec
-	 r0OG+7WHdndJYlMGj7fnOLjxYssGd3xvFH0YOXWwJ55eZtIi0PXS8NstOEW8cRI/RA
-	 n4RUaziljoGM/QpL6ZrwAn3h5mSS114APEPh7jbZR3n3Yv6ZoWhl8ms0xzgIvBhjEf
-	 RzI0cjntDvJ733mt+frlqYe0qXtqEeiAcxjwtKPKXlXpJ/v3i5rZF6O86ZPVe723+i
-	 yznm7P26UoKb1BVkxZeGeTwmBAHFiTcC37fRwrrlBwzL4Z6rRaqw7oCO9Td0VaDZ4x
-	 ACxE+jzbFx2Zw==
-Date: Wed, 20 May 2026 09:38:17 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, 
-	Harshal Dev <harshal.dev@oss.qualcomm.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 7/8] dt-bindings: arm: qcom: Document SA8797P Ride
- board
-Message-ID: <20260520-acoustic-inchworm-of-education-2fb9ba@quoll>
-References: <20260519063505.883379-1-shengchao.guo@oss.qualcomm.com>
- <20260519063505.883379-8-shengchao.guo@oss.qualcomm.com>
+	s=arc-20240116; t=1779262784; c=relaxed/simple;
+	bh=d2Ugzmt6F1039hqAPqlsjlFEKCPpU4Bgx2uEbLBfRqs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=jW4eKB2qvnfXultIpH6SW55v3cSZPHrpaTjNLBZpwTJLDt5+Nn8SpZ45G1gzxZSVFLq1OQP978+3h0XjVJOXFDgRn0Z6tV2q/b7KAg/BZguYSUaykJyBsbxRWs/sZjuCmIp7JEjrHm2DpLhUnRGxtQd+7Cizr3hhDCURIkvh9JA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Wed, 20 May 2026 15:39:21 +0800 (GMT+08:00)
+Date: Wed, 20 May 2026 15:39:21 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com, benoit.monin@bootlin.com,
+	bmasney@redhat.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com
+Subject: Re: Re: [PATCH v6 2/3] clk: eswin: Add eic7700 HSP clock driver
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260519090034.CCED6C2BCB3@smtp.kernel.org>
+References: <20260519081627.1591-1-dongxuyang@eswincomputing.com>
+ <20260519090034.CCED6C2BCB3@smtp.kernel.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260519063505.883379-8-shengchao.guo@oss.qualcomm.com>
+Message-ID: <61fe8681.6622.19e44532865.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgA3TJ8pZQ1qFOsaAA--.4457W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgENAmoMkRIVB
+	gAAs6
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On Tue, May 19, 2026 at 02:35:04PM +0800, Shawn Guo wrote:
-> The Nord is a new generation of SoC series from Qualcomm, and SA8797P
-> is the automotive variant of Nord. SA8797P Ride is the automotive=E2=80=
-=91grade
-> development board built on SA8797P SoC. Document the board with a fallback
-> on SA8797P and Nord compatible.
->=20
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
-ion/devicetree/bindings/arm/qcom.yaml
-> index af266d584fae..ab25323c3581 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -303,6 +303,12 @@ properties:
->                - xiaomi,sagit
->            - const: qcom,msm8998
-> =20
-> +      - items:
-> +          - enum:
-> +              - qcom,sa8797p-ride
-> +          - const: qcom,sa8797p
-
-We do not use model compatibles for Shikra, Eliza, Hawi, Glymur etc, so
-this is inconsistent and should be somehow explained in the commit msg.
-
-> +          - const: qcom,nord
-
-Best regards,
-Krzysztof
-
+PiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
+b3VuZCAyIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiAtIFtMb3ddIEdsb2JhbCBz
+dGF0aWMgY2xvY2sgYXJyYXlzIGFyZSBtb2RpZmllZCBkdXJpbmcgcHJvYmUgd2l0aG91dCBsb2Nr
+aW5nLCBicmVha2luZyBzdXBwb3J0IGZvciBtdWx0aXBsZSBpbnN0YW5jZXMuCj4gLSBbTG93XSBU
+aGUgS2NvbmZpZyBzeW1ib2wgYENPTU1PTl9DTEtfRUlDNzcwMF9IU1BgIGxhY2tzIHRoZSBgZGVm
+YXVsdCBBUkNIX0VTV0lOYCBwcm9wZXJ0eSwgd2hpY2ggaXMgaW5jb25zaXN0ZW50IHdpdGggdGhl
+IGJhc2UgY2xvY2sgZHJpdmVyLgo+IC0tCj4gCj4gY29tbWl0IDVjODdmODY1Y2E4YWU3NDZkODBm
+ZjcxZmRiYmNlNzNmN2JlNTAyZWMKPiBBdXRob3I6IFh1eWFuZyBEb25nIDxkb25neHV5YW5nQGVz
+d2luY29tcHV0aW5nLmNvbT4KPiAKPiBjbGs6IGVzd2luOiBBZGQgZWljNzcwMCBIU1AgY2xvY2sg
+ZHJpdmVyCj4gCj4gQWRkIGRyaXZlciBmb3IgdGhlIEVTV0lOIEVJQzc3MDAgaGlnaC1zcGVlZCBw
+ZXJpcGhlcmFscyBzeXN0ZW0gY2xvY2sKPiBjb250cm9sbGVyIGFuZCByZWdpc3RlciBhbiBhdXhp
+bGlhcnkgZGV2aWNlIGZvciBzeXN0ZW0gcmVzZXQgY29udHJvbGxlcgo+IHdoaWNoIGlzIG5hbWVk
+IGFzICJoc3AtcmVzZXQiLgo+IAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvY2xrL2Vzd2luL0tj
+b25maWcgYi9kcml2ZXJzL2Nsay9lc3dpbi9LY29uZmlnCj4gPiBpbmRleCAwNDA2ZWM0OTllYzlj
+Li4zNzg1N2JkNzczMzU2IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9jbGsvZXN3aW4vS2NvbmZp
+Zwo+ID4gKysrIGIvZHJpdmVycy9jbGsvZXN3aW4vS2NvbmZpZwo+IFsgLi4uIF0KPiA+IEBAIC0x
+MywzICsxMywxNiBAQCBjb25maWcgQ09NTU9OX0NMS19FSUM3NzAwCj4gPiAgCSAgU29DLiBUaGUg
+Y2xvY2sgY29udHJvbGxlciBnZW5lcmF0ZXMgYW5kIHN1cHBsaWVzIGNsb2NrcyB0byB2YXJpb3Vz
+Cj4gPiAgCSAgcGVyaXBoZXJhbHMgd2l0aGluIHRoZSBTb0MuCj4gPiAgCSAgU2F5IHllcyBoZXJl
+IHRvIHN1cHBvcnQgdGhlIGNsb2NrIGNvbnRyb2xsZXIgb24gdGhlIEVJQzc3MDAgU29DLgo+ID4g
+Kwo+ID4gK2NvbmZpZyBDT01NT05fQ0xLX0VJQzc3MDBfSFNQCj4gPiArCXRyaXN0YXRlICJFSUM3
+NzAwIEhTUCBDbG9jayBEcml2ZXIiCj4gPiArCWRlcGVuZHMgb24gQVJDSF9FU1dJTiB8fCBDT01Q
+SUxFX1RFU1QKPiAKPiBUaGlzIGlzbid0IGEgYnVnLCBidXQgc2hvdWxkIHRoaXMgY29uZmlnIGhh
+dmUgZGVmYXVsdCBBUkNIX0VTV0lOIHRvIG1hdGNoCj4gdGhlIGJhc2UgY2xvY2sgZHJpdmVyPyBX
+aXRob3V0IGl0LCB0aGUgaGlnaC1zcGVlZCBwZXJpcGhlcmFsIGNsb2NrcyBtaWdodAo+IGJlIHVu
+ZXhwZWN0ZWRseSBkaXNhYmxlZCBieSBkZWZhdWx0IG9uIEVTV0lOIHBsYXRmb3Jtcy4KPiAKCkhp
+IFNhc2hpa28sCgpUaGUgSFNQIGNsb2NrIHJlc2V0IGRldmljZSBjYW4gYmUgYnVpbHQgYXMgYSBr
+ZXJuZWwgbW9kdWxlLsKgCkhvd2V2ZXIsIGlmICdkZWZhdWx0IEFSQ0hfRVNXSU4nIGlzIHNldCwg
+aXQgd2lsbCBiZSBjb21waWxlZCBkaXJlY3RsecKgCmludG8gdGhlIGtlcm5lbCBpbnN0ZWFkIG9m
+IGFzIGEgbW9kdWxlLgoKPiA+ICsJc2VsZWN0IEFVWElMSUFSWV9CVVMKPiA+ICsJc2VsZWN0IENP
+TU1PTl9DTEtfRUlDNzcwMAo+ID4gKwlzZWxlY3QgUkVTRVRfRUlDNzcwMF9IU1AgaWYgUkVTRVRf
+Q09OVFJPTExFUgo+ID4gKwlzZWxlY3QgUkVHTUFQX01NSU8KPiAKPiBbIC4uLiBdCj4gPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9jbGsvZXN3aW4vY2xrLWVpYzc3MDAtaHNwLmMgYi9kcml2ZXJzL2Ns
+ay9lc3dpbi9jbGstZWljNzcwMC1oc3AuYwo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGlu
+ZGV4IDAwMDAwMDAwMDAwMDAuLjMzODNhYTY0OTQ4YTYKPiA+IC0tLSAvZGV2L251bGwKPiA+ICsr
+KyBiL2RyaXZlcnMvY2xrL2Vzd2luL2Nsay1laWM3NzAwLWhzcC5jCj4gWyAuLi4gXQo+ID4gK3N0
+YXRpYyBzdHJ1Y3QgZXN3aW5fZml4ZWRfZmFjdG9yX2Nsb2NrIGVpYzc3MDBfaHNwX2ZhY3Rvcl9j
+bGtzW10gPSB7Cj4gPiArCUVTV0lOX0ZBQ1RPUihFSUM3NzAwX0hTUF9DTEtfRkFDX0NGR19ESVYy
+LCAiZmFjdG9yX2hzcF9jZmdfZGl2MiIsCj4gPiArCQkgICAgIGhzcF9jZmcsIDEsIDIsIDApLAo+
+ID4gKwlFU1dJTl9GQUNUT1IoRUlDNzcwMF9IU1BfQ0xLX0ZBQ19DRkdfRElWNCwgImZhY3Rvcl9o
+c3BfY2ZnX2RpdjQiLAo+ID4gKwkJICAgICBoc3BfY2ZnLCAxLCA0LCAwKSwKPiA+ICsJRVNXSU5f
+RkFDVE9SKEVJQzc3MDBfSFNQX0NMS19GQUNfTU1DX0RJVjEwLCAiZmFjdG9yX2hzcF9tbWNfZGl2
+MTAiLAo+ID4gKwkJICAgICBoc3BfbW1jLCAxLCAxMCwgMCksCj4gPiArfTsKPiBbIC4uLiBdCj4g
+PiArc3RhdGljIGludCBlaWM3NzAwX2hzcF9jbGtfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2Rldmlj
+ZSAqcGRldikKPiA+ICt7Cj4gPiArCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4g
+PiArCXN0cnVjdCBhdXhpbGlhcnlfZGV2aWNlICphZGV2Owo+ID4gKwlzdHJ1Y3QgZXN3aW5fY2xv
+Y2tfZGF0YSAqZGF0YTsKPiA+ICsJc3RydWN0IHJlZ21hcCAqcmVnbWFwOwo+ID4gKwlzdHJ1Y3Qg
+Y2xrX2h3ICpodzsKPiA+ICsJaW50IGksIHJldDsKPiA+ICsKPiA+ICsJZGF0YSA9IGVzd2luX2Ns
+a19pbml0KHBkZXYsIEVJQzc3MDBfSFNQX05SX0NMS1MpOwo+ID4gKwlpZiAoSVNfRVJSKGRhdGEp
+KQo+ID4gKwkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQVFJfRVJSKGRhdGEpLAo+ID4gKwkJ
+CQkgICAgICJmYWlsZWQgdG8gZ2V0IGNsayBkYXRhIVxuIik7Cj4gPiArCj4gPiArCXJlZ21hcCA9
+IGRldm1fcmVnbWFwX2luaXRfbW1pbyhkZXYsIGRhdGEtPmJhc2UsCj4gPiArCQkJCSAgICAgICAm
+ZWljNzcwMF9oc3BfcmVnbWFwX2NvbmZpZyk7Cj4gPiArCWlmIChJU19FUlIocmVnbWFwKSkKPiA+
+ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihyZWdtYXApLAo+ID4gKwkJCQkg
+ICAgICJmYWlsZWQgdG8gZ2V0IHJlZ21hcCFcbiIpOwo+ID4gKwo+ID4gKwlyZXQgPSBlc3dpbl9j
+bGtfcmVnaXN0ZXJfZml4ZWRfZmFjdG9yKGRldiwgZWljNzcwMF9oc3BfZmFjdG9yX2Nsa3MsCj4g
+PiArCQkJCQkgICAgICBBUlJBWV9TSVpFKGVpYzc3MDBfaHNwX2ZhY3Rvcl9jbGtzKSwKPiA+ICsJ
+CQkJCSAgICAgIGRhdGEpOwo+IAo+IElzIGl0IHNhZmUgdG8gcGFzcyB0aGUgZ2xvYmFsIHN0YXRp
+YyBhcnJheSBlaWM3NzAwX2hzcF9mYWN0b3JfY2xrcyB0byB0aGlzCj4gZnVuY3Rpb24/Cj4gCj4g
+TG9va2luZyBhdCBlc3dpbl9jbGtfcmVnaXN0ZXJfZml4ZWRfZmFjdG9yKCkgaW4gZHJpdmVycy9j
+bGsvZXN3aW4vY2xrLmMsIGl0Cj4gbW9kaWZpZXMgdGhlIGFycmF5IGR1cmluZyBwcm9iZToKPiAK
+PiBpbnQgZXN3aW5fY2xrX3JlZ2lzdGVyX2ZpeGVkX2ZhY3RvciguLi4pCj4gewo+ICAgICAuLi4K
+PiAgICAgICAgIGNsa3NbaV0uaHcgPSAqY2xrX2h3Owo+ICAgICAgICAgZGF0YS0+Y2xrX2RhdGEu
+aHdzW2Nsa3NbaV0uaWRdID0gY2xrX2h3Owo+ICAgICAuLi4KPiB9Cj4gCj4gSWYgbXVsdGlwbGUg
+aW5zdGFuY2VzIG9mIHRoaXMgZHJpdmVyIHByb2JlIGNvbmN1cnJlbnRseSBvciBkZWZlciwgY291
+bGQgdGhpcwo+IGRhdGEgcmFjZSBjb3JydXB0IHRoZSBDQ0YgcGFyZW50LWNoaWxkIGxpbmthZ2Vz
+PyBUaGUgc2FtZSBwYXR0ZXJuIGFwcGVhcnMKPiB0byBhZmZlY3QgZWljNzcwMF9oc3BfZ2F0ZV9j
+bGtzIGFuZCBlaWM3NzAwX2hzcF9tdXhfY2xrcy4KPiAKCk5vLiBUaGVyZSBpcyBvbmx5IG9uZSBj
+b21wYXRpYmxlIHN0cmluZyBpbiB0aGUgRFRTLCBzbyB0aGVyZSB3aWxsIG9ubHkgYmUKYSBzaW5n
+bGUgZHJpdmVyIGluc3RhbmNlLiBUaGVyZWZvcmUsIGNvbmN1cnJlbnQgcHJvYmluZyBjYW5ub3Qg
+b2NjdXIsIGFuZMKgCnRoZSBDQ0YgcGFyZW50LWNoaWxkIGxpbmthZ2VzIHdpbGwgbm90IGJlIGNv
+cnJ1cHRlZCBieSBhIGRhdGEgcmFjZS7CoAoKQmVzdCByZWdhcmRzLApYdXlhbmcgRG9uZwoKPiAt
+LSAKPiBTYXNoaWtvIEFJIHJldmlldyDCtyBodHRwczovL3Nhc2hpa28uZGV2LyMvcGF0Y2hzZXQv
+MjAyNjA1MTkwODE0MzEuMTQyNC0xLWRvbmd4dXlhbmdAZXN3aW5jb21wdXRpbmcuY29tP3BhcnQ9
+Mgo=
