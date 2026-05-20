@@ -1,217 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACDE1684BE;
-	Wed, 20 May 2026 22:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08273BCD25
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779314662; cv=none; b=mXQ0k1jyyt4tznkI9xDoCSLQoU+z9+owbi4MrZx4NnN+kCVaG3H2urnADxW8UuFf8dXwmD0P+4BU6fvzoZRdP8vIQDFEUdhd/AZzbRFjL6faS7b33S6Tn0XE8QW26dxmVeg/RyP2mCBntT4XZngEidOEbW1Xo10csCqRZUlkov0=
+	t=1779315989; cv=none; b=Jspo36/wlVCVFNFK7Ew4Pmhz0W89hKZNRfa2fT9GaB9vC+H/maZKJcTgMkIqYAmTYZtV44sIGe6DfTApQu3OduD0jDb5/H86icot/GEsiIECkXWi1OtqCXbT46IrToKMDOootHiVX7TyTKSbIrLcuNJoJAvndMJLkvi3PzWaf7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779314662; c=relaxed/simple;
-	bh=lauJzeOc9xY6dli1/lcbNeHa2u80M5UeyIntEbI0VPg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VMj3oK6x1veW+lamvo/K+Y21pTBiH+yobjkQ8MQ77MY8pHrY0SX+4FEt1shF+09mZ438IS3ZZzyYfxYVIwIayVLuzLPD8m3ASmTZSHswtkeZXcNRJ81iVLYsEssKjd7LX/XCAFFrflJFb50IQcQ3vmAFklfTN1l0fek+pRP9W0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDeuvVsq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779315989; c=relaxed/simple;
+	bh=j+vvG9tL9x9Qm2N4qCmquu0PIMkZ01SDZnad8HjsKkM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JaL9mSrFBcE+kzUTaiFYdko3JnwHQa16vBTEnUdmkSDCvCMFonvL5cGJ3gGmdVnaRdkIIsjBOC3c7XfPFuDpmMcJFFxwr5n9eFjb4AAXEv/yfMMkhW3BoA2Rr87e8YgyXsjIRjWNBC4M+XyMgeY9cy+xaXDOYBh+48sHGA5cZuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KpjhyQv3; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDeuvVsq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8307C1F000E9;
-	Wed, 20 May 2026 22:04:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779314661;
-	bh=huh1l7TB6L+RLVoIHz62VVC1mnw9hGaHg2C3LXaLDFw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nDeuvVsqCmV/w8lEo5E97Xr0wNd5pkPxV1WYz6iXHWp+BeS1le6/ROvStsRGjpPZf
-	 QB9gOLg6uAF/TA095MRXWOz5MSdKzCyFX4fXn82A+EFjgYZQgU15Lb4YpeqbLjsqQD
-	 xlUdsCK0egc0xFW5ig5q50KY3T6BYVVNcTmAnZlxA5oOl3bp1E03FaKwVTQpcmVCIJ
-	 joJyhr88iFl6kw+Y8rcBMGRHfYqtc4mgrnaxKPO+0BT2LDG1hQDr1ASl76k/iFk2d5
-	 GCcX2/pYL8U5BBey56jDIZEvNHQ5cWC5TBa0M3+p9pmPEd9fyjRQZJcSRNfRrmk9ju
-	 5IcMxykNMG8pQ==
-Date: Wed, 20 May 2026 23:04:16 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Lachlan Michael <Lachlan.Michael@sony.com>,
-	Ryuichi Tadano <Ryuichi.Tadano@sony.com>,
-	Kengo Hayasaka <Kengo.Hayasaka@sony.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add Sony IMX678
-Message-ID: <20260520-during-rocklike-a7436513d559@spud>
-References: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com>
- <20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com>
- <20260520-crusher-species-cf707a9a8b46@spud>
- <177929757691.2341049.18374545669142492074@selene>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KpjhyQv3"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-44b330c5cc6so3994006f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 15:26:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779315986; x=1779920786; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YG82xVAXQwQE8PumNL8zBtus2ibRKhYEPkSULunC6/w=;
+        b=KpjhyQv3vClXosjoGWZmpqAYKelW8CDboFucNDCLebSdcjqL+k9S7q3hyuuAHh0lHN
+         0+abZeVZgZqyyDO1m9oGSre1k8S2KYj6P1XFfAYKK8B9wqlGclNWWmQnoT+mo85HEupM
+         PXPyFLR7xbEanO/YuzOLirj/kCZueVgK5D0nNdhqpw+sk+xHqEwEx2km7A3v2olWadur
+         vk2Tsz9T1qtEu+BZJnieURhwWipITU8pmrgo0e24uCALwfVkHTLf1YadtyaOkb47MjxW
+         2zPL8AszT0RJwlBXEauCkr+lm2Q1P8vi/IGDeqZRYE9n7H/TcK5kwuzzNKWCirO6oL1m
+         AIRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779315986; x=1779920786;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YG82xVAXQwQE8PumNL8zBtus2ibRKhYEPkSULunC6/w=;
+        b=CQQk9DZA6TQTZtsuXO8twsUjvvCLMI9x+tPRFLElMOkaGHVKo4LyoOPskXXbf930Ub
+         4xwptbZefbQz3EMMBm/7pNaZPEErAAcUTxoOjD53sGc1TvMVlhyG/TxTwOufnWqilqyz
+         ap35+5jPGAdt22bwMc/fSLMJVO2IMwjKdS8/DQAXPUM1/AiGhBfngN/Oz9MZvcAK7usE
+         8T2OqSvVwBAcqbQ16v2f8XAo69htfVKlOwctUVuO6Lg5hqMd0eubcnimq3KMmaAdIEwi
+         gdJqS1LoD3YaWwIuSL3eFDV690EhFEBRPCZnG7MupxGDt5i+fga2DRiQ4TWD5Dc63RYe
+         R6Sw==
+X-Forwarded-Encrypted: i=1; AFNElJ9u+RJIeGp9dJOThbkMVdvO05cNmQ3MiafNPtxm9i42oqAJECrUWm7dJKUfgyaPFSmWztsx+A0czxpj@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVKXzmHbyCfGy7E6uCO7j5Oz36xxtKDWajuvtLARS4kXTfw8dL
+	vAJabacanJ3DYZJWAkBVCD8XldIx5R8tbLygJM8qqzhYzXxgKRP8XV4=
+X-Gm-Gg: Acq92OFxAciKLQ1Ze5olTcQy0K7cXBytHPhOB0Kg61vrRLuNjIg0Git9ZvmmerJ13cl
+	YgIHix6ZpIQCuYQTuNuufcN7uW6PAJgyygXs1lzppVXE5I1jKppWLQwZYSmpBjuHG+/2gCrSn00
+	tUPabTBVLJtAeSmYKBnNzZ1Qj72k6c7fUQ/BTQmxnBj+QqLIJKdK6vk63unsr5Mai+uYcO6htlw
+	/GKAk7SeCt9DWPLLREo1ER3rceraD9df/v4iP0j239DlNWfQYRWVHcLSCWoRY63QSheXUIoNYQj
+	0+L+J4rIN8Qwsd/LqMAHIybWqeDx4XPIDWETq+NDqkXhzFqFyyUbHQ+U40wAfjZGNWZ0rwyNQP5
+	M2muLfukZedqLqovGV76iBM2u5bnoGPBso8YsO+tvi5QM3I9mt5linDj/oJCjHbJlKEGfTj3D+0
+	BL6gJyYz8y5gamNYAMw5a6mW7ViAiwl4R+9aN3UioBxFqvDUskg+tnqdY1y+8NqOMeNBadbqjps
+	gjpXZT50JLF0Vx4BULzVUwwP63NRQ4iQJbI5SIeu+K7aMdozuH/D5EOfuZkArVPm7voaQ==
+X-Received: by 2002:a5d:584c:0:b0:452:c246:ab69 with SMTP id ffacd0b85a97d-45ea38c687bmr331364f8f.13.1779315985965;
+        Wed, 20 May 2026 15:26:25 -0700 (PDT)
+Received: from ?IPV6:2a01:cb08:52d:7400:bbd7:ca83:de4a:f625? (2a01cb08052d7400bbd7ca83de4af625.ipv6.abo.wanadoo.fr. [2a01:cb08:52d:7400:bbd7:ca83:de4a:f625])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0fe1a41sm61784681f8f.31.2026.05.20.15.26.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 May 2026 15:26:25 -0700 (PDT)
+Message-ID: <f5f70aa2-a1b8-40e0-838f-6709e6e08a5a@gmail.com>
+Date: Thu, 21 May 2026 00:26:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="43X9UaX6PnW3Efgq"
-Content-Disposition: inline
-In-Reply-To: <177929757691.2341049.18374545669142492074@selene>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/11] arm64: dts: qcom: sc8280xp-arcata: Enable backlight
+To: Douglas Anderson <dianders@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
+ <20260520-surface-sp9-5g-for-next-v1-2-9df52552bf87@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-2-9df52552bf87@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 5/20/26 18:40, Jérôme de Bretagne via B4 Relay wrote:
+> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> 
+> Add backlight nodes and enable backlight so that it can be controlled
+> with the corresponding buttons found on Surface Pro Type Cover keyboards.
+> 
+> The nodes are almost identical to the ones from the ThinkPad X13s with
+> a different enable GPIO for the vreg_edp_bl node.
+> 
+> The difference was found by looking at the output of /sys/kernel/debug/gpio
+> on the ThinkPad X13s to see the properties of its enable gpio9:
+> 
+>    gpiochip1: GPIOs 742-751, parent: platform/c440000.spmi:pmic@1:gpio@8800, c440000.spmi:pmic@1:gpio@8800:
+>     ...
+>     gpio9 : out  high normal  vin-1 pull-down 10uA              push-pull  medium  atest-1 dtest-0
+>     ...
+> 
+> The same gpio9 on the Surface Pro 9 5G has different properties:
+> 
+>    gpiochip0: 10 GPIOs, parent: platform/c440000.spmi:pmic@1:gpio@8800, c440000.spmi:pmic@1:gpio@8800:
+>     ...
+>     gpio9 : in   high normal  vin-1 pull-up 30uA                push-pull  low     atest-1 dtest-0
+>     ...
+> 
+> Looking for a match on the Surface Pro 9 5G pointed to this only one:
+> 
+>    gpiochip2: 10 GPIOs, parent: platform/c440000.spmi:pmic@3:gpio@8800, c440000.spmi:pmic@3:gpio@8800:
+>     ...
+>     gpio6 : out  high normal  vin-1 pull-down 10uA              push-pull  medium  atest-1 dtest-0
+>     ...
+> 
+> Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> ---
+>   .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 49 ++++++++++++++++++++++
+>   1 file changed, 49 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+> index f2b4470d4407fb5b6a3dbac8bc972c010c31bd06..14287092fb07ea15e527fd318f7ea2155448b26c 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+> @@ -46,6 +46,16 @@ wcd938x: audio-codec {
+>   		#sound-dai-cells = <1>;
+>   	};
+>   
+> +	backlight: backlight {
+> +		compatible = "pwm-backlight";
+> +		pwms = <&pmc8280c_lpg 3 1000000>;
+> +		enable-gpios = <&pmc8280_1_gpios 8 GPIO_ACTIVE_HIGH>;
+> +		power-supply = <&vreg_edp_bl>;
+> +
+> +		pinctrl-0 = <&edp_bl_en>, <&edp_bl_pwm>;
+> +		pinctrl-names = "default";
+> +	};
+> +
 
 
---43X9UaX6PnW3Efgq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Investigating the feedback I got from an AI bot review [1], I plan to 
+update this patch in v2. Let me know what you think.
 
-On Wed, May 20, 2026 at 07:19:36PM +0200, Jai Luthra wrote:
-> Hi Conor,
->=20
-> Thank you for the review.
->=20
-> Quoting Conor Dooley (2026-05-20 17:56:29)
-> > On Wed, May 20, 2026 at 05:17:25PM +0200, Jai Luthra wrote:
-> > > Sony IMX678 is an 8.4 Megapixel (3856x2180) CMOS sensor, that can out=
-put
-> > > pixels over MIPI CSI-2 bus. Add bindings for it.
-> > >=20
-> > > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> > > ---
-> > > Changes in v3:
-> > > - Use `reset-gpios`, mentioning the sensor XCLR acts like RESETN, ins=
-tead of `xclr-gpios`
-> > > Changes in v2:
-> > > - Add per-variant compatibles for mono and colour, alongside the
-> > >   generic fallback, so the variant can be declared without powering
-> > >   the sensor at probe.
-> > > - Rename reset GPIO to xclr as that's what it's called in the
-> > >   datasheet, and how it behaves
-> > > - Reference the generic video interface devices schema and switch to
-> > >   unevaluatedProperties.
-> > > - Drop "link-frequencies: true"
-> > > - Drop the T: entry for media.git from MAINTAINERS.
-> > > ---
-> > >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 129 +++++++++++=
-++++++++++
-> > >  MAINTAINERS                                        |   6 +
-> > >  2 files changed, 135 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.=
-yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > > new file mode 100644
-> > > index 000000000000..d85745ddbefd
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > > @@ -0,0 +1,129 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +# Copyright (C) 2026 Ideas on Board Oy
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Sony IMX678 Sensor
-> > > +
-> > > +maintainers:
-> > > +  - Jai Luthra <jai.luthra@ideasonboard.com>
-> > > +
-> > > +description:
-> > > +  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type s=
-olid-state
-> > > +  image sensor with a square pixel array and 8.40M (3856x2180) effec=
-tive pixels.
-> > > +
-> > > +allOf:
-> > > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - sony,imx678
-> > > +      - sony,imx678-aamr
-> > > +      - sony,imx678-aaqr
-> > > +    description:
-> > > +      The IMX678 sensor exists in a colour variant (IMX678-AAQR) and=
- a mono
-> > > +      variant (IMX678-AAMR). An internal register can also help dete=
-ct this at
-> > > +      runtime.
-> >=20
-> > I don't understand the compatibles here. If aaqr is tge colour variant,
-> > and aamr is mono, what does the suffix-less compatible represent?
->=20
-> Sorry, I had seen Laurent's comment on this area in v2 but forgot to upda=
-te
-> it in this revision.
->=20
-> The suffix-less compatible is for the cases where a product comes in two
-> variants with the sensor being either mono or color.
+I was skeptical at first but upon review I've tried the following patch:
 
-This response is very weird. It's worded in a really generic way that
-barely seems to be a response to my mail. We aren't talking about
-"a product" here, we are specifically talking about the imx678, and we
-know it comes it these variants. There are no "cases" involved.
 
-> It allows sharing DT blobs amongst the two variants, where the driver
-> powers the sensor on and reads the register to figure out if it is mono
-> or color.
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts 
+b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+index f938e68c69ea..82e0a01276a8 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+@@ -198,7 +198,7 @@ vreg_edp_bl: regulator-edp-bl {
+                 regulator-min-microvolt = <3600000>;
+                 regulator-max-microvolt = <3600000>;
 
-To be honest, I don't really get why the driver uses the specific
-compatibles at all, if it can just determine if it is colour or mono at
-runtime. Seems to me like this should be
-compatible:
-  items:
-    - enum:
-       - imx678-aamr
-       - imx678-aaqr
-    - const: imx678
+-               gpio = <&pmc8280c_gpios 6 GPIO_ACTIVE_HIGH>;
++               gpio = <&pmc8280_2_gpios 6 GPIO_ACTIVE_HIGH>;
+                 enable-active-high;
 
-Or just entirely drop the suffixed compatibles from the binding, since
-you can detect mono v colour at runtime. The justification for the
-aamr/aaqr compatibles seems to be that it avoids powering on the device
-to check, but it looks like you unconditionally power it on and check
-which variant it is, so that argument holds no water.
+                 pinctrl-0 = <&edp_bl_reg_en>;
+@@ -1050,6 +1050,11 @@ vol_up_n: vol-up-n-state {
+  };
 
-> It allows sharing DT blobs amongst the two variants, where the driver
-> powers the sensor on and reads the register to figure out if it is mono
-> or color.
+  &pmc8280_2_gpios {
++       edp_bl_reg_en: edp-bl-reg-en-state {
++               pins = "gpio6";
++               function = "normal";
++       };
++
+         wwan_sw_en: wwan-sw-en-state {
+                 pins = "gpio1";
+                 function = "normal";
+@@ -1061,11 +1066,6 @@ edp_bl_pwm: edp-bl-pwm-state {
+                 pins = "gpio8";
+                 function = "func1";
+         };
+-
+-       edp_bl_reg_en: edp-bl-reg-en-state {
+-               pins = "gpio6";
+-               function = "normal";
+-       };
+  };
 
-Why would you want to share the dtb anyway? That makes no sense to
-me as a usecase in the first place. If the sensor isn't part of the
-board, you should be using an overlay or something similar to apply it,
-because if you can swap the sensor you can also have no sensor!
+  &pmr735a_gpios {
 
-Also doesn't your driver print a warning if you did this anyway?
 
-> > Your commit message says:
-> > > - Add per-variant compatibles for mono and colour, alongside the
-> > >   generic fallback, so the variant can be declared without powering
-> > >   the sensor at probe.
-> > But that's not what you have permitted in the binding, you've described
-> > 3 different variants and using the one with no suffix as a fallback will
-> > produce validation errors.
-> >=20
->=20
-> "fallback" was a wrong choice of word, I'll update the description in v4.
->=20
-> > I think this probably is
-> > pw-bot: changes-requested
-> >=20
-> > Thanks,
-> > Conor.
->=20
-> Thanks,
->     Jai
 
---43X9UaX6PnW3Efgq
-Content-Type: application/pgp-signature; name="signature.asc"
+and ... backlight still works! It can also be enabled/disabled with:
+    /sys/class/backlight/backlight/bl_power
+as expected.
 
------BEGIN PGP SIGNATURE-----
+I have no clue why both gpio6 on pmc8280_2 and gpio6 on pmc8280c can 
+enable and disable the backlight. Is it a common scenario?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag4v4AAKCRB4tDGHoIJi
-0jy6AQCR+moMY+VjpI0n5ldHplzQEeCnJ4IdUq8G+Pz8ZIGkhwD/Z/jTgFZvLmPM
-FUPrgn6RL6ZgxkdDAVxmAzhhVSuFtwY=
-=ky5Y
------END PGP SIGNATURE-----
+Anyway, if I follow my own investigation fully based on the X13s 
+reference and the properties of its backlight enable GPIO, I should 
+switch to pmc8280_2 to use the better match.
 
---43X9UaX6PnW3Efgq--
+I will update this patch in v2.
+
+Jérôme
+
+
+[1] https://lore.kernel.org/all/20260520165709.E485C1F00893@smtp.kernel.org/
+
