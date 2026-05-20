@@ -1,184 +1,159 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EA43630A3
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0592356760
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779261859; cv=none; b=XXzllhKDvzcHiC0uk8sZceNxX6i/9w7YNz0p3/y2pHY6WxC8aD5qnCC3EAt2zaNIWdY7py1RDNX7DUOoev8k29HSPW+qnUxHOzsVrDR+Lfi3kvA9n/Qd9kQBxXjVm1nEg2pZA2ytCFMJ2iNWKhQ/+uVlVHdpmTRLCacLhgiu00M=
+	t=1779262143; cv=none; b=dTB4+uERCAVfp0beRHE8Ro7ELgensT1F+KgR4xhmMpEywI90zRl4FxIwmmp+tEhd/qLg3oaryt3R6JiaVuRh4GBUGPIevBRF3DurWmBhCpADAeIBMY1evp1x2UpqM8bZCo4DBmrQrKUIIhmX/ExZguRzQeJvVPE4NYm3jnbn0UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779261859; c=relaxed/simple;
-	bh=LiJQwR7qa/406sDVkH8ncImAJWYszlpBwFuZAZgKn98=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=SeOvU7E0WxTMGwVXJHDvck7wv2ffUxRhBCRnyR6ge9YR1yHQqza97lBDL/R7tjRQkqdTq+3IALfV8kHMqzZBS8FqA/Vf96nlBkUB9CD6qwFCZWO+2OD+wXrVVD8+NnNtoCvVcapYQAMCCWpptzJG6QF9c9A/5BpOD2nSaApV53c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gh916ten; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1779262143; c=relaxed/simple;
+	bh=mLWIjo5Mf0fC0ZEIMKv/YgqjtFFyvLeeu5kpLLlq2so=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RoIWz87lLypsMQZcMbx8EUalqZnmyY4+p3cuzjTiE/EzS1sHw0irVVYWYfbzzsbd2YW1hTh1TIX/DVKN4Bt2Lq5wf2bJCWYYPQUzxVJJjLqCY7+bo7NjiQm80YeB11B52VrjMHfwAqqRdGXfIP4sQRmdpC9KJaYxm5DCSk/jRbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pHPY3U6K; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gh916ten"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488b3f8fa2bso43608425e9.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:24:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pHPY3U6K"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ba856db1c0so32810925ad.3
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 00:29:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1779261855; x=1779866655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ohsf7Kwxw4dURrBVAg9+548r3Hkt++rO/LjKiVp3o1A=;
-        b=gh916tenH5Lh9fLo/zUm4UgM7MV2D051M1xb5hIrK46JsksEBIJqNbJvPrImCrTgOd
-         k957Eu9dcb/IUKbrw77958w8eu2cnNzDlxGKBacIeEsu2uxYUIExEvf/ouWME2CtFEyX
-         2hOyXATK8fGHLVDPsXymdsyxpKvd9czw5wODCgYnFBiRJZ3xjgjjUqvI2/6A9Osi4rHi
-         m41yRrFj4nem/cxgPWpZORwwQk5VsQ+V2WvIIYYbL/Hfxc4thX36FAdziihNeNpNTLv+
-         EgfjxLstSi9kci8LR3pjRS/aXw1I2QhtHsPAqMvkWjuSHkQyB1Ge+9BttlEqDJs0D6XS
-         f3Zw==
+        d=gmail.com; s=20251104; t=1779262141; x=1779866941; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=zj0vx40UntDsD2TYK6nD+GW3q6EMQAvEH6QbIchZOP0=;
+        b=pHPY3U6KVdXA/bd/wnZOJdGdxIpK857/62PPrjOBDf7aYPitGEoc/+KuZi0bwgRt4F
+         N1f/lbSzG5ofFM8RJjfjI+kQPxNBhruWqTSaKaNyHpByN5doQX7HzNntfQwbcJyuxMDH
+         q9e905dPlohTmaXW7iyOw97Jx6mQALAn+9VFJefBy0o8QQnsf/2GFptU7ziXn8E3gDcH
+         x/U7Ikf3yGQMgUm0A5tkFC69w8KnLkjWV2RsZtrSz0iu8CR+lmSZAchtYhuhBWq/gHOW
+         xhOckvU1CDI08FzCyrDNjRddiMJ9vLaMXEvtPS5TLOL2i9pddvJAqsH4p0s8ZYf7TF+3
+         Mpgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779261855; x=1779866655;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ohsf7Kwxw4dURrBVAg9+548r3Hkt++rO/LjKiVp3o1A=;
-        b=QWWVc0WZ42TDtzfCSoE/SEqiyl18KCvfWL7xYPYU/f9xnw3+nKUIf4Z/AcEZcoLh0W
-         pYk1T9fBpEo503cEpe4gmt7Ycmr7nRoqiUt2teO0eaocwph9gV2atUzoKUu+VnkQ9LNo
-         9ajIhWoRRMyT7xc0m1ASQ2nxd0dcw9N7BUwfUhY//5A97qwnS4LlMdvHokCrhDLaE07h
-         bGGFh3qshlTRF0YYsrXkyTkr7uR+nUJgwiACBmIaXoq1nYXtSuC9vM0sy334kakvx8Dm
-         Enm1FBurm583oC/Y00cGPNfWIir5eW4YX343ko5dWFaiWQmU6uVgDoSWY23tLhmWx+w4
-         RKqA==
-X-Forwarded-Encrypted: i=1; AFNElJ+WUQ1x4xgIMn4L6Z36Q47AuOAPj4XxuUiQe99yWbRBiyHMq/btw7JboweDAxI/ajA36qaXWi20VXL1@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTwBCw/rOmxooXPwi8va55AsqGpL0GXAWDkyS0iGA+f3eOtNhD
-	chUP9dYVPhvbohykAuDROTohXBXN5gtXvT9SFQy++qNeqbG/ZHGMnj+vtHpwWBY5qUU9+rZgVIR
-	OGkMj6YQ=
-X-Gm-Gg: Acq92OE8X48kfsELQlJi7sm1OUqGrYPhawpJL0tCOyilYrtqnUjItRnTlN9o2wM7qUB
-	DpE7jOE47/pMhMequmflPzPJhcXXLwnkhEtihmOMPZjKuKXj+rrhaiLwKPqTGKJ8M+c5gFDPBkE
-	61n6zz2xsWmjYSvTK72gJgQiNnF05hQrNaTWuJuVoSG0nrHJyn79wnQ1Ft0UpzP9/A7uV5zlATU
-	ER/OjNGH8uhKVH38wMVTATZPaDeNKTSKrA928Z54559tr03L9BBLv5bPG2du6tYoxPcy+bvUiR9
-	Iqe2VlKFaLW78/4YJB/1ohs8IrZqJuPwQg9duRmUyixCilSwbzaGbk5LTwhJq1rkx+Vwwu+wwCc
-	tG+Sd1GkAmlUyeHi9auVQxcY1SjTWYHl9tLPNkO7yFHRe9bjNF+2oi/AjnhmPm6BoMU/PNehVdl
-	gc3sC2ZUMCo4zuP3RZqC3Qpw==
-X-Received: by 2002:a05:600c:c0d0:b0:48a:761:5816 with SMTP id 5b1f17b1804b1-48fe53774b4mr270166855e9.8.1779261855105;
-        Wed, 20 May 2026 00:24:15 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:fa19:c0c9:991f:186d])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49008c047absm86786415e9.0.2026.05.20.00.24.14
+        d=1e100.net; s=20251104; t=1779262141; x=1779866941;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zj0vx40UntDsD2TYK6nD+GW3q6EMQAvEH6QbIchZOP0=;
+        b=CgY9POebdRCrm9BYMyJzD8qMiIeVuUKw4Y6cS1pEaSz2p+89if1BQeFhEgLOSksaa+
+         QCE9AThYVsvKzSQipDXzxGdJLiGLXrJ9EPud9xlFimHb1gbIRCkBLP/Grte7gu+Wapta
+         WHvs7YWe7g4dRaz7Tdm6dwXWiKD60L4Q29JglkArWU+dDdCHKq9cBSYPiV8UgdfHm7+q
+         41E8a3b0m+ELz67auJqoh6A26yyOjVywuaHiO5Gb+wbJQZoO0zwxgeNhHQy0N1v49zOV
+         rdxG7cbFaLk/878YK1KWcWe68WHwEplF4F4DgmUWGdGyozWfnT6sKfDOhOMMALCsSR7f
+         J76w==
+X-Forwarded-Encrypted: i=1; AFNElJ/5hxPp4ntwO9zKkE+rdhPXudaaaQF3sc2mGxwVHukcMRKY57YLl3rWnuyG1R15j6D2OQc7pSZp/77D@vger.kernel.org
+X-Gm-Message-State: AOJu0YzaCEiEj1/4QbIbdEkBt+V1GJ+S/AMXGrfqB6GVMyO5F36+dgrW
+	RLgEi5v3COiiKbHluF4tbN4KHBDA7rmKvEpWQ8xjyggd8TlzILt47/LpWPGCAzbJZv8=
+X-Gm-Gg: Acq92OE2jdO5szBDzV7GM1NUawID/DMiJNrzgU0RHHqOnwrv+Urg/Omp9hwWJpLyX2l
+	eyd4QaeVAXjc6qun/4u1HnI3pdkktQR/KdNsBR7MK+iCLWFtxDLJJypIt2tenbDwc3pjPA/Et7h
+	tzrj7WxBwV3kCAZppeBwV8BTNdl4dfluRV7Vkqm+dvrk9UeV8vVtC5KoLF2h/yszpfuO8c3+rjC
+	Hq/G3gZLu6Nv7GBgc/IHrYK8ijysXq4WMc/26z+Zm86g6NTMVibdUf4BoD/39UToghJNLTGW7pQ
+	Kn0OCQ1ljwngFNUDYX+e9oSS6V4jJJ62+TvIjrVFxLt6ySFIsw5iChQSR4TazuK+j/pcFjIxKBO
+	7lM/dYjk0dugSj66UCbqNmtnvGdOaTZjlp1r1rYyWj2TIUi3/G2E2BM1h/E0QvDu+wCkP0DwGNn
+	UN+0tOsQSufkpVFXN12cR/VE6xUlKFmbHXV9qZ/OuC5MSomdJQHv/Gjnv0/NtelsCtZ4Jq2xhb3
+	EB8Bgl64I891zZ9zpfFgp0r50Ssz4bNdxSOcw==
+X-Received: by 2002:a17:902:7892:b0:2ba:6518:a6d4 with SMTP id d9443c01a7336-2bd7e87d577mr181963515ad.20.1779262141029;
+        Wed, 20 May 2026 00:29:01 -0700 (PDT)
+Received: from DESKTOP-G3E0OSP.localdomain ([112.172.255.242])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5c05f27csm206258595ad.25.2026.05.20.00.28.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 00:24:14 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jian Hu <jian.hu@amlogic.com>
-Cc: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>,  Michael
- Turquette <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,
-  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Neil Armstrong
- <neil.armstrong@linaro.org>,  Xianwei Zhao <xianwei.zhao@amlogic.com>,
-  Kevin Hilman <khilman@baylibre.com>,  Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>,  linux-kernel@vger.kernel.org,
-  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,
-  linux-amlogic@lists.infradead.org,  linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 05/10] clk: amlogic: PLL l_detect signal supports
- active-high configuration
-In-Reply-To: <d023303e-e785-4b60-85cd-c83cc3f890e4@amlogic.com> (Jian Hu's
-	message of "Wed, 20 May 2026 11:25:35 +0800")
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
-	<20260511-b4-a9_clk-v1-5-41cb4071b7c9@amlogic.com>
-	<1jse7u6n3q.fsf@starbuckisacylon.baylibre.com>
-	<d023303e-e785-4b60-85cd-c83cc3f890e4@amlogic.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Wed, 20 May 2026 09:24:12 +0200
-Message-ID: <1jwlwy5ysj.fsf@starbuckisacylon.baylibre.com>
+        Wed, 20 May 2026 00:29:00 -0700 (PDT)
+From: Jinseob Kim <kimjinseob88@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC 0/3] iio: add Open Sensor Fusion UART driver
+Date: Wed, 20 May 2026 16:28:40 +0900
+Message-ID: <20260520072843.3593-1-kimjinseob88@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On mer. 20 mai 2026 at 11:25, Jian Hu <jian.hu@amlogic.com> wrote:
+Open Sensor Fusion is a UART-attached sensor aggregation device. The current
+prototype sends OSF protocol v0 frames over a host UART link. This RFC adds the
+first Linux IIO receive path for that UART stream.
 
-> On 5/14/2026 11:13 PM, Jerome Brunet wrote:
->> [ EXTERNAL EMAIL ]
->>
->> On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.amlo=
-gic.com@kernel.org> wrote:
->>
->>> From: Jian Hu <jian.hu@amlogic.com>
->>>
->>> l_detect controls the enable/disable of the PLL lock-detect module.
->>>
->>> For A9, the l_detect signal is active-high:
->>> 0 -> Disable lock-detect module;
->>> 1 -> Enable lock-detect module.
->>>
->>> Here, a flag CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH is added to handle cases
->>> like A9, where the signal is active-high.
->>>
->>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
->>> ---
->>>   drivers/clk/meson/clk-pll.c | 9 +++++++--
->>>   drivers/clk/meson/clk-pll.h | 2 ++
->>>   2 files changed, 9 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
->>> index 1ea6579a760f..5a0bd75f85a9 100644
->>> --- a/drivers/clk/meson/clk-pll.c
->>> +++ b/drivers/clk/meson/clk-pll.c
->>> @@ -388,8 +388,13 @@ static int meson_clk_pll_enable(struct clk_hw *hw)
->>>        }
->>>
->>>        if (MESON_PARM_APPLICABLE(&pll->l_detect)) {
->>> -             meson_parm_write(clk->map, &pll->l_detect, 1);
->>> -             meson_parm_write(clk->map, &pll->l_detect, 0);
->>> +             if (pll->flags & CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH) {
->>> +                     meson_parm_write(clk->map, &pll->l_detect, 0);
->>> +                     meson_parm_write(clk->map, &pll->l_detect, 1);
->>> +             } else {
->>> +                     meson_parm_write(clk->map, &pll->l_detect, 1);
->>> +                     meson_parm_write(clk->map, &pll->l_detect, 0);
->>> +             }
->> I'm not a fan of this code duplication.
->> Use the introduced CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH to compute the
->> first value, then flip the bit.
->
->
-> Ok, I will update this in the next version.
->
-> Here is the updated code:
->
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (MESON_PARM_APPLICABLE(&pll->l_detect)) {
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 meson_parm_write(clk->map, &pll->l_detect,
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 !(pll->flags &
-> CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH));
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 meson_parm_write(clk->map, &pll->l_detect,
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 !!(pll->flags &
-> CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH));
+The first transport is serdev UART. USB, real sensor reads, fusion output, and
+production timestamp correlation are intentionally left out of this series.
 
-Please use a variable. Make it clean=20
+The driver code is kept in one patch for the first RFC to avoid intermediate
+non-buildable states. The internal files are still split by protocol, stream,
+core, transport, and IIO code.
 
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
->
->>>        }
->>>
->>>        if (meson_clk_pll_wait_lock(hw))
->>> diff --git a/drivers/clk/meson/clk-pll.h b/drivers/clk/meson/clk-pll.h
->>> index 949157fb7bf5..97b7c70376a3 100644
->>> --- a/drivers/clk/meson/clk-pll.h
->>> +++ b/drivers/clk/meson/clk-pll.h
->>> @@ -29,6 +29,8 @@ struct pll_mult_range {
->>>
->>>   #define CLK_MESON_PLL_ROUND_CLOSEST  BIT(0)
->>>   #define CLK_MESON_PLL_NOINIT_ENABLED BIT(1)
->>> +/* l_detect signal is active-high */
->>> +#define CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH   BIT(2)
->>>
->>>   struct meson_clk_pll_data {
->>>        struct parm en;
->> --
->> Jerome
->
-> Best regards,
->
-> Jian
+Current validation coverage:
 
---=20
-Jerome
+- STM32F405 test firmware OSF protocol v0 UART stream at 115200 8N1.
+- Raspberry Pi 4 serdev probe and receive path to osf_core_receive_frame().
+- CAPABILITY_REPORT-driven IIO device registration.
+- IIO read_raw for accel, gyro, magn, and temp samples.
+- IIO software kfifo buffer userspace read.
+- scan decode helper for buffered samples.
+- dt_binding_check pass for the binding.
+- checkpatch.pl --strict with ERROR 0, WARNING 0, CHECK 0.
+- W=1 source compile/link phase clean in the staging kernel tree.
+- modpost unresolved symbol warnings came from the staging tree missing
+  Module.symvers.
+
+Known limits:
+
+- The sample source is synthetic stream data, not real ICM-42688-P or MMC5983MA
+  sensor reads.
+- The IIO timestamp is Linux host receive time. Device time correlation is still
+  open.
+- Runtime capability removal is not implemented.
+- The staging layout uses drivers/iio/opensensorfusion/. The final directory is
+  open for review.
+
+Review feedback wanted on the IIO device layout, timestamp policy, binding
+shape, and driver directory.
+
+Jinseob Kim (3):
+  dt-bindings: iio: imu: add Open Sensor Fusion UART binding
+  iio: osf: add Open Sensor Fusion UART IIO driver
+  MAINTAINERS: add Open Sensor Fusion IIO driver entry
+
+ .../iio/imu/opensensorfusion,osf-uart.yaml    |  33 ++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/Kconfig                           |   1 +
+ drivers/iio/Makefile                          |   1 +
+ drivers/iio/opensensorfusion/Kconfig          |  15 +
+ drivers/iio/opensensorfusion/Makefile         |   6 +
+ drivers/iio/opensensorfusion/osf_core.c       | 334 +++++++++++++++++
+ drivers/iio/opensensorfusion/osf_core.h       |  81 ++++
+ drivers/iio/opensensorfusion/osf_iio.c        | 268 +++++++++++++
+ drivers/iio/opensensorfusion/osf_iio.h        |  21 ++
+ drivers/iio/opensensorfusion/osf_protocol.c   | 234 ++++++++++++
+ drivers/iio/opensensorfusion/osf_protocol.h   | 100 +++++
+ drivers/iio/opensensorfusion/osf_serdev.c     | 354 ++++++++++++++++++
+ drivers/iio/opensensorfusion/osf_serdev.h     |   8 +
+ drivers/iio/opensensorfusion/osf_stream.c     | 212 +++++++++++
+ drivers/iio/opensensorfusion/osf_stream.h     |  31 ++
+ 16 files changed, 1706 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart.yaml
+ create mode 100644 drivers/iio/opensensorfusion/Kconfig
+ create mode 100644 drivers/iio/opensensorfusion/Makefile
+ create mode 100644 drivers/iio/opensensorfusion/osf_core.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_core.h
+ create mode 100644 drivers/iio/opensensorfusion/osf_iio.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_iio.h
+ create mode 100644 drivers/iio/opensensorfusion/osf_protocol.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_protocol.h
+ create mode 100644 drivers/iio/opensensorfusion/osf_serdev.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_serdev.h
+ create mode 100644 drivers/iio/opensensorfusion/osf_stream.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_stream.h
+
+-- 
+2.43.0
+
