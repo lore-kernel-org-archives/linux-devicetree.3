@@ -1,265 +1,131 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370643D1CA2;
-	Wed, 20 May 2026 11:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171093DA7E0
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779275550; cv=none; b=aPk2Hzjn9b4adYPbK35qmQ6EGoCo2OeisFYNt21cO+GcPbOlZeOMJk5OYR4uezJoxjQ0S1aZ33eYf/OCT8LKiUw3ZbiNphvQM46NQWp5J1+sUFPPaksjiLityErLvv8xfkFJUDdcswqTc2tyVIoDRlgBsIII50u8vYuKZcqOPAk=
+	t=1779275575; cv=none; b=pHGmMeiRlk2OA66Si2ui8tIQ8i9kJRVK+XY8s7cZMNXQ8k3QHDchXHEC+uQrWfm4yY9eTSBpF+T+k7foDSxnLdRzNOCe4RIi6BL2DJdqbKaHtb9c1hynYwD/156NHscrnhAaTVfFfFlYp+W/ZKTVNTQ2M8kde7nFy2X37WfS9yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779275550; c=relaxed/simple;
-	bh=FBkXh2DAt3yR5Q+EdWlUaLDmI+m3OYCBiIvZuMcVWHs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k1+OG/o0n8/x0Km44/MQL0rpDNiu5Dtg3YHsDma/1rK1jLs9jkA6VOog7+S6zK8yve6touQis8Gv63slB7z/bW6jO5o25Dd+sSNpQPrDp8djmA5WaDdl5LmEb6AfTG6x2RgOEt713DAYiN5FVsUAB6exG1eziKAA8MSiZ9qDK/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=COltNvxS; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1779275575; c=relaxed/simple;
+	bh=/5mZ4vEYwygrUeR+eebBg7UtHWLg/gMI2VfnFbye610=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lypqiXAwmbOrYjQa/3O3/Cm6RUOBFxPrj3J9NYBm4YB7YMR0UsdvP5c8W0890wL1c5wFd1YarUXCKvsJcYIRogfRYQUern2QJYr/IWqSRheagGXdWYX4eoFoeywdRz8E/e4LxNGzpMPvA/pHx4OlLbEAbAyO6uPd1hyKPpAwBWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TT+3S/0C; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=BvMOqBxt; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="COltNvxS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=DvDE/I3kIC9czXIH3YDGbEAbi1K+WHiThr0tZnRFv0A=; b=COltNvxSD5z1NoIbqfBPogFhg1
-	P88gRrYk1nrFrCD+hIFYlFdhPiIhZwhK1hPtYvacl+SYssTgKEAL5OLYbxBWGs9v2C85JEgo58jIu
-	kcHw41JFdGUME51MglSbdh/12VIMxgu1JhTe8aNqvn4ItcwuNnTBAIRTThFS8llkddSE3ObHm0TVg
-	dJD+wWiqT8iHtnMmumi7J8EXhRm2kUiXjil9alnTHlrKrlBlspMSnneQYWuezqkrT6nTerTYEST9T
-	krTTxAXhhxOxHLqJ2UtVXiX07mcTKhgp76pPqqlwKmR9NZoNn+KyWZhj8Ab9Jkr+bQFNcqcqfZYG3
-	jloVPwfQ==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wPeqc-000Hff-1t;
-	Wed, 20 May 2026 13:12:22 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wPeqc-000C6O-26;
-	Wed, 20 May 2026 13:12:22 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Michael Riesch <michael.riesch@collabora.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Frank Li <Frank.Li@nxp.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Subject: Re: [PATCH v4 4/6] media: synopsys: Add PHY stopstate wait for i.MX93
-Date: Wed, 20 May 2026 13:12:20 +0200
-Message-ID: <10853728.nUPlyArG6x@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260519-csi2_imx95-v4-4-84ea4bb78a88@oss.nxp.com>
-References:
- <20260519-csi2_imx95-v4-0-84ea4bb78a88@oss.nxp.com>
- <20260519-csi2_imx95-v4-4-84ea4bb78a88@oss.nxp.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TT+3S/0C";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="BvMOqBxt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1779275572;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=PqGQtbCak1DjkDn83NNdBzK9LLbqEMF51G2q8Su3L7g=;
+	b=TT+3S/0CRaSAdZyVwJOZni3tAUCNkqhu/orzmhmKbl2IumiG4U1p7GwWxQqeNjQxpaXFzj
+	82qOeVc4WJYOSb8cn3LY2+9wXo9GHG4v+O2uS1CGxehthsA5d6f1HKa15lgoQTKyUyTNHT
+	1Kzof/4710LzuBAHL5hHCTSd1n23p+g=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-3-zNGl0Ck2OF6nHTpKFVuA3Q-1; Wed, 20 May 2026 07:12:50 -0400
+X-MC-Unique: zNGl0Ck2OF6nHTpKFVuA3Q-1
+X-Mimecast-MFC-AGG-ID: zNGl0Ck2OF6nHTpKFVuA3Q_1779275570
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5104b861649so194865661cf.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:12:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1779275570; x=1779880370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PqGQtbCak1DjkDn83NNdBzK9LLbqEMF51G2q8Su3L7g=;
+        b=BvMOqBxtf+l/AzXLS9rbjvyeB+DT+bcEIapRBAnSECW00LjqTRhh/usj696FIQ7W2t
+         GjFx437q6upbq/NbxDcKuzUfYgW3Vk9wvn5zuaB40DPEd1w+QL+DHTkOkBt3WYV6Biyp
+         iXYqgbgy1Tv/3anfIxvRCLlpHPOKiiv+0yDHlEfyqydmVnNNvmCWupT4OiFW2RjIfXJo
+         6W+DEDBo1FOlZF2AaoC81rJ7W6rwUX3zSzMjwqXHZZOVdWuK8Z306TYXbgFMgkpaeeqr
+         a1zaBxZ+uOUHUpf5cxGL6JXSJPuIGpa+mT8Fy31l0//TnGbd0MzHNdtxkkzK5WEtqMO1
+         kicA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779275570; x=1779880370;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PqGQtbCak1DjkDn83NNdBzK9LLbqEMF51G2q8Su3L7g=;
+        b=ofI5aJ5ZfCmK2mo3Acnu+defKNQyMCHZxomOR7lM8TqzZ7I49IjVXHx0KY++cP1h1q
+         nXidULsNvNegWPvc6z3EaQ6KoeXvhnr5Zp+kHEzunhblPxe+LX+uzLGPvuu3G5AKdQWh
+         PF2XPgXOR0edW6k1nsxuRMt4ZDd10slA+GL2K/PE12/a7NpbZZpbMm9reCFw6Z+rM/71
+         f4Cb0k2Xex4WqOxYiwQIHEvpbgKatz0TkWjCAUh8nuq/Y8Abg7dcjGf8dWA6FNKb1rHg
+         DolXLSlOb3XO/y85y6p/x1aiI4jfcp/v51Z+L9o93DywvnPmkZjit5+4mp8Slnyu8kWK
+         g+Mg==
+X-Forwarded-Encrypted: i=1; AFNElJ9zE0hWcQnWZpCjhuYbW5rcWGg0P7yo35n5d63SzmtnntI2YCcVgX7KZezU7NA6/49mzWfkDRx1TicO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyd1ONd5BjUFzB+lx+VO7yz0ZnhdjjG7g5hJNsupHixm64ijZTJ
+	aGgUX4xMD19hB57VdAw9wHoy4TAnKSSWCz/UgZhlBjAacQMeRu7z9ORznK0P+0vBcEHUltNMVbp
+	gDdiu96E3PRohFsjlOtSMYqbm3BZY6Uq//z3Y/vr4+864bvYeUZFOLbv+kcdsXz0=
+X-Gm-Gg: Acq92OH18MmnSREblby0u584bfJuqB6alO6pcia5BJk4QV6VKfBfPtk+x139bSxJrKH
+	WnfIdM0RnPpW0ge/eksuNxeMGBFQG1x9nZl2sIJLOuzGsZk67aMOUKbpIqhd/RE1Z6gCSsaF8Ay
+	yx0otyTSaRK0RhLC6HXKlNvfDPQ7Xl5BGzozDOk/OzIA+F/ZQkxfOTKKgBtT3UkOXkDpTIBzpVH
+	H2C32DFqs6BLwxboxIbedSwEKXvO5Wu9oNW3gZ1eRnQMcz+PLMlR2odaQBz6mjKMftTs3FR/CJi
+	HimZ4sMUjpL95WTW+qaDWLkFjCym/nM7eT5G3msJP1TDMkjPZdxP+iAujb8huQay122LiVbkZd9
+	du+h/rDGpe0P8
+X-Received: by 2002:a05:622a:489b:b0:50f:bdc1:3bbc with SMTP id d75a77b69052e-5165a1e3c7cmr308794361cf.45.1779275570360;
+        Wed, 20 May 2026 04:12:50 -0700 (PDT)
+X-Received: by 2002:a05:622a:489b:b0:50f:bdc1:3bbc with SMTP id d75a77b69052e-5165a1e3c7cmr308793991cf.45.1779275569917;
+        Wed, 20 May 2026 04:12:49 -0700 (PDT)
+Received: from rhdev.redhat.com ([2600:1700:f361:20bf::14c1])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ca360979c2sm119479176d6.18.2026.05.20.04.12.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 04:12:49 -0700 (PDT)
+From: Jennifer Berringer <jberring@redhat.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Hendrik Hamerlinck <hendrik.hamerlinck@hammernet.be>
+Cc: spacemit@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jennifer Berringer <jberring@redhat.com>
+Subject: [PATCH] riscv: dts: spacemit: set console baud rate on OrangePi RV2
+Date: Wed, 20 May 2026 07:11:50 -0400
+Message-ID: <20260520111150.3300707-1-jberring@redhat.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28006/Wed May 20 08:25:19 2026)
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Set the baud rate to 115200, matching what is used by U-Boot on this
+platform so that the console is usable even when console options are not
+specified in cmdline.
 
-Am Dienstag, 19. Mai 2026, 04:07:41 CEST schrieb Guoniu Zhou:
-> Implement waiting for D-PHY lanes to enter stop state on i.MX93. This
-> ensures proper PHY initialization by verifying that the clock lane and
-> all active data lanes have entered the stop state before proceeding with
-> further operations.
->=20
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> ---
-> Changes in v2:
-> - Removes redundant register availability check
-> - Uses read_poll_timeout() with dw_mipi_csi2rx_read() instead of
->   readl_poll_timeout() with direct register address
-> - Fixes stopstate condition logic
-> - Check PHY stopstate after sensor enable instead of before to ensure
->   correct timing.
-> - Optimize PHY stopstate polling parameters (1000us->10us, 2s->1ms) to
->   balance performance and responsiveness.
-> ---
->  drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 36 ++++++++++++++++++=
-++++++
->  1 file changed, 36 insertions(+)
->=20
-> diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/m=
-edia/platform/synopsys/dw-mipi-csi2rx.c
-> index 92178a3dec5d..8a34aec550ad 100644
-> --- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-> +++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-> @@ -11,6 +11,7 @@
->  #include <linux/clk.h>
->  #include <linux/delay.h>
->  #include <linux/io.h>
-> +#include <linux/iopoll.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/phy/phy.h>
-> @@ -35,6 +36,8 @@
->  #define DW_REG_EXIST		BIT(31)
->  #define DW_REG(x)		(DW_REG_EXIST | (x))
-> =20
-> +#define DPHY_STOPSTATE_CLK_LANE		BIT(16)
-> +
->  #define DPHY_TEST_CTRL0_TEST_CLR	BIT(0)
-> =20
->  #define IPI_VCID_VC(x)			FIELD_PREP(GENMASK(1, 0), (x))
-> @@ -65,6 +68,7 @@ enum dw_mipi_csi2rx_regs_index {
->  	DW_MIPI_CSI2RX_PHY_TST_CTRL0,
->  	DW_MIPI_CSI2RX_PHY_TST_CTRL1,
->  	DW_MIPI_CSI2RX_PHY_SHUTDOWNZ,
-> +	DW_MIPI_CSI2RX_PHY_STOPSTATE,
->  	DW_MIPI_CSI2RX_IPI_DATATYPE,
->  	DW_MIPI_CSI2RX_IPI_MEM_FLUSH,
->  	DW_MIPI_CSI2RX_IPI_MODE,
-> @@ -87,6 +91,7 @@ struct dw_mipi_csi2rx_drvdata {
->  	void (*dphy_assert_reset)(struct dw_mipi_csi2rx_device *csi2);
->  	void (*dphy_deassert_reset)(struct dw_mipi_csi2rx_device *csi2);
->  	void (*ipi_enable)(struct dw_mipi_csi2rx_device *csi2);
-> +	int (*wait_for_phy_stopstate)(struct dw_mipi_csi2rx_device *csi2);
->  };
-> =20
->  struct dw_mipi_csi2rx_format {
-> @@ -139,6 +144,7 @@ static const u32 imx93_regs[DW_MIPI_CSI2RX_MAX] =3D {
->  	[DW_MIPI_CSI2RX_PHY_SHUTDOWNZ] =3D DW_REG(0x40),
->  	[DW_MIPI_CSI2RX_DPHY_RSTZ] =3D DW_REG(0x44),
->  	[DW_MIPI_CSI2RX_PHY_STATE] =3D DW_REG(0x48),
-> +	[DW_MIPI_CSI2RX_PHY_STOPSTATE] =3D DW_REG(0x4c),
->  	[DW_MIPI_CSI2RX_PHY_TST_CTRL0] =3D DW_REG(0x50),
->  	[DW_MIPI_CSI2RX_PHY_TST_CTRL1] =3D DW_REG(0x54),
->  	[DW_MIPI_CSI2RX_IPI_MODE] =3D DW_REG(0x80),
-> @@ -556,10 +562,19 @@ static int dw_mipi_csi2rx_enable_streams(struct v4l=
-2_subdev *sd,
->  	if (ret)
->  		goto err_csi_stop;
-> =20
-> +	if (!csi2->enabled_streams &&
-> +	    csi2->drvdata->wait_for_phy_stopstate) {
-> +		ret =3D csi2->drvdata->wait_for_phy_stopstate(csi2);
-> +		if (ret)
-> +			goto err_disable_streams;
-> +	}
-> +
->  	csi2->enabled_streams |=3D streams_mask;
-> =20
->  	return 0;
-> =20
-> +err_disable_streams:
-> +	v4l2_subdev_disable_streams(remote_sd, remote_pad->index, mask);
->  err_csi_stop:
->  	/* Stop CSI hardware if no streams are enabled */
->  	if (!csi2->enabled_streams)
-> @@ -871,11 +886,32 @@ static void imx93_csi2rx_dphy_ipi_enable(struct dw_=
-mipi_csi2rx_device *csi2)
->  	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_IPI_MODE, val);
->  }
-> =20
-> +static int imx93_csi2rx_wait_for_phy_stopstate(struct dw_mipi_csi2rx_dev=
-ice *csi2)
-> +{
-> +	struct device *dev =3D csi2->dev;
-> +	u32 stopstate_mask;
-> +	u32 val;
-> +	int ret;
-> +
-> +	stopstate_mask =3D DPHY_STOPSTATE_CLK_LANE | GENMASK(csi2->lanes_num - =
-1, 0);
-> +
-> +	ret =3D read_poll_timeout(dw_mipi_csi2rx_read, val,
-> +				(val & stopstate_mask) =3D=3D stopstate_mask,
-> +				 10, 1000, true,
-> +				 csi2, DW_MIPI_CSI2RX_PHY_STOPSTATE);
-> +	if (ret)
-> +		dev_err(dev, "lanes are not in stop state: %#x, expected %#x\n",
-> +			val, stopstate_mask);
+Fixes: bab8dea259100 ("riscv: dts: spacemit: Add OrangePi RV2 board device tree")
+Signed-off-by: Jennifer Berringer <jberring@redhat.com>
+---
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Did you actually test this on imx93? I'm trying to get my imx327 sensor to
-run, but only run into this error message:
-dw-mipi-csi2rx 4ae00000.mipi-csi: lanes are not in stop state: 0x0, expecte=
-d 0x10003
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index 7c49bce427f30..07dbd292eee33 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -22,7 +22,7 @@ aliases {
+ 	};
+ 
+ 	chosen {
+-		stdout-path = "serial0";
++		stdout-path = "serial0:115200n8";
+ 	};
+ 
+ 	pcie_vcc3v3: regulator-pcie-vcc3v3 {
 
-Currently I'm using this DT node:
-=2D-8<--
-mipi_csi: mipi-csi@4ae00000 {
-	compatible =3D "fsl,imx93-mipi-csi2";
-	reg =3D <0x4ae00000 0x10000>;
-	interrupts =3D <GIC_SPI 175 IRQ_TYPE_LEVEL_HIGH>;
-	clocks =3D <&clk IMX93_CLK_MIPI_CSI_GATE>,
-			<&clk IMX93_CLK_CAM_PIX>;
-	clock-names =3D "per", "pixel";
-	assigned-clocks =3D <&clk IMX93_CLK_CAM_PIX>;
-	assigned-clock-parents =3D <&clk IMX93_CLK_VIDEO_PLL>;
-	assigned-clock-rates =3D <140000000>;
-	power-domains =3D <&media_blk_ctrl IMX93_MEDIABLK_PD_MIPI_CSI>;
-	phys =3D <&dphy_rx>;
-	phy-names =3D "dphy-rx";
-	status =3D "disabled";
-
-	ports {
-		#address-cells =3D <1>;
-		#size-cells =3D <0>;
-
-		port@0 {
-			reg =3D <0>;
-
-			mipi_from_sensor: endpoint {
-				data-lanes =3D <1 2>;
-				bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
-			};
-		};
-
-		port@1 {
-			reg =3D <1>;
-
-			mipi_to_isi: endpoint {
-				remote-endpoint =3D <&isi_in>;
-			};
-		};
-	};
-};
-=2D-8<--
-
-Am I'm missing something?
-
-best regards,
-Alexander
-
-> +
-> +	return ret;
-> +}
-> +
->  static const struct dw_mipi_csi2rx_drvdata imx93_drvdata =3D {
->  	.regs =3D imx93_regs,
->  	.dphy_assert_reset =3D imx93_csi2rx_dphy_assert_reset,
->  	.dphy_deassert_reset =3D imx93_csi2rx_dphy_deassert_reset,
->  	.ipi_enable =3D imx93_csi2rx_dphy_ipi_enable,
-> +	.wait_for_phy_stopstate =3D imx93_csi2rx_wait_for_phy_stopstate,
->  };
-> =20
->  static const struct of_device_id dw_mipi_csi2rx_of_match[] =3D {
->=20
->=20
-
-
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
+base-commit: e2518e8cb1dde64af2d1bb246639bb7ef7523f7a
+-- 
+2.53.0
 
