@@ -1,148 +1,185 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E519A3A16B9
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 21:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B70B3A254E
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779314009; cv=none; b=qq6iC4S7b8RaIMdVgdFNxkTkrieU6g93PKxFh36ZIIaRnw6MH1kctSsSj3aPlTkVZvVPowxoH4t2JpB4X2CJBZep92Ces5A9nPNRmYEKqLyf9vFGsLRXHjGMcuDD+vQtVE3VYmDzIPWMAsNNH+g8T3wba9yf2cCkNh4rKuZbi5o=
+	t=1779314421; cv=none; b=ElUezH7PveNteHvbjhjMReI05WgL8Tw5ubW12GsLc5OXo0gXaUPZsIL12bvU937ksaMqusd19wwSfFaIucwUu1SysxBc5aK0kgjWRGcf/gxeR4b6c6+aHdDf8zwmxuB2RNRY8xlKvIeG8Nmw6foF1thhQom232maoRMgwRvowrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779314009; c=relaxed/simple;
-	bh=2jpczetlLozyTiVeyts3vv9EERY5zylmKwvuFDOsQLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=buKKTbQ+rTFd1UfE+ceAYjgrDacB05VW64b0o/g4rjQ9YjDpJ9bS95/EIpu3qM3z7QlQK+evbXeE0Z/eF98NK3Jrr+W6gwC1L8SUoY44hpk0GOp5q2NPgrb+94p8G+MScPnPd7fNyktm4FPRivgsO9Q1vNlk0RPsoMtBN0yhen4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbW10wzS; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779314421; c=relaxed/simple;
+	bh=99c7CQKboq7587BoJguFBCWTq38xxH+86eYrvp6T0y0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=m6/GO9r/do3aIMzGUcTjUWUtpD6ZUtJIYB8OXC1kX4IO+O4W8ykbfjbMqhyM/uGZilcUr7kf8ysKpbGjDrcuvUK9XA9eF53/WJF+oFoIXQvRKrukFLYj8SfGXNt4j6klpK3aPWCu5FfPkqkdlY2HDqBevUN1SYRe2fo2DIQBq68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1nToCXU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbW10wzS"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7bd5e373d07so56191267b3.2
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:53:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779314007; x=1779918807; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=USZ1ZPEwAt0buJ1raktBiS8fu4e5iLdAr8IWfRSGWK0=;
-        b=cbW10wzS/cJoRo+4RsmAlOwjzhYjEyQxF91zaX+ul5Lt/52bXcEEGPMa2c/c0EuTRY
-         vp82V2PoG3Zu5Ymid+lEKNkfg1b0wxxXwFj9ET9H+cRCcoFVEPCU8oCxYzIwpskcpfmn
-         BmOTaXbgNWJDgfbmKDvVFxSYjiCoj8fllT6dJGlYDezQlgH3AAJ4tvdzzxq6BxUNGxwv
-         /c6JJBzaVgB2wR9qnppbjK1P+CKfUl9nrZhmsj4o0aCdBq5808erbo7mXgKs7VlcM2HZ
-         93xKQOirZdslIjQCr+7Vzx9r0vSVOe/1L5czWmAeM7I3EDgMzf6Hges1EmFa8l0Tapnv
-         969g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779314007; x=1779918807;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=USZ1ZPEwAt0buJ1raktBiS8fu4e5iLdAr8IWfRSGWK0=;
-        b=mMJTmWHt7877WXvkcwxYv+Q4z5GAYo4bkfbTOaptx6W6oD4xrCcgXvChKqUeVC3q7s
-         rkRRiT9KcHxB3PPYrZA14dSlKhitkGRaBgiVWdd0kYwF3pD9WVSraGwjGsGl2bTqUFSc
-         FwWSCm2XGsChB4unEAkU2QtWwFFI2WEADC7xHbpwxfuN0H81vtv/Hbjfvc7QH/OhVwY3
-         HQptVsiCX3zCCTfg56SQGrRGJZdPUPL1Zk/zpugr7LpOk0tgsI086dIMjuKnEbECeRvX
-         wEMNoi+LqHAMq3aMpoewz1bKSBBxMJYh/Fts4tqDtD14NyyUv7/+PTztYaqKRUGbgcO7
-         dnpg==
-X-Forwarded-Encrypted: i=1; AFNElJ+H0ag7wqqgyQEEc5PjN3YG9fZuxNGPqtPrRLamt7SKbmB0Y1KnBQrneT8NtH7NF82Z0KxIuIzF/p8T@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXKSXw1wdV25iT1FZq9LjkvnN5zQQHw2q3ys767Xhph/XQDyqo
-	OCYMglcMrMTqQQoVymnsMWIRsbY8uBa8qFMTFjNptzq2df5TseNAj2aW
-X-Gm-Gg: Acq92OFzzBOp8vmrnyI6MFDZHeSk+rSJVVgdX/aRxn2LEcf9t51WcFjpIcHNaRsuOXb
-	wj5bd4xGkWZ957O6Wuyg8SdDezpX43g3emMqs6jqAALy1YfDHxy9gFGSskWRB8X8R95xKXlQ85j
-	ZWsWWad5TiVrdYSE9wOdNeaHoY3sIs9bG4ddS5uwh6Wq/QLLRK0lCPf4yAA9AGfJMSGGbIVzddF
-	5xkuxmWThTkNZLhaXUjfaSsN+4J9IqUIr/dAWB02jSt52Olwy8dSpPreS399dM8pyfM6Jx8F8HM
-	IxN1SRjlRc3gMZWAGhcJmwP4fTXDQ4stY+6gGu69fRPtxYatOm9bKIs6hQ6IUJCVkwHVI1R02A4
-	gE+Y02skpJ1SY85DzYLQEYrCwDIwG3uXhYUU4DZcCTUe8/n/cVg81LT7lj9BFjOq4ys2qRO/AUN
-	Kr1HWfgQHiyxkTAQPBsuCH99PLl+wtrpv7NTPs1jwnfw==
-X-Received: by 2002:a05:690c:c4c5:b0:7d0:b4d:e03f with SMTP id 00721157ae682-7d20a7a9720mr3219537b3.9.1779314007072;
-        Wed, 20 May 2026 14:53:27 -0700 (PDT)
-Received: from fsh.attlocal.net ([2600:1702:56e9:4b40:ed8c:6b8b:1fa3:d14b])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7cc9bc0dafdsm59071347b3.30.2026.05.20.14.53.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 14:53:26 -0700 (PDT)
-From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-To: xuwei5@hisilicon.com
-Cc: krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: hisilicon: hi3660-hikey960: move role-switch endpoint into connector
-Date: Wed, 20 May 2026 16:53:25 -0500
-Message-ID: <20260520215325.55353-1-akash.sukhavasi@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1nToCXU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422D51F000E9;
+	Wed, 20 May 2026 22:00:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779314417;
+	bh=BP7FIfKpp9T5L6OlF430htJp9NtcSypwqTnvYnAARSQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=o1nToCXUiSGwa5lMo3Ti7b584nKfvKMcHzhkmYxKmIe7YfHw0nafyQDd1bMZntdtg
+	 PseXuokvma+QC2k01ru+AFiJc+aUUIfRgutFD0BPADmOLJHNvx/ZbVAG0ePj7GzUDe
+	 M+7j7t9FPYnUQ8BYh3LM7AyVxnlHyDtXoyEg7KuPTv3KtAa/XK12Y1ozKMDdfRRCcA
+	 vyuPfN0/b9FRTL5FOcL/6ka9NUL9pVnJcvRXQnLxtw6WDxg0eaa4/5P13WWJDJF3m+
+	 Y9gagzHtREjPnQ0xE+lTU5HLI2W24V+u9y99DH7MjV5/xKvYXtazG2kU5cbUeH2SWL
+	 QUcnenoTI8Pdg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] iio: light: veml3328: add support for new device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260520-veml3328-v2-2-a57f0d9e28d4@gmail.com>
+References: <20260520-veml3328-v2-2-a57f0d9e28d4@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 22:00:16 +0000
+Message-Id: <20260520220017.422D51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The rt1711h Type-C controller on the HiKey960 has the USB role-switch
-endpoint placed as a top-level 'port' node, outside the connector
-subnode. This triggers two dtbs_check warnings against
-richtek,rt1711h.yaml:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Signed 32-bit integer overflow in the lux scale calculation due to=
+ large multiplication.
+- [Medium] Inconsistent handling of the IIO_LIGHT channel scale across read=
+, write, and available attributes breaks the IIO ABI.
+- [Medium] The scale attribute for IIO_INTENSITY channels incorrectly retur=
+ns the hardware gain multiplier instead of the true IIO scale factor.
+--
 
-  - 'port' does not match any of the regexes: '^pinctrl-[0-9]+$'
-  - connector:ports: 'port@0' is a required property
+commit 9edb449d4e1325159429ae7e39210b37d222a175
+Author: Joshua Crofts <joshua.crofts1@gmail.com>
 
-Move the role-switch endpoint into the connector's port@0, which is
-where usb-connector.yaml expects it. Update the DWC3 remote-endpoint
-phandle accordingly.
+iio: light: veml3328: add support for new device
 
-The TCPM core (tcpm.c) looks up the role switch starting from the
-connector fwnode via fwnode_usb_role_switch_get(). With the endpoint
-inside the connector's port@0, it is found through the primary lookup
-path rather than the device-level fallback.
+Add support for the Vishay VEML3328 RGB/IR light sensor communicating
+via I2C (SMBus compatible).
 
-Cross-compiled for arm64. Verified with dt_binding_check and
-dtbs_check. Not runtime-tested on hardware.
+> diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
+> new file mode 100644
+> index 0000000000000..fdfa8fd1666b6
+> --- /dev/null
+> +++ b/drivers/iio/light/veml3328.c
 
-Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
----
- .../boot/dts/hisilicon/hi3660-hikey960.dts      | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+[ ... ]
 
-diff --git a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
-index c6056a85c..27fb08d34 100644
---- a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
-+++ b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
-@@ -550,6 +550,12 @@ usb_con: connector {
- 			ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
-+				port@0 {
-+					reg = <0>;
-+					usb_con_hs: endpoint {
-+						remote-endpoint = <&dwc3_role_switch>;
-+					};
-+				};
- 				port@1 {
- 					reg = <1>;
- 					usb_con_ss: endpoint {
-@@ -558,15 +564,6 @@ usb_con_ss: endpoint {
- 				};
- 			};
- 		};
--		port {
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--			rt1711h_ep: endpoint@0 {
--				reg = <0>;
--				remote-endpoint = <&dwc3_role_switch>;
--			};
--		};
- 	};
- 
- 	adv7533: adv7533@39 {
-@@ -683,7 +680,7 @@ port {
- 		#size-cells = <0>;
- 		dwc3_role_switch: endpoint@0 {
- 			reg = <0>;
--			remote-endpoint = <&rt1711h_ep>;
-+			remote-endpoint = <&usb_con_hs>;
- 		};
- 
- 		dwc3_ss: endpoint@1 {
--- 
-2.54.0
+> +static const struct iio_chan_spec veml3328_channels[] =3D {
+> +	{
+> +		.type =3D IIO_LIGHT,
+> +
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
+> +		.address =3D VEML3328_REG_DATA_G,
+> +	},
 
+[Severity: Medium]
+Is the in_illuminance_scale_available sysfs attribute missing here because
+info_mask_shared_by_all_available does not include the scale bit for the
+IIO_LIGHT channel?
+
+[ ... ]
+
+> +static int veml3328_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+
+[ ... ]
+
+> +	case IIO_CHAN_INFO_SCALE:
+> +		ret =3D regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (chan->type =3D=3D IIO_LIGHT) {
+> +			int it_inx, gain_inx;
+> +			int it_us, scale_u;
+> +
+> +			it_inx =3D FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
+> +			gain_inx =3D FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
+> +
+> +			if (it_inx >=3D ARRAY_SIZE(veml3328_it_times) ||
+> +			    gain_inx >=3D ARRAY_SIZE(veml3328_scale_vals))
+> +				return -EINVAL;
+> +
+> +			it_us =3D veml3328_it_times[it_inx][1];
+> +
+> +			/*
+> +			 * Equation for calculating ambient light scale:
+> +			 * Scale =3D 0.384 * (50000 / Current_IT) * (1x / Current_Gain)
+> +			 */
+> +			scale_u =3D 384 * USEC_PER_MSEC;
+> +			scale_u =3D scale_u  * 50000 / it_us;
+
+[Severity: High]
+Does this code overflow scale_u?
+
+Since scale_u is initially set to 384,000 (384 * 1000) and is a 32-bit sign=
+ed
+integer, the multiplication by 50000 evaluates to 19,200,000,000. This exce=
+eds
+the maximum positive value of 2,147,483,647 for a signed 32-bit int.
+
+> +			switch (gain_inx) {
+
+[ ... ]
+
+> +		}
+> +
+> +		reg =3D FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
+> +		if (reg >=3D ARRAY_SIZE(veml3328_scale_vals))
+> +			return -EINVAL;
+> +
+> +		*val =3D veml3328_scale_vals[reg][0];
+> +		*val2 =3D veml3328_scale_vals[reg][1];
+> +		return IIO_VAL_INT_PLUS_MICRO;
+
+[Severity: Medium]
+For IIO_INTENSITY channels, this returns the hardware gain multiplier direc=
+tly
+from veml3328_scale_vals. Will this instruct userspace to multiply an alrea=
+dy
+increased raw value by the hardware gain again?
+
+Should the scale instead return the inverse (1 / gain) to correctly normali=
+ze
+the readings?
+
+[ ... ]
+
+> +static int veml3328_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int val, int val2, long mask)
+> +{
+
+[ ... ]
+
+> +	case IIO_CHAN_INFO_SCALE:
+> +		for (i =3D 0; i < ARRAY_SIZE(veml3328_scale_vals); i++) {
+> +			if (val =3D=3D veml3328_scale_vals[i][0] &&
+> +			    val2 =3D=3D veml3328_scale_vals[i][1])
+> +				break;
+> +		}
+
+[Severity: Medium]
+For the IIO_LIGHT channel, veml3328_read_raw() dynamically calculates a lux
+scale, but this write function compares the input against the raw hardware
+gain multipliers in veml3328_scale_vals without verifying the channel type.
+
+Does this mean writing the read scale value back will fail with -EINVAL?
+
+Writing a valid gain value here seems to succeed and modify the hardware
+gain, which would change the lux scale to something entirely different.
+Could this inconsistent behavior break the expected IIO ABI principle of
+being able to write back the values that were read?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-veml3328-v=
+2-0-a57f0d9e28d4@gmail.com?part=3D2
