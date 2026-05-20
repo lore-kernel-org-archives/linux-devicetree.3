@@ -1,207 +1,130 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011069.outbound.protection.outlook.com [52.101.70.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E032D2DA75A;
-	Wed, 20 May 2026 07:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779261625; cv=fail; b=aLZnKcro7LkrK8VhzTdhMXxVPOBG2qI/zm8M97Q/Pww2umcRL3WW7QLA8hkflA1w6yEABpwkElNfWfibv+O3IajP/J1gWYEezqP3VCKQ5bMrgMID35rivTRKY/6Aink596SeiE1tj+DF8Lbk0oM3YZsCpUO3t75BFl3vd5ne7bI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779261625; c=relaxed/simple;
-	bh=VvJ/7XeGZNJ7xRNB7qJMvGYFd5jXAHrTzTaDqxdrAL8=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=mYeHwBmuIwzXQ56aypZ6yL+gHeT3oqfAf7IWJ1WYXmLzHfnWmj3tBd5qMJPBwARtkLiMSQSaZb1+YQsmJRDBJlbJI+xuHPLVHG9fwSDyaLJmsBzqsk9eGsSQ+UsgKFUJOzNp6424M9I6mNR71+dalFWgFcZ09IOYSGU542SjbwM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=GphoN63s; arc=fail smtp.client-ip=52.101.70.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF5F34DCC8;
+	Wed, 20 May 2026 07:22:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779261776; cv=none; b=WBkxRNVl5q3jtM0L6/2Ihf6MpzUcXAu7JepA77K5x4KbgKQelnpqX/1R+OxJ9OzHSH7wmQMyHPOhytJNpGzbJLEc0V/L6XYYA/7ZP6PyTvDnPs6HTqaCuXVdvrr4bvSw/8uEXBPpY4ifNPa2gNqAWHyB1+tqtzEKPfwKlFlfWwE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779261776; c=relaxed/simple;
+	bh=CTl/gfT0Asj0fLMzFyW5H83wU4UXdbw4B/mNAWZT/Lc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rZlGLn6Jpfpj2oENdPaN1z3VdMRPipvicDzq5irJ/oahOwMgO9XWJbh2wRod1JZzTIyBx2HQgvYGnQcreel4mES3js8IJOPXr1FTwDjyVtVhxxuxKRbgQNviDVpUc8mcrrPwZecqbsfi9l1yUnTVcyUZc4RolwBLq0qXsLCiHgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBfzFcwQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="GphoN63s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=waPrQCba/JKJf4sMH/aLmbIoSR7IIL8KoqWJBML3Ivmy3z7XFtFx/4pOKr+GS855CfHECOvpBjw8cfd3vsQRn7ctBqXt7ClBGjU1wgeRIaz2gcjKef068Wit6PNnPKkQumhTJih85SxqK4XLFCzrUjKWQHi1gLrkYS+fyMBKm5UGzy2PKrbnwEh+x+kmfX4u/53rLGInnwwY+Vmr1d3ugDcSg3ab+6Va8dRR/FYmM7S5NsI3RJiAg3ix96Kaws4q72xJYe545JqwwOhYr6FG8GZaVxtOce+EuR8JCdcv4mEQg95h2ro9DPAw7WjgRGnAKpEej51yvOCpJeflEBzkeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tvh0wIco7kYYWYvMmKN0sPfccTPBnSRz0UdS2KXrzhU=;
- b=FfYcnEuF/MKBIp25AV5PTdMA8wj9yHCMBpNuPXYRZwMVq3hfLMcl17CvrsDydOixMzgRzik1ohYkjPAzvsvtwlAwT1PR11b9Awuo5nr3e+4gx8LAPfmkjGiHaBgWFG3GQRBN4W3d6WFcYItoZ9igRrjbzxEzlRokwHiVoTtqNra6bmpcyHsizsoyvGO9SHM5kexLfPq7pfSg7cD9AxFJBIFaxGkbfQvSDnwhB25vPZgHlzuBnktFDjRYSUMFLwmMb1/xKL/RLcPnKR3cqnMXBs+dOXk+abv/uhGz/oxVrj11z98fbGObbZ+wAXC7XJJ5MvURkvs2+6862Dig5lu/pQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tvh0wIco7kYYWYvMmKN0sPfccTPBnSRz0UdS2KXrzhU=;
- b=GphoN63sBAkCjGHTmjZGz4bj4Efgklvi1Fc0lAZ6aacI3GW9XvpoKxUULY9yqwb26IePsAgQCZHgnSQNOfls0iMVPHYotvtJUl/T81rFy2s2QbV00222F2mK7yjkimDYDJIfax2ylpQzQudR0CebrUyGued5BfDMkXZAMlu1b3PmLgOfxkLynNoEpx2u2nT1k4tImfBluzFTHxNFILzajoL/ul6W7jgFEgyv62zs+DnHEFCd8HtzcKGMJ9Q22yKBxPg+KO92Rg5Agu4uv6VkatRrtYKjITLi01MQQdOaxjXP9IFbIPeS1lCMktU5HbACULGf0U88QUuhqaYFHgISCQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- (2603:10a6:150:30c::14) by VI0PR04MB10392.eurprd04.prod.outlook.com
- (2603:10a6:800:21b::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 07:20:18 +0000
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe]) by GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe%4]) with mapi id 15.21.0048.013; Wed, 20 May 2026
- 07:20:18 +0000
-From: Richard Zhu <hongxing.zhu@nxp.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	frank.li@nxp.com,
-	s.hauer@pengutronix.de,
-	festevam@gmail.com
-Cc: kernel@pengutronix.de,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Richard Zhu <hongxing.zhu@nxp.com>
-Subject: [PATCH v8] arm64: dts: imx95: Correct PCIe outbound address space configuration
-Date: Wed, 20 May 2026 15:22:28 +0800
-Message-Id: <20260520072228.2274790-1-hongxing.zhu@nxp.com>
-X-Mailer: git-send-email 2.37.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5PR01CA0240.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::12) To GV2PR04MB12019.eurprd04.prod.outlook.com
- (2603:10a6:150:30c::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBfzFcwQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318EC1F000E9;
+	Wed, 20 May 2026 07:22:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779261774;
+	bh=e8WoUAENaQvX2igy4NCFoDkwEeiOKw3DnXI8S/MPfV8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jBfzFcwQJU0JMyXdSpuMZR6s8UWyijsl1b9r+nfQyleRyt/s0x4QTdc51BgoOuWzs
+	 paiBZnlSOxSDrJzfv19l7DWOr0xyX0jjlN2uNK2y5Cu42MQIdGrmtoi3eswXXjcQHD
+	 IAm5rV8ohuH4r1Z3njRHj38s7PfJrFBRQ0llAnyeBSKvNnwN5RIwSzMOkkov1NdI4G
+	 iaQEzXNrEuMg+URuxwwR8klaN5zCMqQqoGP4cVLYwakgNKG2WVP3cNAKXE0AOzz2R5
+	 M8BRg9Q0SSpkA7neFo6bct6l+06aIYbYfG/agfukbbNwgK4i6wEFYuvqJ8aOyXeG2I
+	 EB7qtoS9WVf8A==
+Message-ID: <39d8e501-d84e-4870-b98b-a08b0a68f8ee@kernel.org>
+Date: Wed, 20 May 2026 09:22:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12019:EE_|VI0PR04MB10392:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b1ec807-1c4a-45f6-a43e-08deb6403efe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|376014|52116014|38350700014|11063799006|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	s+jGk1p2s0jntGe4VzC0PxY6XnkJ6eoNEb1F/0n1JQf/D7hmGNA+8FPpvSiiWSLsn1ORs1O6pWk3lhKY0WU/9k68+RugSLlsFxr+1djeUdQZucmlAPKPOXAyg2mGLFot7mshmlNXVGwscmwWfF0bPqqw1yheFHC7IPnq/LS60B+nT+RLXFIQcNzCCDlpCtIGpno2pYxTfqrNCvF5tk3zYLRkvJ7iXz1281k9XEKJWW6ct/nDMJZaHJeQPdJMKPQx4TC7WG+NojB8KuRzNuqzoGP+GfsgCa+/qh7ueWiKTGo29iKLkINq9/WhLZtKffnJD+JpCJSIqSh/xkO+aQEEyEDITl/YvHgkQ+eAVUhNYfwWOjYG7d9o6mHnRkNZxlVQjTjbY1EBjKQYCNTq0jtyZG0VoOdEBWs9mlv8yaFge66jKUjfw9QFHFaaRLMz1cMAZok0Co9nB6TgjW6K7QX4ArlKLOR+nRZBNSulK5bp5qLiVQiVWdp6KOcB3+8MmUewRr3k336GOhP9IBQjVvFdfag/4hWu+V8eqBMbsrR4WcKWf9mjdPe6PCG0XW4upCGAstbKmdYuJUAiVw3Dsu3z+MBGVslMldOUxRDxT06oOQol3XL53CNpKpgfOUA/AFw1CMzSYv0VuvLLdf1JFK4mKdmgv4YgP3iZUcJUw0QlTDmEMisyAANUKSfIEiUpnzwV5S/luG6zJYZbLzKAcYxZLTZd6+gWTDiG0tMlgglCyUPQJ2mjhWUWx2kVwup0Nyju
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12019.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(376014)(52116014)(38350700014)(11063799006)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4oO2sf0sMpmEH5P9WKQq/84HTWoCWC1qGMIGlC0cPv5sWSC3+l6Nhmv+YQqv?=
- =?us-ascii?Q?Hv1c6cTiO2f3Xphdw4xITpjxEm7nhIiwwYAw88LR4HEsqptox10S+6ZF+uew?=
- =?us-ascii?Q?arDWQq0cgJfahW/XkC0I5d4zoFsUgX7WIDdVepC0RhiCSqoWs0abqrL5DLEp?=
- =?us-ascii?Q?HMEPhBeiYmND6m14RuLjkqZXhmDKXsAwFh47krgl3BqV57utAm/LvtAxxOor?=
- =?us-ascii?Q?bbRmfr6gM1gD6DH9NhLDhe5babd6LuSfe+HnquIhRLr7+s2zNiTIzjSqIV8F?=
- =?us-ascii?Q?512A34Yb/gGoYKyV38xHPQxH1p9JlTBjkRloNEIRgH+ysyuAIW4hZ6pp+AVA?=
- =?us-ascii?Q?mL9k9uaJwhPau2ueIjGXN36GQumsrMAGsUKnI5oxvnltEx+G7ZBb65/Zan5n?=
- =?us-ascii?Q?lHM9r2pEKd+XbGyjRv/TuDZLEY8sQ986aO8dZr30dgRwO0h7xG0oc1CCPe5v?=
- =?us-ascii?Q?o6QJtIeLk/LDiFLyDYyRDbRwGqQQBJvnQUqorOBZ1uI6dt0H3a5xzPuD/nwI?=
- =?us-ascii?Q?TKZeiyiynrgZ57xYCj/yCY8TMfmaDdsvB66R1WB2moU4ys6wEcsXw9L/Ik8u?=
- =?us-ascii?Q?PC0gC+HeZgjY1mDoq2BX+pfYw63W0x/BjlQVVQ9wYATOdtzkTBq5elxMbJLJ?=
- =?us-ascii?Q?/6rroclBC5PvXH3b9bKy8XF0SdYOYu7ZkL9UBrr3QHzk08i8cR2qPFdwLkb4?=
- =?us-ascii?Q?GqzCCn2o7rWZrlIYcZw78Bi11ZnvYd5ujzFMa9Q75G6ptmqD6LCQz+4NJjvG?=
- =?us-ascii?Q?Fou1cZABkhZSmi9e7DhCi1grtesh9r+/18K63R+WIFV7oyLh/82x6jzPnPsV?=
- =?us-ascii?Q?sAN/VP6gN1TGUJS0CH+ObYJ7de0OAT7m1tcqGXzZhNr8ViM1UERveSrniC+L?=
- =?us-ascii?Q?xzG/IYUI1IeYxrDHXjqE+cOiV8c7//6nDDGpten05WlnhsH5z1ABtXRNoZ3c?=
- =?us-ascii?Q?e/FMmlX+7cwabcSD7kLaWvN8M41V12LqVJDUg6P7dw4+WwvaCF8dHGO3Hfjn?=
- =?us-ascii?Q?y/HVzbwjd1jh1F+V4sRj4JF/aHNYt2b19WuTqhOs1hqcQ35sDqhjchBiOI8k?=
- =?us-ascii?Q?GDOZZybHb4EFb1LdVx+sZs9FippPQH7il3exw78Li39mMzYdaMAkoyVzLhIc?=
- =?us-ascii?Q?Ty4QfUYZOFXnWGJEBXro7Dfp7UN8tjHXLEktz+w83N0KksRLEEn3+Y1Ll4mW?=
- =?us-ascii?Q?QXzA3HEEy9PrrRXlAk5zKqdCuDaSq5FgoXVzAzjXTTSWSNl00FrAslc3emOn?=
- =?us-ascii?Q?xQrNftdOe356ktXzOaTjpj9PmgR0UaNRlUzD0jlJnmXhPcnJhfUuYbN/nW+i?=
- =?us-ascii?Q?rN2x4lJ2tlbe+HMKUGyftSBc92nD9OpksbkD5oq9QQm2SbncM+lmLHnD3zkR?=
- =?us-ascii?Q?7E/We61ftrGbXvhtjyeWAqK5CUrzTV5deK1K4qhXJytHeaZRac4Qw6JgwUkS?=
- =?us-ascii?Q?uVhQzMeKy5U5Aj7sMPzRZ0x0tU/MKlFsExFksFoUv03XsAf1e/wRuBwHM4sU?=
- =?us-ascii?Q?MSqSW+MjJMFta6ImG2rGEV8A+CNtHer+WbtVfC5MAsTeTqUli4rgU5XpEl4A?=
- =?us-ascii?Q?RO5HSE6IH4MjmPZLgoeoOcLKAeRohThPdPZdetYQWa3HLDszYUWrh0ptjfzm?=
- =?us-ascii?Q?+w1ugDgmIN3Ng+UhcKOUUShrc0oesSpmOAb61qS5pYK2t/AaDvuCNx482zn0?=
- =?us-ascii?Q?VjuJ8itFDCbYtgCZQ9PT3ALT345uWgFtG1yX3IQv6u06HYXIayshKAW41Uiw?=
- =?us-ascii?Q?zPHQ4wEUHw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b1ec807-1c4a-45f6-a43e-08deb6403efe
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12019.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 07:20:18.5672
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AhZpB8cKgK/rf9VYEhOyNUhIvzKEMijo5vWda5md3YjkoRCBzM/9dNi2cEVLIJl2aQq12VMjUScJdi4/vrDsKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10392
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/8] dt-bindings: extcon: qcom,pm8941-misc: Add PM8921
+ compatible
+To: contact@alex-min.fr, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Guru Das Srinagesh
+ <linux@gurudas.dev>, Linus Walleij <linusw@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ iommu@lists.linux.dev, phone-devel@vger.kernel.org
+References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
+ <20260519-mainline-send-v1-sending-v3-2-3dd7aa125353@alex-min.fr>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260519-mainline-send-v1-sending-v3-2-3dd7aa125353@alex-min.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Fix the PCIe outbound memory ranges for both pcie0 and pcie1
-controllers on i.MX95.
+On 19/05/2026 09:16, Alexandre MINETTE via B4 Relay wrote:
+> From: Alexandre MINETTE <contact@alex-min.fr>
+> 
+> PM8921/PM8821 provide USB ID detection through the PMIC USB block. The
+> USB_ID_IN interrupt is exposed by the PM8921 interrupt controller and is
+> used by APQ8064 platforms for OTG role detection.
+> 
+> The device is modeled as a child of the SSBI-connected PM8921 PMIC.
+> Unlike PM8941, the downstream PM8xxx misc device is not instantiated with
+> a register resource for this path, and the mainline extcon driver only
 
-The memory window size was incorrectly set to 256MB during initial
-bring-up, but the hardware supports up to 4GB of outbound address space
-per controller.
+I could have guessed that at v2, but this suggests that device is not a
+separate block. If it does not have separate addressing, then it is not
+a dedicated/separate sub device in the PMIC and your node plus binding
+should be squashed into the parent.
 
-Additionally, the ECAM region cannot be mapped as I/O space. Use a
-memory-mapped region for I/O space instead, and relocate the 1MB I/O
-region to immediately follow the memory region at offset 0xf0000000
-within each window.
+> needs the named USB ID interrupt. Allow qcom,pm8921-misc without requiring
+> reg.
+> 
+> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+> ---
+>  .../devicetree/bindings/extcon/qcom,pm8941-misc.yaml    | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
 
-Update the outbound address space layout per controller as follows:
 
-  - 3.5GB  64-bit prefetchable memory
-  - 256MB  32-bit non-prefetchable memory
-  - 1MB    I/O
-
-Fixes: 3b1d5deb29ff ("arm64: dts: imx95: add pcie[0,1] and pcie-ep[0,1] support")
-Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx95.dtsi | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
----
-Changes in v8:
-- Keep low address free, set the 32-bit non-prefetchable memory regioin
-starting at 0xe0000000. Since PCI address 0x0 might break inbound DMA.
-
-Changes in v7:
-- Map the large outbound window into 64-bit PCI address, to eliminates both
-the  inbound DMA routing conflict and the IOVA exhaustion problem.
-
-Changes in v6:
-- Set the PCI I/O bus address starting at 0x0000_0000, while keeping the
-CPU-side mapping at 0x9_f000_0000.
-
-Changes in v5:
-- Expand the outbound address space from 256MB to 3840MB, starting at the
-base of each controller's assigned CPU address range.
-- Use a memory region to map the I/O space.
-
-Changes in v4:
-Update the flag from 0x82000000 to 0x83000000 to declare a 64-bit PCI space.
-
-Changes in v3:
-Update the commit message, and set the region size to the max
-hardware-supported memory space 4G.
-
-Changes in v2:
-Add the Fixes tag, and rebase to latest imx/dt64 branch.
-
-diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
-index adcc0e1d3696..60bf0932c6f7 100644
---- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-@@ -1939,8 +1939,9 @@ pcie0: pcie@4c300000 {
- 			      <0 0x4c360000 0 0x10000>,
- 			      <0 0x4c340000 0 0x4000>;
- 			reg-names = "dbi", "config", "atu", "app";
--			ranges = <0x81000000 0x0 0x00000000 0x0 0x6ff00000 0 0x00100000>,
--				 <0x82000000 0x0 0x10000000 0x9 0x10000000 0 0x10000000>;
-+			ranges = <0x43000000 0x9 0x00000000 0x9 0x00000000 0x0 0xe0000000>,
-+				 <0x82000000 0x0 0xe0000000 0x9 0xe0000000 0x0 0x10000000>,
-+				 <0x81000000 0x0 0x00000000 0x9 0xf0000000 0x0 0x00100000>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			device_type = "pci";
-@@ -2014,8 +2015,9 @@ pcie1: pcie@4c380000 {
- 			      <0 0x4c3e0000 0 0x10000>,
- 			      <0 0x4c3c0000 0 0x4000>;
- 			reg-names = "dbi", "config", "atu", "app";
--			ranges = <0x81000000 0 0x00000000 0x8 0x8ff00000 0 0x00100000>,
--				 <0x82000000 0 0x10000000 0xa 0x10000000 0 0x10000000>;
-+			ranges = <0x43000000 0xa 0x00000000 0xa 0x00000000 0x0 0xe0000000>,
-+				 <0x82000000 0x0 0xe0000000 0xa 0xe0000000 0x0 0x10000000>,
-+				 <0x81000000 0x0 0x00000000 0xa 0xf0000000 0x0 0x00100000>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			device_type = "pci";
--- 
-2.37.1
-
+Best regards,
+Krzysztof
