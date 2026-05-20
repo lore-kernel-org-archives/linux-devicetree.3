@@ -1,484 +1,220 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77AF3A2556
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF52369991
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779264236; cv=none; b=pVktK5e3cYx6WDUzlzfFHGKRoCUHTMo7FFUZ/mMT2/ahxFBOWwPLuytKelEpxKbBIgDZhfG55SBRHeHT65aXjEHLtYtc3frroUZkP1JJuROhLA4Nq++aflF7Et9td/vgiLrdx5M6jQ7f3ABLZN0y4JeU5H+aEUuADac0LR2CWPo=
+	t=1779264302; cv=none; b=oU5OhHB5rkIa9iYVspYNTj+cFZUY72FLjbl60JhL2yh7I3ukEH94T/xASn/5XiLqjxK84cvn5n4YTPj3RKbJkS9dQBqZKeT/gWWvPguMq/Sgejj6MktFjvdt6JvtgPHL5EvxAMaxgtINDjYQbZvk9zcJi0l4QeqF/QzwBpgiRmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779264236; c=relaxed/simple;
-	bh=05WQlFCqkNTf3GyTitJ0XJCe2vv1RfwvLI1D5eOFLT0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f81hB0zfeZJ8dzupaTP0i+SuVZsQ9xxjRZQrrA6taDJ6pMML3aRmrKCa55G/5NiprmRdK83NphfkMKNYHwt1bSyjtJtYJmAayE0vAc2XPrTa9ye+SYJVbNFN2VMfJ4wJ8/2bD+VMEalz58PFe5VujV40+TgyqCXSpGkn2Tb329I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=luM+++5c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WJ3epMvj; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779264302; c=relaxed/simple;
+	bh=pYTYioudBGExctRwF/V3dkoYE3VaoyFmIa41xrtRhJk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Eii9OCQmmyBlJxHzEmDc6taGmr8YOQK2QJ+vyHIjrN4LRfYV+2BNT4VRzjfLekLS5QoIjZX2bnkrU1BMKtFQ9ArHNCI6L+hBFoC2hvuMaF41vih0nk1C6cIwfI2PEnq3Z+jxxECDHZl0fpj5qFxClyVufRoWJsKLSU9XsRuzOXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQnQKVqt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="luM+++5c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WJ3epMvj"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K7EsRv1637020
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gXN8U+lu0TOvT7NP9tTGGGw5W2W1/7IB2Iy+LKjXH2U=; b=luM+++5cgw90nkNo
-	5Zd0jhfTVMw5CDRRadpgCFomLuNTbxIHLp3U6lTjTQCcWznOS5C4xB0FQmcY1ljZ
-	OgL3dXMNPmNOcMbfrRnPZQwnHm3KbTosZ6tHrH0IQT6poxwkexxlBTId/cDR/cem
-	GEE6UBFCLGcQ5j7zMioKhjmkXcTp0g5D4wwrp9NEsW0wCJKxy5x1584PDOmMjFu9
-	johrHH0PgwKI6aix2qxpesOck+IjR/gDowjJUKKXsdtxR/QfKcrc2Pdp8UsfBg8/
-	6ZPI0f/UGDNUP2WXxfwRCQMxP4m7AvLTxSblN9cQABYRxslL4HvBKx0xad/ZihTf
-	S2ed7g==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3sbju5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:03:52 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-365ff2ab7beso4683250a91.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 01:03:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779264231; x=1779869031; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gXN8U+lu0TOvT7NP9tTGGGw5W2W1/7IB2Iy+LKjXH2U=;
-        b=WJ3epMvjhxbapCyeStBvzPNKiN0odCa7qb66qkGuh3ACvvuDikAwO6VZiddlcX3ypA
-         RS5XhOVjX6whkBZjt9b1tIXyM0W74QaXn0rPEPzf2pus5QLXrdCvmrRy1nU8hyMcx4Lr
-         bOXeKcoojMzMRsOQamoaMj7RD6cmnY2q44wsM3YsogvgqukcNNFe/2Zo+kZjsW53bAjP
-         hVCFRUTI3Dzef1mGq+M8ovfUpbCeBbb2vIqRo3hMnbLquZWPeBAggk7bRr/78hZMQzwS
-         Zksuf/tDeBlv2UXR4dGoMGHXCvi1bZpvjuBg9NymrQcFAlvMuwPKLiUAGK/42pkUvrN5
-         980g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779264231; x=1779869031;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=gXN8U+lu0TOvT7NP9tTGGGw5W2W1/7IB2Iy+LKjXH2U=;
-        b=BnH6wSu/W2uJyDEeopSkK5RtBFDdle/J8PIB24nF5DO4LeEfyZOhi7uejsxYBcDqi1
-         b604kogn88mpenREpfydOlCu1pQUx7D+QvKBdpVV9kCXsbDglqAzwxyS7/7Wl3dTUz36
-         RVhKGtHC/e6ueiScg/6taIEMT4Cl3o+8rjwCgXuKtU6/Zto+M/p4JHmT/22qR8eLZ0OC
-         CwdErbhgkhli3M+Gkg+yMzZAg4jHDWKihopVpJsuZWj4l8uwGXVAJQu/2nv4Ra7M6Nwe
-         rJhws54IFxSDvzyZDXLiy4ED7fnvfNQAs3pgTwPoX8/NB237cj7YliwH5Xf8SCD6I5p1
-         rUpg==
-X-Forwarded-Encrypted: i=1; AFNElJ8P4NajA2exR/r91gXvcyoezTfo9GcsLpdN9mGmQq8ZS04R53yXSnqNh4nmQUCS8xVs7Uw3S46K+MST@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCXNvprXp9rs9v5NOw7OUWjqocB11ZuYepOGQf4/YWvUAYpBUW
-	YAHXSVFjRAvkEnqe2LJM4y/DM6fFgrqO6LdUHvbnAkFU7NEMbIhWfEukSJ5hg4eFG3hoIQN+xOk
-	0SwjjLi1snXYIjttALcRZ5XPL/deJ0UE73S+7215WQm17BOlYptaFXZdpzsxr7w3OKCdEAcYR
-X-Gm-Gg: Acq92OGy4928koMI4KyVZhB35RMQRd1rYO9aNIoGhiYi9zJTETqJnPQ8jXolg6kYwgW
-	BnVUS1M8kwe/VyfMCZp8c0m9YNGFTp2/ur9izc5L8cPEeCFIGAok74jKT+DhBZsdOiDT5ycrW9K
-	dVCOPYCI0WE7dj6hNIniX1Ro2hL1bXttEXt73T3J9YCj+5omr0u87qKqM04oXlGy+MW33f2ZJXc
-	1ndaO+l+295AGbwyJmO6Qz0mkQD0bWkNsVRXAzye+lBjkWZ9fEqoFhuJ93xg/18IDQctM9pwhMt
-	+QiCw0qCXC9L+8EOTwUemYAX2d5FKELLfbsfH1xm2QGdfUa3obzjAYOm478SKnyjlphzYO/XAwN
-	hM3PrQaKm6LGau3xnrXxCqu7NNZljC9VzkjAnos3ng2D6KjvVzuQjo1ZE
-X-Received: by 2002:a17:90b:38c9:b0:369:9469:aeba with SMTP id 98e67ed59e1d1-3699469b41cmr11587680a91.1.1779264231273;
-        Wed, 20 May 2026 01:03:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:38c9:b0:369:9469:aeba with SMTP id 98e67ed59e1d1-3699469b41cmr11587664a91.1.1779264230586;
-        Wed, 20 May 2026 01:03:50 -0700 (PDT)
-Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-369517aa6f8sm20889290a91.11.2026.05.20.01.03.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 01:03:49 -0700 (PDT)
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Date: Wed, 20 May 2026 13:32:42 +0530
-Subject: [PATCH v15 3/3] of: Respect #{iommu,msi}-cells in maps
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQnQKVqt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67DAC1F000E9;
+	Wed, 20 May 2026 08:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779264298;
+	bh=xik6hRdlJk1nrClYl3lVDWbej39mUJ/CG0ZWCVTp7vk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jQnQKVqtVW+cdUobuqK4UkC7+kGrCIVG/y57DupUOYC3tzl5bwkCtHrgEBLtBADGO
+	 4HLiekFtBBaZcKSn2rgTpPv2LWXxHcvUkJi+/uBH2xGXR9KHgecsPn2sgbkHjXl5fs
+	 lBvHQIXCq4gX5Ob8pN63LCEikgMBiGSohT57xja7QivSATvsHeBEHoHWp7Hps4z2ee
+	 uGGJdEWWIRJ9FeGXq1cSklfKq05SeLy58kEd/qOsTmcPcGZ4ZVO+eT+tE5UC7xhlrr
+	 XdKrEfF4FKjw2r7C89o09XzViV6REAx3jK773Lh0WBYM0LariNDpVfpC0zQrcsQOt3
+	 G70ndQRar03zA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 2/3] iio: osf: add Open Sensor Fusion UART IIO
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinseob Kim" <kimjinseob88@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260520072843.3593-3-kimjinseob88@gmail.com>
+References: <20260520072843.3593-3-kimjinseob88@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 08:04:58 +0000
+Message-Id: <20260520080458.67DAC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-parse_iommu_cells-v15-3-b5f99ad4e7e8@oss.qualcomm.com>
-References: <20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com>
-In-Reply-To: <20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com>
-To: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779264185; l=12523;
- i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
- bh=xwYkAEs+q6jRw+I3dHPltl1MmPPWsBwiOXNPNgKt/0c=;
- b=wcATq9lX5Bq1e8erTyBpni5Dih/s1c6wO9/NnG4qxR1ffvxl+OPEk6rtMC5rr4W4VoKcAWrsQ
- FdmlXhXN/pYDkytoi0wtNZgLMf9D1M6bGdq1x4YOiNvy+TxTUK7PV8y
-X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
- pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA3NiBTYWx0ZWRfXyWcRxnpLWzRq
- 4Ox+Z7IufezpPQ3sc7UgJsBPTcfhILXbq26D8Y7c1rs8apRSrNEtpQsxSi83j7J7s+Yyu+s2QKc
- lQPQg5JQ+NQnJbYEF6Y0+XdOdjdL3fnAUvNIXV7BG+/zqsXGzau9bNU021lWGk6poUT+4JP23PM
- 2/pxcFN3c1n/oPu49jwVDm1+XlkVDQkYDbE2btM5WhN8e1tA4h2xReEvhQ6JXb4mbb3pGwNOTuu
- D8rkVNdeCyIbf+qOe8md/kXcgEDiqXdBaoE4BIxmiOdLWT5OTnO+W7vPI32TZlNllilzSNAexU2
- Bajmv2WIausf8Q5fESAHf0vM+w0cr9DA4QGPZ0QcLOcwax9Bdm2/4iI+1B096KHgGyRoK0ftKXC
- p40/l8KCkNMQWHgjq4xAPUYuf6WEzABhQEodAjthK47H88S/TxpA81J/Expw+ZdiUTx9adXdszp
- ehW29nRRalGNHN/20Sw==
-X-Authority-Analysis: v=2.4 cv=Oc6oyBTY c=1 sm=1 tr=0 ts=6a0d6ae8 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=9707C7GnR82a18xSEiYA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: ANDHQc5QLqE4vOSM9W7Zfd0-qYdXrdS0
-X-Proofpoint-ORIG-GUID: ANDHQc5QLqE4vOSM9W7Zfd0-qYdXrdS0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-20_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605200076
 
-From: Robin Murphy <robin.murphy@arm.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The IIO channels are declared as little-endian (IIO_LE), but the d=
+river pushes CPU-native endian data to the IIO kfifo buffer.
+- [High] The driver pushes unpacked channel data into the IIO buffer but fa=
+ils to set `available_scan_masks`, causing incorrect data demuxing and time=
+stamp overwriting when a subset of channels is active.
+- [Medium] Unbounded memory leak via `devm_` allocations in the error path =
+of dynamic IIO device registration, triggered by repeated capability report=
+s.
+- [Medium] The driver hardcodes `ktime_get_ns()` for sample timestamps, bre=
+aking the IIO subsystem's clock selection mechanism.
+--
 
-So far our parsing of {iommu,msi}-map properties has always blindly
-assumed that the output specifiers will always have exactly 1 cell.
-This typically does happen to be the case, but is not actually enforced
-(and the PCI msi-map binding even explicitly states support for 0 or 1
-cells) - as a result we've now ended up with dodgy DTs out in the field
-which depend on this behaviour to map a 1-cell specifier for a 2-cell
-provider, despite that being bogus per the bindings themselves.
+commit 07b7754f2b44c1840fd85c5de6bb124482d998fd
+Author: Jinseob Kim <kimjinseob88@gmail.com>
 
-Since there is some potential use in being able to map at least single
-input IDs to multi-cell output specifiers (and properly support 0-cell
-outputs as well), add support for properly parsing and using the target
-nodes' #cells values, albeit with the unfortunate complication of still
-having to work around expectations of the old behaviour too.
+iio: osf: add Open Sensor Fusion UART IIO driver
 
-Since there are multi-cell output specifiers, the callers of of_map_id()
-may need to get the exact cell output value for further processing.
-Update of_map_id() to set args_count in the output to reflect the actual
-number of output specifier cells.
+Add the initial Open Sensor Fusion UART IIO driver. This includes the
+protocol v0 parser, OSF0 stream assembler, core capability/sample cache,
+serdev UART transport, IIO read_raw path, and software kfifo buffer support.
 
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
----
- drivers/of/base.c  | 166 +++++++++++++++++++++++++++++++++++++++++------------
- include/linux/of.h |   6 +-
- 2 files changed, 134 insertions(+), 38 deletions(-)
+> diff --git a/drivers/iio/opensensorfusion/osf_core.c b/drivers/iio/opense=
+nsorfusion/osf_core.c
+> new file mode 100644
+> index 0000000000000..fd2eccefc47d6
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_core.c
+> @@ -0,0 +1,334 @@
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index d658c2620135..f436e2676381 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -2116,19 +2116,49 @@ int of_find_last_cache_level(unsigned int cpu)
- 	return cache_level;
- }
- 
-+/*
-+ * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
-+ * specifying only 1 cell. Fortunately they all consist of value '1'
-+ * as the 2nd cell entry with the same target, so check for that pattern.
-+ *
-+ * Example:
-+ *	IOMMU node:
-+ *		#iommu-cells = <2>;
-+ *
-+ *	Device node:
-+ *		iommu-map = <0x0000 &smmu 0x0000 0x1>,
-+ *			    <0x0100 &smmu 0x0100 0x1>;
-+ */
-+static bool of_check_bad_map(const __be32 *map, int len)
-+{
-+	__be32 phandle = map[1];
-+
-+	if (len % 4)
-+		return false;
-+	for (int i = 0; i < len; i += 4) {
-+		if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
-+			return false;
-+	}
-+	return true;
-+}
-+
- /**
-  * of_map_id - Translate an ID through a downstream mapping.
-  * @np: root complex device node.
-  * @id: device ID to map.
-  * @map_name: property name of the map to use.
-+ * @cells_name: property name of target specifier cells.
-  * @map_mask_name: optional property name of the mask to use.
-  * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
-  *	If non-NULL, the map property must exist (-ENODEV if absent). If
-  *	*filter_np is also non-NULL, only entries targeting that node match.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] will contain the translated ID. If a map entry was
-- *	matched, @arg->np will be set to the target node with a reference
-- *	held that the caller must release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	as defined by @cells_name in the target node, and
-+ *	@arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np will be set
-+ *	to the target node with a reference held that the caller must release
-+ *	with of_node_put().
-  *
-  * Given a device ID, look up the appropriate implementation-defined
-  * platform ID and/or the target device which receives transactions on that
-@@ -2137,11 +2167,13 @@ int of_find_last_cache_level(unsigned int cpu)
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       struct device_node * const *filter_np, struct of_phandle_args *arg)
- {
- 	u32 map_mask, masked_id;
--	int map_len;
-+	int map_bytes, map_len, offset = 0;
-+	bool bad_map = false;
- 	const __be32 *map = NULL;
- 
- 	if (!np || !map_name || !arg)
-@@ -2149,7 +2181,7 @@ int of_map_id(const struct device_node *np, u32 id,
- 	/* Ensure bypass/no-match success never returns a stale target node. */
- 	arg->np = NULL;
- 
--	map = of_get_property(np, map_name, &map_len);
-+	map = of_get_property(np, map_name, &map_bytes);
- 	if (!map) {
- 		if (filter_np)
- 			return -ENODEV;
-@@ -2159,11 +2191,9 @@ int of_map_id(const struct device_node *np, u32 id,
- 		return 0;
- 	}
- 
--	if (!map_len || map_len % (4 * sizeof(*map))) {
--		pr_err("%pOF: Error: Bad %s length: %d\n", np,
--			map_name, map_len);
--		return -EINVAL;
--	}
-+	if (map_bytes % sizeof(*map))
-+		goto err_map_len;
-+	map_len = map_bytes / sizeof(*map);
- 
- 	/* The default is to select all bits. */
- 	map_mask = 0xffffffff;
-@@ -2176,39 +2206,93 @@ int of_map_id(const struct device_node *np, u32 id,
- 		of_property_read_u32(np, map_mask_name, &map_mask);
- 
- 	masked_id = map_mask & id;
--	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
-+
-+	while (offset < map_len) {
- 		struct device_node *phandle_node;
--		u32 id_base = be32_to_cpup(map + 0);
--		u32 phandle = be32_to_cpup(map + 1);
--		u32 out_base = be32_to_cpup(map + 2);
--		u32 id_len = be32_to_cpup(map + 3);
-+		u32 id_base, phandle, id_len, id_off, cells = 0;
-+		const __be32 *out_base;
-+
-+		if (map_len - offset < 2)
-+			goto err_map_len;
-+
-+		id_base = be32_to_cpup(map + offset);
- 
- 		if (id_base & ~map_mask) {
--			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
--				np, map_name, map_name,
--				map_mask, id_base);
-+			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
-+			       np, map_name, map_mask_name, map_mask, id_base);
- 			return -EFAULT;
- 		}
- 
--		if (masked_id < id_base || masked_id >= id_base + id_len)
--			continue;
--
-+		phandle = be32_to_cpup(map + offset + 1);
- 		phandle_node = of_find_node_by_phandle(phandle);
- 		if (!phandle_node)
- 			return -ENODEV;
- 
-+		if (bad_map) {
-+			cells = 1;
-+		} else if (of_property_read_u32(phandle_node, cells_name, &cells)) {
-+			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
-+		if (cells > MAX_PHANDLE_ARGS) {
-+			pr_err("%pOF: %s cell count %d exceeds maximum\n",
-+			       phandle_node, cells_name, cells);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
-+		if (offset == 0 && cells == 2) {
-+			bad_map = of_check_bad_map(map, map_len);
-+			if (bad_map) {
-+				pr_warn_once("%pOF: %s has 1-cell entries targeting 2-cell %s, treating as 1-cell output\n",
-+					     np, map_name, cells_name);
-+				cells = 1;
-+			}
-+		}
-+
-+		if (map_len - offset < 3 + cells) {
-+			of_node_put(phandle_node);
-+			goto err_map_len;
-+		}
-+
-+		out_base = map + offset + 2;
-+		offset += 3 + cells;
-+
-+		id_len = be32_to_cpup(map + offset - 1);
-+		id_off = masked_id - id_base;
-+		if (masked_id < id_base || id_off >= id_len) {
-+			of_node_put(phandle_node);
-+			continue;
-+		}
-+		if (id_len > 1 && cells > 1) {
-+			/*
-+			 * With 1 output cell we reasonably assume its value
-+			 * has a linear relationship to the input; with more,
-+			 * we'd need help from the provider to know what to do.
-+			 */
-+			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
-+			       np, map_name, id_len, cells);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
- 		if (filter_np && *filter_np && *filter_np != phandle_node) {
- 			of_node_put(phandle_node);
- 			continue;
- 		}
- 
- 		arg->np = phandle_node;
--		arg->args[0] = masked_id - id_base + out_base;
--		arg->args_count = 1;
-+		for (int i = 0; i < cells; i++)
-+			arg->args[i] = id_off + be32_to_cpu(out_base[i]);
-+		arg->args_count = cells;
- 
- 		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
--			np, map_name, map_mask, id_base, out_base,
--			id_len, id, masked_id - id_base + out_base);
-+			np, map_name, map_mask, id_base,
-+			cells ? be32_to_cpup(out_base) : 0,
-+			id_len, id,
-+			cells ? id_off + be32_to_cpup(out_base) : id_off);
- 		return 0;
- 	}
- 
-@@ -2219,6 +2303,10 @@ int of_map_id(const struct device_node *np, u32 id,
- 	arg->args[0] = id;
- 	arg->args_count = 1;
- 	return 0;
-+
-+err_map_len:
-+	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
-+	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(of_map_id);
- 
-@@ -2228,18 +2316,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
-  * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
-  *      stream/device ID) used as the lookup key in the iommu-map table.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
-+ * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
-+ * and "iommu-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_iommu_id(const struct device_node *np, u32 id,
- 		    struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
-+	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_iommu_id);
- 
-@@ -2252,17 +2343,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
-  *	If non-NULL, the map property must exist (-ENODEV if absent). If
-  *	*filter_np is also non-NULL, only entries targeting that node match.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
-+ * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
-+ * and "msi-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_msi_id(const struct device_node *np, u32 id,
- 		  struct device_node * const *filter_np, struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
-+	return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_msi_id);
-diff --git a/include/linux/of.h b/include/linux/of.h
-index ea50b45d9ff7..374b249766a2 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -465,7 +465,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
- bool of_console_check(const struct device_node *dn, char *name, int index);
- 
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       struct device_node * const *filter_np,
- 	       struct of_phandle_args *arg);
- 
-@@ -950,7 +951,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
- }
- 
- static inline int of_map_id(const struct device_node *np, u32 id,
--			     const char *map_name, const char *map_mask_name,
-+			     const char *map_name, const char *cells_name,
-+			     const char *map_mask_name,
- 			     struct device_node * const *filter_np,
- 			     struct of_phandle_args *arg)
- {
+[ ... ]
 
--- 
-2.34.1
+> +static int osf_core_handle_sensor_sample(struct osf_device *osf,
+> +					 const struct osf_frame *frame)
+> +{
 
+[ ... ]
+
+> +	event.sensor_type =3D sample.sensor_type;
+> +	event.sensor_index =3D sample.sensor_index;
+> +	event.channel_count =3D sample.channel_count;
+> +	event.sample_format =3D sample.sample_format;
+> +	event.scale_nano =3D sample.scale_nano;
+> +	event.sequence =3D frame->sequence;
+> +	event.timestamp_us =3D frame->timestamp_us;
+> +	event.host_timestamp_ns =3D ktime_get_ns();
+
+[Severity: Medium]
+Does this hardcode the timestamp clock to CLOCK_MONOTONIC?=20
+
+The IIO subsystem supports user-configurable clocks via the
+current_timestamp_clock sysfs attribute. Should this use iio_get_time_ns()
+instead to honor the user's clock selection?
+
+> +	for (i =3D 0; i < sample.channel_count; i++)
+> +		event.values[i] =3D values[i];
+
+[ ... ]
+
+> diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensen=
+sorfusion/osf_iio.c
+> new file mode 100644
+> index 0000000000000..3d2674e43fbb0
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_iio.c
+> @@ -0,0 +1,268 @@
+
+[ ... ]
+
+> +#define OSF_SCAN_TYPE_S32						\
+> +	{								\
+> +		.sign =3D 's',						\
+> +		.realbits =3D 32,					\
+> +		.storagebits =3D 32,					\
+> +		.endianness =3D IIO_LE,					\
+> +	}
+
+[ ... ]
+
+> +int osf_iio_push_sample(struct iio_dev *indio_dev,
+> +			const struct osf_sample_event *event)
+> +{
+> +	struct osf_iio_state *state;
+> +	u8 scan[OSF_IIO_SCAN_BYTES] __aligned(8) =3D { };
+> +	s32 *scan_values =3D (s32 *)scan;
+> +	unsigned int i;
+
+[ ... ]
+
+> +	for (i =3D 0; i < event->channel_count; i++)
+> +		scan_values[i] =3D event->values[i];
+> +
+> +	return iio_push_to_buffers_with_timestamp(indio_dev, scan,
+> +						  event->host_timestamp_ns);
+
+[Severity: High]
+Does this code push CPU-native endian data to the IIO buffer?
+
+The channels are declared as IIO_LE, so userspace on big-endian architectur=
+es
+will byte-swap this data again. Should the values be converted back using
+cpu_to_le32(), or should the channel be declared as IIO_CPU?
+
+> +}
+> +
+> +int osf_iio_register_sensor(struct device *dev,
+> +			    const struct osf_capability_entry *entry,
+> +			    void *driver_data, struct iio_dev **indio_dev)
+> +{
+
+[ ... ]
+
+> +	iio_dev->name =3D spec->name;
+> +	iio_dev->info =3D &osf_iio_info;
+> +	iio_dev->modes =3D INDIO_DIRECT_MODE | INDIO_BUFFER_SOFTWARE;
+> +	iio_dev->channels =3D spec->channels;
+> +	iio_dev->num_channels =3D spec->num_channels;
+
+[Severity: High]
+Does this code omit setting available_scan_masks while pushing unpacked data
+into the buffer?
+
+If userspace enables only a subset of channels, the IIO core will expect the
+data to be tightly packed. The dynamic timestamp placement by
+iio_push_to_buffers_with_timestamp() could then overwrite active channel
+data. Providing available_scan_masks would enable the software demuxing
+fallback to correct the data alignment.
+
+> +
+> +	ret =3D devm_iio_kfifo_buffer_setup(dev, iio_dev, NULL);
+
+[ ... ]
+
+> diff --git a/drivers/iio/opensensorfusion/osf_serdev.c b/drivers/iio/open=
+sensorfusion/osf_serdev.c
+> new file mode 100644
+> index 0000000000000..1827760c27f24
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_serdev.c
+> @@ -0,0 +1,354 @@
+
+[ ... ]
+
+> +static int osf_serdev_register_iio(struct osf_serdev *osf_uart,
+> +				   const struct osf_capability_entry *entry)
+> +{
+> +	struct device *dev =3D &osf_uart->serdev->dev;
+> +	struct iio_dev *indio_dev;
+> +	int ret;
+
+[ ... ]
+
+> +	ret =3D osf_iio_register_sensor(dev, entry, &osf_uart->osf, &indio_dev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+Does this error path leak the devm_ allocated resources if device
+registration fails?
+
+Since the sensor isn't added to the iio array on failure, a new capability
+report with a different sequence number will trigger registration again. Th=
+is
+could potentially lead to an unbounded memory leak until out-of-memory.
+
+Should this explicitly free the devm_ resources on failure?
+
+> +
+> +	osf_uart->iio[osf_uart->iio_count].sensor_type =3D entry->sensor_type;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520072843.3593=
+-1-kimjinseob88@gmail.com?part=3D2
