@@ -1,143 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD8C3C1974;
-	Wed, 20 May 2026 09:29:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81323AEF20;
+	Wed, 20 May 2026 09:37:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779269366; cv=none; b=AC2GzK3vN4xSpYi3iliL5mbZg5qvA5CQvW66qmfOVW1x7Gf/GFBEkIoi16WvFTFeXJ1OLLelQxbYjp0CGw/wVQtrxa50eARkC/HW9tIs161nuDEAgKfmmTHXusVV9EICH4LAivXNIM/O3sfsvlCXLZFGb4Cv5dgu5BH6Xv3CUME=
+	t=1779269841; cv=none; b=OrKPjvUS4Vmd5zEowYsHQVY3pel30Z2T9uoOQA0gIYYrwH+muXXA/I91JZXM0g0DfPvjx/3f3in/SJNqsEQly9es5MBj2rkEjcsHaRtThwvpy3REKWsWWWln/zrUv5dLUMtrvqpBjJpuTOwCgyKlgcwWdEdXGEslP1TCpUtFFaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779269366; c=relaxed/simple;
-	bh=xzcZeoD0niZUNOJsg+qcrFRZ/GvRmasUv2WFxCUDc0I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QHOi8YMDlrYXpyynr/GjVcUX+LiUtRuZhPyC2nxJsuWA8ahAB0zac6Kvw6qUlGUGPoOh7vr72Rm1yKNKcrKEZvIhtHzBU8/umdb/odWn6wy4lPWT0hdITm3CBBUTBNrLvmHELEN0Ht6yETuFY7Ar77zkUY8B5EVRc5WNANe+Ceo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PLvK/R+C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779269841; c=relaxed/simple;
+	bh=FjA0lJigCLTNTws0AFg9xGOERjUY5/4BnVnS3AznamI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jZZ9kdneYkFUNRW4cpDzDWNsKcRtkFK5q9ojHdq3RFLPw+kqqBZdJos+mG3DU/1X83DBt0ztks2yw9Bre4O3MNh3IkkAuQky93jIb1mGc2L2aYJwPCaWqmwI077xcjhz7nQizYN0uvcViLbqBMqJI7Z0rR3ryP1at/egCrgLvoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVMM58rK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PLvK/R+C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDD11F000E9;
-	Wed, 20 May 2026 09:29:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVMM58rK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482BD1F00894;
+	Wed, 20 May 2026 09:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779269363;
-	bh=d3dUitqVHclDZ24VyLLVj/3e6tehsujLNP+nBiRE0GY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PLvK/R+ClRXHd4EPCx2dhi7VWBiJJEPsc3IDdBio0cGfbZ9XpFUnsQoltgtWXtl8t
-	 VQn0OhW4K/cGgfCl2xKfGRrQuE1X0L9PDgbzcxzDpVGGml7y6Jxu+jxX2BSApJhDs2
-	 5Rh5b5bhqIkV0ROcrM5wdRYZbDG+KxE985/Z+InaF/ohNqWdWR9OaWZabCky0+4O4P
-	 sE2LowjIST//KMEnf8JpI3bVHhKnWc+uAzRF6MTk5X9INkvzoXvmr+3Q2g9MCLsPoF
-	 vuENPIbzu2HCpzihstXFACU83okE5tOTyZHB+0ae1Ug88SME2GSjLgv1F1ugDwZPYT
-	 bMj4meWWknb0g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 3/3] of: Respect #{iommu,msi}-cells in maps
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vijayanand Jitta" <vijayanand.jitta@oss.qualcomm.com>
-Cc: imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260520-parse_iommu_cells-v15-3-b5f99ad4e7e8@oss.qualcomm.com>
-References: <20260520-parse_iommu_cells-v15-3-b5f99ad4e7e8@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 09:29:22 +0000
-Message-Id: <20260520092923.0EDD11F000E9@smtp.kernel.org>
+	s=k20260515; t=1779269839;
+	bh=IWslf9oeLWvEs3JsbwralhudzzXn6+q2Z6VbOV+CaT8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PVMM58rKloa/G8Ow05xXHZDMW8Ox3iqRdSL4ekaV58jjNQ94ULrjBKZByXEq6xj8M
+	 F7YZM6GjfwjRh2onvA3bwS9mKhDpNse8n+O5FH3DTXdV1tZW6mpXoD35w6A8n0ofc6
+	 0HVxKMExEnQUtBHTouKW8ZrDP9xu4VujRq+g0HZqVm2c3MA2QBml8VwicX3IMC6HZ6
+	 Dmo1kCHryxjFl+Jo2yEpglixmxKRt8g3RamDrQpHMNHqFjo96R5P7xeAgIhgKqy+uO
+	 +BnnrdAsrDAMBEvDZFLy/qjiMizi5n7dXWs4/Q2tYkBnIs0dyNdTEFz0NAfZG4d0c9
+	 40xNbhwzOSxlQ==
+Date: Wed, 20 May 2026 10:37:08 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Erim, Salih" <salih.erim@amd.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, git@amd.com,
+ nuno.sa@analog.com, andy@kernel.org, dlechner@baylibre.com,
+ michal.simek@amd.com, conall.ogriofa@amd.com, erimsalih@gmail.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] iio: adc: versal-sysmon: add threshold event
+ support
+Message-ID: <20260520103708.24d59b6b@jic23-huawei>
+In-Reply-To: <59884fdc-a9d0-49c6-8167-11d56a21dd11@amd.com>
+References: <20260502111951.538488-1-salih.erim@amd.com>
+	<20260502111951.538488-5-salih.erim@amd.com>
+	<20260504184415.7b6688f5@jic23-huawei>
+	<59884fdc-a9d0-49c6-8167-11d56a21dd11@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Strict requirement for `#iommu-cells` or `#msi-cells` breaks MSI a=
-llocations on standard-compliant controllers.
-- [High] Array desynchronization when parsing legacy 0-cell maps padded to =
-4 words per entry.
---
 
-commit 23cece64ecb1dcea6290dbab34facbdac53ff293
-Author: Robin Murphy <robin.murphy@arm.com>
-Date:   Wed May 20 08:02:42 2026 +0000
+> >> +static int sysmon_write_event_value(struct iio_dev *indio_dev,
+> >> +                                 const struct iio_chan_spec *chan,
+> >> +                                 enum iio_event_type type,
+> >> +                                 enum iio_event_direction dir,
+> >> +                                 enum iio_event_info info, int val, int val2)
+> >> +{
+> >> +     struct sysmon *sysmon = iio_priv(indio_dev);
+> >> +     unsigned int reg_val;
+> >> +     u32 mask, shift;
+> >> +     u32 raw_val;
+> >> +     int offset;
+> >> +     int ret;
+> >> +
+> >> +     guard(mutex)(&sysmon->lock);
+> >> +
+> >> +     if (chan->type == IIO_TEMP) {
+> >> +             if (info == IIO_EV_INFO_VALUE) {
+> >> +                     offset = sysmon_temp_thresh_offset(chan->address, dir);
+> >> +                     if (offset < 0)
+> >> +                             return offset;
+> >> +                     sysmon_millicelsius_to_q8p7(&raw_val, val);
+> >> +                     return regmap_write(sysmon->regmap, offset, raw_val);
+> >> +             }
+> >> +             if (info == IIO_EV_INFO_HYSTERESIS) {
+> >> +                     mask = (chan->address == SYSMON_ADDR_OT_EVENT) ?
+> >> +                             SYSMON_OT_HYST_BIT : SYSMON_TEMP_HYST_BIT;
+> >> +                     shift = (chan->address == SYSMON_ADDR_OT_EVENT) ? 0 : 1;
+> >> +                     if (val & ~1)  
+> > 
+> > Just to confirm - this only has hysteresis values of 0 or 1?  That's unusually
+> > small given hysteresis should be in same units as _raw.  
+> 
+> You're right, this is wrong. The current code exposes a mode-select
+> bit from ALARM_CONFIG (0 = window mode, 1 = hysteresis mode), not an
+> actual hysteresis value.
+> 
+> The hardware has independent upper and lower threshold registers for
+> each temperature alarm (DEVICE_TEMP and OT), plus a mode bit in
+> ALARM_CONFIG that selects between window mode (alarm on crossing
+> either threshold) and hysteresis mode (upper triggers, lower clears).
+> Since the hardware has a single alarm bit per temperature channel,
+> even in window mode you can't distinguish which threshold was
+> crossed. Hysteresis mode maps naturally to the IIO event model.
+> 
+> I'll rework this as follows:
+> - Hard-code ALARM_CONFIG to hysteresis mode during init (both
+>    DEVICE_TEMP and OT)
+> - Expose hysteresis as a writable value in millicelsius, stored in
+>    the driver
+> - Keep both rising (upper) and falling (lower) thresholds writable
 
-of: Respect #{iommu,msi}-cells in maps
+> - Couple the three attributes:
+>      Write rising    -> recompute lower = upper - stored_hysteresis
+>      Write falling   -> update stored_hysteresis = upper - lower
+>      Write hysteresis -> recompute lower = upper - new_hysteresis
+> - Read hysteresis returns the stored value
+> 
+> This keeps full user control over both thresholds while exposing
+> hysteresis as a proper temperature value, matching IIO semantics.
+> Window mode support could be added later if needed without ABI
+> changes.
+> 
+Not quite because that falling attribute is not in line with the ABI.
 
-This commit adds support for parsing target nodes' #cells values for
-iommu-map and msi-map properties, instead of assuming output specifiers
-always have exactly 1 cell. It updates of_map_id() to parse multi-cell and
-0-cell output specifiers and reflect the actual number of output specifier
-cells.
+This needs a little hammering to fit in the oddly shaped hole of our ABI.
 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index d658c26201353..f436e26763818 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
+If you are sticking to hystersis only (not window mode) then you need
+to expose it as rising threshold + hysteresis (not falling threshold as
+there is no even triggered in that direction - unless you are doing something
+nastier like triggering on both edges of the interrupt - in which case this
+is very similar to window mode and for both event directions you'd need
+to set the hysteresis to the difference between the threshold values).
 
-[ ... ]
+If you do want to do window mode - that would be fine but you'd need
+to then do a falling event where the enable sets the hysteresis reported
+to 0.  Whether a write to hysteresis would then fail or we'd disable the
+falling direction would need some discussion - the ABI doesn't constrain
+that so it's a case of what is less likely to confuse a user.
 
-> @@ -2176,39 +2206,93 @@ int of_map_id(const struct device_node *np, u32 i=
-d,
+Jonathan
 
-[ ... ]
 
-> +		phandle =3D be32_to_cpup(map + offset + 1);
->  		phandle_node =3D of_find_node_by_phandle(phandle);
->  		if (!phandle_node)
->  			return -ENODEV;
-> =20
-> +		if (bad_map) {
-> +			cells =3D 1;
-> +		} else if (of_property_read_u32(phandle_node, cells_name, &cells)) {
-> +			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
-> +			of_node_put(phandle_node);
-> +			return -EINVAL;
-> +		}
+> > 
+> > Also similar to above, I'd split the two cases and use FIELD_PREP()  
+> 
+> This block will be replaced by the hysteresis rework described above.
+> 
+> Best regards,
+> Salih
+> 
+> 
+> >   
+> >> +                             return -EINVAL;
+> >> +                     return regmap_update_bits(sysmon->regmap,
+> >> +                                               SYSMON_TEMP_EV_CFG,
+> >> +                                               mask, val << shift);
+> >> +             }
+> >> +     } else if (chan->type == IIO_VOLTAGE) {
+> >> +             offset = sysmon_supply_thresh_offset(chan->address, dir);
+> >> +             if (offset < 0)
+> >> +                     return offset;
+> >> +             ret = regmap_read(sysmon->regmap, offset, &reg_val);
+> >> +             if (ret)
+> >> +                     return ret;
+> >> +             sysmon_supply_processedtoraw(val, reg_val, &raw_val);
+> >> +             return regmap_write(sysmon->regmap, offset, raw_val);
+> >> +     }
+> >> +
+> >> +     return -EINVAL;
+> >> +}  
+> > 
+> >   
+> 
+> 
+> 
+> 
 
-[Severity: High]
-Does this strict requirement for #iommu-cells or #msi-cells break MSI
-allocations on standard-compliant controllers?
-
-Several MSI controllers validly lack a #msi-cells property. For instance,
-arm,gic-v2m-frame nodes do not require it. In
-arch/arm64/boot/dts/qcom/ipq5018.dtsi, the pcie0 node defines:
-
-msi-map =3D <0x0 &v2m0 0x0 0xff8>;
-
-but v2m0 does not have #msi-cells.
-
-Prior to this patch, of_map_id() implicitly consumed 4 words per entry and
-succeeded. Will it now fail to find #msi-cells, print an error, and
-return -EINVAL, propagating the error through of_msi_xlate() and breaking
-MSI initialization on affected platforms?
-
-> +
-> +		if (cells > MAX_PHANDLE_ARGS) {
-
-[ ... ]
-
-> +		if (map_len - offset < 3 + cells) {
-> +			of_node_put(phandle_node);
-> +			goto err_map_len;
-> +		}
-> +
-> +		out_base =3D map + offset + 2;
-> +		offset +=3D 3 + cells;
-
-[Severity: High]
-Could this cause array desynchronization when parsing legacy 0-cell maps
-that were padded to 4 words per entry?
-
-Prior to this patch, of_map_id() mandated that the map property length must
-be a multiple of 16 bytes:
-
-if (!map_len || map_len % (4 * sizeof(*map)))
-    return -EINVAL;
-
-Consequently, if a legacy device tree targeted an MSI controller that
-explicitly defined #msi-cells =3D <0> (such as RISC-V IMSIC nodes), it was
-structurally forced to pad the 3-word map entry with a dummy 4th word to
-satisfy the kernel's length check.
-
-Since the new logic computes the entry stride dynamically as 3 + cells,
-when parsing a legacy padded map with cells=3D0, does the code advance by 3
-and incorrectly interpret the 4th dummy word of the first entry as the
-id_base of the second entry?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-parse_iomm=
-u_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com?part=3D3
