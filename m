@@ -1,208 +1,175 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD5A78F2F
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71B237267A;
+	Wed, 20 May 2026 10:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779272326; cv=none; b=OL+nNXo3pPs4sjW7QyYp7+D8V8NoKNquUoPJZFqVzFQ6V3BWB5g2OlpzOkVmojftTPjxNoP5kBT7uFFtIYxKm0Nc725NFIqVuqlRdaOlO1G6w1hrtIO1sJoMVpnD4oRZHXJzTHODM8PBZmQaIidv3IO1VhxuffwcJylIV+UXCpo=
+	t=1779272328; cv=none; b=iiTZDIPkhn4ZCTLG36YnvRN3raN8skulAdbjJGYFkgfEwUkKK2YZqlTiD2PgD21M7f/bliTXV0hWdPq7fPF9ADLVbIiU8d3NnAXlR8Rqvz21jODdPAq+Q4CEe3cs9nhH5Rk1fGFOtPSCH91yQOSdhT5HlKZDVgsD4QTkZYalSIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779272326; c=relaxed/simple;
-	bh=9GvTCEpKamo7Puzjy5EVV1bfnNMCGtFBMZiQDoyLqgE=;
+	s=arc-20240116; t=1779272328; c=relaxed/simple;
+	bh=N3wj2eFWvwFJ7H3b7NyNKLJ+MVPAgJq3NlFvvViQ1p8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kv9wa84LifPKHm4RcHZt0uQsp9R7YJv94wTT6Lwhy2RaDItpvZwtjtnZjpynIRadNErKRqlJrp4aQUl3pbRE8FsAh319o4lLrN76NUJzvrIbG9NCuhPIhibsjz/ICuywzkAsdkvCkUg55NR6zNv8cLzSFIw9XtEPvP9LH6DFrYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T5A5FBU8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ku1N3QbL; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=u/9CIh1uR5E3PZHk/JKqajj5cLhohGoNyWvIpVYUSFT+cM0TK/kuk+kH639nZ4aoDDSUIdmlPkh1y89Jmgmk7c+9qzzYRo5uLZof5uezET0OSTcySWHtafBP9t6f1uG62prL5NaRjTgn/Q3QhRO3hqW+vTdmo99qzPEbKlA1bUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cNDLLpc6; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T5A5FBU8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ku1N3QbL"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K9lfwC266956
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:18:39 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cNDLLpc6"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K7WnXR1953980;
+	Wed, 20 May 2026 10:18:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=+k+oT4e6hBc5LIJSb/AfTwEM
-	WHG0zOLB6Gqph0QfZLc=; b=T5A5FBU8B4Q49FYw6rsT+wuTQ1paFOGadPVRhIXk
-	/I44B6NrnHNaxKO8yFIc2n1wxV/1tAfgq0BLZoOwssO+FBr2294U/r0rcjgCjWPH
-	qSs28psZkfWx+V5KMxH1aB5icaQKhc0Wi5vTKnNk4iT+kxPFDSr5pEVt4gSvrbA1
-	D7Q0F61L9IJu30hwCYZ55/wFWJZf1jtsnyjWGQInP9v2TQchtGLqPnKmmglfHmZh
-	mCPIyD3lXpioILVw1HmEcyNWXBL9PDMnMhjSW2e2IT8oPvedqy5F99X8C4xYzF6T
-	dG6TQYwPk+CNhK+Yuj/ExUV0fv7f3QBuDB8JIh+O7aJ4ig==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9amxr3rc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 10:18:38 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3041ab826ddso597665eec.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 03:18:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779272318; x=1779877118; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+k+oT4e6hBc5LIJSb/AfTwEMWHG0zOLB6Gqph0QfZLc=;
-        b=ku1N3QbLSrdyrL+/Pb3++SEhkOor2R3bg8JMZl9PmDcNsSaFd4rYgc3nvESeCHY/cU
-         0/vUNlv0PvB9oeRGEmnnxx2cCDocW3tifXazvFYc76fQCqCJq+2vVINAC8Mi720kaxH+
-         lXILxisaj4DFseLO5Ze8CMo/08UA8GVOW/4NUvd6x4IUR1QUCZaM7DORnI/t6P0F1TYJ
-         ab2H8Kv+0/LapooyV3cm8d4Ikdyu5j0tIIMVzY2VR0pfCSnztuKz19vg0MfK6mg6HcP7
-         GxtBPAAyBINonjqqfKtB3598RxqvuRewPMV68OpJxYptUfigmE/WJRepOucK4CD4KqaP
-         HSKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779272318; x=1779877118;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+k+oT4e6hBc5LIJSb/AfTwEMWHG0zOLB6Gqph0QfZLc=;
-        b=BdC5k+oAGCKFuZhbC7HOTFy5Vm0GglY+crxkzGkxXnkpyx5DWsxFFopIR6E9FqEUqA
-         hh83Nj3kTKln06uWfrBvXz1N2IFMHw6oqnwX1NrkKhieuGIBFFD/sDJ4YZ6CbRh199cL
-         SNMrdjHX0m7IdunEQonpbpu2pJSjPcmZPR0xBkfyke5NITCiHKkeh1+4AjfFRJh/FTW+
-         0EvLBGQlokzKWnzL0rA9MSKC19HBlmXNFacZEaQ1YnWrZ3HBzOJI+K6+vYvizQ/zCWG0
-         EHOmzwaS5mS2CItrqzyaQKUo+NY0kdiyEnh0WQoLTikgiDxJlBWwFqCO6j8VL5xPz6Cs
-         CNGQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8aIv6VvpvZybkqDkh2jV1+4zfVXUf/M5XdHcp7BWX/KZIsTCkwb8fUNQur5SqcC3Vp+m/Z+l0ZSTvY@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhxG99XpnBvoaWt97vr5XlCYXuF6bHJeXMQtf46mcSTzoeDVFg
-	i7YoA6Jdcy42UWaip1+b3nPDPTJd2Q55wwWecF+/aphY+DW2t22h4MOkjRtkZyVBEPZZQKEXlWS
-	mecYV4jr49lZh1QgsTZTqoHya3lJ9HOCPDaZPuyHpHAsiP3MbwHalQtM2iiJH2MlG
-X-Gm-Gg: Acq92OG/1rQQ2Mf0pCQ79QHOiYcUbI2rJQcMALnQ4tnG9hwWB7QNbbd9nM5i1grs+ZJ
-	+7o/EGaVYtADPLHfHvdtse9qoOR8sDsH2bOrAdU8DYimmzyZYN2Htk9oxq6EKEDDZph0zRAOoG6
-	JR3Fa4v5v2AHGq6MtK0GytETZhQkpBjF+pB7jE8GorurWYbWjPQ/AkKJXor4YPwc+wr2HZUsLKE
-	BquWktgNpVWS11RiGr632Qzq7O9zaT3IJ3vYBVJ2FKfzbR81GVa0O/omLCmFsHFbx2d3KsJpmdA
-	eA1HKYm6FZBEldqT1L9T2z2uilEcVvB8lPQv/LmS5ohPqJv++xfjoUPh/bx0UNaxkUeA4eOhdgc
-	nBSeBR0ny3XA5HyoGYEHw/K8rmMXWWtJsZL6X0gtiD6RsbhzAX/OEjXfFxc6TjLDl
-X-Received: by 2002:a05:7300:e430:b0:2c1:558c:16e1 with SMTP id 5a478bee46e88-303982865cfmr10691301eec.4.1779272317894;
-        Wed, 20 May 2026 03:18:37 -0700 (PDT)
-X-Received: by 2002:a05:7300:e430:b0:2c1:558c:16e1 with SMTP id 5a478bee46e88-303982865cfmr10691266eec.4.1779272317278;
-        Wed, 20 May 2026 03:18:37 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3041ab8282bsm1006139eec.31.2026.05.20.03.18.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 03:18:36 -0700 (PDT)
-Date: Wed, 20 May 2026 18:18:29 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, aiqun.yu@oss.qualcomm.com,
-        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
-        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support
- for subsystems
-Message-ID: <ag2KdR9ljtpEsmUa@QCOM-aGQu4IUr3Y>
-References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
- <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
- <20260520082747.7seyyua4gfv256ev@hu-mojha-hyd.qualcomm.com>
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MRwPNNERF4787miFgmIa13et59huZ8GxHsLMeQw5pC0=; b=cNDLLpc60fJYvDyj
+	yTUrQkvCRTfFCZsuWmPtMn1iJwO0+Vigq1/xBswIC4k7n7PBtSVPnlTevQtEfyLx
+	XMDGXX/qLkN22EkXsMyb5tEN36hazwZUuyX0YFKrUwkCFjPo0hcM36B021l7M409
+	nR/fhmS/ZAvqOzbDNfnRAUuoC6vFlIlFo/LYA1CA1MC0P6CkGhZhVJcF98cmfebG
+	9b3N0NR0tXhej+MmXk5+55mBPRvUEdFKHhB2jxL/o4LnPtRum25YiByReiSTjnx3
+	bPL5Bs3tHs/x/Seh04lU0hKC9rGoRwQeYRQV+FOzWOUn25uZBRFIyOpXg6PLsdLg
+	QqOhmw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e8t3xv915-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 10:18:36 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64KAIW0i014893;
+	Wed, 20 May 2026 10:18:32 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4e712fy3np-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 10:18:32 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64KAIWt2014887;
+	Wed, 20 May 2026 10:18:32 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 64KAIW6Z014885
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 May 2026 10:18:32 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 69E93B2C; Wed, 20 May 2026 15:48:31 +0530 (+0530)
+Date: Wed, 20 May 2026 15:48:31 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: qcom,usb-vbus-regulator: add
+ qcom,pm4125-vbus-reg
+Message-ID: <20260520101831.6lxc3cutuf2cfi2y@hu-kotarake-hyd.qualcomm.com>
+References: <20260520-add_pm4125-vbus-reg-v1-1-f6d15d7dbbe8@oss.qualcomm.com>
+ <20260520092017.DCBEE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260520082747.7seyyua4gfv256ev@hu-mojha-hyd.qualcomm.com>
-X-Proofpoint-GUID: RwmEmhrtDI5u3cwqemWPtd061UqPW4on
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5OCBTYWx0ZWRfX+W9I7+Hx1Zp9
- /lLYHzCLPuGQJisaP8WrPyctcvBujUFaqmMyjlS6pquOMmSG8o2LRSJBYV+lW3kblOpyb5WvaTh
- tiLWjOZxUYU8v9Vh0DY46k2vJS+TI/j88XCugJZ/h7WHelFh/fyAup39urvpItS7FC16CAVLuJp
- HqjM9bOftyRo626CpILCiPga/l7LWnYS7dYmPn3KKFo1CeHYiv3NrAkdwBeTADMMXWdMbTzWy1w
- K72xxVyFS+2PV/2ELkoMydBkbhDXVnU5d/pCJ8qQMjxtjnH6f4XWb7EJSB2I2oPqrKxch0cDAKc
- +vkilfz96B3r9G3+31i+ZFis5lQ3vRix5bc64ySMVcZiNE33J+6NbgT1QYgB3GJfR2laGos0bfi
- xgkmdKLq7/zjRfxHc5rnc7SSB91YWgDTZgcXDmz8ehBHlYV0HXPZIfEaNpPQYKBPKQvQGlLLjyZ
- y/P69gO4wGIFAElrcFw==
-X-Authority-Analysis: v=2.4 cv=TO11jVla c=1 sm=1 tr=0 ts=6a0d8a7e cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=aI_LCnMVjoIqU1kGItIA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: RwmEmhrtDI5u3cwqemWPtd061UqPW4on
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260520092017.DCBEE1F00893@smtp.kernel.org>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=WaY8rUhX c=1 sm=1 tr=0 ts=6a0d8a7d cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=8nJEP1OIZ-IA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=c92rfblmAAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=a_Uv7Olcw8TIjJ-zfmoA:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: -Pn6xUsefE59uu_a6OOaQz16quRw0rU9
+X-Proofpoint-ORIG-GUID: -Pn6xUsefE59uu_a6OOaQz16quRw0rU9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5OCBTYWx0ZWRfXyixGcislSs93
+ lqaAJMrMqSitzMVnxmV+SWCKMBLtAyIBvzIRWiIivBKmX4Bb8STisPKL3XoUkhsYOz0h6dxAJlv
+ BT4A6qZEoYPE1IbFwH7tL6m+DOeQIbUy2Lw88dSQ1Kw+iqjTcUA8NekSTUNMq2TTrfCjCsJzOD0
+ 1APDwWkhjItYTGn+i/Vsd6baX6iovNGGTmIJhrHg90wdBRh40ezaIEGQO5m0hpc+gZ9OztUOq+c
+ AVEI6C8Q0/I9BpCAzaaBP6cQSTZbQDqWptRbV+e9inI3wXPB7voLR4VHKMK1jwyIjr6wDra0MwT
+ b1Cv8znOy3ilELof6qGQeo7+YWZN1SzOTMnM3IYEpUon9Q6cSTEfSR2GQnsJxAqJEuorK1afZOt
+ zctXcH0umlqygEABGHECFWTTUeeSvgIJIwVo+6Jw4sEVlJUw0Iq3uvAGgeePSUdANHgjNr35vcE
+ DE+BUJUVfots9j/9Mgg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
- impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605200098
+ adultscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0
+ suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200098
 
-On Wed, May 20, 2026 at 01:57:47PM +0530, Mukesh Ojha wrote:
-> On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
-> > Subsystems can be brought out of reset by entities such as bootloaders.
-> > As the irq enablement could be later than subsystem bring up, the state
-> > of subsystem should be checked by reading SMP2P bits.
-> > 
-> > A new qcom_pas_attach() function is introduced. if a crash state is
-> > detected for the subsystem, rproc_report_crash() is called. If the ready
-> > state is detected, it will be marked as "attached", otherwise it could
-> > be the early boot feature is not supported by other entities. In this
-> > case, the state will be marked as RPROC_OFFLINE so that the PAS driver
-> > can load the firmware and start the remoteproc.
-> > 
-> > Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-> > Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-> > Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> > ---
-> >  drivers/remoteproc/qcom_q6v5_pas.c | 58 ++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 58 insertions(+)
-> > 
-> > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> > index da27d1d3c9da..ac2a00aacd2e 100644
-> > --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> > @@ -60,6 +60,7 @@ struct qcom_pas_data {
-> >  	int region_assign_count;
-> >  	bool region_assign_shared;
-> >  	int region_assign_vmid;
-> > +	bool early_boot;
-> >  };
-> >  
-> >  struct qcom_pas {
-> > @@ -510,6 +511,57 @@ static unsigned long qcom_pas_panic(struct rproc *rproc)
-> >  	return qcom_q6v5_panic(&pas->q6v5);
-> >  }
-> >  
-> > +static int qcom_pas_attach(struct rproc *rproc)
-> > +{
-> > +	int ret;
-> > +	struct qcom_pas *pas = rproc->priv;
-> > +	bool ready_state;
-> > +	bool crash_state;
-> > +
-> > +	pas->q6v5.handover_issued = true;
-> > +	enable_irq(pas->q6v5.handover_irq);
-> > +
-> > +	pas->q6v5.running = true;
-> > +	ret = irq_get_irqchip_state(pas->q6v5.fatal_irq,
-> > +				    IRQCHIP_STATE_LINE_LEVEL, &crash_state);
-> > +
-> > +	if (ret)
-> > +		goto disable_running;
-> > +
-> > +	if (crash_state) {
-> > +		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
-> > +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
+On Wed, May 20, 2026 at 09:20:17AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Removing the fallback compatible string for `qcom,pm4125-vbus-reg` breaks backwards compatibility and schema validation for existing device trees.
+> - [Low] Unit-address mismatch in the newly added pm4125 device tree example causes a dtc compiler warning/error.
+> --
 > 
-> I am not sure if this is already discussed, but what if it is the first
-> crash with recovery and coredump enabled? What would be in the dump,
-> nothing? As there is no segment, is it expected since Linux did not load
-> this?
+> commit d88778938ce0889e7c6904b04eca901125a815cb
+> Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 > 
-> This is even true if it is a crash after a successful attach.
+> dt-bindings: regulator: qcom,usb-vbus-regulator: add qcom,pm4125-vbus-reg
+> 
+> This commit moves qcom,pm4125-vbus-reg from the fallback items list into
+> a standalone enum since it has a different register layout. It also updates
+> the required properties for this variant to use microvolt instead of
+> microamp, and adds a new example.
+> 
+> > diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> > --- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> > +++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+> 
+> [ ... ]
+> 
+> >  properties:
+> >    compatible:
+> >      oneOf:
+> >        - enum:
+> >            - qcom,pm8150b-vbus-reg
+> > +          - qcom,pm4125-vbus-reg
+> >        - items:
+> >            - enum:
+> > -              - qcom,pm4125-vbus-reg
+> >                - qcom,pm6150-vbus-reg
+> >                - qcom,pm7250b-vbus-reg
+> 
+> [Severity: High]
+> Does removing this fallback compatible string break backwards compatibility
+> for existing device trees?
+> 
+> Previously, the binding allowed the compatible string list to be
+> qcom,pm4125-vbus-reg, qcom,pm8150b-vbus-reg, which is currently used in
+> arch/arm64/boot/dts/qcom/pm4125.dtsi.
+> 
+> Additionally, the required properties for qcom,pm4125-vbus-reg are changed
+> from regulator-min/max-microamp to regulator-min/max-microvolt. Since
+> existing device trees like qrb2210-rb1.dts rely on the microamp properties,
+> will this cause make dtbs_check to fail for existing in-tree device trees?
+>
+You are correct, I will include the DT changes in the same patch
+series to keep things atomic and ensure dtbs_check compliance.
 
-Good point, Mukesh!
+> [ ... ]
+> 
+> > +  - |
+> > +     pmic {
+> > +        #address-cells = <1>;
+> > +        #size-cells = <0>;
+> > +
+> > +        usb-vbus-regulator@5000 {
+> > +            compatible = "qcom,pm4125-vbus-reg";
+> > +            reg = <0x1100>;
+> 
+> [Severity: Low]
+> Will this unit-address mismatch cause a compiler warning during validation?
+> 
+> The node name specifies an address of 5000, but the reg property specifies
+> 0x1100. This usually triggers a unit_address_vs_reg warning from the dtc
+> compiler during make dt_binding_check.
+> 
+> Should the node name be updated to match the reg property address?
+>
+Sure, will fix the node name to usb-vbus-regulator@1100 in the next
+version.
 
-I guess we can have a check in qcom_pas_minidump() to do nothing 
-in case state is RPROC_ATTACHED?
-
-Shawn
+regrads
+Rakesh 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260520-add_pm4125-vbus-reg-v1-0-f6d15d7dbbe8@oss.qualcomm.com?part=1
