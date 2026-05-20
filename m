@@ -1,251 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07944347FEE
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BE53806C6
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:56:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779321397; cv=none; b=b9cIFUoJt9OQ4xKxC762wXcIalaRPuVYzCo9zU0SKf13XMldNlVTVu6d1YWlY5puEv4Aec5YBpsu5GTBT1ywu2cruE9zfsQCvT9F4E/5ilSaM++wRPV1AhWPzXPCzK0mGmw1yQtBm9WVT4ahNDXASuWgi2G3hbfnq7m/I/kGVkU=
+	t=1779321413; cv=none; b=ZAmjdcHEwIIav5rOJixNw4LRPD3ZlFbc4R+GXxH/Qkp5T0UQAM3QG/YZ/U9Z0KkUsUHs5jrGxlcbhKWMVEDejwZBbIkGm3DBTi9buqOQ7Fh6MwY6i0cPGnM9pWdxnJ/y4g/bctIg7lvYGYrD9AoNtWZJ/3v2Sh8WOqsg+ygujS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779321397; c=relaxed/simple;
-	bh=cYulrOygUhgig9Pe+2KifANahvYGXHsaxYYR5uUlk2g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=A7UfQxbmuGj6OqZ3FijIO2W9N6P3+pWuuYIBqiyZl6CTs9szDyiygyA9+DBxC3IaBSgsSy3v7xPgVQlykBz34q7heGVug7hXTciJaChWTQdvTCM70jKzNbhpM+2vDXj3TXDjcPWXTfGNtBGvyLVO8kF/I2Jrdg1M237Ri0YlR7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VTuAZBmz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779321413; c=relaxed/simple;
+	bh=moc/C/hxlezPQ1M+gC9AJqvzkkTyWztlJQm5e3MVXGw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lH/8WNoaLbmd23XSjapi4wQIc/im+VET29viCYk0Lx3l5VvDYDhyuGwZNSWJJPSFhH/SBmq4807yBAQF40K3hVTwx6fdNWmFGmpyVkia2cHO/ucdi01POC4tsHbqhhf5rkg1d0+y37w4bKHzXCQ/mrW6bfLlgiNi9ZC1Az5wbz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EKkppX3r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FwH1dwmz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VTuAZBmz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0440A1F000E9;
-	Wed, 20 May 2026 23:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779321393;
-	bh=F6RtVH6itKZ4Ex2emmkFa9Wn7WP2HTTWy3SnMA02Okc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VTuAZBmzRcMxGe4HPP5mnEJ/zOh5IaYHT4Xg3XOTDeEAqlPXjZnvOPbrUq+4+Pcb8
-	 RdapbXJ5iloPn/w481doy97eWJ6eK4bCM64CHyZJxdBD5nBiLeLajI0+JBtmhixbYN
-	 QlzS3o5UYRydky5NTRkveg8oBL83Tb9trbt45/hgaj+u2HJezdfUPPzbf5frMNxoXi
-	 wAbwPFKvWZHfB1IFEEt3iqx2cVWLOd9oYnD5r14vWN+6B9Y6BUdLTqnKPEHYsPKFQY
-	 0OrJHPmHQAXiCJ/pdcSCEJljkKyISuManY6BPxslChcKcihVHCqjN/p2E10yHHuPgt
-	 UOeVlXLAfZvYA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 15/28] media: rockchip: rga: align stride to 4 bytes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260521-spu-rga3-v7-15-3f33e8c7145f@pengutronix.de>
-References: <20260521-spu-rga3-v7-15-3f33e8c7145f@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 23:56:32 +0000
-Message-Id: <20260520235633.0440A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EKkppX3r";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FwH1dwmz"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KFUe0S4115208
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:56:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=HA94vrokU8Taiu6igumszTTL
+	8SiU4GRGCJMCNdjBwRc=; b=EKkppX3rRK069sgIL0n4j9+8QXCnTjcL4GZnYTzj
+	YRXhQgnMwep/qQELTkj1u98kzF3jdJqIiMrvekfSYSjxciaosIjJccLFwzDDJahB
+	8lO9oAh0SJpzA6PhbGVqd9/z/oT5ipLsavRGysfs5Dsi1LnG5KOWMhbRVRzFYtGO
+	Vc3WQ/ijCvEgQN9C06WViEOXaqO09KWMYpR+4WW4dkCpzxIEjPXR48zeIQLIePIx
+	piNN6Xo+r6Z8z7wCrjcWmqJSI8YOpmkYl3U9u0sxzPNxeMNgoQChGSDdzX1F7kAN
+	NCeOKUJ0dSK07XoO+x19ONqjfERxsD97DEJSzNrBdxvggg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e99w0ka2e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:56:48 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50f13da9684so71566721cf.3
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:56:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779321408; x=1779926208; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=HA94vrokU8Taiu6igumszTTL8SiU4GRGCJMCNdjBwRc=;
+        b=FwH1dwmzaSBjUqlRDe6poZi2y9kp0I/L98RQcm5n5KwG3/EATdpMvbPQ3kK5MICqJp
+         ePxg9mEz4N8Pj2NS2TJYUJlAgZG3Mm0pYU3J3dmIvjCHPQ0fBd6C4BAQuikcozfbxJyK
+         Le9h9NWvUNS8AYfdqFoyzBwi2p0iFo1TW/dQeODqX3RX/92UTbYhnTBlfaUmeHfdVr/Q
+         d6ytlFVZ/gySl90IUvY8ym+dmxnPsCVY3ZsbryJ7j9+wPoRYikNMNf9Xq8OY6EpaJ4oN
+         Bml6vB8Q8ru/LNGJyLt6U5XrVVGD9elMDplo/m+vsc3AsN11YFxW5c8t0zFcOqJJbt2q
+         EdYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779321408; x=1779926208;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HA94vrokU8Taiu6igumszTTL8SiU4GRGCJMCNdjBwRc=;
+        b=HtKiJcVrfdSBnUXVpcbtet/RtWzxhmSbfGyWKb7Xof643bSKvpSR8+4FnEaZ3gzcVm
+         0FGiijeg8CMXnBn+EuaJ9y32m9xXEMNMvmn7qz7tbAMqFgAevWmFUTGuAvE/Y6ut7pgT
+         VGx4Wk15vTlhQJzLYYPXvNBHCFlsjM60Bh/frj8O22eWzwTxBA4KV4MC6NgOThuwLQGa
+         SMlx76MQh7kQr4yWJV+lM0QHW867bPnQ31Vk3HdM/DTbhhKJuoHXEzogeO9p4hOOjLzz
+         wg7e8pqRLb/Mx0y6Yis/MMiQb0EZ1xaDkYFMPjmE0QsOzu+X3YTpSpBoOki3qQHe+omL
+         uzjg==
+X-Forwarded-Encrypted: i=1; AFNElJ/qttZtxGa9hzWQETFsxaRlZciY842VWAMwJEOfZoJAIYQUWmgV6tlyqw+lB9rLwqgnvvQLureNeunp@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTA/08+shFwz0mnbQnCnkbYSezmRox/Cb7VTezyN7D/RiWgGcY
+	fYnzrGgKzIdPZPtedp4kI0cbT4nZCDFGOeeQC4FCMi5XrG1n+M6e0S10mP2EaFfEjwmgCxUtXu9
+	GGwkpPVwzGqeMGA74hYsGMFpScmh+yVHth0OBwQ+bFc4rzAlv+j9u0FDPSg/cTGFw
+X-Gm-Gg: Acq92OEgUCT9c66s9BGBxzVWKvxsYiCY6FHFYwL77/r7YfRM0/9dY+ehpvJ6M2UwL0e
+	9IB0wv8rH6UnnDmbfYh0ix0Cjr7wil7eZPjERtpuvfOPndGWJjaZnKAPog4o5uPsu5P8d+3JHU7
+	DP0nKhXWGqhcZgPN+G3daq8vg14KGTJAWbKTz8+QWyhXJSOGMWKLT/IVei/8s23dd2iFFMT4+ad
+	NxSOyW/KZbVkZzoO6iBZI1bJnpQ/qFFeQbHYsaXsSabycmyFdCtOOePOzHXKy/qyA6lvXi1+qHx
+	gJ3FN3Gv/yGIXymsv3p80oytpkp5kj5XMRjvtj9vU/ZEiGp5gZkFHqQx7Lh3+NPTbexlLTLWOET
+	bnctEEDkvczzEiFUwhH3wubVbx4jBg8Yp34vA8bvrhrgCWfreZ6iwi4DVvgNMY0e5Esdd6BpaZh
+	jqMcjEhsrNQ0zoVRjB6Cs5M25oQXtjlCPA0ck=
+X-Received: by 2002:a05:622a:199a:b0:50d:cd5a:577b with SMTP id d75a77b69052e-516c558d6a6mr10277351cf.35.1779321407735;
+        Wed, 20 May 2026 16:56:47 -0700 (PDT)
+X-Received: by 2002:a05:622a:199a:b0:50d:cd5a:577b with SMTP id d75a77b69052e-516c558d6a6mr10276991cf.35.1779321407260;
+        Wed, 20 May 2026 16:56:47 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a9164cec52sm5289053e87.72.2026.05.20.16.56.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 16:56:44 -0700 (PDT)
+Date: Thu, 21 May 2026 02:56:41 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Georgi Djakov <djakov@kernel.org>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: interconnect: qcom,x1e80100-rpmh: add
+ clocks property to enable QoS
+Message-ID: <nr62mvz6qrpb6moqyasniqcqtfltsx4qtr3lteeixwutindqri@5joujdvn4r3q>
+References: <20260422-x1e80100_qos-v1-0-bcc2afe4cc78@oss.qualcomm.com>
+ <20260422-x1e80100_qos-v1-1-bcc2afe4cc78@oss.qualcomm.com>
+ <20260423-thick-beneficial-capuchin-e4aaad@quoll>
+ <99830e85-5837-4ed5-8f89-fea5d3e632f8@kernel.org>
+ <c583a03f-381d-4af9-acb0-ac47a1e35b47@kernel.org>
+ <7oador7jxw443astffc6hjuf3gots64fqmvsjdsshfhhonc2l7@2unu723p2orx>
+ <12e149c4-60f9-4ffb-b066-7611bdd15786@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <12e149c4-60f9-4ffb-b066-7611bdd15786@kernel.org>
+X-Proofpoint-ORIG-GUID: sqnGlhDPO649myOcB1I3fQAcg-TMFmS4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDIzNSBTYWx0ZWRfXzt80FSZaUvdZ
+ X5wbpbiNmUFKuKiZafnSETtMGZHh6AgJwGk4WLIQLGTT+jHOdRcX0nSllaF1st+lHgo5b5QH225
+ KxGxmM01HfusC7FqFk1vo3zoDHKBBiIKRX7cCP6RmA/VwanxSB57wnhBLrCGF5YIQl1oDSOHw8y
+ 9OCPAQw7r6MbaROB51YMHwesbTWZEIXcxkmb+KcxdXAlVKjTmKplfdKBtyuS5cP6tf+yD+EC2ll
+ LCJPvI99hYBD3LlsmDhu+KKLz7u2tJMBhh75xvBXCiu80x4CKmxI6IhzmYttP5qC2WBZgautFAp
+ QAKTXISkqLfoWjF5s7UlWxVQbAQJxctA9/iXFXCuf2vbyEmVN6rLe/bsNryBoM3f1FlofaoRyqG
+ XR0q3EYFvejv3JQImHS142OobAv0rNAksF7uVuaHWEFdhh23LZYUHDM+lTxQ4JeedkJEx591TBB
+ LuITnQIkv/bX32XNk4w==
+X-Authority-Analysis: v=2.4 cv=RZigzVtv c=1 sm=1 tr=0 ts=6a0e4a40 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=Qe6B47XUAAAA:8
+ a=EUspDBNiAAAA:8 a=4Vwit0Qz_EnXXS5uuC8A:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22 a=QWPKR-PWjQKaio0naagv:22
+X-Proofpoint-GUID: sqnGlhDPO649myOcB1I3fQAcg-TMFmS4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605200235
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Wed, May 20, 2026 at 09:33:52PM +0200, Krzysztof Kozlowski wrote:
+> On 20/05/2026 21:27, Dmitry Baryshkov wrote:
+> > On Wed, May 20, 2026 at 10:11:47PM +0300, Georgi Djakov wrote:
+> >> On 5/20/26 9:51 PM, Krzysztof Kozlowski wrote:
+> >>> On 23/04/2026 10:38, Krzysztof Kozlowski wrote:
+> >>>> On Wed, Apr 22, 2026 at 02:05:11AM +0000, Raviteja Laggyshetty wrote:
+> >>>>> Some interconnect nodes on X1E80100 have QoS registers located inside
+> >>>>> a block whose interface is clock-gated. For those nodes, driver
+> >>>>> must enable the corresponding clock(s) before accessing the
+> >>>>> registers. Add the 'clocks' property so the driver can obtain
+> >>>>> and enable the required clock(s).
+> >>>>>
+> >>>>> Only interconnects that have clock-gated QoS register interface
+> >>>>> use this property; it is not applicable to all interconnect nodes.
+> >>>>>
+> >>>>> Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+> >>>>> ---
+> >>>>>   .../bindings/interconnect/qcom,x1e80100-rpmh.yaml  | 62 ++++++++++++++++++++++
+> >>>>>   1 file changed, 62 insertions(+)
+> >>>>
+> >>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> >>>
+> >>> And unreviewed as it breaks users:
+> >>> https://krzk.eu/#/builders/102/builds/70/steps/23/logs/warnings__3_
+> >>>
+> >>
+> >> I will just drop these patches for now, i have put them in a separate branch anyway.
+> > 
+> > I think, dropping 'required' clause would be the easiest fix. Or just
+> > wait for Bjorn to pick up the DT changes.
+> 
+> Could be, initially I thought this is actual impact on users, but indeed
+> now I recall that driver prints "info" message and continues. So the
+> binding is not correct.
 
-Pre-existing issues:
-- [High] The `vir_stride` bitfield in `union rga_src_vir_info` is 10 bits, =
-causing silent truncation for valid V4L2 widths.
-- [High] In `rga_open()`, the return value of `rga_setup_ctrls(ctx)` is com=
-pletely ignored. If control setup fails, subsequent code uses a destroyed c=
-ontrol handler and locks a destroyed mutex.
-- [High] An off-by-one error in the bounds check of `fill_descriptors` comb=
-ined with an under-allocation of the descriptor array causes a heap out-of-=
-bounds write of 4 bytes when handling multi-planar formats.
---
+I'd say, the binding was not correct: the hardware has the clocks and
+the requires them to function completely correctly. I think, the problem
+is that we allowed incomplete drivers and incomplete bindings (Without
+QoS support).
 
-commit c43e898ca5762d2604bb3d4b71e3a6c220a67ef8
-Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
-
-media: rockchip: rga: align stride to 4 bytes
-
-Add an alignment setting to rga_hw to set the desired stride alignment.
-As the RGA2 register for the stride counts in word units, the code
-already divides the bytesperline value by 4 when writing it into the
-register. Therefore fix the alignment to a multiple of 4 to avoid
-potential off by one errors due from the division.
-
-> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
-/platform/rockchip/rga/rga-hw.c
-> index 9881c14f908d5..dac3cb6aa17d3 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-> @@ -580,6 +580,7 @@ const struct rga_hw rga2_hw =3D {
->  	.max_width =3D MAX_WIDTH,
->  	.min_height =3D MIN_HEIGHT,
->  	.max_height =3D MAX_HEIGHT,
-> +	.stride_alignment =3D 4,
-
-[Severity: High]
-This is a pre-existing issue, but the vir_stride bitfield in
-union rga_src_vir_info is 10 bits, causing silent truncation for valid V4L2
-widths.
-
-The hardware requires the source stride in 4-byte words, which the driver
-calculates as ctx->in.stride >> 2:
-
-drivers/media/platform/rockchip/rga/rga-hw.c:rga_hw_start() {
-    ...
-	/*
-	 * SRC_VIR_INFO
-	 * note that the step of vir_stride / vir_width is 4 byte words
-	 */
-	src_vir_info.data.vir_stride =3D ctx->in.stride >> 2;
-    ...
-}
-
-For a 1920x1080 image in a 32-bit format (like ARGB32), the stride is 7680
-bytes, which equals 1920 words. However, vir_stride is defined as a 10-bit
-bitfield in union rga_src_vir_info:
-
-drivers/media/platform/rockchip/rga/rga-hw.h:
-union rga_src_vir_info {
-	unsigned int val;
-	struct {
-		/* [0:15] */
-		unsigned int vir_width:15;
-		unsigned int reserved:1;
-		/* [16:25] */
-		unsigned int vir_stride:10;
-		/* [26:31] */
-		unsigned int reserved1:6;
-	} data;
-};
-
-A 10-bit field can only hold values up to 1023. When 1920 is assigned to it,
-it silently overflows and truncates to 896 (1920 & 1023).
-
-This truncated stride is then programmed into the hardware via the
-RGA_SRC_VIR_INFO register. Will this cause the hardware to read from
-incorrect memory offsets for all lines after the first, resulting in severe
-data corruption for common high resolutions like 1080p?
-
-> =20
->  	.start =3D rga_hw_start,
->  	.handle_irq =3D rga_handle_irq,
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
-atform/rockchip/rga/rga.c
-> index bf6bbcbfc869b..d080cb672740b 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -234,10 +234,10 @@ static int rga_open(struct file *file)
->  	ctx->in =3D def_frame;
->  	ctx->out =3D def_frame;
-> =20
-> -	v4l2_fill_pixfmt_mp(&ctx->in.pix,
-> -			    ctx->in.fmt->fourcc, def_width, def_height);
-> -	v4l2_fill_pixfmt_mp(&ctx->out.pix,
-> -			    ctx->out.fmt->fourcc, def_width, def_height);
-> +	v4l2_fill_pixfmt_mp_aligned(&ctx->in.pix, ctx->in.fmt->fourcc,
-> +				    def_width, def_height, rga->hw->stride_alignment);
-> +	v4l2_fill_pixfmt_mp_aligned(&ctx->out.pix, ctx->out.fmt->fourcc,
-> +				    def_width, def_height, rga->hw->stride_alignment);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but in rga_open(), the return
-value of rga_setup_ctrls(ctx) is completely ignored.
-
-If rga_setup_ctrls() encounters an error (e.g., -ENOMEM during
-v4l2_ctrl_handler_init), it handles its own failure by calling
-v4l2_ctrl_handler_free(&ctx->ctrl_handler) before returning the error code.
-This free operation invokes mutex_destroy(&ctx->ctrl_handler._lock).
-
-However, rga_open() completely ignores the returned error code and proceeds:
-
-drivers/media/platform/rockchip/rga/rga.c:rga_open() {
-    ...
-	rga_setup_ctrls(ctx);
-
-	/* Write the default values to the ctx struct */
-	v4l2_ctrl_handler_setup(&ctx->ctrl_handler);
-
-	ctx->fh.ctrl_handler =3D &ctx->ctrl_handler;
-	mutex_unlock(&rga->mutex);
-    ...
-}
-
-It immediately calls v4l2_ctrl_handler_setup(&ctx->ctrl_handler), which
-inadvertently calls mutex_lock() on the destroyed mutex. Furthermore, it
-assigns ctx->fh.ctrl_handler =3D &ctx->ctrl_handler, exposing the broken,
-destroyed handler to userspace ioctls like VIDIOC_S_CTRL.
-
-Could this result in a reliable use-after-destroy vulnerability if a user c=
-an
-induce out-of-memory conditions during device open?
-
-[ ... ]
-
-> @@ -393,7 +393,8 @@ static int vidioc_try_fmt(struct file *file, void *pr=
-iv, struct v4l2_format *f)
->  		fmt =3D &hw->formats[0];
-> =20
->  	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frms=
-ize);
-> -	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->heig=
-ht);
-> +	v4l2_fill_pixfmt_mp_aligned(pix_fmt, fmt->fourcc,
-> +				    pix_fmt->width, pix_fmt->height, hw->stride_alignment);
-
-[Severity: High]
-This is a pre-existing issue, but an off-by-one error in the bounds check of
-fill_descriptors() combined with an under-allocation of the descriptor array
-causes a heap out-of-bounds write of 4 bytes when handling multi-planar
-formats.
-
-In rga_buf_init(), the DMA descriptor array is allocated based on the total
-size of the frame:
-
-drivers/media/platform/rockchip/rga/rga-buf.c:rga_buf_init() {
-    ...
-	n_desc =3D DIV_ROUND_UP(f->size, PAGE_SIZE);
-
-	rbuf->n_desc =3D n_desc;
-	rbuf->dma_desc =3D dma_alloc_coherent(rga->dev,
-					    rbuf->n_desc * sizeof(*rbuf->dma_desc),
-					    &rbuf->dma_desc_pa, GFP_KERNEL);
-    ...
-}
-
-However, videobuf2 allocates each plane independently and pads each plane's
-allocation to a page boundary. This means the sum of pages in the scatterli=
-st
-tables across all planes can exceed the total allocated descriptors (e.g., =
-if
-two planes are 4098 bytes each, they require 2 pages each (4 total), but
-f->size is 8196 bytes, so n_desc is only 3).
-
-When rga_buf_prepare() iterates through the planes and calls
-fill_descriptors(), it passes the remaining capacity as max_desc. Due to an
-off-by-one error in fill_descriptors() (if (n_desc > max_desc) instead of >=
-=3D),
-the loop permits writing exactly one element past max_desc before returning
--EINVAL:
-
-drivers/media/platform/rockchip/rga/rga-buf.c:fill_descriptors() {
-    ...
-	for_each_sgtable_dma_page(sgt, &iter, 0) {
-		if (n_desc > max_desc)
-			return -EINVAL;
-		addr =3D sg_page_iter_dma_address(&iter);
-		tmp->addr =3D lower_32_bits(addr);
-		tmp++;
-		n_desc++;
-	}
-    ...
-}
-
-If the remaining capacity is 1 but the scatterlist table provides 2 pages,
-the loop writes to tmp[0] (valid) and tmp[1] (out-of-bounds). Can this resu=
-lt
-in a reliable 4-byte heap buffer overflow?
-
->  	pix_fmt->field =3D V4L2_FIELD_NONE;
-> =20
->  	return 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-spu-rga3-v=
-7-0-3f33e8c7145f@pengutronix.de?part=3D15
+-- 
+With best wishes
+Dmitry
