@@ -1,142 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D774028F9;
-	Wed, 20 May 2026 18:55:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910832701C4;
+	Wed, 20 May 2026 18:58:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779303337; cv=none; b=r+21NpjPOyzhfokzBfcVHbO9BLpzlCI7H9M4sPQ6a2okdZA9dfbm7PWbbzTeOCMeZ2UdJyCr3JGKFKA1En7zrhWEcchadXzRgZxMQ45RAkkdWlWmm0sBOH0qSDtazEdKaB1g+tgquNFs98KGB/mhJA1yj6SaD+w3eYrCkoCTeho=
+	t=1779303514; cv=none; b=eWwV1D46arI6qJ+egC3mmKqbKwBZxj8JxepzmxVBL94ZViRYGTJPlJ0XumY3XXbDFbwkDHTeuGH+mcpNPbnmoSPHLQGDNyu+KNbqMQgLO2NLtxHUyGjX2gxt1P9pPcg3lXLnh9ekRmlATEVm8L+QTZN/p+NpOWcJe38wPTVjhYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779303337; c=relaxed/simple;
-	bh=aormWLo69fhvzHrVWnIs6E0MHnDckE150hcpfR5D78s=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=IyuTxem2mf3G3ipkdogg14wIl4IqeuCAPcNLN+384c3X1j0mcBoeW8wAy0YbT7J8soJBD6ocFbGTGSLEfz050r5E2pr4+96QVCG+nfWMPLp9qJM7ENUS5MyYVMeOTf7oobEihtKBHcbpWhaRHKWtV07brk7Nm1awLzcJ9d/Kkk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBYFiAXx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779303514; c=relaxed/simple;
+	bh=g8ARzZZplRFCCw5mAhE4rnYD32JwcQ9twUtXcgPIOoc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tvkoxdSsd+0pPxMA26xKvs5uCqlMHpalmRaff+eXm+wRo7+x8DSjeVzRM6dBBxksdEHpVtoyFX2B6/KxWK8W8bqK7XbEU/on6tbt/0S7yh54kwf6jGYWZWXBxLsqXeqlgBeHdEPXqAx2bXldchsYW4K7KrYBj/wR8ZmbUo8m8SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=To391V5a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBYFiAXx"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9BAF21F00894;
-	Wed, 20 May 2026 18:55:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="To391V5a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8F91F000E9;
+	Wed, 20 May 2026 18:58:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779303335;
-	bh=39UG6z3xSkfALd7iFK2MrFvSVeHM27TADIbMrVcBmWU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=EBYFiAXx0OCVsyM1J/eRY73szIoOfP85uCJFVPjKqdm7S5vsfcLScQOznPRxobUsW
-	 7vGl9qe439P94ZDvGqu9osOzTC551N/8TGC7knUso1/HPgeIJvTj+5BJ3KZvt7TgbM
-	 fbkwnHaReeN0NSWcnOddQVxkpbAzmE8LJH+iZFTO9y9JhqAg3q4rYxoUKq4wOVeztb
-	 pTzB8xcNOyttKs0MpMYCGm0TM7o0uH/LgTeXFCXCad7zrhVIJfMjziIQQhPYf0wo3y
-	 LwrL32e5PFnokVZoytxFkN+ht1ApxcP+nZMUSIkqYQd2b4GKg/C0JDywlr0BcHW25J
-	 eCrpZw+foDy7w==
-Date: Wed, 20 May 2026 13:55:34 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
-	naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH v8 1/3] PCI: mediatek: Use actual physical address
- instead of virt_to_phys()
-Message-ID: <20260520185534.GA72799@bhelgaas>
+	s=k20260515; t=1779303513;
+	bh=FxJ/JthfCMKn/1Vz2RVfV2EGcIa2+pZDdNovaeFcIBI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=To391V5alUIcyijicmPW8ZT+NSY73HPuWaUBC9CezoIFYve7RYd5SIQG0knFbR2k8
+	 ndKICDdsSjh+C2tHrruoVQOGI1m+SS9ie6b4WQaiujqH4DEYOUqH6VGRpm8ccOa0j7
+	 kd7bDya/TSJR31IRWhai6goUW6WCPhrgpXGqy7IUB7za9haDtuunBPeheQJuBNOTSV
+	 Xubxzkst2rkf/iec8sUfwfuRh8QNzMyFqtqC7451/3+2SZOLr9bUWW8m9Y+IT51P1W
+	 0xLJ034AbBZAuk0JxGU1ePTIsxwtsiyi7657rT8YnStckT4qDmo9vN/hFCGk2QkDoK
+	 Zl/Shf2evXPIg==
+Date: Wed, 20 May 2026 19:58:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v1 3/4] iio: adc: ltc2378: Enable high-speed data
+ capture
+Message-ID: <20260520195823.43b9ff2f@jic23-huawei>
+In-Reply-To: <ag3wB-dAHnm67kZu@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1779117444.git.marcelo.schmitt1@gmail.com>
+	<580ce8e03cdbda8ec20fed2e26f2226872ffcef3.1779117444.git.marcelo.schmitt1@gmail.com>
+	<20260520172740.783c8866@jic23-huawei>
+	<ag3wB-dAHnm67kZu@debian-BULLSEYE-live-builder-AMD64>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260520183827.908243-2-cjd@cjdns.fr>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, May 20, 2026 at 06:38:25PM +0000, Caleb James DeLisle wrote:
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> 
-> The driver previously used virt_to_phys() on the ioremapped register base
-> (port->base) to compute the MSI message address. Using virt_to_phys() on an
-> IO mapped address is incorrect because it expects a kernel virtual address.
-> 
-> To fix it, store the physical start of the I/O register region in
-> mtk_pcie_port->phys_base and use it to build the MSI address. This replaces
-> the incorrect virt_to_phys() usage and ensures MSI addresses are generated
-> correctly.
-> 
-> Fixes: 43e6409db64d ("PCI: mediatek: Add MSI support for MT2712 and MT7622")
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
-> ---
->  drivers/pci/controller/pcie-mediatek.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-> index 75722524fe74..c503fbd774d0 100644
-> --- a/drivers/pci/controller/pcie-mediatek.c
-> +++ b/drivers/pci/controller/pcie-mediatek.c
-> @@ -175,6 +175,7 @@ struct mtk_pcie_soc {
->  /**
->   * struct mtk_pcie_port - PCIe port information
->   * @base: IO mapped register base
-> + * @phys_base: Physical address of the I/O register base region
->   * @list: port list
->   * @pcie: pointer to PCIe host info
->   * @reset: pointer to port reset control
-> @@ -196,6 +197,7 @@ struct mtk_pcie_soc {
->   */
->  struct mtk_pcie_port {
->  	void __iomem *base;
-> +	phys_addr_t phys_base;
->  	struct list_head list;
->  	struct mtk_pcie *pcie;
->  	struct reset_control *reset;
-> @@ -405,7 +407,7 @@ static void mtk_compose_msi_msg(struct irq_data *data, struct msi_msg *msg)
->  	phys_addr_t addr;
->  
->  	/* MT2712/MT7622 only support 32-bit MSI addresses */
-> -	addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
-> +	addr = port->phys_base + PCIE_MSI_VECTOR;
+On Wed, 20 May 2026 14:31:51 -0300
+Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
 
-This doesn't look right because the MSI address is a PCI bus address,
-and port->phys_base is a CPU physical address.  Often a PCI bus
-address is the same as the CPU physical address, but not always.
-I think the DT 'ranges' property tells you the translation.
-
->  	msg->address_hi = 0;
->  	msg->address_lo = lower_32_bits(addr);
->  
-> @@ -520,7 +522,7 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
->  	u32 val;
->  	phys_addr_t msg_addr;
->  
-> -	msg_addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
-> +	msg_addr = port->phys_base + PCIE_MSI_VECTOR;
->  	val = lower_32_bits(msg_addr);
->  	writel(val, port->base + PCIE_IMSI_ADDR);
->  
-> @@ -953,6 +955,7 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
->  	struct mtk_pcie_port *port;
->  	struct device *dev = pcie->dev;
->  	struct platform_device *pdev = to_platform_device(dev);
-> +	struct resource *res;
->  	char name[20];
->  	int err;
->  
-> @@ -961,7 +964,14 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
->  		return -ENOMEM;
->  
->  	snprintf(name, sizeof(name), "port%d", slot);
-> -	port->base = devm_platform_ioremap_resource_byname(pdev, name);
-> +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
-> +	if (!res) {
-> +		dev_err(dev, "failed to get port%d base\n", slot);
-> +		return -EINVAL;
-> +	}
-> +
-> +	port->phys_base = res->start;
-> +	port->base = devm_ioremap_resource(&pdev->dev, res);
->  	if (IS_ERR(port->base)) {
->  		dev_err(dev, "failed to map port%d base\n", slot);
->  		return PTR_ERR(port->base);
-> -- 
-> 2.39.5
+> > > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> > > index 70fec8e3e891..b5368ee783f7 100644
+> > > --- a/drivers/iio/adc/Kconfig
+> > > +++ b/drivers/iio/adc/Kconfig
+> > > @@ -944,6 +944,7 @@ config LTC2378
+> > >  	depends on SPI
+> > >  	depends on GPIOLIB || PWM
+> > >  	select IIO_BUFFER
+> > > +	imply LTC2378_OFFLOAD_BUFFER
+> > >  	help
+> > >  	  Say yes here to build support for Analog Devices LTC2378-20 and
+> > >  	  similar analog to digital converters.
+> > > @@ -951,6 +952,17 @@ config LTC2378
+> > >  	  This driver can also be built as a module. If so, the module will
+> > >  	  be called ltc2378.
+> > >  
+> > > +config LTC2378_OFFLOAD_BUFFER
+> > > +	bool "Offloaded data capture with LTC2378"
+> > > +	depends on SPI && LTC2378
+> > > +	depends on SPI_OFFLOAD=y
+> > > +	depends on PWM=y
+> > > +	depends on SPI_OFFLOAD_TRIGGER_PWM=y
+> > > +	depends on IIO_BUFFER_DMA=y
+> > > +	depends on IIO_BUFFER_DMAENGINE=y  
+> > 
+> > why do all these have to be built in?  In general I think we need to jusitfy
+> > why this driver needs to work on systems with out this stuff being built.
+> > I.e. why do we need the separate optional file at all?  
 > 
+> Hi Jonathan, thank you for your review.
+> 
+> I've applied fixes to all issues reported by sashiko, except for Kconfig
+> configuration (see below) and the is_visible() thing I'm still working on.
+> 
+> My intent with this design choice was to keep chip intrinsic dependencies
+> separate from SPI offload dependencies. The indented benefit is to enable using
+> the device without having to enable SPI_OFFLOAD (which is boolean and might not
+> be supported on all platforms). The offload feature is indeed highly desirable
+> hence the imply on the main driver Kconfig entry. The other symbols are tristate
+> so, if we keep this approach, will drop =y.
+
+I can see there will be platforms where SPI_OFFLOAD doesn't make sense, but 
+are there cases where it can't be built anyway?  It's not that big and doesn't
+seem to have dependencies beyond those of SPI.
+> 
+> The separate optional file is part of the push for dependency separation. It
+> helps avoid #ifdef in c code. If the proposal is not far from something
+> acceptable, I'd like to have another try of making it work. Still, it's arguable
+> that the real interest is only on supporting the offload thing. Also, since I
+> don't have any request to support these without offload, I think it will also be
+> okay to have everything combined into a single driver. 
+
+I don't mind the separate file, but I do mind the need for so much to be built
+in rather than modular. So I think the Kconfig needs some changes rather than
+it being a fundamental problem.
+
+Jonathan
+
+> 
+> Will follow all the other suggestions.
+> 
+> >   
+> > > +	help
+> > > +	  Say yes here to build support for high speed data capture with LTC2378
+> > > +
+> > >  config LTC2471
+> > >  	tristate "Linear Technology LTC2471 and LTC2473 ADC driver"
+> > >  	depends on I2C
+> > > diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> > > index 1814fb78dde3..2fa5dce0ceea 100644
+> > > --- a/drivers/iio/adc/Makefile
+> > > +++ b/drivers/iio/adc/Makefile
+> > > @@ -82,6 +82,7 @@ obj-$(CONFIG_LPC18XX_ADC) += lpc18xx_adc.o
+> > >  obj-$(CONFIG_LPC32XX_ADC) += lpc32xx_adc.o
+> > >  obj-$(CONFIG_LTC2309) += ltc2309.o
+> > >  obj-$(CONFIG_LTC2378) += ltc2378.o
+> > > +obj-$(CONFIG_LTC2378_OFFLOAD_BUFFER) += ltc2378-offload-buffer.o  
+> > 
+> > Hmm. This is odd. The driver can be modular but not this and it's build seperately
+> > rather than as part of the module. I think these bit needs a redesign.
+> > We definitely want this extra support to be part of the module.  See how something
+> > like the ADIS IMU library in iio/imu/Makefile is done.  
+> 
+> Will check this out too.
+> 
+> >   
+> > >  obj-$(CONFIG_LTC2471) += ltc2471.o
+> > >  obj-$(CONFIG_LTC2485) += ltc2485.o
+> > >  obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o  
+> 
+
