@@ -1,162 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFF3346A1F
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 19:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0C83546C6;
+	Wed, 20 May 2026 19:58:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779306722; cv=none; b=i+MBw6fVTiS4GXRAgc6FROyfEoE92BOVFHxrs11+RBX4Pu+CHypGtywTnjsR20vNGdL17oHqiQkKNYzxfmHzDFj9PdonFqGk8bK1O2HUjI/Xb1AMojeQmjjif4dmxlvNsl3n4FUyhaoc7+4FSqN/SP5cTRhvjHRkNV1iszhl1TU=
+	t=1779307088; cv=none; b=UjptcC49YPWRKzTK8Kc1ZNOixJCTnMBrYT5crKnUA2yWs9M3E4H2l7ahk8FOXAsrycVtBO7+yX6KLfA9Th6eCiUJOeG6gVc8EBH/4t8ZQ37csdrm/l5KjE3kkJfvmqO4aN7gu0sIGDEUAEF+j6p7/DHkvTUFPJOZzpRBTdR5bWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779306722; c=relaxed/simple;
-	bh=ZxH6qDDxliBSFL1kA4dNCgc0NySsg1Wg2gDHFLWR590=;
+	s=arc-20240116; t=1779307088; c=relaxed/simple;
+	bh=LnCgVsSog/RePlvNEz5hW6AflVhww4QcAKkTWCDiTCo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G+xDDP9TN0q93s1YxEW0PW8vIrs0UC3ta1Eg5PpimmrHzuIU4TgbVzIiUGId1qeRC77rfM0NPkhbRARuh2Wn1y1JMeqswSDAYSv0GoVkXKcc84xOdde9r/F27KKNlNP/nUN6TSPwp6xzhjgqjcW89XmRsjijqMC4hOkT/N1gUjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wpuh8+ZI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bcX+Mz3elvIh6MMjqCKnC93prA2hL7fUUjgGLKfDrRtG18mH68l9s/TmcDboPLw/2lsYGvTD9LWzDqmkt9SFbfg3I2XTu3zWuyANDHmzGyNB2ZYNuCoMfD8NRKowu84bG6hEUFhlIcT5AG8bgK5eqofK6gG7Vf90+r1FK7MbYqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EA5aIBsC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wpuh8+ZI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578AA1F000E9;
-	Wed, 20 May 2026 19:51:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EA5aIBsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4726A1F000E9;
+	Wed, 20 May 2026 19:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779306719;
-	bh=Sr700ZLkhK3DU+BHdplyKh4fOsWZkqc+eF3VoCNCO78=;
+	s=k20260515; t=1779307086;
+	bh=u/G55Pcu45bwHkBEVJ1hiBQqzf/8UxRbPrFh0DZqerk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wpuh8+ZI35IFIiV9dQ1wKZUnY3OsYHVZg9LYyBd9YOEO2nPBLJ59PV4zIUKzyc88t
-	 YMVR75EgJjDMZq8IAoOYJHNiwgYwS++S1bzdI0oa0VP8b0786/0itWMwtojrPs4Iju
-	 PmAy1SNPjMDMCEiow3AEiEVs1qzpvD8EptNMmeFQ1+JC+UNmweHmHgx6T8f1VMfzVg
-	 Yah7DyFXQb5NpEQ9yeYGtNpcawO4IWURXTqI3KsI70oCZNx/4wz8RYmo+2kI7bcjvs
-	 P197tjXiYaS1n8A5VXGj7MbojOYtMTLWalWMycXHQ7DQCniygfNnTuw6kf66IAqn2L
-	 T5YsitrzJDDDg==
+	b=EA5aIBsC5w3jlFdpegQAwn+LUrVvCX0WsRvg+GUaRsqc2DSLX9JiRmO9vCopliQo6
+	 lenjN/7dIfxkgoPvCIc1WKc1GFqKtYHj6aTH90QSrPKTCxnYTuIGaJP696AfD8jQr8
+	 BWPSaAYpnrQ3gqtH4WFCuMeR3umfFYfvgM3XQrsvOUVJ54KVDS0hv73y/FT2tTMelJ
+	 GBoiyy7WjRGptfHnFEB2WyOuHrvldiM8kmuhMPzss6a9wxaopInUekhmv6jYXaaM+d
+	 uY/KHixnrb87+Iulyoj2r9puTAAKEenqSPh0yhn7O4iU6mbYF416tvtbnFuVXUkefB
+	 czF7OKzgSYbeA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/6] phy: realtek: usb2: add support for RTL9607C
- USB2 PHY
+Subject: Re: [PATCH v8 3/3] PCI: mediatek: Add support for EcoNet EN7528 SoC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rustam Adilov" <adilov@disroot.org>
-Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
-In-Reply-To: <20260520175728.720877-6-adilov@disroot.org>
-References: <20260520175728.720877-6-adilov@disroot.org>
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260520183827.908243-4-cjd@cjdns.fr>
+References: <20260520183827.908243-4-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 19:51:58 +0000
-Message-Id: <20260520195159.578AA1F000E9@smtp.kernel.org>
+Date: Wed, 20 May 2026 19:58:05 +0000
+Message-Id: <20260520195806.4726A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Link retraining is performed after device enumeration and driver b=
+inding, causing a severe race condition.
+- [High] Iterating the PCI bus devices list without holding the pci_bus_sem=
+ read lock.
+- [Medium] Early return in mtk_pcie_retrain() aborts retraining of all rema=
+ining root ports if a single port fails.
+
 Pre-existing issues:
-- [High] Missing error handling for of_iomap() leads to NULL pointer derefe=
-rence
-- [High] Incorrect pointer arithmetic on void __iomem * causes unaligned me=
-mory accesses
-- [High] Resource leak of I/O memory mappings
+- [High] Freeing port in error paths causes a Use-After-Free because the ac=
+tive IRQ domain's host_data still points to it.
 --
 
-commit 45e50610a9cf3e4d1ba9824c0450199938805d5b
-Author: Rustam Adilov <adilov@disroot.org>
+commit c1c3bb9bcba6bb8a070037578912a2f02c381591
+Author: Caleb James DeLisle <cjd@cjdns.fr>
+Subject: PCI: mediatek: Add support for EcoNet EN7528 SoC
 
-phy: realtek: usb2: add support for RTL9607C USB2 PHY
+This commit adds support for the PCIe controller present on the EcoNet
+EN7528 (and EN751221) SoCs. These SoCs feature a mix of Gen1 and Gen2 ports,
+and require a manual link retraining after startup for Gen2 ports to functi=
+on.
 
-This commit adds support for the USB2 PHY of RTL9607C-based SoCs. It includ=
-es
-macros, a PHY config structure, and logic to clear a "force host disconnect"
-bit before writing parameters.
+> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/control=
+ler/pcie-mediatek.c
+> index c503fbd774d09..4e4d4b1559f71 100644
+> --- a/drivers/pci/controller/pcie-mediatek.c
+> +++ b/drivers/pci/controller/pcie-mediatek.c
 
-> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy=
--rtk-usb2.c
-> index 16c5fc3191dec..69f0f5279b5ef 100644
-> --- a/drivers/phy/realtek/phy-rtk-usb2.c
-> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
 [ ... ]
-> @@ -600,6 +617,19 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, =
-int index)
->  		goto do_toggle;
->  	}
+
+> @@ -755,6 +766,132 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie=
+_port *port)
+>  	return 0;
+>  }
 > =20
-> +	if (phy_cfg->force_host_disconnect) {
-> +		/* disable force-host-disconnect */
-> +		void __iomem *vstatus =3D phy_reg->reg_wrap_vstatus;
-> +		u32 temp;
-> +
-> +		temp =3D phy_reg->read(vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+> +static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
+> +{
+
+[ ... ]
+
+> +	/* 100ms timeout value should be enough for Gen1/2 training */
+> +	err =3D regmap_read_poll_timeout(pcie->cfg, EN7528_LINKUP_REG, val,
+> +				       !!(val & link_mask), 20,
+> +				       PCI_PM_D3COLD_WAIT * USEC_PER_MSEC);
+> +	if (err) {
+> +		dev_err(pcie->dev, "EN7528: port%d link timeout\n", port->slot);
+> +		return -ETIMEDOUT;
+> +	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but missing error handling for
-of_iomap() in parse_phy_data() could lead to a NULL pointer dereference her=
-e.
+This is a pre-existing issue, but returning an error here can cause a
+use-after-free crash.
 
-drivers/phy/realtek/phy-rtk-usb2.c:parse_phy_data() {
-    ...
-    phy_parameter->phy_reg.reg_wrap_vstatus =3D of_iomap(np, 0);
-    phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
-    ...
-}
+When a port fails to start up (for example, if the slot is empty and link
+training times out), the caller frees the port structure by calling
+mtk_pcie_port_free(). However, mtk_pcie_port_free() does not call
+irq_domain_remove().
 
-If the mapping fails, phy_reg->reg_wrap_vstatus will be NULL.
+Since mtk_pcie_init_irq_domain() sets the newly allocated port structure
+as the IRQ domain's host_data, the domain remains registered with a
+dangling pointer.
 
-Does this new code risk dereferencing a NULL vstatus pointer if the device
-tree is invalid or memory is exhausted?
+Could we make sure the IRQ domain is properly cleaned up in error paths?
+
+[ ... ]
+
+> +static int mtk_pcie_retrain(struct device *dev, struct pci_host_bridge *=
+host)
+> +{
+> +	struct pci_dev *rp;
+> +	int ret =3D -ENOENT;
+> +	u16 lnksta =3D 0;
+> +	u32 speed;
+> +
+> +	/* Should already have been warned about during startup_port */
+> +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK))
+> +		return 0;
+> +
+> +	for_each_pci_bridge(rp, host->bus) {
 
 [Severity: High]
-This is a pre-existing issue, but does the driver leak the I/O memory mapped
-by of_iomap()?
+Does iterating the PCI bus devices list here require holding the pci_bus_sem
+read lock?
 
-Since devm_of_iomap() is not used and there are no corresponding iounmap()
-calls anywhere in the driver, could this exhaust I/O memory upon probe
-failure or driver unbinding?
+Since mtk_pcie_retrain() is called after pci_host_probe() completes, the PCI
+bus is live and devices are exposed to the system. Concurrent operations li=
+ke
+sysfs hotplug events could modify the host->bus->devices list during traver=
+sal.
+
+Should we hold down_read(&pci_bus_sem) or use pci_walk_bus() to avoid a race
+condition?
+
+> +		if (pci_pcie_type(rp) !=3D PCI_EXP_TYPE_ROOT_PORT)
+> +			continue;
+> +
+> +#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
+> +		ret =3D pcie_retrain_link(rp, true);
+> +#endif
+> +
+> +		if (ret)
+> +			return dev_err_probe(&rp->dev, ret,
+> +					     "failed to retrain port\n");
+
+[Severity: Medium]
+Will this early return abort the retraining process for all remaining root
+ports?
+
+If pcie_retrain_link() fails on the first port, we immediately break out of
+the loop.
+
+Should this log the error and use continue instead, so that a failure on one
+independent slot does not prevent the others from retraining successfully?
 
 > +
-> +		temp &=3D ~PHY_9607_FORCE_DISCONNECT_BIT;
-> +		phy_reg->write(temp, vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+> +		pcie_capability_read_word(rp, PCI_EXP_LNKSTA, &lnksta);
+> +		speed =3D lnksta & PCI_EXP_LNKSTA_CLS;
 > +
-> +		usleep_range(10000, 11000);
+> +		pci_info(rp, "link retrained, speed %s\n",
+> +			 pci_speed_string(pcie_link_speed[speed]));
+> +
 > +	}
 > +
->  	/* Set page 0 */
->  	phy_data_page =3D phy_cfg->page0;
->  	rtk_phy_set_page(phy_reg, 0);
+> +	return 0;
+> +}
+
 [ ... ]
-> @@ -1374,6 +1404,33 @@ static const struct phy_cfg rtd1315e_phy_cfg =3D {
->  	.write =3D rtk_usb2phy_write,
->  };
+
+> @@ -1159,6 +1296,13 @@ static int mtk_pcie_probe(struct platform_device *=
+pdev)
+>  	if (err)
+>  		goto put_resources;
 > =20
-> +static const struct phy_cfg rtl9607_phy_cfg =3D {
-> +	.page0_size =3D MAX_USB_PHY_PAGE0_DATA_SIZE,
-> +	.page0 =3D { [0] =3D {0xe0, 0x95},
-> +		   [4] =3D {0xe4, 0x6a},
-> +		  [12] =3D {0xf3, 0x31}, },
-> +	.page1_size =3D MAX_USB_PHY_PAGE1_DATA_SIZE,
-> +	.page1 =3D { [0] =3D {0xe0, 0x26}, },
-> +	.page2_size =3D MAX_USB_PHY_PAGE2_DATA_SIZE,
-> +	.page2 =3D { [7] =3D {0xe7, 0x33}, },
-> +	.num_phy =3D 1,
+> +	/*
+> +	 * Ignore error because pci_host_probe() was already called, and in any
+> +	 * case it is possible that the port will still work as Gen1.
+> +	 */
+> +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN)
+> +		mtk_pcie_retrain(dev, host);
+> +
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the pointer arithmetic
-incorrectly misalign the base pointer when num_phy > 1?
+Can retraining the link at this stage cause issues with actively bound endp=
+oint
+drivers?
 
-drivers/phy/realtek/phy-rtk-usb2.c:parse_phy_data() {
-    ...
-    for (index =3D 0; index < rtk_phy->num_phy; index++) {
-        ...
-        phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
-    ...
-}
+By the time pci_host_probe() returns, devices have already been discovered,
+exposed to the system, and their drivers bound. Retraining the PCIe link fo=
+rces
+it into recovery, which could stall transactions or temporarily drop the li=
+nk.
 
-Since of_iomap() returns a void __iomem *, adding index increments the
-pointer by exactly index bytes.
+If an endpoint driver (like NVMe or Wi-Fi) is actively performing MMIO or D=
+MA,
+could this cause unhandled exceptions, AER errors, or initialization failur=
+es?
 
-Could this cause an unaligned memory access exception (leading to a kernel
-panic) or fail to map the correct register index from the device tree?
+Would it be safer to retrain before devices are added to the system (e.g.,
+before pci_bus_add_devices())?
 
-> +	.check_efuse_version =3D CHECK_EFUSE_V2,
-> +	.efuse_dc_driving_rate =3D EFUS_USB_DC_CAL_RATE,
-> +	.dc_driving_mask =3D 0x1f,
-[ ... ]
+>  	return 0;
+> =20
+>  put_resources:
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520175728.7208=
-77-1-adilov@disroot.org?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520183827.9082=
+43-1-cjd@cjdns.fr?part=3D3
