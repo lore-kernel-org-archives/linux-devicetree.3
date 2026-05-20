@@ -1,70 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E780B37B402;
-	Wed, 20 May 2026 07:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84204382294;
+	Wed, 20 May 2026 07:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779263090; cv=none; b=HEoUOxmecS0StPykdlMXhd7Fx3l9aVgL3RYoAgjibXzVz9TBEbpgHZgbM9H1Vc8VTJ8V7NUNJz5bUbGnTzH+Jqi9IZ7kx5PYHbOJVano+Jj14TI4qtRnaoyQiGqu56gWYdUhvawj3bxm0BSu2jEiedMaMiaYNJLV89iXCxrattc=
+	t=1779263141; cv=none; b=XLc1+1X4TTqCZkDl4CKOE0OKUP8uU4Pr/ljQLAIukUsz3ZjLgk6WNp81SP4Vi1Ao7NMVx/XB0P1iZqnwwqTTpbQDgmb/MZGguCYZXfB+E8WuTKOBKS5+mrwKtWHD6ZnSRM4Fa2JJGZOujAEfvo6YodNXSkZwoMd3+u6NAhkWMb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779263090; c=relaxed/simple;
-	bh=08yeeQvj4V3fuaT4GbgOATuuKhdJT2iL7G8eeFM2SU8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MEqTdUMX/JIrW9vECmyjOIvbGExafp2fXDjIoYG2+WYySv0X2V+KMR8esodzTQZ84sLY512pS3IRRsl4aL68hX3/AuPIBefCD/HxgL6E92mu6Muq7zeEs/CTH+Ru5+aAbu9NUB1YQEWDK11tA09gCMN8OtGsi1SY7WAt5D9ZRzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsZ7v5a0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779263141; c=relaxed/simple;
+	bh=7m4whd48nEkefMmqFxlybBMpq1Yg2DWG5MrPOu4aHuw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I28hj8WrtECTi1SwcTF8o+XWa/2iEDmEKO+tu+3A6tbD4MEimOurxicJGS5XhHLdq+GvGXUsxfK4+G1x8IqrhE4udmGDDasexUdPgAe59+mBe+UXx2D06unvxBrlvBdRhgYSloEsLFHAPZ0ygd5kJNCv9G2MYgoBemw3EfiZsS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=ZOYepXhz; arc=none smtp.client-ip=212.227.126.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsZ7v5a0"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EECCF1F000E9;
-	Wed, 20 May 2026 07:44:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779263088;
-	bh=jX4ff2FUMmJ9PXJW9Z0YTCF6m5Cjwnu9krskjdHWtGk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GsZ7v5a0unr6EJW75+hNwGqNhLytOD05dLqEUWb7N3/N/N6rqP60xAYP54BC0SBPG
-	 KSeehv8MG2nPTmKk2i2fdsvc5fyX8MeX2+kK1mqyb5AYKU5c12QvUcIWKwqT9OkOsP
-	 SNUtRUJL4SgqYgJ9COCFaAKVRNf7E2+azOJeydPIk6iFOK8G62QRJq+6jPsT4ND96+
-	 KMRvQNylFbSSe0QLSvkMyjPg9d1uZc9MIU71JdUPpyZ0vtFQfxNVVLlmtie1Brsxry
-	 MXZf7TdEwgvVN259+zhSDgjnOw+XaNoxsy1o7QMt/nZBfBosCqnTIP59De3M5gG1vo
-	 +soSXIcMg6/og==
-Date: Wed, 20 May 2026 09:44:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	zhaomeijing@lixiang.com, robh@kernel.org, saravanak@kernel.org
-Subject: Re: [PATCH v2 1/3] of: reserved_mem: avoid unnecessary memory
- allocation when __reserved_mem_check_root() fails
-Message-ID: <20260520-cuddly-imperial-bison-ec3c4e@quoll>
-References: <20260519082427.4181476-1-chenwandun@lixiang.com>
- <20260519082427.4181476-2-chenwandun@lixiang.com>
+	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="ZOYepXhz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=oldschoolsolutions.biz; s=s1-ionos; t=1779263124; x=1779867924;
+	i=jens.glathe@oldschoolsolutions.biz;
+	bh=7m4whd48nEkefMmqFxlybBMpq1Yg2DWG5MrPOu4aHuw=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=ZOYepXhzxdPUwHlD3IDIiAhQZMYO5VbYUHqZ1QOF6ucYugNdzREY6phfTs5I4mIS
+	 eYOdU5XPav7I4s/Ecup/QSMEy3s3w4bgS/URHm5cuBz8rv4hle/9BlCa1+VTmvnzU
+	 cNxH8F5mRP4XbvUDsycpXO+/lsI0iwr6kHecrUJw3BlBrxgDrOnni5sv3BJ9zXA0e
+	 Bi3F2l33MxAf+6Kd5No0HO4TmIIynfDs5K5v4QzuDylqWsgZwjzwut2erCiI9YOX7
+	 qeUcu0CyozvoqkYKe4eKxVMownqkr/reIiQXeOZd2VsTl1dbLU3lMjBcVz7pfeqB0
+	 3CTVU35+hpymuYY4oQ==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
+ [212.227.15.167]) with ESMTPSA (Nemesis) id 1Ml6i4-1x4PUW1zJc-00mpIy; Wed, 20
+ May 2026 09:45:24 +0200
+Message-ID: <ec4d11b5-7a82-4e7f-bab6-290d1055f1d8@oldschoolsolutions.biz>
+Date: Wed, 20 May 2026 09:45:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260519082427.4181476-2-chenwandun@lixiang.com>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: correct usb phy power supply
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xilin Wu <sophon@radxa.com>
+References: <20250110092326.167575-1-mitltlatltl@gmail.com>
+ <e94318be-1584-4e4d-8f92-99df8a284dfe@oldschoolsolutions.biz>
+ <CAH2e8h6skog5P6hPc_DkVpJzR1Wj3s7j8jx3vMcRyCn0+sYqCA@mail.gmail.com>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <CAH2e8h6skog5P6hPc_DkVpJzR1Wj3s7j8jx3vMcRyCn0+sYqCA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:+R5R84FRyQ1rgInsgvZ7tldbeDTH4RVJEekhSNO3QvSHwQ8vckl
+ tj+RoYcZwvYfqcpRXU1DQE6xdE5UXi6AOClaBgCudlJ2WndCAoPREDSKktLBhiDeVeUulms
+ L1cFqSoUtIXvUftv5DfWaTenbZUxek4oLDP+VNGBted0e2cwDJWlmFZSxJC0RUoYkB1az1j
+ uabSJiy33Ulkh8NF1Q6Qg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:SJXqJghJJz4=;/ndlRhWkDxq1Rdz/+3yvZZ0bDpX
+ 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
 
-On Tue, May 19, 2026 at 04:24:25PM +0800, Wandun Chen wrote:
-> total_reserved_mem_cnt will keep the init value (MAX_RESERVED_REGIONS)
-> in fdt_scan_reserved_mem() if __reserved_mem_check_root() fails.
-> 
-> fdt_scan_reserved_mem_late() calls alloc_reserved_mem_array() to
-> allocate memory according to total_reserved_mem_cnt before
-> __reserved_mem_check_root(), so if __reserved_mem_check_root() fails,
-> the allocated array has nowhere to be used, so no need to allocate
-> memory.
-> 
-> Move alloc_reserved_mem_array() after __reserved_mem_check_root() to
-> avoid potential memory waste.
-> 
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-
-Authorship/DCO mismatch.
-
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-
-Best regards,
-Krzysztof
-
+On 18.05.26 14:08, Pengyu Luo wrote:
+> I think they might take the power sequence into account when they were
+> introducing the devices, vdda-phy(~0.9v) first and vdda-pll(1.2v)
+> later in the upstream while vdd(0.912v) first and core(1.2v) later in
+> the downstream. BTW, the DSDT is unreliable. On my platform, it
+> describes that several components are consuming several LDOs, but
+> these components work well with these LDOs manually disabled via rpmh.
+>
+> Best wishes,
+> Pengyu
+>
+Hmm looks like schematics would trump these speculations. Maybe wait=20
+until this can be confirmed.
