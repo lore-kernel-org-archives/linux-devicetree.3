@@ -1,151 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499F03AFD1B;
-	Wed, 20 May 2026 08:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F3D39936D
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 08:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779267376; cv=none; b=B5EJGN7DlwXZ9GK1jYssOT5dHBgo1nuAJ5ys0ozieUN5TiMfY2XbTFqhB0ebGxHp+jLGXlOpxlRNFAw0Ze2BiUjHieqIOshKtNUMaVwP6IaR5TdhE2WzdvNk7v5yw0FX5HynWTqXEyWiG+ClQxYOkf4/BrBITXnk4LquWiPVRAE=
+	t=1779267385; cv=none; b=ZamQH8qqM0GZFqzsMo65XVXBBk3Orh2juyYHBs9cBLeeCzU22z7wB5T4F1Yc4mI22LkzbUb4NNGMAKUOHvIKFKpy6RdJnw80QjMeuSyTtXoZxb3nob/BhrfeQujmhjpgO3c7fRWg7PsIisJ7YdoYzyGXYUsqG091jsZdGSKqBek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779267376; c=relaxed/simple;
-	bh=SuqMA9SJ5IZjmL+9jNs9DzlqAxqRDC7vtlPVKFr2qjQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nVeuBzTaOZ6ZNDCGJoFWY0I5r7fNdCn/ZoFPeXfJuxnGxGQzdlDq64kjqL49l9qP0B1dbj2eeJqi79vmF+U+Z7qHwS3g7GMo7RJXpD9t1azXo3G57Wx7ySOsA6WB7hms4F7GnIOG2U7CY7OFPzWhsYa6ERg4P7q5goDvX8Ts25I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwy3bVYT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779267385; c=relaxed/simple;
+	bh=h2twtrvSw/ZLNACakCMYgiogsUQfuClwdgax8uZCdBg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LjXHHw18/LrIQaD0/PEWUV+YuiJhwm6BUQYk35JBXG+EcJihKMjCSp/+5gSPtCiNXv02I48q/64pwS4x0pxdpuF4x/iDcu0BX1cwy5CADp+0y22NaI8CqP7a8CuHLxchD8oqOgoXbJz5D6/IbNo3azJQUkT9G0SqtyVGy4X/+Ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PQoD7gD8; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwy3bVYT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9052F1F000E9;
-	Wed, 20 May 2026 08:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779267373;
-	bh=r9KJxiWJIrStZnSusMULc7O7jauDe1SDXZXWq+Nb8Ro=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Zwy3bVYT7E5swsXlz/mZB7PyqYpKpIkuSEg5EGr6dA5+Ey0CxOduwDNFd9IZP8Qs8
-	 jz+fuQ5SSyoAtzhxu3gvKHLyhkPXbAf0pHMOdZo7usb5fhbI2OxVlYzdZwz0j3dOm8
-	 eVYrcBjqMUrU3i+z/3w94p18HMUeOBxHSJ54L8M79ZF8GYdomYmQmGl+ZCTGBWAAYt
-	 KOb4fOkpuSX9TIbqxgTdphwk57cfBvVlIbJ5MAP7nnOBrQAQhotT9tBn6pYXcd7F7R
-	 U21aS0ZsWKLAUH1QQJdGI70R//0hCvXsEsx3iS+YTs5pQII6iZ9XojpdIY4HzsfspS
-	 0eidCNcY8uuMw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 2/3] of: Factor arguments passed to of_map_id() into
- a struct
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vijayanand Jitta" <vijayanand.jitta@oss.qualcomm.com>
-Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260520-parse_iommu_cells-v15-2-b5f99ad4e7e8@oss.qualcomm.com>
-References: <20260520-parse_iommu_cells-v15-2-b5f99ad4e7e8@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 08:56:11 +0000
-Message-Id: <20260520085613.9052F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PQoD7gD8"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-bd9a71b565aso345808466b.0
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 01:56:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779267382; x=1779872182; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=rUCdm1gmpZgWGg+Rje5CZp5EuHl/OpSitT/+cJx5sMA=;
+        b=PQoD7gD8rYLVeSzGyKG86FY5dawrkpIwontDn6zTXASH6ETj8qWkrGtZVrIoGToPwI
+         gdkuHrREEH3l9ROwu+qvqowG+f2YqgZ0HdVXosaWqn1JZZQep3XlTpSYnRdEovd4i6he
+         x89tkmrjW9FZvEbJHHOSll+4vhAcUMVZK5AYWqc6S96thX27a6BzCngS00VCeV4JPV2s
+         MY8DVR4eJxOTs2DYhZvfue2NM6OhF8P+eW0hp3Wg7m5T6ArumpKSUSbWZyjv0VHuZYC+
+         mEATRSOCFfmyiiHIttFdmlSKzFKswoYUH91xVsgrZLRiKIK3ZeCXALdF3GlmYHbpMbh8
+         nVNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779267382; x=1779872182;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rUCdm1gmpZgWGg+Rje5CZp5EuHl/OpSitT/+cJx5sMA=;
+        b=N3aMOUMnHLcOWQe7Qlh5tYIp68TYLBe2ulwnadpraqyH/zsOddBpOqlMUt9UuU3a4e
+         RRWQlSrJZ9wlwcyRQwOPOzWiH7TffgGqN7Q1BuSq1ezJZsBu00CIHKigXkeHsiTmew48
+         DxGei62pMwkP7oWzd+VrI2v7kJKvsctjlc8pvG9lmRufL0yB5BL0T/jBugZhenT6OFx2
+         MzkNdUlKBvs2HJcl8TsRjT7OyzDlE/X+Iwd67Zxlb0xCuw0CMFH2VNwnpxhFT40dCMhH
+         IDij9KGjuMFXTTGnQBgDAEkwsLuR+ciGRHH7L92AGuYepg82E+Lx90VQrAAb/bCtSdIz
+         BrVg==
+X-Forwarded-Encrypted: i=1; AFNElJ/USzbZajZbtUNDdunpnaKRN+N8zq1ZMUS2h63pbU+nkxmPoAkHiclSvRzg/Trw6x3jy6x+3KeXJLvi@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVck5z3SCfV1Qs6yunZE+6b4yntNsLhci65ckubBu6sHlIyCWV
+	uPPi3tO+knQcNzuaUSW+D+sLnLo+tG4qJwAqEcpo41uyPej8m94e9d+e
+X-Gm-Gg: Acq92OE2Jca1gKH8HbjzZsayhCgBRzE/5L/6iZB6kLKDGz4f2VBCFS5Hy1JDK7yd0u1
+	9uuHLk/7D7sOfpyfUS2eO3NmgTDj/AJK/m8sDKx7HARfpNEYGaDZeuxyZUBcNycryW8+92d268j
+	eT5obJwyzSwMYQTySRoh0S9zYir1l39ZWuQYDaP0wLVIUUh3QdE/5SGKOmqbL3T8EqQYkytbKZe
+	U94iCnSXYUZmx3By1s5N2srDZjsTTRDQ4VfYCJVB+yyVIV0C8wAwSPGc3RG++ebZmy4j91ekOdc
+	/fdc/Hm7UIlsCZ3ZgvvOgJRMjL+BZDuNmFATzMc3y8HDE4fLI+1cVIgkq3QGgvIenrCbqDbMeSA
+	v8Yi7d5IXP6YjfWdfjpmT1ofqQ6I7MNZaFC8xYxr7OHTFSXr8CL6wimNzfH5sS4ic8M/pgnI+4A
+	Ru/K9I0k6gGRY15CcYw71FeRAqSsY=
+X-Received: by 2002:a17:907:7b82:b0:bd4:c66e:9889 with SMTP id a640c23a62f3a-bd51790b3d5mr1249519366b.24.1779267381888;
+        Wed, 20 May 2026 01:56:21 -0700 (PDT)
+Received: from gmail.com ([212.75.105.246])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4ec000csm833929766b.60.2026.05.20.01.56.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 01:56:21 -0700 (PDT)
+Date: Wed, 20 May 2026 10:56:19 +0200
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: light: add Broadcom APDS9999
+Message-ID: <ag123fx0az4B83-l@gmail.com>
+References: <cover.1779181370.git.azpijr@gmail.com>
+ <12b145839a1a9c5381946a9e5237bfe6fe0ae9a7.1779181370.git.azpijr@gmail.com>
+ <20260519-overdrawn-cofounder-59752aa87d4f@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260519-overdrawn-cofounder-59752aa87d4f@spud>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Tue, May 19, 2026 at 06:30:20PM +0100, Conor Dooley wrote:
+> On Tue, May 19, 2026 at 11:23:13AM +0200, Jose A. Perez de Azpillaga wrote:
+> > Add Device Tree binding for the Broadcom APDS9999 ambient light
+> > and proximity sensor. A separate binding file is used rather
+> > than merging with avago,apds9300.yaml because the APDS9999
+> > has an additional vled-supply for the VCSEL.
+> >
+> > The APDS9999 features individual R, G, B, and IR channels with
+> > a green channel that uses optical coating to approximate the
+> > human eye spectral response for ALS/lux measurements. Calibrated
+> > RGB color sensing is not yet implemented in the driver.
+> >
+> > Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> > ---
+> >  .../bindings/iio/light/brcm,apds9999.yaml     | 54 +++++++++++++++++++
+> >  MAINTAINERS                                   |  6 +++
+> >  2 files changed, 60 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml b/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
+> > new file mode 100644
+> > index 000000000000..4d9e9aff8894
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
+> > @@ -0,0 +1,54 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/light/brcm,apds9999.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +title: Broadcom APDS-9999 Digital Proximity and RGB Sensor
+> > +
+> > +maintainers:
+> > +  - Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> > +
+> > +description: |
+> > +  Broadcom APDS-9999 is a digital proximity and RGB sensor with
+> > +  ambient light sensing (ALS) capability. The device uses individual
+> > +  R, G, B, and IR channels plus a Vertical Cavity Surface Emitting
+> > +  Laser (VCSEL) for proximity detection.
+> > +
+> > +  Datasheet: https://docs.broadcom.com/docs/APDS-9999-DS
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - brcm,apds9999
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  vdd-supply: true
+> > +
+> > +  vled-supply:
+> > +    description: VCSEL power supply
+>
+> Why does the name in the description disagree with the name in the
+> property? If the pin is called vcsel, please call the property that.
+>
 
-Pre-existing issues:
-- [High] Unconditional dereference of `msi_node` in `of_check_msi_parent` w=
-hen it can be NULL.
+will rename to vcsel-supply in v4.
+
+> Cheers,
+> Conor.
+>
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +additionalProperties: false
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - vdd-supply
+> > +
+> > +examples:
+> > +  - |
+> > +    i2c {
+> > +        #address-cells = <1>;
+> > +        #size-cells = <0>;
+> > +
+> > +        light-sensor@52 {
+> > +            compatible = "brcm,apds9999";
+> > +            reg = <0x52>;
+> > +            vdd-supply = <&vdd_reg>;
+> > +            vled-supply = <&vled_reg>;
+> > +        };
+> > +    };
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 1aa9c989973f..2d8d4e2eab6e 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -5000,6 +5000,12 @@ S:	Maintained
+> >  F:	Documentation/devicetree/bindings/iio/light/brcm,apds9160.yaml
+> >  F:	drivers/iio/light/apds9160.c
+> >
+> > +BROADCOM APDS9999 AMBIENT LIGHT SENSOR DRIVER
+> > +M:	Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> > +L:	linux-iio@vger.kernel.org
+> > +S:	Maintained
+> > +F:	Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
+> > +
+> >  BROADCOM ASP 2.0 ETHERNET DRIVER
+> >  M:	Justin Chen <justin.chen@broadcom.com>
+> >  M:	Florian Fainelli <florian.fainelli@broadcom.com>
+> >
+> >
+>
+> pw-bot: changes-requested
+
 --
-
-commit d17879206927f3ee695759bc3559fd04a6a551ab
-Author: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Subject: of: Factor arguments passed to of_map_id() into a struct
-
-This patch updates of_map_id() to take a struct of_phandle_args instead of
-passing the target device node and translated IDs separately. It explicitly
-separates the input filter node from the output arguments and transfers
-ownership of the matched node reference to the caller.
-
-> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
-> index e37c1b3f87362..e63a43be6c4a3 100644
-> --- a/drivers/of/irq.c
-> +++ b/drivers/of/irq.c
-> @@ -796,14 +796,15 @@ static int of_check_msi_parent(struct device_node *=
-dev_node, struct device_node
->  /**
->   * of_msi_xlate - map a MSI ID and find relevant MSI controller node
->   * @dev: device for which the mapping is to be done.
-> - * @msi_np: Pointer to target MSI controller node
-> + * @msi_np: Pointer to target MSI controller node, or NULL if the caller
-> + *           only needs the translated ID without receiving the controll=
-er node.
-> + *           If non-NULL and pointing to a non-NULL node, only entries t=
-argeting
-> + *           that node will be matched. If non-NULL and pointing to NULL=
-, it will
-> + *           receive the first matching target node with a reference hel=
-d.
->   * @id_in: Device ID.
->   *
->   * Walk up the device hierarchy looking for devices with a "msi-map"
->   * or "msi-parent" property. If found, apply the mapping to @id_in.
-> - * If @msi_np points to a non-NULL device node pointer, only entries tar=
-geting
-> - * that node will be matched; if it points to a NULL value, it will rece=
-ive the
-> - * device node of the first matching target phandle, with a reference he=
-ld.
->   *
->   * Returns: The mapped MSI id.
->   */
-> @@ -817,8 +818,21 @@ u32 of_msi_xlate(struct device *dev, struct device_n=
-ode **msi_np, u32 id_in)
->  	 * "msi-map" or an "msi-parent" property.
->  	 */
->  	for (parent_dev =3D dev; parent_dev; parent_dev =3D parent_dev->parent)=
- {
-> -		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &id_out))
-> +		struct of_phandle_args msi_spec =3D {};
-> +
-> +		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &msi_spec)) {
-> +			if (msi_spec.np) {
-> +				/* msi-map matched: use the translated ID and target node */
-> +				if (msi_spec.args_count > 0)
-> +					id_out =3D msi_spec.args[0];
-> +				if (msi_np && !*msi_np)
-> +					*msi_np =3D of_node_get(msi_spec.np);
-> +				of_node_put(msi_spec.np);
-> +			}
-> +			/* msi-map present but no match =E2=86=92 stop walking */
->  			break;
-> +		}
-> +		/* -ENODEV: msi-map absent =E2=86=92 check for msi-parent */
->  		if (!of_check_msi_parent(parent_dev->of_node, msi_np))
-
-[Severity: High]
-This is a pre-existing issue, but does of_check_msi_parent() handle a NULL
-msi_np pointer correctly here?
-
-The documentation added above explicitly states that msi_np can be NULL if
-the caller only needs the translated ID without receiving the controller no=
-de.
-However, if msi-map is absent, execution falls through to
-of_check_msi_parent() with that potentially NULL pointer.
-
-Looking at drivers/of/irq.c:of_check_msi_parent(), if the msi-parent
-property is found, it evaluates:
-
-	if ((*msi_node && *msi_node !=3D msi_spec.np) || msi_spec.args_count !=3D =
-0)
-		ret =3D -EINVAL;
-
-	if (!ret) {
-		/* Return with a node reference held */
-		*msi_node =3D msi_spec.np;
-		return 0;
-	}
-
-If msi_np is NULL, wouldn't dereferencing it via *msi_node trigger a NULL
-pointer dereference? Should this be fixed to safely handle a NULL pointer?
-
->  			break;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-parse_iomm=
-u_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com?part=3D2
+jose a. p-a
