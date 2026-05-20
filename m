@@ -1,142 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5C826B756;
-	Wed, 20 May 2026 13:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7276A296BDC
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 13:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779283183; cv=none; b=AFplmVMfdA42Iuk0GQcQQNMbjE5dVfyhRwqRsXgvE1mubKylIrZm/Q2l7L3M21JQAMEZ07JK3LV55PYwrgEHPzjIsWadTB1ufYSegd8jt0Oxdcx/D7TKkOBfkyAAojw12duZQqotiwDTDv4mbl3kyivy8cuDbPx2w3oX+CD09Xw=
+	t=1779283294; cv=none; b=rGHXU53CNkJ9YSxt0M6897/l1crOszaPfT993FWraCwX/KqwVXnLlJdRbs+EMITHPrQ18Dey++vvqDbHrsFO4c2TdJtAg7JAJIxTMIEOHs+lo+qgXZhWQd+5rrpyvkskzTtChVf2nQ/GtP5KDHJ4M9OILGQQu39riLuur3l9trg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779283183; c=relaxed/simple;
-	bh=MrDoz8p8BpqxjSMWlXlgStqn2S11rF1ikzgKA/fCWQI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=psriI+EusqiWsvLh5rAVC+0cUmTpfPhwD1Q4cVraxBpRZzDOlKzLnvpRITw8a2uVLKCzFMTUbGkDIJgzfiVtTWuS57+53AqLi0wXj4DMAZSLAK4SJZEuiIWhoJwKutWxoDBgPGy8y1Bh9XizpK1NeYSJkgOFy8wAD0BWYayd4UY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ehSkrEv3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779283294; c=relaxed/simple;
+	bh=1MosHPMuC14CyBybLyW/nptqgW3weNXHReNcwRgxPjc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LYuXhJD6AznUlOyAp4u1jV9Dt1lPngjPRmQL9pjna2pLkdu0Lsv/0CzwAtFY1pFlobkZqBrnYrTFhLEIxhDPOgs33LASFbHgmLHUey5XqATvQcgkuzfh9VHDhpAX7bgBr5t+XOKxH5huANcdy46wr/izos2iTESFc6wKA3g2NrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCn4U6cL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ehSkrEv3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F0B1F000E9;
-	Wed, 20 May 2026 13:19:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCn4U6cL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0FC51F000E9;
+	Wed, 20 May 2026 13:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779283179;
-	bh=GG83Da2bZfgnrhBfPbuMwe1laETea54AdqfsrALLjx8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ehSkrEv3h0lHTtwa42RC1cX1jWDUGpWRAyZ47a8t2mvFRkeVvtt+cwg1yRD071ZSV
-	 blvW8JitKGjmFB/jNVGy50oEaefDn7ETCH/6yjkS3PtKQnaMJoKLXL/AzO9tsCZhO4
-	 4V+h4KKo6F5JKcqhUhEHtb/h3W4c8xVjIaknH5KRyaZnHAcU+Bw/uLl2PBPyV9OQ2U
-	 xqryTIPMJxeEbvBv1FRHMlPeEW390+LtRjrj0ypr0lLyv9TTNvVj7WSoJYBgW85g3b
-	 O7lXwJelaFxOko0iVihHSHDTShVg6v1Qhk17Wmd3Qa+xlu2EKfZUTIabtsWvC280qB
-	 Ah3Dt2l5uu4ng==
-Message-ID: <d8faa1aa-e752-4d67-b6a3-20883ceb6eb0@kernel.org>
-Date: Wed, 20 May 2026 15:19:34 +0200
+	s=k20260515; t=1779283293;
+	bh=yhjhpUvTsOpaD9p4A9rBDLk0r1AwC3i7oRJNa9e1U7I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OCn4U6cLL553nWrfS5DTaK9IkjoXds8hNkhsLgXn0aCSprqMw1seGXtbFE46WKuYH
+	 ViztkaOsbQv38yDVtse6jNO3DhG7+7sumlFA1P+7A5UQ8tLgFpIKw/nXXLq2xvhYri
+	 6xhVitHok6i0GnweLM848nM4ANR8sgoIYvOiz8Q7BtX2wcK8hqdEbXVmLULhX/neio
+	 A9LyTCGw+hWRAq98R/35eAM3rjne0noiIGf3C/O32+2JCDV3qJvFKXpQ6ZaWBe93n0
+	 dldldW2k9VGLqN99nXCJcZbnU6TpEAMCcChxMVvd7W4DNuzCzLMMInC7B0UsYgjV11
+	 KgaummJYj/HYg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11] riscv: dts: spacemit: k1-musepi-pro: add SD card
+ support with UHS modes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andre Heider" <a.heider@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260520130624.1763487-1-a.heider@gmail.com>
+References: <20260520130624.1763487-1-a.heider@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 13:21:32 +0000
+Message-Id: <20260520132132.E0FC51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
- panel controller
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
- dmitry.baryshkov@oss.qualcomm.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org,
- Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>, rajeevny@qti.qualcomm.com
-References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
- <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
- <20260519-curly-courageous-sturgeon-2facfe@quoll>
- <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 20/05/2026 14:40, Arpit Saini wrote:
-> Hi Krzysztof , Dmitry
-> 
-> On 5/19/2026 4:02 PM, Krzysztof Kozlowski wrote:
->> On Mon, May 18, 2026 at 04:34:12PM +0530, Arpit Saini wrote:
->>> ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
->>> The DLC DLC0697 1080x1920 LCD panel is based on this controller.
->>>
->>> The panel requires a reset GPIO, backlight enable GPIO, I/O voltage
->>
->> If panel requires it, so should the binding.
->>
-> Ack, I will update.
->> ...
->>
->>> +  reg:
->>> +    maxItems: 1
->>> +    description: DSI virtual channel
->>> +
->>> +  reset-gpios: true
->>> +
->>> +  backlight-en-gpios:
->>> +    description: Backlight enable GPIO (active high)
->>
->> What is the name of the pin in ili7807s device?
->>
-> Display daughter card has WLED driver as well as LCD bias driver.
-> 
-> The WLED driver's Enable is coming from WLED_P1_EN and PWM is coming 
-> from LCD_CABC output of the panel.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Inverted SD card detect polarity in `cd-gpios` property.
+--
 
-WLED driver is not ili7807s. LCD bias driver also sounds like something
-else than ili7807s.
+commit b8da2f3ea83cbd0820dd4246075e26e687bac678
+Author: Trevor Gamblin <tgamblin@baylibre.com>
 
-So my question stays.
+riscv: dts: spacemit: k1-musepi-pro: add SD card support with UHS modes
 
-Best regards,
-Krzysztof
+This commit updates the Muse Pi Pro device tree to add SD card support,
+enabling the sdhci0 controller with a 4-bit bus, UHS-I modes, and voltage
+switching.
+
+Link: https://lore.kernel.org/linux-riscv/20260316-orangepi-sd-card-uhs-v3-=
+0-aefd3b7832df@gmail.com/T/#
+
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/=
+boot/dts/spacemit/k1-musepi-pro.dts
+> --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+[ ... ]
+> +&sdhci0 {
+> +	pinctrl-names =3D "default", "uhs";
+> +	pinctrl-0 =3D <&mmc1_cfg>;
+> +	pinctrl-1 =3D <&mmc1_uhs_cfg>;
+> +	bus-width =3D <4>;
+> +	cd-gpios =3D <&gpio K1_GPIO(80) (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+
+[Severity: High]
+Should this cd-gpios property use GPIO_ACTIVE_LOW?
+
+With an internal pull-up enabled, the physical card-detect switch usually
+connects the pin to ground when a card is inserted, driving the signal low.
+Using GPIO_ACTIVE_HIGH might cause the MMC subsystem to assume a card is
+inserted when the slot is empty, and report a removal event when a card is
+actually inserted.
+
+The commit message mentions matching the OrangePi RV2 configuration, which
+would typically use GPIO_ACTIVE_LOW for a pulled-up card detect signal.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520130624.1763=
+487-1-a.heider@gmail.com?part=3D1
