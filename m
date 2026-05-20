@@ -1,92 +1,234 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F44A3EA953;
-	Wed, 20 May 2026 16:58:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1C33BED26;
+	Wed, 20 May 2026 16:58:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779296292; cv=none; b=LOZ+DHdES7yTWUKCEiMQHSiuYGn/gPMa1d9bwD4H8Bdbp8V3fSv8jJIXfwEK4iFZFlhmJsbSw0AxoEnwsCPlufejvE36w+lDhdOIg/P+11yhSE+avMKhgGWVwjVe2tJ2ltd6LxfeSN6kQE2jzO/hNuXhI0sAKSG+7c/s4VKph8A=
+	t=1779296293; cv=none; b=NIPDbpThFT5FMJbMuwL+kkAVMhPgWVSZCp9pr5rTdl/MS+zBK4HWkIykfd2zwH9InLzE47d7fdhlTzsPXs67HWvWFEwBI1+L7PN5B8kA8iGbHWOW2d1Axu4wxEDl1ee6ptzBY3YJU9Bm4dm2ax6RLbshjzKKk57JGVpTJ+ZYlBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779296292; c=relaxed/simple;
-	bh=bVcP/aJZZ+bB4VgJiU5DuE2T6t9aYInb3Raktfgd62Y=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=cMt0Co0blpdeZuikSk2jWWl+j7iASVZqv1MIt2fEcBv2i+MgUJRa+IYiqSxAFmGe18sfZ9Ma9OMQ8k3lYa6JkJ+PkDnsgM1YlSaCHwUOY6rVK/MyAMRsSmS2wqaHBD3R2V+5Qxjnji9qMxZoaGF56HC5sPYl0RXTPp7i1C5A/Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GYsbXkOL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779296293; c=relaxed/simple;
+	bh=g9oOxa3KAzDSgGlMuFDShyU6Cu07r5dNrVVqFXDHQm0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dBcB7nnPnbzLXU4G1y0V1XnPWXcrt+EXIp41nNGFpXX2K4FM4GpRZlVi+UwMYY5TkTgBh8H8JvudTszg8hT8Ez7BBWqOezO/ArJy4Pjdc9iMFEUHeq4h43S1KmaJLdbxLlzO96HZ0pWvg0zbXGtCw+RoR7njgQGIpVyaje3bNU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2LljfgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GYsbXkOL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28C01F000E9;
-	Wed, 20 May 2026 16:58:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2LljfgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97911F00893;
+	Wed, 20 May 2026 16:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779296291;
-	bh=kLVDFFs0ueJHpFJ5OSehtykxxE2mbwX6aQ3/A/ELP8g=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=GYsbXkOLOOh6zvHULzRgvtEQzXM8mjB6n2PwoMo8oxUp+sQvJUn7UFKUADB8E5xct
-	 WexGm4iX8lixkZ5oMSdnKeTenSkLQ7/t30IPGNodW8V/wSktTZ6dN68IQUjZxQMtv3
-	 lm477Ts3rKV+6+I3F3NjWoGPqVuja/3zWuQ6f6IEo+47wCPvScsYPhanQCjL30s28E
-	 OzS4t3q5tWULqoxWx45NxxiB1/ZQFcYC76vtTapSZByYlV1ks2o42yZBF9ZVJ5nHz/
-	 mVvHTWsNGBIwLi1Wf6lwuKwDwUx1cxKMGm0BsT0tKi4MX8IMikOWszGecJXdWdW3sD
-	 EWLnSJnUCwNzQ==
-Date: Wed, 20 May 2026 11:58:10 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1779296292;
+	bh=Q+RGdBV1fAOjSGTl0MP2/NwsWkgq8a03gaD/eAA0qA4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Q2LljfgR9q6D6w2BBozfsmTSjs40lP/A9aBt7eRofslSeK8zDJexEq2DM6d3ZmZG+
+	 BipsDXqAfw/rgJaaodgLmV1kMbMAnnIf0yDqqSun2tQhlzjlFYMP+l8fM5IcnI4daT
+	 XnZrXD56lT/9WCXkf1x+AsHVig/YwzKViUuPmrqjjYjTz6CrFTMoXSR/FdUnDzvyoE
+	 ftR3fJTbIkvP4t3rsyBOD/W9MK5aazyGhHKAgA+UxzTTpQt9KnibapSQRSWYTrmLpJ
+	 sE8BS0CFH1cM8ukvwUUmqhiR4BDAnAYEo/CbLhv2DPCLq/EVVq75ilokaDTql08fwm
+	 CR9xlBtgUdFRw==
+Date: Wed, 20 May 2026 17:58:01 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V8 04/10] iio: imu: inv_icm42607: Add I2C and SPI For
+ icm42607
+Message-ID: <20260520175801.12f74521@jic23-huawei>
+In-Reply-To: <20260518200526.458421-5-macroalpha82@gmail.com>
+References: <20260518200526.458421-1-macroalpha82@gmail.com>
+	<20260518200526.458421-5-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20260520-shikra-rproc-v2-1-583a2e413a3a@oss.qualcomm.com>
-References: <20260520-shikra-rproc-v2-0-583a2e413a3a@oss.qualcomm.com>
- <20260520-shikra-rproc-v2-1-583a2e413a3a@oss.qualcomm.com>
-Message-Id: <177929629036.534086.9871910456803819494.robh@kernel.org>
-Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: qcom,shikra-pas:
- Document Shikra PAS remoteprocs
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 18 May 2026 15:05:19 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
 
-On Wed, 20 May 2026 20:08:05 +0530, Komal Bajaj wrote:
-> Document the bindings for the CDSP, LPAICP and MPSS PAS on
-> the Shikra SoC.
+> From: Chris Morgan <macromorgan@hotmail.com>
 > 
-> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
->  .../bindings/remoteproc/qcom,shikra-pas.yaml       | 157 +++++++++++++++++++++
->  1 file changed, 157 insertions(+)
+> Add I2C and SPI driver support for InvenSense ICM-42607 devices.
+> Add necessary Kconfig and Makefile to allow building of (incomplete)
+> driver.
 > 
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Hi Chris.
 
-yamllint warnings/errors:
+More trivial stuff. Some of which is just to save
+having to do a follow up patch to move to named initializers
+for the id tables.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml: properties:qcom,smem-states:items:0: 'anyOf' conditional failed, one must be fixed:
-	'items' is a required property
-	'minItems' is a required property
-	'maxItems' is a required property
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+Thanks,
 
-doc reference errors (make refcheckdocs):
+Jonathan
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260520-shikra-rproc-v2-1-583a2e413a3a@oss.qualcomm.com
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> index 6c5e7d9b08b7..74d8d3d7c890 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> @@ -13,6 +13,16 @@
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  
+> +/* serial bus slew rates */
+> +enum inv_icm42607_slew_rate {
+> +	INV_ICM42607_SLEW_RATE_20_60NS,
+> +	INV_ICM42607_SLEW_RATE_12_36NS,
+> +	INV_ICM42607_SLEW_RATE_6_18NS,
+> +	INV_ICM42607_SLEW_RATE_4_12NS,
+> +	INV_ICM42607_SLEW_RATE_2_6NS,
+> +	INV_ICM42607_SLEW_RATE_INF_2NS
+Probably missing trailing comma. Mind you I'm confused
+on what the meaning is of INF_2NS - so maybe a comment?
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+> +};
+> +
+>  enum inv_icm42607_sensor_mode {
+>  	INV_ICM42607_SENSOR_MODE_OFF,
+>  	INV_ICM42607_SENSOR_MODE_STANDBY,
+> @@ -325,6 +335,8 @@ struct inv_icm42607_state {
+>  typedef int (*inv_icm42607_bus_setup)(struct inv_icm42607_state *);
+>  
+>  extern const struct regmap_config inv_icm42607_regmap_config;
+This is only introduced in this patch.  I'd argue maybe that
+should have been in the earlier one?
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+> +extern const struct inv_icm42607_hw inv_icm42607_hw_data;
+> +extern const struct inv_icm42607_hw inv_icm42607p_hw_data;
+I'd also have been tempted to push these into the previous patch
+even though like the regmap they would have had no users briefly.
 
-pip3 install dtschema --upgrade
+>  
+>  int inv_icm42607_core_probe(struct regmap *regmap, const struct inv_icm42607_hw *hw,
+>  			    inv_icm42607_bus_setup bus_setup);
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> index b270d48335ba..e9c81b52f9ef 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+>  static int inv_icm42607_set_conf(struct inv_icm42607_state *st,
+>  				 const struct inv_icm42607_conf *conf)
+>  {
+> @@ -95,6 +152,11 @@ static int inv_icm42607_setup(struct inv_icm42607_state *st,
+>  		return dev_err_probe(dev, ret,
+>  				     "reset error, reset done bit not set\n");
+>  
+> +	/* Sync the regcache again after a reset. */
+> +	ret = regcache_sync(st->map);
+
+Silly question but what has this to do with the bus support?  Should
+it be in the previous patch.  I suppose you could argue this is where the
+cache got introduced.  
+
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = bus_setup(st);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+> new file mode 100644
+> index 000000000000..8631579a609a
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+> @@ -0,0 +1,89 @@
+
+> +
+> +static const struct i2c_device_id inv_icm42607_id[] = {
+> +	{ "icm42607", (kernel_ulong_t)&inv_icm42607_hw_data },
+> +	{ "icm42607p", (kernel_ulong_t)&inv_icm42607p_hw_data },
+Named initializers please. (see below)
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, inv_icm42607_id);
+> +
+> +static const struct of_device_id inv_icm42607_of_matches[] = {
+> +	{
+> +		.compatible = "invensense,icm42607",
+> +		.data = &inv_icm42607_hw_data,
+> +	}, {
+> +		.compatible = "invensense,icm42607p",
+> +		.data = &inv_icm42607p_hw_data,
+> +	},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, inv_icm42607_of_matches);
+> +
+> +static struct i2c_driver inv_icm42607_driver = {
+> +	.driver = {
+> +		.name = "inv-icm42607-i2c",
+> +		.of_match_table = inv_icm42607_of_matches,
+> +	},
+> +	.id_table = inv_icm42607_id,
+> +	.probe = inv_icm42607_probe,
+> +};
+> +module_i2c_driver(inv_icm42607_driver);
+> +
+> +MODULE_AUTHOR("InvenSense, Inc.");
+> +MODULE_DESCRIPTION("InvenSense ICM-42607x I2C driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_ICM42607");
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+> new file mode 100644
+> index 000000000000..960b5d3e9abc
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+> @@ -0,0 +1,101 @@
+
+> +static const struct of_device_id inv_icm42607_of_matches[] = {
+> +	{
+> +		.compatible = "invensense,icm42607",
+> +		.data = &inv_icm42607_hw_data,
+> +	},
+> +	{
+> +		.compatible = "invensense,icm42607p",
+> +		.data = &inv_icm42607p_hw_data,
+> +	},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, inv_icm42607_of_matches);
+> +
+> +static const struct spi_device_id inv_icm42607_spi_id_table[] = {
+> +	{ "icm42607", (kernel_ulong_t)&inv_icm42607_hw_data },
+> +	{ "icm42607p", (kernel_ulong_t)&inv_icm42607p_hw_data },
+Please use named initializers (see the work Uwe is doing currently to 
+clean this up). It has always been odd that we do it for of_ but
+not spi_device_id / i2c_device_id.
+
+That work from Uwe crossed with the development of this series
+but I'd rather avoid an immediate follow up patch if we can just
+tidy it up from the start.  I'd definitely have fixed this whilst
+applying if there was no other reason for a v9.
+
+
+Jonathan
+
+
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, inv_icm42607_spi_id_table);
+> +
+> +static struct spi_driver inv_icm42607_driver = {
+> +	.driver = {
+> +		.name = "inv-icm42607-spi",
+> +		.of_match_table = inv_icm42607_of_matches,
+> +	},
+> +	.id_table = inv_icm42607_spi_id_table,
+> +	.probe = inv_icm42607_probe,
+> +};
+> +module_spi_driver(inv_icm42607_driver);
+> +
+> +MODULE_AUTHOR("InvenSense, Inc.");
+> +MODULE_DESCRIPTION("InvenSense ICM-42607x SPI driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_ICM42607");
 
