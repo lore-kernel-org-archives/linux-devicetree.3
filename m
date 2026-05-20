@@ -1,143 +1,105 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EC83D348C
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD41D1C3BEB
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 11:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779277750; cv=none; b=PktOwnh+tNiDMTgfJHtKEsLEqXgNGf1xqs30hbRmVcQHiMbd+EerhznVI4v+FkDptOHfsGBSta2lMIUBZy7CADW15aUYO6dzEzm5lnJrsAjZqk4zP7neO3JG1i+qQK0i2tumqfU2fl16knkSjEv+oouUwL5FXyGzRpGSAVZG9RY=
+	t=1779277912; cv=none; b=rRpez1kFFqQ/NVHqVpVT7RDnU6FGNiIHuoxeDxo+OctQrFBf24nmfHxDrqL24oMsV08wPDQYlHQQcE63Lz2Uga+qK8tnZ47kIC/1sj2R0t8oFLCzYubbny+DeOOTWIe2sfVQm0RMo5U8vhG8Z0naR799wwzRiu4Dv+IUuj47fp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779277750; c=relaxed/simple;
-	bh=SAKdMRrwrxyrUR3iGZMh/3C0jSAZRWttw8Mi6ze60HE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sJw9WwOp9a3rcP4CNpbr6whTTImEeW7R2wNdC/2f2nIuJTU1M9gOStXmjFdsR6cvVvjJamRDxVMk6fQJ9ZnAgMO8u5TYzYvI2I+IEiAboPhNVAyeky5nkZT5cZWkMZqlZw3+ZMurraqL+8N7NJRVsu1QHtxts5Uo8GVN3XnSZaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ay6reLMA; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1779277912; c=relaxed/simple;
+	bh=+qlZ7fazAMGxu3Hd8OkV5YA9OWuEtW/FxzhapTkzCDk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p9UKFqCAqphc0Qf0UbQwNiAYQIb45UYGUZAF5Q9vUTQKWAiM061/Bx/Aaptw5XuCkPqtIfRcqUW/PmSGyBE38DRueHVgkAZSIoSCEtdlBA3ti1eRlSFmirmRF26qPEcumfzuVE9JId64a28Tejly9ewUVNm9dj9dOXb+5xbqzJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WeKNFCZq; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ay6reLMA"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-488b0046078so42369965e9.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:49:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WeKNFCZq"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso63305015e9.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 04:51:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779277747; x=1779882547; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z6/8aj4m+D5ybmDyl9iVOYQPhVs0pvuYJTLfV4l6glw=;
-        b=Ay6reLMAFfVEOIptSzKk0Ytu/Z0XOXYRGzb6MOMtcVA45wEd9YsbLOMw2QQ6hgWkuf
-         Hg0aR5FsD3zHRVsYx2DGBcnyDZrXmFXnmG7uOTn1CoE34d7G5PueeC/jMMkEbFPLg1z2
-         Lup121gw44HTXUtYo+4w4QRb96rYFG6/ml4musDu2/gPpvCXUPPuivB4xP43huX5M+8v
-         i68v6ctVp0H25oT6xzBmAc7YsVCzJKddfLiVNo1bWoAnO0gMz4lY5CN6cx85cBkGSSvT
-         uUJ+iJanoIZUXrS83IRzBGv7fp3/RwBvA9S0MUZdY/1rS7owvPKtPQkdSR3guYuUzVDW
-         s1fQ==
+        d=gmail.com; s=20251104; t=1779277908; x=1779882708; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aQwLHpqBSK7UgRP9vgct1RBilZORVWgtZbFjt5RtZp8=;
+        b=WeKNFCZqh6y3QcKsj5vA3KbA0vaIvmYQIaOGl18BXwGvmvMJIMwZkrslr3Gd7wWVJt
+         uBPqhSLvXwLQwiPkS8VNy6UjOg+DTeOOMhf7AinY5R0diG1/wX4uLC4Lq7BbXFu1YLrv
+         tsBX/e4l8eGxWvfidPhjGWbxCE+jkMtqzgVcwyf8Z7sCaTf6Aysm2yvMdIuJUs5Ai4lC
+         fJAoNba2CjbbLUvnrdhM5DQT96qb5NPtRG1sCwUWHFegCkB+qrQuhuhB6+O0DQpVWD27
+         D/3Y18hITQYLfMxiDDtNAXv72VgYjPw2O8VWC8PMcGUh/hxbdr+xuI+ww/jkq3w1Y1YP
+         pTEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779277747; x=1779882547;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Z6/8aj4m+D5ybmDyl9iVOYQPhVs0pvuYJTLfV4l6glw=;
-        b=X4u6EaJ9X97ZLOBtZgEF5j6QyDSmQuze1IvTSCdIjCsZiZsKeAAwVShEo6uPSO87S/
-         VeX62o23qRoiyFNYbJij163XJnR1fULl5sFb1XjHcDROUYWg9sE/UKb7kFnX7ZTSZvBc
-         eVuxF4LqNjcAmiZwioBAkuWtrcRdy9ssnVzy4zSuV0HYCIstiGvigdASA64hCz8yfU41
-         e305fryk9JpboVLzsTzTTHNRKdKxQJVyIE5WeTT3lOdlwppY1lARvJGEK73P72QTvpB/
-         MtGHgrPVwBfepMBfVXsAjgcA9KhewsFri46+UHq2wWvmKUpz8yc5BUVhJKijeHuaWfLc
-         iI+Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/3WX7db26ahX8WxucGeMzx3sPZXCN/Dr/fdxR34nmcGHLg5Q0NMPYEDcBpRZklGZrMMJu+9QHs+xkh@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKojZpIUHb1Ry0XdwZmOpFqJKTkAnncndubmfUT4S4piZCVTrp
-	YUy4rOMgiFrYQYAnFMS/6qmOGxfEIA3Vu1i6xZyt0hZfffurjlwt9jTw
-X-Gm-Gg: Acq92OER8bK956cj9S77far/5sqsHNI3WXkjSOfaYolqJ0cH5brGEB5UDXAmKTj5bAm
-	aoyE8uYhAOLlaEUrcfwpTD5JQp1sEjKpfcsJNNIk5Bd50UQ/sdsUNgMNNnOXpcTZXTaVQcf50Xp
-	EsRGHTDHlvvBC290d3DGjjWjCzKbYddxAj2cDW41PX4/5GVfA8NXD4ZGMLOOP8nilaNkqc9J2ot
-	5jGiHy57/MKB+taSUsFwt71gbeKcnWJgYYYN5nT22Fho0yLqZbGMYQvnTVNAg4zM6XuvP1UPMfW
-	cIrTr579Fwt/Ic2cYK/6grDbg33qQFenQv/PjmdS5eqL5LOZD0i0c9xXSOz6kJXXg+ZXYVDZFdm
-	opvh5I1R7jo5G4NB4OSwKSv9y+CkGo9mqRfd6VV2GhzcRF5aKh9iF3APSKV0M7jz36pmD3E+ZkV
-	l3k0SXKA5zI2Ie81GB2AU8Rv8/PzHC4Jg+i7xxbrQqJ3agmHkjKm9w8XSsyt0d/vG6rDaJG/lgu
-	ZI6r42E8GQYhg==
-X-Received: by 2002:a05:600c:a11c:b0:48f:a75e:c21 with SMTP id 5b1f17b1804b1-48fe5fcdee9mr274348865e9.6.1779277747103;
-        Wed, 20 May 2026 04:49:07 -0700 (PDT)
-Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fe4c8d39esm392216045e9.7.2026.05.20.04.49.05
+        d=1e100.net; s=20251104; t=1779277908; x=1779882708;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aQwLHpqBSK7UgRP9vgct1RBilZORVWgtZbFjt5RtZp8=;
+        b=M91cTflrc8N+aV4a+s5OyQcnrBfpcCYjGblke2Xfj0t3ZxsDOkyWBKjMP5V0vRMbXr
+         Abvm22JVJFOOoonnGLmskKDF6yJeD1NZzJ5skaS0XfyLyb9QZKpluAW6CQATAWK169NB
+         U7L3lmrdOro4QPyAIUbVT2Gcf4sFx29rbTSwIheQowmlE2ZqNPMKYbtui/44ziISu4oR
+         joKE45ZXsP/977Uy1vPPGfL/Up4lQ8+MG9Z4JaWJ9gjSq98rsb2qNWf+dxvOZw4f3Mqh
+         Jf2fgdJOdpduD2my9Z0TbggajXgVx7U8xpBtg38MqQ4H8hVbjtGVeZvNsfVvPFtTGpNV
+         S4KA==
+X-Forwarded-Encrypted: i=1; AFNElJ/f70zMVzMXe58GfU0MG4bSl2srZyCHJSmTnVsHOIvlWgCX7J7T2fJ+LHifTvkbgTcrLileOz3rs9pY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHBLqaAKTNNai/v6todSLR2uJk2Z9F0Iblby8O7si+utkr04dW
+	a8TT+omWius2oBvEYwxVSER/dt10OUK35JtOsQX4y8tqMbfpesVolXn1
+X-Gm-Gg: Acq92OH1U86OkmOsJEkI5+Q/R4BNilezb3pECvxuRdRyXOOBHOY6pBcMJhN/rGBLDLv
+	ED2z6ywM6cdKLd6eD2eKM9lzyI/beWCKEDCbgMaKLH3zrQp48mSyq0rYE2dlTvrFTgM0EwYVsKh
+	mOxU2FhlWXuvqtDswmpK5M0fNKXMhxxjNCJ1XT3uRo4XHEiG4dTczR1hZUs3VI2MHmLOsfYTlmN
+	yNRVZH33OxtlFToAH+VawHgSuuo7Nq2jYyVjE/w/Ww5EBe3M4VxJlC6zQTrvJRJodPRO4rNN5wi
+	RyoS587s4W3L447yuCyVDX/InXFIOfKI1+f3XVfZBj4ecTunfcxUjMOl7Xc4hGYIT3e8ljWts2y
+	dXJCvrvmFJsq7E4P1h2+Uhn1uNuLjK9SfZXySUgGjxbLy+u+fiyOMGgh6kE3Cuva+MIGv8OL2bf
+	cOya4r3nODZlh5VqxKEJVRzbbARc+dsVlqm8vbZ9KRg0+W5+0=
+X-Received: by 2002:a05:600d:c:b0:48a:56de:d62a with SMTP id 5b1f17b1804b1-48fe60eca75mr329874945e9.11.1779277907399;
+        Wed, 20 May 2026 04:51:47 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a700:7301:a11b:196c:5f9e:ac5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48ff43f8799sm278842735e9.2.2026.05.20.04.51.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 04:49:05 -0700 (PDT)
-Date: Wed, 20 May 2026 13:49:03 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: webgeek1234@gmail.com
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] arm64: tegra: Add iommu and dma properties for
- Tegra194 QSPI
-Message-ID: <ag2fjPWwKJmrdYMl@orome>
-References: <20260515-tegra194-qspi-iommu-v1-0-57dfb63cd3d6@gmail.com>
- <20260515-tegra194-qspi-iommu-v1-3-57dfb63cd3d6@gmail.com>
+        Wed, 20 May 2026 04:51:47 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH 0/3] arm64: dts: renesas: Add max-frequency to SDHI nodes
+Date: Wed, 20 May 2026 12:51:38 +0100
+Message-ID: <20260520115144.60067-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="icyuwag5sedcnnuj"
-Content-Disposition: inline
-In-Reply-To: <20260515-tegra194-qspi-iommu-v1-3-57dfb63cd3d6@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
---icyuwag5sedcnnuj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/3] arm64: tegra: Add iommu and dma properties for
- Tegra194 QSPI
-MIME-Version: 1.0
+Add the max-frequency property set to 133333333 Hz (133.33 MHz) to both
+SDHI0 and SDHI1 MMC controller nodes in the RZ/G2{L,LC,UL}/RZ/V2L
+device tree.
 
-On Fri, May 15, 2026 at 03:35:29PM -0500, Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
->=20
-> Without iommu and dma enabled, flash storage such as the spi-nor on the
-> p3668 module times out and cannot complete any transfers.
->=20
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra194.dtsi | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/d=
-ts/nvidia/tegra194.dtsi
-> index 1d659454a6f9fe..0e0a20befe9e68 100644
-> --- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> @@ -923,6 +923,10 @@ spi@3270000 {
->  				 <&bpmp TEGRA194_CLK_QSPI0_PM>;
->  			clock-names =3D "qspi", "qspi_out";
->  			resets =3D <&bpmp TEGRA194_RESET_QSPI0>;
-> +			iommus =3D <&smmu TEGRA194_SID_GPCDMA_0>;
-> +			dma-coherent;
-> +			dmas =3D <&gpcdma 5>, <&gpcdma 5>;
-> +			dma-names =3D "rx", "tx";
+This change results in approximately 33% performance improvement as
+it sets the SD clk to 100 MHz instead of the max 133 MHz.
 
-dmas and dma-names are the only properties that you should need here.
+Biju Das (3):
+  arm64: dts: renesas: r9a07g043: Add max-frequency to SDHI nodes
+  arm64: dts: renesas: r9a07g044: Add max-frequency to SDHI nodes
+  arm64: dts: renesas: r9a07g054: Add max-frequency to SDHI nodes
 
-Thierry
+ arch/arm64/boot/dts/renesas/r9a07g043.dtsi | 2 ++
+ arch/arm64/boot/dts/renesas/r9a07g044.dtsi | 2 ++
+ arch/arm64/boot/dts/renesas/r9a07g054.dtsi | 2 ++
+ 3 files changed, 6 insertions(+)
 
---icyuwag5sedcnnuj
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.43.0
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoNn68ACgkQ3SOs138+
-s6Hluw/+N5YaDbztosRTGmjR7qpOpnOt2ap9RA/wL/yIT1zPeTymNmeR+HOyzmDm
-zMxAxZCth+e5lbRSAdkCUImrsTDOvPylnrxsMIk7/WM52Q7A5HUmmaujEoRg6NwU
-dOOw4eooJjOvNmlIviygSlhGt0nnU4euc8xCemDY3YCaXZCMwB1AvQMJUEWPPQD/
-873dKL/l0rgY6UcEuFsFj4gSRR095Mn61X1hj6Y+fBt/CQ2d+/anIKWHU7/LdqKS
-TTLWVVfHeMBt5JqGtt5AooCVf9/z711S2M+JW9gM1DLeBzvUMBvnK7FF+bQcrnFI
-LWy7sVf7GaFZGup3ZwSnsQbFBnNLktos8ACer0jcHYqimqVybKQQsDFb2ja4YYv5
-ZJjTFZQKM4YX2PjHQd3dI3ljR9nDI01p5rVJFa2JaYDwh9qT/X1BRSHfv9Y7Ekdd
-aJkRSP2/HEUzo0F1B0d+c7/BbDoUHznzsLf6FjmXKjA+AmTiBSzqrCXANsJ0N06v
-/At1XtTSMrnwai1tD+Ny3IRk8RyB+8mjaZ8l4GmjLx0gyD33Y7dU7icHmjY2Vz2m
-x9L5p6aNC9S5N2vhcmcaCR9tMLlgsc2YP3JTlBqd682dORV5DuSq+K/7QmjvOybT
-75Pf05MjZvaE8LSWBiDJuRwmhak9vVGNlNi424TXco1GAD0U+yw=
-=JrGA
------END PGP SIGNATURE-----
-
---icyuwag5sedcnnuj--
