@@ -1,188 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E371C3C4B98
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC18374E74
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779320658; cv=none; b=dylpEAdHIILfGBjoa5xWlm0w1XP/QrFd1hG8rjY4kgrmSPxCS61d2OYaZdi9Ymnra4LX8NNZ10yzi3YdXmyMtGfJw3+0z1v94AseuXqPBvDcRlo4v5qqyn6CKXIFwvz1ryulDC8RGcsGyqxT2Hnc1+XDDi8SNYi4PwS8HhhSL9c=
+	t=1779320730; cv=none; b=AydBonagWGcu7vTVJ4uIBJqKcAI+h57QeMCdds662RdMLFs52o8hJm8EmtYNUWoc8+PsKTThUZQEB3WbwSUVwmHP7Wfi0aG9aD9KKLrjgfjJY9pcKYZmVFZnQr4FQncBfpat9DNu5KZwmmSAxZLBZrQNBnrD0sHSgSgaNhzXbeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779320658; c=relaxed/simple;
-	bh=GcHaS8RkwGK/Yfc3iy46PXDO/H7Vjb2QQk1a9MUjiKo=;
+	s=arc-20240116; t=1779320730; c=relaxed/simple;
+	bh=isf2nylSxz7lZYX7O/TpYnsvhttMkNqfcwfzZlt4jOg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QEBXtNs+MLMYmnTb4ZIRPmSFQU+6XMtYSCgyWytt2bBXtMCNKuARff0yjrZYrlyuoGGEs3T+Zw+zIEWVaA4l8bZeB2txNZKt7qX41uCgNxqy7Tnkp80ZnndnOXrLEA6XsyHp+FzbxVIojAnqJXf31d75GM49Bfeyk2W5f/0EGG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+CsRdfS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DFMrhcqWc5EfuGnQyYqmmrq8QyfQsVQeHsrzb3eeqbWB1yReoYILaMUFJ3BBr6gV+hFLi5CvgQcGJ/dS3MrUHWoQRdUbc6em7IRF71d2O1yG892/QQInzlxKZoKX33kOi5Jz2ygPm1ViAXFsCp+R9U/EUm9JEFgXEwG69NaQARQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJiuMrLq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+CsRdfS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6D761F000E9;
-	Wed, 20 May 2026 23:44:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJiuMrLq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF461F000E9;
+	Wed, 20 May 2026 23:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779320654;
-	bh=UxvUuarodIjmb5pOlR49OQuqRYHojrRwjPBe4bSljjc=;
+	s=k20260515; t=1779320723;
+	bh=8d7sdH4ian3g/p4nH7bPnLLm6hKJHyJs37ggUjrxbqU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g+CsRdfSR/u9ruhpjJpFiFz8S7VOAgsQugbthXaYjlvdEz9pnk/xLcYUPOG8JYpeB
-	 +u3N3bsqc11ne0bgVaFEdE5+fbpB2ofoZldFy+hmdyuCU9VoqmpuqRooe7umUZDnYZ
-	 DmISdMDr4ZSn/RfW/k1E3izpaJwyRcUNrDyQumsojjYv0R8JC/YZsHG4+ZH3z5dpWF
-	 KJYQG7qOaj+/W9CVfS9AHocH3jafgRSkcPYs5G1a2InB4i2pWFI5QgEenYuBsBW8TP
-	 FdgfzLAdXq/zdGDCEsH/GWBiCUsiwahJvW84Y/nnwMJhHiZTzbUVXLcbGb+r/12xS9
-	 PZP/pSMojpSew==
+	b=HJiuMrLqCw2oDppcvYnLVO8jUkNfdAzcUIX8ZGiLhwqU1jflQAST9YdeiTPs25jkw
+	 xRDpjbuAQ+nl+CuWAC9+g8auZUfGBHzl4KG9OQlBZMLe6A1pD4wWB8WGbH8AcGiqN/
+	 JlJ0ESkalYZjW+DrveRr9wLeIfgUmd+CenE14IXsJeUavD2YgCCjO1op0wM7A2FRpH
+	 Jsv+pKes4rdj6/upS8ZK+qtTL1GtVJNlqi/0PvuuYJWWarTAyMVPCzBKeGauEI26Pr
+	 joM4lLSg8iCKl5SiCam7LRZO060DPzJ+xzuIYyHTESOmpBV9OO8fa2gt6LNIq/AARO
+	 ATVbMGOW5IbKA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 14/28] media: rockchip: rga: move cmdbuf to rga_ctx
+Subject: Re: [PATCH v7 10/28] media: rockchip: rga: announce and sync
+ colorimetry
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521-spu-rga3-v7-14-3f33e8c7145f@pengutronix.de>
-References: <20260521-spu-rga3-v7-14-3f33e8c7145f@pengutronix.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521-spu-rga3-v7-10-3f33e8c7145f@pengutronix.de>
+References: <20260521-spu-rga3-v7-10-3f33e8c7145f@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 23:44:13 +0000
-Message-Id: <20260520234413.E6D761F000E9@smtp.kernel.org>
+Date: Wed, 20 May 2026 23:45:22 +0000
+Message-Id: <20260520234523.3AF461F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Unbounded per-file-descriptor DMA memory allocation in `rga_open` =
-allows unprivileged users to exhaust system CMA/DMA memory.
+- [Medium] Hardware Mismatch / Fake API Implementation
+- [Medium] State Corruption / Race Condition in vidioc_s_fmt
+- [Medium] Uninitialized State Leak overriding valid TRY_FMT colorspace
+- [Low] Missing Validation / API Violation for SET_CSC
+- [Low] Code Quality / Documentation Mismatch in vidioc_enum_fmt
 
 Pre-existing issues:
-- [Critical] Use-After-Free vulnerability in `rga_release` during driver un=
-bind, exacerbated by new DMA cleanup code.
-- [Critical] Ignored error return from `rga_setup_ctrls` in `rga_open` lead=
-s to the use of a destroyed mutex and a Double-Free.
-- [Critical] Race condition in `rga_remove()` releases the V4L2 M2M device =
-before unregistering the video node, creating a Use-After-Free window.
+- [High] UAF / NULL Pointer Dereference due to unsynchronized stop_streaming
+- [High] NULL Pointer Dereference in ISR when ctx is NULL
 --
 
-commit a7b385663b985b57ae0c1fc76e2b2adad26d093e
+commit 1fbef10f8fc2594899895cefaffc9c924524b76e
 Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+Subject: media: rockchip: rga: announce and sync colorimetry
 
-media: rockchip: rga: move cmdbuf to rga_ctx
-   =20
-Move the command buffer to the rga_ctx struct in preparation to reuse
-an already prepared command buffer. This allows to split the command
-buffer setup in a further commit to setup a template for the command
-buffer at streamon and only update the buffer addresses in device_run
-and trigger the command stream.
+This patch announces the capability to adjust quantization and ycbcr_enc for
+capture formats in the Rockchip RGA driver. It checks the SET_CSC flag
+when colorimetry changes and synchronizes colorimetry from the output queue
+to the capture queue to satisfy v4l2-compliance tests.
 
 > diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
 atform/rockchip/rga/rga.c
-> index 77b8c7ab74274..bf6bbcbfc869b 100644
+> index ca8d8a53dc251..8c34f73d69764 100644
 > --- a/drivers/media/platform/rockchip/rga/rga.c
 > +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -219,6 +219,16 @@ static int rga_open(struct file *file)
->  	ctx =3D kzalloc_obj(*ctx);
->  	if (!ctx)
->  		return -ENOMEM;
-> +
-> +	/* Create CMD buffer */
-> +	ctx->cmdbuf_virt =3D dma_alloc_attrs(rga->dev, rga->hw->cmdbuf_size,
-> +					   &ctx->cmdbuf_phy, GFP_KERNEL,
-> +					   DMA_ATTR_WRITE_COMBINE);
-
-[Severity: High]
-Does this allow an unprivileged user to exhaust system CMA/DMA memory?
-
-Since the buffer is now allocated per file descriptor rather than once duri=
-ng
-device probe, and there seem to be no driver-level limits on how many times
-the V4L2 device can be opened, could a user loop open() or use fork() to
-unboundedly allocate DMA memory?
-
-> +	if (!ctx->cmdbuf_virt) {
-> +		ret =3D -ENOMEM;
-> +		goto rel_ctx;
-> +	}
-> +
->  	ctx->rga =3D rga;
->  	/* Set default formats */
->  	ctx->in =3D def_frame;
-
-[ ... ]
-
-> @@ -252,6 +260,15 @@ static int rga_open(struct file *file)
->  	mutex_unlock(&rga->mutex);
+> @@ -437,6 +437,15 @@ static int vidioc_enum_fmt(struct file *file, void *=
+priv, struct v4l2_fmtdesc *f
+>  	fmt =3D &formats[f->index];
+>  	f->pixelformat =3D fmt->fourcc;
 > =20
->  	return 0;
+> +	if (f->type !=3D V4L2_BUF_TYPE_VIDEO_CAPTURE &&
+> +	    f->type !=3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
+> +		return 0;
+> +
+> +	/* allow changing the quantization and xfer func for YUV formats */
 
-[Severity: Critical]
-This is a pre-existing issue, but the return value of rga_setup_ctrls(ctx)
-seems to be completely ignored before returning from rga_open().
+[Severity: Low]
+Does the comment mismatch the code below? It mentions the xfer func, but the
+flags set are for YCBCR_ENC.
 
-If control setup fails, rga_setup_ctrls() calls v4l2_ctrl_handler_free(),
-which destroys the control handler's mutex and frees its internal structure=
-s.
+> +	if (v4l2_is_format_yuv(v4l2_format_info(f->pixelformat)))
+> +		f->flags |=3D V4L2_FMT_FLAG_CSC_QUANTIZATION |
+> +			    V4L2_FMT_FLAG_CSC_YCBCR_ENC;
 
-By continuing execution blindly and returning 0, does the subsequent call to
-v4l2_ctrl_handler_setup() end up locking a destroyed mutex?
+[Severity: Medium]
+Is it safe to advertise these CSC flags if the hardware doesn't enforce the=
+m?
 
-Additionally, since the file descriptor becomes valid, won't rga_release()
-eventually call v4l2_ctrl_handler_free() again and cause a double-free?
+It appears the hardware programming logic ignores the quantization and
+ycbcr_enc fields, determining the CSC mode based solely on the colorspace.
+
+Falsely advertising capabilities to pass compliance tools without actual
+hardware enforcement could lead to incorrect colorimetry outputs.
 
 > +
-> +unlock_mutex:
-> +	mutex_unlock(&rga->mutex);
-> +rel_cmdbuf:
-> +	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, ctx->cmdbuf_virt,
-> +		       ctx->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
-> +rel_ctx:
-> +	kfree(ctx);
-> +	return ret;
+>  	return 0;
 >  }
 > =20
->  static int rga_release(struct file *file)
-> @@ -266,6 +283,10 @@ static int rga_release(struct file *file)
->  	v4l2_ctrl_handler_free(&ctx->ctrl_handler);
->  	v4l2_fh_del(&ctx->fh, file);
->  	v4l2_fh_exit(&ctx->fh);
-> +
-> +	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, ctx->cmdbuf_virt,
-> +		       ctx->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
-> +
-
-[Severity: Critical]
-This is a pre-existing issue, but because rga is allocated with
-devm_kzalloc() in rga_probe(), if a user keeps the file descriptor open
-during driver unbind, won't rga be automatically freed by devres?
-
-When the file is later closed, doesn't rga_release() dereference the freed
-rga pointer when locking rga->mutex?
-
-Does this new dma_free_attrs() call introduce another use-after-free vector
-by dereferencing the already freed rga->dev pointer?
-
->  	kfree(ctx);
+> @@ -459,8 +468,25 @@ static int vidioc_g_fmt(struct file *file, void *pri=
+v, struct v4l2_format *f)
+>  static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_for=
+mat *f)
+>  {
+>  	struct v4l2_pix_format_mplane *pix_fmt =3D &f->fmt.pix_mp;
+> +	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
+>  	struct rga_fmt *fmt;
 > =20
->  	mutex_unlock(&rga->mutex);
+> +	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
+> +		const struct rga_frame *frm;
+> +
+> +		frm =3D rga_get_frame(ctx, f->type);
+> +		if (IS_ERR(frm))
+> +			return PTR_ERR(frm);
+> +
+> +		if (!(pix_fmt->flags & V4L2_PIX_FMT_FLAG_SET_CSC)) {
+
+[Severity: Low]
+Could this accept the SET_CSC flag for any format? The code in enum_fmt
+restricts the CSC capability flags to YUV formats, but there doesn't seem
+to be a check here to validate if the requested format is actually YUV.
+
+Additionally, should the driver clear the SET_CSC flag from pix_fmt->flags
+if the CSC settings are not supported for the requested format?
+
+> +			pix_fmt->quantization =3D frm->pix.quantization;
+> +			pix_fmt->ycbcr_enc =3D frm->pix.ycbcr_enc;
+> +		}
+> +		/* disallow values not announced in vidioc_enum_fmt */
+> +		pix_fmt->colorspace =3D frm->pix.colorspace;
+
+[Severity: Medium]
+Will this overwrite a valid requested colorspace with an uninitialized valu=
+e?
+
+During context initialization, ctx->out.pix.colorspace defaults to 0
+(V4L2_COLORSPACE_DEFAULT).
+
+If an application calls TRY_FMT on the capture queue before configuring
+the output queue, this logic forcibly replaces the user-provided
+colorspace with 0. Returning V4L2_COLORSPACE_DEFAULT from TRY_FMT is
+generally disallowed by the API.
+
+> +		pix_fmt->xfer_func =3D frm->pix.xfer_func;
+> +	}
+> +
+>  	fmt =3D rga_fmt_find(pix_fmt->pixelformat);
+>  	if (!fmt)
 
 [ ... ]
 
-> @@ -759,9 +768,6 @@ static void rga_remove(struct platform_device *pdev)
->  {
->  	struct rockchip_rga *rga =3D platform_get_drvdata(pdev);
+> @@ -506,6 +532,17 @@ static int vidioc_s_fmt(struct file *file, void *pri=
+v, struct v4l2_format *f)
+>  	frm->fmt =3D rga_fmt_find(pix_fmt->pixelformat);
+>  	frm->stride =3D pix_fmt->plane_fmt[0].bytesperline;
 > =20
-> -	dma_free_attrs(rga->dev, rga->hw->cmdbuf_size, rga->cmdbuf_virt,
-> -		       rga->cmdbuf_phy, DMA_ATTR_WRITE_COMBINE);
-> -
->  	v4l2_info(&rga->v4l2_dev, "Removing\n");
-> =20
->  	v4l2_m2m_release(rga->m2m_dev);
+> +	/*
+> +	 * Copy colorimetry from output to capture as required by the
+> +	 * v4l2-compliance tests
+> +	 */
+> +	if (V4L2_TYPE_IS_OUTPUT(f->type)) {
+> +		ctx->out.pix.colorspace =3D pix_fmt->colorspace;
+> +		ctx->out.pix.ycbcr_enc =3D pix_fmt->ycbcr_enc;
+> +		ctx->out.pix.quantization =3D pix_fmt->quantization;
+> +		ctx->out.pix.xfer_func =3D pix_fmt->xfer_func;
+> +	}
 
-[Severity: Critical]
-This is a pre-existing issue, but does this function release the V4L2 memory
-to memory context before unregistering the video device?
+[Severity: Medium]
+Can this create a race condition if the CAPTURE queue is currently streamin=
+g?
 
-If v4l2_m2m_release() is called before video_unregister_device(), isn't the
-video node still fully accessible to userspace during this window?
+The driver correctly checks if the OUTPUT queue is busy earlier in this
+function, but it doesn't verify if the CAPTURE queue is active.
 
-If a concurrent ioctl is dispatched, could the V4L2 core route it to the
-driver, causing it to dereference the already freed rga->m2m_dev?
+Mutating ctx->out.pix while the CAPTURE queue is active could cause
+hardware configuration routines to asynchronously read corrupted or
+intermediate state without appropriate queue locks.
+
+> +
+>  	/* Reset crop settings */
+>  	frm->crop.left =3D 0;
+>  	frm->crop.top =3D 0;
+
+[Severity: High]
+This is a pre-existing issue, but does rga_buf_stop_streaming() leave
+hardware jobs running when clearing the queues?
+
+When rga_buf_stop_streaming() calls rga_buf_return_buffers() with
+VB2_BUF_STATE_ERROR, it removes all buffers from the M2M context queues.
+However, it does not appear to instruct the hardware to stop processing
+the current frame or wait for completion.
+
+When the active hardware job completes, it triggers an interrupt, and
+the ISR attempts to fetch processed buffers via v4l2_m2m_src_buf_remove().
+Since the queue was emptied, this returns NULL, which then gets blindly
+dereferenced in v4l2_m2m_buf_copy_metadata().
+
+[Severity: High]
+This is a pre-existing issue, but is it possible for rga_isr() to
+dereference a NULL context pointer?
+
+In rga_isr(), the driver assigns ctx =3D rga->curr. If ctx is NULL due to
+a spurious interrupt or delayed state update, the driver triggers a
+warning via WARN_ON(!ctx).
+
+However, execution continues and the driver immediately dereferences the
+NULL ctx pointer in the call to v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx),
+leading to a crash.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-spu-rga3-v=
-7-0-3f33e8c7145f@pengutronix.de?part=3D14
+7-0-3f33e8c7145f@pengutronix.de?part=3D10
