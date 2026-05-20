@@ -1,68 +1,228 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A71D2F7F06;
-	Wed, 20 May 2026 10:19:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E04372B31;
+	Wed, 20 May 2026 10:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779272372; cv=none; b=eKKISZDmZLSraZP0sUWsVZwSRn2/mxuO8sSdKfn2cRo2Yzw8UtJauQBvslsT2weWHuDgrvghr8F3lsrd6E4pnW5Q2AoDezb5PhpCONnheglIFuzhzgIHBRP35t/cJMsJx7129N1f4LupMRS4mnkcAFGLhyJZZsV0YxmoBEcZmfU=
+	t=1779272445; cv=none; b=EwnH7yffiMgactoMkSRSE3Osfh4LJ9Vjq3f21SjxTbCkFPoCxO48G4bk90wrYA87K8Xg0TlxlVSCY1OW0D9MQQcRM0Fv1QXEjda4IrXUEBmx/Yabo7MqtL5QkAj99bBKfWOGHSd9Nkbeu57H8oERA3qdEAtZr4zVJrrD/vySP8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779272372; c=relaxed/simple;
-	bh=UeBihuTwpiwY+Gc2fcmIUxVR84SFd6ZwPgT/Sk1I30s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fXmsf20d5sXBcLIbSalF20c9gHyrgeBpWzQhf7IfnvhjKmEaAuBS6jqsnGWW1OlpiYNuSEo631nkTo8ERGpzXI/xGd8Hi1WFXu2h4SWxKBibB69nxX2ZqM3fCqwNb729hB3yvQVnJVA50eZhsKaeR2tnzWwy/4xYz1op4WcqYkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZP8+xT6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779272445; c=relaxed/simple;
+	bh=i8YXp88SBrjSfaEabpCqCwQuLWqcSJRB7zqdNAJQHeI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EvZ2kkI0PxcCuLzEKxaW32ODLQ6ZoZzBfZloPNy6iUc9SI6t9pqvyPzF+uE6qSzLp4aKVxQ/9/wK9Xl1D2QI7rLKR7GgpTY6J8I0gAmoQHS1Drnzp/1Q8KOTyOSl50R5yioJjAh1obW0sKZe8yN2ZOHmQL01kZZ/t/U64vCS5SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQZZVvlL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZP8+xT6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1291F000E9;
-	Wed, 20 May 2026 10:19:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQZZVvlL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD0B1F000E9;
+	Wed, 20 May 2026 10:20:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779272368;
-	bh=tgf+kb2GSBgtHp3s2/DubZNMXmf3PXS/hgCixyB3A6o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HZP8+xT68iH6VPthHgYdQ2vxgPLFxxcbeR5qosATmzUKPLzyYG4/dlPyTdeDdvYoy
-	 ayW1hN4jF2dBbb/dUJszf9JG1+IHDLNDMwqeEdMrVIoxnU8KOQUwBu37lLop1p86F/
-	 +/PDiAb3JkEuKoxAVIRqqmPQAIanWGaTv+ZltYV0SxySOEC1za8Me6ab9bhvkxZjv9
-	 SqSH7WCkSka+Z+ngM6mu8kcJZzp1LCCG39jIAMPNWcINyrZFcTCFyapUId1e9JgpZ7
-	 Hvo0/jXrwYw0Xfu3fnIi/t9+BZaiwq+Kjx4kP4mRpzF0Mbh5WqsDCoj4+Y+jwcHncu
-	 T7NLsIUq1gEWg==
-Date: Wed, 20 May 2026 11:19:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andreas Klinger <ak@it-klinger.de>, Andy
- Shevchenko <andy@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v9 04/11] dt-bindings: iio: adc: hx711: add HX710B
- support
-Message-ID: <20260520111919.5e99fe72@jic23-huawei>
-In-Reply-To: <20260518220228.63322-5-piyushpatle228@gmail.com>
-References: <20260518220228.63322-1-piyushpatle228@gmail.com>
-	<20260518220228.63322-5-piyushpatle228@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779272439;
+	bh=6g9ajzLqaEWEZ3KYt0gRi4e7YSp9lg1KdLS1jVzQoSo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AQZZVvlLPqBw2UoxzkuD5EIcIzW5wozB3Tz2HC1nrXxhcttdIZyLbH9HAIumgriVM
+	 xpaw0MOFiD0lsN4PZM20uRz4DZ3yLXtTCYbth/2fn9Ja7SEMwAckeBtqxNCEEAum5c
+	 ++eomNgH4DF5mTJOBDL7hByDsqM1SxOYNtBsi0YonPhHUiNt+tci7/436imEJ1495N
+	 tXSdH1DZzid6s7lVAVQjcXvqGuNnuFmxFxKUdXSygaIoG10/bu4qrslaBucHABOtDf
+	 9PX1Gy2DhrFe7twM9xULskYEU/R1tJ20wCYG8iF6KgDpyaRnqczMn2OLTKiDgJSztk
+	 iPlBefVyNu6Hg==
+Date: Wed, 20 May 2026 12:20:37 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: cpufreq: qcom-hw: Document Shikra
+ CPUFREQ Hardware
+Message-ID: <20260520-hissing-rook-of-penetration-b4d6c5@quoll>
+References: <20260519-shikra-cpufreq-scaling-v2-0-2b09f0e1c9d8@oss.qualcomm.com>
+ <20260519-shikra-cpufreq-scaling-v2-1-2b09f0e1c9d8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260519-shikra-cpufreq-scaling-v2-1-2b09f0e1c9d8@oss.qualcomm.com>
 
-On Tue, 19 May 2026 03:32:20 +0530
-Piyush Patle <piyushpatle228@gmail.com> wrote:
-
-> Add the avia,hx710b compatible and document the HX710B-specific
-> DVDD and VREF supplies.
+On Tue, May 19, 2026 at 10:58:03PM +0530, Imran Shaik wrote:
+> The Qualcomm Shikra cpufreq hardware is functionally identical to EPSS,
+> but supports only up to 12 frequency lookup table (LUT) entries. Introduce
+> Shikra specific bindings to represent this constrained EPSS variant.
 > 
-> Add constraints that forbid HX711-only properties on HX710B nodes and
-> require vref-supply for HX710B, then add a separate HX710B example.
-> 
-> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-FWIW the only thing Sashiko doesn't like is dvdd is enabled for the old
-parts. Move it to the earlier supply adding patch for hx711 and we should
-be good to go!
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> ---
+>  .../bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml   | 133 +++++++++++++++++++++
 
-Jonathan
+Filename must match compatible. Please read writing-bindings doc.
+
+>  1 file changed, 133 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml b/Documentation/devicetree/bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..52079ed661671554fcca8677409ee11199f5727b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/cpufreq/shikra-cpufreq-qcom-hw.yaml
+> @@ -0,0 +1,133 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/cpufreq/shikra-cpufreq-qcom-hw.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CPUFREQ HW for Qualcomm Shikra SoC
+> +
+> +maintainers:
+> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
+> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+> +
+> +description: |
+> +
+
+Drop blank line
+
+> +  CPUFREQ HW is a hardware engine used by some Qualcomm SoCs to manage
+> +  frequency in hardware. It is capable of controlling frequency for
+> +  multiple clusters.
+> +
+> +  The Qualcomm Shikra CPUFREQ HW supports up to 12 frequency lookup table
+> +  (LUT) entries.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,shikra-cpufreq-epss
+
+cpufreq is Linux term. How the device called in manual? EPSS? cpufreq?
+cpufreq-epss?
+
+> +
+> +  reg:
+> +    items:
+> +      - description: Frequency domain 0 register region
+> +      - description: Frequency domain 1 register region
+> +
+> +  reg-names:
+> +    items:
+> +      - const: freq-domain0
+> +      - const: freq-domain1
+> +
+> +  clocks:
+> +    items:
+> +      - description: XO Clock
+> +      - description: GPLL0 Clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: xo
+> +      - const: alternate
+> +
+> +  interrupts:
+> +    items:
+> +      - description: IRQ line for DCVSH 0
+> +      - description: IRQ line for DCVSH 1
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: dcvsh-irq-0
+> +      - const: dcvsh-irq-1
+> +
+> +  '#freq-domain-cells':
+> +    const: 1
+> +
+> +  '#clock-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - '#freq-domain-cells'
+
+Why interrupts are not required?
+
+Why clock-cells are missing? The device is a clock provider, no? Does it
+differ per each board?
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,rpmcc.h>
+> +
+> +      cpus {
+> +        #address-cells = <2>;
+> +        #size-cells = <0>;
+> +
+> +        cpu0: cpu@0 {
+> +          device_type = "cpu";
+> +          compatible = "arm,cortex-a55";
+> +          reg = <0x0 0x0>;
+> +          enable-method = "psci";
+> +          qcom,freq-domain = <&cpufreq_hw 0>;
+> +          clocks = <&cpufreq_hw 0>;
+> +        };
+> +
+> +        cpu1: cpu@100 {
+> +          device_type = "cpu";
+> +          compatible = "arm,cortex-a55";
+> +          reg = <0x0 0x100>;
+> +          enable-method = "psci";
+> +          qcom,freq-domain = <&cpufreq_hw 0>;
+> +          clocks = <&cpufreq_hw 0>;
+> +        };
+> +
+> +        cpu2: cpu@200 {
+> +          device_type = "cpu";
+> +          compatible = "arm,cortex-a55";
+> +          reg = <0x0 0x200>;
+> +          enable-method = "psci";
+> +          qcom,freq-domain = <&cpufreq_hw 0>;
+> +          clocks = <&cpufreq_hw 0>;
+> +        };
+> +
+> +        cpu3: cpu@300 {
+> +          device_type = "cpu";
+> +          compatible = "arm,cortex-a78c";
+> +          reg = <0x0 0x300>;
+> +          enable-method = "psci";
+> +          qcom,freq-domain = <&cpufreq_hw 1>;
+> +          clocks = <&cpufreq_hw 1>;
+> +        };
+> +      };
+
+Drop all nodes above.
+
+> +
+> +    soc {
+> +      #address-cells = <1>;
+> +      #size-cells = <1>;
+> +
+> +      cpufreq@fd91000 {
+> +        compatible = "qcom,shikra-cpufreq-epss";
+> +        reg = <0x0fd91000 0x1000>, <0x0fd92000 0x1000>;
+> +        reg-names = "freq-domain0", "freq-domain1";
+> +
+> +        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>, <&gpll0>;
+> +        clock-names = "xo", "alternate";
+
+Incomplete example.
+
+> +
+> +        #freq-domain-cells = <1>;
+> +        #clock-cells = <1>;
+> +      };
+> +    };
+> +...
+> 
+> -- 
+> 2.34.1
+> 
