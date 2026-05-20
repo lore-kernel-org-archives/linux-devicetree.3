@@ -1,140 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD20369D6E
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:50:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872A03A383C
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:57:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779295823; cv=none; b=EnzUIDZ9quK1efwi2MBjSNXc9yoYvZxtI1TJjxjMUnjHBxP/+w8gM6PsTGJ4b+p2GEqXbo6/rQ+pkArNn7ZN94eusmEsiISdCflZ9QDKpQv9gdK0b+MrsPejtTMA2BStf28K8FZ/ahTF9809U/k8cS3PPQ8s8OQ59VXPENmfd+s=
+	t=1779296231; cv=none; b=at3K7jsa14Gvyf/ZBzuh7n3POsNksVizmHyPi80E7qhCu8nmDTPF3U/XOarMUROGhR1BoHL94jqW3wglnptDEWAv0NFGp2Udrox7MtlP7bpgmOTrqY16qRKqnTB2eMLbUZ2iDRE8pCZf+O0qi1yqfxnRA8LsnnS0RIO0EzddZys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779295823; c=relaxed/simple;
-	bh=4StO3GMn4Gxk9XTKt6uPC3P4PuxH61uGY6QVK/IFduQ=;
+	s=arc-20240116; t=1779296231; c=relaxed/simple;
+	bh=kdF5hCnb71kDMhz+KJEaBi/2rXrJ9fPmgluQOjjGFd0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HY/cbUGVF+ROcdktPL1TJ4h3U0Ig/uxFEY0fppqtSfwhaRmxyyuAsvfMmTEOjrEpCH4coN6p8WP1gIc315i1eOPYa8FmWJEMcvHtCEmaHYUWHPw7/wzqMeAYkldKA9sbGdMVZpo7QANIzY8+cadl3LVo9igxmwcjMh6wTIouaSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXMjNnCs; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=svcQ/roB+cZLioqzThIGyqNm8/QNG+Q3I4xAiOzA9fB01dPjMfayW+HhknE5gYu7wYuStm4DXbSC9tyHLyebpsy7ZCbZyVY5ZOjluMlvo0bh5g4lZWCNx5ekRoDy41xbCnVg1Geeaz2f47wMmFnTtpHcJnOJu6ol4ewCEoes+NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l4HJxTml; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXMjNnCs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E501E1F00893;
-	Wed, 20 May 2026 16:50:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l4HJxTml"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E485C1F00893;
+	Wed, 20 May 2026 16:57:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779295822;
-	bh=sfocF3u5HLfFiamdAfLSxEaZCOrKo/tdWFUpAkSfQi4=;
+	s=k20260515; t=1779296230;
+	bh=YPJq+Vxzvc6RZ9d0qZrNT1oPAgofYh4O08FvwjKNi4Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SXMjNnCs5cPfn1p/rB1u3USNpbzfQm9eeNI6aIHoPK3462MbmcAX23OcJlrHSh29K
-	 +G3jzSOwB31wt9J45bm17EB3ScAmyj5AtV8MrBY2kdqRSX0uIwTZbn5Uul/4isX8mt
-	 46y+Q7FlCpNtIcBEBOe1pmS8C0DrodI/vWzRBz4IxS+3oKx5tTov3eeZOUQtkAQbAE
-	 WEUGemWkDbgdHEErGspOXIhXRWNmBWvkjftJHp9wcwMmPaSDx8f4J6knNaXh6cPGTy
-	 TFIy+r43qLRfjbJkGIvhsS+BU2ZelX8sqylQBzYtXMEfdxNTxm/areSSyNdz5fperF
-	 eNOKo+h/r+X1w==
+	b=l4HJxTmlMt8rZC5ZSPyFMWBzCBJ2c+tqIK9Jg0Fg3r+mhbngyAJyfRLYuSaX1J9nD
+	 5r2cMiXIacSZexa03x/v49MTWbwz2vlrwOG27tpL1V4qjgQSc6Gl497QitN5D+7Pt8
+	 ZtH+RFkXv9efeXjBUwXpusqaQS57klT1zlXd2yqkPxyttBE9F0C8x7T3knW3RL9Xyf
+	 6DRpKeqCsg4LbERPznJccVcBvDtNvMLgIb397irGSuAsmM3h3dxDv9l5hAnewj62Fu
+	 ygz5BWX3snBzU7wyxxvj+pTGi12dWzusTMjt/WoTqkNcOhcvrFdSw+IiOs1kNVwnyR
+	 xiicvq4GO1vYA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/8] nvmem: Add the Raspberry Pi OTP driver
+Subject: Re: [PATCH 02/11] arm64: dts: qcom: sc8280xp-arcata: Enable
+ backlight
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260520-rpi-otp-driver-v5-4-b26e5908eeac@linutronix.de>
-References: <20260520-rpi-otp-driver-v5-4-b26e5908eeac@linutronix.de>
+To: =?utf-8?b?SsOpcsO0bWUgZGUgQnJldGFnbmUgdmlhIEI0IFJlbGF5?= <devnull+jerome.debretagne.gmail.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-2-9df52552bf87@gmail.com>
+References: <20260520-surface-sp9-5g-for-next-v1-2-9df52552bf87@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 20 May 2026 16:50:21 +0000
-Message-Id: <20260520165021.E501E1F00893@smtp.kernel.org>
+Date: Wed, 20 May 2026 16:57:09 +0000
+Message-Id: <20260520165709.E485C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Missing Validation / FORTIFY_SOURCE Panic
-- [High] Logic Error / Silent Data Loss on Read-Only OTPs
+- [High] The eDP backlight regulator (`vreg_edp_bl`) is mapped to the wrong=
+ PMIC for its enable GPIO, directly contradicting the hardware findings doc=
+umented in the commit message.
 --
 
-commit 2e3b6ccd5e0a968798b760a4875d946be03546f6
-Author: Gregor Herburger <gregor.herburger@linutronix.de>
+commit 5bb21a2e354ddc1fbe2cb4a72c610f631fc3961f
+Author: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
 
-nvmem: Add the Raspberry Pi OTP driver
+arm64: dts: qcom: sc8280xp-arcata: Enable backlight
 
-This patch introduces a new nvmem driver for accessing Raspberry Pi OTP
-registers. The registers are accessed via the videocore firmware interface,
-supporting both the customer OTP and the device specific private key OTP.
+This commit adds backlight nodes and enables the backlight so that it can be
+controlled with the buttons on Surface Pro Type Cover keyboards. The nodes
+are similar to the ThinkPad X13s but use a different enable GPIO for the
+vreg_edp_bl node.
 
-> diff --git a/drivers/nvmem/raspberrypi-otp.c b/drivers/nvmem/raspberrypi-=
-otp.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/nvmem/raspberrypi-otp.c
-
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arc=
+h/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+> index f2b4470d4407f..14287092fb07e 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 [ ... ]
-
-> +static int rpi_otp_read(void *context, unsigned int offset, void *buf, s=
-ize_t bytes)
-> +{
-> +	struct rpi_otp_priv *priv =3D context;
-> +	struct rpi_otp_header *fwbuf;
-> +	u32 count;
-> +	int ret;
+> @@ -127,6 +137,22 @@ pmic_glink_con1_sbu: endpoint {
+>  		};
+>  	};
+> =20
+> +	vreg_edp_bl: regulator-edp-bl {
+> +		compatible =3D "regulator-fixed";
 > +
-> +	count =3D bytes / 4;
+> +		regulator-name =3D "VREG_EDP_BL";
+> +		regulator-min-microvolt =3D <3600000>;
+> +		regulator-max-microvolt =3D <3600000>;
 > +
-> +	fwbuf =3D kzalloc(struct_size(fwbuf, data, count), GFP_KERNEL);
-> +	if (!fwbuf)
-> +		return -ENOMEM;
-> +
-> +	fwbuf->start =3D cpu_to_le32(offset / 4);
-> +	fwbuf->count =3D cpu_to_le32(count);
-> +
-> +	ret =3D rpi_firmware_property(priv->fw, priv->read_tag, fwbuf,
-> +				    sizeof(struct rpi_otp_header) + bytes);
-> +	if (ret)
-> +		goto out;
-> +
-> +	memcpy(buf, fwbuf->data, bytes);
+> +		gpio =3D <&pmc8280c_gpios 6 GPIO_ACTIVE_HIGH>;
 
 [Severity: High]
-If the firmware returns a partial read and reduces the value of fwbuf->coun=
-t,
-will this memcpy trigger a FORTIFY_SOURCE bounds violation?
+Does this map to the correct PMIC for the enable GPIO?
 
-The rpi_otp_header struct uses __counted_by_le(count) for the data array. If
-the firmware alters the count during rpi_firmware_property, the dynamically
-evaluated object size of fwbuf->data will shrink.
+The commit message explicitly states that the hardware match for the backli=
+ght
+enable GPIO was found at platform/c440000.spmi:pmic@3:gpio@8800 (which is
+gpio6).
 
-Continuing to copy the originally requested bytes could exceed the updated
-bounds and crash the kernel. Should the driver limit the copy size to the
-returned count or handle short reads as an error?
+According to sc8280xp-pmics.dtsi, pmic@3 corresponds to the pmc8280_2 PMIC =
+and
+its pmc8280_2_gpios controller.
 
-[ ... ]
+However, the patch configures the regulator and pinctrl to use pmc8280c_gpi=
+os,
+which is physically mapped to pmic@2.
 
-> +static int rpi_otp_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct nvmem_device *nvmem;
-> +	struct rpi_otp_priv *priv;
-> +	const struct rpi_otp_driver_data *data;
-> +	struct nvmem_config config =3D {
-> +		.read_only =3D false,
-> +		.word_size =3D 4,
-> +		.stride =3D 4,
-> +		.reg_read =3D rpi_otp_read,
-> +		.reg_write =3D rpi_otp_write,
-> +		.id =3D NVMEM_DEVID_NONE,
+Will this result in toggling the wrong physical pin on pmic@2 instead of
+enabling the eDP backlight?
+
+A review of the remainder of the patch series indicates this misconfigurati=
+on
+is not fixed in subsequent commits.
+
+> +		enable-active-high;
+> +
+> +		pinctrl-0 =3D <&edp_bl_reg_en>;
+> +		pinctrl-names =3D "default";
+> +
+> +		regulator-boot-on;
 > +	};
 
-[Severity: High]
-If the platform data specifies a read-only OTP region (like the device
-specific private key OTP) with a write_tag of 0, could this cause silent
-data loss during a write attempt?
-
-If a write is attempted, rpi_otp_write would pass a tag of 0 to
-rpi_firmware_property. Since tag 0 signifies RPI_FIRMWARE_PROPERTY_END,
-the firmware will immediately terminate property processing, ignore the
-payload, and return success.=20
-
-This would mislead the NVMEM subsystem and userspace into thinking the write
-succeeded when the data was actually discarded. Could the driver conditiona=
-lly
-set .read_only =3D true and omit .reg_write if data->write_tag is 0?
-
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-rpi-otp-dr=
-iver-v5-0-b26e5908eeac@linutronix.de?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-surface-sp=
+9-5g-for-next-v1-0-9df52552bf87@gmail.com?part=3D2
