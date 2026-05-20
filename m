@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF253CF049
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FB03CFF46
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:45:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779317129; cv=none; b=kzcIGR335jVYxEzP/WDSFYFOn6H7k3WEWqFNjIJNpqXal6i3hM7S54T0mdCrD8m8LNrXSUBq/A2nrOnAOzmoa5hWAtqnI5MfqW/X2Dxfm90el4fLKb6YgtPopW/lemCyICYpunn8EsD/GaYMLuEY4kUcDsBgHxjDOWzEYsKnrUg=
+	t=1779317134; cv=none; b=Nj0wz/ZLsFkuGvyGTsQ4bq1oessCtZfMk1V1y9Jk/XHe3/wuFEUWAj+quxB4O64batUa7gH/pnLoBBix4AWsqVn2Y9AbNfnXwMz0EmsLMRVMy+5gB3DrePly+Ig1f/cuMXgqxuySROhyXtH9/fLaGL1GLIBV+Xlt3I4vluXJZIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779317129; c=relaxed/simple;
-	bh=pKZOYwEGn5x3zzyKEaY7cYxemy2d0t5TJOhgO3uVp9c=;
+	s=arc-20240116; t=1779317134; c=relaxed/simple;
+	bh=oVSpsOO+/mpbk1DadBzbAO6b7Utf3jRs5ytOVAnoum8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OdpYFgUwyshJjfKcqRb9rO5XsikdzPyNsl3EJBsTU/jHsH0CRE/1VUFEzCiuh0nIN+E3byuiRiEdg6Cbx/0hu5klGQIeglQoS9q+3oMQ71+YcSXwkE/UcK0h+d3nLvkPlzd7ER5TroNDORsqVaI1+VAkNaxl6TPZN5X46ki1iRI=
+	 In-Reply-To:To:Cc; b=mJYz243g/VyElStHa++rR+cDZwO4ZpDIJcwHWTBZbpjzx2mJxSyaMaPSai2BvJCxESSeOj2jZLtdsiu7I1tJDmmYUDlLCY7wBuSplRfDxZNg/li86MTbjny6Cv8W8z6eKrCRxxSaKvcZks184RCOxK7PJjywykRMfUJIStVgqms=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wPpez-0005vy-0w; Thu, 21 May 2026 00:45:05 +0200
+	id 1wPpf1-0005vy-NW; Thu, 21 May 2026 00:45:07 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Thu, 21 May 2026 00:44:31 +0200
-Subject: [PATCH v7 26/28] media: rockchip: rga: disable multi-core support
+Date: Thu, 21 May 2026 00:44:33 +0200
+Subject: [PATCH v7 28/28] arm64: dts: rockchip: add rga3 dt nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260521-spu-rga3-v7-26-3f33e8c7145f@pengutronix.de>
+Message-Id: <20260521-spu-rga3-v7-28-3f33e8c7145f@pengutronix.de>
 References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 In-Reply-To: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,96 +43,95 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
  p.zabel@pengutronix.de, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Disable multi-core support in preparation of the RGA3 addition. The
-RK3588 SoC features two equal RGA3 cores. This allows scheduling of the
-work between both cores, which is not yet implemented. Until it is
-implemented avoid exposing both cores as independent video devices to
-prevent an ABI breakage when multi-core support is added.
+Add devicetree nodes for the RGA3 (Raster Graphics Acceleration 3)
+peripheral in the RK3588.
 
-This patch is copied from the Hantro driver patch to disable multi core
-support by Sebastian Reichel. See
-commit ccdeb8d57f7f ("media: hantro: Disable multicore support")
+The existing rga node refers to the RGA2-Enhanced peripheral. The RK3588
+contains one RGA2-Enhanced core and two RGA3 cores. Both feature a similar
+functionality of scaling, cropping and rotating of up to two input
+images into one output image. Key differences of the RGA3 are:
 
-Link: https://lore.kernel.org/all/20240618183816.77597-4-sebastian.reichel@collabora.com/
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+- supports 10bit YUV output formats
+- supports 8x8 tiles and FBCD as inputs and outputs
+- supports BT2020 color space conversion
+- max output resolution of (8192-64)x(8192-64)
+- MMU can map up to 32G DDR RAM
+- fully planar formats (3 planes) are not supported
+- max scale up/down factor of 8 (RGA2 allows up to 16)
+
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
----
- drivers/media/platform/rockchip/rga/rga.c | 47 +++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 8d60e94da32d8..0152b8ef2da2f 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -711,6 +711,49 @@ static int rga_parse_dt(struct rockchip_rga *rga)
- 	return 0;
- }
+---
+Changes in v6:
+- reordered before the rga node to fix the sorting order.
+  Flagged by sashiko.dev:
+  https://sashiko.dev/#/patchset/20260325-spu-rga3-v4-0-e90ec1c61354%40pengutronix.de?part=27
+---
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 44 +++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 4fb8888c281c8..a4f44af512375 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1262,6 +1262,50 @@ vpu121_mmu: iommu@fdb50800 {
+ 		#iommu-cells = <0>;
+ 	};
  
-+/*
-+ * Some SoCs, like RK3588 have multiple identical RGA3 cores, but the
-+ * kernel is currently missing support for multi-core handling. Exposing
-+ * separate devices for each core to userspace is bad, since that does
-+ * not allow scheduling tasks properly (and creates ABI). With this workaround
-+ * the driver will only probe for the first core and early exit for the other
-+ * cores. Once the driver gains multi-core support, the same technique
-+ * for detecting the main core can be used to cluster all cores together.
-+ */
-+static int rga_disable_multicore(struct device *dev)
-+{
-+	struct device_node *node = NULL;
-+	const char *compatible;
-+	bool is_main_core;
-+	int ret;
++	rga3_core0: rga@fdb60000 {
++		compatible = "rockchip,rk3588-rga3";
++		reg = <0x0 0xfdb60000 0x0 0x200>;
++		interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_RGA3_0>, <&cru HCLK_RGA3_0>, <&cru CLK_RGA3_0_CORE>;
++		clock-names = "aclk", "hclk", "sclk";
++		resets = <&cru SRST_RGA3_0_CORE>, <&cru SRST_A_RGA3_0>, <&cru SRST_H_RGA3_0>;
++		reset-names = "core", "axi", "ahb";
++		power-domains = <&power RK3588_PD_RGA30>;
++		iommus = <&rga3_0_mmu>;
++	};
 +
-+	/* Intentionally ignores the fallback strings */
-+	ret = of_property_read_string(dev->of_node, "compatible", &compatible);
-+	if (ret)
-+		return ret;
++	rga3_0_mmu: iommu@fdb60f00 {
++		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
++		reg = <0x0 0xfdb60f00 0x0 0x100>;
++		interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_RGA3_0>, <&cru HCLK_RGA3_0>;
++		clock-names = "aclk", "iface";
++		#iommu-cells = <0>;
++		power-domains = <&power RK3588_PD_RGA30>;
++	};
 +
-+	/* The first compatible and available node found is considered the main core */
-+	do {
-+		node = of_find_compatible_node(node, NULL, compatible);
-+		if (of_device_is_available(node))
-+			break;
-+	} while (node);
++	rga3_core1: rga@fdb70000 {
++		compatible = "rockchip,rk3588-rga3";
++		reg = <0x0 0xfdb70000 0x0 0x200>;
++		interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_RGA3_1>, <&cru HCLK_RGA3_1>, <&cru CLK_RGA3_1_CORE>;
++		clock-names = "aclk", "hclk", "sclk";
++		resets = <&cru SRST_RGA3_1_CORE>, <&cru SRST_A_RGA3_1>, <&cru SRST_H_RGA3_1>;
++		reset-names = "core", "axi", "ahb";
++		power-domains = <&power RK3588_PD_RGA31>;
++		iommus = <&rga3_1_mmu>;
++	};
 +
-+	if (!node)
-+		return -EINVAL;
++	rga3_1_mmu: iommu@fdb70f00 {
++		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
++		reg = <0x0 0xfdb70f00 0x0 0x100>;
++		interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_RGA3_1>, <&cru HCLK_RGA3_1>;
++		clock-names = "aclk", "iface";
++		#iommu-cells = <0>;
++		power-domains = <&power RK3588_PD_RGA31>;
++	};
 +
-+	is_main_core = (dev->of_node == node);
-+
-+	of_node_put(node);
-+
-+	if (!is_main_core) {
-+		dev_info(dev, "missing multi-core support, ignoring this instance\n");
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
- static int rga_probe(struct platform_device *pdev)
- {
- 	struct rockchip_rga *rga;
-@@ -721,6 +764,10 @@ static int rga_probe(struct platform_device *pdev)
- 	if (!pdev->dev.of_node)
- 		return -ENODEV;
- 
-+	ret = rga_disable_multicore(&pdev->dev);
-+	if (ret)
-+		return ret;
-+
- 	rga = devm_kzalloc(&pdev->dev, sizeof(*rga), GFP_KERNEL);
- 	if (!rga)
- 		return -ENOMEM;
+ 	rga: rga@fdb80000 {
+ 		compatible = "rockchip,rk3588-rga", "rockchip,rk3288-rga";
+ 		reg = <0x0 0xfdb80000 0x0 0x180>;
 
 -- 
 2.54.0
