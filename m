@@ -1,160 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE293E9C26;
-	Wed, 20 May 2026 14:21:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9FC2DC357
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779286870; cv=none; b=He9HDpaG4sa8f+Yei5+hDskGrXazOLzZHP+QwRDSle6B7TRCSHaj8xFacPr7wc3nT8xoPVXJ3Qg2LQaIxa6sADPpXB/Q3DlTwsvOWdwoc1Y4RkY/Kya1I2w4Wjxw7b2Ycuq3GbGzjM7jvpCtn2NiPPBDZsvKXqgjN6IghbiRuaw=
+	t=1779286946; cv=none; b=EkgNmCgRt1i1u7fpC8EtQ1aIld5fYqtDmc9lOsF/wKrscXrJfn1H1jveWWI6e0YeSruBUOAet+nDMy/+AlhVuAfHU6f7c7DawS0DcX5u9paLvknmCJRkHy7r7YItolGxj54M0bLgv2L17+A05nDS4UfM+dwJzYsCj7GhJjDtBdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779286870; c=relaxed/simple;
-	bh=o80hkq12hOv7CQPqQD1IVh5XcVb6g3yssgV/Fs94Xn4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aMdM3+OSk/1pOtfVe4+JCnRmcCQXtxsOByAQuXnOjnfwLM8+oFINioZVLDklKC4EYmtnhDjZEpa3qxc94bmMZBPJpupF8mZ2vfXOxMNAMOl4EGPk/ge+smUx6aMy2Fjl2VGP2lbF1W5+pPegrrnEJ/mxdhg9B+9NER8oK59cggU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1gP1izC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779286946; c=relaxed/simple;
+	bh=QoXnxKVcwUihjxDvpZNOk95caiYtdwjfmdLfP5nXNjc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CulPIFijNC2JZCCyGCroZj5IvKarVCAHSdlhS93pGR6yymGXjjQELEx4LBO1xyfV9Emtj3EmdnA0CYbG8vKhOFe/Gm6sWAOybKeQKlEmDyxhIeX6bRffZAt7eYVEJWXty17YVV7cMxkxpxEjzR8JqjZGeXhvdQpv1mZv54fcyow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDuzNIbv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1gP1izC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D35151F000E9;
-	Wed, 20 May 2026 14:21:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDuzNIbv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8681F000E9;
+	Wed, 20 May 2026 14:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779286868;
-	bh=dSkU8KGuf/aJKSMYjpXAmPN07Ebv/tBk5PSaYaKcXw8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=a1gP1izCH1gFkaBAfxYL/OKky9tykxq88oQ0xOsm60nhGJyaDqmaHdK2qWe6tzV3F
-	 7se4PhhKLhSfwXvzF+TqemmAu1xcLD2RcUyjoBQJJnRtNx9AtGz5MFNgCMQtzVEQEJ
-	 56PARB2/72wrzzrBj3Km/TH9bypwxoRtGTaxNlbWVFJVAYBSeYmvuisziIEmqBtG3P
-	 oiXaXQ49+jZ98tXVzi/+/cKvzSEFs7r9APAf5BggSgcFpk7VZIalEF0AJKPvHSKT2O
-	 3rytpDaXkagwzn76yl7jOcVZhmCR3KeaLKWEl3hrdkDhn2h5d0FgoZP4EFxIjc3/hC
-	 otAhKdBKYQuCQ==
-Message-ID: <3eaa70e0-4284-4c35-a5d5-42afa3087eea@kernel.org>
-Date: Wed, 20 May 2026 16:21:05 +0200
+	s=k20260515; t=1779286945;
+	bh=Da5qYyI6CKpPFSL8BaW6/6q4oMneDRq/u5oxcQIipyk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VDuzNIbvFjlguxNKUqOJfx0JGYJm4Di+5Y/lrJIGoweGp0im998CgA4522LQEQral
+	 NKPZ4hMOHprYuIrZnkEq3TUVDY1V95EjgU7+sdP+aWqYURI6vwRacwQLxQ6BW4kOO8
+	 WizGcSGzLlDyqBdY78xVUozuK2hmfGZ1gmnVuMdRF+vMc58aoxpFO4pB2/vbuw+y0T
+	 1NSrjSu5QinPJ9DrxkcNT/Mlnbo9o+U6kwKCCNMF2YHgwTP2j3++0LL200ks9u7vjY
+	 Npoc0ztc4jD0Yq/5sNBpUL3olI4099dG9ESP41IcSxCbTiENMxmHI4KHxeY1VjJq/p
+	 T1Qz5nYC2l+5w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/6] leds: is31fl32xx: Add powerdown pin for hardware
+ shutdown mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jun Yan" <jerrysteve1101@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260520133343.1423946-5-jerrysteve1101@gmail.com>
+References: <20260520133343.1423946-5-jerrysteve1101@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 14:22:24 +0000
+Message-Id: <20260520142224.6A8681F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] spi: dt-bindings: cdns,xspi: add sdma-io-width
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260511031732.3199-1-jszhang@kernel.org>
- <20260511031732.3199-2-jszhang@kernel.org>
- <20260515-expert-devious-cricket-faff56@quoll> <agz0kDsQBaeQPPQ4@xhacker>
- <21d30826-bfe6-44cd-8c89-c1986f539e48@kernel.org> <ag2fjCX0DuSVxubv@xhacker>
- <14719378-7bf5-4688-81e9-bccedf618d18@kernel.org>
- <de325dba-0b82-4808-910b-68f0f6426c5f@sirena.org.uk>
- <37a3e9dd-88c2-4d8d-8ae4-6037a1eeedcc@kernel.org> <ag20q5CuB2XsqKS_@xhacker>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ag20q5CuB2XsqKS_@xhacker>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 20/05/2026 15:18, Jisheng Zhang wrote:
-> On Wed, May 20, 2026 at 03:22:07PM +0200, Krzysztof Kozlowski wrote:
->> On 20/05/2026 14:30, Mark Brown wrote:
->>> On Wed, May 20, 2026 at 02:16:21PM +0200, Krzysztof Kozlowski wrote:
->>>> On 20/05/2026 13:48, Jisheng Zhang wrote:
->>>
->>>>> If you mean "Why this cannot be deduced from the compatible?", I think
->>>>> the slave dma port is part of the cdns xspi, so its io width belongs
->>>>> to xSPI device property.
->>>>> From another side, we have seen such property in other drivers such as
->>>>> the reg-io-width for the dw spi DW_SPI_DR port io width.
->>>
->>>> So you mean it depends on SPI device? Then why spi-peripheral-props is
->>>> not applicable here?
->>>
->>> That will be controller side, not device side.
->>>
->>>> If this is not bus width, but DMA-something, is not really then SPI
->>>> device dependent, but rather DMA controller limitation, so either
->>>> deducible from compatible or something else is missing here.
->>>
->>> My understanding is that this is a connection between the SPI and DMA
->>> controllers so it's not as obvious as it could be which side of that
->>> link should have the property, eg:
->>>
->>>   https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/silicon-solutions/design-ip/controller-ip-qspi.pdf
->>>
->>> shows a separate direct connection between the DMA controller and the
->>> xSPI controller, the DMA controller isn't interacting with registers on
->>> the CPU visible buses.  The width is probably a design time configurable
->>> option on both sides of the link.
->>
->> Yes and that sounds a lot specific to particular controller, thus should
->> be implied by / deducible from the compatible.
-> 
-> This is IP feature, so if we couple the IP's feature with platform
-> compatible, I would see some unnecessary LoCs. For example,
-> Let's assume the IP has 10 users, they all support 4 bytes io width,
-> other features are the same. 
-> 
-> If implied by the compatible string, we need to add 10 compatible
-> string support both in code and dt-bindings.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-You always need 10 compatible strings in bindings.
+New issues:
+- [High] Improper teardown ordering causes I2C writes to fail during LED un=
+registration.
+- [Medium] Hardware is left powered on indefinitely if probe() fails.
+- [Medium] Using a non-sleeping GPIO API triggers a kernel warning if the G=
+PIO is on a sleepable controller.
 
-But driver would need only one, since devices are compatible as you
-described.
+Pre-existing issues:
+- [High] Premature user-space and trigger exposure creates a race condition=
+ that overwrites LED state.
+--
 
-> 
-> vs
-> 
-> If supported by "sdma-io-width", nothing is needed after this patch
-> 
-> IMHO, the 2nd sounds better, what do you think?
+commit 50d65262dc7ba9a3a04390c06e026bf8715319ba
+Author: Jun Yan <jerrysteve1101@gmail.com>
 
-We answered this in writing bindings. Properties are not replacement for
-specific compatible. I don't know how to write that sentence in bindings
-clearer - it's exactly this case.
+leds: is31fl32xx: Add powerdown pin for hardware shutdown mode
 
-Best regards,
-Krzysztof
+This patch adds support for the SDB shutdown pin on the IS31FL32XX
+series. It takes the chip out of shutdown mode by driving the pin low
+during probe, and asserts the pin during remove to put the chip back
+into shutdown mode.
+
+> diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32x=
+x.c
+> index fe07acbb103a8..b5207ad6ae966 100644
+> --- a/drivers/leds/leds-is31fl32xx.c
+> +++ b/drivers/leds/leds-is31fl32xx.c
+[ ... ]
+> @@ -421,6 +423,14 @@ static int is31fl32xx_parse_dt(struct device *dev,
+>  	const struct is31fl32xx_chipdef *cdef =3D priv->cdef;
+>  	int ret =3D 0;
+> =20
+> +	/* Driving this GPIO line low takes the chip out of shutdown,
+> + 	 * as it is flagged as GPIO_ACTIVE_LOW in provider (such as the device=
+ tree).
+> + 	 */
+> +	priv->powerdown_gpio =3D devm_gpiod_get_optional(dev, "powerdown", GPIO=
+D_OUT_LOW);
+
+[Severity: Medium]
+If the probe process fails after this point, does the hardware stay powered
+on indefinitely?
+
+devres will release the GPIO descriptor but won't revert the physical output
+state, leaving the chip permanently active.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this function premature=
+ly
+expose the LEDs to userspace?
+
+is31fl32xx_parse_dt() registers the LEDs using
+devm_led_classdev_register_ext(), making them instantly visible to userspace
+and applying default triggers. This happens before the driver calls
+is31fl32xx_init_regs() later in probe(), which performs an I2C reset of
+all registers.
+
+Consequently, any brightness set by a default trigger or a fast userspace
+process in the intervening window will be completely overwritten and lost.
+
+> +	if (IS_ERR(priv->powerdown_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(priv->powerdown_gpio),
+> +				"Failed to get powerdown gpio\n");
+> +
+>  	if ((cdef->output_frequency_setting_reg !=3D IS31FL32XX_REG_NONE) &&
+[ ... ]
+> @@ -609,6 +619,9 @@ static void is31fl32xx_remove(struct i2c_client *clie=
+nt)
+>  	if (ret)
+>  		dev_err(&client->dev, "Failed to reset registers on removal (%pe)\n",
+>  			ERR_PTR(ret));
+> +
+> +	if (priv->powerdown_gpio)
+> +		gpiod_set_value(priv->powerdown_gpio, 1);
+
+[Severity: High]
+Does this premature powerdown cause I2C writes to fail during LED
+unregistration?
+
+The driver registers LEDs using devm_led_classdev_register_ext(), meaning
+devres handles unregistration after the driver's remove() hook completes.
+During unregistration, the LED subsystem turns off the LEDs by calling the
+driver's brightness callback, which performs I2C writes.
+
+If the chip is powered down here, those writes will fail and cause kernel l=
+og
+spam. Could the power-down action be managed via devm_add_action_or_reset()
+after device registration to ensure it executes after the LEDs are cleanly
+unregistered?
+
+[Severity: Medium]
+Since this remove function runs in a sleepable context, could this trigger a
+gpiolib warning?
+
+If the powerdown GPIO is connected to a sleepable controller (like an I2C
+or SPI GPIO expander), calling the non-sleeping gpiod_set_value() will
+trigger a warning within the gpiolib core. Should this use
+gpiod_set_value_cansleep() instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520133343.1423=
+946-1-jerrysteve1101@gmail.com?part=3D4
