@@ -1,108 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81223D75AB;
-	Wed, 20 May 2026 18:55:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D774028F9;
+	Wed, 20 May 2026 18:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779303335; cv=none; b=gM0EwEwkifwAbhvsvXx1xLqmibW8SOdctsAQvk8NYaPAvRWJV9LU8frnl7rWbFYQAsf9DW8K1uGWW5gBjx4Ee2kMLQTqFwmv+WV+72MT8YliB0HC0MHmhIeE8TzWYVB5477r80B+IolIHh0W638njZ3Uyz90WEt4cKQD3dmAjy4=
+	t=1779303337; cv=none; b=r+21NpjPOyzhfokzBfcVHbO9BLpzlCI7H9M4sPQ6a2okdZA9dfbm7PWbbzTeOCMeZ2UdJyCr3JGKFKA1En7zrhWEcchadXzRgZxMQ45RAkkdWlWmm0sBOH0qSDtazEdKaB1g+tgquNFs98KGB/mhJA1yj6SaD+w3eYrCkoCTeho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779303335; c=relaxed/simple;
-	bh=PvpeF/Zoun/FX1KkahgKET3g0uHQyd8hBFJoc4f5kUE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dRdUEwLIZhm8/7Zb8EQYEL5p3T48Q7nPcAl97dfD28zz7cb1nFU18wh/RfF+vbUt36Usw4gwL9s+Wp9OTuGmWWt8iXpbkLHVDY8iGLP9TeTWoMps8MZRDpIvgOpjaGKGMaXWVTIw2raKs19PMh3RTom/psQXO6X/xZnyzxOmzO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3HC1AWl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779303337; c=relaxed/simple;
+	bh=aormWLo69fhvzHrVWnIs6E0MHnDckE150hcpfR5D78s=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=IyuTxem2mf3G3ipkdogg14wIl4IqeuCAPcNLN+384c3X1j0mcBoeW8wAy0YbT7J8soJBD6ocFbGTGSLEfz050r5E2pr4+96QVCG+nfWMPLp9qJM7ENUS5MyYVMeOTf7oobEihtKBHcbpWhaRHKWtV07brk7Nm1awLzcJ9d/Kkk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBYFiAXx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3HC1AWl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108B21F000E9;
-	Wed, 20 May 2026 18:55:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBYFiAXx"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9BAF21F00894;
+	Wed, 20 May 2026 18:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779303334;
-	bh=1T+Q/YxtQARU2EGQLE/zHDY4XgcSiULTKufiyFMk81o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d3HC1AWlxYQloLRdwFfkhaO9j224EwZJKTWuqbNerYPPwboNaP5Oz+iENzlzxFIap
-	 aB83fyHfHkO46WDersl/s2y9fMKNnVWY7cjunQ3dZWU8yCNtPQ19Yr5yJ/gO+07XZa
-	 nEA65mrqtesRALxniBsxDYR26TgwmwQbhOQ2kWquww7WOG+HhUp2rhuD0XkQpnUKl4
-	 3jcPM5N7E+loqNENnYvCO7XLTC/PSQpsIvSfJezjYB+z5Mb6JhpjxAe0MsCcyo7EgJ
-	 zbX+IR/im+BQAIPoSDd/EOu68/1bNkHfVz3edQcj3+K+CFV6P24opy4+L1dj3HWqu9
-	 P6iMyHvEgXW/g==
-Date: Wed, 20 May 2026 19:55:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Tomasz Jeznach <tomasz.jeznach@linux.dev>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	iommu@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Joel Stanley <joel@jms.id.au>, Joerg Roedel <joerg.roedel@amd.com>,
-	Nicholas Piggin <npiggin@gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: iommu: riscv: Add bindings for
- Tenstorrent RISC-V IOMMU
-Message-ID: <20260520-imminent-graded-6e1f0f4c54d0@spud>
-References: <20260520061855.1623468-4-fustini@kernel.org>
- <20260520-frayed-fervor-7c887193ab19@spud>
- <ag36CHVAERc3ZYmi@x1>
+	s=k20260515; t=1779303335;
+	bh=39UG6z3xSkfALd7iFK2MrFvSVeHM27TADIbMrVcBmWU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=EBYFiAXx0OCVsyM1J/eRY73szIoOfP85uCJFVPjKqdm7S5vsfcLScQOznPRxobUsW
+	 7vGl9qe439P94ZDvGqu9osOzTC551N/8TGC7knUso1/HPgeIJvTj+5BJ3KZvt7TgbM
+	 fbkwnHaReeN0NSWcnOddQVxkpbAzmE8LJH+iZFTO9y9JhqAg3q4rYxoUKq4wOVeztb
+	 pTzB8xcNOyttKs0MpMYCGm0TM7o0uH/LgTeXFCXCad7zrhVIJfMjziIQQhPYf0wo3y
+	 LwrL32e5PFnokVZoytxFkN+ht1ApxcP+nZMUSIkqYQd2b4GKg/C0JDywlr0BcHW25J
+	 eCrpZw+foDy7w==
+Date: Wed, 20 May 2026 13:55:34 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
+	naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
+	kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v8 1/3] PCI: mediatek: Use actual physical address
+ instead of virt_to_phys()
+Message-ID: <20260520185534.GA72799@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XDMycSDARlTDf9SM"
-Content-Disposition: inline
-In-Reply-To: <ag36CHVAERc3ZYmi@x1>
-
-
---XDMycSDARlTDf9SM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260520183827.908243-2-cjd@cjdns.fr>
 
-On Wed, May 20, 2026 at 11:14:32AM -0700, Drew Fustini wrote:
-> On Wed, May 20, 2026 at 05:17:41PM +0100, Conor Dooley wrote:
-> > On Tue, May 19, 2026 at 11:16:28PM -0700, Drew Fustini wrote:
-> > > +allOf:
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            enum:
-> > > +              - tenstorrent,riscv-iommu
-> > > +    then:
-> > > +      properties:
-> > > +        reg:
-> >=20
-> > > +          items:
-> > > +            - description: IOMMU base registers
-> > > +            - description: Tenstorrent IOMMU machine mode registers.
-> >=20
-> > Should this also have minItems: 2?
->=20
-> I think items: with 2 items implies minItems: 2 but I see your later
-> point about the description and names don't belong in the allOf: block.
+On Wed, May 20, 2026 at 06:38:25PM +0000, Caleb James DeLisle wrote:
+> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> 
+> The driver previously used virt_to_phys() on the ioremapped register base
+> (port->base) to compute the MSI message address. Using virt_to_phys() on an
+> IO mapped address is incorrect because it expects a kernel virtual address.
+> 
+> To fix it, store the physical start of the I/O register region in
+> mtk_pcie_port->phys_base and use it to build the MSI address. This replaces
+> the incorrect virt_to_phys() usage and ensures MSI addresses are generated
+> correctly.
+> 
+> Fixes: 43e6409db64d ("PCI: mediatek: Add MSI support for MT2712 and MT7622")
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
+> ---
+>  drivers/pci/controller/pcie-mediatek.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
+> index 75722524fe74..c503fbd774d0 100644
+> --- a/drivers/pci/controller/pcie-mediatek.c
+> +++ b/drivers/pci/controller/pcie-mediatek.c
+> @@ -175,6 +175,7 @@ struct mtk_pcie_soc {
+>  /**
+>   * struct mtk_pcie_port - PCIe port information
+>   * @base: IO mapped register base
+> + * @phys_base: Physical address of the I/O register base region
+>   * @list: port list
+>   * @pcie: pointer to PCIe host info
+>   * @reset: pointer to port reset control
+> @@ -196,6 +197,7 @@ struct mtk_pcie_soc {
+>   */
+>  struct mtk_pcie_port {
+>  	void __iomem *base;
+> +	phys_addr_t phys_base;
+>  	struct list_head list;
+>  	struct mtk_pcie *pcie;
+>  	struct reset_control *reset;
+> @@ -405,7 +407,7 @@ static void mtk_compose_msi_msg(struct irq_data *data, struct msi_msg *msg)
+>  	phys_addr_t addr;
+>  
+>  	/* MT2712/MT7622 only support 32-bit MSI addresses */
+> -	addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
+> +	addr = port->phys_base + PCIE_MSI_VECTOR;
 
-It would usually, but this is a conditional portion of a wider binding
-that you've modified to look like
-| reg:
-|  minItems: 1
-|  maxItems: 2
-outside the conditional section, and since you don't further constrain
-reg in the conditional section, this minItems: 1 applies.
+This doesn't look right because the MSI address is a PCI bus address,
+and port->phys_base is a CPU physical address.  Often a PCI bus
+address is the same as the CPU physical address, but not always.
+I think the DT 'ranges' property tells you the translation.
 
---XDMycSDARlTDf9SM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag4DoAAKCRB4tDGHoIJi
-0i52AQCcMVQtjCAMXGJzQtwBxYsFksRtUfjkaDGhaqziPvWuBQD/T3ApAlZSXRoR
-lowYATvKW0j7qswukibEBKJMYExAhgw=
-=Cpyi
------END PGP SIGNATURE-----
-
---XDMycSDARlTDf9SM--
+>  	msg->address_hi = 0;
+>  	msg->address_lo = lower_32_bits(addr);
+>  
+> @@ -520,7 +522,7 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
+>  	u32 val;
+>  	phys_addr_t msg_addr;
+>  
+> -	msg_addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
+> +	msg_addr = port->phys_base + PCIE_MSI_VECTOR;
+>  	val = lower_32_bits(msg_addr);
+>  	writel(val, port->base + PCIE_IMSI_ADDR);
+>  
+> @@ -953,6 +955,7 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
+>  	struct mtk_pcie_port *port;
+>  	struct device *dev = pcie->dev;
+>  	struct platform_device *pdev = to_platform_device(dev);
+> +	struct resource *res;
+>  	char name[20];
+>  	int err;
+>  
+> @@ -961,7 +964,14 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
+>  		return -ENOMEM;
+>  
+>  	snprintf(name, sizeof(name), "port%d", slot);
+> -	port->base = devm_platform_ioremap_resource_byname(pdev, name);
+> +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
+> +	if (!res) {
+> +		dev_err(dev, "failed to get port%d base\n", slot);
+> +		return -EINVAL;
+> +	}
+> +
+> +	port->phys_base = res->start;
+> +	port->base = devm_ioremap_resource(&pdev->dev, res);
+>  	if (IS_ERR(port->base)) {
+>  		dev_err(dev, "failed to map port%d base\n", slot);
+>  		return PTR_ERR(port->base);
+> -- 
+> 2.39.5
+> 
