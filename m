@@ -1,117 +1,124 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 964203CF69D
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D9F3D1718
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779270590; cv=none; b=R3o3tQ8pNMbFGPXxwKkbG0s3d3sX2C9ronEw0/LujtrpI5Et998oEihOUfL88THoY6jvjJdOutBeYB2URxbxsYDFGFPlstWa3QaPQMpGbbVm0yrDDgtazA4h2VUVHPq4a9oOwjNHfpcPNLXJ3i/JTmvD5BnS7LxqQH49dHSL6z8=
+	t=1779270661; cv=none; b=H1+E3tmJrOw315GkowKB9gWw8F94YqlU6wDguwEB195+luOtI4m4jkNCkl+ZkA6Vrw7VBnCF8wF095LrAIm/YJxjdtzWqRTutQD5kNN2Ii0dYYyd9Apr8FG2kQQPIjQoKyC6e/Ox8hlPdZf+BCubDXPVTMl1U+SKEVzUQzqPRro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779270590; c=relaxed/simple;
-	bh=tbZBdoarp2sMNF7McNT4lu1FRi1CirgdzAxImMKKYNQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=IIBIpHs3K6vUMfk8VgYdHs09wGoqz7ONBS0HYJNIyo/0YoVlzCMmqCVB9GnGL0v2BTXSCLjVewMGPevDD0IkVUFYPAVHWjKZ1kdvZgWP1EVmuAqzvZnbbASw/fxL4c/ThFMUwzxKuW0s9YJNN8GoL2U71I0lok9/hicFDIusBWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Uig7OxAw; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1779270661; c=relaxed/simple;
+	bh=xzvtdKh/PfnqM/hYMrtUdOK0cFZtEk803EHU6cI/dE4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=e/Lu24dChw6UEx0hVy08JElzBxMD9X0EhCLAkC3vx1Esx2Sf/DIBkcHtOnsTjcUY40WfsnnyS6aCzK9eY4gQt0rZdlAFBqVxzFhnxu7GMY/QIgpo/9qrtqdXPyX+bUs/RfacLTvtxDV40oC1pnIbzyUF1Fl/2VVdHoh2KToKi0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jq1vLt+o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Uig7OxAw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=TbLDLhyU9bxJ7UXpA/7PbPwCImZmP1A41
-	0Qyc+w2VoA=; b=Uig7OxAwl2XqIC6rhfooBYdmnLWpfg5DFR5OEIoGnX8mFu3cW
-	6785I6Ep6fxsxKBPbqro74cbyjzZqTg7up3KMULChj3fIMkMNzIjFGE82lo4vsS0
-	Df/bDeea7k0j3DHPRjaxlm9Jwpw/xvzh2Ku4i7iONz/6W5jvacZHM2jYK4=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEELdgw1qZ_AEAA--.6755S2;
-	Wed, 20 May 2026 17:50:21 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jq1vLt+o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8671F000E9;
+	Wed, 20 May 2026 09:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779270660;
+	bh=SxhN2f6Ty2v4RgfBpmJXEndfxhWr76LKzj9pLOFVhdc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Jq1vLt+o6UnTKfRSJM8EhmEzwJuw8oB0l8/wFcBGJ2R2Sms9MY64WZcc968JvGH6h
+	 bqYimewnviqJOTBhgNZ+4Gp7vKZWhuChld0p0tSsa6UlglfZ18I+MklPawo93u02g4
+	 kXRM9cBoVY7i3KKJUwzdjHoKlsH3NU5RDOEZpmFyC7dHdmn0n44SP9KG0w+M1AjoVp
+	 CeYr5mKBvarXVAP7RfmEVz54jFXAvbsk6ich+gZXSLvVuKVbf5aHHmR9QwwMW2cQdI
+	 R3sLjSxLU6bfZm8x6BJd8t0d3jLndJWPA5xxaAYTskWJtPsZj8xyH2uF0cI+o2UIJE
+	 eiIcdOtwb3YNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: usb: typec: Add Cypress CYPD6129 UCSI
+ controller compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akash Kumar" <akash.kumar@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260520093902.2064730-2-akash.kumar@oss.qualcomm.com>
+References: <20260520093902.2064730-2-akash.kumar@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 20 May 2026 09:50:59 +0000
+Message-Id: <20260520095059.BD8671F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 9/9] riscv: defconfig: enable ARCH_ULTRARISC
-From: Jia Wang <wangjia@ultrarisc.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
- robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, 
- conor+dt@kernel.org
-In-Reply-To: <20260515025935.36F07C2BCB3@smtp.kernel.org>
-References: <20260515-ultrarisc-pinctrl-v1-9-bf559589ea8a@ultrarisc.com>
- <20260515025935.36F07C2BCB3@smtp.kernel.org>
-Date: Wed, 20 May 2026 17:49:40 +0800
-Message-Id: <177927058085.943957.1239618570843676347.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779270581; l=1741;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=tbZBdoarp2sMNF7McNT4lu1FRi1CirgdzAxImMKKYNQ=;
- b=Qk6zp9Om2sePZWG2IwsvFdWLSR79H5DetARYG8n+U2MtlsFyvt+LaRxWWVB29V5KzjHsrJXTZ
- twykCUYa0OiA1Ssn+8oV64Kc47sTjF8Rv1hkeOiDgro2B1eJkD+Zj+6
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwDXEELdgw1qZ_AEAA--.6755S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur47Ary3Ww4kAF48Cr1kuFg_yoW8AF4Dpr
-	s8JF45CF1rGF1rGayxArWku3W0yws3XrW5Jr1jgr15ArWfu34xCrykKw42g3Wqgr9rWw1I
-	kF9Yk3sFyw1UA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
-	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	jFhFcUUUUU=
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQANEWoNL8UAJwACs1
 
-On 2026-05-15 02:59 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The Kconfig symbol `ARCH_ULTRARISC` is not defined anywhere in the kernel tree.
-> --
-> 
-> commit c77ace3a44699f903221665a56d7714a8cd6cf21
-> Author: Jia Wang <wangjia@ultrarisc.com>
-> 
-> riscv: defconfig: enable ARCH_ULTRARISC
-> 
-> This commit adds the CONFIG_ARCH_ULTRARISC symbol to the default RISC-V
-> defconfig file.
-> 
-> Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-1-98935f6cdfb5@ultrarisc.com/
-> 
-> > diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-> > index c2c37327b9877..9fdc4d1831ed9 100644
-> > --- a/arch/riscv/configs/defconfig
-> > +++ b/arch/riscv/configs/defconfig
-> > @@ -32,6 +32,7 @@ CONFIG_SOC_STARFIVE=y
-> >  CONFIG_ARCH_SUNXI=y
-> >  CONFIG_ARCH_TENSTORRENT=y
-> >  CONFIG_ARCH_THEAD=y
-> > +CONFIG_ARCH_ULTRARISC=y
-> 
-> Is ARCH_ULTRARISC defined anywhere in the kernel tree?
-> 
-> It appears that the Kconfig entry for ARCH_ULTRARISC is missing. Adding an
-> undefined symbol to a defconfig has no effect because the Kconfig system will
-> silently discard it during .config generation, which would prevent the
-> intended components from being built.
-> 
-> Was a prerequisite patch that adds the ARCH_ULTRARISC definition accidentally
-> left out of this patch series?
-> 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The new device tree example assigns an unauthorized value to the 'f=
+irmware-name' property, which violates the schema constraints.
+- [Low] The DT example fails to compile due to an undefined macro 'GPIO' an=
+d an undefined phandle label '&node'.
+- [Low] The second device tree example is missing its parent bus node, resu=
+lting in an invalid 'reg' property length and incorrect node context.
+--
 
-The ARCH_ULTRARISC Kconfig definition is in the patch referenced by the
-Link: tag in both the commit message and the cover letter. This defconfig
-change depends on that patch.
+commit 911d8bba6bd4939c0495f237ef6ddd1854af3dd2
+Author: Akash Kumar <akash.kumar@oss.qualcomm.com>
 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=9
-> 
+dt-bindings: usb: typec: Add Cypress CYPD6129 UCSI controller compatible
 
+This commit documents the "cypress,cypd6129" compatible string for the
+Cypress/Infineon EZ-PD CCGx UCSI controller. It allows the new compatible
+and permits the existing "cypress,cypd4226" fallback.
 
+> diff --git a/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml =
+b/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
+> --- a/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
+> +++ b/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
+[ ... ]
+> @@ -63,10 +69,42 @@ examples:
+>    - |
+>      #include <dt-bindings/interrupt-controller/arm-gic.h>
+>      i2c {
+> -      #address-cells =3D <1>;
+> -      #size-cells =3D <0>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +        #interrupt-cells =3D <2>;
+> +
+> +        typec@8 {
+> +            compatible =3D "cypress,cypd6129";
+> +            reg =3D <0x08>;
+> +            interrupt-parent =3D <&node>;
+> +            interrupts =3D <GPIO IRQ_TYPE_LEVEL_LOW>;
+
+[Severity: Low]
+Will this example compile successfully? The label "node" is not defined
+anywhere in the example, and "GPIO" is not a defined C preprocessor macro.
+This typically causes the device tree compiler to fail with syntax and
+undefined reference errors during dt_binding_check.
+
+> +            firmware-name =3D "ccg_primary.cyacd2";
+
+[Severity: Low]
+Will this cause dt_binding_check to fail schema validation? The schema
+restricts the firmware-name property to an enum of specific values like
+"nvidia,gpu" and "nvidia,jetson-agx-xavier". Using "ccg_primary.cyacd2"
+appears to violate this constraint.
+
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+[ ... ]
+> +    };
+> +
+> +  - |
+> +    typec@8 {
+
+[Severity: Low]
+Does this second example lack a valid parent bus wrapper?
+
+The original typec@8 example was wrapped inside an i2c node that provided
+the required #address-cells and #size-cells context. Without the parent
+node, the reg =3D <0x08> property will trigger a missing cells error during
+dt_binding_check.
+
+>          compatible =3D "cypress,cypd4226";
+>          reg =3D <0x08>;
+>          interrupts =3D <2 IRQ_TYPE_LEVEL_LOW>;
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520093902.2064=
+730-1-akash.kumar@oss.qualcomm.com?part=3D1
