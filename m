@@ -1,501 +1,148 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011064.outbound.protection.outlook.com [52.101.65.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174FD3E9F8B;
-	Wed, 20 May 2026 14:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779288568; cv=fail; b=LKIcEyNty5M+eWvht+uLtE9wJF+URZn0jcxNNjnNfpIHiayypjZ48XzghGDcXovVqqZ2gI1J3CmUefUgFZWBG1kU+lWUbJ8gAopf0SEE6LBfxxx4+ol2zKbsNz6ysNKyD4kHKDZhun15NbAIlWRCYWR5kbNKQ1kCGhe/T8lTz/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779288568; c=relaxed/simple;
-	bh=y5GXqcUEE/Bhx59KroqfuyDs703HrMujTvIO9zK9H4k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=NQ+i+rZK96ghivdCf2DwZHfI871MipnZaPmaQF3U4sTWtk5sZH/pAJeg1YOjZYWP1aGlIG3Ei1qx8MGWSlHqla8dk9d+vhHy5WDlTrnNFnKG0ZaVPU0+vv98zxU5xv4H288Rgsw5IzAupubiEdNDqwf0sAYyuUiS6j2PQIJvSDQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=f8Nk86zf; arc=fail smtp.client-ip=52.101.65.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18273F1AA7
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779288918; cv=none; b=Ci98ZT7bmqedicvDzyWROdoHckodff4RWcX5Y5ZCF9BUWSdJ1k8eCSUnZBfEHvZobTHJV9V/0O43PwEChyGpTbhxyyq9zXCAK++s2NLxMBw41DlcwQCnLpR2VJStaa9aiXCEqrqu6G59QEfxJfkW8h3eY0c8igm06bxd/dUzpMg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779288918; c=relaxed/simple;
+	bh=bsKrfT19/Dg39eGI2fJEyocjyeUDqPaBoUeZKAlTGTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lFZHm6UUx5UTJoTOmvdUwo1o0nS/hiyeontW4D5/EJPNMvmdSpEThSj+KKgxzun/RllstrhW6R9DHhqjAlzdaOXK2bWZooT18gYpZ3eyGbqaBNxD7AILXs+IYJxCy/CGo5LC0+E/5CXlPubQ6wUUqWOrfCpjm7cRkPf+SE0ztL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QL7ttgxp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XfyR3Ch5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="f8Nk86zf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hbTeHfJxoAl8htwp2rGdFCdYMZHLk0zVnCF3Vbml41FHxWGTF+YGWbQwsNczHk7RViPVCk7t17bcIlxxEroBJGZ4FLYwA8mpy0MF+b9CW+wt83DJWhT6XWKydgSJQgU02GAkp2oOGaNuUckco2LvpbL0OjESbweHTAHsjoYK5RHluIt9UJwsejWuwA+zsUhhOzF492Aua4OcS6O2NdOGPIf9OZDH86mONLSNU/LTKNKFtwtK/IJNJUE5uyI61hJRa80g+TH69yyQdPH8UE7DwMw33QhgjCy71ir48rEedslTW57Q/0ef2DtsS28iWWdvKk3rNxKC2/5oBfWb9Ujkug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NRaEb4NDwA5wEIo+zdNLvlUMqh6gHebeXM2Yfs/70QQ=;
- b=OEyWF1RCw93enmP67bcy5qEFHrSskTs95lEMN5ti0kWhsvsRZeZOzjYBoY61xLJTU5Q7+B2IJhtvgSDOW6ssmKxrwGroVk/0M9l/vOegJVfT/OqafP4iwpjOqkQ7dk8gHOY6kD9ICeNt6kmgUFJIJdGTqxr73nB/ipjZrcTxifdbADGTkKHFPTWinV5/0FUUFz5LgxXFEaaa4sbT3CNFYBXP36xhbyRsWNLKak4mGywpeJmLpArs8qNfil8z3Vq1lc9qbqJ3YLRR7jEgFxdy9ufxUccuXPzSO/LYOhWM4Vebzda4Jbt1nLMuGkBGWiGAUOLNhQFnZxZc+YQva1qSSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=bootlin.com smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NRaEb4NDwA5wEIo+zdNLvlUMqh6gHebeXM2Yfs/70QQ=;
- b=f8Nk86zfoT4JYGxn31n3cYs7d1vUnwqjI/JW1Dstheed1uC2yPsF0pGXhXhKBSPZPFohOrIGrZsznczoMST/iTdhoYkJQHZYkGUQuypzJQC7JiuQz+hJB2+4Zac4jePkuo1HlQ9dv5zWKikkf552ERPhXFvw/mv9O1jFN/zQ0AE=
-Received: from DUZPR01CA0322.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4ba::20) by DBBPR02MB10483.eurprd02.prod.outlook.com
- (2603:10a6:10:52b::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 14:49:20 +0000
-Received: from DU2PEPF00028D10.eurprd03.prod.outlook.com
- (2603:10a6:10:4ba:cafe::e8) by DUZPR01CA0322.outlook.office365.com
- (2603:10a6:10:4ba::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
- May 2026 14:49:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
- smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- DU2PEPF00028D10.mail.protection.outlook.com (10.167.242.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Wed, 20 May 2026 14:49:20 +0000
-Received: from se-mail10w.axis.com (10.20.40.10) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Wed, 20 May
- 2026 16:49:17 +0200
-Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
- (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Wed, 20 May 2026 16:49:17 +0200
-Received: from pc62507-2516.se.axis.com (pc62507-2516.se.axis.com [10.94.180.48])
-	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 7563D306B;
-	Wed, 20 May 2026 16:49:17 +0200 (CEST)
-Received: by pc62507-2516.se.axis.com (Postfix, from userid 13629)
-	id 6D5DD42098C9; Wed, 20 May 2026 16:49:17 +0200 (CEST)
-From: Fredrik M Olsson <fredrik.m.olsson@axis.com>
-Date: Wed, 20 May 2026 16:48:55 +0200
-Subject: [PATCH v2 3/3] rtc: ds1307: Add driver for Epson RX8901CE
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QL7ttgxp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XfyR3Ch5"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K9ls3e267212
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:55:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=8EfUowemClkkBeFHarqbGwft
+	5gIE1tGNjeNlEZjZHi8=; b=QL7ttgxpY7pVF73M2MCwtN7yEXbvSuwEzZlxb54c
+	/cg71F2TdDRUT4fTm6azGpHHsdgrhIIfzcMqZ+ho5HAKvZR5mcnTDNSyLFAZyEPl
+	8Pql3vy8gNiG0rOrAIojYEENSZLpQEhv35qX0R/e+e3IVBkC3eOGfY0dagNSCWPo
+	9xPXuQI7dzI1dSjQ4erb+9yoEXh9HQ8U5TfYwh9iTFj9btPRK22Y8+WDaxa5Ltay
+	TLNUf6gTfU+GTcC8ila+ss5KN+nPFp7YZORRiyb+iAODxjCZa9R/bYNl4mYzYmZK
+	9R5cL4AiZAoLqi4NuP8F9wyK1iiUKptZ+473xJ/r4lv35Q==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9amxs4ay-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 14:55:15 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d6bf346adso111119571cf.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 07:55:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779288915; x=1779893715; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=8EfUowemClkkBeFHarqbGwft5gIE1tGNjeNlEZjZHi8=;
+        b=XfyR3Ch5JOnFvcDnxHpuUqe2yb6d235zQTgbVUy0Rs5laTQgifQJyYMO+MNXDzu0mi
+         afsg0D8Wg1sq3chMWVuDZaK/DaupxPCyCAAS4gf4DXCm25585QKEanrbLkRpOAuSXGtE
+         rZh+lEkUs+VNsqO+r6OD5jhe1sQSYDARkBfnLjZT/Uk3subFNxDEfhZ+O5UthCHh4Qff
+         X7fX4UJTTrPS3R5OYIFVpmIHq4UAbLUGL+uknQLIz+/dmoSaDdQkJphv8FofUTO5nbks
+         hiFymGhBOTukYFfhNZgTjezQyxuedySUMZAUl/DzsQnK7bQUSOG0SIgtom2Av+5/EKrm
+         f/Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779288915; x=1779893715;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8EfUowemClkkBeFHarqbGwft5gIE1tGNjeNlEZjZHi8=;
+        b=as1flVcXRzFV/WhtyrOAtgDawAN50ELva7KwWWuqQNw/UajZAFAeZunS4L6EJDLOfo
+         uAqVXzO2KqjnlpHdq0GwOQF899cue4A2H5r0oD7ectvVp6jTJ0kszCaktov8mC2eRr2p
+         wyfb1IJ7a5qhSdxAzooUwD5Dcr9oLcRcMUqu1lr8ykFJM0z8fH0lMLkPIF/eVkfJUlXN
+         o/5by4bKff89y5h8XZozjojae513bftrlksxhe66XQ8RJ021gcoWLUYZLmGpnXSFJ0tU
+         JT/L3I5DqOfZKZYdX5Z9liMdMOndXan8nuOxZiT1PADGNVriXPlf64A4SM44TphqkgEn
+         bwpA==
+X-Forwarded-Encrypted: i=1; AFNElJ+LdJ2a70PEfQUlR6vGU4co3y0vEGlKiA1bq4s0j19hEjEGtoFbPcjfGwfMAGTAy/VOG1fKF2DmdC4w@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVH0n+Tf69Pz9sCIhCmFygSNso69E/r5tBOCQDfJaMchuMgubm
+	1g730oRFDFxC6L2A2kjp0oOvNTgZBsuYZ4apf+8c+PBVY5awZZHW5fiDykFV0DktOVZ05FYCGsv
+	OwuyNXSJ/2ko6v0T8ZyyOJs0r2aclDz2SBGuDmP5CghsT/9h4x1FtkKVGWGK9dfyV
+X-Gm-Gg: Acq92OFt5/LVwBS8qmTaj/quCHk5b83xhks1zzxuzqMcHbH0mZFe9Y3U5+2lUN/diuc
+	zTwcnl9UhfsqVFKcpBqa0HpDMdX1uPxmE51VVUampgaEiyH/ZVKJBghFRvwIsPysSbF7utJKY1p
+	wGVfublq1ix87SXGK5f1OSj73BKQ6MI82c4oxrTqWulo9ScZ81f8qwR4dcDbg30pHKjlk1tvtzt
+	se3malmKT9SsGCN8R1U6q6jlv+aTZEGeyj09l+E1j9iNg/WkRDkq+cb/w6ldsUX9O5gCU+j/3OW
+	9mIrlOYahQ/e/PIyIXTj35i8QhPD8eIyP1XhdF2lKdstZEIcG96S7oFBhENFDaRtDuHlyd16NvN
+	XiI4dQTCLBh0rp64f4QJdEPFl3/ute8vZnNhd1UN3/BOlz+sKveHq4umT5R74RgENFEDaZAZrhM
+	iu5HjYmlxV9T7etqHZWNtOjn4hKbpYrZvr3Fl7x2dNEmrSyQ==
+X-Received: by 2002:a05:622a:180e:b0:50f:be4f:465d with SMTP id d75a77b69052e-5165a234758mr353075261cf.46.1779288914884;
+        Wed, 20 May 2026 07:55:14 -0700 (PDT)
+X-Received: by 2002:a05:622a:180e:b0:50f:be4f:465d with SMTP id d75a77b69052e-5165a234758mr353074691cf.46.1779288914396;
+        Wed, 20 May 2026 07:55:14 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a9164bc0ccsm5049114e87.41.2026.05.20.07.55.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 07:55:13 -0700 (PDT)
+Date: Wed, 20 May 2026 17:55:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/2] remoteproc: qcom: pas: Add Shikra remoteproc
+ support
+Message-ID: <gkawm2psopuodlmv6kw2e4hdud67ahgnpha6jxmyp2bvwob5ph@7uv2jkopp7z4>
+References: <20260520-shikra-rproc-v2-0-583a2e413a3a@oss.qualcomm.com>
+ <20260520-shikra-rproc-v2-2-583a2e413a3a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260520-ds1307-rx8901-add-v2-3-e069ea32e1db@axis.com>
-References: <20260520-ds1307-rx8901-add-v2-0-e069ea32e1db@axis.com>
-In-Reply-To: <20260520-ds1307-rx8901-add-v2-0-e069ea32e1db@axis.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-CC: <linux-rtc@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Fredrik M Olsson <fredrik.m.olsson@axis.com>,
-	<kernel@axis.com>
-X-Mailer: b4 0.13.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D10:EE_|DBBPR02MB10483:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec2858cc-d82e-4138-60b2-08deb67ef9cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|11063799006|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	3F5fh+dCTCdSmEQrxvJwd3y4/FSZ7DKC+uycRKvFnmMPVdBY6o4zX2dja4Q3QRKFiCETXByQr17AmmMOuXAGtA2m8XNZQ0t+TreGOeqnCWw/FaklAU9t0X41RW4sfrXW8w7vxsIWhqV8cxJdoAWMPQoKdlk/CKLKWhIe6QFKPpJUqgw0ieUS4Fg19UovT417+mJ5Y9jxkX+flGIqBFH6EgoN5O/UO6j4teP8Ffy5MbuvtIob2oXOL2w/hOxFPcVoUfIe8+VfQDRD5fNb98JV03t37Y1Rn03KMN9GkAaoVr5dTLFwFCCMYSYz0NKn2RxEuTFlZ4aW8ZB14VaEh2itYREvYt4b4Uft9pNy65d01K7zf21Zf5f7U/laJMlWksT9+Qr/E3TpSJEBB8qbSO+QmNQCFIF8amE8TfyI5E6SaQk/riyxuPolaP4AAKqdhzf6PCKyfsLKjv9u9NJH6EIPDWYvyLtwH0Cx94lWJUW2ig+JkkoeyzRNjc3GiS7MtCSFx7V76R2NQpPg8q9WM6OSR58cK945B9QCSSqYNj4QaaqLgL/SNNupna8Px6+LpgVBPGMzVR86qDLJlkx9pyYvkL13X4x33ZEorMeJ/zJulfmGv5Yk5T7PTlr7vB9Gxo/C/WUsd8akS32V0Z4/gj5UooEj8slw4D/t42+Le1lNgJSFssvdM0xJnlOEQLnZG/PuVeTLSGZ/HfG9P0uGunFjHqvrhOIrxo5h2cfYkwSu1xU=
-X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(11063799006)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	h+vxVRiISPBpnBOAXcarpQpUQAaLrtP/lD59sSObcqzsYndnAzaLNmAt7R/IX/ZXrrQSUJ13ACyu6ZQP3nfUrmQBL39s0D6L+oq0yu/beyyElb1goamYgmAh5ODn85/+Zvssuhknlk59D/xmiQo0wsnmo+He5sRUmegL0n5mLZjXDdkSXY2sOzoiomRGwBnOgdL608MyDPAt1227EZfU3sK70n+MwpAIhASdG9mYh0NB7Q+4gNg65J33siH8aZXa6qpwG32e2EsCqjmMoAFf0JODCmaRXBG9+A1CgkDwIwdlknoDdcEnzRdX5w82T0VAHGWfzkoG00TEWh4bbhU9h8cTyHSFAasq6p6ie58WvY62JyFL8oax3w6DAiSZzu1olG3NnGV/Z9oJ/cXH+OI1Asj4APNBsTDpfYBaRY9id6HXK2aRikxxwkGzdqEq7j2N
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 14:49:20.5775
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec2858cc-d82e-4138-60b2-08deb67ef9cd
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D10.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR02MB10483
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520-shikra-rproc-v2-2-583a2e413a3a@oss.qualcomm.com>
+X-Proofpoint-GUID: W3QDp3R17MrlSNdPs5HiRZxjQrC9D8fL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDE0NSBTYWx0ZWRfX6fPCyIaWrQX6
+ ugGohvBtI6x8RI22M4jP6DkYAXuEGhF54DzgPyQ0zRlvW2s5jzQrKaROqvIIgMP9ESvCCvDTx6P
+ XwnDSxlhYAP9+c/TI2UT9AVgsmAnnzgaSjJlK0uhsWosSP1lsqohFU7ZmtZN32TFW9YhXfPdey7
+ 3j6axkYdcL59VCoOgikEJF/WQBb3iym9ky0mWDg/UPU9jYiovC+H7WzNG4PzmM0tna+6AIDepth
+ G80Q67QzMLoYPVIqi+vAkX4GDJVvu1cNvyPXXDRWTHLPar31QfrZoGnWaYWlyehWmsGb/sYuz2n
+ GEQYl4c7k1q3KDQfj/PGD5/2AtXHIC6mt25lhy3GxDSLsY+n+5hP8QWwtoxanWmGTiUWjBsxfQn
+ LAzqGuqeblynJI69+FcMozZf06qI1ywibwGgslXaG4yYqsAlvEhRiENRMEF226/BNuc1ywKD0+O
+ EGXppC7SXcNS0aKUd/g==
+X-Authority-Analysis: v=2.4 cv=TO11jVla c=1 sm=1 tr=0 ts=6a0dcb53 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=CtAqrJV6yErwifH23rQA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: W3QDp3R17MrlSNdPs5HiRZxjQrC9D8fL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605200145
 
-Adds support for:
-- Reading and writing time to/from the RTC.
-- Changing Backup Switch Mode (BSM) to DISABLED/DIRECT/LEVEL using the
-  RTC_PARAM_SET ioctl.
-- Optionally enabling battery charging.
-- Reading the battery voltage low status using the RTC_VL_READ ioctl
-  (only supported in LEVEL BSM), which also reports invalid time
-  information if the VLF flag is set.
+On Wed, May 20, 2026 at 08:08:06PM +0530, Komal Bajaj wrote:
+> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> 
+> Add the CDSP, LPAICP and MPSS Peripheral Authentication Service support
+> for the Qualcomm Shikra SoC.
+> 
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 48 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
+> 
 
-Signed-off-by: Fredrik M Olsson <fredrik.m.olsson@axis.com>
----
- drivers/rtc/rtc-ds1307.c | 216 +++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 207 insertions(+), 9 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/drivers/rtc/rtc-ds1307.c b/drivers/rtc/rtc-ds1307.c
-index bf42c250ea7d..23dd104aa2be 100644
---- a/drivers/rtc/rtc-ds1307.c
-+++ b/drivers/rtc/rtc-ds1307.c
-@@ -9,6 +9,7 @@
-  */
- 
- #include <linux/bcd.h>
-+#include <linux/bitfield.h>
- #include <linux/i2c.h>
- #include <linux/init.h>
- #include <linux/kstrtox.h>
-@@ -48,6 +49,7 @@ enum ds_type {
- 	mcp794xx,
- 	rx_8025,
- 	rx_8130,
-+	rx_8901,
- 	last_ds_type /* always last */
- 	/* rs5c372 too?  different address... */
- };
-@@ -129,6 +131,18 @@ enum ds_type {
- #define RX8130_REG_CONTROL1_INIEN	BIT(4)
- #define RX8130_REG_CONTROL1_CHGEN	BIT(5)
- 
-+#define RX8901_REG_INTF			0x0e
-+#define RX8901_REG_INTF_VLF		BIT(1)
-+#define RX8901_REG_PWSW_CFG		0x37
-+#define RX8901_REG_PWSW_CFG_SWSEL	GENMASK(3, 2)
-+#define RX8901_REG_PWSW_CFG_VBATLDETEN	BIT(4)
-+#define RX8901_REG_PWSW_CFG_INIEN	BIT(6)
-+#define RX8901_REG_PWSW_CFG_CHGEN	BIT(7)
-+#define RX8901_REG_BUF_INTF		0x46
-+#define RX8901_REG_BUF_INTF_VBATLF	BIT(3)
-+#define RX8901_SWSEL_PRIMARY_BACKUP	0x1
-+#define RX8901_SWSEL_PRIMARY		0x2
-+
- #define MCP794XX_REG_CONTROL		0x07
- #	define MCP794XX_BIT_ALM0_EN	0x10
- #	define MCP794XX_BIT_ALM1_EN	0x20
-@@ -192,8 +206,8 @@ struct chip_desc {
- 	irq_handler_t		irq_handler;
- 	const struct rtc_class_ops *rtc_ops;
- 	u16			trickle_charger_reg;
--	u8			(*do_trickle_setup)(struct ds1307 *, u32,
--						    bool);
-+	int			(*do_trickle_setup)(struct ds1307 *ds1307, u32 ohms,
-+						    bool diode);
- 	/* Does the RTC require trickle-resistor-ohms to select the value of
- 	 * the resistor between Vcc and Vbackup?
- 	 */
-@@ -216,6 +230,7 @@ static int ds1307_get_time(struct device *dev, struct rtc_time *t)
- 
- 	if (ds1307->type == rx_8130) {
- 		unsigned int regflag;
-+
- 		ret = regmap_read(ds1307->regmap, RX8130_REG_FLAG, &regflag);
- 		if (ret) {
- 			dev_err(dev, "%s error %d\n", "read", ret);
-@@ -226,6 +241,19 @@ static int ds1307_get_time(struct device *dev, struct rtc_time *t)
- 			dev_warn_once(dev, "oscillator failed, set time!\n");
- 			return -EINVAL;
- 		}
-+	} else if (ds1307->type == rx_8901) {
-+		unsigned int regflag;
-+
-+		ret = regmap_read(ds1307->regmap, RX8901_REG_INTF, &regflag);
-+		if (ret) {
-+			dev_dbg(dev, "%s error %d\n", "read", ret);
-+			return ret;
-+		}
-+
-+		if (regflag & RX8901_REG_INTF_VLF) {
-+			dev_warn_once(dev, "oscillator failed, set time!\n");
-+			return -EINVAL;
-+		}
- 	}
- 
- 	/* read the RTC date and time registers all at once */
-@@ -307,7 +335,7 @@ static int ds1307_get_time(struct device *dev, struct rtc_time *t)
- 	tmp = regs[DS1307_REG_HOUR] & 0x3f;
- 	t->tm_hour = bcd2bin(tmp);
- 	/* rx8130 is bit position, not BCD */
--	if (ds1307->type == rx_8130)
-+	if (ds1307->type == rx_8130 || ds1307->type == rx_8901)
- 		t->tm_wday = fls(regs[DS1307_REG_WDAY] & 0x7f) - 1;
- 	else
- 		t->tm_wday = bcd2bin(regs[DS1307_REG_WDAY] & 0x07) - 1;
-@@ -358,7 +386,7 @@ static int ds1307_set_time(struct device *dev, struct rtc_time *t)
- 	regs[DS1307_REG_MIN] = bin2bcd(t->tm_min);
- 	regs[DS1307_REG_HOUR] = bin2bcd(t->tm_hour);
- 	/* rx8130 is bit position, not BCD */
--	if (ds1307->type == rx_8130)
-+	if (ds1307->type == rx_8130 || ds1307->type == rx_8901)
- 		regs[DS1307_REG_WDAY] = 1 << t->tm_wday;
- 	else
- 		regs[DS1307_REG_WDAY] = bin2bcd(t->tm_wday + 1);
-@@ -422,11 +450,132 @@ static int ds1307_set_time(struct device *dev, struct rtc_time *t)
- 			dev_err(dev, "%s error %d\n", "write", result);
- 			return result;
- 		}
-+	} else if (ds1307->type == rx_8901) {
-+		/*
-+		 * clear Voltage Loss Flag as data is available now (writing 1
-+		 * to the other bits in the INTF register has no effect)
-+		 */
-+		result = regmap_write(ds1307->regmap, RX8901_REG_INTF,
-+				      0xff ^ RX8901_REG_INTF_VLF);
-+		if (result) {
-+			dev_dbg(dev, "%s error %d\n", "write", result);
-+			return result;
-+		}
- 	}
- 
- 	return 0;
- }
- 
-+#ifdef CONFIG_RTC_INTF_DEV
-+static int rx8901_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
-+{
-+	struct ds1307 *ds1307 = dev_get_drvdata(dev);
-+	unsigned int regflag, tmp = 0;
-+	int ret = 0;
-+
-+	switch (cmd) {
-+	case RTC_VL_READ:
-+		ret = regmap_read(ds1307->regmap, RX8901_REG_INTF, &regflag);
-+		if (ret)
-+			return ret;
-+
-+		if (regflag & RX8901_REG_INTF_VLF)
-+			tmp |= RTC_VL_DATA_INVALID;
-+
-+		ret = regmap_read(ds1307->regmap, RX8901_REG_BUF_INTF, &regflag);
-+		if (ret)
-+			return ret;
-+
-+		if (regflag & RX8901_REG_BUF_INTF_VBATLF)
-+			tmp |= RTC_VL_BACKUP_LOW;
-+
-+		return put_user(tmp, (unsigned int __user *)arg);
-+	default:
-+		return -ENOIOCTLCMD;
-+	}
-+	return ret;
-+}
-+
-+static int rx8901_param_get(struct device *dev, struct rtc_param *param)
-+{
-+	struct ds1307 *ds1307 = dev_get_drvdata(dev);
-+	unsigned int regflag;
-+	int ret;
-+
-+	switch (param->param) {
-+	case RTC_PARAM_BACKUP_SWITCH_MODE:
-+		ret = regmap_read(ds1307->regmap, RX8901_REG_PWSW_CFG, &regflag);
-+		if (ret)
-+			return ret;
-+
-+		if (regflag & RX8901_REG_PWSW_CFG_INIEN) {
-+			param->uvalue = RTC_BSM_LEVEL;
-+		} else {
-+			unsigned int swsel = FIELD_GET(RX8901_REG_PWSW_CFG_SWSEL, regflag);
-+
-+			if (swsel == RX8901_SWSEL_PRIMARY_BACKUP)
-+				param->uvalue = RTC_BSM_DIRECT;
-+			else
-+				param->uvalue = RTC_BSM_DISABLED;
-+		}
-+
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+	return ret;
-+}
-+
-+static int rx8901_param_set(struct device *dev, struct rtc_param *param)
-+{
-+	struct ds1307 *ds1307 = dev_get_drvdata(dev);
-+	unsigned int regmask;
-+	unsigned int regval;
-+	int ret;
-+
-+	switch (param->param) {
-+	case RTC_PARAM_BACKUP_SWITCH_MODE:
-+
-+		switch (param->uvalue) {
-+		case RTC_BSM_DISABLED:
-+			/* Only main power supply is used */
-+			regmask = RX8901_REG_PWSW_CFG_INIEN |
-+				  RX8901_REG_PWSW_CFG_SWSEL;
-+			regval = FIELD_PREP(RX8901_REG_PWSW_CFG_SWSEL,
-+					    RX8901_SWSEL_PRIMARY) |
-+				 FIELD_PREP(RX8901_REG_PWSW_CFG_INIEN, 0);
-+			break;
-+		case RTC_BSM_DIRECT:
-+			/* Main and battery power supply is put in parallel (default) */
-+			regmask = RX8901_REG_PWSW_CFG_INIEN |
-+				  RX8901_REG_PWSW_CFG_SWSEL;
-+			regval = FIELD_PREP(RX8901_REG_PWSW_CFG_SWSEL,
-+					    RX8901_SWSEL_PRIMARY_BACKUP) |
-+				 FIELD_PREP(RX8901_REG_PWSW_CFG_INIEN, 0);
-+			break;
-+		case RTC_BSM_LEVEL:
-+			/* Enable auto power switching between main and backup power supply */
-+			regmask = RX8901_REG_PWSW_CFG_INIEN;
-+			regval = FIELD_PREP(RX8901_REG_PWSW_CFG_INIEN, 1);
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+		ret = regmap_update_bits(ds1307->regmap, RX8901_REG_PWSW_CFG, regmask, regval);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return ret;
-+}
-+#else
-+#define rx8901_ioctl NULL
-+#define rx8901_param_get NULL
-+#define rx8901_param_set NULL
-+#endif
-+
- static int ds1337_read_alarm(struct device *dev, struct rtc_wkalrm *t)
- {
- 	struct ds1307		*ds1307 = dev_get_drvdata(dev);
-@@ -533,7 +682,7 @@ static int ds1307_alarm_irq_enable(struct device *dev, unsigned int enabled)
- 				  enabled ? DS1337_BIT_A1IE : 0);
- }
- 
--static u8 do_trickle_setup_ds1339(struct ds1307 *ds1307, u32 ohms, bool diode)
-+static int do_trickle_setup_ds1339(struct ds1307 *ds1307, u32 ohms, bool diode)
- {
- 	u8 setup = (diode) ? DS1307_TRICKLE_CHARGER_DIODE :
- 		DS1307_TRICKLE_CHARGER_NO_DIODE;
-@@ -558,7 +707,7 @@ static u8 do_trickle_setup_ds1339(struct ds1307 *ds1307, u32 ohms, bool diode)
- 	return setup;
- }
- 
--static u8 do_trickle_setup_rx8130(struct ds1307 *ds1307, u32 ohms, bool diode)
-+static int do_trickle_setup_rx8130(struct ds1307 *ds1307, u32 ohms, bool diode)
- {
- 	/* make sure that the backup battery is enabled */
- 	u8 setup = RX8130_REG_CONTROL1_INIEN;
-@@ -568,6 +717,26 @@ static u8 do_trickle_setup_rx8130(struct ds1307 *ds1307, u32 ohms, bool diode)
- 	return setup;
- }
- 
-+static int do_trickle_setup_rx8901(struct ds1307 *ds1307, u32 ohms __always_unused, bool diode)
-+{
-+	int ret;
-+	unsigned int setup;
-+
-+	ret = regmap_read(ds1307->regmap, RX8901_REG_PWSW_CFG, &setup);
-+	if (ret) {
-+		dev_err(ds1307->dev, "Failed to read PWSW_CFG register\n");
-+		return ret;
-+	}
-+
-+	/* Enable low battery voltage detection */
-+	setup |= RX8901_REG_PWSW_CFG_VBATLDETEN;
-+
-+	if (diode)
-+		setup |= RX8901_REG_PWSW_CFG_CHGEN;
-+
-+	return setup;
-+}
-+
- static irqreturn_t rx8130_irq(int irq, void *dev_id)
- {
- 	struct ds1307           *ds1307 = dev_id;
-@@ -960,6 +1129,14 @@ static const struct rtc_class_ops rx8130_rtc_ops = {
- 	.alarm_irq_enable = rx8130_alarm_irq_enable,
- };
- 
-+static const struct rtc_class_ops rx8901_rtc_ops = {
-+	.read_time      = ds1307_get_time,
-+	.set_time       = ds1307_set_time,
-+	.ioctl          = rx8901_ioctl,
-+	.param_get      = rx8901_param_get,
-+	.param_set      = rx8901_param_set,
-+};
-+
- static const struct rtc_class_ops mcp794xx_rtc_ops = {
- 	.read_time      = ds1307_get_time,
- 	.set_time       = ds1307_set_time,
-@@ -1040,6 +1217,12 @@ static const struct chip_desc chips[last_ds_type] = {
- 		.trickle_charger_reg = RX8130_REG_CONTROL1,
- 		.do_trickle_setup = &do_trickle_setup_rx8130,
- 	},
-+	[rx_8901] = {
-+		.offset		= 0x0,
-+		.rtc_ops = &rx8901_rtc_ops,
-+		.trickle_charger_reg = RX8901_REG_PWSW_CFG,
-+		.do_trickle_setup = &do_trickle_setup_rx8901,
-+	},
- 	[m41t0] = {
- 		.rtc_ops	= &m41txx_rtc_ops,
- 	},
-@@ -1081,6 +1264,7 @@ static const struct i2c_device_id ds1307_id[] = {
- 	{ "rx8025", rx_8025 },
- 	{ "isl12057", ds_1337 },
- 	{ "rx8130", rx_8130 },
-+	{ "rx8901", rx_8901 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ds1307_id);
-@@ -1158,6 +1342,10 @@ static const struct of_device_id ds1307_of_match[] = {
- 		.compatible = "epson,rx8130",
- 		.data = (void *)rx_8130
- 	},
-+	{
-+		.compatible = "epson,rx8901",
-+		.data = (void *)rx_8901
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ds1307_of_match);
-@@ -1292,7 +1480,7 @@ static int ds1307_nvram_write(void *priv, unsigned int offset, void *val,
- 
- /*----------------------------------------------------------------------*/
- 
--static u8 ds1307_trickle_init(struct ds1307 *ds1307,
-+static int ds1307_trickle_init(struct ds1307 *ds1307,
- 			      const struct chip_desc *chip)
- {
- 	u32 ohms, chargeable;
-@@ -1745,7 +1933,7 @@ static int ds1307_probe(struct i2c_client *client)
- 	bool			ds1307_can_wakeup_device = false;
- 	unsigned char		regs[8];
- 	struct ds1307_platform_data *pdata = dev_get_platdata(&client->dev);
--	u8			trickle_charger_setup = 0;
-+	int			trickle_charger_setup = 0;
- 
- 	ds1307 = devm_kzalloc(&client->dev, sizeof(struct ds1307), GFP_KERNEL);
- 	if (!ds1307)
-@@ -1781,12 +1969,15 @@ static int ds1307_probe(struct i2c_client *client)
- 	else if (pdata->trickle_charger_setup)
- 		trickle_charger_setup = pdata->trickle_charger_setup;
- 
-+	if (trickle_charger_setup < 0)
-+		return trickle_charger_setup;
-+
- 	if (trickle_charger_setup && chip->trickle_charger_reg) {
- 		dev_dbg(ds1307->dev,
- 			"writing trickle charger info 0x%x to 0x%x\n",
- 			trickle_charger_setup, chip->trickle_charger_reg);
- 		regmap_write(ds1307->regmap, chip->trickle_charger_reg,
--			     trickle_charger_setup);
-+			     (u8)trickle_charger_setup);
- 	}
- 
- /*
-@@ -1990,6 +2181,13 @@ static int ds1307_probe(struct i2c_client *client)
- 		}
- 	}
- 
-+	switch (ds1307->type) {
-+	case rx_8901:
-+		set_bit(RTC_FEATURE_BACKUP_SWITCH_MODE, ds1307->rtc->features);
-+		break;
-+	default:
-+	}
-+
- 	ds1307->rtc->ops = chip->rtc_ops ?: &ds13xx_rtc_ops;
- 	err = ds1307_add_frequency_test(ds1307);
- 	if (err)
 
 -- 
-2.43.0
-
+With best wishes
+Dmitry
