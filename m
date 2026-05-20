@@ -1,81 +1,86 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013030.outbound.protection.outlook.com [40.93.201.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE133E1D0B
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 13:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779285441; cv=none; b=qLhZ1+iJZf4bym2aJiuLOTuUB8TsYoRI2OudnJOBbMQ8Lw2OvPLN3seyBGuI0SoWfhV+QNisw8wG/Wbnd6QEYhVMfeUkWG9Zt+qQxyyz9BhylolPojcNSHTjjbxKb8HJ+44sgNQlDrHnazwniyV3ewq6egnUgQtop2Zsb5KFFuc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779285441; c=relaxed/simple;
-	bh=BjdykeHS9BqEJZE1gE6CCOK/sLg66E2Y5BAmWKBD3Ho=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sU7Teakq5XUCfq+PNPzt/5QDk9gjaSEtTtiWlpXM9VVAGAqGdfjPHETUO3TeMaCtUKNCKo/Yigp6bNTSROLCOkmmc9YuZ8Kl4oY5bhdzYe7dP7XnWUgZENkcJKIOfwJJIqs+a87A45GwSmR1RwH32xbLSD8cQFj8kLO/cz2E9ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bOoNNlmW; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F57344DA4;
+	Wed, 20 May 2026 13:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779285443; cv=fail; b=j57giOrWk2r1xeaFHTW/mASG+WWkg92popGz6gGlJ42oCgt3H662MNlDayZMhKJgDbAHorsR1s/iOlZB/ZSnqsg2J5bueyihdqy8W6fUOHjcpgzegpi4AyMQuaK6n4JauCmFYYuNEGI7nZTGt+nSipYDAlyFwhtxthwezltApz8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779285443; c=relaxed/simple;
+	bh=oYtPg34OHcptWL0TXzGyplzqAe1Nx8ZIKSvTNahgK8Y=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kDwh7uG/aySeAn49QDJU67t23QihOKV2/60LYyWqFwaUpMWRqVWUZMzUYiyc4J1B90fi/mR0zWO3JYaAdR0HLWVGAaFg4YSE0SBGoeH02gCrXMNIfzEG8jRko9esH+ZfKybIpBtXdpH88FB5/Yo9RjA1XYaF8dWbcHJups3xSL4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=cAJJKhJX; arc=fail smtp.client-ip=40.93.201.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bOoNNlmW"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-369576666d5so2228297a91.0
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 06:57:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779285439; x=1779890239; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oAr9Tuamz6G4RMhF+mEaQvtccn86uYkrnM5/9wq0C+4=;
-        b=bOoNNlmWt3pzy80/FlyyC22VYbFo2i51ocCe7x7zCmEC7NA0JrkKBzihfKw3xN0nz4
-         nSfleDKr1bkrPWlKY5kB67mbAm6Oc7IlCf+js6f41MzwOU42zD8z7/j4s8XNWaRZaRQQ
-         /SFlYEbubGRCGqyNJ0WOO1FQi4WmbYEqT18Zocv6dQFW4hECsFNUbcRowpMGiMGR9mQY
-         yHdudmTwNCaDz6WvILASZ3895RdcZLi2t+Taeej6e9Q28GChCIEuhto5ppO6R/87Ogh2
-         SdnHbK2UNhfl1dtcgP13n9pbWtEUNmB0fXxlcsU8FidgCpy4UPlFuWGHZ3jbwJS6Mui8
-         ADzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779285439; x=1779890239;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=oAr9Tuamz6G4RMhF+mEaQvtccn86uYkrnM5/9wq0C+4=;
-        b=Z8jpsM2IYdBoRP3hVokKgqMTPpMzWgv9+MYTUUWVpUp5mpfebprH3O1oj3bylHrU5C
-         rx559jS1PI2q7WsYPT35KM+IGBhR0GTh83Ol19LNuHkRQpNi5rwv2znJ4Q6a3+tdKouQ
-         A0xvZcOMabRxy4qojHizAXJsfRPj1BU8FvUCZggLO7JHUAJoxQr1xa2NKmTmMUjnvnA5
-         JKXp0tOOPQFTQGInU2QepT+HPSjMb5OtC11Q/JEIYjLIRtfKuG+m33lLfL6pjIyli9KF
-         hH5XnPJC9bl/Lxjp/bQ4JxM//yvKK8mbGTyJyb+fhOvjQqe9w0j8nZdBJVxCbQYNFZS1
-         sfJA==
-X-Forwarded-Encrypted: i=1; AFNElJ+0G6SJHKltsS+rjOqKz/x8ZJEvUEwnM5m3XLA/W/ID3iP7bL/KCtOoZLZ9hQEcyFP/5cF9p/wZ/60d@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtYNLnKuvvWnnlAI+fEAV3p/WhvqTHq65JXbc1CiKin7Ii8Gu1
-	Wx6hvpR2yhu/U1gzzheiD6OOMqJg7Abj/v1vLKl6xATkVlzcbr0z8YDL
-X-Gm-Gg: Acq92OESOS4J3lYCyv0n7XUlURQt/zV3hSYZSXbgn8QA9CIk/3Vso++1uWQJOKfqgjz
-	wnxqoP3oxXZ6wpSk5gZQaLOU9yE+fupBCC3Rm7J+gHfxJE8y0OeBy7zTOg/f4xffCF4tBxfV1iX
-	dCytAJNV6t0ClHPkvQVnhMZ2kAS2iEkXzHmLLymMgf1bkGiZ0DIg+wjMyfRgI5ulbKWORkTzLa7
-	isTQK/6Pp6ByVm/GZBM4Nft7YUF5n+5okzHm0YPN6rF5aCHiaQG6rhFshBebwk3PeHUicgqVRze
-	/HxAfT3RsxjrNTh/zqp3Xd/VT2cFEoe8NhmgZMwwAPaUk8hdF91D3zPC0hqcbH95aVf2Qc7KpTW
-	E+pldmmEM1yW1AqrCig/TJ7/yo1gqENHzt2x7jOxt4qZ56MGUowdmqXqpMD8TKCbsCf9+gAZXek
-	hQlU6IxI2+BJMt/OwKLaVlYYnGYXjYSW0T1OYvPTA=
-X-Received: by 2002:a17:90b:38cf:b0:35f:b647:d98a with SMTP id 98e67ed59e1d1-369519c6bcfmr22869963a91.5.1779285439101;
-        Wed, 20 May 2026 06:57:19 -0700 (PDT)
-Received: from arch.localdomain ([2409:8a28:a52:5b11:a58f:5208:2fa7:bba5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-369572e1007sm7480867a91.6.2026.05.20.06.57.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 06:57:18 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org
-Cc: lee@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	luccafachinetti@gmail.com,
-	pzalewski@thegoodpenguin.co.uk,
-	daniel@zonque.org,
-	Jun Yan <jerrysteve1101@gmail.com>
-Subject: [PATCH v7 1/6] dt-bindings: leds: issi,is31fl32xx: convert the binding to yaml
-Date: Wed, 20 May 2026 21:56:54 +0800
-Message-ID: <20260520135659.1430008-2-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520135659.1430008-1-jerrysteve1101@gmail.com>
-References: <20260520135659.1430008-1-jerrysteve1101@gmail.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="cAJJKhJX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GKGhsVamlKFhVuJBbCq+nBk93lIlkGiO9v5b+12uG/JkufupKGdrYVNAwVrHfW3iI+5+pNEK2U5nUZD2+sldSHILW/rWvZKqa3jM9N1S7+mGXQwsM8fCvvxF7/eAnYUeZfXKeV+qWMg1e7HXDy7MJQWfPED+T6iu0l3RyeHaPzkPPNEimF5vPQEUE4ibzPTv+wIDlI1zqLxyL8vNnHyMxayG0g5DhXbeNzT1z1t2tVmbhQMUDNNE6Jx5EOWcXu3mcJkqpiD0ybMZchbmtL6za7+ueJdkS+YOESAMcgUv0xQfsLici/LTUDIhiTcxKaepVpe2Krg/47teyMDFdYEfUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uiIVVNwu1I0UWmkGam6DcPeQB9uT0hN0Ep3xzi4TNTk=;
+ b=VCIm9IQ6ynKzbqYL2pI5Mgext0WO1t+U7AQ1wY9rBLPrZVdrRQ2tK8Rk8Jq+jSM2k20a3gRPhKMk+QvFk08mqykuXbolUE4niED+4x86axrHFdAfVqRHUypUxrhLT/DgcNgGr+27fRjRlafrC+ouvns2MklBodYJvZks0ut4ZZWfMZXODogG0I/oT/t4vdXVrRnrhQprCoxQY66f9DhoIYGq7YHqnyPrl9Gl7SGjhX+FUGIM4+wQ+/kpmcXhwFfNJpa559uZ8PCVJA06tflHVAHwuRCbGey/KXFopHlG5VPEcmwOWv5L2TqMeIKbyOj28keFtqIH6SPd+avDYXMT9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uiIVVNwu1I0UWmkGam6DcPeQB9uT0hN0Ep3xzi4TNTk=;
+ b=cAJJKhJXntT2dcvfEuz77xDBBMsIx5Gv444NhrHXm8uuG82l3TIBBUgfylqXYaSk/lzHVqRrrRQlw6KXT/XVibeB270gJHND68u35k/oyRoYz2qdMU4jxFZJ9YTALj+QZQB6yi5a1bzwTkLdplzg2oBdUlM0OEFKAvK0MitYvVc=
+Received: from SJ0PR13CA0125.namprd13.prod.outlook.com (2603:10b6:a03:2c6::10)
+ by DM4PR10MB7392.namprd10.prod.outlook.com (2603:10b6:8:10c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 13:57:14 +0000
+Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::98) by SJ0PR13CA0125.outlook.office365.com
+ (2603:10b6:a03:2c6::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
+ May 2026 13:57:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 13:57:14 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 08:57:13 -0500
+Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 08:57:13 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 20 May 2026 08:57:13 -0500
+Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [172.24.233.149])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64KDv59u2091153;
+	Wed, 20 May 2026 08:57:06 -0500
+From: Rishikesh Donadkar <r-donadkar@ti.com>
+To: <jai.luthra@linux.dev>, <laurent.pinchart@ideasonboard.com>,
+	<mripard@kernel.org>
+CC: <r-donadkar@ti.com>, <y-abhilashchandra@ti.com>, <devarsht@ti.com>,
+	<s-jain1@ti.com>, <vigneshr@ti.com>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <p.zabel@pengutronix.de>, <conor+dt@kernel.org>,
+	<sakari.ailus@linux.intel.com>, <hverkuil-cisco@xs4all.nl>,
+	<tomi.valkeinen@ideasonboard.com>, <jai.luthra@ideasonboard.com>,
+	<changhuang.liang@starfivetech.com>, <jack.zhu@starfivetech.com>,
+	<sjoerd@collabora.com>, <dan.carpenter@linaro.org>,
+	<hverkuil+cisco@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH] media: ti: j721e-csi2rx: Minor cleanup of loop variables
+Date: Wed, 20 May 2026 19:27:05 +0530
+Message-ID: <20260520135705.661455-1-r-donadkar@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,237 +88,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|DM4PR10MB7392:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53f03454-060a-4005-3863-08deb677b245
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|82310400026|1800799024|376014|36860700016|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	U5UQo7BCpQf7EmgIJFY9Ofk3BN3AIVaRD8mGl7XmkEB9gFZ7nXMoG3mItfFHN5kxBbaoCYdDnFyGj7Eaq8Bi+KLAUUtO6EAEE3cYwS/pwHLZcQB75sH21qw126DPgjqiu5djHtGVYW2I347Mnuft16oR28bCOeq/B7kSvJgym5u7EKvomW4UjJ8swbQswKqLgZl8GtjPXZmWbm+7GDPtiKeRr7+oiZBY9iiBmlxO0sAKPBZr9lOw69X/MG2/t+uZBgL5fLcta5H+v8egvgrqHF5S1HRNTNCOYQYNCOtL4v/iwusg2dfdfgJErXgVnsHtKcz/brYfF0vE6ynqENT05jSLSh5ldt2TwHQwvSObiZaFLHZndV8hdDt3u/ms0cIA6i4tPeCgnCmhdff9oYUB0Oh8SkOfEKEr0IuYlOTGaSPNwc8GQmBBFZCyzA2IAqRpCEncqzedrXrWbLeOtMJejFj4ugo/Xr+uS7u6IhBKcpM4GC98vJDh0d7Iz0JiD7OQpuQ075Dup2986lQ6B+VOof/cEAprawMb0X8GDj5bapcQukBVhKyKJ8tbKYq1/bB8MGkKl8DsDKKiEIgi5bpLPWGP14sxJSf+CCAx7fkYRXXqfMjgO48iVR4nWAKEEStc1oDQY4dDrvdvpGvtbID2yXepTrchvqjijN7dNf9J6QIyG771oLWCOC9P4sCBQq3NiwQ4RGgmSe0tSByvCIulhfS7FP4u6zrlLAbRi9yQ7z4=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	DMFABFx6bJKeELYSEOQ5g6TbroQfsKZ29MICdkCRUBREzgxYQYDMlak5ahlWQdA2BlnVAaMokyfUyeKXG4Ol/mN+T74rqoppWv4DFf2QDaukYgf+hY5Sq8jOF8MXMbGRj+Hn5AlpaToO/RoawMwq3ksfFZvEbWFQgfbQ4NdE9cwEFqUFksAslA43hBWoEFJcN11B7yL4vti90oIzFwCfiXV2PCUbZQiCjGtv+AH5pCwfULfW32IjPThWw7XWcdXtj2n47lfzyMmVmGTLP+VsKSTlMd4zB1c+FbfP5nHXug3zvdouMkRC75lQtG0X3HuRLrfcacN3qwQBbnff3cs1DSIRiNo54/AOvlqh/EaAnh+2W3hdbbZcejy2uyocEKJTieNsQUBDDMcbNq/+CKCtk7s3QjPZHHkVo69sGAqIP+kXsy+0GCqhOpucxCYDe/Eg
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 13:57:14.0114
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53f03454-060a-4005-3863-08deb677b245
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB7392
 
-Convert leds-is31fl32xx to DT schema format.
+Replace open-coded `i--; for (; i >= 0; i--)` patterns with the
+idiomatic `while (i--)` in the error unwind paths of
+csi_async_notifier_complete() and ti_csi2rx_probe().
 
-Co-developed-by: Lucca Fachinetti <luccafachinetti@gmail.com>
-Signed-off-by: Lucca Fachinetti <luccafachinetti@gmail.com>
-Co-developed-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Also scope loop variables directly in the for statement instead of
+declaring them at the top of the function in ti_csi2rx_suspend(),
+ti_csi2rx_resume() and ti_csi2rx_remove(). Change the type to
+unsigned int in the first two to match csi->num_ctx.
+
+Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
 ---
- .../bindings/leds/issi,is31fl32xx.yaml        | 151 ++++++++++++++++++
- .../bindings/leds/leds-is31fl32xx.txt         |  53 ------
- 2 files changed, 151 insertions(+), 53 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/leds/issi,is31fl32xx.yaml
- delete mode 100644 Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
+This patch depends on [1]
 
-diff --git a/Documentation/devicetree/bindings/leds/issi,is31fl32xx.yaml b/Documentation/devicetree/bindings/leds/issi,is31fl32xx.yaml
-new file mode 100644
-index 000000000000..81f1e30e493d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/issi,is31fl32xx.yaml
-@@ -0,0 +1,151 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/issi,is31fl32xx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: IS31FL32xx and Si-En SN32xx LED controller
-+
-+maintainers:
-+  - Lucca Fachinetti <luccafachinetti@gmail.com>
-+  - Pavel Machek <pavel@ucw.cz>
-+  - Jun Yan <jerrysteve1101@gmail.com>
-+
-+description: |
-+  The IS31FL32xx/SN32xx family of LED drivers are I2C devices with multiple
-+  constant-current channels, each with independent 256-level PWM control.
-+  Each LED is represented as a sub-node of the device.
-+
-+  For more product information please see the links below:
-+    https://www.lumissil.com/assets/pdf/core/IS31FL3216_DS.pdf
-+    https://www.lumissil.com/assets/pdf/core/IS31FL3218_DS.pdf
-+    https://www.lumissil.com/assets/pdf/core/IS31FL3235_DS.pdf
-+    https://www.lumissil.com/assets/pdf/core/IS31FL3236_DS.pdf
-+    https://www.lumissil.com/assets/pdf/core/IS31FL3293_DS.pdf
-+
-+properties:
-+  compatible:
-+    enum:
-+      - issi,is31fl3216
-+      - issi,is31fl3218
-+      - issi,is31fl3235
-+      - issi,is31fl3236
-+      - issi,is31fl3293
-+      - si-en,sn3216
-+      - si-en,sn3218
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^led@([1-9a-f]|1[0-9a-f]|2[0-4])$":
-+    type: object
-+    $ref: common.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        description:
-+          LED channel number (1..N)
-+        minimum: 1
-+        maximum: 36
-+
-+    required:
-+      - reg
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - issi,is31fl3293
-+    then:
-+      patternProperties:
-+        "^led@":
-+          properties:
-+            reg:
-+              maximum: 3
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - issi,is31fl3216
-+              - si-en,sn3216
-+    then:
-+      patternProperties:
-+        "^led@":
-+          properties:
-+            reg:
-+              maximum: 16
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - issi,is31fl3218
-+              - si-en,sn3218
-+    then:
-+      patternProperties:
-+        "^led@":
-+          properties:
-+            reg:
-+              maximum: 18
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - issi,is31fl3235
-+    then:
-+      patternProperties:
-+        "^led@":
-+          properties:
-+            reg:
-+              maximum: 28
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        led-controller@3c {
-+            compatible = "issi,is31fl3236";
-+            reg = <0x3c>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            led@1 {
-+                reg = <1>;
-+                color = <LED_COLOR_ID_RED>;
-+                function = LED_FUNCTION_STATUS;
-+            };
-+
-+            led@5 {
-+                reg = <5>;
-+                color = <LED_COLOR_ID_GREEN>;
-+                function = LED_FUNCTION_POWER;
-+                linux,default-trigger = "default-on";
-+            };
-+        };
-+    };
-+...
-+
-diff --git a/Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt b/Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
-deleted file mode 100644
-index 7082ed186dd9..000000000000
---- a/Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
-+++ /dev/null
-@@ -1,53 +0,0 @@
--Binding for ISSI IS31FL32xx and Si-En SN32xx LED Drivers
--
--The IS31FL32xx/SN32xx family of LED drivers are I2C devices with multiple
--constant-current channels, each with independent 256-level PWM control.
--Each LED is represented as a sub-node of the device.
--
--Required properties:
--- compatible: one of
--	issi,is31fl3236
--	issi,is31fl3235
--	issi,is31fl3218
--	issi,is31fl3216
--	issi,is31fl3293
--	si-en,sn3218
--	si-en,sn3216
--- reg: I2C slave address
--- address-cells : must be 1
--- size-cells : must be 0
--
--LED sub-node properties:
--- reg : LED channel number (1..N)
--- label :  (optional)
--  see Documentation/devicetree/bindings/leds/common.txt
--- linux,default-trigger :  (optional)
--  see Documentation/devicetree/bindings/leds/common.txt
--
--
--Example:
--
--is31fl3236: led-controller@3c {
--	compatible = "issi,is31fl3236";
--	reg = <0x3c>;
--	#address-cells = <1>;
--	#size-cells = <0>;
--
--	led@1 {
--		reg = <1>;
--		label = "EB:blue:usr0";
--	};
--	led@2 {
--		reg = <2>;
--		label = "EB:blue:usr1";
--	};
--	...
--	led@36 {
--		reg = <36>;
--		label = "EB:blue:usr35";
--	};
--};
--
--For more product information please see the links below:
--http://www.issi.com/US/product-analog-fxled-driver.shtml
--http://www.si-en.com/product.asp?parentid=890
+[1]: https://lore.kernel.org/all/20260520120022.539913-1-r-donadkar@ti.com/
+
+ .../platform/ti/j721e-csi2rx/j721e-csi2rx.c     | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+index 21388284cbaa..ef74e2da19b6 100644
+--- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
++++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+@@ -485,8 +485,7 @@ static int csi_async_notifier_complete(struct v4l2_async_notifier *notifier)
+ 	return 0;
+ 
+ unregister_dev:
+-	i--;
+-	for (; i >= 0; i--) {
++	while (i--) {
+ 		media_entity_remove_links(&csi->ctx[i].vdev.entity);
+ 		video_unregister_device(&csi->ctx[i].vdev);
+ 	}
+@@ -1552,7 +1551,7 @@ static int ti_csi2rx_suspend(struct device *dev)
+ 	struct ti_csi2rx_ctx *ctx;
+ 	struct ti_csi2rx_dma *dma;
+ 	unsigned long flags = 0;
+-	int i, ret = 0;
++	int ret = 0;
+ 
+ 	/* If device was not in use we can simply suspend */
+ 	if (pm_runtime_status_suspended(dev))
+@@ -1564,7 +1563,7 @@ static int ti_csi2rx_suspend(struct device *dev)
+ 	 */
+ 	writel(0, csi->shim + SHIM_CNTL);
+ 
+-	for (i = 0; i < csi->num_ctx; i++) {
++	for (unsigned int i = 0; i < csi->num_ctx; i++) {
+ 		ctx = &csi->ctx[i];
+ 		dma = &ctx->dma;
+ 
+@@ -1604,7 +1603,7 @@ static int ti_csi2rx_resume(struct device *dev)
+ 	struct ti_csi2rx_buffer *buf;
+ 	unsigned long flags = 0;
+ 	unsigned int reg;
+-	int i, ret = 0;
++	int ret = 0;
+ 
+ 	/* If device was not in use, we can simply wakeup */
+ 	if (pm_runtime_status_suspended(dev))
+@@ -1614,7 +1613,7 @@ static int ti_csi2rx_resume(struct device *dev)
+ 	reg = SHIM_CNTL_PIX_RST;
+ 	writel(reg, csi->shim + SHIM_CNTL);
+ 
+-	for (i = 0; i < csi->num_ctx; i++) {
++	for (unsigned int i = 0; i < csi->num_ctx; i++) {
+ 		ctx = &csi->ctx[i];
+ 		dma = &ctx->dma;
+ 		spin_lock_irqsave(&dma->lock, flags);
+@@ -1755,8 +1754,7 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
+ err_notifier:
+ 	ti_csi2rx_cleanup_notifier(csi);
+ err_ctx:
+-	i--;
+-	for (; i >= 0; i--)
++	while (i--)
+ 		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
+ 	ti_csi2rx_cleanup_v4l2(csi);
+ err_dma_chan:
+@@ -1768,12 +1766,11 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
+ static void ti_csi2rx_remove(struct platform_device *pdev)
+ {
+ 	struct ti_csi2rx_dev *csi = platform_get_drvdata(pdev);
+-	unsigned int i;
+ 
+ 	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		pm_runtime_set_suspended(&pdev->dev);
+ 
+-	for (i = 0; i < csi->num_ctx; i++)
++	for (unsigned int i = 0; i < csi->num_ctx; i++)
+ 		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
+ 
+ 	ti_csi2rx_cleanup_notifier(csi);
 -- 
-2.54.0
+2.34.1
 
