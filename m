@@ -1,212 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5171356762;
-	Wed, 20 May 2026 16:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5915371D00
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779295753; cv=none; b=IlXeFZOhFrbm+yENgUwaqMpG/a1ggPFhf8U57Qj6j+GEs8aoI705FbptqOYMe9zn6FroYX1kl+enM0BXGTUarlxNSHDEJiguVCPiptSevdtSdvirksot/YZ8WXUz5ZVZDBQdRymlC++w1MjxjmV8nPZBJTEtrbda0UCdWqv5r0I=
+	t=1779295755; cv=none; b=I74OwEy/eRlH29bXFy1Bcq9l3sXbKQh5Pim/u6AfioTdG2R73ItXAl29Lu4b8dk6gkE1/6WULY0j0/JXXO6eBDOezmXdJFrmmEYdYvteECozzDk+5idlP72V8iwV8TKdk8JKw2yXQyuJtsOjjAX9uEzSFUJtytXgGNefURmBgGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779295753; c=relaxed/simple;
-	bh=IqFbB5E/mcqriC9G7m12Xanx0cKnvei5h0SH8wa6fN4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gYlB0MtEk0YEeSEasUXz63Mz9GDMqTk9J2OL5e/ujvhgGB0G8ZS6hj0fv0laMbxB5YSGqLD0TyiWnTc6pL0arQtyX9Mrm9pWt4Qu9zK0Ium2kMNe9rhhlP4WgekfrXZmhTk9T1pDCrKCiUeeoF2TW7Z0oE/3kKSQ7YLowX6YmBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VRtD7X3c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779295755; c=relaxed/simple;
+	bh=1wdbQGuw6HvmZIeFn+pMLa4ccPKyAcHlFLo3mDEmmuU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=exvA0Ij+FkjlMCFo6DcjvcE9WIRwrJhhYvc7HEwB1wKT5CCW1UhoffMiU4C3+4NJw8lBp0W67M6C+wOBoROLIugBbAihrDO4L+T4pXQl0b4i3WJRcDT6E5eEHmBesHY0VDb8ytpFri3kq9EZMwrg7K7qy+7cZgn04uoEcqKmE7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DfKLfiyX; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VRtD7X3c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD7C1F000E9;
-	Wed, 20 May 2026 16:49:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779295751;
-	bh=2EYGOyHOoy1RVuJWBWnb5bN4dRtWTtSSDwlqhTkXu7I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VRtD7X3c3QzEtK90eKxbGHYpUFqgqd1tglBN9Y6o69TruAlm27IqMfMajz/YX5C65
-	 bVG+FFjHJmrdwKt/XjvGprimjp7JsTIbtU+CJzTwViR8/48hAJROJ82YmUdaTN6hvy
-	 1NYnqf+4nAUq8z50j3whNiKgpCIfR1YZt3HPlPVuiD/ehDXeQy0m6nqRTEYdIsEtgj
-	 fVZcg6NVwIpmvgT8+ru/7Qff6TKx3Epq4j8J0DH9EZjhnA2mWy/liVI+L5GYr9LsI2
-	 rWkzM4GTxJkB56Kl8y1B49f65+95zrsP9ZQ15b9PwY7bjZRkz75DF8SUVZbvk1t6EM
-	 aD/G0vV4H6SlA==
-Date: Wed, 20 May 2026 17:49:02 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V8 03/10] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
-Message-ID: <20260520174902.3e19117e@jic23-huawei>
-In-Reply-To: <20260518200526.458421-4-macroalpha82@gmail.com>
-References: <20260518200526.458421-1-macroalpha82@gmail.com>
-	<20260518200526.458421-4-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DfKLfiyX"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-48e6db3ff7eso26552875e9.0
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:49:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779295751; x=1779900551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=I9V3EBCqEjOEBqzqMBD7+ufR2GQPQMJRKrFaD0tdiJU=;
+        b=DfKLfiyXIgG1aD37LJUqaHfLFOJZ4FGIixMlYb3lhoElmalo7j92dDiIPq6z1mCox4
+         8zsZ6j1vRBaYTp0BELd6E4COLwbIilwmjuXzQdYiwkI1Y1UmP/QuIvjMESlNuLFSIOuO
+         UL5LCuPIrhJJP9ybzR3WjOMikMt1SP6/RVsP7wEyDtvBO3bgBOEEDr3U26xTXuNO8WN5
+         SVX4sYKWHcKoR2PzGxx9XiCGEiFqDJjkhwYSGIMufoifkU9ZDCr1zl2CaRTcpRT0PHpG
+         g+1HDIfjNT6r9KaXuZCk8Vn21v/GOAGfnYG7w+OPmG3hYJMEczEJCklQnLcPzfMNLKOC
+         JrqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779295751; x=1779900551;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I9V3EBCqEjOEBqzqMBD7+ufR2GQPQMJRKrFaD0tdiJU=;
+        b=PS/lCALPSgQxpnEBcQdubavZnqx3FSGbWq43mw1A7AwzIJdD+GxhZfDG0Cedjg+hCP
+         v8Bz1rpiw0EomluFKso0+EGIZf3IFCyIlsqgj38RN7lylyDkBiJj26AXMss1czt0D6rw
+         gRzG4lAIxc72cBiDQxdZUMGCpADb4K1JoZN6i4kUW15xIe5UsYFHbK80lCAQ0jYSeuJ+
+         f/eGwZZo3U2d3qy8V3eyEizQPtkk+arWAPSqLDCCs66KPvUIriHkNOF2CgMMHkNUuaZd
+         JeQOVXlczlFnMaz6UwY9nBbJFJxio7s1lmL/Bo52orommYYSoG3m2iQdNMUjHNhqhGpZ
+         cTbQ==
+X-Forwarded-Encrypted: i=1; AFNElJ88unDblEgOPU3PwLU9aoZgyN7PGexppGz04s9SDlcRrZ+Ja0xG1gDTgShfRHfVVBKQ3yNhYRB3PcVa@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3advNYMBKjdi41BpIkUw8jZb9E11bPMhuV2UcGwcxErGUIRQG
+	I2QFzETlhCClBf3iV24sjOtcwSU1UWxEGBKRQjdoA1RY/rCsj/dXgVXR
+X-Gm-Gg: Acq92OEuKNgO+IcPB9HTZm0gtgByLpbM1M38XFvpJWEHsO65UXqhWhSzrId/o9U3rTs
+	AlSQZMBOrvlv/JAYkz69YvUdZhfocWTbESWYUiOIRJ8hhyO/3ucY8SR/HgPCaxQFBHakf6TCtYO
+	iLMj9cLR3A8I4OnpQzg59q+Ma+uXiJdrtEF9DY6IFyGVdTOcfrfx/QnDLu++pgmTfufYt/ZqhU+
+	1ITn02/frpmqUQsPud3oStYnwrCMhKsheIyCi0hc4MRco1yU0DVBJ9vPwlKsC4B+Zy/pZKKIZ2H
+	B2IpgD5Xg2Th2TJiXftO7BUFdgTRrX7Hiw7owEN4wrTUH9huVH7m1fN9H7D6WB1nFz028tbnppa
+	WsXvWKErR2fICuNbMgIMc23HwZTFjL/U/ivKcpdJkByPDREZUbfd2RdQWx8NDlmiKE+M6fCcl5G
+	ewrCP1Mp6gS1mEltVOi4l5clEwqCF9MJlpP9GvgFa5DiHmcJk8Oy/6bJ0M+xTbWICtMT+pqIeUT
+	EAgF5fGlb0nMyJ6UOLGZt/jSZJ9/7bgH8+eP+uz7cwoIS4=
+X-Received: by 2002:a05:600d:8:b0:488:904b:f31 with SMTP id 5b1f17b1804b1-48fe6325213mr316461235e9.22.1779295750801;
+        Wed, 20 May 2026 09:49:10 -0700 (PDT)
+Received: from iku.example.org ([2a06:5906:61b:2d00:dcb8:81c1:dc9e:cd68])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49033d8e71dsm3110285e9.9.2026.05.20.09.49.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 09:49:10 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v3 0/4] Add PCIe support for RZ/V2H(P) SoC
+Date: Wed, 20 May 2026 17:48:19 +0100
+Message-ID: <20260520164823.436992-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 18 May 2026 15:05:18 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> From: Chris Morgan <macromorgan@hotmail.com>
-> 
-> Add the core component of a new inv_icm42607 driver. This includes
-> a few setup functions and the full register definition in the
-> header file.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-Mainly the interrupt names thing - which is probably a case for
-a precursor fix for the existing binding.
+Hi all,
 
-Otherwise really small stuff I'd not have bothered you with if we
-weren't already looking like we'll need a v9
+This series adds support for the PCIe host controllers found on the
+Renesas RZ/V2H(P) SoCs. The RZ/V2H(P) controller includes additional
+features for PCIe lane control and supports multilink operation with
+two independent controllers.
 
-Jonathan
+v2->v3:
+- Dropped using linux,pci-domain property.
+- Switched property to phandle-array for renesas,sysc
+  to support multiple controllers with different SYSC register sets.
+- Parsed controller-id from the "renesas,sysc" property instead of
+  using linux,pci-domain.
+- Updated commit message for clarity in patch #1
 
-> ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 332 ++++++++++++++++++
->  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 197 +++++++++++
->  2 files changed, 529 insertions(+)
->  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
->  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> new file mode 100644
-> index 000000000000..6c5e7d9b08b7
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+v1->v2:
+- Dropped RZ/V2N DT binding patch as it has been merged in the
+  pci/dt-binding branch.
+- Dropped un-necessary new line in schema.
+- Renamed RZG3S_PCIE_CHANNEL_ID* to RZG3S_PCIE_CONTROLLER_ID* for clarity.
+- Added locks to protect shared lane configuration state and
+  prevent concurrent access issues during probe.
+- Added cleanup action to release lanes on driver removal.
+- Reconfigured RZG3S_SYSC_FUNC_ID_LINK_MASTER in resume path.
+- Renamed num_channels to num_pcie_controllers for clarity.
+- Updated commit messages for clarity in patches 1-4.
 
-> +
-> +typedef int (*inv_icm42607_bus_setup)(struct inv_icm42607_state *);
-> +
-> +extern const struct regmap_config inv_icm42607_regmap_config;
-> +
-> +int inv_icm42607_core_probe(struct regmap *regmap, const struct inv_icm42607_hw *hw,
-Trivial but I'd wrap the line above after first ,
+note, the patches have been rebased on top of next-20260520.
 
-Still prefer staying under 80 chars if it doesn't hurt readability and here
-it doesn't.
+Cheers,
+Prabhakar
 
-> +			    inv_icm42607_bus_setup bus_setup);
-> +
-> +#endif
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> new file mode 100644
-> index 000000000000..b270d48335ba
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> @@ -0,0 +1,197 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2026 InvenSense, Inc.
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/irq.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
+Lad Prabhakar (4):
+  dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2H(P) support
+  PCI: rzg3s-host: Use shared reset controls for power domain resets
+  PCI: rzg3s-host: Prepare System Controller handling for multiple
+    controllers
+  PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
 
-Give the includes another quick check. I'd expect at least
-dev_printk.h in here. There may be others missing to following
-the approximate include what you use approach preferred for kernel
-drivers.
+ .../bindings/pci/renesas,r9a08g045-pcie.yaml  |  34 ++-
+ drivers/pci/controller/pcie-rzg3s-host.c      | 232 ++++++++++++++++--
+ 2 files changed, 246 insertions(+), 20 deletions(-)
 
-> +#include "inv_icm42607.h"
-
-> +/**
-> + *  inv_icm42607_setup() - check and setup chip
-> + *  @st:	driver internal state
-> + *  @bus_setup:	callback for setting up bus specific registers
-> + *
-> + *  Returns 0 on success, a negative error code otherwise.
-> + */
-> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
-> +			      inv_icm42607_bus_setup bus_setup)
-> +{
-> +	const struct device *dev = regmap_get_device(st->map);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val != st->hw->whoami)
-> +		dev_warn(dev, "invalid whoami %#02x expected %#02x (%s)\n",
-
-Can we tweak that to unknown whoami
-
-It might well be valid afterall!
-
-> +			 val, st->hw->whoami, st->hw->name);
-> +
-> +	ret = regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
-> +	if (ret)
-> +		return ret;
-> +
-There is some moaning here from sashiko. I think it's wrong but take a look.
-
-> +	ret = regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
-> +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
-> +				       INV_ICM42607_RESET_TIME_MS * 100,
-> +				       INV_ICM42607_RESET_TIME_MS * 1000);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "reset error, reset done bit not set\n");
-> +
-> +	ret = bus_setup(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_set_bits(st->map, INV_ICM42607_REG_INTF_CONFIG0,
-> +			      INV_ICM42607_INTF_CONFIG0_SENSOR_DATA_ENDIAN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(st->map, INV_ICM42607_REG_INTF_CONFIG1,
-> +				 INV_ICM42607_INTF_CONFIG1_CLKSEL_MASK,
-> +				 INV_ICM42607_INTF_CONFIG1_CLKSEL_PLL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return inv_icm42607_set_conf(st, st->hw->conf);
-> +}
-
-
-> +int inv_icm42607_core_probe(struct regmap *regmap, const struct inv_icm42607_hw *hw,
-> +			    inv_icm42607_bus_setup bus_setup)
-> +{
-> +	struct device *dev = regmap_get_device(regmap);
-> +	struct inv_icm42607_state *st;
-> +	int irq;
-> +	int ret;
-> +
-> +	irq = fwnode_irq_get_byname(dev_fwnode(dev), "INT1");
-
-Sashiko raises a valid point on this one.  The binding has interrupt-names as optional
-even if we have interrupts. The binding could document a default but doesn't. 
-
-Can you check the other drivers sharing that binding and either 'fix' the binding
-or add a default - I'd guess INT1 - but this wouldn't be the first time a driver
-has gotten written against a board that wires INT2 only and that's there for
-the default choice.
-
-Note that sashiko's fallback is a bad idea if we don't have a default in the binding!
-
-
-> +	if (irq < 0)
-> +		return dev_err_probe(dev, irq, "Unable to get INT1 interrupt\n");
-
-
+-- 
+2.54.0
 
