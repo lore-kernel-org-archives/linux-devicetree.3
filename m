@@ -1,121 +1,87 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CE93D7D9E;
-	Wed, 20 May 2026 11:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95AE3D9DAA;
+	Wed, 20 May 2026 11:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779275612; cv=none; b=czRRWWA2y9ezmJMaW02VH9Hiz1WtODnYrprXkv9RqpjfU2rAAEITIlufIrSCcutGmeRArpDC0q57TeWMu5SqbKL6/J08OgobXcxF93h6coahXADEZhOYxBjNVvsMs3fhXm/NA2BbKlEoi7yF/ctgu6uSTPKEZ/vWOLBn8wWfVhs=
+	t=1779275651; cv=none; b=RUhgNDJzfyFFD5y5pkP53wrqr4wNCfSt56B92aIcC95FGPYoyouwAojLcXoDdLRT0Obv/0YZykcQ4NVGM8aNmfvJxC+jOB57Na2YV+mLwFmzgRmKcUIptN4o4sPinO6eZnVl8tBZPfTjambzY3z99prBOqqhH8KzLqYWKZKl5FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779275612; c=relaxed/simple;
-	bh=JRJUo4PXuYN1XhJVP15C+J6R1n1WzcWxMs+6lKcGyXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GnOu/2lB6/l5BBG4titUuNsvHqU8YgV5xd3DxnyUuGJESR5Xy1nJ2mlecE/3W7mqHGgCqpiRHTbUOoqhRAIWDCwmyhPU+j3skvTvx3VOv/Muh5whLeXk/3t0G4XCAGXa0nlsoaqkOYPhTOtWoQu+bDwRAzfydqGd5Qo7uRHfExM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=UIMfPi0n; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1779275651; c=relaxed/simple;
+	bh=ZsAeQ9bjPRfraNRCQXzWI0rgnC+KfrS7ipmN9EqDh1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TnNjnmsRdYk3syOk4y7BxW0799EPY7XiYc2aHMZpeLW1wizngHam55ihIc6fdnBC6jGYy18i06B6P1lgBN9PHrUOgsB3vLtGxCaMNunfC/4uDxUjGn2mrqdrl4gDHBclEW1uw816JIlVMkO1anoDguFaehxYZ61kHkbR6RWER64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j65MoH5u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="UIMfPi0n"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=JRJUo4PXuYN1XhJVP15C+J6R1n1WzcWxMs+6lKcGyXw=; b=UIMfPi0n+2sixL8bSd9VaSky4K
-	RHWEU0+Im4DinWDobN+TIklEhd6YinjY5ra47zGedlGtmCK3VcLA4SdnC/T9Wz+xbv787uc9NCmur
-	oE/Pb9YEfcxcHLNfgJgespEqEWtw4n5OmHUUJpLH4OusgknEWNuQPRuBNqljFKhUo5+wDF9F6HKDp
-	7be2MVHEYOcgda44vWIrGG8KrxbAhoTugxFAOK6tqo9T6Y/e1aUu/oa9ixbiz6AQcrrmBIpaKFezU
-	Ywj+BMGYYbwcxGr5YO+NvKrymVGhCxN9ndMlH+BhpCaopR6UWjmoW1Bez1Zy8MLmFiEb1e5C3LRV6
-	xx0+IXow==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- Chaoyi Chen <kernel@airkyi.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject:
- Re: [PATCH v15 7/9] drm/rockchip: cdn-dp: Add multiple bridges to support PHY
- port selection
-Date: Wed, 20 May 2026 13:12:49 +0200
-Message-ID: <12511061.0AQdONaE2F@phil>
-In-Reply-To: <20260304094152.92-8-kernel@airkyi.com>
-References:
- <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-8-kernel@airkyi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j65MoH5u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C291F00893;
+	Wed, 20 May 2026 11:14:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779275650;
+	bh=+Zgk9V7Xl6u4I3nUqB9SSH81vPkss0P5/jrHvLinOh4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=j65MoH5uqk7hIA38BCiXT01k9UHNtFZsglj3Z6NPKc42WNN1Ut7BY41gOelouJ39v
+	 8LK+2s14SbThL5we3UHdTPgdszlpsgOO1XEPIPn8Wok6QDvU96YxaMfwyGbsDbx9Yw
+	 6YaE5x8/qBCxRYgAmPYNoGK7IyQZB4TMITPKy/DKDxG04CAP0fZ+5l1KJH/spUkeiP
+	 FaF2RZkXx0HnICT31TD4lYlRLaFzqhKKsj5sizxEjKSRhgFZHdhz3aMMOPHNG78zdN
+	 qfOZtedcAChr5l1mUKXvi/B+w2TL6ndULkddhGYnUJO8NCFXNHRoBmqzfoTnuoCuF1
+	 5CHpEK6+fRuZQ==
+Date: Wed, 20 May 2026 12:14:02 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: j k <kimjinseob88@gmail.com>, linux-iio@vger.kernel.org, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 3/3] MAINTAINERS: add Open Sensor Fusion IIO driver
+ entry
+Message-ID: <20260520121402.24a423d8@jic23-huawei>
+In-Reply-To: <CALoEA-zx4pwxoz_a5X6yBMtNsf_Kp_Bip83HOVCWsk_3GePcDQ@mail.gmail.com>
+References: <20260520072843.3593-1-kimjinseob88@gmail.com>
+	<20260520072843.3593-4-kimjinseob88@gmail.com>
+	<CALoEA-xOGAGb=-uXBv+Q2QC=viPCGUESGZw=rfoBHdEJFCkEAQ@mail.gmail.com>
+	<CALMSewJinjbnHT_sOgWmHVeThv3su_E6fioyAjEWKzf7uROc2Q@mail.gmail.com>
+	<CALMSewL560vBTut2=_x3KVvdoqMo3Lmg3WF9jr-EdncCFNW71w@mail.gmail.com>
+	<CALoEA-zx4pwxoz_a5X6yBMtNsf_Kp_Bip83HOVCWsk_3GePcDQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Am Mittwoch, 4. M=C3=A4rz 2026, 10:41:50 Mitteleurop=C3=A4ische Sommerzeit =
-schrieb Chaoyi Chen:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->=20
-> The RK3399 has two USB/DP combo PHY and one CDN-DP controller. And
-> the CDN-DP can be switched to output to one of the PHYs. If both ports
-> are plugged into DP, DP will select the first port for output.
->=20
-> This patch adds support for multiple bridges, enabling users to flexibly
-> select the output port. For each PHY port, a separate encoder and bridge
-> are registered.
->=20
-> The change is based on the DRM AUX HPD bridge, rather than the
-> extcon approach. This requires the DT to correctly describe the
-> connections between the first bridge in bridge chain and DP
-> controller. For example, the bridge chain may be like this:
->=20
-> PHY aux birdge -> fsa4480 analog audio switch bridge ->
-> onnn,nb7vpq904m USB reminder bridge -> USB-C controller AUX HPD bridge
->=20
-> In this case, the connection relationships among the PHY aux bridge
-> and the DP contorller need to be described in DT.
->=20
-> In addition, the cdn_dp_parse_next_bridge_dt() will parses it and
-> determines whether to register one or two bridges.
->=20
-> Since there is only one DP controller, only one of the PHY ports can
-> output at a time. The key is how to switch between different PHYs,
-> which is handled by cdn_dp_switch_port() and cdn_dp_enable().
->=20
-> There are two cases:
->=20
-> 1. Neither bridge is enabled. In this case, both bridges can
-> independently read the EDID, and the PHY port may switch before
-> reading the EDID.
->=20
-> 2. One bridge is already enabled. In this case, other bridges are not
-> allowed to read the EDID. So we will try to return the cached EDID.
->=20
-> Since the scenario of two ports plug in at the same time is rare,
-> I don't have a board which support two TypeC connector to test this.
-> Therefore, I tested forced switching on a single PHY port, as well as
-> output using a fake PHY port alongside a real PHY port.
->=20
-> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Wed, 20 May 2026 10:22:05 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+> On Wed, 20 May 2026 at 10:14, j k <kimjinseob88@gmail.com> wrote:
+> >
+> > Sorry, resending in plain text.
+> >
+> > Thanks, that makes sense.
+> >
+> > I will fold the binding-related MAINTAINERS entry into the dt-bindings patch
+> >
+> > and add the driver path entry in the driver patch in the next revision.
+> >
+> > Thanks again
+> >
+> > Jinseob  
+> 
+> No worries, also please don't top post, just inline your comments like my
+> previous reply. Check the mailing list on lore.kernel.org to see how to
+> reply to messages etc.
+> 
+Plus for future reference - if you agree with feedback don't reply at all.
+
+Thanks etc all goes in the change log of v2.
+
+Saves a few seconds for a bunch of reviewers who have far too many emails
+to read :)
+
+Jonathan
 
 
