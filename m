@@ -1,267 +1,396 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FDC39BFFA;
-	Wed, 20 May 2026 12:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779281235; cv=pass; b=bdJYHOH0CWCoy3SAyjNOlfHFHu9UBzFYHan6sxj/zHeXAtXqLreuBEMy0CYgXV8JlZ3ST0ywzLb/2QQoZUYvTZX7mrw4Eynn7Bs+vtAdy8Hc0W2y3quwBehpVd1lqZLsNnlh4GFFe59Gi0xfxD0cfT22Yh8ysPCQfoT+sXBcEbk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779281235; c=relaxed/simple;
-	bh=dTXcnPiwDtqWk2v4IuUn3hfvsZ/QJSIh+tZ0dccqi6E=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=A7fF3ezaOSsBDaCKCNYIWqhOP8a16mqaHq1ABRC+l9aeQkQVJVA6nEMjklg7qarBhpecjh4PfteG5dmQROomBHwsJGIazh9MR680s8+CLTa2WWEtq6Mzgt0R67V43mmUu9t3SBEveCLDJTn7+9D0hy3to/7rGqiKM0dGnGg1CWM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=jHWswEbl; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402FD39BFFA
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 12:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779281314; cv=none; b=tYKxDJncSRoRogdPFi2sf1KW+miQJFsyRpvzdDTrAxLECJnLbjTBduM8cjORYgTBKKL8qpgLprm83RQ22JQBhT5Krr6lstqEa++kTlP9bY9SN6vIM5JIksZYZ3uz5p7hDmyGz+j1lljVktQUc3qBjjWjKa3Tirq2+F+VsJ3YqKY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779281314; c=relaxed/simple;
+	bh=9AsHvTNAAsxxr5tv7Vu6aloxhNbhrVQvsWY3Z0KCtDo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lWIPUzFbY4BucHBXC2msQ1nm/H7SJXTD5RVsPPOuN40FsVzXmoLc6Y8/R1LQbgEazQj/8vY14b2Gsjat8YkhUvXiyQBiclElQ7RDMb3Y8RFrZOgF3gxg2uCIi48so3qSid21zj1AyHX0w28li2gdiFtR4YmQPXe7jc7O+cqZrHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k93igezG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="jHWswEbl"
-ARC-Seal: i=1; a=rsa-sha256; t=1779281190; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mo1rJIqCjsETSxeBlA/L09pa826Mm+LiDvydim+2eo2AYNHhOluWEbNed8kaEfd97DMvCEdkl4PZznAoVkEIYssHGSkEW2p63Ihq2lB7QLtGr+VwznZNwhvdSrYOS95uSkVBaoFihQujArEUKAVI3dHjTxYrhbt/Jg13Kq/ntBQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779281190; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=L6RTBcDwCUAggrkL6cocI+jcG+EHQ7is9sXnrTTyELw=; 
-	b=aGduDpgjxZOUrVuepzUN475CJOp0FxUmYSlpVfaKvE77g6l6aPj2sYxvUlV3dcVtyExK0vio8C5SAbNvwGEdkUsIanPddG0+yreOB5/+5UeBzJsXj4tyUI5zL/JU4Hyh4CWKZvZhxHJNjK0cijAlo7xDeUIzGnt5WDCH52rY6+8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779281190;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=L6RTBcDwCUAggrkL6cocI+jcG+EHQ7is9sXnrTTyELw=;
-	b=jHWswEblvW1vK8XuhlZdi620omvMnhmjmsspqomaIrUxF6boKfMqcgaAawSVlJpk
-	/OAJH3cZ8+sxHYSO6fHHRAOt5VDvAZPGJuQYUTDV+4srCmRMXTX9N/f8J2aozt6iJyC
-	uIlWdFzbYc1wM3FSeLSZoRNviH8pHKE/ViT7MpFQ=
-Received: by mx.zohomail.com with SMTPS id 1779281188633314.64127682579726;
-	Wed, 20 May 2026 05:46:28 -0700 (PDT)
-Message-ID: <d61f709524326a4f9943188fcabb5746a1b11e3d.camel@collabora.com>
-Subject: Re: [PATCH net-next v3 5/6] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn	
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet	 <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni	 <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit	 <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>
-Cc: kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com,
- matthias.bgg@gmail.com, 	kernel@collabora.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, 	linux-kernel@vger.kernel.org
-Date: Wed, 20 May 2026 14:46:22 +0200
-In-Reply-To: <e77b4028-c201-4dd4-9214-721bdf67e976@bootlin.com>
-References: 
-	<20260512-add-airoha-an8801-support-v3-0-1edb34e363ae@collabora.com>
-	 <20260512-add-airoha-an8801-support-v3-5-1edb34e363ae@collabora.com>
-	 <e77b4028-c201-4dd4-9214-721bdf67e976@bootlin.com>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k93igezG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EA71F000E9;
+	Wed, 20 May 2026 12:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779281313;
+	bh=tcIyI/oJtF1ae4sFeg1zdUq+wOMFbiMdTRgC/i4+zK8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k93igezGBXcOP2re+VPjWRU/bat22WYviuJYZ1C2ygU/9WG4FzXIalDwVgl1oPOBg
+	 Hw8WZk4jNmKXTlaJO8IesoTe8JmcEokmKwScX4cQSYVVIH3YKG4iID57H2h+i0GiJp
+	 4Nyjbkykb+IwE6t+S4BHww8hfixccJ4KlVDwONupIbWlWJkg6SmWH8bCDXZlX/H9ga
+	 k5L8dLAKeWA5JOqLtNBizXnsPj1nkHFZy20gXFhrbB5V1FbRypcK9hebFmvqRmt1yq
+	 MdaIceCsim7aa+7jUh3+MEOe+wq32RZAn6XNBvt31EubftpLKNxyMLIjVTC9ggTNGn
+	 9gsKJ9h8L5c0g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 12/17] media: ti: j721e-csi2rx: add multistream
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rishikesh Donadkar" <r-donadkar@ti.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260520120022.539913-13-r-donadkar@ti.com>
+References: <20260520120022.539913-13-r-donadkar@ti.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Date: Wed, 20 May 2026 12:48:32 +0000
+Message-Id: <20260520124832.87EA71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ZohoMailClient: External
 
-Hi Maxime,
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Global pixel interface reset is unconditionally asserted on stream=
+ start failure, breaking other active multiplexed streams.
+- [High] Fallback initialization for missing `get_frame_desc` support only =
+configures the first context, breaking secondary multiplexed streams.
+- [High] Incorrect NULL check on `media_entity_remote_source_pad_unique` le=
+ads to ERR_PTR dereference.
+- [High] Failing to disable the upstream subdev permanently desynchronizes =
+the driver's stream enable counter from the hardware state.
+- [Medium] `ti_csi2rx_sd_set_routing` improperly rejects TRY routing config=
+urations while streaming is active.
+- [Medium] Unreachable error check inside `ti_csi2rx_get_vc_and_dt` loop pr=
+events returning `-EINVAL` on stream mismatch.
+- [Medium] `ti_csi2rx_sd_set_fmt` leaves state partially modified when retu=
+rning error for unrouted streams.
+--
 
-On Tue, 2026-05-12 at 12:06 +0200, Maxime Chevallier wrote:
-> Hi :)
->=20
-> This looks good, I just have very minimal comments
->=20
-> On 5/12/26 06:33, Louis-Alexis Eyraud wrote:
-> > From: AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@collabora.com>
-> >=20
-> > Introduce a driver for the Airoha AN8801R Series Gigabit Ethernet
-> > PHY; this currently supports setting up PHY LEDs, 10/100M, 1000M
-> > speeds, and Wake on LAN and PHY interrupts.
-> >=20
-> > Signed-off-by: AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@collabora.com>
-> > Signed-off-by: Louis-Alexis Eyraud
-> > <louisalexis.eyraud@collabora.com>
->=20
-> [...]
->=20
-> > +static u32 an8801r_led_blink_ms_to_hw(unsigned long req_ms)
-> > +{
-> > +	u32 req_ns, regval;
-> > +
-> > +	if (req_ms > AN8801_MAX_PERIOD_MS)
-> > +		req_ms =3D AN8801_MAX_PERIOD_MS;
-> > +
-> > +	req_ns =3D req_ms * 1000000;
->=20
-> Use NSEC_PER_MSEC :)
-I'll fix this in the next version.
+commit e0451de187b4fd8470a4a9aee7ab731e7acd8ee7
+Author: Jai Luthra <jai.luthra@linux.dev>
 
->=20
-> > +
-> > +	/* Round to the nearest period unit... */
-> > +	regval =3D req_ns + (AN8801_PERIOD_UNIT / 2);
-> > +
-> > +	/* ...and now divide by the full period */
-> > +	regval >>=3D AN8801_PERIOD_SHIFT;
-> > +
-> > +	return regval;
-> > +}
-> > +
->=20
-> [...]
->=20
-> > +static int an8801r_led_hw_control_set(struct phy_device *phydev,
-> > u8 index,
-> > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long rules)
-> > +{
-> > +	u16 on =3D 0, blink =3D 0;
-> > +	int ret;
-> > +
-> > +	if (index >=3D AN8801R_NUM_LEDS)
-> > +		return -EINVAL;
-> > +
-> > +	ret =3D an8801r_led_trig_to_hw(rules, &on, &blink);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret =3D phy_modify_mmd(phydev, MDIO_MMD_VEND2,
-> > LED_ON_CTRL(index),
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0 LED_ON_EVT_MASK, on);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret =3D phy_modify_mmd(phydev, MDIO_MMD_VEND2,
-> > LED_BLINK_CTRL(index),
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0 LED_BLINK_EVT_MASK, blink);
-> > +
-> > +	if (ret)
-> > +		return ret;
->=20
-> Extra newline before the if()
-I'll fix this in the next version too.
+media: ti: j721e-csi2rx: add multistream support
 
->=20
-> > +
-> > +	return phy_modify_mmd(phydev, MDIO_MMD_VEND2,
-> > LED_ON_CTRL(index),
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 LED_ON_EN, on | blink ? LED_ON_EN :
-> > 0);
-> > +}
-> > +
->=20
-> [...]
->=20
-> > +static int an8801r_rgmii_rxdelay(struct phy_device *phydev, bool
-> > enable,
-> > +				 u16 delay_steps)
-> > +{
-> > +	u32 reg_val;
-> > +
-> > +	if (delay_steps > RGMII_DELAY_STEP_MASK)
-> > +		return -EINVAL;
-> > +
-> > +	if (enable) {
-> > +		reg_val =3D delay_steps & RGMII_DELAY_STEP_MASK;
-> > +
-> > +		 /* Set align bit to add extra offset for RX delay
-> > */
-> > +		reg_val |=3D RGMII_RXDELAY_ALIGN;
-> > +
-> > +		 /* Set force mode bit to enable RX delay
-> > insertion */
-> > +		reg_val |=3D RGMII_RXDELAY_FORCE_MODE;
-> > +	} else {
-> > +		reg_val =3D 0;
-> > +	}
-> > +
-> > +	return an8801_buckpbus_reg_write(phydev,
-> > AN8801_BPBUS_REG_RXDLY_STEP,
-> > +					 reg_val);
-> > +}
-> > +
-> > +static int an8801r_rgmii_txdelay(struct phy_device *phydev, bool
-> > enable,
-> > +				 u16 delay_steps)
-> > +{
-> > +	u32 reg_val;
-> > +
-> > +	if (delay_steps > RGMII_DELAY_STEP_MASK)
-> > +		return -EINVAL;
-> > +
-> > +	if (enable) {
-> > +		reg_val =3D delay_steps & RGMII_DELAY_STEP_MASK;
->=20
-> Is this bitwise and needed, as you have the check above ?
-Indeed, it is not needed, so I'll remove this masking operation here
-and in an8801r_rgmii_rxdelay too.
+Each CSI2 stream can be multiplexed into 32 independent streams, each
+identified by its virtual channel number and data type. The incoming
+data from these streams can be filtered on the basis of either the
+virtual channel or the data type. This patch adds routing APIs to allow
+application-specified data routing and handles pixel interface reset
+assert/de-assert on stream start/stop.
 
->=20
-> > +
-> > +		 /* Set force mode bit to enable TX delay
-> > insertion */
-> > +		reg_val |=3D RGMII_TXDELAY_FORCE_MODE;
-> > +	} else {
-> > +		reg_val =3D 0;
-> > +	}
-> > +
-> > +	return an8801_buckpbus_reg_write(phydev,
-> > AN8801_BPBUS_REG_TXDLY_STEP,
-> > +					 reg_val);
-> > +}
-> > +
-> > +static int an8801r_rgmii_delay_config(struct phy_device *phydev)
-> > +{
-> > +	bool enable_delay;
-> > +	u16 delay_step;
-> > +	int ret;
-> > +
-> > +	if (phydev->interface =3D=3D PHY_INTERFACE_MODE_RGMII_ID ||
-> > +	=C2=A0=C2=A0=C2=A0 phydev->interface =3D=3D PHY_INTERFACE_MODE_RGMII_=
-TXID) {
-> > +		enable_delay =3D true;
-> > +		delay_step =3D AN8801_RGMII_TXDELAY_DEFAULT;
-> > +	} else {
-> > +		enable_delay =3D false;
-> > +		delay_step =3D RGMII_DELAY_NO_STEP;
-> > +	}
-> > +
-> > +	ret =3D an8801r_rgmii_txdelay(phydev, enable_delay,
-> > delay_step);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	if (phydev->interface =3D=3D PHY_INTERFACE_MODE_RGMII_ID ||
-> > +	=C2=A0=C2=A0=C2=A0 phydev->interface =3D=3D PHY_INTERFACE_MODE_RGMII_=
-RXID) {
-> > +		enable_delay =3D true;
-> > +		delay_step =3D AN8801_RGMII_RXDELAY_DEFAULT;
->=20
-> Is it correct that AN8801_RGMII_RXDELAY_DEFAULT expands to=20
-> RGMII_DELAY_NO_STEP ? feels strange, but it may simply be how the HW
-> is=20
-> made :)
-As I replied in an earlier comment ([1]), for the inserted RX delay,
-when the RGMII_RXDELAY_ALIGN bit is set, the "no step" value is then
-the closest setting to the 2ns value.
+Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Co-developed-by: Pratyush Yadav <p.yadav@ti.com>
+Signed-off-by: Pratyush Yadav <p.yadav@ti.com>
+Signed-off-by: Jai Luthra <j-luthra@ti.com>
+Co-developed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-I'll improve the AN8801_RGMII_RXDELAY_DEFAULT comment to say that it
-corresponds to the 1.992ns delay value when the align bit is set and -
-0.008ns otherwise.
+> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/driv=
+ers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+> index d0a681ba78ebf..1ec63715baf2c 100644
+> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
 
-[1]:https://lore.kernel.org/linux-mediatek/199e674cfdbccad104db761964611b1d=
-6352f9f3.camel@collabora.com/
+[ ... ]
 
-Best regards,
-Louis-Alexis
->=20
-> Thanks,
->=20
-> Maxime
+> @@ -887,34 +872,82 @@ static void ti_csi2rx_buffer_queue(struct vb2_buffe=
+r *vb)
+>  static int ti_csi2rx_get_stream(struct ti_csi2rx_ctx *ctx)
+>  {
+>  	struct ti_csi2rx_dev *csi =3D ctx->csi;
+>  	struct media_pad *pad;
+>  	struct v4l2_subdev_state *state;
+>  	struct v4l2_subdev_route *r;
+> =20
+>  	/* Get the source pad connected to this ctx */
+>  	pad =3D media_entity_remote_source_pad_unique(ctx->pad.entity);
+>  	if (!pad) {
+
+[Severity: High]
+Could this lead to an invalid pointer dereference?
+
+Looking at media_entity_remote_source_pad_unique(), it returns an ERR_PTR
+(like ERR_PTR(-ENOLINK)) on failure rather than NULL. Since error pointers
+would bypass this !pad check, would they be immediately dereferenced below?
+
+>  		dev_err(csi->dev, "No pad connected to ctx %d\n", ctx->idx);
+>  		return -ENODEV;
+>  	}
+> =20
+
+[ ... ]
+
+>  static int ti_csi2rx_get_vc_and_dt(struct ti_csi2rx_ctx *ctx)
+>  {
+>  	struct ti_csi2rx_dev *csi =3D ctx->csi;
+> +	struct ti_csi2rx_ctx *curr_ctx;
+>  	struct v4l2_mbus_frame_desc fd;
+> -	struct media_pad *pad;
+> -	int ret, i;
+> +	struct media_pad *source_pad;
+> +	const struct ti_csi2rx_fmt *fmt;
+> +	int ret;
+> +	unsigned int i, j;
+> =20
+> -	pad =3D media_entity_remote_pad_unique(&csi->subdev.entity, MEDIA_PAD_F=
+L_SOURCE);
+> -	if (IS_ERR(pad))
+> -		return PTR_ERR(pad);
+> +	/* Get the frame desc from source */
+> +	source_pad =3D media_entity_remote_pad_unique(&csi->subdev.entity, MEDI=
+A_PAD_FL_SOURCE);
+> +	if (IS_ERR(source_pad))
+> +		return PTR_ERR(source_pad);
+> =20
+> -	ret =3D v4l2_subdev_call(csi->source, pad, get_frame_desc, pad->index, =
+&fd);
+> -	if (ret)
+> +	ret =3D v4l2_subdev_call(csi->source, pad, get_frame_desc, source_pad->=
+index, &fd);
+> +	if (ret) {
+> +		if (ret =3D=3D -ENOIOCTLCMD) {
+> +			ctx->vc =3D 0;
+> +			fmt =3D find_format_by_fourcc(ctx->v_fmt.fmt.pix.pixelformat);
+> +			ctx->dt =3D fmt->csi_dt;
+> +		}
+>  		return ret;
+> +	}
+
+[Severity: High]
+Does this fallback logic properly initialize multiplexed streams?
+
+Because ti_csi2rx_get_vc_and_dt() is only called on the very first stream
+start (when !csi->enable_count), if get_frame_desc returns -ENOIOCTLCMD,
+only the current context's virtual channel and data type are configured.
+
+Would subsequent multiplexed streams be left entirely uninitialized
+(defaulting to 0) since this function won't be called again for them?
+
+> =20
+>  	if (fd.type !=3D V4L2_MBUS_FRAME_DESC_TYPE_CSI2)
+>  		return -EINVAL;
+> =20
+> -	for (i =3D 0; i < fd.num_entries; i++) {
+> -		if (ctx->stream =3D=3D fd.entry[i].stream) {
+> -			ctx->vc =3D fd.entry[i].bus.csi2.vc;
+> -			ctx->dt =3D fd.entry[i].bus.csi2.dt;
+> -			break;
+> -		}
+> +	for (i =3D 0; i < csi->num_ctx; i++) {
+> +		curr_ctx =3D &csi->ctx[i];
+> =20
+> -		/* Return error if no matching stream found */
+> -		if (i =3D=3D fd.num_entries)
+> -			return -EINVAL;
+> +		/* Capture VC 0 by default */
+> +		curr_ctx->vc =3D 0;
+> +
+> +		ret =3D ti_csi2rx_get_stream(curr_ctx);
+> +		if (ret)
+> +			continue;
+> +
+> +		for (j =3D 0; j < fd.num_entries; j++) {
+> +			if (curr_ctx->stream =3D=3D fd.entry[j].stream) {
+> +				curr_ctx->vc =3D fd.entry[j].bus.csi2.vc;
+> +				curr_ctx->dt =3D fd.entry[j].bus.csi2.dt;
+> +				break;
+> +			}
+> +
+> +			/* Return error if no matching stream found */
+> +			if (j =3D=3D fd.num_entries)
+> +				return -EINVAL;
+
+[Severity: Medium]
+Is it possible to ever reach this error path?
+
+Since this check is placed inside the body of the loop, j will always be
+strictly less than fd.num_entries. If no matching stream is found, the
+loop will naturally exit without ever returning -EINVAL.
+
+> +		}
+>  	}
+> =20
+>  	return 0;
+
+[ ... ]
+
+> @@ -925,8 +958,6 @@ static int ti_csi2rx_start_streaming(struct vb2_queue=
+ *vq, unsigned int count)
+>  	struct ti_csi2rx_ctx *ctx =3D vb2_get_drv_priv(vq);
+>  	struct ti_csi2rx_dev *csi =3D ctx->csi;
+>  	struct ti_csi2rx_dma *dma =3D &ctx->dma;
+> -	struct ti_csi2rx_buffer *buf;
+> -	const struct ti_csi2rx_fmt *fmt;
+>  	unsigned long flags;
+>  	int ret =3D 0;
+> =20
+
+[ ... ]
+
+>  err_dma:
+>  	ti_csi2rx_stop_dma(ctx);
+> -err_pipeline:
+>  	video_device_pipeline_stop(&ctx->vdev);
+>  	writel(0, csi->shim + SHIM_CNTL);
+
+[Severity: High]
+Can this error path disrupt actively running streams?
+
+If we fail to enable the stream in v4l2_subdev_enable_streams(), we
+unconditionally write 0 to SHIM_CNTL here, which causes a global reset of
+the pixel interface.
+
+If one context is already streaming (enable_count > 0) and another context
+fails to start, will this reset break the actively running stream?
+
+>  	writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
+> @@ -995,11 +999,8 @@ static void ti_csi2rx_stop_streaming(struct vb2_queu=
+e *vq)
+
+[ ... ]
+
+> @@ -1046,25 +1047,84 @@ static int ti_csi2rx_sd_set_fmt(struct v4l2_subde=
+v *sd,
+>  	fmt =3D v4l2_subdev_state_get_format(state, format->pad, format->stream=
+);
+>  	*fmt =3D format->format;
+> =20
+> -	fmt =3D v4l2_subdev_state_get_format(state, TI_CSI2RX_PAD_FIRST_SOURCE,
+> -					   format->stream);
+> +	fmt =3D v4l2_subdev_state_get_opposite_stream_format(state, format->pad,
+> +							   format->stream);
+> +	if (!fmt)
+> +		return -EINVAL;
+
+[Severity: Medium]
+Does this leave the subdevice state partially modified on error?
+
+The requested format is written to the state right before this step:
+
+	fmt =3D v4l2_subdev_state_get_format(state, format->pad, format->stream);
+	*fmt =3D format->format;
+
+If v4l2_subdev_state_get_opposite_stream_format() fails (for example,
+if the stream is unrouted), this returns -EINVAL while leaving the format
+partially modified. Should we avoid updating the state until we know all
+operations will succeed?
+
+> +
+>  	*fmt =3D format->format;
+> =20
+>  	return 0;
+>  }
+> =20
+
+[ ... ]
+
+> +static int ti_csi2rx_sd_set_routing(struct v4l2_subdev *sd,
+> +				    struct v4l2_subdev_state *state,
+> +				    enum v4l2_subdev_format_whence which,
+> +				    struct v4l2_subdev_krouting *routing)
+> +{
+> +	struct ti_csi2rx_dev *csi =3D to_csi2rx_dev(sd);
+> +
+> +	if (csi->enable_count > 0)
+> +		return -EBUSY;
+
+[Severity: Medium]
+Is it intended to block TRY configurations while streaming?
+
+If userspace calls this with which =3D=3D V4L2_SUBDEV_FORMAT_TRY to probe
+valid configurations while another stream is active, it will be rejected
+with -EBUSY. Does the V4L2 API mandate that TRY operations must be allowed
+regardless of the active streaming state?
+
+> +
+> +	return _ti_csi2rx_sd_set_routing(sd, state, routing);
+> +}
+> +
+
+[ ... ]
+
+>  static int ti_csi2rx_sd_enable_streams(struct v4l2_subdev *sd,
+> @@ -1072,15 +1132,56 @@ static int ti_csi2rx_sd_enable_streams(struct v4l=
+2_subdev *sd,
+>  				       u32 pad, u64 streams_mask)
+>  {
+
+[ ... ]
+
+>  	remote_pad =3D media_entity_remote_source_pad_unique(&csi->subdev.entit=
+y);
+>  	if (!remote_pad)
+
+[Severity: High]
+Could this check miss an error pointer, similar to the instance in
+ti_csi2rx_get_stream() above?
+
+media_entity_remote_source_pad_unique() returns an ERR_PTR on failure, not
+NULL. Will this bypass the !remote_pad check and cause a dereference issue?
+
+>  		return -ENODEV;
+> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state, pad,
+> +						       TI_CSI2RX_PAD_SINK,
+> +						       &streams_mask);
+> =20
+>  	ret =3D v4l2_subdev_enable_streams(csi->source, remote_pad->index,
+> -					 BIT_U64(0));
+> +					 sink_streams);
+>  	if (ret)
+>  		return ret;
+> =20
+> @@ -1094,18 +1195,28 @@ static int ti_csi2rx_sd_disable_streams(struct v4=
+l2_subdev *sd,
+>  					u32 pad, u64 streams_mask)
+>  {
+>  	struct ti_csi2rx_dev *csi =3D to_csi2rx_dev(sd);
+> +	struct ti_csi2rx_ctx *ctx =3D &csi->ctx[pad - TI_CSI2RX_PAD_FIRST_SOURC=
+E];
+>  	struct media_pad *remote_pad;
+> +	u64 sink_streams;
+>  	int ret =3D 0;
+> =20
+> +	WARN_ON(csi->enable_count =3D=3D 0);
+> +
+> +	writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
+> +
+> +	/* assert pixel reset to prevent stale data */
+> +	if (csi->enable_count =3D=3D 1)
+> +		writel(0, csi->shim + SHIM_CNTL);
+> +
+>  	remote_pad =3D media_entity_remote_source_pad_unique(&csi->subdev.entit=
+y);
+>  	if (!remote_pad)
+>  		return -ENODEV;
+> -
+> -	if (csi->enable_count =3D=3D 0)
+> -		return -EINVAL;
+> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state, pad,
+> +						       TI_CSI2RX_PAD_SINK,
+> +						       &streams_mask);
+> =20
+>  	ret =3D v4l2_subdev_disable_streams(csi->source, remote_pad->index,
+> -					  BIT_U64(0));
+> +					  sink_streams);
+>  	if (!ret)
+>  		--csi->enable_count;
+> =20
+> @@ -1114,6 +1225,7 @@ static int ti_csi2rx_sd_disable_streams(struct v4l2=
+_subdev *sd,
+
+[Severity: High]
+Can this error path permanently desynchronize the enable counter?
+
+If v4l2_subdev_disable_streams() fails, the --csi->enable_count line is
+skipped, but the function still returns 0. Since the hardware has already
+been put into reset (if enable_count was 1), the software counter will
+remain > 0.
+
+On the next start attempt, the driver will skip de-asserting the pixel reset
+because it thinks a stream is already running, which could break capture
+completely until the driver is reloaded.
+
+> =20
+>  static const struct v4l2_subdev_pad_ops ti_csi2rx_subdev_pad_ops =3D {
+>  	.enum_mbus_code	=3D ti_csi2rx_enum_mbus_code,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520120022.5399=
+13-1-r-donadkar@ti.com?part=3D12
