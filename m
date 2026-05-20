@@ -1,225 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A6E3D091B;
-	Wed, 20 May 2026 09:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7B93C0608
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779270905; cv=none; b=kDcSiq2ZLYP7XvksrljRQo+a6WQB0iD8ts48vWuS2EQx4IGaYSrZ8+21A950mG2bEqXZpVqD/3x8PuVIrAGYC37vtw3jISKV1exRdh8rlEJUCb1KqdhyFJIqdP+zE5cHWrJmgKH4I3rSJ7SAwLSkEWuF3BXNSEBBPH6kB5zDI1Q=
+	t=1779271122; cv=none; b=P76IaVd3DFeUEr1i8QzZSZI8HPuQFjVnEMWLDf2L8XvabKVv9ZsocQsEzsFYogETa0Bejm7tNf7c4NReMYZUddOCGts1LOt2Kk9dVvkRGgdlzrTiuirJ3xECx1OanE9d9WtMwxzS1hMQE3YYFsPa2nx6COhsVcOP1ybyOnLHLFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779270905; c=relaxed/simple;
-	bh=W/ETVLQPiLWnEVzKK7qPp+AucWqlm4vH3u/jl9ung40=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m1F9ZmgLEuR9lZ35rDeQRCyMM02aM+8ThBLgf3jUsH/N/CIOpizzxrye4jWHrF4nSg1ZP35vDviMWp865M+TWv+gYAm4rZbu8fTTpn6xF/5OL8/kUlA8U1WbJwB/tSEntl43touSjZsgjs4XGyL7r1CMDX8B1GdJl6VAQC+/Rp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kubQ3jql; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779271122; c=relaxed/simple;
+	bh=hmLDbygDqrx/H+6yKwQRIUJ+JZCAtJqQABrx9xS5MN4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KnKuLJr7rr33ZTazsyl5qBgrd1d1sVEdyyYNO+5VLOdBgiMUwAauEAwzp0SgvKsIIhwHh57Mihpe59L6v8/Kpwy5Pn0NGFXo/DkoaKGIeydffiBemv5EX09AkSsvKuSEJQ+KFv5RniSnmUYLGuqnplp14Aof2Hg0Q50EFtUD0YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QmIpiuwF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TkqenTBp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kubQ3jql"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BEB21F000E9;
-	Wed, 20 May 2026 09:54:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779270903;
-	bh=1rR11SLMve5z99TMpOCckaXfI3pjGLYjtT01yolVcVA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kubQ3jqlcjIHtJBWJBC/to3LSIkAaMm0l7XhtMWuGGmjExiV5CkoCbKTUfd3BvVhj
-	 eoS3nNKCqeYOwtIRPbX9yNtLX5Q0aMkyU0vxOdFjrnWPWo+D9A27XF+2A/bF71fC2/
-	 qMKLiG3fY/sZZZLYyNuL/nsSrYJQz/eEtNKr1beBxg4CPz4j4HqGkkmPj8jXYWGYUi
-	 +2s+wVVk70cgtJFgWGgQ9kcnhHkp+x97sWJ41S6cdb8sO5WKyo8D0cP2Cgy3VdKM9d
-	 6eeeQIeBT3FHMyWMXtOcnlKqyxJmAtteMMhXQe0T3nJRFXcERFCpdBcykGgGXJ07Zv
-	 k2yiMhfy9ywyQ==
-Date: Wed, 20 May 2026 10:54:50 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>,
- rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH RFC v4 09/10] Documentation: ABI: testing: add docs for
- ad9910 sysfs entries
-Message-ID: <20260520105450.7fae5de1@jic23-huawei>
-In-Reply-To: <pkx5v4od3wkyyzxomfrjf4ei7leboadzth262xnl55fvu76pf3@yqrezmo6gtq7>
-References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
-	<20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
-	<20260517155843.7f833658@jic23-huawei>
-	<yrabhhhdkzmiuxlqzrrj6a47ftlzwvva7r2korzeszdy4yqrin@xl6obhhnnas4>
-	<20260518144537.7c998308@jic23-huawei>
-	<pkx5v4od3wkyyzxomfrjf4ei7leboadzth262xnl55fvu76pf3@yqrezmo6gtq7>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QmIpiuwF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TkqenTBp"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64K9nV64270558
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:58:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=/Pf0gedsRxrFiXV+UE6fRj3+
+	QtQSo8ONOS+Y9OgCYsY=; b=QmIpiuwFg1CehI3C9Zv5/hR06A2jwXZoN2Fp7nsz
+	XVeaipdBhNThQY6OZhBYPy58m95M+5PE/+XQD1XzT/+pz1PJqs0Ne2DAV4/KcsfM
+	rB8zQbpFBiXisYbMVfB433qtN+BzKE32r5E62M+a0nsfOU9t/K7BIrwMWPUHRYqb
+	CN6jIhLelvTVPN5Lh1JkrvvTAa8DA2Ztyh4skqvR9zlVtkQaHNMBb7Z0aE6WTV2H
+	hNxjh3A4jlOmizGNMP06pmrzC8mJRfh8A1OudhZIQNINEBKm3WOjH+cRd3H1ywcQ
+	Xe9+5s0bIFJ7JBpDBmr0NWu3EWeZnHsqpRtXXDI8HG0wjA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9amxr1a5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 09:58:40 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50ff0bef198so132802611cf.2
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 02:58:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779271119; x=1779875919; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/Pf0gedsRxrFiXV+UE6fRj3+QtQSo8ONOS+Y9OgCYsY=;
+        b=TkqenTBpsZBRiXF65Afc80PsS1RjTe7JOT7czCphRU2G995JYTpLB7++8kxBNn9khq
+         GI/WC6cUB11EMKYDDATGTHgN8m74hMBw7WaEWUcKIRWxjSh+xHe8oxR0stk6IJkS2lEX
+         pbV1zDIj3qnYL/OY0tct4utM77d2s7k4ORygWQj/k2dILIBpgZs5T+QXmIBUIoLwe2RA
+         zdwV8m6Z0TaSx+Q+5zqIsyjWtzWbz8NQZleac0m17VvwsATaH+yiPXoacWb9RzbOITMX
+         AXYQ4mQ043h04EB9kDiB4/C/vKPhg27DvPhlssAr1f3bMgWLwC52LegvBb6Anw+AWYyc
+         RSMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779271119; x=1779875919;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/Pf0gedsRxrFiXV+UE6fRj3+QtQSo8ONOS+Y9OgCYsY=;
+        b=A1QHK4f+wfL3U55bddtf+9ycqIbE4tZRYVl2V1BlGwf3/2/xr/Mz7RpebdLwmvs6IG
+         gm4nei1yqWdkK6FXOXYVHKH4vXdjZM2VGXJ124SKW1hhGqU+o8fWOgPSlyi23s9drN/K
+         c2GOoFqjKsE9H8c6PdGFbv+mXSmajpXo5N/ZheHHQKCbWBS8BmgWJ3MDRjrzFt05Ctte
+         qr6c8Uv8xAHqHs/QW7sJ3pjAhG4hdi4VXAxHzuR59XHKfbrX91vqKQsAIp73Qpq/yTOT
+         1M3X1vLrf437WNfy4el3GFd9sM2Ysfg7y5hxkJ1D2jkyv1TFfH2UK2+7JrhZoTn1fgyN
+         kkow==
+X-Forwarded-Encrypted: i=1; AFNElJ9yJRu6yDQqLpZVR1uviZQuUKGdGVjdWuZPtZZ4UK04B5L6crC6jae3jvzrMOVXaA19JyaBzP4Z3O5q@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGgVZUQJlIqi2sX4R1h3HSitDlV4qoRy7AzriUTOPbCljla2zC
+	MPOXW2chZ9dVl+JOkVjQaRA3ytl3Pq+mrp7gydCaIhnkyl2pnJ54MtVyVdxOh8klsHabuOfOEEe
+	SMV67ZVMBKiKEl2x67aCXpGB8DLonAjc+8qYpPiknZPECyNT5ueqSQagyvoU7P4ro
+X-Gm-Gg: Acq92OFAV9anrI2DpmXLAFfqwXr9O9tZCB1DGmKWmdPb61JHovv1jAUR4FxMZVVp3lf
+	GMqbQ8aw4TBZBE2zVPm5YQTX7auehn1HCbW/QXy5rW8krOuwxD/dOtVBwts+66IsLaVxCzDjIdm
+	hZx5Ngh0ircrIlUS0aK1RsuScGhzkC1WV+TZDKUNrmz1g2usi7I5ErH3KOOy90gbBbNp+42vE6S
+	nuX234P6mAtr+yT5AkiopPojzggN3+UKnJs+EECuNHTmMHt6tm0zqPZmP0rINYbnfhdHqkBcxRh
+	dl91Vau1e47VsshBJv3STnBB8mpQs9i3LFUDLSAPYVfiXDXUgT3mLSIGyTA1OsMCWW1XfM6Y7GV
+	w/3gqAn0cQJpTr9ieaVMgCqKnINKKsm5YycKlhKyfTU0lrFKx++sUbkkuMLztq3UeV9Iqsaf/PH
+	zYa7rYVyEuZdTzd6+0gGFw3wXJulOicZhppOZnSzjdYX87HA==
+X-Received: by 2002:a05:622a:4ace:b0:50e:614e:4433 with SMTP id d75a77b69052e-5165a1d9f06mr313060781cf.30.1779271119451;
+        Wed, 20 May 2026 02:58:39 -0700 (PDT)
+X-Received: by 2002:a05:622a:4ace:b0:50e:614e:4433 with SMTP id d75a77b69052e-5165a1d9f06mr313060571cf.30.1779271119038;
+        Wed, 20 May 2026 02:58:39 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3958827ec4csm27285481fa.4.2026.05.20.02.58.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 02:58:36 -0700 (PDT)
+Date: Wed, 20 May 2026 12:58:35 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: qcom,usb-vbus-regulator: add
+ qcom,pm4125-vbus-reg
+Message-ID: <wobourxqghhmi4htonf2ls24mcaeca7chytmyxihbxokc55cbc@jayo6u2azowq>
+References: <20260520-add_pm4125-vbus-reg-v1-0-f6d15d7dbbe8@oss.qualcomm.com>
+ <20260520-add_pm4125-vbus-reg-v1-1-f6d15d7dbbe8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520-add_pm4125-vbus-reg-v1-1-f6d15d7dbbe8@oss.qualcomm.com>
+X-Proofpoint-GUID: jGjHaQY3RIZ7pQBxzrPsj-tcQ5ZoMrIh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIwMDA5NSBTYWx0ZWRfXyjqfC1/AZJw2
+ JJoYCPHakJpNejmSlOoCUFDW0rIhpReScBM4loaE2LzT2CYCY7O8Ri+9Kw2envLdVa5LRjWP01f
+ EADb60HzvqJVJohDcscsud7paDFJmGNn47hH9X2VTVosO8X1Ey21+3jEjUw8uEAJEolxq7KFJYW
+ 1jJRwmXEAqm16bsLgXzLbz1pV6hErFvGwCirn3ZaRfpAYaYxXY5tmn7Ofo4nMMoY8MlpqYT5L4A
+ JGDjySyCWNPmkcU7FhVRaO0xN5ELqwx58OSj2MZ90fK2dTvQGd8u7J5HOg7/zBxbKfYDP/WeUm3
+ iVgvjmYrazzJgbhy7Tj8RH0tovJ+FeLw3tzvj4VOme8R2zUNY6GcpzCNVBa9K4Yn2JfXaBZ8R0c
+ r1BU3pDXQxLKZeeqFZDaqB0I2aIHIVF3UwNZOGROAqw5N6bvqVIKXhTHR1Csdzklau9xsRJr9Xk
+ Jciy0xE3NJRLd967M0Q==
+X-Authority-Analysis: v=2.4 cv=TO11jVla c=1 sm=1 tr=0 ts=6a0d85d0 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=DFtQawWTd5gDQlrfFecA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: jGjHaQY3RIZ7pQBxzrPsj-tcQ5ZoMrIh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605200095
 
-On Mon, 18 May 2026 16:27:23 +0100
-Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+On Wed, May 20, 2026 at 02:37:11PM +0530, Rakesh Kota wrote:
+> The pm4125 PMIC uses a different USB VBUS register layout than pm8150b.
+> It uses a 2-bit VBOOST voltage selector supporting output voltages of
+> 4.25 V, 4.5 V, 4.75 V and 5.0 V, instead of a current-limit selector.
 
-> On 26/05/18 02:45PM, Jonathan Cameron wrote:
-> > On Sun, 17 May 2026 18:30:27 +0100
-> > Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
-> >   
-> > > On 26/05/17 03:58PM, Jonathan Cameron wrote:  
-> > > > On Fri, 08 May 2026 18:00:25 +0100
-> > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > > >     
-> > > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > > > 
-> > > > > Add custom ABI documentation file for the DDS AD9910 with sysfs entries to
-> > > > > control Parallel Port, Digital Ramp Generator and OSK parameters.
-> > > > > 
-> > > > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>    
-> > > > I'm fine with phase and frequency as defined, but for the scaling it made me wonder.
-> > > > For outvoltage0 channels the assumption the value is the peak voltage so if
-> > > > we know what input to be modulated by the ramp generator can we express them
-> > > > in volts (well milivolts) rather than as a scaling multiplier?    
-> > > 
-> > > The DAC output is current-based and differential. Voltage conversion would happen
-> > > outside the device...  
-> > 
-> > Why aren't we representing this as out_altcurrentX-Y_xxxx?  
-> 
-> Good point! altcurrent makes more sense than altvoltage if we want to use raw to
-> control the output level rather than scale, which would be a constant to convert
-> raw into current units (what is the one that is used in the sysfs ABI? Ampere, mA or uA?)
-
-Same as non alternating version so mA (which is a historical design error we have
-long been stuck with :()  The altvoltageY_raw docs don't give a unit either.
-If you don't mind, please send a patch adding that whilst you are here.
-Same mid to peak - hopefully that is what any users not modifying to RMS have
-been doing!
-
-Seems we either never had one or that particular bit of ABI doc is missing.
-Please add an entry for altcurrentX_raw
+Is it only PM4125? What about other PMICs which have the VBUS regulator
+(e.g. PMI632)?
 
 > 
-> Not sure about the benefits on setting "differential" in channel spec.. the name would
-> become out_altcurrentX-altcurrentY_xxxxx...
-
-Becomes a question of whether it is useful to represent that - maybe not
-in this particular case.
-
+> Move qcom,pm4125-vbus-reg from the pm8150b fallback items list into the
+> standalone enum since the driver handles it with its own match-data and
+> register layout.
 > 
-> Is there any modifier for amplitude/peak/envelope? I see IIO_MOD_RMS, which could be used
-> if adding a 1/sqrt(2) factor to the fixed scale.
-
-For altcurrent / altvoltage assumption is it's mid to peak.  Unless the modifier switches
-it to RMS as you've noted.
-
+> Make regulator-min/max-microamp conditional so they are only required
+> for current-limit variants (pm8150b, pm6150, pm7250b, pmi632). Add an
+> if/then condition for qcom,pm4125-vbus-reg requiring regulator-min/
+> max-microvolt instead, and update the pm4125 example accordingly.
 > 
-> Then, I would consider something like out_altcurrent_rms_xxxx as a good alternative.
-> 
-> "scale" would be a constant in the top-level phy channel
-> 
-> single tone profile channels would have:
-> - frequency
-> - phase
-> - raw
-> 
-> drg ramp up/down channels:
-> - frequency and frequency_roc
-> - phase and phase_roc
-> - raw and raw_roc
-> 
-> parallel port channel(s):
-> - frequency_scale and frequency_offset (frequency destination)
-> - phase_offset (polar destination)
-> - offset (polar destination)
-> 
-> osk channel:
-> - raw
-> - raw_roc
-> 
-> raw_roc could be just roc, but that sounds like it carries the scale and refers to
-> a current value? and maybe that breaks consistency with other destination attributes?
-> I am fine with just roc if that refers to the raw value, not (raw * scale).
-
-This is a good question.  We ran into ambiguity with events where we have to derive
-if it is _raw or _processed for the thresholds based on whether the main attribute
-is _raw or _processed.  Nice to avoid doing that again.
-
-I'd be interesting in others views on this but to me raw_roc seems fine.
-
-> 
-> With all the above, still using altvoltage is not incorrect, just a matter on how
-> we want to express the units.
-
-Agreed - but to get to directly useable values we'd need to provide info on the
-external circuit - and given we are dealing with AC signals that is tricky to do
-in a compact way.
-
-
-> Note that using raw instead of scale to control the
-> amplitude is just another option to tackle the problem. I suppose that the
-> important thing here is being technically corrent and consistent in terms of
-> usage. Maybe out_altcurrent_rms_* is more clear in terms of amplitude level.
-
-Agreed.  It is always (?) possible to switch between scale and raw.
-For an ADC the distinction is clear as we can't control _raw. For a DAC it all gets
-rather value as we can logically control both and for an AC type of DAC / DDS it
-all gets less intuitive.  As you say, consistency is key.
-
-I'd like us to at least be consistent across DDS devices. Perhaps we need some
-general documentation on whatever the outcome of this discussion is to record
-some of the logic behind those decisions.
-
-> 
-> > 
-> >   
-> > > using a resistor load or an op-amp transimpedance stage,
-> > > and I am no expert on that, but that often requires impedance matching so voltage
-> > > levels may depend on the frequency. Then, I suppose that voltage is not the right
-> > > unit to use.  
-> > 
-> > Understood that it can get complex!  
-> > > 
-> > > The scale here controls the amplitude of the varying signal. Assuming the peak voltage
-> > > (amplitude) is constant means we have a constant envelope, but that should not mean
-> > > we can't control it or it should not mean that the hardware can have other ways to
-> > > control it. That said, scale behaves as a "gain multiplier".  
-> > Understood. Given it's the envelope then if scale happened to be 1 always it would
-> > be presented as _processed. So this is consistent with other channel types.
-> >   
-> > >   
-> > > > 
-> > > > That seems to me like it fits better with the overall ABI.
-> > > >     
-> > > > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_offset
-> > > > > +KernelVersion:
-> > > > > +Contact:	linux-iio@vger.kernel.org
-> > > > > +Description:
-> > > > > +		For a channel that allows amplitude control through buffers, this
-> > > > > +		represents the value for a base amplitude scale. The actual output
-> > > > > +		amplitude scale is a result with the sum of this value.
-> > > > > +    
-> > > >     
-> > > > > +
-> > > > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_roc    
-> > > > 
-> > > > Silly question perhaps but can work out how this related to millivolts/sec
-> > > > That might make a more intuitive interface than scaling multiplier per sec
-> > > > Perhaps the combination with offset makes this impossible though maybe that
-> > > > could be a expressed as a voltage offset?  Afterall if the amplitude being
-> > > > scaled is 5V then 5 * (offset + scale) = 5 * offset + 5 * scale
-> > > >      
-> > > > > +KernelVersion:
-> > > > > +Contact:	linux-iio@vger.kernel.org
-> > > > > +Description:
-> > > > > +		Amplitude scale rate of change in 1/s for channels that ramp
-> > > > > +		amplitude. This value may be influenced by the channel's
-> > > > > +		sampling_frequency setting.    
-> > > > 
-> > > >     
-> > >   
-> >   
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> ---
+>  .../regulator/qcom,usb-vbus-regulator.yaml         | 50 +++++++++++++++++++---
+>  1 file changed, 45 insertions(+), 5 deletions(-)
 > 
 
+-- 
+With best wishes
+Dmitry
