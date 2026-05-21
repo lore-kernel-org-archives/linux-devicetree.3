@@ -1,227 +1,231 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EAC259CB9;
-	Thu, 21 May 2026 11:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C1D2F25E4
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 11:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779362489; cv=none; b=oKyCX4YkbyY4riSgMSNrylsjgd7IDQL74sA92eaPCyH90pCpW3nPPgTeivEIKOudbzNboy9eHGcEJlgVO3op7Y29uilm54WcsQYgOaXl4nlJWuMIEwYjdShsN3JWeIvCGJE7YWbr18m29Lsz1ERwAILnqc91jT0ft3LbLx/I4hU=
+	t=1779362538; cv=none; b=FndCXT6YWL9cNk1WzdmJykQ79FXcDF+/PjYVrdfSgGQbdkQCnJI3+r2mHxl/btnG443cse5DWG3NDCk9RxHXBeMIyXQia+sOvTx/2zYrBYmfP/76gp3kjBg6CnQMfB+XNt750hUVMX8YLoUcd5/v8tITvvLtkoF98RqXnzXQpvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779362489; c=relaxed/simple;
-	bh=VqIMhBzh7G/hJU9RHjHzynlbo4/xg7n5QAsYEKBoIyo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uQWewSM/CzR8PVOp4gIiWEI4LQSN8TmcnPnGbZ4YNJ7yPp+HGbb4+qs1dwxJM877aOQjICcSDAi+hBxMQrLq/jqOJepEiRbc86IbBmEFIDr/XqWV/rkoKYtAa5GvRQUiT5CR0zWRxXGkhUoWdmgftwzsCeo6xY7AyHQN7xAaNGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RqRKCdtn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779362538; c=relaxed/simple;
+	bh=J1KhW2ltIzpa2rePa4djf3RrBVwWOAY2xFAF5Pl7tbE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lz6LCnp7kDiuu+5glfgtjoLDeR1oumv7LTAZA9OIZAiNmO7QUnz/7wJgCrT5JqXLtr9qPIXASjsFh+1MSKqJAlsSdf5SBBTiZeq3XiUAfrWx0HyWW3YvXy6Q/nmHBgcnKvKZ2saGYO5L7sWbl/2JBQzXfOR4MnYrFz1KbqxcsLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JtJ2zDA9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rc6Dgeaz; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RqRKCdtn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F334C1F000E9;
-	Thu, 21 May 2026 11:21:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779362483;
-	bh=zg0+d0yv3WuXDbofre/B8PrKu0JE9q4fqVreIaJ9WOM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RqRKCdtn+Yb8PLzyuChRfBhNkW+8Vpp9OLPY7WZyn4SK2P7dhqxT6wrAZSSf0H4qA
-	 swJHZ83GRg8P+j/DB4GnBKJA1Cn1TkE9r+/7eDvGKs1I13Ea6bymfjq2dXpUjclkpU
-	 jNCaXi1NjtkJjHZInVRrZmAnpPDlin9PRCgJT6mFIrQN/UwV8Gtd68YdLuGckUf0Yl
-	 3+aZ2KBvyyXHnkA/zOu3oSWlk+74mC53RLj1b6dJkuplCJwUn/p5i84/ycdcIR5fjE
-	 fFATYbc9uR3Z4LVMR64W4Il5xQqbqUaIOusWWKICWcSkgBJkGT5PWHpGzm/9lu1qS+
-	 mR6nI5YrmlFug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] PCI: imx6: Add root port reset to support link
- recovery
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Zhu" <hongxing.zhu@nxp.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260521093255.61585-4-hongxing.zhu@nxp.com>
-References: <20260521093255.61585-4-hongxing.zhu@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 11:21:22 +0000
-Message-Id: <20260521112122.F334C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JtJ2zDA9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rc6Dgeaz"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L9A3Vw2633671
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 11:22:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=4r+ZJjB/A49+K5p9aefAxCsw
+	o6iufgazJ25EeAlptdQ=; b=JtJ2zDA9frgdMoySGBS3ueizp0kl1FFrLP49qBKG
+	y+WUh74xVbyqE7TFudnPGQl5/OnyuurQSq57Hu77SYl/UFJbZwfywmT7WZTxpY2q
+	APMvKEv4rVOXajckwzut09l355HglZLA7DPPQ6sVsOVHrLM6GknKgkhBqidISe3K
+	eLRC42KazMFpX5pBY647GlQj+2ZN6e4LF7OLe/GL26evu4ZAky1A2QlIOfyc2jC5
+	Js30gClpWQuAUXKU/SxHbiOcUGn1DAguj3eNPo23C1DW+kFGxNgQZBNdILzwmyyY
+	IfxhHn7akogO68q1UPYkjrYJ1WXmDEG06Ey7Zw4PrBuVMQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee8cqse-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 11:22:16 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-366122e01fcso6012512a91.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 04:22:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779362536; x=1779967336; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=4r+ZJjB/A49+K5p9aefAxCswo6iufgazJ25EeAlptdQ=;
+        b=Rc6DgeazyorsnQSnN8leVZaBM727bQpznJimbKVOYK1fndEkEXQVU/kCAjABK+WQ5O
+         wE0lYtRXllbVnSoSnpglN5Xs1neq4gzt+6HbZ/FiczeLgDWamfLCgpi1npdWasTbGwY4
+         BRqykM9/1p2q+fBS7Kl2E5BVVSxWyoqYhFVssl2trUxNnFG/tmMGOuLb3J4hvTRcQ2QN
+         8fXi+LbIPaSwYj6Zm2JwqhKcOQgkIgJV+BnTafdWSsWlPIZlptIhmO6za4cdkFhCBksH
+         JBPVILYPZ6Q+TZRaOv+pZ5q55mbv2UKHVR6je45kwKpghQfw1ouEZhiBfUX9sdi36o29
+         iVYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779362536; x=1779967336;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4r+ZJjB/A49+K5p9aefAxCswo6iufgazJ25EeAlptdQ=;
+        b=NvO/Xt/pLspjsKqJGpBRH00Mpd/NgYh66rTRapXA5fh+nxX3NPRGTCmuWz/fXVC6B7
+         qbmPy1XPdIaeS1qYTELQNRRNdKYSiqsFoxPUoA0TSRqqXCU5DQmJfJ6Pd9M2NPigbdiY
+         ZWBZWRr5Mq9OeWdRrKO1zNfoN3UpBkIOPQZB5KjDdTQPcbjPiJ4Jk2fl3jXbbB0Oa8b2
+         x3sg7JR36sTR5ISrnBYqmczJN1Y8OnAlMFnrHyeeexPFSR8q998flVVB44PH+snkKuUg
+         U3VBo680h20UnejJGsX2S8e7vOlVfXDKLk1HmFjv3ymo0VE7QvzGlrz4INtNjyM/HDAW
+         FATQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+Yu8ykpSbntYQnFZq+VbOt1OpS5Dy79pXQhd3a62KpkWrOx8Gx9NpsfCA53x/IGZcSHP953JCrwac2@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVlRCXS9OH9xZTV3qj2ljA2XgmijdvhPPqWBQMKCkhm1STl7aA
+	KAHqQBhOxBqwqC1EufPXUJrvLnCezSjcNDK91hkVaiq0grbXTSmg5upNNBwIhrqVkh+7zg5q00C
+	qCbZ2XmzTHa8eEVMf0qlIsxldQbtW2RIVim3HkL5pvJS3H6ZzRUXkhWlKdijDroTd
+X-Gm-Gg: Acq92OHIuTK0W6UkDFEOoR3TIqJqAB3XnE4TyxMbFpfPcWhnha7LwAdn+cfQ9/a3cXG
+	tr44BqZqxFEl21JKHd6dRPaVOdeJBdEEoPZvGwM3OXhWIVoLTHTjmzrEobi2hmWPpsbBB9Jxixt
+	CbBXkBMCxrd1Y26T/LS777SrK1oubUcndD7DUIiuSCQv037YlJmeWDYY3YCk94IIT4cGseVV5dH
+	UyN0znugIOpiL+F7PCITFJz0kElskqp2VAcRcpTXWLTcUVwP6y1LWMxmFsrm7pJRUwCJenFdPtB
+	DQdUEVZIm09WwczYkCtMjoGENyNo8qKPW3zIdoZMfzshKertf3xICSZzggBLWRJzezK2N0OM3UI
+	7w6bZwOk6do1gH778mL6SkoakCWdrEJphUuOSvOYnWmQitAr6EePbf5NKEFY=
+X-Received: by 2002:a17:90b:1348:b0:366:7dbd:cd50 with SMTP id 98e67ed59e1d1-36a45c6950amr2756161a91.27.1779362535551;
+        Thu, 21 May 2026 04:22:15 -0700 (PDT)
+X-Received: by 2002:a17:90b:1348:b0:366:7dbd:cd50 with SMTP id 98e67ed59e1d1-36a45c6950amr2756138a91.27.1779362534935;
+        Thu, 21 May 2026 04:22:14 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a45c7fe7fsm1144008a91.2.2026.05.21.04.22.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 04:22:14 -0700 (PDT)
+Date: Thu, 21 May 2026 16:52:05 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, shengchao.guo@oss.qualcomm.com,
+        aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
+        trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support
+ for subsystems
+Message-ID: <20260521112205.rq6g6ev56l4u47uu@hu-mojha-hyd.qualcomm.com>
+References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
+ <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+ <20260520082747.7seyyua4gfv256ev@hu-mojha-hyd.qualcomm.com>
+ <e67907bc-ce96-4654-b210-2ae8f35cacc7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e67907bc-ce96-4654-b210-2ae8f35cacc7@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: kv8YA2LACW92ssMgzBguo-O_H9CpKk7L
+X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0eeae8 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KqSLSXJeGewGWCaGpY8A:9 a=CjuIK1q_8ugA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDExMyBTYWx0ZWRfX78Ap0QDRKYU2
+ PVoOYwTXSq+TGQfW23RJPbWettWDrnpR3uvJyX78ZCas+ELO85dFTw+8E1Nnwpkq5kRtKfAN/YH
+ NclOUv3l0fRVwwFlq1EoEW1MlQwatGmBjBiuIZZEnCNFUZYZaj/IBJgD+LlXQvpMyyxRgdrNp2/
+ uartXFwwl4u9r38OreT8ctunQH4biPJwfXOjYEUUXQze6HldcFouqMqSubFWAuyjYvdvBbgByRv
+ 8qEhDqjVy/au2GpVIYuHxLN3fpOQm+WQqeF3GsvBLJdF8RQE5Le56LBtMsobWNvPFhw5iiN2FMv
+ heBu19MHmVZLzpFN/zHpwqjhurjKVw/xPyWcw03A7/U/wYrgPv8CABqNfjuB0JNS2atsVlQ7Hqw
+ ID2a5rvKtLXhk8uJs3ggk73E4xraE9TNICvE8rIyfSQLJfIivDihkUvfZECrDgdas3SLV9dCFdF
+ PxK0QbbFi6NWqZotWHA==
+X-Proofpoint-GUID: kv8YA2LACW92ssMgzBguo-O_H9CpKk7L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210113
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] The `lnk_intr` member is defined as `u32`, which wraps negative er=
-ror codes from `platform_get_irq_byname` to large positive integers, breaki=
-ng driver probe.
-- [High] Read-modify-write (RMW) operations via `regmap_clear_bits` and `re=
-gmap_set_bits` unintentionally clear Write-1-to-Clear (W1C) status bits.
-- [High] Iterating over the PCI bus device list without holding the `pci_bu=
-s_sem` read lock causes a race condition.
-- [High] The patch references `reset_root_port` and calls `pci_host_handle_=
-link_down()`, neither of which exist in the mainline kernel tree.
-- [High] Hardware LUT state is accessed in `imx_pcie_reset_root_port` witho=
-ut acquiring the protective `imx_pcie->lock` mutex.
-- [Medium] The shared interrupt handler claims the interrupt without verify=
-ing that its specific interrupt source is actually enabled, leading to spur=
-ious wakeups.
-- [Low] Using `platform_get_irq_byname` instead of `platform_get_irq_byname=
-_optional` for an optional interrupt will cause unnecessary kernel error lo=
-gs.
---
+On Thu, May 21, 2026 at 11:42:49AM +0800, Jingyi Wang wrote:
+> 
+> 
+> On 5/20/2026 4:27 PM, Mukesh Ojha wrote:
+> > On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
+> > > Subsystems can be brought out of reset by entities such as bootloaders.
+> > > As the irq enablement could be later than subsystem bring up, the state
+> > > of subsystem should be checked by reading SMP2P bits.
+> > > 
+> > > A new qcom_pas_attach() function is introduced. if a crash state is
+> > > detected for the subsystem, rproc_report_crash() is called. If the ready
+> > > state is detected, it will be marked as "attached", otherwise it could
+> > > be the early boot feature is not supported by other entities. In this
+> > > case, the state will be marked as RPROC_OFFLINE so that the PAS driver
+> > > can load the firmware and start the remoteproc.
+> > > 
+> > > Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+> > > Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+> > > Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> > > ---
+> > >   drivers/remoteproc/qcom_q6v5_pas.c | 58 ++++++++++++++++++++++++++++++++++++++
+> > >   1 file changed, 58 insertions(+)
+> > > 
+> > > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> > > index da27d1d3c9da..ac2a00aacd2e 100644
+> > > --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> > > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> > > @@ -60,6 +60,7 @@ struct qcom_pas_data {
+> > >   	int region_assign_count;
+> > >   	bool region_assign_shared;
+> > >   	int region_assign_vmid;
+> > > +	bool early_boot;
+> > >   };
+> > >   struct qcom_pas {
+> > > @@ -510,6 +511,57 @@ static unsigned long qcom_pas_panic(struct rproc *rproc)
+> > >   	return qcom_q6v5_panic(&pas->q6v5);
+> > >   }
+> > > +static int qcom_pas_attach(struct rproc *rproc)
+> > > +{
+> > > +	int ret;
+> > > +	struct qcom_pas *pas = rproc->priv;
+> > > +	bool ready_state;
+> > > +	bool crash_state;
+> > > +
+> > > +	pas->q6v5.handover_issued = true;
+> > > +	enable_irq(pas->q6v5.handover_irq);
+> > > +
+> > > +	pas->q6v5.running = true;
+> > > +	ret = irq_get_irqchip_state(pas->q6v5.fatal_irq,
+> > > +				    IRQCHIP_STATE_LINE_LEVEL, &crash_state);
+> > > +
+> > > +	if (ret)
+> > > +		goto disable_running;
+> > > +
+> > > +	if (crash_state) {
+> > > +		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
+> > > +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
+> > 
+> > I am not sure if this is already discussed, but what if it is the first
+> > crash with recovery and coredump enabled? What would be in the dump,
+> > nothing? As there is no segment, is it expected since Linux did not load
+> > this?
+> > 
+> > This is even true if it is a crash after a successful attach.
+> > 
+> 
+> It is suggested by Bjorn:
+> https://lore.kernel.org/all/qfls6xlvfppqw7p6rjpmzqesh6sbob4myfc6dz47qh3jywqrjk@5xiutkbybk5d/
+> 
+> I did a hack to test the recovery by setting crash_state true, it can recovery
+> (stop and start) successfully with below patches:
+> https://lore.kernel.org/all/20260519-rproc-attach-issue-v2-0-caa1eaf75081@oss.qualcomm.com/
+> 
+> For coredump, it will return from the first "list_empty(&rproc->dump_segments)" check in
+> rproc_coredump as segments are not configured in attach.
 
-commit c3df91626a3cc2df53cc4e1da0e0b1aeb4d5d8cd
-Author: Richard Zhu <hongxing.zhu@nxp.com>
 
-PCI: imx6: Add root port reset to support link recovery
+I was not against any of the stuff, but mostly checking, if we agreed on not collecting dump
+for first crash when soccp minidump is not initialized which falls back to full dump of the soccp.
+I see soccp minidump id in the downstream but we have not added in 6/6.
 
-The PCIe link can go down due to various unexpected circumstances. Add
-root port reset support to enable link recovery for the i.MX PCIe
-controller when the optional "intr" interrupt is present.
+> 
+> Thanks,
+> Jingyi
+> 
+> 
+> > @Sibi, has this series been tested on Glymur with KVM?
+> > I don't see the iommu property in the below patch.
+> > https://lore.kernel.org/lkml/20260403-glymur-soccp-v3-1-f0e8d57f11ba@oss.qualcomm.com/
+> > 
+> 
 
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controll=
-er/dwc/pci-imx6.c
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-
-[ ... ]
-
-> @@ -158,6 +165,7 @@ struct imx_pcie {
->  	bool			supports_clkreq;
->  	bool			enable_ext_refclk;
->  	struct regmap		*iomuxc_gpr;
-> +	u32			lnk_intr;
-
-[Severity: High]
-Will platform_get_irq_byname returning a negative error code (like -ENXIO)
-wrap to a large positive integer here, causing the later
-if (imx_pcie->lnk_intr > 0) check to pass and break driver probe on systems
-without the optional interrupt? Should this be an int instead?
-
-[ ... ]
-
-> @@ -1306,6 +1314,13 @@ static int imx_pcie_host_init(struct dw_pcie_rp *p=
-p)
-> =20
->  	imx_setup_phy_mpll(imx_pcie);
-> =20
-> +	/*
-> +	 * Callback invoked by PCI core when link down is detected and
-> +	 * recovery is needed.
-> +	 */
-> +	if (pp->bridge)
-> +		pp->bridge->reset_root_port =3D imx_pcie_reset_root_port;
-
-[Severity: High]
-Does struct pci_host_bridge have a reset_root_port member? It appears this
-patch relies on out-of-tree or unmerged prerequisites and will cause build
-failures.
-
-[ ... ]
-
-> @@ -1573,6 +1588,9 @@ static int imx_pcie_suspend_noirq(struct device *de=
-v)
->  	if (!(imx_pcie->drvdata->flags & IMX_PCIE_FLAG_SUPPORTS_SUSPEND))
->  		return 0;
-> =20
-> +	if (imx_pcie->lnk_intr)
-> +		regmap_clear_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +				  IMX95_LINK_DOWN_INT_EN);
-
-[Severity: High]
-Does this read-modify-write operation accidentally clear Write-1-to-Clear
-status bits?
-
-IMX95_LINK_INT_CTRL_STS contains W1C bits like IMX95_LINK_DOWN_INT_STS.
-When regmap_clear_bits reads the register, any pending W1C bits will be
-read as 1. Writing them back during the modify phase will inadvertently
-clear the status bits without handling the interrupt.
-
-[ ... ]
-
-> @@ -1632,6 +1653,85 @@ static const struct dev_pm_ops imx_pcie_pm_ops =3D=
- {
->  				  imx_pcie_resume_noirq)
->  };
-> =20
-> +static irqreturn_t imx_pcie_lnk_irq_isr(int irq, void *priv)
-> +{
-> +	struct imx_pcie *imx_pcie =3D priv;
-> +	struct dw_pcie *pci =3D imx_pcie->pci;
-> +	struct device *dev =3D pci->dev;
-> +	u32 val;
-> +
-> +	regmap_read(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS, &val);
-> +	if (val & IMX95_LINK_DOWN_INT_STS) {
-
-[Severity: Medium]
-Should this check verify that the interrupt is actually enabled?
-
-Since this is an IRQF_SHARED handler sharing a line with the PME driver, if
-the hardware status bit is asserted but IMX95_LINK_DOWN_INT_EN is masked, a
-subsequent interrupt triggered by the PME driver could cause this ISR to
-incorrectly claim the interrupt and return IRQ_WAKE_THREAD.
-
-[ ... ]
-
-> +static irqreturn_t imx_pcie_lnk_irq_thread(int irq, void *priv)
-> +{
-> +	struct imx_pcie *imx_pcie =3D priv;
-> +	struct dw_pcie *pci =3D imx_pcie->pci;
-> +	struct dw_pcie_rp *pp =3D &pci->pp;
-> +	struct pci_dev *port;
-> +
-> +	for_each_pci_bridge(port, pp->bridge->bus)
-
-[Severity: High]
-Is it safe to iterate over the PCI bus device list without holding the
-pci_bus_sem read lock? Traversing the bus->devices list asynchronously
-risks list corruption and use-after-free vulnerabilities if PCI devices
-are concurrently hot-added or removed. Should pci_walk_bus() or
-down_read(&pci_bus_sem) be used here?
-
-> +		if (pci_pcie_type(port) =3D=3D PCI_EXP_TYPE_ROOT_PORT)
-> +			pci_host_handle_link_down(port);
-
-[Severity: High]
-Is pci_host_handle_link_down() available in the mainline kernel tree?
-This function appears to be undefined, which will cause a build failure.
-
-[ ... ]
-
-> +static int imx_pcie_reset_root_port(struct pci_host_bridge *bridge,
-> +				    struct pci_dev *pdev)
-> +{
-> +	struct pci_bus *bus =3D bridge->bus;
-> +	struct dw_pcie_rp *pp =3D bus->sysdata;
-> +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
-> +	struct imx_pcie *imx_pcie =3D to_imx_pcie(pci);
-> +	int ret;
-> +
-> +	imx_pcie_msi_save_restore(imx_pcie, true);
-> +	if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_LUT))
-> +		imx_pcie_lut_save(imx_pcie);
-
-[Severity: High]
-Does this access the hardware LUT state without acquiring the protective
-imx_pcie->lock mutex?
-
-Since imx_pcie_reset_root_port can be invoked asynchronously from the
-link down interrupt handler, concurrent accesses to the LUT configuration
-from other execution paths (which do use the lock) could lead to a race
-condition and corrupt the hardware LUT configuration.
-
-[ ... ]
-
-> @@ -1834,9 +1934,33 @@ static int imx_pcie_probe(struct platform_device *=
-pdev)
->  			val |=3D PCI_MSI_FLAGS_ENABLE;
->  			dw_pcie_writew_dbi(pci, offset + PCI_MSI_FLAGS, val);
->  		}
-> +
-> +		/* Get link event irq if it is present */
-> +		imx_pcie->lnk_intr =3D platform_get_irq_byname(pdev, "intr");
-
-[Severity: Low]
-Since this interrupt is optional, should this use
-platform_get_irq_byname_optional() to avoid printing unnecessary error
-messages to the kernel log when it is absent?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521093255.6158=
-5-1-hongxing.zhu@nxp.com?part=3D3
+-- 
+-Mukesh Ojha
