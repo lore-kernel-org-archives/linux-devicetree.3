@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E933E0720
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:19:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4E22494FE
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:20:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779369576; cv=none; b=K5c5rvzzA1E3cOLzZC5b6YT9HzwcKZ+4zW6hR6ykiDj5WLzk5mtq23YE8yPebmHvpNRGde+2a9BYV+KOorxMTLVQhRrhZV4tEWr9cBVXSThfKmJjCN3ZzWcmeCYf5glpmhrre+c512afS84G85A2Whpf+0atZqDP+ORBlpZQxQQ=
+	t=1779369648; cv=none; b=NNo4w3WqG9Pc8uz9WZ8en3eWd9LH6Rwsj3tNpeOt2gg4m3/Nimc/GYO6MZBHv/DlEezdtn/wyBhcteq9ugNQ+kX6vRPBbWq+w0kds3k/rZTLALftMV6BayBVP+k7KSmkoewZHif4xIJ43h8GhBtwq/bdS6V1mfx+MtpiXlAVGys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779369576; c=relaxed/simple;
-	bh=GvOopbuZgOx6H3EWaO/yxnhLUagCrjUODOcUeKfWPUM=;
+	s=arc-20240116; t=1779369648; c=relaxed/simple;
+	bh=+jRf4uhriOPqmYfD86fU2Fxtikvrtc1cRlxoWUu260s=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZbGKfWkPg+YQhqClAIdbQreTQxQw/p92hJha/kxLHLlr7ndF9ZGtgLqRqkcmGaYpbLtfZQt1v0bWhtlHgg6rwfO/SQ29K+HOY9XpyIuqoLmzB9duQJiGgxM48UXECu50QKD0TnEcrnVbD3rbEMczivd7Fx9rpUCCuZV1gSYHm5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ftnsNh7e; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kPGG+pon09sANwAVV/gmnXvw9XrETOSxaVwJvKemJ/wuZNiOp8GJ+H+c0a6LadvuCkX0AsBuWaem9pOyJ/7zCRlk5tK9xEHZ9h25uieQITO18b/SKJhltmCLHsF+SYombxXzKSFTlTvey2x0OHhrr4jab/lvOr6pZf6r7y4A6Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6jNkiBy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ftnsNh7e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F881F00A3B;
-	Thu, 21 May 2026 13:19:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6jNkiBy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5121F000E9;
+	Thu, 21 May 2026 13:20:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779369574;
-	bh=IoJn53ApRpASxBhXvJjp1njT92dMVKWAuU/QkFXrGyA=;
+	s=k20260515; t=1779369646;
+	bh=eCw9C/LvtkLqPVnvrvDoe/4Pvj+U81XUeCsrbZMJbrA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ftnsNh7e1SaxP/RO2NNLGvvZ5T+x0s3OCi7Jiv3yt+fT1/ry1K58dALxanESY/tTA
-	 Ee635YnorN69MxvdiYxsJ7kv0baQN1IYBuWTxgirRELtZMbHxT4s0xKiPtsUlb2omx
-	 LKKblWXjPAk9GbVukedFfQCorxgyuUPB73d9/BT/dBR7kKHE8BBW1jU85WCPDJbRan
-	 Yu1U7lYeg0lEs6crtamYfCKqn/JFq/SRwVRNR2EH9LurOJqytPM7DTPVeDFKJOnn86
-	 3NYP2+M8APgFUM1s2oRfa2mU6nfVN6AFBHomIhEe27u0mPVcndRYD0gbLiaBvZLxy7
-	 XZm4w/LBmYo1Q==
+	b=a6jNkiByQhPD+NU0LItkCjHvfiEa0fhzVo2Pk4YrWo/8wVTGU6nQ6CuWvFihw08no
+	 RXdsf/J8D/dtKF/WO3shGlNB93QwSlTNywyz9VlryaVLQcykSRbIjHIm99DfRgzhub
+	 khkXasg+uDuouoOWUnqtwWpa70aP09A4fZIT2+05N2tjy+9uhHqD0nUwA3uJd3KsE/
+	 M8//mW1uALJ1NKZmMtP/s2TaPM2lk334kpASJMwwPnIZOBdi9kr56V6DPwSozm1olM
+	 a9yEBCzuXQC+AW3A206jlQajJmoVUIke+7UoPzR2KB3wTidY8RExrXd9PiDJST79Mq
+	 N07pOczWwgynw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 07/22] dt-bindings: media: i2c: max96712: add
+Subject: Re: [PATCH v12 02/22] dt-bindings: media: i2c: max96717: add
  support for I2C ATR
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dumitru Ceclan via B4 Relay" <devnull+dumitru.ceclan.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260521-gmsl2-3_serdes-v12-7-b26d92931196@analog.com>
-References: <20260521-gmsl2-3_serdes-v12-7-b26d92931196@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260521-gmsl2-3_serdes-v12-2-b26d92931196@analog.com>
+References: <20260521-gmsl2-3_serdes-v12-2-b26d92931196@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 13:19:34 +0000
-Message-Id: <20260521131934.66F881F00A3B@smtp.kernel.org>
+Date: Thu, 21 May 2026 13:20:46 +0000
+Message-Id: <20260521132046.9D5121F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,80 +46,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The `i2c-atr` node allows child nodes (`^i2c@[0-3]$`) with a `reg` =
-property, but fails to make `#address-cells` and `#size-cells` required in =
-the parent node.
-- [Low] The `reg` property under the `i2c-atr`'s `^i2c@[0-3]$` child nodes =
-applies invalid numeric constraints and lacks a `maxItems: 1` constraint.
+- [Medium] The `reg` property constraint inside the `^i2c@[01]$` pattern is=
+ missing `maxItems: 1` and incorrectly applies numeric constraints directly=
+ via `items`, making the validation ineffective.
+- [Low] The `anyOf` logic used to enforce mutual exclusion between `i2c-atr=
+` and `i2c-gate` is overly complex and redundant.
 --
 
-commit 8c55c178a378c597e61e804da4b186def25c5a4c
+commit 38012c69a8fca6511a921f6751ee84fefe0e14a1
 Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-dt-bindings: media: i2c: max96712: add support for I2C ATR
+dt-bindings: media: i2c: max96717: add support for I2C ATR
 
-This commit adds I2C ATR support for the MAX96712 and MAX96724 deserializer=
-s.
-It documents the ability to change I2C addresses for connected serializers =
-to
-avoid conflicts when they share the same CFG pin configuration.
+This commit adds support for I2C address translation (ATR) to the MAX96717=
+=20
+device tree bindings. It introduces the i2c-atr property and associated=20
+address pools while maintaining support for the legacy i2c-gate property.
 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.y=
-aml b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-> index 583bbd60157c6..abacc3c874a9f 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-> @@ -36,6 +36,30 @@ properties:
-> =20
->    enable-gpios: true
-> =20
-> +  i2c-alias-pool:
-> +    maxItems: 4
-> +
-> +  i2c-atr:
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
+> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96717.y=
+aml b/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
+> index d1e8ba6e368ec..976f6dd2c164c 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
 
-[Severity: Low]
-Since the i2c-atr node allows child nodes (^i2c@[0-3]$) with a reg property,
-shouldn't #address-cells and #size-cells be explicitly listed in a required
-block under i2c-atr?
-
-Omitting them allows an incomplete device tree missing these parsing
-properties to silently pass schema validation.
+[ ... ]
 
 > +    patternProperties:
-> +      '^i2c@[0-3]$':
+> +      '^i2c@[01]$':
 > +        $ref: /schemas/i2c/i2c-controller.yaml#
 > +        unevaluatedProperties: false
 > +        properties:
 > +          reg:
 > +            items:
 > +              minimum: 0
-> +              maximum: 3
+> +              maximum: 1
+
+[Severity: Medium]
+Does this properly validate the reg property? Since dt-schema parses reg as=
+=20
+a matrix (an array of tuples), applying minimum and maximum directly to=20
+items causes JSON schema to silently ignore the numeric constraints, as the=
+y=20
+are being applied to arrays instead of numbers.
+
+Additionally, the lack of maxItems: 1 allows multiple register regions to=20
+incorrectly pass validation.
+
+[ ... ]
+
+> +allOf:
+> +  - $ref: /schemas/i2c/i2c-atr.yaml#
+> +
+> +  - anyOf:
+> +      - oneOf:
+> +          - required: [i2c-atr]
+> +          - required: [i2c-gate]
+> +
+> +      - not:
+> +          required: [i2c-atr, i2c-gate]
 
 [Severity: Low]
-Does this correctly constrain the reg property?
+Is this anyOf block more complex than necessary?=20
 
-In dt-schema, the reg property is parsed as an array of arrays. Applying
-items constraints to minimum and maximum attempts to enforce numeric limits=
- on
-the nested elements, which standard JSON Schema ignores for arrays, making =
-it
-a silent no-op.
-
-Should this instead use maxItems: 1 to constrain the matrix length, while
-relying on the unit-address regex pattern (^i2c@[0-3]$) to natively enforce
-the bounds?
+The not branch evaluates to true when only one is present or when neither=20
+is present, which completely subsumes the oneOf branch. Could this be=20
+mathematically simplified to just use the not condition without changing=20
+the validation logic?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-gmsl2-3_se=
-rdes-v12-0-b26d92931196@analog.com?part=3D7
+rdes-v12-0-b26d92931196@analog.com?part=3D2
