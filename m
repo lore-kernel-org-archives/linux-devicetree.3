@@ -1,165 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D2038422A
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 04:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC0A1CB31D
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 04:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779336923; cv=none; b=VPq+cojEB8mu9d7TqZMFRAOT5K6nAQeJR6AAcpQUf1dgWqy7VUqtLn5U7m4q3XmtimgSHiNUqHc3OHByiYLEC8HiqSiPSHliJOSdF3PG+C9L67XQbovZrpcTjLjHhk00MW3J7PhTXeyfZqPGwHZqELY2XXyKfl/WreA3zbtLQu8=
+	t=1779337721; cv=none; b=H2H5+oHZRNqtQn5sX3m/lVhz8FDKBX4drVxLUcNEv9dWp1vU3ktg19rktWci8pC38tKHQGDHLepVvWO8fQu7uB1OW8/qBdleWBRKBgPDOKNDRJUQMpWpYbvlBTlGlPXghYj6lD25+zC9eKciqPXLSwUnXn14uNcKrQkM1qWAPvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779336923; c=relaxed/simple;
-	bh=xbniOk9nqT3tKYgM7/R98IXBeNPrjxhNV+8A4WUfdOA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SvVDn+/jRrGSzO654JGNglWI0+IxLkg18rWs5LLv8tlnhtwRnYKmkd7Fi0GDlVOSku5weFcSpoUzWgyUQNUv9p4LtZIsDFNSRV+EeYvbnmsqa//A5Erdx0p11OoygzM4TUiIhnAvUgESOgQqMY4jHUE6Omd2EPWzGE4NG0bGZEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2hpcDqO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779337721; c=relaxed/simple;
+	bh=1fn8nNIfAciVYywUEDqcLHwnewpkWRfNE2Jm7RnUmr4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oC88lVIE5d1eXNq4FDykugMIkZGo2Hyk3S8wAHmARy1Dtr23fDBw/NPq6xJGUZuqnVCBWItuq9cZdIC5HExa6YV1CSrbM74GAQBj3QWoSl2A9YZEb/nIm2y8xIG+/N8QCHLRN1wtqfhrxgiYHHC92nzGH3dmkS8ggi0AJdKYikk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=j+5JhcKT; arc=none smtp.client-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2hpcDqO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84131F000E9;
-	Thu, 21 May 2026 04:15:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779336921;
-	bh=aXW5+zQtZ+MABOKoJanBcoirUL929kC3vEj1nDyct4c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O2hpcDqOBLA+oDSgdT6S2z73v2iCgKclVTPZUQczEtlmjMcNc0gY4zxmTUmuGEh3T
-	 vJXh15I4mWbSU4DIPjckCFZDntIpQVOF64dXAy6qEJg6Mv7u+tKiZKMUb61mvoTjvH
-	 C91GqB2yl6uYdz9poff2cpDsNbQvnWNb8VaRtjEjvsSdsyZD3rnhn+jXhQTIWrGrWV
-	 Nbc8lQQJecZta1NJXe2zojvun8/rJpM1C1EZ9mUHPCEYugGvg2xPnj0C11BC9BEYBD
-	 gmG9LHjVx+gzA40V84a8kou3fF/4v1SKbFKD7HM8B/gakxob+Sibdth0RRoUoBRS2n
-	 msiw1k8yUck1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/3] dt-bindings: i2c: snps,dwc-i2c: Add StarFive
- JHB100 bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
-References: <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 04:15:18 +0000
-Message-Id: <20260521041520.B84131F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="j+5JhcKT"
+Message-ID: <ffe27d38-5627-4201-ab6f-72656f5188a6@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1779337707;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0Mbqj52klJDaYVrqr1HbvDq6wUyKpixCsk5uYYS4F8=;
+	b=j+5JhcKTMjPxoUC95Kz4ElJaqjQUSuzJHi6aj64lHfnS50ZbSIYktmGl372tbEL79RTofN
+	Nh1suA+1ruN6eq8riu6dLM6xdrX04zvx5nNkrTDg1UYWIFfDfDOFfifwWh+f+IWysIzoxT
+	LU/a/OHrOl5+mbuk/yHlVBvvIq0qQB5/0+Wh48+4E3pDjVUQCx7bvx+4mmF5MMFekqlhYX
+	NNFKcFeDjfskZTBH69uO1aG/mzybsdAsxks4vUObfgcU3MjNA0aH73HePwBUm7KaHGR1MK
+	itCFy+IG+gUZYDlj/AP0mj5tqj4nIsOIIk7crQ3O3ZzaCU3IX3V+h2x5Wc4iMA==
+Date: Thu, 21 May 2026 01:28:16 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: x1-dell-thena: mark l12b and
+ l15b always-on
+To: Michael Scott <mike.scott@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com,
+ abelvesa@kernel.org, faisal.hassan@oss.qualcomm.com,
+ linux-phy@lists.infradead.org, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, bryan.odonoghue@linaro.org,
+ laurentiu.tudor1@dell.com, alex.vinarskis@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260521010935.1333494-1-mike.scott@oss.qualcomm.com>
+ <20260521010935.1333494-4-mike.scott@oss.qualcomm.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20260521010935.1333494-4-mike.scott@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] The patch introduces a redundant device tree binding schema (`snps=
-,dwc-i2c.yaml`) and a duplicate generic compatible string (`snps,dwc-i2c`) =
-for the Synopsys DesignWare I2C controller.
-- [Medium] Compatible strings are incorrectly used to encode the operationa=
-l mode (master vs. slave) instead of describing the hardware IP variant.
-- [Medium] FIFO depth properties (`dwc-i2c-tx-fifo-depth` and `dwc-i2c-rx-f=
-ifo-depth`) use an invalid and unregistered vendor prefix.
-- [Medium] The custom property `starfive,mctp-i2c-ms` improperly uses the s=
-tandard `-ms` suffix for a `phandle` reference and lacks an explicit type d=
-efinition.
-- [Medium] Missing constraints for the slave-only property `starfive,mctp-i=
-2c-ms`.
---
 
-commit 7e9b926c17cf1f417236a77e427787e7ba5331b1
-Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+On 5/20/26 10:09 PM, Michael Scott wrote:
+> The l12b and l15b supplies are used by components that are not (fully)
+> described (and some never will be) and must never be disabled.
+>
+> Mark the regulators as always-on to prevent them from being disabled,
+> for example, when consumers probe defer or suspend.
+>
+> Note that these supplies currently have no consumers described in
+> mainline for dell-thena beyond the audio codec (vdd-buck/vdd-rxtx/
+> vdd-io on wcd938x), which can release them when the codec goes idle.
+> The board-level gpio-fixed regulators that feed the Type-C retimer's
+> VDDIO and other rails are not described with a vin-supply link, so
+> the kernel cannot keep their parent LDOs alive on its own.
+>
+> This mirrors the same change Johan Hovold applied to every other
+> X1E80100 board in a March 2025 series; commit 63169c07d740
+> ("arm64: dts: qcom: x1e80100-dell-xps13-9345: mark l12b and l15b always-on")
+> is representative. The dell-thena board file was introduced four months
+> later and did not inherit that change; this patch closes the gap.
 
-dt-bindings: i2c: snps,dwc-i2c: Add StarFive JHB100 bindings
+Acked-by: Val Packett <val@packett.cool>
 
-Add device tree bindings for the Synopsys DesignWare Core (DWC) I2C
-controller and its StarFive JHB100 implementation. The binding introduces
-a new compatible string for the generic IP and two platform-specific
-compatibles.
 
-> diff --git a/Documentation/devicetree/bindings/i2c/snps,dwc-i2c.yaml b/Do=
-cumentation/devicetree/bindings/i2c/snps,dwc-i2c.yaml
-> new file mode 100644
-> index 0000000000000..7227f24f7cbe0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/snps,dwc-i2c.yaml
-> @@ -0,0 +1,120 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2024 StarFive Technology Co., Ltd.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i2c/snps,dwc-i2c.yaml#
+Asked a friend who has totally legitimate access to the XPS schematics 
+about what those components are:
 
-[Severity: High]
-Does this introduce a redundant binding schema?
+L12B: IO_1P2/275mA
+- MOSFETs and pullups on a bunch of I2C, PCIe CLKREQ/WAKE, etc.
+- VDDIO for WSA speakers
+- NVME_PLN_N_1P2 (Power Loss Notification?)
+- bunch of VDD_PX pins on the SoC
 
-The Synopsys DesignWare I2C controller is already documented under
-Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml with the
-generic compatible string snps,designware-i2c.
 
-Creating a parallel schema for the same hardware block might fracture the
-hardware description and bypass existing constraints. Could the StarFive
-JHB100 variants be added to the existing designware-i2c schema instead?
+L15B: IO_1P8/1.09A
+- MOSFETs and pullups on eDP HPD, bunch of I2C, PCIe CLKREQ/WAKE, some 
+INTR#/RESET#, SSD Load Switch, etc.
+- VIN for Load Switch outputting retimer's VDDIO
+- VDD_1P8 for WSA speakers
+- VDDIO for power monitor ICs on IR_I2C
 
-[ ... ]
 
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - description: Generic Synopsys DWC I2C controller
-> +        const: snps,dwc-i2c
-> +      - description: StarFive JHB100 I2C master controller
-> +        items:
-> +          - const: starfive,jhb100-dwc-i2c-master
-> +          - const: snps,dwc-i2c
-> +      - description: StarFive JHB100 I2C slave controller
-> +        items:
-> +          - const: starfive,jhb100-dwc-i2c-slave
-> +          - const: snps,dwc-i2c
+Yeahhh.. I think the load switches could potentially be modeled but the 
+huge bunch of random pullups not so much. I wonder how Windows handles 
+this. Maybe it could be in low-power mode when speakers are idle?
 
-[Severity: Medium]
-Are these compatible strings encoding the software operational mode rather
-than describing the hardware IP variant?
+~val
 
-Since the hardware natively supports both modes, shouldn't the operating
-mode be dynamically determined by the framework or described using standard
-subsystem properties like an i2c-slave sub-node?
 
-[ ... ]
-
-> +  starfive,mctp-i2c-ms:
-> +    description: |
-> +      The property should contain reference to the master node associate=
-d with the slave.
-> +      This value is only used in slave mode, especially for MCTP applica=
-tion.
-
-[Severity: Medium]
-Does the -ms suffix conflict with dt-schema evaluation? Properties ending
-with -ms are strictly evaluated as a time unit in milliseconds, but the
-description indicates this is a phandle reference to a master node.
-
-Also, is there an explicit type definition missing here? Custom properties
-intended as a phandle typically require an explicit
-$ref: /schemas/types.yaml#/definitions/phandle.
-
-[Severity: Medium]
-Furthermore, since the description states this value is only used in slave
-mode, should there be an allOf/if-then block added to enforce this
-restriction based on the compatible string?
-
-> +  dwc-i2c-tx-fifo-depth:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      The property describes the tx fifo depth.
-> +    default: 8
-> +
-> +  dwc-i2c-rx-fifo-depth:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      The property describes the rx fifo depth.
-
-[Severity: Medium]
-Do these properties use an invalid vendor prefix?
-
-Custom device tree properties must begin with a recognized vendor prefix
-followed by a comma. Using dwc-i2c- without a comma violates core device
-tree naming constraints. Should these use a registered prefix like snps,
-or starfive, instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521034340.2783=
-7-1-lianfeng.ouyang@starfivetech.com?part=3D1
