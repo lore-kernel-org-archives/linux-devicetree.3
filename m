@@ -1,150 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEC921E098;
-	Thu, 21 May 2026 00:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8EF25B0B4
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 00:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779323199; cv=none; b=uapgTX+5QbVsePvQRiJ8q4+z89+jM5XLDS4TuRpU9g0RN1hC5ej/JhEF47X7/3FNhGR5g7gisNPdVxA2X9iKSh/699f9nubOh6md597VqBLfbeNx12omCsYiVxjqfeS4jYkCpJOnc68PdOm/GMs8G9b3VDI14RRdRL5KzVEP//U=
+	t=1779323833; cv=none; b=dbLxCIA6RCj635CIPSzjFv4+O40PI5gDGnqRzRC0S74/5by1g7Bvg1TYyKtuZnEtUOSCKvOM4RqT2cKWztvDIzyLJ70UTFQAdGsMb3enV+8xrwp7kmyB/dYnSDzgX4iN1lSbacOYxR8ODxoPYB82qyWI8izycV/n+H/beEZFEhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779323199; c=relaxed/simple;
-	bh=5x/iRcZlf9FvST3ibe65fqLuCbX+ocZawQud/CYY2o0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jCA/gdCvuQs9rWbnYasmP+wuCLfqZ+nUJKhilwS+5Kfbb/CCIHdC9F6PhtuPUzzo6cu2Y1MNGASb+u67zUUG39GWoL+gxJVTOFEoe2/rGLiXo57yMH1aaPQJ272BQRk/hODdltR7TOUecf9b3yEWUcYFmJdjsf7x+S6M6XpT7eU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LlUdVpwi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779323833; c=relaxed/simple;
+	bh=YtKGUQxsxsmEh1+U/97adQ2+8wtXEGM9fOHV6CEaD3E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=On/fVlypI5AJJ5MfvyyEvKgDcTH3hIosIZ7/ErW7Vi+3wKaN1iPfK7px6f2jel3CU6RuVcTxxg3BAB+/sMSfHO3Idn9RbI3Xeh5U2R0lJnFeG9uyEV0gqCVPJGZSTnYaExBGKtNIUy+MnINjcSUHJvb14s5+qFEjQOBbKfhPFFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aMLy8IUg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aX7rp616; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LlUdVpwi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6271F000E9;
-	Thu, 21 May 2026 00:26:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779323196;
-	bh=leqCqyvwJzYlq+jWVwct8Lb05XLKVxaJAs0YuOfdhpg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LlUdVpwic84k9bFNNPAzpQrzUPUXoB5Hw/Iw69S72+0BMT6hSGZL9/t3wRmMVZErA
-	 E6w9Eka82lydmDeAJEXLLhQ0nr0uTz3DLD/TuaeQqmUsAwWouq8UEVImi5vFpBHIXM
-	 2StNxjHuR8OZT0cA1jRxQG4UF/Qwu0sxHH+twmRWqOJT2H24rwRwu1zcqPTqOnDIuv
-	 2hGeG0m1cK2hFfdiZGdGJPrcGTsJFCXYCn6lOEIYZRpwTLfapnn9hG5wZgQ/eCS2iG
-	 QT9PcdH7GUG7N4u3g6vF9YuUuFxJx7aQOTmiIlX4LNq1swsgc100+2T6nhSkyfr3DD
-	 MJvspjImw6L6w==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Wadim Mueller <wafgo01@gmail.com>
-Subject: Re: [PATCH v4 2/3] counter: add GPIO-based quadrature encoder driver
-Date: Thu, 21 May 2026 09:26:25 +0900
-Message-ID: <20260521002627.172691-1-wbg@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520044525.128529-1-wbg@kernel.org>
-References: <20260520044525.128529-1-wbg@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aMLy8IUg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aX7rp616"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L0JiNR748495
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 00:37:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=N5+3xR0mUUwO8PD3e537dZ
+	4FKHW/cDZ0dA7B6EMde9s=; b=aMLy8IUg/8i8V5HuAK4txe+hHTC79W0uOX5IOW
+	isxbcAq5p1ChBPk60KjFGXc2l5gyB4Lconzy43+/2NAZ0HNFx+dzzKWDaG17HbtG
+	qYrPIPwsd7iXZ36hHtUGwGSlhDxF+KbD+eFGmoiDsx+dXvceacVlMnqxtcrYniiM
+	uSME+sEhvA/HybArDAU9Ct8zis8tO96Uvy0ZLKhsVbRPcK/Goet/xaAOwAW9wSk2
+	Tts+W2PqxSKYWQPkZ3beJlcNRk+P5ZMWNc23B5nAJZ1c0/uga+nzib7dvDEtdXbF
+	HFcryPAzcZcJ6FS0QeNdwd8p4P0qAV+IpegMNCeS47Eeabig==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9fb6hxuy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 00:37:10 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-7cb345d0b29so122009517b3.2
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 17:37:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779323829; x=1779928629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=N5+3xR0mUUwO8PD3e537dZ4FKHW/cDZ0dA7B6EMde9s=;
+        b=aX7rp616IRwZWY51KfxjvTS54dmHu41aju1icLBiq+l8C1b9ScgE417mTw6NQDAQu0
+         JkvwMY6ktqqzFxqY6mzQVUfQga3hJDsT+/jf5OHctCEw0zQGmQyqj/TkjwqsI9OnhvCB
+         ThDiCV9BeyWJqzkGx+KCmAdmmsJS2kAQ0KSzB52yA/ERAbDRqUTc95SFkEL7z35juql8
+         eU4jgyKEYb4GSMsQUH0nzU+6L4SrlNj7OT7smyRamTCCD4WlAghsq16pTQi4K/tKPhqK
+         xmymbqMouVj00OILOYhZCTzVAbVIXPkp6eFmKYRy6S1OnqgareWJcnMIpGRBznWpV238
+         5MWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779323829; x=1779928629;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=N5+3xR0mUUwO8PD3e537dZ4FKHW/cDZ0dA7B6EMde9s=;
+        b=Ce3SVYnU84b1vRwkc+FAj88glUmArz0+o1SOkPZlDtQc46Fq1VFQoKzP0ZEFIzDFeC
+         IW2zaO8vhwzdrIUc64+l2rYonIgnEdyAiy5r2EwXa/xe+sSAKnsAmTe5rEO2vNxxA/FR
+         9SJglzeExv9OuHIlBoUqJQzjtVUbNFnu4GgBLB1T+5S2eyp1jQ2hKi9/ity7e4I4mLS4
+         1IqYpJyu/xwg/OzM/LgOR9eHWc83wK16Llu/+DoW3kSPrXZu6kdkC1xNe3tCvvEt/2tD
+         RNV1iC+vtNqkqZFzykrPdZe67W3XPe4GTTJvYJNWkuskLM2cr6eIESPDC/YDEcj+Kpcn
+         x29w==
+X-Forwarded-Encrypted: i=1; AFNElJ8UYziEjZ4hsoTpZpF47ysE3t7yH40U2WPwe2QtRkOs7Mtr7mQxBcRsVNez6JYDtklpOmT8270GnR/j@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxb8xwftPYf260DGz4xxpjeUMkaTr0afpPXoaBMnZZwfywtc8zC
+	/SPT5LJJOCznIsp1ipY71ALFwEI67Au9uT9wUPPiaJXEGtyXZ+zPBEU1lRHv6OwgY/fhY0g6L9P
+	+38HZhsH3gf6Ekh1+oDAfCgzvgnDKmMeW+e+uhuQyVQC1/tKKqVSahvhn+6akFSHp
+X-Gm-Gg: Acq92OHcZx3ATkkKnK/DTP/KHWePJ6wcOwI8GismN4UJVBmmWjlbreQbjlfefa+ov+u
+	Rk/ftEGJYNNDHrYHdm8/FrWeQayhH0QVUJh1USYKPpt93EX8DjDIGbhroi8VKzZq7x81OJGDnMv
+	6+BPl0eE9Ma88er/3HPlC2S/SjqBTuZt5HZGfKRDPldvLdWRDNwhUYRmkUDAlRoPzykuHz/KPb2
+	Lbinnt6A3ZA+E6obEeHidKZRcTBSXQcHhd0GdG+wkHnRweZhfoTKVManAZh7MwD+ySmnPI7riKf
+	O8aidJM6tzuAa4sugEqw6rzYFxHWRyAmtja5tbS/qNw1GYEcX11B6DcpO7WyWFBzbq5cc33nujN
+	sxsduLeF6vCCFSIYxWLLPwyUudVL/tLY+yJztQ2EGPYJ/AQqa7wOIA4z18g1Tf41ek4WoV2jZo5
+	TU0ONRzNEWdSz/Qwc=
+X-Received: by 2002:a05:690c:e3ee:b0:7d1:dd7b:b71f with SMTP id 00721157ae682-7d20c944571mr8724687b3.29.1779323829397;
+        Wed, 20 May 2026 17:37:09 -0700 (PDT)
+X-Received: by 2002:a05:690c:e3ee:b0:7d1:dd7b:b71f with SMTP id 00721157ae682-7d20c944571mr8724297b3.29.1779323828982;
+        Wed, 20 May 2026 17:37:08 -0700 (PDT)
+Received: from scottml-Latitude-7455 (107-198-5-8.lightspeed.irvnca.sbcglobal.net. [107.198.5.8])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7cc991c98d9sm60545717b3.10.2026.05.20.17.37.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2026 17:37:07 -0700 (PDT)
+From: Michael Scott <mike.scott@oss.qualcomm.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org,
+        dmitry.baryshkov@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com,
+        abelvesa@kernel.org, faisal.hassan@oss.qualcomm.com,
+        linux-phy@lists.infradead.org, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, devicetree@vger.kernel.org, val@packett.cool,
+        bryan.odonoghue@linaro.org, laurentiu.tudor1@dell.com,
+        alex.vinarskis@gmail.com, linux-kernel@vger.kernel.org,
+        Michael Scott <mike.scott@oss.qualcomm.com>
+Subject: [PATCH 0/4] phy: qcom: qmp-combo fixes + x1-dell-thena DT maintenance
+Date: Wed, 20 May 2026 17:36:11 -0700
+Message-ID: <20260521003615.1260844-1-mike.scott@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4467; i=wbg@kernel.org; h=from:subject; bh=xRsJjqjIHW0mg5ieW1TqPbWbeDPc0eZ7puqTnBIo844=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFl8gcLaT8s7am7EfF6j+ejX+6X7Dr/X9doUrdW1Nkvrc fd+j4K6jlIWBjEuBlkxRZZe87N3H1xS1fjxYv42mDmsTCBDGLg4BWAif2wYGa5OT7/sMNm43btr q6eHbmjbtgXBi5hWz7yWtLzd/3sC70mG/7m/DsYVMv6WLQxfNePeVeYNEwKnbCoyUnLfv8zg5sw L/3kB
-X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=do/rzVg4 c=1 sm=1 tr=0 ts=6a0e53b6 cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=cdagev08qavQYXHyx3V8vg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=SOupQL3pC_S58mEsAAwA:9 a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-ORIG-GUID: iJbPe6oSEHw5uVxYQz7OuTLHUF5aiUmd
+X-Proofpoint-GUID: iJbPe6oSEHw5uVxYQz7OuTLHUF5aiUmd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDAwMyBTYWx0ZWRfX4Y6NLQIAsNcD
+ 7QeBI9+pHUBJqVZPehqHDUGtdm0v8ZTSO+W/sYqh5zTDLkR2WpYM9YwuvMRxU4b+Wx0r3a0fua7
+ dUHnpSWbvYyBQ/wqAvG7KZ0YQkWa0QVznYU0KX/J4oZdDzABnpoiFsHU4paES8/ODBBXjfGDCwb
+ RgINfvkmM66l+XQVccU05OwqVo5wLRDYdvybC4UD3+JxKTwgWGidrp+GzD10XsDtnCt66k601mx
+ i/A7sbyE5LiK3O0hzNmYamLXj3G3OCBmDXcFTpdHh1iyRW9FIeLJaTCwE/B4s7PDKgOtInvAAG1
+ 3a6hxZrHU7Nlf9qHGcQJPZV+Pw5qq5FKYIg76Su89cpnwH6XewJkTJLx+OlrKC/DLDL25QKuZDD
+ 8gAJeB4xeZOX4jrKDmOhkanrUpLrVUVETNT28Nkvs9Qg09WJoNVTzHj+WCTrxqlulJQzbNsiUVY
+ LDAmffIAhwdWn/MTPNA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 clxscore=1011
+ spamscore=0 malwarescore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210003
 
-From: Wadim Mueller <wafgo01@gmail.com>
+Four patches:
 
-On Wed, May 20, 2026 at 01:45:20PM +0900, William Breathitt Gray wrote:
-> On Fri, May 15, 2026 at 05:36:15PM +0200, Wadim Mueller wrote:
-> > +static int gpio_qenc_a_delta(struct gpio_qenc_priv *priv, int a, int b,
-> > +			     int prev_a, int prev_b)
-> > +{
-> > +	int state = CREATE_QE_STATE(prev_a, prev_b, a, b);
-> > +
-> > +	switch (priv->function) {
-> > +	case COUNTER_FUNCTION_QUADRATURE_X4:
-> > +		return gpio_qenc_quad_x4_table[state];
-> > +
-> > +	case COUNTER_FUNCTION_QUADRATURE_X2_A:
-> > +		/* Both edges of A; sign comes from current A vs B. */
-> > +		return (a == b) ? -1 : 1;
-> > +
-> > +	case COUNTER_FUNCTION_QUADRATURE_X1_A:
-> > +		/* Rising edge of A only. */
-> > +		if (!prev_a && a)
-> > +			return b ? -1 : 1;
-> > +		return 0;
-> 
-> Quadrature X1 count modes trigger on the falling edge when the direction
-> is backward. This isn't simply a requirement by definition, but
-> necessary for the proper interpretation of the quadrature encoding.
-> 
-> Let's evaluate an incremental encoder used in a positioning application
-> as typical use case.[^1] These are commonly implemented using a rotating
-> shaft with a quadrature-offset pattern; aligned sensors detect the
-> physical A/B pattern as the shaft rotates.[^2] As the shaft rotates a
-> quadrature encoding emerges whose A-B phase difference allows us to
-> determine direction: forward when rising edge of signal A leads B, and
-> backward when it trails.[^3]
-> 
-> Now consider what happens to the signals when the rotation changes
-> direction: there is a phase change between Signals A and B.[^4] The A/B
-> pattern on the shaft is physically present so it has not changed; rather
-> the pattern is now fed backwards to the sensors due to the direction
-> reversal. The key point is the physical boundaries of the pattern are
-> located in the same shaft positions they have always been, yet the
-> signal edges representing those boundaries have flipped as a result of
-> the direction change: positions marked by rising edges now appear as
-> falling edges.
-> 
-> In Quadrature X4 and X2, the pattern reversal doesn't affect positioning
-> because we count on both edges, so swapping rising and falling edges
-> nets the same position count. Quadrature X1 presents a problem because
-> we count on a single edge type, so a phase-difference in the encoding
-> results in a physical shift in real-life position. The way to account
-> for that phase shift is to swap counting to the other edge type when the
-> direction changes. That's how dedicated quadrature encoder devices solve
-> this problem.
-> 
-> I'm not sure of the best way to solve the Quadrature X1 problem in this
-> driver. Right now we fire off interrupts on both edges, so perhaps
-> there's a way for us to determine whether we're firing on a rising edge
-> or falling edge and evaluate accordingly. Does the GPIO subsystem
-> provide an indication for which edge triggered the interrupt? Or would
-> it make sense to provide two interrupt service routines (one on rising
-> edge and one on falling edge) and handle it that way?
+  * Two pre-existing bug fixes in phy-qcom-qmp-combo that are reachable
+    today on any board which registers a usb_role_switch on this PHY,
+    and will become reachable on more X1E boards as their Type-C
+    support matures (patches 1-2).
 
-The simplest method might be to evaluate the current GPIO level to
-determine the edge polarity. Because we trigger on both edges, we can
-assume a high level means a low-high transition (rising edge) and a low
-level means a high-low transition (falling edge).
+  * Two dell-thena DT maintenance items: one mirrors a regulator
+    always-on change Hovold applied to the rest of the X1E80100
+    family but that dell-thena missed, and one bumps the linux,cma
+    reserved-memory pool so the camera pipeline can actually
+    allocate buffers alongside a normal desktop (patches 3-4).
 
-Using that assumption, we can implement the Quadrature X1 case by
-checking the current state and direction, and adjusting the counting
-accordingly when applicable: count up if rising edge and forward
-direction, and count down if falling edge and backward direction.
+== phy-qcom-qmp-combo fixes (patches 1-2) ==
 
-Quadrature X1 A is handled by the signal A interrupt service routine:
+Both bugs were found by exercising the typec_mux + role-switch code
+paths on Dell Latitude 7455 (X1E80100, dell-thena). In mainline
+today the bugs are reachable on x1e001de-devkit, which registers a
+usb_role_switch on one USB-C port; they would also fire on any
+future board that opts into the same DT pattern.
 
-	/* COUNTER_FUNCTION_QUADRATURE_X1_A */
-	if (ca)
-		if (direction == COUNTER_COUNT_DIRECTION_FORWARD)
-			count++;
-	else
-		if (direction == COUNTER_COUNT_DIRECTION_BACKWARD)
-			count--;
+Patch 1: qmp_combo_usb_power_off() / qmp_combo_usb_exit() can be
+re-entered as ->exit from an external consumer (dwc3 phy_exit during
+driver unbind) after this device's backing devm resources have
+already been released along a separate teardown chain. The
+dereference of qmp->pcs (whose ioremap has been freed) then oopses
+with a level-3 translation fault. The patch adds a usb_init_count
+guard so the re-entry is a no-op. The proper long-term fix is a
+teardown-ordering rework so the QMP PHY outlives any consumer that
+may still call its phy_ops; until then, this guard prevents the
+oops.
 
-Quadrature X1 B is handled by the signal B interrupt service routine:
+Patch 2: qmp_combo_typec_mux_set() updates the cached qmpphy_mode
+unconditionally, but only reprograms hardware when init_count is
+non-zero. So a typec_mux_set arriving before phy_init updates the
+cache without programming hardware; subsequent calls then see a
+"match" against the cached mode and bail out early, leaving the
+lane mux in whatever state it powered up in. The patch tracks
+separately whether the cache has been committed to hardware, so
+the fast-path bail only happens when the cache truly reflects the
+hardware.
 
-	/* COUNTER_FUNCTION_QUADRATURE_X1_B */
-	if (cb)
-		if (direction == COUNTER_COUNT_DIRECTION_FORWARD)
-			count++;
-	else
-		if (direction == COUNTER_COUNT_DIRECTION_BACKWARD)
-			count--;
+== DT maintenance (patches 3-4) ==
 
-There's an obvious caveat that this method only works if we're able to
-check the GPIO level before the next edge arrives (we're limited to low
-frequencies), but that's a caveat present regardless for our software
-counter so I believe this is an acceptable solution.
+Patch 3 marks vreg_l12b_1p2 and vreg_l15b_1p8 always-on. Hovold did
+this for every other X1E80100 board in March 2025; dell-thena landed
+four months later (commit e7733b42111c) and missed the change, which
+leaves the kernel free to disable those LDOs even though several
+board-level fixed regulators have no described vin-supply link back
+to them.
 
-William Breathitt Gray
+Patch 4 raises linux,cma from 128 MiB to 256 MiB. The 128 MiB pool
+is too small to support libcamera's buffer set in parallel with the
+normal desktop: msm DRM framebuffers, qcom_iris codec buffers, and
+qcom_camss VFE pre-allocations occupy ~100 MiB at GNOME idle,
+leaving ~25 MiB free. libcamera's "simple" pipeline asks for four
+8.35 MiB ABGR8888 frames (32 MiB total) and the fourth allocation
+fails with "dma-heap allocation failure". At 256 MiB, ~150 MiB is
+free at idle -- comfortable headroom.
+
+Note for other X1E maintainers: every other X1E80100 / X1E78100 /
+X1P42100 board in mainline is still on the 128 MiB default, and
+several of them carry camera nodes (Dell XPS 13 9345, Medion
+Sprchrgd-14, ASUS Zenbook A14, Microsoft Romulus, Microsoft Denali,
+Lenovo ThinkBook 16). Those boards are likely to hit the same
+allocation failure once libcamera enablement lands on them, and
+should probably take a similar bump. I limited this patch to
+dell-thena because I do not have the other boards on hand to
+verify the resulting CmaFree numbers under a real workload --
+applying the same change blindly across boards I cannot test would
+just shift the guesswork.
+
+== Patch summary ==
+
+  1/4  phy: qcom: qmp-combo: skip USB power_off/exit after device
+       teardown
+  2/4  phy: qcom: qmp-combo: track whether the cached typec_mux mode
+       was committed to hardware
+  3/4  arm64: dts: qcom: x1-dell-thena: mark l12b and l15b always-on
+  4/4  arm64: dts: qcom: x1-dell-thena: bump linux,cma to 256 MiB
+
+== Testing ==
+
+Hardware: Dell Latitude 7455 (X1E80100), running Ubuntu 26.04.
+
+Test kernel: a local build of Ubuntu's 7.0.0-15-generic source with
+this series applied on top. The series has additionally been verified
+to apply cleanly on mainline v7.1-rc4 via `git am` with zero conflicts,
+which is the base used to generate the patches in this submission.
+
+  - Without this series:
+    * Writing "none" to a manually-bound usb_role_switch reliably
+      oopses the kernel. vmcore captured via kdump-tools; crash(1)
+      analysis confirms qmp->pcs UAF in qmp_combo_usb_power_off,
+      reached via dwc3_remove -> dwc3_phy_exit -> phy_exit ->
+      qmp_combo_usb_exit.
+    * Without patch 2, the first typec_mux_set arriving before
+      phy_init updates the cache but not the hardware; the next
+      call hits "same qmpphy mode, bail out" and the lane mux
+      stays in its default configuration.
+    * libcamera-mediated camera apps (gnome-snapshot, etc.) fail
+      to start with "dma-heap allocation failure for frame-3".
+
+  - With this series:
+    * Role-switch teardown no longer oopses (patch 1's guard).
+    * QMP PHY is reprogrammed on first altmode notification after
+      phy_init (patch 2's committed-state tracking).
+    * CmaFree at GNOME idle is ~150 MiB (was ~25 MiB).
+    * gnome-snapshot opens with a live preview from the OV02E10
+      sensor.
+
+Patches 1-2 were exercised by manually wiring up a usb_role_switch
+on dell-thena and driving the role-switch path; the DT change that
+makes that wiring permanent is not part of this series.
+
+Michael Scott (4):
+  phy: qcom: qmp-combo: skip USB power_off/exit after device teardown
+  phy: qcom: qmp-combo: track whether the cached typec_mux mode was
+    committed to hardware
+  arm64: dts: qcom: x1-dell-thena: mark l12b and l15b always-on
+  arm64: dts: qcom: x1-dell-thena: bump linux,cma to 256 MiB
+
+ arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi |  4 ++-
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c   | 47 +++++++++++++++++++++++++++--
+ 2 files changed, 48 insertions(+), 3 deletions(-)
+
+base-commit: aa61612ab641d7d62b0b6889f2c7c9251489f6e3
+
+--
+2.53.0
+
