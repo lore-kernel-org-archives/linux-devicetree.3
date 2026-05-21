@@ -1,118 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621EE38330A;
-	Thu, 21 May 2026 16:52:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470F636A34C
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 16:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779382334; cv=none; b=bqCnx/AfIcO8xDcfkoR11hxMMk99ZlHggy3TLffB7KPR3H7WRn/GLOWiilcMGL9W9jf4BpSqrE/JUf1w6rjaRCz9GkjWhKSsC8UMkJzUBFOdiH4mvK2X/6wKC2n/87HM8meBvxIX0goSdTJgvYsvPaN6y6o5wPha7rvatOi5cfM=
+	t=1779382350; cv=none; b=Z0TY0/ODIXTL8ajZR66YeGaPjjbysOLnSVLRnWrk9Q4OgzKOKSkZy5HAqKy/eVZKemRu0bz4BO+dk6L9EPRtC0STuRK2nelH/alHcdtY1BWeUXMNXYC+f0YyfBMnB0ZlVOkL5Mfj4AzweTaP6PZU4oe37yg4iebiYemRRkxbvwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779382334; c=relaxed/simple;
-	bh=OXtFSh4y4YgrQJu2Fd8sAvsJZ+ivK61dFVSu7rosbAo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X/NpIibheWWfMldt/gX0fzst1mj9wxxtEl77AAYZRp0KdEOyOfRmnULlhVDZnBrEQ3P4FnkznJXNXYAgCntOA+uJzeRjPRMImT3yAEtK4/SsiLdJhaTYDfsX9v/bnYTlMcWD4oIUUdaZdPAJ/iVNjTkb0u1pBWAasFmVijVFsgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoDSi/P9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779382350; c=relaxed/simple;
+	bh=SruqCj7pyIf4opL1F+WOFL8wOA0NLLPUZbG/1quuH6k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l3YjooxM1G97dk7zHAQI0fZKZ9iE5qJ0WQ8i4hOVfuYzONFWvsVnimnJGQ3DNCSyacB0IuaXTbz9VCdXMngSnfhaD1W51b1kDBy5aqvEDYgFFOXpD6iyFtpsc8TDFOQbycg8oL75XHVQMMgqa+H6C5yucL/axf4shbqCuL+tZG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JqzGav/X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoDSi/P9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B238D1F01567;
-	Thu, 21 May 2026 16:52:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JqzGav/X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8261F000E9;
+	Thu, 21 May 2026 16:52:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779382332;
-	bh=HqrbPXusXPMXcIS9HKkT8zlhErFr3ZAlpslnFMZy0fA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HoDSi/P9K6wGjhEsBw0dzjqF75XTAVQv0r3COG2iTVXBk/Wwhm68iKGoTGiyUo8en
-	 lzXQwE8671RYA2b3qEFw8JBi0cn4hsmwy+uqAe+MUJ1CcD95uvvakg3Ph+RQCqhMCX
-	 14reXa83H8AIG1JKGgB6k0au+yah4kQMlpf9gBZ8okRbZ54vjSp1CMB2z0/YBmXuxE
-	 DPQ0pzFzoAUqiIDyb/wAQUE4QttN/BY7YB76xrtFtUbEXbT5Sd0rTutway88riHUCF
-	 gAOAoT5vimo3HzBf8SL6m0xgwyZoY/Qv95W5nxSOLwmGyFYYMQVTTBrZa9dK0hovW2
-	 WIICxlF4d84qA==
-Date: Thu, 21 May 2026 17:52:09 +0100
-From: Conor Dooley <conor@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Vitor Soares <ivitro@gmail.com>, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v1 14/15] dt-bindings: display: panel-lvds: Add LG
- LP156WF1
-Message-ID: <20260521-whooping-appliance-802f41767113@spud>
-References: <20260521150038.103538-31-ivitro@gmail.com>
- <20260521152716.DD2FD1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779382348;
+	bh=X+i8r8JT+U+EGxsi4XkhSX/9FFpyX4bvxafPC81jNVg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JqzGav/XSJLZ/r20QjRWSZc24R/D7PZ1o9sVyjIz9epJPtpmdn9VMvcOVGyizRg++
+	 0x/D7/L8rthtNjb6ptZBGhMuEsWazsIrYlX3SF7s6Y4k6zc5bCncv4ZVWkI3We9l6q
+	 itvs/xNDwu2i72iHVfMVQJ11fvCZXIEhW0w+qsDPQSxwMdHQPgCPiKePZTMPARn2js
+	 +Wmdwe0gLOaQKMgWRdPEg/zo+U6MfaG4oTdAL5UkTuB0BCYLPY+80qtGPAkNbmkNDA
+	 XP43T6j+Os2NF9U6OzmvAIk8dkcwEfz8fjjIXzoNHWtwKYvMiXuBX2711jgKHqAIXS
+	 uxK4Rj6R59Aeg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: mfd: sprd,sc2731: Include SC2730
+ regulator bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?T3R0byBQZmzDvGdlcg==?= <otto.pflueger@abscue.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521-sc2730-regulators-v4-2-1ac8a3b5ed82@abscue.de>
+References: <20260521-sc2730-regulators-v4-2-1ac8a3b5ed82@abscue.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 16:52:27 +0000
+Message-Id: <20260521165228.AC8261F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/WOCuUl28PDdUzJL"
-Content-Disposition: inline
-In-Reply-To: <20260521152716.DD2FD1F000E9@smtp.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Removing the unconditional `$ref` for the `regulators` node with=
+out adding conditionals for `sprd,sc2720`, `sprd,sc2721`, and `sprd,sc2723`=
+ leaves the `regulators` node unvalidated for those compatible strings.
+--
 
---/WOCuUl28PDdUzJL
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 0dc1c5ed599d6def6003f8e26bf5f2c7220c8d77
+Author: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
 
-On Thu, May 21, 2026 at 03:27:16PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] The dt-binding fails to enforce the dual-channel requirement (=
-the `ports` property) for the newly added `lg,lp156wf1` compatible string.
-> --
->=20
-> commit a568203d1851908daadd835b566099e0a123357a
-> Author: Vitor Soares <vitor.soares@toradex.com>
-> dt-bindings: display: panel-lvds: Add LG LP156WF1
->=20
-> This commit adds the compatible string for the LG LP156WF1 15.6" FHD
-> dual-channel TFT LCD LVDS panel to the generic panel-lvds schema.
->=20
-> > diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds=
-=2Eyaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> > index 45183a1439ce9..a6af2b9cc2f9a 100644
-> > --- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> > +++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> > @@ -58,6 +58,8 @@ properties:
-> >            - hydis,hv070wx2-1e0
-> >            # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TF=
-T LCD LVDS panel
-> >            - jenson,bl-jt60050-01a
-> > +          # LG LP156WF1 15.6" FHD (1920x1080) dual-channel TFT LCD LVD=
-S panel
-> > +          - lg,lp156wf1
->=20
-> [Severity: Medium]
-> Since the commit message indicates this is a dual-channel panel, shouldn'=
-t we
-> add an if-then conditional block to require the ports property specifical=
-ly for
-> this compatible string?
+dt-bindings: mfd: sprd,sc2731: Include SC2730 regulator bindings
 
-No idea if this is accurate, but if it is accurate, would the
-lvds-dual-ports bindings come into play?
+The SC2730 PMIC provides a different set of regulators from SC2731 and
+requires separate regulator bindings. This commit adds conditionals for
+sprd,sc2730 and sprd,sc2731 top-level compatibles to ensure the correct
+regulator schemas are applied.
 
->=20
-> Currently, the panel-lvds.yaml schema allows panels to be configured with
-> either a single port or multiple ports. Without a specific conditional bl=
-ock
-> enforcing required: [ports] for lg,lp156wf1, a device tree incorrectly
-> configuring this dual-channel hardware with only a single port will silen=
-tly
-> pass validation.
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260521150038.10353=
-8-17-ivitro@gmail.com?part=3D14
+> diff --git a/Documentation/devicetree/bindings/mfd/sprd,sc2731.yaml b/Doc=
+umentation/devicetree/bindings/mfd/sprd,sc2731.yaml
+> index b023e1ef8d3cc..39d26b6ab4779 100644
+> --- a/Documentation/devicetree/bindings/mfd/sprd,sc2731.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/sprd,sc2731.yaml
+> @@ -54,7 +54,6 @@ properties:
+> =20
+>    regulators:
+>      type: object
+> -    $ref: /schemas/regulator/sprd,sc2731-regulator.yaml#
+> =20
+>  patternProperties:
+>    "^adc@[0-9a-f]+$":
 
---/WOCuUl28PDdUzJL
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> @@ -101,6 +100,26 @@ required:
+> =20
+>  additionalProperties: false
+> =20
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: sprd,sc2730
+> +    then:
+> +      properties:
+> +        regulators:
+> +          $ref: /schemas/regulator/sprd,sc2730-regulator.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: sprd,sc2731
+> +    then:
+> +      properties:
+> +        regulators:
+> +          $ref: /schemas/regulator/sprd,sc2731-regulator.yaml#
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag84OQAKCRB4tDGHoIJi
-0iEyAQC4KAbnKPdOa8gcJ7C/ne2DgDsLr5Jt9ce0JR47V7q/DgD8DBS8z/V29lSD
-FlnKqoXNaG++FqLLBUX9wgii9SzUKwk=
-=DTg3
------END PGP SIGNATURE-----
+[Severity: Medium]
+Does removing the unconditional $ref leave the regulators node unvalidated =
+for
+the older compatible strings?
 
---/WOCuUl28PDdUzJL--
+The compatible enum for this schema also includes sprd,sc2720, sprd,sc2721,
+and sprd,sc2723. Now that the default $ref has been removed, if one of those
+older compatible strings is used, there is no conditional block that applie=
+s.
+
+This appears to fall back to an unconstrained type: object schema for those
+compatibles, which means invalid or malformed properties within the regulat=
+ors
+node will silently pass dt-binding checks.
+
+Should there be an additional conditional block for these older PMICs to
+ensure their regulators are fully validated?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-sc2730-reg=
+ulators-v4-0-1ac8a3b5ed82@abscue.de?part=3D2
