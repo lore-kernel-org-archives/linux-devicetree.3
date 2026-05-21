@@ -1,783 +1,149 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B47257459
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 14:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB45029AB07
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 14:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779374863; cv=none; b=d/INcVk5CHvU9JJ4pSMfOovxeA8aZ47wtZqArJmr3sqjfFVkfnlXRx23pCIzAy4zA6wF/dsFY63ZiYryPdcNlt9BR8RGXRD7ItwtZi4sV/5lcWuiOlqsuibKKi+sy2eRaHyQo99UmQzbtAccjuF1sgck+uTqcqVZ/DsMTV501jI=
+	t=1779374893; cv=none; b=iLoPYznwCP5MupglQgiXcp8710ghsoXFurnELzBiSrSUMVpyIj7C3rIfw5+yhlcxvF+18NLDcM1aRpBEpFSXRojFDNFpdNJaGSwn6DTGNrM/zHCK1CCr7Xpt1NDY3o70S/eBiMPfHvDhrtgqzrq0CI41qocAfSZtWElsyhEOHNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779374863; c=relaxed/simple;
-	bh=bLOSNqbzfuOgrd1FnCtq0Eh2B0RG45bLlGBeWk9o/9o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=h2vPW88Yw9yiNmt7EAT0In6V+lotFKvNxe1k9dngj2GL8qIgBIhrG/Vf5kJcsBj1h8Xtd4y/f5ijQpfT/QQrS4AOrocEBbH9M9DHUkrizD8wpprH3uvC0MnRJ+N7qAv+grv02xGr0HXgM8/Kr9rZN8IcSCo32sKhwktkaHbvUeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=K6HsLMaF; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779374893; c=relaxed/simple;
+	bh=82Puy0GQ28QQtmcURXv9x4UjaZUJfIa6RTqbgly0qeA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YR3ljJp9vXeY64b5zt2pdUMKYiZzoK0DsWMb47HSIlfltLo44QDLqnbQzrPFBQLhyMnCF19N2Gf42Q+e1XRHuKQYew7TKG824mwMjx5NUFyKGL1yr6Zt7v0LnhRZa+sRbU+UQ98oyOjP5xRnr9vLHdLYpxBUVDbbZrLiQnFma38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPFVzwCr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="K6HsLMaF"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-369576666d5so2903929a91.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 07:47:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779374861; x=1779979661; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EYjNxNVO+/q5b5BSMglVEnw6f3LJbKc4jq3m67yWYB0=;
-        b=K6HsLMaFNea2gaC4/qy4Di+dZChs2jA/1+XYim9vWRbaf+XW+MlDNSfWwCZOwmR5Yh
-         KxKVBzP6qOcb/7GmERSrnP/fkWmT2IAzD55XUHajpK51W7gsJCWHj4zMRRYWEDDBKkQT
-         /0mvXdzlWDpS+yOe1qpMCkz0YLP/fKYeHIZKjlJK5fDitjpJNAPjLD9I34WF5T/fPPQg
-         NH5xU7xUadf+ziyoACno0KcbXGI3YDP4Vfm7iaZ4+L9K3F8hK3xT6HiexMzMMvMGI1n1
-         NlSVZhNgRP2X+JVXJQo56aJNt25lFRMuRPfRb6TKqDxSiEJJtryV6aeUSIGNHDgNKB92
-         /ylQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779374861; x=1779979661;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=EYjNxNVO+/q5b5BSMglVEnw6f3LJbKc4jq3m67yWYB0=;
-        b=Anx89vp8D5bFd9sAL8KF2IsAjrQpqmltXpWceI6Jd3p+5an+F04tMCcQ+3qZ5QbBGY
-         neLlOPnOSyLjVNmsr55R9tvpUYTHW0SOW09q/icMvteT8CceUPwN+UpLBjDbmidI4D82
-         4aDbHvR4qVgkkxbsQnSDOXtLNACSuDJjyiJFCWvulm3AO7IsdUQ9UldShoUy3gESLFf2
-         +X474TiwsloqAf52PwnYdpwnXAp0YPR7HDKKiNlVUPOD2PCttTWkMgi02lXOYf7spsAt
-         X987jAMGP5Ne6kf9hF63hX353iqLvK2PNejXcyReyIEbqGPUB0kirNX4uNeho0ynbpOG
-         xT3g==
-X-Forwarded-Encrypted: i=1; AFNElJ8C1lOn04JnGB45+3dogczEpZepBesEi3jDZigfLLNCVcHO6jv/mX3aNxDhsO17ufjuZ+BmDp59GS0g@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOmS38lZTFAX65vrA6oOPZZ9FsAStqOXCV5oJGRQcyDwSTPQqp
-	oR3N8kwLfeeBfjFbnwbX1rcNcfCYYzj+JbQZaL/gtTMZPhH8on4D7pEMF3YGcCOGKSA=
-X-Gm-Gg: Acq92OFc/Mxd9PT9xJl2vtd5PnwIaVAuaxSU7z6Z0qY2yAqsNCPRuBOuZiYx5wvLKry
-	SZUBbsrghIhE9NC2PnDUFhJGL9bl4QXF/I+vFAIxiWfjqpsoJ6P5PmdVwxNRRg3pzkSmSWW2OgD
-	IkYN8uhNboBp3Dcncbj2/axk9fXi1Nppgnph6JuZF6SLZKj7h53RHP52noABmqGy6g8n9q2iPJH
-	Pnqp7xXkYuEyd6vRFk/13O+sp3j0sPgWCxvOWb0h+qMu0p47YKCj59mg3UG/gxNkK9rpUq055cY
-	Byl/QF2y2NDLahl34cYL1dR4zMDR/Er8x1dfkirJmizr1LJ7pNOVIS2Njq5EuwljeaG58AQo3tf
-	f1XYl+V/7bdGAM6fxXXSU9rwDeJnGdePcSKgHTgDSaIpHvHjcvbbC9ndPdv+LrCnc/sSrng==
-X-Received: by 2002:a17:90b:514b:b0:367:b819:2214 with SMTP id 98e67ed59e1d1-36a4561b382mr3274090a91.13.1779374860838;
-        Thu, 21 May 2026 07:47:40 -0700 (PDT)
-Received: from [127.0.1.1] ([2a11:3:200::109e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a5bff3ef3sm476527a91.4.2026.05.21.07.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 07:47:40 -0700 (PDT)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 21 May 2026 22:46:07 +0800
-Subject: [PATCH v4 5/5] drm/panel: Add driver for Synaptics R63455 DSI
- panel
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPFVzwCr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A231F000E9;
+	Thu, 21 May 2026 14:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779374892;
+	bh=g2pBW6Sc5ULpDhvLolRjZMRR+kZ6i7gzEwHOMcS9fLM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bPFVzwCrQ2BSrt7EtVTrkJjgNu8tKCrxxISdTSUe1l48VFMj9K1KT7unYbEeAyouG
+	 vpa+gmo+svDB93S2sqsmGFlAA2Xv+j0QLM5eiG7gvFszDRqDmypk8KcEUl76aEmJIv
+	 VpWp2h1n4ROn1dxOA9KonhtaaUVcO4ArbGm+8EyQ/nkrSCh8YzJOLNRYr9V6hF1M3o
+	 ILtnMLmuHDEAozQbLqX8iuvefjPrxeYkZNt6zgrFqUwHPU/2D8hNR3svVfMbkqrNyF
+	 RmzVvUH4OFN/h4cpSoDkGTqFt6jKVFHDObw0OvD3hTigfPOxJqwfhxnfaxrOwztC5t
+	 uWZSkMuqDCSUQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] cpufreq: qcom: Add cpufreq scaling support for
+ Qualcomm Shikra SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Imran Shaik" <imran.shaik@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260521-shikra-cpufreq-scaling-v3-2-883c13d1e514@oss.qualcomm.com>
+References: <20260521-shikra-cpufreq-scaling-v3-2-883c13d1e514@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 14:48:11 +0000
+Message-Id: <20260521144812.32A231F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-sm8650-7-1-bonded-dsi-v4-5-a4dd5e0850f1@linaro.org>
-References: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
-In-Reply-To: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779374785; l=22158;
- i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=bLOSNqbzfuOgrd1FnCtq0Eh2B0RG45bLlGBeWk9o/9o=;
- b=BfZ7+vfzhsxFeBxLMYY87l7rtZtTFofeRwDyOdlorQQy+WNEPyUGHrMaxlLpuERd0Qpu6Z8uX
- 9YIGuOaCyCLBdszIfRSsO+6m8JDkeYPRx4qSi7QkREpOqRu79jwi0dm
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 
-Add support for the DSI panels used in the virtual reality device.
-The device features two physical panels, each providing a MIPI DSI
-interface and a built-in LED backlight and expose a single logical
-panel to the DRM framework.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
----
- drivers/gpu/drm/panel/Kconfig                  |   9 +
- drivers/gpu/drm/panel/Makefile                 |   1 +
- drivers/gpu/drm/panel/panel-synaptics-r63455.c | 631 +++++++++++++++++++++++++
- 3 files changed, 641 insertions(+)
+Pre-existing issues:
+- [Critical] Invalid `kfree()` on a `devm_kzalloc`-managed interior pointer=
+ in `qcom_cpufreq_hw_cpu_exit()` leads to a guaranteed SLUB BUG and kernel =
+panic.
+- [High] Boost/Turbo frequency is lost and incorrectly reported as invalid =
+(~0u) when the hardware frequency LUT is completely populated.
+- [High] Memory and OPP entries are permanently leaked in the error paths o=
+f `qcom_cpufreq_hw_cpu_init()`.
+- [High] An unbalanced `disable_irq_nosync()` during CPU offline leaves the=
+ LMh hardware throttle IRQ permanently disabled.
+- [Medium] Unhandled `request_threaded_irq()` failure leaves `throttle_irq`=
+ populated, leading to invalid IRQ operations and kernel warnings.
+--
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7c2d9feb4064e..1ef3f51ec6593 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -1227,6 +1227,15 @@ config DRM_PANEL_SYNAPTICS_TDDI
- 	  namesake, with varying resolutions and data lanes. They also have a
- 	  built-in LED backlight and a touch controller.
- 
-+config DRM_PANEL_SYNAPTICS_R63455
-+	tristate "Synaptics R63455-based panels"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y if you want to enable support for panels based on the
-+	  Synaptics R63455 controller.
-+
- config DRM_PANEL_TDO_TL070WSH30
- 	tristate "TDO TL070WSH30 DSI panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index dc8a05f2c34d9..ee6b41151804c 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -115,6 +115,7 @@ obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7789V) += panel-sitronix-st7789v.o
- obj-$(CONFIG_DRM_PANEL_SUMMIT) += panel-summit.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_R63353) += panel-synaptics-r63353.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_TDDI) += panel-synaptics-tddi.o
-+obj-$(CONFIG_DRM_PANEL_SYNAPTICS_R63455) += panel-synaptics-r63455.o
- obj-$(CONFIG_DRM_PANEL_SONY_ACX565AKM) += panel-sony-acx565akm.o
- obj-$(CONFIG_DRM_PANEL_SONY_TD4353_JDI) += panel-sony-td4353-jdi.o
- obj-$(CONFIG_DRM_PANEL_SONY_TULIP_TRULY_NT35521) += panel-sony-tulip-truly-nt35521.o
-diff --git a/drivers/gpu/drm/panel/panel-synaptics-r63455.c b/drivers/gpu/drm/panel/panel-synaptics-r63455.c
-new file mode 100644
-index 0000000000000..e429c28c7efc9
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-synaptics-r63455.c
-@@ -0,0 +1,631 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026, Linaro Ltd. All rights reserved.
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/of_graph.h>
-+#include <linux/pinctrl/consumer.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#define R63455_MF_CMD_ACCESS_PROTECT	0xb0
-+#define R63455_SEQ_CTL			0xd6
-+#define R63455_DSI_CTL			0xb6
-+#define R63455_DISP_MODE		0xb7
-+#define R63455_GEN_OUTPIN_SET		0xb9
-+#define R63455_DISP_SET1		0xc0
-+#define R63455_DISP_SET2		0xf1
-+#define R63455_DISP_SET3		0xc6
-+#define R63455_DISP_SET3_2		0xcd
-+#define R63455_DISP_SET4		0xcf
-+#define R63455_DISP_SET5		0xec
-+#define R63455_DISP_SET6		0xef
-+#define R63455_TE_GPIO_CTL		0xbe
-+#define R63455_PPS_SET			0xe6
-+
-+#define BRIGHTNESS_DEFAULT		256
-+#define BRIGHTNESS_MAX_120		367
-+
-+#define VBP				100
-+#define VFP				700
-+#define VID_VS_DELAY			1112
-+#define GPO1_TES1			4068
-+#define RTN				59
-+
-+static const char * const vdda_driver[] = {
-+	"vdda",
-+};
-+
-+static const char * const dual_backlight_driver[] = {
-+	"left-backlight",
-+	"right-backlight",
-+};
-+
-+static const char * const dual_lcd_bias_pos[] = {
-+	"left-pos",
-+	"right-pos",
-+};
-+
-+static const char * const dual_lcd_bias_neg[] = {
-+	"left-neg",
-+	"right-neg"
-+};
-+
-+struct r63455_ctx {
-+	struct device *dev;
-+	struct drm_panel panel;
-+
-+	struct regulator_bulk_data reg_vdda[ARRAY_SIZE(vdda_driver)];
-+	struct regulator_bulk_data reg_bl[ARRAY_SIZE(dual_backlight_driver)];
-+	struct regulator_bulk_data reg_lcd_bias_pos[ARRAY_SIZE(dual_lcd_bias_pos)];
-+	struct regulator_bulk_data reg_lcd_bias_neg[ARRAY_SIZE(dual_lcd_bias_neg)];
-+
-+	struct gpio_descs *reset_gpios;
-+	int (*dsi_init_seq)(struct drm_panel *panel);
-+	struct backlight_device *backlight;
-+	struct mipi_dsi_device *dsi[2];
-+	struct drm_dsc_config dsc_cfg;
-+};
-+
-+static inline struct r63455_ctx *panel_to_ctx(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct r63455_ctx, panel);
-+}
-+
-+static const struct drm_display_mode modes = {
-+	.name = "4320x2160_120",
-+	.clock = (2160 + 24 + 20 + 20) * (2160 + 404 + 1 + 20) * 120 * 2 / 1000,
-+	.hdisplay = 2160 * 2,
-+	.hsync_start = (2160 + 24) * 2,
-+	.hsync_end = (2160 + 24 + 20) * 2,
-+	.htotal = (2160 + 24 + 20 + 20) * 2,
-+	.vdisplay = 2160,
-+	.vsync_start = 2160 + 404,
-+	.vsync_end = 2160 + 404 + 1,
-+	.vtotal = 2160 + 404 + 1 + 20,
-+	.width_mm = 50 * 2,
-+	.height_mm = 50,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+#define r63455_dsi_write_seq(ctx, dsi_ctx, cmd, seq...)					\
-+	do {										\
-+		u8 d[] = {cmd, seq};							\
-+		dsi_ctx.dsi = ctx->dsi[0];						\
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
-+		dsi_ctx.dsi = ctx->dsi[1];						\
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
-+	} while (0)
-+
-+#define r63455_dsi_write_buffer(ctx, dsi_ctx, d)					\
-+	do {										\
-+		dsi_ctx.dsi = ctx->dsi[0];						\
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
-+		dsi_ctx.dsi = ctx->dsi[1];						\
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
-+	} while (0)
-+
-+#define LE16_BYTE0(val) (le16_to_cpu(val) & 0xff)
-+#define LE16_BYTE1(val) ((le16_to_cpu(val) >> 8) & 0xff)
-+#define BE16_BYTE0(val) (be16_to_cpu(val) & 0xff)
-+#define BE16_BYTE1(val) ((be16_to_cpu(val) >> 8) & 0xff)
-+
-+static int r63455_dsi_populate_dsc_params(struct r63455_ctx *ctx)
-+{
-+	int ret;
-+	struct drm_dsc_config *dsc = &ctx->dsc_cfg;
-+
-+	dsc->simple_422 = 0;
-+	dsc->convert_rgb = 1;
-+	dsc->vbr_enable = 0;
-+
-+	drm_dsc_set_const_params(dsc);
-+	drm_dsc_set_rc_buf_thresh(dsc);
-+
-+	/* handle only bpp = bpc = 8, pre-SCR panels */
-+	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
-+	if (ret < 0)
-+		DRM_DEV_ERROR(ctx->dev, "failed to setup dsc params\n");
-+
-+	dsc->initial_scale_value = drm_dsc_initial_scale_value(dsc);
-+	dsc->line_buf_depth = dsc->bits_per_component + 1;
-+
-+	return drm_dsc_compute_rc_parameters(dsc);
-+}
-+
-+static int r63455_init_dsc_config(struct r63455_ctx *ctx)
-+{
-+	ctx->dsc_cfg = (struct drm_dsc_config) {
-+		.dsc_version_major = 0x1,
-+		.dsc_version_minor = 0x2,
-+		.dsc_slice_per_pkt = 4,
-+		.slice_height = 48,
-+		.slice_width = 540,
-+		.slice_count = 4,
-+		.bits_per_component = 8,
-+		.bits_per_pixel = 8 << 4,
-+		.block_pred_enable = true,
-+
-+		.pic_width = 2160,
-+		.pic_height = 2160,
-+	};
-+
-+	return r63455_dsi_populate_dsc_params(ctx);
-+}
-+
-+static int r63455_panel_on_sharp_ls026b3sa06(struct drm_panel *panel)
-+{
-+	struct r63455_ctx *ctx = panel_to_ctx(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { 0 };
-+
-+	u8 pps_cmd[1 + sizeof(struct drm_dsc_picture_parameter_set)];
-+
-+	drm_dsc_pps_payload_pack((void *)&pps_cmd[1], &ctx->dsc_cfg);
-+	pps_cmd[0] = R63455_PPS_SET;
-+
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_MF_CMD_ACCESS_PROTECT, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_SEQ_CTL, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx,
-+			     R63455_DSI_CTL,
-+			     0x20, 0x6b, 0x80, 0x06, 0x33, 0x9a, 0x00, 0x1a,
-+			     0x7a);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_MODE,
-+			     0x54, 0x00, 0x00, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_GEN_OUTPIN_SET,
-+			     0xf, 0xe4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0xf, 0xb2, 0x00, 0x64);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET3,
-+			     0x08, 0x70, 0x28, 0x48, 0x00, 0x00, 0x13, 0x21,
-+			     0xff, 0x00, 0x0f, 0x01, 0x14, 0x17, 0x00, 0x00,
-+			     0x00, 0x02, 0x40, 0x0C, 0x00, 0x00, 0x00, 0x20,
-+			     0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x70, 0x08,
-+			     0xD0, 0x02, 0x21, 0x6F, 0x08, 0x5A, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET1,
-+			     RTN, 0x86, LE16_BYTE0(VBP), LE16_BYTE1(VBP), 0x08,
-+			     0x70, BE16_BYTE0(VFP), BE16_BYTE1(VFP), 0x00,
-+			     0x00, 0x08, 0x3B, 0x00, 0x00, 0x19, 0x01, 0x22);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET3_2, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET4,
-+			     0x8b, 0x00, 0x80, 0x46, 0x61, 0x00, 0x8b);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET5,
-+			     BE16_BYTE0(VID_VS_DELAY),
-+			     BE16_BYTE1(VID_VS_DELAY),
-+			     0x00, 0x00, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET6,
-+			     0x00, 0x24, 0x00, 0x00, 0x1f, 0x00, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0x03, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00,
-+			     0x00, 0x00, 0x0A, 0x0A, 0x00, 0x00, 0x00, 0x03,
-+			     0x1D, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
-+			     0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_TE_GPIO_CTL,
-+			     0x00, 0x6A, 0x02);
-+	r63455_dsi_write_buffer(ctx, dsi_ctx, pps_cmd);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_TEAR_ON, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x40);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_EXIT_SLEEP_MODE);
-+	mipi_dsi_msleep(&dsi_ctx, 170);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_DISPLAY_ON);
-+	mipi_dsi_msleep(&dsi_ctx, 200);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int r63455_panel_on_boe_vs026c4m_n52_26000(struct drm_panel *panel)
-+{
-+	struct r63455_ctx *ctx = panel_to_ctx(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { 0 };
-+
-+	u8 pps_cmd[1 + sizeof(struct drm_dsc_picture_parameter_set)];
-+
-+	drm_dsc_pps_payload_pack((void *)&pps_cmd[1], &ctx->dsc_cfg);
-+	pps_cmd[0] = R63455_PPS_SET;
-+
-+	r63455_dsi_write_seq(ctx, dsi_ctx,
-+			     R63455_MF_CMD_ACCESS_PROTECT, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_SEQ_CTL, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DSI_CTL,
-+			     0x20, 0x6b, 0x80, 0x06, 0x33, 0x9A, 0x00,
-+			     0x1a, 0x7a);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_MODE,
-+			     0x54, 0x00, 0x00, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_GEN_OUTPIN_SET,
-+			     0xf, 0xe4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0xf, 0xb2,
-+			     0xf, 0xb2, 0x00, 0x64);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET3,
-+			     0x0B, 0x70, 0x08, 0x48, 0x00, 0x00, 0x13, 0x01,
-+			     0xFF, 0x00, 0x01, 0x09, 0x16, 0x16, 0x00, 0x00,
-+			     0x00, 0x01, 0x40, 0x0C, 0x00, 0x00, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x70, 0x08,
-+			     0xD0, 0x02, 0x21, 0x6F, 0x08, 0x5A, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET1,
-+			     RTN, 0x86, LE16_BYTE0(VBP), LE16_BYTE1(VBP), 0x08,
-+			     0x70, BE16_BYTE0(VFP), BE16_BYTE1(VFP), 0x00,
-+			     0x00, 0x08, 0x3A, 0x00, 0x00, 0x17, 0x00, 0x17);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET3_2, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET4,
-+			     0x8b, 0x00, 0x80, 0x46, 0x61, 0x00, 0x8b);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET5,
-+			     BE16_BYTE0(VID_VS_DELAY), BE16_BYTE1(VID_VS_DELAY),
-+			     0x00, 0x00, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx,
-+			     R63455_TE_GPIO_CTL, 0x00, 0x6A, 0x02);
-+	r63455_dsi_write_buffer(ctx, dsi_ctx, pps_cmd);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_TEAR_ON, 0x00);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_EXIT_SLEEP_MODE);
-+	mipi_dsi_msleep(&dsi_ctx, 170);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_DISPLAY_ON);
-+	mipi_dsi_msleep(&dsi_ctx, 200);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int r63455_set_brightness(struct r63455_ctx *ctx, u16 brightness,
-+				  u16 pulse_offset_rows)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { 0 };
-+	u16 gpo1_tew1;
-+
-+	gpo1_tew1 = brightness > BRIGHTNESS_MAX_120 ?
-+		    BRIGHTNESS_MAX_120 : brightness;
-+
-+	ctx->dsi[0]->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+	ctx->dsi[1]->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	r63455_dsi_write_seq(ctx, dsi_ctx,
-+			     R63455_GEN_OUTPIN_SET,
-+			     0x0f, 0xe4,
-+			     BE16_BYTE0(gpo1_tew1),
-+			     BE16_BYTE1(gpo1_tew1),
-+			     0x00, 0x00, 0x00, 0x00, 0x0f, 0xb2,
-+			     BE16_BYTE0(brightness),
-+			     BE16_BYTE1(brightness));
-+
-+	ctx->dsi[0]->mode_flags |= MIPI_DSI_MODE_LPM;
-+	ctx->dsi[1]->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int r63455_disable(struct drm_panel *panel)
-+{
-+	struct r63455_ctx *ctx = panel_to_ctx(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { 0 };
-+
-+	ctx->dsi[0]->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+	ctx->dsi[1]->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_DISPLAY_OFF);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_TEAR_OFF);
-+	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_ENTER_SLEEP_MODE);
-+
-+	mipi_dsi_msleep(&dsi_ctx, 200);
-+
-+	if (dsi_ctx.accum_err)
-+		return dsi_ctx.accum_err;
-+
-+	return backlight_disable(ctx->backlight);
-+}
-+
-+static int r63455_unprepare(struct drm_panel *panel)
-+{
-+	struct r63455_ctx *ctx = panel_to_ctx(panel);
-+	int ret;
-+
-+	gpiod_set_value(ctx->reset_gpios->desc[0], 0);
-+	gpiod_set_value(ctx->reset_gpios->desc[1], 0);
-+
-+	msleep(25);
-+	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->reg_lcd_bias_neg),
-+				     ctx->reg_lcd_bias_neg);
-+	if (ret)
-+		dev_err(ctx->dev, "Could not disable bias negative\n");
-+
-+	usleep_range(1000, 2000);
-+	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->reg_lcd_bias_pos),
-+				     ctx->reg_lcd_bias_pos);
-+	if (ret)
-+		dev_err(ctx->dev, "Could not disable bias positive\n");
-+
-+	msleep(20);
-+
-+	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->reg_vdda), ctx->reg_vdda);
-+	if (ret)
-+		dev_err(ctx->dev, "Could not disable vdda\n");
-+
-+	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->reg_bl), ctx->reg_bl);
-+	if (ret)
-+		dev_err(ctx->dev,
-+			"failed to disable regulator backlight: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int r63455_enable(struct drm_panel *panel)
-+{
-+	struct r63455_ctx *ctx = panel_to_ctx(panel);
-+	int ret;
-+
-+	ctx->dsi[0]->mode_flags |= MIPI_DSI_MODE_LPM;
-+	ctx->dsi[1]->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	msleep(20);
-+	ret = ctx->dsi_init_seq(panel);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->dev, "dsi init failed\n");
-+		return ret;
-+	}
-+	ctx->backlight->props.pulse_offset_rows = GPO1_TES1;
-+
-+	ret = backlight_enable(ctx->backlight);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->dev, "failed to enable backlight\n");
-+		return ret;
-+	}
-+
-+	return ret;
-+}
-+
-+static int r63455_prepare(struct drm_panel *panel)
-+{
-+	struct r63455_ctx *ctx = panel_to_ctx(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->reg_bl), ctx->reg_bl);
-+	if (ret) {
-+		dev_err(ctx->dev, "Could not enable backlight\n");
-+		return ret;
-+	}
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->reg_vdda), ctx->reg_vdda);
-+	if (ret) {
-+		dev_err(ctx->dev, "Could not enable vdda\n");
-+		goto bl_off;
-+	}
-+
-+	usleep_range(1000, 2000);
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->reg_lcd_bias_pos),
-+				    ctx->reg_lcd_bias_pos);
-+	if (ret) {
-+		dev_err(ctx->dev, "Could not enable bias positive\n");
-+		goto vdda_off;
-+	}
-+	usleep_range(1000, 2000);
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->reg_lcd_bias_neg),
-+				    ctx->reg_lcd_bias_neg);
-+	if (ret) {
-+		dev_err(ctx->dev, "Could not enable bias negative\n");
-+		goto bias_off;
-+	}
-+
-+	msleep(20);
-+	gpiod_set_value(ctx->reset_gpios->desc[0], 1);
-+	gpiod_set_value(ctx->reset_gpios->desc[1], 1);
-+
-+	return 0;
-+
-+bl_off:
-+	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_bl), ctx->reg_bl);
-+vdda_off:
-+	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_vdda), ctx->reg_vdda);
-+bias_off:
-+	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_lcd_bias_pos),
-+			       ctx->reg_lcd_bias_pos);
-+	return ret;
-+}
-+
-+static int r63455_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	struct r63455_ctx *r63455_ctx = mipi_dsi_get_drvdata(dsi);
-+
-+	return r63455_set_brightness(r63455_ctx, bl->props.brightness,
-+				     bl->props.pulse_offset_rows);
-+}
-+
-+static const struct backlight_ops r63455_bl_ops = {
-+	.update_status = r63455_bl_update_status,
-+};
-+
-+static int r63455_get_modes(struct drm_panel *panel,
-+				 struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &modes);
-+}
-+
-+static const struct drm_panel_funcs r63455_drm_funcs = {
-+	.disable = r63455_disable,
-+	.enable = r63455_enable,
-+	.unprepare = r63455_unprepare,
-+	.prepare = r63455_prepare,
-+	.get_modes = r63455_get_modes,
-+};
-+
-+static int r63455_panel_add(struct r63455_ctx *ctx)
-+{
-+	struct device *dev = ctx->dev;
-+	struct backlight_properties bl_props;
-+	int ret, i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctx->reg_vdda); i++)
-+		ctx->reg_vdda[i].supply = vdda_driver[i];
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->reg_vdda),
-+				      ctx->reg_vdda);
-+	if (ret < 0)
-+		return ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(dual_backlight_driver); i++)
-+		ctx->reg_bl[i].supply = dual_backlight_driver[i];
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->reg_bl),
-+				      ctx->reg_bl);
-+	if (ret < 0)
-+		return ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctx->reg_lcd_bias_pos); i++)
-+		ctx->reg_lcd_bias_pos[i].supply = dual_lcd_bias_pos[i];
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->reg_lcd_bias_pos),
-+				      ctx->reg_lcd_bias_pos);
-+	if (ret < 0)
-+		return ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctx->reg_lcd_bias_neg); i++)
-+		ctx->reg_lcd_bias_neg[i].supply = dual_lcd_bias_neg[i];
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->reg_lcd_bias_neg),
-+				      ctx->reg_lcd_bias_neg);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpios = devm_gpiod_get_array(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpios))
-+		return PTR_ERR(ctx->reset_gpios);
-+
-+	memset(&bl_props, 0, sizeof(bl_props));
-+	bl_props.type = BACKLIGHT_RAW;
-+	bl_props.brightness = BRIGHTNESS_DEFAULT;
-+	bl_props.max_brightness = BRIGHTNESS_MAX_120;
-+
-+	ctx->backlight = devm_backlight_device_register(dev, dev_name(dev),
-+							dev, ctx->dsi[0],
-+							&r63455_bl_ops,
-+							&bl_props);
-+	if (IS_ERR(ctx->backlight)) {
-+		ret = PTR_ERR(ctx->backlight);
-+		dev_err(dev, "Failed to register backlight (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	ctx->panel.prepare_prev_first = true;
-+	return devm_drm_panel_add(dev, &ctx->panel);
-+}
-+
-+static int r63455_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct r63455_ctx *ctx;
-+	struct mipi_dsi_device *dsi1_device;
-+	struct device_node *dsi1;
-+	struct mipi_dsi_host *dsi1_host;
-+	struct mipi_dsi_device *dsi_dev;
-+	int ret = 0;
-+	int i;
-+
-+	const struct mipi_dsi_device_info info = {
-+		.type = "r63455-dsi-panel",
-+		.channel = 0,
-+		.node = NULL,
-+	};
-+
-+	ctx = devm_drm_panel_alloc(&dsi->dev, __typeof(*ctx), panel,
-+				   &r63455_drm_funcs, DRM_MODE_CONNECTOR_DSI);
-+
-+	ctx->dsi_init_seq = of_device_get_match_data(dev);
-+	if (!ctx->dsi_init_seq)
-+		return -ENODEV;
-+
-+	dsi1 = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-+	if (!dsi1) {
-+		DRM_DEV_ERROR(dev, "failed to get secondary dsi\n");
-+		return -ENODEV;
-+	}
-+
-+	dsi1_host = of_find_mipi_dsi_host_by_node(dsi1);
-+	of_node_put(dsi1);
-+	if (!dsi1_host) {
-+		DRM_DEV_ERROR(dev, "failed to find secondary dsi host\n");
-+		return -EPROBE_DEFER;
-+	}
-+
-+	dsi1_device = mipi_dsi_device_register_full(dsi1_host, &info);
-+	if (IS_ERR(dsi1_device)) {
-+		DRM_DEV_ERROR(dev, "failed to create dsi device\n");
-+		return PTR_ERR(dsi1_device);
-+	}
-+
-+	ctx->dsi[1] = dsi1_device;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+	ctx->dev = dev;
-+	ctx->dsi[0] = dsi;
-+
-+	ret = r63455_init_dsc_config(ctx);
-+	if (ret)
-+		return ret;
-+
-+	ctx->dsi[0]->dsc = &ctx->dsc_cfg;
-+	ctx->dsi[0]->dual_panel = true;
-+	ctx->dsi[1]->dual_panel = true;
-+	ctx->dsi[1]->dsc = &ctx->dsc_cfg;
-+
-+	ret = r63455_panel_add(ctx);
-+	if (ret) {
-+		DRM_DEV_ERROR(dev, "failed to add panel %d\n", ret);
-+		return ret;
-+	}
-+
-+	for (i = 0; i < 2; i++) {
-+		dsi_dev = ctx->dsi[i];
-+		dsi_dev->lanes = 3;
-+		dsi_dev->format = MIPI_DSI_FMT_RGB888;
-+		dsi_dev->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
-+			MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+		ret = devm_mipi_dsi_attach(dev, dsi_dev);
-+		if (ret < 0) {
-+			DRM_DEV_ERROR(dev, "dsi attach failed i = %d\n", i);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id r63455_of_match[] = {
-+	{
-+		.compatible = "sharp,ls026b3sa06",
-+		.data = r63455_panel_on_sharp_ls026b3sa06,
-+	},
-+	{
-+		.compatible = "boe,vs026c4m-n52-6000",
-+		.data = r63455_panel_on_boe_vs026c4m_n52_26000,
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, r63455_of_match);
-+
-+static struct mipi_dsi_driver r63455_driver = {
-+	.driver = {
-+		.name = "panel-synaptics-r63455",
-+		.of_match_table = r63455_of_match,
-+	},
-+	.probe = r63455_probe,
-+};
-+module_mipi_dsi_driver(r63455_driver);
-+
-+MODULE_DESCRIPTION("Synaptics R63455 DSI Panel Driver");
-+MODULE_LICENSE("GPL");
+commit 3d8cb988016155d4dc9ae011b0b91c02adb8ac0d
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
--- 
-2.43.0
+cpufreq: qcom: Add cpufreq scaling support for Qualcomm Shikra SoC
 
+This commit introduces cpufreq scaling support for the Qualcomm Shikra SoC =
+by
+adding the shikra_epss_soc_data structure. It dynamically limits the freque=
+ncy
+lookup table based on the new lut_max_entries field, replacing the hardcoded
+LUT_MAX_ENTRIES limit to prevent out-of-bounds reads.
+
+> diff --git a/drivers/cpufreq/qcom-cpufreq-hw.c b/drivers/cpufreq/qcom-cpu=
+freq-hw.c
+> index ea9a20d27b8fd..3d5a865fb8a35 100644
+> --- a/drivers/cpufreq/qcom-cpufreq-hw.c
+> +++ b/drivers/cpufreq/qcom-cpufreq-hw.c
+[ ... ]
+> @@ -236,7 +238,7 @@ static int qcom_cpufreq_hw_read_lut(struct device *cp=
+u_dev,
+>  		icc_scaling_enabled =3D false;
+>  	}
+> =20
+> -	for (i =3D 0; i < LUT_MAX_ENTRIES; i++) {
+> +	for (i =3D 0; i < soc_data->lut_max_entries; i++) {
+>  		data =3D readl_relaxed(drv_data->base + soc_data->reg_freq_lut +
+>  				      i * soc_data->lut_row_size);
+>  		src =3D FIELD_GET(LUT_SRC, data);
+
+[Severity: High]
+This is a pre-existing issue, but if the hardware frequency lookup table is
+completely populated up to soc_data->lut_max_entries with unique
+frequencies, doesn't the loop terminate without processing a duplicate
+entry?=20
+
+If so, it appears the fix-up block is bypassed, leaving the highest
+performance state marked as CPUFREQ_ENTRY_INVALID (~0u). Could this cause
+qcom_cpufreq_get_freq() to return ~0u and potentially break the scaling
+governors?
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at
+qcom_cpufreq_hw_cpu_init(), if steps fail after policy->freq_table is
+allocated via kzalloc_objs (such as a failure in qcom_cpufreq_hw_lmh_init),
+the function directly returns an error code.=20
+
+Since the cpufreq core doesn't invoke the exit() callback on an init()
+failure, does this permanently leak the dynamically allocated memory and opp
+entries?
+
+[Severity: Critical]
+This is a pre-existing issue, but in qcom_cpufreq_hw_cpu_exit(), the code
+calls kfree(data) on policy->driver_data.=20
+
+Given that qcom_cpufreq.data was originally allocated using devm_kzalloc()
+in qcom_cpufreq_hw_driver_probe(), won't passing this interior pointer
+directly to kfree() cause a slab allocator bug and kernel panic?
+
+[Severity: High]
+This is a pre-existing issue, but when hardware throttling occurs,
+qcom_lmh_dcvs_handle_irq() calls disable_irq_nosync() and schedules
+throttle_work to re-enable it.=20
+
+If the cpu is offlined before the work executes,
+qcom_cpufreq_hw_cpu_offline() cancels the work and calls
+disable_irq_nosync() again.=20
+
+Will this bring the irq disable depth to 2, so that when the cpu is brought
+back online, qcom_cpufreq_ready() calling enable_irq() only reduces the
+depth to 1 and leaves the thermal throttling interrupt permanently disabled?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but in qcom_cpufreq_hw_lmh_init(=
+),
+if request_threaded_irq() fails, it logs an error and returns 0.=20
+
+However, it doesn't seem to invalidate data->throttle_irq. Because it is
+still populated with a valid irq number, will subsequent cpufreq callbacks
+like qcom_cpufreq_ready() and qcom_cpufreq_hw_lmh_exit() erroneously attempt
+to call enable_irq() and free_irq() on it?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-shikra-cpu=
+freq-scaling-v3-0-883c13d1e514@oss.qualcomm.com?part=3D2
