@@ -1,198 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AD7317160;
-	Thu, 21 May 2026 08:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDF235DA76
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:33:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779352346; cv=none; b=sSBZJCv/KARkpTbXguId3RwkpFPgJsQlzgaSIG2GVXgGULHfdUdtK1nakjAx2/qAhW2/cwsWHazlGfjQZHOv1x321o/GnRyTBDo30boreLIzcxUzs+xk7GfU0+reEcrCbySV99IZj7SehBhucXahINCXtudeBZokv2m4q/X2HSY=
+	t=1779352392; cv=none; b=XHdRmBWFABn/YQFF+vDCvE9JgSD8lTuEMoy/ixiOzg6VAsI1o/uyLyyhk/7W0TIqA9ofvzQs4ExlK7JxlXjSA4fFV8VjQ8xOU5rbd28vSimL9W2wygUEcFN6L41qtxrLcE28J87NsBphimIfae2LsYnOcWQ1J3We5KROoqXdqnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779352346; c=relaxed/simple;
-	bh=j3LbjcW5iv3a5oBbtOF7GY85Ks07ZmgY9ZEPdwE0yQE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sQ7kyfahXfGoh5hi4WsHk0MobVFMYPD26fdyRSQkWqtoWOX8eCgTZTg35NL7WNUorHxlYdv9tsTFnLoZykRAM7Ii9Ua9ruKKilMY10SUXJN0IYSiqm0f30dBtnYUQb5IGjoDG/hdq2teh56fxfFtyvVoxUBgVMcAfgDIcqa2OnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YbXmNkVU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779352392; c=relaxed/simple;
+	bh=mDE7F8wVJgJEjEAHG5WtX3KpID23UHmJfbHZfqft+TI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fxufWSukvSH2ysqXPP/etIcVAiwU5VQpn2bWYsZ6w29UZ2Fi4ZbKBYopWsTwbHcm6ObAlHpyZZyfQS87dIvuKZRK+qkf/1BnHnb/XctR5uNvEd1tqCUfEPZKZZ4nRFltZQAa0qA/PVR4NFrZ65qaOeUHnBnpyGYLZDXml6hxNSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wOVbWEt/; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YbXmNkVU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9877C1F000E9;
-	Thu, 21 May 2026 08:32:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1779352345;
-	bh=OZ+wbHuLYtAFoKv2IHAt5WR5yXuo+mGEE/c/lTHPVU0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YbXmNkVUqvYU33zGm7TJFw+n4pRu0xxLnQ2+IMesL4mfKvmpj2p3SuAw86VURaejW
-	 Dgm/yuLoMHyEudn14b9sGNvd+azC7a9dTxxfgE9Nb/3eKsK8mj1fLeuGMFcmhmfVBk
-	 d6Ew5cv/gM7LTCatyRIkL9jM4NKtoMvifccpgqEU=
-Date: Thu, 21 May 2026 10:32:28 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Anup Patel <anup@brainfault.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>, Alexandre Ghiti <alex@ghiti.fr>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mayuresh Chitale <mchitale@gmail.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Anup Patel <anup.patel@oss.qualcomm.com>
-Subject: Re: [PATCH v4 00/12] Linux RISC-V trace framework and drivers
-Message-ID: <2026052158-barrack-gosling-3aff@gregkh>
-References: <20260429125135.1983498-1-anup.patel@oss.qualcomm.com>
- <CAAhSdy34AvYZNKDiXErv3k4OBgaJ7K-ZMQ18GEHtbqONpbh3zA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wOVbWEt/"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48fe26a177cso43274455e9.1
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:33:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779352389; x=1779957189; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wmRWXyLwLE+NX7L+OQHNM2shVkMAyplWBHtM1KeJMvA=;
+        b=wOVbWEt/NsykGxdladL9TQwC2dLRj0iJujtyTWprBn+b/w3sQW0RZ4ds6+UkU8m/vu
+         7fc0fyXMdrQx659VB018jBWIzoSDXJ0agcAga1TSGZpxYjCQ7QjXLz7IGDsEtOhYuxJM
+         kyjljXCQRug0okB/du1DIICSujiOx4DW1MWxhxUz0STUBVyEFJcwTbvS+3JI1v5S8hKP
+         reT1xNHDBZ+dcKPoPUFS5taaCP3Xg9GFcMTIiD+A6pcOHejpVEgYUB69wKWPlX4PykMK
+         DxLQvKdd6fDF2c7qA2pboUweYOchJ9CK8NhsTCv7/tr0wic0rcxdGMUBDQZfbB2rLIAn
+         /BWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779352389; x=1779957189;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wmRWXyLwLE+NX7L+OQHNM2shVkMAyplWBHtM1KeJMvA=;
+        b=seAxs4JAgknv+MZSbCD0//2Q+0mkATyK7zTU/KY6xL10GitUwnTlyZ7+WjqmDw4P91
+         v6fdHrwL1HooD3ddVoADt/6b2wiTbgA79Xn5PxIDeGWR31dj/yxGfDSjxW7nd3WhPRko
+         EHVD1R6fj6LI4/SRTZDl6lImiT4yM4nQIegmod/IUjr3LnpcOewKBAXEpWAY0piKUKPM
+         JThvc3xgoWxs02z2o2ra9m0+ywnb4C2jBBoRbJiSXh4zZ2I29HtfToKB9aO0GEyfTjwI
+         v2MVVQ4xGa2UuF4bpXhYMyVJIITpL7rCPG0SgFPugJLVQ9Iqnv4fHCGNNnlHUSRrULGu
+         hTog==
+X-Gm-Message-State: AOJu0YwP7vdsGYDjdRFRWGz6wQUAVcsDkrxSM5ng5OP1tt7hNZRApo0e
+	E6Gm9ulNk4SQbOxeD2uFco/MDtRQ0UuppPldSHcR6nLjOcxk7JXMshWN4Dli47OtJZilZ25UsbJ
+	huxg5
+X-Gm-Gg: Acq92OEpdx/i1LPkpWh1LxQQvxy0z5sRRBeYiNzA8qLhOlaKa4l0vG22xmD5b4E9ehm
+	b9vO9fiPUU5WJzGaynLpkIdXCbnq1ZyV8f3k9COqwWok8Thz75GwJLXnlk7AbMe2KXTgfLpTK1A
+	PJj36VHVnOolMd0G6QKKeNOtP9GgTa1JHnIvHJxIydZAQosIAqEYbUDrz233DE4lAlEvfhE8GFD
+	a+YyoeXX/1nscftrz/Re9H/NSI+dLSUcw/K8/j1ZTTXHCj1z7rhGDeLw2tGQLjCCgGRKPRY4yO+
+	J09b7mYTWttxJ3rE1Ug0j0yJj4eb/DHYhmrjlIgqStTmkh0Y8gOR9HHtilOg7g74VqasCGwK+mv
+	e98PMlYY1DBv5BFyLrjD8a3bzbbpmaisvYPxQ2mUoi+L9djRFCLPvgwflGfGI76bADsIhOmyZ03
+	bTF5jnVpdI5A1H5tJfhFuScNYCMMTrJdxZp+R2HuLnSSbHKnWE33nOpMLLDJLqYHBcvM5LPgAPW
+	vDfaxDlZRKdebSTMg==
+X-Received: by 2002:a05:600c:450c:b0:490:320:949 with SMTP id 5b1f17b1804b1-490360e3332mr22610385e9.27.1779352389353;
+        Thu, 21 May 2026 01:33:09 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:e038:7e8a:7467:8c6c? ([2a01:e0a:106d:1080:e038:7e8a:7467:8c6c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49035ed7ea3sm10645555e9.26.2026.05.21.01.33.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 21 May 2026 01:33:08 -0700 (PDT)
+Message-ID: <19925582-2e79-4226-815d-0b062312431f@linaro.org>
+Date: Thu, 21 May 2026 10:33:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAhSdy34AvYZNKDiXErv3k4OBgaJ7K-ZMQ18GEHtbqONpbh3zA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 1/2] dt-bindings: leds: backlight: document the SY7758
+ 6-channel High Efficiency LED Driver
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+References: <20260521-topic-sm8650-ayaneo-pocket-s2-sy7758-v4-1-73c732615e4a@linaro.org>
+ <20260521081943.4CDAC1F000E9@smtp.kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260521081943.4CDAC1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 19, 2026 at 01:51:43PM +0530, Anup Patel wrote:
-> Hi Greg,
+On 5/21/26 10:19, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Missing main power supply property (e.g., `vin-supply` or `vsys-supply`) for the LED boost converter.
+> --
 > 
-> On Wed, Apr 29, 2026 at 6:21 PM Anup Patel <anup.patel@oss.qualcomm.com> wrote:
-> >
-> > This series adds initial support for RISC-V trace framework and drivers.
-> > The RISC-V trace v1.0 specification is already ratified and can be found at:
-> > https://github.com/riscv-non-isa/e-trace-encap/releases/tag/v1.0.0-ratified
-> > https://github.com/riscv-non-isa/tg-nexus-trace/releases/tag/1.0_Ratified
-> >
-> > The RISC-V trace framework and drivers are designed to be agnostic to the
-> > underlying trace protocol hence both RISC-V E-trace and RISC-V N-trace should
-> > work fine. The discovery of trace protocl parameters are left to user-space
-> > trace decoder.
-> >
-> > In ther future, there will be subsequent series adding:
-> > 1) Sysfs support
-> > 2) ACPI support
-> > 3) More trace drivers (such as funnel, ATB, etc)
-> > 4) Support for upcoming self-hosted trace specification
-> > 5) ... and more ...
-> >
-> > These patches can also be found in the riscv_trace_support_v3 branch at:
-> > https://github.com/avpatel/linux.git
-> >
-> > To test the patches, we need QEMU virt machine with RISC-V trace support
-> > which can be found in rv-etrace branch at:
-> > https://gitlab.com/danielhb/qemu.git
-> >
-> > To capture rvtrace data using perf on QEMU virt machine do the following:
-> > 1) Launch QEMU virt machine
-> >    $ qemu-system-riscv64 -nographic -M virt -smp 2 -bios fw_dynamic.bin \
-> >      -kernel Image -append "root=/dev/vda rw console=ttyS0 earlycon=sbi" \
-> >      -drive file=/path/to/rootfs.img,id=disk1,if=none,format=raw \
-> >      -device virtio-blk-device,drive=disk1
-> > 2) Run perf record to capture rvtrace data
-> >    $ perf record --all-cpus -e rvtrace/event=0x1/ <command>
-> > 3) The step2 would create a perf.data file which has the rvtrace data.
-> >    Now run perf report -D and look for PERF_RECORD_AUXTRACE event
-> >    section(s) which point(s) to the actual rvtrace data offset.
-> >
-> > Changes since v3:
-> >  - Rebased on Linux-7.1-rc1
-> >  - Use kzalloc_obj() in-place of kzalloc() in PATCH2, PATCH3 and PATCH9
-> >  - Improved PATCH7 to save the previous WP value
-> >
-> > Changes since v2:
-> >  - Rebased on Linux-7.0-rc1
-> >  - Addressed Rob's comments on DT bindings in PATCH1
-> >  - Addressed ref-count related issues in rvtrace_of_parse_outconns()
-> >    of PATCH2
-> >  - Made RVtrace framework more generic by avoiding implicit access
-> >    to component registers in PATCH2
-> >  - More improvements in trRamStart/Limit/WP programming and other
-> >    improvments in PATCH7
-> >  - Removed RVTRACE_BUF_LEN from PATCH9
-> >  - Removed redundant page_size from PATCH10
-> >  - Renamed found_etm in PATCH10
-> >  - Removed rvtrace_recording_init() declaration from header in PATCH11
-> >
-> > Changes since v1:
-> >  - Rebased on Linux-6.18-rc3
-> >  - Addressed Rob's comments in dt-bindings added by PATCH1
-> >  - Get reference of conn->dest_fwnode and add missing break in
-> >    rvtrace_of_parse_outconns() of rvtrace-platform drivers added
-> >    by PATCH2
-> >  - Added new inline function rvtrace_comp_is_empty() in PATCH2
-> >    and used it in rvtrace_encoder_stop() added by PATCH5
-> >  - Fixed trRamWPLow usage in PATCH7
-> >  - Determine RAM sink buffer size based on component implementation
-> >    ID and reduce default RAM sink buffer size to 1MB
-> >  - Add new PATCH8 to enable DMA_RESTRICTED_POOL in RISC-V defconfig
-> >    so that implementations with RAM sink address restrictions can
-> >    be handled.
-> >
-> > Anup Patel (6):
-> >   dt-bindings: Add RISC-V trace component bindings
-> >   rvtrace: Initial implementation of driver framework
-> >   rvtrace: Add functions to create/destroy a trace component path
-> >   rvtrace: Add function to copy into perf AUX buffer
-> >   riscv: Enable DMA_RESTRICTED_POOL in defconfig
-> >   MAINTAINERS: Add entry for RISC-V trace framework
-> >
-> > Mayuresh Chitale (6):
-> >   rvtrace: Add functions to start/stop tracing on a component path
-> >   rvtrace: Add trace encoder driver
-> >   rvtrace: Add trace ramsink driver
-> >   rvtrace: Add perf driver for tracing using perf tool
-> >   perf tools: Add RISC-V trace PMU record capabilities
-> >   perf tools: Initial support for RISC-V trace decoder
-> >
-> >  .../bindings/riscv/riscv,trace-component.yaml | 120 +++
-> >  MAINTAINERS                                   |  11 +
-> >  arch/riscv/configs/defconfig                  |   1 +
-> >  drivers/Makefile                              |   1 +
-> >  drivers/hwtracing/Kconfig                     |   2 +
-> >  drivers/hwtracing/rvtrace/Kconfig             |  33 +
-> >  drivers/hwtracing/rvtrace/Makefile            |   6 +
-> >  drivers/hwtracing/rvtrace/rvtrace-core.c      | 787 ++++++++++++++++++
-> >  drivers/hwtracing/rvtrace/rvtrace-encoder.c   | 130 +++
-> >  drivers/hwtracing/rvtrace/rvtrace-perf.c      | 345 ++++++++
-> >  drivers/hwtracing/rvtrace/rvtrace-platform.c  | 209 +++++
-> >  drivers/hwtracing/rvtrace/rvtrace-ramsink.c   | 338 ++++++++
-> >  include/linux/rvtrace.h                       | 352 ++++++++
-> >  tools/perf/arch/riscv/util/Build              |   1 +
-> >  tools/perf/arch/riscv/util/auxtrace.c         | 219 +++++
-> >  tools/perf/util/Build                         |   1 +
-> >  tools/perf/util/auxtrace.c                    |   4 +
-> >  tools/perf/util/auxtrace.h                    |   1 +
-> >  tools/perf/util/rvtrace-decoder.c             |  91 ++
-> >  tools/perf/util/rvtrace.h                     |  19 +
-> >  20 files changed, 2671 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml
-> >  create mode 100644 drivers/hwtracing/rvtrace/Kconfig
-> >  create mode 100644 drivers/hwtracing/rvtrace/Makefile
-> >  create mode 100644 drivers/hwtracing/rvtrace/rvtrace-core.c
-> >  create mode 100644 drivers/hwtracing/rvtrace/rvtrace-encoder.c
-> >  create mode 100644 drivers/hwtracing/rvtrace/rvtrace-perf.c
-> >  create mode 100644 drivers/hwtracing/rvtrace/rvtrace-platform.c
-> >  create mode 100644 drivers/hwtracing/rvtrace/rvtrace-ramsink.c
-> >  create mode 100644 include/linux/rvtrace.h
-> >  create mode 100644 tools/perf/arch/riscv/util/auxtrace.c
-> >  create mode 100644 tools/perf/util/rvtrace-decoder.c
-> >  create mode 100644 tools/perf/util/rvtrace.h
-> >
-> > --
-> > 2.43.0
-> >
+> commit f0b2513f96c13c59660da8495c808919bb4b44ab
+> Author: Neil Armstrong <neil.armstrong@linaro.org>
 > 
-> Friendly ping ?
+> dt-bindings: leds: backlight: document the SY7758 6-channel High Efficiency LED Driver
 > 
-> If this series looks good to you then I can send first PR for rvtrace ?
+> Document the Silergy SY7758 6-channel High Efficiency LED Driver
+> used for backlight brightness control.
+> 
+>> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>> new file mode 100644
+>> index 0000000000000..80e978d691c29
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+> 
+> [ ... ]
+> 
+>> +properties:
+>> +  compatible:
+>> +    const: silergy,sy7758
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  vddio-supply: true
+> 
+> [Severity: Low]
+> Should there be a vin-supply or vsys-supply property included here for the
+> main power input?
 
-They should be as patches, not a pull request, after you get everyone to
-agree that the user api is ok.
+No, the vin is provided by the panel, it's not under Linux control
 
-thanks,
+> 
+> Looking at the driver implementation, it references VBST (V-Boost) registers,
+> confirming it operates as a boost converter to drive multiple LED channels.
+> A logic I/O supply like vddio-supply typically cannot provide the high
+> current required to drive a boost coil for a backlight.
+> 
+> Omitting the primary power supply could prevent the kernel from actively
+> managing the main power rail on boards where it is switchable.
+> 
+>> +
+>> +  enable-gpios:
+>> +    maxItems: 1
+>> +
+>> +required:
+> 
+> [ ... ]
+> 
 
-greg k-h
