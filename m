@@ -1,83 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4926B2BE655
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:32:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6127830EF7D
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:52:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779327151; cv=none; b=ONBOqmuq/bYgv0mMkca94DtdGXs42Mt4ANOU5ielZRr9YOLgdfvOjeZ5TXmO7aFKPYXwRtMY0N1zbrHYGuzr6p+V0FpaK+eV3P2e2qUUo9GtmJBYLxPoypR39p2fhHe/+v1TUR/0nuSH42VFRETqoBbpwthbsTLLtKqdcZotkdc=
+	t=1779328354; cv=none; b=FI1QjbNo2JD46Pm3ps4jvg/D7gefmRWipy9QiGfIUSE+xt/cdy4G3bYE9zjMu8rLOYVKy3Ri6p+lVXZYzaPw3Opujyu3cp26n5o0FzkH2lfHb8P+hIX2+8yiQDt9pLZO0oLRExoUQFT/8fXofqjBLuYtOzESxMivHDd/uBlbeds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779327151; c=relaxed/simple;
-	bh=lLNMwq6t0uGBVBJhdlCtfxnyfXrg2Jh3Gt2OOlmGFdE=;
+	s=arc-20240116; t=1779328354; c=relaxed/simple;
+	bh=M7lT5id78LwczkebB9TPjZdy1p/74fkyz45FjLhZkTw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nuZnXjHmMXeWK3qjLo5xJ1ow6OLLnXmY+NnaO0II32/HWLCHTN14FrgGu9X/96vYWif7yf2ARnkqNA27kLDHTCrKtQFBAjpRMrWYkEB5H8POeXoaFDuBKdmWG/cAGXTmfebMmijdzlc33lupSXM05RlLuqM112xJUrEi/19wWS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZDnRymr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=H7t854R5DZP4JgslIOiGJiMtE+z+1ZbVXxq9jRxdvqXYdNWKcEaS8VV7TXYazLVY3QJpHdPE9eYapa6ZxWwpznjxS6DrAtKq6KUSa72E/uS/FYT4uyuLo4WOVNa/vlQEWwTfkSLAMvA249Tr8zRh9BxX4eyGoLP90ialB0oiYKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz0jAjWV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZDnRymr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4F31F000E9;
-	Thu, 21 May 2026 01:32:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz0jAjWV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C111F000E9;
+	Thu, 21 May 2026 01:52:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779327140;
-	bh=4oCHS9JaNse608Ki3VIT/VqoREB//wwT9D+C6wCoSSg=;
+	s=k20260515; t=1779328346;
+	bh=WNS/pIAxF1J6xE3ucTOOTwB5PG3rS5FLeWPYQdnG5pA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WZDnRymrwc5QBndBcFkkg6ikfeFSknDYKuiC5o5Jrrf2EuGJA7WBJpRaS1ID94Rsf
-	 yGidXowM6ziDRmswFzz+rhGBdkOdrIce6SEBucMCy0HxmObN94uoJ+t5wsKxze7vfs
-	 k8cwuaYCcQUvIgK5OVXrCNft1n0IhcNzlirdfprzjwRR1OdzwtyqjVMAHNbezwQiAg
-	 OmI0UIItcX5mR9lBb2jymCmCm0/T4N5ZvsqMKJ60cIdeJkFF8auluRvG2w24oRxgUO
-	 aQ4zTldvBtrKOK3c62fc9LJXCfEwEurNDE+Ojc5ENh44crLuRvvITpU98UNbh/4St/
-	 kdS685OdGdYwg==
+	b=bz0jAjWVV1KDOkioT0hv2oxiQnDwP8aXmD9x0zE3fQZZrzvDddgQh6hY/HMmgDiTP
+	 WuS2hm4HUJjlbZEgWWVhTDLJFWsKsAZj40wdRw55IAdfTnuIw1gli4JuGtrIEhLo+V
+	 DONkfAl9S+OnU+YS8hUSTJ48NtRo8zh59c8u9vEoTC6X+hNeisZlZSwE7rUxAUwsys
+	 1Z1DxWSwsRC1ppF3K3RMRMxi8biOtWnasK0OiBJCmuehLBcJjyywWCNfLeVRTxuRaE
+	 CEYLmlALGLES2Sg+0gv4+c/MBQQ1Uf7YGZm6F/TpG3uLPxyNKNoZiSK5K6ziqs3Z7E
+	 PSprGWPl+0xDA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] phy: qcom: qmp-combo: skip USB power_off/exit after
- device teardown
+Subject: Re: [PATCH v2 1/4] phy: qcom: qmp-combo: skip USB power_off/exit
+ after device teardown
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Michael Scott" <mike.scott@oss.qualcomm.com>
-Cc: neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521003615.1260844-2-mike.scott@oss.qualcomm.com>
-References: <20260521003615.1260844-2-mike.scott@oss.qualcomm.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20260521010935.1333494-2-mike.scott@oss.qualcomm.com>
+References: <20260521010935.1333494-2-mike.scott@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 01:32:18 +0000
-Message-Id: <20260521013219.BC4F31F000E9@smtp.kernel.org>
+Date: Thu, 21 May 2026 01:52:23 +0000
+Message-Id: <20260521015225.56C111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Bailing out early in `qmp_combo_usb_exit()` completely bypasses th=
-e release of shared common resources, causing a permanent reference leak wh=
-en a Type-C switch to `DP_ONLY` occurs.
-- [High] A lockless Time-of-Check to Time-of-Use (TOCTOU) race condition on=
- `qmp->usb_init_count` in `qmp_combo_usb_exit()` leads to integer underflow=
- and state corruption.
+- [High] The lockless check of `qmp->usb_init_count` in `qmp_combo_usb_exit=
+()` introduces a Time-of-Check to Time-of-Use (TOCTOU) race condition that =
+can lead to an integer underflow and unbalanced resource management.
 
 Pre-existing issues:
-- [High] The patch attempts to fix an MMIO crash by introducing a Use-After=
--Free read on the `qmp` driver data structure.
+- [Critical] The patch attempts to prevent a crash by checking `qmp->usb_in=
+it_count` after the device's backing resources are released, but the `qmp` =
+structure itself has already been freed via `devm` cleanup, resulting in a =
+Use-After-Free.
 --
 
-commit 35c4e56f462fac540e8354624e2048c6bd3ecd9e
+commit 639386ffdb78db9a5c3e78a1f3ada8713f38acd7
 Author: Michael Scott <mike.scott@oss.qualcomm.com>
 
 phy: qcom: qmp-combo: skip USB power_off/exit after device teardown
 
-This commit adds checks to qmp_combo_usb_power_off() and qmp_combo_usb_exit=
-()
-to guard against being called by an external consumer after the device's
-backing resources have been released. It uses the usb_init_count variable
-to determine if the PHY is powered on, skipping the operations to prevent
-an oops.
+The commit attempts to prevent crashes when external consumers like dwc3
+call phy_exit() after the QMP PHY's backing resources have been released,
+by guarding the power_off and exit paths with a check on the
+usb_init_count balance.
 
 > diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
 comm/phy-qcom-qmp-combo.c
-> index 93f1aa10d4008..4057583c0cfeb 100644
+> index cdcfad2e86b1d..0db200292642e 100644
 > --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
 > +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> @@ -3922,6 +3922,17 @@ static int qmp_combo_usb_power_off(struct phy *phy)
+> @@ -3926,6 +3926,17 @@ static int qmp_combo_usb_power_off(struct phy *phy)
 >  	struct qmp_combo *qmp =3D phy_get_drvdata(phy);
 >  	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
 > =20
@@ -88,31 +85,24 @@ comm/phy-qcom-qmp-combo.c
 > +	 */
 > +	if (!qmp->usb_init_count) {
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this check introduce
-a use-after-free read on the qmp driver data structure?
+[Severity: Critical]
+This is a pre-existing issue, but the qmp structure itself is allocated
+using devm_kzalloc(), so it is freed during the device's devres cleanup.
+If dwc3 calls phy_exit() after qmp_combo has been unbound, won't accessing
+qmp->usb_init_count result in a Use-After-Free (UAF) read?
 
-The commit message notes that this path runs after the device's backing
-resources are released. Since qmp is allocated using devm_kzalloc(), it is
-also freed during devres teardown.
+If the freed memory happens to be zeroed, the read evaluates to 0 and
+successfully masks the bug by skipping the remainder of the function. If
+SLUB poisoning or KASAN is enabled, this will trigger a UAF splat or read a
+non-zero value, proceeding to call mutex_lock(&qmp->phy_mutex) on freed
+memory.
 
-When dwc3 calls phy_exit() later, phy_get_drvdata() returns a freed pointer.
-
-Dereferencing qmp->usb_init_count accesses this freed memory. If the memory
-was reallocated and non-zero, or if KASAN is enabled, wouldn't this still
-trigger a use-after-free and crash instead of masking the teardown order bu=
-g?
-
-> +		dev_dbg(qmp->dev, "%s: PHY not powered on, skipping\n",
-> +			__func__);
-> +		return 0;
-> +	}
-> +
->  	clk_disable_unprepare(qmp->pipe_clk);
+Does this patch replace a vmap UAF on qmp->pcs with a slab UAF on the freed
+qmp structure instead of fixing the underlying lifecycle bug?
 
 [ ... ]
 
-> @@ -3966,6 +3977,17 @@ static int qmp_combo_usb_exit(struct phy *phy)
+> @@ -3968,6 +3979,17 @@ static int qmp_combo_usb_exit(struct phy *phy)
 >  	struct qmp_combo *qmp =3D phy_get_drvdata(phy);
 >  	int ret;
 > =20
@@ -124,40 +114,24 @@ g?
 > +	if (!qmp->usb_init_count) {
 
 [Severity: High]
-Does bailing out early here bypass the release of shared common resources,
-causing a reference leak when a Type-C switch to DP_ONLY occurs?
+Does checking qmp->usb_init_count outside of qmp->phy_mutex introduce a
+Time-of-Check to Time-of-Use (TOCTOU) race?
 
-When the Type-C mux switches to QMPPHY_MODE_DP_ONLY,
-qmp_combo_typec_mux_set() decrements usb_init_count to 0 but leaves
-init_count unchanged. If the consumer unbinds and calls phy_exit() in
-this state, this early return bypasses the qmp_combo_com_exit(qmp, false)
-call.
+If a concurrent thread (such as qmp_combo_typec_mux_set() reacting to a
+Type-C event) acquires the mutex and decrements usb_init_count to zero
+immediately after this lockless check succeeds, qmp_combo_usb_exit() will
+proceed to acquire the lock.=20
 
-Doesn't this mean qmp->init_count is never decremented, permanently
-leaking shared resources like clocks and regulators?
+It will then call qmp_combo_usb_power_off(), which will safely check the
+count under the lock and return 0 for success.
 
+Because qmp_combo_usb_power_off() returns success, qmp_combo_usb_exit()
+mistakenly proceeds to call qmp_combo_com_exit() and unconditionally
+executes qmp->usb_init_count--.=20
 
-[Severity: High]
-Is there a lockless Time-of-Check to Time-of-Use race condition here?
-
-This check is performed before acquiring qmp->phy_mutex. If another path
-like qmp_combo_typec_mux_set() holds the mutex and decrements
-usb_init_count to 0:
-
-CPU1
-qmp_combo_usb_exit()
-   if (!qmp->usb_init_count) // observes > 0
-   mutex_lock(&qmp->phy_mutex); // blocks
-
-CPU2
-qmp_combo_typec_mux_set()
-   mutex_lock(&qmp->phy_mutex);
-   qmp->usb_init_count--; // becomes 0
-   mutex_unlock(&qmp->phy_mutex);
-
-When CPU1 acquires the lock, it proceeds to decrement qmp->usb_init_count
-without re-verifying the state. Doesn't decrementing 0 cause an integer
-underflow to UINT_MAX, breaking the PHY's power management balance?
+Since the counter is an unsigned int and is already 0, could this wrap
+around to UINT_MAX and cause unbalanced regulator and clock disables
+which can crash the system?
 
 > +		dev_dbg(qmp->dev, "%s: PHY not initialised, skipping\n",
 > +			__func__);
@@ -166,7 +140,8 @@ underflow to UINT_MAX, breaking the PHY's power management balance?
 > +
 >  	mutex_lock(&qmp->phy_mutex);
 >  	ret =3D qmp_combo_usb_power_off(phy);
+>  	if (ret)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521003615.1260=
-844-1-mike.scott@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521010935.1333=
+494-1-mike.scott@oss.qualcomm.com?part=3D1
