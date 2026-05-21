@@ -1,134 +1,202 @@
-Received: from mail-m32111.qiye.163.com (mail-m32111.qiye.163.com [220.197.32.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EFB34EF1F;
-	Thu, 21 May 2026 08:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394F82F362B
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779353088; cv=none; b=W9Ca1t1ED/Qeyde6+MEvI7F4ybHYfLzuCJ7R0ZQjWL0V1cK8bHkGihgZwFRAbQVV4B+HUOCcwRa5CBU4NEYkG/HcMbN7+vpb/z0dys1z2luiu6Fy0CAwxDrcxT1h7mQv3K4slNR6id1bhG4kkGASH62k9UALnl20bcQSGbYnu9s=
+	t=1779353139; cv=none; b=KETTZUmb7als+yZBkn1oqSCo0YBtxL22oKw9OmFSnvN0STZx+RO0Gwv/WIt9rGMg2T+6ncvJ1Uy0l98NK6i0UZ2G2TUPU3BItYt4qqKU7mXAgmjkKNX0+BTTVq6TEowNy5lzOCZ3TEJ4PqKwDT+feFPgRDRsvZLQa5cHUOENzOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779353088; c=relaxed/simple;
-	bh=52aGuBysztm7C/lZOPWUUGAQiFJ5sqeIqjrIhPDdS7A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ArTMo0sTVuDwOhEwaBx9827UdbQyr4GydTE/YwntGwX/YqUFmctCLh+S4rzXK04dKcIYQitJUCsbGWFI+MqnzAJaa7H010t6k49SPGJchTt5cPyTjVOx+hoEK6a7rFB9zpQA9Y2BFfPTkKwqJoY3ZI7I1rFsS5FQJ/63angWYhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ezoFei7n; arc=none smtp.client-ip=220.197.32.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1779353139; c=relaxed/simple;
+	bh=5jcrO5tOvosfJDVSl5LeQpG72CAK2ujBuU1VzW4l294=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BTLiyYG8CN5qUYe3ku81i38XfW/dqOL3fx1Q5/pg8nA12Uo0F7N2Bid3wWJnuhRP5czDNl/1mMNW8IF/WdvuVnwU6tn8b3uPx4vdJY4MkWxK9G4G05lxkkIoGrRcPs4fpIOnQ3LI3xaFsHEUciOKsvK3TyhCPdXIyv8InuxAPuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6NK2Tyo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ezoFei7n"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3f48aae9f;
-	Thu, 21 May 2026 16:09:08 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v6 10/10] drm/rockchip: analogix_dp: Add support for RK3576
-Date: Thu, 21 May 2026 16:08:35 +0800
-Message-Id: <20260521080835.1362416-11-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260521080835.1362416-1-damon.ding@rock-chips.com>
-References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6NK2Tyo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14B71F000E9;
+	Thu, 21 May 2026 08:45:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779353138;
+	bh=eZ2hLaDgzHxqWfW7V6FIeKRfeVb4EFIGgA1gxsKZD3s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=g6NK2Tyo35KsE/PnnCAa5fjMbJ9nLV5SLoXUDo+ZFgwXzbPlBzBRQJIwsHbgWEHLr
+	 QtPHZ8cn5pfITWvZwPlIQ1DSP2GM4pOU4tOdIVnhbVWTyVv3MtQzm5uQEw8X5/NAkP
+	 7s3EdTiyDbODndxxOBPXjwgKvcaiUZQ/JehmkPYviK03uL54C/Nn/Ajums7a5FVY1n
+	 KDthPsoyQXIDV4s1unyyk7ZHMIyMv7/1vT0z4craJTO56mC5osKi0YTB4LzUB0ZUBk
+	 vVCBGVaarGXkJUIT5K50yMj0BFpFuodRVy2v9tQgJG0dGJ4+sG4w3YpU5LDPKY/AMd
+	 GRX1hxuHlWLHQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] backlight: Add SY7758 6-channel High Efficiency
+ LED Driver support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260521-topic-sm8650-ayaneo-pocket-s2-sy7758-v4-2-73c732615e4a@linaro.org>
+References: <20260521-topic-sm8650-ayaneo-pocket-s2-sy7758-v4-2-73c732615e4a@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 08:45:37 +0000
+Message-Id: <20260521084537.E14B71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e4994cb4903a3kunm810e96ea5ebfd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGE5MVk9KHRhNSUpJGB0eQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=ezoFei7nYoGxv3lXndV56qhGj7tNKh2xwZnb2uizqTT9G67O/ccFyMoJvOCQymq5hMAdehqBZzljD/ZoS31W8BFmqHG9B4wMAq2LoYsuCeyFWRzyWy2xQNAnBl5b0JgGTVSY6B7W8oH+OY8fjM+779RxDF0pRgq0cQb3yVZhMOE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=1rwBuI0cZbyqqOuJPZchZLjHCX6v5TeUOe9K2mvsrfM=;
-	h=date:mime-version:subject:message-id:from;
 
-RK3576 integrates Analogix eDP 1.3 TX and Samsung combo PHY
-hardware blocks that fully match the proven RK3588 design.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The driver incorrectly uses regmap_write() to update specific fiel=
+ds in configuration registers, wiping out unreferenced bitfields.
+- [High] The 'enable' GPIO is driven HIGH during probe but never explicitly=
+ set LOW during removal or on probe failure, causing hardware resource leak=
+s and potential electrical back-powering.
+- [Medium] Critical hardware configuration is lost across system suspend/re=
+sume cycles.
+- [Medium] Non-atomic updates to the 12-bit brightness registers may cause =
+visible backlight flicker.
+--
 
-Add dedicated chip data table and device tree matching entry
-to bring up basic eDP functionality for the RK3576 platform.
+commit 98100c9f3380a75d76d0213c9564c18833a54b8e
+Author: KancyJoe <kancy2333@outlook.com>
 
-Support is limited to RGB output up to 4K@60Hz for now; audio,
-PSR and other advanced eDP 1.3 features remain unvalidated.
+backlight: Add SY7758 6-channel High Efficiency LED Driver support
+   =20
+This commit implements support for the Silergy SY7758 6-channel High
+Efficiency LED Driver used for backlight brightness control in the Ayaneo
+Pocket S2 dual-DSI panel.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/s=
+y7758.c
+> new file mode 100644
+> index 0000000000000..198d559394389
+> --- /dev/null
+> +++ b/drivers/video/backlight/sy7758.c
 
----
+[ ... ]
 
-Changes in v2:
-- Split out a separate patch to enable the "hclk" clock.
-- Add Reviewed-by tag.
+> +static int sy7758_backlight_update_status(struct backlight_device *backl=
+ight_dev)
+> +{
+> +	struct sy7758 *sydev =3D bl_get_data(backlight_dev);
+> +	unsigned int brightness =3D backlight_get_brightness(backlight_dev);
+> +	int ret;
+> +
+> +	ret =3D regmap_write(sydev->regmap, REG_BRT_12BIT_L,
+> +			   FIELD_PREP(MSK_BRT_12BIT_L,
+> +				      brightness & 0xff));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(sydev->regmap, REG_BRT_12BIT_H,
+> +			   FIELD_PREP(MSK_BRT_12BIT_H,
+> +				      (brightness >> 8) & 0xf));
 
-Changes in v3:
-- Add Reviewed-by tag.
+[Severity: Medium]
+Will writing the LSB and MSB in separate I2C transactions cause visible
+flicker during smooth dimming?
 
-Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+If the brightness transitions across a byte boundary (e.g., from 0x0FF to
+0x100), writing the LSB first will momentarily set the hardware to 0x000
+before the MSB write corrects it to 0x100.
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index d2af5eb29dbb..d4c5dd61e95b 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3576_edp[] = {
-+	{
-+		.chip_type = RK3576_EDP,
-+		.reg = 0x27dc0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3588_edp[] = {
- 	{
- 		.edp_mode = GRF_REG_FIELD(0x0000, 0, 0),
-@@ -539,6 +547,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
- };
--- 
-2.34.1
+Unless the hardware specifically latches the value only when the MSB is
+written, could this use regmap_bulk_write() to update both contiguous
+registers atomically?
 
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct backlight_ops sy7758_backlight_ops =3D {
+> +	.options =3D BL_CORE_SUSPENDRESUME,
+
+[Severity: Medium]
+Since BL_CORE_SUSPENDRESUME is set, does the driver also need PM suspend/re=
+sume
+callbacks to restore the configuration registers?
+
+If the system cuts power to the controller during suspend, the initializati=
+on
+performed in sy7758_init() might be permanently lost upon resume, causing t=
+he
+device to operate with uninitialized or default settings.
+
+Could a regmap cache with regcache_sync() in a resume handler be used, or
+perhaps re-invoking sy7758_init() on resume?
+
+> +	.update_status =3D sy7758_backlight_update_status,
+> +};
+> +
+> +static int sy7758_init(struct sy7758 *sydev)
+> +{
+> +	int ret =3D 0;
+> +
+> +	ret =3D regmap_write(sydev->regmap, REG_DEV_CTL,
+> +			   BIT_DEV_CTL_FAST | BIT_DEV_CTL_BL_CTLB |
+> +			   FIELD_PREP(MSK_DEV_CTL_BRT_MODE, 2));
+
+[Severity: High]
+Does using regmap_write() here wipe out unreferenced bitfields in these
+configuration registers?
+
+Because regmap_write() replaces the entire register contents, it implicitly
+clears all unreferenced bitfields to 0. For example, in REG_OTP_CFG9 below,
+writing FIELD_PREP(MSK_CFG9_VBST_MAX, 4) forces JUMP_EN, JUMP_TH, and
+JUMP_VOLTAGE to 0, which might destroy their default or OTP-loaded values.
+
+Could this use regmap_update_bits() when modifying specific fields to prese=
+rve
+the state of other bits?
+
+> +	if (ret)
+> +		return ret;
+
+[ ... ]
+
+> +static int sy7758_probe(struct i2c_client *client)
+> +{
+> +	struct backlight_properties props =3D { };
+> +	struct device *dev =3D &client->dev;
+> +	struct sy7758 *sydev;
+> +	unsigned int dev_id;
+> +	int ret;
+
+[ ... ]
+
+> +	/* Get and enable regulators */
+> +	ret =3D devm_regulator_get_enable(dev, "vddio");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get regulator\n");
+> +
+> +	fsleep(100);
+> +
+> +	/* Get enable GPIO and set to high */
+> +	sydev->gpio =3D devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
+
+[Severity: High]
+Is the enable GPIO ever explicitly driven LOW during removal or on probe
+failure?
+
+During driver removal or probe failure, devres automatically calls
+gpiod_put(), which simply releases the software descriptor without actively
+driving the pin LOW. Immediately afterward, devres disables the vddio regul=
+ator.
+
+This sequence leaves the host driving a logic HIGH into the enable pin of an
+unpowered SY7758 controller, which violates electrical sequencing and might
+cause back-powering or hardware damage.
+
+Could the driver register a custom devm action (e.g., using
+devm_add_action_or_reset()) to explicitly set the GPIO to 0 before the
+regulator is disabled?
+
+> +	if (IS_ERR(sydev->gpio))
+> +		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
+> +				     "failed to get enable GPIO\n");
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-topic-sm86=
+50-ayaneo-pocket-s2-sy7758-v4-0-73c732615e4a@linaro.org?part=3D2
