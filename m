@@ -1,67 +1,65 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABC2314A6B
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 14:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85243655CF
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 14:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779374725; cv=none; b=CBST0KNSVXsWiY5GElwzeD5xFZtkWc6MiMj1O9AbtsUxuI8cH5TfvlROFf12fGAYHqQyaUVPA3JLF8/tUi/OZfJ6VmMAuDHx3E+uO8XNmOyIjwC7GfgrnliLBelri2rRn9gcSDyOddgf1E3+FhB2l2DqAMCBN6GjwTMJ5BYMoSc=
+	t=1779374801; cv=none; b=UvdIgy/ONJkjZCkFET3B5bVUXcVeBRMTdJzcJufBpBTxybxmESbyiSNCHT3zJUP3zSjJ6WbXlVII9PLYQZ6tCbDC/kXF9a7OyYmrjJlNzZ3neR7q1O6a8eHbiUjO1GhmCMF6dbJ2RWTthJXl4n9dlpbpl4PXk9HM00yjTFkLstM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779374725; c=relaxed/simple;
-	bh=jeLdidJLllZzK2MXT62T70ecJUPwLSRHEx1l1dcK0nc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r6htDXRl9s4UghYmITneJqH6rWNjSy2ZMUgb8MupTYtQylCguBcwZDorPdsHEx7qgh5XcGGXMh4faiCfWnntsxoPtvh+awliDgxgfv5KXAJhpTLozpmXPaHWSzdXeSr6IIngQqJq605abxZUdt+eg08kLTB1O27xuTyO6hJbCBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kAX7VB0D; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779374801; c=relaxed/simple;
+	bh=9/4X222Ffhg6qxLQzzfx1T7bWcnktGM6AwovaxbqqjY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=giKBJgjaQveAV8qoVo3hcXgWmQldItF0rTfszoymPh/zkLBcMH24i/kQWreZL8nYg5pUmVwNAD9hgB7x/C7bs8J119hiMmkGItk8hOJAPFGvZFyKKQlKvPoGa6Fm5yrOY92d0QijVXASdZVd5Ynfg9XthqtOJjFuHVsU3yxpwmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=obldQwLy; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kAX7VB0D"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ba3e3c4f87so63203805ad.3
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 07:45:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="obldQwLy"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3697f25d26eso3192249a91.1
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 07:46:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779374723; x=1779979523; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fvrZ9HyiEaruMBycCfFZW1FZ0Z1ilz+f20q7BDvb5rI=;
-        b=kAX7VB0DJblL/uSvXI04c2BDdQJB9p14f9bn7rqSHBzQ+L4Zk7a8cyStMLAMsU7fJu
-         qNdO0MRoQ0XaSGh5rWky2g5KazXexbhBpE10zIVfkPfFOqX5LCbwAwQ9qhd8o277COgg
-         YUqO0jIOJXEKGYSY/sxZl04sNEI0YWw7i4Q4ot1PHVT8ctHTxdlfkQAfnnCQTz6c4cAY
-         39LRuODepHKjPpGc6f11ZpQHcqrgELHzAlBzvvjdEQiQn10VaQruTS5t7im6lYKfuWox
-         gWyPpTT/kef9w0BiswFOg8QPUrkpcR9rrkFcy6guE/VlNvB7ve1RlCb692AoIPOxkHEY
-         EJTw==
+        d=linaro.org; s=google; t=1779374799; x=1779979599; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=MYcMfa9UmKpbrcq2eKdzXRn9iD3DzK0oC+yU6GOGJbQ=;
+        b=obldQwLy9++pGZEkvq9vCp1fG8Kv+fEuZeAc+QCto1FCEUsNh1p/Z3DLcx/usDJeIE
+         xQ5cWbuJGU8jgwNXyuzSNlBBfFUwYLSRVbg4k6ZYz1JnIbDOnfZaOko5o1FDIzBwFVmm
+         513nvDI4eKKPNerIEs4YCx5OEoQ0yFKiL11Mi6eD0d65yIXgpMPTmSE9JWMlgWRYK0/x
+         mmhITp17sDNh64Hl36a9mbjMoqqwrZ90qbblpWjkbMi1Tg6f2gcVwH+lFgx5Wi6nlBKA
+         T/urfcUZyLHBUAI9Kb5iqaJ+LBdp2BeyqmcUkXBXjrbqIavp7ksomSdPxl3BcCvfrobZ
+         odAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779374723; x=1779979523;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fvrZ9HyiEaruMBycCfFZW1FZ0Z1ilz+f20q7BDvb5rI=;
-        b=FNjO2NOiub+biD+ZsWttUrcuxUJtWsyzu12XYVLU+hg/vTzTYADZsx7f3SCFzQLUb/
-         KJqk0khO52siQQ/8USkx0sOdSwJS8u3vXQVFfgb6QHJ26wM6Y3rbd/qQl3p1DSq4bju2
-         7dAi3nvtYtfieJZfrOSlHWAhhKh+kL8ftmJlra3rt+EOS0E+jB9qLBkqxC/TbYLDDKnS
-         n5iuqRI2CatuFeCxe61z1gRVwFXNGILDQesGiVYIIwutlkQEv5nA97LxlLnC/Whp7E9o
-         NGy7j7AuRT49Fiy1FnFGTs1nPPRrGwp7jIt1hlprWTCKtv3bl69EcNb+4xjkDppUdsbR
-         bbOg==
-X-Forwarded-Encrypted: i=1; AFNElJ9HRV2GAZ9shdKXfqOMXmtNreBom6DE7CGZdlX5w+B4uebrQG6PFlzSUyyuG+iAgnWt3xR9iSzDWgDl@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAf/TFSjg3F2iDB+PFFMR4/nFZO6nZBM9iFxirxrdMQjEl/Qy+
-	vLplxWWmC0NbC8+iy+1HXX98C/8lD8QTQfO0XCpmDJkzlNrIzklRaNvf
-X-Gm-Gg: Acq92OGDXOJ7qnXzf32rUMRVaoQtH1DPIyfqXR+BIMHw+rvbR5IUeDgVNs/lb3AqNeu
-	zfVxZZzVqR1gn1yZejsKX/CFWOlCPp2XKoUerOnM48zbV4xZq0t457w1BgRwBYwfw8eEO6nieKN
-	UHgUcxf/Dgd1DYGcxvLEmeMT+p6gmJ9kwN1utNMQCvrT7zn74qNAKg67eXiFkKwp8U90KbIVElY
-	8/HIlnq46k0Ti/KjPRTICVKGmnyS8pXU/r1hXLVhKCgMujFFX987DHU3WITjgCfgTFesV4cKGJ3
-	5z6idTs+LkQvRoGT6fO98bAKXDETbEXY8ZbwET8BLU9bR1IhaEjdCDLQPZFtfqu8U06XolhTUTx
-	S5NRghFw00M0C5wHr9/Ch9R86ray7ZBgXLaW2zYd0raNoIv3PMtS4r2uIIploaFpHJqZbMairqE
-	/Vu5PADCqiJ5S80tiwpCe7xGQ/bamRog==
-X-Received: by 2002:a17:903:2301:b0:2b2:4029:d781 with SMTP id d9443c01a7336-2bea3379db6mr34408925ad.20.1779374722230;
-        Thu, 21 May 2026 07:45:22 -0700 (PDT)
-Received: from [10.240.146.115] ([2.27.148.101])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bea990f667sm13261475ad.62.2026.05.21.07.45.17
+        d=1e100.net; s=20251104; t=1779374799; x=1779979599;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MYcMfa9UmKpbrcq2eKdzXRn9iD3DzK0oC+yU6GOGJbQ=;
+        b=i0H4rof90ZK+GRfaO1sYcJOOIhrrfARZlYchaOlm1cnppk08gBM8jv1T9+YDiwlh5e
+         7lRmKK4f1DOCfgpS1gRMilFdiJpDCapQbue6ovqw9menIKRH6nPpgxXeJi++/hJ8gdQH
+         4UtnQpV7xctd0uc6DkJVYbd5Fu2Vj0mI5FqN6YgxEr6Si/0WWGtn6/ARRp9ErmaYe8ZM
+         GuMLnLsG7VtgduPj9wAPIy1L4TZ1FgMH9ulAJpxDOkgZQXibmRgiYwOdTXmMFDwcw86+
+         F46YCq3lyvP7gtASaSZ4q5pTII5Gd8V1ramPZbXdBEfIFv9EzlLF3U3WAoI6Bu0qMHQT
+         45FQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Vn+BX8UrhRikoZRe/B69EF3yT8vRm65kj3GRSsZL3VR4Nq0Jkx98GDDN0rOa3bSjGfRO+7syiLMA8@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTelTVxSPIFsXmYzTey197CYseh+5C9jRl0jBhX+n1i9efb/1a
+	eAH7vNbzJMlwIsmtJhWZKlxfHyMgN+5HdOfz06N/o5Vfpz+9oYkcsc8bUWHiw3PxDoY=
+X-Gm-Gg: Acq92OGQ8zH4ShW9lVKfXZrMWXjue50vM0Zl7gNq0TzaBu81FX1KUaKJz74izqKdDHT
+	hkvPQRblVUAmx8KS/PGeRUB4KQBkWaRrAB8P5DdmWXfpqt/dn+Cu1w+ysvocaduT6qjtHSwrzV9
+	ToOD285Fixhxq6OCCErwJO6AUHPp+UQZ2DjeyyBJL89OIMZ8dFoIVGWI6qJiRLhBUP1t44fMbM3
+	sfE+8TGUa9OAwBUQdIJdMdxdSRKAo/DekQoG+PzDW0cRtpRW+RUtstUvpm09G70dkOfQ670RuXx
+	TLsd84fwa/TfO7P1aHJt1jpo4do9Hwu/OG7pXIOm86SisnC5/57dkdZuiWcjTGb5EWUDr6iD+d+
+	IGqGm3bOowYqohXXq722D99b4nPpJHFjDiBPBl+l+V990cdwekIk1jwu2T4MKmtT2ATdzNAsbhH
+	wySI8T
+X-Received: by 2002:a17:90b:578e:b0:368:6a6e:94dd with SMTP id 98e67ed59e1d1-36a4577cf96mr3442038a91.24.1779374798897;
+        Thu, 21 May 2026 07:46:38 -0700 (PDT)
+Received: from [127.0.1.1] ([2a11:3:200::109e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a5bff3ef3sm476527a91.4.2026.05.21.07.46.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 07:45:21 -0700 (PDT)
-From: Zhengyu He <hezhy472013@gmail.com>
-Date: Thu, 21 May 2026 22:44:46 +0800
-Subject: [PATCH v2 2/2] riscv: dts: spacemit: add QSPI support for K3
- Pico-ITX
+        Thu, 21 May 2026 07:46:38 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v4 0/5] Add support to 2 panels in bonded-DSI mode
+Date: Thu, 21 May 2026 22:46:02 +0800
+Message-Id: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,185 +68,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-k3-pico-itx-qspi-v2-for-next-20260521-v2-2-52bce26e5fd8@gmail.com>
-References: <20260521-k3-pico-itx-qspi-v2-for-next-20260521-v2-0-52bce26e5fd8@gmail.com>
-In-Reply-To: <20260521-k3-pico-itx-qspi-v2-for-next-20260521-v2-0-52bce26e5fd8@gmail.com>
-To: Han Xu <han.xu@nxp.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-spi@vger.kernel.org, imx@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- Wei Fu <wefu@redhat.com>, Zhengyu He <hezhy472013@gmail.com>, 
- Cody Kang <cody.kang.hk@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3846; i=hezhy472013@gmail.com;
- h=from:subject:message-id; bh=jeLdidJLllZzK2MXT62T70ecJUPwLSRHEx1l1dcK0nc=;
- b=owEBbQKS/ZANAwAKAc32nDaAuA3YAcsmYgBqDxpyRg6BUTVWQauu6YPVthr2PheGUvA+y7vxf
- oC2HwfnutOJAjMEAAEKAB0WIQS9XD2kxy1NmfC2u/XN9pw2gLgN2AUCag8acgAKCRDN9pw2gLgN
- 2Gi6D/9lB6LxcH1junWH8uO8byFxvvzdHo5m/u4ozxCzl/DXFunPbljGCUF9YA6/u1FyRTGzsEg
- 4RHFapdf+RPxloUAj8KtAVnFf2I9bnx58IVdfyXGGC9d7EYR85eMDNDkhK8CQquJVsAAxnzuOjr
- wVtpdY3CXXnHWAGMPGo4dl8GZWHlAYr7/qYiXWq4jmqnhtABaPFy0thDFGr9YobPEjQVZCVfW4j
- tWQTuhztPE39JItO3BUK5Aclje/0Nv6J6V5O+1YqqaGx4JJM7+v4f9FH9tQ+kcNwmodJPDfst4J
- j4EDvb2f4BFfegY9Th8Hl3Zib/hULtGxSaC/f6EaSbfPXyqVF3KQK+MeohhDfEGENLQI2kXZP2m
- go1f311JLGKo0LqPljr78SVcPiGkfbgIVDP++gh2yUo4J8/5KTz3GeMgdbmCqV2mDyRmd46FwUe
- to8pCyZpI0DDfJYZBTsKSymyA/G2ljsBFu/AS47wg8wmkhIxuhUEjScXaZel3+OKblSwQkRReOi
- FXatx0LNj8wqQ8yRT9NG1s/q8W0Bm+cdAAtWDMZhfNzcLZJtMxOfqkHveGA4dcq0f2IHXQHXAd8
- dki/lQLAugC0kcMsiKew3JD2HU/S9heCeoo99vngLvOzDtqtCT/Th5ez7jrkoH+DoZwDz99PRkK
- bHA9c/bHLCyQX4Q==
-X-Developer-Key: i=hezhy472013@gmail.com; a=openpgp;
- fpr=26CA97B1A229C229822278F254AF850165158959
+X-B4-Tracking: v=1; b=H4sIAKoaD2oC/x3MQQqEMAxA0atI1gZqmTYyVxEXOknHLKxDAyIU7
+ 26Z5Vv8X8GkqBi8uwpFTjU9csOr7+CzLfkrqNwM3vnogh/Q9jEGh4QDrkdmYWRTpIU4rORSHAl
+ a+yuS9Pp/p/m+HxErmS1nAAAA
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>, 
+ Jonathan Marek <jonathan@marek.ca>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779374785; l=2436;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=9/4X222Ffhg6qxLQzzfx1T7bWcnktGM6AwovaxbqqjY=;
+ b=/WKxz3iXOXS5uf1GNcLWawLpDSfY6swFLXN24AUeDm+crBP+skomIhxxoU8jLwoiGj3q7hP1k
+ OgvdCnEyzLnB6puoNidZaS2wb/hzD24i+mXd4X9wALv1DEvag78eMwX
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 
-Add K3 QSPI controller node into k3.dtsi, and add related pinmux
-configuration.
+The 2 DSI interfaces may be connected to 2 independent panels in bonded-DSI
+mode. Horizontal timing and DSC configuration are adjusted per individual
+panel in DSI host side. Support to multiple slice per packet is added for
+the device setup to test the usage case. A panel driver is included as an
+use case example.
 
-Enable QSPI on Pico-ITX board, and describe the NOR flash which wires
-to it.
+Changes vs v3:
+- A panel driver is added as an use case example.
+- Move dsc_slice_per_pkt to struct drm_dsc_config.
+- Polish commit messages.
+- Link to v3: https://lore.kernel.org/all/20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org
 
-Signed-off-by: Cody Kang <cody.kang.hk@outlook.com>
-Signed-off-by: Zhengyu He <hezhy472013@gmail.com>
+Changes vs v2:
+- Polish commit message to describe usage case and requirements to
+  panel driver.
+- Remove changes in device tree and add dual_panel flag in mipi_dsi_device
+  to pass information from panel to dsi host.
+- Drop the register programming to DSI_VBIF_CTRL, as no issue is seen
+  in latest test.
+- Link to v2: https://lore.kernel.org/r/20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org
+
+Change vs v1:
+- Add device tree binding for dual panel case in handling frame width for
+  DSC to avoid breaking existing dual-DSI case.
+- Leverage Marijn's patch to configure proper slice per interface in
+  dsi_update_dsc_timing().
+- Polish commit comments.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org/
+
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
-Changes in v2:
-- Add "spacemit,k1-qspi" fallback to the K3 QSPI compatible.
-- Reordered Signed-off-by trailers.
+Jun Nie (5):
+      drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
+      drm/mipi-dsi: Add flag to support dual-panel configurations
+      drm/msm/dsi: Support dual panel use case with single CRTC
+      dt-bindings: display: Add Synaptics R63455 panel support
+      drm/panel: Add driver for Synaptics R63455 DSI panel
+
+ .../bindings/display/panel/synaptics,r63455.yaml   | 125 ++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  33 +-
+ drivers/gpu/drm/panel/Kconfig                      |   9 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-synaptics-r63455.c     | 631 +++++++++++++++++++++
+ include/drm/display/drm_dsc.h                      |   7 +
+ include/drm/drm_mipi_dsi.h                         |   2 +
+ 7 files changed, 792 insertions(+), 16 deletions(-)
 ---
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 58 ++++++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 21 ++++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 17 ++++++++
- 3 files changed, 96 insertions(+)
+base-commit: 6654f8f33aa6229a90d4401519a62a2bf96cb851
+change-id: 20260521-sm8650-7-1-bonded-dsi-7a7d5b70f687
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index b89c1521e664..e90e17895bb2 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -200,6 +200,64 @@ phy0: phy@1 {
- 	};
- };
- 
-+&pinctrl {
-+	qspi-cfg {
-+		qspi-pins {
-+			power-source = <1800>;
-+		};
-+
-+		qspi-cs0-pins {
-+			power-source = <1800>;
-+		};
-+	};
-+};
-+
-+&qspi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&qspi_cfg>;
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <26500000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <4>;
-+		vcc-supply = <&aldo2>; /* PMIC_VCC1V8_QSPI */
-+		m25p,fast-read;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			bootinfo@0 {
-+				reg = <0x0 0x20000>;
-+			};
-+
-+			fsbl@20000 {
-+				reg = <0x20000 0x80000>;
-+			};
-+
-+			env@a0000 {
-+				reg = <0xa0000 0x10000>;
-+			};
-+
-+			esos@b0000 {
-+				reg = <0xb0000 0x100000>;
-+			};
-+
-+			opensbi@1b0000 {
-+				reg = <0x1b0000 0x60000>;
-+			};
-+
-+			uboot@210000 {
-+				reg = <0x210000 0x5f0000>;
-+			};
-+		};
-+	};
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_0_cfg>;
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 23899d3f308a..5d9763791180 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -56,6 +56,27 @@ i2c8-pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	qspi_cfg: qspi-cfg {
-+		qspi-pins {
-+			pinmux = <K3_PADCONF(138, 0)>,	/* qspi dat0 */
-+				 <K3_PADCONF(139, 0)>,	/* qspi dat1 */
-+				 <K3_PADCONF(140, 0)>,	/* qspi dat2 */
-+				 <K3_PADCONF(141, 0)>,	/* qspi dat3 */
-+				 <K3_PADCONF(144, 0)>;	/* qspi clk */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+		};
-+
-+		qspi-cs0-pins {
-+			pinmux = <K3_PADCONF(142, 0)>;	/* qspi cs0 */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	uart0_0_cfg: uart0-0-cfg {
- 		uart0-0-pins {
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index d4be8de8fc6c..63dc36f49871 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -878,6 +878,23 @@ pll: clock-controller@d4090000 {
- 			#clock-cells = <1>;
- 		};
- 
-+		qspi: spi@d420c000 {
-+			compatible = "spacemit,k3-qspi",
-+				     "spacemit,k1-qspi";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0x0 0xd420c000 0x0 0x1000>,
-+			      <0x0 0xb8000000 0x0 0xc00000>;
-+			reg-names = "QuadSPI", "QuadSPI-memory";
-+			clocks = <&syscon_apmu CLK_APMU_QSPI_BUS>,
-+				 <&syscon_apmu CLK_APMU_QSPI>;
-+			clock-names = "qspi_en", "qspi";
-+			resets = <&syscon_apmu RESET_APMU_QSPI>,
-+				 <&syscon_apmu RESET_APMU_QSPI_BUS>;
-+			interrupts = <117 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+		};
-+
- 		syscon_apmu: system-controller@d4282800 {
- 			compatible = "spacemit,k3-syscon-apmu";
- 			reg = <0x0 0xd4282800 0x0 0x400>;
-
+Best regards,
 -- 
-2.53.0
+Jun Nie <jun.nie@linaro.org>
 
