@@ -1,84 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18552E889C
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:13:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802B5302149;
+	Thu, 21 May 2026 15:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779376386; cv=none; b=tK2dzNQAZq8ty7WZLwjPb4Vx0f70PRp7D5TtlvVRzDjkHyPcLV9gPwz2VYy3Xfu87e/AiaHp33YyuWVfyCOeDEhxe3xqMQp4EXUVIilM9ISOn9T/Q4CBIm7HlLaJFtAAvNOK3isvQ53fyTNkJ630I/pC/pqpECk7jmAm0aLb5cg=
+	t=1779376555; cv=none; b=C7bhzutMgq26Odac+T5AGPaHBcWKLHARyfOovAhMRHNo15F92B5/14opDWz/EPqtK6/D3IxO4ofcWDxfO+BxOt/9+S4UyoyGS6EcTH3K8ZkDARuj595NQrqpMSxVgyZWFw/EjjfrCIisP/wMPSYt4+eyyykMBKlIZwhzPPkxdoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779376386; c=relaxed/simple;
-	bh=So2hwSNctjqkRGUlnG8H/y3Km2z/2jUtn0BrgsomQpk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GAXdZuSviOET7TzUB2ZaWaomXD+Pi01LYxMZdwTZtDJ411kXAywpEQpKPR90PT7CaQ+bPm0B6fk3KoquedI3Fm6vN4U2soK4ZC0wEuRBL0I6mVscRxR+Yw+/YkPhNwtIj115jKhWkHNNR9IMdtlLJbxMukqlZRMsz3jUmwA/anY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVpjxITv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779376555; c=relaxed/simple;
+	bh=c6708tXft9gLhDUY1x+PmJB9Hj8ECYv5J+JeI7o7NyY=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=LhOGJg1odTQFEuuhw+02xGpbjBt0TL3zJKVoFzcX9g66GfEALgf8kOpFDmfjdtY4dIjSGgeozH53T0XpfH6evIc0d6t2O5iYbm35g8V4ScZ8F2zRPuCV4KP0P1YXY2XiByZhYF4nBni/O/1K5Hz2QamC8X3x8LyXx9Vrls+wPE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WH2q71/J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVpjxITv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186201F000E9;
-	Thu, 21 May 2026 15:13:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WH2q71/J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED471F00A3B;
+	Thu, 21 May 2026 15:15:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779376385;
-	bh=So2hwSNctjqkRGUlnG8H/y3Km2z/2jUtn0BrgsomQpk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UVpjxITv/mcpichzTqUidcFzaS0Y9nG+ArkmrSWTVP3brpYkFkTW8o2N5JtLjfK9I
-	 IEeLHbzOvyAOAuu+9nJWHjlsCcUMrZ9ymJ/mJYTcnF6yc/fC8Y/WovZQBpq9/nzMtA
-	 xmpN62OD75P8Ydlm5jaBpaAPN2Ej1JtLBhpTKEsP27LR5mUanwQI/EG1BgbpOC5bIh
-	 /gT7E4SfviFvivmB7I+nHxD+TYxpSQpC+WzxAX/C9K+ZMxBragwMQPeL66U0KOqkEg
-	 09Z8epa1XLnARNMBDlQCO7I4cO27wA6IiF5scB+JLRUcgpzMcW0EgchI7Z5w6Fkr41
-	 TFQ+IuF5m9Hfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: serial: rs485: remove deprecated .txt
- binding stub
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akash Sukhavasi" <akash.sukhavasi@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260521150748.4816-1-akash.sukhavasi@gmail.com>
-References: <20260521150748.4816-1-akash.sukhavasi@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 15:13:04 +0000
-Message-Id: <20260521151305.186201F000E9@smtp.kernel.org>
+	s=k20260515; t=1779376554;
+	bh=6+hPFg766OszpUSn1xTNsvl7vipNukyxXO874O2maWg=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=WH2q71/J6y0dFUjb7NBabK7U82iWvGQixkAmY0LxWgp3ltpqlgBBhXJD6QrjiWCvC
+	 WDicWNNAvjRQ5HZhFPtlEqzBdgCRJeunIr5v99a38F7faeQwSM7j6qrEABeVtQn76A
+	 aD04TSH7GhElThcrlErG3k+X8otgHzK836QoyPjDk6aWOnDTRGr4ePnTTMng4uw21/
+	 GW9JPDLS0wod1oo3RwrSdRgI8e83q/hFjpLftRNkmZBjsu8i1sBPSr2IexAQqomzsM
+	 nUhBuAhrJLZDE9v3Vgu/dYBHIU9vNwh9+HRY8WFKqT30AnEuf/8aEJ/SsB1Bg5Seky
+	 bDnXphfoTyTHw==
+Date: Thu, 21 May 2026 10:15:53 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, devicetree@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Vinod Koul <vkoul@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260521-x1e-csi2-phy-v6-1-9d73d9bd7d20@linaro.org>
+References: <20260521-x1e-csi2-phy-v6-0-9d73d9bd7d20@linaro.org>
+ <20260521-x1e-csi2-phy-v6-1-9d73d9bd7d20@linaro.org>
+Message-Id: <177937655318.1947776.1539787576186189902.robh@kernel.org>
+Subject: Re: [PATCH v6 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Deleting rs485.txt without updating references to it leaves broken =
-documentation links in the kernel tree.
---
 
-commit 40946518dfeaa6ec990f95ec2dc5dbc4c289791f
-Author: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+On Thu, 21 May 2026 13:20:08 +0100, Bryan O'Donoghue wrote:
+> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+> PHY devices.
+> 
+> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
+> 
+> The schema here defines three ports:
+> 
+> port@0:
+>     The first input port where a sensor is always required.
+> 
+> port@1:
+>     A second optional input port which if present implies DPHY split-mode.
+> 
+> port@2:
+>     A third always required output port which connects to the controller.
+> 
+> The CSIPHY devices have their own pinouts on the SoC as well as their own
+> individual voltage rails.
+> 
+> The need to model voltage rails on a per-PHY basis leads us to define
+> CSIPHY devices as individual nodes.
+> 
+> Two nice outcomes in terms of schema and DT arise from this change.
+> 
+> 1. The ability to define on a per-PHY basis voltage rails.
+> 2. The ability to require those voltage.
+> 
+> We have had a complete bodge upstream for this where a single set of
+> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+> 
+> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+> CAMSS parlance, the CSIPHY devices should be individually modelled.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 205 +++++++++++++++++++++
+>  1 file changed, 205 insertions(+)
+> 
 
-dt-bindings: serial: rs485: remove deprecated .txt binding stub
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit removes the deprecated plain-text binding stub for rs485,
-which was superseded by the YAML schema in an earlier commit. The file
-now only contained a redirect notice.
+yamllint warnings/errors:
 
-> diff --git a/Documentation/devicetree/bindings/serial/rs485.txt b/Documen=
-tation/devicetree/bindings/serial/rs485.txt
-> deleted file mode 100644
-> index a7fe93efc4a50..0000000000000
-> --- a/Documentation/devicetree/bindings/serial/rs485.txt
-> +++ /dev/null
-> @@ -1 +0,0 @@
-> -See rs485.yaml
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@0: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@1: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@2: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.example.dtb: csiphy@ace4000 (qcom,x1e80100-csi2-phy): ports:port@0:endpoint: 'data-lanes' is a required property
+	from schema $id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.example.dtb: csiphy@ace4000 (qcom,x1e80100-csi2-phy): ports:port@0:endpoint: 'clock-lanes' is a required property
+	from schema $id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml
 
-[Severity: Low]
-Does this removal leave dangling documentation links in the tree?
+doc reference errors (make refcheckdocs):
 
-There appear to be references to rs485.txt in drivers/tty/serial/serial_cor=
-e.c
-in the kernel-doc for uart_get_rs485_mode() and in
-Documentation/driver-api/serial/serial-rs485.rst in the References section.
+See https://patchwork.kernel.org/project/devicetree/patch/20260521-x1e-csi2-phy-v6-1-9d73d9bd7d20@linaro.org
 
-Should these references be updated to point to rs485.yaml to avoid broken
-documentation links?
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521150748.4816=
--1-akash.sukhavasi@gmail.com?part=3D1
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
