@@ -1,115 +1,94 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195B138D3FE
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 18:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7391A388862
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 18:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779386990; cv=none; b=RxTLTdRQRj0bZ/Br61CnLnWS34dPRyYYoUPSIpA6oVj3hwNl+OUKna/coxnxtE6Y2oRsrhJCKPD0A14m9EZUhHCAFHKj585RIT/EVhUxg2louqI/wz+AX0SFfjn7H/ltw0UHEMcQlIBM8tByNEv2jZjXXN7XsGV9nR8rJ+XiPSA=
+	t=1779387030; cv=none; b=FhkpzXXeYCcpZFEsdPJpnxeJW/93Dt8m9LtgVQOdO/8vTaFtoFJgxbkJB40kpqHxl+Wqpi4GyG7nC0AS2Z7n8ymDkWauJ5hHGDuZ71/OgiYEay+8/w8Xd8RvDpYbpQQWyXezwVSxDbnt0PJTIupBmAqzN71wo2YvNCWN3uK2Nek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779386990; c=relaxed/simple;
-	bh=HdVBOJaLH9+tElXaI37rhEAG+8TDso2hBOAXn/S58h4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P8qsT1ZeRdeJsbV+zbZqJ9vppxC4vzNAnyoJ4HoraQyAZqYQVIYbIdi+noAUkNVB58GB22RSxqdRJDPTAZLKZxjZ3QOZzBKNzOS6QitRKJLwbu+7gd1730X6rGtSfc0ov+tWOuM+sN8G/gNZBW9SZqtHN7IsphJwq9CiC/A7s5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=paVTgpuj; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779387030; c=relaxed/simple;
+	bh=GwRHblL/JWSksV59fgsYa5OgJXeKrKQcHQCOP5M0VaI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KU+kbUBiWrczMxVsBGV76y9Esp0KTVWwB4WYfWxCYSi+K/FtvM+/pb6Ak2CiIUOHgnY6m1O7U2KSZHTgX1GdEdbE8erBOOB+mCb3fw7HxJXd139qk4agYS4jPYHFOKhq0zrVv4Pl2dbji5Rzujs8MKh3rWuTz6jsE7B4D7HuhfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LuL5HQEZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="paVTgpuj"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-44ce78ab5feso5463262f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 11:09:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779386987; x=1779991787; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SwRKMllRpAzGBdyZ/lJigiiPKVoHGY8aJQFT7Qv+hEs=;
-        b=paVTgpujiJq6kF8r5IUu8lHMH9JfuX21v0zOGY572qc4qTeg4RahNRlRrmu6SLihPQ
-         /m/u1Heh3lNYmxq4k/FBeiNGz39FOv7FEae+pk/0VDsY9bw4QVJMelbBN0QbryMg4F9e
-         rWCoJr5rQXk6JTBAkLKqcaVs6RNUh4Dg7XrWn3AVlVAViEJRtd4lZAIBOgiom3RscaSr
-         YbyjbchpzfMFjUaYi/o2SBwlHQq1gCrWslZO1EbBKYNmtLrxWd2yssMPBAxrv/FoUen9
-         tG6uhLWJhSXfwhqMfcXN1IHhBBaoILwE6z5lic77mVkVk7sXDSCf0nlM35LSt4pFjozl
-         Q1gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779386987; x=1779991787;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SwRKMllRpAzGBdyZ/lJigiiPKVoHGY8aJQFT7Qv+hEs=;
-        b=kOw+IgTPPaFufI0mKDUOJqMURYMOsJ3FgO95r1D9Uh+pe5fUpSyow0ZXdBMv+Pjbs+
-         trv/XOug6FNn6vzPRZvUyKJyS+V6FDQq3t4IHsQmPUcn2QOykvMSbGSuKX6/lDb5+fyA
-         yuLljn6KiOiSRaJFp/EHmZFdm3SXVsFluI4XmJk6HM5EuW2DfIEegs36f7/EzIO26QVn
-         HNUX/JxM2rB2dylLlqotuOpwnf6YXoU2VyRY8KN0O9CrBc28hzR1JvYMsDKN3PwaqWeD
-         wD/RmDCK5Y47fhIFZgE+cWlp8efa9KgrAR+LZKyDz4dffVVzurXHW9MG1nI/CWt6X2oi
-         MqYA==
-X-Forwarded-Encrypted: i=1; AFNElJ+rD+hH/fcO9DbkmwCAMe84+JQbjXeZXTosJv76knbRd+4eyH0GbPgbahf6cOQstvtlOf9MabjM0Mrk@vger.kernel.org
-X-Gm-Message-State: AOJu0YzaGqIVj5ECcZ3WOn9YxFv/MgsTRioKHHpp9n4ujW7BNqQINXXl
-	/lOM6NikUPX8BQDGwKH5YyTFF4UZHs04ub8edt7BHunLosBJMBSf5VA=
-X-Gm-Gg: Acq92OHRulhOmGiDX7LeJEX1L5oxBZf98TAoLrffJDZ4o2r7pdIl7CEqmzoj/1u1WzM
-	bXbVdr0/oDj81tHay1FSR5wn1YjQavChB79gTyfQYRDhn90acfa7ryYNUYkAqJYLTZv3N2++wjE
-	P51uvkfrOlN173PYjcAGLl8TeERNerCPtd8K0zj76iu63aD/yVriGPoH+iLzcR3veTEXRbRS/9/
-	Q/tCdBMpXr1Xib0KsUie5WfKRZniC2eKpZze6A3br2nGCd+fP/hJjXkDeLPRrqbmWajWJCYm5EK
-	SyGYeG/4r8FyE7vCr8F6fQHAOg1LNVGJbQrucvjYdhCEoO420UD6EeXesdHkVsVcAYR15obXwR3
-	HYUbE6g+wpOkCV8XJs2dhFLwT5iNcwvJ93LQW1GAdfcKoG5eowr43oGxF/6OhbxPmS9EnjVR65v
-	uVUHhZVEAfuOuvhdQcA0fvoq78FfVillf9ZDUveNOHlTbk6UlwGVt+TM+iqQe6H2WSCRFPjjUQz
-	t3Y/gRYClWR8lGwulugmUZ0Lw0bxU5all3L1i9QgUFcE3BsqWXzD8ZvDwY7jMayWzosJQ==
-X-Received: by 2002:a05:6000:40d9:b0:446:ef9a:8f41 with SMTP id ffacd0b85a97d-45ea3cea561mr6344829f8f.40.1779386987437;
-        Thu, 21 May 2026 11:09:47 -0700 (PDT)
-Received: from ?IPV6:2a01:cb08:52d:7400:bbd7:ca83:de4a:f625? (2a01cb08052d7400bbd7ca83de4af625.ipv6.abo.wanadoo.fr. [2a01:cb08:52d:7400:bbd7:ca83:de4a:f625])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eaa935898sm4632173f8f.28.2026.05.21.11.09.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 11:09:47 -0700 (PDT)
-Message-ID: <ed3397c7-bd78-4236-96de-82dd75a96ae5@gmail.com>
-Date: Thu, 21 May 2026 20:09:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LuL5HQEZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C000C1F000E9;
+	Thu, 21 May 2026 18:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779387029;
+	bh=DgGWva+6e/Dbunc6jfiDestDbWTUYzrd67ZpMt1x0hI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LuL5HQEZx9IR6YU2ZjUw/Rv7O1GlkTus7DySmyLvq7ALqGNjc5majNuy7cPOLTbFm
+	 CmJl/Rk5zazP6XHdUDpJvq1lR+uE+43RW8dEdylDHcXzYWZ8Tp/eBNqKnkfyF9TxXU
+	 UU+6AWbqgcm40snvzfQE1UNMdxf70lILKykVC0VkluB0EcxQAsQ4s6UjiHR732srkZ
+	 VTn+dGR+Xl6EqYCGChs77LeKhLWVeCNMsHYELdH2syUosRI/rDSEEEbd48bffy8yQJ
+	 b8Npp8vuVVw9GqCa9co28MkVFGL0tPb+TRH4TAcHsSKoYQM4eovg0RzAyAoOvxpbuL
+	 S3uQsx1hc9k3Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 6/8] iio: core: Add IIO_COVERAGE channel type
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liviu Stan" <liviu.stan@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521164323.770626-7-liviu.stan@analog.com>
+References: <20260521164323.770626-7-liviu.stan@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 18:10:28 +0000
+Message-Id: <20260521181028.C000C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/11] arm64: dts: qcom: sc8280xp-arcata: Enable the eDP
- display
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com>
- <20260520-surface-sp9-5g-for-next-v1-3-9df52552bf87@gmail.com>
- <cd5a8576-2f06-4620-bbf3-43b3f84de630@oss.qualcomm.com>
-Content-Language: en-US
-From: =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
-In-Reply-To: <cd5a8576-2f06-4620-bbf3-43b3f84de630@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 5/21/26 10:50, Konrad Dybcio wrote:
-> On 5/20/26 6:40 PM, Jérôme de Bretagne via B4 Relay wrote:
->> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
->>
->> Add the vreg_edp_3p3, edp_reg_en and mdss0_dp3 nodes to enable the
->> Surface Pro 9 5G eDP-based LCD display (LG LP129WT232166).
->>
->> The enable GPIO 36 was found by decompiling AeoB dumps [1]:
-> 
-> I'd like you to strip this from the commit message, as it
-> doesn't add much value and makes the git log unreasonably long
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The sysfs ABI documentation for IIO_COVERAGE incorrectly uses 'X' i=
+nstead of 'Y' as the channel index wildcard.
+--
 
-I thought it could be useful for other people doing device bring-up
-in the future. No problem to strip this in v2, the info is in the
-mailing list from now on anyway.
+commit 6217a0a065fdaa7ef3fffa525f2928d59a323a05
+Author: Liviu Stan <liviu.stan@analog.com>
+iio: core: Add IIO_COVERAGE channel type
 
-> otherwise this lgtm
-Thank you,
-Jérôme
+This commit introduces a new channel type for sensors that report fractional
+coverage as a percentage. It updates the core IIO structures and provides
+the necessary sysfs ABI documentation for the new attributes.
 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/=
+testing/sysfs-bus-iio
+> index 4fc9f6bd42812..90fb8ef26de0e 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-iio
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio
+> @@ -1959,6 +1959,23 @@ Description:
+>  		Raw (unscaled no offset etc.) resistance reading.
+>  		Units after application of scale and offset are ohms.
+> =20
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_coverageX_raw
+
+[Severity: Low]
+Should this use Y for the channel index wildcard instead of X? The IIO sysfs
+ABI documentation typically uses X strictly for the device index and Y for =
+the
+channel index, which would make this in_coverageY_raw.
+
+> +KernelVersion:	7.2
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		Raw (unscaled no offset etc.) coverage reading. Used for sensors
+> +		that report fractional coverage as a percentage, such as leak
+> +		detectors where the value represents what portion of the sensing
+> +		element is wetted. Units after application of scale and offset are
+> +		percent.
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_coverageX_scale
+
+[Severity: Low]
+Does this attribute have the same naming consistency issue? Following the
+standard convention, this would be in_coverageY_scale.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521164323.7706=
+26-1-liviu.stan@analog.com?part=3D6
