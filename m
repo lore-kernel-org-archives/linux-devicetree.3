@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DA130DEB2;
-	Thu, 21 May 2026 07:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735062DB791;
+	Thu, 21 May 2026 07:23:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779348050; cv=none; b=psOcr1caEeP9F+u9lXuG2zBbt9se7/+tjvXeVMgo5y+IC1iOR85FpwU9MAfUAWOPyGqJRUP1ZUbpp3rfKREqvzyq1vYW5lx9tngw0JDNEx6nICYgd+OBpiUBQ5LQMUHAXI800ie4z+iY3Ou/TLEhhr+xtaPcEeYL78/k9rS//5Q=
+	t=1779348225; cv=none; b=XGwSo3tDqXKXRG2eLirmcnvOu006hmGwAMJ8BiqvewPm3r4Fo4fElEgE0S+kT9+98AIlzXZoBxoM5Jmu84RJly8TKUkU74Ie6iZwSSyOdA/AkcyJjt2aBH4ADEWupMQhLHZJUgq+EpKrJ9lsvvla5/rBYVqqlw1qcxPPwpvi8uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779348050; c=relaxed/simple;
-	bh=NJTuqVhhx4ZZxUfa0gsUnmbbhttyXCV5v2ViNtsMC80=;
+	s=arc-20240116; t=1779348225; c=relaxed/simple;
+	bh=AaiOpIcIh3A0lBeFxHwNa9dRAhxscW+mi3AGm/pz4tU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W/0O31nWYSM5a4qKumD2300L1egMvfeZKUQKD1R9UN3F0jfdYWz+7AFwl/W1Nyg0iolGURBmNezVeFPFXxfqAcL4qYxXbqGcKXwZOUVRkXsaNBgLiZBR+4J6yo0KeTz1IKRh5OZ/ISQ4GNyfU8iJpkSz0yBpYYinwSFr1QU2PFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQ9+cjtw; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=t0pwz0NbKCMoHHvKI4/nEVgQ8tpyTHgAzh+vhHHdrolUclgXDzNmL4mvjgWEKs8hn7ZMXPamevjOwv9mypRcQBOnEieL0oMSZXffozPMvjg4k4Q2a9fxMTz7x/SEj2g5/2i3IOmNjA8cgQTO4s66zBaUrYVd7EfdiQC6c8KKAiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQSer9Mt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQ9+cjtw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2431A1F000E9;
-	Thu, 21 May 2026 07:20:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQSer9Mt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F07B1F000E9;
+	Thu, 21 May 2026 07:23:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779348049;
-	bh=nI+G+aCuQ9siluJQySImBqqIqDQnteIx2vdEuLDlJvI=;
+	s=k20260515; t=1779348224;
+	bh=TCqf+SLxqDAmyK38cKu26c5GgsQXSCx2ylDh6U+MSwk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GQ9+cjtws8KOBpcE6OwlZIUgpsEIZfC93Nr7AvRXM31Al+yg3J8s6DyWN9ZN2wvuI
-	 PRNs8IuC8nkFzYl51762dQ9DnCLECQDAeDFiOiKL4dqjACkM1WKMrpiYnxhMJmFd87
-	 rZdb3coZQJY549hcgIEWdtwmdLyM0j1wrnSdlqmXIeX5f8bq0jp4s+lISqNMfs3QY4
-	 scVM3cl+zxWqdLmclcYqBCYSiHRDBJ8c2FEkOzCw0o03myMOvpaC9GVaFHgVqRcSR1
-	 wHeBaVDGz3Jv9aT5nid6N2qqsW+vsrW4kAbcSwLLipPJf11HhqnIy3TMemEolI128h
-	 7CgCKlzBU1o0Q==
-Message-ID: <86f76a81-832d-4ba5-81d5-38b46b7dc0a7@kernel.org>
-Date: Thu, 21 May 2026 09:20:44 +0200
+	b=eQSer9MtLEq5q9kfnWHpBZZsG+6+OCTD6dmCsRDDeWBQUb/tHXRo7SMc7wMCEFwS3
+	 h/vs3HxfJnMz32fyyCJxMKObLJIOa+FXD+eVqCpdBrGt60ypRAyTrcVx1UPNX7qsgB
+	 WcKcCeTLuuN95b2e+7lxjlBarsQuQhTJU93+9ho00UqME4JuVx4NDW/gEjrPW7qIK7
+	 5iO7kppwYxojnoDrLnZWa29VH01BOi/2QaTZMqxIRxL6pNk2TZQ7/ddfYHaFD1zAeW
+	 lL7d/n7wd+Pznye8PhgCT+6IO5qKTktwCBbAYwSjOnIwpwrI45RdygMWRDi/43g8er
+	 cWQLUmICR8jjg==
+Message-ID: <e3067b12-02d0-465c-a065-e6903d6c4c39@kernel.org>
+Date: Thu, 21 May 2026 09:23:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,23 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
- jishnu.prakash@oss.qualcomm.com
-Cc: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
- <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
- <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
- <20260519082526.odmn5dqi2jftwnln@hu-kotarake-hyd.qualcomm.com>
- <20260519-first-wine-bulldog-a6a4c7@quoll>
- <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
+Subject: Re: [PATCH v2 net-next 1/3] dt-bindings: vendor-prefixes: add SiTime
+ Corporation
+To: Ali Rouhi <rouhi.ali@gmail.com>, jiri@resnulli.us
+Cc: vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ cjubran@nvidia.com, Oleg.Zadorozhnyi@devoxsoftware.com,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ali Rouhi <arouhi@sitime.com>
+References: <20260520191943.73938-1-arouhi@sitime.com>
+ <20260520191943.73938-2-arouhi@sitime.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -97,54 +90,41 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
+In-Reply-To: <20260520191943.73938-2-arouhi@sitime.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21/05/2026 09:13, Kamal Wadhwa wrote:
-> On Tue, May 19, 2026 at 12:35:13PM +0200, Krzysztof Kozlowski wrote:
->> On Tue, May 19, 2026 at 01:55:26PM +0530, Rakesh Kota wrote:
->>>
->>>> And isn't lack of monitored battery property enough to indicate that?
->>>
->>> Regarding monitored-battery — its absence alone isn't sufficient. The
->>> BATT_ID line on debug boards is pulled to ~10kΩ, which is used during
->>> development phase where some battery properties are still present. The
->>> same ~10kΩ value is also used on some genuinely battery-less production
->>> platforms where no battery properties exist, making auto-detection
->>> unreliable. Hence the need for an explicit DT property to identify
->>> hardware platforms where no battery populated. 
->>
->> I don't understand this logic. So you claim you have debug boards which
->> do not have battery, but define monitored-battery? Then these are wrong
->> and fix them first.
+On 20/05/2026 21:19, Ali Rouhi wrote:
+> Add vendor prefix for SiTime Corporation, manufacturer of
+> programmable clock generators and MEMS oscillators.
 > 
-> Actually our firmware treats the debug board as a "fake battery" rather then
-> a "no-battery" case.
-> 
-> This is done to avoid triggering shutdown or trigger power/thermal related
-> mitigations to kick in from the HLOS (android) that is configured mainly for
-> battery-backed devices.
-> 
-> Note that we can know if its a debug board, just by looking at the battery
-> ID resistance or the battery profile name in the power supply properties
-> for `qcom-battmgr-bat` in sysfs.
-> 
-> However, the problem started with the boards that are battery-less and
-> unfortunetely used the same debug board batt ID resistance value, so from
-> the firmware side the batteryless board is also seen same as a board with
-> debug-board connected.
-> 
-> Since firmware does not have a way to dynamically tell if it on a
-> debug-board powered device or a DCIN powered device, We are required to
-> add this new DT property.
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Neither debug-board powered device nor battery-less will have
-monitored-battery, thus again, why lack of that property cannot tell you
-what you need?
 
-And no, you are not required to add a new DT property. Every wrong
-property was also justified like that...
+
+<form letter>
+This is a friendly reminder during the review process.
+
+It looks like you received a tag and forgot to add it.
+
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new versions
+of patchset, under or above your Signed-off-by tag, unless patch changed
+significantly (e.g. new properties added to the DT bindings). Tag is
+"received", when provided in a message replied to you on the mailing
+list. Tools like b4 can help here. However, there's no need to repost
+patches *only* to add the tags. The upstream maintainer will do that for
+tags received on the version they apply.
+
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+</form letter>
 
 Best regards,
 Krzysztof
