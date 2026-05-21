@@ -1,130 +1,105 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5B34266B9;
-	Thu, 21 May 2026 20:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1DD36BCDA;
+	Thu, 21 May 2026 20:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779396288; cv=none; b=ceHzkL0sojAwHeikVQelXUZC6XRGzEgBe8XhvqUJLJu8sGxHKzuwtA3Znk0B/v3UDxbAOE4shyTJchqE4/QZQz5EMp068l9dk04yYtUqAYy28vzafd1cg0QLtrduGdG4++VnwdQTJkZY4Wm7IDBWdAEwELXeOu5ORdiHtzC9h1U=
+	t=1779396396; cv=none; b=Y4t/u1Lh7ArVfE03IZnva6vBuVULETD+WuaawRrji924Aq44NtZQ9sTTH5JsfjxbJbxhPmkLILO40xwW9Tqt6pmr/JDBTPCtbIBdNgpFjEYp/pP8vR1nysu72hLvaXEfoPhiTfd0K6F/qmezV692G2YcZKsR5tUMGISnDaJQoCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779396288; c=relaxed/simple;
-	bh=OlA5x7v3w4cesApMCgG/SXOdF5y72CuHKhGf8Cxh1/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mngz43cqc1DydkF+3iEVhTOSfG+uQKQzNHBnQZuc8OmBArS4yDn8jnfgj2YvjqLcxQi2sXXi9QPyvmr2W8394BjsvEuxVUXnrUP3SjbjK1OjZpr5fo+xNLuufuBacQ9lmmjVqioNbD5IDPbCOi1sNxwre8ynSxyJu4isPUJTqfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bM+2N3R8; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1779396396; c=relaxed/simple;
+	bh=/3Bmr0HZmOdAPfLMVeKbjGSSPagH7BApDlrMzRI+2XU=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=lXiF+NZ2mzf0RKdzGMZFczEIIhh2JD2mAiJDf6dLnoDi6dAQQ3JCWheqHZPLUtVhM89Qk2KHk7ZBtRvybKvrQljNVyeO5IucTcL8k2lG2/pgrdajNmbNMrIoPIvhReqYgmnhpDj5vlBMXxH3Puv7fi/W0X9U8nkxDmhxN5A7ptM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5f5eqGv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bM+2N3R8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=aJ8iU6IMKNulzrgZmLI9lV1Gd7xew07/roTL2C/UaAE=; b=bM+2N3R8HohZ5RVxcx+Kkjbzqf
-	SincKPPCviHqfwCF0XLdBaGj02NcZENqmnVqslvyN5KHbtQd/9rOEdT81nRl9P/pmZwzGm+WTrp2C
-	EQD2YA762buJiFhuVnKG5cYRq2iZAyX+Kb0BUbQ6r2tBasl0krBRjF/JminNLQribS0c=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wQAFm-0045Ri-BX; Thu, 21 May 2026 22:44:26 +0200
-Date: Thu, 21 May 2026 22:44:26 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Regus, Ciprian" <Ciprian.Regus@analog.com>
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH net-next 3/5] net: phy: Add support for the ADIN1140 PHY
-Message-ID: <7beea86d-ddf7-4fcc-aaba-3ce897a438f6@lunn.ch>
-References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
- <20260503-adin1140-driver-v1-3-dd043cdd88f0@analog.com>
- <2cfa6680-503a-4c4a-91bc-5f9a4331967d@lunn.ch>
- <1d7f5247b07f44f2a30cfed8f7d3cd6d@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5f5eqGv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949791F000E9;
+	Thu, 21 May 2026 20:46:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779396394;
+	bh=gLygPlXA9zpesWB7c3xrHmVnj9UJD76Jx38c6ojWHvw=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=M5f5eqGvavsSQMvYmggCSUSdS9W0sW2PKLKo3OkFyr+HqRkZTOUb3QCegTl4qsiDY
+	 sRYKRxn0Ppu1fVRtqgdpHK4yHqJT99NBHxkhSQpqyRQQldR0dS2/E7ISazZiRK6aYK
+	 SdglK6QHxhUk8ifntU6CksiYATjh6Vd9HX5xhH66egI1nWsiq3s7npcfz9vfvNJgKV
+	 jncxIa3thoRvmO1FpgxIUtsrFdVD0oQiqMBIxARkXTQiDAc28sguEX8PRQooHbUyod
+	 eC/PWaCFcuObLJmirrz7BkFnxJFy/e66sstx8u8G2ymtCCu1R26H0maGCv07SsyBzZ
+	 STc2KEF9caTjw==
+Date: Thu, 21 May 2026 15:46:33 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1d7f5247b07f44f2a30cfed8f7d3cd6d@analog.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>
+To: Jun Nie <jun.nie@linaro.org>
+In-Reply-To: <20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org>
+References: <20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org>
+ <20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org>
+Message-Id: <177939639394.2297482.6216353377976107855.robh@kernel.org>
+Subject: Re: [PATCH v4 4/5] dt-bindings: display: Add Synaptics R63455
+ panel support
 
-On Thu, May 21, 2026 at 08:24:41PM +0000, Regus, Ciprian wrote:
+
+On Thu, 21 May 2026 22:46:06 +0800, Jun Nie wrote:
+> Add support for the dual-panel system found in the virtual reality device.
+> This system consists of two physical 2160x2160 panels, each connected via
+> a MIPI DSI interface. The backlight is managed through DSI link.
 > 
-> > > +static int adin1140_phy_read_mmd(struct phy_device *phydev, int
-> > devnum,
-> > > +				 u16 regnum)
-> > > +{
-> > > +	struct mii_bus *bus = phydev->mdio.bus;
-> > > +	int addr = phydev->mdio.addr;
-> > > +
-> > > +	return __mdiobus_c45_read(bus, addr, devnum, regnum);
-> > > +}
-> > > +
-> > > +static int adin1140_phy_write_mmd(struct phy_device *phydev, int
-> > devnum,
-> > > +				  u16 regnum, u16 val)
-> > > +{
-> > > +	struct mii_bus *bus = phydev->mdio.bus;
-> > > +	int addr = phydev->mdio.addr;
-> > > +
-> > > +	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
-> > > +}
-> > 
-> > Why do these exist?
-> >
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  .../bindings/display/panel/synaptics,r63455.yaml   | 125 +++++++++++++++++++++
+>  1 file changed, 125 insertions(+)
 > 
-> The PHY is always probed over C22. Unless read_mmd()/write_mmd() are defined,
-> phylib will default to indirect accesses to MMD devices. The 0xD and 0xE PHY registers
-> are not implemented, so those transfers won't have any effect.
 
-In oa_tc6_mdiobus_register() there is the comment:
+My bot found errors running 'make dt_binding_check' on your patch:
 
-       /* OPEN Alliance 10BASE-T1x compliance MAC-PHYs will have both C22 and
-         * C45 registers space. If the PHY is discovered via C22 bus protocol it
-         * assumes it uses C22 protocol and always uses C22 registers indirect
-         * access to access C45 registers. This is because, we don't have a
-         * clean separation between C22/C45 register space and C22/C45 MDIO bus
-         * protocols. Resulting, PHY C45 registers direct access can't be used
-         * which can save multiple SPI bus access. To support this feature, PHY
-         * drivers can set .read_mmd/.write_mmd in the PHY driver to call
-         * .read_c45/.write_c45. Ex: drivers/net/phy/microchip_t1s.c
-         */
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:26:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:55:14: [error] syntax error: mapping values are not allowed here (syntax)
 
-which is what you are doing.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml: ignoring, error parsing file
+./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:55:14: mapping values are not allowed here
+make[2]: *** Deleting file 'Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts'
+Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:55:14: mapping values are not allowed here
+make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1659: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-If this was a DT driven device, you would add:
+doc reference errors (make refcheckdocs):
 
-compatible = "ethernet-phy-ieee802.3-c45";
+See https://patchwork.kernel.org/project/devicetree/patch/20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org
 
-which would result in the device being probed via C45, and is_c45
-would be set true.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-Maybe we need to improve the situation here. We know C45 is
-implemented, it is part of the standard. So maybe we need to set
-is_c45?
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-In oa_tc6_phy_init() we already have:
+pip3 install dtschema --upgrade
 
-tc6->phydev->is_internal = true;
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-what happens if we add
-
-tc6->phydev->is_c45 = true; ?
-
-Maybe this was discussed already once, when oa_tc6.c? I don't
-remember.
-
-	Andrew
