@@ -1,63 +1,63 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC319348C6B
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7D028466F
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779375672; cv=none; b=ca3gLDXwr7MJvxsBXtCrfHE+SlPEcB0Vp97BdbxkAYiBsBxZDK4NFu+rt2ugRskvQe2iL+Btlb2AsSJ9eQvBd+Gbn2ELA9hbJ41c1kDOs10diS1COvo+b0lw0wcZrHVnuX1PL9d+YJGrMU01aLrcJXJJIcRxa0IM3t7okBbDrmQ=
+	t=1779375673; cv=none; b=df8PYaqksjZEc6ob/DbmhDwZu4CT+SAsthGcOu1btWdVJf3fQoObA6vHjuZGAyZhwq6lqA8gKmiwT0yHH0KPR3DROFDui+wadHqoO0EnVV+Yah1s8UWP22fM1cY7pVwsYHGMO2gw+YVlhRFkhnLwttydRz1bSrhTqVJXSKXqrnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779375672; c=relaxed/simple;
-	bh=Ba7wjjBLHj/OQtGs3p5+xGVWqv0E7v7papxVstbCYKA=;
+	s=arc-20240116; t=1779375673; c=relaxed/simple;
+	bh=ZFl2ULHiVLTSuCGh0QihbUUuMuRf8/lPPNNp0+994S4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d4JrcRiSBMCFLh5aEkotpoPI3dbOp+3m/q9Sdc+Lc1eXKiqWkHS8fruFL32s6xZrBzDwZs5l6804eoR53aJdsLSO3kHjNKMAeopy9PmYiyCipO3AuTvId3cbEhZKR+PHAM5TkMw7jQb4RQEfAedkxjGulAGqaWgHpY5lApIVYRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FoyN+/Xm; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=i7LBmBoiiIDiGZ4ypH2Gn19SDzzqVa7yqSaERngH+DI09n3lz4QeTseMGqBOA7G1/tyaXZKZjSx7Ygx7odETnyK4BLkfMhEuI6BrQQWXvGYZKH3i2aRLhxbzzRIpT0omBeASszRdn8wfT7GtzboMA50RwhzGuvL2jdDYUo2HPN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IwUjXODH; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FoyN+/Xm"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4891b0786beso43512785e9.1
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:01:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IwUjXODH"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488ab2db91aso65467115e9.3
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779375669; x=1779980469; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779375670; x=1779980470; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kx4NrXh6e0d7nDyJTPlJmHDbVsDuIXTB3GMJlYOnaS8=;
-        b=FoyN+/XmL5yLlMnplk7ZRf+7INIk/j1LnCPG5EIorXxvpVI5UKVJwN9xEYnNAl8TOE
-         0JaPZ6L+3M4lGxrnPxLqJaeZK5BPhOWoyT85XfHJWYp/aUk91Lhe6CMvuI85irUyejdp
-         7iUo4Wq0BINXOST12vhAeCXp7X/9SHQHWBmE3vhaLv/ucIQ+69xB9Bc0QWwN0G4QM8iP
-         HTx7wtvggPPUdxfrIOOjjfc/56tgvtoy7MOmiyEt0xSoF/3nKIUKB0JIb2E1G9j88pCq
-         M9S+OEFHcsoesRxGwnL0mNhSzh9n6bh8reWj5NQXYRqO/UrXWjKoxU7WKsYW3ZIsbnIj
-         ga9Q==
+        bh=gsZ8aDIVQOhkLMcIt92qlAZ0ISFPwApT1fZqqK+Da84=;
+        b=IwUjXODH/HXEVJgjPfjlOQ6/t2eQ7isasZSFAyRhMVLY2H6CbCBxd43qWpBjpD5yIs
+         YMSAcSpcyZ77fF94qsxQOjurpITDX54rY8FHM/uwAvyAmR1P1u7qX6KlTnBx9XhZHQkB
+         ijDaBw+5mlJigZdHtDlUCscT6zQOX1saJL7Ky3KAaGnA60hu8yxxCz7l340sWsz4eygT
+         yCkAjdAM2oNo/cKY2UkDmWAWbOelrVk9OSKOu4n1fwHfYDTipIzQnatqaHQqNjmDdIOy
+         ST4uCMzTQ5S1aCWLBZcNaemcGrT/MXvwrbGi0hllEZxGC3JKSkJrP9KrThOlmx4MWJf0
+         PQKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779375669; x=1779980469;
+        d=1e100.net; s=20251104; t=1779375670; x=1779980470;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=kx4NrXh6e0d7nDyJTPlJmHDbVsDuIXTB3GMJlYOnaS8=;
-        b=RheZC9yaje5iDj8xxKQ9I5rosNLwTwhBce/0NgEipC+XuU6C+bowbwDiswKS7P+D/Q
-         Az3Z8K0tqI1AoQZs5UPWc1jx5ej/fuGcRtJpngGVkN9JtlLwuNyjsrPd5H4xNT3Twpu4
-         +7nNEee646bL7Yt/tDIHJPjOmc07Yhi3bIVjDUy/lMSbDdi+wpDTEV9Oo3W6xtawlI6l
-         SbvHM37DArsSS0jW5CfZiF/U6TLloff58oo+T3PZ/LoOsoCSaWdba3DOsY8MnBQ7pwQv
-         oeuGhHz2qyCFW3bCxTontLD7kN6txwYD3z+Ka3Yh2V2pcLmdqxETSebJ+05IL+pbxXlK
-         ZNGw==
-X-Forwarded-Encrypted: i=1; AFNElJ/oitot+XzwdQiwinL9zfTBaMg/Agg2EJgHahZowjHRR0MGupAanoqYriwhW+23L5pEfRe7Fvil3hC6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjwNYL0JNLNfCuN8Uk86pEF9sVIgH4wyQA+Rvv9uIXIsPnE/k2
-	eyvCnsZVetXu4SlK3+9WTjZyQkbBz4I43ldkQPP1MwNnel7C9FNLN+mm
-X-Gm-Gg: Acq92OHdy8wBinc/A902qshOPlWsRM8enT+IiZRUNXZoPhPMqRuN6Mw7mjkGX6yeB+3
-	13rF8MAyjsOxCxG2V/inx/lACuUWZYtz5u1jRhgkI/IzKg+yiAWCMNVbKXiLtz0LzAu+ixInv9f
-	IM8/J+tk5vzommK7aHB9qzYGXmrJySj9qy53PuVzMHciuMnro+XIDLtHOVG/KlYtKNxd4orQFst
-	WkVhAVhUm+XsEizNgBhcusDnLpB28BusjzYQtCdUBiWDazmWMpcOTWfnuhsV08OZTDzf9Jyr+FC
-	tFKOJB8GypuyNjevr94GV9hJ8b/UJ4DxSd56l8LXEXTD7UOsDI0LzXxdv6Mqhrk/iZEG0D/4jnQ
-	PT1yh46OCoV4fhB3G25Pod6LanDmk1DD/ZHgsmhV8hAL8h+HYaoT3w3WrfgKXnI0V2dxx8sxk7K
-	qYKj9sbce/0d0qOEL5L+UEYZphdmM97t3MyQ/32eFphg==
-X-Received: by 2002:a05:600c:4e8e:b0:48d:c0a:3813 with SMTP id 5b1f17b1804b1-4903602cb4cmr54844565e9.3.1779375667684;
-        Thu, 21 May 2026 08:01:07 -0700 (PDT)
+        bh=gsZ8aDIVQOhkLMcIt92qlAZ0ISFPwApT1fZqqK+Da84=;
+        b=fkbOK+7L143CLfS7zpBm/VuQe/d0LLouiiHV8G1IHgyvrgxlqp9TYhuMvky2CUxDpP
+         Yl8F5pkNu14EMHP4ifD9KcylMr6YwGOlnX+BrDkfsTPRWEqIaNW+3rtmBG/tzxeS/1wd
+         8KJ6TFaQKBg6mEmXpjupVvgAyfCe1kzGmTy6rlKoZsj+ZAXiZQrXvlCuDhyfyBjYY/U8
+         6jkn2nA/HKEKMWMdiFmX1rJ3wBo88aXLAEL4fhTD4lupebEQbIq8Vuze+o/BtqpeLEG6
+         CWs30rztQrWF9UG2ZOozEhPoZYLPBvEwvJaPNo5TzN0xdBdeMsloQ5Gn5YJGpGQ4+VBZ
+         9LYQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+QP9UNUUvkXCnV7NxH5gqHi0EvIYPDxpAvwaJcXvKQy9sHZtabyHSofgrxjF8QU5remsbrEeumKZeQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAD2JVb5XWAA++KOrHCMlteh/z0kuzxcdrZK73GpJFKxh1NQoq
+	1n6AXHtUqkOKBoqfVjTtoeR8F7t7SVzyNdDv4OrkQ6/Z6IgOLhVBeujb
+X-Gm-Gg: Acq92OEt8ikMSNuQVgMZhRiPu38b5E800fAOBEAuxhKleUcQKBZSeA6kjoa6MA+orzQ
+	fC9EHChvVgAmzzOwqx4D5q/DmW2lBSOZIed2PWUVd0LkFgQuaSJIcO0NE2jm4yBS4SWNTqk1rWU
+	LvmC/42YWP5r2aBF/lUN0HCAEw6TiaBXyKFLcMyYZnwmUrP4feVszOKj6HWChdzebVcdTB9j4kp
+	ZQbpU8UaB03bkH7OBD+kSr9yPtB7/bJru0FuHHk5QMs0HJXP/2TCXMjXMLQoddV8V4wYMuJJ2WT
+	ieqbAJS8PjE0Th/Gfl2yMVKUrSMPOk7bzWiCOY4gnCcidh+juI+zCygCYpLYvS20+legTWKA5A/
+	Nj1UPIvrZWxQMQv4W1+QPjc5hYXzQ6KkqBRzqjqIV+FPuLryOveG3rgpYk6u5H5xG992QgW4fqU
+	8/uWnaoIw0bUL1pc/aC6IlAyrjYZEGgA2l5niqDwLg/oR5ax1lZpHl
+X-Received: by 2002:a05:600c:8b34:b0:490:3d27:94f4 with SMTP id 5b1f17b1804b1-4903d2797c3mr26603645e9.7.1779375669985;
+        Thu, 21 May 2026 08:01:09 -0700 (PDT)
 Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 08:01:06 -0700 (PDT)
+        Thu, 21 May 2026 08:01:09 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -81,9 +81,9 @@ Cc: Vitor Soares <vitor.soares@toradex.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 04/15] dt-bindings: vendor-prefixes: Add Riverdi
-Date: Thu, 21 May 2026 16:00:40 +0100
-Message-ID: <20260521150038.103538-21-ivitro@gmail.com>
+Subject: [PATCH v1 05/15] dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00
+Date: Thu, 21 May 2026 16:00:41 +0100
+Message-ID: <20260521150038.103538-22-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260521150038.103538-17-ivitro@gmail.com>
 References: <20260521150038.103538-17-ivitro@gmail.com>
@@ -97,28 +97,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-Add vendor prefix for Riverdi Sp. z o.o, a design and manufacturer
-of TFT display solutions.
+The Riverdi RVT70HSLNWCA0 is a 7.0" WSVGA (1024x600) IPS TFT LCD LVDS
+panel used in the Riverdi RVT70HSDNWCA0 display module.
 
-Link: https://riverdi.com
+The Riverdi RVT101HVLNWC00 is a 10.1" WXGA (1280x800) IPS TFT LCD LVDS
+panel used in the Riverdi RVT101HVDNWC00 display module.
+
+Link: https://download.riverdi.com/RVT70HSLNWCA0/DS_RVT70HSLNWCA0_Rev.1.4.pdf
+Link: https://download.riverdi.com/RVT101HVLNWC00/DS_RVT101HVLNWC00_Rev.1.4.pdf
 Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/display/panel/panel-lvds.yaml         | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 28784d66ae7b..bac056d486e7 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1403,6 +1403,8 @@ patternProperties:
-     description: Embest RIoT
-   "^riscv,.*":
-     description: RISC-V Foundation
-+  "^riverdi,.*":
-+    description: Riverdi Sp. z o.o
-   "^rockchip,.*":
-     description: Rockchip Electronics Co., Ltd.
-   "^rocktech,.*":
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+index 9db96dd724b2..7ed0c486870b 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+@@ -60,6 +60,10 @@ properties:
+           - jenson,bl-jt60050-01a
+           # Logic Technologies LT170410-2WHC 10.1" 1280x800 IPS TFT Cap Touch Mod.
+           - logictechno,lt170410-2whc
++          # Riverdi RVT101HVLNWC00 10.1" WXGA (1280x800) TFT LCD LVDS panel
++          - riverdi,rvt101hvlnwc00
++          # Riverdi RVT70HSLNWCA0 7.0" WSVGA (1024x600) TFT LCD LVDS panel
++          - riverdi,rvt70hslnwca0
+           # Samsung LTN070NL01 7.0" WSVGA (1024x600) TFT LCD LVDS panel
+           - samsung,ltn070nl01
+           # Samsung LTN101AL03 10.1" WXGA (800x1280) TFT LCD LVDS panel
 -- 
 2.54.0
 
