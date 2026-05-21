@@ -1,273 +1,473 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021098.outbound.protection.outlook.com [40.107.51.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516A02BE053;
-	Thu, 21 May 2026 05:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779340561; cv=fail; b=Vu4LHCNjvmA9go9lZjIFX30mVUggE/TUPJ96b2XE6TgPxF9Wu0KO493DqLaKTv3GO0C5ct/Pjpk1WirqDpqgIq2fcX2kvCxd2LMrqs3POWm8m4zaD87/oT4TF9nrbn1Mmi2dPhve0/zZsiDealWwUdyqETnsDGmnulK0wv7pfLU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779340561; c=relaxed/simple;
-	bh=dvPbREso7O9W2IXSND/weHRJzit9PDrtGtRdt1ySBsE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=A51z0GQMb25tfWA4HefpfEH6AYarZ0vUkKMKzW+z8f3V+6eqbakcEPxFBQUCeG5Mykuq9noCzFavYYkz55v/7y4a0l3Jt+ze2Vz8w+RmU4+A2WSeN5Y9rZ80qDGsk5EHwflrHmVDeFA58n4dTgQrSLlfwi5BMviqGfFw+ioXKAo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=CQGUwMnk; arc=fail smtp.client-ip=40.107.51.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDECC3630AD
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779342103; cv=none; b=J2lJEIadN6vrDSAIMhNYGgPucZoCr7G84HynPPSnZHT2HuKXRz9wfEQHf9db/93U/h1RuKovcVZ2I4eapssisJ4Tx0azd6CWhgisaZMAo/3c4QQxuAaVzjf+vQiy6+FD0KeslheskPFi9+JSMEzUZb7OXSHnYuDuAJSzLypoZ30=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779342103; c=relaxed/simple;
+	bh=ueG9CIBcISCqBEb1OAqJvtwaJvEYYMtuX2Thxf8HsWM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CTx02SqRrn0mUQO8s/p8f9gbS0pue5ZaCwNuAT+iMlZAZH3ml9zOKS/LvmxmSCCy6HbVJ8X3YuLIGzc+VyK5gf6GFGfBCdz+AbDpFKeLhqtj2/Sb3O6xJ9ICE1/5TbgVKCmyuI1UVsrXDfRrjozJB5puKvygVBW+MgY/U/+rGkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c3R2cSnX; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="CQGUwMnk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KKMrgTaLCfItQ/ZpExwSQsSi065YvLetr0DueZgD5ydTZlLgan06XgzrflngQXcyKhlHtgDatFlO5DiVeHZWN/Tk7/e8iLOEACk4X2nrJ2zZGh2o31AZmUSKjFxRHfy3bIUgevuyegrf8xjejzAjUiFdHWc4pzdUeAgLou77GoaemraHxhFnhbIoas7Bg44GTUZ7EDimg1oGdLzFPssMQDdEXoljfnbQx7fu3pRSA/nl29qHQFFDMMjUTBtQFad7oE5W1pNcdCFs/z8+bvyYvBFrIXTrh+5Bkfx8YSosA9b86ai0vkHsZKdJox+ImEx+uQiFW43cWmW5IKqNW1MK5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h4psz16cxuT2gkkjCVWQtQgatfKYMou91paIx2fP18s=;
- b=Lk+KgAq2d6rXRok1EC25WHOfrAalevzf0h/+fBbUhQh8oOq2xHs3PALdGgPF7WmE7L5Vm8Rs3b39QMNcWafpEQiJh0QAhixr4/NU0ivEG8QHczKlAV1so4dmBW7uq//1hzDbNGclDqvCd95YZdn1CMCFajj2ooW1PWV40XhF9XnZaUemDr2xZLxFf3i50gI3UCfcCe+5Lh4mzIgMx3hsR2Q2SPlIQo2bZ/thAP7oSUCr+thcq0+8Du5clrXiOa1L5QGl337PRxpZAqRmMCRnJ7yhkMxu5IFsyszThwo3uEK5IIvIr+tM8A+IJoPmWrKJNam0OX9Z5QKDGH+06SneIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h4psz16cxuT2gkkjCVWQtQgatfKYMou91paIx2fP18s=;
- b=CQGUwMnknhvg0iCHJxdPzQBRYoKT9aqdmB1wTv3uokYEZoAhkzBB8olAj8SNmwEUGYZ+DSbSnKWfiwOsjy6W66u7eAyLEwFQ4fwKFjN0lnINvItUt+ffj2PTb8JwLsw/8vxRoCAr2H/9kym+yPKbzHsA7zrGLMS76YrKb5iRr1W5YGFh4zNehrlb14ruNu4Z8pRKzYTwOYA0jqA57hC+lxQai/DLDk8A+pLbcKHtNerWJf0T+AzaIq8KMhJauwsqJ1erzpChIngOnYWwNo/M7+PYq9rd6WiLSZrHEKycK1rKrOdl5NdPwqMgX2PdOnvP3nyXPxFy7BmzKBJRGj0jQw==
-Received: from PN3P287MB2188.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1d3::11)
- by PNXP287MB4262.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:2c5::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Thu, 21 May
- 2026 05:15:55 +0000
-Received: from PN3P287MB2188.INDP287.PROD.OUTLOOK.COM
- ([fe80::82b3:36a9:de62:6aa7]) by PN3P287MB2188.INDP287.PROD.OUTLOOK.COM
- ([fe80::82b3:36a9:de62:6aa7%5]) with mapi id 15.21.0048.016; Thu, 21 May 2026
- 05:15:54 +0000
-From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-To: "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>
-CC: Tarang Raval <tarang.raval@siliconsignals.io>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
-	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mehdi Djait
-	<mehdi.djait@linux.intel.com>, Benjamin Mugnier
-	<benjamin.mugnier@foss.st.com>, Sylvain Petinot
-	<sylvain.petinot@foss.st.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, Hardevsinh Palaniya
-	<hardevsinh.palaniya@siliconsignals.io>, Himanshu Bhavani
-	<himanshu.bhavani@siliconsignals.io>, Svyatoslav Ryhel <clamor95@gmail.com>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 0/3] media: i2c: Add os02g10 camera sensor driver
-Thread-Topic: [PATCH v3 0/3] media: i2c: Add os02g10 camera sensor driver
-Thread-Index: AQHc08xq1/E6s4vLjkeE1HL5R9n8CLYYGYQo
-Date: Thu, 21 May 2026 05:15:54 +0000
-Message-ID:
- <PN3P287MB2188D01E4BFD005525304E85880E2@PN3P287MB2188.INDP287.PROD.OUTLOOK.COM>
-References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
-In-Reply-To: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PN3P287MB2188:EE_|PNXP287MB4262:EE_
-x-ms-office365-filtering-correlation-id: da16cc3b-bcb9-4bd3-9a7b-08deb6f808cf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|1800799024|366016|38070700021|5023799004|3023799007|56012099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- 7SNNqX0ncAyypgBMXeDl0+7jVtmCT7dacDxZhVgDbVK7DA2wViQxAVUyqiJYIdkyOnN+hIJD4evrVC//4D+OTJqxyIOOkIcUyIyt8KfhZPuj0JOiZ49YuzkI8Hzp5A+gc1dP13l7YVEkj6+6TeDVlOD3p8GY4X9fWcDtv0P5I2j8f0ASEikxdx/9Lv+Nz77uE7DuDfb8LEXBNc88ZssyGrcw4mzWkXImvN2qsOcjUg0SxO7qGpm5g3/E5GYnPCnjLc6LAlSJ9QWADoa6W+TKXno6G45OwwEHnqJOJ4bLH7K22mgD60NKtNJFST1ZC9AJyZFu/YZZ73jvpQw4eKefgS15uWYw4jOM/kqHXp/n3y1IzwRiS2a4W+Lpxfl36uu6A1csvbXZcC+PozcTdG79feBWL53fRyX5fpBXzalY5b/Q1XHQ+OOIdZdfNjxsbYguPUxr216/6xBNx6j3XmdqElMCRjcvpbvguPjwk0CT6fD5Re4oAvrBp6Y2TKWHzMTj+c9OJ8hSM5F/m6j1+qWSPuj7Kvg5HSea3Rrd4f19V8pE+thiSWdaYC+JeRyka9EvBUzmQB05aHcGagpEms00IGLe4kniZ8Achrs+qbbHmKeDhbMxGdQOiETIaZWwkEZtI7cswq0ITiR1V1hALm2fyxiUGuDqfdVLvk6WZ37C0a5Ar5eoBWH39tuijAArZWMpMHnXzRQqUXUH4Tar4ujq63zBJddW6e8jkbpZiYoMJ9kfuDLZFvMtoDaXaoM5Rdgb
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB2188.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(38070700021)(5023799004)(3023799007)(56012099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?XUnIq0nbqZcdOKTzOVA+XowqEo+pNFVCNyNl7ND4VOzLo2U3zhz941G6NA?=
- =?iso-8859-1?Q?N0hsWjO6sMbfqKuRjSjQRH6oVrNxQ0RJAzR7XZQ2sZ2iyBoEA9/aGvFWBq?=
- =?iso-8859-1?Q?MZ5MT577dyTPpGQlBUwVgnOp3UMwrkw/VdgfkWC7GJHRHVX5Ou/k/9iV0H?=
- =?iso-8859-1?Q?KmNa4HCy9J7jQYVmUz/vVRJ6riVlu52ItmJEXBDoiL3stRG5XBO0t+mpot?=
- =?iso-8859-1?Q?cNE2SO/RjDw/vxMSh9As6ACOuVm8Zho9Mi/f8dv5pHOArXJ36ss8QHZz93?=
- =?iso-8859-1?Q?7fwcMivVls08uuqZZFRqAk+z0ES9lbWlyUKDk3c/xssjE/CAGwLrtQLt6D?=
- =?iso-8859-1?Q?VaeJWkihbIEQm864PH/zWvtajY89XCCqOJJmdAh8zCcm5Rz9bq8uPOpzv0?=
- =?iso-8859-1?Q?zGSWYHoPPj+i015hxecY6x/BZ/evBebp5tdfgpXo/lJ0QQ4ieFjnD7hiM2?=
- =?iso-8859-1?Q?/LGusmDXTkPFU98DD022gDOb5k3xcr0X22DVmoJn8F47hYexc2N0wnX3cI?=
- =?iso-8859-1?Q?efnRMH01HTqO9rww7eYW3RJrrz4uJewE5gRJ3ANm85EDEa0w2YamEe4OWl?=
- =?iso-8859-1?Q?EoGV/wOvEVwJJ0V4HlE4lIA7b2wilyCevfw5Cq5ff4hRBynBTGxNfOiOJy?=
- =?iso-8859-1?Q?YYsh4c3RP85X/HolOzfTflP3+UQopmnOrg1oSjlaK6n5pU4ptJtwOCWtdp?=
- =?iso-8859-1?Q?O4UKMV6c6rFkTKBDI7ndAv/EORevqcxRJu9s9tTck5lw+cCzUgZDBLstEY?=
- =?iso-8859-1?Q?zdNavZ4iczAMLAd77iy4lGZ8vFYjBEyhgBFHW7vzGvqOHxeMTNa3AOrjc/?=
- =?iso-8859-1?Q?O+jTILJOXy6DkWmYjlrLAZi3z2oy9Cqdeur9Bl9qkvrXTF1X93He1kck0G?=
- =?iso-8859-1?Q?QvcdquNej3Cz2yTW5F9xjLoIeT9fJt60uQ4dl0DHLtqRQXLctj3lKlpS0Z?=
- =?iso-8859-1?Q?UYUoyaOYBWuh9qNQqocyHAXHr7e+gQWGEMhjzLabQLn6++Bn/q0KyxA24k?=
- =?iso-8859-1?Q?H8HirWGgkeiae/g724GJRCZGJRcsSQnZ2SrlwF4/VnKqLdKKMCq1GZrNGA?=
- =?iso-8859-1?Q?YwveNRRcr90Qi/YXJIFPeQpe/zWpRthw4ZBCOsCyFv7WwNYVSkOmt0n6qz?=
- =?iso-8859-1?Q?QRTr7GN+ZEb/MPbwv0PZ22x7jLRXjfC6RVgPwWGaAJgWlpwylxFDG1Gi7Q?=
- =?iso-8859-1?Q?rN8C93WEppCSGumOCVE+aMjWBkMtcUg7FW+JCgrctdbNSjCxGNkGrmpsN0?=
- =?iso-8859-1?Q?rRKiRINX5RSDfEHDlRQf61yWyBznITBarhofPxVfTdJHLmCRM8nm9/M+d+?=
- =?iso-8859-1?Q?2nMJkJ034yzHVY1kkPVdjrQlAR5CSmfuYzK66qVwnOCZXZipP+mha63mUq?=
- =?iso-8859-1?Q?9/M7No2RljsY/u4pq5vyVRJtUzRsc+A+gB9qwcgB+VyEUsvBIMWloVcCSB?=
- =?iso-8859-1?Q?xhh2smuFubGzaE//fJoHR5wESs6eixPa9lkXiQH12Ugi4zZt1gdUxeZKge?=
- =?iso-8859-1?Q?D1L7v1K6ppxhff4VA5VymkTCgGHql+gANvpj3EfM7JDJbq/yK2pzZDz/0J?=
- =?iso-8859-1?Q?xu6MncWy2mpqjALyXpPubCqsEdrfT5WIGvp3wrRZJ/XwIs/hmJ+vwcq7fK?=
- =?iso-8859-1?Q?5iw9npOw1CoDukTpX5B+lRsyoK//BaxbQ+lu9D8+tey6yb1NdhzX2ub2Na?=
- =?iso-8859-1?Q?CIL+GR+CkMNS6r4w53dVGz5Fa26dXkHjc8yFq56Ro3ct4Zxu9K7lJWQm6n?=
- =?iso-8859-1?Q?SE4dmj5BtQQFVoj8zfECEoDCtqmcsMos2xfF3akjk2lPYol/0vrpM6XKZ1?=
- =?iso-8859-1?Q?ateI9nODgdsXSr0bBnyG4pJITyWJCFI=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c3R2cSnX"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8354461da74so2555450b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:41:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779342099; x=1779946899; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cisA9bq/yMmHLQ79HWa2QEhS3fIz6CIk937mHCPD/uI=;
+        b=c3R2cSnXZKly76sd6ck/I9T9r7wnQbY5isezGn3a8W32MsgyaGOX45rgjacKL9uYZ2
+         G47e1R3b3fOftEaN28t1BwsLomQJLAKLdI0/7ggqlc/q4HScrnlbv+3qOtRJCgMTKOEY
+         LVTxeKK8kUgrf8hSXqwr4ErYb5X9t+lnVRvrhkXTsOBEgv3ggeF5td8sSFASckd2TV5l
+         GdFtq3yMYKE5zFZHDB9Q3AyMaOuXps3nPE41SdGREMFk5MwczOkrTV3w1Nejif+ZlQns
+         WbKqljQ//cBmouzFTh1jjqFAi8ee6O1aePdW5keP4iegcES4ABV00zbbuzfnbVWGz4GS
+         tqlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779342099; x=1779946899;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cisA9bq/yMmHLQ79HWa2QEhS3fIz6CIk937mHCPD/uI=;
+        b=J6SI4pqQTwFjpRFxPEWBHXLxY2Ksu1Rx5rDNfFA5e0AnAT8yzLVZgoPgrM4MW+424Q
+         9IYSi7mRoY/1GcGDW4rbBlF8ty+ybHfZbiO1szmu8ZSFWWIma/dAxIYffO66M/psbAgP
+         0Fujagk213Ro0RBRRdU9NUbh72uxmH730JPjgEYQiV6tnhCk2cfmjJzorSi25oOJSrX7
+         025S4J/tizabINfVsWAqm9zixMgKZNfw8WzRlnlwM70qUo4mVpycW4iCOL4jnGZ6dEJq
+         xNDHUbTN92TixFv9Fn+YD0CzV5Gs/02Vb0QrXonyiCBGb7q5iWNAKbJmfV2ikVRBjumW
+         ZIgg==
+X-Forwarded-Encrypted: i=1; AFNElJ9f+8CE9gdmlk2fW4vdSXoUGFPB466NK1E6Htcm626xb21jw/pkY9p+4Q8ZwPJi0J5NKcRCES22XZQG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLTuLXPGsjNdV3s1oTl6UhymiKE8uo/3HcP3UUhnnuLohVhO5T
+	lhDBv1YRPBVi8bm2aeLtEKBEZCHGjEIjJ0IHZoCjstL8EmfiWJ2SBx0N
+X-Gm-Gg: Acq92OH7mHqQEGSTR2cmvCeQzRb8oAacvRYBY0IUP4swypjWzrI17O6kVH/GuBrDVA4
+	GWSO9rFBx5e6ZYlKLow2x7IUlCt8RPNeRxsxui8GEI8FfXRfEuBli78ceKIqOlm4aS+EjnYFqem
+	kzLscg3q67L1tjIG9kVnSHGfIZn/iMI2WyKzg9O2hJYtHMsIJSmwYli+FOO3p9PwwIfomsYBpqj
+	5No9o9BUISIwdA7cBdktnMovV6iTSzNDbrrsB1YF8CvCmMNcS+r3zN3zG3JUmJX2RY8qWUmLNMo
+	0Zr/EYynGwtn+PHgLiLpzW1xZYDvQWQsttbweVaYDT0JAKOY6AvK7RC7TTWpbgjB5/Ifn7Vh//S
+	kzszErmkpmiH2E7Nv/zhiHz6jHaYcc8lzgeUPfUnwHz0cvs7CtELOxpBQBzj66uE7DtDCFg/A7A
+	rKWgYatYkcJO5viWYpVf1/GVIzvUp9t8REzwz2NkbhFHrbgYvBEQ1ywUvA560EJC9SUk5mCjch5
+	Hax
+X-Received: by 2002:a05:6a00:10d2:b0:838:a932:de26 with SMTP id d2e1a72fcca58-8414ac7b2cemr1502998b3a.1.1779342098580;
+        Wed, 20 May 2026 22:41:38 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19f7cd19sm23019794b3a.54.2026.05.20.22.41.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 May 2026 22:41:37 -0700 (PDT)
+Message-ID: <c8f88012-5185-406d-80d4-5e4ce810d967@gmail.com>
+Date: Thu, 21 May 2026 13:41:30 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB2188.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: da16cc3b-bcb9-4bd3-9a7b-08deb6f808cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2026 05:15:54.9105
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: srmCYPsUET4kUmUhiDVKpyr4CJPNY2F7CNNj8weLoSYUSlC4Wq181yCOSTikHcEjQou60yHpi+pAeYL+7ih7dKWKOQNZh0z9Y7shLvYQloHebs0a/IvVvaBuwxLtGLv6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNXP287MB4262
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: verisilicon, dc: generalize
+ for single-output variants
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Conor Dooley <conor@kernel.org>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, ychuang3@nuvoton.com,
+ schung@nuvoton.com, yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260519055114.1886525-1-a0987203069@gmail.com>
+ <20260519055114.1886525-2-a0987203069@gmail.com>
+ <a66cc60fe163167e30e42f0b4be996cae1170a5e.camel@iscas.ac.cn>
+ <20260519-fretful-blush-1aac18fa1360@spud>
+ <a112cb8b-21fb-4c33-89a3-14a4feb5e3f9@gmail.com>
+ <47a06094541da642cabcb6b7d2f92d5125d365ea.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <47a06094541da642cabcb6b7d2f92d5125d365ea.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Laurent,=0A=
-=0A=
->The following features are supported:=0A=
->- Manual exposure an gain control support.=0A=
->- vblank/hblank control support.=0A=
->- vflip/hflip control support=0A=
->- Test pattern control support.=0A=
->- Dynamic mode configuration (e.g. up to 1920 x 1080 @ 30 fps, SBGGR10)=0A=
->=0A=
->The driver is tested on mainline branch v7.0-rc2 on IMX8MP Debix Model a.=
-=0A=
->=0A=
->v4l2-compliance 1.31.0-5387, 64 bits, 64-bit time_t=0A=
->v4l2-compliance SHA: 5508bc4301ac 2025-08-25 08:14:22=0A=
->=0A=
->Compliance test for device /dev/v4l-subdev3:=0A=
->=0A=
->Driver Info:=0A=
->        Driver version   : 7.0.0=0A=
->        Capabilities     : 0x00000000=0A=
->        Client Capabilities: 0x0000000000000002=0A=
->interval-uses-which=0A=
->Required ioctls:=0A=
->        test VIDIOC_SUDBEV_QUERYCAP: OK=0A=
->        test invalid ioctls: OK=0A=
->=0A=
->Allow for multiple opens:=0A=
->        test second /dev/v4l-subdev3 open: OK=0A=
->        test VIDIOC_SUBDEV_QUERYCAP: OK=0A=
->        test for unlimited opens: OK=0A=
->=0A=
->Debug ioctls:=0A=
->        test VIDIOC_LOG_STATUS: OK (Not Supported)=0A=
->=0A=
->Input ioctls:=0A=
->        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)=0A=
->        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
->        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)=0A=
->        test VIDIOC_ENUMAUDIO: OK (Not Supported)=0A=
->        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)=0A=
->        test VIDIOC_G/S_AUDIO: OK (Not Supported)=0A=
->        Inputs: 0 Audio Inputs: 0 Tuners: 0=0A=
->=0A=
->Output ioctls:=0A=
->        test VIDIOC_G/S_MODULATOR: OK (Not Supported)=0A=
->        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
->        test VIDIOC_ENUMAUDOUT: OK (Not Supported)=0A=
->        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)=0A=
->        test VIDIOC_G/S_AUDOUT: OK (Not Supported)=0A=
->        Outputs: 0 Audio Outputs: 0 Modulators: 0=0A=
->=0A=
->Input/Output configuration ioctls:=0A=
->        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)=0A=
->        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)=0A=
->        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)=0A=
->        test VIDIOC_G/S_EDID: OK (Not Supported)=0A=
->=0A=
->Control ioctls:=0A=
->        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK=0A=
->        test VIDIOC_QUERYCTRL: OK=0A=
->        test VIDIOC_G/S_CTRL: OK=0A=
->        test VIDIOC_G/S/TRY_EXT_CTRLS: OK=0A=
->        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK=0A=
->        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)=0A=
->        Standard Controls: 12 Private Controls: 0=0A=
->=0A=
->Format ioctls:=0A=
->        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)=
-=0A=
->        test VIDIOC_G/S_PARM: OK (Not Supported)=0A=
->        test VIDIOC_G_FBUF: OK (Not Supported)=0A=
->        test VIDIOC_G_FMT: OK (Not Supported)=0A=
->        test VIDIOC_TRY_FMT: OK (Not Supported)=0A=
->        test VIDIOC_S_FMT: OK (Not Supported)=0A=
->        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)=0A=
->        test Cropping: OK (Not Supported)=0A=
->        test Composing: OK (Not Supported)=0A=
->        test Scaling: OK (Not Supported)=0A=
->=0A=
->Codec ioctls:=0A=
->        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)=0A=
->        test VIDIOC_G_ENC_INDEX: OK (Not Supported)=0A=
->        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)=0A=
->=0A=
->Buffer ioctls:=0A=
->        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)=0A=
->        test CREATE_BUFS maximum buffers: OK=0A=
->        test VIDIOC_REMOVE_BUFS: OK=0A=
->        test VIDIOC_EXPBUF: OK (Not Supported)=0A=
->        test Requests: OK (Not Supported)=0A=
->        test blocking wait: OK (Not Supported)=0A=
->=0A=
->Total for device /dev/v4l-subdev3: 46, Succeeded: 46, Failed: 0, Warnings:=
- 0=0A=
->=0A=
->V2 -> V3=0A=
->=0A=
->Patch 1/3:=0A=
->- Drop the fixed data-lanes property, as the sensor supports only a 2-lane=
- MIPI interface.=0A=
->=0A=
->Patch 2/3:=0A=
->- Use regmap paging features for page selection.=0A=
->- Use sd instead of _sd.=0A=
->- Remove an extra blank line.=0A=
->- Remove hblank control, as it is not used to set hblank on this sensor.=
-=0A=
->- Remove an unnecessary error check.=0A=
->- Reduce the scope of the ret variable in os02g10_set_pad_format().=0A=
->- Rely on the control value for link_freq_index.=0A=
->- Call os02g10_parse_endpoint() before initializing regulators, GPIOs, and=
- the clock in probe().=0A=
->=0A=
->Add new Patch 3/3:=0A=
->- Add dynamic mode configuration instead of using a hardcoded specific mod=
-e, as suggested by Laurent.=0A=
->=0A=
->V1 -> V2=0A=
->=0A=
->patch 1/2:=0A=
->- Corrected $id to ovti,os02g10.yaml=0A=
->- Fixed data-lanes property structure to use proper items format=0A=
->=0A=
->patch 2/2:=0A=
->- Mode-specific register writes handled dynamically.=0A=
->- Moved page 2 registers into a dedicated page 2 block.=0A=
->- Used pm_runtime_get_if_active() in set_ctrls.=0A=
->- Resolved negative hblank issue.=0A=
->- Improved error messages in disable_stream.=0A=
->- Updated V4L2_SEL_TGT_CROP and V4L2_SEL_TGT_CROP_BOUNDS.=0A=
->- Added my name to the author list.=0A=
-=0A=
-Could you please review our patch, when you have some time?=0A=
-=0A=
-Best Regards,=0A=
-Elgin=0A=
+On 5/20/2026 12:07 PM, Icenowy Zheng wrote:
+> 在 2026-05-20三的 11:06 +0800，Joey Lu写道：
+>> On 5/20/2026 12:47 AM, Conor Dooley wrote:
+>>> On Tue, May 19, 2026 at 03:26:58PM +0800, Icenowy Zheng wrote:
+>>>> 在 2026-05-19二的 13:51 +0800，Joey Lu写道：
+>>>>> The existing schema assumes a fixed clock/reset topology and
+>>>>> dual-
+>>>>> output
+>>>>> port structure matching the DC8200 IP block.  This prevents
+>>>>> reuse for
+>>>>> single-output variants such as the Verisilicon DCU Lite used in
+>>>>> the
+>>>>> Nuvoton MA35D1 SoC.
+>>>>>
+>>>>> Rework the schema so that variant-specific constraints are
+>>>>> expressed
+>>>>> via allOf/if-then-else:
+>>>>>
+>>>>> - The thead,th1520-dc8200 compatible keeps its existing five-
+>>>>> clock,
+>>>>>     three-reset, dual-port requirements.
+>>>>>
+>>>>> - A standalone verisilicon,dc compatible covers IPs whose
+>>>>> identity is
+>>>>>     discovered entirely through hardware registers; these have
+>>>>> flexible
+>>>>>     clock and reset counts, a single 'port' property, and no
+>>>>> 'ports'
+>>>>>     requirement.
+>>>>>
+>>>>> Changes to the base schema:
+>>>>> - Replace the fixed clock/reset items lists with
+>>>>> minItems/maxItems
+>>>>>     ranges; variant sub-schemas tighten the constraints via if-
+>>>>> then-
+>>>>> else.
+>>>>> - Add a 'port' property (graph.yaml single-port alias)
+>>>>> alongside the
+>>>>>     existing 'ports', for single-output variants.
+>>>>> - Drop the unconditional 'ports' requirement; each if-branch
+>>>>> enforces
+>>>>>     its own port topology.
+>>>>> - Tighten additionalProperties to unevaluatedProperties to
+>>>>> allow
+>>>>>     per-variant schemas to add their own constraints cleanly.
+>>>>> - Fix a stray space in the port@0 description.
+>>>>> - Add a DT example for the generic verisilicon,dc compatible
+>>>>>     (Nuvoton MA35D1 DCU Lite).
+>>>>>
+>>>>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>>>>> ---
+>>>>>    .../bindings/display/verisilicon,dc.yaml      | 135
+>>>>> ++++++++++++++--
+>>>>> --
+>>>>>    1 file changed, 108 insertions(+), 27 deletions(-)
+>>>>>
+>>>>> diff --git
+>>>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>>> index 9dc35ab973f2..3a814c2e083e 100644
+>>>>> ---
+>>>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>>> +++
+>>>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>>> @@ -14,10 +14,12 @@ properties:
+>>>>>        pattern: "^display@[0-9a-f]+$"
+>>>>>    
+>>>>>      compatible:
+>>>>> -    items:
+>>>>> -      - enum:
+>>>>> -          - thead,th1520-dc8200
+>>>> You should add a fallback compatible here for your SoC, in case
+>>>> its
+>>>> integration gets something quirky; this compatible is usually not
+>>>> consumed by the driver (see how thead,th1520-dc8200 exists in the
+>>>> binding but not the driver).
+>>> s/fallback compatible/soc-specific compatible/, but yes.
+>>> NAK to what's been done here, especially after the discussions on
+>>> earlier versions of this verisilicon binding.
+>>> pw-bot: changes-requested
+>> Understood. I will add `nuvoton,ma35d1-dcu` as the SoC-specific
+>> compatible string paired with `verisilicon,dc` as the generic
+>> fallback,
+>> matching the pattern used for `thead,th1520-dc8200`. The standalone
+>> `verisilicon,dc` compatible will be removed from the binding. The
+>> driver
+> No, please don't remove compatible strings from existing binding, and
+> the generic compatible is still used for driver binding.
+>
+> The SoC-specific compatible is informative here, it needs to exist, but
+> it doesn't supersede "verisilicon,dc" .
+>
+> In addition, the SoC-specific compatible is also used for verification
+> of the SoC device tree, which is the reason if clauses exist with
+> compatible match and additional constraints (e.g. for the nuvoton DCU
+> it's invalid to have a 2nd output port).
+Sorry for the misunderstanding. I now see that a standalone generic 
+fallback compatible is not preferred here, and that the SoC-specific 
+compatible is strictly required for DT validation. I will add 
+`nuvoton,ma35d1-dcu` as the SoC-specific compatible string in the 
+existing compatible items list, without adding or removing anything else.
+>> match table is not changed since hardware detection is done via ID
+>> registers.
+>>>>> -      - const: verisilicon,dc # DC IPs have discoverable
+>>>>> ID/revision
+>>>>> registers
+>>>>> +    oneOf:
+>>>>> +      - items:
+>>>>> +          - enum:
+>>>>> +              - thead,th1520-dc8200
+>>>>> +          - const: verisilicon,dc
+>>>>> +      - const: verisilicon,dc  # DC IPs have discoverable
+>>>>> ID/revision registers
+>>>>>    
+>>>>>      reg:
+>>>>>        maxItems: 1
+>>>>> @@ -26,32 +28,24 @@ properties:
+>>>>>        maxItems: 1
+>>>>>    
+>>>>>      clocks:
+>>>>> -    items:
+>>>>> -      - description: DC Core clock
+>>>>> -      - description: DMA AXI bus clock
+>>>>> -      - description: Configuration AHB bus clock
+>>>>> -      - description: Pixel clock of output 0
+>>>>> -      - description: Pixel clock of output 1
+>>>>> +    minItems: 2
+>>>>> +    maxItems: 5
+>>>>>    
+>>>>>      clock-names:
+>>>>> -    items:
+>>>>> -      - const: core
+>>>>> -      - const: axi
+>>>>> -      - const: ahb
+>>>>> -      - const: pix0
+>>>>> -      - const: pix1
+>>>>> +    minItems: 2
+>>>>> +    maxItems: 5
+>>>>>    
+>>>>>      resets:
+>>>>> -    items:
+>>>>> -      - description: DC Core reset
+>>>>> -      - description: DMA AXI bus reset
+>>>>> -      - description: Configuration AHB bus reset
+>>>>> +    minItems: 1
+>>>>> +    maxItems: 3
+>>>>>    
+>>>>>      reset-names:
+>>>>> -    items:
+>>>>> -      - const: core
+>>>>> -      - const: axi
+>>>>> -      - const: ahb
+>>>>> +    minItems: 1
+>>>>> +    maxItems: 3
+>>>>> +
+>>>>> +  port:
+>>>>> +    $ref: /schemas/graph.yaml#/properties/port
+>>>>> +    description: Single video output port for single-output
+>>>>> variants.
+>>>> Maybe the endpoint numbering rule needs a move to here? (I am not
+>>>> very
+>>>> sure).
+>> I will add a description to the `port` property noting that endpoint
+>> 0
+>> is used for DPI output, which is the only output type for
+>> DCUltraLite.
+> Please note that DC8000 exists, which is single-port but supports both
+> DPI and DP.
+To make it simple, the `port` property will not be added. `ports` 
+remains the sole port property and is kept in the global `required:` 
+list as in the original. The MA35D1 example will use `ports { port@0 { 
+... } }`, consistent with how other single-output DT nodes are written 
+in the kernel.
+>>>>>    
+>>>>>      ports:
+>>>>>        $ref: /schemas/graph.yaml#/properties/ports
+>>>>> @@ -59,7 +53,7 @@ properties:
+>>>>>        properties:
+>>>>>          port@0:
+>>>>>            $ref: /schemas/graph.yaml#/properties/port
+>>>>> -        description: The first output channel , endpoint 0
+>>>>> should be
+>>>>> +        description: The first output channel, endpoint 0
+>>>>> should be
+>>>>>              used for DPI format output and endpoint 1 should be
+>>>>> used
+>>>>>              for DP format output.
+>>>>>    
+>>>>> @@ -75,9 +69,75 @@ required:
+>>>>>      - interrupts
+>>>>>      - clocks
+>>>>>      - clock-names
+>>>>> -  - ports
+>>>>>    
+>>>>> -additionalProperties: false
+>>>>> +allOf:
+>>>>> +  - if:
+>>>>> +      properties:
+>>>>> +        compatible:
+>>>>> +          contains:
+>>>>> +            const: thead,th1520-dc8200
+>>>>> +    then:
+>>>>> +      properties:
+>>>>> +        clocks:
+>>>>> +          items:
+>>>>> +            - description: DC Core clock
+>>>>> +            - description: DMA AXI bus clock
+>>>>> +            - description: Configuration AHB bus clock
+>>>>> +            - description: Pixel clock of output 0
+>>>>> +            - description: Pixel clock of output 1
+>>>>> +
+>>>>> +        clock-names:
+>>>>> +          items:
+>>>>> +            - const: core
+>>>>> +            - const: axi
+>>>>> +            - const: ahb
+>>>>> +            - const: pix0
+>>>>> +            - const: pix1
+>>>>> +
+>>>>> +        resets:
+>>>>> +          items:
+>>>>> +            - description: DC Core reset
+>>>>> +            - description: DMA AXI bus reset
+>>>>> +            - description: Configuration AHB bus reset
+>>>>> +
+>>>>> +        reset-names:
+>>>>> +          items:
+>>>>> +            - const: core
+>>>>> +            - const: axi
+>>>>> +            - const: ahb
+>>>>> +
+>>>>> +      required:
+>>>>> +        - ports
+>>>>> +
+>>>>> +    else:
+>>>>> +      properties:
+>>>>> +        clocks:
+>>>>> +          items:
+>>>>> +            - description: Bus clock that gates register
+>>>>> access
+>>>>> +            - description: Pixel clock divider for display
+>>>>> timing
+>>>> Please don't make compatible-specific description strings for
+>>>> individual compatibles, and keep these descriptions outside of
+>>>> the if.
+>>>> The compatible-specific part should be used to specify what's
+>>>> required
+>>>> for the specific SoC, for dt validation purpose.
+>>>>
+>>>> BTW if the clock is both the working clock and bus clock for the
+>>>> controller, I suggest listing it twice, except if the IP core is
+>>>> provided without a dedicated core clock (in the case I suggest to
+>>>> use
+>>>> "bus" only).
+>>> I agree. If the same clock is provided to two+ ports on the IP,
+>>> that
+>>> should still be two+ clocks in the devicetree.
+>>>
+>>>> Here's an example for "listing it twice":
+>>>> ```
+>>>> clocks = <&clk DCU_GATE>, <&clk DCU_GATE>, <&clk DCUP_DIV>;
+>>>> clock-names = "core", "bus", "pix0";
+>>>> ```
+>>>>
+>>>> Well nonetheless the name "core" does not match the description
+>>>> "Bus
+>>>> clock that gates register access".
+>>>>
+>>>> Thanks,
+>>>> Icenowy
+>> Understood. I will remove all description strings from the if/else
+>> branches; the if/then clauses will only constrain clock-names and
+>> reset-names items (name values only, no descriptions). Regarding
+>> clock
+> Well I think a required properties list is also needed in the if/then
+> clause, to prevent DT's from lacking properties.
+Since `ports` is kept in the global `required:` list, neither if/then 
+block needs a `required:` entry for port topology. Each if/then only 
+constrains clock-names and reset-names for DT validation. The `else` 
+branch has been eliminated; each variant has its own independent 
+`if/then` in the `allOf` array.
+>> naming: DCU_GATE on MA35D1 is a peripheral gate clock without a
+>> separate
+>> dedicated core working clock, so I will keep "core" as the name and
+> Do you mean there's no seperate dedicated bus clock? I find that in the
+> clock driver dcu_gate has no parent as bus clocks -- its parent is
+> dcu_mux, and dcu_mux's 2 parents are both pll ("epll_div2" and
+> "syspll").
+>
+> Thanks,
+> Icenowy
+You are right — DCU_GATE has no parent as a bus clock. For this case, I 
+prefer to keep "core" as the sole gate clock name alongside "pix0".
+
+Thanks.
+
+Here is what the v3 yaml would look like:
+
+```yaml
+compatible:
+   items:
+     - enum: [nuvoton,ma35d1-dcu, thead,th1520-dc8200]
+     - const: verisilicon,dc
+
+properties:
+   clocks: minItems: 2, items with descriptions
+   resets: minItems: 1, items with descriptions
+
+required:
+   [compatible, reg, interrupts, clocks, clock-names, ports]
+
+allOf:
+   - if: compatible contains thead,th1520-dc8200
+     then:
+       clock-names: [core, axi, ahb, pix0, pix1]
+       reset-names: [core, axi, ahb]
+   - if: compatible contains nuvoton,ma35d1-dcu
+     then:
+       clock-names: [core, pix0]
+       reset-names: [core]
+```
+>> drop
+>> the misleading description "Bus clock that gates register access".
+>> The
+>> description mismatch was entirely in the if/else strings which are
+>> now
+>> removed.
+>>
+>> Thanks.
+>>
+>>>>> +
+>>>>> +        clock-names:
+>>>>> +          items:
+>>>>> +            - const: core
+>>>>> +            - const: pix0
+>>>>> +
+>>>>> +        resets:
+>>>>> +          maxItems: 1
+>>>>> +          description:
+>>>>> +            Reset line for the display controller.
+>>>>> +
+>>>>> +        reset-names:
+>>>>> +          items:
+>>>>> +            - const: core
+>>>>> +
+>>>>> +      required:
+>>>>> +        - port
+>>>>> +
+>>>>> +      not:
+>>>>> +        required:
+>>>>> +          - ports
+>>>>> +
+>>>>> +unevaluatedProperties: false
+>>>>>    
+>>>>>    examples:
+>>>>>      - |
+>>>>> @@ -120,3 +180,24 @@ examples:
+>>>>>            };
+>>>>>          };
+>>>>>        };
+>>>>> +
+>>>>> +  - |
+>>>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>>>> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+>>>>> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+>>>>> +
+>>>>> +    display@40260000 {
+>>>>> +        compatible = "verisilicon,dc";
+>>>>> +        reg = <0x40260000 0x20000>;
+>>>>> +        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
+>>>>> +        clocks = <&clk DCU_GATE>, <&clk DCUP_DIV>;
+>>>>> +        clock-names = "core", "pix0";
+>>>>> +        resets = <&sys MA35D1_RESET_DISP>;
+>>>>> +        reset-names = "core";
+>>>>> +
+>>>>> +        port {
+>>>>> +            dpi_out: endpoint {
+>>>>> +                remote-endpoint = <&panel_in>;
+>>>>> +            };
+>>>>> +        };
+>>>>> +    };
