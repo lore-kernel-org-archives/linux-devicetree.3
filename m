@@ -1,92 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4045F13DDAA
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:30:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5763A25B0B3;
+	Thu, 21 May 2026 15:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779377425; cv=none; b=EV7rrHrOS3dM10tiIwRYH4u1ctpJvzgPu0Of7DarRC7Tfw/UQqGuZLHGSWz0fNYGyBzVBFPKYJMEFhAaRSVLZczGiSS6KWX6aYMDMI+bTVz/TqfLKrRfeKUJWBctqkRA9in7b0dTrzWyFRK8G8aeHJBFlf79iavzs1fv3Jhhxkc=
+	t=1779377745; cv=none; b=Q4RqDq4r7fPMUFQDB3pXg+wq+EW2UVWupaOHb77fakRuhB7qEzlOeRx5Wtw6F+bzGve2dTHPyijhBVhhuwxHir7IXSsVDK5jzZiI90g2aGCdDN23wi8K1eJ6wnC8B5r2SAyzFBz2htaHEoNiOG3i4G78bHpdw09BlzncHNcxkss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779377425; c=relaxed/simple;
-	bh=x2BVHfm9fIDSdbjayC0gD3ugztSIBMLgA8eJ1u5jeVc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PFgUtrIE8JeWkWqImhLDqgdUj4G04Coa+0A18oMWEFPkEn1eZWWkW+knCA+PRl8sVchOTrEnu7Dzohr6IsoHHfJ6V25u6QU+fjNvcF7q8ctwfaEGyiVO9XMJfLAK0zAoLNHxbdGCd5U8idgEo3ViUBNGVMF1kvTc7qJf9uU/eH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPvvbP/i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779377745; c=relaxed/simple;
+	bh=oImRwjI+XSNpas5HABW8j0NwP849AjVk4QzoZ8axO3M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JYazgh10SszssM5wUegrDrnStLyOCqpBKzd9KpE+//VCtQnLJ+27q0nil0xuFJyQ3l6gojJJx6kAZRnG8leROAYsSdH/uIG0VsafuMXM32sht8HzHdJeVcDF7CKmwyBttPf7uY09SCqn4c7yKWLsiZnegJuT0+4iCBrhSvI4U9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WgIOVQ24; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPvvbP/i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC3D1F000E9;
-	Thu, 21 May 2026 15:30:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WgIOVQ24"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB1D1F000E9;
+	Thu, 21 May 2026 15:35:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779377423;
-	bh=+6Y6LVMYIUPFy0XXCqnL4EoInksP+D3f+pPYGOUyg3A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fPvvbP/iD0XjRx33vMBUuNufBZAfubBkTeqUae/4zgscm/jrrZqpGVBSCvWAvzrIt
-	 XD514W50wG1JUfMyK5JMokqhrDkhDYh0Wkpp44o4+LPkHjxdZHuPzekFtEEe1aTtrg
-	 x9mGld754pu7yJaHAd0+QcPyOHSfyiJSdPe1Wm4lvqmyOnV8d2MFmUqta8IMO5Dumf
-	 jeYMTb9Fh5c4xEgNxNSaAgh+w2d+/R5RPKmb91wAJu1tDDd1Yokyq/nHYaHyo9tEod
-	 Diu+po5kxOsHBT1iYrD3ZFDE21gv27Dm/2do2USolIWLMeSNli1m56zbrkVOAEq+9w
-	 7kU+j1t9cKGQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 03/15] arm64: dts: ti: k3-am62-verdin: Add Toradex
- Capacitive Touch Display 10.1" LVDS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vitor Soares" <ivitro@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521150038.103538-20-ivitro@gmail.com>
-References: <20260521150038.103538-20-ivitro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 15:30:23 +0000
-Message-Id: <20260521153023.AEC3D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779377743;
+	bh=TQwSrXVYnpbCfJdtfPjLSghRrh3omoKn1DB2+rGBNjE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WgIOVQ24fSOQxyG4iGiLd0T3oOMQsbj1BC/sFOR9UkwhioDe7MhOPISoGe7bQweJ1
+	 E4IzCvBrBQmsxwuyT87jWxYliddNtjMx6Zi7iUgHkXoWXLwPRm2snsiTWNSvkM38Lf
+	 FBxiOdrm2SVUxF2l2KsRygGAmu7mNxlgwV6N9rgnbLAbjiY749XK/HmuChFRFfEc/4
+	 jJkvGrMQSD5HgBEcQUYrRwBamaJOSWdeGFM/u7LtU+ZSoRNi6VQIoEe1CwCFgkIESV
+	 9FsHq3NjbHUiXO7DM5sTA3mKiBno3JbQeCMt8Ei03tGAkHinbeBqRmepmXaq5Uaqs0
+	 ziTJdrplekOwg==
+Date: Thu, 21 May 2026 16:35:39 +0100
+From: Mark Brown <broonie@kernel.org>
+To: YLCHANG2 <neo.chang70@gmail.com>
+Cc: Neo Chang <YLCHANG2@nuvoton.com>, lgirdwood@gmail.com, perex@perex.cz,
+	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+	kchsu0@nuvoton.com, sjlin0@nuvoton.com
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
+ amplifier
+Message-ID: <934509a9-1347-4b02-a341-0db0d1db42e7@sirena.org.uk>
+References: <20260518024704.118613-1-YLCHANG2@nuvoton.com>
+ <20260518024704.118613-3-YLCHANG2@nuvoton.com>
+ <ce8d5ba7-22aa-47ac-90ab-026ed1ee3928@sirena.org.uk>
+ <ddacfe50-072d-66fd-c760-c898bdab52f4@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UVs/AC80Z1SYC8M2"
+Content-Disposition: inline
+In-Reply-To: <ddacfe50-072d-66fd-c760-c898bdab52f4@gmail.com>
+X-Cookie: No shirt, no shoes, no service.
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The device tree overlay enables the OLDI display interface (`&ol=
-di0`) but fails to configure the pinctrl for the physical OLDI pins.
---
 
-commit 0236b33e5caa32e5e5b13e852204362f10386c2e
-Author: Vitor Soares <vitor.soares@toradex.com>
+--UVs/AC80Z1SYC8M2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" =
-LVDS
+On Wed, May 20, 2026 at 11:01:53AM +0800, YLCHANG2 wrote:
+> On 5/18/26 19:35, Mark Brown wrote:
 
-This commit adds a device tree overlay for the Toradex Capacitive Touch
-Display 10.1 inch LVDS. It connects the panel via the Verdin AM62 OLDI
-interface on compatible carrier boards.
+> > > +static bool nau8360_volatile_reg(struct device *dev, unsigned int reg)
+> > > +{
+> > > +	switch (reg) {
+> > > +	case NAU8360_R00_SOFTWARE_RST ... NAU8360_R02_I2C_ADDR:
+> > > +	case NAU8360_R06_INT_CLR_STATUS:
+> > > +	case NAU8360_R21_VBAT_READOUT ... NAU8360_R22_TEMP_READOUT:
+> > > +	case NAU8360_R41_CLK_CTL2:
+> > > +	case NAU8360_R46_I2C_DEVICE_ID:
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitiv=
-e-touch-display-101inch-lvds
+> > Are the I2C addresss and device ID volatile or do they just not have
+> > defaults?
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inc=
-h-lvds.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch=
--lvds.dtso
-> new file mode 100644
-> index 0000000000000..893dde0e2e2b9
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.=
-dtso
-[ ... ]
-> +&oldi0 {
-> +	status =3D "okay";
-> +};
+> For NAU8360_R02_I2C_ADDR, it requires a write operation to latch the I2C
+> device address.
+> For NAU8360_R46_I2C_DEVICE_ID, although it is read-only, its value is
+> determined by the hardware configuration
+> of the GPIO1 and GPIO2 pins at boot (e.g., 0x1a, 0x1b, 0x4a, or 0x4b).
 
-[Severity: Medium]
-Does this overlay miss the pinctrl configuration for the physical OLDI pins?
+In that case they shouldn't be marked as volatile, just omitted from the
+defaults - they can be cached on first use.
 
-The overlay enables the OLDI display interface but omits the pinctrl-0
-definition for the analog pads. Since these pins reside in the main padconf
-region and are shared with other functions, relying on the bootloader to
-initialize them to the correct state might cause the display output to fail
-if the bootloader configures them differently or during a kexec transition.
+--UVs/AC80Z1SYC8M2
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Should the pin multiplexing for the OLDI pins be explicitly configured here?
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521150038.1035=
-38-17-ivitro@gmail.com?part=3D3
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoPJkoACgkQJNaLcl1U
+h9D6Dgf+MTFdSAqe+sVth1MJROGJFObulkedu9OA8uG35UgzyoNnZLCBJkQpVIZ4
+1px0piveEdCEof5YO8E36u8e6DnBz+J+muskMv1lTEoM0vi6PsNtkLUg8WzCHXdK
+uZyxdPv+/442PssImFrXj15dZgIVv4TU5yE5ILxY3HVWmYsIRu7SSTzKzNZxUfJM
+TBptlzzjjHTqfOO12fmq4m7JC9D2/HBGpGZ8MKSp3MwJogC5/a54Pb+R7Z5CxVez
+x914kR1dNsvlpgRFTLCC2CGXLZMXIaXSAQMaDsWAkpyhl5aVky111iJRQhmHsdYd
+aL9m3xbjCglFXQmN+Am3B+kL4DQ5+g==
+=ySQG
+-----END PGP SIGNATURE-----
+
+--UVs/AC80Z1SYC8M2--
