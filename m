@@ -1,178 +1,282 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FEA35F170
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90058362137
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779352430; cv=none; b=ndCiW2Ar/BiorvdxNHxpNjU/xXhUMdlFfRQuupcxC7GFb0/fkkHnns6SyzOcgp1++WxpVSNBhFAOwiDdboIZ5Yr0JGNQAlLU2Z0PzLfmlu9wWNKsGwS9mUhMtudteZ83FaXMFEbarP6/17JZI9uFe3VmzzPCkoogVoBNkDP4FYU=
+	t=1779352631; cv=none; b=gAXdtp2tW5CYpF9mgmacds/JBTy/DwA5K16rEB0F8aFtE1cKp0TkEdMQsf09xe2cftbq8+u5Zx2snA1q2N3Ou7G+UbqZomMN3ZIzVS34wAvs93JjUMmMJrkk9twmBKGumkED+BwJ0zyQ+FYL6Ir1mBsXryADQiHTjPVYEVKQo04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779352430; c=relaxed/simple;
-	bh=7imtNeGlM0Ij74pQULbNoqDY1bGqPc+5D3+CclMU59M=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GNsZiDZ65ZuUvSee7GUGULIkARMAYEAgwsNQ8swdxxl0vl8yXmCYG/6lOWP1ok7BPQNH3dhwlGblSpqSDb4xbsZOqV35w9xAIoE/1Xo7Vm1WPKuRu1Nx6KL5IVCF5lmPyUBuodDVvOeBh1FeQPw/Rw1MQ09kz8HZIA2FbeWgpfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tZBXphiV; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779352631; c=relaxed/simple;
+	bh=D3r2n74KWxEYfDl8rWFGKV6Wr7M1gfnVPwg1g1CrN84=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qibsM4sSYZbGUakqzPLir8vYo4vuhg+yHx5e5SXgc6iPdeT5bTgpTGyjn8NFHaey7776KZb3DhoW8zfmG6heot09YnJKH3W8EOGK3keI39swcmsFI/Cnjf6BiniKyJWNNFcn9otCDvWAcyL8jC49y2H9ojqNYoaOVowNHmCs4Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Trw38hpF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QKjOtMuE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tZBXphiV"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so46587425e9.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:33:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Trw38hpF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QKjOtMuE"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L6Umwd2157481
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:37:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=El4wNMt9BXL9CxxtRdtqTV
+	x+E6o7UHeoj7av7h+WfcI=; b=Trw38hpFc3Uxmsxjfu7cVuCmyXS6WZ39nWg0SE
+	akyGensBif0/ULxQcPPBG9D7sac9jKuydsTJ4IaHQocxwctnByVKYnVB4mI0toNE
+	SdpfJT9vOELGFzPNl9Az6o/kqZ08mXro8GaeDySwzyoNKFVZCLVkIYOnFsEo6KEF
+	bJmt1M7ivhKwT6Vb+fDulepmbjEGwXUo82NblLrvbrDD/5b0quMl/RUmd/yH53xR
+	P155WhEBw0FDk+ct73qt9Z1seTGTUP5Y4mlWPMO5mjtd4NasLjoDXfKeTfgsUzjo
+	9Obr2KNaswV3iLrbA/+wijZcq69LTkyX7fshpsA/vGZdUnnA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ma428t9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:37:08 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-514b5d6bb45so79652571cf.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:37:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779352427; x=1779957227; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=E+lhtBKg/we78saKSTSBcOB5Y21fRXHQiMOJZNkYcss=;
-        b=tZBXphiVf2zGYyexrxUAc16fRLl9l/eSMi86bmd+nH5NR+Es6q8Hb0+H32d6juKK5i
-         +sGeM1pggnB+JkUrzDB0ywG5UmZh23tKi4ax4vmFCrfD92Ux0f1NYv13ULXEpaq8UmDR
-         EauWq5GhY+yXpyF2FjeUI/JTyqXllTrKWeAkVLgtPok5hln3O3y38xm0DytpqUEzWT9V
-         xrjC6WBNQWlu1a5nSm0D1jaygJDrEIGRgBTZ5sUTbNzZr80nklYJI2EWbtUMhjfHdLCy
-         LR0v4mczWl4mkZkXy4yYzRDyPToOW6RqxxikqV9a0ngbzvDXI4/Im0lOWPmgPve5CdDs
-         DlFw==
+        d=oss.qualcomm.com; s=google; t=1779352628; x=1779957428; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=El4wNMt9BXL9CxxtRdtqTVx+E6o7UHeoj7av7h+WfcI=;
+        b=QKjOtMuEL01sRqTpvSTlkBsB/TsiNgxLzGLZETsF1eH+UgLLL/UE3Wj4g+L5TgfAAF
+         H+8wkqmtBviYFVMHuIg4Q/LpPIVjecBg7KnUHFrwzHll++1OZNNpG258kTEhNW0hb97Q
+         0AgTBa0dNQvSXPKDUstLJFVyt8f25oUe+qYKvtWVujjRgJIL3W1zrCtQptS/P0KjLZaV
+         redG38LlWWTtPWJ2M15s5LQMJTrPHG2i2M9p5tFaTattvwN6ABr/oZ4+KGaZvpQYg3KC
+         x/n9LPIomfslb84jwTwNXHzFvLO8Zvu6c0yHZms3eNraNXk+8cU89ZTtZbQJbF+Dgwo9
+         kc5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779352427; x=1779957227;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=E+lhtBKg/we78saKSTSBcOB5Y21fRXHQiMOJZNkYcss=;
-        b=q371BYVDzuwvJbZp8Bvwr1cFMVEBnt77Arqe30Wf/SR/x/1cJnmB3mKHWdY1UhwnJW
-         400/ADF66IuN5hRsKtLy1gyTF31wNeaJlUwlA9LgnfM/G1jAwMDZMFz1q6LLxDvQhsw9
-         VC/gNt1fV57T7VWW+Bw8TNrFNF7LVniPqgC3KuICWN++5ZdIdEfjGujYPhZfv1ueWXK1
-         yy1uK99k1mRPpVBWxdVd0CPdjImCj55iSFFpgsdwxuTK+gSpDM9p+6AByKmL+0KCNphr
-         qNvZvnytRXfUp1hBWAOJW2cDKA6AxpCy8FV4Mqho40l+6Crih5N4jk5n8p1Bp7L0cxNN
-         XmZQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8KmVBYH19K6GeLpokmsNhwDtMg15JHLg57hhlz2fcUvcZxc7uy71Q8+SPcvC3uDjsyvGK/o8+C9BEs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyjc50pt+Pp/tBTP+tnKcNZ89zLdWHV2kN/qRzw16EjJWiIEyyg
-	8ZEhQfd3MVXOxSYx1zE0cT4S5hcdhj3vsF1d4+95MxjIdExSYGLEn6myxRDlv5pkpmE=
-X-Gm-Gg: Acq92OGCf8g8xYa+6uFLDYkh8YO9STmvwuQSpo+nusBA+0Ajpvat4lOQxXz9HYi44Pn
-	4R0EyusI/tdVOk01AWe47GwTtwJWhQvwFm0aU9Kkg8Ta0ki2Yg6Cc7Fy+xmm1NS1/OEbZCzZ8Nh
-	otbeDwWB7875zYglVzErB36S1FAEt/tM26D55FYym/RF/K96MOcYu3tgtUPiPv4oi9W6yjTlkWD
-	XO89A5q25IlRAahrcTuiF5g1azAlQ9usyPILs7gVN7UsMk3tQCYun+cqUmDi2VzWawWKiQ/AzGq
-	YErPU2bTlq9aR1dcQTk3/xHFgsDGyzfBY4XYWOOITZJokNUTuVfZo0q05G2b/BIVzTim/kQtfSX
-	54Uv7AZgt6XLHHUnb3RA1qVIoR2GkIes+/hGBnwQvPVkq1POLjoDsZxptdewYlQj1Il3flY2/e1
-	9sbjRvZ1m1n30F8cKbrsDH9ODMClAmwcwXNo0HCVnR1COJcYYxJQP29OGGvGyE1NYhLBHdmRI/U
-	/7qX/8=
-X-Received: by 2002:a05:600c:4513:b0:490:3cd6:db37 with SMTP id 5b1f17b1804b1-4903cd6de06mr6682875e9.12.1779352427082;
-        Thu, 21 May 2026 01:33:47 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:e038:7e8a:7467:8c6c? ([2a01:e0a:106d:1080:e038:7e8a:7467:8c6c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49033d9eca8sm48056395e9.12.2026.05.21.01.33.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 01:33:46 -0700 (PDT)
-Message-ID: <55466105-03df-4968-87c3-38b5f45b83ac@linaro.org>
-Date: Thu, 21 May 2026 10:33:46 +0200
+        d=1e100.net; s=20251104; t=1779352628; x=1779957428;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=El4wNMt9BXL9CxxtRdtqTVx+E6o7UHeoj7av7h+WfcI=;
+        b=H5je78naJAPf9Vt0XKwCgFJXBCEWnMgP1eC6PAPhp+UYrkXXB4arEB9z4jgdU5EKtD
+         HJWBUv5lbj7nokASiK415rYsf/Ez0/MY2nLPHKs1uEg0Qtf71+DfHBabrSTneGCr08ZT
+         HPnr95LK3P0gEjn+BOANfpTCMe+W4FE2oFECixQTlShvY7nDlGU61PYbesEOaToaeJZi
+         EOeGDBOBnXuzURHCslkfysTtEIBb/pW/wVXfggJLFDwVW1gCxifY9xRi3LeDBCzHk4GN
+         dk2nwaGrT9/tur98bLmqJDWekRK6c4T7VuH2nKuRuBZO2hTs02FJpngDoxHVBsPWZpXa
+         QY9Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+/cgBDhu8oxp0rXrf0sRB/qwsXAxrDbz5PKKHEGIxHikim6DHJnlPg1CdApIB39J/8vOnM6GZNeSJv@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGAT3fXV2PW9+/s/o4c2tm3ok7+RA/cQdZyaGHXQJBrM0B1Zmq
+	WhnrDBJ5NBzPYKbCKuqyoCiq0Fux2UDBnIIiXJWfCrGE7RYU9E66Hn3vE0KfSESSfSp7HjnCuCQ
+	xXGZbDaZCj8mh0wJFMTELItL97cjeLaTfyALMQplK29X/1N2dkJvxKDpWdQKa4FrF
+X-Gm-Gg: Acq92OFghW3efH7rT2p9jjiWJcm3JCimC+ayPnX9nzFBGCjQya4nWfdCsVdPzLzuazX
+	xybJdeGylEk6r4wk/I4Wre4vMr70/L54f6auXFMm52+TAuee0cTDguBHBcxww3FvKh36U1881QG
+	oAqa/jOnOs9i11tl9GSTJexOcTyCwJiD8ni1qDGtH+DsO3P8g6qJDxj7VGszv5g4q1dJpJ45Ixo
+	A7XyIEDOQ+kCKQpirba8wLtw3NNwgdfF30I4aCaZb61mNnTX/vClYGvd54Tx+gtbs4LhOjSfZGt
+	ah1u3LnwQQEu5E1DrZrX/vfUP21cAUOWQu3yma6StpyDKCYTJrXIieNaAUnjRCZsbS4S6xdGHX1
+	6859TPkHfLKW4K+Bd/8oPGQ4zQhwOl4zJbXJZ9hrjxtQX8Z1zQwiQYaE9zX2mVg==
+X-Received: by 2002:a05:622a:514:b0:50d:900e:c1c1 with SMTP id d75a77b69052e-516c5484841mr24415951cf.7.1779352627461;
+        Thu, 21 May 2026 01:37:07 -0700 (PDT)
+X-Received: by 2002:a05:622a:514:b0:50d:900e:c1c1 with SMTP id d75a77b69052e-516c5484841mr24415481cf.7.1779352626922;
+        Thu, 21 May 2026 01:37:06 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:bb10:ae82:b7c3:d15a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm10502405e9.14.2026.05.21.01.37.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 01:37:06 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH 00/23] driver core: count references of the platform
+ device's fwnode, not OF node
+Date: Thu, 21 May 2026 10:36:23 +0200
+Message-Id: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: document the Renesas
- R63419 based dual-DSI video mode Display Panels
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org,
- wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-References: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-1-dd5700299390@linaro.org>
- <20260521082230.6BD161F000E9@smtp.kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260521082230.6BD161F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAfEDmoC/x2MQQqAIBAAvyJ7bkGNzPpKdKjcai8qChZEf086z
+ sDMA5kSU4ZRPJCocObgK6hGwHYu/iBkVxm01EZ2WmJ0VHC/fHCEiXZ01vS2NUOvaIVaxSr5/o/
+ T/L4fVuIfJWEAAAA=
+X-Change-ID: 20260520-pdev-fwnode-ref-d867836971eb
+To: Lee Jones <lee@kernel.org>,
+        Mark Brown <broonie@opensource.wolfsonmicro.com>,
+        Thierry Reding <thierry.reding@avionic-design.de>,
+        Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+        Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Matthew Brost <matthew.brost@intel.com>,
+        =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+        Rodrigo Vivi <rodrigo.vivi@intel.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Peter Chen <peter.chen@kernel.org>,
+        Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+        iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
+        dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+        linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5107;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=D3r2n74KWxEYfDl8rWFGKV6Wr7M1gfnVPwg1g1CrN84=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqDsQZF3+Wnnqse1OrX9tW8YslypJ8/2vlajEr3
+ JD2ATbv3b6JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCag7EGQAKCRAFnS7L/zaE
+ w8EKD/9dgPJ3F9RbNULXnoMj4pWPfWo/PfTbl87hUlFmLRa5e+BZbCj7lym0G7cDSCBBxhP1m38
+ XDMPAP0b7y/NNBM5+VFFKiHSXL2ftnoZYhTiPCXqAg8yXpg2s9DUQx7N9NbBTjBZDPFloWIKRq+
+ KlrMHuxSs7HgG8kOBSK5eW4l+mXcdX07ZoH1zm3uq+BtSWd3lpPf2/lLKF+k5Cc1lpzbfNDEq7Z
+ Ykm7Kfr1bDflSUQG/fhL8ilD15sZF0ffqDCywGL+UWcM5riCnkN5/v/BOF94pxi6LYD1XBlKs9t
+ 9gnTDKdlCmzmuhXIMsvOdZbSYYaJdad0De3ClLQ1TJN9KZXrqkxtJmLL2WUv2kI+YgHoNhRxM/d
+ DoZ7lw/sbJRbjlusrb2aLa4FDl776mKWYhsIxGgIm/BEQk8ttADCJ+lCw5QMO0KC5BvtqRFoazO
+ pG82IvBTgo1DqWURzhU8JiJIsRJMdzSm/fNAHAdK3htZj4WBovzhar44MI2zYLwsIEOTWII1a/C
+ zWJCChwoCsQXVVI4H2ICRncw83pF/8yG5ToHIO30PdXPpkq36sYUdxvG/qk/pmu07MX2Gz3GGPd
+ 4HA7SKpoUAI1k/yCQzarBy1I3uysZITHV1i0mIHh5wtU/1mmf90cnXhXSuAnrIq3vTxq48wjVLg
+ wrYHri/y1wYzsQQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=K9kS2SWI c=1 sm=1 tr=0 ts=6a0ec434 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=x7ldU9BvHY0adF9BoRAA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: TIlfugjmOzsNRiolF0_h6ICCt2ugbcKA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4MyBTYWx0ZWRfX06V3Lyds5Kj4
+ Y9tnrkY4Nzu7++6vnZRcigHQpfG5rNRIN9qfeutujG1q32c1IHwIbp+grqapKftgzaQzXgTmPPN
+ D7R48IM2jk07AHrmZ3YdtekI9VmvT6m51nfh+TO4h5Be726NK5Va8LSdwcLBNk4TI6ixxC0Mdn8
+ eF7vHqvFHeXFOCMFoJ3ODCKyhKGizYOu8IViSzyxW/JtTS+wEHWHLji643RrxJFkGbkzWjVHidS
+ VpQuUnU+E6+RaUc6Av+v5nprq/3UFgvqJko4ZwRZkmJpu4W8+76c+q8zRh1VPYzXmeMKM1MqbHk
+ P26g18mg/wGvK+jKHbk3+aBfQjYJCoFTfAVREfqKgjUljaN+vm9dTR6TZWiG/4PgMyEiqkgVK71
+ aNtBsQmsiyEzg7cLBy8piEg8dkBB/pGRWHgelSUGTGtcoAbaW5BGOnO1T7do6i3ARypFpeuQW/5
+ B+NxwixcCFM3+SIHbxw==
+X-Proofpoint-ORIG-GUID: TIlfugjmOzsNRiolF0_h6ICCt2ugbcKA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210083
 
-On 5/21/26 10:22, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] The schema incorrectly uses `additionalProperties: false` instead of `unevaluatedProperties: false` when inheriting from a common schema.
-> --
-> 
-> commit 06ab207971a6f54327d9bb05b5e8355cbba81b0c
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> dt-bindings: display: panel: document the Renesas R63419 based dual-DSI video mode Display Panels
-> 
-> This commit adds a new device tree binding document for the Renesas
-> R63419 generic DDIC. The DDIC is used to control dual-DSI LCD panels,
-> such as those found in Ayaneo gaming handheld devices.
-> 
->> diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
->> new file mode 100644
->> index 0000000000000..adfdd2c300a35
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
-> [ ... ]
->> +allOf:
->> +  - $ref: panel-common-dual.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    items:
->> +      - enum:
->> +          - ayaneo,wt0600-2k
->> +          - ayaneo,wt0630-2k
->> +      - const: renesas,r63419
-> [ ... ]
->> +  backlight: true
->> +  reset-gpios: true
->> +  rotation: true
->> +  ports: true
->> +
->> +required:
->> +  - compatible
->> +  - reg
-> [ ... ]
->> +  - reset-gpios
->> +  - ports
->> +
->> +additionalProperties: false
-> 
-> [Severity: Low]
-> Since this schema inherits from panel-common-dual.yaml in the allOf block
-> above, should this be unevaluatedProperties: false instead?
+I'd like to first apologize for the long, treewide series and an
+extensive Cc list but I think it's important to show the big picture and
+the end result of this rework.
 
-No, it's deliberate to control the properties we allow
+Platform device core provides helper interfaces for dealing with
+dynamically created platform devices. Most users should use
+platform_device_register_full() which encapsulates most of the
+operations but some modules will want to use the split approach of
+calling platform_device_alloc() + platform_device_add() separately for
+various reasons.
 
-> 
-> In JSON schema, additionalProperties: false only considers the properties
-> explicitly listed in the local properties block. This means any standard
-> panel properties (like width-mm, height-mm, or enable-gpios) not explicitly
-> listed here will be incorrectly rejected during validation.
-> 
-> Using unevaluatedProperties: false would allow properties defined in the
-> inherited schemas. It would also eliminate the need to redundantly define
-> properties like backlight or ports in the local properties block.
-> 
->> +
->> +examples:
->> +  - |
-> [ ... ]
-> 
+With many platform devices now using dynamic software nodes as their
+primary firmware nodes and with the platform device interface being
+extended to also better cover the use-cases of secondary software nodes,
+I believe it makes sense to switch to counting the references of all
+kinds of firmware nodes.
+
+To that end, I identified all users of platform_device_alloc() that also
+assign dev.of_node or dev.fwnode manually. I noticed five cases where
+the references are not increased as they should (patches 1-5 fix these
+users) and provided three new functions in platform_device.h that now
+become the preferred interfaces for assigning firmware nodes to dynamic
+platform devices (in line with platform_device_add_data(),
+platform_device_add_resources(), etc.). The bulk of the patches in this
+series are small driver conversions to port all users to going through
+the new functions that now encapsulate the refcount logic. With that
+done, the final patch seamlessly switches to counting the references of
+all firmware node types.
+
+This effort is prerequisite of removing platform_device_release_full()
+and unifying the release path for dynamic platform devices using
+unmanaged software nodes.
+
+Merging strategy: First tree patches should go directly into individual
+maintainers' trees and land in v7.1 and stable as bug fixes. The
+remaining patches touch lots of drivers but the changes are minimal and
+unlikely to cause any conflicts. I believe they should be queued in the
+driver core tree for v7.2 (possibly on an immutable branch for others to
+merge into their trees). If the subsystem maintainers object, the
+alternative is to queue the three new helpers for platform devices via
+the driver core tree. After v7.2-rc1, I'd resend individual driver
+patches to appropriate maintainers and once they're upstream, we can
+apply the final platform device change. However this would take three
+cycles to complete so my preference is the former solution.
+
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Bartosz Golaszewski (23):
+      mfd: tps6586x: fix OF node refcount
+      net: mv643xx: fix OF node refcount
+      slimbus: qcom-ngd-ctrl: fix OF node refcount
+      pmdomain: imx: fix OF node refcount
+      powerpc/powermac: fix OF node refcount
+      driver core: platform: provide platform_device_set_of_node()
+      driver core: platform: provide platform_device_set_fwnode()
+      driver core: platform: provide platform_device_set_of_node_from_dev()
+      of: platform: use platform_device_set_of_node()
+      powerpc/powermac: use platform_device_set_of_node()
+      i2c: pxa-pci: use platform_device_set_of_node()
+      iommu/fsl: use platform_device_set_of_node()
+      net: bcmgenet: use platform_device_set_of_node()
+      pmdomain: imx: use platform_device_set_of_node()
+      mfd: tps6586: use platform_device_set_of_node()
+      slimbus: qcom-ngd-ctrl: use platform_device_set_of_node()
+      net: mv643xx: use platform_device_set_of_node()
+      drm/xe/i2c: use platform_device_set_fwnode()
+      platform/surface: gpe: use platform_device_set_fwnode()
+      usb: chipidea: use platform_device_set_of_node_from_dev()
+      usb: musb: use platform_device_set_of_node_from_dev()
+      reset: rzg2l: use platform_device_set_of_node_from_dev()
+      driver core: platform: count references to all kinds of firmware nodes
+
+ arch/powerpc/platforms/powermac/low_i2c.c    |  2 +-
+ drivers/base/platform.c                      | 56 ++++++++++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_i2c.c                  |  2 +-
+ drivers/i2c/busses/i2c-pxa-pci.c             |  3 +-
+ drivers/iommu/fsl_pamu.c                     |  7 ++--
+ drivers/mfd/tps6586x.c                       |  2 +-
+ drivers/net/ethernet/broadcom/genet/bcmmii.c | 10 +++--
+ drivers/net/ethernet/marvell/mv643xx_eth.c   |  2 +-
+ drivers/of/platform.c                        |  2 +-
+ drivers/platform/surface/surface_gpe.c       |  2 +-
+ drivers/pmdomain/imx/gpc.c                   |  3 +-
+ drivers/reset/reset-rzg2l-usbphy-ctrl.c      |  2 +-
+ drivers/slimbus/qcom-ngd-ctrl.c              |  2 +-
+ drivers/usb/chipidea/core.c                  |  2 +-
+ drivers/usb/musb/jz4740.c                    |  2 +-
+ include/linux/platform_device.h              |  8 ++++
+ 16 files changed, 84 insertions(+), 23 deletions(-)
+---
+base-commit: 687da68900cd1a46549f7d9430c7d40346cb86a0
+change-id: 20260520-pdev-fwnode-ref-d867836971eb
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
