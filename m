@@ -1,49 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237C472621;
-	Thu, 21 May 2026 20:05:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C223F54C2;
+	Thu, 21 May 2026 20:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779393954; cv=none; b=VjatoDu992hxaXCQU5izhavXOSqTCsb4BxP8iP7h8kTK7LXT8jaezTJ1D9bwjNzIVR5QIioFdpJPg92vbQRKX9Ds0AefElnowio5qPY6Inm3HGym0l1jrnFLPxPD7wPCuOMPmQreDQBn1M8MTR8VZoe3Oz1xIx60atrwe/hKILE=
+	t=1779394094; cv=none; b=SQu4j0m8ZBfIa9ohjk5lMMeBkP81rLoOJyJKriairIsKyVckIy6Y44tJxvcYfV+9SegDhSiUwCzWHQdUBRgqElzqzOUWMDKcyrHaqdW0DntyVf25yBYnhzny3qWtnyvOz8XH0zgiO3brvWFDLi/hW1u+HgeDvIBR48+E4rsaWsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779393954; c=relaxed/simple;
-	bh=cv6uB5jJUAPv3s2OyJc+AWKUtjEFN4V62Cn/PKDP0NI=;
+	s=arc-20240116; t=1779394094; c=relaxed/simple;
+	bh=707jK27ZELdllgXoMxuZs9+Kj+Za41Z+d79jxmYPrkQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DVBXGHMZiwD4Vm5W+3RXdgmLHBXPvl+WjfoGH+caew9AozT63Dz42elIr/LeUkEwWLsrceKi6j8vbBrc8j7Bu9DHCubx6vJ3k3/UyClPsDCrVZzKVxSfFQn/0Ev3s4bx/P8g7CVitvZW/a1NYb6lYP2x/jAL10F2wlERMs8NHuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6i4QeLy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ts8CCFp/Qy9WTuXqrtDWT6Lgm2K/H/o5+X3WG9xxuGzEiBz4LJG4j7ocHQrVNkoAx0/FM/W/dHxmo+a3eb6dllOoBFyGrDUMoz8tOmfZy0uVKoA03jErPnOyFpdarOLqN0ONZQLBELXqxX529V7OvQF4F2v/vdaeb/CcfmR2pro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XnQhC89x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6i4QeLy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514121F000E9;
-	Thu, 21 May 2026 20:05:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XnQhC89x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1E01F000E9;
+	Thu, 21 May 2026 20:08:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779393952;
-	bh=cv6uB5jJUAPv3s2OyJc+AWKUtjEFN4V62Cn/PKDP0NI=;
+	s=k20260515; t=1779394092;
+	bh=707jK27ZELdllgXoMxuZs9+Kj+Za41Z+d79jxmYPrkQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K6i4QeLyErd3OIQtcKDZ5kBvfgE56iEpTI1kVR4QAHiUNKZEv1U/Z/xpYe2xStv56
-	 uAf2tQG2sdLJ6RtK6PeiANL9wZoS8czm5p8FgwrSYjiOl1vwYmPvkMOTMc1EjGSNm1
-	 mZKHZrn4UrNL5J8zfnu6yUkYWPg3nAZc+GbiO4KMYjwCzZzmbf1KPXBxAUg3Sz7KWt
-	 p+2o9weLTNmvzc3J8LC4JeOS4gLj7qm8uXAJ8M41txlmcXJ3hT2ZZOnAvuN/J/z9ie
-	 lARMLtQyOMv4Mi6+Dy6vE6GnNVHE0NyZp6oqm/mRhPOCOkckNKWV8pRPea43zzC3te
-	 L3EnqmAnfAbLw==
-Date: Thu, 21 May 2026 21:05:47 +0100
+	b=XnQhC89x81h+yCkodScj88ddByjv2tXNQ9ox5EpkfYEkbUqs6gFJeqYItZinvYTvY
+	 nGOei2abuhB6Yz/cursfuF2ME+VN5H4K7gQJN1Ryot1KMbKKg+tfwgeUkoQtfdps6Z
+	 A+P60g/kPyvcov6QxzohAuStjaHKdz+bDuukmJ6yL5pBZsmgJdPRlhjBIZ2UzIxIT7
+	 a4Gm1egxLXUBTJbqwcyZPK60MTOhifSBlpPf5qDoY06uuzTYWxprsFwCj4OuIItsN+
+	 wn5p5pqW0A2yQuIXw7PM0vY6X0xFH5ttinTitzWsZsw+JDxM8/Eh6URlmHtnNdKdto
+	 bGbABwQtCXzXw==
+Date: Thu, 21 May 2026 21:08:07 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Tomasz Jeznach <tomasz.jeznach@linux.dev>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	iommu@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Joel Stanley <joel@jms.id.au>, Joerg Roedel <joerg.roedel@amd.com>,
-	Nicholas Piggin <npiggin@gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: iommu: riscv: Add bindings for
- Tenstorrent RISC-V IOMMU
-Message-ID: <20260521-unfocused-stencil-48520ecfb6e7@spud>
-References: <20260521064445.1740782-2-fustini@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+	andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH V8 02/10] dt-bindings: iio: imu: icm42600: Add icm42607
+ binding
+Message-ID: <20260521-challenge-flaccid-26b6f5d2d0bd@spud>
+References: <20260518200526.458421-1-macroalpha82@gmail.com>
+ <20260518200526.458421-3-macroalpha82@gmail.com>
+ <20260520174217.6ca98524@jic23-huawei>
+ <20260521-premium-afterlife-0d7a22b77517@spud>
+ <PH0PR19MB99733879756FFB321CDCDD9B81A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,46 +51,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="N5nylATt8Y3roeyG"
+	protocol="application/pgp-signature"; boundary="wintQjHsEd+E3xkx"
 Content-Disposition: inline
-In-Reply-To: <20260521064445.1740782-2-fustini@kernel.org>
+In-Reply-To: <PH0PR19MB99733879756FFB321CDCDD9B81A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
 
 
---N5nylATt8Y3roeyG
+--wintQjHsEd+E3xkx
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 20, 2026 at 11:41:18PM -0700, Drew Fustini wrote:
-> From: Nicholas Piggin <npiggin@gmail.com>
+On Thu, May 21, 2026 at 12:43:09PM -0500, Chris Morgan wrote:
+> On Thu, May 21, 2026 at 05:44:21PM +0100, Conor Dooley wrote:
+> > On Wed, May 20, 2026 at 05:42:17PM +0100, Jonathan Cameron wrote:
+> > > On Mon, 18 May 2026 15:05:17 -0500
+> > > Chris Morgan <macroalpha82@gmail.com> wrote:
+> > >=20
+> > > > From: Chris Morgan <macromorgan@hotmail.com>
+> > > >=20
+> > > > Add devicetree binding for the Invensense ICM42607 and Invensense
+> > > > ICM42607P inertial measurement unit. This unit is a combined
+> > > > accelerometer, gyroscope, and thermometer available via I2C or SPI.
+> > > >=20
+> > > > This device is functionally very similar to the icm42600 series wit=
+h a
+> > > > very different register layout.
+> > > >=20
+> > > > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> > > > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > Note that Sashiko has highlighted that the binding this being added to
+> > > has a potential problem.
+> > >=20
+> > > interrupts are required but interrupt-names are not.
+> > > That would be fine but the binding doesn't say there is a default
+> > > ordering for the interrupts - so if we don't have names we have no
+> > > idea which interrupt it is.
+> > >=20
+> > > This needs fixing - probably by adding a default
+> >=20
+> > Worth pointing out that this isn't an issue with this particular patch,
+> > the problem exists in mainline.
 >=20
-> Extend the binding to cover details specific to the Tenstorrent RISC-V
-> IOMMU. In particular, a second register range is added which contains
-> M-privileged registers, e.g., PMAs and PMPs.
+> The driver I lovingly borrowed this code from seems to have fallback
+> logic, basically picking the first interrupt if it couldn't find one
+> named "INT1". I was told early on not to do this that way, so in my
+> case the interrupt-names would be required (but not for the existing
+> driver because of this fallback).
 >=20
-> The RISC-V spec S-privileged registers remain in the first register
-> range and are compatible with "riscv,iommu" so the Linux driver does not
-> notice any difference, but the binding will be used by OpenSBI and
-> potentially other M-mode software.
->=20
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
-> Acked-by: Joerg Roedel <joerg.roedel@amd.com>
-> Signed-off-by: Nicholas Piggin <npiggin@gmail.com>
-> [fustini: fix dt_binding_check errors]
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> Should I make the requirement conditional just to my compatible
+> strings?
 
-Discussed on IRC I think, sashiko complaint to be fixed.
-pw-bot: changes-requested
+Sure, sounds like a good idea to me.
 
---N5nylATt8Y3roeyG
+--wintQjHsEd+E3xkx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag9lmwAKCRB4tDGHoIJi
-0nWsAP0TygXI7ZXe6ZVsOASVLwHfoMmNZkvxBWlW2Sd40jY25AEAzTJQRZ4uC7Yc
-VC88ee2a9taFfVMMmpqdq0fm9xBSiAw=
-=vTus
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag9mJwAKCRB4tDGHoIJi
+0uWgAP96xINoifZYfEqvlm8mnXkLoTpcNpRpexPVhkPesyjNSgEAyT1KnP4I+z5d
+not7x1APCxb9+VXz2wgU/dZA0O48bAo=
+=yomg
 -----END PGP SIGNATURE-----
 
---N5nylATt8Y3roeyG--
+--wintQjHsEd+E3xkx--
