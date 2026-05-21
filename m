@@ -1,136 +1,267 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09473C7689;
-	Thu, 21 May 2026 20:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779395673; cv=none; b=SU2bH0XyHwdyakWJUi6CASoocCuHD6cLHin+BX4Littii1eCiRhTRKBNpQWRwcyOO2eOisQVMcU6ty7xalpo7LYnovPIH3wZF3OQ5fm6sThYsrz49r12Rgj3g2gFeLUBU6vkhD/WAaIYNbuFfV9NXLoLBdl3Szd0s7VpUXFxER8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779395673; c=relaxed/simple;
-	bh=CgRad/3jFwSqPRYpfpgD7MhweHImV/NgqRjX96KiQCg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cm4yo4BsTQPmfi9xf+haePv+Hfq1dWjSPFoayykgSmqso8QdBv8dZztVjB5aOvbZTp5Vdnkk8VwIoA1Zf6qN4bgJobFue8sPc7J6Uee9kKn5BM1xGfkiryUoh7+DCib8sBTrEi+2pgnlG5/cR47/ssUpgDcG+BOgnVaBQUk5pVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsL15wIr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56C736E47F
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 20:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779395942; cv=pass; b=aJhJKbjJCMmcq2l8vzTKrU5Ha+Vw+y5G5GUCJl1nj7gn7M58OgIPyRK6EtpoJuNiPyRKM4W5V3cDKnJDI50SnA7REX0CJBoSBRx8BBFZB/H1BWbCcsNox72h46mAQe8JkmYWAlj2kyDklKDl3foExHA+xBbAoJKQ33uWmd/SocM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779395942; c=relaxed/simple;
+	bh=7WguGWw3OMqpoY1uNfi3T8L8p63iIWg1hfU/ZsmVvjQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tBQCX5Gcw6jMdFEoYb0ZOCn9dsnKRwSjx4UCl/fd1Y6nDPgeSVoxCTPNzRoGvT4ItfqsX+RbzhPlqnKI58Y414EBL5hsR4ZA7QtgPAbeR/7bKVleYqpjJs06SMTQjm5JoNim2Zyez6hqgx1LbLVFSzlT6rTiwlhnKPqrt07ywnU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p7+Q7yPH; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsL15wIr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5D721F000E9;
-	Thu, 21 May 2026 20:34:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779395672;
-	bh=2+YJeEj4jGuXBB15B3KMj6vxMAokMR664t9NsJ+0OWQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GsL15wIrZVkAvfexn3xxTvWkq2UzlMrphSeAy/Jj6UH8vKQdJCUeJe3hEbh8MiOSW
-	 ivqSt1epBe0Erty4FRCeS1qqaeGQt73QTsggIfY0Br7rGY9d4W1v6mmGjQxH537hTw
-	 WFL1WJFhrrnRvHquYctoH4m/oqZcrmREz0yaD9434I8WvQqqTyb5pyJBKJxzSDWxPb
-	 QN+yuwqJ/mHGYKQ/o0KZkeLc0xr8mDbgL/u1jO0HwtI83pG2pWQCvgljWfhtCKzy3M
-	 CQs9rMYNWe5MZYvFw+aRhj/iKlyoBs/rWrLKXKVAR3E7WTdF0rGRSV4jPs1/Tuwlqi
-	 W3IvQ6R2ZzbBw==
-Message-ID: <eb1e7119-9d1c-4efb-9609-3c8f5265084c@kernel.org>
-Date: Thu, 21 May 2026 22:34:27 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p7+Q7yPH"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-bd11a3729e8so1037608666b.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:39:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779395939; cv=none;
+        d=google.com; s=arc-20240605;
+        b=MsUVH0A9XobGIxNtEKBtdLR+wNcqSlMBi9dEQrd/TIiEJYPg3x3zALqi92MZFffVuO
+         IIneqG7o9o93VkoSs5ST2SM8wLamYE2JfHzprxJHXPGL64QLQ5Gwx63v0BYFvyfhbejc
+         gQNu5FQTi66z2LstT/LBWRMXIPiVgLT7flIjiizzJ6jdrKHgXWiu4QG2JoBRZdYrhC0Q
+         Qj5b+CijgwbqeE3o1O2YSZl/ivDuv0rDx8/YEgFim9S3HxGnN+CYY4gRdTcETl310Mrn
+         NPjSiCnBDafeeCBJeO/D/Q19UWidqdtv5g6TK8XQUYfrE0XbzwU8Rh0aGPNpguOnUXzd
+         1FOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fW1oXwCiens3FCanTelYWJicgu3a4rD4BDnCOzooE1I=;
+        fh=HM8lh+AFL3ifREMATGhJB4dW/uAQlrknJuDicGuubxc=;
+        b=CiS5tr5A3zk/NU+bEZVrU0duSjYzbpDuX6q76vzzQW8ipG3je6k5FAxzSitAwYQSZB
+         aeepbJhCZfrO+5BSm+r7qVuupcpJOfQ2Qg5z2xI2iWe/HnsUOXMIDJoDTETyLbIjlghH
+         6zH9wagrnUFaRa6C0xgEN/cFkb8eK3qMr1aPGMENpYImxODb5o1Ag89SdaWttxlCep3I
+         EcQuDbY9EcvPT+jYLDPOIDDMZ0ft0AEUlwABv9YcJ7j0F51wyE4gRemWpm3DSy6gVWcq
+         jH/3f4LxgfMhqYcC5/Wor8cgKj8ezq9ld6bP+4QrNu3of5wQGQAcECPfwXoH6HAOm/Ft
+         DaFw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779395939; x=1780000739; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fW1oXwCiens3FCanTelYWJicgu3a4rD4BDnCOzooE1I=;
+        b=p7+Q7yPHk0wEhCoNuUDnK+EncHe+ssHY7YE9gd6+b8quQv1QeXgGjsQwddb5fiJlJT
+         Kqzkgny6n8Cwg1zLRoyREKt2NETUCI1DGF9X/FuP15/5JiMeqpROqKdz2VjRjwAz8dU1
+         bbUbD7jm5eDmqnJntl8X+AT8kmjbUHtKLeehJgVAKlh3BtfT3RYAtlibC3D7+N4aYvHx
+         H9Eka+JLgLq5pAaJ+3PWvVLiHkiY9/Q+G4QHUiO11fddvRZisIbBhaFpYQXq+y7in7wD
+         CT76YhHW2ZxvfjBz8AXMCfwUjkWq+JEIGaCZuNaztdwXyWvTx+SIN4V56KfCemjzPYQw
+         i1gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779395939; x=1780000739;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fW1oXwCiens3FCanTelYWJicgu3a4rD4BDnCOzooE1I=;
+        b=LS6GbE2w+MlHmtY2b0uHAzttgBVQXNEceeAY3WnWo6i1Xrz/V88M9oIGkHxDAuluFA
+         p3OKebaVtl138tcAcI12pyUL4kazWgZUYCiQ53A7SD6I6J6UghknNXLlLr9uL9av+Ott
+         GvSJGjfLNEYZ2oVk+Dkkx7eKXlrY/o06HsbZF5j9d5jRNjDqWolcT00cGwJviirxlHnb
+         DeEcU4mpyMbjv1D5EHFj6n0kNIT3WQDzVeeS/Ty8+aWMambWeoYYE/nPGPc8ku8SsSH8
+         pIQ2LxYEPGjXQS+VXQSU6UcQESZhJTZic7brDt//cSUi4iIUPoeIH2qHxjjivWFfmzO1
+         tw1A==
+X-Forwarded-Encrypted: i=1; AFNElJ/7zEfTV3wl05I/MXurNiDL9wCujq+yUaa0q1+/BhQg05BI8YNu+xlXPXW2zLAkuJX1kviSYCevpJ2r@vger.kernel.org
+X-Gm-Message-State: AOJu0YweVwUv6qtyV/pZSCEROQ8RySv3qTL3SUOjJGsV3feGgjVBEsF+
+	nG3nD3e7W34ex7M4/WaVBmhQEOm1quG76ungGfrcSyDjmwyZ54O4vSXPf99/RQG3PPGVLNfgvqg
+	XaZiuzs7dQ6pnVVdf6ZbG/5x2asUGmA==
+X-Gm-Gg: Acq92OGGV/Bkx9hGPcVgJjplBzOxiO6bBQps7pUOe9rseSUMRd9RHMy6iKqIoQING+2
+	4kPOiNoPnErE7bu+7hh56V9D/AV98dU20im1t4JuWj0dXytLajtFtm2fE8En4ZZGNLzyoHHfTyC
+	UU5jt+seDzf0hdo00Ejmu84VlwaBNEFV/puep7sKNQk0bjJJ+f1NPXoPaY49UpwNq6UdpK8NKr1
+	wldOjWxJHJshHPju9YCgKCrxE0ou1IWxAe4TJuVyYHQacdXgDbI0RrSjVIEmESvjyR9pMEaOsuM
+	nYXnMN1TwhFpNg==
+X-Received: by 2002:a17:907:928a:b0:bd2:fcd8:4cf9 with SMTP id
+ a640c23a62f3a-bdd263c932fmr54408966b.41.1779395938847; Thu, 21 May 2026
+ 13:38:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] dt-bindings: i2c: snps,dwc-i2c: Add StarFive
- JHB100 bindings
-To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>,
- Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jan Dabros <jsd@semihalf.com>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260521034340.27837-1-lianfeng.ouyang@starfivetech.com>
- <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260520191943.73938-1-arouhi@sitime.com> <20260520191943.73938-3-arouhi@sitime.com>
+ <48cc27ed-48e8-41db-8351-166774466a69@kernel.org>
+In-Reply-To: <48cc27ed-48e8-41db-8351-166774466a69@kernel.org>
+From: Ali Rouhi <rouhi.ali@gmail.com>
+Date: Thu, 21 May 2026 13:38:46 -0700
+X-Gm-Features: AVHnY4ILigC8YCZY8euCoRmiEe_rpzQc4MgyNgFRQqdyzkCC81wUGU1H3Wbu8Uo
+Message-ID: <CALFSGupB_eRHQ=h2PzwiLE1gTvd7kZbBP+eWOVWVxapVjzgeXw@mail.gmail.com>
+Subject: Re: [PATCH v2 net-next 2/3] dt-bindings: dpll: add SiTime SiT9531x
+ clock generator
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev, 
+	arkadiusz.kubalewski@intel.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, cjubran@nvidia.com, Oleg.Zadorozhnyi@devoxsoftware.com, 
+	devicetree@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ali Rouhi <arouhi@sitime.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/05/2026 05:43, lianfeng.ouyang wrote:
-> +
-> +  starfive,mctp-i2c-ms:
-> +    description: |
-> +      The property should contain reference to the master node associated with the slave.
+> Mismatched DCO. Use consistent identity or fix your commits.
 
-It's redundant to say that property is "the property ...". Just SAY
-describe that.
+Apologies =E2=80=94 Gmail's SMTP relay rewrites the From header to my
+personal address (rouhi.ali@gmail.com).  I'm working with IT to
+get corporate SMTP credentials so the From matches the Signed-off-by
+(arouhi@sitime.com) in v3.
 
-Also, wrap according to Linux coding style.
+> Same as last time. Why are you describing drivers?
 
-> +      This value is only used in slave mode, especially for MCTP application.
-> +
-> +  dwc-i2c-tx-fifo-depth:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      The property describes the tx fifo depth.
-> +    default: 8
-> +
-> +  dwc-i2c-rx-fifo-depth:
-Wrong name. Generic properties DO NOT use "dwc" name. Please use
-existing standard properties from dtschema, other common schemas or just
-look around.
+Will drop the clocks description entirely =E2=80=94 maxItems and
+clock-names are sufficient.
 
-Do not invent your own stuff and unfortunately half of this binding is
-such invention - done completely different than everything else. That's
-a sign of downstream code and we really do not like such code.
+> Drop node. Wasn't here before, so why did you add it?
+> Drop.
 
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
+Will drop both xo and xo2 fixed-clock nodes from the examples.
 
-Please read carefully writing-bindings document and submitting-patches
-in DT dir.
+Thanks for the review.
 
 Best regards,
-Krzysztof
+Ali
+
+On Thu, May 21, 2026 at 12:26=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> On 20/05/2026 21:19, Ali Rouhi wrote:
+> > Add device tree binding documentation for the SiTime SiT95316
+> > and SiT95317 DPLL clock generators.
+> >
+> > Co-developed-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> > Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> > Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+>
+> Mismatched DCO. Use consistent identity or fix your commits.
+>
+> > ---
+> >  .../bindings/dpll/sitime,sit9531x.yaml        | 145 ++++++++++++++++++
+> >  1 file changed, 145 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/dpll/sitime,sit95=
+31x.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yam=
+l b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
+> > new file mode 100644
+> > index 000000000000..ac88f2f0b2ae
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
+> > @@ -0,0 +1,145 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/dpll/sitime,sit9531x.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: SiTime SiT9531x DPLL Clock Generator
+> > +
+> > +maintainers:
+> > +  - Ali Rouhi <arouhi@sitime.com>
+> > +
+> > +description: |
+> > +  SiTime SiT95316 and SiT95317 are I2C-controlled programmable clock
+> > +  generators with integrated DPLL for synchronization applications.  B=
+oth
+> > +  variants contain four PLLs with automatic/manual reference selection=
+,
+> > +  DCO frequency adjustment, and phase offset measurement via an on-chi=
+p
+> > +  TDC (Time-to-Digital Converter).
+> > +
+> > +  SiT95317 provides 4 inputs and 8 outputs; SiT95316 provides
+> > +  4 inputs and 12 outputs.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - sitime,sit95316
+> > +      - sitime,sit95317
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +    description:
+> > +      External crystal/oscillator feeding the chip's XIN/XO_CLK input.
+> > +      The chip's PLL Fvco is computed relative to this reference, so t=
+he
+> > +      driver requires a non-zero rate at probe time.
+>
+> Same as last time. Why are you describing drivers?
+>
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: xtal
+> > +
+> > +  reset-gpios:
+> > +    maxItems: 1
+> > +    description:
+> > +      GPIO connected to the chip's active-low reset pin (RESETB).
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +    description:
+> > +      Interrupt from the chip's active-low INTRB output.  Asserted whe=
+n
+> > +      the device detects a status change such as lock acquisition or l=
+oss.
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - clocks
+> > +  - clock-names
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/dpll/dpll-device.yaml#
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    xo: xo {
+> > +        compatible =3D "fixed-clock";
+> > +        #clock-cells =3D <0>;
+> > +        clock-frequency =3D <48000000>;
+> > +    };
+>
+> Drop node. Wasn't here before, so why did you add it?
+>
+>
+> > +
+> > +    i2c {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        dpll@68 {
+> > +            compatible =3D "sitime,sit95317";
+> > +            reg =3D <0x68>;
+> > +            clocks =3D <&xo>;
+> > +            clock-names =3D "xtal";
+> > +        };
+> > +    };
+> > +
+> > +  - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +
+> > +    xo2: xo2 {
+> > +        compatible =3D "fixed-clock";
+> > +        #clock-cells =3D <0>;
+> > +        clock-frequency =3D <48000000>;
+> > +    };
+>
+> Drop.
+>
+> > +
+> > +    i2c {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+>
+>
+>
+> Best regards,
+> Krzysztof
