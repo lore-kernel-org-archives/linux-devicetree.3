@@ -1,224 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9753C343D
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7AE3D25DE;
+	Thu, 21 May 2026 12:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779366603; cv=none; b=US76SYUc1nCxDqMuktL53hT1yvtAS/cPpnU3lrFLRmT/tzFcpH+FYnsIaZxIM/qjeAQf58w8532hWDh2LogoSnjqpUxSQ6YaXjDT+WgM992Ic7oyXlA/aGNbsgtnwRSBrOa8yLka0cDRS7MffgSuOE0Kut/5RMHEC+L681U6v0s=
+	t=1779366983; cv=none; b=fuimyAk7JD1LUgb+OGI52lPvg6zgmbwQHIQHCE64tKM4JpRnPF/RwFBsJWX+/t+FJ9bgQypbJQl+Vrzjf24pzuOPssVFTXnCFNfRuaGutkeKu2tqaBT/zLQSqeIgMjJg7d1VHt7mpSTbahex+zhjSMHWioGbrWyTptdn3667GLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779366603; c=relaxed/simple;
-	bh=AthNzADx4Hx45Myqp4Ob4bnRZf2sGLXimuEir7TlLzI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pz3mNuLcc3B1KQmKmxYGc9YiPns90ZzOU1JjyJoqliNp4YkJoIyIhDq6dGkM9WYZUb5W6wII5K0+tIldhwEFA6vHGKhfXaim04a1mrsC5JdMfnNB+Rs1/1HZGKnhExO7xtytk6NKkK85cPsXZJSYZEWMQnkw8nthHJU7PfnktpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F1jqSUmc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779366983; c=relaxed/simple;
+	bh=JmXFacSnYQpRxT/Ms3NRdwETMQIsO0KOqLnlb/SxZT0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RdtAsNHHOpTz5jQwWaqb//hANOQM4rlt4sZQdkxx/Dm/xQh1pWXZxIL65gvPzQF1OLuksnrDjMI3vsddq7RXpvvZb++QHcKgi2pUgd12wR/KASrJuZ7yRZYZgyVYkerNupgjDOx3MiwpgMqil2VgUm6O7cUsIYuSFZ9n9gSlRzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pJQjf0cX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F1jqSUmc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDE61F0155F
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:30:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779366601;
-	bh=tVEy4bk+Ysy/PxvkO6UbyKlL7eR12NG2pfwpsWxFCJE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=F1jqSUmcYnthfkQnFfnCvLn/A6tGh5oXaX3nFTtFrt2Z4oOU5WmD13BXbQFN/sv/1
-	 ROqO4wWGJFN6DiTr/WCkLMUjyeu2eyGTDlM89GgAGk+ldhgiDwNGN7gW23WdLDJjRE
-	 SKvTDAlEUYtvDMR1C+/a030lRN+2XddF4S8zvO06v8JXmPcLqvL6IIsSEvdXmbU29l
-	 j15tVXgEPz+J0sEba6ND5Urk7JdXiZDb6qOIWZ7Mh9Uu83ddKtEux2fDDEyQAHeOi6
-	 t0q5KVDNe8BtnCaVs1Qem5hnlu8+NPLLEhsQ6YppYecIMFfSlXy3sN3d7CuvwIYQ83
-	 H7U0FFPo7nkJw==
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-132830d8281so5219208c88.1
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:30:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/TMHD+XHooLZpRUuIzFa3S+tbNZvTpmobWtZlBIxWlVkg5tfy0DYuKfSORDJ0q6yXlmLniKWtcBWQ3@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPK6Ns/2pSvSiXYdiHO+jb4CFBW5hgVDEbd37saY4vvf/7AnGg
-	pNrQcuRoAWyRLA/XAeCQ1j5338LGRZ6qdqHAke/BeFCMY+cRIZf9ZVrhPAZh6P8Qt57K6VF3lSU
-	Qbpsz/dF7lr0L5dKlIesMIA4pcpisQnU/WFUeHGkOSA==
-X-Received: by 2002:a05:7022:128b:b0:136:36d4:3161 with SMTP id
- a92af1059eb24-13636d431c9mr1046604c88.11.1779366600232; Thu, 21 May 2026
- 05:30:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pJQjf0cX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BA21EC4AF0C;
+	Thu, 21 May 2026 12:36:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779366982;
+	bh=JmXFacSnYQpRxT/Ms3NRdwETMQIsO0KOqLnlb/SxZT0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=pJQjf0cXXTcU7H+nVYoLWJuNQqj5PpZ13aKdO6yc6SgvDG9wlhLStDkWLbMAxS+NK
+	 rJQjyM6dyJWTkIhtXnMI7juzCmXdpIbyu55/YvRHDh4dKQ4FzlFzBTFd1xx+SSpzv7
+	 TMluCgVvZzCIzyNvR0QtD/4XyF7V9LOlCKr4Z/v7Kd/1oCvDo9IVhM+kKSmrKDR/cj
+	 S2I75tuUU8VXV8wNyTrEdPq0pIxfiU/cYDO8xdrrTVEZCHgtL5qPvk5WjT4ytKZIy8
+	 UFgAj3guXfVSNxuYCljc4KGDWRy0PiMgAtUCRAXet66JlRKeff3V1DssbtHQo+nu6C
+	 TRlwuYzt2u1BA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5C2DCD4F5E;
+	Thu, 21 May 2026 12:36:22 +0000 (UTC)
+From: Manivannan Sadhasivam <mani@kernel.org>
+Date: Thu, 21 May 2026 12:36:20 +0000
+Subject: [PATCH 1/2] dt-bindings: crypto: qcom,prng: Document Hawi TRNG
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com>
- <20260514-arm-psci-system_reset2-vendor-reboots-v22-8-28a5bde07483@oss.qualcomm.com>
- <20260521112638.GD2921053@google.com>
-In-Reply-To: <20260521112638.GD2921053@google.com>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Thu, 21 May 2026 14:29:45 +0200
-X-Gmail-Original-Message-ID: <CAMRc=MfqaCjiALZyVBHQs=Taft1M9xmNTFvQHWPrd5PgcTfJDQ@mail.gmail.com>
-X-Gm-Features: AVHnY4KFfkEZ1qB3plV-6mRlSK5xYq1TZ9heaLB2W6BxX5fSR4R4BqSRFGsDqgU
-Message-ID: <CAMRc=MfqaCjiALZyVBHQs=Taft1M9xmNTFvQHWPrd5PgcTfJDQ@mail.gmail.com>
-Subject: Re: [PATCH v22 08/13] mfd: core: Add firmware-node support to MFD cells
-To: Lee Jones <lee@kernel.org>
-Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>, Sebastian Reichel <sre@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
-	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
-	Srinivas Kandagatla <srini@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260521-hawi-crypto-v1-1-9176a3b51bc0@kernel.org>
+References: <20260521-hawi-crypto-v1-0-9176a3b51bc0@kernel.org>
+In-Reply-To: <20260521-hawi-crypto-v1-0-9176a3b51bc0@kernel.org>
+To: Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mani@kernel.org, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=907; i=mani@kernel.org;
+ h=from:subject:message-id;
+ bh=87Y5FwOjUYP3cLO2wi3+Srs6AfNhdn+1QiIA070LBV8=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqDvxE68+VLP4JD5mfqCBLgToH2WODoY19+n7ZF
+ 7kcGB/pTMiJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCag78RAAKCRBVnxHm/pHO
+ 9RlnB/9MKf2X0z1K9DYHIi2kpH2/oYGxzWOrZ02bk9J7GENYUFTZeU6szlFAr9LBEXvwZgUM/Bf
+ IaSDf05AFY+k/TzKm3AVkm0G54H87b3ErOltrd2yj4WL4VaZ6qMKkQaYsBViqaB0ogUhafpDhfh
+ 9MXcGxgHhe5Mas/uKfVgqmnmA+20Xf4wj6PCbLHCuKI0cQVOeZEE63u8UFJ7ExinZbttIDTbHZd
+ JiSgYZOdQ3OfW2ls8uAxGCeFYt0BUCerW1etQs/+xHVjYQzsBr5LTY9amwIhuMRVmGKecFVGohi
+ T/lkwaXo/ggbfZ55dQ1dtfewty95xnEpy+yZIUV9wR9NF0cx
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-Endpoint-Received: by B4 Relay for mani@kernel.org/default with
+ auth_id=787
 
-On Thu, May 21, 2026 at 1:26=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
->
-> On Thu, 14 May 2026, Shivendra Pratap wrote:
->
-> > MFD core has no way to register a child device using an explicit firmwa=
-re
-> > node. This prevents drivers from registering child nodes when those nod=
-es
-> > do not define a compatible string. One such example is the PSCI
-> > "reboot-mode" node, which omits a compatible string as it describes
-> > boot-states provided by the underlying firmware.
-> >
-> > Extend struct mfd_cell with a callback that allows drivers to provide a=
-n
-> > explicit firmware node. The node is added to the MFD child device durin=
-g
-> > registration when none is assigned by device tree, ACPI, or software
-> > matching.
-> >
-> > Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com=
->
-> > Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> > ---
-> >  drivers/mfd/mfd-core.c   | 30 ++++++++++++++++++++++++++++++
-> >  include/linux/mfd/core.h | 14 ++++++++++++++
-> >  2 files changed, 44 insertions(+)
-> >
-> > diff --git a/drivers/mfd/mfd-core.c b/drivers/mfd/mfd-core.c
-> > index 7aa32b90cf1eb7fa0a05bf3dc506e60a262c9850..cc2a2a924d6d3044e29a9f8=
-64b536ee325ed797b 100644
-> > --- a/drivers/mfd/mfd-core.c
-> > +++ b/drivers/mfd/mfd-core.c
-> > @@ -10,6 +10,7 @@
-> >  #include <linux/kernel.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/acpi.h>
-> > +#include <linux/fwnode.h>
-> >  #include <linux/list.h>
-> >  #include <linux/property.h>
-> >  #include <linux/mfd/core.h>
-> > @@ -148,6 +149,11 @@ static int mfd_match_of_node_to_dev(struct platfor=
-m_device *pdev,
-> >       return 0;
-> >  }
-> >
-> > +static void mfd_child_fwnode_put(void *data)
-> > +{
-> > +     fwnode_handle_put(data);
-> > +}
-> > +
-> >  static int mfd_add_device(struct device *parent, int id,
-> >                         const struct mfd_cell *cell,
-> >                         struct resource *mem_base,
-> > @@ -156,6 +162,7 @@ static int mfd_add_device(struct device *parent, in=
-t id,
-> >       struct resource *res;
-> >       struct platform_device *pdev;
-> >       struct mfd_of_node_entry *of_entry, *tmp;
-> > +     struct fwnode_handle *fwnode;
-> >       bool disabled =3D false;
-> >       int ret =3D -ENOMEM;
-> >       int platform_id;
-> > @@ -224,6 +231,29 @@ static int mfd_add_device(struct device *parent, i=
-nt id,
-> >
-> >       mfd_acpi_add_device(cell, pdev);
-> >
-> > +     if (!pdev->dev.fwnode && cell->get_child_fwnode) {
-> > +             fwnode =3D cell->get_child_fwnode(parent);
-> > +             if (fwnode) {
-> > +                     device_set_node(&pdev->dev, fwnode);
-> > +
-> > +                     /*
-> > +                      * platform_device_release() drops only of_node r=
-efs.
-> > +                      * Track non-OF fwnodes explicitly so they are pu=
-t on
-> > +                      * all teardown paths.
-> > +                      */
-> > +                     if (!to_of_node(fwnode)) {
-> > +                             ret =3D devm_add_action(&pdev->dev,
-> > +                                                   mfd_child_fwnode_pu=
-t,
-> > +                                                   fwnode);
-> > +                             if (ret) {
-> > +                                     device_set_node(&pdev->dev, NULL)=
-;
-> > +                                     fwnode_handle_put(fwnode);
-> > +                                     goto fail_of_entry;
-> > +                             }
-> > +                     }
-> > +             }
-> > +     }
->
-> mfd_add_device() is getting very busy now with support for all of these
-> different registration APIs.  Suggest that we start breaking them out.
->
-> > +
-> >       if (cell->pdata_size) {
-> >               ret =3D platform_device_add_data(pdev,
-> >                                       cell->platform_data, cell->pdata_=
-size);
-> > diff --git a/include/linux/mfd/core.h b/include/linux/mfd/core.h
-> > index faeea7abd688f223fb0b31cde0a9b69dfe2a61ff..abfc26c057d6ee46947ba2b=
-6f2e99f420e74b127 100644
-> > --- a/include/linux/mfd/core.h
-> > +++ b/include/linux/mfd/core.h
-> > @@ -50,6 +50,7 @@
-> >  #define MFD_DEP_LEVEL_HIGH 1
-> >
-> >  struct irq_domain;
-> > +struct fwnode_handle;
-> >  struct software_node;
-> >
-> >  /* Matches ACPI PNP id, either _HID or _CID, or ACPI _ADR */
-> > @@ -80,6 +81,19 @@ struct mfd_cell {
-> >
-> >       /* Software node for the device. */
-> >       const struct software_node *swnode;
-> > +     /*
-> > +      * Callback to return an explicit firmware node.
-> > +      * @parent: MFD parent device passed to mfd_add_devices().
-> > +      *
-> > +      * Called only if OF/ACPI matching did not assign a fwnode.
-> > +      * Ownership of the returned reference is transferred to MFD core=
-.
-> > +      *
-> > +      * Return a referenced fwnode or NULL if none is available.
-> > +      *
-> > +      * mfd_cell must be zero-initialized or get_child_fwnode must be =
-NULL
-> > +      * when unused.
-> > +      */
-> > +     struct fwnode_handle *(*get_child_fwnode)(struct device *parent);
->
-> I'm very much against pointers to functions if they can be avoided.  Why
-> does fwnode need this and none of the other APIs do?
->
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-I suggested it because of its flexibility. The alternative I had in
-mind is something like a new field in mfd_cell:
+Hawi SoC has the True Random Number Generator (TRNG) which is compatible
+with the baseline IP "qcom,trng". Hence, document the compatible as such.
 
-    const char *cell_node_name;
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Which - if set - would tell MFD to look up an fwnode that's a child of
-the parent device's node by name - as it may not have a compatible.
+diff --git a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+index 41402599e9ab..e5489941e769 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+@@ -17,6 +17,7 @@ properties:
+           - qcom,prng-ee  # 8996 and later using EE
+       - items:
+           - enum:
++              - qcom,hawi-trng
+               - qcom,ipq5332-trng
+               - qcom,ipq5424-trng
+               - qcom,ipq9574-trng
 
-Bart
+-- 
+2.43.0
+
+
