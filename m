@@ -1,137 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34912F9DA1;
-	Thu, 21 May 2026 17:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD542244667
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 17:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779384622; cv=none; b=mlUlERWSgRzlEn30cuCP06yIZmoWjkcSiOxoTkyoVCB8uVBm1YcSiYd31dcsN3gdXrBudMpewIWHf/cDWarjBEqaU/wiMViUfb/kwAeiqsxfZQJA2m05rSXwDzuKs8u6HK3gWnkLiuZkH5OdRnWnoT6iq1eLJ5ofDEx3LvFxvgA=
+	t=1779384827; cv=none; b=q4BJQpxAZ5fOj5eEzG0yI4c46gt3FVhApmRWeCUL/s393d8IKX7N6LkaVZhU8q9M5MdjY3YTSEUzbnjG+hJqP05WvWe0pzivN/HyfMK3Tw/h9ES15KQsjs2UGdcbhiz0XabWO5JddEgdU1Q/vmdWujYbHG3FNZOCIELttFXa8S0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779384622; c=relaxed/simple;
-	bh=OlNqmeui+cpmy8Iowi2tl+N6zKfaammDMIENaa21R5U=;
+	s=arc-20240116; t=1779384827; c=relaxed/simple;
+	bh=69hD0NS9bSqZFU2sw9qKlu6zE1J+ih22Mi2g4FgzQdY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I6lkiLstTFHynLggBzbtV/LZR3VUSzcwkzUj7pw41zx4zHqtMV9VOuqzZESMxgi316ztADu7siYaKMWeia+jTHHCWdiKoTI7mSa8B3EdiPhuvVLF/uTdQXFhrxSiA0kcGFKBSOdKu4LZX3sQ6UkLoZxBfYIeGX4H9aEPFRy5BPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUhSTBYm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mO4MzQCcIqpTB+P+8M7fmD65D8IqsyOMx+l8ms1XJzaByuA+jMdyTS5e8LdFE04BXPALwImfImVWAmwJAWZSCac4ksDU54ktjGVV+2HurmiHr50UlnR8NVwFDZ9zSVut3p2g0sHaEeK7Zf80KZ1AMmTJfYKndlXJ5z0rysSY7Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoO3/gx7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUhSTBYm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A03E1F000E9;
-	Thu, 21 May 2026 17:30:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoO3/gx7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F217E1F000E9;
+	Thu, 21 May 2026 17:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779384620;
-	bh=X2bg+L3XfdpbesakUz3ZHBqtrMvx+hp8jzQJ8KVvhxk=;
+	s=k20260515; t=1779384826;
+	bh=51UY1UuitBXPKOkFGnnh8y6Q8BcndmYq0d+ZLei+t7E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TUhSTBYmHOJ5i5rCparJkisWlcmdBVf0xmCe1JZZSoWyJz/8AF0sVQ/VGpqipMH8+
-	 0Jy9Fsv2zTJxRsGzAgd/kj1SgNvb0VCK2s8+SnAITy7IrhXO41CqJ1KSx1NqdHy5B/
-	 DmoDJYj6jWuwaeF+q+5n27P8K3M/EpZ4felVopi5yZYeLBNLpQOLKzd0rMh9IZEQVd
-	 edDkuwm2ZJo1sxjRxZmFl8pOZIX52eIgAeeFD9wgia6+KoDV/o5GFzkANB61SENcum
-	 jDZkIUhMTC3nec/sI3fXndav/Tq9f8zHsOXm325FSYTLYLDdYi3K17zZpDTKFS1lrh
-	 Zsi/s9kmzPv7A==
+	b=YoO3/gx7TC0Bm4nL8Q3Z4wGiA62RU24JvW4ekPB45heyNav0Hq4w/qr+TmcgeFvJw
+	 Wu0WHuIeIcpPpTG9PdZ/Cj/wqp6u0QNzf1FNFCl7snGyV7o0iX9a0CXUY89dk8scvM
+	 sRAOBwsZuNRrzGndZI4+e6eQgUMAb0VlhV4wcTrZIQb87LHqe7KQteWZ274y411vAl
+	 Bk/xWCHkbhzFdIzDs3uJxWkNBFCR77BVhJ+Pwhs8uX7f2VspVbUP8v6max1o1F7iek
+	 gxRQQsl/7YJkjxfAhLS0UAA/zNBxdmyL7fIUHXmx7OyGHuPfuez7lDb0DJBFP9/xma
+	 nlGIn05oODcNw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] arm64: dts: freescale: add Aquila iMX95 support
+Subject: Re: [PATCH v4 3/4] mfd: sprd-sc27xx: Add SC2730 regulator cell
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Franz Schnyder" <fra.schnyder@gmail.com>
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260521-add-aquila-imx95-v4-2-5a7f86c824f5@toradex.com>
-References: <20260521-add-aquila-imx95-v4-2-5a7f86c824f5@toradex.com>
+To: =?utf-8?b?T3R0byBQZmzDvGdlcg==?= <otto.pflueger@abscue.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260521-sc2730-regulators-v4-3-1ac8a3b5ed82@abscue.de>
+References: <20260521-sc2730-regulators-v4-3-1ac8a3b5ed82@abscue.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 17:30:19 +0000
-Message-Id: <20260521173020.0A03E1F000E9@smtp.kernel.org>
+Date: Thu, 21 May 2026 17:33:45 +0000
+Message-Id: <20260521173345.F217E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The DisplayPort connector references a disabled DisplayPort brid=
-ge, leaving dangling references and rendering the connector non-functional =
-while wasting power.
-- [Medium] The dedicated power supply regulator for the disabled DSI-to-DP =
-bridge is incorrectly marked as always-on, wasting power.
+
+Pre-existing issues:
+- [High] The existing MFD cells for `sc2731-regulator` and `sc2731-poweroff=
+` fail to bind to their respective drivers due to naming mismatches.
 --
 
-commit 3392fc6b669bcc9dccbd369d342a80d81c494ed6
-Author: Jo=C3=A3o Paulo Gon=C3=A7alves <joao.goncalves@toradex.com>
+commit 410bda683e83be6297ddc2d59ec5df1da8471eae
+Author: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
 
-arm64: dts: freescale: add Aquila iMX95 support
+mfd: sprd-sc27xx: Add SC2730 regulator cell
 
-This commit adds support for the Toradex Aquila iMX95 computer-on-module
-and its corresponding development carrier board.
+Add an MFD cell to register the SC2730 PMIC's regulators.
 
-Link: https://www.toradex.com/computer-on-modules/aquila-arm-family/nxp-imx=
-95
-Link: https://www.toradex.com/products/carrier-board/aquila-development-boa=
-rd-kit
+> diff --git a/drivers/mfd/sprd-sc27xx-spi.c b/drivers/mfd/sprd-sc27xx-spi.c
+> index aa052f6466231..214bcbef0c271 100644
+> --- a/drivers/mfd/sprd-sc27xx-spi.c
+> +++ b/drivers/mfd/sprd-sc27xx-spi.c
+> @@ -61,6 +61,7 @@ static const struct mfd_cell sc2730_devices[] =3D {
+>  	MFD_CELL_OF("sc2730-efuse", NULL, NULL, 0, 0, "sprd,sc2730-efuse"),
+>  	MFD_CELL_OF("sc2730-eic", NULL, NULL, 0, 0, "sprd,sc2730-eic"),
+>  	MFD_CELL_OF("sc2730-fgu", NULL, NULL, 0, 0, "sprd,sc2730-fgu"),
+> +	MFD_CELL_NAME("sc2730-regulator"),
+>  	MFD_CELL_OF("sc2730-rtc", NULL, NULL, 0, 0, "sprd,sc2730-rtc"),
+>  	MFD_CELL_OF("sc2730-vibrator", NULL, NULL, 0, 0, "sprd,sc2730-vibrator"=
+),
+>  };
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts b/arch/ar=
-m64/boot/dts/freescale/imx95-aquila-dev.dts
-> new file mode 100644
-> index 0000000000000..3df17700b632f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
-> @@ -0,0 +1,389 @@
-[ ... ]
-> +	aliases {
-> +		eeprom1 =3D &carrier_eeprom;
-> +	};
-> +
-> +	dp_1_connector: dp0-connector {
-> +		compatible =3D "dp-connector";
-> +		dp-pwr-supply =3D <&reg_dp_3p3v>;
-> +		type =3D "full-size";
-> +
-> +		port {
-> +			dp_1_connector_in: endpoint {
-> +				remote-endpoint =3D <&dsi2dp_out>;
-> +			};
-> +		};
-> +	};
+[Severity: High]
+This isn't a bug introduced by this patch, but do the existing MFD cells for
+SC2731 regulators and poweroff fail to bind to their respective drivers due
+to naming mismatches?
 
-[Severity: Medium]
-Since som_dsi2dp_bridge is disabled by default in imx95-aquila.dtsi and not
-explicitly enabled in this device tree, does this connector node leave
-dangling references?
+The sc2731_devices array creates MFD cells named "sc2731-regulator" and
+"sc2731-poweroff". However, their corresponding platform drivers
+(drivers/regulator/sc2731-regulator.c and
+drivers/power/reset/sc27xx-poweroff.c) set their .name fields to
+"sc27xx-regulator" and "sc27xx-poweroff", respectively.
 
-Without status =3D "disabled" on this node, the display-connector driver wi=
-ll
-probe successfully and unconditionally enable its dp-pwr-supply (reg_dp_3p3=
-v),
-wasting power on the carrier board for an unusable interface.
+Since neither driver provides a platform_device_id table to map the
+SoC-specific names, does the platform_match() string comparison fail?
 
-Should this connector be disabled by default or have the bridge enabled her=
-e?
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi b/arch/arm64=
-/boot/dts/freescale/imx95-aquila.dtsi
-> new file mode 100644
-> index 0000000000000..69dc962a24a1d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
-> @@ -0,0 +1,1160 @@
-[ ... ]
-> +	reg_dp_1p2v: regulator-dp-1p2v {
-> +		compatible =3D "regulator-fixed";
-> +		/* CTRL_DP_BRIDGE_EN */
-> +		gpios =3D <&som_gpio_expander_0 7 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-always-on;
-> +		regulator-max-microvolt =3D <1200000>;
-> +		regulator-min-microvolt =3D <1200000>;
-> +		regulator-name =3D "On-module +V1.2_DP";
-> +		vin-supply =3D <&reg_1p8v>;
-> +	};
-
-[Severity: Medium]
-Since this regulator is a dedicated power supply for som_dsi2dp_bridge which
-is marked as status =3D "disabled" below, is it necessary to have the
-regulator-always-on property here?
-
-The always-on property bypasses the driver and forces the regulator core to
-unconditionally assert the CTRL_DP_BRIDGE_EN GPIO at boot, continuously
-powering the bridge chip on the module even when disabled.
+Would this leave the SC2731 hardware without regulator control and poweroff
+functionality since the MFD core instantiates these platform devices, but
+they never bind to their drivers?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-add-aquila=
--imx95-v4-0-5a7f86c824f5@toradex.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-sc2730-reg=
+ulators-v4-0-1ac8a3b5ed82@abscue.de?part=3D3
