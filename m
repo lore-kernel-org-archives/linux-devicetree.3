@@ -1,239 +1,184 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4396E3DBD4F
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8279B220F2A
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:18:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779369433; cv=none; b=tuPQEX9OODX4eaU49sUAdJKht7GMcJxOhUzi7iE5ZcARqyhGAM40TwmsC5HC79MmQxuPJsmAXZUnOAVM91uf1ONCOgUdeABmMOaWdtEA1C0UPAQA4w237gK7vzW4UMwmzYzSP11VEAzr5V672kU9qDKy7m2YlzHWIFa+ff9X2Vo=
+	t=1779369488; cv=none; b=Hnj1DBYoIrgESV9IyjhosSFZfkFCLq8iN89JUpqJegYpYYoOXTvgYFNbnF1FKhVA5roqLdINdra2zkT9NpZkmZbgZRhAYEVB/bgNMeveX6TjeS5IVpi4LCEQOUs4EQ/R7BfxLQ0dAkalrCA8BOKYDjqEUJxgqV1Kp1QojC1IbJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779369433; c=relaxed/simple;
-	bh=rEhgf+plDqfF1iHQj2avM/Yea3aAhqW3nHftW6pqB74=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QjzvK2RxTnRcCQsdrjWsxmWpDREuQz09eDLXDyFCV4Y92gfXVFh5A1qUlm2poZZOdS5h5cj2bCzrO1xjptCBvaXjomCY8P3anyRruHs9GelpdJFvW4q3uW6DhCNIiXbFTcGYUWFqlK544sAc/iGbS3h3BIFal1bvuAQUD23o1IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ea734BEK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dnd055Jv; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1779369488; c=relaxed/simple;
+	bh=CXMPeU2b4u3KDwV+Fif8DPMBH5t/Q1IwFXg+RkJ1uCk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tM19ecSuOtMNhkPeyada+GwimoOu7JOS+RuymWSVoYgAFzdMfJiJjHgvYUq0Jp2l3K5ErtL8LPIV3dcDsXvi7jmwCz70q2BFLcrrIdXOeoe5tJOqT9yOR/G1Ss8h2j5uJmakXWQQ2drIIttah729ug1OFzW4TwfCG9D6K68hkLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LKu5zN1F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MZRNevK0; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ea734BEK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dnd055Jv"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L99uoU3772831
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:17:11 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LKu5zN1F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MZRNevK0"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64LAXu0o818850
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:18:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KmO7s4tc6H15glCVZR685KG1G1WPxtrKnGHzx/C+V+o=; b=Ea734BEK4zzY8HN9
-	dRe4nY6EwO5Of9FRXTucovvLoxFUPnte+pxxMav2GdWaRujH5HbfraS4yvQ1OmWh
-	nn5mBu8OX4R2nMlW1OhviVXvAss93qKoYXXzZ+ynfv65bpdCwWTrgtfpst5pXtAu
-	hsjsL+8iCG+wglqEmBf7fsfwELEvE1N95VwS3B8PgyzzMtYhBzIEu5NjafEopK67
-	mmr5VJD7xmHMFJzXqr/FNFtMK3bNDuzTSHZlJOiC1AePUV2WHaHqU6wZyPegal8h
-	gEpNIVDnuCa6lhdn0wp5dJnxf9ExgcX9GVZiNW14LFXDtox4ldqx+KMiunXb2aFX
-	XtqEdg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ma43bkd-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=L8fZGa6Xq+LlaWCk3IUJJU
+	Ra8z19KN5KTwoJE6k81ds=; b=LKu5zN1F2lAVDYG2PTysD0goayaWobN3g4akGg
+	Zq+47VEvXrLBPBvSqGnt54DZ+FTKODb7mAoKMVo8ZyfZdtwT6iX5CK8DdiloGRKn
+	Q58mFGNIKxHDP2kTUvbKvQx4R33RxEpuxCjhBoZ02PnNGSaI/b9Jq7mBgjIV1Hbl
+	IZkvAxq2n0WYpPMEtl92W4AK1s6QYv96GHvD2DKoWhem7rz53gbiLbNQMouyFJtc
+	xRbdCYt/wNzDuc9AgSyzuJlShZn0B3/o3DzA7usIS7NaKkUVXns95Aw5cxYP91tO
+	LYEw8x/0Yc7s0bsAZLqC9gB232HfcA4zZgfTlv8ZY+jUuCeA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea0dkgjnu-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:17:11 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3663d5e9bf4so5425276a91.1
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 06:17:11 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:18:06 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-835423c69ffso3230183b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 06:18:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779369431; x=1779974231; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KmO7s4tc6H15glCVZR685KG1G1WPxtrKnGHzx/C+V+o=;
-        b=Dnd055Jv6/aDuFFzvfoH0x5ZaNvRdnBSeblzkSSledC/hQgKRwtaoPlEm6zfkoRq+R
-         DMpn72qBl9G2gI4R6vuMVqcdFLSY2dwQrX7dHKZSl/xpzka7rxI9g4F22Nrxcua9dchD
-         yF+WxtdwUfkKJJfBZNiVJfG75PxgC++hJqPUTLBSCemcKnK4tpgoCznwrWJRj5eygZcS
-         hLBY4rwI1DIuJsNmH9Jd9CPHmxAJ6iHGCMjh3aNlvKMrEq1QS0CbcaEstfigc090+uF7
-         j9PvtlTn0rc9A8SYN4SYjB46lvAZcCZy2LvNf2Lc+3lBEp2NCAbvHfVba8slCyJwMG5D
-         5Cmw==
+        d=oss.qualcomm.com; s=google; t=1779369486; x=1779974286; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=L8fZGa6Xq+LlaWCk3IUJJURa8z19KN5KTwoJE6k81ds=;
+        b=MZRNevK0Ay07tFI7GOjH7hDUrzqkZrMlG5WdzSNxJdfg/dJNXNR9OwOCovaTLc4Uy9
+         FsOdfqeT6HrC7oY6PgL28OFKloBj2acVvaA7hS0wZ6nYZO+nWk8YUCcgx4N+A26506xy
+         7uwgQJdK3YuWymwLzGnjqlPJZYwU7MIqk/WvjuA7hzCy+lfR38RarNzT/JH/wF+bfBUk
+         Nqel0vMxmEANokDjKciXrjjbcXTZyJKrJpAcOIM+BGlSHmbhnd19jb3GhMJQktNf/Vse
+         yT1Vj3zqT/e7E5+z2qwECM6BU7z8BM3iYViSifxxmntuoUa7r/aPKtQl4Ida/7N+HY1K
+         xTQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779369431; x=1779974231;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KmO7s4tc6H15glCVZR685KG1G1WPxtrKnGHzx/C+V+o=;
-        b=VBcLDZqhCj6lSEg1D+EpTPdYGrvyX17gUCDHGKIegkNXVJIeHmKwJQiiq2DLr6wYLP
-         b6r9xyUO9PzJd0csG+saZqWKvi594j3wkgi3lWhfaSqbIXCino66Ebmg9EuvHJD7N70y
-         RNqcFdN9HCRQxKhVIO4y+KNKpox2YXiz52Ij0vzEtQrCMfGN0PwJULjx/+/TpHKhAwEu
-         KqpMM8pxfigpUiN+7Y1KP8iV0F9NtOg+wUsYYu3WNq4BxjAUpBZeqjrIn4dsMjSdxAui
-         ZxCIcHhle96FEeaoAYQZymd33urlgINLn7L8XNrqvGxEuak+GnIzHf0umL+SBgPYQ/tE
-         /cdQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+6r1L4fF8Xn6L+3vQN16tIZit7rfKQkZK0w2CM19r97jjkNirdn51NtJGtTlWs+q4J6e9ARB3Spd9t@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6lN//g1KcWEjIecpuGz6wc00vtagxtEH2/Eu59kt58z7cQC1u
-	aVtyJzcWi8ARmC2i14i63FnpKnCv13mzOHHIuRl/EckLbv2v48HhHL68H7mdT4vSDBqXA03JqvN
-	Rml2ZtA3zTK2Nz/6qbb1y5fPwzRVx8fxdQA1zHpjsjuZGNTjamp8Mp4Ew1dxqrUAX
-X-Gm-Gg: Acq92OFPyIffSLHOv1K2m8pBMv3vpyDenW6A+5t2IgT2w4kXhFegryeSaK6vUqpKLz5
-	Xv/u69jzUgJ33j5iqxdyOpV4EgQewakKGO/uCSRjN61dYQ4dJOSYFSJ4lbXQyZM2Nom+mh1hD7G
-	XTHQrzyV5YIANJ20SuLMXNoL3ddgSxo2fer8+Y8zCm++fD7Xl08R+iTBxebBFlcVJ3bJHyAYLty
-	tTazPw9j/JP/ThvafTG2dlAWoPLVt40awgqCqa+RlV3Pft6Xty/tEeBtPnjQ7DgTadWCY7S2nWc
-	6mz9a7SaMAmtX8Auj0L5ltZcsrLy78t5qmrajHPXZI8jGiOhq5fJZD1+J93e3y6HnDaXtRUfDhR
-	B30SgTwBwVita7yxYG1cDuJJ6E0LZj/oRBUFeiADujeKEY1xXE0JB8mkrJg==
-X-Received: by 2002:a17:90b:3c89:b0:368:cefe:ddd0 with SMTP id 98e67ed59e1d1-36a4561a294mr2766053a91.15.1779369430698;
-        Thu, 21 May 2026 06:17:10 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c89:b0:368:cefe:ddd0 with SMTP id 98e67ed59e1d1-36a4561a294mr2766023a91.15.1779369430119;
-        Thu, 21 May 2026 06:17:10 -0700 (PDT)
-Received: from [192.168.1.9] ([205.254.168.165])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a3cb3b3edsm3705303a91.3.2026.05.21.06.17.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 06:17:09 -0700 (PDT)
-Message-ID: <4eab296c-1b5f-4767-9e66-22af3474bf67@oss.qualcomm.com>
-Date: Thu, 21 May 2026 18:47:06 +0530
+        d=1e100.net; s=20251104; t=1779369486; x=1779974286;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L8fZGa6Xq+LlaWCk3IUJJURa8z19KN5KTwoJE6k81ds=;
+        b=gBrXoAN+qYcK25NTfAXsytJItBivG51Qxpm61zrEG36/VAl5GPfoa07rFS6ydPGN2N
+         FSJJfsL/QFSlpszbl3Hy8zy16HQuQd1MYmy5EE8FDChxAHjvhTnYUfIKfq8UCY7jMK/x
+         6LwLVVq6OETecRB5RfcyforDLa5/PzCxGBcx/yFgFpufHgrVIs6TXIl2TxM+ERv/5zrd
+         xw5BL5RQiZE40NeSyr7LyC9C7fHAhpjSZ/CoTOpaxJadnQ9FiiH0RKOIQhU7dluiTvNV
+         +gCJ7sQctNG4I5JkFdK205T+wUmdXFc4cAm4nCXdA4nIdnWoTjmRBrGZ/9l96QD1yW88
+         HJIg==
+X-Forwarded-Encrypted: i=1; AFNElJ8n5SDOTWKcvQYRIxyg5xYZAzXw6F4iVncurr8RzNV9iy+lbROYp5OodO9KbdMWwumK1EP2ItG+zsvD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlQAv4VKv0E0a9y8nwl/WCV9uY6lobw4X+jsTMGoNxRuuFtx9T
+	g4yyX3p3bBuk4vl7yEZLFggFLN1tlAfOeDZ37r4bupRYLpW3xVvE/PHKm8uWKFV0zzrCoFFaU3D
+	0KXhKq/v/taXoniVOrlKYczUiz5Td6AavEmgo2oRjvF8VjtaO310o2XEuk7WbPiBh
+X-Gm-Gg: Acq92OE0WKKx8OsTRjp+QAtPrf+5iH1H+ABCC0oxt7sDiJCa4EfJIhqlnNhYP4dCqrb
+	pg3Ujl4hhCz0HXYpw8iPzlAToLHR5Y7zG2F2olcZPJTIGJ+OVKgRmW1jVDIeZXSxNGAJ7Mr1AzE
+	GColhX2waoLxUDfZ6hxR6M1rg/meW+em4tzXyiyiL068gBRWm8yxS5TB+wgQGrewFVABll1LuIF
+	eyJrQfQE/PF1qVud/qjQQHDCcNTndX5LAA9L0dgzwOz1yRXxoOvQmRc3LCk6w0bRHnKX7MHGkZk
+	uOhHqrfpmSyyBFYMxJK932nkA4ZeSAHI4w2I63L65DfBH3Rfz70+vmUlIxaCIzmAN1aXWsEMLvd
+	Itd1S6vh4z0lMRk76DYof9xVjUjC5LcbvL/uvy2RyB6GejMXzBydqC4Y=
+X-Received: by 2002:a05:6a00:a229:b0:83e:c76c:d720 with SMTP id d2e1a72fcca58-8414ae01396mr2913130b3a.30.1779369485959;
+        Thu, 21 May 2026 06:18:05 -0700 (PDT)
+X-Received: by 2002:a05:6a00:a229:b0:83e:c76c:d720 with SMTP id d2e1a72fcca58-8414ae01396mr2913090b3a.30.1779369485411;
+        Thu, 21 May 2026 06:18:05 -0700 (PDT)
+Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84154e22f1esm1687731b3a.47.2026.05.21.06.18.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 06:18:04 -0700 (PDT)
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Subject: [PATCH 0/5] Shikra: Add DT support for ice, rng and qce
+Date: Thu, 21 May 2026 18:47:07 +0530
+Message-Id: <20260521-shikra_crypto_changse-v1-0-0154cc9cc0de@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 3/3] of: Respect #{iommu,msi}-cells in maps
-To: sashiko-reviews@lists.linux.dev
-Cc: imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org,
-        robh@kernel.org, linux-pci@vger.kernel.org, Frank.Li@kernel.org
-References: <20260520-parse_iommu_cells-v15-3-b5f99ad4e7e8@oss.qualcomm.com>
- <20260520092923.0EDD11F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-In-Reply-To: <20260520092923.0EDD11F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=K9kS2SWI c=1 sm=1 tr=0 ts=6a0f05d7 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=49gMqqAeKCh39Y98CdGbvA==:17
+X-B4-Tracking: v=1; b=H4sIANQFD2oC/0WN7Q6CIBhGb8W9v2MDUlBvxTWH8JbU/AjQ1Zz3H
+ mqtn892nnMW8OgseiiTBRzO1tuhj4OdEtCt6m9IrIkbOOWCZpwR39qHU7V27zEM9c54JFQXUmg
+ mpTg3EL+jw6t97d7qcmw/NXfUYZN9CYfPKQbDgf17ZXLU2K9GTCBGZqaQaZaKVJQzh83aqJjWQ
+ 9fZXStyaZTIC0q1gXX9AHgtk67cAAAA
+X-Change-ID: 20260521-shikra_crypto_changse-0c976c17763b
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Andy Gross <agross@kernel.org>
+Cc: Harshal Dev <harshal.dev@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDEzMyBTYWx0ZWRfX6q+dciZ0k+pk
+ jXYhYQj0Sj5V7FxJPoPqGHk7GC7yfgkuhrX8pvLNY2LVLgo5gf/K6NQdCpN5c4ONOrGM6vcYib2
+ ZBVQX3gh/SXsiLfPLEgVhVaHIU2WBds9YMZIq8BZGveT6LpLcVVzqit9PWD+ceao0XIeXOeyxOw
+ UToJvjnqiPfwUtteOftZaw1azsIEPeHeZ7a4ql/D03CVFEkQSHAYjRWBcK5cQ/zNUK1X4Gtz5zm
+ eELTufPSQbtDYQyLWX5ob8auK4mo2XqDV04kD4yb2dHfpEmmT0l0zdAncHHcJaKlgnJXbas6mKC
+ rR54aEOhgaQ8LNxJggpPPb8WBltT7/7VaGUDZSqLU6Osbv5ukWe0hlA5dKkgOXrNLqlYszzzpXq
+ AYaUk4k3UVGcgC21NUTrHcRKnD4hQyykfJmRlWV7bGVbXWPETmseQeDcD7eHOuJ8Vxw/Mbui4Zz
+ cyVl55WINCbO4Tn0IAw==
+X-Authority-Analysis: v=2.4 cv=aueCzyZV c=1 sm=1 tr=0 ts=6a0f060e cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=h-5JRy4KEujm8fWzgV8A:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: hTPKIP1LJsszM92QF5nZuWwKfh-mdlQ3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDEzMiBTYWx0ZWRfX82+5bhccyjgT
- ZZ1BJijiLZlzgXY/7VMEfHcq4C2TmyDcnoBew5yJxIV2UQFYonflDPVLx+BMMqEtpj/jCQwR5+i
- hg/ZDo341T30cogjRYAC70WySuS0HLrnmpLcahrZ9wn32vIxwIAQyuX4vTyX1Cwump9RQUGyfRC
- auL8d5IeZdSYPwmkxfwkXIDaysY7sET1IxoxnGC5AE33UNzmI9I0IV0VuKpXu+US7/rXIubYi12
- 81wflLNCWydJrssPJ2SYaNWLuShe1eBfexjmzN2ucM3Wd0EfBvmY2HVVthjK972OO7Fqs/UPgrl
- 2oy5fGS7y1nHxs2eKS/s/cfgXzPZZd1LwF2Q6YFVCzAzXQgbuR+9OQGsUl8GmQpTky4IGf68sfn
- o2fmgddkp2rKDdmbEgq1AeW3cUwIlff5JYhFfEOX0vIvsu0h+NC5BHwnAk/KVtDXUBRCS4anChG
- mZjotVD8JWpYipbE0vw==
-X-Proofpoint-ORIG-GUID: hTPKIP1LJsszM92QF5nZuWwKfh-mdlQ3
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dtPyI5Z5uvIguI3gzx8A:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-GUID: aW5A61UxRTEs_iWJ9BfN8VZBVAPQdUcI
+X-Proofpoint-ORIG-GUID: aW5A61UxRTEs_iWJ9BfN8VZBVAPQdUcI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-21_02,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501
- impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210132
+ bulkscore=0 impostorscore=0 adultscore=0 phishscore=0 malwarescore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605210133
 
+This patchseries attempt to enable sdhc-ice, rng and qce on shikra
+platform similar to other platforms.
 
+Previously, the 3 dt-bindigs/DT changes were sent as individual series
+and with feedback received, clubbed them together as all belong to same
+crypto subsystem.
 
-On 5/20/2026 2:59 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] Strict requirement for `#iommu-cells` or `#msi-cells` breaks MSI allocations on standard-compliant controllers.
-> - [High] Array desynchronization when parsing legacy 0-cell maps padded to 4 words per entry.
-> --
-> 
-> commit 23cece64ecb1dcea6290dbab34facbdac53ff293
-> Author: Robin Murphy <robin.murphy@arm.com>
-> Date:   Wed May 20 08:02:42 2026 +0000
-> 
-> of: Respect #{iommu,msi}-cells in maps
-> 
-> This commit adds support for parsing target nodes' #cells values for
-> iommu-map and msi-map properties, instead of assuming output specifiers
-> always have exactly 1 cell. It updates of_map_id() to parse multi-cell and
-> 0-cell output specifiers and reflect the actual number of output specifier
-> cells.
-> 
->> diff --git a/drivers/of/base.c b/drivers/of/base.c
->> index d658c26201353..f436e26763818 100644
->> --- a/drivers/of/base.c
->> +++ b/drivers/of/base.c
-> 
-> [ ... ]
-> 
->> @@ -2176,39 +2206,93 @@ int of_map_id(const struct device_node *np, u32 id,
-> 
-> [ ... ]
-> 
->> +		phandle = be32_to_cpup(map + offset + 1);
->>  		phandle_node = of_find_node_by_phandle(phandle);
->>  		if (!phandle_node)
->>  			return -ENODEV;
->>  
->> +		if (bad_map) {
->> +			cells = 1;
->> +		} else if (of_property_read_u32(phandle_node, cells_name, &cells)) {
->> +			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
->> +			of_node_put(phandle_node);
->> +			return -EINVAL;
->> +		}
-> 
-> [Severity: High]
-> Does this strict requirement for #iommu-cells or #msi-cells break MSI
-> allocations on standard-compliant controllers?
-> 
-> Several MSI controllers validly lack a #msi-cells property. For instance,
-> arm,gic-v2m-frame nodes do not require it. In
-> arch/arm64/boot/dts/qcom/ipq5018.dtsi, the pcie0 node defines:
-> 
-> msi-map = <0x0 &v2m0 0x0 0xff8>;
-> 
-> but v2m0 does not have #msi-cells.
-> 
-> Prior to this patch, of_map_id() implicitly consumed 4 words per entry and
-> succeeded. Will it now fail to find #msi-cells, print an error, and
-> return -EINVAL, propagating the error through of_msi_xlate() and breaking
-> MSI initialization on affected platforms?
-> 
+Here's link to old patchsets.
+QCE: https://lore.kernel.org/lkml/20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com/
+RNG: https://lore.kernel.org/lkml/20260514-shikra_rng-v1-0-4ea721a1429a@oss.qualcomm.com/
+ICE: https://lore.kernel.org/lkml/20260515-shikra_ice_ufs-v2-0-2724a54339db@oss.qualcomm.com/
 
-I see both arch/arm64/boot/dts/qcom/ipq5018.dtsi and ipq5332.dtsi both have
-msi-map pointing to arm,gic-v2m-frame nodes without #msi-cells.
+The patchseries require below as prerequisite:
+https://lore.kernel.org/all/20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com/
 
-The new strict pr_err + -EINVAL breaks MSI on these platforms. I'll fix this
-in v16 by defaulting  cells to '1' when #msi-cells is absent.
+Validations:
+- Ice: driver probe on bootup.
+- Qce: kcapi test alongwith driver probe
+- Rng: validated with rngutils package.
+- Validate shikra-cqs-evk.dtb with dt_bindings_check and CHECK_DTBS=y
+  with all yamls.
 
+Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+---
+Kuldeep Singh (5):
+      dt-bindings: crypto: qcom,inline-crypto-engine: Document Shikra ICE
+      dt-bindings: crypto: qcom,prng: Document Shikra TRNG
+      dt-bindings: crypto: qcom-qce: Document the Shikra crypto engine
+      dt-bindings: dma: qcom,bam-dma: Increase iommus maxItems to seven
+      arm64: dts: qcom: shikra: Add ICE, TRNG and QCE nodes
 
->> +
->> +		if (cells > MAX_PHANDLE_ARGS) {
-> 
-> [ ... ]
-> 
->> +		if (map_len - offset < 3 + cells) {
->> +			of_node_put(phandle_node);
->> +			goto err_map_len;
->> +		}
->> +
->> +		out_base = map + offset + 2;
->> +		offset += 3 + cells;
-> 
-> [Severity: High]
-> Could this cause array desynchronization when parsing legacy 0-cell maps
-> that were padded to 4 words per entry?
-> 
-> Prior to this patch, of_map_id() mandated that the map property length must
-> be a multiple of 16 bytes:
-> 
-> if (!map_len || map_len % (4 * sizeof(*map)))
->     return -EINVAL;
-> 
-> Consequently, if a legacy device tree targeted an MSI controller that
-> explicitly defined #msi-cells = <0> (such as RISC-V IMSIC nodes), it was
-> structurally forced to pad the 3-word map entry with a dummy 4th word to
-> satisfy the kernel's length check.
-> 
-> Since the new logic computes the entry stride dynamically as 3 + cells,
-> when parsing a legacy padded map with cells=0, does the code advance by 3
-> and incorrectly interpret the 4th dummy word of the first entry as the
-> id_base of the second entry?
-> 
+ .../bindings/crypto/qcom,inline-crypto-engine.yaml |  1 +
+ .../devicetree/bindings/crypto/qcom,prng.yaml      |  1 +
+ .../devicetree/bindings/crypto/qcom-qce.yaml       |  1 +
+ .../devicetree/bindings/dma/qcom,bam-dma.yaml      |  2 +-
+ arch/arm64/boot/dts/qcom/shikra.dtsi               | 52 ++++++++++++++++++++++
+ 5 files changed, 56 insertions(+), 1 deletion(-)
+---
+base-commit: bbf247cdb7ea162afb0c9548e2cd1354abb6462f
+change-id: 20260521-shikra_crypto_changse-0c976c17763b
+prerequisite-change-id: 20260511-shikra-dt-d75d97454646:v2
+prerequisite-patch-id: e6edea1ef76fc1f3a9ad944684bee330c9ad7e59
+prerequisite-patch-id: acae1549863061f0fdd7221f0a924b0892f15acf
+prerequisite-patch-id: d145c1bd01622f50c69e5c1f13dee469ee4d1fe4
+prerequisite-patch-id: 1b0da59c3859cba8c5f4f1e6bf08429988134c46
+prerequisite-patch-id: fac2b512a679e1507debab6fc279b292fe4048cd
 
-I see there is no real in-tree DT combines #msi-cells = <0> or #iommu-cells = <0>
-with msi-map/iommu-map. All in-tree #msi-cells = <0> nodes (RISC-V IMSIC) use msi-parent.
-If such DTs appear in the future, they would need to use the new 3-word entry format
-(without the old padding), which is correct per the binding spec.
-
-So, No changes are needed here.
-
-Thanks,
-Vijay
+Best regards,
+--  
+Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 
