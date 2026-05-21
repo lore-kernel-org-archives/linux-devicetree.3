@@ -1,66 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4293E1689;
-	Thu, 21 May 2026 13:13:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1258C3E3D90
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779369190; cv=none; b=cx0cCKR6GotYRve8EsA7LjIIyWIs2tTqK3+cM2a0KULpdMbBukjRCMy1Kz4QOXSNydofk8sOcmL008zK9SQ3ka3aB2cFCdDo8jciUAnrXggL9JKMqNPvnlHmfaYR65dZKTPQAYAhNU3NkAUJdiicB0KPaa/jFl9gS4V8p4MXq4c=
+	t=1779369288; cv=none; b=MT1E480Souiwe2HM2qcieX2KmvB9jQ5DrgLCDK6oXDqCu02mO0tnu5cVVWMwN4DfZtvYgpsGou1KcGEm2A+QSkekIs8d50kmmHK2zLdBp2v5RKQdERf1PkHwNqPwY0Bvjo68pjvCpL+WMNu9bXSQYj0a+PxOoHKJFy6xbePs8qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779369190; c=relaxed/simple;
-	bh=Zef4hq7qHQqGuoWfrK+4IAr+ZRdBbb0gYXaHjquOOVk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o4mvCUg/LmwMrS/3pt/N0DXCFFZAuekxEIyjvpWpOn3ZaVVwPJSourmDgnqM8F5Ce/1caSxgTSuIAwToQGJLGqSm3vC9b9oaDXm4ITGkEtUmQW1vsRh17bDhQVs4SfjQY2BsO1hnH+Xl40JkrzNbvNosOoBGls1wVinxT5omDd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bp31nYHS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779369288; c=relaxed/simple;
+	bh=gP+NIzYIFnWhHoHL1kRCX/A8WhJk2DxdaM39812LJiE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Nbl90faJVJAa/s2Pu/fkMpgB51moVUGM/goGkpthhK/aiQESHR6BBsPlWvQNtatPeLe1ijMOxgn2Qwj9NWOzubeGwU7Z3Ua6N+Cf5szP8oebXwTcji0xERWy/w7+oDrmPj7EuT9VxX2/y/21lxhpL0VT1MkP7ADN+Kl6oRLow90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kn6X5SFI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bp31nYHS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FD4C1F000E9;
-	Thu, 21 May 2026 13:13:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kn6X5SFI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4711F000E9;
+	Thu, 21 May 2026 13:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779369188;
-	bh=igWpYRd7nceDsGMf2M6kAUT9G6B5P9tILKlWPpy71w0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bp31nYHS+InA9kOjCwJNq2G2DxBetezP2RDP123toJzCTE6xUkye/TnRndYkVidmC
-	 WeJRnS8KjJLsb7bUWu5mq095zAELK/KSmzLEyfhLF0HKb5UBN9FLjxQtCG6MFbdhrj
-	 QXn8W5FEU60Jd2t/6jiOtf35im5SEXXPaOudwZyXoSF3y1vnJyNejVFo4p0nE780nU
-	 KtHd1dOFxc5pW/RjRwPWh62h+ce3kWHcnNjp5E/8Ck520yvCoeJ8Jfoz1Ee7Okx6R6
-	 jUNCvRgYvZVHExeDqyMsQ0ZSNAJ4iW3JVqc+SibgTYmnS/2PFhyW9mRjVTjX/fMb2k
-	 RCrCJ0Xlg95hA==
-Date: Thu, 21 May 2026 13:13:05 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, spacemit@lists.linux.dev
-Subject: Re: [PATCH v2 1/1] riscv: dts: spacemit: enable USB3 on OrangePi R2S
-Message-ID: <20260521131305-GKA3727373@kernel.org>
-References: <20260518100030.2354606-1-amadeus@jmu.edu.cn>
+	s=k20260515; t=1779369286;
+	bh=CasbmS1Dqlt4EuFusDt+CFLJVKQ1n48MtFVVFiV0XFE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kn6X5SFI41CpM1Q5gX5m42a0j/MO+SdsZb7kQb7rawJrSJ13amRX0Ep3medVXSWS9
+	 xrjjizViVzuFFkX7jZihv1gK2ZZt8AWviIV5M0c+553tbv5+Zb5aZUdOTOYjHwNCv+
+	 Rlm/tmAuTdhoN2FWU9c9nEgKfifF48QxgAN6KW/aXz9kJ2m0vnDa+yyfacWrgC9/1w
+	 MXePEsbW3z+1irJNrXRSIrFSFlYb8loAhvxiZRtowlOP+tvT/l0zdd+aRrQNetFNvQ
+	 wKyRDwXUYBtlu/3jf/wur23wj9rcsl0FCWKXCPVz7uSIc3l9BQ+xdNSuo5jxPBBdPO
+	 a8Xg5WWkOm3EQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 19/22] arm64: defconfig: disable deprecated MAX96712
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dumitru Ceclan via B4 Relay" <devnull+dumitru.ceclan.analog.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260521-gmsl2-3_serdes-v12-19-b26d92931196@analog.com>
+References: <20260521-gmsl2-3_serdes-v12-19-b26d92931196@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 13:14:46 +0000
+Message-Id: <20260521131446.7E4711F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260518100030.2354606-1-amadeus@jmu.edu.cn>
 
-Hi Chukun,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Removal of MAX96712 from defconfig without enabling its replacem=
+ent (MAX96724) drops hardware support from the default arm64 build.
+--
 
-On 18:00 Mon 18 May     , Chukun Pan wrote:
-> Enable the DWC3 USB3.0 controller and its associated PHY on the
-> OrangePi R2S. The USB regulator provides VBUS for USB2 and USB3
-> ports, but the USB2 ports are handled by a separate controller.
-> 
-> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-Applied, thanks!
+commit ddbcc79406c11acc7140054025e3af8a12bcaf19
+Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-[1/1] riscv: dts: spacemit: enable USB3 on OrangePi R2S
-      https://github.com/spacemit-com/linux/commit/c5ad6737df88bd3c3e83145edb25737cb19f9a1f
+arm64: defconfig: disable deprecated MAX96712 driver
 
--- 
-Yixun Lan (dlan)
+This commit removes the staging MAX96712 driver from the arm64 defconfig.
+The functionality has been moved to the new MAX96724 driver.
+
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index d905a0777f939..5a4b75612c054 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -1422,7 +1422,6 @@ CONFIG_GREYBUS=3Dm
+>  CONFIG_GREYBUS_BEAGLEPLAY=3Dm
+>  CONFIG_STAGING=3Dy
+>  CONFIG_STAGING_MEDIA=3Dy
+> -CONFIG_VIDEO_MAX96712=3Dm
+
+[Severity: Medium]
+Should the new CONFIG_VIDEO_MAX96724 be enabled here in place of the removed
+driver?
+
+The commit message notes that the functionality has moved to the MAX96724
+driver, but without adding CONFIG_VIDEO_MAX96724=3Dm to the defconfig, this
+hardware support will be silently disabled out of the box for the default
+arm64 build.
+
+>  CONFIG_VIDEO_MESON_VDEC=3Dm
+>  CONFIG_SND_BCM2835=3Dm
+>  CONFIG_CHROME_PLATFORMS=3Dy
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-gmsl2-3_se=
+rdes-v12-0-b26d92931196@analog.com?part=3D19
