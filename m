@@ -1,86 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3DA3546F7
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 09:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B215367B88
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 09:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779354178; cv=none; b=OJh08iJ8INWjxxc0XEAyVKXz3qiwH4U7G9uiPW6srEkRP/uekKnIgD/HrFZpsr921McRBdMpvGPCOtM1q++XFN+hPVCsuNOOTrEVpUbKGVWKPjNLxvF7CAJ/J1ZFklo3zi41u4fFrGXbEzWSTjYmrAfHHUYmwkFIe1H6adEUiW0=
+	t=1779354234; cv=none; b=Jk2qGWwPCyXPwxvyKQOiUHO/cpC/NtTqsNlYtNSKYndiemCK1Jb2YmpEnsGBKK2v8kg0NMtxmrWBCOi0KaWGFLR9OOGh5B08bh00ZqcuE2tnIeIxcHtij3+toguWtqixVzP68hP75WiQ1EGb+YeRrevgDmM027KRvHeCUozuOjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779354178; c=relaxed/simple;
-	bh=1m0AW2cExEyKezaoaqpg9M8Sd9W7xIah4eoQaNoNaio=;
+	s=arc-20240116; t=1779354234; c=relaxed/simple;
+	bh=utKvz2pSSj71JvdOn9TmwqnNZ0nsKBa0WY+09/l+KLo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kTNwS5H8Q/TJqXiZKrDJqbOpZoxfFmhHm+lNSI0FqsLOoJ+wJLDdaVU7Dnhguy6tUxroALeq7HkZ9qo796HTzt0VLVnBuE0oG+di0vRIn5YnPoHGl20aVA15lMP1mF9o06/685jRhI6t405ZbJoYHZlrhEmc+Xks7rkcUYfKeAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U38oypav; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WfnrBFU6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=C7XbZAganZepwOeJmr7x0IH8NZObq1Wx8v/QD8Fc0rFSqA1KjCITHw3rV9NqQ8Ln3pUScZLyxzIIallMjlmDj8i/Rvk16i5VUzTpovBnCuS66uekV2zL1MquriFxKIxgJWyHOkG0j8z9nAIyUvlzPuZBhIxxJ+fww/cnYJQEw/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mKe7xTj7; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U38oypav";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WfnrBFU6"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L7M9KO118986
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:37:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LiqGJIubV46C/XuNtoDonnq8kzRgQ9Nd2r1gbru07SI=; b=U38oypavBMQHX5RM
-	5DGo6FDgcziIR+bFjcD66h11aj4Zak1nBWnsmmy4BL0uNyqk4OOoDi8VlViPoqNz
-	gcwUjAXUut08G0bW+Jku6vIOsM7mx3MUO9LbNdjuEZdKCkz3D78xRbBA3XGVKW1N
-	+EU8lo1LerY6ObmfBqMRLu64nJzLgMwhgfJh3ZiTCZU2WGPZ8qbTCCKXTru3SBCm
-	tmaKbCMYgNpPkycbfHHImPSC1aF1Jexy47T8eyH109lN+2ndPMR1gjwtHffYbIcm
-	bX7/IKe7UXVgnq7l0bzp1rMYGM4p3cB0TM4ANHgxZM2WX3OtuoEDEOEn+WBO0Lna
-	hdw/gA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee8c1dj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:37:50 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50ea1a7a5d0so167924811cf.3
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:37:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mKe7xTj7"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-488a14c31eeso36004935e9.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 02:03:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779352670; x=1779957470; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779354230; x=1779959030; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LiqGJIubV46C/XuNtoDonnq8kzRgQ9Nd2r1gbru07SI=;
-        b=WfnrBFU6dZFOlfQlgTNVhRdesLRgSheSOpve58fLelm8zlgXTVO6tpA9VCWTVpRg/k
-         azxIC351RvbmX0nTLel3xhwMzGA2wFIbaJN1mwGuzNVCbUYy3eUXRJNBSAETrzMbJfTX
-         I3ikefhSnepQ4trYJIpljEGy7by1aykf4f9paV6C1O7O7XnfuYL3QSAUzaRz1oGmNFbl
-         5qac+qlPh7lG2zbErn3jYn+caTqV4e1OA9MGHSWxcktNGfTEyt8YUGRtPZjKHISqBeDj
-         tiKQnI6OJpFPMfNJGN2I7kaSfwZGnTyAGDvN3xxuKP2P/OqMkkHS/zdoctHxagnx0vX1
-         4l6g==
+        bh=1Pc5FY+vpBD78oI22TjAWL4xC2GsHLjSnp78r+My6kA=;
+        b=mKe7xTj7GYo19CAR/E7h7MX5bqRbISwTver0HEFPvIMzygDcJ03/ymF4ghaZ4Lid6p
+         6JtzmCaFVUP9Rq1GrfqWPjIh8n75UXvQbrmLBMF6QaUchNkdHMjJv5HSadE617TzZeSo
+         ffebapmdhTgp31BseH2QyvHvXl1Qa+HECwtzGyytQZv4vsM57ueKOnmFKvajWYdXc+42
+         1dweUfBXKPXheSnWnMQplwq+TeVLZ8KbRVIr8yiBddW1DOHsJGqJN3NPgdzVaZgbt/0R
+         JJUzN9EdQnWIyRleBwBZNEDHd3WIOzaVOa/+dh0/q40QHNMT5MxACXxDp0WzoTH+n4Lx
+         /GGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779352670; x=1779957470;
+        d=1e100.net; s=20251104; t=1779354230; x=1779959030;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=LiqGJIubV46C/XuNtoDonnq8kzRgQ9Nd2r1gbru07SI=;
-        b=S9xATwvq82CbOVyvcmkkt4vNebAvJEpFXYxygL7oAEZ8Lk8EEiJW+vBwDL+5zznuoa
-         wi/rw5wdrURWam27xk0Ph3E61Qvj0TgrxDVb+NkS1RL9B4sJyUglA24lJ238BGwY/Tpd
-         CJUTMfwYbqJaerjmfnTP1bT0U/fuiG1LKRixXIWzkTEqgYVzUlKxsLJo6QKR0zMBuheR
-         ClXGA1YDqIhkntIunlSiM5uA0w6UKSs5K31tRKY62Z+yKRQVMqhH94RGy02bJpjVv1Oq
-         2GoFszEAxxv93oA/9JfFixbjA2GQraUdC6WleTPshIlJk3ddmtgiavMEiNHZfQg3Cc7l
-         uLog==
-X-Forwarded-Encrypted: i=1; AFNElJ8NHzyiVHZw/Fu+oiZGI5YzP8nvbjv4bJXyBgxQZksBnKhq/Mm1f7uXjcyaLlm141aQysYtC9IcMABd@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRec6LlK5xWme9iA1TSLovsvLdlWvMVufYr0TtGgOQAk47quUl
-	dpJdgLtvbT0nM2Nj0BsDfIPthpgEtV9zzMnuwKfQtdDOR3UQs53rawxlYsXDbbN5seqTy3pK1vq
-	RE8c4yKUxk/9CU/M/yRcgi631PuOc3bIJfsqHLeTG4cWCvn2qzBH7vaCYv4YINDx6
-X-Gm-Gg: Acq92OE+WdnwYw/FK9Cy3tDk4VTCcpmTlVZWbfq5lSPoUShO1GjNSRGtFLzcydGdP7Q
-	tjzgOKYsBbO9WfyHboag6EeDlLnAjsiICuVTlFeDjwkD5tL+SwwHHYp/QM37FtMqEHy9IO2xGt0
-	jlBtBAdjS2eq0rlZVJ8djyiBcISaD/PCr72+rDIRN+CLC4C2Q/SklCyJxsuaWbdqA5vAMM0BA5B
-	EwY+KH3xJB0pnofAdpH3qNT+1QEW55LgDpHnbfkExDvyH4JICmA72z7qg2zccIFzjfmMi39VALc
-	b+a0GpHWM7IbPjcI5v4zr5dROCKujQgVgQfU5Azgbd7lurW9e2iCocczGI/GLJoRkTGNGoyLDrW
-	XLnysaciSso1fOuXC8LKExVi7GbDcm34Vsfnt/fCWt/y9UMOhdro=
-X-Received: by 2002:a05:622a:4a8b:b0:50d:7f66:dca with SMTP id d75a77b69052e-516c559259cmr24616491cf.33.1779352669700;
-        Thu, 21 May 2026 01:37:49 -0700 (PDT)
-X-Received: by 2002:a05:622a:4a8b:b0:50d:7f66:dca with SMTP id d75a77b69052e-516c559259cmr24615921cf.33.1779352669133;
-        Thu, 21 May 2026 01:37:49 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:bb10:ae82:b7c3:d15a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm10502405e9.14.2026.05.21.01.37.46
+        bh=1Pc5FY+vpBD78oI22TjAWL4xC2GsHLjSnp78r+My6kA=;
+        b=N39V72uRjjP+Mr/IVHln52VAAMDTvqniUAzuhH2h3b261VhwNc1tT8OBKIO58oGF1e
+         KZOoS6dYulFxBYfOBb9VC8rcaavsZR187NkyN/jQCRdguKTYXEwuy9rxjlX3WJsKSFAA
+         vzqEW9xr4BvMQnKTHop5GJaxdZ+yVEl12jq8gWohMiZHX7Tp7QXOhOtmgt/OlgxQnaB5
+         diMPcDoK1X9d1zgzB5bwnpP/bJF7QxogcA2FlBtDdbW7gSWm6IZQF0CdFCVKeMOEXHKo
+         Qy/T5BueQbFOYH1FYhaJyJs9ttxe0HfwF8LX6a0WN23YHV6TshfnUne9AEKKhDrsiQ6n
+         lhVA==
+X-Gm-Message-State: AOJu0YwShAReZPnnhTXvAonaTqg5r+8/zLJfQIDA81mspNisHOhB6Ge7
+	8e+7leg/2zBdbvjuM6DDurWLxqekmuSj/rgXGrPWG9dWkC1WHnZ4HWUs
+X-Gm-Gg: Acq92OHpQWjcb5/738wkc7dwEqUsEw4JuEa8hDviuNCDZFij7pw7VZu4beDdIi2X5FF
+	TiOks2Hp2lJdoabCoSL8qAdHSnT7mzt6b+LeJKm7wd932wC2Wl4p+HygCyJvVXSmRQz3v/Kvp7r
+	5YvQzsP8JYh6gTfy4T2STa8BWY05WZh49W9jOkwFMV9XhaqpsE2tEa1F9jIFAEPrYiwzeWvv59C
+	zwc9sJzDOLkKgHgLzotYDgwtmWdlSJ73uVSmKuolvc/geVvPgSCDOH9ueGU3Tn2479aurraG2yM
+	hw8Tbz5QNXAlL4RbVMF0f9QKIVd7Bq5fphg9IFUDvKpWIvvm1iskEiTlBBcgA7ZfLUTQjEFDDxx
+	22InI5fDv5YOD3/n1+cmShAIi+10cp9rWk0wFrog728ZOX9JIFmLH7niWoRCjTlgiH0tCT6qzn4
+	z4z5iTqbhqFqIq4PsUnDAuXOWzJpO1iy/Q1XaF7dX5fmi0yDlBX1d8938hL1nGih1UFwwFqk9uO
+	61EVn9CzMhxl6ooKksVZEUOjuydkV16Fz4qPXwLB938pUGNAwNjBnsEG2LkHXLTiF3fnPQPOTrl
+	eQ==
+X-Received: by 2002:a05:600c:a108:b0:48f:d346:e646 with SMTP id 5b1f17b1804b1-49036039969mr21695725e9.10.1779354230309;
+        Thu, 21 May 2026 02:03:50 -0700 (PDT)
+Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49035c72c78sm16151525e9.3.2026.05.21.02.03.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 01:37:48 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 21 May 2026 10:36:37 +0200
-Subject: [PATCH 14/23] pmdomain: imx: use platform_device_set_of_node()
+        Thu, 21 May 2026 02:03:49 -0700 (PDT)
+From: Franz Schnyder <fra.schnyder@gmail.com>
+Date: Thu, 21 May 2026 11:03:45 +0200
+Subject: [PATCH v3 1/3] dt-bindings: arm: fsl: add Aquila iMX95
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,123 +70,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-pdev-fwnode-ref-v1-14-88c324a1b8d2@oss.qualcomm.com>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>,
-        Mark Brown <broonie@opensource.wolfsonmicro.com>,
-        Thierry Reding <thierry.reding@avionic-design.de>,
-        Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-        Rodrigo Vivi <rodrigo.vivi@intel.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Peter Chen <peter.chen@kernel.org>,
-        Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Maximilian Luz <luzmaximilian@gmail.com>,
-        Hans de Goede <hansg@kernel.org>,
-        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        driver-core@lists.linux.dev, devicetree@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
-        iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
-        dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
-        linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=965;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=1m0AW2cExEyKezaoaqpg9M8Sd9W7xIah4eoQaNoNaio=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqDsQpYiqSx3VXdqiHIpIBUXjGa5jIwrjLGwoyq
- Gc54yDrEJyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCag7EKQAKCRAFnS7L/zaE
- w87wD/4ovbkfGrByBExY1MPjO+ImreTVfGSAkWmqsKw88uLrhkyEKGHDAQSZTZE3i+FHGY/E2yW
- vuQTwIIwn0C7jebh/ZrW5OyqlKI4SfaTV8SUVza9v/w9itsoAjqdwFfTCAYtkNU0wl3z6zPIVZW
- eC5a4J3DiTbAuwujwfo0CkVMKKHGy6dNnhLhd3c5wk59h91vvRJDexswgzczEKYHYVvQ5PwEm4e
- 1v1iYFCMc+jXWVLyMZMWL3qxn2LKbLI3uzw2KaE5pLc6qjG7WxuULz1fW5kc1tPHEt2UjXdtXoB
- Bu7Z+OiX94cgaD4jcN5Qf59TAYUWoTBWptl6Az7wCYIDSl4Zd4dfb/jPCgTBcEaoQMRxdT7wBp6
- 04C+yAy6ZZFgQPV6NKQYtrhr10zYyMFhXjVosvUBV+a6Ji0EiFri1X1eKbRIDWPoxE/pW/NgzA2
- EIK/OJH+xDImj3AWv689ACL46miN6U4MXZhQgeeo20WrtwVz6rOsNHISp9VfDNfODARqNyRDH4y
- gYdC059xHRA7PTGRRZGWyRdRrxEDYxRds5O0j5sxjShEOV3/CBXZC7cr7dJk55o60cuiR1C1RSD
- DTE3n/guGYAoDroJBWU9vFEHo/tJTqZkDlWp9VK5ukHDUrBufG9yMNLg0PxfB2qf+8O/s29Yr1k
- PBNeRIDE8C5ssiQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-ORIG-GUID: XovZMgv4e4AivKQZgN3MlLcvQcM3lQZF
-X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0ec45e cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=J9-S39C9qTGxOfEZqScA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4MyBTYWx0ZWRfXyNb8WASRXYrD
- xYj9Muc600Gh9C4O0wUtEr1OHoJpH/mrt65fO3A8gPz65P/9GIlnkSmW5F23M36+++xEidU8qYA
- JyKUSbqsfJjzQHQiCtagnotrgIDAEuT72oLYbxiEYcOegVoCvDLQuFY4siL085+qBC2puagOUHD
- 89RhKqbJPy3+eNVRC1Md+tq8lC8A9Jq5L6Bd8vSpkomafLZO3Fu660NsODutTKhpwc3vSn8mvZj
- 1RjdHaPLhH6SOD2CypouUaO5tp4otfizT/xC7BcGuEC4AhO+0Ar6YBvZqDZ/iImIHCGOUgQG19x
- spZ6ds5rKVkSh4XRUJL7vIxuMhmuHuZWAhqgXGo4Wl8J6ZpUM2m2rF7AB6cZIRw0TdqPYNBGISM
- jUsymyqhj8cuODW/p6PA1Eqcu3xfGCXp6kgUgNXrT+4JtrAQQTTkIpu2cDkONhk3Ty1038BZXlC
- i3u4ITw69dusXSRTGfA==
-X-Proofpoint-GUID: XovZMgv4e4AivKQZgN3MlLcvQcM3lQZF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210083
+Message-Id: <20260521-add-aquila-imx95-v3-1-621843807def@toradex.com>
+References: <20260521-add-aquila-imx95-v3-0-621843807def@toradex.com>
+In-Reply-To: <20260521-add-aquila-imx95-v3-0-621843807def@toradex.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Francesco Dolcini <francesco@dolcini.it>, 
+ Franz Schnyder <franz.schnyder@toradex.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
 
-Ahead of reworking the reference counting logic for platform devices,
-encapsulate the assignment of the OF node for dynamically allocated
-platform devices with the provided helper.
+From: Franz Schnyder <franz.schnyder@toradex.com>
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Add DT compatible strings for the Aquila i.MX95 SoM and its supported
+carrier boards: the Aquila Development Board and the Clover carrier
+board.
+
+Link: https://www.toradex.com/computer-on-modules/aquila-arm-family/nxp-imx95
+Link: https://www.toradex.com/products/carrier-board/aquila-development-board-kit
+Link: https://www.toradex.com/products/carrier-board/clover
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
 ---
- drivers/pmdomain/imx/gpc.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+v3: No changes
+v2: Added Conor's acked-by
+v1: https://lore.kernel.org/all/20260506-add-aquila-imx95-v1-1-69c8ee1c5413@toradex.com/
+---
+ Documentation/devicetree/bindings/arm/fsl.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
-index 42e50c9b4fb9ffb96a20a462d4eb5168942a893c..abca5f449a226fbae4213926e1395c413160c950 100644
---- a/drivers/pmdomain/imx/gpc.c
-+++ b/drivers/pmdomain/imx/gpc.c
-@@ -487,8 +487,7 @@ static int imx_gpc_probe(struct platform_device *pdev)
- 			domain->ipg_rate_mhz = ipg_rate_mhz;
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 59f7f168bf7c4..ea4cc98dadebc 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1507,6 +1507,14 @@ properties:
+           - const: phytec,imx95-phycore-fpsc  # phyCORE-i.MX 95 FPSC
+           - const: fsl,imx95
  
- 			pd_pdev->dev.parent = &pdev->dev;
--			pd_pdev->dev.of_node = of_node_get(np);
--			pd_pdev->dev.fwnode = of_fwnode_handle(np);
-+			platform_device_set_of_node(pd_pdev, np);
- 
- 			ret = platform_device_add(pd_pdev);
- 			if (ret) {
++      - description: Toradex Boards with Aquila iMX95 Modules
++        items:
++          - enum:
++              - toradex,aquila-imx95-clover # Aquila iMX95 Module on Clover Board
++              - toradex,aquila-imx95-dev    # Aquila iMX95 Module on Aquila Development Board
++          - const: toradex,aquila-imx95     # Aquila iMX95 Module
++          - const: fsl,imx95
++
+       - description: Toradex Boards with SMARC iMX95 Modules
+         items:
+           - const: toradex,smarc-imx95-dev # Toradex SMARC iMX95 on Toradex SMARC Development Board
 
 -- 
-2.47.3
+2.43.0
 
