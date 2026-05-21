@@ -1,67 +1,66 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC27E3D0BE9
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 17:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F413C7693
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 17:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779383474; cv=none; b=SBNdfTtk6LvB39Szz4VCGafRrnV9upgGZMB5yvbWph1NSHaMvJBjv3q0nOs6zMduw0qGH4fpe/DLRLBQSaTMYbLtzSONQk7zkH5inQVYhHl7RSkgp8ZdLC731ALBIfdIIUid5xTZQcOjdCir5KHQbUF7VPG0txjP8zRR97PTCT4=
+	t=1779383474; cv=none; b=Bp+ljSZ0+WS/2pPwG5uN3pXScUEvQEBgpJClihFH5wWDzYTYAApIWG8kKMlcwb9ke9UbfOpXS2PFjRxoBcuPFc3rP/wbPCbBLEc0XgrS+PlIinKKjsQnHFBxJWwcwT8Ty2dkpk05dmyYg4uRCQ+MxhoyLX63ZRIo8spCq7HTKgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779383474; c=relaxed/simple;
-	bh=nrTpwWDzLnTkunP9cIp4DZH4zeNYymR48XaZSitFxI4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AcIgCe3v5g7ohXY+CSHBbQGt2t5A/KCBhWMSe7zHvMMt3Iu6tvEcEV3oUdfgT2rHjP0yxbxJOLXt//E64KsnInyQVs7lhwK7reYHd4+v3YrUVcEmeU5f35S8V1iolqF/T/eHuuHF+EPc9KO405ocj85jrHLR8Ay4zWm4OYhN3oQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mSTv/ofP; arc=none smtp.client-ip=209.85.221.48
+	bh=L9iHLGnoC4t9C9KJsFqs8bWXRuCf5OIyfTXiAPK5O6Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SZS2T7OZnjKXxi632j3JOGIPvblb/oXYM627JRQ3ds7q3IPM1dCAUPSQjkqIzsM431o8ZqYtqaDEtzJKnf372cqw9N5ZGaMMWU9oNOOLZXx91qIxUCfg8PJa+NWnmtwKn+9QKYmtDBeZpRX8U4S6aFzTco2EL3lwLN1xnnvesyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TJi4i2Qn; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mSTv/ofP"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-449d6c68ed8so3360133f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 10:11:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TJi4i2Qn"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-44e1860558fso4158611f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 10:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779383471; x=1779988271; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=98JuQONnWQsI55kpTBrrRllxqm+qH6cTiMyVfzawqAw=;
-        b=mSTv/ofP0jLfhvEFiFlXUXz2tW+wNs9OaJjnhZ8cAA8JANg8DMr9Wi0Kja6T7BLpdD
-         LgdwCVVcqeSuYA46HAoKSLJgaHNtw8cbzm58O+icyGfiuvm8saQagCMhJ5P6syzbuXYl
-         2c8d7FOibhixj8obh+hZNS5Pq+X4Fvfp2iiaKAJeBGyv23DGz2h4DJ+KH0R/7vr0uZwC
-         hLszgzqJzYd6nyR3VxqKummKzV6VkHq3IBNj/WIT/usbsrm8teERpA7SngKMYD+7A6J9
-         7EpJaASGj/LvYPjD/5nZSDb3xUH6leVKCZzEO35WTlgnpbkLMLqG2rQdb9XmSb+BY4bJ
-         RUzg==
+        d=gmail.com; s=20251104; t=1779383470; x=1779988270; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Lj8wo7p1UD9NN5CnfCz6+orZZMLzy36Q+ONgzMn+SaQ=;
+        b=TJi4i2QnY7y3rcCHHAtAEQUWOOUeJl6QfBGWGJjugupZrZmrztmoUkcRSLkpyC8P5y
+         PNx8qO0XS5T3dD/ddpsNGMCiqVAbAteQSl1/S8R0BMG6/eonCuVUOe4WAI+q4CW0j1MM
+         rAb+whJW9WTkvwMzmIZAysVzqskus1rLP56YPXFaqTxZclVo5XCEa4D8HECbDVwI57io
+         KYctnlgPJATkOKQlH47mSmK7nTx85HI7G4Ertbv24DQZ/ASbfUH7MiHGcMgqoTXMnM2f
+         /bF3H3SlRFatzvvYHCGEAJ4L++gEo5zT+/m1N0LDRvlx1UwPzRNvRmYWfp2vcSKCR0D/
+         Zvpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779383471; x=1779988271;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=98JuQONnWQsI55kpTBrrRllxqm+qH6cTiMyVfzawqAw=;
-        b=U4wnoF/VwV0L3nZFs8MTu6IKHQ/+1hlHQK2kRx3LlOlrlQ2kSs5pucWRgHH/+dNOlY
-         V3n5uQ1mXHv0Gbg3kgGSPwNOIy4+Ot07HzTD2q+eupQcTFS80z+cEjB38iNqoSwxRqT5
-         5RRRFDF61CTKUxLKaXhyFH8VPx50B30i9v/6RQFxiuvRi8WXhpHGSsIOX+s7xExFI0Yp
-         iOxrZ8c9p+HXMOxB9fK5PyfubM3ZbsRhD1S6Rs/SEXCZfthN5RAU3AyJjBJd9uaQqszT
-         lX3o+U/GiKYh/pVpaYY7wpE+Mh/PVPUAwhctHJ58iwwAADAbq6LnE5depU23Zio62Rdo
-         YGOA==
-X-Gm-Message-State: AOJu0YxyzcQj69agHdiTdK6ptKw4jPnl8tKFy5j43EFHB6Hx7YKDjbW3
-	uB4KuR5ZkSM07kiab/C+UxlRC6nU8JB8196YiKL28zLYilUBWCZzdztMJKKLjpKN
-X-Gm-Gg: Acq92OE7mq6mbKjMFp3y12uNHwuBD1BR4ElZGCeCsX3MnE3PwfZVslL1BzxGTPZfelL
-	INt/Npi4ZODdmG3z3J7nkRPAK4nqq+bwp57q6in+JsfqYumUuomE55mlTVNEJTOl58AXsm5UFHB
-	QeP0peI4zWUoztDLWt6qFM/iRZnd4pgm7fFeD63fy/gEvnugXnor1a5lkXjE1bl8ukd3A8i1FM6
-	nqAySNfQwyajTBXFymQa+qY6L/56Ta8NQwc/ogG1/xn+0HgURsA0fzmXbwlGTAhhRfYxO8IfeN8
-	1DMlMBpXO8RBQeglSGQmJpM6koUF7e+y/IKpwdxsciBkXzDEVQapNLuQcC2Qs7OrLk/tJRcpQ3J
-	jYXB+nwO7RqjKgGa0EFB2BW8DmNLG5wiLBxGu5kMYO1dyS3dMHKU5R4T+O89UZ1kyjgGzTRPy2J
-	2yQDrKtF7tOSWRlrqAuwJ8odkXJn+7b1v/C1WVUSttXsMU0/1uFuVLSyLcirtzCdD0IP+8QLtof
-	0KtpX+eKLxgT7klz+ajNiC0/lfl+70bbcpaubQkvMjNQa9a1120pTWUjP39JYAnN4uLQxop2tDW
-	8w==
-X-Received: by 2002:a05:6000:22c9:b0:439:c18f:5aaf with SMTP id ffacd0b85a97d-45ea3bf0b1amr6276246f8f.34.1779383471016;
-        Thu, 21 May 2026 10:11:11 -0700 (PDT)
-Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eaa7cd815sm6046116f8f.6.2026.05.21.10.11.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20251104; t=1779383470; x=1779988270;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Lj8wo7p1UD9NN5CnfCz6+orZZMLzy36Q+ONgzMn+SaQ=;
+        b=DG+fVDSDDvdbKj/PFDhgBPkQoTmQXssqMk1j5M+3JgeQW5NXsnLpEwrVm0yXJ1gNFA
+         coVaOYKy3gQhTogciP9lwep84K0vdr1z+NgeEDcLtAznLaECjHOD11TFq182xtYaN1kt
+         2/8BdI0ExxauvAct5yNARY2n0f0qE+WL9X1c/tRxUW0LEGXF23JoRnkqVjpT0n6s3Dj7
+         POEamNoXCqZF3+pDOrC0UQIrHG3nkQHKAsilBzXhCGgqyJW8a+v1479C+atiAVe/+llt
+         IZWBXFhmXyfcbL/CJptxyfI8J2eBKz3IEqdVgjgKRUpicJoFVv4ZeBMwT93/t3I9HeT0
+         psbw==
+X-Gm-Message-State: AOJu0YwrJu6IEEZGdwPx3sYtg/jlfgv5o/Zdc9SBG7Pgshz4seEfKKc8
+	25DOXJ0bKOeNEOUZIxoPV//751vgBmpTQDGEBwFkONhuHJPNsuWMx/tf
+X-Gm-Gg: Acq92OGJDCyu/JBSL+SHESyTjXrYXyKyFhjPs6KdDZsJabAZm6WuU1NsrftNOwGjniv
+	Rr2BjxPbJ8sVCYjForHQR3xmIrijZjOECuUDnGPF2iaq+I/uJDWSxIauXnSMWs2DhFPnfixhhVq
+	GFknF0Zm0KhZ3Al3zyV810Kx4J3DUcaueHGmVErXLZTLEiXN/501IyeB9n4PgUGK4I0k8LnGTXP
+	FqzFul0ERQTYuO3Wb8XlhGHzkLZVy5PBkmbFm+anbFnzyPLQCUE4pUgloouYAmu7h+EUdJFV3Il
+	y7Jym6mny5Nf7REzJ2odIabowAvXyrrDk22eHCkolCx5xRmYoby8wuHyIZ8Nm8/qV7sMrmmR5jr
+	sPzMjDE7n2j1lhNAejrd2CdCSDbXvhz8rVYB51fNwLspibBlY34ar1dyZdejUcpFCL28YYTk6yJ
+	hWUB3LlurKY7HsXz3Je18iFsapBcemwmk2LW9IKN8CJUcpFx4dNrqKhyTAsR0lHFans6eOwjgzd
+	BfaMqExsh/HebhcGHLhdB9iW5Cb/D71qrYvjSKWB/9nUsaJlBnpAMB4KfvftxAxFCYdp+LlEOdm
+	5rBWzW+mnrIE
+X-Received: by 2002:a5d:598b:0:b0:43f:dd91:b022 with SMTP id ffacd0b85a97d-45ea4146976mr6175500f8f.35.1779383470219;
         Thu, 21 May 2026 10:11:10 -0700 (PDT)
+Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eaa7cd815sm6046116f8f.6.2026.05.21.10.11.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 10:11:09 -0700 (PDT)
 From: Franz Schnyder <fra.schnyder@gmail.com>
-Date: Thu, 21 May 2026 19:11:04 +0200
-Subject: [PATCH v4 1/3] dt-bindings: arm: fsl: add Aquila iMX95
+Subject: [PATCH v4 0/3] arm64: dts: freescale: add Toradex Aquila iMX95
+Date: Thu, 21 May 2026 19:11:03 +0200
+Message-Id: <20260521-add-aquila-imx95-v4-0-5a7f86c824f5@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,10 +68,12 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-add-aquila-imx95-v4-1-5a7f86c824f5@toradex.com>
-References: <20260521-add-aquila-imx95-v4-0-5a7f86c824f5@toradex.com>
-In-Reply-To: <20260521-add-aquila-imx95-v4-0-5a7f86c824f5@toradex.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAKc8D2oC/23PTQrCMBAF4KtI1kaSyY+tK+8hLkIytQHbaqKhU
+ np304JQaZdv4H0zM5CIwWMkp91AAiYffdfmIPc7YmvT3pB6lzMBBpopxqlxjprn298N9U1fKip
+ BgNKmEg44ybVHwMr3M3m55lz7+OrCZ96Q+DT9YXqNJU4Z1aUtELlVkotz7hqH/cF2DZm4BAsC2
+ AYBmWBagjSKoxBmTYglsfFSEtMVwAspCnZ0WP0T4zh+AaGyVuI4AQAA
+X-Change-ID: 20260501-add-aquila-imx95-423256af3d21
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
  Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
@@ -82,49 +83,68 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Francesco Dolcini <francesco@dolcini.it>, 
  Franz Schnyder <franz.schnyder@toradex.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Conor Dooley <conor.dooley@microchip.com>, 
+ =?utf-8?q?Jo=C3=A3o_Paulo_Gon=C3=A7alves?= <joao.goncalves@toradex.com>, 
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Antoine Gouby <antoine.gouby@toradex.com>, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 X-Mailer: b4 0.15.2
 
-From: Franz Schnyder <franz.schnyder@toradex.com>
+This patch series adds support for the Toradex Aquila i.MX95 SoM and its
+currently available carrier boards: the Aquila Development Board and the
+Clover carrier board.
 
-Add DT compatible strings for the Aquila i.MX95 SoM and its supported
-carrier boards: the Aquila Development Board and the Clover carrier
-board.
+The module consists of an NXP i.MX95 family SoC, up to 16GB LPDDR5 RAM,
+up to 128GB of storage, a USB 3.2 OTG and USB 2.0 Host, a Gigabit
+Ethernet PHY, a 10 Gigabit Ethernet interface, an I2C EEPROM and 
+Temperature Sensor, an RX8130 RTC, one Quad lane CSI interface, one Quad
+lane DSI or CSI interface, one LVDS interface (one or two channels), and
+some optional addons: DisplayPort (through a DSI-DP bridge), TPM 2.0, 
+and a WiFi/BT module.
 
 Link: https://www.toradex.com/computer-on-modules/aquila-arm-family/nxp-imx95
 Link: https://www.toradex.com/products/carrier-board/aquila-development-board-kit
 Link: https://www.toradex.com/products/carrier-board/clover
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
 ---
-v4: No changes
-v3: No changes
-v2: Added Conor's acked-by
-v1: https://lore.kernel.org/all/20260506-add-aquila-imx95-v1-1-69c8ee1c5413@toradex.com/
+Changes in v4:
+- Removed som_dsi2dp_bridge node from dev and clover board
+  since SoC's DSI controller is unsupported
+- Link to v3: https://patch.msgid.link/20260521-add-aquila-imx95-v3-0-621843807def@toradex.com
+
+Changes in v3:
+- Changed QSPI_1 4bit iomux node name to 'flexspi14bitgrp'
+- Deleted the cdns,* properties from flexspi1
+- Link to v2: https://patch.msgid.link/20260520-add-aquila-imx95-v2-0-06424a51e33a@toradex.com
+
+Changes in v2:
+- Add 'acked-by' tag from Conor to the bindings patch
+- Reordering iomux by node name
+- Changed Francesco's tags to have the Toradex mail address
+- Link to v1: https://lore.kernel.org/r/20260506-add-aquila-imx95-v1-0-69c8ee1c5413@toradex.com
+
 ---
- Documentation/devicetree/bindings/arm/fsl.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Antoine Gouby (1):
+      arm64: dts: freescale: imx95-aquila: Add Clover carrier board
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index 59f7f168bf7c4..ea4cc98dadebc 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -1507,6 +1507,14 @@ properties:
-           - const: phytec,imx95-phycore-fpsc  # phyCORE-i.MX 95 FPSC
-           - const: fsl,imx95
- 
-+      - description: Toradex Boards with Aquila iMX95 Modules
-+        items:
-+          - enum:
-+              - toradex,aquila-imx95-clover # Aquila iMX95 Module on Clover Board
-+              - toradex,aquila-imx95-dev    # Aquila iMX95 Module on Aquila Development Board
-+          - const: toradex,aquila-imx95     # Aquila iMX95 Module
-+          - const: fsl,imx95
-+
-       - description: Toradex Boards with SMARC iMX95 Modules
-         items:
-           - const: toradex,smarc-imx95-dev # Toradex SMARC iMX95 on Toradex SMARC Development Board
+Franz Schnyder (1):
+      dt-bindings: arm: fsl: add Aquila iMX95
 
--- 
-2.43.0
+João Paulo Gonçalves (1):
+      arm64: dts: freescale: add Aquila iMX95 support
+
+ Documentation/devicetree/bindings/arm/fsl.yaml     |    8 +
+ arch/arm64/boot/dts/freescale/Makefile             |    2 +
+ .../boot/dts/freescale/imx95-aquila-clover.dts     |  285 +++++
+ arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts |  389 +++++++
+ arch/arm64/boot/dts/freescale/imx95-aquila.dtsi    | 1160 ++++++++++++++++++++
+ 5 files changed, 1844 insertions(+)
+---
+base-commit: 596d0f9f4fefffbf783ab26cfa90cf50f5dd6bb0
+change-id: 20260501-add-aquila-imx95-423256af3d21
+
+Best regards,
+--  
+Franz Schnyder <franz.schnyder@toradex.com>
 
