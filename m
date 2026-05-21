@@ -1,77 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AD923EA8B;
-	Thu, 21 May 2026 20:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A592DC791;
+	Thu, 21 May 2026 20:19:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779394124; cv=none; b=a+wvixJXT2k2GzYm8yRcLl4INKBQnPSiAjudcFB11/gqLJ0fsllLM/7IlnbL8nhJhLOnJOazLWFJdRTdOQ6RdeZFS65+o6SJOAEXdgFQ6CuTybxECoVG3QU8QWJjVteukZjo5XUSM9Jk8NHnlOc0qI5l35n2b9/9kPnOSHbVKbg=
+	t=1779394746; cv=none; b=JJLgG4WnQ51XZXdnoIlPT9mO38UYqYPVV8FCUC//PkZjCKezkMdbPOTeN9jCjge0Os5gteYitFDzQJ98+AJkQt9M1tCCr3IH1UL/nani5oOPtpFpVlhgY6VJPpji6RLVRkAt23/nWwgfJAK3SoqgDCkVkSnGTU1c1t2dCZEcMA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779394124; c=relaxed/simple;
-	bh=LX25OAouGCUkwIUsH/CgO/KHGaNp0WXm0L13yzUGE9s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BQdHBtUwSIRgX6d2qc7v9h8SH8K7PJdTbt9RFuq3M3OhWQ4CbZbpmfmDHzhXo4Nm8zYdridGtW7dPeolThE9ZSVnFxUQ0T8BUCrKr+eQiGXZH7SAXawJZxbzGQSGVq6AEMTmbI66JOUnyrT6RCPfQ3F6/PgsMk9RqGhosS7+mUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+QvHvUJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779394746; c=relaxed/simple;
+	bh=zRB1qJUM4PPTiLgOmqpMVvuYHwF1Aq24x/5ryUYGavs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IQu7oeqBRkXxayMRRokEoS886flhOWrJBDYy3teTgYKAtJVR5pW1Y9WGJf3XOgbW0/YRTvHHKE3S0kfHHKTnKk6iQXMDT9aCVHdUBrOrq8v0JF1MTlM6OGCazP+bfBeZdBHe0Dc6c7jEXM4MGt2aHyehdBndG8Zt03VvCpeF1g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HiBUZzhr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+QvHvUJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301021F000E9;
-	Thu, 21 May 2026 20:08:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HiBUZzhr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5448F1F000E9;
+	Thu, 21 May 2026 20:19:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779394123;
-	bh=LX25OAouGCUkwIUsH/CgO/KHGaNp0WXm0L13yzUGE9s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i+QvHvUJ5rP8KILkj9S0qJ9caOpGy//mbvHRkbux0e8U4epJEEt7KNa36cFXd2y4E
-	 pJXmadLuJaipUja77UccM6WOs9EFLziCnx7Ywj22Evdodrw7bDkmsFRIxMFD1OV9Fm
-	 iqQTUfsy5Uv6j23fA+jYUp0SztnvQnnYD8tIRPUzok5Npxm+mxqAdE/smkFVFgIOLe
-	 F1xeFXwSdLspcemVUWsVjyZ0Obi7ZbMLfeMtUgbixDUV7orDDPwb7PQedTdu2PUrnO
-	 KeDG+V1gnbtHqntN0up/OR0p7CGMIoLS+ZFfPI/J6QerY52D62m06ab/xaOnrBlU/q
-	 qd16erxI2ktFQ==
-Date: Thu, 21 May 2026 21:08:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Tomasz Jeznach <tomasz.jeznach@linux.dev>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	iommu@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Joel Stanley <joel@jms.id.au>, Joerg Roedel <joerg.roedel@amd.com>,
-	Nicholas Piggin <npiggin@gmail.com>
-Subject: Re: [PATCH v4] dt-bindings: iommu: riscv: Add bindings for
- Tenstorrent RISC-V IOMMU
-Message-ID: <20260521-suitably-garbage-92893a650399@spud>
-References: <20260521170652.1880662-2-fustini@kernel.org>
+	s=k20260515; t=1779394745;
+	bh=Yr6pOLk+P3KE0ZdwxTD8T2MlVFOvXh1Ki3WYnx2mc8I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HiBUZzhr33ILXJcxb8n8U2/Ql91B3/pSpQVbqJ1ly6YHUJWwzwwJmM7DriwBlzh1m
+	 FKoH0RbCKcuFttfpo6gjPaFREeCW2mRqRmihdX1K8+bOPdpXSbMLnTH8mT8tQVJUux
+	 +CgVIYd3raEEicHUddun1ROnCQXAZxLRS9zgwNlrff5kJX2CyF3mdBMD3CZC463LTV
+	 evZ8M6BJY7Y7VLz0Mo6XXA6RwWnYT/alXfZ5feow1Eo8GfoKFnHnKCwGhnELpHVie/
+	 MW+4DVwb1jBUlXEqacUqFfegiroEmDZyW6SjBYpeLOnQFxbAbSKCUfaWNR3zLpi0E6
+	 zYWDaOHK73ISg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/6] ARM: dts: imx: remove redundant bus-width for
+ video-mux
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Frank.Li@oss.nxp.com
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260521-imx25_dts_simple_warning_2-v2-2-c6557df516a9@nxp.com>
+References: <20260521-imx25_dts_simple_warning_2-v2-2-c6557df516a9@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 20:19:01 +0000
+Message-Id: <20260521201903.5448F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8kRpkwagpEPKzIo+"
-Content-Disposition: inline
-In-Reply-To: <20260521170652.1880662-2-fustini@kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch removes the `bus-width` property from IPU CSI endpoints (=
+e.g., `&ipu1_csi1_from_ipu1_csi1_mux`) without documenting this change in t=
+he commit message, which only mentions `video-mux` endpoints. Additionally,=
+ this removal leaves behind completely empty node overrides (e.g., `&ipu1_c=
+si1_from_ipu1_csi1_mux {}`) which should be removed entirely to prevent unn=
+ecessary clutter.
+--
 
---8kRpkwagpEPKzIo+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 9fb698028cc05d2c61d201637e9e7246e95e81d5
+Author: Frank Li <Frank.Li@nxp.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+ARM: dts: imx: remove redundant bus-width for video-mux
 
---8kRpkwagpEPKzIo+
-Content-Type: application/pgp-signature; name="signature.asc"
+This commit removes redundant bus-width properties from various i.MX device
+tree files to resolve dtbs_check warnings. The bus-width is already
+specified at the remote endpoint.
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-gw52xx.dts b/arch/arm/boot/=
+dts/nxp/imx/imx6dl-gw52xx.dts
+> index 9ea23dd54f3ce..62b05fe70cd97 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-gw52xx.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-gw52xx.dts
+> @@ -32,12 +32,10 @@ adv7180_to_ipu1_csi1_mux: endpoint {
+>  };
+> =20
+>  &ipu1_csi1_from_ipu1_csi1_mux {
+> -	bus-width =3D <8>;
+>  };
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag9mRgAKCRB4tDGHoIJi
-0kkfAQCEPEV84IChw1+tVxeKSuSuVeIGVSqqvtIut5hq89RTQwEAvB09+rxsdwVY
-CAyXvLRgCDpQRJz5nDwmr822zC65+Qc=
-=4J9n
------END PGP SIGNATURE-----
+[Severity: Low]
+This isn't a bug, but removing the bus-width property here leaves behind a
+completely empty node override. Should these empty node overrides be removed
+entirely to prevent unnecessary clutter?
 
---8kRpkwagpEPKzIo+--
+Additionally, the commit message only mentions video-mux endpoints, but this
+removes the property from IPU CSI endpoints as well. Could the commit messa=
+ge
+be updated to reflect the full scope of the changes?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-imx25_dts_=
+simple_warning_2-v2-0-c6557df516a9@nxp.com?part=3D2
