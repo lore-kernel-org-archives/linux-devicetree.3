@@ -1,63 +1,63 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7D028466F
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8F0315D49
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779375673; cv=none; b=df8PYaqksjZEc6ob/DbmhDwZu4CT+SAsthGcOu1btWdVJf3fQoObA6vHjuZGAyZhwq6lqA8gKmiwT0yHH0KPR3DROFDui+wadHqoO0EnVV+Yah1s8UWP22fM1cY7pVwsYHGMO2gw+YVlhRFkhnLwttydRz1bSrhTqVJXSKXqrnQ=
+	t=1779375676; cv=none; b=ZHokfsbWouxOr3NchF8QKR2+0p2QgocgUC5YigixuhjNkUCRKwmCxWWC3279jjkD+abE3HwHKsQPIV5UY7CTjRPV/gkBplWRCJjwUzZbAIYjvODdZ3Vd36Yo/Adu1IRk/HapuXBGd/CI5LnUGIQeKgWEEtL/wwbPg/diP/2/TMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779375673; c=relaxed/simple;
-	bh=ZFl2ULHiVLTSuCGh0QihbUUuMuRf8/lPPNNp0+994S4=;
+	s=arc-20240116; t=1779375676; c=relaxed/simple;
+	bh=JhPMQ3+KMhTapsRXkAedrsBaM+cdzGK7XgnBMSBIUok=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i7LBmBoiiIDiGZ4ypH2Gn19SDzzqVa7yqSaERngH+DI09n3lz4QeTseMGqBOA7G1/tyaXZKZjSx7Ygx7odETnyK4BLkfMhEuI6BrQQWXvGYZKH3i2aRLhxbzzRIpT0omBeASszRdn8wfT7GtzboMA50RwhzGuvL2jdDYUo2HPN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IwUjXODH; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=fvs2XAwQZpBGa3QdKqOqx1ydhbUFeS5EXMqTeNItsQIjBSv0VTS0RreOORhvN7ySkENOz3B0q2eqbglU4mWoDOM5r0d21y9uOUzwEEkiG7IaO16SZUrlCiEVCRqUcLo6YNAkFJSA+GxVg0rMSA4Uw68LquKqclpWkbvhx8V5AEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DkYClQlf; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IwUjXODH"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488ab2db91aso65467115e9.3
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:01:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DkYClQlf"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4903cbfad68so4492205e9.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:01:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779375670; x=1779980470; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779375673; x=1779980473; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gsZ8aDIVQOhkLMcIt92qlAZ0ISFPwApT1fZqqK+Da84=;
-        b=IwUjXODH/HXEVJgjPfjlOQ6/t2eQ7isasZSFAyRhMVLY2H6CbCBxd43qWpBjpD5yIs
-         YMSAcSpcyZ77fF94qsxQOjurpITDX54rY8FHM/uwAvyAmR1P1u7qX6KlTnBx9XhZHQkB
-         ijDaBw+5mlJigZdHtDlUCscT6zQOX1saJL7Ky3KAaGnA60hu8yxxCz7l340sWsz4eygT
-         yCkAjdAM2oNo/cKY2UkDmWAWbOelrVk9OSKOu4n1fwHfYDTipIzQnatqaHQqNjmDdIOy
-         ST4uCMzTQ5S1aCWLBZcNaemcGrT/MXvwrbGi0hllEZxGC3JKSkJrP9KrThOlmx4MWJf0
-         PQKA==
+        bh=w7D35dABqjaav5/0u2KUMA47QmCFUbfMXIhJqIGOMGE=;
+        b=DkYClQlfhprJxtGREExsfT0U09qUPkgEIGNsMZx0VoaEhFDfMaHrDU71cW+AwdykUB
+         2dKGELDmQx/rs6kR/1o6oI5wBBqbzw1lnUE5lpJuAAt23BTL9T3finEzwvcBG2NmAu8w
+         rYpSndxl+BvHJUqMCl13tJsf/su0ikNRXf8HrL9+zjO8WBPJanm4Y2t2ZOaUP5ocj/oQ
+         lnXpTRgxpcTZ5ECBJc0XniHkJ/eLeWiFctyJwUlalaMgZKzmub0O+TZxFGjMUpElgNbA
+         2nfechaXKiKYX+JJJOSgv0yDFLYsBFOSj7LjNkLhoyKCYaXn6haUYIEr6sC/LLslknNp
+         caIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779375670; x=1779980470;
+        d=1e100.net; s=20251104; t=1779375673; x=1779980473;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=gsZ8aDIVQOhkLMcIt92qlAZ0ISFPwApT1fZqqK+Da84=;
-        b=fkbOK+7L143CLfS7zpBm/VuQe/d0LLouiiHV8G1IHgyvrgxlqp9TYhuMvky2CUxDpP
-         Yl8F5pkNu14EMHP4ifD9KcylMr6YwGOlnX+BrDkfsTPRWEqIaNW+3rtmBG/tzxeS/1wd
-         8KJ6TFaQKBg6mEmXpjupVvgAyfCe1kzGmTy6rlKoZsj+ZAXiZQrXvlCuDhyfyBjYY/U8
-         6jkn2nA/HKEKMWMdiFmX1rJ3wBo88aXLAEL4fhTD4lupebEQbIq8Vuze+o/BtqpeLEG6
-         CWs30rztQrWF9UG2ZOozEhPoZYLPBvEwvJaPNo5TzN0xdBdeMsloQ5Gn5YJGpGQ4+VBZ
-         9LYQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+QP9UNUUvkXCnV7NxH5gqHi0EvIYPDxpAvwaJcXvKQy9sHZtabyHSofgrxjF8QU5remsbrEeumKZeQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAD2JVb5XWAA++KOrHCMlteh/z0kuzxcdrZK73GpJFKxh1NQoq
-	1n6AXHtUqkOKBoqfVjTtoeR8F7t7SVzyNdDv4OrkQ6/Z6IgOLhVBeujb
-X-Gm-Gg: Acq92OEt8ikMSNuQVgMZhRiPu38b5E800fAOBEAuxhKleUcQKBZSeA6kjoa6MA+orzQ
-	fC9EHChvVgAmzzOwqx4D5q/DmW2lBSOZIed2PWUVd0LkFgQuaSJIcO0NE2jm4yBS4SWNTqk1rWU
-	LvmC/42YWP5r2aBF/lUN0HCAEw6TiaBXyKFLcMyYZnwmUrP4feVszOKj6HWChdzebVcdTB9j4kp
-	ZQbpU8UaB03bkH7OBD+kSr9yPtB7/bJru0FuHHk5QMs0HJXP/2TCXMjXMLQoddV8V4wYMuJJ2WT
-	ieqbAJS8PjE0Th/Gfl2yMVKUrSMPOk7bzWiCOY4gnCcidh+juI+zCygCYpLYvS20+legTWKA5A/
-	Nj1UPIvrZWxQMQv4W1+QPjc5hYXzQ6KkqBRzqjqIV+FPuLryOveG3rgpYk6u5H5xG992QgW4fqU
-	8/uWnaoIw0bUL1pc/aC6IlAyrjYZEGgA2l5niqDwLg/oR5ax1lZpHl
-X-Received: by 2002:a05:600c:8b34:b0:490:3d27:94f4 with SMTP id 5b1f17b1804b1-4903d2797c3mr26603645e9.7.1779375669985;
-        Thu, 21 May 2026 08:01:09 -0700 (PDT)
+        bh=w7D35dABqjaav5/0u2KUMA47QmCFUbfMXIhJqIGOMGE=;
+        b=rqYnD3a7GKc/r9kZ7fDugvkovalg3UAmaR2ieS5DpWqmG0fc2Jr1LS4U9lE4l3tyJe
+         mKLiZstY65Y3u+fMpQkWQ7H0cjF0kUcWJw5OEpGNImDnn8cN6USEktCUpVpKMkJYmko1
+         lbRddgOxmLAUDvQxLejcuKNkAgq8+3yV53TTBlLgG5bVD0WYRpLYsTgNRgA4pXe3ykUc
+         a3SKMtunQt5VpQp6g9Xg6l1AVGLpxihWerpqgyScGnWFsgfZGT2dDmjOjtUgubVgTAd1
+         f+IpNf9sVUlBHFIrDf7y7f4mLCOAiyig/Fp2xEWLblO413kolhPtY85fe3BPLZtAtaYt
+         l/Jg==
+X-Forwarded-Encrypted: i=1; AFNElJ80m1tj+7w3IT6TXNjW4DcgfcWveChkxBoeOQMeX4X5Ug5itRCob3Ukw+w4djL0NjSX//7c5W9zZn4Z@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywa0ZEUOd8lWWW1v1+VaBm0Grr5gISb/sSVZ5E5sPqhaaJ55cGL
+	oE/ILnC/+P55bQ8bgs7DNIw71AE3wTfSsFM4wV6+nEC6EDdZ/P9pOLs5
+X-Gm-Gg: Acq92OGhjjU3OnS3MwOVDzm+8+G2VMHlBEGrT++R8zpV/VzI12fV+G+wzJOpspQhm4u
+	zxxSgs55avkMiQNmVh9JiainRPZsVSWzKLYcGvOXsJSrf/uy3CgmH/0BzxHJdL+YR02mAommZCa
+	bAZeYYDL4p12ObXYQc8aGguVWU2dV6A0NtjhR5M99zZ5sdEexa8AHiFiB2RFJ1EW4mHirPGGsSf
+	crF7Xz7QBKJZMA1AEFyE69W5BAE/3pTLymQwkONVPKJnYNEvWmhZ65k9bDHAykYcr9HsEYenaf/
+	T+5co2CKyMaUiagbMjFAjX+VF9nXXkMmcIzzkKaRkdIISqOv6P38vMYqZ3ZWGz8mWWXT0ShPIPv
+	9jFyNZbDd/kKpiK9UJEfvkfFzI6f1aIwCsLvjeSKFVm7CNrPVw+XTM+E4+BwclN3mSF7LTIy09M
+	Fk7emVhhtOHr/Y3bNk8aQ6VlGJ+83MlHWS6mw95zoUxg==
+X-Received: by 2002:a05:600c:5298:b0:490:3d48:6cb9 with SMTP id 5b1f17b1804b1-4903d486e41mr18147755e9.3.1779375672165;
+        Thu, 21 May 2026 08:01:12 -0700 (PDT)
 Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 08:01:09 -0700 (PDT)
+        Thu, 21 May 2026 08:01:11 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -81,9 +81,9 @@ Cc: Vitor Soares <vitor.soares@toradex.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 05/15] dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00
-Date: Thu, 21 May 2026 16:00:41 +0100
-Message-ID: <20260521150038.103538-22-ivitro@gmail.com>
+Subject: [PATCH v1 06/15] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" DSI
+Date: Thu, 21 May 2026 16:00:42 +0100
+Message-ID: <20260521150038.103538-23-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260521150038.103538-17-ivitro@gmail.com>
 References: <20260521150038.103538-17-ivitro@gmail.com>
@@ -97,34 +97,204 @@ Content-Transfer-Encoding: 8bit
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-The Riverdi RVT70HSLNWCA0 is a 7.0" WSVGA (1024x600) IPS TFT LCD LVDS
-panel used in the Riverdi RVT70HSDNWCA0 display module.
+Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
+on the Verdin DSI_1 interface. The display features an internal
+Texas Instruments SN65DSI83 DSI-to-LVDS bridge driving a Riverdi
+RVT101HVLNWC00 10.1" WXGA (1280x800) IPS TFT LCD panel. The touch input
+is provided by an Ilitek ILI2132 capacitive touch controller.
 
-The Riverdi RVT101HVLNWC00 is a 10.1" WXGA (1280x800) IPS TFT LCD LVDS
-panel used in the Riverdi RVT101HVDNWC00 display module.
+The overlay is also combined with the Verdin AM62 Dahlia carrier board
+device trees to provide ready-to-use DTBs in both WiFi and non-Wifi SoM
+variants.
 
-Link: https://download.riverdi.com/RVT70HSLNWCA0/DS_RVT70HSLNWCA0_Rev.1.4.pdf
-Link: https://download.riverdi.com/RVT101HVLNWC00/DS_RVT101HVLNWC00_Rev.1.4.pdf
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-dsi
+Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-display-adapter/
+Assisted-by: Claude:claude-sonnet-4.6
 Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
- .../devicetree/bindings/display/panel/panel-lvds.yaml         | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/boot/dts/ti/Makefile               |   9 ++
+ ...625-verdin-panel-cap-touch-10inch-dsi.dtso | 132 ++++++++++++++++++
+ 2 files changed, 141 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-index 9db96dd724b2..7ed0c486870b 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-@@ -60,6 +60,10 @@ properties:
-           - jenson,bl-jt60050-01a
-           # Logic Technologies LT170410-2WHC 10.1" 1280x800 IPS TFT Cap Touch Mod.
-           - logictechno,lt170410-2whc
-+          # Riverdi RVT101HVLNWC00 10.1" WXGA (1280x800) TFT LCD LVDS panel
-+          - riverdi,rvt101hvlnwc00
-+          # Riverdi RVT70HSLNWCA0 7.0" WSVGA (1024x600) TFT LCD LVDS panel
-+          - riverdi,rvt70hslnwca0
-           # Samsung LTN070NL01 7.0" WSVGA (1024x600) TFT LCD LVDS panel
-           - samsung,ltn070nl01
-           # Samsung LTN101AL03 10.1" WXGA (800x1280) TFT LCD LVDS panel
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 867c05b675d1..dc397bc693ac 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -11,10 +11,16 @@
+ # Boards with AM62x SoC
+ k3-am625-verdin-nonwifi-dahlia-dsi-to-hdmi-dtbs := k3-am625-verdin-nonwifi-dahlia.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
++k3-am625-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := \
++	k3-am625-verdin-nonwifi-dahlia.dtb \
++	k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
+ k3-am625-verdin-nonwifi-dev-dsi-to-hdmi-dtbs := k3-am625-verdin-nonwifi-dev.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
+ k3-am625-verdin-wifi-dahlia-dsi-to-hdmi-dtbs := k3-am625-verdin-wifi-dahlia.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
++k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := \
++	k3-am625-verdin-wifi-dahlia.dtb \
++	k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
+ k3-am625-verdin-wifi-dev-dsi-to-hdmi-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay.dtb
+@@ -26,6 +32,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia-dsi-to-hdmi.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dev-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dev.dtb
+@@ -33,8 +40,10 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-ivy.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-mallow.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-yavia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-zinnia.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-dsi-to-hdmi.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dev-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dev.dtb
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso
+new file mode 100644
+index 000000000000..de0148ddd596
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex Capacitive Touch Display 10.1" on Verdin DSI_1.
++ * On Dahlia (X17) and Development Board (X48), DSI_1 is exposed via a
++ * Samtec LSS-130 connector and requires the Toradex DSI Display Adapter
++ * to convert to FFC/FPC connector.
++ *
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-dsi
++ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-dsi
++ * https://developer.toradex.com/hardware/accessories/add-ons/dsi-display-adapter
++ * https://www.toradex.com/accessories/verdin-dsi-display-adapter
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/pwm/pwm.h>
++
++&{/} {
++	backlight_pwm3: backlight-pwm3 {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 45 63 88 119 158 203 255>;
++		default-brightness-level = <4>;
++		power-supply = <&reg_3v3>;
++		/* Verdin PWM_3_DSI (SODIMM 19) - PWM_3_DSI_LVDS */
++		pwms = <&epwm1 0 6666667 0>;
++	};
++
++	panel-lvds-bridge {
++		compatible = "riverdi,rvt101hvlnwc00", "panel-lvds";
++		backlight = <&backlight_pwm3>;
++		data-mapping = "vesa-24";
++		height-mm = <136>;
++		width-mm = <217>;
++
++		panel-timing {
++			clock-frequency = <72400000>;
++			de-active = <1>;
++			hactive = <1280>;
++			hback-porch = <88 88 88>;
++			hfront-porch = <12 72 132>;
++			hsync-active = <0>;
++			hsync-len = <1 5 40>;
++			pixelclk-active = <1>;
++			vactive = <800>;
++			vback-porch = <23 23 23>;
++			vfront-porch = <1 15 49>;
++			vsync-active = <0>;
++			vsync-len = <1 10 20>;
++		};
++
++		port {
++			panel_lvds_bridge_in: endpoint {
++				remote-endpoint = <&dsi_lvds_bridge_out>;
++			};
++		};
++	};
++};
++
++&dsi_bridge {
++	status = "okay";
++};
++
++&dsi_bridge_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	port@1 {
++		reg = <1>;
++
++		dsi_bridge_out: endpoint {
++			remote-endpoint = <&dsi_lvds_bridge_in>;
++		};
++	};
++};
++
++&dss {
++	status = "okay";
++};
++
++/* Verdin I2C_2_DSI */
++&main_i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	bridge@2c {
++		compatible = "ti,sn65dsi83";
++		reg = <0x2c>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_dsi1_bkl_en>;
++		/* Verdin GPIO_10_DSI (SODIMM 21) - DSI_1_BKL_EN */
++		enable-gpios = <&main_gpio0 30 GPIO_ACTIVE_HIGH>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				dsi_lvds_bridge_in: endpoint {
++					remote-endpoint = <&dsi_bridge_out>;
++					data-lanes = <1 2 3 4>;
++				};
++			};
++
++			port@2 {
++				reg = <2>;
++
++				dsi_lvds_bridge_out: endpoint {
++					remote-endpoint = <&panel_lvds_bridge_in>;
++				};
++			};
++		};
++	};
++
++	touch@41 {
++		compatible = "ilitek,ili2132";
++		reg = <0x41>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_dsi1_int>, <&pinctrl_i2s_2_bclk_gpio>;
++		/* Verdin GPIO_9_DSI (SODIMM 17) - TOUCH_INT# */
++		interrupt-parent = <&main_gpio1>;
++		interrupts = <49 IRQ_TYPE_EDGE_RISING>;
++		/* Verdin I2S_2_BCLK (SODIMM 42) - TOUCH_RESET# */
++		reset-gpios = <&main_gpio0 35 GPIO_ACTIVE_LOW>;
++	};
++};
 -- 
 2.54.0
 
