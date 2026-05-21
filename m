@@ -1,68 +1,68 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDF235DA76
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:33:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FEA35F170
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779352392; cv=none; b=XHdRmBWFABn/YQFF+vDCvE9JgSD8lTuEMoy/ixiOzg6VAsI1o/uyLyyhk/7W0TIqA9ofvzQs4ExlK7JxlXjSA4fFV8VjQ8xOU5rbd28vSimL9W2wygUEcFN6L41qtxrLcE28J87NsBphimIfae2LsYnOcWQ1J3We5KROoqXdqnU=
+	t=1779352430; cv=none; b=ndCiW2Ar/BiorvdxNHxpNjU/xXhUMdlFfRQuupcxC7GFb0/fkkHnns6SyzOcgp1++WxpVSNBhFAOwiDdboIZ5Yr0JGNQAlLU2Z0PzLfmlu9wWNKsGwS9mUhMtudteZ83FaXMFEbarP6/17JZI9uFe3VmzzPCkoogVoBNkDP4FYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779352392; c=relaxed/simple;
-	bh=mDE7F8wVJgJEjEAHG5WtX3KpID23UHmJfbHZfqft+TI=;
+	s=arc-20240116; t=1779352430; c=relaxed/simple;
+	bh=7imtNeGlM0Ij74pQULbNoqDY1bGqPc+5D3+CclMU59M=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fxufWSukvSH2ysqXPP/etIcVAiwU5VQpn2bWYsZ6w29UZ2Fi4ZbKBYopWsTwbHcm6ObAlHpyZZyfQS87dIvuKZRK+qkf/1BnHnb/XctR5uNvEd1tqCUfEPZKZZ4nRFltZQAa0qA/PVR4NFrZ65qaOeUHnBnpyGYLZDXml6hxNSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wOVbWEt/; arc=none smtp.client-ip=209.85.128.53
+	 In-Reply-To:Content-Type; b=GNsZiDZ65ZuUvSee7GUGULIkARMAYEAgwsNQ8swdxxl0vl8yXmCYG/6lOWP1ok7BPQNH3dhwlGblSpqSDb4xbsZOqV35w9xAIoE/1Xo7Vm1WPKuRu1Nx6KL5IVCF5lmPyUBuodDVvOeBh1FeQPw/Rw1MQ09kz8HZIA2FbeWgpfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tZBXphiV; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wOVbWEt/"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48fe26a177cso43274455e9.1
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:33:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tZBXphiV"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so46587425e9.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:33:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779352389; x=1779957189; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1779352427; x=1779957227; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=wmRWXyLwLE+NX7L+OQHNM2shVkMAyplWBHtM1KeJMvA=;
-        b=wOVbWEt/NsykGxdladL9TQwC2dLRj0iJujtyTWprBn+b/w3sQW0RZ4ds6+UkU8m/vu
-         7fc0fyXMdrQx659VB018jBWIzoSDXJ0agcAga1TSGZpxYjCQ7QjXLz7IGDsEtOhYuxJM
-         kyjljXCQRug0okB/du1DIICSujiOx4DW1MWxhxUz0STUBVyEFJcwTbvS+3JI1v5S8hKP
-         reT1xNHDBZ+dcKPoPUFS5taaCP3Xg9GFcMTIiD+A6pcOHejpVEgYUB69wKWPlX4PykMK
-         DxLQvKdd6fDF2c7qA2pboUweYOchJ9CK8NhsTCv7/tr0wic0rcxdGMUBDQZfbB2rLIAn
-         /BWA==
+        bh=E+lhtBKg/we78saKSTSBcOB5Y21fRXHQiMOJZNkYcss=;
+        b=tZBXphiVf2zGYyexrxUAc16fRLl9l/eSMi86bmd+nH5NR+Es6q8Hb0+H32d6juKK5i
+         +sGeM1pggnB+JkUrzDB0ywG5UmZh23tKi4ax4vmFCrfD92Ux0f1NYv13ULXEpaq8UmDR
+         EauWq5GhY+yXpyF2FjeUI/JTyqXllTrKWeAkVLgtPok5hln3O3y38xm0DytpqUEzWT9V
+         xrjC6WBNQWlu1a5nSm0D1jaygJDrEIGRgBTZ5sUTbNzZr80nklYJI2EWbtUMhjfHdLCy
+         LR0v4mczWl4mkZkXy4yYzRDyPToOW6RqxxikqV9a0ngbzvDXI4/Im0lOWPmgPve5CdDs
+         DlFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779352389; x=1779957189;
+        d=1e100.net; s=20251104; t=1779352427; x=1779957227;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wmRWXyLwLE+NX7L+OQHNM2shVkMAyplWBHtM1KeJMvA=;
-        b=seAxs4JAgknv+MZSbCD0//2Q+0mkATyK7zTU/KY6xL10GitUwnTlyZ7+WjqmDw4P91
-         v6fdHrwL1HooD3ddVoADt/6b2wiTbgA79Xn5PxIDeGWR31dj/yxGfDSjxW7nd3WhPRko
-         EHVD1R6fj6LI4/SRTZDl6lImiT4yM4nQIegmod/IUjr3LnpcOewKBAXEpWAY0piKUKPM
-         JThvc3xgoWxs02z2o2ra9m0+ywnb4C2jBBoRbJiSXh4zZ2I29HtfToKB9aO0GEyfTjwI
-         v2MVVQ4xGa2UuF4bpXhYMyVJIITpL7rCPG0SgFPugJLVQ9Iqnv4fHCGNNnlHUSRrULGu
-         hTog==
-X-Gm-Message-State: AOJu0YwP7vdsGYDjdRFRWGz6wQUAVcsDkrxSM5ng5OP1tt7hNZRApo0e
-	E6Gm9ulNk4SQbOxeD2uFco/MDtRQ0UuppPldSHcR6nLjOcxk7JXMshWN4Dli47OtJZilZ25UsbJ
-	huxg5
-X-Gm-Gg: Acq92OEpdx/i1LPkpWh1LxQQvxy0z5sRRBeYiNzA8qLhOlaKa4l0vG22xmD5b4E9ehm
-	b9vO9fiPUU5WJzGaynLpkIdXCbnq1ZyV8f3k9COqwWok8Thz75GwJLXnlk7AbMe2KXTgfLpTK1A
-	PJj36VHVnOolMd0G6QKKeNOtP9GgTa1JHnIvHJxIydZAQosIAqEYbUDrz233DE4lAlEvfhE8GFD
-	a+YyoeXX/1nscftrz/Re9H/NSI+dLSUcw/K8/j1ZTTXHCj1z7rhGDeLw2tGQLjCCgGRKPRY4yO+
-	J09b7mYTWttxJ3rE1Ug0j0yJj4eb/DHYhmrjlIgqStTmkh0Y8gOR9HHtilOg7g74VqasCGwK+mv
-	e98PMlYY1DBv5BFyLrjD8a3bzbbpmaisvYPxQ2mUoi+L9djRFCLPvgwflGfGI76bADsIhOmyZ03
-	bTF5jnVpdI5A1H5tJfhFuScNYCMMTrJdxZp+R2HuLnSSbHKnWE33nOpMLLDJLqYHBcvM5LPgAPW
-	vDfaxDlZRKdebSTMg==
-X-Received: by 2002:a05:600c:450c:b0:490:320:949 with SMTP id 5b1f17b1804b1-490360e3332mr22610385e9.27.1779352389353;
-        Thu, 21 May 2026 01:33:09 -0700 (PDT)
+        bh=E+lhtBKg/we78saKSTSBcOB5Y21fRXHQiMOJZNkYcss=;
+        b=q371BYVDzuwvJbZp8Bvwr1cFMVEBnt77Arqe30Wf/SR/x/1cJnmB3mKHWdY1UhwnJW
+         400/ADF66IuN5hRsKtLy1gyTF31wNeaJlUwlA9LgnfM/G1jAwMDZMFz1q6LLxDvQhsw9
+         VC/gNt1fV57T7VWW+Bw8TNrFNF7LVniPqgC3KuICWN++5ZdIdEfjGujYPhZfv1ueWXK1
+         yy1uK99k1mRPpVBWxdVd0CPdjImCj55iSFFpgsdwxuTK+gSpDM9p+6AByKmL+0KCNphr
+         qNvZvnytRXfUp1hBWAOJW2cDKA6AxpCy8FV4Mqho40l+6Crih5N4jk5n8p1Bp7L0cxNN
+         XmZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8KmVBYH19K6GeLpokmsNhwDtMg15JHLg57hhlz2fcUvcZxc7uy71Q8+SPcvC3uDjsyvGK/o8+C9BEs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyjc50pt+Pp/tBTP+tnKcNZ89zLdWHV2kN/qRzw16EjJWiIEyyg
+	8ZEhQfd3MVXOxSYx1zE0cT4S5hcdhj3vsF1d4+95MxjIdExSYGLEn6myxRDlv5pkpmE=
+X-Gm-Gg: Acq92OGCf8g8xYa+6uFLDYkh8YO9STmvwuQSpo+nusBA+0Ajpvat4lOQxXz9HYi44Pn
+	4R0EyusI/tdVOk01AWe47GwTtwJWhQvwFm0aU9Kkg8Ta0ki2Yg6Cc7Fy+xmm1NS1/OEbZCzZ8Nh
+	otbeDwWB7875zYglVzErB36S1FAEt/tM26D55FYym/RF/K96MOcYu3tgtUPiPv4oi9W6yjTlkWD
+	XO89A5q25IlRAahrcTuiF5g1azAlQ9usyPILs7gVN7UsMk3tQCYun+cqUmDi2VzWawWKiQ/AzGq
+	YErPU2bTlq9aR1dcQTk3/xHFgsDGyzfBY4XYWOOITZJokNUTuVfZo0q05G2b/BIVzTim/kQtfSX
+	54Uv7AZgt6XLHHUnb3RA1qVIoR2GkIes+/hGBnwQvPVkq1POLjoDsZxptdewYlQj1Il3flY2/e1
+	9sbjRvZ1m1n30F8cKbrsDH9ODMClAmwcwXNo0HCVnR1COJcYYxJQP29OGGvGyE1NYhLBHdmRI/U
+	/7qX/8=
+X-Received: by 2002:a05:600c:4513:b0:490:3cd6:db37 with SMTP id 5b1f17b1804b1-4903cd6de06mr6682875e9.12.1779352427082;
+        Thu, 21 May 2026 01:33:47 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:e038:7e8a:7467:8c6c? ([2a01:e0a:106d:1080:e038:7e8a:7467:8c6c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49035ed7ea3sm10645555e9.26.2026.05.21.01.33.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49033d9eca8sm48056395e9.12.2026.05.21.01.33.46
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 01:33:08 -0700 (PDT)
-Message-ID: <19925582-2e79-4226-815d-0b062312431f@linaro.org>
-Date: Thu, 21 May 2026 10:33:08 +0200
+        Thu, 21 May 2026 01:33:46 -0700 (PDT)
+Message-ID: <55466105-03df-4968-87c3-38b5f45b83ac@linaro.org>
+Date: Thu, 21 May 2026 10:33:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,12 +72,13 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 1/2] dt-bindings: leds: backlight: document the SY7758
- 6-channel High Efficiency LED Driver
+Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: document the Renesas
+ R63419 based dual-DSI video mode Display Panels
 To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-References: <20260521-topic-sm8650-ayaneo-pocket-s2-sy7758-v4-1-73c732615e4a@linaro.org>
- <20260521081943.4CDAC1F000E9@smtp.kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+References: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-1-dd5700299390@linaro.org>
+ <20260521082230.6BD161F000E9@smtp.kernel.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -104,61 +105,74 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260521081943.4CDAC1F000E9@smtp.kernel.org>
+In-Reply-To: <20260521082230.6BD161F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/21/26 10:19, sashiko-bot@kernel.org wrote:
+On 5/21/26 10:22, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Missing main power supply property (e.g., `vin-supply` or `vsys-supply`) for the LED boost converter.
+> - [Low] The schema incorrectly uses `additionalProperties: false` instead of `unevaluatedProperties: false` when inheriting from a common schema.
 > --
 > 
-> commit f0b2513f96c13c59660da8495c808919bb4b44ab
+> commit 06ab207971a6f54327d9bb05b5e8355cbba81b0c
 > Author: Neil Armstrong <neil.armstrong@linaro.org>
 > 
-> dt-bindings: leds: backlight: document the SY7758 6-channel High Efficiency LED Driver
+> dt-bindings: display: panel: document the Renesas R63419 based dual-DSI video mode Display Panels
 > 
-> Document the Silergy SY7758 6-channel High Efficiency LED Driver
-> used for backlight brightness control.
+> This commit adds a new device tree binding document for the Renesas
+> R63419 generic DDIC. The DDIC is used to control dual-DSI LCD panels,
+> such as those found in Ayaneo gaming handheld devices.
 > 
->> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>> diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
 >> new file mode 100644
->> index 0000000000000..80e978d691c29
+>> index 0000000000000..adfdd2c300a35
 >> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
-> 
+>> +++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
 > [ ... ]
-> 
+>> +allOf:
+>> +  - $ref: panel-common-dual.yaml#
+>> +
 >> +properties:
 >> +  compatible:
->> +    const: silergy,sy7758
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  vddio-supply: true
-> 
-> [Severity: Low]
-> Should there be a vin-supply or vsys-supply property included here for the
-> main power input?
-
-No, the vin is provided by the panel, it's not under Linux control
-
-> 
-> Looking at the driver implementation, it references VBST (V-Boost) registers,
-> confirming it operates as a boost converter to drive multiple LED channels.
-> A logic I/O supply like vddio-supply typically cannot provide the high
-> current required to drive a boost coil for a backlight.
-> 
-> Omitting the primary power supply could prevent the kernel from actively
-> managing the main power rail on boards where it is switchable.
-> 
->> +
->> +  enable-gpios:
->> +    maxItems: 1
+>> +    items:
+>> +      - enum:
+>> +          - ayaneo,wt0600-2k
+>> +          - ayaneo,wt0630-2k
+>> +      - const: renesas,r63419
+> [ ... ]
+>> +  backlight: true
+>> +  reset-gpios: true
+>> +  rotation: true
+>> +  ports: true
 >> +
 >> +required:
+>> +  - compatible
+>> +  - reg
+> [ ... ]
+>> +  - reset-gpios
+>> +  - ports
+>> +
+>> +additionalProperties: false
 > 
+> [Severity: Low]
+> Since this schema inherits from panel-common-dual.yaml in the allOf block
+> above, should this be unevaluatedProperties: false instead?
+
+No, it's deliberate to control the properties we allow
+
+> 
+> In JSON schema, additionalProperties: false only considers the properties
+> explicitly listed in the local properties block. This means any standard
+> panel properties (like width-mm, height-mm, or enable-gpios) not explicitly
+> listed here will be incorrectly rejected during validation.
+> 
+> Using unevaluatedProperties: false would allow properties defined in the
+> inherited schemas. It would also eliminate the need to redundantly define
+> properties like backlight or ports in the local properties block.
+> 
+>> +
+>> +examples:
+>> +  - |
 > [ ... ]
 > 
 
