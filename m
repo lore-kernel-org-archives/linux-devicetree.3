@@ -1,134 +1,114 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DAB328B4B
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 07:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709EC1A9F97;
+	Thu, 21 May 2026 07:52:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779349932; cv=none; b=BDnTfGbl9AGO6h4xILgCMQbIB+2wrxm2L/RDq5CX3oV+XUOByQvA67Z5PwJ5rWnrZCXNcbb8atPPOnA1AW5sgw11QJzSvuYLubcO7AsdMV2crTqNu4ugVAVewgfKQzmKLQGuaOwJGJpf2bTAN6MEkmLnuG8MyBbiG89r3vIB0vM=
+	t=1779349975; cv=none; b=eDv6Tyu2kCmkTB6J3sGEyMymY/+HQEWlNMALVp6Ds+hrxSeFaUFiLa8fxld52TAseMn26gx2DX27mL5Cv14YzgIkoJMDmC63UkZsy0Csi971ZXn4LfXxP41gAr0kFyzEA35GJHksEUB3BO5m4fVt42g2oIvDW58r1NXD8YMxwP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779349932; c=relaxed/simple;
-	bh=D4exzn2eQsrnSVOKTxBNcAdQOkZPbUWOO1eVm0FrlRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eGHpEuDXbdU+afyczZNy56pScYjYBC7LByMXgZ7m1LPIM9UKgYmDtlQ66AAqNFFM485V7GS82oWHhYjdYqRUD8sVtPkZhSnJ73gsi0ZeoS4kLiO69wNU+Hj5f7DLR0UnuGrZENa5SUI8MKRMHBjRqiTnq1uVhWqIVYnF1ivKnhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qX/+evee; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779349975; c=relaxed/simple;
+	bh=HBWxyKqJgOMS5IWUOxQ21BzEb/uQXQYMeOTHw/N3flw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SV9eLWokWsseTD4ceJNX1WXQuLxdsi5QbEW5C+e9KvrE9SOKiWGpU48VgwK8HUSXMJTxRJtU61EP7FbnTl7VeJE8mrx8Oib5G/cWd0YQE6VbXvXVg6A2+i0s8z6x/xpc20w5W3VA+lPXnhESjUfdZuPYcVxgxfLjDjwHNfZLDLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ad4Oh2M9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qX/+evee"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4903974854dso2257325e9.3
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 00:52:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779349929; x=1779954729; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=nMUrl25nDEi3Kq1mfkKWfvdC3P4YU+O18Vu1NBWrWVU=;
-        b=qX/+eveeGsw6GFdF6Pw78+4sS39sd8t8OKQmwPsyYXjexU43a+Ov7PI+2KbctLFz/w
-         F+MzhoG2JfqPKxNvyT5tojq4RgRkc8yww5vwHmb2pUMyIxJ2zhjX8D5R6nLfwFPZG+y/
-         AVvwAtdq81n4KAAU+n6aYy2GKK5I0jvW7HzYqRgNfRrRzYxZG/+kr8W0xOkG4kyY3mqY
-         VF6j0YyEtjcvsf3AythPfW8duEvcpT6E+YVV+8jgn1zy9K8hDP+J/60flmwQbMg61rVB
-         KiVmtjQVQXmxTm4p47aABYgjmgzUzjP1awIiCuaSVMNI6nlQ/PDdSulGnLMBCL+rZH6t
-         jqaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779349929; x=1779954729;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=nMUrl25nDEi3Kq1mfkKWfvdC3P4YU+O18Vu1NBWrWVU=;
-        b=b5ey2ohb6nsh5d110Htj5eLDEwYQ0UiWbZTflJpq8tawFOoqlit44NCvk24BPPAeP7
-         BWDXPBK8cAjbZ07zpRjFWiVoWfxFmboFoAg10dUJblKUY476Gaej7FLfK3Vw0pr4HrSc
-         pkxLlJmALnmESkhgoL99wSO80kYQGPIyLB6DJIvHEwjW8JTfze5qSu55aF9s9Ntg9omA
-         YirsozYtzjfMYyTlccY7lBUxZosHDouvWWJKDy2Bj7wR64PlPo/7brZPerDccd5S3z4N
-         C3TXMYs4dWWsULQCtF8WlvIOecWjzPdFfncEZ44qg363P9oHIAQSt5Dxr1a/CbWWdUXm
-         wWJQ==
-X-Forwarded-Encrypted: i=1; AFNElJ83O0AKeJ+12+kV1Xj9un+F8vt0E8rfKzDj+Eub/nspyvtbfFGqppN3kSRWbR0bFXpVGrw7rAUfOFgs@vger.kernel.org
-X-Gm-Message-State: AOJu0YxT/gcBF6Jpd9dX8tkO6JdinpPHBSCsmlxD3F0EOGDR1C1oqcQw
-	5brJwPcYKBwDimhQ8qcEXY3jSu+y5vF7naePxjRoxqOVx6oFq8wCZx/W
-X-Gm-Gg: Acq92OGPkbr6m1ZIKKo0XA3PuhOe2wr1wCXYrP6QMjmDK0Is9RkIYE8OKHpXWV0RK3m
-	zU93+eCHfgRgpn3hoQ4txpSeDbzIh25TIbMKyhVUEn5+Ob7jdlTl+Pc4M0MHAXH3mA8dyVlCLrS
-	n0mUneYl+udz0dkiAJ9jpZLvTZoZaqJnDWULKGM1d0CQGdxcDRdO7wtqgUSM1NQdwZVE2JQnwDK
-	1mCpO8tL5Ujij8vWYdB14yIi7FRc1XDrErcjhCfQZx70asjTWn+qtiUcspU3wUhuE2QJTppCiC/
-	MhqszKA4+WKc6ZH7rDND9sCQqaa6HgtPdKfkiyRd9KG3CS5u+saAPm+301AllAN4pbENpV6tUTR
-	bnbms/0SJF4HS5zyoOQ23eYJ/RKs5W3rlxGfSxIkWy4VPmJJCF348YyThHb84PNprzG5V1IbCBh
-	C5y/FPur5EbNd5b0Wx3ebxAi31WG+kFYjiuuoY4Nc+B0wx9cjM9tynNiTFaAwebUwSr5GdHOxDG
-	J1AehDc5mR67g==
-X-Received: by 2002:a05:600c:8b45:b0:48e:635a:18d2 with SMTP id 5b1f17b1804b1-490360341c0mr24368705e9.2.1779349929073;
-        Thu, 21 May 2026 00:52:09 -0700 (PDT)
-Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eaa7cf23bsm715799f8f.5.2026.05.21.00.52.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 00:52:05 -0700 (PDT)
-Date: Thu, 21 May 2026 09:52:03 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-Cc: Mark Rutland <mark.rutland@arm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 3/4] mfd: max77620: override PSCI poweroff handler on
- Pixel C
-Message-ID: <ag65LXrLLbbeTbTb@orome>
-References: <20260514-smaug-poweroff-v1-0-30f9a4688966@tecnico.ulisboa.pt>
- <20260514-smaug-poweroff-v1-3-30f9a4688966@tecnico.ulisboa.pt>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ad4Oh2M9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88E71F000E9;
+	Thu, 21 May 2026 07:52:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779349974;
+	bh=bw7poT7ZxwEMD/0IoEGHTJ3x+a21BZC4NsTxmvZOp4E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ad4Oh2M9x0dWEPCu7X8mN5CfLoLF0StVRH2ih0z9xchjFsYQRFEq4+8tx6Jm38tCQ
+	 dNw0ZC+x0rF1j0owWbzSKMDLNX1cpZ6G0gF8yPjv+XV0nexnObCFXHIGO7L/5GOKju
+	 b9Nw583AmuyNI4JzfJhzfG9yDECGBD+zNSbTzRdS/5VqSIMnWVfRzzPYQv4Fiwep/D
+	 JXFraQRJcULX1HNQkU51TRpaKgQ7ZmoFV6al15W1sP8ZL4AbUysJOTCBJnqu979Hei
+	 SBgpzyTFhci/9E63bkDXN9N6LgARCkclp6SltWOvCgPEeiC34RlZ1+NxajCBvidDNp
+	 22lv/h5lXTHRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/2] dmaengine: arm-dma350: enable ANYCH interrupt
+ for shared IRQ wiring
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jun Guo" <jun.guo@cixtech.com>
+Cc: robh@kernel.org, vkoul@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521072924.3000282-2-jun.guo@cixtech.com>
+References: <20260521072924.3000282-2-jun.guo@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 07:52:53 +0000
+Message-Id: <20260521075253.B88E71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="krmmkipqxg3oqi3l"
-Content-Disposition: inline
-In-Reply-To: <20260514-smaug-poweroff-v1-3-30f9a4688966@tecnico.ulisboa.pt>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Enabling the global ANYCH interrupt before clearing channel states=
+ and handling error paths can cause spurious interrupt storms and break sha=
+red IRQ lines.
+--
 
---krmmkipqxg3oqi3l
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/4] mfd: max77620: override PSCI poweroff handler on
- Pixel C
-MIME-Version: 1.0
+commit 0bf9d17ebbd8be17166134ed8865c553f2b5eec7
+Author: Jun Guo <jun.guo@cixtech.com>
 
-On Thu, May 14, 2026 at 04:47:21PM +0200, Diogo Ivo wrote:
-> On Pixel C, shutdown must be handled by the MAX77620 PMIC rather
-> than the PSCI SYSTEM_OFF call, whose firmware implementation is:
->=20
-> __dead2 void tegra_system_off(void)
-> {
->         ERROR("Tegra System Off: operation not handled.\n");
->         panic();
-> }
+dmaengine: arm-dma350: enable ANYCH interrupt for shared IRQ wiring
 
-Ugh... sounds very familiar. We have similar stub implementations on
-Jetson TX1 and/or Nano, if I remember correctly. Luckily newer platforms
-seem to have proper implementations for these.
+This commit enables DMANSECCTRL.INTREN_ANYCHINTR during probe so that chann=
+el
+interrupts are propagated when integrators wire DMA-350 channels onto a sha=
+red
+IRQ line.
 
-Thanks for doing this. I might want to take inspiration from this for
-these older Jetson platforms.
+> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+> index 84220fa83029d..09403aca8bb06 100644
+> --- a/drivers/dma/arm-dma350.c
+> +++ b/drivers/dma/arm-dma350.c
 
-Thierry
+[ ... ]
 
---krmmkipqxg3oqi3l
-Content-Type: application/pgp-signature; name="signature.asc"
+> @@ -582,6 +587,10 @@ static int d350_probe(struct platform_device *pdev)
+>  	dmac->dma.device_issue_pending =3D d350_issue_pending;
+>  	INIT_LIST_HEAD(&dmac->dma.channels);
+> =20
+> +	reg =3D readl_relaxed(base + DMANSECCTRL + NSEC_CTRL);
+> +	writel_relaxed(reg | INTREN_ANYCHINTR_EN,
+> +		       base + DMANSECCTRL + NSEC_CTRL);
+> +
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+Will enabling INTREN_ANYCHINTR_EN here, before clearing the individual chan=
+nel
+states, potentially cause an interrupt storm on shared IRQ lines?
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoOuaMACgkQ3SOs138+
-s6FV9w/8DRCSz66gVJF4N5xzCi2lxEIEK+/vKp04alHhNYSDgZWEhz711gr77nPk
-23QWW7KrWzLpZOXMosGXjLpueVHFKG33h2Y2DFU1R9F/OBmo+dKXrUa1IYL8ZSfN
-XWrIj73/Tz69oz0IolCgu+d3KABjueFYtVaKLK/wowfKA20rqRtU738i31R3paGS
-OVc8DJdjr/KoEjbD9uWVji+nBJ589U9LE0KXFecU5O78CmQcIdcLlwoxNO770/Qz
-nasdyLEs04OK/26z0tKVDTZayLjtHVOq0/pYQboaLhnNDuwL01TeOKc+//PytEO2
-upOwtaigm7v0UZQTRko6b/4y7s5jC5UgY6Ww7P1nRKSLz6C80ZoyOaC4YSCVgrJo
-vyQR+L1l6mfR3cePUbEx9/EV70A84T3je9CIZfZK/n+OP91wTKbf6giSzE+dEt32
-zavGXDz2/4dGo/WymGxeP5iVGdeRoMCqdbEwgI2ie0CXEHm/jSY0OtNpy7iVlhEC
-qETtwmlg20xgSMQ4eYw4NEJhV/6Fzi56rs3v7arDC5tRB6gtj13Ykmfjh9f3aMXe
-Zpzpx46jqSsf3A2mtT7dX3KIdL9EcKrj0HFtIbXPIdJkwiJ3UK/WPfSrMCLmJaAk
-m14wdYqrwoLn/hBcFDmpr5jZmalP268Mz/pBGQm+w4Vr/F8NQyY=
-=1p0U
------END PGP SIGNATURE-----
+If a bootloader left a channel with a pending interrupt, this will immediat=
+ely
+assert the shared interrupt line before the DMA driver has registered its I=
+RQ
+handler or cleared the channel state in the loop below.
 
---krmmkipqxg3oqi3l--
+Additionally, if the probe fails midway (for instance, if platform_get_irq
+returns an error for a channel):
+
+drivers/dma/arm-dma350.c:d350_probe() {
+        ...
+        dch->irq =3D platform_get_irq(pdev, i);
+        if (dch->irq < 0)
+            return dev_err_probe(dev, dch->irq, ...);
+}
+
+Does this error path leave the global ANYCH interrupt enabled without sendi=
+ng
+CH_CMD_CLEAR to the remaining channels? Any uncleared pending interrupt on
+those remaining channels could permanently assert the shared IRQ line,
+eventually causing the kernel to disable the shared IRQ entirely.
+
+>  	/* Would be nice to have per-channel caps for this... */
+>  	memset =3D true;
+>  	for (int i =3D 0; i < nchan; i++) {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521072924.3000=
+282-1-jun.guo@cixtech.com?part=3D1
