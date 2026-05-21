@@ -1,298 +1,91 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F34E3D7D90
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEE93ACA57
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779367996; cv=none; b=KuRro1z5RY+97d4wi9JfnunOnqn0w1RjImS8EvWbjdTUEXsBQUAoPGg68otnfsf7AvcJpzxTFjsCl/y1aKP3OGhUYPac5UV5cD7w9FrleNcx+VS/3ygNzQfjMqOpY96TRvlqBK8K9ajBvWX/lrvV3LyEVF4K+RSCKhWlQRyhZ5E=
+	t=1779368060; cv=none; b=Nxr2pj92RVQIlMnq1N+I7o071SboXBKUneakD44b+i2IbYuR+up/iKL71SoUHPrToS16B8zqSVlznAJMAMRuV4gg4mbH4Bqwi6rbTYGWccBQjEbzza7cQAfmDp38RRW9ntC7T+NX6VLthNtFHRN1Psx+l/bslBNcr2s8/AXaZVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779367996; c=relaxed/simple;
-	bh=WJS27sN2KcR8G/UwaF/U8NOjPw2+aAbyCHslZsn4V0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=toAfbCu+eYxcOLnXlkTfr0H8BQLUkXlRHP/pYbPFe/ngxZSyNL0rWfz77gYecK7lQIcEDeL6GjBe5cq1cm5nmQaQ1ooBbjNgt34/5bdPJxxUZgF+i87SiclsHyRMYRedm8M9zqbvlyayCxPKQZa4fw3XPCTu/oF9zMpT+ob3IT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <m.tretter@pengutronix.de>)
-	id 1wQ2tX-00021U-76; Thu, 21 May 2026 14:52:59 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <m.tretter@pengutronix.de>)
-	id 1wQ2tW-0016dq-12;
-	Thu, 21 May 2026 14:52:58 +0200
-Received: from mtr by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <m.tretter@pengutronix.de>)
-	id 1wQ2tW-00000004VlF-3CuZ;
-	Thu, 21 May 2026 14:52:58 +0200
-Date: Thu, 21 May 2026 14:52:58 +0200
-From: Michael Tretter <m.tretter@pengutronix.de>
-To: Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Cc: Jacob Chen <jacob-chen@iotwrt.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, kernel@pengutronix.de,
-	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
-	p.zabel@pengutronix.de,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [PATCH v7 08/28] media: rockchip: rga: use stride for offset
- calculation
-Message-ID: <ag8AKgcwkZTuI3H9@pengutronix.de>
-Mail-Followup-To: Michael Tretter <m.tretter@pengutronix.de>,
-	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
-	Jacob Chen <jacob-chen@iotwrt.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, kernel@pengutronix.de,
-	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
-	p.zabel@pengutronix.de,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
- <20260521-spu-rga3-v7-8-3f33e8c7145f@pengutronix.de>
+	s=arc-20240116; t=1779368060; c=relaxed/simple;
+	bh=i4HZR/ysSs5sue/FuYbEGclJGLUj/Ps6aBiPnSPKd9E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=INhR0bR6xZjQGfghOb9S8K5TFjcfcJsGlbGSblZjbL/TKJZDy1kGX69rUcZaA7AY9VK8BkBXmEsQ1AihZ4fWce+G+r2kixB495mRkOEGxNVtJA7AEyhhV9TggltVMvjiZjyYwUgCcQksG/+qbPOwBRBKqTu4RA7xrBEUChexvEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gqvFKw/g; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gqvFKw/g"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-bd4f8260e4eso1173903066b.1
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:54:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779368057; x=1779972857; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vX8JQtFi+BvlsvlLv6LSQKoDQ+bIQLnoccLpvxGybgo=;
+        b=gqvFKw/gErbUNBw3izhCpZ7TFFLUFkBMoHrmj+daer8lZ2kyi37PHF2t3fDEjmXPnp
+         VqIBRsVe8E5MiDCLDe1cL8SHsKIHuo4G8JfuS7Tg2bz3EX1X1xeAEwS/WdrAANMp1pcY
+         l+eTaJb7Su+nr8pICxK2sPd1IV1+/nu4pTWytN96rqaxjvA8pfVpGW2hXV7CxEttv40P
+         Vbf0j6faIB+xF9YtExwTjG6IbAQXTwkOdRAuPd8GyUGOcfK5KQo8nL/77v4SwCgEO/Iq
+         Gp1N+oFFULq+As8Co5yY50UIJYOIe9m2s2o6F+gO2h9HqZpZwEcWa34iuviDpvAw3F0w
+         pSSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779368057; x=1779972857;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vX8JQtFi+BvlsvlLv6LSQKoDQ+bIQLnoccLpvxGybgo=;
+        b=QIexeCYz9lZ8W/pAJksisiDmZUAULjq0lKcWHlgewoWPXbhl6BAUcBjnmEgxUKSGdE
+         3/p0aS+T6km/sI6iJz+m5IeK5bCITv4eTWkCqz57JfKxV3IfwxPA+GNa2fGoYNHptCOc
+         bF6L4Ob/tXtAA5ox3kScIR8c/Mg1n5GsASHrQ4Mx6gMLTQW1UhqHoL+uLIuuxvcmjbT7
+         bme6LsIQ9RKIY0kZuSyVoyxesvD7jhms5qf8jWpo5Gv+IqjnQ3RD1KghqXkdYqdGZdbH
+         i9YqfsXL2SgFopC99UkRZ2UPt+Q0hY4eQx0p7QVLRfmWAsSOPGGX8pQ06WPi/ClYwlSO
+         5THw==
+X-Gm-Message-State: AOJu0YwR8ZztIaSKy43jwLi17DJYh6a7lg/CO1EYws3DQN7m6IJIJ+lu
+	joLxnWZmOMErBOgWkZrBzQdFgqSB7e6CGg1EbhaPyxAEzDlitPK9ozSUua1h9A==
+X-Gm-Gg: Acq92OGONEPNzq5kEm4/CRjp4CK4dAaMQpjmhyH8TNx44izoR/7dbNx6Tc9AWomPA4z
+	P5cSQo1w6P1au1odGAOdp5pedbS8GNmXfs6cgSFmzPzetygyrHuHtJLAQAEbnSDrfd0jNhkvmIT
+	VdWpqbBgwUY0bJTVR3cNVMs/CYKO6PINQnmtCq6nRYKpR68ltkw3XDw4MVYfTpj9D7hwpUyBgTG
+	Uu59mjTwOTfMNa7qRxMIF6yjBrS7gfoNE6lnxIbuh5wcY+mc0ipLEc+o6L9YZApaR6NjYKOL4AB
+	UzXopWWXdNWfbSdYHst4C3cGO9Y8S+bUJIpt1CmhHjidpJH/w7VZQ5E0MFvWrzH0GtkAbjpFxui
+	eYhvclQkQSgzEaP63xW5JffAu0Ku0f4QtxVswVypWWnb9xhbejvr3i+R2bAWg5e+BaWAsPQQjav
+	td/vTgBZ5ZjRmzWsLVXivdtH6LoAgrEziAfNUBeA3aQBZ2BEeCaUPKEdLrsZfOZPK+vHpVUWsyZ
+	LvxnfpRFpjw9kprXRCsQPveCcQpruCg47/+rGcBRWzosl17n3GS6mKvmw==
+X-Received: by 2002:a17:906:7315:b0:bda:d9e1:4e1d with SMTP id a640c23a62f3a-bdc14f5e9c2mr146768466b.34.1779368057254;
+        Thu, 21 May 2026 05:54:17 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6887e964947sm101453a12.21.2026.05.21.05.54.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 21 May 2026 05:54:16 -0700 (PDT)
+Message-ID: <7e5cc82f-4e28-41b1-ad83-3433b50a07bd@gmail.com>
+Date: Thu, 21 May 2026 14:54:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260521-spu-rga3-v7-8-3f33e8c7145f@pengutronix.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: m.tretter@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: sram: Document qcom,shikra-imem compatible
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260430-shikra-imem-binding-v1-1-c6976239f90f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konradybcio@gmail.com>
+In-Reply-To: <20260430-shikra-imem-binding-v1-1-c6976239f90f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 21 May 2026 00:44:13 +0200, Sven Püschel wrote:
-> Use the stride instead of the width for the offset calculation. This
-> ensures that the bytesperline value doesn't need to match the width
-> value of the image.
+On 4/30/26 2:38 PM, Komal Bajaj wrote:
+> Add compatible for Shikra SoC IMEM.
 > 
-> Furthermore this patch removes the dependency on the uv_factor property
-> and instead reuses the v4l2_format_info to determine the correct
-> division factor.
-> 
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
-
-Reviewed-by: Michael Tretter <m.tretter@pengutronix.de>
-
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 > ---
->  drivers/media/platform/rockchip/rga/rga-buf.c | 14 +++++++++-----
->  drivers/media/platform/rockchip/rga/rga.c     | 16 ----------------
->  drivers/media/platform/rockchip/rga/rga.h     |  1 -
->  3 files changed, 9 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
-> index bb575873f2b24..65fc0d5b4aa10 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-buf.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-> @@ -14,7 +14,6 @@
->  #include <media/videobuf2-dma-sg.h>
->  #include <media/videobuf2-v4l2.h>
->  
-> -#include "rga-hw.h"
->  #include "rga.h"
->  
->  static ssize_t fill_descriptors(struct rga_dma_desc *desc, size_t max_desc,
-> @@ -95,14 +94,19 @@ static int rga_buf_init(struct vb2_buffer *vb)
->  	return 0;
->  }
->  
-> -static int get_plane_offset(struct rga_frame *f, int plane)
-> +static int get_plane_offset(struct rga_frame *f,
-> +			    const struct v4l2_format_info *info,
-> +			    int plane)
->  {
-> +	u32 stride = f->pix.plane_fmt[0].bytesperline;
-> +
->  	if (plane == 0)
->  		return 0;
->  	if (plane == 1)
-> -		return f->width * f->height;
-> +		return stride * f->height;
->  	if (plane == 2)
-> -		return f->width * f->height + (f->width * f->height / f->fmt->uv_factor);
-> +		return stride * f->height +
-> +		       (stride * f->height / info->hdiv / info->vdiv);
->  
->  	return -EINVAL;
->  }
-> @@ -148,7 +152,7 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
->  	/* Fill the remaining planes */
->  	info = v4l2_format_info(f->fmt->fourcc);
->  	for (i = info->mem_planes; i < info->comp_planes; i++)
-> -		offsets[i] = get_plane_offset(f, i);
-> +		offsets[i] = get_plane_offset(f, info, i);
->  
->  	rbuf->offset.y_off = offsets[0];
->  	rbuf->offset.u_off = offsets[1];
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-> index 4e710a050cb7c..c07207edffdb6 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -190,7 +190,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_ALPHA_SWAP,
->  		.hw_format = RGA_COLOR_FMT_ABGR8888,
->  		.depth = 32,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -199,7 +198,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_RB_SWAP,
->  		.hw_format = RGA_COLOR_FMT_ABGR8888,
->  		.depth = 32,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -208,7 +206,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_RB_SWAP,
->  		.hw_format = RGA_COLOR_FMT_XBGR8888,
->  		.depth = 32,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -217,7 +214,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_NONE_SWAP,
->  		.hw_format = RGA_COLOR_FMT_RGB888,
->  		.depth = 24,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -226,7 +222,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_RB_SWAP,
->  		.hw_format = RGA_COLOR_FMT_RGB888,
->  		.depth = 24,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -235,7 +230,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_RB_SWAP,
->  		.hw_format = RGA_COLOR_FMT_ABGR4444,
->  		.depth = 16,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -244,7 +238,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_RB_SWAP,
->  		.hw_format = RGA_COLOR_FMT_ABGR1555,
->  		.depth = 16,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -253,7 +246,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_RB_SWAP,
->  		.hw_format = RGA_COLOR_FMT_BGR565,
->  		.depth = 16,
-> -		.uv_factor = 1,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -262,7 +254,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_UV_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV420SP,
->  		.depth = 12,
-> -		.uv_factor = 4,
->  		.y_div = 2,
->  		.x_div = 1,
->  	},
-> @@ -271,7 +262,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_UV_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV422SP,
->  		.depth = 16,
-> -		.uv_factor = 2,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -280,7 +270,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_NONE_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV420SP,
->  		.depth = 12,
-> -		.uv_factor = 4,
->  		.y_div = 2,
->  		.x_div = 1,
->  	},
-> @@ -289,7 +278,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_NONE_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV420SP,
->  		.depth = 12,
-> -		.uv_factor = 4,
->  		.y_div = 2,
->  		.x_div = 1,
->  	},
-> @@ -298,7 +286,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_NONE_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV422SP,
->  		.depth = 16,
-> -		.uv_factor = 2,
->  		.y_div = 1,
->  		.x_div = 1,
->  	},
-> @@ -307,7 +294,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_NONE_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV420P,
->  		.depth = 12,
-> -		.uv_factor = 4,
->  		.y_div = 2,
->  		.x_div = 2,
->  	},
-> @@ -316,7 +302,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_NONE_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV422P,
->  		.depth = 16,
-> -		.uv_factor = 2,
->  		.y_div = 1,
->  		.x_div = 2,
->  	},
-> @@ -325,7 +310,6 @@ static struct rga_fmt formats[] = {
->  		.color_swap = RGA_COLOR_UV_SWAP,
->  		.hw_format = RGA_COLOR_FMT_YUV420P,
->  		.depth = 12,
-> -		.uv_factor = 4,
->  		.y_div = 2,
->  		.x_div = 2,
->  	},
-> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-> index 2db10acecb405..477cf5b62bbb2 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.h
-> +++ b/drivers/media/platform/rockchip/rga/rga.h
-> @@ -17,7 +17,6 @@
->  struct rga_fmt {
->  	u32 fourcc;
->  	int depth;
-> -	u8 uv_factor;
->  	u8 y_div;
->  	u8 x_div;
->  	u8 color_swap;
-> 
-> -- 
-> 2.54.0
-> 
-> 
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
