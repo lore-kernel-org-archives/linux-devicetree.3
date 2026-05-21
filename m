@@ -1,99 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m3287.qiye.163.com (mail-m3287.qiye.163.com [220.197.32.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF19A39FCC6;
-	Thu, 21 May 2026 08:12:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7673A4274;
+	Thu, 21 May 2026 08:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779351174; cv=none; b=RY8103ERlruhqpencC9K1A1gTHjeiUI0mrFUyj7ucBwIfjMnM5PDzc/qT0iMyk5KaOTaatv70h1nJSliYbut2BiyEFLuj+cPrr8KmCNaHZmZO8dQYWNFSBmpoCGtTwWEH3YaaVawQSDocScNkTbpvJikc3+GlmIWaRojQThVvHQ=
+	t=1779351252; cv=none; b=u9fy93ibr8ghxCLCtaZWvri8j2CBVn4lDGnEMBwUyEJ6TYG7rrOfokyr0cQW5Cy5BGcYy/eXt3sYu9872pofsJh39Cm5T/ZQYZJQfnfwTsnpL1KSS/7giBGeDcmPYpV42J3kzDsoRWnLZCkly+pEUY4kGLZCwS59UvqoJuyEvt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779351174; c=relaxed/simple;
-	bh=dVB8HV59AKDkbplOU4oG6hOnwwfesLEdFNSBUC+kk5w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZPL0DLhExX77y+j3K/7XizgoFr5lfZI+bnBmC35vFkwwYE+0zWVUAARO3B2u3fsKTIJJ6s+qOnkHpDrBT8l+FPqMi87OOGEr4pBdi6nI6ef75KaEkgnRARSkDHoW2frx9ttP3HwfmP8XC6UKqoeN0KzhHqQBL56TAYan2QDMzd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUe1K9It; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779351252; c=relaxed/simple;
+	bh=du66qZCJlaezefOTzsGFML0++6jPdQb/bElksWgYxfA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=rE2SIUQMGvP6sI3W+0mXp4qJKJb7PNAbEBxejrbc9knUJvpABlk9YSjp13fpVF1ZSW4AOhKvJM2R+QqcnvcYsDrKozcNPlIRFaPQisODID6xkMfpiXeMjduPdrGESWZtJaKa+Y1CvE+gMAhJNMTUgQnX4xhjDFTRXkMoYSSwmmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=V8Lwnjn7; arc=none smtp.client-ip=220.197.32.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUe1K9It"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6FB10C4AF11;
-	Thu, 21 May 2026 08:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779351174;
-	bh=dVB8HV59AKDkbplOU4oG6hOnwwfesLEdFNSBUC+kk5w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JUe1K9ItL9utIDCjWchfDEhhKbcAiSOP8gego+oGKfJXemHuc+xMefZCGPBx9AxfV
-	 9kJBQYYlnz7edUL9YU1ATCN7w9orR72viP3YaGHv4UivzcoiQg2EHX+lMQsftGj229
-	 bb94NKb1nYevbQvD+P8KQYkMh+0hJdOGEazZ1JBgp7CBGx5uWjkucn+FSQA8LWmTtI
-	 ucdcZVD6bf5iQdZ0T9/r9TcFfggdQBumz68SJd5p86bn5Wb5NKF3XKfkZYarx4mt2R
-	 OMt2WUDYzU4tkO8BdEXLZObV542/J3Vxs28TB0/FmlxP9kF4CXKs03UyQtJfas3+KF
-	 cubzarQCXJ+yw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EA8CCD5BA4;
-	Thu, 21 May 2026 08:12:54 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 21 May 2026 08:12:45 +0000
-Subject: [PATCH v8 3/3] MAINTAINERS: Add an entry for Amlogic DMA driver
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="V8Lwnjn7"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3f48aae53;
+	Thu, 21 May 2026 16:08:56 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v6 01/10] dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock for RK3588
+Date: Thu, 21 May 2026 16:08:26 +0800
+Message-Id: <20260521080835.1362416-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260521080835.1362416-1-damon.ding@rock-chips.com>
+References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-amlogic-dma-v8-3-86cc2ce94142@amlogic.com>
-References: <20260521-amlogic-dma-v8-0-86cc2ce94142@amlogic.com>
-In-Reply-To: <20260521-amlogic-dma-v8-0-86cc2ce94142@amlogic.com>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779351171; l=791;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=ea/JI9Hvv+vNA+wMdcjhON7BZ5DBq9Qj6Fijtk3no2I=;
- b=VpqzypwBr2y9x03dnOyMlDKg41NxGl/t7n+gGtYbqaf6oAUkGiYlKLKck8RlIagVU/PkcMbNG
- 41UH4rtA0NzDdL+2vwxO71uFPNwtQmnTcj3ZHqRFekiADQCKwplBirx
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e49949c4b03a3kunm810e96ea5eb82
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHx5MVkwaGB9PHkNOSExCQ1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=V8Lwnjn7cMrj1VyEvwMNYEZYAWFwjbiIUr37Y03qe2oqY2pKrePyCupVIXuvGVgeQjm6TP+V52YMU7Fvxntne2vvnr1dz0YNYCFCyAsu5z9rY+N2xby/A9FO5ROLc/CRyl+1P7weYfEFtMOpG7ee/b4GGIrPlL3yMgaHU0idvhw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=nJs4taRf7N5/wuHuZ/5m8+pCqz6LN5YWjrrLCHGC1Q0=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+registers and enable the video datapath.
 
-Add Amlogic DMA controller entry to MAINTAINERS to clarify
-the maintainers.
+Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+phandle reference, which allowed the eDP to work without explicitly
+managing the hclk_vo1 clock. However, this is not safe or explicit.
 
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+To make the clock dependency explicit, enforce per-SoC clock-names
+requirements:
+ - RK3288: 2 clocks (dp, pclk)
+ - RK3399: 3 clocks (dp, pclk, grf)
+ - RK3588: 3 clocks (dp, pclk, hclk)
+
+Do not reuse the 'grf' clock name for RK3588 because it represents
+a different clock with distinct control logic:
+- The 'grf' clock is only for GRF register access and is toggled
+  dynamically during register access.
+- The 'hclk' clock controls both GRF access and video datapath
+  gating, and must remain enabled during probe.
+
+Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b38452804a2d..e7530b1e7152 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1316,6 +1316,13 @@ F:	Documentation/devicetree/bindings/perf/amlogic,g12-ddr-pmu.yaml
- F:	drivers/perf/amlogic/
- F:	include/soc/amlogic/
+Changes in v4:
+- Modify the commit msg.
+
+Changes in v5:
+- Enforce the correct third clock name on a per-compatible basis.
+- Modify the commit msg simultaneously.
+
+Changes in v6:
+- Expand more detail commit msg about using hclk instead of grf clock.
+---
+ .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
+ 1 file changed, 33 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index d99b23b88cc5..8001c1facf98 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -23,10 +23,7 @@ properties:
  
-+AMLOGIC DMA DRIVER
-+M:	Xianwei Zhao <xianwei.zhao@amlogic.com>
-+L:	linux-amlogic@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
-+F:	drivers/dma/amlogic-dma.c
+   clock-names:
+     minItems: 2
+-    items:
+-      - const: dp
+-      - const: pclk
+-      - const: grf
++    maxItems: 3
+ 
+   power-domains:
+     maxItems: 1
+@@ -60,6 +57,33 @@ required:
+ allOf:
+   - $ref: /schemas/display/bridge/analogix,dp.yaml#
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - rockchip,rk3288-dp
++    then:
++      properties:
++        clock-names:
++          items:
++            - const: dp
++            - const: pclk
 +
- AMLOGIC ISP DRIVER
- M:	Keke Li <keke.li@amlogic.com>
- L:	linux-media@vger.kernel.org
-
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - rockchip,rk3399-edp
++    then:
++      properties:
++        clock-names:
++          items:
++            - const: dp
++            - const: pclk
++            - const: grf
++
+   - if:
+       properties:
+         compatible:
+@@ -68,6 +92,11 @@ allOf:
+               - rockchip,rk3588-edp
+     then:
+       properties:
++        clock-names:
++          items:
++            - const: dp
++            - const: pclk
++            - const: hclk
+         resets:
+           minItems: 2
+         reset-names:
 -- 
-2.52.0
-
+2.34.1
 
