@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85719385D7C;
-	Thu, 21 May 2026 16:57:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB90D23BCEE;
+	Thu, 21 May 2026 16:59:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779382643; cv=none; b=MSq613USCGpQMOHzV/amLlrJ+B+bWqod90eMDFmQ2UBtM/li3LNnrspHNvq+gyQtnmX13V5uIGoWi6Mi8+oN7U9gvCsZq0YKHc3C366hRS/kOXTbCbdLh6L7hwdma3D4qapFE4z4Iprx6qi03qVKWVS3wl3aY+/Gw/XBBIr2/bU=
+	t=1779382763; cv=none; b=f+A55dRpMfEjgL7b9gOsULMGg4/8XHbFhabB+60fcW5HBsVUZ97aI8zWqso4CrAmsv7tcOZ0ehvUjAnGEeNJoScuXEPRJBCVfUk/ZljZHgCNzqI4gMdy2skbaBlwljGHqfubYtP1mdbYCv6fHU55VR37mHtG8bCnezi3kxXSfp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779382643; c=relaxed/simple;
-	bh=I55lHSd1Ysdw8ZeTKOs6GuGHFCThm01Fvnx0VC1jLqQ=;
+	s=arc-20240116; t=1779382763; c=relaxed/simple;
+	bh=2GKmZkZRT/ZSfNAcD2QRXrR4w9pDGNsPRX334Y/Rl20=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HUJHTpb3rYkoXiDaKfEZEt2Jf5KGGtNIPyHSJPXLBWguIC3cXT+3n6ec8hNOYOIiLdovhFt870MjWkMfXAUNU3XYvxN/HctzesPyeWLIxw8sVUoIikC2QfQVnzt+bO2SAh8TsHmSlcCoVNR3nX7MQbf9Rld13MPizJge4dR6CUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8cUeXab; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ll8PsfwXKrvS4SBpDKfEquc2JfSoaRfXBrIre9SRJ8N0mxuED0UTpxGem+l3emglLAR5DwnQcJcANB+Lqikc9Z7I1oqA6DJt7hyNYsjQiykck3h2sTrZT4Q79lMQxiYYhB1yBVxgWh0MoCdsXax0UyBBYJKRcyHdsMTKE/FAUJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+QqISau; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8cUeXab"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BD3F1F000E9;
-	Thu, 21 May 2026 16:57:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+QqISau"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346391F000E9;
+	Thu, 21 May 2026 16:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779382642;
-	bh=I55lHSd1Ysdw8ZeTKOs6GuGHFCThm01Fvnx0VC1jLqQ=;
+	s=k20260515; t=1779382762;
+	bh=EM0tOpRC6ixc7T8RIHjmgk36nAVQgn8lpdFzEdyfyNI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q8cUeXabxJU0IWTMJGWeV1jyVIfvz0S1Jqem5iE9CRf9Pq2+mWblC10QoinsHPl5I
-	 Q3ZL+QLPcbfH15rclKm+NAwAKcI8tZ/OYO3FPZX+WeMwWWBbTVZ+4RyAqeUcjl0r5l
-	 YHvznZYLs/8jKgJqaYSbKgkFpHDAPePw9mT+COCz+J9JcfnnOHxtawaXFvzLeMZqJ8
-	 cveGc4f0Y6zaJUVQtko6MRcp5gYokSoH3aJ7YeuWCOwxgTy65JiCGkgym7ddMIZgK4
-	 plIS9SiU7Fu/wUh9MZfkYNY4XnjyBXf1VTvQl+3BEFXHh6GtjbrF08s/x5VvBsVfHl
-	 fmGyhC6nqhBwQ==
-Date: Thu, 21 May 2026 17:57:16 +0100
+	b=g+QqISauQqVYxSIXaHqVaUlLJHDcMT4QNJN/9mxUtxf6sJycMYnsGFXAZU3wvySRq
+	 tfVy50AWhc8dHAB6jL2KIqy2aqEQdwp94yXY3Wpp+Gc1XtFJgHuWH2Hy6I7mletKwf
+	 8XN2+KM2UmpbI3mqBqctxzmNiaYUCYpQt41jrU+8QN4W3bDm9OLPpK7ic1jwvnuYCk
+	 2rzqJAeJKol7jUWW4iTOVuGywYeNKo3amm643l4OxM5RSkHV874dU0jP8VDYdcl6nZ
+	 SpADqiIHtY1es6/WpDQzJifaN4XoMcrq3sBLxF3jK8rn0MzJMreog3QgYveKDqZYTT
+	 wPlMSXrbx49Iw==
+Date: Thu, 21 May 2026 17:59:16 +0100
 From: Conor Dooley <conor@kernel.org>
 To: Vitor Soares <ivitro@gmail.com>
 Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
@@ -47,11 +47,11 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Vitor Soares <vitor.soares@toradex.com>,
 	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 05/15] dt-bindings: display: panel-lvds: Add Riverdi
- RVT70HSLNWCA0 and RVT101HVLNWC00
-Message-ID: <20260521-yogurt-tinker-1a5d0b7dc17a@spud>
+Subject: Re: [PATCH v1 13/15] dt-bindings: display: panel-lvds: Add
+ dual-channel LVDS support
+Message-ID: <20260521-cleaver-starboard-963eec225121@spud>
 References: <20260521150038.103538-17-ivitro@gmail.com>
- <20260521150038.103538-22-ivitro@gmail.com>
+ <20260521150038.103538-30-ivitro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,27 +59,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kz3CuFPJ65DTj9OM"
+	protocol="application/pgp-signature"; boundary="zZiN10fyI46t4nxn"
 Content-Disposition: inline
-In-Reply-To: <20260521150038.103538-22-ivitro@gmail.com>
+In-Reply-To: <20260521150038.103538-30-ivitro@gmail.com>
 
 
---kz3CuFPJ65DTj9OM
+--zZiN10fyI46t4nxn
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Thu, May 21, 2026 at 04:00:49PM +0100, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
+>=20
+> The panel-lvds binding only supports single-channel panels.
+> Extend it to support dual-channel LVDS panels by referencing the
+> lvds-dual-ports schema when a ports container is present.
+>=20
+> Assisted-by: Claude:claude-sonnet-4.6
+> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 
---kz3CuFPJ65DTj9OM
+Ah, this is part of what sashiko was talking about I guess.
+nvm that email so.
+Why can't your new device go into panel-simple-lvds-dual-ports?
+
+> ---
+>  .../bindings/display/panel/panel-lvds.yaml          | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.y=
+aml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> index 7ed0c486870b..45183a1439ce 100644
+> --- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> @@ -82,6 +82,17 @@ required:
+>    - width-mm
+>    - height-mm
+>    - panel-timing
+> -  - port
+> +
+> +oneOf:
+> +  - required:
+> +      - port
+> +  - required:
+> +      - ports
+> +
+> +if:
+> +  required:
+> +    - ports
+> +then:
+> +  $ref: /schemas/display/lvds-dual-ports.yaml#
+> =20
+>  ...
+> --=20
+> 2.54.0
+>=20
+
+--zZiN10fyI46t4nxn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag85awAKCRB4tDGHoIJi
-0pQPAQD3ZguE0qhACoyjjc36ilvY5dp10jnqrf6MIIYE4NZo/QEAuPhAFRZo+DP9
-UGlRN4VyZELr3mPIjLY+grUb7XeIUwA=
-=4KHE
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag855AAKCRB4tDGHoIJi
+0l4mAP9LCzA3DYw150Odv8EVXwZMevxuRD/apsBgRbxPRJbN6wD/ZX/TS7nMkBei
+vgOWMO7ndOs70m86sVKr1GJtxamNnAQ=
+=xKXx
 -----END PGP SIGNATURE-----
 
---kz3CuFPJ65DTj9OM--
+--zZiN10fyI46t4nxn--
