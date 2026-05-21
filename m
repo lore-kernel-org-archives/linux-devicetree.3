@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6231F362137;
-	Thu, 21 May 2026 07:44:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4C23164C5;
+	Thu, 21 May 2026 07:46:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779349460; cv=none; b=a6uitMTUSQDN5Z9DZgO8Ql82zoe8iQFM1iQGTo1jAGUen1bWwWCt6Y8MiPFfnqbjuoz3GsCO2tUqB3RfOBcw9eRuN5S3uUBzdg70dyUFKNxAk/M4gub7y3tSyYYH2MYZVm6PnnP1ZEVEZrpUnE78oJ7Jxthrglsrydmd/z+esKo=
+	t=1779349617; cv=none; b=PGvX8bzrDS6zQxAMFd6TA7aP7KnjwGTzY4Lz72TMaAZE63PNye16TaYBMVYprbGYEG9SY9x0+BQ0XG/qveFgsthMrwq35Jwao90TxvCdwp5dGJBbnrTsbnK8WOodrShBVNv8vYiw4pyVip0RaRN0Ct5fzM/jsg8M8Mb0CHdzBMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779349460; c=relaxed/simple;
-	bh=1XR1e1Wc94h2Y5OOR23tD7kV8xBSqMvhWnOqbzUMRsU=;
+	s=arc-20240116; t=1779349617; c=relaxed/simple;
+	bh=5NcAJUBJXJBP5NdE3DM/Qan396Y9yRH8RJfWZQaAQog=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ua9sUF38G/xBeJWz7hAng8Csl3HU0r8K23Yci/itTctuAOB3W279ao8OJfwaRo0n+QoebnlMGq55q6KfcxtCJyQ4P7tB/OjCVpnf5gNzE9ysP5ln5RZ4C/fNPi7Cok/zY3N+bNeDLbAOFGYEd1qsNlX8Cvphl0r+t505iZgxO1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XBeFB6id; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=E/59UPRcx70gtplfj9GDR9UMCHOA3Qy4ZuORu5+wpJpl9R7jltyPBwM7x2v18go9BHolnj+t03kWopmlTruQdj9f/QhUjUEfeov5WReA/+4ovZbNnBbYFhD2vt1jA+Vw7M24aqF+S8MqRNBltWvieV9qcl+chNnnvMYYvKtUc08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mtv1eZbJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XBeFB6id"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBB41F000E9;
-	Thu, 21 May 2026 07:44:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mtv1eZbJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98A01F00A3C;
+	Thu, 21 May 2026 07:46:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779349458;
-	bh=guo2ILE14Lv+AGNJMGuUpi1UMFrXaU2PnmPGdYeEOdQ=;
+	s=k20260515; t=1779349616;
+	bh=e8I4CxLDkCmUbFh/qWstl9SIHgQG5L8IDZVJv+986Q0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XBeFB6idp4SgHemQhi4cfn957vDcpkBr322AaimEK+s8p96r3daWDX29in1ZPfuL0
-	 5v+aLLoYECRJ3Zel/TIEU8VfOhyaKD8pAPeqx1yl8SMY02HwdSomkynOobdYoavmRh
-	 h3FcGkz23yBIurIZuNwgOm5G9zPfdO7KsclQOKT+ksF2e3U4IRH7LjR5JvOe5wSL61
-	 pHmKMdiIyJjB7LFhQtx0XFv0j7VqDZJKQqyjTggN488Gyjbvaz2DJke35/BylOLZ+a
-	 G1EIYbj/h5Obw2RWLLf+c9rYcYylPyqHUz5cTfjMOJ6YdlqASXfqinF2UHeZ3gUW+0
-	 SlO2mjb7XpKFA==
-Date: Thu, 21 May 2026 09:44:16 +0200
+	b=mtv1eZbJqfWH8yWHJYbyk9Al9MuEAALfXDgKM/FMlDMnblktLg/th1+TrgolBOJO3
+	 BUKZeFpyeBzk8VaoRTg4Kd77XcAB+hkEPOhB3ZrMmMC6QNAdy1qx086rJdp2SQnWXp
+	 ueVlU54xfg3OSn9JT+Cw+JVfivtqgFjO65AVppzUeKKaHGkQxbWihP5TSDoHyreskO
+	 G5oAAe2lIge3p1LrhPSWfcxReUZcDFvX559y+NwE5wkdn6WMV1PyRdqdREO/VKmr3q
+	 vs1A3cxrlGMbmneMCqEfxfv6qTCh9lpkqkubfIiLeBENiOrusP9Wnuma3ZAgS3dRZF
+	 qbvWXHlYQhe2g==
+Date: Thu, 21 May 2026 09:46:53 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Lorenzo Bianconi <lorenzo@kernel.org>, Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH v8 2/5] dt-bindings: phy: Add documentation for Airoha
- AN7581 USB PHY
-Message-ID: <20260521-ambrosial-abiding-lyrebird-9dc86f@quoll>
-References: <20260520150912.11614-1-ansuelsmth@gmail.com>
- <20260520150912.11614-3-ansuelsmth@gmail.com>
+To: Jun Yan <jerrysteve1101@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-leds@vger.kernel.org, lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, luccafachinetti@gmail.com, pzalewski@thegoodpenguin.co.uk, 
+	daniel@zonque.org
+Subject: Re: [PATCH v7 1/6] dt-bindings: leds: issi,is31fl32xx: convert the
+ binding to yaml
+Message-ID: <20260521-warm-magenta-sawfly-ae8bc0@quoll>
+References: <20260520135659.1430008-1-jerrysteve1101@gmail.com>
+ <20260520135659.1430008-2-jerrysteve1101@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,51 +46,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260520150912.11614-3-ansuelsmth@gmail.com>
+In-Reply-To: <20260520135659.1430008-2-jerrysteve1101@gmail.com>
 
-On Wed, May 20, 2026 at 05:09:07PM +0200, Christian Marangi wrote:
-> Add documentation for Airoha AN7581 USB PHY that describe the USB PHY
-> for the USB controller.
+On Wed, May 20, 2026 at 09:56:54PM +0800, Jun Yan wrote:
+> Convert leds-is31fl32xx to DT schema format.
 > 
-> Airoha AN7581 SoC support a maximum of 2 USB port. The USB 2.0 mode is
-> always supported. The USB 3.0 mode is optional and depends on the Serdes
-> mode currently configured on the system for the relevant USB port.
-> 
-> To correctly calibrate, the USB 2.0 port require correct value in
-> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
-> selecting one of the 4 monitor clock for calibration (internal clock not
-> exposed to the system) but each port have only one of the 4 actually
-> connected in HW hence the correct value needs to be specified in DT
-> based on board and the physical port. Normally it's monitor clock 1 for
-> USB1 and monitor clock 2 for USB2.
-> 
-> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
-> property is required with the phandle pointing to the correct Serdes port
-> provided by the SCU node.
+> Co-developed-by: Lucca Fachinetti <luccafachinetti@gmail.com>
+> Signed-off-by: Lucca Fachinetti <luccafachinetti@gmail.com>
+> Co-developed-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> ---
+>  .../bindings/leds/issi,is31fl32xx.yaml        | 151 ++++++++++++++++++
+>  .../bindings/leds/leds-is31fl32xx.txt         |  53 ------
+>  2 files changed, 151 insertions(+), 53 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/leds/issi,is31fl32xx.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
 
-
-^^^ here - required but:
-
-> +  phys:
-> +    items:
-> +      - description: phandle to Serdes PHY
-> +
-> +  '#phy-cells':
-> +    description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> +      as defined in dt-bindings/phy/phy.h.
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - airoha,usb2-monitor-clk-sel
-
-'phys' is not required? I think you need it to configure the serdes
-correctly, no?
-
-> +  - '#phy-cells'
-> +
-> +additionalProperties: false
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
