@@ -1,532 +1,134 @@
-Received: from srv01.abscue.de (abscue.de [89.58.28.240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE06B379C3C;
-	Thu, 21 May 2026 16:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.28.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B24374E67
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 16:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779380326; cv=none; b=MUY2IJ8i7QwKI1scE0gtYHYOvD9b4oXdKCc/O8CQdR1aGZ+S+c9f9GX45pJjiAKSTRRl4w3xRek+yRTd3V/z+JjCkQa1P45f0DDJKLDdhVITgKCngkFcqkbzYd/UQfmtcmWCpLLn0AiUIUsZpg4aseO/m9I/xPMcDSukLueV+zk=
+	t=1779380476; cv=none; b=fd3Fnjt3y3cCZ94YyVmoQAtwXmV6Ej6t/2yd/Hrp3+d8wGURYTxif/ipYeITgdRLKA1h/kK/d08IwL9xP5XdkROF6O/UJHAWHsjx50MJ7+5Tn8fVBFX7cL8nizYaO02b3OzhIdBx5JKmTXE5A9u57nkTrFyT86MrGZluc/iQWtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779380326; c=relaxed/simple;
-	bh=6TSms1XVFiqPt83DztgyvJ+9g/85B2lqP76VzrnzZmE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B2sKsPJY6+lB+WRr2up8vi9oVwiltKCJSFXHB2GNj/+XnOaNYJlRf2K7q20Psh7XT1FnEk72fwDgBEAQa6/yfTUHyMFuErszEXbaNVIatrkkB7lQknv6BVcmGpQcZYLLKTgQ88Pr5wFDEyOeI+8DY6WfDT2gLb/DH2SZeiMFbO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de; spf=pass smtp.mailfrom=abscue.de; dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b=gg7a3Xgb; arc=none smtp.client-ip=89.58.28.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=abscue.de
+	s=arc-20240116; t=1779380476; c=relaxed/simple;
+	bh=TA/NhmMxKYmBehgXdZK41pkzgulG3RVOxZ3XCI+/ZPg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EZRQ53VPywNc9O7akajzOKmATZJ1jwVvMxlIo+4KDnCpsX83ZNOzH1wDLaKhcNx+xupA/5Ta232c+h3sku5xzTnhjj+tA9KpcGid8mV10iJU90M+bAPHQyycnD6+KdfdfWzn89kvmw0YqLT6QYwueKHhKcVpWGj1tuVyatICOq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MFn9DMte; arc=none smtp.client-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b="gg7a3Xgb"
-Received: from fluffy-mammal.metal.fwg-cag.de (unknown [IPv6:2001:9e8:cdfc:e00:ebbc:d4ad:bda4:649a])
-	by srv01.abscue.de (Postfix) with ESMTPSA id A686B1C6991;
-	Thu, 21 May 2026 18:18:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abscue.de; s=dkim;
-	t=1779380316;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=URjxPuh5aNRhBScKxj0WdSJWmHAae5ZD7+qqGWQ58nk=;
-	b=gg7a3Xgbv4sHprDaahkFhL276qWcG+XUz+LfrmwZYamTdBHB94ynJg5d00FmpgNPyWoM4I
-	cvU4pS2VD3YO8msT5yiLZOGT5mP202u3PGMDoAohidQbpTmpniYlyn/4rBP9cwaNcgCZK2
-	I0twxLtFYh8K506AaBM+2Xo0TJfEd4LViox0ZoDPkeTF5OBwzpRN3Xr7Rip640tmYg6ulj
-	CeF3na/lfUm2i816V/aCGfms0rA8qRLhLStHT6Rq0POsrDvzZ4shQ1uUCagDOmLRUixnFP
-	vK/Bi6lXPWXxJcK7Oh5xPUXEPXQxDuV4GgrnTo7NVbVSAQ51bgt95rebfPgJgA==
-From: =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
-Date: Thu, 21 May 2026 18:17:09 +0200
-Subject: [PATCH v4 4/4] regulator: Add regulator driver for Unisoc SC2730
- PMIC
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MFn9DMte"
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-6314d2e31d6so2168765137.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 09:21:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1779380474; x=1779985274; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=H7TyF/EJGvHCS2MVisqdtPtRiJMUTpIaFtZ3CYa/KXY=;
+        b=MFn9DMteFaM4Y6a/VhV076xofKcjLI2Rtl2ou5nGabXSA0Gz7FCdJq4U8G47sWfUgD
+         AdsmNZ+qk32HRAoLLMnILRzp1JZfxpYj8tJ+8rf4lgQ9BC6PwVy2J650qiQl+8vUsd0Z
+         tmquyywcwm7CW55oTwytxqo2Bxc42+5EYzBbM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779380474; x=1779985274;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=H7TyF/EJGvHCS2MVisqdtPtRiJMUTpIaFtZ3CYa/KXY=;
+        b=CIta3ANSjaglbjSOgVrn5zwRm1dioCKIZyGvu2toJmcpZDdYr84o6GWrm8Aqt5xcSg
+         yp/0LkcDz+1eAXSpImO+vX8wJSwf/JV9BWhXss/yBxjwsgnMe5Z2Bwk/s5TRJaHssSv4
+         2usIJGpDtmJMP3qIsxqn9EMMgdW903hK6gtg+5l2InMiSpE2SHW4dhUz0egCWKMg3rCG
+         ZESlzzidO8a4VF3RBHOMaR6krPH0h/rAuLHFjaXXQqJM/9eoXLFH/YBok+CEGVdA/Dbp
+         wy0xnXpRTngwpoF+9Mh9So18I6tDrMb64xVbWhCYdNySOu87rvMmaG3AXyK515HovwZ4
+         0OIQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/yirgn8pxjvOJkA6pQp5v5+O2OQI7n97FtwaXG4eV9bJe9FPvJEzlu0+yuyoOEvzy5jm6Nzjvg5w36@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfhRveIpfOD+CUHHRoCEmk1elStw7UcU39+P3vWCYQrfRn/tBq
+	DjmWgDbht0NdNftfxC2aqzxei7Bm6cB05gAtEi+zV+aXpzVUxiuLe1vNLUDMw603QRS9I9Cjq3B
+	028I=
+X-Gm-Gg: Acq92OFb7RKIsvL24kANXMS2XDbvcnrEonL0ML/APVa2baTbI4x/pwnYr8+p/1bCe5z
+	L9/YfOweHFlaI4S9QtnmmODH+F2Dt+X1rfbCcVY7wcUQ7/OVgJYZT8BiT91jUIZzl/NWaBWemLu
+	nYzcI/AYCJYUTQLp81GCSWBc4crEa+JJ+gPwghN5SmCN2a7jVUXLh6QFdCfmIOc9fXHGOyD0nY0
+	GBcq8ZtLihH0Eq8z09xJnDi+Tep66Z8sdy42Jj8K0SFp1FJH1AkzNUry5e/6x6NVrk2vtfOPqh/
+	G8KMRLFApdAeJ4haQUITRiYtijK1av90qmZYRcVbHrKemSvIae4XfBm7XN10K/IvbUqBMJDlPlt
+	xZPKpacfCYKOAzyCnCLtEoo2MQefNMGOsDwxd12q+3WLf/t9zZmxrjJGLJ/2sXSsaK2LEf9Xb4O
+	39DCdjBfOlSqnUfcG2r4XQ2d1PbwcB4SmD8INoHceftFqndQN4Ij8/EyHDWYIxPluoPqavlzZA9
+	9Fz
+X-Received: by 2002:a05:6102:568d:b0:65a:fee5:cf20 with SMTP id ada2fe7eead31-67390b68018mr2324268137.11.1779380474051;
+        Thu, 21 May 2026 09:21:14 -0700 (PDT)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com. [209.85.221.171])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-679fa70c8d7sm1166408137.11.2026.05.21.09.21.13
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 21 May 2026 09:21:13 -0700 (PDT)
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-57513a91514so2097226e0c.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 09:21:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+urhKQM/fJ2kssP6/1ndU8hqi3/ncqXWeIQ6oJUQ5OFQKPspSvncG+jUOGjhjzsfAdfD3EroqkTDj6@vger.kernel.org
+X-Received: by 2002:a05:6122:909:b0:573:a779:62cf with SMTP id
+ 71dfb90a1353d-5842700f977mr1997646e0c.7.1779380472617; Thu, 21 May 2026
+ 09:21:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260521-sc2730-regulators-v4-4-1ac8a3b5ed82@abscue.de>
-References: <20260521-sc2730-regulators-v4-0-1ac8a3b5ed82@abscue.de>
-In-Reply-To: <20260521-sc2730-regulators-v4-0-1ac8a3b5ed82@abscue.de>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
- Zhongfa Wang <zhongfa.wang@unisoc.com>
-X-Mailer: b4 0.14.3
+References: <20260520-surface-sp9-5g-for-next-v1-0-9df52552bf87@gmail.com> <20260520-surface-sp9-5g-for-next-v1-1-9df52552bf87@gmail.com>
+In-Reply-To: <20260520-surface-sp9-5g-for-next-v1-1-9df52552bf87@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 21 May 2026 09:21:01 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Va8xWkE3vSPG2rDnDqHHjjQhnGvQFbDCQ1gy7K9dOokg@mail.gmail.com>
+X-Gm-Features: AVHnY4Jr92XPJH5Azjlc2EoNETWBXe5PFgKtRtjwUT48hIrAsQVbIHC8sZGU4zw
+Message-ID: <CAD=FV=Va8xWkE3vSPG2rDnDqHHjjQhnGvQFbDCQ1gy7K9dOokg@mail.gmail.com>
+Subject: Re: [PATCH 01/11] drm/panel: edp: Add LG LP129WT232166 panel
+To: jerome.debretagne@gmail.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a regulator driver for the Spreadtrum/Unisoc SC2730 PMIC, used
-e.g. with the UMS512 and UMS9230 SoCs. This version of the driver is
-based on a downstream driver provided by Unisoc [1][2] and the existing
-SC2731 driver.
+Hi,
 
-Signed-off-by: Zhongfa Wang <zhongfa.wang@unisoc.com>
-[cleanup, adapt to new device tree requirements]
-Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
+On Wed, May 20, 2026 at 9:40=E2=80=AFAM J=C3=A9r=C3=B4me de Bretagne via B4=
+ Relay
+<devnull+jerome.debretagne.gmail.com@kernel.org> wrote:
+>
+> From: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+>
+> Add an entry for the eDP LG LP129WT232166 panel used in
+> the Microsoft Surface Pro 9 5G.
+>
+> edid-decode (hex):
+>
+> 00 ff ff ff ff ff ff 00 30 e4 b2 06 a1 25 10 00
+> 00 1f 01 04 a5 1b 12 78 01 ef 70 a7 51 4c a8 26
+> 0e 4f 53 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 fd 00 18 78 f1
+> f1 48 01 0a 20 20 20 20 20 20 00 00 00 fe 00 4c
+> 47 44 5f 4d 50 31 2e 30 5f 0a 20 20 00 00 00 fe
+> 00 4c 50 31 32 39 57 54 32 33 32 31 36 36 01 23
+>
+> 70 13 79 00 00 03 01 14 56 16 01 88 3f 0b 4f 00
+> 07 80 1f 00 7f 07 55 00 47 00 07 00 03 01 14 56
+> 16 01 08 3f 0b 4f 00 07 80 1f 00 7f 07 2b 08 47
+> 00 07 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 2c 90
+>
+> Signed-off-by: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-[1]: https://github.com/MotorolaMobilityLLC/kernel-sprd/commit/30be0ddfe6b9a877fc9c328fbd2bae84e645eb31
-[2]: https://github.com/MotorolaMobilityLLC/kernel-sprd/blob/android-13-release-tla33/drivers/regulator/sc2730-regulator.c
----
-Note regarding the AI bot comment:
-According to a different register table, the register at offset 0x28 is
-called ANA_GLB_RESERVED_REG0. While I do not have access to any
-documentation to confirm the functionality of that register, it seems
-that it is being used here intentionally.
----
- drivers/regulator/Kconfig            |   7 +
- drivers/regulator/Makefile           |   1 +
- drivers/regulator/sc2730-regulator.c | 411 +++++++++++++++++++++++++++++++++++
- 3 files changed, 419 insertions(+)
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index 78076ac6eac4..b777f795cec2 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1483,6 +1483,13 @@ config REGULATOR_S5M8767
- 	 via I2C bus. S5M8767A have 9 Bucks and 28 LDOs output and
- 	 supports DVS mode with 8bits of output voltage control.
- 
-+config REGULATOR_SC2730
-+	tristate "Spreadtrum SC2730 power regulator driver"
-+	depends on MFD_SC27XX_PMIC || COMPILE_TEST
-+	help
-+	  This driver provides support for the voltage regulators on the
-+	  SC2730 PMIC.
-+
- config REGULATOR_SC2731
- 	tristate "Spreadtrum SC2731 power regulator driver"
- 	depends on MFD_SC27XX_PMIC || COMPILE_TEST
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 35639f3115fd..9de6f1347d14 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -171,6 +171,7 @@ obj-$(CONFIG_REGULATOR_S2DOS05) += s2dos05-regulator.o
- obj-$(CONFIG_REGULATOR_S2MPA01) += s2mpa01.o
- obj-$(CONFIG_REGULATOR_S2MPS11) += s2mps11.o
- obj-$(CONFIG_REGULATOR_S5M8767) += s5m8767.o
-+obj-$(CONFIG_REGULATOR_SC2730) += sc2730-regulator.o
- obj-$(CONFIG_REGULATOR_SC2731) += sc2731-regulator.o
- obj-$(CONFIG_REGULATOR_SKY81452) += sky81452-regulator.o
- obj-$(CONFIG_REGULATOR_SLG51000) += slg51000-regulator.o
-diff --git a/drivers/regulator/sc2730-regulator.c b/drivers/regulator/sc2730-regulator.c
-new file mode 100644
-index 000000000000..9e40c6eae494
---- /dev/null
-+++ b/drivers/regulator/sc2730-regulator.c
-@@ -0,0 +1,411 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2018-2021 Unisoc Inc.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/driver.h>
-+#include <linux/regulator/of_regulator.h>
-+
-+/*
-+ * SC2730 regulator base address
-+ */
-+#define SC2730_REGULATOR_BASE		0x1800
-+
-+/*
-+ * SC2730 regulator lock register
-+ */
-+#define SC2730_WR_UNLOCK_VALUE		0x6e7f
-+#define SC2730_PWR_WR_PROT		(SC2730_REGULATOR_BASE + 0x3d0)
-+
-+/*
-+ * SC2730 enable register
-+ */
-+#define SC2730_POWER_PD_SW		(SC2730_REGULATOR_BASE + 0x01c)
-+#define SC2730_LDO_VDDRF18_PD		(SC2730_REGULATOR_BASE + 0x10c)
-+#define SC2730_LDO_VDDCAMIO_PD		(SC2730_REGULATOR_BASE + 0x118)
-+#define SC2730_LDO_VDDWCN_PD		(SC2730_REGULATOR_BASE + 0x11c)
-+#define SC2730_LDO_VDDCAMD1_PD		(SC2730_REGULATOR_BASE + 0x128)
-+#define SC2730_LDO_VDDCAMD0_PD		(SC2730_REGULATOR_BASE + 0x134)
-+#define SC2730_LDO_VDDRF1V25_PD		(SC2730_REGULATOR_BASE + 0x140)
-+#define SC2730_LDO_AVDD12_PD		(SC2730_REGULATOR_BASE + 0x14c)
-+#define SC2730_LDO_VDDCAMA0_PD		(SC2730_REGULATOR_BASE + 0x158)
-+#define SC2730_LDO_VDDCAMA1_PD		(SC2730_REGULATOR_BASE + 0x164)
-+#define SC2730_LDO_VDDCAMMOT_PD		(SC2730_REGULATOR_BASE + 0x170)
-+#define SC2730_LDO_VDDSIM2_PD		(SC2730_REGULATOR_BASE + 0x194)
-+#define SC2730_LDO_VDDEMMCCORE_PD	(SC2730_REGULATOR_BASE + 0x1a0)
-+#define SC2730_LDO_VDDSDCORE_PD		(SC2730_REGULATOR_BASE + 0x1ac)
-+#define SC2730_LDO_VDDSDIO_PD		(SC2730_REGULATOR_BASE + 0x1b8)
-+#define SC2730_LDO_VDDWIFIPA_PD		(SC2730_REGULATOR_BASE + 0x1d0)
-+#define SC2730_LDO_VDDUSB33_PD		(SC2730_REGULATOR_BASE + 0x1e8)
-+#define SC2730_LDO_VDDLDO0_PD		(SC2730_REGULATOR_BASE + 0x1f4)
-+#define SC2730_LDO_VDDLDO1_PD		(SC2730_REGULATOR_BASE + 0x200)
-+#define SC2730_LDO_VDDLDO2_PD		(SC2730_REGULATOR_BASE + 0x20c)
-+#define SC2730_LDO_VDDKPLED_PD		(SC2730_REGULATOR_BASE + 0x38c)
-+
-+/*
-+ * SC2730 enable mask
-+ */
-+#define SC2730_DCDC_CPU_PD_MASK		BIT(4)
-+#define SC2730_DCDC_GPU_PD_MASK		BIT(3)
-+#define SC2730_DCDC_CORE_PD_MASK	BIT(5)
-+#define SC2730_DCDC_MODEM_PD_MASK	BIT(11)
-+#define SC2730_DCDC_MEM_PD_MASK		BIT(6)
-+#define SC2730_DCDC_MEMQ_PD_MASK	BIT(12)
-+#define SC2730_DCDC_GEN0_PD_MASK	BIT(8)
-+#define SC2730_DCDC_GEN1_PD_MASK	BIT(7)
-+#define SC2730_DCDC_SRAM_PD_MASK	BIT(13)
-+#define SC2730_LDO_AVDD18_PD_MASK	BIT(2)
-+#define SC2730_LDO_VDDRF18_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDCAMIO_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDWCN_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDCAMD1_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDCAMD0_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDRF1V25_PD_MASK	BIT(0)
-+#define SC2730_LDO_AVDD12_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDCAMA0_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDCAMA1_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDCAMMOT_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDSIM2_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDEMMCCORE_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDSDCORE_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDSDIO_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDD28_PD_MASK	BIT(1)
-+#define SC2730_LDO_VDDWIFIPA_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDD18_DCXO_PD_MASK	BIT(10)
-+#define SC2730_LDO_VDDUSB33_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDLDO0_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDLDO1_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDLDO2_PD_MASK	BIT(0)
-+#define SC2730_LDO_VDDKPLED_PD_MASK	BIT(15)
-+
-+/*
-+ * SC2730 vsel register
-+ */
-+#define SC2730_DCDC_CPU_VOL		(SC2730_REGULATOR_BASE + 0x44)
-+#define SC2730_DCDC_GPU_VOL		(SC2730_REGULATOR_BASE + 0x54)
-+#define SC2730_DCDC_CORE_VOL		(SC2730_REGULATOR_BASE + 0x64)
-+#define SC2730_DCDC_MODEM_VOL		(SC2730_REGULATOR_BASE + 0x74)
-+#define SC2730_DCDC_MEM_VOL		(SC2730_REGULATOR_BASE + 0x84)
-+#define SC2730_DCDC_MEMQ_VOL		(SC2730_REGULATOR_BASE + 0x94)
-+#define SC2730_DCDC_GEN0_VOL		(SC2730_REGULATOR_BASE + 0xa4)
-+#define SC2730_DCDC_GEN1_VOL		(SC2730_REGULATOR_BASE + 0xb4)
-+#define SC2730_DCDC_SRAM_VOL		(SC2730_REGULATOR_BASE + 0xdc)
-+#define SC2730_LDO_AVDD18_VOL		(SC2730_REGULATOR_BASE + 0x104)
-+#define SC2730_LDO_VDDRF18_VOL		(SC2730_REGULATOR_BASE + 0x110)
-+#define SC2730_LDO_VDDCAMIO_VOL		(SC2730_REGULATOR_BASE + 0x28)
-+#define SC2730_LDO_VDDWCN_VOL		(SC2730_REGULATOR_BASE + 0x120)
-+#define SC2730_LDO_VDDCAMD1_VOL		(SC2730_REGULATOR_BASE + 0x12c)
-+#define SC2730_LDO_VDDCAMD0_VOL		(SC2730_REGULATOR_BASE + 0x138)
-+#define SC2730_LDO_VDDRF1V25_VOL	(SC2730_REGULATOR_BASE + 0x144)
-+#define SC2730_LDO_AVDD12_VOL		(SC2730_REGULATOR_BASE + 0x150)
-+#define SC2730_LDO_VDDCAMA0_VOL		(SC2730_REGULATOR_BASE + 0x15c)
-+#define SC2730_LDO_VDDCAMA1_VOL		(SC2730_REGULATOR_BASE + 0x168)
-+#define SC2730_LDO_VDDCAMMOT_VOL	(SC2730_REGULATOR_BASE + 0x174)
-+#define SC2730_LDO_VDDSIM2_VOL		(SC2730_REGULATOR_BASE + 0x198)
-+#define SC2730_LDO_VDDEMMCCORE_VOL	(SC2730_REGULATOR_BASE + 0x1a4)
-+#define SC2730_LDO_VDDSDCORE_VOL	(SC2730_REGULATOR_BASE + 0x1b0)
-+#define SC2730_LDO_VDDSDIO_VOL		(SC2730_REGULATOR_BASE + 0x1bc)
-+#define SC2730_LDO_VDD28_VOL		(SC2730_REGULATOR_BASE + 0x1c8)
-+#define SC2730_LDO_VDDWIFIPA_VOL	(SC2730_REGULATOR_BASE + 0x1d4)
-+#define SC2730_LDO_VDD18_DCXO_VOL	(SC2730_REGULATOR_BASE + 0x1e0)
-+#define SC2730_LDO_VDDUSB33_VOL		(SC2730_REGULATOR_BASE + 0x1ec)
-+#define SC2730_LDO_VDDLDO0_VOL		(SC2730_REGULATOR_BASE + 0x1f8)
-+#define SC2730_LDO_VDDLDO1_VOL		(SC2730_REGULATOR_BASE + 0x204)
-+#define SC2730_LDO_VDDLDO2_VOL		(SC2730_REGULATOR_BASE + 0x210)
-+#define SC2730_LDO_VDDKPLED_VOL		(SC2730_REGULATOR_BASE + 0x38c)
-+
-+/*
-+ * SC2730 vsel register mask
-+ */
-+#define SC2730_DCDC_CPU_VOL_MASK	GENMASK(8, 0)
-+#define SC2730_DCDC_GPU_VOL_MASK	GENMASK(8, 0)
-+#define SC2730_DCDC_CORE_VOL_MASK	GENMASK(8, 0)
-+#define SC2730_DCDC_MODEM_VOL_MASK	GENMASK(8, 0)
-+#define SC2730_DCDC_MEM_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_DCDC_MEMQ_VOL_MASK	GENMASK(8, 0)
-+#define SC2730_DCDC_GEN0_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_DCDC_GEN1_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_DCDC_SRAM_VOL_MASK	GENMASK(8, 0)
-+#define SC2730_LDO_AVDD18_VOL_MASK	GENMASK(5, 0)
-+#define SC2730_LDO_VDDRF18_VOL_MASK	GENMASK(5, 0)
-+#define SC2730_LDO_VDDCAMIO_VOL_MASK	GENMASK(5, 0)
-+#define SC2730_LDO_VDDWCN_VOL_MASK	GENMASK(5, 0)
-+#define SC2730_LDO_VDDCAMD1_VOL_MASK	GENMASK(4, 0)
-+#define SC2730_LDO_VDDCAMD0_VOL_MASK	GENMASK(4, 0)
-+#define SC2730_LDO_VDDRF1V25_VOL_MASK	GENMASK(4, 0)
-+#define SC2730_LDO_AVDD12_VOL_MASK	GENMASK(4, 0)
-+#define SC2730_LDO_VDDCAMA0_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDCAMA1_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDCAMMOT_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDSIM2_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDEMMCCORE_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDSDCORE_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDSDIO_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDD28_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDWIFIPA_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDD18_DCXO_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDUSB33_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDLDO0_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDLDO1_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDLDO2_VOL_MASK	GENMASK(7, 0)
-+#define SC2730_LDO_VDDKPLED_VOL_MASK	GENMASK(14, 7)
-+
-+enum sc2730_regulator_id {
-+	SC2730_DCDC_CPU,
-+	SC2730_DCDC_GPU,
-+	SC2730_DCDC_CORE,
-+	SC2730_DCDC_MODEM,
-+	SC2730_DCDC_MEM,
-+	SC2730_DCDC_MEMQ,
-+	SC2730_DCDC_GEN0,
-+	SC2730_DCDC_GEN1,
-+	SC2730_DCDC_SRAM,
-+	SC2730_LDO_AVDD18,
-+	SC2730_LDO_VDDRF18,
-+	SC2730_LDO_VDDCAMIO,
-+	SC2730_LDO_VDDWCN,
-+	SC2730_LDO_VDDCAMD1,
-+	SC2730_LDO_VDDCAMD0,
-+	SC2730_LDO_VDDRF1V25,
-+	SC2730_LDO_AVDD12,
-+	SC2730_LDO_VDDCAMA0,
-+	SC2730_LDO_VDDCAMA1,
-+	SC2730_LDO_VDDCAMMOT,
-+	SC2730_LDO_VDDSIM2,
-+	SC2730_LDO_VDDEMMCCORE,
-+	SC2730_LDO_VDDSDCORE,
-+	SC2730_LDO_VDDSDIO,
-+	SC2730_LDO_VDD28,
-+	SC2730_LDO_VDDWIFIPA,
-+	SC2730_LDO_VDD18_DCXO,
-+	SC2730_LDO_VDDUSB33,
-+	SC2730_LDO_VDDLDO0,
-+	SC2730_LDO_VDDLDO1,
-+	SC2730_LDO_VDDLDO2,
-+	SC2730_LDO_VDDKPLED,
-+};
-+
-+static const struct regulator_ops sc2730_regu_linear_ops = {
-+	.enable = regulator_enable_regmap,
-+	.disable = regulator_disable_regmap,
-+	.is_enabled = regulator_is_enabled_regmap,
-+	.list_voltage = regulator_list_voltage_linear,
-+	.get_voltage_sel = regulator_get_voltage_sel_regmap,
-+	.set_voltage_sel = regulator_set_voltage_sel_regmap,
-+};
-+
-+#define SC2730_REGU_LINEAR(_id, of_name, en_reg, en_mask, vreg, vmask,	\
-+			   vstep, vmin, vmax, min_sel) {		\
-+	.name			= #_id,					\
-+	.of_match		= of_name,				\
-+	.regulators_node	= "regulators",				\
-+	.ops			= &sc2730_regu_linear_ops,		\
-+	.type			= REGULATOR_VOLTAGE,			\
-+	.id			= SC2730_##_id,				\
-+	.owner			= THIS_MODULE,				\
-+	.min_uV			= vmin,					\
-+	.n_voltages		= ((vmax) - (vmin)) / (vstep) + 1,	\
-+	.uV_step		= vstep,				\
-+	.enable_is_inverted	= true,					\
-+	.enable_val		= 0,					\
-+	.enable_reg		= en_reg,				\
-+	.enable_mask		= en_mask,				\
-+	.vsel_reg		= vreg,					\
-+	.vsel_mask		= vmask,				\
-+	.linear_min_sel		= min_sel,				\
-+}
-+
-+static const struct regulator_desc regulators[] = {
-+	SC2730_REGU_LINEAR(DCDC_CPU, "dcdc-cpu", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_CPU_PD_MASK, SC2730_DCDC_CPU_VOL,
-+			   SC2730_DCDC_CPU_VOL_MASK, 3125, 0, 1596875,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_GPU, "dcdc-gpu", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_GPU_PD_MASK, SC2730_DCDC_GPU_VOL,
-+			   SC2730_DCDC_GPU_VOL_MASK, 3125, 0, 1596875,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_CORE, "dcdc-core", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_CORE_PD_MASK, SC2730_DCDC_CORE_VOL,
-+			   SC2730_DCDC_CORE_VOL_MASK, 3125, 0, 1596875,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_MODEM, "dcdc-modem", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_MODEM_PD_MASK, SC2730_DCDC_MODEM_VOL,
-+			   SC2730_DCDC_MODEM_VOL_MASK, 3125, 0, 1596875,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_MEM, "dcdc-mem", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_MEM_PD_MASK, SC2730_DCDC_MEM_VOL,
-+			   SC2730_DCDC_MEM_VOL_MASK, 6250, 0, 1593750,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_MEMQ, "dcdc-memq", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_MEMQ_PD_MASK, SC2730_DCDC_MEMQ_VOL,
-+			   SC2730_DCDC_MEMQ_VOL_MASK, 3125, 0, 1596875,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_GEN0, "dcdc-gen0", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_GEN0_PD_MASK, SC2730_DCDC_GEN0_VOL,
-+			   SC2730_DCDC_GEN0_VOL_MASK, 9375, 20000, 2410625,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_GEN1, "dcdc-gen1", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_GEN1_PD_MASK, SC2730_DCDC_GEN1_VOL,
-+			   SC2730_DCDC_GEN1_VOL_MASK, 6250, 50000, 1643750,
-+			   0),
-+	SC2730_REGU_LINEAR(DCDC_SRAM, "dcdc-sram", SC2730_POWER_PD_SW,
-+			   SC2730_DCDC_SRAM_PD_MASK, SC2730_DCDC_SRAM_VOL,
-+			   SC2730_DCDC_SRAM_VOL_MASK, 3125, 0, 1596875,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_AVDD18, "ldo-avdd18", SC2730_POWER_PD_SW,
-+			   SC2730_LDO_AVDD18_PD_MASK, SC2730_LDO_AVDD18_VOL,
-+			   SC2730_LDO_AVDD18_VOL_MASK, 10000, 1175000, 1805000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDRF18, "ldo-vddrf18", SC2730_LDO_VDDRF18_PD,
-+			   SC2730_LDO_VDDRF18_PD_MASK, SC2730_LDO_VDDRF18_VOL,
-+			   SC2730_LDO_VDDRF18_VOL_MASK, 10000, 1175000, 1805000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDCAMIO, "ldo-vddcamio", SC2730_LDO_VDDCAMIO_PD,
-+			   SC2730_LDO_VDDCAMIO_PD_MASK, SC2730_LDO_VDDCAMIO_VOL,
-+			   SC2730_LDO_VDDCAMIO_VOL_MASK, 10000, 1200000, 1830000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDWCN, "ldo-vddwcn", SC2730_LDO_VDDWCN_PD,
-+			   SC2730_LDO_VDDWCN_PD_MASK, SC2730_LDO_VDDWCN_VOL,
-+			   SC2730_LDO_VDDWCN_VOL_MASK, 15000, 900000, 1845000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDCAMD1, "ldo-vddcamd1", SC2730_LDO_VDDCAMD1_PD,
-+			   SC2730_LDO_VDDCAMD1_PD_MASK, SC2730_LDO_VDDCAMD1_VOL,
-+			   SC2730_LDO_VDDCAMD1_VOL_MASK, 15000, 900000, 1365000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDCAMD0, "ldo-vddcamd0", SC2730_LDO_VDDCAMD0_PD,
-+			   SC2730_LDO_VDDCAMD0_PD_MASK, SC2730_LDO_VDDCAMD0_VOL,
-+			   SC2730_LDO_VDDCAMD0_VOL_MASK, 15000, 900000, 1365000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDRF1V25, "ldo-vddrf1v25", SC2730_LDO_VDDRF1V25_PD,
-+			   SC2730_LDO_VDDRF1V25_PD_MASK, SC2730_LDO_VDDRF1V25_VOL,
-+			   SC2730_LDO_VDDRF1V25_VOL_MASK, 15000, 900000, 1365000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_AVDD12, "ldo-avdd12", SC2730_LDO_AVDD12_PD,
-+			   SC2730_LDO_AVDD12_PD_MASK, SC2730_LDO_AVDD12_VOL,
-+			   SC2730_LDO_AVDD12_VOL_MASK, 15000, 900000, 1365000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDCAMA0, "ldo-vddcama0", SC2730_LDO_VDDCAMA0_PD,
-+			   SC2730_LDO_VDDCAMA0_PD_MASK, SC2730_LDO_VDDCAMA0_VOL,
-+			   SC2730_LDO_VDDCAMA0_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDCAMA1, "ldo-vddcama1", SC2730_LDO_VDDCAMA1_PD,
-+			   SC2730_LDO_VDDCAMA1_PD_MASK, SC2730_LDO_VDDCAMA1_VOL,
-+			   SC2730_LDO_VDDCAMA1_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDCAMMOT, "ldo-vddcammot", SC2730_LDO_VDDCAMMOT_PD,
-+			   SC2730_LDO_VDDCAMMOT_PD_MASK, SC2730_LDO_VDDCAMMOT_VOL,
-+			   SC2730_LDO_VDDCAMMOT_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDSIM2, "ldo-vddsim2", SC2730_LDO_VDDSIM2_PD,
-+			   SC2730_LDO_VDDSIM2_PD_MASK, SC2730_LDO_VDDSIM2_VOL,
-+			   SC2730_LDO_VDDSIM2_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDEMMCCORE, "ldo-vddemmccore", SC2730_LDO_VDDEMMCCORE_PD,
-+			   SC2730_LDO_VDDEMMCCORE_PD_MASK, SC2730_LDO_VDDEMMCCORE_VOL,
-+			   SC2730_LDO_VDDEMMCCORE_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDSDCORE, "ldo-vddsdcore", SC2730_LDO_VDDSDCORE_PD,
-+			   SC2730_LDO_VDDSDCORE_PD_MASK, SC2730_LDO_VDDSDCORE_VOL,
-+			   SC2730_LDO_VDDSDCORE_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDSDIO, "ldo-vddsdio", SC2730_LDO_VDDSDIO_PD,
-+			   SC2730_LDO_VDDSDIO_PD_MASK, SC2730_LDO_VDDSDIO_VOL,
-+			   SC2730_LDO_VDDSDIO_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDD28, "ldo-vdd28", SC2730_POWER_PD_SW,
-+			   SC2730_LDO_VDD28_PD_MASK, SC2730_LDO_VDD28_VOL,
-+			   SC2730_LDO_VDD28_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDWIFIPA, "ldo-vddwifipa", SC2730_LDO_VDDWIFIPA_PD,
-+			   SC2730_LDO_VDDWIFIPA_PD_MASK, SC2730_LDO_VDDWIFIPA_VOL,
-+			   SC2730_LDO_VDDWIFIPA_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDD18_DCXO, "ldo-vdd18-dcxo", SC2730_POWER_PD_SW,
-+			   SC2730_LDO_VDD18_DCXO_PD_MASK, SC2730_LDO_VDD18_DCXO_VOL,
-+			   SC2730_LDO_VDD18_DCXO_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDUSB33, "ldo-vddusb33", SC2730_LDO_VDDUSB33_PD,
-+			   SC2730_LDO_VDDUSB33_PD_MASK, SC2730_LDO_VDDUSB33_VOL,
-+			   SC2730_LDO_VDDUSB33_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDLDO0, "ldo-vddldo0", SC2730_LDO_VDDLDO0_PD,
-+			   SC2730_LDO_VDDLDO0_PD_MASK, SC2730_LDO_VDDLDO0_VOL,
-+			   SC2730_LDO_VDDLDO0_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDLDO1, "ldo-vddldo1", SC2730_LDO_VDDLDO1_PD,
-+			   SC2730_LDO_VDDLDO1_PD_MASK, SC2730_LDO_VDDLDO1_VOL,
-+			   SC2730_LDO_VDDLDO1_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDLDO2, "ldo-vddldo2", SC2730_LDO_VDDLDO2_PD,
-+			   SC2730_LDO_VDDLDO2_PD_MASK, SC2730_LDO_VDDLDO2_VOL,
-+			   SC2730_LDO_VDDLDO2_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+	SC2730_REGU_LINEAR(LDO_VDDKPLED, "ldo-vddkpled", SC2730_LDO_VDDKPLED_PD,
-+			   SC2730_LDO_VDDKPLED_PD_MASK, SC2730_LDO_VDDKPLED_VOL,
-+			   SC2730_LDO_VDDKPLED_VOL_MASK, 10000, 1200000, 3750000,
-+			   0),
-+};
-+
-+static int sc2730_regulator_unlock(struct regmap *regmap)
-+{
-+	return regmap_write(regmap, SC2730_PWR_WR_PROT, SC2730_WR_UNLOCK_VALUE);
-+}
-+
-+static int sc2730_regulator_probe(struct platform_device *pdev)
-+{
-+	int i, ret;
-+	struct regmap *regmap;
-+	struct regulator_config config = { };
-+	struct regulator_dev *rdev;
-+
-+	regmap = dev_get_regmap(pdev->dev.parent, NULL);
-+	if (!regmap) {
-+		dev_err(&pdev->dev, "failed to get regmap.\n");
-+		return -ENODEV;
-+	}
-+
-+	ret = sc2730_regulator_unlock(regmap);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to release regulator lock\n");
-+		return ret;
-+	}
-+
-+	config.dev = pdev->dev.parent;
-+	config.regmap = regmap;
-+
-+	for (i = 0; i < ARRAY_SIZE(regulators); i++) {
-+		rdev = devm_regulator_register(&pdev->dev, &regulators[i], &config);
-+		if (IS_ERR(rdev)) {
-+			dev_err(&pdev->dev, "failed to register regulator %s\n",
-+				regulators[i].name);
-+			return PTR_ERR(rdev);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct platform_device_id sc2730_regulator_id_table[] = {
-+	{ "sc2730-regulator" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, sc2730_regulator_id_table);
-+
-+static struct platform_driver sc2730_regulator_driver = {
-+	.driver = {
-+		.name = "sc2730-regulator",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+	.probe = sc2730_regulator_probe,
-+	.id_table = sc2730_regulator_id_table,
-+};
-+
-+module_platform_driver(sc2730_regulator_driver);
-+
-+MODULE_AUTHOR("Zhongfa Wang <zhongfa.wang@unisoc.com>");
-+MODULE_DESCRIPTION("Spreadtrum SC2730 regulator driver");
-+MODULE_LICENSE("GPL");
+Touched up the subject line and pushed to drm-misc-next
 
--- 
-2.51.0
-
+[01/11] drm/panel-edp: Add LG LP129WT232166 panel
+        commit: 31ac8899d1a9284fb50bd42c409f224788220e27
