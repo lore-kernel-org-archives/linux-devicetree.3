@@ -1,89 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFD91DF73A
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117223CF963
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779370972; cv=none; b=QDgoQnRUW2TviomJQ46+vRFfdzh/9Ya5Oj884KDU2ryHUZDIKbja/PpK+F4EEsO/hc7OtjZy1hQ7LsaIEvnerRUE/i/Mhat/YkIVeu10HQzwVYg/J2em6Uy+gmzDl8LfCRKuJFG+ud/BvUm82oKGv5kS4P5N+r702sfHVe5IIs4=
+	t=1779371062; cv=none; b=TAmA0yhdrzOJOpGwGjp/NSvswih3qyn8q+LPtFD9MAdGz1OY8/4IfPmwjmT9C+wOp8NqfPbctRjqnklzsYdt84UfQRqGp07qBvVgzUTm/X7N+l5Adx+ZmOk+bTrp705tisLiMWGz7ZqmhHTcsshOnqmeEdmH7Ck7TiGjh4MV5/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779370972; c=relaxed/simple;
-	bh=owqCG5FSUHJ5bUQD6QLYvQKy0dtQBdh+JA8YXBDKuc8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QrImNTkOKmVjla346F4yjE2LlmJT7jLb416T+W4cQABUFWKy9e7Vkm4J+XhmVbEUMCdUNUafZv7wWSUuagZV2zVOTGx1e3PYJ5EVj0cdCUarv5YiM3QowQaFf49rwdbqSUOvKo3a8MQKaWFTsgHmhpDZx8tZ2RnYb+Qu74qtF8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9OAiJPY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9OAiJPY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 137A21F000E9;
-	Thu, 21 May 2026 13:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779370970;
-	bh=124QBCQN+qcyWvzju+2fg/oCI6fgJppRP9F1NsepgLk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F9OAiJPYBovzKqLTV7xH6FZ8My4Ap4h7yclQQyhALlRXEiSw9KiBHbNx9O0DwPnT+
-	 iZWTwvzlb+0tv90/VkzKozHKQIOLhzE6xmtM0elpzdW9iNNkJdvIgyBJtsyO77D9hG
-	 PQELHzExQAJS/UZrBOln49e7QIVlqXaXtjwOACATFR3C+irs2F44goH0vFY3zdBBrq
-	 FoCdDKFlD73egJLVsmHJUo37x6kC+TOtdLh4Xgwr0P2w3KkMrMXbg5JciezoJ3wH6w
-	 KC7TgPiTyc/XOjd8wVHJwMQpjwFJoxAsNCwVYi0AhDDESN9uubWRQ0b7oTTATupZsN
-	 bTf8iqQR2nNkw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/18] arm64: dts: qcom: sm8150: Fix PCIe wake GPIO
- polarity
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521-wake-v1-5-d822567be258@oss.qualcomm.com>
-References: <20260521-wake-v1-5-d822567be258@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 13:42:49 +0000
-Message-Id: <20260521134250.137A21F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779371062; c=relaxed/simple;
+	bh=AmWsOoHyB+84rcp1z3vwXGI+MPJwBXTDaf3KWuIuIKM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Sw138lns3YEOMIp3AZFy2yPEuaZNrGwnKdUVSzl2F6itW5n52ZHdyfV6efc8rY94EaJZK7ohdBGeLprvg0/YzxFyyumF2tFOCGBDY1fqCrmBih6jX+2WNordF6OI/Bzwjap8XkSLrhojy2Ph1rt/kxmxXyN7+OKJmMh6PKT2sxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ3h0-0001JK-60; Thu, 21 May 2026 15:44:06 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ3gy-00174N-2S;
+	Thu, 21 May 2026 15:44:05 +0200
+Received: from mtr by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ3gz-00000004WQz-0oP0;
+	Thu, 21 May 2026 15:44:05 +0200
+Date: Thu, 21 May 2026 15:44:05 +0200
+From: Michael Tretter <m.tretter@pengutronix.de>
+To: Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>
+Cc: Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [PATCH v7 10/28] media: rockchip: rga: announce and sync
+ colorimetry
+Message-ID: <ag8MJaSIVt4Q_y_U@pengutronix.de>
+Mail-Followup-To: Michael Tretter <m.tretter@pengutronix.de>,
+	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+ <20260521-spu-rga3-v7-10-3f33e8c7145f@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260521-spu-rga3-v7-10-3f33e8c7145f@pengutronix.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: m.tretter@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The dt-binding examples for Qualcomm PCIe controllers are not updat=
-ed to reflect the `wake-gpios` polarity change.
---
+"announce colorimetry" in the subject is a bit strange. Maybe rephrase
+the subject to
 
-commit ceea67812f2db3dd214265d1322e7b8e9c36e293
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+	media: rockchip: rga: announce CSC and sync colorimetry
 
-arm64: dts: qcom: sm8150: Fix PCIe wake GPIO polarity
+On Thu, 21 May 2026 00:44:15 +0200, Sven Püschel wrote:
+> Announce the capability to adjust the quantization and ycbcr_enc on the
+> capture side and check if the SET_CSC flag is set when the colorimetry
+> is changed. Furthermore copy the colorimetry from the output to the
+> capture side to fix the currently failing v4l2-compliance tests, which
+> expect exactly this behavior.
+> 
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+> ---
+>  drivers/media/platform/rockchip/rga/rga.c | 37 +++++++++++++++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+> 
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+> index ca8d8a53dc251..8c34f73d69764 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -437,6 +437,15 @@ static int vidioc_enum_fmt(struct file *file, void *priv, struct v4l2_fmtdesc *f
+>  	fmt = &formats[f->index];
+>  	f->pixelformat = fmt->fourcc;
+>  
+> +	if (f->type != V4L2_BUF_TYPE_VIDEO_CAPTURE &&
+> +	    f->type != V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
 
-The PCIe WAKE# signal is active-low as defined in the PCIe Base
-Specification. Fix the wake-gpios polarity by using GPIO_ACTIVE_LOW
-instead of GPIO_ACTIVE_HIGH.
+Is there a reason for not using V4L2_TYPE_IS_CAPTURE(f->type)? I'd also
+invert the condition, set the flags in the branch and have a single exit
+point of this function.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/q=
-com/sm8150.dtsi
-> index 0e101096209ab..8da494de4308a 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> @@ -1905,7 +1905,7 @@ pcie0: pcie@1c00000 {
->  			phy-names =3D "pciephy";
-> =20
->  			perst-gpios =3D <&tlmm 35 GPIO_ACTIVE_HIGH>;
-> -			wake-gpios =3D <&tlmm 37 GPIO_ACTIVE_HIGH>;
-> +			wake-gpios =3D <&tlmm 37 GPIO_ACTIVE_LOW>;
+> +		return 0;
+> +
+> +	/* allow changing the quantization and xfer func for YUV formats */
+> +	if (v4l2_is_format_yuv(v4l2_format_info(f->pixelformat)))
+> +		f->flags |= V4L2_FMT_FLAG_CSC_QUANTIZATION |
+> +			    V4L2_FMT_FLAG_CSC_YCBCR_ENC;
+> +
+>  	return 0;
+>  }
+>  
+> @@ -459,8 +468,25 @@ static int vidioc_g_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>  static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>  {
+>  	struct v4l2_pix_format_mplane *pix_fmt = &f->fmt.pix_mp;
+> +	struct rga_ctx *ctx = file_to_rga_ctx(file);
+>  	struct rga_fmt *fmt;
+>  
+> +	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
+> +		const struct rga_frame *frm;
+> +
+> +		frm = rga_get_frame(ctx, f->type);
+> +		if (IS_ERR(frm))
+> +			return PTR_ERR(frm);
+> +
+> +		if (!(pix_fmt->flags & V4L2_PIX_FMT_FLAG_SET_CSC)) {
+> +			pix_fmt->quantization = frm->pix.quantization;
+> +			pix_fmt->ycbcr_enc = frm->pix.ycbcr_enc;
+> +		}
 
-[Severity: Low]
-Should the dt-binding example for this controller be updated to reflect the
-polarity change?
+Are there any limits on the colorspace conversion that the RGA can do?
+If I understand correctly, user space may set an arbitrary
+v4l2_ycbcr_encoding (for example V4L2_YCBCR_ENC_BT2020) and the driver
+will happily accept it.
 
-The example in Documentation/devicetree/bindings/pci/qcom,pcie-sm8150.yaml
-still instructs developers to use GPIO_ACTIVE_HIGH for wake-gpios. Leaving
-the documentation with the old polarity risks propagating the incorrect
-configuration to new board designs.
+> +		/* disallow values not announced in vidioc_enum_fmt */
 
-> =20
->  			pinctrl-names =3D "default";
->  			pinctrl-0 =3D <&pcie0_default_state>;
+"disallow values" sounds strange. Maybe:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-wake-v1-0-=
-d822567be258@oss.qualcomm.com?part=3D5
+		/* The RGA cannot convert colorspace and xfer_func */
+
+> +		pix_fmt->colorspace = frm->pix.colorspace;
+> +		pix_fmt->xfer_func = frm->pix.xfer_func;
+> +	}
+> +
+>  	fmt = rga_fmt_find(pix_fmt->pixelformat);
+>  	if (!fmt)
+>  		fmt = &formats[0];
+> @@ -506,6 +532,17 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>  	frm->fmt = rga_fmt_find(pix_fmt->pixelformat);
+>  	frm->stride = pix_fmt->plane_fmt[0].bytesperline;
+>  
+> +	/*
+> +	 * Copy colorimetry from output to capture as required by the
+> +	 * v4l2-compliance tests
+> +	 */
+> +	if (V4L2_TYPE_IS_OUTPUT(f->type)) {
+> +		ctx->out.pix.colorspace = pix_fmt->colorspace;
+> +		ctx->out.pix.ycbcr_enc = pix_fmt->ycbcr_enc;
+> +		ctx->out.pix.quantization = pix_fmt->quantization;
+> +		ctx->out.pix.xfer_func = pix_fmt->xfer_func;
+
+I was very confused, because ctx->out is actually the format for
+CAPTURE. The comment kind of helps to mark this trap. Not sure, if there
+is anything that can be done about this.
+
+Michael
+
+> +	}
+> +
+>  	/* Reset crop settings */
+>  	frm->crop.left = 0;
+>  	frm->crop.top = 0;
+> 
+> -- 
+> 2.54.0
+> 
+> 
