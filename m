@@ -1,98 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EDA3E7BC4
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFD91DF73A
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779370634; cv=none; b=SnJUCQFEobk6004AE++M+KOyCEY32t4b+rNSBYQnu+Vs/nBVGiaxMr7NXK/0zEuQzhW0PKNgfW7UDD+1APSISoj+D89sDxBTtSMAnKl5Rm9ZmwjzNmfDCtJIJUo3lHEZ3MeUQL/D1HgUg8SYJ+KWFbMCbH0jaRMQxFxMLI7CBuU=
+	t=1779370972; cv=none; b=QDgoQnRUW2TviomJQ46+vRFfdzh/9Ya5Oj884KDU2ryHUZDIKbja/PpK+F4EEsO/hc7OtjZy1hQ7LsaIEvnerRUE/i/Mhat/YkIVeu10HQzwVYg/J2em6Uy+gmzDl8LfCRKuJFG+ud/BvUm82oKGv5kS4P5N+r702sfHVe5IIs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779370634; c=relaxed/simple;
-	bh=GVU7y2GRo+07J5gGxH+9wWWI8SU7wt0EySRNG7HFLKo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ut2eMhdX7MxtxpZL0FLZlHEFJiDdQ1p2jTXui+c9zUVFNdbVzeI/FXlj8J0pFtZbXAnnVytnUSqxHjQI0ghuIhnyiP1+Ep5p1ejJYh30pjKxlGjN5R+oM0Q1otaFIXnWoZ5xn91WazXKxJhIbMQPCOa6d6FWwVlc5U47xn8LBXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=im6KKJtg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779370972; c=relaxed/simple;
+	bh=owqCG5FSUHJ5bUQD6QLYvQKy0dtQBdh+JA8YXBDKuc8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QrImNTkOKmVjla346F4yjE2LlmJT7jLb416T+W4cQABUFWKy9e7Vkm4J+XhmVbEUMCdUNUafZv7wWSUuagZV2zVOTGx1e3PYJ5EVj0cdCUarv5YiM3QowQaFf49rwdbqSUOvKo3a8MQKaWFTsgHmhpDZx8tZ2RnYb+Qu74qtF8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9OAiJPY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="im6KKJtg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1BF1F01561
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:37:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9OAiJPY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 137A21F000E9;
+	Thu, 21 May 2026 13:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779370633;
-	bh=voImLt9U33hBPjIQg8QhUUlnxhHKHG4IMiIMQPxp1a4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=im6KKJtgMb4dBr0758y++DUHqRCQPLHVVUbEDIZurXk/h4tKNFCtRwnYybXjidRcx
-	 Uht9PhoCg73eIqhgU9CA4WROqN/gW/BeaS06xc08vDA5nvif82QsTaOfinbKbX94Pm
-	 rmonx1jUYjJe0k0ZAHhPy8MvUMdXyb5DLYpta2aNXyd1muQK8J4hapvdfn1tO+CfuG
-	 HoJObSYOflmfO+JcCQLtiLfax4IICV6Tsl1grXO1tnLqgoooriyEbclB2lfkgP9+UM
-	 /ryPd98YK7OBsJsjO6FsyYaCAW3CmlwNSk8FxkFX5Wsl60Ch+TMaRNGjRseIaKygY2
-	 aJQmi0y1GXKvw==
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-12c19d23b19so8318500c88.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 06:37:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/5LAoBagInQduWtiu7TvARt5gZOMtyXOoZqGRfUOfr6sVQdlGFGNYOy9nDicXSmXR0Qnw1Jn9oeSio@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtccVzhaNvUndUJuFBvJIOQZm1JKnuX/vNUlBTPy/9OwvAnsJ4
-	WPJQYW6eAUyhoN93MlJUt42GTHAVv6x37jwTiXsEnpMnwD7goTl6jUIh1iBMACDMMpBJQGMIpr9
-	KS3tsXMAsJ+XcTvBojYR/GyX0eNJ/dAlLESLV3sFw2A==
-X-Received: by 2002:a05:7022:e997:b0:12d:de3e:be88 with SMTP id
- a92af1059eb24-13632f5dea9mr1288887c88.36.1779370632106; Thu, 21 May 2026
- 06:37:12 -0700 (PDT)
+	s=k20260515; t=1779370970;
+	bh=124QBCQN+qcyWvzju+2fg/oCI6fgJppRP9F1NsepgLk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=F9OAiJPYBovzKqLTV7xH6FZ8My4Ap4h7yclQQyhALlRXEiSw9KiBHbNx9O0DwPnT+
+	 iZWTwvzlb+0tv90/VkzKozHKQIOLhzE6xmtM0elpzdW9iNNkJdvIgyBJtsyO77D9hG
+	 PQELHzExQAJS/UZrBOln49e7QIVlqXaXtjwOACATFR3C+irs2F44goH0vFY3zdBBrq
+	 FoCdDKFlD73egJLVsmHJUo37x6kC+TOtdLh4Xgwr0P2w3KkMrMXbg5JciezoJ3wH6w
+	 KC7TgPiTyc/XOjd8wVHJwMQpjwFJoxAsNCwVYi0AhDDESN9uubWRQ0b7oTTATupZsN
+	 bTf8iqQR2nNkw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 05/18] arm64: dts: qcom: sm8150: Fix PCIe wake GPIO
+ polarity
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260521-wake-v1-5-d822567be258@oss.qualcomm.com>
+References: <20260521-wake-v1-5-d822567be258@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 13:42:49 +0000
+Message-Id: <20260521134250.137A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com>
- <20260514-arm-psci-system_reset2-vendor-reboots-v22-8-28a5bde07483@oss.qualcomm.com>
- <20260521112638.GD2921053@google.com> <CAMRc=MfqaCjiALZyVBHQs=Taft1M9xmNTFvQHWPrd5PgcTfJDQ@mail.gmail.com>
- <20260521132419.GA3591266@google.com>
-In-Reply-To: <20260521132419.GA3591266@google.com>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Thu, 21 May 2026 15:36:56 +0200
-X-Gmail-Original-Message-ID: <CAMRc=Me5QS4xA3PJWXNuRP1N_C+w3sP9ZvqH36GNh2Ebc9hwcw@mail.gmail.com>
-X-Gm-Features: AVHnY4LFH9UCgONPbT3gC0_YdCdFnqhHf3b94YzGu6vwiF1lpLEOG3Bm7uxIaYE
-Message-ID: <CAMRc=Me5QS4xA3PJWXNuRP1N_C+w3sP9ZvqH36GNh2Ebc9hwcw@mail.gmail.com>
-Subject: Re: [PATCH v22 08/13] mfd: core: Add firmware-node support to MFD cells
-To: Lee Jones <lee@kernel.org>
-Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>, Sebastian Reichel <sre@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
-	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
-	Srinivas Kandagatla <srini@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 21, 2026 at 3:24=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
->
-> >
-> > I suggested it because of its flexibility. The alternative I had in
-> > mind is something like a new field in mfd_cell:
-> >
-> >     const char *cell_node_name;
-> >
-> > Which - if set - would tell MFD to look up an fwnode that's a child of
-> > the parent device's node by name - as it may not have a compatible.
->
-> Remind me why the chlid device can't look-up its own fwnode?
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The dt-binding examples for Qualcomm PCIe controllers are not updat=
+ed to reflect the `wake-gpios` polarity change.
+--
 
-Oh sure it can, but should it? I'm not sure it's logically sound to
-have the child device reach into the parent, look up the fwnode and
-then assign it to itself after it's already attached to the driver.
-This should be done at the subsystem level before the device is
-registered.
+commit ceea67812f2db3dd214265d1322e7b8e9c36e293
+Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-Bart
+arm64: dts: qcom: sm8150: Fix PCIe wake GPIO polarity
+
+The PCIe WAKE# signal is active-low as defined in the PCIe Base
+Specification. Fix the wake-gpios polarity by using GPIO_ACTIVE_LOW
+instead of GPIO_ACTIVE_HIGH.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/q=
+com/sm8150.dtsi
+> index 0e101096209ab..8da494de4308a 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+> @@ -1905,7 +1905,7 @@ pcie0: pcie@1c00000 {
+>  			phy-names =3D "pciephy";
+> =20
+>  			perst-gpios =3D <&tlmm 35 GPIO_ACTIVE_HIGH>;
+> -			wake-gpios =3D <&tlmm 37 GPIO_ACTIVE_HIGH>;
+> +			wake-gpios =3D <&tlmm 37 GPIO_ACTIVE_LOW>;
+
+[Severity: Low]
+Should the dt-binding example for this controller be updated to reflect the
+polarity change?
+
+The example in Documentation/devicetree/bindings/pci/qcom,pcie-sm8150.yaml
+still instructs developers to use GPIO_ACTIVE_HIGH for wake-gpios. Leaving
+the documentation with the old polarity risks propagating the incorrect
+configuration to new board designs.
+
+> =20
+>  			pinctrl-names =3D "default";
+>  			pinctrl-0 =3D <&pcie0_default_state>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-wake-v1-0-=
+d822567be258@oss.qualcomm.com?part=3D5
