@@ -1,317 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013002.outbound.protection.outlook.com [52.101.72.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD3B37DEA9
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 16:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779381041; cv=none; b=ZZRjLR7Pwzci0YrCgpReCRy0C6ahpujgzmN5TYbSmeJ9qD/soC26dNwUB/Eb1Nc/9RPNCB9GcJcW+QbDUHKTQUL+bnxnnNcH+c9BJ8FfnFpaNH9n2sQk8OgE5kPFuf8kvelS9iWIcGfMoRD95I2t7BliEZvX7mgyDHkj1VjwwK4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779381041; c=relaxed/simple;
-	bh=Kn80HH+1Nr7GjmndM2d+alR9fDByY8z4ffCLALzundg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AGAWJfptcu1VM9IBxasGDxzus/lCPCgq3s8Dz/1yZPP6qXif+SEFlpCK4fKDur1QCS4yBW37hEOFHAT3Js922Sb3lQwq0c+xeoc42eOIKiLSLlHF5ZoMqSg21RlfWeCd1sZ7xmsSf/PdF9fbUtmLMTftEEi7NGTDgkJCILL3jG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nic/eXlg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522EF349B15
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 16:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779381533; cv=fail; b=oS+WadVcdlNkoVz7W8D8DSxYhe0wPz5gU5nbQr6We6pmp+NVehNq1mUbAn1z0ghWKLZGrBZkEkSKLZGmU0HIBlHuYpknuhaKCXzRbhV30sjUaFJpTElWRPiIAw89QG/GVvVeZ8RFWfHH0OBoDQ+phG3/GD53k8ieB5m6rC7fRWI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779381533; c=relaxed/simple;
+	bh=QD7nju/7HQbr+8oDecBbqrNydJLdRU8smdgCqhC2FzE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EIjJesQkKIPGv1q1rVpHeRbhgzVo9p6bzudR0AugEvv4zv4hiVlI+4D0IV+QFqvsYhfRscXnYD7QoryD6nNkY9LwZnQvjkpk7SDzLK2cwtMEc9yyQzuu2ie2A3w33fixEdlOyxqEN3lZhLdxdzhbw9pKQD7doeze0MGTBUgsjmQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=fail (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=fVi8EFFb reason="signature verification failed"; arc=fail smtp.client-ip=52.101.72.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nic/eXlg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D3A1F000E9;
-	Thu, 21 May 2026 16:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779381039;
-	bh=3XGStLPF9UJ+wJh0mHFbu3+Wv5kkboH9hCMYV0cX5oM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Nic/eXlgf9Ceo+O8YVvcASt04ZHmxdVjOSYe6eoU3CYqhrUlmUHeZMZzhv0DEZeO8
-	 erA+CsHYxpK2KJNIOA+1txJH1XgTt9SrCfFfl2oknzqmxMeXG+1Y46elHBlngu2fa0
-	 YUv8Upi+SemFZV2Req75qWjHVCZK2lK0R8vdnlytmf6r+ZIZWVxkxmbDAHBp7GoLVr
-	 MUfYSA4viTovtvIDI6xNaFQTBAIGFlzghr+zGuUChRUMeEgPK/SPOXPQTUTGp8isJX
-	 wHcMO1ymdcQq5q+B/km/xezCyXCLXIM2QcCFhH0wP9iysfnPLK5hmGoBIuVKzyM7oZ
-	 QMm7/68KNlAJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] drm/panel: Add driver for Synaptics R63455 DSI
- panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Nie" <jun.nie@linaro.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521-sm8650-7-1-bonded-dsi-v4-5-a4dd5e0850f1@linaro.org>
-References: <20260521-sm8650-7-1-bonded-dsi-v4-5-a4dd5e0850f1@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 16:30:38 +0000
-Message-Id: <20260521163039.30D3A1F000E9@smtp.kernel.org>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="fVi8EFFb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j8pGBJllNCVdaH0TL/8VH+JlpfpbfyV8plU9/bQEkMTkmF8SevWkWeuoYL1lvsO9Dgz0mYpL7E7DJQrFx6MgUHOZTxLZADLm9Ii5csZ2lxdoqDFHUAO0YxCsEhHuehHxLmxGxiAcYjR9woN7xoFib1vke7y5i99UHOQNwTfqwBQ+EUW6ti0kZ4SrSC+1hfhHyXWvZEj/lP97UwPpltCfWYUVM9Ks6PQBo/fkmzDgYD+SfpuQDH6xG5ibPDqT+f/CNJkGeE/j4darST+FAvRKsSDEc+/URw0sSAUbTIlGV7UF4D44LLUGFZhy4MhML8pG5aDcADlYySYKvzsZeRmvyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kSYKlVcnUoqmr60X5ozG8fV843C4VkHLGzRKx1cdENQ=;
+ b=VgtPr//mUhkxzD75AS5t9taHdNSR2OiztaEhKd4pTLMEhgIAp067reJDffiwHU/evu/xUH2lfJZ4BbnrnFcIHGtT26ZfClDMKsx21aLRsV3ePGY87dAhOH43RkDFQB99zxzH3OjYzCrdl/Troqgz3EwcnQEpDuC+chJUl4eIwOY4JX9Y7YRHz7CWC846Z3wI6xyQJsuMTQ2Rmmnw0WyoS4D07RcUTDpfMWwJGXC6Kfxp9mMPaGew0n0cODZPWkncLfI+5eWkz6N1BBNQ5DMOkxyp1NQLOvEal+b0AzE6MPSNaiIpeVkXIJVFHfw+rVHZ5D8pgA/VZD4s0TKPheX1GA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kSYKlVcnUoqmr60X5ozG8fV843C4VkHLGzRKx1cdENQ=;
+ b=fVi8EFFbPYsS042BdSymi6JsTv9+b8CWSq4Ln+1Ek3/vO3iWbaciBfO/FwJphbab/XyIYZhQLSAfA42/YPb54PXbYBhRUfAbI8SBq42fFf6FgvjgIJ+93dsbuVUhAnh+vg70rqaZ6rsfNFuMnJmEwXbP/1okjyZ1ja3guXke43HJh3AWFttiKc4Ey4f0M3W5Xtjpx/wgLsaqhTCIzoMnSM9TngMq7/3klk8XXFgoyOLAFceI4bpTD+cCQYkHRjq1nRgtv70FSjuhSI+PH26XWV/hYQcx6QrW2nNQ1+AEdujjBHHg2YzgmwMaEXWwKURBuNbBu/FQ/OqnI525OvHukw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AS1PR04MB9407.eurprd04.prod.outlook.com (2603:10a6:20b:4d9::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Thu, 21 May
+ 2026 16:38:49 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0048.013; Thu, 21 May 2026
+ 16:38:49 +0000
+Date: Thu, 21 May 2026 12:38:43 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Franz Schnyder <fra.schnyder@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org,
+	imx@lists.linux.dev, conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] arm64: dts: freescale: add Aquila iMX95 support
+Message-ID: <ag81ExSYKmx_WEJ1@lizhi-Precision-Tower-5810>
+References: <20260521-add-aquila-imx95-v3-2-621843807def@toradex.com>
+ <20260521093854.14DAB1F000E9@smtp.kernel.org>
+ <3pcmepn2kr2b2gku33mriosmnim4xd7e75pt2j7i7vnt4awhgg@3cptbxl5u4x5>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3pcmepn2kr2b2gku33mriosmnim4xd7e75pt2j7i7vnt4awhgg@3cptbxl5u4x5>
+X-ClientProxiedBy: SA9PR13CA0130.namprd13.prod.outlook.com
+ (2603:10b6:806:27::15) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS1PR04MB9407:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6040644-37f0-4cf5-fc26-08deb7576f2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|19092799006|52116014|1800799024|11063799006|5023799004|4143699003|18002099003|56012099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	ruq6bQdpG0VkswGLCZTfuFv9pg6ojLvO+ySIvAvz9Mv/TSJEZ+F2Rt6rOi9EwDrjRwNQct3v4cvF1CUWdoWTYNsJ67NymcI7OG8XMlFe/Z3sL+qAgyI3yJcPMgfVG+A2cOtJLYBJDOZLF3NpuY0yHhSZxLr2UFoks+6T5lgE6lF2qmL8jYiwTPm9c4+5dP3BBD28XUrZaPKiz14btNpMF2vTFGI49980oUm6iaRAqobjmOxgVyBWvwdxQjn/vO/fwOG/5mSeV4wicaKS9YaXgcb6cpsgcNRVtasbjFXOQ0eHiliacn11XhfSsXlYL29lGDsmLU5kJ2Y1riX2Gdpnfyw+5LbyRMvbjN2JdisAie9bAQjIUTgtqJTLb8/fdmSRNgWn3yVfTW/aTKIOvGBM4UA+pGEKDepEZ+tU+8CBlQROkeNwx5N9PIGu/+Y6QR3RK+miOHAXqJ7we6IdqUe7H2DyBecyGHejCrOGXT57eGuwhSwvAjmIWbirfi+5MVd6XyliDe4MOhBK3kSOGzmZk2VIdc/V2Bh+6lEXCBBDhU7KL4bPxDMA5UFsLycW3Dl2GrEeYgB4jGAWaL24cHDnqKe999JMdrX/C3EnZ4/d54Giqb/k5d0xC0w+nKLyM/0HaGKtvwRbUwDjP0wAm8pHT7ublc0tgYvtlCjIdsPfwmmSC6syuHG0mJZAaxrI8KSD
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(19092799006)(52116014)(1800799024)(11063799006)(5023799004)(4143699003)(18002099003)(56012099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?mLTN9DX4vn2xI3u24cCvf+5eqfM9Gfq7pZWEmMsjrGVlSeFlFJtCkgRBlj?=
+ =?iso-8859-1?Q?nCzcRhoYDmDkqx6qL57SFuZMRp5dV8uoFKLNpL4Gkga34Akv9GLGZUoqaH?=
+ =?iso-8859-1?Q?PAcqt92cwWO6wpD6jBx2DW0Vr77WzgLAYq190VMbI7GTwqC/hZWNQn+2vP?=
+ =?iso-8859-1?Q?Qud5y8q0XI8KgiBFRyc3DhBesbZe9qeEHXyajDOqM+z0b1Gz1iSCMI+ZYh?=
+ =?iso-8859-1?Q?mw3f8JSHmxNCBUdlCuvjtY/oSwZKb34Ve+NRYeOLKtcIiILfK5iYuAITBa?=
+ =?iso-8859-1?Q?Ng2AdrfXEwTeeOiwtiQhxIm+zICKojZ1ELBlVzfJD0fml1VajDDXwf1mlI?=
+ =?iso-8859-1?Q?DpOc0MCRy0jYOChzxwf/jFOaIr1hcRztM4inKLS0KmqJI2I4DQpkYWFAF2?=
+ =?iso-8859-1?Q?IRCTo62guhnsKX440rnfpjAbdN0+unN9IvdO3dQgeyMp3hakdtQAkpJCld?=
+ =?iso-8859-1?Q?kJru0sLA7eOfXJbjLvrUIB9fqpdJNRyKUca8hANE5iGKlK+WkYbhJl678D?=
+ =?iso-8859-1?Q?rz885ARcOfulybzZgazyI58dbOkBW4rR4oGxYntstFHF/AucZR2+ZRCIne?=
+ =?iso-8859-1?Q?IJBGANMl0z28BMFRzOmbitjCfWybYx85Dc4N6xpnC2Gwdj3ZR09GbuKJtc?=
+ =?iso-8859-1?Q?EwXTOGz5/96HbcWOyev5adFVJsMpM+F19CYmX7MLWFPDCqBytCZbFFrbDy?=
+ =?iso-8859-1?Q?gM0enhDl7bSzh++WHiChBkRCZ8bTUkSeD0kW6BaLY7hZ7BeLMr5kFFHGSC?=
+ =?iso-8859-1?Q?8yEy+MZBFE7S2oqN/zj/Rty/0i6VxmC1prCcVmLPSt0N3lDH8uDSTm5atY?=
+ =?iso-8859-1?Q?Uhnk2Tqiyi5ziGaD3j9ZKniX9t1M15QCMa9yAfRvN+CPAXszaK8AUy19su?=
+ =?iso-8859-1?Q?vVNqVqrx+3XcOa0p1DPG9XfJPcoqST1mO/slrRSFZUXsnj7Up7997J/XIF?=
+ =?iso-8859-1?Q?j2gUiyj7TrxBa1NhJlIXaHLs+O/w6WWmIYlMfKlAnzhK8AswKklZuuxd5U?=
+ =?iso-8859-1?Q?BkILFJQgI5qP75OkumjkkfQP+VnCVNGbEp1JmYU7qoRX/mnrZG3cqa37Y8?=
+ =?iso-8859-1?Q?7mwcHap6LepmjTxSSOeox536t2zJZdW8jXtpjA4fSqp/KwJf0JMgpQ1+nx?=
+ =?iso-8859-1?Q?FDwwrVo5w6/CjsMGD1AdaBqE5QkQZGWhg0t3Zf9KN0xjTkH30gCryuDwxl?=
+ =?iso-8859-1?Q?AogxthHqe3AXI9KmJDIGZvCnffgN7yBagOTwI+xJ3dpzXi9w5kw5XXXYbp?=
+ =?iso-8859-1?Q?b+zb22+K6n+Fn2LRjgL7dfHelXlmSsQ7ChjSHwZorDDIfsuzqJUOlMi+lO?=
+ =?iso-8859-1?Q?IInyMV8dbQvsyv3nQAoL7DUJkuYP5wM+Nr8D7KfSZFox8GoCZaytofzkbQ?=
+ =?iso-8859-1?Q?kO/ql0EARdVgF9f3XknHP9Kp8zDp6B/WGlRcvNRGNC39doA6wALzCpiJOT?=
+ =?iso-8859-1?Q?BH5c3FgO1FVFDJbT/rzBWFeQhQh9EyBDJAFf0kWeKrfzMlIFmX66n/9kV5?=
+ =?iso-8859-1?Q?pijS6uYgW7oh5fm+QjC7pTFs48YGBn991YI435D0G1+qxDxGT30qH8ycDw?=
+ =?iso-8859-1?Q?2Fuxsj54aTRhIIHkuZCILkq3nfOWmK9mEpupq933/Yh46JpsP5pf2VgqqQ?=
+ =?iso-8859-1?Q?nHUL3C8qZBthLl7LbWsFbh+xjn3UGtWDjFFr8DYnPLuqsHrssWotnc19ZQ?=
+ =?iso-8859-1?Q?LdTgWA/ikuLAKcpX2Jf56QErqUxhm0yKmiFCrbDgKgmzDVmMiempUmP3LN?=
+ =?iso-8859-1?Q?kHuBOUsWgqh9mzxb00Xp2v1sPhrzxI82CjU/8C4hzkJWXK?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6040644-37f0-4cf5-fc26-08deb7576f2b
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 16:38:49.0650
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e7UDapA1HJsrhlq/x3h48sGQNugOZNIm/wBXMNRAZRLsKtfSiH0XBE9w5ao70LUsPy2Bmxpd7hn/Umt/lDeeyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9407
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] Incorrect order of error unwinding labels in `r63455_prepare` caus=
-es resource leaks and unbalanced regulator operations.
-- [High] The secondary DSI device registered during probe is never unregist=
-ered, causing a memory and device leak.
-- [High] Endianness extraction macros misuse host-endian functions, resulti=
-ng in reversed byte order on Big Endian architectures.
-- [High] Unconditional access to `ctx->reset_gpios->desc[1]` leads to an ou=
-t-of-bounds array read if only one reset GPIO is provided.
-- [High] Failure of `drm_dsc_setup_rc_params` is logged but ignored, leadin=
-g to division by zero and uninitialized data usage.
-- [High] Backlight updates send DSI commands after the panel has entered sl=
-eep mode, risking hardware timeouts.
-- [High] Premature publication of backlight and panel interfaces leads to u=
-se-before-initialization races.
-- [High] Unprotected concurrent read-modify-write on `mode_flags` causes da=
-ta races.
-- [High] Unaligned pointer cast causes unaligned memory access when packing=
- DSC PPS payload.
-- [Low] Missing Kconfig dependencies for DRM DSC helpers causes build failu=
-res.
---
+On Thu, May 21, 2026 at 12:18:41PM +0200, Franz Schnyder wrote:
+> > > diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
+> > > new file mode 100644
+> > > index 0000000000000..bb4a3631af9ba
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
+> >
+> > [ ... ]
+> >
+> > > +/* Aquila I2S_1 */
+> > > +&sai2 {
+> > > +	status = "okay";
+> > > +};
+> > > +
+> > > +&som_dsi2dp_bridge {
+> > > +	status = "okay";
+> > > +};
+> >
+> > [Severity: Medium]
+> > Will this bridge fail to probe since the DSI input connection is missing?
+> >
+> > Looking at the ti-sn65dsi86 driver in ti_sn_bridge_parse_dsi_host(), it uses
+> > of_graph_get_remote_node(np, 0, 0) and unconditionally returns -ENODEV if the
+> > remote node is missing.
+> >
+> > Since the upstream i.MX95 SoC DSI controller doesn't appear to be implemented
+> > and linked to the dsi2dp_in endpoint yet, should this node remain disabled
+> > until the controller is available?
+> > --
+> > Sashiko AI review · https://sashiko.dev/#/patchset/20260521-add-aquila-imx95-v3-0-621843807def@toradex.com?part=2
+>
+> Hi Frank,
+>
+> This is valid point from the bot.
+> If there is nothing else, I'll send a v4 that removes '&som_dsi2dp_bridge'
+> from the Dev and Clover board, since the node is disabled in the SoM dtsi.
 
-commit b5b6e09241eeff17cb03a31aac27b70f4e5ca911
-Author: Jun Nie <jun.nie@linaro.org>
-Subject: drm/panel: Add driver for Synaptics R63455 DSI panel
+You can post v4 anyway to let sashika check again. It is always quicker then
+my manual check.
 
-This commit adds support for the DSI panels used in the virtual reality
-device. The device features two physical panels, each providing a MIPI DSI
-interface and a built-in LED backlight, and exposes a single logical panel
-to the DRM framework.
+Frank
 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-[ ... ]
-> @@ -1185,6 +1185,15 @@ config DRM_PANEL_SYNAPTICS_TDDI
->  	  namesake, with varying resolutions and data lanes. They also have a
->  	  built-in LED backlight and a touch controller.
-> =20
-> +config DRM_PANEL_SYNAPTICS_R63455
-> +	tristate "Synaptics R63455-based panels"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	help
-> +	  Say Y if you want to enable support for panels based on the
-> +	  Synaptics R63455 controller.
-
-[Severity: Low]
-Does this need to select DRM_DISPLAY_DSC_HELPER or DRM_DISPLAY_HELPER?
-The driver calls drm_dsc_set_const_params and other DSC helpers, which
-might cause link-time failures if the helper infrastructure is not built.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/panel/panel-synaptics-r63455.c b/drivers/gpu=
-/drm/panel/panel-synaptics-r63455.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-synaptics-r63455.c
-[ ... ]
-> +#define r63455_dsi_write_buffer(ctx, dsi_ctx, d)					\
-> +	do {										\
-> +		dsi_ctx.dsi =3D ctx->dsi[0];						\
-> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
-> +		dsi_ctx.dsi =3D ctx->dsi[1];						\
-> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
-> +	} while (0)
-> +
-> +#define LE16_BYTE0(val) (le16_to_cpu(val) & 0xff)
-> +#define LE16_BYTE1(val) ((le16_to_cpu(val) >> 8) & 0xff)
-
-[Severity: High]
-Are these macros extracting the correct bytes on big endian architectures?
-Using le16_to_cpu() on a native integer constant swaps the bytes on big
-endian systems. Applying the bitwise operations afterward will extract the
-most significant byte instead of the least significant byte. Would standard
-bitwise shifts be safer here?
-
-[ ... ]
-> +static int r63455_dsi_populate_dsc_params(struct r63455_ctx *ctx)
-> +{
-> +	int ret;
-> +	struct drm_dsc_config *dsc =3D &ctx->dsc_cfg;
-[ ... ]
-> +	/* handle only bpp =3D bpc =3D 8, pre-SCR panels */
-> +	ret =3D drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
-> +	if (ret < 0)
-> +		DRM_DEV_ERROR(ctx->dev, "failed to setup dsc params\n");
-> +
-> +	dsc->initial_scale_value =3D drm_dsc_initial_scale_value(dsc);
-
-[Severity: High]
-Should this return early if drm_dsc_setup_rc_params() fails? If execution
-continues, the driver will use uninitialized DSC configuration parameters.
-Because values like initial_xmit_delay might remain zero, it can result in
-a division by zero when calculating final_scale inside
-drm_dsc_compute_rc_parameters().
-
-> +	dsc->line_buf_depth =3D dsc->bits_per_component + 1;
-> +
-> +	return drm_dsc_compute_rc_parameters(dsc);
-> +}
-[ ... ]
-> +static int r63455_panel_on_sharp_ls026b3sa06(struct drm_panel *panel)
-> +{
-> +	struct r63455_ctx *ctx =3D panel_to_ctx(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
-> +
-> +	u8 pps_cmd[1 + sizeof(struct drm_dsc_picture_parameter_set)];
-> +
-> +	drm_dsc_pps_payload_pack((void *)&pps_cmd[1], &ctx->dsc_cfg);
-
-[Severity: High]
-Can this unaligned pointer cause alignment faults? Passing &pps_cmd[1] forc=
-es
-the base address to be odd. Since drm_dsc_pps_payload_pack() treats the
-pointer as a struct and performs 16-bit stores to its fields, this might
-trigger alignment panics on architectures that strictly enforce memory
-alignment.
-
-[ ... ]
-> +static int r63455_set_brightness(struct r63455_ctx *ctx, u16 brightness,
-> +				  u16 pulse_offset_rows)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
-> +	u16 gpo1_tew1;
-> +
-> +	gpo1_tew1 =3D brightness > BRIGHTNESS_MAX_120 ?
-> +		    BRIGHTNESS_MAX_120 : brightness;
-> +
-> +	ctx->dsi[0]->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-
-[Severity: High]
-Can this read-modify-write of mode_flags race with the similar modifications
-in r63455_enable() and r63455_disable()? Because set_brightness() is called
-from sysfs context and enable/disable from DRM commit context, concurrent
-access might corrupt mode_flags and drop critical settings like
-MIPI_DSI_MODE_VIDEO.
-
-> +	ctx->dsi[1]->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-[ ... ]
-> +static int r63455_disable(struct drm_panel *panel)
-> +{
-> +	struct r63455_ctx *ctx =3D panel_to_ctx(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
-> +
-> +	ctx->dsi[0]->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +	ctx->dsi[1]->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_DISPLAY_OFF);
-> +	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_TEAR_OFF);
-> +	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_ENTER_SLEEP_MODE);
-> +
-> +	mipi_dsi_msleep(&dsi_ctx, 200);
-> +
-> +	if (dsi_ctx.accum_err)
-> +		return dsi_ctx.accum_err;
-> +
-> +	return backlight_disable(ctx->backlight);
-
-[Severity: High]
-Is it safe to disable the backlight here? The backlight_disable() function
-calls r63455_set_brightness(), which will send DSI configuration commands to
-the panel. Doing so after sending MIPI_DCS_ENTER_SLEEP_MODE violates the DSI
-hardware contracts and might cause bus timeouts or hardware crashes.
-
-> +}
-> +
-> +static int r63455_unprepare(struct drm_panel *panel)
-> +{
-> +	struct r63455_ctx *ctx =3D panel_to_ctx(panel);
-> +	int ret;
-> +
-> +	gpiod_set_value(ctx->reset_gpios->desc[0], 0);
-> +	gpiod_set_value(ctx->reset_gpios->desc[1], 0);
-
-[Severity: High]
-What happens if the device tree only provides a single reset GPIO? If ndescs
-is 1, accessing desc[1] will read past the end of the flexible array,
-resulting in a garbage pointer dereference.
-
-[ ... ]
-> +static int r63455_prepare(struct drm_panel *panel)
-> +{
-> +	struct r63455_ctx *ctx =3D panel_to_ctx(panel);
-> +	int ret;
-[ ... ]
-> +	msleep(20);
-> +	gpiod_set_value(ctx->reset_gpios->desc[0], 1);
-> +	gpiod_set_value(ctx->reset_gpios->desc[1], 1);
-> +
-> +	return 0;
-> +
-> +bl_off:
-> +	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_bl), ctx->reg_bl);
-> +vdda_off:
-> +	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_vdda), ctx->reg_vdda);
-> +bias_off:
-> +	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_lcd_bias_pos),
-> +			       ctx->reg_lcd_bias_pos);
-> +	return ret;
-
-[Severity: High]
-Are these error labels in the correct order? They appear to fall through
-sequentially rather than unwinding in reverse. If reg_vdda fails to enable,
-the jump to bl_off will disable the backlight, but then incorrectly fall
-through to vdda_off and bias_off. This causes regulators that were never
-enabled to be disabled, and completely skips disabling regulators that were
-actually enabled.
-
-> +}
-[ ... ]
-> +static int r63455_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev =3D &dsi->dev;
-> +	struct r63455_ctx *ctx;
-> +	struct mipi_dsi_device *dsi1_device;
-[ ... ]
-> +	dsi1_host =3D of_find_mipi_dsi_host_by_node(dsi1);
-> +	of_node_put(dsi1);
-> +	if (!dsi1_host) {
-> +		DRM_DEV_ERROR(dev, "failed to find secondary dsi host\n");
-> +		return -EPROBE_DEFER;
-> +	}
-> +
-> +	dsi1_device =3D mipi_dsi_device_register_full(dsi1_host, &info);
-
-[Severity: High]
-Does this dynamically allocated dsi1_device need to be unregistered? There
-is no call to mipi_dsi_device_unregister() in the error paths below or in a
-remove callback for the driver, which could cause a permanent device and
-memory leak when the module is unloaded or fails to probe.
-
-> +	if (IS_ERR(dsi1_device)) {
-> +		DRM_DEV_ERROR(dev, "failed to create dsi device\n");
-> +		return PTR_ERR(dsi1_device);
-> +	}
-[ ... ]
-> +	ret =3D r63455_panel_add(ctx);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(dev, "failed to add panel %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	for (i =3D 0; i < 2; i++) {
-> +		dsi_dev =3D ctx->dsi[i];
-> +		dsi_dev->lanes =3D 3;
-> +		dsi_dev->format =3D MIPI_DSI_FMT_RGB888;
-> +		dsi_dev->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
-> +			MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +		ret =3D devm_mipi_dsi_attach(dev, dsi_dev);
-
-[Severity: High]
-Does calling r63455_panel_add() before devm_mipi_dsi_attach() expose the
-backlight sysfs interface too early? If userspace writes to the brightness
-node before the DSI lanes and formats are configured and attached, it could
-trigger a DSI transfer on an unattached device and crash the system.
-
-> +		if (ret < 0) {
-> +			DRM_DEV_ERROR(dev, "dsi attach failed i =3D %d\n", i);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-sm8650-7-1=
--bonded-dsi-v4-0-a4dd5e0850f1@linaro.org?part=3D5
+>
+> Thanks,
+>
+> Franz
+>
+>
