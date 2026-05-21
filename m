@@ -1,136 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE18253B58
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:26:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFFD3CE0A2;
+	Thu, 21 May 2026 12:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779366407; cv=none; b=hFthYtbTEf2VEEVa6fz8MtDxK3F6iVHq1JmU88CwysbcbeZUvBzNDvoxsOHxjYkRSpcueKmojm8xIel92vqNDyoBgQSBJQa0ioAzZexZcrsBJ90P0b7CsqdBmHf5nRQUZM0ai1pi2gYNBzelbB6o2fnMOGeDuwVIVBcuwZIfMYY=
+	t=1779366514; cv=none; b=jhC9GZUH085cuFZJ43Xtzp9YkfP7Qv11IJQltziZ8JXCOuJOPcPCp9ffQN5g1XR03Tyl5UK4fHytM2PWNqyN3wkaVOpBZh2ZvzJUO17lp3gwQ8nV4ebQLPvUQfLd2BEggK59Y9Ae+5CsvY+lUZN8HEioD2Qm5uQlIKDWe0pQrV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779366407; c=relaxed/simple;
-	bh=XGcJFG4NNMjRr672lqvNFdRK3bTHQAE0+PBXEom8bdU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iELyQnpVMRmwWto6WU33CKHsmEYKeeo5az2mg83Xiss7uvLxqfZQKHptwy9/w9vAIqc9TpBKztplEkt+xfWM7ygjpCjCaPGz3BOdHHiQe9AkPjWPfwvnoGjpmzC7DWMGTfNJ05m2S+adJplfH++EuTVX9ZJ0WRKHaFMIFz/a4z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfhaboA9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779366514; c=relaxed/simple;
+	bh=TKIdjWtuJbDwOtSpj7b/Zh2d8/ZrukOOq3vxnWkUsXo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LC/T+GBcn2LJTo143T9NAiVUqFZrmIBZH6xe33pnQY01Z/tBb5lr9iEPC9MUNT/YIDFnl6Gf6g+JIhruosMB8BAX3o9zPddwUxJFPtVI+vM0WYmMtEHcxs3ydU1ioNqGWO785uj8yfejU3tzQ+q1piFx7XbgNvj5Vg7HaLwA8Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M82Y8mbU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfhaboA9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF9B1F000E9;
-	Thu, 21 May 2026 12:26:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779366406;
-	bh=OvDFq5XEEgMTnKGhPgesSQVIRyh9hqz8jmzhcbLDZqI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BfhaboA9O5hT66o8hn3f4B3T/UvTFzCMsJMkFWz5u2RZkOft9wc72aqxLq+GoK4B9
-	 gCY2+nypfPJUto+co8QP8eHQG0sa7wkmoKftIi6WIfYrYj4xOmq2MXXhHJSeTyqSYI
-	 d+gXWwlvv7t9NdElVkxrID+Fe2ZGB21nY514poQgPMqYW/hEWK7baqU9SRgt+7bzzT
-	 LNDmFfe7K3PRZqGxcS76Tg8DhktLEg5weNX8OHEGXK86OcIZiUOx6wIIaVYHt5tnbU
-	 FlC+u+DmGGYjfW6aJDtjNbaGx2+KnTkzwxxDUdyMMTkpR5/4yFXqzEL0THwqhymQsZ
-	 hU+6d1Y3V13NA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, robh@kernel.org
-In-Reply-To: <20260521-x1e-csi2-phy-v6-1-9d73d9bd7d20@linaro.org>
-References: <20260521-x1e-csi2-phy-v6-1-9d73d9bd7d20@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 12:26:44 +0000
-Message-Id: <20260521122645.3EF9B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M82Y8mbU"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L99vdb2491833;
+	Thu, 21 May 2026 12:28:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yuqEmGmJ+dJ3AxgG2mfeA7Qr
+	FNd0O3Iro8nSgbOpzyc=; b=M82Y8mbUuGWX2Ot47bzdbq1nU29gYG0iNMYxa81M
+	aPAS+DNjMcGMz7OPMnkKhYHMBMe2gHJ0ugHncLRRggiZ8X48l0n3KcxnxLbtrK6X
+	7qBMpAn/V0Xgi2UURRm2AgzBxZX8f4fOy9DxQ1POsUaHzJGcrSUAEma8HULUX23F
+	DoCesnTnIpRiKUGx3JlCV1wEiSE2sMlV+G0kzje88Tgy4S0k+BsXI+LEM+Rb38ib
+	5ev8pnXTjtvNUyY4wLDYOu7CgP5Z7ejhS+HNWSkFe6cVCH7MSnew1yrL0xwiThGq
+	uBh+iLyrVlsGTLesEDLoWM+j9Rt66PRn5R2iWjksPRifKQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9e9j4xs2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 21 May 2026 12:28:30 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64LCSROI007036;
+	Thu, 21 May 2026 12:28:27 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4e716e9whx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 21 May 2026 12:28:27 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64LCSQBj007030;
+	Thu, 21 May 2026 12:28:26 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 64LCSQVu007029
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 21 May 2026 12:28:26 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id F3181B36; Thu, 21 May 2026 17:58:25 +0530 (+0530)
+Date: Thu, 21 May 2026 17:58:25 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH 0/2] qcom_battmgr: Add batteryless DC-adapter MAINS
+ support
+Message-ID: <20260521122825.tfntz6vu4omvwa6t@hu-kotarake-hyd.qualcomm.com>
+References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
+ <56a54a34-1040-44ae-92e2-ce65a3d3acb5@oss.qualcomm.com>
+ <20260519065938.4i5wot72pfxy4m3d@hu-kotarake-hyd.qualcomm.com>
+ <91832aec-22f0-4244-9989-39bbd8defb24@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <91832aec-22f0-4244-9989-39bbd8defb24@oss.qualcomm.com>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=bfhbluPB c=1 sm=1 tr=0 ts=6a0efa6e cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=4BUObyQTvJTuzYX1E2EA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: ZyP4ISlPXVNytaebekqwfsHSp8xYGYni
+X-Proofpoint-ORIG-GUID: ZyP4ISlPXVNytaebekqwfsHSp8xYGYni
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDEyNSBTYWx0ZWRfXxG3PB/k9roOg
+ a+7XVTJSJ3RbeAmCegj4H+zpBBwjwp/BgxlxrKYU1/YD6MNEVKx9RyKfX82x6w2qnQLsdw06y7i
+ ixYl+txudgneDkUBEsE9zOxpL4W2XZ00ZaZIFAuoKUNPz+W+vpuwOFs0p5YNVN01bPccvV/vlVZ
+ wm7xslbznB/3maftjWwS5q6Bxb63jDAP2s5zFdHihqgqBPFD+lH7YgJKH4PnDaKUT7fqsJktjqf
+ M78R36zOeosgcYqcHSQQg2OPY0Ryr/lT+09QXQ4UoD5D8z4eVgT6H5f4BW4V2MUSrAYusjc033Z
+ dTgYfKrX5srceGp6WloBGEy3OQmw3jhisB6e7W0KGlvhZXZzAbSyP/hYW0Wa4f0UK1GYtymRaph
+ +ET3rpvRf0QAaITroRIacCbIbQwJ4+CdTDaEcuaeXkVyiD3/Kk92nASS9uoIWW50T/t0Ht1/QXW
+ NJS0O+h7Fq8waV7UiUw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-21_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 adultscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605210125
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The schema unconditionally requires `clock-lanes` for `port@0`, =
-which incorrectly breaks C-PHY configurations.
-- [Low] The example device tree node is missing required `data-lanes` and `=
-clock-lanes` properties in the `port@0` endpoint.
---
+On Tue, May 19, 2026 at 12:58:06PM +0200, Konrad Dybcio wrote:
+> On 5/19/26 8:59 AM, Rakesh Kota wrote:
+> > On Mon, May 18, 2026 at 04:36:32PM +0200, Konrad Dybcio wrote:
+> >> On 5/18/26 3:49 PM, Rakesh Kota wrote:
+> >>> On batteryless boards powered by 12V DC adapters, registering the
+> >>> power supply as BATTERY causes userspace to incorrectly trigger
+> >>> battery power-saving sequences.
+> >>
+> >> Does battman really offer no way of differentiating whether a battery
+> >> is *actually* present in such cases?
+> >>
+> >> What boards are affected?
+> >>
+> > Currently, batteryless support is only implemented for the
+> > qcs6490-rb3gen2(Kodiak) board.
+> 
+> Does the firmware report anything obvious that would point to this not
+> being a battery, e.g. design_capacity = 0?
+>
+No. The firmware identifies the 10k Batt-ID resistor (which mimics a
+physical battery) and hardcodes capacity and status values to
+ensure boot stability. It does not report 0 capacity, as doing so would
+trigger an immediate system shutdown.
 
-commit bec75335fd5214a065f090cefeb28f9c895cfd3c
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-
-dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-
-This commit adds a new base devicetree schema for Qualcomm MIPI CSI2 PHY=20
-devices, initially for the x1e80100. It supports CPHY, DPHY, and DPHY split
-modes across three ports, allowing per-PHY voltage rails to be individually=
-=20
-defined and required.
-
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy=
-.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> new file mode 100644
-> index 0000000000000..c9116246c1e9e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-[ ... ]
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        description: Sensor input. Always present.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +              clock-lanes:
-> +                maxItems: 1
-> +              remote-endpoint: true
-> +            required:
-> +              - data-lanes
-> +              - clock-lanes
-
-[Severity: Medium]
-The commit description mentions the PHY supports both C-PHY and D-PHY modes.
-Since C-PHY embeds the clock signal within the 3-phase data lanes, there is=
-n't
-a separate physical clock lane. Does requiring clock-lanes unconditionally
-here break configurations that need to use C-PHY mode?
-
-> +              - remote-endpoint
-[ ... ]
-> +examples:
-> +  - |
-[ ... ]
-> +        ports {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            port@0 {
-> +                reg =3D <0>;
-> +                csiphy0_in_ep: endpoint {
-> +                    remote-endpoint =3D <&sensor_out>;
-
-[Severity: Low]
-The schema definition above explicitly requires data-lanes and clock-lanes =
-to
-be present in the port@0 endpoint. Will omitting them from this example cau=
-se
-a validation failure when running dt_binding_check?
-
-> +                };
-> +            };
-> +
-> +            port@2 {
-> +                reg =3D <2>;
-> +                csiphy0_out_ep: endpoint {
-> +                    remote-endpoint =3D <&controller_in>;
-> +                };
-> +            };
-> +        };
-> +    };
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-x1e-csi2-p=
-hy-v6-0-9d73d9bd7d20@linaro.org?part=3D1
+regards
+Rakesh
+> Konrad
