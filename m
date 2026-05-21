@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D952338331F
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:19:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E933E0720
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:19:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779369575; cv=none; b=eeqM7ySzI5wUqIE6oU4K85L2mh+vYnLmxKnk+nl5Fx/txJ1jycPVv5cCMkiqB0yuIIHt+CxT+Qv/wMvprRhPEPwruDhcr/RtQDVWgkWPyEWljX0mXhD89fhhlEZb8X3yfF51TObPyOi4EDBMdMUMSOmrfsh1J5Op8N9ZkaXHLl0=
+	t=1779369576; cv=none; b=K5c5rvzzA1E3cOLzZC5b6YT9HzwcKZ+4zW6hR6ykiDj5WLzk5mtq23YE8yPebmHvpNRGde+2a9BYV+KOorxMTLVQhRrhZV4tEWr9cBVXSThfKmJjCN3ZzWcmeCYf5glpmhrre+c512afS84G85A2Whpf+0atZqDP+ORBlpZQxQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779369575; c=relaxed/simple;
-	bh=kHws44ZUcTJjl90LJ/hi6/YawafU8uOzK+oXH2N2P28=;
+	s=arc-20240116; t=1779369576; c=relaxed/simple;
+	bh=GvOopbuZgOx6H3EWaO/yxnhLUagCrjUODOcUeKfWPUM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o2EeHNiSzY9is8OU3bUJNXQ7Gn4TvAwmFHJwt7oMomxI1d6ZbVJfAvhqkSkrdpn+focSnGl4H6kf2WgHUUgWTfdaa2jeVdJOGRX6rKUYki15pDw0/wCH132vb3y0qr6/HHCicmmBFgK3XoBAWFKgf/nQh3p16tfMwhw+PABpEow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnLC0/Jd; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZbGKfWkPg+YQhqClAIdbQreTQxQw/p92hJha/kxLHLlr7ndF9ZGtgLqRqkcmGaYpbLtfZQt1v0bWhtlHgg6rwfO/SQ29K+HOY9XpyIuqoLmzB9duQJiGgxM48UXECu50QKD0TnEcrnVbD3rbEMczivd7Fx9rpUCCuZV1gSYHm5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ftnsNh7e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnLC0/Jd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E491F000E9;
-	Thu, 21 May 2026 13:19:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ftnsNh7e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F881F00A3B;
+	Thu, 21 May 2026 13:19:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779369573;
-	bh=YF9BlpKLUqi2XZvUIpDDopex0TwT353eX3z8jKO2kfA=;
+	s=k20260515; t=1779369574;
+	bh=IoJn53ApRpASxBhXvJjp1njT92dMVKWAuU/QkFXrGyA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bnLC0/JdutMvB+iVtycmcMs8phGpOfZ9oHCMORh8xBuWssj/CTbcYqVtXBHbk5zbS
-	 a3eEFLyUp/T58s8Wlo+Ac5kbKJWDiBbm2MT7RH4gjX2OxrbC1wcaN6Y4u0SGxLK8vA
-	 vL+VZFQEmCsqK8HswY0T/PE7ibzz5fp3XzcesDtecnpB9iX+NZw2GwZ0Njj2W3A+r2
-	 UeQdx7NHABGvh3wLMUIVi9MEfr9eriAqzRtZ/z3KtSQaZP9JsrXu4kO7K+lLMrXkm4
-	 w60TJxSAC9BNfEIoEYFR8AKhcB6n6kHx2TNndQyHCpJ59U4DGRMJ1jpf1H+qMLEg28
-	 x434OY4jp0MrA==
+	b=ftnsNh7e1SaxP/RO2NNLGvvZ5T+x0s3OCi7Jiv3yt+fT1/ry1K58dALxanESY/tTA
+	 Ee635YnorN69MxvdiYxsJ7kv0baQN1IYBuWTxgirRELtZMbHxT4s0xKiPtsUlb2omx
+	 LKKblWXjPAk9GbVukedFfQCorxgyuUPB73d9/BT/dBR7kKHE8BBW1jU85WCPDJbRan
+	 Yu1U7lYeg0lEs6crtamYfCKqn/JFq/SRwVRNR2EH9LurOJqytPM7DTPVeDFKJOnn86
+	 3NYP2+M8APgFUM1s2oRfa2mU6nfVN6AFBHomIhEe27u0mPVcndRYD0gbLiaBvZLxy7
+	 XZm4w/LBmYo1Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 01/22] media: mc: Add INTERNAL pad flag
+Subject: Re: [PATCH v12 07/22] dt-bindings: media: i2c: max96712: add
+ support for I2C ATR
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dumitru Ceclan via B4 Relay" <devnull+dumitru.ceclan.analog.com@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521-gmsl2-3_serdes-v12-1-b26d92931196@analog.com>
-References: <20260521-gmsl2-3_serdes-v12-1-b26d92931196@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521-gmsl2-3_serdes-v12-7-b26d92931196@analog.com>
+References: <20260521-gmsl2-3_serdes-v12-7-b26d92931196@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 13:19:32 +0000
-Message-Id: <20260521131933.37E491F000E9@smtp.kernel.org>
+Date: Thu, 21 May 2026 13:19:34 +0000
+Message-Id: <20260521131934.66F881F00A3B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,125 +46,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The fallback logic in `media_entity_get_fwnode_pad()` was not up=
-dated to ignore internal pads, mapping external endpoints to internal pads.
-
-Pre-existing issues:
-- [High] The error path in `media_create_pad_link()` causes `num_links` cou=
-nters for both the source and sink pads to underflow.
+- [Low] The `i2c-atr` node allows child nodes (`^i2c@[0-3]$`) with a `reg` =
+property, but fails to make `#address-cells` and `#size-cells` required in =
+the parent node.
+- [Low] The `reg` property under the `i2c-atr`'s `^i2c@[0-3]$` child nodes =
+applies invalid numeric constraints and lacks a `maxItems: 1` constraint.
 --
 
-commit fcec98f088400370f507804a947df270add985d6
-Author: Sakari Ailus <sakari.ailus@linux.intel.com>
+commit 8c55c178a378c597e61e804da4b186def25c5a4c
+Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-media: mc: Add INTERNAL pad flag
+dt-bindings: media: i2c: max96712: add support for I2C ATR
 
-Internal sink pads will be used as routing endpoints in V4L2 [GS]_ROUTING
-IOCTLs, to indicate that the stream begins in the entity. Internal sink
-pads are pads that have both SINK and INTERNAL flags set.
+This commit adds I2C ATR support for the MAX96712 and MAX96724 deserializer=
+s.
+It documents the ability to change I2C addresses for connected serializers =
+to
+avoid conflicts when they share the same CFG pin configuration.
 
-Also prevent creating links to pads that have been flagged as internal and
-initialising SOURCE pads with INTERNAL flag set.
-
-> diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-> index 3fa0bc687851b..7938f785e2e3c 100644
-> --- a/drivers/media/mc/mc-entity.c
-> +++ b/drivers/media/mc/mc-entity.c
-[ ... ]
-> @@ -1148,6 +1154,9 @@ media_create_pad_link(struct media_entity *source, =
-u16 source_pad,
->  		return -EINVAL;
->  	if (WARN_ON(!(sink->pads[sink_pad].flags & MEDIA_PAD_FL_SINK)))
->  		return -EINVAL;
-> +	if (WARN_ON(source->pads[source_pad].flags & MEDIA_PAD_FL_INTERNAL) ||
-> +	    WARN_ON(sink->pads[sink_pad].flags & MEDIA_PAD_FL_INTERNAL))
-> +		return -EINVAL;
+> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.y=
+aml b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
+> index 583bbd60157c6..abacc3c874a9f 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
+> @@ -36,6 +36,30 @@ properties:
 > =20
->  	link =3D media_add_link(&source->links);
->  	if (link =3D=3D NULL)
-
-[Severity: High]
-This is a pre-existing issue, but does the error path in media_create_pad_l=
-ink()
-cause the num_links counters for both the source and sink pads to underflow?
-
-If the forward link is allocated but the backlink allocation fails, the err=
-or
-path calls __media_entity_remove_link(source, link):
-
-drivers/media/mc/mc-entity.c:media_create_pad_link() {
-    ...
-	backlink =3D media_add_link(&sink->links);
-	if (backlink =3D=3D NULL) {
-		__media_entity_remove_link(source, link);
-		return -ENOMEM;
-	}
-    ...
-}
-
-Inside __media_entity_remove_link(), it unconditionally decrements
-link->source->num_links and link->sink->num_links for data links:
-
-drivers/media/mc/mc-entity.c:__media_entity_remove_link() {
-    ...
-	if ((link->flags & MEDIA_LNK_FL_LINK_TYPE) =3D=3D MEDIA_LNK_FL_DATA_LINK) {
-		link->source->num_links--;
-		link->sink->num_links--;
-    ...
-}
-
-Because these struct media_pad link counters are only incremented at the ve=
-ry
-end of media_create_pad_link(), they haven't been incremented yet. Will the=
-se
-decrements cause the unsigned 16-bit integers to underflow to 65535, corrup=
-ting
-the internal state of the media graph?
-
-> diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
-> index 1c80b1d6bbaf3..80cfd12a43fc1 100644
-> --- a/include/uapi/linux/media.h
-> +++ b/include/uapi/linux/media.h
-> @@ -208,6 +208,7 @@ struct media_entity_desc {
->  #define MEDIA_PAD_FL_SINK			(1U << 0)
->  #define MEDIA_PAD_FL_SOURCE			(1U << 1)
->  #define MEDIA_PAD_FL_MUST_CONNECT		(1U << 2)
-> +#define MEDIA_PAD_FL_INTERNAL			(1U << 3)
+>    enable-gpios: true
 > =20
->  struct media_pad_desc {
->  	__u32 entity;		/* entity ID */
+> +  i2c-alias-pool:
+> +    maxItems: 4
+> +
+> +  i2c-atr:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
 
-[Severity: Medium]
-Was the fallback logic in media_entity_get_fwnode_pad() updated to ignore
-internal pads?
+[Severity: Low]
+Since the i2c-atr node allows child nodes (^i2c@[0-3]$) with a reg property,
+shouldn't #address-cells and #size-cells be explicitly listed in a required
+block under i2c-atr?
 
-Since internal sink pads also have the MEDIA_PAD_FL_SINK flag set, the fall=
-back
-logic (used when a driver lacks a get_fwnode_pad operation) searches for the
-first pad matching the requested direction flags:
+Omitting them allows an incomplete device tree missing these parsing
+properties to silently pass schema validation.
 
-drivers/media/mc/mc-entity.c:media_entity_get_fwnode_pad() {
-    ...
-	if (!entity->ops || !entity->ops->get_fwnode_pad) {
-		for (i =3D 0; i < entity->num_pads; i++) {
-			if (entity->pads[i].flags & direction_flags)
-				return i;
-		}
-		return -ENXIO;
-	}
-    ...
-}
+> +    patternProperties:
+> +      '^i2c@[0-3]$':
+> +        $ref: /schemas/i2c/i2c-controller.yaml#
+> +        unevaluatedProperties: false
+> +        properties:
+> +          reg:
+> +            items:
+> +              minimum: 0
+> +              maximum: 3
 
-If an internal pad appears before external pads in the array, won't it
-incorrectly match and return the internal pad?
+[Severity: Low]
+Does this correctly constrain the reg property?
 
-Any subsequent attempt to establish a link to this fwnode pad (e.g., via
-v4l2_create_fwnode_links_to_pad()) would then trigger the new WARN_ON in
-media_create_pad_link() and fail with -EINVAL, breaking initialization for
-new drivers utilizing internal pads.
+In dt-schema, the reg property is parsed as an array of arrays. Applying
+items constraints to minimum and maximum attempts to enforce numeric limits=
+ on
+the nested elements, which standard JSON Schema ignores for arrays, making =
+it
+a silent no-op.
+
+Should this instead use maxItems: 1 to constrain the matrix length, while
+relying on the unit-address regex pattern (^i2c@[0-3]$) to natively enforce
+the bounds?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-gmsl2-3_se=
-rdes-v12-0-b26d92931196@analog.com?part=3D1
+rdes-v12-0-b26d92931196@analog.com?part=3D7
