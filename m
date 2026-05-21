@@ -1,388 +1,131 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D5C39A7E7
-	for <devicetree@vger.kernel.org>; Wed, 20 May 2026 23:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96EC3438AD
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 00:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779321542; cv=none; b=enph3t261gf29Im1ubJg8heZg4Ua3wDnpJzLsS2iSnnX8k042OiSMCXFbQAeYb/T3Q8hl6/ufpAHAlrUojzWAwG+ntnux8GVXiJOvgFrP4+oL3v0QpIwc0yX+BeUOTIGK6qC3GPqdT0n5ZMBXoJfcKcsHJF9+Srb6jxobw2vV4I=
+	t=1779322111; cv=none; b=uf62RsQeCXi3ueXhPThbsGgbR5deafiiVNkVdh65OSZFWZrpd6DtUMi9DfWwWvU8i8EIQS974rYlE4S9huhTJ5bH2PvMtiNeWas1mI9Y5c6ekc++houdM8coF4rf8DuHBiMyuK9Utpw0OTAXGJMuvI6c151QJeBJ5lLE5i1QvK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779321542; c=relaxed/simple;
-	bh=joPSnpUtrDJM3RSpJxT3RlTsp7Yuvzim4L7lc4TnBTg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PCUNn2M2SPDBUvElSrnRBntaISWK2Xclql5m6bGt3qgRtM/Ahrw8yqlorp4RWGLAKarqQUc2lWBp1fKRmeH6elalPsFl1GwC8x5D9JgTRec3PyRRYGPeOiQCLOHpVYscnuWZSgYv0IQtQ7P4tHoDGESbLV9vnluy6ljq/WIFdeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=BgYPaL4a; arc=none smtp.client-ip=209.85.208.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1779322111; c=relaxed/simple;
+	bh=fpvsrygDjVJKL5DyPbt5RnUyn33jGdEJNAOLAJHBrtc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MSp6no8O8w7NV7CO2p8o1Rm7vGWxhW6avvHpNzUvHx2+xRE5zOsTsFtNVlc/OkgOOIjIA1tb3Ixufw/Qje1kBdeBZu+IuHFyuN55jNs2R/KMl+jTAz6yxswuf+0MtmVEVnAvS0Je5GwBi+9e5KO1wUZyvxhUM3P1CIQbrpVdj8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJAVO9dX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="BgYPaL4a"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-393da8f389bso51127581fa.1
-        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 16:59:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1779321539; x=1779926339; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BEhywNjRyQXniz/pcQ13Co3tXpnmGzhcmCEno154HXY=;
-        b=BgYPaL4aY4WaQTaVLYH6EXoIqgGHH1c50q6rY5qwy77W19wTTQTQdWm679F1X+uS2W
-         /cDGlF/P/g1I+RzD4HxufmQ698Bv6rW4SIEWBGXMbESdTJIG7GkNOaX/mXar+mDf2hQ2
-         RR+h1C+j81OOOKjKawzD6ka3HdK42CP6XJ+XkrPBeXEnN8x43Si+2DDuVTYDVnxyZsDm
-         34rgyKzSxl4zT257u7ZAGzU8ToYOzpF9jEr9ggPMJqzcUoMecedwT8VCWj4x2hxBzk8S
-         Zoky3NV6SVQsdFJK2iEfOijvGuTY4CbccTde59RmlsM01eY3CTqBfrupCJ+wdgwS9fTq
-         fTWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779321539; x=1779926339;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BEhywNjRyQXniz/pcQ13Co3tXpnmGzhcmCEno154HXY=;
-        b=sYsuHjg6s35DE/+NQvXpCT8TkL+SXgrAvah0wD9k9r2txgo8jnZw5q90OCn/1R0t9D
-         QoOe22h3T2Bl4L5w/6wbuRSkqcrfbnw+ViyDfNFx2YyPVTDiBvpWdrfPmvTLMJ+gVpgK
-         6CvorUVkz7+hExcHyc9m5yHut0ljzZXXuhic3GJFkjYi0NUIRmvusuz8OHUyXHBCXKsN
-         UvVgpn7+/o3IoJpM0ASG5CRHKkTIQTHIDlGIP5kLb2wlKF6H6l2PAIicWgTbIzrH772P
-         y1Htdgcmx9hD2xXGLqMg+wvSmS2VfuQgDUBopXLcfAnqFzuIwGIQs+0syZ5zYVpl8JRJ
-         e41w==
-X-Forwarded-Encrypted: i=1; AFNElJ+/un8Uq4beD4aXqUOKmXgNX3QbtEl7iz17zGQPK+0AnpFjSc+bstdh6alTSIKeDRL0XwcHdyvgPQvR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxjLP6m+vG2pK1yRihjWcr8k1uWZ4ZELznEpPEjjzFpSVsr8/jD
-	pac77RJ9Pzg5sEr7o9ttD4XIH+cYdC2O/shTrFibwyAHcoEGfxXPJ5Tt1I2JfyqbnKo=
-X-Gm-Gg: Acq92OHFLtuPMBqY1SmNrdJb1DTwj9E+EZ8hBWkc5KYrdTcM8geTq3QI7Ip+5zZZ825
-	9AEfejEuhjb9p8DPGPlDMZYpTsbGupScS8YJ5VCKs+iXDOOK/zI3BYLFua9mhO3tWFzWu14/n2w
-	s2c90OcTw6iDs0Umrn4Q0JOQRrFs2Jgpj12EQt1GmZVtYuKr6jYGnZmgSW55lPRaVW62rX30fh2
-	iPIqacgtiQiK0rcRBnVJ4wl8a4qPnphwG22Iz01nWsOaa9qePcVMgfNsU7QxfcznzhjYAZOMZF1
-	BajuxfleVJMFAkbfaPQ7rUOXh9tU8PyGoW52FTgEHQ1zix1cMG/DJePpNBA0qsM018tLbbAHEH4
-	JVzJVMLgJvbUZmPkLKJ096uuULEfuYWKIH9y4ZSi+lWDlg29YS5XOuOiGeDkFlG4+aoDvrLQxIY
-	C6F0EVz9ibIoapHdGFxtLx0ms69zQF0+lCD1GovQBvrn57oUDVHEK+ukW31z6VfQowhUU8exEhU
-	WNP8cA=
-X-Received: by 2002:a2e:bd17:0:b0:393:d6dd:e8a1 with SMTP id 38308e7fff4ca-395ca24e814mr1927031fa.2.1779321538328;
-        Wed, 20 May 2026 16:58:58 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395882d28f4sm33341501fa.17.2026.05.20.16.58.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 16:58:57 -0700 (PDT)
-Message-ID: <5eeeaa5979a3f16ec8397b62bc35fd9b08d36032.camel@ndufresne.ca>
-Subject: Re: [PATCH v7 17/28] media: rockchip: rga: check scaling factor
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de, 
-	sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
-	p.zabel@pengutronix.de
-Date: Wed, 20 May 2026 19:58:53 -0400
-In-Reply-To: <20260521-spu-rga3-v7-17-3f33e8c7145f@pengutronix.de>
-References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
-	 <20260521-spu-rga3-v7-17-3f33e8c7145f@pengutronix.de>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-rdFBmfYTegp3nVJVJScl"
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJAVO9dX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E79A1F000E9;
+	Thu, 21 May 2026 00:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779322110;
+	bh=WCsIHTXt624ehmKZUyhDPZralENlnvKQwaR9l6NIa+A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kJAVO9dXEjrgGuReQpLhIfy2USjvi2ZXEWlxLVvt3woxEW4atnV2pAuGNXBmWCaA7
+	 zBQ++NDT3tLveETli2rWZD/0L1ZDpRyZ8UGAQDa9fCAJYrA/1rUTx+D+VWFlXacCnk
+	 KieFVu8WOeyl0Z7Ta2/nQ75ur9m7VvxDVY1VrPvRG4d8S9PHG9iwzwde11A/hDGIIt
+	 BzL05qOJVZcX9X3Fnv0EbxWbPDFox8+qOmkrt2KDUquakUbbK9iciUpgMs+RbzJe6y
+	 Mb+vh5JYbBdycp3FW28Ka3y8t/cHr+2PxhGvc5R4m9cqm9ovowPFWOdGQEe9TU4aUN
+	 sVJBcCuU7oi4g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] riscv: dts: spacemit: k3: Add pwm support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yixun Lan" <dlan@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260520-04-k3-pwm-dts-v3-1-974add67c592@kernel.org>
+References: <20260520-04-k3-pwm-dts-v3-1-974add67c592@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 00:08:28 +0000
+Message-Id: <20260521000829.4E79A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The device tree specifies an APB bus clock for the PWM nodes, but =
+the underlying driver does not request or enable it, leading to hardware ha=
+ngs.
+- [Low] The newly added PWM device tree nodes violate constraints defined i=
+n the marvell,pxa-pwm.yaml schema.
+- [Low] Pinctrl configuration nodes incorrectly reuse the `pwmX-0-pins` inn=
+er node name across multiple variants.
+--
 
---=-rdFBmfYTegp3nVJVJScl
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+commit 9f48985313ad2dac2581beaf7183fbb5846e3df3
+Author: Yixun Lan <dlan@kernel.org>
 
-Le jeudi 21 mai 2026 =C3=A0 00:44 +0200, Sven P=C3=BCschel a =C3=A9crit=C2=
-=A0:
-> Check the scaling factor to avoid potential problems. This is relevant
-> for the upcoming RGA3 support, as it can hang when the scaling factor
-> is exceeded.
->=20
-> The check is done at streamon when the other side is already streaming
-> to avoid incorrectly failing if the application configures the other
-> side after calling streamon. As try_fmt shouldn't be state aware,
-> it cannot be used to limit the format based on the scaling factor.
-> Therefore the check is done just before the actual streaming would be
-> started.
->=20
-> As the driver allows changing the rotation and selection while
-> streaming, add additional checks to ensure these changes
-> don't exceed the scaling factor.
->=20
-> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+riscv: dts: spacemit: k3: Add pwm support
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Populate all pwm device tree nodes for SpacemiT K3 SoC, also documents
+the pinctrl info which would easily help to enable them in future.
 
->=20
-> ---
-> Changes in v6:
-> - Dropped scaling adjustment in s_fmt, as this didn't match the try_fmt
-> =C2=A0 result (which shouldn't have it to avoid making it stateful)
-> - Moved scaling check to the prepare_streaming callback instead of
-> =C2=A0 overwriting the ioctl directly
-> - Consider rotation when checking the scaling
-> - Check scaling factor when adjusting rotation and selection while
-> =C2=A0 streaming
-> ---
-> =C2=A0drivers/media/platform/rockchip/rga/rga-buf.c | 28 ++++++++++++
-> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.c=C2=A0 |=C2=A0 1 +
-> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.h=C2=A0 |=C2=A0 1 +
-> =C2=A0drivers/media/platform/rockchip/rga/rga.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
- 63 +++++++++++++++++++++++++--
-> =C2=A0drivers/media/platform/rockchip/rga/rga.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 4 ++
-> =C2=A05 files changed, 94 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/medi=
-a/platform/rockchip/rga/rga-buf.c
-> index ffc6162b2e681..dcaba66f5c1fc 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-buf.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-> @@ -197,6 +197,33 @@ static void rga_buf_return_buffers(struct vb2_queue =
-*q,
-> =C2=A0	}
-> =C2=A0}
-> =C2=A0
-> +static int rga_buf_prepare_streaming(struct vb2_queue *q)
-> +{
-> +	struct rga_ctx *ctx =3D vb2_get_drv_priv(q);
-> +	const struct rga_hw *hw =3D ctx->rga->hw;
-> +	int ret;
-> +
-> +	/* It's safe to check the streaming state of the other queue,
-> +	 * as the streamon ioctl's can't race due to the lock set in
-> +	 * the queue_init function.
-> +	 */
-> +	if ((V4L2_TYPE_IS_OUTPUT(q->type) &&
-> +	=C2=A0=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m=
-2m_ctx))) ||
-> +	=C2=A0=C2=A0=C2=A0 (V4L2_TYPE_IS_CAPTURE(q->type) &&
-> +	=C2=A0=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m=
-2m_ctx)))) {
-> +		/*
-> +		 * As the other side is already streaming,
-> +		 * check that the max scaling factor isn't exceeded.
-> +		 */
-> +		ret =3D rga_check_scaling(hw, &ctx->in.crop, &ctx->out.crop,
-> +					ctx->rotate);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> =C2=A0static int rga_buf_start_streaming(struct vb2_queue *q, unsigned in=
-t count)
-> =C2=A0{
-> =C2=A0	struct rga_ctx *ctx =3D vb2_get_drv_priv(q);
-> @@ -232,6 +259,7 @@ const struct vb2_ops rga_qops =3D {
-> =C2=A0	.buf_prepare =3D rga_buf_prepare,
-> =C2=A0	.buf_queue =3D rga_buf_queue,
-> =C2=A0	.buf_cleanup =3D rga_buf_cleanup,
-> +	.prepare_streaming =3D rga_buf_prepare_streaming,
-> =C2=A0	.start_streaming =3D rga_buf_start_streaming,
-> =C2=A0	.stop_streaming =3D rga_buf_stop_streaming,
-> =C2=A0};
-> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
-/platform/rockchip/rga/rga-hw.c
-> index 567d39e58d33f..f2900812ba76f 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-> @@ -584,6 +584,7 @@ const struct rga_hw rga2_hw =3D {
-> =C2=A0	.max_width =3D MAX_WIDTH,
-> =C2=A0	.min_height =3D MIN_HEIGHT,
-> =C2=A0	.max_height =3D MAX_HEIGHT,
-> +	.max_scaling_factor =3D MAX_SCALING_FACTOR,
-> =C2=A0	.stride_alignment =3D 4,
-> =C2=A0
-> =C2=A0	.setup_cmdbuf =3D rga_hw_setup_cmdbuf,
-> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media=
-/platform/rockchip/rga/rga-hw.h
-> index c2e34be751939..805ec23e5e3f4 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-hw.h
-> +++ b/drivers/media/platform/rockchip/rga/rga-hw.h
-> @@ -14,6 +14,7 @@
-> =C2=A0
-> =C2=A0#define MIN_WIDTH 34
-> =C2=A0#define MIN_HEIGHT 34
-> +#define MAX_SCALING_FACTOR 16
-> =C2=A0
-> =C2=A0#define RGA_TIMEOUT 500
-> =C2=A0
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
-atform/rockchip/rga/rga.c
-> index 394b14b9469df..22954bbae55fc 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -127,7 +127,9 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
-> =C2=A0{
-> =C2=A0	struct rga_ctx *ctx =3D container_of(ctrl->handler, struct rga_ctx=
-,
-> =C2=A0					=C2=A0=C2=A0 ctrl_handler);
-> +	const struct rga_hw *hw =3D ctx->rga->hw;
-> =C2=A0	unsigned long flags;
-> +	int ret =3D 0;
-> =C2=A0
-> =C2=A0	spin_lock_irqsave(&ctx->rga->ctrl_lock, flags);
-> =C2=A0	switch (ctrl->id) {
-> @@ -138,6 +140,13 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
-> =C2=A0		ctx->vflip =3D ctrl->val;
-> =C2=A0		break;
-> =C2=A0	case V4L2_CID_ROTATE:
-> +		if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)) &&
-> +		=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ct=
-x))) {
-> +			ret =3D rga_check_scaling(hw, &ctx->in.crop,
-> +						&ctx->out.crop, ctrl->val);
-> +			if (ret < 0)
-> +				goto s_ctrl_done;
-> +		}
-> =C2=A0		ctx->rotate =3D ctrl->val;
-> =C2=A0		break;
-> =C2=A0	case V4L2_CID_BG_COLOR:
-> @@ -145,8 +154,10 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
-> =C2=A0		break;
-> =C2=A0	}
-> =C2=A0	ctx->cmdbuf_dirty =3D true;
-> +
-> +s_ctrl_done:
-> =C2=A0	spin_unlock_irqrestore(&ctx->rga->ctrl_lock, flags);
-> -	return 0;
-> +	return ret;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct v4l2_ctrl_ops rga_ctrl_ops =3D {
-> @@ -182,6 +193,38 @@ static int rga_setup_ctrls(struct rga_ctx *ctx)
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> +static bool check_scaling_factor(const struct rga_hw *hw, u32 src_size,
-> +				 u32 dst_size)
-> +{
-> +	if (src_size < dst_size)
-> +		return src_size * hw->max_scaling_factor >=3D dst_size;
-> +	else
-> +		return dst_size * hw->max_scaling_factor >=3D src_size;
-> +}
-> +
-> +int rga_check_scaling(const struct rga_hw *hw, const struct v4l2_rect *c=
-rop_in,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct v4l2_rect *crop_out, u32 r=
-otate)
-> +{
-> +	u32 scaled_width;
-> +	u32 scaled_height;
-> +
-> +	if (rotate =3D=3D 90 || rotate =3D=3D 270) {
-> +		scaled_width =3D crop_out->height;
-> +		scaled_height =3D crop_out->width;
-> +	} else {
-> +		scaled_width =3D crop_out->width;
-> +		scaled_height =3D crop_out->height;
-> +	}
-> +
-> +	if (!check_scaling_factor(hw, crop_in->width, scaled_width))
-> +		return -EINVAL;
-> +
-> +	if (!check_scaling_factor(hw, crop_in->height, scaled_height))
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> =C2=A0static struct rga_fmt *rga_fmt_find(struct rockchip_rga *rga, u32 p=
-ixelformat)
-> =C2=A0{
-> =C2=A0	unsigned int i;
-> @@ -525,7 +568,6 @@ static int vidioc_s_selection(struct file *file, void=
- *priv,
-> =C2=A0	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
-> =C2=A0	struct rockchip_rga *rga =3D ctx->rga;
-> =C2=A0	struct rga_frame *f;
-> -	int ret =3D 0;
-> =C2=A0
-> =C2=A0	f =3D rga_get_frame(ctx, s->type);
-> =C2=A0	if (IS_ERR(f))
-> @@ -569,10 +611,25 @@ static int vidioc_s_selection(struct file *file, vo=
-id *priv,
-> =C2=A0		return -EINVAL;
-> =C2=A0	}
-> =C2=A0
-> +	if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)) &&
-> +	=C2=A0=C2=A0=C2=A0 vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx=
-))) {
-> +		int ret =3D 0;
-> +
-> +		if (V4L2_TYPE_IS_OUTPUT(s->type))
-> +			ret =3D rga_check_scaling(rga->hw, &s->r, &ctx->out.crop,
-> +						ctx->rotate);
-> +		else
-> +			ret =3D rga_check_scaling(rga->hw, &ctx->in.crop, &s->r,
-> +						ctx->rotate);
-> +
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> =C2=A0	f->crop =3D s->r;
-> =C2=A0	ctx->cmdbuf_dirty =3D true;
-> =C2=A0
-> -	return ret;
-> +	return 0;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct v4l2_ioctl_ops rga_ioctl_ops =3D {
-> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
-atform/rockchip/rga/rga.h
-> index 5360f092fecf0..df525c6aea8b6 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.h
-> +++ b/drivers/media/platform/rockchip/rga/rga.h
-> @@ -123,6 +123,9 @@ static inline struct rga_vb_buffer *vb_to_rga(struct =
-vb2_v4l2_buffer *vb)
-> =C2=A0
-> =C2=A0struct rga_frame *rga_get_frame(struct rga_ctx *ctx, enum v4l2_buf_=
-type type);
-> =C2=A0
-> +int rga_check_scaling(const struct rga_hw *hw, const struct v4l2_rect *c=
-rop_in,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct v4l2_rect *crop_out, u32 r=
-otate);
-> +
-> =C2=A0/* RGA Buffers Manage */
-> =C2=A0extern const struct vb2_ops rga_qops;
-> =C2=A0
-> @@ -151,6 +154,7 @@ struct rga_hw {
-> =C2=A0	size_t cmdbuf_size;
-> =C2=A0	u32 min_width, min_height;
-> =C2=A0	u32 max_width, max_height;
-> +	u8 max_scaling_factor;
-> =C2=A0	u8 stride_alignment;
-> =C2=A0
-> =C2=A0	void (*setup_cmdbuf)(struct rga_ctx *ctx);
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/bo=
+ot/dts/spacemit/k3-pinctrl.dtsi
+> index 23899d3f308a0..28cb0490de3b8 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+[ ... ]
+> +	/omit-if-no-ref/
+> +	pwm0_1_cfg: pwm0-1-cfg {
+> +		pwm0-0-pins {
 
---=-rdFBmfYTegp3nVJVJScl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+[Severity: Low]
+Is this inner node incorrectly named? It looks like a copy-paste error since
+pwm0_1_cfg contains pwm0-0-pins instead of pwm0-1-pins. This pattern appears
+in multiple variants throughout the file.
 
------BEGIN PGP SIGNATURE-----
+> +			pinmux =3D <K3_PADCONF(42, 6)>;	/* pwm0 */
+> +
+> +			bias-pull-up =3D <0>;
+> +			drive-strength =3D <25>;
+> +		};
+> +	};
+[ ... ]
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
+pacemit/k3.dtsi
+> index e6faf8d8759e1..e331adbcb11a9 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+[ ... ]
+> +		pwm0: pwm@d401a000 {
+> +			compatible =3D "spacemit,k3-pwm", "marvell,pxa910-pwm";
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCag5KvQAKCRDZQZRRKWBy
-9E9rAQDiJbGoDoukTZoC800Ujw8eKYRfiw95dLx/TYGqe+Q0sgD7B6/L2PKKbwBM
-wjRPxzakETkICLxJ+XtnlfrFYSrmBAo=
-=Il/H
------END PGP SIGNATURE-----
+[Severity: Low]
+Does this node pass dt_binding_check validation?
 
---=-rdFBmfYTegp3nVJVJScl--
+Since this node falls back to marvell,pxa910-pwm, it is evaluated against
+the marvell,pxa-pwm.yaml schema. The schema limits the clocks property to
+a maximum of 1 item and does not define clock-names.
+
+Furthermore, spacemit,k3-pwm appears to be missing from the schema's
+conditional block for #pwm-cells: const: 3, which will cause validation to
+fall back to expecting 1 cell.
+
+> +			reg =3D <0x0 0xd401a000 0x0 0x10>;
+> +			clocks =3D <&syscon_apbc CLK_APBC_PWM0>,
+> +				 <&syscon_apbc CLK_APBC_PWM0_BUS>;
+> +			clock-names =3D "func", "bus";
+
+[Severity: High]
+Could accessing this device cause a synchronous external abort?
+
+The node defines both a functional and a bus clock, but the pwm-pxa.c driver
+uses devm_clk_get(dev, NULL), which only fetches the first clock in the lis=
+t.
+
+If the APB bus clock is not enabled, attempting to access memory-mapped
+registers typically causes a bus hang and kernel panic on RISC-V systems.
+Does the driver need updating to handle the bus clock, or is it enabled
+elsewhere?
+
+> +			resets =3D <&syscon_apbc RESET_APBC_PWM0>;
+> +			#pwm-cells =3D <3>;
+> +			status =3D "disabled";
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260520-04-k3-pwm-=
+dts-v3-1-974add67c592@kernel.org?part=3D1
