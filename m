@@ -1,210 +1,232 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6007395AE6
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 07:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779348377; cv=pass; b=LtepvQGunUIveOHvsn7KaAYCL+IE613DU56wzcP4lNQGbaasi4+e/oi039tUMfq65/zexju9uZSrLTmgQcoTSaWaIvmtJ5MKnlz35XupJV10EyMWZCm72P1KnhZirifwIzp7srHtBOqiVrpAETir7WiXkG2T7wLpKVlcDEU2DZ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779348377; c=relaxed/simple;
-	bh=YDcx1Y0+zlRN1nWyttwEdWnkWzDunYKkzU5UZ8ogEHc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nxl353C1hzk1Sb9ntZLvA2DSEOYk0miPWB+yl8jr02uHtPLTnhaCBgtJDAvB9e2He/y3ebqT+9rJ55ZiOl+5bAEWgTnVpehz9sIGbdsxpCJhhlI/rIt2drEM+/0tw5kYkMA54gtaeSiEpwEl1ECKB1ee/vtC1P1aISDWhequzKs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XzYTUHDY; arc=pass smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F29D3998BF
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 07:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779348449; cv=none; b=E4wtihg1L3lEg4/7J4KF4NtIxpFE373N1t2MWYctMqKBBnd6yuu2c7z4OL07C6V2yQk4bOrUkaoBpWwagSDJw+wrsiOq9oIKg+A8tA6D3ByupZL4bnJGCL6KLwM/PSwJkfL1hJqTgSvgIEaqBIZFNBv+xZH41JYTjIUvbVB62CQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779348449; c=relaxed/simple;
+	bh=ZEyxLI0lf564rDk4JjFFdxgPMl+0k4bCxBPAjmJ1U8k=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=uley91mVGi7kwYud0pAF3lONhkIFcWwZ+vHHLT/70DAQ6ZdY9Un9yPUdwht6fJM8ARhJCDMX65jAIwKGWMfmLkrOv7UGdaoQCvVqfd+oGySTEWzPqHbGMcT700lTC3wA0GfSg8ruPVpcPjWs74AlLp180CciWkbtmBn9GS9tOPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xy55XxSG; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XzYTUHDY"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ba856db1c0so42034775ad.3
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 00:26:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779348373; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Hoe9SixxlEKSok5KbMgpay3hWBsIhKwFQASGbGn+F60Ax4+yVkpzqM1twW7xd/VPBv
-         Pcf1JCLi/CAVGX2pRzeY5gwEq4GC3cojzNY+B2T+TXRF2eqKudQH5aRN6lGER/j4zqjq
-         QDqpLs/HyhOfcDYC3soeEGVWvuUWPGKoybf5Pja8tn9NM5r2jm4ScNgtO4ZONhLiNwo/
-         feWrGlxOP2wMYCaR4O06FKpJsI2uRGV/Q2FMGt3bKY94GY2SbZ2jngYsiJvbKPsvQR/2
-         aqdZbv+AUOzYELvS886r6ekJ8rjMOicoYOZFAV7cuc/SeedCKD0yso5VV3nyOt+sXx24
-         EbSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lXbPb+/1MyUml7SUP3O01YVktPIbQ8L41vVAOmxyw2c=;
-        fh=Hyw0TbXx1RVElIDoL41SJffvA+oZR0lvJGf7l/E9wf0=;
-        b=VyoyKkKvBUjCt1ecjffn3eV+pjHvoYeczG5AVYqnQRW3kgNo+rTOOT167ysew275X7
-         P/gRPYIeaUYgZj12xgp7xNpM0BTb2W3E9vyqP0Tmvhu8DisKhVAifOvlPY2flMFEQp9l
-         V9qnGEoebUUqTsF/Jo6bREyGj0/Rbh7ktu4EtAw9W+Ah+drrRnLt8P6nlE2/Kq/LxRf/
-         jkEjAJq1I6wxC53IyUKDERpG42DStIWPaXUSNrkwQDuJNoOfzSOg74O7jjqU4mDhRJ8w
-         U9QJ7EOG0nQtl/7HAT9L8cnXxBXwBW3EB1d2hEW/UrgtQf/HAcehbFz5jiNvF+YL1xat
-         WONg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779348373; x=1779953173; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lXbPb+/1MyUml7SUP3O01YVktPIbQ8L41vVAOmxyw2c=;
-        b=XzYTUHDYBLLf2kJqbQ+2bsnjW8d37U2b4YA6I8cXZ871zPjVb9bpxoJogC/QLRtiiA
-         Xj1xoTHBIzu2S5w3ngutXFYXfcL4i0WDp9/seb+ioeqr5JrUcmq7R8UB4mDcYzRqG4vs
-         Ciz8RW1f+s6uJ9nWCJJwOusons1mIlApG45JrQUa2rGkTSf0q46HWjF2G+yfRAb0JNQx
-         r9KkpYsScVfi8QPKnVLOLzYQ2ktCru98X3EHKqK0i3UaqVEoFOvQyKVnQHPRakxFtUJU
-         6YWzYG2E2XPyZ+1cjzQ6fyrlTPLl9FDrpw98gtBL1eZq3j/vQ16ZDeKqTfTC+cvumtuf
-         pDOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779348373; x=1779953173;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=lXbPb+/1MyUml7SUP3O01YVktPIbQ8L41vVAOmxyw2c=;
-        b=UD/mZs98U7iSY0LXjsmV9XAG3J87b/9x/SpCdjGIqli7ztqjHmDGIGxumKij0GCXCB
-         00T8KfmffsgUNdiqf0Y2FujcpqActwq+5awdtq5VahwcAttYc4jjsUXXR9DKLRMCbX+w
-         4R29aVCTn9JFwEW/K8KrfytAtVFILiT4NxKCx1eViMgK0YdeKbfFm8CXqy+vN29vx6cT
-         VaEcZaahTUg8qzTPrJP4LKW4Ta7tPSe0kkjewjJ7rUMKTT7UY7VhscgMaWs1tmCGTCnP
-         Yu1Ce9rg1aRHpNrx4cXTL0D5AL3sRl//e787Q0buDDrpLdLVQ0OBik2uB1hn8Pa49Gk8
-         ZT1w==
-X-Forwarded-Encrypted: i=1; AFNElJ8x8ZQFFX7rb/4Jp15yJREd9eLtAGWsPwAV50AeU4gYG5C7l59gD4yLo6gVxnlA4wNl2ZUzE7y0X5i/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzfy8rBefMLqh7wIoE0aG6oEEghg0xaXzfdpePaRYP/FAVZq8w0
-	uGvJa9PsOSqbboN2Y3f9da0UZ/hWzGhn+EB0Z2AURx66el6v6WZoIArxRkPUKjZ727NfERNHryp
-	w1A07adQFSqn7U1q/7rFOcMFITlm0QFo=
-X-Gm-Gg: Acq92OELnHrn0vdZMNuchLsot2jpilnNexgGIZs3q0wMTeyAJ8AuO7RN5Ny00XOvC/F
-	HsYGw8jk25Y6F0E6AHQ58E6LzWoo1ifACcdTyimgFf2eN+BEaunDSSLsw9ecZYqTUQI4BxhtZ7u
-	32nxeKr+SD9S0uHDmoPWfD+Rs8Ba4Y82edQWofUrAN3KZ/VM3PNMfywbbTJ69q75/3hj4JSgTDC
-	e2o5xGxNm4Fa+DYPBxvK4oDj/aExhAc3M7/cTrXgz0nviXRVnJXXbMZZLRlB1bc/WZob0JtW+jJ
-	Z13SzaB1INEAYi6UESkOrQQc5/j6aJp0dJn5M3mTn1bAPwXY
-X-Received: by 2002:a17:902:ce92:b0:2bc:eea4:83c3 with SMTP id
- d9443c01a7336-2bea337dcb9mr16838125ad.25.1779348373000; Thu, 21 May 2026
- 00:26:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xy55XxSG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 3367A4E42D0D;
+	Thu, 21 May 2026 07:27:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DB95360495;
+	Thu, 21 May 2026 07:27:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9FAB3107EA6BE;
+	Thu, 21 May 2026 09:27:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1779348440; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=LdCmqb+Q/RWbEKnG9EY6/RiX3h/16cPj3Fyl+P2nPJA=;
+	b=xy55XxSGj8wfpzSly2SLiplATXUej0wVb1nJbVpSvYl+2JW0eU8oZPSWIdBYcsyx+GLjad
+	T1FAb5HyZE/P1rDfgx9eCp3Uvgc1E3ZaGyspLIV/k/wubdH/GF63WyxRhk/iDu79q5VBw3
+	oe1xqz8bZloI+DH4woo7KpLxIMgtTe9mpNTBXq5Cl1vuFYEXMDozYd7MBLltNJbE4wutXi
+	VN6RJ4r2zkH+n4A7CWG+ujzrTbU+82BFz0N53MzcpVy2Y3J8USso4w0AJMKU/G09HMyhBk
+	qIBxBfv68H2uSaE/nznx4f9uLX1EV7d8dycsUI+nCdzzPD8FR98nWAMc8vZLiQ==
+Message-ID: <dbd4078b-180a-45fe-850c-86d86c66614a@bootlin.com>
+Date: Thu, 21 May 2026 09:27:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510084303.122426-8-phucduc.bui@gmail.com> <20260511234758.6C022C2BCB0@smtp.kernel.org>
-In-Reply-To: <20260511234758.6C022C2BCB0@smtp.kernel.org>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Thu, 21 May 2026 14:26:00 +0700
-X-Gm-Features: AVHnY4JVOeDnjezg1KYm702bCERj-oBsD-Y1fM4Qrg16PXkHjwRlY3W_TbeGcO8
-Message-ID: <CAABR9nHH2D-StaU8hMEnPmtZGoSbk0tO4H5YU+qL-TVmsEov_g@mail.gmail.com>
-Subject: Re: [PATCH v3 07/10] ASoC: renesas: fsi: refactor clock initialization
-To: sashiko@lists.linux.dev
-Cc: wsa+renesas@sang-engineering.com, krzk+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	Mark Brown <broonie@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Richard GENOUD <richard.genoud@bootlin.com>
+Subject: Re: [PATCH v2 1/1] arm64: dts: ti: k3-j7: Reserve memory for LPM meta
+ data
+To: Nishanth Menon <nm@ti.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Udit Kumar <u-kumar1@ti.com>,
+ Abhash Kumar <a-kumar2@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
+ Thomas Richard <thomas.richard@bootlin.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260427160326.370415-1-richard.genoud@bootlin.com>
+ <20260427160326.370415-2-richard.genoud@bootlin.com>
+ <20260505125945.mxucy4cfpno2x66z@slacking>
+Content-Language: en-US, fr
+Organization: Bootlin
+In-Reply-To: <20260505125945.mxucy4cfpno2x66z@slacking>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi all,
+Hi Nishanth,
 
-First of all, I appreciate receiving review comments from the AI bot.
-I think it is quite helpful for learning and improving patches.
+Le 05/05/2026 à 14:59, Nishanth Menon a écrit :
+> On 18:03-20260427, Richard Genoud (TI) wrote:
+>> From: Prasanth Babu Mantena <p-mantena@ti.com>
+>>
+>> For TI SOCs J7200, J784S4, J722S, J721s2 which support low power modes,
+>> a chunk of memory is reserved for LPM meta data, which is needed for
+>> saving ATF context and the certificate information of ATF and OPTEE and
+>> DM image. This LPM metadata area is firewalled to be accessed only by
+>> TIFS.
+>>
+>> U-Boot/TIFS will use this area to save and restore:
+>> - ATF context
+>> - ATF certificate information
+>> - OPTEE certificate information
+>> - DM image
+> 
+> DM image is loaded from storage, correct?
+Actually, after being loaded from storage at boot time by U-Boot R5 SPL, 
+the DM image is copied in this memory, so that it doesn't have to be 
+loaded from storage at resume. (This speeds up the resume time)
 
-However, I have a few questions regarding the expected workflow:
+For the context:
+At resume, U-Boot R5 SPL is executed and detects that the board is 
+resuming (with a flag set in the PMIC), then it:
+- brings out of retention the DDR
+- retrieves the LPM memory region from DTS
+- authenticates certificates from LPM memory region and applies firewalls
+- asks TIFS to restore TFA and its own minimal context
+- starts TFA on remote proc
+- loads back DM image from memory and jumps to DM
 
-1. I noticed that the bot reply only CCs a subset of the original recipient=
-s.
-    Is there a specific reason or convention behind that behavior?
-2. When receiving review comments from the bot, is it generally
-    expected that contributors reply to those comments?
-3. If replying is recommended, should I keep the same CC list as the
-    original patch submission, or only reply to the bot thread participants=
-?
+>>
+>> https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
+>>
+>> U-Boot has to parse and retrieve this area from the device tree, thus
+>> @lpm-memory node are used instead of the generic @memory.
+>>
+>> Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
+>> Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
+>> ---
+>>   arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi  | 6 ++++++
+>>   arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi | 6 ++++++
+>>   arch/arm64/boot/dts/ti/k3-j722s-evm.dts      | 6 ++++++
+>>   arch/arm64/boot/dts/ti/k3-j742s2-evm.dts     | 9 +++++++++
+>>   arch/arm64/boot/dts/ti/k3-j784s4-evm.dts     | 9 ++++++---
+> 
+> Split this up into platform wise. I dont understand why you'd not modify
+> the ipc-firmware.dtsi and use the phandle similar to https://lore.kernel.org/all/20260318-topic-am62a-ioddr-dt-v6-19-v3-4-c41473cb23c3@baylibre.com/
+The wkup_r5fss0_core0_memory_region can't be used in our case because 
+the DM memory isn't retained during suspend.
+For Sitara, the LPM metadata are stored in the DM DDR, but here, as the 
+DM memory is not kept during suspend, the LPM meta-data is stored in 
+another memory region, so I don't think I can use this phandle.
 
-Sorry if these are basic questions. I just want to better understand the
-usual mailing list workflow.
+> 
+> Split the patches per ipc-firmware.dtsi as required.
+> 
+>>   5 files changed, 33 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi b/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+>> index 5a8c2e707fde..756928a2d411 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+>> +++ b/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+>> @@ -40,6 +40,12 @@ mcu_r5fss0_core0_memory_region: memory@a0100000 {
+>>   			reg = <0x00 0xa0100000 0x00 0xf00000>;
+>>   			no-map;
+>>   		};
+>> +
+>> +		lpm_memory_region: lpm-memory@a4800000 {
+> 
+> vignesh already flagged this in previous revision - just use phandle
+> reference in u-boot and make this memory@
+I would happily use the phandle, but as this memory is not related to 
+the DM DDR, I don't think I can.
 
-Best Regards,
-Phuc
 
-On Tue, May 12, 2026 at 6:47=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Critical] The return value of `fsi_clk_init()` is ignored in `fsi_prob=
-e()`, which breaks probe deferral and leads to a kernel panic from derefere=
-ncing error pointers.
-> --
->
-> commit 055b3b167e655ece1592450b8baaea9abe771d10
-> Author: bui duc phuc <phucduc.bui@gmail.com>
->
-> ASoC: renesas: fsi: refactor clock initialization
->
-> This commit moves fsi_clk_init() to probe and uses devm_clk_get_optional(=
-)
-> for optional clocks. It allows probe to succeed when optional clocks are
-> missing, while set_rate() validates clock availability.
->
-> > diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> > index 55a11f1fe8aa1..8c46d68069581 100644
-> > --- a/sound/soc/renesas/fsi.c
-> > +++ b/sound/soc/renesas/fsi.c
-> [ ... ]
-> > @@ -973,35 +983,42 @@ static int fsi_clk_set_rate_cpg(struct device *de=
-v,
-> >       return ret;
-> >  }
-> >
-> > -static int fsi_clk_init(struct device *dev,
-> > -                     struct fsi_priv *fsi,
-> > -                     int xck,
-> > -                     int ick,
-> > -                     int div,
-> > -                     int (*set_rate)(struct device *dev,
-> > -                                     struct fsi_priv *fsi))
-> > +static int fsi_clk_init(struct device *dev, struct fsi_priv *fsi)
-> >  {
-> [ ... ]
-> >       clock->own =3D devm_clk_get(dev, NULL);
-> >       if (IS_ERR(clock->own))
-> >               return -EINVAL;
->
-> Does returning -EINVAL here mask probe deferral? If devm_clk_get() return=
-s
-> -EPROBE_DEFER, returning -EINVAL will permanently fail the driver probe
-> rather than deferring it.
->
-> [ ... ]
-> > @@ -1997,6 +2001,7 @@ static int fsi_probe(struct platform_device *pdev=
-)
-> >       fsi->running_streams =3D 0;
-> >       fsi_port_info_init(fsi, &info.port_a);
-> >       fsi_handler_init(fsi, &info.port_a);
-> > +     fsi_clk_init(&pdev->dev, fsi);
->
-> Is it safe to ignore the return value of fsi_clk_init() here?
->
-> If devm_clk_get_optional() fails and returns an error pointer like
-> -EPROBE_DEFER, those error pointers will be stored in the clock fields
-> instead of NULL.
->
-> Later, when fsi_clk_set_rate_external() checks if the clocks are missing:
->
->     if (!xck || !ick) {
->
-> This check will pass because the error pointers are not NULL. The error
-> pointers will then be passed to common clock framework APIs like
-> clk_get_rate(), which will dereference them and cause a crash.
->
-> Should the return value of fsi_clk_init() be checked and propagated?
->
-> >       ret =3D fsi_stream_probe(fsi, &pdev->dev);
-> >       if (ret < 0) {
-> >               dev_err(&pdev->dev, "FSIA stream probe failed\n");
-> > @@ -2011,6 +2016,7 @@ static int fsi_probe(struct platform_device *pdev=
-)
-> >       fsi->running_streams =3D 0;
-> >       fsi_port_info_init(fsi, &info.port_b);
-> >       fsi_handler_init(fsi, &info.port_b);
-> > +     fsi_clk_init(&pdev->dev, fsi);
->
-> Would the same return value check be needed here as well?
->
-> >       ret =3D fsi_stream_probe(fsi, &pdev->dev);
-> >       if (ret < 0) {
-> >               dev_err(&pdev->dev, "FSIB stream probe failed\n");
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.12=
-2426-1-phucduc.bui@gmail.com?part=3D7
+Thanks!
+
+Regards,
+Richard
+
+> 
+>> +			reg = <0x00 0xa4800000 0x00 0x00300000>;
+>> +			no-map;
+>> +			bootph-all;
+>> +		};
+>>   	};
+>>   
+>>   	mux0: mux-controller-0 {
+>> diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+>> index 12a38dd1514b..ceab8f057640 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+>> +++ b/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+>> @@ -42,6 +42,12 @@ mcu_r5fss0_core0_memory_region: memory@a0100000 {
+>>   			reg = <0x00 0xa0100000 0x00 0xf00000>;
+>>   			no-map;
+>>   		};
+>> +
+>> +		lpm_memory_region: lpm-memory@a9c00000 {
+>> +			reg = <0x00 0xa9c00000 0x00 0x00300000>;
+>> +			no-map;
+>> +			bootph-all;
+>> +		};
+>>   	};
+>>   
+>>   	mux0: mux-controller-0 {
+>> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+>> index e66330c71593..eebc5cc7d4cd 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+>> +++ b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+>> @@ -63,6 +63,12 @@ wkup_r5fss0_core0_memory_region: memory@a0100000 {
+>>   			reg = <0x00 0xa0100000 0x00 0xf00000>;
+>>   			no-map;
+>>   		};
+>> +
+>> +		lpm_memory_region: lpm-memory@a6c00000 {
+>> +			reg = <0x00 0xa6c00000 0x00 0x00300000>;
+>> +			no-map;
+>> +			bootph-all;
+>> +		};
+>>   	};
+>>   
+>>   	vmain_pd: regulator-0 {
+>> diff --git a/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts b/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts
+>> index fcb7f05d7faf..d0752c8a6b37 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts
+>> +++ b/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts
+>> @@ -23,4 +23,13 @@ memory@80000000 {
+>>   		device_type = "memory";
+>>   		bootph-all;
+>>   	};
+>> +
+>> +};
+>> +
+>> +&reserved_memory {
+>> +	lpm_memory_region: lpm-memory@ab000000 {
+>> +		reg = <0x00 0xab000000 0x00 0x00300000>;
+>> +		no-map;
+>> +		bootph-all;
+>> +	};
+>>   };
+>> diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts b/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts
+>> index 6c7458c76f53..114594f37f0b 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts
+>> +++ b/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts
+>> @@ -23,10 +23,13 @@ memory@80000000 {
+>>   		device_type = "memory";
+>>   		bootph-all;
+>>   	};
+>> +};
+>>   
+>> -	reserved_memory: reserved-memory {
+>> -		#address-cells = <2>;
+>> -		#size-cells = <2>;
+>> +&reserved_memory {
+>> +	lpm_memory_region: lpm-memory@ac000000 {
+>> +		reg = <0x00 0xac000000 0x00 0x00300000>;
+>> +		no-map;
+>> +		bootph-all;
+>>   	};
+>>   };
+>>   
+> 
