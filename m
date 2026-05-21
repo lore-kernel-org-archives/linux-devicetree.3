@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E18B320CAD
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A086A36A34C
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:50:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779378386; cv=none; b=J/ZjJFQf3z6q4F4VEye0b+gIvsbdvAkP1BCoqPhjuY/+SUSUT6lzYgnOBaCAwK4FtKL7w0E4RXMvKG6mBlD51IBS4lRmXxspulaDkCzXvAMl9bUlb8mXrOvJwlEPeotzXxsdEjHdOOF/+ry/5Hgju1O81MuG+0tOMNawv5vNDcQ=
+	t=1779378656; cv=none; b=hEI29jSVajBObkJ5FlXRFYqRQjy+sWj7E0YzkJYmeSSgiavd7IQdf3JcqvhRaLAU7UJ0TwQYvy/XEAH+aMRNwWC7auw25wH5xqPb7Fp04Xp1HlqG7De3TpUTGfrNgJwMOmDYzvVMDNzgyI8z8hyQKlpEXYGql8+LmClc4xGcBkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779378386; c=relaxed/simple;
-	bh=F/GXrZ8GO3Ieu1FQqr9QfJ8dX7Kq7CeKyq1eV9E3snI=;
+	s=arc-20240116; t=1779378656; c=relaxed/simple;
+	bh=en9WwN6CQim2LkMYVDsNsmVA8jTo8vUnMb9zjN4UVQo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YlFgkUXqZXmDI0azLPXKf1XExtRPit9aLZd4I3FogsT0fFzlNqfnjtplSB3VSRsXx/Sc8l2nP80cAuGaVjrwa+QL4d5dg8bN6EuFImaqTqv25VAW1kFqki+s/aGMYgksXJL66PrWBRA9EbNXawKxYd516i5l2IHSEt+/uxccUwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkZCplkE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bh+V6nEvk3sqW8mMssP9tuOD+Dm9wAhaDeBIk2CgznvWwLFhWGnPnuoLh/uCBBO7e2cB7xINmfoYV1bb8NbRs8d7P9LCm3l+81uQ6BC1KkpW8Mk1C1zYPhKMtqi60EpEToWGeTUwZ1XmjqnwpqRtBOR0F92rmkcgPqBCyz38FzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dhZJmF3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkZCplkE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4D01F000E9;
-	Thu, 21 May 2026 15:46:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dhZJmF3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245961F000E9;
+	Thu, 21 May 2026 15:50:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779378384;
-	bh=sZJyAU4qqVVGwkL1+wKDI4OpCf8DpmLoxz00E6qvRVg=;
+	s=k20260515; t=1779378655;
+	bh=8fN0+bBfFYQZdK0lvhbreFdvXRCiJc2QMqpAg0NBHgo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CkZCplkEm8tQGVjeV+dKESsWiIXdoavqdPGVRcWkDPZgz5g1/L5CE8Ze5ltlAsoVo
-	 /ghbxuicImwYIQOqIh4GZhyJVTjXKAOT6UA24vy4D57plAoWIwKJGZgPdU9KhFcImv
-	 g/WwjzRie03w7B4TmuxbYtGtYoMrWQDaBuuHnzW2Hy6upv8Ar7sShYup1ZGkPgLFm0
-	 CMtY12hI7azzIAaSg4v1lTXVRcAResLPe08wh9bQyFeATdyeayZO8ozVNyhdiPWdp2
-	 jrx9xVQmhEdh1piRVpTsQn67cyvSyy0ZYBUbdRLSC6gzKM21dTPcGdD/n+gKsYKxiR
-	 ktTqmJOBTKcbQ==
+	b=dhZJmF3gR2DrYLrbgOIc/zIGhGoK9cvGQlf7VpQyrLyET6EtJLaaw5cUSGVwr0pJ0
+	 bHczqErYzkEYq8wMdqGn6N8fR4EM/8wujZuSsZSD6sBL3I71uTxmy083R/BlH59ojF
+	 ZRYbtSMqgG+cmq11u28BCF82NQ8+i5qWQtneKxYhDbbkOtYfv9jPS37WDMQRnVZdji
+	 TVwHj+j8SWWlYaYmB7v79qMyg7KO3wBNeyjDYw18N+pXHg3g1qktpXT/haGd1SCWjA
+	 FUBOkDjP81QifvdxrEzYsdJl3VmdH2XUWt0n2tfdjLDioc7rG/Ni69SghsaH1ohX06
+	 z/ia+Rf9EoKsg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 15/15] arm64: dts: ti: k3-am62-verdin: Add Mezzanine
- with LG LP156WF1 LVDS panel
+Subject: Re: [PATCH v4 3/5] drm/msm/dsi: Support dual panel use case with
+ single CRTC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vitor Soares" <ivitro@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260521150038.103538-32-ivitro@gmail.com>
-References: <20260521150038.103538-32-ivitro@gmail.com>
+To: "Jun Nie" <jun.nie@linaro.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260521-sm8650-7-1-bonded-dsi-v4-3-a4dd5e0850f1@linaro.org>
+References: <20260521-sm8650-7-1-bonded-dsi-v4-3-a4dd5e0850f1@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 15:46:24 +0000
-Message-Id: <20260521154624.AF4D01F000E9@smtp.kernel.org>
+Date: Thu, 21 May 2026 15:50:54 +0000
+Message-Id: <20260521155055.245961F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,55 +46,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The device tree overlay omits the required `ti,companion-oldi` prop=
-erty on the secondary OLDI node (`&oldi1`), violating the AM625 OLDI bindin=
-gs and causing the driver to instantiate a dormant, unused DRM bridge.
+- [High] Halving `dsc->pic_width` for dual panels causes the DPU DSC encode=
+r to incorrectly program the DSC hardware, resulting in a halved processing=
+ width and hardware underflow.
 --
 
-commit bcc76df5d3e59d5997103d74f1e60ce4d408c93a
-Author: Vitor Soares <vitor.soares@toradex.com>
+commit d23a05783cbe32106f4e17b417f7304f721a2609
+Author: Jun Nie <jun.nie@linaro.org>
 
-arm64: dts: ti: k3-am62-verdin: Add Mezzanine with LG LP156WF1 LVDS panel
+drm/msm/dsi: Support dual panel use case with single CRTC
 
-This commit adds a device tree overlay for the Verdin Development Board to
-enable the LG LP156WF1 15.6 inch dual-channel LVDS panel. The panel is
-connected via the AM62 OLDI0 and OLDI1 interfaces operating in dual-channel
-mode.
+This commit adds support for a hardware configuration where two independent
+DSI panels are driven by a single, synchronous CRTC. The driver halves the
+CRTC's horizontal resolution before configuring the DSI host and any DSC
+encoders to ensure each panel receives the proper half of the framebuffer.
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg=
--lp156wf1.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-=
-lg-lp156wf1.dtso
-> new file mode 100644
-> index 0000000000000..a4d6cbe9ff3b9
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg-lp156w=
-f1.dtso
-
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi=
+/dsi_host.c
+> index 10589389650fc..4a391cdd4030a 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
 [ ... ]
+> @@ -1024,7 +1025,10 @@ static void dsi_timing_setup(struct msm_dsi_host *=
+msm_host, bool is_bonded_dsi)
+>  			return;
+>  		}
+> =20
+> -		dsc->pic_width =3D mode->hdisplay;
+> +		if (msm_host->is_dual_panel)
+> +			dsc->pic_width =3D hdisplay;
+> +		else
+> +			dsc->pic_width =3D mode->hdisplay;
 
-> +&oldi0 {
-> +	ti,companion-oldi =3D <&oldi1>;
-> +	status =3D "okay";
-> +};
+[Severity: High]
+Can setting dsc->pic_width to the halved hdisplay cause the DPU DSC encoder
+to incorrectly program the hardware?
 
-[ ... ]
+The struct drm_dsc_config is shared with the DPU encoder driver, which expe=
+cts
+dsc->pic_width to represent the total picture width across all DSC encoders
+for the CRTC.
 
-> +&oldi1 {
-> +	ti,secondary-oldi;
-> +	status =3D "okay";
-> +};
+If the DPU driver calculates the encoder processing width by dividing this
+value by num_dsc (which is 2 for a dual DSI setup), won't this result in a
+processing width that is a quarter of the total CRTC width?=20
 
-[Severity: Low]
-Does this node also need the ti,companion-oldi property to comply with the
-ti,am625-oldi.yaml bindings for dual-link mode?
+This looks like it could lead to incorrect pipeline delay calculations and
+cause the hardware to process only half the intended width, potentially
+leading to display corruption and hardware pipeline underflows.
 
-While the display continues to function because oldi0 correctly references
-oldi1, the absence of ti,companion-oldi here causes get_oldi_mode() to fall
-back to OLDI_MODE_SINGLE_LINK for oldi1.
-
-This results in the driver unnecessarily allocating a dormant drm_bridge
-instance that is never attached to an encoder.
+>  		dsc->pic_height =3D mode->vdisplay;
+>  		DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521150038.1035=
-38-17-ivitro@gmail.com?part=3D15
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-sm8650-7-1=
+-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org?part=3D3
