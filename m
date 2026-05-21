@@ -1,92 +1,74 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4788236AB54
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2203D280331
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:07:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779375695; cv=none; b=GpMX6fb6HyZpdc48rzrjM164RRsHWCwffl+kfsXShvX0qtI+Wm3jUqDzYuc+jI9o81xim6Sq9Q7bNZiDY5HpSMK6sev8nCMNy3PqGpthLRzVvfi4nYUa/msVP8N7imZfWaXvnVfrTBe4w5G8riUvWh9LLNXYZLTFp7zNqp/jCZg=
+	t=1779376073; cv=none; b=CL9m2vNo8YBqRmP7FMgY932DWi76affnb6/laVAOjQvOXr8KNK2lkpWkaxzfp9h4s4xGLKh4HocqN2/MSQ/lTTBkTvfjAnrKPgonmB6kog4/TsKGavbxZZCQ7DPC/DPtrKN9x4XdyGw6V9tU52iHUXh+DiXoidXe+yNh81d7Qbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779375695; c=relaxed/simple;
-	bh=I9o16dUUZaqFYkEAKSOL1C5EFI/HEYqJLSrI3P9b3Zg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MFVXDEt4+anz+NL8fX2O7X074Ro4lkajOpbxUm0vhY09DY4cP6UpwYG43xuPnjyYCou0v+QnoxXqjOi4umCflzgrNSp/KQhoY81cxal+FuL0I6vj/daKbeR1gw2KF97S8HEFYEfiQ2120oPHcrq21pp8AFBcN4Wwvoao6/VnVXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CtD5lsaL; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1779376073; c=relaxed/simple;
+	bh=cd3dKYTuIZtproMToprtB8KNI0LgkvRevMgBh5hgm6M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XjeFYhdu+Tdfru0hWXzN1c5LMMps4tAeIAMVuTDVuKrtXBxZ0LCOiHitAYHMKWgpeB2p9yu/R/ggIO8hIOcexH3ku73UjxkhZb7iOSUkPy+n8I/dfE1t7yKZUG69WViZCEiOv8caNS0gWxlVs3Rrn+CZr1RyHQxLjQ3oIFvunmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JHpnXSAh; arc=none smtp.client-ip=74.125.224.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CtD5lsaL"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490388fd0dbso7444745e9.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:01:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHpnXSAh"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-65db820588aso5293110d50.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:07:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779375693; x=1779980493; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kJdvze/3qUGSdeaywOgRH9jPh9c2UmVUF7voWWqWYm0=;
-        b=CtD5lsaL8nFzxMVfq8AJsxT1qa/Bzutn1+M+Q/1s9laCkc6p5QkXH0SHQUoF06HRLd
-         6sQWDgvSntxgyVOOk/ieTUBzAvAxteGWu4KMEeZxLM1R0gwaS98K+Z1yNIkxer100+Tq
-         AvsRpReKrv4e/mrtzPCCSDPCbDxlc1kuqDHGvLIXfavR2F9Ou5hp9MYQN21GZ4fYf/Nu
-         na1N1n8XuWkXL/kPpghhk7RFL7L32WsTcvGJx+4dE4sCfaoukl4WcUuOdUWRYBwzfsAr
-         U2aNwoenqzVf+5JUuEwE42PGXbPaEQg2J6UgsrQn/VmKL8jlgQiIVLdpwZNNRnvFAYMN
-         HE1g==
+        d=gmail.com; s=20251104; t=1779376070; x=1779980870; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WjKxID8eOM6JKjQ4xHwsGmipvQwbvP3kOWH+IvP0XSY=;
+        b=JHpnXSAh/+6w6M6AVP782QAHcW/uoyrcqXk7QyULxV3SAHJbsQ5vHvV4v9fTJKzyKj
+         7jLl4RQQiH5k6EETcar8UFyMAslcLbwO7gpQkZ3vkIZUDDCQhXilDSH0pXsWOVxR0GA4
+         xvYGK8inLNPmoxFiSAHlJrT5C8/dUpf866WplMIcDoY4avttoDLqVM+u46AQM75aHOE7
+         /uJ8yZzkZugndhm0QP/LEJl82r2C8xH1FtzZ+ySseTRyTaRmjBE+oCU2zL7I5gh+Zuuo
+         ZNRNRR+9eGdEKp0FU2z5x+xrOEGV7z3duna8f9Uco1zgaXPAMnZchBkypQ44CVHSHBci
+         2K9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779375693; x=1779980493;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kJdvze/3qUGSdeaywOgRH9jPh9c2UmVUF7voWWqWYm0=;
-        b=ruzPluPzEU4K2vhgitD7Bp+snzw+HL3sQp5UKPN2yY3H2aW7jqfM94MoZPorLUWRuT
-         1VXboVXAO+g1gzjBucEzaF08XbH+uGL5MCHyaE92DOJYSWCbdeSCfbMRfsMtsR9XG8uO
-         J0Vj3n5hVqOWsx57ED8O0siF0GihmxDC4TwF8pZki1hSDVfX/+J973eAPxeN0rgOubE6
-         soz+IgxhYnhh5HBE6c+gL3IKow6XEP9ZIF7ppOv59wZz3SrbmugYEulUz1KLcEHwZi0d
-         5e9Uy7YyoMlkNDJOJWilJDgP6XupSnD17k6EaLseySZanFcD+waCgMZgJEZRwkDsbt7q
-         UfKQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/U5pwGEJH4RZ98sMQ3Di0XC3pl1QEmcsxSl6AcMYJtzAJczkOZoWh6NlBXDM3VLhG60HjtjUUny024@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8O0F7aQuULH3YFGK3t3kS/BxPTIh/PKIcNg3BxyYUokpJY76R
-	+f6/a+Kl4ZJvIJtdQ/oixHdeDkxm1KlKnar20bq+QetfKw5jP5bOJkVC
-X-Gm-Gg: Acq92OGVLhIiCRHuxoP2OuRXbovkjRNkXWjSr/YWeqHbdqbrA3Wk9oSKuEp5ELaAA5v
-	7idJEmwZKLacf0+NqT740Cg3jgNTf1bRx8tz2hjerZx4gOug3c9m6/0ExBIisejA0cqYObQLVMp
-	wQFWTRv4RyV4Goh6H/odJYf2baBH9D3o1ybU2yzlfXA9T6x20n7yggcmIbpAGNycrDSmjfW6Sjr
-	cLFS6GSP94hJaS1c1AZteNx+5S3sWOVZr5Sg/vKI4fOL5C/aIRzs9ODyCNl2p8vCnop6eeuIbRF
-	HtQ7CT/czyQO/dGyhPQIgrPKUEEnUjxSlO2B28DJ9IVV9POkhEmikGTh+9YOeJ7q6E4CA2g1SNq
-	OD5hTxnNPF5nTu88BDxMpe6Aky72Pt6vQvh+39g4esdlOr+Xz6Sl07jc3kTiGYdjxgtS+FIu/zB
-	PBWWlXpPRTcbSMNXtC0iDRMeIdVaaDpzuET8HT6DXbMA==
-X-Received: by 2002:a05:600c:17d2:b0:490:b07:5fd1 with SMTP id 5b1f17b1804b1-49036052603mr29364105e9.11.1779375689908;
-        Thu, 21 May 2026 08:01:29 -0700 (PDT)
-Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm34056745e9.14.2026.05.21.08.01.28
+        d=1e100.net; s=20251104; t=1779376070; x=1779980870;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WjKxID8eOM6JKjQ4xHwsGmipvQwbvP3kOWH+IvP0XSY=;
+        b=ezSiUQAyAmzydD8KDQXmJEc6w8UW49bOp98Ldl+GIoc8CHUuEQs5UXqwxomQXqWapS
+         v+GPHnNqAKJw2PrY6ADg3sijBBGALcUon4YnRMTiQVQMpK1IEdq8zr4z9UNvoqOjdvuw
+         u5XMyZpydwWK68KT2Ab7bEbKODHbvuQvRjo6W1C3KlUMXJ2bdLBbccgWNDq3jE1fO81O
+         5sF4UQ/s6jHW7YTiit/sBVxwzJEw2dm5+iTvR5V7VBqLjnTAfHrj97anwGIs+qqyxPDB
+         XJ1aZw8A3gkFMSBMZe7TVLVbOnIoCH4DiloPC/okoRYAFhpjaAR0zmHROBcNKbSOH52u
+         2sOg==
+X-Forwarded-Encrypted: i=1; AFNElJ+OsKVmofv0od1fHwD6jVP74xVLU9bYG9mlICDE1Cm2wNaL81wP2ScEu0v7SVXBApDur8dnebCL0JCV@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDkReTcVvqJMpBvXDVKcnW41HR3ENnGbK9Rdk87BIYxI1mmr5m
+	x9QX+YCeKB7013A8Nx7Oemlf9wjcc4Ct6uvR3+DRzMb3yNaBut2uTyfZ
+X-Gm-Gg: Acq92OHt1FTPhVbzT3ylr61FSPhFxlg9kXScAcQCwMQ98ZCF9M6nrsO74yM6Xsz0jiZ
+	1jq9QQmnrgSs+LEJsI5bymEpVyAmXPZ6mmZCB5YH/1V8MKD/8m11wHpTiGrIYqDSE8NFWFWe72a
+	JxbZEhqmjo7CJXTZ+iF54OXbdRt4zlk1jBOKyaX7sBCV6xpLD02zgK192WZc5lEtcH6tLAqSLXw
+	z53w+4MkOxqgUTOqN2Lk7fydCtkdeIjwklI4xdWrgV81JZwEul/KXGva769MWAUt6argC2ojh56
+	rdvIoghZdifV5MNmxgPmubzaujlLaknBAC2RqsNIm4dWcPfKGc3BFj+sPc3ERJ/LQSb8NyG+Kxq
+	mtU+arIzKlBLU300EEOdCvQ8O1D32aN0R+O1oJJp5yJxc84tMvJ4F/bqVU8o28WN3OppxeA4vd9
+	paIVXtGuucfk4jwl/JWpdRzEXWnYMR42B9KYlcJ2CGIoGQZnHD7Uax
+X-Received: by 2002:a05:690e:4812:b0:64c:f7d0:5c07 with SMTP id 956f58d0204a3-65eae047184mr1880107d50.10.1779376069874;
+        Thu, 21 May 2026 08:07:49 -0700 (PDT)
+Received: from fsh.attlocal.net ([2600:1702:56e9:4b40:ed8c:6b8b:1fa3:d14b])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65ec1eeadd3sm288264d50.10.2026.05.21.08.07.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 08:01:29 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+        Thu, 21 May 2026 08:07:49 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+To: krzk+dt@kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>
-Cc: Vitor Soares <vitor.soares@toradex.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 14/15] dt-bindings: display: panel-lvds: Add LG LP156WF1
-Date: Thu, 21 May 2026 16:00:50 +0100
-Message-ID: <20260521150038.103538-31-ivitro@gmail.com>
+	linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] dt-bindings: serial: rs485: remove deprecated .txt binding stub
+Date: Thu, 21 May 2026 10:07:47 -0500
+Message-ID: <20260521150748.4816-1-akash.sukhavasi@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260521150038.103538-17-ivitro@gmail.com>
-References: <20260521150038.103538-17-ivitro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,30 +77,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vitor Soares <vitor.soares@toradex.com>
+The plain-text binding file was superseded by the YAML schema in
+commit d50f974c4f7f ("dt-bindings: serial: Convert rs485 bindings
+to json-schema"). The file now contains only a redirect notice.
+Remove it.
 
-Add the compatible string for the LG LP156WF1 15.6" FHD (1920x1080)
-dual-channel TFT LCD LVDS panel.
-
-Assisted-by: Claude:claude-sonnet-4.6
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
 ---
- Documentation/devicetree/bindings/display/panel/panel-lvds.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/serial/rs485.txt | 1 -
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 Documentation/devicetree/bindings/serial/rs485.txt
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-index 45183a1439ce..a6af2b9cc2f9 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-@@ -58,6 +58,8 @@ properties:
-           - hydis,hv070wx2-1e0
-           # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TFT LCD LVDS panel
-           - jenson,bl-jt60050-01a
-+          # LG LP156WF1 15.6" FHD (1920x1080) dual-channel TFT LCD LVDS panel
-+          - lg,lp156wf1
-           # Logic Technologies LT170410-2WHC 10.1" 1280x800 IPS TFT Cap Touch Mod.
-           - logictechno,lt170410-2whc
-           # Riverdi RVT101HVLNWC00 10.1" WXGA (1280x800) TFT LCD LVDS panel
+diff --git a/Documentation/devicetree/bindings/serial/rs485.txt b/Documentation/devicetree/bindings/serial/rs485.txt
+deleted file mode 100644
+index a7fe93efc..000000000
+--- a/Documentation/devicetree/bindings/serial/rs485.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-See rs485.yaml
 -- 
 2.54.0
 
