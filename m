@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4395830B53C;
-	Thu, 21 May 2026 16:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621EE38330A;
+	Thu, 21 May 2026 16:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779382142; cv=none; b=gLbWO0lO/uk5E9vTUeKLs0O3ygMZ9TQ5WOok2Ry1wGSvOgXzBrk0OCeIrXA6OUYGfGmoLWL6K+83ZC5qaPxBUwtA0FHVYqZl+EKeQp6C9/OgojO3lBQr2JY/VjxtqsQYqCRKnNCKHwILh2EqZliTsjQwvmG6aZXNlqBKYgMMQ/8=
+	t=1779382334; cv=none; b=bqCnx/AfIcO8xDcfkoR11hxMMk99ZlHggy3TLffB7KPR3H7WRn/GLOWiilcMGL9W9jf4BpSqrE/JUf1w6rjaRCz9GkjWhKSsC8UMkJzUBFOdiH4mvK2X/6wKC2n/87HM8meBvxIX0goSdTJgvYsvPaN6y6o5wPha7rvatOi5cfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779382142; c=relaxed/simple;
-	bh=DVFvk9aAUJ7j9VYz4u9t48egEPUZJ0k0RU7un6BH5Xo=;
+	s=arc-20240116; t=1779382334; c=relaxed/simple;
+	bh=OXtFSh4y4YgrQJu2Fd8sAvsJZ+ivK61dFVSu7rosbAo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=feysJmW1u5/SxwsvmK2ONjal8p8edvxkVxG5Y5ZXDrbJQmX+3oQ31XZGcf9lEXEdeJ8XBY4nPATiOtRIjF06lAM6V8i4U8voJj4OH7bj75U046iIQi0kJBThJ9dfy630aFxyuXevoppFgF1/L4zHvGSVwed2Hxp0T6SrkM/UoZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m51NEWIL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=X/NpIibheWWfMldt/gX0fzst1mj9wxxtEl77AAYZRp0KdEOyOfRmnULlhVDZnBrEQ3P4FnkznJXNXYAgCntOA+uJzeRjPRMImT3yAEtK4/SsiLdJhaTYDfsX9v/bnYTlMcWD4oIUUdaZdPAJ/iVNjTkb0u1pBWAasFmVijVFsgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoDSi/P9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m51NEWIL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9290E1F000E9;
-	Thu, 21 May 2026 16:48:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoDSi/P9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B238D1F01567;
+	Thu, 21 May 2026 16:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779382141;
-	bh=TK/PmbG7Gqeh7gUNbHnh10+sGFRgBRtv46SR1if5nuE=;
+	s=k20260515; t=1779382332;
+	bh=HqrbPXusXPMXcIS9HKkT8zlhErFr3ZAlpslnFMZy0fA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m51NEWIL+tOUNeE+GB8C7iAZOPUWYhpqA17s1dsrGddvfwNHzXYbSHF26GdLcOMtG
-	 VseAJnoOke5WQ8uGGsQORSVoYUEXGi96Y4IYESbRN2v/dvUGx4ZIMLyBMeoidkshur
-	 Pev3FwbXMbEe8gXa0pMlz2rWn/seIcF37pB8gaQtobLknEhnIC0lWWFqFmaPvuz/6a
-	 fUUOj1PWzSiY2A4xSabMSnVRnUhYxBtoDhkSwF5R5sBbwNJqcOVHHyzCMZmuEDNB7d
-	 2nKiyMfEHji6Rj6kJ3SQi7fWmALb6a9UgoYpDGeLnlTAEsMFiXy8kXy/hTZ4lDBO6H
-	 Usd57Vl0rlqVA==
-Date: Thu, 21 May 2026 17:48:56 +0100
+	b=HoDSi/P9K6wGjhEsBw0dzjqF75XTAVQv0r3COG2iTVXBk/Wwhm68iKGoTGiyUo8en
+	 lzXQwE8671RYA2b3qEFw8JBi0cn4hsmwy+uqAe+MUJ1CcD95uvvakg3Ph+RQCqhMCX
+	 14reXa83H8AIG1JKGgB6k0au+yah4kQMlpf9gBZ8okRbZ54vjSp1CMB2z0/YBmXuxE
+	 DPQ0pzFzoAUqiIDyb/wAQUE4QttN/BY7YB76xrtFtUbEXbT5Sd0rTutway88riHUCF
+	 gAOAoT5vimo3HzBf8SL6m0xgwyZoY/Qv95W5nxSOLwmGyFYYMQVTTBrZa9dK0hovW2
+	 WIICxlF4d84qA==
+Date: Thu, 21 May 2026 17:52:09 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-Cc: krzk+dt@kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: serial: rs485: remove deprecated .txt
- binding stub
-Message-ID: <20260521-ragged-ultra-9970fd9e8495@spud>
-References: <20260521162137.6325-1-akash.sukhavasi@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Vitor Soares <ivitro@gmail.com>, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v1 14/15] dt-bindings: display: panel-lvds: Add LG
+ LP156WF1
+Message-ID: <20260521-whooping-appliance-802f41767113@spud>
+References: <20260521150038.103538-31-ivitro@gmail.com>
+ <20260521152716.DD2FD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,93 +43,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9T5GZpc4FKRZfLvC"
+	protocol="application/pgp-signature"; boundary="/WOCuUl28PDdUzJL"
 Content-Disposition: inline
-In-Reply-To: <20260521162137.6325-1-akash.sukhavasi@gmail.com>
+In-Reply-To: <20260521152716.DD2FD1F000E9@smtp.kernel.org>
 
 
---9T5GZpc4FKRZfLvC
-Content-Type: text/plain; charset=us-ascii
+--/WOCuUl28PDdUzJL
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 21, 2026 at 11:21:35AM -0500, Akash Sukhavasi wrote:
-> The plain text binding file was superseded by the YAML schema in
-> commit d50f974c4f7f ("dt-bindings: serial: Convert rs485 bindings
-> to json-schema"). The file now contains only a redirect notice.
-> Remove it, and update references in serial_core.c and
-> serial-rs485.rst to point to the YAML schema.
+On Thu, May 21, 2026 at 03:27:16PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] The dt-binding fails to enforce the dual-channel requirement (=
+the `ports` property) for the newly added `lg,lp156wf1` compatible string.
+> --
 >=20
-> Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+> commit a568203d1851908daadd835b566099e0a123357a
+> Author: Vitor Soares <vitor.soares@toradex.com>
+> dt-bindings: display: panel-lvds: Add LG LP156WF1
+>=20
+> This commit adds the compatible string for the LG LP156WF1 15.6" FHD
+> dual-channel TFT LCD LVDS panel to the generic panel-lvds schema.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds=
+=2Eyaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> > index 45183a1439ce9..a6af2b9cc2f9a 100644
+> > --- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> > +++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> > @@ -58,6 +58,8 @@ properties:
+> >            - hydis,hv070wx2-1e0
+> >            # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TF=
+T LCD LVDS panel
+> >            - jenson,bl-jt60050-01a
+> > +          # LG LP156WF1 15.6" FHD (1920x1080) dual-channel TFT LCD LVD=
+S panel
+> > +          - lg,lp156wf1
+>=20
+> [Severity: Medium]
+> Since the commit message indicates this is a dual-channel panel, shouldn'=
+t we
+> add an if-then conditional block to require the ports property specifical=
+ly for
+> this compatible string?
 
-Unless I am missing something about how docs.kernel.org redirects
-magically work or something along those lines,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+No idea if this is accurate, but if it is accurate, would the
+lvds-dual-ports bindings come into play?
 
-Cheers,
-Conor.
-
-> ---
-> Changes in v2:
-> - Update references in serial_core.c and serial-rs485.rst to point
->   to rs485.yaml (Sashiko review).
 >=20
-> v1: https://lore.kernel.org/all/20260521150748.4816-1-akash.sukhavasi@gma=
-il.com/
+> Currently, the panel-lvds.yaml schema allows panels to be configured with
+> either a single port or multiple ports. Without a specific conditional bl=
+ock
+> enforcing required: [ports] for lg,lp156wf1, a device tree incorrectly
+> configuring this dual-channel hardware with only a single port will silen=
+tly
+> pass validation.
 >=20
->  Documentation/devicetree/bindings/serial/rs485.txt | 1 -
->  Documentation/driver-api/serial/serial-rs485.rst   | 2 +-
->  drivers/tty/serial/serial_core.c                   | 2 +-
->  3 files changed, 2 insertions(+), 3 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/serial/rs485.txt
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/rs485.txt b/Documen=
-tation/devicetree/bindings/serial/rs485.txt
-> deleted file mode 100644
-> index a7fe93efc..000000000
-> --- a/Documentation/devicetree/bindings/serial/rs485.txt
-> +++ /dev/null
-> @@ -1 +0,0 @@
-> -See rs485.yaml
-> diff --git a/Documentation/driver-api/serial/serial-rs485.rst b/Documenta=
-tion/driver-api/serial/serial-rs485.rst
-> index dce061ef7..f53043d21 100644
-> --- a/Documentation/driver-api/serial/serial-rs485.rst
-> +++ b/Documentation/driver-api/serial/serial-rs485.rst
-> @@ -132,4 +132,4 @@ RS485 Serial Communications
->  6. References
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> =20
-> -.. [#DT-bindings]	Documentation/devicetree/bindings/serial/rs485.txt
-> +.. [#DT-bindings]	Documentation/devicetree/bindings/serial/rs485.yaml
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial=
-_core.c
-> index 89cebdd27..df4589880 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -3496,7 +3496,7 @@ EXPORT_SYMBOL_GPL(uart_try_toggle_sysrq);
->   * @port: uart device's target port
->   *
->   * This function implements the device tree binding described in
-> - * Documentation/devicetree/bindings/serial/rs485.txt.
-> + * Documentation/devicetree/bindings/serial/rs485.yaml.
->   */
->  int uart_get_rs485_mode(struct uart_port *port)
->  {
 > --=20
-> 2.54.0
->=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260521150038.10353=
+8-17-ivitro@gmail.com?part=3D14
 
---9T5GZpc4FKRZfLvC
+--/WOCuUl28PDdUzJL
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag83eAAKCRB4tDGHoIJi
-0qRwAP45vGLSukw/aHHHypp+5Z43TSGFtTTuBAmqeT+0a7PMjwEAx/dYKdq/xZbK
-TB9BIBcIOG64v/rGq0jOuhsi2EfzJwQ=
-=gmIc
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag84OQAKCRB4tDGHoIJi
+0iEyAQC4KAbnKPdOa8gcJ7C/ne2DgDsLr5Jt9ce0JR47V7q/DgD8DBS8z/V29lSD
+FlnKqoXNaG++FqLLBUX9wgii9SzUKwk=
+=DTg3
 -----END PGP SIGNATURE-----
 
---9T5GZpc4FKRZfLvC--
+--/WOCuUl28PDdUzJL--
