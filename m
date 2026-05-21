@@ -1,131 +1,155 @@
-Received: from mail-m3290.qiye.163.com (mail-m3290.qiye.163.com [220.197.32.90])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D59626ED25;
-	Thu, 21 May 2026 14:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68004312832
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 14:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779372494; cv=none; b=Hc+v1SUBvTMOeMNgFrQymZlP/ymMj+eCf//QzBKUVLnW5+blNL8r4L1tCC1xZR62jVhL0GDaf20SaXTIAI5zVPalD6RJhtmiD3u/ZaB/mxdJPlmQUn3kFr0wbOwOWn7B//GeQ+fUlN7WF/srUCkXG52p7Vqbyfzqs8hf3npkoQc=
+	t=1779372702; cv=none; b=k5ZG1LG2pLSHN6T51hgkcRHyH06Ai+8mIZQYuzCsroaijEA4kpnQT1udtm0HtO8tSAkdfqI+wGuly4Kc/G+JhKtz9yF84OhbHI1PrD0P69i5mUPdhYj3GGX9uq2EVXxqEVf+dwET6bn1jzW4eaY+LO1Nc5XoRpTr4Mhqu6AGMuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779372494; c=relaxed/simple;
-	bh=PzCfdeMgxHZUAy6GyRAEU851bWonkK4ZMObu0m3qBQE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TMot0GFubomhXyZYoh5JKK7h7iPZA5Ow0y8uoclm5xu3cZR/kMW77nQvQjYxBCK2M1cosLknms1kLx9V1bcRkaattesncm9HJxVmDVEvLMuWPE72JwFIj/0KeqXgR0Gs/D/asbH8s3gbkJOLgW2yApb6DKTLBdWJlQWMuo2cCsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=hqdjcljG; arc=none smtp.client-ip=220.197.32.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="hqdjcljG"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3f5009432;
-	Thu, 21 May 2026 19:45:13 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1779372702; c=relaxed/simple;
+	bh=SsGASIz3illZMtpamQaZ3aekGxKnq2iYrV7/XeVaGvo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fgg25LNplN4NyrYcUkrILzodvZhRxEZ4uW1Ade1sTd+5ZUhFTZdhwW8KsJ6cOOi9G5lfiOC9Gy7eEbKUWOtUenYg0jP4OI1Vg12XBsqiSQOPNqVrZlPxd9SvfnhlmWGlvVTrb5NKhus3D/fcnmmXCIHvVsVr29IWzMCeq48g+vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ47S-0006uw-C3; Thu, 21 May 2026 16:11:26 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ47Q-0017Ne-0g;
+	Thu, 21 May 2026 16:11:24 +0200
+Received: from mtr by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ47Q-00000004Ws9-2jnW;
+	Thu, 21 May 2026 16:11:24 +0200
+Date: Thu, 21 May 2026 16:11:24 +0200
+From: Michael Tretter <m.tretter@pengutronix.de>
+To: Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>
+Cc: Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v2 1/3] dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpoint
-Date: Thu, 21 May 2026 19:44:57 +0800
-Message-Id: <20260521114459.1394264-2-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260521114459.1394264-1-damon.ding@rock-chips.com>
-References: <20260521114459.1394264-1-damon.ding@rock-chips.com>
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [PATCH v7 12/28] media: rockchip: rga: avoid odd frame sizes for
+ YUV formats
+Message-ID: <ag8SjJ4FvjS7GOrT@pengutronix.de>
+Mail-Followup-To: Michael Tretter <m.tretter@pengutronix.de>,
+	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+ <20260521-spu-rga3-v7-12-3f33e8c7145f@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e4a5a9f7303a3kunmad9184e677768
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkJLVk1DSEkeGB4YTE1IS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=hqdjcljGsxyTmfX06y3C3Se7JNYUa+1+U/AnCJYEDwzLTCpDOT65czKGEl1ajeT5UUJVHGeGEaCZOT8rG6eXZGp4wldTEtvfJpmFZiJWLK5rpYSJjz3ceQxw1sNTIjH3lYKxznkaWp+TX4cBZxcT70HqGZOwHTE7k97Tu7CU8O8=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=Xu79CGy7oXgHkId0a/dytBXCz0cn2ptJALLOPB88Bf8=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <20260521-spu-rga3-v7-12-3f33e8c7145f@pengutronix.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: m.tretter@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add data-lanes property support to the port@1 endpoint for physical
-lane mapping configuration.
+On Thu, 21 May 2026 00:44:17 +0200, Sven Püschel wrote:
+> Avoid odd frame sizes for YUV formats, as they may cause undefined
+> behavior. This is done in preparation for the RGA3, which hangs when the
+> output format is set to 129x129 pixel YUV420 SP (NV12).
+> 
+> This requirement is documented explicitly for the RGA3 in  section 5.6.3
+> of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
+> (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
+> x/y offsets and stride aligning requirements. But the vendor driver for
+> the RGA2 also contains checks for the width and height to be aligned to
+> 2 bytes.
+> 
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+> ---
+>  drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
+>  1 file changed, 14 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+> index f599c992829dd..77b8c7ab74274 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>  	struct rga_ctx *ctx = file_to_rga_ctx(file);
+>  	const struct rga_hw *hw = ctx->rga->hw;
+>  	struct rga_fmt *fmt;
+> +	struct v4l2_frmsize_stepwise frmsize = {
+> +		.min_width = hw->min_width,
+> +		.max_width = hw->max_width,
+> +		.min_height = hw->min_height,
+> +		.max_height = hw->max_height,
+> +		.step_width = 1,
+> +		.step_height = 1,
+> +	};
+> +
+> +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
+> +		frmsize.step_width = 2;
+> +		frmsize.step_height = 2;
 
-Lane mapping is mainly used for below scenarios:
-1. Correct PCB lane swap and differential line routing crossover
-   without hardware changes;
-2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-3. Support multiple panel hardware variants on the same board
-   by configuring data-lanes in device tree only.
+If I understand correctly, this limitation may be a result of 4:2:0
+chroma subsampling. Thus, formats with 4:2:2 subsampling would also work
+with step_height = 1.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+As this may be some hardware limitation, a comment that points to the
+TRM (in addition to the commit message) may be beneficial, too.
 
----
+Michael
 
-Changes in v2:
-- Add lane mapping application scenarios in commit message.
-- Remove redundant deprecated property 'data-lanes' for eDP node.
-- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
----
- .../bindings/display/bridge/analogix,dp.yaml    | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-index 62f0521b0924..e34fdb21adb4 100644
---- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-@@ -42,13 +42,20 @@ properties:
-     properties:
-       port@0:
-         $ref: /schemas/graph.yaml#/properties/port
--        description:
--          Input node to receive pixel data.
-+        description: Input node to receive pixel data.
- 
-       port@1:
--        $ref: /schemas/graph.yaml#/properties/port
--        description:
--          Port node with one endpoint connected to a dp-connector node.
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        description: Port node with one endpoint connected to sink device node.
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+                items:
-+                  enum: [ 0, 1, 2, 3 ]
- 
-     required:
-       - port@0
--- 
-2.34.1
-
+> +	}
+>  
+>  	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
+>  		const struct rga_frame *frm;
+> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>  	if (!fmt)
+>  		fmt = &hw->formats[0];
+>  
+> -	pix_fmt->width = clamp(pix_fmt->width,
+> -			       hw->min_width, hw->max_width);
+> -	pix_fmt->height = clamp(pix_fmt->height,
+> -				hw->min_height, hw->max_height);
+> -
+> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
+>  	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
+>  	pix_fmt->field = V4L2_FIELD_NONE;
+>  
+> 
+> -- 
+> 2.54.0
+> 
+> 
