@@ -1,258 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755EB23D297
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 09:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28AF835DA64
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 09:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779354255; cv=none; b=PVyk2jGHsv8lhj1BzK3RJ1TvTVRetslugn+c1HKiXGO5ayKdHEUZefjzY02Bi47g/VnX8d2VBbf2+uQR3is7uj1+LkbEWlxGy5Pk8XQfN3nNSlIYG8NvNFJyPjBwvPthEnp5XHY7Lwm3hEYS+DVcps/6oaN535dCK0WV4BcoOow=
+	t=1779354304; cv=none; b=W4NwBn5op479OaOKdoQC4W/MjeZ7DDrVyyUeQLrgFumLQzjnrEJR5Lyil9N+OReOytXISFQGw7bZFFcTBZJ0Y16rAM2tO7Pav617nKxRHjW2ESBKn0tWDqwIBhpPdiOqk4JuoQ9lgK9uLGHR+4mynRxalMOwdhMWItGkVDOdxW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779354255; c=relaxed/simple;
-	bh=KZswCArHv+mkybCG9EPNGeFFNXsUr+0/djEhi9PCRsE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m5wSPwdD8pC+hRP/Gi/2ovi4mxDTbaVFJtMslJx7irNjBAkvOz6SIyCuHxe9R8lq4NwdjiEjRFkps3HkNWO+UJ3ZO+jlGwP+HI60SBWb9Ir4LB5IA9XdR3rJS4hq7W89XF1pBvrwJWwk9BRQnmBY1Wm4WWqSiwfGU7sEC56v1c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsEX2VQ1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779354304; c=relaxed/simple;
+	bh=rhXX0+hyT0zDUTxSmyLBrqK6ajNjs9sZyKq4hbamtnE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DCEKde/Qd5EFHsoej/4hghwR4v7RzjW6Hr+oQon9MAXEa5PoJfxEkJXYyYocUCsRzrFm7gjJtdHewvoZ1JsvqIhiIb4v/qWCJ3WbSs+NdK5xTCF/ds2RCRWdPghf+Tw4wonXcImuQc/4fdZYcMPOQ1rwYz5NtFCzp1eXd/PxWeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pIhnv42c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VlfCDwoa; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsEX2VQ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F961F000E9;
-	Thu, 21 May 2026 09:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779354254;
-	bh=EB6m9HF9tqbEdWrWbrH6fdfk4qb3gPVBxxZDCaWDyTk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YsEX2VQ16ZIHncW6Bvu6UcqFo8yETj9GxgiBTlpe7GGTBB2esD9X1nqElZz3JZ0lP
-	 RObYItGxuybxkapQ9wSq9w7cytl6wftxkoCciVt0orFkD2bull7TdQDwu1lwdOcfWE
-	 8B3dS/FP5wceZHOJ4uqHi9JisWkSDA9zJrZqalIhoSxkPf+Z8l+6H40S5ARACuA/L8
-	 MuOXxA+FREKqZQcBckZ4RvaWAWHeVO0xzWFwWIsBUM2S9UAw+GAF16C07N3+qDetup
-	 HX3fBQbkxgMkOpR+riHcpV7zgoAY8NnmntnDNCNpHdJmzXgkF+a118rmued/MnITbD
-	 krLnStyKHylBw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] usb: cdnsp: Add support for device-only
- configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pawel Laszczak via B4 Relay" <devnull+pawell.cadence.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260521-no_drd_config_v9-v9-2-2512cef10104@cadence.com>
-References: <20260521-no_drd_config_v9-v9-2-2512cef10104@cadence.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 09:04:13 +0000
-Message-Id: <20260521090413.C4F961F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pIhnv42c";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VlfCDwoa"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L6Lpqo2158094
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:37:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mItV7Us/JDJyeyXy2sVeXYfFBIriRxRMQ4skromGLeg=; b=pIhnv42cOOFiln8f
+	kFw5jgHplGSpeAAJ0Cytn19IGKTikvaWlORb9ffXZ6Vu6Y9WimKHPGfsQlVUvOm3
+	r4bvDYEaQ7O74cObcz7CYi4FCYaj1OrTAX3I102sgO8EkTnptUE1trvlPgXB2Wal
+	H2i/4ZxWOWoAg17n8cO+twTraCfWmhHQh+oBtnyRiWhM3IdmAkuoLJ0vRZIZr69W
+	Lf4XjW/ergPahswxd07+8tfRyYNu3cb0lD2jGfnZBtXLLaNAoj9GIOgXJ4pPo6cs
+	8MtRrVZRkF5qCWDZ/y5hUWaZx07ef9B6dQUzvEQcK3vS1xjBbTEf+07U1Yhl6f48
+	qpxkOg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ma4290f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:37:53 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-516cadacf92so3049361cf.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:37:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779352672; x=1779957472; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mItV7Us/JDJyeyXy2sVeXYfFBIriRxRMQ4skromGLeg=;
+        b=VlfCDwoanZUyoN/aiPxyGeG1Vri+4FIWQtsnw24J1FeXxUziQvqrZqw5eCQAxyBknf
+         HLU2tKmJubUdQ3wyXTKwxcsU9cKNu8DJUC0xHG0HNyuMxIDJQ2NuyGFvjnI2C/auNqix
+         Rjjv+wbaKDMWDAxyL4Qv6CpXauUEAN2WfiF3CHhG4na0pLbeXVFtSQMSR9BkY+f4p1NF
+         T58KXlDRkw1S0KgBl26f8QhVy2rLqGN3Wu/8ui56Cf0JwD+4kdUvbSZ06VuKjt4TI3IT
+         IP2UdF+rucUSn89uy5+3d4tCuyYyv8Q7c1FCEjowcjlhj+5ensbL9zN9wB9UfLu4n9Pi
+         6sEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779352672; x=1779957472;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=mItV7Us/JDJyeyXy2sVeXYfFBIriRxRMQ4skromGLeg=;
+        b=hadveHFxLI2+mQE/1f+kxcKD3k+mckPEQbuKqTtLdrHKpyBMwBO5eqXw/+FAnlIVFT
+         kxCjZFx9XYta5BpVLN9Fi0vvl2Au1vcRHemW6qlniVqoTn5gz4iv/+1NyO2A6aYnaOEz
+         qEv+FAwbfc5jfYbmz7UsozIULI9Fc5c9BJofMr+ueFgawkDDKwh67cmAxn/vMWkpxImL
+         8hkbSDgy0/s7oyFXstgwU+Kn6Q9g+pUpw6sfqtRqDvYwSIitiI97E9KVYtQEnbvL5Y+y
+         uUxDJkgvC6sb2ybCYi6oe78HBH8W9PQNUfX/yuo0BgznOcq9IYo5rGqd+DrOtrEUdqeH
+         M75g==
+X-Forwarded-Encrypted: i=1; AFNElJ+8guqb8+zDovZsVPQQUCBQNCVqE6bm3uEr5HcjEeEzWe12b5tqxw+u5PgoQsd+Jn5F/CBxBmSk9NOJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJjMk8cYn8wO8fAW/lWE549p0c43TGwbpnoL0Br0aI8mYUo1Wz
+	kKv8nPKvamnjCSMkgnJdXnDuNhdYBX4eugc+MjarYGxE8lua4oBh8KU0ib/kmrtz1pv5VZWdFKC
+	VHtdiOBxRd5hrDU0/l0sysxMRvx+muhlHy8J75qLon6tk+Z2yKxf5k6uB4rbZGm4U
+X-Gm-Gg: Acq92OFbrsvP2CRME4dR0Sf8MEbDiIgXfOz3I/xihvlXtG6yv5U7abqEJZRrZC/JN1c
+	BovoaltgFF9pZVcFdsiHcjpcyOwFLxxZbC+pdLaRfiUEQNXTZg38m587i9a1bOAU/Gz7RgDiyZk
+	vnvGaXj8w6hFTt8zvQT3lqu3RintkEdLJbJrD5yrsqMLG3sz1iQ1DkDgwDfd0w1DlDRT6I03USw
+	mm9Vq+i/MLTW7VFE5Xp+IpSp3dTUT2C6c692X/0EcCNcIFEySlAh9NBnIvd/BkaljWDaYJ1WVbB
+	o5XXCLw8vdURPNSnw9oAZ+wC8O0uxhPaCGTvKXS12HgH+hIm5+ZvxOwFrC7W7/WrmRyJsbILPKq
+	NBVxzcksA2eZoPawR8N4qJ6g2HaunvLcate5a2VMAoE2JDk0gHTE=
+X-Received: by 2002:a05:622a:4cc5:b0:512:e813:7ceb with SMTP id d75a77b69052e-516c55d2560mr24462271cf.46.1779352672380;
+        Thu, 21 May 2026 01:37:52 -0700 (PDT)
+X-Received: by 2002:a05:622a:4cc5:b0:512:e813:7ceb with SMTP id d75a77b69052e-516c55d2560mr24461621cf.46.1779352671784;
+        Thu, 21 May 2026 01:37:51 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:bb10:ae82:b7c3:d15a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm10502405e9.14.2026.05.21.01.37.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 01:37:51 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Thu, 21 May 2026 10:36:38 +0200
+Subject: [PATCH 15/23] mfd: tps6586: use platform_device_set_of_node()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260521-pdev-fwnode-ref-v1-15-88c324a1b8d2@oss.qualcomm.com>
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+To: Lee Jones <lee@kernel.org>,
+        Mark Brown <broonie@opensource.wolfsonmicro.com>,
+        Thierry Reding <thierry.reding@avionic-design.de>,
+        Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+        Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Matthew Brost <matthew.brost@intel.com>,
+        =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+        Rodrigo Vivi <rodrigo.vivi@intel.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Peter Chen <peter.chen@kernel.org>,
+        Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+        iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
+        dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+        linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=921;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=rhXX0+hyT0zDUTxSmyLBrqK6ajNjs9sZyKq4hbamtnE=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqDsQqDmHIVs4kdm5DllgC1wieRn0dTfi40w5+0
+ YZj3nANwgiJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCag7EKgAKCRAFnS7L/zaE
+ w81CEACP1pUKe1vdi5szoShgJ7SlWvqPeODf0sDK2lq5ecuRIcOXCXNzZANxrv7nwAPSjjaTXDf
+ Ww3svzj8ZcTYKA6TPCVub0Oa5ol6XfGL66UF49JUULJIk5xWhEuKXb/yZNVWElkqXaxDfQYcDxu
+ SB3Eox4L5eO7dUyanLTruaUo6Yi5irnV8OexBKV7aFuTkSxuwwYuM/tOHsLq3X/GIomwiJfS6TO
+ tEfOkkat1q020En6KN1pwOWL1Q1bpgj+0gYD8ycJOmEeuM8h8xLAq6M14A/c9jqQwNlGUuGn3WT
+ 8JoCR4r/5354fbl6mLc3BZV3VRO+FQMyQ//h2nMuWisORPsmjDieTsEMSHiB4ewpHGCP/Eo9xK3
+ wvD/6hoCy+868y0ZzjuNXghfJvpA2XGMVCZ/NOM5+IqDHYySNcAN3WH24riQ+zmTlh4GEFACNYF
+ Usy9BXy2VVrpSbYL8ZrFf6HYadDdgUT+Z6+3AnKzX+hs37Gx48+YYdSJgdIifqc8JU2QKqeUHk6
+ cWN8RMlX1URpAS9729ac6Xia16DdH/M5dwauw1mEDiDsx6TadFqnvQqbHwklcUEuewuVBqmstNv
+ dHs16McDSCRVSViWlOG4sDYHx8HJ7rXWN6iSalNq6n+mFMdL2s3xB8SS9TRiBXxSAoTA+op5dA4
+ PTIIcqPqF9OzQfg==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=K9kS2SWI c=1 sm=1 tr=0 ts=6a0ec461 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=ESSmVKC5p6WdXJfq0SwA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: pnYjrxybgWJQokYXhBXf5-VRQ94qfUHW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA4MyBTYWx0ZWRfX4MtunFeIyJw5
+ eBR4u/vfgFdqRu7+T+u7zn0FzW4BaYf7EAzErh9O/xHSw230gyGNhJTTX8v85gkPZDMlnfi23ln
+ XKii8mf4nZQ6MyYxGiwl1R3Tg5FB+0ajJPp73J0lRdxnRhMywKOk3qveIi1GnJsQTdEMzhOr/YV
+ kMfNLO3NnEQLDcrK65D3OQ30GXCnbs5YvPAf/VAUqFVz77Ujss3dPoZkIauixTo22aPVf3wWmFv
+ Xqc/GWVxoNQdhWiHYRkJ8YAAZ58yDs0l8v5vCjbBCVjsGrAukTVnADF1adGbQveysdWrwFoph07
+ dAevp38hCXKjh+Zf6eTHwrbHZdxm0QgoFkYPA9MJeNuRdCdP32iOpYGlBU2XRgr6twnEYZ88UMc
+ oEzJOEWPw6ZdQdAeNIJX/FbWjKNuRrRfmw8XlOVqusN+9MUfa/3quODQPIiDrj2PP+0Z7VyAITp
+ al/fVPJA4IaYVORgRIQ==
+X-Proofpoint-ORIG-GUID: pnYjrxybgWJQokYXhBXf5-VRQ94qfUHW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210083
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+Ahead of reworking the reference counting logic for platform devices,
+encapsulate the assignment of the OF node for dynamically allocated
+platform devices with the provided helper.
 
-Pre-existing issues:
-- [High] The error path in `cdnsp_pci_probe` incorrectly frees the shared `=
-wrap` structure, leading to a Use-After-Free and Double-Free when the sibli=
-ng PCI function is subsequently removed.
-- [High] Concurrent probing of the two PCI functions can cause a race condi=
-tion leading to a NULL pointer dereference of the `wrap` object.
-- [High] Missing cleanup of the registered USB role switch and hardware sta=
-te in the `cdns3_plat_probe` error path.
-- [High] Failure to call `phy_exit()` for `usb2_phy` when `usb3_phy` acquis=
-ition fails in `cdns3_plat_probe()`.
-- [High] TOCTOU race in `cdns_role_start()` and `cdns_role_stop()` allows m=
-ultiple concurrent starts or stops of a USB role.
-- [High] Unbinding the first PCI function disables its MMIO resources while=
- the registered platform device remains active, causing system crashes on s=
-ubsequent accesses.
---
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+ drivers/mfd/tps6586x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-commit a6e4224829252614819c7a92327bc797dbce1637
-Author: Pawel Laszczak <pawell@cadence.com>
-Subject: usb: cdnsp: Add support for device-only configuration
+diff --git a/drivers/mfd/tps6586x.c b/drivers/mfd/tps6586x.c
+index f5f805446603315ba76ce1fc501c908f1cec0d16..3cfd2f02b62f3cc370e0d970ec2643b638fd0fec 100644
+--- a/drivers/mfd/tps6586x.c
++++ b/drivers/mfd/tps6586x.c
+@@ -397,7 +397,7 @@ static int tps6586x_add_subdevs(struct tps6586x *tps6586x,
+ 
+ 		pdev->dev.parent = tps6586x->dev;
+ 		pdev->dev.platform_data = subdev->platform_data;
+-		pdev->dev.of_node = of_node_get(subdev->of_node);
++		platform_device_set_of_node(pdev, subdev->of_node);
+ 
+ 		ret = platform_device_add(pdev);
+ 		if (ret) {
 
-This patch adds support for the Cadence USBSSP (cdnsp) controller in hardwa=
-re
-configurations where the Dual-Role Device (DRD) register block is missing.
-It allows the driver to operate exclusively in a fixed peripheral or host
-mode without relying on DRD logic. It also adjusts BAR indexing for 32-bit
-addressing used in this layout.
+-- 
+2.47.3
 
-Link: Closes: https://lore.kernel.org/oe-kbuild-all/202605141023.18vWXyw3-l=
-kp@intel.com/
-
-> diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-pla=
-t.c
-> index 3fe3109a3688a..0d29c3cf58f11 100644
-> --- a/drivers/usb/cdns3/cdns3-plat.c
-> +++ b/drivers/usb/cdns3/cdns3-plat.c
-
-[ ... ]
-
-> @@ -113,21 +119,22 @@ static int cdns3_plat_probe(struct platform_device =
-*pdev)
-> =20
->  	cdns->dev_regs	=3D regs;
-> =20
-> -	cdns->otg_irq =3D platform_get_irq_byname(pdev, "otg");
-> -	if (cdns->otg_irq < 0)
-> -		return dev_err_probe(dev, cdns->otg_irq,
-> -				     "Failed to get otg IRQ\n");
-> -
-> -	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "otg");
-> -	if (!res) {
-> -		dev_err(dev, "couldn't get otg resource\n");
-> -		return -ENXIO;
-> +	if (!cdns->no_drd) {
-> +		cdns->otg_irq =3D platform_get_irq_byname(pdev, "otg");
-> +		if (cdns->otg_irq < 0)
-> +			return dev_err_probe(dev, cdns->otg_irq,
-> +					     "Failed to get otg IRQ\n");
-> +
-> +		res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "otg");
-> +		if (!res) {
-> +			dev_err(dev, "couldn't get otg resource\n");
-> +			return -ENXIO;
-> +		}
-> +		cdns->otg_res =3D *res;
->  	}
-> =20
->  	cdns->phyrst_a_enable =3D device_property_read_bool(dev, "cdns,phyrst-a=
--enable");
-> =20
-> -	cdns->otg_res =3D *res;
-> -
->  	cdns->wakeup_irq =3D platform_get_irq_byname_optional(pdev, "wakeup");
->  	if (cdns->wakeup_irq =3D=3D -EPROBE_DEFER)
->  		return cdns->wakeup_irq;
-
-[Severity: High]
-This is a pre-existing issue, but further down in cdns3_plat_probe, when
-acquiring usb3_phy, if devm_phy_optional_get() fails, it returns directly
-via dev_err_probe().=20
-
-Does this leak the initialized state of the usb2_phy since it bypasses the
-err_phy3_init label where phy_exit() is called?
-
-[Severity: High]
-This is a pre-existing issue, but also further down in cdns3_plat_probe, if
-cdns_core_init_role(cdns) fails, the error path jumps to err_cdns_init.
-
-Does this error path miss unregistering the USB role switch? If cdns_init()
-allocates and registers a non-devres managed role switch, bypassing the
-cleanup could leave dangling sysfs nodes and cause issues on reprobe.
-
-> diff --git a/drivers/usb/cdns3/cdnsp-pci.c b/drivers/usb/cdns3/cdnsp-pci.c
-> index 432007cfe6954..c38a3dc7111a7 100644
-> --- a/drivers/usb/cdns3/cdnsp-pci.c
-> +++ b/drivers/usb/cdns3/cdnsp-pci.c
-
-[ ... ]
-
-> @@ -93,7 +104,7 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
-> =20
->  	pci_set_master(pdev);
-> =20
-> -	if (pci_is_enabled(func)) {
-> +	if (func && pci_is_enabled(func)) {
->  		wrap =3D pci_get_drvdata(func);
->  	} else {
->  		wrap =3D kzalloc_obj(*wrap);
-
-[Severity: High]
-This is a pre-existing issue, but could this race if both PCI functions are
-probed concurrently?=20
-
-If both call pcim_enable_device(pdev), both would increment their enable
-counts. Both would then see pci_is_enabled(func) as true, attempt to get
-the wrap structure via pci_get_drvdata(func), and receive a NULL pointer
-since pci_set_drvdata() hasn't been called yet. Could this lead to a NULL
-pointer dereference when wrap->dev_res is accessed?
-
-[ ... ]
-
-> @@ -145,9 +158,21 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
->  		wrap->dev_res[RES_IRQ_OTG_ID].flags =3D IORESOURCE_IRQ;
->  	}
-> =20
-> -	if (pci_is_enabled(func)) {
-> +	if (no_drd || pci_is_enabled(func)) {
-> +		u8 idx =3D 0;
-> +
->  		/* set up platform device info */
->  		pdata.override_apb_timeout =3D CHICKEN_APB_TIMEOUT_VALUE;
-> +
-> +		if (no_drd) {
-> +			wrap->prop[idx++] =3D PROPERTY_ENTRY_STRING("compatible",
-> +								  "cdns,cdnsp");
-> +			wrap->prop[idx++] =3D PROPERTY_ENTRY_STRING("dr_mode", "peripheral");
-> +		} else {
-> +			wrap->prop[idx++] =3D PROPERTY_ENTRY_STRING("dr_mode", "otg");
-> +			wrap->prop[idx++] =3D PROPERTY_ENTRY_BOOL("usb-role-switch");
-> +		}
-> +
->  		memset(&plat_info, 0, sizeof(plat_info));
->  		plat_info.parent =3D &pdev->dev;
->  		plat_info.fwnode =3D pdev->dev.fwnode;
-> @@ -158,6 +183,7 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
->  		plat_info.dma_mask =3D pdev->dma_mask;
->  		plat_info.data =3D &pdata;
->  		plat_info.size_data =3D sizeof(pdata);
-> +		plat_info.properties =3D wrap->prop;
->  		wrap->devfn =3D pdev->devfn;
->  		/* register platform device */
->  		wrap->plat_dev =3D platform_device_register_full(&plat_info);
-
-[Severity: High]
-This is a pre-existing issue, but is it safe to unconditionally call
-kfree(wrap) in the error path of platform_device_register_full()?
-
-If the sibling function has already stored wrap in its drvdata, this might
-leave a dangling pointer attached to the sibling function. When the sibling
-is later unbound, could its remove routine retrieve the dangling pointer
-and double-free it?
-
-> @@ -185,13 +211,17 @@ static void cdnsp_pci_remove(struct pci_dev *pdev)
->  	if (wrap->devfn =3D=3D pdev->devfn)
->  		platform_device_unregister(wrap->plat_dev);
-> =20
-> -	if (!pci_is_enabled(func))
-> +	if (!func || !pci_is_enabled(func))
->  		kfree(wrap);
-> =20
->  	pci_dev_put(func);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but could this lead to a crash if the user
-unbinds the first PCI function?
-
-If wrap->devfn points to the second function, unbinding the first function
-would skip unregistering the platform device. The PCI core would then
-disable the first function and unmap its BARs. Since the platform device
-remains active, would subsequent MMIO accesses to the unmapped regions
-trigger a PCI master abort or page fault?
-
-> diff --git a/drivers/usb/cdns3/core.c b/drivers/usb/cdns3/core.c
-> index 6a8d1fefbc0d0..504bdf13ea804 100644
-> --- a/drivers/usb/cdns3/core.c
-> +++ b/drivers/usb/cdns3/core.c
-> @@ -70,7 +70,8 @@ static void cdns_role_stop(struct cdns *cdns)
->  static void cdns_exit_roles(struct cdns *cdns)
->  {
->  	cdns_role_stop(cdns);
-> -	cdns_drd_exit(cdns);
-> +	if (!cdns->no_drd)
-> +		cdns_drd_exit(cdns);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but does cdns_role_stop() have a race conditi=
-on
-if multiple threads attempt to start or stop a role concurrently?=20
-
-Since cdns_role_stop() checks cdns->roles[role]->state outside of the
-cdns->mutex, two threads could observe the state as active, acquire the
-lock sequentially, and invoke the stop() callback twice. A similar risk
-exists in cdns_role_start().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-no_drd_con=
-fig_v9-v9-0-2512cef10104@cadence.com?part=3D2
