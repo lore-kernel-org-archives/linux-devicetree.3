@@ -1,229 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A271D3955C5;
-	Thu, 21 May 2026 07:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779348377; cv=none; b=OSSflHZ5BALPaJv1titicqSEFS18yyxbySYssdyo43a4sjErFw96IDnolz4DDybvevwoIuy1HmirewMWA7r+Y5fYkFofeIdZ3Zt+Hn6/DaHq09/K+FQUiMtP1WVfFuHHkVKOIZ7BiNWfvUZFjmAK5RsjirTvec9u9D7JQgR+MFA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6007395AE6
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 07:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779348377; cv=pass; b=LtepvQGunUIveOHvsn7KaAYCL+IE613DU56wzcP4lNQGbaasi4+e/oi039tUMfq65/zexju9uZSrLTmgQcoTSaWaIvmtJ5MKnlz35XupJV10EyMWZCm72P1KnhZirifwIzp7srHtBOqiVrpAETir7WiXkG2T7wLpKVlcDEU2DZ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779348377; c=relaxed/simple;
-	bh=OFrMN6zDaqSIP5FGJvYTyqZ2WeD27ThPOdSlDMTVUZw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H8IoRa5HFGWrCN/a4jWNCocTIU/7y5aHO2KJVBk4EqwvXLS1Uep3Hyc39x5VwwgLwznSauKNHyA6LW6uDjcTjrKD+YPjuIsXDiV+69baU1Qfx26l7le/GHES6XfpJ9Ms3iT8F9ZnUCPgR4ZcSSwPjTn/zHfp5Es7hdL9VPIjlb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVV1TIFv; arc=none smtp.client-ip=100.103.45.18
+	bh=YDcx1Y0+zlRN1nWyttwEdWnkWzDunYKkzU5UZ8ogEHc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nxl353C1hzk1Sb9ntZLvA2DSEOYk0miPWB+yl8jr02uHtPLTnhaCBgtJDAvB9e2He/y3ebqT+9rJ55ZiOl+5bAEWgTnVpehz9sIGbdsxpCJhhlI/rIt2drEM+/0tw5kYkMA54gtaeSiEpwEl1ECKB1ee/vtC1P1aISDWhequzKs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XzYTUHDY; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVV1TIFv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C0B1F000E9;
-	Thu, 21 May 2026 07:26:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779348373;
-	bh=o9bC+9cpiCSB3nTnXAJVVDIec3sZpcV7549Ot/IF0lE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EVV1TIFvEJnrYVqmXZjyV294rD5EgD5Eqsc6y/zsG5mumVzK46O2m/xpL+eZ+GG66
-	 58J71kmpPTCrP2hazDM2va/SoQcGIT7hkn+QYvnQgpXGq6SBXcax8CPHH0E0OMZfxi
-	 ZXSIYXRlBLCi6nFHImYL27aQQHDIMTeKVfuaih/gD2uJl3EEH760rq+ipMuNOPOxCr
-	 HLFF1SOEvYXCPNu3BpaqBsjBaUwmJ1x0HCP4uhPyi7P7MoOklbVzDYoY8o9uKOKOtK
-	 b/y+7tR8vIkugCR4KJf7GULb/pbnS3Mej7U9xKyQaT6P17c7mCloQgyX5Jmpp0SVGx
-	 gWV6NZyBMWeaQ==
-Message-ID: <48cc27ed-48e8-41db-8351-166774466a69@kernel.org>
-Date: Thu, 21 May 2026 09:26:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XzYTUHDY"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ba856db1c0so42034775ad.3
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 00:26:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779348373; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Hoe9SixxlEKSok5KbMgpay3hWBsIhKwFQASGbGn+F60Ax4+yVkpzqM1twW7xd/VPBv
+         Pcf1JCLi/CAVGX2pRzeY5gwEq4GC3cojzNY+B2T+TXRF2eqKudQH5aRN6lGER/j4zqjq
+         QDqpLs/HyhOfcDYC3soeEGVWvuUWPGKoybf5Pja8tn9NM5r2jm4ScNgtO4ZONhLiNwo/
+         feWrGlxOP2wMYCaR4O06FKpJsI2uRGV/Q2FMGt3bKY94GY2SbZ2jngYsiJvbKPsvQR/2
+         aqdZbv+AUOzYELvS886r6ekJ8rjMOicoYOZFAV7cuc/SeedCKD0yso5VV3nyOt+sXx24
+         EbSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lXbPb+/1MyUml7SUP3O01YVktPIbQ8L41vVAOmxyw2c=;
+        fh=Hyw0TbXx1RVElIDoL41SJffvA+oZR0lvJGf7l/E9wf0=;
+        b=VyoyKkKvBUjCt1ecjffn3eV+pjHvoYeczG5AVYqnQRW3kgNo+rTOOT167ysew275X7
+         P/gRPYIeaUYgZj12xgp7xNpM0BTb2W3E9vyqP0Tmvhu8DisKhVAifOvlPY2flMFEQp9l
+         V9qnGEoebUUqTsF/Jo6bREyGj0/Rbh7ktu4EtAw9W+Ah+drrRnLt8P6nlE2/Kq/LxRf/
+         jkEjAJq1I6wxC53IyUKDERpG42DStIWPaXUSNrkwQDuJNoOfzSOg74O7jjqU4mDhRJ8w
+         U9QJ7EOG0nQtl/7HAT9L8cnXxBXwBW3EB1d2hEW/UrgtQf/HAcehbFz5jiNvF+YL1xat
+         WONg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779348373; x=1779953173; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lXbPb+/1MyUml7SUP3O01YVktPIbQ8L41vVAOmxyw2c=;
+        b=XzYTUHDYBLLf2kJqbQ+2bsnjW8d37U2b4YA6I8cXZ871zPjVb9bpxoJogC/QLRtiiA
+         Xj1xoTHBIzu2S5w3ngutXFYXfcL4i0WDp9/seb+ioeqr5JrUcmq7R8UB4mDcYzRqG4vs
+         Ciz8RW1f+s6uJ9nWCJJwOusons1mIlApG45JrQUa2rGkTSf0q46HWjF2G+yfRAb0JNQx
+         r9KkpYsScVfi8QPKnVLOLzYQ2ktCru98X3EHKqK0i3UaqVEoFOvQyKVnQHPRakxFtUJU
+         6YWzYG2E2XPyZ+1cjzQ6fyrlTPLl9FDrpw98gtBL1eZq3j/vQ16ZDeKqTfTC+cvumtuf
+         pDOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779348373; x=1779953173;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=lXbPb+/1MyUml7SUP3O01YVktPIbQ8L41vVAOmxyw2c=;
+        b=UD/mZs98U7iSY0LXjsmV9XAG3J87b/9x/SpCdjGIqli7ztqjHmDGIGxumKij0GCXCB
+         00T8KfmffsgUNdiqf0Y2FujcpqActwq+5awdtq5VahwcAttYc4jjsUXXR9DKLRMCbX+w
+         4R29aVCTn9JFwEW/K8KrfytAtVFILiT4NxKCx1eViMgK0YdeKbfFm8CXqy+vN29vx6cT
+         VaEcZaahTUg8qzTPrJP4LKW4Ta7tPSe0kkjewjJ7rUMKTT7UY7VhscgMaWs1tmCGTCnP
+         Yu1Ce9rg1aRHpNrx4cXTL0D5AL3sRl//e787Q0buDDrpLdLVQ0OBik2uB1hn8Pa49Gk8
+         ZT1w==
+X-Forwarded-Encrypted: i=1; AFNElJ8x8ZQFFX7rb/4Jp15yJREd9eLtAGWsPwAV50AeU4gYG5C7l59gD4yLo6gVxnlA4wNl2ZUzE7y0X5i/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzfy8rBefMLqh7wIoE0aG6oEEghg0xaXzfdpePaRYP/FAVZq8w0
+	uGvJa9PsOSqbboN2Y3f9da0UZ/hWzGhn+EB0Z2AURx66el6v6WZoIArxRkPUKjZ727NfERNHryp
+	w1A07adQFSqn7U1q/7rFOcMFITlm0QFo=
+X-Gm-Gg: Acq92OELnHrn0vdZMNuchLsot2jpilnNexgGIZs3q0wMTeyAJ8AuO7RN5Ny00XOvC/F
+	HsYGw8jk25Y6F0E6AHQ58E6LzWoo1ifACcdTyimgFf2eN+BEaunDSSLsw9ecZYqTUQI4BxhtZ7u
+	32nxeKr+SD9S0uHDmoPWfD+Rs8Ba4Y82edQWofUrAN3KZ/VM3PNMfywbbTJ69q75/3hj4JSgTDC
+	e2o5xGxNm4Fa+DYPBxvK4oDj/aExhAc3M7/cTrXgz0nviXRVnJXXbMZZLRlB1bc/WZob0JtW+jJ
+	Z13SzaB1INEAYi6UESkOrQQc5/j6aJp0dJn5M3mTn1bAPwXY
+X-Received: by 2002:a17:902:ce92:b0:2bc:eea4:83c3 with SMTP id
+ d9443c01a7336-2bea337dcb9mr16838125ad.25.1779348373000; Thu, 21 May 2026
+ 00:26:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 net-next 2/3] dt-bindings: dpll: add SiTime SiT9531x
- clock generator
-To: Ali Rouhi <rouhi.ali@gmail.com>, jiri@resnulli.us
-Cc: vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- cjubran@nvidia.com, Oleg.Zadorozhnyi@devoxsoftware.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Ali Rouhi <arouhi@sitime.com>
-References: <20260520191943.73938-1-arouhi@sitime.com>
- <20260520191943.73938-3-arouhi@sitime.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260520191943.73938-3-arouhi@sitime.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260510084303.122426-8-phucduc.bui@gmail.com> <20260511234758.6C022C2BCB0@smtp.kernel.org>
+In-Reply-To: <20260511234758.6C022C2BCB0@smtp.kernel.org>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Thu, 21 May 2026 14:26:00 +0700
+X-Gm-Features: AVHnY4JVOeDnjezg1KYm702bCERj-oBsD-Y1fM4Qrg16PXkHjwRlY3W_TbeGcO8
+Message-ID: <CAABR9nHH2D-StaU8hMEnPmtZGoSbk0tO4H5YU+qL-TVmsEov_g@mail.gmail.com>
+Subject: Re: [PATCH v3 07/10] ASoC: renesas: fsi: refactor clock initialization
+To: sashiko@lists.linux.dev
+Cc: wsa+renesas@sang-engineering.com, krzk+dt@kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	Mark Brown <broonie@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 20/05/2026 21:19, Ali Rouhi wrote:
-> Add device tree binding documentation for the SiTime SiT95316
-> and SiT95317 DPLL clock generators.
-> 
-> Co-developed-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+Hi all,
 
-Mismatched DCO. Use consistent identity or fix your commits.
+First of all, I appreciate receiving review comments from the AI bot.
+I think it is quite helpful for learning and improving patches.
 
-> ---
->  .../bindings/dpll/sitime,sit9531x.yaml        | 145 ++++++++++++++++++
->  1 file changed, 145 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
-> new file mode 100644
-> index 000000000000..ac88f2f0b2ae
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
-> @@ -0,0 +1,145 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/dpll/sitime,sit9531x.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: SiTime SiT9531x DPLL Clock Generator
-> +
-> +maintainers:
-> +  - Ali Rouhi <arouhi@sitime.com>
-> +
-> +description: |
-> +  SiTime SiT95316 and SiT95317 are I2C-controlled programmable clock
-> +  generators with integrated DPLL for synchronization applications.  Both
-> +  variants contain four PLLs with automatic/manual reference selection,
-> +  DCO frequency adjustment, and phase offset measurement via an on-chip
-> +  TDC (Time-to-Digital Converter).
-> +
-> +  SiT95317 provides 4 inputs and 8 outputs; SiT95316 provides
-> +  4 inputs and 12 outputs.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - sitime,sit95316
-> +      - sitime,sit95317
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      External crystal/oscillator feeding the chip's XIN/XO_CLK input.
-> +      The chip's PLL Fvco is computed relative to this reference, so the
-> +      driver requires a non-zero rate at probe time.
+However, I have a few questions regarding the expected workflow:
 
-Same as last time. Why are you describing drivers?
+1. I noticed that the bot reply only CCs a subset of the original recipient=
+s.
+    Is there a specific reason or convention behind that behavior?
+2. When receiving review comments from the bot, is it generally
+    expected that contributors reply to those comments?
+3. If replying is recommended, should I keep the same CC list as the
+    original patch submission, or only reply to the bot thread participants=
+?
 
-> +
-> +  clock-names:
-> +    items:
-> +      - const: xtal
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO connected to the chip's active-low reset pin (RESETB).
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      Interrupt from the chip's active-low INTRB output.  Asserted when
-> +      the device detects a status change such as lock acquisition or loss.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +
-> +allOf:
-> +  - $ref: /schemas/dpll/dpll-device.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    xo: xo {
-> +        compatible = "fixed-clock";
-> +        #clock-cells = <0>;
-> +        clock-frequency = <48000000>;
-> +    };
+Sorry if these are basic questions. I just want to better understand the
+usual mailing list workflow.
 
-Drop node. Wasn't here before, so why did you add it?
+Best Regards,
+Phuc
 
-
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        dpll@68 {
-> +            compatible = "sitime,sit95317";
-> +            reg = <0x68>;
-> +            clocks = <&xo>;
-> +            clock-names = "xtal";
-> +        };
-> +    };
-> +
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    xo2: xo2 {
-> +        compatible = "fixed-clock";
-> +        #clock-cells = <0>;
-> +        clock-frequency = <48000000>;
-> +    };
-
-Drop.
-
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-
-
-
-Best regards,
-Krzysztof
+On Tue, May 12, 2026 at 6:47=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Critical] The return value of `fsi_clk_init()` is ignored in `fsi_prob=
+e()`, which breaks probe deferral and leads to a kernel panic from derefere=
+ncing error pointers.
+> --
+>
+> commit 055b3b167e655ece1592450b8baaea9abe771d10
+> Author: bui duc phuc <phucduc.bui@gmail.com>
+>
+> ASoC: renesas: fsi: refactor clock initialization
+>
+> This commit moves fsi_clk_init() to probe and uses devm_clk_get_optional(=
+)
+> for optional clocks. It allows probe to succeed when optional clocks are
+> missing, while set_rate() validates clock availability.
+>
+> > diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> > index 55a11f1fe8aa1..8c46d68069581 100644
+> > --- a/sound/soc/renesas/fsi.c
+> > +++ b/sound/soc/renesas/fsi.c
+> [ ... ]
+> > @@ -973,35 +983,42 @@ static int fsi_clk_set_rate_cpg(struct device *de=
+v,
+> >       return ret;
+> >  }
+> >
+> > -static int fsi_clk_init(struct device *dev,
+> > -                     struct fsi_priv *fsi,
+> > -                     int xck,
+> > -                     int ick,
+> > -                     int div,
+> > -                     int (*set_rate)(struct device *dev,
+> > -                                     struct fsi_priv *fsi))
+> > +static int fsi_clk_init(struct device *dev, struct fsi_priv *fsi)
+> >  {
+> [ ... ]
+> >       clock->own =3D devm_clk_get(dev, NULL);
+> >       if (IS_ERR(clock->own))
+> >               return -EINVAL;
+>
+> Does returning -EINVAL here mask probe deferral? If devm_clk_get() return=
+s
+> -EPROBE_DEFER, returning -EINVAL will permanently fail the driver probe
+> rather than deferring it.
+>
+> [ ... ]
+> > @@ -1997,6 +2001,7 @@ static int fsi_probe(struct platform_device *pdev=
+)
+> >       fsi->running_streams =3D 0;
+> >       fsi_port_info_init(fsi, &info.port_a);
+> >       fsi_handler_init(fsi, &info.port_a);
+> > +     fsi_clk_init(&pdev->dev, fsi);
+>
+> Is it safe to ignore the return value of fsi_clk_init() here?
+>
+> If devm_clk_get_optional() fails and returns an error pointer like
+> -EPROBE_DEFER, those error pointers will be stored in the clock fields
+> instead of NULL.
+>
+> Later, when fsi_clk_set_rate_external() checks if the clocks are missing:
+>
+>     if (!xck || !ick) {
+>
+> This check will pass because the error pointers are not NULL. The error
+> pointers will then be passed to common clock framework APIs like
+> clk_get_rate(), which will dereference them and cause a crash.
+>
+> Should the return value of fsi_clk_init() be checked and propagated?
+>
+> >       ret =3D fsi_stream_probe(fsi, &pdev->dev);
+> >       if (ret < 0) {
+> >               dev_err(&pdev->dev, "FSIA stream probe failed\n");
+> > @@ -2011,6 +2016,7 @@ static int fsi_probe(struct platform_device *pdev=
+)
+> >       fsi->running_streams =3D 0;
+> >       fsi_port_info_init(fsi, &info.port_b);
+> >       fsi_handler_init(fsi, &info.port_b);
+> > +     fsi_clk_init(&pdev->dev, fsi);
+>
+> Would the same return value check be needed here as well?
+>
+> >       ret =3D fsi_stream_probe(fsi, &pdev->dev);
+> >       if (ret < 0) {
+> >               dev_err(&pdev->dev, "FSIB stream probe failed\n");
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.12=
+2426-1-phucduc.bui@gmail.com?part=3D7
