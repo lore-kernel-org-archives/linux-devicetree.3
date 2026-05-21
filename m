@@ -1,226 +1,231 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011049.outbound.protection.outlook.com [52.101.70.49])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF2C299959;
-	Thu, 21 May 2026 03:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779334632; cv=fail; b=ELfE4ZFELDQaOfx9sQuPjMMVnbYJDXlvvzto8VUgVIZF5o48mGh7Bh5Z348KuVRmF/0+nA0Q0trB9nOqXfvJdVzGnLe+I2jLjn3OpRDsqrZOdDmsZW/3RmLfjGhuFXtopVrp5h/za1gfXoZE/HlAT/TSfvIk/9NBQoO50rbaBCQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779334632; c=relaxed/simple;
-	bh=PQ+9rvMqQTkP7iMXq0ngV8PV4C5RF+kCVmZpp7V7+uw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=burqqC6/wiwT1vA7cGcip1lhKWlNQMw2P9ruAJvKfnaeHwMJ+Dr9S5cKjBd9UgNyLRQtb1wamvAcs9wOZto2GZ87l6ydK4Y5h/ShkdH41X3hGmdzkepWhEV6RBV0+tElrM5e+QnJYoVG1+aRE3Osvyz8HNTmkg+HaLZLoKJQb7U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ARZNy1tB; arc=fail smtp.client-ip=52.101.70.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6404E2BDC13
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 03:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779334980; cv=none; b=FQpoGIrrC527GzpTBvslRDAr+1f3ZvgDCJV6fEN2HWoLYhNleDbArvLaTXo/9kRg4KAY+IPN3qQZOkKvctENH+35nHnDHU7PEJy7rmy+LEvUZS3I7EZyZG6zvxy+2yqx5yaBJcSQp480ruC2hLMryT0v0NFmq2FiEYYZWhc/7JE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779334980; c=relaxed/simple;
+	bh=/XjCPxEgGNN+atUEroSNZFqHio63EwE/Ev/LLcgANKA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cCkNx3x2Dm6K7l4pQ7tKindbUdwaS+GGv84svJ+UW3OvfXUWHvTRr6Z2Os1QA5Re2MmP33+bce2/D9N3bqp/a1gC164Hx3hr2LpyJrJbexRVwjPggPhivPOzj4xRTC/sFs4D2Q6kXif9Dbg33w2Gm/p4BQeATGPZP8IBI/Rw0B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=otHukdjL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VOUOXefT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ARZNy1tB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KziFWySbI7P/6eTf+tsuWa4ISwLTIxRc5DoD/UYWwtUtzm/wkAdZhmXpwL5NkiztI6zOsawSwo4S1tc0UCfrFzM3zpitjv7X/vAslR2+h8sn6M3U+a/4VYu497HctHfPiLvY/5+i8fN2CqXeMN3TMBd1wgDciT24Eiw1IFqQzbCnUE11nv7Y/j46zqsSzQJs2D6sAgXRYyx8W0ScYmYwLBiKYPjt/MU0zk9gNl3xyR46DBwq5Yg7s0ye1ND+JEWBkyULMaqPW5BdgZxGAPEsI3jDC0/Va9l4LVSm+BH+NBKJBJjR6jFv0HfE+0SS8qC3Me0wdYPi4rNSh2Rk77HSIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=naQO34UUyOAr6M+zWdJK0EE7IP/dorwJ9ipS3j6L+P4=;
- b=g7UGlBWXyZYLxOLvr8oNbkuC5+AaVi8M9rbeWZxN62dGVsBhwYLWg/44jCBHBJbANinydhpuOkVEM1qP3KeOAK1vuUDmILgJ7Q0GLtCjzclXj/KrGSGGcJ5WhHV3+a5Da8WX2XC7/KLF3bJUy0zolEmAuXc9OPs+bkzx9883JV8xJ7rrCjfzO171pwMuaPCFRSxMUGPz1BQwkwy6QsRoBACoHAG+mfTmQMIqc21H62ftm2MJxoJkVc8LO8OW3ow2BRlrOA5/tC2x5vwzWsbnDz+7TITxjojslYUZHOEc2d/8hcYczW6K69PktUCT/51WPm1W3QjhPR91CtGfIwBZNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=naQO34UUyOAr6M+zWdJK0EE7IP/dorwJ9ipS3j6L+P4=;
- b=ARZNy1tBCkaJ9ZgTavH85DDrt+v0N71KuEwak5OZJw3lIQttm8+3l3O1pABO/LL766tHYIA999nYAgDx17y9xBsdR8VIBk4AnQPbi50HDfAL/oTzqvdIxv26KtOwJvj8aAQLV03gFbl6hxbT74dCmvzkHnXsT1aq7K8acISo4f3wXyxXcxI9L/AyckN6/vq611ni92qTH913xohMue9cMQfccM7OM9dHGeOU26J7xtSlgJTfpTz/QXPlvvpef7MHekCqKpAbBJJXFk0FssKWpMbm/ZDeNBAF8GzHmJWbFkdEiS7vzbViA0YvPbTXQwLeYQbBibNfPW6x6/Pawovauw==
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- (2603:10a6:150:30c::14) by PAXPR04MB8798.eurprd04.prod.outlook.com
- (2603:10a6:102:20d::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Thu, 21 May
- 2026 03:37:06 +0000
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe]) by GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe%4]) with mapi id 15.21.0048.013; Thu, 21 May 2026
- 03:37:06 +0000
-From: "Hongxing Zhu (OSS)" <hongxing.zhu@oss.nxp.com>
-To: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, "kernel@pengutronix.de"
-	<kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>,
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org"
-	<kwilczynski@kernel.org>, "mani@kernel.org" <mani@kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>, "l.stach@pengutronix.de"
-	<l.stach@pengutronix.de>
-CC: "imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Sherry Sun <sherry.sun@nxp.com>
-Subject: RE: [PATCH V3 0/8] PCI: imx6: Integrate pwrctrl API and update device
- trees
-Thread-Topic: [PATCH V3 0/8] PCI: imx6: Integrate pwrctrl API and update
- device trees
-Thread-Index: AQHc6DU2+3vZVI47F0mq/ddImxZlOrYX1Nmw
-Date: Thu, 21 May 2026 03:37:06 +0000
-Message-ID:
- <GV2PR04MB120194C8BDA9B49C79DCE72168C0E2@GV2PR04MB12019.eurprd04.prod.outlook.com>
-References: <20260520084904.2424253-1-sherry.sun@oss.nxp.com>
-In-Reply-To: <20260520084904.2424253-1-sherry.sun@oss.nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB12019:EE_|PAXPR04MB8798:EE_
-x-ms-office365-filtering-correlation-id: 2578e9f8-812a-4624-bb3c-08deb6ea3b1e
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|7416014|38070700021|921020|56012099003|18002099003|22082099003|11063799006;
-x-microsoft-antispam-message-info:
- DKOSgxxxEnVJ9sZmx1LL7Rkxkm5GM7A8ZxM5CvYIhf/pj1MYLUBmTVpOxf/F0rkF+1V6Ueh3ttLS9ps7NrXQADFfxxKk9fZLbOKW9OU3K5Y9EU0TibEUK3RneTfQ0V5S9EcyY/L5GHOQdIYjYLrLM+puH8a2SgzpsSW0+2hwv9hWhKvsitucBTjJqvAEDs5cy2B3xc13q98IqZumIJS2Uj8L0MhUGQAxiU7ckmIDKPpt5Ja8fUpVIZ7KFZsRhs3ZVq5sWgJ7sjryvLI/NxwZHJ0wbGvuEZntpzP7d9izuQvz74b7ed+RhYC8kFiOTc85MOarC2lJcf9KhXEsbaSyNy5L4khG6uf1oo7OKqoITuDy7mnE9+kJumsuBJYe6oBgJsfd/ozVk3CUXwrNBk5fRHkIkdZlnpZ6fgThuaw0qYk2Q/0oaqoMKnW98BwaF43x1hF+Z29KiDwEezUXYZ+hkHZJWWg0w56W1KPvEG8A4oFF+sHD82QqC5T9ZGh2yc8WEWiZYJo26vrq9GIgO5daqhe5se7C3bje2LsFmi9+wKH7n4un3inzLZbtc+i3c/ALmaRiuVRPsemP9N+v15N8rLA6c8vXpxt5crC66etQ/zbTN0B5wiPzFaPp7m5CTZJm/3ETfdZruySJ9XCHdjtq/3HvpbKIcrUWhUU1Kv9VnmNHZeOBFLE/Ztwkr/MT0miLSHwC3vYuPi9WPTPW+BY46sY8PtLXvG0WBgBduc0J4rH9fAm94HiPg7vIGkYAMPm+mhdHYpxeag81Oo4AtYXkfA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12019.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(7416014)(38070700021)(921020)(56012099003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?faPQ+EZN36h7bKxdHhXrgYjiHq6I05yrrSgz685mH09Zb6USSacpO1SwcQao?=
- =?us-ascii?Q?p/SPL4I48q/IGxWABeNlC8HRdzQvpYmP/GqykK5/Lp0qdFWmy2jDTcd3fLEx?=
- =?us-ascii?Q?ZB5YZBVL9LcItkjIVd80WHxI0Rs/Z85fCOJ/58OP5mOeMjCDyzeppAGOCSRq?=
- =?us-ascii?Q?9/cvJ1ao411V2mYKiPnVkIG+ufLdsJyy1Bg88oyyc7aQMmBZD/Up6rSVio5O?=
- =?us-ascii?Q?Bd3RKzHDfAj5OPmJrciKfgqIBvnhzP6aSzJ4OoKCKCp8gMsUV2d9xvQKGHjT?=
- =?us-ascii?Q?/f1UrPDiwDmts+zLGB5++kfuxyY1/QiBDaEK6ZDMrHJGiDHAG89ANDWMSsz2?=
- =?us-ascii?Q?9veAwnmveClXU8bRzg4FRrs8ibkOL6ayDzuIEf1AB+H1wXo3KAnDRonGhTQZ?=
- =?us-ascii?Q?V1TdJGeHrbpUb6PvB5ZzMueU+UjYSipMlv9v2PkTQB0yayWf5UwjMJ+gZB5M?=
- =?us-ascii?Q?WWxU3oIQyZlL0nnCVj7mwW3LNUkmph0/rIUZ3ECGw/+DgL4fTv7VNeXSUPdA?=
- =?us-ascii?Q?RsBHHzMdwPmqfgb3t8897l7lvSAcFe5msBXqbYNi+0NlUyh+FgARGRp23lpY?=
- =?us-ascii?Q?w/JD99RCYdej4R1zWCJFw6saLUGa0PSIlkoYWISkQcduElmjZYyyzDCW6clz?=
- =?us-ascii?Q?n5ji+E/hR+AdDlEC450zhROr/7qeMSqG5eH2f6UFDrrtEwUUqAXcBN8WmSjs?=
- =?us-ascii?Q?ATrpHMDuFOdKmdZjoLbFz0Gqu+2ioS8v7bp7op42FOeGQvS4LUT4FQteHxZb?=
- =?us-ascii?Q?15Sp/TzGkNLnOZws/3uy0HgGOpJ5Fpj9DIVAgLcwfkvj4CIWB6mMfY46TpcI?=
- =?us-ascii?Q?bW7zbcLDjcj7kMdgAFHME9FP5ORD630u67QPK8HePw4qdPMe//Dc4FJvrHXI?=
- =?us-ascii?Q?1j/E38mu8dTwcTiHVty3V1IqE6xUBpTVocFZLmqApNWzSfqjWGvzyvD+lB0U?=
- =?us-ascii?Q?asBG425nzuqlpYu5Cuqk2S4ei3sNeF9LFcPZ59YJat3uC2GLHgoZxnomiyeJ?=
- =?us-ascii?Q?2EzIjEWHETdEPqFik3KciwUiM56wE08qkGVP1iEL8tTKhn3i2bdawMOVmtE2?=
- =?us-ascii?Q?tMbcYUwnZNtq4+32o4KjMwaH0OL3yfY+4n2s67uPkwtSByD7txsC7UTL6JBv?=
- =?us-ascii?Q?vPWCSpLX7iPy6FsZ+8Yqkv5irtS4smxjbHnFFagKaN6RU18JIkbs/mJxpaxc?=
- =?us-ascii?Q?S1cBVnhtdRYAuhb3HRfUzf989a61hWINhmzli8WGedzbzO1tRi2z1ItJd9D8?=
- =?us-ascii?Q?IKVQ9EYYvuW6BtvB6EgHrc7Js2Svwwh3d6cf96mnVAeXPCDoHiYT9h+rwJnU?=
- =?us-ascii?Q?N9GtAZ5j8Ao32LEWjE/qswAMXrA0FkwcwfWiUb5UzhWRlLyl3A8yKO7cfIwI?=
- =?us-ascii?Q?iz/VUo7kmk2m6aPyoXtjP0iFa8DxXhxvTyA5TzTUF1e+G41gAGHHQiv0R9rR?=
- =?us-ascii?Q?0IMsYfSG4DIhlk4EK/tK+AZR7oIrXrIwlVJvm92qLdVkvn2NNQ8lsdJACZX/?=
- =?us-ascii?Q?BnuMIwiU2SSCvY23DtZjX6mZyon3OxEnprewjphYPm5+pSI3nicQJ0ED6HET?=
- =?us-ascii?Q?UEaSFU/+Cylm+LTQsL4TN1SHP5Xr9uSmilfbQWi6rhHWRC66zXjZTk9YRkzJ?=
- =?us-ascii?Q?S8fU0lKvuXAZiQXNNiQ4nH8CfuCdQB05jFhoJfOm4xDLS1akthAWBj7MH6eY?=
- =?us-ascii?Q?gJ/fUlLuoSsNcxX0PjTjg7tVlUlIdzjgQ64Tv8dXT/D+b+1vgCCbTo6PF4Rp?=
- =?us-ascii?Q?jIFyGA2tmw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="otHukdjL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VOUOXefT"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64KMEwci3680286
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 03:42:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xD5NLpXfnIseB9t5q7naGLC9DxcIYZPc4Gj/KvnSuTc=; b=otHukdjLjLP/a0v+
+	GZmZgBpQBVcGemFoWKF9OoFOSUvPetMbMyXqmdMiTX+P/YStfx0OAXh4I4FnGm1U
+	AIZ3aZZcK/OmrsJU7J6Q4spuZc2zTw8kRNTh2qwyU8+XTZeK/X4uwr0OA1dwV1yf
+	l04ZvB25l2Ig/KvlX8GIAw7qL6gWevCeLnljm9sPwgHshkRwCchqOx6VW5fkVpr3
+	VbAJvZHUIHS+/kHRuSxg2k3S0ynw7u8ogMcNycaBVQUR2kcf7e1teZAk7hAO5hv/
+	Ij99zbu1I+YXsWomEryopQz/o7pdNj2zakear5DmtNn3GUZEkwYeEorE45uVBeOy
+	+MG0Rw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9e9j2x3y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 03:42:56 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2bd04e4fe3dso98999235ad.3
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 20:42:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779334976; x=1779939776; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xD5NLpXfnIseB9t5q7naGLC9DxcIYZPc4Gj/KvnSuTc=;
+        b=VOUOXefTwdADgc7Z2HF17qt16iNdGda2ISHsa7ownwKWtLx5QXMX9hI25/7I6BVHKV
+         TUel36VoqMFjlZP+S6WzPVCuOBtHvVwIC3WDVXXShArt8Enylcz39plnk9fL/lpX7DCv
+         Buv65PaLI7XYX1btQRrtBYWJoFO7MEuN+cV69dBwaW86EGbByNL/ItcOi0U9C/jfmqw2
+         SOUOJ1Q7fP5jL1rxXo/mwzGpN/HWNG7pxJZ913LemXxZk7GclhufFTsJXYQ7djt98DUa
+         FJ3VCmcvXyP/mAmSNUO2o4cHNxrIYnRtt1TiH4lgRtq89TIo8h91AuNxQ7j0nONsCEUS
+         9yMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779334976; x=1779939776;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xD5NLpXfnIseB9t5q7naGLC9DxcIYZPc4Gj/KvnSuTc=;
+        b=bDhWHgakXT8ukUFhSgpXFjCQdM3IqAZkob2cEF+Y9Ws/5N5FM6irdIRdx3ijFP7H6q
+         spGPrJ8WJ3IRgX4Nw+l/6ny2eYMoCBucHvFAriqVHd/OdxO+cl5ug0qTaLNUd+3TF1QO
+         hsivWaJSuce21iP9kO1QlWrVTZxICFwhdEWqGhrLGkAxi7QgHOXpM2Z/a3prWaJDEqDF
+         uZJauMF5KiT4UkejeTCjl9jBaVOqcfItRfK3Vogp1JHq3Um6g46hdExo/b9hSyNcU3YB
+         jFxg6RRIUlPraNwX6cNrQe5+kVoMTG64zQc1EVlBvXCP2+th2LapGMDa8jhQE5mTkA4L
+         0enQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+awYwodPc7U/IhbGGoAocDldvLYJQagnnRk+oC8qDXO71e8yK+DWUf9KsJv8oyszjSLuWdITn61NzO@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlhqOVdSoNxikCwBgN9uS2+tphVPJLV7F6925j7QTVqZk0+mI6
+	i6tHZNNWXYaN9PJZKhm0/e65FfzzcLvwmrYVz7QDraVnrF4q5RScS5TgfK1paXQm+P4S3sCoopn
+	OUacQtZ9JFH1PX/wNDqvgp/Ml9F0G0u5LkqVpH+oic592fiFPQZz0bxirpgNr+A8g
+X-Gm-Gg: Acq92OFEcWjXlo7EgT4Ze9c8QJCnKFlhbLMrSXmjtGacK/JdctRm5iyOGBDD4N0PRGz
+	FywVMPLsBlVmaCkkOaLMhqC2C/37sfcNzzOajmkz1nHC9KIvlHB/oG7VY/N+vbIUUk3IZGRhBpY
+	k2K9JKrIoGyxAbFq+8APGR2O9sfuOc+H6Qa1TR/ZMRBYfa68O+1mYOIf8V+DSXQGifXbXkyvEbZ
+	OhR1n52+WORpyfPX0Q7wlloGk9AvbxxYenUmC6BxROIUHOP1eYCpIrlno0r/H2ZRmxnyuZAkodv
+	HX5itf8bsqVCpledEdZRmMMVhpypQVlzrq2Onmq/0cK47Oo6Ah6m6+lVZuirAn328c6p7Nkr0cp
+	MDUWbt2RyzA7UCs6eanQNqfz9IvkVtdCz9Aia3WE9IWTYsOFahchZ+/IvtCqk2UVWLJXVs8juqn
+	uk2WpwLkJg+lE43gBW
+X-Received: by 2002:a05:6a20:9185:b0:3a2:d838:bfdb with SMTP id adf61e73a8af0-3b30885a85dmr1362739637.29.1779334976005;
+        Wed, 20 May 2026 20:42:56 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9185:b0:3a2:d838:bfdb with SMTP id adf61e73a8af0-3b30885a85dmr1362699637.29.1779334975454;
+        Wed, 20 May 2026 20:42:55 -0700 (PDT)
+Received: from [10.133.33.112] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c82bb115c38sm21138070a12.28.2026.05.20.20.42.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 May 2026 20:42:55 -0700 (PDT)
+Message-ID: <e67907bc-ce96-4654-b210-2ae8f35cacc7@oss.qualcomm.com>
+Date: Thu, 21 May 2026 11:42:49 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12019.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2578e9f8-812a-4624-bb3c-08deb6ea3b1e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2026 03:37:06.3357
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NB41cO6SR86S/buOcBuqQdTiH9eakwwELEfTZw/DpVrm1h0Wpv7AJ0EWCcSvvXyS6YRxzNc8ZEN11PfWvsN50g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8798
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support for
+ subsystems
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, shengchao.guo@oss.qualcomm.com,
+        aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
+        trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
+ <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+ <20260520082747.7seyyua4gfv256ev@hu-mojha-hyd.qualcomm.com>
+Content-Language: en-US
+From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+In-Reply-To: <20260520082747.7seyyua4gfv256ev@hu-mojha-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=bfhbluPB c=1 sm=1 tr=0 ts=6a0e7f40 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=h3XtbvSS6J2BgG28aqoA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: eogKH9qbHl22j1HYRblTSNt81tIc4L6x
+X-Proofpoint-ORIG-GUID: eogKH9qbHl22j1HYRblTSNt81tIc4L6x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDAzMiBTYWx0ZWRfX4f7/vA8tN7y1
+ z648BWTss67kYE5KUkwDnqkOOHaUl9LspqyKqZc3CP60kFScyktQeFS16IvuiBPFD6tFYbWV/4B
+ +5QeHAkkVA6ngmcG+IkMZYuUwZfFYrUmsx7FeEVE28gna4Ri5osqtvKNL9p9eG21Q0w1yanohy0
+ XAQ2f05zeJg++MC1jSWW3NxPFB3jFCFxvdJ1GSDbKhrEqTHIpVCeIkrIGVpeqPuzmRE8dCQ/ETW
+ dLUAgnj51o87nn5ERqKtVQ/j9fj49Rm21SvBccJVX5A1gkpOfWUZI+Fu76dhzbYh8rViFeMNuNI
+ ELW6vLga7hKRHvG/nBRpi6clc/3pwQA5LkiojA9ACKGu8WXf1wQmAjnjoU2fZ3a66VIIDtjU17F
+ bCgWgZkWuNd9PZ/N9yRdi75jS0Xd+3qtI08MxeeF9sJQIB1s9JT71OSFL0+3VYGuCBvqWGfUvk8
+ m58lT9qfG8rVVGOtecg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 adultscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605210032
 
-> -----Original Message-----
-> From: Sherry Sun (OSS) <sherry.sun@oss.nxp.com>
-> Sent: Wednesday, May 20, 2026 4:49 PM
-> To: robh@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org; Frank Li
-> <frank.li@nxp.com>; s.hauer@pengutronix.de; kernel@pengutronix.de;
-> festevam@gmail.com; lpieralisi@kernel.org; kwilczynski@kernel.org;
-> mani@kernel.org; bhelgaas@google.com; Hongxing Zhu
-> <hongxing.zhu@nxp.com>; l.stach@pengutronix.de
-> Cc: imx@lists.linux.dev; linux-pci@vger.kernel.org; linux-arm-
-> kernel@lists.infradead.org; devicetree@vger.kernel.org; linux-
-> kernel@vger.kernel.org; Sherry Sun <sherry.sun@nxp.com>
-> Subject: [PATCH V3 0/8] PCI: imx6: Integrate pwrctrl API and update devic=
-e trees
->=20
-> From: Sherry Sun <sherry.sun@nxp.com>
->=20
-> This series integrates the PCI pwrctrl framework into the pci-imx6 driver=
- and
-> updates i.MX EVK board device trees to support it.
->=20
-> Patches 2-8 update device trees for i.MX EVK boards which maintained by N=
-XP to
-> move power supply properties from the PCIe controller node to the Root Po=
-rt
-> child node, which is required for pwrctrl framework.
-> Affected boards:
-> - i.MX6Q/DL SABRESD
-> - i.MX6SX SDB
-> - i.MX8MM EVK
-> - i.MX8MP EVK
-> - i.MX8MQ EVK
-> - i.MX8DXL/QM/QXP EVK
-> - i.MX95 15x15/19x19 EVK
->=20
-> The driver maintains legacy regulator handling for device trees that have=
-n't been
-> updated yet. Both old and new device tree structures are supported.
->=20
-> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-Hi Sherry:
-Since the vpcie3v3aux is used to power up the WAKE#, it is always on in thi=
-s
-pwrctrl framework whatever the system is in suspend or not, right?
 
-Best Regards
-Richard Zhu
-> ---
-> Changes in V3:
-> 1. Rebased on top of latest 7.1.0-rc4
->=20
-> Changes in V2:
-> 1. After commit 2d8c5098b847 ("PCI/pwrctrl: Do not power off on pwrctrl
->    device removal"), the pwrctrl drivers no longer power off devices
->    during removal. Update pci-imx6 driver's shutdown callback in patch#1
->    to explicitly call pci_pwrctrl_power_off_devices() before
->    pci_pwrctrl_destroy_devices() to ensure devices are properly powered
->    off.
-> ---
->=20
-> Sherry Sun (8):
->   PCI: imx6: Integrate new pwrctrl API for pci-imx6
->   arm: dts: imx6qdl-sabresd: Move power supply property to Root Port
->     node
->   arm: dts: imx6sx-sdb: Move power supply property to Root Port node
->   arm64: dts: imx8mm-evk: Move power supply property to Root Port node
->   arm64: dts: imx8mp-evk: Move power supply properties to Root Port node
->   arm64: dts: imx8mq-evk: Move power supply properties to Root Port node
->   arm64: dts: imx8dxl/qm/qxp: Move power supply properties to Root Port
->     node
->   arm64: dts: imx95: Move power supply properties to Root Port node
->=20
->  .../arm/boot/dts/nxp/imx/imx6qdl-sabresd.dtsi |  2 +-
->  arch/arm/boot/dts/nxp/imx/imx6sx-sdb.dtsi     |  2 +-
->  arch/arm64/boot/dts/freescale/imx8dxl-evk.dts |  4 ++--
-> arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi |  2 +-
-> arch/arm64/boot/dts/freescale/imx8mp-evk.dts  |  4 ++--
-> arch/arm64/boot/dts/freescale/imx8mq-evk.dts  |  4 ++--
-> arch/arm64/boot/dts/freescale/imx8qm-mek.dts  |  4 ++--
-> arch/arm64/boot/dts/freescale/imx8qxp-mek.dts |  4 ++--
->  .../boot/dts/freescale/imx95-15x15-evk.dts    |  4 ++--
->  .../boot/dts/freescale/imx95-19x19-evk.dts    |  8 +++----
->  drivers/pci/controller/dwc/Kconfig            |  1 +
->  drivers/pci/controller/dwc/pci-imx6.c         | 24 ++++++++++++++++++-
->  12 files changed, 43 insertions(+), 20 deletions(-)
->=20
-> --
-> 2.37.1
+
+On 5/20/2026 4:27 PM, Mukesh Ojha wrote:
+> On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
+>> Subsystems can be brought out of reset by entities such as bootloaders.
+>> As the irq enablement could be later than subsystem bring up, the state
+>> of subsystem should be checked by reading SMP2P bits.
+>>
+>> A new qcom_pas_attach() function is introduced. if a crash state is
+>> detected for the subsystem, rproc_report_crash() is called. If the ready
+>> state is detected, it will be marked as "attached", otherwise it could
+>> be the early boot feature is not supported by other entities. In this
+>> case, the state will be marked as RPROC_OFFLINE so that the PAS driver
+>> can load the firmware and start the remoteproc.
+>>
+>> Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+>> Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+>> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+>> ---
+>>   drivers/remoteproc/qcom_q6v5_pas.c | 58 ++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 58 insertions(+)
+>>
+>> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+>> index da27d1d3c9da..ac2a00aacd2e 100644
+>> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+>> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+>> @@ -60,6 +60,7 @@ struct qcom_pas_data {
+>>   	int region_assign_count;
+>>   	bool region_assign_shared;
+>>   	int region_assign_vmid;
+>> +	bool early_boot;
+>>   };
+>>   
+>>   struct qcom_pas {
+>> @@ -510,6 +511,57 @@ static unsigned long qcom_pas_panic(struct rproc *rproc)
+>>   	return qcom_q6v5_panic(&pas->q6v5);
+>>   }
+>>   
+>> +static int qcom_pas_attach(struct rproc *rproc)
+>> +{
+>> +	int ret;
+>> +	struct qcom_pas *pas = rproc->priv;
+>> +	bool ready_state;
+>> +	bool crash_state;
+>> +
+>> +	pas->q6v5.handover_issued = true;
+>> +	enable_irq(pas->q6v5.handover_irq);
+>> +
+>> +	pas->q6v5.running = true;
+>> +	ret = irq_get_irqchip_state(pas->q6v5.fatal_irq,
+>> +				    IRQCHIP_STATE_LINE_LEVEL, &crash_state);
+>> +
+>> +	if (ret)
+>> +		goto disable_running;
+>> +
+>> +	if (crash_state) {
+>> +		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
+>> +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
+> 
+> I am not sure if this is already discussed, but what if it is the first
+> crash with recovery and coredump enabled? What would be in the dump,
+> nothing? As there is no segment, is it expected since Linux did not load
+> this?
+> 
+> This is even true if it is a crash after a successful attach.
+> 
+
+It is suggested by Bjorn:
+https://lore.kernel.org/all/qfls6xlvfppqw7p6rjpmzqesh6sbob4myfc6dz47qh3jywqrjk@5xiutkbybk5d/
+
+I did a hack to test the recovery by setting crash_state true, it can recovery
+(stop and start) successfully with below patches:
+https://lore.kernel.org/all/20260519-rproc-attach-issue-v2-0-caa1eaf75081@oss.qualcomm.com/
+
+For coredump, it will return from the first "list_empty(&rproc->dump_segments)" check in
+rproc_coredump as segments are not configured in attach.
+
+Thanks,
+Jingyi
+
+
+> @Sibi, has this series been tested on Glymur with KVM?
+> I don't see the iommu property in the below patch.
+> https://lore.kernel.org/lkml/20260403-glymur-soccp-v3-1-f0e8d57f11ba@oss.qualcomm.com/
+> 
 
