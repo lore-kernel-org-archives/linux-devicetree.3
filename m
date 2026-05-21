@@ -1,69 +1,82 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117223CF963
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CABD3D79E1
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779371062; cv=none; b=TAmA0yhdrzOJOpGwGjp/NSvswih3qyn8q+LPtFD9MAdGz1OY8/4IfPmwjmT9C+wOp8NqfPbctRjqnklzsYdt84UfQRqGp07qBvVgzUTm/X7N+l5Adx+ZmOk+bTrp705tisLiMWGz7ZqmhHTcsshOnqmeEdmH7Ck7TiGjh4MV5/I=
+	t=1779371320; cv=none; b=NujuPK0yyJQ7nRoU/nmKoCfYD2KLDOBTFJzuYG6jQnlDT+yalELNsdkIOWQrpsS4yGYZip/kbXitBZFVWvImPfi30Xer3usitaqX6/+Az4LZEdF0Rbfm/ANFrZpRlSjAkJxMp9sZhdUl4O1sISujRp339ppun/FBsSz01J0rwLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779371062; c=relaxed/simple;
-	bh=AmWsOoHyB+84rcp1z3vwXGI+MPJwBXTDaf3KWuIuIKM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sw138lns3YEOMIp3AZFy2yPEuaZNrGwnKdUVSzl2F6itW5n52ZHdyfV6efc8rY94EaJZK7ohdBGeLprvg0/YzxFyyumF2tFOCGBDY1fqCrmBih6jX+2WNordF6OI/Bzwjap8XkSLrhojy2Ph1rt/kxmxXyN7+OKJmMh6PKT2sxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <m.tretter@pengutronix.de>)
-	id 1wQ3h0-0001JK-60; Thu, 21 May 2026 15:44:06 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <m.tretter@pengutronix.de>)
-	id 1wQ3gy-00174N-2S;
-	Thu, 21 May 2026 15:44:05 +0200
-Received: from mtr by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <m.tretter@pengutronix.de>)
-	id 1wQ3gz-00000004WQz-0oP0;
-	Thu, 21 May 2026 15:44:05 +0200
-Date: Thu, 21 May 2026 15:44:05 +0200
-From: Michael Tretter <m.tretter@pengutronix.de>
-To: Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Cc: Jacob Chen <jacob-chen@iotwrt.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, kernel@pengutronix.de,
-	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
-	p.zabel@pengutronix.de,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [PATCH v7 10/28] media: rockchip: rga: announce and sync
- colorimetry
-Message-ID: <ag8MJaSIVt4Q_y_U@pengutronix.de>
-Mail-Followup-To: Michael Tretter <m.tretter@pengutronix.de>,
-	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
-	Jacob Chen <jacob-chen@iotwrt.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, kernel@pengutronix.de,
-	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
-	p.zabel@pengutronix.de,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
- <20260521-spu-rga3-v7-10-3f33e8c7145f@pengutronix.de>
+	s=arc-20240116; t=1779371320; c=relaxed/simple;
+	bh=XeEOKxqcNhrXKitEzKsGvJcSYxxb2/NE5qqflkYV41o=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eYKgw0dBVJSduBtAHjpOqheIuTPKeZ5e7u/YFFkzrIWALjdmky8CqPFNKjLKe7Pe1wZtYYAJeezB2PPp7ji3Fhmchz5btHYNPTa5sSte7ZQjCN1YQFMQDE5PPrZEGl6QavvWf44inuF/mzUCI70CkuLVeF3QeFfJiySAiKi0Zik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jdz5zDEu; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jdz5zDEu"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4903974854dso6498985e9.3
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 06:48:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779371316; x=1779976116; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=52jcbEZbjO5t07+/FFl717hGmuxoIXJoziT8EaSDvxo=;
+        b=jdz5zDEunt/aeUwJJTeTTDNu9dUz/LoYm3xPBMhX5qmJDtfsnbdGZaUf8T7e+oH8QI
+         x1c/0th6WyOanLc736Quou3nAPCHy7T4lPaYdkPkneeMuPaU8KbGCPHYDPc3LCqljZO3
+         aLMP8lglEB2DjefJl+TBdmdZdtCKyOo5YiV3XDVkrlLHs1dYmxx3H6ASe85OfC9vejF/
+         pWVTc+Z8yppFPz5Uyr2+Dw2irUiguj8j7OQnV72xFRc4khUnLNumJzEa6i//ZFCQCZwD
+         cAZfCg48mUjFY2UR6keKGhjzx/3tOOAF/VcZ15gzRuEs/B5Pig06/2A0xcNiwuHhoXja
+         frUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779371316; x=1779976116;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=52jcbEZbjO5t07+/FFl717hGmuxoIXJoziT8EaSDvxo=;
+        b=O+l6uw03/R10UgXvFl6jECcmoHyIIk91+DWdVaDxn31ZgYmS5YxSHwx2K85nQyh6yH
+         /H2u40ksa/xgTj+RhY+X7vR1JF/rxNLVFkA9lHhMkaGODtCRRKRxEwm7uU9o4FMWFkz/
+         /liZzYloodtKeLhm24L1uFsgYP6tNc/Bk/w2Of5Q8e4d+qZ+GpRLtppQoEaxqykj2VU4
+         qYvUgB1rkLc3WTIZ10HLgmRAp9BLsNj+FkM3OyBnDvSXzIUd85k6oiwa8j/oR5uR71lY
+         XRkyPyuAUYgWNyO916IvWNH8e30wYQpYOn807g5wh+XUvu6PAptIQx4qatd7vPsGTEE0
+         4ttQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8xNNtpebLozaohQ9xlWAE/Zv4+EAQIaypA7dJV5A2a5Rd9AzODxM4X9OzZrDXEY5mt6cwfc8WHu/z9@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQFSF9sNwocWLFVgS9GXYEfgq1S4dajosyIwPDgiGTz5G8cDdM
+	2PQpkLzgxKUYQiaeeQk8Zq7oLadBvHFi9znofNkKPYarcGRwaGRMHGnU
+X-Gm-Gg: Acq92OHpG3lBskHMIXcaAlHXOni8ZThKV94p5qHaMQ5A46zGodVB79IeDet4Q1TCwuK
+	+hVE/2mpfOAojdeII4335m9Nhou5qwh/gzVwQzp5dwkU28LvZYpHjuty3V69moJFFnuerrkmN0y
+	5qciXnKZr31BLtqWnJQ2Xtej8yUYb8qo22UDTjP1FY/sP/YjfMGNf4n2romkiN1vHp0iE+h1vST
+	WmFZnozVAoSuJb8FBl+GFLWbR1n1+b6JMO+49sxjiYr0WlPebpIcZJBy8uvYrkGlcczJR14gQ5M
+	alxeuzblJYFdTDmIbbQ+ulMBBVFavdls7/lEqMVgxyHM3YvaLlAUlpqH14/fpXlMh7iKiEVkp+a
+	eIet8G8i2055HPlyT8x0fofdqwscq/8dse9OQz/Envq446/8W7t7n8T297VhxcwSBp1xNM8KteO
+	73xL6X0a/5TKFTWU0zxPtkuoi5/FpSWfrbTQZzeofBScZoqFnQZPITNHvnfCz3P9NaF8AmYt7ud
+	sUO/Ny070KWDHYPWU2EAfRtJU1bL6AH2oV13xcFlSxHOcBHFy38kD/ZfWcs
+X-Received: by 2002:a05:600c:5298:b0:48a:563c:c8c0 with SMTP id 5b1f17b1804b1-49036034241mr45116035e9.7.1779371316202;
+        Thu, 21 May 2026 06:48:36 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49035c22d97sm16292635e9.1.2026.05.21.06.48.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 06:48:35 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Thu, 21 May 2026 14:48:30 +0100
+To: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v5 03/13] iio: core: add hierarchical channel
+ relationships
+Message-ID: <hjv4uuudhkueaotpyuzj3u3jg2rkr73jmrx2vxi37w3po5xk5x@3fhfebj6a3wt>
+References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
+ <20260517-ad9910-iio-driver-v5-3-31599c88314a@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,123 +86,144 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260521-spu-rga3-v7-10-3f33e8c7145f@pengutronix.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: m.tretter@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+In-Reply-To: <20260517-ad9910-iio-driver-v5-3-31599c88314a@analog.com>
 
-"announce colorimetry" in the subject is a bit strange. Maybe rephrase
-the subject to
-
-	media: rockchip: rga: announce CSC and sync colorimetry
-
-On Thu, 21 May 2026 00:44:15 +0200, Sven Püschel wrote:
-> Announce the capability to adjust the quantization and ycbcr_enc on the
-> capture side and check if the SET_CSC flag is set when the colorimetry
-> is changed. Furthermore copy the colorimetry from the output to the
-> capture side to fix the currently failing v4l2-compliance tests, which
-> expect exactly this behavior.
+On 26/05/18 03:26PM, Rodrigo Alencar wrote:
+> On 26/05/17 06:56PM, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Medium] Exposing the hierarchical relationship via channel labels creates an ambiguous UAPI for userspace.
+> > --
+> > 
+> > commit 64c6f961f1d7645c58f732e4bd4c11200b999e93
+> > Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > iio: core: add hierarchical channel relationships
+> > 
+> > This commit introduces a parent-child relationship between IIO channels.
+> > It adds a parent pointer to the iio_chan_spec struct and exposes this
+> > relationship to userspace through a new "parent" sysfs attribute that
+> > returns the parent channel's label.
+> > 
+> > > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+> > > index 5c8404efd0a56..348ac7a597385 100644
+> > > --- a/drivers/iio/industrialio-core.c
+> > > +++ b/drivers/iio/industrialio-core.c
+> > 
+> > [ ... ]
+> > 
+> > > @@ -1263,6 +1271,31 @@ static int iio_device_add_channel_label(struct iio_dev *indio_dev,
+> > >  	return 1;
+> > >  }
+> > >  
+> > > +static int iio_device_add_channel_parent(struct iio_dev *indio_dev,
+> > > +					 struct iio_chan_spec const *chan)
+> > > +{
+> > > +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
+> > > +	int ret;
+> > > +
+> > > +	if (!chan->parent || (!indio_dev->info->read_label &&
+> > > +			      !chan->parent->extend_name))
+> > > +		return 0;
+> > 
+> > Is relying on channel labels robust enough for programmatic parent resolution?
+> > 
+> > IIO channel labels are optional, human-readable descriptors and are not
+> > guaranteed by the core to be unique. If multiple channels within a device
+> > share the same label, how can userspace definitively resolve which specific
+> > channel is the parent?
+> > 
+> > Also, if a driver establishes a hierarchy where chan->parent is set, but the
+> > parent channel lacks a label, this attribute is silently omitted, hiding the
+> > relationship entirely.
+> > 
+> > Would it be more reliable to expose a definitive, unique identifier (such as
+> > the parent channel's sysfs prefix or index) rather than relying on an optional
+> > descriptive string?
 > 
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
-> ---
->  drivers/media/platform/rockchip/rga/rga.c | 37 +++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
+> A bit impressive that sashiko can comment on that architecture level.
 > 
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-> index ca8d8a53dc251..8c34f73d69764 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -437,6 +437,15 @@ static int vidioc_enum_fmt(struct file *file, void *priv, struct v4l2_fmtdesc *f
->  	fmt = &formats[f->index];
->  	f->pixelformat = fmt->fourcc;
->  
-> +	if (f->type != V4L2_BUF_TYPE_VIDEO_CAPTURE &&
-> +	    f->type != V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
-
-Is there a reason for not using V4L2_TYPE_IS_CAPTURE(f->type)? I'd also
-invert the condition, set the flags in the branch and have a single exit
-point of this function.
-
-> +		return 0;
-> +
-> +	/* allow changing the quantization and xfer func for YUV formats */
-> +	if (v4l2_is_format_yuv(v4l2_format_info(f->pixelformat)))
-> +		f->flags |= V4L2_FMT_FLAG_CSC_QUANTIZATION |
-> +			    V4L2_FMT_FLAG_CSC_YCBCR_ENC;
-> +
->  	return 0;
->  }
->  
-> @@ -459,8 +468,25 @@ static int vidioc_g_fmt(struct file *file, void *priv, struct v4l2_format *f)
->  static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
->  {
->  	struct v4l2_pix_format_mplane *pix_fmt = &f->fmt.pix_mp;
-> +	struct rga_ctx *ctx = file_to_rga_ctx(file);
->  	struct rga_fmt *fmt;
->  
-> +	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
-> +		const struct rga_frame *frm;
-> +
-> +		frm = rga_get_frame(ctx, f->type);
-> +		if (IS_ERR(frm))
-> +			return PTR_ERR(frm);
-> +
-> +		if (!(pix_fmt->flags & V4L2_PIX_FMT_FLAG_SET_CSC)) {
-> +			pix_fmt->quantization = frm->pix.quantization;
-> +			pix_fmt->ycbcr_enc = frm->pix.ycbcr_enc;
-> +		}
-
-Are there any limits on the colorspace conversion that the RGA can do?
-If I understand correctly, user space may set an arbitrary
-v4l2_ycbcr_encoding (for example V4L2_YCBCR_ENC_BT2020) and the driver
-will happily accept it.
-
-> +		/* disallow values not announced in vidioc_enum_fmt */
-
-"disallow values" sounds strange. Maybe:
-
-		/* The RGA cannot convert colorspace and xfer_func */
-
-> +		pix_fmt->colorspace = frm->pix.colorspace;
-> +		pix_fmt->xfer_func = frm->pix.xfer_func;
-> +	}
-> +
->  	fmt = rga_fmt_find(pix_fmt->pixelformat);
->  	if (!fmt)
->  		fmt = &formats[0];
-> @@ -506,6 +532,17 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
->  	frm->fmt = rga_fmt_find(pix_fmt->pixelformat);
->  	frm->stride = pix_fmt->plane_fmt[0].bytesperline;
->  
-> +	/*
-> +	 * Copy colorimetry from output to capture as required by the
-> +	 * v4l2-compliance tests
-> +	 */
-> +	if (V4L2_TYPE_IS_OUTPUT(f->type)) {
-> +		ctx->out.pix.colorspace = pix_fmt->colorspace;
-> +		ctx->out.pix.ycbcr_enc = pix_fmt->ycbcr_enc;
-> +		ctx->out.pix.quantization = pix_fmt->quantization;
-> +		ctx->out.pix.xfer_func = pix_fmt->xfer_func;
-
-I was very confused, because ctx->out is actually the format for
-CAPTURE. The comment kind of helps to mark this trap. Not sure, if there
-is anything that can be done about this.
-
-Michael
-
-> +	}
-> +
->  	/* Reset crop settings */
->  	frm->crop.left = 0;
->  	frm->crop.top = 0;
+> Those are all good points. I suppose I went for this because otherwise it would
+> require refactoring core code to get the needed parts from __iio_device_attr_init()
+> that gets you the channel name without the attribute part.
 > 
-> -- 
-> 2.54.0
-> 
-> 
+> Maybe we should have a function that outputs a channel name into a buffer based on
+> __iio_device_attr_init() behavior, and that could be reused.
+
+This is the function with behavior extracted from __iio_device_attr_init():
+
+	static int __iio_chan_prefix_emit(const struct iio_chan_spec *chan,
+					  enum iio_shared_by shared_by,
+					  char *buf, size_t len)
+	{
+		const char *dir = iio_direction[chan->output];
+		const char *type = iio_chan_type_name_spec[chan->type];
+		int n = 0;
+
+		switch (shared_by) {
+		case IIO_SHARED_BY_ALL:
+			break;
+		case IIO_SHARED_BY_DIR:
+			n = scnprintf(buf, len, "%s", dir);
+			break;
+		case IIO_SHARED_BY_TYPE:
+			n = scnprintf(buf, len, "%s_%s", dir, type);
+			if (chan->differential)
+				n += scnprintf(buf + n, len - n, "-%s", type);
+			break;
+		case IIO_SEPARATE:
+			if (chan->indexed) {
+				n = scnprintf(buf, len, "%s_%s%d", dir, type,
+					      chan->channel);
+				if (chan->differential)
+					n += scnprintf(buf + n, len - n, "-%s%d", type,
+						       chan->channel2);
+			} else {
+				if (chan->differential) {
+					WARN(1, "Differential channels must be indexed\n");
+					return -EINVAL;
+				}
+				n = scnprintf(buf, len, "%s_%s", dir, type);
+			}
+
+			if (chan->modified) {
+				if (chan->differential) {
+					WARN(1, "Differential channels can not have modifier\n");
+					return -EINVAL;
+				}
+				n += scnprintf(buf + n, len - n, "_%s",
+					       iio_modifier_names[chan->channel2]);
+			}
+
+			if (chan->extend_name)
+				n += scnprintf(buf + n, len - n, "_%s", chan->extend_name);
+			break;
+		}
+
+		return n;
+	}
+
+I think it is clear and reusable.
+
+> > > +
+> > > +	ret = __iio_add_chan_devattr("parent",
+> > > +				     chan,
+> > > +				     &iio_read_channel_parent,
+> > > +				     NULL,
+> > > +				     0,
+> > > +				     IIO_SEPARATE,
+> > > +				     &indio_dev->dev,
+> > > +				     NULL,
+> > > +				     &iio_dev_opaque->channel_attr_list);
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +
+> > > +	return 1;
+> > > +}
+> > 
+> > -- 
+> > Sashiko AI review · https://sashiko.dev/#/patchset/20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com?part=3
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
