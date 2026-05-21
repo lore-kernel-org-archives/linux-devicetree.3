@@ -1,108 +1,266 @@
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC0A1CB31D
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 04:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61661FC7
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 04:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779337721; cv=none; b=H2H5+oHZRNqtQn5sX3m/lVhz8FDKBX4drVxLUcNEv9dWp1vU3ktg19rktWci8pC38tKHQGDHLepVvWO8fQu7uB1OW8/qBdleWBRKBgPDOKNDRJUQMpWpYbvlBTlGlPXghYj6lD25+zC9eKciqPXLSwUnXn14uNcKrQkM1qWAPvw=
+	t=1779337898; cv=none; b=Xo9ziMGhSL3sPMjbxkaXOayFguI/oTXokBTJlwLLhXUp+5zMK7LY77pp3/7htUe0q0uqjNEpyyqIolKT+QbDH+t3E9V3glU8GFexsMJLVg+Lf+TQFsUv2VpVLlh2raCPSQ4pmrjq/H1GqnN+itCfo2H6nPb+/3QToTYKZrrr07U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779337721; c=relaxed/simple;
-	bh=1fn8nNIfAciVYywUEDqcLHwnewpkWRfNE2Jm7RnUmr4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oC88lVIE5d1eXNq4FDykugMIkZGo2Hyk3S8wAHmARy1Dtr23fDBw/NPq6xJGUZuqnVCBWItuq9cZdIC5HExa6YV1CSrbM74GAQBj3QWoSl2A9YZEb/nIm2y8xIG+/N8QCHLRN1wtqfhrxgiYHHC92nzGH3dmkS8ggi0AJdKYikk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=j+5JhcKT; arc=none smtp.client-ip=91.218.175.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1779337898; c=relaxed/simple;
+	bh=ZdhPItu96h8Zo169aW9mnsnL86sxm6z8C5CeXF3wtJk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ce4OQpvKwptJcfgx8pdaWE7wUE9EE42nQ/Y15mx+9K3uhY2TBnUpB+aJuUMJMTX1srBlHn2Zw5z7tVTKumcxdXfMR7pdnTOTLyATO7oomuy3qkDaeHy6+WSjeLnNRXLFeukrSor5yqcBt51W3A3CaZp84ud3FNIMBvNnIuOsdSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ci0inTtH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="j+5JhcKT"
-Message-ID: <ffe27d38-5627-4201-ab6f-72656f5188a6@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
-	s=key1; t=1779337707;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l0Mbqj52klJDaYVrqr1HbvDq6wUyKpixCsk5uYYS4F8=;
-	b=j+5JhcKTMjPxoUC95Kz4ElJaqjQUSuzJHi6aj64lHfnS50ZbSIYktmGl372tbEL79RTofN
-	Nh1suA+1ruN6eq8riu6dLM6xdrX04zvx5nNkrTDg1UYWIFfDfDOFfifwWh+f+IWysIzoxT
-	LU/a/OHrOl5+mbuk/yHlVBvvIq0qQB5/0+Wh48+4E3pDjVUQCx7bvx+4mmF5MMFekqlhYX
-	NNFKcFeDjfskZTBH69uO1aG/mzybsdAsxks4vUObfgcU3MjNA0aH73HePwBUm7KaHGR1MK
-	itCFy+IG+gUZYDlj/AP0mj5tqj4nIsOIIk7crQ3O3ZzaCU3IX3V+h2x5Wc4iMA==
-Date: Thu, 21 May 2026 01:28:16 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ci0inTtH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2391F000E9;
+	Thu, 21 May 2026 04:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779337897;
+	bh=BnHeQ79rUFPfA2QQd5FYDoGQkBfba511CvTGjuFJ9nE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ci0inTtHr9Y2qTnNOmOaI6BuSv9tL2d8mo6uO6/c/n5kXJjY5kbnK5ZwSHiiG4czC
+	 T9odpoqfZX392a1YDse0fZe0jlOfXMkMwPnU+dr5nnML9Ehiod6HEKTBeL7U5VZx6s
+	 c3dK61OCPhg0YebrC/k3Pi8YvY3GdDqGKsVyNDmlhxgeXOi2RHpxBuOIQYPz0Ai/ch
+	 5Um0nfT8MnDS1aYeS8njmIv1j6Ncuql479a4Xudgfa90as4laGVQhauIfkumN61dYN
+	 qwAo5zRfOm+JdSJIuyTO7w63qF2SsDsqeZy0BMa0aV2X5cZxOekg8+0RvyNvLPzPrI
+	 H45eAplFYxwRA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/3] i2c: designware: Export symbols and add __weak
+ for DWC I2C driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260521034340.27837-3-lianfeng.ouyang@starfivetech.com>
+References: <20260521034340.27837-3-lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 04:31:36 +0000
+Message-Id: <20260521043137.1D2391F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: x1-dell-thena: mark l12b and
- l15b always-on
-To: Michael Scott <mike.scott@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com,
- abelvesa@kernel.org, faisal.hassan@oss.qualcomm.com,
- linux-phy@lists.infradead.org, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, bryan.odonoghue@linaro.org,
- laurentiu.tudor1@dell.com, alex.vinarskis@gmail.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260521010935.1333494-1-mike.scott@oss.qualcomm.com>
- <20260521010935.1333494-4-mike.scott@oss.qualcomm.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20260521010935.1333494-4-mike.scott@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Exporting core driver functions using `__weak` allows global overr=
+ides, completely breaking generic DesignWare I2C hardware in multi-platform=
+ kernels.
+- [High] Compile-time `#if IS_ENABLED(CONFIG_I2C_DWC_CORE)` checks uncondit=
+ionally replace generic hardware logic with StarFive DWC-specific logic.
+- [High] The function `i2c_dw_set_fifo_size` acquires the bus lock but fail=
+s to release it if `CONFIG_I2C_DWC_CORE` is enabled.
+- [High] Return values of probe functions are ignored, and standard adapter=
+ initialization is skipped when `CONFIG_I2C_DWC_CORE` is enabled.
+- [High] The `adap->quirks` field is completely uninitialized when `CONFIG_=
+I2C_DWC_SLAVE` is enabled.
+- [High] Incorrect packing of FIFO depths leads to bitfield overlap and sev=
+erely corrupted hardware configurations.
+- [High] Skipped interrupt mask initialization for DWC I2C slaves opens the=
+ system to unhandled interrupt storms.
+--
 
-On 5/20/26 10:09 PM, Michael Scott wrote:
-> The l12b and l15b supplies are used by components that are not (fully)
-> described (and some never will be) and must never be disabled.
->
-> Mark the regulators as always-on to prevent them from being disabled,
-> for example, when consumers probe defer or suspend.
->
-> Note that these supplies currently have no consumers described in
-> mainline for dell-thena beyond the audio codec (vdd-buck/vdd-rxtx/
-> vdd-io on wcd938x), which can release them when the codec goes idle.
-> The board-level gpio-fixed regulators that feed the Type-C retimer's
-> VDDIO and other rails are not described with a vin-supply link, so
-> the kernel cannot keep their parent LDOs alive on its own.
->
-> This mirrors the same change Johan Hovold applied to every other
-> X1E80100 board in a March 2025 series; commit 63169c07d740
-> ("arm64: dts: qcom: x1e80100-dell-xps13-9345: mark l12b and l15b always-on")
-> is representative. The dell-thena board file was introduced four months
-> later and did not inherit that change; this patch closes the gap.
+commit 49b74b77ebfe8943f63b3e20e42d019503ae6640
+Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: i2c: designware: Export symbols and add __weak for DWC I2C driver
 
-Acked-by: Val Packett <val@packett.cool>
+The upcoming StarFive DWC I2C driver is based on the DesignWare I2C core but
+requires its own probe and configuration routines due to register layout
+differences. Export several key functions and mark them as __weak to allow
+the DWC driver to override the implementations.
 
+> diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/bus=
+ses/i2c-designware-common.c
+> index 4dc57fd561703..cfeec5d338bba 100644
+> --- a/drivers/i2c/busses/i2c-designware-common.c
+> +++ b/drivers/i2c/busses/i2c-designware-common.c
+[ ... ]
+> @@ -411,7 +416,7 @@ static void i2c_dw_write_timings(struct dw_i2c_dev *d=
+ev)
+>   *
+>   * The controller must be disabled before this function is called.
+>   */
+> -void i2c_dw_set_mode(struct dw_i2c_dev *dev, int mode)
+> +__weak void i2c_dw_set_mode(struct dw_i2c_dev *dev, int mode)
 
-Asked a friend who has totally legitimate access to the XPS schematics 
-about what those components are:
+[Severity: High]
+Does marking generic driver functions like i2c_dw_set_mode() as __weak risk
+breaking generic DesignWare I2C hardware in multi-platform kernels?
 
-L12B: IO_1P2/275mA
-- MOSFETs and pullups on a bunch of I2C, PCIe CLKREQ/WAKE, etc.
-- VDDIO for WSA speakers
-- NVME_PLN_N_1P2 (Power Loss Notification?)
-- bunch of VDD_PX pins on the SoC
+If both the standard DesignWare and StarFive drivers are enabled, strong
+symbols from the StarFive driver could globally override these functions for
+all controllers. Could hardware-specific variants be implemented using an
+operations structure with function pointers instead?
 
+[ ... ]
+> @@ -806,10 +811,25 @@ static int i2c_dw_set_fifo_size(struct dw_i2c_dev *=
+dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> +#if IS_ENABLED(CONFIG_I2C_DWC_CORE)
+> +	u32 tx_fifo_cfg =3D 8, rx_fifo_cfg =3D 8;
+> +
+> +#ifdef CONFIG_OF
+> +	ret =3D of_property_read_u32(dev->dev->of_node, "dwc-i2c-tx-fifo-depth"=
+, &tx_fifo_cfg);
+> +	if (!ret && (tx_fifo_cfg < 2 || tx_fifo_cfg > 256))
+> +		tx_fifo_cfg =3D 8;
+> +
+> +	ret =3D of_property_read_u32(dev->dev->of_node, "dwc-i2c-rx-fifo-depth"=
+, &rx_fifo_cfg);
+> +	if (!ret && (rx_fifo_cfg < 2 || rx_fifo_cfg > 256))
+> +		rx_fifo_cfg =3D 8;
+> +#endif
+> +	param =3D rx_fifo_cfg << 8 | tx_fifo_cfg << 16;
 
-L15B: IO_1P8/1.09A
-- MOSFETs and pullups on eDP HPD, bunch of I2C, PCIe CLKREQ/WAKE, some 
-INTR#/RESET#, SSD Load Switch, etc.
-- VIN for Load Switch outputting retimer's VDDIO
-- VDD_1P8 for WSA speakers
-- VDDIO for power monitor ICs on IR_I2C
+[Severity: High]
+Can this bitwise packing corrupt the hardware configuration if rx_fifo_cfg =
+is
+set to 256?
 
+Since 256 requires 9 bits, shifting rx_fifo_cfg by 8 yields 0x10000, which
+sets bit 16 and overflows into the tx_fifo_cfg field. This causes FIELD_GET
+to return 0 later on, incorrectly setting the FIFO depths to 1.
 
-Yeahhh.. I think the load switches could potentially be modeled but the 
-huge bunch of random pullups not so much. I wonder how Windows handles 
-this. Maybe it could be in low-power mode when speakers are idle?
+> +#else
+>  	ret =3D regmap_read(dev->map, DW_IC_COMP_PARAM_1, &param);
+>  	i2c_dw_release_lock(dev);
+>  	if (ret)
+>  		return ret;
+> +#endif
 
-~val
+[Severity: High]
+Does this code leak the bus lock when CONFIG_I2C_DWC_CORE is enabled?
 
+i2c_dw_acquire_lock(dev) is called earlier in this function, but the matchi=
+ng
+i2c_dw_release_lock(dev) call is placed in the #else block. When the DWC co=
+re
+is enabled, the function returns without releasing the lock, which can cause
+a deadlock during the next lock acquisition.
 
+[ ... ]
+> @@ -835,7 +855,9 @@ u32 i2c_dw_func(struct i2c_adapter *adap)
+> =20
+>  void i2c_dw_disable(struct dw_i2c_dev *dev)
+>  {
+> +#if !IS_ENABLED(CONFIG_I2C_DWC_CORE)
+>  	unsigned int dummy;
+> +#endif
+>  	int ret;
+> =20
+>  	ret =3D i2c_dw_acquire_lock(dev);
+> @@ -847,7 +869,12 @@ void i2c_dw_disable(struct dw_i2c_dev *dev)
+> =20
+>  	/* Disable all interrupts */
+>  	__i2c_dw_write_intr_mask(dev, 0);
+> +
+> +#if IS_ENABLED(CONFIG_I2C_DWC_CORE)
+> +	regmap_write(dev->map, DWC_IC_INTR_CLR, DWC_CLR_INTR);
+> +#else
+>  	regmap_read(dev->map, DW_IC_CLR_INTR, &dummy);
+> +#endif
+
+[Severity: High]
+Will this compile-time check break standard DesignWare I2C controllers in
+multi-platform kernels?
+
+By using #if IS_ENABLED(), the mandatory read from DW_IC_CLR_INTR is replac=
+ed
+globally by a write to DWC_IC_INTR_CLR when the DWC core is compiled in,
+causing generic controllers to execute incorrect logic.
+
+[ ... ]
+> @@ -896,6 +923,12 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> +#if IS_ENABLED(CONFIG_I2C_DWC_CORE)
+> +	if (dev->mode =3D=3D DW_IC_SLAVE)
+> +		i2c_dw_probe_slave(dev);
+> +	else
+> +		i2c_dw_probe_master(dev);
+
+[Severity: High]
+Does this code ignore the return values of the probe functions?
+
+If initialization fails inside i2c_dw_probe_slave() or i2c_dw_probe_master(=
+),
+the error is silently ignored and the driver continues probing.
+
+> +#else
+>  	ret =3D i2c_dw_probe_master(dev);
+>  	if (ret)
+>  		return ret;
+> @@ -906,10 +939,16 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
+> =20
+>  	if (!adap->name[0])
+>  		strscpy(adap->name, "Synopsys DesignWare I2C adapter");
+> +#endif
+
+[Severity: High]
+Are we skipping generic initialization steps here?
+
+Because the calls to i2c_dw_init(dev) and initializing adap->name are enclo=
+sed
+in the #else block, they are entirely skipped when CONFIG_I2C_DWC_CORE is
+enabled, which could break standard adapter initialization.
+
+>  	adap->retries =3D 3;
+>  	adap->algo =3D &i2c_dw_algo;
+> +#if IS_ENABLED(CONFIG_I2C_DWC_SLAVE)
+> +	if (dev->mode =3D=3D DW_IC_SLAVE)
+> +		adap->algo =3D &i2c_dw_slave_algo;
+> +#else
+>  	adap->quirks =3D &i2c_dw_quirks;
+> +#endif
+
+[Severity: High]
+Will adap->quirks remain uninitialized when CONFIG_I2C_DWC_SLAVE is enabled?
+
+The assignment to adap->quirks is in the #else block. If CONFIG_I2C_DWC_SLA=
+VE
+is enabled, adap->quirks is never initialized for any device mode, including
+master. This removes quirks like I2C_AQ_NO_ZERO_LEN, which could allow
+invalid zero-length transfers to hang standard controllers indefinitely.
+
+>  	adap->dev.parent =3D dev->dev;
+>  	i2c_set_adapdata(adap, dev);
+> =20
+> @@ -938,16 +977,18 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
+>  	if (!dev->emptyfifo_hold_master)
+>  		irq_flags |=3D IRQF_NO_THREAD;
+> =20
+> -	ret =3D i2c_dw_acquire_lock(dev);
+> -	if (ret)
+> -		return ret;
+> +	if (!IS_ENABLED(CONFIG_I2C_DWC_CORE) || dev->mode =3D=3D DW_IC_MASTER) {
+> +		ret =3D i2c_dw_acquire_lock(dev);
+> +		if (ret)
+> +			return ret;
+> =20
+> -	__i2c_dw_write_intr_mask(dev, 0);
+> -	i2c_dw_release_lock(dev);
+> +		__i2c_dw_write_intr_mask(dev, 0);
+> +		i2c_dw_release_lock(dev);
+> +	}
+> =20
+>  	if (!(dev->flags & ACCESS_POLLING)) {
+>  		ret =3D devm_request_irq(dev->dev, dev->irq, i2c_dw_isr,
+
+[Severity: High]
+Could skipping the interrupt mask clearing for DWC slaves cause unhandled
+interrupt storms?
+
+If the unmasked hardware has pending interrupts, devm_request_irq() will
+immediately trigger i2c_dw_isr_slave(). Because dev->slave is not yet
+registered during probe, the ISR will return IRQ_NONE without clearing the
+hardware interrupt, leading to a persistent storm.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521034340.2783=
+7-1-lianfeng.ouyang@starfivetech.com?part=3D2
