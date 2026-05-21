@@ -1,132 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FDB2EA754;
-	Thu, 21 May 2026 21:12:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1414228CB0;
+	Thu, 21 May 2026 22:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779397942; cv=none; b=eO4MP+EdrAeSkvnpIQYcw5s4D9SrXx157vYLdWHgRyhUMW5R0O4GTayXtyQyHcxZk4YBEnXg73YR07s4/SUEYtECqHCum9ZuJbbdDRkuti5NH48IszZlhS16ewV9Gymb1l6o3IhdPfjmGzgH6XHpnjVdOLTaS/EzH0JRqfDxBHM=
+	t=1779402312; cv=none; b=dtVaMH/ppa71AvTG/O/voBaB6d3jMfwZzBKwFsBlX61rFs7w07CcMmShykjGF7dXUVQVQrdeEhztaUEF7yg48GTceyYqFzxseGtjR3PFCNA+QgjfAwErFGnWAPNlto24b6s0UvQ6YbW/YjSga5vTac7Qn4Mt71sI4jFvw73xvYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779397942; c=relaxed/simple;
-	bh=zq/Zk1NP59dmboSsqktnTMykD6FVDRojXL3NV0iKftY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OFpX3Vb+BhdhiRmwMPD4zVh4qhscHbQfU5JywLTb9XLdTTwiOsDS1V1uqtrsCl9i7cGVXXF/Ca5VwAAFOens8rXeqMYe0V9828Y2HvBqbLvfzhFnS9+9fLhYFvpzkNSg+JPp29kJ8d2sySNV8rAXjyj+l+5Jc9/Qehl4fPPaJcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0img0n2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779402312; c=relaxed/simple;
+	bh=OagIR4q6jOjejHScBDBB6UPRiGrYYxtTkxayr0a0C9A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sEFAKdKWoQdbc1PFPIyAmLMvcAlz6G30QxA/ypQE7G+y4SH0SU+Zf+4P3gtE55UYgvOVTtSlgS8pISkPfeAHY4wX+1LnK2SCgKpePdm67vnIF6BybE8OnTTHkAFpKv8ijKfgMoK/A4dNZC5GMygdJEBIPOGnraMZZVpIuuk8wVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asNcoZ+J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0img0n2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903261F000E9;
-	Thu, 21 May 2026 21:12:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asNcoZ+J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9861F000E9;
+	Thu, 21 May 2026 22:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779397941;
-	bh=uK87tQM6FAQD9EzXr9LyFcrsTL1nAOngFEp/QfCw33A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=A0img0n21LxjoV9VKwmS/rch9n8f0H1naSsO+iRzkGpn/1Do9YvoD1QIZB47joeQ6
-	 RgiZNb9fUrWeBIZqIddJ2MRCSf5PHQig9Z60h/VyFIgWoVZLBoCd7HgC8p5YoXMtHG
-	 ygNLR9ybYrDMU1rcKr1hRAVyOS+NRxZMEhF+uTNNl7SmviipFOED4qsYyYIRS8eI92
-	 kPAIj4P+P0Ze3IzXQG4yP8SvWVED6MLj1y0S/ugDChinVc36VU8LS5TCnLPaBGMbog
-	 aLxQ5Kg81W/xTieOL5MXCojQYxpRbJQZydclQNorQmjI+R4pMTaQ9ZDxcaqokF473S
-	 1RTfg/yUvSC0w==
-Message-ID: <fa73a8fd-ee73-4a7b-b6c3-1d2edd73b45d@kernel.org>
-Date: Thu, 21 May 2026 23:12:16 +0200
+	s=k20260515; t=1779402311;
+	bh=b6HB01vIC+8NeoGhvRfdEE2LMcPv7EBAdjG6wl3PWPE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=asNcoZ+JK/AgECAgP8ymLf83+FkAauXFYxxYmaNNBNtn0fxjVqFyMK4VXst6sX2oX
+	 oWf1+G2uX1KvzdPYY1ayyKFK+cDLbIS8hpCW/UjLeDeT7yWWFwc24Cx/JNjzQw3bTX
+	 E/CckjkcUrzSnUWwRZEJhHRXxlC49OjB+r3Rha/J9vaRcKCsd++rJuc7NN9txu1qxA
+	 qC7N2O2tITWpTORDaQBMQZFuv5oyWsfgzxWclEjTjX3mT/h9yLkocWl4FEboDYwPax
+	 ePz9eHkmSxMQ+/5CjlgA2+7hLHnlc2WUAqLEjjGnclt8EakYn9pJQcPKQt+BrnqU4A
+	 dnrlROXNQun8w==
+Date: Thu, 21 May 2026 17:25:04 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+Cc: konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, quic_riteshk@quicinc.com, quic_vproddut@quicinc.com, 
+	quic_mkuntuma@quicinc.com, mahadevan.p@oss.qualcomm.com
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Configure DP endpoints for
+ 2-lane operation
+Message-ID: <ag-F105poL3olmmI@baldur>
+References: <20260521120058.2966709-1-saurabh.anand@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 net-next 1/3] dt-bindings: vendor-prefixes: add SiTime
- Corporation
-To: Ali Rouhi <rouhi.ali@gmail.com>
-Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, cjubran@nvidia.com, Oleg.Zadorozhnyi@devoxsoftware.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Ali Rouhi <arouhi@sitime.com>
-References: <20260520191943.73938-1-arouhi@sitime.com>
- <20260520191943.73938-2-arouhi@sitime.com>
- <20260521-happy-celadon-hamster-94802c@quoll>
- <CALFSGuoWkHYmtrouvLk2M7bWS1=qTSPUn5GuabFvK92cPBfuZA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <CALFSGuoWkHYmtrouvLk2M7bWS1=qTSPUn5GuabFvK92cPBfuZA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260521120058.2966709-1-saurabh.anand@oss.qualcomm.com>
 
-On 21/05/2026 22:40, Ali Rouhi wrote:
->> Mismatch in From/DCO.
-> 
-> Acknowledged — Gmail SMTP relay issue, will fix for v3.
+On Thu, May 21, 2026 at 05:30:58PM +0530, Saurabh Anand wrote:
+> Add explicit data-lanes to the MDSS DP output endpoints to enable
 
-Do not top post.
+As described in
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
+this is where you describe the problem that you're solving.
 
-> 
->> It looks like you received a tag and forgot to add it.
-> 
-> Thank you for the reminder.  Will carry Conor's tag in v3:
-> 
->   Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> 
-> Best regards,
-> Ali
-> 
-> On Thu, May 21, 2026 at 3:18 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On Wed, May 20, 2026 at 12:19:41PM -0700, Ali Rouhi wrote:
->>> Add vendor prefix for SiTime Corporation, manufacturer of
->>> programmable clock generators and MEMS oscillators.
->>>
->>> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
->>
->> Mismatch in From/DCO.
->>
->> Best regards,
->> Krzysztof
->>
+If you had done that, we wouldn't need to guess what you're up to.
 
+Thanks,
+Bjorn
 
-Best regards,
-Krzysztof
+> display port in 2 lanes configuration and disable the mode-switch
+> property from the USB QMP PHY node.
+> 
+> Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur.dtsi | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> index 72c7dc6e4f09..d6b3c5bfebd5 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> @@ -2445,7 +2445,6 @@ usb_0_qmpphy: phy@fd5000 {
+>  			#clock-cells = <1>;
+>  			#phy-cells = <1>;
+>  
+> -			mode-switch;
+>  			orientation-switch;
+>  
+>  			status = "disabled";
+> @@ -2517,7 +2516,6 @@ usb_1_qmpphy: phy@fde000 {
+>  			#clock-cells = <1>;
+>  			#phy-cells = <1>;
+>  
+> -			mode-switch;
+>  			orientation-switch;
+>  
+>  			status = "disabled";
+> @@ -4550,6 +4548,7 @@ port@1 {
+>  						reg = <1>;
+>  
+>  						mdss_dp0_out: endpoint {
+> +							data-lanes = <0 1>;
+>  							remote-endpoint = <&usb_dp_qmpphy_dp_in>;
+>  						};
+>  					};
+> @@ -4641,6 +4640,7 @@ port@1 {
+>  						reg = <1>;
+>  
+>  						mdss_dp1_out: endpoint {
+> +							data-lanes = <0 1>;
+>  							remote-endpoint = <&usb_1_qmpphy_dp_in>;
+>  						};
+>  					};
+> -- 
+> 2.34.1
+> 
