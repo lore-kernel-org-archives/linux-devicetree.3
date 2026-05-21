@@ -1,100 +1,287 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7743CC7FF
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAB531690E
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779365512; cv=none; b=bRZSyUxnvuAiXXzg/zkklWzFaK1YQCUeKx+QHGmule8uCleB1GQyJi64FyVRnIbaYwKvDERSo6nA+XGvwkjjSzKUnzVFCbmD1Vx+m2gIL1xTrCqoOSCUxG15txn0MAcFZNOYbjFyfIn6RTyxyPKPx0zqEHfbCXE8ug7eY7eDnZI=
+	t=1779366017; cv=none; b=speoe19E626HaoDpVeKFi8MxnxnUYDJfE5TU0QRzVuKQ279uiExMdlVZC8lo2AgOMNl03g6PSiQ40pD/fEtVpRYTmHU+F/uqTTGkzWP8pka1aYEIR/5vfcu+aGDxKbmkXCCkYyRTY9rOWo/N2di5/9IWM9QpT0PZMvfcqKPBd1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779365512; c=relaxed/simple;
-	bh=TXy9ST2wzaQqS9PyDphSrA4G2mrI66BhFLd8Bz33BPM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=micgh4ZBoaX0f2d9mGjrrlDJODncM98QX5U/1XG4vj9mSXWMo2vVUXHXuJwOnD48cm5P6h8hW9CMH6NnlGhPhevscz2FxovgPzN1V6RmsImoRA8G31iVyLMTWpno3yYHCX/gV7SyZd3yaCJTCKf2+9ZsbnPBofDE3s3eBeoSn4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XtCv+VYD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779366017; c=relaxed/simple;
+	bh=7m/hWiQX3n2vc6JG/2EGJ6AyMvFiI1Zw9vnDHfoz3gE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aqjehlAPOcLMoN/n4B5RHp4anNTx/GTkJpZsssPxjdJH44UPOwybZlYVTmoFhkipdiiWu3eb8KL15uJo6cDM+bnq2CDfGaPoFZo6/ZJJnSibJMrqpVd5gC5MhOh68+g0m1V36+6bxlvxQ9sulB6yViGkeQyfbvgNQarVlZpEn1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yDtoQuCe; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XtCv+VYD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AF71F000E9;
-	Thu, 21 May 2026 12:11:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779365510;
-	bh=lsIBav6Z0VrkLuZlsxUpw+LRhDTFC9K+tZXyKTeoTSo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XtCv+VYDVJSNBav4LvcZAfvFWjRoHKUcp3dL948M3q/hxYVqOV6YKYxINwotSExtq
-	 wfVHhxEqDtPHGzMDckwtrMR6hcDLQ6X1P3N7lQX1SuwauLe42ENIv94JQ8TJXSSli1
-	 eI4VUGDOWeCwi8UDZbKHxBjHXVfO8YOhnyszqvW5LWHd7PDDhQ8sWgf8BPuP7LBbiU
-	 ZOrQPc8RXs92I9J7zN0Drdz0h0bIQ3SIGkpf3Z9SIpy++c0TyOfFRm6Wmw6mM68y7O
-	 M7+G3fsZltkYklk3K48qNyj/npnSxImIAj3NGII+tXjrWlMkWRMjYJNRAFWSGZCLSb
-	 xaAdOFKjOehQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: bridge: analogix-dp: Add
- data-lanes support for endpoint
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521114459.1394264-2-damon.ding@rock-chips.com>
-References: <20260521114459.1394264-2-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 12:11:50 +0000
-Message-Id: <20260521121150.95AF71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yDtoQuCe"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488ab2db91aso63398645e9.3
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:20:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779366013; x=1779970813; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SDcsdkpl9E4U296Yjx3tUvOW5/YDiwW/HnNWSZqwZp4=;
+        b=yDtoQuCeB2XMbBwTFPOavZ9yRwKEZsBFoGB51HMJQZCDBS83eJrSRlOgYa8rknaZPa
+         XPl9kIyQ7LKJDrOe4fTSU78X7PKqfIcpUp/49biyKjhVZNZsQorMHO4a88xorhYnyS/8
+         4MTk4AILYgBzGhEbP5uBUOszpJkjXzTevmxCMTAhicLLMFQ9jFicadXT/u5KC57yrGUg
+         T8OthtRDphICX+V+FSGzbeKiKQY0N401Knk6nf0Hn1ku+7WWT/gnVF0lMnbfFAO7j0tL
+         f7YlQPfP5MN7uZa2pis4tRzqq3G2Jhii0lErhM7Rbxt3A3Oo6PMWtmbnXJeO2sAx1AmU
+         sRJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779366013; x=1779970813;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SDcsdkpl9E4U296Yjx3tUvOW5/YDiwW/HnNWSZqwZp4=;
+        b=P45Fl9fb1IidBe9tmfus2iFTJYSWa630LziCRV+FSihzPaYn//uEi7iPlidG+QY0No
+         YSrWZ1mViolFiv10uiCEqoCi5QMYNmjgEJzOr2lCtJY/YeHkKAsff8aTdvcIaHicpLW7
+         2+0zmUZrr/Wjs/8MphB+Rubtm43+hvtZb29IrQAqeZHJm9ByPtsP5jAv3xDPEaJScnOd
+         OxmpFOXuiBQkrblhXdPInaHkrn1WnyIa15f80XCpmvJcOOteVPyUw+oyrsYzVloh354b
+         StdXt1371NkQugcuvOd/tqbO7MsWQMo/ZH5WMYxVlRH3AAAVs4IjeZxvljZQzYUA1c62
+         TouQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/QLi29fkxcBAX9jRNGqvaPngKAWnXVInYsVpketAc4z8HWDu4XvCwGqbEOI5zCE7HaCUdzYMn3FtgE@vger.kernel.org
+X-Gm-Message-State: AOJu0YwKY/P84209SyuUsbeMjVQTVaZPgbQ8k38aXX1n2nVMgE2UqPVy
+	EfZSTmP3HbT2IyLPEpX66q9se94nPtzxtkFDRlJ1k8t0Hylsp6gTC0Wyypd3HR15ddA=
+X-Gm-Gg: Acq92OF2nrdRiRcH6/RNWzst/H/8iB/YfpkwsRJDOs0RFRcJDorW3jsoPAhFILQ3Wsr
+	F2PJUrkuOsFZp2G9n4DDwl4RPS6yi7sMmIRfDNOb5IHLW8iqskPRpmM9O/aCsiyIPLvopskE20o
+	zIEUm2SX9RZNIV6zyldX7lsA+8zc8g2Ca89H+ZomY595RMChjaFa2L+UywlL3x0uffGqS0Cbv3z
+	ih3Iq1fBIIL/P/a/CfzgQ0Sf+W9VswTUoHVMBRzk1J3tFtX64ktvpZqtVfwm0Bp5X8N1n6Lzl8R
+	OBfYvIJX97wgJIcQahhBwpf3o8+8jzKo0at0GGz9aIgtdzN9jK2VCFqJa/pEUMFQO6lYJNK4LFk
+	Rs/on8m9EQxNswPUXN67oZV/XvCNaUWr4lMbZ74Zvc+/JpPw62XmN2/iygs9eAgcOmGA46bLI/0
+	K6eujcSfG2DIKAZjtgYT//qzv/SbKtmKzVHw==
+X-Received: by 2002:a05:600c:444e:b0:489:c57:7836 with SMTP id 5b1f17b1804b1-490360dbb9emr35633075e9.27.1779366013106;
+        Thu, 21 May 2026 05:20:13 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.55.220])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caf0967sm21981685e9.15.2026.05.21.05.20.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 05:20:12 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v6 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Date: Thu, 21 May 2026 13:20:07 +0100
+Message-Id: <20260521-x1e-csi2-phy-v6-0-9d73d9bd7d20@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XPTWrDMBAF4KsErasyM/qzs+o9QhaSPI4FxQ5SM
+ QnBd68cKE1tunwD33vMQxTOiYs4Hh4i85xKmsYa7NtBxMGPF5apq1kQkAGHIG/IMpZE8jrcZW+
+ 10sEa7JQXlVwz9+n2rDudax5S+Zry/dk+43r9p2hGCdJpH0MwAS2Fj880+jy9T/ki1qaZfrQFI
+ rPRtGpnLHfBOvbtTqtXbTdaVY3IFhpnWo2w0/pXK9xu66pbiNASqKZpup02L3q3baquuI+uNxH
+ w79/LsnwD/tcHEqEBAAA=
+X-Change-ID: 20250710-x1e-csi2-phy-f6434b651d3a
+To: Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8422;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=7m/hWiQX3n2vc6JG/2EGJ6AyMvFiI1Zw9vnDHfoz3gE=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqDvh5ZI6sA7CiwkIIDfK20VJXLVSaDnf25icWY
+ 5GzaWkxTi2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCag74eQAKCRAicTuzoY3I
+ OkWbEACKe0h4DZNOHwJb3x+yMVSaxW8ZM6Umn+L/n5NWYoLwXv2VnrLTY1rcNb05fCBqFUxcwor
+ 187Z1CLx0AWyEQWVLEiD+oeztnFDXJo+bYOJCD4eCK46w57McWp2TaH/3d5HSo1rTyDh551Scmy
+ O7T6B78k+Twnpuet9N+qQvb1AFmH2bqRmomus1XC4Sy85RA625d4Fe1I3JKYKJ7hqWIgTIm5Yyz
+ lfPFrgrguZar5UaO0q4xSURgHLXmeGSCnAiLzxh69LSaqbtGqEYusfow1Y3K0FIwsVC8+qCWW8R
+ ee6eMBoIm+d+tgUxK+SF1qSmFT93vwB7yKUMKefcmUc3JtRwqyDDXMlfS4zDa70oa3eEcqEObhi
+ 8j+mo5qNnZqiROkhQ9py57o+Rwgzykd6/6s9TPfgEn0ifvLpLA6omRgBt0Fpy5TXVaTbnHr56ce
+ i7FWF5FnICfYio7OsJFPLtNJJ9xEGWMnJr077oWWMP1lv89luHDGSBP608fnIsef4RTqv+exsI4
+ SYqUlb3/5k76Hvu/zugt2sDkWEbz/WTRakLdrYn3xSAD/JWI9O+cBjKjzITMIrmIY94WkR52p2F
+ lRW8p814e1K4fRKECUdzfDXP1XhfOrolPTSlssTrWolVeALpRjNPZOjqs6KyQlYPE4J+6wyGj+q
+ D9RrZWi4wodsO5g==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing `unevaluatedProperties: false` on `port@1` and `endpoint=
-` nodes leads to leaky schema validation.
---
+Changes in v6:
+- Taking feedback from lively debate added ports and
+  endpoints to the PHY - Neil, Vlad
+- Detection of split mode by way of which ports are declared.
+  port@0 is always a sensor input.
+  port@1 is optional and if present implies split-mode
+  port@2 is always the output. - Dmitry, Neil, Vlad.
+- Split mode is left as -ENOTSUPP unless/until someone with the appropriate
+  hardware can take on responsibility to drive to completion.
+- Extending phy_config_opts dropped.
+  I think this is a worthwhile extension but this series no longer depends
+  on it so dropped. - Bryan
+- MX/MXC.
+  Two OPP tables one for CSIPHY0/1/2 scaling MXC one for CSIPHY4 keeping
+  MXA at LOWSVS_D1 - to be implemented in DT not here. Taniya, Konrad, Bryan
+- Changed MAINTAINERS from Supported to Maintained.
+  Hobby time for me right now. - Bryan
+- Link to v5: https://lore.kernel.org/r/20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org
 
-commit 707c36bedcf3fbf40724e79e4e941f57ce9d5a3a
-Author: Damon Ding <damon.ding@rock-chips.com>
+v5:
+- Adds support to apply passed parameters for clock/data position/polarity - Neil
+- Drops GEN1/GEN2 differentiation this can be reconstituted if GEN1 ever
+  gets supported in this driver - Dmitry
+- Drops camnoc_axi, cpas_ahb - Konrad
+- Renames csiphy->core csiphy_timer->timer - Konrad
+- Renames rail from 0p8 to 0p9 schematics say  VDD_A_CSI_n_0P9 - Konrad
+- TITAN_TOP_GDSC dropped - Konrad
+- Passes PHY_QCOM_CSI2_MODE_{DPHY|CPHY|SPLIT_DPHY} with the controller
+  selecting the mode. Only DPHY mode is supported but the method to pass
+  CPHY or split-mode DPHY configuration is there.
+  Since split-mode is a Qualcomm specific mode the PHY modes are defined in
+  our binding instead of adding a new type to include/linux/phy/phy.h - bod
+- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
+- Link to v4: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
 
-dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpo=
-int
+v4:
+- MMCX, MCX and MX/MXA power-domains added - Dmitry, Vijay, Konrad
+- power-domain-names added as required - bod
+- opp-tables amended to capture RPMHPD deps - Dmitry, Vijay
+- Switched to dev_pm_opp_set_rate, dev_pm_domain_attach_by_name etc
+  dropped inherited CAMSS code - Dmitry
+- Amended parameters structure to specify power-domain name list - bod
+- Removed dead defines - Dmitry
+- Noted in CSIPHY commit log intention to rework patterns of
+  PHY lane configs into loops/defines/bit-fields later - Dmitry, bod
+- Lowercase hex throughout - Dmitry
+- The yaml and code in this driver doesn't care if the node is a
+  sibling or a sub-node of CAMSS confirmed to work both ways - Dmitry, bod
+- Link to v3: https://lore.kernel.org/r/20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org
 
-This commit adds data-lanes property support to the port@1 endpoint for
-physical lane mapping configuration to handle PCB lane swaps and mismatched
-pin definitions.
+v3:
 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
-.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-[ ... ]
->        port@1:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> -        description:
-> -          Port node with one endpoint connected to a dp-connector node.
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        description: Port node with one endpoint connected to sink devic=
-e node.
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  enum: [ 0, 1, 2, 3 ]
+- Resending this to make clear this submission is additive to x1e/Hamoa
+  The existing bindings and code will continue to work 
+  Bindings are added only, nothing is subtracted from existing ABI.
+- Link to v2: https://lore.kernel.org/r/20260225-x1e-csi2-phy-v2-0-7756edb67ea9@linaro.org
 
-[Severity: Medium]
-Does this change allow undocumented properties or typos to silently pass
-schema validation?
+v2:
 
-By replacing /schemas/graph.yaml#/properties/port with the open
-/schemas/graph.yaml#/$defs/port-base, custom properties can be added.
-However, since unevaluatedProperties: false is missing on both the port@1
-and endpoint nodes, the schema validation becomes leaky.
+In this updated version
 
-Would it be better to add unevaluatedProperties: false to these nodes so
-that property typos (like data-lane =3D <1 2 3 4>) are correctly flagged as
-errors during dt_binding_check?
+- Added operating-point support
+  The csiphy clock sets the OPP prior to setting the rate
+  for csiphy and csiphy_timer - Konrad
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521114459.1394=
-264-1-damon.ding@rock-chips.com?part=3D1
+- Combo mode
+  Combo mode in CAMSS yaml has been added. Right now
+  no code has been changed in the PHY driver to support it as
+  I don't have hardware to test. In principle though it can
+  be supported. - Vladimir
+
+- CSIPHY init sequences
+  I left these as their "magic number formats". With my diminished
+  status as a non-qcom VPN person - I can no longer see what the bits
+  map to. Moreover this is the situation any non-VPN community member
+  will be in when submitting CSIPHY sequences derived from downstream.
+
+  I think it is perfectly reasonable to take public CSIPHY init sequences
+  as magic numbers. If someone with bit-level access wants to enumerate
+  the bits that's fine but, it shouldn't gate in the interim. - Konrad/bod
+
+- Sensor endpoints
+  I've stuck to the format used by every other CSIPHY in upstream.
+  Sensor endpoints hit the CAMSS/CSID endpoint not a endpoint in the PHY.
+  Given the proposed changes to CAMSS though to support "combo mode" I
+  think this should achieve the same outcome - multiple sensors on the one
+  PHY without introducing endpoints into the PHY that no other CSIPHY in
+  upstream currently has.
+
+- Bitmask of enabled lanes
+  Work needs to be done in the v4l2 layer to really support this.
+  I propose making a separate series dedicated to non-linear bit
+  interpretation after merging this so as to contain the scope of the
+  series to something more bite (byte haha) sized. - Konrad/bod
+
+- Link to v1: https://lore.kernel.org/r/20250710-x1e-csi2-phy-v1-0-74acbb5b162b@linaro.org
+
+v1:
+This short series adds a CSI2 MIPI PHY driver, initially supporting D-PHY
+mode. The core logic and init sequences come directly from CAMSS and are
+working on at least five separate x1e devices.
+
+The rationale to instantiate CSI2 PHYs as standalone devices instead of as
+sub-nodes of CAMSS is as follows.
+
+1. Precedence
+   CAMSS has a dedicated I2C bus called CCI Camera Control Interface.
+   We model this controller as its own separate device in devicetree.
+   This makes sense and CCI/I2C is a well defined bus type already modelled
+   in Linux.
+
+   MIPI CSI2 PHY devices similarly fit into a well defined separate
+   bus/device structure.
+
+   Contrast to another CAMSS component such as VFE, CSID or TPG these
+   components only interact with other CAMSS inputs/outputs unlike CSIPHY
+   which interacts with non-SoC components.
+
+2. Hardware pinouts and rails
+   The CSI2 PHY has its own data/clock lanes out from the SoC and indeed
+   has its own incoming power-rails.
+
+3. Other devicetree schemas
+   There are several examples throughout the kernel of CSI PHYs modeled as
+   standalone devices which one assumes follows the same reasoning as given
+   above.
+
+I've been working on this on-and-off since the end of April:
+Link: https://lore.kernel.org/linux-media/c5cf0155-f839-4db9-b865-d39b56bb1e0a@linaro.org
+
+There is another proposal to have the PHYs be subdevices of CAMSS but, I
+believe we should go with a "full fat" PHY to match best practices in
+drivers/phy/qualcomm/*.
+
+Using the standard PHY API and the parameter passing that goes with it
+allows us to move away from custom interfaces in CAMSS and to conform more
+clearly to established PHY paradigms such as the QMP combo PHY.
+
+Looking at existing compat strings I settled on
+"qcom,x1e80100-mipi-csi2-combo-phy" deliberately omitting reference to the
+fact the PHY is built on a four nano-meter process node, which seems to
+match recent submissions to QMP PHY.
+
+My first pass at this driver included support for the old two phase
+devices:
+
+Link: https://git.codelinaro.org/bryan.odonoghue/kernel/-/commit/a504c28d109296c93470340cfe7281231f573bcb#b6e59ed7db94c9da22e492bb03fcda6a4300983c
+
+I realised that the device tree schema changes required to support a
+comprehensive conversion of all CAMSS to this driver would be an
+almost certainly be unacceptable ABI break or at the very least an enormous
+amount of work and verification so I instead aimed to support just one new
+SoC in the submission.
+
+I've retained the callback indirections give us scope to add in another type of
+future PHY including potentially adding in the 2PH later on.
+
+This driver is tested and working on x1e/Hamoa and has been tested as not
+breaking sc8280xp/Makena and sm8250/Kona.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+Bryan O'Donoghue (2):
+      dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+      phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 205 ++++++++++++
+ MAINTAINERS                                        |  10 +
+ drivers/phy/qualcomm/Kconfig                       |  13 +
+ drivers/phy/qualcomm/Makefile                      |   5 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 361 ++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 368 +++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  94 ++++++
+ 7 files changed, 1056 insertions(+)
+---
+base-commit: a1db83cc6f7e88a166c77d9060507ec01d617784
+change-id: 20250710-x1e-csi2-phy-f6434b651d3a
+
+Best regards,
+--  
+Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
