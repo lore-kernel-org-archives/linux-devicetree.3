@@ -1,137 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404FA3F54AA;
-	Fri, 22 May 2026 10:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24973F9267;
+	Fri, 22 May 2026 10:23:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779445417; cv=none; b=tCg6pkLU/bxL24yQapci48S4UiRIPVbhIBd3f+lnJ4jSmDkGPP46xWFuUytfip6OoxoBcszmCBHeK8VCYMT4ikimdFw1DwN4PF5/HDI7I0EdQYAAdpztpryr7eAYF7NKJX7eiDwkvLWKEmd9Wa3U4Hk2kj0UNOufa55Zph+TYfU=
+	t=1779445419; cv=none; b=B5m15hNDBtKvZgq93iO8HM5uQ13s0g3d37au4vpsreLzl3DVqwZ10NFXZUUAzBUP5lWAsRuD5VbYBiuJBK3cDCsrwGlgcF7rXhyngtrYu3YN5bCNaV3Kz/KtBkuwhopPx893pH6aA/f+3lIn2pdG6CVVPABchvZSP+4DFk51FbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779445417; c=relaxed/simple;
-	bh=W9lPTgx6mDxArcLHARU/ZZqLqgXOeySBXq57O5dffOs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SWGCi6tKDzwYC4IGVBTBB04zlenHDZLugup0pzQYK8hXg8O7G4lVuUfgyY/mhsvk8Iupkh1rjTL//VRDaZU0A5CZ5m28yX4KbSXQH1olu0wZ6USIEoJIDmZngmrcB6KTNDlKx6mc/tP9WwmCBuG5HDMVU1u4dTnwQvzT9/c1u7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BaUCIE1k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779445419; c=relaxed/simple;
+	bh=bG53QNlIvVM95nt6OrzkbN1Uag816hCHZAR/0R9tVdQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=CBi8LWP2tJcDCR/j9TYNacsryh/Fg6bJgEeIwGSYAog0DVCE5fwTl8tvTCbKgvRv+9ugU8CJgf6Tj8HsMA/NPg+FyN9wDqTtmh78HkahbqN28yb3BBoO/uw6JvXVaKWV62IJZ26ltk14URLS8upWIHWxXCp2QpyFHj+H4Ec2oJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+ecN4c9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BaUCIE1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34031F00A3F;
-	Fri, 22 May 2026 10:23:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+ecN4c9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361DD1F000E9;
+	Fri, 22 May 2026 10:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779445416;
-	bh=6QEWAjHSDHCKnr4dwU2wD6RoMsBK3plNIjm7Iq3i+s8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BaUCIE1kfn+KGCxtZcLLpv0Y863cq/kKP75/p17kFXApysgQCbjRPhocHhu/IaBFN
-	 3u66CR12I398qeXH123vQMeXsT+Ew+gTqLuQco5rm8IupF5I5mGPQkBfgbXMBRP6x5
-	 Hoig1NUC+STlw353HUNCDqKw916OGcdRq32uXaTCCDek+qt3vO5tahJNeXDa+u4eFD
-	 QFXTjNs8/Q2WozqWzgREVGFySQ7BeVjnk4I1GloLYcqTa6AqANo7q4cWAtWbHv45fP
-	 RFr9AZPd+22TYJP3SWaSsu9Ho4XjnWWWBM0SgyjrMQSxHRVsrnSQ+TXvj5No3yAWde
-	 XOhgQYSCP1Yxg==
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: geert+renesas@glider.be,
-	linusw@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	magnus.damm@gmail.com,
-	wsa+renesas@sang-engineering.com
-Cc: claudiu.beznea@kernel.org,
-	claudiu.beznea@tuxon.dev,
-	linux-renesas-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
-Date: Fri, 22 May 2026 13:22:51 +0300
-Message-ID: <20260522102251.1723392-10-claudiu.beznea@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
-References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
+	s=k20260515; t=1779445418;
+	bh=yDrstzdR7pm6qgaRcXyznHIDlRMMlAK2eQAaoYy6AYg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=g+ecN4c9DTbwGbx2PFY2yRiHeTH1ikc3KEeS6J12JW30l5zWHW91IeChQ5gKbijYO
+	 MIKjGOcX07D4IATt8V188hUuOt3l/ygLpTkhTbEXBkwPmgecEl2fiMn4MXVQQNQnSM
+	 DeKHixuqmb0cnE8Dxwjqo5U5FFdXvqgVj4mt4shV0rbOfJ+s2bEB0huPm6bMN4bvrX
+	 2l7y/udXrpTxJ+5f+9oZQGIBuDezrkJvKz8BIUu2hbHMSk/LiKUYvZTHPqTlBlL5+V
+	 wfZLEnPcX7NG9wdOYyZk7AbE7EY490xcd90vaIHY9vHxDSPGwzVfm5mkj0FeLvq8y5
+	 TJ1Z6kMJbV3UA==
+From: Mark Brown <broonie@kernel.org>
+To: Han Xu <han.xu@nxp.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Zhengyu He <hezhy472013@gmail.com>
+Cc: linux-spi@vger.kernel.org, imx@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ Wei Fu <wefu@redhat.com>, Cody Kang <cody.kang.hk@outlook.com>
+In-Reply-To: <20260521-k3-pico-itx-qspi-v2-for-next-20260521-v2-0-52bce26e5fd8@gmail.com>
+References: <20260521-k3-pico-itx-qspi-v2-for-next-20260521-v2-0-52bce26e5fd8@gmail.com>
+Subject: Re: (subset) [PATCH v2 0/2] spi: enable the SpacemiT K3 SoC QSPI
+Message-Id: <177939697296.58022.13134350906146797210.b4-ty@b4>
+Date: Thu, 21 May 2026 21:56:12 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1313; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=bG53QNlIvVM95nt6OrzkbN1Uag816hCHZAR/0R9tVdQ=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqEC6mrJSZNWN8SmN4CqNtHx2CW/DeWM7t3Y7z6
+ wBsv7IFkeaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCahAupgAKCRAk1otyXVSH
+ 0J6lB/4sm2AekTdbwKgM4nO4GaonO8gR4rnmaqoMa48pK5P2wSta2B2HgLEeCK6BTuDBMGe4PP1
+ BjQjUQ5xmFT1H+BTQTx35lk09mODpVXMd2cnirYR2MPc6L0f5n3PcPGzQrkO3/nwGLA70FDesDP
+ AMfOkgaR+2WKYaIUtvDf1avZwt3nfBGXfVcvUwDMQsC3ME0GS9kJ3MERs7zTOkuV+xTqqsNsjlV
+ VDkYkOXFai1bzHzQZLEMe0G02IujZouXPTBbek2tJIC5TgsOr8/Ck04zcjGjn4RcOfFFXbtKi8Y
+ s9UJzxhsOARNT0GIxhmw0brPZIAdgqBJJO0sosbbFvlAqUAy
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+On Thu, 21 May 2026 22:44:44 +0800, Zhengyu He wrote:
+> spi: enable the SpacemiT K3 SoC QSPI
+> 
+> Add the SpacemiT K3 QSPI compatible and enable SPI NOR flash on the
+> K3 Pico-ITX board.
+> 
+> K3 and K1 use the same QSPI controller, so the K3 devicetree uses
+> "spacemit,k1-qspi" as fallback.
+> 
+> [...]
 
-The Renesas RZ/G3S SMARC SoM board has a connector for I3C interface.
-Enable I3C.
+Applied to
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
----
- .../boot/dts/renesas/rzg3s-smarc-som.dtsi     | 30 +++++++++++++++++++
- .../boot/dts/renesas/rzg3s-smarc-switches.h   |  4 +++
- 2 files changed, 34 insertions(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.1
 
-diff --git a/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi
-index b45acfe6288a..370b39b6a33d 100644
---- a/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi
-@@ -168,6 +168,15 @@ a0 80 30 30 9c
- 	};
- };
- 
-+&i3c {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i3c_pins>;
-+	pinctrl-1 = <&i3c_standby_pins>;
-+	i2c-scl-hz = <400000>;
-+	i3c-scl-hz = <12500000>;
-+	status = "okay";
-+};
-+
- &pcie_port0 {
- 	clocks = <&versa3 5>;
- 	clock-names = "ref";
-@@ -302,6 +311,27 @@ mux {
- 		};
- 	};
- 
-+	i3c_pins: i3c {
-+		pins = "I3C_SDA", "I3C_SCL";
-+#if SW_CONFIG4 == SW_ON
-+		power-source = <1200>;
-+#else
-+		power-source = <1800>;
-+#endif
-+		input-enable;
-+		renesas,i3c-standby = <0>;
-+	};
-+
-+	i3c_standby_pins: i3c-standby {
-+		pins = "I3C_SDA", "I3C_SCL";
-+#if SW_CONFIG4 == SW_ON
-+		power-source = <1200>;
-+#else
-+		power-source = <1800>;
-+#endif
-+		renesas,i3c-standby = <1>;
-+	};
-+
- 	sdhi0_pins: sd0 {
- 		data {
- 			pins = "SD0_DATA0", "SD0_DATA1", "SD0_DATA2", "SD0_DATA3";
-diff --git a/arch/arm64/boot/dts/renesas/rzg3s-smarc-switches.h b/arch/arm64/boot/dts/renesas/rzg3s-smarc-switches.h
-index bbf908a5322c..9cccc87da057 100644
---- a/arch/arm64/boot/dts/renesas/rzg3s-smarc-switches.h
-+++ b/arch/arm64/boot/dts/renesas/rzg3s-smarc-switches.h
-@@ -25,9 +25,13 @@
-  * @SW_CONFIG3:
-  *	SW_OFF - SD2 is connected to SoC
-  *	SW_ON  - SCIF1, SSI0, IRQ0, IRQ1 connected to SoC
-+ * @SW_CONFIG4:
-+ *	SW_OFF - I3C voltage is 1.8V
-+ *	SW_ON  - I3C voltage is 1.2V
-  */
- #define SW_CONFIG2	SW_OFF
- #define SW_CONFIG3	SW_ON
-+#define SW_CONFIG4	SW_OFF
- 
- /*
-  * SW_OPT_MUX[x] switches' states:
--- 
-2.43.0
+Thanks!
+
+[1/2] spi: dt-bindings: fsl-qspi: support SpacemiT K3
+      https://git.kernel.org/broonie/spi/c/27cd2dde35b2
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
