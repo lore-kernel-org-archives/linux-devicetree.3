@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25388349CEE;
-	Thu, 21 May 2026 21:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5F52FC876;
+	Thu, 21 May 2026 21:12:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779397765; cv=none; b=tbZgUnDPgFNNTlZwvwHwxDLHD5fE3P1WEwjkr1E4gLR15acX7/e+lAFNYi684j7n8sUu2rVxMytvQ59zd5a91JVh+Uay9i9yCMopyQEBKgAhhbv+dLxVDA5YeGkti2h2o1ueT3on0R7XS5C+q81Bgnm9Y/P00hssfc1FHj9riOY=
+	t=1779397927; cv=none; b=O0FeHJP/V0ZkkqbshSXgmas5Iu8KgC1pmaO98EIdriACNTrseBMaO8qt2ljRPlWWJYH9RIJ4quNb+k4m5hqOrGBRi9G3OMm94o46boBtWOn2qE5FkcipPncMbm+vAOK99cRc9y/J6ZXQDF4y0PY4rxOW5/vNMCVmgCfc4DMpr/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779397765; c=relaxed/simple;
-	bh=Tk+x2RRlqS8N1l/XsV+MkCyncrh6+B3kGY1IYbGaHWs=;
+	s=arc-20240116; t=1779397927; c=relaxed/simple;
+	bh=WzSompHWZa+TXS/OFktCRwuPIyYbFpUDARQgVaKVV7E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qetNclGg7jmcbTr+SZSY2TmyIvuiVWqlinVMy+SANSX1wkvi6pkOfinO+RysPiYVZdgHaKGtWFToZfgisUyhJKMqc6JIyuSJ6hYbPyyesmVDGJQqSO770n04KIbYASmXZYFj17R0PsAe3N0aJniw69hjcz/TRfpfJW8flCXdIK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDxBMNjM; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=eBtmXtXVNaYlS0QdJra1lrnR3kHsxNAKBvoF2W3KXnNgTymE/z1lT8lciwAqo//f5aHtSPbvzcDZYEIf9EUnVpxlfMd43X4Ln3r3hi5xKvrmp8Hsd4eT5EjcdppteCQMa/mu7oG8/1h5ewVbqQf4fJpaQyCmFCVA1gtcNNpwrgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IfmqoT+U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDxBMNjM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2248A1F000E9;
-	Thu, 21 May 2026 21:09:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IfmqoT+U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41C71F000E9;
+	Thu, 21 May 2026 21:12:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779397763;
-	bh=s921qgxKTVpxbehepX0NIBoeAZ5oMDivqoHpcRsCcN4=;
+	s=k20260515; t=1779397926;
+	bh=ObeRCQN+zlcP31xpZYcgGdti/iiyxcHhdVkYQKtl1Rs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VDxBMNjMcoVe3HUO+vz+ojM9lp/xzBkakwkB3bZRMmqyvByFXTZF8/Nsa64tnY2s0
-	 W1K7l64vnnHjkYTzXiZEJ7024sPnofR1kOeejfq1QDFQVqzVBc2nLxAu7M5OkZ4LX2
-	 DxXhRzCmQeZ5nZO6GxIFdfzGh6ov1XEekTQnsJL5WSVP57MF+Ew/TO+mpfb9Cf0dYi
-	 XdAdTEYokVbnDWlTNPgutJfS4P+l6iBVufLtlA6Q8EfGLb7YLGukc9ojvb2s9zEd17
-	 F9MAd3dVVNkeMgAuAqtLw3kVDto5XNsnewxH0DOq3ieCZNVFGIE1ci9odz9DM8FpSL
-	 SPD7c3dB6UVvw==
-Message-ID: <e3e5768d-f1b4-4fe6-a182-0210c9b7f784@kernel.org>
-Date: Thu, 21 May 2026 23:09:18 +0200
+	b=IfmqoT+UiB5T9t8gvFos4WTgZmNhjvfVaddk92FXEo4W9/hYStiDGF/7RMAJwADVB
+	 ayn1i/MphMJBTqYH97TB5+ASvZqyLGb3C4dSHM1d5J4aBQoNwckcVUB3+jNiqXGBwh
+	 C3TYSa+oMBCQADQi/R5Ec87NjcS7MnNWUt/DXnBNwYX92c1Xe+P8NYUIowpiup8Tlr
+	 Zz8vEDp7eEEuXTk5bf++od5nnr6MjQXmXgNxD0/x7FdsbV5xAW/IPlmz3cOlwKc1/7
+	 9R4FPCVevWqawJB+Ql6+7Kk8ESrSdFPqNglvL+jgiZ15Do1utNKwCFvKZ3Z0SjiWJA
+	 DZM5FeajtJQMA==
+Message-ID: <f0983d83-929d-421e-90cd-aa6962c6191c@kernel.org>
+Date: Thu, 21 May 2026 23:12:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/9] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl
- driver
-To: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Samuel Holland <samuel.holland@sifive.com>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
- <20260515-ultrarisc-pinctrl-v1-6-bf559589ea8a@ultrarisc.com>
+Subject: Re: [PATCH v2 net-next 2/3] dt-bindings: dpll: add SiTime SiT9531x
+ clock generator
+To: Ali Rouhi <rouhi.ali@gmail.com>
+Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, cjubran@nvidia.com, Oleg.Zadorozhnyi@devoxsoftware.com,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ali Rouhi <arouhi@sitime.com>
+References: <20260520191943.73938-1-arouhi@sitime.com>
+ <20260520191943.73938-3-arouhi@sitime.com>
+ <48cc27ed-48e8-41db-8351-166774466a69@kernel.org>
+ <CALFSGupB_eRHQ=h2PzwiLE1gTvd7kZbBP+eWOVWVxapVjzgeXw@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,100 +92,47 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260515-ultrarisc-pinctrl-v1-6-bf559589ea8a@ultrarisc.com>
+In-Reply-To: <CALFSGupB_eRHQ=h2PzwiLE1gTvd7kZbBP+eWOVWVxapVjzgeXw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/05/2026 03:18, Jia Wang via B4 Relay wrote:
-> From: Jia Wang <wangjia@ultrarisc.com>
+On 21/05/2026 22:38, Ali Rouhi wrote:
+>> Mismatched DCO. Use consistent identity or fix your commits.
 > 
-> Add pinctrl driver for UltraRISC DP1000 pinctrl controller.
+> Apologies — Gmail's SMTP relay rewrites the From header to my
+> personal address (rouhi.ali@gmail.com).  I'm working with IT to
+
+I don't think so. Gmail does not do it. Properly configured Gmail SMTP
+should work fine with two From: headers.
+
+> get corporate SMTP credentials so the From matches the Signed-off-by
+> (arouhi@sitime.com) in v3.
 > 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> ---
->  MAINTAINERS                                   |   1 +
->  drivers/pinctrl/Kconfig                       |   1 +
->  drivers/pinctrl/Makefile                      |   1 +
->  drivers/pinctrl/ultrarisc/Kconfig             |  23 +
->  drivers/pinctrl/ultrarisc/Makefile            |   4 +
->  drivers/pinctrl/ultrarisc/pinctrl-dp1000.c    | 112 ++++
->  drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.c | 746 ++++++++++++++++++++++++++
->  drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.h |  71 +++
->  8 files changed, 959 insertions(+)
+>> Same as last time. Why are you describing drivers?
+> 
+> Will drop the clocks description entirely — maxItems and
+> clock-names are sufficient.
 
-Organize your patchset correctly. Such style:
-DTS
-pinctrl
-DTS
-
-is very confusing and discouraged. See submitting patches in DT directory.
-
+You completely cut the context. No clue what was there.
 
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 832e01898ae5..ecd87d58f28c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27364,6 +27364,7 @@ M:	Jia Wang <wangjia@ultrarisc.com>
->  L:	linux-gpio@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> +F:	drivers/pinctrl/ultrarisc/*
->  F:	include/dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h
->  
->  ULTRATRONIK BOARD SUPPORT
-> diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-> index 03f2e3ee065f..76105be8b395 100644
-> --- a/drivers/pinctrl/Kconfig
-> +++ b/drivers/pinctrl/Kconfig
-> @@ -711,5 +711,6 @@ source "drivers/pinctrl/ti/Kconfig"
->  source "drivers/pinctrl/uniphier/Kconfig"
->  source "drivers/pinctrl/visconti/Kconfig"
->  source "drivers/pinctrl/vt8500/Kconfig"
-> +source "drivers/pinctrl/ultrarisc/Kconfig"
+>> Drop node. Wasn't here before, so why did you add it?
+>> Drop.
+> 
+> Will drop both xo and xo2 fixed-clock nodes from the examples.
+> 
+> Thanks for the review.
+> 
+> Best regards,
+> Ali
+> 
+> On Thu, May 21, 2026 at 12:26 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 20/05/2026 21:19, Ali Rouhi wrote:
 
-u < v
+Heh, you just top posted.
 
-Do not add to the end of files. You are messing how this file is sorted.
-
->  
->  endif
-> diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
-> index f7d5d5f76d0c..4df3e52518ea 100644
-> --- a/drivers/pinctrl/Makefile
-> +++ b/drivers/pinctrl/Makefile
-> @@ -98,3 +98,4 @@ obj-y				+= ti/
->  obj-$(CONFIG_PINCTRL_UNIPHIER)	+= uniphier/
->  obj-$(CONFIG_PINCTRL_VISCONTI)	+= visconti/
->  obj-$(CONFIG_ARCH_VT8500)	+= vt8500/
-> +obj-$(CONFIG_ARCH_ULTRARISC)	+= ultrarisc/
-
-Missing compile test. Don't use that style. See other decent SoC vendors
-how they solved that problem.
-
-Also, do not add to the end of the files. Keep things sorted, more or less.
-
-
-> diff --git a/drivers/pinctrl/ultrarisc/Kconfig b/drivers/pinctrl/ultrarisc/Kconfig
-> new file mode 100644
-> index 000000000000..ba8747b90127
-> --- /dev/null
-> +++ b/drivers/pinctrl/ultrarisc/Kconfig
-> @@ -0,0 +1,23 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config PINCTRL_ULTRARISC
-> +	tristate
-> +	depends on OF
-> +	select PINMUX
-> +	select GENERIC_PINCTRL_GROUPS
-> +	select GENERIC_PINCONF
-> +	select GENERIC_PINMUX_FUNCTIONS
-> +	select GPIOLIB
-> +	select IRQ_DOMAIN_HIERARCHY
-> +	select MFD_SYSCON
-> +
-
+Do not top post ever.
 
 Best regards,
 Krzysztof
