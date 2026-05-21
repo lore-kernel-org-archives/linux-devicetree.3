@@ -1,93 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDBC37106A;
-	Thu, 21 May 2026 16:05:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A8E367283
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 16:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779379560; cv=none; b=O3hb+WfLolqap8CKZVCvTb3SS8XtD+WAOpwFaOrJS5lfbCzoEFCkhz8TvovTLqkyJlhA1HtcGJsCeWreAkHP7RVnSUGbo9+jm7I2CGCjL8Xyk17bULonrOiyQcVmAfeY/6n7k4qESXpI0kYIA2kLZ816gERrq5SVsPIv1cwtWf4=
+	t=1779379670; cv=none; b=IaIDsccA4w0hy7o4clwKhVoGGQ55N4gSyqhVZ/ia8TfAetXlhjFj1/LITwp/HIdcQl8sUT04WNJDY3dqg8URc3OQ1dFr10ulrV19/cOidxh6O8fYJmD+ptPqDXl18wHz1UVuvQBlXJ3XZ+A1JfVcGDl7+7m/JTaKeU5OaE9wmz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779379560; c=relaxed/simple;
-	bh=Pbenxf3Ey5zVf4qNMXJhZSoSU4sBgtA2J/ZGOQM2ijE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=OwxH2jNTZfb/blptReuieXgE7QSarC6iVktx+ocBIPiVOzmC3a6HerE8ATB/ynsg0BqJKkRzz+lwW7y6MwZP1Z7UQMlByPZQ61p+R+wFvY4BodLUPai/SFFZNfNNfwuBPvIRWEzPJ6yJKWHlsMM2Ig1z+kYtU21cR1sGeqhIaEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mA7b6da/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779379670; c=relaxed/simple;
+	bh=i5AcCrCNsclF/I/Vs+d8ILuWO7HCNkOLoFCgNnyW/Z0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OgYpq/TJrchA39G1RWhMR6acp1A0+izTGlTI9lSlly3WUq0WVDX2R92Tu7O9fN6XpG9iiTjwRbv7f4ft1XmqSEz7qclrJYTH2XhmUEvLWUuCPYMppy9sbTzipS9GYQH32cRD9ruzl/UrnkTrOhqyvf87RQoxV7qf2wPre4D39oE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bwy14QR+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mA7b6da/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 054B11F00A3B;
-	Thu, 21 May 2026 16:05:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bwy14QR+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C94941F000E9;
+	Thu, 21 May 2026 16:07:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779379558;
-	bh=20Fl4u/mL31fojJIl2NW7Wr4XRGXEcX/ejosgcBCJXw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mA7b6da/eXo3dh5roniM05wcW6CKgnwl6klFqkitONUY4kH31E45lrwuBHnJ3qXXj
-	 GEQ7j8P2R70m9px5XTjtDQJ0zQsthY3S+tXyC9ji8/ILFrp0wU4RQ0TBdGOYtqh6lv
-	 9NLZ7kDB+DcwCWgHrsTwTOSz/FD1/2vFEfhv8pyMh3DosAbCkYVZMng5yIOXWr5gPZ
-	 OAJ39Ckc03fLbYrduhDhT0+94YnKivXwVltLud21TIm9Vyy/mnJWzyFHVG8XxHvAjI
-	 cDWjA3nClXJuGd+q8EiYdvUgDtjJ6WLfj9L11hfvugEwH3XZ2s1kZoZD73SX3rv65O
-	 vYAraTKx6XmKA==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Nam Tran <trannamatk@gmail.com>, 
- =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>, 
- Yassine Oudjana <y.oudjana@protonmail.com>, 
- Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org, 
- linux-doc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260516-s2mu005-pmic-v7-0-73f9702fb461@disroot.org>
-References: <20260516-s2mu005-pmic-v7-0-73f9702fb461@disroot.org>
-Subject: Re: (subset) [PATCH v7 00/10] Support for Samsung S2MU005 PMIC and
- its sub-devices
-Message-Id: <177937955373.3709084.6254458726341394026.b4-ty@b4>
-Date: Thu, 21 May 2026 17:05:53 +0100
+	s=k20260515; t=1779379669;
+	bh=I+nicCEQH3k3MCPNUqu1ZkC6LyIIUQd/vdyf1KEbB9w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Bwy14QR+HBrwzWiZyRPWcIUDOker2meAQZtkItE82jpETzWspZ5PI1v5U8yT0eLAa
+	 ncqdX2/a+5GYAj8INOpQQt2KnATH7O8dqEc/drctcq1DGpRdcZG9wyYOE16xMNH/5D
+	 rhIpZcSii5kfrJBeR5pGiG/4SqToYF7lAO+E2KCw8vmhk4KxpYioVoMp3jSIxLOmvS
+	 hGzw+ReWAOnWyusfxoe2kMZ4TIww6infIVM3iLikbwcKbEpznD9iy9ca2GwXeSOnX/
+	 G/TcSYCGiURr52E/Ww9Wpv8nRzEWBPZ1FVUCe3DuvoRA3C5KJYjl95Z4DQjlmconIC
+	 iOjvA8CKvnt8w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/5] dt-bindings: display: Add Synaptics R63455 panel
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jun Nie" <jun.nie@linaro.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org>
+References: <20260521-sm8650-7-1-bonded-dsi-v4-4-a4dd5e0850f1@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 16:07:48 +0000
+Message-Id: <20260521160748.C94941F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 
-On Sat, 16 May 2026 03:08:32 +0530, Kaustabh Chakraborty wrote:
-> S2MU005 is an MFD chip manufactured by Samsung Electronics. This is
-> found in various devices manufactured by Samsung and others, including
-> all Exynos 7870 devices. It is known to have the following features:
-> 
-> 1. Two LED channels with adjustable brightness for use as a torch, or a
->    flash strobe.
-> 2. An RGB LED with 8-bit channels. Usually programmed as a notification
->    indicator.
-> 3. An MUIC, which works with USB micro-B (and USB-C?). For the micro-B
->    variant though, it measures the ID-GND resistance using an internal
->    ADC.
-> 4. A charger device, which reports if charger is online, voltage,
->    resistance, etc.
-> 
-> [...]
-
-Applied, thanks!
-
-[01/10] dt-bindings: leds: document Samsung S2M series PMIC flash LED device
-        commit: a794673949f1aa1dd948ce3ea436af48ea83d7b2
-[06/10] leds: flash: add support for Samsung S2M series PMIC flash LED device
-        commit: f0878c58430c378c47aaece1b29484e4ae8d7faf
-[07/10] leds: rgb: add support for Samsung S2M series PMIC RGB LED device
-        commit: 366ed7a6d22e682e6dfd4d64d8f543bc70c6b58e
-[08/10] Documentation: leds: document pattern behavior of Samsung S2M series PMIC RGB LEDs
-        commit: 1795fd2dbe84ef4d393b69a0b2a3b371f810bde5
-
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Low] Invalid inline mapping for `$ref` under `ports` property.
+- [Low] The `reg` property is used in the device tree example but omitted f=
+rom the schema definitions.
+- [Low] Missing closing brace for the panel device node in the DTS example.
+- [Low] The `reset-gpios` property's `maxItems: 2` constraint conflicts wit=
+h the strictly enforced `maxItems: 1` inherited from `panel-common.yaml`.
 --
-Lee Jones [李琼斯]
 
+commit 5bb531a3ba9addcc1e532a73333c359429ef1ea6
+Author: Jun Nie <jun.nie@linaro.org>
+Subject: dt-bindings: display: Add Synaptics R63455 panel support
+
+Add support for the dual-panel system found in the virtual reality device.
+This system consists of two physical 2160x2160 panels, each connected via
+a MIPI DSI interface.
+
+> diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r6=
+3455.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r6345=
+5.yaml
+> new file mode 100644
+> index 0000000000000..a94b355ed9557
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.ya=
+ml
+[ ... ]
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +        - sharp,ls026b3sa06
+> +        - boe,vs026c4m-n52-6000
+> +      - const: synaptics,r63455
+> +
+> +  reset-gpios:
+> +    maxItems: 2
+
+[Severity: Low]
+Will this conflict with panel-common.yaml? Since panel-common.yaml is
+included via allOf, and it restricts reset-gpios to maxItems: 1, a device
+tree providing two GPIOs will fail validation against the inherited schema.
+The local relaxation to maxItems: 2 cannot override the stricter requirement
+from panel-common.yaml.
+
+> +    description: 2 reset pins for 2 physical panels
+[ ... ]
+> +  vdda-supply:
+> +    description: core 1.8V supply for panels
+> +
+> +  ports: $ref: /schemas/graph.yaml#/properties/ports
+
+[Severity: Low]
+Does this syntax cause a YAML parser error? In YAML, a colon followed by a
+space indicates a mapping value, and a plain scalar cannot contain an
+unquoted colon-space sequence. Should the $ref be placed on a new line with
+proper indentation?
+
+> +
+> +required:
+> +  - compatible
+[ ... ]
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    &mdss_dsi0 {
+> +        vdda-supply =3D <&vreg_l3i_1p2>;
+> +        status =3D "okay";
+> +
+> +        qcom,dual-dsi-mode;
+> +        qcom,master-dsi;
+> +
+> +        panel: panel@0 {
+> +            compatible =3D "sharp,ls026b3sa06", "synaptics,r63455";
+> +            reg =3D <0>;
+
+[Severity: Low]
+Should the reg property be explicitly defined in the local schema
+properties block? It is used here in the example but omitted from the
+schema definitions. Since additionalProperties is false, dt_binding_check
+will fail with an undocumented property error.
+
+> +
+> +            reset-gpios =3D <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>,
+[ ... ]
+> +            ports {
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +                port@0 {
+> +                    reg =3D <0>;
+> +                    panel0_in: endpoint {
+> +                        remote-endpoint =3D <&mdss_dsi0_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg =3D <1>;
+> +                    panel1_in: endpoint {
+> +                        remote-endpoint =3D <&mdss_dsi1_out>;
+> +                    };
+> +                };
+> +            };
+> +    };
+
+[Severity: Low]
+Is there a missing closing brace for the panel node here? The brace
+indented at 12 spaces closes the ports subnode, and the next brace indented
+at 4 spaces closes the root mdss_dsi0 node. The lack of an 8-space indented
+closing brace for the panel node will cause a syntax error from the Device
+Tree Compiler.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-sm8650-7-1=
+-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org?part=3D4
