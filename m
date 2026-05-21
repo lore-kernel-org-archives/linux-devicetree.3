@@ -1,113 +1,278 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4484936167B;
-	Thu, 21 May 2026 11:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4B03BAD9C
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 11:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779361818; cv=none; b=PPENIQNHSqjkhZ0y07FnnumuqSgrqWWPbQKHc0eVaqDCuCTeobBiFCQ4rPw7wTJXTFZ/Nr7kwUnUzE95DyAF8Xzgj/RKhlw+2ofszN/ECpWkBsIytE4vuigXCfYwOOgUBZst1XHrwByROOOMZL+LqYmAVfLn59hhHTyIo753XNk=
+	t=1779361862; cv=none; b=hnFBWioG4hnaCMV46DE11CRmoUOQgUcTg2QqV9U9lTv9Re+CpExWMCyCaQMdx78h0z3o2y5jH1aTbSScN4+orUHCa2aVNNKJUEXeM2z+9jCaTmlfb1cNM91A8OZYmVulXqOdoat18gAad4BqkSm4tTXNNul+r1o3DzHsKRyx9yI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779361818; c=relaxed/simple;
-	bh=AjG2vD1PvA7zKoaZI9CzAq+yF5earU4+fGX5qmr6FsY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=dq8PA43UmdhetX3cVmD3NpsllerTFRzsJD9YrWnyjGdi7xXVxlx6g07FcTF5nAxrk+t8ChBwoVRAGhkrSWHwQ2Mw8v6xDEtlBBWSmhqlrqYe0yvwaMs0tIGM7owiC9vfWKi8ojw0XbxkMSaQ+HUVDVWgHDSMmSQ61Mutz06cNK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IeUc+TU8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779361862; c=relaxed/simple;
+	bh=UCasNbHDZZYX31WUouMR5aVqtAjsbHcMINcZBQUV5Ss=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m5G0tOEyKQOTc1yGOoXd1tbBDq7/8pisxnCZS75bE6AftHJd8L7PmkY/DVis9tTi6UJWCZFsLqaPbd3V9kCl4aYF+tY0cywUi3zcYeoLjXZ6nxesoKSbZscbR6K5twLQpHuFVPIpL+JBnjM2QygsAbULFG3e0/6uz7xjsvaruN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jtxZsu3F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZPmc5wZL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IeUc+TU8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DECDA1F000E9;
-	Thu, 21 May 2026 11:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779361816;
-	bh=xU8Xda3hTS+TH6/kqkYtkfd/gVphmpM5ys0iuESx0eo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IeUc+TU8KfmOdLpDtUOEaJcHiCUK87i4XfCq0IgsjEVMuvTatrPzUduaPqXtzGTYF
-	 +yb2Nag0bIqi7PsRqx4bPgfzLke4z29ohFAEWnQi2AlyhcGncxJiaA/IZe1EF94T+T
-	 oZ4md4kwYc30zpyZJ5jGP4dnqcp/6BHFKBMb9RcBvqDZEJmDllHDy/gxpYJXz7chU2
-	 H6Js8SX//oWDtT2rKN8o6VL3jM9QSCDhaIsmZPtYkVxlTh1LHC9gr8lUyeE/uxe2q7
-	 OtuOhiDBT00ei8HkIJiz+38j+qvwE/foOTPD0SKFwPfzUiODrmT+LN85NCZsf/j8cK
-	 Ylfd5f8lf9sEA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1994C3930D65;
-	Thu, 21 May 2026 11:10:28 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jtxZsu3F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZPmc5wZL"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64LAXt9Z818840
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 11:11:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SpkIdCGDZCRqXLE6O2n4Iu9e0V/TmezNwYEg8eCCoag=; b=jtxZsu3F2Tk1mTxi
+	oMNw97eaE/vrDH8NcCDU50t4Pb8G0YoP3x8zrZMo0V0dtCKXoSr3hONTSZGdpX7m
+	V5vzF8EiaXLGyxKQ9R35miShkCgaXNtPughd47ipi/0QDTA9cwoQ9dIG48glYznc
+	/9jEUpdkNEfOEaxj8lrZH8xAcXWracv6NEjEGg1Z6QStAB6GBe/8HHvd5V/LMFv+
+	4/q+UxyBQw/oYTpaQ7TRj/5BXumF15BUFyGOvm2xeNrN5CXphe7r1J9iigERqz28
+	CgIEH7UQQF/OYoEIC0Jv8XLoPyCaQBklPSQCyrv6XfJP1O26oksPYvjRdAnvPOz3
+	wx+bfQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea0dkg405-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 11:11:00 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-366344513a3so12794157a91.3
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 04:11:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779361859; x=1779966659; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SpkIdCGDZCRqXLE6O2n4Iu9e0V/TmezNwYEg8eCCoag=;
+        b=ZPmc5wZL35nR5AjBTFVIWUtdDTTYOkVDswziPbFFr7eIFMQtXJB6lEnpqrsmB+Dmbo
+         ReJHnxaUNm0NG+nyNnpD3htSWWtsxRPekB+b3+F28GRDEKO+ZWEWHOfsY9Y8FbtqGfSI
+         slCJYNquPFapHM2XUo7eIYCU/03wxshlUyZkHmfUmAEpliE+5xdW6KiWl/ia0pj9R1Kr
+         kzcFLmfiuFh750jB2JL3xTvFKQhQbvdlqGHEpvHnU+DJDOGiF5K9InoaY2dm4N1WB1U5
+         0sj/RK/xvnnN09fDhO2syX12p17s972DYNV+wIazhuQaBKo3mBgXs5Us9jCvVjoUyAA0
+         yL2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779361859; x=1779966659;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SpkIdCGDZCRqXLE6O2n4Iu9e0V/TmezNwYEg8eCCoag=;
+        b=pRhNPFXFvlSsRt7VfWx1R5DWZWI+wNv2BgG3ri8tO06f3Ib8ie3TWN412Pp+SpsY+j
+         rILGOeYxkO190zIOGbD9CaAlPN0DS979MH00Ng49kY6c5xE5Ap0Vf23NQ75QnJacWerK
+         vKDaNyowlqefCcyLNU0R9wzhHFCUSdjwaTNLMp+dRIyjsRqm6Ms1TtTQzELNiNcv0KqM
+         Hhk9rRRT0XgXbPhhWSRUZyu6ekekZIkjfmc16DK6PiMLpbVJJnrego2eZvebGmbQNmA9
+         3OnfVN+YFpMbtwGggJ0AK60Cg087U19oiQHMsWUlS7wpn3KoTkQStmJnVEOoxg62rZ9C
+         1XAQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+upJdhDLtfc5OAcLK7YYGPHudNghsqkqLdIf0+02kQpiZZXsigIdMAKpPJdcX668WzFIDHgApEuFNq@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYdm5+cVaWYjEX4zWBnhIqzuxv9Al+7MioNzRFNqufHggf0/B2
+	8nQOPKP0jQnsc0HmRvH++VXKCBrMRTz/sNIdeTrRFYus/igIueFoUQaot9uT3u1ZSZCNgJhpX8h
+	yWVKnueYVJ0Ezzb1Qtxfl2d/SZPz+T3OQmFNVBRR0so4TGtf89jOLMuPq6/StiqAK
+X-Gm-Gg: Acq92OHymgyMPwcvIwsDziUFpH6OaQOOTukY+RRZvkniFQcZSdySPbKeLxM3JIwbCaW
+	+5WLUab1XnHptJoXLcLHEpeEXI6r/bcb34BpWDbjvxKSpJnNZTEIz16/RbtZn12DvUfte9XjyJ9
+	h4SAEexvbqpTxcQHCfXDnbARtkXGEbnDG+IJb7YBuAIL7/IBDJIS7fBmwGn6ZZexkho8A1Az640
+	Z/4DR2js4vN/OHwxWgqMyxRJNwKAPgo7F/b4LZmVttGIaNtzTn1uZhiMmeziBVejIiP6awKxzQt
+	txquP7P6vsJKZXR9+QTqwG4+/u+s9tXUtRCrQytWOUGb30RoB/oMRrol7XyxZavAqyL1TKOUXFN
+	xb4lDxqsf6CfZ6rHuEOy29lucrXAdOXJEKqbEKabYpWKDDx73
+X-Received: by 2002:a17:90b:4d90:b0:368:ac47:6e65 with SMTP id 98e67ed59e1d1-36a4518223fmr2405391a91.11.1779361859503;
+        Thu, 21 May 2026 04:10:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d90:b0:368:ac47:6e65 with SMTP id 98e67ed59e1d1-36a4518223fmr2405357a91.11.1779361859072;
+        Thu, 21 May 2026 04:10:59 -0700 (PDT)
+Received: from [10.219.57.29] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a5b3490desm385315a91.13.2026.05.21.04.10.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 21 May 2026 04:10:58 -0700 (PDT)
+Message-ID: <f20a3c1e-8723-48da-a912-ce269fa1aa0a@oss.qualcomm.com>
+Date: Thu, 21 May 2026 16:40:54 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: qcom,shikra-pas: Document
+ Shikra PAS remoteprocs
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+References: <20260520-shikra-rproc-v2-0-583a2e413a3a@oss.qualcomm.com>
+ <20260520-shikra-rproc-v2-1-583a2e413a3a@oss.qualcomm.com>
+ <20260521-hopeful-eccentric-pig-7fbcde@quoll>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20260521-hopeful-eccentric-pig-7fbcde@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v8 net-next 00/15] Add preliminary NETC switch support for
- i.MX94
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <177936182689.4032976.7498848495414588133.git-patchwork-notify@kernel.org>
-Date: Thu, 21 May 2026 11:10:26 +0000
-References: <20260518082506.1318236-1-wei.fang@nxp.com>
-In-Reply-To: <20260518082506.1318236-1-wei.fang@nxp.com>
-To: Wei Fang <wei.fang@nxp.com>
-Cc: claudiu.manoil@nxp.com, vladimir.oltean@nxp.com, xiaoning.wang@nxp.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, f.fainelli@gmail.com, frank.li@nxp.com,
- chleroy@kernel.org, horms@kernel.org, linux@armlinux.org.uk,
- maxime.chevallier@bootlin.com, andrew@lunn.ch, olteanv@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDExMSBTYWx0ZWRfX8lPo2CDO7aR5
+ IbyBvESLBU00G4QdW813r8wGLovBMiBVbGEi1rq2GtlD6XJFl73hzymqO+2VRtRv/iH1xCEr+Qe
+ E1q+jTx1Mh1lF2XX1sozcrt2GYWMSWPPIGtGK4ghMhj4K/xoSv/tP231hskuHmPTQs4ecX+eJxY
+ Jluj64kjjJX1tjBEANBuLCB5/YTZ8p3b3lwu6smf+U/JenG1p5s+/7xNsi1snss1hR1NnYZXogO
+ Yw63PbriguA+CA7HwuFbsXV7x3raiOdYao76RhuBuMFleGAvmAY4MzIJbdxsxA6541af6H+ZAFM
+ f3tcPkeuabrlW6zQ+iQzsVfAxgIUAG1Xx+3g2QvLl70aIfCoNf3Tdip7lLIlq62c382qhJZ/Tnj
+ BIshODMNXL6gOR89wdkALOYIqI6V6S1AlTh0F2w8kLEHGNc47vxpV4pa8PdxD/N9LWu25Zw3Bg0
+ JPiZ+1zDfFYMOkA2lrQ==
+X-Authority-Analysis: v=2.4 cv=aueCzyZV c=1 sm=1 tr=0 ts=6a0ee844 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=83-R8UJ7J38mYFGXg2wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: EvWMjtqQz0m9hqG77k5s87qqRVQXwk7w
+X-Proofpoint-ORIG-GUID: EvWMjtqQz0m9hqG77k5s87qqRVQXwk7w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 adultscore=0 phishscore=0 malwarescore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605210111
 
-Hello:
+On 5/21/2026 1:30 PM, Krzysztof Kozlowski wrote:
+> On Wed, May 20, 2026 at 08:08:05PM +0530, Komal Bajaj wrote:
+>> +  glink-edge:
+>> +    $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+>> +    description:
+>> +      Qualcomm G-Link subnode which represents communication edge, channels
+>> +      and devices related to the remoteproc core.
+>> +    unevaluatedProperties: false
+>> +
+>> +  qcom,smem-states:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +    description: States used by the AP to signal the Hexagon core
+>> +    items:
+>> +      - description: Stop the remote processor
+> You again got the warning here. It must be solved, don't send the same.
+>
+> See thread:
+> https://lore.kernel.org/all/20260421195836.1547469-1-robh@kernel.org/
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+I ran make dt_binding_check and didn’t see this warning, likely because 
+my dt-schema was not up to date. I’ll fix this in the next version.
 
-On Mon, 18 May 2026 16:24:51 +0800 you wrote:
-> i.MX94 NETC (v4.3) integrates 802.1Q Ethernet switch functionality, the
-> switch provides advanced QoS with 8 traffic classes and a full range of
-> TSN standards capabilities. It has 3 user ports and 1 CPU port, and the
-> CPU port is connected to an internal ENETC through the pseduo link, so
-> instead of a back-to-back MAC, the lightweight "pseudo MAC" is used at
-> both ends of the pseudo link to transfer Ethernet frames. The pseudo
-> link provides a zero-copy interface (no serialization delay) and lower
-> power (less logic and memory).
-> 
-> [...]
+>
+>
+>> +
+>> +  qcom,smem-state-names:
+>> +    description: The names of the state bits used for SMP2P output
+>> +    items:
+>> +      - const: stop
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - memory-region
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/remoteproc/qcom,pas-common.yaml#
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          enum:
+>> +            - qcom,shikra-cdsp-pas
+>> +            - qcom,shikra-mpss-pas
+>> +    then:
+>> +      properties:
+>> +        interrupts:
+>> +          minItems: 6
+>> +        interrupt-names:
+>> +          minItems: 6
+>> +        memory-region:
+>> +          maxItems: 1
+>> +        firmware-name:
+>> +          maxItems: 1
+>> +        power-domains:
+>> +          items:
+>> +            - description: CX power domain
+>> +        power-domain-names:
+>> +          items:
+>> +            - const: cx
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          enum:
+>> +            - qcom,shikra-lpaicp-pas
+>> +    then:
+>> +      properties:
+>> +        interrupts:
+>> +          maxItems: 5
+>> +        interrupt-names:
+>> +          maxItems: 5
+>> +        memory-region:
+>> +          minItems: 2
+>> +        firmware-name:
+>> +          minItems: 2
+> power-domains: false
+> power-domain-names: false
 
-Here is the summary with links:
-  - [v8,net-next,01/15] dt-bindings: net: dsa: update the description of 'dsa,member' property
-    https://git.kernel.org/netdev/net-next/c/0c89a779c373
-  - [v8,net-next,02/15] dt-bindings: net: dsa: add NETC switch
-    https://git.kernel.org/netdev/net-next/c/6d019124be60
-  - [v8,net-next,03/15] net: enetc: add pre-boot initialization for i.MX94 switch
-    https://git.kernel.org/netdev/net-next/c/f059d55fd8a0
-  - [v8,net-next,04/15] net: enetc: add basic operations to the FDB table
-    https://git.kernel.org/netdev/net-next/c/4566269803ff
-  - [v8,net-next,05/15] net: enetc: add support for the "Add" operation to VLAN filter table
-    https://git.kernel.org/netdev/net-next/c/d0ac4d4bd299
-  - [v8,net-next,06/15] net: enetc: add support for the "Update" operation to buffer pool table
-    https://git.kernel.org/netdev/net-next/c/cb4d95d79d85
-  - [v8,net-next,07/15] net: enetc: add support for "Add" and "Delete" operations to IPFT
-    https://git.kernel.org/netdev/net-next/c/123db6a27511
-  - [v8,net-next,08/15] net: enetc: add multiple command BD rings support
-    https://git.kernel.org/netdev/net-next/c/c5aed83ddc53
-  - [v8,net-next,09/15] net: dsa: add NETC switch tag support
-    https://git.kernel.org/netdev/net-next/c/0850005c26d2
-  - [v8,net-next,10/15] net: dsa: netc: introduce NXP NETC switch driver for i.MX94
-    https://git.kernel.org/netdev/net-next/c/187fbae024c8
-  - [v8,net-next,11/15] net: dsa: netc: add phylink MAC operations
-    https://git.kernel.org/netdev/net-next/c/bbe97e347219
-  - [v8,net-next,12/15] net: dsa: netc: add FDB, STP, MTU, port setup and host flooding support
-    https://git.kernel.org/netdev/net-next/c/46d6407692c8
-  - [v8,net-next,13/15] net: dsa: netc: initialize buffer pool table and implement flow-control
-    https://git.kernel.org/netdev/net-next/c/a5ccb7f5e067
-  - [v8,net-next,14/15] net: dsa: netc: add support for the standardized counters
-    https://git.kernel.org/netdev/net-next/c/25049d8b6e6b
-  - [v8,net-next,15/15] net: dsa: netc: add support for ethtool private statistics
-    https://git.kernel.org/netdev/net-next/c/beb0e54f3806
+Ack, will add in next series.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+>
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/qcom,rpmcc.h>
+>> +    #include <dt-bindings/interconnect/qcom,icc.h>
+>> +    #include <dt-bindings/interconnect/qcom,rpm-icc.h>
+>> +    #include <dt-bindings/interconnect/qcom,shikra.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +    #include <dt-bindings/power/qcom-rpmpd.h>
+>> +
+>> +    remoteproc@b300000 {
+>> +        compatible = "qcom,shikra-cdsp-pas";
+>> +        reg = <0x0b300000 0x100000>;
+>> +
+>> +        interrupts-extended = <&intc GIC_SPI 265 IRQ_TYPE_EDGE_RISING>,
+>> +                              <&cdsp_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+>> +                              <&cdsp_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+>> +                              <&cdsp_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+>> +                              <&cdsp_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
+>> +                              <&cdsp_smp2p_in 7 IRQ_TYPE_EDGE_RISING>;
+>> +        interrupt-names = "wdog", "fatal", "ready",
+>> +                          "handover", "stop-ack", "shutdown-ack";
+>> +
+>> +        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>;
+>> +        clock-names = "xo";
+>> +
+>> +        interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
+>> +                         &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
+>> +
+>> +        power-domains = <&rpmpd RPMHPD_CX>;
+>> +        power-domain-names = "cx";
+>> +
+>> +        memory-region = <&cdsp_mem>;
+>> +
+>> +        qcom,smem-states = <&cdsp_smp2p_out 0>;
+>> +        qcom,smem-state-names = "stop";
+> Missing firmware-name
 
+ACK, will add in next series.
+
+Thanks
+Komal
+
+>
+>> +
+>> +        glink-edge {
+>> +            interrupts = <GIC_SPI 261 IRQ_TYPE_EDGE_RISING>;
+>> +            mboxes = <&apcs_glb 4>;
+>> +            qcom,remote-pid = <5>;
+>> +            label = "cdsp";
+>> +        };
+>> +    };
+>>
+>> -- 
+>> 2.34.1
+>>
 
