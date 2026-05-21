@@ -1,99 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5763A25B0B3;
-	Thu, 21 May 2026 15:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC4B36AB5A
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:36:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779377745; cv=none; b=Q4RqDq4r7fPMUFQDB3pXg+wq+EW2UVWupaOHb77fakRuhB7qEzlOeRx5Wtw6F+bzGve2dTHPyijhBVhhuwxHir7IXSsVDK5jzZiI90g2aGCdDN23wi8K1eJ6wnC8B5r2SAyzFBz2htaHEoNiOG3i4G78bHpdw09BlzncHNcxkss=
+	t=1779377773; cv=none; b=naq73kE6sm7f4S4o6B3N6d1tDwBl6oH5lzuVz5Hx5a+/URn0dkTXbfzfjf3Ol4g7mSMwkygJTsNRDKArFxDxgk8dptTrEKrC1HyWlQmsT4uM7cJ1ZnFDxaob1a08mdaurdn34XdNBfeUyzngpWQAKGgLzJuXuWduNEeCmXHKyuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779377745; c=relaxed/simple;
-	bh=oImRwjI+XSNpas5HABW8j0NwP849AjVk4QzoZ8axO3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JYazgh10SszssM5wUegrDrnStLyOCqpBKzd9KpE+//VCtQnLJ+27q0nil0xuFJyQ3l6gojJJx6kAZRnG8leROAYsSdH/uIG0VsafuMXM32sht8HzHdJeVcDF7CKmwyBttPf7uY09SCqn4c7yKWLsiZnegJuT0+4iCBrhSvI4U9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WgIOVQ24; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779377773; c=relaxed/simple;
+	bh=rGYF2CUBtEnyhzpYsNB5Y6dzRnLg4IpMqoZMJVYk+nw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oxYOhZT7q6z61CsWnPIrKObUyzdDtadDVUKnFUnWTnRSZ9xDmw5S96P6HFOnMOKW6XCXob4erVI6fzV/ARcHfyZ7mzCGKRGI++9q9hHHsvLVXwBR2Ma6F4MmMW+5QgutDg616kOcNd1ahbFyMLA/CESVMWheF1n2wHJ/QnGBj3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gtrt33Ni; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WgIOVQ24"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB1D1F000E9;
-	Thu, 21 May 2026 15:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779377743;
-	bh=TQwSrXVYnpbCfJdtfPjLSghRrh3omoKn1DB2+rGBNjE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WgIOVQ24fSOQxyG4iGiLd0T3oOMQsbj1BC/sFOR9UkwhioDe7MhOPISoGe7bQweJ1
-	 E4IzCvBrBQmsxwuyT87jWxYliddNtjMx6Zi7iUgHkXoWXLwPRm2snsiTWNSvkM38Lf
-	 FBxiOdrm2SVUxF2l2KsRygGAmu7mNxlgwV6N9rgnbLAbjiY749XK/HmuChFRFfEc/4
-	 jJkvGrMQSD5HgBEcQUYrRwBamaJOSWdeGFM/u7LtU+ZSoRNi6VQIoEe1CwCFgkIESV
-	 9FsHq3NjbHUiXO7DM5sTA3mKiBno3JbQeCMt8Ei03tGAkHinbeBqRmepmXaq5Uaqs0
-	 ziTJdrplekOwg==
-Date: Thu, 21 May 2026 16:35:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: YLCHANG2 <neo.chang70@gmail.com>
-Cc: Neo Chang <YLCHANG2@nuvoton.com>, lgirdwood@gmail.com, perex@perex.cz,
-	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
-	kchsu0@nuvoton.com, sjlin0@nuvoton.com
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Message-ID: <934509a9-1347-4b02-a341-0db0d1db42e7@sirena.org.uk>
-References: <20260518024704.118613-1-YLCHANG2@nuvoton.com>
- <20260518024704.118613-3-YLCHANG2@nuvoton.com>
- <ce8d5ba7-22aa-47ac-90ab-026ed1ee3928@sirena.org.uk>
- <ddacfe50-072d-66fd-c760-c898bdab52f4@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gtrt33Ni"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43d7e23defbso3549782f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:36:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779377770; x=1779982570; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=IWk6GQzhGW2RryhVAKkuT+Tv5fS5Q4uWu1yky+LSRfs=;
+        b=gtrt33Niu2bkgLybMhWfgarNi4MOpC13Ubv2PME4nJHuWiJeeemWZTYKdfyT2T6a1A
+         9gWz5EYkEAWXklpPGjPrnLx9jWtHFAJJ17/Q14Ecl+kbs1AVBhu4juB21sOsyAQOVFpk
+         BN+KZGh7W5cf2Zwkiy4zSd2jCtZhu355ffjoLWB7fBQh6ShMwuRUANsYcWp7i40YxAzu
+         WwjaFOyJLFSsgS2t2Rep9nP6TRp80E0Ii+B5gu5PZqIyF9GtTWPRJuHsdXI7X6i1odOi
+         a0ccFwORUmhOiRFmvRz9NQJyZL+rZXMDi/YJJBfRA13dxUoXouZioSXbZ1mavAP8xaAE
+         PwUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779377770; x=1779982570;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IWk6GQzhGW2RryhVAKkuT+Tv5fS5Q4uWu1yky+LSRfs=;
+        b=SqrTg+kg5UOvlMJhuAKiJVPepHWF5Et84QHkM13HZenrmm7mWaKafNtEHkm9VIvids
+         lSnz8WE7A/Qk0lSLp/GC/YI9K/FjMTVTFsFlcpIJNnc5WVYR9Kg10GQj1CLrGNHp23jy
+         q+jTV/CdiPWBjg2dc4IAHVdc7u5BkESG8UTotmX/6BM3POtqz1sigdcYQsI8z+/+ZEV4
+         iljxZH7nI6n0uM5FsCbXXbOKVAAhobN7mgKuiMHtUmT6CkkL1zxy1tkM0EQSVCVFpJxG
+         ZRCSSlZtoKp+mOMJRU4zwIpUFwUeO7+2nzbJvFvg1y+/t6/N0e/hgmd6OVoaxOvr9M2Q
+         zG9A==
+X-Forwarded-Encrypted: i=1; AFNElJ9agy1tz/sFjcpINaSmGUSi4b/FHoAYJUP90zo+0qtWaGgeoNa6kbnuLoexf4CCEBNEEtKfHc0GpM5H@vger.kernel.org
+X-Gm-Message-State: AOJu0YwN8wCEjzxCEhdIuMLJGuPGmWWRYt4dA/EwaNkQcw8cWp+4cQG5
+	1hCnPK8FU0x5zaFMrEvWZkBVkrm84K8v/z/HhDgTWuykVmj1p3uy3nDAMnl6k30fXhz4Xbn8oOA
+	WpZxLAic=
+X-Gm-Gg: Acq92OEirhZn9JrDRvn2hYbfKqa7yMTQZvEBGHgfZRT5O7ij8pSJiTrqjJ1/648i45f
+	Mkz3gkjRwjXx60waUXawLA4l+LGI9NQ8Q2H3oPn0NgWzh3bAHNRXqewmlM8Q2zJ+9LUXkypVejJ
+	MtrVPK8DUewtSubbXR7CpVO0zFu1uiOG2+r0bxNs3sI4GTmDJWdDSxYg/5MLb/DTwTpUgZE2dcc
+	zL6tsZU+bSrIa3moh+Z/tGAe1FZ+DTAuKAYYyEHLzzQpUqG1QeH3QWXo+48fmDb3kw9XN5T45hF
+	KvcrXic2DmR1pJKgwyowJtGhNGJaMQJ4++JJ5R8KosMnK7KUKO1br+VUOFHKZZtZxzYgkol5z32
+	SNrY2im0qnBEo2dJaxunxfoQ7bTiPIqRYrwTuIgpLs2ok6BuaEjVWriSCkEltwe+04WEkXXrxxT
+	I3oIOuipTz6QQB2LDkhSWBTVCUvWp4xSaXEA==
+X-Received: by 2002:a05:6000:1ace:b0:43d:300b:2285 with SMTP id ffacd0b85a97d-45ea37bbfb9mr6086071f8f.11.1779377769950;
+        Thu, 21 May 2026 08:36:09 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.55.220])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eaa93ce5fsm3749850f8f.33.2026.05.21.08.36.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 21 May 2026 08:36:09 -0700 (PDT)
+Message-ID: <634c0951-dabb-4505-ad52-4101a8ec0bbd@linaro.org>
+Date: Thu, 21 May 2026 16:36:08 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UVs/AC80Z1SYC8M2"
-Content-Disposition: inline
-In-Reply-To: <ddacfe50-072d-66fd-c760-c898bdab52f4@gmail.com>
-X-Cookie: No shirt, no shoes, no service.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: sashiko-reviews@lists.linux.dev
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org,
+ robh@kernel.org
+References: <20260521-x1e-csi2-phy-v6-1-9d73d9bd7d20@linaro.org>
+ <20260521122645.3EF9B1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260521122645.3EF9B1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 21/05/2026 13:26, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] The schema unconditionally requires `clock-lanes` for `port@0`, which incorrectly breaks C-PHY configurations.
+> - [Low] The example device tree node is missing required `data-lanes` and `clock-lanes` properties in the `port@0` endpoint.
+> --
+> 
+> commit bec75335fd5214a065f090cefeb28f9c895cfd3c
+> Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> 
+> dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+> 
+> This commit adds a new base devicetree schema for Qualcomm MIPI CSI2 PHY
+> devices, initially for the x1e80100. It supports CPHY, DPHY, and DPHY split
+> modes across three ports, allowing per-PHY voltage rails to be individually
+> defined and required.
+> 
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>> new file mode 100644
+>> index 0000000000000..c9116246c1e9e
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> [ ... ]
+>> +    properties:
+>> +      port@0:
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        description: Sensor input. Always present.
+>> +
+>> +        properties:
+>> +          endpoint:
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+>> +            unevaluatedProperties: false
+>> +            properties:
+>> +              data-lanes:
+>> +                minItems: 1
+>> +                maxItems: 4
+>> +              clock-lanes:
+>> +                maxItems: 1
+>> +              remote-endpoint: true
+>> +            required:
+>> +              - data-lanes
+>> +              - clock-lanes
+> 
+> [Severity: Medium]
+> The commit description mentions the PHY supports both C-PHY and D-PHY modes.
+> Since C-PHY embeds the clock signal within the 3-phase data lanes, there isn't
+> a separate physical clock lane. Does requiring clock-lanes unconditionally
+> here break configurations that need to use C-PHY mode?
 
---UVs/AC80Z1SYC8M2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fair hadn't thought of that.
 
-On Wed, May 20, 2026 at 11:01:53AM +0800, YLCHANG2 wrote:
-> On 5/18/26 19:35, Mark Brown wrote:
+> 
+>> +              - remote-endpoint
+> [ ... ]
+>> +examples:
+>> +  - |
+> [ ... ]
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +                csiphy0_in_ep: endpoint {
+>> +                    remote-endpoint = <&sensor_out>;
+> 
+> [Severity: Low]
+> The schema definition above explicitly requires data-lanes and clock-lanes to
+> be present in the port@0 endpoint. Will omitting them from this example cause
+> a validation failure when running dt_binding_check?
 
-> > > +static bool nau8360_volatile_reg(struct device *dev, unsigned int reg)
-> > > +{
-> > > +	switch (reg) {
-> > > +	case NAU8360_R00_SOFTWARE_RST ... NAU8360_R02_I2C_ADDR:
-> > > +	case NAU8360_R06_INT_CLR_STATUS:
-> > > +	case NAU8360_R21_VBAT_READOUT ... NAU8360_R22_TEMP_READOUT:
-> > > +	case NAU8360_R41_CLK_CTL2:
-> > > +	case NAU8360_R46_I2C_DEVICE_ID:
+Yes this is what happens when you ask the question "should I run the 
+check one more time" and say no.
 
-> > Are the I2C addresss and device ID volatile or do they just not have
-> > defaults?
+>> +                };
+>> +            };
+>> +
+>> +            port@2 {
+>> +                reg = <2>;
+>> +                csiphy0_out_ep: endpoint {
+>> +                    remote-endpoint = <&controller_in>;
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+> [ ... ]
+> 
 
-> For NAU8360_R02_I2C_ADDR, it requires a write operation to latch the I2C
-> device address.
-> For NAU8360_R46_I2C_DEVICE_ID, although it is read-only, its value is
-> determined by the hardware configuration
-> of the GPIO1 and GPIO2 pins at boot (e.g., 0x1a, 0x1b, 0x4a, or 0x4b).
-
-In that case they shouldn't be marked as volatile, just omitted from the
-defaults - they can be cached on first use.
-
---UVs/AC80Z1SYC8M2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoPJkoACgkQJNaLcl1U
-h9D6Dgf+MTFdSAqe+sVth1MJROGJFObulkedu9OA8uG35UgzyoNnZLCBJkQpVIZ4
-1px0piveEdCEof5YO8E36u8e6DnBz+J+muskMv1lTEoM0vi6PsNtkLUg8WzCHXdK
-uZyxdPv+/442PssImFrXj15dZgIVv4TU5yE5ILxY3HVWmYsIRu7SSTzKzNZxUfJM
-TBptlzzjjHTqfOO12fmq4m7JC9D2/HBGpGZ8MKSp3MwJogC5/a54Pb+R7Z5CxVez
-x914kR1dNsvlpgRFTLCC2CGXLZMXIaXSAQMaDsWAkpyhl5aVky111iJRQhmHsdYd
-aL9m3xbjCglFXQmN+Am3B+kL4DQ5+g==
-=ySQG
------END PGP SIGNATURE-----
-
---UVs/AC80Z1SYC8M2--
