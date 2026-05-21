@@ -1,54 +1,57 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40031368D4F;
-	Thu, 21 May 2026 17:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323FA37475B;
+	Thu, 21 May 2026 17:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779383825; cv=none; b=Ls3a97B0tb+e8Tzj1lM0ApMyiWK6KpLDYJGuV6GbCiTdmqZCN1kwN4Wyq2bZL4ftznEudyw/gMZ2WhGZHztM9zv8lsSSByriE7oBY+1+mshOmIBHNwURsuDWcSl6NtlRvEQb+gwCDTYfgqLMNB/C8UX8DDxWMQHGzlUf4lI8rlI=
+	t=1779384011; cv=none; b=bTjqIWWshfWGiZxEnoPjJr0A5pGXEKmQOGs1BLbLawJI+OA/dQXNnsyFo7/K66WL0ckz8+eyicHJkGmphmyfaav60gNGd6AtNJTZCQuIPZFnm31g3IM2jT4/mwe4W9AsMTtNrzqIaN0j+k/ykfjlBOHq3bsfQuWH/0jSIdjROvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779383825; c=relaxed/simple;
-	bh=N6FoxpRJuTOXCqPUvQH+NFE5+mmoVpWbXtfGXeEKzdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qwwBOiiHzoYPr7voVkaPNHV3C1zRMpIKpFt/OdN9tI9lrQc0roF/wPtMg0wQLX9Ttu9qEdIxcQw7j09oAz4PZrHLyaqDDCO3lLjAMsUVme3llb1+SccdJIZLUBgI+vLJmdNfHIsa0AB5ejHisSv+tEHxt8UndieTnLSZkA954MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R03u+1Ih; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779384011; c=relaxed/simple;
+	bh=+a3wGo8sRThJd6g5H5ApthN34xOnIrvwiId/Vy4N/UU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=uCOO0VUlUJdD0QCHvOUC1TalBZvYLT/vbe6rGGYulUNRARHC0THkigrHlBnvvxqeE8dmV6cIH2NSqq/2jvTN0Tgwi1ZYVFdaYiMf7HFtfacZj+oKadTi7ed8b2QEWECe+gFj2KvJgV6PX4N1HRQzj9xG4fOKSlCeqCHLVQot4ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=htPWj3P4; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R03u+1Ih"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3FC1F000E9;
-	Thu, 21 May 2026 17:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779383823;
-	bh=TzvtaM0HFO3hTTzXz7hMDZGf1pih4p7h/VA/ScQingo=;
-	h=From:To:Cc:Subject:Date;
-	b=R03u+1IhglKS+fD4HrN34UdKSTml7c8/JKlusR/RqHb/FhZug2oS3UjI+ZRWX6B9a
-	 7w9pbUIEUMOJV1dBfc71064/evHIVrgIwwlXgjACKIOUejQVQuVno5CToaMO/HiJKI
-	 KZfhzWsDwuw23BQt1xNqPVOoHeeif76+voYUku0cVNOTaDyU1VpZhVeR4l8oP3DcVp
-	 zv4zVWTN8JFVyKS1ehM7RqXoAiUsixu1AWXyeNilf23XMcruxVVdjliDOSX1Vm43uj
-	 euqBlmmpBCKfVgUm0J9e3iLRrQ92bxzTKpKf0Vc0iXYtATd2i9qItrbDY/dnq+EsP9
-	 ULXD7955uxeig==
-From: Drew Fustini <fustini@kernel.org>
-To: Tomasz Jeznach <tomasz.jeznach@linux.dev>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: iommu@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="htPWj3P4"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19C7045B38D;
+	Thu, 21 May 2026 19:20:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1779384007; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=JUupb00qUDRStdXnj1nJ2QrJYhHtRgXvfohXbm+8Fh4=;
+	b=htPWj3P4SepeKOd039P+AHbaIDwd4z7JhJf8csN7+QH/LcQJBt3sq+T6nRfv9/bXwbrgYv
+	De+6nS2LwB748PzZH0Kd5MC6mivwOaykykP5bygfUNYDDDuaicrEJyyfUupE53tKLJA+tb
+	p1QqWYn3NLMkVQhOAGLXKUPB+zaS5yZDX48M9TulOadQKsl7kh+e9tSQV/lc2jxGaRqAcN
+	NL9abXTJ/RZJL2rjiHEFC9J2+MNRc81PAvqnsjSpYr8HH9vEXDCIEwA/SevsJPzu5gO4la
+	Ti+3g+QvfCSmWEA1GcNxSXMr1ZcNrETVdG4tCwkt3OvmRsfGjJVozGZoyXX38w==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: linux-pci@vger.kernel.org
+Cc: linux-mips@vger.kernel.org,
+	naseefkm@gmail.com,
+	ryder.lee@mediatek.com,
+	helgaas@kernel.org,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	ansuelsmth@gmail.com,
+	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Drew Fustini <fustini@kernel.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	Nicholas Piggin <npiggin@gmail.com>
-Subject: [PATCH v4] dt-bindings: iommu: riscv: Add bindings for Tenstorrent RISC-V IOMMU
-Date: Thu, 21 May 2026 10:06:33 -0700
-Message-ID: <20260521170652.1880662-2-fustini@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v9 1/3] PCI: mediatek: Use actual physical address instead of virt_to_phys()
+Date: Thu, 21 May 2026 17:19:49 +0000
+Message-Id: <20260521171951.1495781-2-cjd@cjdns.fr>
+In-Reply-To: <20260521171951.1495781-1-cjd@cjdns.fr>
+References: <20260521171951.1495781-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,142 +59,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Nicholas Piggin <npiggin@gmail.com>
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Extend the binding to cover details specific to the Tenstorrent RISC-V
-IOMMU. In particular, a second register range is added which contains
-M-privileged registers, e.g., PMAs and PMPs.
+The driver previously used virt_to_phys() on the ioremapped register base
+(port->base) to compute the MSI message address. Using virt_to_phys() on an
+IO mapped address is incorrect because it expects a kernel virtual address.
 
-The RISC-V spec S-privileged registers remain in the first register
-range and are compatible with "riscv,iommu" so the Linux driver does not
-notice any difference, but the binding will be used by OpenSBI and
-potentially other M-mode software.
+To fix it, store the physical start of the I/O register region in
+mtk_pcie_port->phys_base and use it to build the MSI address. This replaces
+the incorrect virt_to_phys() usage and ensures MSI addresses are generated
+correctly.
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-Acked-by: Joerg Roedel <joerg.roedel@amd.com>
-Signed-off-by: Nicholas Piggin <npiggin@gmail.com>
-[fustini: fix dt_binding_check errors]
-Signed-off-by: Drew Fustini <fustini@kernel.org>
+Fixes: 43e6409db64d ("PCI: mediatek: Add MSI support for MT2712 and MT7622")
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
 ---
-v4 changes:
-- Add minItems: 1 to reg-names so it is legal to for platforms other
-  than tenstorrent,riscv-iommu to use "base"
-- Add reg-names constraints to the allOf: block
-- Sashiko review:
-  https://lore.kernel.org/lkml/20260521070154.9CAA41F000E9@smtp.kernel.org/
-- Link to v3:
-  https://lore.kernel.org/lkml/20260521064445.1740782-2-fustini@kernel.org/
+ drivers/pci/controller/pcie-mediatek.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-v3 changes:
-- Move tenstorrent,riscv-iommu to the enum with qemu,riscv-iommu
-- Move descriptions out of the allOf:
-- Add minItems: 2 for tenstorrent,riscv-iommu in allOf:
-- Fix reg syntax in Example 5
-- Link to v2:
-  https://lore.kernel.org/lkml/20260520061855.1623468-4-fustini@kernel.org/
-
-v2 changes:
-- Fix dt_binding_check errors
-- Add the Acked-by: from Joerg
-- Drop RFC prefix
-- Link to v1:
-  https://lore.kernel.org/lkml/20260310003850.3837030-1-npiggin@gmail.com/
-
- .../bindings/iommu/riscv,iommu.yaml           | 59 ++++++++++++++++---
- 1 file changed, 51 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml b/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
-index d4838c3b3741..f83efb3ee000 100644
---- a/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
-+++ b/Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
-@@ -32,22 +32,35 @@ properties:
-   # should be specified along with 'reg' property providing MMIO location.
-   compatible:
-     oneOf:
--      - items:
-+      - description: Platform (non-PCIe) IOMMU implementations
-+        items:
-           - enum:
-               - qemu,riscv-iommu
-+              - tenstorrent,riscv-iommu
-           - const: riscv,iommu
--      - items:
-+      - description: PCIe IOMMU implementations
-+        items:
-           - enum:
-               - pci1efd,edf1
-           - const: riscv,pci-iommu
+diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
+index 75722524fe74..c503fbd774d0 100644
+--- a/drivers/pci/controller/pcie-mediatek.c
++++ b/drivers/pci/controller/pcie-mediatek.c
+@@ -175,6 +175,7 @@ struct mtk_pcie_soc {
+ /**
+  * struct mtk_pcie_port - PCIe port information
+  * @base: IO mapped register base
++ * @phys_base: Physical address of the I/O register base region
+  * @list: port list
+  * @pcie: pointer to PCIe host info
+  * @reset: pointer to port reset control
+@@ -196,6 +197,7 @@ struct mtk_pcie_soc {
+  */
+ struct mtk_pcie_port {
+ 	void __iomem *base;
++	phys_addr_t phys_base;
+ 	struct list_head list;
+ 	struct mtk_pcie *pcie;
+ 	struct reset_control *reset;
+@@ -405,7 +407,7 @@ static void mtk_compose_msi_msg(struct irq_data *data, struct msi_msg *msg)
+ 	phys_addr_t addr;
  
-   reg:
--    maxItems: 1
--    description:
--      For non-PCI devices this represents base address and size of for the
--      IOMMU memory mapped registers interface.
--      For PCI IOMMU hardware implementation this should represent an address
--      of the IOMMU, as defined in the PCI Bus Binding reference.
-+    minItems: 1
-+    items:
-+      - description:
-+          For non-PCI devices, base address and size of the IOMMU memory
-+          mapped registers interface. For PCI IOMMU hardware
-+          implementation, an address of the IOMMU, as defined in the PCI
-+          Bus Binding reference.
-+      - description:
-+          Region containing platform specific MMRs for machine-mode
-+          configuration, such as PMA and PMP registers.
+ 	/* MT2712/MT7622 only support 32-bit MSI addresses */
+-	addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
++	addr = port->phys_base + PCIE_MSI_VECTOR;
+ 	msg->address_hi = 0;
+ 	msg->address_lo = lower_32_bits(addr);
+ 
+@@ -520,7 +522,7 @@ static void mtk_pcie_enable_msi(struct mtk_pcie_port *port)
+ 	u32 val;
+ 	phys_addr_t msg_addr;
+ 
+-	msg_addr = virt_to_phys(port->base + PCIE_MSI_VECTOR);
++	msg_addr = port->phys_base + PCIE_MSI_VECTOR;
+ 	val = lower_32_bits(msg_addr);
+ 	writel(val, port->base + PCIE_IMSI_ADDR);
+ 
+@@ -953,6 +955,7 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
+ 	struct mtk_pcie_port *port;
+ 	struct device *dev = pcie->dev;
+ 	struct platform_device *pdev = to_platform_device(dev);
++	struct resource *res;
+ 	char name[20];
+ 	int err;
+ 
+@@ -961,7 +964,14 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pcie,
+ 		return -ENOMEM;
+ 
+ 	snprintf(name, sizeof(name), "port%d", slot);
+-	port->base = devm_platform_ioremap_resource_byname(pdev, name);
++	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
++	if (!res) {
++		dev_err(dev, "failed to get port%d base\n", slot);
++		return -EINVAL;
++	}
 +
-+  reg-names:
-+    minItems: 1
-+    items:
-+      - const: base
-+      - const: machine
- 
-   '#iommu-cells':
-     const: 1
-@@ -75,6 +88,26 @@ required:
- 
- additionalProperties: false
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - tenstorrent,riscv-iommu
-+    then:
-+      properties:
-+        reg:
-+          minItems: 2
-+        reg-names:
-+          minItems: 2
-+    else:
-+      properties:
-+        reg:
-+          maxItems: 1
-+        reg-names:
-+          maxItems: 1
-+
- examples:
-   - |+
-     /* Example 1 (IOMMU device with wired interrupts) */
-@@ -145,3 +178,13 @@ examples:
-             };
-         };
-     };
-+
-+  - |+
-+    /* Example 5 (Tenstorrent IOMMU device with MSIs) */
-+    iommu5: iommu@d2020000 {
-+        compatible = "tenstorrent,riscv-iommu", "riscv,iommu";
-+        reg = <0xd2020000 0x10000>, <0xaa000000 0x10000>;
-+        reg-names = "base", "machine";
-+        msi-parent = <&imsics_smode>;
-+        #iommu-cells = <1>;
-+    };
-
-base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
++	port->phys_base = res->start;
++	port->base = devm_ioremap_resource(&pdev->dev, res);
+ 	if (IS_ERR(port->base)) {
+ 		dev_err(dev, "failed to map port%d base\n", slot);
+ 		return PTR_ERR(port->base);
 -- 
-2.43.0
+2.39.5
 
