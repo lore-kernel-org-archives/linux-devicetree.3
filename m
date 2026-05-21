@@ -1,160 +1,187 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8297D22D4C3
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EEA22D4C3
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779350775; cv=none; b=gmEBtr/Fq+MtaUlXHqkxecjD7XTfrosevQj6Ca99a8p1RM+/DLC4EkB12nYfBZMjzjdDAiiV+SsrWfwoeTBktZR1z1bwm+McyIDdb2fYG/Htlx+qhST1YWAQAdnjBED7QloaOucue0ZNFcs4/oMVI1x1IdBhaTS6TrsyO+hiGmE=
+	t=1779350876; cv=none; b=lpQWucEO4gF6eISfAtpRNY5afatqsLXYBB2CNXr5P3K3uvJudWmPpYArx06WeTbCLcgr1EcBSmB0BwqUpeAFeSU8EWyFkT6RvRwCJhPW5xXVAuJH+0Yv6a701YtvNI9RJs2xxDWAcVGlJSOWxaOgrgn7XOBNLNOL59o8N4dDH8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779350775; c=relaxed/simple;
-	bh=nZvRi9nGtgc8UbolhfDcq+EKM61hTa9t4ibifzm+CMk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K9la1LUXdeGWrRCh0QlStaKZiuvwN0zg13pdKXvGJLqmrChTBXX+9ZsyNoDTLfl1SyNELiv61X8jCqHTnabUjdLPUZHGHDt7naGOpGEHfpoyfNNUNX5DzlUr/J12pR/mgMeXPeu6PIqqDwbOKBj5e1tgxC+Qd/ZAphspXUglVVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hkOPJh2D; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QESG3y5R; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hkOPJh2D";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QESG3y5R"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L6mIJG1798612
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:06:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xA5Jyd0bE4CSTeCJfYza5be9s1I2J/vjj3CgcVwjj4w=; b=hkOPJh2DBHih4+gT
-	8AysJEmhoBwEzbEieDlbGDJyNEjZf/G9m5v6JZD+tSTbmKMX7osyV4NdoJOTle3Y
-	EHo4YDkxu+d84bqyewXSg4hrMrPMHaHdCnNLTNd0tHnPi3NiAR3ojQmbVCw2x6Mx
-	RWPCAbxj2C4sv1pCkV0W/A1OuJM9yGiWXVWUzPEurAtqm8GlhrTXSHe9d/hYzNhY
-	w6FH7Y60RJs5aI0+cRMSMtKdab8Sfx5zRTE3ZLc+ugNxHjM342td1xHq4t/dzX4o
-	u22N7w3v+oYpL/GZF1Sbcx0EdGhFYMf1zl9NgldEqS2yC4XCM/Rv6EFELupD8oFK
-	FRVJZQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9dxu3w44-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:06:12 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-90d102884f5so144198185a.3
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:06:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779350772; x=1779955572; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xA5Jyd0bE4CSTeCJfYza5be9s1I2J/vjj3CgcVwjj4w=;
-        b=QESG3y5RDk5XfBKhsUwMoz6PIt1QCuqRoFoJijGXWukKoqEyXfzLjFV6pSuFjRBHLg
-         6anBuP0hs4Pbl++L44kpHXOpIoWhoFy89ttyeXU9JICdf9pAbWPtAtlOZbwQ51u2SQkg
-         uv9ObnQTlyTPhD1M19ZRFjNNOah+AQe7BBXH89rKUR+q8QV5sdZLxBgb7KdabCCzPtIc
-         wsrW7rO3D52L6ty2IAp0HnMVzy/BHEn6PRTyXtJKMNfoMyxssyqKSddKppbRe1pCVU40
-         fSm+O5/KBpTHFiG3hlaaloCbpz+ET71rnCOd+egS0Qxz1JDTYohwRHDlY9u15EzHCjzb
-         skHQ==
+	s=arc-20240116; t=1779350876; c=relaxed/simple;
+	bh=+RDLim/geriyK6BHkVN+y+fbAsLHqr+xXa+qxaKtufQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eMij30iFAANuc7hoPROhYzNOX36ZxFJDbt1+3YQKm3atZ0AL9CxXNOvrZ0hld3N0vxg5eUEG2xKeenR/jHo285xkCBhnwhhvtUrhYa3Rd9+g6hDOALoBNAfC4k+W4sCuo2+rci09DFV+3pFs98/L9KEcGdJqMGkA8KcO7kvhXBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7e4004a4a6fso5732641a34.1
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:07:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779350772; x=1779955572;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xA5Jyd0bE4CSTeCJfYza5be9s1I2J/vjj3CgcVwjj4w=;
-        b=qTTYu+O0C+0p926C1D6oq9OH0S4mQuumrzHEUCkGT5NNyIeQ8VtDgTEuK2OIg9y/Vi
-         ogdkRituBmwau8rkp4mocRjcbPcIU7c2QosGCcgImiIMGSJzX4BkbvblkqP7Fe8gjA5G
-         0lzDpaK5ZUEH2b1MsPkCjn0RblkZU7uViue6xeKUaNM6qh64QMPnscAmTlzuB7++ny/X
-         Z2IdwCdUsj4MCc9R+azMS3VRDnhDNwqSbX4bZ1o1BX7+2+elVJeGXwekH/OHYBf/A+RV
-         7D8A2RmCDLiDlzOiM+9Z3IW61xzR1PPoJMyvO3GGSJnB4tRgWpvsOl5fZXvMcXhLVPnU
-         SwOg==
-X-Forwarded-Encrypted: i=1; AFNElJ+PDKErTDjhA3bOV5Hx/V+y4ivDBSUQtTOnJRCt2MfA6IuLcy6Qz7LDDNESHjOlsHuyRWt4Dt6TuqFB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC8fi6M/2u5zDB3dMf8kZqI6FkdERr5nV4XjJdlaRrzxmC3AzF
-	NSS6sdILpLqzy83DoFrAEQnYjs8/MmMoJG2cewsB/7f2YaGRs6fpk+ravFLXIVQ3tJokx1KymMO
-	LWXnUOikWHPKO9NR+0Db2ukaGdRaRqzw2HU/JFbo77WyXRYkXRLgMciDOJZuztXjd
-X-Gm-Gg: Acq92OGQzqzFU4b4xLHgkHEiBJ5PaBGdzlFb3iGcFeo4cPD2QPdxsNywLwSWuottHlY
-	PJZKbSlj0p4PQZNzVwamrDBS6+t3n/NEBi5nHFqsxbCm68xCWlXYayMNkEPPILB2p/YtqiCmNcu
-	SQG5K8yCQZGEI8rutNZXl1pmbwr7qIfO2GAL78/rwhEZPHEwFH1Hy3xHO/S5wLjADomzLPUUGQD
-	B9tYYpMbhemI+EspAbAy2JIE1/M4AjNL5uLtu2jmzlTlH3bEzyA7OE0DCwDKxPXTdG+WFfWr2P3
-	ygE2PXovzKqVTIgXNTV0V58R8dcHDQcKXhgM/P+dNelAhUnTtW/r5v2ZHLhF2IuTxfZVqfZEHTg
-	8PgEwbTc3tAU5bw5EPMhTig+mAwuPm1LS3bz0LIeDgh17a4k7JPHDk7kvXHvdARjjScVOD3Y68K
-	/jOv7twkxiY7qBDA==
-X-Received: by 2002:a05:620a:d95:b0:8d7:3f45:b95c with SMTP id af79cd13be357-914a2a33041mr152268185a.2.1779350771781;
-        Thu, 21 May 2026 01:06:11 -0700 (PDT)
-X-Received: by 2002:a05:620a:d95:b0:8d7:3f45:b95c with SMTP id af79cd13be357-914a2a33041mr152266185a.2.1779350771340;
-        Thu, 21 May 2026 01:06:11 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bdc87890b23sm13584366b.9.2026.05.21.01.06.08
+        d=1e100.net; s=20251104; t=1779350874; x=1779955674;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kh5ilGfgBOd7IY4hv5kPF1I4gBzJqYiKUxJVuEQxYWY=;
+        b=g5WM3ctjVp5o1mLAxwEZiUsmBTIffmIlEUtGyPR1X0bAQfTyK8hSeqBlzt4/VRH5qu
+         7b+tahm4b400P3wVgS+5H1swUl+dZchnmxnLyqJf6I9fLreTZcZv/vPxD87MxHAIVKOY
+         BH5KRHbIPEkZBvMGbIe4c5QrtfnCNb1JI99HTp/Ja4HoXZ5jh1NSPguoqqcs6KkVJsL0
+         NeCdF5XFlQeuO3JGIclRPNQRyUdIo+8lxa2ocJDsvIUvx6/XSohzMbkHIANfeUcmB0MM
+         ybAypZVPprFo7H8qOdxV00wqsT7T2xsUZuqhHbmY4HElmhdW2Ygtpu+NyCd3ln30XbLk
+         a6Pg==
+X-Forwarded-Encrypted: i=1; AFNElJ/ocd+Mbb/fFhf3cpleaTm8VFoc61VT2CkyCTj5ef3JAuMr39UPgiQ5z3K6rloMz7+7TPq6qex4P83s@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy39gMDt2kZxo5ifhs/Bm+yL6Jw2NVbfaVnd9N8z2oRhTIugN5x
+	IznyhBWw/vEPvha9fWw1F6elNrE+EMKTFSdQkNjPNmw16ULJMxiOQo0bJwTd8v+WJmY=
+X-Gm-Gg: Acq92OHp2r/cPIQdabc+oMAzzzGwH6TRirPE+BlCsR+HFPNmIeM0kRaNo3VQ8YKtUgp
+	wiq5soBZ/b2vi/HVGAqh74YILn8RuWRfYtRwDLqt1SkHY16uGuKD4zpCr0W7vHOG6d5YhCenQlp
+	lsPDbaT5jT8GnqT92Nh7XfuJwP6xNQUSeTbpdgPcIYfqDufNOxVJedjT/DQTfZnZpIGUjxRgA68
+	TPvcCnrFTEwzzEb24H57DH0abOckgVkeCsbTdsCS8oiEfYjdC6gXAN6tag4UIZwFy1w0iIRzYdd
+	DH0BBDXt2FzIHlOUYq0zo203lvQpfuNzG20qw/HJLi0qiIcwVtQSXlmfL/LBmEtOeRbqmKDstDt
+	2M8upL+xRtpMYvB4qvhv1WX1Qw8J1jQ0zh29cDvq/p33120QX4cA6Yskrv2Ve/SB8UB5XJ4G1fm
+	It4upEqsDCZbFMaKuCd76jb+cx+zXAA1YxJwQyBNo2PAjQAkXvrX5JvlfFzVbHG3LReUpXOVw=
+X-Received: by 2002:a05:6830:673a:b0:7d7:d510:4bf9 with SMTP id 46e09a7af769-7e5ec4950ccmr943189a34.12.1779350873735;
+        Thu, 21 May 2026 01:07:53 -0700 (PDT)
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com. [209.85.160.52])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e55b95b82fsm15751422a34.12.2026.05.21.01.07.53
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 01:06:10 -0700 (PDT)
-Message-ID: <209c8586-ca93-4105-9f55-8a3e3464624b@oss.qualcomm.com>
-Date: Thu, 21 May 2026 10:06:07 +0200
+        Thu, 21 May 2026 01:07:53 -0700 (PDT)
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4043b27ddeaso3604657fac.1
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:07:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/LyBqjN+LLVUgY5JOv+G+vE1bn/oB/1wox3SrcTYvaHgDfwFnztAmo1s0UqBVHVc9cuXnLEx3cjDP6@vger.kernel.org
+X-Received: by 2002:a05:6102:952:b0:660:cba2:b6a5 with SMTP id
+ ada2fe7eead31-6738d46a2c9mr965451137.7.1779350455953; Thu, 21 May 2026
+ 01:00:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: Remove sa8775p-ride board
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Wasim Nazir <wasim.nazir@oss.qualcomm.com>,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        Andrew Halaney <ahalaney@redhat.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Brian Masney <bmasney@redhat.com>
-References: <20260520141457.988130-1-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260520141457.988130-1-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA3OCBTYWx0ZWRfXx9IPERvGMm5z
- IFLbSenfga1zOa7WkvqBwaVmPUzLVE8Ki4T9D024rp3pjnOR/lfTawSN5SJj7Ml2RJ/bn/vVguE
- 36h6E91XzSpXHFImAHDGSQPaKg6zQo7rbGcM8I2bOMX3MtGHnlYj9CdQcPr4Z/bn2g5BXfgxMyL
- w6n3dWcuJuhmYuDL/3CMszeS29vYsVLI2PyBoeNZv99VcU0TpT1GHP0QH+ZVuLcHwvRM6Mc/sjM
- ME+3xtuwKS7Jdm8MmNwVgrwFr6j4I94o4AGmguD8vXbrBrmiOBGFnojpZQMBXFSn6jSwdufqzZB
- PvAtYpwUzKXQjXyEAYYOacu9Y1Rd8M7S3Jb08D/8ZJeOU3ZRYVCbhhcDse+gEpjtgwhxoNwpjqo
- WzRYSQCiFycJ+8CT+BQW3XRiYj1jtIH27070GCpsl8mASIahT8e3Foz55psnmE5TZ7XQMLpPF7z
- 6zI8ywDdaiMUSS23JwQ==
-X-Authority-Analysis: v=2.4 cv=Zckt8MVA c=1 sm=1 tr=0 ts=6a0ebcf4 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=20KFwNOVAAAA:8 a=jATPDVabTivWjG3ulX0A:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: QGEkkgD_8maUiTEpRhUxYSCP7fj1-bDT
-X-Proofpoint-ORIG-GUID: QGEkkgD_8maUiTEpRhUxYSCP7fj1-bDT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210078
+References: <cover.1776793163.git.geert+renesas@glider.be> <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
+ <aekXUvIPb8nkhdKu@pluto> <CAMuHMdX8b9C3D8fV5th6GCgs6JAq7HZbF_SrOKz_gDy2H8ksow@mail.gmail.com>
+ <agor5HJ0JFBoX3sZ@pluto>
+In-Reply-To: <agor5HJ0JFBoX3sZ@pluto>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 21 May 2026 10:00:44 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWJrXcp7_S-KTKQJ8NuVhywiCWEHXMVvWkTFZwnmQayyA@mail.gmail.com>
+X-Gm-Features: AVHnY4LKAf9GYj9Cj8Ma9x6mjosVr-AC-oJEzWQ_9yBj7Yua2eAsFSXzEFT0UeE
+Message-ID: <CAMuHMdWJrXcp7_S-KTKQJ8NuVhywiCWEHXMVvWkTFZwnmQayyA@mail.gmail.com>
+Subject: Re: [PATCH/RFC 05/14] firmware: arm_scmi: Add scmi_get_base_info()
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Ulf Hansson <ulfh@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 5/20/26 4:14 PM, Shawn Guo wrote:
-> The sa8775p-ride board development mostly happened back to year 2023,
-> and it hadn't got any major update since then, except Wasim's refactor[1]
-> last year which had no functional change for the board.
-> 
-> Propose to stop maintaining the board for reasons below.
-> 
-> - The Lemans development had moved to QCS9100/9075 EVK and Ride board
->   for a long time.
-> 
-> - Qualcomm stopped maintaining Meta Build (NHLOS firmware) for this target
->   years ago. There is not too much point to continuing maintaining the DT,
->   as DT usually depends on NHLOS firmware.
-> 
-> Link: https://lore.kernel.org/all/20250803110113.401927-1-wasim.nazir@oss.qualcomm.com/ [1]
-> Cc: Wasim Nazir <wasim.nazir@oss.qualcomm.com>
-> Cc: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
-> Cc: Andrew Halaney <ahalaney@redhat.com>
-> Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+Hi Cristian,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Sun, 17 May 2026 at 22:58, Cristian Marussi <cristian.marussi@arm.com> wrote:
+> On Fri, May 15, 2026 at 05:39:45PM +0200, Geert Uytterhoeven wrote:
+> > On Wed, 22 Apr 2026 at 20:45, Cristian Marussi <cristian.marussi@arm.com> wrote:
+> > > On Tue, Apr 21, 2026 at 08:11:38PM +0200, Geert Uytterhoeven wrote:
+> > > > Currently non-SCMI drivers cannot find out what the specific versions of
+> > > > each SCMI provider implementation on the running system are.
+> > >
+> > > Thanks for your patches....this is not a proper full review of the series,
+> > > BUT this patch catched my eye..
+> > >
+> > > Indeed, yes, it is deliberate that the SCMI version information is NOT
+> > > exposed out of the SCMI world, since being the SCMI an attempt to
+> > > standardize a common FW interface (as in [1] of course), you should not
+> > > know what runs inside the black-box, it should be irrelevant...
+> > >
+> > > ...indeed the versioning is used inside the SCMI stack to deal properly
+> > > with different protocol versions implemented by the server OR to apply
+> > > proper quirks when needed, but all the rest should be standard....
+> >
+> > [...]
+> >
+> > > I watched a bit of the LPC discussions around this (from Marek I think)
+> > > but sincerely most of those problems had one (not necessarily simple)
+> > > solution: fix your firmwares AND/OR apply quirks in the meantime...
+> >
+> > So let's forward to the future, where the firmware is fixed, is fully
+> > compliant with the SCMI spec, and all IDs are stable, so no quirks are
+> > needed.
+> >
+> > Where do we specify the SCMI IDs to use?  Unless when using the
+> > remapping driver proposed in this patch series, they must end up in the
+> > DTB.  Existing upstream users put them either in the SoC-specific .dtsi,
+> > or in board-specific .dts.
+> >
+> > The SCMI server is supposed to expose to an agent (e.g. Linux) a
+> > sequential and contiguous list of IDs that represent only resources that
+> > the agent is allowed to use.
+> >   - We cannot put the SCMI IDs in the SoC-specific .dtsi, as that
+> >     describes all hardware in the SoC, which is typically much more than
+> >     Linux can or even wants to use when running on a specific board.
+> >   - You would think we could put the SCMI IDs in the board-specific
+> >     .dts.  However, that would limit actual use cases later, which do
+> >     not necessarily depend on the board solely.
+> >       - E.g. when moving control of the CAN-FD controller from Linux to
+> >         the Realtime OS, the CAN-FD node must be disabled in the DTB (by
+> >         overriding status to "reserved", or by just deleting the CAN-FD
+> >         node, both of which can be done by the boot loader). However,
+> >         with SCMI, the IDs corresponding to CAN-FD resources must be
+> >         removed from the ID space, causing a full renumbering. Who is
+> >         supposed to update the IDs in the DTB?
+>
+> As per my previous email, after such a breaking change I would expect a
+> new DTB describing the new HW to be needed anyway.
 
-Konrad
+The underlying hardware would still be the same...
+
+> >       - E.g. when partitioning a single Linux system in multiple VMs,
+> >         and distributing hardware across these VMs, all VMs need
+> >         different DTBs, each describing a subset of the hardware.  With
+> >         SCMI, each VM needs different SCMI ID spaces, causing not a
+> >         simple partitioning of the devices in the DTB, but also a
+> >         renumbering of all IDs.
+>
+> Ok now I am lost..why do you need a distinct IDs space for each VM ?
+
+Aren't the different VMs different SCMI agents?  If not, how do you
+prevent them from stepping on each other's resources?
+
+> In a virtualized env, I would expect to leverage the SCMI stack to
+> realize the exact opposite: same set of IDs advertised to each VM (and
+> so same DTB potentially) by the server which in turn can decide to
+> assign the same device (and handle the sharing) to some ID or assign
+> different devices to the same or different IDs on each VM: i.e. you
+> have a set of virtual_IDs that is what the server exposes to each VM
+> SCMI agent, and then a bunch of real physical IDs, without any contraint
+> on their numbering, that the server uses in the backstage to refer to
+> the real resources and that it properly remaps to each per-VM set of
+> exposed virtual_IDs during the build and/or boot board configuration
+> phase....i.e. when the FW adapts and reconfigures to the specific
+> board that is finally running on.
+
+Again[1], how would that work?  Clock, resets, and power domains are
+not the final resources that are used by the OS.  They are merely
+resources for devices that are described in DTB with other resources
+(MMIO register ranges, interrupt numbers, ...) which are not handled
+by SCMI.  If the server remaps e.g. a clock to a different clock,
+it will no longer work with the corresponding device described in DT.
+
+[1] https://lore.kernel.org/all/CAMuHMdVunEehM01pLa3t5a6o0NmMOCQRwh7n5J+OkDk2YR9kUA@mail.gmail.com
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
