@@ -1,95 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0AA3546E7;
-	Thu, 21 May 2026 23:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779406324; cv=none; b=AHJEPWloB/02M43ytwmchcvsNlrWwfNM1znW3g88tos90L2OXVzZPybMQWUnIob82/Pd4UtjhEPLDUCy8JvQO+u4nb6+u4jAEhGCtPmMtNeIimPW8U9ewyH+TUkL71nlpJo1DBiTHXT+HQJ3enoAp9HO75EycPh55MlpwqGnn0E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779406324; c=relaxed/simple;
-	bh=7TmaIO5oduK2azyfJDdjVJpI1MH2UNG4NTpL5+JHNHo=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=MuVyq3epepUezgbrD55F9JCNkrBzrLH9rJBM0yxpnbf4/A8c9E3ifVJZhDLZwEgSQrelKfr3iRS3Q0fiVA6j0UDgnhHRbQV1EdsoTcFAnscpZqdYmrWCJ4n7Q902jKuw09qsXe5fLnNn0Tr9Kj+dkwH09j08GeKcvYv9wVrfh20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/LbJ0r2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B593155C97
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 23:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779406373; cv=pass; b=S1Ky+9cMgKEkDdsvTCtxejB7oPhHr2Dr9CC5G7LspBq/5ucFsMnTcI0ZDgyr6UC3n4xDUN9pCPDOi7DLBm8Viq3gFmig20doh8iyo2OjtAIF+0g0YvO17t+0uLbV4F+ginee3X1/YESMpMzbKuGyEKoO1ekbtGXfnOn+o3SigIw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779406373; c=relaxed/simple;
+	bh=DuLgLK6LxN/BaTVUbI7ZtKOlZ97j/KwP+aPI08Sik24=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IpMvLlml18b1YyuPlQeZqRWYayjcVB0Njrm3NmGmbBuiQdVMgEvwrb6BpjTitg9uIv6mgNEnuA6vWHRlDFVkpjDmu3AUYYWnCFHPMyEWtU7nxMenKgkW1T/rG0un+tABfhRZd5bfW0hHrEM5JCb2S9vtUk0+Ok9qgpU5ElGx4DA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VuibmWH5; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/LbJ0r2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287C21F000E9;
-	Thu, 21 May 2026 23:32:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779406323;
-	bh=4KDePbDGjZz/sPL3T4ikV+N9NlVs33GvN/RGqbtG0SM=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=h/LbJ0r2YMXjw0TEF60G9otoPAojvg5S5qnBST80pGceJ8zD9z52vawqx4WvGIJg+
-	 2xjxSk0YzzeT2CG5TZVmE/LHgmN2rxLLawDXEShZs1wuZyG//VIz75FRess/488Ia0
-	 srUAxqhfg/B//StjP/kB50gQoFfTjF7McNCCV4F8UKpg149UVSna44AOtqlaDnrxig
-	 5ROrTDEiSGwcUUZOVFtL0Kcu+dAFT222KXG9GMN7BeH8COf2wkAwGhbT4QPWbaOFX2
-	 /gv19XYuaWS5oXRBNIttUkPiCEdMhJDwJXIN/lG/bVMYYKMRe3CY82leNZZarfMA1X
-	 xchGggCFpgCqA==
-Date: Thu, 21 May 2026 18:32:02 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VuibmWH5"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-bdb3eb93e20so333726666b.0
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 16:32:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779406370; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cpRjH0MD4FBFGA1EBwpAemr8c97P78JOEXYNG+Sla9ZHU3/hl4/noalPcQg4MDbfcF
+         2KJOeh9PHg5uWpfJga+xab/uaNSRABaaZcLsC5+71G9MM0xiIzmL+tSc+MKUCIl+PeFB
+         jRhfNgjIe4FRTIfOCT1gO7Zka9KVxPrFHjA/yDV/eaV3qqRLD/jxxC2f+6uhieo5OZLF
+         Tt85oR7NOkGDsFLT/Jdc4p+Z/iwI3SNqmnY05wwIPJII784cqREiuJRhSYGH7JG6vcCi
+         BIBwnhAGzCieDz2lAtpuXUCFVuqHrXu3xi/pn3G23ACOsJwI8mh4S3IXNRIe8TnOpeCK
+         Z30w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DuLgLK6LxN/BaTVUbI7ZtKOlZ97j/KwP+aPI08Sik24=;
+        fh=nY8UEX3oB/vqj9pjiph/W6qcQgBpYDcbWov1fHx++yA=;
+        b=DbCo9gL0f9Ytnm9OvMfLAnA6g7lpinoYX++D9rNuCLBaBvMb9+XJOtBEzmJ5JUrjRo
+         kbW2nL8pHF1wp0LA/slVL1+G5P8NIhIBJj7P4loGmNSIFSCOF1iZ0HL9XkmWwTfHmRVW
+         y0tKOYa7Kv2A0sdNjlbVXyFI8cq1bo/8QEfCq+6QsHV5ehjy+8yturrMZBeyYH4Gwjzg
+         qQ68SF0tJGYj61/MK4WiOPt3igYUTmhbYAJyjx8RLANSMk9f+PV0mtcsBJR1hlVYd82k
+         iFDkPUoFLWS9KdB8nx+fRKZhc9MJ57fzODknBOm91Schmo6hlh/vKGey/Fe/AvsXqOgp
+         P0Wg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779406370; x=1780011170; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DuLgLK6LxN/BaTVUbI7ZtKOlZ97j/KwP+aPI08Sik24=;
+        b=VuibmWH5jT4l+QIP7cdWFbisrzA1Kx7ZqbwGC2JPWTzESQXHZ3WCGFAW4G9m5zZ0lP
+         PG/vFie5cpLmgpWev3MD2xiTd/Sf7ujoMSa57ZdAYNqTjjFUJCY2lU+WAXy8IagjfVt9
+         kLWB4nAFPKBNLSH/vKfIm7o7HoH8aWWVfd+MqONAISOBRKGCkeZFcFjyv457sMN5eaep
+         N0LOhsR+tsCydA9toROygpmUPkyuEAHqMWxh1S5ATO0H2vDD+2Nk5gpRQGjdNWGGZw2L
+         UKR4Xv8KZu516u5tyiVYN/pUxqt6BdnOkfcj4xBmmm1jMBCBvbxnPv3FJ4KXIm41V3hU
+         kW5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779406370; x=1780011170;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=DuLgLK6LxN/BaTVUbI7ZtKOlZ97j/KwP+aPI08Sik24=;
+        b=oaytiRW6mVbCT2EhmgqMdpvP/C2TKFyS9E3elARluUs8Zf7w2twfLCi+FN0oDZBh2/
+         i4M1Skt8/VHTxBJyKaY+3QVNzrbGpOddlJNeb/jvxyeGRfnRVFakj568SbFmZobX00ye
+         hAU3ngUs4SBtzUpC8I6aJNcRtHf7FRtBPktNeSu1gZT7kEdHrVwpZgAMf1Ch2gAmLPhe
+         wME3QOUQ/FvOhEIdH9Y+a2vVFJdEeDBTsYLKdsREdw7pTy0NMYXPeas4nXkW6/wx1zrz
+         0W8JpwIooeR6KMqzMbM4zwNy7YZ7VWfQiGSDAOEkzgxQTgKgjns+gIdH7JDcc3QYP3KZ
+         hnGA==
+X-Forwarded-Encrypted: i=1; AFNElJ/p42pdSf3kAb1bW7jTInnX18tKXPWyvWvgLLol0ceoM5Q4TnwtulnLqzygcQPspbGoGG7u38jVCNv3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXTlsQMx1E78MnNg2K/ztOvbmKxCxi6ixHO2PxANBDLT33Rrr6
+	fvMfFHn97TamGnKn/y/i1lfHw8h6F2RjuR0atWxcpTVr/7EG1hWNxA0j5uVQuZgOw4FLVfVH+Yh
+	c52EbTGGG+9DTrWvlodYd6zXHWcJo+g==
+X-Gm-Gg: Acq92OH/p/GZxT7H7HDy0Vz8IisL3vOxWZmoHdbtNB300sOvo888Kx1Xtm2//Un+XG+
+	A+Ko9Nn8fAYWaJxb2NZ1TAmMj2t5UvZp4uh2ZfktbKQ+gPfBVKvi6CtP7bSXb/APH7pmz3kFj9N
+	O0eG/NfquXA4AQdmbI70MExBbIXOpi60oa6x8DmXl60t1wx6cQh8rpT6LqbnaFTPnrUB5V3NlYr
+	fWTHRP3y1sp5lIUsICNxuqbzGrGjx7+7Ejh0IqkMOans6GsVX7jn0jebQcHQRTBZMe+eXziWVsA
+	Mns=
+X-Received: by 2002:a17:906:ba8b:b0:bd8:e680:1aef with SMTP id
+ a640c23a62f3a-bdd1fe94617mr92158566b.0.1779406370449; Thu, 21 May 2026
+ 16:32:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-rtc@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, 
- mturquette@baylibre.com, skhan@linuxfoundation.org, me@brighamcampbell.com, 
- linux-kernel@vger.kernel.org, sboyd@kernel.org, devicetree@vger.kernel.org
-To: Udaya Kiran Challa <challauday369@gmail.com>
-In-Reply-To: <20260521170810.19702-1-challauday369@gmail.com>
-References: <20260521170810.19702-1-challauday369@gmail.com>
-Message-Id: <177940632246.2472848.11417578144916287580.robh@kernel.org>
-Subject: Re: [PATCH v2] dt-bindings: clock: via,vt8500: Convert to DT
- Schema
+References: <20260520191943.73938-1-arouhi@sitime.com> <20260520191943.73938-2-arouhi@sitime.com>
+ <20260521-happy-celadon-hamster-94802c@quoll> <CALFSGuoWkHYmtrouvLk2M7bWS1=qTSPUn5GuabFvK92cPBfuZA@mail.gmail.com>
+ <fa73a8fd-ee73-4a7b-b6c3-1d2edd73b45d@kernel.org>
+In-Reply-To: <fa73a8fd-ee73-4a7b-b6c3-1d2edd73b45d@kernel.org>
+From: Ali Rouhi <rouhi.ali@gmail.com>
+Date: Thu, 21 May 2026 16:32:38 -0700
+X-Gm-Features: AVHnY4JQDoN-cEKJ2IStW43hgsf5_SfhbkC65BCc6BKE_2udJvR8TOkbocEmIPo
+Message-ID: <CALFSGurSUdpe_KPOkt1deWtVhu16bQkmhz69NLmbf6PSbPcd6w@mail.gmail.com>
+Subject: Re: [PATCH v2 net-next 1/3] dt-bindings: vendor-prefixes: add SiTime Corporation
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev, 
+	arkadiusz.kubalewski@intel.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, cjubran@nvidia.com, Oleg.Zadorozhnyi@devoxsoftware.com, 
+	devicetree@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ali Rouhi <arouhi@sitime.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, May 21, 2026 at 2:12=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+> Do not top post.
+>
 
-On Thu, 21 May 2026 22:37:28 +0530, Udaya Kiran Challa wrote:
-> Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
-> controller binding from the legacy text format to DT schema.
-> 
-> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
-> ---
-> Changelog:
-> Changes since v1:
-> - Add default value for divisor-mask
-> - Add required properties compatible and model
-> - Fix example node name
-> - Update example size cells and reg value
-> 
-> Link to v1:https://lore.kernel.org/all/20260520025131.17772-1-challauday369@gmail.com/
-> ---
->  .../bindings/clock/via,vt8500-clock.yaml      | 126 ++++++++++++++++++
->  .../devicetree/bindings/clock/vt8500.txt      |  74 ----------
->  2 files changed, 126 insertions(+), 74 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
->  delete mode 100644 Documentation/devicetree/bindings/clock/vt8500.txt
-> 
+Apologies, will inline-reply going forward.
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/clock/via,vt8500-clock.example.dtb: /: failed to match any schema with compatible: ['via,wm8650']
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260521170810.19702-1-challauday369@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best regards,
+Ali
