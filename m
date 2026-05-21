@@ -1,528 +1,139 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7673A3E7E
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F39C1D5CE0
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779351268; cv=none; b=b9M0W/veAnAX2+t9/icXXiaoiWk1BktcgLUu5mc26cNk24VIyjdGghEYzSlTRwJioU7Cq5x2pkE3j4uw9Gj6LE9V1Eqyt8vBRd3hRlhCax9MfWsr8DIQ30+XsH1ffDNQu11c0kfpBO+ijC1DsaGxrxw1UdGaIVyTgAsVX8g9v9U=
+	t=1779351413; cv=none; b=h5oehaiQpPrzg6aVtot5TKIeY5xZVrJxCIElRxE+oGFJxoRRQje8qFziv5eK2lmtJXtJFGrfmmL2nyDNFWNEzwJAUmRGttYCEJsBa/k5Sy6WaizS3lhRpbP/8BhptFkjDgqwaHnht9y291sa3arCx42lBohEtLX97pFwqq9pUyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779351268; c=relaxed/simple;
-	bh=Bua1b0ijakN7Qd39ZB48vS4gx1eE6UeOnwR0HNTXer8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rpZXBcFeGqbQ2G8o0tI5iTb7mvWKFVCvXrT31E87/oGGwkr9ujVjX/yT7HXx150TpuLL7jmrYoPp67eAEaQlcEVo3sI5Orr187zcJMIesfuEvW68WezTUuU129b7Nmubr36uOii6Q0JVlton0mOpBQ0scPmY+BaZ3IvJsACkLq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rIe9RePw; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779351413; c=relaxed/simple;
+	bh=kaWOhlH187V/S6Ic3R/eq3mKDMehQnv2OBf4aJkjggM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LizHfV5uB4NYV4sZQvvSEmDc6Z5rakFqxY9mRcQ1bEK2MxjQELBPfgELPzyaZHDjKwyYQlMKVQOT0vRWPgsYlAgf8zLr2VS59WRSEqrp5vkxx1lPvaFw1WTgt/dQXeY/HlT22oYaHo6VfNsrmgm5JkLlFB43FOsKmNdpgUdiI8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ezJms1eG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rIe9RePw"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-459bf19e87bso3482135f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779351264; x=1779956064; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rsEDeNSaQEUDFgXjWhjNX308xfIqd1+kVOlb/dNXQh8=;
-        b=rIe9RePww1ig1pkE7e9J7o8GWoElSLguxTodqWbtUqE3/0vGUkYHjix0fulVWzW+m4
-         BD+Y6210cChcfj6AYMKgi1bReg68V3hEW57ZD0vamjPJD9s2gZxWapp7UJxnFz4QWE0+
-         bej1PSwTPTvgfbMo+ESmNLOP5Sc1+iAgjO0KbltbBZlIo4MdJGmvumB3bkEfScWSs58K
-         ayYwbp6Hs7NfWA/fFmBySKuIZU2XW9cHaEtfxid0iOSTjSjHz3sTyIa8d203viODO8jq
-         v0HUWy4Fwqe7pbcCg9gif6ePJjpyQVxgXg7GK94wrlxvWJCRh+ascea4/21lSN0GUBxm
-         3sqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779351264; x=1779956064;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=rsEDeNSaQEUDFgXjWhjNX308xfIqd1+kVOlb/dNXQh8=;
-        b=G3U+fmLkW9ZAQlAp45t5vmtZHeioS5TvalqOjD4Kh/j8jGHOEIeEuWI7Gk4XHv/ojH
-         bGFOMYPVv43nH3tTuJAmguNzvl52wzdx8/tzVmNVOLq4kxDXEdLoYbUpCaFsEyNjTGOM
-         0Y/A8jkpre4HTwhXams7yZySDqCm/OsMh0BLObUdTKFgoogwZHa0cgJsZadXqr/BYB6+
-         lSPEVB7DtWG6r0TzulusG0rOoYnStrPqHG5087xyOSRAYGx97p/gAvJ0+uoutMJ2V9gd
-         6RQEqKioYyGABVpnYI2d3rVzpW6C9tzybhxFNCzr0Z1sake4hYhmYFjRl71o+NM5wohF
-         6Awg==
-X-Forwarded-Encrypted: i=1; AFNElJ8YGQ7C6nJw34l4QavpNXqWFxR8mZC8HmLmfLViULyBNcoMqdy3DlmgDAAAcDsvYE4mdC60Ghgf9r/7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1Cm5k6b7AqejAdAlOyZ2UdajuoUsNA1A0nP1qujKbSiu9ysfC
-	wyEtH1n//DQfLqbQ8rarzCuLAzPLo1tNubW75rmFEZc7Z+V3nigrtgu3Q1bkurqIKCo=
-X-Gm-Gg: Acq92OGp4qDmibNxzFx8FCRjLpC5DcKll4JUyeV1nrEMx0bRTp+RRoYdHGP1m4elhV7
-	y2LDw/ISmpMCYNcmw92Tdmz/SmFhRKNcv29QFn/nWH+KlWgr+ggeCdOQ3hTROAd5a/NEc5whwvx
-	f7qGujDJzft1aDKYmwXu53qwOawcyG8ZWoMWtd31ZAkDrSaz4+rhdUELPbE5zRZ40FVAX0jD/Db
-	AXbtHXW9R9DDRx25bPN8wdos1VlrSyCx7QpO1koObwHIDqFvVLQJ5LVDVKkqSTFVDXEE/XeV1eJ
-	Us72EgBCXeZSu0F+3sZQK5sFjoRxtXF+vxgS05FJ8L+/kqamioOAFD5r6ELIRJoqcU5hNOcyIUm
-	6vR6ubTk/LmzdbsuspyJDno2btX4j69PaMbIeeZbfufxw0Ci0TvBnilpS1/DUMDIQCnJVILgQYu
-	IOYrlUF54w9j+WHvPKXB1PLlcowx9ENkbCsHXu2HQ5rz3E
-X-Received: by 2002:a05:600c:468b:b0:48e:89b8:7c6d with SMTP id 5b1f17b1804b1-490360bfac5mr24192455e9.25.1779351264265;
-        Thu, 21 May 2026 01:14:24 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eaa7dab28sm1056384f8f.12.2026.05.21.01.14.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 01:14:23 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 21 May 2026 10:14:20 +0200
-Subject: [PATCH v5 2/2] drm: panel: add support for the Renesas R63419
- based dual-DSI video mode Display Panels
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ezJms1eG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D22181F000E9;
+	Thu, 21 May 2026 08:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779351412;
+	bh=QM/tvA1aNdh2WHpt3uR6q+eCYBk2dzAwsGkjzUF7GQ8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ezJms1eGPQsWSm+wzxGtUgfZcfYk51WOFxx25xMwEEeRt9pCgUMn2gsdBROK3V5Ts
+	 W2GcG7COBIp4fG/TDJBcwpZc2mnXUdk/Pv60Va2oZBLN73HXmMXhoNtMHg4oFrPTl5
+	 TmL19SHU+yhqCmhbXbrsQ3Vk1UpljZw4xzYT8ZcPSmN9CR2gtx9aemeagkcEWfFO2U
+	 5emastyazFPg4WSiVyRrGvMd/MQ2MHLXwEdM4iAbrgbPNJS0AI8iTtIjBJz/uaZzzA
+	 illioW810AnDxsfN9/UJCUDZWvQPowxM/XhMpA/S8Q1rd7vFP00esH+DVI/dgYwIDR
+	 t5yBHc50fo6Cw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 1/2] dt-bindings: usb: cdns3: Add cdns,cdnsp
+ compatible string
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pawel Laszczak via B4 Relay" <devnull+pawell.cadence.com@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260521-no_drd_config_v9-v9-1-2512cef10104@cadence.com>
+References: <20260521-no_drd_config_v9-v9-1-2512cef10104@cadence.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 08:16:51 +0000
+Message-Id: <20260521081651.D22181F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-2-dd5700299390@linaro.org>
-References: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org>
-In-Reply-To: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- KancyJoe <kancy2333@outlook.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13491;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=XkZiH0/+DEtp+Cy/Hhq4tA693B2noskSYYDwBUsqOHo=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqDr7cuv2P5t1uP41MMSlzW4xKKY2lXhQSGlB91oeN
- tWX6nA6JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCag6+3AAKCRB33NvayMhJ0RqjD/
- 99FJByUvJhmWzUPOmrs7S9kzdmwPwvGsy5kAihibmWb05it8Z94KAu0d4IKOk0AY6e4uyKyimvKnhi
- rz0sJTEiKm9yRuY9LZSdYP/WuWLirEJ2BdUGJDriESb7Glw3VRw+fd7e/yDTR0uKYSl4hgxtS9IPq9
- rkdAxLqv8w7/I64wZjAnQgKx7ybeTBNnDZuhq8vf9+o73HqLS6nNLAme22Hzx+PZzVbAwcmsXJALM0
- VU+MA1SrfWh/YO3KChEHHMlGefTDJp2mdGZXHNgYTGY8/uE9yxiJphoek9AMtTUwt9/E8qFBKa81+d
- iV7ToWTDYMcp0+wWsEUw65rj+NZ41mTqDHb9LfWIZy34FbSHWZDcLkzwtyJeOhIZXvCOQQwqEMBuqQ
- m7vOv/rBlQGsVgkC/SBFKD8WmJMqVjw2N/6ZYNBhFEUz0kK+k55Hi8V3Wpb5o1hDE23RUdvIyGMAkV
- L/RDbs9xb6PfpF+5KMSlm/ZRKZtqvzHe45P0ImChIG2YttgF1lQRo9Gm/hgZG5CmKlVwmsLhMog6jW
- 1GUqEvvvQVt2sRWulFOz2LptSjTWA1rM7GueNR2YxfO8Aw/httvjRP1VXdmqIt/N16lu2hdgQSsREI
- J2rJmu66260UKt6OUNs9PGrZQsielIl5RgXU6OfhiNmtea6f61QQqB8xChoQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-From: KancyJoe <kancy2333@outlook.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The schema does not enforce the presence of the `dr_mode` proper=
+ty when `cdns,cdnsp` is matched, despite the commit message explicitly requ=
+iring it.
+- [Medium] Array bounds (`minItems` and `maxItems`) for `reg`, `reg-names`,=
+ and `interrupt-names` are not explicitly constrained inside the conditiona=
+ls.
+- [Medium] Use of the empty schema `{}` as a wildcard for compatible string=
+s breaks dt-schema validation and explicit documentation rules.
+--
 
-Implement support for the Renesas 63419 based dual-DSI video mode
-Display Panels found in the Ayaneo gaming handled devices.
+commit 1f787c873a0b8a21200340bba7dffd95f1916193
+Author: Pawel Laszczak <pawell@cadence.com>
 
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/panel/Kconfig                |  12 +
- drivers/gpu/drm/panel/Makefile               |   1 +
- drivers/gpu/drm/panel/panel-renesas-r63419.c | 364 +++++++++++++++++++++++++++
- 3 files changed, 377 insertions(+)
+dt-bindings: usb: cdns3: Add cdns,cdnsp compatible string
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7450b27622a2..7295246cfa58 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -796,6 +796,18 @@ config DRM_PANEL_RENESAS_R61307
- 	  This panel controller can be found in LG Optimus Vu P895 smartphone
- 	  in combination with LCD panel.
- 
-+config DRM_PANEL_RENESAS_R63419
-+	tristate "Renesas R63419 dual-DSI video mode panels"
-+	depends on OF && GPIOLIB
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for Ayaneo WT0600 and WT0630
-+	  1440x2560 60Hz dual-DSI video mode display panels with Renesas
-+	  R63419 IC.
-+
-+	  These panels are used in Ayaneo handheld gaming devices.
-+
- config DRM_PANEL_RENESAS_R69328
- 	tristate "Renesas R69328 720x1280 DSI video mode panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index c2c5cf817116..be9a6f3c9743 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -78,6 +78,7 @@ obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM68200) += panel-raydium-rm68200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM692E5) += panel-raydium-rm692e5.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69380) += panel-raydium-rm69380.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R61307) += panel-renesas-r61307.o
-+obj-$(CONFIG_DRM_PANEL_RENESAS_R63419) += panel-renesas-r63419.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R69328) += panel-renesas-r69328.o
- obj-$(CONFIG_DRM_PANEL_RONBO_RB070D30) += panel-ronbo-rb070d30.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS581VF01) += panel-samsung-ams581vf01.o
-diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-new file mode 100644
-index 000000000000..fe62b3bfba63
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-@@ -0,0 +1,364 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * DRM driver for Renesas R63419 based dual-DSI video mode panels
-+ *
-+ * Copyright (c) 2025, Kancy Joe <kancy2333@outlook.com>
-+ * Copyright (C) 2026 Linaro Limited
-+ * Author: Neil Armstrong <neil.armstrong@linaro.org>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_connector.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct renesas_r63419_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi[2];
-+	const struct panel_desc *desc;
-+
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *vdd_supplies;
-+	struct regulator_bulk_data *vcc_supplies;
-+	enum drm_panel_orientation orientation;
-+};
-+
-+/* VDDIO/VDD Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vdd_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vdd" },
-+};
-+
-+/* VSP/VSN/VCI Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vcc_supplies[] = {
-+	{ .supply = "vsp" },
-+	{ .supply = "vsn" },
-+	{ .supply = "vci" },
-+};
-+
-+struct panel_desc {
-+	const struct drm_display_mode *mode;
-+	unsigned int lanes;
-+	unsigned long mode_flags;
-+	enum mipi_dsi_pixel_format format;
-+	const struct mipi_dsi_device_info dsi_info;
-+};
-+
-+static const struct drm_display_mode wt0600_mode = {
-+	/* Dual dsi */
-+	.clock = 2 * (720 + 100 + 8 + 40) * (2560 + 15 + 2 + 8) * 60 / 1000,
-+	.hdisplay = 2 * 720,
-+	.hsync_start = 2 * (720 + 100),
-+	.hsync_end = 2 * (720 + 100 + 8),
-+	.htotal = 2 * (720 + 100 + 8 + 40),
-+	.vdisplay = 2560,
-+	.vsync_start = 2560 + 15,
-+	.vsync_end = 2560 + 15 + 2,
-+	.vtotal = 2560 + 15 + 2 + 8,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+	.width_mm = 74,
-+	.height_mm = 131,
-+};
-+
-+static const struct drm_display_mode wt0630_mode = {
-+	/* Dual dsi */
-+	.clock = 2 * (720 + 100 + 8 + 40) * (2560 + 15 + 2 + 8) * 60 / 1000,
-+	.hdisplay = 2 * 720,
-+	.hsync_start = 2 * (720 + 100),
-+	.hsync_end = 2 * (720 + 100 + 8),
-+	.htotal = 2 * (720 + 100 + 8 + 40),
-+	.vdisplay = 2560,
-+	.vsync_start = 2560 + 15,
-+	.vsync_end = 2560 + 15 + 2,
-+	.vtotal = 2560 + 15 + 2 + 8,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+	.width_mm = 78,
-+	.height_mm = 140,
-+};
-+
-+static struct panel_desc wt0600_desc = {
-+	.lanes = 4,
-+	.mode = &wt0600_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+};
-+
-+static struct panel_desc wt0630_desc = {
-+	.lanes = 4,
-+	.mode = &wt0630_mode,  /* wt0600 only has different screen size */
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+};
-+
-+static inline struct renesas_r63419_panel *
-+to_renesas_r63419_panel(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct renesas_r63419_panel, panel);
-+}
-+
-+/*
-+ * Helper to switch between DSI links, so we share a single dsi_ctx
-+ * for both links, so in case of an error all writes & sleep for
-+ * both links are ignored.
-+ */
-+static inline void dsi_link_switch(struct renesas_r63419_panel *ctx,
-+				   struct mipi_dsi_multi_context *dsi_ctx,
-+				   unsigned int link)
-+{
-+	dsi_ctx->dsi = ctx->dsi[link];
-+}
-+
-+static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx;
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 150);
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_disable(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx;
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	dsi_link_switch(ctx, &dsi_ctx, 0);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	dsi_link_switch(ctx, &dsi_ctx, 1);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_prepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				    ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(1000, 2000);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				    ctx->vcc_supplies);
-+	if (ret < 0) {
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				       ctx->vdd_supplies);
-+		return ret;
-+	}
-+
-+	usleep_range(1000, 2000);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+
-+	usleep_range(3000, 4000);
-+
-+	ret = renesas_r63419_on(ctx);
-+	if (ret < 0) {
-+		dev_err(panel->dev, "Failed to initialize panel: %d\n", ret);
-+
-+		/* Power off sequence from the r63419 datasheet */
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				       ctx->vcc_supplies);
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				       ctx->vdd_supplies);
-+
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_unprepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	/* Power off sequence from the r63419 datasheet */
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies), ctx->vcc_supplies);
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies), ctx->vdd_supplies);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_get_modes(struct drm_panel *panel,
-+				    struct drm_connector *connector)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	const struct drm_display_mode *mode = ctx->desc->mode;
-+
-+	drm_connector_set_panel_orientation(connector, ctx->orientation);
-+
-+	return drm_connector_helper_get_modes_fixed(connector, mode);
-+}
-+
-+static enum drm_panel_orientation
-+renesas_r63419_get_orientation(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs renesas_r63419_panel_funcs = {
-+	.disable = renesas_r63419_disable,
-+	.prepare = renesas_r63419_prepare,
-+	.unprepare = renesas_r63419_unprepare,
-+	.get_modes = renesas_r63419_get_modes,
-+	.get_orientation = renesas_r63419_get_orientation,
-+};
-+
-+static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct mipi_dsi_device_info info = { };
-+	struct device *dev = &dsi->dev;
-+	struct renesas_r63419_panel *ctx;
-+	struct device_node *dsi1_node;
-+	struct mipi_dsi_host *dsi1_host;
-+	int ret, i;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct renesas_r63419_panel, panel,
-+				   &renesas_r63419_panel_funcs, DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->desc = of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get panel description\n");
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+					    renesas_r63419_vdd_supplies, &ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+					    renesas_r63419_vcc_supplies, &ctx->vcc_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset gpio\n");
-+
-+	/* Get second DSI host */
-+	dsi1_node = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-+	if (!dsi1_node)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get remote node for second DSI\n");
-+
-+	dsi1_host = of_find_mipi_dsi_host_by_node(dsi1_node);
-+	of_node_put(dsi1_node);
-+	if (!dsi1_host)
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "Failed to find second DSI host\n");
-+
-+	/* Copy current DSI info, do not provide OF node since no driver needs to be attached */
-+	strscpy(info.type, dsi->name, sizeof(info.type));
-+	info.channel = dsi->channel;
-+
-+	/* Register the second DSI device */
-+	ctx->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host, &info);
-+	if (IS_ERR(ctx->dsi[1]))
-+		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
-+				     "Failed to register second DSI device\n");
-+
-+	ctx->dsi[0] = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	/* Get panel orientation */
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-+	if (ret < 0 && ret != -ENODEV)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to get panel orientation\n");
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add panel\n");
-+
-+	/* Configure and attach both DSI devices */
-+	for (i = 0; i < ARRAY_SIZE(ctx->dsi); i++) {
-+		ctx->dsi[i]->lanes = ctx->desc->lanes;
-+		ctx->dsi[i]->format = ctx->desc->format;
-+		ctx->dsi[i]->mode_flags = ctx->desc->mode_flags;
-+
-+		ret = devm_mipi_dsi_attach(dev, ctx->dsi[i]);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to attach DSI device %d\n", i);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id renesas_r63419_of_match[] = {
-+	{
-+		.compatible = "ayaneo,wt0600-2k",
-+		.data = &wt0600_desc,
-+	},
-+	{
-+		.compatible = "ayaneo,wt0630-2k",
-+		.data = &wt0630_desc,
-+	},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, renesas_r63419_of_match);
-+
-+static struct mipi_dsi_driver renesas_r63419_driver = {
-+	.probe = renesas_r63419_probe,
-+	.driver = {
-+		.name = "panel-renesas-r63419",
-+		.of_match_table = renesas_r63419_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(renesas_r63419_driver);
-+
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
-+MODULE_DESCRIPTION("DRM driver for Renesas R63419 based dual-DSI video mode panels");
-+MODULE_LICENSE("GPL");
+Introduce a new generic fallback compatible string cdns,cdnsp for
+Cadence USBSSP controllers without the Dual-Role Device (DRD) register
+block. It restricts the resources to host and device configurations,
+requiring dr_mode to be explicitly set.
 
--- 
-2.34.1
+> diff --git a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml b/Docum=
+entation/devicetree/bindings/usb/cdns,usb3.yaml
+> --- a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+> @@ -17,22 +17,24 @@ description:
+> =20
+>  properties:
+>    compatible:
+> -    const: cdns,usb3
+> +    oneOf:
+> +      - const: cdns,usb3
+> +      - items:
+> +          - {}
 
+[Severity: Medium]
+The commit message mentions using an empty schema wildcard {} to allow
+future vendor SoC compatibles to be prepended. Does this break dt-schema
+meta-validation during dt_binding_check? The tooling usually expects
+concrete compatible strings to be explicitly documented via an enum rather
+than using a wildcard.
+
+> +          - const: cdns,cdnsp
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: cdns,cdnsp
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: XHCI Host controller registers
+> +            - description: DEVICE controller registers
+> +        reg-names:
+> +          items:
+> +            - const: xhci
+> +            - const: dev
+
+[Severity: Medium]
+In dt-schema, specifying an items list inside conditional branches does not
+automatically override the top-level minItems and maxItems length constrain=
+ts.
+
+Since the top-level schema allows 2 to 3 items, would omitting maxItems: 2
+for reg and reg-names in this 'then' branch allow a 3-item configuration
+to incorrectly pass validation? Similarly, does omitting minItems: 3 in the
+'else' branch allow a 2-item configuration to pass for cdns,usb3?
+
+> +        interrupts:
+> +          maxItems: 2
+> +        interrupt-names:
+> +          items:
+> +            - const: host
+> +            - const: peripheral
+> +        dr_mode:
+> +          enum: [host, peripheral]
+
+[Severity: Medium]
+The commit message states that dr_mode must be explicitly set to either
+'host' or 'peripheral' when this compatible is matched.
+
+Should dr_mode be added to a required list in this block? Without it, the
+property remains optional, and device trees missing dr_mode could silently
+pass validation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-no_drd_con=
+fig_v9-v9-0-2512cef10104@cadence.com?part=3D1
