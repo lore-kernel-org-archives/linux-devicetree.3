@@ -1,94 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8342F9984;
-	Thu, 21 May 2026 14:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCD43D75B5
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 14:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779373299; cv=none; b=p8/FrwmSg+Xc9+bhTCVwktdrhUn8J5fIfQg9fk6heIusz1Y8Fcc7UwvNET/2zZA2dtbILxf0lEDWHWyirQW7drjifMXl4gz2HdzkZO/EtS8DpOynxMeNklOQZzHutw7E5t09u05duJqZBtUKTjV1Wgn9eXn7t0mrCU5+qO/vdc4=
+	t=1779373395; cv=none; b=atuD6TMHUgX5l08JniRb4G1ybnkMHNVW0cibW2/tTPrZMMtf8z3OS9VKU/aWAWmnvO7DIZB9Jg4+6ARg6rOaeamp/7Jh2zsIgrnG2ge+tcoB0sc9LCsl9WiYcvJT4slohNWVbLGR1Z5vRHiJEyygurkpzCxiQvQWsisUXhwt1s4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779373299; c=relaxed/simple;
-	bh=8/zOJGVqbG8WkMSpL0rE5OU1P/oB8KWOP88zXYNdpIY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IHxOHxMO2aBxiZTkENUXfDh0Jj6jVEmD+sElN3njsffHXYG5uuNQ483HeR38DT6KbKeRjQQAQorwqnYGa+wIxj/o6U8CRE9o+BlHtTW3JNcnzYxsfTWVp+t+atbQdDj/3pZ20AtWqgT2EdGyiL9RF4+NH49VeWpgRhIRyGbXC9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqTD+sH7; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqTD+sH7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57351F000E9;
-	Thu, 21 May 2026 14:21:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779373298;
-	bh=fXNXvZeGZU6zo0w0DvYrpbPu84Phh7+Vv2XwyeB5E+k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EqTD+sH7PieVWqil4NR9j2NqFo84bYhpNfZEZ+sGln1yZGeXt7AW0YDlbPXRPhnW7
-	 6dkt2WQOLdA0so8pkIChMaF4R9SBPm1qWj4WyAVGck2dKw06b5OeLLeffrWRxGL+Bb
-	 WSL9xwJESX4Lw9nj8dQ186HiyRjJmiJbcjqB+yeMOq5A/zO7DKbvTIw0xWQkaUfFnA
-	 Mq7TofFi/wfkYNO64sUkdTz46lC59hmqSp3brDTtpDBN37ue3KBpxzzlyxCxJEVpFT
-	 rD7lkcVgI0Im74IQV3UG9uUp4vCCuv/PydPiz0qcl+p1GTKX83r26eCmD3mcuIRx3Y
-	 u0U/QOt8mdfcA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: phy: sc8280xp-qmp-pcie: Document Eliza
- PCIe phy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521-eliza-v1-1-97cdbe88389d@oss.qualcomm.com>
-References: <20260521-eliza-v1-1-97cdbe88389d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 14:21:37 +0000
-Message-Id: <20260521142137.B57351F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779373395; c=relaxed/simple;
+	bh=3cxjaq2yY4S67NbxUO26/PmmDn2G+GWCPtESH1e5xhk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D+SgNXxdJ8Il/fcE2Z23spmH670mtu9StkBJgcKVV1nOdSBzjec22ccC3VT3ErtNVQmcvuvXpG1aC2G60H3ns/tEcfqL36lHwkiWoADrdNLXN+n4u8zflbj87n1XjvuITpnHqZw5IaSq7yWQaOydMB1AhesozcwCytW0+qH269o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ4Ic-00005O-K7; Thu, 21 May 2026 16:22:58 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ4Ia-0017OY-2m;
+	Thu, 21 May 2026 16:22:57 +0200
+Received: from mtr by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ4Ib-00000004Wwg-1IML;
+	Thu, 21 May 2026 16:22:57 +0200
+Date: Thu, 21 May 2026 16:22:57 +0200
+From: Michael Tretter <m.tretter@pengutronix.de>
+To: Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>
+Cc: Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [PATCH v7 15/28] media: rockchip: rga: align stride to 4 bytes
+Message-ID: <ag8VQas7BPnKZNxd@pengutronix.de>
+Mail-Followup-To: Michael Tretter <m.tretter@pengutronix.de>,
+	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+ <20260521-spu-rga3-v7-15-3f33e8c7145f@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260521-spu-rga3-v7-15-3f33e8c7145f@pengutronix.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: m.tretter@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The new Eliza PCIe PHY compatibles are placed in the wrong conditi=
-onal blocks, incorrectly constraining them to require 6 clocks and 2 resets.
---
+On Thu, 21 May 2026 00:44:20 +0200, Sven Püschel wrote:
+> Add an alignment setting to rga_hw to set the desired stride alignment.
+> As the RGA2 register for the stride counts in word units, the code
+> already divides the bytesperline value by 4 when writing it into the
+> register. Therefore fix the alignment to a multiple of 4 to avoid
+> potential off by one errors due from the division.
+> 
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 
-commit 8532696e8f5cf63303348c425688fe2c2383eed6
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Reviewed-by: Michael Tretter <m.tretter@pengutronix.de>
 
-dt-bindings: phy: sc8280xp-qmp-pcie: Document Eliza PCIe phy
+> 
+> ---
+> Changed in v6:
+> - Drop unintended change from fmt->fourcc to pix_fmt->pixelformat
+>   Flagged by Sashiko:
+>   https://sashiko.dev/#/patchset/20260428-spu-rga3-v5-0-eb7f5d019d86%40pengutronix.de?part=15
+> ---
+>  drivers/media/platform/rockchip/rga/rga-hw.c |  1 +
+>  drivers/media/platform/rockchip/rga/rga.c    | 11 ++++++-----
+>  drivers/media/platform/rockchip/rga/rga.h    |  1 +
+>  3 files changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+> index 9881c14f908d5..dac3cb6aa17d3 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+> @@ -580,6 +580,7 @@ const struct rga_hw rga2_hw = {
+>  	.max_width = MAX_WIDTH,
+>  	.min_height = MIN_HEIGHT,
+>  	.max_height = MAX_HEIGHT,
+> +	.stride_alignment = 4,
+>  
+>  	.start = rga_hw_start,
+>  	.handle_irq = rga_handle_irq,
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+> index bf6bbcbfc869b..d080cb672740b 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -234,10 +234,10 @@ static int rga_open(struct file *file)
+>  	ctx->in = def_frame;
+>  	ctx->out = def_frame;
+>  
+> -	v4l2_fill_pixfmt_mp(&ctx->in.pix,
+> -			    ctx->in.fmt->fourcc, def_width, def_height);
+> -	v4l2_fill_pixfmt_mp(&ctx->out.pix,
+> -			    ctx->out.fmt->fourcc, def_width, def_height);
+> +	v4l2_fill_pixfmt_mp_aligned(&ctx->in.pix, ctx->in.fmt->fourcc,
+> +				    def_width, def_height, rga->hw->stride_alignment);
+> +	v4l2_fill_pixfmt_mp_aligned(&ctx->out.pix, ctx->out.fmt->fourcc,
+> +				    def_width, def_height, rga->hw->stride_alignment);
+>  
+>  	if (mutex_lock_interruptible(&rga->mutex)) {
+>  		ret = -ERESTARTSYS;
+> @@ -393,7 +393,8 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>  		fmt = &hw->formats[0];
+>  
+>  	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
+> -	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
+> +	v4l2_fill_pixfmt_mp_aligned(pix_fmt, fmt->fourcc,
+> +				    pix_fmt->width, pix_fmt->height, hw->stride_alignment);
+>  	pix_fmt->field = V4L2_FIELD_NONE;
+>  
+>  	return 0;
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+> index 04aeb7b429523..38518146910a6 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -150,6 +150,7 @@ struct rga_hw {
+>  	size_t cmdbuf_size;
+>  	u32 min_width, min_height;
+>  	u32 max_width, max_height;
+> +	u8 stride_alignment;
+>  
+>  	void (*start)(struct rockchip_rga *rga,
+>  		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
+> 
+> -- 
+> 2.54.0
+> 
+> 
 
-Add compatibles for the Eliza PCIe QMP PHY's, which supports Gen3x1 and
-Gen3x2 configurations.
-
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie=
--phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-ph=
-y.yaml
-> index 3a35120a77ec0..be4bbc327982f 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.ya=
-ml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.ya=
-ml
-
-[ ... ]
-
-> @@ -181,6 +183,8 @@ allOf:
->          compatible:
->            contains:
->              enum:
-> +              - qcom,eliza-qmp-gen3x1-pcie-phy
-> +              - qcom,eliza-qmp-gen3x2-pcie-phy
->                - qcom,glymur-qmp-gen4x2-pcie-phy
->                - qcom,glymur-qmp-gen5x4-pcie-phy
->                - qcom,qcs8300-qmp-gen4x2-pcie-phy
-
-[Severity: High]
-Are these compatibles placed in the correct conditional block?
-
-By placing the Eliza compatibles in this group, the schema enforces a
-minimum of 6 clocks and 2 resets. However, the driver implementation
-introduced in the series expects only 1 reset.=20
-
-This mismatch will prevent structurally correct device tree nodes from
-passing schema validation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-eliza-v1-0=
--97cdbe88389d@oss.qualcomm.com?part=3D1
+-- 
+Pengutronix e.K.                           | Michael Tretter             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
