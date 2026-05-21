@@ -1,138 +1,231 @@
-Received: from mail-m15599.qiye.163.com (mail-m15599.qiye.163.com [101.71.155.99])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FA63C819E;
-	Thu, 21 May 2026 12:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F4A3E9C2B
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 12:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779367517; cv=none; b=YuY+uzcVIuW1TQOd6AHMmDCiWcbQ4QVDHwgVPDfKHzyLK8V+TQRqGdt86UjN+Ut426bLjaAFOtgH6vkkDGaY6x4eDpZp6LH+41cfQ8//nNzsyMi9hgs0txUDz5VSii+Ah3Hpf3oPbmIgfuDJRdKNKHzwzPxqQaxOdo1sZANVNFs=
+	t=1779367750; cv=none; b=j4iP/mQRYBIxQN5eImvRfL/3HiH0lJlON0L4/fsnKh+CA9VIodY+NFPNlq9tMH+mHl3IaID9oaCoTcpseNjkP/hGPxBMaH0wd5pNFyOf+sFTqzvLHdAAuLxVMTUplkLXEK0KScBy0+TW3naFVclG8HgiAPswZD3DPhJ2+C8q1ZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779367517; c=relaxed/simple;
-	bh=GFPWi/xaj2KK9JkNv4kgMVIXco4zFkyHwtNhMlrUhGI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lTHYkuldVBE/Pf++PD8r4/cA77UreROmNupUqwxmM5aSsmY2p/WdUdwkmxZH5svkqDRoteNPL7II1s5GTNr/CBwlfZS01Ym4zyXGt+0JT7WO9F8yYnAzvTtiL5N5/5gE3T/lv8LGyCRMhN7Ov2YTBswH2Ap2Jw+rcAPQqZMAOhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=dYt4fLVM; arc=none smtp.client-ip=101.71.155.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="dYt4fLVM"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3f48aae87;
-	Thu, 21 May 2026 16:09:04 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1779367750; c=relaxed/simple;
+	bh=BpmN9LMHKgP2OPqTXmAJ2fGr4E0OIOJKF7KhB8JeM34=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gKgXiZLBWK4Qf7PsmK9erDxHGaQR6ql1VO1oONAoyn2977f1PIkU6lNQrJToAIEo6ar0Z4u7Gdv/UptwAuomnAs0C+gKiC5wTo01BaBeAILb/t+M0CnymXF8LNQ5M1C7jwV9d6RM4UP846Gfc2Aotd5/xKhXFrXOFvlX+coAkbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ2pZ-0001I8-Dh; Thu, 21 May 2026 14:48:53 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ2pY-0016dZ-1K;
+	Thu, 21 May 2026 14:48:52 +0200
+Received: from mtr by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <m.tretter@pengutronix.de>)
+	id 1wQ2pY-00000004ViT-3Xge;
+	Thu, 21 May 2026 14:48:52 +0200
+Date: Thu, 21 May 2026 14:48:52 +0200
+From: Michael Tretter <m.tretter@pengutronix.de>
+To: Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>
+Cc: Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v6 07/10] arm64: dts: rockchip: Add eDP node for RK3576
-Date: Thu, 21 May 2026 16:08:32 +0800
-Message-Id: <20260521080835.1362416-8-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260521080835.1362416-1-damon.ding@rock-chips.com>
-References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [PATCH v7 07/28] media: rockchip: rga: use clk_bulk api
+Message-ID: <ag7_NEcMObnGz-ml@pengutronix.de>
+Mail-Followup-To: Michael Tretter <m.tretter@pengutronix.de>,
+	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, sebastian.reichel@collabora.com,
+	p.zabel@pengutronix.de,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+ <20260521-spu-rga3-v7-7-3f33e8c7145f@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e4994bb7b03a3kunm810e96ea5ebd7
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGk8dVh1KShhKTk5LGU4eS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=dYt4fLVMJXBXyQycg8c2bFIKHGR51brthKjMsXsa9Io0vnTCxOLm2Y6W9H9RYm57CccgY9tVywooqpPbgCOVeXBQn2uErsKLi7OqfDkK4MITk9vtCQdWoHIX40YI/vS9CNqyZLiXV1x0sqKzasQR29Yzdg/h+rPDICVy9FlDTCI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=K1DLY9Im8emQ1pvFmDCS9X34Zpvqnm1ezAB2dEZJU7I=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <20260521-spu-rga3-v7-7-3f33e8c7145f@pengutronix.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: m.tretter@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add full device tree definition for the integrated eDP controller
-on RK3576, following the existing RK3588 hardware layout.
+On Thu, 21 May 2026 00:44:12 +0200, Sven Püschel wrote:
+> Use the clk_bulk API to avoid code duplication for each of the three
+> clocks.
+> 
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+> ---
+>  drivers/media/platform/rockchip/rga/rga.c | 65 ++++---------------------------
+>  drivers/media/platform/rockchip/rga/rga.h |  6 +--
+>  2 files changed, 11 insertions(+), 60 deletions(-)
+> 
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+> index fea63b94c5f3d..4e710a050cb7c 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -698,48 +698,10 @@ static const struct video_device rga_videodev = {
+>  	.device_caps = V4L2_CAP_VIDEO_M2M_MPLANE | V4L2_CAP_STREAMING,
+>  };
+>  
+> -static int rga_enable_clocks(struct rockchip_rga *rga)
+> -{
+> -	int ret;
+> -
+> -	ret = clk_prepare_enable(rga->sclk);
+> -	if (ret) {
+> -		dev_err(rga->dev, "Cannot enable rga sclk: %d\n", ret);
+> -		return ret;
+> -	}
+> -
+> -	ret = clk_prepare_enable(rga->aclk);
+> -	if (ret) {
+> -		dev_err(rga->dev, "Cannot enable rga aclk: %d\n", ret);
+> -		goto err_disable_sclk;
+> -	}
+> -
+> -	ret = clk_prepare_enable(rga->hclk);
+> -	if (ret) {
+> -		dev_err(rga->dev, "Cannot enable rga hclk: %d\n", ret);
+> -		goto err_disable_aclk;
+> -	}
+> -
+> -	return 0;
+> -
+> -err_disable_aclk:
+> -	clk_disable_unprepare(rga->aclk);
+> -err_disable_sclk:
+> -	clk_disable_unprepare(rga->sclk);
+> -
+> -	return ret;
+> -}
+> -
+> -static void rga_disable_clocks(struct rockchip_rga *rga)
+> -{
+> -	clk_disable_unprepare(rga->sclk);
+> -	clk_disable_unprepare(rga->hclk);
+> -	clk_disable_unprepare(rga->aclk);
+> -}
+> -
+>  static int rga_parse_dt(struct rockchip_rga *rga)
+>  {
+>  	struct reset_control *core_rst, *axi_rst, *ahb_rst;
+> +	int ret;
+>  
+>  	core_rst = devm_reset_control_get(rga->dev, "core");
+>  	if (IS_ERR(core_rst)) {
+> @@ -771,23 +733,12 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+>  	udelay(1);
+>  	reset_control_deassert(ahb_rst);
+>  
+> -	rga->sclk = devm_clk_get(rga->dev, "sclk");
+> -	if (IS_ERR(rga->sclk)) {
+> -		dev_err(rga->dev, "failed to get sclk clock\n");
+> -		return PTR_ERR(rga->sclk);
+> -	}
+> -
+> -	rga->aclk = devm_clk_get(rga->dev, "aclk");
+> -	if (IS_ERR(rga->aclk)) {
+> -		dev_err(rga->dev, "failed to get aclk clock\n");
+> -		return PTR_ERR(rga->aclk);
+> -	}
+> -
+> -	rga->hclk = devm_clk_get(rga->dev, "hclk");
+> -	if (IS_ERR(rga->hclk)) {
+> -		dev_err(rga->dev, "failed to get hclk clock\n");
+> -		return PTR_ERR(rga->hclk);
+> +	ret = devm_clk_bulk_get_all(rga->dev, &rga->clks);
+> +	if (ret < 0) {
 
-Configure required register range, clocks, interrupt, phy, power
-domain, reset and grf properties to fully describe the controller.
+This changes the behavior since the call is now successful if there are
+no clocks specified in the device tree. Is this an intended change?
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Michael
 
----
-
-Changes in v2:
-- Add Reviewed-by tag.
-
-Changes in v4:
-- Modify the commit msg.
----
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 28 ++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index 28175d8200d5..733449cb88b1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1496,6 +1496,34 @@ hdmi_out: port@1 {
- 			};
- 		};
- 
-+		edp: edp@27dc0000 {
-+			compatible = "rockchip,rk3576-edp";
-+			reg = <0x0 0x27dc0000 0x0 0x1000>;
-+			clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT>;
-+			clock-names = "dp", "pclk", "hclk";
-+			interrupts = <GIC_SPI 365 IRQ_TYPE_LEVEL_HIGH>;
-+			phys = <&hdptxphy>;
-+			phy-names = "dp";
-+			power-domains = <&power RK3576_PD_VO0>;
-+			resets = <&cru SRST_EDP0_24M>, <&cru SRST_P_EDP0>;
-+			reset-names = "dp", "apb";
-+			rockchip,grf = <&vo0_grf>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				edp_in: port@0 {
-+					reg = <0>;
-+				};
-+
-+				edp_out: port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
- 		dp: dp@27e40000 {
- 			compatible = "rockchip,rk3576-dp";
- 			reg = <0x0 0x27e40000 0x0 0x30000>;
--- 
-2.34.1
-
+> +		dev_err(rga->dev, "failed to get clocks\n");
+> +		return ret;
+>  	}
+> +	rga->num_clks = ret;
+>  
+>  	return 0;
+>  }
+> @@ -935,7 +886,7 @@ static int __maybe_unused rga_runtime_suspend(struct device *dev)
+>  {
+>  	struct rockchip_rga *rga = dev_get_drvdata(dev);
+>  
+> -	rga_disable_clocks(rga);
+> +	clk_bulk_disable_unprepare(rga->num_clks, rga->clks);
+>  
+>  	return 0;
+>  }
+> @@ -944,7 +895,7 @@ static int __maybe_unused rga_runtime_resume(struct device *dev)
+>  {
+>  	struct rockchip_rga *rga = dev_get_drvdata(dev);
+>  
+> -	return rga_enable_clocks(rga);
+> +	return clk_bulk_prepare_enable(rga->num_clks, rga->clks);
+>  }
+>  
+>  static const struct dev_pm_ops rga_pm = {
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+> index 72a28b120fabf..2db10acecb405 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -6,6 +6,7 @@
+>  #ifndef __RGA_H__
+>  #define __RGA_H__
+>  
+> +#include <linux/clk.h>
+>  #include <linux/platform_device.h>
+>  #include <media/videobuf2-v4l2.h>
+>  #include <media/v4l2-ctrls.h>
+> @@ -81,9 +82,8 @@ struct rockchip_rga {
+>  	struct device *dev;
+>  	struct regmap *grf;
+>  	void __iomem *regs;
+> -	struct clk *sclk;
+> -	struct clk *aclk;
+> -	struct clk *hclk;
+> +	struct clk_bulk_data *clks;
+> +	int num_clks;
+>  	struct rockchip_rga_version version;
+>  
+>  	/* vfd lock */
+> 
+> -- 
+> 2.54.0
+> 
+> 
