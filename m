@@ -1,168 +1,520 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A59242D9D
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95273D522C
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779369779; cv=none; b=qreCv+Mh6CEFK3DAG9K1OyPSvIXWWY1a6yeZqzbBsD3NipcKR+25Lq859YOU2fmlsU60+ClAnJC9utNr230Wc52hRLOIyJQKvdLipYFKx1zniXZqiUEj2qWzSd85anwMQFjFlgEquL4hwKCrS8obF3n+3XIp+E2SS1p9ycxiU9Y=
+	t=1779369821; cv=none; b=dGnayyFKe5NhTVLEfvaSOzATcgXyeU+OyDLKcq8vdbN1SSWo9ar7eBD9OtXeg3vGw1k5Hhf+5O/5FSytsZ7iRETvRHTGIZXL1x6NIyEFqEP0PX1dyvHIYxI7Qhs8LPWgnEUitsvzGhbSP8az78AUuoo3RQd0P7UdrMC76ZJWW0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779369779; c=relaxed/simple;
-	bh=3kCSpWp7FEEe9qEqd4X+TLbKQl0Y5QozlIhOMd/nusA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fDCHwIfSY+WVot5idGfjncHfCQmuM+514D5xpyJrGacX7siA1h6QOJ3vcaV/+C1l19pyjUxmwMitm9tjXW7x025+OarGq+opXJhmek9pOihE/8pH9eMWZ2rXs7xe4tr80nrC18Dt8pcJ3XcwYaLIrxxND1ykT//x2Te6uyCqksw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Japs4Eg2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VtkDUmID; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779369821; c=relaxed/simple;
+	bh=goLoQ4GGfFTQUCwwvh0vd0n+JivKbpwUlyFPKKseYBk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=o2Suudin/Ays6xY6FTClrsyH9qw+Woyd/crPPSqVclsvdKoCcpP4QNR4kc4aEAb/KAif04kpwgArIxs96GournXF3YXYZrX94GxOJnLKDhMdnqEIW46tOu5E8IgJ1kaUQs3ta8AYseqloIChuj0X6cdfZRqp4bOF/9lzMfQQmxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=em14dsCe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Japs4Eg2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VtkDUmID"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L99vlC2491830
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:22:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zaKcAvTC/3uFVMXucpCSenq3MlPmMHSE/2mwevUrtlc=; b=Japs4Eg2xjxzbrVO
-	3xw2jfDUFYsCwMs//V9CP4nJqTekalHmUcQX/GOyoDo4NLOPkTe0Hw/s/CnZt1ya
-	J9yH2slPZP7r3ji7HkGp/cC9fxZrNgJfYmODcxZ6R/WKE6jIat1OZAtIifFwYd4B
-	i/Y0xuy7QtafwCiYDWwOxYhZgYpUhOCZnbpO1pbtu+oSp9Ifx+em5Ir22mcEWxo+
-	HFS1yBxz+Hd1TtR/678TuML+4Q1eTNYD85HiPAO8+vQqFv49GbTMtQdNRBwoLKa3
-	vxtmSlVgt32/nkGNFzyqzJPlNRRj0EyrCUcTdr4PBcGGF5ped1wvKNa1wSBRm5PT
-	oNmX8g==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9e9j5557-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:22:57 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c82ac893940so3027540a12.1
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 06:22:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779369777; x=1779974577; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zaKcAvTC/3uFVMXucpCSenq3MlPmMHSE/2mwevUrtlc=;
-        b=VtkDUmIDaT7IoCNhlNkCbbu19ezVCP2U74VOm4hGNw5FYjdTY1KsWglp+925cRzLAt
-         iiD8ybf7CIpB3CSh/FcRFWGfrTB0VLs78IO48JKaUtEbTZE94BhpOjpkOw8v5SozvpeB
-         TB6DrJmA4fT0Ur+HKXWTE3HNW1/6BWmW2b3GbYATcpWHIywWwqOIsX0vulji2G8Ha9Bz
-         7CQtJgITKCnG/ZfbJQP6UuAmJgLYJmVw16hX4BROmPqANMD9UBZCzfrHI1Pk8lU4/7X6
-         TCPnrG6gGPaHtXFAy9wPfHu0tCWglSWBf1DM9I4LuBjUWb9ci/tEYQ90jwFxXFAc1XGZ
-         4X9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779369777; x=1779974577;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zaKcAvTC/3uFVMXucpCSenq3MlPmMHSE/2mwevUrtlc=;
-        b=LPnUEQQDM5/mQfeiCbZX1lWPd3k89gM/1vrHEORb/ZXILpvbEhq0oKmAiIGmBeIyBG
-         2fqF5mjlqfLXCOHNFOdN0U5Ww+DsxHMYWmuOlz+o4A3jkWtQPRYxce24411fE0it2UmE
-         MYHG7V4Wqew2ckj7zfFJ9WmckXlM7b+uNnJPhOSPBd4bnLFQbBoKKu1R7JO5KE8Vi3c9
-         5v7uoRrvJLqE8kNu1zVMo0BSzlF6v90CTv/o1aH7T3C5AJjXphyH3fYfqUNG+iha3edw
-         bLoPihI6zNPkLIm8/Ss3SCtA+nujchg8BVAvGAp7HWBqyP29Pt37yQgFTMcc249JiI1M
-         KOLw==
-X-Forwarded-Encrypted: i=1; AFNElJ9z8Vw1YKaPZuLD83WnBb9Ehc4d1d0iWK6+hOBi1IVINIyPRDMwOrlNAcK6YibhVUwgpVUdlzXejEsK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJh97yOu+ooyt6kWv12KV2gt31FgukbcmbxJZIWF6Dl4+J//HV
-	5Faz+3+urOpjpz9u1XMKsYtgPwy7GcGpF2zbwVSK8o6/HXo7tyiXa6nMTvaYRYi89mPu4PjdUhd
-	CeeJGvbsiO6PXK3gLEXl+HqUiiBTK4YA74TRABYBt+mXryhDGoZwLvDENX4hTSuv6
-X-Gm-Gg: Acq92OGnJNnQmZPckwxredopLdcl47l495oiF+apwhl7wxpP+toLOKdmRm7sYQYXCCR
-	r8BkxxXuHQwaiFgMPSZoqw84cmxeEPFEyvWW/h0vbYH0BU447s8sKpER3O5hqqa+KThzkh6SJ17
-	OJAi9SH7j+iqoL6aWDBHJNeFfV51XVkmy2jEzMbcjIG+AUWf7znyTvohOFtiZF56Qx05zDiQqUI
-	HQ7P2+P6EZ1bQ4Z2Cof8pLrcnGEnX9o0YZo8NUtG/eii/s3OVZc/KV+Iqz0k5c+0O3Qk5vQHPTK
-	W8XirNNWV3SmKw6gxrm6DCJqkxz2YxzybgDi4AhOvlOSbN2oft0Kkn8WNMPBS6PzOAhANGctZYK
-	ewFuqRLv+W9df4goJG5BfZ4jXBf0rZbHHzUIIjqkc5pSbKHjlYtBm
-X-Received: by 2002:a05:6a00:4219:b0:824:9bc5:e946 with SMTP id d2e1a72fcca58-8414ae61577mr3046702b3a.46.1779369776910;
-        Thu, 21 May 2026 06:22:56 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4219:b0:824:9bc5:e946 with SMTP id d2e1a72fcca58-8414ae61577mr3046665b3a.46.1779369776419;
-        Thu, 21 May 2026 06:22:56 -0700 (PDT)
-Received: from [10.206.98.135] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84154e02781sm1578340b3a.32.2026.05.21.06.22.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 06:22:55 -0700 (PDT)
-Message-ID: <74304e0d-de98-4a31-828f-d8280e7a728e@oss.qualcomm.com>
-Date: Thu, 21 May 2026 18:52:49 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="em14dsCe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5914C1F000E9;
+	Thu, 21 May 2026 13:23:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779369819;
+	bh=LZBqCJ0uJjE5NLbjrweLAKRXUqka8WqFUw/N5oKMx7g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=em14dsCegylrBFg0s0l9Vtv4BNLLFDmWEdPT14HixxzwVFS/nt+tcB2Fwy9+SBhJR
+	 6QC7sQWEzkIgqzDDQUq6ubBispMotgbXzT4QY9nT3UHB1V7sHRZev6Wu+cQj7SBumJ
+	 rJ0FDxcB+RfF/XbCihi2TgbcJQ9EANvQS87F5AD42HbGBibf84ah1cKDSwHZ6X7ojM
+	 OdkDLP5CuospRBHZhCR1698u4/3XAHixtff+crt13tgJVvFR5epMlLUKFk3Q6PB3zJ
+	 gZin/qEnL1NFheYhQJ8lytLbQ2U2u/SE7Pl7QQK/Hlp2YZ/uCg2r63kKnsEmN2k+wb
+	 Xo2II/nkMD1Aw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 14/22] media: i2c: add Maxim GMSL2/3 serializer
+ framework
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dumitru Ceclan via B4 Relay" <devnull+dumitru.ceclan.analog.com@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260521-gmsl2-3_serdes-v12-14-b26d92931196@analog.com>
+References: <20260521-gmsl2-3_serdes-v12-14-b26d92931196@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 13:23:39 +0000
+Message-Id: <20260521132339.5914C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: purwa: Add camss node
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
-        Robert Foss
- <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com>
- <20260511-purwa_camss-v2-3-22608ab9126c@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-In-Reply-To: <20260511-purwa_camss-v2-3-22608ab9126c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=bfhbluPB c=1 sm=1 tr=0 ts=6a0f0731 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=CUJKaX_r6RFX-KylJRQA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: JoEJv0UVQk8JosjYIFMKgWZdNO1ZDbgq
-X-Proofpoint-ORIG-GUID: JoEJv0UVQk8JosjYIFMKgWZdNO1ZDbgq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDEzMyBTYWx0ZWRfX+fncz46a3ZIX
- d8QWGyCEmSHUVv2hH5rV0dW95v5wLJiUmt0tflCpmql69Rsgw2xKM4iOxxa+gKn1ej1COmMBGyn
- A4b8toeO56JOZqnbc6m10GGdWkfU94lWP3AWZt5l6CslembRKr0/cZeQDzb8n4OrWUzbg9Tifnx
- lJ+k33kPCzLrtGQb3gilOmNd2dnb8iE2Ruyy6yXc2jLY7BVDz0rKnewsUHEufag01VRZkchbtrB
- +S7OxakI7oBhAFFAoHHqDvFpEgu+j6w6u2R/dAkOq8O5dRlWMcCzoebIy+/J1LhLh6AzwmpN9Lh
- cnH0clioKzqy9uwbg4qPSMZGttWXyI+dgSDpycbZ7hQE9OpNwsGsG0RowVxncpIubemgkdr3e/S
- 0IekGfvw3Sg9ryBREFny72mC/197sCZCJgoe+4GwNIJjqR8soCgT+LGYVN05dupeBJjKX6ahnlY
- +8HT8GIuavc0S4/z5Kw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-21_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- bulkscore=0 clxscore=1015 adultscore=0 spamscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605210133
 
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
+(s) to consider:
+- [Critical] Uninitialized stack memory usage and stack buffer overflow wit=
+h `v4l2_mbus_frame_desc`.
+- [High] Heap buffer overflow in `max_ser_get_pipe_vcs_dts()` when storing =
+unique Data Types.
+- [High] Array out-of-bounds write in `max_ser_i2c_atr_detach_addr()`.
+- [High] Use of uninitialized stack variable and Undefined Behavior via `__=
+ffs(0)` / `__fls(0)`.
+- [High] Lockless iteration in `max_ser_log_status` leads to Use-After-Free.
+- [High] Error rollback paths rely on infallible dynamic memory allocations.
+- [High] Use of stack-allocated buffers for `i2c_transfer()` violates DMA s=
+afety.
+- [Medium] Multiple fwnode reference count leaks.
+- [Medium] V4L2 control handler memory is leaked upon driver unregistration.
+- [Medium] Memory leak of the I2C ATR structure on adapter initialization f=
+ailure.
+- [Medium] Missing `.get_mbus_config()` API implementation despite commit m=
+essage claims.
+- [Medium] Inappropriate use of devres functions in runtime hot paths.
+--
 
-On 5/11/2026 2:29 PM, Wenmeng Liu wrote:
-> +&camss {
-> +	compatible = "qcom,x1p42100-camss";
+commit 210e31826495bb37471b675b425310f6af76310b
+Author: Cosmin Tanislav <demonsingur@gmail.com>
+Date:   Thu May 21 12:44:20 2026 +0000
+
+    media: i2c: add Maxim GMSL2/3 serializer framework
+   =20
+    These drivers are meant to be used as a common framework for Maxim
+    GMSL2/3 serializers.
+   =20
+    This framework enables support for the following new features across
+    all the chips:
+     * Full Streams API support
+     * .get_frame_desc()
+     * .get_mbus_config()
+     * I2C ATR
+
+[Severity: Medium]
+The commit message states that .get_mbus_config() is supported. However, it
+does not appear to be implemented or linked in the max_ser_pad_ops structur=
+e.
+Was this feature intentionally removed during development, or did it get mi=
+ssed?
+
+[ ... ]
+
+diff --git a/drivers/media/i2c/maxim-serdes/max_ser.c b/drivers/media/i2c/m=
+axim-serdes/max_ser.c
+new file mode 100644
+index 0000000000000..9eb33cf83c076
+--- /dev/null
++++ b/drivers/media/i2c/maxim-serdes/max_ser.c
+@@ -0,0 +1,2155 @@
+
+[ ... ]
+
+> +static int max_ser_route_to_hw(struct max_ser_priv *priv,
+> +			       struct v4l2_subdev_state *state,
+> +			       struct v4l2_subdev_route *route,
+> +			       struct max_ser_route_hw *hw)
+> +{
+> +	struct max_ser *ser =3D priv->ser;
+> +	struct v4l2_mbus_frame_desc fd;
+> +	struct max_ser_phy *phy;
+
+[Severity: Critical]
+Does this leave the num_entries field of fd uninitialized?=20
+
+Since fd is declared on the stack, it may contain random garbage. When pass=
+ed
+to the source subdev's get_frame_desc pad op, the target function frequently
+executes fd->entry[fd->num_entries++] =3D hw.entry; which could result in
+out-of-bounds writes on the stack buffer. Would it be better to
+zero-initialize it here?
+
+> +	unsigned int i;
+> +	int ret;
 > +
-> +	reg = <0 0x0acb7000 0 0x2000>,
-> +	      <0 0x0acb9000 0 0x2000>,
-> +	      <0 0x0acbb000 0 0x2000>,
-> +	      <0 0x0acc6000 0 0x1000>,
-> +	      <0 0x0acca000 0 0x1000>,
-> +	      <0 0x0acb6000 0 0x1000>,
-> +	      <0 0x0ace4000 0 0x2000>,
-> +	      <0 0x0acec000 0 0x4000>,
+> +	memset(hw, 0, sizeof(*hw));
 
+[ ... ]
 
-Size not matching with bindings, Please cross check with SWI.
-
-
-> +	      <0 0x0acf6000 0 0x1000>,
-> +	      <0 0x0acf7000 0 0x1000>,
-> +	      <0 0x0acf8000 0 0x1000>,
-> +	      <0 0x0ac62000 0 0xf000>,
-> +	      <0 0x0acc7000 0 0x2000>,
-> +	      <0 0x0accb000 0 0x2000>;
+> +static void max_ser_i2c_atr_detach_addr(struct i2c_atr *atr, u32 chan_id=
+, u16 addr)
+> +{
+> +	struct max_ser_priv *priv =3D i2c_atr_get_driver_data(atr);
+> +	struct max_ser *ser =3D priv->ser;
+> +	struct max_serdes_i2c_xlate xlate =3D { 0 };
+> +	unsigned int i;
 > +
+> +	/* Find index of matching I2C translation. */
+> +	for (i =3D 0; i < ser->ops->num_i2c_xlates; i++)
+> +		if (ser->i2c_xlates[i].dst =3D=3D addr)
+> +			break;
+> +
+> +	WARN_ON(i =3D=3D ser->ops->num_i2c_xlates);
+> +
+> +	ser->ops->set_i2c_xlate(ser, i, &xlate);
+> +	ser->i2c_xlates[i] =3D xlate;
+> +}
 
+[Severity: High]
+If the loop finishes without finding a match, i will be exactly equal to
+ser->ops->num_i2c_xlates. While the WARN_ON flags this case, execution cont=
+inues
+and accesses ser->i2c_xlates[i]. Can this cause an out-of-bounds write past
+the end of the i2c_xlates array? Should the function return early if the
+address is not found?
 
-Regards,
+[ ... ]
 
-Vikram
+> +static int max_ser_i2c_atr_init(struct max_ser_priv *priv)
+> +{
+> +	struct i2c_atr_adap_desc desc =3D {
+> +		.chan_id =3D 0,
+> +	};
+> +
+> +	if (!i2c_check_functionality(priv->client->adapter,
+> +				     I2C_FUNC_SMBUS_WRITE_BYTE_DATA))
+> +		return -ENODEV;
+> +
+> +	priv->atr =3D i2c_atr_new(priv->client->adapter, priv->dev,
+> +				&max_ser_i2c_atr_ops, 1, 0);
+> +	if (IS_ERR(priv->atr))
+> +		return PTR_ERR(priv->atr);
+> +
+> +	i2c_atr_set_driver_data(priv->atr, priv);
+> +
+> +	return i2c_atr_add_adapter(priv->atr, &desc);
+> +}
 
+[Severity: Medium]
+If i2c_atr_add_adapter() fails, does this permanently leak the memory
+allocated by i2c_atr_new()?
+
+[ ... ]
+
+> +static int max_ser_i2c_adapter_init(struct max_ser_priv *priv)
+> +{
+> +	if (device_get_named_child_node(priv->dev, "i2c-gate"))
+> +		return max_ser_i2c_mux_init(priv);
+> +	else
+> +		return max_ser_i2c_atr_init(priv);
+> +}
+
+[Severity: Medium]
+Does device_get_named_child_node() return a reference-counted fwnode
+pointer? It appears the pointer is used here only for a truthiness check and
+is immediately discarded without calling fwnode_handle_put(). Can this lead
+to a reference count leak during driver probe?
+
+[ ... ]
+
+> +static int max_ser_log_status(struct v4l2_subdev *sd)
+> +{
+> +	struct max_ser_priv *priv =3D sd_to_priv(sd);
+> +	struct max_ser *ser =3D priv->ser;
+> +	unsigned int i, j;
+> +	int ret;
+
+[ ... ]
+
+> +	for (i =3D 0; i < ser->ops->num_pipes; i++) {
+> +		struct max_ser_pipe *pipe =3D &ser->pipes[i];
+> +
+> +		v4l2_info(sd, "pipe: %u\n", pipe->index);
+> +		v4l2_info(sd, "\tenabled: %u\n", pipe->enabled);
+> +
+> +		if (!pipe->enabled) {
+> +			v4l2_info(sd, "\n");
+> +			continue;
+> +		}
+> +
+> +		v4l2_info(sd, "\tphy_id: %u\n", pipe->phy_id);
+> +		v4l2_info(sd, "\tstream_id: %u\n", pipe->stream_id);
+> +		if (ser->ops->set_pipe_phy)
+> +			v4l2_info(sd, "\tphy_id: %u\n", pipe->phy_id);
+> +		if (ser->ops->set_pipe_dt) {
+> +			v4l2_info(sd, "\tdts: %u\n", pipe->num_dts);
+> +			for (j =3D 0; j < pipe->num_dts; j++)
+> +				v4l2_info(sd, "\t\tdt: 0x%02x\n", pipe->dts[j]);
+> +		}
+
+[Severity: High]
+Is this iteration over pipe->dts safe from data races?=20
+
+It looks like max_ser_log_status() iterates locklessly here, but=20
+max_ser_update_pipe() dynamically frees and reallocates pipe->dts=20
+using devm_kfree(priv->dev, pipe->dts) during runtime stream configuration.=
+=20
+Could concurrent execution of these two code paths trigger a use-after-free?
+
+[ ... ]
+
+> +static int max_ser_get_pipe_vcs_dts(struct max_ser_priv *priv,
+> +				    struct v4l2_subdev_state *state,
+> +				    struct max_ser_pipe *pipe,
+> +				    unsigned int *vcs,
+> +				    unsigned int *dts, unsigned int *num_dts,
+> +				    u64 *streams_masks)
+> +{
+> +	struct v4l2_subdev_route *route;
+> +	struct max_ser *ser =3D priv->ser;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	*vcs =3D 0;
+> +	*num_dts =3D 0;
+
+[ ... ]
+
+> +		/* Skip already added DT. */
+> +		for (i =3D 0; i < *num_dts; i++)
+> +			if (dts[i] =3D=3D dt)
+> +				break;
+> +
+> +		if (i < *num_dts)
+> +			continue;
+> +
+> +		dts[*num_dts] =3D dt;
+> +		(*num_dts)++;
+> +	}
+
+[Severity: High]
+Is there a risk of an out-of-bounds array write here?=20
+
+The dts array is dynamically allocated with a fixed capacity of=20
+ser->ops->num_dts_per_pipe. If a userspace-configured routing table supplie=
+s=20
+more unique streams than this limit, it seems *num_dts could exceed the=20
+bounds of the array. Should we add a bounds check?
+
+[ ... ]
+
+> +static int max_ser_get_pipe_mode(struct max_ser_priv *priv,
+> +				 struct v4l2_subdev_state *state,
+> +				 struct max_ser_pipe *pipe,
+> +				 struct max_ser_pipe_mode *mode)
+> +{
+> +	struct v4l2_subdev_route *route;
+> +	struct max_ser *ser =3D priv->ser;
+> +	bool force_set_bpp =3D false;
+> +	unsigned int doubled_bpp;
+> +	unsigned int min_bpp;
+> +	unsigned int max_bpp;
+> +	u32 bpps =3D 0;
+> +	int ret;
+> +
+> +	if (ser->mode !=3D MAX_SERDES_GMSL_PIXEL_MODE)
+> +		return 0;
+> +
+> +	for_each_active_route(&state->routing, route) {
+
+[ ... ]
+
+> +	}
+> +
+> +	ret =3D max_serdes_process_bpps(priv->dev, bpps, priv->double_bpps, &do=
+ubled_bpp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (doubled_bpp =3D=3D 8)
+> +		mode->dbl8 =3D true;
+> +	else if (doubled_bpp =3D=3D 10)
+> +		mode->dbl10 =3D true;
+> +	else if (doubled_bpp =3D=3D 12)
+> +		mode->dbl12 =3D true;
+> +
+> +	if (doubled_bpp) {
+> +		bpps &=3D ~BIT(doubled_bpp);
+> +		bpps |=3D BIT(doubled_bpp * 2);
+> +	}
+> +
+> +	min_bpp =3D __ffs(bpps);
+> +	max_bpp =3D __fls(bpps);
+
+[Severity: High]
+If the pipe has no active routes, bpps will remain 0. Calling=20
+max_serdes_process_bpps() with bpps =3D 0 appears to return 0 immediately=20
+without setting doubled_bpp, leaving it uninitialized for later use.
+       =20
+Furthermore, if bpps is 0, does calling __ffs(bpps) and __fls(bpps)=20
+result in undefined behavior? These typically map to __builtin_ctzl(), whic=
+h=20
+may cause faults or unpredictable behavior when called with zero.
+
+[ ... ]
+
+> +static int max_ser_update_pipe(struct max_ser_priv *priv,
+> +			       struct max_ser_pipe *pipe,
+> +			       struct v4l2_subdev_state *state,
+> +			       u64 *streams_masks)
+> +{
+> +	struct max_ser *ser =3D priv->ser;
+> +	struct max_ser_pipe_mode mode =3D { 0 };
+> +	unsigned int num_dts;
+> +	unsigned int *dts;
+> +	unsigned int vcs;
+> +	int ret;
+> +
+> +	if (!ser->ops->num_dts_per_pipe)
+> +		return 0;
+> +
+> +	dts =3D devm_kcalloc(priv->dev, ser->ops->num_dts_per_pipe, sizeof(*dts=
+),
+> +			   GFP_KERNEL);
+
+[Severity: Medium]
+Is devm_kcalloc() suitable for use in a runtime hot path like stream=20
+enablement/disablement?=20
+       =20
+Using devres functions here requires taking a spinlock and performing an O(=
+N)=20
+list traversal for every allocation and free, which can degrade performance=
+=20
+and fragment the list.
+
+[Severity: High]
+Additionally, error rollback paths like max_ser_update_phys() call=20
+max_ser_update_pipe() to restore previous states. If this devm_kcalloc()=20
+fails during a rollback, the error is ignored, leaving the hardware and=20
+software states out of sync. Could this be mitigated by pre-allocating the=
+=20
+arrays during probe?
+
+[ ... ]
+
+> +static int max_ser_update_streams(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *state,
+> +				  u32 pad, u64 updated_streams_mask, bool enable)
+> +{
+> +	struct max_ser_priv *priv =3D v4l2_get_subdevdata(sd);
+> +	struct max_ser *ser =3D priv->ser;
+> +	unsigned int num_pads =3D max_ser_num_pads(ser);
+> +	u64 *streams_masks;
+> +	int ret;
+> +
+> +	ret =3D max_serdes_get_streams_masks(priv->dev, state, pad, updated_str=
+eams_mask,
+> +					   num_pads, priv->streams_masks, &streams_masks,
+> +					   enable);
+
+[ ... ]
+
+> +	devm_kfree(priv->dev, priv->streams_masks);
+> +	priv->streams_masks =3D streams_masks;
+> +	ser->active =3D !!streams_masks[pad];
+> +
+> +	return 0;
+
+[Severity: Medium]
+Similar to the dts array allocation above, is it acceptable to continually
+allocate and free streams_masks via devres APIs during stream start/stop
+operations?
+
+[ ... ]
+
+> +static void max_ser_v4l2_unregister(struct max_ser_priv *priv)
+> +{
+> +	struct v4l2_subdev *sd =3D &priv->sd;
+> +
+> +	max_ser_v4l2_notifier_unregister(priv);
+> +	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +}
+
+[Severity: Medium]
+The V4L2 control handler is initialized during probe with=20
+v4l2_ctrl_handler_init(), but it doesn't seem to be freed here. Should we=20
+call v4l2_ctrl_handler_free(&priv->ctrl_handler) to prevent memory leaks=20
+upon module unregistration?
+
+[ ... ]
+
+> +static int max_ser_parse_sink_dt_endpoint(struct max_ser_priv *priv,
+> +					  struct max_ser_phy *phy,
+> +					  struct max_serdes_source *source,
+> +					  struct fwnode_handle *fwnode)
+> +{
+> +	struct max_ser *ser =3D priv->ser;
+> +	u32 pad =3D max_ser_phy_to_pad(ser, phy);
+> +	struct v4l2_fwnode_endpoint v4l2_ep =3D { .bus_type =3D V4L2_MBUS_CSI2_=
+DPHY };
+> +	struct fwnode_handle *ep;
+> +	int ret;
+> +
+> +	ep =3D fwnode_graph_get_endpoint_by_id(fwnode, pad, 0, 0);
+> +	if (!ep)
+> +		return 0;
+> +
+> +	source->ep_fwnode =3D fwnode_graph_get_remote_endpoint(ep);
+> +	if (!source->ep_fwnode) {
+> +		dev_err(priv->dev,
+> +			"Failed to get remote endpoint on port %u\n", pad);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+If fwnode_graph_get_remote_endpoint() fails, the function returns -EINVAL=20
+without putting the ep fwnode pointer. Could this cause a fwnode reference=
+=20
+count leak?
+
+[ ... ]
+
+> +static int max_ser_read_reg(struct i2c_adapter *adapter, u8 addr,
+> +			    u16 reg, u8 *val)
+> +{
+> +	u8 buf[2] =3D { reg >> 8, reg & 0xff };
+> +	struct i2c_msg msg[2] =3D {
+> +		{
+> +			.addr =3D addr,
+> +			.flags =3D 0,
+> +			.buf =3D buf,
+> +			.len =3D sizeof(buf),
+> +		},
+> +		{
+> +			.addr =3D addr,
+> +			.flags =3D I2C_M_RD,
+> +			.buf =3D buf,
+> +			.len =3D 1,
+> +		},
+> +	};
+> +	int ret;
+> +
+> +	ret =3D i2c_transfer(adapter, msg, ARRAY_SIZE(msg));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	*val =3D buf[0];
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Is it safe to pass a stack-allocated buffer to i2c_transfer()?=20
+       =20
+Because many underlying I2C controller drivers utilize DMA for data transfe=
+rs,=20
+passing stack-allocated memory can be unsafe and trigger panics or data=20
+corruption, especially with CONFIG_VMAP_STACK enabled.
+
+> +static int max_ser_write_reg(struct i2c_adapter *adapter, u8 addr,
+> +			     u16 reg, u8 val)
+> +{
+> +	u8 buf[3] =3D { reg >> 8, reg & 0xff, val };
+> +	struct i2c_msg msg[1] =3D {
+> +		{
+> +			.addr =3D addr,
+> +			.flags =3D 0,
+> +			.buf =3D buf,
+> +			.len =3D sizeof(buf),
+> +		},
+> +	};
+> +	int ret;
+> +
+> +	ret =3D i2c_transfer(adapter, msg, ARRAY_SIZE(msg));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Similarly, does this stack-allocated buffer face the same DMA safety issues=
+=20
+when passed to i2c_transfer()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-gmsl2-3_se=
+rdes-v12-0-b26d92931196@analog.com?part=3D14
