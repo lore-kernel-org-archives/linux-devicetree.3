@@ -1,228 +1,186 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2132.outbound.protection.partner.outlook.cn [139.219.17.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD82364049;
-	Thu, 21 May 2026 08:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779353559; cv=none; b=iP71K4p/2aXJLjvioaVRmW6s7TRwlAa0BG46X0hM1vobgpjtv81TmgAlvtA9sNWQZS6xWXSvktEHZ2UMUN1Mq5/g8THXSYb2J1Yd0aJZpw6Pqrn/Z/tI6HbYwSvofM6lU55r6MnR5M1IOEMGhwQVpj182ioflPpmZdCUetv7R/w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779353559; c=relaxed/simple;
-	bh=Z0l6n+8KPWLfEXEGyF2doqbUOXPnz/AqIuOLLkx1gMA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mEPCg4GAm6NaJzjtr+3es2wBidoTjem/BuvbcpSHsRQ8r0XX7c73Afytnggfk66rWI6engeXtTPQC/qjgsR/bYvRAQBlwdarX/7nVTGWyUfrlvBvltT9cUlotLCwWuo14JFEd6Gt1ktXgRYkGggapM04pm04BCwIwkyXbTU36dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=a5ZGiPtb; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="a5ZGiPtb"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DA9EC447707;
-	Thu, 21 May 2026 10:52:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1779353554; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=CcYqCiCTpSF2c1/Tx3uk0iXJngFvjxCHybS5Uhc3c/4=;
-	b=a5ZGiPtbPgU8pPdwVoufxmAErYMUVdxuBNs3rB9CwpeCVzqrs3NhjnOpYP6XBOBt6EdHH8
-	bQqthAyafa3D6Tw0dzhAKdD1pow1T/JhVwsUCbPKUfC0iuzJZqoNv8bPeturebtYhsR4ml
-	tuGL7mKlK9G24quzCdMjR3NmbPovw7a82H2/DC1I/JM/PX8y0+PuoF2hT53iY6lnUfPTjX
-	u8C62wyY7IxNFszJvlNvQflaaMxZgMhbzsTqdoNu5Ht3u6bjtLU0M1fUlS8ahSbtAeUUX5
-	Tkm+E1D+hBXkEq0+UO+kRBKU/Tv2aGKR7dz3hz+VNRPBfR9NzGXV/a5G84WWQw==
-Message-ID: <6ee00f5a-627e-4d1f-b73a-276cc3252042@cjdns.fr>
-Date: Thu, 21 May 2026 10:52:33 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC16828B4FD;
+	Thu, 21 May 2026 08:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.132
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779353596; cv=fail; b=cGquz1AZWcKNeb27DoiI1M6vtF7HF+d6Vih5gvtBscM+rJHvrSMhRXFQRwD8Oo4ZfXAY0ye6Jv5CWTrHr2tfRQCiuiXEl07MBF7/+WLV+ps3raw5CKXdZIlCPs5lwvQ4xK8udasz12c88ktDoLqvUSusaw7l9umsJ5AAK9HxAtc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779353596; c=relaxed/simple;
+	bh=Fhwwfh9oA4C6WGkBCU+3ANCJ4Z3H+eXnppFYFO+jmGw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hkzs1stYPhxOTxQffh+51Hb0Ovg1FbHBVs9rApBS80DsDhVwEzjNFqSasRzOPKCKKEvMvf4ZNl1NZeQ3c0Nx92SEO1KEucwCFk7kfpBDKucMyjWs+pR4USdj76QyAJL/OEeLa8uOqAi8PpgTyPj0NaclcDrIRXpmxUqV2WFDSFM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GGJTbzBtdhtgbeMu0358mWfj5M+Ge4htWKFtFLPJbkHVW+xTntiWF+jbp+WhaPGWE3UbPo9OJf40oZF/Sp51p97UtF1UjZwzrpPNXh2BZK0FaWurw9fETlhD6XwUxcbBl2NADLciDwagipprG60XXbTuUsvZMWxIve4Jzwtv0w0oRBwxxuzuL4z8wJBrH8cNBLSdiR+vz2CRPZ2ftQtn+Fjlp+8pN9bVUHz+9GB9k/P3L4T5vsWlJdSSuefihxQ2YGNhzxuV14vEejd4PRzatjjVAqg3ouLur9pqz5LBOa4hLcGLXJdGg8149yzuXo3YkJtmAbtYMF04Vr3r/SpJaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fhwwfh9oA4C6WGkBCU+3ANCJ4Z3H+eXnppFYFO+jmGw=;
+ b=BYf4jw9TXrD3mH4ZMdlH0VhOVJ/5OJQSlDfgO0Nwac13XNL4qKjMlL2rTBkISiOCMboMaxNCk4+tumBW4YFAY/6OAII3IIkrlyMZ9XXzkiCWtIi6OaODX3frzsllz7iKZ7YNwe/EXJ5ZttHKkDsS0Iyr1aWPJTA5A0DGy3aoTbLfvQmd6TPre/BME4xY6S/vJZy3byjjgKDytff8gkvSj52Xb2JG+BaMkrHpMvYRYVlzJ9xfA4L97E9s9sMB7P8yRBZPpHlq3tZW0gVfBs1gc8c3RvUOh3UCtLUm+VhX/dzaXI40noNhCUJUYcAA2xDCdYKArguJBMpDb2yEvmlTBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:8::10) by NTZPR01MB1067.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:9::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
+ 2026 08:37:26 +0000
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ ([fe80::d8e2:3f39:6ae7:bdf2]) by
+ NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::d8e2:3f39:6ae7:bdf2%6])
+ with mapi id 15.21.0048.016; Thu, 21 May 2026 08:37:26 +0000
+From: Xingyu Wu <xingyu.wu@starfivetech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>
+Subject: RE: [PATCH v1 1/2] bindings: iio: adc: Add StarFive JHB100 SARADC
+Thread-Topic: [PATCH v1 1/2] bindings: iio: adc: Add StarFive JHB100 SARADC
+Thread-Index: AQHc5p77jQOM2JwohkK7qO7svRU7q7YW0a+AgAFaAzA=
+Date: Thu, 21 May 2026 08:37:26 +0000
+Message-ID:
+ <NTZPR01MB0956253C288738D28DE10BB49F0E2@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+References: <20260518081852.116909-1-xingyu.wu@starfivetech.com>
+ <20260518081852.116909-2-xingyu.wu@starfivetech.com>
+ <cee001b1-eca4-427d-8803-56eb620a698c@kernel.org>
+In-Reply-To: <cee001b1-eca4-427d-8803-56eb620a698c@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NTZPR01MB0956:EE_|NTZPR01MB1067:EE_
+x-ms-office365-filtering-correlation-id: e95975ca-ac15-4887-3374-08deb7142fce
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|22082099003|56012099003|18002099003|4143699003|3023799007|38070700021;
+x-microsoft-antispam-message-info:
+ Umx+/kuqwGOarrsgqW5U/Q/wmdMooFmAuzIDZ/nafFGUYlgKSn2dhP2hOVR8iWc13AaVVp9QSK2dnGS8KaSBiXMYGFOy5LV5kElWntJ4+c0Od4KjzlkZCdL322l2jpUMr8RsWGIp8BHgLqoX7cM1d0zkfTQnGJrDdhJV0vywRwMvfG3eHg98vD/KhnZt4ksSpik/zZf1kktNYGcUbC/BUFy6Crt4XV3lAUcCS7Fp56J+eMJQAtpi48J4n0J8MZdeuN2C0dG3ksoKWMyiyegtJKVu7pjSVJllhWiBrwDp2NcpfyZmJ71WjdcABnU+Ci6cbJmIwNbIbAWH3ExEpym5L001eXz3yghGTPi6YcTu4F2zi5mG3fakSN6PJdEX/qg5FvYrMBtG0aISfJ8pz9ZIZqhPHGogY/9pj61BRbnw6wCsJUh0s33PD+FZu8GozKVTEmZExvf84Kx1ruCPx6FUb5FVrjSu04rXdivOpQ1tmRhmTyz9YDx67LEnxHOwEbjtqHDx/+OPBF1Npyc1FUl06xLZhj6H5TgaOGG0nWf/cYUYxXWykHHElDjSrI9aeQvV
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(56012099003)(18002099003)(4143699003)(3023799007)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?TkE5d2ptQ2I1MUZENkEydEYrMjBVWDNtTktOQ1lhbC9WTVFqSWNDcWpKb3lF?=
+ =?utf-8?B?bWkvc3I0SExEVjF5YnNJOHFIRlh4UklqUDNXL3ZMbzNZZGVuMUtHR3YvNlNL?=
+ =?utf-8?B?R3ZxN3JRSXVKczRFZzRQcU9yMmFyWWphejZTb2tyM0N2TVROTU5jM2dCK0dk?=
+ =?utf-8?B?U2E1a2pqV3hoVGxrODhiWm5RQ2F3R2VwblV3N0R6REErMFVuRnljbXlWd0lm?=
+ =?utf-8?B?S3FRdFNPYndLWDdncVYrNFN4d1lPZU8rNlZnM0ZKbytVY1FWNGExT1N3SlZR?=
+ =?utf-8?B?MkJVYnI3OVRIZlQ5VzJBcEw1d2JES3ZFdG8yWnNBTGRhVm1SZ0NObzF6Wldw?=
+ =?utf-8?B?VmRzVU1FREt3SFN5elkweXpCU2R1d05ZMWdUcUVnendiZWVZNzdkeGV4VkxC?=
+ =?utf-8?B?RnlRalZhbnBMM3MrRFRMSUtQSk9rdnlIVXhwRldVZ2grYWVJRk5zVysxTkJP?=
+ =?utf-8?B?S0M3ejZ1L3RZSzVYRjcyaHBWOXY1RzIrZHVnTUxTeTIybGprYVpHcC9SVFJX?=
+ =?utf-8?B?MFVka0JMYkhvZ3A2bmtSdTMzc3kyUTlHNXMxUVIwbzl5SjdOWWh1NzJKdTFX?=
+ =?utf-8?B?dzBXKzVjVG5uYVlsNi9DMSt2K29jcENhdlJiY0FVT1FhTy95di9NaTdhUVFF?=
+ =?utf-8?B?Z1Z2WVJaMmFiNE4wNy9zeURLUWdHcE5jWWhYcDVsV1hZZ0VBS241Y2hmZ2dj?=
+ =?utf-8?B?WlRsQnBaZkV6R3hoL2c4S1JtV3Y3aVIxSG9IeTBxTVdEb2h4QVR5ZUJWUEJj?=
+ =?utf-8?B?UEd5QTcyYXljVWdtd3VwU1VIeEhubng4aXN4VkZCUnlTa3lJczZpdWVTcFlG?=
+ =?utf-8?B?bk9DcmdBOUg1UmlIMUVXM3JzWTlIQVhjaGNjVEM1UUVNSmdyQTRtZ05CeEVj?=
+ =?utf-8?B?K09DWUhtREJlMFd5alRQMVRONjU2Z21pSnd4Y1BOWTgzMk1nRlU5dVZ1U29W?=
+ =?utf-8?B?ZytHK2RGY1FIbHJYSlk0WWVnQWR4QU5JQmF1bjFOWmgrc0VUSkozS3YwQ1Vz?=
+ =?utf-8?B?S0JRMml5SHgybWJtZnlaUlRSSS8zQjhaR3g0TWExM2d4dkg1UENtQnNBR2Rr?=
+ =?utf-8?B?ZW5jT3hVR3I3Y21GN3RTY2JjNnV2ZFBNampGWkpQU1JIK2tjR3I1c2orK2p0?=
+ =?utf-8?B?cmI2TU9oNG9qQlpLNElDR3ZKTWFQV21lR1lJL1ByNUJMTjV1UWtKYzR0V0Fm?=
+ =?utf-8?B?bHRpYStMN0h5RXlINUFoNHV0T3JnNmZlWkxWTlh6Snh0bXdyNVg2L1FwV3Rp?=
+ =?utf-8?B?eWZISkdTRnI4VkZ3U20yV1YwZnNWNEJhNjgxM09zWlBDQUh6Z0VNL0FDYlhl?=
+ =?utf-8?B?dXJ4VlBVM05QNllWdzE0Qms0MzFCUXNKckhHKzJuVWJQem1peWU0b3RpTGdR?=
+ =?utf-8?B?UlI1a1Yxb0JhYTdvb2psVmljRk5HWFBsZnZ0dFlBTmR3YWxkN2RZbHArVlVB?=
+ =?utf-8?B?NjRSUHRtSDBHWVdjVERUOVd1Nm9nTE1tbXg2S1VUTmVXN283WjBYdHFWSUNK?=
+ =?utf-8?B?QnVSWE1UWGRFVWRjaU1ObFEvN0ZKbkFseUtYajBNT2prZ1F4QU53YnhCN1BO?=
+ =?utf-8?B?V1NBWmptYW02Y1VrMXJoMmtoeUJSUjlkMm9yanoxbzJDeFdQSGtPRCthSktF?=
+ =?utf-8?B?SGxEQUFoNlovbkhXMFpFUHVXVG9yMW1nQWRwcHVEN0FpczlVRzVIUHNyejlT?=
+ =?utf-8?B?OWVzWFBNaHIwSjdZYmNuR1c1eDJRSXdOUmZQU1BlWEZNMkJrSXRtZUVlRytx?=
+ =?utf-8?B?M0NtSkRtbEdTS1JLWmMrS2V2cXdrR0tiVkFjQmZGYzYvRFNicXBTQnpFMjRl?=
+ =?utf-8?B?eVNySkpXV0RVVHlGY3dyK0ZSUkFob3RiYmE2NUhGZTB3cnpLSTI2c1V6MmZN?=
+ =?utf-8?B?djh5K2RVeEpxR2I0NlJTdFVCSkYzVmlFTDRpbmJxZHdWTXJPc0FWZVpWVTdw?=
+ =?utf-8?B?WnQzelgwZzVhdkxweDlIZlIra09Kb1Q5bHhnSU5YWHd4VTJDMjV6aGtWdDRQ?=
+ =?utf-8?B?VDB1OGVIcFpUQ1RvYUh0WnBySkJjckJkV0lHZTI4cHkrUTA3aWM5Tkhudngx?=
+ =?utf-8?B?WmI3MEhWeVZSQ1ovNkdQN21iS3l5WWd5RjR1ZTZJOElESGN5enVDS0VFeEln?=
+ =?utf-8?B?dFduR0lQQ28xWGVHVHlESWt1SnBIVjB0SVVNYjNUSzY0bVpoZUhVZjViSUNn?=
+ =?utf-8?B?NzEvK0w4dmlNazhVNS9WTFdOT0ZqVWs5L0hBaVpWalBhdkhVZmttcnIxK2l1?=
+ =?utf-8?B?andaSjNoQVVCQy9SbkdCMXpkNjYvUjlTNTJ4emVJV2p2WTF1RHIzSDQ3VjJI?=
+ =?utf-8?B?ei94R2ZYVXVWZ2t5aE9UbExibHhFN1dzVXR6Tk1oN2d2Sy90SHNYQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v8 3/3] PCI: mediatek: Add support for EcoNet EN7528 SoC
-To: Manivannan Sadhasivam <mani@kernel.org>, sashiko-reviews@lists.linux.dev
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20260520183827.908243-4-cjd@cjdns.fr>
- <20260520195806.4726A1F000E9@smtp.kernel.org>
- <r2l6c665a3feivxabhlkqx5hghvg4s6spxz7xmqvlxawqijkub@qz3gcdxuavf7>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <r2l6c665a3feivxabhlkqx5hghvg4s6spxz7xmqvlxawqijkub@qz3gcdxuavf7>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: e95975ca-ac15-4887-3374-08deb7142fce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2026 08:37:26.1970
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AGMzCaZSs6m+tG+/LwQTJ2ujy4xzw1DWsfXKqob1Xn4c9tikrE2L/sw3pQDlw6UVHu0Ad8oX1X8BFlmHMQqb1KTsWa+LGgsf2eq4O2yduPw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1067
 
-
-On 21/05/2026 09:33, Manivannan Sadhasivam wrote:
-> On Wed, May 20, 2026 at 07:58:05PM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
->>
->> New issues:
->> - [High] Link retraining is performed after device enumeration and driver binding, causing a severe race condition.
->> - [High] Iterating the PCI bus devices list without holding the pci_bus_sem read lock.
->> - [Medium] Early return in mtk_pcie_retrain() aborts retraining of all remaining root ports if a single port fails.
->>
->> Pre-existing issues:
->> - [High] Freeing port in error paths causes a Use-After-Free because the active IRQ domain's host_data still points to it.
->> --
->>
->> commit c1c3bb9bcba6bb8a070037578912a2f02c381591
->> Author: Caleb James DeLisle <cjd@cjdns.fr>
->> Subject: PCI: mediatek: Add support for EcoNet EN7528 SoC
->>
->> This commit adds support for the PCIe controller present on the EcoNet
->> EN7528 (and EN751221) SoCs. These SoCs feature a mix of Gen1 and Gen2 ports,
->> and require a manual link retraining after startup for Gen2 ports to function.
->>
->>> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
->>> index c503fbd774d09..4e4d4b1559f71 100644
->>> --- a/drivers/pci/controller/pcie-mediatek.c
->>> +++ b/drivers/pci/controller/pcie-mediatek.c
->> [ ... ]
->>
->>> @@ -755,6 +766,132 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
->>>   	return 0;
->>>   }
->>>   
->>> +static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
->>> +{
->> [ ... ]
->>
->>> +	/* 100ms timeout value should be enough for Gen1/2 training */
->>> +	err = regmap_read_poll_timeout(pcie->cfg, EN7528_LINKUP_REG, val,
->>> +				       !!(val & link_mask), 20,
->>> +				       PCI_PM_D3COLD_WAIT * USEC_PER_MSEC);
->>> +	if (err) {
->>> +		dev_err(pcie->dev, "EN7528: port%d link timeout\n", port->slot);
->>> +		return -ETIMEDOUT;
->>> +	}
->> [Severity: High]
->> This is a pre-existing issue, but returning an error here can cause a
->> use-after-free crash.
->>
->> When a port fails to start up (for example, if the slot is empty and link
->> training times out), the caller frees the port structure by calling
->> mtk_pcie_port_free(). However, mtk_pcie_port_free() does not call
->> irq_domain_remove().
->>
->> Since mtk_pcie_init_irq_domain() sets the newly allocated port structure
->> as the IRQ domain's host_data, the domain remains registered with a
->> dangling pointer.
->>
->> Could we make sure the IRQ domain is properly cleaned up in error paths?
->>
->> [ ... ]
->>
-> This is a valid concern. I've sent the fix for it:
-> https://lore.kernel.org/linux-pci/20260521071907.13614-1-manivannan.sadhasivam@oss.qualcomm.com/
-Would you like me to integrate that in my patchset or is it sufficiently 
-decoupled that it should be handled separately ?
->>> +static int mtk_pcie_retrain(struct device *dev, struct pci_host_bridge *host)
->>> +{
->>> +	struct pci_dev *rp;
->>> +	int ret = -ENOENT;
->>> +	u16 lnksta = 0;
->>> +	u32 speed;
->>> +
->>> +	/* Should already have been warned about during startup_port */
->>> +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK))
->>> +		return 0;
->>> +
->>> +	for_each_pci_bridge(rp, host->bus) {
->> [Severity: High]
->> Does iterating the PCI bus devices list here require holding the pci_bus_sem
->> read lock?
->>
->> Since mtk_pcie_retrain() is called after pci_host_probe() completes, the PCI
->> bus is live and devices are exposed to the system. Concurrent operations like
->> sysfs hotplug events could modify the host->bus->devices list during traversal.
->>
->> Should we hold down_read(&pci_bus_sem) or use pci_walk_bus() to avoid a race
->> condition?
->>
-> This is also a valid concern. You should wrap the loop with 'pci_bus_sem'. I see
-> a few other drivers are also doing the same, but I'll fix them separately.
-OK
->>> +		if (pci_pcie_type(rp) != PCI_EXP_TYPE_ROOT_PORT)
->>> +			continue;
->>> +
->>> +#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
->>> +		ret = pcie_retrain_link(rp, true);
->>> +#endif
->>> +
->>> +		if (ret)
->>> +			return dev_err_probe(&rp->dev, ret,
->>> +					     "failed to retrain port\n");
->> [Severity: Medium]
->> Will this early return abort the retraining process for all remaining root
->> ports?
->>
->> If pcie_retrain_link() fails on the first port, we immediately break out of
->> the loop.
->>
->> Should this log the error and use continue instead, so that a failure on one
->> independent slot does not prevent the others from retraining successfully?
->>
-> This you can ignore as we should treat retrain failure for a single Root Port as
-> a hard failure.
-Agreed
->>> +
->>> +		pcie_capability_read_word(rp, PCI_EXP_LNKSTA, &lnksta);
->>> +		speed = lnksta & PCI_EXP_LNKSTA_CLS;
->>> +
->>> +		pci_info(rp, "link retrained, speed %s\n",
->>> +			 pci_speed_string(pcie_link_speed[speed]));
->>> +
->>> +	}
->>> +
->>> +	return 0;
->>> +}
->> [ ... ]
->>
->>> @@ -1159,6 +1296,13 @@ static int mtk_pcie_probe(struct platform_device *pdev)
->>>   	if (err)
->>>   		goto put_resources;
->>>   
->>> +	/*
->>> +	 * Ignore error because pci_host_probe() was already called, and in any
->>> +	 * case it is possible that the port will still work as Gen1.
->>> +	 */
->>> +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN)
->>> +		mtk_pcie_retrain(dev, host);
->>> +
->> [Severity: High]
->> Can retraining the link at this stage cause issues with actively bound endpoint
->> drivers?
->>
->> By the time pci_host_probe() returns, devices have already been discovered,
->> exposed to the system, and their drivers bound. Retraining the PCIe link forces
->> it into recovery, which could stall transactions or temporarily drop the link.
->>
->> If an endpoint driver (like NVMe or Wi-Fi) is actively performing MMIO or DMA,
->> could this cause unhandled exceptions, AER errors, or initialization failures?
->>
->> Would it be safer to retrain before devices are added to the system (e.g.,
->> before pci_bus_add_devices())?
->>
-> This can also be ignored as you don't have much choice here. Once the driver is
-> bound to the device, doing any link level activity without quiescing the device
-> warrants trouble. But since it happens right after the pci_host_probe(), most
-> likely the client drivers wouldn't have started functioning i.e., initiating DMA
-> transfers etc... So the chances of failure are very less.
-
-
-I was just looking though the initialization process, and I notice that 
-pcie_failed_link_retrain() is called unconditionally and it LOOKS like 
-it ought to be solving our problem. So I'm going to throw a bunch of 
-logs in there and see what's going on, and whether it seems like we can 
-safely piggyback on that for EcoNet, and I'll come back with a v9 which 
-either switches to that, or else adds the pci_bus_sem and continues with 
-the mtk_pcie_retrain solution.
-
-
-Thanks,
-
-Caleb
-
-
->
-> - Mani
->
+T24gMjAyNi81LzIwIDE5OjU1LCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOg0KPiANCj4gT24g
+MTgvMDUvMjAyNiAxMDoxOCwgWGluZ3l1IFd1IHdyb3RlOg0KPiA+IEFkZCB0aGUgbmV3IGRvY3Vt
+ZW50YXRpb24gb2YgU0FSLUFEQyBmb3IgdGhlIFN0YXJGaXZlIEpIQjEwMCBTb0MuDQo+ID4NCj4g
+PiBTaWduZWQtb2ZmLWJ5OiBYaW5neXUgV3UgPHhpbmd5dS53dUBzdGFyZml2ZXRlY2guY29tPg0K
+PiANCj4gUGxlYXNlIHVzZSBzdWJqZWN0IHByZWZpeGVzIG1hdGNoaW5nIHRoZSBzdWJzeXN0ZW0u
+IFlvdSBjYW4gZ2V0IHRoZW0gZm9yIGV4YW1wbGUNCj4gd2l0aCBgZ2l0IGxvZyAtLW9uZWxpbmUg
+LS0gRElSRUNUT1JZX09SX0ZJTEVgIG9uIHRoZSBkaXJlY3RvcnkgeW91ciBwYXRjaCBpcw0KPiB0
+b3VjaGluZy4gRm9yIGJpbmRpbmdzLCB0aGUgcHJlZmVycmVkIHN1YmplY3RzIGFyZSBleHBsYWlu
+ZWQgaGVyZToNCj4gaHR0cHM6Ly93d3cua2VybmVsLm9yZy9kb2MvaHRtbC9sYXRlc3QvZGV2aWNl
+dHJlZS9iaW5kaW5ncy9zdWJtaXR0aW5nLQ0KPiBwYXRjaGVzLmh0bWwjaS1mb3ItcGF0Y2gtc3Vi
+bWl0dGVycw0KDQpOb3RlZC4NCg0KPiANCj4gPiAtLS0NCj4gPiAgLi4uL2lpby9hZGMvc3RhcmZp
+dmUsamhiMTAwLXNhcmFkYy55YW1sICAgICAgIHwgNjIgKysrKysrKysrKysrKysrKysrKw0KPiA+
+ICAxIGZpbGUgY2hhbmdlZCwgNjIgaW5zZXJ0aW9ucygrKQ0KPiA+ICBjcmVhdGUgbW9kZSAxMDA2
+NDQNCj4gPiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaWlvL2FkYy9zdGFyZml2
+ZSxqaGIxMDAtc2FyYWRjLnlhbWwNCj4gPg0KPiA+IGRpZmYgLS1naXQNCj4gPiBhL0RvY3VtZW50
+YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9paW8vYWRjL3N0YXJmaXZlLGpoYjEwMC1zYXJhZGMu
+eWFtDQo+ID4gbA0KPiA+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2lpby9h
+ZGMvc3RhcmZpdmUsamhiMTAwLXNhcmFkYy55YW0NCj4gPiBsDQo+ID4gbmV3IGZpbGUgbW9kZSAx
+MDA2NDQNCj4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLmJhOGUxOWI3MmFkNw0KPiA+IC0tLSAvZGV2
+L251bGwNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaWlvL2Fk
+Yy9zdGFyZml2ZSxqaGIxMDAtc2FyYWRjDQo+ID4gKysrIC55YW1sDQo+ID4gQEAgLTAsMCArMSw2
+MiBAQA0KPiA+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMCBPUiBCU0QtMi1D
+bGF1c2UpICVZQU1MIDEuMg0KPiA+ICstLS0NCj4gPiArJGlkOg0KPiA+ICtodHRwOi8vZGV2aWNl
+dHJlZS5vcmcvc2NoZW1hcy9paW8vYWRjL3N0YXJmaXZlLGpoYjEwMC1zYXJhZGMueWFtbCMNCj4g
+PiArJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1hcy9jb3JlLnlhbWwj
+DQo+ID4gKw0KPiA+ICt0aXRsZTogU3VjY2Vzc2l2ZSBBcHByb3hpbWF0aW9uIFJlZ2lzdGVyIChT
+QVIpIEEvRCBjb252ZXJ0ZXIgZm9yIHRoZQ0KPiA+ICtTdGFyRml2ZSBKSEIxMDAgU29DDQo+ID4g
+Kw0KPiA+ICttYWludGFpbmVyczoNCj4gPiArICAtIFhpbmd5dSBXdSA8eGluZ3l1Lnd1QHN0YXJm
+aXZldGVjaC5jb20+DQo+ID4gKw0KPiA+ICtwcm9wZXJ0aWVzOg0KPiA+ICsgIGNvbXBhdGlibGU6
+DQo+ID4gKyAgICBjb25zdDogc3RhcmZpdmUsamhiMTAwLXNhcmFkYw0KPiA+ICsNCj4gPiArICBy
+ZWc6DQo+ID4gKyAgICBtYXhJdGVtOiAxDQo+ID4gKw0KPiA+ICsgIGludGVycnVwdHM6DQo+ID4g
+KyAgICBtYXhJdGVtczogMQ0KPiA+ICsNCj4gPiArICBjbG9ja3M6DQo+ID4gKyAgICBtYXhJdGVt
+czogMQ0KPiA+ICsNCj4gPiArICByZXNldHM6DQo+ID4gKyAgICBtYXhJdGVtczogMg0KPiANCj4g
+TmVlZCB0byBsaXN0IGl0ZW1zLiBTZWUgd3JpdGluZyBiaW5kaW5ncy4NCg0KV2lsbCBmaXguDQoN
+Cj4gDQo+ID4gKw0KPiA+ICsgICIjaW8tY2hhbm5lbC1jZWxscyI6DQo+ID4gKyAgICBjb25zdDog
+MQ0KPiA+ICsNCj4gPiArICB1cHBlci1ib3VuZC1tdjoNCj4gPiArICAgIGRlc2NyaXB0aW9uOiBU
+aGUgdXBwZXIgYm91bmQgdm9sdGFnZSB2YWx1ZSBvZiB0aGUgbW9uaXRvci4NCj4gDQo+IFBsZWFz
+ZSByZWFkIHdyaXRpbmcgYmluZGluZ3MgYWJvdXQgcHJvcGVyIG5hbWluZy4NCg0KTm90ZWQuDQoN
+Cj4gDQo+IA0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMv
+dWludDE2DQo+ID4gKw0KPiA+ICsgIGxvd2VyLWJvdW5kLW12Og0KPiA+ICsgICAgZGVzY3JpcHRp
+b246IFRoZSBsb3dlciBib3VuZCB2b2x0YWdlIHZhbHVlIG9mIHRoZSBtb25pdG9yLg0KPiA+ICsg
+ICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDE2DQo+ID4gKw0K
+PiA+ICsgIHNjYW4tZnJlcToNCj4gPiArICAgIGRlc2NyaXB0aW9uOiBOdW1iZXIgb2YgdGhlIHNj
+YW4gY3ljbGUgaW50ZXJ2YWwuDQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9k
+ZWZpbml0aW9ucy91aW50MTYNCj4gPiArDQo+ID4gK3JlcXVpcmVkOg0KPiA+ICsgIC0gY29tcGF0
+aWJsZQ0KPiA+ICsgIC0gcmVnDQo+ID4gKyAgLSBpbnRlcnJ1cHRzDQo+ID4gKyAgLSBjbG9ja3MN
+Cj4gPiArICAtIHJlc2V0cw0KPiA+ICsgIC0gIiNpby1jaGFubmVsLWNlbGxzIg0KPiA+ICsNCj4g
+PiArYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlDQo+ID4gKw0KPiA+ICtleGFtcGxlczoNCj4g
+PiArICAtIHwNCj4gPiArICAgIGFkY0AxMWJlMTQwMCB7DQo+ID4gKyAgICAgIGNvbXBhdGlibGUg
+PSAic3RhcmZpdmUsamhiMTAwLXNhcmFkYyI7DQo+ID4gKyAgICAgIHJlZyA9IDwweDExYmUxNDAw
+IDB4NDAwPjsNCj4gPiArICAgICAgaW50ZXJydXB0cyA9IDwxNzI+Ow0KPiA+ICsgICAgICBjbG9j
+a3MgPSA8JnBlcjBjcmcgMTg+Ow0KPiA+ICsgICAgICByZXNldHMgPSA8JnBlcjBjcmcgMTE+LCA8
+JnBlcjBjcmcgNDY+Ow0KPiA+ICsgICAgICAjaW8tY2hhbm5lbC1jZWxscyA9IDwxPjsNCj4gPiAr
+ICAgICAgfTsNCj4gDQo+IE1lc3NlZCBpbmRlbnRhdGlvbi4NCg0KV2lsbCBmaXguDQoNCkJlc3Qg
+cmVnYXJkcywNClhpbmd5dSBXdQ0K
