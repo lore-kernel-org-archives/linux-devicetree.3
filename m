@@ -1,52 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9512C032C;
-	Thu, 21 May 2026 19:54:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3D5395AD7;
+	Thu, 21 May 2026 19:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779393264; cv=none; b=jYwW/j/SFM5ekzUVWPAzl/wjm4uvdQh+mq6iPdD2pRLd5MCU3uGTr1jAlDylzKCA6a1VFdne8ejX/fFRJEW7xtptciAyDzeIfge2b8nnEHlqJgfD+S0AEYNakcgQLHlHg7jAm2jA8nAWq+dFYWfKKeqi1GcpgvC+aFd9y8RzdUM=
+	t=1779393340; cv=none; b=XdZGzIXv71VpOpkuP8hXDxAQzZ76zYKJMNwT1Plful/FGPp2KE45/PkE71DkuMR08f0rm3kNlXmwF0ZpkzvgmQP++B/teKN+NIgI0KYa6rtYBN2+RTIhYqNhchzno6PRzqazHIToCRDhE7AAbW2oo02CliN+25NvWCJXLHkdqOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779393264; c=relaxed/simple;
-	bh=BccwlQfehmt7tR9gbkkxA27Vo1QNmFO/5BGH5wjKPyY=;
+	s=arc-20240116; t=1779393340; c=relaxed/simple;
+	bh=meelOKHExJiwf8dynD+pHxph07bjWntIQSl7UMpCqm8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e45D+qhEY+Ps2DH7ghlrYwKbw5WlWPvjIKBwl81darBglP1xPBjD0QqGr8Jowd0wGUQS4Or94cdK77M6ZYrEQc5DU0FiRQOytfnB6jq2RB4M+BD3T4s1cBUYKl5chvvLDHYsR/D+HS6gyt0qycgDe7tqTg32KXuPlc+5D3kuPxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WW+dJHmQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hV3JqQgdNt9ZaljNzt6f1QE83rfaykiHsfi+iNpasH7rlHJlGLvsudHQVsqjLxsNr4oc1zeQvXm0SuqBfRGFSDrxhbvVBAoDyZ8yoFbVefzDejEbamLPbFYu9dQF9t3nmIn6xElJiljJRsHke5OZpN7gmM/a/zKgTwzZgCJxYYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdI6OOrp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WW+dJHmQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5881F000E9;
-	Thu, 21 May 2026 19:54:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdI6OOrp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDBC1F000E9;
+	Thu, 21 May 2026 19:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779393263;
-	bh=E5qxMVU7KNeTp5Z9eD048xkheSqBuHU9Rf+lOSg5bZE=;
+	s=k20260515; t=1779393339;
+	bh=meelOKHExJiwf8dynD+pHxph07bjWntIQSl7UMpCqm8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WW+dJHmQVUmrlw5Sloc8UtUUdypQ0KChM61ytPXX9nOujJfAjfWMoKFbvKQzSXmK3
-	 JgizcQbvjJC+Zku1kqiWdFglDskPLCY//fkdHRlrUksi/I3iMSyjck49TIakUCXbgn
-	 M0kIJLSg9Zd03uvzutcXmITcSxCYG9l+KDNFDxZSVQ/S1pC+fHt0dw1gXU32o2looB
-	 /1LFgjkGQzXbF6loAylfFmyv+AgUjqqv3I2p+F2PnrPArq4p130j7DTK47rrC/nP21
-	 I2L2bHwkqjMaduSJ2RyGDy9zATsiCAHW9BInQ/hBKcf3eWQ6/WlKVUPhn1youHLV7t
-	 p66IaHTQnSviw==
-Date: Thu, 21 May 2026 20:54:16 +0100
+	b=PdI6OOrpIL4LgeV5Vo4QOWYf/HBJKgrjF81ZhU+jZby9j7ApcGEerRAgG/SuiYW69
+	 RnojvW0ZWjQx27UD7I3EDER8WPvzaqDZgQIdJWMgYW135hQcGeb5awNXe5MizYILY0
+	 VL6Z6B+3zy1DvKAOV6cuwFrwIuq12Tu/cmy9FHn7qjjR09MHHrtvbFylMdRmzPhC2U
+	 i66GkzIa75R0Y17c0nAQ2Zm1FjsVzoA0VeWX2htLE9xYmmPnVBdq43sKtr9zQnJ0vv
+	 VZVW6OE8qHpG4Gzc61uXOC2IEeFbZzMeNI9PsUDXQ3qUdBBXtBf2BDK/Uqz79IphnN
+	 acOM/lcssn/Hw==
+Date: Thu, 21 May 2026 20:55:34 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	andrzej.hajda@intel.com, neil.armstrong@linaro.org,
-	rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se, jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com, dianders@chromium.org,
-	m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 01/10] dt-bindings: display: rockchip: analogix-dp:
- Fix hclk as third clock for RK3588
-Message-ID: <20260521-waking-case-cd709f0a7712@spud>
-References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
- <20260521080835.1362416-2-damon.ding@rock-chips.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: document the Renesas
+ R63419 based dual-DSI video mode Display Panels
+Message-ID: <20260521-pants-discourse-463c9b3d9491@spud>
+References: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org>
+ <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-1-dd5700299390@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,169 +54,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="b8RwqbhFD4vyJf2C"
+	protocol="application/pgp-signature"; boundary="e2cD1x5BYJY6k8mo"
 Content-Disposition: inline
-In-Reply-To: <20260521080835.1362416-2-damon.ding@rock-chips.com>
+In-Reply-To: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-1-dd5700299390@linaro.org>
 
 
---b8RwqbhFD4vyJf2C
+--e2cD1x5BYJY6k8mo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 21, 2026 at 04:08:26PM +0800, Damon Ding wrote:
-> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
-> registers and enable the video datapath.
->=20
-> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
-> phandle reference, which allowed the eDP to work without explicitly
-> managing the hclk_vo1 clock. However, this is not safe or explicit.
->=20
-> To make the clock dependency explicit, enforce per-SoC clock-names
-> requirements:
->  - RK3288: 2 clocks (dp, pclk)
->  - RK3399: 3 clocks (dp, pclk, grf)
->  - RK3588: 3 clocks (dp, pclk, hclk)
->=20
-> Do not reuse the 'grf' clock name for RK3588 because it represents
-> a different clock with distinct control logic:
-> - The 'grf' clock is only for GRF register access and is toggled
->   dynamically during register access.
-> - The 'hclk' clock controls both GRF access and video datapath
->   gating, and must remain enabled during probe.
->=20
-> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add su=
-pport for RK3588")
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->=20
-> ---
->=20
-> Changes in v4:
-> - Modify the commit msg.
->=20
-> Changes in v5:
-> - Enforce the correct third clock name on a per-compatible basis.
-> - Modify the commit msg simultaneously.
->=20
-> Changes in v6:
-> - Expand more detail commit msg about using hclk instead of grf clock.
-> ---
->  .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
->  1 file changed, 33 insertions(+), 4 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
-hip,analogix-dp.yaml
-> index d99b23b88cc5..8001c1facf98 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> @@ -23,10 +23,7 @@ properties:
-> =20
->    clock-names:
->      minItems: 2
-> -    items:
-> -      - const: dp
-> -      - const: pclk
-> -      - const: grf
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Instead of removing this, you can make it
-
-items:
- - const: dp
- - const pclk
- - enum:
-     - grf
-     - hclk
-
-> +    maxItems: 3
-
-And delete this.
-
-> =20
->    power-domains:
->      maxItems: 1
-> @@ -60,6 +57,33 @@ required:
->  allOf:
->    - $ref: /schemas/display/bridge/analogix,dp.yaml#
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - rockchip,rk3288-dp
-> +    then:
-> +      properties:
-> +        clock-names:
-> +          items:
-> +            - const: dp
-> +            - const: pclk
-
-Then this becomes
-  clock-names:
-    maxItems: 2
-  clocks:
-    maxItems: 2
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - rockchip,rk3399-edp
-> +    then:
-> +      properties:
-> +        clock-names:
-> +          items:
-> +            - const: dp
-> +            - const: pclk
-> +            - const: grf
-
-maybe this needs a minItems: 3? Depends on if the grf clock is
-mandatory. Also probably needs a
-clocks:
-  minItems: 3
-if that's the case.
-
-> +
->    - if:
->        properties:
->          compatible:
-> @@ -68,6 +92,11 @@ allOf:
->                - rockchip,rk3588-edp
->      then:
->        properties:
-> +        clock-names:
-> +          items:
-> +            - const: dp
-> +            - const: pclk
-> +            - const: hclk
-
-And the same here as for the 3399.
-
-Cheers,
-Conor.
-
->          resets:
->            minItems: 2
->          reset-names:
-> --=20
-> 2.34.1
->=20
->=20
-
---b8RwqbhFD4vyJf2C
+--e2cD1x5BYJY6k8mo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag9i6AAKCRB4tDGHoIJi
-0qOeAP4/TIm4lNwVPo8oG7XgOK2ViaUmDDyl9A6OWsGUOnJ6mAD/VEkf8xDaid1h
-UX09FkCBYAnUiKsUzJi5SK/3mw2M8w4=
-=FcL6
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag9jNgAKCRB4tDGHoIJi
+0kOTAP9uDgLuQHo/c1M+3xHNQXDDibJiTEVAoM6FFPBUM+RAFAD+IHlM0//Pnhkf
+WTeXPlHUfSPbptIRpicFxSEkiYH/4A4=
+=szSe
 -----END PGP SIGNATURE-----
 
---b8RwqbhFD4vyJf2C--
+--e2cD1x5BYJY6k8mo--
