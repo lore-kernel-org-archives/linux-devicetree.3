@@ -1,121 +1,160 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9B693911CF
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C960A36B04E
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779342848; cv=none; b=IoPB7e8fgYIgq9LsA+37ekBh98Tu5NWP5k2SU809/LYRzH/11EQF3i5iwAYEc0n2hLDo1aEcaKo1BgPd9MG6rxI1Z1ObeA8iViReXhVsNP8xFHUDVVS4SPoVl49L3yFXjGEE8J4feGw+dXfmcG/X+6mGP0kGqoAVgK9PXVGIxTQ=
+	t=1779342954; cv=none; b=mpbc5odlP5mxcmgcbsemhmam3n7mBkYyxaNIXslad+JjHRBxk4U03UiUzLzBgssD/dU9JijaG4Siv7KnLdGHAkYH/F82xcmdmd0S/XjLFDCra1ktkgFCoZAPyB1G2nIU34sU3Zw0b6JYHiCpfJpxTOyBUW0VW9LrYcnq5GWAAxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779342848; c=relaxed/simple;
-	bh=PrzEVPE1NVt2zWq2dEmP0J7icRRx6uEnNKXegrCkRkM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=NxHmcTprzGmtkY80et5XHSFx5MC0+eg6eG1fU0iSplzfCw0ghsvHWt5nZFkd9IfGaFOQL8AFZ5EdUQM6je0LL4oY1if2wHLraCPVEzcdXq8ORP9vypp/s7DjQ7dZIKQAfZCWFoe1DG0217LwBMGGiTzDx35sSh049+7asa0Yp2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.175.55.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Thu, 21 May 2026 13:53:55 +0800 (GMT+08:00)
-Date: Thu, 21 May 2026 13:53:55 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: Re: Re: [PATCH net v2 2/5] net: stmmac: eswin: fix HSP CSR init
- ordering after clock enable
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <1b6c329a.8507.19e3fac06f0.Coremail.lizhi2@eswincomputing.com>
-References: <20260518022055.444-1-lizhi2@eswincomputing.com>
- <20260519022335.931D6C2BCB7@smtp.kernel.org>
- <1b6c329a.8507.19e3fac06f0.Coremail.lizhi2@eswincomputing.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1779342954; c=relaxed/simple;
+	bh=F7VqFNmZGbADQDE8OiZtq4IHfudgK7KwtlqE4HaJ6zw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BIfhmUhrInEiA3ycXAgRaUHHOe75V1UMykH3U4FoZCPh5e8DBWXNcm2qyW0tznzRBD89vACzc7Xw2PFhfovlaMbIrleh7ebKaOBhmsKDPWDObQWTwAiuiBa7XJZQ257q4hq4R+FwPKAZWgTUWYc8itNKjzfGTAcjzLXpokp+Iic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ckzqee7/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aZEpjkxt; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ckzqee7/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aZEpjkxt"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L2wXmS2180418
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:55:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bB29QB4y1Hf+TL1lvG+ncW8LElTa5mItRg7WxbcXeLY=; b=ckzqee7/9qSCrBMj
+	keOMfh7G7p2KguQL7LMcbKM3GSnqP1uRbmfzSNQIkTvOv1xjgYrpNq84XSPkrYW9
+	JXf17cN1ReHWSiGED8opxx6oStfDaNU/JnB47odu8D2buBV2H/lYD30cE/eVz8wP
+	VOP68A/7doxJxIGlACVv26Wll9iF881Tnc1o6+cLNpJRKHicmWblC8cwsiusMTy2
+	wKldKMBkjE64LLf2MdEqpz9hCKPcMKZ1+S8TtAj54NE+z5GLiKbCf5bjapA/fyAS
+	/9ljXFyxIFH2q/3FuWtxMvWErqrETwAbU1LKvFqWiMSyY0lwTdj7ck20NdQgT4q4
+	gvdBHw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9sr30jtb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 05:55:51 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b2e8bba2e6so81131925ad.1
+        for <devicetree@vger.kernel.org>; Wed, 20 May 2026 22:55:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779342951; x=1779947751; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bB29QB4y1Hf+TL1lvG+ncW8LElTa5mItRg7WxbcXeLY=;
+        b=aZEpjkxtW3VJlmiu2mlaKxXycoU6OfLpNCjqfqpRM2JznktNzUC0wbKUI32OMgm//H
+         zWU7A741K2pINgNNT9NmvYkTEM4R7EjQji8McKPq7sWTQqhZEah73bKFZBPtyH8D2ooc
+         JmBsDHKr6hMACpPAx5RgayebwNEGQ10kMaTkIpnDJY9ql1CdaYGSEbo1Qan1HcVHWkRT
+         WJXjfJarT7alyDuuRODeCRenAivgKJ8EtzgOE5/2YsB1866CTRZdbi8uwifD77RAxjzv
+         JHaMY4FhDItNG+X5NHDzb151tUuCAPnXZSgjjEpoGssoMWJ7CT8eEjxIoUoNN2gobrIK
+         lLNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779342951; x=1779947751;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bB29QB4y1Hf+TL1lvG+ncW8LElTa5mItRg7WxbcXeLY=;
+        b=LpJ/JXX+HgUO7yK0w4EtWeuGXBQSyRKzP9qkzP6nbnFj8NFAmJbEqUO2F8q1fu6W+N
+         TwqIR0bQKM1MRflic41/yHlLXVy8EsnwaWJVyS2H/CWlOmpWHQWIPBXnMbaTH7eXMDgB
+         JIWpC2j5NrOS0DrHV4VumDrSvaZtaChTpvqn5MMNl18t6dgbU+21A/+igdKLxJBWVxsn
+         lbgs/+whwc1yy+tA3w8ybyfVNSVW647yVghd7kDs0KnN9ZDSURN6cPxbW/uB/meVNQm/
+         oGXLB27jAn3c6I0k/MJ3mulEfhDjVJijJtLplfykKJhokQ4C4vRPkHLZpGbLMo9qvR4Z
+         ZQVg==
+X-Forwarded-Encrypted: i=1; AFNElJ+Jbr1EE3XEarq8+OzPzNKeF0MR/uSnbTawU2nO86v3zpaEmiH6cun/eQoVSx1UbxO06fOH6FN8Iv/1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzft6clCiJ75fmh8n2NMW0EsbMONBw5Ed9257Z9O66qJxxi6V3P
+	XZ+dW0OvJ+lWA2m1K8QTGBzEt+NXi5/3NPbqitr3PrdaWiGAskc2HRKTvONjfuA2k2BDvEn4a99
+	l1W7+JDRwx4XX6gOrqyNVezXQXsqKnlxeVtRSGpQigCb5WYT4yVBPX1+pGy5Vg2Ap
+X-Gm-Gg: Acq92OECshXHMGWnNwsX3s2I70Rbui0eoFjktxbCx0KtzcFWp8NF6jz2xPGdJ57+eWP
+	u8Sc+E27VhUTORyB1HK066xCj/HOa88GNChiA6hAVEPmYj0gpNEw/Cnj1KKyamzqdJvFilNf598
+	3bpsFpTEInjJvlB/46/GFYv1uwCvGVpzNXbibqTHrzqGPzOSzmm1TsadsCxjAyQNm1UHei6YdoO
+	2R9voBeqvnlmvmJe3do7QJwcLaQdF4E0C5vZGl6YuddikdKPcs7OU+8BYlSezrTTs0KNKVkkX08
+	Fx3X8SeYTUhaacMSPMJg2lencMjquySvfTt0GPLRL7XW2Im3FzUPqgMT45xC4LSmS69m3qmIUdn
+	6+g6jHynCpiUaFy9oPTlTshML2hbP7s3np3qyeYxXC8L4oJwoJ8dBLr6ClwKd
+X-Received: by 2002:a17:903:98c:b0:2b9:ff02:a14d with SMTP id d9443c01a7336-2bea33315admr15185295ad.18.1779342950672;
+        Wed, 20 May 2026 22:55:50 -0700 (PDT)
+X-Received: by 2002:a17:903:98c:b0:2b9:ff02:a14d with SMTP id d9443c01a7336-2bea33315admr15185015ad.18.1779342950241;
+        Wed, 20 May 2026 22:55:50 -0700 (PDT)
+Received: from [10.92.215.233] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5bd5f2cesm244847525ad.14.2026.05.20.22.55.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 May 2026 22:55:49 -0700 (PDT)
+Message-ID: <1de2e8a8-08ff-439a-a0a2-fc1387a7efd0@oss.qualcomm.com>
+Date: Thu, 21 May 2026 11:25:37 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <60a49202.8674.19e4918fd5c.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TAJkCgDHaXP0nQ5qtSwbAA--.7961W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEODGoN4pMQMAABs2
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] cpufreq: qcom: Add cpufreq scaling support for
+ Qualcomm Shikra SoC
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260519-shikra-cpufreq-scaling-v2-0-2b09f0e1c9d8@oss.qualcomm.com>
+ <20260519-shikra-cpufreq-scaling-v2-2-2b09f0e1c9d8@oss.qualcomm.com>
+ <fmqsbwm6is5qzflvyt53ax3ls5vnxabb2fbl4bttbcxjnhnwwu@x2jso7rr743y>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <fmqsbwm6is5qzflvyt53ax3ls5vnxabb2fbl4bttbcxjnhnwwu@x2jso7rr743y>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 0ZNTAtXfFoDLQODWO4iKRDv3qziy1W8z
+X-Proofpoint-ORIG-GUID: 0ZNTAtXfFoDLQODWO4iKRDv3qziy1W8z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA1NCBTYWx0ZWRfX7BcVLR+w8z/i
+ cfncqxnwxy79WIt/LV7+r9KOiHOkVTwapXXtv9vSNPjEXtubeBN+PWjw1P9dzQjfeMbCyMP0RAw
+ qcNS5/iLTV6gdyHh2H1q0Bi5Ck8bKXUYiYY/gLgjLCZOkjJ3FKpN45YG33GWuk8LCdE3cCPfl52
+ Wc75/1V8NkcOS7WjZtw4e1UJiu5fmozBQu/BGT1Nr/BbAGa7P7dDB3E1zITARCeNQzKHljZjyQi
+ NiIqt0g3jNXH4jb66LofdPTOBapG62WlsMCMf1mwoxDQds1QiqlvzUtxrvv2DFkpyPUDCz1Vq/D
+ Y+2UPRjB9SfvObILY7UfNHoc/o5HTgsIXgB+clxfS5gzexwi/ZMo+S2KUlIZP3H6bSBCRcf0KCz
+ yVurmn7URACtirB0/snerEstBRcDE3VpVk2uQSKntWaYFv+fLRKYTaG3dSqwAPlooM7by6xN4aT
+ TucThNouy2woTCnz6/w==
+X-Authority-Analysis: v=2.4 cv=L+YtheT8 c=1 sm=1 tr=0 ts=6a0e9e67 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=Flm-1UoPJwoPlLdpieMA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-20_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210054
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiDmnY7lv5cgPGxpemhpMkBl
-c3dpbmNvbXB1dGluZy5jb20+Cj4gU2VuZCB0aW1lOlR1ZXNkYXksIDE5LzA1LzIwMjYgMTc6NTg6
-MTkKPiBUbzogc2FzaGlrby1yZXZpZXdzQGxpc3RzLmxpbnV4LmRldgo+IENjOiBjb25vcitkdEBr
-ZXJuZWwub3JnLCBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZywgcm9iaEBrZXJuZWwub3JnCj4g
-U3ViamVjdDogUmU6IFJlOiBbUEFUQ0ggbmV0IHYyIDIvNV0gbmV0OiBzdG1tYWM6IGVzd2luOiBm
-aXggSFNQIENTUiBpbml0IG9yZGVyaW5nIGFmdGVyIGNsb2NrIGVuYWJsZQo+IAo+IAo+IAo+IAo+
-ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlcy0tLS0tCj4gPiBGcm9tOiBzYXNoaWtvLWJvdEBrZXJu
-ZWwub3JnCj4gPiBTZW5kIHRpbWU6VHVlc2RheSwgMTkvMDUvMjAyNiAxMDoyMzozNQo+ID4gVG86
-IGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20KPiA+IENjOiBjb25vcitkdEBrZXJuZWwub3JnLCBk
-ZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZywgcm9iaEBrZXJuZWwub3JnCj4gPiBTdWJqZWN0OiBS
-ZTogW1BBVENIIG5ldCB2MiAyLzVdIG5ldDogc3RtbWFjOiBlc3dpbjogZml4IEhTUCBDU1IgaW5p
-dCBvcmRlcmluZyBhZnRlciBjbG9jayBlbmFibGUKPiA+IAo+ID4gVGhhbmsgeW91IGZvciB5b3Vy
-IGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQgMSBwb3RlbnRpYWwgaXNzdWUo
-cykgdG8gY29uc2lkZXI6Cj4gPiAtIFtIaWdoXSBIYXJkd2FyZSBTdGF0ZSBMb3NzIG9uIFJlc3Vt
-ZTogVGhlIEhTUCBDU1IgcmVnaXN0ZXJzIGFyZSBub3QgcmVzdG9yZWQgZHVyaW5nIHN5c3RlbSBy
-ZXN1bWUsIGNvbnRyYWRpY3RpbmcgdGhlIGNvbW1pdCBtZXNzYWdlLgo+ID4gLS0KPiA+IAo+ID4g
-Y29tbWl0IDYyN2Y1MTBlZTU1NmZmNDMyMmUwZjRlZDBiNjBmZGQyNzMzNzA4MGYKPiA+IEF1dGhv
-cjogWmhpIExpIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgo+ID4gCj4gPiBuZXQ6IHN0bW1h
-YzogZXN3aW46IGZpeCBIU1AgQ1NSIGluaXQgb3JkZXJpbmcgYWZ0ZXIgY2xvY2sgZW5hYmxlCj4g
-PiAKPiA+IFRoaXMgY29tbWl0IG1vdmVzIHRoZSBIU1AgQ1NSIGNvbmZpZ3VyYXRpb24gaW4gdGhl
-IEVJQzc3MDAgRFdNQUMgZ2x1ZSBkcml2ZXIKPiA+IGludG8gdGhlIHBvc3QtY2xvY2stZW5hYmxl
-IGluaXRpYWxpemF0aW9uIHBhdGggdG8gZW5zdXJlIHByb3BlciBvcmRlcmluZy4KPiA+IFRoZSBp
-bnRlbnQgaXMgdG8gcHJldmVudCByZWdpc3RlciBhY2Nlc3MgYmVmb3JlIGNsb2NrIGVuYWJsZW1l
-bnQgYW5kIGVuc3VyZQo+ID4gZGV0ZXJtaW5pc3RpYyBpbml0aWFsaXphdGlvbiBkdXJpbmcgcHJv
-YmUgb3IgcmVzdW1lLgo+ID4gCj4gPiA+ICAgICBUaGlzIGNoYW5nZSBlbnN1cmVzIGRldGVybWlu
-aXN0aWMgaW5pdGlhbGl6YXRpb24gYW5kIHByZXZlbnRzCj4gPiA+ICAgICBjbG9jay1kZXBlbmRl
-bnQgcmVnaXN0ZXIgYWNjZXNzIGZhaWx1cmVzIGR1cmluZyBwcm9iZSBvciByZXN1bWUuCj4gPiAK
-PiA+IEFyZSB0aGUgSFNQIENTUiByZWdpc3RlcnMgYWN0dWFsbHkgcmVzdG9yZWQgZHVyaW5nIHN5
-c3RlbSByZXN1bWU/CgpOby4gVGhpcyB3YXMgc2ltcGx5IGEgbWlzdGFrZSBpbiB0aGUgY29tbWl0
-IG1lc3NhZ2UuIFRoZSBwYXRjaCBvbmx5CmFmZmVjdHMgdGhlIHByb2JlIHBhdGggd2hlcmUgZWlj
-NzcwMF9kd21hY19pbml0KCkgaXMgY2FsbGVkLgoKPiA+IAo+ID4gVGhlIGRyaXZlciBvdmVycmlk
-ZXMgdGhlIGNvcmUgcmVzdW1lIGNhbGxiYWNrIGJ5IHNldHRpbmcKPiA+IHBsYXRfZGF0LT5yZXN1
-bWUgPSBlaWM3NzAwX2R3bWFjX3Jlc3VtZS4gQmVjYXVzZSBhIGN1c3RvbSByZXN1bWUgY2FsbGJh
-Y2sgaXMKPiA+IHByb3ZpZGVkLCB0aGUgU1RNTUFDIGNvcmUgaW52b2tlcyB0aGlzIGluc3RlYWQg
-b2YgdGhlIGRlZmF1bHQKPiA+IHN0bW1hY19wbGF0X3Jlc3VtZSgpICh3aGljaCB3b3VsZCBoYXZl
-IGNhbGxlZCBwbGF0LT5pbml0KCkpLgo+ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25l
-dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1laWM3NzAwLmMgYi9kcml2ZXJzL25ldC9l
-dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1laWM3NzAwLmMKPiA+ID4gaW5kZXggYmNiOGUw
-MDBlNzIwYi4uNjMwMDFjNGFjZGI3YSAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9uZXQvZXRo
-ZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5jCj4gPiA+ICsrKyBiL2RyaXZlcnMv
-bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAuYwo+ID4gCj4gPiBbIC4u
-LiBdCj4gPiAKPiA+ID4gQEAgLTYxLDggKzY2LDI4IEBAIHN0YXRpYyBpbnQgZWljNzcwMF9jbGtz
-X2NvbmZpZyh2b2lkICpwcml2LCBib29sIGVuYWJsZWQpCj4gPiA+ICBzdGF0aWMgaW50IGVpYzc3
-MDBfZHdtYWNfaW5pdChzdHJ1Y3QgZGV2aWNlICpkZXYsIHZvaWQgKnByaXYpCj4gPiA+ICB7Cj4g
-PiA+ICAJc3RydWN0IGVpYzc3MDBfcW9zX3ByaXYgKmR3YyA9IHByaXY7Cj4gPiA+ICsJaW50IHJl
-dDsKPiA+ID4gKwo+ID4gPiArCXJldCA9IGVpYzc3MDBfY2xrc19jb25maWcoZHdjLCB0cnVlKTsK
-PiA+ID4gKwlpZiAocmV0KQo+ID4gPiArCQlyZXR1cm4gcmV0Owo+ID4gPiArCj4gPiA+ICsJcmV0
-ID0gcmVnbWFwX3NldF9iaXRzKGR3Yy0+ZWljNzcwMF9oc3BfcmVnbWFwLAo+ID4gPiArCQkJICAg
-ICAgZHdjLT5ldGhfcGh5X2N0cmxfb2Zmc2V0LAo+ID4gPiArCQkJICAgICAgRUlDNzcwMF9FVEhf
-VFhfQ0xLX1NFTCB8Cj4gPiA+ICsJCQkgICAgICBFSUM3NzAwX0VUSF9QSFlfSU5URl9TRUxJKTsK
-PiA+ID4gKwlpZiAocmV0KSB7Cj4gPiA+ICsJCWVpYzc3MDBfY2xrc19jb25maWcoZHdjLCBmYWxz
-ZSk7Cj4gPiA+ICsJCXJldHVybiByZXQ7Cj4gPiA+ICsJfQo+ID4gPiArCj4gPiA+ICsJcmVnbWFw
-X3dyaXRlKGR3Yy0+ZWljNzcwMF9oc3BfcmVnbWFwLCBkd2MtPmV0aF9heGlfbHBfY3RybF9vZmZz
-ZXQsCj4gPiA+ICsJCSAgICAgRUlDNzcwMF9FVEhfQ1NZU1JFUV9WQUwpOwo+ID4gPiAgCj4gPiA+
-IC0JcmV0dXJuIGVpYzc3MDBfY2xrc19jb25maWcoZHdjLCB0cnVlKTsKPiA+ID4gKwlyZWdtYXBf
-d3JpdGUoZHdjLT5laWM3NzAwX2hzcF9yZWdtYXAsIGR3Yy0+ZXRoX2Nsa19vZmZzZXQsCj4gPiA+
-ICsJCSAgICAgZHdjLT5ldGhfY2xrX2RseV9wYXJhbSk7Cj4gPiA+ICsKPiA+ID4gKwlyZXR1cm4g
-MDsKPiA+ID4gIH0KPiA+IAo+ID4gU2luY2UgZWljNzcwMF9kd21hY19yZXN1bWUoKSBvbmx5IGNh
-bGxzIHBtX3J1bnRpbWVfZm9yY2VfcmVzdW1lKGRldikgYW5kCj4gPiBkb2Vzbid0IGludm9rZSBl
-aWM3NzAwX2R3bWFjX2luaXQoKSwgdGhlIEhTUCBDU1IgY29uZmlndXJhdGlvbiB3b24ndCBiZQo+
-ID4gcmUtYXBwbGllZCB1cG9uIHN5c3RlbSByZXN1bWUuIElmIHRoZSBoYXJkd2FyZSBsb3NlcyBz
-dGF0ZSBkdXJpbmcgc3VzcGVuZCwKPiA+IHdpbGwgdGhlIFJHTUlJIGRlbGF5cyBiZSBwZXJtYW5l
-bnRseSBsb3N0LCBsZWFkaW5nIHRvIGEgTUFDIGhhbmcgb3Igc2lsZW50Cj4gPiBuZXR3b3JrIGZh
-aWx1cmU/Cj4gPiAKCk5vLiBUaGUgSFNQIENTUiByZWdpc3RlcnMgcmVzaWRlIGluIGEgcmV0ZW50
-aW9uIGRvbWFpbiBhbmQgcmV0YWluIHRoZWlyCnZhbHVlcyBhY3Jvc3Mgc3VzcGVuZC9yZXN1bWUu
-Cgo+ID4gQWxzbywgaWYgd2UgdHJ5IHRvIGZpeCB0aGlzIGJ5IG5haXZlbHkgY2FsbGluZyBpbml0
-KCkgZnJvbSByZXN1bWUoKSwgd291bGQKPiA+IGl0IGNhdXNlIGEgY2xvY2sgcmVmZXJlbmNlIGxl
-YWs/IHBtX3J1bnRpbWVfZm9yY2VfcmVzdW1lKCkgYWxyZWFkeQo+ID4gcmUtZW5hYmxlcyB0aGUg
-Y2xvY2tzIHZpYSB0aGUgcnVudGltZSBQTSBjYWxsYmFja3MsIHNvIHRoZSBDU1IgY29uZmlndXJh
-dGlvbgo+ID4gbWlnaHQgbmVlZCB0byBiZSBmYWN0b3JlZCBvdXQgaW50byBhIHNlcGFyYXRlIGhl
-bHBlciBmdW5jdGlvbi4KPiA+IAoKVGhlcmUgaXMgbm8gbmVlZCB0byBjYWxsIGVpYzc3MDBfZHdt
-YWNfaW5pdCgpIGZyb20gdGhlIHJlc3VtZSBwYXRoLApzaW5jZSB0aGUgcGF0Y2ggb25seSBjaGFu
-Z2VzIHRoZSBwcm9iZS10aW1lIGluaXRpYWxpemF0aW9uIG9yZGVyaW5nLgoKVGhhbmtzIGZvciB0
-aGUgcmV2aWV3LgoK
+
+
+On 20-05-2026 06:11 pm, Dmitry Baryshkov wrote:
+> On Tue, May 19, 2026 at 10:58:04PM +0530, Imran Shaik wrote:
+>> From: Taniya Das <taniya.das@oss.qualcomm.com>
+>>
+>> The Qualcomm Shikra cpufreq hardware is functionally identical to EPSS,
+>> but supports only up to 12 frequency lookup table (LUT) entries. Hence,
+>> add shikra_epss_soc_data that reuses EPSS configuration with appropriate
+>> LUT entries limit.
+> 
+> What is the drawback of not using the exact limit for the LUT table?
+> 
+
+Without the exact limit check, when all 12 entries are populated, the 
+existing repetitive-entry check may read beyond valid entries and expose 
+incorrect frequencies.
+
+I will update these details in the commit text in the next series.
+
+Thanks,
+Imran
