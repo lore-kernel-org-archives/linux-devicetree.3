@@ -1,191 +1,231 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572533DE439
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:34:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56B03E556B
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:36:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779370481; cv=none; b=bltpYUXCYNNQ+Z4mcRzVtvxge+s7+fDh8/BTGjYOetieuOIw+HQO1UhyTMuhiotqtuwAYNiKSaX/BmRQxMfkQhumSHjPFljKdqw3tSOPASfx93iuvDNc0acI5FvMzMGUEi/rbDjmON3XVKvfjz30MoqC8oAJjZblPY0vRIYinuk=
+	t=1779370594; cv=none; b=VWrwe+s4whS3q9xg8Oq2dvirDRLm4Cn0Zg422KCVv0kJ0W5CbGlNHKZ4jYo1MLJd00mePTb3REuLIc5BFzAehM7AaVPPt62VdyeCaCv6XqW1TJp3K0vgvr3El0uaNtK4GoMtWq80XzZ8jXNS9igawl0gckubJloKHeHzpxGVHSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779370481; c=relaxed/simple;
-	bh=VHNl2FJuZREXOuYJTjFF6lcubq9teRXcmkAbvZo+xOM=;
+	s=arc-20240116; t=1779370594; c=relaxed/simple;
+	bh=neathnGLKu0iBMfnJeA1h15bOA216Aqph6lh7EznpwM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DxVlfyC17QiQW87tSdoDjwZf5sZiHuSPKhbY+KqbqZGcrwmEzSDRseblGJu1+wqWFdesl+ImRNaQsl737v9i3B0NXEjjTu5pKBBzY0BwW1y205//EVM6HNej/uLpp2naezOFDVXzrKE1EsLuxyWXv6H2BbyOW4Oj5sae9gk2Yak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rn2r5VSZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qHVOw4IhJGQF4jmjXwV/lf312Xb9u3t5bJh2wx9PB7BdAhoMzJdtAn0v3mZE3LmvG0iyr4WG+3xnfd/53VB3FxltLzxX+1Lfv1TnH+/m03jBjDHJdn918SXuSudasLay5M2aihjWscIoR5LQPEnabGWppy9XTV/aMVlzZLNXdeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZ3DWicu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rn2r5VSZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2821F00A3C;
-	Thu, 21 May 2026 13:34:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZ3DWicu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B531F000E9;
+	Thu, 21 May 2026 13:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779370480;
-	bh=kIn48+50eYsxEVhrkPItncx80Sm0R3JWSEPt9Rm/dW4=;
+	s=k20260515; t=1779370592;
+	bh=FuDpfx0dN1lcIKm+mdv3RyF2gy3uADCy4umHteb33es=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rn2r5VSZqZRx2mf7vc8zl46Rff4WEgVKYKihoA8+OhngvNpPnlBmvNDRsCdZKp+VY
-	 jLSXwe+TLpDkXOsmmsznXjB9sOSn5pBXDCu+d8AOwhe48H6Ke7SmOKqgFs2fu+oBL7
-	 BWquudXbVLEmQBsXA6WS7I1SBX74piGumB0eqQ4ohkPdE3ZBDGNiX94iAc0r+rK53Y
-	 6JNgoHnO6+gOXzjyXQpzf5PgUzrxrdTIuC83qaOTx9yvXAlT57Ww0uKIPy0xNOtij/
-	 lqhtmsLlthkK0vXggvF6/xeUsy9vuvc8mwolofUV6Oo011YxTp1Q2l9tp3Zpp9hHt5
-	 Zeqbj1nkTjl9g==
+	b=JZ3DWicub6BOdc6NndbY64pF1DUttD9iL+6/CcqncFbLUCphp+g3CHpcjs9E9vCeJ
+	 FYvQGCNCCmJiJgJbhuYbYJamADfXv271JvnwhvLcmsk3GMcZ6MCAf+LTmNPQ0m5aSp
+	 Wr/oOBDGI+/k+XE9WRAtvhNihA1esPoHY7RGRC5TSQSruBzQbznkgFp+jChnocWIZr
+	 MjDv/XheE7i5PK9I759okAkBJWdQmYWM0dqAAfqlDG1Q2ZZI6eH1wdmat8Y4+zux1v
+	 Snm0FAtQj35G9JJ1zFCzmPJPK24/oxN0vwK53a4l0k7xrWAMHlbWFarnXcb2PhQxG5
+	 hYmzEsOOF+Mjw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 18/22] media: i2c: maxim-serdes: add MAX9296A driver
+Subject: Re: [PATCH v12 17/22] media: i2c: maxim-serdes: add MAX96724 driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dumitru Ceclan via B4 Relay" <devnull+dumitru.ceclan.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260521-gmsl2-3_serdes-v12-18-b26d92931196@analog.com>
-References: <20260521-gmsl2-3_serdes-v12-18-b26d92931196@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260521-gmsl2-3_serdes-v12-17-b26d92931196@analog.com>
+References: <20260521-gmsl2-3_serdes-v12-17-b26d92931196@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 13:34:38 +0000
-Message-Id: <20260521133439.CA2821F00A3C@smtp.kernel.org>
+Date: Thu, 21 May 2026 13:36:31 +0000
+Message-Id: <20260521133632.39B531F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] max96792a_ops is missing the .set_pipe_link callback, preventing p=
-roper link routing.
-- [High] max9296a_set_pipe_stream_id ignores the new stream_id argument and=
- programs the old state.
-- [High] Unvalidated data lane values of 0 can trigger an integer underflow=
- and undefined bitwise shift behavior.
-- [Medium] The device remains powered on (resource state leak) if probe fai=
-ls after toggling the powerdown GPIO.
-- [Low] The Kconfig symbol VIDEO_MAX9296A selects VIDEO_MAXIM_SERDES but do=
-es not inherit its dependency on VIDEO_DEV.
+- [High] Incorrect macro definition for MAX96724_BACKTOP32_BPP12(p) causes =
+register corruption for pipes 4-7.
+- [High] Disabling an unused PHY inadvertently disables half of the active =
+PHY when using 4-lane mode.
+- [Medium] The VIDEO_MAX96724 config selects VIDEO_MAXIM_SERDES without inh=
+eriting its dependency on VIDEO_DEV.
+- [Medium] Missing GPIO power-off in probe error paths leaves the hardware =
+powered on indefinitely.
+- [Medium] The 64-bit link_frequency is truncated to a 32-bit unsigned int =
+before being passed to a 64-bit division function.
+- [Low] Mismatch between comment and actual bitfield operation for PHY 4-la=
+ne standby masks.
 --
 
-commit dd3188793bbc20f9b99b6950a6fcec1fa7e23c5d
+commit e87ac21571cc062a409316fe229ce7535941f437
 Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-media: i2c: maxim-serdes: add MAX9296A driver
-   =20
-Add a new MAX9296A driver that also supports MAX96714, MAX96714F,
-MAX96714R, MAX96716A and MAX96792A.
+media: i2c: maxim-serdes: add MAX96724 driver
 
-Integrate it with the common Deserializer framework.
+Add a new MAX96724 driver that also supports MAX96712, MAX96724F
+and MAX96724R. Integrate it with the common deserializer framework,
+while keeping compatibility with existing usecases, avoiding code
+duplication, and also enabling more features across all chips.
 
 > diff --git a/drivers/media/i2c/maxim-serdes/Kconfig b/drivers/media/i2c/m=
 axim-serdes/Kconfig
+> index ddbb5791e9349..f060307e3de38 100644
 > --- a/drivers/media/i2c/maxim-serdes/Kconfig
 > +++ b/drivers/media/i2c/maxim-serdes/Kconfig
-[ ... ]
-> @@ -45,3 +45,16 @@ config VIDEO_MAX96724
+> @@ -33,3 +33,15 @@ config VIDEO_MAX96717
 > =20
 >  	  To compile this driver as a module, choose M here: the module
->  	  will be called max96724.
+>  	  will be called max96717.
 > +
-> +config VIDEO_MAX9296A
-> +	tristate "Maxim MAX9296A Dual Deserializer support"
+> +config VIDEO_MAX96724
+> +	tristate "Maxim MAX96724 Quad Deserializer support"
 > +	depends on I2C
 > +	select VIDEO_MAXIM_SERDES
 
-[Severity: Low]
-Is there a missing dependency here? VIDEO_MAXIM_SERDES depends on VIDEO_DEV,
-but this config only depends on I2C. Selecting a symbol without meeting its
-dependencies can lead to unmet direct dependency warnings and silent build
-failures.
+[Severity: Medium]
+Does selecting VIDEO_MAXIM_SERDES here without inheriting its dependency on
+VIDEO_DEV cause Kconfig unmet direct dependency warnings? Compiling the
+kernel with I2C=3Dy and VIDEO_DEV=3Dn might trigger warnings.
 
-> diff --git a/drivers/media/i2c/maxim-serdes/max9296a.c b/drivers/media/i2=
-c/maxim-serdes/max9296a.c
+> diff --git a/drivers/media/i2c/maxim-serdes/max96724.c b/drivers/media/i2=
+c/maxim-serdes/max96724.c
 > new file mode 100644
 > --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max9296a.c
+> +++ b/drivers/media/i2c/maxim-serdes/max96724.c
 [ ... ]
-> +static int max9296a_init_phy(struct max_des *des, struct max_des_phy *ph=
+> +#define MAX96724_BACKTOP31(p)			(0x41e + (p) / 4 * 0x20)
+> +#define MAX96724_BACKTOP31_BPP10DBL2		BIT(6)
+> +#define MAX96724_BACKTOP31_BPP10DBL2_MODE	BIT(7)
+> +
+> +#define MAX96724_BACKTOP32(p)			(0x41f + (p) / 4 * 0x20)
+> +#define MAX96724_BACKTOP32_BPP12(p)		BIT(p)
+
+[Severity: High]
+Can this corrupt register 0x43f when configuring 12-bit double mode for
+pipes 4-7? BIT(p) evaluates to BIT(4) through BIT(7) for those pipes, which
+might overwrite the 10-bit mode configuration (e.g., BPP10DBL0) instead of
+setting the correct BPP12 bit. Should this be BIT((p) % 4) instead?
+
+[ ... ]
+> +static int max96724_init_phy(struct max_des *des, struct max_des_phy *ph=
 y)
 > +{
+> +	struct max96724_priv *priv =3D des_to_priv(des);
+> +	bool is_cphy =3D phy->bus_type =3D=3D V4L2_MBUS_CSI2_CPHY;
+> +	unsigned int num_data_lanes =3D phy->mipi.num_data_lanes;
+> +	unsigned int dpll_freq =3D is_cphy ? phy->link_frequency
+> +					 : phy->link_frequency * 2;
+
+[Severity: Medium]
+Will this truncate the 64-bit link_frequency if link_frequency * 2 exceeds
+UINT_MAX (e.g., frequencies > 2.14 GHz)? Since dpll_freq is later passed to
+div_u64() which expects a 64-bit dividend, should this be declared as a u64
+to prevent silent overflow?
+
 [ ... ]
-> +	for (i =3D 0; i < num_hw_data_lanes ; i++) {
-> +		unsigned int map;
+> +static int max96724_set_phy_enable(struct max_des *des, struct max_des_p=
+hy *phy,
+> +				   bool enable)
+> +{
+> +	struct max96724_priv *priv =3D des_to_priv(des);
+> +	unsigned int index =3D max96724_phy_id(des, phy);
+> +	unsigned int num_hw_data_lanes;
+> +	unsigned int mask;
 > +
-> +		if (i < num_data_lanes)
-> +			map =3D phy->mipi.data_lanes[i] - 1;
-> +		else
-> +			map =3D ffz(used_data_lanes);
+> +	num_hw_data_lanes =3D max_des_phy_hw_data_lanes(des, phy);
 > +
-> +		val |=3D map << (i * 2);
-> +		used_data_lanes |=3D BIT(map);
+> +	if (num_hw_data_lanes =3D=3D 4)
+> +		/* PHY 1 -> bits [1:0] */
+> +		/* PHY 2 -> bits [3:2] */
+
+[Severity: Low]
+This isn't a bug, but the comment mentions bits [1:0] and [3:2], while the
+MAX96724_MIPI_PHY2_PHY_STDB_N_4 macro evaluates to GENMASK(5, 4) and
+GENMASK(7, 6). Could this comment be updated for accuracy?
+
+> +		mask =3D MAX96724_MIPI_PHY2_PHY_STDB_N_4(index);
+> +	else
+> +		mask =3D MAX96724_MIPI_PHY2_PHY_STDB_N_2(index);
+> +
+> +	return regmap_assign_bits(priv->regmap, MAX96724_MIPI_PHY2, mask, enabl=
+e);
+> +}
 
 [Severity: High]
-What happens if a malformed Device Tree provides a lane value of 0?
+Does this inadvertently break PHY 0 when it is running in 4-lane mode?
 
-It appears the core framework only validates if the value exceeds
-num_data_lanes. If the data lane is 0, the subtraction will underflow to
-UINT_MAX, which could trigger undefined behavior when shifting bits in the
-BIT(map) macro.
+If PHY 0 is in 4-lane mode, it combines with PHY 1, leaving
+phy[1].enabled =3D false. The common framework calls this function for the
+disabled PHY 1, which max96724_phy_id() maps to index 0.
 
-[ ... ]
-> +static int max9296a_set_pipe_stream_id(struct max_des *des, struct max_d=
-es_pipe *pipe,
-> +				       unsigned int stream_id)
-> +{
-> +	struct max9296a_priv *priv =3D des_to_priv(des);
-> +	unsigned int index =3D max9296a_pipe_id(priv, pipe);
-> +
-> +	return regmap_update_bits(priv->regmap, MAX9296A_RX50(index), MAX9296A_=
-RX50_STR_SEL,
-> +				  FIELD_PREP(MAX9296A_RX50_STR_SEL, pipe->stream_id));
+Because num_hw_data_lanes for phy[1] is 0, the else branch sets mask to
+MAX96724_MIPI_PHY2_PHY_STDB_N_2(0), which is BIT(4), and clears it. However,
+PHY 0's 4-lane mode needs both BIT(4) and BIT(5) set.
 
-[Severity: High]
-Should this use the passed stream_id argument instead of pipe->stream_id?
-
-If the framework hasn't updated the pipe state yet, this might program
-the hardware with the old stream ID, potentially breaking video stream
-routing.
+Should this function return early when handling disabled PHYs during 4-lane
+mode?
 
 [ ... ]
-> +static int max9296a_probe(struct i2c_client *client)
+> +static int max96724_probe(struct i2c_client *client)
 > +{
 [ ... ]
-> +	if (priv->gpiod_pwdn) {
+> +	if (priv->gpiod_enable) {
 > +		/* PWDN must be held for 1us for reset */
 > +		udelay(1);
 > +
-> +		gpiod_set_value_cansleep(priv->gpiod_pwdn, 0);
+> +		gpiod_set_value_cansleep(priv->gpiod_enable, 1);
+> +
 > +		/* Maximum power-up time (tLOCK) 4ms */
 > +		usleep_range(4000, 5000);
 > +	}
 > +
-> +	priv->des.info =3D priv->info->info;
-> +	priv->des.ops =3D priv->info->ops;
+> +	priv->cc_port_cfg =3D MAX96724_REG3_CC_PORT_CFG_PORT0;
 > +
-> +	ret =3D max9296a_reset(priv);
+> +	ret =3D device_property_read_u32(dev, "maxim,control-channel-port",
+> +				       &cc_port);
+> +	if (!ret) {
+> +		switch (cc_port) {
+> +		case 0:
+> +			priv->cc_port_cfg =3D MAX96724_REG3_CC_PORT_CFG_PORT0;
+> +			break;
+> +		case 1:
+> +			priv->cc_port_cfg =3D MAX96724_REG3_CC_PORT_CFG_PORT1;
+> +			break;
+> +		default:
+> +			dev_err(dev, "Invalid control-channel port %u\n", cc_port);
+> +			return -EINVAL;
+> +		}
+> +	} else if (ret !=3D -ENODATA && ret !=3D -ENOENT && ret !=3D -EINVAL) {
+> +		return ret;
+> +	}
+> +
+> +	*info =3D max96724_des_info;
+> +	info->versions =3D priv->info->versions;
+> +	info->modes =3D priv->info->modes;
+> +	info->num_pipes =3D priv->info->num_pipes;
+> +	priv->des.info =3D info;
+> +
+> +	*ops =3D max96724_des_ops;
+> +	ops->set_pipe_tunnel_enable =3D priv->info->set_pipe_tunnel_enable;
+> +	ops->set_pipe_phy =3D priv->info->set_pipe_phy;
+> +	ops->set_pipe_tunnel_phy =3D priv->info->set_pipe_tunnel_phy;
+> +	priv->des.ops =3D ops;
+> +
+> +	ret =3D max96724_reset(priv);
 > +	if (ret)
 > +		return ret;
-
-[Severity: Medium]
-If max9296a_reset() or max_des_probe() fails below, does the device remain
-powered on?
-
-The powerdown GPIO is driven to 0 here to wake up the device, but it
-doesn't appear to be reverted to 1 on the error paths, potentially leaving
-the hardware drawing power.
-
 > +
 > +	return max_des_probe(client, &priv->des);
 > +}
-[ ... ]
-> +static const struct max_des_ops max96792a_ops =3D {
-> +	MAX9296A_COMMON_OPS,
-> +	.set_pipe_stream_id =3D max96714_set_pipe_stream_id,
-> +	.set_pipe_enable =3D max96714_set_pipe_enable,
-> +	.set_pipe_tunnel_phy =3D max96716a_set_pipe_tunnel_phy,
-> +	.set_pipe_tunnel_enable =3D max96714_set_pipe_tunnel_enable,
-> +};
 
-[Severity: High]
-Should this struct include the .set_pipe_link callback?
-
-The MAX96792A chip supports 2 pipes and 2 links, and it looks like the clos=
-ely
-related max96716a_ops uses max96716a_set_pipe_link for proper link routing.
-Without it, could the core framework skip configuring the pipe-to-link mapp=
-ing,
-leaving the hardware with an incomplete configuration?
+[Severity: Medium]
+If max96724_reset() or max_des_probe() fails and returns an error, is the
+hardware left powered on indefinitely? While devres will free the GPIO
+descriptor, it doesn't actively pull the pin low. Should the error paths
+symmetrically deassert the GPIO to match the cleanup in max96724_remove()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-gmsl2-3_se=
-rdes-v12-0-b26d92931196@analog.com?part=3D18
+rdes-v12-0-b26d92931196@analog.com?part=3D17
