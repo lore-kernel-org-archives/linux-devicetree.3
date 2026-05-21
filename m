@@ -1,229 +1,237 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011066.outbound.protection.outlook.com [52.101.125.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CABD3D79E1
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779371320; cv=none; b=NujuPK0yyJQ7nRoU/nmKoCfYD2KLDOBTFJzuYG6jQnlDT+yalELNsdkIOWQrpsS4yGYZip/kbXitBZFVWvImPfi30Xer3usitaqX6/+Az4LZEdF0Rbfm/ANFrZpRlSjAkJxMp9sZhdUl4O1sISujRp339ppun/FBsSz01J0rwLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779371320; c=relaxed/simple;
-	bh=XeEOKxqcNhrXKitEzKsGvJcSYxxb2/NE5qqflkYV41o=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eYKgw0dBVJSduBtAHjpOqheIuTPKeZ5e7u/YFFkzrIWALjdmky8CqPFNKjLKe7Pe1wZtYYAJeezB2PPp7ji3Fhmchz5btHYNPTa5sSte7ZQjCN1YQFMQDE5PPrZEGl6QavvWf44inuF/mzUCI70CkuLVeF3QeFfJiySAiKi0Zik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jdz5zDEu; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAB23E9F7B;
+	Thu, 21 May 2026 13:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779371642; cv=fail; b=PfkWL/klB9EDBuyjxl+thadf46y0ZUDzluVvwbJY3V/E2zzKueBIMhhpFFCLwkqKhVieODMrZMJedPHZHADaqvlg3OvaSSIBvb2pDft7GlJLj3p/zBNUd3iiTKhdcncPMoAfJe9pSHCgP8cWYnfRXGfQkbLHTbiZUhoFC3hKpFw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779371642; c=relaxed/simple;
+	bh=dLbSaR73VFUxjZ+vqQLOp+eBoTz4iUO6d4QdAg64KO0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=qfaUNSlvplNgCDJSMUnFX6bUBiYNxhcna3wRefMipMQWcXE5NPy4VUrMX/Fb7mTLkOUGIhXRV6aerT+84vt9UoFL4d5nzko5otIDzK2cNeWJ0gjzk9anHWgcx8TJaiaI5e6Q3Sjv6bojgN52kHaQ708soSCQYRVVvsovOampmtk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=QG7uaTXi; arc=fail smtp.client-ip=52.101.125.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jdz5zDEu"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4903974854dso6498985e9.3
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 06:48:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779371316; x=1779976116; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=52jcbEZbjO5t07+/FFl717hGmuxoIXJoziT8EaSDvxo=;
-        b=jdz5zDEunt/aeUwJJTeTTDNu9dUz/LoYm3xPBMhX5qmJDtfsnbdGZaUf8T7e+oH8QI
-         x1c/0th6WyOanLc736Quou3nAPCHy7T4lPaYdkPkneeMuPaU8KbGCPHYDPc3LCqljZO3
-         aLMP8lglEB2DjefJl+TBdmdZdtCKyOo5YiV3XDVkrlLHs1dYmxx3H6ASe85OfC9vejF/
-         pWVTc+Z8yppFPz5Uyr2+Dw2irUiguj8j7OQnV72xFRc4khUnLNumJzEa6i//ZFCQCZwD
-         cAZfCg48mUjFY2UR6keKGhjzx/3tOOAF/VcZ15gzRuEs/B5Pig06/2A0xcNiwuHhoXja
-         frUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779371316; x=1779976116;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=52jcbEZbjO5t07+/FFl717hGmuxoIXJoziT8EaSDvxo=;
-        b=O+l6uw03/R10UgXvFl6jECcmoHyIIk91+DWdVaDxn31ZgYmS5YxSHwx2K85nQyh6yH
-         /H2u40ksa/xgTj+RhY+X7vR1JF/rxNLVFkA9lHhMkaGODtCRRKRxEwm7uU9o4FMWFkz/
-         /liZzYloodtKeLhm24L1uFsgYP6tNc/Bk/w2Of5Q8e4d+qZ+GpRLtppQoEaxqykj2VU4
-         qYvUgB1rkLc3WTIZ10HLgmRAp9BLsNj+FkM3OyBnDvSXzIUd85k6oiwa8j/oR5uR71lY
-         XRkyPyuAUYgWNyO916IvWNH8e30wYQpYOn807g5wh+XUvu6PAptIQx4qatd7vPsGTEE0
-         4ttQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8xNNtpebLozaohQ9xlWAE/Zv4+EAQIaypA7dJV5A2a5Rd9AzODxM4X9OzZrDXEY5mt6cwfc8WHu/z9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQFSF9sNwocWLFVgS9GXYEfgq1S4dajosyIwPDgiGTz5G8cDdM
-	2PQpkLzgxKUYQiaeeQk8Zq7oLadBvHFi9znofNkKPYarcGRwaGRMHGnU
-X-Gm-Gg: Acq92OHpG3lBskHMIXcaAlHXOni8ZThKV94p5qHaMQ5A46zGodVB79IeDet4Q1TCwuK
-	+hVE/2mpfOAojdeII4335m9Nhou5qwh/gzVwQzp5dwkU28LvZYpHjuty3V69moJFFnuerrkmN0y
-	5qciXnKZr31BLtqWnJQ2Xtej8yUYb8qo22UDTjP1FY/sP/YjfMGNf4n2romkiN1vHp0iE+h1vST
-	WmFZnozVAoSuJb8FBl+GFLWbR1n1+b6JMO+49sxjiYr0WlPebpIcZJBy8uvYrkGlcczJR14gQ5M
-	alxeuzblJYFdTDmIbbQ+ulMBBVFavdls7/lEqMVgxyHM3YvaLlAUlpqH14/fpXlMh7iKiEVkp+a
-	eIet8G8i2055HPlyT8x0fofdqwscq/8dse9OQz/Envq446/8W7t7n8T297VhxcwSBp1xNM8KteO
-	73xL6X0a/5TKFTWU0zxPtkuoi5/FpSWfrbTQZzeofBScZoqFnQZPITNHvnfCz3P9NaF8AmYt7ud
-	sUO/Ny070KWDHYPWU2EAfRtJU1bL6AH2oV13xcFlSxHOcBHFy38kD/ZfWcs
-X-Received: by 2002:a05:600c:5298:b0:48a:563c:c8c0 with SMTP id 5b1f17b1804b1-49036034241mr45116035e9.7.1779371316202;
-        Thu, 21 May 2026 06:48:36 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49035c22d97sm16292635e9.1.2026.05.21.06.48.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 06:48:35 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Thu, 21 May 2026 14:48:30 +0100
-To: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v5 03/13] iio: core: add hierarchical channel
- relationships
-Message-ID: <hjv4uuudhkueaotpyuzj3u3jg2rkr73jmrx2vxi37w3po5xk5x@3fhfebj6a3wt>
-References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
- <20260517-ad9910-iio-driver-v5-3-31599c88314a@analog.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="QG7uaTXi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hkJdNRD9TlqkYp4LIhik2KX2rhJd3BW3wuoUqDdqqMRqwlpbCRWhvFJhmez9yVSXg5OQpMt890vbyTHH0m87B5IGHHAxjHe1PaOe1uXCj1SlOtj0lYs80LpuGTrUUnjj0n0NkSzoL2B60Za7wyDNhMU9gEhLaek6HVw6SDjT82JS7bB7RujUskaT6vWNJe9h94nHIp1ZV51rNbF7k++PLWJ25YYn9rXOu0q0r66agZ18uG6zD3xRyVa6tW9xewTo9Dk7kusEhjmAJVvC4oHxn/gnUyKgL4evmr3Bur84lCL+Z3k5wJ5fvNbWgHIaHeoR/Z/modbvy+fFHK5agPOMiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=16OcZl5gQqdQ7EukeDR+F+y+zFUjzcy7U9L0WNeLpWY=;
+ b=bmmyF/uXP4Z7YLmVGwH9EleBHX6mZC38P13AEY94JlsV5Q55z+Ub5AOTT23gSenhvZJAwGL0fenpnBYgVb55JrHwCM/Njj6Pkrs46sh13Si0qH/BXGHKNj+yfLGblaGmNZF5yZ6v415mvBJeQGhCcYkTLQj1q6lyg/CHnRBRltLc4SXXX2nXqBaGk/t4KdrjQEtB3eWlM6KJ4yxlNO8JhV6aJYKadHsZpn17qzFeMh9AS8JhPltxWaf1eloE/rBD1BN3R171BRJ3oSpXKntFgp08WWU9gZz6gi0gLQD1jMnhj6vTkbUkfd5BOVS36oYRqsF230kUEF4BG3eY8zR6fg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=16OcZl5gQqdQ7EukeDR+F+y+zFUjzcy7U9L0WNeLpWY=;
+ b=QG7uaTXiGqezqz93Sfic6cSZdAAa0aVoPNaYev7PHqWAHt+YIqWHA2K7/OpGpIkHyy4l9ai0rZckPEgRaGXYq9airTiaWVOaY0cwC5Sx/MizhsP+weN1k3BqYmsvhvQ8axVSzpwDi2eQg1Xry9bqZTk2BEQXblp+Nv5oIGVkPMk=
+Received: from TYYPR01MB15615.jpnprd01.prod.outlook.com
+ (2603:1096:405:291::13) by TYWPR01MB10426.jpnprd01.prod.outlook.com
+ (2603:1096:400:24e::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
+ 2026 13:53:56 +0000
+Received: from TYYPR01MB15615.jpnprd01.prod.outlook.com
+ ([fe80::d8aa:d4b:55a1:2948]) by TYYPR01MB15615.jpnprd01.prod.outlook.com
+ ([fe80::d8aa:d4b:55a1:2948%5]) with mapi id 15.21.0048.013; Thu, 21 May 2026
+ 13:53:51 +0000
+From: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, Biju Das
+	<biju.das.jz@bp.renesas.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: RE: [PATCH v2 08/10] arm64: dts: renesas: r9a07g0{43,44,54}: remove
+ TCIU8 interrupt from MTU3
+Thread-Topic: [PATCH v2 08/10] arm64: dts: renesas: r9a07g0{43,44,54}: remove
+ TCIU8 interrupt from MTU3
+Thread-Index: AQHcyQhL8ROS7yV82kmCzfeEuqsvALYYvtjQ
+Date: Thu, 21 May 2026 13:53:51 +0000
+Message-ID:
+ <TYYPR01MB15615A925B2F724C51DD033EA850E2@TYYPR01MB15615.jpnprd01.prod.outlook.com>
+References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260410163530.383818-9-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260410163530.383818-9-cosmin-gabriel.tanislav.xa@renesas.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYYPR01MB15615:EE_|TYWPR01MB10426:EE_
+x-ms-office365-filtering-correlation-id: b819607e-c71b-4b26-9065-08deb74063b4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|18002099003|22082099003|56012099003|38070700021|4143699003|11063799006;
+x-microsoft-antispam-message-info:
+ 9P8G6WF/e9AZzIEtqhiz5e4f3O/Bj0xrsjiYx6WsGhfs5t9jw64jMml/wBXlwabqA5XY8x9B2aqIehz/AbvgJPvdWERg0KnUvLzLrMzhVGF9JurEEJvWN0IgJkFCyj/DPOBPIcXiAJdQMfJ4c9SUBxBAmf03Mmb/M8e9hxkwz8P9za5D1PEu7N2ySPWOHAAJ7tJtBblsZUqcFG4VkHr2CeKPK1K0vYlOlIMhZHkMK7oAak5kHnekD6mOUONAy0Kf7kyIyi/C6P3C9sJTSyzbC3+8Kh7SzsYSMI8QIlO1pyUUyEr5vRmQswCwqNezxJLLN+3EVfKnXuuKT5et+1UhUeRHNMeshkHjkCLHYrr0ZG2p1oeaugCWYYfXIge/9Qne93zHvlnt8IF+kHd7XJZq1YtkpXJZebjqHHYCSe/8jNLXWvGGxz8urtame2W0w5QW84sN60zV13MdoGK7N0abhi62bvgg5ZfOJcFVxA8uqo9KdqeOvMGdDSSqJFMMv6sIJboHlMkH9JJlFxN3BeZ1EHfXUIWlkDREpe4VysM1YdE2io35CjSe5WKIzje8/wdZY/spwYoRCrBxd+iDYMIxasBqhMcA8CpTc8IqAlzxIbprHUwPv7a3Nr2x7nLyrXMyO1MUIP+n02avTAWTQSE8enTi4buKYRuBYB45+5dTq6TULzGALKWEGRZZzGuNDVuvcn98mXaQKmxrFUIuKxO1razt1jdhR8BhVPHkY+v4+s5fT35HErnHPJqua0Jer1M0
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15615.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003)(38070700021)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?XYN1ocy/60i3rKTEts8P26NRQaHsQ8ifPWgyrtz7PFOfVgK31SKCLgM70+Nb?=
+ =?us-ascii?Q?Wbt7OOIz+ahbuPckGqd/n0wKOGyNXTUInH/cbdp/i3QTrkSP0C+ZP4VqCnPt?=
+ =?us-ascii?Q?pwuR7aKsFEXsgg5tCWmL0iN/vXI/ea8zh8yyLrJDINorHec3B5WacLzNLPTg?=
+ =?us-ascii?Q?01V4+uOQMv2+bQIFwvdBFquOtAqnaa29rsHQlednOkx8lk8jo56HodfiFLuN?=
+ =?us-ascii?Q?DEGG09r//bnWieYnYFYi6kYP7k0gsFWnLxy+GgbccQoRR5Y4sazykMMDfVi/?=
+ =?us-ascii?Q?HuCp4fxF4deHm3qmgZ2O3CDcTpLpSPPgbaRqrKN2PBzrvpZp/FeDjCdT0UnF?=
+ =?us-ascii?Q?dPRF3EiATd3sa+d46Bug1otIEmd5zdIF7ODTqMXBqGCViPnFMBo4iurkZ3kR?=
+ =?us-ascii?Q?zeMzlxtudNr1Snc1jgO/eox1BTlv7/WoH/dWhCFkaRYCDeFPBHzEDIxHibAv?=
+ =?us-ascii?Q?gHfmjmvy3zhVBc8lBKq7h92+PlS/yJpyZYSEiXvg55EjhsMU15Roi+ZJkPR/?=
+ =?us-ascii?Q?hrYvuuSrIA8vqS8Nm9r3C7ifiEWqCobMfTItOZpkKa0jSRQ6TCKM5390x89Y?=
+ =?us-ascii?Q?MYNk54+rN4jlvyVPYEUHUKVFpA9tqseyFE8jO8ul4EO7y29HVvN1MMRswA1y?=
+ =?us-ascii?Q?A0DdWzWKG42gEjgf0Y4n6ZtTgDilcP8ICBALKIfgqW4sZUEmHVJpNtvnMuD6?=
+ =?us-ascii?Q?z6mruN0fWV+a0Qm9gX93it2OLHv1TTNZzUS3Livo1/Jbilx7u01gPw0zljHq?=
+ =?us-ascii?Q?THIPztSNIJVH5yTDWUK5aS4shIF4Hu+XPfiPFl9+0mU8r+PKM5MAF9rbEZ/6?=
+ =?us-ascii?Q?z5UKqFXX5YIn0UBtOATA4r8pIUHM/4bSEaA1Uaa1QoNMvtpv/oP6ygqsbcSo?=
+ =?us-ascii?Q?Sh1np7PDGh/TFuqxziziNuJ883nIeNu6VoOOSLDJtTQm1ndyZPnnPnNuZC98?=
+ =?us-ascii?Q?CRiPVYvDOkZAOIvmiNCgIT2jgEdcDz9jHkMfhcD6mSC1Q9mICvtY3KJIuS6x?=
+ =?us-ascii?Q?PJxu7PeDP7TpAaodavrDs1+3hWyze5pTkwzm/QQxk5nfeCfBtEERMTP/P7iV?=
+ =?us-ascii?Q?5xq/OLLiucKvX+CphRZkSqLPi9jecEXKXYTawH6gbT9rsMnNGc9Wu6WAR9+k?=
+ =?us-ascii?Q?o1T4PUVIHFgtfKe4cwS5iKlNxNpSbB/RwnMsN5VULzhEemBB9gxem6Y5nDEf?=
+ =?us-ascii?Q?C4vmX3BjEnr/lzbeMo50+Ic32X2KZ+8mpulJgPiTP5YJm3m3DcqBSKkMZgKc?=
+ =?us-ascii?Q?YX8Aywb2qH1ysH09JEb6rGdDnvz7aKd6R4yI3vAHcqHw4WGlPfZXp5GjUaXK?=
+ =?us-ascii?Q?t3X+AdsG+KaRUJsKvL5z5anoGaxm+w33v9hoW5CjIYyzlLfBNwh+ZAjQ+0LW?=
+ =?us-ascii?Q?ZWYIJrwvGVXt7MzYuer6Ykb0K7pZmRAL/FYDG9LAT/ZCbozxud/rW/I4nakb?=
+ =?us-ascii?Q?xiXz8HDckdOaH/Yqny3ce8xv7s+7VPmF5GAsg/N7/duObygoISNxbojOk/Je?=
+ =?us-ascii?Q?cg7zCs2SHcyVNw+gYK9os+hs3adLedERMxQQpXMYiStR7gGm4IcS9s4d1wGP?=
+ =?us-ascii?Q?2z6FF3b/GIAxRm6uEScZrw/7EnwvpHR699+zraQKVEouID8l3zLaplQwYDfj?=
+ =?us-ascii?Q?3LQ9vt9whT+zkPuFtdSti2kKnLGH3JwxVTazHKZyFFkx7kDGzX0Vys7jeO+q?=
+ =?us-ascii?Q?wrQ0rgEZDGaFCPF9Ssi9fDC4BIVYPEm8veWzMQMIVu4xjXgrsfE0YQzijOjZ?=
+ =?us-ascii?Q?HKzf/xrpTMNkXClU80d93S2MkEr5IWIPZ4iK2y5vTYDt0TD8DIkJ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260517-ad9910-iio-driver-v5-3-31599c88314a@analog.com>
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15615.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b819607e-c71b-4b26-9065-08deb74063b4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2026 13:53:51.1606
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KEWqrp7MkvrF9wfHqqJLvl5q5n1MqwSM7AQvqBNY2mga1hkgIy158G7SlyU4eia8U1DgKCiufuv1wHJxj57AyatYAHaLUu/w9qPZsfOTeuN3gcMgwnx6V4UyLFlvepYs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10426
 
-On 26/05/18 03:26PM, Rodrigo Alencar wrote:
-> On 26/05/17 06:56PM, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Medium] Exposing the hierarchical relationship via channel labels creates an ambiguous UAPI for userspace.
-> > --
-> > 
-> > commit 64c6f961f1d7645c58f732e4bd4c11200b999e93
-> > Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > iio: core: add hierarchical channel relationships
-> > 
-> > This commit introduces a parent-child relationship between IIO channels.
-> > It adds a parent pointer to the iio_chan_spec struct and exposes this
-> > relationship to userspace through a new "parent" sysfs attribute that
-> > returns the parent channel's label.
-> > 
-> > > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-> > > index 5c8404efd0a56..348ac7a597385 100644
-> > > --- a/drivers/iio/industrialio-core.c
-> > > +++ b/drivers/iio/industrialio-core.c
-> > 
-> > [ ... ]
-> > 
-> > > @@ -1263,6 +1271,31 @@ static int iio_device_add_channel_label(struct iio_dev *indio_dev,
-> > >  	return 1;
-> > >  }
-> > >  
-> > > +static int iio_device_add_channel_parent(struct iio_dev *indio_dev,
-> > > +					 struct iio_chan_spec const *chan)
-> > > +{
-> > > +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
-> > > +	int ret;
-> > > +
-> > > +	if (!chan->parent || (!indio_dev->info->read_label &&
-> > > +			      !chan->parent->extend_name))
-> > > +		return 0;
-> > 
-> > Is relying on channel labels robust enough for programmatic parent resolution?
-> > 
-> > IIO channel labels are optional, human-readable descriptors and are not
-> > guaranteed by the core to be unique. If multiple channels within a device
-> > share the same label, how can userspace definitively resolve which specific
-> > channel is the parent?
-> > 
-> > Also, if a driver establishes a hierarchy where chan->parent is set, but the
-> > parent channel lacks a label, this attribute is silently omitted, hiding the
-> > relationship entirely.
-> > 
-> > Would it be more reliable to expose a definitive, unique identifier (such as
-> > the parent channel's sysfs prefix or index) rather than relying on an optional
-> > descriptive string?
-> 
-> A bit impressive that sashiko can comment on that architecture level.
-> 
-> Those are all good points. I suppose I went for this because otherwise it would
-> require refactoring core code to get the needed parts from __iio_device_attr_init()
-> that gets you the channel name without the attribute part.
-> 
-> Maybe we should have a function that outputs a channel name into a buffer based on
-> __iio_device_attr_init() behavior, and that could be reused.
+Hi Geert, is it too late in the cycle for this to be picked up for 7.2?
 
-This is the function with behavior extracted from __iio_device_attr_init():
-
-	static int __iio_chan_prefix_emit(const struct iio_chan_spec *chan,
-					  enum iio_shared_by shared_by,
-					  char *buf, size_t len)
-	{
-		const char *dir = iio_direction[chan->output];
-		const char *type = iio_chan_type_name_spec[chan->type];
-		int n = 0;
-
-		switch (shared_by) {
-		case IIO_SHARED_BY_ALL:
-			break;
-		case IIO_SHARED_BY_DIR:
-			n = scnprintf(buf, len, "%s", dir);
-			break;
-		case IIO_SHARED_BY_TYPE:
-			n = scnprintf(buf, len, "%s_%s", dir, type);
-			if (chan->differential)
-				n += scnprintf(buf + n, len - n, "-%s", type);
-			break;
-		case IIO_SEPARATE:
-			if (chan->indexed) {
-				n = scnprintf(buf, len, "%s_%s%d", dir, type,
-					      chan->channel);
-				if (chan->differential)
-					n += scnprintf(buf + n, len - n, "-%s%d", type,
-						       chan->channel2);
-			} else {
-				if (chan->differential) {
-					WARN(1, "Differential channels must be indexed\n");
-					return -EINVAL;
-				}
-				n = scnprintf(buf, len, "%s_%s", dir, type);
-			}
-
-			if (chan->modified) {
-				if (chan->differential) {
-					WARN(1, "Differential channels can not have modifier\n");
-					return -EINVAL;
-				}
-				n += scnprintf(buf + n, len - n, "_%s",
-					       iio_modifier_names[chan->channel2]);
-			}
-
-			if (chan->extend_name)
-				n += scnprintf(buf + n, len - n, "_%s", chan->extend_name);
-			break;
-		}
-
-		return n;
-	}
-
-I think it is clear and reusable.
-
-> > > +
-> > > +	ret = __iio_add_chan_devattr("parent",
-> > > +				     chan,
-> > > +				     &iio_read_channel_parent,
-> > > +				     NULL,
-> > > +				     0,
-> > > +				     IIO_SEPARATE,
-> > > +				     &indio_dev->dev,
-> > > +				     NULL,
-> > > +				     &iio_dev_opaque->channel_attr_list);
-> > > +	if (ret < 0)
-> > > +		return ret;
-> > > +
-> > > +	return 1;
-> > > +}
-> > 
-> > -- 
-> > Sashiko AI review · https://sashiko.dev/#/patchset/20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com?part=3
-
--- 
-Kind regards,
-
-Rodrigo Alencar
+> From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> Sent: Friday, April 10, 2026 7:35 PM
+>=20
+> The TCIU8 interrupt used to be documented in earlier revisions of the
+> user manuals, but has since been removed. The corresponding entry is now
+> marked as reserved in the interrupt mapping tables of all supported
+> SoCs.
+>=20
+>  * Page 486, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/G2UL
+>    Rev.1.40 User Manual
+>  * Page 363, Table 8.2 Interrupt Mapping (6/13) in the Renesas RZ/Five
+>    Rev.1.30 User Manual
+>  * Page 528, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/G2L
+>    and RZ/G2LC Rev.1.50 User Manual
+>  * Page 540, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/V2L
+>    Rev.1.50 User Manual
+>=20
+> Remove the TCIU8 interrupt. This does not cause any breakage as the
+> driver does not make use of the interrupts.
+>=20
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> ---
+>=20
+> V2:
+>  * reword to mention that TCIU8 used to exist
+>=20
+>  arch/arm64/boot/dts/renesas/r9a07g043.dtsi | 5 ++---
+>  arch/arm64/boot/dts/renesas/r9a07g044.dtsi | 5 ++---
+>  arch/arm64/boot/dts/renesas/r9a07g054.dtsi | 5 ++---
+>  3 files changed, 6 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/renesas/r9a07g043.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a07g043.dtsi
+> index 593c66b27ad12..7bc37e1015a47 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a07g043.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a07g043.dtsi
+> @@ -120,8 +120,7 @@ mtu3: timer@10001200 {
+>  				     <SOC_PERIPHERAL_IRQ(209) IRQ_TYPE_EDGE_RISING>,
+>  				     <SOC_PERIPHERAL_IRQ(210) IRQ_TYPE_EDGE_RISING>,
+>  				     <SOC_PERIPHERAL_IRQ(211) IRQ_TYPE_EDGE_RISING>,
+> -				     <SOC_PERIPHERAL_IRQ(212) IRQ_TYPE_EDGE_RISING>,
+> -				     <SOC_PERIPHERAL_IRQ(213) IRQ_TYPE_EDGE_RISING>;
+> +				     <SOC_PERIPHERAL_IRQ(212) IRQ_TYPE_EDGE_RISING>;
+>  			interrupt-names =3D "tgia0", "tgib0", "tgic0", "tgid0",
+>  					  "tciv0", "tgie0", "tgif0",
+>  					  "tgia1", "tgib1", "tciv1", "tciu1",
+> @@ -136,7 +135,7 @@ mtu3: timer@10001200 {
+>  					  "tgia7", "tgib7", "tgic7", "tgid7",
+>  					  "tciv7",
+>  					  "tgia8", "tgib8", "tgic8", "tgid8",
+> -					  "tciv8", "tciu8";
+> +					  "tciv8";
+>  			clocks =3D <&cpg CPG_MOD R9A07G043_MTU_X_MCK_MTU3>;
+>  			power-domains =3D <&cpg>;
+>  			resets =3D <&cpg R9A07G043_MTU_X_PRESET_MTU3>;
+> diff --git a/arch/arm64/boot/dts/renesas/r9a07g044.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a07g044.dtsi
+> index 29273da819951..799a974c4dba1 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a07g044.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a07g044.dtsi
+> @@ -220,8 +220,7 @@ mtu3: timer@10001200 {
+>  				     <GIC_SPI 209 IRQ_TYPE_EDGE_RISING>,
+>  				     <GIC_SPI 210 IRQ_TYPE_EDGE_RISING>,
+>  				     <GIC_SPI 211 IRQ_TYPE_EDGE_RISING>,
+> -				     <GIC_SPI 212 IRQ_TYPE_EDGE_RISING>,
+> -				     <GIC_SPI 213 IRQ_TYPE_EDGE_RISING>;
+> +				     <GIC_SPI 212 IRQ_TYPE_EDGE_RISING>;
+>  			interrupt-names =3D "tgia0", "tgib0", "tgic0", "tgid0",
+>  					  "tciv0", "tgie0", "tgif0",
+>  					  "tgia1", "tgib1", "tciv1", "tciu1",
+> @@ -236,7 +235,7 @@ mtu3: timer@10001200 {
+>  					  "tgia7", "tgib7", "tgic7", "tgid7",
+>  					  "tciv7",
+>  					  "tgia8", "tgib8", "tgic8", "tgid8",
+> -					  "tciv8", "tciu8";
+> +					  "tciv8";
+>  			clocks =3D <&cpg CPG_MOD R9A07G044_MTU_X_MCK_MTU3>;
+>  			power-domains =3D <&cpg>;
+>  			resets =3D <&cpg R9A07G044_MTU_X_PRESET_MTU3>;
+> diff --git a/arch/arm64/boot/dts/renesas/r9a07g054.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a07g054.dtsi
+> index 0dee48c4f1e44..0dc4c3c8c06b2 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a07g054.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a07g054.dtsi
+> @@ -220,8 +220,7 @@ mtu3: timer@10001200 {
+>  				     <GIC_SPI 209 IRQ_TYPE_EDGE_RISING>,
+>  				     <GIC_SPI 210 IRQ_TYPE_EDGE_RISING>,
+>  				     <GIC_SPI 211 IRQ_TYPE_EDGE_RISING>,
+> -				     <GIC_SPI 212 IRQ_TYPE_EDGE_RISING>,
+> -				     <GIC_SPI 213 IRQ_TYPE_EDGE_RISING>;
+> +				     <GIC_SPI 212 IRQ_TYPE_EDGE_RISING>;
+>  			interrupt-names =3D "tgia0", "tgib0", "tgic0", "tgid0",
+>  					  "tciv0", "tgie0", "tgif0",
+>  					  "tgia1", "tgib1", "tciv1", "tciu1",
+> @@ -236,7 +235,7 @@ mtu3: timer@10001200 {
+>  					  "tgia7", "tgib7", "tgic7", "tgid7",
+>  					  "tciv7",
+>  					  "tgia8", "tgib8", "tgic8", "tgid8",
+> -					  "tciv8", "tciu8";
+> +					  "tciv8";
+>  			clocks =3D <&cpg CPG_MOD R9A07G054_MTU_X_MCK_MTU3>;
+>  			power-domains =3D <&cpg>;
+>  			resets =3D <&cpg R9A07G054_MTU_X_PRESET_MTU3>;
+> --
+> 2.53.0
