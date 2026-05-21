@@ -1,170 +1,165 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011007.outbound.protection.outlook.com [52.101.70.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55928384CF5;
-	Thu, 21 May 2026 04:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779336180; cv=fail; b=G/2nfNvAArmMOn1O5u2yk73ATcULQLdVwRSXwbWXZc8DVuyrsflcZjIVpSuPIdLskSiQvhxHXD4wRG479B1UkjayBQMormVs4hGboaVZ3xzCH23DIu034VrQQLr+aA4iSfBCBchBG80CVVN2aFdbBbzigjlxRF5Fe5djGykZE8Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779336180; c=relaxed/simple;
-	bh=4P21RHS1cRmS2gst9EAt/kIS5NP12dikh3CeRKQZ5CY=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=N3nGO7QxPJvlKedfZPWDh0erKX54MRkQ8aEi5QTZA3dMYKqRG9yneW75dR3N28UzXtWgmz6hSfbs9dXg7OFY6z6e5E/bBXOGHeRSh/eBdy3A/q2MXGjloFzQxkkp3sl4TF8MCrg9LWJs4jc3kP/zag9HmAJZZfH869EGnvJxojA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wrJ5yFR6; arc=fail smtp.client-ip=52.101.70.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D2038422A
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 04:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779336923; cv=none; b=VPq+cojEB8mu9d7TqZMFRAOT5K6nAQeJR6AAcpQUf1dgWqy7VUqtLn5U7m4q3XmtimgSHiNUqHc3OHByiYLEC8HiqSiPSHliJOSdF3PG+C9L67XQbovZrpcTjLjHhk00MW3J7PhTXeyfZqPGwHZqELY2XXyKfl/WreA3zbtLQu8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779336923; c=relaxed/simple;
+	bh=xbniOk9nqT3tKYgM7/R98IXBeNPrjxhNV+8A4WUfdOA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SvVDn+/jRrGSzO654JGNglWI0+IxLkg18rWs5LLv8tlnhtwRnYKmkd7Fi0GDlVOSku5weFcSpoUzWgyUQNUv9p4LtZIsDFNSRV+EeYvbnmsqa//A5Erdx0p11OoygzM4TUiIhnAvUgESOgQqMY4jHUE6Omd2EPWzGE4NG0bGZEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2hpcDqO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wrJ5yFR6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=URLSB6C1alPbInxGZ0BZsh1vsxdOHoeJlS/jqRn0jVRGPWndjiBHn96z6tm2eCVq4SoNaSWyHg7+C7DOE5rd8xCJWHKGn/H+R3TR6sV9MipgVET8YBpkaWnV3BuoPlPxmQfGJx0ZZqk4C/EJ7lJMZrHiJL82svL8Zle/890fLMOL7PcMVuoQ/35UI4ow6upgf8lL4vxxdWGjnhgF0X0U45dCUrVjnFDOHg6aQjHYX77c2ybkvRM0Eguwz1yMug7VmbC7pUNUCLJs7kpv47WcZos9NHI/STNe0IEJ0iy6JA0w/7aM374UguIPNO3+W4i24zcZ0Vz5ziJlUGgWbGAklA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o0yEy+cqzHN1LcdeTV7Bzq8MzgxYdpiAZqhAanduywM=;
- b=jZBtHvJX7ZTBTfCiZcBszPHURtXlVg5c1mbPXM5y015YUyxZtN9ros9TDWbbMG+r+L2qZR5yruL6ZLZ60RE8BW4ron9ds6U9p/vq+2mRdEWm0/xsDATJWySBRUFwozt1b0GCYzaxiJdTFOdVWp4WRUoZH9GNABrWgEDiawtAtGTdZA0PZclkvoT60vlf2vvvhanEuTAswq/sY2V4jS3weaG1ft+eu66hBFCRNtKsSCemEJLcCrhbmrlIFH/bZtPXqkGl2lxixU5eA1Qx9ZvJ/8rogeQzGCVcNtorxzfszuBNLK7ud9n0GmMYZlpWce7sChM6ZN9RQ1Ryxyn2RH0tmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o0yEy+cqzHN1LcdeTV7Bzq8MzgxYdpiAZqhAanduywM=;
- b=wrJ5yFR6+50e43jmhNETpr4rH3mnhVQaBK4Hsuu6C5V3yEN02rjk6RUR3cfLze7hOoQzMVo4rBXVt9UWiq38pJJDhooJXRzT3CgI/K7Sg9+VQW88KT/9uE4/5IQQ42zvE4ly8/yZ9uK/nV8//eymvPq0G6TNBaY8LucxEBeVB4qZv1KxMmEUsNTpEKWYcphA3raWE16DsNyK5qtD0aR8Ch5TYVptsdVdJMQmWvPWOLpOeERPOBJq0BS5glxLeNv/NW3FV7ue94w7+Gb9JuoFvODEXWPV71Y6XjrOKQpGab/fqOupCOZRUNIFiuDyD5PNvO0/WtoETTWI5gpr1DGyYA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MRWPR04MB12330.eurprd04.prod.outlook.com (2603:10a6:501:7f::23)
- by PA1PR04MB11531.eurprd04.prod.outlook.com (2603:10a6:102:4df::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Thu, 21 May
- 2026 04:02:50 +0000
-Received: from MRWPR04MB12330.eurprd04.prod.outlook.com
- ([fe80::ca22:f8c8:6aca:7889]) by MRWPR04MB12330.eurprd04.prod.outlook.com
- ([fe80::ca22:f8c8:6aca:7889%6]) with mapi id 15.21.0048.016; Thu, 21 May 2026
- 04:02:50 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Thu, 21 May 2026 12:05:04 +0800
-Subject: [PATCH] dt-bindings: dma: fsl-edma: add optional iommus property
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-edma-iommu-v1-1-6eec3f24c306@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAG+EDmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDUyND3dSU3ETdzPzc3FLdZAMj01TDFCOL1KREJaCGgqLUtMwKsGHRsbW
- 1AKNxNXVcAAAA
-X-Change-ID: 20260521-edma-iommu-c025e1d28eba
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.14.2
-X-ClientProxiedBy: MA5PR01CA0096.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a8::8) To MRWPR04MB12330.eurprd04.prod.outlook.com
- (2603:10a6:501:7f::23)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2hpcDqO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84131F000E9;
+	Thu, 21 May 2026 04:15:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779336921;
+	bh=aXW5+zQtZ+MABOKoJanBcoirUL929kC3vEj1nDyct4c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O2hpcDqOBLA+oDSgdT6S2z73v2iCgKclVTPZUQczEtlmjMcNc0gY4zxmTUmuGEh3T
+	 vJXh15I4mWbSU4DIPjckCFZDntIpQVOF64dXAy6qEJg6Mv7u+tKiZKMUb61mvoTjvH
+	 C91GqB2yl6uYdz9poff2cpDsNbQvnWNb8VaRtjEjvsSdsyZD3rnhn+jXhQTIWrGrWV
+	 Nbc8lQQJecZta1NJXe2zojvun8/rJpM1C1EZ9mUHPCEYugGvg2xPnj0C11BC9BEYBD
+	 gmG9LHjVx+gzA40V84a8kou3fF/4v1SKbFKD7HM8B/gakxob+Sibdth0RRoUoBRS2n
+	 msiw1k8yUck1g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/3] dt-bindings: i2c: snps,dwc-i2c: Add StarFive
+ JHB100 bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
+References: <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 04:15:18 +0000
+Message-Id: <20260521041520.B84131F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MRWPR04MB12330:EE_|PA1PR04MB11531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 989b5f92-25b2-442c-50e0-08deb6edd37b
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|52116014|366016|1800799024|56012099003|18002099003|11063799006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	xbr8BvkJYSoWA4BHOB+j4w3AzIce0bbSIAV/HJKDTaCU/c88I3Y7TfWlui3tl81zVKi7/xxGilfNBEJMgq9/P6Qlj6mgWdoKybGQbflRanCjS5i4yxR2d92fWBsp0rUTcxmb5gkO/ycHoPBKE2bQXhK3bc+L/rbwIHFcq0jSpbe94FLRkM6DaBfDO9z72Cqg+PNIDsBjoXOnPvBPqzvOnwnpRnmupnCyhANiZhzPcsYxbljzx1uIVIRkLaoipTytOSYLAtxLJpbWkEQiGaNzkAH8xSIlqnebCXI1t5GT0CIlqGNd8os2HZUYtKVn39Jg+NZKEWMe8nUUIDfx8UFFFUlwGxnC8wfoELKL3hhF5MI3GSpGZDX+9p9MShn6TUFUID3IaUv9kxgjuDokVvqnYPpZrDa0DpbMhFSZdgq1oZ3XB5ZeCEQ/B99be3hyp1/CzdC5QYGCpvoORcodeQlbVVVOTAiOyvU2DH5h0gLGC1wSXmJ9QWjcJQzNXsdvPlzet9EjdiWno/63L+T+OO7am6QxZtPEXw0p2dDHTHKX4ufE+FvhFJZg/MVh1iPsHRtDrqxpPW2EKXEKehLNuJzaasAeKVAq99iUKPGPU1LWtswWf9mWGuowXW0Rf9ZXpiIaP/5fLG91S/oixXm5jJ/h6LmgWIxe55LT3/gJg1M76ew17BGjXH9/tl+mbHgnX3gADwjhLTVfhuwZ6PQnYM7vmqPg8ILspvkmnbE2JOKUmvu9ZSzvPtmyG+ABZmyKFyVQ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRWPR04MB12330.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(52116014)(366016)(1800799024)(56012099003)(18002099003)(11063799006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VC9lTFFzdGFjYmx0R1I1L3NVMURFNUtPSDg3bjdIblcxR0tpSitzaVZuZjZ2?=
- =?utf-8?B?elFZRmk0dWJwWWtIUy9UN2RFd09GYWl2MFpWR0VTb0d0UXRqbGY1SVpnZGt0?=
- =?utf-8?B?MjY0c1grUGhBSHppUTFhS2tqM0xGaDBOZTBvV043T0QzbFFaZjVzQlFSL0hQ?=
- =?utf-8?B?ZGt2NkoxU2hlR2VZc2RUaGk5ZnNBamxVSHp3dkI0TUJ3YWQ1cldaVTVUY2JH?=
- =?utf-8?B?YkZjVzZtYTRmdi9GN0ZDZzJqb1VPYWNVQmJpdGc3T0VMbG12RHRaZ2lKNFM1?=
- =?utf-8?B?czFyRUpka1RYN0lNaHFWbVJ6MkhQKzJtOW8xa1hhaFkweDZzWEF6QXZzM1Z3?=
- =?utf-8?B?WmNiMGdkMGp5NzVYQTlCUmhMVFlaYXkxNzUvQ2lOeWNhaE9mdUJpZDBDZHdN?=
- =?utf-8?B?MGhiVmU4U0VHaHhzWGFRVWwxSGdZUFVvd0ZjVGtZb1VkdjRqVFVCYWYxdGRs?=
- =?utf-8?B?MEhFd1hRZHZRV0M0aTdOMWdOT3ZoOXJpalNSN3pRclNjM3UzZTdKREZUdTgx?=
- =?utf-8?B?NyswYXptQjVYaUZXWlVTNnV5QklYSi9pQkJzRHBRTDBHVnowQTFBZnZINFcx?=
- =?utf-8?B?TUxOclZhOFZiaE5SblhTSk9CZUp2b3F2bFFzLzdXaExWT0V6cGdMa1d1TU41?=
- =?utf-8?B?TFlWWFJWVEYyMzJHdmxzMmVreXlIcjhaK0dnalFWb0IzNFJpbnV2d0kyaUR4?=
- =?utf-8?B?N3hWTEZWSzllYnBwM25COGpTQXRDK3VBRVYzYWRTNzRrTitWdWRQQXpIRFZF?=
- =?utf-8?B?M2x6QzN1OG9McjJ3TDlkZnFZbVFxVTYxTFA2RlFKeUhNYS9ycUIxYXBLZ2JZ?=
- =?utf-8?B?L1gveDdvWU16VFJpZDB2U3FlMEhuVGp5KzNKdmJ0encrQlNXRGFKQW1qcHkw?=
- =?utf-8?B?S0ZSaDhrWTZyMDcydnJ6Tk1DenFlVzBoalBoM1EyUVZTMW1nQTJRc1pTdWkw?=
- =?utf-8?B?T0hKQkxRcVdMc051eGhnRlR0RWExczRkbEV2QUVzTFA4b1hraVlabUViSmx2?=
- =?utf-8?B?ejFxZU5UN05rUnh3ZVlRWTV5ZG9tdWFOdTJNM2hVa25uK0Q4NDM3dDZ2bzk5?=
- =?utf-8?B?NVR3YzI3eEhvSlRqd25mWlFscHZQV095am1Nd3IwdFVtb0U2OFJiMGJiTmFN?=
- =?utf-8?B?cW1COUdCMzlZNHZQWTg1NVB1K1RsaFF3NGlQQ0Q4WURBQmRYeG83eXdBQjNW?=
- =?utf-8?B?bXptK3o0WEovbmt6bndwb3FWOVFNdHN3Nk5JQ2laSEhFcHY0bmxzUU0wNjdV?=
- =?utf-8?B?aE9UYmE0dGRmMzY2TTRDK3drK2NHVlFSdmpuMUx0SFl2Z3NmN1NaVUF4T2h6?=
- =?utf-8?B?SlNZWGdYM2FGNjZSK0VzMjNrRzgwTlhYVTRXM1NUMVRzcnErM0didWtPbER6?=
- =?utf-8?B?cTJnbi82NE5FZDZsZ2F0S1paWVowVElRbit6R1FmUmYwOHVjUEpoejROY0hZ?=
- =?utf-8?B?Yld1Ym9aMFlZMTZyc3JxSjFWQit0VzhVd1pHZ21xYnl4cFY1YWlSWmRsRGFZ?=
- =?utf-8?B?N3BYb1JQbk54bFhPZGY3bTBoejJrV2UxY0JQZkdGZHYxV0c4bVAzQUxXd1Vr?=
- =?utf-8?B?WWZZdnhiczZCbXppQ3FmbmNvUXhWOVdCV0VUL3hPbkhBOUtYY3JGb3k5T0Jq?=
- =?utf-8?B?Mjg2RjZRc0JMeE5hc1dnZHAyemNZdXVXMkt2OS9KZzJJK3J2Y3lFd0srZk9r?=
- =?utf-8?B?YVFqbURzRGlYS0EyZUZzdVhDQTZYQnpjeG8rbDlFS0ttZmZQanQ0Q213d3d5?=
- =?utf-8?B?WXNHQmtsR0RSVWtXSFBiYzIxWXFSK0tJcERkOWhkekNsdDNzRTlQVzJxeExl?=
- =?utf-8?B?ZG82VGZXTGtiWTJGSS9FWnZmcUlEOTRRWDdlZlkxK2ZZTmJ0QjdnaVI0ZXZM?=
- =?utf-8?B?Rzl6czM5NGN0L3JhVmxtM2VxRGJjeFZ5Z3RpSXYxZENud0xESmF4WFZFRlNx?=
- =?utf-8?B?QXJTQWxHVnIvcW5IQVU5WVhUb2VoTTc4MlcyUnF3a2xFdDk0NXZ2MVRtOEMv?=
- =?utf-8?B?c0ZQSVFVcnYxNUNmZU5ub2JEQ2VHMjBvbENHNjBTQTlLR0FoRStzVG9UTzhE?=
- =?utf-8?B?SGUzbkp0ZzdYZ1dITzNRZmdpQ0JDQldJVnlKdldXNURqUlZGcmUxMXFyUldZ?=
- =?utf-8?B?RTJXU2V3NWNBbkxCRDEzZjhLUndlMHZsbU5lRVpXekZNVDVySjJVVC9TRThs?=
- =?utf-8?B?enhQQm11eHRmMzBTMlZjRkd4ZDBCdTFIWHI5Q2l0OE5HUEJJL0UzaE9qRUpm?=
- =?utf-8?B?YVY2WHh4UnArdXVVU1FuVWZWaXhYZG1EcHBOYUhmRGJ3K29RZDRGRXI5MkNX?=
- =?utf-8?B?NUdEdWxpYWFheGdET3R5RmV4ZHpuU0E3eFl2UnRiVW9FL1ZQa1dLdz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 989b5f92-25b2-442c-50e0-08deb6edd37b
-X-MS-Exchange-CrossTenant-AuthSource: MRWPR04MB12330.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 04:02:50.6094
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6Hm9QHsY12cZ8BGwEyZk+zAhaLyN421OFXya5d1Nma9R7GT5yr/ZZRvT/d9sYmGCWAgi0rETlJdQ2xFE4qznmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11531
 
-From: Peng Fan <peng.fan@nxp.com>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] The patch introduces a redundant device tree binding schema (`snps=
+,dwc-i2c.yaml`) and a duplicate generic compatible string (`snps,dwc-i2c`) =
+for the Synopsys DesignWare I2C controller.
+- [Medium] Compatible strings are incorrectly used to encode the operationa=
+l mode (master vs. slave) instead of describing the hardware IP variant.
+- [Medium] FIFO depth properties (`dwc-i2c-tx-fifo-depth` and `dwc-i2c-rx-f=
+ifo-depth`) use an invalid and unregistered vendor prefix.
+- [Medium] The custom property `starfive,mctp-i2c-ms` improperly uses the s=
+tandard `-ms` suffix for a `phandle` reference and lacks an explicit type d=
+efinition.
+- [Medium] Missing constraints for the slave-only property `starfive,mctp-i=
+2c-ms`.
+--
 
-Add iommus property with each channel could use one IOMMU entry. i.MX95
-supports max 64 channels, so set [minItems,maxItems] to [1,64].
+commit 7e9b926c17cf1f417236a77e427787e7ba5331b1
+Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- Documentation/devicetree/bindings/dma/fsl,edma.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+dt-bindings: i2c: snps,dwc-i2c: Add StarFive JHB100 bindings
 
-diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-index fa4248e2f1b9cecd00f1535744bfe6d9ecdba613..bb8de804da53fdc47703f722f18453853742209d 100644
---- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-+++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-@@ -54,6 +54,11 @@ properties:
-     minItems: 1
-     maxItems: 65
- 
-+  iommus:
-+    minItems: 1
-+    maxItems: 64
-+    description: Up to 1 IOMMU entry per DMA channel.
-+
-   "#dma-cells":
-     description: |
-       Specifies the number of cells needed to encode an DMA channel.
+Add device tree bindings for the Synopsys DesignWare Core (DWC) I2C
+controller and its StarFive JHB100 implementation. The binding introduces
+a new compatible string for the generic IP and two platform-specific
+compatibles.
 
----
-base-commit: 687da68900cd1a46549f7d9430c7d40346cb86a0
-change-id: 20260521-edma-iommu-c025e1d28eba
+> diff --git a/Documentation/devicetree/bindings/i2c/snps,dwc-i2c.yaml b/Do=
+cumentation/devicetree/bindings/i2c/snps,dwc-i2c.yaml
+> new file mode 100644
+> index 0000000000000..7227f24f7cbe0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/snps,dwc-i2c.yaml
+> @@ -0,0 +1,120 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (C) 2024 StarFive Technology Co., Ltd.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i2c/snps,dwc-i2c.yaml#
 
-Best regards,
--- 
-Peng Fan <peng.fan@nxp.com>
+[Severity: High]
+Does this introduce a redundant binding schema?
 
+The Synopsys DesignWare I2C controller is already documented under
+Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml with the
+generic compatible string snps,designware-i2c.
+
+Creating a parallel schema for the same hardware block might fracture the
+hardware description and bypass existing constraints. Could the StarFive
+JHB100 variants be added to the existing designware-i2c schema instead?
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - description: Generic Synopsys DWC I2C controller
+> +        const: snps,dwc-i2c
+> +      - description: StarFive JHB100 I2C master controller
+> +        items:
+> +          - const: starfive,jhb100-dwc-i2c-master
+> +          - const: snps,dwc-i2c
+> +      - description: StarFive JHB100 I2C slave controller
+> +        items:
+> +          - const: starfive,jhb100-dwc-i2c-slave
+> +          - const: snps,dwc-i2c
+
+[Severity: Medium]
+Are these compatible strings encoding the software operational mode rather
+than describing the hardware IP variant?
+
+Since the hardware natively supports both modes, shouldn't the operating
+mode be dynamically determined by the framework or described using standard
+subsystem properties like an i2c-slave sub-node?
+
+[ ... ]
+
+> +  starfive,mctp-i2c-ms:
+> +    description: |
+> +      The property should contain reference to the master node associate=
+d with the slave.
+> +      This value is only used in slave mode, especially for MCTP applica=
+tion.
+
+[Severity: Medium]
+Does the -ms suffix conflict with dt-schema evaluation? Properties ending
+with -ms are strictly evaluated as a time unit in milliseconds, but the
+description indicates this is a phandle reference to a master node.
+
+Also, is there an explicit type definition missing here? Custom properties
+intended as a phandle typically require an explicit
+$ref: /schemas/types.yaml#/definitions/phandle.
+
+[Severity: Medium]
+Furthermore, since the description states this value is only used in slave
+mode, should there be an allOf/if-then block added to enforce this
+restriction based on the compatible string?
+
+> +  dwc-i2c-tx-fifo-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      The property describes the tx fifo depth.
+> +    default: 8
+> +
+> +  dwc-i2c-rx-fifo-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      The property describes the rx fifo depth.
+
+[Severity: Medium]
+Do these properties use an invalid vendor prefix?
+
+Custom device tree properties must begin with a recognized vendor prefix
+followed by a comma. Using dwc-i2c- without a comma violates core device
+tree naming constraints. Should these use a registered prefix like snps,
+or starfive, instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521034340.2783=
+7-1-lianfeng.ouyang@starfivetech.com?part=3D1
