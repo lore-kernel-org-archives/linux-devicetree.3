@@ -1,95 +1,94 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56C736E47F
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 20:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE49C426EAD
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 20:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779395942; cv=pass; b=aJhJKbjJCMmcq2l8vzTKrU5Ha+Vw+y5G5GUCJl1nj7gn7M58OgIPyRK6EtpoJuNiPyRKM4W5V3cDKnJDI50SnA7REX0CJBoSBRx8BBFZB/H1BWbCcsNox72h46mAQe8JkmYWAlj2kyDklKDl3foExHA+xBbAoJKQ33uWmd/SocM=
+	t=1779396043; cv=pass; b=PZjF93bsoBw0nEp2wc3QdsF++ooRILrGi89ECc1KpkUtBpjOaqID1Cm75AustX0Mt+Ox/pb/F99XtMBhk/6W7l0NDHcwflTfKl8lMMKNogdbD7ayJh2PMyCnerfoORIDe+foV/MWmq5AO1WxQULy1dCnLeIY6gf0x/zLO57ltDM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779395942; c=relaxed/simple;
-	bh=7WguGWw3OMqpoY1uNfi3T8L8p63iIWg1hfU/ZsmVvjQ=;
+	s=arc-20240116; t=1779396043; c=relaxed/simple;
+	bh=yP8KGy66CLbX3Ukv+ZuUxw1m5EDntCMD0KN/FDeIZaA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tBQCX5Gcw6jMdFEoYb0ZOCn9dsnKRwSjx4UCl/fd1Y6nDPgeSVoxCTPNzRoGvT4ItfqsX+RbzhPlqnKI58Y414EBL5hsR4ZA7QtgPAbeR/7bKVleYqpjJs06SMTQjm5JoNim2Zyez6hqgx1LbLVFSzlT6rTiwlhnKPqrt07ywnU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p7+Q7yPH; arc=pass smtp.client-ip=209.85.218.43
+	 To:Cc:Content-Type; b=eKYEdFWQpbpQWUtC2AlHzM6q7NWgtqA72P+txXCxtI1R6h/JqvsskhtVf9v8FN0Tn0DN++LU7AENOlBb7TG6Uq5ccMciEhwXZ1zaoF08dpjgXLDXwe6AYGeQEzUdqlwzvJPELhDTGRS9lIxSJcWqzWZdQJYc5rAtynX3l3Pszc8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qXAgPBt6; arc=pass smtp.client-ip=209.85.208.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p7+Q7yPH"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-bd11a3729e8so1037608666b.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:39:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779395939; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qXAgPBt6"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-67389cf78b0so14660482a12.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 13:40:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779396037; cv=none;
         d=google.com; s=arc-20240605;
-        b=MsUVH0A9XobGIxNtEKBtdLR+wNcqSlMBi9dEQrd/TIiEJYPg3x3zALqi92MZFffVuO
-         IIneqG7o9o93VkoSs5ST2SM8wLamYE2JfHzprxJHXPGL64QLQ5Gwx63v0BYFvyfhbejc
-         gQNu5FQTi66z2LstT/LBWRMXIPiVgLT7flIjiizzJ6jdrKHgXWiu4QG2JoBRZdYrhC0Q
-         Qj5b+CijgwbqeE3o1O2YSZl/ivDuv0rDx8/YEgFim9S3HxGnN+CYY4gRdTcETl310Mrn
-         NPjSiCnBDafeeCBJeO/D/Q19UWidqdtv5g6TK8XQUYfrE0XbzwU8Rh0aGPNpguOnUXzd
-         1FOQ==
+        b=W2u/uXrGZjtVwWcHpX65YclPtLKW4L/vDo90IOR9dDMZ2xpdcKfnCmszALXlw7NHHU
+         /b9NRvH1Xw/bOaxogZw0viFxGHkO0hSzAVKsBRG/BRyazXjvnjfGEozj/8tBv1mDuZgZ
+         jd0CvmBEMnspOPgssQARCJfDDhMREHME7JBMTnE2EKJj1qjEA//JZKRSVoRqI/dtVbY2
+         CIgOXCDZqums6rWb4vD2eWOXBSGpmv5qFFURCAGAEqlncAV/7uqcu4br48s97RYSK113
+         Mqz7YeiVkgrMOwIYOlFd/ePcu0EKFz7AXhmr5ku9W0X7tuH5kOrngH0GJeF11AjEpytE
+         EBGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=fW1oXwCiens3FCanTelYWJicgu3a4rD4BDnCOzooE1I=;
-        fh=HM8lh+AFL3ifREMATGhJB4dW/uAQlrknJuDicGuubxc=;
-        b=CiS5tr5A3zk/NU+bEZVrU0duSjYzbpDuX6q76vzzQW8ipG3je6k5FAxzSitAwYQSZB
-         aeepbJhCZfrO+5BSm+r7qVuupcpJOfQ2Qg5z2xI2iWe/HnsUOXMIDJoDTETyLbIjlghH
-         6zH9wagrnUFaRa6C0xgEN/cFkb8eK3qMr1aPGMENpYImxODb5o1Ag89SdaWttxlCep3I
-         EcQuDbY9EcvPT+jYLDPOIDDMZ0ft0AEUlwABv9YcJ7j0F51wyE4gRemWpm3DSy6gVWcq
-         jH/3f4LxgfMhqYcC5/Wor8cgKj8ezq9ld6bP+4QrNu3of5wQGQAcECPfwXoH6HAOm/Ft
-         DaFw==;
+        bh=ze67pyM2HTEYXUgaYqNlhINPItrK8QSimCWmLndb06M=;
+        fh=yXIZd9BTqBQRs/8UdJ61GqIBRvgntpiI7f0MJJScQVs=;
+        b=QrLmeaTyA11s4l4cae2yLpZjIqhuCV8tfkgv1QzTHqDUhfk2Ay0L3xLrKVR100ZZSu
+         yCd5RRaxat44zr1crZw/h+seuh1Nwr2oPCi5Quq92JKJh9NyA2rZ3onG5IIK8fGidtE/
+         r8sjg3e2Mx5x3dDLwuJgU1VHJp+4ydX7WowhU5u1RBKRa0ubOWJ6Y6rDl5uWnLHhXeGu
+         ddhB4+MhvsIU019XwvIqYWLJxAyY1HAcVSLMQKg83vB9NPgICN927jrPUwwoyIobfuWC
+         G3tTNpYE+QBCVzkxAe8i4lurmljkog3nyjP6Gpg4jz9/vmbSgvSUjhWVERxpe3tAfWjS
+         XRtQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779395939; x=1780000739; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779396037; x=1780000837; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fW1oXwCiens3FCanTelYWJicgu3a4rD4BDnCOzooE1I=;
-        b=p7+Q7yPHk0wEhCoNuUDnK+EncHe+ssHY7YE9gd6+b8quQv1QeXgGjsQwddb5fiJlJT
-         Kqzkgny6n8Cwg1zLRoyREKt2NETUCI1DGF9X/FuP15/5JiMeqpROqKdz2VjRjwAz8dU1
-         bbUbD7jm5eDmqnJntl8X+AT8kmjbUHtKLeehJgVAKlh3BtfT3RYAtlibC3D7+N4aYvHx
-         H9Eka+JLgLq5pAaJ+3PWvVLiHkiY9/Q+G4QHUiO11fddvRZisIbBhaFpYQXq+y7in7wD
-         CT76YhHW2ZxvfjBz8AXMCfwUjkWq+JEIGaCZuNaztdwXyWvTx+SIN4V56KfCemjzPYQw
-         i1gw==
+        bh=ze67pyM2HTEYXUgaYqNlhINPItrK8QSimCWmLndb06M=;
+        b=qXAgPBt6hsrBJTCth2LPQZa80/CVjMNZyu5nT+fAIHelx5DWBeRtYBiDviN/abN+GA
+         qWaywO0C7VHZsg5cDfGac8xRgaY7JYtduhamgJfMiAWab49nz2fvRPqHfy4/WGfVbMAU
+         q2FMUl1HZQGXQW0U+G+w0YzZDARXx3Y6Cn5XowezhUoXmuhU+6woXUKl7Qw5/jwqTL6k
+         ZeaHEurQQOGe6/Q0g9oUHPcdzD18dj+KW0B5mEUZcK+COMl95N5/yADNaMPaFVCYgMTR
+         AOTxHcu0vQy8805IWA5XT6/75olED4NMn+ZW0NUVkRy0P4JrkfiGDblTOtplYMXGtfxy
+         KYOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779395939; x=1780000739;
+        d=1e100.net; s=20251104; t=1779396037; x=1780000837;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=fW1oXwCiens3FCanTelYWJicgu3a4rD4BDnCOzooE1I=;
-        b=LS6GbE2w+MlHmtY2b0uHAzttgBVQXNEceeAY3WnWo6i1Xrz/V88M9oIGkHxDAuluFA
-         p3OKebaVtl138tcAcI12pyUL4kazWgZUYCiQ53A7SD6I6J6UghknNXLlLr9uL9av+Ott
-         GvSJGjfLNEYZ2oVk+Dkkx7eKXlrY/o06HsbZF5j9d5jRNjDqWolcT00cGwJviirxlHnb
-         DeEcU4mpyMbjv1D5EHFj6n0kNIT3WQDzVeeS/Ty8+aWMambWeoYYE/nPGPc8ku8SsSH8
-         pIQ2LxYEPGjXQS+VXQSU6UcQESZhJTZic7brDt//cSUi4iIUPoeIH2qHxjjivWFfmzO1
-         tw1A==
-X-Forwarded-Encrypted: i=1; AFNElJ/7zEfTV3wl05I/MXurNiDL9wCujq+yUaa0q1+/BhQg05BI8YNu+xlXPXW2zLAkuJX1kviSYCevpJ2r@vger.kernel.org
-X-Gm-Message-State: AOJu0YweVwUv6qtyV/pZSCEROQ8RySv3qTL3SUOjJGsV3feGgjVBEsF+
-	nG3nD3e7W34ex7M4/WaVBmhQEOm1quG76ungGfrcSyDjmwyZ54O4vSXPf99/RQG3PPGVLNfgvqg
-	XaZiuzs7dQ6pnVVdf6ZbG/5x2asUGmA==
-X-Gm-Gg: Acq92OGGV/Bkx9hGPcVgJjplBzOxiO6bBQps7pUOe9rseSUMRd9RHMy6iKqIoQING+2
-	4kPOiNoPnErE7bu+7hh56V9D/AV98dU20im1t4JuWj0dXytLajtFtm2fE8En4ZZGNLzyoHHfTyC
-	UU5jt+seDzf0hdo00Ejmu84VlwaBNEFV/puep7sKNQk0bjJJ+f1NPXoPaY49UpwNq6UdpK8NKr1
-	wldOjWxJHJshHPju9YCgKCrxE0ou1IWxAe4TJuVyYHQacdXgDbI0RrSjVIEmESvjyR9pMEaOsuM
-	nYXnMN1TwhFpNg==
-X-Received: by 2002:a17:907:928a:b0:bd2:fcd8:4cf9 with SMTP id
- a640c23a62f3a-bdd263c932fmr54408966b.41.1779395938847; Thu, 21 May 2026
- 13:38:58 -0700 (PDT)
+        bh=ze67pyM2HTEYXUgaYqNlhINPItrK8QSimCWmLndb06M=;
+        b=BA8SeiPYAXB7GE7q3YPtvM98QzkMNMcqNWz6yIROFvVsM+o5HsLl8BjIVxOO2r/B7q
+         DS1RSVW8IQ2w5Bu1yhLjuNg/mFatz0Gocs6nVIVxIqM+JR1TkG3XuAhG6UVFgudefA5Y
+         NDGE6RL4jHky3qI1ihGpPiyjGyerigStfgmYNhaunKx72h1JdZPu27QA+HvDlj6Pnf6Z
+         GGaHq7SzaHYBIXpON7SngXb/7TS4ZpDdcpRslLwIuqxs+pFhksENi1KxTIOYEAsnNj6i
+         yaz4rk7d6Q6ZBI68BUL/YgMEBWpb5LsLL3alu0mMTWdGMYEsjgVxCf4ZJ2yRqto5HfAS
+         PRWA==
+X-Forwarded-Encrypted: i=1; AFNElJ/ox3k4Re8RBbYnxecvWvfmxCLWrhIFxsEwc8V0YMAFsSWg3OA760xFCqFruDiAyqjLpARUGCiRd+Mf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyoob7PJEDAe5Txw8vJyX0hBS/zxGt7shcKY0ca7wccTaiAFqkE
+	ZH5U48xXRRGFdpmJ7SNpbiyYYIcUaGdADfS6bVIa7Y9XCeUJZ9mTcuOTKZwlJN7fjV5qgAhFK0J
+	SHPRuaGusoPVSq6zoVhk+scTxdY0/ow==
+X-Gm-Gg: Acq92OGiV7Dyk0Y8EHL5x4Tudal6emYtqicf9MVo7mzhM8RPWa0pcVdyWswkvrQxUKr
+	Y/i6wGF4+V1cLi7ARel+aPCQvVFpWoLdK6/5KvwcF3p1lPWBo1jeC/7uwi5RZbhJ57bzLrxg5ap
+	WiuytNLfVDBWOhZFhNjYoYlBcvzOOV+TTKhxes2tXgL9C5X5sQE1hbX0JdBQkRYhrAVoTGsUwi/
+	YFi+NgSVwTCDsXR2CdRx6cc6KeSFP4iOCPofZZ/M7WHbi/s0lv5N51pv0OPFqFBKKkVEkiEXlHu
+	oxo=
+X-Received: by 2002:a17:907:c081:b0:bd9:60d8:6609 with SMTP id
+ a640c23a62f3a-bdd25aeec87mr56952766b.13.1779396037466; Thu, 21 May 2026
+ 13:40:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260520191943.73938-1-arouhi@sitime.com> <20260520191943.73938-3-arouhi@sitime.com>
- <48cc27ed-48e8-41db-8351-166774466a69@kernel.org>
-In-Reply-To: <48cc27ed-48e8-41db-8351-166774466a69@kernel.org>
+References: <20260520191943.73938-1-arouhi@sitime.com> <20260520191943.73938-2-arouhi@sitime.com>
+ <20260521-happy-celadon-hamster-94802c@quoll>
+In-Reply-To: <20260521-happy-celadon-hamster-94802c@quoll>
 From: Ali Rouhi <rouhi.ali@gmail.com>
-Date: Thu, 21 May 2026 13:38:46 -0700
-X-Gm-Features: AVHnY4ILigC8YCZY8euCoRmiEe_rpzQc4MgyNgFRQqdyzkCC81wUGU1H3Wbu8Uo
-Message-ID: <CALFSGupB_eRHQ=h2PzwiLE1gTvd7kZbBP+eWOVWVxapVjzgeXw@mail.gmail.com>
-Subject: Re: [PATCH v2 net-next 2/3] dt-bindings: dpll: add SiTime SiT9531x
- clock generator
+Date: Thu, 21 May 2026 13:40:26 -0700
+X-Gm-Features: AVHnY4KCHObbT3QYD6a24XRvhNNiY81MoJisfWuLE7Y4SEhAswnLI5R8YD5XQYQ
+Message-ID: <CALFSGuoWkHYmtrouvLk2M7bWS1=qTSPUn5GuabFvK92cPBfuZA@mail.gmail.com>
+Subject: Re: [PATCH v2 net-next 1/3] dt-bindings: vendor-prefixes: add SiTime Corporation
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev, 
 	arkadiusz.kubalewski@intel.com, robh@kernel.org, krzk+dt@kernel.org, 
@@ -99,169 +98,30 @@ Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-> Mismatched DCO. Use consistent identity or fix your commits.
+> Mismatch in From/DCO.
 
-Apologies =E2=80=94 Gmail's SMTP relay rewrites the From header to my
-personal address (rouhi.ali@gmail.com).  I'm working with IT to
-get corporate SMTP credentials so the From matches the Signed-off-by
-(arouhi@sitime.com) in v3.
+Acknowledged =E2=80=94 Gmail SMTP relay issue, will fix for v3.
 
-> Same as last time. Why are you describing drivers?
+> It looks like you received a tag and forgot to add it.
 
-Will drop the clocks description entirely =E2=80=94 maxItems and
-clock-names are sufficient.
+Thank you for the reminder.  Will carry Conor's tag in v3:
 
-> Drop node. Wasn't here before, so why did you add it?
-> Drop.
-
-Will drop both xo and xo2 fixed-clock nodes from the examples.
-
-Thanks for the review.
+  Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
 Best regards,
 Ali
 
-On Thu, May 21, 2026 at 12:26=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
+On Thu, May 21, 2026 at 3:18=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
 >
-> On 20/05/2026 21:19, Ali Rouhi wrote:
-> > Add device tree binding documentation for the SiTime SiT95316
-> > and SiT95317 DPLL clock generators.
+> On Wed, May 20, 2026 at 12:19:41PM -0700, Ali Rouhi wrote:
+> > Add vendor prefix for SiTime Corporation, manufacturer of
+> > programmable clock generators and MEMS oscillators.
 > >
-> > Co-developed-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> > Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 > > Signed-off-by: Ali Rouhi <arouhi@sitime.com>
 >
-> Mismatched DCO. Use consistent identity or fix your commits.
->
-> > ---
-> >  .../bindings/dpll/sitime,sit9531x.yaml        | 145 ++++++++++++++++++
-> >  1 file changed, 145 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/dpll/sitime,sit95=
-31x.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yam=
-l b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
-> > new file mode 100644
-> > index 000000000000..ac88f2f0b2ae
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
-> > @@ -0,0 +1,145 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/dpll/sitime,sit9531x.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: SiTime SiT9531x DPLL Clock Generator
-> > +
-> > +maintainers:
-> > +  - Ali Rouhi <arouhi@sitime.com>
-> > +
-> > +description: |
-> > +  SiTime SiT95316 and SiT95317 are I2C-controlled programmable clock
-> > +  generators with integrated DPLL for synchronization applications.  B=
-oth
-> > +  variants contain four PLLs with automatic/manual reference selection=
-,
-> > +  DCO frequency adjustment, and phase offset measurement via an on-chi=
-p
-> > +  TDC (Time-to-Digital Converter).
-> > +
-> > +  SiT95317 provides 4 inputs and 8 outputs; SiT95316 provides
-> > +  4 inputs and 12 outputs.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - sitime,sit95316
-> > +      - sitime,sit95317
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +    description:
-> > +      External crystal/oscillator feeding the chip's XIN/XO_CLK input.
-> > +      The chip's PLL Fvco is computed relative to this reference, so t=
-he
-> > +      driver requires a non-zero rate at probe time.
->
-> Same as last time. Why are you describing drivers?
->
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: xtal
-> > +
-> > +  reset-gpios:
-> > +    maxItems: 1
-> > +    description:
-> > +      GPIO connected to the chip's active-low reset pin (RESETB).
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +    description:
-> > +      Interrupt from the chip's active-low INTRB output.  Asserted whe=
-n
-> > +      the device detects a status change such as lock acquisition or l=
-oss.
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - clocks
-> > +  - clock-names
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/dpll/dpll-device.yaml#
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    xo: xo {
-> > +        compatible =3D "fixed-clock";
-> > +        #clock-cells =3D <0>;
-> > +        clock-frequency =3D <48000000>;
-> > +    };
->
-> Drop node. Wasn't here before, so why did you add it?
->
->
-> > +
-> > +    i2c {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        dpll@68 {
-> > +            compatible =3D "sitime,sit95317";
-> > +            reg =3D <0x68>;
-> > +            clocks =3D <&xo>;
-> > +            clock-names =3D "xtal";
-> > +        };
-> > +    };
-> > +
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +
-> > +    xo2: xo2 {
-> > +        compatible =3D "fixed-clock";
-> > +        #clock-cells =3D <0>;
-> > +        clock-frequency =3D <48000000>;
-> > +    };
->
-> Drop.
->
-> > +
-> > +    i2c {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
->
->
+> Mismatch in From/DCO.
 >
 > Best regards,
 > Krzysztof
+>
