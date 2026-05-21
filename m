@@ -1,184 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8390C3E16A6;
-	Thu, 21 May 2026 20:26:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09473C7689;
+	Thu, 21 May 2026 20:34:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779395190; cv=none; b=iP0Fte3doGI6MqSoODHLq1jyBjxhft07Y9wgLbSSy8EgM1HuJoXQsT8x8lKn2WLTVrOcgAVDNP4Vw2OgiVii+uHQOgb/Ko9f9oT139Zi3CwgDFXewYwUrQgNam6fM10B/1DL+Ge02noM/JaK481PzO7yUTHRpIShSz24B3bUifE=
+	t=1779395673; cv=none; b=SU2bH0XyHwdyakWJUi6CASoocCuHD6cLHin+BX4Littii1eCiRhTRKBNpQWRwcyOO2eOisQVMcU6ty7xalpo7LYnovPIH3wZF3OQ5fm6sThYsrz49r12Rgj3g2gFeLUBU6vkhD/WAaIYNbuFfV9NXLoLBdl3Szd0s7VpUXFxER8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779395190; c=relaxed/simple;
-	bh=MFA4cMvKhbGBNpvihLapYD7MamV6C/ICz/ZEgiXrPBI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SgALErptTZuoa90m/OcPVJAW+1teDNVqL1qoeQekIsvKPHxYJr/HP01nVDX2ZfJpgVN7hGbSN4z5DmuwU1q8rAGnn0q8GaPsoPanAsshFZdJl2JKOIlqztUshD1Gx0ad7lUcY/eXx62cNutnpU0FLEJd+SJ2uXCRKkjf5piGzHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lwvm4EBQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779395673; c=relaxed/simple;
+	bh=CgRad/3jFwSqPRYpfpgD7MhweHImV/NgqRjX96KiQCg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cm4yo4BsTQPmfi9xf+haePv+Hfq1dWjSPFoayykgSmqso8QdBv8dZztVjB5aOvbZTp5Vdnkk8VwIoA1Zf6qN4bgJobFue8sPc7J6Uee9kKn5BM1xGfkiryUoh7+DCib8sBTrEi+2pgnlG5/cR47/ssUpgDcG+BOgnVaBQUk5pVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsL15wIr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lwvm4EBQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 767E31F000E9;
-	Thu, 21 May 2026 20:26:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsL15wIr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5D721F000E9;
+	Thu, 21 May 2026 20:34:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779395189;
-	bh=mR7/bge6JcX24xjulaB5vvJqpecE2qhCKlDej64wNVc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lwvm4EBQPc2T68E60wfFJqRqq2TPk7TNTo9++A1sbAr8w0yOwyMWu5zNYmPcBPsLE
-	 GC6N7r998f4JX1yEUTKdLPneuGhr8xRQBJrIXggVJgr2b5Crzg8/l++N9Mjhw8mfsF
-	 S5C7rJ/mqFdtchY2OduLmlAyTQhJH0XHsP+r5KwiyCcn23BHKbqx1SJZsRAc/FcAhs
-	 cYq/pxd+9Gzf86uaQhJUh4x0pTEVG+uuv6qDeZ3UV23pAZJaykDSML3LFBUpvWraYG
-	 vyM83L+fJjk3jfq+HGVfDgKcM8v0/Q73Ladt7fPQ3c1LlSGdv2GcZ+TfDcLhu1kdQD
-	 fFHmiFRvT0PSA==
-Date: Thu, 21 May 2026 21:26:24 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Arnab Layek <arnab.layek@mediatek.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, andersson@kernel.org,
-	mathieu.poirier@linaro.org, linux-remoteproc@vger.kernel.org,
-	Project_Global_Chrome_Upstream_Group@mediatek.com
-Subject: Re: [PATCH v4 1/1] dt-bindings: remoteproc: mtk,scp: Allow multiple
- memory regions for MT8188
-Message-ID: <20260521-rarity-degree-4d5ae12b6fd0@spud>
-References: <20260520112629.3420612-1-arnab.layek@mediatek.com>
- <20260520112629.3420612-2-arnab.layek@mediatek.com>
+	s=k20260515; t=1779395672;
+	bh=2+YJeEj4jGuXBB15B3KMj6vxMAokMR664t9NsJ+0OWQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GsL15wIrZVkAvfexn3xxTvWkq2UzlMrphSeAy/Jj6UH8vKQdJCUeJe3hEbh8MiOSW
+	 ivqSt1epBe0Erty4FRCeS1qqaeGQt73QTsggIfY0Br7rGY9d4W1v6mmGjQxH537hTw
+	 WFL1WJFhrrnRvHquYctoH4m/oqZcrmREz0yaD9434I8WvQqqTyb5pyJBKJxzSDWxPb
+	 QN+yuwqJ/mHGYKQ/o0KZkeLc0xr8mDbgL/u1jO0HwtI83pG2pWQCvgljWfhtCKzy3M
+	 CQs9rMYNWe5MZYvFw+aRhj/iKlyoBs/rWrLKXKVAR3E7WTdF0rGRSV4jPs1/Tuwlqi
+	 W3IvQ6R2ZzbBw==
+Message-ID: <eb1e7119-9d1c-4efb-9609-3c8f5265084c@kernel.org>
+Date: Thu, 21 May 2026 22:34:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KMuahv1k41CftHWI"
-Content-Disposition: inline
-In-Reply-To: <20260520112629.3420612-2-arnab.layek@mediatek.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] dt-bindings: i2c: snps,dwc-i2c: Add StarFive
+ JHB100 bindings
+To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jan Dabros <jsd@semihalf.com>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260521034340.27837-1-lianfeng.ouyang@starfivetech.com>
+ <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260521034340.27837-2-lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 21/05/2026 05:43, lianfeng.ouyang wrote:
+> +
+> +  starfive,mctp-i2c-ms:
+> +    description: |
+> +      The property should contain reference to the master node associated with the slave.
 
---KMuahv1k41CftHWI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It's redundant to say that property is "the property ...". Just SAY
+describe that.
 
-On Wed, May 20, 2026 at 07:26:29PM +0800, Arnab Layek wrote:
-> The MT8188 SCP can use either one or two reserved memory regions:
-> - Required: Main SCP SRAM memory region (mandatory for SCP operation)
-> - Optional: SCP L1TCM memory region (Level 1 Tightly Coupled Memory,
->   used for performance optimization when available, but not required
->   for basic SCP functionality)
->=20
-> Other MediaTek SoCs (MT8183, MT8186, MT8192, MT8195) use only a single
-> memory region and must remain restricted to one region for backward
-> compatibility.
->=20
-> Update the base schema to allow 1-2 memory regions (minItems: 1,
-> maxItems: 2), following the pattern used by other MediaTek dt-bindings
-> like mediatek,vcodec-encoder.yaml where the base property defines a
-> permissive range accommodating all device variants.
->=20
-> Add two conditionals:
-> 1. Explicitly restrict non-MT8188 devices to maxItems: 1
-> 2. Document MT8188's two regions with descriptions (minItems: 1 makes
->    the L1TCM region optional, allowing boards to specify 1-2 regions
->    based on hardware configuration)
->=20
-> This approach maintains backward compatibility while enabling MT8188 to
-> specify 1-2 memory regions depending on board design and performance
-> requirements.
->=20
-> Signed-off-by: Arnab Layek <arnab.layek@mediatek.com>
+Also, wrap according to Linux coding style.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+> +      This value is only used in slave mode, especially for MCTP application.
+> +
+> +  dwc-i2c-tx-fifo-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      The property describes the tx fifo depth.
+> +    default: 8
+> +
+> +  dwc-i2c-rx-fifo-depth:
+Wrong name. Generic properties DO NOT use "dwc" name. Please use
+existing standard properties from dtschema, other common schemas or just
+look around.
 
-Cheers,
-Conor.
+Do not invent your own stuff and unfortunately half of this binding is
+such invention - done completely different than everything else. That's
+a sign of downstream code and we really do not like such code.
 
-> ---
->  .../bindings/remoteproc/mtk,scp.yaml          | 45 ++++++++++++++++++-
->  1 file changed, 43 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/=
-Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> index bdbb12118da4..fca9b0675eae 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> @@ -55,7 +55,8 @@ properties:
->        initializing SCP.
-> =20
->    memory-region:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
-> =20
->    cros-ec-rpmsg:
->      $ref: /schemas/embedded-controller/google,cros-ec.yaml
-> @@ -123,7 +124,8 @@ patternProperties:
->            initializing sub cores of multi-core SCP.
-> =20
->        memory-region:
-> -        maxItems: 1
-> +        minItems: 1
-> +        maxItems: 2
-> =20
->        cros-ec-rpmsg:
->          $ref: /schemas/embedded-controller/google,cros-ec.yaml
-> @@ -205,6 +207,45 @@ allOf:
->            items:
->              - const: cfg
->              - const: l1tcm
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - mediatek,mt8183-scp
-> +            - mediatek,mt8186-scp
-> +            - mediatek,mt8192-scp
-> +            - mediatek,mt8195-scp
-> +            - mediatek,mt8195-scp-dual
-> +    then:
-> +      properties:
-> +        memory-region:
-> +          maxItems: 1
-> +      patternProperties:
-> +        "^scp@[a-f0-9]+$":
-> +          properties:
-> +            memory-region:
-> +              maxItems: 1
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - mediatek,mt8188-scp
-> +            - mediatek,mt8188-scp-dual
-> +    then:
-> +      properties:
-> +        memory-region:
-> +          minItems: 1
-> +          items:
-> +            - description: Main SCP SRAM memory region
-> +            - description: Optional SCP L1TCM memory region
-> +      patternProperties:
-> +        "^scp@[a-f0-9]+$":
-> +          properties:
-> +            memory-region:
-> +              minItems: 1
-> +              items:
-> +                - description: Main SCP SRAM memory region
-> +                - description: Optional SCP L1TCM memory region
-> =20
->  additionalProperties: false
-> =20
-> --=20
-> 2.45.2
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
 
---KMuahv1k41CftHWI
-Content-Type: application/pgp-signature; name="signature.asc"
+Please read carefully writing-bindings document and submitting-patches
+in DT dir.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCag9qcAAKCRB4tDGHoIJi
-0rcRAQCLjBxasDXV57xfl5XfSkQ3fL4xZ8EJcvOKXBI9aa0ZWgD+LTstcSvBjZQz
-vpMsjWdsvrPrK8D0qh0BwR+7yr+7OgY=
-=QOd/
------END PGP SIGNATURE-----
-
---KMuahv1k41CftHWI--
+Best regards,
+Krzysztof
