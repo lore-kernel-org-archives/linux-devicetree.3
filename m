@@ -1,74 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0926B3A1695;
-	Thu, 21 May 2026 10:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D7337B01A;
+	Thu, 21 May 2026 10:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779359245; cv=none; b=q12/BZDsQ559TzxuqKkQ711rx8slobZ98YnpcVZfBKzBNw+Qm6SwLTMA1/qo1orozkW+isRL5hdoSMTQaWsFdBLVuRuRMkzx6za683HqSLOu3f0tXZNTAk9wRlTDJADcGJwNL3qbipTdwLqkBRo4XQKzAR5N53sfA1pn9k+6qNE=
+	t=1779359265; cv=none; b=TSpdp7B7qbvqgjxcGoiR3SxXid1zhmq4YlGEHwkma09WbDEOBYo9uqIAJQiJEvVW2b19A51GnjvHH8/jXEXBwBLEEm0aLlyuKLj/PQYBu9RA0NIRdlB0XQu+X2Ir2rOPeb/7PW8HaPVbtw9EA76nDNFtZm37SLuFYwV4eH6pjdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779359245; c=relaxed/simple;
-	bh=vpQGoE/t3q+i0Qnd+KlHa7R6iLo0EN/1ZhwDVPbxIWI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dRHB+o5bsycan96QJPO1kdBkK/gb+u7Hj/sOg6vzptQpaNYFitoTGyS1QUYZX4EWy/FCN36VyN6OLcge0+LpmV0beR4/dd9eSSTNO5Rz/nuctAjXMbMdmhjxDTVriRajy6ModBmpXXzIFOXjAQx0idq4vcp7anOAkA/OvhoBcfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DP1Gk7yA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779359265; c=relaxed/simple;
+	bh=QY4O08p8UeC3Kl35zmcup7N0ufYR7vG7/tcw5xu3lHw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hBmvk9bnphapkx2UIwOCtPfCqW/Qj+kxtNQSNgratLlI641wj1JEypBJdM5GH1RL8GTPbVxN9GlAOlZ9toEM9dCx5YNDZSahSmyUu/fqW6QdLr/I8VDQqsgRanTDHqqcvy24aGTBINWKjAMF56nOFeDI5sJDmTY//oNVbSA/nI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhK5++h8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DP1Gk7yA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CAC01F000E9;
-	Thu, 21 May 2026 10:27:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhK5++h8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0981F000E9;
+	Thu, 21 May 2026 10:27:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779359243;
-	bh=6UKm7IohSoMp4xhzCIyfqAWE32QeWV+gE1Gh8Ky41yY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DP1Gk7yA0FOkO7mqztPhHiPxWZTQEqXUi7AhDduLReAf3KNxS2MXXttcCsjr6jJED
-	 4nei0HydFZP6pQWs+KxLIUitexm+SI0Ke6EAnrp0bYPpSoGfrPuRN0ChqlURDp3OvM
-	 v3UdK//H4d34hGb5gI2T/xt71C6nk3rDhVjfipYo/0UKZeKG0zGaimT3y0hyp9r83W
-	 dJ0TgXUJlwIeNRLkFVtmJ6iAgYyKwZ5jSfdB+0BA2lkpV6NTXMcxO+jZnSvGT3lQDa
-	 mM5V2MVhJwCz0h83LqCoS72DNjwoA0MTGpDXosmcO9C5XuY4j/8Md67n+NmRo4/ieC
-	 KlJ28qlZVs1MA==
-Date: Thu, 21 May 2026 12:27:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Rajendra Nayak <quic_rjendra@quicinc.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] interconnect: qcom: x1e80100: Revert ABI break
-Message-ID: <20260521-pig-of-undeniable-abundance-91f70c@quoll>
-References: <20260520184944.182148-3-krzysztof.kozlowski@oss.qualcomm.com>
- <2b5a516d-f847-4cb6-9ea5-21f56448b00f@oss.qualcomm.com>
+	s=k20260515; t=1779359263;
+	bh=ti2ZJxV50WoEVbvDumX+anVxC8PQ556LK3yAqXg+5bA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fhK5++h8Hl/bE2ZV7bIB+nCbGP1gvHxdgyi6R0dequCqp3HSSggM1w6/j1EFNj6AB
+	 qI2MGNUYlaryZFggwMlBlw619kxRLs7oKd5GpfR71FEQ/eeJ5/mED5tjfC/hlz9KfC
+	 KFLeaKKBAa9EZHwETarLf51KGOahzTlpRtU3l1kn2cijYX2xJmgU/OQNjtBd+q4nPq
+	 kLDnqcTZPF2BKYEQ8ZqPYUMlCxt3eRp9QJGwNXtlaU+CCzvBx/lCgsK0ONH/+SsFKn
+	 Hax3kT0RKRCov/L+v59eKBH0Y8J/JMOl3fPgLTCayVGQWN8nc9WyK1FT5LQvAx13dv
+	 ragY7LD3FpDWg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] arm64: dts: imx95: Add dma, intr, aer and pme
+ interrupts for PCIe
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Richard Zhu" <hongxing.zhu@nxp.com>
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260521093255.61585-3-hongxing.zhu@nxp.com>
+References: <20260521093255.61585-3-hongxing.zhu@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 21 May 2026 10:27:42 +0000
+Message-Id: <20260521102743.3D0981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2b5a516d-f847-4cb6-9ea5-21f56448b00f@oss.qualcomm.com>
 
-On Thu, May 21, 2026 at 10:00:03AM +0200, Konrad Dybcio wrote:
-> On 5/20/26 8:49 PM, Krzysztof Kozlowski wrote:
-> > Revert commit c70f7dcd0921 ("interconnect: qcom: x1e80100: enable QoS
-> > configuration") because it breaks the ABI without justification what was
-> > broken and what was not working.  It claims the clocks are needed for
-> > QoS, which might be correct, but QoS itself is not a mandatory thing for
-> > the device to operate.
-> 
-> ???
-> 
-> Would a saner resolution not be to simply adjust the bindings change to
-> mimic the other post-factum QoS clock additions, where `required:`
-> wasn't altered?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Maybe saner but I am really annoyed with the fact that authors don't
-care about dtbs_check rules and impact on users.
+Pre-existing issues:
+- [High] The pcie0 node is missing the msi-map-mask property, which can cau=
+se MSI mapping failures for downstream devices on higher bus numbers.
+--
 
-Anyway, commits were dropped, so this patchset can be ignored.
+commit 0e2b46336a5b22c94438abb01ead59266994b86b
+Author: Richard Zhu <hongxing.zhu@nxp.com>
 
-Best regards,
-Krzysztof
+arm64: dts: imx95: Add dma, intr, aer and pme interrupts for PCIe
 
+This commit updates the device tree configurations for pcie0 and pcie1
+on imx95 to include additional interrupts for dma, intr, aer, and pme.
+These new interrupt definitions enable advanced PCIe functionality beyond
+basic MSI support.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/d=
+ts/freescale/imx95.dtsi
+> index 71394871d8dd0..6896d9c15bf53 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
+> @@ -1861,8 +1861,12 @@ pcie0: pcie@4c300000 {
+>  			bus-range =3D <0x00 0xff>;
+>  			num-lanes =3D <1>;
+>  			num-viewport =3D <8>;
+> -			interrupts =3D <GIC_SPI 310 IRQ_TYPE_LEVEL_HIGH>;
+> -			interrupt-names =3D "msi";
+> +			interrupts =3D <GIC_SPI 310 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 311 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 310 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 310 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 310 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names =3D "msi", "dma", "intr", "aer", "pme";
+
+[Severity: High]
+This is a pre-existing issue, but I noticed the pcie0 node is missing an
+msi-map-mask property. The node defines an iommu-map-mask but lacks a
+corresponding msi-map-mask.
+
+Without msi-map-mask, of_map_id() applies a default mask of 0xffffffff to
+the PCI requestor ID during MSI allocation. If a PCIe switch is connected
+and downstream devices are enumerated on a bus number >=3D 2, their request=
+or
+IDs (e.g., 0x200, 0x300) might fail to match the defined msi-map entries
+which only cover 0x0 and 0x100 ranges.
+
+Could this cause of_map_id to bypass translation, leaving the msi domain
+unassigned and breaking MSI functionality for downstream topologies beyond
+the first bus?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521093255.6158=
+5-1-hongxing.zhu@nxp.com?part=3D2
