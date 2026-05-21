@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467BB34AB03
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:25:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342B713A3F7
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 15:26:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779377152; cv=none; b=BaWvb8Ft88EmLeCnNLJRc3blWff9TrOn5xIoyMTV2SQG2m6/Cqqmcr2SLOl8u+haI1odxI6Wgv+bti3vQtmXvCAXK9VxItjwDKpA/4EnVcoSfdg464sAcnSmbMG4o0iY0as/SE5YJAyTppKAiflAEehIy749o0+dg+Uize/QJLs=
+	t=1779377196; cv=none; b=HLiD9scQyx6URkpAnWRdOwwK/zQD1xvXu44U7jGPs/IF8gWppld1u3PVbNILGNrtlHquOlz/5Z68QHhZw2Jeh5Jg68w3TUeLiRTrQYcPAZwCRS19g1RPgvWap28GBCcaLD0Rz0a4EhnhqrI4rIw4A6AMYt0p2WeOrduUmKh1JCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779377152; c=relaxed/simple;
-	bh=ZFX15B9OZeTj1rWki3S0O9P5l+D8Jstnnz0li742ooA=;
+	s=arc-20240116; t=1779377196; c=relaxed/simple;
+	bh=0PtztILgUijSrxdvcppANANlGgHw96a/MDb8yztgJyY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PxxtO90/5Ce0q4qw0XK+5ARws/vQ7iSz/qdLOSdC9JLbYxJTWcqAqcNL32L/IgQf4teRkeLmHiprSjMzPpFmich6fHxwDvbOVGvTgVmMlZ1FZzL/EY07dZBH/zzOZZL2PUxU+TY3SdaRqWE7mv0iUoffI2JzO9uxnXJDwKZlM4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SOrT2YlE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QYsZVWSt68oM2Dab+Sze/W3w9KUSA7NJSnErGY94mpK5K5PlSoAmMadcwnYU8G7tbhf0SV06XTqDunryN0c2VYcEerk6Cd6DiL+5E8o1ch8k5KLkk8uMJBPCqe5mQE/q4auj3WmNoZJ8zvVQpPU8tvEkirDuCoQduoZFqpeJw3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTghoVT7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SOrT2YlE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A928B1F000E9;
-	Thu, 21 May 2026 15:25:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTghoVT7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3BB1F000E9;
+	Thu, 21 May 2026 15:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779377150;
-	bh=PsYjRo36TCdvig8x6+l9K2dfGmCm7yQhNtMqlN0rJBM=;
+	s=k20260515; t=1779377194;
+	bh=Pt9vJVof8fX2iM0BfTh/qRMqJiJKnBmsC/csDFGT+bU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SOrT2YlE4U9ou9D69vQPs7i6XVPSpcsN5090Kwn210jz7mjPAahrOHSQzKJ4pCt1i
-	 NL4s5SplJxyrWyDkM/6SoLMEIMUX/hL93VOv4Co64ZuGSjnmRffo5q3F2LwDI63Db6
-	 vAvZdU2KHDxyl+n7iFdiSywUz1vdcXawrZqqDEnY8K6ddPo7MZErBAXtCJw73zlx9D
-	 AhSIoZeogDUgUwg/ObfHSGLbMXwka8dgNQUFFas0oDGGdoJPsujiA7Jkxz6dtmSCNX
-	 8QqQHh8zal0Emm4+XCuo5yH+5tnRcf9fRrXBPsbNc2q57OXV+6wUab9PFUrFFzM5It
-	 wFszRTtsFUpWA==
+	b=kTghoVT7OGGxa92rE2YnIU1OgDtRimc148pU+6cYetn6odHa3iwpZNkz1MSuDBtUd
+	 nkQBb5OK9HBPV2pxDCecm1VYW2BE61fNJUa9qe6mqzRf5ddbwlr4ESDs2ezNuUSDGV
+	 V1eanK3PmW+ooApWtegCSUuGlA31LzArbbHFel4m4JfeE9LxMUIyyXqZJECuYsC0mm
+	 Gy4ErwYGPTH+TMc2INc/QG1dN5X8NJ1ZYlZ5doyhAFRdipYh2Q32Xs6Jn1PWhz5vs5
+	 /7+iaarhRntLxwbrpZSJRv863sqtc2p8EdedB7DR0ieLLol6740jmAgRkPorIDsKcu
+	 54A9pRwCOaf2g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 06/15] arm64: dts: ti: k3-am62-verdin: Add Toradex
- Capacitive Touch Display 10.1" DSI
+Subject: Re: [PATCH v1 01/15] dt-bindings: display: panel: Move Logic
+ Technologies LT170410-2WHC to LVDS
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vitor Soares" <ivitro@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260521150038.103538-23-ivitro@gmail.com>
-References: <20260521150038.103538-23-ivitro@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260521150038.103538-18-ivitro@gmail.com>
+References: <20260521150038.103538-18-ivitro@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 15:25:50 +0000
-Message-Id: <20260521152550.A928B1F000E9@smtp.kernel.org>
+Date: Thu, 21 May 2026 15:26:34 +0000
+Message-Id: <20260521152634.9B3BB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,62 +46,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Incorrect interrupt trigger type configured for the active-low t=
-ouchscreen interrupt pin.
+- [Medium] Moving the LT170410-2WHC panel from panel-simple.yaml to panel-l=
+vds.yaml breaks backwards compatibility and enforces unnecessary DT propert=
+ies, as the panel is already supported by the panel-simple driver.
 --
 
-commit 2b76fed10d722885f62d56294af26475663bbac9
+commit 2566a5e0031b5362bab9727f188d6fff83345dfc
 Author: Vitor Soares <vitor.soares@toradex.com>
-arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" =
-DSI
 
-This commit adds a device tree overlay for the Toradex Capacitive Touch
-Display 10.1" on the Verdin DSI_1 interface. It also combines the overlay
-with the Verdin AM62 Dahlia carrier board device trees to provide
-ready-to-use DTBs.
+dt-bindings: display: panel: Move Logic Technologies LT170410-2WHC to LVDS
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitiv=
-e-touch-display-101inch-dsi
-Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-displa=
-y-adapter/
+This commit moves the Logic Technologies LT170410-2WHC panel compatible
+string from the panel-simple binding to the panel-lvds binding.
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inc=
-h-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-=
-dsi.dtso
-> new file mode 100644
-> index 0000000000000..de0148ddd5969
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.d=
-tso
-
-[ ... ]
-
-> +	touch@41 {
-> +		compatible =3D "ilitek,ili2132";
-> +		reg =3D <0x41>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_dsi1_int>, <&pinctrl_i2s_2_bclk_gpio>;
-> +		/* Verdin GPIO_9_DSI (SODIMM 17) - TOUCH_INT# */
-> +		interrupt-parent =3D <&main_gpio1>;
-> +		interrupts =3D <49 IRQ_TYPE_EDGE_RISING>;
+> diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.y=
+aml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> index b31c67babaa86..9db96dd724b24 100644
+> --- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+> @@ -58,6 +58,8 @@ properties:
+>            - hydis,hv070wx2-1e0
+>            # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TFT =
+LCD LVDS panel
+>            - jenson,bl-jt60050-01a
+> +          # Logic Technologies LT170410-2WHC 10.1" 1280x800 IPS TFT Cap =
+Touch Mod.
+> +          - logictechno,lt170410-2whc
 
 [Severity: Medium]
-Is IRQ_TYPE_EDGE_RISING the correct trigger type here?
+Will this break device tree backward compatibility for existing users?
 
-The comment mentions TOUCH_INT#, which usually indicates an active-low
-signal. If the hardware line is active-low, triggering on the rising edge
-might cause the interrupt to only fire when the line is de-asserted (such
-as when a user lifts their finger).
+The panel-lvds.yaml schema expects the compatible string to be a two-item
+array ending with the generic "panel-lvds" fallback. Existing device trees
+using compatible =3D "logictechno,lt170410-2whc" will now fail schema
+validation because they lack the fallback string.
 
-Could this lead to delayed or erratic touch input since the driver relies
-on the device tree for the interrupt trigger configuration? Other Verdin
-overlays appear to use IRQ_TYPE_EDGE_FALLING for this same pin.
+Additionally, panel-lvds requires explicit properties like data-mapping,
+width-mm, height-mm, and panel-timing to be defined in the device tree.
 
-> +		/* Verdin I2S_2_BCLK (SODIMM 42) - TOUCH_RESET# */
-> +		reset-gpios =3D <&main_gpio0 35 GPIO_ACTIVE_LOW>;
-> +	};
-> +};
+Since the panel-simple driver inherently supports LVDS panels and already
+hardcodes the panel's configuration (timings, dimensions, etc.), is there
+a reason to move it to panel-lvds and mandate these generic properties in
+the device tree?
+
+If LVDS-specific properties like data-mapping are needed, could we keep
+the compatible string in panel-simple.yaml and add it to the conditional
+exception list that allows data-mapping instead?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521150038.1035=
-38-17-ivitro@gmail.com?part=3D6
+38-17-ivitro@gmail.com?part=3D1
