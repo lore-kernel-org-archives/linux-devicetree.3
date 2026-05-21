@@ -1,225 +1,218 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F39A39BFED;
-	Thu, 21 May 2026 07:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B028729B228;
+	Thu, 21 May 2026 07:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779348665; cv=none; b=PogEftTAZgiUTob1lyp8+brpYyracpTRaAwUfCNA5tudBlT+4wFsmjOunxpbW2/kb38kLgbbUhx+zzRrRWtZMZiBFptR09D51QlWwo/2k7DNwm5UKCMuWalp4jZJD2aGbgANg/OWbgucGvLyyIoxpnoBSH49PACQfIhO8Y8KRl4=
+	t=1779348843; cv=none; b=VuecPM65slcXkfLxNiQvjyOx6eKwA4D/EzNUvSZEH5Zk/8Valfo5aBLpyHTIHYBkDjwkC04QllwmzFJK1T/+9RtyU69CBYvjZrGFP+Xih1Ec+GrUlltDLZsMS1evlx5lqd1+I8mIjQBxUJe0+t3u10773qeKXMXnPIL3gMz8eNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779348665; c=relaxed/simple;
-	bh=EUIAnhlGU8MnIszvjINplPMFDRzN+GGGnhbHFUGwXaA=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=iVwI/XQo6/qUbb8bepe6frjWpUCu73O2NyxIUA5beB2bPl+ulwmiXeqbc1kGn3HKD6UqMgS1D4QDa1IFRXHxaP94XzLTJzlpmhI03PmTYc+WqwRa2N/Fg2oeI24PpAEJ/IdwUdPde3Ps4tNDNSR1Xh1XcBygYah/OIViG3Co7og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=V0SesEAJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1779348843; c=relaxed/simple;
+	bh=+57qmBqsfH2yB6VQDWcel9jtXkQ6YV/XF17EdDqHT1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E5ovjhjM4dEL4nTU19azEhZYl891lqkeC5n/A65PTTbwdaifBI2fbeKdMwRktCt1W68me1fiC4HAHdLYDb2hbhG6Ei6vCZr7MrA59FbR3YbsL217xI9O3XI0FGv+arqc8EOeQUuGzPM4BmMPUJKovgjwqnSsitdNXCLHcMtKCH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJaTb0BT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V0SesEAJ"
-Received: from mail.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:ad48:920a:da6f:a034])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9730563D;
-	Thu, 21 May 2026 09:30:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779348645;
-	bh=EUIAnhlGU8MnIszvjINplPMFDRzN+GGGnhbHFUGwXaA=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=V0SesEAJ+jgzPtiGfXxR+EA6v2MnF3qkuta5FnyNumTfqMNg7iQOJpB+eEwarpm+v
-	 Bq0uKwjBxPG0N0PWWOmL5mfb3SalZu60V4hTNm6bC92hYUhtaonc/q7bLAgvW8dvQ5
-	 /J08T8X3yio8MvOWt314xL8WsdBNvu555F0bej2s=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJaTb0BT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3261F000E9;
+	Thu, 21 May 2026 07:33:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779348841;
+	bh=XDptwRg4xKg27amdn8Wlm2h1aOyMSzRy1QjpV2/Ikhk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AJaTb0BT/WYnEY5NIICQVRSb10hhMfUGcUj/VlVtQ6tQg4RUk3YSt7HwYz6/2RV3K
+	 M9eh854AoOF88iE/k03Q5CbrKGEw2+Z9PeU50YpJNVppiVQIRx1XBxybXqOv1y8rmU
+	 KCreEYXxRf5z1FtJXcpZqEaCMRjQn3OTA2Bvmmmy0iDGl9TWagcGxLPWjfVnkXjGxD
+	 3AYA2pOjo8oSAKa9FoC1zkYiunNGJAjbGVVIYOh7TdJsVENOqVQCjart6SA3OKmlEz
+	 Lj8i/VD/GODloD0gwSfUwwX5jgw0pzm9/cV4/hVVlgfSOFq+HGeFbD50bKjrk+znlc
+	 xwTH2HfQNS21w==
+Date: Thu, 21 May 2026 13:03:44 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Caleb James DeLisle <cjd@cjdns.fr>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v8 3/3] PCI: mediatek: Add support for EcoNet EN7528 SoC
+Message-ID: <r2l6c665a3feivxabhlkqx5hghvg4s6spxz7xmqvlxawqijkub@qz3gcdxuavf7>
+References: <20260520183827.908243-4-cjd@cjdns.fr>
+ <20260520195806.4726A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260520-during-rocklike-a7436513d559@spud>
-References: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com> <20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com> <20260520-crusher-species-cf707a9a8b46@spud> <177929757691.2341049.18374545669142492074@selene> <20260520-during-rocklike-a7436513d559@spud>
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add Sony IMX678
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Lachlan Michael <Lachlan.Michael@sony.com>, Ryuichi Tadano <Ryuichi.Tadano@sony.com>, Kengo Hayasaka <Kengo.Hayasaka@sony.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Conor Dooley <conor@kernel.org>
-Date: Thu, 21 May 2026 09:30:56 +0200
-Message-ID: <177934865612.2341049.12699321483523040036@selene>
-User-Agent: alot/0.12.dev70+g31692a239
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260520195806.4726A1F000E9@smtp.kernel.org>
 
-Quoting Conor Dooley (2026-05-21 00:04:16)
-> On Wed, May 20, 2026 at 07:19:36PM +0200, Jai Luthra wrote:
-> > Hi Conor,
-> >=20
-> > Thank you for the review.
-> >=20
-> > Quoting Conor Dooley (2026-05-20 17:56:29)
-> > > On Wed, May 20, 2026 at 05:17:25PM +0200, Jai Luthra wrote:
-> > > > Sony IMX678 is an 8.4 Megapixel (3856x2180) CMOS sensor, that can o=
-utput
-> > > > pixels over MIPI CSI-2 bus. Add bindings for it.
-> > > >=20
-> > > > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> > > > ---
-> > > > Changes in v3:
-> > > > - Use `reset-gpios`, mentioning the sensor XCLR acts like RESETN, i=
-nstead of `xclr-gpios`
-> > > > Changes in v2:
-> > > > - Add per-variant compatibles for mono and colour, alongside the
-> > > >   generic fallback, so the variant can be declared without powering
-> > > >   the sensor at probe.
-> > > > - Rename reset GPIO to xclr as that's what it's called in the
-> > > >   datasheet, and how it behaves
-> > > > - Reference the generic video interface devices schema and switch to
-> > > >   unevaluatedProperties.
-> > > > - Drop "link-frequencies: true"
-> > > > - Drop the T: entry for media.git from MAINTAINERS.
-> > > > ---
-> > > >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 129 +++++++++=
-++++++++++++
-> > > >  MAINTAINERS                                        |   6 +
-> > > >  2 files changed, 135 insertions(+)
-> > > >=20
-> > > > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx67=
-8.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..d85745ddbefd
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > > > @@ -0,0 +1,129 @@
-> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > +# Copyright (C) 2026 Ideas on Board Oy
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: Sony IMX678 Sensor
-> > > > +
-> > > > +maintainers:
-> > > > +  - Jai Luthra <jai.luthra@ideasonboard.com>
-> > > > +
-> > > > +description:
-> > > > +  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type=
- solid-state
-> > > > +  image sensor with a square pixel array and 8.40M (3856x2180) eff=
-ective pixels.
-> > > > +
-> > > > +allOf:
-> > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    enum:
-> > > > +      - sony,imx678
-> > > > +      - sony,imx678-aamr
-> > > > +      - sony,imx678-aaqr
-> > > > +    description:
-> > > > +      The IMX678 sensor exists in a colour variant (IMX678-AAQR) a=
-nd a mono
-> > > > +      variant (IMX678-AAMR). An internal register can also help de=
-tect this at
-> > > > +      runtime.
-> > >=20
-> > > I don't understand the compatibles here. If aaqr is tge colour varian=
-t,
-> > > and aamr is mono, what does the suffix-less compatible represent?
-> >=20
-> > Sorry, I had seen Laurent's comment on this area in v2 but forgot to up=
-date
-> > it in this revision.
-> >=20
-> > The suffix-less compatible is for the cases where a product comes in two
-> > variants with the sensor being either mono or color.
->=20
-> This response is very weird. It's worded in a really generic way that
-> barely seems to be a response to my mail. We aren't talking about
-> "a product" here, we are specifically talking about the imx678, and we
-> know it comes it these variants. There are no "cases" involved.
->=20
+On Wed, May 20, 2026 at 07:58:05PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] Link retraining is performed after device enumeration and driver binding, causing a severe race condition.
+> - [High] Iterating the PCI bus devices list without holding the pci_bus_sem read lock.
+> - [Medium] Early return in mtk_pcie_retrain() aborts retraining of all remaining root ports if a single port fails.
+> 
+> Pre-existing issues:
+> - [High] Freeing port in error paths causes a Use-After-Free because the active IRQ domain's host_data still points to it.
+> --
+> 
+> commit c1c3bb9bcba6bb8a070037578912a2f02c381591
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+> Subject: PCI: mediatek: Add support for EcoNet EN7528 SoC
+> 
+> This commit adds support for the PCIe controller present on the EcoNet
+> EN7528 (and EN751221) SoCs. These SoCs feature a mix of Gen1 and Gen2 ports,
+> and require a manual link retraining after startup for Gen2 ports to function.
+> 
+> > diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
+> > index c503fbd774d09..4e4d4b1559f71 100644
+> > --- a/drivers/pci/controller/pcie-mediatek.c
+> > +++ b/drivers/pci/controller/pcie-mediatek.c
+> 
+> [ ... ]
+> 
+> > @@ -755,6 +766,132 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+> >  	return 0;
+> >  }
+> >  
+> > +static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
+> > +{
+> 
+> [ ... ]
+> 
+> > +	/* 100ms timeout value should be enough for Gen1/2 training */
+> > +	err = regmap_read_poll_timeout(pcie->cfg, EN7528_LINKUP_REG, val,
+> > +				       !!(val & link_mask), 20,
+> > +				       PCI_PM_D3COLD_WAIT * USEC_PER_MSEC);
+> > +	if (err) {
+> > +		dev_err(pcie->dev, "EN7528: port%d link timeout\n", port->slot);
+> > +		return -ETIMEDOUT;
+> > +	}
+> 
+> [Severity: High]
+> This is a pre-existing issue, but returning an error here can cause a
+> use-after-free crash.
+> 
+> When a port fails to start up (for example, if the slot is empty and link
+> training times out), the caller frees the port structure by calling
+> mtk_pcie_port_free(). However, mtk_pcie_port_free() does not call
+> irq_domain_remove().
+> 
+> Since mtk_pcie_init_irq_domain() sets the newly allocated port structure
+> as the IRQ domain's host_data, the domain remains registered with a
+> dangling pointer.
+> 
+> Could we make sure the IRQ domain is properly cleaned up in error paths?
+> 
+> [ ... ]
+> 
 
-It's very myopic to say bindings should only care about the camera sensor
-on its own and not how or where it is integrated in, which is usually a
-"product".
+This is a valid concern. I've sent the fix for it:
+https://lore.kernel.org/linux-pci/20260521071907.13614-1-manivannan.sadhasivam@oss.qualcomm.com/
 
-Maybe my response won't sound "weird" (?) if you see Dave's comment on v1:
-https://lore.kernel.org/all/CAPY8ntBi88-dd2HxxftErf8h5-ERRPcGy5KJ-+oF7jawNO=
-JpuA@mail.gmail.com/
-and Laurent's recent proposal(s) for handling this for a different sensor:
-https://lore.kernel.org/linux-media/20260505163713.GE1547435@killaraus.idea=
-sonboard.com/
+> > +static int mtk_pcie_retrain(struct device *dev, struct pci_host_bridge *host)
+> > +{
+> > +	struct pci_dev *rp;
+> > +	int ret = -ENOENT;
+> > +	u16 lnksta = 0;
+> > +	u32 speed;
+> > +
+> > +	/* Should already have been warned about during startup_port */
+> > +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK))
+> > +		return 0;
+> > +
+> > +	for_each_pci_bridge(rp, host->bus) {
+> 
+> [Severity: High]
+> Does iterating the PCI bus devices list here require holding the pci_bus_sem
+> read lock?
+> 
+> Since mtk_pcie_retrain() is called after pci_host_probe() completes, the PCI
+> bus is live and devices are exposed to the system. Concurrent operations like
+> sysfs hotplug events could modify the host->bus->devices list during traversal.
+> 
+> Should we hold down_read(&pci_bus_sem) or use pci_walk_bus() to avoid a race
+> condition?
+> 
 
-Both of those threads have you in CC, so I assumed you were aware. That's a
-higher bar for "being aware of something" than DT maintainers often have
-for contributors, like Krzysztof's comment with unnecessarily snappy tone
-about the reset-gpio on v2.
+This is also a valid concern. You should wrap the loop with 'pci_bus_sem'. I see
+a few other drivers are also doing the same, but I'll fix them separately.
 
-> > It allows sharing DT blobs amongst the two variants, where the driver
-> > powers the sensor on and reads the register to figure out if it is mono
-> > or color.
->=20
-> To be honest, I don't really get why the driver uses the specific
-> compatibles at all, if it can just determine if it is colour or mono at
-> runtime. Seems to me like this should be
-> compatible:
->   items:
->     - enum:
->        - imx678-aamr
->        - imx678-aaqr
->     - const: imx678
+> > +		if (pci_pcie_type(rp) != PCI_EXP_TYPE_ROOT_PORT)
+> > +			continue;
+> > +
+> > +#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
+> > +		ret = pcie_retrain_link(rp, true);
+> > +#endif
+> > +
+> > +		if (ret)
+> > +			return dev_err_probe(&rp->dev, ret,
+> > +					     "failed to retrain port\n");
+> 
+> [Severity: Medium]
+> Will this early return abort the retraining process for all remaining root
+> ports?
+> 
+> If pcie_retrain_link() fails on the first port, we immediately break out of
+> the loop.
+> 
+> Should this log the error and use continue instead, so that a failure on one
+> independent slot does not prevent the others from retraining successfully?
+> 
 
-Yes, that's the other proposal. The downside being having a certainty of
-the variant at integration time, and not allowing sharing binary blobs
-as-is between two "products" that differ only in which of the two sensor
-variants it ships with.
+This you can ignore as we should treat retrain failure for a single Root Port as
+a hard failure.
 
->=20
-> Or just entirely drop the suffixed compatibles from the binding, since
-> you can detect mono v colour at runtime. The justification for the
-> aamr/aaqr compatibles seems to be that it avoids powering on the device
-> to check, but it looks like you unconditionally power it on and check
-> which variant it is, so that argument holds no water.
->=20
-> > It allows sharing DT blobs amongst the two variants, where the driver
-> > powers the sensor on and reads the register to figure out if it is mono
-> > or color.
->=20
-> Why would you want to share the dtb anyway? That makes no sense to
-> me as a usecase in the first place. If the sensor isn't part of the
-> board, you should be using an overlay or something similar to apply it,
-> because if you can swap the sensor you can also have no sensor!
->=20
-> Also doesn't your driver print a warning if you did this anyway?
->=20
+> > +
+> > +		pcie_capability_read_word(rp, PCI_EXP_LNKSTA, &lnksta);
+> > +		speed = lnksta & PCI_EXP_LNKSTA_CLS;
+> > +
+> > +		pci_info(rp, "link retrained, speed %s\n",
+> > +			 pci_speed_string(pcie_link_speed[speed]));
+> > +
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> 
+> [ ... ]
+> 
+> > @@ -1159,6 +1296,13 @@ static int mtk_pcie_probe(struct platform_device *pdev)
+> >  	if (err)
+> >  		goto put_resources;
+> >  
+> > +	/*
+> > +	 * Ignore error because pci_host_probe() was already called, and in any
+> > +	 * case it is possible that the port will still work as Gen1.
+> > +	 */
+> > +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN)
+> > +		mtk_pcie_retrain(dev, host);
+> > +
+> 
+> [Severity: High]
+> Can retraining the link at this stage cause issues with actively bound endpoint
+> drivers?
+> 
+> By the time pci_host_probe() returns, devices have already been discovered,
+> exposed to the system, and their drivers bound. Retraining the PCIe link forces
+> it into recovery, which could stall transactions or temporarily drop the link.
+> 
+> If an endpoint driver (like NVMe or Wi-Fi) is actively performing MMIO or DMA,
+> could this cause unhandled exceptions, AER errors, or initialization failures?
+> 
+> Would it be safer to retrain before devices are added to the system (e.g.,
+> before pci_bus_add_devices())?
+> 
 
-I thought the bindings are for the hardware and all its potential usecases,
-and not tied to a specific driver or OS? Has that changed??
+This can also be ignored as you don't have much choice here. Once the driver is
+bound to the device, doing any link level activity without quiescing the device
+warrants trouble. But since it happens right after the pci_host_probe(), most
+likely the client drivers wouldn't have started functioning i.e., initiating DMA
+transfers etc... So the chances of failure are very less.
 
-The specific compatibles are useful for the potential usecase of not waking
-up the sensor to save boot-time or avoiding privacy LED flash at multiple
-stages of the boot process.
+- Mani
 
-What we do in the linux driver today should be irrelevant to it.
-
---
-Jai
-
-> > > Your commit message says:
-> > > > - Add per-variant compatibles for mono and colour, alongside the
-> > > >   generic fallback, so the variant can be declared without powering
-> > > >   the sensor at probe.
-> > > But that's not what you have permitted in the binding, you've describ=
-ed
-> > > 3 different variants and using the one with no suffix as a fallback w=
-ill
-> > > produce validation errors.
-> > >=20
-> >=20
-> > "fallback" was a wrong choice of word, I'll update the description in v=
-4.
-> >=20
-> > > I think this probably is
-> > > pw-bot: changes-requested
-> > >=20
-> > > Thanks,
-> > > Conor.
-> >=20
-> > Thanks,
-> >     Jai
+-- 
+மணிவண்ணன் சதாசிவம்
