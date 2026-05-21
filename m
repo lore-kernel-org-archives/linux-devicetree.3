@@ -1,115 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591392ED860;
-	Thu, 21 May 2026 08:21:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED02F31A07B
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:22:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779351691; cv=none; b=LTrT5aT25KAhF9VeWEPfEa74g9Me30GytHEGaGQqhUKuRuHyw3L+Yg2BxzEQJ0Pueqr07lHaEzC2Q2tnmyLiZYZVuGF5GtcAhFIgT5jOZgnCQjcoa0LH++vRQ84ecCcCCdanNycqDb13xR38IfM3zUZ/3mC6b1MQC6TBENwCwMA=
+	t=1779351752; cv=none; b=fdQpSuqz+jHJa6Dm9nfsURFn47fyL3y7iGAGtGxBv7WnaM7Nf7vnQkVHS62alf992Smj1YD9w+8pbBrn1DX501cY7TCzsnEgxZ7hqAJdafNJ8lH0vIJeCWXrrrHrBI+8VzZQBzQAfaxxPL4cS4KxgHxxzQemHqoasYzHpDlBFPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779351691; c=relaxed/simple;
-	bh=ZfEvdJmbSLV/BYoSnh/NDHvbvOvarI+N2DALAuf7eIA=;
+	s=arc-20240116; t=1779351752; c=relaxed/simple;
+	bh=gWLO77tZ9MbajFEgPVEjQUCT6ZTSoktNSTsYB3WGDKU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KiIch+gbqLsrrvz8y5Vg3Dd3Ltn0OPqAdX2q0fHKza56Rsi1zcMj+scJQX26+am0gGl3PnVaOG7L8Zxd0zxcQBqiZi0Z/6nSdLgKzbpLnPlw22XBQ2G3ga4qJSbPyplwGKoP418kJ4d7CF5FmZUqN0bZ+aE4VcHcVq/2fmitA50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KA0mc5+S; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=h8YorwGtl3jHqJJJK943v/P4o1jAthY+tLREsYDLBn30ci0wPAoSZ7+J4FzbYEHscbMWsepoNMP4TEcEH40wu1v38ZOUIfGLDiK6+cLFcRDc812kPSlYGX7uavRGo9Tk0aFOY13bMFCX4cRZHNK8wuu299iqrDt7F/s31dVr7s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mQEZJpRY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KA0mc5+S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3FE1F00A3B;
-	Thu, 21 May 2026 08:21:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mQEZJpRY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD161F000E9;
+	Thu, 21 May 2026 08:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779351690;
-	bh=RsTL9FOW4wrOkfMOa0WAFaXlKJyboMFZ1uHWJa5m12c=;
+	s=k20260515; t=1779351750;
+	bh=qv3TtZ0qONesORUEiWfS5ijOH+9Ehz6dBfj4D+Vm9RM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KA0mc5+SKIb1Tbp6M9FDpKHI7hyt7xhCLJ51gYspXbV2dgYWUnY7zFuEj0MDG0vNW
-	 CH88QlX271eCpX065CiHu/mviFcpKwcPysfm5+t9xhq5ZvkB5vea+zBaoIn0JXl30y
-	 dmzkHpc+XXJ12aANnYkd3toSE4JJiD2yPDQLJ13JEERs17eS6afzZ+Dm07rUGT4lu8
-	 LxiQFcDXj10grrYNXOTtXF3QkVCDwQ4FXFNwrGqiMYv2UPlZbiTwipTFq7gblOuIdR
-	 4MR75rc4cpGlFb6J6pyq5ncW2QUnz9g9g+eU2RCKDYry4UKaKxPHxXbkYtsgdbZgaU
-	 5OABAdAeb0T5A==
+	b=mQEZJpRYBUHi7Up/9Cm41+0WtSqk+Fai0ElVHvajbn7wXFclzQW8tsnG+g0fWbvy5
+	 XNoOQn7n/jDP5bAvIq/l773+hQ5Hn2F/xhH3LjoOHnOeEIfQXXSdsApnmyAPCLJz6I
+	 qnkusBaKBJpO25UqzZAEj4U60Qip4CHtDv8huPLPfRSEn0dm4elgO2oay/nRWf07F/
+	 tjYTZqsS8FF6H1ZGhKqFxtNUb9kRo87SOAlFC4BxnrVK90A5ddeJabT8xhfziXJ6tl
+	 +wkxd2XHLp1R2FP/nDzrJU3nWl/hq9obre7ZC+6RzIZzaM8qy0/Sv7zrHF+BLEVdrP
+	 gEm4AVVC8gyGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/3] dt-bindings: dma: Add Amlogic A9 SoC DMA
+Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: document the
+ Renesas R63419 based dual-DSI video mode Display Panels
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao via B4 Relay" <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260521-amlogic-dma-v8-1-86cc2ce94142@amlogic.com>
-References: <20260521-amlogic-dma-v8-1-86cc2ce94142@amlogic.com>
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-1-dd5700299390@linaro.org>
+References: <20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-1-dd5700299390@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 21 May 2026 08:21:29 +0000
-Message-Id: <20260521082129.9F3FE1F00A3B@smtp.kernel.org>
+Date: Thu, 21 May 2026 08:22:30 +0000
+Message-Id: <20260521082230.6BD161F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The macros DMA_TX and DMA_RX are defined in a global header without=
- any vendor or subsystem prefix.
-- [Low] The binding specifies `#dma-cells: const: 2` but fails to document =
-the semantics of the two cells.
+- [Low] The schema incorrectly uses `additionalProperties: false` instead o=
+f `unevaluatedProperties: false` when inheriting from a common schema.
 --
 
-commit 7a02c7e6145050221d77d7a4745ee4d4e651163b
-Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+commit 06ab207971a6f54327d9bb05b5e8355cbba81b0c
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-dt-bindings: dma: Add Amlogic A9 SoC DMA
+dt-bindings: display: panel: document the Renesas R63419 based dual-DSI vid=
+eo mode Display Panels
 
-This commit adds device tree binding documentation for the Amlogic A9 SoC
-general-purpose DMA controller. It also introduces a new dt-bindings header
-file with property values for the DMA transfer directions.
+This commit adds a new device tree binding document for the Renesas
+R63419 generic DDIC. The DDIC is used to control dual-DSI LCD panels,
+such as those found in Ayaneo gaming handheld devices.
 
-> diff --git a/Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml b/=
-Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
+> diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r634=
+19.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.ya=
+ml
 > new file mode 100644
-> index 0000000000000..efd7b2602c336
+> index 0000000000000..adfdd2c300a35
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
 [ ... ]
+> +allOf:
+> +  - $ref: panel-common-dual.yaml#
+> +
 > +properties:
 > +  compatible:
-> +    const: amlogic,a9-dma
+> +    items:
+> +      - enum:
+> +          - ayaneo,wt0600-2k
+> +          - ayaneo,wt0630-2k
+> +      - const: renesas,r63419
 [ ... ]
-> +  clock-names:
-> +    const: sys
+> +  backlight: true
+> +  reset-gpios: true
+> +  rotation: true
+> +  ports: true
 > +
-> +  '#dma-cells':
-> +    const: 2
+> +required:
+> +  - compatible
+> +  - reg
+[ ... ]
+> +  - reset-gpios
+> +  - ports
+> +
+> +additionalProperties: false
 
 [Severity: Low]
-Should this include a description explaining what the two cells represent?
+Since this schema inherits from panel-common-dual.yaml in the allOf block
+above, should this be unevaluatedProperties: false instead?
 
-Usually bindings with multiple cells document the semantics of each cell
-(e.g., first cell for the request line, second for transfer direction) so
-clients know how to construct their dmas specifier.
+In JSON schema, additionalProperties: false only considers the properties
+explicitly listed in the local properties block. This means any standard
+panel properties (like width-mm, height-mm, or enable-gpios) not explicitly
+listed here will be incorrectly rejected during validation.
 
+Using unevaluatedProperties: false would allow properties defined in the
+inherited schemas. It would also eliminate the need to redundantly define
+properties like backlight or ports in the local properties block.
+
+> +
+> +examples:
+> +  - |
 [ ... ]
-> diff --git a/include/dt-bindings/dma/amlogic,a9-dma.h b/include/dt-bindin=
-gs/dma/amlogic,a9-dma.h
-> new file mode 100644
-> index 0000000000000..c59c2fd4b9561
-> --- /dev/null
-> +++ b/include/dt-bindings/dma/amlogic,a9-dma.h
-> @@ -0,0 +1,8 @@
-> +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-> +
-> +#ifndef __DT_BINDINGS_DMA_AMLOGIC_DMA_H__
-> +#define __DT_BINDINGS_DMA_AMLOGIC_DMA_H__
-> +
-> +#define DMA_TX			0
-> +#define DMA_RX			1
-
-[Severity: Low]
-Would it be safer to add a vendor or device prefix to these macros?
-
-Since this header is globally accessible and can be included in both device
-tree sources and driver code, generic names like DMA_TX and DMA_RX might
-cause macro redefinition conflicts with other kernel components. Adding a
-prefix like AMLOGIC_A9_ would avoid this.
-
-> +#endif /* __DT_BINDINGS_DMA_AMLOGIC_DMA_H__ */
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-amlogic-dm=
-a-v8-0-86cc2ce94142@amlogic.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260521-topic-sm86=
+50-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org?part=3D1
