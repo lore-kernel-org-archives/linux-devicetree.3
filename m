@@ -1,151 +1,241 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6840A399CE6
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71613A05C4
+	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779350410; cv=none; b=NXqU5wXRdRriDl542ZKtzHckKgqwzuOwZBR5l35oc88B8VNT4ZPDRRhaDoDbN+DNrgwjyDGuGut8ASNv1S8IXNwo+ohtmHrxPNbkWnxflfVHotFQuQ60cEsEzsIKb3oBmuHEKFQB7tb5505caiS+tad1VlLZOLxmRFSobEv5UTw=
+	t=1779350425; cv=none; b=ICiqurronvPPUmia1UD9YzmHA1lqRfEEKmz8qRh1PiWG4M8AOdcypE4pjQDd3xiXLcUhcLn3U4Dn2BV6zMZcyCCsIqdYnc4Cjw2S5PowpWJAj7dp40Aiud3tWa61rDrHrpwYtKqTmjxB8sIEFByMYF+Vnty7YCK61e1g5+2sPXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779350410; c=relaxed/simple;
-	bh=PIXdGqeVUA9gIf8fLO/9smTMqHiJUQLQYlG0rQP84Rw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=tuwtLJYxhYfFX7eBsWUMx35KkZPHxI6nv+mpp969oizqE2c/6x+5ppc+OJmbohnTJmJKtNPDUIY/B66NBCFl1LLhwoVXQQZAiWnxDlu1E8IkfGdemjw2W51eMceatTWnOd76I4t9Hl+OqjEz9LysEcAqNVQ1RmuX0WSJNLZ/7c8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=faC0/XMS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MEkZ8tfv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779350425; c=relaxed/simple;
+	bh=Tx53MwLePeLZ23fDtjKJB5lRx3lgXxTNcSrKPTCnhJw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=hKx2FelHNXAoGicPoPqF0tV1ilRozJNX/5Zfv0t9/GDFKsuEhu/qsy4OtEA6AH0kpN9i0HQbWddHKuNA0F4iGFlRbqgta0gKtNUFWtQo4IJNwBBMyQYX6VHmk8xx3iNdW6HgjmniF7VsgBOUxZzWzmakh6sdwf/m2TiKy5ReMF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TCWK7EVH; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="faC0/XMS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MEkZ8tfv"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L7U9sh119076
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:00:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FOltQE9tPpawJwPt3pLzjokKU4kONo8BTpdoRrWvcOU=; b=faC0/XMSoJerD1AP
-	Xpk+BoX2bgGjtD4vqg9S9b34oxe+Me8ZLP9WAfPDAV4OWNMDXjLoJyiy8RXDR7Ib
-	oFpeR99e4NlRdedMV9z2WUBQR98OvW1o6EYteguRuVKSLHsWftTEsxrs0A1BEsmm
-	EzORaCy7hABAwBM3ZmCEmy4CX3ESbelJDb8PW6azZefp3YmrtnmIB4jGCk8RLhN0
-	WgI23qYBqJBBl7OgCYrw7DiBSmHqDxzQwKJc7OlcM2DHtSYmLCe7pUkRaGflZ/CF
-	BK6lgCMQ2sOQ0d0bQrF+KD6g0dViGsE5EdaVv9BQ1GhGVeku9ExzMT9+8Cx/LZdI
-	Noq5yA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee8buua-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 21 May 2026 08:00:08 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50e576143baso16511921cf.2
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:00:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TCWK7EVH"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49039a8851fso2490295e9.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 01:00:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779350407; x=1779955207; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FOltQE9tPpawJwPt3pLzjokKU4kONo8BTpdoRrWvcOU=;
-        b=MEkZ8tfvAUpnwQyLEjlCiHYzbJRMpepOgZff9rPraEv0/M8f+Ib3WMf0HvDaO1v0tb
-         txsYc9s/atz/Oz5/bOGtjKwpS2i7oZ3n+MTDOUjA1lS3NGsfiHh97FrXRgFF5Zy97kg5
-         SznstDrdLC4cypHXHDsniFzY/O5Du/wVEiQYq41n2ZV7qaPjT10GBP8Z3DnyrVE1aASp
-         36MP6OYb8653mD/JsVGbnbXuD9apUDuIdv/XtKaiNqWkNAhovowYHVEtHNkLmyQc00CI
-         +HK2l977Ou4UhImkPnwakIBS6J9PYjb3/U+8CrdpgUds/qS3rcL7NvHV8u8ZG63jDwue
-         0UeA==
+        d=gmail.com; s=20251104; t=1779350422; x=1779955222; darn=vger.kernel.org;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z9PrdA31q5x8SAejtf+3EF1jeBrhc3Rg2VGzoBKR6RQ=;
+        b=TCWK7EVHMf/5GAkugSVV+3lI+EoG3kfcJnDy406vfnum1aZ8h2etHEtGxrK0yCdqWs
+         6WT7PzY342FN2oMLt/6RN4xMvpXEMswcCaDoaRKXN1QycWYAv1JlR4Td6osTn67uO2zu
+         6SqAq1Sh2da151pdZ7Thd6QjQOQbIONGzZ4sKB85xf/B/xLEJCJLMwP/Sli9a3rgYoIy
+         NosIwzNnoHrDjIturAb5+uYjgkqVxXIQGOVAejj8xWyOMTc3ELp+KhyodrfWbhw5YqrC
+         2at/1SErzn9Sq7JSPko0ZpImjvKqfUdOHuh2tnVIDQz3gq0ACSgyFucB84+EvUGtv2t0
+         BpPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779350407; x=1779955207;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FOltQE9tPpawJwPt3pLzjokKU4kONo8BTpdoRrWvcOU=;
-        b=X3EWfVJZr3E/C8LULbODXBjXMpl1OjGvYnBWr5SjlZmmZ+xNv2SeCxhWtDcxyD6rCa
-         cnojXZP3m7jBEmyd0y9LmtV4A/FN6ff3UAL10WOOrq6IKhApsJHqCtFGpF5ozBuySYbU
-         bB5micp+g6NgTc1xy/s/WnHafJn5KQdbb5JvVKrLP/wHTOHGMtmJV3/GMlcrui/GWYkw
-         uts3wIKinrUQi1/WAT9LmfW8tItAgxJ48khuSvsveTl2dZP7O7rT4xhKSGauFhcVHmFe
-         ODUkdKf5zKyr2qP+VYAvRDhnImY8MdYEfcJW7JY3UizuD46LaHYokRLfLX2rlCucGrOd
-         +RtA==
-X-Forwarded-Encrypted: i=1; AFNElJ9g2Ad9VCEKJ7Vi7L6cz9tUc6iCSXB/2Vwgxv/FwwUUINMLc0rzqoBPhYIto/3bMpvnCj1kdZ7zamBG@vger.kernel.org
-X-Gm-Message-State: AOJu0YysTLptnaCPiBWEKen8ue0HUYYQlsUJ4g+NLBXL2KagcP/yiNWu
-	wlPDmXpoCf82G2AOcJcQcNL/TYwmRnKuFs1sQlxFiD1Cyz9rMswbe1dhWFjBiyGIiFreZntkr9L
-	r7xgGDQ66q6sAtWdKCJgYxVYSnQdXhcPDtwGL9UpV6pQgWN+nrwh6wGdHtpAsG+NE
-X-Gm-Gg: Acq92OF9DhUIWONAmy0Cj97trc6Q+hPBzHJjctFzKbC9xj0cStl3BCnMXCSvwxW5e+x
-	Nl3v82uXijfW9X+uGTE+q/mAsMC90RkJGakfZBi/asd7zfI8jZTUCQIMULc136jzpeGnWzPO7XO
-	7OMpTl17J5pg9DuGrFvIdk62lEEB77Jm3A966OsVe7cIZELCAwbAx2LtomHy3LiFPFMSAox8gBF
-	NP5gCGJMnig+wAOHFWoawhh6u2n8mAf9iA/MqUIuEXWPju7uFmK/wBWST/yuLmIZ/7KH2xj7C3Q
-	LAo4C83uXGNf3rbJb9KXEhR3e/Zf7wcIAhJefxEINunO45G4s/mk4gU4NgCWMDhO45EyiLoPYAG
-	ebqIWT9zmRhAL+nCm473iykGPs18hgnO1SmMy16yw8+GCoHdN0/fkaZgnQ9ptxB8DBh3JAMNktu
-	ESM8U=
-X-Received: by 2002:ac8:7f0b:0:b0:509:2b5a:808 with SMTP id d75a77b69052e-516c54c0464mr18827211cf.2.1779350407124;
-        Thu, 21 May 2026 01:00:07 -0700 (PDT)
-X-Received: by 2002:ac8:7f0b:0:b0:509:2b5a:808 with SMTP id d75a77b69052e-516c54c0464mr18826611cf.2.1779350406434;
-        Thu, 21 May 2026 01:00:06 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bdc8a50594esm12245866b.33.2026.05.21.01.00.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 01:00:05 -0700 (PDT)
-Message-ID: <2b5a516d-f847-4cb6-9ea5-21f56448b00f@oss.qualcomm.com>
-Date: Thu, 21 May 2026 10:00:03 +0200
+        d=1e100.net; s=20251104; t=1779350422; x=1779955222;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z9PrdA31q5x8SAejtf+3EF1jeBrhc3Rg2VGzoBKR6RQ=;
+        b=jlVk5sz8US9rwtlz6AE3dW1omYVZf7Ab3HogyJn2sYhZH9zLaELXlpUi6T8AivPCAK
+         B5AsjhLgsEXIaeBNF2RdFJRi73IIkJUIAqaiercI66HHKYhy0gbsEJB1m45qerM9OfXp
+         PeghOxJAmacnmFqkQwGSegiUdaNS+KtGAASCJRciT1FiAA3QdNKe8dXcD15ZemFrc+kF
+         w5kAJlsc4l0AmVd9QhXtN//MiVzquqR2YiQd7HEbAeyfpeP7qkWV6LccKqTN8vTY77bL
+         jfv7440M6T0TZWX4+KQEHrt+ziOzLc1IA8ZCCo9+aWFjAURAQDUOVDnSgaGcu3Corw5N
+         Ks5Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/BTwQZHpHrzp7p+U/ZOjp4I3b7e9QJFT2eH8CMCBZ75E5XRdeZlvUOJKuTZgKZ9oK+ogR6HjwC3sM2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPMNez0vrQOSORFilq6t3gJAD/PcXLrv0ujX/19s7s9+zR+7Na
+	Isg8O/jHhNALCrJBuDq6j51oFyR/V2gwLZS4L65KggOL34uhGYRm7+td
+X-Gm-Gg: Acq92OEFleqB5V8Mvx8vuDhd3CJMdZ+f9zVBkXp4QotZqLQsGcaC0sNh+gsPnJ5pGlk
+	95qa7aNcGM1tonkPt1R/Wkmr6wDT5jJ1SIs6beRiAKVf4IS24IrTLyjGOLbAbIOpKkT3l2wXSkr
+	qYDGzpSp4AdgbpmrLNtFkQacM4VC7Pfr6qchfcT7DzaRW0pi69UTD+RyqoqLxhriCC8oEUCpJZD
+	q4NSrasnMhaR5TUTbyBFOSGHKBkqgx5NQiVN3CqTFZg9qas/jPQlOzhz6iU3hJ0O7lhvjkdcEVZ
+	f2zX+B8+HhXd6c/sWACi2+irhgdMzMY0ezkAf21qKcCW59ICGoIChBc9+VRzNT5g+shXREhLGgQ
+	oXOlFtiE5fQ9SBC2dVHfocNCF4TOohMfWlBY+qai0ETf4gekWia+vretjztxfe9tv+Q/xtFXTu4
+	9BPTYENAR8W60tb9CqSDxunVoIdz15lEcPrg==
+X-Received: by 2002:a05:600c:468b:b0:488:aa33:dcbd with SMTP id 5b1f17b1804b1-490360c12cbmr24099035e9.26.1779350421276;
+        Thu, 21 May 2026 01:00:21 -0700 (PDT)
+Received: from smtpclient.apple ([197.250.51.26])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eaa92ca96sm726769f8f.19.2026.05.21.01.00.15
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 21 May 2026 01:00:19 -0700 (PDT)
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_5D209284-6E0B-4B8C-B2C6-1CF1063CB628";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] interconnect: qcom: x1e80100: Revert ABI break
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260520184944.182148-3-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260520184944.182148-3-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.500.181\))
+Subject: Re: [PATCH v5 8/8] ARM: defconfig: Add a zx29 defconfig file
+From: =?utf-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+In-Reply-To: <30b96e0d-f296-4c31-8701-a15c568ebffc@app.fastmail.com>
+Date: Thu, 21 May 2026 11:00:01 +0300
+Cc: Linus Walleij <linusw@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org,
+ soc@lists.linux.dev,
+ linux-serial@vger.kernel.org
+Message-Id: <3B300E28-8603-4881-8A47-E9B86A355090@gmail.com>
+References: <20260421-send-v5-0-ace038e63515@gmail.com>
+ <20260421-send-v5-8-ace038e63515@gmail.com>
+ <CAD++jL=_eDY_mG_QBreSrZiho0hUrDSciedq=vrxXaTiMwrSyg@mail.gmail.com>
+ <30b96e0d-f296-4c31-8701-a15c568ebffc@app.fastmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+X-Mailer: Apple Mail (2.3864.500.181)
+
+
+--Apple-Mail=_5D209284-6E0B-4B8C-B2C6-1CF1063CB628
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+Hi Arnd,
+
+I saw your reply to my defconfig pull request, but apparently never =
+received your original reply. I only found this mail here. It looks like =
+I have to look for a better E-Mail provider as gmail is choking on the =
+volume of the linux-arm-kernel mailing list.
+
+To answer your questions I found at =
+https://lore.kernel.org/all/61452117-0cdc-4ec2-83eb-dc03ccbd410b@app.fastm=
+ail.com/ :
+
+> Either way, the patch description above should at least explain
+> why you think you need your own defconfig, as we don't normally
+> take those.
+
+It was more cluelessness / being new to kernel development that gave me =
+the impression that boards should have defconfigs. Since then I ran =
+across scripts/dt_to_config. I haven't tested it yet on my DT, but if it =
+does the right thing I don't think this board needs a defconfig.
+
+>> +CONFIG_CMDLINE=3D"console=3DttyAMA0 earlyprintk root=3D/dev/ram rw"
+
+> A definconfig should normall not rely on earlyprintk, just add
+> that when you actually need to debug the super-early boot
+> stages. With "earlycon" it should pick up the right console
+> from the stdout path and work almost as early.
+
+>> +CONFIG_BINFMT_FLAT=3Dy
+
+> Are you actually using flat binaries? I wasn't aware that this
+> is still possible on MMU-enabled kernels.
+
+>> +CONFIG_BLK_DEV_RAM=3Dy
+>> +CONFIG_BLK_DEV_RAM_COUNT=3D4
+
+> The old ramdisk boot is going away in the future, please use
+> initramfs instead. This should also save a good amount of RAM.
+
+I'll fix those in my tree and keep the defconfig around just in case, =
+but otherwise drop it from the submission. We can revisit it later when =
+the board is more complete.
+
+>> +CONFIG_DEVTMPFS=3Dy # FIXME: This is specific to my initrd. Remove=20=
+
+>> before upstream
+>stale comment?
+
+I believe I removed this in later versions though :-)
+
+Cheers,
+Stefan
+
+> Am 24.04.2026 um 11:54 schrieb Arnd Bergmann <arnd@arndb.de>:
+>=20
+> On Fri, Apr 24, 2026, at 09:13, Linus Walleij wrote:
+>> On Tue, Apr 21, 2026 at 10:24=E2=80=AFPM Stefan D=C3=B6singer
+>> <stefandoesinger@gmail.com> wrote:
+>>=20
+>>> This enables existing drivers that already are (UART) or will be =
+(USB,
+>>> GPIO) necessary to operate this board even if they aren't declared =
+in
+>>> the DTS yet.
+>>>=20
+>>> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+>>=20
+>> *I* personally (as SoC maintainer) think that having a few more =
+defconfigs
+>> is fine, even helpful.
+>>=20
+>> But I would defer this to the more senior SoC maintainers because I =
+think
+>> their stance is something like:
+>>=20
+>> - We have multi_v7_defconfig for compile testing
+>>=20
+>> - We know that binary gets way to big for your system: it's for build
+>>  testing and perhaps booting in QEMU or systems with many MB of
+>>  RAM, not for actually running it on products.
+>>=20
+>> - You are encouraged to keep your own defconfig out-of-tree.
+>=20
+> Right, we clearly need to do something better than what we are with
+> the general defconfigs, as I'm sure many of the existing ones are
+> never actually used for booting a machine, and are horribly out of
+> date with the Kconfig options.
+>=20
+> I wouldn't object to adding another defconfig for a new (or revived)
+> soc family, but I don't want to have more per-board ones.
+> Overall, we have about 70 defconfigs and 55 soc families that have =
+their
+> own mach-* directory (plus a few without code), and the number of
+> defconfigs alone makes it hard to keep them up to date.=20
+>=20
+>> However I even challenged this myself by adding a defconfig for =
+memory
+>> constrained Broadcoms a while back (NACKed/ignored ;) so if it was =
+all
+>> up to me I would merge this.
+>=20
+> I don't even remember that discussion ;-)
+>=20
+> One idea might be to have a tiny base defconfig, plus platform
+> specific fragments that add drivers. The problem is agreeing
+> what bits are essential enough to still get enabled in the
+> tiny config.
+>=20
+>       Arnd
+
+
+--Apple-Mail=_5D209284-6E0B-4B8C-B2C6-1CF1063CB628
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 7ex9QsH9gCNQ8TiWSGxSTCRwXAd4TRn_
-X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0ebb88 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=mQNDsmP-micbF6_pwTUA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDA3NyBTYWx0ZWRfX8mjRdjvFpXnP
- YEXViJnx2pzNMY35gmxyUSA6XSR2Cb19CV/Z3xOg/SVOC44k1W0cbWkI17dM9giRpXgA6uCBEqN
- AJwtcqGb7SwumbicL/FntVds98o1LUaHdmco81uBywmvTzrZRKe3O1tzo2sJZzOkcdPo/gKzCs0
- 5E+NzLMW673u1qmXDS+OXOD2089gGHbHzlJU3HActxPlBlXdqEni5BaDEjtslh6tXXErD/P/oVe
- CiMB9iAcuJB5/4xXkkGE2PQC6o70L0Hs88dP9c/kyz46wPAK20w8yjiqxnkiF+IvOW1A1bXzqgI
- P1nyJ8Lq/9xZXb6RogLHtpjeBZCZZ7p/cfwUepNCqnTKHGSuRpdHq5pI97PcFVf399/zMQFvE/i
- 7GsWY7Fk0dcX8y5AEjxJeK1WqZhe6w+NMSe3/Qp5c4fvjgS1M80z5+b02iY/8BP5AD7Yi0molNh
- a/ujWBg1SoBXn0vNBpA==
-X-Proofpoint-GUID: 7ex9QsH9gCNQ8TiWSGxSTCRwXAd4TRn_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-21_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210077
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
-On 5/20/26 8:49 PM, Krzysztof Kozlowski wrote:
-> Revert commit c70f7dcd0921 ("interconnect: qcom: x1e80100: enable QoS
-> configuration") because it breaks the ABI without justification what was
-> broken and what was not working.  It claims the clocks are needed for
-> QoS, which might be correct, but QoS itself is not a mandatory thing for
-> the device to operate.
+-----BEGIN PGP SIGNATURE-----
 
-???
+iQIzBAEBCAAdFiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmoOu4EACgkQPRO8yFRP
+GiL8IQ//Zm20DYooaVaVCuklde82UX5X2MHKLX3bEwoqFm8OwrwK1a0bu61uKXRd
+TTj/RVjingjzc/MWqbhSiDLM+1tvrMaa8bhi16TRYn5upIa71KlieKL5Kd/9cmoW
+fqmI+HoIIq6mQTIYJ2GMCp0/ciADEXnE41buFWzPiu7BMeVInJMaYpX6NKyXd7ZG
+oAf3t5tCMMxrRfBq7bv4JV8TAjLdibq+SNyxH6xYoZwrW7J6pLYGeHJcbUNNHJFD
+Vl5PgpflnmNhfcQk7nTKufpY44szSAwB9GmiuOemwzmUEGv3V0e4t8Rni1FlHQsR
+gAUiB04OMbDSDV9kntSrZwbEUR4UkJLZhKanfJOTv/Sy6pNZLpcS0TB5YY7TEfcy
+lr1oKB9HXUka9mhPKFmGrC0TN7jkPKmkTLK70RXVtNX/pU4dFSsm0yP76XL2KrBA
+rfvH0At+i5cU3nPYvoOm56VkiOfHsnQB9adNQ5l8GeAUpQB6HI4jr23IhD8BYvsB
+yKxccCZ4tkD05c9InZqE+lsxvB9esDjo4gKZzFWhuXY/+4rOcRowbxsFGHt/TCWn
+9U7SU0cAsuce6Ex+oPs62EkqM0yyZ0FMVlmVGI9PJ5O1sJ5W6xYOlxwnLGH6TJNE
+bOIJ4WxSJmZra+QaQXak7qAOxAV92+Du/IioWZnoXjGc0BzTjhw=
+=rcPP
+-----END PGP SIGNATURE-----
 
-Would a saner resolution not be to simply adjust the bindings change to
-mimic the other post-factum QoS clock additions, where `required:`
-wasn't altered?
-
-e.g.
-
-e07f3b8c9e1c ("dt-bindings: interconnect: qcom,qcs615-rpmh: add clocks property to enable QoS")
-
-Konrad
+--Apple-Mail=_5D209284-6E0B-4B8C-B2C6-1CF1063CB628--
