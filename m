@@ -1,317 +1,320 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3EA357CE8
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 17:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C5E347BC6;
+	Fri, 22 May 2026 17:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779470224; cv=none; b=Q2wq0wKsiOy8Bv7qpmt3+WJOtieAefK+4IJwnFx5xPRWMFuxYneVX+bBccoApkYYFBgd430dwdtmwxcSYcqXqPYW17J4QCNxI1DO/K5HZxvTh5OM+lJK2M4/ck1ax7uK5FexioWWh+sfkJvgEIpVS3f37McqBL6uASehx3mJzzs=
+	t=1779470359; cv=none; b=BozEFvMqsHYVuuWLSWrYaeCEFi4vtQEcd5Z+L4jwxRTFDjpbY5wqc/wa8E8KZtp8TQMZ4yZgzVnSmRhuXrMQjrdeLOoD1Y2jIGtBKN1zLJrhej3/evusVnE88gxb/kNtEoBPOO1a8aIEsXbgZnyvPa+d91NZJWhsGmU582v+q+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779470224; c=relaxed/simple;
-	bh=U+hd1nq5Ba9sKgpCIAr9hKLqwF2P52OkoE9q+pl5LXM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VNNGUdH0hclJH04S1qO4GaUfyT+YRzxr478L3yWjZj5ZmpLssOjaU1lfreplH2/yaQgEwsOujkiLp14OPkKDIaMoYgRsnc6Ck5KgA2o5+76Nz86o8d5NACHKbANx3g8IcH7GkdrORg0l2CzTSkgKiOR3OAvKEBxs66S4j3awobI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZB53vQW7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NmCVLSsV; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779470359; c=relaxed/simple;
+	bh=MhkkUhprzZatSAr710zyAOf01NkFUJqP819XHk9vcBU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Zx6ziI1xW4u8EqCbdv+YOjQvPt52wxOROAJua8c2Z0svhjQD+eGbcVMhfIT8w3NsQeLKsH6mYf/YWgtCYBUJwT7dmEDck5Lahbpl8/wBXpvBYjhZbTT7PqXkuXBcCxEZpA+DW3lZnqhWRWnwc4ZucmK3nxZQDrUEU2rtMcGERuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0c51H0Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZB53vQW7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NmCVLSsV"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64MGanju1733031
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 17:17:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sclBxpHfctQ6QwGlU6dwiPzIZrTCVf6A9WUqY/ePdZU=; b=ZB53vQW7z9jabqQ8
-	kgT28do1vkOHhEdOIgPru97GG4AP1cUWLReg75tBDiOVExo7EeOAmYVBm4veb7Yt
-	3Ycvg/CwAaPQN1waWIhCYhHoO0B1zP4Qlc2G6SPBD6/6bnmUpIsfZkFXoyx4UbCJ
-	TIT7QZWc2FRARdZFrV160XtL23c5RaAQua6el+5BCTX+Ld3TGqv9xMrU/MfJHNTi
-	sYlAxOzpzrSRaSVkeGWxZGFCbwHDshAG311FuICxN++O4JHKdskdQKGcCKNU1T+L
-	9GEGg2EM96TjueNSqmyhEzJjENXuSsZeEexLMryJEBJrKKbmnGV92QOdUlr4FFMy
-	q+I/iw==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eattq85y7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 17:17:01 +0000 (GMT)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-7bd49a2467eso141494187b3.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:17:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779470221; x=1780075021; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sclBxpHfctQ6QwGlU6dwiPzIZrTCVf6A9WUqY/ePdZU=;
-        b=NmCVLSsVIl5mQjkJ0VRym7ndk7SzIwjwefqN3NQKuGPhERfQLu8DgP12atthDT/ZUH
-         4Gc2C6y4S1+PWOmdKMQr8U6e3CyMFq68CybuY7B/Nqg3C0sriXoK32ycHySJCSKJ4MPD
-         1+JRGb8tUCa5bpurAkczkS8hswHmqje2Z+Avref15I2PPGGQYCFyrHiQf+tF3NsYl4b6
-         sBBbkko0brW4lNpQHiotYYJfwRbo7VFS8LC1DSq95q5sAT9OaG8NPg7e1UJmroCWfvRV
-         6zsbtn8Kx8KeNWzizofaSieIAzB2nBo63A87YaK/TFK38m45TwA4FrOU6omHmU4F7s5q
-         tMgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779470221; x=1780075021;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sclBxpHfctQ6QwGlU6dwiPzIZrTCVf6A9WUqY/ePdZU=;
-        b=Q/tAHWNVelf2bk6lp9t/unmUAv2qdf2c60iH6N1tjFKmTdc0/IeZyAbVJ6dqqINmFy
-         I7RBs68j1fiHBTucGcihDZMsu4tmdZ4SWxUt32ygdsPZEqV3j5jXwmCN/px7WctpQE4U
-         oeLd6W+NzO4soicXyZAK2ItwwI0rNP+AKq6XqUDlxmvdc6DK+GvIXQQ10Ee0+txQ36OE
-         Lbqol0V/JjmueHAHxs5H9e23aZ31rFbfg4S2eXA2kiV/VzM+W9lepwgokyOM+Ic8CXGV
-         0MADtgOFhGLVxs0LnhcuESsGewCU3RHylO1zomy+SMFKH11juRaS8CAh2yn+JXGUPnJw
-         S5FA==
-X-Forwarded-Encrypted: i=1; AFNElJ/k/1XdCXjZwzcoc1FmLqmIjX/qPwfsfaXiZ35fZGtKKBAQEdfZZ/V3t4H97TV342ZN3TrrlyyQuAAA@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrBo3CCnlhNQWjWjjFwUoPlMonP24Q+cgVGZ/rwMGM0H8Vvzlz
-	SHMGHyH0Ktnw9B4Fi8Us6UgwrsjJjSGCUCcetKUMGD3LSMZFw32Uo/iS50Ve2Zi8m9tg//RWEN1
-	OEqxtzd1IotgKlEWMXGu1PKUG6bdjrnu4cMjK4+d0nQT7r+YJ4fON5Vz5se+y9aXM
-X-Gm-Gg: Acq92OG/PI0TXl17GoGsWz3l0Aq3+d1cYqkI/jdR1NqwflYZzZCkqLp/TjaKpU/v+hA
-	svBgDW531OcewnOJfHIH4eo/l7q3Q6N/wp6dDIyPuBlQEow7Wl6qlcba1FXk2fACXhr90C8LjFN
-	DibETtmDLONB0Ujxl9oodkaTQpbp64T3vyebQ03bTMPY24goLlBSVVK89rEJpInpLoRCRp/IoUx
-	pbNB6KtEsWBOkmB5T7+Mf8ut+OptClpbQ3sN8a9anKjSJsYC+hArJepa9GkVNcpceRBlWT3krm/
-	gRbnRZg2/VxFiGdABhxhhFxwJIaJTz/Vztf5lqjeW7X2Ejl99y5U5tIM8YMSDZImuw++cCuGD/9
-	/lxht9r8ifc7gqolwmZxQAAmKu0cr6e7IXzJZ7xaygZ4J5fGqLf6BKOMqq8ciB1/foM4ZV3YSxV
-	k/bTnpq/cjDQ==
-X-Received: by 2002:a05:690c:4b0c:b0:799:198d:8c5a with SMTP id 00721157ae682-7d335fbc537mr53940647b3.34.1779470221240;
-        Fri, 22 May 2026 10:17:01 -0700 (PDT)
-X-Received: by 2002:a05:690c:4b0c:b0:799:198d:8c5a with SMTP id 00721157ae682-7d335fbc537mr53939907b3.34.1779470220720;
-        Fri, 22 May 2026 10:17:00 -0700 (PDT)
-Received: from [192.168.101.236] (107-198-5-8.lightspeed.irvnca.sbcglobal.net. [107.198.5.8])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7d38c73ff33sm11043207b3.45.2026.05.22.10.16.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 10:17:00 -0700 (PDT)
-Message-ID: <581cc180-b993-4b86-81ae-17822a35a1fb@oss.qualcomm.com>
-Date: Fri, 22 May 2026 10:16:58 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0c51H0Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164561F000E9;
+	Fri, 22 May 2026 17:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779470357;
+	bh=aQGTSxAfsqnSuAq7mFUGt6QOb1HC+teLuXiWb8rx+VY=;
+	h=From:Date:Subject:To:Cc;
+	b=d0c51H0Y1PHu86953MYZrETiUYMXuQvavQxO2rjnGdVFbR3FzBNoxcNfppEx6MuSy
+	 TVMdZdCLBmqIiO1rjyagnXZ8OxVPxAUf4laSERBm+H7TT11TSnNHjWuExcbQz9Au4J
+	 vt9TjoWML0xdRt/HHJ/EeCDxY/LVZCIKzxszZyQ7ZeAoiB5leAcJ7QwJHJH2JrCAUd
+	 UnbWVKw/JVu1EihzatMFMdH0zeRhw4seXx9MHHZhLfGg8GnFRkZR6GyMwmw+tSGaWI
+	 L+SgfpGWugCnFAfejXWm+wvPza+oopl30lVRMv+SqdDg5TggwBeUVVyyWCoMAJCwsN
+	 pCJ1dQzoOuGBQ==
+From: Tamir Duberstein <tamird@kernel.org>
+Date: Fri, 22 May 2026 19:19:09 +0200
+Subject: [PATCH] rust: kernel: use strict provenance APIs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: x1-dell-thena: bump linux,cma to
- 256 MiB
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org,
-        dmitry.baryshkov@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com,
-        abelvesa@kernel.org, faisal.hassan@oss.qualcomm.com,
-        linux-phy@lists.infradead.org, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, devicetree@vger.kernel.org, val@packett.cool,
-        laurentiu.tudor1@dell.com, alex.vinarskis@gmail.com,
-        linux-kernel@vger.kernel.org
-References: <20260521010935.1333494-1-mike.scott@oss.qualcomm.com>
- <20260521010935.1333494-5-mike.scott@oss.qualcomm.com>
- <ac559877-f4f2-48d7-b00c-4cf24fc64489@linaro.org>
-Content-Language: en-US
-From: Michael Scott <mike.scott@oss.qualcomm.com>
-In-Reply-To: <ac559877-f4f2-48d7-b00c-4cf24fc64489@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE3MiBTYWx0ZWRfXxUya2pdEsp6w
- Gfq7Tzd24nIAOX7zHTtRp5uoE45FfKUaNgZFbPpkN5J2AzSecVuV4BV9+yxihXXn7qUwGfQSAit
- CGF1Vv4f9BRQoD8kJOd0eTQcaXsf2iVf9AuTJzejUtAMaLKkrOZ5+SL69+5S1eENu4t+EmPyHGO
- ZKXL6WpG1cYw86cuNp2Vvhu7Y1UKX+Jh3z9vS6G8ykW/7pVnMeG8trlPKP+CFhD9x1Hh3R64lbQ
- xmZq+UYVYxN1ZGJw8vdUac+AIfJRQ9kUWWRMph/IP8nBHJ7/JhvlWOlcr8IjpZ9BeHlwxwDlKW6
- 6yfLk6l8dLvS28YLkvVb+CPnq4twZYlYCjaWBfKn6cQpQFbvT8XoIwgeUPDDsho+AxS2yZCg+5s
- 4HVzX7YDuZhimNcHUyOsNhAEFHqlayub/4dzVbEQtSBKssiSfwsZVZiJZ4ZLhVNSDq9xT5cKG45
- HR0lhtOrrP/VUbaaSGw==
-X-Proofpoint-GUID: ks9n0IvLcWc7l-YtQC_s5q-2ub_MBd9A
-X-Proofpoint-ORIG-GUID: ks9n0IvLcWc7l-YtQC_s5q-2ub_MBd9A
-X-Authority-Analysis: v=2.4 cv=S/zpBosP c=1 sm=1 tr=0 ts=6a108f8d cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=cdagev08qavQYXHyx3V8vg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=87SNHxiu0QhxqWoJ-3IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kLokIza1BN8a-hAJ3hfR:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_04,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 spamscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220172
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260522-strict-provenance-redux-v1-1-0880b65fc17c@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxA0auQrm3CjEGJVzEuaqdqXQykHQgJ4
+ e4MunyL/1dwMRWHW7OCyayuQ64Ipwb4Q/ktqKkaYhsvbRcDejHlgqMNs2TKLGiSpgVT14drz0S
+ JzlDr0eSly+98f/zt0/MrXI4dbNsOG+V8gXsAAAA=
+X-Change-ID: 20260521-strict-provenance-redux-d58178caada3
+To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Tamir Duberstein <tamird@kernel.org>, 
+ Benno Lossin <lossin@kernel.org>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10633; i=tamird@kernel.org;
+ h=from:subject:message-id; bh=MhkkUhprzZatSAr710zyAOf01NkFUJqP819XHk9vcBU=;
+ b=owGbwMvMwCV2wYdPVfy60HTG02pJDFkCEwRmrGFe4yAu+6/7kS33KcHQaqdPv/UcF0ZeyfLc+
+ SHQP/5Ix0QWBjEuBksxRZZE0UN701Nv75HNfHccZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
+ NNIx0DFm4OIUgKkWMmf4n7P/qLqJ9cxTetOOexwutX1bk7z6XnnumrdLVF1mt4RkSjH84V3J0rA
+ +5u232C+HXPT/JSZdnRv0k8tmypxvHfft9GUyeAE=
+X-Developer-Key: i=tamird@kernel.org; a=openpgp;
+ fpr=5A6714204D41EC844C50273C19D6FF6092365380
 
-On 5/21/26 5:04 AM, Bryan O'Donoghue wrote:
-> On 21/05/2026 02:09, Michael Scott wrote:
->> The 128 MiB linux,cma reserved-memory pool on dell-thena is too small
->> to support the camera pipeline in parallel with the normal Linux
->> desktop. On a freshly-booted system with GNOME running, the typical
->> runtime consumers — msm DRM framebuffers (Wayland triple buffering on
->> the eDP panel), qcom_iris video codec buffers, qcom_camss VFE
->> pre-allocated buffers — already occupy ~100 MiB of the pool, leaving
->> only ~25 MiB free.
->>
->> The libcamera "simple" pipeline handler used by /dev/media0 on
->> dell-thena allocates four ABGR8888 frames at 1920×1088 = 32 MiB total.
->> That request fails on the fourth frame:
->>
->>      ERROR DmaBufAllocator: dma-heap allocation failure for frame-3
->>      ERROR Allocator: Stream is not part of /base/.../camera@10 
->> active configuration
->>      Can't allocate buffers
->>      Failed to start camera session
->>
->> resulting in gnome-snapshot's "Could not play camera stream" and any
->> other libcamera-mediated app being unable to actually stream.
->>
->> Bumping linux,cma to 256 MiB (a 0.9% reservation on these laptops'
->> typical 27 GiB RAM) leaves ~150 MiB free at runtime — sufficient for
->> the libcamera buffer set plus headroom for video playback or other
->> CMA-hungry workloads in parallel.
->>
->> Tested on Dell Latitude 7455: with the 256 MiB pool, CmaFree at
->> GNOME-desktop idle is ~150 MiB, gnome-snapshot streams the OV02E10
->> camera cleanly, and `cam -c 1 --capture=2` succeeds.
->>
->> The companion board files dell-inspiron-14-plus-7441 and the upstream
->> .dts variants inherit from x1-dell-thena.dtsi, so this changes the
->> pool size for every dell-thena-based laptop in one place.
->>
->> Signed-off-by: Michael Scott <mike.scott@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi 
->> b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
->> index d6de4da02dcd..714988a81384 100644
->> --- a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
->> @@ -167,7 +167,7 @@ led-camera-indicator {
->>       reserved-memory {
->>           linux,cma {
->>               compatible = "shared-dma-pool";
->> -            size = <0x0 0x8000000>;
->> +            size = <0x0 0x10000000>;
->>               reusable;
->>               linux,cma-default;
->>           };
->
-> How old is your version of libcamera ?
->
-> With CONFIG_UDMA=y you don't need a contiguous memory area at all and 
-> you will get juicy and delicious GPUISP.
+Replace existing pointer-to-integer and integer-to-pointer conversions
+with calls to the strict provenance APIs.
 
-I have CONFIG_UDMABUF=y enabled.
+The strict provenance APIs were stabilized in Rust 1.84.0 [1]. Since
+commit f32fb9c58a5b ("rust: bump Rust minimum supported version to
+1.85.0 (Debian Trixie)"), the minimum supported Rust version is 1.85.0,
+so no polyfills are needed.
 
->
-> Instead of allocating in the kernel just use a better version of 
-> libcamera
->
-> ┌─[deckard@inspiron14p-linux] - [~/Development/libcamera] - [Thu May 
-> 21, 13:03]
-> └─[$] <git:(0.7.0-multipass-v0*)> zcat /proc/config.gz | grep UDMA
-> CONFIG_UDMABUF=y
-> ┌─[deckard@inspiron14p-linux] - [~/Development/libcamera] - [Thu May 
-> 21, 13:03]
-> └─[$] <git:(0.7.0-multipass-v0*)> cam -v
-> libcamera version v0.7.1
-> ┌─[deckard@inspiron14p-linux] - [~/Development/libcamera] - [Thu May 
-> 21, 13:03]
-> └─[$] <git:(0.7.0-multipass-v0*)> qcam
-> [68:50:10.493478857] [438859]  INFO Camera camera_manager.cpp:340 
-> libcamera v0.7.1
-> [68:50:10.511134091] [438863] ERROR V4L2 v4l2_subdevice.cpp:1192 
-> 'ov02e10 10-0010': Unable to get rectangle 2 on pad 0/0: Inappropriate 
-> ioctl for device
-> [68:50:10.511201590] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:402 'ov02e10 10-0010': The PixelArraySize 
-> property has been defaulted to 1928x1088
-> [68:50:10.511206069] [438863] ERROR V4L2 v4l2_subdevice.cpp:1192 
-> 'ov02e10 10-0010': Unable to get rectangle 1 on pad 0/0: Inappropriate 
-> ioctl for device
-> [68:50:10.511209559] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:413 'ov02e10 10-0010': The 
-> PixelArrayActiveAreas property has been defaulted to (0, 0)/1928x1088
-> [68:50:10.511213778] [438863] ERROR V4L2 v4l2_subdevice.cpp:1192 
-> 'ov02e10 10-0010': Unable to get rectangle 0 on pad 0/0: Inappropriate 
-> ioctl for device
-> [68:50:10.511216590] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:421 'ov02e10 10-0010': Failed to retrieve the 
-> sensor crop rectangle
-> [68:50:10.511219559] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:427 'ov02e10 10-0010': The sensor kernel 
-> driver needs to be fixed
-> [68:50:10.511221746] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:429 'ov02e10 10-0010': See 
-> Documentation/sensor_driver_requirements.rst in the libcamera sources 
-> for more information
-> [68:50:10.511327474] [438863]  WARN CameraSensorProperties 
-> camera_sensor_properties.cpp:538 No static properties available for 
-> 'ov02e10'
-> [68:50:10.511330599] [438863]  WARN CameraSensorProperties 
-> camera_sensor_properties.cpp:540 Please consider updating the camera 
-> sensor properties database
-> [68:50:10.511334089] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:617 'ov02e10 10-0010': Rotation control not 
-> available, default to 0 degrees
-> [68:50:10.511340912] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:502 'ov02e10 10-0010': No sensor delays found 
-> in static properties. Assuming unverified defaults.
-> [68:50:10.512362985] [438863]  WARN IPAProxy ipa_proxy.cpp:196 
-> Configuration file 'ov02e10.yaml' not found for IPA module 'simple', 
-> falling back to '/usr/share/libcamera/ipa/simple/uncalibrated.yaml'
-> [68:50:10.512372828] [438863] ERROR V4L2 v4l2_subdevice.cpp:1192 
-> 'ov02e10 10-0010': Unable to get rectangle 0 on pad 0/0: Inappropriate 
-> ioctl for device
-> [68:50:10.512377464] [438863]  WARN CameraSensor 
-> camera_sensor_legacy.cpp:881 'ov02e10 10-0010': The analogue crop 
-> rectangle has been defaulted to the active area size
-> [68:50:10.512386578] [438863]  WARN IPASoft soft_simple.cpp:104 
-> IPASoft: Failed to create camera sensor helper for ov02e10
-> [68:50:10.512505275] [438863]  INFO Camera camera_manager.cpp:223 
-> Adding camera '/base/soc@0/cci@ac16000/i2c-bus@1/camera@10' for 
-> pipeline handler simple
-> [68:50:10.548026157] [438859]  INFO Camera camera.cpp:1216 configuring 
-> streams: (0) 1920x1088-ABGR8888/sRGB
-> [68:50:10.548323081] [438863]  INFO IPASoft soft_simple.cpp:258 
-> IPASoft: Exposure 1-2242, gain 16-248 (1)
-> [68:50:10.548402247] [438863]  INFO SoftwareIsp software_isp.cpp:278 
-> Input 1928x1088-GRBG-10-CSI2P stride 2416
-> Zero-copy enabled
-> [68:50:10.636862424] [438866]  INFO eGL egl.cpp:288 EGL: EGL_VERSION: 1.5
-> [68:50:10.636899299] [438866]  INFO eGL egl.cpp:289 EGL: EGL_VENDOR: 
-> Mesa Project
-> [68:50:10.636902112] [438866]  INFO eGL egl.cpp:290 EGL: 
-> EGL_CLIENT_APIS: OpenGL OpenGL_ES
-> [68:50:10.636904768] [438866]  INFO eGL egl.cpp:291 EGL: 
-> EGL_EXTENSIONS: EGL_ANDROID_blob_cache EGL_ANDROID_native_fence_sync 
-> EGL_EXT_config_select_group EGL_EXT_create_context_robustness 
-> EGL_EXT_image_dma_buf_import EGL_EXT_image_dma_buf_import_modifiers 
-> EGL_EXT_query_reset_notification_strategy EGL_EXT_surface_compression 
-> EGL_IMG_context_priority EGL_KHR_cl_event2 EGL_KHR_config_attribs 
-> EGL_KHR_context_flush_control EGL_KHR_create_context 
-> EGL_KHR_create_context_no_error EGL_KHR_fence_sync 
-> EGL_KHR_get_all_proc_addresses EGL_KHR_gl_colorspace 
-> EGL_KHR_gl_renderbuffer_image EGL_KHR_gl_texture_2D_image 
-> EGL_KHR_gl_texture_3D_image EGL_KHR_gl_texture_cubemap_image 
-> EGL_KHR_image_base EGL_KHR_no_config_context EGL_KHR_reusable_sync 
-> EGL_KHR_surfaceless_context EGL_EXT_pixel_format_float 
-> EGL_KHR_wait_sync EGL_MESA_configless_context EGL_MESA_gl_interop 
-> EGL_MESA_image_dma_buf_export EGL_MESA_query_driver 
-> EGL_MESA_x11_native_visual_id EGL_NV_context_priority_realtime
-> [68:50:10.643064652] [438866]  INFO eGL egl.cpp:332 EGL: GL_VERSION: 
-> OpenGL ES 3.2 Mesa 26.0.6-arch1.1
-> [68:50:12.667202273] [438866]  INFO Benchmark benchmark.cpp:89 Debayer 
-> processed 30 frames in 228802us, 7626 us/frame
-> ┌─[deckard@inspiron14p-linux] - [~/Development/libcamera] - [Thu May 
-> 21, 13:03]
-> └─[$] <git:(0.7.0-multipass-v0*)>
+Link: https://blog.rust-lang.org/2025/01/09/Rust-1.84.0.html#strict-provenance-apis [1]
+Suggested-by: Benno Lossin <benno.lossin@proton.me>
+Link: https://lore.kernel.org/all/D8EIXDMRXMJP.36TFCGWZBRS3Y@proton.me/
+Signed-off-by: Tamir Duberstein <tamird@kernel.org>
+---
+ rust/kernel/alloc.rs           |  2 +-
+ rust/kernel/alloc/allocator.rs |  2 +-
+ rust/kernel/devres.rs          |  4 ++--
+ rust/kernel/error.rs           |  2 +-
+ rust/kernel/io.rs              | 10 ++++++----
+ rust/kernel/io/mem.rs          |  4 ++--
+ rust/kernel/of.rs              |  2 +-
+ rust/kernel/pci/io.rs          |  4 ++--
+ rust/kernel/str.rs             | 16 ++++++----------
+ rust/kernel/uaccess.rs         |  2 +-
+ 10 files changed, 23 insertions(+), 25 deletions(-)
 
-Good point about the libcamera version. I debugged this on Ubuntu 26.04 
-(v0.7.0+patches). I tried testing v0.7.1, but it caused a crash due to 
-API changes with other parts of the subsystem.  I checked the diff of 
-upstream between v0.7.0 and v0.7.1 for the dma allocator code and I 
-didn't see any changes, but I wasn't looking at the software ISP changes.
+diff --git a/rust/kernel/alloc.rs b/rust/kernel/alloc.rs
+index e38720349dcf..332e7fff15c4 100644
+--- a/rust/kernel/alloc.rs
++++ b/rust/kernel/alloc.rs
+@@ -262,7 +262,7 @@ unsafe fn free(ptr: NonNull<u8>, layout: Layout) {
+ 
+ /// Returns a properly aligned dangling pointer from the given `layout`.
+ pub(crate) fn dangling_from_layout(layout: Layout) -> NonNull<u8> {
+-    let ptr = layout.align() as *mut u8;
++    let ptr = core::ptr::without_provenance_mut(layout.align());
+ 
+     // SAFETY: `layout.align()` (and hence `ptr`) is guaranteed to be non-zero.
+     unsafe { NonNull::new_unchecked(ptr) }
+diff --git a/rust/kernel/alloc/allocator.rs b/rust/kernel/alloc/allocator.rs
+index 63bfb91b3671..9a56d2407d8f 100644
+--- a/rust/kernel/alloc/allocator.rs
++++ b/rust/kernel/alloc/allocator.rs
+@@ -280,7 +280,7 @@ fn new() -> Result<Self> {
+             fn is_aligned_to(&self, align: usize) -> bool {
+                 assert!(align.is_power_of_two());
+ 
+-                let addr = self.0.as_ptr() as usize;
++                let addr = self.0.as_ptr().addr();
+                 addr & (align - 1) == 0
+             }
+         }
+diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+index 9e5f93aed20c..ecba524e41df 100644
+--- a/rust/kernel/devres.rs
++++ b/rust/kernel/devres.rs
+@@ -93,14 +93,14 @@ struct Inner<T> {
+ ///             return Err(ENOMEM);
+ ///         }
+ ///
+-///         Ok(IoMem(MmioRaw::new(addr as usize, SIZE)?))
++///         Ok(IoMem(MmioRaw::new(addr.expose_provenance(), SIZE)?))
+ ///     }
+ /// }
+ ///
+ /// impl<const SIZE: usize> Drop for IoMem<SIZE> {
+ ///     fn drop(&mut self) {
+ ///         // SAFETY: `self.0.addr()` is guaranteed to be properly mapped by `Self::new`.
+-///         unsafe { bindings::iounmap(self.0.addr() as *mut c_void); };
++///         unsafe { bindings::iounmap(core::ptr::with_exposed_provenance_mut(self.0.addr())); };
+ ///     }
+ /// }
+ ///
+diff --git a/rust/kernel/error.rs b/rust/kernel/error.rs
+index 05cf869ac090..37eb14c71fb0 100644
+--- a/rust/kernel/error.rs
++++ b/rust/kernel/error.rs
+@@ -483,7 +483,7 @@ pub fn to_result(err: crate::ffi::c_int) -> Result {
+ /// #         core::ptr::null_mut()
+ /// #     }
+ /// #     pub(super) unsafe fn non_null_ptr() -> *mut kernel::ffi::c_void {
+-/// #         0x1234 as *mut kernel::ffi::c_void
++/// #         core::ptr::without_provenance_mut(0x1234)
+ /// #     }
+ /// # }
+ /// // SAFETY: ...
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index fcc7678fd9e3..a416221fb4a5 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -109,14 +109,14 @@ pub fn maxsize(&self) -> usize {
+ ///             return Err(ENOMEM);
+ ///         }
+ ///
+-///         Ok(IoMem(MmioRaw::new(addr as usize, SIZE)?))
++///         Ok(IoMem(MmioRaw::new(addr.expose_provenance(), SIZE)?))
+ ///     }
+ /// }
+ ///
+ /// impl<const SIZE: usize> Drop for IoMem<SIZE> {
+ ///     fn drop(&mut self) {
+ ///         // SAFETY: `self.0.addr()` is guaranteed to be properly mapped by `Self::new`.
+-///         unsafe { bindings::iounmap(self.0.addr() as *mut c_void); };
++///         unsafe { bindings::iounmap(core::ptr::with_exposed_provenance_mut(self.0.addr())); };
+ ///     }
+ /// }
+ ///
+@@ -733,12 +733,14 @@ macro_rules! impl_mmio_io_capable {
+         impl<const SIZE: usize> IoCapable<$ty> for $mmio<SIZE> {
+             unsafe fn io_read(&self, address: usize) -> $ty {
+                 // SAFETY: By the trait invariant `address` is a valid address for MMIO operations.
+-                unsafe { bindings::$read_fn(address as *const c_void) }
++                unsafe { bindings::$read_fn(core::ptr::with_exposed_provenance(address)) }
+             }
+ 
+             unsafe fn io_write(&self, value: $ty, address: usize) {
+                 // SAFETY: By the trait invariant `address` is a valid address for MMIO operations.
+-                unsafe { bindings::$write_fn(value, address as *mut c_void) }
++                unsafe {
++                    bindings::$write_fn(value, core::ptr::with_exposed_provenance_mut(address))
++                }
+             }
+         }
+     };
+diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
+index 7dc78d547f7a..e7e909c6bb2d 100644
+--- a/rust/kernel/io/mem.rs
++++ b/rust/kernel/io/mem.rs
+@@ -266,7 +266,7 @@ fn ioremap(resource: &Resource) -> Result<Self> {
+             return Err(ENOMEM);
+         }
+ 
+-        let io = MmioRaw::new(addr as usize, size)?;
++        let io = MmioRaw::new(addr.expose_provenance(), size)?;
+         let io = IoMem { io };
+ 
+         Ok(io)
+@@ -284,7 +284,7 @@ pub fn new<'a>(io_request: IoRequest<'a>) -> impl PinInit<Devres<Self>, Error> +
+ impl<const SIZE: usize> Drop for IoMem<SIZE> {
+     fn drop(&mut self) {
+         // SAFETY: Safe as by the invariant of `Io`.
+-        unsafe { bindings::iounmap(self.io.addr() as *mut c_void) }
++        unsafe { bindings::iounmap(core::ptr::with_exposed_provenance_mut(self.io.addr())) }
+     }
+ }
+ 
+diff --git a/rust/kernel/of.rs b/rust/kernel/of.rs
+index 58b20c367f99..95ef14b9a615 100644
+--- a/rust/kernel/of.rs
++++ b/rust/kernel/of.rs
+@@ -27,7 +27,7 @@ unsafe impl RawDeviceIdIndex for DeviceId {
+     const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::of_device_id, data);
+ 
+     fn index(&self) -> usize {
+-        self.0.data as usize
++        self.0.data.addr()
+     }
+ }
+ 
+diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+index ae78676c927f..b5e3a68a7a11 100644
+--- a/rust/kernel/pci/io.rs
++++ b/rust/kernel/pci/io.rs
+@@ -175,7 +175,7 @@ pub(super) fn new(pdev: &Device, num: u32, name: &CStr) -> Result<Self> {
+         // `pdev` is valid by the invariants of `Device`.
+         // `num` is checked for validity by a previous call to `Device::resource_len`.
+         // `name` is always valid.
+-        let ioptr: usize = unsafe { bindings::pci_iomap(pdev.as_raw(), num, 0) } as usize;
++        let ioptr = unsafe { bindings::pci_iomap(pdev.as_raw(), num, 0) }.expose_provenance();
+         if ioptr == 0 {
+             // SAFETY:
+             // `pdev` is valid by the invariants of `Device`.
+@@ -212,7 +212,7 @@ unsafe fn do_release(pdev: &Device, ioptr: usize, num: i32) {
+         // `ioptr` is valid by the safety requirements.
+         // `num` is valid by the safety requirements.
+         unsafe {
+-            bindings::pci_iounmap(pdev.as_raw(), ioptr as *mut c_void);
++            bindings::pci_iounmap(pdev.as_raw(), core::ptr::with_exposed_provenance_mut(ioptr));
+             bindings::pci_release_region(pdev.as_raw(), num);
+         }
+     }
+diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
+index 8311d91549e1..67aba11c9702 100644
+--- a/rust/kernel/str.rs
++++ b/rust/kernel/str.rs
+@@ -564,9 +564,9 @@ fn new() -> Self {
+     pub(crate) unsafe fn from_ptrs(pos: *mut u8, end: *mut u8) -> Self {
+         // INVARIANT: The safety requirements guarantee the type invariants.
+         Self {
+-            beg: pos as usize,
+-            pos: pos as usize,
+-            end: end as usize,
++            beg: pos.expose_provenance(),
++            pos: pos.expose_provenance(),
++            end: end.expose_provenance(),
+         }
+     }
+ 
+@@ -577,7 +577,7 @@ pub(crate) unsafe fn from_ptrs(pos: *mut u8, end: *mut u8) -> Self {
+     /// The memory region starting at `buf` and extending for `len` bytes must be valid for writes
+     /// for the lifetime of the returned [`RawFormatter`].
+     pub(crate) unsafe fn from_buffer(buf: *mut u8, len: usize) -> Self {
+-        let pos = buf as usize;
++        let pos = buf.expose_provenance();
+         // INVARIANT: We ensure that `end` is never less than `buf`, and the safety requirements
+         // guarantees that the memory region is valid for writes.
+         Self {
+@@ -591,7 +591,7 @@ pub(crate) unsafe fn from_buffer(buf: *mut u8, len: usize) -> Self {
+     ///
+     /// N.B. It may point to invalid memory.
+     pub(crate) fn pos(&self) -> *mut u8 {
+-        self.pos as *mut u8
++        core::ptr::with_exposed_provenance_mut(self.pos)
+     }
+ 
+     /// Returns the number of bytes written to the formatter.
+@@ -613,11 +613,7 @@ fn write_str(&mut self, s: &str) -> fmt::Result {
+             // SAFETY: If `len_to_copy` is non-zero, then we know `pos` has not gone past `end`
+             // yet, so it is valid for write per the type invariants.
+             unsafe {
+-                core::ptr::copy_nonoverlapping(
+-                    s.as_bytes().as_ptr(),
+-                    self.pos as *mut u8,
+-                    len_to_copy,
+-                )
++                core::ptr::copy_nonoverlapping(s.as_bytes().as_ptr(), self.pos(), len_to_copy)
+             };
+         }
+ 
+diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
+index 5f6c4d7a1a51..f06b4c1637ca 100644
+--- a/rust/kernel/uaccess.rs
++++ b/rust/kernel/uaccess.rs
+@@ -28,7 +28,7 @@ impl UserPtr {
+     /// Create a `UserPtr` from an integer representing the userspace address.
+     #[inline]
+     pub fn from_addr(addr: usize) -> Self {
+-        Self(addr as *mut c_void)
++        Self(core::ptr::without_provenance_mut(addr))
+     }
+ 
+     /// Create a `UserPtr` from a pointer representing the userspace address.
 
-This highlights that "I'm doing this wrong". I'll move to a cleaner 
-rolling distro where staying current is a lot easier.
+---
+base-commit: 5d6919055dec134de3c40167a490f33c74c12581
+change-id: 20260521-strict-provenance-redux-d58178caada3
 
-The GPUISP support looks great!
-
-Dropping this patch as I'm not understanding the full allocator story.  
-Sorry for the noise.
+Best regards,
+--  
+Tamir Duberstein <tamird@kernel.org>
 
