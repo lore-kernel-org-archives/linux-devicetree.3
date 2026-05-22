@@ -1,400 +1,215 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA2D379EE8
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2EA41C71
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779453625; cv=none; b=kz7Grj5q5m4iaPOj0VOalkqYkM7lqHNEdmVgFxhIvqsE/AGIfQ21Bw4LVYfILBwYssOX4Jh7+k7kZnFzjNTn0I5luzqYDalOMIV/1WQgz61M0HcxgjSIdDcmWKmYHGQHvkUzq4KgK5DaVE8c1rScuHg6aZiOQaBlewZ1TY0OKUQ=
+	t=1779453639; cv=none; b=AXvlaZrOclQEUQmi09Lmk48SkRtoYXKGtsgwItHlAfURBNq9pNI5KWIbUnXWS8g8DPvRu8VIDBmOYlW7ZFV6o9J/pVzf+BWsrerIErqDJ/K1z4oGSfbe6Ezq0nmF+Rkd2Oky0YNP/BN/ZtQgQBhoal8qJcF6b2++meV3NkoURbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779453625; c=relaxed/simple;
-	bh=EaHdSbpoBfDFdvmLaM2RzlTrg0krsCYeXw6o8Kh8L6M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SzFazdx3QLhf7SqihaD/RFZkRmJRmnkfglm754qtE9inqbeR7qzZoaGei8zpq04Ln/TMJ2dsievjN8yf2klEHBwGEvXhUTVUD67NQ53Prvl3NqkNOcVzV4DvinMI+/HWAzlkewzyDUPm4EH5XCjpFT58012EYyZSdg7GTglhzpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=chackWM7; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779453639; c=relaxed/simple;
+	bh=GKuU865fhJdyAR0TP7O66B01STqs4OXEY13Yqfza5bs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jJYZalDD5Q0uu4PojDVopNd2diZ9ewAXFKxbx69Nqu9uFaLPwt+nwn6udK5dMoNRkI3qhhkOgFRLt+HWMwnPLQHqfznaW3NsIt3mvR5iga/ZbWQFZ78xriu6dHUUBt6pc+IOHtDxjGbO1QeRGf+kl/APxEiQOc9heRyZMu/dK0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=TapLIak7; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="chackWM7"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4585a116a4aso6116653f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 05:40:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="TapLIak7"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-bd0209f25c1so1202805466b.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 05:40:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779453622; x=1780058422; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NmGqTOyHvD72gyk+cwZRGMxBl5PRZzglr/HGbQODdno=;
-        b=chackWM7YLJ1X2VVxZmeB9cEq5ZOQaCYHad3XtPE7uSNgFlARoYwJhC7hwsOQ7AjUL
-         2lbt7tPIozj8gWWBNoUp9xDaMNOXKP6B8qzx0cml2ptcNe23NMTU8kOscdnfJxujEsM8
-         kzqB8D8CvPlbIfpmX0vYV6xA5YtU4E06zjw4efcG6/2KIrqaZcAd0pZyYhyZ6cG2Fmly
-         99tdDJcYZ2yQnQoCsUQ8TRGUpDSp7hFcZ4fQEKfAA/UcQo81vnsybponK4Re1xQcLZLE
-         Dfw6gAn2BI9eJu943VHnH8Pe+IO+FTnCBchiAcVA3Lp0tirexs3VtDsIA1W2pG1c0kjf
-         4h5A==
+        d=fairphone.com; s=fair; t=1779453636; x=1780058436; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=F8/1QwPDT3p0DppjyzD2CwRhU25CR8Lvlf63nPxbD6A=;
+        b=TapLIak7TJssjArsCmRZT7giWktxmQL4+ZxuyfHswsA7VctRCrmuILDapHdmgDRcVI
+         KHjocnGnzk6FY6AfpWmODuY53mFGP5zFE1auV+A2vMWLIdbOvd2kih0T9k3jxmRgbMiN
+         wlIATcklOPNjO3pfHzp+GT5Hyy8FNSsbPOgjFFDYrW4t2ejI0kjUk2Ci6rCuAF5YX6QB
+         ajSnCxq1aFrwtm7QufJScGWOPhx0wBdR3xubVDUC5mXHeZOldQ+CxLoPMns/Ix3CUEnm
+         HD4zbdbZUkKKnHqbOeKKE8oyDLqQKZXbruTXVfMUcA7twGfWM5jgJTxer7UiCJwYQt3u
+         3qlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779453622; x=1780058422;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NmGqTOyHvD72gyk+cwZRGMxBl5PRZzglr/HGbQODdno=;
-        b=NEke0fRgW/0nYrQHfgCAS5ETkToeFLkybkiq/rnz3XmYVOwhTkTye07uZL0LPmDUzT
-         VhvTaYJIkx+Bf0Q2BYqO5rWbJsd/rc+DVpue9C4WHBG+NdG7DyzTpkRDrJY6hiBASfxt
-         V8Z+hL8mLnY7mxm30HTPreuRgN6TTOEFgDTvD4B2fbmCzzS9hqhPMkCwdhNTXIKiZFyX
-         FvOO3M105HHJ9NgzlAzZPAZsiEM8GCvW5mqmxomC7kMBf2/+owO07qF+8u0w9gNt0DzT
-         sC8R0ESOKK2GAC6gpRgz/mViwK++yc02a5kirQCKIm72DuY64VS0oH7Q/qucOtkcSaSn
-         k4qw==
-X-Forwarded-Encrypted: i=1; AFNElJ/4CvSFM7xffns1EMa/KOWzZ5Ekc3kD9geMSprZCMNchdMDim5/MAn7QPr6IicvUMPZSi3S0CS2N3Nk@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywap9Tq7SFRoUk/tazLW1pSMSzlAGqGb/0udCTP6vrkU27LL3qN
-	D3OEXjI89yQk/TYmVYppnbQum4lvl35CpFM1w/tYkH2p171lTDMxB5+THg6Df5DptRg=
-X-Gm-Gg: Acq92OHbs5cPWCtNkHBzFozMwBx9FvNNdwtQaXkeP1UOAH75GwNQ+9KE4lpl8m42EAj
-	XmOguPh+e0E0Rsaa7EzodLZPaH3FJZqSLBuWVYv/01mcL9eceljx/2ts2v6IShWhdpc7zHggbt6
-	Mv2CoC+q8I22vN7o6W/pWlYOKOWwXIKea/9FmqUvSF3OthYtlNgLP3zasDtDr53+Rj8GOVo0Ejr
-	KzgixRwbvHV6AQlRiSCtovokFCeIAa7uYRU+bL5f9nrQqiP+JnqR7AOsq9cIOo3ROeU/DcKTPIB
-	OlnX2rFJhdu/v0tzgamvueU+9ysadWUFzPbEqI0dJWcAQmMMcoIzxzQ7aQXgW7tkaMBy5vvy8qj
-	BnFEsHe6TwJh26oiZ9IzkmiDjQv97B/V904Uw/sH8HnU2uQ/m3rmWU5SyWaq9f/ZUIaI9Q2q+JG
-	rhb4xqgmfR7SIIcskNZNXI9751QIMQHTw6kncIMCFu391uJtM0nt1QzkdsUHN4r2LZqldTjMotU
-	CBiZM2nimbh7H4=
-X-Received: by 2002:a5d:64c2:0:b0:43d:7868:21f0 with SMTP id ffacd0b85a97d-45eb3670591mr4903931f8f.9.1779453622099;
-        Fri, 22 May 2026 05:40:22 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:e40:8f70:d414:3f93? ([2a01:e0a:106d:1080:e40:8f70:d414:3f93])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d71688sm4018786f8f.33.2026.05.22.05.40.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 05:40:21 -0700 (PDT)
-Message-ID: <c40fd8f9-0e52-43a0-b806-d611db35603b@linaro.org>
-Date: Fri, 22 May 2026 14:40:20 +0200
+        d=1e100.net; s=20251104; t=1779453636; x=1780058436;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=F8/1QwPDT3p0DppjyzD2CwRhU25CR8Lvlf63nPxbD6A=;
+        b=K/7kpuOE1MnJsM1r2EVcXUP4qZ4MCfSdc2cAt3VvurEwFklVCfgmrrgpV2VZ1bin+r
+         eyp2e6cma8f5VS8CP6P55jeAXxjBXHyJQfO7Ubql6B2pQ8V4hww8NhUdnZgBXIusAAUY
+         +3jZjhxu8E9ymuXE23AVanl7gNwSsnWwfWnyJInlqKRMTWLPwYboh9SirfMsfOe7geBU
+         H9ruxX9IfhllgVcuusI4DxVGC8igJvL3yoIesPFYMIa/Jg6GheF7xf+rLwoovA1ePKUb
+         oJG3w6vsPRGFfq1ZYhQ8EDZH0PJ3pwJVtzRQdlggttuIfTOKJDOK2vtMXVsY5B44K+CU
+         l19A==
+X-Forwarded-Encrypted: i=1; AFNElJ+tsHJoxBQvdTewO9RV9lV/BR9DSSYrxjkhNujjf+qRYektmuSwADN4lkhQiKacG9Y7l4dROM97SUoS@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLvTtclL9K9NS5WHCy1JFkEFqxYTrIvFvLMSjxDChm/BbBzoTA
+	o87+AxHDtmmi+85bwk4/9PUfwuw6C2a5LbcVS9x61yKBrGt3RMjcWiXNnamY//XnKAo=
+X-Gm-Gg: Acq92OHBqElc0byjhORsr/3kj0LXbi7QsYtmWJ1tp7eBntNp1A/WOJcvtNQiwitXkDN
+	RzlaAfZfrEG4kHsFM9v2H0/JAs7GI0QxfT5/E/UUNw3mITWVr/N3hUy/vmSzwUxwudKx5JSWVSA
+	0w3ZSwKCGlnZ6qCbYfHn752Grqh+y9ihXVu2zRh+bYjo2gskWUjiw6LseCEqHKLZ6mPdK7LDcQ1
+	17jAwTWYZaZgBiXF3ScypRvHPYElbzdE1nm38iJm+Nu5vUHomKsYLP62UlvKZZ27703ue3B4Qur
+	gqfRQjCEqEn7ukFbRYXPfo54ICNS4aabamTmqIRNdlTYkhqXCGbwyKli1n4WMkbCy1Tg7ApHwB6
+	+4wd2I9X39CrKo9jfPxXtXkceSNVKrjmxX9NJTEPfpBlSYDXnw95ng/GOwqNV9P3U/ZBDt1vBe5
+	riV+HIYvB9eepmj6dd2bd3vQA2F6Qrt6dH+6wQ+2CAFveOTAL5KS/9vf5wIZoIJFAzZBOE4KUAq
+	ytHLg==
+X-Received: by 2002:a17:907:388b:b0:bd5:ca8:768c with SMTP id a640c23a62f3a-bdd2a4fdcf4mr227820266b.31.1779453635971;
+        Fri, 22 May 2026 05:40:35 -0700 (PDT)
+Received: from [172.16.240.102] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc264d87dsm52301866b.2.2026.05.22.05.40.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 05:40:35 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 22 May 2026 14:39:41 +0200
+Subject: [PATCH RFC] arm64: dts: qcom: qcm6490-fairphone-fp5: Add AW88261
+ amplifiers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 5/5] drm/panel: Add driver for Synaptics R63455 DSI
- panel
-To: sashiko-reviews@lists.linux.dev, Jun Nie <jun.nie@linaro.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260521-sm8650-7-1-bonded-dsi-v4-5-a4dd5e0850f1@linaro.org>
- <20260521163039.30D3A1F000E9@smtp.kernel.org>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260521163039.30D3A1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260522-fp5-aw88261-v1-1-20e412eb4c4e@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2O2wrCMBBEf6XssylJ7B0RQfADfJU+JHGr0d5s0
+ iqU/rvp5XFmzs7sCAY7jQYyb4QOB210UzvBdh6op6gfSPTdaeCURzTknBRtSMQ3SXjEiKBcSoq
+ BjNIY3EXbYaF/S9sNrpcz5KtpevlCZeeeDevw07stu7FSGCSqqSptM6/GnyXbHpv5Co0RyyeZd
+ 1gDlnBOUxr5+yBOw4QwMojy1Ar1Rmt91TTlEfJp+gOXHI143wAAAA==
+X-Change-ID: 20260522-fp5-aw88261-a02bb0e4b697
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Val Packett <val@packett.cool>, 
+ Bharadwaj Raju <bharadwaj.raju@machinesoul.in>, 
+ Bhushan Shah <bhushan.shah@machinesoul.in>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779453634; l=3190;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=GKuU865fhJdyAR0TP7O66B01STqs4OXEY13Yqfza5bs=;
+ b=vFt59t/6uyXFNQFXMq8hCqeigkTmEiHrO/WtAyYMztfHxTmYezS6wVtMz3rxJg1iLi8eQJ29c
+ 0+3Yqs8hn5PDUcxHC/6qfUw3WCk7OU8MoFVG0lqxLlf2cJF82TICJLb
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-On 5/21/26 18:30, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 10 potential issue(s) to consider:
-> - [High] Incorrect order of error unwinding labels in `r63455_prepare` causes resource leaks and unbalanced regulator operations.
-> - [High] The secondary DSI device registered during probe is never unregistered, causing a memory and device leak.
-> - [High] Endianness extraction macros misuse host-endian functions, resulting in reversed byte order on Big Endian architectures.
-> - [High] Unconditional access to `ctx->reset_gpios->desc[1]` leads to an out-of-bounds array read if only one reset GPIO is provided.
-> - [High] Failure of `drm_dsc_setup_rc_params` is logged but ignored, leading to division by zero and uninitialized data usage.
-> - [High] Backlight updates send DSI commands after the panel has entered sleep mode, risking hardware timeouts.
-> - [High] Premature publication of backlight and panel interfaces leads to use-before-initialization races.
-> - [High] Unprotected concurrent read-modify-write on `mode_flags` causes data races.
-> - [High] Unaligned pointer cast causes unaligned memory access when packing DSC PPS payload.
-> - [Low] Missing Kconfig dependencies for DRM DSC helpers causes build failures.
-> --
-> 
-> commit b5b6e09241eeff17cb03a31aac27b70f4e5ca911
-> Author: Jun Nie <jun.nie@linaro.org>
-> Subject: drm/panel: Add driver for Synaptics R63455 DSI panel
-> 
-> This commit adds support for the DSI panels used in the virtual reality
-> device. The device features two physical panels, each providing a MIPI DSI
-> interface and a built-in LED backlight, and exposes a single logical panel
-> to the DRM framework.
-> 
->> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
->> --- a/drivers/gpu/drm/panel/Kconfig
->> +++ b/drivers/gpu/drm/panel/Kconfig
-> [ ... ]
->> @@ -1185,6 +1185,15 @@ config DRM_PANEL_SYNAPTICS_TDDI
->>   	  namesake, with varying resolutions and data lanes. They also have a
->>   	  built-in LED backlight and a touch controller.
->>   
->> +config DRM_PANEL_SYNAPTICS_R63455
->> +	tristate "Synaptics R63455-based panels"
->> +	depends on OF
->> +	depends on DRM_MIPI_DSI
->> +	depends on BACKLIGHT_CLASS_DEVICE
->> +	help
->> +	  Say Y if you want to enable support for panels based on the
->> +	  Synaptics R63455 controller.
-> 
-> [Severity: Low]
-> Does this need to select DRM_DISPLAY_DSC_HELPER or DRM_DISPLAY_HELPER?
-> The driver calls drm_dsc_set_const_params and other DSC helpers, which
-> might cause link-time failures if the helper infrastructure is not built.
+Add nodes for the two AW88261 amplifiers, for the top and bottom
+speakers of this phone. Hook them up to the sound card.
 
-Yes
+Co-developed-by: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+Signed-off-by: Bharadwaj Raju <bharadwaj.raju@machinesoul.in>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+RFC because the AW88261 patches aren't merged yet
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 59 +++++++++++++++++++++-
+ 1 file changed, 57 insertions(+), 2 deletions(-)
 
-> 
-> [ ... ]
->> diff --git a/drivers/gpu/drm/panel/panel-synaptics-r63455.c b/drivers/gpu/drm/panel/panel-synaptics-r63455.c
->> --- /dev/null
->> +++ b/drivers/gpu/drm/panel/panel-synaptics-r63455.c
-> [ ... ]
->> +#define r63455_dsi_write_buffer(ctx, dsi_ctx, d)					\
->> +	do {										\
->> +		dsi_ctx.dsi = ctx->dsi[0];						\
->> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
->> +		dsi_ctx.dsi = ctx->dsi[1];						\
->> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, d, ARRAY_SIZE(d));		\
->> +	} while (0)
->> +
->> +#define LE16_BYTE0(val) (le16_to_cpu(val) & 0xff)
->> +#define LE16_BYTE1(val) ((le16_to_cpu(val) >> 8) & 0xff)
-> 
-> [Severity: High]
-> Are these macros extracting the correct bytes on big endian architectures?
-> Using le16_to_cpu() on a native integer constant swaps the bytes on big
-> endian systems. Applying the bitwise operations afterward will extract the
-> most significant byte instead of the least significant byte. Would standard
-> bitwise shifts be safer here?
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 04cb9230d29f..b1f489a9f449 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -866,8 +866,35 @@ vibrator@5a {
+ &i2c2 {
+ 	status = "okay";
+ 
+-	/* AW88261FCR amplifier @ 34 */
+-	/* AW88261FCR amplifier @ 35 */
++	/* Top speaker / ear speaker */
++	aw88261_l: audio-codec@34 {
++		compatible = "awinic,aw88261";
++		reg = <0x34>;
++
++		dvdd-supply = <&vreg_l18b>;
++		sound-name-prefix = "Amplifier L";
++		firmware-name = "qcom/qcm6490/fairphone5/aw88261_acf.bin";
++
++		awinic,audio-channel = <0>;
++		awinic,sync-flag;
++
++		#sound-dai-cells = <0>;
++	};
++
++	/* Bottom speaker */
++	aw88261_r: audio-codec@35 {
++		compatible = "awinic,aw88261";
++		reg = <0x35>;
++
++		dvdd-supply = <&vreg_l18b>;
++		sound-name-prefix = "Amplifier R";
++		firmware-name = "qcom/qcm6490/fairphone5/aw88261_acf.bin";
++
++		awinic,audio-channel = <1>;
++		awinic,sync-flag;
++
++		#sound-dai-cells = <0>;
++	};
+ };
+ 
+ &i2c4 {
+@@ -1161,6 +1188,13 @@ &pon_resin {
+ 	status = "okay";
+ };
+ 
++&q6afedai {
++	dai@127 {
++		reg = <QUINARY_MI2S_RX>;
++		qcom,sd-lines = <0>;
++	};
++};
++
+ &qup_spi13_cs {
+ 	drive-strength = <6>;
+ 	bias-disable;
+@@ -1238,6 +1272,11 @@ &sound {
+ 	compatible = "fairphone,fp5-sndcard";
+ 	model = "Fairphone 5";
+ 
++	pinctrl-0 = <&lpass_i2s1_active>;
++	pinctrl-1 = <&lpass_i2s1_sleep>;
++	pinctrl-names = "default",
++			"sleep";
++
+ 	mm1-dai-link {
+ 		link-name = "MultiMedia1";
+ 
+@@ -1246,6 +1285,22 @@ cpu {
+ 		};
+ 	};
+ 
++	i2s-dai-link {
++		link-name = "Quinary MI2S Playback";
++
++		codec {
++			sound-dai = <&aw88261_l>, <&aw88261_r>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai QUINARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++
+ 	displayport-rx-dai-link {
+ 		link-name = "DisplayPort Playback";
+ 
 
-No we extract the low byte and high byte of the 16bit number converted to the cpu endianness,
-so it's the right code here.
+---
+base-commit: 1e45adb287ae5d431afc9900b4d387f4e73d9406
+change-id: 20260522-fp5-aw88261-a02bb0e4b697
+prerequisite-message-id: <20260518220906.347958-1-val@packett.cool>
+prerequisite-patch-id: cf63e24b374691738276d00e569ffa2d8b94ed72
+prerequisite-patch-id: 9a075067099bfdbf52eabfe3f7121909955c8726
+prerequisite-patch-id: 5453ac079d39ea13d849f880f9dde4b0a2192b91
+prerequisite-patch-id: 3768d28b288dbb7d3245dc0de3a289303c3e45fd
+prerequisite-patch-id: d84da7eec6f3755985ba55676a3bc893b89f002b
+prerequisite-patch-id: ea19cd4cd8cc8519786c6f05cf4e35ccadd70839
+prerequisite-patch-id: 6847a49b36dd8bd4cbb422b6a2b269faaca6c873
 
-> 
-> [ ... ]
->> +static int r63455_dsi_populate_dsc_params(struct r63455_ctx *ctx)
->> +{
->> +	int ret;
->> +	struct drm_dsc_config *dsc = &ctx->dsc_cfg;
-> [ ... ]
->> +	/* handle only bpp = bpc = 8, pre-SCR panels */
->> +	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
->> +	if (ret < 0)
->> +		DRM_DEV_ERROR(ctx->dev, "failed to setup dsc params\n");
->> +
->> +	dsc->initial_scale_value = drm_dsc_initial_scale_value(dsc);
-> 
-> [Severity: High]
-> Should this return early if drm_dsc_setup_rc_params() fails? If execution
-> continues, the driver will use uninitialized DSC configuration parameters.
-> Because values like initial_xmit_delay might remain zero, it can result in
-> a division by zero when calculating final_scale inside
-> drm_dsc_compute_rc_parameters().
-
-Good catch
-
-> 
->> +	dsc->line_buf_depth = dsc->bits_per_component + 1;
->> +
->> +	return drm_dsc_compute_rc_parameters(dsc);
->> +}
-> [ ... ]
->> +static int r63455_panel_on_sharp_ls026b3sa06(struct drm_panel *panel)
->> +{
->> +	struct r63455_ctx *ctx = panel_to_ctx(panel);
->> +	struct mipi_dsi_multi_context dsi_ctx = { 0 };
->> +
->> +	u8 pps_cmd[1 + sizeof(struct drm_dsc_picture_parameter_set)];
->> +
->> +	drm_dsc_pps_payload_pack((void *)&pps_cmd[1], &ctx->dsc_cfg);
-> 
-> [Severity: High]
-> Can this unaligned pointer cause alignment faults? Passing &pps_cmd[1] forces
-> the base address to be odd. Since drm_dsc_pps_payload_pack() treats the
-> pointer as a struct and performs 16-bit stores to its fields, this might
-> trigger alignment panics on architectures that strictly enforce memory
-> alignment.
-
-Yep, best would be to work on a struct drm_dsc_picture_parameter_set on the stack
-and copy it to pps_cmd[1].
-
-> 
-> [ ... ]
->> +static int r63455_set_brightness(struct r63455_ctx *ctx, u16 brightness,
->> +				  u16 pulse_offset_rows)
->> +{
->> +	struct mipi_dsi_multi_context dsi_ctx = { 0 };
->> +	u16 gpo1_tew1;
->> +
->> +	gpo1_tew1 = brightness > BRIGHTNESS_MAX_120 ?
->> +		    BRIGHTNESS_MAX_120 : brightness;
->> +
->> +	ctx->dsi[0]->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> 
-> [Severity: High]
-> Can this read-modify-write of mode_flags race with the similar modifications
-> in r63455_enable() and r63455_disable()? Because set_brightness() is called
-> from sysfs context and enable/disable from DRM commit context, concurrent
-> access might corrupt mode_flags and drop critical settings like
-> MIPI_DSI_MODE_VIDEO.
-
-It's very improbable this happens, panel cmds and backlight are called at very different times.
-
-> 
->> +	ctx->dsi[1]->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> [ ... ]
->> +static int r63455_disable(struct drm_panel *panel)
->> +{
->> +	struct r63455_ctx *ctx = panel_to_ctx(panel);
->> +	struct mipi_dsi_multi_context dsi_ctx = { 0 };
->> +
->> +	ctx->dsi[0]->mode_flags &= ~MIPI_DSI_MODE_LPM;
->> +	ctx->dsi[1]->mode_flags &= ~MIPI_DSI_MODE_LPM;
->> +
->> +	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_DISPLAY_OFF);
->> +	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_SET_TEAR_OFF);
->> +	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_ENTER_SLEEP_MODE);
->> +
->> +	mipi_dsi_msleep(&dsi_ctx, 200);
->> +
->> +	if (dsi_ctx.accum_err)
->> +		return dsi_ctx.accum_err;
->> +
->> +	return backlight_disable(ctx->backlight);
-> 
-> [Severity: High]
-> Is it safe to disable the backlight here? The backlight_disable() function
-> calls r63455_set_brightness(), which will send DSI configuration commands to
-> the panel. Doing so after sending MIPI_DCS_ENTER_SLEEP_MODE violates the DSI
-> hardware contracts and might cause bus timeouts or hardware crashes.
-
-It's required by the hw spec.
-
-> 
->> +}
->> +
->> +static int r63455_unprepare(struct drm_panel *panel)
->> +{
->> +	struct r63455_ctx *ctx = panel_to_ctx(panel);
->> +	int ret;
->> +
->> +	gpiod_set_value(ctx->reset_gpios->desc[0], 0);
->> +	gpiod_set_value(ctx->reset_gpios->desc[1], 0);
-> 
-> [Severity: High]
-> What happens if the device tree only provides a single reset GPIO? If ndescs
-> is 1, accessing desc[1] will read past the end of the flexible array,
-> resulting in a garbage pointer dereference.
-
-Won't happen, both are mandatory
-
-> 
-> [ ... ]
->> +static int r63455_prepare(struct drm_panel *panel)
->> +{
->> +	struct r63455_ctx *ctx = panel_to_ctx(panel);
->> +	int ret;
-> [ ... ]
->> +	msleep(20);
->> +	gpiod_set_value(ctx->reset_gpios->desc[0], 1);
->> +	gpiod_set_value(ctx->reset_gpios->desc[1], 1);
->> +
->> +	return 0;
->> +
->> +bl_off:
->> +	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_bl), ctx->reg_bl);
->> +vdda_off:
->> +	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_vdda), ctx->reg_vdda);
->> +bias_off:
->> +	regulator_bulk_disable(ARRAY_SIZE(ctx->reg_lcd_bias_pos),
->> +			       ctx->reg_lcd_bias_pos);
->> +	return ret;
-> 
-> [Severity: High]
-> Are these error labels in the correct order? They appear to fall through
-> sequentially rather than unwinding in reverse. If reg_vdda fails to enable,
-> the jump to bl_off will disable the backlight, but then incorrectly fall
-> through to vdda_off and bias_off. This causes regulators that were never
-> enabled to be disabled, and completely skips disabling regulators that were
-> actually enabled.
-
-
-Jun, please check the order
-
-> 
->> +}
-> [ ... ]
->> +static int r63455_probe(struct mipi_dsi_device *dsi)
->> +{
->> +	struct device *dev = &dsi->dev;
->> +	struct r63455_ctx *ctx;
->> +	struct mipi_dsi_device *dsi1_device;
-> [ ... ]
->> +	dsi1_host = of_find_mipi_dsi_host_by_node(dsi1);
->> +	of_node_put(dsi1);
->> +	if (!dsi1_host) {
->> +		DRM_DEV_ERROR(dev, "failed to find secondary dsi host\n");
->> +		return -EPROBE_DEFER;
->> +	}
->> +
->> +	dsi1_device = mipi_dsi_device_register_full(dsi1_host, &info);
-> 
-> [Severity: High]
-> Does this dynamically allocated dsi1_device need to be unregistered? There
-> is no call to mipi_dsi_device_unregister() in the error paths below or in a
-> remove callback for the driver, which could cause a permanent device and
-> memory leak when the module is unloaded or fails to probe.
-
-Good catchm, should be devm_mipi_dsi_device_register_full()
-
-> 
->> +	if (IS_ERR(dsi1_device)) {
->> +		DRM_DEV_ERROR(dev, "failed to create dsi device\n");
->> +		return PTR_ERR(dsi1_device);
->> +	}
-> [ ... ]
->> +	ret = r63455_panel_add(ctx);
->> +	if (ret) {
->> +		DRM_DEV_ERROR(dev, "failed to add panel %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	for (i = 0; i < 2; i++) {
->> +		dsi_dev = ctx->dsi[i];
->> +		dsi_dev->lanes = 3;
->> +		dsi_dev->format = MIPI_DSI_FMT_RGB888;
->> +		dsi_dev->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
->> +			MIPI_DSI_CLOCK_NON_CONTINUOUS;
->> +		ret = devm_mipi_dsi_attach(dev, dsi_dev);
-> 
-> [Severity: High]
-> Does calling r63455_panel_add() before devm_mipi_dsi_attach() expose the
-> backlight sysfs interface too early? If userspace writes to the brightness
-> node before the DSI lanes and formats are configured and attached, it could
-> trigger a DSI transfer on an unattached device and crash the system.
-
-No
-
-> 
->> +		if (ret < 0) {
->> +			DRM_DEV_ERROR(dev, "dsi attach failed i = %d\n", i);
->> +			return ret;
->> +		}
->> +	}
->> +
->> +	return 0;
->> +}
-> 
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
