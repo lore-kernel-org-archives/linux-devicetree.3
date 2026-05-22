@@ -1,96 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B703AC0C9;
-	Fri, 22 May 2026 12:32:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55729383C80;
+	Fri, 22 May 2026 12:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779453162; cv=none; b=s5+0njsUU53YMe+YsWIDBlO3d4/kZGPJs2/9pGQk9Q1plELZhH7uTcM590NJZjqemTJ0/Z9A6oiVIypH5h6c7GKT+J+BzAeJFpC1tkr2Yzl4Z13zo9CsfrkS2IMkksGBCd+sKSR8gdd01T5+zGXtDKNpIZ8fJfMC3duIDtj0R60=
+	t=1779453177; cv=none; b=dpMrcYDqgJb3Mcf2o25XzPvS0tT3tvrhgnag5inDZiNo8Q/g3sY3PpMakS1TPyFUPWgjLLrq/SCSCIFDv/bghvi5jvI8kCKItXl1u8FtALIDYnuC9WSZXgFLRYtnkw0APoKMC3sPu7SjZQX6RpPPPCy1HD7u63uvaftgUcB/j6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779453162; c=relaxed/simple;
-	bh=L6q0+2eMQT/J1fAvSpt/IXZM9oQaVYRG9oRc/PkbK4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tvc8MMZM4jMBKY4fpYLHjLTyweOLuEugtVN1hQQkTdPrTzc2Z51HP16prqcDDhnY1td0iv8//MK0JfyZVRgdw1I3tJxTCc3y8k9+FzZggg+bQFOxVox9umQYwtdNaeN9BC3mRVBevLxZ4Oiznk2Zea8udNzXWE4CecqXc1hQi7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FfNVRePZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779453177; c=relaxed/simple;
+	bh=mVln9+gziMHZN+XkSyHi7csjyiEFVOXmysIqhlJSsZc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GbxbvDv1doPjI01WdyADasqMS5OoNoimMKXZP4dQend1ExzaWkAiEsOCtjsCwAxiGYtPTseEEW70pJ0Jmp6jwWhNivOKTCkV9SZBYui8+1V9DBB0sYRYbUCbRsRQ+zYLE0eUz3QLcr9MhN6zmaaxNZ5+fv4vfdimvlK4+VCabOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDruXKAQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FfNVRePZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1BB1F000E9;
-	Fri, 22 May 2026 12:32:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDruXKAQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FEB81F000E9;
+	Fri, 22 May 2026 12:32:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779453157;
-	bh=Jv9zg2MJVo/D2S5hcq2FejETLMicgAaFVojMA8Hi8v8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FfNVRePZN8D57R7xD1/qPeTks9WcWRCS09tt2QEobG2MCEcF/a891O1YhWOVyqjsC
-	 hjk0tI/Gh9V9S2/t/MGsejyGXVqxnsmHzOj7EzV7mk9a4ry21hKGVLcjk/NPKzGQWL
-	 aDPtrdKbIXvFuo3Ut81i8nKAUNMLZ386uurZ8Qnp/3lyZAuu9EdUjmz9VNRhjoRjlE
-	 tOzP5fwFXQxD1pMT0NJLb7GsuqN9t1RAvl7yCthGSZVoKunyo+okFBrwcE0Jf3u0H+
-	 XL2wA8gaYcmqGMQrtoKvUsQbekO3/7kG5sLl+TvXhxkNBl6tQTWPrOpEjlZCbbdVIv
-	 Fc4lXwV7HDUgA==
-Date: Fri, 22 May 2026 13:32:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, <linux@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: ad4080: add AD4884 support
-Message-ID: <20260522133228.06521c5d@jic23-huawei>
-In-Reply-To: <20260522115337.18188-2-antoniu.miclaus@analog.com>
-References: <20260522115337.18188-1-antoniu.miclaus@analog.com>
-	<20260522115337.18188-2-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779453176;
+	bh=Hoju2YgXhT7PtnXSCwVHegZ3+uG0YC8XDJ3Ff3Ga49Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BDruXKAQrkK7HuWuDzm0In0UvBjY6LBU/bBX/s6BiJ7LMBnwNoQZBEKRLw8d2Xkh7
+	 Fe1nXPzmHUsqyrSqtb4NCIVXn3iH2abnDbbUoP5ZTeuH0Ml5njYCgAMrYMUIr2f2U7
+	 1eJRtml/aYPfYzf/6eH/15EikcfZdUIPXGvfJRW8CpgX4E2k0sVRj8CulFhh0t+NpQ
+	 3kuNHu4RhiNMUkJDIRLApX948QHHzcfff8qj7xolxFbH3ydQWQC1ob8BhWnXmPTh/H
+	 RpHqdCWWj1W1KuZlBfBnMJVSGjXCiOe/gtLDelP6+VL58UJhcmK1m1w2+SOFZSTWjA
+	 zGoCo/ON5MNsA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/5] arm64: dts: freescale: imx95-15x15-frdm: remove
+ common rmem regions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Laurentiu Mihalcea" <laurentiumihalcea111@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260522111849.783-5-laurentiumihalcea111@gmail.com>
+References: <20260522111849.783-5-laurentiumihalcea111@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 May 2026 12:32:55 +0000
+Message-Id: <20260522123255.6FEB81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 22 May 2026 14:53:36 +0300
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incomplete cleanup leaving orphaned remoteproc memory regions (`=
+vdev1vring0` and `vdev1vring1`), causing a code and commit message mismatch.
+--
 
-> Add AD4884 compatible string to the AD4080 devicetree binding.
-> 
-> The AD4884 is a dual-channel, 16-bit, 40 MSPS SAR ADC, sharing the same
-> register map and interface as the AD4080 family. Like the AD4880, it
-> requires two SPI chip selects and two io-backends for its independent
-> ADC channels.
+commit c3d174a8ecea96cc404dfedae6ae093499f849dd
+Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-I don't see anything in here to say how it is different in a fashion
-that doesn't allow a fall back compatible to the ad4880. Probably just
-needs a statement about the resolution being different. 
+arm64: dts: freescale: imx95-15x15-frdm: remove common rmem regions
 
-> 
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> ---
->  Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> index 9c6a56c7c8ef..4a3f7d3e05c3 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> @@ -39,6 +39,7 @@ properties:
->        - adi,ad4087
->        - adi,ad4088
->        - adi,ad4880
-> +      - adi,ad4884
->  
->    reg:
->      minItems: 1
-> @@ -99,7 +100,9 @@ allOf:
->        properties:
->          compatible:
->            contains:
-> -            const: adi,ad4880
-> +            enum:
-> +              - adi,ad4880
-> +              - adi,ad4884
->      then:
->        properties:
->          reg:
+This commit removes reserved memory regions used for remoteproc on the
+MX95-15x15-FRDM platform, noting they are unused and can be included in an
+RPMSG-specific DTS instead.
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/ar=
+m64/boot/dts/freescale/imx95-15x15-frdm.dts
+> index 0f43e3be70589..f9b0e266754d6 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+> @@ -188,16 +188,6 @@ linux_cma: linux,cma {
+>  			linux,cma-default;
+>  		};
+> =20
+> -		vdev0vring0: memory@88000000 {
+> -			reg =3D <0 0x88000000 0 0x8000>;
+> -			no-map;
+> -		};
+> -
+> -		vdev0vring1: memory@88008000 {
+> -			reg =3D <0 0x88008000 0 0x8000>;
+> -			no-map;
+> -		};
+> -
+>  		vdev1vring0: memory@88010000 {
+>  			reg =3D <0 0x88010000 0 0x8000>;
+>  			no-map;
+> @@ -208,17 +198,6 @@ vdev1vring1: memory@88018000 {
+>  			no-map;
+>  		};
+
+[Severity: Medium]
+The commit message mentions removing the reserved memory regions used for
+remoteproc. Should vdev1vring0 and vdev1vring1 also be removed here?
+
+Since they retain the no-map property, do these remaining nodes unnecessari=
+ly
+carve out memory without being referenced anymore?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522111849.783-=
+1-laurentiumihalcea111@gmail.com?part=3D4
