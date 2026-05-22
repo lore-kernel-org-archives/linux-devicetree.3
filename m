@@ -1,149 +1,190 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA90E175A7F;
-	Fri, 22 May 2026 11:03:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA843D566E;
+	Fri, 22 May 2026 11:05:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779447795; cv=none; b=D0nZ4y+LLfLZ4FaLh2UHfBIG6Bf3M3xmFSYgKm9fHajLn+JfYBMPmy4ub4ir3yvdyyElTTXq2a+5rbnfJDiOkyNa9qqwG7FwZb+fIz3lyWs/zOPsFsUpPSpA8j3QhhyivIRi4fP2DmV9gpheVn3iI7Z4GLVMc+edcLDeix/jM3o=
+	t=1779447925; cv=none; b=J+DNICAl++s9xwvW8m9r0Ir4SHxzlqb19e36bhf8FsY+A+4cC5T3mxH2jhadgtlXo94sJG0dGc9rLDPzyr/BBLDuCBlOCYiApKCBXAFZJp6lLqBHxmA3yEdeoy4F1CDftz7v+U/utyMTbPnSeDdxNdIam8fws85kGhNsbJRZUE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779447795; c=relaxed/simple;
-	bh=24cwm/LMEuRRjpUCMxidyV4AyiCiAvLkAZvwgHqqN5E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bw3j7kcLI3J0qBjO7RbNXJd/sV2y239IWsq1EDBJXvqnoiTnEXhBlYbG6P89n3itu2A2FjDk4zKBXj8z5A4KfZ+eDG9Vi2hRO870RlyFOqkboS7oGfvp/SX8JvLklUoaVn+oTfC82kZE2zRyf3afeSy0CFaPIf+g8IvIfJrXgV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UR4rFFXb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779447925; c=relaxed/simple;
+	bh=HlI/COs6lg/8SCNXKEmyn3O/vJmNodPWc9kJUDXRu2c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bqBAH9VkwtwfdzhjSpOPrYLNMv8tNwLmEc2dWlM9ta+/04EEK5jmsjnV5Z+MHrSG7AFVd5Pmaq5fUDUSUx/cRhMR21zKcVM+UclON0540ttJ+arMs0Dsoq9PvS9aVIhJFcw0kudgGqjUsrC0n688nad5kntGTCp5fFyvRcttOZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvveBzsB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UR4rFFXb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D571F000E9;
-	Fri, 22 May 2026 11:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvveBzsB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B619D1F00A3D;
+	Fri, 22 May 2026 11:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779447794;
-	bh=qUFF5ajgpRg7PC+PBQEWYm4jqDFigm0nO8dOuyilSZg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UR4rFFXb74EigSXTgN2/BlIynHtQfOcjRTuswIoeXnhw73uFF1jtTl0ZIO5K5uy3K
-	 UKWxqMy3/t0KczDxujQ2QCLp4Z10vL1JGyUdm9PFBMhrvVHiQYzmxNZmcUximhpRQ/
-	 QFhXMiw8w3DW9TtCon84R5YODCgH9ZrPcTSRumrx+JsR0srzI6mojX95Nm3qYwmJ2W
-	 Y+kWhNpAPSQXDSyF0D4qhTF7ZK5Usn7zYzIX4XNAkZFWItkWTTKdiSAwZGRekXC9eq
-	 XQkRGeCusvUoQXVVPYxl1JkuFFh2Yy8yACfkAGfbbEyTxTibOxygjKEtMuig5qKQ9i
-	 LnnHU83bFq0LA==
-Message-ID: <fecce3a2-5c45-4e30-ad1b-2173b697960d@kernel.org>
-Date: Fri, 22 May 2026 13:03:09 +0200
+	s=k20260515; t=1779447924;
+	bh=kCVDMXk8BSvTV3swsaD3sQl1nb6y+ZB9kYJDzjWXNe4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KvveBzsBhN+YrlDAQGNepk+tKWX10yJiPqoJCK4JkBlwIrocbLr4WABVuJWqoYEML
+	 0JL1TUWc1197UpsT0vPS1cd3TVdN2c8d0Bblo6GyVqnzxvgFsn+ZsHk9OSSg3/6t/M
+	 infmv0E9WKD1Gjd2m1CXljHmr+IIA6AtqQGk8yaRFKe6QsPL4BJQgil4milKLIy4/R
+	 dZhM4iJuy20DYEAawpxoO0Keqtpqz9Fm7/qHypFGXBbHOw2tUKTiEPfaH0THy9mNtD
+	 CHSMaKflcddIIg5SiDCDoyF0cegKcL96mtMr7CIAIE2ak7I8qthUDOUNl/+Bw19Eme
+	 u+LusebYU/akQ==
+Date: Fri, 22 May 2026 12:05:15 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+ andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+ jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
+Subject: Re: [PATCH V8 05/10] iio: imu: inv_icm42607: Add PM support for
+ icm42607
+Message-ID: <20260522120515.652661ed@jic23-huawei>
+In-Reply-To: <PH0PR19MB9973386EF146AD6590DE5508F5A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260518200526.458421-1-macroalpha82@gmail.com>
+	<20260518200526.458421-6-macroalpha82@gmail.com>
+	<20260520181353.0a0371cb@jic23-huawei>
+	<PH0PR19MB9973386EF146AD6590DE5508F5A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] PCI: qcom: Add Support for Eliza
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-References: <20260521-eliza-v1-0-97cdbe88389d@oss.qualcomm.com>
- <20260521-eliza-v1-3-97cdbe88389d@oss.qualcomm.com>
- <20260522-discerning-sympathetic-moth-daa9e7@quoll>
- <5593d136-569e-4ba9-9a2f-e635125899aa@oss.qualcomm.com>
- <c751f5f9-f9c2-4575-a029-0be4148e1aee@kernel.org>
- <t6wljnlnz77dvthbohlr7v4qlhsqzvykhcm6evmtnvkgtqk34w@o7sl6nq5lkbi>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <t6wljnlnz77dvthbohlr7v4qlhsqzvykhcm6evmtnvkgtqk34w@o7sl6nq5lkbi>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 22/05/2026 12:48, Manivannan Sadhasivam wrote:
-> On Fri, May 22, 2026 at 11:34:30AM +0200, Krzysztof Kozlowski wrote:
->> On 22/05/2026 11:31, Krishna Chaitanya Chundru wrote:
->>>
->>>
->>> On 5/22/2026 12:21 PM, Krzysztof Kozlowski wrote:
->>>> On Thu, May 21, 2026 at 07:35:31PM +0530, Krishna Chaitanya Chundru wrote:
->>>>> Add support for Eliza soc, which has two PCIe controllers capable
->>>>> of 8GT/s X1 and 8GT/s X2, using the cfg_1_9_0 configuration.
->>>>>
->>>>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->>>>> ---
->>>>>  drivers/pci/controller/dwc/pcie-qcom.c | 1 +
->>>>>  1 file changed, 1 insertion(+)
->>>>>
->>>>> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
->>>>> index af6bf5cce65b..40f0a5f247eb 100644
->>>>> --- a/drivers/pci/controller/dwc/pcie-qcom.c
->>>>> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
->>>>> @@ -2123,6 +2123,7 @@ static int qcom_pcie_resume_noirq(struct device *dev)
->>>>>  static const struct of_device_id qcom_pcie_match[] = {
->>>>>  	{ .compatible = "qcom,pcie-apq8064", .data = &cfg_2_1_0 },
->>>>>  	{ .compatible = "qcom,pcie-apq8084", .data = &cfg_1_0_0 },
->>>>> +	{ .compatible = "qcom,pcie-eliza", .data = &cfg_1_9_0 },
->>>> So compatible with sm8550. Why isn't this explained in commit msg of
->>>> the binding?
->>> No, PCIe controller is not compatible with sm8550, we are just re using the boot
->>> sequence used by the sm8550.
->>
->> Then with what it is compatible? You cannot use someone else's match
->> data and claim they are not compatible. This is contradictory to itself.
->>
-> 
-> 'cfg_1_9_0' is the match data of base PCIe IP v1.9.0, not just SM8550. The 'ops'
-> callbacks for 'cfg_1_9_0' are compatible with PCIe IPs used in many SoCs such as
-> SM8550, SM8450, SM8350, SM8250, SM8150, SDX55, SC8180X, and SC7280. And Eliza is
-> also falling into the same category.
-> 
-And if all implementations uses the same SW interface, why are you
-claiming these are not compatible?
 
-I don't care with which device this is compatible, BTW. I do care about
-incomplete or incorrect hardware description.
+> >   
+> > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > index e9c81b52f9ef..bc0cefa2fb77 100644
+> > > --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > @@ -9,6 +9,7 @@
+> > >  #include <linux/irq.h>
+> > >  #include <linux/module.h>
+> > >  #include <linux/mutex.h>
+> > > +#include <linux/pm_runtime.h>
+> > >  #include <linux/property.h>
+> > >  #include <linux/regmap.h>
+> > >  #include <linux/regulator/consumer.h>
+> > > @@ -72,6 +73,62 @@ const struct inv_icm42607_hw inv_icm42607p_hw_data = {
+> > >  };
+> > >  EXPORT_SYMBOL_NS_GPL(inv_icm42607p_hw_data, "IIO_ICM42607");
+> > >  
+> > > +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
+> > > +				      enum inv_icm42607_sensor_mode gyro,
+> > > +				      enum inv_icm42607_sensor_mode accel,
+> > > +				      bool temp, unsigned int *sleep_ms)
+> > > +{
+> > > +	enum inv_icm42607_sensor_mode oldgyro = st->conf.gyro.mode;
+> > > +	enum inv_icm42607_sensor_mode oldaccel = st->conf.accel.mode;
+> > > +	bool oldtemp = st->conf.temp_en;
+> > > +	unsigned int sleepval;
+> > > +	unsigned int val;
+> > > +	int ret;
+> > > +
+> > > +	if (gyro == oldgyro && accel == oldaccel && temp == oldtemp)
+> > > +		return 0;
+> > > +
+> > > +	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
+> > > +	val |= FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
+> > > +	if (!temp)
+> > > +		val |= INV_ICM42607_PWR_MGMT0_ACCEL_LP_CLK_SEL;
+> > > +	ret = regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	st->conf.gyro.mode = gyro;
+> > > +	st->conf.accel.mode = accel;
+> > > +	st->conf.temp_en = temp;
+> > > +
+> > > +	sleepval = 0;
+> > > +	if (temp && !oldtemp) {
+> > > +		if (sleepval < INV_ICM42607_TEMP_STARTUP_TIME_MS)
+> > > +			sleepval = INV_ICM42607_TEMP_STARTUP_TIME_MS;  
+> > 		sleepval = max(sleepval,)
+> > or just assign it here if not later patches add stuff in between
+> > the assignment to 0 and here.  
+Wow I write some garbage English sometimes (no excuse, it is my
+native language!) 
+> 
+> I'm going to assign it to 0 here (unless you think I should define it
+> at the beginning as 0) and then tweak as needed. I think this code
+> here can be further optimized, especially if we make the assumption
+> that START and STOP time for each sensor is comparable (the datasheet
+> doesn't say, so I'm going to go with yes since that greatly simplifies
+> things).
 
-Best regards,
-Krzysztof
+I'm a bit lost. Suggestion was just to do
+		sleepval = INV_ICM42607_TEMP_STARTUP_TIME_MS;
+as we know it is 0.   Probably not worth it though as ends up with fragile
+code.  Fine to keep it to what you have but use max() rather than
+if()
+
+...
+
+> > > +static int inv_icm42607_resume(struct device *dev)
+> > > +{
+> > > +	struct inv_icm42607_state *st = dev_get_drvdata(dev);
+> > > +	int ret;
+> > > +
+> > > +	guard(mutex)(&st->lock);
+> > > +  
+> > Given the bunch of stuff we've run into recently around these
+> > I'm getting more paranoid.
+> > Similar to above, could you use pm_runtime_force_resume()
+> > You would need to gate stuff added later to not occur
+> > though if it wasn't runtime suspended.  
+> 
+> This I'm having trouble understanding. If I use
+> pm_force_runtime_resume() I'm assuming that either I got an error (in
+> which case I'd return the error) or the device is runtime resumed
+> after the call completes. If that's the case, wouldn't my suspend and
+> resume steps just be pm_force_runtime_suspend/resume, and enabling the
+> regulator (first for resume) or disabling the regulator (last for
+> suspend) as needed?
+
+If you call pm_runtime_force_resume() it will do the right thing
+wrt to runtime PM state prior to suspend.  If it wasn't runtime suspended
+it will runtime resume - if it was it'll no do anything. It won't
+directly tell you which one it did though.
+
+The extra stuff that you know can't be the case if runtime pm is on
+will need some sort of gating.  However, looking again it may already
+be protected by more specific checks.
+
+
+	pm_runtime_force_resume();
+
+	if (st->fifo.on) { //I'd failed to look at what was added.
+		ret = regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
+				   INV_ICM42607_FIFO_CONFIG1_MODE);
+		if (ret)
+			return ret;
+	}
+
+That if (st->fifo.on) previously didn't get checked if we were runtime
+suspended because in fifo mode we never are.  So I was thinking you'd
+need that check to be
+	if (!pm_runtime_suspended(dev) && st->fifo.on)
+but the fifo.on check is sufficient by the same argument that if fifo.on
+is true we aren't in runtime suspend.
+
+Basically I overthought it and didn't check what got added where the
+comment is in this patch.
+
+ 
+> 
+> > 
+> >   
+> > > +	if (pm_runtime_suspended(dev))
+> > > +		return 0;
+> > > +
+> > > +	ret = inv_icm42607_enable_vddio_reg(st);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	/* Nothing else to restore at this time. */
+> > > +
+> > > +	return 0;
+> > > +}
+
