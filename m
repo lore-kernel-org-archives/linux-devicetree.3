@@ -1,142 +1,144 @@
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com [209.85.214.196])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B9F395ACF
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDA23A6B64
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779437059; cv=none; b=Hck6RnH1EyNLtYdqaJBmQlTPHTiUVegGx1polEqRlyFM2C9Rjedj1jYsN2tiWfMHIt3IB0LP0AXgskumHdjOWumROcyNNjS2k8lp8BSZpCUJm5QYK7QVyjwmKKe65pgWLZkFpQBZZKoecBTEj+cDlO2HqK1+aBQjlJ3VMZjuIls=
+	t=1779437615; cv=none; b=uXuxpuxhrlh+qLm/opl0297V2ytq8ECTAv3wrCuWKGmbLzIxWZfiunCCMA2D9iqhYB+AO5p34CVeKlup+9jpwz+k2A8+5eK5si2skzQZIIoNHEajd+fRTmnNoSqhT4MXFNH2ZwHW/2+Mw3Jo1QBvtoSph5ud/F10qi1uWCLaBEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779437059; c=relaxed/simple;
-	bh=qM58pn4uqMbT5phn1an9S3xiY59xMOB8pyB3rbl5acg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g0lMFMqcxCkOvF6Hnxx1VXumsDYQASVubg+is/XSVhX9Xf6Dui2Y9pWK9gkZkWS+dOIoHq19ptQtTJiSqGpKc9S9YbYlsgclrbk99mxv+Rp1pj4ryxDmgUK6yJgwOYB10AI/k7qeQZzbTP4QlqAz8zm/tYVaUOgL4F/zdrWkHGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XJmi6Iua; arc=none smtp.client-ip=209.85.214.196
+	s=arc-20240116; t=1779437615; c=relaxed/simple;
+	bh=jomel0oPADXBx3RNpLJWhpNzh5YZTgxCIIU5WRUNi1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=snl/F6FhDiTeYm8MgMyMAiSPDaZ8SDIDECmNNjFueePFd1ag+qs9k6FpiVqjaVb/ljiurhDy7Y1ALb+f6dNOQILjHFRJtKCY5HtYpbYXA+cFsU1wSBQNXp6cVr9NOuNWbYhiI6mt8R1yTnhERK08vT0EbTgcbdWModqQ/I3eiD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aqy4m03t; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XJmi6Iua"
-Received: by mail-pl1-f196.google.com with SMTP id d9443c01a7336-2ba3e3c4f87so71732635ad.3
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 01:04:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aqy4m03t"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49041fb8c23so4254715e9.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 01:13:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779437057; x=1780041857; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=cebEu07XGAd82sdWpC/QWmSkLe+WMKz2Q5/Vl3aYjEo=;
-        b=XJmi6IuaIo0aH3UIsjV8SrvmKVlyLIgYzzW1iSJ1jR7Yvx5dDBQ09MgoN2EmKG3pWJ
-         vGLY2pTEoPFAR2VtHwpFAbppMf5yEEuYyHJj3/RJQYuDIuzNQ9TWmdLDRbURJO6ani0J
-         io5ptHOAFpeWJPqvQKW+xAsaITDJu2z4bBibSQI+vZsfDolU47L8rclAnwvidyJaoB3v
-         2NtVhSsk75uMXL7JP4uCuQt1U038wwFPR6e6TSWtYgts542TRQQ9X8VcsIfzPxZSB4r8
-         3HVpFSYyYiaMsyHIFPEFac2ixigeM3fXRepXh8WJY4vPYXiT9spzGcs1Ej7LLd0kxT+a
-         JJKA==
+        d=gmail.com; s=20251104; t=1779437612; x=1780042412; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=krd+xtZLkefnPN4mdCrGXGZmFdEnpHSMkyhgQXQ9R4M=;
+        b=Aqy4m03tDopC4Btb7imxDuXHDFDlm6ZG80vLjzAG5oj6bOwcf0sQ/dIeBeR2xxNRyi
+         yr/w/VIxSMzozD3JJH+0JGizh2CcR9hy8SNXnmP0K6cfzX8HYIynDD2ipHohBwtLDSJS
+         WRGD9vmwJ+F3uV8SeSQRAGyb8a24c/ItU+ZwugcbWYOsnXZlRspRN7NFYq+835ujCINx
+         UpcEjUro+Ffh2Oy/9wrz0f5TitXqlBjdvpU64l/GN7u/4+A+ReKrMus2AvKzelr/sQhf
+         JQIkZdukCsJYVlE/sZGihRqGxaGbtVls6d1lTSbbNDOrHPp1a6qQkHUdHr6UqrQHXJnm
+         uFNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779437057; x=1780041857;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cebEu07XGAd82sdWpC/QWmSkLe+WMKz2Q5/Vl3aYjEo=;
-        b=jDbqt4IxH+bdUEdIR3DyGIUe8FasGDXuIWPLpiS2NIX2ypxlrDSC4kTEjUMxifAfEw
-         sUaKZY2tRKwrMcECvYTYCp5BrnOsprFYq8u19h+PIYnLPkWS9fzp4MAs9sXLBIWCF1H2
-         kMTR7y6qp5cdFOS5dHF9VnS04LqpSmcqeC8YWg6qziUOSK8M8lsjLhWyqjOCwnCgv9rO
-         MY+IKfhfPtYxM3aQOYmVrxw/f8e2rtbEUeUBhG84FHq6mKbHEYcRPzkOH77w1bBFDuyV
-         VorRfns72BzD+og8qzJbRpKg9h+WIVdOos4ug9K0Nj5jdqwSMhOH3bWeG67ehAzTkSD5
-         LnjQ==
-X-Forwarded-Encrypted: i=1; AFNElJ85qyMJ/3uhikG/wJRTo0wXd+J9AhwrHWg93mOvqlWmYAdL9TnVnUZXAaYTQbDDjaeXTnHqlKF9Tzbl@vger.kernel.org
-X-Gm-Message-State: AOJu0YzK34dilsa+o9v85XWIibCXe/TGHH8rRgki7r1EtUajWHrJ2psF
-	To0MabVVqeh1OgO6wV/SUyuIovgRQ4eEVsFkKtatMuOL4QzqWs1UNm8ZNs2KyHBWJqH9WKM8
-X-Gm-Gg: Acq92OF10eoVqYGTXA2ugPTN+cCF2Qwdu/+mZ5GlWcs/lrF6uOgONAlMyqv3QAlRhH8
-	re0iWiVcofjSrEOCgwO2/7DBvlhF1BDz5kNwnnTRpgrley5Fef5owj0LDtsNOU/8J0KbZpdwxFy
-	A5mrczE+WdLWFDnQ3ATqY1+B+G8XrB0Yj2lQt/bQ2G6UPNJnctpFPLMgRMTb95y37Nhbs3fIveB
-	9pbb1UFOHWVKFNV3LmZVrkWuXUho8CkymthWggRMGfJkyCnGnVfMAXA0cPnElc6xH3W4j5r0jba
-	YBTAcqzDzqIsvmwblgJJ5PMCKpwxpPJFsZyyvI4qFMt/6HNQGMZ6gy54eLmo+6klxPK08dQ2d1x
-	28bVH0cNy84jJPy6dWzlLQ2aLmZn4K4eFnnrAW/W66GRf/VvJAoLA+fJDYkyWm3jenkAMvx20DQ
-	mdOpwwOHR8YIlAhdOFRupfIcwenYqQhSg=
-X-Received: by 2002:a17:903:390d:b0:2ba:b643:1f81 with SMTP id d9443c01a7336-2beb038150emr27446215ad.15.1779437057190;
-        Fri, 22 May 2026 01:04:17 -0700 (PDT)
-Received: from [10.125.112.20] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb58db336sm8391525ad.68.2026.05.22.01.04.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 01:04:16 -0700 (PDT)
-Message-ID: <e812a821-8773-433a-818b-aa8321316ea6@gmail.com>
-Date: Fri, 22 May 2026 16:04:12 +0800
+        d=1e100.net; s=20251104; t=1779437612; x=1780042412;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=krd+xtZLkefnPN4mdCrGXGZmFdEnpHSMkyhgQXQ9R4M=;
+        b=LXe3i9Q9Iz5L+6QHX7Vjeqjs6s9ouZVIS6tcpa1NqJTh1NftrvSvD89TusBKjz7kJO
+         hsMMELpnkY3hLs3VXdUbcFhrkjo4Wb8xrRzrn3WSYltNfiGMbJ52/VOCiTVFw7Qp9bqx
+         bKWAMy3goLuoe7mpJnaBRXrbKjn+w8frA4/04JxM9OydPNrU1Dlmt90BfhWCgmaM1M3g
+         JH1WcVPbaM1Zl9vZ7bcAuPwbjfjfhk3tYb9hyF9LMbDtj/HQRtOZcEGJiIJ8KhmBbYEY
+         rF5za3CgzMgGJjeSy5KdGjZ1wHcvv72Q2H+izdbRMcKg4fb3l87EZSSt+BOFaKmD24yt
+         AGNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ86A8+Bh3jwt6BaXkJ+K2N6R2k8vUC802GxNsaeGPmGU4XF8unAh/nq3sBKoNvSiCb8qxvDuIJ38fZf@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUhT3Ay17Cluqbau/n/6/RU1/dDCnzgJJxxXviJYnB4ELol5tD
+	X6R4HdMjNQrxQx7Q1sNUWstiJazXCOMUg9RrX8SFfUCxS1dDYApt+vUk
+X-Gm-Gg: Acq92OFPiXtsBoOErm/yFP1J8fzlv74KACEWnqrcU3zfQespc0TsoLjD98nr0VCAwoW
+	nkCm7pTGA8+IE15s9/xYbtpC3qPtrshTBz6y/sLp4rZFz6TboY3zY376o4DHYm9t6sjx2lW+VBw
+	l9sCovjRwvg2Za9DxJBpHGx9q/vNQU8lFt+GML9kvIporZ4g1yryAxSte6IQBxZ0byUhm9YMGrz
+	c+8cYcJoywsfQxUcCjN7lMp1VdFK2zqAKbnpJfXSAOnPmh9iOnMler1WrjNSE8vBvkcSiPhGVTc
+	2mqfPX8ud1hxAgDgmsOXhL2Sn9K5DnkXCMeLncav3AG7fX+3um5CiyJErkn75ixrk2yaXslZ0aU
+	1YQSyVyEBsxHY4Tt1nDYXBWBNPBzCoS6IgSdwKDYch8vFy8IxQYc5MVbCfKH7X2VMpE8bwNnQno
+	VnAs7sCXzKGeQbLyvKWW3a
+X-Received: by 2002:a05:600c:c04b:20b0:490:3cec:52f6 with SMTP id 5b1f17b1804b1-490424ac920mr21743465e9.2.1779437611814;
+        Fri, 22 May 2026 01:13:31 -0700 (PDT)
+Received: from legfed1 ([2a00:79c0:61a:3200:1ebe:eb51:3a97:3b47])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49045620c05sm24502425e9.14.2026.05.22.01.13.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 01:13:31 -0700 (PDT)
+Date: Fri, 22 May 2026 10:13:29 +0200
+From: Dimitri Fedrau <dima.fedrau@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Dimitri Fedrau via B4 Relay <devnull+dimitri.fedrau.liebherr.com@kernel.org>,
+	linux-phy@lists.infradead.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com,
+	robh@kernel.org, neil.armstrong@linaro.org, krzk+dt@kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: add support for NXPs TJA1145
+ CAN transceiver
+Message-ID: <20260522081329.GA1983692@legfed1>
+References: <20260513-tja1145-support-v5-1-38720a7ee63e@liebherr.com>
+ <20260514051738.B2D32C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] arm64: kdump: exclude non-dumpable reserved memory
- regions from vmcore
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260520091844.592753-7-chenwandun@lixiang.com>
- <20260520120203.20B7F1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <20260520120203.20B7F1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260514051738.B2D32C2BCB7@smtp.kernel.org>
 
-
-
-On 5/20/26 20:02, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->
-> Pre-existing issues:
-> - [High] Lockless traversal of `memblock.memory` combined with a Time-of-Check to Time-of-Use (TOCTOU) pattern can cause an out-of-bounds array write if memory hotplug runs concurrently.
+Am Thu, May 14, 2026 at 05:17:38AM +0000 schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] The dt-binding omits support for the `max-bitrate` property.
+> - [Medium] The dt-binding omits support for the `interrupts` property for wake-up routing.
 > --
->
-> commit 9b53a1de1ee9b0da26c3c33056f291e1bba1171e
-> Author: Wandun Chen <chenwandun1@gmail.com>
->
-> arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
->
-> Reserved memory regions are excluded from vmcore by default unless marked
-> dumpable. This patch honors the dumpable flag to filter out device firmware
-> regions reserved via device tree to reduce vmcore size.
->
->> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
->> index e31fabed378a5..1d65320c6ba48 100644
->> --- a/arch/arm64/kernel/machine_kexec_file.c
->> +++ b/arch/arm64/kernel/machine_kexec_file.c
+> 
+> commit 853ad7c93ebe1c2a625ddddde401c4aaad496a8e
+> Author: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
+> 
+> dt-bindings: phy: add support for NXPs TJA1145 CAN transceiver
+> 
+> This commit adds documentation for the NXP TJA1145 CAN transceiver, residing
+> in the generic PHY subsystem bindings. It describes the required SPI
+> configurations and supply properties for the device.
+> 
+> > diff --git a/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml b/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml
+> 
 > [ ... ]
->> @@ -51,6 +52,7 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
->>   	nr_ranges = 2; /* for exclusion of crashkernel region */
->>   	for_each_mem_range(i, &start, &end)
->>   		nr_ranges++;
-> [Severity: High]
-> This is a pre-existing issue, but can this lockless traversal of
-> memblock.memory result in an out-of-bounds write if memory hotplug runs
-> concurrently?
+> 
+> > +  vbat-supply:
+> > +    description:
+> > +      Battery supply voltage
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - "#phy-cells"
+> > +  - spi-cpha
+> > +
+> > +additionalProperties: false
+> 
+> Does this binding need to include the max-bitrate property?
 >
-> The prepare_elf_headers() function iterates over memblock.memory twice:
-> first here to count the regions for sizing the cmem allocation, and then
-> later to populate cmem->ranges. This runs during the kexec_file_load
-> syscall which holds kexec_mutex but not memory hotplug locks like
-> device_hotplug_lock.
->
-> If a memory hotplug operation (e.g., via sysfs) occurs between the two
-> loops, memblock_add_node() could resize memblock.memory.regions via
-> memblock_double_array(). This would free the old array and increase the
-> region count.
->
-> Could this cause the second loop to iterate over a freed array and write
-> past the end of the allocated cmem->ranges array?
-IIUC, this is a real race: prepare_elf_headers() scans memblock.memory
-twice without holding any memory hotplug lock so a concurrent hotplug
-could increase memblock.memory.regions between the two loops and cause
-an out-of-bounds write to cmem->ranges, and also a potentially UAF on
-the old regions array if memblock_double_array() fires.
+No, the max bitrate is know for the device. See:
+https://lore.kernel.org/linux-phy/0b4b8291-40cf-4faf-a79f-48c56677f9a2@kernel.org/
 
-However, this issue is independent of the current patch, I'd prefer to
-address the memblock/hotplug race in a separate patchset after I look
-into it more carefully.
->
->> +	nr_ranges += of_reserved_mem_kdump_nr_ranges();
->>   
->>   	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
->>   	if (!cmem)
+> This property is standard for CAN transceivers to describe board-level
+> capability constraints where the layout cannot support the chip's theoretical
+> maximum speed. Since additionalProperties is set to false, valid device trees
+> specifying a maximum bitrate will fail validation.
+> 
+> Also, does this device tree binding need support for the interrupts property?
+> 
+Not at the moment, this can be added later on when there is an
+implementation for this features.
 
+> The TJA1145 supports partial networking and wake-up functionality, which can
+> route a wake-up signal to an interrupt line on the host processor. With
+> additionalProperties set to false, it is impossible to describe this hardware
+> interrupt routing in the device tree.
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260513-tja1145-support-v5-0-38720a7ee63e@liebherr.com?part=1
+> 
+> -- 
+> linux-phy mailing list
+> linux-phy@lists.infradead.org
+> https://lists.infradead.org/mailman/listinfo/linux-phy
