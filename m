@@ -1,85 +1,104 @@
-Received: from srv01.abscue.de (abscue.de [89.58.28.240])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6717359A6F;
-	Fri, 22 May 2026 06:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.28.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090682727F3;
+	Fri, 22 May 2026 06:34:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779431580; cv=none; b=Vviu4efTOyXW1Y+t/jWp1Z4MNBotxzNl40SlXf82rxwSs4scMzmqbbq8h9/dZVtlK3LT9L9H5YKXcv1+PZTWpVnC3ZP59oRzkQH/isMwfoQKSoDcvX5mea1pCCq+wIi9jNa+phgewjCCwcvRslUZZkhBys5pJc8zTG8I4bz1Hng=
+	t=1779431670; cv=none; b=PKr6U4oyNoyMimf0oPZibwnlX3Vpan1ozNm7AX39RMihaB9KwE3EBpl9rk96ejREXqQWUNyMXqf9gFHFiQJIsRuWvNNvQqkkwaKbtNFyGHDUuAFkj+UEfcFwNNC4H9v0W7QmaayrhYLxIDggk1nHVu5YPq1kFP54JZyk3U1lrsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779431580; c=relaxed/simple;
-	bh=xGxqD3UFNYth77Dgca4ciBVjw+B1NYqBPSZgiAsFxps=;
+	s=arc-20240116; t=1779431670; c=relaxed/simple;
+	bh=w+UZ/JGO/uq67M7KKp3u/ca3N3WWzp6/S1ta+Uze2hM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VAry3okW2h/h3v2E6Xh7L9VMD7C/3khlZBsLfIEOFlluKNSi+4kJ4Xem23NVyyModJuetIFj6iWRSidGfSF0okYP4q+IDOzKX1Ud8dUyZ/sn3OXJdgHfCVQae29zjFdOyPoqLZzRkLi58Y+DssQRYBj8hliSOUU0gSWCNe5kH4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de; spf=pass smtp.mailfrom=abscue.de; dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b=ml1rLcHQ; arc=none smtp.client-ip=89.58.28.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=abscue.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=O9IHfSLgyuHKUgjapuPR6W0/D8vT53R8dH+wB1EkLkAX8xBZITrsr8SD5QQAQExLninK1GB1gSMZkGx7u9fM39n5wTlcujqDLo3lZizFd3v+TMdZX9mmIJukHRcM8CEZ0HIR9kXAuUtUaxW7sn0Kr8lbLet+OpxY0mu5ExqfWaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cE1Gvc66; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b="ml1rLcHQ"
-Date: Fri, 22 May 2026 08:32:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abscue.de; s=dkim;
-	t=1779431575;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DuNCqvQk6TxtZkHmFkgGMkPs2osNMUjVJBRkcehceRM=;
-	b=ml1rLcHQtqvWb7Wy172o/ttAYIDkfd53XDoaOCwPGgMT/FI9/1TCTuCJZy7gdJxS/1WRw8
-	o7juwKFhKzd52PLC2fzSWm008Xe4doFjqM9tu8y+sEYTcc0e5D8lvA9oGUYeK1WtxAGFhF
-	+LO0gy7ldkilOg2RZIKcrnlGpzkJ2X7Q4zOJH9qdMed1at89bABgm3PUHgD2PKAHVOH6Wa
-	QQg0j0z4WVuY1q+eEX9/VacdugW01RH6oOoEZH5UKb1m+Bdv5ht37SZJaIcnDiKaBOEm+B
-	iS+ifLbUN7NSmSdEvd7IeA77l9bYFKf3XoZ4Xcc4xFWgL/AISUSN9oCm0XJDbA==
-From: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] dt-bindings: mfd: sprd,sc2731: Include SC2730
- regulator bindings
-Message-ID: <ag_4bYWlsrpBjx3p@abscue.de>
-References: <20260521-sc2730-regulators-v4-0-1ac8a3b5ed82@abscue.de>
- <20260521-sc2730-regulators-v4-2-1ac8a3b5ed82@abscue.de>
- <20260522-sweet-magic-kelpie-d6daec@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cE1Gvc66"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277181F000E9;
+	Fri, 22 May 2026 06:34:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779431668;
+	bh=B/D0+DLS4mnsbS619yw6Chs2Xyq84MJ82i/B6J9Lgd0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cE1Gvc66WlOK6LOesdpfppfzBiuGSh1G8gJvYKGymBsgpDEdNTF6GyxLoBU0GyAMc
+	 MD6WwDyjgGwIuzhqeNmDxcKRgUa2z6qqcXPy7zhTWqQvQO5m+g33H78wgeZqLvXY6V
+	 qzah7Ac1TsuVbf1kBqUtWM2ufERsquNMY0XATPTYfN8Pn1W9Y5z2b07htycPqyIC+9
+	 s9+7WS7YdXwPy4OXwRILdhVT3ywZZBm4jG+h/9EZ5mMsXKpb3siaAVqgMGvNjVcibt
+	 RHiaLFxXiiey2wRQdUMlmfa2VRLpbuh92GJPSX4bk/YuVbhbuu7f2H/BPGK05wIPqW
+	 DNl53jycy67AA==
+Date: Fri, 22 May 2026 08:34:26 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: cpufreq: qcom-hw: Document Shikra
+ CPUFREQ Hardware
+Message-ID: <20260522-juicy-seal-of-wind-a2fc50@quoll>
+References: <20260521-shikra-cpufreq-scaling-v3-0-883c13d1e514@oss.qualcomm.com>
+ <20260521-shikra-cpufreq-scaling-v3-1-883c13d1e514@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260522-sweet-magic-kelpie-d6daec@quoll>
+In-Reply-To: <20260521-shikra-cpufreq-scaling-v3-1-883c13d1e514@oss.qualcomm.com>
 
-On Fri, May 22, 2026 at 08:28:59AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, May 21, 2026 at 06:17:07PM +0200, Otto Pflüger wrote:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: sprd,sc2731
+On Thu, May 21, 2026 at 07:36:04PM +0530, Imran Shaik wrote:
+> The Qualcomm Shikra cpufreq hardware is functionally identical to EPSS,
+> but supports only up to 12 frequency lookup table (LUT) entries. Introduce
+> Shikra specific bindings to represent this constrained EPSS variant.
 > 
-> And what about every other variant?
-
-For sc2720, sc2721 and sc2723, the regulators should also be different,
-but I'm not able to test anything with those PMICs. The original binding
-was wrong.
-
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> ---
+>  .../bindings/cpufreq/qcom,shikra-epss.yaml         | 96 ++++++++++++++++++++++
+>  1 file changed, 96 insertions(+)
 > 
-> > +    then:
-> > +      properties:
-> > +        regulators:
-> > +          $ref: /schemas/regulator/sprd,sc2731-regulator.yaml#
-> > +
-> >  examples:
-> >    - |
-> >      #include <dt-bindings/gpio/gpio.h>
-> > 
-> > -- 
-> > 2.51.0
-> > 
+> diff --git a/Documentation/devicetree/bindings/cpufreq/qcom,shikra-epss.yaml b/Documentation/devicetree/bindings/cpufreq/qcom,shikra-epss.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..8543fd00d82acdbb3422bde462417118aa4c49d1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/cpufreq/qcom,shikra-epss.yaml
+> @@ -0,0 +1,96 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/cpufreq/qcom,shikra-epss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CPUFREQ HW for Qualcomm Shikra SoC
+
+Qualcomm Shikra SoC EPSS
+
+> +
+> +maintainers:
+> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
+> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+> +
+> +description: |
+> +  CPUFREQ HW is a hardware engine used by some Qualcomm SoCs to manage
+
+EPSS is a ....
+
+> +  frequency in hardware. It is capable of controlling frequency for
+> +  multiple clusters.
+> +
+> +  The Qualcomm Shikra CPUFREQ HW supports up to 12 frequency lookup table
+
+here as well, like I mentioned last time. cpufreq is linuxism and I
+asked you about name of actual device.
+
+With above:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
