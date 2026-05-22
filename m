@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931C33B442B
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:01:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5D43A5437
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779447712; cv=none; b=PUr4YRtGr6gMKskzk+U6AR0gFTYSfaxi3mIh2aL5U6Cvb6UFNDDBvkGr0Fv+wBmpaqKcD1uBPwURNaX+m684l2BTYOHmX8LJTBLVJ/N4c1cNelccw1nW44eHrrUZyjKpzMYHHsgypg5veSlV0LRVjMFcbxEzNH6Di3jOUfnG4/E=
+	t=1779447784; cv=none; b=sZjraKm8YF8Pb4vzqnSQfZOwtjuxEviPgUYVu6xG0ntb9A85MrsHkVB6OuwqSBc67kwxFg3aFGZ19LFWxPAYeyua0GPo+EBVghIMUnffZHueamaOkcj/TX0Zh3mg1QFiGiCEQQ6bgjQGT1AQVG84Md/8TGJT7x8gBrqlAC0uGqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779447712; c=relaxed/simple;
-	bh=qokQuVFJseaa1OOzKMbOi3804xirSpuGNyIChjvs2iU=;
+	s=arc-20240116; t=1779447784; c=relaxed/simple;
+	bh=DfN8+09UabOnYzIpO6Ab816j+oDNKqH9vaYRSoa5cdk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XgE2MElGxhgcejS8mJe16YjUxg+C6sK+LVvbw5P54TXHP8G3ZVChzZ+BDMDfQ86Cpv6gEaXWMjYVWP5hX2Lcvpv6tfyl2RqGg2YMwu6Xc2JQLDoXRZoKXVXZwYE48MkoH1h2KogxGf+9E1d+KWJBR5o+mO97BbYUCSuft05zUz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QskE4/1Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=e+1wcObDdz0iKyklv/QeAcdU7Y8nMH4ILAPpvNU2AuOJGePH3XUzJwmarWKzmuQZcodqqNg8CnaoDvexJlcXO9I202HIz+6eHBZYsXWHIQa7pJ7jRsDZsttG9dzemndVlXUSA9Belm3RvcAT8v2hOl16VmP+XAMjl87aQrtZQa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiqYAZAY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QskE4/1Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542371F000E9;
-	Fri, 22 May 2026 11:01:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiqYAZAY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349421F000E9;
+	Fri, 22 May 2026 11:03:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779447711;
-	bh=IxvUJmr6Y3b/8r1nB7w+kCrAjNArqKZ7DHvSrSujum0=;
+	s=k20260515; t=1779447782;
+	bh=lhLzgcq+6/uuu5Ab3mBzHYnTRcMxG6Zi2kDCejYbYNg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QskE4/1YbIUlrlPev6Ba1nxvDYKQVkgWNv5aIPkEFr8pnDJLdqcIx1MXez/4qkCTx
-	 c0peg105ejw7HA0XmkYRfqPmYqd9O4DziAYOHN132NoXTeH/RIM49Vg87tMYtRtrDj
-	 TdYtDU9D9JQvO5Qjw1ICZP/Fs4IplM/qU84cEvkB9gPkooXNXvhSphkzFqGqinj+yU
-	 q4l5iDJ5TZdc62MZmCBsPyFpfQsCCUWRAvI1DubbuAQD78FnZ6g46jn1bm4GPk4Z88
-	 flcwA84UPstvsksApSe4fA5fgasTEQ1Sd6oBedFGwysz2g/NIMhiH4YGsuJlOvwe1V
-	 +HCtF0xFv4hjA==
+	b=XiqYAZAY0D81mseyt7KwqZeuCBw/6VwEm0kDjBujd4lgpX/gBicPaWmY6S5vZp2U6
+	 1VoTTyrH1a7gxV4lOUcAoZaoI/ZR6TL3ftRzWGZbuHDTnjzLJj62H3kPBBwet1NxBP
+	 LKiRyzJk2VOAh6CfWMidX5HUXDZV3CBLSJBCM92PgIpb4PuSp0yzHOuWMuQ2d+HMcu
+	 0BzyqS4fhPXXqNARu4Q3s4PypLFHGa+q21zpA15FbUveVWxHU/iBQRA2iQUN4dg7pu
+	 5LS7Qw11Qerc5MQbLXbmE+XLiu41NQ1KInW7dVLKUvPcaNGEVlGdOHvAPzs2EXcVgo
+	 nuhahds8iclsg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/10] arm64: dts: qcom: sc8280xp-arcata: Enable the
- eDP display
+Subject: Re: [PATCH 3/3] ASoC: rockchip: rockchip_pdm: Reorder clock enable
+ sequence
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SsOpcsO0bWUgZGUgQnJldGFnbmUgdmlhIEI0IFJlbGF5?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260522-surface-sp9-5g-for-next-v2-2-dd9d477407f5@gmail.com>
-References: <20260522-surface-sp9-5g-for-next-v2-2-dd9d477407f5@gmail.com>
+To: phucduc.bui@gmail.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260522100318.73474-4-phucduc.bui@gmail.com>
+References: <20260522100318.73474-4-phucduc.bui@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 11:01:50 +0000
-Message-Id: <20260522110151.542371F000E9@smtp.kernel.org>
+Date: Fri, 22 May 2026 11:03:01 +0000
+Message-Id: <20260522110302.349421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,69 +46,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The 'data-lanes' property is incorrectly placed directly within the=
- main '&mdss0_dp3' node.
-- [Low] The commit silently removes the `&dispcc1` node block without menti=
-oning it in the commit message.
+
+Pre-existing issues:
+- [High] Unchecked return value of `pm_runtime_get_sync()` in `rockchip_pdm=
+_set_fmt()` can lead to hardware access while suspended.
+- [High] Manual disable of hardware clocks and PM runtime before devm teard=
+own can cause bus faults.
 --
 
-commit 5312e63401d73e35f694eed3e8a7dcb4db6c95e5
-Author: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
+commit 8f19ac4b34f49c4a08218121167b705580c4469a
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
-   =20
-This commit adds the necessary regulator, pinctrl, and display controller=20
-nodes to enable the eDP LCD display on the Surface Pro 9 5G.
+ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arc=
-h/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> index f24f60dc73afe..476e17415da27 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+Enable the 'hclk' bus clock before the 'clk' controller clock during runtime
+resume. The bus clock provides the register access interface and should be
+enabled before the controller clock.
+
+> diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockc=
+hip_pdm.c
+> index c69cdd6f24994..8f78f7bc1806c 100644
+> --- a/sound/soc/rockchip/rockchip_pdm.c
+> +++ b/sound/soc/rockchip/rockchip_pdm.c
+
 [ ... ]
-> @@ -448,10 +463,6 @@ &dispcc0 {
->  	status =3D "okay";
->  };
-> =20
-> -&dispcc1 {
-> -	status =3D "okay";
-> -};
-> -
 
-[Severity: Low]
-This isn't a bug, but is it intentional to silently remove the &dispcc1
-node here?
+While reviewing this patch, I noticed a couple of pre-existing issues in the
+same file:
 
-The commit message focuses on enabling the eDP display and does not mention
-removing this block.
+sound/soc/rockchip/rockchip_pdm.c:rockchip_pdm_set_fmt() {
+...
+	pm_runtime_get_sync(cpu_dai->dev);
+	regmap_update_bits(pdm->regmap, PDM_CLK_CTRL, mask, val);
+	pm_runtime_put(cpu_dai->dev);
+...
+}
 
->  &gpi_dma0 {
->  	status =3D "okay";
-[ ... ]
-> @@ -494,6 +505,42 @@ &mdss0_dp1_out {
->  	remote-endpoint =3D <&usb_1_qmpphy_dp_in>;
->  };
-> =20
-> +&mdss0_dp3 {
-> +	compatible =3D "qcom,sc8280xp-edp";
-> +	/delete-property/ #sound-dai-cells;
-> +
-> +	data-lanes =3D <0 1 2 3>;
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to ignore the
+return value of pm_runtime_get_sync() here?
 
-[Severity: Low]
-Should the data-lanes property be placed inside the controller's output
-endpoint node (&mdss0_dp3_out) rather than here in the main &mdss0_dp3 node?
+If the runtime resume fails (for example, if clock enablement or power
+domain restoration fails), the function ignores the negative error code
+and proceeds to call regmap_update_bits().
 
-Placing data-lanes in the root controller node is deprecated in the
-qcom,dp-controller Devicetree binding and will trigger dtbs_check
-validation warnings.
+Accessing hardware registers when the hardware is powered down or unclocked
+can lead to a synchronous external abort (bus fault) and a kernel panic.
 
-> +
-> +	status =3D "okay";
-> +
-> +	aux-bus {
-[ ... ]
+Should pm_runtime_resume_and_get() be used instead, and the error handled?
+
+
+sound/soc/rockchip/rockchip_pdm.c:rockchip_pdm_remove() {
+...
+static void rockchip_pdm_remove(struct platform_device *pdev)
+{
+	struct rk_pdm_dev *pdm =3D dev_get_drvdata(&pdev->dev);
+
+	pm_runtime_disable(&pdev->dev);
+	if (!pm_runtime_status_suspended(&pdev->dev))
+		rockchip_pdm_runtime_suspend(&pdev->dev);
+
+	clk_disable_unprepare(pdm->clk);
+	clk_disable_unprepare(pdm->hclk);
+}
+...
+}
+
+[Severity: High]
+This is a pre-existing issue, but can manually disabling the clocks and PM
+runtime before the devm teardown cause bus faults?
+
+The driver registers the ASoC component using
+devm_snd_soc_register_component() in rockchip_pdm_probe(), which defers
+unregistration until after the remove() callback returns.
+
+If the device is unbound via sysfs while an audio stream is active, ALSA
+will attempt to tear down the stream during the deferred devres
+unregistration. This triggers operations like
+rockchip_pdm_trigger(SNDRV_PCM_TRIGGER_STOP), which writes to the
+hardware registers.
+
+Since the clocks and power domains were already forcibly disabled in
+remove(), this could result in a bus fault and kernel panic.
+
+Should the driver use devm_pm_runtime_enable() with a devres action for
+clock disable, or unregister the component manually before turning off
+resources?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-surface-sp=
-9-5g-for-next-v2-0-dd9d477407f5@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522100318.7347=
+4-1-phucduc.bui@gmail.com?part=3D3
