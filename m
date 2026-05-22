@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D533D5C10
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 16:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F26518DB2A
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 16:06:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779465987; cv=none; b=YapobVIax9FP0vr08kom+zKgA6q4rNR96x1nHJGdkoNBIo4d3yBhiHwaqDMB1JyGVLfR9LAk5rYMTl2/AfXYef76fenimB4bnlGyaSeB4k+Tqt38uBZ7AUw+nALgC8YQT+KG9qYQYoYIgWb/czvgg8RUkze5IiXBnxUskgDSDuc=
+	t=1779465992; cv=none; b=jIwRzpoqu1rhBE8Emyz2O4D3FvEeZ03fjIoBGKGwv/gE1V0EH3tfxD6uUtC/cSkpaV9j3TzRpC0CII/Q8Y5OlP9IOSwcgicsv82jbwmqfejfcSpOsYw+zSaJM6hdo4vnvC7oxRAE1L6uKpI6XfVmDn4gUPhi89Dvi54dNuDPSpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779465987; c=relaxed/simple;
-	bh=AIeyCc6w5Sprt1PQo1uQ9hWgpQy/uPFu4TrVzs6RsN8=;
+	s=arc-20240116; t=1779465992; c=relaxed/simple;
+	bh=VM8Fo6f/PbM3rLmrQ+vok2VCHigCj3LwZR0iEtEEsGY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZXVAIiRhiu0XFPcqT2A0nlNX28Mi6vv1Aj7Sg+5TzhzndtYBYr/2yVoCeRwuN2XOIO+Nb/bLWXuiw5gOcn3RguWTQgA3HaXTO27GqJchpqu4Xoy2dtjOmFxA0O6MLKHegcuQleXtlma/YExDVLWx0O4v7gFl9WjhKCYmm4gHxp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUZEO+TA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=H8/g1zkRuvoV/h7aXB8dqhBdPbONJsIJ2+yaUBXpuwsTC6A9r+fKdEjl62H23hvtoOpOlciWa8fePB/h+fTK9/My+PtDmKquNAFhaeaW3U+v9ZQhNaN4rKIoKQLB30/MOOsr1Cu2MD6dMhOXv/rGZi4P40UmQJluU4qOxZUL5A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qhi7JDv6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUZEO+TA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E87781F000E9;
-	Fri, 22 May 2026 16:06:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qhi7JDv6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5D21F000E9;
+	Fri, 22 May 2026 16:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779465985;
-	bh=G87z8nfCEs/aWwOr2F8BZva2G85EjzeBuuhKy8ju0AY=;
+	s=k20260515; t=1779465990;
+	bh=eH3KaprQcwamxsd+zYtSYZtvsKen8Ef7VHVq+HohkVk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UUZEO+TAyj3+obQLXpCDzzHP2Zexfm8rWhs2KyqfVk5xKKGTR85SLFLmyOf5iVI+i
-	 vEIwuy7jKETVj7pkJ76C4b34PYEHvYWO64jQJpTvcxIKmIbULhVcS6IH7ZM/cs5qn8
-	 dLap1D2P0sphiaXKRtriYdvr7DFqTKS/4AfJlf0qAT6IYrHFYIE/T31rbKzovFScBm
-	 5uNTrQqwYFp9bedZSodhbInNaKhxYu71aaJP5/kUBIhB7JNUnmtLZlREgqsqoZobDS
-	 pBrzV8e3mb14LtMB/Yvg1o15JOXPgHFpQzQkisthXGxy+1HPUa58BcXh0fKeYTc/Cr
-	 2AG84HsqhckVg==
+	b=Qhi7JDv6D+xbPtDi3r5JpKKkCwXTNqESYqgf5i8opLaqPk/2AsA/TTZqoCKvD8AgF
+	 r7FIEWtE8XApglSuH3HN8ltcs/ECJOFXz/iGM57vyGkt7hM1fY4pX3NqKKoRzIKQT1
+	 HMCnjy7naFLRh9vfI7F9gj7JxS3TOosbux6hnhb/buuJ8WzZljiUMwkmn4CYA7JhTw
+	 hNmNM54E6baDUaD9nAq8KkHMyEgAbSF9rtf4wmP//k0VIZMWRl2JZfHgu9uEyDFGKm
+	 pFBUsJpxiP+v1eX8RMO32fNZt+pJWRt8OKvixuZO15GTGxUu41T2EE8n5hEiIoPiav
+	 YuKRTe3oVpFlQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 9/9] clk: eyeq: Add EyeQ7H compatibles
+Subject: Re: [PATCH v4 2/2] cpufreq: qcom: Add cpufreq scaling support for
+ Qualcomm Shikra SoC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QmVub8OudCBNb25pbg==?= <benoit.monin@bootlin.com>
+To: "Imran Shaik" <imran.shaik@oss.qualcomm.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260522-clk-eyeq7-v7-9-14ad6c2c5213@bootlin.com>
-References: <20260522-clk-eyeq7-v7-9-14ad6c2c5213@bootlin.com>
+In-Reply-To: <20260522-shikra-cpufreq-scaling-v4-2-f042a25896c5@oss.qualcomm.com>
+References: <20260522-shikra-cpufreq-scaling-v4-2-f042a25896c5@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 16:06:23 +0000
-Message-Id: <20260522160624.E87781F000E9@smtp.kernel.org>
+Date: Fri, 22 May 2026 16:06:30 +0000
+Message-Id: <20260522160630.BE5D21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,168 +47,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Calculations for PLL multipliers, dividers, and accuracy in `eqc_p=
-ll_parse_jfracr` suffer from severe truncation and overflows on 32-bit plat=
-forms.
-- [High] The PLL parsing functions for AINTP and JFRACR completely ignore t=
-he defined post-divider configurations when calculating the clock frequency.
-
 Pre-existing issues:
-- [High] Using `readq()` to read two distinct 32-bit configuration register=
-s simultaneously risks bus faults on 32-bit peripheral buses.
+- [Critical] Calling kfree() on an interior pointer of a devm-managed array=
+ causes severe memory corruption.
+- [High] The turbo/boost frequency is improperly ignored and left invalid w=
+hen the hardware LUT is fully populated.
+- [High] The LMh throttle delayed work can outlive the `qcom_cpufreq_data` =
+structure, causing a Use-After-Free when the policy is destroyed.
 --
 
-commit 2a35962c5575980a3ba602361782cb07def54c96
-Author: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+commit 04a4ff128bbeeee8119bf80c19ea931913c35395
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-clk: eyeq: Add EyeQ7H compatibles
-   =20
-Add the entries for the 14 Other Logic Blocks found in the EyeQ7H SoC. The
-clock tree is more complex than the previous generation of SoC, as some
-OLB depend on the clock output of other OLB instead of all referring to
-the main oscillator.
+cpufreq: qcom: Add cpufreq scaling support for Qualcomm Shikra SoC
 
-> diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
-> index 5200d5f0ff060..d55be678c597f 100644
-> --- a/drivers/clk/clk-eyeq.c
-> +++ b/drivers/clk/clk-eyeq.c
+This commit adds cpufreq scaling support for the Qualcomm Shikra SoC. It
+introduces the shikra_epss_soc_data structure which reuses the EPSS
+configuration but limits the maximum lookup table entries to 12.
 
-[ ... ]
-
-> @@ -160,6 +196,29 @@ static void eqc_pll_downshift_factors(unsigned long =
-*mult, unsigned long *div)
->  	*div >>=3D shift;
->  }
-> =20
-> +static int eqc_pll_parse_aintp(void __iomem *base, unsigned long *mult, =
-unsigned long *div)
-> +{
-> +	u32 r0;
-> +
-> +	r0 =3D readl(base);
-> +	if (r0 & AINTP_PCSR_BYPASS) {
-> +		*mult =3D 1;
-> +		*div =3D 1;
-> +		return 0;
-> +	}
-> +
-> +	if (!(r0 & AINTP_PCSR_PLL_LOCKED))
-> +		return -EINVAL;
-> +
-> +	*mult =3D FIELD_GET(AINTP_PCSR_FB_DIV, r0);
-> +	*div =3D FIELD_GET(AINTP_PCSR_REF_DIV, r0);
-
-[Severity: High]
-Does this calculation ignore post-dividers? The macros AINTP_PCSR_POST_DIV1
-and AINTP_PCSR_POST_DIV2 are explicitly defined, but aren't used here. If t=
-he
-hardware is configured to output the post-divided clock, will the driver
-report an erroneously high frequency to the clock framework?
-
-> +
-> +	if (!*mult || !*div)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
->  static int eqc_pll_parse_fracg(void __iomem *base, unsigned long *mult,
->  			       unsigned long *div, unsigned long *acc)
->  {
+> diff --git a/drivers/cpufreq/qcom-cpufreq-hw.c b/drivers/cpufreq/qcom-cpu=
+freq-hw.c
+> index ea9a20d27b8fd..3d5a865fb8a35 100644
+> --- a/drivers/cpufreq/qcom-cpufreq-hw.c
+> +++ b/drivers/cpufreq/qcom-cpufreq-hw.c
 
 [ ... ]
 
-> @@ -229,6 +288,60 @@ static int eqc_pll_parse_fracg(void __iomem *base, u=
-nsigned long *mult,
->  	return 0;
->  }
+> @@ -236,7 +238,7 @@ static int qcom_cpufreq_hw_read_lut(struct device *cp=
+u_dev,
+>  		icc_scaling_enabled =3D false;
+>  	}
 > =20
-> +static int eqc_pll_parse_jfracr(void __iomem *base, unsigned long *mult,
-> +				unsigned long *div, unsigned long *acc)
-> +{
-> +	unsigned long spread;
-> +	u32 r0, r1, r2;
-> +	u64 val;
-> +
-> +	val =3D readq(base);
+> -	for (i =3D 0; i < LUT_MAX_ENTRIES; i++) {
+> +	for (i =3D 0; i < soc_data->lut_max_entries; i++) {
+>  		data =3D readl_relaxed(drv_data->base + soc_data->reg_freq_lut +
+>  				      i * soc_data->lut_row_size);
+>  		src =3D FIELD_GET(LUT_SRC, data);
 
 [Severity: High]
-This is a pre-existing issue, but does using readq() to read two distinct
-32-bit configuration registers risk bus faults on 32-bit peripheral buses?
+This is a pre-existing issue, but does this loop handle a fully populated L=
+UT
+where the last entry is a turbo frequency?
 
-Without explicit hardware support for 64-bit wide reads, should these
-registers be read strictly using distinct readl() calls?
+When a frequency has a core_count of LUT_TURBO_IND, it is initially marked =
+as
+CPUFREQ_ENTRY_INVALID. The code relies on encountering a duplicate frequency
+on the next iteration to convert that invalid entry into CPUFREQ_BOOST_FREQ.
 
-> +	r0 =3D val;
-> +	r1 =3D val >> 32;
-> +	r2 =3D readl(base + 8);
-> +
-> +	if (r0 & JFRACR_PCSR0_BYPASS) {
-> +		*mult =3D 1;
-> +		*div =3D 1;
-> +		*acc =3D 0;
-> +		return 0;
-> +	}
-> +
-> +	/* Consider the PLL locked if either the phase or the frequency is lock=
-ed */
-> +	if (!(r0 & JFRACR_PCSR0_PLL_LOCKED))
-> +		return -EINVAL;
-> +
-> +	*mult =3D FIELD_GET(JFRACR_PCSR0_FB_DIV, r0);
-> +	*div =3D FIELD_GET(JFRACR_PCSR0_REF_DIV, r0);
+If the hardware LUT is completely filled with unique entries up to its
+capacity limit, the loop terminates naturally. Does this leave the final
+turbo entry ignored and invalid since the duplicate check is never reached?
 
-[Severity: High]
-Similar to the AINTP parser above, does this miss the post-dividers
-JFRACR_PCSR0_POST_DIV1 and JFRACR_PCSR0_POST_DIV2 when calculating the
-clock frequency?
+[ ... ]
 
-> +
-> +	/* fractional part on 24 bits */
-> +	if (r1 & JFRACR_PCSR1_DSM_EN) {
-> +		*div *=3D (1ULL << 24);
-> +		*mult =3D *mult * (1ULL << 24) + FIELD_GET(JFRACR_PCSR1_FRAC_IN, r1);
+[Severity: Critical]
+This is a pre-existing issue, but could the teardown path free a devm-manag=
+ed
+interior pointer?
 
-[Severity: High]
-On 32-bit platforms, mult is a pointer to a 32-bit unsigned long. Will
-assigning the 64-bit result of this calculation back into *mult silently
-truncate it before eqc_pll_downshift_factors() executes?
+During policy initialization, the driver assigns policy->driver_data to poi=
+nt
+to an interior element within a collectively allocated devm-managed array:
 
-Should intermediate calculations use u64 variables instead?
+qcom_cpufreq_hw_cpu_init()
+    policy->driver_data =3D &qcom_cpufreq.data[index];
 
-> +	}
-> +
-> +	if (!*mult || !*div)
-> +		return -EINVAL;
-> +
-> +	if (r2 & (JFRACR_PCSR2_RESET | JFRACR_PCSR2_DIS_SSCG)) {
-> +		*acc =3D 0;
-> +	} else {
-> +		/* spread spectrum is identical to FRACG PLL */
-> +		spread =3D FIELD_GET(JFRACR_PCSR2_SPREAD, r2);
-> +		*acc =3D DIV_ROUND_CLOSEST(spread * 1000000000, 1024 * 2);
+During teardown, the driver appears to manually free this pointer:
+
+qcom_cpufreq_hw_cpu_exit()
+    kfree(data);
+
+Can this manual kfree() on an interior pointer bypass devres management and
+cause memory issues during device unbind or CPU hotplug?
 
 [Severity: High]
-If spread is larger than 4, will spread * 1000000000 overflow a 32-bit
-unsigned integer native calculation?
+This is a pre-existing issue, but is there a race between the LMh throttle
+delayed work and the CPU offline sequence?
 
-Should this use 1000000000ULL and DIV_ROUND_CLOSEST_ULL to prevent
-truncation and incorrect clock rates?
+In qcom_cpufreq_hw_cpu_offline(), the driver cancels the work before
+disabling the interrupt:
 
-> +
-> +		if (r2 & JFRACR_PCSR2_DOWN_SPREAD) {
-> +			*mult *=3D 2048 - spread;
-> +			*div *=3D 2048;
-> +		}
-> +	}
-> +
-> +	/* make sure mult and div fit in 32 bits */
-> +	eqc_pll_downshift_factors(mult, div);
-> +
-> +	return 0;
-> +}
+qcom_cpufreq_hw_cpu_offline()
+    cancel_delayed_work_sync(&data->throttle_work);
+    disable_irq_nosync();
+
+If the hardware interrupt fires during this window, the interrupt handler
+qcom_lmh_dcvs_handle_irq() unconditionally re-arms the delayed work.=20
+Later, when qcom_cpufreq_hw_cpu_exit() frees the data structure, the re-arm=
+ed
+work could still execute and attempt to access the freed memory:
+
+qcom_lmh_dcvs_poll()
+    mutex_lock(&data->throttle_lock);
+
+Could the driver disable the IRQ before canceling the work to ensure the
+work is not re-armed?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-clk-eyeq7-=
-v7-0-14ad6c2c5213@bootlin.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-shikra-cpu=
+freq-scaling-v4-0-f042a25896c5@oss.qualcomm.com?part=3D2
