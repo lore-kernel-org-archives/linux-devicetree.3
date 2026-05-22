@@ -1,162 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEA33E556D;
-	Fri, 22 May 2026 13:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959563CE0A8
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779456904; cv=none; b=hl9fMta0gnq71MQ2Dl0WhsnbrjlHf6Voudqo0g9hPAVaCwyLjrsVajduYu7dogUR46MO0KTisy4H74xFHdT9Yu4EzTdItdQetLkYiWtmW54GQmUA3uFxpzRx+ZofEX2AZziGuCWwy3qQu/2fL4DggSNA11vLtRaz+9lA8mA6NnQ=
+	t=1779456928; cv=none; b=dBUXcon56X67njNuouPpk9nD5JtL0J4u+RiqktQETc2GpS5M+KM3WKIi+p9S1nzIc8Op871EyAt1MmRjUYSJkdjsice/iHva7JEBCGPorXDP39cS73+f5u9sMMP6Nnnnqd3l/0XMEIoLTSyXUY4+jsWSYct2wfSRNp6mlagP0F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779456904; c=relaxed/simple;
-	bh=7rruZx45tOPyVbdYIEsjc7Q/7/0lV10rxnT99HlP53c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mdZFMRzlfE12Uynj1PAgmMGuozayrIM4uU+14OUiNdpRefmwYdG1XWrXocut/vzNxxF3Juw3yPjjCTSt8ihXbydL/Myw2aAKNL9KiXBAa1FKxdaeJ1oP+VpPxwctNL2YVcQAh/EYAQhXkhbu3i/et0F7xHVj+hiNoJaF41MNCF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWILQPjH; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWILQPjH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AED41F000E9;
-	Fri, 22 May 2026 13:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779456893;
-	bh=3GpTXQIXIHdMrFeuYp7k+gWxfIegiInUYwig+1FPbQ4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oWILQPjH30t19XFBTZUxvvzjTtdFz5oHPyPHr4+rJbwiv0L52s8FhhsnWka/o9UEW
-	 6CeCsPShxgudQVL+GQY2S+o05CR+gtp1+ocxuIsOCuunFOu4utbzmClHJtj7QfJcjH
-	 OI0RdlbKdxsCqPouShkmykPOUi7KUjGDu9pZJuo56tzTRwg2tBS8BUbMYRL4BSEK7u
-	 bDFRIA2LHL77rL2HL8BpwwdQc+7/TSeFXRxNtph9Nt9gD7ZN9q/jOYehrOBOE3usWa
-	 7s7FIWArjhMN1dOPkUbs+2McVfRyPzgbq407Ap3+XWAMKb5QsnudE0mHnVq8755zQd
-	 aXdajXhuGbS9Q==
-Date: Fri, 22 May 2026 14:34:44 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Liviu Stan <liviu.stan@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Antoniu
- Miclaus <antoniu.miclaus@analog.com>, Francesco Lavra
- <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux@analog.com>,
- <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 8/8] iio: temperature: ltc2983: Add support for
- ADT7604
-Message-ID: <20260522143444.4582e370@jic23-huawei>
-In-Reply-To: <20260521164323.770626-9-liviu.stan@analog.com>
-References: <20260521164323.770626-1-liviu.stan@analog.com>
-	<20260521164323.770626-9-liviu.stan@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1779456928; c=relaxed/simple;
+	bh=ZRbNgqNon+gA5ESuUnTv7elhapKwqBFnwMB5cEO+XK4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s33GcWAtIU2t0Qn7nWsqyzMK/jUY2Bj9wTeHCju8nnYeU/LOubhCDMIYbbLpl9+U7nmbq0urAz51/skuEEE2Vl7o8HuF6dzB/anUUyhC4aM3Pvwc1rJ7PY8qsRoq8RtJP6X6xgaVZEFs7/CGWfpLp3yA3IWNFwIqexEOZKOa3Hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-57754ec3462so4944320e0c.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:35:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779456926; x=1780061726;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VuUtEv2RIQpNuzR/xXhc1VDTRjgz51KFxcDKZyYrP1M=;
+        b=DwTRfvhy58j85w91k9/XJ7WEfkhTomgUhE4dZDOigJcC4SDig/t8sHBlUz6eojLsrg
+         4jVrXAClP+SXGEM7rrCEdX918jNYnPt5baaTcZOSyXNeQeu0tn0hOKVPfGrRZqaVnChX
+         F9rO2EYHoIBq8RpuriEqG6eX29jUucwXcM1ZtVKCbTCFddbdV/K9PU7+K5BSu/nz51JS
+         N725RB/9aU/J8+I8bPmJimysuIvUd+G3f9E8tUeIxHSdRkZDayNdb/+4ihkZY7YtV7+t
+         R6IBraCZR0PU5H7o0pmdIEijb6+7bmT4EZRvQWild/arubyzj28uHKoHWbfhaHcKX84S
+         cjZg==
+X-Forwarded-Encrypted: i=1; AFNElJ83bBK7Aei0vvheAFYjkEatbcNZD4mMxSOx5Ny9HRDs+mI0+t1+Rb2EgkeQklQDA/+ZeauhBN5krt3E@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhUkW4bE0M5aNRyIuvIWcRrSlVSfnPpJTEzzU49POTFszk22uS
+	mVrxqNxKSo8cI7oDX+N/gR/ZnaxCplenIx16JZY0kw+w+lhoWstI9Yayp0WKkDv4E5I=
+X-Gm-Gg: Acq92OFfR6t5R1H2JXUVPM8Il2Im5XRhVubqyKegp1tEM42MVLc7Y5zC558J+vvblJ7
+	ekWGEspYztSbR2uUA4t+fXtfa/SqxwNz3cqgKV+54b9rOKdZRTENI58zmJWI35lcqrc8I15kv1q
+	0OqTWnzfMTsD2+8DOMnPpQJQWL6DOXJXUsJXhANyELuGqj6nQwgTa6sipr+gWfHq2a1CidlwtJR
+	nS8ddDvENkm1mWOvi8y2iPbzS+8oBlDVDBTUAp+B+iXVNB8BjorNSYINfI4mX5yDHSIq6a1dTus
+	6GrcGk+UJ3lm9aN1X8z3h1fjdDCAA1rPjz6ZmWWioUGBu8l1YcHWh7iVVruPPqOo/jYwqDbRPLR
+	lywde2rDTfSfnFruMhbcDzrxRDi2cx5LECJusK7bsT68P8B7WgmrLQSpwJ58l4YjYTitpsHjsBk
+	0uY5go5Aq3ZwapOA4WobHO73NXp77q8eN/JyA+oL7J4D7TgzR1mVTdQEyFErJ/HKDv
+X-Received: by 2002:a05:6122:d19:b0:56f:a329:6859 with SMTP id 71dfb90a1353d-586606b9fddmr2140643e0c.7.1779456926571;
+        Fri, 22 May 2026 06:35:26 -0700 (PDT)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96173842ed1sm1508758241.6.2026.05.22.06.35.24
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 06:35:25 -0700 (PDT)
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-57754ec3462so4944266e0c.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:35:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/oJh+GiMEgKeWk/Es7Dpr+n8s7GgaGO9+Dn7sHv3OTvuGwMl+LshXQqYW5Tpg8DaXsx+/yyd8yOUws@vger.kernel.org
+X-Received: by 2002:a05:6122:4b88:b0:56d:9f2a:d6b1 with SMTP id
+ 71dfb90a1353d-58663771c2cmr1857047e0c.12.1779456924577; Fri, 22 May 2026
+ 06:35:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260506155804.3984418-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260506155804.3984418-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260506155804.3984418-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 22 May 2026 15:35:12 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUqvp=hmafE+UxbpY+zvQUP_oUeNa5XThEyFoaw=7qGHw@mail.gmail.com>
+X-Gm-Features: AVHnY4LINUoqykcN6gqjkx-vdZZaVs7hY-T8nDgwUYqRXMQhjzCr9agy9tkXMMc
+Message-ID: <CAMuHMdUqvp=hmafE+UxbpY+zvQUP_oUeNa5XThEyFoaw=7qGHw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add
+ alias for on-SoC RTC
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 21 May 2026 19:43:01 +0300
-Liviu Stan <liviu.stan@analog.com> wrote:
+On Wed, 6 May 2026 at 17:58, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> The RZ/V2H SoC provides an internal RTC, which is enabled in the DT.
+> The RZ/V2H EVK board also includes an external RTC in the RAA215300
+> PMIC.
+>
+> Add an "rtc0" alias pointing to the on-SoC RTC node to ensure a stable
+> device numbering.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> The ADT7604 shares the same die as the LTC2984. It repurposes the
-> custom RTD sensor type (18) as a copper trace resistance sensor
-> and the custom thermistor type (27) as a leak detector, and
-> removes thermocouple, diode and direct ADC sensor types.
-> 
-> Two new software sensor type values are introduced
-> (LTC2983_SENSOR_COPPER_TRACE = 32, LTC2983_SENSOR_LEAK_DETECTOR = 33)
-> that map to the hardware register values 18 and 27 respectively.
-> Dedicated structs (ltc2983_copper_trace, ltc2983_leak_detector) and
-> parser functions are added rather than extending the existing RTD and
-> thermistor paths, as the hardware configuration bits are fully
-> hardcoded and several RTD/thermistor properties would need to be
-> explicitly forbidden or ignored.
-> 
-> Custom RTD (type 18) becomes the copper trace sensor. Sensor
-> configuration bits are hardcoded to 0b1001 per the datasheet.
-> Two variants are supported via the adi,copper-trace-sub-ohm DT
-> property: sub-ohm traces (< 1 ohm) have bits 17:0 cleared with no
-> excitation current or custom table; standard traces (> 1 ohm) have
-> a required resistance-to-temperature table.
-> 
-> Custom thermistor (type 27) becomes the leak detector. Sensor
-> configuration bits are hardcoded to 0b001. The custom table uses
-> a resolution of 16 instead of 64, and is specified via the
-> required adi,custom-leak-detector DT property.
-> 
-> Both sensor types expose an IIO_RESISTANCE channel reading from
-> the resistance result register bank (0x0060-0x00AF). Added a
-> "base" parameter to the LTC2983_RESULT_ADDR macro and a "base_reg"
-> parameter to the ltc2983_chan_read function so we can read from
-> both result register banks. The resistance register encodes the
-> measured resistance with 10 fractional bits, so dividing by 1024
-> gives ohms. Since the sense resistor is specified in ohms, the
-> output is in ohms for both sensor types and a single 1/1024
-> scale applies to both. For > 1 ohm copper traces and for leak
-> detectors, a secondary channel also appears: IIO_TEMP
-> (millidegrees Celsius) for copper trace and IIO_COVERAGE (percent)
-> for leak detector.
-> 
-> The ltc2983_chip_info struct is extended with a u64 supported_sensors
-> bitmask using BIT_ULL() to safely represent the new sensor type bits
-> 32 and 33 on 32-bit builds. A LTC2983_SENSOR_NUM sentinel is added
-> to the enum so that the bounds check uses >= LTC2983_SENSOR_NUM
-> rather than hardcoding the last sensor type.
-> 
-> Tested on EVAL-ADT7604-AZ connected to Raspberry Pi 5 via SPI.
-> 
-> Signed-off-by: Liviu Stan <liviu.stan@analog.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-The sashiko comment about the completion race looks real to me.
-Can you take a look at that. Might be some odd reason why we can't
-reinit_completion() before triggering the capture but that would
-be very unusual.
+Gr{oetje,eeting}s,
 
-Otherwise just two really small things I missed in earlier reviews.
-If everything else was ready to go I'd have tweaked these whilst
-applying but seems you'll be doing a v4 so over to you!
+                        Geert
 
-Jonathan
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
->  drivers/iio/temperature/ltc2983.c | 413 ++++++++++++++++++++++++++++--
->  1 file changed, 394 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
-> index 326f843f4271..e2ffeee026ee 100644
-> --- a/drivers/iio/temperature/ltc2983.c
-> +++ b/drivers/iio/temperature/ltc2983.c
-
-> @@ -186,17 +188,44 @@ enum {
->  	LTC2983_SENSOR_SENSE_RESISTOR = 29,
->  	LTC2983_SENSOR_DIRECT_ADC = 30,
->  	LTC2983_SENSOR_ACTIVE_TEMP = 31,
-> +	/* Sensor types for some parts only; map to RTD_CUSTOM/THERMISTOR_CUSTOM in HW */
-> +	LTC2983_SENSOR_COPPER_TRACE = 32,
-> +	LTC2983_SENSOR_LEAK_DETECTOR = 33,
-> +	LTC2983_SENSOR_NUM,
-
-That's a terminating entry so no trailing comma.  It always has to be last.
-
->  };
-
->  static const struct spi_device_id ltc2983_id_table[] = {
-> @@ -1707,6 +2080,7 @@ static const struct spi_device_id ltc2983_id_table[] = {
->  	{ "ltc2984", (kernel_ulong_t)&ltc2984_chip_info_data },
->  	{ "ltc2986", (kernel_ulong_t)&ltc2986_chip_info_data },
->  	{ "ltm2985", (kernel_ulong_t)&ltm2985_chip_info_data },
-> +	{ "adt7604", (kernel_ulong_t)&adt7604_chip_info_data },
-
-As below.
-
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(spi, ltc2983_id_table);
-> @@ -1716,6 +2090,7 @@ static const struct of_device_id ltc2983_of_match[] = {
->  	{ .compatible = "adi,ltc2984", .data = &ltc2984_chip_info_data },
->  	{ .compatible = "adi,ltc2986", .data = &ltc2986_chip_info_data },
->  	{ .compatible = "adi,ltm2985", .data = &ltm2985_chip_info_data },
-> +	{ .compatible = "adi,adt7604", .data = &adt7604_chip_info_data },
-
-Oops I missed this before. Alphabetical order. 
-
-Jonathan
-
->  	{ }
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
