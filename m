@@ -1,138 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022108.outbound.protection.outlook.com [40.107.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587731E0E14;
-	Fri, 22 May 2026 08:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779437636; cv=none; b=Kapm/40i7JHAnGYTRG9gUSg+0DwFzJnu+ExIHO28PGcYWj3xcFcSm57Z3FlB5sJJGmq00RRcpPLP3PsRqG/pQX3kOcLMKCVgBjAG/IvzaV8mo5PE3YuqLDC86DLNZVOHYbldKz11hDuE03rOSleCnWQLOLDJ/t0MKyDhKlInUDc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779437636; c=relaxed/simple;
-	bh=QOfyWjoFDL0iUEM3Z2IUv9h8d7R3fVeJavSwjgogpVk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dL7AYR8FPcNJgPlFJOQ4A+X0lvkRk64ptDN9Ald/6RSqN7xJ4MCSD9yNIMFciJRIc77TsvBJgckiywJ/GxzlXS4Ag1vq+f9dqwdWyBCFA3LPrD3T7jRnpqxVWVtsDdB8TXqDJCs3Q73DLdgetjLI2H3lfOrWd11IAjlvlUY7eQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mba+IE6q; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD06F3A63E8;
+	Fri, 22 May 2026 08:14:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.108
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779437651; cv=fail; b=fR9jNCWkDzTY9bJ9Lho0Oeg8Kl8lrAwSVZm4Mp0YXK01BnLKMkZkOIJ8fHaWM7MVWIel/iMTtIx3Chmgm8HySfsgPJhrFJHuLo9wE0wExw4uT5XDa9tWrXL+ICC9+kV6Xpv53l9nXanAskJSPYM4DXrPG3Bry3Z8bxFRluMkiC4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779437651; c=relaxed/simple;
+	bh=MGUoO55eVKUW2coJ0tUH6WVrvpDmnUtDaWWs2hbxJnU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qPI8aDVBCMVuR7wukP50UP4fe5JlbNbIGQFxbdQg7ylZ2zkOxbYnkXHsVfGy97fCmwrxfsr8SRKpqCcfQo1mnar6wqPgVzS7f73xr2nMrg/f+UWn9hqGz+PJpxR3+YWmIQTNLukPmzbtgpHokeG+gw6ZIjwxXifKnpcv++M44Us=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=nTRzlMRy; arc=fail smtp.client-ip=40.107.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mba+IE6q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521CF1F000E9;
-	Fri, 22 May 2026 08:13:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779437635;
-	bh=YkCRRip3ZtybS0qSHPGgubSoejD0MPhWAJiCNjGYLTY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mba+IE6qgWCjGrtO2pIH/FC2LojQQIgomf3Qp6/iCmUliFb9t7YWFS3L+MXFaHYXC
-	 Uiq6OTUrVxAtHm5zCvPAm06k9qObbms1Iiq/JNH5/qCX6wjDW9CF4/zCXy/QyTJLG5
-	 pmb6E7XmrtboVK40r2rmK4TlqhfJUrOldpwRb1IuQJDIegfQ2dJ6sFQZ+F/rsikeQX
-	 pzLCaJCBOPaXV47QRvBi21315cntdP0YAATlYgFNtnpdfgLqTIwSXWddLiCT72jH5t
-	 OzCQD4BBoUEqCLgHjR02s40TDDpgbQt8E+wCqmARNbomgGPbJ3nagCaJFqszv8Bzby
-	 u20Mv2auNSTHQ==
-Date: Fri, 22 May 2026 13:43:50 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v6 02/16] firmware: qcom: Add a generic PAS service
-Message-ID: <ahAQPsMdoDFXgL7g@sumit-xelite>
-References: <20260518072856.22790-3-sumit.garg@kernel.org>
- <20260519073348.B9F5BC2BCC6@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="nTRzlMRy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YLTFsE2F9KKke29z6wD2x9yFzXANeTgqtpx4cg8tqDdifnpqe+pLriq+XEoczJLZwbFBLHdmEOUtLkhyVcv+hgoEVGHC0jgP4s8Bbvpc1PBhUKvvUjP4Icv/LWYunuTveCH19rPnqOMRbbqwczlNFKDarFXfjUp+NjX1YLN6mXvAH1EE6Az9/C5ndr4sjqKoVWxeS1qgZtVmc7MCEuvjSDURd+JFYi4b1w88hX0lDvYRHof41olulBmaM2gKSMPZWjGuxQlUGxIOcIdxYRtPiH+0Mf4YTYci7T0PEcqVc37MwO5GCxhG149phJEtIdeLk38/lI/kcMgRNi72LcIVYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A019YsqYIRBvLB6qKLUsTl7stM2MuaSCluooZp3kh/s=;
+ b=h4uWEqTj3HC9zP5iLfM+7yAmNeXIAZAEWSpps+yIzseOsPj2sb8KhjGAn9Wc8gve6HfrQiX0pGhs6/2MkQnozl/6Llt4qB13J2wfdbImxH/MMUNIPzvb/EDbVXq357ME2Z8UDI9uLqaa316VUoCcHCOJtHAmthU+r4mq7xZV8OCdAS10C21UWQJaWgLyQ+HBkET4lMf7k4Z+6gpWGDFaOjVMyBPM/W5gTnXg37vsGCv7out8LS4p17xptYWXSP9XpZ2FrXz1nuORnPn9g/XX1YNh2DOMLy2OaUX3csHGRCqSQuHdg7paT1trlV2EFeh7+8WQ2Oy2SEPlLFNS5nu1+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A019YsqYIRBvLB6qKLUsTl7stM2MuaSCluooZp3kh/s=;
+ b=nTRzlMRylMUo+sCtdrHwVJZvFzuzfC8ZF0r+53ZA4HoAb5Ra1p7sSGv3pwkiL4THIIEeAGESgqMYmR7EjCPbplBgInvrjs7MQKkDCVvzEs12RTArO3kDbA0oL5LeGnJSX2GC5aPE2Fq8XhwgF9/TznDzemDzLCshTBLbo0cKhIQvqddAtttM9iBFnN/lgi7h8CcxbXVpHGaw5SjMJKKyoH+V8CSgQMcwyBEPw9bHZ3BdW3l36NyOYFecCKJ/07F2NzZw02MQvXQfifn1n5BF6FChaMmFFMqtvJi2kZmasmG74/ixP0OTKxNwsWAx1VT7e6u4ms0CCA9XgJK6L1P/DQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by SEZPR03MB7540.apcprd03.prod.outlook.com (2603:1096:101:12b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.18; Fri, 22 May
+ 2026 08:14:04 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0071.005; Fri, 22 May 2026
+ 08:14:04 +0000
+Message-ID: <9c161508-5ba1-4988-b046-aa9ab668a080@amlogic.com>
+Date: Fri, 22 May 2026 16:14:00 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/10] dt-bindings: clock: Add Amlogic A9 AO clock
+ controller
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, Xianwei Zhao
+ <xianwei.zhao@amlogic.com>, Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
+ <20260511-b4-a9_clk-v1-4-41cb4071b7c9@amlogic.com>
+ <20260515-resourceful-diligent-hound-b666e5@quoll>
+From: Jian Hu <jian.hu@amlogic.com>
+In-Reply-To: <20260515-resourceful-diligent-hound-b666e5@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SL2P216CA0164.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:1b::8) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260519073348.B9F5BC2BCC6@smtp.kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|SEZPR03MB7540:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76e76b5f-09c8-49cb-45a7-08deb7da1667
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|11063799006|22082099003|56012099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	XTjcWCSLVoNOgVHcxDhueSaPIRr+XyzIs7q9Rlw6MM2+H3q2LzbMWhqtmsSCQoUI3qnCJXZjbcVZLPHBhkAtYCfjOkmHc4zT1MTDBtut6pEHLd36Otv1VuF0seZp4bG0AzWZrI65tz+uQiGYuXx1xhSnCdYpWMoPtzETKnqDmilQEDlp/EFERM42oj03GmwqzBByTM6Y01qoWGbeHs2U86285ovpQ7fqCIL5a8uI0eL1/q1+AVgL4V/YjumxZH2wMtZBVSr3P1jx2W4aL+3RWIDJHt6G9ULzKisiyMT9dwlWCyyd/40cnNMHRG3JYjIR5Q9Ccq+34OmPCh3QrU5GXBTPUyZqG35L6CdQVFYjsJ2SLabCttDtreh6x1xBnFsUWi+C5f4iBLuBH1WRbnQjciNgtfi0AAyhcyCLb67lw51Ppy4fF53h7hnc7MT8RVOgLPrZspEvFJR7BLkl2Zgq7LEk1ZJNQHYQ9uyzxu6+/AhzXyhIVsYyCGIi/puHxvq/teCxXQQUu8EjlubzM9toYkbZWmz/QyCn7fMoZUDETIZlgs9S9kjRiXEKFxf7cC9tk8GvWY8GrFexx3MdTsAmPEGrlUJXOo8ycq6jp7B7dIXOd4ePfAOc49JHaaEffdySAtfy7z13csm75GFA1nkofoCUsouTewXmeuO6LBqS2ww2Q4aMUZzzkozEqMx23Ps9
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(11063799006)(22082099003)(56012099003)(18002099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bmRaV0hRZVBRQnBXblM5bEF4OWh0QUZSS1FBZU9kcCtYbnZCY0h3bU1jcjFT?=
+ =?utf-8?B?L3FqVWlWeEw0Uk5RbkdlakE2aXZCeFdUek56M1dWYzE1eXFJWmtmZCs5ZkMr?=
+ =?utf-8?B?NmhydDZLMU5ta0hVWGRiL0RHL3FpQmV1bmc5Zi9qalhkL0hjMjRHd2lCeExw?=
+ =?utf-8?B?bzVBaXJDRUJtNGtxYzFLUElqeFdEdlJvelRCdWRPdUJOZk5VSi83eURITEdw?=
+ =?utf-8?B?NkxIcDVkaE5pT2l4U2NQTXVLV2FSa2h5WlFXeDFmUkFPNzFWYmhkQjZUSE5J?=
+ =?utf-8?B?aVlrY0NEdHZSZnhDN1hjS2gzWnJ4QVJGWCthUXEyUTltY0w3ZC9sS3RSTSs5?=
+ =?utf-8?B?QVJ0WjBGbkhWV0RTbnhiUzBmT1hocjhyVUdzdTV5UEkxc2VYVll2Ykh2SzIy?=
+ =?utf-8?B?U0k0d29Zb1dZMGZpK094b2VoZkFoL2xLb0I0QzVxZDhDWitEQ3BlK3VqdDJ0?=
+ =?utf-8?B?Tmo5WnlOS091SVBhOEJuZm45M0tGcDJsWGFqL3VOU2JleUEvWWlpeTJZajhY?=
+ =?utf-8?B?S3ppamRtbGE4bGN2RGd4ZldiMGVrMzJHVHMvVzJ1L3R0aE9CeFZJaHVUT1Jv?=
+ =?utf-8?B?aXBES0dBTzdYV1NaQ200TjhtZ20xNXBRN0Nidm5KWUFmb3FBYk53OC9QNFV6?=
+ =?utf-8?B?clh0a056UFlhMCtQQ0w0OEs2NnVYZ1MxS0dzdDN3RmJmeE8xWElzVnNkck5Q?=
+ =?utf-8?B?aEVrbzFXeDFXTVZiSExhRzBUYUwrcjZhTmxwS3l3R3hKcnJKb0RlZ0oxMTY2?=
+ =?utf-8?B?T1ZwWUxuWHQwVkVRZ2dTY2xHdlh1UnpETWpCS2ZIS05GNGp0Q2c3Wm8ycURW?=
+ =?utf-8?B?R0Y4SUVHOTc1bWZEbXU5SVFDYXU4dCtmeXVBOTBBNXA5V1JJdS9yVi90d29n?=
+ =?utf-8?B?Uyt5bW9RM3VhR1IyV3Y2d1RNUmJDNUFKRUhXUlp2R2granBtTmJSRk1VRUJJ?=
+ =?utf-8?B?eklXS3hXdkhEYW81YVlSV0J2eUljRTNuTk1xVmxTZ2lTZVBJdXp4cm5oTkpx?=
+ =?utf-8?B?bHhadWpyZEpjTlZocngvYlJBL0tFTDFKSHVpV3JVT2R6UkwvK2FFTjBkdS9i?=
+ =?utf-8?B?OEYxK1ZHdHZRbElMeGZzR0JGWW9UUjFsMENPYnBTa24yb3FndU1OTGNRNVlM?=
+ =?utf-8?B?RDZ1dDV0R0I4RnVRS1U5V1AxQnZPSytrTUUrbzRhaXlJWFVyajhSQ2VxM2VR?=
+ =?utf-8?B?eEpya2MwbEZnVTRnMXM0VUs3UHdsLzVIK1JNTkRGT2VmMmJ1ZlhDQi9Oek1J?=
+ =?utf-8?B?UjlBd0VvUlQzbXE0ZHBuVm9tbkRLVkV6Q3U2YjgxSzlrbnZBKzFGbTVlbEYx?=
+ =?utf-8?B?bEY2dzJiL2dLeHBHUlFjWWF1K0tTRDVGanBnTGlPT0RnTlFiOWtHeGRET3Bp?=
+ =?utf-8?B?a1hPamNKMXBDcldKREQ1T0NkUk91dW55VVNNYlJjKzJBWWVlRUdMcW0rN3BX?=
+ =?utf-8?B?cFRnRmJ2OXhxUGdRMmhCU0lCQnAwR0E1VEJmTVZ0N1JnV2VRNGNQU3JrMTR2?=
+ =?utf-8?B?anJ0VkV4QnRkVUVzWVd1cGdpNlVjdm1KMkpVdE5OYzFMdjF2bjFINFFFbWNv?=
+ =?utf-8?B?NXRxcm5QajhhajFVNXpURXBwS3JwT1I4YnFyMDRyR1lNaWJxcmtVUVBZY2py?=
+ =?utf-8?B?RUZOMnl1Nm1UK2RQVjZzMnQ4bUdYZm9OMzFsdWs2czh3WTErOHJwVHpYMk9D?=
+ =?utf-8?B?RUFsMUYyNXBOVHIrWDFJVjRtaFVXQ2NSaTY2SmJjSjVIUEs0Vk8yNGtSZ1hh?=
+ =?utf-8?B?d3FBR3J2N2FuUWM3djIrVFhYaXJQMUp6N2FJaDJIL0M2WHNKSkc5eDhiMWlm?=
+ =?utf-8?B?RmJpeE0vWjJkL2dpekNUbmNrTzNtNmtPMkgxekwrcXpiZUU1eWJ2bzBrQ2wx?=
+ =?utf-8?B?UnoyVWpubm9lTWRUQmtEV3BTdlEzZ3hCcTU0M1kvbFordktGSzM2Y3Y1REl3?=
+ =?utf-8?B?Q040RWNGNldIa3d6VytVenMyWDRIOVVENWkzOHh1MkhBaDF0aW81V1dWL0Vo?=
+ =?utf-8?B?SXRGSHdTM2R4UzlKWWhpTVpMZzZaWm1tU3diZjRJd2loejRCRzN0RWlnRXlU?=
+ =?utf-8?B?MlRQZG5DT01hbDlibERrdkx0VTRkUGJJMG93ZndGS3NHaXROeW5BQ2t0TGVD?=
+ =?utf-8?B?ZW05emZQOCtLb0kxQmpJWmpRcFNDeU1OV0krQzNiMjVNRjlnZU9VRVFsTnVE?=
+ =?utf-8?B?KzI1QjJmbGs4UXRqbTJ1VGVSWTlSd3Y0SS9DYitJMmpmRklHMEtydHo2TEps?=
+ =?utf-8?B?V3Y4ZUtOcko4akVMNXRjVFJmWEYwQWlDV0tBa1RuY2JGeVVWWkVISkZlbFQ0?=
+ =?utf-8?B?d0VXdTRRZEkxalNzK1RQbFFucTdMVXRZWXp5b3dCR1EvS1gvRmoxQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76e76b5f-09c8-49cb-45a7-08deb7da1667
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2026 08:14:04.1078
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CTqxxkP17r9ePpotBAo681R7wQ2vpce1zk2SwuoYgifDvECmFxDupjybzir5Ra6XR0cnAn1cXHHwXfrHY+jlJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB7540
 
-On Tue, May 19, 2026 at 07:33:48AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] TOCTOU race condition and missing memory barriers on global `ops_ptr` accesses
-> - [High] Race condition in `qcom_pas_ops_register()` allows silent overwrites and NULL pointer dereference
-> - [High] Use-After-Free vulnerability due to missing module lifetime synchronization
-> --
-> 
-> commit 2f5e5371b4bb3e1c42fab23cd3a647eabe758865
-> Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> firmware: qcom: Add a generic PAS service
-> 
-> This commit introduces a generic Peripheral Authentication Service layer for
-> Qualcomm platforms. It acts as a common interface for different TrustZone
-> backends to support both SCM and TEE bus-based PAS services.
-> 
-> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> > diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
-> > new file mode 100644
-> > index 0000000000000..bc6c42f2b3c61
-> > --- /dev/null
-> > +++ b/drivers/firmware/qcom/qcom_pas.c
-> [ ... ]
-> > +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
-> > +			struct qcom_pas_context *ctx)
-> > +{
-> > +	if (!ops_ptr)
-> > +		return -ENODEV;
-> > +
-> > +	return ops_ptr->init_image(ops_ptr->dev, pas_id, metadata, size, ctx);
-> > +}
-> 
-> Could a race condition occur here if qcom_pas_ops_unregister() is called
-> concurrently? The global ops_ptr is read twice via plain C reads. If it
-> becomes NULL after the check, the second read might cause a NULL pointer
-> dereference.
-> 
-> Also, since there is no smp_load_acquire() or READ_ONCE() used to cache the
-> pointer locally, could weakly ordered architectures observe a non-NULL
-> ops_ptr but read uninitialized callback pointers?
+On 5/15/2026 4:10 PM, Krzysztof Kozlowski wrote:
+> [ EXTERNAL EMAIL ]
+>
+> On Mon, May 11, 2026 at 08:47:26PM +0800, Jian Hu wrote:
+>> Add the Always-On clock controller dt-bindings for the Amlogic A9
+>> SoC family.
+>>
+>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+>> ---
+>>   .../bindings/clock/amlogic,a9-aoclkc.yaml          | 76 ++++++++++++++++++++++
+>>   include/dt-bindings/clock/amlogic,a9-aoclkc.h      | 76 ++++++++++++++++++++++
+>>   2 files changed, 152 insertions(+)
+> All comments apply.
+>
+> Best regards,
+> Krzysztof
+>
 
-PAS backend isn't expected to unregister during the boot power cycle.
+Ok, I will rename aobus to soc.
 
-> 
-> [ ... ]
-> > +void qcom_pas_ops_register(struct qcom_pas_ops *ops)
-> > +{
-> > +	if (!qcom_pas_is_available())
-> > +		/* Paired with smp_load_acquire() in qcom_pas_is_available() */
-> > +		smp_store_release(&ops_ptr, ops);
-> > +	else
-> > +		pr_err("qcom_pas: ops already registered by %s\n",
-> > +		       ops_ptr->drv_name);
-> > +}
-> 
-> What happens if two backend drivers attempt to register concurrently?
-> The check in qcom_pas_is_available() and the subsequent store do not seem
-> to be protected by a lock or atomic operation, which might allow the second
-> driver to silently overwrite the first.
 
-Only one PAS backend is expected to be supported on a system.
+Best regards,
 
-> 
-> Furthermore, if the else branch executes, and a concurrent thread
-> unregisters the ops immediately after the check, could ops_ptr->drv_name
-> trigger a NULL pointer dereference?
-> 
-> > diff --git a/drivers/firmware/qcom/qcom_pas.h b/drivers/firmware/qcom/qcom_pas.h
-> > new file mode 100644
-> > index 0000000000000..8643e2760602e
-> > --- /dev/null
-> > +++ b/drivers/firmware/qcom/qcom_pas.h
-> [ ... ]
-> > +struct qcom_pas_ops {
-> > +	const char *drv_name;
-> > +	struct device *dev;
-> > +	bool (*supported)(struct device *dev, u32 pas_id);
-> 
-> Is there a risk of a use-after-free here if the backend module is unloaded
-> while its callbacks are actively executing?
-> 
-> It doesn't appear that the framework pins the backend module using an owner
-> field and try_module_get(), or waits for ongoing callbacks to finish before
-> unregistration completes.
+Jian
 
-The PAS backend isn't expected to be unloaded at runtime.
-
--Sumit
