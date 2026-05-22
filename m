@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4A63D3491;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B5F3D3302;
 	Fri, 22 May 2026 10:43:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779446625; cv=none; b=MqZ24WTx1gmMzIlJwESnTvMe0xCA3bKvzhh0QTx+obtqZvnOsqoVVSNn2gVJudGtri9uOPbLYbDzOHVfvq5CxP+3xBHmq8l4ICtf/gsAGgVTcrV67x82HemNuCoN7UsPTT4jaJ9Iphp/nPN3NmSQQ0EpMxaFAiEUKtLt4No/4RE=
+	t=1779446625; cv=none; b=uyDqt7BVuzEkzWewhkLXOMOK/EA7nrlNbPTDD+0XqYOeOV7oF92bZ7loXmj6TDsbLCgxK9AofmeVxD0tsrPyw0JAzZF57/Hum1jI3ai/Z01qhxAHedMaXojmdAddtWsN6uBbVEBK7s7i8mAWOe0ylX1zmNhrQMXX5yoGacT8W8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779446625; c=relaxed/simple;
-	bh=ijJQk8Mv8xE+b53Qtllw877DGh55/HoQby2G3UHJsCg=;
+	bh=kttq8r5N9SuU+zd+XevZzZNP1guN8quvQiyJ8IwYod8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZY7Nl7GQRy2qVzAj2rh4stRaiAYIj/JCHlbt+UL+IYF+QggQAgioovLDItq1wYuTb1qk02K3faQtw9qbJF+SLcE9iEeKKME/LOLx7MiI3Md9LIBBbkKdeU+Mb1q75M2+L4kGfWOLqPkJdSh56E3UxD6qdMls2x+EBYRyUrVuCO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MtJHDi4X; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=N+FUEKtXASMjH6IHQXYLNEkV+hMUJ5qdev5HbSkxHSCuOpAqIG5R+N6G4/9rQdGRKmSSPleNeu3wgnAme/iiEAyTpWP34/CqMIkawOw81F+9I/JxK++BATFdGAW3RnTBh0J4pmt3VIFo/bj4Af+WVjL1GZF7rrWM6Fl+gA3ZrDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYx0mPW0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MtJHDi4X"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7FD40C2BD01;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYx0mPW0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 63344C2BCFA;
 	Fri, 22 May 2026 10:43:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1779446625;
-	bh=ijJQk8Mv8xE+b53Qtllw877DGh55/HoQby2G3UHJsCg=;
+	bh=kttq8r5N9SuU+zd+XevZzZNP1guN8quvQiyJ8IwYod8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=MtJHDi4XlUc8/1N3YLbkJZiueDR8js9XXaB0Ma5mPFZ9bk0PYwmkLkxUqLkrUPlkd
-	 z/NhLWLmmcp6ZnWkpfILiGuob3MgtsNIkZAL3bZINY+aZPFZo9i01+TpVkFoYn3OwE
-	 bUIVds8H/AVt9zBO5M+rNgHj3BuVc7u4bTxNe8YBUwoVTyWBx3j3UUbhByfOnQ2ZsW
-	 oQhKLGbV1birC0XkqnWPGfv1i2J5QYkNCBUoTsKCHEUuEHh262YKFm6N+K09LZALTB
-	 f0tH98syuRdizz2yGqgMgsdqvpiIhzkCOMJ1topfr6SCr9kH7QIfgZltFyh8EwS+nh
-	 +cDkTA3hEWDPg==
+	b=hYx0mPW0EmwGdc5PROvPGiMrk3eEW/FlAoGdo0fkzDNZnBtbu9nH2LySA99YyUMO7
+	 1BhMtdgYYib3QCquaUAuD8S6cI84z4rZwUq/hvX+MLYzKmjj2uaF27+ZCQ71ZJwo2L
+	 btahUDdGebcNwTprHrgrIZlhJN+pnc17I+KfQQGXKAbqavDHacK5eh0QL/8honWvr0
+	 qi2iRdnymcNJ/5sU9aykh3im4ew5+BHDjyqs1EqZ6DcXjPYdj29duXlcCRbkBdT+ZG
+	 plwxtcMYqEMPO0yh8rQhg6wvArA9y1KIKp84BDnhvXFMU/yHiQd976AmgL5M2xA1GN
+	 il8UyQa9KT3qA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 769D3CD5BB1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C228CD5BB5;
 	Fri, 22 May 2026 10:43:45 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Fri, 22 May 2026 12:43:24 +0200
-Subject: [PATCH v2 08/10] arm64: dts: qcom: sc8280xp-arcata: model the PMU
- of the on-board wcn6855
+Date: Fri, 22 May 2026 12:43:22 +0200
+Subject: [PATCH v2 06/10] arm64: dts: qcom: sc8280xp-arcata: Add volume
+ up/down GPIO keys
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260522-surface-sp9-5g-for-next-v2-8-dd9d477407f5@gmail.com>
+Message-Id: <20260522-surface-sp9-5g-for-next-v2-6-dd9d477407f5@gmail.com>
 References: <20260522-surface-sp9-5g-for-next-v2-0-dd9d477407f5@gmail.com>
 In-Reply-To: <20260522-surface-sp9-5g-for-next-v2-0-dd9d477407f5@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -51,14 +51,13 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779446623; l=4969;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779446623; l=2100;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=iSLs5JQJs6M4Vkw2nyS41JGMP8yWwfbrhhtsv5TGCjQ=;
- b=d/nr/cCJgZ4/jovVnhwrOhO83DssvnITeiJrNDKasn9H+b01nwq2FV6zi2xj22AEExLafemA6
- aTujXLfpU+4DewxwRnLEOGj/TdhFaAYNyPutEkqPH67XanC6bYqQ7lO
+ bh=tpMMqCuXTpiFyNTUXE4sxQpXvBNTdGkNZVRFY5KiZGY=;
+ b=667Epu556yOoO1R1q99p0L2nR/7HIAhQUqIj7Ol2x0jyOHTS74DvM5LDsjglQidQgPade2dzW
+ ieETzxNjVqhDjSFJip9OX/TbPh3wXRfMAmj/2Cab28+sALSTJnIIZa5
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -68,176 +67,82 @@ Reply-To: jerome.debretagne@gmail.com
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Align the Surface Pro 9 5G with the other sc8280xp-based models as done in
-this patch series [1] from Bartosz.
+Configure gpio6 to serve as volume down and gpio9 as volume up to enable
+the volume up/down keys located at the top of the screen.
 
-Add a node for the PMU of the WCN6855 and rework the inputs of the wifi
-and bluetooth nodes to consume the PMU's outputs.
-
-With this we can drop the regulator-always-on properties from vreg_s11b
-and vreg_s12b as they will now be enabled by the power sequencing
-driver.
-
-Use the fixed BT vddrfa1p7-supply supply name to align with bindings.
-
-[1] https://lore.kernel.org/all/20241018-sc8280xp-pwrseq-v6-0-8da8310d9564@linaro.org/
-
-Cc: Bartosz Golaszewski <brgl@kernel.org>
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 103 ++++++++++++++++++---
- 1 file changed, 89 insertions(+), 14 deletions(-)
+ .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 42 ++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index f92c37bfe9c72d1854ab9893747991da9cbf033e..d1f72cddebf1df7b67be698a77656532d2f74766 100644
+index 10fafd752734450ecddb2113ff972a08793a763c..4e601eb4165b1eea16d2772786ac0a18f6177e60 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -340,6 +340,70 @@ usb1_sbu_mux: endpoint {
- 			};
- 		};
+@@ -6,6 +6,7 @@
+ /dts-v1/;
+ 
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+ #include "sc8280xp.dtsi"
+@@ -55,6 +56,31 @@ backlight: backlight {
+ 		pinctrl-names = "default";
  	};
+ 
++	gpio-keys {
++		compatible = "gpio-keys";
 +
-+	wcn6855-pmu {
-+		compatible = "qcom,wcn6855-pmu";
-+
-+		pinctrl-0 = <&bt_default>, <&wlan_en>;
++		pinctrl-0 = <&vol_down_n>, <&vol_up_n>;
 +		pinctrl-names = "default";
 +
-+		wlan-enable-gpios = <&tlmm 134 GPIO_ACTIVE_HIGH>;
-+		bt-enable-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
-+		swctrl-gpios = <&tlmm 132 GPIO_ACTIVE_HIGH>;
++		key-vol-down {
++			label = "Volume Down";
++			gpios = <&pmc8280_1_gpios 6 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEDOWN>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
 +
-+		vddio-supply = <&vreg_s10b>;
-+		vddaon-supply = <&vreg_s12b>;
-+		vddpmu-supply = <&vreg_s12b>;
-+		vddpmumx-supply = <&vreg_s12b>;
-+		vddpmucx-supply = <&vreg_s12b>;
-+		vddrfa0p95-supply = <&vreg_s12b>;
-+		vddrfa1p3-supply = <&vreg_s11b>;
-+		vddrfa1p9-supply = <&vreg_s1c>;
-+		vddpcie1p3-supply = <&vreg_s11b>;
-+		vddpcie1p9-supply = <&vreg_s1c>;
-+
-+		regulators {
-+			vreg_pmu_rfa_cmn_0p8: ldo0 {
-+				regulator-name = "vreg_pmu_rfa_cmn_0p8";
-+			};
-+
-+			vreg_pmu_aon_0p8: ldo1 {
-+				regulator-name = "vreg_pmu_aon_0p8";
-+			};
-+
-+			vreg_pmu_wlcx_0p8: ldo2 {
-+				regulator-name = "vreg_pmu_wlcx_0p8";
-+			};
-+
-+			vreg_pmu_wlmx_0p8: ldo3 {
-+				regulator-name = "vreg_pmu_wlmx_0p8";
-+			};
-+
-+			vreg_pmu_btcmx_0p8: ldo4 {
-+				regulator-name = "vreg_pmu_btcmx_0p8";
-+			};
-+
-+			vreg_pmu_pcie_1p8: ldo5 {
-+				regulator-name = "vreg_pmu_pcie_1p8";
-+			};
-+
-+			vreg_pmu_pcie_0p9: ldo6 {
-+				regulator-name = "vreg_pmu_pcie_0p9";
-+			};
-+
-+			vreg_pmu_rfa_0p8: ldo7 {
-+				regulator-name = "vreg_pmu_rfa_0p8";
-+			};
-+
-+			vreg_pmu_rfa_1p2: ldo8 {
-+				regulator-name = "vreg_pmu_rfa_1p2";
-+			};
-+
-+			vreg_pmu_rfa_1p7: ldo9 {
-+				regulator-name = "vreg_pmu_rfa_1p7";
-+			};
++		key-vol-up {
++			label = "Volume Up";
++			gpios = <&pmc8280_1_gpios 9 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
 +		};
 +	};
- };
- 
- &apps_rsc {
-@@ -366,7 +430,6 @@ vreg_s11b: smps11 {
- 			regulator-min-microvolt = <1272000>;
- 			regulator-max-microvolt = <1272000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
--			regulator-always-on;
- 		};
- 
- 		vreg_s12b: smps12 {
-@@ -374,7 +437,6 @@ vreg_s12b: smps12 {
- 			regulator-min-microvolt = <984000>;
- 			regulator-max-microvolt = <984000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
--			regulator-always-on;
- 		};
- 
- 		vreg_l3b: ldo3 {
-@@ -636,6 +698,16 @@ wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
- 
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
-+		vddaon-supply = <&vreg_pmu_aon_0p8>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
-+		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
-+		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p8-supply = <&vreg_pmu_rfa_1p7>;
 +
- 		qcom,calibration-variant = "MS_SP9_5G";
- 	};
- };
-@@ -820,20 +892,16 @@ &uart2 {
- 	bluetooth {
- 		compatible = "qcom,wcn6855-bt";
+ 	pmic-glink {
+ 		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
  
--		vddio-supply = <&vreg_s10b>;
--		vddbtcxmx-supply = <&vreg_s12b>;
--		vddrfacmn-supply = <&vreg_s12b>;
--		vddrfa0p8-supply = <&vreg_s12b>;
--		vddrfa1p2-supply = <&vreg_s11b>;
--		vddrfa1p7-supply = <&vreg_s1c>;
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
-+		vddaon-supply = <&vreg_pmu_aon_0p8>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
-+		vddbtcmx-supply = <&vreg_pmu_btcmx_0p8>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
- 
- 		max-speed = <3200000>;
--
--		enable-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
--		swctrl-gpios = <&tlmm 132 GPIO_ACTIVE_HIGH>;
--
--		pinctrl-0 = <&bt_default>;
--		pinctrl-names = "default";
- 	};
- };
- 
-@@ -1179,4 +1247,11 @@ reset-pins {
- 			bias-disable;
- 		};
+@@ -922,6 +948,22 @@ edp_bl_en: edp-bl-en-state {
+ 		pins = "gpio8";
+ 		function = "normal";
  	};
 +
-+	wlan_en: wlan-en-state {
-+		pins = "gpio134";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-down;
++	vol_down_n: vol-down-n-state {
++		pins = "gpio6";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		bias-pull-up;
++	};
++
++	vol_up_n: vol-up-n-state {
++		pins = "gpio9";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		bias-pull-up;
 +	};
  };
+ 
+ &pmc8280_2_gpios {
 
 -- 
 2.47.3
