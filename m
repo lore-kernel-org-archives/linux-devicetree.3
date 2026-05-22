@@ -1,63 +1,63 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E54C3603DA
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81DFD19CD1D
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779430037; cv=none; b=tHDXwohl5Tri1nJ7jrA0tlKmV26LhYITseMqcxFpOShCgRx8B3rIIXRuJbw5qUA/kQrlCFFOWxaE23yfQAXjjcdYVBEsAQvuFiNFDQj8jW/m2yoxEWvoXPESidqJEjlRliKZy1Uy/SvZLBfnSBtVlip5cD8dYF+pu0wRxJ/lpuo=
+	t=1779430044; cv=none; b=fu/JN7jJDBSr7Lt1isdFMS+P6zFDSOcNKI9ZQIevxyE9CeyEu2rdBWlEkmuUiLWjyNrszfK9tUOwhWa3S5mcHSnx6k7u13qb2DfT0ZuojsTxBv8e+/w/ED4VrrtzZruKiPgP/juibgeXu9+NtpPkRN1cyXYRNtyTaGopjSpU8/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779430037; c=relaxed/simple;
-	bh=/ew0ue031WYpDsaevXnTSZrIhbBeG5akyBwpldODkdE=;
+	s=arc-20240116; t=1779430044; c=relaxed/simple;
+	bh=E0iQhNcseBf9fUV3GBqGktJpy+4e0unmKUUFS541458=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q5pQdNzU4USWtKDHHKNdG4oz7C3DyryEa3bpEO5/4gb+PzzySAjf+qSx0/fRoRJO9NX5AeR8sMYNjQKJYTwXPOcEAMG0XehZBgwhhvRHpdwZlR4hsmXEeq27hGNuVFpPN7bdlnT1QOF4HgqibwjLaVuM11AtF0ac36jNgdBzygs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bYPwAef4; arc=none smtp.client-ip=209.85.216.42
+	 MIME-Version; b=gyxn8VYfH9A85KjuuJVlGPq96JP/bFurM0T9p6pQZbOvTk4xb9Lpls1GG+r0i0mqBsJanVDCG6Mv76ErDMPw9J9sWvE1MVt+KWbk/njHbkh0edICryFwHHsKqiSDy13hBFG2Rju8Vazez1UhUnz8wTSYnX364NSfHL0tc8QgrLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NJBaR5ID; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bYPwAef4"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-367c26471f5so4404730a91.1
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 23:07:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJBaR5ID"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-367cbac9cb1so6541810a91.3
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 23:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779430035; x=1780034835; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779430043; x=1780034843; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yyiX7MahC/TLGYvEVYll4nFlnUYS5AzNMKFJNf8jQZw=;
-        b=bYPwAef4rahhBRKw+zntmEBECIBLCvbERpWI4kNFgFck84VvfdPABk6WB5JJRNlpSl
-         bTmvFOmF95L3dq7bh4h1mZeBfV9zBafQFDmzW741h0/duQJqrZ6s7edd4M00cwKLdZME
-         j1xh51vtC06+i7GZUvXB9I0fOnAYxwXgCon4Mm5SM3zhhkNE9YejB2veHrh2+vIumiF9
-         9gZryLr9a3D1oYWFRiNpraKLUOqicX0j4Oa8kAjvH1mwHk/HW8PXyO3juHpGyVH+TCw7
-         dnDqc7sCPGpnG1o9J0XrHpaoNnpoX86H6WK1lLSV3tVGrWfPkPp01h68EkKRUqKiKLJ0
-         v+hw==
+        bh=erBAyPrO5roYO8QCyIMfGlSqzNtYHdtfH7kgf/9D/qI=;
+        b=NJBaR5IDOHC6TdboMCEHZ8VzsjnTRfJiTigvtq6akHwbvGs2f9wWz2G+m5OOI2FbSa
+         mYndjqRzndFaHslf8qAji5w6uE1S4kNgLBhvPq6rcNx9ecEe8koksl2BTnWO11USy9Ou
+         OTb8k9f2od1e7xWmGMi9nGyAq7+A2ozyxDYXsXsOVKieg/4owMwpNcz0rjyXafW/1I/x
+         UrfBCXoG+wftRyPLIv/8s8iCNplYO/MZg5rj8pjn2sKb1aWTnQZ8zibS6gvGFw2j3tdg
+         VU3dJOCcaPkpbQ5/hZozi1dI4pXrssznyWk8Nf+U/cABputJJFr6/oOna6AgeYY+hA9W
+         k0mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779430035; x=1780034835;
+        d=1e100.net; s=20251104; t=1779430043; x=1780034843;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=yyiX7MahC/TLGYvEVYll4nFlnUYS5AzNMKFJNf8jQZw=;
-        b=cZo4ypbEZ8px5hY9xBB7+IdAuSUiHWrk+BRgxrET/Mecol9H9xnQCKc9hFJ/e/x3LY
-         7L1OYSddMUUdNkWLUNHuoVdI4yo7n9p07Y8d/mWfwRmTgC67MHa2yPt15MYE09NgT7rq
-         p7IbKMGhrFeks8fyNzoM/ktXazfnlZRoK821PqB9x4TLkC8U8zPwoLsge1AOVfcbT0lQ
-         +PfLIk6511JvYM1pbr2e8xLH9sR0QTjC6RZktbGlLZAQUo9XaHynENDj6bXYKhhGWLWx
-         4/P/egOgQ7Qtw6cshWGbaSCF4Jatr/EKqRIPsDV78av7V6on13tFsToUsg0vv/yz+0P1
-         Z7VQ==
-X-Forwarded-Encrypted: i=1; AFNElJ98J/mFxrCYiSAs52quYL9Xmm9t0hIdEY9mbppiktB+g84oi/0ZYfvSmHTcYRhCMtD8FQLhrULakkn3@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfSHaRnypPF3EEYSkuZFjuCE1CZufdojnr7twIerBAOFN4iRqD
-	ZC0Skq7I0Egf9iPUDQ4HSDj7R5C/hCnOcmX0AuLgbInpOJ63zGvCO1Fe
-X-Gm-Gg: Acq92OEC1TIxjitThq7T/BI6hB97PtQfQOid2eLddTNc2J6vzoR2r7kDosojHNPJZln
-	T8PpcvJ6uI9Id3RWjdERjPGnPv7/iIBzm6uQnhiJ9uUv9E3P9SaIkOVk9dqIBknE0H9LagrtYzv
-	wvm3UekFJlEJpjlmU4/a1fWQsIhRUjAUZZDCt3mDXl9Bs2oE16o40aw0kSn0OmO3iTOnV39TD20
-	tAkhfWK54FcWdhaOoqlXf/hKHnKmWjDXOREBJYX9//U5GC3g3rDNyUTaPUvfmxqCqTLEqtY8rjr
-	4zCrLLOI9ptJigeurUlRJAqUF05azf3VbG7XaVyZhhwmvXojnPGBZaQ51NxgU9nTUvxy0esG2Nk
-	KgMSus6yycxxJ5sdsA9WZT7HzP31xzHPCKhehdPMbgDGfO6iaBu1087EvD3GNW370ovr9BCuXa6
-	lwpBUmtBcQYoVABbkQwyAP/cnbDLWDx11mS4PfdJ8x0ggcZLeoNNGzFGo=
-X-Received: by 2002:a17:90a:d885:b0:369:e4d4:79c6 with SMTP id 98e67ed59e1d1-36a6782a785mr2028386a91.20.1779430035353;
-        Thu, 21 May 2026 23:07:15 -0700 (PDT)
+        bh=erBAyPrO5roYO8QCyIMfGlSqzNtYHdtfH7kgf/9D/qI=;
+        b=fxUxZqicJ/mECsmXZBY93RH6dGHMo7AFeSvcvfiHRc5fpNZ2BqruuomvOWJ/cNLz4k
+         ANsR0/2WRYF76O+koDvrnKLJqt/cBMJO0BBQ74uJvlzsneZMR8Y/LLhSO9+0cryVG5MA
+         iLfdXXClPa/spNw8glAJrUBKOqgjimVjvjN7L4o1Xqdget92seXnKI6o8pIsZKDegyHM
+         LPEy7phOMboB8qpGqugsmB8ww5dGH5Zi5ltVIPqKaKv05rewmqifkkc6SVsiXV130+aL
+         xeNiqYDjevYm18oF2iWZZ1ICLDbeYgQCjI0EPQK6crinxZrUT/q4t2zkIeCathd6k8qT
+         5F6Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/S7+w+yrKmGi/2uBcevBReSL9utg9SSsDEQ9Ymn7Dj1GT6HVDpRMsE8ZGmbUV5vrNRJW9tshVN6Xd9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzETxDXfGkD1O/HUoCHk8yPaWmvPdP+nQG6wF1SU4hFm3jCMUFT
+	Gy9IVrvVuIJbtDaeLvm4Y3cOupcZprvRShlArvh4DK26JBv4eIiXyPiC
+X-Gm-Gg: Acq92OGmDQ6VEB7DkyIXsmP3PzHdMlOjeImYdQGf7Iy/Gz+KBIG7vR/g8UC54jT0RY3
+	TUCz4oC11DjVoBDn6uMC/CYpxHBC3EUiNlV4PSShwBQSzYRQ41UwXGWhMCYbivS+3C4yL+Y7F4M
+	Qqs57Kf90riSBZXzJN7pAetZdXi3j+hJC0BaTvLTzOo9WkEc4mO9NXEccbFIX12o7YPsiqU//Td
+	lhVIU5VDTbGyfpWojDsNYOaUzDaJmlUs/l5SzNGL/UoytQFrSF1xrSWJHOhnYEKh+m9nLKOx3Fw
+	YwODfKibxMSbFP7CJp0pMbFc087CGC6n1g8sXpIySK/3MOjq/73EPy5rwWy1UBO0hZfhBA5WJtk
+	leRV9vXmRhGYG5TQku4I4N7j4uKZJ6VbuL9oYSvCv/I+3iLFDvvULng2Hl0XnVwrZiMnv46ma6r
+	r+JCtDWiSIpq/NLK5/9BcbbhVigb6qf5Ym51I9hUOSICdoIa3cSZdsjZ2HV8TL31oGUQ==
+X-Received: by 2002:a17:90b:5188:b0:368:ea0c:1b75 with SMTP id 98e67ed59e1d1-36a676dc303mr2283228a91.6.1779430042774;
+        Thu, 21 May 2026 23:07:22 -0700 (PDT)
 Received: from radxa (122-58-25-162-adsl.sparkbb.co.nz. [122.58.25.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a7212aa06sm428572a91.3.2026.05.21.23.07.10
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a7212aa06sm428572a91.3.2026.05.21.23.07.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 23:07:14 -0700 (PDT)
+        Thu, 21 May 2026 23:07:22 -0700 (PDT)
 From: Graham O'Connor <graham.oconnor@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: andersson@kernel.org,
@@ -72,9 +72,9 @@ Cc: andersson@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Graham O'Connor <graham.oconnor@gmail.com>
-Subject: [PATCH 1/6] soc: qcom: rpmh-rsc: Skip TCS init when RSC is managed by firmware
-Date: Fri, 22 May 2026 18:06:40 +1200
-Message-ID: <20260522060645.4399-2-graham.oconnor@gmail.com>
+Subject: [PATCH 2/6] firmware: qcom: scm: Allow EFI variable access on Radxa Dragon Q6A
+Date: Fri, 22 May 2026 18:06:41 +1200
+Message-ID: <20260522060645.4399-3-graham.oconnor@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260522060645.4399-1-graham.oconnor@gmail.com>
 References: <20260522060645.4399-1-graham.oconnor@gmail.com>
@@ -86,50 +86,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On QCS6490-based platforms booting via UEFI, the RSC hardware solver
-is already active when the kernel takes over from the firmware. Calling
-rpmh_probe_tcs_config() in this state reinitializes the controller
-while the firmware is actively managing it, causing a security
-violation and system reset.
-
-Check whether the hardware solver is already enabled via the
-DRV_SOLVER_CONFIG register before calling rpmh_probe_tcs_config().
-If the solver is active, skip TCS initialization and return early
-after setting the driver data, allowing other drivers to find the
-controller without disrupting the firmware-managed state.
+Add the Radxa Dragon Q6A compatible string to the SCM allowlist to
+enable EFI variable access on this platform. Without this entry,
+the SCM driver refuses to service EFI variable requests, preventing
+the system from reading and writing UEFI variables.
 
 Tested on Radxa Dragon Q6A (QCS6490)
 
 Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
 ---
- drivers/soc/qcom/rpmh-rsc.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/firmware/qcom/qcom_scm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/soc/qcom/rpmh-rsc.c b/drivers/soc/qcom/rpmh-rsc.c
-index c6f7d5c9c..7915f12de 100644
---- a/drivers/soc/qcom/rpmh-rsc.c
-+++ b/drivers/soc/qcom/rpmh-rsc.c
-@@ -1074,6 +1074,20 @@ static int rpmh_rsc_probe(struct platform_device *pdev)
- 	else
- 		drv->regs = rpmh_rsc_reg_offset_ver_2_7;
+diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+index 6b601a4b8..4702ad898 100644
+--- a/drivers/firmware/qcom/qcom_scm.c
++++ b/drivers/firmware/qcom/qcom_scm.c
+@@ -2320,6 +2320,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
+ 	{ .compatible = "qcom,x1e80100-crd" },
+ 	{ .compatible = "qcom,x1e80100-qcp" },
+ 	{ .compatible = "qcom,x1p42100-crd" },
++	{ .compatible = "radxa,dragon-q6a" },
+ 	{ }
+ };
  
-+	/*
-+	 * On some platforms the RSC is already managed by the firmware
-+	 * when the kernel boots. Calling rpmh_probe_tcs_config() in this
-+	 * state would reinitialize the controller and cause a security
-+	 * violation. Skip TCS initialization if the hardware solver is
-+	 * already active.
-+	 */
-+	if (readl_relaxed(drv->base + drv->regs[DRV_SOLVER_CONFIG]) &
-+	    (DRV_HW_SOLVER_MASK << DRV_HW_SOLVER_SHIFT)) {
-+		dev_dbg(&pdev->dev, "RSC already managed by firmware, skipping TCS init\n");
-+		platform_set_drvdata(pdev, drv);
-+		return 0;
-+	}
-+
- 	ret = rpmh_probe_tcs_config(pdev, drv);
- 	if (ret)
- 		return ret;
 -- 
 2.53.0
 
