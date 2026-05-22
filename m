@@ -1,384 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC73140E5F;
-	Fri, 22 May 2026 17:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221453624D9
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 17:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779470698; cv=none; b=lM7iye9zGhzmB+vcqWqqDmaq52yyZ1mcWO5kGZEqFyPdPPH4j4IKoykM6bLBJNJPsCv7LZE+TOyueyLUNS50rx4knZlzkMSAPlBGD+CG2JVdNgHM63mcDqSmZZocwryJk4Wt6yVWMV9IXoG2StB+EQObqNbo58uc9cPjdyXkJAw=
+	t=1779470854; cv=none; b=ZlgJBfRdNLaeCIg4cgpXEtsC6zCneTxHLPkKJf+mH2zoDnxQJ/ptanFu61SpWom4p3Oq1OTxHD+Ckfg4wspuBu/DY+m+aV4f7qAh+uUpQTQ8KZrs4xZtraqxPg5m0k7DokX93olhyEe7HZ3Gr7y2Mh40LOeN5Y00RRpjzmvk2NQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779470698; c=relaxed/simple;
-	bh=KRk3xgxCoxPNSYqXiLnsUeKObn/dXh4PRhBFTrQQ7BU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L/tgzO/p0JnUMvtakOhJe7gSCv3X5YMtS9Y7eY3Jf+WVW+Eu6KVBd0JqEdXa927vUaWCL30G9H9HQSwj83BDBz+JJLckwelKWLLyhD+Bc6BtBqCGcN/Ff6A7Ed6MF8W5OvWC9p9TRxXw0+5Ygq1D2NpJTnJoDrQsX9z3Y7CzX2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXMjombk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779470854; c=relaxed/simple;
+	bh=5J92VyDWgLlUhHhTHy8tKjEQsCOLkA23R9MCmKQ/Gik=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RXPGHPX0dSi7NtqLyo5w9TZWGJ0a4biNjxB8y/bUxddhnhBqD1v1jlHQWkIpsojX/G06B+JlrYdshEEIXQqD1673Gyd+oRUeWZV2tWWDlhNc8JpPlZpH9iCCYnC77IyN4qFSEvJY994gV8s46IDraSlaWOjNWI8ldM25fju8mS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lWPMRzJK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i3lOLQKv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXMjombk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAFA1F000E9;
-	Fri, 22 May 2026 17:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779470696;
-	bh=4mjjO6VdneKoWeCj+NB5NbY7sQb+ZjmoHWbdwNDYLCU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kXMjombkCWxrWwK6n8igXy0dLuJMF2cZsfCA/tIV/Wk09CM5+UWWbH85RFT5KAbpe
-	 igi7SE8wZ3dt2nVlaiUDDsHjUUnPaaN5hce6NPNfUT6qGjhNFk+vRoqw/DkuKV0xq7
-	 xkKUu+F5e7sDAc/DJaSm3M4zxvI7Y6kDQt67Q1YqpJX7DTtFGGkd4MWcMIxhM4FtUy
-	 2AeBKmoWqRitdWTCoMCqMKStO9BaLkbfBSzyeeN3N+gw1rl0+rb3i7W6+2XemoXp2J
-	 yb5lmivZH4JdkqqSRSpMdHF1nAC5a8F0eFgeTn4D+1O7ZP1YMAzxPzwFkk23jluNCn
-	 UFHHLO9F6WFNQ==
-Date: Fri, 22 May 2026 18:24:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, "Jonathan Corbet" <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, Janani Sunil <jan.sun97@gmail.com>
-Subject: Re: [PATCH v3 2/2] iio: dac: Add AD5529R DAC driver support
-Message-ID: <20260522182445.6e58a58f@jic23-huawei>
-In-Reply-To: <20260519-ad5529r-driver-v3-2-267c0731aa68@analog.com>
-References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
-	<20260519-ad5529r-driver-v3-2-267c0731aa68@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lWPMRzJK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i3lOLQKv"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64MFvIT41816067
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 17:27:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=IwddrSzKn3iMA8482Qg57Y1aDHZnVmjtI5X
+	veAcu0xk=; b=lWPMRzJKN7HeQN4GQ9Yz/4pz4w969E38tEFl1zP14zflezs9Msm
+	4edV9ueXMugDSUCINXZR8HUG6W+E2its8baroXIznW1fJUwoyOvfnC9+/3btywx5
+	MvUvzGBoXtkK39klviLdHLYC/DotuLcwXIzFcXLTIrDkKzbuLX8iBAZKCz5dJOg7
+	K8EqTw3rf6QSltXkbh4GHu9dKtvb/szRpirAr+y7EAhoDztkf+0XQn/TG6xUalpi
+	U6NZA0kWBRvFnLVJET4fpggXX5PjmiuUe59IteBcAQqsiEcuZOM4CuABRzekGhTU
+	sfKLGC5fVvQirTMx6fh3Wy7gq6h6hWup1Ww==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eafrm34pc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 17:27:32 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-83536dc3be5so8646163b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779470850; x=1780075650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IwddrSzKn3iMA8482Qg57Y1aDHZnVmjtI5XveAcu0xk=;
+        b=i3lOLQKvJ+18q8afQH1lHLkECobsMdOujRXEH0lfvm/i3ger7r/H0S7FFvMGFU3YhM
+         VwrGGhsiquAjy/ko24QdJv2OJDoH+Nh/lS04KkoVI679tAihJOlp2hLKhReJ8m1dkpls
+         uY7QRHvwsoPm/D20Q9KeYuHSgsx4xF9rOr90IX89D+Xq5VXvBqT4BG8CvU8Dgk9xsolP
+         xA4sEeqzkCTlmHp5XOfFRrwe8AQzFTcNi7IUAgn8NyyI06Y5Bf2MTqu56H/zag0IdUra
+         BrraxgtIbZYHdiFkIKAShs+v2zVLDwhQFHz1RL0YX15DKbK6Z+D22m0cdkdyFBplpEjm
+         iGAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779470850; x=1780075650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IwddrSzKn3iMA8482Qg57Y1aDHZnVmjtI5XveAcu0xk=;
+        b=fbcC91CNbzveWQUo3xj0bgBAQ4UQLqyYjMOC6aPQfAKqNzzVsDaacarNgMW71ZTS89
+         6Whqu5ZXVosjcpk0tkULSFuEcNwL3GeU0O/BbwVTkFiaEwsAJ9stpRX68YRwxNsRT6jT
+         LTICwhJtpYDl/vf9T8C5Uqe50ZI5yv2Pnlejk+zA/4d5pN9VgQQskLHELmReIziUEh9V
+         En/2sq2CIWIvLxSLkBEIGfmJ4ogu8Cp/6GAPyyXAtnXoMRaxdvQqFSX3yK4XD02gfCJJ
+         0guPrwQdyPFZEtXGziZC3Oz3o6M1o4yV+WVBAZYIlJ6K2gIRswMQz39NE4h6or8Ifiem
+         P6xQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/7PcNhfRnz+DVPlQ89uaqjwNUy9IUkYA2f1j/Z+H2Oh4XgEq2cB/hlZ8EtzQJIAWUKJVGMaNdXlPoH@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZzq0tE8Ka6lIVDiV3GjSJvJraW+puPXNcZZAOD2vOBlRUaELY
+	RKHOHmvp5PMTEAoa5Tr6rP8Y3aJdYEJbJaPFDqXNObCslUGxBIFSne88uPblO3SDmnSB29jKBwa
+	FUVWKvzY+mx0VpcPvd2HOkBkrNzM80VQQrmGMoskCP0cwG2xc6R2UF+OJ70xrvGOS
+X-Gm-Gg: Acq92OEzyoBk1PVVIxZSyuUP77DbE4b8CKNV+1XYtGEliMiTc366bzLdM9Jbl63CS96
+	5CUy6U+hQZ1Jyb1wmidYEtYByfdC0rf9SG79LKxVZHZKozCVMQ4w2fufMUgrqaB7MU1FOKEkjzv
+	UhrAMNhSZcBk4RSbNSBT63NsQ40SdQ14Q2rlASesiyxmEVUW9QIFNpSbzXnX+XMi382P2maicnl
+	lusyZpgzkR3rnojR7shM4NkFahxyDzllxPfnSCAJ/uqXPtLvuIT6yhfoMOMN07F+J7ZBgfGY8OI
+	eWuxZwJ0ecsgXbixQ6DNzoHdmbN5j2Red3b8UUJx/x2u/0NpaH1+QPb4m2kkUjIsOrczF1eOwbm
+	yysvJBOwuy3ZRaAMCIROmV1cddMvOla8MvqDTTzFkuLimVpQyPRVIuw==
+X-Received: by 2002:a05:6a00:2a09:b0:83e:c8f8:cec7 with SMTP id d2e1a72fcca58-8415f352254mr4810271b3a.35.1779470850003;
+        Fri, 22 May 2026 10:27:30 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2a09:b0:83e:c8f8:cec7 with SMTP id d2e1a72fcca58-8415f352254mr4810241b3a.35.1779470849562;
+        Fri, 22 May 2026 10:27:29 -0700 (PDT)
+Received: from hu-pkambar-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164ea09a9sm3045693b3a.31.2026.05.22.10.27.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 10:27:25 -0700 (PDT)
+From: palash.kambar@oss.qualcomm.com
+To: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
+        alim.akhtar@samsung.com, bvanassche@acm.org, andersson@kernel.org,
+        dmitry.baryshkov@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+        luca.weiss@fairphone.com
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org,
+        Palash Kambar <palash.kambar@oss.qualcomm.com>
+Subject: [PATCH V2 0/3] Add Hawi UFS PHY and Controller support
+Date: Fri, 22 May 2026 22:57:13 +0530
+Message-Id: <20260522172716.820490-1-palash.kambar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 0bsk0oJFlvi896qJLIowa-6Buk8o1oU3
+X-Authority-Analysis: v=2.4 cv=Zekt8MVA c=1 sm=1 tr=0 ts=6a109204 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=wRtOOnJjwWicnHpPwtUA:9 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE3NCBTYWx0ZWRfX9NX+qMWqffOc
+ KOOgTTeC9FyBny1r5GY0I/ujPv4/lA7jW9UcBF3vfNrX79n41eq+ehOj8BhMDD2PQYygL/1x2nb
+ ckoh6syKsfuL7SIiTJiAeF7igO6rMja+8F2ruXoDtSctEDULWTe7eC362AaW7td1/jgKMcMNJh5
+ 5oi6A+rdjMnAXLQX8BUR378oZhJDdynQ5zILgqzVAbvFt9XxMjeH4u0xPq/AN+nf8nNSLGCb0HO
+ oArmuuSHjkmHVhqDllc+ZG/9IEskgQ8bvCmk7X3RsKNnCQz4IDjSK9yyeg8UcoodPfb+7QSHlNn
+ fSjyKqWragAkWWfg8hSkPN2/rpztduhnoBNOwmHnE5doK9YQzuD5kAmXx16AK60V6awsrMR9fUC
+ s2MrPAf2kxfIc33iCdWHEThDPR//6IawJ3Iy4Lzge0vl41+UW1xrnRQdPLnsCxRp5ma89kdfdEC
+ R2IDM3nlkDyZCXTCTsQ==
+X-Proofpoint-GUID: 0bsk0oJFlvi896qJLIowa-6Buk8o1oU3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_04,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220174
 
-On Tue, 19 May 2026 17:42:59 +0200
-Janani Sunil <janani.sunil@analog.com> wrote:
+From: Palash Kambar <palash.kambar@oss.qualcomm.com>
 
-> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-> 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-Hi Janani,
+This series introduces devicetree binding documentation and PHY
+initialization support required to enable UFS on this platform.
 
-A few more things inline from a fresh read.
+  1. Devicetree binding documentation for the QMP UFS PHY
+     used on Qualcomm Hawi.
+  2. Devicetree binding documentation for the UFS controller
+     instance present on the Hawi platform.
+  3. Initialization sequence tables and configuration required
+     for the QMP UFS PHY on Hawi SoC.
 
-Have a good weekend
+---
+changes from V1
+1) Addressed Dmitry's comments to fix versioning for PCS and qserdes.
+2) Addressed Mani's comments and fixed missed compatible string and
+   binding name correction.
 
-Jonathan
+Palash Kambar (3):
+  dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add Hawi UFS PHY
+    compatible
+  scsi: ufs: qcom :dt-bindings: Document the Hawi UFS controller
+  phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
 
+ .../phy/qcom,sc8280xp-qmp-ufs-phy.yaml        |   2 +
+ .../bindings/ufs/qcom,sm8650-ufshc.yaml       |   2 +
+ .../phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h    |  24 +++
+ .../phy-qcom-qmp-qserdes-txrx-ufs-v8.h        |  37 +++++
+ drivers/phy/qualcomm/phy-qcom-qmp-ufs.c       | 140 ++++++++++++++++++
+ 5 files changed, 205 insertions(+)
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
 
-> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
-> index 003431798498..f35e060b3643 100644
-> --- a/drivers/iio/dac/Makefile
-> +++ b/drivers/iio/dac/Makefile
-> @@ -18,6 +18,7 @@ obj-$(CONFIG_AD5446) += ad5446.o
->  obj-$(CONFIG_AD5446_SPI) += ad5446-spi.o
->  obj-$(CONFIG_AD5446_I2C) += ad5446-i2c.o
->  obj-$(CONFIG_AD5449) += ad5449.o
-> +obj-$(CONFIG_AD5529R) += ad5529r.o
->  obj-$(CONFIG_AD5592R_BASE) += ad5592r-base.o
->  obj-$(CONFIG_AD5592R) += ad5592r.o
->  obj-$(CONFIG_AD5593R) += ad5593r.o
-> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
-> new file mode 100644
-> index 000000000000..9bb63030db95
-> --- /dev/null
-> +++ b/drivers/iio/dac/ad5529r.c
-> @@ -0,0 +1,527 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * AD5529R Digital-to-Analog Converter Driver
-> + * 16-Channel, 12/16-Bit, 40V High Voltage Precision DAC
-> + *
-> + * Copyright 2026 Analog Devices Inc.
-> + * Author: Janani Sunil <janani.sunil@analog.com>
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-
-Generally don't include this in drivers unless you actually use
-stuff in that header.  dev_printk.h etc are preferred.
-
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/reset.h>
-> +#include <linux/spi/spi.h>
-> +
-> +#define AD5529R_REG_INTERFACE_CONFIG_A		0x00
-> +#define AD5529R_REG_DEVICE_CONFIG		0x02
-> +#define AD5529R_REG_CHIP_GRADE			0x06
-> +#define AD5529R_REG_SCRATCH_PAD			0x0A
-> +#define AD5529R_REG_SPI_REVISION		0x0B
-> +#define AD5529R_REG_VENDOR_H			0x0D
-> +#define AD5529R_REG_STREAM_MODE			0x0E
-> +#define AD5529R_REG_INTERFACE_STATUS_A		0x11
-> +#define AD5529R_REG_MULTI_DAC_CH_SEL		0x14
-> +#define AD5529R_REG_OUT_RANGE_BASE		0x3C
-> +#define AD5529R_REG_OUT_RANGE(ch)		(AD5529R_REG_OUT_RANGE_BASE + (ch) * 2)
-> +#define AD5529R_REG_DAC_INPUT_A_BASE		0x148
-> +#define AD5529R_REG_DAC_INPUT_A(ch)		(AD5529R_REG_DAC_INPUT_A_BASE + (ch) * 2)
-> +#define AD5529R_REG_DAC_DATA_READBACK_BASE	0x16A
-> +#define AD5529R_REG_TSENS_ALERT_FLAG		0x18C
-> +#define AD5529R_REG_TSENS_SHTD_FLAG		0x18E
-> +#define AD5529R_REG_FUNC_BUSY			0x1A0
-> +#define AD5529R_REG_REF_SEL			0x1A2
-> +#define AD5529R_REG_INIT_CRC_ERR_STAT		0x1A4
-> +#define AD5529R_REG_MULTI_DAC_HOTPATH_SW_LDAC	0x1A8
-> +
-> +#define   AD5529R_INTERFACE_CONFIG_A_SW_RESET	(BIT(7) | BIT(0))
-> +#define   AD5529R_INTERFACE_CONFIG_A_ADDR_ASCENSION	BIT(5)
-> +#define   AD5529R_INTERFACE_CONFIG_A_SDO_ENABLE	BIT(4)
-> +#define   AD5529R_REF_SEL_MASK			BIT(0)
-Often when it's a single bit we don't call it MASK, but instead express
-what the value with the bit set means.
-
-> +#define   AD5529R_MAX_REGISTER			0x232
-> +#define   AD5529R_8BIT_REG_MAX			0x13
-> +#define   AD5529R_SPI_READ_FLAG			0x80
-
-> +static int ad5529r_reset(struct ad5529r_state *st)
-> +{
-> +	struct reset_control *rst;
-> +	int ret;
-> +
-> +	rst = devm_reset_control_get_optional_exclusive(&st->spi->dev, NULL);
-> +	if (IS_ERR(rst))
-> +		return PTR_ERR(rst);
-> +
-> +	if (rst) {
-> +		ret = reset_control_deassert(rst);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		ret = regmap_write(st->regmap_8bit, AD5529R_REG_INTERFACE_CONFIG_A,
-> +				   AD5529R_INTERFACE_CONFIG_A_SW_RESET);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	fsleep(10000);
-
-Comment on why this value - typically a datasheet reference.
-
-> +
-> +	return regmap_write(st->regmap_8bit, AD5529R_REG_INTERFACE_CONFIG_A,
-> +			    AD5529R_INTERFACE_CONFIG_A_SDO_ENABLE |
-> +			    AD5529R_INTERFACE_CONFIG_A_ADDR_ASCENSION);
-> +}
-> +
-> +static int ad5529r_read_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	struct ad5529r_state *st = iio_priv(indio_dev);
-> +	unsigned int reg_addr, reg_val_h;
-> +	int ret, range_idx, span_mv;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		reg_addr = AD5529R_REG_DAC_INPUT_A(chan->channel);
-
-Sashiko made an interesting point here about whether the readback register
-makes more sense here. I think not but maybe we should add a comment on
-why.  My understanding is we are only dealing with the A value of the
-toggle for now and this therefore always reflects the value set.
-
-> +		ret = regmap_read(st->regmap_16bit, reg_addr, &reg_val_h);
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = reg_val_h;
-> +
-> +		return IIO_VAL_INT;
-
-
-> +
-> +static int ad5529r_find_output_range(const s32 *vals)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(ad5529r_output_ranges_mv); i++) {
-	for (unsigned int i = 0; ...
-
-> +		if (vals[0] == ad5529r_output_ranges_mv[i][0] * 1000 &&
-> +		    vals[1] == ad5529r_output_ranges_mv[i][1] * 1000)
-> +			return i;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int ad5529r_parse_channel_ranges(struct device *dev,
-> +					struct ad5529r_state *st)
-> +{
-> +	int ret, ch, range_idx;
-> +	s32 vals[2];
-> +
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		range_idx = AD5529R_RANGE_0V_5V;
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &ch);
-
-Another sashiko one. Type is wrong. Need to pass in a u32 point. In practice
-unlikely to be a problem but lets match what is expected.
-
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Missing reg property in channel node\n");
-> +
-> +		if (ch >= 16)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "Invalid channel number: %d\n", ch);
-> +
-> +		if (!fwnode_property_read_u32_array(child,
-> +						    "adi,output-range-microvolt",
-> +						    vals, 2)) {
-
-Here I think it is deliberately reading into signed storage.  Add a comment on that.
-Might get the bot to leave it alone ;)  ARRAY_SIZE(vals) instead of 2.
-
-> +			range_idx = ad5529r_find_output_range(vals);
-> +			if (range_idx < 0)
-> +				return dev_err_probe(dev, range_idx,
-> +						     "Invalid range [%d %d] for ch %d\n",
-> +						     vals[0], vals[1], ch);
-> +		}
-> +
-> +		st->output_range_idx[ch] = range_idx;
-> +		ret = regmap_write(st->regmap_16bit,
-> +				   AD5529R_REG_OUT_RANGE(ch), range_idx);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to configure range for ch %d\n",
-> +					     ch);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int ad5529r_debugfs_reg_read(struct ad5529r_state *st, unsigned int reg,
-> +				    unsigned int *val)
-> +{
-> +	return regmap_read(ad5529r_get_regmap(st, reg), reg, val);
-> +}
-> +
-> +static int ad5529r_debugfs_reg_write(struct ad5529r_state *st, unsigned int reg,
-> +				     unsigned int val)
-> +{
-> +	return regmap_write(ad5529r_get_regmap(st, reg), reg, val);
-> +}
-
-These two helpers don't seem worth having over putting the calls inline.
-Particularly as both are getting the regmap.
-
-> +
-> +static int ad5529r_reg_access(struct iio_dev *indio_dev,
-> +			      unsigned int reg,
-> +			      unsigned int writeval,
-> +			      unsigned int *readval)
-> +{
-> +	struct ad5529r_state *st = iio_priv(indio_dev);
-> +
-> +	if (readval)
-> +		return ad5529r_debugfs_reg_read(st, reg, readval);
-> +
-> +	return ad5529r_debugfs_reg_write(st, reg, writeval);
-> +}
-
-> +static int ad5529r_probe(struct spi_device *spi)
-> +{
-> +	struct device *dev = &spi->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct ad5529r_state *st;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	st = iio_priv(indio_dev);
-> +
-> +	st->spi = spi;
-> +
-> +	st->model_data = spi_get_device_match_data(spi);
-> +	if (!st->model_data)
-> +		return dev_err_probe(dev, -EINVAL, "Failed to identify device variant\n");
-> +
-> +	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(ad5529r_supply_names),
-> +					     ad5529r_supply_names);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to get and enable regulators\n");
-> +
-> +	ret = devm_regulator_get_enable_optional(dev, "hvss");
-
-Sashiko spotted this.   Try dropping hvss from your dt and see what return value you get.
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to get and enable hvss regulator\n");
-> +
-> +	st->vref_regulator = devm_regulator_get_optional(dev, "vref");
-> +	if (IS_ERR(st->vref_regulator)) {
-> +		if (PTR_ERR(st->vref_regulator) != -ENODEV)
-> +			return dev_err_probe(dev, PTR_ERR(st->vref_regulator),
-> +					     "Failed to get vref regulator\n");
-> +		st->vref_regulator = NULL;
-> +	}
-> +
-> +	if (st->vref_regulator) {
-> +		ret = regulator_enable(st->vref_regulator);
-If you aren't going to use it except to enable, use
-devm_regulator_get_optional_enabled() and a bool flag.
-
-Sashiko had a comment about the oddity of not reading the voltage, but I think
-that's fine as the datasheet seems pretty insistent it must be 4.096V to work
-correctly. Bit odd as it also provides a range of values.  Ah well.
-Perhaps add a comment somewhere to remind us of this assumption.
-
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to enable vref regulator\n");
-> +
-> +		ret = devm_add_action_or_reset(dev, ad5529r_disable_regulator,
-> +					       st->vref_regulator);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to add vref regulator cleanup\n");
-> +	}
-
-> +
-> +	ret = regmap_update_bits(st->regmap_16bit, AD5529R_REG_REF_SEL,
-> +				 AD5529R_REF_SEL_MASK,
-> +				 st->vref_regulator ? 0 : AD5529R_REF_SEL_MASK);
-
-regmap_assign_bits() using a flag for vref presence as mentioned above
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to configure reference\n");
-
-
-> +static const struct spi_device_id ad5529r_id[] = {
-> +	{ "ad5529r-16", .driver_data = (kernel_ulong_t)&ad5529r_16bit_model_data },
-> +	{ "ad5529r-12", .driver_data = (kernel_ulong_t)&ad5529r_12bit_model_data },
-.name =  
-
-Might be long enough you need to do.
-	{
-		.name = ....
-		.driver_data = (kernel_ulong_t)&...
- 
-> +	{ }
-> +};
-
+-- 
+2.34.1
 
