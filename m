@@ -1,112 +1,177 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5E23A1CE6
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3533A2571
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779456027; cv=none; b=HnsJ7b1w5WQmJOMkNq7U6kwFI/jPWdJRndnNNXSzHhWZ/I7JvPqfzu1Hwuj9ob7wQOPHGRk+WfwUDCXgir9bnjbb+bnYh5WAvkhpG28U4XSqa2OX9bB2P2BKMCmH70fwq99CXedKVkCC3qjKVibLFQJz2WWQTZpFS1dl+t0wkKk=
+	t=1779456038; cv=none; b=CAhOneQBw016PyCBULeK9EfZSasYZYF/NGt3Z1uiQpKxVGPbWzzgjiY9/hrmwcGaTg661WrwsbfGr5TMgcxjT9sXfDF92ElrmQ/aU1Mb2/KohxqARjegjan0sNVAExI9c8PQgJojWP8Iq/qVxRWFJrcaaaC8TO+ZCE+OoHuoKZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779456027; c=relaxed/simple;
-	bh=P3LYmZ7DJ6jiTlG0wZUwYnVm6oDbKtlScDzsiVFvWrw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MB7OirRLS7uLMAUGvwEadDTkla34g4C+DB5pjQTZitUyC/zEa9qY818ipHYhps5Iqo2uL/VD0PoCeUyf8kIEABCMEwGb03Lj7AzTAlqgnd549YAk5qUqn4rkq5/+edhR6idVQ9/d7GoZ3YC7V/75XLJ1GhRJ9JFHCCm4iPicxCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1779456038; c=relaxed/simple;
+	bh=TOo6XCjBObu1Ex+qKuQtLT/Ppt0YzA1oPbT39hjy8qE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ET5a5lASXRUUZLE5TSt6nimDfo1/gvbas1uX8pbPm0rViPnUxnKT2OvFgdJCaZ/BAK+c/0/nmW5IW+pnLUk8SwX1Shw4MZziWBzxMIl4tMjHqrcRUmVcxdqxFRfWK9CJDvYedSLjS29xoUTmUumYzGgC3KWYAvlHUW80RxeMVck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S09c/8NI; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-bcd0111ea98so1078028966b.1
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:20:25 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S09c/8NI"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-45e9f4a3510so1434702f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:20:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779456036; x=1780060836; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1qLGD+d59NtgQVVpwJfCXZu6HhFLlAFnjmTwdInD0HI=;
+        b=S09c/8NI4XUSRspjP8Ok1rHUIMBsQ/kXZZmYytyIZkU2+t4r63JC7oaMED+WlnoOfH
+         EbWC14x8oGBymqvxn6L+5bdulKVpIxcwvdZmbK6JSALchZJfxXMQx9RCTV3d4r8WXzJJ
+         S6Egv9dj4IbhboptLrCx8g7zOwn5SWOrnTXmC4EHifjl2nSTkCTQ28tw225E5rNy2AkX
+         5f1P/DHzxfNRzhKJ+9kbEb2m6ZaboG89KhiFJxhFHwtJewH+ef0cKnlCyzF9r5vQ75W4
+         EtYNA8U4COTaBGiPxbgf3XEMJe8Sju6aAHw5TNVxzJm8jrNjEvxe4/+2zivhBJ5ucUgd
+         SRyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779456024; x=1780060824;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1779456036; x=1780060836;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rof2e6OjGUUG+ZoOg7L3bn2avl1gX+MuD7fzpYfe/9c=;
-        b=ZEmzL0u8Omr6WR8FE/B/ifFhrzfpkdObugq2pD9Y4DRFrK2lVLkwGNfVGBRtaaa83d
-         hqttYeQB/xx4LSv0HanF9IiTRHAxSziQfKyTpmYuP5GlFNjYNMSfZnJp1Say5UKgNuea
-         oFqaURwK1i+HGRuEvfczyrVbJgfkuJhlt7qVCw3WnsZicEVMS50wPtaQ8MP50nPkBQRK
-         E13mAR+T4GY+jCA5k+lEu812FiL+ohAqdTRynXgU30RwzvuEXWfx9/a0vYOYUbPvaD0U
-         K6rpwNYc+JDDBjV0iuHO731Ho8TGf3U5+iYI2/x9l/mzJ7cRf3x0Vsf20gE+SWLyFglB
-         ZE8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/CjvdJOHjosbqVPwUM+920CLNc6nAxBM+1W5KCRr88hJOM7A+WazVOHS02U4P7iu2oikI4VjMfOefK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxWaRAUmPR79Yod3Yg8i6iQLOPcsL3YAlmUtzfAZiP6/vVa2HQ
-	CXjMftF0Ka6UPxcXxDt2dIp+DNk63CdebhLfnUMS921SiBPUmLx3arE77O4cm42qQTg=
-X-Gm-Gg: Acq92OE8CLmeIyR4aijvyT5J7ni8359u7ag2V3/xueHEUf7oumpCMcNSRcv5uxoOiV5
-	+N9De1wjgbQsLYGMBGlQkRD9Fjyr3e0nuwcQku9BPwO6YuUfcxBe0T7uC4pjNmOhJG0o2axWDKy
-	Ra2QFwnAA6oguaZ7URUIKH9v+fq3vuihwLQGjs4tp2vcLDbV+CIXrqPwAwpIsNopIpIfDMVGiIm
-	SZZRbDUYKqd/BAte2agi1iDV/LvzSkVqV9Jao5giSEh9kNX/nI0g0x9OEHioUgmdLNTpgN2wcMp
-	TZCIJrOm/GYesRzHfvBerD+wnVaK9cr1kiLHxML74MP3Ko7qzjN7nCaAfC3mKqm3n5TOo82PmOr
-	J3jfBBD22UyH2CqxB6kfSM8oZxpX8WIIN0gK0L4hdUT37HuQfLMPvNd8dYJD7zOxRbIYTXPpzMe
-	Y8sDHD5jZdloHj2yXa7RklC4WxTyMUQUF6HmcYIivlxAMO3KfBqGOmxYYq1XsF
-X-Received: by 2002:a17:907:7382:b0:bda:f14:43e2 with SMTP id a640c23a62f3a-bdd2a408f8emr180273166b.26.1779456023949;
-        Fri, 22 May 2026 06:20:23 -0700 (PDT)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com. [209.85.208.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc264d996sm56494966b.13.2026.05.22.06.20.22
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 06:20:22 -0700 (PDT)
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6870f904c6bso5816379a12.0
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:20:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9rJDys2o9Aq82IpCwt0C4rJMogfwGu2dhCYkzlZUmfDyoMr2NuO0FgFQfZhlLF1qGA3jrNXrbsMPDA@vger.kernel.org
-X-Received: by 2002:a05:6402:538b:b0:688:34c4:e8cc with SMTP id
- 4fb4d7f45d1cf-6889c43eb03mr1886593a12.6.1779456022655; Fri, 22 May 2026
- 06:20:22 -0700 (PDT)
+        bh=1qLGD+d59NtgQVVpwJfCXZu6HhFLlAFnjmTwdInD0HI=;
+        b=G6/IQGnOCz/L1c104rJTnvJhNiSnoWnpgJUV6cNE2PZIoapl14qJTfksR/7w08TLpa
+         hmJGX97tRung2OFhSZhjLZHvInuuNfktliZgGJM2CwFJs/bsQonwzuMPtb6OWodiNDIF
+         aR9T6uwKKfPObD4CUVdLGgGsW4c3zWfGclU12/DJ+EegR+yU/lioZjfS4u9G4MP7fsMw
+         Jv9ebEhIw+IX/6nCiFDbJ1wuCOgdnmiUFh07uBw2LekIac9Xnz82V20KE+qoEAZCs0sj
+         M+kbMg2GVW81DewKYjtPcChuOEeftSSbix24AQUG1zjadjz8Bn0eLjWbKM8Cr1x4i0hX
+         QHaA==
+X-Forwarded-Encrypted: i=1; AFNElJ8oH8ZyRCEWe3qZIwHvo9UKqjb2PGnHQjMikoUVr/5aRNr1sTV4JmCnrY45uDlEu5+1zDJ5YbPFLq/2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1gb5WoktuNSwh+a4EbOQ3w6Y9sEcmPtBwXdN9+praaTbDvT8+
+	SxOpNg6O8ZbEVxnTMtQdNwuLMTNVti5ZbLPdDpqkflZ0MHnLzysxZ3Fd
+X-Gm-Gg: Acq92OHKZWDy6+jTVVEGQLQwZX1wDXqaCxHi6/gZHV71UEt7z0Epa3fyhZ8mlkflD/n
+	+0vI5afGdtK+EyyDLigyH5bV0mMC47wfMLtXy2q/dO/bHAxqeOLZ5etwfR2YYgqj0lOBd5/LJyZ
+	hvs9XALWOe5NAk30j/y2KItSH/3bYZ0qUKLn77VTUjLbMWBb+XrA+3/H6padU0aRHqis/jmjHGG
+	7xeauGuT8776j7u9uaiLuGQQXHF9S2MVsiPry2XIaN9BS2QP4RkJr1jVoX7fEy/MN9HcP4/ncE3
+	l1tNp8KhbtVwMho3e26f/DNuumCXCHVaR4zTdeyOTd4wpY2E+Kz8NT+bSteI12xkW4XhlDi6WDl
+	5Y6XkkwXXQjMRU3tfFbEkN28ovQ31HNleaA/4LUvZYNgIKPZuFt2e4cZUWd5sHTO93am0Il87vC
+	LWPKDs3QnKwH+ztZPFX70TgRzLQl+XNTDRBRELrcVDpdLot5jKn6u5
+X-Received: by 2002:a05:600d:8494:20b0:48f:d1b8:9aaa with SMTP id 5b1f17b1804b1-490424a1628mr37558685e9.6.1779456035429;
+        Fri, 22 May 2026 06:20:35 -0700 (PDT)
+Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490454a0cd5sm52220755e9.10.2026.05.22.06.20.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 06:20:34 -0700 (PDT)
+From: Vitor Soares <ivitro@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Thierry Reding <thierry.reding@gmail.com>
+Cc: Vitor Soares <vitor.soares@toradex.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 00/11] arm64: dts: ti: k3-am62-verdin: Add display and peripheral overlays
+Date: Fri, 22 May 2026 14:20:13 +0100
+Message-ID: <20260522132014.226721-13-ivitro@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505034325.167797-1-marek.vasut+renesas@mailbox.org> <20260505034325.167797-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260505034325.167797-2-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 22 May 2026 15:20:08 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVbJ-SPK5wmA68bg-iF6mhaHx8gzxRK_co7E2w+BfaUNg@mail.gmail.com>
-X-Gm-Features: AVHnY4KgBi27n3nuGQlpIbkeEOVvo7gucNBwkT372ZXFKVfmiLEIJgWEfOyb6mI
-Message-ID: <CAMuHMdVbJ-SPK5wmA68bg-iF6mhaHx8gzxRK_co7E2w+BfaUNg@mail.gmail.com>
-Subject: Re: [PATCH 01/11] arm64: dts: renesas: salvator-common: Specify
- ethernet PHY reset timings
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 5 May 2026 at 05:43, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The KSZ9031RNX reference manual [1] DS00002096H page 60 FIGURE 7-7:
-> POWER-UP/POWER-DOWN/RESET TIMING Note 2 states, that after the
-> de-assertion of reset, wait a minimum of 100 us before starting
-> programming on the MIIM (MDC/MDIO) interface. Set DT property
-> reset-deassert-us to three times that, 300 us, to provide ample
-> time between reset deassertion and MDIO access.
->
-> The KSZ9031RNX reference manual [1] DS00002096H page 60 TABLE 7-7:
-> POWER-UP/POWER-DOWN/RESET TIMING PARAMETERS row tSR Stable supply
-> voltages to de-assertion of reset is at minimum 10 ms. Set DT
-> property reset-assert-us to 10ms because the KSZ9031RNX RM does
-> not explicitly spell out how long the reset has to be asserted,
-> but this at least covers the worst case scenario.
->
-> [1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031MNX-Data-Sheet-DS00002096.pdf
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+From: Vitor Soares <vitor.soares@toradex.com>
 
-No regression on my Salvator-X(S) collective, so
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+This series adds device tree overlays, expanding the hardware support for
+the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
+and peripherals available through Toradex carrier boards and the accessory
+ecosystem.
 
-Modulo the document references:
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+Display additions cover three interface types:
+- native OLDI (LVDS) with Toradex Capacitive Touch Display 10.1" LVDS
+- DSI-to-LVDS adapter based on the SN65DSI84 with Toradex Capacitive Touch
+  Display 10.1" LVDS
+- DSI driving Toradex Capacitive Touch Display 7" and 10.1" DSI.
 
-Gr{oetje,eeting}s,
+The Riverdi vendor prefix and panel bindings required by the DSI overlay
+patches are also added.
 
-                        Geert
+Non-display additions include OV5640 CSI camera support in 24 MHz and
+27 MHz oscillator variants, NAU8822 Bridge Tied Load mode on the
+Development Board, MCU_MCAN1 on the Verdin AM62 Mezzanine board,
+and MCU_UART0 reservation for the Cortex-M4F debug UART.
+
+TI maintainers: patches adding the Riverdi vendor prefix and panel-lvds
+bindings are required by the DTS patches.
+Are you fine picking up the full series once those patches are acked by
+the DT/display maintainers?
+
+Thanks,
+Vitor Soares
+---
+Changes in v2:
+- Add Acked-by tags
+- Drop introduction of the LG LP156WF1 15.6" FHD dual-channel LVDS panel
+- Drop migration of "logictechno,lt170410-2whc" to panel-lvds.yaml
+- Link v1: https://lore.kernel.org/all/20260521150038.103538-17-ivitro@gmail.com/
+---
+
+Vitor Soares (11):
+  arm64: dts: ti: k3-am62-verdin: Add Toradex DSI to LVDS adapter with
+    10.1" display
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    10.1" LVDS
+  dt-bindings: vendor-prefixes: Add Riverdi
+  dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and
+    RVT101HVLNWC00
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    10.1" DSI
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    7" DSI
+  arm64: dts: ti: k3-am62-verdin: Add NAU8822 Bridge Tied Load
+  arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for Cortex-M4F
+  arm64: dts: ti: k3-am62-verdin: Add Toradex OV5640 CSI Cameras
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Verdin Mezzanine CAN
+  arm64: dts: ti: k3-am62-verdin: Add Mezzanine with Toradex Display
+    10.1" LVDS
+
+ .../bindings/display/panel/panel-lvds.yaml    |   4 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/ti/Makefile               |  49 +++++++
+ .../ti/k3-am625-verdin-dev-mezzanine-can.dtso |  28 ++++
+ ...mezzanine-panel-cap-touch-10inch-lvds.dtso |  97 +++++++++++++
+ .../ti/k3-am625-verdin-dev-nau8822-btl.dtso   |  14 ++
+ ...in-dsi-to-lvds-panel-cap-touch-10inch.dtso | 123 ++++++++++++++++
+ .../dts/ti/k3-am625-verdin-ov5640-24mhz.dtso  |  17 +++
+ .../boot/dts/ti/k3-am625-verdin-ov5640.dtsi   |  71 ++++++++++
+ .../boot/dts/ti/k3-am625-verdin-ov5640.dtso   |  18 +++
+ ...625-verdin-panel-cap-touch-10inch-dsi.dtso | 132 ++++++++++++++++++
+ ...25-verdin-panel-cap-touch-10inch-lvds.dtso | 119 ++++++++++++++++
+ ...m625-verdin-panel-cap-touch-7inch-dsi.dtso | 132 ++++++++++++++++++
+ .../dts/ti/k3-am625-verdin-uart4-mcu.dtso     |  13 ++
+ 14 files changed, 819 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-can.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-nau8822-btl.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640-24mhz.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtsi
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-ov5640.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch-dsi.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-uart4-mcu.dtso
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.54.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
