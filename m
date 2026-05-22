@@ -1,63 +1,63 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF494285041
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434DE382F28
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:07:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779430051; cv=none; b=BMZNX+II2CZN11S+5F4gbiM7TNH3SuIAxve80NH30TGai5JcU+eEQD8F6kXGZjcfBN30x0vXmMV0fQEuQrW/GuepWaethUSazCkloDwFoqrhG9mJYMIjbwIIAzNDWZW4zLXRA42QA4b1uOTVeh3fPHwZZ140rFqnrvz0X/HEmfw=
+	t=1779430057; cv=none; b=CFGunEt4xJF3xnu08hGdt7EPs2sNwFie93XxfUth8/2EvNehGvdj891tmr1uCoSHcG295u29WFBKNdbvKddb+B1QuLb8IggIgbufZIxgDBjiYrsxDuQn0C97CNN34wmHGHt9xMBDIHgRNyr7hhUCkuzni8zysXGV/e8EZG3UbMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779430051; c=relaxed/simple;
-	bh=qFXBmmvUeTK1exabxEjnNxEYc9NefmCZrUqDcKd9UHk=;
+	s=arc-20240116; t=1779430057; c=relaxed/simple;
+	bh=/I7WuYR6MH/DwUP9up6B//pZnATesBLUuziLXAJIHF8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y5aPW0+Ej4YNSXILC4JKK4E00Hf1DeDdt9dBCxAIW/Hdgqn+xQUvgUmmpen/5Ka24eDStQ40C5Q47wsqeCX4nuU0eUELq0lIFQT9EWdOpH8UvW4dy+io4Q7Ycpn/7UJhsvkwp064v3dH1FsqNPsr8HeNorzkE7lb3OccmUH+1Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tDHH6ryC; arc=none smtp.client-ip=209.85.216.54
+	 MIME-Version; b=pbpzU6Mtq8ULHiSoo+6w3fScpzcQhDQ1xwWQ+DQXXqNwZPL3Pvo83JKlN01Dx79kaXyT/Fc2BAQ2E1UrV92UBMcahKHPFriMEzqs6lqP5nxXPH43dt8GMvMIFPiseYnTl3/xAwkJvsfYbP92b6gvlzJSbtF4lvUKaQbTo8sWTOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IM0YKZhM; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tDHH6ryC"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-36974220e45so2943110a91.0
-        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 23:07:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IM0YKZhM"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36a7bbb9698so71909a91.2
+        for <devicetree@vger.kernel.org>; Thu, 21 May 2026 23:07:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779430049; x=1780034849; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779430055; x=1780034855; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NXHEsP6MIsIy0oSjkFIfzW+qvl+16XTQ6Ealt2erRAM=;
-        b=tDHH6ryCDW4kDmZE3/UEbTtq66FBojELhpUQWL044sqnvfmCkfdF2ugIV53BM4RLyw
-         NeESeAvshAmIrukTP64lx+RiYswE/uzUjxP7TbXuwa64v22z0epaRLbcTc18vZ3NG3YG
-         ryoUy7DxzG2pNHx5LhAJ6WERaRpy3zpC6qvYvO/pR2czJvX1WRoWjUw9KUqCfmjyeHny
-         2awzxxLnPVz9m5wL83+M+gfAnCN+J9ZMvqrcTowILST0uWsVuzbpDZgapvqyBWL0yh2p
-         qdQKBfS4ic/F5MuwdUH0V6kPuJ2zVzKZvQ1HTKyHaj49bYDxi+7hvD7ehEDPmuCPwq+x
-         BQNQ==
+        bh=0GxXWPb5b7IE1WF73BuquobJeXJY1I1vTx7dwyLAryI=;
+        b=IM0YKZhMO0xiZohYIxkgz5yMTixAWoG867iyXV30gkhhoakHUocUI98v9zKMWHUEUG
+         CkSPn9OoCrag5WW0+gA2ley4knveFGmOwcU9o69C0nt+m/oA3zUiW8TVx1kzPFkycRfn
+         PgU9hBDNI8i9QtpaVE1nUzCgQl2+Zf2XwovuJmrcgVHIw0My3jXl5sLIXLfAW+y2XaPR
+         TysIS2UCWBXReFA1Q8WEw+Yg5Vlrk5WCr+Ua+Dbk7M7/YPKjq551ahDclH5IM2VZbQPd
+         gn5qUjvszCjOX+myMMDN/05rVzRrFjrZ8T/GvWJAfUZFuwkwd2QZIPvwWBmvsz04KKvs
+         i3LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779430049; x=1780034849;
+        d=1e100.net; s=20251104; t=1779430055; x=1780034855;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=NXHEsP6MIsIy0oSjkFIfzW+qvl+16XTQ6Ealt2erRAM=;
-        b=sq8jpG6D4Mvd+h4T5hqzLY8E+3qGmm1lstV4xVjrR4Q2dR35qbY8YB85rdPzG8iUo7
-         8WFa5NqxnER6yq9O0L6BoCK36pnwq8fu7E0qMNzZZ6fUGyqEW18hvprG5QFDGwc4hq3A
-         V2hqucU90SBISDX8KbJPNb0b4u0i58jJrPjOURCfSsL4J5+GEPgqITi0vt54DyFHrM6Z
-         oppgkoVJTALqkvDSHMMs5yaZPzYFzlzVMK6CfgWf6itwlRLPS49ao1d+4YwVoL6I/he9
-         CzJjkwUXCYlZ9yHi/0GQcKrpSUHko2bU61INfRanuNqtJFNKXirK8y5HgtbNHNofUqu8
-         eCoQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8xi8y2tF3h8f1hYnRoMSER1PBKxaw4QtoWxZI1kdz3k9DncQUeRYypN/gd0U4QvMksYD0t3MdlxCpj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx7oFiquhLjAIedIhNh3fsQ2/xuzS7YDXiw6X2+OVMAS41DqE7v
-	1o1svzfeYz3jcAMple5yNXbjg6RtWUqamMYfXlyvrMlQbPnMG5mFJTRw
-X-Gm-Gg: Acq92OGr75Uri9Gld/6zGz5yxo7h8fpe+bJGuuzSWo/0XBZRoJDbTK2zAqwR/I8TcTI
-	+nsN4AL9ibCKJuxTlcIF+3rDYNB7jx7TLw2k+4SgmtE0VK/jtcEEGZ7Hfgo6eKbQGnFUeDXX8dJ
-	XgEc6+28hvY28+a+H6xg7znjUiOr8/JoSSL8r7TVLgdpCkgyKE1xsU8m7Mvb74zloAUbzjT8X4m
-	7JCuQ/5HrL5HfU3dwXUUtfPSGFq6LWib/saKTfP/Ou2N7x5na09eyjG+wl89mLweVNdkbnPobx0
-	pz6BHn8Q6oxP/JFNu9XaRdtjylQhXC0u+njBI5ELHvnv20kZOeVJ6vZ3C9vLfmYnyuo/8dX/L/8
-	4YylJ2OserJx/x9AXRmd5hj8xBJEnJnC/pG2ia3lG9E0bYB/XMhGMP7/jceP9w1nN2d8OY7ZROI
-	qb1qZKxOPOUqSWBeueTKHIskuDmW4atNBn6U+ZWj/40xLkj37CO8znNg8mTbcYpQ8XtA==
-X-Received: by 2002:a17:90b:6c8:b0:368:7398:df8a with SMTP id 98e67ed59e1d1-36a473cccc4mr5285786a91.4.1779430049070;
-        Thu, 21 May 2026 23:07:29 -0700 (PDT)
+        bh=0GxXWPb5b7IE1WF73BuquobJeXJY1I1vTx7dwyLAryI=;
+        b=GTKKExDpAiLAWfcOUpem3oujMidZ/2Br4fb+kDy21230zLVhx4QB4tpWGwe5rwCuFA
+         Jzzy6pcUdXCDzRlBga8AS2d5dg+dee9KYCT4XMiuAhmvjWQ1G9iARk5Z8dpaJNDBTdFw
+         qu/heTsN6xKH5cLQGH5FyIQaQC2duDJHzXHHnmeojhVN4B6n4thSafI72IzLTbAkvzN6
+         jGaDlygFxD+jhRnqyUXnpoFLSHVY8fZ8h4nvPAtkezgnQjF1WUWB4H1EprCSX/P2JyYs
+         hWaILZyNyArBWAUwabNOQYNWp7M2efFG9M+Zd1YNfHpDVEIIin1H9+EuvdzBsgXc9Xr9
+         kfYw==
+X-Forwarded-Encrypted: i=1; AFNElJ9egc2s96M5FL7BjmqQ7b9pc1MzOcmfxNbysf1wuWVKpffNauyV/BF2x3+2XQmz8YL1eU2KUtN+HXbf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxm71oBxcziryAtWU5FsqfCzoxgCYQ9TSWZUGIRMCjSVfp0EFYx
+	KOqRUdxwSnYMTMijBZCdKwbXgmSCiYuzmBq5j8u646ZcoFC28Xwh+4+U
+X-Gm-Gg: Acq92OHNM+PlSYbddqfecQc6mENdSvXNO2VcNkqp51stFLd4tIk3wxcKGoTsNia5C7w
+	iOCRQ+YkLsDABILq3y9rjr+7k2ZCLcQtcXCPeaq7GFgrm3tWwZoeUe0JwyPDubvH//TfdpodlEk
+	byikDRxBSbfaicDWReG7D11AzncecIjWr/JrOhuv/aca1WQykTDe3HETYl6k2MJ0eDuLax5rPdy
+	LpC4Vop7zDzoF2yNsUnCbW72Rc8x0w+XSqKgQv/1cxnwYJdav1yClF7tEIBs+YtdC4uSfZGottw
+	od/atbwaXWV0bo9rCpn79egitt1bMRi/xok1OMsy2yEzUloaXannEG34d7wdD8NnyHj/nybAU4e
+	SpEIxeOmMrJumseg94WU7vRkHRXMby44M4tAWZT9/iLS2/7XaqXh58VrMl52h9gvLAOa33nb8BR
+	3uTYLWHYwiMd4SuAa9nbui0+A43ZiIysP7uPc7mDSCDxfJHzIzP7+2bRpTOZSJ5033lg==
+X-Received: by 2002:a17:90b:270e:b0:362:e826:cefe with SMTP id 98e67ed59e1d1-36a67697a77mr2327977a91.23.1779430055466;
+        Thu, 21 May 2026 23:07:35 -0700 (PDT)
 Received: from radxa (122-58-25-162-adsl.sparkbb.co.nz. [122.58.25.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a7212aa06sm428572a91.3.2026.05.21.23.07.24
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a7212aa06sm428572a91.3.2026.05.21.23.07.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 May 2026 23:07:28 -0700 (PDT)
+        Thu, 21 May 2026 23:07:35 -0700 (PDT)
 From: Graham O'Connor <graham.oconnor@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: andersson@kernel.org,
@@ -72,9 +72,9 @@ Cc: andersson@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Graham O'Connor <graham.oconnor@gmail.com>
-Subject: [PATCH 3/6] drm/msm/dp: Limit voltage swing level to 2 for RA620 bridge
-Date: Fri, 22 May 2026 18:06:42 +1200
-Message-ID: <20260522060645.4399-4-graham.oconnor@gmail.com>
+Subject: [PATCH 4/6] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: Add regulator supplies and disable EUD
+Date: Fri, 22 May 2026 18:06:43 +1200
+Message-ID: <20260522060645.4399-5-graham.oconnor@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260522060645.4399-1-graham.oconnor@gmail.com>
 References: <20260522060645.4399-1-graham.oconnor@gmail.com>
@@ -86,35 +86,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RA620 DP-to-HDMI bridge used on the Radxa Dragon Q6A does not
-acknowledge DP link training at voltage swing level 3. The bridge
-requests maximum voltage swing but never completes link training
-when the driver attempts level 3, causing HDMI output to fail.
+Add missing regulator supplies for qfprom and the PCIe controllers.
+The qfprom node requires vcc-supply for correct eFuse reading. The
+PCIe controllers require vdda and vddpe-3v3 supplies for the PHY and
+connector power rails.
 
-Cap DP_TRAIN_LEVEL_MAX at 2 to match the behaviour of the vendor
-kernel, where link training completes successfully at level 2.
-This allows the RA620 bridge to establish a stable HDMI connection.
+Disable the Embedded USB Debugger (EUD) as it conflicts with normal
+USB operation on this board.
 
-Tested on Radxa Dragon Q6A (QCS6490) with RA620 DP-to-HDMI bridge
+Tested on Radxa Dragon Q6A (QCS6490)
 
 Signed-off-by: Graham O'Connor <graham.oconnor@gmail.com>
 ---
- drivers/gpu/drm/msm/dp/dp_link.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../dts/qcom/qcs6490-radxa-dragon-q6a.dts     | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-index 76125e9c0..ff0d8e99d 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.h
-+++ b/drivers/gpu/drm/msm/dp/dp_link.h
-@@ -24,7 +24,7 @@ struct msm_dp_link_info {
- 	unsigned long capabilities;
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+index bb5a42b03..4003837ad 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+@@ -1093,3 +1093,23 @@ &sdc2_data {
+ 	bias-pull-up;
+ 	drive-strength = <10>;
  };
- 
--#define DP_TRAIN_LEVEL_MAX	3
-+#define DP_TRAIN_LEVEL_MAX	2
- 
- struct msm_dp_link_test_video {
- 	u32 test_video_pattern;
++
++/* Provide required regulator supplies for qfprom and PCIe controllers */
++&qfprom {
++	vcc-supply = <&vreg_l1c_1p8>;
++};
++
++&pcie0 {
++	vdda-supply = <&vreg_l1c_1p8>;
++	vddpe-3v3-supply = <&vreg_bob_3p296>;
++};
++
++&pcie1 {
++	vdda-supply = <&vreg_l1c_1p8>;
++	vddpe-3v3-supply = <&vreg_bob_3p296>;
++};
++
++/* Disable EUD as it conflicts with USB operation */
++&eud {
++	status = "disabled";
++};
 -- 
 2.53.0
 
