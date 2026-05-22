@@ -1,295 +1,233 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BA833987F
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 14:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374634219E4;
+	Fri, 22 May 2026 14:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779461186; cv=none; b=eXJYn+RSsm+BeTPvkO/KtjLZqHzGn7tqekslYdrQjrTXjH2pNy4dNczuhwZ7OYbm2fBrlpeO1K530hW+WyW1e7H3zMkEK7ICejwm4l/WSz5ke7M8L6dbf8vinbfYxGZMLjCm+jAQL8eQnfQ8xr0u25Vg14EfDGfj5+2LgSZjHaQ=
+	t=1779461279; cv=none; b=KuuPyJ0YDsYXqBfT92h9N9GYslOvOEmq9p9EzqM/MuTTYahBWMXR4Lkhc4hYMMt/y96JqQ7TuZg79G28uk0M6TLflh3XSRsU3/o/PGNTyuA+Al9052DGc11hH+/zpFKFJBk1xN/Vq8FAl339tuWBsISRJ9d7sFOwoyltsauGHuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779461186; c=relaxed/simple;
-	bh=qoLnYPJqnHUVZXd8RXxjoQBFw/TAaSr7XQYY2BSu/bg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=i2uD0TuXGwycGAQD4cVhowbkz6DydFNsNH1AdPOUHuN6/HLc7kqo2eON9Y/4pqCPBJDU8J+B9JBBiY5h/HNxKTAg+hT6D1jURmZKABv9P4BzAxqwxydoSH9D6OQbwbVcS4jYSejPjFLN14CBRwwqJvGYaNhP4IYvYNkf27it45M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=u5N5Oy57; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1779461279; c=relaxed/simple;
+	bh=Ohgs1iVDINRnJHGU8dJ4OGndiqK/ImJ5U77RhKBgEuQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BOOBBrIDaYkUOvX93fWUCeKXPep+6IBoBdA9kf6CYrXn/+vDHIpVKBFjdQY0CRRt1Pd1iyBUi7/xJwI2nptHNiogkiqH6TtYkWh5EqrQOrzmIOMqxJrauS01WgoTLpsARa8594tA5TMae2MowkFpJHMSKMFmyvWcukuL1Xe4Gck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZFWaCwcV; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="u5N5Oy57"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b936331786dso951714266b.3
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 07:46:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1779461183; x=1780065983; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VGAwIuoj5JvRKNrPuvWOwKjLuq0UQO0ceZvzFpGZvlY=;
-        b=u5N5Oy57vwLrbKJSnZYz/7tQLXSkpkjZaNJHbwoJWSoU0REFryn84yyhKsSVvaoFZQ
-         STJ8CCGVrzHlR6U9kyp6Y1f/SVnMYC5IiM52uk3RcjV5WV8uLnruNrDZjgjr4rW+lSfh
-         9whWfB4DBE7D7mCMB3y6UMw6m1K71rAhdc1gvWp+MYdG+33Z+vqy+K2i3Lo9h8mHbeCn
-         9wBqyMsyYSbwhUH2rvksmLnUNIWFwoXsHeJTJVon+aSN0iRmQix3I227dGlWtXHhKcuZ
-         fNpu9KCBNfCGM3R2dUPfRciD8bz4PSkrxVrkOODy26IK7CreK/TJYNbuOYcFXDSrjd8Y
-         Pu2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779461183; x=1780065983;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VGAwIuoj5JvRKNrPuvWOwKjLuq0UQO0ceZvzFpGZvlY=;
-        b=Rq9oNb8IWTA3zZnidA+IpWieJHx6zfv5eGA33PFR0+3XlY+1O6k46ehuICwYp7t7XO
-         kp1fA/M3KYsV53CO0YFmnvcQpQEjMd7j5hJ5BUxrIEZ4eVLUu4LZ2rmmglFRVp1hqnzL
-         BAXJ9ccDzzwvyKjZSF9NdwL4Liue+Ne13unllqk5UkR+8JOr4NrwGEyTUx9bCP+1vPhO
-         wsRigwNh8daZ/Lpr1gzIdtiP7kHU7i8kZsBryq9W20zKVKFYUiBaNPDp0Lg08rGW5A3l
-         z6M1fSehAaS3lm04uWYB6dvefcEkOVFZ43sBDB4o1daqM70I/N0Pd4CWCarxLc/ZM/7h
-         UjMQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9VbczsklAifbGF/S8SFOXSNKHGc3SHVq5Cnu9LsjZdCUS/MEAQS5wUm/kpTH1c6RgvCYJZjPKvwamD@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxxt7G/gmHjkgxq0kW+Rd0yYLrrI74pOxV3+GrSOHeoPWeC0j8r
-	qg5m3XA/FR2M8w/hbDgJZQB0KbM47QCrV6fUBlfTbTwrwW9MDFzEqY4OhxDnMwOrkn8=
-X-Gm-Gg: Acq92OGZEiqkQAQdGLKUqIgrJZL8EMeBRHLhKwP4/bnXX+SEer358CyEK0oWtYFhamR
-	Z8QnycrWROI1GcfKbrPh68gXy3H5Q4KOfGFsXb8jW5Xzecz96ZpFihzljKxrcDrx33IdJpBXDSS
-	6vYv8At6N8n7E6xXketUllyoU9EKZwMQC17K4mLQ5IgqnzdDx3ZhYe5aP32DBZ23zz8U9ifNa+N
-	0txdFKkmo1JjdIeAGsnxjqMzXgK7ZzlV+Ya3dGoj7IXsTWhOU+6XMwatUQOcflqZru+agh318Vh
-	goTTkpkEvfLqCD6XuLGQz4jVjfzdaUf05TmI9INX1XCgYRNg2ZB1YqFmLgInQ2eEs9NaUNXidX2
-	dHyvnt/X7TwKSVNyOkaPMqRa7fNlKxckoVrlMKdWRR1zLrXnTcROfZ6njzHbKrSVbRjIPniQFPa
-	2cwkS7FTmtJSfBnTJM5xHshnSPq/o3Eon6en8W3EN/XyVg+NcDaa44L9vNpzCCglsUTpSb9ieAG
-	ccybQ==
-X-Received: by 2002:a17:906:8f15:b0:bd5:7a3:a58c with SMTP id a640c23a62f3a-bdd269b72cfmr257887466b.47.1779461182976;
-        Fri, 22 May 2026 07:46:22 -0700 (PDT)
-Received: from [172.16.240.102] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc69d78cbsm59587966b.61.2026.05.22.07.46.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 07:46:22 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 22 May 2026 16:46:21 +0200
-Subject: [PATCH] arm64: dts: qcom: kodiak: Elite-ify LPASS macros
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZFWaCwcV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1779461273;
+	bh=Ohgs1iVDINRnJHGU8dJ4OGndiqK/ImJ5U77RhKBgEuQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=ZFWaCwcVAvhZuTsFjf2NmvpWZaVMmQWx1858SJbOqatFxI4Jd6jN2SqDuEEG6oQ69
+	 wEH6IufPkdFT9kDtJ6Heww5PEYKoUcGSQMt09SEh1Q9dXr6zZDohg9cD91WAYnD7AY
+	 E3oG9WUSwRIwMVeOJqhIF5AfWQ/NY4HhiA2Kn1fqQl+sz48NCVYZF2tM/pSRv+87l8
+	 /PZDujQAeZVU6YjABrGONqha4k6Yvris9tasn5Ay4NHOODIyre0Y9DXhEjqUk5rzVN
+	 hkHarnrEd2g+n0hh6E2tRyJBN7qV5vm+YT3jP/GKywOvCFnl5jXDdOV9sqXBxVqED5
+	 NwUxjYKTBRYqw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D563717E03B9;
+	Fri, 22 May 2026 16:47:51 +0200 (CEST)
+Message-ID: <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and
+ VC8000E support
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Paul Kocialkowski <paulk@sys-base.io>, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,  Pengutronix Kernel Team	
+ <kernel@pengutronix.de>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
+ <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, Michael
+ Tretter	 <m.tretter@pengutronix.de>
+Date: Fri, 22 May 2026 10:47:49 -0400
+In-Reply-To: <20260522101653.2565125-1-paulk@sys-base.io>
+References: <20260522101653.2565125-1-paulk@sys-base.io>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-VKA4WxHE7ilxFEUvDLNz"
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+
+
+--=-VKA4WxHE7ilxFEUvDLNz
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Paul,
+
+Le vendredi 22 mai 2026 =C3=A0 12:16 +0200, Paul Kocialkowski a =C3=A9crit=
+=C2=A0:
+> This series introduces support for the V4L2 H.264 stateless encode uAPI,
+> core and support in the hantro driver for the Verisilicon VC8000E.
+>=20
+> While this is a first version that will likely need some level of rework,
+> it is already usable for most common use-cases and supports constant
+> bitrate rate-control.
+>=20
+> A GStreamer tree can be used to test the series at:
+> https://github.com/paulkocialkowski/gstreamer/tree/v4l2codecs/h264enc
+> And an example pipeline would look like:
+> gst-launch-1.0 videotestsrc pattern=3Dsmpte num-buffers=3D25 ! video/x-ra=
+w,width=3D640,height=3D480 ! v4l2slh264enc rate-control=3Dcbr bitrate=3D800=
+0000 qp-min=3D8 qp-max=3D42 ! h264parse ! matroskamux ! filesink location=
+=3Dencode.mkv
+>=20
+> Note that documentation for the new uAPI is intentionally left out of
+> this series since it has not yet received approval.
+
+The unfortunate part is that the spec is important for the actual review an=
+d
+interops analyses. That omission qualify this submission as RFC from my poi=
+nt of
+view. Any chances you can reply to this cover filling the blank for the few
+important bit (something similar but non spec style of:
+
+https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/dev-stateles=
+s-decoder.html#initialization
+
+- Querying capabilities
+- Initialization
+- Encoding
+- Dynamic Resolution Changes**
+
+The other sections are just going to be the same imho. The ** for the DRC i=
+s
+because H.264 is not that complicated, its intra only, so you can reset the
+encoder (use the drain flow). So that's probably something for future us
+(VP9/AV1). Adding your view on these topics (or just matching what you have
+implemented) will make review more constructive.
+
+cheers,
+Nicolas
+
+>=20
+> Marco Felsch (2):
+> =C2=A0 media: hantro: use hantro_decoded_buffer only for dst_vq
+> =C2=A0 arm64: dts: imx8mp: add VC8000E encoder node
+>=20
+> Paul Kocialkowski (12):
+> =C2=A0 media: h264: Add a more generic reflist builder init
+> =C2=A0 media: uapi: Add H.264 stateless encode support
+> =C2=A0 media: h264: Add SPS video definitions
+> =C2=A0 media: h264: Add stateless encode core
+> =C2=A0 media: h264: Add stateless encode rbsp
+> =C2=A0 media: h264: Add stateless encode reference management
+> =C2=A0 media: h264: Add stateless encode rate control
+> =C2=A0 media: verisilicon: Report default pixel coding for non-JPEG and f=
+ix JPEG case
+> =C2=A0 media: verisilicon: Cancel job with runtime pm put/clk disable on =
+failure
+> =C2=A0 media: verisilicon: Add common encoder parm and frameintervals ioc=
+tls
+> =C2=A0 media: verisilicon: Add support for the VC8000E H.264 encoder
+> =C2=A0 media: verilisicon: imx8m: Add support for the VC8000E on i.MX8MP
+>=20
+> =C2=A0arch/arm64/boot/dts/freescale/imx8mp.dtsi=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 11 +
+> =C2=A0drivers/media/platform/verisilicon/Kconfig=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0=C2=A0 1 +
+> =C2=A0drivers/media/platform/verisilicon/Makefile=C2=A0=C2=A0 |=C2=A0=C2=
+=A0=C2=A0 2 +
+> =C2=A0drivers/media/platform/verisilicon/hantro.h=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 17 +
+> =C2=A0.../media/platform/verisilicon/hantro_drv.c=C2=A0=C2=A0 |=C2=A0 180=
+ +-
+> =C2=A0.../media/platform/verisilicon/hantro_h264.c=C2=A0 |=C2=A0=C2=A0=C2=
+=A0 6 +-
+> =C2=A0.../media/platform/verisilicon/hantro_hw.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 28 +
+> =C2=A0.../media/platform/verisilicon/hantro_v4l2.c=C2=A0 |=C2=A0 123 +-
+> =C2=A0.../platform/verisilicon/hantro_vc8000e.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 68 +
+> =C2=A0.../verisilicon/hantro_vc8000e_h264_enc.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 883 +++++++
+> =C2=A0.../verisilicon/hantro_vc8000e_regs.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 | 2129 +++++++++++++++++
+> =C2=A0.../media/platform/verisilicon/imx8m_vpu_hw.c |=C2=A0 113 +
+> =C2=A0drivers/media/v4l2-core/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 4 +
+> =C2=A0drivers/media/v4l2-core/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 2 +
+> =C2=A0drivers/media/v4l2-core/v4l2-ctrls-core.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 62 +
+> =C2=A0drivers/media/v4l2-core/v4l2-ctrls-defs.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0=C2=A0 4 +
+> =C2=A0drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c=C2=A0 | 1173 +++++++++
+> =C2=A0drivers/media/v4l2-core/v4l2-h264-enc-rc.c=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 558 +++++
+> =C2=A0drivers/media/v4l2-core/v4l2-h264-enc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 1322 ++++++++++
+> =C2=A0drivers/media/v4l2-core/v4l2-h264.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 69 +
+> =C2=A0include/media/v4l2-ctrls.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0=C2=A0=C2=A0 2 +
+> =C2=A0include/media/v4l2-h264-enc-rbsp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 72 +
+> =C2=A0include/media/v4l2-h264-enc-rc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 108 +
+> =C2=A0include/media/v4l2-h264-enc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 135 ++
+> =C2=A0include/media/v4l2-h264.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 146 ++
+> =C2=A0include/uapi/linux/v4l2-controls.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 33 +
+> =C2=A0include/uapi/linux/videodev2.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 =
+1 +
+> =C2=A027 files changed, 7231 insertions(+), 21 deletions(-)
+> =C2=A0create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000=
+e.c
+> =C2=A0create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000=
+e_h264_enc.c
+> =C2=A0create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000=
+e_regs.h
+> =C2=A0create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c
+> =C2=A0create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc-rc.c
+> =C2=A0create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc.c
+> =C2=A0create mode 100644 include/media/v4l2-h264-enc-rbsp.h
+> =C2=A0create mode 100644 include/media/v4l2-h264-enc-rc.h
+> =C2=A0create mode 100644 include/media/v4l2-h264-enc.h
+
+--=-VKA4WxHE7ilxFEUvDLNz
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CMBBFr0Jm7SS0WmK4imFRylRHbCttMSSEu
- 1uF5Uvef3+FRJEpQVutEOnDiYMvIE4VmIf2d0IeCoOsZVMrKXEMA+sR6cWZ0GkTQ0J7IWXEVdn
- mrKEs35EsL//qrds5zf2TTP6lDiPSNJe7vGvQ60RognOc28rTkvG4FNBt2xfuMR2RqAAAAA==
-X-Change-ID: 20260522-kodiak-elite-macros-f4e5c185f63a
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779461182; l=7874;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=qoLnYPJqnHUVZXd8RXxjoQBFw/TAaSr7XQYY2BSu/bg=;
- b=PT+PSVJMoAsWcJ+Xu1Fo5SeW2/jOSsYSVBnybUQY5mI7iluYfbTQ+Wxm06Aa0WE/C81xvnmeZ
- 3WiGYInMz3FDYgJu7b0NR3KIH7QW2DsmYctgMHHvJh9vyR/lUhOnc/m
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Due to initial kodiak/sc7280 bringup being done for Chrome platforms,
-some Chrome-specific bits still remain in kodiak.dtsi, like the clocks
-and power-domains for the LPASS RX/TX/WSA/VA macros.
+-----BEGIN PGP SIGNATURE-----
 
-Move them to sc7280-chrome-common.dtsi and put Elite (q6afecc)
-equivalents in its place. The qcs6490-audioreach.dtsi file can also drop
-deletion of power-domains properties then.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCahBslQAKCRDZQZRRKWBy
+9EIFAQD+XPK0eA31YLOxVvJFJOpY4eKow8Xu+wVO3cYAQikKIgEA1Z8vDV/a/lnN
+lG6HQtcvTgrZ+ieQXdGd37oqqDEBRQA=
+=7nBr
+-----END PGP SIGNATURE-----
 
-This follows previous commits moving Chrome-specific configuration to
-the correct file, leaving kodiak.dtsi for Elite and
-qcs6490-audioreach.dtsi for AudioReach.
-
-No functional change intended. The clock-output-names property will now
-exist for both Chrome and AudioReach devices but this shouldn't have any
-relevant effect. And WSA macro clocks weren't added to Chrome because I
-don't believe this would've ever worked given it already referenced
-q6afecc and the nodes were originally added during AudioReach bringup.
-
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- arch/arm64/boot/dts/qcom/kodiak.dtsi               | 48 +++++++++++++---------
- arch/arm64/boot/dts/qcom/qcs6490-audioreach.dtsi   |  6 ---
- arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi | 38 +++++++++++++++++
- 3 files changed, 67 insertions(+), 25 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-index c51beada8c7d..bdfa6cd47a4a 100644
---- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-@@ -2681,14 +2681,18 @@ lpass_rx_macro: codec@3200000 {
- 			pinctrl-names = "default";
- 			pinctrl-0 = <&lpass_rx_swr_clk>, <&lpass_rx_swr_data>;
- 
--			clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>,
--				 <&lpass_aon LPASS_AON_CC_TX_MCLK_2X_CLK>,
-+			clocks = <&q6afecc LPASS_CLK_ID_TX_CORE_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_CLK_ID_TX_CORE_NPL_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 				 <&lpass_va_macro>;
--			clock-names = "mclk", "npl", "fsgen";
-+			clock-names = "mclk",
-+				      "npl",
-+				      "macro",
-+				      "dcodec",
-+				      "fsgen";
- 
--			power-domains = <&lpass_hm LPASS_CORE_CC_LPASS_CORE_HM_GDSC>,
--					<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
--			power-domain-names = "macro", "dcodec";
-+			clock-output-names = "mclk";
- 
- 			#clock-cells = <0>;
- 			#sound-dai-cells = <1>;
-@@ -2734,14 +2738,18 @@ lpass_tx_macro: codec@3220000 {
- 			pinctrl-names = "default";
- 			pinctrl-0 = <&lpass_tx_swr_clk>, <&lpass_tx_swr_data>;
- 
--			clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>,
--				 <&lpass_aon LPASS_AON_CC_TX_MCLK_2X_CLK>,
-+			clocks = <&q6afecc LPASS_CLK_ID_TX_CORE_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_CLK_ID_TX_CORE_NPL_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 				 <&lpass_va_macro>;
--			clock-names = "mclk", "npl", "fsgen";
-+			clock-names = "mclk",
-+				      "npl",
-+				      "macro",
-+				      "dcodec",
-+				      "fsgen";
- 
--			power-domains = <&lpass_hm LPASS_CORE_CC_LPASS_CORE_HM_GDSC>,
--					<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
--			power-domain-names = "macro", "dcodec";
-+			clock-output-names = "mclk";
- 
- 			#clock-cells = <0>;
- 			#sound-dai-cells = <1>;
-@@ -2785,8 +2793,8 @@ lpass_wsa_macro: codec@3240000 {
- 			compatible = "qcom,sc7280-lpass-wsa-macro";
- 			reg = <0x0 0x03240000 0x0 0x1000>;
- 
--			clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>,
--				 <&lpass_aon LPASS_AON_CC_TX_MCLK_2X_CLK>,
-+			clocks = <&q6afecc LPASS_CLK_ID_TX_CORE_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_CLK_ID_TX_CORE_NPL_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 				 <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 				 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 				 <&lpass_va_macro>;
-@@ -2858,12 +2866,14 @@ lpass_va_macro: codec@3370000 {
- 			compatible = "qcom,sc7280-lpass-va-macro";
- 			reg = <0 0x03370000 0 0x1000>;
- 
--			clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>;
--			clock-names = "mclk";
-+			clocks = <&q6afecc LPASS_CLK_ID_TX_CORE_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+				 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+			clock-names = "mclk",
-+				      "macro",
-+				      "dcodec";
- 
--			power-domains = <&lpass_hm LPASS_CORE_CC_LPASS_CORE_HM_GDSC>,
--					<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
--			power-domain-names = "macro", "dcodec";
-+			clock-output-names = "fsgen";
- 
- 			#clock-cells = <0>;
- 			#sound-dai-cells = <1>;
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-audioreach.dtsi b/arch/arm64/boot/dts/qcom/qcs6490-audioreach.dtsi
-index c1867711298b..037a5f6c030a 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-audioreach.dtsi
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-audioreach.dtsi
-@@ -11,8 +11,6 @@
- #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
- 
- &lpass_rx_macro {
--	/delete-property/ power-domains;
--	/delete-property/ power-domain-names;
- 	clocks = <&q6prmcc LPASS_CLK_ID_TX_CORE_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 		 <&q6prmcc LPASS_CLK_ID_TX_CORE_NPL_MCLK  LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 		 <&q6prmcc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-@@ -33,8 +31,6 @@ &lpass_tlmm {
- };
- 
- &lpass_tx_macro {
--	/delete-property/ power-domains;
--	/delete-property/ power-domain-names;
- 	clocks = <&q6prmcc LPASS_CLK_ID_TX_CORE_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 		 <&q6prmcc LPASS_CLK_ID_TX_CORE_NPL_MCLK  LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 		 <&q6prmcc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-@@ -48,8 +44,6 @@ &lpass_tx_macro {
- };
- 
- &lpass_va_macro {
--	/delete-property/ power-domains;
--	/delete-property/ power-domain-names;
- 	clocks = <&q6prmcc LPASS_CLK_ID_VA_CORE_MCLK LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 		 <&q6prmcc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
- 		 <&q6prmcc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-diff --git a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
-index debf62baec9b..5b25501484fa 100644
---- a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
-@@ -67,11 +67,49 @@ &lpass_hm {
- 	status = "okay";
- };
- 
-+&lpass_rx_macro {
-+	power-domains = <&lpass_hm LPASS_CORE_CC_LPASS_CORE_HM_GDSC>,
-+			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
-+	power-domain-names = "macro",
-+			     "dcodec";
-+
-+	clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>,
-+		 <&lpass_aon LPASS_AON_CC_TX_MCLK_2X_CLK>,
-+		 <&lpass_va_macro>;
-+	clock-names = "mclk",
-+		      "npl",
-+		      "fsgen";
-+};
-+
- &lpass_tlmm {
- 	/delete-property/ clocks;
- 	/delete-property/ clock-names;
- };
- 
-+&lpass_tx_macro {
-+	clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>,
-+		 <&lpass_aon LPASS_AON_CC_TX_MCLK_2X_CLK>,
-+		 <&lpass_va_macro>;
-+	clock-names = "mclk",
-+		      "npl",
-+		      "fsgen";
-+
-+	power-domains = <&lpass_hm LPASS_CORE_CC_LPASS_CORE_HM_GDSC>,
-+			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
-+	power-domain-names = "macro",
-+			     "dcodec";
-+};
-+
-+&lpass_va_macro {
-+	clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>;
-+	clock-names = "mclk";
-+
-+	power-domains = <&lpass_hm LPASS_CORE_CC_LPASS_CORE_HM_GDSC>,
-+			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
-+	power-domain-names = "macro",
-+			     "dcodec";
-+};
-+
- &lpasscc {
- 	status = "okay";
- };
-
----
-base-commit: 1e45adb287ae5d431afc9900b4d387f4e73d9406
-change-id: 20260522-kodiak-elite-macros-f4e5c185f63a
-
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
-
+--=-VKA4WxHE7ilxFEUvDLNz--
