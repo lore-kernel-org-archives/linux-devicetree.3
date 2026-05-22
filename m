@@ -1,150 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B5F3D3302;
-	Fri, 22 May 2026 10:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5573233ED;
+	Fri, 22 May 2026 10:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779446625; cv=none; b=uyDqt7BVuzEkzWewhkLXOMOK/EA7nrlNbPTDD+0XqYOeOV7oF92bZ7loXmj6TDsbLCgxK9AofmeVxD0tsrPyw0JAzZF57/Hum1jI3ai/Z01qhxAHedMaXojmdAddtWsN6uBbVEBK7s7i8mAWOe0ylX1zmNhrQMXX5yoGacT8W8Q=
+	t=1779446691; cv=none; b=PyhnY7XyR7S0aGXeTWGmI6w124Ce8SRChh9scs8sjLC0c2vbRCstWMOb7XA3egOtQOgId3WKUTr7VTU6STSD6GZy5ZsBpNCIINWJ2B3Pikf+v+aWitGNlza1Ib4rANoD9HlZWIW234M33avPzcyCi7mw0PSrUM03Mp7PZ4ld+Fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779446625; c=relaxed/simple;
-	bh=kttq8r5N9SuU+zd+XevZzZNP1guN8quvQiyJ8IwYod8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N+FUEKtXASMjH6IHQXYLNEkV+hMUJ5qdev5HbSkxHSCuOpAqIG5R+N6G4/9rQdGRKmSSPleNeu3wgnAme/iiEAyTpWP34/CqMIkawOw81F+9I/JxK++BATFdGAW3RnTBh0J4pmt3VIFo/bj4Af+WVjL1GZF7rrWM6Fl+gA3ZrDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYx0mPW0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779446691; c=relaxed/simple;
+	bh=qu97kFPigUJFnfn0oMzF0ND0GUMl25D3w22C5QA2TQM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u2LPRTlfAKG6b3SyaWwJRqA++dOdCU8TpE+hJx8P891eRRxLt1qyOOV3OmV5QVZ2Y3nrvAPP+lWmerKQYlXd5P/rgMtfbDls/LXwihNeqUWywjniFIUMh3BOMjWnnFfPIZoP8Iux5H67m84lGRnLcgS5+Zxq55byS1DlsVojio4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBlcQfpX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYx0mPW0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 63344C2BCFA;
-	Fri, 22 May 2026 10:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779446625;
-	bh=kttq8r5N9SuU+zd+XevZzZNP1guN8quvQiyJ8IwYod8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hYx0mPW0EmwGdc5PROvPGiMrk3eEW/FlAoGdo0fkzDNZnBtbu9nH2LySA99YyUMO7
-	 1BhMtdgYYib3QCquaUAuD8S6cI84z4rZwUq/hvX+MLYzKmjj2uaF27+ZCQ71ZJwo2L
-	 btahUDdGebcNwTprHrgrIZlhJN+pnc17I+KfQQGXKAbqavDHacK5eh0QL/8honWvr0
-	 qi2iRdnymcNJ/5sU9aykh3im4ew5+BHDjyqs1EqZ6DcXjPYdj29duXlcCRbkBdT+ZG
-	 plwxtcMYqEMPO0yh8rQhg6wvArA9y1KIKp84BDnhvXFMU/yHiQd976AmgL5M2xA1GN
-	 il8UyQa9KT3qA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C228CD5BB5;
-	Fri, 22 May 2026 10:43:45 +0000 (UTC)
-From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Fri, 22 May 2026 12:43:22 +0200
-Subject: [PATCH v2 06/10] arm64: dts: qcom: sc8280xp-arcata: Add volume
- up/down GPIO keys
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBlcQfpX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245901F000E9;
+	Fri, 22 May 2026 10:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779446689;
+	bh=D7blBQmroDeTnVftbWiUElk5r8f+qUupeB7df97/Pak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OBlcQfpXr05HcYteALrtvl3TiDkfEF7iLSZvxfvGimKS2I+jUOVHagLExOEpqy8ws
+	 lSrLPp88pWHJsAkztozNs+3SwczZDJ8PrBWZsdiTNPD10o1WaZ0dC69mWK0BdK0aCH
+	 Mblf4WUMa6QUchPR3PWGFFgabLStFeQ13v/NxBRjLjoeauyOuHSwKW+5bH+eMU3lhP
+	 aN3p8o/Adp3s+pYk+4gnLVG/THNuKpTW82ZBSOAlG6chEoUm+rhF/g38g12qjLcgQc
+	 FLHiL9+mEABkwUIzXtaQgA7fALmMt4eQPT1ZzW35K1CwR4sl1J2DDWUSliCx+LMLfd
+	 DAesSiTuoV6oA==
+Date: Fri, 22 May 2026 16:14:45 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 05/16] remoteproc: qcom_q6v5_pas: Switch over to
+ generic PAS TZ APIs
+Message-ID: <ahAznR7z3rYZCbwX@sumit-xelite>
+References: <20260518072856.22790-6-sumit.garg@kernel.org>
+ <20260519073355.98831C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260522-surface-sp9-5g-for-next-v2-6-dd9d477407f5@gmail.com>
-References: <20260522-surface-sp9-5g-for-next-v2-0-dd9d477407f5@gmail.com>
-In-Reply-To: <20260522-surface-sp9-5g-for-next-v2-0-dd9d477407f5@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Johan Hovold <johan@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779446623; l=2100;
- i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=tpMMqCuXTpiFyNTUXE4sxQpXvBNTdGkNZVRFY5KiZGY=;
- b=667Epu556yOoO1R1q99p0L2nR/7HIAhQUqIj7Ol2x0jyOHTS74DvM5LDsjglQidQgPade2dzW
- ieETzxNjVqhDjSFJip9OX/TbPh3wXRfMAmj/2Cab28+sALSTJnIIZa5
-X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
- pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
-X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
- with auth_id=785
-X-Original-From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
-Reply-To: jerome.debretagne@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260519073355.98831C2BCB3@smtp.kernel.org>
 
-From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+On Tue, May 19, 2026 at 07:33:55AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [Critical] Unconditionally calling `qcom_scm_assign_mem()` without checking SCM availability causes a NULL pointer dereference on non-SCM platforms.
+> - [High] MDT firmware loading is not abstracted and continues to hardcode SCM APIs, causing both a build warning and functional failure on non-SCM backends.
+> - [High] The DTB subsystem (dtb_pas_id) is authenticated but never shut down in the error paths of qcom_pas_start().
+> - [High] The firmware object pas->dtb_firmware is leaked on the success path of qcom_pas_load().
+> --
+> 
+> commit e21bc74de5d7e3215e46e9baa1c3a6b26f353409
+> Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+> 
+> This patch switches the qcom_q6v5_pas client driver over to generic PAS TZ
+> APIs. This allows supporting multiple TrustZone implementation backends
+> such as QTEE and OP-TEE.
+> 
+> > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> > index da27d1d3c9da6..847249c28c1be 100644
+> > --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> [ ... ]
+> > @@ -118,8 +119,8 @@ struct qcom_pas {
+> >  	struct qcom_rproc_ssr ssr_subdev;
+> >  	struct qcom_sysmon *sysmon;
+> >  
+> > -	struct qcom_scm_pas_context *pas_ctx;
+> > -	struct qcom_scm_pas_context *dtb_pas_ctx;
+> > +	struct qcom_pas_context *pas_ctx;
+> > +	struct qcom_pas_context *dtb_pas_ctx;
+> >  };
+> 
+> Does changing this struct cause a compiler warning and functional regression
+> for non-SCM backends?
+> 
+> Since this patch changes the context type to struct qcom_pas_context * but
+> still passes it to qcom_mdt_pas_load(), it appears to cause an incompatible
+> pointer type warning.
+> 
+> Furthermore, qcom_mdt_pas_load() internally hardcodes calls to SCM-specific
+> APIs like qcom_scm_pas_init_image(), bypassing the generic PAS backend
+> entirely. This seems to prevent the driver from working on non-SCM backends
+> like OP-TEE.
+> 
+> I notice this is fixed later in the series in the commit "soc: qcom:
+> mdtloader: Switch to generic PAS TZ APIs", but I am pointing it out here as
+> it breaks the build and functionality at this step.
 
-Configure gpio6 to serve as volume down and gpio9 as volume up to enable
-the volume up/down keys located at the top of the screen.
+Ack, will rather merge the mdtloader patch into this one instead to
+enable git bisection.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
----
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 42 ++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+> 
+> [ ... ]
+> > @@ -250,7 +251,7 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
+> >  	return 0;
+> >  
+> >  release_dtb_metadata:
+> > -	qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
+> > +	qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> >  	release_firmware(pas->dtb_firmware);
+> >  
+> >  	return ret;
+> 
+> Is there a pre-existing resource leak here?
+> 
+> When request_firmware() allocates the DTB firmware and qcom_mdt_pas_load()
+> succeeds, the function returns 0 and skips the release_dtb_metadata label
+> where release_firmware() is called.
+> 
+> The pas->dtb_firmware pointer appears to be retained but never freed in any
+> teardown function like qcom_pas_unprepare() or qcom_pas_stop(). Could this
+> permanently leak the firmware object and its backing buffer on every
+> successful start?
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index 10fafd752734450ecddb2113ff972a08793a763c..4e601eb4165b1eea16d2772786ac0a18f6177e60 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -6,6 +6,7 @@
- /dts-v1/;
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "sc8280xp.dtsi"
-@@ -55,6 +56,31 @@ backlight: backlight {
- 		pinctrl-names = "default";
- 	};
- 
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&vol_down_n>, <&vol_up_n>;
-+		pinctrl-names = "default";
-+
-+		key-vol-down {
-+			label = "Volume Down";
-+			gpios = <&pmc8280_1_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-vol-up {
-+			label = "Volume Up";
-+			gpios = <&pmc8280_1_gpios 9 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
- 	pmic-glink {
- 		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
- 
-@@ -922,6 +948,22 @@ edp_bl_en: edp-bl-en-state {
- 		pins = "gpio8";
- 		function = "normal";
- 	};
-+
-+	vol_down_n: vol-down-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
-+
-+	vol_up_n: vol-up-n-state {
-+		pins = "gpio9";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
- };
- 
- &pmc8280_2_gpios {
+Out of scope for this patch-set.
 
--- 
-2.47.3
+> 
+> [ ... ]
+> > @@ -339,13 +340,13 @@ static int qcom_pas_start(struct rproc *rproc)
+> >  	ret = qcom_q6v5_wait_for_start(&pas->q6v5, msecs_to_jiffies(5000));
+> >  	if (ret == -ETIMEDOUT) {
+> >  		dev_err(pas->dev, "start timed out\n");
+> > -		qcom_scm_pas_shutdown(pas->pas_id);
+> > +		qcom_pas_shutdown(pas->pas_id);
+> >  		goto unmap_carveout;
+> >  	}
+> 
+> Does this error path miss shutting down the DTB subsystem?
+> 
+> While this was not introduced by this patch, if the DTB authentication
+> step earlier in this function succeeds, but a subsequent step like
+> qcom_q6v5_wait_for_start() fails, the error path shuts down the main PAS but
+> misses calling qcom_pas_shutdown(pas->dtb_pas_id).
+> 
+> The code then jumps to unmap_dtb_carveout and unmaps the Linux-side memory,
+> leaving the DTB subsystem active in TrustZone while its backing memory is
+> unmapped.
+> 
 
+Out of scope for this patch-set.
 
+> [ ... ]
+> > @@ -746,7 +747,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
+> >  	if (!desc)
+> >  		return -EINVAL;
+> >  
+> > -	if (!qcom_scm_is_available())
+> > +	if (!qcom_pas_is_available())
+> >  		return -EPROBE_DEFER;
+> >  
+> >  	fw_name = desc->firmware_name;
+> 
+> Could this change lead to a NULL pointer dereference on non-SCM platforms?
+> 
+> By replacing the qcom_scm_is_available() check with qcom_pas_is_available(),
+> the probe function can now continue on platforms using non-SCM backends like
+> OP-TEE.
+> 
+> However, further down in probe, qcom_pas_assign_memory_region() is still
+> unconditionally called if pas->region_assign_idx is set:
+> 
+> qcom_pas_assign_memory_region()
+>    qcom_scm_assign_mem()
+> 
+> qcom_scm_assign_mem() accesses __scm->mempool without checking if __scm is
+> NULL. On non-SCM platforms, __scm will be NULL, which seems like it would
+> cause a kernel panic during probe for devices requiring memory region
+> assignment.
+
+qcom_scm_assign_mem() is still supported with an OP-TEE PAS backend too.
+
+-Sumit
