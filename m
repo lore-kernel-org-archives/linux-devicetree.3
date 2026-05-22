@@ -1,370 +1,306 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4823630AD;
-	Fri, 22 May 2026 14:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81077421F07
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 14:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779460651; cv=none; b=ngP37lCslA7yODmr294j/TuHZqh40sYWdmmtRL93zHwOdaW4JBQ1onXlJ641F4c+wrJSxqZKOQVfGCB9EGud9KaZKKVNqvoX5FsLUcRcZAbu/WK+F5ePMVbPBLQBgggfLGRt7rc5MlawflqfPOlQmYNVFCxuo2p1E9NBuxUPe34=
+	t=1779461119; cv=none; b=Mz+ys+ZUi+VVujI8gpTBE1GWbUdJQy75m+3rzRuT7xW/hi7avvCKl20kVdt0eBrX8Bt7KI8KdQlckJWekijcoREIwm26urQPe17WObdwZOEg4k8DjwacyhRp6bU44a7HVv1Uc5189tnZx1YzZETILF6WfQ3MK1JBdG1cB/+8RUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779460651; c=relaxed/simple;
-	bh=7LRvogyE2DbiqEqreTDiXtNf9rIpO8JT1auuOTSw3t4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q6h4+Mv0Baexe/VQx93umBr+r2047DiTa2POPlUfsMcjv6rn3BxQxI8TaiRTiZB5nLrg16h2rpg4lg0MMdLSd4Ng0OQr1lSpejfrZbnh4tzKWs4T/TJO7TftX7pEaGXbn2L4heTmfHosegKx2b0LE9f/2Cc0efVnidjvgSEAk2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJ5SfAZd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779461119; c=relaxed/simple;
+	bh=ijE8FotOF1OqdoUIcI++flPFl387vF2gOuXqP/h5gUI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sS3dZUWne+4vqp56r5Jc4YAJwWkA/LhSa3xWnMwqJPY1Oay11CZjiZLk34ZsDJeIQcPvgrJL1Ju6hXgwxylUOrE4/9Mc6RTEcpneGdIo6uicMjBkQp6ppuE8DmSUvU9VA9dM5NvVVlj0stiD9DUVmqJ/Y4WmywuCY1BQOJxzDdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uYjbNmHi; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJ5SfAZd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210FF1F000E9;
-	Fri, 22 May 2026 14:37:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779460649;
-	bh=ZkBxG7dAs5Dbu50nlO3YiIMXGT1N8myPKjIk5UYE76k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iJ5SfAZdKty5IpIOZD2nGQLELfwOgcAW3IHmcg8zAs/vWdIUUVvUAW3WRNM+NoaYt
-	 SnCDtSC9bdujxY4UfImzASP8wKrcqALG9B3a7NrfWt85JRU7VpIZ9VGgfa1L8MKM6J
-	 prMI0zQRB7BAoP8bxYuMh9Flxz51jSdsPFb9CSq+qTOk/iS/4J1hSsZSsddU4YduGl
-	 HevrpKYRVFB8ZTsyQTSioKOtgHxiNg9HfeBkXJUCeTV1yToO7406Y5e6SqvbnfJO37
-	 X+SRnavR6QHOzOuODj91I+2zo7J4Gw1q6tXoe/uLHCuoZ4yspOEe3S34HgaI1BN39y
-	 QvAXoY8otH5MQ==
-Date: Fri, 22 May 2026 15:37:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- Rishi Gupta <gupt21@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: light: veml3328: add support for new device
-Message-ID: <20260522153719.4fc1d932@jic23-huawei>
-In-Reply-To: <20260520-veml3328-v2-2-a57f0d9e28d4@gmail.com>
-References: <20260520-veml3328-v2-0-a57f0d9e28d4@gmail.com>
-	<20260520-veml3328-v2-2-a57f0d9e28d4@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uYjbNmHi"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4903cbfad68so12718725e9.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 07:45:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779461114; x=1780065914; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+UV8j+dbRgTzxiwmllf1AzhXJ6JlFchfzPu/b5u02Bc=;
+        b=uYjbNmHiP+Dti1ycLzFm333gIkO3PoQFzHbF7na69XYhNvUxALI+fX9lisJdvZk7F4
+         Vr9JiuVzjFdFeRmQntnv8IVkcw5+fI0E3adbSwHJiJCQ2wxdpsJtqm0dfQT2uWDjZD2q
+         xcRKiyZaNzbjhJgcEFdR6vR9/v+s6S29Ty3DWuI+dwLFyKoQcvVNxLno8QyR9qZ+9Vcx
+         oeCspfKNKzMeLUC2qlb39uDJWJPmWHLdGqGK0U+E9/aLPv5ZyYQCBN5s1PTcKf7do/EK
+         oKNCiwqgsUoPmRZ5HWYGBQEU3k8S+avJT5BYlQEgIwFn5pGJJghm9y141afoe2lyEMqi
+         hzYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779461114; x=1780065914;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+UV8j+dbRgTzxiwmllf1AzhXJ6JlFchfzPu/b5u02Bc=;
+        b=kwKoyuVp4GeyjF3UZyTOh09qgB5Bf4aEop3Wee4kQT2Go7DZB0bq9lGMN19X8mc/6M
+         bi8PAF6RqNSFjbJpcTW6IdXPgKw6LmRrFn8HsVQJybrImA8DwHIB4w3AaN1xm0sFDmqc
+         kXjM0xtqxt9LgcKA8ieWz5fYVo956GuRAU/iuYYfNzlgDe5mvwQAoRRgwMo+3CqkD/md
+         NJy87Moan+gfk8AGCJrEu+u8lWQL2ARiIN6N4rU5ZLiLCI5YhGbgtAO+kgmV/Wuf3FWT
+         0X6awA+j4gGkIcFAu11w7N9wqQjMScBWeNVTHU+RZkPjK/47tnEDNzsAhjihjGouQgRX
+         iV4w==
+X-Forwarded-Encrypted: i=1; AFNElJ9uCMX9oMXXAwIebHw1z/bWfC4c07RtB7e2ukvXsg99rCz9SHuK+VNd9eTdYTmXnu4LWwwaFUFCfNJ5@vger.kernel.org
+X-Gm-Message-State: AOJu0YwSvYk7XgnFMEMJ7ton1RfxxgL8PDGqulGLTiAgbJV59SvHYkGL
+	UGB8kWMo/WWgHtos8+568xC78uKU4KDx/iZRyeGN9cPn9XV9ZUGnktxn27aJt1TuaeA=
+X-Gm-Gg: Acq92OFRefAiCA3ryLPBOxxM0wKxGcJAMnN7y5fg3jS4ZD3CvDXbohceGv6eBpLCdJS
+	6rUQnvltvwF6StVNka03fLBsip2Xkl+exm6j1AZYQRJntgg2Zig/WT3BQI+iDA2fzmTeHXDPJGF
+	NGzylWWbsvXlOCQkcToyrKIHRPuoMTsGmaLlRMgzgSZ/NfaEkis/IW5YeQZwtYTvfjoh43zydw4
+	MwG+uEkN/Kuzy3DLZWJOUdlRu8xShi2d9uoxwbSZElJ7botw66jUZREV3KWlrBEcZ/bTezcBiMq
+	494YN+nWPXGSETZ2YCij6xcCntBnx4OCTv4l9r96zH/8vTx9JGB4JR6tU/JZZMWAvYVLEzPeF/V
+	bxI7or27DnUrAVjLfUolvUZkjPODNazlaSkTtOdHk5h67RaZa2xCST+eFO+t3ujWKiYRSIQ9ykH
+	gQ52tLx7lcmxeHiN2ZW1OnARp3INVecEyza29VISvM9TTXKQ==
+X-Received: by 2002:a05:600c:8599:b0:48f:e230:29f4 with SMTP id 5b1f17b1804b1-490426ade02mr36627145e9.15.1779461113724;
+        Fri, 22 May 2026 07:45:13 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.110.169])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490469f61b0sm12216385e9.5.2026.05.22.07.45.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 07:45:12 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v7 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Date: Fri, 22 May 2026 15:45:08 +0100
+Message-Id: <20260522-x1e-csi2-phy-v7-0-79cb1280fad6@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XPy2rDMBAF0F8JWldlZvSyu+p/lCz0ciwodpCKS
+ Qj+98iBktSiyztw7pVurMScYmEfhxvLcUklzVMN5u3A/GinU+Qp1MwISIFB4BeM3JdE/Dxe+aC
+ lkE4rDMKySs45DunyqPs61jym8jPn66N9we36T9GCHLiR1junHGpyn99psnl+n/OJbU0L/WoNR
+ GqnadNG6RicNtH2jRavWu+0qBoxauiM6iVCo+VTC9xvy6p78NATiK7rQqPVi262VdUVD94MygO
+ 2/9ZPrQh3Wm/bwYjQu2AC/X35uq53gfYrDN8BAAA=
+X-Change-ID: 20250710-x1e-csi2-phy-f6434b651d3a
+To: Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9584;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=ijE8FotOF1OqdoUIcI++flPFl387vF2gOuXqP/h5gUI=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqEGv2hrOmLYutmEtdqQC/LdmNHHmL28VhI5lNZ
+ oGlVEQzIcmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCahBr9gAKCRAicTuzoY3I
+ Or7ZD/0VoprNOc6Ld5d8FeBcrHkRmuBqUnqipAKv5sZ2t5yfWZGFF/9DBXmitRI74s2s/ULSKJE
+ A4/omgt1OOHMHNchQSGvqCb2xshJdtfq7YL1Mvr+i4yhWHMTvx3kOeHIGAPg+H+RGe/ggFLPSaK
+ 5vfnyWC+yDnaCMvIwzIGxgJxWiKnNo7MWDPxtw0kIyr3e/nrrlV3TRVtfXrG8ow5wLrdOfUMNBu
+ xpNn9JebkMKODF3cltbH8wlAMsiBlAhZW3RbycZ3EwG7W5WG6V2Y5cbJEsxEnrGB7ncypXXPk4O
+ b19wdJGNxod++03pxpst1AoaU5iS1ENecnD2yRA68JSzW1fk6YzAHFLz1LowxdSCg5W1ZIRazcd
+ MK/fW+DyCCyhpKroigiDFtepRBWq6rr8SYvDmbegpIIIh3gz/hxUIlAPY0sT8VlHAavlUsubqYX
+ bIX49gZVJyRHWvA0tRHmAWJXKTw74jE3sJ5fH/uiBhsEqGxBwyJrHGrrV4aQvnmL+FhefrS7mAB
+ BTCzR1tFszr4dGz2tKFbgH31ZePe8DoxlkF0wF8gC81XOAja868d56Hav+CwurLIJ+8/hpIbshH
+ +l/TEbsUYf8Hyzku3Xn0C30KC96V5htuN715Q4lM/OGEIFOvDztVr8mrkoGPlfICvrD7nB5VDfw
+ IH6Lab81wAtavOg==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Wed, 20 May 2026 23:15:38 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+Changes in v7:
+- Made CONFIG_PM a dependency. Sashiko commented on the pd_list being NULL
+  and suggested I check the pointer but, we need to ramp the rails when
+  switching clock rate so we need CONFIG_PM full stop. - Sashiko.ai, Bryan
+- Added unwind operation for performance state error path - Sashiko
+- Made clock-lanes genuinely optional for the supported use-case. - Sashiko
+- Fixed the enable of lanes. Thus far we have had forever it seems
+  val |= BIT(lane.pos * 2) which I've never looked at much because it
+  has always worked. But looking at how to switch on polarities I realised
+  the relevant register is a linear bitmask without gaps so the correct
+  method is `val |= BIT(lane.pos)`.
+  This needs an update in the legacy PHY too in another series - Bryan
+- I opted not to do any of the "but if DT send junk into your driver" fixes
+  from Sashiko since TBH I think the code would be Spaghetti afterwards.
+  We trust DT and if DT is wrong we fix it, we don't try to graph its
+  relative (in)sanity.
+- Fixed my example in the yaml. Sashiko
+- Link to v6: https://patch.msgid.link/20260521-x1e-csi2-phy-v6-0-9d73d9bd7d20@linaro.org
 
-> Add support for the Vishay VEML3328 RGB/IR light sensor communicating
-> via I2C (SMBus compatible).
-> 
-> Also add a new entry for said driver into Kconfig and Makefile.
-> 
-> Assisted-by: Gemini:3.1-Pro
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Changes in v6:
+- Taking feedback from lively debate added ports and
+  endpoints to the PHY - Neil, Vlad
+- Detection of split mode by way of which ports are declared.
+  port@0 is always a sensor input.
+  port@1 is optional and if present implies split-mode
+  port@2 is always the output. - Dmitry, Neil, Vlad.
+- Split mode is left as -ENOTSUPP unless/until someone with the appropriate
+  hardware can take on responsibility to drive to completion.
+- Extending phy_config_opts dropped.
+  I think this is a worthwhile extension but this series no longer depends
+  on it so dropped. - Bryan
+- MX/MXC.
+  Two OPP tables one for CSIPHY0/1/2 scaling MXC one for CSIPHY4 keeping
+  MXA at LOWSVS_D1 - to be implemented in DT not here. Taniya, Konrad, Bryan
+- Changed MAINTAINERS from Supported to Maintained.
+  Hobby time for me right now. - Bryan
+- Link to v5: https://lore.kernel.org/r/20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org
 
-Hi Joshua,
+v5:
+- Adds support to apply passed parameters for clock/data position/polarity - Neil
+- Drops GEN1/GEN2 differentiation this can be reconstituted if GEN1 ever
+  gets supported in this driver - Dmitry
+- Drops camnoc_axi, cpas_ahb - Konrad
+- Renames csiphy->core csiphy_timer->timer - Konrad
+- Renames rail from 0p8 to 0p9 schematics say  VDD_A_CSI_n_0P9 - Konrad
+- TITAN_TOP_GDSC dropped - Konrad
+- Passes PHY_QCOM_CSI2_MODE_{DPHY|CPHY|SPLIT_DPHY} with the controller
+  selecting the mode. Only DPHY mode is supported but the method to pass
+  CPHY or split-mode DPHY configuration is there.
+  Since split-mode is a Qualcomm specific mode the PHY modes are defined in
+  our binding instead of adding a new type to include/linux/phy/phy.h - bod
+- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
+- Link to v4: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
 
-Sashiko did a really good job on this. I'm always amazed at how much it
-understands of how these attributes are used.
+v4:
+- MMCX, MCX and MX/MXA power-domains added - Dmitry, Vijay, Konrad
+- power-domain-names added as required - bod
+- opp-tables amended to capture RPMHPD deps - Dmitry, Vijay
+- Switched to dev_pm_opp_set_rate, dev_pm_domain_attach_by_name etc
+  dropped inherited CAMSS code - Dmitry
+- Amended parameters structure to specify power-domain name list - bod
+- Removed dead defines - Dmitry
+- Noted in CSIPHY commit log intention to rework patterns of
+  PHY lane configs into loops/defines/bit-fields later - Dmitry, bod
+- Lowercase hex throughout - Dmitry
+- The yaml and code in this driver doesn't care if the node is a
+  sibling or a sub-node of CAMSS confirmed to work both ways - Dmitry, bod
+- Link to v3: https://lore.kernel.org/r/20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org
 
-https://sashiko.dev/#/patchset/20260520-veml3328-v2-0-a57f0d9e28d4%40gmail.com
+v3:
 
-My biggest comment is I'd look at making the scale from integration / gain
-calculations something that is precomputed that you just look up.
-You can have separate ones for light and intensity channels or be a little
-cheeky and just use the light one for everything - given intensity doesn't
-have fixed units as such we can scale by the extra factors in the illuminance
-calculation and not worry about what they are.
+- Resending this to make clear this submission is additive to x1e/Hamoa
+  The existing bindings and code will continue to work 
+  Bindings are added only, nothing is subtracted from existing ABI.
+- Link to v2: https://lore.kernel.org/r/20260225-x1e-csi2-phy-v2-0-7756edb67ea9@linaro.org
 
+v2:
 
-> diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
-> new file mode 100644
-> index 000000000000..fdfa8fd1666b
-> --- /dev/null
-> +++ b/drivers/iio/light/veml3328.c
-> @@ -0,0 +1,416 @@
+In this updated version
 
-> +
-> +#define VEML3328_CHAN_SPEC(_color, _addr) { \
-> +	.type = IIO_INTENSITY, \
-> +	.modified = 1, \
-> +	.channel2 = IIO_MOD_LIGHT_##_color, \
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-> +	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME) | \
-> +				   BIT(IIO_CHAN_INFO_SCALE), \
-> +	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) | \
-> +					     BIT(IIO_CHAN_INFO_SCALE), \
-> +	.address = _addr, \
-> +}
-> +
-> +static const struct iio_chan_spec veml3328_channels[] = {
-> +	{
-> +		.type = IIO_LIGHT,
-> +
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE),
-> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME),
+- Added operating-point support
+  The csiphy clock sets the OPP prior to setting the rate
+  for csiphy and csiphy_timer - Konrad
 
-Sashiko is kind of right and kind of wrong on this.
-As it is shared by all, BIT(IIO_CHAN_INFO_SCALE)
-should be here.  It won't have a function affect as we don't verify
-they all have it and as long as one does the file will get created.
-So this is more about consistency than correctness.
+- Combo mode
+  Combo mode in CAMSS yaml has been added. Right now
+  no code has been changed in the PHY driver to support it as
+  I don't have hardware to test. In principle though it can
+  be supported. - Vladimir
 
-Raises more questions though.  Is it correct scale? I think not.
-Looks like you have scaling for the intensity channels returning
-different values from the light one. 
+- CSIPHY init sequences
+  I left these as their "magic number formats". With my diminished
+  status as a non-qcom VPN person - I can no longer see what the bits
+  map to. Moreover this is the situation any non-VPN community member
+  will be in when submitting CSIPHY sequences derived from downstream.
 
-So I think the above INTENSITY should move IIO_CHAN_INFO_SCALE
-to .info_mask_shared_by_type and equivalent for the available.
+  I think it is perfectly reasonable to take public CSIPHY init sequences
+  as magic numbers. If someone with bit-level access wants to enumerate
+  the bits that's fine but, it shouldn't gate in the interim. - Konrad/bod
 
+- Sensor endpoints
+  I've stuck to the format used by every other CSIPHY in upstream.
+  Sensor endpoints hit the CAMSS/CSID endpoint not a endpoint in the PHY.
+  Given the proposed changes to CAMSS though to support "combo mode" I
+  think this should achieve the same outcome - multiple sensors on the one
+  PHY without introducing endpoints into the PHY that no other CSIPHY in
+  upstream currently has.
 
+- Bitmask of enabled lanes
+  Work needs to be done in the v4l2 layer to really support this.
+  I propose making a separate series dedicated to non-linear bit
+  interpretation after merging this so as to contain the scope of the
+  series to something more bite (byte haha) sized. - Konrad/bod
 
+- Link to v1: https://lore.kernel.org/r/20250710-x1e-csi2-phy-v1-0-74acbb5b162b@linaro.org
 
-> +		.address = VEML3328_REG_DATA_G,
-> +	},
-> +	VEML3328_CHAN_SPEC(CLEAR, VEML3328_REG_DATA_C),
-> +	VEML3328_CHAN_SPEC(RED, VEML3328_REG_DATA_R),
-> +	VEML3328_CHAN_SPEC(GREEN, VEML3328_REG_DATA_G),
-> +	VEML3328_CHAN_SPEC(BLUE, VEML3328_REG_DATA_B),
-> +	VEML3328_CHAN_SPEC(IR, VEML3328_REG_DATA_IR),
-> +};
-> +
-> +/* scale values per datasheet */
-> +static const int veml3328_scale_vals[][2] = {
-Sashiko wins again. Whilst we don't get a nice standard unit for
-IIO_INTENSITY channels for _raw * _scale, the expectation is that
-for the same input light intensity this should remain constant.
-I.e. If _scale value double _raw should halve.
+v1:
+This short series adds a CSI2 MIPI PHY driver, initially supporting D-PHY
+mode. The core logic and init sequences come directly from CAMSS and are
+working on at least five separate x1e devices.
 
-I assume these are x0.5 x1 x2 and x4 gains applied. Those will
-result in _raw changing by those factors, therefore to get a stable
-output these should be inverted.  
+The rationale to instantiate CSI2 PHYs as standalone devices instead of as
+sub-nodes of CAMSS is as follows.
 
-	{ 2, 0 },
-	{ 1, 0 },
-	{ 0, 500000 },
-	{ 0, 250000 },
+1. Precedence
+   CAMSS has a dedicated I2C bus called CCI Camera Control Interface.
+   We model this controller as its own separate device in devicetree.
+   This makes sense and CCI/I2C is a well defined bus type already modelled
+   in Linux.
 
-Make sure you test _raw * _scale is stable as a result.
+   MIPI CSI2 PHY devices similarly fit into a well defined separate
+   bus/device structure.
 
-> +	{ 0, 500000 },
-> +	{ 1, 0 },
-> +	{ 2, 0 },
-> +	{ 4, 0 },
-> +};
-> +
-> +/* integration times in microseconds */
-> +static const int veml3328_it_times[][2] = {
-> +	{ 0, 50 * USEC_PER_MSEC },
-> +	{ 0, 100 * USEC_PER_MSEC },
-> +	{ 0, 200 * USEC_PER_MSEC },
-> +	{ 0, 400 * USEC_PER_MSEC },
-> +};
-> +
+   Contrast to another CAMSS component such as VFE, CSID or TPG these
+   components only interact with other CAMSS inputs/outputs unlike CSIPHY
+   which interacts with non-SoC components.
 
-> +
-> +static int veml3328_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-> +	struct veml3328_data *data = iio_priv(indio_dev);
-> +	struct regmap *regmap = data->regmap;
-> +	struct device *dev = regmap_get_device(regmap);
-> +	unsigned int reg_val;
-> +	int ret;
-> +	int reg;
-> +
-> +	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = regmap_read(regmap, chan->address, &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = reg_val;
-> +		return IIO_VAL_INT;
-> +
-> +	case IIO_CHAN_INFO_INT_TIME:
-> +		ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		reg = FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
-> +		if (reg >= ARRAY_SIZE(veml3328_it_times))
-> +			return -EINVAL;
-> +
-> +		*val = veml3328_it_times[reg][0];
-> +		*val2 = veml3328_it_times[reg][1];
-> +		return IIO_VAL_INT_PLUS_MICRO;
-> +
-> +	case IIO_CHAN_INFO_SCALE:
-> +		ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (chan->type == IIO_LIGHT) {
-> +			int it_inx, gain_inx;
-> +			int it_us, scale_u;
-> +
-> +			it_inx = FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
-> +			gain_inx = FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
-> +
-> +			if (it_inx >= ARRAY_SIZE(veml3328_it_times) ||
-> +			    gain_inx >= ARRAY_SIZE(veml3328_scale_vals))
-> +				return -EINVAL;
-> +
-> +			it_us = veml3328_it_times[it_inx][1];
-> +
-> +			/*
-> +			 * Equation for calculating ambient light scale:
-> +			 * Scale = 0.384 * (50000 / Current_IT) * (1x / Current_Gain)
+2. Hardware pinouts and rails
+   The CSI2 PHY has its own data/clock lanes out from the SoC and indeed
+   has its own incoming power-rails.
 
-Good. This has the inverses missing for the intensity channels.
+3. Other devicetree schemas
+   There are several examples throughout the kernel of CSI PHYs modeled as
+   standalone devices which one assumes follows the same reasoning as given
+   above.
 
-As I note below, there are quite a few accesses to what is basically a 4x4 array
-of values based on selection of gain and selection of integration time.
+I've been working on this on-and-off since the end of April:
+Link: https://lore.kernel.org/linux-media/c5cf0155-f839-4db9-b865-d39b56bb1e0a@linaro.org
 
-I'd be tempted to precompute them and make all these paths look ups.
+There is another proposal to have the PHYs be subdevices of CAMSS but, I
+believe we should go with a "full fat" PHY to match best practices in
+drivers/phy/qualcomm/*.
 
+Using the standard PHY API and the parameter passing that goes with it
+allows us to move away from custom interfaces in CAMSS and to conform more
+clearly to established PHY paradigms such as the QMP combo PHY.
 
-> +			 */
-> +			scale_u = 384 * USEC_PER_MSEC;
-> +			scale_u = scale_u  * 50000 / it_us;
-> +
-> +			switch (gain_inx) {
-> +			case 0:
-> +				scale_u *= 2;
-> +				break;
-> +			case 1:
-> +				break;
-> +			case 2:
-> +				scale_u /= 2;
-> +				break;
-> +			case 3:
-> +				scale_u /= 4;
-> +				break;
-> +			default:
-> +				return -EINVAL;
-> +			}
-> +
-> +			*val = 0;
-> +			*val2 = scale_u;
-> +
-> +			return IIO_VAL_INT_PLUS_MICRO;
-> +		}
-> +
-> +		reg = FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
-> +		if (reg >= ARRAY_SIZE(veml3328_scale_vals))
-> +			return -EINVAL;
-> +
-> +		*val = veml3328_scale_vals[reg][0];
-> +		*val2 = veml3328_scale_vals[reg][1];
-> +		return IIO_VAL_INT_PLUS_MICRO;
-I would  flip the logic and do this one out of line.  It's shorter!
+Looking at existing compat strings I settled on
+"qcom,x1e80100-mipi-csi2-combo-phy" deliberately omitting reference to the
+fact the PHY is built on a four nano-meter process node, which seems to
+match recent submissions to QMP PHY.
 
-Mind you it should still be taking integration time into account to
-achieve a stable value whatever the integration time (assuming we don't
-hit limits).
+My first pass at this driver included support for the old two phase
+devices:
 
+Link: https://git.codelinaro.org/bryan.odonoghue/kernel/-/commit/a504c28d109296c93470340cfe7281231f573bcb#b6e59ed7db94c9da22e492bb03fcda6a4300983c
 
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int veml3328_read_avail(struct iio_dev *indio_dev,
-> +			       struct iio_chan_spec const *chan,
-> +			       const int **vals, int *type, int *length,
-> +			       long mask)
-> +{
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_INT_TIME:
-> +		*length = ARRAY_SIZE(veml3328_it_times) * 2;
-> +		*vals = (const int *)veml3328_it_times;
-> +		*type = IIO_VAL_INT_PLUS_MICRO;
-> +		return IIO_AVAIL_LIST;
-> +
-> +	case IIO_CHAN_INFO_SCALE:
-As mentioned else where this needs to work for both light and intensity
-channels and incorporate the affect of integration time.
+I realised that the device tree schema changes required to support a
+comprehensive conversion of all CAMSS to this driver would be an
+almost certainly be unacceptable ABI break or at the very least an enormous
+amount of work and verification so I instead aimed to support just one new
+SoC in the submission.
 
-> +		*length = ARRAY_SIZE(veml3328_scale_vals) * 2;
-> +		*vals = (const int *)veml3328_scale_vals;
-> +		*type = IIO_VAL_INT_PLUS_MICRO;
-> +		return IIO_AVAIL_LIST;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int veml3328_write_raw(struct iio_dev *indio_dev,
-> +			      struct iio_chan_spec const *chan,
-> +			      int val, int val2, long mask)
-> +{
-> +	struct veml3328_data *data = iio_priv(indio_dev);
-> +	struct regmap *regmap = data->regmap;
-> +	struct device *dev = regmap_get_device(regmap);
-> +	int ret;
-> +	int i;
-> +
-> +	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_INT_TIME:
-> +		if (val != 0)
-> +			return -EINVAL;
-> +
-> +		for (i = 0; i < ARRAY_SIZE(veml3328_it_times); i++) {
-> +			if (veml3328_it_times[i][1] == val2)
-> +				break;
-> +		}
-> +
-> +		if (i == ARRAY_SIZE(veml3328_it_times))
-> +			return -EINVAL;
-> +
-> +		return regmap_update_bits(regmap, VEML3328_REG_CONF,
-> +					  VEML3328_CONF_IT_MASK,
-> +					  FIELD_PREP(VEML3328_CONF_IT_MASK, i));
-> +
-> +	case IIO_CHAN_INFO_SCALE:
+I've retained the callback indirections give us scope to add in another type of
+future PHY including potentially adding in the 2PH later on.
 
-So this is always a bit of a pain to handle, but you need to take the
-integration time into account.
+This driver is tested and working on x1e/Hamoa and has been tested as not
+breaking sc8280xp/Makena and sm8250/Kona.
 
-Also this currently applies to the IIO_LIGHT channel as well so you need
-to handle that as well which means reversing the maths above to find the
-right gain for the current integration time.  There are only 16 options so
-I'd be tempted to precompute them all. 
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+Bryan O'Donoghue (2):
+      dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+      phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
 
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 208 +++++++++++
+ MAINTAINERS                                        |  10 +
+ drivers/phy/qualcomm/Kconfig                       |  14 +
+ drivers/phy/qualcomm/Makefile                      |   5 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 371 ++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 386 +++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  95 +++++
+ 7 files changed, 1089 insertions(+)
+---
+base-commit: a1db83cc6f7e88a166c77d9060507ec01d617784
+change-id: 20250710-x1e-csi2-phy-f6434b651d3a
 
-
-> +		for (i = 0; i < ARRAY_SIZE(veml3328_scale_vals); i++) {
-> +			if (val == veml3328_scale_vals[i][0] &&
-> +			    val2 == veml3328_scale_vals[i][1])
-> +				break;
-> +		}
-> +
-> +		if (i == ARRAY_SIZE(veml3328_scale_vals))
-> +			return -EINVAL;
-> +
-> +		return regmap_update_bits(regmap, VEML3328_REG_CONF,
-> +					  VEML3328_CONF_GAIN_MASK,
-> +					  FIELD_PREP(VEML3328_CONF_GAIN_MASK, i));
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-
-> 
+Best regards,
+--  
+Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
