@@ -1,178 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5F6390C90;
-	Fri, 22 May 2026 13:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5CB39A07E
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779454988; cv=none; b=J6N+faNYn4RtK3t1NvGvQvzDAbcQ2XXosqet4f3lyYUXjU9d/msaT+LFBQPN1RaoxF7d7UKqzdipiVlYIkcPW5DtOtUh50gccOj/gBmJxPTHYNaFfHJzwsNdd6vziPp0ruBzshmLv9iUEJxfswaiNuWESWPXVVhYMbRKF939N/w=
+	t=1779455001; cv=none; b=OsLoHkg+IsrQ5lFHfynoUR5xuqw81X4s/PgDldDBDTDsvZ9uuUa9TFZ0jSqWX6aiLrrZerI9/Nn3Ht4kXTesmM3IUYgyi5nQxtZZ8r93BkLGmeyw4+SjuK2p9kmpz51qa8TENfWiGaRv2TyelXHc2r7oWkytx6Clsx1aPqIXr0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779454988; c=relaxed/simple;
-	bh=icPR2sKfzi4yECyNcYYGKxJDBBevjl1Y7FRUTs4zIH8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pl8QNuiPe8tWFyoWb0HUzEeTT7iaFuzTk1KS6idWWcHdXZsPKOG9WsKaS3oJWP/6EYmfhWQnGBr9zY7pudfJf3Syig+28V4UCxTZcfJpS5Ht5H8wZaR/ElbjK6CpJRycw3olhY96FQHaVnMG6E2KLGBelnrnDNX8IfuLl3juVKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/KElBMo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779455001; c=relaxed/simple;
+	bh=zeYQ87jFXpzV5+loM2B41zUFQUdxwealBtN/HeoFfv8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=qlV0O2dw22dJlzpY9F9+m89AGjmamXj6Cp4kq9CEy3QxCvCdBWNi3ZR+PL5JmXPLVqJrQMTyOWgxmYTIQEhuZ3QhxqYDTGp6OkZ/IktOAWd1qGhDJAyL8rrhGu0glmvfXlYxm4/GiJrQu8sSviDl24s8FB2WMYZnStcPEnJJcVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zByl3O1i; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/KElBMo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381251F000E9;
-	Fri, 22 May 2026 13:03:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779454986;
-	bh=sqD5iGBUDzbOWjAJkyeMBxvfUirt20hkDKhTn5GalBY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G/KElBMoLxVZipvksseyucY8z/fSYf8stnFK6zNlhdFJFFIANCHFPk7HXVX0SjrkX
-	 Fd6q228ma+gcPswtENN2+exVecPPbWyZoOJs/UZRbgI3glDgxP0NwKetj0fckZXVRs
-	 QavdJxL1NYfU/9qBh4RcNYmCPlPllN8YY8bcnj+DDLc8FiV0I5HBCpwVGh2bknAzZj
-	 i0m7ZTXX61Rk17/eVbqnABjj+od23lqBD87U2Sp++GxTvBCoHG/phhp1gwlBXvjVWq
-	 aXu8lTFBnAcuPOAlI9FSfW24mSYVo1UTF1D+sa0TyFq2EHAbGg1kEc95QJTR68S3Cx
-	 QiwgE4a3kxLlw==
-Date: Fri, 22 May 2026 14:02:55 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Liviu Stan <liviu.stan@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Antoniu Miclaus" <antoniu.miclaus@analog.com>, Francesco Lavra
- <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux@analog.com>,
- <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 2/8] iio: temperature: ltc2983: Use local device
- pointer consistently
-Message-ID: <20260522140255.27445c41@jic23-huawei>
-In-Reply-To: <20260521164323.770626-3-liviu.stan@analog.com>
-References: <20260521164323.770626-1-liviu.stan@analog.com>
-	<20260521164323.770626-3-liviu.stan@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zByl3O1i"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-bce386d5b85so1177482266b.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:03:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779454996; x=1780059796; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Pp+uy4fosL83r7Yff3IuwU9QpcRrQlNoLdm5truS+aA=;
+        b=zByl3O1i5BpuWNCeSGGZulp+fZz1ZxWWN4rqZBHsyxd2Mhh5Sd+Ys/wlJiNRRq+43T
+         DzC46dtI8m80KoFGNcTf0NPZagXY7WQcWZwvBA1lX+C9Ek6XA5RF+gFMJTqlOKhR2s/Y
+         1wLrP7UkoRdPoB8H2XJcfKhBd8Ji4Hkssg4Vv/OF0/85qDiEUyaueeVeC0qW6y6BVuju
+         RW1LFZgglIBoTRX21jDFIDIuACoyRjb0jQ03qTcfX39TzXMKPwy8wTgOWvXtxETCYKNd
+         1viMnM9Y26QTi94cmZMbgNDtEWb7T3bRXOBDSQ9VbQo/Y030GeXarbk2ZsRupeUMIHLm
+         PEHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779454996; x=1780059796;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Pp+uy4fosL83r7Yff3IuwU9QpcRrQlNoLdm5truS+aA=;
+        b=qFMuzOu9oJE5nPaC5bGT7+PjzDO5x49n8rCf+uQ3YRLWA+7XOJ+7flYSvm7AMyBoJn
+         /xBuEqZr/we+RJPx/5o+72ZM5/y9Ha/OjtJ5MbhnL2EYeFoWh25XM2mtWEfWn3V/4RJR
+         NhBRtkx5QgIViC2Div+JLa6RhYkNhN6ZEz37jrFTQ31s+pwmRg0be44/Fk3CpZxEjVXn
+         HeUwIPG9kb+6rR+Mbbvp4fCjErcmPd7nil92U9ORmPFlDkDNaXVAuOL8NXCrHgCdoj3N
+         oKloKXRdl3H7rZ5mXHWzHJKP1bj+y2HEQYh5yMKsDBpvXFZH/A9NNPgZSajduyndgEeS
+         7/Xw==
+X-Forwarded-Encrypted: i=1; AFNElJ+eKAMgTBQgf4oqOxx3CnPmWj1qi9WToE2B0rHm+IA1MkHh0rIOTsi0VBZIX1/dc6VudXVVtyqgNdKQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/WQc11IGYnYOHnWIN6ZEjZGxrooJvRtW4v9c3hnGtri6mH2K4
+	6RlO/MUrSd5pRDVoA6q7Z11XFYe2hYJ40mCOEkltKfZNaR4ACTH16GXGdhIEZVvx7IE=
+X-Gm-Gg: Acq92OF+TbsAilMvauQNakACU5Dm7dXrTzSw2f4POCevCvo21pFS9aSEcnqR2Qgu/rd
+	emnVGCODmgskXWyTaacGtVKFhqCqIRHrNin+3l8rNPWjEai1+cWhidGOBRSok6Z8YyDcyPfbblW
+	+C0ys4cKaeAPYfCE0Jjf09isv2SLyAMUmQusIA0i67YYyi6+xp+/NfoHdtFr6HhRxrFB6hZcyt8
+	vtU/pnU3InTapu2Gybdngfzxt3M08l46n4QDRSa3eQORd+98EwawYypfSUOV3+kWCt8O/vLe+7C
+	G04FmJxx/rZ8ILz5t7sMv/EsxHsAk0b+N9e8ZxTPfU3dinmZije8jsEj+CqbBibowQAU9e1IPVt
+	OKcCftQCeLm4l/ydPVm3RPsWUHJcCFQ3Yke0jExEWtysmBlpkCTn8g29LzJmTi6BmSoRRYGM9Iq
+	4DkQVifCNuplrAUEGEMgVG18lYTSRf5wMVVtV+AdQHlhkGJYetLZXobcmKSaVDrJMJiGdcpRh4r
+	Cgo
+X-Received: by 2002:a17:907:7383:b0:bdb:95d7:9816 with SMTP id a640c23a62f3a-bdd283a655amr141781566b.47.1779454995806;
+        Fri, 22 May 2026 06:03:15 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:e40:8f70:d414:3f93? ([2a01:e0a:106d:1080:e40:8f70:d414:3f93])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6c9dd03sm4631545f8f.7.2026.05.22.06.03.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 06:03:15 -0700 (PDT)
+Message-ID: <a2a08599-9682-440c-8b7e-a8b8256dc8b2@linaro.org>
+Date: Fri, 22 May 2026 15:03:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 2/2] regulator: add SGM3804 Dual Output driver
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+References: <20260506-topic-sm8650-ayaneo-pocket-s2-sgm3804-v4-0-7495e7905693@linaro.org>
+ <20260506-topic-sm8650-ayaneo-pocket-s2-sgm3804-v4-2-7495e7905693@linaro.org>
+ <8916f45b-3a97-4a5e-b608-5feaea40f2b2@sirena.org.uk>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <8916f45b-3a97-4a5e-b608-5feaea40f2b2@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 21 May 2026 19:42:55 +0300
-Liviu Stan <liviu.stan@analog.com> wrote:
-
-> Some functions define a local 'dev' pointer but still use bare
-> '&st->spi->dev' in some code paths, and some don't have it at all.
-> Replace bare references with the local pointer for consistency.
+On 5/22/26 14:01, Mark Brown wrote:
+> On Wed, May 06, 2026 at 09:34:07AM +0200, Neil Armstrong wrote:
 > 
-> Signed-off-by: Liviu Stan <liviu.stan@analog.com>
-
-Hi Liviu,
-
-When doing this sort of change, one of the advantages is often that code lines
-get shorter. So look at the lines touched and see if the wrapping remains
-appropriate.
-
-At least some of the cases I point out below already fitted on one line
-under 80 chars but none the less they are now even shorter so that needs
-tidying up.  Note that a few other cases are just over 80 chars.
-Take a look at those and decide if readability is improved much by just
-going a few characters over.  That line length isn't the hard rule it
-used to be!
-
-> ---
-> Changes in v3:
-> - Dropped the Fixes: tag
-> - Fixed one remaining dev_dbg() call in __ltc2983_chan_assign_common()
->   that was still using the raw device pointer instead of the dev local
->   variable introduced by this patch
+>> +config REGULATOR_SGM3804
+>> +	tristate "SGMicro SGM3804 voltage regulator"
+>> +	depends on I2C && OF
+>> +	select REGMAP_I2C
+>> +	help
+>> +	  This driver supports SGMicro SGM3804 dual-output voltage regulator.
+>> +
 > 
->  drivers/iio/temperature/ltc2983.c | 83 +++++++++++++++++--------------
->  1 file changed, 47 insertions(+), 36 deletions(-)
+> The GPIO usage in the driver looks non-optional so we should have a
+> GPIOLIB dependency shouldn't we?
+
+Indeed
+
 > 
-> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
-> index 67a09934c5bd..d9dcf3e86696 100644
-> --- a/drivers/iio/temperature/ltc2983.c
-> +++ b/drivers/iio/temperature/ltc2983.c
-> @@ -351,10 +351,11 @@ static int __ltc2983_chan_assign_common(struct ltc2983_data *st,
->  					const struct ltc2983_sensor *sensor,
->  					u32 chan_val)
->  {
-> +	struct device *dev = &st->spi->dev;
->  	u32 reg = LTC2983_CHAN_ASSIGN_ADDR(sensor->chan);
->  
->  	chan_val |= LTC2983_CHAN_TYPE(sensor->type);
-> -	dev_dbg(&st->spi->dev, "Assign reg:0x%04X, val:0x%08X\n", reg,
-> +	dev_dbg(dev, "Assign reg:0x%04X, val:0x%08X\n", reg,
->  		chan_val);
+>> +static int sgm3804_sync_regcache_state(struct sgm3804_data *ctx)
+>> +{
+>> +	guard(mutex)(&ctx->lock);
+>> +
+>> +	/* If both GPIOs are down, IC is powered down and I2C writes will fail */
+>> +	if (!gpiod_get_value_cansleep(ctx->gpios[SGM3804_POS_RAIL]) &&
+>> +	    !gpiod_get_value_cansleep(ctx->gpios[SGM3804_NEG_RAIL])) {
+>> +		regcache_cache_only(ctx->regmap, true);
+>> +		regcache_mark_dirty(ctx->regmap);
+>> +	} else {
+>> +		/* At least a GPIO is up, we can write registers */
+>> +		regcache_cache_only(ctx->regmap, false);
+>> +		return regcache_sync(ctx->regmap);
+> 
+> This should really put the regmap back into cache only mode if the sync
+> fails.
 
-chan_val easily fits on the line above now.  It actually did before
-but given you are changing this lets tidy it up to;
+Right
 
-	dev_dbg(dev, "Assign reg:0x%04X, val:0x%08X\n", reg, chan_val);
+> 
+>> +static const struct regulator_desc sgm3804_regulator_desc[] = {
+>> +	/* Positive Output */
+>> +	{
+>> +		.name = "pos",
+>> +		.of_match = "pos",
+>> +		.supply_name = "vin",
+>> +		.id = SGM3804_POS_RAIL,
+>> +		.ops = &sgm3804_ops,
+>> +		.type = REGULATOR_VOLTAGE,
+>> +		.linear_ranges = sgm3804_voltages,
+>> +		.n_linear_ranges = ARRAY_SIZE(sgm3804_voltages),
+>> +		.n_voltages = SGM3804_VOLTAGES_COUNT,
+> 
+> n_voltages is misnamed and should really be maximum selector, for a
+> device like this with sparse selectors it doesn't do what you'd expect
+> unfortunately.
 
+OK indeed thanks, I overlooked this part
 
->  	st->chan_val = cpu_to_be32(chan_val);
->  	return regmap_bulk_write(st->regmap, reg, &st->chan_val,
-
-
-
-
-> @@ -1222,11 +1229,12 @@ static int ltc2983_read_raw(struct iio_dev *indio_dev,
->  			    int *val, int *val2, long mask)
->  {
->  	struct ltc2983_data *st = iio_priv(indio_dev);
-> +	struct device *dev = &st->spi->dev;
->  	int ret;
->  
->  	/* sanity check */
->  	if (chan->address >= st->num_channels) {
-> -		dev_err(&st->spi->dev, "Invalid chan address:%ld",
-> +		dev_err(dev, "Invalid chan address:%ld",
->  			chan->address);
-
-		dev_err(dev, "Invalid chan address:%ld", chan->address);
-
->  		return -EINVAL;
->  	}
-
-> @@ -1427,6 +1436,7 @@ static int ltc2983_eeprom_cmd(struct ltc2983_data *st, unsigned int cmd,
->  static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
->  {
->  	u32 iio_chan_t = 0, iio_chan_v = 0, chan, iio_idx = 0, status;
-> +	struct device *dev = &st->spi->dev;
->  	int ret;
->  
->  	/* make sure the device is up: start bit (7) is 0 and done bit (6) is 1 */
-> @@ -1434,7 +1444,7 @@ static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
->  				       LTC2983_STATUS_UP(status) == 1, 25000,
->  				       25000 * 10);
->  	if (ret)
-> -		return dev_err_probe(&st->spi->dev, ret,
-> +		return dev_err_probe(dev, ret,
->  				     "Device startup timed out\n");
-
-		return dev_err_probe(dev, ret, "Device startup timed out\n");
-
-
->  
->  	ret = regmap_update_bits(st->regmap, LTC2983_GLOBAL_CONFIG_REG,
-> @@ -1535,12 +1545,13 @@ static const struct  iio_info ltc2983_iio_info = {
-
-> @@ -1589,10 +1600,10 @@ static int ltc2983_probe(struct spi_device *spi)
->  	if (ret)
->  		return ret;
->  
-> -	ret = devm_request_irq(&spi->dev, spi->irq, ltc2983_irq_handler,
-> +	ret = devm_request_irq(dev, spi->irq, ltc2983_irq_handler,
->  			       IRQF_TRIGGER_RISING, st->info->name, st);
->  	if (ret)
-> -		return dev_err_probe(&spi->dev, ret,
-> +		return dev_err_probe(dev, ret,
->  				     "failed to request an irq\n");
-
-		return dev_err_probe(dev, ret, "failed to request an irq\n");
-
-Thanks,
-
-Jonathan
-
-
-
-
->  
+Neil
