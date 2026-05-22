@@ -1,344 +1,370 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9829E4657C8
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 14:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779460572; cv=pass; b=pKtvoNlWGdg0bP7j/DFDMPE5MZPDZoyhZRBq8HExEydfyW4o0Z1TBogojWRbBS3+wBNVXe0Z/swnVve/K2wvVSDc4v7ww072XU/tScw1x2ul6fSZRch95QLkp2DAlGRUuSZ4q3z1yvfZcU0paxfNp+G2gkvTwmf4p10XllJGhFU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779460572; c=relaxed/simple;
-	bh=j38wf+VC5DAzbntAhpsUFIyPbbdFLRrkd6Xq9bT3rT0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h7ZI9KcchqeDGh8rDjDi62CuKwfk48PiDOyxzStsMFSPGY6UJwlC+4fN8kRtez6OhywwcuAO37x8+KSTTz0czz1wsuwMcR0tHWTeDzgvF+LuQsKe6oXYvdGlq+zv2XkJ7ZW21fvJS2bxm42ZwWNYuPfBoo1Xx83o3M/n835HWUg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Yp1Q2x57; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4823630AD;
+	Fri, 22 May 2026 14:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779460651; cv=none; b=ngP37lCslA7yODmr294j/TuHZqh40sYWdmmtRL93zHwOdaW4JBQ1onXlJ641F4c+wrJSxqZKOQVfGCB9EGud9KaZKKVNqvoX5FsLUcRcZAbu/WK+F5ePMVbPBLQBgggfLGRt7rc5MlawflqfPOlQmYNVFCxuo2p1E9NBuxUPe34=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779460651; c=relaxed/simple;
+	bh=7LRvogyE2DbiqEqreTDiXtNf9rIpO8JT1auuOTSw3t4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Q6h4+Mv0Baexe/VQx93umBr+r2047DiTa2POPlUfsMcjv6rn3BxQxI8TaiRTiZB5nLrg16h2rpg4lg0MMdLSd4Ng0OQr1lSpejfrZbnh4tzKWs4T/TJO7TftX7pEaGXbn2L4heTmfHosegKx2b0LE9f/2Cc0efVnidjvgSEAk2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJ5SfAZd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Yp1Q2x57"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-67c2d57a5ceso11719824a12.3
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 07:36:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779460569; cv=none;
-        d=google.com; s=arc-20240605;
-        b=P9aDIBJStwkW9+gFOMyIgGzJbH4FbIwznqpP04Mh4N/ljj/Pb0Rv/uKU+yiEecW3Sy
-         ZyIINdVVZU+jQd3kjqhVbGddf0hIi5uKaX7me9nH7fhRWiCZm7/NuAA5mHyz3UGMXuVI
-         thMTrAW5tbRPAtUGprEQEWkUTFNp7j7rwOSWSMjOcGdn04GNV0/kyTVuEKGG1NpqWfa1
-         BphEoxe+yWjRTQvA5La2XdGNbgno0n4+ElrB1jpya29TBIJvEBEUqgtyJkdHtTqogs7z
-         Gcl4XPhg1cae4Ha/euXY20O6IVkpdPXHYgDwtzqqfrf5JCRBJ4hF+hHdqS5JcHbQ4vtP
-         hv3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=iUwMeqcEfoa+UhA6Poo9oYBXifJqH1s4dgYVK+G4bjs=;
-        fh=EmOWqGyocn5ARXvfJc4N1VArToCkLZvEDCSy/wnKC9s=;
-        b=LOFRDxlfYwo6s5Wx/XMELch+40AiYTd3guOlLCDXsKNFUjNwcY/n6DfFnVoTwODNPs
-         FhS210Z95r3yvKJGg0RcLjHgot73ZJ7cESwXZHnZi/4Ss4VZra2Ni9501njOLvQa1ZiT
-         wybsOpbNy/o/P4yOPbjxlXOZFZBJjM4yI1r8fSMEn6pbgaVNpZDgxudGluEbOeTTJZHA
-         pjquQ0BOykQehEzjYkkj3jy8norBZhfGWUB9RugsJzrfQ26I4nBqfPjgo7A+rrynsOI8
-         12DI3+r4d5GGNzhGTm3YKtNf1xSn+e7QsyGCexQxzaYYQdfmqFntD74UQp+6wOWAjQmd
-         HSog==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779460569; x=1780065369; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=iUwMeqcEfoa+UhA6Poo9oYBXifJqH1s4dgYVK+G4bjs=;
-        b=Yp1Q2x575F+qcN39AxBPIVrbtOThhSkgntmRkk08lyB2vTFWp/HtGliSYxwKxGpd8q
-         8hZa/72U3FbHKh8CVgTJC+3Yw3T165ceTzmdlQZllKBn212A31g+SgvIOhmIWF8pprft
-         A1DvHc8bb4yAaMAyp5hLXT/zYP4bWcm4dOGiOiDYSA8oSIUKr7MgGkRdO/a2WFKx1om7
-         EKgJjQxnnxu5mQbFTCUWnYad29hQ5JP8Y2FPer1EknCQ4Z66BPuXSxG0tkMH2qz0pn81
-         O1drDXBxvg5fMpM0oHNtOKOl7dnsBNGOk23huuPlLUYZ+AfEa/wH1FtksICDvdp8WX6S
-         Y2zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779460569; x=1780065369;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iUwMeqcEfoa+UhA6Poo9oYBXifJqH1s4dgYVK+G4bjs=;
-        b=Z8nW1ZwrJoENMYaDjCMHL77tv62dU5aLubtToQTFPFxEb5H2h/Qzl7rKS8lK6Kh0vj
-         aIouM2xBV98aUYJjM2bGp1DkfqrgwhuRe1ecygR1LQuz0FAaTXn1A4jT9zgJMbo6IbAU
-         h5X8L8jv8KtjgF/LHg4TnmEwocrDzv9RAEdIAjrp3aHHKpVjCVQ2D95/K157FPsKctWK
-         IatfWMrVkJvPCZPpG6t89SOi3OEPt9ijSJOE5zWgK/OGC2Z9lkxnV5Dpslxtr7C0jw+W
-         D+mw0fq7JGrmBn81dDDar3WP+/Z7iXRyGrDU1gKUOJjAF0z/d6HF4jk7B29gIAaa/ISP
-         Cmhw==
-X-Forwarded-Encrypted: i=1; AFNElJ9+SLHcKNReAf3J3jhl2fcW7efZhe65N0ardMHZucgiyx0uJvtFKdgCvqrhHVV15j99rbZqTW11lPr3@vger.kernel.org
-X-Gm-Message-State: AOJu0YyiQdASZEf8zcYFFDjLJr/qb2FNjK67TLch8DEpdKz5PxsN7RPF
-	TWnbaRqyIMQASOfWTCIKtsegFEi8GvT368VlXNqYxfs3sMMIoA9OG2W5ocGqSiNJWPrh/ch35qK
-	ZHHAuZN51FuRQx3bo9SAWeTtCLPNMxyc+16F3ir4iIg==
-X-Gm-Gg: Acq92OEnVQ0Nrpf2HisMqSO0QONWnpaT7bSVKensWMcajBZGJAbH/VVLNGs923xezFh
-	AQFWRpsG93235iUcXJKe2RRU2yZSS9+lHTamP7Ed54xiAHjjI5iTaXawkzHDMrhijjnb1dLco1U
-	rroD9OEC8+PPfU+0UF9dxtvj/3IPcUw2874oerpy2yUwLWVC/maBZ6R7adwnFvYPuMy/x6K8CR1
-	TAaoD2hPUxJFVRrldM3NCwQ0cxTjCwWglmUAFIuMoet2npftxeN+fI8Vq0s0XWwaEEcHUuNk0Jv
-	PXQwL2Tg38Vso8A6mlc0+3eyaowbEIfACFz6ZNlw
-X-Received: by 2002:a05:6402:4302:b0:678:edab:6f40 with SMTP id
- 4fb4d7f45d1cf-6889c422bfemr2167605a12.4.1779460568984; Fri, 22 May 2026
- 07:36:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJ5SfAZd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210FF1F000E9;
+	Fri, 22 May 2026 14:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779460649;
+	bh=ZkBxG7dAs5Dbu50nlO3YiIMXGT1N8myPKjIk5UYE76k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iJ5SfAZdKty5IpIOZD2nGQLELfwOgcAW3IHmcg8zAs/vWdIUUVvUAW3WRNM+NoaYt
+	 SnCDtSC9bdujxY4UfImzASP8wKrcqALG9B3a7NrfWt85JRU7VpIZ9VGgfa1L8MKM6J
+	 prMI0zQRB7BAoP8bxYuMh9Flxz51jSdsPFb9CSq+qTOk/iS/4J1hSsZSsddU4YduGl
+	 HevrpKYRVFB8ZTsyQTSioKOtgHxiNg9HfeBkXJUCeTV1yToO7406Y5e6SqvbnfJO37
+	 X+SRnavR6QHOzOuODj91I+2zo7J4Gw1q6tXoe/uLHCuoZ4yspOEe3S34HgaI1BN39y
+	 QvAXoY8otH5MQ==
+Date: Fri, 22 May 2026 15:37:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ Rishi Gupta <gupt21@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: light: veml3328: add support for new device
+Message-ID: <20260522153719.4fc1d932@jic23-huawei>
+In-Reply-To: <20260520-veml3328-v2-2-a57f0d9e28d4@gmail.com>
+References: <20260520-veml3328-v2-0-a57f0d9e28d4@gmail.com>
+	<20260520-veml3328-v2-2-a57f0d9e28d4@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260501143707.1591110-1-tanmay.shah@amd.com> <20260501143707.1591110-3-tanmay.shah@amd.com>
- <ag9FcXeIIiJWdld7@p14s> <cbd418a3-1585-4592-8e86-b0750e19ec0f@amd.com> <be63e9a0-e325-46eb-9c03-54dc22878ed6@amd.com>
-In-Reply-To: <be63e9a0-e325-46eb-9c03-54dc22878ed6@amd.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Fri, 22 May 2026 08:35:57 -0600
-X-Gm-Features: AVHnY4LtwSS30HSBRhVWgPEV2L1wcvx433tVw1FA3kjt7ZBX0HcUlAqaB0u01-U
-Message-ID: <CANLsYkwqx38oafrjbFmKMhQ7Nat8X3W1GSY76BjN=Q+mavAE5w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] remoteproc: xlnx: enable auto boot feature
-To: tanmay.shah@amd.com
-Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, michal.simek@amd.com, ben.levinsky@amd.com, 
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 21 May 2026 at 12:48, Shah, Tanmay <tanmays@amd.com> wrote:
->
->
->
-> On 5/21/2026 1:38 PM, Shah, Tanmay wrote:
-> > Hello,
-> >
-> > Thank you for the reviews, please find my comments below:
-> >
-> > On 5/21/2026 12:48 PM, Mathieu Poirier wrote:
-> >> Good morning,
-> >>
-> >> I don't recal reviewing the first revision of this set.  Can you provide a link
-> >> to it so that I can read the comments that were provided?
-> >>
-> >
-> > Here it is:
-> > https://lore.kernel.org/linux-remoteproc/20260422202558.2362971-1-tanmay.shah@amd.com/
-> >
-> > The device-tree bindings needed rework in v1, so I sent v2, before we
-> > ever reviewed the driver part.
-> >
-> >
-> >> On Fri, May 01, 2026 at 07:37:07AM -0700, Tanmay Shah wrote:
-> >>> remoteproc framework has capability to start (or attach to) the remote
-> >>
-> >> The remoteproc framework...
-> >>
-> >
-> > Ack.
-> >
-> >>> processor automatically if auto boot flag is set by the driver during
-> >>> probe. If remote core is not started before the Linux boot, and linux is
-> >>> expected to start the remote core then it uses "firmware-name" property
-> >>> to load default firmware during auto boot.
-> >>>
-> >>> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
-> >>> ---
-> >>>  drivers/remoteproc/xlnx_r5_remoteproc.c | 48 +++++++++++++++++--------
-> >>>  1 file changed, 34 insertions(+), 14 deletions(-)
-> >>>
-> >>> diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
-> >>> index 45a62cb98072..652030f9cea2 100644
-> >>> --- a/drivers/remoteproc/xlnx_r5_remoteproc.c
-> >>> +++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
-> >>> @@ -899,17 +899,18 @@ static const struct rproc_ops zynqmp_r5_rproc_ops = {
-> >>>  };
-> >>>
-> >>>  /**
-> >>> - * zynqmp_r5_add_rproc_core() - Add core data to framework.
-> >>> - * Allocate and add struct rproc object for each r5f core
-> >>> + * zynqmp_r5_alloc_rproc_core() - alloc rproc core data structure
-> >>> + * Allocate struct rproc object for each r5f core
-> >>>   * This is called for each individual r5f core
-> >>>   *
-> >>>   * @cdev: Device node of each r5 core
-> >>>   *
-> >>>   * Return: zynqmp_r5_core object for success else error code pointer
-> >>>   */
-> >>> -static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
-> >>> +static struct zynqmp_r5_core *zynqmp_r5_alloc_rproc_core(struct device *cdev)
-> >>
-> >> Why is there a need to change the function's name?
-> >>
-> >
-> > Before, the function was actually adding the rproc core by calling
-> > rproc_add() function, but now it only allocates the memory by calling
-> > rproc_alloc(). For auto boot to work it's important to add rproc core
-> > after all the other hw is initialized (such as mbox, tcm, sram,
-> > power-domains etc). More details below [1].
-> >
-> >>>  {
-> >>>     struct zynqmp_r5_core *r5_core;
-> >>> +   const char *fw_name = NULL;
-> >>>     struct rproc *r5_rproc;
-> >>>     int ret;
-> >>>
-> >>> @@ -918,10 +919,15 @@ static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
-> >>>     if (ret)
-> >>>             return ERR_PTR(ret);
-> >>>
-> >>> +   ret = rproc_of_parse_firmware(cdev, 0, &fw_name);
-> >>> +   if (ret < 0 && ret != -EINVAL)
-> >>> +           return ERR_PTR(dev_err_probe(cdev, ret,
-> >>> +                                        "failed to parse firmware-name\n"));
-> >>> +
-> >>>     /* Allocate remoteproc instance */
-> >>>     r5_rproc = rproc_alloc(cdev, dev_name(cdev),
-> >>>                            &zynqmp_r5_rproc_ops,
-> >>> -                          NULL, sizeof(struct zynqmp_r5_core));
-> >>> +                          fw_name, sizeof(struct zynqmp_r5_core));
-> >>>     if (!r5_rproc) {
-> >>>             dev_err(cdev, "failed to allocate memory for rproc instance\n");
-> >>>             return ERR_PTR(-ENOMEM);
-> >>> @@ -932,6 +938,11 @@ static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
-> >>>     r5_rproc->recovery_disabled = true;
-> >>>     r5_rproc->has_iommu = false;
-> >>>     r5_rproc->auto_boot = false;
-> >>> +
-> >>> +   /* attempt to boot automatically if the firmware-name is provided */
-> >>> +   if (fw_name)
-> >>> +           r5_rproc->auto_boot = true;
-> >>> +
-> >>
-> >> What happens when a firmware name needs to be provided in the DT but you don't
-> >> want to automatically boot the remote processor?
-> >>
-> >
-> > I think that use case is not needed. If the user/system-designer doesn't
-> > want auto-boot, then having firmware-name in the device-tree serves no
-> > purpose. User can always load the firmware via sysfs once kernel boots.
-> >
-> >>>     r5_core = r5_rproc->priv;
-> >>>     r5_core->dev = cdev;
-> >>>     r5_core->np = dev_of_node(cdev);
-> >>> @@ -941,13 +952,6 @@ static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
-> >>>             goto free_rproc;
-> >>>     }
-> >>>
-> >>> -   /* Add R5 remoteproc core */
-> >>> -   ret = rproc_add(r5_rproc);
-> >>> -   if (ret) {
-> >>> -           dev_err(cdev, "failed to add r5 remoteproc\n");
-> >>> -           goto free_rproc;
-> >>> -   }
-> >>> -
-> >>
-> >> I'm not sure why there is a need to move this to zynqmp_r5_cluster_init()?  Is
-> >> it simply to make the error path easier to handle?  If so, please do that in a
-> >> separate patch.
-> >>
-> >
-> > [1] This was moved to make auto-boot work. The remote core can auto-boot
-> > only after other hardware is initialized. The zynqmp_r5_core_init()
-> > initializes sram, TCM and power-domains of the core. Also, mailbox is
-> > requested before zynqmp_r5_core_init() as well. We can't auto-boot core
-> > directly without all this. So, I had to move rproc_add() at the end of
-> > the cluster init, and rename above function from
-> > zynqmp_r5_add_rproc_core to zynqmp_r5_alloc_rproc_core.
-> >
-> > If you prefer, I will add above explanation in the commit text, or as
-> > comment right before rproc_add().
-> >
-> >
-> >
-> >>>     r5_core->rproc = r5_rproc;
-> >>>     return r5_core;
-> >>>
-> >>> @@ -1280,6 +1284,7 @@ static int zynqmp_r5_core_init(struct zynqmp_r5_cluster *cluster,
-> >>>                     if (zynqmp_r5_get_rsc_table_va(r5_core))
-> >>>                             dev_dbg(r5_core->dev, "rsc tbl not found\n");
-> >>>                     r5_core->rproc->state = RPROC_DETACHED;
-> >>> +                   r5_core->rproc->auto_boot = true;
-> >>
-> >> I thought this was done in zynqmp_r5_add_rproc_core() - what am I missing?
-> >>
-> >
-> > That function is now zynqmp_r5_alloc_core() as mentioned above. Also,
-> > until now, auto_boot was set to 'false' only to show that it is
-> > disabled. It is actually used and enabled now.
-> >
->
-> "I thought this was done in zynqmp_r5_add_rproc_core() - what am I missing?"
->
-> I probably misunderstood this comment. Here is the correct explanation:
->
-> The auto_boot setting in the zynqmp_r5_alloc_core() is done if the
-> 'firmware-name' property is present in the device-tree.
->
-> Here it is done, if the remote core is already running. This is to
-> support attach-detach use case.
->
-> So, auto_boot is possible in two cases: 1) If firmware-name property is
-> available (Linux boots the remote), 2) If firmware is already loaded and
-> remote was started by the boot loader. (Linux attaches to the running
-> remote).
->
-> This is the second use case.
->
+On Wed, 20 May 2026 23:15:38 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-Thanks for the clarifications, I'll have another look at this set.
+> Add support for the Vishay VEML3328 RGB/IR light sensor communicating
+> via I2C (SMBus compatible).
+> 
+> Also add a new entry for said driver into Kconfig and Makefile.
+> 
+> Assisted-by: Gemini:3.1-Pro
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-> Thanks,
-> Tanmay
->
-> >> Thanks,
-> >> Mathieu
-> >>
-> >>>             }
-> >>>     }
-> >>>
-> >>> @@ -1304,7 +1309,7 @@ static int zynqmp_r5_cluster_init(struct zynqmp_r5_cluster *cluster)
-> >>>     enum rpu_oper_mode fw_reg_val;
-> >>>     struct device **child_devs;
-> >>>     enum rpu_tcm_comb tcm_mode;
-> >>> -   int core_count, ret, i;
-> >>> +   int core_count, ret, i, j;
-> >>>     struct mbox_info *ipi;
-> >>>
-> >>>     ret = of_property_read_u32(dev_node, "xlnx,cluster-mode", &cluster_mode);
-> >>> @@ -1390,7 +1395,7 @@ static int zynqmp_r5_cluster_init(struct zynqmp_r5_cluster *cluster)
-> >>>             child_devs[i] = &child_pdev->dev;
-> >>>
-> >>>             /* create and add remoteproc instance of type struct rproc */
-> >>> -           r5_cores[i] = zynqmp_r5_add_rproc_core(&child_pdev->dev);
-> >>> +           r5_cores[i] = zynqmp_r5_alloc_rproc_core(&child_pdev->dev);
-> >>>             if (IS_ERR(r5_cores[i])) {
-> >>>                     ret = PTR_ERR(r5_cores[i]);
-> >>>                     r5_cores[i] = NULL;
-> >>> @@ -1435,16 +1440,31 @@ static int zynqmp_r5_cluster_init(struct zynqmp_r5_cluster *cluster)
-> >>>             goto release_r5_cores;
-> >>>     }
-> >>>
-> >>> +   for (j = 0; j < cluster->core_count; j++) {
-> >>> +           /* Add R5 remoteproc core */
-> >>> +           ret = rproc_add(r5_cores[j]->rproc);
-> >>> +           if (ret) {
-> >>> +                   dev_err_probe(r5_cores[j]->dev, ret,
-> >>> +                                 "failed to add remoteproc\n");
-> >>> +                   goto delete_r5_cores;
-> >>> +           }
-> >>> +   }
-> >>> +
-> >>>     kfree(child_devs);
-> >>>     return 0;
-> >>>
-> >>> +delete_r5_cores:
-> >>> +   i = core_count - 1;
-> >>> +   /* delete previous added rproc */
-> >>> +   while (--j >= 0)
-> >>> +           rproc_del(r5_cores[j]->rproc);
-> >>> +
-> >>>  release_r5_cores:
-> >>>     while (i >= 0) {
-> >>>             put_device(child_devs[i]);
-> >>>             if (r5_cores[i]) {
-> >>>                     zynqmp_r5_free_mbox(r5_cores[i]->ipi);
-> >>>                     of_reserved_mem_device_release(r5_cores[i]->dev);
-> >>> -                   rproc_del(r5_cores[i]->rproc);
-> >>>                     rproc_free(r5_cores[i]->rproc);
-> >>>             }
-> >>>             i--;
-> >>> --
-> >>> 2.34.1
-> >>>
-> >
->
+Hi Joshua,
+
+Sashiko did a really good job on this. I'm always amazed at how much it
+understands of how these attributes are used.
+
+https://sashiko.dev/#/patchset/20260520-veml3328-v2-0-a57f0d9e28d4%40gmail.com
+
+My biggest comment is I'd look at making the scale from integration / gain
+calculations something that is precomputed that you just look up.
+You can have separate ones for light and intensity channels or be a little
+cheeky and just use the light one for everything - given intensity doesn't
+have fixed units as such we can scale by the extra factors in the illuminance
+calculation and not worry about what they are.
+
+
+> diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
+> new file mode 100644
+> index 000000000000..fdfa8fd1666b
+> --- /dev/null
+> +++ b/drivers/iio/light/veml3328.c
+> @@ -0,0 +1,416 @@
+
+> +
+> +#define VEML3328_CHAN_SPEC(_color, _addr) { \
+> +	.type = IIO_INTENSITY, \
+> +	.modified = 1, \
+> +	.channel2 = IIO_MOD_LIGHT_##_color, \
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+> +	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME) | \
+> +				   BIT(IIO_CHAN_INFO_SCALE), \
+> +	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) | \
+> +					     BIT(IIO_CHAN_INFO_SCALE), \
+> +	.address = _addr, \
+> +}
+> +
+> +static const struct iio_chan_spec veml3328_channels[] = {
+> +	{
+> +		.type = IIO_LIGHT,
+> +
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME),
+
+Sashiko is kind of right and kind of wrong on this.
+As it is shared by all, BIT(IIO_CHAN_INFO_SCALE)
+should be here.  It won't have a function affect as we don't verify
+they all have it and as long as one does the file will get created.
+So this is more about consistency than correctness.
+
+Raises more questions though.  Is it correct scale? I think not.
+Looks like you have scaling for the intensity channels returning
+different values from the light one. 
+
+So I think the above INTENSITY should move IIO_CHAN_INFO_SCALE
+to .info_mask_shared_by_type and equivalent for the available.
+
+
+
+
+> +		.address = VEML3328_REG_DATA_G,
+> +	},
+> +	VEML3328_CHAN_SPEC(CLEAR, VEML3328_REG_DATA_C),
+> +	VEML3328_CHAN_SPEC(RED, VEML3328_REG_DATA_R),
+> +	VEML3328_CHAN_SPEC(GREEN, VEML3328_REG_DATA_G),
+> +	VEML3328_CHAN_SPEC(BLUE, VEML3328_REG_DATA_B),
+> +	VEML3328_CHAN_SPEC(IR, VEML3328_REG_DATA_IR),
+> +};
+> +
+> +/* scale values per datasheet */
+> +static const int veml3328_scale_vals[][2] = {
+Sashiko wins again. Whilst we don't get a nice standard unit for
+IIO_INTENSITY channels for _raw * _scale, the expectation is that
+for the same input light intensity this should remain constant.
+I.e. If _scale value double _raw should halve.
+
+I assume these are x0.5 x1 x2 and x4 gains applied. Those will
+result in _raw changing by those factors, therefore to get a stable
+output these should be inverted.  
+
+	{ 2, 0 },
+	{ 1, 0 },
+	{ 0, 500000 },
+	{ 0, 250000 },
+
+Make sure you test _raw * _scale is stable as a result.
+
+> +	{ 0, 500000 },
+> +	{ 1, 0 },
+> +	{ 2, 0 },
+> +	{ 4, 0 },
+> +};
+> +
+> +/* integration times in microseconds */
+> +static const int veml3328_it_times[][2] = {
+> +	{ 0, 50 * USEC_PER_MSEC },
+> +	{ 0, 100 * USEC_PER_MSEC },
+> +	{ 0, 200 * USEC_PER_MSEC },
+> +	{ 0, 400 * USEC_PER_MSEC },
+> +};
+> +
+
+> +
+> +static int veml3328_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct veml3328_data *data = iio_priv(indio_dev);
+> +	struct regmap *regmap = data->regmap;
+> +	struct device *dev = regmap_get_device(regmap);
+> +	unsigned int reg_val;
+> +	int ret;
+> +	int reg;
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = regmap_read(regmap, chan->address, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = reg_val;
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		reg = FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
+> +		if (reg >= ARRAY_SIZE(veml3328_it_times))
+> +			return -EINVAL;
+> +
+> +		*val = veml3328_it_times[reg][0];
+> +		*val2 = veml3328_it_times[reg][1];
+> +		return IIO_VAL_INT_PLUS_MICRO;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		ret = regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (chan->type == IIO_LIGHT) {
+> +			int it_inx, gain_inx;
+> +			int it_us, scale_u;
+> +
+> +			it_inx = FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
+> +			gain_inx = FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
+> +
+> +			if (it_inx >= ARRAY_SIZE(veml3328_it_times) ||
+> +			    gain_inx >= ARRAY_SIZE(veml3328_scale_vals))
+> +				return -EINVAL;
+> +
+> +			it_us = veml3328_it_times[it_inx][1];
+> +
+> +			/*
+> +			 * Equation for calculating ambient light scale:
+> +			 * Scale = 0.384 * (50000 / Current_IT) * (1x / Current_Gain)
+
+Good. This has the inverses missing for the intensity channels.
+
+As I note below, there are quite a few accesses to what is basically a 4x4 array
+of values based on selection of gain and selection of integration time.
+
+I'd be tempted to precompute them and make all these paths look ups.
+
+
+> +			 */
+> +			scale_u = 384 * USEC_PER_MSEC;
+> +			scale_u = scale_u  * 50000 / it_us;
+> +
+> +			switch (gain_inx) {
+> +			case 0:
+> +				scale_u *= 2;
+> +				break;
+> +			case 1:
+> +				break;
+> +			case 2:
+> +				scale_u /= 2;
+> +				break;
+> +			case 3:
+> +				scale_u /= 4;
+> +				break;
+> +			default:
+> +				return -EINVAL;
+> +			}
+> +
+> +			*val = 0;
+> +			*val2 = scale_u;
+> +
+> +			return IIO_VAL_INT_PLUS_MICRO;
+> +		}
+> +
+> +		reg = FIELD_GET(VEML3328_CONF_GAIN_MASK, reg_val);
+> +		if (reg >= ARRAY_SIZE(veml3328_scale_vals))
+> +			return -EINVAL;
+> +
+> +		*val = veml3328_scale_vals[reg][0];
+> +		*val2 = veml3328_scale_vals[reg][1];
+> +		return IIO_VAL_INT_PLUS_MICRO;
+I would  flip the logic and do this one out of line.  It's shorter!
+
+Mind you it should still be taking integration time into account to
+achieve a stable value whatever the integration time (assuming we don't
+hit limits).
+
+
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int veml3328_read_avail(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       const int **vals, int *type, int *length,
+> +			       long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		*length = ARRAY_SIZE(veml3328_it_times) * 2;
+> +		*vals = (const int *)veml3328_it_times;
+> +		*type = IIO_VAL_INT_PLUS_MICRO;
+> +		return IIO_AVAIL_LIST;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+As mentioned else where this needs to work for both light and intensity
+channels and incorporate the affect of integration time.
+
+> +		*length = ARRAY_SIZE(veml3328_scale_vals) * 2;
+> +		*vals = (const int *)veml3328_scale_vals;
+> +		*type = IIO_VAL_INT_PLUS_MICRO;
+> +		return IIO_AVAIL_LIST;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int veml3328_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int val, int val2, long mask)
+> +{
+> +	struct veml3328_data *data = iio_priv(indio_dev);
+> +	struct regmap *regmap = data->regmap;
+> +	struct device *dev = regmap_get_device(regmap);
+> +	int ret;
+> +	int i;
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		if (val != 0)
+> +			return -EINVAL;
+> +
+> +		for (i = 0; i < ARRAY_SIZE(veml3328_it_times); i++) {
+> +			if (veml3328_it_times[i][1] == val2)
+> +				break;
+> +		}
+> +
+> +		if (i == ARRAY_SIZE(veml3328_it_times))
+> +			return -EINVAL;
+> +
+> +		return regmap_update_bits(regmap, VEML3328_REG_CONF,
+> +					  VEML3328_CONF_IT_MASK,
+> +					  FIELD_PREP(VEML3328_CONF_IT_MASK, i));
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+
+So this is always a bit of a pain to handle, but you need to take the
+integration time into account.
+
+Also this currently applies to the IIO_LIGHT channel as well so you need
+to handle that as well which means reversing the maths above to find the
+right gain for the current integration time.  There are only 16 options so
+I'd be tempted to precompute them all. 
+
+
+
+> +		for (i = 0; i < ARRAY_SIZE(veml3328_scale_vals); i++) {
+> +			if (val == veml3328_scale_vals[i][0] &&
+> +			    val2 == veml3328_scale_vals[i][1])
+> +				break;
+> +		}
+> +
+> +		if (i == ARRAY_SIZE(veml3328_scale_vals))
+> +			return -EINVAL;
+> +
+> +		return regmap_update_bits(regmap, VEML3328_REG_CONF,
+> +					  VEML3328_CONF_GAIN_MASK,
+> +					  FIELD_PREP(VEML3328_CONF_GAIN_MASK, i));
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+
+> 
+
