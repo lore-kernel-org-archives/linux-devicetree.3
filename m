@@ -1,96 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F87121CFEF
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 07:57:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBF13A6403;
+	Fri, 22 May 2026 08:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779436673; cv=none; b=D6eRfQGgV+aej8MF96n48tnq19i0SxpQMNU+kkKG4CgOmsch8vpWIMHXuQVrxkrQbHu0rdJbQjthf5Rye6bdtdKnIhiTNRFlKRRB3IUytGpc2hAW8G/sRVuE7j64eYOM7OLKvGeeKSemycrTK0tlexBtofDunN4ypny+a0tcfM4=
+	t=1779436808; cv=none; b=CH2XX/omqBttRAPLth4xJqDUPEpDi/Rfs40Q0BhexixzR/PA8ihoCJMxt9diWf4h/Em6Yx66SJ6jlMKf90TVMw94lEB28OmlSD8c0ZeG7pp4wA0ljgHUWRK3aiVtSqwIJgLGr46FbUOHjUB/e1t5VDPAjAU/fJcmREaH5CT0H0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779436673; c=relaxed/simple;
-	bh=1A06yKKhCCbuwbNK9I/6uSoyVzPbsjcIkPYx1La5vO0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RtgQ0HzR0b25DdmwZ5gix2xMwLQtmMzvoK0/zXAu0CUnGQ83z+Gwm/8/xQJprvjCkUcP037LectTTaTOqy+gqIdHB56hZj1LGCQx/Y9tmiqbaUzXq81rDEdQgK8ekkW8vcP5hP8DaCf6lpRt7rLVTexJjURoQXdWdLgCOJzYtdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WrzaqbIZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779436808; c=relaxed/simple;
+	bh=xsK3pQZpCJohLKM7UrVU8BbY2NcQEAdCx73J93y16N0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SdfxViqluAwG6qHFjL6VnTZOzrVBPU4GTekgZElvIM0Ll5YuBXhwEUKZMIK1T/Ss7UDA0Ddm+Nx7cXUkElOihIKVeXDPhieHYuqIUMPxX/fbZqnL4f7kE+BIkDHo8s3oPVv5M9ZsGyw4PhHKn8Ommvsc3Pcf5MUXs2O8UD+RlKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Idj8V45Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WrzaqbIZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81FE61F000E9;
-	Fri, 22 May 2026 07:57:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Idj8V45Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F611F00A3D;
+	Fri, 22 May 2026 08:00:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779436671;
-	bh=taoAsK43ZUYOxEz/vv1uzfO3sRCBNaY9Pv8OncjiBvA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WrzaqbIZQHZFaor3FHwVVdvnVZ+I5TbmcbEM0J7JZ2aPwhek4JT1BDVzZOZYxunLR
-	 ck506w1yvCbdSMtV9RhvCmCeils9RTxTaMlRL9cmwWMjHcXZTo1YFzuMmGeWmsn8ok
-	 BWpSxa1wkZq5FhEzn/G7NQC48drRe7eG3+9zrky9IZjfT9Z+YlcgYv6g8rs75fvJbF
-	 z2f1GNU2xt6TDnVycRyvw1raq1DcqcflQ6UHZichyPLJBLn/iEK9C7nEYfXp00tDSC
-	 RBFNTelblJ2gWCY2AYkNXpxE78fPoAcyUAtaq8kscjqWUc089RjqQDQXzw+z0LKrMf
-	 Ex50HIJlOw8Bg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: qcom: Describe Maili TLMM
- block
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jingyi Wang" <jingyi.wang@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260522-maili-pinctrl-v1-1-0a6636f5c277@oss.qualcomm.com>
-References: <20260522-maili-pinctrl-v1-1-0a6636f5c277@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 07:57:51 +0000
-Message-Id: <20260522075751.81FE61F000E9@smtp.kernel.org>
+	s=k20260515; t=1779436807;
+	bh=clPR+E9zimijMLfBFReBsxul5gYIW1YxjQhlTfLOb9A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Idj8V45ZuU4mHBQSPARWKsyNzpZMN20Gl2j6bXORXdekPP1MSmP3FtBcJoi9DiOSi
+	 B8/dOJjOR+5NxmXU31FmCsBE5cTO7IATs21tYs+lVn2XBNFvauKYYzrMIGvUrPSnAr
+	 6bYd0fdslabm7laJEkDVXQQyJKTSHqyaxYw1NVg1nkS/PvL2x8meBQE66DbEVmW71n
+	 RYLqdkQSsUMXu0+OUEpeQtNIZmoCvMIyaU9FoKyMXJ1ZEkV//tEqzKjRgnKfvEeYb1
+	 aEFyCy3ANb77Bj5SA4ulrYmeIibIs9zqGA0LrfihxiGzK4KuJCZf1B3A7HoqIRwlBJ
+	 CYiRzWHcb/1IQ==
+Date: Fri, 22 May 2026 13:30:02 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v6 01/16] arm64: dts: qcom: kodiak: Add EL2 overlay
+Message-ID: <ahANAhccTR_zhY1c@sumit-xelite>
+References: <20260518072856.22790-2-sumit.garg@kernel.org>
+ <20260519073346.21BE9C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260519073346.21BE9C2BCB3@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The example's `gpio-ranges` specifies a count of 227, contradicting=
- the hardware's actual pin count of 226.
---
+On Tue, May 19, 2026 at 07:33:45AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] The `kodiak-el2.dtso` overlay omits the `iommus` configuration for the `remoteproc_mpss` (modem) node.
+> - [Medium] The commit message fails to explain why `gpu_zap_shader` and `venus` are disabled, and why `watchdog` is enabled in the EL2 overlay.
+> --
+> 
+> commit b4ab2188dfbc3caab6111f1ec38bf830bc7a5ef3
+> Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> 
+> arm64: dts: qcom: kodiak: Add EL2 overlay
+> 
+> This commit adds an EL2-specific DT overlay for Kodiak devices to boot
+> without the Gunyah hypervisor. It configures the remote processor firmware
+> IOMMU streams to be managed by the consumer rather than the hypervisor.
+> 
+> Link: https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boot-developer-touchpoints.html#uefi
+> 
+> > When running under Gunyah, the remote processor firmware IOMMU
+> > streams are controlled by Gunyah. However, without Gunyah, the IOMMU is
+> > managed by the consumer of this DeviceTree. Therefore, describe the
+> > firmware streams for each remote processor.
+> >
+> > Add a EL2-specific DT overlay and apply it to Kodiak IOT variant
+> > devices to create -el2.dtb for each of them alongside "normal" dtb.
+> >
+> > [1]
+> > https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boot-developer-touchpoints.html#uefi
+> >
+> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> > [SG: watchdog fixup]
+> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> This isn't a bug, but the commit message focuses solely on the IOMMU
+> stream configurations. Could the message be updated to explain the
+> rationale behind disabling the gpu_zap_shader and venus nodes, as well
+> as enabling the watchdog?
+> 
+> > diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> > new file mode 100644
+> > index 0000000000000..0b3a69a0d7654
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> > @@ -0,0 +1,35 @@
+> > +// SPDX-License-Identifier: BSD-3-Clause
+> 
+> [ ... ]
+> 
+> > +&remoteproc_adsp {
+> > +	iommus = <&apps_smmu 0x1800 0x0>;
+> > +};
+> > +
+> > +&remoteproc_cdsp {
+> > +	iommus = <&apps_smmu 0x11a0 0x0400>;
+> > +};
+> > +
+> > +&remoteproc_wpss {
+> > +	iommus = <&apps_smmu 0x1c03 0x1>,
+> > +		 <&apps_smmu 0x1c83 0x1>;
+> > +};
+> 
+> Is there a missing remoteproc_mpss node here?
+> 
+> The qcs6490-rb3gen2.dts board file enables remoteproc_mpss and
+> configures it to load modem.mbn.
+> 
+> Since the MPSS streams are routed through the APPS SMMU on Kodiak devices,
+> will the omission of the iommus property for the modem cause SMMU context
+> translation faults and prevent the peripheral from booting?
 
-commit 8e1650eabb9fd79edf142e0abd0dc0d09fa8eeb4
-Author: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Nice catch, I will disable remoteproc_mpss for the next revision since
+it's currently not tested in EL2 mode.
 
-dt-bindings: pinctrl: qcom: Describe Maili TLMM block
-
-This commit adds a DeviceTree binding to describe the Top Level Mode
-Multiplexer (TLMM) on Qualcomm's Maili SoC. The block provides GPIO and
-pinctrl functionality for UFS, SDC and 226 GPIO pins.
-
-> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,maili-tlmm.ya=
-ml b/Documentation/devicetree/bindings/pinctrl/qcom,maili-tlmm.yaml
-> new file mode 100644
-> index 0000000000000..64fe90b2391bd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,maili-tlmm.yaml
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    tlmm: pinctrl@f100000 {
-> +        compatible =3D "qcom,maili-tlmm";
-> +        reg =3D <0x0f100000 0x300000>;
-> +        interrupts =3D <GIC_ESPI 272 IRQ_TYPE_LEVEL_HIGH>;
-> +        gpio-controller;
-> +        #gpio-cells =3D <2>;
-> +        gpio-ranges =3D <&tlmm 0 0 227>;
-
-[Severity: Low]
-The commit message mentions the hardware provides 226 GPIO pins, and the
-schema enforces this limit in gpio-line-names and the pins pattern. Should
-this example's gpio-ranges specify a count of 226 instead of 227 to avoid
-contradicting the hardware pin count?
-
-> +        interrupt-controller;
-> +        #interrupt-cells =3D <2>;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-maili-pinc=
-trl-v1-0-0a6636f5c277@oss.qualcomm.com?part=3D1
+-Sumit
