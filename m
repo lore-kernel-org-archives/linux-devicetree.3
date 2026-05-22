@@ -1,113 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF1639DBDD;
-	Fri, 22 May 2026 05:55:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F0119CD1D;
+	Fri, 22 May 2026 06:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779429326; cv=none; b=WNs/4FDTJBftPhqetR/MFeMJNI8DOtPTfUF081TDYoXQ4A5KJhay9/hUMDYwJzDpIU+6Viaj5Xu74a2TL2x+eNXgDGI7JZCcRD2h4MDAncyhAfHteZ6464A98thLqxRxqIGN1cwdWJ9/kjUSFkZRfuSs1/2KibCfR+z00695/0w=
+	t=1779430017; cv=none; b=cZojH0zHTD/jSAvHFGM58/TifgzPtqyDHIhSnVArH5b7RlKgkVAwA/PBJVt62oJprwCC8GootrIfAoABJ4R37VaNHcP4cN8ABfe/bhc9YHUwLE3k31SDX6QV6a9NU2s0znVu3QkjJLP69xDg0u1SSXVQYbdPT7PtykPEVx62XvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779429326; c=relaxed/simple;
-	bh=9S3Am5zlSDxIPy9JoMBjGoTMZN3NGySSG/6keJHKyOI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t5THQCev8AOmiVQ2tYgHUBODZvwwL8fLVH4y+lLxwly/G1shXr8PpWfUpJmlpB2H6/zTAsTPZl2XzIlKT0/V+b7b8xDZT6AqkIdrFfdYIVWguYBNYFZ8IRvvKgSCPEq5HLtf0ieXLMJ7MZYiiPUVKtHB9/v0EJWstRtYUHSJfYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTPJf1Se; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779430017; c=relaxed/simple;
+	bh=62plWfu9YLO/1j5mOJl2kBA3xulZRGnUXzKNwubtZ/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qyvH4T5k+gmeNg+QqH3lWSQ/bRQ+J6piOoDsiHZgtrOq2/+S8q7Q0uETOlm2oAGU1elnlQRXzcqmE2LODj5XldLlL71WIPXgtfkOd+6IOj+EWB8P5YXZLbSCSHFx/22jzA/P9qmNzbzfLcn81Fkq2wN5Gi2ZnvaQLu0DpFASWMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTaHUPD5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTPJf1Se"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C86311F000E9;
-	Fri, 22 May 2026 05:55:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTaHUPD5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F241F000E9;
+	Fri, 22 May 2026 06:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779429325;
-	bh=Rm6dtuuYj6/GdbVvh2/gOXnU8R+0AFSWCl9ecrBIjZM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CTPJf1Se6LmHHAcb75Ne7HSbCcFey85v/NtDoibYQIPUz9YTSJg49gj3JO5H5j27D
-	 f24mKEGLAsZKkbHrL9Uy+yQb5Wyf8LpVqaxmYAx3MZcflL/l2u21r5RF760rJB2OQt
-	 89tkomqEQbQ0C9ysQ2le68DvOkX8kvwxM4etONNPHKlaewZsaRXIyUsWMTHDzBIdLf
-	 eTY86IDwUHcdQBfAjTGRFhq60oTHg13Ut9XEwmDFC57tIb9VNOMJPjMe5gT9GPMwZ7
-	 iS4PHSoISr6KscNCVhpArFyBiYL2H0zKXxgUz4lOatsVPk/z7gLDD/ZpjEMdNvC1ju
-	 a2HSQAR+QMzag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 3/6] pinctrl: core: Make pin group callbacks
- optional for pin-only drivers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Oleksij Rempel" <o.rempel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260522044855.1772639-4-o.rempel@pengutronix.de>
-References: <20260522044855.1772639-4-o.rempel@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 05:55:24 +0000
-Message-Id: <20260522055524.C86311F000E9@smtp.kernel.org>
+	s=k20260515; t=1779430016;
+	bh=Zv+bq8Y4125ZUtVQWA5vR0XBl99zeMI54gkrK9c5vNE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bTaHUPD5OkGxNjL9uDPG4wGMmKtXLO5mPQJ/MqDVK5784jUhIG9jhLGixf0M7782/
+	 xHdlQaLig7FdM8Ht8T9tEHIZRzxp74JaRC7kKg48+RQ7lpqiq7pMnddYb8fyhP7Vj2
+	 BfZUktHANeYE5bMliEjICrkfRZMMGeM3xlKRCUDPMx3ZwybizsnxkJ6A4wjXGmztFg
+	 /t1mgbdSx1cVLlinmtNaMTqk5dumtUrGw3ZRyfNbm/CbxVCjyTamvaTiQhx15KXRUG
+	 mm/WU2adz4GbLOYZph/VQTLmuURBDMePgoZPN1CtvjNIbMTHGZjoIWxkbIhIpFOJof
+	 tRmum7N4OWKNg==
+Date: Fri, 22 May 2026 08:06:54 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v9 2/5] dt-bindings: phy: Add documentation for Airoha
+ AN7581 USB PHY
+Message-ID: <20260522-obedient-lovely-kingfisher-2deda1@quoll>
+References: <20260521153645.7028-1-ansuelsmth@gmail.com>
+ <20260521153645.7028-3-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260521153645.7028-3-ansuelsmth@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, May 21, 2026 at 05:35:53PM +0200, Christian Marangi wrote:
+> Add documentation for Airoha AN7581 USB PHY that describe the USB PHY
+> for the USB controller.
+> 
+> Airoha AN7581 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> always supported. The USB 3.0 mode is optional and depends on the Serdes
+> mode currently configured on the system for the relevant USB port.
+> 
+> To correctly calibrate, the USB 2.0 port require correct value in
+> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+> selecting one of the 4 monitor clock for calibration (internal clock not
+> exposed to the system) but each port have only one of the 4 actually
+> connected in HW hence the correct value needs to be specified in DT
+> based on board and the physical port. Normally it's monitor clock 1 for
+> USB1 and monitor clock 2 for USB2.
+> 
+> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+> property is required with the phandle pointing to the correct Serdes port
+> provided by the SCU node. Providing the phys property is optional if USB
+> 3.0 is not used.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/phy/airoha,an7581-usb-phy.yaml   | 62 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
 
-Pre-existing issues:
-- [High] Missing mutex lock in pinconf_groups_show() leading to potential U=
-se-After-Free during debugfs access.
---
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-commit 3be3569fd20f9c647f76233cee1c7285d9ad8584
-Author: Oleksij Rempel <o.rempel@pengutronix.de>
+Best regards,
+Krzysztof
 
-pinctrl: core: Make pin group callbacks optional for pin-only drivers
-
-This patch relaxes the requirement for pin-only drivers to implement
-.get_groups_count and .get_group_name callbacks by making them optional
-when no muxing or group pin configuration support is provided. The core
-and debugfs helpers are updated to check for these callbacks before
-invoking them.
-
-> diff --git a/drivers/pinctrl/pinconf.c b/drivers/pinctrl/pinconf.c
-> index dca963633b5d1..81686844dfa5f 100644
-> --- a/drivers/pinctrl/pinconf.c
-> +++ b/drivers/pinctrl/pinconf.c
-
-[ ... ]
-
-> @@ -348,8 +348,13 @@ static int pinconf_groups_show(struct seq_file *s, v=
-oid *what)
->  {
->  	struct pinctrl_dev *pctldev =3D s->private;
->  	const struct pinctrl_ops *pctlops =3D pctldev->desc->pctlops;
-> -	unsigned int ngroups =3D pctlops->get_groups_count(pctldev);
->  	unsigned int selector =3D 0;
-> +	unsigned int ngroups;
-> +
-> +	if (!pctlops->get_groups_count || !pctlops->get_group_name)
-> +		return 0;
-> +
-> +	ngroups =3D pctlops->get_groups_count(pctldev);
-
-[Severity: High]
-This is a pre-existing issue, but does pinconf_groups_show() need to hold
-pctldev->mutex while iterating through pin groups?
-
-Drivers such as pinctrl-lpass-lpi dynamically remove groups via
-pinctrl_generic_remove_group() during device unbind (e.g., in
-lpi_pinctrl_remove()). This deletes the radix tree node and frees the
-group memory via devm_kfree(). Because the controller is registered
-with devm_pinctrl_register(), the debugfs entries remain fully accessible
-during the driver's remove() callback until devres cleanup runs later.
-
-Could a concurrent read of the pinconf-groups debugfs file race with
-this group removal, causing pinctrl_generic_get_group_name() to perform
-an unsafe radix_tree_lookup() and dereference the freed group struct?
-
-Also, since pinconf_groups_show() eventually calls pin_config_group_get()
-which acquires pctldev->mutex, would wrapping the loop in
-mutex_lock(&pctldev->mutex) cause a self-deadlock, thus requiring
-unlocked internal accessors to fix properly?
-
-> =20
->  	seq_puts(s, "Pin config settings per pin group\n");
->  	seq_puts(s, "Format: group (name): configs\n");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522044855.1772=
-639-1-o.rempel@pengutronix.de?part=3D3
