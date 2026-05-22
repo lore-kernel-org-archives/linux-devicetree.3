@@ -1,106 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C914C1DE4FB
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 16:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5495B3AEB35;
+	Fri, 22 May 2026 16:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779468166; cv=none; b=geyO/1lb0j6TWTKJ//biqM/pJMVRh6GyW4+PzljMfa94grBTnrqcKxUfUofgfI73h6ygST24a0GSxMkGIbAMVBJoL1yPTKs8oJsnr2DxlnPVRL9MOkUVbzWUPbqXV6zsPGAiSouoCEY9VK/v2EKMchmxfAnxYWcDWLS/Y4v3FxI=
+	t=1779468552; cv=none; b=kW5apDMluuL0OUXOFN6UaU4kyZnVNrIxH9oJ8Xnd4UJouuYXrtVaCvVXBDZr1ifWUI2bEQgbV7ZX5HDLpSEQDqc7DxfkeL4+gGIdRKMCzH786GgKbTU8S8z4jrjV50EpfLk+NJ9Vor0aiG3dTnZ2Kz8SDlz4DIoj7F0xKLr5beY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779468166; c=relaxed/simple;
-	bh=69bMvy/+BmM76+sEKAN3XRVMNKhe72ktNflkkWfarUI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nChFjoQeRnAl2SoJtkW0GnO1671Z6vQLKPeLWwRyRduFWVbJiQdYm1tr3Tg3SCfFzu9q/Uj2dOic8Nv0ON+hVszAZ7+WPWzFLCbWnX8XozHzmOuAa6Ly259o9xLySLDCmXsDp86kj6L7w6oxVXvG0qyAWV4HnthduDEAssPaoFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1FwT286; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779468552; c=relaxed/simple;
+	bh=FfKTb9Hu7Ghj2YKZ+FDCk+lV/jMscXRaMlPUwPh7liA=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=c1KolRDRDVuaopbFysTQGcZaq4t/IhiFhcjNEi7DaqJndB1f4Yoktzm4KMIFmmjDIWdTZdWuaCGOWHpDds1Q71MS1/POj99o5slFvwAvjKLLuxJPtOxIUQ+JT+OeDcW6m36rW6JdFz8f55NvoV8L4vGtcGspbIMX4tBwH2Om0Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MbZy6fAy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1FwT286"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF761F000E9;
-	Fri, 22 May 2026 16:42:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MbZy6fAy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4BB1F000E9;
+	Fri, 22 May 2026 16:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779468157;
-	bh=E4MyW2Fk6sFaVP8SqwI929d5x+IQpqh/bDQchbr8hRs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b1FwT286woSjgYXgkYhtS6ramFgeLDSQjCJ0wxXohVDfZ12IIrvHV12IHP/IkL3WG
-	 rqrmhymxgfXsOA466f4YRBhMDB/FTWMCvCLcUy9JuPA3qh+FBApUgHUDlDkkG4kgt9
-	 pA7h9aYy2wzX/CsMr2Fx9BdRvMamWflhT7xlOfwUyB4XUHqZBMD9PJhwxa6K5X4wtC
-	 xYWnZc7Qxmp9giUz0cpsZ3/9gmyL+vaDzQZ3JJcKuI/oj5kJ88aFKZ1dg27Hbv8nTD
-	 3vvo8jshDkUSo/5oxwneSbUIk1jeBKykQP5Preb0oL4DeIvGlZLRXZ2YH7+pQJ3yH7
-	 zyjUgetAcpchw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/11] arm64: dts: ti: k3-am62-verdin: Add Toradex
- Capacitive Touch Display 7" DSI
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vitor Soares" <ivitro@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260522161105.277519-19-ivitro@gmail.com>
-References: <20260522161105.277519-19-ivitro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 16:42:36 +0000
-Message-Id: <20260522164237.2AF761F000E9@smtp.kernel.org>
+	s=k20260515; t=1779468551;
+	bh=ug9eZQIFNypiqZgKpBIekjie2y0vmg+wE3aUAtX412Y=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=MbZy6fAy++HVsaBlZHx0t1kgW6LLk6tuuFn08+R2GoPkUYN16f5gsaWORYACAXjaP
+	 Wk9ypySt/3+LkNZ3EJjM0ikhyLL01jJuGTggrBlQm8qSDs4HPdEzhJAVp6OKFRnrXC
+	 aZZkqmPfnx7jBEu0VOkLP/Aibe+2/I7JBJIsLRWhc0EhQd2nI0hzgeBpDElgx+lukJ
+	 wDyhptwqtDAqUlpKYJ6vVszAw7ixUtWL3fbF3w8x0O+Jwm0UI4HDHfM+Pw2ODDjr5W
+	 rl6+iCt0gOy283aT6a4z+eSXJpL0raUXO1wE37IeEP0uFAYWWQFsJuyAOY+D5Tv0iX
+	 R2htSe+Vxw0ww==
+Date: Fri, 22 May 2026 11:49:10 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org>
+References: <20260522-x1e-csi2-phy-v7-0-79cb1280fad6@linaro.org>
+ <20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org>
+Message-Id: <177946855028.3571140.11988520251406266072.robh@kernel.org>
+Subject: Re: [PATCH v7 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The touchscreen controller interrupt is incorrectly configured a=
-s `IRQ_TYPE_EDGE_RISING` for an active-low hardware signal (`TOUCH_INT#`).
---
 
-commit 6d0e51f377bc6e97b677eab7ee35406d648f228c
-Author: Vitor Soares <vitor.soares@toradex.com>
+On Fri, 22 May 2026 15:45:09 +0100, Bryan O'Donoghue wrote:
+> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+> PHY devices.
+> 
+> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
+> 
+> The schema here defines three ports:
+> 
+> port@0:
+>     The first input port where a sensor is always required.
+> 
+> port@1:
+>     A second optional input port which if present implies DPHY split-mode.
+> 
+> port@2:
+>     A third always required output port which connects to the controller.
+> 
+> The CSIPHY devices have their own pinouts on the SoC as well as their own
+> individual voltage rails.
+> 
+> The need to model voltage rails on a per-PHY basis leads us to define
+> CSIPHY devices as individual nodes.
+> 
+> Two nice outcomes in terms of schema and DT arise from this change.
+> 
+> 1. The ability to define on a per-PHY basis voltage rails.
+> 2. The ability to require those voltage.
+> 
+> We have had a complete bodge upstream for this where a single set of
+> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+> 
+> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+> CAMSS parlance, the CSIPHY devices should be individually modelled.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 208 +++++++++++++++++++++
+>  1 file changed, 208 insertions(+)
+> 
 
-arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 7" DSI
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit adds a device tree overlay for the Toradex Capacitive Touch
-Display 7" DSI on the Verdin DSI_1 interface. The display uses an SN65DSI83
-bridge and an Ilitek ILI2132 capacitive touch controller.
+yamllint warnings/errors:
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitiv=
-e-touch-display-7inch-dsi
-Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-displa=
-y-adapter/
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@0: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@1: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@2: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.example.dtb: csiphy@ace4000 (qcom,x1e80100-csi2-phy): ports:port@2:endpoint: Unevaluated properties are not allowed ('clock-lanes', 'data-lanes' were unexpected)
+	from schema $id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch=
--dsi.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch-ds=
-i.dtso
-> new file mode 100644
-> index 0000000000000..1f44133f9ca66
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch-dsi.dt=
-so
+doc reference errors (make refcheckdocs):
 
-[ ... ]
+See https://patchwork.kernel.org/project/devicetree/patch/20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org
 
-> +	touchscreen@41 {
-> +		compatible =3D "ilitek,ili2132";
-> +		reg =3D <0x41>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_dsi1_int>, <&pinctrl_i2s_2_bclk_gpio>;
-> +		/* Verdin GPIO_9_DSI (SODIMM 17) - TOUCH_INT# */
-> +		interrupt-parent =3D <&main_gpio1>;
-> +		interrupts =3D <49 IRQ_TYPE_EDGE_RISING>;
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-[Severity: Medium]
-Does this interrupt type cause a deadlock with the touchscreen controller?
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-The comment indicates the hardware signal is active-low (TOUCH_INT#), which
-is typical for I2C touch controllers like the ILI213x series. If the touch
-controller asserts the interrupt by driving the line low and waits for the
-host to read the data via I2C before releasing the line high, configuring
-the host to wait for a rising edge could result in the interrupt handler
-never being invoked.
+pip3 install dtschema --upgrade
 
-Should this use an active-low or falling edge trigger instead?
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-> +		/* Verdin I2S_2_BCLK (SODIMM 42) - TOUCH_RESET# */
-> +		reset-gpios =3D <&main_gpio0 35 GPIO_ACTIVE_LOW>;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522161105.2775=
-19-13-ivitro@gmail.com?part=3D6
