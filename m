@@ -1,234 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5612625B08D;
-	Fri, 22 May 2026 09:12:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C5F37FF50;
+	Fri, 22 May 2026 09:15:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779441174; cv=none; b=ZiA30erRNr8qY3Q8EXclnMx4wnMCUIeHdGmH6qwesxGB7liaddYPYJHryz1hK8tSgAxnNFUMe4qqVN+g6A7IIQPPa9q/uFGwuJhZ//4Rk/U3PXucClQej9I88eYCjzv4qIcGnTXJNA4dgCdB5dHZOCQnXW2PQqq8A3K8G8HUD0U=
+	t=1779441327; cv=none; b=K6iDRr9tprlUxhQfvlbY8qkGn1nptVLur8ZsGEJn9Xd7sJyJD35QeoAcFEomgcrguIRl8qdw3Yoi5tALZ30f8lmjiFVAD6o3IoAQ9BjhJRcLAI2P1SzgI2vm+f+FSIdrS9c+bY1912WEXL/oSlAresvwCRGVTbFXFfnBGXPdBPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779441174; c=relaxed/simple;
-	bh=H2bZ1dQvQYpEz/hg/ad7YrjkgKlsPzepBdAWRwmzFKM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kqSZEme1YWpKNrreMHZAapz2KzDFdUojNY+o4eBLf3Gs7RVcQnUy2GEqw/35kT+jMFtmpsYl0lUdBnimb8puAF3DjBj3Y63TkFDpV433BkTxBv+zh4Q/afK9hiPNBFWquIAYDsvAZ6bAxb9Bl9cdwKKtDTiG6HXKUDWDoNTsA2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4HdLIp5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779441327; c=relaxed/simple;
+	bh=w5qogauuNm/fdkjNFOc0iV0VJSvNJiFtE7nYKdFXIc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nFV00QyXATWoVL4hLDasaXNcFXzMleYxMdYyswOnfOhIRBb3S83HCnCS6EkUxxtI2CO4GudJQCOUWbJxe9/JIsXfGGizygIyhZzbFCyEL+er6UKh8LDi75IEd7iqLrGiuBixm6Le9g5eaRLDeLXJBZGnlxEUiggtqkv5h3iE5tY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gc4Q/J9z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4HdLIp5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5C01F00A3D;
-	Fri, 22 May 2026 09:12:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gc4Q/J9z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B0B1F000E9;
+	Fri, 22 May 2026 09:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779441172;
-	bh=quCsoYTJlN3FxCdDmcbPKA52kZIR/8JqUUCsjXBhtGw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P4HdLIp5HtVavbuXDX5H/MZ4JzdxSCCcqiySYY53qB3dS7+C0EEWBy8Vfz8+1l/en
-	 z0dw0mYVC2ORlF8aqRgtuYJedDBpcsOT4ojXwqymJM1zzgP7P0+JeFzRE234Xfp8Bg
-	 mwjaYhfCbYoLdgz8i1SBq/xJVc+poKxyJvVb3tRL6WC5/nYlwjgJTG9QlNqZDieDg6
-	 R2xtRP3abkCvm/yNrLh5P1Q4zGYlBhANnrOA0sKZXdhvaV4EErKTtiRM+uhrY/9jzd
-	 qiicLrFW4nB4VxNq6UhogdFPnQKAyvTSlRzPw5Peht0gvrE0AWJpoJmwMb4zHZeFvh
-	 BMgZxl0mmLBYQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] hwmon: (pmbus/tps25990): Rework TPS25990 direct
- conversion handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stoyan Bogdanov" <sbogdanov@baylibre.com>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260522082349.2749970-3-sbogdanov@baylibre.com>
-References: <20260522082349.2749970-3-sbogdanov@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 09:12:52 +0000
-Message-Id: <20260522091252.9E5C01F00A3D@smtp.kernel.org>
+	s=k20260515; t=1779441326;
+	bh=UBs4iXjj9qAsNBktQZSDX34OCyHEDuC98TxgTELiX4I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Gc4Q/J9zADjrGg9rwUe/kvb8qa/LcJOWHDg16r/uEVNqjfN0ORtJ0C4k3Veoohzjv
+	 3Zhbpobf3RZz5rpCRWpft+OifCEJz8H3hNRsiXGb1Kx+nQMlpu3BYDzlXsVBQTJOFm
+	 8fr8XGcyNJNa4mVkp+dZpgguXsXtgY50PpoVpGmczmbTxtQ7GR0TPFjCxhzksri45b
+	 ycc8+G+MrooeHqvWULe4hsMrSzP3TPbCSR3sth0cyzXYDJejvF0HOYHO2A9vFJnFjA
+	 wcXugwjdv84uxVwEdjLg0i54vygE3UKUSmKt3nXzNj4I/AoeXcrD5BpxavjD0L5Scu
+	 uBqiH63Q3KPpw==
+Message-ID: <04465873-17bd-4c84-ad51-29e648a88b4c@kernel.org>
+Date: Fri, 22 May 2026 11:15:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: firmware: qcom,scm: Add minidump SRAM
+ property
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
+ Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260519171442.1582987-1-mukesh.ojha@oss.qualcomm.com>
+ <20260519171442.1582987-2-mukesh.ojha@oss.qualcomm.com>
+ <20260520-hopeful-beautiful-agama-ecbebf@quoll>
+ <20260522075200.lzpj3cfqvrpzv7r3@hu-mojha-hyd.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260522075200.lzpj3cfqvrpzv7r3@hu-mojha-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On 22/05/2026 09:52, Mukesh Ojha wrote:
+> On Wed, May 20, 2026 at 12:17:21PM +0200, Krzysztof Kozlowski wrote:
+>> On Tue, May 19, 2026 at 10:44:39PM +0530, Mukesh Ojha wrote:
+>>> On most Qualcomm SoCs where minidump is supported, a word in always-on
+>>> SRAM is shared between the kernel and boot firmware. Before DDR is
+>>> initialised on the warm reset following a crash, firmware reads this
+>>> word to decide if minidump is enabled and collect a minidump and where
+>>>  to deliver it (USB upload to a host, or save to local storage).
+>>>
+>>> Add a 'sram' property to the SCM binding to describe a region in
+>>> always-on SRAM where the minidump download destination value could be
+>>> written. Boot firmware reads it before DDR is initialised on a warm
+>>> reset to decide where to store the minidump either to host PC or to
+>>> on device storage.
+>>>
+>>> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+>>> ---
+>>>  .../devicetree/bindings/firmware/qcom,scm.yaml   | 16 ++++++++++++++++
+>>>  1 file changed, 16 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+>>> index 25f62bacbc91..27422d00b8fc 100644
+>>> --- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+>>> +++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+>>> @@ -129,6 +129,13 @@ properties:
+>>>            - description: offset of the download mode control register
+>>>      description: TCSR hardware block
+>>>  
+>>> +  sram:
+>>> +    description:
+>>> +      Phandle to a region in always-on SRAM used to store the download
+>>> +      mode value for boot firmware to read before DDR is initialised on
+>>> +      the next warm reset.
+>>> +    maxItems: 1
+>>> +
+>>>  allOf:
+>>>    # Clocks
+>>>    - if:
+>>> @@ -250,3 +257,12 @@ examples:
+>>>              clock-names = "core", "bus", "iface";
+>>>          };
+>>>      };
+>>> +
+>>> +  - |
+>>> +    firmware {
+>>> +        scm {
+>>> +            compatible = "qcom,scm-kaanapali", "qcom,scm";
+>>
+>> Incomplete, missing interrupts.
+> 
+> Interrupt number comes from firmware and has not even been described
+> statically for SCM  for any SoC and so I am not sure to include it in
+> the example. Perhaps I took the wrong example here and should have taken
+> some pre-Gunyah Qualcomm SoC.
 
-New issues:
-- [Critical] The custom conversion functions incorrectly retrieve I2C clien=
-t data, leading to severe type confusion and out-of-bounds heap reads.
-- [High] Replacing ratio-based math with direct conversion helpers inside `=
-read_word_data` and `write_word_data` introduces a double-conversion bug th=
-at completely corrupts sysfs output and configuration limits.
-- [High] Calling `pmbus_reg2data_direct_calc()` directly with negative `R` =
-coefficients and small register values leads to a total loss of precision d=
-ue to premature integer division.
-- [High] The patch silently drops the correct translation ratios for the Ov=
-er-Current Fault Limit (`PMBUS_IIN_OC_FAULT_LIMIT`) and bypasses dynamic re=
-sistor scaling.
-- [Low] Spelling mistakes in the newly introduced `tps25990_parameters` enu=
-m comments.
+Then you do not need a new example. Difference in one property (reset
+cells) does not justify new example.
 
-Pre-existing issues:
-- [High] When setting fault limits, an integer underflow on low user inputs=
- leads to an unsigned wrap-around, causing `clamp_val()` to clamp to the ma=
-ximum limit instead of the minimum limit, dangerously defeating hardware pr=
-otection.
---
 
-commit 11131ea034ce953233470df60e4f6a1c34cca609
-Author: Stoyan Bogdanov <sbogdanov@baylibre.com>
-Date:   Fri May 22 08:23:37 2026 +0000
-
-    hwmon: (pmbus/tps25990): Rework TPS25990 direct conversion handling
-   =20
-    Rework the existing implementation of direct format conversion for
-    TPS25990 non-standard parameters to improve code reusability and
-    integration with the PMBus direct conversion helpers.
-
-> diff --git a/drivers/hwmon/pmbus/tps25990.c b/drivers/hwmon/pmbus/tps2599=
-0.c
-> index 05c6288ecafcc..1e252844217b8 100644
-> --- a/drivers/hwmon/pmbus/tps25990.c
-> +++ b/drivers/hwmon/pmbus/tps25990.c
-
-[ ... ]
-
-> +enum tps25990_parameters {
-> +	TPS25990_VIN_OVF =3D 0, /* VIN over volatage fault */
-> +	TPS25990_IIN_OCF, /* IIN Over currect fault */
-
-[Severity: Low]
-This isn't a bug, but there are minor typos in the comments: volatage and
-currect.
-
-> +	TPS25990_DIRECT_VALUES_COUNT,
-> +};
-
-[ ... ]
-
-> +static s64 tps25990_reg2data_direct(struct i2c_client *client, int param=
-, s32 raw)
-> +{
-> +	struct pmbus_driver_info *info =3D i2c_get_clientdata(client);
-> +	struct tps25990_data *data =3D container_of(info, struct tps25990_data,=
- info);
-
-[Severity: Critical]
-Does this correctly retrieve the driver info?
-
-Looking at pmbus_do_probe(), i2c_get_clientdata(client) is set to a
-struct pmbus_data * object, not a struct pmbus_driver_info * object.
-
-Using container_of() on the wrong type calculates a 0 offset, but improperly
-casts the pmbus_data object into a struct tps25990_data pointer, causing the
-subsequent read of info_local to fetch completely out-of-bounds heap memory.
-
-Should this use pmbus_get_driver_info(client) instead?
-
-> +	struct tps25990_local_direct_value *info_local =3D &data->info_local;
-> +	s64 b, val;
-> +	s32 m, R;
-> +
-> +	val =3D (s16)raw;
-> +	m =3D info_local->m[param];
-> +	b =3D info_local->b[param];
-> +	R =3D info_local->R[param];
-> +
-> +	return pmbus_reg2data_direct_calc(val, b, m, R);
-
-[Severity: High]
-Can this result in a total loss of precision due to integer division?
-
-For TPS25990_VIN_OVF, R is -4 and the raw register value is a small 4-bit
-integer (0 to 15). The generic pmbus_reg2data_direct_calc() handles negative
-R by dividing the input by 10 for each R:
-
-pmbus_core.c:pmbus_reg2data_direct_calc() {
-    ...
-    while (R < 0) {
-        val =3D div_s64(val + 5LL, 10L);
-        R++;
-    }
-    ...
-}
-
-Dividing a small value like 15 by 10000 via integer division would truncate
-it to 0, permanently destroying the underlying data. Does this need
-pre-scaling before the calculation loop?
-
-[ ... ]
-
-> @@ -184,9 +230,7 @@ static int tps25990_read_word_data(struct i2c_client =
-*client,
->  		ret =3D pmbus_read_word_data(client, page, phase, reg);
->  		if (ret < 0)
->  			break;
-> -		ret =3D DIV_ROUND_CLOSEST(ret * TPS25990_VIN_OVF_NUM,
-> -					TPS25990_VIN_OVF_DIV);
-> -		ret +=3D TPS25990_VIN_OVF_OFF;
-> +		ret =3D tps25990_reg2data_direct(client, TPS25990_VIN_OVF, ret);
-
-[Severity: High]
-Does this introduce a double-conversion bug?
-
-The driver's .read_word_data hook is expected to convert between the
-chip-specific raw register value and the standard PMBus raw format (Y_std).
-The PMBus core then converts Y_std to physical units.
-
-By calling pmbus_reg2data_direct_calc() directly here, does it return the
-physical value (e.g. milliVolts) rather than Y_std, causing the PMBus core
-to apply its standard conversion a second time to an already converted valu=
-e?
-
-[ ... ]
-
-> @@ -246,17 +288,13 @@ static int tps25990_write_word_data(struct i2c_clie=
-nt *client,
->  		break;
-> =20
->  	case PMBUS_VIN_OV_FAULT_LIMIT:
-> -		value -=3D TPS25990_VIN_OVF_OFF;
-> -		value =3D DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_VIN_OVF_D=
-IV,
-> -					  TPS25990_VIN_OVF_NUM);
-> +		value =3D tps25990_data2reg_direct(client, TPS25990_VIN_OVF, value);
->  		value =3D clamp_val(value, 0, 0xf);
-
-[Severity: High]
-This is a pre-existing issue, but does this lead to an integer underflow
-that defeats hardware protection?
-
-The value parameter in tps25990_write_word_data() is an unsigned u16. If a
-sufficiently low limit (like 0) is converted, the mathematical result could
-be negative. This would wrap around the unsigned u16 to a large value
-(e.g., 65530).
-
-Since clamp_val() compares using the type of the passed variable, it would =
-see
-the wrapped value as much greater than 15 and incorrectly clamp it to the
-maximum hardware limit (0xf) instead of the minimum limit.
-
->  		ret =3D pmbus_write_word_data(client, page, reg, value);
->  		break;
-> =20
->  	case PMBUS_IIN_OC_FAULT_LIMIT:
-> -		value -=3D TPS25990_IIN_OCF_OFF;
-> -		value =3D DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_IIN_OCF_D=
-IV,
-> -					  TPS25990_IIN_OCF_NUM);
-> +		value =3D tps25990_data2reg_direct(client, TPS25990_IIN_OCF, value);
-
-[Severity: High]
-Are we losing the dynamic resistor scaling here?
-
-The original code mapped TPS25990_VIREF to the standard Y_std format,
-allowing the PMBus core to dynamically convert it using the PSC_CURRENT_IN
-coefficients, which are adjusted in tps25990_probe() based on the
-ti,rimon-micro-ohms property.
-
-The new tps25990_data2reg_direct() call uses static coefficients from
-tps25990_local_info which are never updated by the rimon logic. Will this
-break the over-current limits for boards using a non-default rimon
-configuration?
-
->  		value =3D clamp_val(value, 0, 0x3f);
->  		ret =3D pmbus_write_byte_data(client, page, TPS25990_VIREF, value);
->  		break;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522082349.2749=
-970-1-sbogdanov@baylibre.com?part=3D2
+Best regards,
+Krzysztof
