@@ -1,192 +1,197 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F61535675F
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9D139989D
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779455299; cv=none; b=qvpiQKl4BB9N/x6C4tvbc8iWPN+QskkbFRSTTBezAo9YYrMu0bxZaWbAD/El39UGFl6GUmwWFeAGKRdBt8CQYRUF5biI5PrWdkaghgK/OeBTBYuMhivy2v41K4kUXsx+gCPpr7r7akLxHvQPP0PMMvuBw4G+C9SAzckL2T/0WSE=
+	t=1779455358; cv=none; b=guGq69SFkN+IWmlkWGwS/L30bzYcxvuIBOUMRNWz0UnI8vBYh+URtSh2fW5vJW0G5gKM4g0eHXuTDFfAqTjc/rTsW7oahMNW6agcK9kSFJlTpf3JZ6egP20KnJraH7w0OdRoiDrf/VPD/LYxeoVyvQ3Jwy/pbpnUipfX5ZbDeWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779455299; c=relaxed/simple;
-	bh=OrukJg8m46sj1Pu8mW6Du4FkCv/lEs0V0+4sCQUjoAU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k8LOtHlPMn6U2WO72PGPtIbYf/wEmkFM7+hZ05h43p+FPp8Arpn7vu1VYwp1nqA3fcvQQ7GzjW+btyGPsBeBGaEOszcMyeWFyNBO5rucEv7nDkjZVFVI/NOyM0L5/tiaPTiSAavmlaQi8yV+6N4YnYhwEBUA7WwYWBA2N9J7ujI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VHFmoVU/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=acLAmuad; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779455358; c=relaxed/simple;
+	bh=XH9ZkSLlZXi4Q3xxOdKdClWcWnK/2QO56yV0PVRrX6s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eeDawTRpvrBkIpoi2pMja5L1cf1P1ty5sDlpHnZs/3wgj69fyHinaELZ9/nNQE7SJNA2OcLMZCSs/s+r5lRJzuvEnKsaB6HNJl82BPFlyksesokhaCdkRYfzl2Bryohzla/C04FYYH3AgOca4IqXBl4/OJKBMyJR34jviL+iWKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=q2ter51Q; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VHFmoVU/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="acLAmuad"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M9015p3005132
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:08:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9xi3o5QDtxodOA7hKGtfvSi8vreN8UVFATY7/epF/EI=; b=VHFmoVU/Ssi+h4ke
-	2Yud1BoX2w7H1GNDk9jhpRH7icB1RLXDxZ45ptkgMl3+x3381MvAbws8CQhB2Cy+
-	rC4yvNQt4W0VeHR4PM/39ljBmA+YRyDa/wTKqVR6mztau8lsgnZWDRXvMzz76Wiu
-	usqycIYBcaWF8Y3QyCNgxZp6PTPh9+bGtKmt3BrcaixpyEFCLFj4hyFkm/R9FBnx
-	Wwfr1HR6vLzAPOXxVThafyAbiXpO+2IeWhIcjg7qit1zmaohL36/Pp8TwJrIGheO
-	1gS7Ng3aWrvqAztxdqhPR2mnZ+r/YNRtMsyZUYeq2aeApoaTP9F2QPlmRafabxVS
-	LD5yaA==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eafrta2h0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:08:17 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-836d0184333so9032406b3a.0
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:08:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="q2ter51Q"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49041e84237so7242835e9.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:09:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779455297; x=1780060097; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9xi3o5QDtxodOA7hKGtfvSi8vreN8UVFATY7/epF/EI=;
-        b=acLAmuad4y+EFIMBpH5+yXjEU0WObQAEtGya5A0XX0QHrDIxUlpB4ptkssC6juXcli
-         +T0pvFiMRdTl9nSZSFjNv6pyP5irQo1cVU3JIIWEPZneTRsxFs92JRDoe7o/xt+Elhxa
-         KLztubl0ALP6vqZXypCVWVbwDZTBADF23nnyyDN63gXSFQ725apgqy+66MhwNpzx1oKo
-         SmdkckypxpKwf+oNe7/iqdQF9i6Wwu2qS3R0TfaKEW7a/0ekh7kJtaoMb4yN0zNn8Rad
-         tYY1qFTc0XxtScx3iTdWWxH2Crl3vTNyYJMeB72eokYoEz00ATWTmHxzQm5UixDsKUmK
-         LIfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779455297; x=1780060097;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1779455356; x=1780060156; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=9xi3o5QDtxodOA7hKGtfvSi8vreN8UVFATY7/epF/EI=;
-        b=H6NeoFPdhwUnLqMffRCEXussmg6SS3kXMcWNh5B4c5GJ6Tgfp0LlWLKbsWzTmtM2J5
-         ssNorpq0MxN/RT1BmqB2naTgSlPRHoryjfROnUWlhfONUKTSfTBkPxGDmmMuIHjAZwN3
-         YmNsM+Tw4itiB8FLyf3oMRq6q43qAGHkXmYTTxjJavkl2IvJTS7o31Z3d9HpMAvrJT7V
-         Yy1Xh+pZtA1GGIYiuTsNDCrWgLXJOh+fBJdsmxIoL8ZzHoFDjNFosUmP65sxrqqvDy2/
-         14xiGkYp+08jY9ct+YS0vo8KIXFxQvgrojPGyQoeVUKCe8jSOgDhifGQLEb4NGX3qF8o
-         bwNA==
-X-Forwarded-Encrypted: i=1; AFNElJ8D957asuwKHht6Ey3Pxtd7WanNp8/logkn6RXDMhw/Dxoz7njPywodoMRjuzOyyj/oV/CrCOrLHn0O@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUBpkZ5dRs+32Tzt5gLotFiL1Bgj8K1Zh5wN9DOzMHe1q9w/Wl
-	cUH8wtpCYvRwwx7cXIOKEl6fXaVBAHIBH+B8qjU2+2hGCXUK5D6koDysAVvDCKfw80BP3tLeNAr
-	7iAk/+acsiMwLTEgdYOAnw1Mih7tNDHc6XP9tTlxjehqLDJtBClAhd1blZx8dosX6idnCpFAD
-X-Gm-Gg: Acq92OHxDbOptuI99REQPXOehvC/TiyeS/aMDlPwpbOCAdKJ3jN4fCXJQfTuFUdw+Vj
-	Ha1W6OuYD32Kti186bznQW9ENcOw7MMUvRBit907ynoqph6+06hsHNbdkAL0HWbRlJaLKtQnIxo
-	dqI6z9RU8JneTvDx4aUfnjq4Q/sgQs4fjQN7SbWavWmBsmzCN4Hyt26RE7kZ9gG+xBfFEFkYBm4
-	N/geHNwrdLmJhdmlv7frHgKykFccHIufShfWm0B6lhu+3jk5/b/ro0hkW7dPJuYRnWVrM1s17Tw
-	AGBPQtA379OJDRC4NNNH8WPicuNCh09RdRe0C4ER6qdc6ikhbFapm2dSYpsKACc8NMk9x52wkEi
-	X8GlGZf2yL49uSviXb+8TohbibIHltHLJJ+k9ZaKtpe6LcjzG
-X-Received: by 2002:aa7:9a85:0:b0:82f:776f:a78a with SMTP id d2e1a72fcca58-8415f3019a0mr3899230b3a.30.1779455296658;
-        Fri, 22 May 2026 06:08:16 -0700 (PDT)
-X-Received: by 2002:aa7:9a85:0:b0:82f:776f:a78a with SMTP id d2e1a72fcca58-8415f3019a0mr3899184b3a.30.1779455296159;
-        Fri, 22 May 2026 06:08:16 -0700 (PDT)
-Received: from [10.219.57.29] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164b1af1csm1902328b3a.27.2026.05.22.06.08.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 06:08:15 -0700 (PDT)
-Message-ID: <ab679636-a15e-4876-b658-7534484e337e@oss.qualcomm.com>
-Date: Fri, 22 May 2026 18:38:12 +0530
+        bh=MRieD+RAjUYcMpIS7S33Q3GLSc1bkdYTe6Jma832hh0=;
+        b=q2ter51QTxi/HuVNxPoQk2xkHcWQl/PJDr9Lsu9SQuOYF8/ov4UZZES3puXDLrrW22
+         BAtUZ/z1Rd5B3VXqzf3B4NWwux/Q+HhetSx6QLVikLCech/Ijew4KOk4aipG8cQ+l0j1
+         fc1mCG2WdBhen7WltH1spkanqbM6EpLZVmz560w6cD/ETrG7CKlsa4gIZd9elb8TI+Gu
+         mHWsXvN52CqRELZHIWIpxL2Lthf2ENzUppjc98qqiqrKtsfcF6keF8ujjn5f3NO3HYC6
+         1RYctpGjFb6gV+vhErVmiZ/KH9CFzSaOjHlyn1n/AIOTj+QNPAn9RP1pAYSum9BOBnZs
+         aUaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779455356; x=1780060156;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=MRieD+RAjUYcMpIS7S33Q3GLSc1bkdYTe6Jma832hh0=;
+        b=pLZaWU1RBJSgsZ0YWpjeg8shtgCpAsgHiuHfLiwmi1h7B2PV8XcTB7EL5P+d1BPxsq
+         EeB7jM97CGMaKpoKlkrfpYDy/sHAATo1YdWuJbKaKnYcWk4Nvw39xOUjnp5urzdx39Mw
+         s3gI6XmD34x1lT1zTxkUcq5B1JIhk+05CpaQ2xtFL4jw7HdcTPRkQCPcHl6blp/j7kia
+         hBGO8NdXP5kho8CeY1xf1fUTpnDehXx5aMX9gLgCYIh9JdGcDxMe0KfUJhvqtWpiHb9E
+         gY0Z76Onmwq8F3R4D95v1lF0dByyhZ7s9zXGw1Rks5viTnYpaFV5ayCzYvzoKlvn6Ws0
+         pkEA==
+X-Forwarded-Encrypted: i=1; AFNElJ9JOvr6xbKhu/UICn+72opIIpMKrlduyYAsz2Dn//2XuF02I3WgoFbHzzSzDelDNBbD0JiK+XzI0y4a@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9LhE7te6w15lSup65hEWEhYGLztBLA511EJnpRMatTpQIyaOT
+	lvOb4l17DfDDcM+qkPHYx/pVSNQAKdLnwNYqVSUk/OpBSKVsX+HxKMJo14iqukJ3m5c=
+X-Gm-Gg: Acq92OE5Sk8/qEWMWZy70q+aHq+ZNzsqZqmVq3bZQ2YU3IWLcmuix3J3z0LkZGzMEYb
+	j0JxB9SLn1jVUd0Q37a3u5Qiw9JA90S6MkI+yq5fNBVuQ3PqRZsvnvonCoBsvW9RqSsNLEXiCVF
+	Sx9XfYcSV2eOH0l9lY0nTcT7dmTPun5yoeBs47+Ne7N/a6HyobJAbyEQ9fI8NkpfFM9A9l3lZCw
+	ir1Qb/gz1PBqaukutBmjmBPliqZ1TfhNEHpXrV89JMR1EmeQSFYPx1uuvcojLAW2lwzz9QUMD3w
+	pDSMFw1WnMSrO6oiyW2Y2XwH6B7NuuYHi0Fk56KKgcL4M+KapgQUQBMrPugLXbHtsH/q6nVzhmi
+	zU6NGZUtW49h9sdnk7qRk3aKvqwyK9epYhm7a+HuaO1plz2br+JjVVvNP5hhSAo6DpyDifg6kZR
+	vmTXR6d/Io2KNvMWoNBC+z98z5x2jBpbAyzfHl/MHDy9JJjX4COEM1sE0=
+X-Received: by 2002:a05:600d:6446:20b0:486:faa8:9e4 with SMTP id 5b1f17b1804b1-4904249da29mr30890835e9.12.1779455355576;
+        Fri, 22 May 2026 06:09:15 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490454a0b82sm45413615e9.9.2026.05.22.06.09.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 06:09:15 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Fri, 22 May 2026 15:09:12 +0200
+Subject: [PATCH v5 1/2] regulator: dt-bindings: document the SGM3804 Dual
+ Output regulator
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] remoteproc: qcom: pas: Add Shikra remoteproc
- support
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260521-shikra-rproc-v3-2-2fca0bbe1ad7@oss.qualcomm.com>
- <20260521135659.A15C11F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20260521135659.A15C11F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=JN0LdcKb c=1 sm=1 tr=0 ts=6a105541 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=j0AMz7HbSoZG04DGXxAA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDEzMSBTYWx0ZWRfX2TrG8n1wjfS3
- iqAWTQ1z+ZGJv8LHOc43xY1aBMKdBrbcsj86oJoQHDm+/ggBeTO86/EEDNobyHm+hw7aN63dnR4
- Dru7FbVo6N3rVsGBGjCH7Cktd+B3r+x8nAijthh0Nd0FZ68FY6ReijhZshDgw8c4dEsUcNQoiDZ
- tmCoDVXNrOtOilUgWxuNgcXDSt9t4UQRDkmR6FsvFisjV6828TW2U6Ud94As4md86G3gE2QByUB
- smK6Qy2SEh287Ul4Qu4aC/kZholMCuawzNjnWQU5sMPuShAHd6Ltx6F+u9BfkGCy1XEtK29dJ8e
- rS6fmmkSrYdkX1331tGb2q54yOY3zovLQy5mhiMAYTQuvJ2lfjFXtSr5iP7ncoCC5hzGJ6wGZms
- bC52ptzrswRQVGirMCX9YJclY1y6ypcOoGlD5yLQtWt66wcIsYGY4j+RSuwBwgcOl/eUb6AExr/
- rcV8HCFLHW+I3+2neKA==
-X-Proofpoint-GUID: KoriuaRTM--TSwGx0TrDKAo_EijD7KbW
-X-Proofpoint-ORIG-GUID: KoriuaRTM--TSwGx0TrDKAo_EijD7KbW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- phishscore=0 bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220131
+Message-Id: <20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-1-bd6b1c300ecc@linaro.org>
+References: <20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-0-bd6b1c300ecc@linaro.org>
+In-Reply-To: <20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-0-bd6b1c300ecc@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ KancyJoe <kancy2333@outlook.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2645;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=XH9ZkSLlZXi4Q3xxOdKdClWcWnK/2QO56yV0PVRrX6s=;
+ b=owEBbAKT/ZANAwAKAXfc29rIyEnRAcsmYgBqEFV5/clXRdSP9+NKvtANaAm8ILY+Me0htq7PmuBk
+ miLfG3WJAjIEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCahBVeQAKCRB33NvayMhJ0RHnD/
+ icDI1LRTXMAVx2p0nh5Wr2xcncG88/gkStB7uP5sEsQr5uflOqHG8Lk2czlc/eOlfTnZQjbiCXt2Mq
+ VOBdr47rzghLszl85c2pG59WK5ZLsBJEdbwLd21G8nEF1+SEAwNvhjKj+q+NiS+RDqP9sB+XHNHF2I
+ XDqdbMlj0UVOPoOV+UCvtUn64M25j0W7Zh3HiC3ccjSPl+npbjRM3WXpYZk84ZZUeZKChacs0dkirg
+ m+IsHHCsa/kk0m1GLUC/AbC6eMyOQ4XdLYLCpZpgd4LFg/nuKlS9p0IycUZnOMYxp2Cb6WgN3m7JQQ
+ YrscaYdLKS0r1w08WsQ7RoCrNsdMJWwg2cpISVRuoXyfROxsQHLnYnfN9SVM6Kbabq5d3RMYYWB5w4
+ f2ndIldMh0HxDZ60ix8zjYgBmsUp9hwbxX16s8Zw1KbaAe9yJQ8gzmUiENrB9B3IUL/5Am/UKwQXAZ
+ YSG55znsevy3JCOyH9DG1aHdroqPa5jzkmLAVhHXUm0UZqHKxL2iHSzT6Qe+Cy1FzjR9LOOkJDuWn2
+ tkMX+836h0dULOOAch34z/r040Fwih6LmBRUJpoYzIYZ5JMG6fodZw7SB4RxxD9IqtxJkq51QU8BOF
+ aTJyky+d2hDT9qLS8nh22i8TleB+BkyfrdulAqSl4ATxB3vg+EaMVV/ioK
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On 5/21/2026 7:26 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Missing `ssctl_id` initialization for `shikra_lpaicp_resource` causing graceful shutdown failure.
-> --
->
-> commit de542ab4b48a2146f6973ba793bbbd6328de204c
-> Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
->
-> remoteproc: qcom: pas: Add Shikra remoteproc support
->      
-> This commit adds the CDSP, LPAICP and MPSS Peripheral Authentication Service
-> support for the Qualcomm Shikra SoC.
->
->> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
->> index da27d1d3c9da6..0101f1db6458e 100644
->> --- a/drivers/remoteproc/qcom_q6v5_pas.c
->> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> [ ... ]
->> @@ -1457,6 +1457,51 @@ static const struct qcom_pas_data sc7280_wpss_resource = {
-> [ ... ]
->> +static const struct qcom_pas_data shikra_lpaicp_resource = {
->> +	.crash_reason_smem = 682,
->> +	.firmware_name = "lpaicp.mbn",
->> +	.dtb_firmware_name = "lpaicp_dtb.mbn",
->> +	.pas_id = 0x56,
->> +	.dtb_pas_id = 0x57,
->> +	.minidump_id = 0,
->> +	.auto_boot = true,
->> +	.ssr_name = "lpaicp",
->> +	.sysmon_name = "lpaicp",
->> +};
-> [Severity: High]
-> Does this resource definition need an ssctl_id initialized?
->
-> The sysmon subdevice is enabled by setting .sysmon_name = "lpaicp", but it
-> fails to define .ssctl_id. Because .ssctl_id is uninitialized, it defaults
-> to 0, which means qcom_add_sysmon_subdev() will be passed 0 as the QMI
-> SSCTL instance ID.
->
-> Looking at ssctl_new_server() in drivers/remoteproc/qcom_sysmon.c, the
-> version 2 QMI service binding requires svc->instance ==
-> sysmon->ssctl_instance. Since modern Qualcomm PAS QMI SSCTL services
-> advertise non-zero instance IDs, could this cause the binding to fail?
->
-> If the remoteproc framework never establishes an SSCTL connection to the
-> LPAICP DSP, sysmon_stop() will explicitly skip waiting for the SSCTL service
-> connection since ssctl_instance == 0.
->
-> When the DSP needs to be stopped, will sysmon_stop() bypass
-> ssctl_request_shutdown() and forcefully power off the DSP instead of
-> gracefully shutting down?
->
-> Forceful shutdowns of active DSPs can lead to hardware state corruption
-> or SMMU faults, which often cascade into kernel panics on these platforms.
+Document the SG Micro SGM3804 Single Inductor Dual Output Buck/Boost
+Converter used to power LCD panels a provide positive and negative
+power rails with configurable voltage and active discharge function
+for each output.
 
-On Shikra LPAICP, we are not hosting the QMI SSCTL service currently, so 
-there is no SSCTL instance to bind to and .ssctl_id is intentionally 
-left unset (defaults to 0). In this setup, the sysmon SSCTL 
-connection/shutdown path is not used; shutdown relies on the normal PAS 
-power-down sequence.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+ .../bindings/regulator/sgmicro,sgm3804.yaml        | 77 ++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
-Thanks
-Komal
+diff --git a/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
+new file mode 100644
+index 000000000000..3716eaf81aa9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/sgmicro,sgm3804.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SG Micro SGM3804 Single Inductor Dual Output Buck/Boost Converter
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  The SGM3804 is a dual voltage regulator, designed to support positive/negative
++  supply for driving LCD panels. It support software-configurable output
++  switching. The output voltages can be programmed via an I2C compatible interface.
++
++properties:
++  compatible:
++    const: sgmicro,sgm3804
++
++  reg:
++    maxItems: 1
++
++  vin-supply: true
++
++patternProperties:
++  "^(pos|neg)$":
++    type: object
++    $ref: regulator.yaml#
++
++    properties:
++      enable-gpios: true
++
++    unevaluatedProperties: false
++
++    required:
++      - enable-gpios
++
++required:
++  - compatible
++  - reg
++  - pos
++  - neg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        regulator@3e {
++            compatible = "sgmicro,sgm3804";
++            reg = <0x3e>;
++
++            vin-supply = <&vin_reg>;
++
++            pos {
++                regulator-name = "outpos";
++                regulator-min-microvolt = <5000000>;
++                regulator-max-microvolt = <5000000>;
++                enable-gpios = <&gpio 17 GPIO_ACTIVE_HIGH>;
++            };
++
++            neg {
++                regulator-name = "outneg";
++                regulator-min-microvolt = <5000000>;
++                regulator-max-microvolt = <5000000>;
++                enable-gpios = <&gpio 18 GPIO_ACTIVE_HIGH>;
++            };
++        };
++    };
++...
++
 
->
+-- 
+2.34.1
 
