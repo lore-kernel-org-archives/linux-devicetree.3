@@ -1,146 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E69438E8B6;
-	Fri, 22 May 2026 10:33:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94063CAE63
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779445982; cv=none; b=GGkJCJwnygz/tVEeEUN7WNZLNIfmBqessbL/qcZSaWrb8I7YvhIa2f5fhcV6/AoZH899cLa5MW5wd76IWwCsOSI9HCbgI6BeYw6SkuAvVZi9QAbMS2947cA4ugb60yRtgPDY5y40khwUPlvWoJt+fSAGzo2VBdrdUmkoZk8xN+8=
+	t=1779445990; cv=none; b=dUXx1NS5QiD1U6iFbEpdoLh9/K5+L50TSzLW1rfA1eEvNkwHGGp6o9mmwCGQJujKDlnYh6dbUur+Jzbj/Y/9K3z2UHKvessNkPX1TIweWlkwfpbiGyagOm5avwgXI8E5Z5NzQ2RGwh2EGg9UiC3o1z0oZa6Usq6bKVTzehX+9Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779445982; c=relaxed/simple;
-	bh=whyH2+0ibFsszeeLwHIYw6oLd5Lex7zgfxr92ZR43KE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KDmgJ3xRHkCMMjlhJsu0IYkvf5j3S9uyjDuc+pN7FNDc841KAoDvcTPLrj49oXeA9p8n0DJcr3qYspAIYenV0TUhKD2a/rMguos/H/ihVQ63uoK1GrnwnKX0MCoCwHvFH///RbNvDo2jlHQH62szIn15nha3eZlarVHJTFMF8hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UX8koyq6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779445990; c=relaxed/simple;
+	bh=F5+bYp75dLwqsO8ATPAhZJ09tDeZlxwdzzmDbqqQhkc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pFACr4ccoEm8gdA4/RTmaIq5D72fRa/rv7jsntqOxpxFIkJJepfjCt4YIpFznm2k64xCV4ExvZeeqJ/hLRy9MaCQAwWDG5DTBNhhJUYR7DMfyDEIVRk+ZrasVfowF+l7PU9Q1RrTLOApB4NBvfXEZCqYJOOkXdyEAlTuHF3UWbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QsGyobdb; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UX8koyq6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304F71F000E9;
-	Fri, 22 May 2026 10:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779445981;
-	bh=93CaS8NpKWnfAcJ871uDkaWWZlnKletHutKotfZY+QI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UX8koyq6oRCdWJAaKyqWCpdQiMkw+mwRU6Ho8UJ3TIl5WWFWv2fyrsDa0agQSRpIo
-	 GYNI+NRb7GdKIsYPIXOsw9EmCVdiR2AoO5sLk9V31BbuT/DU75S8NzQmFK1P1Tf6SZ
-	 BrYcLA8b4qYmU6axhyl1k5y3k+Xh57lgPLU2fmeEBi4NlkbasUvWAm6ZKlxAET7ioR
-	 waqaeR+0GJ7mqNRW2CdgMPmEdi9LIYy0tzT5X1XxKQ9wwbM9NQyrYUm17SIf2MklbC
-	 //I1MAwa7VjTN3Agbc+6QXSbkwbDx7fED+aUi4+xV7LltxczikBeGi43p20kvdUBE7
-	 +85nGiaErkJ7A==
-Message-ID: <df22ebcb-52d6-4a6f-852a-6d6ed376e313@kernel.org>
-Date: Fri, 22 May 2026 12:32:56 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QsGyobdb"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-2ee990e8597so17452121eec.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:33:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779445988; x=1780050788; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=tbJ3W/Hs4fnZBWxpx6xx736nJ3SrWK5q7n6mrDaFR5Y=;
+        b=QsGyobdbjXsAoOOfPiO8hdzvRmabwK9fAayAvKjuMXdLecjXjsnVQqZKuiU5r8khKx
+         EXJgVVunBZistgHJ3Nxb3KAjajVzTBPSyZTszLIhICRvcroPHAaHf6ZJzEP8AiphVp1g
+         5gkohB2FlkOlC4UWB5qIwU1Fp8J32Whdt1cG/n5VD8ZpD0KHJfWFxsp8UpOeSZePwO9s
+         mQA9lHXqMPX3/vb1fE8AcYbXQFEJvZ7bx1Tp1/ZK6oaSoBgVY/G+/SXf03/16Bm970gj
+         Q4KSTKJOEhBRxf4uBvh51BfmKCUlc6r6SwLK/hbdRaB+qyTN6gdr+fc9Qr4RPzTnqqJ7
+         QkJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779445988; x=1780050788;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tbJ3W/Hs4fnZBWxpx6xx736nJ3SrWK5q7n6mrDaFR5Y=;
+        b=li/2X4YvzNEWvdl5MeugYG6cYV4gg2a1ZFXD6aqx8fMWHo2UZ5PYsZPE3oWFZSlByo
+         +NzVYBSqCLUDzoPSWFozzx/izp+yzTx7tpogs9lR/hhSSuJJkgP9LLjaiEmnr2X9IYpu
+         8RJ7hO+Gek2GxQHeF2mWY3pVGCAN1/4ZECCXuknJN9HVipEM8GuBOqJxrii18i6mkktD
+         hQb4ls71ZkgZUj+MqNZ9Hby+nQ5FKHXkY2pSqWdN3gGBJMpmiZtVvB2UWsQaRlsfTu5C
+         Fr3oqlh/FLNuejwruYV3KRiZET0H5Atwd8YY7BMFuN9yixEATz9OXFAbIPV7w3/25ds1
+         a8vg==
+X-Forwarded-Encrypted: i=1; AFNElJ+JKrUrxgLNpo54fOwq8DcUrKqPBub1L9NyZ/xqMjZHN1g4L6B3BgTjZqvB8D2+j0MU0+ZE/n/KQ0dd@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeddErB3B1F2mo3Iua0AMrQUWEmQrPhhtKeIC6CIn2UKL5zbHg
+	c3VLNqucH6TdHOO8/PDe+4ZdggA6HW5+P8BUdrUckGoGcCb8eRRTYrMu
+X-Gm-Gg: Acq92OHVTIXPdTSfFe7usI0EZW/tb6DEFBJ7/niavJzPG5eHHWrM+q6knQ9yzxZ8s0Y
+	HcnyB8m5pxaFrJd+GhA7GDP/jkB3hXPl14PUdU9hctmNEL0kUL3pU/iwSs8wchstgkmbibviB/s
+	91FoKyfJcxuNJLharZaE/XwE1gtsSXcyK/V2ju7+SpcEAliQ8lhOGJrPARz51zMJLBOJDgXhOAW
+	Udl6z3C1mjTAI6HeuscPtRbSMvZnvvQLGQPN2qPmA0uEVl8pg3DBO9yF5udtwwerjErZLzqM0E9
+	qSbm10psS1u0dS/icgnFhM9CUUnPKqRBnER2E/FuEl5+ytGGxOph/wxfVEIEk//7ENkP56UsRGi
+	I15uxixWUcH6j9WDdLWea/O+csFsqkUtl+BDsr1Ws9mjRhnWGGQRc9Syb2p/USa3IZPGFq+AKQi
+	AU8KKmvwdMl++ILvBQcuUdzvcQlYECK3FG+VhzAdcpRlbm2n2trkR2Agipp2PN4h5/EG+iyfets
+	6bX7mfsxaQmMg==
+X-Received: by 2002:a05:693c:2285:b0:2f1:6252:f8ef with SMTP id 5a478bee46e88-30448fbf20cmr1670968eec.1.1779445987943;
+        Fri, 22 May 2026 03:33:07 -0700 (PDT)
+Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30452230f1bsm682548eec.14.2026.05.22.03.33.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 03:33:06 -0700 (PDT)
+Date: Fri, 22 May 2026 12:33:00 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Laxman Dewangan <ldewangan@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Frank Li <frank.li@nxp.com>
+Subject: Re: [PATCH v6 07/10] dmaengine: tegra: Use managed DMA controller
+ registration
+Message-ID: <ahAw1VCTJoaEmroM@orome>
+References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
+ <20260331102303.33181-8-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, jishnu.prakash@oss.qualcomm.com
-Cc: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
- <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
- <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
- <20260519082526.odmn5dqi2jftwnln@hu-kotarake-hyd.qualcomm.com>
- <20260519-first-wine-bulldog-a6a4c7@quoll>
- <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
- <86f76a81-832d-4ba5-81d5-38b46b7dc0a7@kernel.org>
- <6c595a5f-b979-4e8b-ae77-d28d24700588@oss.qualcomm.com>
- <e07085c5-0fe8-4ea7-8e51-ebe104e7aa2d@kernel.org>
- <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cj653ttobpimpez4"
+Content-Disposition: inline
+In-Reply-To: <20260331102303.33181-8-akhilrajeev@nvidia.com>
 
-On 22/05/2026 11:24, Konrad Dybcio wrote:
-> On 5/21/26 11:58 AM, Krzysztof Kozlowski wrote:
->> On 21/05/2026 10:46, Konrad Dybcio wrote:
->>> On 5/21/26 9:20 AM, Krzysztof Kozlowski wrote:
->>>>> Since firmware does not have a way to dynamically tell if it on a
->>>>> debug-board powered device or a DCIN powered device, We are required to
->>>>> add this new DT property.
->>>>
->>>> Neither debug-board powered device nor battery-less will have
->>>> monitored-battery, thus again, why lack of that property cannot tell you
->>>> what you need?
->>>
->>> A device with a battery will not have a monitored-battery either
->> But why? If for such device property "no battery" is suitable, then for
->> me "monitored-battery" is suitable as well. IOW, if you say that having
->> a property describing batter is not a accurate hardware property here,
->> then neither saying "no battery" is, because no batter is basically some
->> sort of battery (just like empty set is still a set, empty array is
->> still an array).
-> 
-> The battmgr service running on one of the remoteprocs already has all
-> the information about the battery and it also handles all the type-c,
-> PD and charger configuration, only letting the OS know about the
-> results.
-> 
-> Hence, unless there's some other hardware at play (e.g. for custom
-> 200 W charging), which wasn't fully implemented in the QC firmware,
-> there is no reason to describe a battery separately, since the OS
-> can't do anything useful with that information
 
-That's a good explanation and it implies: "no-battery" is not suitable.
+--cj653ttobpimpez4
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 07/10] dmaengine: tegra: Use managed DMA controller
+ registration
+MIME-Version: 1.0
 
-> 
-> In some abstract way, perhaps monitored_battery = <&pmic_glink> could
-> be thought of as valid (since that's the data source the OS gets to
-> see)
-> 
-Best regards,
-Krzysztof
+On Tue, Mar 31, 2026 at 03:53:00PM +0530, Akhil R wrote:
+> Switch to managed registration in probe. This simplifies the error
+> paths in the probe and also removes the requirement of the driver
+> remove function.
+>=20
+> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> Suggested-by: Frank Li <frank.li@nxp.com>
+> ---
+>  drivers/dma/tegra186-gpc-dma.c | 19 ++++---------------
+>  1 file changed, 4 insertions(+), 15 deletions(-)
+
+Acked-by: Thierry Reding <treding@nvidia.com>
+
+--cj653ttobpimpez4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoQMNwACgkQ3SOs138+
+s6GQhBAAsvpZ/a4+gxBycPq7p8C/aXJliOUikyLpa248fU8368LVnJp+ZTQJjwHD
+p55Iikt8GKfhaLT8AbR5sbfWvyWOfMyMw66iUWr5kGY+viIT0OMkzhGhWaL/jfT8
+Ztm7MeUL9sP1/p1FZ+V2Uvp2KVsBfp/BeOqrvsT2lQa17bBtyNZ65oBoe+jTSSGK
+frf+j0jf9Xv6GRlXq/o3OOnfAlrmkiouxT8zIJwul8Hbjmvz6dsskvGMdM0kP/EX
+QzK6nZKTW+ZjIB2cRRqdUryNEXjhYc+Ulpb36X8eBp8xHqdPo8CkZA/lX+ZbKcGr
+T+QSIDtFhNE+Mu3TxcBPyP7IZ9HxgzfAu69a+RZEa6/TC+SF1S9CsEW6VTYM+qO5
+XSwrAGUtuRwTKasCZAUPGPANN+RD2e8v1A+OnD/Qua1xum0T3HLdbSvIXRZ4tYAR
+w+bGxvFRjVO1jUaiOlo62wRIhJST7mPHz2z4/7/4bbYPdor+ElEKJQZ6MCR6HFFI
+FVFETgwJFHGdGMHZyFp9Uj8rMS8paYBqDZAez5GPnqMsH37evT0W6js4/CpBuML/
+wIAbfJdCPGWER+DRD5y6bGebt0Ad1GrMgRgvMYZoqVaDf7GV60CxANF70XnK8Bh6
+J+wMpmxzXvXqiBr3idcQIn7E7dezARxPVGn+2yEypCaBM2T1US0=
+=5ptg
+-----END PGP SIGNATURE-----
+
+--cj653ttobpimpez4--
