@@ -1,181 +1,243 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491023C584F
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 09:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779443821; cv=none; b=Akcum0VZofgELMcTPJCrxQDe8udWKFNVESjSzmQs2nQ3Q/teo3ul1q1e1kwXc0GKDr4Wrbpd1FVIBwk5LPeLz5RuEpMzuQ3rtMeckyHDvOsJe7OOmOWCHyRQtG590t7ROE9W4uS30jJMAC9YsX+l7NqR/S8V6csiIx5OHgZ5R2g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779443821; c=relaxed/simple;
-	bh=yIozOWRREihoVjWjcGnl8m47aIKtimgMJwp/8uurLbE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gOszB7lrh/+d6QbjmzmU5T+Jzo8QQGMDBK20UX6nQKt+Eyh11Vp4vn1/mtYn0QsHEZ6Y9NOpDULvQ3Y9BnTs4p2cVLwMzV5vRdJKl8Tuq8qtE5TUkBulAT2IkYoMoE4Fi0C/qAmO1z3HYBL9QzyeqnQrUr0P+BLoID2mrYPeFLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j6CIlmTE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KMj7ZJoY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51843905EB;
+	Fri, 22 May 2026 09:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779443877; cv=fail; b=t5RB45MbeLfAr2XyY/YX6AhA1S+5ToUe3KZ5GeDxIdgE+zAkjeZfWKWLhzPN9GVYE3jqyg4LQ5PqfxZYcxGQCy8XeK4kEiExbvwoKruWplX1GKPXs9D2nlGzPvgFndm53sbxRlxj8xNLgq+XzrE1xvioUY6/AFGsgAxwReHEBZM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779443877; c=relaxed/simple;
+	bh=FsYfr3b3chKHlL53MJTiiJvpnMfjLbuCZODO4eT/QZM=;
+	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=AcrKj52YeG5m2i8lMCbpeM2xS8kdYQX8z9u05Fe0BN8exPUukjFYd4Jn9EJldNrwT4BlDYalT6Fj9eP4gQH9d3VkhBV4RIwAuV4Q7Fqw/SXr56s+gMiu6Fu1h3WUnwv34HDlDePgYdAW5P6Ias5CvFlMn2vN+R52hFYtmMh7vtc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=l2KcBE34; arc=fail smtp.client-ip=148.163.139.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j6CIlmTE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KMj7ZJoY"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M9EFZs3005145
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 09:56:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=R6Zu26CySy7F8kEACRFLd8
-	GHoBOcnqSzJyxtGoTrkMg=; b=j6CIlmTEcZC73rRjWyUgdVGBRtxqC68jFIk/Yc
-	7h9fZsRA3a+oLePoMeXW8+ex9NL5o9Vw+LVjTHP//n6vKqCOPUDQpOGzxE5wJz3v
-	YoJeN4ISjZvA3tIRpojoSSwwd9ySfUdz3gZETSDLOkTvqjNStwkeuQlXTsFO/Ozg
-	TgthCDpvEzhCraix29rtb8zBeMxHkpamAGRO6TuIHZdABHH4y6kj4zW1oLd+SImB
-	U9G5MtofSfZogbAeKKDkmgjcvlVscXk5SCXudIHDkv4hKKIzX+mYSxHrvCII13eR
-	+0diJvS+r09ZWwQwGYytRzJHvBG314BBps4K9N3bt+U5E5Gw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eafrt9e8a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 09:56:59 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3684cb22502so6803260a91.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 02:56:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779443819; x=1780048619; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=R6Zu26CySy7F8kEACRFLd8GHoBOcnqSzJyxtGoTrkMg=;
-        b=KMj7ZJoYosSKIjkI/kXKbYn8vf1I+yGRJ0wMKElK3yeMTPe9VMMUOr38+pHmsJBtkE
-         6uf7xsrePZY9PEZDS2QV3inpy5X7O+CloUO1PFGRXIaoSJZlILs/Lx4zP2zn5/prJ6Ui
-         jh7nIeZoAgL+JHrAEZcNEcCZP/ZBHfsBecDIAZqmNTKYP/qoYoigsmy8X9aFBFogescV
-         OSW61lNIPsgI4HVG8y4Cf2E+dzsJEP2VDGbolw2Kg3xChI9Wzq2xGrqoNwBjHbqrQAxz
-         qvy5b0wHvRpTKj/qCZ6j1BEqSntaxjDO0Hh/fcXxdtE0Wn0Y2tkU83h4vQg/KJPlIGM7
-         ni6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779443819; x=1780048619;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R6Zu26CySy7F8kEACRFLd8GHoBOcnqSzJyxtGoTrkMg=;
-        b=qPDtWaR9Gyg78hSwkEdr35i7briKjKfC6KHtLIfdCvBB4p79EVZ6gQevbnJWv7QFHb
-         kU2aU20Lsdhn2HeW120B2QG439dTMMV1BVPLTj082xKlmV2287/g5oo7vvaFa/w0LpWe
-         pCr8XAXPmsefhMkBYFW+fo6wnktY8w2E3UNyrhPxMjrs8FZmPyNzN47eDQtfMSAykF6W
-         3L/w0kOySoAe4SJ8vTPUY4Alp0EiafnKSnMw1WgACrgOqzhJtCyRTUbevvbm1zxVUV1A
-         BfcX2w2RVvFM7iJIj0j1u3bGiD8ztrGmd3TstjAq9FqPEKo2eQ7Oagcfmdhq4RT7r2rU
-         F2vw==
-X-Forwarded-Encrypted: i=1; AFNElJ8k1cdvnHwXuogz1nMn887mqpBn3YrfHhcCNZitkwFOSW3oXPPxMMuTQCXipVEjBT/CgtNdaVdqmohl@vger.kernel.org
-X-Gm-Message-State: AOJu0YwF/3Bx5xO60okfhHMEaiMol4ohf2/yjyxLj7+FbZRFYSutrlx0
-	5xcRqa1ZRGS9EVzAu6ihccU46qVNjb7L5MJrVD4IpvVsZA+uHo15RipleMT7cLKgkXKhNM6CFLz
-	LI59MxGmyNQdgKAiET1rC2BedjuSuCIYzz7sbIRYWd3g+KYgAHUBDOtKuKBJ4Dvqq
-X-Gm-Gg: Acq92OFHVYr6MrvnRH3irPlMNBT8FZs01ubKAqvbLdl2DijUh67Pk2g0bb8wem76v49
-	vefYmxBQCK3Xy7jQOm2tRa4smKnIFifq+T0wrCmbqTDTP3gtBWXu0w3fwBVA0f9rEF42+WltZci
-	VENDE/wraqcbBBPeUrY/SPRvLI7QeAdVD/pvqGRxU71Phcvmi85CRHGGG31Ymj5u1R114zUMhhD
-	wnwuW7vcDrygwFf1/hEmcxc7Vo0stZvZEzECHpiQRVBGI+B9Jep5pwfIcqLosbE2yqxZ+pbSDQB
-	8zd4CRckT/NkbB07LlVOAsw38HtRdOyq/fpoyfAtyVzcIziQJoDqhpRxLWWKWBEMjjRZyW3bJF2
-	kwT7JbRqjUZB44073HQPd4dtU0NvG/gWC9ZZ98Q==
-X-Received: by 2002:a17:903:41c2:b0:2ba:e42a:231e with SMTP id d9443c01a7336-2beb064837dmr31696525ad.37.1779443818835;
-        Fri, 22 May 2026 02:56:58 -0700 (PDT)
-X-Received: by 2002:a17:903:41c2:b0:2ba:e42a:231e with SMTP id d9443c01a7336-2beb064837dmr31696285ad.37.1779443818377;
-        Fri, 22 May 2026 02:56:58 -0700 (PDT)
-Received: from [10.213.96.151] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb58dde4fsm12801145ad.67.2026.05.22.02.56.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 02:56:58 -0700 (PDT)
-From: Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
-Date: Fri, 22 May 2026 15:26:39 +0530
-Subject: [PATCH] arm64: dts: glymur-crd: Add reset GPIO to touchscreen node
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="l2KcBE34"
+Received: from pps.filterd (m0516786.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M7FiLn1511118;
+	Fri, 22 May 2026 05:57:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=GCq4w
+	pKM6agOPELTO/BjYsDrDkYXyVpLrj+zYlyhUxo=; b=l2KcBE34XdMgWKJ0I52MS
+	Vjy3GjlNjsS9mb8GUA/DTNoaXEWvBshzBZhAEw1VrS5A4w2PW/g50zlj9AvBN476
+	ahntg1s+q7Hr7VUr3u0fCAS45y4Sqf+ccAXy3KXY6IRK+bwwLLmpeFErwqMrFlIs
+	UgTWd1GB1yQ5Ti7jlfzQRPTUveq+E91h1EJs9XNvrqUUNaaxLFbkAZJdmqHcNJbI
+	I6Kbfett+LtVoFUB0VqytTYi+KL6WJhZ+q8ICchLfK74KGLKxU4KGzxHhJGslOhl
+	W5QjIHD9P9Y8HfkA4CyOAS0O4aCgcAQ7INMrrdHklf1M/3/aPeK7XoEX+w0M7js3
+	g==
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012069.outbound.protection.outlook.com [52.101.53.69])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4e9a2f8rbx-2
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 22 May 2026 05:57:39 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P9P73YMXdROPYIuipFMjGNpbu5gDTCIw7CFCQg7Ljo6cVWM2yTLJEXrSLm/sgYol8gvb3aYG9Up37MLzAKgxQbO1n97nAi+EUlsrk9kWh0AmWnGaNKJ6D45K+Sv898sHQmwxbmboOYL7FSpwIoLTYnqMsS5UvWLX3LNxfJQSRcACr7AeSHZRDBtfyOFMEbcE82DLHF4JCaOxfYgVdNbagU5bRGRLNyxgV91daISAiIyFGwVJUmsJl/CPsojHQGFrffjrjSeHdli61NCpC7KQtxG95mKIZQu3vRa12TmOFss6g8FLkkwC5vRPi9HLSMeP8ni4h5mn2PlvpKPQUT85nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GCq4wpKM6agOPELTO/BjYsDrDkYXyVpLrj+zYlyhUxo=;
+ b=RGKQtQ6gz2zCUe2ySXPSq1S0lf3/QZL/gJ8HtzPdTE5DMd2sBadZ/oJk8ZsFN+46wci5UwV8r4vuGx+gD/IEEQZDrKuIlpRIuBXRek6jxxd/tMS14rDZ7Qh4Gg+EhAHmtJKW8gqc2i2tuoDMv+4AUyKxVaq/P5RYMAo10DCUroItDfkMjWtAUGFa/xorzsBjdcrc7vB605K2kUQouHKdr5+4zwesOveuJOveyy73d1Mi0kNZieCk6v1HWqrqubdiW/USIebUfi5EtuTUQ1edQVWwG6+gF5iIeytwxhXZakZL0M71RgIh2GT0eDjP5wr085xE+v8GzziyY3s36XIeoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from LV9PR03MB8366.namprd03.prod.outlook.com (2603:10b6:408:368::16)
+ by LV9PR03MB8390.namprd03.prod.outlook.com (2603:10b6:408:368::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
+ 2026 09:57:37 +0000
+Received: from LV9PR03MB8366.namprd03.prod.outlook.com
+ ([fe80::b6c5:a618:15f2:c6eb]) by LV9PR03MB8366.namprd03.prod.outlook.com
+ ([fe80::b6c5:a618:15f2:c6eb%6]) with mapi id 15.21.0048.013; Fri, 22 May 2026
+ 09:57:37 +0000
+From: "Stan, Liviu" <Liviu.Stan@analog.com>
+To: "Stan, Liviu" <Liviu.Stan@analog.com>,
+        Jonathan Cameron
+	<jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>,
+        "Sa, Nuno"
+	<Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+        "Hennerich, Michael"
+	<Michael.Hennerich@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Miclaus,
+ Antoniu" <Antoniu.Miclaus@analog.com>,
+        Francesco Lavra <flavra@baylibre.com>,
+        "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        linux
+	<linux@analog.com>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH v3 6/8] iio: core: Add IIO_COVERAGE channel type
+Thread-Topic: [PATCH v3 6/8] iio: core: Add IIO_COVERAGE channel type
+Thread-Index: AQHc6UFZoJz8rUV8Akys6gv6C3wpo7YZzpgw
+Date: Fri, 22 May 2026 09:57:37 +0000
+Message-ID:
+ <LV9PR03MB836651F17C370CA9D277A8C3F60F2@LV9PR03MB8366.namprd03.prod.outlook.com>
+References: <20260521164323.770626-1-liviu.stan@analog.com>
+ <20260521164323.770626-7-liviu.stan@analog.com>
+In-Reply-To: <20260521164323.770626-7-liviu.stan@analog.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV9PR03MB8366:EE_|LV9PR03MB8390:EE_
+x-ms-office365-filtering-correlation-id: 9a6e41b8-eea2-4799-fffa-08deb7e88e2e
+x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700021|921020|18002099003|56012099003|22082099003|11063799006|4143699003;
+x-microsoft-antispam-message-info:
+ GZKnoAy1R8Lk/YKZ0jbuegnACGDQStuvYiDI81LDKwJsljvUgl+l28aYnZSdg7q1skJppN+fSozW8HMwqiTyx1GUk5fopChgs1NxaPhA7fQl2D72gBk9m0tJEexgR2HUqMQtlZh164cfydFuFlMDIWeRePjpQnYFq0XCyedy0iIBf9YC16KZ0iCxRlUEhC+PkoKj1SRS76tpitiQqwP2/WlkYkU601wLArkdWls9tLng+eOIT+gQl6BI3Q5I+QLMMtBkx6I7M0MbK69OXfzevZHxmPNVzB5hjhQHHcM2EmkCcV9wvmFEQPBr26ZOC0yg5eKzQDq7S0MaZUD3TiGHFS+Z0FK5Q4BiBeKiNY0U9KVGB7QvcUM6v4UA5twYn5EJIR+ccU7I6xwjXpmhc8UOXKRM+X3O/lo94mGIXtNTXzHPOlSqkVe3gV1igrV6tycrGm8zSqZbSK/ot4ixJNjh25JTSWNux1mzBMEcRQ7+vmgHfth5WQH3uHhsZKl7BzzXlitGcvJwLV2P0fMTuMNccmBEkneIsMwzS1SsmxCzNBnDFyB0oXzSys+9G5MX18z7vL2C/eCjN3/RcTu8j1RU5jgomat8wpWL0ixRo6fKPp5XqL3lRBHtAhncxZm61K/e0RfJTEQRspWjHmmuhO1B8ykPqy1He/w0CgZksEHuXC9Iwr0NOmMc2S3LW2pssMXCGfa/rpgXF+WPBFCgBI9XUw==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV9PR03MB8366.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021)(921020)(18002099003)(56012099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?b3XVoqSL6YqmZqSCsmfssr78acmLV3Q/Xr6joieZCoVFQFoOS8ikslezP3Z7?=
+ =?us-ascii?Q?VkeyMShTTAAF8syUzDGjKjaxlw6VfPTpynAx72f3NMWJPe3YmfboTF5ZgLJA?=
+ =?us-ascii?Q?1N41v1T0gP/LT1Dq8w2xfviWHQNx6I8i5SBVWxyBrpcQ5C58pYLjKOX+PQol?=
+ =?us-ascii?Q?lLAAxUUbmDHl8ntSd8nObuhv/UKdl+1qKwq0y0cNQhUKRrUHUuVlM4LVOHQA?=
+ =?us-ascii?Q?CeUs1mGTlFw1T5SWYj3P0FD45MEjoULPMY5MDlnpUVIlt94/n+0wTkIN/rvc?=
+ =?us-ascii?Q?MprGDNHCr5wRGR4FKKVK69nJr0r9ENyKrL/FYkHLzunphqA91J8GL1Fcf21e?=
+ =?us-ascii?Q?Eo2a5neldje17nDBkaqF9WYLabh9Lh21NZEpWpQXpMZZNAzj8iphsobzjQTv?=
+ =?us-ascii?Q?r+RHx5dU0AGrfOdFhfHUkYJk9SSsrbR4c9bigUsdpdUHXRNhj7olOs7YO1rr?=
+ =?us-ascii?Q?M9oGQQTvbo1W0ruMJ9Wk/hPOHaK8SPuqMMLlGgh0Lk9i80GbaGDPzoR768Fe?=
+ =?us-ascii?Q?Sh4XFVMJY7fZdoMHxZ7eyZPl7yxYccjGxFsD2g/ENuYYvSp1i4G/RFXoNySe?=
+ =?us-ascii?Q?kWLoCk4+or4bK5FmKd9CsaUrC/gMQR59jw6KxdqmJFCKssetATuXHAd0keIK?=
+ =?us-ascii?Q?0qdZu65DP0opSGLoUP/4BHrN4H1D4r1OjTPSh4hVP4OsNydGhrmyGMFMTaAH?=
+ =?us-ascii?Q?qlaYFI2T7yUlcu29ohmvPLbmd+JbRiT+Nbs+zD3J6TRoUF37FF+THOZyrtbP?=
+ =?us-ascii?Q?qfXAOpPIMjK0BguC5datHDpaNuCE1jFwtOZaVYFK3Qaxds0WnL/OcEv0serc?=
+ =?us-ascii?Q?U63NC/1CvRVEAVgdGJ/gTccNa1UKiGPpSU4BcCymkXfTQ4A8so15uEZ7xvoq?=
+ =?us-ascii?Q?rvwUkfeO/CF+varZOUnZafOovBGVs2g/1MxLVMOSGZoW5lfvrwh/TI1kkXjO?=
+ =?us-ascii?Q?kt4hh4cNyME4s9HlbaD7G+8ldBl/9nWMRnWKaiiAp9szVNXGPmffjyN2s7gC?=
+ =?us-ascii?Q?S5o8coRZ+/iwQ0jaMgXZPvTAfSInIXLieiF1nCiIME1XRKTLiKM1xA2p9f9D?=
+ =?us-ascii?Q?2SWnWRnQprvNeNLwXqi0B+psYSDqKnorfdPvDWj/0wo4HdL/2ExpSfGygOoX?=
+ =?us-ascii?Q?sEyWOwKRSdOW98ZSrcJr68unfiKL5aTHc6P3CY8mrytPhh6eSZKc906MaJtm?=
+ =?us-ascii?Q?65jS/+eHmMv70pu9vITbrhkrBvMrknyf/+QtiHQ/ocSpkdDXa3QxwFdEL0O8?=
+ =?us-ascii?Q?2iYeW9vjmglOsZlYFYkDgqOFLBaSf3QKThCw6xfqslehSyGeTqSU0ZbXWam3?=
+ =?us-ascii?Q?sYszJDOagYckvHOBOBoI7XIymehtEPDn+ALBXnDfbdMks2S0babf9PubYEQs?=
+ =?us-ascii?Q?stAo7E7wCm1JX+ImJchnYbUn0FLmWqcioTBXzsuz3gEFek4I1xs2lVS4RhaK?=
+ =?us-ascii?Q?+lFKpuCNhkpvhlCqjq6MX/yMhhqMc3Zx9hZUIHSRKVO3OVhISnUQ4k+BFau9?=
+ =?us-ascii?Q?JuRjdvZYFM+7GLpUcienv2tnRMQnYHmxSl358IyNJdQAsqaRmjhjG0/pn0QJ?=
+ =?us-ascii?Q?B4KqqlYdkI6kKtPg60zSc+vGhyBvnsz1qiERejhqKqCcSZ5Ebgm+cgkAoSsE?=
+ =?us-ascii?Q?HG3eXa4BTHCgr+m4ILZ0FJHhpGcmYJNBjp6MlF3o7f1EGC/byec90Re8p6DE?=
+ =?us-ascii?Q?W3v63RmxdKlgLfz/l0eDcO8Vhv6B9OUF5H3YeyMvqHfKmqTQ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-v1-1-c7653924acdc@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAFYoEGoC/x2NQQqDQAwAvyI5N2BDldqvlB7WTboG6irJKi3i3
- 2sLc5nLzAYupuJwqzYwWdV1yoecTxXEIeQkqHw4UE1t3RBhsLG9IBfH9PqMi2E0xsCMJi4F06w
- Tlh9LHDyaSMbm2lEvLExdD0d4Nnnq+z+9P/b9C64KDhmEAAAA
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>,
-        20260519-glymur-mahua-common-nodes-v2-1-9f1b89a3f398@oss.qualcomm.com
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779443814; l=1748;
- i=pradyot.nayak@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
- bh=yIozOWRREihoVjWjcGnl8m47aIKtimgMJwp/8uurLbE=;
- b=qwLxBcJHGJ7fhuZZqgy0PX+yLXmUjtuzbnSiJtL5AwJa8v/VT0lurpkpoLqTufbDEdtYKK3wF
- LX/9L4cPC6SAEuRR8X+0TyESS3E5IJK58zgNEtDNQ99L7tlagj5NNdP
-X-Developer-Key: i=pradyot.nayak@oss.qualcomm.com; a=ed25519;
- pk=ZAwwH8thDSb6bq4dCgFHWr80BqB7MmUAKogkd9BsiXM=
-X-Authority-Analysis: v=2.4 cv=JN0LdcKb c=1 sm=1 tr=0 ts=6a10286b cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=lbRSShi60cGz1d_720QA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDA5OSBTYWx0ZWRfX12D//STGfCo3
- hu0dWAs/ysZ21CoSbetcYYDB0Tff8gBkAPJvdOju78Zec074MzK723HvQBUoEPPjAO0vvMLPcma
- 2jcLMt1DUGjlxNYoYnsnxESBEDLilSC62xXg4ur52KrfahKduRAefObLRJMrpAee3Yak3EjqYC8
- pNe6PTvlzb1Lhj9tTF7biDv1nOQQh+5fScoJkxY8Fe0hIjS7WtLVza3eRnvgWVx0pqRU4PzV3KA
- 7KoamrgSL92yw0ScNdPbof3ebZ9pMmvpJ0mQVpe3ut7Mks2w+ByzwYNNeBrkqGMhZOZe7VXd9b5
- smLtZvonDTiQ0sQjHF8oZ3vmv8rYHW0l8scQPAKoKOeRGve/0mOlYKVcinCTwtFNDvxZyGCq4S0
- 7elXLdhpW1EWEChhJeJAt5SqbXrlMZ5cm91GmiYcTrN7jh3RvgmSevE2o5UiLpBQUkij2MnTOlH
- 4NZB+MJeodcZA4XGWRw==
-X-Proofpoint-GUID: 6hQigqA2rAlwyOd4AZTeeLMtwj4TnfEp
-X-Proofpoint-ORIG-GUID: 6hQigqA2rAlwyOd4AZTeeLMtwj4TnfEp
+X-Exchange-RoutingPolicyChecked:
+	YUcTpPfu9XK8/LowKOmcssBZi0ULYqwhefflx5uBMBPkKpHo22DcdZoT1l3kDvr3jXdWJw1J+Nhug83vpTOVe0AVEZkKJI4rQEabnTEtLAg7DqmLVAOlizxKIZ8pGLuTRPFi+RDTRj6PfpujHDMnxJGOetxr/ioh8sTXP4E5jlycGoakz97KtVBVCajC2EeygAlJ1aDeOZnBV3V1yaR564+0xwx3hXirsU+Q1rJnGKrU4jf691PuetLlMFuQ1eq8fE8LG7T1Y/8gveHEx1i5fgx1tWLptekaSuEo2Iehg/EGI3vGezC1ZBZq5No7ZydDyVGWIJpIz/4MygCmevwFBw==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV9PR03MB8366.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a6e41b8-eea2-4799-fffa-08deb7e88e2e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2026 09:57:37.8651
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fb94nFgKwzjDDnejIsCAW5B3C92a5dnIUvvPstOpBl4gb+GY7qXiHar3fqUkRHJ5uM2vAXyNMRXGeia7UAX3hw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR03MB8390
+X-Authority-Analysis: v=2.4 cv=L5ktheT8 c=1 sm=1 tr=0 ts=6a102894 cx=c_pps
+ a=XnoXs6g8SJkBXVwgXvPJGw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=ZQxX5BWu6Z8IJBb2zLX7:22 a=c92rfblmAAAA:8 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8
+ a=t5fpEBxWSnkB2Cg41NsA:9 a=CjuIK1q_8ugA:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: HY7JWIdnQb8n_Vh_MVzBXTTMAuOd4ELG
+X-Proofpoint-GUID: HY7JWIdnQb8n_Vh_MVzBXTTMAuOd4ELG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDA5OCBTYWx0ZWRfX3blyjsmF9yhC
+ hwlkjRVayvSeNqDEheq3gD/Q0fRBsymOqCWabqwO5opeo3u89Fcbi3FPfs6v9EMHTa3vZ3Nbl7X
+ f6qUcO+K1c1vb8Tzex4IhzvDHvqUzwYUmoqECMkXRAbLNhcW7doQoB4dBybFguDtZcBnUM8bNSi
+ 75Rw/F5Mqx03sL17ArDdRWd+pc36CZboIzakdiirMdd+IFyec7JZ6dxSXl8v4dQXNFbKg6LXnl8
+ lRIcMmm2Msj+eTkYHYagfuDPIgVZeIm19zG/L3gdmm0zrcKBjW/mbkkBXO4e8lt71Nd9X9TfCXy
+ akuwbet04/VwibdnV/EWil+drQXnNYUxsd+KuXgzTREo9NGSw1bhBvdCy4fK765zaIXdGdCBf1H
+ yw9Qe+cPLxqcT9Ezfnokv8fSENB4OOwUQhZPQO90ijA18xrAo+5Gy7InCOtuWjxUuZI1//ZU4Ps
+ +KxeQUYs8UNbqj2yMfw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-22_02,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- phishscore=0 bulkscore=0 clxscore=1011 spamscore=0 priorityscore=1501
+ clxscore=1015 impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220099
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220098
 
-The touchscreen module on Glymur/Mahua CRDs is different from the one
-used on Hamoa CRDs and requires the reset-gpios to be wired to the device.
-Without this in place the reset line will remain permanently asserted
-during resume leaving the device offline and causing all I2C transactions
-to fail with -ENXIO.
+Hello everyone, I'll reply to sashiko's review here:
 
-Error Logs:
-i2c_hid_of 3-0038: failed to change power setting.
-i2c_hid_of 3-0038: PM: dpm_run_callback(): i2c_hid_core_pm_resume [i2c_hid] returns -6
-i2c_hid_of 3-0038: PM: failed to resume async: error -6
+On Thu, 21 May 2026 18:10:28 +0000 sashiko-bot@kernel.org wrote:
 
-Add the reset GPIO so the driver can deassert the line on resume,
-restoring I2C communication with the device.
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Low] The sysfs ABI documentation for IIO_COVERAGE incorrectly uses 'X'=
+ instead of 'Y' as the channel index wildcard.
+> --
+>
+> commit 6217a0a065fdaa7ef3fffa525f2928d59a323a05
+> Author: Liviu Stan <liviu.stan@analog.com>
+> iio: core: Add IIO_COVERAGE channel type
+>
+> This commit introduces a new channel type for sensors that report fractio=
+nal
+> coverage as a percentage. It updates the core IIO structures and provides
+> the necessary sysfs ABI documentation for the new attributes.
+>
+> > diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/AB=
+I/testing/sysfs-bus-iio
+> > index 4fc9f6bd42812..90fb8ef26de0e 100644
+> > --- a/Documentation/ABI/testing/sysfs-bus-iio
+> > +++ b/Documentation/ABI/testing/sysfs-bus-iio
+> > @@ -1959,6 +1959,23 @@ Description:
+> >             Raw (unscaled no offset etc.) resistance reading.
+> >             Units after application of scale and offset are ohms.
+> >
+> > +What:              /sys/bus/iio/devices/iio:deviceX/in_coverageX_raw
+>
+> [Severity: Low]
+> Should this use Y for the channel index wildcard instead of X? The IIO sy=
+sfs
+> ABI documentation typically uses X strictly for the device index and Y fo=
+r the
+> channel index, which would make this in_coverageY_raw.
+>
+> > +KernelVersion:     7.2
+> > +Contact:   linux-iio@vger.kernel.org
+> > +Description:
+> > +           Raw (unscaled no offset etc.) coverage reading. Used for se=
+nsors
+> > +           that report fractional coverage as a percentage, such as le=
+ak
+> > +           detectors where the value represents what portion of the se=
+nsing
+> > +           element is wetted. Units after application of scale and off=
+set are
+> > +           percent.
+> > +
+> > +What:              /sys/bus/iio/devices/iio:deviceX/in_coverageX_scale
+>
+> [Severity: Low]
+> Does this attribute have the same naming consistency issue? Following the
+> standard convention, this would be in_coverageY_scale.
+>
+> --
+> Sashiko AI review * https://sashiko.dev/#/patchset/20260521164323.770626-=
+1-liviu.stan@analog.com?part=3D6
+>
 
-Fixes: e6bf559f7eb9 ("arm64: dts: qcom: glymur-crd: Enable keyboard, trackpad and touchscreen")
-Signed-off-by: Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
----
-arm64: dts: glymur-crd: Add reset GPIO to touchscreen
-prerequisite-message-id: 20260519-glymur-mahua-common-nodes-v2-1-9f1b89a3f398@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+I see now that other attributes have Y as the channel index wildcard.
+Will change
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-index 1de3a49f49e4..2259577b9ae1 100644
---- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-@@ -623,6 +623,8 @@ touchscreen@38 {
- 		vdd-supply = <&vreg_misc_3p3>;
- 		vddl-supply = <&vreg_l15b_e0_1p8>;
- 
-+		reset-gpios = <&tlmm 48 GPIO_ACTIVE_LOW>;
-+
- 		pinctrl-0 = <&ts0_default>;
- 		pinctrl-names = "default";
- 	};
-
----
-base-commit: 1d376e58cb4a94f89de0fa9195d583ad6b86eb89
-change-id: 20260522-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-5892beded29b
-
-Best regards,
--- 
-Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
-
+Thanks,
+Liviu
