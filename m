@@ -1,172 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624DC402B97
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E043402B82
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779457976; cv=none; b=ujFD+rb3BsAOM7MuHcqsUtQEYV0hohqQyXxDGaLKf/mpVheTwGE50JOD1eEV9q/NyDhYoSvxb1D0ceEGSnaY2kwSSxCJmo9eskGEvSSSQuV/ECn4vTyAKZW/x38gac990rJnZZszdACyogT7q/AtxS1HqGlfPV8Tpuvi0D38rHQ=
+	t=1779458126; cv=none; b=AItueQJBR1PY5yEz9Ywypw0H+Jku+MT4CLucpJ/MptBKQZdcrJEavOj/5qJv9snUm6H7HhGbbjMEYpYoLqoQcI8REBM1QTRAE+gORUaF6nSoSXvFV+haVSyRZG3f9WLZBubZSKZ/2Zza+1RcRC+yR1vr6ZJUvzbQxDFRcICKfvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779457976; c=relaxed/simple;
-	bh=SNKYtJz7zKpE7dbPIGo0KdHBYR4vxKhqDTVgo+2Ulqg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TAxIOQaqoUCI67RE1kRgpShdPyeZiAhBl5XJ5jbBtGtcYvRIFVIQg26PGyOg4wgMYo9WDY5J1SlbsLa7tQlsNXJUm2hzaccD9xKJMMDdfLf7IjrNOuRtnHz6c4C6S09y/XKNzYJ90qPPmdfBtQA/5xgtqR/9dMUfeyWtHONTJ9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gnuubqyb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gnuubqyb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF5D1F000E9;
-	Fri, 22 May 2026 13:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779457969;
-	bh=D0VR8duU3oq1IsXzgJE7IEJGxVxEN4FwhvMG1ETzWdE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GnuubqybhOJvcW1lAlUFeXV2zBBZVpO1M+qmUIf5izLOldAv4JyvbWQViYWCnjeAX
-	 rHGqZ+KXHAyxgOKA4hw4L0+nGe94uzCCiKaEmuHvWaim3vUbXZEgM2zCRWsAPhOwDW
-	 gD1EPjk+Rv6iyw0M1ykYCtShWaAqoXEACWdbQuEDt/Z0bmZOBaFTScbNRsDTYk81FM
-	 p6L0X0gm7YigBjNrXxSwz7rwiJIWay/I+iBwYYnlRRVTlhU5dUwUD9eOJGL0KNNKD/
-	 sqyRPWfkjNwSYeE9batlFJgK5aJoR1MoD34J3tb6+yIBed/UMHd5tuxaraM3dE0zFb
-	 m3OOm+JbokZIQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/11] arm64: dts: ti: k3-am62-verdin: Add Toradex
- DSI to LVDS adapter with 10.1" display
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vitor Soares" <ivitro@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260522132014.226721-14-ivitro@gmail.com>
-References: <20260522132014.226721-14-ivitro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 13:52:48 +0000
-Message-Id: <20260522135249.2AF5D1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779458126; c=relaxed/simple;
+	bh=p6FsAScfvmI00LgYGoLuomprcquQsIoplyeLI0inSTQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Lejqw9La/rQdKZqfkov3fsL4s72NURijahDxr3bqDto1G7oWeWpkoKYPIVnhlFso9l9/sfGwB/Q3qa58x7Xcer8fWnukR9EOjfQ5McBrqsQ175ta29jkuA2R0QifvRgKecAaHKZT1/uJFlCYuK56fR31yXc0P3BDfqmQZWDCi4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-95cd9a5f24cso2051127241.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:55:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779458123; x=1780062923;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j30cmgYlFN4mDEmlnYqRmgElSbQTzkiiS0OsZr3i+6I=;
+        b=NmTS9SSGd+3E5iP1+N92UOB9vOsN9O3YKBn890TPMVkrZxalxm9xBvG9XJoT6zESwE
+         ipRvqUS4eAxOXbzk2+vfFV/VQZ0eVcjSgdMZQwK67sbhGgnbJCrsjzj9rhkmEw5Vm2Xw
+         NvwNLHvsqP10V9bSq3wdfkDCor8wNGCEks9f74tZ5zejBPe5OF5trWVN7gsMn4zpDB0i
+         Yx3V0vBpsi7tzrfmb20EeOGGwtrvk/i3IRpYX0FnOtSkd/Jsi3R+fXGJBYh768kR0cwm
+         ow55+gvzuIHUHZUe7ee7kTXazjVmMUArxlNXXd8i0vktmHrnCBnlKZ1m5gpFVYfJeqn3
+         J+lQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+qRU4/XYtlJw+GKcb5CrRi8jOuOplronTsLNJ9lPhNVoZvXnyMLNgVoPmrNWtadpxiDdq/kXLbvMVe@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIb83xKrRR7TbdxLAWi7VUL5dc2hnMRYV6FNlcmBn8wpPKOFvR
+	4Y2tZw6N/DKV9JpEO5VxGXdhT1cA5X8gVtXCWxrrD2TRblpVCOPnx9buba7mhTFhE3E=
+X-Gm-Gg: Acq92OEeTG/0MJjLsYS6EaC8BXyEyEffdGGXyq+eXu//BbU0EWlgM7qq6N54D/J2DPf
+	PVO2gsn2OAg8vnyOiATbVGDUyLJneEPsZlaJSBTRXN5Sfw7sibC4pCWTb2TU74mFl07dnJxLEqK
+	V9FCZgQAJvz/MLGehxfGAOxZ2DbNaH71TWvHFmT4BWeiVu+9EswcsL8wmtMBAPZkrDUewj2/NAE
+	bR2hfRwNnzk4DgrTdh5O3jYpDgOB5cKgArRmrPFn9AXr+MsvnuCQV9HjBi1QI9ZnsKlxa9JShjS
+	yv/GQFaSdyp9enNIUH0g0Y1F1B+ZikpkzT4RX3sdhiUZNbb3kgdowfCTSBGqeIEuOpB+/t3+riV
+	mKsbTUcH+Z//nB13m4FlhtsUz7dOq4Ubg/4s6fWkGNfw+OBtg+e7302gD+X8YKGPQLZh7n0ptdB
+	o5NpfwYEn4r/Ucn34wb23laJ+nQl55rxLPgKMfeGIVlb65ZBxs+Fcpd0uNeZpu
+X-Received: by 2002:a05:6102:fa2:b0:631:d3e4:efc4 with SMTP id ada2fe7eead31-67c77ff201bmr1686790137.11.1779458122812;
+        Fri, 22 May 2026 06:55:22 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9617383b1a2sm1638492241.4.2026.05.22.06.55.19
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 06:55:20 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-6314a0eefb1so2296014137.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:55:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+HgnTjf2LoK6nuBTnP0otesaR8sGz2C3pxXSQc26lXb5jibriCmbApU6/AL6nV9YVrgHgYfDiWVqZh@vger.kernel.org
+X-Received: by 2002:a05:6102:c89:b0:608:94e4:1c00 with SMTP id
+ ada2fe7eead31-67c7490526cmr1691949137.2.1779458118939; Fri, 22 May 2026
+ 06:55:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260410163530.383818-10-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260410163530.383818-10-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 22 May 2026 15:55:07 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWiJEnpfLs=cQ-j_VaFxMhLuV6YLsvqpE4bvCmT_madQQ@mail.gmail.com>
+X-Gm-Features: AVHnY4LbuOPf1FKjHR7ZFR3fWcySVRSaw7vpgkocdsWUrZ7gBa__02wKZRL9zBo
+Message-ID: <CAMuHMdWiJEnpfLs=cQ-j_VaFxMhLuV6YLsvqpE4bvCmT_madQQ@mail.gmail.com>
+Subject: Re: [PATCH v2 09/10] arm64: dts: renesas: r9a09g077: add MTU3 support
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Nodes use specific device or misleading names instead of the requir=
-ed generic class names.
-- [Low] The fixed regulator node 'regulator-3v3-lvds-bridge' is missing the=
- strictly required 'regulator-name' property.
---
+On Fri, 10 Apr 2026 at 18:37, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> The Renesas RZ/T2H (R9A09G077) SoC has an MTU3 block.
+>
+> Add support for it.
+>
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-commit 8eb886986d19e2608d6989dd557b140a93c31c32
-Author: Vitor Soares <vitor.soares@toradex.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-arm64: dts: ti: k3-am62-verdin: Add Toradex DSI to LVDS adapter with 10.1" =
-display
+Gr{oetje,eeting}s,
 
-This commit adds a device tree overlay for the Toradex DSI to LVDS Adapter
-connected to a 10.1" capacitive touch display. It configures the SN65DSI84
-bridge, an LVDS panel, and an Atmel MaxTouch controller on the Verdin DSI_1
-interface.
+                        Geert
 
-Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-a=
-dapter
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitiv=
-e-touch-display-101inch-lvds
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-panel-cap=
--touch-10inch.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-pan=
-el-cap-touch-10inch.dtso
-> new file mode 100644
-> index 0000000000000..0e873f2ccf65a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-panel-cap-touch-=
-10inch.dtso
-> @@ -0,0 +1,123 @@
-[ ... ]
-> +&{/} {
-> +	backlight_pwm3: backlight-pwm3 {
-
-[Severity: Low]
-Should this node use a generic name like 'backlight' instead of
-'backlight-pwm3' to comply with the Devicetree Specification recommendation=
-s?
-
-Using non-generic names might cause schema validation warnings during
-dtbs_check.
-
-> +		compatible =3D "pwm-backlight";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_i2s_2_d_out_gpio>;
-> +		brightness-levels =3D <0 45 63 88 119 158 203 255>;
-> +		default-brightness-level =3D <4>;
-> +		/* Verdin I2S_2_D_OUT as GPIO (SODIMM 46) */
-> +		enable-gpios =3D <&main_gpio0 34 GPIO_ACTIVE_HIGH>;
-> +		power-supply =3D <&reg_3v3>;
-> +		/* Verdin PWM_3_DSI (SODIMM 19) */
-> +		pwms =3D <&epwm1 0 6666667 PWM_POLARITY_INVERTED>;
-> +	};
-> +
-> +	panel-lvds-bridge {
-
-[Severity: Low]
-Does this node name deviate from the Devicetree Specification recommendatio=
-ns?
-
-Using a generic name like 'panel' is usually preferred and helps avoid
-schema validation warnings.
-
-> +		compatible =3D "logictechno,lt170410-2whc";
-> +		backlight =3D <&backlight_pwm3>;
-> +		power-supply =3D <&reg_3v3_lvds_bridge>;
-> +
-> +		port {
-> +			panel_lvds_bridge_in: endpoint {
-> +				remote-endpoint =3D <&dsi_lvds_bridge_out>;
-> +			};
-> +		};
-> +	};
-> +
-> +	reg_3v3_lvds_bridge: regulator-3v3-lvds-bridge {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-max-microvolt =3D <3300000>;
-> +		regulator-min-microvolt =3D <3300000>;
-
-[Severity: Low]
-Is the 'regulator-name' property missing here?
-
-According to the fixed regulator bindings in
-Documentation/devicetree/bindings/regulator/fixed-regulator.yaml, this
-property is mandatory when the compatible string is "regulator-fixed".
-Omitting it will cause dtbs_check errors.
-
-> +	};
-> +};
-[ ... ]
-> +/* Verdin I2C_1 */
-> +&main_i2c1 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +
-> +	bridge@2c {
-> +		compatible =3D "ti,sn65dsi84";
-[ ... ]
-> +		};
-> +	};
-> +
-> +	touch@4a {
-
-[Severity: Low]
-Could we use the generic class name 'touchscreen@4a' here instead of
-'touch@4a' to align with standard device tree conventions?
-
-> +		compatible =3D "atmel,maxtouch";
-> +		reg =3D <0x4a>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_dsi1_int>, <&pinctrl_i2s_2_bclk_gpio>;
-> +		/* Verdin GPIO_9_DSI (SODIMM 17) - TOUCH_INT# */
-> +		interrupt-parent =3D <&main_gpio1>;
-> +		interrupts =3D <49 IRQ_TYPE_EDGE_FALLING>;
-> +		/* Verdin I2S_2_BCLK (SODIMM 42) - TOUCH_RESET# */
-> +		reset-gpios =3D <&main_gpio0 35 GPIO_ACTIVE_LOW>;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522132014.2267=
-21-13-ivitro@gmail.com?part=3D1
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
