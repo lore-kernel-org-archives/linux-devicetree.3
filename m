@@ -1,144 +1,138 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDA23A6B64
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:13:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587731E0E14;
+	Fri, 22 May 2026 08:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779437615; cv=none; b=uXuxpuxhrlh+qLm/opl0297V2ytq8ECTAv3wrCuWKGmbLzIxWZfiunCCMA2D9iqhYB+AO5p34CVeKlup+9jpwz+k2A8+5eK5si2skzQZIIoNHEajd+fRTmnNoSqhT4MXFNH2ZwHW/2+Mw3Jo1QBvtoSph5ud/F10qi1uWCLaBEU=
+	t=1779437636; cv=none; b=Kapm/40i7JHAnGYTRG9gUSg+0DwFzJnu+ExIHO28PGcYWj3xcFcSm57Z3FlB5sJJGmq00RRcpPLP3PsRqG/pQX3kOcLMKCVgBjAG/IvzaV8mo5PE3YuqLDC86DLNZVOHYbldKz11hDuE03rOSleCnWQLOLDJ/t0MKyDhKlInUDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779437615; c=relaxed/simple;
-	bh=jomel0oPADXBx3RNpLJWhpNzh5YZTgxCIIU5WRUNi1c=;
+	s=arc-20240116; t=1779437636; c=relaxed/simple;
+	bh=QOfyWjoFDL0iUEM3Z2IUv9h8d7R3fVeJavSwjgogpVk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=snl/F6FhDiTeYm8MgMyMAiSPDaZ8SDIDECmNNjFueePFd1ag+qs9k6FpiVqjaVb/ljiurhDy7Y1ALb+f6dNOQILjHFRJtKCY5HtYpbYXA+cFsU1wSBQNXp6cVr9NOuNWbYhiI6mt8R1yTnhERK08vT0EbTgcbdWModqQ/I3eiD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aqy4m03t; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=dL7AYR8FPcNJgPlFJOQ4A+X0lvkRk64ptDN9Ald/6RSqN7xJ4MCSD9yNIMFciJRIc77TsvBJgckiywJ/GxzlXS4Ag1vq+f9dqwdWyBCFA3LPrD3T7jRnpqxVWVtsDdB8TXqDJCs3Q73DLdgetjLI2H3lfOrWd11IAjlvlUY7eQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mba+IE6q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aqy4m03t"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49041fb8c23so4254715e9.0
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 01:13:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779437612; x=1780042412; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=krd+xtZLkefnPN4mdCrGXGZmFdEnpHSMkyhgQXQ9R4M=;
-        b=Aqy4m03tDopC4Btb7imxDuXHDFDlm6ZG80vLjzAG5oj6bOwcf0sQ/dIeBeR2xxNRyi
-         yr/w/VIxSMzozD3JJH+0JGizh2CcR9hy8SNXnmP0K6cfzX8HYIynDD2ipHohBwtLDSJS
-         WRGD9vmwJ+F3uV8SeSQRAGyb8a24c/ItU+ZwugcbWYOsnXZlRspRN7NFYq+835ujCINx
-         UpcEjUro+Ffh2Oy/9wrz0f5TitXqlBjdvpU64l/GN7u/4+A+ReKrMus2AvKzelr/sQhf
-         JQIkZdukCsJYVlE/sZGihRqGxaGbtVls6d1lTSbbNDOrHPp1a6qQkHUdHr6UqrQHXJnm
-         uFNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779437612; x=1780042412;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=krd+xtZLkefnPN4mdCrGXGZmFdEnpHSMkyhgQXQ9R4M=;
-        b=LXe3i9Q9Iz5L+6QHX7Vjeqjs6s9ouZVIS6tcpa1NqJTh1NftrvSvD89TusBKjz7kJO
-         hsMMELpnkY3hLs3VXdUbcFhrkjo4Wb8xrRzrn3WSYltNfiGMbJ52/VOCiTVFw7Qp9bqx
-         bKWAMy3goLuoe7mpJnaBRXrbKjn+w8frA4/04JxM9OydPNrU1Dlmt90BfhWCgmaM1M3g
-         JH1WcVPbaM1Zl9vZ7bcAuPwbjfjfhk3tYb9hyF9LMbDtj/HQRtOZcEGJiIJ8KhmBbYEY
-         rF5za3CgzMgGJjeSy5KdGjZ1wHcvv72Q2H+izdbRMcKg4fb3l87EZSSt+BOFaKmD24yt
-         AGNQ==
-X-Forwarded-Encrypted: i=1; AFNElJ86A8+Bh3jwt6BaXkJ+K2N6R2k8vUC802GxNsaeGPmGU4XF8unAh/nq3sBKoNvSiCb8qxvDuIJ38fZf@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUhT3Ay17Cluqbau/n/6/RU1/dDCnzgJJxxXviJYnB4ELol5tD
-	X6R4HdMjNQrxQx7Q1sNUWstiJazXCOMUg9RrX8SFfUCxS1dDYApt+vUk
-X-Gm-Gg: Acq92OFPiXtsBoOErm/yFP1J8fzlv74KACEWnqrcU3zfQespc0TsoLjD98nr0VCAwoW
-	nkCm7pTGA8+IE15s9/xYbtpC3qPtrshTBz6y/sLp4rZFz6TboY3zY376o4DHYm9t6sjx2lW+VBw
-	l9sCovjRwvg2Za9DxJBpHGx9q/vNQU8lFt+GML9kvIporZ4g1yryAxSte6IQBxZ0byUhm9YMGrz
-	c+8cYcJoywsfQxUcCjN7lMp1VdFK2zqAKbnpJfXSAOnPmh9iOnMler1WrjNSE8vBvkcSiPhGVTc
-	2mqfPX8ud1hxAgDgmsOXhL2Sn9K5DnkXCMeLncav3AG7fX+3um5CiyJErkn75ixrk2yaXslZ0aU
-	1YQSyVyEBsxHY4Tt1nDYXBWBNPBzCoS6IgSdwKDYch8vFy8IxQYc5MVbCfKH7X2VMpE8bwNnQno
-	VnAs7sCXzKGeQbLyvKWW3a
-X-Received: by 2002:a05:600c:c04b:20b0:490:3cec:52f6 with SMTP id 5b1f17b1804b1-490424ac920mr21743465e9.2.1779437611814;
-        Fri, 22 May 2026 01:13:31 -0700 (PDT)
-Received: from legfed1 ([2a00:79c0:61a:3200:1ebe:eb51:3a97:3b47])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49045620c05sm24502425e9.14.2026.05.22.01.13.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 01:13:31 -0700 (PDT)
-Date: Fri, 22 May 2026 10:13:29 +0200
-From: Dimitri Fedrau <dima.fedrau@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mba+IE6q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521CF1F000E9;
+	Fri, 22 May 2026 08:13:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779437635;
+	bh=YkCRRip3ZtybS0qSHPGgubSoejD0MPhWAJiCNjGYLTY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mba+IE6qgWCjGrtO2pIH/FC2LojQQIgomf3Qp6/iCmUliFb9t7YWFS3L+MXFaHYXC
+	 Uiq6OTUrVxAtHm5zCvPAm06k9qObbms1Iiq/JNH5/qCX6wjDW9CF4/zCXy/QyTJLG5
+	 pmb6E7XmrtboVK40r2rmK4TlqhfJUrOldpwRb1IuQJDIegfQ2dJ6sFQZ+F/rsikeQX
+	 pzLCaJCBOPaXV47QRvBi21315cntdP0YAATlYgFNtnpdfgLqTIwSXWddLiCT72jH5t
+	 OzCQD4BBoUEqCLgHjR02s40TDDpgbQt8E+wCqmARNbomgGPbJ3nagCaJFqszv8Bzby
+	 u20Mv2auNSTHQ==
+Date: Fri, 22 May 2026 13:43:50 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
 To: sashiko-reviews@lists.linux.dev
-Cc: Dimitri Fedrau via B4 Relay <devnull+dimitri.fedrau.liebherr.com@kernel.org>,
-	linux-phy@lists.infradead.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com,
-	robh@kernel.org, neil.armstrong@linaro.org, krzk+dt@kernel.org
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: add support for NXPs TJA1145
- CAN transceiver
-Message-ID: <20260522081329.GA1983692@legfed1>
-References: <20260513-tja1145-support-v5-1-38720a7ee63e@liebherr.com>
- <20260514051738.B2D32C2BCB7@smtp.kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 02/16] firmware: qcom: Add a generic PAS service
+Message-ID: <ahAQPsMdoDFXgL7g@sumit-xelite>
+References: <20260518072856.22790-3-sumit.garg@kernel.org>
+ <20260519073348.B9F5BC2BCC6@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260514051738.B2D32C2BCB7@smtp.kernel.org>
+In-Reply-To: <20260519073348.B9F5BC2BCC6@smtp.kernel.org>
 
-Am Thu, May 14, 2026 at 05:17:38AM +0000 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] The dt-binding omits support for the `max-bitrate` property.
-> - [Medium] The dt-binding omits support for the `interrupts` property for wake-up routing.
+On Tue, May 19, 2026 at 07:33:48AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] TOCTOU race condition and missing memory barriers on global `ops_ptr` accesses
+> - [High] Race condition in `qcom_pas_ops_register()` allows silent overwrites and NULL pointer dereference
+> - [High] Use-After-Free vulnerability due to missing module lifetime synchronization
 > --
 > 
-> commit 853ad7c93ebe1c2a625ddddde401c4aaad496a8e
-> Author: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
+> commit 2f5e5371b4bb3e1c42fab23cd3a647eabe758865
+> Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > 
-> dt-bindings: phy: add support for NXPs TJA1145 CAN transceiver
+> firmware: qcom: Add a generic PAS service
 > 
-> This commit adds documentation for the NXP TJA1145 CAN transceiver, residing
-> in the generic PHY subsystem bindings. It describes the required SPI
-> configurations and supply properties for the device.
+> This commit introduces a generic Peripheral Authentication Service layer for
+> Qualcomm platforms. It acts as a common interface for different TrustZone
+> backends to support both SCM and TEE bus-based PAS services.
 > 
-> > diff --git a/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml b/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml
+> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> > diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
 > > new file mode 100644
+> > index 0000000000000..bc6c42f2b3c61
 > > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml
+> > +++ b/drivers/firmware/qcom/qcom_pas.c
+> [ ... ]
+> > +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> > +			struct qcom_pas_context *ctx)
+> > +{
+> > +	if (!ops_ptr)
+> > +		return -ENODEV;
+> > +
+> > +	return ops_ptr->init_image(ops_ptr->dev, pas_id, metadata, size, ctx);
+> > +}
+> 
+> Could a race condition occur here if qcom_pas_ops_unregister() is called
+> concurrently? The global ops_ptr is read twice via plain C reads. If it
+> becomes NULL after the check, the second read might cause a NULL pointer
+> dereference.
+> 
+> Also, since there is no smp_load_acquire() or READ_ONCE() used to cache the
+> pointer locally, could weakly ordered architectures observe a non-NULL
+> ops_ptr but read uninitialized callback pointers?
+
+PAS backend isn't expected to unregister during the boot power cycle.
+
 > 
 > [ ... ]
+> > +void qcom_pas_ops_register(struct qcom_pas_ops *ops)
+> > +{
+> > +	if (!qcom_pas_is_available())
+> > +		/* Paired with smp_load_acquire() in qcom_pas_is_available() */
+> > +		smp_store_release(&ops_ptr, ops);
+> > +	else
+> > +		pr_err("qcom_pas: ops already registered by %s\n",
+> > +		       ops_ptr->drv_name);
+> > +}
 > 
-> > +  vbat-supply:
-> > +    description:
-> > +      Battery supply voltage
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - "#phy-cells"
-> > +  - spi-cpha
-> > +
-> > +additionalProperties: false
-> 
-> Does this binding need to include the max-bitrate property?
->
-No, the max bitrate is know for the device. See:
-https://lore.kernel.org/linux-phy/0b4b8291-40cf-4faf-a79f-48c56677f9a2@kernel.org/
+> What happens if two backend drivers attempt to register concurrently?
+> The check in qcom_pas_is_available() and the subsequent store do not seem
+> to be protected by a lock or atomic operation, which might allow the second
+> driver to silently overwrite the first.
 
-> This property is standard for CAN transceivers to describe board-level
-> capability constraints where the layout cannot support the chip's theoretical
-> maximum speed. Since additionalProperties is set to false, valid device trees
-> specifying a maximum bitrate will fail validation.
-> 
-> Also, does this device tree binding need support for the interrupts property?
-> 
-Not at the moment, this can be added later on when there is an
-implementation for this features.
+Only one PAS backend is expected to be supported on a system.
 
-> The TJA1145 supports partial networking and wake-up functionality, which can
-> route a wake-up signal to an interrupt line on the host processor. With
-> additionalProperties set to false, it is impossible to describe this hardware
-> interrupt routing in the device tree.
 > 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260513-tja1145-support-v5-0-38720a7ee63e@liebherr.com?part=1
+> Furthermore, if the else branch executes, and a concurrent thread
+> unregisters the ops immediately after the check, could ops_ptr->drv_name
+> trigger a NULL pointer dereference?
 > 
-> -- 
-> linux-phy mailing list
-> linux-phy@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/linux-phy
+> > diff --git a/drivers/firmware/qcom/qcom_pas.h b/drivers/firmware/qcom/qcom_pas.h
+> > new file mode 100644
+> > index 0000000000000..8643e2760602e
+> > --- /dev/null
+> > +++ b/drivers/firmware/qcom/qcom_pas.h
+> [ ... ]
+> > +struct qcom_pas_ops {
+> > +	const char *drv_name;
+> > +	struct device *dev;
+> > +	bool (*supported)(struct device *dev, u32 pas_id);
+> 
+> Is there a risk of a use-after-free here if the backend module is unloaded
+> while its callbacks are actively executing?
+> 
+> It doesn't appear that the framework pins the backend module using an owner
+> field and try_module_get(), or waits for ongoing callbacks to finish before
+> unregistration completes.
+
+The PAS backend isn't expected to be unloaded at runtime.
+
+-Sumit
