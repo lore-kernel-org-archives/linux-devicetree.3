@@ -1,82 +1,82 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9188337DAAC
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 19:54:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A935137DAC2
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 19:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779479662; cv=none; b=M+0Tr8/aFaoSRsso9jnl10/KFeZRz5LUNUuIlaHrWao0EmBakSzr6nVh5HHw74b6H7xXQN6tkroXkcN6XeyAe/wTX91M02Bcv1bMICOgmsVRGLvZkHbo/mm/vvy+p85WqsbvhdiO3y3yCs688Bo6aqaw6K0dZKQvcNusiLx4LhA=
+	t=1779479666; cv=none; b=lee0QusWZqiqg24KIOVCHA90HeWuNL7OyCnX8Z9Sp/Jwum5g+FFZJuIsiqqQzyMK/fCaUvnI4+BDeRYQjIo2z3mDsRklA/Dqfo/yRAtSlzK/p68zLhCEPvhHDo3GOuhPMIWkFTf8KA3bty1popvz9wkbBFwiCKa8VRYAThoWIH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779479662; c=relaxed/simple;
-	bh=p/ciXwcU/1o2QklsN+aMNnup9qbFvY81lSB7qx6kXXU=;
+	s=arc-20240116; t=1779479666; c=relaxed/simple;
+	bh=vNpt8PKOg0KHWmF7TqTJnZtxLjMjP4Cx57/2xk/8tE8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MUawgRxYoiP+u1D2O4mOX507g5YjyqY61Ql9WV+nEcwzUOYQizs7KoO7F7Afle7FSi1I/Cj+/boSGotdKZut6BmhOFunEEZzdqwQe7VqhSQIoaxf2hLFkYlqbW7IR+646pc1ZwcMFLjHkGTz/fC97m42EQFcb8psJr9z7nZ6ENY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZSx5Vvjh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nn6U/J57; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=cn59rEsVu7n6BS98l0O+pYb0s7Pw9LjwqzpYkSJYVJwbDerACyvM+22Y5C8PPnt6gNHjf6r5afexRflc5J1+oFQizAuH7Z3YXkIuMHw30LsuHVzLuwNHgg/0ZWOygFSmP9GvZVjOz7/QisT3eCJBnwyiOyfhfTSF/LVl49GlpGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cmkKYak1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GxxxQWNn; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZSx5Vvjh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nn6U/J57"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64MIE7l73344241
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 19:54:19 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cmkKYak1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GxxxQWNn"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64MIOhvQ4007127
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 19:54:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=RgLWgHPyB7A
-	lV0l0GSTJmUsNrDkcyfP3IdUK9UW2Wik=; b=ZSx5VvjhNkzddsXWRd2NQm2DQO6
-	tZOMIcEivH9F4cKCCAS8QSQcvmx/rVUucph59qPWc5P+JP6Fb+62VRjAIYG6SAkL
-	M7Kb99F4PBMgQoUyR08WBDAMSS6jeicFT7AvnpNfYsjixDqXhqAqJ1xd8Vkso5hD
-	uWokwRMa4eO6nHO8UZuUmX3kU5aVbVCfTJx8V92Q+GlZjgRcij0qsGLLoiVwneAM
-	8kObDNUG6NMPOyxSuhABS1fc3AutBBT6yqgJzHwPMTl7CwgOYs1opbLAlmo/Cm/Q
-	L/IBVr1hqtC7wP/Ln+ijAlpSY1f1P88eF6VdMrEtvGVzVMqykYwRNgqFKYg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eav87r9sh-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=uPBy9RLhDQt
+	Tb65TZq9MAQCWN1WX4EkHGyq037DA01Q=; b=cmkKYak17MhH4RsbIPKxYqqBZOl
+	FA1LnIBUwx/USd4u0AC/x8X6BOC6GR167HHmWe99/EosMszQe2xayblIheZfEkvd
+	pG09FdFkcW6Lpr7Y6JMGzAGqjRoIFKUHE+uJ7cwHjGDqb169oF5xTXm+JC4n28uz
+	q4FhUqM3iuEfgs3MIrpaKnHbvG7q8PqcVgPwi/GyDTpE3Mw5DXfyN/Q6Ab2OkKH1
+	Z7sT9lUxLzJ2Nwwzbgqh4ljhmZunM0e4mCYVspkWv9yUcGe3pr2ovtsECdiLxNfn
+	Chy8h2CfT8UK4B+3U9tKqY6dWyJdPjwy5xWGVf3vaZcyUbCnprWnh4DTNUg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eavd988v7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 19:54:19 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2bd5b20aaa6so80966085ad.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:54:19 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 19:54:23 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2babbeff9e4so83241075ad.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:54:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779479659; x=1780084459; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1779479663; x=1780084463; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RgLWgHPyB7AlV0l0GSTJmUsNrDkcyfP3IdUK9UW2Wik=;
-        b=Nn6U/J57KVcFVmN1+HbvqvHaM3lcTdjekzHIkm70i5WcTGyKEUSRUXfTXT07PeoCzC
-         g54rZdgzcSM3M1HSEUCsTDkeF0OPQsJV5D9XVGDC5rOWsiU/VOczTdoJiCjT9OsESnZ9
-         52cbqrsgYLS3dv1+6UPKLfj0to/coaGVbYCOCPo7Lz8C48QXPxBaxoyj9HW6JYWPxM16
-         2TxKCQQVcKsr44P7C+lpAeWME+gix09dvlcA/1i9E1OyPG89Kgwa+j+qfNfPooYPyuH/
-         a1ycbFDL+H3S4or0vWt0RHBxKM30vbIuGJY7ln5G1JyVghVKI1kkl2xkhsFkYY+EIVn+
-         hTfA==
+        bh=uPBy9RLhDQtTb65TZq9MAQCWN1WX4EkHGyq037DA01Q=;
+        b=GxxxQWNnsQ3r6/4TQnkNGVs+2By/YC2H423BXZET5/dklGa8gl4F/RBN4yopqMqP9x
+         K1SbR2+rw7gHaZav3fxcjQHSk3wRxEeyIcPIKPtlrP+yWyqKGvOLv78sH1oOd2mNVsHC
+         xzakyMDkdgla7WlX5tlZtZbAxtoG40e17oW06SEnsMOmrYkySteBhzlx2oR/G9bqMHqi
+         O/gPODjvzO3uFU3MUjxAnO9BPm9t+ntOdQU0w8O8eAz4PJDbCQMnY2dUjmx8rK7hD/y+
+         ldIG1Na6SFjzum6X+cbZY7TiL72/TTHIVNg/r27O/gJj9HANORwjv+hZbvqDbcybzs3g
+         etJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779479659; x=1780084459;
+        d=1e100.net; s=20251104; t=1779479663; x=1780084463;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=RgLWgHPyB7AlV0l0GSTJmUsNrDkcyfP3IdUK9UW2Wik=;
-        b=OaONLjR+/S9a0lTnwcdQqAH8ZCAawU26fKWEtwz5sesdH/PrUTPbBaq561fX1PI1D0
-         C5mfRYVu78z+rSv9MPIvbsJPgQZ5fAIx1kScy+qEpjInvp7Xw8zNTiAuxniFkMSn1cIn
-         VsaweoVEYqWBu5jpbnj6JQMyXCiInzG8hU4o7Ge9HH2nOW0hcS/aLUBVe0Il6BIEKtyE
-         7AfteKy+rqQCBX0H5nYue8yaxIh2udtgT5C5MokgszR+ITU1/sysbQwnLvfKT+wJKW/6
-         cuiUpUSnsvIfC8ZZ+whyIb/KZ1i286fxihB92Fl4KjpnAbbpm7lh82rZ4r227K6jLdK/
-         zBag==
-X-Forwarded-Encrypted: i=1; AFNElJ9UqbeP9uqiB7CGyTBntxvKR7/hvY10y61zOdv06d00S7P2lrrr8BcRcB+uhw15ywRJFb9Ju3CB5Hai@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkmzPsV/tvJCH38lwMXae8B7de+ldKAPnhqgruPz1QzN3iEbJ8
-	pMj0s+QKn38tb/z+oJJvdQ/tyqFK4ap0fLGJsgTn7/Wu3anGLxpocG9ony5IFLwXDqrfjmWP6ZV
-	7m1gBZ5li7GEYnHaIufzewSsX83hyJNnYvbSfv3fjS787HSTo0cfVJ311KBPyXuGD
-X-Gm-Gg: Acq92OFj3fD1UcuEBu7ZOrEa9Ajh/wLL/UGiKhrzjHYP6viIOIHwxLKDscssUXkNSJr
-	UTyjB03A2yYjb5KxIu5a+ACog6JxDl1NHlx+YqCB0+49OetYIDWHOE0ygsB28sjFU+6vV87QHYV
-	ie5e9P85oktPjU2zmFnYECqdlCrv5IIvRWFHArB/x9tdes39OVYHFzAPnvwYXDlvgS1yEcVepuI
-	1qu5sAOH8dnVsX4GyfjUS9IxLkkh6CL3uAu2lv6jt2UefqDdyg+DqGtxfpRuvdAOTIGM7nDxNII
-	iGMcI71rVM6vpDHUIFjGy2a0QZnjr4rdIHdFjGMjlaX/qvNXLXFuw3Th476lM7Fx0h29vl74n9Y
-	IMCzF29ZJiFyMhEoASio6j1lr2xwgcY0KETWYDe5dtWqt4m/w
-X-Received: by 2002:a17:902:f64e:b0:2b2:ebed:7af5 with SMTP id d9443c01a7336-2beb06d144amr51010975ad.13.1779479658607;
-        Fri, 22 May 2026 12:54:18 -0700 (PDT)
-X-Received: by 2002:a17:902:f64e:b0:2b2:ebed:7af5 with SMTP id d9443c01a7336-2beb06d144amr51010595ad.13.1779479658023;
-        Fri, 22 May 2026 12:54:18 -0700 (PDT)
+        bh=uPBy9RLhDQtTb65TZq9MAQCWN1WX4EkHGyq037DA01Q=;
+        b=ahAiYouEGlmjivEkaTJqygLA6c3ohkdzLrY1tIbNNdK5iF+RXz2SI0w+Gq8Fz8A3NH
+         o4oCifxmZO+iMo9dUUMkvkqwPV23H70+bFOoEH2VPZZT3p29VqhevbwrZE8zrgjkJ7h4
+         bZQbnUEIQL/NH+1ff0C42K6mRtHmC1LcyNcQq8JUJfi80TC1Nc1o88t5BXpiw7Q4NSP+
+         vG2Xrl7KeBVtwoUHncrX01QXoejMAszlqglSpQdd7IGA8WPuC8JeX9H1p6Czs3nfk9I5
+         lWua27WU50sJ43esHDIYNP5C0zXhg0/0NUou1yU8vDDvpysctpYXN6mrsMk73NDgxIUw
+         /Wvg==
+X-Forwarded-Encrypted: i=1; AFNElJ9pnbs+bDkw5AWjebrv21aIjS6BjY/yvWh5KfLYlSCqpu/gpgu4pMmVkPnp+Uv+U4Qj8M/uSrLLpglK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwuptDlo0jKwRcHGmbXEtnIxWN+9nNgbyX67ISzR2vbNmZlP9Wh
+	rekbIZ6uiu7fgzctGzZ3/MKwd7LPVyJ3Qe9RL/cPDNwO3hyRwo5yh/1Rt7i3IluD8FxCYM75cPI
+	GQ+AqbcXe5xLR3jEKIaut5cocgnE9cRF0SrSXvKcPJMJO4zSFl6ej8aQUKkbwEnFl
+X-Gm-Gg: Acq92OFL9jX5A90NQ+zl1uqEo78BFWc94+ZCZwpP7zTSAJ2kFzJiOMsj8CRkFfYIvd8
+	ahWQbcNhCrDFdrKsTnQgr0iO3AHwJiW2m8ByQKHOmcufwMFJCJCck5/d8xPRT6rDJKJ2s5jwywN
+	vHaNmo1uw50MQDUDTDXZvA4wg1srhLN3O7tGnz3Emm0+Agjh0XV/AmkKYOThWDOElb7NOhXZTVh
+	QPiNRb93QKtWJPePxL1IjiQWzgjKm/Qol4ck83fVEqIq5y/tzlphvwETOSOtQ25R9zfkBFZDLnP
+	SgYEesSMjR0LfYzBm1BZZm60cszcIv8zl4HebwpAO3TjwcO/QjiATzwgBOgWgHsgWmNbDrnovaS
+	mDGCiIArpCyAeSRN8h/0ONWHm1VEySSAlZOZFd7evtEpz4h/G
+X-Received: by 2002:a17:902:ea09:b0:2bd:d6f1:3388 with SMTP id d9443c01a7336-2bea240dd66mr82458375ad.28.1779479662782;
+        Fri, 22 May 2026 12:54:22 -0700 (PDT)
+X-Received: by 2002:a17:902:ea09:b0:2bd:d6f1:3388 with SMTP id d9443c01a7336-2bea240dd66mr82458155ad.28.1779479662199;
+        Fri, 22 May 2026 12:54:22 -0700 (PDT)
 Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb5695f05sm33541155ad.6.2026.05.22.12.54.14
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb5695f05sm33541155ad.6.2026.05.22.12.54.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 12:54:17 -0700 (PDT)
+        Fri, 22 May 2026 12:54:21 -0700 (PDT)
 From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -85,10 +85,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
         Guru Das Srinagesh <linux@gurudas.dev>
 Cc: cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH v3 04/18] firmware: qcom: scm: Add minidump SRAM support
-Date: Sat, 23 May 2026 01:19:55 +0530
-Message-ID: <20260522195009.2961022-5-mukesh.ojha@oss.qualcomm.com>
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v3 05/18] arm64: dts: qcom: kaanapali: Add minidump SRAM config to SCM node
+Date: Sat, 23 May 2026 01:19:56 +0530
+Message-ID: <20260522195009.2961022-6-mukesh.ojha@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260522195009.2961022-1-mukesh.ojha@oss.qualcomm.com>
 References: <20260522195009.2961022-1-mukesh.ojha@oss.qualcomm.com>
@@ -99,187 +100,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE5OCBTYWx0ZWRfX8p+liSjDRyRh
- 3OSUe9YCgS8Q6eteLqdnbZQEp+uMnOlsuftXDK74erf4Orn2KgLQ1p0X0AfRXrGsYd4LAMQSKPe
- C9kYl1BDSq3BK8vqYOwvbHEoiCOHONxubyNSg30yjtvGY1cSfutqwpS7WUqVcQIYyBACPgPprqV
- THXbdmXRcWJ4UXjSu3FUk0FCKxic6PQzLjr+2Oxxk/BkccRa6u0XPzk0quCc5XvOpncmbZNeiF6
- 1o/x7oX3gmlf3OWFVPVYe909IixslT7JEWQmg3a9no2LMrZRfYE08v14PdRI3cZzcOP0br239tW
- vKBep103c+U4S7vyPrw1gzr2GyQqT/S2DCaFi0JqexSkpInBliPC9e+TVyQuywdMOkKFqAB4jlP
- 0GV25XE2gAA3Ooz02N5DSvskqQkNoQ/EfYJ0bRGn8oqtIkhhqG27/5wyjn6sfcRigPieI6fSIHP
- 7vukzfkpDdABhJI70OA==
-X-Authority-Analysis: v=2.4 cv=dbiwG3Xe c=1 sm=1 tr=0 ts=6a10b46b cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE5OCBTYWx0ZWRfX/P6blDy7+4fD
+ UdfCv/LSSWinR0tdzIi6d120twLVApogbxT9ms+OGLRsOvSZQm0w2C8NQs5n3uyodFBaqS6XJTF
+ Haf3ume6GvfYxHWLlMHiNQsGoYBDfg43N65aVvWIG9vVbwI5efgj0tjQMi0UDYpSP1hX6WUQ8dS
+ ZTmF6x9xxUWi9otJz4ia/lOWfd1XlgMgJ28sdq5LeClNwC2vN9fLPwZJuJX3g181aSkRdjV0sd5
+ 38XuQz0FwM57EIni5jRmQv0PlzLoBrFSPz2DaiIL1KAvavYySD47ezuTk6wCwAe5pF3TxiW8Yi+
+ TBhYe1xatSVPKg7BT9FCKTVtK8neMKLOcbdhM057YPLgomACJJy0es6ZJ8rxECqFQHac+ryE/6e
+ 3BTcNYU3x7bqjpOM+bgb6w02iguSGCu22Cq7xP6hi2kOz1Tr86q5TLNELJpWRoZCJF53hXig+Oa
+ w4MrS0HPHKUVHSQ3eLA==
+X-Proofpoint-GUID: ne4DCYWcCdwsBpUkea2h6TEoa1spcONF
+X-Proofpoint-ORIG-GUID: ne4DCYWcCdwsBpUkea2h6TEoa1spcONF
+X-Authority-Analysis: v=2.4 cv=F+dnsKhN c=1 sm=1 tr=0 ts=6a10b46f cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=z9Wl_b-Q9SImGVoSLTYA:9 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: jHAIzYii-1ElhxlpDiZS_a5UwiH0B9JT
-X-Proofpoint-ORIG-GUID: jHAIzYii-1ElhxlpDiZS_a5UwiH0B9JT
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=ZJQsJAtiAu0WCEyc7p8A:9 a=324X-CrmTo6CU4MGRt3R:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-22_05,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
- malwarescore=0 bulkscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ priorityscore=1501 clxscore=1015 adultscore=0 phishscore=0 malwarescore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220198
 
-On most Qualcomm SoCs where minidump is supported, a word in always-on
-SRAM is shared between the kernel and boot firmware. Before DDR is
-initialised on the warm reset following a crash, firmware reads this
-word to decide if minidump is enabled and collect a minidump and where
-to deliver it (USB upload to a host, or save to local storage).
+Point the SCM node at the minidump config slot in the always-on SRAM.
+Boot firmware reads this word before DDR is initialised on a warm reset
+to decide where to deliver the minidump.
 
-The SRAM region is described by a 'sram' phandle on the SCM DT node.
-If the property is absent the feature is silently disabled, keeping
-existing SoCs unaffected.
-
-Expose a 'minidump_dest' module parameter (default: usb) so the user can
-select the destination. Only the string names "usb" or "storage" are
-acceptable values.
-
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 ---
- drivers/firmware/qcom/qcom_scm.c | 92 ++++++++++++++++++++++++++++++++
- 1 file changed, 92 insertions(+)
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 52432469badc..5276a77834a0 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -57,6 +57,7 @@ struct qcom_scm {
- 	int scm_vote_count;
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index bcd1cee31356..425b532c53be 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -224,6 +224,7 @@ scm: scm {
+ 			qcom,dload-mode = <&tcsr 0x19000>;
+ 			interconnects = <&aggre_noc MASTER_CRYPTO QCOM_ICC_TAG_ALWAYS
+ 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++			sram = <&minidump_config>;
+ 		};
  
- 	u64 dload_mode_addr;
-+	void __iomem *minidump_sram;
+ 		scmi: scmi {
+@@ -5448,6 +5449,10 @@ sram@14680000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
  
- 	struct qcom_tzmem_pool *mempool;
- 	unsigned int wq_cnt;
-@@ -141,6 +142,20 @@ static const u8 qcom_scm_cpu_warm_bits[QCOM_SCM_BOOT_MAX_CPUS] = {
- #define QCOM_DLOAD_MINIDUMP	2
- #define QCOM_DLOAD_BOTHDUMP	3
- 
-+/* Minidump destination values written to always-on SRAM for boot firmware */
-+#define QCOM_MINIDUMP_DEST_USB		0x0
-+#define QCOM_MINIDUMP_DEST_STORAGE	0x2
++			minidump_config: minidump-sram@1c {
++				reg = <0x1c 0x4>;
++			};
 +
-+static u32 minidump_dest = QCOM_MINIDUMP_DEST_USB;
-+
-+static const struct {
-+	const char *name;
-+	u32 val;
-+} minidump_dest_map[] = {
-+	{ "usb",     QCOM_MINIDUMP_DEST_USB     },
-+	{ "storage", QCOM_MINIDUMP_DEST_STORAGE },
-+};
-+
- #define QCOM_SCM_DEFAULT_WAITQ_COUNT 1
- 
- static const char * const qcom_scm_convention_names[] = {
-@@ -568,6 +583,14 @@ static void qcom_scm_set_download_mode(u32 dload_mode)
- 
- 	if (ret)
- 		dev_err(__scm->dev, "failed to set download mode: %d\n", ret);
-+
-+	/*
-+	 * Write the destination into the always-on SRAM so boot firmware
-+	 * can read it before DDR is initialised on the next warm reset.
-+	 * Only written when minidump is active;
-+	 */
-+	if (__scm->minidump_sram && (dload_mode & QCOM_DLOAD_MINIDUMP))
-+		writel_relaxed(minidump_dest, __scm->minidump_sram);
- }
- 
- /**
-@@ -2040,6 +2063,29 @@ int qcom_scm_gpu_init_regs(u32 gpu_req)
- }
- EXPORT_SYMBOL_GPL(qcom_scm_gpu_init_regs);
- 
-+static int qcom_scm_map_minidump_sram(struct device *dev, void __iomem **out)
-+{
-+	struct device_node *np = dev->of_node;
-+	struct device_node *sram_np;
-+	struct resource res;
-+	int ret;
-+
-+	sram_np = of_parse_phandle(np, "sram", 0);
-+	if (!sram_np)
-+		return 0;
-+
-+	ret = of_address_to_resource(sram_np, 0, &res);
-+	of_node_put(sram_np);
-+	if (ret)
-+		return ret;
-+
-+	*out = devm_ioremap(dev, res.start, resource_size(&res));
-+	if (!*out)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
- static int qcom_scm_find_dload_address(struct device *dev, u64 *addr)
- {
- 	struct device_node *tcsr;
-@@ -2733,6 +2779,47 @@ static const struct kernel_param_ops download_mode_param_ops = {
- module_param_cb(download_mode, &download_mode_param_ops, NULL, 0644);
- MODULE_PARM_DESC(download_mode, "download mode: off/0/N for no dump mode, full/on/1/Y for full dump mode, mini for minidump mode and full,mini for both full and minidump mode together are acceptable values");
- 
-+static int get_minidump_dest(char *buffer, const struct kernel_param *kp)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(minidump_dest_map); i++)
-+		if (minidump_dest == minidump_dest_map[i].val)
-+			return sysfs_emit(buffer, "%s\n", minidump_dest_map[i].name);
-+
-+	return sysfs_emit(buffer, "unknown\n");
-+}
-+
-+static int set_minidump_dest(const char *val, const struct kernel_param *kp)
-+{
-+	struct qcom_scm *scm;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(minidump_dest_map); i++)
-+		if (sysfs_streq(val, minidump_dest_map[i].name))
-+			break;
-+
-+	if (i >= ARRAY_SIZE(minidump_dest_map))
-+		return -EINVAL;
-+
-+	minidump_dest = minidump_dest_map[i].val;
-+
-+	/* Pairs with smp_store_release() in qcom_scm_probe(). */
-+	scm = smp_load_acquire(&__scm);
-+	if (scm && scm->minidump_sram && (download_mode & QCOM_DLOAD_MINIDUMP))
-+		writel_relaxed(minidump_dest, scm->minidump_sram);
-+
-+	return 0;
-+}
-+
-+static const struct kernel_param_ops minidump_dest_param_ops = {
-+	.get = get_minidump_dest,
-+	.set = set_minidump_dest,
-+};
-+
-+module_param_cb(minidump_dest, &minidump_dest_param_ops, NULL, 0644);
-+MODULE_PARM_DESC(minidump_dest, "Minidump SRAM destination: usb (default) or storage");
-+
- static int qcom_scm_probe(struct platform_device *pdev)
- {
- 	struct qcom_tzmem_pool_config pool_config;
-@@ -2750,6 +2837,11 @@ static int qcom_scm_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "Failed to get download mode address\n");
- 
-+	ret = qcom_scm_map_minidump_sram(&pdev->dev, &scm->minidump_sram);
-+	if (ret < 0)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "Failed to map minidump SRAM\n");
-+
- 	mutex_init(&scm->scm_bw_lock);
- 
- 	scm->path = devm_of_icc_get(&pdev->dev, NULL);
+ 			pil-sram@94c {
+ 				compatible = "qcom,pil-reloc-info";
+ 				reg = <0x94c 0xc8>;
 -- 
 2.53.0
 
