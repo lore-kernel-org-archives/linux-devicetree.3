@@ -1,100 +1,174 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2765937647E
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D99313531
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779462614; cv=none; b=buQ24UG2dfyVg/vMtRUoztMBmJaUtTqHYt8eTpXODtTYzETUYaDiiev/St6DhZ/dHsx+5Ti3TmjefhVfRnlxJd3yLCYTKAHfJM737ESKoNghcA9L7Q20taed7HQz/ZjADPWLKF6envci5Ip3beHLoiMC+mOIEV93hhaf4xMEIRI=
+	t=1779463104; cv=none; b=itkmdJj3SlChX9z8SVJcYn6JQVirPs2P2YXYwxwUa5ENSkADCVWgbtwznxFrDDcpzUetf8PhZL+cXGVjrYf0DA3tFDtCZEuUlppzfqW+IcvAzvwbEJEEFr9BsMBFruTIMvCaF1N/Jl+y1j5tq42tqLcf5ewIFrSAvEA9ZB8pYr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779462614; c=relaxed/simple;
-	bh=68sbZorF7ZUm0ExdOttCQ5BW8eptQUms6MfXd/3EpZ8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cArjrCtfY9ajmsIJyYJWW7yDTCYDrkVPo+1kxJPe/HoKhoxvGYsiatiqV1LoZ7LyTacZ+CfSdVsgYR/gjtgdVZdLodkGRbQBWFpTaul/O4WbmArEgSarRJOsld5d1cAv63df9d3jyw9GWWwfCOZEFJz/lVFdKsdHNwylsBV5RAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-bd4d7f4fa02so1283782566b.3
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:10:12 -0700 (PDT)
+	s=arc-20240116; t=1779463104; c=relaxed/simple;
+	bh=5xzbxVE4zky4rnTKO3zxGHdYa5RsWAP5zVmb3Xty3fg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uxwpc40Gtiz9FSd5a7iwkmIIQHtgf+I7dMLmDyG5qJEpArTZ1UHIvXbldYm+POQ+JLpIktYn5PplSfI3ITPrw6wyP5mgz3hyiIoZ+Ti7tvVa+y5Nk5l2R7I2g7NxPMIS+a4D1CyQMlgzQxdC4r/aOeQdvXwSF9AZ2laMonlk9Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rn11n1by; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SEXaLWpJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rn11n1by";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SEXaLWpJ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64MC7Dhe1959980
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:18:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=b5qd0Jvl8aH9HRjSEREJvf
+	KNf3cggNHxWlONW/RoqxY=; b=Rn11n1byuvPM5NlHFhX9fP0DCXRgTcB9f2h1qf
+	BWlBWX3xeik2JrKetT8Dwg5oCh+1xwlVjIpxEPHSwrBmqiRopGGoXwJIwFjtFo6O
+	Ry1Thj2ylOr/xYQMTA5oiwnHQR9/XhAGoofyfWdrcRDiW8lbuQLQOiYSQP5zlK0t
+	b0ghlx0k9KnA//833tUtyUftansrq8wTzyDa+VAKjTr3N11X2DcSw1q2/D5CFwzn
+	GRblcV3FOB5swi2g1dFJvWjh2RBwDxKj+sN0jqD6CNQ4Aevjzn2LMLBSCSWH0axg
+	emV12i2+/T4mjOY0GyEH80qBTHEFbNTkOiiWe9UBeU9TJG1A==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eahxet54m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:18:16 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c8525f0807aso356492a12.3
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:18:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779463095; x=1780067895; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=b5qd0Jvl8aH9HRjSEREJvfKNf3cggNHxWlONW/RoqxY=;
+        b=SEXaLWpJzlun+HlqmuhaDLdd5Me5t6ZVehr3Mnf5adIvCHwipA4iwZWcm3e6IHWZ57
+         q5TQSGb8qfvmxzXIM6jvREjnD/docbwCNqZZTy/ehfR9hFQ71Tvtqt7pItOJ7ttls522
+         ggbfMNr5LVZN4I/C4PqXmP1uPNkQJsvFDTugYksfVGp1qlgKRAmusTppaffAVZ0mM+CZ
+         APswmr0Bc39Poyvwst96PfNh6tZhnEnEx7chl+XWp+CHMFw2GlCaRb3fMmNFemiDowiK
+         hLK9G0Ibdt390RZV/D03KS+rhyxuStY+LCKszOaRIPMGsBF9Ra++ZqIMR/b7HcIEYZZ4
+         J7KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779462611; x=1780067411;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1779463095; x=1780067895;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VobxwKyXwVf7/v6vELiTgjzPLWWcLObJXZXp+P+9MFU=;
-        b=QDL53P7lVzfMWztnwAp1uxFzfkoOiMNbso0OOILWPGdvTP53jlYyACXavu5q0xC1N/
-         I77hP6CfpETeyDvV1wKYDSl/KCQj5iYNL8pHSpnSlv4HC04rfSN/WLJM0VOi3MBSRLlz
-         DTaw1ZmPGGRp5TKc1nAHhrr+95AEwnq8VySL0lYcyPD1jYyVURLbXDrVqJouaDbaYhjl
-         z/0SswrjYrzJzZgdClm+Ou9tKgjd1Fo6pG34ai82IVWHzfklcZp+1vrKeMHZHdrmSWIm
-         bdwBCChjnK4M85fcBhLFnezkrAvjRZzN/0TDXulOX55BG2zbLFhKiJjryUK7+1NiT1q/
-         AZvQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9KdiEUxZqFc6dorakTL7IuBoGnZbJD7V+YxKXnMBvV3ArHVa93vuQJlSn41MwNiMxlPjUw/rzjDaqC@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywyqx3dhf1vv3E7s8aE9fgs4b6Ud4w+vpssiPr4bA/7Kj6Cd01a
-	z9iing8qv/1vjt9n9cgdqmnITEI69HeqUusoB4cABlz45MjzyzqynB9yHjHFCL9wDac=
-X-Gm-Gg: Acq92OFUwAergoThcL/dX0fnaN+vGyUOGFxIW7pwQS4BtQaBfxwKEhHKjS45aUQEbMb
-	mxNLyJ82/g++B58mXASw8FxTdFL5j6x6k4skz+UfY4dSRTD0ViRa+1Eg6F1COXcITVicEshqRbA
-	uBss+4LqiUyYY03fXnwLaa1OLmZbyVXTd2/vwJgKrq9xyjGh8nk1G0WZksBf/2frX1aZjjoGDkg
-	HEpBwi6BXDfQvYMIIXfIZty59bjbuhZa5gU3oMZ6e+iMiMdvXb87Qpan6IheWju0I1/OvwUkFYZ
-	ziJaI7ECl5fLq3auvC1EeKmK+mSP01y3NhfoH3tIUhAGWQU/Tk38fAPqUKsuCdL7HkMxOBb7NsN
-	pBwF6Xscxuegii23rtxP9qRvj44pXwxIe2mTO8c1hlpEzqRRfa1Bg3kIOynFyk5IxJD0Zks9dbf
-	WUFXz5pkws5fyOsrfGaZo0UH1f6Bq0uJFtlxer9VosSLGkXFprfyUTfI4WlHjF
-X-Received: by 2002:a17:906:4582:b0:bd5:1576:dc7d with SMTP id a640c23a62f3a-bdd272cf2c6mr197666166b.36.1779462611196;
-        Fri, 22 May 2026 08:10:11 -0700 (PDT)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com. [209.85.208.47])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc264e419sm65770866b.12.2026.05.22.08.10.09
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 08:10:10 -0700 (PDT)
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68852a4fc68so469413a12.3
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:10:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9+qYINohNJBGryQtoNviID0vozrkqYpIogduUp+0uEl+Lo1uypqXMIFpXFF1Tnth1o6Tj0oUp2xi4Z@vger.kernel.org
-X-Received: by 2002:a05:6402:3907:b0:687:f18:c37f with SMTP id
- 4fb4d7f45d1cf-6889cc6c63emr2128825a12.22.1779462609111; Fri, 22 May 2026
- 08:10:09 -0700 (PDT)
+        bh=b5qd0Jvl8aH9HRjSEREJvfKNf3cggNHxWlONW/RoqxY=;
+        b=W+KDRZ3wvmsPdQjVS2m6JtGzxvifpZ/7afpcd/SC5d1kQLesB5/EEquaXAld7cmQAR
+         EqtyPXpf7Yf5kXTxQmJ6tLZXk9CGzdvlv1USnO2LFGrii7AKuB3Hu23Po1b3pP0ZaZjK
+         JLrR7nHaQOEIB+ZnBZik8NXEnIbDEUmsOFrjVMgAn0YngIKlAIQFPqSmDY0v2KyXPhsJ
+         /tMIGUb3o+fHXQS81AL2AfIu/6s0uCLijGo4xdaYsgr6R5Z5FQ7izImPHaikhBVk8UjY
+         hJeSHZsr6K2CHgQj2L20n6PaybROShliNKhxpI7ODXGfuOiKpPMHw6vDObuZ5Ral8bUh
+         odYg==
+X-Forwarded-Encrypted: i=1; AFNElJ86FWb+yZmZmTci2UaRAioEOxuONAQaS83w/Hbto68k2XcYLe0lzBgajRimb5f/7uFrd60X3ICRcKkB@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZ47xSqa92g5l1CSMsOwchC73zBprGQ/DTrBGI9VxkzGp5CcBN
+	wzvfaKj5ShIkZ5vEmGonnEOxFX7bA6rxac+T9xT30kSkgkSo+RsWQWPb8s9VnJJavk/bSoxZvU/
+	p1jsS57FRcaXnUyBessx1v9OhFTtHfEq9H7o/UzaRq6DGlWi843nVp+gl4rjII+/2
+X-Gm-Gg: Acq92OHN3ZfddJgN4Ps6i+erkz3boZ2nN574/YV+GkX1FIcv+SYoHMYSpKtF3NmNA7i
+	Zer+v/yELijn/jXIGNV0fAlnGph0iqvtDOKOAbkjxYV2t8dtLah3iiTfBHtRJp5XgVLrDFH6oyR
+	uz5MIoQDH0gtZNvQUSQ2rf1hpeX2I8nWcp+fANnZ/S7cSXRsl5HVbiucDN5x4ErMOn/IYJQQoPJ
+	iLWKaypZB/XeE9vNwBUdkdEMZxayQ4GZQBwk8qJjJp1bQBCpAcueVW8xT1iRZCvFu+XBPeRlqaD
+	ErRypgpw+JeT/tWNx40ZECxS4F/5hpo2L5M/jkFJuNhbrIljl290H/NLtUxsTdAj2p4GP+cmzy0
+	6UyBEGB3JYRvEEjeaHjtsoWzgLVcMgtnhc8fWviYu+x4X2q5jDdtr
+X-Received: by 2002:a05:6a00:ac0b:b0:82f:7b98:e499 with SMTP id d2e1a72fcca58-8415f303dccmr4420997b3a.31.1779463095253;
+        Fri, 22 May 2026 08:18:15 -0700 (PDT)
+X-Received: by 2002:a05:6a00:ac0b:b0:82f:7b98:e499 with SMTP id d2e1a72fcca58-8415f303dccmr4420961b3a.31.1779463094724;
+        Fri, 22 May 2026 08:18:14 -0700 (PDT)
+Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164fe97c0sm2083042b3a.53.2026.05.22.08.18.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 08:18:14 -0700 (PDT)
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] Add cpufreq scaling support for Qualcomm Shikra SoC
+Date: Fri, 22 May 2026 20:46:21 +0530
+Message-Id: <20260522-shikra-cpufreq-scaling-v4-0-f042a25896c5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260501105116.33452-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260501105116.33452-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260501105116.33452-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 22 May 2026 17:09:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWvRbDVJMoiS496-TS=COXQFQfdL2WYFgG5qyVCbbJmbQ@mail.gmail.com>
-X-Gm-Features: AVHnY4KTJnZLA_ckNgwFXfBH1CtHwATlicdn_pWJ3THjZFjqa5CIIf_0krKqFOI
-Message-ID: <CAMuHMdWvRbDVJMoiS496-TS=COXQFQfdL2WYFgG5qyVCbbJmbQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: renesas: r9a09g056n48-rzv2n-evk: Enable PCIe
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEVzEGoC/3XOTQ6CMBAF4KuYri2ZaQGpK+9hXJTSQiO/rRAN4
+ e4W3LCQzSRvkvfNzMRrZ7Un19NMnJ6st10bQnw+EVXJttTUFiETBiyFmAP1lX06SVU/GqcH6pW
+ sbVtSaUwqADlAykko904b+97g+yPkyvpX5z7bnQnX7Y9MAI/ICSlQdclykZiE5wJvnffRMMpad
+ U0ThUFWeWI7DcWhxoLGchAGNCpRZAca32ns+DcetCzjCnmBOsH4j7Ysyxf1owL1XwEAAA==
+X-Change-ID: 20260430-shikra-cpufreq-scaling-aff690130063
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE1MiBTYWx0ZWRfXxO8jY9fOL6IL
+ AKbpVFK/TbX5s2e0r3mMinzjRo6S1eYAGaUwxGyboRRaAiz1lUK+eSd0Ei9Vryvc9neyPhwaw2Z
+ NhYi1evsqZTBW41rqzGZlQ46QXLTBtr3W0A2S4CzR8/8cRN26X0FzMqF3svzLQfXzTCWXHklIH0
+ TxB2nxIezZfCg8exaul+5085SlouIi8auMu6meGB1XZu8zLACLV5t3D5eyeIN7eklQNeQoeE3gc
+ 3Oe6AtAzKdvtjodYt5nDPTju8bg5vncNnxu944etwHxlgskZUWhikM8h9cvHYXyB5ZNx4JOz6KP
+ noFk4wi/LohWoHFbmY2NiKiE1/85flys2vhm5b/rsVrbBPT6iSce4bnurbu3vabfdDVvcb942TL
+ csQ/8zweRNp/YeF8idUby+1WCIfrPPn9gupzM530B5TUi/wk3cCou+JpBWo1D8+BXUj4wVd8ebt
+ cGvdLdQ8Tr5sqWp5uhg==
+X-Proofpoint-GUID: W9TXzT0_1T5J-sXOTIcaxveHgTRViJLR
+X-Proofpoint-ORIG-GUID: W9TXzT0_1T5J-sXOTIcaxveHgTRViJLR
+X-Authority-Analysis: v=2.4 cv=ar2CzyZV c=1 sm=1 tr=0 ts=6a1073b8 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=v_g_bJvqKrPZ60Du8zUA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_04,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605220152
 
-On Fri, 1 May 2026 at 12:51, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Enable the PCIE1 slot available on the RZ/V2N EVK.
->
-> Note, the PCIE_REFCLK comes from 5L35023B versa clock generator, once the
-> support for this clock generator is added, the fixed clock node can be
-> removed and can be replaced with a reference to the clock generator.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+This series adds cpufreq scaling support on Qualcomm Shikra SoC.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+---
+Changes in v4:
+- Drop CPUFREQ and use EPSS in bindings [Krzysztof]
+- Update bindings patch commit subject with correct subsystem prefix [Krzysztof]
+- Link to v3: https://lore.kernel.org/r/20260521-shikra-cpufreq-scaling-v3-0-883c13d1e514@oss.qualcomm.com
 
-Gr{oetje,eeting}s,
+Changes in v3:
+- Updated bindings as per the review comments [Krzysztof]
+- Updated driver patch commit text [Dmitry]
+- Updated compatible in driver patch as per the bindings
+- Link to v2: https://lore.kernel.org/r/20260519-shikra-cpufreq-scaling-v2-0-2b09f0e1c9d8@oss.qualcomm.com
 
-                        Geert
+Changes in v2:
+- Dropped the generic compatible approach, and introduced Shikra
+  specific bindings [Krzysztof]
+- Updated the driver patch as per the latest bindings changes
+- Added R-By tag received in V1.
+- Link to v1: https://lore.kernel.org/r/20260501-shikra-cpufreq-scaling-v1-0-c78b95f53b91@oss.qualcomm.com
 
+---
+Imran Shaik (1):
+      dt-bindings: cpufreq: Document Qualcomm Shikra SoC EPSS
+
+Taniya Das (1):
+      cpufreq: qcom: Add cpufreq scaling support for Qualcomm Shikra SoC
+
+ .../bindings/cpufreq/qcom,shikra-epss.yaml         | 96 ++++++++++++++++++++++
+ drivers/cpufreq/qcom-cpufreq-hw.c                  | 23 +++++-
+ 2 files changed, 116 insertions(+), 3 deletions(-)
+---
+base-commit: 0787c45ea08a13b5482e701fabc741877cf681f6
+change-id: 20260430-shikra-cpufreq-scaling-aff690130063
+
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Imran Shaik <imran.shaik@oss.qualcomm.com>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
