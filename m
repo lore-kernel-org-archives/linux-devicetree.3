@@ -1,135 +1,112 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B753C5DB6;
-	Fri, 22 May 2026 10:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779444208; cv=pass; b=gG8xqjb/bI3roCnb/KXXf1tLwPpmvixn/qm+2xhBDHBPY2Z5QKYbp2X4A/XZzX8QQQqDYL66SKrFcMaCXvgjAxzsmNlxiot1jQu69beOuQYdCZKfT6O+szsDF0myuMpr9Ku0iwzuF6QAUsziVpZ491rMVq3k2RR5M0PXOTEI5Lg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779444208; c=relaxed/simple;
-	bh=zkGnRbgCdywlE2nwWJjpaTONdfWD2+fa423VLntImYA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NQ5eiREY0WEBCgjIZHTFzE4kg6wwYpe+V0I0YTb8LCj9l7EEqTbZIMQ3GKsN1F5alULSCa2vb1j4jPwrrSZOmD6WgcLuVawI+Xfdrc+Rdh6+w3u7ZplbZKvSC6nmhbugZWDOJ2nVUEa6HvZPaRsuc98x/vBnnUPCTVe6gPDjPfs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=J7IzUezS; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FFC3A9D88
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779444217; cv=none; b=Tz9qAY18fy4VbXJhrcqN2WZJmDQp8MNDWcVU0hKM07rdDF6oOEIshaGZzml2f2Y/QvecOJ0PaRqMuKuQCX12AgCxfKeseqO20Src9buliCwdYtwQOu1+wQUGl2n1GN02X01lBlho/qa5VkrujiC8EinjfETTtTXiKHaRvOiRLQw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779444217; c=relaxed/simple;
+	bh=XcEC9ecrdej77lQLA5Zn9CN66MJ4E6gOFshYSEz1t2M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jW+nhqyXim/JD6PvnoJd/peixY6HvvFHRRQnF/KRvqikAueBaM0L+y7EIE+6w7s3SxQb7HeNeLIRxuRljgMTew3twwDSlqhgRSWzRcqBt8rp9otDykVeg7VzRT+1Dp+QAWHv/utsHE5niHvuURl275i7rjfLf7bk8lrLTbZqSgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EdVZf8/m; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="J7IzUezS"
-ARC-Seal: i=1; a=rsa-sha256; t=1779444187; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NEAlU+n6HtcKHaPRlS2cAOoT5YiSc3uHIvNlhdXROthGo19u8KyPWrbi1tTyVv3ndG6M5AgYaOgIIcgTk+zKE3xr0UewmR+kdP8UONI0CAk2X9qZ1Q0pZ/PKdCC8Cbou96iZQYlHuOcqmA4TYzYwFUIo9/aDFXzelgXEjRQy/rQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779444187; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=CYOxzoZuvfBifsCf4uAL4U46AoKqF5Z8ceyciuumBH8=; 
-	b=NmoAEc8BY7b5VaxPMiltjRIPH4v2e+ju9G8Gk5WkonQONjQxmYM7wDR/l57/gsGa2itNWwa+xiedzdvZCWS37d5bbDRAFGHochQpw8aSMXMMObznGdh1LxTXAXj2nkYIz62R0Wy4ZyYRT6aA7UyFcKU6W/OYAIK7IOZKqSmUc9k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779444187;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=CYOxzoZuvfBifsCf4uAL4U46AoKqF5Z8ceyciuumBH8=;
-	b=J7IzUezShDXhcw2azuHiEZzrGAhd8BUBrIYuBbsyInqLgWUgbAdZ3Q3sV4PHFFvZ
-	H3Wu9g49D4wSNcZTQiTj7E0alFp/iazaEuLm4b0FIbfXz32mDDUQRIAGzep+LP1ehOC
-	yyhasYm+Swxaq1gbMObhylM3Ph78RfKsXjlY5P4s=
-Received: by mx.zohomail.com with SMTPS id 1779444184804298.6198250046622;
-	Fri, 22 May 2026 03:03:04 -0700 (PDT)
-From: Junhui Liu <junhui.liu@pigmoral.tech>
-Date: Fri, 22 May 2026 18:01:34 +0800
-Subject: [PATCH 2/3] riscv: dts: spacemit: k1: Split gmac_clk_ref into
- independent pinctrl groups
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EdVZf8/m"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2bc85eda6b6so35556345ad.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779444215; x=1780049015; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eiBRTRZTJBLsm6cC7zO439AbTyaUXaT32zIuFaYd3eo=;
+        b=EdVZf8/mSqovV0tpDvJF6D2d2iMpTJvbv6tEl6BwwqNPM77hmR9QoZMMJXiWcYziWQ
+         4fFHKoprt+3OMclShS2lWPxGAy+KZSfos/vs+H9Xuf7J1HSDzTnbGRDjszm+85msf3A9
+         Yx1VjhmWwLQKWxWVoZ1ARkdBqrHzAGjyX6lutvt+BZUJvCSBMRQ7K3vXexjEiYedj39O
+         TI9XrMMf/ii/lJPQ3iGSXsGj3Tl7i+XsrMo1owkxFjDX//yoX/u5qo0itGPcp1mT2v45
+         6WdmxSMPpiY4zyDVwQ2PH50QD9OxAXXxVruD+ALbVtPQOA/oYLMYOQQ6juGn3sUb2lxG
+         d9Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779444215; x=1780049015;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eiBRTRZTJBLsm6cC7zO439AbTyaUXaT32zIuFaYd3eo=;
+        b=o10KctXc8ZocA5IjQEXBEMJ52BPEwEXUtZMj1Q1Rr9SREGEoYZUKPSFJ8UeicrzjwB
+         tc7XnMGk2nm/dO5RJpMybDbqMTMfE2Za9g90eePTmBoP+lrV9gSqh8tzG+LtgXzAK6ZL
+         J89c+UO8vYoJ4Fnx9ddFLf5+aIpYNu8/qRha4HxWypMZCicTpfqnVJ3ljGwG4jHZm8jF
+         DeJRQKBH1uED52G+7PTdVSDRl9i4okWjGUUGb77IFxCiRHycOzbuFWIgawMxn4/PnWhM
+         Brn/nK4sY3hGyDcYVTfQG4ALx4pIwO0reIb2qNwHgjL5bckX0Nx/OSSdn3/uYtJA68qF
+         70Iw==
+X-Forwarded-Encrypted: i=1; AFNElJ9KtbpzysiMHN9yk2S8wzeVJIt6ZBXGOiSzjZQeN3JCR4muZRpEdawJU0eSN9/8UpZpDH9UItEzmTSY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3SKuMSCm7BIf7D25Eo4FeHBGAtQpRrBM4g4jE3VZ+q6sn2KY8
+	BbFaBLEQ3zguMswe418uNVE5KX9ay+NnaRWM9W9arot5Uxph/e2uqW+6
+X-Gm-Gg: Acq92OFkvMpYJeOrG14wNbNaimG5remppYAu48u8lgHo7ysPMnhPjeCq7FGLDEErkWE
+	DAxAkTKEgtLUcasy0x6lvKn0CyPypzSTDNA76yZznJuUBBcFuuGCcm5lqT6O1KnGdcikpimsiZX
+	nbR7JC3V0lFXaR5y4i9yyU+dAngGBCX+b65EYkqArIi2l7XM1TxqrEgbjfe95+/yt/IbCBa0f0f
+	XPaC3rvxo9KX+biPiOBjVHVetl41vOBwwf/O5Oy+usFhWAWqS0K7jId+00K2eHR2J2VTwRBBI0E
+	DCFFMtjM5/S+JqDZriMq2lYuKA4LuquKmMlsdSQXNVXcs3dWPmdf3B32sJb0o6DhGkQeKVK3FvR
+	Yo+5Mdkv96vCSTRnQxLjz/yyTL2pXtEkCaJ/FsYnEGQvu9oNaA2AJfF0Nl9TFjWo4sj3ejiUP78
+	iQvTqf/KqOnetO9D/NB6PZiL5qkpUZSEXWrdzhufh+uoqsbuK5Mfq0P7s1Jw==
+X-Received: by 2002:a17:902:fc48:b0:2b0:c45a:bc2 with SMTP id d9443c01a7336-2beb059cebcmr32443895ad.16.1779444214757;
+        Fri, 22 May 2026 03:03:34 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56f4343sm18683455ad.36.2026.05.22.03.03.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 03:03:34 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	heiko@sntech.de,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 0/3] ASoC: rockchip: Reorder clock enable sequence
+Date: Fri, 22 May 2026 17:03:15 +0700
+Message-ID: <20260522100318.73474-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-bpi-cm6-v1-2-707ef1917a30@pigmoral.tech>
-References: <20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech>
-In-Reply-To: <20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
- Vivian Wang <wangruikang@iscas.ac.cn>, Paolo Abeni <pabeni@redhat.com>, 
- Guodong Xu <guodong@riscstar.com>, Yangyu Chen <cyy@cyyself.name>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Junhui Liu <junhui.liu@pigmoral.tech>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779444139; l=2207;
- i=junhui.liu@pigmoral.tech; s=20251228; h=from:subject:message-id;
- bh=zkGnRbgCdywlE2nwWJjpaTONdfWD2+fa423VLntImYA=;
- b=EAEtUXXVswunsrERQoedMSki48bc3bT/J7u477Hd3HP4SGRGlJ+BbO0fJmbbva0sBsss2e2gt
- uEcfstpWv36CTHuzCwr87SpTVwC2BC/TpV6B0laTCE3AOk5OVDqf4ra
-X-Developer-Key: i=junhui.liu@pigmoral.tech; a=ed25519;
- pk=3vU0qIPJAH8blXmLyqBhKx+nLOjcLwwYhZXelEpw7h4=
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-The gmac_clk_ref signal is optional for the GMAC controller and is not
-strictly required for all hardware designs. In several already
-upstreamed K1 boards, this signal remains unconnected or the
-corresponding resistor is marked as NC.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Furthermore, the pins for gmac0_clk_ref (GPIO 45) and gmac1_clk_ref
-(GPIO 46) may be used as GPIOs for other functions even when the
-Ethernet controller is active. Splitting these into independent groups
-avoids pinmux conflicts and allows boards to use the reference clock
-signal only when it is actually needed.
+Hi all,
 
-Fixes: 60775f28cfb7 ("riscv: dts: spacemit: Add Ethernet support for K1")
-Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
----
- arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+This series reorders the runtime resume clock enable
+sequence in the Rockchip SPDIF and PDM drivers to enable
+the bus clock before the functional controller clock.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-index 4e9a62d0e85b..8c57ca05dabd 100644
---- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-@@ -27,8 +27,16 @@ gmac0-pins {
- 				 <K1_PADCONF(11, 1)>,	/* gmac0_tx_en */
- 				 <K1_PADCONF(12, 1)>,	/* gmac0_mdc */
- 				 <K1_PADCONF(13, 1)>,	/* gmac0_mdio */
--				 <K1_PADCONF(14, 1)>,	/* gmac0_int_n */
--				 <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
-+				 <K1_PADCONF(14, 1)>;	/* gmac0_int_n */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <21>;
-+		};
-+	};
-+
-+	gmac0_clk_ref_cfg: gmac0-clk-ref-cfg {
-+		gmac0-clk-ref-pins {
-+			pinmux = <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
- 
- 			bias-pull-up = <0>;
- 			drive-strength = <21>;
-@@ -51,8 +59,16 @@ gmac1-pins {
- 				 <K1_PADCONF(40, 1)>,	/* gmac1_tx_en */
- 				 <K1_PADCONF(41, 1)>,	/* gmac1_mdc */
- 				 <K1_PADCONF(42, 1)>,	/* gmac1_mdio */
--				 <K1_PADCONF(43, 1)>,	/* gmac1_int_n */
--				 <K1_PADCONF(46, 1)>;	/* gmac1_clk_ref */
-+				 <K1_PADCONF(43, 1)>;	/* gmac1_int_n */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <21>;
-+		};
-+	};
-+
-+	gmac1_clk_ref_cfg: gmac1-clk-ref-cfg {
-+		gmac1-clk-ref-pins {
-+			pinmux = <K1_PADCONF(46, 1)>;	/* gmac1_clk_ref */
- 
- 			bias-pull-up = <0>;
- 			drive-strength = <21>;
+It also updates the SPDIF DT binding clock descriptions to
+match the actual clock usage in the driver.
+
+Best Regards,
+Phuc
+
+bui duc phuc (3):
+  ASoC: dt-bindings: rockchip-spdif: Correct SPDIF clock descriptions
+  ASoC: rockchip: spdif: Reorder clock enable sequence
+  ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
+
+ .../devicetree/bindings/sound/rockchip-spdif.yaml      |  2 +-
+ sound/soc/rockchip/rockchip_pdm.c                      | 10 +++++-----
+ sound/soc/rockchip/rockchip_spdif.c                    | 10 +++++-----
+ 3 files changed, 11 insertions(+), 11 deletions(-)
 
 -- 
-2.54.0
+2.43.0
 
