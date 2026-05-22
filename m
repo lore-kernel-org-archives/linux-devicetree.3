@@ -1,190 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA843D566E;
-	Fri, 22 May 2026 11:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D70239281D
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779447925; cv=none; b=J+DNICAl++s9xwvW8m9r0Ir4SHxzlqb19e36bhf8FsY+A+4cC5T3mxH2jhadgtlXo94sJG0dGc9rLDPzyr/BBLDuCBlOCYiApKCBXAFZJp6lLqBHxmA3yEdeoy4F1CDftz7v+U/utyMTbPnSeDdxNdIam8fws85kGhNsbJRZUE8=
+	t=1779448087; cv=none; b=CKHKvBweKt4ELJFhKAe+a1Sya6SerL0c7I3SZEkQWr9mjC5EARsIPVjfioDx53iF6JrJOs0OlTtaV3yqWSidiNeQrFahO8dvNSZ6Wee9GHKSjfwthTGm7yB26zGVCMsKTXTLpRix9dsU+jvULOB4ESCiPMPuQ6JeoXwwdLBAb9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779447925; c=relaxed/simple;
-	bh=HlI/COs6lg/8SCNXKEmyn3O/vJmNodPWc9kJUDXRu2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bqBAH9VkwtwfdzhjSpOPrYLNMv8tNwLmEc2dWlM9ta+/04EEK5jmsjnV5Z+MHrSG7AFVd5Pmaq5fUDUSUx/cRhMR21zKcVM+UclON0540ttJ+arMs0Dsoq9PvS9aVIhJFcw0kudgGqjUsrC0n688nad5kntGTCp5fFyvRcttOZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvveBzsB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779448087; c=relaxed/simple;
+	bh=IwDmK6EMEISyJ7rPprzuuUy4PSuSQemBVEhPrWba4BY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S/S+Fz7kS0gzAihp23ugB6egjlvX73J0LFMx1uhrmlIPUt2XncRZMqGZxrkDkd8OoUmt0GdWw7xmMSynFXOukjlcL1zpC5YNkbrY4K9EZxmntlQvDL2V/iNwPzlIHcFQRcVRnthtMwYQ0Se3QugsjvWACkCrmjKF2Vb777k0Kew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XZDpURRV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NY+L9z2F; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvveBzsB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B619D1F00A3D;
-	Fri, 22 May 2026 11:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779447924;
-	bh=kCVDMXk8BSvTV3swsaD3sQl1nb6y+ZB9kYJDzjWXNe4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KvveBzsBhN+YrlDAQGNepk+tKWX10yJiPqoJCK4JkBlwIrocbLr4WABVuJWqoYEML
-	 0JL1TUWc1197UpsT0vPS1cd3TVdN2c8d0Bblo6GyVqnzxvgFsn+ZsHk9OSSg3/6t/M
-	 infmv0E9WKD1Gjd2m1CXljHmr+IIA6AtqQGk8yaRFKe6QsPL4BJQgil4milKLIy4/R
-	 dZhM4iJuy20DYEAawpxoO0Keqtpqz9Fm7/qHypFGXBbHOw2tUKTiEPfaH0THy9mNtD
-	 CHSMaKflcddIIg5SiDCDoyF0cegKcL96mtMr7CIAIE2ak7I8qthUDOUNl/+Bw19Eme
-	 u+LusebYU/akQ==
-Date: Fri, 22 May 2026 12:05:15 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
- andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
- jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
- krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
-Subject: Re: [PATCH V8 05/10] iio: imu: inv_icm42607: Add PM support for
- icm42607
-Message-ID: <20260522120515.652661ed@jic23-huawei>
-In-Reply-To: <PH0PR19MB9973386EF146AD6590DE5508F5A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260518200526.458421-1-macroalpha82@gmail.com>
-	<20260518200526.458421-6-macroalpha82@gmail.com>
-	<20260520181353.0a0371cb@jic23-huawei>
-	<PH0PR19MB9973386EF146AD6590DE5508F5A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XZDpURRV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NY+L9z2F"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M9mtaO312898
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:08:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4GKED5ytB1FQ6HqBUFcNSlImil8v1klPu7XCU8S5L4E=; b=XZDpURRVwZyX0uRb
+	PfRQd+e8bEfNQtWGvN46P7i/ndzEuGw4PMUGnyXMfkjSVlwOAZc0wBsDNZcwXlr1
+	irNZ5g9NpW+jr+EawFagL52LYVFgkIqbvNg/uuCx2oTDkYMMuOliE+L63XQT/yhi
+	E2OcTjr01D0Kvmow6Bu+HPGCrt8Q4tebIxGnjgg1XgHlPtzMmx5WaFksD7uRcwdM
+	iQscoA01Ib7XVFeX6uqAgVSLmzwN66uPvRklA56P0Ny2ohhOdieNEhygdbwIOWJD
+	Bhn3iUXQo4TZPxzBpwWK5f9KZtqviCwqQPDYCIEU1Et3l8VlZVK8KyiV8u8gMjbb
+	YuyxCw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea8833gsv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:08:05 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-910a755d717so104132985a.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 04:08:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779448085; x=1780052885; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4GKED5ytB1FQ6HqBUFcNSlImil8v1klPu7XCU8S5L4E=;
+        b=NY+L9z2FUyozCiGwn5M7nUul3CkAGjUnWS7kV1fcbYc5fJ2lYjbVTpStC0TSlINDap
+         +hho6bO/+MLA9aXj81g+DHoaL66PtM3xSZ0yCzKg5zZGXU4zyygL9wv1XWPKA1ETOeY0
+         wtXhvpk5mcDELL3BwTAzVSG/m2xdR4BWx2vrljwCkpDOQDxZ4mOLTzoIwT2v6EZI0Qgt
+         NCrr3N+0lrP4VXJxxcXfj3dpmV+YAF3wWgmnTWIHCORWvJG4SyvMREIG5oe5TnZ5Go5d
+         ETFqwcyKnFYxi2zn5aDo2HK1ZJuxJNZXA+HJvEaLqCYU0LTosaMjBd4B7/EK+F0/NcOj
+         sp4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779448085; x=1780052885;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4GKED5ytB1FQ6HqBUFcNSlImil8v1klPu7XCU8S5L4E=;
+        b=OIwJLsPnx3Q7/q7iyD/KWDdFcPzaoV+IgtBM0Iwznyou0PRhyrBZ/PUpfgQEr7RuMX
+         iYOCicXwMS96zDWCnheYamCwhJpgJLC/CqRcqgv1W9pefG0MxqdGwZEkd7GTUaxI5uhE
+         J5Gl/WP6sFuPre4TkEXu7a/mcyvEPfEC+tZ9xKkCQt0jpcQAHSBAbPyvVASF6Mp+RQxA
+         FLjfuh1gagQ/pbv1+wIcNwRI4owc195FS30+9U5wZNVOqk0vMBjRMz9A8x73reFw5na6
+         GogGNhf+0gOpMwQXb3bK1TqDBSEbWG84SF/UGo00kGHU+/gAFlPkRZso71PUm9mhSzSl
+         f2Cg==
+X-Forwarded-Encrypted: i=1; AFNElJ9fIcKmgGLjRB0qxVxWDfJTDMl9xwM+DXUtgZtzGkmQ/+gzfNTEYf5iliOnaa8ZBhQwTriaES/CrQAd@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLgVdUe39Ill8YSs8O2Msp4duzlf8w81t5GN7FUV5Gw/VQh9cu
+	bs7ouCAV/zultTkoEPhYYWIMDlK9fyxULmRRWJ2RaBwHfpQ/7jV+dDKFef4PmJyxphA455J5Qj8
+	mupoa/Qhg2UFrUSU29X3hbmA/kwOrpUvkhr0wXutkd57LSqB2wpUdQU0nEtn8MIvy
+X-Gm-Gg: Acq92OFNCIkdoMEMzO/bYxRIk/X2Vb1pcKi9xeddzohqR71K6MXl0L+nd0HuazOxgSm
+	mvHKrMZZ4IZeyYaFRtXGZDP0z6npXPRd82kSI0rgs8xyeyvkZuwXSzcVQ2fd8y1NuwDJXytb2vf
+	5zBV6vVXdMMOzNs1Yj3Aha9wl1qUEI5s4Q9x0rOc9aEyeAHrV2GIH16tX8YEdrplv8nIDCWIKuv
+	vxAFBH9uO6L2ycGkLbit5i9r36nRyxJaWHW8z1Xo0WpJeKndHzrdNNMskOKhRRCou0ilJVyoStH
+	12sFckP8ChUfd/J/GGiBMrXAqlbynRXuILsHRS4H9QaqLZagW5qAJFOwMgjN+LG+2RDtZLyQavA
+	oTlYsS/nkBQKrCws1/OGSsTio59Kry1ofQy1Y4QuGbTRn+A==
+X-Received: by 2002:a05:620a:2a08:b0:911:dfb8:37c9 with SMTP id af79cd13be357-914b4957a47mr303971385a.3.1779448084960;
+        Fri, 22 May 2026 04:08:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:2a08:b0:911:dfb8:37c9 with SMTP id af79cd13be357-914b4957a47mr303968485a.3.1779448084556;
+        Fri, 22 May 2026 04:08:04 -0700 (PDT)
+Received: from [192.168.119.254] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-688b9b6d2e3sm545503a12.4.2026.05.22.04.08.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 04:08:03 -0700 (PDT)
+Message-ID: <1c6ccea3-59ad-42a9-bc7d-edda17814b8e@oss.qualcomm.com>
+Date: Fri, 22 May 2026 13:08:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] arm64: dts: qcom: kodiak: consolidate IPA properties
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Alex Elder <elder@riscstar.com>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Stanislav Zaikin <zstaseg@gmail.com>
+References: <20260517-ipa-loader-v1-0-3c3764c1b4a3@oss.qualcomm.com>
+ <20260517-ipa-loader-v1-6-3c3764c1b4a3@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260517-ipa-loader-v1-6-3c3764c1b4a3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDExMSBTYWx0ZWRfX+wsCfFml/Wic
+ tq8yepgjQnmGRknKXDT36CO5jC+8uy0D11FYMLYIGqF4POORTfMS/0eJLPc/lLoWZYdwpxuQ6lH
+ DQCs+TmpwatYOWZ4c7U5O/5WcWI71z/LWp7cEugbfH7H/51VK/lOH46z/zVKtfq9GxvWKyFZhj1
+ /WXcYTZMPmcdmqwUK45wyhZ54j+6NMrqDpC6mA6lm7tXdMAigyH2LXZCQz7oVE4+RrDCsrtiXNp
+ OrnTW/+LMGaaz4uOQw7pR/U+e5H/V3XAUlBmrScYeTf4xWwFEEHCwEhQoK9JE0bWIzhX3ZpIgnq
+ ZpNNJj0NHrvpAR39ACHKoyNVAyRccGZUcjB9Q4jMIdb7m1wX1A8/DptDGRTgMDSXCFBEjXnxpZM
+ 5KsY0VTp+pIk3WwGa4PfN95A9q157B43jkpeTOG/k+jXDRTYPEdP/0j2gIxMCcQBZOItzx7qKUM
+ dMHMr67YMiIOXL+gRjw==
+X-Proofpoint-GUID: 8CogqiYfGAYW5KuMrylyr01k-VTy7AXQ
+X-Proofpoint-ORIG-GUID: 8CogqiYfGAYW5KuMrylyr01k-VTy7AXQ
+X-Authority-Analysis: v=2.4 cv=LsSiDHdc c=1 sm=1 tr=0 ts=6a103915 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=3fF2GDuCYiqyphel07QA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220111
 
-
-> >   
-> > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> > > index e9c81b52f9ef..bc0cefa2fb77 100644
-> > > --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> > > @@ -9,6 +9,7 @@
-> > >  #include <linux/irq.h>
-> > >  #include <linux/module.h>
-> > >  #include <linux/mutex.h>
-> > > +#include <linux/pm_runtime.h>
-> > >  #include <linux/property.h>
-> > >  #include <linux/regmap.h>
-> > >  #include <linux/regulator/consumer.h>
-> > > @@ -72,6 +73,62 @@ const struct inv_icm42607_hw inv_icm42607p_hw_data = {
-> > >  };
-> > >  EXPORT_SYMBOL_NS_GPL(inv_icm42607p_hw_data, "IIO_ICM42607");
-> > >  
-> > > +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
-> > > +				      enum inv_icm42607_sensor_mode gyro,
-> > > +				      enum inv_icm42607_sensor_mode accel,
-> > > +				      bool temp, unsigned int *sleep_ms)
-> > > +{
-> > > +	enum inv_icm42607_sensor_mode oldgyro = st->conf.gyro.mode;
-> > > +	enum inv_icm42607_sensor_mode oldaccel = st->conf.accel.mode;
-> > > +	bool oldtemp = st->conf.temp_en;
-> > > +	unsigned int sleepval;
-> > > +	unsigned int val;
-> > > +	int ret;
-> > > +
-> > > +	if (gyro == oldgyro && accel == oldaccel && temp == oldtemp)
-> > > +		return 0;
-> > > +
-> > > +	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
-> > > +	val |= FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
-> > > +	if (!temp)
-> > > +		val |= INV_ICM42607_PWR_MGMT0_ACCEL_LP_CLK_SEL;
-> > > +	ret = regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	st->conf.gyro.mode = gyro;
-> > > +	st->conf.accel.mode = accel;
-> > > +	st->conf.temp_en = temp;
-> > > +
-> > > +	sleepval = 0;
-> > > +	if (temp && !oldtemp) {
-> > > +		if (sleepval < INV_ICM42607_TEMP_STARTUP_TIME_MS)
-> > > +			sleepval = INV_ICM42607_TEMP_STARTUP_TIME_MS;  
-> > 		sleepval = max(sleepval,)
-> > or just assign it here if not later patches add stuff in between
-> > the assignment to 0 and here.  
-Wow I write some garbage English sometimes (no excuse, it is my
-native language!) 
+On 5/17/26 4:56 PM, Dmitry Baryshkov wrote:
+> Move generic IPA-related properties to the base DTSI file. The herobrine
+> has special software configuration, so delete the memory-region property
+> which wasn't set for it beforehand. Also delete the property for several
+> IoT devices, which don't enable IPA memory at this point (and don't
+> seem to have IPA supported by the modem firmware).
 > 
-> I'm going to assign it to 0 here (unless you think I should define it
-> at the beginning as 0) and then tweak as needed. I think this code
-> here can be further optimized, especially if we make the assumption
-> that START and STOP time for each sensor is comparable (the datasheet
-> doesn't say, so I'm going to go with yes since that greatly simplifies
-> things).
+> Co-developed-by: Stanislav Zaikin <zstaseg@gmail.com>
+> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-I'm a bit lost. Suggestion was just to do
-		sleepval = INV_ICM42607_TEMP_STARTUP_TIME_MS;
-as we know it is 0.   Probably not worth it though as ends up with fragile
-code.  Fine to keep it to what you have but use max() rather than
-if()
+[...]
 
-...
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> @@ -504,6 +504,10 @@ &i2c13 {
+>  	status = "okay";
+>  };
+>  
+> +&ipa {
+> +	/delete-property/ memory-region;
+> +};
 
-> > > +static int inv_icm42607_resume(struct device *dev)
-> > > +{
-> > > +	struct inv_icm42607_state *st = dev_get_drvdata(dev);
-> > > +	int ret;
-> > > +
-> > > +	guard(mutex)(&st->lock);
-> > > +  
-> > Given the bunch of stuff we've run into recently around these
-> > I'm getting more paranoid.
-> > Similar to above, could you use pm_runtime_force_resume()
-> > You would need to gate stuff added later to not occur
-> > though if it wasn't runtime suspended.  
-> 
-> This I'm having trouble understanding. If I use
-> pm_force_runtime_resume() I'm assuming that either I got an error (in
-> which case I'd return the error) or the device is runtime resumed
-> after the call completes. If that's the case, wouldn't my suspend and
-> resume steps just be pm_force_runtime_suspend/resume, and enabling the
-> regulator (first for resume) or disabling the regulator (last for
-> suspend) as needed?
+On QC*S* parts, wouldn't IPA be disabled anyway?
 
-If you call pm_runtime_force_resume() it will do the right thing
-wrt to runtime PM state prior to suspend.  If it wasn't runtime suspended
-it will runtime resume - if it was it'll no do anything. It won't
-directly tell you which one it did though.
+That's what downstream did historically on APQ-ish SoCs, anyway
 
-The extra stuff that you know can't be the case if runtime pm is on
-will need some sort of gating.  However, looking again it may already
-be protected by more specific checks.
-
-
-	pm_runtime_force_resume();
-
-	if (st->fifo.on) { //I'd failed to look at what was added.
-		ret = regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
-				   INV_ICM42607_FIFO_CONFIG1_MODE);
-		if (ret)
-			return ret;
-	}
-
-That if (st->fifo.on) previously didn't get checked if we were runtime
-suspended because in fifo mode we never are.  So I was thinking you'd
-need that check to be
-	if (!pm_runtime_suspended(dev) && st->fifo.on)
-but the fifo.on check is sufficient by the same argument that if fifo.on
-is true we aren't in runtime suspend.
-
-Basically I overthought it and didn't check what got added where the
-comment is in this patch.
-
- 
-> 
-> > 
-> >   
-> > > +	if (pm_runtime_suspended(dev))
-> > > +		return 0;
-> > > +
-> > > +	ret = inv_icm42607_enable_vddio_reg(st);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	/* Nothing else to restore at this time. */
-> > > +
-> > > +	return 0;
-> > > +}
-
+Konrad
