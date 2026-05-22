@@ -1,139 +1,169 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC843C5DB6
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4F43C4B84
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779444557; cv=none; b=GyHP3ZfibOCwQg4Vz5rJsuU0+TyKQuivrLYTyjEBb/nT1gPT1P4+dbhBn//ctVp3mWEXxmQnCKQNryJOciupFLAaNWt0Pm6WKki4h8tHrFSbVUFvRpmqJS0cMfHH6MfzoL6rGpQGE6VlUpbHvkYSOO6Z0HFILB8aEQ847sfKNTk=
+	t=1779444603; cv=none; b=AxKgK/NTbcyGR5YONVD0GzOXPpJ7vSVAtxOwI7a46o2SC/zJJUrnJXtzwXzkDjkAJoJtcwrtXZoVp3wsVXQJnEdiZDI8HrKFzia3zzJEfY78l+aVS07cnVQjFcJE6mibOey5FtDhG9SQhj58AEx4xJ5dgRFiUHpmGca0ps+uKEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779444557; c=relaxed/simple;
-	bh=tXc0GLTLQkLv5ed8xLAOzgZ/WOFmTaW0lEw88YWLwMo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XcAb4/5Sx2XFI1hhbOrBjJXfwvL0bqNXGM6t6cdkAZKJ2IyIyxZEGZNS0+NRzg4clGALNU9eUXIrFt4oREhOe6SjoQ+1ctIMIEwKs8ARKTvp6NH2RZTncWnNLQFh4W3Q/Waftm2yLVbunawXClwPePHhBGjJ+A3lGlqy1S5fG2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j+I5Ehaq; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779444603; c=relaxed/simple;
+	bh=hL2LGlLTT2tGA8Z73kZn1O6WgOl0cizxjuAna3CJ4xo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YdyT8n8KA6lVTfq2c3vO19M17wo/WhCEiF7GSgkjlAOrK8SI9DDlhSNssOyjVOawBc05G1nWipy0fF1IHIR5NOsRt5/yyQTTxBYNMkNPEKUjL8alNL80IdSnXgqbWtMMdgGhxI8E9dMbixnL1UrV5/OmzEwNZfEU194QPYk0CAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DF6QlxrI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QUXA6Ny1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j+I5Ehaq"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4903cbfad68so10413365e9.0
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:09:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DF6QlxrI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QUXA6Ny1"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M6UNvg1959419
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:10:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YjDG7K4cMDv90KlkHup7EisS/IQ0eeDszu2jromAm8k=; b=DF6QlxrIkghnHKK0
+	KAi3IwsyEuH84DLBGwk3Mls3mnqgZYshBAisUllK/E3Nd7eDbhZOK/pja/isvrvy
+	uC3o/l7MV1mcMJA8e8l8SqCLo0xvISJN6pqbRjUOPkRZwrE+71En/1anM/36iRtQ
+	qIDGuv/FBbWWZncq83qrXaPVeHh961n/7L6Tj+rqHCYOpUoygOXKEbRoRPvHIhF0
+	U22knCJ92vWyMxzZ02TiPFwyE81cCWOfP7nQ3IFdYUC0T+s4SBtR5dqQkOSsTJCC
+	zgOyU9A1gtNW8EEPuNbGXruqR7dnpeiyAcoTR9sN7jW46fnOx8bPrndxfCk7/Kok
+	u7/wOA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eahxes0q0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:10:00 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-516d1d282deso2311021cf.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:10:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779444554; x=1780049354; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4zz81ZxdfpEspL0BWo4PKiQavHk71+JXORK+v8WVheM=;
-        b=j+I5EhaqgmEyqiI/EWYUdEL4+5FRAESVrhF3MHjlg1PkuuQwj08RNRYqcOcj6kteQX
-         n0Cd3nkamEak0C0cUuAqpxvlS6HEfl5aStC0Uoup/5pR2bMdTMlQm7PDDy4SF7I9UhBg
-         LTAymzVm9JOXSD1PuPa5glyAZR9xAFiLEg0/S4Uy/aXQjHnslt1PC6ZD90V/E3aMlb9h
-         8CLmwSeH+htPuG9i0aentvC2V3nWkotVEiXXMj0P361pkZA4iKsyQ8DSAEyrThtk2AR1
-         pCvLdsePPNaBDpfdX1GufcJlD9D03cdA5dwpaYF1iF2UmBJ3Z0w5/Osu9TIS1ES8Id4a
-         lGGQ==
+        d=oss.qualcomm.com; s=google; t=1779444600; x=1780049400; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YjDG7K4cMDv90KlkHup7EisS/IQ0eeDszu2jromAm8k=;
+        b=QUXA6Ny1c2hBM/Jq9bAzVW3z9TKexcJ8o51gSDywBOVHIriPFffAZymvmi8naZeo0J
+         6KU6+gAqeHA2lJT7zE7LcQHMY61H8BWDU1lDW6cIC9i9n3svt741Q/EMm4MsDNDxiPTM
+         Cp1rGU4W4Jdy/Ytw4M8WHCC0U24xE2AoeET8mXSM1/2RsbUTdLoo5F2Y5HL7gDqx6sr3
+         qX2QgLCOHzmqwzBk9oR+KDufGUxxe2U91hYEP65FvxHcZUzHiHd6104ILDED4uDtsgQJ
+         muY4PaVH7kw+m0/CxHEFhlM9/1oSETkH/GfvY3+Pp5nNNQWevt9FBMq8xUNQFyq4MnB6
+         CNJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779444554; x=1780049354;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4zz81ZxdfpEspL0BWo4PKiQavHk71+JXORK+v8WVheM=;
-        b=M5Sqb4/laRne/2vbjbGP3NH1VlvhIVuWSGhK2Yq64FlwfrxNZBgB4AIIOnZoZTTjfY
-         6afFL1zRXgV44QPZeozJisnsBDneCnb6uczGg+LyNmOELKbh/QW+u8juzWqwdNID683g
-         +8SixBMQ4jgRLF58AYSn5Z//fGrWOXFWHEgkPTEiXSzoHp9H7t/qnkMt0GvvC0dBHgj+
-         X3Lscext0E/T6ss+OuNiShGRXcLTILzFOxV8vDnqtTOUCy/4IXQY7F9HUIb00j1ff9ie
-         2Qwmaynfm2PrqWvfAe7a3WoXu/vzSa89cZ2ylGoLyrqdxVSQoia5d5AmfJ5KNmqDMyDA
-         gyNA==
-X-Forwarded-Encrypted: i=1; AFNElJ/UOlROV1f4cRMBpqQF0BnLyTeyOH5DZR0xFpcE//dQdBXCV7LT1N+0BjiC+aNEPjrcI0auM2LyvMEr@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSbmzjJszrqFVNDCayiwsg4lkCYxGu99Gxl8EfyRaV9LFiKoD2
-	4VBN5CQ8Yaa6pjKg0tghbQzeRrfPd003HqGOSvOcVhtxab5v7umuGLPp
-X-Gm-Gg: Acq92OEZLdH6IUqWjbVKhG2scvtcFFeatS5LkLRWiDCwMER1UJAh9zmQnQc6BhZt/fK
-	XGuFXlPBQnkJe2h6sVcqximPzJJy0bXs6HiKnlPvYteIQf3L7a5O+cXd0aIi7sdX6pVGYt+Jv9t
-	otwDbifsxBu+U6oigadwXPsoTqALtZY5nXsNHJWl7O7U6jwNidSv+Auugn2NHraRvBVNx7m3E8A
-	HNBSq3avjBEUwtOcIQPQKtO8z61SKikQc5kdZ2OGug41Bze4khbK1n9bySUS1ZrreWsUDcZtzmj
-	vCtLQnfIQ+/eUNZn5X46mAfYJjr8GsV4bQIEUBwTlnAsheUP6iVIK7Bml0kNxoPY+m8kHvA2OIC
-	1/LFoOR5TR01JAlMwrGGmZrtQ+gSX3tkn2FI9vM/eXe3qhnsta84SJrpr0GLcOKGhZyB+Ojclpk
-	w92sdS/k3moo5kL4+6xAO+cznyNNJ4VA0lq3AKwV6Fkbl5KpZz/TBbMvzXxN4HWygoSlGNK0626
-	3j3Y8O7yR2vtA==
-X-Received: by 2002:a05:600c:1992:b0:48a:79d8:a8d6 with SMTP id 5b1f17b1804b1-4904245f54cmr27207905e9.7.1779444553576;
-        Fri, 22 May 2026 03:09:13 -0700 (PDT)
-Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490428e03d4sm16430345e9.9.2026.05.22.03.09.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 03:09:11 -0700 (PDT)
-Date: Fri, 22 May 2026 12:09:09 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Laxman Dewangan <ldewangan@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 01/10] dt-bindings: dma: nvidia,tegra186-gpc-dma: Make
- reset optional
-Message-ID: <ahArPRE7rddUDQxm@orome>
-References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
- <20260331102303.33181-2-akhilrajeev@nvidia.com>
+        d=1e100.net; s=20251104; t=1779444600; x=1780049400;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YjDG7K4cMDv90KlkHup7EisS/IQ0eeDszu2jromAm8k=;
+        b=aEc6N+H7yOOJ9OwCJkIhyJBvb1kdB1n6Pn+BfcWp+QWbh+7KI/uRtRw0swp0Go2d+3
+         3hoqVfR6GIQQB1AYL326WP4r6f6udQq8VPhUErYNKxx4OGksg6j07O1Ngr1cYTMTfPGI
+         2mZzybnnI8y0bxo3It/T/7Pu4UIFBp4o57LH6tMNlKnWR8iG1wiXz9soaX3SNmcTgQQN
+         R7pFECiZZwHUmUIsmJuKItl6gCIkGnc3dDdQ55hF9HgQKjIucTbs2rMDiv0QRl109FNX
+         A+sbFMAaKK5/53vTwsp+lvr6+NM06rL1++zSXiVavggbk+gTQsdr89XhWNH+WvGLkl6t
+         m3wA==
+X-Forwarded-Encrypted: i=1; AFNElJ+lXRTL/wbkOewn+k8gnhLegGD2hh4AU8l+gop9XLGm3epwL8G6kiE92uI6Yw6irWnILLMMofgZZHtK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3/jUfccWZuf49F4958oTSAIT81usk0c4cMHAVlPVxuUIn32wE
+	4rm4e/bbCm3AXxsMoSPjRusxJ11YpXRIkV9G5NrrimCb67rVQED9LnhAOJFb+H4hNuIf1J0jq71
+	i0PYDmTZk1tzl2HrRpJN/rMmJqqcPtgLitQynmhZ8Js+ZJzAygC+L1Nym0viC3ggn
+X-Gm-Gg: Acq92OHxQKvGjQoQ6KZoibE0ZBle1vxivCuKwPYv8RukRbVGwWIHMVemN+MzE4ArUxS
+	zgjuJQYFdUxXUq57OX5jt4YDyYy2llNuIojI4CRStVxCO58Z0GkgXsbH3zNXlno0PAkCq2hxHxh
+	qrcdVQTcsp1EyCbM++w/A+ZfEAzYKcddwSnPHNyRLV5R8pGGX0Hbdnsy1EkcYDKJInd/z6xbr4X
+	W8RAof3kA5Z+nTIwsqjjx8UoxNqKkOkzN0JWodzKYeg6T1yJAWXoOZqMOKrO/TE+PXfbFfvcNW/
+	HSIHipkZ+CxxjWzcTsfN15oxAkumVnRw9wBcX3bRxGDnT/XSC/TpzM56IE+lplV0Fk8KNXoVSlJ
+	KKUhl4HLtSLBOdJg0LCrWwtrDGz81fP+7zyGXNrj6h4edwA==
+X-Received: by 2002:a05:622a:260f:b0:50b:3489:5495 with SMTP id d75a77b69052e-516d46837a3mr26397021cf.8.1779444600052;
+        Fri, 22 May 2026 03:10:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:260f:b0:50b:3489:5495 with SMTP id d75a77b69052e-516d46837a3mr26396861cf.8.1779444599558;
+        Fri, 22 May 2026 03:09:59 -0700 (PDT)
+Received: from [192.168.119.254] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc65dbd3bsm39288766b.54.2026.05.22.03.09.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 03:09:58 -0700 (PDT)
+Message-ID: <64950b97-7655-491a-9cfd-ee5ad0e7d840@oss.qualcomm.com>
+Date: Fri, 22 May 2026 12:09:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cba7btxxm4dnjqoy"
-Content-Disposition: inline
-In-Reply-To: <20260331102303.33181-2-akhilrajeev@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/35] dt-bindings: qcom,pdc: Tighten reg to single APSS
+ DRV region
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260410184124.1068210-1-mukesh.ojha@oss.qualcomm.com>
+ <20260410184124.1068210-2-mukesh.ojha@oss.qualcomm.com>
+ <gd5ixcfablbyyyz2wdacrvg43jogwg425na6utsgfcterm276k@tdko64tn6gwh>
+ <ecb75ada-60c4-40e6-81bd-fc392007e9d8@oss.qualcomm.com>
+ <5z7zoybn2gqsyn3zqvjo7saq2zjpoimkp67ubqenlntzcweyz3@rkm36ya6j44f>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <5z7zoybn2gqsyn3zqvjo7saq2zjpoimkp67ubqenlntzcweyz3@rkm36ya6j44f>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDEwMCBTYWx0ZWRfX0sMKTEvvtzMP
+ yhsdETLK64PFuMgFU5OX5blmDK5Viig2Z7qDLRqO5Pt1HJVZBKr3lZnugWLdKe0zq90n34dEo5X
+ ykFy8uTw7Uz8K+s/ytQMct7koFiNEBx/MI2S5vKr74UNsuJTpnwMYrxSYRnxbhnBGe30CDuddyC
+ mNRrJIvMg66rtmqNOkWnXdNRnfcsYvBgfvgnJz7Y2gZUa2vixdl/iWcxf5QCX7dII0sXr9QEVWV
+ Nj/tyY0CfyWTMQSrUm5rZYTqxo2t2ZDu3X9UkIk1GMiVL1Yioy1MG+gwYjBWhS1EcTYdboaoJAo
+ 9f3vLKu6gD5EAX1lyyzxNEPb22RsCUuk/lfm42gObr//wX0tcPbUebHdAQbBfZJ7cr5O6QdE+WW
+ bA+L30lMGM+4DPCtKdJ1nF8MDyd3TfM6Qgx7pavCUFZ7jNeqs6Q/ZPG0BZYoYpkvQOd4L3Fv2g8
+ moz0ihBAEVSBHugLfaA==
+X-Proofpoint-GUID: 6K-3KF7hsHsHQ_zmbyIzOCWyE2U3-bRm
+X-Proofpoint-ORIG-GUID: 6K-3KF7hsHsHQ_zmbyIzOCWyE2U3-bRm
+X-Authority-Analysis: v=2.4 cv=ar2CzyZV c=1 sm=1 tr=0 ts=6a102b78 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=7tNU3UykEfeABMgLdikA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605220100
 
+On 4/14/26 6:23 PM, Dmitry Baryshkov wrote:
+> On Mon, Apr 13, 2026 at 10:23:59AM +0200, Konrad Dybcio wrote:
+>> On 4/11/26 4:32 PM, Dmitry Baryshkov wrote:
+>>> On Sat, Apr 11, 2026 at 12:10:38AM +0530, Mukesh Ojha wrote:
+>>>> The PDC has multiple DRV regions, each sized 0x10000, where each region
+>>>> serves a specific client in the system. Linux only needs access to the
+>>>
+>>> Nit: there are other OS than Linux. Would you rather point out that
+>>> other DRV regions are to be used by ... what?
+>>
+>> TZ, HYP, HLOS, CPUCP..
+> 
+> => commit message
+> 
+>>
+>> I'm wondering if we can make use of the HYP one on e.g. Glymur, to
+>> parallelize accesses (and whether that would bring any practical
+>> benefit).
+>>
+>> In the RPMH architecture, each "client" has their own (GPU, AOP, DISP,
+>> etc.). Then, each one of those clients may have an associates RSC
+>> (Resource State Coordinator) and/or anyOf BCM ("interconnect"), VRM
+>> ("regulator"), ARC ("RPMHPD") voting interfaces
+> 
+> At least the RSC should be visible to the OS. We don't use it (now), but
+> we probably will at some point (at least the DISP_RSC) if I understand
+> it correctly.
 
---cba7btxxm4dnjqoy
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 01/10] dt-bindings: dma: nvidia,tegra186-gpc-dma: Make
- reset optional
-MIME-Version: 1.0
+The display RSC is a separate instance, living at a far different
+register base. Same with the PCIe RSC etc.
 
-On Tue, Mar 31, 2026 at 03:52:54PM +0530, Akhil R wrote:
-> On Tegra264, GPCDMA reset control is not exposed to Linux and is handled
-> by the boot firmware.
->=20
-> Although reset was not exposed in Tegra234 as well, the firmware supported
-> a dummy reset which just returns success on reset without doing an actual
-> reset. This is also not supported in Tegra264 BPMP. Therefore mark 'reset'
-> and 'reset-names' properties as required only for devices prior to
-> Tegra264.
->=20
-> This also necessitates that the Tegra264 compatible be standalone and
-> cannot have the fallback compatible of Tegra186. Since there is no
-> functional impact, we keep reset as required for Tegra234 to avoid
-> breaking the ABI.
->=20
-> Fixes: bb8c97571db5 ("dt-bindings: dma: Add Tegra264 compatible string")
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/dma/nvidia,tegra186-gpc-dma.yaml | 23 +++++++++++++------
->  1 file changed, 16 insertions(+), 7 deletions(-)
-
-Acked-by: Thierry Reding <treding@nvidia.com>
-
---cba7btxxm4dnjqoy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoQK0UACgkQ3SOs138+
-s6EvWw//RWCFZQ9T5C4dp8mVROoGcJewvvJHj46nkOp0utsLoYqLxlyBAndZ4kjp
-EXuaATKAZbfG2HAMtwunnvWgwGfFYzQzNqfO4bqXAKGltGU8X5NPai06UZ4ljxYR
-WTsV0ZexSKoOXL4jaKU/ZRabzsXm63ldoMpfJv4ahxyoWH6Y2kOqILa7FLlb7GHS
-FvCyV9lb6CWA+QA5opFdz3qqC+WxhYaKET1F4q5xbFD5PagVYShaEaYt8MRv0iil
-AMyn/NwaX6lOjGTL1CpvJ/jnmlf2Gu7temInUkZANF8wJzYY0xVU4J00bzryvsXO
-eSzZwAemjwGTyLF1hsMbmSyqjLLHe7eDq/Y4DEKX3xFGVSd8zKy/vN+zUhFp+9HQ
-oxRLORiWrIC8nCgMC7weCZ3ufNIf9Oh+IMxcx9bYghGkOFcwPw/mQB29LmZ7zuyi
-IqY9bdEILNNqnTXrULGByqQ2ywvZkZItadnWV1WgXeHRHdLNLzgy7ZfaQsdnBG+w
-6WrRkzN8o26x3rtL8umBdxgUrjPomamGU0F97/zy8+aHzrT8/AvL03008euSMliV
-sF5OyIHPVRCgyKhe1nuOWXX56BT9+R66zECG68/tWN9OBU25SNy5Q8pYH7x577Xf
-IxAPlE5nxcOYxP4CAZfTCnEoq7uYRM/zhhLM/ocmPMkvwZchP7g=
-=T5zQ
------END PGP SIGNATURE-----
-
---cba7btxxm4dnjqoy--
+Konrad
