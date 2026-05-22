@@ -1,191 +1,176 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC7B3546EF
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 09:41:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4152A3A8FE8;
+	Fri, 22 May 2026 09:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779442907; cv=none; b=ERJcimSp1AiDaYbkUZHW7OtK3x0LCXfa2pJs847DSP2aT4Cq1rdkt5Q4bYiX6vuleDKSkidxh0ZFzRMam0AamqlRbuk8bsa4fK1OQYVfF94csWeFHlsv9mFICLIYqgDoSYQUqbCtXsYpxjkIy3g+Ob9GkuUGt1wrLNvXRJkJdt8=
+	t=1779443136; cv=none; b=Lim1RoG1I8/VugIVHnEZ6tGOgatuYNIJt3+7pEelGCF7srTyt/D9UPLHjl+LHXW1UUSzOGlbeOG23bc0FnBBUirQKv/RoDLbjJXBKqjPvLuDxF7p+DLwc6pB6B5+iRQfMJ4oDC/+uo8NyqEuWV0RwBXDl5bxShyOB9lkUH7O2Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779442907; c=relaxed/simple;
-	bh=N1DpwsN8XjPhZiy/REfYe3Txz5NfZfhGG9xVmdZ8NQE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iVKhinGHFXE6ZWbdKnn2RjYvUNJp254xR2/8lhIvblwGBrdob26ZRWtgMyiswPTJBJe4U+lQeHzC6qkGf0443+buoBtxIyc6yiVony0lLGwQwyP2MZwR04k72/afohMxKU1juY7DGFFcq8CHK0wGzez1aYOooaoTmlMEoQhS8Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fqNOn+Cm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YTNRoDb+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779443136; c=relaxed/simple;
+	bh=kaT0PBKgHWCZbZx4l4jLgMJMftxDFP3tmb30jUPIxPk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Kzt/h/SmkgbGxBxtozuUwI2FHuwJAP5OW1QrG8uAonxuG7dJlhFOzK9Ixel5AD/tYn9iurd0gpSqKpp29fHFCzDw+V0b5HprDqv1TUH86wE4czuLX32FI68PEKdHt3mZ0QYxEURD6bIb0bVTuZDv0vDYXK9CzJRf/VeUtffMaw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3hA0WfK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fqNOn+Cm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YTNRoDb+"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M8Zh2B3533229
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 09:41:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hDDtStgxWdmz+zI9FXNsfPajHB/12rCB2dYam0qgxvg=; b=fqNOn+CmNoDa+x2M
-	I53BbEVkXSowPjPeKLza+XS1rrR7A8Y0xop0aACjwzh3hWAd0qsh2YwRhlygKkuA
-	E8qSFKxtOSCtNsKyvVRPC9CUmf2HCDlGMbEAYXAiOD6EUDznPUPP1M/LAksPoc5q
-	tXbq1D5xEnXBmaiyTB5erNc5QBqx7oF7ilbL7CxOcg++qNpVTnrGYJl3AZh7QnOp
-	JPPU2v75WJOzAIWF8ljFhKeEyMnS+sunR55hPxpMxGdjoaE9Be9lJhngRbhmXR8/
-	o7D4w5PSxZemSL3iKQyLP18Mi1ev1CSHtJhUCNQJ1p49N1JURuSKCtJoOO1iEcft
-	ubtEHA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea39gvegy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 09:41:45 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50f1b94ac9dso27243441cf.1
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 02:41:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779442904; x=1780047704; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hDDtStgxWdmz+zI9FXNsfPajHB/12rCB2dYam0qgxvg=;
-        b=YTNRoDb+ayQ91hwSKtXp9wKUAFXSAbHUY6iV+G9bemKJOo3LHqlduqGdakDWJ+BXKv
-         MbhoYhZHHgUJaGFFYYrOFZ1c/TK9BHcYPp7j5Sv2QSh70t35nu3UP3CwX74SvEB5/ANT
-         ITTzCPcYw9BxaQ1Vulakvv77dasmsmLTS2ugYM9SsAwh+RWzDb8Nij7nj37C5UEdPTDS
-         F2taI/d4OrdNiiiIK2ZuNXmw1yawUtrdedhpdMxOUSs0AtaYOw5lUdQiffw+m5rdf/Cm
-         RHbNj/kZ1wSVLap3XTqzP6iUOsylGQQiNRgQCPFMCZVG1WS+DcNdSa1eTZn72StpSx4k
-         MkCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779442904; x=1780047704;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hDDtStgxWdmz+zI9FXNsfPajHB/12rCB2dYam0qgxvg=;
-        b=fTHpmNsX7yhn1sZL8fqCm1PiWIlj1zxkc+ZnGoaROQ0cV9WClNuVZGWj/gBiodoUI5
-         C6x2SMAWyiDgqpui9H5JXBYImyVS1o21eWDg6hOTJcO50XRClvSD4g7cDSvlW2rJ+MAf
-         nXB78iHpe/DQLm26+vsht9VWgT6Pz5f41ScAqmIki5Epgw0ik2HceZW+letqIv/ucQPM
-         eezAtJoEIKKthreuyocEljSl0m0zQjobeNzUIc45cD+HH+9ZwqiXhf0uuIELEv8LRJSz
-         9BTW0qNIKhvm/kMUyZuH1U9tiGVFTM5yKeca3sJtCdp3riUFHEGhxGKXDQz5PZrX8R2B
-         kQXw==
-X-Forwarded-Encrypted: i=1; AFNElJ8JgC8I8laUygafKcPOxXE9/Dm/Frh/OQtHbWhaCdAaMkJ3xxbZy1QiXxxKEd6ftacySSueIz1aZkAR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxIo+6hA2t1FyNSivp014P1oDubZ1cz+TgUL4z59QfP2oS/mNF
-	8UCyRC8P+7bGVYEDN86Cy5zHdgH4tm+ChpuRhynw05LybAmIXX0q0Jxq+EKuHLZ99PH3SdAcMXQ
-	etPfKWgDZPUpJYb3ute3NiK+6O6ZGmyNxG2LI0MA7sbJIzFkQHuvbvIIkla8WmyAf
-X-Gm-Gg: Acq92OEDPNrsdsnLIpvZ7KBy5X4paerbaDC3x0cGO7+5k7UQClFwHWq9VUGV4uPHV3F
-	+NsCBYaAgPUfzwWJv159nIbIYo9aexcEMFJj45kNrSyiLOYIc+FoYUIv3HN23L6ruDrRaWfVJbC
-	eap8jWMP3kgkj8BpFYLFjDwRlvmZF8CmExwn+SufE4nCj2uI+oP7nmzjpIGIC8rcg3ohPbp5UUt
-	SdYISStRqN8UOHwQ5iuML4EuKTPNtrclAsP5wuLCPzSSjc1Z6kRCKkN+zLv0/nHQuaYRQNeJd7X
-	i5w3mpld5QJQvg03JOXC3IFg53iVOK5ID30Ayf8HJiz0Zm9OgyQhXx1Y3DsmAn01ZWvmGm/K1LG
-	qDRyoa5sXn5Oo6Ca4YI/WC1mOn6OaooLZxCFcB/9Grtnjug==
-X-Received: by 2002:a05:622a:a6cd:b0:50f:a53b:9cf with SMTP id d75a77b69052e-516d429c741mr22271141cf.1.1779442904104;
-        Fri, 22 May 2026 02:41:44 -0700 (PDT)
-X-Received: by 2002:a05:622a:a6cd:b0:50f:a53b:9cf with SMTP id d75a77b69052e-516d429c741mr22270971cf.1.1779442903741;
-        Fri, 22 May 2026 02:41:43 -0700 (PDT)
-Received: from [192.168.119.254] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-688baf1e20asm456782a12.15.2026.05.22.02.41.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 02:41:42 -0700 (PDT)
-Message-ID: <9a999b51-8131-4032-82c3-72d7eccbd222@oss.qualcomm.com>
-Date: Fri, 22 May 2026 11:41:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3hA0WfK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50041F000E9;
+	Fri, 22 May 2026 09:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779443135;
+	bh=2cyYZA05dDFX7H2bDFWfvPduCqi6KVG7lvIfaHuiwPY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G3hA0WfK/bOLC7IOFZ8lEXoevujS5d6+syE8u+L/RitFl+qsXyCdjTnsdApTo3Q6f
+	 nIty0yqRForSVPfw8iw7azl9gZLFG0xXZSiMCVeLhhaCbMO5FhoIKuo9O4bQ9dNog4
+	 tOciEv8UC5UaVQN+Q9ESxPEeQv94iHSZEPZjr0HmuHnyt5hF38sJuES8Svck8sOi24
+	 5g4AM2spMPQTORcxU2H6+DMiEMBz2uioUpxtIiGtn7XtFfv3idj4SWdC3mQ/GqWtQ3
+	 wb2YqBEtPIibFHCIqyQ2b0KBG0pPT25IGKEv/bfqskhZ3TSaWHWNqOzrpi/0v/5hRd
+	 cIaRqxuZXCycg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/4] hwmon: (pmbus/tps25990): Add TPS1689 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stoyan Bogdanov" <sbogdanov@baylibre.com>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260522082349.2749970-5-sbogdanov@baylibre.com>
+References: <20260522082349.2749970-5-sbogdanov@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 May 2026 09:45:34 +0000
+Message-Id: <20260522094534.C50041F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 0/7] Add support for Adreno 810 GPU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Alexander Koskovich <akoskovich@pm.me>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Luca Weiss
- <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
- <3dc009dc-8f36-4735-b849-d952fb626cf4@oss.qualcomm.com>
- <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
- <01b424f6-6617-442a-a77f-9b7a8472c447@oss.qualcomm.com>
- <191d66ef-7d36-41e0-b29f-1ddd47812b75@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <191d66ef-7d36-41e0-b29f-1ddd47812b75@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Yr8/gYYX c=1 sm=1 tr=0 ts=6a1024d9 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6H0WHjuAAAAA:8 a=umUCZPTDblNGZq28zJcA:9
- a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-ORIG-GUID: k_IALBlKqrROjkoiFNCjH_mKIQhP2cA8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDA5NiBTYWx0ZWRfX3eM/7NyJDcWV
- a+goz8Q0UO9Xmr+e82IDikKg5V0qE3W0ap+S9jc/eUUYh+ymaNoJdtjtqhQygKqG18iycojBJeE
- QaHCHBEiPo1rjxyJOHCP2pYR0X6hwL/nWiMLwJNIIYyAL9a+ecGTb4Skc537Tu5svcntjIKLXbC
- 0duIfDg1+YDDreDypieGlD/982JmOA/vm4Z5+v0VUkqDpWFR9zhnF+7qfQSCavuZidUU8Ql4AiS
- BWxD3fy/C89fDkVtITzqwkPy2J3HrzMWSvzwWB9bUbit4VfexwlIxAwJ0+CgbFX0Ha0dwqY/MJ/
- RyUDUJ0L8YWzZxxCoKTMGak2qpc9oY3Ckpkuqhd73zzwJRkzj3gO9VA/snL36L95TUODu25O54p
- 9MykzsC4joXriWYJSXQdtzYjNuS6BvpEIgKNyoX6/E50c1Z3E2n+p/NlxyM8zXo7Ra/HSpqxI5Z
- Sn/K+2tE5aBfwlUV7AQ==
-X-Proofpoint-GUID: k_IALBlKqrROjkoiFNCjH_mKIQhP2cA8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605220096
 
-On 5/22/26 11:39 AM, Konrad Dybcio wrote:
-> On 5/20/26 9:38 PM, Akhil P Oommen wrote:
->> On 5/17/2026 11:54 PM, Dmitry Baryshkov wrote:
->>> On Sat, May 16, 2026 at 03:52:08AM +0530, Akhil P Oommen wrote:
->>>> On 5/15/2026 10:38 AM, Alexander Koskovich wrote:
->>>>> Adreno 810 is present in the Milos SoC and is the first GPU to be released in
->>>>> the A8x family.
->>>>>
->>>>> This series is marked as RFC because it depends on a few other in review
->>>>> series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2], and devicetree
->>>>> support for Glymur [3] (for a8xx RSCC offset fix and X2-185 bindings change).
->>>>>
->>>>> Also depends on the GXCLKCTL block for Milos [4], but this is no longer in
->>>>> review and has been applied.
->>>>>
->>>>> [1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com
->>>>> [2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017cc642db@pm.me
->>>>> [3]: https://lore.kernel.org/linux-arm-msm/20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com
->>>>> [4]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com
->>>>>
->>>>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
->>>>
->>>> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>>
->>>> For the rest of the patches that doesn't have my R-b tag in this series.
->>>
->>> Unfortunately patchwork doesn't capture tags from the responses to the
->>> cover letter. I'd kindly ask to spam the list with individual r-b's.
->>>
->>>
->>
->> There will be another rev to remove the RFC tag which will hopefully
->> have my R-b tag. ;)
-> 
-> Do we have a resolution on whether the proposed fuse values
-> are OK for this platform?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Ref:
+New issues:
+- [Medium] The output current (`PSC_CURRENT_OUT`) parameters for TPS1689 ar=
+e configured, but the feature is rendered inactive due to a missing capabil=
+ity flag, and its mantissa is not dynamically scaled by the sense resistor.
 
-https://lore.kernel.org/all/oka0Q911ixJLZzAbfWBx54dOmxbQAre36QqHUX4iDZoH3TE5jD-IqTAHspti6B8kfpLQ-OTnuWjFdXtsqJM-CUC8G9R3x_9vFI--LnpppiA=@pm.me/
+Pre-existing issues:
+- [Critical] The driver incorrectly uses `i2c_get_clientdata()` to retrieve=
+ the `pmbus_driver_info` pointer in `tps25990_reg2data_direct` and `tps2599=
+0_data2reg_direct`, resulting in a type confusion and out-of-bounds read.
+- [High] The mantissa for the local `TPS25990_IIN_OCF` parameter is not dyn=
+amically scaled by the `rimon` resistor value, leading to incorrect over-cu=
+rrent fault limits.
+--
 
-Konrad
+commit 7807fad0cb3cb2d485b85493ccab6a9ca7c6bdde
+Author: Stoyan Bogdanov <sbogdanov@baylibre.com>
+
+hwmon: (pmbus/tps25990): Add TPS1689 support
+   =20
+Extend the existing TPS25990 driver to support the TPS1689 eFuse,
+as both devices share the same command interface and functionality.
+
+> diff --git a/drivers/hwmon/pmbus/tps25990.c b/drivers/hwmon/pmbus/tps2599=
+0.c
+> index 1e252844217b8..720e134f18925 100644
+> --- a/drivers/hwmon/pmbus/tps25990.c
+> +++ b/drivers/hwmon/pmbus/tps25990.c
+[ ... ]
+> @@ -286,7 +287,6 @@ static int tps25990_write_word_data(struct i2c_client=
+ *client,
+>  		value =3D clamp_val(value, 0, 0xff);
+>  		ret =3D pmbus_write_word_data(client, page, reg, value);
+>  		break;
+> -
+>  	case PMBUS_VIN_OV_FAULT_LIMIT:
+>  		value =3D tps25990_data2reg_direct(client, TPS25990_VIN_OVF, value);
+
+[Severity: Critical]
+This is a pre-existing issue, but does tps25990_data2reg_direct() retrieve
+the correct pointer type here?
+
+Looking at tps25990_data2reg_direct(), it uses i2c_get_clientdata() to
+get struct pmbus_driver_info *:
+
+static u16 tps25990_data2reg_direct(struct i2c_client *client, int param, s=
+64 val)
+{
+	struct pmbus_driver_info *info =3D i2c_get_clientdata(client);
+	struct tps25990_data *data =3D container_of(info, struct tps25990_data, in=
+fo);
+
+Since pmbus_do_probe() sets the client data to its internal
+struct pmbus_data *, wouldn't this cast read past the end of
+struct pmbus_data into arbitrary heap memory when accessing data->info_loca=
+l?
+
+Should this use pmbus_get_driver_info(client) to retrieve the correct
+pointer instead?
+
+>  		value =3D clamp_val(value, 0, 0xf);
+>  		ret =3D pmbus_write_word_data(client, page, reg, value);
+[ ... ]
+> @@ -376,6 +376,14 @@ static const struct regulator_desc tps25990_reg_desc=
+[] =3D {
+>  #endif
+> =20
+>  static struct tps25990_local_direct_value tps25990_local_info[] =3D {
+> +	[tps1689] =3D {
+> +		.m[TPS25990_VIN_OVF] =3D 3984,
+> +		.b[TPS25990_VIN_OVF] =3D -63750,
+> +		.R[TPS25990_VIN_OVF] =3D -3,
+> +		.m[TPS25990_IIN_OCF] =3D 7111,
+
+[Severity: High]
+This is a pre-existing issue, but is the mantissa for TPS25990_IIN_OCF
+scaled correctly for custom sense resistors?
+
+Because PMBUS_IIN_OC_FAULT_LIMIT corresponds to a physical current passing
+through the sense resistor, shouldn't the mantissa be dynamically scaled by
+the hardware rimon resistor value in tps25990_probe(), similar to
+PSC_CURRENT_IN?
+
+Without scaling, will writing to PMBUS_IIN_OC_FAULT_LIMIT configure the
+over-current protection based on the unscaled default resistor value?
+
+> +		.b[TPS25990_IIN_OCF] =3D -2133,
+> +		.R[TPS25990_IIN_OCF] =3D -2,
+> +	},
+>  	[tps25990] =3D {
+[ ... ]
+> @@ -387,6 +395,59 @@ static struct pmbus_driver_info tps25990_base_info[]=
+ =3D {
+> +	[tps1689] =3D {
+> +		.pages =3D 1,
+[ ... ]
+> +		.format[PSC_CURRENT_OUT] =3D direct,
+> +		.m[PSC_CURRENT_OUT] =3D 24347,
+> +		.b[PSC_CURRENT_OUT] =3D 0,
+> +		.R[PSC_CURRENT_OUT] =3D -3,
+> +		.format[PSC_POWER] =3D direct,
+> +		.m[PSC_POWER] =3D 2775,
+> +		.b[PSC_POWER] =3D 0,
+> +		.R[PSC_POWER] =3D -4,
+> +		.func[0] =3D (PMBUS_HAVE_VIN |
+> +			    PMBUS_HAVE_VOUT |
+> +			    PMBUS_HAVE_VMON |
+> +			    PMBUS_HAVE_IIN |
+> +			    PMBUS_HAVE_PIN |
+> +			    PMBUS_HAVE_TEMP |
+> +			    PMBUS_HAVE_STATUS_VOUT |
+> +			    PMBUS_HAVE_STATUS_IOUT |
+> +			    PMBUS_HAVE_STATUS_INPUT |
+> +			    PMBUS_HAVE_STATUS_TEMP |
+> +			    PMBUS_HAVE_SAMPLES),
+
+[Severity: Medium]
+Are we missing the PMBUS_HAVE_IOUT capability flag here?
+
+The format parameters for PSC_CURRENT_OUT are configured above, but
+without the capability flag, isn't the feature inaccessible?
+
+Additionally, does tps25990_probe() need to be updated to dynamically scale
+the PSC_CURRENT_OUT mantissa with the rimon sense resistor, just like it
+does for PSC_CURRENT_IN and PSC_POWER?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522082349.2749=
+970-1-sbogdanov@baylibre.com?part=3D4
