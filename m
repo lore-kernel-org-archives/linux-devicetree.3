@@ -1,64 +1,64 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866C53A75B2
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45353A8736
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779438254; cv=none; b=CINhR2YAeow8TUIWCLtU1dfURowlXUg7eVPq+Y3gb/g/KYVK/RAVsTVnH3ntRYcrNgLgZHT2KezzidIC+ujzCYcPxf5HSWFwiV/yYZae0NI+5YvkdZajBN+d194ihlxhXWEt+tmN5q2od0ucdU4R/35hyfgfHyMcpg+/iF6H5+Y=
+	t=1779438257; cv=none; b=cgJyALweUIw/vcg2SkVyHt9lJU4lO4r8MlYzauzd+t/4B6UNbJnYWqO18xQJLCtwyQrIG9C3OoUbffVbKXlKVDSrSv6JPJgFnDHJfYmXgd2dE2rcOYGqten5sYKX3DOC2TBll856XL9ua7YzjeQIq1q4DoB8p9SS457MXk5jqGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779438254; c=relaxed/simple;
-	bh=hAFWwmeUdoIRPeHMu1R589WDqPZK2EVU2mJ5y87RrMc=;
+	s=arc-20240116; t=1779438257; c=relaxed/simple;
+	bh=F6h6fV01hp9PJV8gFlqtWxLuKwFUN4erj6TBZARNopo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BjdqDref5NPJiQ0oNTB0fsaiNqqcOYeeXcYYRCMzEs4sm0Opc2NyFzjOMzBo7ts0Yu1wrFyBZK+Qk6cQLAagqM0TONjdQHqFxODW76cJfWvhxgFERfXXkmF+ZFb/WBlQoLSWjp0FeboFZ8Lxb3LZkzz4G3+WIrpy09xm/uSB2ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HPkbXxLq; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=sL3sqeg2zrrSr+yt3JKLDLjB/qH9/9T3FloM9THIOEpKjj4mbI/Rvpdsl7nqNUOAWwThOcsk6PS/OVPc/NoDR3C1iSarya8ujxZ1cFRod8pyuWWoc3ubYgFfnAj63DuhNXJDrruxfCyZb/BHUjdVydxu7f/drd0qzcRtYxbs99Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AcbTH99/; arc=none smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HPkbXxLq"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4903997fcb5so15705215e9.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 01:24:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AcbTH99/"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-b936331786dso903453466b.3
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 01:24:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1779438251; x=1780043051; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1779438253; x=1780043053; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QkJvqH4tZQVXdYwb9TspsEPOaEailU+8tDMuNLsX0P4=;
-        b=HPkbXxLq4LmOVT1sk7PX/ZTaIxNdi3yUj/AuSWO0lgJA62lNikVGRz8tqlnP1WFvxZ
-         k0/ACAZWFxyIDYfjzaGPD3GjFS7bwTIfKyjZMpcLXLcr8sNFHiwU0+92SGw3Qr60AVVS
-         v8gl2rxtTkOzs2lBe4tLQI5xdL/qSg2JW/vZPaPItH1woyzsEGj/UgE+KZzczQgWqhbO
-         pdQTCnh/1mP79NN9PYsdc9jAVdDSGWpq4tTBwCrkRYRNcucUULAWlu1yj+RJ/KHuyrW/
-         NQFxkf8+O7VMiisCTDcK+piTgVvwgaq0FrJBCHovN8dbZGxIf2yBxpsqyTGPbWJN068e
-         0Omg==
+        bh=4Pc7v6T04K7etDmA+oCn6BtDAzikOAUdVkaaMS5hlOw=;
+        b=AcbTH99/6iHgE/7yxgvQ3HDm+AbCOYLO28ysFxgAYY1s0L1+RSGMklYI4hBxsH2Kkt
+         P7k0DUgTRjC2/fJcm4I98nPmhR34GpqXQhT5uzE1fHvwINDAxTQOgvmrsIJnusBlmyzh
+         aYluIAhUCUBiYm0j2Qe9LgPb+nq0T2qeqeHv9bOi2S10IvXPN/8fk0T5Pn6bb+cP7z2U
+         5eEvjl6LTSgUDWhmZ2msFaMjHUWMkiq7yOLqc03HTqJmEKm6arF84Ace0JMNpaZ0hpPT
+         rlbtoJkrAfkTyJlK4xSp5sIfb49SpReAmPe9JKsUcryWOl5IdeA690Q8lFNz4q0UUXMB
+         xbOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779438251; x=1780043051;
+        d=1e100.net; s=20251104; t=1779438253; x=1780043053;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=QkJvqH4tZQVXdYwb9TspsEPOaEailU+8tDMuNLsX0P4=;
-        b=VEOvEh+rJdbMjNVKGurArbnsaL9VYpUCiaq7BTb913IQSfdqS0lk3AqrT0aoBqL/en
-         G4+xY8OidIP03TobenYFKyYJxXSAV1VVCIdVv6CMZk/U+v+ziFgugo1GJkkNHkcM9+9k
-         WO5obYc7g2pDkEnbz4V9I/lXfuStcRlb91sYeSXYKtRC3P3/aSQJlXxSOlpEBPlZtJxO
-         YWhJ8zu8jTBknh5mKayfrcHwV0jgdKVbiWP4iQeHPflo/QktCmwyclF+QZRxzsp1MpeH
-         yncm8zITMTTmgWMlDWW7redogSzUhstBtcHGGc9J2E0/cJeBHpCqlBL3GYs7FloxpOac
-         zzOw==
-X-Forwarded-Encrypted: i=1; AFNElJ+PgKqt4gPg8UYw+/QQh1S2+e0NLXZoj9bXSsPDbf0ib7ChVAx2rtA9YXAqhCwPwZusEo1LYgLWGmDe@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlHdU+zkD6ubU513DX7rdKxxehAY/2Lex9v4PU7d2IcwvuBrCM
-	esD6jrnRYSAmvF+/P+mxlANXA8dCN6Un6mJ4UrufnOIh/zdO6W/XaXniqgY1ouQKJ/k=
-X-Gm-Gg: Acq92OGEuH4AP+mCCJjYAHk0D8osCAdzeFggN3mX0t7aqpcoihOFV8sOESKV/ZC3fRc
-	nnfozQUOBIJKYfvHNwJRNl+nVrkIrxuS8/KG3+sqAYW9x5J0G+SYaMt8laACtoDAJFXPPA2VeJ8
-	adGqtkh2hS2tse+S1SFxeU+SoBLjHKEMZQhw8VstRWkRXgNCxUg2Ciy4OCbDKRdA4lH8maDI20a
-	IXNGK2h/J+K6wClIbKI74nnU3wuAF94NmgTV531wTb5AvMpdixCykE8je89Cu7zuwhl1vv4u8qV
-	Nj/8VjTzm1rK4cRMerFI/i6iygKW1+iK97uT5g2O5Yh1BL0O3NpIWtAMsGB/6/krSS1ArNaIUy9
-	aiR2DqlnQTXchC9q0ErfNIPvbGVtTwonj5AYM0O1b8eD2XFUN3vbHYVtmBIEKSTizNYF1ZfNzMY
-	DBLg4H7XzGrBChgo+gSy74dYSvvKCvztViTUj9OohNauwyYjQk866M4JvWQn4f0Qq0DFysZqBim
-	WjoqggxrPQ=
-X-Received: by 2002:a05:600c:5488:b0:490:47e0:e13f with SMTP id 5b1f17b1804b1-49047e0e21bmr9122025e9.3.1779438250911;
-        Fri, 22 May 2026 01:24:10 -0700 (PDT)
+        bh=4Pc7v6T04K7etDmA+oCn6BtDAzikOAUdVkaaMS5hlOw=;
+        b=HBqPQs8h+ovuqUhczKtXXBNwmXFxRYlbwR2nbY7+xI258CVQCRPf3QpiNYPIcrDKvr
+         2fGwboevgnlmS2TVTpobC0lxczFlKSBHF1Qa65BO7P8ZBNL4BZDqoRIYMo/DvJ3kOGE5
+         BFLlVvUdJPOivB/nNslpFBSFDRMa77EuuH80SuUpqdt7B9LHIzW8EmCIHdUM1BgrgeOz
+         ML2/z2ueCAjHtk2UxpLT+dQQs7tSyZxHKlXNNy+9kMhdckXg4tfzqAZT17aNfXt35ZCD
+         DnXVU8cPDUPsUnpuV4v36YR30vvJhIVA47Xtki1zkO28N0x/box0lwjT7AxtOFv+FZM3
+         wWVA==
+X-Forwarded-Encrypted: i=1; AFNElJ9bLe7zJe/HRZzZdL/ok5dR0+8I2vnxSMJM4/Bcf7Cmk1QIY3KMQWsL9fFgZBBTfJsIDbrPKM0cIs0E@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxVgcLzAu8YTXPccwtw5OCCAdJhsIw7sWbhgH8EFKczG4ukMmF
+	rc+EYhgOxHycubrKRMJ48Pex25rwlG82nDuFQAA5A5eKjIgHicGusoDSbqujpZVdVJE=
+X-Gm-Gg: Acq92OGJZTHHlxQ57yRyyzFtsfHoJgG9XEz6jlBQLbWl39l4U6rDdQGpQRXlrxi6kvG
+	gTeiaN0ZBD3v5cUfVmps0S7AzXekOMn/ocwpc4KPM+xTasJkIls8sIko3/5SCdFRdkAKZZBQQDC
+	CYxe+DdXfvjXxnthZTXtP1+Rw1aCQ+1LgPmZARC6dho9RJnPkwENLRnrwxtRvBnE3InACGnRwNo
+	WPP3sMKX7wnu1wUdK7JMod99qEY7sem9uzsUSOohLJvtLK+iHNQqXAcqERsaPo2qL2dh4mJCTtK
+	0scTY40I8/ATbzZwwBeTCOn99zXlF8PLxTiusk7MasMoEpgTdzjVBhVY/wV/C+SoEbXUV145TCC
+	DCNFaFweDkHgnPZoVmB017hzdMJlQ2ErkclGCpxcNuxuy07stifhVROps5ZCIHgDT8aW8U0PNq0
+	IQg9apQQF2lmLzP44EsD6ZDboGWROVYf4FwYaEJdM9+jbj3Gxq5ZtJ/1iEkI4u1MbFkWOamZTFj
+	WRx+qqPK0Y=
+X-Received: by 2002:a17:907:60cb:b0:bda:e47:70c6 with SMTP id a640c23a62f3a-bdd22944feamr174206766b.1.1779438252846;
+        Fri, 22 May 2026 01:24:12 -0700 (PDT)
 Received: from silence.. ([46.10.240.40])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6c9f58dsm2398471f8f.5.2026.05.22.01.24.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6c9f58dsm2398471f8f.5.2026.05.22.01.24.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 01:24:10 -0700 (PDT)
+        Fri, 22 May 2026 01:24:12 -0700 (PDT)
 From: Stoyan Bogdanov <sbogdanov@baylibre.com>
 To: jbrunet@baylibre.com,
 	linux@roeck-us.net,
@@ -72,9 +72,9 @@ Cc: linux-hwmon@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Stoyan Bogdanov <sbogdanov@baylibre.com>
-Subject: [PATCH v4 1/4] hwmon: (pmbus) Add and export direct conversion calculation helpers
-Date: Fri, 22 May 2026 11:23:36 +0300
-Message-ID: <20260522082349.2749970-2-sbogdanov@baylibre.com>
+Subject: [PATCH v4 2/4] hwmon: (pmbus/tps25990): Rework TPS25990 direct conversion handling
+Date: Fri, 22 May 2026 11:23:37 +0300
+Message-ID: <20260522082349.2749970-3-sbogdanov@baylibre.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260522082349.2749970-1-sbogdanov@baylibre.com>
 References: <20260522082349.2749970-1-sbogdanov@baylibre.com>
@@ -86,136 +86,303 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TPS25990 and upcoming TPS1689 need common computation APIs but
-the current implementation is static to TPS25990. As a preparation for
-TPS1689 support, split the math-only parts of pmbus_reg2data_direct() and
-pmbus_data2reg_direct() into separate helper functions:
+Rework the existing implementation of direct format conversion for
+TPS25990 non-standard parameters to improve code reusability and
+integration with the PMBus direct conversion helpers.
 
-- pmbus_reg2data_direct_calc()
-- pmbus_data2reg_direct_calc()
+Changes include:
+ - Add an enum describing the supported parameters
+ - Add structure to hold m, b, R per-device coefficients
+ - Add data structures for pmbus_driver_info and local direct values
+ - Use the generic PMBus conversion helpers:
+     pmbus_reg2data_direct_calc()
+     pmbus_data2reg_direct_calc()
+ - Replace previously used defines with structured data
 
-export them so the upcoming TPS1689 can use the same APIs.
-
-This has no behavioral change on TPS25990 while allowing TPS1689
-to use the same.
+This reduces duplicated conversion logic and makes handling of
+non-standard parameters more maintainable.
 
 Signed-off-by: Stoyan Bogdanov <sbogdanov@baylibre.com>
 ---
- drivers/hwmon/pmbus/pmbus.h      |  2 ++
- drivers/hwmon/pmbus/pmbus_core.c | 59 +++++++++++++++++++-------------
- 2 files changed, 38 insertions(+), 23 deletions(-)
+ drivers/hwmon/pmbus/tps25990.c | 197 +++++++++++++++++++++------------
+ 1 file changed, 127 insertions(+), 70 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
-index 23e3eda58870..dd4fe7d9821d 100644
---- a/drivers/hwmon/pmbus/pmbus.h
-+++ b/drivers/hwmon/pmbus/pmbus.h
-@@ -578,5 +578,7 @@ DEFINE_GUARD(pmbus_lock, struct i2c_client *, pmbus_lock(_T), pmbus_unlock(_T))
- int pmbus_update_fan(struct i2c_client *client, int page, int id,
- 		     u8 config, u8 mask, u16 command);
- struct dentry *pmbus_get_debugfs_dir(struct i2c_client *client);
-+s64 pmbus_reg2data_direct_calc(s64 val, s64 b, s32 m, s32 R);
-+u16 pmbus_data2reg_direct_calc(s64 val, s64 b, s32 m, s32 R);
+diff --git a/drivers/hwmon/pmbus/tps25990.c b/drivers/hwmon/pmbus/tps25990.c
+index 05c6288ecafc..1e252844217b 100644
+--- a/drivers/hwmon/pmbus/tps25990.c
++++ b/drivers/hwmon/pmbus/tps25990.c
+@@ -36,17 +36,63 @@
+ #define  TPS25990_UNLOCKED		BIT(7)
  
- #endif /* PMBUS_H */
-diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-index e8fdd799c71c..2eaac337eeab 100644
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -817,6 +817,22 @@ static s64 pmbus_reg2data_linear(struct pmbus_data *data,
- 	return val;
- }
+ #define TPS25990_8B_SHIFT		2
+-#define TPS25990_VIN_OVF_NUM		525100
+-#define TPS25990_VIN_OVF_DIV		10163
+-#define TPS25990_VIN_OVF_OFF		155
+-#define TPS25990_IIN_OCF_NUM		953800
+-#define TPS25990_IIN_OCF_DIV		129278
+-#define TPS25990_IIN_OCF_OFF		157
  
-+s64 pmbus_reg2data_direct_calc(s64 val, s64 b, s32 m, s32 R)
+ #define PK_MIN_AVG_RST_MASK		(PK_MIN_AVG_RST_PEAK | \
+ 					 PK_MIN_AVG_RST_AVG  | \
+ 					 PK_MIN_AVG_RST_MIN)
+ 
++enum chips {
++	tps25990,
++};
++
++enum tps25990_parameters {
++	TPS25990_VIN_OVF = 0, /* VIN over volatage fault */
++	TPS25990_IIN_OCF, /* IIN Over currect fault */
++	TPS25990_DIRECT_VALUES_COUNT,
++};
++
++struct tps25990_local_direct_value {
++	int m[TPS25990_DIRECT_VALUES_COUNT]; /* mantissa */
++	int b[TPS25990_DIRECT_VALUES_COUNT]; /* offset */
++	int R[TPS25990_DIRECT_VALUES_COUNT]; /* exponent */
++};
++
++struct tps25990_data {
++	struct pmbus_driver_info info;
++	struct tps25990_local_direct_value info_local;
++};
++
++static s64 tps25990_reg2data_direct(struct i2c_client *client, int param, s32 raw)
 +{
-+	while (R > 0) {
-+		val *= 10;
-+		R--;
-+	}
-+	while (R < 0) {
-+		val = div_s64(val + 5LL, 10L);  /* round closest */
-+		R++;
-+	}
++	struct pmbus_driver_info *info = i2c_get_clientdata(client);
++	struct tps25990_data *data = container_of(info, struct tps25990_data, info);
++	struct tps25990_local_direct_value *info_local = &data->info_local;
++	s64 b, val;
++	s32 m, R;
 +
-+	val = div_s64(val - b, m);
-+	return val;
++	val = (s16)raw;
++	m = info_local->m[param];
++	b = info_local->b[param];
++	R = info_local->R[param];
++
++	return pmbus_reg2data_direct_calc(val, b, m, R);
 +}
-+EXPORT_SYMBOL_NS_GPL(pmbus_reg2data_direct_calc, "PMBUS");
 +
- /*
-  * Convert direct sensor values to milli- or micro-units
-  * depending on sensor type.
-@@ -824,7 +840,7 @@ static s64 pmbus_reg2data_linear(struct pmbus_data *data,
- static s64 pmbus_reg2data_direct(struct pmbus_data *data,
- 				 struct pmbus_sensor *sensor)
- {
--	s64 b, val = (s16)sensor->data;
++static u16 tps25990_data2reg_direct(struct i2c_client *client, int param, s64 val)
++{
++	struct pmbus_driver_info *info = i2c_get_clientdata(client);
++	struct tps25990_data *data = container_of(info, struct tps25990_data, info);
++	struct tps25990_local_direct_value *info_local = &data->info_local;
++	s32 m, R;
 +	s64 b;
- 	s32 m, R;
- 
- 	m = data->info->m[sensor->class];
-@@ -848,17 +864,7 @@ static s64 pmbus_reg2data_direct(struct pmbus_data *data,
- 		b *= 1000;
- 	}
- 
--	while (R > 0) {
--		val *= 10;
--		R--;
--	}
--	while (R < 0) {
--		val = div_s64(val + 5LL, 10L);  /* round closest */
--		R++;
--	}
--
--	val = div_s64(val - b, m);
--	return val;
-+	return pmbus_reg2data_direct_calc((s16)sensor->data, b, m, R);
- }
- 
- /*
-@@ -1057,6 +1063,23 @@ static u16 pmbus_data2reg_linear(struct pmbus_data *data,
- 	return (mantissa & 0x7ff) | ((exponent << 11) & 0xf800);
- }
- 
-+u16 pmbus_data2reg_direct_calc(s64 val, s64 b, s32 m, s32 R)
-+{
-+	val = val * m + b;
 +
-+	while (R > 0) {
-+		val *= 10;
-+		R--;
-+	}
-+	while (R < 0) {
-+		val = div_s64(val + 5LL, 10L);  /* round closest */
-+		R++;
-+	}
++	m = info_local->m[param];
++	b = info_local->b[param];
++	R = info_local->R[param];
 +
-+	return (u16)clamp_val(val, S16_MIN, S16_MAX);
-+}
-+EXPORT_SYMBOL_NS_GPL(pmbus_data2reg_direct_calc, "PMBUS");
-+
- static u16 pmbus_data2reg_direct(struct pmbus_data *data,
- 				 struct pmbus_sensor *sensor, s64 val)
- {
-@@ -1078,18 +1101,8 @@ static u16 pmbus_data2reg_direct(struct pmbus_data *data,
- 		R -= 3;		/* Adjust R and b for data in milli-units */
- 		b *= 1000;
- 	}
--	val = val * m + b;
- 
--	while (R > 0) {
--		val *= 10;
--		R--;
--	}
--	while (R < 0) {
--		val = div_s64(val + 5LL, 10L);  /* round closest */
--		R++;
--	}
--
--	return (u16)clamp_val(val, S16_MIN, S16_MAX);
 +	return pmbus_data2reg_direct_calc(val, b, m, R);
++}
++
+ /*
+  * Arbitrary default Rimon value: 1kOhm
+  * This correspond to an overcurrent limit of 55A, close to the specified limit
+@@ -184,9 +230,7 @@ static int tps25990_read_word_data(struct i2c_client *client,
+ 		ret = pmbus_read_word_data(client, page, phase, reg);
+ 		if (ret < 0)
+ 			break;
+-		ret = DIV_ROUND_CLOSEST(ret * TPS25990_VIN_OVF_NUM,
+-					TPS25990_VIN_OVF_DIV);
+-		ret += TPS25990_VIN_OVF_OFF;
++		ret = tps25990_reg2data_direct(client, TPS25990_VIN_OVF, ret);
+ 		break;
+ 
+ 	case PMBUS_IIN_OC_FAULT_LIMIT:
+@@ -198,9 +242,7 @@ static int tps25990_read_word_data(struct i2c_client *client,
+ 		ret = pmbus_read_byte_data(client, page, TPS25990_VIREF);
+ 		if (ret < 0)
+ 			break;
+-		ret = DIV_ROUND_CLOSEST(ret * TPS25990_IIN_OCF_NUM,
+-					TPS25990_IIN_OCF_DIV);
+-		ret += TPS25990_IIN_OCF_OFF;
++		ret = tps25990_reg2data_direct(client, TPS25990_IIN_OCF, ret);
+ 		break;
+ 
+ 	case PMBUS_VIRT_SAMPLES:
+@@ -246,17 +288,13 @@ static int tps25990_write_word_data(struct i2c_client *client,
+ 		break;
+ 
+ 	case PMBUS_VIN_OV_FAULT_LIMIT:
+-		value -= TPS25990_VIN_OVF_OFF;
+-		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_VIN_OVF_DIV,
+-					  TPS25990_VIN_OVF_NUM);
++		value = tps25990_data2reg_direct(client, TPS25990_VIN_OVF, value);
+ 		value = clamp_val(value, 0, 0xf);
+ 		ret = pmbus_write_word_data(client, page, reg, value);
+ 		break;
+ 
+ 	case PMBUS_IIN_OC_FAULT_LIMIT:
+-		value -= TPS25990_IIN_OCF_OFF;
+-		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_IIN_OCF_DIV,
+-					  TPS25990_IIN_OCF_NUM);
++		value = tps25990_data2reg_direct(client, TPS25990_IIN_OCF, value);
+ 		value = clamp_val(value, 0, 0x3f);
+ 		ret = pmbus_write_byte_data(client, page, TPS25990_VIREF, value);
+ 		break;
+@@ -337,63 +375,76 @@ static const struct regulator_desc tps25990_reg_desc[] = {
+ };
+ #endif
+ 
+-static const struct pmbus_driver_info tps25990_base_info = {
+-	.pages = 1,
+-	.format[PSC_VOLTAGE_IN] = direct,
+-	.m[PSC_VOLTAGE_IN] = 5251,
+-	.b[PSC_VOLTAGE_IN] = 0,
+-	.R[PSC_VOLTAGE_IN] = -2,
+-	.format[PSC_VOLTAGE_OUT] = direct,
+-	.m[PSC_VOLTAGE_OUT] = 5251,
+-	.b[PSC_VOLTAGE_OUT] = 0,
+-	.R[PSC_VOLTAGE_OUT] = -2,
+-	.format[PSC_TEMPERATURE] = direct,
+-	.m[PSC_TEMPERATURE] = 140,
+-	.b[PSC_TEMPERATURE] = 32100,
+-	.R[PSC_TEMPERATURE] = -2,
+-	/*
+-	 * Current and Power measurement depends on the ohm value
+-	 * of Rimon. m is multiplied by 1000 below to have an integer
+-	 * and -3 is added to R to compensate.
+-	 */
+-	.format[PSC_CURRENT_IN] = direct,
+-	.m[PSC_CURRENT_IN] = 9538,
+-	.b[PSC_CURRENT_IN] = 0,
+-	.R[PSC_CURRENT_IN] = -6,
+-	.format[PSC_POWER] = direct,
+-	.m[PSC_POWER] = 4901,
+-	.b[PSC_POWER] = 0,
+-	.R[PSC_POWER] = -7,
+-	.func[0] = (PMBUS_HAVE_VIN |
+-		    PMBUS_HAVE_VOUT |
+-		    PMBUS_HAVE_VMON |
+-		    PMBUS_HAVE_IIN |
+-		    PMBUS_HAVE_PIN |
+-		    PMBUS_HAVE_TEMP |
+-		    PMBUS_HAVE_STATUS_VOUT |
+-		    PMBUS_HAVE_STATUS_IOUT |
+-		    PMBUS_HAVE_STATUS_INPUT |
+-		    PMBUS_HAVE_STATUS_TEMP |
+-		    PMBUS_HAVE_SAMPLES),
+-	.read_word_data = tps25990_read_word_data,
+-	.write_word_data = tps25990_write_word_data,
+-	.read_byte_data = tps25990_read_byte_data,
+-	.write_byte_data = tps25990_write_byte_data,
++static struct tps25990_local_direct_value tps25990_local_info[] = {
++	[tps25990] = {
++		.m[TPS25990_VIN_OVF] = 10163,
++		.b[TPS25990_VIN_OVF] = -30081,
++		.R[TPS25990_VIN_OVF] = -4,
++		.m[TPS25990_IIN_OCF] = 9538,
++		.b[TPS25990_IIN_OCF] = 0,
++		.R[TPS25990_IIN_OCF] = -6,
++	},
++};
++
++static struct pmbus_driver_info tps25990_base_info[] = {
++	[tps25990] = {
++		.pages = 1,
++		.format[PSC_VOLTAGE_IN] = direct,
++		.m[PSC_VOLTAGE_IN] = 5251,
++		.b[PSC_VOLTAGE_IN] = 0,
++		.R[PSC_VOLTAGE_IN] = -2,
++		.format[PSC_VOLTAGE_OUT] = direct,
++		.m[PSC_VOLTAGE_OUT] = 5251,
++		.b[PSC_VOLTAGE_OUT] = 0,
++		.R[PSC_VOLTAGE_OUT] = -2,
++		.format[PSC_TEMPERATURE] = direct,
++		.m[PSC_TEMPERATURE] = 140,
++		.b[PSC_TEMPERATURE] = 32100,
++		.R[PSC_TEMPERATURE] = -2,
++		/*
++		 * Current and Power measurement depends on the ohm value
++		 * of Rimon. m is multiplied by 1000 below to have an integer
++		 * and -3 is added to R to compensate.
++		 */
++		.format[PSC_CURRENT_IN] = direct,
++		.m[PSC_CURRENT_IN] = 9538,
++		.b[PSC_CURRENT_IN] = 0,
++		.R[PSC_CURRENT_IN] = -6,
++		.format[PSC_POWER] = direct,
++		.m[PSC_POWER] = 4901,
++		.b[PSC_POWER] = 0,
++		.R[PSC_POWER] = -7,
++		.func[0] = (PMBUS_HAVE_VIN |
++			    PMBUS_HAVE_VOUT |
++			    PMBUS_HAVE_VMON |
++			    PMBUS_HAVE_IIN |
++			    PMBUS_HAVE_PIN |
++			    PMBUS_HAVE_TEMP |
++			    PMBUS_HAVE_STATUS_VOUT |
++			    PMBUS_HAVE_STATUS_IOUT |
++			    PMBUS_HAVE_STATUS_INPUT |
++			    PMBUS_HAVE_STATUS_TEMP |
++			    PMBUS_HAVE_SAMPLES),
++		.read_word_data = tps25990_read_word_data,
++		.write_word_data = tps25990_write_word_data,
++		.read_byte_data = tps25990_read_byte_data,
++		.write_byte_data = tps25990_write_byte_data,
+ 
+ #if IS_ENABLED(CONFIG_SENSORS_TPS25990_REGULATOR)
+-	.reg_desc = tps25990_reg_desc,
+-	.num_regulators = ARRAY_SIZE(tps25990_reg_desc),
++		.reg_desc = tps25990_reg_desc,
++		.num_regulators = ARRAY_SIZE(tps25990_reg_desc),
+ #endif
++	},
+ };
+ 
+ static const struct i2c_device_id tps25990_i2c_id[] = {
+-	{ "tps25990" },
++	{ "tps25990", tps25990 },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, tps25990_i2c_id);
+ 
+ static const struct of_device_id tps25990_of_match[] = {
+-	{ .compatible = "ti,tps25990" },
++	{ .compatible = "ti,tps25990", .data = (void *)tps25990 },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, tps25990_of_match);
+@@ -401,8 +452,9 @@ MODULE_DEVICE_TABLE(of, tps25990_of_match);
+ static int tps25990_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+-	struct pmbus_driver_info *info;
++	struct tps25990_data *data;
+ 	const char *propname;
++	enum chips chip_id;
+ 	u32 rimon;
+ 	int ret;
+ 
+@@ -415,15 +467,20 @@ static int tps25990_probe(struct i2c_client *client)
+ 		rimon = TPS25990_DEFAULT_RIMON;
+ 	}
+ 
+-	info = devm_kmemdup(dev, &tps25990_base_info, sizeof(*info), GFP_KERNEL);
+-	if (!info)
++	chip_id = (enum chips)(unsigned long)i2c_get_match_data(client);
++
++	data = devm_kzalloc(dev, sizeof(struct tps25990_data), GFP_KERNEL);
++	if (!data)
+ 		return -ENOMEM;
+ 
++	data->info = tps25990_base_info[chip_id];
++	data->info_local = tps25990_local_info[chip_id];
++
+ 	/* Adapt the current and power scale for each instance */
+-	tps25990_set_m(&info->m[PSC_CURRENT_IN], rimon);
+-	tps25990_set_m(&info->m[PSC_POWER], rimon);
++	tps25990_set_m(&data->info.m[PSC_CURRENT_IN], rimon);
++	tps25990_set_m(&data->info.m[PSC_POWER], rimon);
+ 
+-	return pmbus_do_probe(client, info);
++	return pmbus_do_probe(client, &data->info);
  }
  
- static u16 pmbus_data2reg_vid(struct pmbus_data *data,
+ static struct i2c_driver tps25990_driver = {
 -- 
 2.43.0
 
