@@ -1,73 +1,84 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA5D3F412B;
-	Fri, 22 May 2026 11:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E75037C916;
+	Fri, 22 May 2026 12:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779450905; cv=none; b=Zdo69tNGGbkP5Cg8LrNFRV9MEr3M2oXwmysoJQ4FEKbTYchYS556umMx+EKOouQz/2SZ1YPm4wmGfFuHZwN7T3Gq52wRkjbl24Cwu0rwVi76sq6c0XRfOUcFwCF+nS/l74QykAwluYFkit6aSh/MeFxn+AHQxxfWD0GXlj4r9Gg=
+	t=1779451204; cv=none; b=j3/3KYkSHuni7kYzb4DrC09OBJT2FEoRqiTVet3CiC+nU2/U4aE8c2TICVq2RppkSSwbeFntB6EPgIbA5YHE/OzRGF3cQ60VgYYizUZPj0jfdinHEg5tWoLGA4rql+9Xl+tMlYdJ3zNhvGvHdFt1BQf3hutKLg1eRPkoNc50YnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779450905; c=relaxed/simple;
-	bh=uQB0D//jre4cpA2ULwsr6lu7cQqtjlTUdLXY+MLAnCY=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m623fUhvrCwpLKiX8VBqe8aFYmoQFutVvqLNAHptBgsbam7e0Gyu61iLi1p39yf58bcQC4nBtsQ1gl9Bh6cgEzJn2JK1wN2+nw+dEJFCWK3k5aoj1GuW5FxbauIN5fyYzjyCWsO583jfB8t2KMVVv7H5bhaSQOxTnlR9u1td8Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=vEf7iAXJ; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1779451204; c=relaxed/simple;
+	bh=SmZcJZXorNb+Yab2QxhkWRzjWOLwsVVvEpjJOV9fsjQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J5JfpkSbWAG+XRHK3bZbvILFfsNAAsdI1WY3AzLjoAN0Wwn7Gohz7szvqObPDfVOKV6lkpUwhI/9qpHFJ3aBM6z3OaYenzYnI0EhUzQIabXM4nB3p2s8b0NtW1IIT6e7sscaCToRRzsxAYDXIZL2s7+AWvlSoVv07VIBnNc5sxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVH6xi94; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="vEf7iAXJ"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M8K2D52392214;
-	Fri, 22 May 2026 07:55:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=QK95U
-	X7aIFtK82k+bOREWhP60kZSFnqkEP3UatlF4jE=; b=vEf7iAXJ5XM3fKlQMYQtn
-	tTibGGCAvjLABQNyyZBJ6hzh9l2Bcs3VRrOIBVlq2ONA34rwnO4u9HPVBXosBVF5
-	lGlP/Kr1IG3AKRRJk0fPFBKaaDLZ+M2mij0hzfk957n0BA3lR1F5Y1pVqNLusZDH
-	AGwPNXy6Gcwavg9U8kjGL2WUhB2bzR1Wxc0M8Z+VSXQL4QQ6lQz1i2cKwyhayn2a
-	wTnH1zDDiGo54865NLyNQMYLXVi7qt6K/pjlB1FxxfLzpXyw9OVb4J1cT7OkH9db
-	JKjOUlnE2u5wXWQAT8G1zw0r1HWf8MTTM0SCZiKlTtwQ6+t924kfRrNnUwtT+Jpr
-	A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4eakhsrk8y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 22 May 2026 07:55:02 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64MBt1li020262
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 22 May 2026 07:55:01 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 22 May 2026 07:55:01 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 22 May 2026 07:55:01 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 22 May 2026 07:55:00 -0400
-Received: from HYB-b1tGeUj4GP1.ad.analog.com ([10.32.223.86])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64MBsi61027511;
-	Fri, 22 May 2026 07:54:53 -0400
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Antoniu Miclaus <antoniu.miclaus@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, <linux@analog.com>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] iio: adc: ad4080: add support for AD4884
-Date: Fri, 22 May 2026 14:53:37 +0300
-Message-ID: <20260522115337.18188-3-antoniu.miclaus@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260522115337.18188-1-antoniu.miclaus@analog.com>
-References: <20260522115337.18188-1-antoniu.miclaus@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVH6xi94"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63841F000E9;
+	Fri, 22 May 2026 11:59:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779451202;
+	bh=orsQ/3B/8QAHWo5lX2VAA+xhFpdBEOMpIc6G11y+I6c=;
+	h=From:To:Cc:Subject:Date;
+	b=ZVH6xi94UgkimrbMsAq2ppoh/yYzSyfmwhLmpsnWSfOMxYXgjKlU4etKAupjra0pS
+	 qPEuei1dOb46uAMDCQzLS8FnfBn5JPEbD2oqHThWjkZeLD8rrdw2jxRq9ylckD5w72
+	 xsdOIaO2N7V+fhctYE2hJLDHR6+CFVOBBw6cVDYKD8kCEidLKcJJUqErslJOFwmMuA
+	 9yz4fiXxEMEzXaW4IAt6jTdziyw17D1e2jP1ZB+g2kNpKDskQBlspxvfdNmTbF/x8f
+	 3gX5/J4GoIbkfSZJaQnjIFLHUFWUn92pselyZECCsrRRbrfNvQWWTNt2JH8CaGmzGZ
+	 81+B74xnXReZg==
+From: Sumit Garg <sumit.garg@kernel.org>
+To: andersson@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com,
+	sean@poorly.run,
+	akhilpo@oss.qualcomm.com,
+	lumag@kernel.org,
+	abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	marijn.suijten@somainline.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	elder@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jjohnson@kernel.org,
+	mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com,
+	jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org,
+	apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: [PATCH v7 00/15] firmware: qcom: Add OP-TEE PAS service support
+Date: Fri, 22 May 2026 17:29:21 +0530
+Message-ID: <20260522115936.201208-1-sumit.garg@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -75,100 +86,157 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: 67arl4XVHQ3BbwuSn6aeBq3w-3AjZHod
-X-Authority-Analysis: v=2.4 cv=YYKNIQRf c=1 sm=1 tr=0 ts=6a104416 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=9vqVBmU5rEgUO8YIPbMA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDExOSBTYWx0ZWRfX7HnpQKLxqWuJ
- aqnM3VvQZ8q84uk6cLXVhNAjVKeI3Ay3utWC9xbAGXgcvS5GNucY5ql41Qi3GV5nlFzBTzXwNmj
- 48Q2KN2n11WWy7/Dg345lvdIiJUpI8GFVrsRbFAkpQ23U5Nlcgawt+X1wGg0kyVrgPLLsI0ZlqR
- 71tWU5SF9Zs58y1z8KGUbUEG9P6g3fp/qPc9yU7wtD45d+8l8cUZoRYGTw04Ob7R2Ah+tsrJaqF
- 1DzeGZgVIm/prLjhKN/agwS8mktddXHX9QJo+HLYqOGyNCxXjLZ6NiSDp4La5VIaff5Qjzr79bX
- 6VWqDcIFaFEVSvbLv5DyKtmZcYTdy6DyUPGuWe898Etj1lkiI8NpfbVHOpZy4FG9zeWmNbinfKR
- RgkrBBccXwJ2Osf/ffP1rJZTthLJm0ZHeb/0anfTBpDAAhw749jDa9T1E298jUSzLwj2OKodNVe
- gznNZeM6Xu4ZfM18psw==
-X-Proofpoint-GUID: 67arl4XVHQ3BbwuSn6aeBq3w-3AjZHod
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
- suspectscore=0 bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220119
 
-Add support for the AD4884, a dual-channel, 16-bit, 40 MSPS SAR ADC.
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-The AD4884 is the dual-channel variant of the AD4084, sharing the same
-register map and SPI interface as the rest of the AD4080 family. Like
-the AD4880, it uses two independent ADC channels, each with its own SPI
-configuration interface.
+Qcom platforms has the legacy of using non-standard SCM calls
+splintered over the various kernel drivers. These SCM calls aren't
+compliant with the standard SMC calling conventions which is a
+prerequisite to enable migration to the FF-A specifications from Arm.
 
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+support these non-standard SCM calls. And even for newer architectures
+using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+calls either with FF-A requirements coming in. And with both OP-TEE
+and QTEE drivers well integrated in the TEE subsystem, it makes further
+sense to reuse the TEE bus client drivers infrastructure.
+
+The added benefit of TEE bus infrastructure is that there is support
+for discoverable/enumerable services. With that client drivers don't
+have to manually invoke a special SCM call to know the service status.
+
+So enable the generic Peripheral Authentication Service (PAS) provided
+by the firmware. It acts as the common layer with different TZ
+backends plugged in whether it's an SCM implementation or a proper
+TEE bus based PAS service implementation.
+
+The TEE PAS service ABI is designed to be extensible with additional API
+as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+extensions of the PAS service needed while still maintaining backwards
+compatibility.
+
+Currently OP-TEE support is being added to provide the backend PAS
+service implementation which can be found as part of this PR [1].
+This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+EVK board being the next target. In addition to that WIN/IPQ targets
+planning to use OP-TEE will use this service too. Surely the backwards
+compatibility is maintained and tested for SCM backend.
+
+Note that kernel PAS service support while running in EL2 is at parity
+among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+on proper IOMMU support being worked out on the PAS client end.
+
+Patch summary:
+- Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+  only allow UEFI and Linux to boot in EL2.
+- Patch #2: adds generic PAS service.
+- Patch #3: migrates SCM backend to generic PAS service.
+- Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+- Patch #5-#13: migrates all client drivers to generic PAS service.
+- Patch #14: drops legacy PAS SCM exported APIs.
+
+The patch-set is based on qcom tree tip [2] and can be found in git tree
+here [3].
+
+Merge strategy:
+
+It is expected due to APIs dependency, the entire patch-set to go via
+the Qcom tree. All other subsystem maintainers, it will be great if I
+can get acks for the corresponding subsystem patches.
+
+[1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git/log/?h=for-next
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v7
+
 ---
- drivers/iio/adc/ad4080.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Changes in v7:
+- Rebased to qcom tree (for-next branch) tip.
+- Merged patch #5 and #7 due to build dependency.
+- Disabled modem for kodiak EL2 as it isn't tested yet.
+- Fix an issue found out by sashiko-bot for patch #4.
 
-diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
-index 265d85ac171a..764d49eca9e0 100644
---- a/drivers/iio/adc/ad4080.c
-+++ b/drivers/iio/adc/ad4080.c
-@@ -136,6 +136,7 @@
- #define AD4087_CHIP_ID						0x0057
- #define AD4088_CHIP_ID						0x0058
- #define AD4880_CHIP_ID						0x0750
-+#define AD4884_CHIP_ID						0x005C
- 
- #define AD4080_MAX_CHANNELS					2
- 
-@@ -541,6 +542,11 @@ static const struct iio_chan_spec ad4880_channels[] = {
- 	AD4880_CHANNEL_DEFINE(20, 32, 1),
- };
- 
-+static const struct iio_chan_spec ad4884_channels[] = {
-+	AD4880_CHANNEL_DEFINE(16, 16, 0),
-+	AD4880_CHANNEL_DEFINE(16, 16, 1),
-+};
-+
- static const struct ad4080_chip_info ad4080_chip_info = {
- 	.name = "ad4080",
- 	.product_id = AD4080_CHIP_ID,
-@@ -641,6 +647,16 @@ static const struct ad4080_chip_info ad4880_chip_info = {
- 	.lvds_cnv_clk_cnt_max = AD4080_LVDS_CNV_CLK_CNT_MAX,
- };
- 
-+static const struct ad4080_chip_info ad4884_chip_info = {
-+	.name = "ad4884",
-+	.product_id = AD4884_CHIP_ID,
-+	.scale_table = ad4080_scale_table,
-+	.num_scales = ARRAY_SIZE(ad4080_scale_table),
-+	.num_channels = 2,
-+	.channels = ad4884_channels,
-+	.lvds_cnv_clk_cnt_max = 2,
-+};
-+
- static int ad4080_setup_channel(struct ad4080_state *st, unsigned int ch)
- {
- 	struct device *dev = regmap_get_device(st->regmap[ch]);
-@@ -843,6 +859,7 @@ static const struct spi_device_id ad4080_id[] = {
- 	{ "ad4087", (kernel_ulong_t)&ad4087_chip_info },
- 	{ "ad4088", (kernel_ulong_t)&ad4088_chip_info },
- 	{ "ad4880", (kernel_ulong_t)&ad4880_chip_info },
-+	{ "ad4884", (kernel_ulong_t)&ad4884_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(spi, ad4080_id);
-@@ -858,6 +875,7 @@ static const struct of_device_id ad4080_of_match[] = {
- 	{ .compatible = "adi,ad4087", &ad4087_chip_info },
- 	{ .compatible = "adi,ad4088", &ad4088_chip_info },
- 	{ .compatible = "adi,ad4880", &ad4880_chip_info },
-+	{ .compatible = "adi,ad4884", &ad4884_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ad4080_of_match);
+Changes in v6:
+- Rebased to v7.1-rc4 tag.
+- Patch #14: fixed ret error print.
+- Add Kconfig descriptions for PAS symbols such that they are visible
+  in menuconfig to update.
+
+Changes in v5:
+- Incorporated misc. comments from Mukesh.
+- Split up patch #11 into 2 to add an independent commit for passing
+  proper PAS ID to set_remote_state API.
+- Picked up tags.
+
+Changes in v4:
+- Incorporate misc. comments on patch #4.
+- Picked up an ack for patch #10.
+- Clarify in cover letter about state of media support.
+
+Changes in v3:
+- Incorporated some style and misc. comments for patch #2, #3 and #4.
+- Add QCOM_PAS Kconfig dependency for various subsystems.
+- Switch from pseudo TA to proper TA invoke commands.
+
+Changes in v2:
+- Fixed kernel doc warnings.
+- Polish commit message and comments for patch #2.
+- Pass proper PAS ID in set_remote_state API for media firmware drivers.
+- Added Maintainer entry and dropped MODULE_AUTHOR.
+
+Mukesh Ojha (1):
+  arm64: dts: qcom: kodiak: Add EL2 overlay
+
+Sumit Garg (14):
+  firmware: qcom: Add a generic PAS service
+  firmware: qcom_scm: Migrate to generic PAS service
+  firmware: qcom: Add a PAS TEE service
+  remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+  remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+  remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+  remoteproc: qcom: Select QCOM_PAS generic service
+  drm/msm: Switch to generic PAS TZ APIs
+  media: qcom: Switch to generic PAS TZ APIs
+  media: qcom: Pass proper PAS ID to set_remote_state API
+  net: ipa: Switch to generic PAS TZ APIs
+  wifi: ath12k: Switch to generic PAS TZ APIs
+  firmware: qcom_scm: Remove SCM PAS wrappers
+  MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+
+ MAINTAINERS                                   |   9 +
+ arch/arm64/boot/dts/qcom/Makefile             |   2 +
+ arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  39 ++
+ drivers/firmware/qcom/Kconfig                 |  21 +-
+ drivers/firmware/qcom/Makefile                |   2 +
+ drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
+ drivers/firmware/qcom/qcom_pas.h              |  50 ++
+ drivers/firmware/qcom/qcom_pas_tee.c          | 477 ++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+ drivers/gpu/drm/msm/Kconfig                   |   1 +
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+ drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+ .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+ drivers/media/platform/qcom/venus/Kconfig     |   1 +
+ drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+ drivers/net/ipa/Kconfig                       |   2 +-
+ drivers/net/ipa/ipa_main.c                    |  13 +-
+ drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+ drivers/net/wireless/ath/ath12k/ahb.c         |  10 +-
+ drivers/remoteproc/Kconfig                    |   4 +-
+ drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+ drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+ drivers/remoteproc/qcom_wcnss.c               |  12 +-
+ drivers/soc/qcom/mdt_loader.c                 |  12 +-
+ include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+ include/linux/firmware/qcom/qcom_scm.h        |  29 --
+ include/linux/soc/qcom/mdt_loader.h           |   6 +-
+ 28 files changed, 1124 insertions(+), 320 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+ create mode 100644 drivers/firmware/qcom/qcom_pas.c
+ create mode 100644 drivers/firmware/qcom/qcom_pas.h
+ create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+ create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+
 -- 
-2.43.0
+2.51.0
 
