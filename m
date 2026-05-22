@@ -1,197 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E64221277
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6E03A2576
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779455861; cv=none; b=ZsjDNozj3g02h+QgldeSphbfkoEW3jAIAhs4n5OEjAoqEwpINEpPh8TrtLWCcJoGIcXgtTKbE8nxknd0LDtUUJ157keRj5X3RcwQlXJ17IhGwgQ56u9KQPi329q7TTn4ezrY2uS6KjcpRbExRBShGqd/gVa5OxeCB3Bqdx1nX+M=
+	t=1779455937; cv=none; b=HmxolPrvnaIKBu8ProEERrgFsfEkhkvHtm6GKsdF17L+9UO9i5Yq4W3Qb4s//zoPoKTNCKIv3XvDHZQs0tDQFAb4w169f4IGpJwa894UpY+E+eiVDvghXI/+KG5F/rzfE+S1G3DTxuexDnjNC+I7ngPPyy+XNGRYUeZRmN+ZlVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779455861; c=relaxed/simple;
-	bh=Str2Zy28AHMnejyNSRT1m9LezYNbZTqlcNbj6OhXkUY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IevTKZQxyQDv2A0mo38Ax/gzFa1XaJf9DYRt/QIhpL694Y/W7A1eyFHj9Aeh/PL/3eOSCV5HQbkk8Rz6YZjXRYFFNrOvf1iqSliG8rS6L5ydcMgXJw2GptMzuRam8fdOJozljUA9pTJdoTU/+mup6asftgFt3HfBAuQpihzJffg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUOi5agJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUOi5agJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D92D1F000E9;
-	Fri, 22 May 2026 13:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779455859;
-	bh=pEskO8jgAKir34h9TeA/kQeqYXSL87bggGAwMD0neTU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LUOi5agJtnehpZ2sId9bcbkuCQbUGrv4NEqlHB0C0MuWFB5zIjDHJjl23wbVUY9C4
-	 TjfjRK7qQr7l5vVOIzmbNZtDxcUGh4IfD6x1RbyClDOm/8di8FBo734P2MvMK8vbfL
-	 xCjkbIUMlMK7/6y7Rk52QGNXgUwkciwyCU40ePyvPPn5v3cm6cezVbe/On5yzOaH3V
-	 lJ24qUfX8rj5hKerh0fQ0vlLFBNiQLhZh8Q+UHtBei2VpqU5anszeRH/WaHD2nTs07
-	 SPJK8+oqAZu6YVoVrd832PmUnwAAN5M4s+PRjVHLeCmMfUICbn1RfWPpAGDAS5tkll
-	 IJ0Q8Y3IOskOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] drm: panel: add support for the Renesas R63419
- based dual-DSI video mode Display Panels
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
-In-Reply-To: <20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-2-16edddda9951@linaro.org>
-References: <20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-2-16edddda9951@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 13:17:38 +0000
-Message-Id: <20260522131739.5D92D1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779455937; c=relaxed/simple;
+	bh=f/oq+Pmek9pWpvzHueumQVSjskt7sQj7Cnj/0sWZKug=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e7c6I3vSdBmp5XRnE8LpK4OK8TCljkcddtyu2SVGvpcDvms3NNUpQrO5dR3se68DCL9Jn8oSv119iv2NtvzLiP+7lXDq/sS+rGWTs/VUjOGGZVzyKZIxDxfWBMNVHk7TPbusxPepXyKySFSl270DuG7YCxUNRar4MabDIBTi06I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-bd56d108454so1387804666b.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:18:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779455934; x=1780060734;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RAlUGw/HNtzbgT6oAPTSPOgW3T+XEEHWpdGiqyY+DBc=;
+        b=T3Y2H91GqOXiOxnOwljnlsR+T6fWOe00phKxv/YQB0MJMxDomU1nCw6biDr23/smYV
+         foAvEcNspPLpBMscc9M9PtSBixirKwbjrOUcmL3BPkljc6O8yC0mlFSRcTS7IW01OSeu
+         zMfqZQkaW+OR/pbwcbECRGzBm92HN3WeqBaBH2TPz+OBN7gSL1sCzXO6YjRzLGbX/KKI
+         smuwI/VcnQon92K6a2/z6qCeO/R3CJadOqsETWmuh5UWclgLvH3Axjc2TChFtXstRZyF
+         uHzYs1XaaP7J+MQKM+fNItbxWPj+h2CEYHGP9sBaxAK3pgrba5RRpLYbxFB9XRDFmC5/
+         /QUA==
+X-Forwarded-Encrypted: i=1; AFNElJ+y8x5txydr0kJOa9EOr63dBOsXkxfU/8gGep3PqSbXMDBZJJ5i6ka6ioJEgFlMql2atEwtMA2b+NGZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YysZw4qmCb98DnjXRQh74f/lEQwTu9sftfIr4g0M1mgwRgNEkzN
+	wTqI/7xNMXpQJcu8DrdLMDX67GLnrtS72BZUWBnLX+tdRyN5b7uDqQcVyrscmUL+AtM=
+X-Gm-Gg: Acq92OHpAREdXhJhbpeFSq+zD00LT8ipDeA+tA+cpOqg2nDWe0L0NOw+RLcJdZMDVoZ
+	eEo8M79MidDqWG2GfzvH9IrCOdhjr6Y0BpdB9aNtRoUGRFpOBgKq/Ib+NL2l1MEjoNU6DKwStkc
+	jS1TS9/o6c8mFjCGvKxKNswPtzdd78n/wBHFQ4tqx5bi/p5FPAdRQeLzrEh2qmi4FMWGg9keAX6
+	YSE6CQpxMuqlmgR8Wzy3cihXlT299rtugzE2+CsBd6wHlYQCwlq62tJmIyp0/Xw85uENe8MvHS5
+	Pic0oO1sg41nbdP/OM3BkhJ8tPrDy3VsdSMCcArYw0vvk+A+SgC7MPbZshsgzUUMIYvlp4S3PO5
+	bpqnO8s7MN96GISoBPbuxdmCsGq9hI61G2x+uG9zwWHvDBiq3qJzJcVtqoUXRdI6PmBRzPeqbWr
+	uEoAyRSROBrQqLHZsWNu7v8cjh5iBTyi1wIbepLYAqmaUj2NubNaC+ygbN6xXNQcdBptNJvWI=
+X-Received: by 2002:a17:907:60cb:b0:bd7:bbae:2002 with SMTP id a640c23a62f3a-bdd22a3d558mr240689066b.7.1779455933947;
+        Fri, 22 May 2026 06:18:53 -0700 (PDT)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-688bb62b6dfsm659852a12.30.2026.05.22.06.18.52
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 06:18:52 -0700 (PDT)
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-68707d88626so6995964a12.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:18:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+7vBVMdfDZTVkg0BDeJgIrfGbZDt7AHF48yhTmSjd09G5vRv/bCsQOM4VnUtzOTlDmjAjKAIE2CBRP@vger.kernel.org
+X-Received: by 2002:a05:6402:42cc:b0:683:75ec:c17c with SMTP id
+ 4fb4d7f45d1cf-6889c4464afmr2034627a12.10.1779455931829; Fri, 22 May 2026
+ 06:18:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260505034325.167797-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260505034325.167797-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 22 May 2026 15:18:37 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXoRBA-A8e=R8A4QOwdhVf2Xvca+PCD=UaKEjgFZU7RdA@mail.gmail.com>
+X-Gm-Features: AVHnY4I_gegiQNXLEYR8j1H8kUfrINmIpRVRu3Rg4C4CjWJrdAfVaY1saWPkdfg
+Message-ID: <CAMuHMdXoRBA-A8e=R8A4QOwdhVf2Xvca+PCD=UaKEjgFZU7RdA@mail.gmail.com>
+Subject: Re: [PATCH 00/11] arm64: dts: renesas: Specify ethernet PHY reset timings
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The MIPI DCS initialization sequence in `renesas_r63419_on()` is i=
-nverted, sending 'Set Display On' before 'Exit Sleep Mode'.
-- [High] Missing device link between the panel and the secondary DSI host c=
-reates a Use-After-Free risk.
-- [High] The panel is published to the DRM subsystem before its DSI device =
-properties are initialized and attached.
-- [Medium] Asymmetrical DRM panel callbacks: DCS ON logic is in `.prepare` =
-while DCS OFF logic is in `.disable`.
---
+Hi Marek,
 
-commit 2dc8ee5a664e9e795b047b17cd7126c4bd9d27d8
-Author: KancyJoe <kancy2333@outlook.com>
+On Tue, 5 May 2026 at 05:43, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> This is the same patch for various boards, details are below.
+> The discussion that prompted this patchset is at [0].
 
-drm: panel: add support for the Renesas R63419 based dual-DSI video mode Di=
-splay Panels
-   =20
-Implement support for the Renesas 63419 based dual-DSI video mode
-Display Panels found in the Ayaneo gaming handled devices.
+Thanks for your series!
 
-> diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/d=
-rm/panel/panel-renesas-r63419.c
-> new file mode 100644
-> index 0000000000000..dba156f8427cd
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
+> The KSZ9031RNX reference manual [1] DS00002096H page 60 FIGURE 7-7:
 
-[ ... ]
+DS00002117K page 62 FIGURE 7-5
 
-> +static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
-> +
-> +	dsi_link_switch(ctx, &dsi_ctx, 0);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	dsi_link_switch(ctx, &dsi_ctx, 1);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 150);
-> +
-> +	dsi_link_switch(ctx, &dsi_ctx, 0);
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	dsi_link_switch(ctx, &dsi_ctx, 1);
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 50);
+(and page 74 on the older document I had ;-)
 
-[Severity: High]
-Does this send the MIPI DCS commands in the correct order?
+> POWER-UP/POWER-DOWN/RESET TIMING Note 2 states, that after the
+> de-assertion of reset, wait a minimum of 100 us before starting
+> programming on the MIIM (MDC/MDIO) interface. Set DT property
+> reset-deassert-us to three times that, 300 us, to provide ample
+> time between reset deassertion and MDIO access.
+>
+> The KSZ9031RNX reference manual [1] DS00002096H page 60 TABLE 7-7:
+> POWER-UP/POWER-DOWN/RESET TIMING PARAMETERS row tSR Stable supply
 
-The MIPI DCS specification requires a display module to be taken out of sle=
-ep
-mode (0x11 command) and allowed to wake up before the display on command
-(0x29) is sent.=20
+page 62 TABLE 7-4
 
-Here the display on command is sent while the panel is still in sleep mode,
-which typically results in the command being ignored by the display
-controller.
+> voltages to de-assertion of reset is at minimum 10 ms. Set DT
+> property reset-assert-us to 10ms because the KSZ9031RNX RM does
+> not explicitly spell out how long the reset has to be asserted,
+> but this at least covers the worst case scenario.
+>
+> The Gray Hawk patch in this series depends on [2].
+>
+> [0] https://lore.kernel.org/all/CAMuHMdXJvrsXitGagqZJ_STdTTh_s1cBAKf6+esihaVWjfn40g@mail.gmail.com/
+> [1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031MNX-Data-Sheet-DS00002096.pdf
 
-[ ... ]
+This link leads to the KSZ9031MNX part. Correct link is:
 
-> +static const struct drm_panel_funcs renesas_r63419_panel_funcs =3D {
-> +	.disable =3D renesas_r63419_disable,
-> +	.prepare =3D renesas_r63419_prepare,
-> +	.unprepare =3D renesas_r63419_unprepare,
-> +	.get_modes =3D renesas_r63419_get_modes,
-> +	.get_orientation =3D renesas_r63419_get_orientation,
-> +};
+https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031RNX-Data-Sheet-DS00002117.pdf
 
-[Severity: Medium]
-Should the DCS ON/OFF logic be symmetrical in these callbacks?
+> [2] https://lore.kernel.org/all/20260504225428.114959-1-marek.vasut+renesas@mailbox.org/
 
-The driver executes its DCS turn-on sequence inside .prepare via
-renesas_r63419_on(), but assigns its DCS turn-off sequence to the .disable
-callback.
+Shall I do the big search-and-replace while applying?
 
-If the DRM core aborts display initialization after .prepare but before
-.enable would logically occur, it will call .unprepare. However, .unprepare
-only powers off the regulators and skips the DCS OFF sequence.
+Gr{oetje,eeting}s,
 
-[ ... ]
+                        Geert
 
-> +	/* Register the second DSI device */
-> +	ctx->dsi[1] =3D devm_mipi_dsi_device_register_full(dev, dsi1_host, &inf=
-o);
-> +	if (IS_ERR(ctx->dsi[1]))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
-> +				     "Failed to register second DSI device\n");
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[Severity: High]
-Is a device link needed between the panel and the secondary DSI host?
-
-The driver registers a secondary DSI device on a remote host, but it does
-not establish a device link (e.g., via device_link_add()) to enforce
-consumer-supplier unbind ordering.
-
-If the secondary DSI host is unbound independently, the panel driver will
-not be unbound along with it, leaving ctx->dsi[1] pointing to a freed or
-unregistered host. Subsequent DRM atomic operations would dereference this
-dangling pointer.
-
-> +
-> +	ctx->dsi[0] =3D dsi;
-> +	mipi_dsi_set_drvdata(dsi, ctx);
-> +
-> +	/* Get panel orientation */
-> +	ret =3D of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-> +	if (ret < 0 && ret !=3D -ENODEV)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to get panel orientation\n");
-> +
-> +	ctx->panel.prepare_prev_first =3D true;
-> +
-> +	ret =3D drm_panel_of_backlight(&ctx->panel);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-> +
-> +	ret =3D devm_drm_panel_add(dev, &ctx->panel);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add panel\n");
-> +
-> +	/* Configure and attach both DSI devices */
-> +	for (i =3D 0; i < ARRAY_SIZE(ctx->dsi); i++) {
-> +		ctx->dsi[i]->lanes =3D ctx->desc->lanes;
-> +		ctx->dsi[i]->format =3D ctx->desc->format;
-> +		ctx->dsi[i]->mode_flags =3D ctx->desc->mode_flags;
-> +
-> +		ret =3D devm_mipi_dsi_attach(dev, ctx->dsi[i]);
-
-[Severity: High]
-Could the panel be probed by the DRM subsystem before it is fully initializ=
-ed?
-
-devm_drm_panel_add() adds the panel to the global DRM panel list, making it
-visible to other drivers. However, critical DSI device properties like
-lanes and format are set and devm_mipi_dsi_attach() is executed after this
-call.
-
-A concurrent display controller probing the panel could find it and attempt
-to send DCS commands before the DSI physical links are attached.
-
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to attach DSI device %d\n", i);
-> +	}
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-topic-sm86=
-50-ayaneo-pocket-s2-r63419-v6-0-16edddda9951@linaro.org?part=3D2
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
