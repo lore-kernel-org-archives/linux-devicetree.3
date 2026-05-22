@@ -1,111 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78603CC304;
-	Fri, 22 May 2026 10:54:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697FC356756;
+	Fri, 22 May 2026 10:57:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779447274; cv=none; b=ie3fSD+M7Tyjp/F8D4pKPY+h2Yf1iM0URNYsnu6zNCX85G8Zo1a3Ficn1b4iigkNBIBbe7TuPP2FjoV76mxDObCQ5M/A3vTP3cOLmbfd/3DbSfT9oTPpiEcM4CgnN7oquUIVAgludt7PWrNMCuyzVu9VM5kZOtMfpntK3B9xy3g=
+	t=1779447465; cv=none; b=P5O/2fZjPac5Je/9alodNl3I0B3KZkq9oepUwQ35MgMbetGqTo2XyWIpAyxHAKSTLIzpntq63VyfQFhNe6Ek1OFhEB3ieJfbGt+CbjoP9m6sdFZl96vZIinkBDh2hR6HL/jMBa6DshtTh6T4TRRRV4QNqG23kt8V/Yy+xZx8+MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779447274; c=relaxed/simple;
-	bh=VoqSSr6SFCd7KX19yU/Ythf5usTFnX7TNdYxdaGmlEU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZCyCU5ZaP9/q/rO2E+G39wykAo2oSw1+SQUxgJ9RvwHX7FtfLtMiwzI689fgpy2Wi+KZwLJtKF5q1kLr6G1T/voHzgK0bU5qFAu/fFQGmBihmoIqvvBd0URxsaJ4f62hv0GF6QowqLwTgVRmle3QjQP1zPufvO/HGtCamTgNz40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YW4b9h+a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779447465; c=relaxed/simple;
+	bh=9rIKsYfTFDdyRP5HlOH5qIGwdf3eIHfr9SbtB4Aabyg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dFJ4g+CmHjN6bRDASITOfU6GSfBrkkaidHNW3tHGgjKdyTN4dBIr+T+Di+Ua7Uz0zwglLV5/2cJUpXywUnTmBmNN+PYsH6gYGKCw5me/irYrMzc86ZjMbCQkmeFFo5NwzFzzkWpZC4+JFz7xrHuuYIV0rmZ3VKKcKOx4KRQaGyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjm7fhHX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YW4b9h+a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1321F000E9;
-	Fri, 22 May 2026 10:54:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjm7fhHX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6471F000E9;
+	Fri, 22 May 2026 10:57:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779447273;
-	bh=zo7xZVZuaqNUtAJ4AFiwelE3O6ioLTV60tcoTNmKXEs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YW4b9h+a+Z6HzD1qgVqNfQKy+HO6hkwS3FXSphq6qkZOJOc6r1y8i2Lpt7uElgXmv
-	 Xavot82qkPMfHMJUpJroElhuqqRclOul7YFpM0mzcW45qtAPNcqmWyHJLe62WGsl/s
-	 6HxX3A+b3U7tG/PVyfWG/K3oKfEHclvMWOc4EWX7wAkxjxqSwp8CfZVOjFcxqtk7PQ
-	 saGQzC+lUrFurtRjtSgtt6WwVkWD9DU4EA3negswERMfF8Nm9VVBDiv6aIm+0gGmPR
-	 6Vpc12ud6azAnaVa69m+eb2Z+zcEL9t5qXeal7Q/6Zv/rgfKYjpXnSzN6PmfJiXKIC
-	 mbceIvo8X5veA==
-Date: Fri, 22 May 2026 11:54:23 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Chris Morgan <macromorgan@hotmail.com>, Chris Morgan
- <macroalpha82@gmail.com>, linux-iio@vger.kernel.org, andy@kernel.org,
- nuno.sa@analog.com, dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH V8 02/10] dt-bindings: iio: imu: icm42600: Add icm42607
- binding
-Message-ID: <20260522115423.1b30d4d4@jic23-huawei>
-In-Reply-To: <20260521-challenge-flaccid-26b6f5d2d0bd@spud>
-References: <20260518200526.458421-1-macroalpha82@gmail.com>
-	<20260518200526.458421-3-macroalpha82@gmail.com>
-	<20260520174217.6ca98524@jic23-huawei>
-	<20260521-premium-afterlife-0d7a22b77517@spud>
-	<PH0PR19MB99733879756FFB321CDCDD9B81A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
-	<20260521-challenge-flaccid-26b6f5d2d0bd@spud>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779447464;
+	bh=x55ir9CbNnQ6s4TZzGXMmcUz/OBLZ2NJfrzb19xzIGg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kjm7fhHXvrxwOJGNlaCoiWsKNXxDj+zOtCx7U1Wcu5qSkfLiLLh25seajR0hDIHdp
+	 TlIJgORblyqp1DJp03u0iv0e0aBK0XwzmP1NGyv7FdBqRdRb67iZcrpnWDS3h7pV0b
+	 dQAtLaXJ/D/fMNKIeNhVAOGerJJsDT+0N1zkv5vQ75GTlqqZkCPgqmiPDB4oSd5c5j
+	 fcilbWalrXtQHSRPqG/emQV7sN/fWP6OA8keRi+oG7hpwkUq1b/px6Q5p6o888eFsW
+	 hCfC5nYYlsp7eXLtVt5y52z/IMCX0lBLkFGCVFadYrIvwcSDpuCSdBWHPlJIC8GoxU
+	 I0W7gzafPob8w==
+Date: Fri, 22 May 2026 16:27:35 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v4 5/9] phy: qcom: qmp-pcie: Refactor pipe clk
+ register and parse_dt helpers
+Message-ID: <fkcidw46hdsrrufxhhkk66mmitxnswmghpypyvtmax3x6vmnlp@2er6xgymxdf2>
+References: <20260518-link_mode_0519-v4-0-269cd73cc5d1@oss.qualcomm.com>
+ <20260518-link_mode_0519-v4-5-269cd73cc5d1@oss.qualcomm.com>
+ <ipzncrxi3x45fc6tz5xb7frxt62zmg4gwr25xmvzghlbt5miio@7eavln3cydfa>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ipzncrxi3x45fc6tz5xb7frxt62zmg4gwr25xmvzghlbt5miio@7eavln3cydfa>
 
-On Thu, 21 May 2026 21:08:07 +0100
-Conor Dooley <conor@kernel.org> wrote:
-
-> On Thu, May 21, 2026 at 12:43:09PM -0500, Chris Morgan wrote:
-> > On Thu, May 21, 2026 at 05:44:21PM +0100, Conor Dooley wrote:  
-> > > On Wed, May 20, 2026 at 05:42:17PM +0100, Jonathan Cameron wrote:  
-> > > > On Mon, 18 May 2026 15:05:17 -0500
-> > > > Chris Morgan <macroalpha82@gmail.com> wrote:
-> > > >   
-> > > > > From: Chris Morgan <macromorgan@hotmail.com>
-> > > > > 
-> > > > > Add devicetree binding for the Invensense ICM42607 and Invensense
-> > > > > ICM42607P inertial measurement unit. This unit is a combined
-> > > > > accelerometer, gyroscope, and thermometer available via I2C or SPI.
-> > > > > 
-> > > > > This device is functionally very similar to the icm42600 series with a
-> > > > > very different register layout.
-> > > > > 
-> > > > > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> > > > > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>  
-> > > > Note that Sashiko has highlighted that the binding this being added to
-> > > > has a potential problem.
-> > > > 
-> > > > interrupts are required but interrupt-names are not.
-> > > > That would be fine but the binding doesn't say there is a default
-> > > > ordering for the interrupts - so if we don't have names we have no
-> > > > idea which interrupt it is.
-> > > > 
-> > > > This needs fixing - probably by adding a default  
-> > > 
-> > > Worth pointing out that this isn't an issue with this particular patch,
-> > > the problem exists in mainline.  
+On Wed, May 20, 2026 at 07:25:01PM +0300, Dmitry Baryshkov wrote:
+> On Mon, May 18, 2026 at 10:47:16PM -0700, Qiang Yu wrote:
+> > Some QMP PCIe PHY hardware blocks can be split into multiple sub-PHYs
+> > under a single DT node, each requiring its own pipe clock registration and
+> > DT resource mapping. The current helpers are tightly coupled to a single
+> > qmp_pcie instance, which prevents reuse across sub-PHY instances.
 > > 
-> > The driver I lovingly borrowed this code from seems to have fallback
-> > logic, basically picking the first interrupt if it couldn't find one
-> > named "INT1". I was told early on not to do this that way, so in my
-> > case the interrupt-names would be required (but not for the existing
-> > driver because of this fallback).
+> > Refactor __phy_pipe_clk_register() as a generic helper and reduce
+> > phy_pipe_clk_register() to a thin wrapper around it. Similarly, extract
+> > qmp_pcie_parse_dt_common() from qmp_pcie_parse_dt() to hold the register-
+> > mapping and pipe-clock setup that will be shared between sub-PHY instances,
+> > with pipe clock names parameterised per instance.
 > > 
-Ah, so it  has a default that we've elected not to document.
-I can't remember the history of that - probably similar discussion about
-there being no right default when there are two (near?) identical operating interrupt
-pins.
-
-> > Should I make the requirement conditional just to my compatible
-> > strings?  
+> > This is a preparatory step before adding multi-PHY support. No functional
+> > change for existing platforms.
+> > 
+> > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> > ---
+> >  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 76 ++++++++++++++++++--------------
+> >  1 file changed, 44 insertions(+), 32 deletions(-)
 > 
-> Sure, sounds like a good idea to me
+> I'd suggest splitting the Glymur PHY to a separate driver. Otherwise we
+> end up having too many single-platform, single-device specifics which
+> don't apply to other platforms.
+> 
 
-Agreed - that closes this for this part without spitting lots of warnings
-for the older one.
+I don't think that's really needed. This shared PHY concept is going to be
+applicable to upcoming SoCs as well. And moreover, the split won't be clean
+either. We still need to reuse a lot of common logic in the 'phy-qcom-qmp-pcie'
+driver and may only end up keeping very minimal code in
+'phy-qcom-qmp-pcie-glymur'.
 
-J
+If you are concerned about the file size of 'phy-qcom-qmp-pcie', then we should
+move the SoC specific 'cfg' structs into a separate file as that's what
+occupying majority of the space.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
