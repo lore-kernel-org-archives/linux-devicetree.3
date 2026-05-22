@@ -1,110 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECDF2BE7DD;
-	Fri, 22 May 2026 17:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0642835A385
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 17:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779472055; cv=none; b=qFwppx7htxQfwVb4IIVMC9caDJElfqpi3FnMSrPkPY5q9W4hYTlGFYgRkCIytgwyTg5qNP+cPGYoXU+kB2B3nqjmms/J9ixdTV1J67+SRGcFhGZNfzAPsOi2ZAxivJpWMVQvSYI9pRFVWg1BL9+Vp3IXm+iukwh8eNcZkPw5LdI=
+	t=1779472169; cv=none; b=IgU9OnLIsoReQ7rN2BE3JcPhpduyXMf6khTRm4o6FXVIiAMGZSwikwvhu/Tqyn6tT8xk9GTtkuXx9F57LDT0eMzmdd+7dpza5/VGbSMQAtN7Bneb30LzIx7ojgd9W5+XZ6aovEoE/Vj1r1RzPtMo8+S6Suo3xq8wgqci7Hk1QDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779472055; c=relaxed/simple;
-	bh=QAsnBcLvhHzJOKM8KliDYC3zKOVCXqFQk+MalyCmSgw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YQJMQqEipAuTyIPeijSsRm/Ce/gBhQ8UPVN5BUB9hylePTgU48XNGyTM4usDHypHP5UD5cVPOvUoA9fG2u2UcGNt4oxxFQTt1rJ8I3mFAIvQ8ki88ZQMB6Nnim8Df6cdxO4Mml2WNgdn4b+DOvIg8Eg/dkD9/L1qanlk9Et5QUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9Vf+Chj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779472169; c=relaxed/simple;
+	bh=N2X72grTHQ8dU2pJV1M8ei+6uo5LI8B83gDVsURvo0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c7N3tpVP3QhAe3M/77MjrNlxjF6VHKiaEboz9Jboen8udck9wEgDTNqcm2/wGNELUk/M1sDBB+P58BhZ7wnlH6PT3cdz97463ahTQ9wpLNWBASO6xXy2pVD/KdqJB6I4UmJWrpqMghmOMNjyjTC0FwjsoDBOnCzliOXDuTe1l/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=TiG5xCTW; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9Vf+Chj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47ED1F000E9;
-	Fri, 22 May 2026 17:47:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779472053;
-	bh=wdOZgX6GWu7ll+GHDji6Q1cRH07Eb0/1T8YPJc+lGRI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=n9Vf+Chj4dDZA7WEztbYrqM5abCwFZYlJwQbc3/A02XwnezJqBCLELHJiqe2M50dK
-	 W6/ySaL2OjUgros64EVhJmDcSxoV3gsSEJUnW202I0ahtBLrIbvovJsdgC7ZdrFcXj
-	 0ANhJmLGg5j1ioMgepa9W4nokanAEzlKaNhJPWuB6tfoe9GQO/fBZiYtYNDiahSRVS
-	 9+pgaufdD1DfEuQPeunOnL3vos8R5JQU5SuYHOtQ4LRFCumuABp5Lc9LzRc9KWeioy
-	 SAu4zAzEUub3AGtbog2wO9HugExKT3EfR4aa1AjGvlkXVKZKPXBoh2lIkTpY110m+3
-	 5nJNEDXy9PI3A==
-Date: Fri, 22 May 2026 18:47:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v5 04/13] Documentation: ABI: testing: add parent entry
- for iio channels
-Message-ID: <20260522184722.209f3c96@jic23-huawei>
-In-Reply-To: <20260517-ad9910-iio-driver-v5-4-31599c88314a@analog.com>
-References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
-	<20260517-ad9910-iio-driver-v5-4-31599c88314a@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="TiG5xCTW"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-bd8f6ef4ba6so1116242666b.3
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:49:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1779472166; x=1780076966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bz+7AE59b5o1Q2Ik4hVqizrjn40vGbbteFbT2ZCbAIA=;
+        b=TiG5xCTWeKxCFR6CsM5epTwkHcjohm+k09DR1UR0z87QHOBAOMLwSzbycFS+AcDClL
+         kRm5/3jFZa5IU0mGul02WtzNHYp8xXPuz/r5y3d/ZAYwF9zy3lVnvQwF6p5qh+A+SCub
+         sQjJThfXkQCX85SCgGrScHDrUV8b8/LUUmq4k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779472166; x=1780076966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bz+7AE59b5o1Q2Ik4hVqizrjn40vGbbteFbT2ZCbAIA=;
+        b=X1dhRlwul4jUpZqWYBEb+QmBXYt60t+wkmHUFr977hwg6RysnxJ+c+92cq2RaE/g15
+         Hwq24lTI0r7CoKlLz86ZEHDFFDjpg8rQvj0jOYqjHqbo25V+Kf22mwYrSxNHLpRCLUCA
+         lg/GnQ3yoOZMDPfXXz6i29duYhL55vqhY+kA2cBIbCO+Nx8hmW/OdG1sTw/i9O+83uAO
+         Ywpf44dXwKaunOY96E9oiCRnndQphJlzhQSxtRcbIHhhRfTgjCr3j48674UsITW9JAUo
+         9+eu7ZIx96hgNdbtj5n4JKV/g+3SXqEzJwmCf3oVfLcfVuRdgcycCpu85MnuZIPD5QEf
+         tVtw==
+X-Gm-Message-State: AOJu0Yyvbx05G2ZrK97UTc7YIJ9xmCKoitzo+YgpBbNict5wqx1Zl5mw
+	RKvua4+G2NRctI62jLjQMpQ6wwQalXAtqB1qyOY75P2nsNATkM+cbOOf4i7yaQl1IO5rZmYKM2J
+	aC/eEvhw=
+X-Gm-Gg: Acq92OF1jptT8y4yThS3P21ITszkb3OnD67/uA/DeK7R2etsiGxwiysc4fCyNf6mjWb
+	3Fw0+yXWEDXZyNHZFbE9qCsjdYjoeRJXNSJSwYGAUnkddYZoEDDfPzyW9r7Tap2ayHjoP0TKoDt
+	g1Yf03F2URwIemBK6GoaKK69WonkCmIxLcE3xCaZHNYN7DoRCnWziffTNqa0f/bKmmw89g0y1dZ
+	Ik7hnu6ulKrGR2sCpG+LRpjKeDZd8nqIiX5SlDvpzpE7NRH9B6y9GF2Y2ENWrWmrGkRwxp74Qco
+	kuri1D71YwN0SsGxaeTKvTCUvaI1zVPmVSCuvipIDF9TWBgwxdE7hdveTwVi3kv+2axoqYL77ot
+	QqaqrXKTQ3TUjO4/8cNVfSeXku8Og3iCfcXbgGk91FJNlUSZMJQTL/88q+QaFyL3bHvFBo6oDG3
+	aVjO4swgk4qIqsmDwR8wgsi6mQag1ogffo7GmaV8jRLU++gLGvL/7DGMc8B0QLQiNnHdBI1w==
+X-Received: by 2002:a17:907:fd8a:b0:bd5:18ee:a54a with SMTP id a640c23a62f3a-bdd2293ec75mr322856166b.8.1779472166175;
+        Fri, 22 May 2026 10:49:26 -0700 (PDT)
+Received: from thinkpat.amarulasolutions.com ([94.162.24.211])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc5eca6f9sm74302366b.38.2026.05.22.10.49.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 10:49:25 -0700 (PDT)
+From: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+To: devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	dario.binacchi@amarulasolutions.com,
+	Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Subject: [PATCH 0/3] arm64: dts: rockchip: Add support for Axelera Metis SBC
+Date: Fri, 22 May 2026 19:49:15 +0200
+Message-ID: <20260522174918.61523-1-patrick.barsanti@amarulasolutions.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 17 May 2026 19:37:48 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+The Axelera AI Metis Compute Board is a SBC based on the Rockchip RK3588
+SoC. It offers efficient AI compute for multi-stream computer vision and
+generative AI applications in a compact design.
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Add documentation for a read-only sysfs attribute that allows to expose
-> parent-child relationships between IIO channels.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> ---
->  Documentation/ABI/testing/sysfs-bus-iio | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
-> index 925a33fd309a..399944974e34 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-iio
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio
-> @@ -2118,6 +2118,19 @@ Description:
->  		specific attributes. This is useful for userspace to be able to
->  		better identify an individual channel.
->  
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY_parent
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_voltageY_parent
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_altvoltageY_parent
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_parent
-> +KernelVersion:	7.1
-> +Contact:	linux-iio@vger.kernel.org
-> +Description:
-> +		Read-only attribute containing the label of the parent channel
-> +		for hierarchical channel relationships. Only present on channels
-> +		that have a parent channel with a valid label. This is useful for
-> +		userspace to organize channels in tree-like structures that reflects
-> +		the physical or logical relationships between them.
+Product page [1].
 
-Perhaps an example would be useful?
+This series was tested against Linux 7.1-rc4
+(5200f5f493f79f14bbdc349e402a40dfb32f23c8), and aims to introduce basic
+support for the board, which includes the console, the eMMC,
+the two Gigabit Ethernet ports, the four USB ports and
+the HDMI connector.
 
-Otherwise it seems reasonable.  One vague concern I have is maybe we end
-up with a channel that actually has no other existence than as a parent.
-Image two signals mixed into one.  If that mixed signal has nothing to control
-it wouldn't normally show up in the ABI.
+[1]: https://axelera.ai/evaluation-systems/metis-compute-board
 
-I guess we can give it a label though to ensure there is something there 
-(even when not using labels for this!).
+Patrick Barsanti (3):
+  dt-bindings: vendor-prefixes: Add Axelera AI
+  dt-bindings: arm: rockchip: Add Axelera AI Metis Compute Board
+  arm64: dts: rockchip: Add Axelera AI metis-sbc
 
-J
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../boot/dts/rockchip/rk3588-metis-sbc.dts    | 840 ++++++++++++++++++
+ 4 files changed, 848 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-metis-sbc.dts
 
-> +
->  What:		/sys/bus/iio/devices/iio:deviceX/in_phaseY_raw
->  KernelVersion:	4.18
->  Contact:	linux-iio@vger.kernel.org
-> 
+-- 
+2.53.0
 
