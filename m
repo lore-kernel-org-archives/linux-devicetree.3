@@ -1,93 +1,156 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF81E41B366;
-	Fri, 22 May 2026 14:03:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F444218AC
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 14:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779458593; cv=none; b=f47lMy5F24E6p4GBEchg1vY+2FL/Gw+C4M0/zoMrS1iqA2GV5f7w9NJnBEKD0qqC3a3QvtDJJkiuxEiIssW8JmJaBA3j7Ukko00PADtj+06UQ6YbH4w1E3p/rYKQXeuggdn9aYBEBxDjiTH3tlmWegxTsoIb37b7omRBsykJVJ8=
+	t=1779458985; cv=none; b=ZmEi6PhpQg4VJxqK8SWJFJtwEUDK/7l4O9LpqRs/Gwqd7KdK2rD7N6PAr2A0G2DXO+7+kNaeRcU0S17+Gz6hrcgGu80qVM6jb7z47Zo6FzfiBAI5RDmNZ67c4mWBeyXgDbvR3oTTzb+Wt+qqqwrxiOwDu6iA7qXI329shxHarpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779458593; c=relaxed/simple;
-	bh=4kSaALWt2CYQtSO08OULmKTu6gRW0vwaKeECn92Cwu0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E30GGCwiPnKpWShrVR9EL0Cijpc4TZ1ZpgHV1kGQ0hbgaua2e6wyKXcBgFNN8NfJXws3CFZ+ITXZn+F+w3w+h0Y4jW1JcNhxNrSaVLp/AzVhaK32rA5wgIyOnIttzNmXvJnlZc6mbgT2Ew22ZpwLQxHoeXvbhfhl+kr4Nkzb7uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=iy8YrBTr; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1779458985; c=relaxed/simple;
+	bh=Div5yxlglnPNlEq92sKIOutbhS6DoZJ3nxXjujNwMes=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=QYJbxNWEVM8K4SdrEFy31nSjbzT7go6Vg4R7yx4GS7XCqo38aKfN+2fVxDY3H3+jN2E6ZZu3eflvQ5q91tPM5whQ5Xrl1waswqq4/Y5HhdU0tvnY3/ztTCng+NLre8ZjfVLIEn7oWb2nwDDF8VjAdmst7PzmmZuHjcKzMBCJuys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XSc22qUF; arc=none smtp.client-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="iy8YrBTr"
-Received: from francesco-nb (93-38-247-131.ip73.fastwebnet.it [93.38.247.131])
-	by mail11.truemail.it (Postfix) with ESMTPA id ECF911F81F;
-	Fri, 22 May 2026 16:03:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1779458584;
-	bh=aQfUzeILNu5tcktKZdX1Dp06noZVwCjrBQxp9UsjPno=; h=From:To:Subject;
-	b=iy8YrBTrKvM9jFeXPgme3Laz8+PEoMqJufzTCq0Rl15cX0EjncveuErsbv2FyD/AV
-	 HD3E7dH21SGFSibTVLc8JaNqku7hCeyD4JXOm8PGljjOqScxzWzO7iW4mikL2+qFbh
-	 DXGZgaVJs6rb7CTFZ5UJaUl8IxcEHMXrks+N3MLHXzBavEZRP87p0grvzodlGSpDrj
-	 UwzEI9CKcskxWgKh09aVYRS9rTS189LdqHRoG6XdjuiNfgXxUZv7DgJiM2jllfGUWN
-	 gVwYNY9OjYbhbMYs8cRHdpz0x0dxve4e/Z8078dANCCcHFfXXgWvliep7414eivNIJ
-	 TQqmQb2Mbj61Q==
-Date: Fri, 22 May 2026 16:02:57 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] arm64: dts: freescale: imx95-toradex-smarc: move CM7
- node to SoC DTSI
-Message-ID: <20260522140257.GA93826@francesco-nb>
-References: <20260522111849.783-1-laurentiumihalcea111@gmail.com>
- <20260522111849.783-4-laurentiumihalcea111@gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XSc22qUF"
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4855e69a5a4so104133b6e.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 07:09:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1779458978; x=1780063778; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Dnryr+x2yZjU4omLfati+UlNE1xmARQl7d4bNblSI1Q=;
+        b=XSc22qUF4gqrTobBtfmVS5fbH8kJUSmWj4AI8oc7Szqiu2jz7n7M0tCvIzQKzDGIG+
+         PXphBxXVbCzlfZpEGMgA8gUmpIDElxer7mlz6MXM7ufHt4muowP/a2SbtxEE+js2eawD
+         J24FZhKCX6huSmwErP5AfJuJFrXuK2n1ruW/JeOg9rf049cARl3wHC+AFfh0yYfm0Otk
+         JNOPKOGJBeJ1ZDiuNlFrz3nhBj055qkhMB4+5pRq0yzwuS2b9mc16tk49KpqqqWyQhhA
+         t6CkQvHeTxFLwDmnuEqDFUi9BB3LTA+D1lqNLk06CjApD74K3cD94Ev4En1D6OJCTzR3
+         1ocw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779458978; x=1780063778;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Dnryr+x2yZjU4omLfati+UlNE1xmARQl7d4bNblSI1Q=;
+        b=Ad46GUjOyZGRQCx1bVzMSOqXsK7YuodbMZR/M9Jbjr1FhRS17BUOLyOpdHjAYtrHpC
+         IUgQnW7uUMHSn88vES7C+dijdtsK9UAXnAjh6/Wt1/s874pkeqUMS50lV/N5R/k3jHPn
+         PBMAXdpFIoyK+qGq+00SizVKRAaCQEqaLfGtXjWFVH19kLfzY0JWYSSYXMocXBUbAZHl
+         AmoWcKkaiWDf8dl0pGD8MFN74bL/850I8RL3HF0dexN5GuA5nBZaM669pNDOQ0Ljj2mj
+         kMqriYBPE8GdZ9ADuV5/mc8z/91cLU7QKk/baltmic4wRTRm46kLFe6IkNElRhbVSxiH
+         x/tg==
+X-Forwarded-Encrypted: i=1; AFNElJ/B9lTSjAsUeh3+Vs0QqOcHPJqQZzjORaL0FFgKpUUsW04IPDY/r39AlloU+v3M4CryLKt6NBB1eq+X@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSlbfl2FxPVc69pgH40X3qGb/8IdlVo+8D7w9jEjOJZhaXKL5R
+	vcqbLQSzgRaS0ZhXTHEZtUb7NeJKAia5U4/8I5Pti+ekWR7+Ss+9ShyYYiFF/n8Qtbc=
+X-Gm-Gg: Acq92OFxxGitHL8hCv+Md3c4YXVsbJBKW0VEIu4jw6ewBvDdqq9CA4qjc79T3w4YcqG
+	Vm7urtcvOsfR0bEFmtbY/nGgcGr1Flz+HP/gzv5e5fInHBRB3KWPozBRbAF9p5AIPYh/LPdOJra
+	zjiOlvaJ8XoVbDrvM9ylX0ZKC4SpciGqXdJRGpA5eAHJ69H0mZ/PG5lH4JBuwXYDy3RNVjEXy0z
+	d4QVD9kJSe4XvgxnNoEJ4MiXzlpepogCQF6cxjEqmP9p7KaeSerR5QNnJz5pC1nuM4rW6Jwd9TB
+	ponKB2EB0F3HyFYUg4QOo7mRUSkgNUI5n67W/fE7JhTuaQGsiRKxUrIK3WIE/8M0f9xeJgJPbzE
+	lFux4G7vKyhRg4iyXVZpsiJBQ/sySEMqWzNA8SaEa1O/LHwrjGj0WFIFOz40xGsBbuEu/z/mCML
+	BVv6FJO1Cv4LAgJD4QutMBqG6U7lDg1u42+j9fv0FStKVfDeQXrtXqd8g3tHHUZE0QFQJtBVDVW
+	+By7tB8hHbq
+X-Received: by 2002:a05:6808:4f6b:b0:467:268d:31cc with SMTP id 5614622812f47-4854a169876mr2339807b6e.26.1779458977741;
+        Fri, 22 May 2026 07:09:37 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:26b1:32ad:c1ad:687b? ([2600:8803:e7e4:500:26b1:32ad:c1ad:687b])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-485546ed055sm531458b6e.12.2026.05.22.07.09.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 07:09:36 -0700 (PDT)
+Message-ID: <ef6deccf-f916-4fe7-8561-71620a8a7b59@baylibre.com>
+Date: Fri, 22 May 2026 09:09:33 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260522111849.783-4-laurentiumihalcea111@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/8] iio: temperature: ltc2983: Add support for ADT7604
+To: Liviu Stan <liviu.stan@analog.com>, Jonathan Cameron <jic23@kernel.org>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Francesco Lavra <flavra@baylibre.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
+References: <20260522132321.1641-1-liviu.stan@analog.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260522132321.1641-1-liviu.stan@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 22, 2026 at 04:18:47AM -0700, Laurentiu Mihalcea wrote:
-> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+On 5/22/26 8:23 AM, Liviu Stan wrote:
+> On Thu, 21 May 2026 19:18:28 +0000 sashiko-bot@kernel.org wrote:
 > 
-> The CM7 remoteproc configuration is common to multiple MX95-based
-> platforms (e.g. MX95-19x19-EVK, MX95-15x15-FRDM, SMARC-IMX95, etc.).
-> Therefore, move the node to the MX95 SoC DTSI. While at it, split the mbox
-> channels using <>.
+>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>>
+>> New issues:
+>> - [High] Reading the IIO_RESISTANCE channel bypasses hardware fault detection, causing hardware errors (like broken sensor traces) to be silently reported as valid data.
+>>
+>> Pre-existing issues:
+>> - [High] reinit_completion() is called after initiating the hardware conversion, creating a race condition that can cause spurious read timeouts.
+>> --
+>>
+>> commit d382a4cbefd41723ab5ddd91fd399d716c8faaec
+>> Author: Liviu Stan <liviu.stan@analog.com>
+>> Subject: iio: temperature: ltc2983: Add support for ADT7604
+>>
+>> This commit adds support for the ADT7604 temperature sensor by repurposing
+>> custom RTD and thermistor types as copper trace resistance and leak detector
+>> sensors. It introduces two new software sensor types and exposes a new
+>> IIO_RESISTANCE channel reading from a separate result register bank. The
+>> ltc2983_chip_info struct is also extended to use a 64-bit supported_sensors
+>> bitmask for the new types.
+>>
+>>> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
+>>> index 326f843f42713..e2ffeee026eef 100644
+>>> --- a/drivers/iio/temperature/ltc2983.c
+>>> +++ b/drivers/iio/temperature/ltc2983.c
+>>
+>> [ ... ]
+>>
+>>> @@ -1205,7 +1502,8 @@ static struct ltc2983_sensor *ltc2983_temp_new(struct fwnode_handle *child,
+>>>  }
+>>>  
+>>>  static int ltc2983_chan_read(struct ltc2983_data *st,
+>>> -			const struct ltc2983_sensor *sensor, int *val)
+>>> +			const struct ltc2983_sensor *sensor,
+>>> +			u32 base_reg, int *val)
+>>>  {
+>>>  	struct device *dev = &st->spi->dev;
+>>>  	u32 start_conversion = 0;
+>>
+>> [Severity: High]
+>> This is a pre-existing issue, but can this function experience spurious
+>> read timeouts due to a race condition with the completion?
+>>
+>> Looking at the rest of this function:
+>>
+>>     ret = regmap_write(st->regmap, LTC2983_STATUS_REG, start_conversion);
+>>     if (ret)
+>>         return ret;
+>>
+>>     reinit_completion(&st->completion);
+>>
+>> If the hardware conversion finishes very quickly after regmap_write(),
+>> could the interrupt fire and call complete() before the CPU executes
+>> reinit_completion()? This would overwrite the completion event, causing the
+>> subsequent wait_for_completion_timeout() to spuriously time out.
+>>
+>> Would it be safer to call reinit_completion() before initiating the hardware
+>> action?
 > 
-> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+> This is theoretically valid but in practice, the conversion requires at minimum
+> two 82ms cycles (167ms), so there is no realistic window for the interrupt to
+> race with reinit_completion(). What do you guys think?
 
-...
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> index 3e35c956a4d7..f8760ac067fa 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> @@ -272,6 +272,13 @@ opp-1000000000 {
->  		};
->  	};
->  
-> +	cm7: remoteproc-cm7 {
-> +		compatible = "fsl,imx95-cm7";
-> +		mboxes = <&mu7 0 1>, <&mu7 1 1>, <&mu7 3 1>;
-> +		mbox-names = "tx", "rx", "rxdb";
-> +		status = "disabled";
-> +	};
-> +
-
-As sashiko noticed, this is introducing a regression. No-one is enabling
-this node anymore.
-
-Francesco
-
+I would still move it before the write so that it looks correct
+and others can copy/paste the logic on other devices.
 
