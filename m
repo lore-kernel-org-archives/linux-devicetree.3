@@ -1,120 +1,109 @@
-Received: from sender4-pp-o92.zoho.com (sender4-pp-o92.zoho.com [136.143.188.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FD738B122;
-	Fri, 22 May 2026 13:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779454856; cv=pass; b=Q47HyvoQ83xIojeBgvvw5paltdSKsMiATp3K8DUwb4grOlIXljS7f34VNpsZFx//QyTkONiSXqZEuSVtcjiVFLmBAGHM/ZhD3Z8S3A7tlZoVMpHLgsRcKLMDvNVpmlQ0BKVYCYOOAUblXrdmhNYHdhXets3B/dnXijVIqCgAmR4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779454856; c=relaxed/simple;
-	bh=2a2Ues8oit5F0hamVRvNnhy1TDmBusJ+DQa9IX5JqNQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZMBEKrB4Ldx0xeLTWQC+YpK4oXSfU2Bl4yMjNX1pSOYD/v175fJpnQxhKz3wZCNNxbg4vrXGOi/qO5wpFCk9XSOmed13Mft/7/xYs36LQvCwoFGRWrdDOJUF229y8GUZRg94YqH9M9QfAMMi2sFa7alVd9v2b6z9ojq1owWKvno=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b=LZNgU1Uw; arc=pass smtp.client-ip=136.143.188.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03C7388893;
+	Fri, 22 May 2026 13:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779454914; cv=none; b=jbmaclz3C9Crs7yuxffjRUqcojUY/OQGv+R0tuSuQ13JIfZBtUgz2DD/GwCtBGCOEnh+aARdgDlBDtUrEu8IMg7L8YUKNpqFaf8R0zFEdYNQpZz2GHRriDJqZu52jKqdYFa6wn1KrzhnPrsWAMibs8fRzogA9bvd5HfiXdYYiqQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779454914; c=relaxed/simple;
+	bh=Es7Vb9ABTUmgzzmnqEEGOu7GP+RMFAjOpM00ciITgFE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h9g29ZaBcKOVdl8RkOWQcpOy0hPiHYyczMYl21Sm4TtBllanX4ejpk/LrbILWbDZ3fhe6jK/JaZWpXGiWQA5h8qS2++CTP3ESegQLuHnCb6RhDkidWcCX2L81sGQpco9zGxiFuzyNCNzm9rjiZtbrItL30B6OKA0FNfM4ESZxok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5nGxVmZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b="LZNgU1Uw"
-ARC-Seal: i=1; a=rsa-sha256; t=1779454836; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mXHalvZ2De87nqdd+Qu9KejK7X7MjBsUkinnEita0NpFch6ur7DdcDRoqF5KC5Fj2Omk3eO8X5XSy6IlZ6FHTc1qMRoWoKvCSOM2xNmqSoXRG9Z151NwXa/ZrEkNpJxzXONpLjgP5qtYE5n+/WFiun4t0GzFG9TtpQus8BHteIM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779454836; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=JX4/HzHgr9Ln2K8EGkhp70E2oDhc6Dp0qS3CpdjxcfQ=; 
-	b=JEB+Q9kwAq8S+OunkVsGFsekfZ9tc+ZY9ZUMJmV+1qFYAqVV40vfTA/POq7At6oj0T26IfumIjLbAg5GyJtMeJbZPE+BTP4wW/psuUaiygKGa+C7vmIA7SbuyIZqA2UqH+8eKTWPuAyyt8LElyvywS9ai0Em995/TpUUQI5qzu4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=kingxukai@zohomail.com;
-	dmarc=pass header.from=<kingxukai@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779454836;
-	s=zm2022; d=zohomail.com; i=kingxukai@zohomail.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Reply-To;
-	bh=JX4/HzHgr9Ln2K8EGkhp70E2oDhc6Dp0qS3CpdjxcfQ=;
-	b=LZNgU1UwZJKElt8ZqwmVKwQcyAxKscQZEb7E8wVgPi/WkeBfHNVYQnTs6MOWtlOc
-	BAI7vOXBBOJLSH2zzdyPXRvm8cGL1feHbggGYDzMDI4ECTwwOOE9R1hw18GPbhSWHrc
-	UKP6Xgu8diFjXdUgXtSu5j6JyS9wyLvvbZsq5C2Y=
-Received: by mx.zohomail.com with SMTPS id 1779454831935958.224223537089;
-	Fri, 22 May 2026 06:00:31 -0700 (PDT)
-From: Xukai Wang <kingxukai@zohomail.com>
-To: Conor Dooley <conor.dooley@microchip.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Conor Dooley <conor@kernel.org>,
-	Xukai Wang <kingxukai@zohomail.com>
-Cc: linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Troy Mitchell <TroyMitchell988@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH] clk: canaan: k230: Fix sparse warnings reported by LKP
-Date: Fri, 22 May 2026 20:59:12 +0800
-Message-Id: <dee4605ca30f9bbd55ccb4fcce9590ceee1fa10b.1779453284.git.kingxukai@zohomail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260522-eligible-vivacious-3ce9bc30dd53@wendy>
-References: <20260522-eligible-vivacious-3ce9bc30dd53@wendy>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5nGxVmZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCEC11F000E9;
+	Fri, 22 May 2026 13:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779454913;
+	bh=iAvcOQlHfItm6RV8kDuEo5a7+X4i437AKkSh6Oa6+5Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T5nGxVmZhnWsSDibU0hWrbUOcLh39IfcYmSPjEoMhdS+SGEYRzQhUeKOomYjfeJX1
+	 hKbaSjobLHiKV6lzFL/6LClX7PZoKtSbp4CLMe/yvMVzILMdiNUwYPY1yUfXiq/7qh
+	 PB/8skuf3e6Y112NpVRICUhZ1PW0vmIGVzafRBwRStTg+xuLt4URx/FALzHXATUp2r
+	 2DNCwHw1T+Ke++b9/50j185f4KvZVceitez4wpPnjLdHonbAdu+AGNdmUvEod/qtSq
+	 c6LdcUpIgBoELj6Q/Fa5+sh++jHC+lyR/MzARpNY9H+8eSRNfUPjVxxlYeEGKp57MG
+	 8T8nX2rZhgyBQ==
+Message-ID: <f2ffcf92-34b7-40e8-877c-669c2d320506@kernel.org>
+Date: Fri, 22 May 2026 16:01:48 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu08011227c6335346a63148b9f6cec2f70000b3c03c513edafb3405058bc9ea8ac70ec1c949f9169db7a4fa:ZohoMail
-X-Zoho-CM-AccountID: 2ee5dd3c83366259b2ba1e9826250ffebed1ef2dd213857d649ad25aba73b429
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+ claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
+ <20260522102251.1723392-10-claudiu.beznea@kernel.org>
+ <ahBMKWrKQDko3cG8@shikoro>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <ahBMKWrKQDko3cG8@shikoro>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fix all sparse warnings detected during LKP randconfig testing:
-- Replace plain integer 0 with NULL.
-- Add static modifier to k230_plls and k230_pll_divs.
+Hi, Wolfram,
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202605220724.j4ZeM3KI-lkp@intel.com/
-Signed-off-by: Xukai Wang <kingxukai@zohomail.com>
----
- drivers/clk/clk-k230.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+On 5/22/26 15:29, Wolfram Sang wrote:
+> Hi Claudiu,
+> 
+>> +	i3c_pins: i3c {
+>> +		pins = "I3C_SDA", "I3C_SCL";
+>> +#if SW_CONFIG4 == SW_ON
+>> +		power-source = <1200>;
+>> +#else
+>> +		power-source = <1800>;
+>> +#endif
+>> +		input-enable;
+>> +		renesas,i3c-standby = <0>;
+>> +	};
+>> +
+>> +	i3c_standby_pins: i3c-standby {
+>> +		pins = "I3C_SDA", "I3C_SCL";
+>> +#if SW_CONFIG4 == SW_ON
+>> +		power-source = <1200>;
+>> +#else
+>> +		power-source = <1800>;
+>> +#endif
+>> +		renesas,i3c-standby = <1>;
+>> +	};
+> 
+> That doesn't look like HW description to me because the pins are the
+> same for regular and standby mode.
 
-diff --git a/drivers/clk/clk-k230.c b/drivers/clk/clk-k230.c
-index d883a1e1118e..cfc437038e4e 100644
---- a/drivers/clk/clk-k230.c
-+++ b/drivers/clk/clk-k230.c
-@@ -270,12 +270,12 @@ static const struct clk_ops k230_clk_ops_mul_div = {
- 	.recalc_rate	= k230_clk_get_rate_mul_div,
- };
- 
--K230_CLK_PLL_FORMAT(pll0, 0, CLK_IS_CRITICAL, 0);
--K230_CLK_PLL_FORMAT(pll1, 1, CLK_IS_CRITICAL, 0);
--K230_CLK_PLL_FORMAT(pll2, 2, CLK_IS_CRITICAL, 0);
--K230_CLK_PLL_FORMAT(pll3, 3, CLK_IS_CRITICAL, 0);
-+K230_CLK_PLL_FORMAT(pll0, 0, CLK_IS_CRITICAL, NULL);
-+K230_CLK_PLL_FORMAT(pll1, 1, CLK_IS_CRITICAL, NULL);
-+K230_CLK_PLL_FORMAT(pll2, 2, CLK_IS_CRITICAL, NULL);
-+K230_CLK_PLL_FORMAT(pll3, 3, CLK_IS_CRITICAL, NULL);
- 
--struct k230_pll *k230_plls[] = {
-+static struct k230_pll *k230_plls[] = {
- 	&pll0,
- 	&pll1,
- 	&pll2,
-@@ -296,7 +296,7 @@ K230_CLK_FIXED_FACTOR_FORMAT(pll3_div2, 1, 2, 0, &pll3.hw);
- K230_CLK_FIXED_FACTOR_FORMAT(pll3_div3, 1, 3, 0, &pll3.hw);
- K230_CLK_FIXED_FACTOR_FORMAT(pll3_div4, 1, 4, 0, &pll3.hw);
- 
--struct clk_fixed_factor *k230_pll_divs[] = {
-+static struct clk_fixed_factor *k230_pll_divs[] = {
- 	&pll0_div2,
- 	&pll0_div3,
- 	&pll0_div4,
+Yes, same pins, different states. Isn't that the role of different pinctrl 
+entries in DT for the same node? E.g., for SHDI we use the same approach, same 
+pins but different states. Bellow is an example from RZ/G3S but same approach is 
+used for other Renesas SoCs as well:
+
+https://elixir.bootlin.com/linux/v7.1-rc4/source/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi#L305
+
+https://elixir.bootlin.com/linux/v7.1-rc4/source/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi#L321
+
+> Their state is changed when powering
+> down, but that should not need DT encoding, I'd think. The driver should
+> know what to do, or?
+
+Through different pinctrl states different pinctrl settings are applied in the 
+pin controller HW by calling well known pinctrl APIs from the consumer drivers 
+(e.g. pinctrl_pm_select_sleep_state() in case of the I3C driver as proposed in [1]).
+
+Is there another way the I3C driver (or any pinctrl driver consumer) could apply 
+pinctrl settings?
+
+[1] https://lore.kernel.org/all/20260522101815.1722909-18-claudiu.beznea@kernel.org
+
 -- 
-2.34.1
+Thank you,
+Claudiu
 
