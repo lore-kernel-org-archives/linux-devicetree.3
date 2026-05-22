@@ -1,93 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E308F3CCFD4;
-	Fri, 22 May 2026 10:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527CC3E4C75;
+	Fri, 22 May 2026 10:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779445285; cv=none; b=ESbgLXhGKFjXBSpHTJ7i5fxVqvsrkv1GmcnB/Zp2580C+gJaK3Rg1mDAJSjCpl+p94qZhPcmcLb3GlITtq32upjiiM1hzX0JM+/BRpoGXtJx9UrYfLCAwreczScaAmoj5dsr7Zf7/ADdncT4SjxN9VkY5pxUYY8V/GU0sctiaa0=
+	t=1779445384; cv=none; b=Qh/dZIVBTavtgaGS2EGKUyHB1TYcqFFassZjP8f8r3nBm5JIzFFhL4G+pLm4Fol51YGqKOlrEy5P4q48+nogNqITFniuifVL0MAWlYRO1bmeAYBIxKn0u4Gph86CZtBSclK4Bpe7imBxCLZkS/4IlNW9x7dnZQX6qybjtxz9tgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779445285; c=relaxed/simple;
-	bh=hQbgFnBSRPPGLtJDVSn8W1/x06HNaDFZgo7K4RTCvJY=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=szxpyWCx0xU8/CwT/m5/w7uBJY8ogKwRluv5XFksxFQq5NkbxfzJOBxNw+cgJV8utAN4CgXUKoJCQ6y2xuGxnRz5HCWT/aHqxkgOtgvs02cmUJbdsP/DwEQ1+ZZ9R0hBRnvPslGMVwZXTUL/LhBqczzPkNNuMscKx+xmDbNA0IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Of9edK5n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779445384; c=relaxed/simple;
+	bh=hQ4nHwUjHM85RPcNSRRGmDVhm3/wG0Lbj6f/ago/mNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tgXrF569lLDTa4SzPRmxLFp/TViCUtzJmzF0r1ugg+3I7Yc5hYTiKO43Z9kbqA/7tJkF/jeRljCtLEkHNyY9KCPpziy3xLzLLyplxMBd1f5+afQ+K5n7/b7wOtbMt3LbOYH+Iz0/YMyA/IbpFy9256WZGr681eK+vO8ea+5yTS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+QaA/NM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Of9edK5n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B561F000E9;
-	Fri, 22 May 2026 10:21:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+QaA/NM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D7871F000E9;
+	Fri, 22 May 2026 10:22:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779445283;
-	bh=fKVEdOr2RzcA3rdMqyuatu+3TO4o4RuODlSYsnlMFys=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=Of9edK5nBIMY0lUHir4lgmavX7OoGGXmzTVbsJgWQYq9atlY2kfvJ9nZ0Hezhfl0d
-	 qRit2yxmN/VOmQ9g7FarBlVhLVb68/JDuPTUktILE6lel80+rthUWRw1jxTm7UtlJP
-	 Qyk0xpfMf0/NAORIbqelImtm89qYxDXpW83ORhSTbt8Gu2mI2OxBWz0Bj1LeYm2O9A
-	 gsDhn14l5bRuKbgJToRxngKlvNlu5GrqgQeOln1x33tVkJh0tnwcO3W6jd+S0IOzvp
-	 yPJc7/kLGJ5xgD6xuLgZDbP1D2L513wwfQW9ioUKMbdz7uDc9bf1++90NMuRgySQIa
-	 PmJvRQ08ZGE3Q==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, Frank.Li@nxp.com, shengjiu.wang@gmail.com, 
- s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Chancel Liu <chancel.liu@nxp.com>
-In-Reply-To: <20260331012450.1298115-1-chancel.liu@nxp.com>
-References: <20260331012450.1298115-1-chancel.liu@nxp.com>
-Subject: Re: [PATCH v4] ASoC: dt-bindings: imx-card: Complete the full list
- of supported DAI formats
-Message-Id: <177940550339.58022.2317951355365638081.b4-ty@b4>
-Date: Fri, 22 May 2026 00:18:23 +0100
+	s=k20260515; t=1779445380;
+	bh=TdZatwqYlu5itvkQAc0Doke20CODQFz7FSicHvnYBBg=;
+	h=From:To:Cc:Subject:Date;
+	b=C+QaA/NMLeSS+Xg2un+An5g3h0IhL93/cgo0cU56hZC89Dk9IGKEvI3d/vFHIYwhQ
+	 VOjSOmbbC6yBmq1zduHiql0VXi11bSYkqhecGANs+fC6/1UTYep+nDLi3ry00wkMIm
+	 O5uZIJ7A9zJR/wJ9wv2LkEMRtq4LxkHCBtdeDeIrV5Z+ONV/PvH2UiAc6sRAB/Eyfs
+	 /EvySWsJckIlZDlx60I1Lg+3Ymt3h+3GBI/+1AskYgNsYC5CayX8MXbJJDDJmZkoob
+	 aT2BhrP6r9fUKrApjPjZ+rh73bG9ACdWpGeQaMYJj1+o63woX+AtpQ2Q1ldAoU0Apk
+	 tzwyqb9QA2LbQ==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: geert+renesas@glider.be,
+	linusw@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	magnus.damm@gmail.com,
+	wsa+renesas@sang-engineering.com
+Cc: claudiu.beznea@kernel.org,
+	claudiu.beznea@tuxon.dev,
+	linux-renesas-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: [PATCH 0/9] pinctrl: renesas: rzg2l: Add support for RZ/G3S I3C
+Date: Fri, 22 May 2026 13:22:42 +0300
+Message-ID: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1169; i=broonie@kernel.org;
- h=from:subject:message-id; bh=hQbgFnBSRPPGLtJDVSn8W1/x06HNaDFZgo7K4RTCvJY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqEC4gILdOGrZTLWv2gfMWgPbwRQgjUIjNKTW51
- 0aTiuTo2fKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCahAuIAAKCRAk1otyXVSH
- 0PpLB/0YSaPGbRAdXB2fmsDzvAgb1YXEmRPNp0GMA3E+OKtbVXP/w/vZB3pTHbHqCr5IkdyNB7v
- qTnRjqFZs37mpGSxSuYV7RDpJ+TQsjeBvB5gApzbcR7wUvfrJAdC430fr+Uu5vIcSJg2PlcsW0/
- wDr8wx15L5FNcmgISfStNgsbZf0e/ARVF9mX1O4UQy5ew08FeETxnGn7TAIU3+s1WvJI3BxKEQY
- 2i0AlRbqlnWcPhCdw68fU4n/CQ5v8Svd500VGMWQrDOVkIPHA6tLrOw2AdxsKkeynfGog0j6FoE
- OWKiOVZC02iWbRmlaOjeV3HtKddGtfLyVRJOBQqvutPugS4w
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Tue, 31 Mar 2026 10:24:50 +0900, Chancel Liu wrote:
-> ASoC: dt-bindings: imx-card: Complete the full list of supported DAI formats
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-Applied to
+Hi,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+Series adds pinctrl support for the I3C on Renesas RZ/G3S SoC. For a
+clean I3C support, cleanup patches for the pinctrl driver were also
+included.
 
-Thanks!
+Series is based on next-20260521 + series at [1].
 
-[1/1] ASoC: dt-bindings: imx-card: Complete the full list of supported DAI formats
-      https://git.kernel.org/broonie/sound/c/caa7a3711862
+Thank you,
+Claudiu
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[1] https://lore.kernel.org/all20260515124008.2947838-1-claudiu.beznea@kernel.org
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Claudiu Beznea (9):
+  pinctrl: renesas: rzg2l: Generalize the power source code
+  pinctrl: renesas: rzg2l: Drop defines present in struct rzg2l_hwcfg
+  pinctrl: renesas: rzg2l: Keep member documentation aligned
+  pinctrl: renesas: rzg2l: Use tab instead of spaces
+  dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Document the missing I3C
+    power source option
+  pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C
+    power source
+  dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Document the I3C standby
+    property
+  pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C
+    standby state
+  arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ .../pinctrl/renesas,rzg2l-pinctrl.yaml        |   9 +-
+ .../boot/dts/renesas/rzg3s-smarc-som.dtsi     |  30 ++
+ .../boot/dts/renesas/rzg3s-smarc-switches.h   |   4 +
+ drivers/pinctrl/renesas/pinctrl-rzg2l.c       | 305 +++++++++++++-----
+ 4 files changed, 271 insertions(+), 77 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.43.0
 
