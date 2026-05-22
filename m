@@ -1,147 +1,143 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191E7376BD0
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC62137CD44
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779451639; cv=none; b=H2RwKlQ7tBn3sErpgDcnEOEAguM8LYudlwonzRCAd7qIu5ZHwDBGMf/8gsgCMf/67OwypYGGaba9zXZ6unG80ZO3H93fMCgUs3DdcSySNMa/NWoqPmovKVErk427Nzng996bUhPd99U4kEdiay2BSUWjTgs6zB1BiHXRvVtbtgU=
+	t=1779451649; cv=none; b=Qfj7uamHM1UJNlJYEc95AfvvOCGgNl2INUtjxw6j2trK1kFe53Z097fepsUIDvDqnVuXjYjOK0myjauKHCN5JJTsbj95lLmdggRWUYtF8Ps1zADwg+0NpJlE8cZiqSq2w/EWkKzYji+XAsNHLB9X8RRCah2DjlJtzJd6haNY5TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779451639; c=relaxed/simple;
-	bh=8igC6V5gCG3ORklcZkPqAGB8ALlBsuox//yt23Usl/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s6p3ivLuIghbGX7TkbUhrM9jIyV7/kSmrbmLtTfqGJq9snMSLRHfMwnzqBcBqkRKfapIIWzVtXR4pjwAM+RVNKz5mBI11p32vTl49h+y3Wjutk/EMYH4gxfoW7mVmsk/phNPW9JEgt0o/pg2aLqMqnqpk9kVCMvrjmNdJ3Qpth8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xrXiQlFa; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779451649; c=relaxed/simple;
+	bh=Fj1A4b7g6dvijlX3WGGYJg3amw1kuK5FFTiSfqI3LZg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ODUsPAShGPjrd9jb0Hx7JLn/6tBQ19dMaGE6idhZ4HhUUEpJLa7DpwjAAZumtE7yrRqIyZ6XAoytrKP1zFLn6FY+mbVFgmCJT5ouuGR9yZKVmzy7m7zs3rmWH6/3dng8pvbnx53FiB8xYRoFRWNIWL7EA9o0c0B94r6PyjlppdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LOVJNU4C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AHokcY59; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xrXiQlFa"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45e6a4d0be0so3228718f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 05:07:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LOVJNU4C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AHokcY59"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64MAIiYd1800723
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:07:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zE6lEFfxgQ65YExek3nLbR2SvRi7Pjb1+wohwnY48tA=; b=LOVJNU4CyqKj/p/s
+	QWN8jTv7RC+lKqSxMmHFkDFEaiiprnestt70R4eJ1ol8L1+Ym92QoR5ly+MzB2je
+	MXK+iK/yqUzTGy7xO8bpXJJstcFVxx5wsJYjSzIDCVpQl1KEiBgC9EpcloabzCs7
+	ASr0chuN3EDEU6BTGW6se8CF9CLuuASxowStasXAp3cSV5OLUHU/TZBwCAuXZV/U
+	+Y3oaoZViWwOh/Fu/MNiFjh4/Fq+GLfo8NnvZbUORGiVod+lZUncnWg2ng52ezbt
+	i8wQHKXwBJh1ZMMTBX/OJpASj6Zi0ULNtvxJ6STeFvWN3zffHlgspcXOyb/OBNPL
+	WbL/uA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ean9g0b8c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 12:07:27 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-914b9d0162aso14581785a.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 05:07:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779451636; x=1780056436; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=JRpKrzH+DoH1DNrXivPjGcJUPcnVpmZeapPmijxinYU=;
-        b=xrXiQlFaPJ/aLpbWyCLckZcJYzAZ0DHMvhSeQMnPl04u9uo62gl/6y6jHbMcehvrTc
-         VkEOcuMSU78CUwhaLf61XV1kAtBWm6v4o3yr8lCGpKNMI45gxKYxMyGulXAmZ5dxNKx2
-         ggFJ6Y05/bAw1WOzUiWD0RxZVXN5WU7ttsseAO0QdO6C5t8CzZF83Zyyp9qF4XaxbaKd
-         wHt02U/XPME2J54LjCnMufIhmXRPML1LUjQXYHSbZ19t3u0ES8hjMYfkvtAgt1y95B2p
-         xUCQdL4p9yBDCCVwQXHijbDz95vlaD6DCqEwrnxLEZcKZsn2YwttybTdbg7YkT4rPPyo
-         /uqQ==
+        d=oss.qualcomm.com; s=google; t=1779451646; x=1780056446; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zE6lEFfxgQ65YExek3nLbR2SvRi7Pjb1+wohwnY48tA=;
+        b=AHokcY596oJX8cHOsOckgq2k8Nl6mdD1jXdCBVFTnoUN/T0V/USLkQpAIAIIlby/q7
+         6E9AD71G4C+ufFeobKNvs+SZSjHRkO+AMTKRS7fUfdaAmOYkO1KOOGx1iVcDDGk8M/k4
+         Cr9q6SKcQIEj3xGtZD1+0vqF7H4dBq5an9QUv8Wr49NWqYae1DTplAas2W+g3g7BUcnM
+         QISCa7z8x7dBXJMjKn7hbv29+Dm0t4GF0EfBgeF+LaFTdXNEHxp+sotIYP9sEXEwqNxl
+         Ty0rZsq/6j5bxoQAtMR4/0Fcow5W5OUvNDvB+PqBT9+YwT7W8BGOgunlacvtUCM0fDCW
+         5+ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779451636; x=1780056436;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=JRpKrzH+DoH1DNrXivPjGcJUPcnVpmZeapPmijxinYU=;
-        b=VEVkISM7fP7ZVbOc1kAIs2hWHcTJhb+S4fIoNUsnuqj8dbqgtr+XUwNIKNdnYQs4Uq
-         vQ6c1tgbAI9IG6+IcGi7HnSE375cwtNAcFvud9uPByWQ9EWhrYZic4DLwmzkbBob7AuN
-         yQ1wIgwIhXYKJpyqih1hayDXJMHUiflevd97HpGa3PXedndPq0w+Q+p+S2qdGTM30PvH
-         +PEUTUnPE/WWZaHTf88A9BQGCVsfdkk5JBFfrcIxe6kA7wBhD7b6DBs8N+3Lgt7H5QK/
-         6zzXFWqEex5sb25oAuBbecZrvrn5ym5bCb7O7Gp5K+os+clREQMW7NQbzML3vSPgkCyc
-         TD3Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+pFjm0ZYsKV84TtRE4S7SwsaFloUtOBDtAR/ynyZAbMIxQy/z/BFI80iNKU9WQx3yfnvDwCJuocurf@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzBR74YJVI/+1qIDtDBxml2xjTgvX9dKw9uGFnWofd19j2IMIy
-	F81petPkb/aoSNWLzTPtqhLiEdJuOUBfWhR4TzlLHtrzZzNjB1JaiCoUtHfbChEYu4A=
-X-Gm-Gg: Acq92OF/B5cdwPAIgxooZdTVbSZfrcmCfACgMO+gYtdstWFQeJ0tnPBKGtU8ms6yovH
-	mRnAzsYeSJpq4bQjPQcpeqvTR9waswQealJd0ead1563MHIUTPYQSBvD81fHkc9baTtWGnO4xst
-	6jrkm4xXokb0LYRxjvGsR3jbY8K8Z8h7cI6Pb1V063m2Rb3C9Md5adWXcH+lEhqGyE8XYhjRMZu
-	K2MQx+JQ8Gsut+IaN/0no2/xXKQDqDMlS8O59E/ZVQFIQgyP/ERCBK3/NWhpr27mFrvY9UwTq21
-	WdgE/KRR+y2Q5bJsp6e5H7FVuGkYLSeQvBhwVFfDvxCLiLYthZZnXFjM3ilzdCPwXiy3TFA5KUH
-	JUn2goesHRcTXyKL22dcmkmCgLJXqvhYvTvDdNtHiaavbttJXpw8M9rMZRM/CZxAVc4C5dTcrAP
-	JqRvKX0e889byxAtL5rj+WNFck9O73
-X-Received: by 2002:adf:e009:0:10b0:43d:c95b:c46f with SMTP id ffacd0b85a97d-45eb38bfdebmr3493505f8f.38.1779451636530;
-        Fri, 22 May 2026 05:07:16 -0700 (PDT)
-Received: from linaro.org ([77.64.147.221])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6c9f58dsm3678635f8f.5.2026.05.22.05.07.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 05:07:15 -0700 (PDT)
-Date: Fri, 22 May 2026 14:07:06 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	shengchao.guo@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-	tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
-	yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support
- for subsystems
-Message-ID: <ahBG6jKYdSAboWjs@linaro.org>
-References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
- <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1779451646; x=1780056446;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zE6lEFfxgQ65YExek3nLbR2SvRi7Pjb1+wohwnY48tA=;
+        b=HzdCA2TGb0tUjnWMJ5mhcRhPrDj9xYKv3cJt+3imCCJnitXxb9Id02vGTpKYf6/L+y
+         d9RA4TZ1N+fsjvR0z1Z/KcervhezBknSwecIvGJgWbZxBnCSAhe5Sp5QDMMG3J3bLpeQ
+         cHBtPZ0EuZjmY0VYktMciwsGa0OlqX/kQusmPUqcyPKyE+b6R8p8px/wrmpUPByQhASX
+         3o1eKaED4uCNoVTpPBopkzHh14he2HE2M/FlCM5fRFKzBwYqi3Cb4YKWGdNjUzu92RPM
+         j/u+HnJ2Gy0l5XgA1m3D7+k1Y+e0d01VtMYcFaaKszzvrpUCYHykzsgbNquxHNdpRaHr
+         BygA==
+X-Forwarded-Encrypted: i=1; AFNElJ84qnZ0vb1msG3YFjhAkFdVeyZic65JMSurzdCP4n5a7FbtnUbCUXDxC2pgXacDg1SaQEDZuFzbmc8B@vger.kernel.org
+X-Gm-Message-State: AOJu0YwPzpsf0C6yaxG2X3YTrTcRyDrnUmjAu8yByr1AOhmET+VuSDAU
+	s5usrAYcQBrZ+FU6ITeOaIDOEDc4VjRgdLR5spVuCmvJO9tLRejF1c2vxTMaSin8fAsXTmhoG7b
+	XlK4f5jUbsoRPhiq1XX/WPzoFUJSj/KMAE7j8n8ibziUWY6iG8wEW55+axxdlYgjc
+X-Gm-Gg: Acq92OGrigmUiiGKis44hf+NrJ8jLURTlq/8cYVq6KhM5J45TStLZFafRz3C5buKdhk
+	ZKaX8r4Y7ywaR6Ptfrk0xKJDHydqjsmQlj03JzpgxJiBf3RSyy+Ltmitf8ze7JVNPQUXel/NyCO
+	L7IMzaKQt4pShErbiiXb/VYFVWTXsZoTUo87pqOcub7W6Pbdd8zIug4tNPetE2BURwqTKIjxD9c
+	f6t/JVk1oce/9X3O6q77y6aXG2EqhuoZP46J9ziQ9IZJf9fOaz7alK5XZ5kUHPz5axF+EodeVzW
+	nBE/2CgwOGqtWKV0alKOGsMoDMCNj6D21e92wP7GuTQAnHTfES4W66CK2CghEZy/vIkIS+Fu00p
+	/LWcJNcsyL/loqFiktOniFrH5EER2jK+N7xSCsgkd3dm5bw==
+X-Received: by 2002:a05:620a:2682:b0:913:b4b9:5ec8 with SMTP id af79cd13be357-914b49a070dmr346773385a.6.1779451646108;
+        Fri, 22 May 2026 05:07:26 -0700 (PDT)
+X-Received: by 2002:a05:620a:2682:b0:913:b4b9:5ec8 with SMTP id af79cd13be357-914b49a070dmr346769185a.6.1779451645680;
+        Fri, 22 May 2026 05:07:25 -0700 (PDT)
+Received: from [192.168.119.254] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-688bb133f7fsm599416a12.23.2026.05.22.05.07.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 05:07:23 -0700 (PDT)
+Message-ID: <29d16d2d-3a3c-4443-8f78-b99a5c3c2279@oss.qualcomm.com>
+Date: Fri, 22 May 2026 14:07:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/10] arm64: dts: qcom: sc8280xp-arcata: add USB-C
+ orientation GPIOs
+To: jerome.debretagne@gmail.com, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Johan Hovold <johan@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260522-surface-sp9-5g-for-next-v2-0-dd9d477407f5@gmail.com>
+ <20260522-surface-sp9-5g-for-next-v2-3-dd9d477407f5@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260522-surface-sp9-5g-for-next-v2-3-dd9d477407f5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: __G9VULQuVsNtQmgYGngRx0HrLhPhzrL
+X-Authority-Analysis: v=2.4 cv=B/qJFutM c=1 sm=1 tr=0 ts=6a1046ff cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=N2VbTgOPUDbNM2pmtP0A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: __G9VULQuVsNtQmgYGngRx0HrLhPhzrL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDEyMSBTYWx0ZWRfXzWChwhtvH5ES
+ HEeFOQJ+qaub31oZsN+qSbGZdSLSiZhB9M8f3M9TQdChdsgA1wteseF0ZKUbBEj45zqG9Sx+bSm
+ NZK9zAwPfX6J5RVFFITgelrBfseEdGizZh7jWzra6bQxpjD0znIn/72Cf68OGrBFXEg9RR9ph9T
+ DC+Rv3hD87sBxDo0V5cdAbstdaCrxTLQxU2vdR+jZk3eIp/5Dg+w7XZ5jJqp3IaZp1EpPBAe8fM
+ 2xPxnuir+Rl63CUq2d/vaDI6jcBlxC8Lo4N4cpTYerQe1VbZynQG+PJHx8n9pbgu4yHUkci6qno
+ cLYep4YuTKGFvXDqFM49Xznw/WDX1yiYk/j0nWUJ2cV5YP8caOYrl6iQTe2HlrI3Oowxag9fnlq
+ kBYfEBafrGUcSY4a9vDtI0udwBbpNteOgu+sC1FA7GwhIzAceUHybH9U7VZYfXhxvyCEoj9J9sK
+ f93sQalPy2iDglnEGJw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ suspectscore=0 adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220121
 
-On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
-> Subsystems can be brought out of reset by entities such as bootloaders.
-> As the irq enablement could be later than subsystem bring up, the state
-> of subsystem should be checked by reading SMP2P bits.
+On 5/22/26 12:43 PM, Jérôme de Bretagne via B4 Relay wrote:
+> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 > 
-> A new qcom_pas_attach() function is introduced. if a crash state is
-> detected for the subsystem, rproc_report_crash() is called. If the ready
-> state is detected, it will be marked as "attached", otherwise it could
-> be the early boot feature is not supported by other entities. In this
-> case, the state will be marked as RPROC_OFFLINE so that the PAS driver
-> can load the firmware and start the remoteproc.
+> Define the USB-C orientation GPIOs so that the orientation is known
+> for the two USB-C ports on the left-side.
 > 
-> Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-> Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> ---
 
-Unfortunately, removing the ping-pong functionality that was present in
-previous patch versions makes the whole mechanism a lot more fragile.
-I'm not entirely sure if this has changed in SMP2P v2 or more recent
-firmware versions, but in my experience the SMP2P "ready" bit does not
-tell you if the remoteproc is actually running. The problem is that the
-"ready" bit is asserted by the remoteproc when the firmware is ready,
-but it is not cleared when you shutdown or forcibly stop the remoteproc.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-If this is still the case, you can easily reproduce that with the
-following test:
-
- 1. Start the system as usual and let it attach the remoteproc
- 2. Manually stop the remoteproc in sysfs (echo stop > state)
- 3. modprobe -r qcom_q6v5_pas
- 4. modprobe qcom_q6v5_pas
- 5. If the "ready" bit is still set, the driver will try attaching the
-    remoteproc, but it's actually not running. No recovery will happen.
-
-In this situation, it is very difficult to detect the correct remoteproc
-state without relying on an additional query mechanism like the
-ping-pong feature.
-
-You can make it a bit more reliable if you also check the status of the
-"stop-ack" bit. This would tell you if the remoteproc was cleanly
-stopped with the SMP2P "stop" mechanism. However, that will typically
-still not fix the case above since nowadays remoteprocs are typically
-stopped via the QMI qcom_sysmon and the "stop-ack" is not set in that
-case. I believe this might set the separate "shutdown-ack" bit though
-that is described for some SoCs, I never finished testing that.
-
-And even if you check both "stop-ack" and "shutdown-ack", that doesn't
-tell you if the remoteproc was forcibly killed using
-qcom_scm_pas_shutdown() without gracefully stopping it first. The ideal
-solution would be querying the PAS API to tell us if the remoteproc is
-actively running, but the last time I checked I was unfortunately not
-able to find a documented call that would tell us that.
-
-Thanks,
-Stephan
+Konrad
