@@ -1,134 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49196.qiye.163.com (mail-m49196.qiye.163.com [45.254.49.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E0C84039;
-	Fri, 22 May 2026 03:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C331F84039;
+	Fri, 22 May 2026 03:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779419203; cv=none; b=aczfjxzUInDMq5iyrlVdeUfniX+2a2Y13v5Wbjsem5RbflQ6yS23AtHzy6aU6QTTe6xe2P87+DioP6dQIBmFGxDerwmm+4CaDInk4QVuQ0Q5e5N0ep9DM808B1iLI+SVuqkNBlayki8a7/NIamsNc6Akh1eWlnBDEqSqXK5qhWY=
+	t=1779419304; cv=none; b=mtvo07ZXUG7fhGskQMJFHGNt8VRe+6trq8bHY6FWFFeTCLvyDNDjOGKSTeChZn4yewJj8p1x8wBbdV6EokYfQ2ChFgAjxZCANJs3RrwndfjR9M//T2HFTEG4Hm4N8Ng0WUPVxgVJlER4N52MGPT9/55jVX9KPVOe9NYmte1h/tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779419203; c=relaxed/simple;
-	bh=wnfswKmU3JEePFNowrjaJWVRDHtwZQj4gEogS9sqdUI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t2ff2bo0hcBI8NA61Z0RgMTZe/AVBlVwqPdsWq5GZzJtHmkINBfVGWZJitJ8HyPdJuKHefS1fJ+R77vf8Rz8TuLH2foxX6UsPqLkD5idv0oBPwoy+Pn+IpdVLBJ0ZF60jIosUTmjPZn2+wsny7WsoPuIL0W6MfKFj5B+s7/Tcx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rulh6ytf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779419304; c=relaxed/simple;
+	bh=UgyYXgpEUovLTSwTieJLE54f1YVtcM9zLpNkg5uzLek=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FLEijbNjC8yDXHGL13sO+3OfgUdwiQQ7s9iGL0zslR0pHgG8G0s5ki5kwte4+JUfqudzuzhajhhdFuPZfe6g03Gw1hFaxU8+zJMYp6w8gNFpR9TgDEChWrrvN8sQ0lhmHy+4q/VDz11yVfCXxQz3hVgxqEWg8BlPVi6xA5KO6cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=YWNMy7+N; arc=none smtp.client-ip=45.254.49.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rulh6ytf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9B5E1F000E9;
-	Fri, 22 May 2026 03:06:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779419202;
-	bh=+DRe1ydAdJVvVGbtaGGH0MRRsOntoVdMq1KfjTaDLKY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rulh6ytfs2dT3/0yzrGO7rZKDQzWfi/Mpw2eQlftkn+klfOp59O+cKB+Ca0g33h/U
-	 41gadPpji1nCXys6kSMMJl23fpMoYzlyJmDy7g3/C5z4QQasCx4jrraPKbKD6BGS9/
-	 KegtUr0Qiyen6LlPdCmwH3+9zvbiArpjIRZDgQ28cfK4ZZwRb17nIzkcDKqT2lN8l2
-	 LVy6HPiIbBJ2pTZ4dQQmVIEjRqE4iEY/C3CcZj07dbjlMG1MBGOkLB6eB453mjy9+u
-	 +10jocLJBexg9ytA6JZd1LUb3bEIPddjUvRv48eCmYYN88fjTOfN4NrbF8ehWFGOp/
-	 YGy0+POQADhHA==
-Date: Thu, 21 May 2026 22:06:36 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, 
-	Frank.Li@kernel.org, konradybcio@kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
-	linmq006@gmail.com, quic_jseerapu@quicinc.com, agross@kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com, 
-	bartosz.golaszewski@oss.qualcomm.com, bjorn.andersson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com
-Subject: Re: [PATCH v7 3/4] soc: qcom: geni-se: Keep pinctrl active for
- multi-owner controllers
-Message-ID: <ag_HGVQjIQuMoKO6@baldur>
-References: <20260423145705.545552-1-mukesh.savaliya@oss.qualcomm.com>
- <20260423145705.545552-4-mukesh.savaliya@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="YWNMy7+N"
+Received: from [172.16.12.43] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3f63c7eb5;
+	Fri, 22 May 2026 11:03:00 +0800 (GMT+08:00)
+Message-ID: <fb40d3fb-b7c6-4c31-b9a7-89318c36c739@rock-chips.com>
+Date: Fri, 22 May 2026 11:02:59 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260423145705.545552-4-mukesh.savaliya@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
+ hclk as third clock for RK3588
+To: Conor Dooley <conor@kernel.org>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
+ <20260521080835.1362416-2-damon.ding@rock-chips.com>
+ <20260521-waking-case-cd709f0a7712@spud>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260521-waking-case-cd709f0a7712@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e4da2df0203a3kunmcdc39b7bb3028
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHklPVkIeS0hIH09LQxhPT1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=YWNMy7+NkSl3ewSULgQHdbz/2vosC6n4DoirPKOBaGSW+pxLBmEJMuFE6VmFA0OsHpCBjRp/wI7NBieBAoJT91OdjP2y71rQaC9sSqazDzS8MMXYV9YYsXo6X7O1/AqGOeprWhYDlfadH5Pr+Q8+gAehYLkah0zmjTaJGrnQmuE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=ix2iDSv2xXDyggBMNPYyTIg1mIFriHtuF7LmuxwXjjM=;
+	h=date:mime-version:subject:message-id:from;
 
-On Thu, Apr 23, 2026 at 08:25:50PM +0530, Mukesh Kumar Savaliya wrote:
-> On platforms where a GENI Serial Engine is shared with another system
-> processor, selecting the "sleep" pinctrl state can disrupt ongoing
-> transfers initiated by the other processor.
+Hi Conor,
+
+On 5/22/2026 3:54 AM, Conor Dooley wrote:
+> On Thu, May 21, 2026 at 04:08:26PM +0800, Damon Ding wrote:
+>> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+>> registers and enable the video datapath.
+>>
+>> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+>> phandle reference, which allowed the eDP to work without explicitly
+>> managing the hclk_vo1 clock. However, this is not safe or explicit.
+>>
+>> To make the clock dependency explicit, enforce per-SoC clock-names
+>> requirements:
+>>   - RK3288: 2 clocks (dp, pclk)
+>>   - RK3399: 3 clocks (dp, pclk, grf)
+>>   - RK3588: 3 clocks (dp, pclk, hclk)
+>>
+>> Do not reuse the 'grf' clock name for RK3588 because it represents
+>> a different clock with distinct control logic:
+>> - The 'grf' clock is only for GRF register access and is toggled
+>>    dynamically during register access.
+>> - The 'hclk' clock controls both GRF access and video datapath
+>>    gating, and must remain enabled during probe.
+>>
+>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>
+>> ---
+>>
+>> Changes in v4:
+>> - Modify the commit msg.
+>>
+>> Changes in v5:
+>> - Enforce the correct third clock name on a per-compatible basis.
+>> - Modify the commit msg simultaneously.
+>>
+>> Changes in v6:
+>> - Expand more detail commit msg about using hclk instead of grf clock.
+>> ---
+>>   .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
+>>   1 file changed, 33 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> index d99b23b88cc5..8001c1facf98 100644
+>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> @@ -23,10 +23,7 @@ properties:
+>>   
+>>     clock-names:
+>>       minItems: 2
+>> -    items:
+>> -      - const: dp
+>> -      - const: pclk
+>> -      - const: grf
+> 
+> Instead of removing this, you can make it
+> 
+> items:
+>   - const: dp
+>   - const pclk
+>   - enum:
+>       - grf
+>       - hclk
+> 
+>> +    maxItems: 3
+> 
+> And delete this.
 > 
 
-Isn't it strange that the DeviceTree will define a sleep state for the
-OS to select, but when this other property is set the OS should never
-select this state?
+Oh I see, thanks for clarifying.
 
-> Teach geni_se_resources_off() to skip selecting the pinctrl sleep state
-> when the Serial Engine is marked as shared, while still allowing the
-> rest of the resource shutdown sequence to proceed.
+The idea is to keep all valid clock names at the top level, and use only 
+minItems/maxItems in allOf to differentiate platforms.
+
+>>   
+>>     power-domains:
+>>       maxItems: 1
+>> @@ -60,6 +57,33 @@ required:
+>>   allOf:
+>>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - rockchip,rk3288-dp
+>> +    then:
+>> +      properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
 > 
-> This is required for multi-owner configurations (described via DeviceTree
-> with qcom,qup-multi-owner on the protocol controller node).
+> Then this becomes
+>    clock-names:
+>      maxItems: 2
+>    clocks:
+>      maxItems: 2
+> 
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - rockchip,rk3399-edp
+>> +    then:
+>> +      properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+>> +            - const: grf
+> 
+> maybe this needs a minItems: 3? Depends on if the grf clock is
+> mandatory. Also probably needs a
+> clocks:
+>    minItems: 3
+> if that's the case.
 > 
 
-The requirement as such is reasonable, but you don't define in the
-binding that when this property is set, the sleep state must not be
-selected by the OS...
+Yes, the minItems should be 3 for both clocks and clock-names.
 
-Regards,
-Bjorn
+>> +
+>>     - if:
+>>         properties:
+>>           compatible:
+>> @@ -68,6 +92,11 @@ allOf:
+>>                 - rockchip,rk3588-edp
+>>       then:
+>>         properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+>> +            - const: hclk
+> 
+> And the same here as for the 3399.
+> 
 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-> ---
->  drivers/soc/qcom/qcom-geni-se.c  | 15 +++++++++++----
->  include/linux/soc/qcom/geni-se.h |  2 ++
->  2 files changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
-> index cd1779b6a91a..1a60832ace16 100644
-> --- a/drivers/soc/qcom/qcom-geni-se.c
-> +++ b/drivers/soc/qcom/qcom-geni-se.c
-> @@ -597,10 +597,17 @@ int geni_se_resources_off(struct geni_se *se)
->  
->  	if (has_acpi_companion(se->dev))
->  		return 0;
-> -
-> -	ret = pinctrl_pm_select_sleep_state(se->dev);
-> -	if (ret)
-> -		return ret;
-> +	/*
-> +	 * Select the "sleep" pinctrl state only when the serial engine is
-> +	 * exclusively owned by this system processor. For shared controller
-> +	 * configurations, another system processor may still be using the pins,
-> +	 * and switching them to "sleep" can disrupt ongoing transfers.
-> +	 */
-> +	if (!se->multi_owner) {
-> +		ret = pinctrl_pm_select_sleep_state(se->dev);
-> +		if (ret)
-> +			return ret;
-> +	}
->  
->  	geni_se_clks_off(se);
->  	return 0;
-> diff --git a/include/linux/soc/qcom/geni-se.h b/include/linux/soc/qcom/geni-se.h
-> index 0a984e2579fe..46217cac73c3 100644
-> --- a/include/linux/soc/qcom/geni-se.h
-> +++ b/include/linux/soc/qcom/geni-se.h
-> @@ -63,6 +63,7 @@ struct geni_icc_path {
->   * @num_clk_levels:	Number of valid clock levels in clk_perf_tbl
->   * @clk_perf_tbl:	Table of clock frequency input to serial engine clock
->   * @icc_paths:		Array of ICC paths for SE
-> + * @multi_owner:	True if SE is shared between multiple owners.
->   */
->  struct geni_se {
->  	void __iomem *base;
-> @@ -72,6 +73,7 @@ struct geni_se {
->  	unsigned int num_clk_levels;
->  	unsigned long *clk_perf_tbl;
->  	struct geni_icc_path icc_paths[3];
-> +	bool multi_owner;
->  };
->  
->  /* Common SE registers */
-> -- 
-> 2.43.0
-> 
+Will update in v7.
+
+Best regards,
+Damon
+
