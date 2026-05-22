@@ -1,261 +1,102 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3FF32E743
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58423290A6
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 16:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779465562; cv=none; b=YF6xt8YaykyXxwilvQT+mjctgIXCtEDBifs0k7Vxp5m9ob6VOX6KehJ2lLd3//+2tsrnAhb7XK69mp2c1AQbIzXsiNN9irezpPlq5iOhvvWxF7l+UrB/Oj967EXUI7WXC7g8jNmXZKF8Sx/rTuuPeETbQ2T198JH6hYz299NMTk=
+	t=1779465609; cv=none; b=gv6c4/SLv3iki53xl5pf7nLdQOFOu5gGb4AYqtRtN8qz0zQybn3fppauc0qL+pJDZdZ+a6okvs2fWAHUJhNP3PfGimedyqQ5aJRsW1C9Jy0WH91eKi8Hq1UJprREmQytk9Bre1h9SeNidT3aYbPuW+OsKT5JWi+g7KXJOKyAYIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779465562; c=relaxed/simple;
-	bh=hBmMjZnlb53B9za8MFTPUQZHUnWWipbTLBXWog4O5bw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=anI/0WSrtEv3AbDhnWNGTsGP/kjdx6z/bRbvryJlsIV1tfq0EwqYdz8+pVwhzq3k5rfsNx1GRfc1gWyPx8WfAXv7Y6fVHR6xfpzDzbZQ0L44tzvsBCKRWR0MYj9yil/pwaAIIWhc9MdX0r91JE61PrzKoq0sPGTyfXL27iDY8PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iccbAOg3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gXJVASHI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779465609; c=relaxed/simple;
+	bh=uGoNMdzK97yeIHZsxqdVyuBsLPihvFBZ0NMVkAkh2sc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tGzXVe/mKtwdeUlLVxoezravKrMkYGD66MZn4GduTg/QjSekm8sNKDY7sVlLQ1pZIVo/NjJAYsRtLbZxc+5hq9so6JNAMHQvrQMqcbap/qysz+tjhokDHrDyaUWFKzF7p2xhrxKPBHtLehe0UcrjHLFoKFePJLr2PLQDmi9mqxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QDAb+UXg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iccbAOg3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gXJVASHI"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64MB60nW776932
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:59:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jOEXXmnSOdpDtOzU95RtdRvQpbHdjeOuB7KTSgOtbDE=; b=iccbAOg3VhKIfFR/
-	bJHBDoA2KRYGhth/sO3O53MqcvHZDovO9RNeNm6rktjUFKyb4YF4Mxqe9Y/wbEWq
-	ZzfKYlW+rcrEiczsj3Ep9vkEfpvJCoggd2kWuKbHKPHiTrtljFBEJnTO29SFw3IM
-	0P926k1ehNXwtkY/fhrWWbuRQ135ZJTjaxbsMWjYrUk6CtfXpskZI0aTN3cynW6v
-	n2qyko7xCK3g1iykxkvm6eTMqUmxXH34SeDvYUWro707Bu/Tap2d3nMMYzFbhE2V
-	9fn1JFC1SXVCIVdJaNf0tF7KYxaqu+MsHCrQWQW7fdygQwBurq8TMJeIH112Owwd
-	4rSh0A==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea94h49s7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:59:19 +0000 (GMT)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-7c0de780bb5so119591707b3.1
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779465559; x=1780070359; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jOEXXmnSOdpDtOzU95RtdRvQpbHdjeOuB7KTSgOtbDE=;
-        b=gXJVASHI/WTH1H9mjTwFqWfto9W6RE7v4VJRlNDGM7cd3I+x7kvZdg5AblXGUFNx9g
-         LTatyOJpY308IkNOBmuuuqRsmWscqnS1ypjwa+qeL0c13dK7RSMakLAZpInAUMLll/vB
-         TPAPNa5GK2glK7IjPKmj6SAB7phlufs8VAG85R4vf7skVqO2daxPy+8EZmmNGHEn+aZ2
-         X9tnjYhGvXqwv9echb7jWXupIogw/iRsNYlSsB2CIQkx/+L6YyswFT48NWVT0W5inLVw
-         Aek7U5y+W7ELndOq+J9CLirc/HlwIV8Cf/LLRpe2Xgoe0yKedY3RyqzZ6NPEo+gDYhvX
-         6NUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779465559; x=1780070359;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jOEXXmnSOdpDtOzU95RtdRvQpbHdjeOuB7KTSgOtbDE=;
-        b=hT+MNAC74XjADw2gSly38J0GtFpQL/t78v20wZeBZll6buVZKxvVsz4x1Clj4EM2aE
-         zSqg/uW9FfIUl0VP/OfdSac8xmqDC4AXGAseMMSdlqkAbaSQXBaYtjaA+Rbe6W0hw6aC
-         KGnL/hoB4cMbM7mlY1CRuD/RCxaIdIUNOrEDnjJwEk5EmS8SLuy9zNahu6jj8pkGGOiF
-         aOwzSCudjOPVHt6NQ50Bb8YMH1/LQoYPjWdcMaPnD4VD5/XRo++edu/VvQ7p/2+KoD+e
-         HQdpFC8htthU29bdEAyUkJ00aqXKJwQLjXOC5xHcC9tmuvLFKq1rNpGJpj+NbTuPSEqw
-         V7ug==
-X-Forwarded-Encrypted: i=1; AFNElJ+EGcNXoQhB7YoOcXla0kgY5umAqAJHkCGzV0iZX3KUDmLQQ4iENOfWE74HWoIEFSYdHkOG3N6w8qBu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjBgOXRkSN6butmTczolwTEBOklJ2FhtXQ0ANy7EO/DgraDr2b
-	EkTEpfOl99ugM3W4e0rPkNALhufKY85tvnEmeoi7pfUE2qK5kNCtGotb7ZVuvfRzeh99/9HFCDQ
-	uaT5Uf76TGXQssgAioevfDu0mYiJh9umbtu2Am6On+uGPByVuueVEklkKKPxaP7Oj
-X-Gm-Gg: Acq92OF1+K2laBo1CjHM2effeD25E8DKtd1kNCzM6uRQc3vn31jEBwHb2VfqYovlCUY
-	JHNELvjFWOFZ/Iu7wPdkQvvg4nwye838fi4xjrj7oyHCyhQQrr6PTXilfpkBaGWDse3wjsVdMHN
-	usR2ABAtcVfhot0xYlBnABT10uL5gzGDOBnowYEBkIeP1TyqfoJnCptk+t1nNtD0VYxASY9TDCn
-	yWTQUj0kE/AawP161uWTVIkLiNWhYqLuQyLLzcbF31laWnV5zu4LMuzKZIXbMb3LJwPRiMUtAxD
-	94yXW0Xg6CY0NjhjLHiiCJxzaWN+7savq3n6kb6xKZlRCem6psYWx6PCdXml4eZoqlV3We6Mqdm
-	oZcsptM6vG8YVcFmDVSvQN8XLf67z7dWgPYo0nf5WWzK5MkcjldxY8J3+uP74NTNU93SLillVeS
-	tpVfe4mappow==
-X-Received: by 2002:a05:690c:25c9:b0:7ba:f690:70be with SMTP id 00721157ae682-7d337fa0bdfmr51043397b3.7.1779465558794;
-        Fri, 22 May 2026 08:59:18 -0700 (PDT)
-X-Received: by 2002:a05:690c:25c9:b0:7ba:f690:70be with SMTP id 00721157ae682-7d337fa0bdfmr51042897b3.7.1779465558265;
-        Fri, 22 May 2026 08:59:18 -0700 (PDT)
-Received: from [192.168.101.236] (107-198-5-8.lightspeed.irvnca.sbcglobal.net. [107.198.5.8])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7d38c33c8basm9973097b3.37.2026.05.22.08.59.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 08:59:17 -0700 (PDT)
-Message-ID: <8a6af223-901e-4d1a-ab3f-7e20980cb683@oss.qualcomm.com>
-Date: Fri, 22 May 2026 08:59:15 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QDAb+UXg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12121F000E9;
+	Fri, 22 May 2026 16:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779465607;
+	bh=D16QJkDoyfql+Dm59k6Kv7ApwXufUsBYhAAzLx3tw/o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QDAb+UXgazKbEy72J4IMCAtHZ6vZP5x7daG80V4oVTyhwBouXrTcLLzNBcnvZMyN9
+	 I1VMv1ffycAsJTQmZPG2/tE4W1sSW8Ikd6UAziI6iqVzlVpWJuat0eS6dpCr9Y86Fi
+	 /OjACfoeps2TAl9zUZJCf0RIRAUIGknO6AjBeXMcZgIGApnHn0xHPly60ms+WDVPYs
+	 /sRM/1F8u/ssPFVornCsIhEAVwlyIMC4FM6E9CrlRSHXgMXvIKvS8MVwojYsP4VCRH
+	 hFR1AZpm0UoEBm4l1kaqvZ4MTUyf/LDXaaepMFBY2b714phZ2NYzgzYdawf5ZpSjZ4
+	 epP+6d3kvfnVg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 01/10] soc: bcm2835: Use IS_REACHABLE for function
+ declaration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gregor Herburger" <gregor.herburger@linutronix.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260522-rpi-otp-driver-v6-1-b0eac97d1428@linutronix.de>
+References: <20260522-rpi-otp-driver-v6-1-b0eac97d1428@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 May 2026 16:00:06 +0000
+Message-Id: <20260522160006.F12121F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] phy: qcom: qmp-combo: skip USB power_off/exit
- after device teardown
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org,
-        dmitry.baryshkov@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com,
-        abelvesa@kernel.org, faisal.hassan@oss.qualcomm.com,
-        linux-phy@lists.infradead.org, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, devicetree@vger.kernel.org, val@packett.cool,
-        laurentiu.tudor1@dell.com, alex.vinarskis@gmail.com,
-        linux-kernel@vger.kernel.org
-References: <20260521010935.1333494-1-mike.scott@oss.qualcomm.com>
- <20260521010935.1333494-2-mike.scott@oss.qualcomm.com>
- <d543fe6c-88a3-40b8-a83a-ccc6fa80eee3@linaro.org>
-Content-Language: en-US
-From: Michael Scott <mike.scott@oss.qualcomm.com>
-In-Reply-To: <d543fe6c-88a3-40b8-a83a-ccc6fa80eee3@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: Ko-ezp544S5o1We4HxXD8L_-NEH96meP
-X-Authority-Analysis: v=2.4 cv=QblWeMbv c=1 sm=1 tr=0 ts=6a107d57 cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=cdagev08qavQYXHyx3V8vg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=FPRIOUAp8Z76FSPQ8zIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kLokIza1BN8a-hAJ3hfR:22
-X-Proofpoint-ORIG-GUID: Ko-ezp544S5o1We4HxXD8L_-NEH96meP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDE1OCBTYWx0ZWRfX86lZrOGQHtHH
- oO8iuFRW/lztX3CpIg6quIZfFHPHDzEHJV0iULYuRYAS/MKFFo6zDi95a06olVHIlf4pUonXpA6
- NXlc9n1OsyoPHBTk5EAy1mURQh95m/4HyQDsVfttyIU5lzbZp2UL0fH0QxCes29J3mmhagTLUcP
- 8N/g9Ot3FxFMmfYOTScem8O3qvCrCkXoUwxjNauLi2JIhu4X7IMq5ARYgU0kcq4TTNnJmh/zv3D
- piqshe6SPzVgfZrSuH5Di0KP3HeRcqV/Yy/W+iNS2FdT0PbtAbtTptOcNB8Dau6QEbXzmwmi+/f
- XN3uj4xCsmxerre7FlEcxIjKSNXineAdCGXZOaQI/fNNSgT2MPa0yyx3TxHLUKJWye9G1ixAlbX
- gGKsG2KBGfOQMs/SM0atRL99W6OpdVgceGyD7yUwRxuciFozB8JM6lzYi+W0+nH5xx1Yv3e3wKo
- 0mGT0UJ2w3zw1cga7gA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_04,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
- suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220158
 
-On 5/21/26 4:58 AM, Bryan O'Donoghue wrote:
-> On 21/05/2026 02:09, Michael Scott wrote:
->> qmp_combo_usb_power_off() is reachable from an external consumer
->> (notably dwc3 via phy_exit() during driver unbind) after this device's
->> backing resources have already been released along a separate teardown
->> chain. The dereference of qmp->pcs (whose ioremap mapping has been
->> freed by devm cleanup) then takes a level-3 translation fault and
->> oopses.
->>
->> Easily reproducible during testing of USB-C role-switch enablement on
->> Dell Latitude 7455 (X1E80100), by writing "none" to a USB-C DWC3's
->> usb_role_switch role attribute, e.g.
->>
->>    echo none > /sys/class/usb_role/a800000.usb-role-switch/role
->>
->> which triggers the chain:
->>
->>    Unable to handle kernel paging request at virtual address 
->> ffff8000876c5400
->>    pc : qmp_combo_usb_power_off.isra.0+0x58/0x470 [phy_qcom_qmp_combo]
->>    Call trace:
->>      qmp_combo_usb_power_off+0x58/0x470 [phy_qcom_qmp_combo]
->>      qmp_combo_usb_exit+0x38/0x90 [phy_qcom_qmp_combo]
->>      phy_exit
->>      dwc3_phy_exit [dwc3]
->>      dwc3_core_remove [dwc3]
->>      dwc3_remove [dwc3]
->>      platform_remove
->>      device_release_driver_internal
->>      device_driver_detach
->>      unbind_store
->>      sysfs_kf_write
->>      vfs_write
->>      ksys_write
->>      __arm64_sys_write
->>      el0_svc
->>
->> Two WARNs precede the oops from the same teardown chain, confirming
->> the resource ordering:
->>
->>    WARNING: drivers/clk/clk.c:4494 at 
->> clk_nodrv_disable_unprepare+0x8/0x18
->>    WARNING: drivers/regulator/core.c:2657 at _regulator_put+0x84/0x98
->>
->> i.e. the pipe clock provider has been unregistered and the regulators
->> released before qmp_combo_usb_power_off() runs.
->>
->> The proper long-term fix is a teardown-ordering rework so the QMP
->> PHY's backing resources outlive any consumer that may still call its
->> phy_ops. Pending that, guard the power_off/exit paths with the
->> existing usb_init_count balance so re-entry after teardown does not
->> oops. usb_init_count tracks the balance of usb_power_on/off; if it
->> is zero we have either never powered on or have already powered off,
->> and there is nothing to do.
->>
->> The same guard is added to qmp_combo_usb_exit() since it is the entry
->> point used by external consumers via phy_exit().
->>
->> Signed-off-by: Michael Scott <mike.scott@oss.qualcomm.com>
->
-> Something like this requires a Fixes: tag
-Thanks!  Noted.
->
->> ---
->>   drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 22 ++++++++++++++++++++++
->>   1 file changed, 22 insertions(+)
->>
->> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c 
->> b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
->> index cdcfad2e86b1..0db200292642 100644
->> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
->> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
->> @@ -3926,6 +3926,17 @@ static int qmp_combo_usb_power_off(struct phy 
->> *phy)
->>       struct qmp_combo *qmp = phy_get_drvdata(phy);
->>       const struct qmp_phy_cfg *cfg = qmp->cfg;
->>   +    /*
->> +     * Reachable as ->exit from external consumers (notably dwc3) after
->> +     * this device's backing resources have already been released along
->> +     * a teardown chain. Refuse to touch registers in that case.
->> +     */
->> +    if (!qmp->usb_init_count) {
->> +        dev_dbg(qmp->dev, "%s: PHY not powered on, skipping\n",
->> +            __func__);
->> +        return 0;
->> +    }
->> +
->>       /* PHY reset */
->>       qphy_setbits(qmp->pcs, cfg->regs[QPHY_SW_RESET], SW_RESET);
->>   @@ -3968,6 +3979,17 @@ static int qmp_combo_usb_exit(struct phy *phy)
->>       struct qmp_combo *qmp = phy_get_drvdata(phy);
->>       int ret;
->>   +    /*
->> +     * See qmp_combo_usb_power_off(): an external consumer may call
->> +     * phy_exit() after the QMP device's resources have been torn
->> +     * down. usb_init_count tracks usb_init/usb_exit balance.
->> +     */
->> +    if (!qmp->usb_init_count) {
->> +        dev_dbg(qmp->dev, "%s: PHY not initialised, skipping\n",
->> +            __func__);
->> +        return 0;
->> +    }
->> +
->>       mutex_lock(&qmp->phy_mutex);
->>       ret = qmp_combo_usb_power_off(phy);
->
-> This can't be right - you check usb_init_count before the mutex and 
-> then again inside the mutex @ qmp_combo_usb_power_off();
->
-> It seems like an error to even get to this function with 
-> !usb_init_count also check if that is a signed or an unsigned value as 
-> usb_init_count = -1 will evaluate true.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Replacing IS_ENABLED() with IS_REACHABLE() introduces silent runti=
+me failures (such as infinite probe-deferral loops or silently failing oper=
+ations) by hiding unresolved module dependencies behind inline stubs.
+--
 
-Yep, there are a few issues with this patch (and this looks like an 
-extra check I accidentally left in).  I'm dropping this from the 
-patchset and I'll revisit at a later date.
+commit 4df320b82133df67fcde1204534b53b54b092612
+Author: Gregor Herburger <gregor.herburger@linutronix.de>
 
-Apologies for the noise.
+soc: bcm2835: Use IS_REACHABLE for function declaration
 
->
->>       if (ret)
->> -- 
->> 2.53.0
->>
->
+This commit modifies the raspberrypi-firmware header to use IS_REACHABLE
+instead of IS_ENABLED for function declarations. It aims to simplify
+Kconfig dependencies for dependent drivers while avoiding linker errors
+during COMPILE_TEST builds where the firmware is modular.
+
+> diff --git a/include/soc/bcm2835/raspberrypi-firmware.h b/include/soc/bcm=
+2835/raspberrypi-firmware.h
+> index e1f87fbfe5542..eb33838e0cd10 100644
+> --- a/include/soc/bcm2835/raspberrypi-firmware.h
+> +++ b/include/soc/bcm2835/raspberrypi-firmware.h
+> @@ -174,7 +174,7 @@ struct rpi_firmware_clk_rate_request {
+>  		.id =3D cpu_to_le32(_id),		\
+>  	}
+> =20
+> -#if IS_ENABLED(CONFIG_RASPBERRYPI_FIRMWARE)
+> +#if IS_REACHABLE(CONFIG_RASPBERRYPI_FIRMWARE)
+
+[Severity: High]
+Could this change introduce silent runtime failures for dependent drivers?
+
+When a dependent driver is compiled as built-in (=3Dy) via COMPILE_TEST whi=
+le
+the firmware is compiled as a module (=3Dm), IS_REACHABLE evaluates to fals=
+e.
+This causes the compiler to silently substitute hardcoded inline stubs
+instead of linking against the real firmware functions.
+
+Consequently, the build succeeds but the drivers might fundamentally fail at
+runtime. For example, devm_rpi_firmware_get() returning NULL could cause a
+permanent -EPROBE_DEFER loop, or rpi_firmware_property() returning -ENOSYS
+might break all NVMEM reads and writes.
+
+The previous Kconfig dependency forced dependent drivers to =3Dm in this
+scenario, guaranteeing functional runtime behavior and using linker errors
+to enforce correct configurations. Does using IS_REACHABLE here mask these
+module dependencies in a way that breaks the drivers at runtime?
+
+>  int rpi_firmware_property(struct rpi_firmware *fw,
+>  			  u32 tag, void *data, size_t len);
+>  int rpi_firmware_property_list(struct rpi_firmware *fw,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-rpi-otp-dr=
+iver-v6-0-b0eac97d1428@linutronix.de?part=3D1
