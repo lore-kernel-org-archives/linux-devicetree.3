@@ -1,45 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE75364038;
-	Fri, 22 May 2026 06:51:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6271928F948;
+	Fri, 22 May 2026 06:53:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779432690; cv=none; b=op919tzsVeo3pyTNbK4fDnjr1M55JdTjxSsI8ZdX5AJuvdv0LLKsTwxT7p5fd1Nl43HwG+sDhS6rpXLDMJEXDiPBjVLuTdHR0zn387ax2lmZdYaK0ywN3wfhBw7uF3vndoBL5J253koFvfoCRcAnM6vfhxCN/Ohry5kQCOBA0T0=
+	t=1779432796; cv=none; b=FAItcom12/EHXSiIqWH82qcEN3vTJUSPDQ/u3nBaDCiZJmrxhWd9rWl05km6zRPU2ptyi4mvZgHsn+evLuSLS9a+RgISeCFmxu3mQtcV1inmS6rBa4QHJcunXaVxboGw4hOhm/S1Ypq9NyViYofh9vd9D5oVkzuC5abJkicgQo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779432690; c=relaxed/simple;
-	bh=d/6kU4cCye21BHO0fVfm7KWA3Mu9e6uONDevlMz1yvc=;
+	s=arc-20240116; t=1779432796; c=relaxed/simple;
+	bh=N3+2KASXbGa04r+FF1J0xIyLxscPen4gtrv0EB5ytFs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PDOd2t/p7xQf/pby++eH1867orTeifZLJM0bwa5uzS2OyqkAaQe/QRDKHmXIfz14lZjoysnB3t4Z1JVx2qNym4W0rutVl9+M6DAbqmWvTCHzd9VKeGh7CnNKhOsU7iRcVJ7kKu47wThNxos/S+FRnq7Do079JAfDUYWOibCbx+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QxQ2QX2Q; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=TRQ3OnUV1EWbJW8BVer1+vbyZ6RVi46BdYcGa/rIgkj16TBywXF9qQ8D4Wd2IHcGIhipAIOzKpMEnnnv/yn/8ZFMzLTZKTMiJq2vNCCDQ6/yQuADhEpcm+pekhPultDUBe9Ao0hbW7HnMSwXFpj2SajdkoYAC3qd2APCfvip/wQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T9fklyXk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QxQ2QX2Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE581F000E9;
-	Fri, 22 May 2026 06:51:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T9fklyXk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4ACD1F000E9;
+	Fri, 22 May 2026 06:53:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779432688;
-	bh=dDjkxf6l3El40X8q8ClVjELJbsKgRC498N66LV+lbJA=;
+	s=k20260515; t=1779432795;
+	bh=MCXTW2aOaTue8CGuD3TkPBjG5amIHfOVy3I1QHrr5hw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QxQ2QX2Q0X0pAAIoiFAOyWMK6qki2CPLyeap76YO5/Iz4RHlv8XCNcaBQPB5SDhVQ
-	 x3oxPU6lsTiCOo09JKUbYXXV5jhvEn41AWV18L/tqvHY3a2t34OrWgYsP4wUpF27G+
-	 eJBgfytqOcnbhuOg5eyNOmUF/nYJaJe7KztZE2Y0jKCgDb/nXuYjJyQDx6mfE4MWcS
-	 yP/gRLqwM3R2ptrFn2yVg/m+eXGPyrlKXPr/DhTJySC6BTZQvy8ORdKRZ5kzzCDAe2
-	 5HoD0Zt6ONQJYhJs5vxOsl9gxhd6pdUdO3+INnzU63H07Rho1ogb+i51zpHYI29d2x
-	 /fTeP2gLhR+RA==
-Date: Fri, 22 May 2026 08:51:26 +0200
+	b=T9fklyXk++gVyN5MTlOuDtPZAa4x2oK5cbE/aA6ue6o8/47ysIaE/BmTQyrdCYRHF
+	 t+F0Em7yVbh1qVURXJJtBg9pshRY5ymwwYt5GFC1EBpak06BfSZh+J8KeIexHpBhEl
+	 8tf0padDvBn+uKHXymRV6unqxfNHJcmBWuRm4Bvhg5iSfWjWunNZy20kF/JHpFnmKa
+	 mMWDjYJgA49WiTvu92FNdWw2Jdih9uU6fU/FmtBllfmsS5vh+oK63rHhQ63eVx0DGu
+	 3jp7Kg4wjHkU3JROyI284uTEz7RdBMBT39uUPBIFQeTqoLHQlbQNU4SDkDEOMMI6wb
+	 xG6KGyfyLf08w==
+Date: Fri, 22 May 2026 08:53:12 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH 3/4] PCI: qcom: Add Support for Eliza
-Message-ID: <20260522-discerning-sympathetic-moth-daa9e7@quoll>
-References: <20260521-eliza-v1-0-97cdbe88389d@oss.qualcomm.com>
- <20260521-eliza-v1-3-97cdbe88389d@oss.qualcomm.com>
+To: Vitor Soares <ivitro@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thierry Reding <thierry.reding@gmail.com>, 
+	Sam Ravnborg <sam@ravnborg.org>, Vitor Soares <vitor.soares@toradex.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 14/15] dt-bindings: display: panel-lvds: Add LG
+ LP156WF1
+Message-ID: <20260522-furious-coua-from-arcadia-b81cba@quoll>
+References: <20260521150038.103538-17-ivitro@gmail.com>
+ <20260521150038.103538-31-ivitro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,32 +53,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260521-eliza-v1-3-97cdbe88389d@oss.qualcomm.com>
+In-Reply-To: <20260521150038.103538-31-ivitro@gmail.com>
 
-On Thu, May 21, 2026 at 07:35:31PM +0530, Krishna Chaitanya Chundru wrote:
-> Add support for Eliza soc, which has two PCIe controllers capable
-> of 8GT/s X1 and 8GT/s X2, using the cfg_1_9_0 configuration.
+On Thu, May 21, 2026 at 04:00:50PM +0100, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
 > 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> Add the compatible string for the LG LP156WF1 15.6" FHD (1920x1080)
+> dual-channel TFT LCD LVDS panel.
+> 
+> Assisted-by: Claude:claude-sonnet-4.6
+
+Really - oneliner for trivial binding needs AI tools to help writing it?
+
+> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 > ---
->  drivers/pci/controller/dwc/pcie-qcom.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-> index af6bf5cce65b..40f0a5f247eb 100644
-> --- a/drivers/pci/controller/dwc/pcie-qcom.c
-> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
-> @@ -2123,6 +2123,7 @@ static int qcom_pcie_resume_noirq(struct device *dev)
->  static const struct of_device_id qcom_pcie_match[] = {
->  	{ .compatible = "qcom,pcie-apq8064", .data = &cfg_2_1_0 },
->  	{ .compatible = "qcom,pcie-apq8084", .data = &cfg_1_0_0 },
-> +	{ .compatible = "qcom,pcie-eliza", .data = &cfg_1_9_0 },
+>  Documentation/devicetree/bindings/display/panel/panel-lvds.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-So compatible with sm8550. Why isn't this explained in commit msg of
-the binding?
-
-Anyway, drop the change, pointless. Look how other devices handle this -
-do you see kaanapali here? No.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
