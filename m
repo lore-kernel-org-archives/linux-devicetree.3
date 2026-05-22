@@ -1,86 +1,66 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31CF26290
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D60391E52
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779446880; cv=none; b=duWvR9QgxCFeEMsMLP93bSm9CIZWM1vd7LnTP8tmsSLDnodm9nfTprENQexrL/U3ItkV8UwIG5ghAMSRrQoSSfzV7R0x5Yumy/xpIZvokx8a6/lfwIuIxukwY7jDa++GqhVrpgi67CmnmXtP1DavXK9EVA20LgDFB73m1zrtRto=
+	t=1779446903; cv=none; b=EZrn8j50pa9XC93JxnUf3hvbE6eoU7Qs9nRIwgCVwhGm9RjY4iORmymiGYpqE/9yIrA5qJHkO5n6HhJJ0vlOtDYJmLELrOs2cgQlDeElglmfgRX6BEX7x0GJvfF8qDWGQRMpbTzyH8wRa0yD7YJPxQ2/opL6kb81PXyikvKsNPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779446880; c=relaxed/simple;
-	bh=NVgFKQxsnzNhNQOuc+bA77K7RYAApwOOdmSv3B5Z/xE=;
+	s=arc-20240116; t=1779446903; c=relaxed/simple;
+	bh=CWHKbZXimVFzm0H6K2jkVftQaMnPuDxgdYxbzeyQIXM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rmRGLZnnNOxGlIu9J5LFT8mTXPuAmemT/udbCDAnwZl8N+LadfPCBokFf05K8vGfOhv5f0tTWh4IZz4IAsUb4U20LNi6u6fZUZ6800kBqfe5bL4hU6JGjMFQOajuE5gm5ZRc2EyA1GSVoP8adu2+mMQhJeLsRBlTZl6yI5H+o3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KmPkDZ7Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CXXL17op; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=E8i+TWsdUGFYT0CfEwcBsHiema2xKA9cjJn/JSD5ynq31kPTzTA4GhB8FxmYantNQLgfLuuPFpQFaM0LNTKh7uWfzYwHRli6ccY7KddTe1IhF/U3ERdBnzS+daLd0k1HTS/3B9N/ffUACXDsVk3ECMNarCHeQ3s0D3qWsAn2Vxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pieb0C7C; arc=none smtp.client-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KmPkDZ7Y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CXXL17op"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64M6BF3h777422
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:47:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	C5LPZXuE8GtSpjowrcTTt/AMJnsUFfiUN8IDJ0W9Gu4=; b=KmPkDZ7YhXmxGwHO
-	G9ZYRJBI2glybS8lrr2wjVqhOLYF4wPPT0tgw0uj9vwtNBXFjGRzA85UA6+hurtV
-	WOCzMFFTCGCHKYPQFep7GESuyetYQwbeB86/XghhEpXVgbwLCriNzeq5dd8thjMo
-	R1V50neYHnIqwB+gnAT4JQ+lLuhd4SDZ63Z8wFlYQLPBdHuAGGuDDWA2g15MGq/r
-	ZVJLhzXUvg2B1kHqJjKUfjW4b+Id5H7dIGpE9GyTO69Ooj07AKFkqX0YqU/z6B4E
-	SXKW6VLF2UfTc1L+pwTZloItCb0FZCHpQP4igOAX8HpTBIEnUwpowqUz5UXMIgam
-	+WXb+A==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ea94h34g9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:47:57 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-516cd650fc2so3323371cf.0
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:47:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pieb0C7C"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-65eb226b1ceso1493019d50.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:48:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779446877; x=1780051677; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779446901; x=1780051701; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=C5LPZXuE8GtSpjowrcTTt/AMJnsUFfiUN8IDJ0W9Gu4=;
-        b=CXXL17opzm3an4zDc/pIsRK2ypukoMUvYn9KSLzEwUr5scc06gwhUDSaku7ioCC9m6
-         CP78/fYXHYNJs/zouKr4Jvt4zxMYhgRz+y4lse0suAdr3hc6clyAwj/msa9Lr+UsJ0ei
-         B8cUPMsKwPj1YaijkVyqBGIePLu7CCViUF7jusM3ueNDF/K+e+0L8oZpEUA+PtbgnvY0
-         xSVmTFG+U0Qy9mV4mo743esnzcWDJxkiFstuSQ/V0iA+9Hg1YaCaCEBgRWgmzjpT5YMQ
-         oi5tsN6XJF/ABjgSKzTAyMGgOot9M/nPp1PuEwIGV2ofcYsicTQVh9lPy5apGY8RKQWZ
-         Dfvg==
+        bh=+QavqAkvNk1HceT8bIYAr95toaxgKAhaHoRrKKXDbiI=;
+        b=Pieb0C7C/CqSlbgWb/R6aoj2vuEOYZ/t9ZXwJ8KWljEx11GjluHKHOpJyg6LJBUwbB
+         YQAPIP9c8us06uToDMEbfsIOKL6FEufDpJEVxDe5WZytqPkjI3GA4azlL3Uuj6OubnaF
+         zJK6dPFG7Svb4yPnQzfrzos/iVPmG1WWVfTs2xiR5gKQWnwafXJu0GiTOjwBLXIRRMR0
+         5SseMbN5/m+rTbdXdcvPt2/9KbO79rrfvH8GqduL7/IFWxQdjMHHsHynvDqujWVTvdRi
+         2FWRJmIibU/aGlC4DCLmsN6MpYyRPDXDvwjOBbn0cuRx7XJ67OErIwnDk+0A10SGMN42
+         W9sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779446877; x=1780051677;
+        d=1e100.net; s=20251104; t=1779446901; x=1780051701;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=C5LPZXuE8GtSpjowrcTTt/AMJnsUFfiUN8IDJ0W9Gu4=;
-        b=su17bCYBk1sovWrmg1higtuN4mZNrlIEJUwp2pjBdLpEscsmx2U90F2lpq93x3VWU9
-         MJ+Mqx2kaFE/mVgb/Nx0N0gtncS/Oz5azEzllr61bQq8pFkaIX/J5M/Xt9WaqbnpXqX7
-         V6mpSWYKs4hZe5C8wiRtUdC3emsEGNxMu+L7ICMWl9QdzL7TGHNZf5xsciR+zL5BUDvL
-         AttIUwtnm8lmYeTUBV+3YyOBEof8I3gGfN6c0wuY93WLLDbRhJ9Lg0zxM6H0UOW2P6FU
-         SOwBOzbDTaHUv9DYqmgVHAntnD57WiDlFqiZ96yd4WicN1yYRg0WmEnZr0we4dQJp+Gr
-         BiVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+CqmMUDecLBeuxPnWFGFir8/gQDDlo1BZ6epbLyiOXeV63lIDyn1W3a1IeHiDQsFDwM60zkcTOQnDf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yznb/ZAd8qkUzRVCXyGNvwOgPwd2Ht+GssDbWZCfkAKfqnKlRJr
-	yCefjMX+O9S4eHjrJYv9Wqorc2PzADEXDb4fLzRaBueUgqamaYuqRIebeblR447FBDqitDiuz2Y
-	IbwS3AKKyeXrTUNqcQGetB7iQQ29C5uNGS3L0IUpN14x4kIglfcoYy91JASeglCkv
-X-Gm-Gg: Acq92OG/H5u4BJmHh+Jp/bJBBR52vXmau6rVYjxmig471W62wx+LYGpY4R6nmgXvBUj
-	9Gfrsw6QuAx2hm5dFAK3wFRKjgsgeTy9ROsxUG86arpe1HPX86by/AHKz5VWua0orLaaP46y64h
-	9k6HfVYFbYP8PL6UXCQGywiCW/XKrQKMoVm16G+zB/4yTUoKlLftavP3gVM6A+6NUL0cprHi/cf
-	W55kifW0B+fXE0JaoN2e3sW7kNwQgjGZHOd0O9OnOr8lF5LWonB3t9rikYU/t28SfgH14z1y6/7
-	kyjum7bg2UHnvSCT8zu07zUCApiTvOV8k1c3qNZZgSToo1shk8Cop4KRsRoplyg9wbVpA9g4lze
-	pLg5bNCJ7qPmg4fjXAkz9A7wqsofEzSFDtMma651aNBX+4w==
-X-Received: by 2002:a05:622a:a903:b0:509:e68:22cb with SMTP id d75a77b69052e-516d439424amr22762921cf.5.1779446877016;
-        Fri, 22 May 2026 03:47:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:a903:b0:509:e68:22cb with SMTP id d75a77b69052e-516d439424amr22762681cf.5.1779446876627;
-        Fri, 22 May 2026 03:47:56 -0700 (PDT)
-Received: from [192.168.119.254] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-688b9b6d269sm537400a12.3.2026.05.22.03.47.54
+        bh=+QavqAkvNk1HceT8bIYAr95toaxgKAhaHoRrKKXDbiI=;
+        b=TlXLaPO63TQY28BqyyAts1C2vy5i5Ouwc9DVD7TAO+u6oin/vpl6sAtWYvaluENri1
+         IC7lIk6QqIm7uRsZjHrmBb8CUkYXlh86SJJm7t/gzp28d1la33tb/pe+7KDWjcGCn61K
+         nQX8/98quXX5Miz953I/AxUtZPWo+YLoxWw7wx74Av1a0OWOAQt5vGxrmMiqxNrz+2Ca
+         QBwcs8CaE9Vwwths/wOc8HifXySwNWdvi/6Po5UiA9B1VYbFW/liGa64ObL1ex4kTzo1
+         BUWkNMhn0ngDF1WC5Glq/Wtd5dvxk0HDKHrLo0obxCb/58ifCEUWM6GD050SbecelpZF
+         1rpg==
+X-Forwarded-Encrypted: i=1; AFNElJ+SKRliqkeyM4IBkCmB6/BxfexIywY/hnX9rwn9rON4tPwQR+QabLw2af3RR1i77bto8peQZMEB62I0@vger.kernel.org
+X-Gm-Message-State: AOJu0YytYb0H0yzT2NxisKEkyjyI4aOCLNJBanDUT/1cwnlljbJWRYoP
+	4+DRW2J+pbm3BnwjkWl/U2sQDp47WyiqTZ+IW6Da8x2SQUkDgBzhNx18
+X-Gm-Gg: Acq92OHIbpkQZPQHoOhIc83Eh6B+VRXrHeinBNJYyE3JuC5VFvrotPhQC2VVw3MnwU6
+	L1P5ccttK+9T9JteiiYdR+sFuAqkpQyBQlzzIU0wxEORi9bTFY6v/jSUbB0x25VE6MsDvcIIMn+
+	Ep1Yy923DVCZC9kfTaTVi+0mnZiUTsWyB8opf3/p4Zx5WASu+GO1jVyDgUQ3P0WyGjqoxdP/iMZ
+	DxcAlzuBWy1oX8qVfS7+A2lNMOQ47qqqA7EdeUTHDBr9MfE8ovz7PtQQqTHVOCE92jO/ZGV7pzp
+	kOyKDCcE2EGZ+aI9rlRgSPWw7XytDWydUi4kLW2UmkUAC0uKtoUj9mkcB/Lub/q+PRtpptGe6i7
+	btyL20UDlYtLiqWRL6kAXJG2Jd8wiV8HVcIV2kYrXBMPNyBKyu9Prcrhx43CnKkzgKVgcN68v7J
+	mr4qTyH75kPyzZAY/Z4KGPFYxveA==
+X-Received: by 2002:a05:690e:4394:b0:654:5d65:9ff4 with SMTP id 956f58d0204a3-65ec95f142emr2209900d50.10.1779446900633;
+        Fri, 22 May 2026 03:48:20 -0700 (PDT)
+Received: from [192.168.0.39] ([79.133.247.80])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65ecfd9c82csm559840d50.15.2026.05.22.03.48.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 03:47:55 -0700 (PDT)
-Message-ID: <6bad01bc-3329-4a8c-a812-a6d058e15efa@oss.qualcomm.com>
-Date: Fri, 22 May 2026 12:47:53 +0200
+        Fri, 22 May 2026 03:48:20 -0700 (PDT)
+Message-ID: <01f9a303-846a-4048-8115-c94b9b78078a@gmail.com>
+Date: Fri, 22 May 2026 13:48:13 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,135 +68,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: dts: qcom: arduino-monza: add WLAN enable and
- rfkill GPIO
-To: Qian Zhang <qian.zhang@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260511-linux-next-v3-1-3e22737e71eb@oss.qualcomm.com>
- <920223a6-4e4a-4ebc-8a1c-c37d0923a470@oss.qualcomm.com>
- <a79100cd-0e33-4eb6-9452-c4458ea40bc0@oss.qualcomm.com>
- <b71f7653-78bb-49eb-b4c4-3fa8bca3e705@oss.qualcomm.com>
- <CALC2J1PqdKGozWX-WapCZSkjGZcM_JjOX29HQ8r7ghKyaBXj_A@mail.gmail.com>
+Subject: Re: [PATCH v8 2/9] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
+ hardware controlled
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260519-msm8939-venus-rfc-v8-0-542ec7557ebc@gmail.com>
+ <e7WD-tbtAA7Bx0uDnXgPHto9hACWxgblhI2eitNHX4VYEgxOOceuY0sOS6KQnGiyTaDYaKudZt4k50z_vJVpnw==@protonmail.internalid>
+ <20260519-msm8939-venus-rfc-v8-2-542ec7557ebc@gmail.com>
+ <608dc53d-17a8-4230-9ebb-48a94bf03675@kernel.org>
+ <6ae3a89c-f205-45c5-87c0-5550f78502d6@oss.qualcomm.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CALC2J1PqdKGozWX-WapCZSkjGZcM_JjOX29HQ8r7ghKyaBXj_A@mail.gmail.com>
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+In-Reply-To: <6ae3a89c-f205-45c5-87c0-5550f78502d6@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 88c35LX-POwcer8njQsFd5qgGDoq71ti
-X-Authority-Analysis: v=2.4 cv=QblWeMbv c=1 sm=1 tr=0 ts=6a10345d cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=Lzbw_nNmeTPLO_IXETgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=O8hF6Hzn-FEA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: 88c35LX-POwcer8njQsFd5qgGDoq71ti
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDEwNyBTYWx0ZWRfXzmoJ7KlMgt/H
- oE4fPd/YowGPTp2Nyyzz9W7pAJpCH81jqJgjEoKcCyasLPLqruMNlmxXJfHj0PAgnt5X40vUc+m
- oKb6nNdhyB9WYsm/Jqvfy8GHmtr8JV3h4SfXL4CE78qtAMsMTv1ta4hUMaSsjPF9MxKECQO/z5V
- CDXfkVPtW+Ff4202Q0fJF8MuLYQ74iJ8fBiJEquxDE2Aej9Yt0dSBcsAjlRNLOgntzxo0a8v7Sk
- ySoLN8ufZdhjSYvS5RIrGmK1K27wXFV0ixRAly+/ybyP2CbtZKRbx9dHH+gDTtN9MdZQNrM3tZC
- J0oBq3inq24MeiuqdfWgoDt1dEkgnAEGmwY3H6/wl5i9TIIVOG5pAzu38xEbF8lL2KDiDjo7YyG
- a7LvqhYZ04inCimh6aBE5u9/AfO5iz1WAVncvSb95WwihcPgF9sTyJ4EPKj94/l+y3Gd+yLBr6J
- 2KMQ1gHlxKUz9XTeouA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-22_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
- suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220107
 
-On 5/19/26 4:58 AM, Qian Zhang wrote:
-> You're right that GPIO 56 (wlan_en) is consumed by pwrseq-qcom-wcn
-> through the wcn6855-pmu node — apologies for the confusion in my
-> earlier reply.
-> Let me explain the hardware on this board, because it
-> differs slightly from the typical WCN6855 reference design and is the
-> source of a problem we're now stuck on.
 
-The wording, structure and magic characters within your reply make
-me think you're using a LLM to respond to me. I will not entertain
-this conversation further if that's the case.
 
-> Hardware
+On 5/21/26 12:29 PM, Taniya Das wrote:
 > 
-> The WLAN module fitted on Monaco-Monza is not a bare WCN6855 — it
-> contains an additional, module-internal PMU (PMCA6850) that gates
-> power to the WCN6855 die. So the signal chain is:
 > 
-> SoC TLMM gpio56 (wlan_en) ──► PMCA6850 EN ──► WCN6855 rails ──► PCIe link up
+> On 5/20/2026 2:02 PM, Bryan O'Donoghue wrote:
+>> On 19/05/2026 16:10, Erikas Bitovtas wrote:
+>>> Allow Venus core GDSCs to have their control passed to hardware, so they
+>>> can be powered on by Venus firmware.
+>>>
+>>> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+>>> ---
+>>>   drivers/clk/qcom/gcc-msm8939.c | 4 ++++
+>>>   1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/drivers/clk/qcom/gcc-msm8939.c b/drivers/clk/qcom/gcc-
+>>> msm8939.c
+>>> index 45193b3d714b..243d31a32e92 100644
+>>> --- a/drivers/clk/qcom/gcc-msm8939.c
+>>> +++ b/drivers/clk/qcom/gcc-msm8939.c
+>>> @@ -3664,6 +3664,7 @@ static struct clk_branch gcc_venus0_vcodec0_clk = {
+>>>
+>>>   static struct clk_branch gcc_venus0_core0_vcodec0_clk = {
+>>>       .halt_reg = 0x4c02c,
+>>> +    .halt_check = BRANCH_HALT_SKIP,
 > 
-> wlan_en is therefore the enable pin of PMCA6850, not of the
-> WCN6855 itself. From the host's point of view, asserting wlan_en
-> brings the module out of reset; the WCN6855 only becomes visible on
-> PCIe after PMCA6850 has finished its own ramp-up.
+> please use .halt_check = BRANCH_HALT
+> 
+If I do that, the clock fails to power on on boot.
+[   20.324488] ------------[ cut here ]------------
+[   20.324520] gcc_venus0_core0_vcodec0_clk status stuck at 'off'
+[   20.324663] WARNING: drivers/clk/qcom/clk-branch.c:88 at
+clk_branch_toggle+0x124/0x170, CPU#7: (udev-worker)/1010
+[   20.324723] Modules linked in: snd_soc_apq8016_sbc(+)
+snd_soc_qcom_common venus_core(+) qcom_q6v5_mss(+) v4l2_mem2mem
+qcom_pil_info videobuf2_v4l2 qcom_common qcom_q6v5 videobuf2_common
+videodev mc qcom_memshare tun binfmt_misc nft_reject_inet nft_reject
+nf_reject_ipv6 nf_reject_ipv4 nft_ct nf_conntrack zram nf_defrag_ipv6
+nf_defrag_ipv4 zsmalloc lz4_compress zstd_compress nf_tables uhid uinput
+fuse nfnetlink ipv6 xfs usb_f_ncm u_ether panel_asus_z00t_tm5p5_nt35596
+edt_ft5x06 pm8916_bms_vm msm ubwc_config mdt_loader gpu_sched drm_gpuvm
+drm_exec drm_display_helper cec libcomposite
+[   20.325245] CPU: 7 UID: 0 PID: 1010 Comm: (udev-worker) Not tainted
+7.0.0-msm8916 #41 PREEMPT
+[   20.325273] Hardware name: Asus ZenFone 2 Laser/Selfie (1080p) (DT)
+[   20.325290] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS
+BTYPE=--)
+[   20.325314] pc : clk_branch_toggle+0x124/0x170
+[   20.325348] lr : clk_branch_toggle+0x120/0x170
+[   20.325377] sp : ffff800082ab3430
+[   20.325390] x29: ffff800082ab3440 x28: 0000000000000001 x27:
+ffff0000236724c0
+[   20.325435] x26: 0000000000000002 x25: ffff0000236724c0 x24:
+0000000000000000
+[   20.325477] x23: 0000000000000000 x22: ffff800081017b3e x21:
+ffff8000813e9f38
+[   20.325519] x20: ffff8000806f7f50 x19: 0000000000000001 x18:
+0000000000000000
+[   20.325560] x17: 0000000000000001 x16: 0000000000000800 x15:
+0000000000000003
+[   20.325601] x14: ffff800081315120 x13: 0000000000000003 x12:
+0000000000000003
+[   20.325643] x11: 0000000000000000 x10: 0000000000000027 x9 :
+ebcfd48ff0c24800
+[   20.325684] x8 : ebcfd48ff0c24800 x7 : 7461206b63757473 x6 :
+0000000000000027
+[   20.325725] x5 : ffff80008151038a x4 : ffff800080fc8d13 x3 :
+0000000000000000
+[   20.325766] x2 : 0000000000000000 x1 : ffff800082ab3200 x0 :
+00000000fffffff0
+[   20.325808] Call trace:
+[   20.325821]  clk_branch_toggle+0x124/0x170 (P)
+[   20.325859]  clk_branch2_enable+0x20/0x30
+[   20.325894]  clk_core_enable+0x6c/0x2c8
+[   20.325923]  clk_core_enable_lock+0x8c/0x120
+[   20.325960]  clk_enable+0x1c/0x30
+[   20.325994]  vcodec_clks_enable+0x4c/0xc8 [venus_core]
+[   20.326190]  core_power_v1+0x270/0x2c0 [venus_core]
+[   20.326370]  venus_runtime_resume+0x58/0x80 [venus_core]
+[   20.326548]  pm_generic_runtime_resume+0x2c/0x48
+[   20.326579]  __rpm_callback+0x80/0x470
+[   20.326609]  rpm_resume+0x3cc/0x5f8
+[   20.326637]  __pm_runtime_resume+0x4c/0x98
+[   20.326665]  venus_probe+0x1fc/0x3b8 [venus_core]
+[   20.326844]  platform_probe+0x60/0xa8
+[   20.326881]  really_probe+0x154/0x448
+[   20.326911]  __driver_probe_device+0xa4/0x120
+[   20.326943]  driver_probe_device+0x44/0x230
+[   20.326973]  __driver_attach+0xf0/0x280
+[   20.327003]  bus_for_each_dev+0xf0/0x150
+[   20.327031]  driver_attach+0x28/0x38
+[   20.327061]  bus_add_driver+0x14c/0x2a8
+[   20.327088]  driver_register+0x6c/0x108
+[   20.327119]  __platform_driver_register+0x24/0x38
+[   20.327154]  init_module+0x24/0xfb8 [venus_core]
+[   20.327332]  do_one_initcall+0xe4/0x3e0
+[   20.327363]  do_init_module+0x5c/0x248
+[   20.327393]  load_module+0x16ac/0x18c0
+[   20.327421]  __arm64_sys_finit_module+0x238/0x360
+[   20.327449]  invoke_syscall+0x44/0xd8
+[   20.327483]  el0_svc_common+0x84/0xe0
+[   20.327515]  do_el0_svc+0x20/0x30
+[   20.327547]  el0_svc+0x24/0x70
+[   20.327582]  el0t_64_sync_handler+0x7c/0x120
+[   20.327616]  el0t_64_sync+0x154/0x158
+[   20.327643] ---[ end trace 0000000000000000 ]---
 
-The powerseq driver for WCN PMUs exists precisely to handle this setup.
-
-> Initially we reused the qcom,wcn6855-pmu compatible so that
-> pwrseq-qcom-wcn would drive wlan_en for us. But we hit a
-> resource-allocation issue this hardware behavior creates.
-> 
-> The problem
-> 
-> Because PMCA6850's enable is driven by pwrseq (which runs after the
-> PCI host bridge has scanned the bus), WCN6855 only appears on the bus
->  ~10 s after PCIe enumeration has already finished, with no resources
-> reserved for it.
-> 
-> Topology — WCN6855 sits behind a Pericom PI7C9X2G304 switch alongside
->   a TI USB controller:
-> 
-> pcie0 RC ── 00:00.0 ── 01:00.0 (switch UP)
->                        ├── 02:01.0 (DN) ── 03:00.0  WCN6855  (BAR0 = 2
-> MB, appears late)
->                        └── 02:02.0 (DN) ── 04:00.0  TUSB7340 (BAR0 =
-> 64K, BAR2 = 8K, present at boot)
-> 
-> dmesg (kernel 6.8.0-1071-qcom):
-> [    5.545559] qcom-pcie 1c00000.pci: PCIe Gen.2 x1 link up
-> [    5.882178] pci 0000:00:00.0: bridge window [mem
-> 0x40400000-0x404fffff]: assigned
-> [    5.912197] pci 0000:02:01.0: PCI bridge to [bus 03]
-> [    5.917368] pci 0000:04:00.0: BAR 0 [mem 0x40400000-0x4040ffff
-> 64bit]: assigned
-> [    5.924919] pci 0000:04:00.0: BAR 2 [mem 0x40410000-0x40411fff
-> 64bit]: assigned
-> [   16.476921] pci 0000:03:00.0: [17cb:1103] type 00 class 0x028000
-> PCIe Endpoint
-> [   16.477176] pci 0000:03:00.0: BAR 0 [mem 0x00000000-0x001fffff 64bit]
-> [   16.516689] pcieport 0000:02:01.0: bridge window [mem size
-> 0x00200000]: can't assign; no space
-> [   16.516704] pcieport 0000:02:01.0: bridge window [mem size
-> 0x00200000]: failed to assign
-> [   16.516713] pci 0000:03:00.0: BAR 0 [mem size 0x00200000 64bit]:
-> can't assign; no space
-> [   16.516720] pci 0000:03:00.0: BAR 0 [mem size 0x00200000 64bit]:
-> failed to assign
-> [   18.093137] ath11k_pci 0000:03:00.0: Adding to iommu group 24
-> [   18.101694] ath11k_pci 0000:03:00.0: BAR 0 [??? 0x00000000 flags
-> 0x20000000]: can't assign; bogus alignment
-> [   18.101724] ath11k_pci 0000:03:00.0: failed to assign pci resource: -22
-> [   18.108613] ath11k_pci 0000:03:00.0: failed to claim device: -22
-> [   18.115481] ath11k_pci: probe of 0000:03:00.0 failed with error -22
-> 
-> At the initial scan the PCI core sizes the root-port window to 1 MB
-> based only on the TI USB endpoint that is currently visible, and
-> gives the 02:01.0 downstream port no MMIO window at all. When
-> WCN6855 appears later it requires a 2 MB BAR0 and there is nowhere
-> to put it.
-
-This is a separate issue that needs fixing. I see Mani is already
-part of the thread, maybe he can take a peek
-
-Konrad
