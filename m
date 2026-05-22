@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0FA3CE0B1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952AE3D25B2;
 	Fri, 22 May 2026 10:43:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779446625; cv=none; b=I8QPCenswXtGy8n1IrWfRupbwMw3/FAEpvWTCxiehhspHxUrQV6d0iqPzzpvyA1omnIHBxLBt5Ffpa+8GNfnv2nbYLWB719zgKewyK8t+8XazUw5GnzhmtHSeyaf5AcidKYJtKQmO4p+IrctYb6zXgEwISbMyJJJZZJb3WJ91Jw=
+	t=1779446625; cv=none; b=cYha25EOH/NGhfHiEejVvxIBz+l849XEjs9gUfVNqRH5rp91SSmR/I09MlGd3j4/SsGS4zDOO4YLxwN8fs7uhD46SYfMFhawlpxU0HusCycRgEIWxL/iHnzPCAI/SSKU8rFBsc1wUX3LpemOgyZcaqUsjLclBFJFpj2ndRrcWxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779446625; c=relaxed/simple;
-	bh=OAdJDoexPkQT9ots4EbkSWm5SFdMRsHbuuzQVtz1jwM=;
+	bh=kxnjuRTiKTs+5gefOHkwfKnnZ3Ix5LR40ODn9kqAVm0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dDeLuFyC1dAiaJvNU7sU2jd3Cs6DMtAOD1nLUTdIPh1NjQR5jVCqdQE+qc95I0P59xMtt9YX9HDLVNwCBhwZg3bwgO9AOOYXJKpLhdjWPUVRNaSqb7Az+1pzAPdJR+j+aSLIhEvmT3FEBljoc1wCBFU42Qk3gGP08VbwHHKrQ64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HvUy1v/c; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=tiVlRIPFQredMHnpEtSL5ljfuf+yWn17u3F2QQfv4uO4RMqTlqFt8V84xtWgdjroPupag21SQWnqYwJ5+j8rCNKwcoDR/f7kinZ+RFDpmX+gBXu45Eprqzrt0pjC6H5+S/DXWc8QNLKE3Do/zgei1XaQDRoqx+v7UFtElswHOHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DNpAA/+l; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HvUy1v/c"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 37303C2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DNpAA/+l"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5085BC4AF0F;
 	Fri, 22 May 2026 10:43:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1779446625;
-	bh=OAdJDoexPkQT9ots4EbkSWm5SFdMRsHbuuzQVtz1jwM=;
+	bh=kxnjuRTiKTs+5gefOHkwfKnnZ3Ix5LR40ODn9kqAVm0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=HvUy1v/cMHGV763cJ9SloQxanfiCv7tBN/JC2wstIpP5a0w5zP3ovZr5tCYwDDC9R
-	 SmT5A28AbszPVsNA+IZxFQd5bP4ulGTkIOrjDTbw/gNaYzFq0ErjgspObvZGJiWIrD
-	 fbi4Nkf9E6pEZQm8m+vki0mZZBeb2ydTLBlMZOESc1CfdrP7RNw++uuZZuRYkW0xrG
-	 RHWSva+2mCdIAnV4UrVA1FlporEl9NtIvqzhSrfe/IGkjis9d3dIJ+h8BOWD1PhVeq
-	 zuD5v11hksT15ypT+kzri54QsouEAmVh2O4kSqAwlAHcAGojTTS6XsI0OrJz3i6xni
-	 ATRofYx/IGHtA==
+	b=DNpAA/+l4ncidqUFW5ls/fnx8CqyBUWDyKwjG8sZLaMSAU+MX4GQJP4mvi8MXCRqU
+	 CYT/nVwbjQCkLUIKfJVLndyC4vPVdLFygwGAP15Nb669jy7VDohM+mOk+jciA6ZLwV
+	 Sv6FMDfJzpxBrXMt4Cfjx4hh2vhup8QdOoG2+cB8Zfo5tQQoka6ePDMi5Uilklf3kf
+	 gKVq42/FLLLbieCDZs4k5iwItuQVlJaY9dJpGVE1RtbinkPMVyuWjythcWMAamD57Q
+	 Gw6r7yjxMYolF6JakHM12gJEqlY3q6iW7AI5KTIr1CwoWwyonCjt5tb0SYGA+0yy+j
+	 9tHMAgM903zCA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24FA3CD5BB1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 41048CD5BB6;
 	Fri, 22 May 2026 10:43:45 +0000 (UTC)
 From: =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne_via_B4_Relay?= <devnull+jerome.debretagne.gmail.com@kernel.org>
-Date: Fri, 22 May 2026 12:43:18 +0200
-Subject: [PATCH v2 02/10] arm64: dts: qcom: sc8280xp-arcata: Enable the eDP
- display
+Date: Fri, 22 May 2026 12:43:20 +0200
+Subject: [PATCH v2 04/10] arm64: dts: qcom: sc8280xp-arcata: Fix top USB-C
+ DP alt mode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260522-surface-sp9-5g-for-next-v2-2-dd9d477407f5@gmail.com>
+Message-Id: <20260522-surface-sp9-5g-for-next-v2-4-dd9d477407f5@gmail.com>
 References: <20260522-surface-sp9-5g-for-next-v2-0-dd9d477407f5@gmail.com>
 In-Reply-To: <20260522-surface-sp9-5g-for-next-v2-0-dd9d477407f5@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -50,13 +50,15 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Johan Hovold <johan@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779446623; l=2658;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779446623; l=1857;
  i=jerome.debretagne@gmail.com; s=20260520; h=from:subject:message-id;
- bh=ArT83CzUHU9cMXn/mN7oML+/ug0Ds8jF1qJcB4FmuvI=;
- b=MC/sgpFH/Rm/assHFo+NXk9ltx8t+plL5Ow1X3mh+OzHUmBXLg/3Mj3pZgK9Eh8fy9b5eiwGp
- ieFxHTdXUgxB5BMkMw0cV4+VyRC5DtRk9/tP2Oex4L8d5pxzue0Q/DK
+ bh=MRL4eJ9PRvb7b5o8BhAdPF9ViAp+Bl3LCkpYfmKJu5w=;
+ b=xmChSvp1UQJuZVbqCPSjV98jskvr0+pfr5U16asPlINvHbB5i26GHU5zqPRkxjZ7oLRYV4GiU
+ Dgshj0H14ouDmetnWAGzRIoWXVJQQ+dc3hn4U6AtjiHPJ9sRjYA8oHB
 X-Developer-Key: i=jerome.debretagne@gmail.com; a=ed25519;
  pk=3/JYhgYjGg5V9mlFxc0A0+pFiyjsuDB/TtDlNMId9fk=
 X-Endpoint-Received: by B4 Relay for jerome.debretagne@gmail.com/20260520
@@ -66,117 +68,48 @@ Reply-To: jerome.debretagne@gmail.com
 
 From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 
-Add the vreg_edp_3p3, edp_reg_en and mdss0_dp3 nodes to enable the
-Surface Pro 9 5G eDP-based LCD display (LG LP129WT232166).
+The top USB-C port (usb0) didn't switch to DP alt mode, as reusing the
+same GPIO 101 as on the SC8280XP CRD or Lenovo ThinkPad X13s was not
+working on the Surface Pro 9 5G.
 
+Investigation [1] by Jens on the Windows Dev Kit (WDK2023), the other
+sc8280xp-based "blackrock" model from Microsoft, found a reference
+to GPIO 100 in the DSDT in addition to 101. Switching to GPIO 100
+fixed the issue on blackrock, as it does on arcata to enable
+external screen when using the left-side top USB-C port.
+
+[1] https://lore.kernel.org/all/20250609-blackrock-usb0-mux-v1-1-7903c3b071e4@oldschoolsolutions.biz/
+
+Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Fixes: f6231a2eefd4 ("arm64: dts: qcom: sc8280xp: Add Microsoft Surface Pro 9 5G")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 ---
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 64 ++++++++++++++++++++--
- 1 file changed, 59 insertions(+), 5 deletions(-)
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index f24f60dc73afea6eeee0ea26472cda3223811752..476e17415da273330e3638e040db9cd4ed408bf1 100644
+index c3b143ed11c73b7c1bedc576c10af8db30effc36..9abb52e3763715c8f72f8c95c068fd0b32901a1d 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -136,6 +136,22 @@ pmic_glink_con1_sbu: endpoint {
- 		};
- 	};
+@@ -270,7 +270,7 @@ map1 {
+ 	usb0-sbu-mux {
+ 		compatible = "pericom,pi3usb102", "gpio-sbu-mux";
  
-+	vreg_edp_3p3: regulator-edp-3p3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_EDP_3P3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 36 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&edp_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
- 	vreg_nvme: regulator-nvme {
- 		compatible = "regulator-fixed";
+-		enable-gpios = <&tlmm 101 GPIO_ACTIVE_LOW>;
++		enable-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
+ 		select-gpios = <&tlmm 164 GPIO_ACTIVE_HIGH>;
  
-@@ -344,7 +360,6 @@ vreg_l6b: ldo6 {
- 			regulator-max-microvolt = <880000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 			regulator-boot-on;
--			regulator-always-on;	// FIXME: VDD_A_EDP_0_0P9
- 		};
- 	};
+ 		pinctrl-0 = <&usb0_sbu_default>;
+@@ -1079,7 +1079,7 @@ tx-pins {
  
-@@ -448,10 +463,6 @@ &dispcc0 {
- 	status = "okay";
- };
- 
--&dispcc1 {
--	status = "okay";
--};
--
- &gpi_dma0 {
- 	status = "okay";
- };
-@@ -494,6 +505,42 @@ &mdss0_dp1_out {
- 	remote-endpoint = <&usb_1_qmpphy_dp_in>;
- };
- 
-+&mdss0_dp3 {
-+	compatible = "qcom,sc8280xp-edp";
-+	/delete-property/ #sound-dai-cells;
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	status = "okay";
-+
-+	aux-bus {
-+		panel {
-+			compatible = "edp-panel";
-+
-+			backlight = <&backlight>;
-+			power-supply = <&vreg_edp_3p3>;
-+
-+			port {
-+				edp_panel_in: endpoint {
-+					remote-endpoint = <&mdss0_dp3_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dp3_out {
-+	remote-endpoint = <&edp_panel_in>;
-+};
-+
-+&mdss0_dp3_phy {
-+	compatible = "qcom,sc8280xp-edp-phy";
-+	vdda-phy-supply = <&vreg_l6b>;
-+	vdda-pll-supply = <&vreg_l3b>;
-+
-+	status = "okay";
-+};
-+
- &pcie2a {
- 	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
- 	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-@@ -910,6 +957,13 @@ hstp-sw-ctrl-pins {
- 		};
- 	};
- 
-+	edp_reg_en: edp-reg-en-state {
-+		pins = "gpio36";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	nvme_reg_en: nvme-reg-en-state {
- 		pins = "gpio135";
- 		function = "gpio";
+ 	usb0_sbu_default: usb0-sbu-state {
+ 		oe-n-pins {
+-			pins = "gpio101";
++			pins = "gpio100";
+ 			function = "gpio";
+ 			bias-disable;
+ 			drive-strength = <16>;
 
 -- 
 2.47.3
