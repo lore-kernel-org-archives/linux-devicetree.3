@@ -1,63 +1,63 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE683C73D7
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7493A3C6A56
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779444223; cv=none; b=a0qPnwkrftTFc5r96SxZSnc16WnBQBnnHBQo3Cvx1J5K/apVdgXPuz9BsNOFDLyfILT5qIZ7s79yxQHK8XzfWtlVS/wPYtJA59SDwEa2IwIsUV1PBlsxTj+Tr2Lr9TVyLWiXDMaZrSKPomoGbKbYHiDN0pFROkFNKpY/xDVJ7UQ=
+	t=1779444228; cv=none; b=BUP2wa9LhDF+0usKyvPj9lCLOl+SrWwRdhfeqS3w++cH3fhgisx1QgbPQkNAgNtTJd5nOPlYQy8PeGNaQBEzTMEkQFVFzP0439q+1ZCT1gHKVjF0g8GlS1UQHe8bF4ua+A0fUt5SLUUBFyRVGrEwPPt5ZJsXbqjNAm9rec1ryvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779444223; c=relaxed/simple;
-	bh=5IVRUpeRERkgnBnFFAUZRPR4vuOlaquMQ2M1F5gjZLg=;
+	s=arc-20240116; t=1779444228; c=relaxed/simple;
+	bh=ExiN+C4YNDod2sNQFUItCwk6WYc3E9pIc8syzk45Va4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UD7gL5SrTR/pKkjf1c9onZCj3KtgyDYgTYxrySEaje8+IhdJZUpjZSf/SZ78pE3rg4NbS2o3UJofzUHFnoNODzhATl34nGDixSxMxpOf4oWFc5fPHy+8Run2zTl9ZdL9esxPV3aHpJ3v6hJX+X3WYG1dCpAD+7WvJXrfJuCuByA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FeLQgG1J; arc=none smtp.client-ip=209.85.214.180
+	 MIME-Version; b=rHA0xFVJG6bIWpiN2Uoj9rVWM3YaMJfU/xWngkmBJVeOY877eNJAaxFspfdnY+VxBG/jVVZGFwpz+2bA6IXx9hax9Owfk525qVoYFsDuuZqjUaXSrs3w0gcI4kwwTsdg6VBiBxpRwZEWQslgMkqB7+5lmT65mMwVh1W4Enr8ygc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=juimpBDg; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FeLQgG1J"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ba4efedbeaso52510745ad.1
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:03:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="juimpBDg"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ba6485d219so53878045ad.3
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:03:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779444221; x=1780049021; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779444227; x=1780049027; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n4PQwaR5Pu3llNRhqAB+zh6CPiNVALJe9/CtlXd6Tm0=;
-        b=FeLQgG1JHsnqdqvZ22qtf9F2CAlxSoSlveQu3TB3+nS5LMHhGg2jDLyTy1cH7nvjPs
-         6KkANarKJqbWVrw6BtjWZnSESZ7cF3drpC40T4FEHqZSfC9Pq0VdiVCzyWp9i7pCJQv3
-         WUeE59NXPX3kRuaHZCnkmJg7fumQeCSZ4nrl3wHMtvVIZrzmRb8is1uFEW1jEAtMWd+D
-         2jtej9jP05PQ7M1pUDvk1bmKMSam5a4QqSZR+jq4Fv6GGITfKwPGJ2G8I8UplpAozYB7
-         incXhivilL9lHpGJeah92xtRLzqyFVDzBXTOjV/v2dWcgSw0RJ7bdn5pfsJyMyuGW1Br
-         Zldw==
+        bh=78Vi4OavJbre02Pi7gJRdT8U7hvyFu4xORETXxXDTp0=;
+        b=juimpBDgoYOXPurb+Z7STz/uD8aMkpza7JZCL6oJCvR0j3lj5FZ4V1brovd9XsxmHp
+         fUHtRvFw33GS4UA6BzViTj6gb/F/86r4BE80jYFvMHHF1hnAgjMyXATJdroCpYhjfk4B
+         v4UHQ5rMII/glj0bfLN3uGq1YzJNiDei44eDQNx4KlIgxkEkUCBEwX2pn6+KwgV54Fpc
+         WtOvsqzXhNguN/xkHwIkKKoJ6INRA2G/P8W+HYKlLhDSi1BXCCSdpfnrxFaf7BEp1w0N
+         n1Ws+AKJ1WiqPU0J25CfX8rfYhGBrB8S8flM5WMphOmhpVEbPJzz9/6S3hraK0XHk2hE
+         bPPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779444221; x=1780049021;
+        d=1e100.net; s=20251104; t=1779444227; x=1780049027;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=n4PQwaR5Pu3llNRhqAB+zh6CPiNVALJe9/CtlXd6Tm0=;
-        b=YxlhcrdH/yTdTuv5Zadriw+H483+UPKJopJx447wgpQpQfJxzFqu/9l01vFyBoxCnu
-         7KTc+sW3yTzx05LuMeUK3siTgjL0kai2HTyDeRRbc2PtJgEJG1Na3WRuKVcgY+ks9eJn
-         AQyUVV1b231Vv2zazwwXJGGT9n+/AuB1TwVRcLnQO16mhjF54YOsYgN+ndJvQsnWSCTX
-         MbSm/mumCc/XwIyH6FnDpoQWVCBmzMEEANjd+FWNIORN0iV8Ap5m/djC7DVwShCi23nJ
-         1YO2BcRGtDz47u9foYzjk7pbLtJfM6ZCiiFZwjYhrrL8UM4hTUoPZ5INsDPBDsj3RtjH
-         0AXg==
-X-Forwarded-Encrypted: i=1; AFNElJ9CScdKuNTTE+CQlNAnntnwDo3FoGVvN1W9rdfCWGREoqTVW8FhuDBJBLKoy2QChdLTYXTXpV/NqAQS@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywyq6FwG0S9mKOIhM3S2XVMw+DQGlmsTe4/llyG/tjcoSdin5BU
-	Xei0N4HSQPsl3FOC0px6yFtxviV9WMjDmfKJRd9BF2MZqKwNSbcLAmmG
-X-Gm-Gg: Acq92OHB4JE4TCuYO1MkRw0P4Azi/SjRNrPWXk7YgK9w5zgG7op4kzKyTD/mxRmaZJa
-	N8ghaFQ1Q/M4DMrNxDxADyBg0aF3qVhlvUVp2GlkfHv4M4Dxopyb014Ozalbrc6pAMl0eAFnBRJ
-	0icfk2C3k4L1INrb5KFOUwjKDUcIGNMzI0BnFIqbSW8CFIEgAPqi2ZLigemzO3GtZExg9ZoYh6X
-	nE8zEWvzZ7hX4HjSLytpu29sYj1fvenM/mJvvqQ9unn2j+uypSxuDtzAAyiD2uHp78sWlMrdDed
-	Ht2dMWbwP9bsB9FKkrPVWDTilgShcdcdsettNaChQV3BRmwIDrFLuEpdGuBlpQ/228X/QTf762u
-	RAajdlcA/iyIHs0K+U5JXaiTUqgW0jN08qFlz//GOdLyF75huHbFDpQgOiso651Img/+8JyMICn
-	1JRmOrTwFXzAuSxnseG5wgup+5ECXH+8X6o35+pXWe4Oy4rA8zD04zJQsBxg==
-X-Received: by 2002:a17:902:ce92:b0:2b9:7ad1:bf2b with SMTP id d9443c01a7336-2beb06924e5mr33628175ad.29.1779444221237;
-        Fri, 22 May 2026 03:03:41 -0700 (PDT)
+        bh=78Vi4OavJbre02Pi7gJRdT8U7hvyFu4xORETXxXDTp0=;
+        b=ryIq57Y9/lWyMYAttcGpOfIO4rQS2svPhOhBZAXbJ2Z4wjF1HpWNYLvBeGZSlSEDHr
+         /TcupIvd/jYxFziWoWGpe0yonpM6q9LcO/8k+kXfyJsklW+mv8DVTuS/VtCeOY5lZbw3
+         QhLtr7wrV7PFK9HMBvMhIU8sDI0yer18ibanz+0lV6L6htNqNEBMDsZFElGzdH7sFA/J
+         ULGPusy1Pu5ygBrZi20eIcMJRXCwMOGI/KS56/s8f6H4RlLDDk8Bbol9w9CBiX2jrBHu
+         JSgkxMSFP/mPI1glfwTbHdZzdaOvec8pAxxW1M5iM1Smyko552IP/DGTD/NZqA3WoEBY
+         k/xQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8mUtr7EFxV8gRsVf/tyhiutfirIjOUqqy98sKl9LxK+o+yx4HpYkzb3npKoT1f85Lc5YS5L5q/LERC@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLSIjj3Fh1o6wFyMCusSzOf/MfGISO7lKRQIs3sReZGXMDFnDb
+	BQD2mMFzNG32RP17psjRRf6cZOoEUg3SIcukniX2pKf9g/l93HxNQnJ1
+X-Gm-Gg: Acq92OGoI8aVBAYFhjCJ/Rx6Gkv4gGoceBtvAWSqn2m5Rr0x2WlDNeBkFi+EdgLHJd2
+	Q7bHcx6BHgGdwFGqA3oFG9M6s7Sntw65a/t10j81GT5+wPQEiY7QhtGNOTcHkp+YKKa2XTc956Y
+	ZDbDEhREDp7CxsW96zddrDHAekUfNWOYdlYhmTnI6vvTBismZBkbGv3tg7wowHQXuM888fXiTSS
+	Z1bQlMAzWJfodnguBjYPndHcEO7bXQ1JL4DkU0hjadPdr5j3VLXcLI2Jp2kxlmZYA5Ydycyr0NI
+	VE/4Ci8/3a5Tj8S55ptc2nAgLuue8mCewKN8fHlC/0vCIpwQbMQ0mTAMu95U/XijUugF2TruSql
+	l/5imzMU80pZtw+kp9iYPDcs2lkiHbGF5Q+fyiYkXNJIAQ3b6Sxf5ynBbxjifQZeGgZXRahK/aY
+	di0zn7rspi6RZtd+2Ei9RAFjvMRrzgbn3TgRlXmJNLvvHvhMlsSmBd/BD96rQfS/KRr9BC
+X-Received: by 2002:a17:902:ce84:b0:2b0:917c:bc4 with SMTP id d9443c01a7336-2beb03661a2mr27377715ad.4.1779444226741;
+        Fri, 22 May 2026 03:03:46 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56f4343sm18683455ad.36.2026.05.22.03.03.37
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56f4343sm18683455ad.36.2026.05.22.03.03.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 03:03:40 -0700 (PDT)
+        Fri, 22 May 2026 03:03:46 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: broonie@kernel.org
 Cc: lgirdwood@gmail.com,
@@ -73,9 +73,9 @@ Cc: lgirdwood@gmail.com,
 	conor+dt@kernel.org,
 	devicetree@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 1/3] ASoC: dt-bindings: rockchip-spdif: Correct SPDIF clock descriptions
-Date: Fri, 22 May 2026 17:03:16 +0700
-Message-ID: <20260522100318.73474-2-phucduc.bui@gmail.com>
+Subject: [PATCH 2/3] ASoC: rockchip: spdif: Reorder clock enable sequence
+Date: Fri, 22 May 2026 17:03:17 +0700
+Message-ID: <20260522100318.73474-3-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260522100318.73474-1-phucduc.bui@gmail.com>
 References: <20260522100318.73474-1-phucduc.bui@gmail.com>
@@ -89,32 +89,42 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-The clock descriptions are currently swapped relative to the
-clock names used by the driver.
-
-Update the binding descriptions to match the actual clock
-usage, where 'mclk' is the controller clock and 'hclk' is
-the bus clock.
+Enable the 'hclk' bus clock before the 'mclk' controller
+clock during runtime resume.
+The bus clock provides the register access interface and
+should be enabled before the controller clock.
 
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- Documentation/devicetree/bindings/sound/rockchip-spdif.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/rockchip/rockchip_spdif.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-index 502907dd28b3..b174d7498029 100644
---- a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-+++ b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-@@ -45,8 +45,8 @@ properties:
+diff --git a/sound/soc/rockchip/rockchip_spdif.c b/sound/soc/rockchip/rockchip_spdif.c
+index 581624f2682e..8de5b76cfe79 100644
+--- a/sound/soc/rockchip/rockchip_spdif.c
++++ b/sound/soc/rockchip/rockchip_spdif.c
+@@ -76,16 +76,16 @@ static int rk_spdif_runtime_resume(struct device *dev)
+ 	struct rk_spdif_dev *spdif = dev_get_drvdata(dev);
+ 	int ret;
  
-   clocks:
-     items:
--      - description: clock for SPDIF bus
-       - description: clock for SPDIF controller
-+      - description: clock for SPDIF bus
+-	ret = clk_prepare_enable(spdif->mclk);
++	ret = clk_prepare_enable(spdif->hclk);
+ 	if (ret) {
+-		dev_err(spdif->dev, "mclk clock enable failed %d\n", ret);
++		dev_err(spdif->dev, "hclk clock enable failed %d\n", ret);
+ 		return ret;
+ 	}
  
-   clock-names:
-     items:
+-	ret = clk_prepare_enable(spdif->hclk);
++	ret = clk_prepare_enable(spdif->mclk);
+ 	if (ret) {
+-		clk_disable_unprepare(spdif->mclk);
+-		dev_err(spdif->dev, "hclk clock enable failed %d\n", ret);
++		clk_disable_unprepare(spdif->hclk);
++		dev_err(spdif->dev, "mclk clock enable failed %d\n", ret);
+ 		return ret;
+ 	}
+ 
 -- 
 2.43.0
 
