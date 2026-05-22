@@ -1,115 +1,134 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4349C30FC39
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 02:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E0C84039;
+	Fri, 22 May 2026 03:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779418358; cv=none; b=uRnVTI7YFJs5eQBgvOhMe/+HDvlPvWtS6zMJOpfgBLyLkg/qFQba9HknZbBtjrGJqfPLXdVfxbj7gGkluflQojkwS1oNOajlnUTXg5NxsaPn8UrUVY5noNp7xTSNFbyJgfk5cqA3HmxQxL0OboF6AdIGwByqJSEzblNfbZidm1w=
+	t=1779419203; cv=none; b=aczfjxzUInDMq5iyrlVdeUfniX+2a2Y13v5Wbjsem5RbflQ6yS23AtHzy6aU6QTTe6xe2P87+DioP6dQIBmFGxDerwmm+4CaDInk4QVuQ0Q5e5N0ep9DM808B1iLI+SVuqkNBlayki8a7/NIamsNc6Akh1eWlnBDEqSqXK5qhWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779418358; c=relaxed/simple;
-	bh=KokvCDqJliLVlcUvBettVfGpwxZKQB+tn4K88cCMdg4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=LKSHL+xJmZePKHb0xt/LxFmzeeAm22LlKBI1hgvhQdiEjuhjY7DP/6JV3nYsaZGtPgYaPupG9JsrHOtE8VXckV0+A5V9rSXoczR1rUZ4V7Vm5KUNaws3LOe3La9q6fyrwoEHt0qZOuhyxbqWlVvxM6tk4MPQY95XN5NL73ifRF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Fri, 22 May 2026 10:52:27 +0800 (GMT+08:00)
-Date: Fri, 22 May 2026 10:52:27 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Conor Dooley" <conor@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org,
-	devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: Re: Re: [PATCH net v2 1/5] dt-bindings: ethernet: eswin: add
- optional TXD and RXD delay register offsets
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260519-presuming-arrest-718fc461b055@spud>
-References: <20260518022023.427-1-lizhi2@eswincomputing.com>
- <20260519022334.35742C2BCB7@smtp.kernel.org>
- <20260519-thinness-slashing-cc0310904419@spud>
- <44d1ad42.8505.19e3fa56a49.Coremail.lizhi2@eswincomputing.com>
- <20260519-presuming-arrest-718fc461b055@spud>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1779419203; c=relaxed/simple;
+	bh=wnfswKmU3JEePFNowrjaJWVRDHtwZQj4gEogS9sqdUI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t2ff2bo0hcBI8NA61Z0RgMTZe/AVBlVwqPdsWq5GZzJtHmkINBfVGWZJitJ8HyPdJuKHefS1fJ+R77vf8Rz8TuLH2foxX6UsPqLkD5idv0oBPwoy+Pn+IpdVLBJ0ZF60jIosUTmjPZn2+wsny7WsoPuIL0W6MfKFj5B+s7/Tcx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rulh6ytf; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rulh6ytf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9B5E1F000E9;
+	Fri, 22 May 2026 03:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779419202;
+	bh=+DRe1ydAdJVvVGbtaGGH0MRRsOntoVdMq1KfjTaDLKY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rulh6ytfs2dT3/0yzrGO7rZKDQzWfi/Mpw2eQlftkn+klfOp59O+cKB+Ca0g33h/U
+	 41gadPpji1nCXys6kSMMJl23fpMoYzlyJmDy7g3/C5z4QQasCx4jrraPKbKD6BGS9/
+	 KegtUr0Qiyen6LlPdCmwH3+9zvbiArpjIRZDgQ28cfK4ZZwRb17nIzkcDKqT2lN8l2
+	 LVy6HPiIbBJ2pTZ4dQQmVIEjRqE4iEY/C3CcZj07dbjlMG1MBGOkLB6eB453mjy9+u
+	 +10jocLJBexg9ytA6JZd1LUb3bEIPddjUvRv48eCmYYN88fjTOfN4NrbF8ehWFGOp/
+	 YGy0+POQADhHA==
+Date: Thu, 21 May 2026 22:06:36 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, 
+	Frank.Li@kernel.org, konradybcio@kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
+	linmq006@gmail.com, quic_jseerapu@quicinc.com, agross@kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com, 
+	bartosz.golaszewski@oss.qualcomm.com, bjorn.andersson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com
+Subject: Re: [PATCH v7 3/4] soc: qcom: geni-se: Keep pinctrl active for
+ multi-owner controllers
+Message-ID: <ag_HGVQjIQuMoKO6@baldur>
+References: <20260423145705.545552-1-mukesh.savaliya@oss.qualcomm.com>
+ <20260423145705.545552-4-mukesh.savaliya@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1dd4d673.86ff.19e4d99369e.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TAJkCgBn_HDrxA9qqWcbAA--.7512W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQEPDGoPM54QSAACsR
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260423145705.545552-4-mukesh.savaliya@oss.qualcomm.com>
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiAiQ29ub3IgRG9vbGV5IiA8
-Y29ub3JAa2VybmVsLm9yZz4KPiBTZW5kIHRpbWU6VHVlc2RheSwgMTkvMDUvMjAyNiAxNzo1NToy
-Nwo+IFRvOiDmnY7lv5cgPGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20+Cj4gQ2M6IHNhc2hpa28t
-cmV2aWV3c0BsaXN0cy5saW51eC5kZXYsIHJvYmhAa2VybmVsLm9yZywgZGV2aWNldHJlZUB2Z2Vy
-Lmtlcm5lbC5vcmcsIGNvbm9yK2R0QGtlcm5lbC5vcmcKPiBTdWJqZWN0OiBSZTogUmU6IFtQQVRD
-SCBuZXQgdjIgMS81XSBkdC1iaW5kaW5nczogZXRoZXJuZXQ6IGVzd2luOiBhZGQgb3B0aW9uYWwg
-VFhEIGFuZCBSWEQgZGVsYXkgcmVnaXN0ZXIgb2Zmc2V0cwo+IAo+IE9uIFR1ZSwgTWF5IDE5LCAy
-MDI2IGF0IDA1OjUxOjA1UE0gKzA4MDAsIOadjuW/lyB3cm90ZToKPiA+IAo+ID4gCj4gPiAKPiA+
-ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlcy0tLS0tCj4gPiA+IEZyb206ICJDb25vciBEb29sZXki
-IDxjb25vckBrZXJuZWwub3JnPgo+ID4gPiBTZW5kIHRpbWU6VHVlc2RheSwgMTkvMDUvMjAyNiAx
-NzoxMTo1OQo+ID4gPiBUbzogc2FzaGlrby1yZXZpZXdzQGxpc3RzLmxpbnV4LmRldgo+ID4gPiBD
-YzogbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbSwgcm9iaEBrZXJuZWwub3JnLCBkZXZpY2V0cmVl
-QHZnZXIua2VybmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZwo+ID4gPiBTdWJqZWN0OiBSZTog
-W1BBVENIIG5ldCB2MiAxLzVdIGR0LWJpbmRpbmdzOiBldGhlcm5ldDogZXN3aW46IGFkZCBvcHRp
-b25hbCBUWEQgYW5kIFJYRCBkZWxheSByZWdpc3RlciBvZmZzZXRzCj4gPiA+IAo+ID4gPiBPbiBU
-dWUsIE1heSAxOSwgMjAyNiBhdCAwMjoyMzozM0FNICswMDAwLCBzYXNoaWtvLWJvdEBrZXJuZWwu
-b3JnIHdyb3RlOgo+ID4gPiA+IFRoYW5rIHlvdSBmb3IgeW91ciBjb250cmlidXRpb24hIFNhc2hp
-a28gQUkgcmV2aWV3IGZvdW5kIDEgcG90ZW50aWFsIGlzc3VlKHMpIHRvIGNvbnNpZGVyOgo+ID4g
-PiA+IC0gW01lZGl1bV0gTWlzc2luZyBgbWluSXRlbXM6IDRgIGNvbnN0cmFpbnQgbWFrZXMgdGhl
-IG5ld2x5IGFkZGVkIG9wdGlvbmFsIGNlbGxzIG1hbmRhdG9yeSwgYnJlYWtpbmcgc2NoZW1hIGJh
-Y2t3YXJkIGNvbXBhdGliaWxpdHkuCj4gPiA+ID4gLS0KPiA+ID4gPiAKPiA+ID4gPiBjb21taXQg
-Mjk5MjQ4M2RmODhhZjI4MjNjMjc1ZmM4NjE4N2Y3ZTM4YWNiZWU1Ywo+ID4gPiA+IEF1dGhvcjog
-WmhpIExpIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgo+ID4gPiA+IAo+ID4gPiA+IGR0LWJp
-bmRpbmdzOiBldGhlcm5ldDogZXN3aW46IGFkZCBvcHRpb25hbCBUWEQgYW5kIFJYRCBkZWxheSBy
-ZWdpc3RlciBvZmZzZXRzCj4gPiA+ID4gCj4gPiA+ID4gVGhpcyBjb21taXQgZG9jdW1lbnRzIHR3
-byBvcHRpb25hbCBjZWxscyBpbiB0aGUgZXN3aW4saHNwLXNwLWNzciBwcm9wZXJ0eQo+ID4gPiA+
-IGZvciB0aGUgVFhEIGFuZCBSWEQgZGVsYXkgY29udHJvbCByZWdpc3RlciBvZmZzZXRzLgo+ID4g
-PiA+IAo+ID4gPiA+ID4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9uZXQvZXN3aW4sZWljNzcwMC1ldGgueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9uZXQvZXN3aW4sZWljNzcwMC1ldGgueWFtbAo+ID4gPiA+ID4gLS0tIGEvRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9lc3dpbixlaWM3NzAwLWV0aC55YW1s
-Cj4gPiA+ID4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2Vz
-d2luLGVpYzc3MDAtZXRoLnlhbWwKPiA+ID4gPiAKPiA+ID4gPiBbIC4uLiBdCj4gPiA+ID4gCj4g
-PiA+ID4gPiBAQCAtODIsNiArOTEsOCBAQCBwcm9wZXJ0aWVzOgo+ID4gPiA+ID4gICAgICAgICAg
-ICAtIGRlc2NyaXB0aW9uOiBPZmZzZXQgb2YgQVhJIGNsb2NrIGNvbnRyb2xsZXIgTG93LVBvd2Vy
-IHJlcXVlc3QKPiA+ID4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnaXN0ZXIKPiA+
-ID4gPiA+ICAgICAgICAgICAgLSBkZXNjcmlwdGlvbjogT2Zmc2V0IG9mIHJlZ2lzdGVyIGNvbnRy
-b2xsaW5nIFRYL1JYIGNsb2NrIGRlbGF5Cj4gPiA+ID4gPiArICAgICAgICAgIC0gZGVzY3JpcHRp
-b246IE9wdGlvbmFsIG9mZnNldCBvZiByZWdpc3RlciBjb250cm9sbGluZyBUWEQgZGVsYXkKPiA+
-ID4gPiA+ICsgICAgICAgICAgLSBkZXNjcmlwdGlvbjogT3B0aW9uYWwgb2Zmc2V0IG9mIHJlZ2lz
-dGVyIGNvbnRyb2xsaW5nIFJYRCBkZWxheQo+ID4gPiA+IAo+ID4gPiA+IFdpbGwgdGhpcyBtYWtl
-IHRoZSB0d28gbmV3IG9mZnNldHMgc3RyaWN0bHkgcmVxdWlyZWQgaW5zdGVhZCBvZiBvcHRpb25h
-bD8KPiA+ID4gPiAKPiA+ID4gPiBJbiBkdC1zY2hlbWEsIHdoZW4gYW4gaXRlbXMgbGlzdCBkZWZp
-bmVzIGEgdHVwbGUsIG1pbkl0ZW1zIGltcGxpY2l0bHkKPiA+ID4gPiBkZWZhdWx0cyB0byB0aGUg
-dG90YWwgbnVtYmVyIG9mIGl0ZW1zIGluIHRoYXQgbGlzdC4gQnkgaW5jcmVhc2luZyB0aGUgbGlz
-dAo+ID4gPiA+IGZyb20gNCB0byA2IGl0ZW1zIHdpdGhvdXQgYWRkaW5nIGEgbWluSXRlbXM6IDQg
-Y29uc3RyYWludCB0byB0aGUgaW5uZXIgaXRlbXMKPiA+ID4gPiBsaXN0LCB3b24ndCB2YWxpZGF0
-aW9uIG5vdyBzdHJpY3RseSByZXF1aXJlIGV4YWN0bHkgNiBpdGVtcz8KPiA+ID4gPiAKPiA+ID4g
-PiBDb3VsZCB0aGlzIGNhdXNlIGR0X2JpbmRpbmdfY2hlY2sgdG8gZmFpbCBmb3IgZXhpc3Rpbmcg
-ZGV2aWNlIHRyZWVzIHRoYXQKPiA+ID4gPiBjb3JyZWN0bHkgc3BlY2lmeSBvbmx5IHRoZSBvcmln
-aW5hbCA0IGVsZW1lbnRzPwo+ID4gPiAKPiA+ID4gTG9va3MgbGlrZSBhIHZhbGlkIGNvbXBsYWlu
-dCB0byBtZS4KPiA+ID4gcHctYm90OiBjaGFuZ2VzLXJlcXVlc3RlZAo+ID4gPiAKPiA+IFlvdSdy
-ZSByaWdodCwgdGhpcyBpcyBhIHZhbGlkIGlzc3VlLgo+ID4gCj4gPiBJJ2xsIGZpeCBpdCBpbiB2
-MyBieSBhZGRpbmcgb25seSBtaW5JdGVtczogNCB0byBwcmVzZXJ2ZSBiYWNrd2FyZAo+ID4gY29t
-cGF0aWJpbGl0eSB3aXRoIGV4aXN0aW5nIDQtY2VsbCBkZXZpY2UgdHJlZXMuCj4gPiAKPiA+IFNo
-b3VsZCBJIGRyb3AgeW91ciBBY2tlZC1ieSBpbiB2MyBkdWUgdG8gdGhlIHNjaGVtYSBjaGFuZ2Us
-IG9yIHNob3VsZAo+ID4gaXQgYmUgcmV0YWluZWQ/Cj4gCj4gSnVzdCBmaXggaXQsIGFuZCB5b3Ug
-Y2FuIHJldGFpbi4KCkhpIENvbm9yLAoKSSBub3RpY2VkIHRoYXQgdGhlIHYyIHNlcmllcyBoYXMg
-YWxyZWFkeSBiZWVuIGFwcGxpZWQgdG8gbmV0LmdpdDoKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-bGttbC8xNzc5MzU4MjEyNjQuNDAxMzQ5OC40NjQ3Njc2NTIwNTUyODM5NzA3LmdpdC1wYXRjaHdv
-cmstbm90aWZ5QGtlcm5lbC5vcmcvCgpTaW5jZSB0aGUgbWlzc2luZyBtaW5JdGVtczogNCBicmVh
-a3MgYmFja3dhcmQgY29tcGF0aWJpbGl0eSBmb3IKZXhpc3RpbmcgNC1jZWxsIGRldmljZSB0cmVl
-cywgSSBwbGFuIHRvIHNlbmQgYSBuZXcgc2luZ2xlLXBhdGNoIHNlcmllcwp0YXJnZXRpbmcgbmV0
-IHRvIGFkZCB0aGUgbWlzc2luZyBjb25zdHJhaW50LgoKSnVzdCB3YW50ZWQgdG8gY29uZmlybSB0
-aGF0IHRoaXMgaXMgdGhlIHByZWZlcnJlZCBhcHByb2FjaC4KClRoYW5rcywKWmhpCg==
+On Thu, Apr 23, 2026 at 08:25:50PM +0530, Mukesh Kumar Savaliya wrote:
+> On platforms where a GENI Serial Engine is shared with another system
+> processor, selecting the "sleep" pinctrl state can disrupt ongoing
+> transfers initiated by the other processor.
+> 
+
+Isn't it strange that the DeviceTree will define a sleep state for the
+OS to select, but when this other property is set the OS should never
+select this state?
+
+> Teach geni_se_resources_off() to skip selecting the pinctrl sleep state
+> when the Serial Engine is marked as shared, while still allowing the
+> rest of the resource shutdown sequence to proceed.
+> 
+> This is required for multi-owner configurations (described via DeviceTree
+> with qcom,qup-multi-owner on the protocol controller node).
+> 
+
+The requirement as such is reasonable, but you don't define in the
+binding that when this property is set, the sleep state must not be
+selected by the OS...
+
+Regards,
+Bjorn
+
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+> ---
+>  drivers/soc/qcom/qcom-geni-se.c  | 15 +++++++++++----
+>  include/linux/soc/qcom/geni-se.h |  2 ++
+>  2 files changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
+> index cd1779b6a91a..1a60832ace16 100644
+> --- a/drivers/soc/qcom/qcom-geni-se.c
+> +++ b/drivers/soc/qcom/qcom-geni-se.c
+> @@ -597,10 +597,17 @@ int geni_se_resources_off(struct geni_se *se)
+>  
+>  	if (has_acpi_companion(se->dev))
+>  		return 0;
+> -
+> -	ret = pinctrl_pm_select_sleep_state(se->dev);
+> -	if (ret)
+> -		return ret;
+> +	/*
+> +	 * Select the "sleep" pinctrl state only when the serial engine is
+> +	 * exclusively owned by this system processor. For shared controller
+> +	 * configurations, another system processor may still be using the pins,
+> +	 * and switching them to "sleep" can disrupt ongoing transfers.
+> +	 */
+> +	if (!se->multi_owner) {
+> +		ret = pinctrl_pm_select_sleep_state(se->dev);
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+>  	geni_se_clks_off(se);
+>  	return 0;
+> diff --git a/include/linux/soc/qcom/geni-se.h b/include/linux/soc/qcom/geni-se.h
+> index 0a984e2579fe..46217cac73c3 100644
+> --- a/include/linux/soc/qcom/geni-se.h
+> +++ b/include/linux/soc/qcom/geni-se.h
+> @@ -63,6 +63,7 @@ struct geni_icc_path {
+>   * @num_clk_levels:	Number of valid clock levels in clk_perf_tbl
+>   * @clk_perf_tbl:	Table of clock frequency input to serial engine clock
+>   * @icc_paths:		Array of ICC paths for SE
+> + * @multi_owner:	True if SE is shared between multiple owners.
+>   */
+>  struct geni_se {
+>  	void __iomem *base;
+> @@ -72,6 +73,7 @@ struct geni_se {
+>  	unsigned int num_clk_levels;
+>  	unsigned long *clk_perf_tbl;
+>  	struct geni_icc_path icc_paths[3];
+> +	bool multi_owner;
+>  };
+>  
+>  /* Common SE registers */
+> -- 
+> 2.43.0
+> 
