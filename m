@@ -1,285 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AE8425CF4
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58F837C912
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 15:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779463667; cv=none; b=f7Yp7a9faW0MY7CNTrwaCMhBw2PlgPDzsveGfKdzix5aG9Q1ILsaifVgKsRXxHk99ARhUmdNb/mIjw5HHhXxxbEutekCscB50KCTdkn8dU2gmMjnjoBlDFaNWQ+enDSoSW5zuFdRUaa43s/XviCymOzmiSNsO41H3VSPzFjkIYM=
+	t=1779463731; cv=none; b=iFITgwKtxTItJX86fDuMedLdkpg52PWeeW9xTruVmpTcsdhrzAeiUqEBfsgd9mC3HAybbG0Xdig6MkvqD0lHihCrTSvn82sIUgWOjZHWxgtlMJGLWhKj8b0A0snk3dxyx8Fg58jOg7R1kfPS/fRJjslVDzz3gkgBnvXNUQbf3NQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779463667; c=relaxed/simple;
-	bh=LDAYGZIlPdAcoJ7LOwuTILkn4XiYOZV90CDtnbDZ+xI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mNJxGK6hiP+VfIdHeDJMHfdz2pbsqwn/xiZObiwh94TLWH7pxol7z+Nfe4Q+0ybFuohMJXfaQWOtQ0+ukwJPbxLA20iP7R9jtGYNqK9JyznHpmbiegZlLmlwB6V1lMIfFcaEXN0D4NeOK+e7pnqSZmOIApkjhBAEwtgPnjamFvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4MR/Vs+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4MR/Vs+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F881F000E9;
-	Fri, 22 May 2026 15:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779463664;
-	bh=HpNIDhErX6WEl2sahFkCGeg7bgbmEz7YjFWCvdU9JQI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J4MR/Vs+GeKg60oH9YW+RoEobVeWJ1AlN72r1PFXNbPw0FZYEWPp7lMaH0Sw4iRf9
-	 UqLPQm+GQeQDt8rgCmocNDo7IpBStk1RyjwoxiWiMwn5Z+UhnF4UtkEF4O/swhGl2R
-	 mxyu9gZ67510K5yhUvIxAwrxshqrFTo/6DX1O+Dv5sYGuEm5xlFs8qPsCR4ogoSZyC
-	 556CuvKECkepXLgnO5HjfGHdmHRxeVik8HpZsNa6Dm73+ZGOeQjvxmlTn/kzxiRV/z
-	 UtgabfB/a/mfmgF47O46CswEZ+1iAC4ZCkjUSWEBOT9Gq6ZICozDz/fwuTNG4QDdhk
-	 DrRuD9040QLNg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260522-x1e-csi2-phy-v7-2-79cb1280fad6@linaro.org>
-References: <20260522-x1e-csi2-phy-v7-2-79cb1280fad6@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 15:27:43 +0000
-Message-Id: <20260522152743.E1F881F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779463731; c=relaxed/simple;
+	bh=kN/9y9XwGUDJ1nAC1IWWtL6XoKcE5qMK3/fWnrEnzQM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QjxI1DUEfr8Msr9wSP5WAPKS9u94kSvPBXySyAXIi9c2SIzrrPUrgSuFRilqkcA5cEfMNcbTEVu9Sivq88CgFQgNNeX2+8tPgy7Oy7lO1SjsfF1i3/6MZ1N6urMfKWZWVHoihomg20ViR6bzj0WmTkHqtMtghxwyQkEg8Xo4aBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-57524e52a3dso6126642e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:28:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779463729; x=1780068529;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=szBb9VN5OI/LxN852+H6x+3LXcGPvGU0m4BLzBAkL+k=;
+        b=CYgulX/n8ceYocdV5x+mADVirii6Inmr1wI2N2J0po/gM0isSgZPbHYLWz/H7nxyez
+         epLM8oMXlH5PiUjoYnt0RhlTfWk867aYyVGhFuXy6xLxNEBxJaHFz42h0RmB08UR45+F
+         haNqkwKspLJWwWDm6VM57OhlEc3ZVfzxR3UK36Edlc2K6p6ApoNf2GEFfAe/h5sUppLX
+         pJfbNhwapqMv1VPKS9IYn6j49XOinj1lhtXoNidqDm6qvRh9129iXOXjZ0YJs07svoFD
+         cvFBylVRupah13fJtHk3F4pXaXy/eRKy3b69gSuceFNZ0m1np5NRDdFlXoKWaZMhqHn6
+         JLUw==
+X-Forwarded-Encrypted: i=1; AFNElJ/kDPRUHIOmSwuTPfrNc0Q+jPfJ3S+TZzaFzCQWbaHLKKMHCSVHzjUO8l0PLgbrSx4TtRs8Gt3q6pUF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxjm1Q0PNmXz5tpM6FTqQkSrS1PpNSHJoabKYET9oO879OUjuvt
+	WkHrvF4x5bsC+rIACgU+0/uRe3jr2sj4Aq+dC153IfOvCi1Ol1bQdjBq202IDeFPTa0=
+X-Gm-Gg: Acq92OGhv9M/Vbn5j268pLyYoFkD9jfvMO7STmJ39VV6qOij8b55GjT9hGs3lX/EkYa
+	JztC6Sq1Cbn5XtyjzaiipD8J/6l/DtfKvUENJV8TjpLzT+Vq3zJR3jCRn/bDjepJPm+tyi0BzNF
+	3WyYZvBFA057/sV6HBRhLuzoB9q81vXfWYeFNRQUSqNnulVd0mDeyNQrmEzNctT6LSMnuhvSUiI
+	YXHmppCGZxVTmhvV2w88j6gClphpQrL6BwAYiFaZCI/dsK4lu+heZc18mmtXFPwD2q0utG5mVyy
+	wVDPYpMchvV72bAoNj12vliy9AvkAE08cwSDYYdYIBplu2ae4k2c+6C1FH76DAw2GkVlOVUHF0Z
+	MRnmNPvAnhyL2RhH0WwacMweZneycN3DrzzuSZRitm/IGL38Pq+bi05WAzpWwwRnd+e2rL2L9qS
+	BRMYtRJb10Vx95wWiz+0vTKUvz9aVSmPObnYOYdLH3avy6WzPovu0cMN+LWSdL+ts7sZsD2Gg=
+X-Received: by 2002:a05:6122:1310:b0:56b:1eb:d396 with SMTP id 71dfb90a1353d-58664ddc313mr2496732e0c.14.1779463728715;
+        Fri, 22 May 2026 08:28:48 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96173afb1ecsm1952218241.9.2026.05.22.08.28.47
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 08:28:47 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-631466587e9so5517284137.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 08:28:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/wltkfSYz7O+LjhFxHdOJcGxyXPHHUXYxhmQEdgEA2dIsotnXpQg/6bwxsbyUVfwub/BvhHS6wWZ1i@vger.kernel.org
+X-Received: by 2002:a05:6102:f8e:b0:604:f29d:84be with SMTP id
+ ada2fe7eead31-67c70e5f66cmr2706370137.3.1779463726809; Fri, 22 May 2026
+ 08:28:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260504144534.43745-1-marek.vasut+renesas@mailbox.org> <20260504144534.43745-5-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260504144534.43745-5-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 22 May 2026 17:28:35 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUTsoEH60DBWCNnXzaZmfOcDfZ7vEaUgJetqqU-qwBxXA@mail.gmail.com>
+X-Gm-Features: AVHnY4K2cO6mOrwYyMVCwX6fOKSnvdh0vCSY19G3lWwxUQ8j7rXhdTpY2ZF4U8M
+Message-ID: <CAMuHMdUTsoEH60DBWCNnXzaZmfOcDfZ7vEaUgJetqqU-qwBxXA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/7] dt-bindings: soc: renesas: Document Renesas R-Car
+ R8A779MD Geist
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Conor Dooley <conor.dooley@microchip.com>, Brian Masney <bmasney@redhat.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Lane polarity configuration overwrites the same hardcoded register=
- instead of applying per-lane offsets.
-- [High] The driver attaches PM domains but fails to enable Runtime PM or p=
-ower them on.
-- [High] Unconditional dereference of `pd_list` which can be NULL.
-- [High] The power-off sequence incorrectly drops the PM domain performance=
- state before disabling clocks and dropping the OPP rate.
-- [High] A zero return value from `clk_round_rate()` is incorrectly treated=
- as success, leading to a divide-by-zero panic.
-- [Medium] Missing resource cleanup in the error paths of `phy_qcom_mipi_cs=
-i2_power_on()`.
-- [Medium] Integer underflow in `settle_cnt` calculation.
-- [Medium] Unvalidated lane positions from Device Tree lead to undefined be=
-havior in bitwise shifts.
-- [Low] Missing bounds check on `args_count` in the PHY xlate callback.
---
+On Mon, 4 May 2026 at 16:46, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Document the compatible value for the Renesas R-Car M3Le (R8A779MD)
+> SoC and the Renesas Geist development board. The Renesas M3Le SoC is
+> a register-compatible variant of the R8A77965 (M3-N) with reduced set
+> of peripherals. The Geist board is derived from Renesas Salvator-X/XS
+> boards, with adjustment for the R8A779MD SoC.
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-commit 9960771b4e31e9a37ca7022cc7945264d506b447
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date:   Fri May 22 14:45:10 2026 +0000
+> V2: - Add AB from Conor
+>     - Fill in Geist (RTP8A779MDASKB0F10S)
+>     - Add RB from Geert
 
-phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Thanks, will queue in renesas-devel for v7.2.
 
-Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-existing CAMSS CSI PHY init sequences are imported in order to save time
-and effort in later patches.
+Gr{oetje,eeting}s,
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers=
-/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> new file mode 100644
-> index 0000000000000..1e7729d4ee5d0
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-[ ... ]
-> +static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 link_freq, u32 timer_cl=
-k_rate)
-> +{
-[ ... ]
-> +	timer_period_ps =3D div_u64(PSEC_PER_SEC, timer_clk_rate);
-> +	settle_cnt =3D t_hs_settle_ps / timer_period_ps - 6;
+                        Geert
 
-[Severity: Medium]
-Could this underflow if timer_period_ps is large?
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Because settle_cnt is an unsigned u8, an underflow here would result in a
-large wrap-around value (like 251) being written to the hardware,
-corrupting the PHY timing settings.
-
-> +
-> +	return settle_cnt;
-> +}
-[ ... ]
-> +static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *c=
-si2phy,
-> +					   struct mipi_csi2phy_stream_cfg *cfg)
-> +{
-[ ... ]
-> +	settle_cnt =3D phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2p=
-hy->timer_clk_rate);
-> +
-> +	/* Lane position enable in common reg offset */
-> +	val =3D BIT(csi2phy->stream_cfg.lane_cfg.clk.pos);
-> +	for (i =3D 0; i < cfg->num_data_lanes; i++)
-> +		val |=3D BIT(lane_cfg->data[i].pos);
-
-[Severity: Medium]
-Is it possible for unvalidated lane positions from the Device Tree to
-cause undefined behavior here?
-
-If a parsed position value is >=3D 32, this might result in an invalid
-shift. Additionally, since val is a u8, any position >=3D 8 would
-silently truncate to 0 and fail to enable the lane.
-
-> +
-> +	writel(val, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 5));
-> +
-> +	/* Lane configuration for polarity @ CSIPHY-base + CTRL9 */
-> +	for (i =3D 0; i < cfg->num_data_lanes; i++) {
-> +		if (lane_cfg->data[i].pol) {
-> +			writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRLn(9));
-
-[Severity: High]
-Does this overwrite the same hardcoded register for all lanes?
-
-Since CSIPHY_2PH_LN_CSI_2PHASE_CTRLn(9) expands to a static offset, this
-repeatedly writes to lane 0's polarity register regardless of which lane
-is being configured, and seems to ignore the clock lane polarity setting
-entirely.
-
-> +		}
-> +	}
-> +
-[ ... ]
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy=
-/qualcomm/phy-qcom-mipi-csi2-core.c
-> new file mode 100644
-> index 0000000000000..578926bfaef45
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-[ ... ]
-> +static int
-> +phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
-> +				   s64 link_freq)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < csi2phy->pd_list->num_pds; i++) {
-
-[Severity: High]
-Can pd_list be NULL here?
-
-If CONFIG_PM_GENERIC_DOMAINS is disabled, devm_pm_domain_attach_list()
-returns 0 but leaves csi2phy->pd_list as NULL. This would lead to a
-kernel panic when dereferencing pd_list->num_pds.
-
-> +		unsigned int perf =3D dev_pm_opp_get_required_pstate(opp, i);
-> +
-> +		ret =3D dev_pm_genpd_set_performance_state(csi2phy->pd_list->pd_devs[i=
-], perf);
-[ ... ]
-> +	timer_rate =3D clk_round_rate(csi2phy->timer_clk, link_freq / 4);
-> +	if (timer_rate <=3D 0) {
-> +		ret =3D timer_rate;
-> +		goto unset_opp_rate;
-
-[Severity: High]
-If clk_round_rate() returns 0, does this incorrectly treat it as a success?
-
-Setting ret to 0 and jumping to unset_opp_rate would leave timer_clk_rate
-as 0, which later causes a divide-by-zero panic in
-phy_qcom_mipi_csi2_settle_cnt_calc().
-
-> +	}
-> +
-> +	ret =3D clk_set_rate(csi2phy->timer_clk, timer_rate);
-[ ... ]
-> +static int phy_qcom_mipi_csi2_power_on(struct phy *phy)
-> +{
-[ ... ]
-> +	ret =3D clk_bulk_prepare_enable(csi2phy->soc_cfg->num_clk,
-> +				      csi2phy->clks);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable clocks, %d\n", ret);
-> +		goto unset_rate;
-> +	}
-> +
-> +	ops->reset(csi2phy);
-[ ... ]
-> +unset_rate:
-> +	dev_pm_opp_set_rate(csi2phy->dev, 0);
-
-[Severity: Medium]
-Does this error path miss cleaning up the PM domain performance states?
-
-While it drops the OPP rate and regulator votes, it completely skips
-unwinding the performance states that were elevated during
-phy_qcom_mipi_csi2_set_clock_rates(), leaking the votes.
-
-> +
-> +poweroff_phy:
-> +	regulator_bulk_disable(csi2phy->soc_cfg->num_supplies,
-> +			       csi2phy->supplies);
-> +
-> +	return ret;
-> +}
-> +
-> +static int phy_qcom_mipi_csi2_power_off(struct phy *phy)
-> +{
-> +	struct mipi_csi2phy_device *csi2phy =3D phy_get_drvdata(phy);
-> +	const struct mipi_csi2phy_hw_ops *ops =3D csi2phy->soc_cfg->ops;
-> +	int i;
-> +
-> +	ops->lanes_disable(csi2phy, &csi2phy->stream_cfg);
-> +
-> +	for (i =3D 0; i < csi2phy->pd_list->num_pds; i++)
-> +		dev_pm_genpd_set_performance_state(csi2phy->pd_list->pd_devs[i], 0);
-> +
-> +	clk_bulk_disable_unprepare(csi2phy->soc_cfg->num_clk,
-> +				   csi2phy->clks);
-
-[Severity: High]
-Is this sequence dropping the PM domain performance state before
-disabling the clocks?
-
-Removing the voltage (performance state) while hardware logic is still
-driven by high-frequency clocks can cause logic timing failures and system
-hangs.
-
-Also, similarly to phy_qcom_mipi_csi2_set_clock_rates(), accessing
-pd_list->num_pds unconditionally here could panic if pd_list is NULL.
-
-> +	dev_pm_opp_set_rate(csi2phy->dev, 0);
-> +	regulator_bulk_disable(csi2phy->soc_cfg->num_supplies,
-> +			       csi2phy->supplies);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static struct phy *qcom_csi2_phy_xlate(struct device *dev,
-> +				       const struct of_phandle_args *args)
-> +{
-> +	struct mipi_csi2phy_device *csi2phy =3D dev_get_drvdata(dev);
-> +
-> +	if (args->args[0] !=3D PHY_TYPE_DPHY) {
-
-[Severity: Low]
-Can we add a bounds check for args->args_count here?
-
-If a malformed Device Tree node specifies #phy-cells =3D <0>, this will
-read uninitialized memory from the args array.
-
-> +		dev_err(csi2phy->dev, "mode %d -EOPNOTSUPP\n", args->args[0]);
-> +		return ERR_PTR(-EOPNOTSUPP);
-> +	}
-[ ... ]
-> +static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D phy_qcom_mipi_csi2_attach_pm_domains(csi2phy);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to attach power-domain list\n");
-
-[Severity: High]
-Are we missing Runtime PM initialization for the attached PM domains?
-
-devm_pm_domain_attach_list() creates virtual devices, but without
-pm_runtime_enable() and pm_runtime_get_sync(), these domains remain
-suspended. As a result, any dev_pm_genpd_set_performance_state() votes
-are just cached and never applied to the hardware, leaving the PHY
-unpowered.
-
-> +
-> +	for (i =3D 0; i < num_clk; i++)
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-x1e-csi2-p=
-hy-v7-0-79cb1280fad6@linaro.org?part=3D2
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
