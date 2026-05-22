@@ -1,128 +1,103 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6E03A2576
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463183A1D07
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779455937; cv=none; b=HmxolPrvnaIKBu8ProEERrgFsfEkhkvHtm6GKsdF17L+9UO9i5Yq4W3Qb4s//zoPoKTNCKIv3XvDHZQs0tDQFAb4w169f4IGpJwa894UpY+E+eiVDvghXI/+KG5F/rzfE+S1G3DTxuexDnjNC+I7ngPPyy+XNGRYUeZRmN+ZlVY=
+	t=1779455979; cv=none; b=fWMNDaQWSxEvaZwV0OGzObA9UeFaz8vnht/RSKou95ikL2s9Xd+FsZ4KJ7Xlu4IHqFMN4YHbSFN1Ydgkn7jo7tpgJT+t6CngociLnj456IyFNtYuCh+6mK2MeiNCqTB7cTVgQR3Sfx6zuScte0QBQVd0W6xzft1yU+FRiFx+ZTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779455937; c=relaxed/simple;
-	bh=f/oq+Pmek9pWpvzHueumQVSjskt7sQj7Cnj/0sWZKug=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e7c6I3vSdBmp5XRnE8LpK4OK8TCljkcddtyu2SVGvpcDvms3NNUpQrO5dR3se68DCL9Jn8oSv119iv2NtvzLiP+7lXDq/sS+rGWTs/VUjOGGZVzyKZIxDxfWBMNVHk7TPbusxPepXyKySFSl270DuG7YCxUNRar4MabDIBTi06I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-bd56d108454so1387804666b.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:18:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779455934; x=1780060734;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RAlUGw/HNtzbgT6oAPTSPOgW3T+XEEHWpdGiqyY+DBc=;
-        b=T3Y2H91GqOXiOxnOwljnlsR+T6fWOe00phKxv/YQB0MJMxDomU1nCw6biDr23/smYV
-         foAvEcNspPLpBMscc9M9PtSBixirKwbjrOUcmL3BPkljc6O8yC0mlFSRcTS7IW01OSeu
-         zMfqZQkaW+OR/pbwcbECRGzBm92HN3WeqBaBH2TPz+OBN7gSL1sCzXO6YjRzLGbX/KKI
-         smuwI/VcnQon92K6a2/z6qCeO/R3CJadOqsETWmuh5UWclgLvH3Axjc2TChFtXstRZyF
-         uHzYs1XaaP7J+MQKM+fNItbxWPj+h2CEYHGP9sBaxAK3pgrba5RRpLYbxFB9XRDFmC5/
-         /QUA==
-X-Forwarded-Encrypted: i=1; AFNElJ+y8x5txydr0kJOa9EOr63dBOsXkxfU/8gGep3PqSbXMDBZJJ5i6ka6ioJEgFlMql2atEwtMA2b+NGZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YysZw4qmCb98DnjXRQh74f/lEQwTu9sftfIr4g0M1mgwRgNEkzN
-	wTqI/7xNMXpQJcu8DrdLMDX67GLnrtS72BZUWBnLX+tdRyN5b7uDqQcVyrscmUL+AtM=
-X-Gm-Gg: Acq92OHpAREdXhJhbpeFSq+zD00LT8ipDeA+tA+cpOqg2nDWe0L0NOw+RLcJdZMDVoZ
-	eEo8M79MidDqWG2GfzvH9IrCOdhjr6Y0BpdB9aNtRoUGRFpOBgKq/Ib+NL2l1MEjoNU6DKwStkc
-	jS1TS9/o6c8mFjCGvKxKNswPtzdd78n/wBHFQ4tqx5bi/p5FPAdRQeLzrEh2qmi4FMWGg9keAX6
-	YSE6CQpxMuqlmgR8Wzy3cihXlT299rtugzE2+CsBd6wHlYQCwlq62tJmIyp0/Xw85uENe8MvHS5
-	Pic0oO1sg41nbdP/OM3BkhJ8tPrDy3VsdSMCcArYw0vvk+A+SgC7MPbZshsgzUUMIYvlp4S3PO5
-	bpqnO8s7MN96GISoBPbuxdmCsGq9hI61G2x+uG9zwWHvDBiq3qJzJcVtqoUXRdI6PmBRzPeqbWr
-	uEoAyRSROBrQqLHZsWNu7v8cjh5iBTyi1wIbepLYAqmaUj2NubNaC+ygbN6xXNQcdBptNJvWI=
-X-Received: by 2002:a17:907:60cb:b0:bd7:bbae:2002 with SMTP id a640c23a62f3a-bdd22a3d558mr240689066b.7.1779455933947;
-        Fri, 22 May 2026 06:18:53 -0700 (PDT)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-688bb62b6dfsm659852a12.30.2026.05.22.06.18.52
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 06:18:52 -0700 (PDT)
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-68707d88626so6995964a12.0
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:18:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+7vBVMdfDZTVkg0BDeJgIrfGbZDt7AHF48yhTmSjd09G5vRv/bCsQOM4VnUtzOTlDmjAjKAIE2CBRP@vger.kernel.org
-X-Received: by 2002:a05:6402:42cc:b0:683:75ec:c17c with SMTP id
- 4fb4d7f45d1cf-6889c4464afmr2034627a12.10.1779455931829; Fri, 22 May 2026
- 06:18:51 -0700 (PDT)
+	s=arc-20240116; t=1779455979; c=relaxed/simple;
+	bh=JZ74MWv6ephB/us4Veuwvr9grXxHBLw6d98TozlxDfo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZLK3M1HSlfHdjV4SzOsw3mwYvy/JvsNcIC6K9PJelNlMBdbLccEv7yxbCaKpTGwgSqpnOyJQpu1DmQdbbzfSJoSK3by8wmyAQUFWripHHTushkVGS8ERy2fHD/IJF8sbQs7dVnWZW+0+iiD6M38K4lp0qUDHVEcGiVOKETIRafM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNGwS4ii; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNGwS4ii"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38F91F000E9;
+	Fri, 22 May 2026 13:19:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779455977;
+	bh=ezTztFXvr++zBi1ikZuSSAYYUvKWdsXqDOHawB0j0tE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PNGwS4ii7rBX5YgpKvPAdrd5wn1hpw4ol4rEjmTQZFcjBVTBDOOUIskhQjyTHt/di
+	 NTnOrxSq9WW7ooAwQz9rZ49+O3SqpCTkaLBdQhBku99u+w0UTu21bB6OOZTN1RYJG5
+	 wnCEZ2YK0VFjIShO8NnoeO0e/jY1V1/nUMQtghG9EaBvysP8b61Jv5zdY+fvDQiklL
+	 r6co2i4ooYjKfDmmgVE3gT5EF/86czbf2HfxKxPxTu47+sIlvT9xtlRYcDvieAzE5O
+	 JHj6dyOB8cz+sp/jhOqJo01xuTMlTlFJdevq24ZcZ1Y76qZf0EUbQScS4jgfaA2+hD
+	 cd4W24VAX5+Ew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] regulator: dt-bindings: document the SGM3804
+ Dual Output regulator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-1-bd6b1c300ecc@linaro.org>
+References: <20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-1-bd6b1c300ecc@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 May 2026 13:19:37 +0000
+Message-Id: <20260522131937.A38F91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260505034325.167797-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260505034325.167797-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 22 May 2026 15:18:37 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXoRBA-A8e=R8A4QOwdhVf2Xvca+PCD=UaKEjgFZU7RdA@mail.gmail.com>
-X-Gm-Features: AVHnY4I_gegiQNXLEYR8j1H8kUfrINmIpRVRu3Rg4C4CjWJrdAfVaY1saWPkdfg
-Message-ID: <CAMuHMdXoRBA-A8e=R8A4QOwdhVf2Xvca+PCD=UaKEjgFZU7RdA@mail.gmail.com>
-Subject: Re: [PATCH 00/11] arm64: dts: renesas: Specify ethernet PHY reset timings
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Marek,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `enable-gpios` property is incorrectly marked as strictly re=
+quired and lacks a `maxItems: 1` constraint.
+--
 
-On Tue, 5 May 2026 at 05:43, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> This is the same patch for various boards, details are below.
-> The discussion that prompted this patchset is at [0].
+commit f50493aa554fa5cd96589605f9a49a0134ff39ab
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-Thanks for your series!
+regulator: dt-bindings: document the SGM3804 Dual Output regulator
 
-> The KSZ9031RNX reference manual [1] DS00002096H page 60 FIGURE 7-7:
+This commit documents the sgm3804 single inductor dual output buck/boost
+converter. It provides bindings for the positive and negative power rails,
+including configurable voltages and active discharge functions.
 
-DS00002117K page 62 FIGURE 7-5
+> diff --git a/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.=
+yaml b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
+> new file mode 100644
+> index 0000000000000..3716eaf81aa99
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
 
-(and page 74 on the older document I had ;-)
+[ ... ]
 
-> POWER-UP/POWER-DOWN/RESET TIMING Note 2 states, that after the
-> de-assertion of reset, wait a minimum of 100 us before starting
-> programming on the MIIM (MDC/MDIO) interface. Set DT property
-> reset-deassert-us to three times that, 300 us, to provide ample
-> time between reset deassertion and MDIO access.
->
-> The KSZ9031RNX reference manual [1] DS00002096H page 60 TABLE 7-7:
-> POWER-UP/POWER-DOWN/RESET TIMING PARAMETERS row tSR Stable supply
+> +patternProperties:
+> +  "^(pos|neg)$":
+> +    type: object
+> +    $ref: regulator.yaml#
+> +
+> +    properties:
+> +      enable-gpios: true
 
-page 62 TABLE 7-4
+[Severity: Medium]
+Should enable-gpios have a maxItems constraint here? The core regulator.yaml
+schema does not define a maxItems limit for enable-gpios, so setting this to
+true allows an arbitrary number of gpios to be specified in the device tree
+instead of a single enable pin per output.
 
-> voltages to de-assertion of reset is at minimum 10 ms. Set DT
-> property reset-assert-us to 10ms because the KSZ9031RNX RM does
-> not explicitly spell out how long the reset has to be asserted,
-> but this at least covers the worst case scenario.
->
-> The Gray Hawk patch in this series depends on [2].
->
-> [0] https://lore.kernel.org/all/CAMuHMdXJvrsXitGagqZJ_STdTTh_s1cBAKf6+esihaVWjfn40g@mail.gmail.com/
-> [1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031MNX-Data-Sheet-DS00002096.pdf
+> +
+> +    unevaluatedProperties: false
+> +
+> +    required:
+> +      - enable-gpios
 
-This link leads to the KSZ9031MNX part. Correct link is:
+[Severity: Medium]
+Is it strictly necessary to require enable-gpios for these child nodes? If a
+board design hardwires the hardware enable pins to an always-on supply to
+conserve processor pins, the regulator would be constantly powered but still
+configurable via i2c. Marking enable-gpios as strictly required will cause a
+schema validation failure for those valid hardware configurations, even if
+the driver currently expects the pins to be present.
 
-https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031RNX-Data-Sheet-DS00002117.pdf
+[ ... ]
 
-> [2] https://lore.kernel.org/all/20260504225428.114959-1-marek.vasut+renesas@mailbox.org/
-
-Shall I do the big search-and-replace while applying?
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-topic-sm86=
+50-ayaneo-pocket-s2-sgm3804-v5-0-bd6b1c300ecc@linaro.org?part=3D1
