@@ -1,109 +1,85 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E8D3A4F50
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:21:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516603ABD80;
+	Fri, 22 May 2026 13:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779456111; cv=none; b=b7Shrjckfofr2X/d9t8hS8nc6UCZqI0IGm+ib9Wdqef6EUuajjcP8FIdQykgT50wMpwi1ERe2udSVyqaFKtnuAgNsioTUr7ZzrnggUPV7DE87rqZ/4AHBj18qI1qf8Fa9wxC+i48mPueiDDs23ScsuW2T1ZHOnUWbcn/vqU0dek=
+	t=1779456111; cv=none; b=ZKviAKOP3ZJN789Md+TONxW7o15Kr2WI8qtyfzIprky9SWWcfgziTt/te1zYax+RKnOF28E+S3E+qMgtMwlzNp9OZ4iOSK/gG6MGv5D0C/4igJxq1iOcw+XT+Q5iLsfdLEfLecpkk6eZpHvECnLIwpejXqibTQD+tnAXIinPz6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779456111; c=relaxed/simple;
-	bh=0PK4bMqXimU9iNRWNX/eX952I3s/oyh75Caj0sz7gdk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FWXPyiN9CDZwSEvZl2rzvSlFx05mz8xrE8ZZhICRb8scg0SL8CAAoOsgiWYqiAC6UG3RCKM2sAwVgfs40QG+6tZn+/8EAdVYVdvfoGssIOXfSkwIfS1N4uQjCdotzzsaB4wP30qolJV/hOYbLNggLbI9ofDg0ydxHVMImaNJgC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-bdce61897ebso137953966b.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:21:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779456103; x=1780060903;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b8+hN45m6EcBjSVmc7/E001s4aXOZE0CXpfrpaEBAfw=;
-        b=Gmq3H5t+ELDHgBI6Vm0WPpJ00lvOUGj9nP+9OBBwM7ZVMR3UGtmkqP2bAm/WlAcimq
-         /u08GgUEYldfFLLvbfGvcmpIfWEDcDAYYhSyfTkTATJu31HRbdiWixn8VdsdmJV17gls
-         urPmKz+h6YiCJ/NQGiOwYFkOjGBj7uLBmNellMF2YZZ9IfagbDCw25Soobv3s2dLedXG
-         4KNc8Rfw3Ey/wEsVlAkD280J2j3XYCs4TnUkqODRWTz00ibWeUgHYRx3T0o93oykn4nP
-         1vAmsMFrAiLBgCT33f6eedxgf+ACC8O8smzWaQuA8eQl4CZQrpb0HFw7MYaoeHBRmJxN
-         dvRA==
-X-Forwarded-Encrypted: i=1; AFNElJ94urstcBxi/rll++KEuSkCjJ6HbuVGZe264o0X1ZMEFGZ021kwB+NBf1jOpfJ/eI1fsvwvqrCKbqoz@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUa5DGdRqWeBVxy2zjyDc96OaJeWRwOx/sSsXiym0S+uwuM56S
-	+A9o80pzAPA/h1FiRjY/An/rRW22p95rUdy/gaWOnqBFewKhKCXe+tl7NWcfyTCk2bk=
-X-Gm-Gg: Acq92OFuBCHbAOF4JU+Nt3WWOLTmYA6gMcCcxz4SQtMflDX/Vv3K22f1yWOjovI28E6
-	fRNS4mkLQu1mHvhjiTqgzWk0DBXwsug/rhp9lWJMDD9CIzbS2t4+214dXgQVjZKA5QTxsTBO86q
-	oL/AYdcOfYoMHu6qktfLTzIAMQEETjK0sq3zWoR7hTERmW2rpjJ0BqXvEx0i+NGm/XM3e/nkq74
-	eHwxAJQ1g03NcZpJGVSv4NfOvVpu+wlcdUemYl/XmgBImOj5Ga45JRkwbNd7Fav8jLYPQkS+BjT
-	WaCBV98atweeRSIxbaYzQruHlbzQkafRxM/upQqw+M+bWS+0GEoA4MBZ9O6WftzuhyjSDpczELW
-	JlzqNqtnulgH5D1YIuRBjcopN8Ip7NWfnjqPIpL1uSsULLUKQBpJP5Ps1RROaLVdV9bmKi2pSiK
-	ARK8d7Kf623Za5OzxEewgoAjoMGt6reoPWUV3VPAFN9b9I21WGuGYrVagNMeOSU9c2o9hCU3g=
-X-Received: by 2002:a17:907:72d2:b0:bdb:4cf3:7035 with SMTP id a640c23a62f3a-bdd253390b1mr222485266b.4.1779456103369;
-        Fri, 22 May 2026 06:21:43 -0700 (PDT)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc2c45ec9sm55750066b.14.2026.05.22.06.21.42
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 May 2026 06:21:42 -0700 (PDT)
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6877c719cb0so4189010a12.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:21:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+4YGDs+IiXSBBIXnU96PaE9fqtxmzdvszKyZ65hUKRPTAky588a2cSLlQmQVpAVzXqvXIevXa/LcyW@vger.kernel.org
-X-Received: by 2002:a05:6402:40c3:b0:67f:7e9b:afe8 with SMTP id
- 4fb4d7f45d1cf-6889c4167e7mr2035745a12.6.1779456102329; Fri, 22 May 2026
- 06:21:42 -0700 (PDT)
+	bh=hg8iabcFIbap/ynQls0mcJx6AM2EhUOOGizDrln07Wg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ucVV18gL187O64a/M8wtLqWFNsc+sK1+uLEW9KUYQXljXEe12s4OdDN8gkIja+PAAZuNJwekRbAAz0ICNc+z0IVDayFxcZFdz8F9MlJFzp2BdpFicu/IrPKLdKaJMTMr/Osc3KUGcM1gS08E2PrU7/InmOWGeLKZYwhBUat8wE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BMETrlkz; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BMETrlkz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA271F00A3E;
+	Fri, 22 May 2026 13:21:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779456107;
+	bh=Zx7rvW5ZY9Px9CVnzO/KcJSO7h1jSduZQlE1l8PfwWY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=BMETrlkzW/EIWsmXfH9O1L40qccLrCrl0CQWEtgeNewfCtmrUsFVz9vqEiYDTDTU7
+	 iDtvdvsuzVgrIpLQOd7eci2Mf4QBtn7MLw6WYwZqu8s2QAe6DZSuhg/KuJhFYTJKJ3
+	 dqjYGZR/XnOOge9dantM1e92gHQiNZeczVvthC9ZupIihUB2htAcOTGCDwDUVNmMcz
+	 qMiamsXsWFOfhjJfFnddfS4a75ZPGftpxNU0maOOmD05clonv7Txx+OSuGwkvIINJk
+	 0WANxJWiW2h5qUAxPE5vuCNfiL5R6Ll39KVSMNdyenjxtF6jVKir/q2kGFHuNc89M4
+	 q5bu++pBd7NlQ==
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 22 May 2026 15:21:24 +0200
+Subject: [PATCH net-next v2 2/5] dt-bindings: net: dsa: microchip: Add
+ KSZ8995XA
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505034325.167797-1-marek.vasut+renesas@mailbox.org> <20260505034325.167797-5-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260505034325.167797-5-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 22 May 2026 15:21:29 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXULb8d60kxa6aOSy=uXhByyHWQbZaEY-EOrFWdcYPaRA@mail.gmail.com>
-X-Gm-Features: AVHnY4L5XJ7YwASenMlXUKivWU992B_gEILaXDcRMH1AAUKnrMIEZvkG7w1HbsQ
-Message-ID: <CAMuHMdXULb8d60kxa6aOSy=uXhByyHWQbZaEY-EOrFWdcYPaRA@mail.gmail.com>
-Subject: Re: [PATCH 04/11] arm64: dts: renesas: v3msk: Specify ethernet PHY
- reset timings
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260522-ks8995-to-ksz8-v2-2-5712c0dc9e75@kernel.org>
+References: <20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org>
+In-Reply-To: <20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org>
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-On Tue, 5 May 2026 at 05:43, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The KSZ9031RNX reference manual [1] DS00002096H page 60 FIGURE 7-7:
-> POWER-UP/POWER-DOWN/RESET TIMING Note 2 states, that after the
-> de-assertion of reset, wait a minimum of 100 us before starting
-> programming on the MIIM (MDC/MDIO) interface. Set DT property
-> reset-deassert-us to three times that, 300 us, to provide ample
-> time between reset deassertion and MDIO access.
->
-> The KSZ9031RNX reference manual [1] DS00002096H page 60 TABLE 7-7:
-> POWER-UP/POWER-DOWN/RESET TIMING PARAMETERS row tSR Stable supply
-> voltages to de-assertion of reset is at minimum 10 ms. Set DT
-> property reset-assert-us to 10ms because the KSZ9031RNX RM does
-> not explicitly spell out how long the reset has to be asserted,
-> but this at least covers the worst case scenario.
->
-> [1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031MNX-Data-Sheet-DS00002096.pdf
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+The KSZ8995XA is just like the KSZ8795 and KSZ8864 a Micrel
+product. It was renamed from KS8995XA to KSZ8995XA at some point,
+but it has the same properties as the KS8995XA.
 
-Modulo the document references:
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+Be careful to use the full product name in this new compatible:
+there is also KSZ8995MA and KSZ8995E which are not compatible
+with the KS8995XA.
 
-Gr{oetje,eeting}s,
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+ Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-                        Geert
+diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+index 8d4a3a9a33fc..4ed13870ed3a 100644
+--- a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+@@ -23,6 +23,7 @@ properties:
+       - microchip,ksz8864  # 4-port version of KSZ8895 family switch
+       - microchip,ksz8873
+       - microchip,ksz8895  # 5-port version of KSZ8895 family switch
++      - microchip,ksz8995xa
+       - microchip,ksz9477
+       - microchip,ksz9897
+       - microchip,ksz9896
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.54.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
