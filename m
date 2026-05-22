@@ -1,117 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B75F22A817;
-	Fri, 22 May 2026 11:16:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083013A6B83
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779448603; cv=none; b=dvU60WtyCzDo7k4us6NKE0uSLaGuodY6EADcRao4n5B9XWL/T9GpAckI/IPkhQIFCXRIlgvkwPlbzLz8AEq+J49KEL1JVLpCcGy7nXtiaoRawAWxXbXDV7nYB4B+tahW5K9P26rrYtFxreEuR4WIpJJ/C8W15xltRLHUFv/rTMk=
+	t=1779448831; cv=none; b=cF8fA5ZnZdHjgmXYATKlk1jbPL1usZ1eACntFPWUK20uiCh4QBc54LxWx6UJTbpQBMvF3/dTfncpW89XceMjGum8nOXPOb5Vw+WtHgEpgveJd/vrliBhQw7c4kEyJm3l1KbSevCjg03xAwPwYd8cWqo3DDDYx1bytFG6ZivlqNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779448603; c=relaxed/simple;
-	bh=8ugHOUHLYWtKGmqx00fCrK//fW1pyBRKxLrWD8CptRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eg/xAaG8r2f54QS66dwpeayVWALgr3Cq/tCks98L+pB/JSYG8GDcUZI8aZWB13mHI1+7P8xI7M0BHq6KaNeXSNkt0fx9ywBWcALkuCMt1JQMu2tsO+cvCgLC4p7PbMKsSoLx50LCTAh1MOsQl+ex7TtF5k6cQbCtOM9mYKTjY6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MsCm6unA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779448831; c=relaxed/simple;
+	bh=2dMtwqfr2ZGbuWNME1mjoFf1yb2LMAL7HBAwNxavaO8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K9sjKSLIrbV7GeYL9WwjExZ/A+82Ae1ludIEM1e3T+hZ6eCJ0SNWaIrZjMg0eCPGPAfeu9o0zlzrYNeJl/JB3skSWzZSFTY6VSPZX1d8kGoc0ostxPmyoydtr5+o3whtEmjVvZvcNHNeVM2oYzcyGrLvwgiWPZfeFOMRaB5URds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qx1ulHm+; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MsCm6unA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A555E1F000E9;
-	Fri, 22 May 2026 11:16:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779448601;
-	bh=swBaYf35HMFLknKWr9J+UQyWk9dTnABHEFKw/ip9L34=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MsCm6unAsdZi2fZzylOwnppmL+Za3A7HHBA2z7XrREKg/jXD/frJDVEoUgYeMmlmw
-	 V6Rd2liN/yFAQ7GkhWB4u2wAVh4VxALmywgRD6iwmfBQUSByf8rtuNkJFfItGkk6V+
-	 fIu+Ys5krtIn/vQwfZOZ6ASzHdkO5eQOxhqaUy52GKTqURrdez5VLSabJylcVhXPUe
-	 qXrMsLrn9Mxg44xqotteIV9e6agGXYUQVPCbwy0fe9Xn9Ayrm+cC2i6WxoHgU6cifH
-	 gHOPtHy9wSKVmdjqacJUn4muxsU479OlPnzvTZ9u8BfhqeTflMgDXQbtOqW34v3RZu
-	 LPcksILNTStYQ==
-Date: Fri, 22 May 2026 12:16:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, "Sa,
- Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v12 5/6] iio: adc: ad4691: add oversampling support
-Message-ID: <20260522121628.21bf03f9@jic23-huawei>
-In-Reply-To: <LV9PR03MB8414CA3DB26235605C9323E5F70E2@LV9PR03MB8414.namprd03.prod.outlook.com>
-References: <20260519-ad4692-multichannel-sar-adc-driver-v12-0-5b335162aa51@analog.com>
-	<20260519-ad4692-multichannel-sar-adc-driver-v12-5-5b335162aa51@analog.com>
-	<LV9PR03MB8414CA3DB26235605C9323E5F70E2@LV9PR03MB8414.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qx1ulHm+"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4893940bb5eso40302935e9.3
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 04:20:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779448828; x=1780053628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=XwywBvEJpsm1f+bVDJtLQZjSntFIsWCaI5FtaThXLqY=;
+        b=Qx1ulHm+f2y1feqh5j9jNlHWR9uXFM2UuOzZyTgarDV+H203L8Df3r8rUx3vpMCqiY
+         w8w3KrXsPgjFZ39QJSSNpIHuAunTpuJiGw7DfS1pV5B9HP6ViBvTkaZ6aCVaBwqZZ2WN
+         +pxDzNWLRzcIrnHudwyCE6wS+wcQSKYAMjMy050wdoI4jPDxVCDhXZu9AQtYgAhJ6bnq
+         YKjvU6mPKRIuY8UORO2ItIhszgiAmD9ylqSKvyntu8ToQc3dvMayYTc+BsZZVDoqOV89
+         ift3BfYQyurW4lV7Caza0e8Cu+k2rpNikmA58WSByh43248BgJiKINoMoZMqHgyQy05Z
+         RlTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779448828; x=1780053628;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XwywBvEJpsm1f+bVDJtLQZjSntFIsWCaI5FtaThXLqY=;
+        b=LNkE0jnqLbiaX2y7VanUKFQvf+nuGHbiUExvYYz6SB5ytQ4vOQtt69PVRy+aImsOei
+         3KpmgXFZgfudKDvy1kIAArGzSdYSZFz+5cQlPHHjwZ/qfd3pSzOLceMfYySkS+4z/mXc
+         zk4yInTRLgByDx8Gh/PnOuoZO7bXzbX7jbdAMmNB+F5p0IMErGvF1RGI7SxsF8lADlZL
+         EzovzywzfqU/8/Dzyt53SldmLaL598jn75mZymLRpqR4M0yqDYffXKtEdkEHJTvTZUdr
+         UOrjKCGM5U0DwNKyxnCw2im0IVw6NocPxgx3TcwW7uSk04FqDWNrPyvv9gIrtiOyNHgu
+         fcNw==
+X-Forwarded-Encrypted: i=1; AFNElJ+yhATaneS0O5UTeNvFPMUj2MYLHtRUJO9quZZjiNrBBs3IoWxckR8yVq52EYRgupVhZuXyI4VWW7A7@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxg3+1itHWHtBtftLlLbLRrifAmVoec7y9XJjWOPjPm/V+qtNHD
+	j9pKfxrRV6rimRMMTXfyvutu0sIhGXzpUrP/+M126oyk5/xnQRPik3xB
+X-Gm-Gg: Acq92OFW/CFLkWc7fDKqxsHoI4FQmIk8v7bLy+4/gABGc1Q3nnqGZ6KkmqA6dm8QXe5
+	PSIwDW8NmKy5RDJweCY5s0ewrD3/Zgfbih3SzQv6UbLJLr6ZMaWw6WJKehCozEm2fFN6IkWAJSV
+	E8CPG0YYsO2QMBxVvMYiHg2BXWnF9m7Ww0JlpIkCZXatnOE2IFIFCM4uPEbs5fft6ZT+cgEV3CG
+	gPU34MtthW6tdws/YkdgqPvhZVwX5KLoEiuTTZfrofhI1AeK95JH8sMC9YDOQod2PV6cGeU2i6v
+	ZJJ0+82EzBdiMEyA+XG0BTAIbYGHd7jiX47AQZdlxjYfVUbi1ogh1gYj/4LgQDjcKGiG8sTJwPI
+	CxVvF7wJKHYZSPmGjCP7ZisKtFxW9v0nk6miMFhSHWGvqWk2BiCOic+oN7O/U7Gr6Pt2iV6y6HW
+	BY4y752oakyASjz/wvcXq5I0Sg3//8vBLo7jRmg06UE9vnuqe+TCh5+XsSHc+E
+X-Received: by 2002:a05:600c:1c21:b0:490:44eb:c1ea with SMTP id 5b1f17b1804b1-49044ebc2edmr37709105e9.24.1779448828096;
+        Fri, 22 May 2026 04:20:28 -0700 (PDT)
+Received: from SMW024614.wbi.nxp.com ([128.77.115.157])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4904526ca21sm34388355e9.3.2026.05.22.04.20.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 04:20:27 -0700 (PDT)
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Peng Fan <peng.fan@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] Add RPROC support for the MX95-15x15-FRDM board
+Date: Fri, 22 May 2026 04:18:44 -0700
+Message-ID: <20260522111849.783-1-laurentiumihalcea111@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 21 May 2026 11:32:42 +0000
-"Sabau, Radu bogdan" <Radu.Sabau@analog.com> wrote:
+From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-> > -----Original Message-----
-> > From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-> > Sent: Tuesday, May 19, 2026 3:20 PM  
-> 
-> ...
-> 
-> > 
-> > +	iio_for_each_active_channel(indio_dev, bit) {
-> > +		ret = regmap_write(st->regmap,
-> > AD4691_ACC_DEPTH_IN(bit), st->osr[bit]);  
-> 
-> Unfortunately enough, I think a v13 will come, too...
-> 
-> Had a look again on what Sashiko had to say, and seeing the sampling frequency
-> shared_by_all comment again made me have a deeper look see how the code could
-> be commented so he wouldn't complain about this anymore, and...
-> 
-> Perhaps he is a bit right after all. I found a section stating that in standard
-> sequencer mode (which the driver uses right now), all the channels actually use
-> the ACC_DEPTH_IN0 for osr, and so changing ACC_DEPTH_INn for other channels
-> doesn't really do much. And so I tested this selecting both voltage0 and voltage1
-> for sampling with osr4 for voltage0 and osr1 for voltage1 and with a 100kHz osc freq
-> indeed DR fell after approximately 80us which points out both channels were actually
-> using OSR of 4. Perhaps the OSR should be shared by all and therefore the
-> sampling frequency would also be shared by all, right?
+Hi folks,
 
-I kind of lost track on the modes. What are the chances we later move to or add
-support for a mode where the different OSRs do matter?  If that's a possibility
-we should avoid ABI change by allowing for it from the start.
+As you can see from the title, this series attempts to introduce/enable
+RPROC support for the MX95-15x15-FRDM board.
 
-Then if we are in this mode, they'll have separate controls but change any, changes
-them all, if we are in a different mode that connection breaks.
-If that's the case, just throw in a comment saying something to the effect this
-may change.
+For a while now, the imx_rproc driver has been using the reserved memory
+DT nodes as the carveout names, which would force DT writers to go against
+the DT specification's recommendation and use non-generic names (e.g.
+"vdev0vring0", "vdev0vring1", etc...). This series also tries to fix this
+issue by introducing the "memory-region-names" property and using it in
+the imx_rproc driver to figure out the carveout names. The driver will
+still allow the old way of doing things (i.e. no "memory-region-names"
+property) but a warning will now be printed since this should be
+discouraged.
 
-It's not wrong ABI to do this, it's just less intuitive for users which is why
-we prefer the shared_by stuff where there isn't a disadvantage.  That is at most
-a hint to what actually happens.   A simple example is where different
-channels have one OSR field but they aren't the same - i.e. channel 1 is twice
-the OSR of channel 2.  Hence we can't share the attribute but any change effects
-both.
+Laurentiu Mihalcea (5):
+  dt-bindings: remoteproc: imx_rproc: document optional
+    "memory-region-names"
+  remoteproc: imx_rpoc: fix carveout name parsing
+  arm64: dts: freescale: imx95-toradex-smarc: move CM7 node to SoC DTSI
+  arm64: dts: freescale: imx95-15x15-frdm: remove common rmem regions
+  arm64: dts: freescale: add DT overlay for MX95-15x15-FRDM RPMSG usage
 
-Jonathan
+ .../bindings/remoteproc/fsl,imx-rproc.yaml    |  8 +++
+ arch/arm64/boot/dts/freescale/Makefile        |  3 +
+ .../dts/freescale/imx95-15x15-frdm-rpmsg.dtso | 65 +++++++++++++++++++
+ .../boot/dts/freescale/imx95-15x15-frdm.dts   | 21 ------
+ .../dts/freescale/imx95-toradex-smarc.dtsi    | 14 ++--
+ arch/arm64/boot/dts/freescale/imx95.dtsi      |  7 ++
+ drivers/remoteproc/imx_rproc.c                |  7 +-
+ drivers/remoteproc/imx_rproc.h                | 19 ++++++
+ 8 files changed, 113 insertions(+), 31 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
 
-> 
-> The usage of internal_osc_freq and pre-computed freq values depending on osr would
-> stay the same since those are still correct anyway.
-> 
-> What's your opinion on this?
-> Radu
-> 
+-- 
+2.43.0
 
