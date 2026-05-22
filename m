@@ -1,95 +1,114 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB043D6CD3;
-	Fri, 22 May 2026 11:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F311360ED1;
+	Fri, 22 May 2026 11:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779448976; cv=none; b=loCZlzN+WE7B8pMMDOj0LLnq+7269tFrJPB4fYulH0kuE4ME3XajNEoWxz0l0vnHwtbKr/x2G69wDfM2U3SCdK+r4EEXk5i3yMvUzn/qG99zEsUEp/jG+8hxxhOTkAgu7OpBMqJPvrY056qM1bFsJeEYX7R9WXcDKEC1YjO4RkY=
+	t=1779449018; cv=none; b=My6zVTLqf0TsAFWCa8ldodyX0TnFe0orY/Y1X3NBrq7h2nxQbU+sYxF4AHPd/oasXKuYv3pHDqD6DEv4FVz/dFOont7gCX5UkyMkir4V5c9PBwEqIAXXeyBtA7chAz0/UA2/iuxvRdufu2rjK05QHwY3WyivLn4+92YV3rt1vvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779448976; c=relaxed/simple;
-	bh=dVoIqqePaTwdmJ4zCf2ziXbp09M2+w+TjqkgtzQvOeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SS/h8hCFnsuBTBqRTIgTXSEPmpGTnmaGT86wPGYOMdgWqvo2ic5WeT5gn8XUj0NVx/GkOjaw9PwXvNGNbR2kJpr1Bn+fBxtrd9Ls1ep/2gQx2t+IlWrukfrsCL9MzgTroyQNiiUelsVOTJ0o8x3Lw9Z4s98vnDOF+YaVQkZ6Oxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=YlxTvWMu; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1779449018; c=relaxed/simple;
+	bh=HFtmXz0PCp2aQpnPMnU3L1VxYRn6d9FRpQD2wRgGSq0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OW0TE9rnKIAdLC7qwhmNwVePRLYp1Td1/VpidZM671xQJzdvIaCP2SKxGSh1tNfdBgyMgVgKNBgSzJcEGj66YAtpoQJBNEJCulANpjBx8vxLVtSce6Ldw+JZ+YEseemu86fCsEpIwFaTUTNdKwG00z2jXiWRVyFMpmGgJizqLeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVqIVWGS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="YlxTvWMu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=T3tk8Eb5PMfkxhc7QmwtyePErKb19NAaN1ycAhnODwQ=; b=YlxTvWMujQk4CbaU8jtSHO4WJ6
-	fueDXX3ufB6F//ly60ToZcsDNyfh+4+VDfbnUZ31vqRoIobsxduZLfyHNRrbke3hezgdGo9d/Yyl4
-	I5VmiagAjnp1eBqO6VJ4f2VPug4WHScXsRAE2d8HG5kbO2cDL6sVXZE96GqEDyOidK3sTYp/M2l8k
-	x0oT3Zs9PrdHv9E7/qFzi1PwkaxUdiufHZHfkPAMME8OsxucEnIKhRQ9NLg4Kf70+VgttsDntFqzT
-	HnT48i8ZmyiojpcQ8vpqi1nz0jlgpgzxbLE3x7F2CQ/PRxtL3CatZaeWhfYjSDt54CVDFhagJTIzn
-	rpQWYdeA==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wQNxp-0007q9-2z;
-	Fri, 22 May 2026 13:22:49 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wQNxo-000HQJ-25;
-	Fri, 22 May 2026 13:22:49 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] arm64: dts: tqma8mpql-mba8mpxl: configure sai clock in sound card as well
-Date: Fri, 22 May 2026 13:22:46 +0200
-Message-ID: <20260522112247.1046944-1-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVqIVWGS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3EAE1F000E9;
+	Fri, 22 May 2026 11:23:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779449016;
+	bh=g0Tk5SjgRMfO81NIuJvLyIjw5gsTSwcbfmCYhvq+Xsc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jVqIVWGSsTzhxLytj8chbFa3NmrX/sPZxrQrnYwbsVTFyitSFbt/3CUFIkk+Ifozu
+	 vJZJVlhnKBnP/Uo0dS6fOvwNB4LrIdH2PE3OZmaca1FLV2fQHYeGiPaZr4+SLrHMiP
+	 1A0nmndTujTrT9UJnqzHxEvX+085d3mVRZqSznR3ok12fbog1coCUX8NoKG1pNbK7E
+	 HK1ri7I81+nAdwn/bOea31fKfVmqIt71ShcZ1oACMetLosYHONUM41PJoGgSwuvQAL
+	 wXMlEfW5/ECXfIVH0TAeiAj9R8tVFDKDrKm/YHt3Ox0yDFU7CVbgfzUvCLSX95xvm3
+	 PO2G/QuLTWu0Q==
+Date: Fri, 22 May 2026 12:23:22 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v12 1/6] dt-bindings: iio: adc: add AD4691 family
+Message-ID: <20260522122322.2cd9d4ae@jic23-huawei>
+In-Reply-To: <20260519-ad4692-multichannel-sar-adc-driver-v12-1-5b335162aa51@analog.com>
+References: <20260519-ad4692-multichannel-sar-adc-driver-v12-0-5b335162aa51@analog.com>
+	<20260519-ad4692-multichannel-sar-adc-driver-v12-1-5b335162aa51@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28008/Fri May 22 08:24:46 2026)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-With deferrable card binding the sound card driver tries to
-get the mclk configuration before it is setup in sai3 node.
-Fix this by setting the mclk config for the sound card as well.
+On Tue, 19 May 2026 15:20:22 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-Fixes: d8f9d8126582 ("arm64: dts: imx8mp: Add analog audio output on i.MX8MP TQMa8MPxL/MBa8MPxL")
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts | 3 +++
- 1 file changed, 3 insertions(+)
+> From: Radu Sabau <radu.sabau@analog.com>
+> 
+> Add DT bindings for the Analog Devices AD4691 family of multichannel
+> SAR ADCs (AD4691, AD4692, AD4693, AD4694).
+> 
+> The binding describes the hardware connections:
+> 
+> - Power domains: avdd-supply (required), vio-supply, ref-supply or
+>   refin-supply (external reference; the REFIN path enables the
+>   internal reference buffer). Digital core VDD is supplied either
+>   externally via vdd-supply, or generated by the on-chip LDO fed
+>   from ldo-in-supply; the two are mutually exclusive and one must
+>   be present.
+> 
+> - Optional PWM on the CNV pin selects CNV Burst Mode; when absent,
+>   Manual Mode is assumed with CNV tied to SPI CS.
+> 
+> - An optional reset GPIO (reset-gpios) for hardware reset.
+> 
+> - Up to four GP pins (gp0..gp3) usable as interrupt sources,
+>   identified in firmware via interrupt-names "gp0".."gp3".
+> 
+> - gpio-controller with #gpio-cells = <2> for GP pin GPIO usage.
+> 
+> - #trigger-source-cells = <1>: one cell selecting the GP pin number
+>   (0-3) used as the SPI offload trigger source.
+> 
+> Two binding examples are provided: CNV Burst Mode with SPI offload
+> (DMA data acquisition driven by DATA_READY on a GP pin), and Manual
+> Mode for CPU-driven triggered-buffer or single-shot capture.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
-index 890d1e525a489..1ea1da735762f 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
-@@ -246,6 +246,9 @@ sound {
- 			"IN1_R", "Line In Jack",
- 			"Line Out Jack", "LOL",
- 			"Line Out Jack", "LOR";
-+		assigned-clocks = <&clk IMX8MP_CLK_SAI3>;
-+		assigned-clock-parents = <&clk IMX8MP_AUDIO_PLL1_OUT>;
-+		assigned-clock-rates = <12288000>;
- 	};
- 
- 	sound-hdmi {
--- 
-2.43.0
+Doesn't really matter, but why include so much detail that is easy enough
+seen in the binding?  If there is information we need to capture it better
+be in the binding!
 
+Not actually worth the effort of changing it though - more something
+for future reference (unless someone else is asking for this levle
+of detail).
+
+> 
+> The four variants are not compatible with each other: AD4691/AD4692 have
+> 16 analog input channels while AD4693/AD4694 have 8, and AD4691/AD4693
+> top out at 500 kSPS while AD4692/AD4694 reach 1 MSPS. These differences
+> in channel count and maximum sample rate require distinct compatible
+> strings so the driver can select the correct channel configuration and
+> rate limits.
+This bit indeed belongs here.
+
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> ---
