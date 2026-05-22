@@ -1,126 +1,212 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B773911CE
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD283438A2;
+	Fri, 22 May 2026 10:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779446309; cv=none; b=qyAmcXhYYw9VGDhxtwFUZerOMt+Llqvfd93iZfDWR0NspfXjrnmehXsCZFrH2qanllcyLbhaHMW45UiSoo8N9S5upq7Laq+DraulvOk1GhA4BIAsY/sOtStvQbO1tsrF6zSILhgbDCMB7wIzqoy/oYjvCGFvAgjvJZmzn2G20KA=
+	t=1779446405; cv=none; b=fOl4JD/npyD1ovGYDmp5muvWq3v0LghoTqGC0vhCH1ahAKlzP7REnv0G0Zk6VL3F5iqS+JCtX7Mgnp0sPRxC6/GPlHhJLBiDCNXBQW+mdY4mZRCWfheHDwDv5cQxo7cysXy8WrE6bZNW0dOp3ek82nfNtUq4rcmN2L8zCYhocqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779446309; c=relaxed/simple;
-	bh=/wJ57xNPnCf8dH8DjzmbGHCzUBmnFHtfYvzgs74xh6k=;
+	s=arc-20240116; t=1779446405; c=relaxed/simple;
+	bh=c0BeStXdY1FuuRgE12pPYKk+yXdU62dLQ+ab1L+PruA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YFnkfzk7cvKuNx51OO1C19PVjsBabAhFL1XwGzlmbh6MqzScYmI00PKucWN1Tsox1nboWmwzNeMZPugsk4xK6oVheJcwmz1HJIG5tdAG1rLec+TVOjyS3W78f7DUDamtiIYczZ//tjdThXyHNPmh/5UXLGVaTaPIKgXmCUAX+Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JQHxNiJn; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qk50JbhN6YJh//H5ebgcr3uyQ7IsVPIeOdWRzW+4L0ygIPKPOIfxXU44h+i9IXOgUsmO4fsnsz0l9I9qfh16OMsIrcMtYbUWqmh89vqLcCC8dt+TUl5GqRnI6INwuvKlHW1mBTyEm4dOyl+mQyPi15CC+Biql3Oxvtv+yuPhVzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C0uKlOyt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JQHxNiJn"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4903997fcb5so17149155e9.2
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:38:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779446306; x=1780051106; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=mLsUocanVpLcdr3xQCUl3kNzYIEe9clsefrb8kWlcvk=;
-        b=JQHxNiJnKrHq3OULqFsFgAz2seUp3wkoDGf56P609Lz8zcvIRqceYfvhxA02DLMXYU
-         mMwnJptOGIzJxZymhJHIjbWvLCmeuj8n7UIOICLHS1gmmNzKr8p2KhNzX6DVGRlIPlpF
-         VSz47h5C310AHM5l0xhftcy5tNUaVEPxRuSyak2yNSeWwErCCIpAyjoV+RbORQCkxRmX
-         m3NVnxQYrV1baXShcz2azKhJZtASpm5UrCWmDSnwFuG70S1h9x8Z4yPPgKS4c91gBA64
-         MA64GSY7llXVpYA9LFZ9x/2syM5AohGARrIEuPf7aGGumOsihGLkUvpC+Z11FmkpZpfI
-         muiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779446306; x=1780051106;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mLsUocanVpLcdr3xQCUl3kNzYIEe9clsefrb8kWlcvk=;
-        b=s9gXqkLNcerlowuULTAjnAWGDwYGbLSxsy3I/SL7NL2g1VTQoWKmkKkSTV1hwIiaff
-         Sxxva3RaZDZWj/oSPfskPX+PjbXOvtX+5VRjw3XYxlNac5qGOoLuM0GO0EwnQO1e7FK7
-         xrEvGmqwQla7n1A/5VCedTRBVE4vrArDHY+gr+3sqy6rPKoJjwmhWqhP3B2n/Xt6M/uZ
-         ME4luKeLU1UAQqLszwov6zbjVpDEQQMw8aUOklSM0d0FSV7YD/QsgbpxVEkO5Cg1sKxD
-         de7aFp6Iuah1KX0InJmTGxBatws4kw9JQmKlksDWXEMX53d9kV1uT2LJmJ/f2FfF7xRM
-         chCg==
-X-Forwarded-Encrypted: i=1; AFNElJ9ntskYeDsxQBEl6If+0KfKgCQoIvMGE5InPGY6bETZm1JxkVuS2yG2c+jEYY+siYOksWpw+ysXpoLv@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQe8dU7Sz2YSH2qfy9zOywm/7wh/HQ9So/JPnjgnRtRifZG3uJ
-	QygPOIoCSusRu36sLIQJbVQVq+FP5BesAsLbYImXH00RyNJuqDwjimqQ
-X-Gm-Gg: Acq92OGfESMvt+sd3f93nd1dex4cCyZPjcb8ceL4WfcaeOKWkF0gVZ3Z/kJMF0aphFE
-	7xDOEct00v5j9zV5JOSxa1+Ud4BGXueaLLeiyVVECvxLSv7KrUGyDQ5b7vT5fICCPh3ofZijKow
-	L67C8wXfmdv88egnc1DQI1b7XigbCFx+5t31ve4suaryyT8XLroko9Z8/qk9jQt4YQFxaNfV7Bj
-	eBZnkaIyb5JosCCy5N7G2szeNOrTfKDTAE5GauiUYkT9fPvQ3kYoNBkWZ/9dZbeKMqY4s95fySv
-	EDKWdwO9bJLiU6gLaQnm0A1J7jpZBDCSkFrOKDsVz9O+sjbzzCKG5HhGaWvz7otO1Dro7qZ81Wj
-	vaCUYzpjJQtCJXksRQazPYogVP6okwkZ1fH5IERS96oTbYc8dDwEVikYYOtidICKGxYif34gBgL
-	Y0og58nX7Z2foSs/qL6JYIG3bhyFCSE7plKqccJR68B8MpSkydw9dFGhsIBrhKGO/oZS898jy4C
-	JfG8VBExjrNfA==
-X-Received: by 2002:a05:600c:3e0c:b0:488:ac01:72de with SMTP id 5b1f17b1804b1-49042489c30mr44798295e9.5.1779446305909;
-        Fri, 22 May 2026 03:38:25 -0700 (PDT)
-Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490428d63f8sm13240135e9.18.2026.05.22.03.38.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 03:38:24 -0700 (PDT)
-Date: Fri, 22 May 2026 12:38:22 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Laxman Dewangan <ldewangan@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v6 09/10] dmaengine: tegra: Add Tegra264 support
-Message-ID: <ahAyF4i51x5ldppq@orome>
-References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
- <20260331102303.33181-10-akhilrajeev@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0uKlOyt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4581F000E9;
+	Fri, 22 May 2026 10:40:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779446404;
+	bh=TOeENsJONCm8A8ptsypYNFAVXXJmb30h97nu7b0oPA4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C0uKlOyt9wx1ZuV5BLASb/MIxwa+P55xZoZrWACqPyhWcqOPbkRP0imyt9YwbsFV7
+	 1GROqPhdzZTtqWlEcoktRpKpS970YtozTVF2KqaywwjfG2+l+Zjs2eKR559hdcb/iY
+	 jljzyjV1EuFbSLkXsdCxuDOCU4yxB8o13643wsUjuOWsCoZhvXqtbqkEw0XNUxQuA0
+	 C8FO7dfhh6Rfi6ECodZYCELW0Tvozqf+Zzvs7OGejUKRz9MK2+v9Ary1OHqNTd7y7u
+	 hG2VNtUNmpgQPz5LdzpNQYfY2amEusjavnlfAp3rwcnLygojJplV5FUGRCGWFfI7MW
+	 pdqLCxd9/Dmyw==
+Date: Fri, 22 May 2026 16:09:59 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 04/16] firmware: qcom: Add a PAS TEE service
+Message-ID: <ahAyf4i7ZZrJETG9@sumit-xelite>
+References: <20260518072856.22790-5-sumit.garg@kernel.org>
+ <20260519073354.03927C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4oagdshx4rnxulqg"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260331102303.33181-10-akhilrajeev@nvidia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260519073354.03927C2BCB3@smtp.kernel.org>
 
+On Tue, May 19, 2026 at 07:33:53AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [Critical] Unvalidated buffer sizes from TEE lead to heap buffer overflow and out-of-bounds read.
+> - [High] The `shm_free` cleanup wrapper fails to handle `ERR_PTR`, causing a kernel crash on allocation failure.
+> - [High] Unconditional unregistration and global static ops structure corruption in probe/remove.
+> --
+> 
+> commit 117a287c92ded04ad43f9ed963b43a8069a13f94
+> Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> firmware: qcom: Add a PAS TEE service
+> 
+> Add support for Peripheral Authentication Service (PAS) driver based
+> on TEE bus with OP-TEE providing the backend PAS service implementation.
+> 
+> > diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom/qcom_pas_tee.c
+> > new file mode 100644
+> > index 0000000000000..2067a43c44c37
+> > --- /dev/null
+> > +++ b/drivers/firmware/qcom/qcom_pas_tee.c
+> > @@ -0,0 +1,476 @@
+> [ ... ]
+> > +DEFINE_FREE(shm_free, struct tee_shm *, tee_shm_free(_T))
+> 
+> Will this crash if an allocation failure occurs? By default, DEFINE_FREE
+> only guards against NULL pointers. However, tee_shm_alloc_kernel_buf() can
+> return an ERR_PTR, which evaluates to true.
+> 
+> > +
+> > +static void *qcom_pas_tee_get_rsc_table(struct device *dev,
+> > +					struct qcom_pas_context *ctx,
+> > +					void *input_rt, size_t input_rt_size,
+> > +					size_t *output_rt_size)
+> > +{
+> [ ... ]
+> > +	if (param[1].u.memref.size) {
+> > +		struct tee_shm *rt_shm __free(shm_free) =
+> > +			tee_shm_alloc_kernel_buf(data->ctx,
+> > +						 param[1].u.memref.size);
+> 
+> If this allocation fails, rt_shm will be an ERR_PTR. When the function
+> returns early, shm_free will pass the ERR_PTR to tee_shm_free(), triggering
+> a kernel panic.
 
---4oagdshx4rnxulqg
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 09/10] dmaengine: tegra: Add Tegra264 support
-MIME-Version: 1.0
+Ack, will fix it.
 
-On Tue, Mar 31, 2026 at 03:53:02PM +0530, Akhil R wrote:
-> Add compatible and chip data to support GPCDMA in Tegra264, which has
-> differences in register layout and address bits compared to previous
-> versions.
->=20
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  drivers/dma/tegra186-gpc-dma.c | 30 ++++++++++++++++++++++++++++++
->  1 file changed, 30 insertions(+)
+> 
+> > +		void *rt_shm_va;
+> > +
+> > +		if (IS_ERR(rt_shm)) {
+> > +			dev_err(dev, "rt_shm allocation failed\n");
+> > +			return rt_shm;
+> > +		}
+> > +
+> > +		rt_shm_va = tee_shm_get_va(rt_shm, 0);
+> > +		if (IS_ERR(rt_shm_va)) {
+> > +			dev_err(dev, "rt_shm get VA failed\n");
+> > +			return ERR_CAST(rt_shm_va);
+> > +		}
+> > +		memcpy(rt_shm_va, input_rt, input_rt_size);
+> 
+> Can this cause a heap buffer overflow? The buffer is allocated using
+> param[1].u.memref.size, but the code unconditionally copies input_rt_size
+> bytes into it.
 
-Acked-by: Thierry Reding <treding@nvidia.com>
+Nope, param[1].u.memref.size is always more or equal to input_rt_size
+based on OP-TEE ABI.
 
---4oagdshx4rnxulqg
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+> > +
+> > +		param[1].u.memref.shm = rt_shm;
+> > +		ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +		if (ret < 0 || inv_arg.ret != 0) {
+> > +			dev_err(dev, "PAS get RT failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +				ctx->pas_id, ret, inv_arg.ret);
+> > +			return ret ? ERR_PTR(ret) : ERR_PTR(-EINVAL);
+> > +		}
+> > +
+> > +		if (param[1].u.memref.size) {
+> > +			*output_rt_size = param[1].u.memref.size;
+> > +			rt_buf = kmemdup(rt_shm_va, *output_rt_size, GFP_KERNEL);
+> 
+> Does this kmemdup() introduce an out-of-bounds read? The size returned by
+> the TEE in param[1].u.memref.size could potentially be larger than the
+> originally allocated size.
 
------BEGIN PGP SIGNATURE-----
+Nope, this won't happen as it's part of OP-TEE ABI.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoQMh4ACgkQ3SOs138+
-s6FfphAAs+xOd5AbT8+y/eH+MoUKuhrW0ACB8ym66bqs+OCu+VVuM9p6LR7+6Mux
-2+AFLpjeYRRdRYHjzoAsdnUo0VnC/+IFrrqOdoTD8npmeo2SveLrJx+f+BQJ4McM
-aHS06cHVboDMya7H3UWHieyto9IZcEmAQjudHId+FPg6rYs3rjbDI2r71M2PM5Ns
-nkjaOnkF9S/zPaUptXfdATyviC3yseTgJ36x6N0zKh9EKs1r+kcwlMchCu3k4M/e
-uAOx0TEw1Jr12BwQRevhHWPn7JQAbq6a5aSsP4y6Ubvoe0JZIg28+FMFjLC0OvLp
-3RMXYpH/0ovuRq3ruMN2NIdpAVZrAnd6OBCAb6c8bQ875+PrkCuQWNhzkV5GsqCN
-XNTZRbHAXRfc6Oh/HkxR0rB/US58pr170vp06VeeKsPvpaZYaLT/a+gpVrhyytnZ
-0fHu/2sGTgXGdgDdSK37XFlqgCtOMluSPDPrf+mNyDYWorMNK5zrHDIlbIDsZdyT
-z4aCMtFdeZhIQSf0IZse1Yi6Kp4pCJEc6836c2FwSDm4iy1o0sH9g8qnvRC1jgej
-3FxbqdYz6rvsT/Ri3MdhfZJC+J7vgpZvO5Fptkc9Y4b0OfeisLlRNxMJdIZqDoq2
-BIo1f/fukHUAiDdo79dDfnLb/UViqXKst2JZCqdgOykedZy9E4M=
-=Y6T/
------END PGP SIGNATURE-----
+> 
+> > +			if (!rt_buf)
+> > +				return ERR_PTR(-ENOMEM);
+> > +		}
+> > +	}
+> > +
+> > +	return rt_buf;
+> > +}
+> [ ... ]
+> > +static struct qcom_pas_ops qcom_pas_ops_tee = {
+> > +	.drv_name		= "qcom-pas-tee",
+> > +	.supported		= qcom_pas_tee_supported,
+> > +	.init_image		= qcom_pas_tee_init_image,
+> > +	.mem_setup		= qcom_pas_tee_mem_setup,
+> > +	.get_rsc_table		= qcom_pas_tee_get_rsc_table,
+> > +	.auth_and_reset		= qcom_pas_tee_auth_and_reset,
+> > +	.prepare_and_auth_reset	= qcom_pas_tee_prepare_and_auth_reset,
+> > +	.set_remote_state	= qcom_pas_tee_set_remote_state,
+> > +	.shutdown		= qcom_pas_tee_shutdown,
+> > +	.metadata_release	= qcom_pas_tee_metadata_release,
+> > +};
+> > +
+> > +static int optee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
+> > +{
+> > +	return ver->impl_id == TEE_IMPL_ID_OPTEE;
+> > +}
+> > +
+> > +static int qcom_pas_tee_probe(struct tee_client_device *pas_dev)
+> > +{
+> > +	struct device *dev = &pas_dev->dev;
+> > +	struct qcom_pas_tee_private *data;
+> [ ... ]
+> > +	data->session_id = sess_arg.session;
+> > +	dev_set_drvdata(dev, data);
+> > +	qcom_pas_ops_tee.dev = dev;
+> 
+> Could concurrent probes overwrite this shared static structure? Since the ops
+> structure is global, multiple devices probing at the same time could clobber
+> the dev pointer.
 
---4oagdshx4rnxulqg--
+Only single device is supported on TEE bus here.
+
+> 
+> > +	qcom_pas_ops_register(&qcom_pas_ops_tee);
+> 
+> Should this check for a return value or register failure? If another backend
+> like SCM is already registered, this operation will fail, but the probe
+> routine proceeds as if it was successful.
+
+Only one PAS backend is expected to be present at a time.
+
+> 
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static void qcom_pas_tee_remove(struct tee_client_device *pas_dev)
+> > +{
+> > +	struct device *dev = &pas_dev->dev;
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +
+> > +	qcom_pas_ops_unregister();
+> 
+> If the registration failed in probe, will this unconditionally unregister the
+> active SCM backend and break PAS functionality system-wide?
+
+Concurrent PAS backends aren't supported.
+
+-Sumit
+
+> 
+> > +	tee_client_close_session(data->ctx, data->session_id);
+> > +	tee_client_close_context(data->ctx);
+> > +}
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260518072856.22790-1-sumit.garg@kernel.org?part=4
