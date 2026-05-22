@@ -1,123 +1,188 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3BC34CFAE;
-	Fri, 22 May 2026 07:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBA83905F8;
+	Fri, 22 May 2026 07:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779434731; cv=none; b=RS8qhmjCN5Rq2D5jkKDqFA7DbIIIRKavd0CGHNHfcdY9eA8fG5Nx4DWnDuEucXEmRr8XTqMXkdkWaci/qw0CZ8Cp+3UIoVQMUzR+/lTIJpaObQPJOMXyvoT4VObTI7oD4cw8AdPtq5YHFxINsvoXIikIdhEug3sSDaMWOOpFQTw=
+	t=1779434735; cv=none; b=G5zyycp9MpJazKWx39x4OSnlBEAvZ943jU+GI1nZUZeWoddEHDAjZuHxRCs701zEcLGyhbiQ5oauhUNEh54qqGVllj11uz5jeoFLwxgRB9f4a5o+sxM4FGqgVUUdBjO5IEu7YVxDWPQbczedyYqZJMae6l1Yb0Ljg5x3ESztt+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779434731; c=relaxed/simple;
-	bh=Me5QERVwlsG7DT9s02Fuc2SFcWwdDlykFZlBaHyZoZQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QMuBhib7y+ZwnbUfH2tEwssSrvCEQFDbtKLZVTqbRSI6LHABg+X+16bNrDkBpzVfr/Qm5j/OxtlMbSeQCS94e9FG5j3WSjDisryC/7SJii5ohASgWHUSKDAEVIW8jY9lL5RvMRWQmppn3+JopPTBfloyNDdS/+eIc3ZPl6Vnopk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=eGzsUWKO; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1779434735; c=relaxed/simple;
+	bh=DOvrmSPgKlxZCC7RbEphO179i76aYP0QFkgrS/bkgMU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JOP7OLrMdhfJw1CmP5Hw6DYR7cWNiE/dV2Ki1BkoC7T+yTnK9KXaZ/0SDgOc57hcc5UkVjQW0JLb1iM1BlfsmSdM2H0st2dZbzikvN7TpDM6Cca9IFyaY02Oe5ciaYDyNJ0dLGCSlDoIqzBrcv5qIycuCbsacs25kauNTWMiNHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJ0Md6du; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="eGzsUWKO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1779434730; x=1810970730;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Me5QERVwlsG7DT9s02Fuc2SFcWwdDlykFZlBaHyZoZQ=;
-  b=eGzsUWKOqEeCKZq5uAUtCZj+BgaY6/8uhB3oQaYFFDstiGss9S5cYbMe
-   M1oPnt41mOi+s8Mtcjjj46TZ5Ig/KP7dbat6ZMiB70ufJ7U8xJcYjwhpY
-   LGQM+1ZBzoCYBD7xLFd7Q+pnrIj9w+X5DEGvQO4j8zhcMEgqYsOxMo0kj
-   YUDykQPZU/U8KDUQfy7alQbzhcoGwSSvc3nKluBtQFckUGNupKrqROCNE
-   H9q+q84LudujyogT7t6cUJGn5p/sqdKAeRv640JQHLKh7hxe4qLrWfhnU
-   51kxHkk9+1bE6E4TB7+GVbqWNJ6Gm0bllP8LtviqRCwzsscRCxGM2vmtG
-   w==;
-X-CSE-ConnectionGUID: tUmhS4AxTqWFWFOKBEQuGg==
-X-CSE-MsgGUID: cVxBwvSETaew3tD63fdjJw==
-X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; 
-   d="asc'?scan'208";a="225146713"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 22 May 2026 00:25:29 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 22 May 2026 00:25:28 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 22 May 2026 00:25:25 -0700
-Date: Fri, 22 May 2026 08:24:45 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Xukai Wang <kingxukai@zohomail.com>
-CC: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley
-	<paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Conor Dooley <conor@kernel.org>,
-	<linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, Samuel
- Holland <samuel.holland@sifive.com>, Troy Mitchell
-	<TroyMitchell988@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v12 0/3] riscv: canaan: Add support for K230 clock
-Message-ID: <20260522-eligible-vivacious-3ce9bc30dd53@wendy>
-References: <20260425-b4-k230-clk-v12-0-7d5ced1f5da8@zohomail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJ0Md6du"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA79B1F00ADE;
+	Fri, 22 May 2026 07:25:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779434733;
+	bh=NyW+5g7DMTf1Y7Db+/rrVkUDzE+C2206FaaDl7KrUhM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lJ0Md6duQ6sPRrIdwjugw9x6KqXsYx7A/mgn8Cm26WJcFPdIwrNirWmrk2y+oH2DM
+	 nRv7+D4/S2JZp/c0qo9faz1evc/9eej9fLq963ZdIYUufsnOC2pMQ/13L13gggxNR3
+	 EUeXdLQdS+9dclCJuCPVTSNZdvokzosq/nb6I/Qbhnz7JKjibv9yccuJHOmva5JwbO
+	 hnHGt3w/xkw7QAbPEzDy7zNRl5g712M2FLXy235+wnO6t8lFKU3OgxRuwWcftpUw1a
+	 3y3fJbv7Oy3hUuSWHdagmVRVVGStA5jyzIyeiXDnMUfK8/Ng3pFu4cVnUp9xxOYXR5
+	 N56f0BQcFPhvg==
+Date: Fri, 22 May 2026 12:55:15 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+	airlied@gmail.com, simona@ffwll.ch,
+	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>, pgujjula@qti.qualcomm.com
+Subject: Re: [PATCH v6 11/16] media: qcom: Switch to generic PAS TZ APIs
+Message-ID: <ahAE2_Eh-_H7ZtYq@sumit-xelite>
+References: <20260518072856.22790-1-sumit.garg@kernel.org>
+ <20260518072856.22790-12-sumit.garg@kernel.org>
+ <07cdbd20-f0c5-4be5-878a-ef23dc633767@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Z/30xz3oQLOBJj/M"
-Content-Disposition: inline
-In-Reply-To: <20260425-b4-k230-clk-v12-0-7d5ced1f5da8@zohomail.com>
-
---Z/30xz3oQLOBJj/M
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <07cdbd20-f0c5-4be5-878a-ef23dc633767@oss.qualcomm.com>
 
-Hey,
+Hi Vikash,
 
-On Sat, Apr 25, 2026 at 05:29:30PM +0800, Xukai Wang wrote:
-> This patch series adds clock controller support for the Canaan Kendryte
-> K230 SoC. The K230 SoC includes an external 24MHz OSC, 4 internal
-> PLLs and an external pulse input, with the controller managing these
-> sources and their derived clocks.
->=20
-> The clock tree and hardware-specific definition can be found in the
-> vendor's DTS [1],
-> and this series is based on the K230 initial series [2].
->=20
-> Link: https://github.com/ruyisdk/linux-xuantie-kernel/blob/linux-6.6.36/a=
-rch/riscv/boot/dts/canaan/k230_clock_provider.dtsi [1]
-> Link: https://lore.kernel.org/linux-clk/tencent_F76EB8D731C521C18D5D7C4F8=
-229DAA58E08@qq.com/ [2]
->=20
-> Co-developed-by: Troy Mitchell <TroyMitchell988@gmail.com>
-> Signed-off-by: Troy Mitchell <TroyMitchell988@gmail.com>
-> Signed-off-by: Xukai Wang <kingxukai@zohomail.com>
+On Thu, May 21, 2026 at 12:10:41PM +0530, Vikash Garodia wrote:
+> 
+> On 5/18/2026 12:58 PM, Sumit Garg wrote:
+> > diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+> > index 5f408024e967..b3c5281aea91 100644
+> > --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> > +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> > @@ -4,6 +4,7 @@
+> >    */
+> >   #include <linux/firmware.h>
+> > +#include <linux/firmware/qcom/qcom_pas.h>
+> >   #include <linux/firmware/qcom/qcom_scm.h>
+> >   #include <linux/of_address.h>
+> >   #include <linux/of_reserved_mem.h>
+> > @@ -79,7 +80,7 @@ int iris_fw_load(struct iris_core *core)
+> >   		return -ENOMEM;
+> >   	}
+> > -	ret = qcom_scm_pas_auth_and_reset(core->iris_platform_data->pas_id);
+> > +	ret = qcom_pas_auth_and_reset(core->iris_platform_data->pas_id);
+> >   	if (ret)  {
+> >   		dev_err(core->dev, "auth and reset failed: %d\n", ret);
+> >   		return ret;
+> > @@ -93,7 +94,7 @@ int iris_fw_load(struct iris_core *core)
+> >   						     cp_config->cp_nonpixel_size);
+> >   		if (ret) {
+> >   			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
+> > -			qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
+> > +			qcom_pas_shutdown(core->iris_platform_data->pas_id);
+> >   			return ret;
+> >   		}
+> >   	}
+> > @@ -103,10 +104,10 @@ int iris_fw_load(struct iris_core *core)
+> >   int iris_fw_unload(struct iris_core *core)
+> >   {
+> > -	return qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
+> > +	return qcom_pas_shutdown(core->iris_platform_data->pas_id);
+> >   }
+> >   int iris_set_hw_state(struct iris_core *core, bool resume)
+> >   {
+> > -	return qcom_scm_set_remote_state(resume, 0);
+> > +	return qcom_pas_set_remote_state(resume, 0);
+> >   }
+> > diff --git a/drivers/media/platform/qcom/venus/Kconfig b/drivers/media/platform/qcom/venus/Kconfig
+> > index 63ee8c78dc6d..7997b8aa427a 100644
+> > --- a/drivers/media/platform/qcom/venus/Kconfig
+> > +++ b/drivers/media/platform/qcom/venus/Kconfig
+> > @@ -6,6 +6,7 @@ config VIDEO_QCOM_VENUS
+> >   	select OF_DYNAMIC if ARCH_QCOM
+> >   	select QCOM_MDT_LOADER
+> >   	select QCOM_SCM
+> > +	select QCOM_PAS
+> >   	select VIDEOBUF2_DMA_CONTIG
+> >   	select V4L2_MEM2MEM_DEV
+> >   	help
+> > diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
+> > index 1de7436713ed..3a38ff985822 100644
+> > --- a/drivers/media/platform/qcom/venus/firmware.c
+> > +++ b/drivers/media/platform/qcom/venus/firmware.c
+> > @@ -12,6 +12,7 @@
+> >   #include <linux/of_reserved_mem.h>
+> >   #include <linux/platform_device.h>
+> >   #include <linux/of_device.h>
+> > +#include <linux/firmware/qcom/qcom_pas.h>
+> >   #include <linux/firmware/qcom/qcom_scm.h>
+> >   #include <linux/sizes.h>
+> >   #include <linux/soc/qcom/mdt_loader.h>
+> > @@ -58,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
+> >   	int ret;
+> >   	if (core->use_tz) {
+> > -		ret = qcom_scm_set_remote_state(resume, 0);
+> > +		ret = qcom_pas_set_remote_state(resume, 0);
+> >   		if (resume && ret == -EINVAL)
+> >   			ret = 0;
+> >   		return ret;
+> > @@ -218,7 +219,7 @@ int venus_boot(struct venus_core *core)
+> >   	int ret;
+> >   	if (!IS_ENABLED(CONFIG_QCOM_MDT_LOADER) ||
+> > -	    (core->use_tz && !qcom_scm_is_available()))
+> > +	    (core->use_tz && !qcom_pas_is_available()))
+> >   		return -EPROBE_DEFER;
+> >   	ret = of_property_read_string_index(dev->of_node, "firmware-name", 0,
+> > @@ -236,7 +237,7 @@ int venus_boot(struct venus_core *core)
+> >   	core->fw.mem_phys = mem_phys;
+> >   	if (core->use_tz)
+> > -		ret = qcom_scm_pas_auth_and_reset(VENUS_PAS_ID);
+> > +		ret = qcom_pas_auth_and_reset(VENUS_PAS_ID);
+> >   	else
+> >   		ret = venus_boot_no_tz(core, mem_phys, mem_size);
+> > @@ -259,7 +260,7 @@ int venus_boot(struct venus_core *core)
+> >   						     res->cp_nonpixel_start,
+> >   						     res->cp_nonpixel_size);
+> >   		if (ret) {
+> > -			qcom_scm_pas_shutdown(VENUS_PAS_ID);
+> > +			qcom_pas_shutdown(VENUS_PAS_ID);
+> >   			dev_err(dev, "set virtual address ranges fail (%d)\n",
+> >   				ret);
+> >   			return ret;
+> 
+> 
+> API "qcom_scm_mem_protect_video_var() would also need this migration, any
+> reason not to consider that ?
 
-I applied this with the intent of sending a PR to Stephen, but lkp
-reported some problems during randconfigs:
-https://lore.kernel.org/oe-kbuild-all/202605220724.j4ZeM3KI-lkp@intel.com/
-These showed up on microblaze, but I think as they're all from sparse
-you should be able to see them on riscv too.
+This SCM call is very specific to the media subsystem and don't align
+with the generic PAS APIs. I rather think these kind of special SMCs can
+rather be treated as SiP calls supported in TF-A but we have to analyze
+if we even need these SCM calls for the open boot stack or not.
 
-Should all be pretty easy to fix, send a patch and I will squash them
-in.
+However, with OP-TEE there is still work in progress to enable media upstream
+as Jorge posted in earlier versions on this patch-set due to IOMMU dependency.
 
-Cheers,
-Conor.
+> 
+> Could you please check, if any such usage of legacy *scm* APIs, like the one
+> i pointed above, can be enforced to err out at compile time ?
 
---Z/30xz3oQLOBJj/M
-Content-Type: application/pgp-signature; name="signature.asc"
+It will error out at runtime automatically since TF-A doesn't support
+this SCM/SMC call as of now.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahAEugAKCRB4tDGHoIJi
-0uGyAP9agbdCIhax2QTKY8ZBijDMko96YkubUzkb16tpoAg4fQEA6GxWZENh2En2
-j3YHPCeNRSFrYYVr7fEXMxcbud00xQg=
-=FzcN
------END PGP SIGNATURE-----
-
---Z/30xz3oQLOBJj/M--
+-Sumit
