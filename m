@@ -1,77 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B933563C7;
-	Fri, 22 May 2026 18:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF0B313283;
+	Fri, 22 May 2026 18:12:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779473294; cv=none; b=cLY1M+cm6Tqtl632Cy5kk+6OPYSayGpy6jj1aK0JvARTgXWmKatXsx4xzft6mDOeVad0PaiYZroaqLm/cm2PzBPP//GkdUltZIK+adlcF2433M7QdSYXajiivjegkR6Nz9bkkid1RtRatdGVzInw1DbpOn/U9nRzG54VZwA37zE=
+	t=1779473547; cv=none; b=pQiWaLAcOI2xa9ilkggwVK1J+eMHodZfYeHE2e0zBGkvCgjZ9sXukl/kfaG+wxTDDcIGwOFa27974RSZDb0lXshx3C7uOwQb4k2Xz99e7rmoQJ9tSoaIX0NE3hw8CBvwUGM5CiCC+7ZbmWzw8uvRfEgbI2c3fS0YpuhFZ5UyHAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779473294; c=relaxed/simple;
-	bh=D+QlwgyspGCxRrFsO0ZnTGhtWwf3XXksBQG1mD/ntFs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AbnRFkM8CMOnZOIWK9r6UN5Dk+nxeU9Ds+9+1ySzWi/zkUz4igfHZ5m0tCMhb2G6slYVnMM/OEmQVcsOeC4ytty0vXoS7UBH6KBO4v5B/CYEN7SziYIr+gwMHk5+6q03KRNRV/riAD94s7oCJ5JFp6grszJ7dEscgkR20uk8mTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9ViQnfR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779473547; c=relaxed/simple;
+	bh=icOFYfweWR4cZSdfdSqn77825BhGdKLFPkpPZx7TpjU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=buep4BL6YLpdL2H7M/bXm5d7XZJvY2wHGmzfVYEstQZntYAgSgsJWo8Ji1vtv/gQsVdcrf3iFGdjU1kNjjvKd2PG+va9qkogownrv3NyPU0RTT/Dp+ICzR+RgdUpjILbrnp5+x7ZaLN+dYWpz+sxymOduoTkBwvQFqVLTtglaJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=dzRXfq8/; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9ViQnfR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38C21F000E9;
-	Fri, 22 May 2026 18:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779473277;
-	bh=HYE2un0+Wolz9Xbz/PTK0lTQWAFkFE1pz8lK5GQKOns=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P9ViQnfROsULbADXDJLeYrUzNXQJuOoKl8GUvCGqEwJdJD3Pg1StMt9WqyNRYWcv4
-	 GPLN+l+4VDfxU7MUdBj2xwUbhkyodFnOkJ3JybK0Mb96EZChjTokabOu8m7buT7SGQ
-	 qUU6TH4UicB1VAOnrq10n2CLS3Wh4QTW+gx20USneS0mFMxB8sMFTMwZ5fWUjnn5yO
-	 1mdsHa60i03rqbSWuI2A/yDqZy6bJdvFW8O+IOvBc+9iLBuZKtFRVcDj9v9yzlqxc6
-	 8rOeb8LMBPMRmo/M8Mm6DblEOLbXdz0pXA7W/lq6ZAgZtkLvBfrynmWnodGbj9dx+1
-	 8E+jR6w8ZV6ig==
-Date: Fri, 22 May 2026 19:07:46 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v5 11/13] iio: frequency: ad9910: show channel priority
- in debugfs
-Message-ID: <20260522190746.4c802584@jic23-huawei>
-In-Reply-To: <20260517-ad9910-iio-driver-v5-11-31599c88314a@analog.com>
-References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
-	<20260517-ad9910-iio-driver-v5-11-31599c88314a@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="dzRXfq8/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Mfj0bqiwU9UZ/DaM4TVZqwuHk8x0pXX2xh+cE5s1V+I=; b=dzRXfq8/YrF1Yi4wB568ZSCqdo
+	3n8Kva9fbQUVYp5Ryiw+ZwV6/2QPa53TMybIxEQhbDqVVxwCoGp7K+F5CMP+jv9hZG4NOl0glTJVs
+	5xkQ+3KamDiI6whiQ5+3jvboscKzFa3VjnX+j6Nng0EnViz6z7/YoUWtU4IR8QlYjd9mglHEc2IHi
+	6EhNgJbWmoXIrGhXU74k2zQCqp5ooqO6zgvKZsfQnf20Wt8Flblb1fSPIUeoJ1zaaJInd/u2bGTb6
+	vLD3eD4mq1SJlkwCzo2OiN5luTrko2Vm2NthN43bHv9gZK09g36WXFHc5cRK8QRilKbwXo6gxAxiF
+	Fat2Ghsw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Cc: linux-amarula@amarulasolutions.com, michael@amarulasolutions.com,
+ dario.binacchi@amarulasolutions.com,
+ Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: Add Axelera AI
+Date: Fri, 22 May 2026 20:12:16 +0200
+Message-ID: <23231974.Yz81rIOvuz@phil>
+In-Reply-To: <20260522174918.61523-2-patrick.barsanti@amarulasolutions.com>
+References:
+ <20260522174918.61523-1-patrick.barsanti@amarulasolutions.com>
+ <20260522174918.61523-2-patrick.barsanti@amarulasolutions.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Sun, 17 May 2026 19:37:55 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Am Freitag, 22. Mai 2026, 19:49:16 Mitteleurop=C3=A4ische Sommerzeit schrie=
+b Patrick Barsanti:
+> Axelera AI is an EU-based provider of AIPUs for edge AI inference.
+>=20
+> Link: https://axelera.ai/
+> Signed-off-by: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index 28784d66ae7b..595ad9423ece 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -217,6 +217,8 @@ patternProperties:
+>      description: Avnet, Inc.
+>    "^awinic,.*":
+>      description: Shanghai Awinic Technology Co., Ltd.
+> +  "^axelera,.*":
+> +    description: Axelera AI
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Expose frequency_source, phase_source and amplitude_source attributes in
-> debugfs. Those indicate from which channel the specific DDS parameter is
-> being sourced by returning its label. The implementation follows the
-> priority table found in the datasheet.
-> 
+description: Axelera AI B.V.
 
-Examples here would be good.
+Which is the dutch equivalent to a Ltd., so that is the full company name.
+See
+https://axelera.ai/hubfs/Axelera%20T%26C%20Sales%20Feb%202026.pdf?hsLang=3D=
+en
 
-I guess maybe this suffers the same label problem as the parent stuff.
-Same solution?
+>    "^axentia,.*":
+>      description: Axentia Technologies AB
+>    "^axiado,.*":
+>=20
 
 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+
 
