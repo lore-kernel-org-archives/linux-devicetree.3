@@ -1,142 +1,454 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BC628488F
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AA63A2571
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779455719; cv=none; b=HwzfxXsVbVvXAiTjqmX9xN3Ha17aWFnLJ5VhdvI63+QNUV4LdTSHl/9NRdeTJ9E/fPIZZa4b6lbDkRS2FhYs6WB3RNLHDplqr33/l6JGRXB8hvufWJiNzTGde8At/uQPtC1rzh0044wM4W+k4IGpt7MfqmH2SS+KT4B0u1pAzzA=
+	t=1779455760; cv=none; b=DNinNLszy7Xr7L4Zrr9M3qwTrVSLuYTvpPsC3JTtM5z5NOZZ4S378SBiravhdtIpbVYhOMxonASUtEamu8DWssehL0FqiGqdQDrUr3HgBVebQYvrlfZOa2xQz2rOcmGnoBoCUs71xBfsqIrg2ydQJjYVf0o/o7jvctHpMV0xPgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779455719; c=relaxed/simple;
-	bh=eYtBpb/TNeNAeMhhgFvIrzbT7zJxJfNxdMqTQo7WAvU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FYAkpEZaxpfcwqI603WRUrSWbmAA+j3VmdI6m/5A4op8Ug3Ki0CZj6HqpfH3ViDEUWcHCecccdIk65rQUTKsSUetQall2Ut+yvGCO8mnwDJeOgWwSh1WT6rpfkDG5J3chd+lY8B0h9xQdku4Kgrx0tIjzxCt4VFPvPyUmv8AXuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BucKeSkq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779455760; c=relaxed/simple;
+	bh=z7ChXNxbdbUiG8j3fTNDSWzyXBGJAKEVMjlzhEjqplM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=edbCHoOLHX1uCGXp+9kvSy6ABVSYIa5IDRtmgGO3LlITV2BUvUBsABn/ExBS6wZ0706TQ1OvdM6wqTzyql0Bn3DGHLI+UDTFt6VL639jcaEmoY/95NBc+MliOmrJMTFB/1vtGKHbSR/o/U3Z7pKHCy90yG27wVhhFcBlgNHN7fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=iKhe7aJU; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BucKeSkq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4013D1F00A3D;
-	Fri, 22 May 2026 13:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779455717;
-	bh=+d/b9nUsVFt0quqFAPyaZIa0IMqG6+4LHZZFHMp14GI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BucKeSkqxbmVHsavZslmcr+rkUuLJjVXvJxORWwlauHYZzSDgxdjtdkpgat+OdBzi
-	 YCuzI2ZscH/LWqIHhw6Dt0w3mlpS20rc3K+W2kcr8Un4+q3Wy4YbjnHosqP8LFnR4u
-	 rwSm3QkCxYh3tvm3Vb1Zser8EmHYx82G/NRKc0kBNUifOXjatTTU93HE7f87cVOebN
-	 TJrO5eGHyP98AIYK0Cp87lQtzH2XFxkoRxQEQzfyDUYQMzOZ5A/h23p+Xkw13B+zhy
-	 Jz44H7bfMRs7nuW4WIYSPfN8Ucy70EyqYjJoowsUZONlYNTfMawzzIQXIKuv/uN7rc
-	 JMKCtJ1INI+vA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/9] reset: eyeq: Add EyeQ7H compatibles
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QmVub8OudCBNb25pbg==?= <benoit.monin@bootlin.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260522-clk-eyeq7-v7-2-14ad6c2c5213@bootlin.com>
-References: <20260522-clk-eyeq7-v7-2-14ad6c2c5213@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 13:15:16 +0000
-Message-Id: <20260522131517.4013D1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="iKhe7aJU"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-48909558b3aso74269245e9.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:15:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779455757; x=1780060557; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=MkFpVOr+Lx0wVTzOoEfUN24ILFUSzE9dOgFug50AhJs=;
+        b=iKhe7aJUOANS/aqmumMIlQ3ht+x+1YLak3/RWIwnFrcC4jMxoBcZ+351TNh5psko2L
+         YbEoLfHfUDYuD9TwNbs0VqMeCbkkklK19iUBvOxLGko8egg4BIW2evIl3k2v6olyu3Qw
+         WxnEIJdcfEi63wwIOUqMplWrKc8BhLowxjpK1vX2vPaZLM6G3c5MLKkxvqbEZHja3oYr
+         Tj3gWnvtaaOoEbmYArB9ZzLfFrY8qk0AP6aPiVJEs0mar++GeqGS6kZzQwiQF6p0sADy
+         oF/2xcjqZ9/yIkl3QKsBTniJwVF7A21yHM7TZZfsSLd0in4J1SFNhiWId0EjRxjuROU4
+         H7IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779455757; x=1780060557;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MkFpVOr+Lx0wVTzOoEfUN24ILFUSzE9dOgFug50AhJs=;
+        b=RCK3RVOM7iWSvapfLbVBeWWziWVfBfPtGioSqeDx/hfYkYKyjewL0gfYgE6xc3di9U
+         sxT169x0hwu/OF9IJulB3fFEwAipVgCTj7Q6qy6Rg4rY8DHqepHH114Fw13GOndWossS
+         4aKmNgakdGD8vB8cyk48Yyn5i+Oqbk+LjPSAka+dHkF0ULtK02ZkbjxxedpoaPq/V/35
+         jEfIe/eH5YBYCfzTdf2gACUhnQEFJOtKed7P3ZsxEUvAExrmEe+B1/AaQRdszwstE/Wv
+         jWjPo70N9TCpLlhIsS0SnywfN10WuiB2cTgFYOyvegqIqETRmTzC7kq72iXYdjVpbEFY
+         CKpA==
+X-Forwarded-Encrypted: i=1; AFNElJ/9lCwZ/M39Begdt9afgz4H26WjlNvkxSJdek7SttIrOGpjTIqefOWgn+4ImfeVcCtM1R45xi03wYvV@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMTkCsERXZkqW8ePQbzFgoT9gwzeuyhxpkXjgIzdK00uw0wNRB
+	k2jvUelfnVDndRCTHGc+9OGRcG02wTrMtHsos/r0QMeanEIdkF0CkprdmbExPx6Leic=
+X-Gm-Gg: Acq92OGVl1w4yxy6cyFL6N+zM8kRwbLzLM+eNDEt01wYPBmKsJlWMqa3g/rqif68e0l
+	epGnolYstajhp0ns/EaKVy22CZ6tqHirx7FrGaH5K35UF8RW6kI8EP39Bmc+mgnYX3loUsZzbsZ
+	cElunw3yHUHuZmVYfI8ZtUWb09Oi0186+ZdlYx32B6AKOMwHd6k+QENnl3CASQOmo50M/Iel+B6
+	ZOLUjfX14bP8kHJNZeMmY1S+6TwgKp2Uu5gUWfU2bjC5jmVpTxjm0K4xC5zGlmlMw1UrovlW4Ji
+	eQ7SkSXQVNrUOjF4UNlEOBRMMb/BrtseKaKMhZICdiIgHF5t8Gxx7kqAyaeHUb9vyYj3Qo9ffJz
+	wrECYvrvaYedqkYnijqoDc8k+hLLIqaH0/4I7v/jW3aFx1ARubGj2SMbZM2w8xV0Y45ZD/G9G4d
+	Tukgw2LDE0KWUmob4ZRscwxtBb/5fnErsi3Otdh23oqlfeKhGV8SVjRPGoO2Bt8DIDtA==
+X-Received: by 2002:a05:600c:1c0b:b0:488:b187:3c with SMTP id 5b1f17b1804b1-490426aa7acmr55464915e9.14.1779455756776;
+        Fri, 22 May 2026 06:15:56 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4904526ca50sm40087605e9.2.2026.05.22.06.15.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 06:15:56 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Fri, 22 May 2026 15:15:52 +0200
+Subject: [PATCH v2] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add display
+ nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260522-topic-sm8650-ayaneo-pocket-s2-display-dt-v2-1-cdd4b70e5a16@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAAdXEGoC/52RwW7DIBBEfyXi3I0A22D7lP+ocsB4cWhj4wJBt
+ SL/e7FTqT2mPY40ejO7cycBvcVA2sOdeEw2WDdlwV8ORF/UNCDYPmvCKRe05DVEN1sNYaxFRUE
+ takIHs9PvGCFw6G2Yr2qBPkJVNF0nG+wkbUjGzR6N/dyjXs8PHW7dG+q48b8dHj9uuUN82H4q5
+ EbPFQjDWNS0hFqK0uR8nvPbVJHf9zwPW6SsaihozRClYcirNpX/Y3lRlKwBlLwUEnnfUdMmsbE
+ 6FRC0G0cb20OSRwZeM7K96GJDdH7Zx0ls/8jfd0gMGBjDCq4p7akUp6udlHdH5wdyXtf1C0UUT
+ t8EAgAA
+X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-539bb79eb709
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ KancyJoe <kancy2333@outlook.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8361;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=U/wNBp8Mig44h1T6c0HFacZPNVxWCZFNODSr/1lRsYY=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqEFcLHbkULKeqkHv/Z6JJ3okQuiZ01rrMpBula/nX
+ KGINwduJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCahBXCwAKCRB33NvayMhJ0Xw0D/
+ 9/4Xs0WQUBznxZVBdTpgJTWnWFxpFzvzIR7vg4v4l9BaRc42QWhcRRS14ebtCo0yboI/R4V8hjCJpr
+ eCPW8/99jc9Mk0PQpMIdNTLMv7DywZvK7YCswDB1wteAp+CvGYJi8C5dQ020gTcYZNLpvhDzT+048C
+ wYZBB+8fTHZrUsaiu9FUON3JbfBgpIKni4VFVlY9g5ZRcBs8czXCz9oUuJ+A9q6PqIfPL7XHpsp9rN
+ k/M0ZGv35ExlmGSMeF/JFqPzsDXRveVmZsnf3+w6bHdzAc6doIqZMBoo8kACVYXHz3CRfc5Q+CAFEr
+ seiJp5ZsAxtN1d+Ri/a3jfoVJkiCyvv7PZWZjckm7MZ2RnPNkMXZQtMiPHn95CKUsjZq/egPkbsmnf
+ 89tHPrQEWZOB7/6hBPI2NjD63owLCzWmRMUlnmPFE5s5IYodqE2PP+YY5mZV/kwfkIzqHX9uPT7gWW
+ fYpY2qcKSj2DsJNJOrsqHJU4MUufOzb0nwsRDsKkUOu2QDC22ZsqZEA2VvEdDBP9Uap6+Gu6hqmSre
+ l8iwjMAtyLVemF9wOvlZRxqH8gIs4Mc0OaDw103tDB65IVu+qAyq2pCvk3bAXPcVF8g839MIzMzPH1
+ vr1WnlgHATZnCaLKLIPzdEbzUWw6LEq+Zyn4yYSbVmCZksPCDA74W3QZOmFA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `valid_mask` values for several new EyeQ7H reset domains are i=
-ncorrectly calculated based on the total number of items rather than acting=
- as a bitmask of valid hardware offsets, causing valid reset requests to be=
- rejected.
---
+From: KancyJoe <kancy2333@outlook.com>
 
-commit 8189291a57ece537a6cbcca42424bb22f1515514
-Author: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+Add nodes for the dual DSI panel, the SGM3804 regulator, the
+SY7758 backlight controller, the touch controller, and enable
+the GPU to enable full display support.
 
-reset: eyeq: Add EyeQ7H compatibles
+Signed-off-by: KancyJoe <kancy2333@outlook.com>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Depends on follwing bindings, all reviewed:
+- https://lore.kernel.org/all/20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-1-16edddda9951@linaro.org/
+- https://lore.kernel.org/all/20260521-topic-sm8650-ayaneo-pocket-s2-sy7758-v4-1-73c732615e4a@linaro.org/
+- https://lore.kernel.org/all/20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-1-bd6b1c300ecc@linaro.org/
+---
+Changes in v2:
+- Update for bindings changes
+- Remove empty line
+- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-v1-1-ff132c00d076@linaro.org
+---
+ .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      | 241 +++++++++++++++++++++
+ 1 file changed, 241 insertions(+)
 
-This commit adds support for the reset controllers found in the EyeQ7H OLB.
-It introduces three new types of reset domains, defines their respective
-configurations, and updates the wait timings.
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+index 0dc994f4e48d..af890e76813b 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
++++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+@@ -220,6 +220,22 @@ upd720201_vdd33_reg: upd720201-vdd33-regulator {
+ 		pinctrl-names = "default";
+ 	};
+ 
++	sy7758_vdd33_reg: sy7758-vdd33-regulator {
++		compatible = "regulator-fixed";
++
++		regulator-name = "sy7758_vdd33";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++
++		gpios = <&tlmm 163 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		vin-supply = <&vph_pwr>;
++
++		pinctrl-0 = <&sy7758_vdd33>;
++		pinctrl-names = "default";
++	};
++
+ 	sound {
+ 		compatible = "qcom,sm8650-sndcard", "qcom,sm8450-sndcard";
+ 		model = "SM8650-APS2";
+@@ -986,6 +1002,14 @@ gpu7_active: trip-active {
+ 	};
+ };
+ 
++&gpu {
++	status = "okay";
++
++	zap-shader {
++		firmware-name = "qcom/sm8650/ayaneo/ps2/gen70900_zap.mbn";
++	};
++};
++
+ &i2c3 {
+ 	clock-frequency = <100000>;
+ 
+@@ -1016,6 +1040,30 @@ wcd_usbss_sbu_mux: endpoint {
+ 	};
+ };
+ 
++&i2c4 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	touchscreen@5d {
++		compatible = "goodix,gt911";
++		reg = <0x5d>;
++
++		interrupt-parent = <&tlmm>;
++		interrupts = <162 IRQ_TYPE_EDGE_FALLING>;
++
++		reset-gpios = <&tlmm 161 GPIO_ACTIVE_HIGH>;
++		VDDIO-supply = <&vreg_l14b_3p2>;
++		AVDD28-supply = <&vreg_l14b_3p2>;
++
++		touchscreen-size-x = <1440>;
++		touchscreen-size-y = <2560>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&ts_reset_default>, <&ts_irq_default>;
++	};
++};
++
+ &i2c6 {
+ 	clock-frequency = <100000>;
+ 
+@@ -1053,6 +1101,49 @@ redriver_ss_in: endpoint {
+ 	};
+ };
+ 
++&i2c9 {
++	status = "okay";
++
++	/* Screen power */
++	regulator@3e {
++		compatible = "sgmicro,sgm3804";
++		reg = <0x3e>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&sgm3804_default>;
++
++		vin-supply = <&vph_pwr>;
++
++		sgm3804_pos: pos {
++			regulator-name = "panel-avdd-pos";
++			regulator-min-microvolt = <5200000>;
++			regulator-max-microvolt = <5200000>;
++			regulator-active-discharge = <1>;
++			enable-gpios = <&tlmm 59 GPIO_ACTIVE_HIGH>;
++		};
++
++		sgm3804_neg: neg {
++			regulator-name = "panel-avdd-neg";
++			regulator-min-microvolt = <5200000>;
++			regulator-max-microvolt = <5200000>;
++			regulator-active-discharge = <1>;
++			enable-gpios = <&tlmm 58 GPIO_ACTIVE_HIGH>;
++		};
++	};
++
++	/* Backlight */
++	sy7758_backlight: sy7758@2e {
++		compatible = "silergy,sy7758";
++		reg = <0x2e>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&sy7758_default>;
++
++		vddio-supply = <&sy7758_vdd33_reg>;
++		enable-gpios = <&tlmm 164 GPIO_ACTIVE_HIGH>;
++	};
++};
++
+ &iris {
+ 	status = "okay";
+ };
+@@ -1065,6 +1156,93 @@ &mdss {
+ 	status = "okay";
+ };
+ 
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l3i_1p2>;
++
++	qcom,master-dsi;
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++
++	status = "okay";
++
++	panel@0 {
++		status = "okay";
++		compatible = "ayaneo,wt0630-2k", "renesas,r63419";
++		reg = <0>;
++
++		pinctrl-names = "default", "sleep";
++		pinctrl-0 = <&disp0_reset_n_active>;
++		pinctrl-1 = <&disp0_reset_n_suspend>;
++
++		vddio-supply = <&vreg_l12b_1p8>;
++		vdd-supply = <&vreg_l11b_1p2>;
++		vsp-supply = <&sgm3804_pos>;
++		vsn-supply = <&sgm3804_neg>;
++		vci-supply = <&vreg_l13b_3p0>;
++
++		backlight = <&sy7758_backlight>;
++
++		reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++
++		rotation = <90>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				panel0_in_0: endpoint {
++					remote-endpoint = <&mdss_dsi0_out>;
++				};
++			};
++
++			port@1{
++				reg = <1>;
++				panel0_in_1: endpoint {
++					remote-endpoint = <&mdss_dsi1_out>;
++				};
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&panel0_in_0>;
++
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l1i_0p88>;
++
++	status = "okay";
++};
++
++&mdss_dsi1 {
++	vdda-supply = <&vreg_l3i_1p2>;
++
++	assigned-clock-parents = <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
++				 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>;
++
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++
++	status = "okay";
++};
++
++&mdss_dsi1_out {
++	remote-endpoint = <&panel0_in_1>;
++
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi1_phy {
++	vdds-supply = <&vreg_l1i_0p88>;
++
++	status = "okay";
++};
++
+ &mdss_dp0 {
+ 	status = "okay";
+ };
+@@ -1390,6 +1568,20 @@ sw-ctrl-pins {
+ 		};
+ 	};
+ 
++	disp0_reset_n_active: disp0-reset-n-active-state {
++		pins = "gpio133";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
++		pins = "gpio133";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
+ 	fan_pwr_pins: fan-pwr-state {
+ 		pins = "gpio125";
+ 		function = "gpio";
+@@ -1411,6 +1603,20 @@ fan_int: fan-int-state {
+ 		bias-pull-up;
+ 	};
+ 
++	mdp_vsync_active: mdp-vsync-active-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	mdp_vsync_suspend: mdp-vsync-suspend-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
+ 	upd720201_avdd33: upd720201-avdd33-state {
+ 		pins = "gpio123";
+ 		function = "gpio";
+@@ -1440,6 +1646,13 @@ gamepad_pwr_en: gamepad-pwr-en-active-state {
+ 		output-high;
+ 	};
+ 
++	sgm3804_default: sgm3804-default-state {
++		pins = "gpio58", "gpio59";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
+ 	spkr_23_sd_n_active: spkr-23-sd-n-active-state {
+ 		pins = "gpio77";
+ 		function = "gpio";
+@@ -1454,6 +1667,34 @@ spkr_01_sd_n_active: spkr-01-sd-n-active-state {
+ 		bias-disable;
+ 	};
+ 
++	sy7758_default: sy7758-default-state {
++		pins = "gpio164";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	sy7758_vdd33: sy7758-vdd33-state {
++		pins = "gpio163";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	ts_irq_default: ts-irq-active-state {
++		pins = "gpio162";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	ts_reset_default: ts-reset-active-state {
++		pins = "gpio161";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-down;
++	};
++
+ 	wcd_default: wcd-reset-n-active-state {
+ 		pins = "gpio107";
+ 		function = "gpio";
 
-> diff --git a/drivers/reset/reset-eyeq.c b/drivers/reset/reset-eyeq.c
-> index 1a38579838970..381237d50f061 100644
-> --- a/drivers/reset/reset-eyeq.c
-> +++ b/drivers/reset/reset-eyeq.c
-> @@ -73,6 +74,40 @@
->   *  9. PMA0	10. PMA1	11. MPC0	12. MPC1
->   * 13. MPC2	14. MPC3	15. PERIPH
->   *
-> + * Known resets in EyeQ7H acc domain 0 (type EQR_EYEQ7H_ACRP)
-> + *  1. VMP0	2. XVMP1	3. VMP2		4. VMP3
-> + *  5. MPC0	6. MPC1		7. PMA0		8. PMA1
-> + *
-> + * Known resets in EyeQ7H acc domain 1 (type EQR_EYEQ7H_ACC)
-> + *  1. NCORE0	 2. NCORE1	3. NCORE0_M	4. NCORE1_M
-> + *  5. NCORE_NOC 6. VMP_NOC	7. MPC_NOC	8. PMA_NOC
-> + *
-> + * Known resets in EyeQ7H ddr (type EQR_EYEQ7H_CFG)
-> + *  0. APB	2. DMI		3. DFI		4. PHY_SMS
-> + *  5. CTL_SMS
-> + *
-> + * Known resets in EyeQ7H east (type EQR_EYEQ7H_CFG)
-> + *  0. ISP	2. VEU		3. LBIST
-> + *
-> + * Known resets in EyeQ7H periph (type EQR_EYEQ6H_SARCR)
-> + *  0. gpio	1.EXT TIMER	3.UART		4. SPI
-> + *  5. I2C0	6. I2C1		7.I2C2		8. I2S
+---
+base-commit: 5e9b7d093f3f77cb0af4409559e3d139babfb443
+change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-539bb79eb709
+prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-8764fbb72eb7:v5
+prerequisite-patch-id: 901a0948e1afbb03ff78a063d4f66c17665588ef
+prerequisite-patch-id: 5ca959a92d05c86ae7a77400d5c4c9bb8bb214f4
+prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-3081ee7f1e25:v4
+prerequisite-patch-id: eba24fd4013ddf353136a6b77cba84678e60edce
+prerequisite-patch-id: 63b9ea68bb624685fae324bd8db9545f73658e23
+prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f:v6
+prerequisite-patch-id: 53130195c1df5886a953f3eb1ffea6e5b32257ec
+prerequisite-patch-id: 268452dda581581e0126cfd331cf99537544fe65
 
-[ ... ]
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
-> @@ -558,6 +681,113 @@ static const struct eqr_match_data eqr_eyeq6h_acc_d=
-ata =3D {
-
-[ ... ]
-
-> +static const struct eqr_domain_descriptor eqr_eyeq7h_ddr_domains[] =3D {
-> +	{
-> +		.type =3D EQR_EYEQ7H_CFG,
-> +		.valid_mask =3D 0x1F,
-
-[Severity: High]
-Will this valid_mask reject valid reset requests for the CTL_SMS (offset 5)
-reset?=20
-
-The known resets listed above include APB (0), DMI (2), DFI (3), PHY_SMS (4=
-),
-and CTL_SMS (5). Using 0x1F only covers bits 0 through 4, meaning a request
-for offset 5 will fail the bitmask check in eqr_of_xlate_internal() and
-return -EINVAL.
-
-Should this mask be 0x3D instead?
-
-> +		.offset =3D 0x008,
-> +	},
-> +};
-
-[ ... ]
-
-> +static const struct eqr_domain_descriptor eqr_eyeq7h_per_domains[] =3D {
-> +	{
-> +		.type =3D EQR_EYEQ6H_SARCR,
-> +		.valid_mask =3D 0xFF,
-
-[Severity: High]
-Is this mask calculated based on the total number of items rather than acti=
-ng
-as a bitmask of valid hardware offsets?=20
-
-The known resets for the periph domain include I2S at offset 8, but a mask
-of 0xFF only covers bits 0 through 7. This appears to affect several other
-new domains as well (like east and xnn), where the valid_mask value seems
-to be calculated as (1 << num_resets) - 1 rather than setting the specific
-bits that correspond to the valid offsets.
-
-> +		.offset =3D 0x030,
-> +	},
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-clk-eyeq7-=
-v7-0-14ad6c2c5213@bootlin.com?part=3D2
