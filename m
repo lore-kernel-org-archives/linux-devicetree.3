@@ -1,238 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAE0311977
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 18:17:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD1D368D4E
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 18:18:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779473857; cv=none; b=JfsuQBI5HpV5CfEVf0Nh6fToDURN1eH9+GkREFAkvoOxgGquy9O1OE2dbV6767WM2a1yaLBrftQapQd4sN+eRjzI7BMFD+0p0JgV3aRZScHrPo/Ay+GTvNzQsLcaIdUF7+FNzCs9UsKmazbHHbjVpWIlNnzKj8gWMs7CVTGjOvs=
+	t=1779473917; cv=none; b=XUJpszBhCsJ1TEaLKlexiH3O+scLLfwxKXEzTpfoWlEg2GyPiQsdgWkuN7wUBVYYhnFwzjvQDifgoNdBTAMnXCCfcZ65vZWQsUdkjBSGv5BQYrwVArUrQaPNoKpXbZJ+G07kMaTFU3hE90e7aBSnSLxR2yRuUFdeUPBgwjGw3J8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779473857; c=relaxed/simple;
-	bh=MUQwgUPTpQv8KsthgwE8DmVQ4bi8j7D2oI7IkEWswXI=;
+	s=arc-20240116; t=1779473917; c=relaxed/simple;
+	bh=C+lcC/7434Zf74CHz1g5p91ow8+qnSQ46UCk7hFJJCU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Bp8iRAGISOaoOXrLLegFxCSy22fF2A8YN84zr7HOnAuUL46WQlnyOpjITu55cilMxI+6xp08GkKlZ6NuZ2Vxi2Cu3iZ806vtptc1i88z8nkNT6gaQ5D71h9FLyL1xPtavw3xdpCNzn6Ojnn6o/bVXuTBk2CWmHH77MBsgdV0msg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lN/XFfv+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=R8YYqnHpD8w6clhR7LAS6B91+qSTPMWzs4F8gOvk9Hs3uZi/OIXMx2fuKjD/mWYAygxR0UQZ3QCz6zxu8/hkYoD56G6OfBgMDfFx63JxBlpkbTWLiLmr5s23wxh/qP7sKLKI7zEDdsr5b3HKFhsrMtcMI8Y6tlR4gptv+ObeD2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IA+lvNnI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lN/XFfv+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC3C1F000E9;
-	Fri, 22 May 2026 18:17:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IA+lvNnI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56F1C1F000E9;
+	Fri, 22 May 2026 18:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779473856;
-	bh=ZOoYa+0X1MOjxUhh2W500e7o1IJV/x4GYG+ln/8LVz0=;
+	s=k20260515; t=1779473915;
+	bh=Ioe2yeYNCc8hoA2e9DFgnQzYmtKB2scbA3uzQ4Xs6us=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lN/XFfv+ZHbQ3YZoHlt86MVX3JK5vHIvzmeRWpp9aOtCt9WdeTuYq4SSLLtGstFpW
-	 kKVzEX6o/f5Ntx5WYCtb/WuuHFnI1fUPEo+T2D83bFlxQCkW7edPW2j1ah4kUKX26L
-	 zZ0uURkcZ2oM6DZ37CAWT4RUaiT+PBW0prMCs+YQlh8nO7hO5zKMEaUx2/DwLiO3gE
-	 E27HxmGFVzcMw1t1s8tvlsoRUFvp+FuEzI9lE3CP4Ui2W8JwuJfLTDn30IPfAq2h53
-	 mmpRY8f/A0XrTS7278JalZVhVmAyuUuehs++Wv7x+lO5hsy10BqSPwMZJNoyLjMLVW
-	 WU9m1jfIKgfyw==
+	b=IA+lvNnItlhcOYn9kf3L9cSKd77vlQbvguE9FtnikOPZv9zFXOfNk8GS4VqBgJQWO
+	 i9Nx2PTGkLGPtM00Bj00PeVrRe2yB7+ENhLrEbpNMHgNKJxRtPzxGL7dzO3jLOQEl7
+	 LSASvavITAYL3kqvmEScIISZAzEL3+jrA7RMy49uoSaFJppXkUMcf8Wa5N0QB6ejzQ
+	 ZPFioWLbUkUij4yhH4O8sjfF2OD6lwh7Cqv6nK0tokbWJG7kcT8AhXtOnjaxpis1Sq
+	 /71H8Ki6LHSVOQl65MToLWazW7zi1RXjOPdNw0KpkrLy0Cz+AicpHBJfaDmX+ezuEL
+	 tbOrB+KVMdJjw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: add DTS style checker
+Subject: Re: [PATCH v6 04/10] nvmem: Add the Raspberry Pi OTP driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Golle" <daniel@makrotopia.org>
+To: "Gregor Herburger" <gregor.herburger@linutronix.de>
 Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <457f328d4c5d639482fddf40e79be61b97db5814.1779472837.git.daniel@makrotopia.org>
-References: <457f328d4c5d639482fddf40e79be61b97db5814.1779472837.git.daniel@makrotopia.org>
+In-Reply-To: <20260522-rpi-otp-driver-v6-4-b0eac97d1428@linutronix.de>
+References: <20260522-rpi-otp-driver-v6-4-b0eac97d1428@linutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 18:17:35 +0000
-Message-Id: <20260522181735.ACC3C1F000E9@smtp.kernel.org>
+Date: Fri, 22 May 2026 18:18:34 +0000
+Message-Id: <20260522181835.56F1C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Code following a block comment on the same line is completely ig=
-nored, breaking parsing state and nesting depth.
-- [Medium] Multi-line C preprocessor directives (macros) using `\` continua=
-tions are mishandled, corrupting the parsing state and triggering false-pos=
-itive style warnings.
-- [Medium] The unused-labels checker regex matches inside string literals a=
-nd misses labels on nodes starting with digits.
-- [Medium] Syntactic checks operating on `dl.raw` incorrectly process the c=
-ontents of unclosed block comments on `PROPERTY` lines, causing false posit=
-ives.
-- [Medium] The regex for node headers rejects nodes with malformed unit add=
-resses, allowing them to bypass the unit-address format check.
-- [Low] Multiple closing braces on the same line break depth tracking and c=
-ause cascading false positive warnings.
+- [High] Potential FORTIFY_SOURCE out-of-bounds panic in `rpi_otp_read()` d=
+ue to missing short-read validation.
+- [High] `devm`-allocated private data is used-after-free if an external co=
+nsumer holds a reference to the nvmem device after driver unbind.
+- [Medium] Unconditional write support can lead to silent write failures on=
+ read-only OTP regions.
 --
 
-commit 6b49caf90b5c4741b273da5e02e9f53fa30ea1bc
-Author: Daniel Golle <daniel@makrotopia.org>
+commit dcc1b143736646b08c117f369ca02e22f47c7ba5
+Author: Gregor Herburger <gregor.herburger@linutronix.de>
 
-dt-bindings: add DTS style checker
+nvmem: Add the Raspberry Pi OTP driver
 
-Add a Python tool that checks DTS coding style on examples in YAML binding
-files and on .dts/.dtsi/.dtso source files. Rules are kept in a declarative
-registry, tagged as 'relaxed' or 'strict'.
+Raspberry Pis have OTP registers which can be accessed through the
+videocore firmware. Add a nvmem driver to support these OTP registers.
 
-> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> new file mode 100755
-> index 0000000000000..93cb1d7d2985c
+> diff --git a/drivers/nvmem/raspberrypi-otp.c b/drivers/nvmem/raspberrypi-=
+otp.c
+> new file mode 100644
+> index 0000000000000..2e2537ee6793b
 > --- /dev/null
-> +++ b/scripts/dtc/dt-check-style
+> +++ b/drivers/nvmem/raspberrypi-otp.c
+> @@ -0,0 +1,131 @@
 
 [ ... ]
 
-> +re_node_header =3D re.compile(
-> +    r'^(?:([a-zA-Z_][a-zA-Z0-9_]*):\s*)?'
-> +    r'([a-zA-Z0-9][a-zA-Z0-9,._+-]*|/)'
-> +    r'(?:@([0-9a-fA-F,]+))?'
-> +    r'\s*\{$')
-
-[Severity: Medium]
-Will this regex reject nodes with malformed unit addresses, allowing them to
-bypass the unit-address format check?
-
-If the unit address contains characters outside this set, such as the x in
-memory@0x1000, the entire regex match fails and dl.node_addr remains None.
-
-Because check_unit_address_format() skips validation if dl.node_addr is Non=
-e,
-does this allow malformed unit addresses containing 0x to bypass the very
-check designed to flag them?
-
-[ ... ]
-
-> +        if in_block_comment:
-> +            ltype =3D (LineType.COMMENT_END if '*/' in stripped
-> +                     else LineType.COMMENT_BODY)
-> +            if ltype =3D=3D LineType.COMMENT_END:
-> +                in_block_comment =3D False
-> +            dl =3D DtsLine(i, raw, ltype, indent_str, stripped)
-> +            dl.depth =3D depth
-> +            out.append(dl)
-> +            continue
+> +static int rpi_otp_read(void *context, unsigned int offset, void *buf, s=
+ize_t bytes)
+> +{
+> +	struct rpi_otp_priv *priv =3D context;
+> +	struct rpi_otp_header *fwbuf;
+> +	u32 count;
+> +	int ret;
 > +
-> +        if stripped.startswith('/*'):
-> +            if '*/' in stripped:
-> +                ltype =3D LineType.COMMENT
-> +            else:
-> +                in_block_comment =3D True
-> +                ltype =3D LineType.COMMENT_START
-> +            dl =3D DtsLine(i, raw, ltype, indent_str, stripped)
-> +            dl.depth =3D depth
-> +            out.append(dl)
-> +            continue
+> +	count =3D bytes / 4;
+> +
+> +	fwbuf =3D kzalloc(struct_size(fwbuf, data, count), GFP_KERNEL);
+> +	if (!fwbuf)
+> +		return -ENOMEM;
+> +
+> +	fwbuf->start =3D cpu_to_le32(offset / 4);
+> +	fwbuf->count =3D cpu_to_le32(count);
+> +
+> +	ret =3D rpi_firmware_property(priv->fw, priv->read_tag, fwbuf,
+> +				    sizeof(struct rpi_otp_header) + bytes);
+> +	if (ret)
+> +		goto out;
+> +
+> +	memcpy(buf, fwbuf->data, bytes);
 
-[Severity: Medium]
-Does this code skip parsing for any valid DTS code following a block comment
-on the exact same line?
+[Severity: High]
+Can this trigger a FORTIFY_SOURCE out-of-bounds panic?
 
-If a line starts with /* and contains */, or if an open block comment ends =
-on
-the line, the script sets the line type and immediately executes continue.
+The struct rpi_otp_header uses the __counted_by_le(count) attribute for the
+flexible data array. If the firmware returns a short read or encounters an
+error, it updates the count field to the actual number of words returned.
 
-Could this lead to desynchronized nesting depth tracking by ignoring
-constructs like /* ... */ }; or /* ... */ foo =3D <1>;, incorrectly classif=
-ying
-subsequent lines and triggering cascading false positive violations?
+If count is reduced by the firmware, does this memcpy attempt to copy the
+original requested size (bytes), exceeding the dynamically evaluated bounds
+of fwbuf->data?
 
 > +
-> +        if stripped.startswith('//'):
-> +            dl =3D DtsLine(i, raw, LineType.COMMENT, indent_str, strippe=
-d)
-> +            dl.depth =3D depth
-> +            out.append(dl)
-> +            continue
+> +out:
+> +	kfree(fwbuf);
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static int rpi_otp_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct nvmem_device *nvmem;
+> +	struct rpi_otp_priv *priv;
+> +	const struct rpi_otp_driver_data *data;
+> +	struct nvmem_config config =3D {
+> +		.read_only =3D false,
+
+[Severity: Medium]
+Will this allow silent write failures on read-only OTP regions?
+
+If a region (like the device-specific private key OTP) is read-only and
+lacks a valid write_tag in the platform data, write_tag will be 0. When
+rpi_otp_write() sends tag 0 (which corresponds to RPI_FIRMWARE_PROPERTY_END)
+to the firmware, it interprets this as an empty property list and returns
+success without writing any data.
+
+Should the read_only flag be set dynamically based on whether a valid
+write_tag is provided?
+
+> +		.word_size =3D 4,
+> +		.stride =3D 4,
+> +		.reg_read =3D rpi_otp_read,
+> +		.reg_write =3D rpi_otp_write,
+> +		.id =3D NVMEM_DEVID_NONE,
+> +	};
 > +
-> +        if stripped.startswith('#') and is_preprocessor(stripped):
-> +            dl =3D DtsLine(i, raw, LineType.PREPROCESSOR,
-> +                         indent_str, stripped)
-> +            dl.depth =3D depth
-> +            out.append(dl)
-> +            prev_complete =3D True
-> +            continue
+> +	data =3D dev_get_platdata(dev);
+> +	if (!data)
+> +		return -ENODEV;
+> +
+> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->fw =3D dev_get_drvdata(dev->parent);
+> +	priv->read_tag =3D data->read_tag;
+> +	priv->write_tag =3D data->write_tag;
+> +	config.dev =3D dev;
+> +	config.priv =3D priv;
+> +	config.name =3D data->name;
+> +	config.size =3D data->size;
+> +	config.root_only =3D data->root_only;
+> +
+> +	nvmem =3D devm_nvmem_register(dev, &config);
 
-[Severity: Medium]
-Does this logic mishandle multi-line C preprocessor directives using
-backslash continuations?
+[Severity: High]
+Could this lead to a use-after-free if an external consumer holds a
+reference to the nvmem device after the driver unbinds?
 
-If the directive has trailing backslashes to continue macros to subsequent
-lines, the continuation lines do not start with #.
+The driver allocates the priv context using devm_kzalloc() and registers the
+nvmem provider via devm_nvmem_register(). During driver unbind, devres clea=
+ns
+up in reverse order: nvmem_unregister() is called, which drops the internal
+kref, and then the priv memory is freed.
 
-Are these improperly parsed as standard DTS properties or continuations,
-inappropriately applying DTS constraints to internal C code and triggering
-false positives?
+If an in-kernel consumer has acquired the nvmem device (e.g., via
+nvmem_device_get()), the refcount remains greater than zero and the nvmem
+device stays alive after priv is freed. If the consumer subsequently calls a
+read or write operation, will rpi_otp_read() or rpi_otp_write() dereference
+the freed priv pointer?
 
-[ ... ]
-
-> +        if code =3D=3D '};' or code =3D=3D '}':
-> +            depth =3D max(depth - 1, 0)
-> +            dl =3D DtsLine(i, raw, LineType.NODE_CLOSE, indent_str, code)
-> +            dl.depth =3D depth
-> +            out.append(dl)
-> +            prev_complete =3D True
-> +            continue
-
-[Severity: Low]
-Will this fail to decrement nesting depth if a single line contains multiple
-closures?
-
-If code contains }; };, this exact-match condition fails.
-
-Does the line then improperly fall through and get classified as
-LineType.PROPERTY, corrupting depth tracking for subsequent lines and
-incorrectly flagging them for indentation violations?
-
-[ ... ]
-
-> +def collect_labels_and_refs(text):
-> +    """Return (defined_labels, referenced_labels) found anywhere outside
-> +    /* */ comments. Labels named fake_intc* (injected by
-> +    dt-extract-example) are skipped."""
-> +    # Strip block comments first so labels inside them don't count
-> +    stripped =3D re.sub(r'/\*.*?\*/', '', text, flags=3Dre.DOTALL)
-> +    # Strip line comments
-> +    stripped =3D re.sub(r'//[^\n]*', '', stripped)
-> +    defined =3D set()
-> +    referenced =3D set()
-> +    for m in re.finditer(r'(?:^|[\s{])([a-zA-Z_][a-zA-Z0-9_]*):\s*[a-zA-=
-Z/&]',
-> +                         stripped):
-
-[Severity: Medium]
-Does this regex match inside string literals and miss labels on nodes
-starting with digits?
-
-Since string literals are not stripped before searching for labels, words
-followed by colons inside strings like prop =3D "Error: failed"; could be a=
-dded
-to the defined set and flagged as unused.
-
-Additionally, because the regex requires the character following the colon =
-to
-be a letter, /, or &, does it fail to capture labels attached to nodes
-starting with a digit like label: 1wire@10 {?
-
-[ ... ]
-
-> +def _strip_strings_and_comments(text):
-> +    """Remove string literals and /* */ + // comments from a single
-> +    line, replacing them with empty strings. Used so syntactic checks
-> +    (whitespace, hex case, etc.) don't false-positive on contents of
-> +    quoted strings or comments."""
-> +    text =3D re.sub(r'"(?:[^"\\]|\\.)*"', '""', text)
-> +    text =3D re.sub(r'/\*.*?\*/', '', text)
-> +    text =3D re.sub(r'//.*$', '', text)
-> +    return text
-
-[Severity: Medium]
-Will syntactic checks incorrectly process the contents of unclosed block
-comments on PROPERTY lines?
-
-Because the regex only removes block comments that both open and close on t=
-he
-same line, if a line contains an unclosed block comment like
-prop =3D <1>; /* ... 0xABC, the regex fails to match.
-
-Does the comment text remain intact, causing checks like check_hex_case() to
-yield false positive errors for uppercase hex values inside the comment?
+> +	if (IS_ERR(nvmem))
+> +		return dev_err_probe(dev, PTR_ERR(nvmem), "error registering nvmem con=
+fig\n");
+> +
+> +	return 0;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779472837.gi=
-t.daniel@makrotopia.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-rpi-otp-dr=
+iver-v6-0-b0eac97d1428@linutronix.de?part=3D4
