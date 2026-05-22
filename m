@@ -1,189 +1,192 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD1D368D4E
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 18:18:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB8C370D7C;
+	Fri, 22 May 2026 18:20:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779473917; cv=none; b=XUJpszBhCsJ1TEaLKlexiH3O+scLLfwxKXEzTpfoWlEg2GyPiQsdgWkuN7wUBVYYhnFwzjvQDifgoNdBTAMnXCCfcZ65vZWQsUdkjBSGv5BQYrwVArUrQaPNoKpXbZJ+G07kMaTFU3hE90e7aBSnSLxR2yRuUFdeUPBgwjGw3J8=
+	t=1779474054; cv=none; b=ovuN6ooKtcihkjgHbVnelFXJzD7WJikp1ZnfHXfbrt+Lbbtj9Kn7cjsyWs67abMifQfGjBR+rQBQcd/fQ2PyYtEhRceHXyOw+rB6nBd7HqBdE4EegqzcNboSpL2PzgIc9C/my6Q31MMOpgttClWVCGfGwPM+skNyJ5Q4nfQLVjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779473917; c=relaxed/simple;
-	bh=C+lcC/7434Zf74CHz1g5p91ow8+qnSQ46UCk7hFJJCU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R8YYqnHpD8w6clhR7LAS6B91+qSTPMWzs4F8gOvk9Hs3uZi/OIXMx2fuKjD/mWYAygxR0UQZ3QCz6zxu8/hkYoD56G6OfBgMDfFx63JxBlpkbTWLiLmr5s23wxh/qP7sKLKI7zEDdsr5b3HKFhsrMtcMI8Y6tlR4gptv+ObeD2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IA+lvNnI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779474054; c=relaxed/simple;
+	bh=jffPhdDnLRAwzi8PUjK5KYDleGde9jnD2WMvaN6VDPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MrxFL/EKgLMO60yEpBMUYghaTscj5lXLqs0j8OUPZHlK46f3SMFyy/x/A7tZ6UNk+A6HOUfj2C0WKV5sklp98btwmqlOmX5t7S+ib9zrxII/54t/0vOcFWmqgOLKMR4eUla0c6nw3+HjdeXHLhLPk04BUTvmFQaitz0SxNi6ZW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOeLa3/+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IA+lvNnI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56F1C1F000E9;
-	Fri, 22 May 2026 18:18:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOeLa3/+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41DED1F000E9;
+	Fri, 22 May 2026 18:20:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779473915;
-	bh=Ioe2yeYNCc8hoA2e9DFgnQzYmtKB2scbA3uzQ4Xs6us=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IA+lvNnItlhcOYn9kf3L9cSKd77vlQbvguE9FtnikOPZv9zFXOfNk8GS4VqBgJQWO
-	 i9Nx2PTGkLGPtM00Bj00PeVrRe2yB7+ENhLrEbpNMHgNKJxRtPzxGL7dzO3jLOQEl7
-	 LSASvavITAYL3kqvmEScIISZAzEL3+jrA7RMy49uoSaFJppXkUMcf8Wa5N0QB6ejzQ
-	 ZPFioWLbUkUij4yhH4O8sjfF2OD6lwh7Cqv6nK0tokbWJG7kcT8AhXtOnjaxpis1Sq
-	 /71H8Ki6LHSVOQl65MToLWazW7zi1RXjOPdNw0KpkrLy0Cz+AicpHBJfaDmX+ezuEL
-	 tbOrB+KVMdJjw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 04/10] nvmem: Add the Raspberry Pi OTP driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260522-rpi-otp-driver-v6-4-b0eac97d1428@linutronix.de>
-References: <20260522-rpi-otp-driver-v6-4-b0eac97d1428@linutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 18:18:34 +0000
-Message-Id: <20260522181835.56F1C1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779474052;
+	bh=hSU9cBpoTFF2chOzFBP0yrEVoRs+PB2zWOHHQAxyuJs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WOeLa3/+6uhtOB39yRrjL3yn8Whs13tqxJsoEVyKGuTnHRnG2kWK3NXWGxD9uYsbz
+	 ZbnRXI6sx4dlK6X3OaUDESQXaZCC1zSgK9IkIt/mEivWgEQ0tZcOv8fSinLK2LhrSx
+	 xc8sImMQvA7nClnv252vdOgIBGzi7LnWTpvQ0pU+cWDdGjr/1Hsod5hd0P+Gp0DbIE
+	 JGYdrW3EinsLNF4ldrvxC9bUVdolk/H2mHGhwLsnqWTY6N8bZCLKJh3tMQAv5JP5j+
+	 07K0pC+38GgiwV/pRkhpBIfaLCLuVHPAAKOebzgeI0ABI91a+DZRjwnbcgNBTj8tzH
+	 1IEFmZRv5gV9A==
+Date: Fri, 22 May 2026 19:20:40 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v5 12/13] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
+Message-ID: <20260522192040.4e6b11eb@jic23-huawei>
+In-Reply-To: <vqqvn2cgs3fbp5mq6xfac7iyosaqfrvgngqur4x355a3at7slo@ylrtd6fhi33a>
+References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
+	<20260517-ad9910-iio-driver-v5-12-31599c88314a@analog.com>
+	<vqqvn2cgs3fbp5mq6xfac7iyosaqfrvgngqur4x355a3at7slo@ylrtd6fhi33a>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Potential FORTIFY_SOURCE out-of-bounds panic in `rpi_otp_read()` d=
-ue to missing short-read validation.
-- [High] `devm`-allocated private data is used-after-free if an external co=
-nsumer holds a reference to the nvmem device after driver unbind.
-- [Medium] Unconditional write support can lead to silent write failures on=
- read-only OTP regions.
---
+On Wed, 20 May 2026 19:47:25 +0100
+Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
-commit dcc1b143736646b08c117f369ca02e22f47c7ba5
-Author: Gregor Herburger <gregor.herburger@linutronix.de>
+> On 26/05/17 07:37PM, Rodrigo Alencar via B4 Relay wrote:
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add custom ABI documentation file for the DDS AD9910 with sysfs entries to
+> > control Parallel Port, Digital Ramp Generator and OSK parameters.  
+> 
+> ...
+> 
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_offset
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		For a channel that allows frequency control through buffers, this
+> > +		represents the base frequency value in Hz. The actual output frequency
+> > +		is derived from this offset combined with the processed buffer sample
+> > +		value.
+> > +
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_scale
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		For a channel that allows frequency control through buffers, this
+> > +		represents the frequency modulation gain. This value multiplies the
+> > +		buffer input sample value before it is added to a frequency offset.
+> > +
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase_offset
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		For a channel that allows phase control through buffers, this
+> > +		represents the base phase value in radians. The actual output phase	is
+> > +		derived from this offset combined with the processed buffer sample
+> > +		value.
+> > +
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_offset
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		For a channel that allows amplitude control through buffers, this
+> > +		represents the value for a base amplitude scale. The actual output
+> > +		amplitude scale is derived from this offset combined with the processed
+> > +		buffer sample value.
+> > +  
+> 
+> This will become just offset with altcurrent channels. I noticed we have a IIO_PHASE
+> iio_chan_type, could we have a IIO_FREQUENCY too? Parallel port needs actual raw
+> frequency values in that case to be written to the dma buffer.
+> 
+Sure to IIO_FREQUENCY.  I thought we already did but seems not!
+The Phase one is a bit special given it's use in resolvers and distance sensors
+but perhaps it is the right solution here.
 
-nvmem: Add the Raspberry Pi OTP driver
 
-Raspberry Pis have OTP registers which can be accessed through the
-videocore firmware. Add a nvmem driver to support these OTP registers.
+> Then we may have buffer capable channels for the parallel port:
+> 
+> out_altcurrent120
+> 	offset
 
-> diff --git a/drivers/nvmem/raspberrypi-otp.c b/drivers/nvmem/raspberrypi-=
-otp.c
-> new file mode 100644
-> index 0000000000000..2e2537ee6793b
-> --- /dev/null
-> +++ b/drivers/nvmem/raspberrypi-otp.c
-> @@ -0,0 +1,131 @@
+So that's the amplitude envelope control.
 
-[ ... ]
+> out_phase120
+> 	offset
 
-> +static int rpi_otp_read(void *context, unsigned int offset, void *buf, s=
-ize_t bytes)
-> +{
-> +	struct rpi_otp_priv *priv =3D context;
-> +	struct rpi_otp_header *fwbuf;
-> +	u32 count;
-> +	int ret;
-> +
-> +	count =3D bytes / 4;
-> +
-> +	fwbuf =3D kzalloc(struct_size(fwbuf, data, count), GFP_KERNEL);
-> +	if (!fwbuf)
-> +		return -ENOMEM;
-> +
-> +	fwbuf->start =3D cpu_to_le32(offset / 4);
-> +	fwbuf->count =3D cpu_to_le32(count);
-> +
-> +	ret =3D rpi_firmware_property(priv->fw, priv->read_tag, fwbuf,
-> +				    sizeof(struct rpi_otp_header) + bytes);
-> +	if (ret)
-> +		goto out;
-> +
-> +	memcpy(buf, fwbuf->data, bytes);
+So this is the phase adjustment being controlled. 
 
-[Severity: High]
-Can this trigger a FORTIFY_SOURCE out-of-bounds panic?
+> out_frequency120
 
-The struct rpi_otp_header uses the __counted_by_le(count) attribute for the
-flexible data array. If the firmware returns a short read or encounters an
-error, it updates the count field to the actual number of words returned.
+And this is the frequency being controlled.
 
-If count is reduced by the firmware, does this memcpy attempt to copy the
-original requested size (bytes), exceeding the dynamically evaluated bounds
-of fwbuf->data?
+> 	scale
+> 	offset
 
-> +
-> +out:
-> +	kfree(fwbuf);
-> +	return ret;
-> +}
+> 
+> Problem is that the math for the actual frequency output is:
+> 
+> 	f_OUT = f_FTW + (f_RAW * FM)
+> 
+> where f_FTW is a base frequency (already scaled), FM is a
+> modulation gain and f_RAW is the contribution from the parallel
+> port, which is the already scaled:
+> 
+> 	f_RAW = RAW * f_SYSCLK / 2^32
+> 	f_FTW = FTW * f_SYSCLK / 2^32
+> 
+> so the above becomes:
+> 
+> 	f_OUT = (FTW * f_SYSCLK / 2^32) + (RAW * f_SYSCLK / 2^32) * FM
+> 	f_OUT = (FTW/FM + RAW) * f_SYSCLK * FM / 2^32
+> 
+> if I make:
+> 
+> 	SCALE = f_SYSCLK * FM / 2^32
+> 	OFFSET = FTW/FM
+> 	f_OUT = (OFFSET + RAW) * SCALE
+> 
+> That would work for a IIO_FREQUENCY channel type, problem is that both
+> scale and offset would depend on the modulation gain (FM)... I suppose
+> scale should be setting that and offset assumes it is constant to act
+> only on FTW.
 
-[ ... ]
+I'm not that concerned about the coupling - it's a bit of a useability 
+issue I guess as not obvious which should be the fixed one.  Can we do
+cache written values and try and compensate to get a pair that is nearest
+to whatever we try to drive (in either order of setting them?)
+> 
+> I suppose we can keep altcurrent for other modes as phase and frequency
+> can be attributes (knobs) for them. However, in parallel mode we are effectively
+> pushing frequency, phase or amplitude values into the buffer.
 
-> +static int rpi_otp_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct nvmem_device *nvmem;
-> +	struct rpi_otp_priv *priv;
-> +	const struct rpi_otp_driver_data *data;
-> +	struct nvmem_config config =3D {
-> +		.read_only =3D false,
+Given that's the thing we are controlling. My Friday evening tired brain agrees
+that it makes sense to use channel types rather than adjustments on something else.
 
-[Severity: Medium]
-Will this allow silent write failures on read-only OTP regions?
+I'll think some more on this.  We've never had continuous (well digital
+so near continous) control of either phase or frequency before - it's just
+be symbol stuff with a couple of points to set.
 
-If a region (like the device-specific private key OTP) is read-only and
-lacks a valid write_tag in the platform data, write_tag will be 0. When
-rpi_otp_write() sends tag 0 (which corresponds to RPI_FIRMWARE_PROPERTY_END)
-to the firmware, it interprets this as an empty property list and returns
-success without writing any data.
 
-Should the read_only flag be set dynamically based on whether a valid
-write_tag is provided?
+> 
+> The polar destination is a corner case, but can be solved when both
+> phase and altcurrent channels are enabled. When that happens we can
+> change the scan_type with has_ext_scan_type = 1, so the 16-bit data
+> bus is split between the two.
+> 
+For now I'll just nod at that!
 
-> +		.word_size =3D 4,
-> +		.stride =3D 4,
-> +		.reg_read =3D rpi_otp_read,
-> +		.reg_write =3D rpi_otp_write,
-> +		.id =3D NVMEM_DEVID_NONE,
-> +	};
-> +
-> +	data =3D dev_get_platdata(dev);
-> +	if (!data)
-> +		return -ENODEV;
-> +
-> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->fw =3D dev_get_drvdata(dev->parent);
-> +	priv->read_tag =3D data->read_tag;
-> +	priv->write_tag =3D data->write_tag;
-> +	config.dev =3D dev;
-> +	config.priv =3D priv;
-> +	config.name =3D data->name;
-> +	config.size =3D data->size;
-> +	config.root_only =3D data->root_only;
-> +
-> +	nvmem =3D devm_nvmem_register(dev, &config);
+> With the above, all of those *_offset and *_scale custom ABI can be dropped.
+That is definitely attractive :)
 
-[Severity: High]
-Could this lead to a use-after-free if an external consumer holds a
-reference to the nvmem device after the driver unbinds?
+Jonathan 
+> 
 
-The driver allocates the priv context using devm_kzalloc() and registers the
-nvmem provider via devm_nvmem_register(). During driver unbind, devres clea=
-ns
-up in reverse order: nvmem_unregister() is called, which drops the internal
-kref, and then the priv memory is freed.
-
-If an in-kernel consumer has acquired the nvmem device (e.g., via
-nvmem_device_get()), the refcount remains greater than zero and the nvmem
-device stays alive after priv is freed. If the consumer subsequently calls a
-read or write operation, will rpi_otp_read() or rpi_otp_write() dereference
-the freed priv pointer?
-
-> +	if (IS_ERR(nvmem))
-> +		return dev_err_probe(dev, PTR_ERR(nvmem), "error registering nvmem con=
-fig\n");
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-rpi-otp-dr=
-iver-v6-0-b0eac97d1428@linutronix.de?part=3D4
