@@ -1,145 +1,299 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4F931F99B;
-	Fri, 22 May 2026 18:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46FC367B66;
+	Fri, 22 May 2026 18:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779473027; cv=none; b=Tp1NttRKCmKQ5VUa+gm4ZEb7a1T4sxfssSuKLEwitLVJeUKtOweMF8Ar3qSmUKdwN8xJuQdyDU56wBUoCeelmhA7BANSxJRZ2KFe9GpJByu7s5gdq6PgMkqS0amLEfeLZ5zSLF64ulSsFyY0G4C3luGBawR8pAt5k99VZlHLvuI=
+	t=1779473101; cv=none; b=hi8ufp9UVirdTrySArzldLEwIfz3Sw/QGvyezFhx8NrgJGXMDXOFp6n3yVPiSTUakY7RLUr0x2IrD8wNwmg2xTfQ2QnJluHYSrFNdcuXKkZquluf1tw8JhOyBweq+3WDzBP1eE8fK5i1mBDlDFmX8Tq/KPfwMRYsZGcdETuFP4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779473027; c=relaxed/simple;
-	bh=z53a4gqpEk/X3UbyUGH777b17vYlgYy0BODsjW5LmbQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qTVVoniydhSexRprY7927dNo0ILS1fwkTZBiP2OSXkzH29QqTRjQFyP0yC+GttqPy7vJWJF6ZB3EO74yrTbshatWV/Ovyck7fSOpLF22I7PfODHXFFrIZ5VGE95Y2eMkZaPpe0kn4OFGn/Q2knj7X5YKmY5KezXuW7wtvJsWj8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGhe9Fbg; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGhe9Fbg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08121F000E9;
-	Fri, 22 May 2026 18:03:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779473024;
-	bh=U4OSPkWvEDib0ziOqdfG0qmy9Whb9UNfa8I+lAK9N3Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TGhe9FbgbwPImNuvj/lP6aTUOlrHwL1frR9sWUBr3fpCG0IpfqKC/M25+GWRDr3Ax
-	 XeymvsSwv+49kK1+p2avJUTn55sCT44oz/+iud+HOyTFmWX+dyT3xLCR3JswCkobPE
-	 AwxVz8dvEs/yBF2hoU3U28k1aaxaa7dGItVANPj0ONCeMTNWdffxrMRWT7D2nTS7g8
-	 WvkpQBABnXKCUkf720b1lYR0Z+UU6I5gSY0qy1m2oGKL3aFDSHFShAvNFy4J4vXom1
-	 PqcmH2KGVXj3l/LAmBbc1mjvAbGmMkVl1QJWEwrFpSHnNKTwI0lpRGOCPUjE5yWB7e
-	 yZ2oihPhXxEUQ==
-Date: Fri, 22 May 2026 19:03:32 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v5 06/13] iio: frequency: ad9910: initial driver
- implementation
-Message-ID: <20260522190332.1f4affba@jic23-huawei>
-In-Reply-To: <20260517-ad9910-iio-driver-v5-6-31599c88314a@analog.com>
-References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
-	<20260517-ad9910-iio-driver-v5-6-31599c88314a@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1779473101; c=relaxed/simple;
+	bh=ZNPNnmdTmcXx9k6u5BDKVQ2XCygxOrLU+ZqaUd8cphc=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=gFse9nL8iuMHA+ulhl94L2uBQpHL9ZJ7zvLS2wt///4ppzQxID/mIbcIM7wsrUSgtZrqkY0whzdrnmmL4aLVj1nmTMmVg0faTfc5GpqAW2Siwy3lAA21lLCf6bG02GNVOGKswcV2XwISQezeeGBfc3I1zN6I6e3ysp1VGHMysvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	 (Exim 4.99)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1wQUEg-000000006xH-3TEA;
+	Fri, 22 May 2026 18:04:38 +0000
+Date: Fri, 22 May 2026 19:04:34 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Guenter Roeck <linux@roeck-us.net>, Test User <test@example.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org
+Subject: [PATCH v4 0/3] dt-bindings: automated coding style check for DTS
+ examples
+Message-ID: <cover.1779472837.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sun, 17 May 2026 19:37:50 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Documentation/devicetree/bindings/dts-coding-style.rst documents
+the style expected of DT examples and source files, but nothing
+existing actually enforces it. dtc tolerates arbitrary whitespace,
+yamllint only sees the YAML envelope and not the DTS content
+inside literal block scalars, and so reviewers spend cycles
+flagging issues that tooling could catch.
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Add the core AD9910 DDS driver infrastructure with single tone mode
-> support. This includes SPI register access, profile management via GPIO
-> pins, PLL/DAC configuration from firmware properties, and single tone
-> frequency/phase/amplitude control through IIO attributes.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Hi Rodrigo
+Add scripts/dtc/dt-check-style, a Python tool that checks DTS
+coding style on YAML binding examples and on .dts/.dtsi/.dtso
+source files. Rules live in a small declarative registry; each
+rule is tagged 'relaxed' (default) or 'strict' (opt-in for new
+submissions). Promoting a rule from strict to relaxed is a
+one-line edit once the tree catches up.
 
-A couple of potential nice to haves.
+Relaxed mode covers trailing whitespace, tab characters in YAML
+examples, mixed tab+space indents, and the per-input-type indent
+character (1 tab for .dts/.dtsi/.dtso). It is zero-violation on
+the current tree and runs as part of dt_binding_check_one, so no
+new warnings appear in `make dt_binding_check`.
 
-Jonathan
+Strict mode adds indent unit and depth consistency; blank-line
+policy (no consecutive blanks or blanks at body edges; required
+blank line before each child node and before "status"); property
+ordering by canonical bucket (compatible, reg/reg-names, ranges,
+standard, vendor, status) with declarative within-bucket pairing
+rules (<x>-names follows <x>, pinctrl-names follows the last
+pinctrl-N) and natural-sort fallback; sibling node ordering by
+unit address or natural-sort name; line length (80 columns);
+continuation alignment of multi-line property values under the
+first '<' or '"' after the '='; lowercase hex literals and unit
+addresses; no whitespace padding inside <...>; closing-brace
+placement; and unused-label detection (skipped for .dtsi/.dtso
+since labels there are exported to includers/applies-to).
+Together these constrain a DT structure to a single canonical
+rendering modulo the author's choice of when to wrap properties
+for readability. Comments are intentionally out of scope. Strict
+mode is opt-in, intended for use by checkpatch.pl in a follow-up
+series.
 
+The tool reads file paths from @argfile and parallelises across
+CPUs via -j N. With no -j given it picks up $PARALLELISM (set by
+scripts/jobserver-exec from the GNU make jobserver) and falls
+back to os.cpu_count() otherwise. Running as one Python
+invocation amortises the ruamel.yaml import across the whole
+tree -- ~2s on a 32-CPU host vs ~28s sequential. ruamel.yaml is
+the only non-stdlib dependency, already required by dtschema.
 
-> +
-> +static int ad9910_parse_fw(struct ad9910_state *st)
-> +{
-> +	static const char * const refclk_out_drv0[] = {
-> +		"disabled", "low", "medium", "high",
-> +	};
-> +	struct device *dev = &st->spi->dev;
-> +	u32 tmp[2];
-> +	int ret;
-> +
-> +	st->data.pll_enabled = device_property_read_bool(dev, "adi,pll-enable");
-> +	if (st->data.pll_enabled) {
-> +		tmp[0] = AD9910_ICP_MIN_uA;
-> +		device_property_read_u32(dev, "adi,charge-pump-current-microamp", &tmp[0]);
-Might be a good idea to move to the pattern that seems to be becoming
-the preferred way to do this and do
-		if (device_property_present()) {
-			ret = device_property_read_u32()...
-...
-		} else {
-			...
-		}
+A selftest under scripts/dtc/dt-style-selftest/ pairs good/ and
+bad/ fixtures with expected output so rule behaviour can be
+exercised independently of the full tree via the
+dt_style_selftest top-level make target.
+---
+v1: https://lore.kernel.org/all/cover.1776700167.git.daniel@makrotopia.org/
+v2: https://lore.kernel.org/all/cover.1777471439.git.daniel@makrotopia.org/
+v3: https://lore.kernel.org/all/cover.1778454442.git.daniel@makrotopia.org/
 
-That is slightly nicer ad picks up malformed DT.  I know I was the advocate for
-the set a default and don't check ret but I'm learning!
+Changes since v3:
+ - dt-check-style: accept node and property names that begin
+   with a digit (the DT spec permits names like 1wire@10)
+ - dt-check-style: strip trailing // and /* */ comments before
+   line classification, so a trailing comment on a node-open or
+   property line no longer causes misclassification
+ - dt-check-style: continuation-alignment compares display
+   columns (tabs expanded to 8) instead of raw string length,
+   removing many false positives on tab-indented .dts files
+ - dt-check-style: value-whitespace flags only whitespace directly
+   inside the brackets (after '<', before '>'), on single- and
+   multi-line cell lists; it no longer flags inter-value spacing,
+   which is often deliberate column alignment
+ - Makefile: build the @argfile with mktemp and remove it, so no
+   stale .tmp_.dt-style.checked is left in the build tree
+ - run.sh: drop bash-only process substitution (POSIX sh now)
+   and check the checker's exit status
+ - selftest: add fixtures for the above (digit-leading nodes,
+   trailing comments, multi-line cell arrays, tab+space aligned
+   continuations) and update yaml-value-ws for the reworked
+   value-whitespace rule
 
+Changes since v2:
+ - route findings to stderr so a quiet dt_binding_check produces
+   no output (Rob)
+ - switch the Makefile recipe from mktemp to Kbuild's
+   $(tmp-target) so build output stays inside the build folder
+   (Nathan)
+ - collapse the recipe's exit-handling tail into the familiar
+   "&& touch $@ || true" pattern, matching cmd_chk_bindings;
+   keeps future warnings non-fatal (Rob, Nathan)
+ - explain in patch 2/3 why the recipe uses an explicit
+   $(PYTHON3) prefix where the neighbouring recipes call their
+   scripts directly (Rob)
+ - append a trailing newline to every expected/*.txt selftest
+   fixture (Rob)
+ - restore the trailing whitespace inside yaml-trailing-ws.yaml
+   that had been silently stripped during re-application, so the
+   selftest actually exercises the trailing-whitespace rule
 
-> +		if (tmp[0] < AD9910_ICP_MIN_uA || tmp[0] > AD9910_ICP_MAX_uA)
-> +			return dev_err_probe(dev, -ERANGE,
-> +					     "invalid charge pump current %u\n", tmp[0]);
-> +		st->data.pll_charge_pump_current = tmp[0];
-> +
-> +		ret = device_property_match_property_string(dev,
-> +							    "adi,refclk-out-drive-strength",
-> +							    refclk_out_drv0,
-> +							    ARRAY_SIZE(refclk_out_drv0));
-> +		if (ret < 0)
-Similarly good to know if failure to match actually means wasn't there or not.
+Changes since v1:
+ - rules declared in a registry tagged relaxed/strict; default
+   relaxed mode is zero-violation on the current tree
+ - tool now also accepts .dts/.dtsi/.dtso files directly (with a
+   tab-indent variant); unused-labels skipped for .dtsi/.dtso
+   where labels are exported to includers/applies-to
+ - renamed dt-check-example-style -> dt-check-style
+ - added -j N with $PARALLELISM (jobserver) awareness
+ - dropped node-name [a-z0-9-] check (Rob: better as a meta-schema)
+ - property-order rebuilt around buckets + declarative pairing
+   rules plus natural-sort fallback
+ - added child-name-order, required-blank-lines, hex-case,
+   unit-address-format, value-whitespace, node-close-alone,
+   line-length and continuation-alignment to strict mode
+ - new selftest patch (Krzysztof: "would be happy to see at
+   least a few test cases for it")
 
-> +			st->data.refclk_out_drv = AD9910_REFCLK_OUT_DRV_DISABLED;
-> +		else
-> +			st->data.refclk_out_drv = ret;
-> +	}
-> +
-> +	tmp[1] = AD9910_DAC_IOUT_DEFAULT_uA;
-And similar again.
+Default relaxed mode is zero-violation on the current tree.
 
-> +	device_property_read_u32_array(dev, "output-range-microamp", tmp,
-> +				       ARRAY_SIZE(tmp));
-> +	if (tmp[1] < AD9910_DAC_IOUT_MIN_uA || tmp[1] > AD9910_DAC_IOUT_MAX_uA)
-> +		return dev_err_probe(dev, -ERANGE,
-> +				     "Invalid DAC output current %u uA\n", tmp[1]);
-> +	st->data.dac_output_current = tmp[1];
-> +
-> +	return 0;
-> +}
+Strict-mode violation counts on a current tree (5506 YAML
+bindings, 6530 in-tree .dts/.dtsi/.dtso under arch/):
 
+  rule                     yaml      dts
+  property-order          14554   245000
+  continuation-alignment   1857    93536
+  indent-consistent        1562    48720
+  required-blank-lines     1876    48563
+  line-length               105    26322
+  child-name-order          667    16821
+  mixed-indent-chars          0    13294
+  unused-labels            3611    11628
+  child-address-order        63     4076
+  blank-lines                82     1866
+  node-close-alone           38      774
+  value-whitespace           38      715
+  hex-case                   78      669
+  indent-unit-dts            --      190
+  unit-address-format         5       39
+  trailing-whitespace         0       10
+  indent-unit-strict       1492       --
+  indent-unit               179       --
 
-> +static const struct spi_device_id ad9910_id[] = {
-> +	{ "ad9910" },
+(YAML and DTS columns reflect the rules that apply to each input
+type; e.g. indent-unit-strict is YAML-only since .dts files use
+tabs, indent-unit-dts is the equivalent DTS-only check.
+unused-labels is skipped for .dtsi/.dtso since labels there are
+exported to includers/applies-to.)
 
-Request to simplify what Uwe is busy doing (assuming he'll get to spi
-at somepoint). Please use a named initializer like we always do for
-of_device_id.
+The script was written with generous help from Claude Opus 4.7,
+since my Python is even worse than my DTS coding style.
 
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(spi, ad9910_id);
+Daniel Golle (3):
+  dt-bindings: add DTS style checker
+  dt-bindings: wire style checker into dt_binding_check
+  dt-bindings: add self-test fixtures for style checker
 
+ Documentation/devicetree/bindings/Makefile    |   19 +-
+ Makefile                                      |    6 +
+ scripts/dtc/dt-check-style                    | 1120 +++++++++++++++++
+ .../dtc/dt-style-selftest/bad/dts-spaces.dts  |   13 +
+ .../bad/yaml-child-addr-order.yaml            |   41 +
+ .../bad/yaml-child-name-order.yaml            |   37 +
+ .../bad/yaml-cont-align.yaml                  |   30 +
+ .../bad/yaml-digit-node-order.yaml            |   37 +
+ .../dt-style-selftest/bad/yaml-hex-case.yaml  |   29 +
+ .../bad/yaml-indent-strict.yaml               |   29 +
+ .../bad/yaml-line-length.yaml                 |   29 +
+ .../bad/yaml-mixed-indent.yaml                |   29 +
+ .../bad/yaml-node-close.yaml                  |   31 +
+ .../bad/yaml-prop-order.yaml                  |   29 +
+ .../bad/yaml-prop-pairing.yaml                |   33 +
+ .../bad/yaml-required-blank.yaml              |   33 +
+ .../dtc/dt-style-selftest/bad/yaml-tab.yaml   |   29 +
+ .../bad/yaml-trailing-comment.yaml            |   26 +
+ .../bad/yaml-trailing-ws.yaml                 |   29 +
+ .../dt-style-selftest/bad/yaml-unit-addr.yaml |   29 +
+ .../bad/yaml-unused-label.yaml                |   29 +
+ .../bad/yaml-value-ws-multiline.yaml          |   27 +
+ .../dt-style-selftest/bad/yaml-value-ws.yaml  |   29 +
+ .../expected/dts-spaces.dts.txt               |    2 +
+ .../expected/yaml-child-addr-order.yaml.txt   |    2 +
+ .../expected/yaml-child-name-order.yaml.txt   |    2 +
+ .../expected/yaml-cont-align.yaml.txt         |    2 +
+ .../expected/yaml-digit-node-order.yaml.txt   |    2 +
+ .../expected/yaml-hex-case.yaml.txt           |    2 +
+ .../expected/yaml-indent-strict.yaml.txt      |    2 +
+ .../expected/yaml-line-length.yaml.txt        |    2 +
+ .../expected/yaml-mixed-indent.yaml.txt       |    3 +
+ .../expected/yaml-node-close.yaml.txt         |    2 +
+ .../expected/yaml-prop-order.yaml.txt         |    2 +
+ .../expected/yaml-prop-pairing.yaml.txt       |    3 +
+ .../expected/yaml-required-blank.yaml.txt     |    3 +
+ .../expected/yaml-tab.yaml.txt                |    2 +
+ .../expected/yaml-trailing-comment.yaml.txt   |    2 +
+ .../expected/yaml-trailing-ws.yaml.txt        |    2 +
+ .../expected/yaml-unit-addr.yaml.txt          |    2 +
+ .../expected/yaml-unused-label.yaml.txt       |    2 +
+ .../expected/yaml-value-ws-multiline.yaml.txt |    2 +
+ .../expected/yaml-value-ws.yaml.txt           |    2 +
+ .../dt-style-selftest/good/dts-cont-align.dts |   27 +
+ .../dtc/dt-style-selftest/good/dts-tab.dts    |   30 +
+ .../dt-style-selftest/good/yaml-4space.yaml   |   41 +
+ scripts/dtc/dt-style-selftest/run.sh          |   71 ++
+ 47 files changed, 1953 insertions(+), 2 deletions(-)
+ create mode 100755 scripts/dtc/dt-check-style
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-spaces.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-digit-node-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-trailing-comment.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-value-ws-multiline.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-spaces.dts.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-child-addr-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-child-name-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-digit-node-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-indent-strict.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-line-length.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-node-close.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-prop-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-prop-pairing.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-required-blank.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-tab.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-trailing-comment.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unit-addr.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unused-label.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-value-ws.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/good/dts-tab.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/good/yaml-4space.yaml
+ create mode 100755 scripts/dtc/dt-style-selftest/run.sh
+
+-- 
+2.54.0
