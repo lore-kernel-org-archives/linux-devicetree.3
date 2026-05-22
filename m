@@ -1,150 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0753FA5DA;
-	Fri, 22 May 2026 13:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686B940244F
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:43:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779457124; cv=none; b=Yh3S3KoS6sEbzjiJts/T6ZG1j4Uw6bz17aK04wTMvcMi11ZDBCZesghrpciJyWfKxFfvTF3t8YvHwrKgq7cFN8SJzUQjL/DvKcssTtyZM9TLkPoiI9H3l7yk0N116E5eY6NGRe+xfn+sXZo8vwsVFh7bL/2RRrs7V2AEkuUSMiE=
+	t=1779457410; cv=none; b=PONDLVKb6EiBSViLMLjwvugOfx2aSh3+r/QG/5DjbUt3dHgbvhUVwWcwHQAFtlhM9sp25MiRXInp5WPmkGcYJ6u9vb1FntLOEoFwFETqL13nrMNY1OPap3uG8tRDaH+Eq6KCduB1ZiyhF8Dxu9UuVIxxfPpxCldyp7EVkIBFG6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779457124; c=relaxed/simple;
-	bh=VTIq37iy9DUOokRQnz3PLEP+l6B+THmSP5B+u2rjDgM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rn7aI0UqVsymVvuFR4Nj+ErXbsTsQ3jLz0tucwDjCiZqW7z53qNUma3QSgHtBwUk1sJYXTuRqGwQzeRz2OCpx0p6Axb3tAx27yP5ZkSHO0TKPdN75sjVPx1LFCWcZG70KX67uSqE9/vw7IbyL7T4/6l0cS+HvPwMXqDvfBJy62Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipeDJUhq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipeDJUhq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACCAB1F000E9;
-	Fri, 22 May 2026 13:38:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779457120;
-	bh=2sEt+pfVTqi62XRpqK9+If4oDJrLR/RRwahq5GJ1eB4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ipeDJUhqXzLNXV3/kjrZjDcIBrdBMJrwhEHGT2yPJuyIrzQGmgeY0+FCUspfdVakj
-	 tKtadiizz3RYaUAl/qxmetY8aUqVwRKhcKNnc1UI81X9WPjCQRGX6uGy833WAmoo/v
-	 pNs2OGjecBi4w8XzEExuumnilUumrLyq9oDY2pxIVNPb3cpXP7UZ/fukc76kkcUo0P
-	 mg2BrZCa+bsYI8JnwmJqXAVkVk/Fh+gS7rXE2XYI9rK2/aMGjNny/SRXRLUZoUk2zU
-	 052gpvCVoi3e4HmokXZA8wMezUzWEmpRXkWs489liV+CIW+dh1/Jh3ozRFoy42sjMZ
-	 GV2/wMk0o5l7w==
-Date: Fri, 22 May 2026 14:38:27 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, "Sa,
- Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v12 5/6] iio: adc: ad4691: add oversampling support
-Message-ID: <20260522143827.013a985c@jic23-huawei>
-In-Reply-To: <LV9PR03MB8414E63DA5C2C22A46E98215F70F2@LV9PR03MB8414.namprd03.prod.outlook.com>
-References: <20260519-ad4692-multichannel-sar-adc-driver-v12-0-5b335162aa51@analog.com>
-	<20260519-ad4692-multichannel-sar-adc-driver-v12-5-5b335162aa51@analog.com>
-	<LV9PR03MB8414CA3DB26235605C9323E5F70E2@LV9PR03MB8414.namprd03.prod.outlook.com>
-	<20260522121628.21bf03f9@jic23-huawei>
-	<LV9PR03MB8414E63DA5C2C22A46E98215F70F2@LV9PR03MB8414.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1779457410; c=relaxed/simple;
+	bh=HEs2rq79YCoAiEGVJOXZDcuuCnNnzEJW3mYI9DGQ2fM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Lx3bv/IzEtZwODyYx4xHVb/zDA5mfXrYfAc2fzzkI02IuzGumGUAT9GOxmICP2pZnecfXbPRRdzfNO0iwXbbjTxq//Q1xCZ8EF7BjpmLtFljsz6paAn4vIzSk5QytJKkMZyN4XKh+XOnGkdHhummEc3CZXncKupNblSC0hvQwNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-956849ae1efso1948826241.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:43:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779457405; x=1780062205;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uWzbSNX3RGbee5XiT1xV4dZKM9nwjUk9YQDs6iPG2rk=;
+        b=DDEdm9L6h2QIRYs1N/Q8F+vZTr3iK7ep5zi/vgVZ9lj4+xLVc/2e/CPyQoJUD4qowz
+         40hIw9yR9XP+lFUU/t4oKCSGhWxT7lDfN2UgabCz6IUV0DGefmvZ168fGJFtX7EW1K4C
+         V4i6+saPj2qv8sMpklPti0VJnnI2+lHSfQtV+Ag+y7GYwU60lajssqP1i69GlDTf6kJJ
+         Tblb+haS9m1+N+FAud/zSpqwAcoOtXgxf8h49leM9j1CxIm7lkuKoCdEhV0w6pmAtabu
+         kXn6vOSn7HCWPBs9jsaXdkw/ak3jSm6sN+v8qd+YQ4e44RoU1Pig3i5Su4ui5HaoW4io
+         Ootw==
+X-Forwarded-Encrypted: i=1; AFNElJ/Az9KoOHKAe9BIjXzXdS40twJGkiw7dDvunvQB5BTTICkC4CLmEnvpsERKC/gkOMeOr2dn00bGPvMt@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqS57QqPDBbV+cyx4J0V5Av7bEEzYDivsyaiFTQ2H8Rbr2wLoP
+	O8CWEgomT9brUe7VOB23+k6OwmsPjBRZBCramdM3NFBt6yt1Y6SZpoyObhT1hI/FbkA=
+X-Gm-Gg: Acq92OH9C+7Qo3RrgU3cXUibaltaqoLbrGhY70M7Mba/M5G8TekSy12mudLFgbmxZdJ
+	goCz/YW+aMFEFSFPD6UVi6tRJ/GGLTN7pnet70JlP0zEJ6ebIMSmVqIVmVAbdhym6y9euFXH0Sm
+	RGJvW2/wls1j1GvSeVZNU+lEwnueKR4F+9NLAKs5+2X62nX5LgegoFzRFcvHMM8TEi5wLvt6Waz
+	yCUnnAH8I5g5k8FEpFSE/hFz/4nVC4ImbWh2wFQz1LRQxtVH57D0m53VPOGBXnHmt6o3b5f9iYL
+	NBq/ZJZR6lNlSrU/RSG/CvDx56iRpsDuoekoZWznk579nODOAWMoFvln47nIDL2Qb+MvZM9duqV
+	VYmHupEPwTqwSRM5o38gob73KIiE9U8WrJkvXsSBbUT2qHXjp5TPPBZkx8q8xrmjJkac+Fb5rsl
+	uKpvoddwLQfBF9qQZC7PpedU7c7kcp3b0Vtx0JbGQomskFOHate/IvOYhOa0zpGUFB
+X-Received: by 2002:a05:6102:3fa4:b0:634:16ce:aa3b with SMTP id ada2fe7eead31-67c7d976b13mr1692922137.15.1779457404660;
+        Fri, 22 May 2026 06:43:24 -0700 (PDT)
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com. [209.85.221.172])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9617383b1a2sm1597404241.4.2026.05.22.06.43.22
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 May 2026 06:43:22 -0700 (PDT)
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5751b7d147aso2760752e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 06:43:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9pWDYZ7hEMu1UG4YuP4gyrEcbnPEBlLaXHljLC2zVk3wxc8PR7YVlxYvuV0o2XKtuvkQ2lnQx5/5Jr@vger.kernel.org
+X-Received: by 2002:a05:6122:ca1:b0:575:3b34:28b6 with SMTP id
+ 71dfb90a1353d-586624cee61mr1849670e0c.11.1779457402270; Fri, 22 May 2026
+ 06:43:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260410163530.383818-9-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260410163530.383818-9-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 22 May 2026 15:43:11 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVEbmX0QqVQE7YhnCO325=2djd5S=ynr8DZnspKKK7WoQ@mail.gmail.com>
+X-Gm-Features: AVHnY4KCEtGxHGei_0qihwJrEjH83nV_Z2btTPs2i2CQslPWM7eGYi7MBkb4Nkc
+Message-ID: <CAMuHMdVEbmX0QqVQE7YhnCO325=2djd5S=ynr8DZnspKKK7WoQ@mail.gmail.com>
+Subject: Re: [PATCH v2 08/10] arm64: dts: renesas: r9a07g0{43,44,54}: remove
+ TCIU8 interrupt from MTU3
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 22 May 2026 11:38:55 +0000
-"Sabau, Radu bogdan" <Radu.Sabau@analog.com> wrote:
+On Fri, 10 Apr 2026 at 18:37, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> The TCIU8 interrupt used to be documented in earlier revisions of the
+> user manuals, but has since been removed. The corresponding entry is now
+> marked as reserved in the interrupt mapping tables of all supported
+> SoCs.
+>
+>  * Page 486, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/G2UL
+>    Rev.1.40 User Manual
+>  * Page 363, Table 8.2 Interrupt Mapping (6/13) in the Renesas RZ/Five
+>    Rev.1.30 User Manual
+>  * Page 528, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/G2L
+>    and RZ/G2LC Rev.1.50 User Manual
+>  * Page 540, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/V2L
+>    Rev.1.50 User Manual
+>
+> Remove the TCIU8 interrupt. This does not cause any breakage as the
+> driver does not make use of the interrupts.
+>
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> ---
+>
+> V2:
+>  * reword to mention that TCIU8 used to exist
 
-> > -----Original Message-----
-> > From: Jonathan Cameron <jic23@kernel.org>
-> > Sent: Friday, May 22, 2026 2:16 PM  
-> 
-> ...
-> 
-> > > >
-> > > > +	iio_for_each_active_channel(indio_dev, bit) {
-> > > > +		ret = regmap_write(st->regmap,
-> > > > AD4691_ACC_DEPTH_IN(bit), st->osr[bit]);  
-> > >
-> > > Unfortunately enough, I think a v13 will come, too...
-> > >
-> > > Had a look again on what Sashiko had to say, and seeing the sampling  
-> > frequency  
-> > > shared_by_all comment again made me have a deeper look see how the  
-> > code could  
-> > > be commented so he wouldn't complain about this anymore, and...
-> > >
-> > > Perhaps he is a bit right after all. I found a section stating that in standard
-> > > sequencer mode (which the driver uses right now), all the channels actually  
-> > use  
-> > > the ACC_DEPTH_IN0 for osr, and so changing ACC_DEPTH_INn for other  
-> > channels  
-> > > doesn't really do much. And so I tested this selecting both voltage0 and  
-> > voltage1  
-> > > for sampling with osr4 for voltage0 and osr1 for voltage1 and with a 100kHz  
-> > osc freq  
-> > > indeed DR fell after approximately 80us which points out both channels were  
-> > actually  
-> > > using OSR of 4. Perhaps the OSR should be shared by all and therefore the
-> > > sampling frequency would also be shared by all, right?  
-> > 
-> > I kind of lost track on the modes. What are the chances we later move to or
-> > add
-> > support for a mode where the different OSRs do matter?  If that's a possibility
-> > we should avoid ABI change by allowing for it from the start.
-> > 
-> > Then if we are in this mode, they'll have separate controls but change any,
-> > changes
-> > them all, if we are in a different mode that connection breaks.
-> > If that's the case, just throw in a comment saying something to the effect this
-> > may change.
-> > 
-> > It's not wrong ABI to do this, it's just less intuitive for users which is why
-> > we prefer the shared_by stuff where there isn't a disadvantage.  That is at
-> > most
-> > a hint to what actually happens.   A simple example is where different
-> > channels have one OSR field but they aren't the same - i.e. channel 1 is twice
-> > the OSR of channel 2.  Hence we can't share the attribute but any change
-> > effects
-> > both.
-> >   
-> 
-> Hi Jonathan,
-> 
-> I don't think a mode where different OSR will matter will be added in the future. Better
-> yet, this advanced sequencer functionality is not really mode dependent and is actually
-> something that allows you to manually rearrange channels and samples in the
-> sequence, and unless this functionality is active (it is not by default nor is it used by
-> the driver, since we use the standard sequencer).
-> 
-> Personally, I don't see any reason to have this advanced sequencer stuff implemented
-> since DR is only falling at the end of the sequence no matter if it is standard config or not,
-> the only "disadvantage" to say so is that the standard sequencer uses the same OSR field
-> for all channels. But that advanced sequencer stuff would only complicate the buffer
-> enable/disable functions even more, which I don't think it's worth the effort.
-> 
-> So, with this in mind. Letting the driver use standard sequencer would ultimately mean
-> that the osr would be the same for all the channels, and then effective rate the same for
-> all channels, which I suggest having it like that from initial driver patch to the end, so no
-> ABI change mid-patch series. This change will simplify the driver.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-Ok.  Thanks for the analysis.  It may well be that those fancy sequencer things are
-only really useful for very specific use cases we won't see in Linux.
+Gr{oetje,eeting}s,
 
-So I'm fine with following the simple path!
+                        Geert
 
-Jonathan
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> 
-> Radu
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
