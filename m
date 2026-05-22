@@ -1,137 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC29025A359;
-	Fri, 22 May 2026 21:37:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9058338C2DE
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 21:40:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779485869; cv=none; b=YEvNYGAW0HmLdcHPQxIKQgVHjztrDxOcZUdmWFgvt3ZGttbPQvb3zRg13SnLaFZi3CWsr5YrhAPJHgsJsQ8aHEXoYc1OYSWbIx+G8D1bOadPLi/pLm+4F4bbIgqg9DHtv4Gvws1JvyTkY5nningKiV5M7nqqgRtkvGJXJTSCStk=
+	t=1779486047; cv=none; b=qIyHhhIhVRD9Fxcu8IGR8eYujMc9Bm8qXD+iGQ3iN4MmPDyDPKzbNZbTQG2K+v4hM6GMfJG6ODb30Mj5uatwpKFbZgvNEwwUqBou1s37Wa/B/V87XJn3MOK8FyXT4jo/KVWwQKY3jJMzKRuotsSt7NTgo+wKJKh04srzSFEG8So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779485869; c=relaxed/simple;
-	bh=Irdpboga0e94lwhHZfmTpX7EMC+HzUaMewhmh6K9zP8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZAjghX2zOec8cm7H9C+YXKVfFHEB1Ms535YJuKrI1Ju/FJ9+hgA70wqRBvyB2tf2gn/sRYi8hnl2HsxnSsyANGfRPJ5biVNlsKDEIpj1mFNRYJrY95aeHdbZUQdUhNvtNZeKET61AshRQ5TL4IWO3CsaJeOjrr2FcnBocp0LGTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bfU8jLI2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779486047; c=relaxed/simple;
+	bh=8wKLZ4dW+ofUyQGcOay+FmIJqotgeUkzz9x0NhWsWow=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cBtS++0t+SVem9XwnlhoTAYNWtEEnGYTmwk8S6+dYa32cQ/eDMOpzDzcv93t15rn11nqdzBVkqW3r61xYiePLQijyCBvK6KnS8J8S+UCzOs5FQWI81+W5l+yXp3MI59wWGtBmZpWtknPRE3ms9Q8aNFP5G8naGtTj3CMQxcBrLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jc6KYzpY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bfU8jLI2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D4D1F000E9;
-	Fri, 22 May 2026 21:37:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jc6KYzpY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C9DB1F000E9;
+	Fri, 22 May 2026 21:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779485868;
-	bh=rKySuRH7zxmKCkRj+vsH6WLK86VeQbARbGCmHU+Y/HI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bfU8jLI2yGgJ3S8yrF4rdgC5styfISFtbqUQutRoKEdI6SnhOTpvbwhLfdrndcTsa
-	 +bfIF8AAU0aOQ4Pk7SAfasWZTu0J//QGjMm+0Mw0YB8p+UO2PdO/mFGahGimEqKJx7
-	 Z19tzRTKvAefScpofcsg1goggwxVwonn1DOpcfBm403OGjEXxzigt7hy09yItg4y48
-	 5grJVQcaY3fJpC6I4rsmmJvQbAlGt1Uklz7Fetg1MQaBskuPcKc8A7PcW7oPRBM1me
-	 bGrkadhxfZ3g74ZO1eRP4pDSPL0UVo+Kxr6iwZlwoHdZU8lWjEELBA1iIEi+M+to9C
-	 jiIjbyCsEraBw==
-Message-ID: <b5dc7f51-b71c-46b1-823b-76f02d325acb@kernel.org>
-Date: Fri, 22 May 2026 22:37:44 +0100
+	s=k20260515; t=1779486046;
+	bh=ds0IYkPzSg1nBTXJNna2XwjaE7+PcrNPLid9wXbNYCo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Jc6KYzpYeTVB3inD8eBfZFmTnzoRdKZ+5t25uiZwih0h1oS+BxKJ9W8fb142EyomJ
+	 bwsYLFRiWXFRJx51GFJwdiccuyRPLgifR2XgVqGvFRLvDRVtP7IJD92flwNBp7ST7u
+	 6cJECj1OB0lcSJnZHmfZTDt7iVf5I0+HGefjlaaBENN5RVIDCAyysOf89oThM9s4QC
+	 2ltZ5yZYRaxjf7hN+xWtUD+LakfG5C4TiIo28Nz/pvD0aLgo7GGLycdHaEtTWui7Np
+	 1AALYSDf/bzpHEzKSwdr0j0ShZTzi2uYG51IrDLAB0gwxcpbZCetnaWZIoYd+wi4gR
+	 /cdfiD7hM2UXQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/8] media: dt-bindings: add rockchip rk3588 vicap
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michael Riesch via B4 Relay" <devnull+michael.riesch.collabora.com@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260522-rk3588-vicap-v5-2-d1d1f5265c56@collabora.com>
+References: <20260522-rk3588-vicap-v5-2-d1d1f5265c56@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 May 2026 21:40:45 +0000
+Message-Id: <20260522214046.0C9DB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: linux-kernel@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-References: <20260522-x1e-csi2-phy-v7-0-79cb1280fad6@linaro.org>
- <20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org>
- <svzHygggdG4PSd3qFMz0chRKqXNkhZwTvHoC3_oynq8e5HYOEn-_EHLnXm1w959nIDz9GaLZG9MgXqAJPNhWSA==@protonmail.internalid>
- <177946855028.3571140.11988520251406266072.robh@kernel.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <177946855028.3571140.11988520251406266072.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 22/05/2026 17:49, Rob Herring (Arm) wrote:
-> 
-> On Fri, 22 May 2026 15:45:09 +0100, Bryan O'Donoghue wrote:
->> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
->> PHY devices.
->>
->> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
->>
->> The schema here defines three ports:
->>
->> port@0:
->>      The first input port where a sensor is always required.
->>
->> port@1:
->>      A second optional input port which if present implies DPHY split-mode.
->>
->> port@2:
->>      A third always required output port which connects to the controller.
->>
->> The CSIPHY devices have their own pinouts on the SoC as well as their own
->> individual voltage rails.
->>
->> The need to model voltage rails on a per-PHY basis leads us to define
->> CSIPHY devices as individual nodes.
->>
->> Two nice outcomes in terms of schema and DT arise from this change.
->>
->> 1. The ability to define on a per-PHY basis voltage rails.
->> 2. The ability to require those voltage.
->>
->> We have had a complete bodge upstream for this where a single set of
->> voltage rail for all CSIPHYs has been buried inside of CAMSS.
->>
->> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
->> CAMSS parlance, the CSIPHY devices should be individually modelled.
->>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->> ---
->>   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 208 +++++++++++++++++++++
->>   1 file changed, 208 insertions(+)
->>
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@0: Missing additionalProperties/unevaluatedProperties constraint
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@1: Missing additionalProperties/unevaluatedProperties constraint
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@2: Missing additionalProperties/unevaluatedProperties constraint
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.example.dtb: csiphy@ace4000 (qcom,x1e80100-csi2-phy): ports:port@2:endpoint: Unevaluated properties are not allowed ('clock-lanes', 'data-lanes' were unexpected)
-> 	from schema $id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml
-Frustratingly
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing `minItems` constraint for `reset-names` in the RK3588 condi=
+tional block.
+--
 
-dtbs_do_check2 phy/qcom,x1e80100-mipi-csi2-combo-phy.yaml 
-qcom/x1e80100-crd.dtb
+commit 63f5bfe4a138b18bc1581d3e98d7e6a10fe7ef3e
+Author: Michael Riesch <michael.riesch@collabora.com>
 
-dtbs_do_check2 () {
+media: dt-bindings: add rockchip rk3588 vicap
 
-echo "checking " $1 " and " $2
-make dtbs_check ARCH=$ARCH CROSS_COMPILE=$CROSS_COMPILE O=$BUILDDIR 
-DT_DOC_CHECKER=$DT_DOC_CHECKER DT_EXTRACT_EX=$DT_EXTRACT_EX 
-DT_MK_SCHEMA=$DT_MK_SCHEMA DT_SCHEMA_FILES=$1 CHECK_DTBS=y $2
-make dt_binding_check O=$BUILDDIR DT_CHECKER_FLAGS=-m 
-DT_DOC_CHECKER=$DT_DOC_CHECKER DT_EXTRACT_EX=$DT_EXTRACT_EX 
-DT_MK_SCHEMA=$DT_MK_SCHEMA DT_SCHEMA_FILES=$1 CHECK_DTBS=y $2
+This commit adds documentation for the Rockchip RK3588 Video Capture (VICAP)
+unit. It generalizes the existing rockchip,rk3568-vicap documentation and
+introduces variant-specific constraints.
 
-}
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-vica=
+p.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
+> --- a/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
+> +++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
+[ ... ]
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: rockchip,rk3588-vicap
+> +    then:
+> +      properties:
+[ ... ]
+> +        resets:
+> +          minItems: 9
+> +
+> +        reset-names:
+> +          items:
+> +            - const: arst
+> +            - const: hrst
+> +            - const: drst
+> +            - const: irst0
+> +            - const: irst1
+> +            - const: irst2
+> +            - const: irst3
+> +            - const: irst4
+> +            - const: irst5
 
-Neither my script nor the Makefile throw an error when the yaml name 
-doesn't exist i.e. when it changes.
+[Severity: Low]
+Does this schema correctly enforce the length of the reset-names array for =
+the
+rk3588-vicap variant?
 
-I really did run the checker - just for a file that doesn't exist.
+Since the global reset-names definition allows a minimum of 5 items, omitti=
+ng
+minItems: 9 here means a device tree could provide exactly 9 resets but only
+5 reset-names and still pass validation. Should this include minItems: 9 to
+match the resets property?
 
-Feels like a bug I should blame on AI enslopification but, it was me..
-
-meh
-
----
-bod
-phy/qcom,x1e80100-mipi-csi2-combo-phy.yaml
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-rk3588-vic=
+ap-v5-0-d1d1f5265c56@collabora.com?part=3D2
