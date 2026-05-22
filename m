@@ -1,138 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5D43A5437
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:03:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA90E175A7F;
+	Fri, 22 May 2026 11:03:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779447784; cv=none; b=sZjraKm8YF8Pb4vzqnSQfZOwtjuxEviPgUYVu6xG0ntb9A85MrsHkVB6OuwqSBc67kwxFg3aFGZ19LFWxPAYeyua0GPo+EBVghIMUnffZHueamaOkcj/TX0Zh3mg1QFiGiCEQQ6bgjQGT1AQVG84Md/8TGJT7x8gBrqlAC0uGqg=
+	t=1779447795; cv=none; b=D0nZ4y+LLfLZ4FaLh2UHfBIG6Bf3M3xmFSYgKm9fHajLn+JfYBMPmy4ub4ir3yvdyyElTTXq2a+5rbnfJDiOkyNa9qqwG7FwZb+fIz3lyWs/zOPsFsUpPSpA8j3QhhyivIRi4fP2DmV9gpheVn3iI7Z4GLVMc+edcLDeix/jM3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779447784; c=relaxed/simple;
-	bh=DfN8+09UabOnYzIpO6Ab816j+oDNKqH9vaYRSoa5cdk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=e+1wcObDdz0iKyklv/QeAcdU7Y8nMH4ILAPpvNU2AuOJGePH3XUzJwmarWKzmuQZcodqqNg8CnaoDvexJlcXO9I202HIz+6eHBZYsXWHIQa7pJ7jRsDZsttG9dzemndVlXUSA9Belm3RvcAT8v2hOl16VmP+XAMjl87aQrtZQa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiqYAZAY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779447795; c=relaxed/simple;
+	bh=24cwm/LMEuRRjpUCMxidyV4AyiCiAvLkAZvwgHqqN5E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bw3j7kcLI3J0qBjO7RbNXJd/sV2y239IWsq1EDBJXvqnoiTnEXhBlYbG6P89n3itu2A2FjDk4zKBXj8z5A4KfZ+eDG9Vi2hRO870RlyFOqkboS7oGfvp/SX8JvLklUoaVn+oTfC82kZE2zRyf3afeSy0CFaPIf+g8IvIfJrXgV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UR4rFFXb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiqYAZAY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349421F000E9;
-	Fri, 22 May 2026 11:03:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UR4rFFXb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D571F000E9;
+	Fri, 22 May 2026 11:03:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779447782;
-	bh=lhLzgcq+6/uuu5Ab3mBzHYnTRcMxG6Zi2kDCejYbYNg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XiqYAZAY0D81mseyt7KwqZeuCBw/6VwEm0kDjBujd4lgpX/gBicPaWmY6S5vZp2U6
-	 1VoTTyrH1a7gxV4lOUcAoZaoI/ZR6TL3ftRzWGZbuHDTnjzLJj62H3kPBBwet1NxBP
-	 LKiRyzJk2VOAh6CfWMidX5HUXDZV3CBLSJBCM92PgIpb4PuSp0yzHOuWMuQ2d+HMcu
-	 0BzyqS4fhPXXqNARu4Q3s4PypLFHGa+q21zpA15FbUveVWxHU/iBQRA2iQUN4dg7pu
-	 5LS7Qw11Qerc5MQbLXbmE+XLiu41NQ1KInW7dVLKUvPcaNGEVlGdOHvAPzs2EXcVgo
-	 nuhahds8iclsg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] ASoC: rockchip: rockchip_pdm: Reorder clock enable
- sequence
-Reply-To: sashiko-reviews@lists.linux.dev
-To: phucduc.bui@gmail.com
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260522100318.73474-4-phucduc.bui@gmail.com>
-References: <20260522100318.73474-4-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 11:03:01 +0000
-Message-Id: <20260522110302.349421F000E9@smtp.kernel.org>
+	s=k20260515; t=1779447794;
+	bh=qUFF5ajgpRg7PC+PBQEWYm4jqDFigm0nO8dOuyilSZg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UR4rFFXb74EigSXTgN2/BlIynHtQfOcjRTuswIoeXnhw73uFF1jtTl0ZIO5K5uy3K
+	 UKWxqMy3/t0KczDxujQ2QCLp4Z10vL1JGyUdm9PFBMhrvVHiQYzmxNZmcUximhpRQ/
+	 QFhXMiw8w3DW9TtCon84R5YODCgH9ZrPcTSRumrx+JsR0srzI6mojX95Nm3qYwmJ2W
+	 Y+kWhNpAPSQXDSyF0D4qhTF7ZK5Usn7zYzIX4XNAkZFWItkWTTKdiSAwZGRekXC9eq
+	 XQkRGeCusvUoQXVVPYxl1JkuFFh2Yy8yACfkAGfbbEyTxTibOxygjKEtMuig5qKQ9i
+	 LnnHU83bFq0LA==
+Message-ID: <fecce3a2-5c45-4e30-ad1b-2173b697960d@kernel.org>
+Date: Fri, 22 May 2026 13:03:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] PCI: qcom: Add Support for Eliza
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi
+ <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260521-eliza-v1-0-97cdbe88389d@oss.qualcomm.com>
+ <20260521-eliza-v1-3-97cdbe88389d@oss.qualcomm.com>
+ <20260522-discerning-sympathetic-moth-daa9e7@quoll>
+ <5593d136-569e-4ba9-9a2f-e635125899aa@oss.qualcomm.com>
+ <c751f5f9-f9c2-4575-a029-0be4148e1aee@kernel.org>
+ <t6wljnlnz77dvthbohlr7v4qlhsqzvykhcm6evmtnvkgtqk34w@o7sl6nq5lkbi>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <t6wljnlnz77dvthbohlr7v4qlhsqzvykhcm6evmtnvkgtqk34w@o7sl6nq5lkbi>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 22/05/2026 12:48, Manivannan Sadhasivam wrote:
+> On Fri, May 22, 2026 at 11:34:30AM +0200, Krzysztof Kozlowski wrote:
+>> On 22/05/2026 11:31, Krishna Chaitanya Chundru wrote:
+>>>
+>>>
+>>> On 5/22/2026 12:21 PM, Krzysztof Kozlowski wrote:
+>>>> On Thu, May 21, 2026 at 07:35:31PM +0530, Krishna Chaitanya Chundru wrote:
+>>>>> Add support for Eliza soc, which has two PCIe controllers capable
+>>>>> of 8GT/s X1 and 8GT/s X2, using the cfg_1_9_0 configuration.
+>>>>>
+>>>>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+>>>>> ---
+>>>>>  drivers/pci/controller/dwc/pcie-qcom.c | 1 +
+>>>>>  1 file changed, 1 insertion(+)
+>>>>>
+>>>>> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+>>>>> index af6bf5cce65b..40f0a5f247eb 100644
+>>>>> --- a/drivers/pci/controller/dwc/pcie-qcom.c
+>>>>> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
+>>>>> @@ -2123,6 +2123,7 @@ static int qcom_pcie_resume_noirq(struct device *dev)
+>>>>>  static const struct of_device_id qcom_pcie_match[] = {
+>>>>>  	{ .compatible = "qcom,pcie-apq8064", .data = &cfg_2_1_0 },
+>>>>>  	{ .compatible = "qcom,pcie-apq8084", .data = &cfg_1_0_0 },
+>>>>> +	{ .compatible = "qcom,pcie-eliza", .data = &cfg_1_9_0 },
+>>>> So compatible with sm8550. Why isn't this explained in commit msg of
+>>>> the binding?
+>>> No, PCIe controller is not compatible with sm8550, we are just re using the boot
+>>> sequence used by the sm8550.
+>>
+>> Then with what it is compatible? You cannot use someone else's match
+>> data and claim they are not compatible. This is contradictory to itself.
+>>
+> 
+> 'cfg_1_9_0' is the match data of base PCIe IP v1.9.0, not just SM8550. The 'ops'
+> callbacks for 'cfg_1_9_0' are compatible with PCIe IPs used in many SoCs such as
+> SM8550, SM8450, SM8350, SM8250, SM8150, SDX55, SC8180X, and SC7280. And Eliza is
+> also falling into the same category.
+> 
+And if all implementations uses the same SW interface, why are you
+claiming these are not compatible?
 
-Pre-existing issues:
-- [High] Unchecked return value of `pm_runtime_get_sync()` in `rockchip_pdm=
-_set_fmt()` can lead to hardware access while suspended.
-- [High] Manual disable of hardware clocks and PM runtime before devm teard=
-own can cause bus faults.
---
+I don't care with which device this is compatible, BTW. I do care about
+incomplete or incorrect hardware description.
 
-commit 8f19ac4b34f49c4a08218121167b705580c4469a
-Author: bui duc phuc <phucduc.bui@gmail.com>
-
-ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
-
-Enable the 'hclk' bus clock before the 'clk' controller clock during runtime
-resume. The bus clock provides the register access interface and should be
-enabled before the controller clock.
-
-> diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockc=
-hip_pdm.c
-> index c69cdd6f24994..8f78f7bc1806c 100644
-> --- a/sound/soc/rockchip/rockchip_pdm.c
-> +++ b/sound/soc/rockchip/rockchip_pdm.c
-
-[ ... ]
-
-While reviewing this patch, I noticed a couple of pre-existing issues in the
-same file:
-
-sound/soc/rockchip/rockchip_pdm.c:rockchip_pdm_set_fmt() {
-...
-	pm_runtime_get_sync(cpu_dai->dev);
-	regmap_update_bits(pdm->regmap, PDM_CLK_CTRL, mask, val);
-	pm_runtime_put(cpu_dai->dev);
-...
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it safe to ignore the
-return value of pm_runtime_get_sync() here?
-
-If the runtime resume fails (for example, if clock enablement or power
-domain restoration fails), the function ignores the negative error code
-and proceeds to call regmap_update_bits().
-
-Accessing hardware registers when the hardware is powered down or unclocked
-can lead to a synchronous external abort (bus fault) and a kernel panic.
-
-Should pm_runtime_resume_and_get() be used instead, and the error handled?
-
-
-sound/soc/rockchip/rockchip_pdm.c:rockchip_pdm_remove() {
-...
-static void rockchip_pdm_remove(struct platform_device *pdev)
-{
-	struct rk_pdm_dev *pdm =3D dev_get_drvdata(&pdev->dev);
-
-	pm_runtime_disable(&pdev->dev);
-	if (!pm_runtime_status_suspended(&pdev->dev))
-		rockchip_pdm_runtime_suspend(&pdev->dev);
-
-	clk_disable_unprepare(pdm->clk);
-	clk_disable_unprepare(pdm->hclk);
-}
-...
-}
-
-[Severity: High]
-This is a pre-existing issue, but can manually disabling the clocks and PM
-runtime before the devm teardown cause bus faults?
-
-The driver registers the ASoC component using
-devm_snd_soc_register_component() in rockchip_pdm_probe(), which defers
-unregistration until after the remove() callback returns.
-
-If the device is unbound via sysfs while an audio stream is active, ALSA
-will attempt to tear down the stream during the deferred devres
-unregistration. This triggers operations like
-rockchip_pdm_trigger(SNDRV_PCM_TRIGGER_STOP), which writes to the
-hardware registers.
-
-Since the clocks and power domains were already forcibly disabled in
-remove(), this could result in a bus fault and kernel panic.
-
-Should the driver use devm_pm_runtime_enable() with a devres action for
-clock disable, or unregister the component manually before turning off
-resources?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522100318.7347=
-4-1-phucduc.bui@gmail.com?part=3D3
+Best regards,
+Krzysztof
