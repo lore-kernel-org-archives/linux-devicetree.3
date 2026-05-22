@@ -1,563 +1,130 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591D13BED61;
-	Fri, 22 May 2026 10:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779444229; cv=pass; b=cm5ZijiuW/6c1wsqAp8YMO4YspWXX8z2CBX8BAuM9Uslz9hyhibNggYSr/UBnKccnOatsQp9ypdkK64Oi7k8aP2ZV+Id0OCUMiLYjENKxDwrmpB7L5Lc6SxGVji2hbrtHvMMg+YpP3rSL3hPDPzaB4o14KUn89lIlAJT2SUKSjM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779444229; c=relaxed/simple;
-	bh=Yw9YUQA7pVpNQjSfuXusHfQSL1VejURZ+2sb9guhPmQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l4AOnI3GfTlW6UoavsXpXMzPqtG6DEManNqAKRMoZ7iIBnFFVWVpBUL/SoGAELbKCJ/Ol1oQuZdv1UDzEqIm+8f86h7u3qlyed1gMvFbE5FqTWz0JDmAe5SwXbE+ieON5BSgU/nnuivjURn6EuM6swJqj8wCLaoozBvluHFE++M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=BJ/A4Qmz; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39E73CAA25
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779444235; cv=none; b=SgVFS9zd4rdUHZrL1MQSiyuBhqicPGMiq497yDdsJA8hFJJHZNXuhdgqYygNEHyp6/RHQTDsuV+FScMBf8/oBBS2FAMfSOGYFQSNn/Yn9Fywfdhd6hKXBgNoxM1hRQMFwbqCVgtoAVLBHdCnD5Hj753XdOuxbUMa8iy5mm3LHHg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779444235; c=relaxed/simple;
+	bh=wlWvomiauZ7B2iJ3h1A1PnZrGVNV+2V7Wo95ZMBDObc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CH2do5gGdlHrQX25EHYx+WG2cYYj7rf5tZyotwxHl/eZDQIAZ2FUJhODxmxAamGJH8kboIS08LsDU8dsQEbb5nTspJJJEDlLk3DeaaD39hXMgX/vWhQb/7tLsIDMfeHIm0PK95r8JRIFzpjvjdXNP9vAdLWQDIDlSqLfgt655xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YjDYoiKO; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="BJ/A4Qmz"
-ARC-Seal: i=1; a=rsa-sha256; t=1779444203; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=VTuZYipm2OkZeYmnCpDO8R8BpAgXbuHjR5TAySwBzI4/5wsvzjBo26YoZezSx8FsrDZ/KjKm4QhJznIuxxIkxOVVCdy4uiRPhcwv7zbI+JJb2p4WR4tK0JyiTS7dNuNsJW/cwmqGz4y5ozJYM52p2dxcOLHUQrdrhyO10XvCM6E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779444203; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=lyqJrCmGAAosuxjv6S/6xd5p/yfJMPtNKb+f4MDsXF4=; 
-	b=T5+v+DX6NPwInKxOfcbJoZnFP+SA1P2+tOc5ht5k7xB/u48DtfvrUcm0T3XhF0DUyMqXy2jAlTqHaccSUzr8F5Q472Q2RlqMUT6cPpm6cyegE/Yur7I1LEk2/RekO2+GRvCWspEJi2H9ip0EW8orC2O5zwJFbF0FlRgKS60tMos=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779444203;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=lyqJrCmGAAosuxjv6S/6xd5p/yfJMPtNKb+f4MDsXF4=;
-	b=BJ/A4QmzwzY9hwTViylS594wybxcgsoRZh80mLwt/oXJg9lJJBcXcesBL95xbO0T
-	9InTicnJlERg5v8PwW7jdWo25cJPuYQyIGisVJkRNgfgHtbmNWJS0uKYeLNIrqK1VSM
-	HnmW27O/7BYN/j+Dnz5cJCQLoIpB5a4xFFqOMfl0=
-Received: by mx.zohomail.com with SMTPS id 1779444201563581.2811556012123;
-	Fri, 22 May 2026 03:03:21 -0700 (PDT)
-From: Junhui Liu <junhui.liu@pigmoral.tech>
-Date: Fri, 22 May 2026 18:01:35 +0800
-Subject: [PATCH 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO
- board
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YjDYoiKO"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2b4650d5f5cso28847015ad.0
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:03:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779444232; x=1780049032; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ieAL7FXG9N2pPYlycZklbhAMC0pexNuJqkqoSDsbdHQ=;
+        b=YjDYoiKOLoDN6c6IpccmhF87lmEMiUMfSu5lMtQIPgmCbTbq5mWubHB+7/ZoadiRE1
+         V+QkVjP+GnRSd4itNYGgAA8KMLDKCum64BrOGW3Un4nNz+jw4HWuNbfDRHFJwLYd8KVP
+         wKrz8LJpkahpvcY48V/vF+66dgc/iPB1s7+Ck1H9RpG5Mi1taZflg4riBujSOYdpewnR
+         l42SPU1riW11RJfByzxH3W9MYc7JYyukZvIyVaNGc4F5LKM00DgIHxB+9n9UBhm6leKD
+         qbHotJ3kCy65F3GTnHyk8oOndLtVw8RxqPXCZ6NdbPDHFSJDnlwcu90MkEujggczRC+F
+         A1pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779444232; x=1780049032;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ieAL7FXG9N2pPYlycZklbhAMC0pexNuJqkqoSDsbdHQ=;
+        b=oxAj+stx/CpFTMQ9WMxwp/29/4pyECH51bmesVyx3hz0LOH2Tt806WvwSrs1e/anq7
+         37sTaEJWcbskHuYGZyOzT+UpDDY0wLNWXMRkC6pMzZH6/Hyck2Qiu0j1N1T2GZP7bkyF
+         junhRW/Vwed2ry/wEB4c0xdIvikIUO/lZVb6HPGCk9tCdkx3YwLMO83VTXAXYyUJCOeI
+         qUZ79xmj+J5Yds/LJSzUiaFTHsZsqZ1zBScFV4gvfgEbMDxzp0Bwu/uLg9La5n82v1j8
+         PzT0BG2GhpSKj76Mn/gLblkRk9smfZbdqnEhKO/3lpL1ePut6xXPA9UbmyTnLfelAN4O
+         0/1Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/XxpyINeoHW68LoXAJ+syIAF6u1gjxCx+BFb9TOGaH/1mFSwvpqG9NWmXrIVA953XrhnAaXpsgaY8Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsKshsw1G98R3rymz1zaPbzrPvt7fn2tz9t5SFEB6eeQKeaZBm
+	CTRkvFqEVay2DR35LN2cBgG6MybbBWdx4xy1fc3g9tz8j5veWvXItN2r
+X-Gm-Gg: Acq92OEp+Nk6VZd/dln/7yMzpsun9UqQ37t4/o5vkUxILPNlc/460R4w/8NM+zBY6ZS
+	jUeb0ZkAaR3cOoXJj14xWkZdKwnXIGxBZUFLHfkoZ8udJ6HPdZCOPoehImZW61+x6D0JR37TVb8
+	JnvPtZfp/rENN+UlKBg1xk6OoAT8b32hwvIPHL0lYHeo2yXMPclZp0EJ2n5HZaZoASYzPbDGNJf
+	Qu7G9DV74ZPi5IXy9ogi2y/s4SS1ZVwAph/amIBvQv1mw2en4z3mzhSEMidqfcxT0uM0N2DKEOv
+	fhWy2E3JRWTtCGqAWq9fs5wtPpyG3gv34yOvpcBOooslLRB3lv+fhe3KfX+y2GMAQ9GaM9tQZj8
+	8J/t71/5wkpIW8lQh219I5gOAlxfkmzKySQcScfuNIRdgQm98CMNr5JrSf4H3khsWPUtOK7+yJP
+	20qk6yLYKIO10mhnn9a3s7bvoS86hgCafyzRJbRO7ngO2cTduzpxGVJumX1Q==
+X-Received: by 2002:a17:903:24c:b0:2bc:9f51:2922 with SMTP id d9443c01a7336-2beb06c45e1mr28671585ad.41.1779444232060;
+        Fri, 22 May 2026 03:03:52 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56f4343sm18683455ad.36.2026.05.22.03.03.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 May 2026 03:03:51 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	heiko@sntech.de,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 3/3] ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
+Date: Fri, 22 May 2026 17:03:18 +0700
+Message-ID: <20260522100318.73474-4-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260522100318.73474-1-phucduc.bui@gmail.com>
+References: <20260522100318.73474-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-bpi-cm6-v1-3-707ef1917a30@pigmoral.tech>
-References: <20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech>
-In-Reply-To: <20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
- Vivian Wang <wangruikang@iscas.ac.cn>, Paolo Abeni <pabeni@redhat.com>, 
- Guodong Xu <guodong@riscstar.com>, Yangyu Chen <cyy@cyyself.name>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Junhui Liu <junhui.liu@pigmoral.tech>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779444139; l=11624;
- i=junhui.liu@pigmoral.tech; s=20251228; h=from:subject:message-id;
- bh=Yw9YUQA7pVpNQjSfuXusHfQSL1VejURZ+2sb9guhPmQ=;
- b=3cJfFprNgj/4remZHd1j/kQileSS56+rC17uy25SV8Eh8oajxfsbhXhzrK4O7EJqsCKhKIhtR
- 1AlPgNgW0M2CNqelUy99sscsFKjsNgFXHf/IQKz/H4pvWR1O9NezGT1
-X-Developer-Key: i=junhui.liu@pigmoral.tech; a=ed25519;
- pk=3vU0qIPJAH8blXmLyqBhKx+nLOjcLwwYhZXelEpw7h4=
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-The Banana Pi BPI-CM6 IO board combines the BPI-CM6 compute module with
-an IO carrier board. The core module integrates the SpacemiT K1 SoC,
-PMIC, DDR, eMMC, the eth0 PHY, and wireless connectivity. The companion
-IO carrier board extends it by providing the eth1 PHY and exposing
-standard interfaces, including dual Gigabit Ethernet, MicroSD, two USB-A
-ports, a USB Type-C port, two PCIe M.2 slots, and a serial console.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-The board also has two I2C EEPROMs. One is on the core module, which
-stores factory manufacturing data and is marked read-only. The other is
-on the carrier board, which is shipped unprogrammed and left writable
-for evaluation purposes.
+Enable the 'hclk' bus clock before the 'clk' controller
+clock during runtime resume.
+The bus clock provides the register access interface and
+should be enabled before the controller clock.
 
-Add initial support for UART console, eMMC, SD card, I2C, EEPROMs,
-PCIe, USB, and dual Ethernet interfaces.
-
-Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
-Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- arch/riscv/boot/dts/spacemit/Makefile              |   1 +
- .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 215 +++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 227 +++++++++++++++++++++
- 3 files changed, 443 insertions(+)
+ sound/soc/rockchip/rockchip_pdm.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
-index acb993c452ba..dd6125dc2012 100644
---- a/arch/riscv/boot/dts/spacemit/Makefile
-+++ b/arch/riscv/boot/dts/spacemit/Makefile
-@@ -1,4 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_SPACEMIT) += k1-bananapi-cm6-io.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-bananapi-f3.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-milkv-jupiter.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-musepi-pro.dtb
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
-new file mode 100644
-index 000000000000..b2767f44e8d6
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
-@@ -0,0 +1,215 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
-+ */
-+
-+#include "k1-bananapi-cm6.dtsi"
-+
-+#include <dt-bindings/leds/common.h>
-+
-+/ {
-+	model = "Banana Pi BPI-CM6 IO Board";
-+	compatible = "bananapi,bpi-cm6-io", "bananapi,bpi-cm6", "spacemit,k1";
-+
-+	aliases {
-+		ethernet0 = &eth0;
-+		ethernet1 = &eth1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led0 {
-+			color = <LED_COLOR_ID_RED>;
-+			gpios = <&gpio K1_GPIO(96) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		led1 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			gpios = <&gpio K1_GPIO(97) GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	vdd_sys_12v: regulator-vdd-sys-12v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDD_SYS";
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+	reg_vdd_5v0: regulator-vdd-5v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDD_5V0";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+		vin-supply = <&vdd_sys_12v>;
-+	};
-+
-+	pcie_vcc_3v3: regulator-pcie-vcc-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "NGFF_KEYM_VDD";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+		vin-supply = <&vdd_sys_12v>;
-+	};
-+
-+	usb_vbus_5v: regulator-usb-vbus-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VBUS_A_B";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio K1_GPIO(124) GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		vin-supply = <&reg_vdd_5v0>;
-+	};
-+
-+	reg_vdd_3v3: regulator-vdd-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+		vin-supply = <&vdd_sys_12v>;
-+	};
-+
-+	sd_vcc_3v3: regulator-sd-vcc-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "3.3VS_CARD";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&gpio K1_GPIO(127) GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		vin-supply = <&reg_vdd_3v3>;
-+	};
-+};
-+
-+&combo_phy {
-+	status = "okay";
-+};
-+
-+&eth0 {
-+	status = "okay";
-+};
-+
-+&eth1 {
-+	nvmem-cells = <&mac_address 1>;
-+	nvmem-cell-names = "mac-address";
-+	phy-handle = <&rgmii1>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac1_cfg>;
-+	rx-internal-delay-ps = <0>;
-+	tx-internal-delay-ps = <250>;
-+	status = "okay";
-+
-+	mdio-bus {
-+		#address-cells = <0x1>;
-+		#size-cells = <0x0>;
-+
-+		reset-gpios = <&gpio K1_GPIO(46) GPIO_ACTIVE_LOW>;
-+		reset-delay-us = <10000>;
-+		reset-post-delay-us = <100000>;
-+
-+		rgmii1: phy@1 {
-+			reg = <0x1>;
-+		};
-+	};
-+};
-+
-+&i2c2 {
-+	eeprom@54 {
-+		compatible = "atmel,24c08";
-+		reg = <0x54>;
-+		vcc-supply = <&buck3_1v8>;
-+		pagesize = <16>;
-+		size = <1024>;
-+	};
-+};
-+
-+&pcie1_phy {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie1_3_cfg>;
-+	status = "okay";
-+};
-+
-+&pcie1_port {
-+	phys = <&pcie1_phy>;
-+	vpcie3v3-supply = <&pcie_vcc_3v3>;
-+};
-+
-+&pcie1 {
-+	vpcie3v3-supply = <&pcie_vcc_3v3>;
-+	status = "okay";
-+};
-+
-+&pcie2_phy {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie2_4_cfg>;
-+	status = "okay";
-+};
-+
-+&pcie2_port {
-+	phys = <&pcie2_phy>;
-+	vpcie3v3-supply = <&pcie_vcc_3v3>;
-+};
-+
-+&pcie2 {
-+	vpcie3v3-supply = <&pcie_vcc_3v3>;
-+	status = "okay";
-+};
-+
-+&qspi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&qspi_cfg>;
-+	status = "okay";
-+};
-+
-+&sdhci0 {
-+	pinctrl-names = "default", "uhs";
-+	pinctrl-0 = <&mmc1_cfg>;
-+	pinctrl-1 = <&mmc1_uhs_cfg>;
-+	bus-width = <4>;
-+	cd-gpios = <&gpio K1_GPIO(80) (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	no-mmc;
-+	no-sdio;
-+	disable-wp;
-+	cap-sd-highspeed;
-+	vmmc-supply = <&sd_vcc_3v3>;
-+	vqmmc-supply = <&aldo1>;
-+	sd-uhs-sdr25;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_2_cfg>;
-+	status = "okay";
-+};
-+
-+&usbphy2 {
-+	status = "okay";
-+};
-+
-+&usb_dwc3 {
-+	dr_mode = "host";
-+	vbus-supply = <&usb_vbus_5v>;
-+	status = "okay";
-+};
-+
-+&vddin_sys_5v {
-+	vin-supply = <&reg_vdd_5v0>;
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-new file mode 100644
-index 000000000000..9b91128edb34
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-@@ -0,0 +1,227 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
-+ */
-+
-+#include "k1.dtsi"
-+#include "k1-pinctrl.dtsi"
-+
-+/ {
-+	model = "Banana Pi BPI-CM6 Module";
-+	compatible = "bananapi,bpi-cm6", "spacemit,k1";
-+
-+	aliases {
-+		i2c2 = &i2c2;
-+		i2c8 = &i2c8;
-+	};
-+
-+	vddin_sys_5v: regulator-vddin-sys-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDDIN_SYS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+	reg_vcc_4v: regulator-vcc-4v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC4V0_SYS";
-+		regulator-min-microvolt = <4000000>;
-+		regulator-max-microvolt = <4000000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+		vin-supply = <&vddin_sys_5v>;
-+	};
-+};
-+
-+&emmc {
-+	bus-width = <8>;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+	status = "okay";
-+};
-+
-+&eth0 {
-+	nvmem-cells = <&mac_address 0>;
-+	nvmem-cell-names = "mac-address";
-+	phy-handle = <&rgmii0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac0_cfg>;
-+	rx-internal-delay-ps = <0>;
-+	tx-internal-delay-ps = <0>;
-+
-+	mdio-bus {
-+		#address-cells = <0x1>;
-+		#size-cells = <0x0>;
-+
-+		reset-gpios = <&gpio K1_GPIO(45) GPIO_ACTIVE_LOW>;
-+		reset-delay-us = <10000>;
-+		reset-post-delay-us = <100000>;
-+
-+		rgmii0: phy@1 {
-+			reg = <0x1>;
-+		};
-+	};
-+};
-+
-+&pdma {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_0_cfg>;
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c02";
-+		reg = <0x50>;
-+		vcc-supply = <&buck3_1v8>;
-+		pagesize = <16>;
-+		read-only;
-+		size = <256>;
-+
-+		nvmem-layout {
-+			compatible = "onie,tlv-layout";
-+
-+			mac_address: mac-address {
-+				#nvmem-cell-cells = <1>;
-+			};
-+
-+			num-macs {
-+			};
-+
-+			serial-number {
-+			};
-+		};
-+	};
-+};
-+
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64>;
-+		vin1-supply = <&reg_vcc_4v>;
-+		vin2-supply = <&reg_vcc_4v>;
-+		vin3-supply = <&reg_vcc_4v>;
-+		vin4-supply = <&reg_vcc_4v>;
-+		vin5-supply = <&reg_vcc_4v>;
-+		vin6-supply = <&reg_vcc_4v>;
-+		aldoin-supply = <&reg_vcc_4v>;
-+		dldoin1-supply = <&buck5>;
-+		dldoin2-supply = <&buck5>;
-+
-+		regulators {
-+			buck1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3_1v8: buck3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			dldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			dldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			dldo4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+
-+			dldo5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			dldo6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+
-+			dldo7 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+		};
-+	};
-+};
-
+diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
+index c69cdd6f2499..8f78f7bc1806 100644
+--- a/sound/soc/rockchip/rockchip_pdm.c
++++ b/sound/soc/rockchip/rockchip_pdm.c
+@@ -422,16 +422,16 @@ static int rockchip_pdm_runtime_resume(struct device *dev)
+ 	struct rk_pdm_dev *pdm = dev_get_drvdata(dev);
+ 	int ret;
+ 
+-	ret = clk_prepare_enable(pdm->clk);
++	ret = clk_prepare_enable(pdm->hclk);
+ 	if (ret) {
+-		dev_err(pdm->dev, "clock enable failed %d\n", ret);
++		dev_err(pdm->dev, "hclock enable failed %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	ret = clk_prepare_enable(pdm->hclk);
++	ret = clk_prepare_enable(pdm->clk);
+ 	if (ret) {
+-		clk_disable_unprepare(pdm->clk);
+-		dev_err(pdm->dev, "hclock enable failed %d\n", ret);
++		clk_disable_unprepare(pdm->hclk);
++		dev_err(pdm->dev, "clock enable failed %d\n", ret);
+ 		return ret;
+ 	}
+ 
 -- 
-2.54.0
+2.43.0
 
