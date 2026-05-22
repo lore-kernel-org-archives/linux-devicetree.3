@@ -1,210 +1,151 @@
-Received: from mail-m49196.qiye.163.com (mail-m49196.qiye.163.com [45.254.49.196])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C331F84039;
-	Fri, 22 May 2026 03:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7D61D5AD4;
+	Fri, 22 May 2026 03:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779419304; cv=none; b=mtvo07ZXUG7fhGskQMJFHGNt8VRe+6trq8bHY6FWFFeTCLvyDNDjOGKSTeChZn4yewJj8p1x8wBbdV6EokYfQ2ChFgAjxZCANJs3RrwndfjR9M//T2HFTEG4Hm4N8Ng0WUPVxgVJlER4N52MGPT9/55jVX9KPVOe9NYmte1h/tA=
+	t=1779419739; cv=none; b=r16xTYDu7WZ9w4EYU7vQj7IoCPNEVcVBMFMAfoBQn9KvTRzNf9Ffs1wlvaPZ016IwI+lxNlvSa4Mdab4obPGTwBfeeoT2/Um8WSVU6moCvxxbMCe++UL2sMXAbh6M920aIlvEgfQsO4z7FQ3fjTj534TxtVUvtQiZ/Y0xnbFgRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779419304; c=relaxed/simple;
-	bh=UgyYXgpEUovLTSwTieJLE54f1YVtcM9zLpNkg5uzLek=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FLEijbNjC8yDXHGL13sO+3OfgUdwiQQ7s9iGL0zslR0pHgG8G0s5ki5kwte4+JUfqudzuzhajhhdFuPZfe6g03Gw1hFaxU8+zJMYp6w8gNFpR9TgDEChWrrvN8sQ0lhmHy+4q/VDz11yVfCXxQz3hVgxqEWg8BlPVi6xA5KO6cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=YWNMy7+N; arc=none smtp.client-ip=45.254.49.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1779419739; c=relaxed/simple;
+	bh=Ul4JusjoaJajLJ39G9jRNljlot8wg/Md5dKsBv3jbG4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IPLorS5K63t6jPyn4W1nB5hmYebDouJNjg9CM7+TuUkK0l0yN/cRsnMIxxHR0KjZJJDRsbdUeMmFJ6ReQLxzU0jwK8ZO36zBg+jmA4yk/eUyC7ORGSupxItazFM5M/kUqRYfN+HzRiwmVLrjQ/K5K6tqLZ8qddK2P/OzpAGtWSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aATU9+4u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="YWNMy7+N"
-Received: from [172.16.12.43] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3f63c7eb5;
-	Fri, 22 May 2026 11:03:00 +0800 (GMT+08:00)
-Message-ID: <fb40d3fb-b7c6-4c31-b9a7-89318c36c739@rock-chips.com>
-Date: Fri, 22 May 2026 11:02:59 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aATU9+4u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647521F000E9;
+	Fri, 22 May 2026 03:15:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779419737;
+	bh=37wOsfXm1sb5JTSv/W5rVSZJMhBW3y9iU2qOAo3vewA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aATU9+4up+wq2h6aGBaA7LDrhlY+H6kgxE2/27f1xauSKN/9lQkEvWqwtOL9mlqb9
+	 tdJqJpWHzqfZi1+7ROF4H7TAwCon50F9sqodQNGSKqSp36QGXr/8vJGd7lA/SDfEWY
+	 pGZ0IUl9KDouM0SeoKQ8/PRSCDRJ6ZjM8pKO69ljMHCe16E2+y1cWG2iTmQwoczQBV
+	 1URZqxRzc4CGjvzaoBCLBerwYCOOA4cF0Zizt8eY9Pid6EKHF4SjiIM4yvKzgu/Qy2
+	 G72knLYiwpd/O4JafrdCUucEbPk1mEALfeoGreOVxYGSwK6Zdd6NVS/6UxSmYPYEd0
+	 Tr/WDqqsLNPYA==
+Date: Thu, 21 May 2026 22:15:33 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, 
+	Frank.Li@kernel.org, konradybcio@kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
+	linmq006@gmail.com, quic_jseerapu@quicinc.com, agross@kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com, 
+	bartosz.golaszewski@oss.qualcomm.com, bjorn.andersson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com
+Subject: Re: [PATCH v7 4/4] i2c: qcom-geni: Support multi-owner controllers
+ in GPI mode
+Message-ID: <ag_Ig7aQNNakiry_@baldur>
+References: <20260423145705.545552-1-mukesh.savaliya@oss.qualcomm.com>
+ <20260423145705.545552-5-mukesh.savaliya@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
- hclk as third clock for RK3588
-To: Conor Dooley <conor@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260521080835.1362416-1-damon.ding@rock-chips.com>
- <20260521080835.1362416-2-damon.ding@rock-chips.com>
- <20260521-waking-case-cd709f0a7712@spud>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260521-waking-case-cd709f0a7712@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e4da2df0203a3kunmcdc39b7bb3028
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHklPVkIeS0hIH09LQxhPT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=YWNMy7+NkSl3ewSULgQHdbz/2vosC6n4DoirPKOBaGSW+pxLBmEJMuFE6VmFA0OsHpCBjRp/wI7NBieBAoJT91OdjP2y71rQaC9sSqazDzS8MMXYV9YYsXo6X7O1/AqGOeprWhYDlfadH5Pr+Q8+gAehYLkah0zmjTaJGrnQmuE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=ix2iDSv2xXDyggBMNPYyTIg1mIFriHtuF7LmuxwXjjM=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260423145705.545552-5-mukesh.savaliya@oss.qualcomm.com>
 
-Hi Conor,
+On Thu, Apr 23, 2026 at 08:25:51PM +0530, Mukesh Kumar Savaliya wrote:
+> Some platforms use a QUP-based I2C controller in a configuration where the
+> controller is shared with another system processor. In this setup the
+> operating system must not assume exclusive ownership of the controller or
+> its associated pins.
+> 
+> Add support for enabling multi-owner operation when DeviceTree specifies
+> qcom,qup-multi-owner. When enabled, mark the underlying serial engine as
+> shared so the common GENI resource handling avoids selecting the "sleep"
+> pinctrl state, which could disrupt transfers initiated by the other
+> processor.
+> 
+> For GPI mode transfers, request lock/unlock TRE sequencing from the GPI
 
-On 5/22/2026 3:54 AM, Conor Dooley wrote:
-> On Thu, May 21, 2026 at 04:08:26PM +0800, Damon Ding wrote:
->> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
->> registers and enable the video datapath.
->>
->> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
->> phandle reference, which allowed the eDP to work without explicitly
->> managing the hclk_vo1 clock. However, this is not safe or explicit.
->>
->> To make the clock dependency explicit, enforce per-SoC clock-names
->> requirements:
->>   - RK3288: 2 clocks (dp, pclk)
->>   - RK3399: 3 clocks (dp, pclk, grf)
->>   - RK3588: 3 clocks (dp, pclk, hclk)
->>
->> Do not reuse the 'grf' clock name for RK3588 because it represents
->> a different clock with distinct control logic:
->> - The 'grf' clock is only for GRF register access and is toggled
->>    dynamically during register access.
->> - The 'hclk' clock controls both GRF access and video datapath
->>    gating, and must remain enabled during probe.
->>
->> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>
->> ---
->>
->> Changes in v4:
->> - Modify the commit msg.
->>
->> Changes in v5:
->> - Enforce the correct third clock name on a per-compatible basis.
->> - Modify the commit msg simultaneously.
->>
->> Changes in v6:
->> - Expand more detail commit msg about using hclk instead of grf clock.
->> ---
->>   .../rockchip/rockchip,analogix-dp.yaml        | 37 +++++++++++++++++--
->>   1 file changed, 33 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> index d99b23b88cc5..8001c1facf98 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> @@ -23,10 +23,7 @@ properties:
->>   
->>     clock-names:
->>       minItems: 2
->> -    items:
->> -      - const: dp
->> -      - const: pclk
->> -      - const: grf
-> 
-> Instead of removing this, you can make it
-> 
-> items:
->   - const: dp
->   - const pclk
->   - enum:
->       - grf
->       - hclk
-> 
->> +    maxItems: 3
-> 
-> And delete this.
-> 
+"For GPI mode transfers" is there any other form?
 
-Oh I see, thanks for clarifying.
-
-The idea is to keep all valid clock names at the top level, and use only 
-minItems/maxItems in allOf to differentiate platforms.
-
->>   
->>     power-domains:
->>       maxItems: 1
->> @@ -60,6 +57,33 @@ required:
->>   allOf:
->>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
->>   
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - rockchip,rk3288-dp
->> +    then:
->> +      properties:
->> +        clock-names:
->> +          items:
->> +            - const: dp
->> +            - const: pclk
+> driver by setting a single lock_action selector per message, emitting lock
+> before the first message and unlock after the last message (handling the
+> single-message case as well). This serializes access to the shared
+> controller without requiring message-position flags to be passed into the
+> DMA engine layer.
 > 
-> Then this becomes
->    clock-names:
->      maxItems: 2
->    clocks:
->      maxItems: 2
+> Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+> ---
+>  drivers/i2c/busses/i2c-qcom-geni.c | 22 +++++++++++++++++++++-
+>  1 file changed, 21 insertions(+), 1 deletion(-)
 > 
->> +
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - rockchip,rk3399-edp
->> +    then:
->> +      properties:
->> +        clock-names:
->> +          items:
->> +            - const: dp
->> +            - const: pclk
->> +            - const: grf
+> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+> index ae609bdd2ec4..a396ddc7d8f4 100644
+> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+> @@ -815,6 +815,14 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
+>  		if (i < num - 1)
+>  			peripheral.stretch = 1;
+>  
+> +		peripheral.lock_action = GPI_LOCK_NONE;
+> +		if (gi2c->se.multi_owner) {
+> +			if (i == 0)
+> +				peripheral.lock_action = GPI_LOCK_ACQUIRE;
+> +			else if (i == num - 1)
+> +				peripheral.lock_action = GPI_LOCK_RELEASE;
+
+You say above that single-messages case is handled, but if num == 1 then
+we will hit i == 0, set the acquire, we will not hit else, and then we
+will exit the loop. What am I missing?
+
+> +		}
+> +
+>  		peripheral.addr = msgs[i].addr;
+>  		if (i > 0 && (!(msgs[i].flags & I2C_M_RD)))
+>  			peripheral.multi_msg = false;
+> @@ -1014,6 +1022,11 @@ static int geni_i2c_probe(struct platform_device *pdev)
+>  		gi2c->clk_freq_out = I2C_MAX_STANDARD_MODE_FREQ;
+>  	}
+>  
+> +	if (of_property_read_bool(pdev->dev.of_node, "qcom,qup-multi-owner")) {
+> +		gi2c->se.multi_owner = true;
+
+gi2c->se.multi_owner = of_property_read_bool(pdev->dev.of_node, "qcom,qup-multi-owner");
+
+> +		dev_dbg(&pdev->dev, "I2C controller is shared with another system processor\n");
+> +	}
+> +
+>  	if (has_acpi_companion(dev))
+>  		ACPI_COMPANION_SET(&gi2c->adap.dev, ACPI_COMPANION(dev));
+>  
+> @@ -1089,7 +1102,9 @@ static int geni_i2c_probe(struct platform_device *pdev)
+>  	}
+>  
+>  	if (fifo_disable) {
+> -		/* FIFO is disabled, so we can only use GPI DMA */
+> +		/* FIFO is disabled, so we can only use GPI DMA.
+
+That's not how we format comments outside the network subsystem.
+
+Regards,
+Bjorn
+
+> +		 * SE can be shared in GSI mode between subsystems, each SS owns a GPII.
+> +		 */
+>  		gi2c->gpi_mode = true;
+>  		ret = setup_gpi_dma(gi2c);
+>  		if (ret)
+> @@ -1098,6 +1113,11 @@ static int geni_i2c_probe(struct platform_device *pdev)
+>  		dev_dbg(dev, "Using GPI DMA mode for I2C\n");
+>  	} else {
+>  		gi2c->gpi_mode = false;
+> +
+> +		if (gi2c->se.multi_owner)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "I2C sharing not supported in non GSI mode\n");
+> +
+>  		tx_depth = geni_se_get_tx_fifo_depth(&gi2c->se);
+>  
+>  		/* I2C Master Hub Serial Elements doesn't have the HW_PARAM_0 register */
+> -- 
+> 2.43.0
 > 
-> maybe this needs a minItems: 3? Depends on if the grf clock is
-> mandatory. Also probably needs a
-> clocks:
->    minItems: 3
-> if that's the case.
-> 
-
-Yes, the minItems should be 3 for both clocks and clock-names.
-
->> +
->>     - if:
->>         properties:
->>           compatible:
->> @@ -68,6 +92,11 @@ allOf:
->>                 - rockchip,rk3588-edp
->>       then:
->>         properties:
->> +        clock-names:
->> +          items:
->> +            - const: dp
->> +            - const: pclk
->> +            - const: hclk
-> 
-> And the same here as for the 3399.
-> 
-
-Will update in v7.
-
-Best regards,
-Damon
-
