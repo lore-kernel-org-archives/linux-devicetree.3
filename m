@@ -1,114 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F311360ED1;
-	Fri, 22 May 2026 11:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779449018; cv=none; b=My6zVTLqf0TsAFWCa8ldodyX0TnFe0orY/Y1X3NBrq7h2nxQbU+sYxF4AHPd/oasXKuYv3pHDqD6DEv4FVz/dFOont7gCX5UkyMkir4V5c9PBwEqIAXXeyBtA7chAz0/UA2/iuxvRdufu2rjK05QHwY3WyivLn4+92YV3rt1vvU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779449018; c=relaxed/simple;
-	bh=HFtmXz0PCp2aQpnPMnU3L1VxYRn6d9FRpQD2wRgGSq0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OW0TE9rnKIAdLC7qwhmNwVePRLYp1Td1/VpidZM671xQJzdvIaCP2SKxGSh1tNfdBgyMgVgKNBgSzJcEGj66YAtpoQJBNEJCulANpjBx8vxLVtSce6Ldw+JZ+YEseemu86fCsEpIwFaTUTNdKwG00z2jXiWRVyFMpmGgJizqLeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVqIVWGS; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C593B6348
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 11:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779449314; cv=pass; b=NJHFhFlTvT8+2fIG6K1ZAKg7f7ng5HjMAaWpsWb1Y6NGTt7Y9wQ+/L9hR5wBPGnGZYLRLNX5ELeBugafBOMwlpp4FMxEWmqLjEwB9ws5lphxAuMJLRNWV27HVS3jwVjtyUYvV1vTrv44JBNG8Py2wcbJKO0GA3jVuleL6ytwcJ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779449314; c=relaxed/simple;
+	bh=5j8vE3+rn+gH3FCAT2MjUQthiUdN953EbDZ0iABy9ks=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZizXc2+nBgZkxQ9KMSk46pjOS+w4yhaNuRA72b2iM6cJkWapy08u5azqRNRVqN/9CdqMuK8qdShU7lnNM20KGyKU71ceOGf6KeARibgfqItFjYJqkuLZI12/D/DCPi1rUL1hjJqKmQYjrtDxDDJPB1aQ+I2Do3AfPZqvTt45wTU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ydw5hkY0; arc=pass smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVqIVWGS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3EAE1F000E9;
-	Fri, 22 May 2026 11:23:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779449016;
-	bh=g0Tk5SjgRMfO81NIuJvLyIjw5gsTSwcbfmCYhvq+Xsc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jVqIVWGSsTzhxLytj8chbFa3NmrX/sPZxrQrnYwbsVTFyitSFbt/3CUFIkk+Ifozu
-	 vJZJVlhnKBnP/Uo0dS6fOvwNB4LrIdH2PE3OZmaca1FLV2fQHYeGiPaZr4+SLrHMiP
-	 1A0nmndTujTrT9UJnqzHxEvX+085d3mVRZqSznR3ok12fbog1coCUX8NoKG1pNbK7E
-	 HK1ri7I81+nAdwn/bOea31fKfVmqIt71ShcZ1oACMetLosYHONUM41PJoGgSwuvQAL
-	 wXMlEfW5/ECXfIVH0TAeiAj9R8tVFDKDrKm/YHt3Ox0yDFU7CVbgfzUvCLSX95xvm3
-	 PO2G/QuLTWu0Q==
-Date: Fri, 22 May 2026 12:23:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v12 1/6] dt-bindings: iio: adc: add AD4691 family
-Message-ID: <20260522122322.2cd9d4ae@jic23-huawei>
-In-Reply-To: <20260519-ad4692-multichannel-sar-adc-driver-v12-1-5b335162aa51@analog.com>
-References: <20260519-ad4692-multichannel-sar-adc-driver-v12-0-5b335162aa51@analog.com>
-	<20260519-ad4692-multichannel-sar-adc-driver-v12-1-5b335162aa51@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ydw5hkY0"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-38e7c3a2deaso66896901fa.2
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 04:28:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779449311; cv=none;
+        d=google.com; s=arc-20240605;
+        b=AxGB1S8kCAgwuRf+FiIyc4Uu53TX09SFySd3weCP4NqGrpMXiaUcwUa327TN+OULZW
+         k4tTkmjtkF6te4UwjkjZ/E1RrRpEE7Fu17gTM9mmbdzJ5jhcuMTL54fAebdCfXmuXILl
+         YxkGgg5UGTgVdYVPOf5sHqSxZkMxXTfGjS+IJcRLHAeYIGHW65mNVqf6uhq4ZnUWpN/S
+         HQBKnPuIp7WjRVe2BAqY6nHW9qD1RpFMIKCHzU2ok482Uesl3aAOmEze3YlXM7lI8LWO
+         48lQw4fh7NNVWC8yIvVW3jE9GReMWy5Um+Af2MVBN+8dgKzZYZdHcT0/ddwTvB1AU58G
+         I6wQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Fa7dC+O8YGHKdhROB6LlQr8p2/+2vxZ+5YIvHDJ13XM=;
+        fh=wS5Up9o0I1AfRWP5Wnscom55X+6Y88e8SFn2ZGMYc34=;
+        b=lr0F9P8A/CPN16VKiQJKpnRj4wwo7fdf+bQUzKYN36zStEdAKMz3b9j2z7wGeTQ0zZ
+         0Rsw6xNBqsJE5vMzRL+AGtjw/FU79O1GJ6r+N/GBT54SBt7CZrmyoK0ObJ1EbaGZJzVO
+         hCQKgUFxSA0UZrwsI8YLaXmHCAZgGMvs2JU+i9Blr98ChrvbtZZZSKMOWpQRA1H5jsoR
+         gBiGambm5pHSPT1GiEih9WIrI83kd85MjES0FMM1pF0+chmtuvB7iAOdmsiDUf0y2UDV
+         eQ4GximPG9FOQCD1mfzPHhog1EIDwvUv6TpXCenUefHRI886t2J6kydIGYF3VxfuS58v
+         VoaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779449311; x=1780054111; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Fa7dC+O8YGHKdhROB6LlQr8p2/+2vxZ+5YIvHDJ13XM=;
+        b=Ydw5hkY0BDeQGSgwdGviD0qHKDhwfMOQCKhTy35C4Qgaab9qlKeygh9tv0MEY1QTdo
+         MLmJj2JtRtDNeZDfeaQCjcMCZg023ddHDgPfOKWjNk2BLI+TF5NaZduFjGFClQB5uy3l
+         8mVyC2SGxqZOSjvcT26ZuPx0fJHeU85Fbeu4k9UrWcmiCJFjJ3XUUvk/CEXD1WrgA3v4
+         GZEcrwKue1JfWiAFMg+cdlp0NOeAVZoPeTQm7M8GIKRIl+UL0AJa3Yt6w9tSeeAX8ctQ
+         XIHBlYqk4N0wKbiCp11UpdfilxC0T/Mtw7351AgkOQoi00pO/17cwPV6wo6Mpatk+fO7
+         05Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779449311; x=1780054111;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Fa7dC+O8YGHKdhROB6LlQr8p2/+2vxZ+5YIvHDJ13XM=;
+        b=qWNoMtXIgAegvz8i+uNfczdHF1OkLI0KQJcuWvWTVSMv6pCoJYdiXE6015ijD0/RB5
+         zyFldCv0Gt0XKlo8/VErdlD0BX9olsBMa2iT9udoeSto5pQlumcCSgqPdfR5ad4iwnI5
+         JhGa8BsRN3DgEmuyIEoiiEpHDB2DelE7QeKzIPAw0Y4f+m3gvOtLlOMQ4/xM6YGndWuw
+         0v1PjddOqbiQkRLPOHQG1khgYFK6E/UyNSksrI7GzM+lqP1v/2pf1EyKKo5nbidAWSwn
+         ahs64oL+b9tduf8U2XXNwuROvEsgZ1YsdCGV0jagxB+j0aQ5NbleUqolFMmgWMunAXhF
+         fIww==
+X-Gm-Message-State: AOJu0YwjFRzSGyZWGjGee9zrZjJXjGcSh94sShCz3qu+i7a8fAeKj1WM
+	FdgK2BD1DX9/yHPkiUIUoKGlYWjsKrsSTcr6J0BWcVz0l8eo1RCFyhD+V0zLCNc+6wjOyODGLTC
+	WdZhEgin5yTOpJlpYXk9AyJCKfvvbELUxgw==
+X-Gm-Gg: Acq92OGfkEjjAe+lYLGw0SwoTmy8OjYTZsW21SOS/9HmI7xcYjlcNZz6/FRZnTSabYh
+	EXuozgwaZx+XXlr3btdaNLOmJruHVP/Ny1pmkjAvbmcfke1ioK0TDyqPYTyHaqQ4I51DGK/A5ft
+	KVzLolgWgVSs0+kZSvlrrG/EmbtmMZWf5ndqsFx8WOTMyeF4uYAxZ8QSytK30AaN+OScGRdUPLw
+	vJGBg/iMtzxqa6KOomlXCQ1hXJmGLND5EMOfrAZLX5mKde7fDdqwEtat4KIzmBmaezVtPcCPKlF
+	1ig9xCHhoU/3bq7ejN2UHZ6kZD0UEOpjbr1jJGyWi4cLXp+wPPCvqxa3qZHc/Be1R8ITUNJW
+X-Received: by 2002:a2e:a9ab:0:b0:389:fa42:b266 with SMTP id
+ 38308e7fff4ca-395d891aebamr11019001fa.11.1779449310900; Fri, 22 May 2026
+ 04:28:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260522101653.2565125-1-paulk@sys-base.io> <20260522101653.2565125-15-paulk@sys-base.io>
+In-Reply-To: <20260522101653.2565125-15-paulk@sys-base.io>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 22 May 2026 08:28:18 -0300
+X-Gm-Features: AVHnY4LV1-i2NLucbS2YgdzZXBX26-Ma3QP1bn3Gx38hCGfG5dS4UR0F3rTTEKQ
+Message-ID: <CAOMZO5B+vaoXM1F+avtcdo=_tpJ4ZZfCcNCqaUo=KiQUw49caA@mail.gmail.com>
+Subject: Re: [PATCH 14/14] arm64: dts: imx8mp: add VC8000E encoder node
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	Marco Felsch <m.felsch@pengutronix.de>, Michael Tretter <m.tretter@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 19 May 2026 15:20:22 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+Hi Paul,
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add DT bindings for the Analog Devices AD4691 family of multichannel
-> SAR ADCs (AD4691, AD4692, AD4693, AD4694).
-> 
-> The binding describes the hardware connections:
-> 
-> - Power domains: avdd-supply (required), vio-supply, ref-supply or
->   refin-supply (external reference; the REFIN path enables the
->   internal reference buffer). Digital core VDD is supplied either
->   externally via vdd-supply, or generated by the on-chip LDO fed
->   from ldo-in-supply; the two are mutually exclusive and one must
->   be present.
-> 
-> - Optional PWM on the CNV pin selects CNV Burst Mode; when absent,
->   Manual Mode is assumed with CNV tied to SPI CS.
-> 
-> - An optional reset GPIO (reset-gpios) for hardware reset.
-> 
-> - Up to four GP pins (gp0..gp3) usable as interrupt sources,
->   identified in firmware via interrupt-names "gp0".."gp3".
-> 
-> - gpio-controller with #gpio-cells = <2> for GP pin GPIO usage.
-> 
-> - #trigger-source-cells = <1>: one cell selecting the GP pin number
->   (0-3) used as the SPI offload trigger source.
-> 
-> Two binding examples are provided: CNV Burst Mode with SPI offload
-> (DMA data acquisition driven by DATA_READY on a GP pin), and Manual
-> Mode for CPU-driven triggered-buffer or single-shot capture.
+Thanks for working on this.
 
-Doesn't really matter, but why include so much detail that is easy enough
-seen in the binding?  If there is information we need to capture it better
-be in the binding!
+On Fri, May 22, 2026 at 7:49=E2=80=AFAM Paul Kocialkowski <paulk@sys-base.i=
+o> wrote:
+>
+> From: Marco Felsch <m.felsch@pengutronix.de>
+>
+> Add support for the Versilicon VC8000E multi-codec stateless encoder.
 
-Not actually worth the effort of changing it though - more something
-for future reference (unless someone else is asking for this levle
-of detail).
+Typo: Verisilicon
 
-> 
-> The four variants are not compatible with each other: AD4691/AD4692 have
-> 16 analog input channels while AD4693/AD4694 have 8, and AD4691/AD4693
-> top out at 500 kSPS while AD4692/AD4694 reach 1 MSPS. These differences
-> in channel count and maximum sample rate require distinct compatible
-> strings so the driver can select the correct channel configuration and
-> rate limits.
-This bit indeed belongs here.
+> The IP integrated on the i.MX8MP supports H.264 and H.265 encoding.
+>
+> Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 
-> 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+You need to add your Signed-off-by tag as well.
+
 > ---
+>  arch/arm64/boot/dts/freescale/imx8mp.dtsi | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/=
+dts/freescale/imx8mp.dtsi
+> index a3de6604e29f..4e63c2b16c1a 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+> @@ -2290,6 +2290,17 @@ vpu_g2: video-codec@38310000 {
+>                         power-domains =3D <&vpumix_blk_ctrl IMX8MP_VPUBLK=
+_PD_G2>;
+>                 };
+>
+> +               vpu_vc8000e: video-codec@38320000 {
+> +                       compatible =3D "nxp,imx8mp-vpu-vc8000e";
+
+This compatible must be documented in a dt-bindings yaml file.
