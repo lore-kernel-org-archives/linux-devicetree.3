@@ -1,117 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-o92.zoho.com (sender4-pp-o92.zoho.com [136.143.188.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D953822A1
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 13:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779454820; cv=none; b=RGYgMccB5LsaEPV7XaDWyWAN0IVJEsfYmdciX3lRg/oNDzYR9O9bkspA/kN+pUdnz4VTrK0AXgsHGw/0NbmfcjkQ8AwVTuVEuKQj0GoWgxjE8q7xRX98FnObqWAQk/ORCn4r4W6qGVD+hG75bh1HdT9BW79ciC7XL6iCesdjhVE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779454820; c=relaxed/simple;
-	bh=QaAWdugz0rWgwrfBpQGnEszyijoTQid2T7rN2cjWOqc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YVGrgPtGJT5oxqYFGN2j/59w6SvV3s0S7FjkhZzNlEXiDOOJw72G+0CRknl5osuKl49FTwXzc4GVWVpaECzjVSqShuR0/a25933b78GUpAg11LWAfoTfuAu1B4MY9sk4qfEQeAJ0bSekWAAtxI44VjU4ku+LZIqwDlU4Cl9vRHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4lu9Pq3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FD738B122;
+	Fri, 22 May 2026 13:00:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.92
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779454856; cv=pass; b=Q47HyvoQ83xIojeBgvvw5paltdSKsMiATp3K8DUwb4grOlIXljS7f34VNpsZFx//QyTkONiSXqZEuSVtcjiVFLmBAGHM/ZhD3Z8S3A7tlZoVMpHLgsRcKLMDvNVpmlQ0BKVYCYOOAUblXrdmhNYHdhXets3B/dnXijVIqCgAmR4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779454856; c=relaxed/simple;
+	bh=2a2Ues8oit5F0hamVRvNnhy1TDmBusJ+DQa9IX5JqNQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZMBEKrB4Ldx0xeLTWQC+YpK4oXSfU2Bl4yMjNX1pSOYD/v175fJpnQxhKz3wZCNNxbg4vrXGOi/qO5wpFCk9XSOmed13Mft/7/xYs36LQvCwoFGRWrdDOJUF229y8GUZRg94YqH9M9QfAMMi2sFa7alVd9v2b6z9ojq1owWKvno=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b=LZNgU1Uw; arc=pass smtp.client-ip=136.143.188.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4lu9Pq3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C999A1F000E9;
-	Fri, 22 May 2026 13:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779454819;
-	bh=UKbHxJPb+Z3Pi1GoEBseLiaeLdTgHra0YjGjV7NQbnY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L4lu9Pq3ehhVuVSwfFB/J4d9nbC//s/OThmAho4fuooEJOXmDuLpnM+sYjTh+AJFC
-	 3Pir7AC0kZE4DAjQDd+GBdVCI9OZxydJVkGGedciuH3nfZsstswCLhcCOX+Nt3nf9e
-	 xAVpEK5ebImmFAqFJQ+QOHxbh4uf1hX7Jg3SgFoX5IjZ7SxeF2YP5UYPSu7k15tjV/
-	 EWvqHSmmEkCE52yHhNmb5nFC86YGXbsTh2gFknzUyObKXeNkIdAwuHmzrQphnTR17D
-	 iSvtemZ5W8jHaQ95JaGrcRPAF6vlhEValfAl/d+AJMFCnDuDl62DwGfHupgVWbMT3s
-	 N6xa8BEbF0f8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: display: panel: document the
- Renesas R63419 based dual-DSI video mode Display Panels
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
-In-Reply-To: <20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-1-16edddda9951@linaro.org>
-References: <20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-1-16edddda9951@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 May 2026 13:00:18 +0000
-Message-Id: <20260522130018.C999A1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b="LZNgU1Uw"
+ARC-Seal: i=1; a=rsa-sha256; t=1779454836; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mXHalvZ2De87nqdd+Qu9KejK7X7MjBsUkinnEita0NpFch6ur7DdcDRoqF5KC5Fj2Omk3eO8X5XSy6IlZ6FHTc1qMRoWoKvCSOM2xNmqSoXRG9Z151NwXa/ZrEkNpJxzXONpLjgP5qtYE5n+/WFiun4t0GzFG9TtpQus8BHteIM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1779454836; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=JX4/HzHgr9Ln2K8EGkhp70E2oDhc6Dp0qS3CpdjxcfQ=; 
+	b=JEB+Q9kwAq8S+OunkVsGFsekfZ9tc+ZY9ZUMJmV+1qFYAqVV40vfTA/POq7At6oj0T26IfumIjLbAg5GyJtMeJbZPE+BTP4wW/psuUaiygKGa+C7vmIA7SbuyIZqA2UqH+8eKTWPuAyyt8LElyvywS9ai0Em995/TpUUQI5qzu4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=kingxukai@zohomail.com;
+	dmarc=pass header.from=<kingxukai@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779454836;
+	s=zm2022; d=zohomail.com; i=kingxukai@zohomail.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Reply-To;
+	bh=JX4/HzHgr9Ln2K8EGkhp70E2oDhc6Dp0qS3CpdjxcfQ=;
+	b=LZNgU1UwZJKElt8ZqwmVKwQcyAxKscQZEb7E8wVgPi/WkeBfHNVYQnTs6MOWtlOc
+	BAI7vOXBBOJLSH2zzdyPXRvm8cGL1feHbggGYDzMDI4ECTwwOOE9R1hw18GPbhSWHrc
+	UKP6Xgu8diFjXdUgXtSu5j6JyS9wyLvvbZsq5C2Y=
+Received: by mx.zohomail.com with SMTPS id 1779454831935958.224223537089;
+	Fri, 22 May 2026 06:00:31 -0700 (PDT)
+From: Xukai Wang <kingxukai@zohomail.com>
+To: Conor Dooley <conor.dooley@microchip.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Conor Dooley <conor@kernel.org>,
+	Xukai Wang <kingxukai@zohomail.com>
+Cc: linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Troy Mitchell <TroyMitchell988@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] clk: canaan: k230: Fix sparse warnings reported by LKP
+Date: Fri, 22 May 2026 20:59:12 +0800
+Message-Id: <dee4605ca30f9bbd55ccb4fcce9590ceee1fa10b.1779453284.git.kingxukai@zohomail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260522-eligible-vivacious-3ce9bc30dd53@wendy>
+References: <20260522-eligible-vivacious-3ce9bc30dd53@wendy>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227c6335346a63148b9f6cec2f70000b3c03c513edafb3405058bc9ea8ac70ec1c949f9169db7a4fa:ZohoMail
+X-Zoho-CM-AccountID: 2ee5dd3c83366259b2ba1e9826250ffebed1ef2dd213857d649ad25aba73b429
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Incorrect use of `additionalProperties: false` with a `$ref` to a c=
-ommon schema, causing validation failures for standard properties.
---
+Fix all sparse warnings detected during LKP randconfig testing:
+- Replace plain integer 0 with NULL.
+- Add static modifier to k230_plls and k230_pll_divs.
 
-commit d5d9023fc9149b85c30a89eb9e658f1d3b246c85
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202605220724.j4ZeM3KI-lkp@intel.com/
+Signed-off-by: Xukai Wang <kingxukai@zohomail.com>
+---
+ drivers/clk/clk-k230.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-dt-bindings: display: panel: document the Renesas R63419 based dual-DSI vid=
-eo mode Display Panels
+diff --git a/drivers/clk/clk-k230.c b/drivers/clk/clk-k230.c
+index d883a1e1118e..cfc437038e4e 100644
+--- a/drivers/clk/clk-k230.c
++++ b/drivers/clk/clk-k230.c
+@@ -270,12 +270,12 @@ static const struct clk_ops k230_clk_ops_mul_div = {
+ 	.recalc_rate	= k230_clk_get_rate_mul_div,
+ };
+ 
+-K230_CLK_PLL_FORMAT(pll0, 0, CLK_IS_CRITICAL, 0);
+-K230_CLK_PLL_FORMAT(pll1, 1, CLK_IS_CRITICAL, 0);
+-K230_CLK_PLL_FORMAT(pll2, 2, CLK_IS_CRITICAL, 0);
+-K230_CLK_PLL_FORMAT(pll3, 3, CLK_IS_CRITICAL, 0);
++K230_CLK_PLL_FORMAT(pll0, 0, CLK_IS_CRITICAL, NULL);
++K230_CLK_PLL_FORMAT(pll1, 1, CLK_IS_CRITICAL, NULL);
++K230_CLK_PLL_FORMAT(pll2, 2, CLK_IS_CRITICAL, NULL);
++K230_CLK_PLL_FORMAT(pll3, 3, CLK_IS_CRITICAL, NULL);
+ 
+-struct k230_pll *k230_plls[] = {
++static struct k230_pll *k230_plls[] = {
+ 	&pll0,
+ 	&pll1,
+ 	&pll2,
+@@ -296,7 +296,7 @@ K230_CLK_FIXED_FACTOR_FORMAT(pll3_div2, 1, 2, 0, &pll3.hw);
+ K230_CLK_FIXED_FACTOR_FORMAT(pll3_div3, 1, 3, 0, &pll3.hw);
+ K230_CLK_FIXED_FACTOR_FORMAT(pll3_div4, 1, 4, 0, &pll3.hw);
+ 
+-struct clk_fixed_factor *k230_pll_divs[] = {
++static struct clk_fixed_factor *k230_pll_divs[] = {
+ 	&pll0_div2,
+ 	&pll0_div3,
+ 	&pll0_div4,
+-- 
+2.34.1
 
-This commit documents the Renesas R63419 generic display driver IC used to
-control dual-DSI LCD panels. It introduces a new YAML binding schema for
-devices such as the Ayaneo gaming handheld panels.
-
-> diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r634=
-19.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.ya=
-ml
-> new file mode 100644
-> index 0000000000000..adfdd2c300a35
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
-[ ... ]
-> +allOf:
-> +  - $ref: panel-common-dual.yaml#
-> +
-> +properties:
-> +  compatible:
-[ ... ]
-> +  vdd-supply: true
-> +  vddio-supply: true
-> +  vsp-supply: true
-> +  vsn-supply: true
-> +  vci-supply: true
-> +
-> +  backlight: true
-> +  reset-gpios: true
-> +  rotation: true
-> +  ports: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +  - vddio-supply
-> +  - vsp-supply
-> +  - vsn-supply
-> +  - vci-supply
-> +  - backlight
-> +  - reset-gpios
-> +  - ports
-> +
-> +additionalProperties: false
-
-[Severity: Low]
-Should unevaluatedProperties: false be used here instead of
-additionalProperties: false?
-
-Because this schema includes a reference to panel-common-dual.yaml in an
-allOf block, additionalProperties only considers the properties explicitly
-declared in this local file. This requires redundantly redeclaring standard
-properties like backlight, reset-gpios, rotation, and ports to prevent
-validation errors during dtbs_check.
-
-Using unevaluatedProperties: false would properly evaluate against the
-referenced schemas and allow removing the redundant property declarations.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522-topic-sm86=
-50-ayaneo-pocket-s2-r63419-v6-0-16edddda9951@linaro.org?part=3D1
