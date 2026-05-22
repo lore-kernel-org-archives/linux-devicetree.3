@@ -1,64 +1,64 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB63377EA1
-	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97033C769F
+	for <devicetree@vger.kernel.org>; Fri, 22 May 2026 10:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779444629; cv=none; b=QtIDBOzYohPOlUiQhzhS9PGOjrXEKvu38dq6qHb/B8DLwSWXvrTLqe4z9cmoXmo5IvmI1fv4j1lhr7wkw/QAx5aEszft0thTugj8lnScpGHoikOncmcY1z4X8sje+eBJpUDTRbeW7RVDezYYf8abOFK/I/q0dQdTAf84//SpQlk=
+	t=1779444698; cv=none; b=fxC5O9Iwm2kKsbBcfm6Ec4X3jNrdEirXX4rK2XPBmuZyPAf0hdUe6cM9un9CmtbZfC56QIFZC5T/dL1dapkiyEaUayBy4koBeVUzPzHjIZ8VKBT2M/fVEdp/OWIrXeeGthi1ftFunxWXCmiop9ankbjQU46Q4LV1l64Se0AEVwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779444629; c=relaxed/simple;
-	bh=nUDx/Hx8QDCc2KH4E9IN4IE6QLtAgB3+QS3Q1sgq2N0=;
+	s=arc-20240116; t=1779444698; c=relaxed/simple;
+	bh=1PEqBL2N/tP9c98YsA95gPInc3U0Rsi9oDwoPYi84jY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mXd14OGt2vg/DkXjo54oDKok3ay9lRsLXxqpjEVesOYlUHkFZ6GVsEO/CLxdPu/u57NpD22Ly1a65+kdI1UAZsw5xZlOec8Zi1hldH3aGaRbY8qDHHhlqHGf8TGtdkAC13N882Q2USEIsJSDyy8PLcnJmInQrKb8dcwtTtQEhTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RnpYdhy+; arc=none smtp.client-ip=209.85.128.50
+	 Content-Type:Content-Disposition:In-Reply-To; b=EztFmQg3vmij2qPbUSQpPOAUnF9KcAfXKVoZJ5Nbex/hhN6Bt8bC/bwaB4cLFkTTRYxHZc+WqQ+0du5PvUiNqk9AgHbdfNrd82p95dbQ0Fe6hiiwM4gsQlfCsHr0V7TYFluJR8SYUvZiyCc8O5gWhu+xce+CYBj9I1CEFhNXRWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8TpQ1W2; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RnpYdhy+"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-48e82c23840so57622505e9.3
-        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:10:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8TpQ1W2"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45e8a834cc2so3398585f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 22 May 2026 03:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779444627; x=1780049427; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779444695; x=1780049495; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ksYNE5DgGi8aj7hSjdkwqCdfXo+PZrlzO7PfP46SpzY=;
-        b=RnpYdhy+bzbYrqzy6uw6pFfgsGKs7VZhW0Crea3JkSmhYM7lk0JGXr0IGa7GnRPPDg
-         Kq+t4rD+gxncYSUw4bj6X0MJMQYZrvjfv/JK0/YeehEjzd7fbOwhAP8wf+BBjwCn2iTS
-         xHgOpMrysrPabCsb7FvnVzz8fYB5GymHuwhEq5EE+o1KMZNRMzqhZzLjiQYs87+Jzf2k
-         ecQsmUKZHGbNRjK1Y9QE8XeT3Fy79K+r4EBdNogP0c4dj7e7SVejHI/L6zLuQudrf71e
-         kWP61PH5+rBtdsqelxde7DAlIQGJJDKNr0QTJutj+2eyJZ+mHOdukhdXBVjKi4AeikFv
-         0z8w==
+        bh=VERC87ErTg1j6vxwxEYthaPZVN4kWyhvQyh1LqaXbdA=;
+        b=G8TpQ1W2Qzm/qd3IXfB+tdbZj4KegJGVty0YHvYmtgqDj6u73B7QfRuvjdsPXQevE9
+         coXUT6QPHnrAohAlom6giTbZFoiHAkI0nSpPcywCh01BTj52jcsEpaDE7HUl5H4xKHwb
+         Z4zqM8K5nCxDYAkqisv+FYe2C3CvNKVG5/6ppHmlw7eUp1JmetQnIBiPr4GfT/UIlAD9
+         YcCJN9ycd+1zCjswCLlv5T33MzMcH7bU/+OARWXIyo3Iy5W2H3GFC/YAPWqiaUB1I12Y
+         yxrUNyFVi19RTifHhXzBOBEfiH5HfCfp4cTbEioBbOszXt9CI5nKZQ1NP9tnrbkYtizC
+         be+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779444627; x=1780049427;
+        d=1e100.net; s=20251104; t=1779444695; x=1780049495;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ksYNE5DgGi8aj7hSjdkwqCdfXo+PZrlzO7PfP46SpzY=;
-        b=OC+a+zF/vAQRWWgUN2Cl6rU4N1YXqAzX0jxTosSjphMmPUP4h2DhLE9NMrvVjPKNLR
-         XnXOJB6Y/w0YZ0F5BzKf5QE7O25958eIBJF6q8V/hoELPD+VzlhJYsIklbDReH1hykch
-         YB0/RFL0pR/QlQWLIpoGuufcCJF36ey54+p6jjoCumo96WfdNPVlBo6OiQkvX0wkRGyK
-         igofc+4i1E3ox4AU3McZqlP338m+M12dj4cqae0wBAeX4W4n8G2KEq6rt1wIU9s3aK52
-         GhqbROS6YhKlxZOEO/1IBdAzyKJhlf1dQuxRRQ/Putvq4QTWC0ESR3NDF6/USPO6Po2Z
-         X7rw==
-X-Forwarded-Encrypted: i=1; AFNElJ8B2XjTVooILCYkFQ6jG6lC4F3XWohzZ25EHpLwWeo7VOUIQvUnxVJTSsFhN00wnsSx2y4N5rBMOasc@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw99bM1bRlu6RJo8n2BTfrkLwYRpoW83QqVNCqrMuKeoDOXgoSE
-	MuOXjqqvEZm8ERP1NQPe19W3Zt6VmBmVGmZWgNeCKZlY7E/GfCpo04yYNml7Tw==
-X-Gm-Gg: Acq92OGE8Xin19iYRojPpyPLq/HuHbj7/OTVAEZeMZF+oQsZxQtx/VCEjEXo+H8GNWv
-	/oMpVIPIrG9HhjvLbp6m4ecoPV4pge4ZXBC+lNaUh1d1jXztDY4FXXIwqq5Ofpt5a+nhWBRHKo+
-	0+R0SL1xUoc8MCUYoX3Vtuq4vrwxu2rsA50E5A0vCCQ9HqxhFcjOWismS8kaokvR5siQYg7babm
-	1CpUvWAmFJUkR+EWq6UYH9n17ovyu4j/sp0Q4KFTAj30mhkpN+/EfjFjnMQGq4rfPu1q1ilw00x
-	NDE26m5uZnQSOtgS/bvGD7vKpac6rtpHQ5jQBZt2DUBKpU8NAqLHAUZiFanIJp6LJhTZuiVTfmZ
-	8d9j6TZSvmtwfXhggMLMveXWXMr+ZY6+SupgWai9Pihzyz3G5QOHLXyQvNiwjCe/xCpA10oy//Y
-	6kc28zP8RVCCKPzyjHa2wvegLXnL//+fbA1AjWlZcXS9PEN17VZ03aaRIC3fpkq4Wc0AJuj7uF9
-	LnlIiNoZMHg6A==
-X-Received: by 2002:a05:600d:640f:10b0:490:3ff5:737f with SMTP id 5b1f17b1804b1-490426cefe0mr28149535e9.18.1779444626854;
-        Fri, 22 May 2026 03:10:26 -0700 (PDT)
+        bh=VERC87ErTg1j6vxwxEYthaPZVN4kWyhvQyh1LqaXbdA=;
+        b=RlcA6b0yl85G1ocv9odWAd4UWJPNt7lAYo1j8iua/3zxjMV/MTtSsDhOSXpbApBeBY
+         LXKI3FCk/wf8NHztbkimEDY9YRSFIve7WvPCGBrd52pdT8gYFV0WUy183OHeqrOTnPyj
+         7HprflXasAJd36gchyZW9nhG59yhuB2lJbQYFJhUepHrssE+re05AhUDcWh1PN2oI7tQ
+         sMOaSypCj6pMbWKpDELex79L/npzpkKiB9oWlgBpSUdfyi1HEd9Kg+qGqPu0LtNZFIO1
+         nqJm1J2fkO7sx4JdmSU7siwijA2jPNCEcT22j9+XJOgAHhYCiaB0q8fiJFfvQxGiEKGh
+         j3+Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+aQjLqxRDMnVraoSZOFXBl9Savt7EY88MH7bhFpRUtRIUcuXkt/oSNH63DmeKEaRZ034K7pNJv2p3g@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7MgSLJwDhpb8cpYuxbCXlK5dDl+oKG4b4QkQtKFo6twC0D0nH
+	PQgUyGpZasWyez6ZVJijJIlF0McgI/YMRMH+xnX4YYX05gFvU4npzlmc
+X-Gm-Gg: Acq92OHMFdsTkfSaxQKvVguimSidM3TXX8zzC4OjwSGkQD6SEFU7on7wJSJiDCw4lqi
+	rLj9eOenAPm9x1Mg7mhmvZilyR/8G592bw80X5fbUEHXr4ZLjWImCEjJa2+sZUCS3rg7xvTFISs
+	vr5GJ/U9d2P+OdmHITaRiMow59Z0Msd01IbSLC+k6nF8IQrHEf6cSMfqxuBhZ1DrW8L7hyHZNuj
+	fXX8OalI8BCotS98KzPdrN1HPX1tGO5WlZEIH23QGRGk5pGjNtrQq195zAVR7Et5OtXgFaTgHKi
+	JZM9cxE8MIlEo5XcMWVFwsZsi6/PjVhRQbfKIv3Wo69bDzgmEIsdbwOYaMg/+SbR1t9psazxcr5
+	SwV+HGhMrR92uxpc6arTLkksQ9IcvopHSxwBStiyd+Zkhy0Nw7f3WXZp0BPMrEPGOIyBCCRPtf0
+	FmFtWDFVrFV4s7cxfe5BHmLZNUhQPhtLfDD5OMebUe5NMse3cBcnm7SkjEVql/nahe0m/ju4Jga
+	yLLHoSWz5yXWw==
+X-Received: by 2002:a5d:64e4:0:b0:45e:a0ab:8bc9 with SMTP id ffacd0b85a97d-45eb38c3793mr4093659f8f.41.1779444695040;
+        Fri, 22 May 2026 03:11:35 -0700 (PDT)
 Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d4850dsm2798642f8f.17.2026.05.22.03.10.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d5cb9asm3419737f8f.27.2026.05.22.03.11.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 May 2026 03:10:25 -0700 (PDT)
-Date: Fri, 22 May 2026 12:10:23 +0200
+        Fri, 22 May 2026 03:11:33 -0700 (PDT)
+Date: Fri, 22 May 2026 12:11:31 +0200
 From: Thierry Reding <thierry.reding@gmail.com>
 To: Akhil R <akhilrajeev@nvidia.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
@@ -66,12 +66,11 @@ Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
 	Laxman Dewangan <ldewangan@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
 	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 03/10] dt-bindings: dma: nvidia,tegra186-gpc-dma: Add
- iommu-map property
-Message-ID: <ahArhz2rJrUx-3As@orome>
+	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v6 04/10] dmaengine: tegra: Make reset control optional
+Message-ID: <ahArpX_3Og7d8wA8@orome>
 References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
- <20260331102303.33181-4-akhilrajeev@nvidia.com>
+ <20260331102303.33181-5-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,55 +78,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cfuujhnhen7f4kbw"
+	protocol="application/pgp-signature"; boundary="7q66bzfjf74euvvi"
 Content-Disposition: inline
-In-Reply-To: <20260331102303.33181-4-akhilrajeev@nvidia.com>
+In-Reply-To: <20260331102303.33181-5-akhilrajeev@nvidia.com>
 
 
---cfuujhnhen7f4kbw
+--7q66bzfjf74euvvi
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 03/10] dt-bindings: dma: nvidia,tegra186-gpc-dma: Add
- iommu-map property
+Subject: Re: [PATCH v6 04/10] dmaengine: tegra: Make reset control optional
 MIME-Version: 1.0
 
-On Tue, Mar 31, 2026 at 03:52:56PM +0530, Akhil R wrote:
-> Add iommu-map property to specify separate stream IDs for each DMA
-> channel. This enables each channel to be in its own IOMMU domain,
-> keeping memory isolated from other devices sharing the same DMA
-> controller.
->=20
-> Define the constraints such that if the channel and stream IDs are
-> contiguous, a single entry can map all the channels, but if the
-> channels or stream IDs are non-contiguous support multiple entries.
+On Tue, Mar 31, 2026 at 03:52:57PM +0530, Akhil R wrote:
+> On Tegra264, reset is not available for the driver to control as
+> this is handled by the boot firmware. Hence make the reset control
+> optional and update the error message to reflect the correct error.
 >=20
 > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > ---
->  .../devicetree/bindings/dma/nvidia,tegra186-gpc-dma.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  drivers/dma/tegra186-gpc-dma.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dm=
+a.c
+> index 5948fbf32c21..a0522a992ebc 100644
+> --- a/drivers/dma/tegra186-gpc-dma.c
+> +++ b/drivers/dma/tegra186-gpc-dma.c
+> @@ -1381,10 +1381,10 @@ static int tegra_dma_probe(struct platform_device=
+ *pdev)
+>  	if (IS_ERR(tdma->base_addr))
+>  		return PTR_ERR(tdma->base_addr);
+> =20
+> -	tdma->rst =3D devm_reset_control_get_exclusive(&pdev->dev, "gpcdma");
+> +	tdma->rst =3D devm_reset_control_get_optional_exclusive(&pdev->dev, "gp=
+cdma");
+>  	if (IS_ERR(tdma->rst)) {
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(tdma->rst),
+> -			      "Missing controller reset\n");
+> +			      "Failed to get controller reset\n");
+
+This change is a bit pointless, but I suppose it's a little more
+accurate this way, so:
 
 Acked-by: Thierry Reding <treding@nvidia.com>
 
---cfuujhnhen7f4kbw
+--7q66bzfjf74euvvi
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoQK48ACgkQ3SOs138+
-s6GAew/+JcdwaY780zCzuK455YnQ+eLwg86S3a4AOS3x5iG0/m8f2Amil+VB72nZ
-ci4+qK7+yV8+3+6uldI0g7LZDzGflpyZrUDNuQLCfj+vYmEb61o1JoZbNhoE9+ic
-nag0sS5coucJKY2Gc3RD357norEY3DBhMNTr28tn58ydg442Uq2gx/6ZVK9GnYfF
-XgK3rr80mq7WB2bVqK3GTiC814TPhlldNXxFxqRV8y4h/D764MMQ9qHocmgx2qW4
-5I8InPisLbTCb8p8HBwRlA3h8YYMsMth3CHVUXXkmTb8NBEmjfQnoDWB4pxmIpf/
-KzJb+/Qk9OTBOhy86/zUp+fCY4KZvNKcD8csC84lEIzPzUuRcIFv6ILoGvzUo4EO
-YwuDJpsMrOf1K1K5hHm9qGugZ2DBSK4Vx4fOUBWoZIjGH2/TRCg7Pn6JBhJuT5o8
-hThxuFO8909jWAoKMknu1oQD6ShIuVj+FbDWHhYAlbI5Dj+mT7QtQ1z750r0gtj0
-2RkRveEDOOUuv+Zla1iw3NQkkSLogplGwIp/OVbyzkNCkxClBkWP/7/D2c9+ZdOU
-orMrAVeNg3+t+xWUKNNsTIJs7UHY/Ijp9T+msaNIZnojc0XnIGHfcTHDJIWeXhnD
-Ze6C+O9gJTwgdsYARNevxitPP2/O4tnp6JP22PWc6ueoyrvbSxA=
-=xacF
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoQK9MACgkQ3SOs138+
+s6FHnA//XF4yJADgbsPfLGq/nIoR6D15Rkyz2/y+WoltFZ/NE79EUP9PKuTKyaZB
+Zg768U33kvdc5mhOKspm7OXUCUkw+dyFGHW0Ud8sXdLZUnJdagT5LwUCgxZh/7fv
+Y9LF9Ol+dQl+aKNFH2gZJUDLGlYsdcnqNADudoqVh7Jh/Javn9PPvx/oa2I2J8QP
+B0ybLk6adFzB/jm6hG8K48cHojhlZ5ea0Ri0+WFpjbBbhTzdHUal7pzdpjPoXwGT
+5QuHid/lj82oWJQO34iuYCYPY6fy/FUO4esr35elwttdxaNBL689MOmF6NeAwIKS
+cm4rk9Eme54ukkQ5lULHMDz4U5D0Py4/G7XH8XHzwhTbe8t42Gqu9mLK8pv4BAM4
+mXMIA8j2MuDb5QjZmCcpJOHiBkXpvVReKem4mYZ3GO+QP0XZe2dUOx6NqKy76u1G
+0J69wsztZW9VP4MY8ImIx8+pqWAsysnp4WvC9I10MSmV5dzBN4Oq2EBDMgwouZl5
+efk549EwfnEdQI1HkRbMumKZYdtyRsJ7S1CQ/h8LGcy2kiRIWz+Bh1T27KXpTr0K
+nkc2zuW5+eAtNfcLK+r2rLDqscBWX7fq/+YS72+b+zYdUoGgL+FwcZVZ561OVrwD
+8KLN1/XUDCWZP+A+j8FwM6O4cDTuVPHTC3Q/64jPCC8Eu1Di1qk=
+=uscJ
 -----END PGP SIGNATURE-----
 
---cfuujhnhen7f4kbw--
+--7q66bzfjf74euvvi--
