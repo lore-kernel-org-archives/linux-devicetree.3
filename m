@@ -1,46 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E64344D9B;
-	Fri, 22 May 2026 06:35:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B81F3EA66;
+	Fri, 22 May 2026 06:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779431705; cv=none; b=TeyJxHqJ+puBP3Fjc2sXwjLlqBEgvPnfpxiV5e2f8rfr3Ap+3/su0yxGrBgRa80eO0JeAHYWkYbf4oVn3rUfA+0+RQ0r8Fj+jmOFDjD6uITrbuEcQgR8n4nfw+O9grD/VKgsH4yxHVe84Si2Nwnv1MBlgMOOj6fI7+mHQnYg5b4=
+	t=1779432125; cv=none; b=M8VkPLwm0WiW+8QIploLwJ0EwS1mtd30RBcRD1t6xWq4cmr6BsxPw3U8amvQoUshsvu3Lro/kCm7CoWYoDN/ujzHQtSSw8XH5MqXysjFaCM8H5ko6oCJypaWy1qgVGwo3FfLNEz2iDXCSigu4POx+/ikWnx/o1RU5rNsf2odZjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779431705; c=relaxed/simple;
-	bh=RPu0hsoLKcCmXW4qJ5kOATfjDOxCmWpnvd/o0luxc3w=;
+	s=arc-20240116; t=1779432125; c=relaxed/simple;
+	bh=2KjPLd/oqgveZd9jBvNDAZqGC3uA6jKr6iMhAecbRi8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D8YTGBHfSpzgejXCrPFNNkfbhR/HUAPbIspvh/umqQzh3OTJXzURjSs4O6zz7onOT8Hj6sCpuOuxxQWK433euoGQTCaD3uGvPYYhnpYv5u8AePTeVtGsvvICPtaii6IFm0WYO563nB6UzApanqjR1f6mOyan9XK7Be9plYJccrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HqbTX5nn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Du1n0GYNCk8a/v3H5C6yedDSg3K3g+swQtfqnlTRciyxTAj/+LFD2HxbwSGhkHyiz3gVn2nUyWq/iDCAr7XGKpximR4VE+4RUkR92ZxTVESw1YRWaP7ODwmV6UbfSuAvVumxw9j78T2vGcJYxzvAJSrD+j8d3UMXXhvYW3x7hkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A2W661O6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HqbTX5nn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7341F000E9;
-	Fri, 22 May 2026 06:35:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A2W661O6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 816CD1F000E9;
+	Fri, 22 May 2026 06:42:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779431704;
-	bh=kf+dMDwyNXr6jkRtBvtEaNwwZ1VBJCjnQuZWi4ECY1k=;
+	s=k20260515; t=1779432124;
+	bh=l0CexUZkQ2nonkzf2YIbC7mbJTdht2vfw3dm5wq1r8Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HqbTX5nn06W/vJwsXvEJp1L0Sw/K4LYK9tGYncVM9EcEXMY2XVza+e3JZf4R/nM+r
-	 OcS2uXFsPG+O68XW47/YvqaI/YVndQCXZCoMQBs9lPkni7RZTxbKtEnGHeB42vBZPp
-	 Zr271lBwFQi7gkiMenV435pVR9CzFcJtsfDDveRoVTkQ1Ekq91VIcxdoBTnPmgivBQ
-	 BitSieNX/2Xiqv57/in5loFsvM2XNKZMy+TW5VkNqmww+YA9HJqhVRVWaKQgmFjQOk
-	 zoWHI8tt3mTdPH50Z/w3XLWjC/AduDNudVeOgesQmiOsomvVnh39ZScRvu4a80oQ3L
-	 UXG3jL7y4NwKA==
-Date: Fri, 22 May 2026 08:35:01 +0200
+	b=A2W661O6jRgCniiU7+OacQ10ukbpQScMuYCOGD1TFsXS0v21bc36MW5QCDCSVCqco
+	 spEET8m+Xf11VfOTOxv61TsAsS25DPD7V6r9CNne/y9FJxwnFhdqa4splXZtH5psUI
+	 36CP0+VyA8YobSZy5TzNwqbkT14CNhdV2YQNKXxhJGe+e7+BNtn7e+lqaV35IU9zu5
+	 V+5Pgv698zd7ScHQpo3wOQFMjP02gHq/zDRxzXBFt/hJ7yx4/aD16EOjfpEmeOkPEI
+	 CAExfSXOKKa7kFSp7CgFkgRU9Q8igPHqBUdL0vEbNhMuLZevgPPiHCKUHroPR5waCC
+	 jyIs1DTdGYRhA==
+Date: Fri, 22 May 2026 08:42:01 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: cpufreq: qcom-hw: Document Shikra
- CPUFREQ Hardware
-Message-ID: <20260522-massive-hopping-oxpecker-d9dcca@quoll>
-References: <20260521-shikra-cpufreq-scaling-v3-0-883c13d1e514@oss.qualcomm.com>
- <20260521-shikra-cpufreq-scaling-v3-1-883c13d1e514@oss.qualcomm.com>
+To: Udaya Kiran Challa <challauday369@gmail.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, skhan@linuxfoundation.org, 
+	me@brighamcampbell.com, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: clock: via,vt8500: Convert to DT Schema
+Message-ID: <20260522-passionate-fair-jellyfish-73b2ee@quoll>
+References: <20260521170810.19702-1-challauday369@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,26 +44,168 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260521-shikra-cpufreq-scaling-v3-1-883c13d1e514@oss.qualcomm.com>
+In-Reply-To: <20260521170810.19702-1-challauday369@gmail.com>
 
-On Thu, May 21, 2026 at 07:36:04PM +0530, Imran Shaik wrote:
-> The Qualcomm Shikra cpufreq hardware is functionally identical to EPSS,
-> but supports only up to 12 frequency lookup table (LUT) entries. Introduce
-> Shikra specific bindings to represent this constrained EPSS variant.
+On Thu, May 21, 2026 at 10:37:28PM +0530, Udaya Kiran Challa wrote:
+> Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
+> controller binding from the legacy text format to DT schema.
 > 
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
 > ---
->  .../bindings/cpufreq/qcom,shikra-epss.yaml         | 96 ++++++++++++++++++++++
->  1 file changed, 96 insertions(+)
+> Changelog:
+> Changes since v1:
+> - Add default value for divisor-mask
+> - Add required properties compatible and model
+> - Fix example node name
+> - Update example size cells and reg value
+> 
+> Link to v1:https://lore.kernel.org/all/20260520025131.17772-1-challauday369@gmail.com/
+> ---
+>  .../bindings/clock/via,vt8500-clock.yaml      | 126 ++++++++++++++++++
+>  .../devicetree/bindings/clock/vt8500.txt      |  74 ----------
+>  2 files changed, 126 insertions(+), 74 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/clock/vt8500.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+> new file mode 100644
+> index 000000000000..9e19103866bc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+> @@ -0,0 +1,126 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/via,vt8500-clock.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: VIA/Wondermedia VT8500 Clock Controller
+> +
+> +maintainers:
+> +  - Michael Turquette <mturquette@baylibre.com>
+> +  - Stephen Boyd <sboyd@kernel.org>
+> +
+> +description: |
 
-Please use subject prefixes matching the subsystem. You can get them for
-example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+Do not need '|' unless you need to preserve formatting.
 
-There is no "qcom-hw" schema, so no clue from where did you get this
-one.
+> +  Clock controller bindings for VIA/Wondermedia VT8500 and Wondermedia WM8xxx
+> +  series SoCs.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - via,vt8500-pll-clock
+> +      - wm,wm8650-pll-clock
+> +      - wm,wm8750-pll-clock
+> +      - wm,wm8850-pll-clock
+> +      - via,vt8500-device-clock
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      Offset of the PLL register within the PMC register space.
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description:
+> +      Parent reference clock.
+
+Drop description
+
+> +
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +  enable-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Offset of the clock enable register within the PMC register space.
+> +
+> +  enable-bit:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    maximum: 31
+> +    description:
+> +      Bit index controlling clock enable.
+> +
+> +  divisor-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Offset of the clock divisor register within the PMC register space.
+> +
+> +  divisor-mask:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 0x1f
+> +    description:
+> +      Bitmask describing the divisor field inside divisor-reg.
+> +
+> +required:
+> +  - compatible
+> +  - "#clock-cells"
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - via,vt8500-pll-clock
+> +            - wm,wm8650-pll-clock
+> +            - wm,wm8750-pll-clock
+> +            - wm,wm8850-pll-clock
+> +    then:
+> +      required:
+> +        - reg
+> +        - clocks
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: via,vt8500-device-clock
+> +    then:
+> +      required:
+> +        - clocks
+> +      anyOf:
+> +        - required:
+> +            - enable-reg
+> +            - enable-bit
+> +        - required:
+> +            - divisor-reg
+
+reg: false, no?
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    / {
+> +        compatible = "via,wm8650";
+> +        model = "Wondermedia WM8650";
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        ref25: clock-25000000 {
+> +            compatible = "fixed-clock";
+> +            #clock-cells = <0>;
+> +            clock-frequency = <25000000>;
+> +        };
+
+Drop everything above
+
+> +
+> +        plla: clock@200 {
+> +            compatible = "wm,wm8650-pll-clock";
+> +            reg = <0x200 0x04>;
+> +            clocks = <&ref25>;
+> +            #clock-cells = <0>;
+> +        };
+> +
+> +        clksdhc: clock {
+
+Entire binding is for part of other device, so where is the rest? This
+should not be done separately from the parent. And then example goes
+only to one place.
 
 Best regards,
 Krzysztof
