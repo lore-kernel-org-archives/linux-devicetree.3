@@ -1,126 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBC933F58A
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 09:11:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF49634A76A
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 09:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779527497; cv=none; b=XMHEpATSQIOyz8MakGwBtKEyKONKioZRri2ikYAcAgKVT5AUBPRk3khUgOEhkwgcQwJzpXkSMPSlV4mGYl2W2u5ZlIfh4J0MvXdPgDo9I9krSG7fKGNI307HkI4lK4o0981FwwSF/6mxjMOKaHH/qEuygPUBPXUm7SW6oCeS1fs=
+	t=1779527639; cv=none; b=AcByvCZNO4eDe8D95aLxVYyaTZ0IDiyFQwN6sOvqMv5oBce4eYKmnDjlSX1I3x8AlKQaBLBedCb4sFO54xZhsTbHgDDuG0+WGTro0pIOKZCjypZIxljroPthdi6WiuIvTtO2FlL/hOGPG/ggJvDNMlti/9MTg3vk86YrE1PA45A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779527497; c=relaxed/simple;
-	bh=0TZQ3EUVWKOFdSL6kXdEODqjZIz67GTCEIIK1OBQdSw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OGaj4r/eB81oYJH4FqEMHKXCmk+txFQNCCPDryJ4j3xwR3kDE/FVBX+xdHG9hm45Xi2Eqa663GdWWvgWAPprT9iKjD0Mp5e04ZHtcalDEOxCLwYGXbVRCSMcF7JOTbmM1cNwdrp4+qsBEpfCBS/ay0J/8LsS1anACbAYlflgyCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UKX1Lp+l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779527639; c=relaxed/simple;
+	bh=Oj9WONT2LmJnuM+KabzKdwYNSGGC4sxCi7v5wRCbaKs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mD6Y8CqBekkreQuDD7uanu0dfzRu/GXoYN84XP3o9a6EjfU8HOCuPymceJVcP0croC3KbrJrzyw7SmJkIxY1hRz1NUm9rRXnoHHXiExX50VLnI1nerWZ+5BrreVA39966sB8dquUG/9DDS74UVrhRSepfg/n/zgjSHKC1X22R9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2+BKGp5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UKX1Lp+l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851FB1F000E9;
-	Sat, 23 May 2026 09:11:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2+BKGp5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A51C11F0155E
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 09:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779527494;
-	bh=oVvakX/0xGrlRNKYPloQe+JduCDuEEHz9DJP5bI+r4w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UKX1Lp+lwzIVswZeUYPCRfKRi7GMZL4BVNx2zxKzlaBQArT3LctzNmx1BPXPPrf0A
-	 Q4/427Mi/V8AQzzYouibXoQ317EumdRjHAKNgXROgNeqJj4MuNvcso5lZeV+yqLeox
-	 +4D2U+FNR2F8RDHAGBr5xRD8AHlkiD8CS88lgtIbc3WURZuFFnJ3dkprt9agcXP2jm
-	 umJMLIm1QMhsCtgRWKgRAaghS1xfhmMadGUf6Fkw4D9iIxTFwCGcKuMeCbtOTWoWF0
-	 TTY0npzgFZYCygfEf1P1iMzFo+LKyfmDAWHsqH0sATbpJ8AyR7o8IblZ8bkMTt0s11
-	 Kk/z5Sd6pgT/Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V9 1/3] dt-bindings: soundwire: qcom: Increase max data
- ports to 17
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sibi Sankar" <sibi.sankar@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260523085511.2532669-2-sibi.sankar@oss.qualcomm.com>
-References: <20260523085511.2532669-2-sibi.sankar@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 23 May 2026 09:11:34 +0000
-Message-Id: <20260523091134.851FB1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779527638;
+	bh=Oj9WONT2LmJnuM+KabzKdwYNSGGC4sxCi7v5wRCbaKs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=H2+BKGp56W+IThiQWqZOx5odAcV1/nQu6v2pjNnwPVgID3MBs7aKNZ7toGsu7hLNy
+	 oIiv5XV8d2Z5t2v5l3yf2pLdhjJxxsahsxwCDus6jbKbQrcqqfQ4/si0jKNcj4GQRg
+	 PdNpNOiSdfSwBCcOWA5UDsrZKOu9Oabw4PBQKpmKLk58U7/voKt5jcdN1YopnWe/4Z
+	 X5M14WuXuSQvspAVooJcGbmjYQffcpTus1r9IbR3pePGQJgpxGeQyLiq61cbqM5gz/
+	 KeGSzHRLopOlcHxsPGEC8C/EsLIRlVc/HsLaThoeKqY26UGz68xMKZ9iJ2N/VcnASR
+	 kqWKAtKTLa1qg==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a887ebb416so9789164e87.2
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 02:13:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+qLGKpY3LbJlextt4b8/+gZfz9GT0Raz9bXtgYs8nIr1CML92WMvZjkET76kSPpYt41RuhtPMiufil@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBFZw0njTsJizzi1UdN9EMWhNz6BCzmvjC1gojyGE/he5kpNdc
+	LvMr3xmIYG8jjMxRo3fwii1trxZV0piUxWhiq91OGta3rYEzJg7XKLvYEOY+1mYOU4dSORayTy3
+	Hz3ajXVJ6kTakAgWGk1SaPwtYD0f/Jhg=
+X-Received: by 2002:a05:6512:1094:b0:5a8:8222:7fc9 with SMTP id
+ 2adb3069b0e04-5aa323ab2e4mr2502434e87.13.1779527637399; Sat, 23 May 2026
+ 02:13:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
+ <20260414-axiado-ax3000-sgpio-controller-v1-1-b5c7e4c2e69b@axiado.com>
+ <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com>
+ <106b7b64-ed6e-499f-b5ac-60c1277f2f03@axiado.com> <CAD++jLn4R9ubqHsek-56s1sF9YhxYt4-C2TPdYGcYjy2MC6q_Q@mail.gmail.com>
+ <fd2ee102-db52-4a37-b96e-c16211e3d8e3@axiado.com> <CAD++jL=51iWK2SyxoWOTxSQHAq-Frd0mm6cPxqYu81qifFfHGg@mail.gmail.com>
+ <c20dc0cb-252b-4637-bb22-6078be62b21d@axiado.com>
+In-Reply-To: <c20dc0cb-252b-4637-bb22-6078be62b21d@axiado.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 23 May 2026 11:13:45 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkos3kC_ALAaoevaF29_Jf_WY5Z_2mZ1_Ldi+hCDbzt9w@mail.gmail.com>
+X-Gm-Features: AVHnY4JJRfkcZxFTflgIKJvV2OpxrOyssZ0mBCArzoYH6Vt9eiME0imygNfv-1c
+Message-ID: <CAD++jLkos3kC_ALAaoevaF29_Jf_WY5Z_2mZ1_Ldi+hCDbzt9w@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: gpio: add Axiado SGPIO controller
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, May 13, 2026 at 10:59=E2=80=AFAM Petar Stepanovic
+<pstepanovic@axiado.com> wrote:
 
-New issues:
-- [Medium] Globally increasing maxItems to 17 for port properties weakens s=
-chema validation for older SoundWire controllers that only support 16 ports.
+> Some SGPIO outputs may control host-critical signals. For example, if the
+> BMC reboots while the host/server remains powered on, changing SGPIO outp=
+ut
+> values during driver initialization could potentially reset or shut down =
+the
+> running host.
+>
+> The purpose of `dout-init` is to provide a deterministic safe output stat=
+e
+> during SGPIO initialization, before any GPIO consumer has requested the l=
+ine.
+>
+> That said, if the preferred approach is to preserve the existing hardware
+> DOUT state during probe and only change the value when a GPIO consumer
+> requests the line, I can rework the driver in that direction.
 
-Pre-existing issues:
-- [High] Port allocation logic fails to properly check if the highest port =
-is busy, leading to silent collisions where the maximum port index is alloc=
-ated repeatedly when all lower ports are exhausted.
---
+That is usually the best. The gpio framework scans the direction
+of each line at probe(). While it does not know about the initial *value*
+of each line, consumers can take this into account
+when requesting a GPIO line like this:
 
-commit 4f104dadbb8cc83ffee25439c24bc3ee896cb832
-Author: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+gpio_vbus =3D devm_gpiod_get(dev, "vbus", GPIOD_ASIS);
 
-dt-bindings: soundwire: qcom: Increase max data ports to 17
+This means the kernel does not put any initial value on the line.
 
-This patch bumps the maxItems from 16 to 17 for all qcom,ports-* properties.
-This accommodates SoundWire controllers v3.1.0 which feature 17 data ports.
-
-> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.y=
-aml b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> index 9447a2f371b56..8e6973fa229c9 100644
-> --- a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> +++ b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> @@ -90,7 +90,7 @@ properties:
->        or applicable for the respective data port.
->        More info in MIPI Alliance SoundWire 1.0 Specifications.
->      minItems: 3
-> -    maxItems: 16
-> +    maxItems: 17
-
-[Severity: Medium]
-By globally increasing maxItems to 17, does this weaken schema validation
-for older SoundWire controllers that physically only support 16 ports?
-
-A device tree for older hardware (e.g., v1.3.0 to v2.2.0) could now incorre=
-ctly
-specify 17 ports and pass dt_binding_check.
-
-Should this use conditional allOf / if-then blocks based on the compatible
-string to enforce generation-specific bounds?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there appears to be a pre-ex=
-isting
-logic error in the dynamic port allocation that these bounds protect.
-
-Looking at qcom_swrm_stream_alloc_ports():
-
-drivers/soundwire/qcom.c:qcom_swrm_stream_alloc_ports() {
-    ...
-    pn =3D find_first_zero_bit(port_mask, maxport);
-
-    if (pn > maxport) {
-        dev_err(ctrl->dev, "All ports busy\n");
-        return -EBUSY;
-    }
-    set_bit(pn, port_mask);
-    ...
-}
-
-Because find_first_zero_bit() searches the range [0, maxport-1], it returns
-maxport if no zero bits are found. If ports 1 to maxport-1 are all busy, the
-check "if (pn > maxport)" evaluates to false.
-
-Does this allow the code to blindly assign maxport and set its bit without
-verifying if it was actually free?
-
-It seems on subsequent allocations, the search will again find no zero bits=
- and
-repeatedly assign maxport, causing silent resource collisions where multiple
-audio streams share the same hardware port.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523085511.2532=
-669-1-sibi.sankar@oss.qualcomm.com?part=3D1
+Yours,
+Linus Walleij
