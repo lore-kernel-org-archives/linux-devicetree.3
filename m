@@ -1,116 +1,91 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3592C21F8;
-	Sat, 23 May 2026 19:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994C32D3EC7
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 19:40:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779564401; cv=none; b=X6oQMWDGRjKn2Z8/PzHMzJNNooK4ipSPTvXW13oT7QqKBP8XzDo3iggnulzX6fAmSew7AgxbtOGR7ShNvZnvMF3YgKN5DEgAy4R2e9Z7sz59DHLaHAOAAvLsVWJFF20JfqQDCiJx8iY0p6hVXnJZX3UagDbOdJv5xeRYWrl7gOw=
+	t=1779565249; cv=none; b=OkEoh24x8oUiXsh2UgIxOwAfrl6mui5ordmfzpXRDGBeJD5wgVr9YxTviueovPAXm7kcxj0lTn8kiAXgCpqV+lSgaaBg3BliHwLK3iXszIT8c97PH2Sq1GEJ7lKManZG+4N3I43zzKHiMZCVrpUT6zuKD5MSrv9ET5NeZsMKCSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779564401; c=relaxed/simple;
-	bh=2z5387J4X5I8dDW3H4EgMIEtqFtGFEoG2ZhgN/QA0QM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jNV325+oMoboQ0j54jJOYcBjGDacSfnb5CUzg9n9BgDh1pX9JoDg7B9fyMD24ykNqYbVQZJNIE27wJroCLjixkg53PfJ5AF4nIHH5a2p2RaWpEEfKtiNbqRsheDWouh43cFMBOxoogU0elWtc2ouwboa2TEqVFl0jmI20y7RjM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=uMn2NwSN; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=kFYN628S; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1779565249; c=relaxed/simple;
+	bh=gCdtbYd19czep8B9qhxe1IDEN6hiuwOvIPYf2T1mEjw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=K9T/ad0zOpIZNIHSoo0oZYqW+vJ4xUTMHV5kEwXldLfDrSojlkhRX7rrKnyRtGCL2Nnk21NA9jxmuGvyD4gcdXSsDR1PoJsIyRsFp2COlLlBgA475Kvj4ijUIXCttklo2t/nroekw3gBd/FHbPYx4kkX0Uh89cxXwKyTePfrhPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5sW90x7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="uMn2NwSN";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="kFYN628S"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gNBw53XDGz9vHt;
-	Sat, 23 May 2026 21:26:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1779564389;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bPp4+8gHs4KpY1yto9ukbd7UUiJ/HBW0qlJB2gqUZvQ=;
-	b=uMn2NwSNknqvca1BbRdF9T6wfxuzG4y+HdxEQ12zRSZf74YECw5iOMXbX4CNKmPZGrc+0K
-	+tmuEA471MA02xuMnc/H2oPB7GaOCvB+IZBd02WNgmM+h+tIw1c2wQyR0GgSife4XfcIFg
-	rq48EJcgw5pMxW5vnVqO16roC/RmtoOkVct7TbCLYc/P93LvAe3Val8mEZk9ccplMrOQ/7
-	smrsa6/yJqrbH4mqQj1n3/ZVF+1GSYwWR3ntbaniqrxaBVKqoT0DN5dUOlknGzOCngdD5v
-	KZQSwzHkqD1c+CEIGef0iKy4G/S8bwD6BDuxBhcliF3B2oMr6ksI2tXOCxHE9g==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=kFYN628S;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1779564387;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bPp4+8gHs4KpY1yto9ukbd7UUiJ/HBW0qlJB2gqUZvQ=;
-	b=kFYN628SgsQVc+pzlMc99z4bfbKyZFgZyNUGV5Wib3gvPvvEjNXPd08DK5fCX0DOEFLkeZ
-	b36nhGUWMThr5oxvi+bP6nY7hrZxWfdEniDFq8ihAwNyDIExREUJvKCsc9+LHY471FpzA3
-	om5vvn7b+HRYps+61LwYr1vDSFjw33bNOdVK/RlMY1rpUg8RyPmreckQIvDWi0MiuLW7cv
-	TKB+6QczcHXtiznCY+Nx10/lbd2SZ1Vpa2/2Qpe5mt46K1qEKLD75TQOTDfxtOM/GcwH8V
-	G5F/oJqLVqprPyhP1Jiz9olrkEFLROL/kAZ1RcTsNCcnYmzVsVLj0vpkKtc5sQ==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH] dt-bindings: clock: renesas: div6: Use ZT/ZTR trace clock in R-Mobile APE6 example
-Date: Sat, 23 May 2026 21:25:50 +0200
-Message-ID: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5sW90x7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7CA1F00A3A;
+	Sat, 23 May 2026 19:40:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779565247;
+	bh=vQYJJI99vi/asrvc/dUOuBTndZ5EEQCHVxaF1s3lxvg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=R5sW90x711ke498qxG0MVB/euoAFQxLys4oKt0HHwbgt7FklyHMuifaNoV+/u59Ao
+	 hwbJg8/N5aTgp2uq8B9M84nlQRoT6bN5K6jxZEyHVW71X5loVMynGZtWK9sz8HZvAk
+	 0s1WnfRk3rsw34nxsRUGDSVaeYFO6QTchvpbxT0p71gJ0uchHQ9wTV+gxEKGTx9aiY
+	 wy4lGWxLwTJ5z5ousSSjU+HxW+62Pt0A7fzEgECEryYtCNPxKS+I1LQIMYZ1yanCtg
+	 SYVPwdX6Hi7yA3/VXjJUFR0g8mZrVT0J6CIrJ4t8Fc4lYflSklqQv9mXQt223aZAcp
+	 PvtLgIZ73PDdA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: clock: renesas: div6: Use ZT/ZTR trace
+ clock in R-Mobile APE6 example
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
+References: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 23 May 2026 19:40:47 +0000
+Message-Id: <20260523194047.AB7CA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: gwsnr17ru6mwaek5f7ba9qnu37miwujp
-X-MBO-RS-ID: bc1d52ac7fda85522ee
-X-Rspamd-Queue-Id: 4gNBw53XDGz9vHt
 
-Since commit 2abdc3dcf978 ("dt-bindings: clock: renesas,cpg-clocks:
-Document ZT/ZTR trace clock on R-Mobile APE6"), the APE6 clock node
-expects two additional "clock-output-names" entries, "zt" and "ztr".
-Update the example accordingly.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Adding 18 items to `clock-output-names` in the example triggers a `=
+dt_binding_check` schema validation error due to an un-updated top-level co=
+nstraint in `renesas,cpg-clocks.yaml`.
+--
 
-Fixes: 2abdc3dcf978 ("dt-bindings: clock: renesas,cpg-clocks: Document ZT/ZTR trace clock on R-Mobile APE6")
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Brian Masney <bmasney@redhat.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-clk@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- .../devicetree/bindings/clock/renesas,cpg-div6-clock.yaml       | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit aaa0ff6ae07f5974071a547fef4a5b41bc484428
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-diff --git a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml
-index 2197c952e21df..b6ee8c8efd46d 100644
---- a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml
-+++ b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml
-@@ -60,7 +60,7 @@ examples:
-             clock-output-names = "main", "pll0", "pll1", "pll2",
-                                   "pll2s", "pll2h", "z", "z2",
-                                   "i", "m3", "b", "m1", "m2",
--                                  "zx", "zs", "hp";
-+                                  "zx", "zs", "hp", "ztr", "zt";
-     };
- 
-     sdhi2_clk: sdhi2_clk@e615007c {
--- 
-2.53.0
+dt-bindings: clock: renesas: div6: Use ZT/ZTR trace clock in R-Mobile APE6 =
+example
 
+This commit updates the R-Mobile APE6 clock node example to include
+the "zt" and "ztr" clock-output-names entries. This aligns the example
+with the expectations documented in a previous commit.
+
+> diff --git a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clo=
+ck.yaml b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.ya=
+ml
+> index 2197c952e21df..b6ee8c8efd46d 100644
+> --- a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml
+> +++ b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml
+> @@ -60,7 +60,7 @@ examples:
+>              clock-output-names =3D "main", "pll0", "pll1", "pll2",
+>                                    "pll2s", "pll2h", "z", "z2",
+>                                    "i", "m3", "b", "m1", "m2",
+> -                                  "zx", "zs", "hp";
+> +                                  "zx", "zs", "hp", "ztr", "zt";
+
+[Severity: Low]
+Does adding these two items cause a schema validation failure during
+dt_binding_check?
+
+The top-level clock-output-names property in renesas,cpg-clocks.yaml has a
+maxItems constraint of 17. Adding "ztr" and "zt" here brings the total
+item count to 18.
+
+While the underlying limit omission occurred in the earlier commit
+2abdc3dcf978, modifying this example to 18 items will now directly
+trigger the overarching validation limit error.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523192622.5660=
+5-1-marek.vasut+renesas@mailbox.org?part=3D1
