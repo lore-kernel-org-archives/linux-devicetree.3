@@ -1,185 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB3615FA81
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 03:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB29932B107;
+	Sat, 23 May 2026 03:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779505461; cv=none; b=AZCaHijw6J3y1tAPbHb+I9h0o0hXul3N2cIAdHENiig0Fs7J1mJhLPP9t4FGQwPMe/AyVXfMUlhkRKcAF0mFxF0DlEFp1mxGevAOthusv7MeCtnZ6VQ6A0/gSiMFpxDC9Hk/3bSKkPShiq7aWy6eAP3MHW9Ksvs6l183oa6dCAQ=
+	t=1779506133; cv=none; b=DR9mu/uA2eoPh73TFNSRZ/01oO+NTsFpxfZMyjD05azZ4bcBJ4tSf8YGFIzXO21ExMwWN2OpmlhEo2QxSqoWQpX8iv9OHFjGL5OpN/CHmnmQ6YWt8gB+mEkUIVZN6td6dy/0okggCxmIkj+lqMH84CgAatLkKq1N2Fmda+Amuw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779505461; c=relaxed/simple;
-	bh=UZ9Sho23IB5lsIOV3DjPSRmMJsnfLhOWGMZftpw7LJY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GuvsGcw2+Y4btQ9uS6Gz9QdhPdp2f22DBx39wdk8TwewU3LtwGMdLhNJ02QfngueOcKdgobVe7pk+dqI7bPY4RaMNG+EBzkaD2G7U4pZVWseVarxOncnwYKdGdMHCCQkPM14ixVX6m5d1g6ydjnCZ++BGTvuXLOBMgDPdfMp6bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=knCPb0fl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779506133; c=relaxed/simple;
+	bh=cYmNgJif3MBctwCNz7r10/ugSuy7ZEM2QzwgNXh1UTI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mN/i1IP/uWuwtymep/tm50kurGrQFXTRalKhulT/IXkL+lKjOCIKXeLdJkowKGJdmpau476/9AEFbQj/G8BqbLO2QY4cY+tEirSFDE0EsrNKChY30+bluhTS0T9LGalTjSVvKWEGPcy/Sa5MnanqKIQOX6r1wyicbKxq1Ai05zQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=JJSFbYbf; arc=none smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="knCPb0fl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045501F000E9;
-	Sat, 23 May 2026 03:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779505460;
-	bh=lmb0iPWGSl1bPR+JLCoZtXDuzrmuo797U9xk8/9iWpk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=knCPb0flil/IUM4F27+10ueB5gU0GPK02RqTs0+CVroX4wDPRMQwY1oCHMWp6Mop6
-	 L4iNgeCGjdIACAYmxX3/Dj8DmyeBWBwvY/+2m+GPhssEmj53zUnclMifYbKiEAq550
-	 DQkf+dDMrTGTj+IuD2QxfZ1pJ0xrBDiMnRkFbA1t54r4bI/X+wGZE9FmzshmBupZwa
-	 3UCT49A6rjXkAYgZfyQzQjUwBiILkEaY67qiE11Ey2uSSyPbdUzKJQm2aftGjKZksP
-	 hg3vDPngfSbTGwDgqb74hWGTeHckvXmlLv91DHgnU95vlXV6ADlf9FE+ebBwV9kXxW
-	 m0AH1Kd5EteBw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
-References: <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 23 May 2026 03:04:19 +0000
-Message-Id: <20260523030420.045501F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="JJSFbYbf"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64N1hc2Z771545;
+	Sat, 23 May 2026 03:15:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=W1qTmqz+ukB8nZk0DsEoX8bnLpw96qTX6w9LOPBiuuI=; b=
+	JJSFbYbf845+iBQSo1SRyZYS+jUL9yBlKUsb0wOS/nC7g8X1QqjZvTMCBoFBSlYP
+	DMeHskrd0FWU7sGkTfQ11rXxOxKnEJ5dQnwq6sVlNy/PwyYORn6hyVdMvKSq+a9y
+	2CKQXAVfrG1bBA0coN1yzmW3p3Ax61LQl7SlvJVlSkXiSIxqToYDUtm+OQBm9pdZ
+	PXbM8nMQ33lx+1XeSrlm+XcxQg2TVOcbjv2Hwhbw3HnphGOeKH/zu//euAAsgTMF
+	4Ssw8kxEARFLhTvu07YJBfRAqW1QXcIgPE1xaTArcXQh4a2Do/LFXmc9/sKk1VSg
+	PAFoc5MJ5Gwn8YJnWFg/cQ==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4eb2tyg72d-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 23 May 2026 03:15:25 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 64N3F68j032371;
+	Sat, 23 May 2026 03:15:25 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4eb2p6hsjt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 23 May 2026 03:15:25 +0000 (GMT)
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64N3F9eK032824;
+	Sat, 23 May 2026 03:15:24 GMT
+Received: from ca-mkp2.ca.oracle.com.com (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com [100.100.251.135])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4eb2p6hs6k-14;
+	Sat, 23 May 2026 03:15:24 +0000 (GMT)
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] scsi: ufs: dt-bindings: Add compatibles for Nord UFS controller
+Date: Fri, 22 May 2026 23:14:28 -0400
+Message-ID: <177913641751.1181900.7719645023341396564.b4-ty@oracle.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260427013115.231731-1-shengchao.guo@oss.qualcomm.com>
+References: <20260427013115.231731-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-23_01,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ mlxlogscore=790 bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2605130000 definitions=main-2605230029
+X-Authority-Analysis: v=2.4 cv=SoCgLvO0 c=1 sm=1 tr=0 ts=6a111bcd cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=VwQbUJbxAAAA:8
+ a=ZC9mcO7Xf2SOoCrdTL8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: Uy00OdLTBUayyDaM-tM0EIugTWm-V_9i
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIzMDAyOSBTYWx0ZWRfX0lEhNU12WDa4
+ iNx5UlkdjiSQuiTJJ7X1jDNWlXNywJmESOpr4REz6zQ3Q2wsItQng9OG8dc6LmmrliZfGzZS7Zu
+ dpbnU3kCJlXGwAtDKXV36tXnLHT9GXkoLLpDucD33wB4Da89+QCXFUK35siSJ4D6nZsP4QiJSYA
+ ZA2u1oCGBpyMsw0oJ+ozIWo4IKBsSFnQWu/k5H6awnd3ZsJjHAaasij0Y73+ljgQY4ddUqEq0uq
+ GalPFnBbo5gY27McrlPhGb9GtREdmDet7vSAT/ffP2jUpxL5PAnkfw6oODPFbR04RJe7TQESZEG
+ 9fRClquDNODekBh9ApzkLDRedxuIJQkyvGg+T1zqqF7x67gvI1VL4PLhdCdSUzCOcoCNhToSqXK
+ UJYx/ro+rpFfABE2ieQ0X+pvZ7J4Qw+HrzxTRYj92tXoNkvn0Lar+66TFD18g+CJjysxbhZAJDs
+ Fw+zO+Mt7LIQNYnhdnQ==
+X-Proofpoint-GUID: Uy00OdLTBUayyDaM-tM0EIugTWm-V_9i
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] Using the literal `endpoint:` property name inside ports bypasse=
-s constraint validation for endpoints with unit addresses.
-- [Medium] The `data-lanes` property on `port@1` is overly restricted to `m=
-axItems: 1`, which will break multi-lane DPHY split-mode configurations.
-- [Low] The example uses a non-generic device tree node name `csiphy@...` i=
-nstead of the standard `phy@...`.
-- [Low] Mismatch between the `vdda-0p9-supply` property name and the actual=
- 0.8V hardware supply used on the x1e80100 platform.
---
+On Mon, 27 Apr 2026 09:31:13 +0800, Shawn Guo wrote:
 
-commit 10936c65e44aeea784cc13676d51700996cf6559
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> This series documents the UFS host controller on Qualcomm Nord SoC.
+> 
+> Nord is a Qualcomm SoC series. Its UFS controller has a multi-queue
+> command (MCQ) register range in addition to the standard one,
+> both of which are required.
+> 
+> Nord also has an automotive variant, SA8797P, where the platform
+> firmware implements an SCMI server and manages UFS resources such as
+> the PHY, clocks, regulators and resets. As a result, SA8797P shares
+> the minimal OS-visible DT interface of SA8255P and uses it as the
+> fallback compatible
+> 
+> [...]
 
-dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+Applied to 7.2/scsi-queue, thanks!
 
-Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
-PHY devices.
+[1/2] scsi: ufs: dt-bindings: Add compatible for Nord UFS Host Controller
+      https://git.kernel.org/mkp/scsi/c/c9ee94c7e2fb
+[2/2] scsi: ufs: dt-bindings: Add compatible for SA8797P UFS Host Controller
+      https://git.kernel.org/mkp/scsi/c/7030e16247dc
 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy=
-.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> new file mode 100644
-> index 0000000000000..270375f949880
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-[ ... ]
-> +  power-domain-names:
-> +    items:
-> +      - const: mmcx
-> +      - const: mx
-> +
-> +  vdda-0p9-supply:
-> +    description: Phandle to a 0.9V regulator supply to a PHY.
-
-[Severity: Low]
-Does this property name mismatch the actual hardware supply voltage for the
-x1e80100 platform?
-
-The example later in this schema uses <&vreg_l2c_0p8>, which indicates an
-0.8V rail. Should this be updated to reflect the 0.8V voltage?
-
-> +
-> +  vdda-1p2-supply:
-> +    description: Phandle to 1.2V regulator supply to a PHY.
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        description: Sensor input. Always present.
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          endpoint:
-
-[Severity: Medium]
-Will using the literal endpoint: key bypass constraint validation if an
-endpoint with a unit address (e.g., endpoint@0) is used?
-
-Because the port references port-base, such an endpoint will pass the
-unevaluatedProperties: false check, but its specific constraints wouldn't
-be validated. Could this use patternProperties: "^endpoint(@[0-9a-f]+)?$":
-instead?
-
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-[ ... ]
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        description:
-> +          Second sensor input. When present, indicates DPHY split mode.
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          endpoint:
-
-[Severity: Medium]
-As with port@0, should this use patternProperties: "^endpoint(@[0-9a-f]+)?$=
-":
-to ensure endpoints with unit addresses are properly validated?
-
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              data-lanes:
-> +                maxItems: 1
-
-[Severity: Medium]
-Is maxItems: 1 too restrictive for multi-lane DPHY split-mode configuration=
-s?
-
-Split-mode typically divides a 4-lane PHY into two independent 2-lane
-interfaces (e.g., data-lanes =3D <2 3>). This configuration would fail
-dt_binding_check validation with a single item limit.
-
-> +              clock-lanes:
-> +                maxItems: 1
-[ ... ]
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        description: Output to CAMSS controller.
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          endpoint:
-
-[Severity: Medium]
-As above, should this use patternProperties: "^endpoint(@[0-9a-f]+)?$":?
-
-> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-> +            unevaluatedProperties: false
-[ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
-> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
-> +    #include <dt-bindings/power/qcom,rpmhpd.h>
-> +
-> +    csiphy4: csiphy@ace4000 {
-
-[Severity: Low]
-Does this node name violate the standard naming convention for PHY provider=
-s?
-
-The core phy-provider.yaml schema expects node names to match the generic
-pattern ^phy(@.*)?$. The current name csiphy@ace4000 will likely trigger a
-dt_binding_check warning.
-
-> +        compatible =3D "qcom,x1e80100-csi2-phy";
-> +        reg =3D <0x0ace4000 0x2000>;
-> +        #phy-cells =3D <1>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523-x1e-csi2-p=
-hy-v8-0-a85668459521@linaro.org?part=3D1
+-- 
+Martin K. Petersen
