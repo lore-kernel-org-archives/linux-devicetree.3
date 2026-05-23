@@ -1,78 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590F137F8D0
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3002438229F
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 09:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779526791; cv=none; b=OjqEa/hwS20fYBPMdUrD11VLLZh0pNipe4CPm6qfihxHPNMSVoY99N/HeRFfgbUpQoiTt2hdFcZ0/74SBms0lmFjSGRZWLJUrDgaHtgoM0dHd7XL84W07vQmEseJ+U55CRF2xN5lJSEyeChu526KhIpcusw2dRnUPtBb5DUJT38=
+	t=1779526834; cv=none; b=QRc8WvY39oFnfwotPTpkbKCpAtPorHNSUj9MGDtRfgzIQoumerjzzZWJq+37pZkP45rETmZ2pOTq77tKUkmEqocQxJwsqFXYjioF3JBZUlJRfLnnnkk97N/5uN+AxElO7I+FZTXeqF5JGr9Ifd0Ylo2Nbf+MEhTenys6q7N9ZlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779526791; c=relaxed/simple;
-	bh=qbX/u0YvILlswAD20c2Nb16wHxkRKuf6rWkIOztP9mg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fnk1Y5zRMMbSsqgoGcvoUrtm2lnsPaH08/uJNvgJ2Xydmhv8VIYHnG5h5PEuMoWEQuCyeAc4yotvSvj9fyVvgqHckMrp7MUlKVo0LxWSH04ef1aIneNtPm2M0YKBPmiSCbSfVk09Nc250TChIrO81f518LmRQP/iNI5iuycH0G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sh97Pd4r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779526834; c=relaxed/simple;
+	bh=4u71VezuNGUKmBRtScxbs941STYvOMRKs9pBUgWqFVc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ieFUw6BYYWk80jyFmezFrk9ck50PSBPnuleyttGUDeqrHE7ORcy+Z3xjlEEXMUMJ9+ddPOmvmB3j7EJ6t5nXXAAwFWREc4vVCnPNyiQp8iA8Z/ikH8oIaNXrQXeCKKkjmK3o8PA5Yz9n6Nrdu0idU+/lW7wLJ4oz1ZuH4CmOJyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AIxZvLAs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sh97Pd4r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBE21F00A3A
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:59:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AIxZvLAs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAFA91F000E9;
+	Sat, 23 May 2026 09:00:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779526790;
-	bh=qbX/u0YvILlswAD20c2Nb16wHxkRKuf6rWkIOztP9mg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Sh97Pd4rC9Iw7hEt+aYcJxtxh3NCQBnvhR2MNf3CpOy+/pYI4LijnchZCBTUaGlEA
-	 t10izqgfqkncdc+rUWlHo8gaM98FryM/Uh3CgCpeR4+RymfjXRr3xlJzdndLG4cpCH
-	 3KECiAVgoq/PQcUmBMo0tYpoGq3wGSfjplf27AkrJ5kEXgcbBAOjt7uvI0+vvKUPbo
-	 XBuBbtc0Y4R1kv6BJ5eEnaq1qAcRxIDk5hGEUQrq4L+TfcIut9oxX/GbEn8s3hWVr9
-	 mIzyPN7yNmOXU8ZCGKiyWc5Lmn5/bkd30L4KBk2YgcffzgbiPAZuCfaxHNmaYRNd0U
-	 iDiiXyja5GkkQ==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a884815606so9075176e87.0
-        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 01:59:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/fBe9OCo2hEInQ0n+8Ts9FlnMNKfL+rJsGaOXERlzWRN2N0KX0/gWaQ6eLMb+hAXHW6who/TNRZ9Vl@vger.kernel.org
-X-Gm-Message-State: AOJu0YxD49rhdaZkbLHO4d4Gj12fYZwdt9paxfODZeiKZwW5/GvgPviD
-	CXa9ZBiXVTdEunTXTplwrhUcH+LisoyDJoY4+xLYKUNs2ktdJyfXCQ6e2uzRs8Rr5/92gcHO9PZ
-	tbXsa7qkI0uyCdHe81LTB67PGEUi9Pz0=
-X-Received: by 2002:a05:6512:10c5:b0:5a8:9756:f6b8 with SMTP id
- 2adb3069b0e04-5aa323cd97emr2082906e87.35.1779526788895; Sat, 23 May 2026
- 01:59:48 -0700 (PDT)
+	s=k20260515; t=1779526832;
+	bh=QBId1rkPKqxYx/4UV3izaDHq2LjrQseoLmN+JF+GFPE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AIxZvLAs57s9PilnVeMZhlNEY4E+FuTab8kHLUq1Mw9bnnBCmZwVCaWNMTWuIdg58
+	 VOxkn9JiyjlsYXt8sKIeMT+XsibZjK4mVy+HbNZLzQYjVs8q2OrGg2juXM8yMFJzZF
+	 aNzzXjM+fBUhluYTU4E3I+NSG44jLMyS86EHJhoV9m8VOXcFccqlDc6XIgxdIZcrf9
+	 D5rKiOoGG0ssXbf9a9JOvjhqNnEz8YvaUx2iRUx24rqrtTnhhkRiWHOctG+csqWvYa
+	 c4+OMecvKnlvWLj78prRzKASJpUKzkgoH0abevtBe+SHD3t1pRXvpqIBxzYVso/H49
+	 FdMIKrIzj1t+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: Document Nvidia Tegra
+ modem pwrseq
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260523085102.51000-2-clamor95@gmail.com>
+References: <20260523085102.51000-2-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 23 May 2026 09:00:31 +0000
+Message-Id: <20260523090032.AAFA91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260512060917.2096456-1-shubhrajyoti.datta@amd.com> <20260512060917.2096456-4-shubhrajyoti.datta@amd.com>
-In-Reply-To: <20260512060917.2096456-4-shubhrajyoti.datta@amd.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 23 May 2026 10:59:36 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=iCJpKirfc0GqUuKjrLjeEyWMvcmDx26+hTFtcYz0uPw@mail.gmail.com>
-X-Gm-Features: AVHnY4JF7lnezv7m1tQlOKAjlmVpjnjJD07jbsl29OKRAreK5EuKH4xjhiad3wk
-Message-ID: <CAD++jL=iCJpKirfc0GqUuKjrLjeEyWMvcmDx26+hTFtcYz0uPw@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] gpio: zynq: Add eio gpio support
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Cc: linux-kernel@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com, 
-	Srinivas Neeli <srinivas.neeli@amd.com>, Michal Simek <michal.simek@amd.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 12, 2026 at 8:09=E2=80=AFAM Shubhrajyoti Datta
-<shubhrajyoti.datta@amd.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Modeling a software power sequence as a virtual standalone device =
+tree node, bypassing physical bus topology.
+--
 
-> Add support for the EIO GPIO controller found on
-> xa2ve3288 silicon.
->
-> The EIO GPIO block provides access to multiplexed I/O pins exposed
-> through the EIO interface. Only bank 0 and bank 1 are connected to
-> external MIO pins, with 26 GPIOs per bank (52 GPIOs total). This
-> change extends the Zynq GPIO driver to support the EIO GPIO
-> variant.
->
-> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+commit 5baacde1b782878f582e887bcf988caf135487f5
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+dt-bindings: soc: tegra: Document Nvidia Tegra modem pwrseq
 
-Yours,
-Linus Walleij
+This commit documents the Tegra modem power sequence configuration. It prov=
+ides
+a node to manage interaction between the application processor and the mode=
+m,
+including control over the USB lines.
+
+> diff --git a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-mod=
+em-pwrseq.yaml b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-m=
+odem-pwrseq.yaml
+> new file mode 100644
+> index 0000000000000..3770fd6dc2cf9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-modem-pwrs=
+eq.yaml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    const: nvidia,tegra-modem-pwrseq
+> +
+> +  enable-gpios:
+> +    description: GPIO connected to the modem EINT1 pin
+> +    maxItems: 1
+> +
+> +  nvidia,usb-bus:
+> +    description:
+> +      Contains phandle pointing to the Host's USB controller
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+
+[Severity: High]
+Does this binding model a software power sequence rather than the physical
+hardware layout?
+
+The device tree typically describes physical topology. Under standard bus
+architecture, would a USB-connected modem be modeled as a child node under
+the corresponding USB controller or hub port, including its required
+power-supplies and enable-gpios as properties of that physical child node?
+
+By introducing a standalone virtual node that points backwards to the USB
+controller via the nvidia,usb-bus phandle, does this bypass the driver core=
+'s
+standard bus hierarchy and device link management?
+
+Without a structural dependency established through device links, if the USB
+controller driver is unbound, could the power sequencer retain a dangling
+pointer to the USB bus device and trigger a use-after-free during the next
+enable or disable sequence?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523085102.5100=
+0-1-clamor95@gmail.com?part=3D1
