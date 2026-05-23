@@ -1,96 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF49634A76A
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 09:13:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28D81E1024
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 09:17:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779527639; cv=none; b=AcByvCZNO4eDe8D95aLxVYyaTZ0IDiyFQwN6sOvqMv5oBce4eYKmnDjlSX1I3x8AlKQaBLBedCb4sFO54xZhsTbHgDDuG0+WGTro0pIOKZCjypZIxljroPthdi6WiuIvTtO2FlL/hOGPG/ggJvDNMlti/9MTg3vk86YrE1PA45A=
+	t=1779527825; cv=none; b=Cu3zZnhg9bKfzWRjYwQlVGieT3sf8flh2sPpzheUEGCm1xucLoQyW06HANhs5rIqx2ihyDEsdAMbeJHE9DzjTI4Z4jqKBCKxfeLX+yKkzLZB0xlbPFXf6U6vwHgeRbjgkfseZ2AENsy1Tjy/8pFag5MSCLxO8es06pyLdqZ+7MQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779527639; c=relaxed/simple;
-	bh=Oj9WONT2LmJnuM+KabzKdwYNSGGC4sxCi7v5wRCbaKs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mD6Y8CqBekkreQuDD7uanu0dfzRu/GXoYN84XP3o9a6EjfU8HOCuPymceJVcP0croC3KbrJrzyw7SmJkIxY1hRz1NUm9rRXnoHHXiExX50VLnI1nerWZ+5BrreVA39966sB8dquUG/9DDS74UVrhRSepfg/n/zgjSHKC1X22R9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2+BKGp5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779527825; c=relaxed/simple;
+	bh=DyMejRNwWVIOhs+/epX+1iYUWjbNOwvI5BlY2sn0IJs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KMnJOzpE/ZzUn47JSamT+uaYLp9nylo4UKWiJWmRTj+8r7fgeSCpK43uoc5pGpDEPhjgx6cVgsbJXJsI2bFCqFAeVs1rvgEHARaWtibc8gdadWaojV/DsSnLTDN9vKQwXlJrtGPerajqTbAeANQXMRQeF210kfA58oCYwR7s66k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EgbMSKQj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2+BKGp5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A51C11F0155E
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 09:13:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EgbMSKQj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039CA1F000E9;
+	Sat, 23 May 2026 09:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779527638;
-	bh=Oj9WONT2LmJnuM+KabzKdwYNSGGC4sxCi7v5wRCbaKs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=H2+BKGp56W+IThiQWqZOx5odAcV1/nQu6v2pjNnwPVgID3MBs7aKNZ7toGsu7hLNy
-	 oIiv5XV8d2Z5t2v5l3yf2pLdhjJxxsahsxwCDus6jbKbQrcqqfQ4/si0jKNcj4GQRg
-	 PdNpNOiSdfSwBCcOWA5UDsrZKOu9Oabw4PBQKpmKLk58U7/voKt5jcdN1YopnWe/4Z
-	 X5M14WuXuSQvspAVooJcGbmjYQffcpTus1r9IbR3pePGQJgpxGeQyLiq61cbqM5gz/
-	 KeGSzHRLopOlcHxsPGEC8C/EsLIRlVc/HsLaThoeKqY26UGz68xMKZ9iJ2N/VcnASR
-	 kqWKAtKTLa1qg==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a887ebb416so9789164e87.2
-        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 02:13:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+qLGKpY3LbJlextt4b8/+gZfz9GT0Raz9bXtgYs8nIr1CML92WMvZjkET76kSPpYt41RuhtPMiufil@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBFZw0njTsJizzi1UdN9EMWhNz6BCzmvjC1gojyGE/he5kpNdc
-	LvMr3xmIYG8jjMxRo3fwii1trxZV0piUxWhiq91OGta3rYEzJg7XKLvYEOY+1mYOU4dSORayTy3
-	Hz3ajXVJ6kTakAgWGk1SaPwtYD0f/Jhg=
-X-Received: by 2002:a05:6512:1094:b0:5a8:8222:7fc9 with SMTP id
- 2adb3069b0e04-5aa323ab2e4mr2502434e87.13.1779527637399; Sat, 23 May 2026
- 02:13:57 -0700 (PDT)
+	s=k20260515; t=1779527824;
+	bh=6vrseQqx30LnQhWOSpAixkXU4fcpjL9wWhUh2QFK6rY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EgbMSKQjhXmZ2sKp5Jm8aMHe9au05/5AmDlkVKjteftlNJYP3142Rj7uAI1pMPMpu
+	 G83gNXpQcF3nZXsjnsQpdkem1sU+6WoC3mGMqc+vd9cTam+RixX0lWqoWdC3yTL310
+	 /HmrJOa0/3wTYtOfv3DGh8MBgREUECcoGuDTYdDLPVis/T+h2uk1V29om4uzj4eHFb
+	 vrk0pTd8T/I1Ruy3H8Kn5hGZ3+4PYjWv3KOlwct1Uji74T392ECMnbJ4bDb0WCaA+S
+	 o8tf7OBYIGTTcY+JwLcngZPy7ZyIgs8fHHmnOGBlg45ho1c9Kyl4nq3Yy5WCK0+QfU
+	 Ct9YwQRTja3CQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] usb: chipidea: tegra: Avoid controller/PHY init
+ if bus is externally controlled
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260523083013.46372-4-clamor95@gmail.com>
+References: <20260523083013.46372-4-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 23 May 2026 09:17:03 +0000
+Message-Id: <20260523091704.039CA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
- <20260414-axiado-ax3000-sgpio-controller-v1-1-b5c7e4c2e69b@axiado.com>
- <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com>
- <106b7b64-ed6e-499f-b5ac-60c1277f2f03@axiado.com> <CAD++jLn4R9ubqHsek-56s1sF9YhxYt4-C2TPdYGcYjy2MC6q_Q@mail.gmail.com>
- <fd2ee102-db52-4a37-b96e-c16211e3d8e3@axiado.com> <CAD++jL=51iWK2SyxoWOTxSQHAq-Frd0mm6cPxqYu81qifFfHGg@mail.gmail.com>
- <c20dc0cb-252b-4637-bb22-6078be62b21d@axiado.com>
-In-Reply-To: <c20dc0cb-252b-4637-bb22-6078be62b21d@axiado.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 23 May 2026 11:13:45 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkos3kC_ALAaoevaF29_Jf_WY5Z_2mZ1_Ldi+hCDbzt9w@mail.gmail.com>
-X-Gm-Features: AVHnY4JJRfkcZxFTflgIKJvV2OpxrOyssZ0mBCArzoYH6Vt9eiME0imygNfv-1c
-Message-ID: <CAD++jLkos3kC_ALAaoevaF29_Jf_WY5Z_2mZ1_Ldi+hCDbzt9w@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: gpio: add Axiado SGPIO controller
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 13, 2026 at 10:59=E2=80=AFAM Petar Stepanovic
-<pstepanovic@axiado.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> Some SGPIO outputs may control host-critical signals. For example, if the
-> BMC reboots while the host/server remains powered on, changing SGPIO outp=
-ut
-> values during driver initialization could potentially reset or shut down =
-the
-> running host.
->
-> The purpose of `dout-init` is to provide a deterministic safe output stat=
-e
-> during SGPIO initialization, before any GPIO consumer has requested the l=
-ine.
->
-> That said, if the preferred approach is to preserve the existing hardware
-> DOUT state during probe and only change the value when a GPIO consumer
-> requests the line, I can rework the driver in that direction.
+Pre-existing issues:
+- [High] Out-of-bounds I/O memory access in `tegra_ehci_hub_control()` due =
+to unvalidated `wIndex`.
+--
 
-That is usually the best. The gpio framework scans the direction
-of each line at probe(). While it does not know about the initial *value*
-of each line, consumers can take this into account
-when requesting a GPIO line like this:
+commit 60717c8d1b44f3d9bbb2d143c18add1a1d62f035
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-gpio_vbus =3D devm_gpiod_get(dev, "vbus", GPIOD_ASIS);
+usb: chipidea: tegra: Avoid controller/PHY init if bus is externally contro=
+lled
 
-This means the kernel does not put any initial value on the line.
+This commit skips the registration of the USB controller and PHY
+initialization if they are externally controlled. Since the USB PHY
+in Tegra controls clock gates required by the controller itself, it
+defers this configuration to the device that controls the bus.
 
-Yours,
-Linus Walleij
+> diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chipidea/=
+ci_hdrc_tegra.c
+> index 372788f0f9701..a19cb3b33bf37 100644
+> --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
+> +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
+[ ... ]
+> @@ -342,12 +348,14 @@ static int tegra_usb_probe(struct platform_device *=
+pdev)
+>  	if (of_usb_get_phy_mode(pdev->dev.of_node) =3D=3D USBPHY_INTERFACE_MODE=
+_ULPI)
+>  		usb->data.flags &=3D ~CI_HDRC_SUPPORTS_RUNTIME_PM;
+> =20
+> -	usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->resource,
+> -				      pdev->num_resources, &usb->data);
+
+[Severity: High]
+This is a pre-existing issue, but does tegra_ehci_hub_control() have an
+out-of-bounds I/O memory access?
+
+When handling root hub control requests, the core USB code in
+rh_call_control() passes the raw, user-supplied wIndex (e.g., from usbfs via
+the USBDEVFS_CONTROL ioctl) to the HCD's hub_control callback.
+
+In tegra_ehci_hub_control(), which is passed in the usb->data structure her=
+e,
+the pointer to the port status register is calculated without bounds checki=
+ng
+on wIndex:
+
+status_reg =3D &ehci->regs->port_status[(wIndex & 0xff) - 1]
+
+If wIndex & 0xff evaluates to 0, the calculation produces an index of -1
+(pointing to the configured_flag register). If it is a large number like 25=
+5,
+it results in an index of 254, reading far past the port_status array which
+has a size of HCS_N_PORTS_MAX (15).
+
+Could sending a SetPortFeature request with wValue =3D USB_PORT_FEAT_RESET
+and a crafted wIndex allow a user with access to the root hub device node to
+force the driver to perform multiple reads and writes at arbitrary MMIO
+offsets?
+
+> +	if (!usb->externally_controlled) {
+> +		usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->resource,
+> +					      pdev->num_resources, &usb->data);
+> +		if (IS_ERR(usb->dev)) {
+> +			err =3D dev_err_probe(&pdev->dev, PTR_ERR(usb->dev),
+> +					    "failed to add HDRC device");
+> +			goto phy_shutdown;
+> +		}
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523083013.4637=
+2-1-clamor95@gmail.com?part=3D3
