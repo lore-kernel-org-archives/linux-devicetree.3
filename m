@@ -1,149 +1,151 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6543637CD4A;
-	Sat, 23 May 2026 11:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779536138; cv=pass; b=XS1qe/OJrcuvw8D2JxP0O10admo4eeALk3lX6jwjpVfcz2wst1z12twaIWm0WHHv++HyLkoUZleKUGx2hpxBK8EUNkyCLIzGmYNe4IArwDP/HMoBNjR1UiIB83kD2yDKkuoZK7Fjm3rnQ+P9kkc14o6OtaxA+2uTqtvxRxrQuGc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779536138; c=relaxed/simple;
-	bh=9QRq7jclMuNWn9Vh8tU2pRFwzZcNSXgh1tNB/oN5sWE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=Q+Y1ifLrkYOGPinRJst3fFehALfbVQLLf/yM1D7Q2ataD31FO8ActAtIB/B4XVpZTSGc11Oqq5FkYIyuk3qgN/+WRfc6fRdTosQezA9EXOp2Cw+7ySSv9CsK7ZeluGMMddUXXiPxlPkxUCMjMeR/t3Y6MjSKvqVbD2L9ae02/Bc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=nX4hMzv0; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E5E2C11E2
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 13:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779542748; cv=none; b=Xj8xKvDqVui+cY9SfuFs0W+dfVlIhRr9bXq2PaNntDDprQZLlCPSTxpZxXrakpOtcUy6306PPUuItxnandzwLTBnx1QmuLCNkH7xNlLmUxSNRy9yqDNjM4wuuGLzUVBls7d4U6CzkutrAkfy9dHqvvlwg1AekzVqfbz3WnI6/jE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779542748; c=relaxed/simple;
+	bh=UX0IP7xihBChjrpo/odkCL1ZyaibPxjek6niLQhTmaU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QV5ZObRu4pjfk5KD4rFZZk8+qgpJGZkXfKzCqi4cAnB6Fmo+bZxuE4DjLax4c4ApwscRoTkX1V/f1jKr/LX9OiN1DbAtNt77286/lYT2MMYdD78Q/lUQ2+KocJ1ky0CoD7yaS2qNp35vfiy7IBSejFybhTEUndSegSDgPZV4jqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERV2CRVH; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="nX4hMzv0"
-ARC-Seal: i=1; a=rsa-sha256; t=1779536100; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=KSzNKYuaa3e5J0d/DeX783yiDZ/NWeJPP/+Z0y/tlwWr1lDVevfIk8Ozo/8/qlzJCdCfTu2n36rGw3+Ggda7yq1liMhrUG9GY3VupqvNJ0PMze5wxmhCMVe10W/iiu28VBTFVB7isyoRUiOFla5A6koPvDr1SHuoQKFgkLGMdOI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779536100; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=RZDnaCsGlJVcUOKkn0LRGIu9RjSAcTOtBk9/WDFjI7Q=; 
-	b=foGzF455x/cc4KvIT51DKucrW3ls6kPNh/XySDe+aWsw2jc8X+9z/CX05khi3gz7pOxsqqzePtu1anV51EGAlD+Nfu0g6QsI7JEAqfs+DjOkcXWbfjgUVN9VgndLXa8dbhGdQtrjwEOQMiAtQyg+Sh6O3moGPVj3zjAjsoDgqpw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779536100;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:References:In-Reply-To:Reply-To;
-	bh=RZDnaCsGlJVcUOKkn0LRGIu9RjSAcTOtBk9/WDFjI7Q=;
-	b=nX4hMzv0OnrUIn2pzrseG8O/TYO5+1XuS1pjAP9FHYYTWIwAiMDuRVsmsLR61uvW
-	pj4SPW8HpPNKolM92Sey9VAcqKFKwIToZbPevzF2XDVjwYSCjTeP6/GFfkla0Dx0X5U
-	s/g8QgmLFRSVNM7dDQiND6S7BuYQizdOjkklTdR4=
-Received: by mx.zohomail.com with SMTPS id 1779536097814357.8361509975906;
-	Sat, 23 May 2026 04:34:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERV2CRVH"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8353fd1cb5fso4083289b3a.0
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 06:25:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779542746; x=1780147546; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=blQr2jWp+450CTW4x1TpNt48UncOkO2+EXLbv7JseiU=;
+        b=ERV2CRVHLou94P2R2vyp5FbeD9KTy9ssEssylunJVRMhVEQB9jQ9V4cuwz37v+TMR4
+         ZxQmkclFuvoGtZSXyiZaJYsVUuuyCnGoaw4k2g3t1J3i5tSWziT1j0RsAjlhSZThlpQP
+         NbQRY5tUHjXR3YJj8BrsoPvrBeehjVQJyN2mUxiU0/GJvr5TcqQBSHeoLqZ1v79cJ40A
+         9YDk/1i7H1l2n9iq5ZX2GXV9anK6brjmvU4jDo1maap5MFanCdnh4sIzPLxLNh7Yhc7c
+         PmZGftb5Dp3PJJWzTpI1KHZiVnRQovp9n/WLgwPFfgaaMWT7VB/o5jUAd13V7tLGFrfq
+         UJOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779542746; x=1780147546;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=blQr2jWp+450CTW4x1TpNt48UncOkO2+EXLbv7JseiU=;
+        b=V5idCpvRYJ5EENDgSif07sYBCcOQb9FdgvbxZ0VwhU92g11C1vSgJ8QwBdUCQt4Bus
+         fMg3M7+7evkCVocOzDkEnBFITN0tztzerXvLDRxiLJD2N/PFnkwn9UyU5a53cvjnmWuK
+         3zl6ENWVxA8T0nVfP0u/Y5smWQ4+4tIPHaUCh+xfoGbHh/PgHRBs5T+Oq6Vp4IjegInA
+         d5qal1HGJWJFF1KSj8su76eole8QdaeGoCDRi6JamdXBcDP1SJ1RI+DAousdgUHUIMIw
+         ozbTThjXC1J4J7TqPpW2fGbnWyqUhPaIAsKYmyaRldYixhmAFFftDCi1eiq/+iCYxbB/
+         YegA==
+X-Forwarded-Encrypted: i=1; AFNElJ+yDJqUqD3Eh1wzcqSmZwRuXrPakGC/SMhrdiFXMbJdcALSPMMyFivSokFixDM6TIiaKF9gyIknxaTs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz31ZcLalA6LrGXWkerA2ybzZe05YS4Ax3QTiC/gS+9IRgAWvoX
+	3lGugHFT9khR80DdjbMcuaAWzhPn4sxBfqDZcytlmLkbyXXcCXmOLM9A
+X-Gm-Gg: Acq92OHmPiqIrDGOevY1mE+sDYARyhD+mXUeje48BDKwayqKTEnYgYn6J9QpWxsZuh6
+	pe6dXrbI2B+uaXmso2hUklvN7Cl78amUqivr83KbWiIRx5jExBAhU9DZ1Z8nxdx5kv/kpRI3g+A
+	TqSUM7r1d/RkLvRt4AnxZL/spBcLR3uWNafMpX3iOS0wtW7hL1pXatDAwD2S7T4oPEric6VJ2GV
+	eUEqFsQXh9o8OUKFhDtWyB9vE9E/CqUAhcnRfifGIaw+ZG8tFXhoh4SlIWz5ega2pZMp1okZ7jK
+	T1gSGa8Lb2Ed25pacxDMRvdRcI3qaVH/aJVueRuTZzFrV/sCMLVyPzUDCO8VGbZpMUuStsYRTWd
+	3l8HOZjP63cDXE+OLGBQpcteNvIgCnEgUfCrmeoMSsCmVNxyvjnHmgOQFQlrOD8NRqzuhySfVXw
+	XF2Xs3fZdANscmgDkC9t2KfngFdyj2A5XrX3q6Xf17J5pfffyHChhx/6iy5kW3P8ZhX56x+grO
+X-Received: by 2002:a05:6a00:a96:b0:82f:6cb3:645a with SMTP id d2e1a72fcca58-8414b5956bemr9259342b3a.31.1779542746451;
+        Sat, 23 May 2026 06:25:46 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164fb00b6sm5846609b3a.40.2026.05.23.06.25.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 23 May 2026 06:25:45 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e2586cf3-85b3-44e9-a2e7-10910d53f535@roeck-us.net>
+Date: Sat, 23 May 2026 06:25:44 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 23 May 2026 19:34:40 +0800
-Message-Id: <DIQ0W5OTB6DK.17PPFYJ2J5XS9@pigmoral.tech>
-To: "Junhui Liu" <junhui.liu@pigmoral.tech>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan" <dlan@kernel.org>, "Vivian
- Wang" <wangruikang@iscas.ac.cn>, "Paolo Abeni" <pabeni@redhat.com>,
- "Guodong Xu" <guodong@riscstar.com>, "Yangyu Chen" <cyy@cyyself.name>
-Cc: <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO
- board
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-X-Mailer: aerc 0.21.0
-References: <20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech>
- <20260522-bpi-cm6-v1-3-707ef1917a30@pigmoral.tech>
-In-Reply-To: <20260522-bpi-cm6-v1-3-707ef1917a30@pigmoral.tech>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] hwmon: (pmbus) Add and export direct conversion
+ calculation helpers
+To: Stoyan Bogdanov <sbogdanov@baylibre.com>, jbrunet@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260522082349.2749970-1-sbogdanov@baylibre.com>
+ <20260522082349.2749970-2-sbogdanov@baylibre.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260522082349.2749970-2-sbogdanov@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri May 22, 2026 at 6:01 PM CST, Junhui Liu wrote:
-> The Banana Pi BPI-CM6 IO board combines the BPI-CM6 compute module with
-> an IO carrier board. The core module integrates the SpacemiT K1 SoC,
-> PMIC, DDR, eMMC, the eth0 PHY, and wireless connectivity. The companion
-> IO carrier board extends it by providing the eth1 PHY and exposing
-> standard interfaces, including dual Gigabit Ethernet, MicroSD, two USB-A
-> ports, a USB Type-C port, two PCIe M.2 slots, and a serial console.
->
-> The board also has two I2C EEPROMs. One is on the core module, which
-> stores factory manufacturing data and is marked read-only. The other is
-> on the carrier board, which is shipped unprogrammed and left writable
-> for evaluation purposes.
->
-> Add initial support for UART console, eMMC, SD card, I2C, EEPROMs,
-> PCIe, USB, and dual Ethernet interfaces.
->
-> Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> ---
->  arch/riscv/boot/dts/spacemit/Makefile              |   1 +
->  .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 215 +++++++++++++++=
-++++
->  arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 227 +++++++++++++++=
-++++++
->  3 files changed, 443 insertions(+)
->
+On 5/22/26 01:23, Stoyan Bogdanov wrote:
+> TPS25990 and upcoming TPS1689 need common computation APIs but
+> the current implementation is static to TPS25990. As a preparation for
+> TPS1689 support, split the math-only parts of pmbus_reg2data_direct() and
+> pmbus_data2reg_direct() into separate helper functions:
+> 
+> - pmbus_reg2data_direct_calc()
+> - pmbus_data2reg_direct_calc()
+> 
+> export them so the upcoming TPS1689 can use the same APIs.
+> 
+> This has no behavioral change on TPS25990 while allowing TPS1689
+> to use the same.
+> 
+> Signed-off-by: Stoyan Bogdanov <sbogdanov@baylibre.com>
 
-[...]
+Please do not introduce new API functions without discussing it first.
+Keep this in the driver.
 
-> +
-> +&pcie1_port {
-> +	phys =3D <&pcie1_phy>;
-> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
-> +};
-> +
-> +&pcie1 {
-> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
-
-Thanks for the reminder from Sashiko AI.
-
-The vpcie3v3-supply property should be removed from the PCIe host
-controller node here. According to the binding, this supply belongs to
-the PCIe root port child node.
-
-I have checked the driver side: devm_regulator_get_enable() eventually
-calls of_get_regulator(), which first looks up the supply in the current
-device node and then falls back to searching child nodes if it is not
-found there. I also verified on hardware that keeping vpcie3v3-supply
-only in the port node still lets the driver resolve the regulator
-correctly.
-
-So I will drop the duplicate vpcie3v3-supply property here in the next
-version.
-
-> +	status =3D "okay";
-> +};
-> +
-> +&pcie2_phy {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie2_4_cfg>;
-> +	status =3D "okay";
-> +};
-> +
-> +&pcie2_port {
-> +	phys =3D <&pcie2_phy>;
-> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
-> +};
-> +
-> +&pcie2 {
-> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
-
-Same here.
-
-> +	status =3D "okay";
-> +};
-> +
-
-[...]
-
---=20
-Best regards,
-Junhui Liu
+Thanks,
+Guenter
 
