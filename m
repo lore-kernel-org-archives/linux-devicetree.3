@@ -1,94 +1,120 @@
-Received: from sender4-pp-o92.zoho.com (sender4-pp-o92.zoho.com [136.143.188.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AAB28DB46;
-	Sat, 23 May 2026 15:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779549954; cv=pass; b=mcbXOpVmg6MfV3dN+lZUjOkdprTAaHn4n6EaolPeC1FaTPYJGDikK6PqkZgbDNSFSFhWMZqPzQGE462VAl80c5pgEh8U+xjrHkljTVPHrknUob+cVwtMEGa4sVf5FuF7hWO26Nwpn2oKIYck7SP36EnvX3WcJ32Tn2ubTfrcQrw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779549954; c=relaxed/simple;
-	bh=ypvOXGHmPfwupkJQo0lkg7l8Xmzz75cpEihNyUsSVws=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Tuh1q3T0nKjaxUPzPUdzMpZsy9ZC3a1UviCXQeTH+NnzZY12VoVlG33R0PpeqdGHmSvwXRWx838yeQq5NIIAqbpBkMpLv/3rP2DZWSzL/NRklx7UOrajpHHnIXV7pDc0lnc6qWsrvSQENg/gxo4n5NSRLKOTnBeofX03aWdo2/k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b=Fge9WiM6; arc=pass smtp.client-ip=136.143.188.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D654F2D1F44
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 17:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779557585; cv=none; b=p0wtObd0HJKh5uJ7rAdNG9iBgiJ28roKW1DsM7BKFqrJ37dkWJEPQ2E/0nP2e0BstB2XxqMtV9VpAO6PVjlLNhpVURwELgsixDY6E07ip84TUaBrRhwDEeXjdC74K/D15EpE2Tlz1knC7I+BmNtWxnwqpda10EQlKTQv7vCmmHg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779557585; c=relaxed/simple;
+	bh=pIPczO+JdxqZe45yY1lXO5wH/7QRu5a76UN/e6ceYaA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SCXIDTfN3/RDJFjMR1xcdYFT5BlQbNt4aLm1jXZhIeFbT5jZmBfm5qOJhX5Gyfr2Juh/Rgfs1lMOjQe1Uk6TRI1TIZ+ySQp0XS4prJBr36AztDMprzzhH/r+0xAYJTmfPxHMNHWpx8kEPYe78pX9kCIH9YVZOiq+nRd9ANjH5Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jyt/ZugT; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b="Fge9WiM6"
-ARC-Seal: i=1; a=rsa-sha256; t=1779549940; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UoJtSar+/fAJsaOXr0Zc6Z6ZWQtDCIiC3uMrHWrlHksB66qkLrbObXeLkFYg0cXY6bWgPaCjhrWvZdztBIp0bmPQnque7sL+abZLuPfF0X8iqb1VjsMyGgXq0vVtgDrSkPIBzHCB/BwyMm6YWGRnUbb4kHRX0t4dXgsd3iAer6E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779549940; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ypvOXGHmPfwupkJQo0lkg7l8Xmzz75cpEihNyUsSVws=; 
-	b=IzPdXURskMJy9J2/DyTqVzJWpExN2QJYaWzYzqgNq6noNDkX5NwShdi8N/9ErzokoQBpJOVFOAiRTzoobvC+d1v3nkFV+KkJVYenxoKBP3hevW7HQZGgYQ64/S8vU0MI/wbGkUG4xUBt9sKFGUDg37NfawzCfld5XnWC8tSmHZQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=kingxukai@zohomail.com;
-	dmarc=pass header.from=<kingxukai@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779549940;
-	s=zm2022; d=zohomail.com; i=kingxukai@zohomail.com;
-	h=Date:Date:From:From:To:To:CC:Subject:Subject:In-Reply-To:References:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To:Cc;
-	bh=ypvOXGHmPfwupkJQo0lkg7l8Xmzz75cpEihNyUsSVws=;
-	b=Fge9WiM64DkZTehzmzJ23k1OxthuLN4BfpU0Qn8wj1wn2ClZxiLlDPU877PS7prK
-	PtVECX/hWy1tGV8jK52goKSO06V3AEdqDZ/flpKUkZfTsC/dZyRZ4NZSeIcBGOfeWYK
-	ebVCLuzFoIqk7Y2QWpRUciOEvWJqK0yZY1GSEWKo=
-Received: by mx.zohomail.com with SMTPS id 1779549936497366.38328264930124;
-	Sat, 23 May 2026 08:25:36 -0700 (PDT)
-Date: Sat, 23 May 2026 23:25:18 +0800
-From: Xukai Wang <kingxukai@zohomail.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Conor Dooley <conor.dooley@microchip.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Samuel Holland <samuel.holland@sifive.com>,
- Troy Mitchell <TroyMitchell988@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] clk: canaan: k230: Fix sparse warnings reported by LKP
-User-Agent: Thunderbird for Android
-In-Reply-To: <20260523-punctual-backslid-712c06f0db61@spud>
-References: <20260522-eligible-vivacious-3ce9bc30dd53@wendy> <dee4605ca30f9bbd55ccb4fcce9590ceee1fa10b.1779453284.git.kingxukai@zohomail.com> <20260522-removed-lyricism-7c879febc3b3@spud> <1f74efd2-444f-4330-a1e8-62f75e85ecfa@zohomail.com> <20260523-punctual-backslid-712c06f0db61@spud>
-Message-ID: <75285B3F-92FD-48A4-84D1-6C2BF2FBCE17@zohomail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jyt/ZugT"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-83ea84df1d0so2801775b3a.2
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 10:33:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779557583; x=1780162383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HjZOf7bVbm6B+eRTHEBmeDXi1tZwk3zjXWzPdrWiVjQ=;
+        b=Jyt/ZugTBQp8ad+M4jRgl4Zr6Ygsn9DhzvNUPgLW1+Go6Xy/KgECMCVUOTFTlJi5sa
+         XYjyJN9UXNgoylybAzesZIZZEHnWVe06yUU1o3Rmk8Aaw36ROzdkIV7TvQG9/o5nw5JF
+         aqeixJDr84qYXpfxl+/tZsdhQ/bVYltW2WRRCf9px6ckQDppHWYiww0+U7TUyl4yX+NO
+         nA9xt7AaowUT7ijYE1j/AIkpMQmkVDoxp2mhUK9N6DM9w3NxB36i1yQzLGDsmdWRDPCp
+         ST23Kc7oXXl6aEyBeSV9uaZcCugdcVhLz8fgisywAggFghN3ifXVi8+9NFcpSnOGcHWI
+         PAbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779557583; x=1780162383;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HjZOf7bVbm6B+eRTHEBmeDXi1tZwk3zjXWzPdrWiVjQ=;
+        b=OECAJ0B3FBRLKdm5KsINSpuSNAr/ArohvFzuG52ZT8wPnmsN6bW6N1j9D+vei9dYSM
+         qazSkr4d94TxkoYXi3gFj2KQaAa+vRRVqoOrihh3+7bqGEHRGpIEcW2OfYBthrmwvk2t
+         dmac21kUt/3Ua6qcUFyMoNW+g4WbuO/FuhZgk0r90jU0LgACoYD/kbo9iM1yELoWNlME
+         JTKjD24VgTgdnawElcuk+BPY0TtEnBUhQpfYivSv99LsEdQ5U4+1Fh3bcR9IRgHTwPdI
+         rUJp2mtlX+vkd2VUN6QAp7st3iN4WrlP6nXw/jI5adHj1tpB2vcYruSvlmEsOCfLRIGT
+         xfyw==
+X-Forwarded-Encrypted: i=1; AFNElJ/TVmlhYQIkkcMHy2oPmj3BKOtZMomUF4K3mnnlQnY/tglZl3asjdQoUzZKjCujqzEQqHk8V1NULvdK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpbWB6FQm1NEdzvwbi7BztsrAv9pajC8PsHYp+d5QLMz0rCDOi
+	2Sl+zzei1Xw/bKgQfqOWqMt22tADUdF3bomVVjaV05FLoiCniEUozy+BhBm3HM+U
+X-Gm-Gg: Acq92OGj9oNMFZbRucXFGFF+4SJY7qvN4e0FaPATyhzj47lOuuwanEdYwFpWrrtS29q
+	x01IOF0ueLDaosg1TdNIlgp4KiUcZhNe7jWdTF9JHLX4nWzi2usYC+zTID74Th8ieyVNNr4Nxli
+	SgVK5hM97xuGPdEdRF+J7kRZQqAZqkZLATltgK2W11HilmqzKATplqco1TPTzq7CYIXHf8m4AAS
+	l3zgTa81qTQb4rfBiMBRZzDL83df7SH5Nwe4+ScwjP3O1mWKfwbxKxwdCddcIlxrjZ6D2HUxEP0
+	jrFbL9EvAqKpwbHeGO5Wu0uZaVDrKO2iey7Dpx+z8Szu2rATabDIbqZVgU8ZNcBBsguG+/JXMef
+	i42PrMwzOZbyy419oqo5YfTJEHaLkg7iH5a9n3lyN9skvBQj2VCwzc3ZI5eLyhyTckITSzQqp5w
+	n0BDn4Z51p7OoVuFwFtcfIZ/LOhptEGrAWQhKCUXG7dEvCPKc5V/WuYulN1U1EBjvmyQ==
+X-Received: by 2002:a05:6a00:a383:b0:82f:21ee:270e with SMTP id d2e1a72fcca58-8415f6d0bb4mr8246436b3a.42.1779557582864;
+        Sat, 23 May 2026 10:33:02 -0700 (PDT)
+Received: from Ubuntu.. ([49.37.171.12])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164fc646bsm5162945b3a.46.2026.05.23.10.32.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 23 May 2026 10:33:02 -0700 (PDT)
+From: Manish Baing <manishbaing2789@gmail.com>
+To: lee@kernel.org,
+	ukleinek@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	linusw@kernel.org
+Cc: linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	manishbaing2789@gmail.com
+Subject: [PATCH v4 0/2] dt-bindings: mfd/pwm: Split st,stmpe cleanup into separate patches
+Date: Sat, 23 May 2026 17:32:49 +0000
+Message-ID: <20260523173251.72540-1-manishbaing2789@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Feedback-ID: zu08011227f17df843053cbf16afe5966500007938fc8c90888f46af5fc70e4e66e963e3d34c89acadaa1e39:ZohoMail
-X-Zoho-CM-AccountID: 2ee5dd3c83366259b2ba1e9826250ffebed1ef2dd213857d649ad25aba73b429
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hello,
 
+This series splits the previous single patch into two distinct changes
+to avoid cross-subsystem merge coordination, as requested by Uwe.
 
-=E4=BA=8E 2026=E5=B9=B45=E6=9C=8823=E6=97=A5 GMT+08:00 22:02:31=EF=BC=8CCo=
-nor Dooley <conor@kernel=2Eorg> =E5=86=99=E9=81=93=EF=BC=9A
->On Sat, May 23, 2026 at 03:00:15PM +0800, Xukai Wang wrote:
->>=20
->> On 2026/5/23 04:39, Conor Dooley wrote:
->> > On Fri, May 22, 2026 at 08:59:12PM +0800, Xukai Wang wrote:
->> >> Fix all sparse warnings detected during LKP randconfig testing:
->> >> - Replace plain integer 0 with NULL=2E
->> >> - Add static modifier to k230_plls and k230_pll_divs=2E
->> >>
->> >> Reported-by: kernel test robot <lkp@intel=2Ecom>
->> >> Closes: https://lore=2Ekernel=2Eorg/oe-kbuild-all/202605220724=2Ej4Z=
-eM3KI-lkp@intel=2Ecom/
->> >> Signed-off-by: Xukai Wang <kingxukai@zohomail=2Ecom>
->> > Forgot to reply earlier, but I went and squashed this in=2E
->> Thanks Conor!
->
->I dunno if you saw my message about giving what I have in my
->branches a go, but if you could try what's in the riscv-soc-for-next
->branch, that'd be great=2E Just to make sure that I have all the bits in
->place=2E
-OK, I will pull riscv-soc-for-next branch and test it on K230 hardware imm=
-ediately=2E And then report back the test results as soon as possible=2E
+The first patch addresses a validation gap in the MFD YAML schema,
+and the second patch drops the redundant legacy PWM text binding.
+
+Changes in v4:
+- Split single patch into a 2-patch series based on feedback from Uwe
+  Kleine-König to prevent cross-subsystem merge conflicts.
+
+Changes in v3:
+- Added 'required' properties to the pwm subnode in st,stmpe.yaml
+  to close a validation gap identified by the Sashiko.
+- Updated commit message and description to reflect MFD subsystem changes
+
+Changes in v2:
+- Drop the TXT file instead of converting to YAML, as the
+  functionality is already covered by st,stmpe.yaml.
+- Update the commit subject and description to reflect the drop.
+
+Manish Baing (2):
+  dt-bindings: mfd: st,stmpe: Add missing properties for PWM subnode
+  dt-bindings: pwm: stmpe: drop legacy binding
+
+ .../devicetree/bindings/mfd/st,stmpe.yaml      |  4 ++++
+ .../devicetree/bindings/pwm/st,stmpe-pwm.txt   | 18 ------------------
+ 2 files changed, 4 insertions(+), 18 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
+
+-- 
+2.43.0
+
