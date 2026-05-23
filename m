@@ -1,43 +1,41 @@
-Received: from sender4-pp-o92.zoho.com (sender4-pp-o92.zoho.com [136.143.188.92])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F6A2DCF4C;
-	Sat, 23 May 2026 07:00:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779519649; cv=pass; b=VT9k6GFd90AOnrfsFPt7o8rGALGPdFnC+mKNjZ0wQXfo0AslMtthmiM3V0V092/uPjR95Zonlzj4F4f08xVZ7iMfu0AvQMY48we9h75szSPNNU7gWtv5K2hpXgLD1+V+BIZ1GVDSQIEkpLC0BoaYH6sQa3L4nW+I+lSy93pSoyk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779519649; c=relaxed/simple;
-	bh=yVSvniizSgFfcNsHMwJCuBWZhW/bAqIz7Zf8cWSp5K8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qEoVp8zhhkN0vlhsCjPqD6KxBPP6lBSiAgNttGC9fBx9wVhoVbdU2jx0a5NKyVTxuiF8Bidipwwr4Q/5UVyJQriGWz6N9jIFFFFP2n13bVXFRliZUdHNs38CJrUA0yYqmM+tvRZo59lGghKvGBIaimKHyyaQCogYua715laLNo4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b=KdnDz4Qt; arc=pass smtp.client-ip=136.143.188.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3362DC79F;
+	Sat, 23 May 2026 07:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779521732; cv=none; b=ByTHxTadcSTLCSdZNuCMuYl1AokM2y58MKsjS5Q9a+puHQl8zB/8jn6jjUZ1T0RbvxfHbVGWDulFy+ZcctodCW+dR59Ro2us6oMA5RVni7YdchppgB02w4TGOkYnBpF1TNaNG7tslPYhvP3dR8R4nMbqOoIBCMfcxqIak7B28lk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779521732; c=relaxed/simple;
+	bh=bR51Qm/yxTLxaRv4bh/z2Q5XKd1/EexKk4i1970/taE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ZQ5hHvcwy83LYR06Nz7r+5AOWxfvm6PhG+/kMQMXu/TUgrqUQjYnbIjah+wslzQQn4+Pgx70Le9JKHkZXoXMVtRmD1uwZMqvq6kObFOBm68Bu3KHULI09FGE0XqoQldidC664OID3DOjxpgyRHpTUxlMQzH70H/NujXtDN6nWSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=rootcommit.com; spf=pass smtp.mailfrom=rootcommit.com; dkim=temperror (0-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b=kVNZXkYG; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=rootcommit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rootcommit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b="KdnDz4Qt"
-ARC-Seal: i=1; a=rsa-sha256; t=1779519629; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=M34utHEyQKZAMeobS3B35LkIVRP25eNflVynpQ/IfP0sjWB2KDqJVg2viFgdEkprc8iLYc0R2MPi7JTfC2JbtNv7I8VtS5/Dy5M8XKjo17modpyVu76h7GIQDQcQsIp1cGjbEwl9pp1YSRNqF1v9AVmq2pID2dJGGuj1NT4pA2k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779519629; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yeWxZcjLCzcDxdHmfowF+eUIDI+tNtFTvg63nH+kw1Q=; 
-	b=BXynZf7gWW8KbKvxcBGiqpK6MGGvy8LWbFWB30Pc9QndJ3Iyy6wI+JtZuHuU+vI3dh6JjuyNi1qIxQP3XawomyF/ofEWz2GCdjyCel0irsbMCWdleRu8J1ALgHbHZ13nRLGx9zou4ojBeghEiuzmX7T0UrtGelGXpfh0qM3yu7o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=kingxukai@zohomail.com;
-	dmarc=pass header.from=<kingxukai@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779519629;
-	s=zm2022; d=zohomail.com; i=kingxukai@zohomail.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=yeWxZcjLCzcDxdHmfowF+eUIDI+tNtFTvg63nH+kw1Q=;
-	b=KdnDz4QtS88d7j9j2CMmRe5JttX/njeKEpc8QpMsLGFzoPUjf7YQfAt17GR9628f
-	Py3fhlA4M1ZsOcvLFynRM4vpVHn7RAxPudAAerNHP8LDI9Jl35U9w7AQ3hVEJMOhWBh
-	reVO7UJ4c2FzYTeIGs2KZOc1LwfHb9P/+kkHCpr0=
-Received: by mx.zohomail.com with SMTPS id 1779519625819699.4345382578165;
-	Sat, 23 May 2026 00:00:25 -0700 (PDT)
-Message-ID: <1f74efd2-444f-4330-a1e8-62f75e85ecfa@zohomail.com>
-Date: Sat, 23 May 2026 15:00:15 +0800
+	dkim=temperror (0-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b="kVNZXkYG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id AD26A4E42D32;
+	Sat, 23 May 2026 07:35:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 612F260733;
+	Sat, 23 May 2026 07:35:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 493B410810452;
+	Sat, 23 May 2026 09:35:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rootcommit.com;
+	s=dkim; t=1779521725;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=D7lGhyE00bhxvQvqfTNpmfVMLD8AohOK1k5o75r5mck=;
+	b=kVNZXkYGCS/cwyM9QmvC7KhwQNTB1xSTYhRXUEEMglEw0G+S9pgp8Qsu38oLSdq9ew6uED
+	REOpn4sWDP3OoSB/2inzi7vYF8SBuo0VZr5NUzQbac7/WYtKUZd2lwwj0rc2XgAUfTQCDp
+	dPt1YQXsOHEfhKBxyKiQRe6zaUP0qOnwn6J0KJ6IDRGX+AfM0KDUZYazTsgSKN/cW60f53
+	RIEXTd+Whec8r77l/HFOeEl+A6VhTU7YSvHTEO7OmH3b/Fcj4m5X3gLUNTsXf7k/Gx/7l/
+	/LPpZX5GHbiB3xYREyOV0QhVGtsLxLxxSvQBdqOg4Np5C0CLmDBFVD4g6eVD4w==
+Message-ID: <04f1215a-e8dc-4f0f-b564-e36c52ad5275@rootcommit.com>
+Date: Sat, 23 May 2026 09:35:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,45 +43,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: canaan: k230: Fix sparse warnings reported by LKP
-To: Conor Dooley <conor@kernel.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+Cc: michael.opdenacker@rootcommit.com, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO
+ board
+To: Junhui Liu <junhui.liu@pigmoral.tech>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Samuel Holland <samuel.holland@sifive.com>,
- Troy Mitchell <TroyMitchell988@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260522-eligible-vivacious-3ce9bc30dd53@wendy>
- <dee4605ca30f9bbd55ccb4fcce9590ceee1fa10b.1779453284.git.kingxukai@zohomail.com>
- <20260522-removed-lyricism-7c879febc3b3@spud>
-From: Xukai Wang <kingxukai@zohomail.com>
+ Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>,
+ Vivian Wang <wangruikang@iscas.ac.cn>, Paolo Abeni <pabeni@redhat.com>,
+ Guodong Xu <guodong@riscstar.com>, Yangyu Chen <cyy@cyyself.name>
+References: <20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech>
+ <20260522-bpi-cm6-v1-3-707ef1917a30@pigmoral.tech>
 Content-Language: en-US
-In-Reply-To: <20260522-removed-lyricism-7c879febc3b3@spud>
-Content-Type: text/plain; charset=UTF-8
+From: Michael Opdenacker <michael.opdenacker@rootcommit.com>
+In-Reply-To: <20260522-bpi-cm6-v1-3-707ef1917a30@pigmoral.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Feedback-ID: zu080112270f3b225d59c968fc3f003e8e0000419f44ed1e2083cdf9e0d7358856c5c545f8380336d5a2d4bc:ZohoMail
-X-Zoho-CM-AccountID: 2ee5dd3c83366259b2ba1e9826250ffebed1ef2dd213857d649ad25aba73b429
-X-ZohoMailClient: External
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi Junhui
 
-On 2026/5/23 04:39, Conor Dooley wrote:
-> On Fri, May 22, 2026 at 08:59:12PM +0800, Xukai Wang wrote:
->> Fix all sparse warnings detected during LKP randconfig testing:
->> - Replace plain integer 0 with NULL.
->> - Add static modifier to k230_plls and k230_pll_divs.
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202605220724.j4ZeM3KI-lkp@intel.com/
->> Signed-off-by: Xukai Wang <kingxukai@zohomail.com>
-> Forgot to reply earlier, but I went and squashed this in.
-Thanks Conor!
+Thanks a lot for these patches!
+Yours are much more exhaustive than the ones I was cooking.
+
+On 5/22/26 12:01 PM, Junhui Liu wrote:
+> The Banana Pi BPI-CM6 IO board combines the BPI-CM6 compute module with
+> an IO carrier board. The core module integrates the SpacemiT K1 SoC,
+> PMIC, DDR, eMMC, the eth0 PHY, and wireless connectivity. The companion
+> IO carrier board extends it by providing the eth1 PHY and exposing
+> standard interfaces, including dual Gigabit Ethernet, MicroSD, two USB-A
+> ports, a USB Type-C port, two PCIe M.2 slots, and a serial console.
+>
+> The board also has two I2C EEPROMs. One is on the core module, which
+> stores factory manufacturing data and is marked read-only. The other is
+> on the carrier board, which is shipped unprogrammed and left writable
+> for evaluation purposes.
+>
+> Add initial support for UART console, eMMC, SD card, I2C, EEPROMs,
+> PCIe, USB, and dual Ethernet interfaces.
+>
+> Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>   arch/riscv/boot/dts/spacemit/Makefile              |   1 +
+>   .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 215 +++++++++++++++++++
+>   arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 227 +++++++++++++++++++++
+>   3 files changed, 443 insertions(+)
+
+Reviewed-by: Michael Opdenacker <michael.opdenacker@rootcommit.com>
+Tested-by: Michael Opdenacker <michael.opdenacker@rootcommit.com>
+
+For booting on MMC, I also had to add Iker Pedrosa's patches in Ulf 
+Hanson's mmc/next branch
+(https://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git/log/?h=next)
+Thanks again!
+Cheers
+Michael.
 
 -- 
-Best regards,
-Xukai Wang
+Root Commit
+Embedded Linux Training and Consulting
+https://rootcommit.com
 
