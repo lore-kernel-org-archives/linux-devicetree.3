@@ -1,112 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5252298CC4;
-	Sat, 23 May 2026 02:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C481282F14;
+	Sat, 23 May 2026 02:20:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779502795; cv=none; b=nfOSyHCuhIalw0NdHwF/NMf19BVEMLANIjcieZMtbd82ULx36t3P0/KCanS6c3W5UZEICLe12NIYL1nZxrtF88Jf02Mx+RerXntkxawpPsi7b8rmi41O5wk4S3pUAd1/s/xjF5vo2iIp1TghyfYVg1iuDmnbP3ia5BDjk6CM+ps=
+	t=1779502811; cv=none; b=NkH8rm1HVuwstL4oY/bWJIDxKBC6hlsfrV+47VD9U6Rw82Q8+2oYkNFo9PpZ6e4iG71499ujY755ukVDrgEbJVG2OlrjH3IzRa5E+vdAxjbTcf70hHCWq7XWZdyPoq0UsrRjlstah9bYk6Nq3UuxEEhXzbZrzMKrsrY5swAm8x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779502795; c=relaxed/simple;
-	bh=Jb1cgXT+m6qIvAxiKPlYy7OzW8pI8/acTYwcZKsEHx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kYrPUf1WgwKdEHqNRF17CybK5emW8FS/NmOsOJEteCpDQotBgQh9yGV7F4jVlz+YSni5aqRDK6XWhw2nL7TF8q0hepV1r2cP3Mg5QijPaQFZyraSx0rOKK9lkkPhDJKPZcz87GHXNh2PAPQI3RnujukUIWlAC/wMtlHH/eV7xBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkxAT6Vj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779502811; c=relaxed/simple;
+	bh=0f9diajCf0c6ZXQ22Ho6P7ZZtuJmw3d7sOWic9hlJf4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QVJdnn7ARdWc4tz7hPxSsilXKDKRntgcYVlP2dhy4zPraSctBht0vU/9wVy597UhH3XWOn11jqs5qEg+EYrdbQia3YPzSdR0E2XSkCCBpCH4csHOiYmvPPxHvbzRsE7Z63i09h7d77C8UIeMNw0bKPCV6koF//M4I4Ptk+GnqZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KmNN19rl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkxAT6Vj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DD831F000E9;
-	Sat, 23 May 2026 02:19:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KmNN19rl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550C81F000E9;
+	Sat, 23 May 2026 02:20:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779502794;
-	bh=JVGNEIcFBWgqs/FdAqSiZ9HCjBSKwe8iBDty/6CjCCQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZkxAT6VjaOhMWRAPlaC4dFNisHa84ZoMZL/gVSC4VI9EF3DDfeNCJPlMN2HMtuSCa
-	 7Ti8SY1qXj0C1qQOyUbYoxkAuR/gyO2qa6AXEIJY8XHP3e1tKxt90OZfLa9sOZtR93
-	 Cq3MbYlAmpf/Q2dWAsa9nWP4vIcE9aspplb3nS8sjdajtxcKnrjr8CNTaZkVCSxwCa
-	 r5c7KGtcvzQhMkZFAzW9bhhfwkUjM9qda5v19JgPGua2lkPFIZY2RyPfsYeg38R+55
-	 /ohGRiSYKyNMZAQaKqk5Xre542IKyG/1jn0sPmQyDz7F+S6oZBE159ydVaG+O//01z
-	 xEfoGypCJXSWg==
-Date: Fri, 22 May 2026 21:19:50 -0500
+	s=k20260515; t=1779502810;
+	bh=L5JlirbjFfB21zoUQZA7EqZmU6R3Fk117vmWr9nl5K4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KmNN19rleHUOpp6yHYW0gN15Ho2E1L+kssQ+lHdmWTAWPs+jpQ4UHEI7g098HLqrA
+	 1VXu4+eyJj8HqptI4TRdYJUcFlytypayhmA2NT7WItBDyZomKHaAbCuOCmbEx7aowT
+	 8M2yfVCKsHKqYkXCAx4TeCZIIYrfvF9IQlxyuumWuwpNQKojw2fHBJ2xkTqQpdSP5A
+	 pTDCnoYlRZntmLuPIyrxl8mKKTY5qtYRtCcJCMO2ryCyicXQhP1T5ZOUIPy4xBVmsd
+	 YzM28K99rIFnrS6NY8V/KxtSyKYdhqheKlU/km4S2Ha0lXYssQZ2hpV6c5dH7SyqUo
+	 yqfhzr7ZAhifA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, bjorn.andersson@oss.qualcomm.com, 
-	dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, prasad.sodagudi@oss.qualcomm.com, 
-	aniket.randive@oss.qualcomm.com, chandana.chiluveru@oss.qualcomm.com, 
-	jyothi.seerapu@oss.qualcomm.com, chiluka.harish@oss.qualcomm.com
-Subject: Re: [PATCH v6 00/13] Enable I2C on SA8255p Qualcomm platforms
-Message-ID: <ahEObi9ubGaTEcwK@baldur>
-References: <20260227061544.1785978-1-praveen.talari@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: eliza: Fix debug UART and add more support
+Date: Fri, 22 May 2026 21:19:39 -0500
+Message-ID: <177950280320.1097700.16123203155680537119.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260515-eliza-dts-fix-debug-uart-and-more-support-v2-0-5ad3da81b9d3@oss.qualcomm.com>
+References: <20260515-eliza-dts-fix-debug-uart-and-more-support-v2-0-5ad3da81b9d3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260227061544.1785978-1-praveen.talari@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Feb 27, 2026 at 11:45:31AM +0530, Praveen Talari wrote:
-> The Qualcomm automotive SA8255p SoC relies on firmware to configure
-> platform resources, including clocks, interconnects and TLMM.
-> The driver requests resources operations over SCMI using power
-> and performance protocols.
-> 
-> The SCMI power protocol enables or disables resources like clocks,
-> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
-> such as resume/suspend, to control power states(on/off).
-> 
-> The SCMI performance protocol manages I2C frequency, with each
-> frequency rate represented by a performance level. The driver uses
-> geni_se_set_perf_opp() API to request the desired frequency rate..
-> 
-> As part of geni_se_set_perf_opp(), the OPP for the requested frequency
-> is obtained using dev_pm_opp_find_freq_floor() and the performance
-> level is set using dev_pm_opp_set_opp().
-> 
 
-@Andi, I've merged the soc-patches through an immutable branch into the
-qcom-tree for 7.2, please find this at:
+On Fri, 15 May 2026 16:22:37 +0300, Abel Vesa wrote:
+> Fix the Eliza MTP debug UART index and then add the missing
+> QUPv3 WRAP1/WRAP2 serial engines, the matching GPI DMA controllers,
+> SDHCI controllers, their pinconf state and the LLCC system cache
+> controller.
+> 
+> This series depends on the following Eliza binding updates:
+> https://lore.kernel.org/all/20260513-eliza-llcc-v2-1-27381ae833d5@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260515-eliza-gpi-dma-v2-1-1255b43d5ca9@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260513-eliza-bindings-sdhci-v1-1-b2cae44163c1@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260318-eliza-bindings-qmp-phy-v1-1-96a0d529ad2d@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260504-eliza-bindings-phy-eusb2-v2-1-fa3a1fd65ab1@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260515-eliza-tlmm-group-qup1-se4-lanes-v2-1-ebb630de0dcf@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260504-eliza-bindings-aoss-v2-1-c3628ca79a25@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260504-eliza-bindings-pmic-glink-v2-1-d6b5397b7899@oss.qualcomm.com/
+> 
+> [...]
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260227061544.1785978-1-praveen.talari@oss.qualcomm.com
+Applied, thanks!
 
-Regards,
-Bjorn
+[1/2] arm64: dts: qcom: eliza-mtp: Fix the debug UART index
+      commit: 179d11c1c0cfaddcfc984edc3c1863ab600f679f
+[2/2] arm64: dts: qcom: eliza: Add QUPv3, GPI DMA, SDHCI and LLCC nodes
+      commit: 844807e1f89d8852d570b4be5297a79ea674fc47
 
-> Praveen Talari (13):
->   soc: qcom: geni-se: Refactor geni_icc_get() and make qup-memory ICC
->     path optional
->   soc: qcom: geni-se: Add geni_icc_set_bw_ab() function
->   soc: qcom: geni-se: Introduce helper API for resource initialization
->   soc: qcom: geni-se: Handle core clk in geni_se_clks_off() and
->     geni_se_clks_on()
->   soc: qcom: geni-se: Add resources activation/deactivation helpers
->   soc: qcom: geni-se: Introduce helper API for attaching power domains
->   soc: qcom: geni-se: Introduce helper APIs for performance control
->   dt-bindings: i2c: Describe SA8255p
->   i2c: qcom-geni: Isolate serial engine setup
->   i2c: qcom-geni: Move resource initialization to separate function
->   i2c: qcom-geni: Use resources helper APIs in runtime PM functions
->   i2c: qcom-geni: Store of_device_id data in driver private struct
->   i2c: qcom-geni: Enable I2C on SA8255p Qualcomm platforms
-> ---
-> v3->v4
-> - Added a new patch(4/13) to handle core clk as part of
->   geni_se_clks_off/on().
-> 
->  .../bindings/i2c/qcom,sa8255p-geni-i2c.yaml   |  64 ++++
->  drivers/i2c/busses/i2c-qcom-geni.c            | 324 +++++++++---------
->  drivers/soc/qcom/qcom-geni-se.c               | 270 ++++++++++++++-
->  include/linux/soc/qcom/geni-se.h              |  19 +
->  4 files changed, 491 insertions(+), 186 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
-> 
-> 
-> base-commit: 7d6661873f6b54c75195780a40d66bad3d482d8f
-> -- 
-> 2.34.1
-> 
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
