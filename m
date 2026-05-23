@@ -1,71 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67FF362120;
-	Sat, 23 May 2026 02:20:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49981349CE6;
+	Sat, 23 May 2026 02:20:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779502825; cv=none; b=U2Pfd/Wd3Tdz+mDeLhAhkmpwNB9CDpx8P83sXT06A5mZ75838kh2gjjQOkW5hHJyxmSnGtkv0FiNZE/MdSUt95NC8DQPXTETHrOkVz/YDMaxVFsnAq0PYWrJkUTm55hV7sWl+bXY7tnxGwK5t9efB/vtnf2zMQ8Be7Ct6iblYsE=
+	t=1779502826; cv=none; b=lGKit+9Ft8G1wS5JW/Lfndde5t3nEiid/KV+uHbzZAEqpRFv+NhNnk3+H8FxrdFcgRr6E+HL1HWd2a6dMu+rHO9vTuOrxlUQV6OVI3Bu0jBUyJbV6eDLEeuHTxCw5Sxp9AOPuJycnhsewVViyZqEqfJZ6XKKCQAqZrKIl2v3Xd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779502825; c=relaxed/simple;
-	bh=CzmbEH+pW5vnOpCOT1ebrzWTGSzD6uNJqC0SZ9g9hBE=;
+	s=arc-20240116; t=1779502826; c=relaxed/simple;
+	bh=cXHZ81GhIf4QSQ1ub/teOQwXwSg/soEU+2f+mC70L2o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z64ZD430ETKjVc6tUJ7t9Piee6HGWFPuJdrFpk7kDEBNl4pXrpFbdeqlMmQtKpQ3qEk4PL5cE16DI/dH/YqMP6M4YMyau0YlNv7T0TpqH4yxrjyuHGTW4QuX5QWZRW9RqKawcXAIwNEbCKI/eP4IBW3j0sfhCiMzoHqY/v9XLds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kryPjsUE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=sgzcTcrpgRzLu1J9vsy0W4JxJRT8o0xvh1/C9zXvfYQQgDa6jMeFbUoJs3fbClEvVp7xDmhmx5M2DZ2UFDjmc3T9BQ44OtylxeqI6gMhWXWLJueSiaXQO4KZfDw3o9l1zqTjrXUgaOYrBzNjg8T3Fum3pKJanIKodGKugENbn88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BabU1lsr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kryPjsUE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5261F00A3D;
-	Sat, 23 May 2026 02:20:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BabU1lsr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F030E1F000E9;
+	Sat, 23 May 2026 02:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779502823;
-	bh=At1tPVBdUn704UorcE7jl6+0y0XvV1o1VY8w31bdwuE=;
+	s=k20260515; t=1779502821;
+	bh=YM83iPqTg43oGPTRhVxwHhFt9cK5SnVdpexQC3jwomI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kryPjsUEPyupvMb9G4PpfLBtJRLLj7MQv/c/feHv4U6B/6lu1A59xuavSGTgnxkCx
-	 JNi8tJzeulmaxyBKM830Wz66jswpwThaM4wUU4CgffPD1l9LLCdlLHVQJjFr1Nlqo+
-	 dzlm7uCOMMdIbCkpHFHfeu6pB1BsLJuX1BOb/DeSGhtKZJGqWcuqMmgCgmenE1vIpV
-	 7eCD6U0kw94DLm5ndh5B8uKEV06nFox7luKpm+oZTzFGoKz1fu2l2iDrvfuBpDoD4Y
-	 oNBQIv/6K8vp+r22FYNznG06KTdPDWBi6BJGTwWJz/QmB2brBY2YzaPJwDXB/8DPYe
-	 KtKiWfsaflJzA==
+	b=BabU1lsrdn3i6ek9tPJZd2jIglmUaniq/K7gDCBGUxVj6zHmYnLy54kxHMpFWvb87
+	 AwDouQnlva0YlQkviyXyOWYfNo3Z1Tbx6WDSOEkBirUHfifybH9/EhWmOwb41bgdNq
+	 WDIW7ucGlRXMGftaeayTyPRQxQbgqOVEFnOcoAz74yws8LdL0nTCfSqjlUf6jwMkDB
+	 JfV9wzMYbj1nPmo37BZBo1i/4rZOSd4BzrlCL/zkg1xK4Tx8OAoRnK9eOHtPHsEpxT
+	 IkqTU2neQBKTRL54SZ7s2lNgChY3OK+7CUVX+77uR1yQmAAFUXlk75SyKHVeGeprD/
+	 /81yIqVmrCj9g==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	cros-qcom-dts-watchers@chromium.org,
-	Eric Biggers <ebiggers@google.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	David Wronek <davidwronek@gmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Melody Olvera <quic_molvera@quicinc.com>,
-	Alexander Koskovich <akoskovich@pm.me>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: Brian Masney <bmasney@redhat.com>,
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: (subset) [PATCH v5 00/13] Add explicit clock vote and enable power-domain for QCOM-ICE
-Date: Fri, 22 May 2026 21:19:51 -0500
-Message-ID: <177950280331.1097700.1459459079681986298.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix wrong interrupt number for i2c19
+Date: Fri, 22 May 2026 21:19:50 -0500
+Message-ID: <177950280348.1097700.10621304272880373412.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260416-qcom_ice_power_and_clk_vote-v5-0-5ccf5d7e2846@oss.qualcomm.com>
-References: <20260416-qcom_ice_power_and_clk_vote-v5-0-5ccf5d7e2846@oss.qualcomm.com>
+In-Reply-To: <20260518-glymur-fix-i2c19-irq-v1-1-7d5968bd9b2b@oss.qualcomm.com>
+References: <20260518-glymur-fix-i2c19-irq-v1-1-7d5968bd9b2b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,39 +58,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 16 Apr 2026 17:29:17 +0530, Harshal Dev wrote:
-> When the kernel is booted without the 'clk_ignore_unused' and
-> 'pd_ignore_unused' command‑line flags, votes for unused clocks and power
-> domains are dropped by the kernel post late_init and deferred probe
-> timeout. Depending on the relative timing between the ICE probe and the
-> kernel disabling the unused clocks and power domains occasional unclocked
-> register accesses or 'stuck' clocks are observed during QCOM‑ICE probe.
-> When the 'iface' clock is not voted on, unclocked register access would
-> be observed. On the other hand, if the associated power-domain for ICE
-> is not enabled, a 'stuck' clock is observed.
+On Mon, 18 May 2026 02:52:53 -0700, Gopikrishna Garmidi wrote:
+> The i2c19 node at 0x88c000 uses GIC SPI 584, but that interrupt
+> belongs to the neighboring i2c18/spi18 node at 0x888000. The correct
+> interrupt for i2c19 is GIC SPI 585, as used by its sibling nodes
+> spi19 and uart19 which share the same register base and clock.
 > 
-> [...]
+> 
 
 Applied, thanks!
 
-[03/13] arm64: dts: qcom: kaanapali: Add power-domain and iface clk for ice node
-        commit: 11b48f6d5ed505ced9cd3645d6615279198a7a54
-[04/13] arm64: dts: qcom: lemans: Add power-domain and iface clk for ice node
-        commit: 04566e287b35fde9fd129db5fdf6a96e336af55c
-[05/13] arm64: dts: qcom: monaco: Add power-domain and iface clk for ice node
-        commit: 68d5d9701a7ab1b1f9c76feaa3a24ca716f03f0b
-[06/13] arm64: dts: qcom: sc7180: Add power-domain and iface clk for ice node
-        commit: 7cd7271ac525e4eadd22734f418219f247638f43
-[07/13] arm64: dts: qcom: kodiak: Add power-domain and iface clk for ice node
-        commit: cca53c338ad87edc4b46d2d82730fd8ca01a164f
-[08/13] arm64: dts: qcom: sm8450: Add power-domain and iface clk for ice node
-        commit: 3a5cb1ccbfb3141862b28f24cd5050083233aae7
-[09/13] arm64: dts: qcom: sm8550: Add power-domain and iface clk for ice node
-        commit: 52696dbbe7bbe0c8fc8c17133ffb5133b8cf37a6
-[10/13] arm64: dts: qcom: sm8650: Add power-domain and iface clk for ice node
-        commit: c62b084d5d1564f808408a2f7d4c514e57cd4106
-[11/13] arm64: dts: qcom: sm8750: Add power-domain and iface clk for ice node
-        commit: 081ac792f0ea6d27a4b130c70cfd7544efee8137
+[1/1] arm64: dts: qcom: glymur: Fix wrong interrupt number for i2c19
+      commit: ecabfe832b817bd1c1fdb8841d7bc706bf621ef1
 
 Best regards,
 -- 
