@@ -1,151 +1,102 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06AA36C9EE;
-	Sat, 23 May 2026 13:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C55733E;
+	Sat, 23 May 2026 14:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779544064; cv=none; b=ojA5XHmVZzlEh62cCo/hlMWttJdVOYggW6qxayDNQI42dcDa1NuKYOMQouhMe0pnlTkEY8NF1uabgdl0ovs2ALmIMQRDGcHClU/eRVhYtDVTOuGkdf+y2yL4oE6qYrA4rtnp5n41Uz1pm33AdDlddg4F+lTVPck7QSr478EPXAA=
+	t=1779544961; cv=none; b=Bg53krLGUm10FdBB0tJnwn8KCV5FRRb+YS92yWSEpGly+tGxPk2Z7eNNKHAW017XdT3FTgkj5MbGeJ4e6H5AnCZ6CtwGiVzgxosH+pyaaYxYGh3rqKu+fcYznQziMt+0AF3dZMAjJWshOFMdOgWSXHLY+8B/BS+aUxCdjCRc21U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779544064; c=relaxed/simple;
-	bh=B4gm9pP+88IyVqw9AfTTIVVlGJusAq/2/0b2EiHNMzQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=V4kF0Rbwz7yJCm9WDYXDtf1YjeVfHqY44DgwYzDcNebxRJOlGJtrXCPvwGD1zCAGIJblF977qRTZwWiql0TVSwRFNy9cM3P8wBGdoffLLSvPfMSs/bwHUkE7/lcIiySb9GziLu6nv6NZ/R2/S155ldosNcnBxOMuml8d6SpmD1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EkwcMPf6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1779544961; c=relaxed/simple;
+	bh=IIacKpDclHTRBLaiqOMrmGgH+LLrVbpimm5Qii68Anc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tCZYP66zr7FvPUTcVHxegG9PKku5JZpV6ZroWZ6w1TP5Veq1qRGpnG+x+Ncrg6c44olLcDEeEQ9erYsg6xZojzunHFssgHaS1Kck7dOssAFExxvo7ItK01bzXEnBJvJ2aCQJntjHJVj7xZ5msCvvL7eajodhNj0sjj5iAn4TvDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sk2JWHi2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EkwcMPf6"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64N51oPk492201;
-	Sat, 23 May 2026 13:47:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=QDmQ9U+JNxb
-	EO0gcsaYLF8lGo8oTH0HPmPD+4YMUfCY=; b=EkwcMPf6inEwYbaKvwtbOgVAWUb
-	eBBck14FEaoSpeCmbbXR9dPmL16JJF9PfdERjXJItlLRhQLpSUo/cP3MakT55jTa
-	/QSP25cHUJWScHywQROaaCCRnKn79B1pLZYv3xI5K2hWgT6O+s9jGKCpjvvZ4eWn
-	KXPdlpdmQN9r7ZxZP14lX1vruAkmuzGkLeNu8fgfGzC73gDWrjbcWQtb7JZ920WW
-	+9UaWmmGpAcHdCUJAJIsl39DkI1SR6twqxwoOfdONXpmeOHGLpLFKmljYujCFepP
-	OefCqJqHqyfnJ6gN21CYDYx3BE+KBNj3a1GVbIXvlLQwj9Ix2yF4ARDOLNg==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4ass1je-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 23 May 2026 13:47:20 +0000 (GMT)
-Received: from pps.filterd (NALASPPMTA02.qualcomm.com [127.0.0.1])
-	by NALASPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64NDlJ3m026938;
-	Sat, 23 May 2026 13:47:19 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 4eb5ahjyvh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 23 May 2026 13:47:19 +0000 (GMT)
-Received: from NALASPPMTA02.qualcomm.com (NALASPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64NDlI9I026932;
-	Sat, 23 May 2026 13:47:18 GMT
-Received: from hu-devc-lv-u22-c.qualcomm.com (hu-cang-lv.qualcomm.com [10.81.25.255])
-	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 64NDlIik026931
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 23 May 2026 13:47:18 +0000 (GMT)
-Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 359480)
-	id 9B90C61F; Sat, 23 May 2026 06:47:18 -0700 (PDT)
-From: Can Guo <can.guo@oss.qualcomm.com>
-To: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
-        martin.petersen@oracle.com, mani@kernel.org
-Cc: linux-scsi@vger.kernel.org, Can Guo <can.guo@oss.qualcomm.com>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
-        Zhaoming Luo <zhml@posteo.com>,
-        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 1/2] dt-bindings: ufs: Document static TX Equalization settings properties
-Date: Sat, 23 May 2026 06:47:10 -0700
-Message-Id: <20260523134711.323425-2-can.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260523134711.323425-1-can.guo@oss.qualcomm.com>
-References: <20260523134711.323425-1-can.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sk2JWHi2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0371F000E9;
+	Sat, 23 May 2026 14:02:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779544956;
+	bh=IIacKpDclHTRBLaiqOMrmGgH+LLrVbpimm5Qii68Anc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sk2JWHi2l8zhp4EWktwru01wUxnB93bDG5vPw/18e8Sd1WNwhHip84XD29fuJkrmO
+	 KtU5elrIdRaV6EJVbbm7N42d/A9O7YeT64W8x19mPJy6dJDxOinLgaqG2TtkuyGJOT
+	 8Z5f3RM7Rc33yoAUmlNyMxuZ6pGDmwhLcDYYgkSrD/f3qROmUsEEW0xUpICuFgUtDG
+	 CtxNvUcEU9HUnCiRfBotKMCcHWLrl++S7X5W5yJONS8SIZT5FjaasTFH0rDOmKK1ZC
+	 PekJRjEvmoz82oCWon1NKEF3uXKEvNSWm9GKa5QtiG1MjR8M8dahi0A2plFx8vRXjX
+	 RE6cFfa8peh0g==
+Date: Sat, 23 May 2026 15:02:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Xukai Wang <kingxukai@zohomail.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Troy Mitchell <TroyMitchell988@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] clk: canaan: k230: Fix sparse warnings reported by LKP
+Message-ID: <20260523-punctual-backslid-712c06f0db61@spud>
+References: <20260522-eligible-vivacious-3ce9bc30dd53@wendy>
+ <dee4605ca30f9bbd55ccb4fcce9590ceee1fa10b.1779453284.git.kingxukai@zohomail.com>
+ <20260522-removed-lyricism-7c879febc3b3@spud>
+ <1f74efd2-444f-4330-a1e8-62f75e85ecfa@zohomail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIzMDE0MSBTYWx0ZWRfX60Tww3EPf5nK
- pBkG40fRZWFFV+gWKH3kk5V0A5V0T5zqSlqu6Tw67Ow2Ehtp0UVCwJ67ZbUdR5Fds0c3GN272uC
- l0bOxxg57SRQ3QMYnhK46SgtS7+6RRHwAa9tw8NzMcIabFAbECniwj0NUwfTd+7OTvP06zinZ5N
- a1CfBZWqhcLEz8+RQlQ1xhgTjyoFcOwV244qCh22DzsOjfXORz34RfFHv5TQluUUJ2SToJOzcbK
- vyEq1LoYpxIMmbmLp7FRYwFhKN2/+qspgFeL5ZsNdoR16ZtqFT1PAbzCqCafmA7q7oLSQUCJuSi
- HroObotGwLG0oV4EoSYL93sC+9ezDTdQbgdfSobfHZgoCXEi0SrLYkamhU9UQGOqmngYzb2t/pZ
- bfjL7GXSVeAPJOqKdZZN4vX+f+iU+ouh8DAg0/QdELWggZQE/Tw7s6rH4inByE3v4l5UpMMzjnn
- oEPkTKx4c+Wz4ZlqG0g==
-X-Proofpoint-ORIG-GUID: OAzdKCJNzJU62l1N5GPqv1UiaZ7C_VYA
-X-Proofpoint-GUID: OAzdKCJNzJU62l1N5GPqv1UiaZ7C_VYA
-X-Authority-Analysis: v=2.4 cv=c6ebhx9l c=1 sm=1 tr=0 ts=6a11afe8 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=I_qBOUeEE_endWPDY1kA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-23_04,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 spamscore=0 malwarescore=0 adultscore=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605230141
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Af5l50mgOj8YPBBG"
+Content-Disposition: inline
+In-Reply-To: <1f74efd2-444f-4330-a1e8-62f75e85ecfa@zohomail.com>
 
-UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
-and M-PHY v6.0. In these specs, TX Equalization is defined for all High
-Speed Gears (not only HS-G6) to compensate channel loss and improve signal
-integrity at high speed operation.
 
-For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
-required depending on channel characteristics.
+--Af5l50mgOj8YPBBG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add vendor-neutral DT patternProperties:
-txeq-settings-g[1-6]
+On Sat, May 23, 2026 at 03:00:15PM +0800, Xukai Wang wrote:
+>=20
+> On 2026/5/23 04:39, Conor Dooley wrote:
+> > On Fri, May 22, 2026 at 08:59:12PM +0800, Xukai Wang wrote:
+> >> Fix all sparse warnings detected during LKP randconfig testing:
+> >> - Replace plain integer 0 with NULL.
+> >> - Add static modifier to k230_plls and k230_pll_divs.
+> >>
+> >> Reported-by: kernel test robot <lkp@intel.com>
+> >> Closes: https://lore.kernel.org/oe-kbuild-all/202605220724.j4ZeM3KI-lk=
+p@intel.com/
+> >> Signed-off-by: Xukai Wang <kingxukai@zohomail.com>
+> > Forgot to reply earlier, but I went and squashed this in.
+> Thanks Conor!
 
-Each property is a uint32 array of per-lane tuples:
-(PreShoot, DeEmphasis, PrecodeEn)
+I dunno if you saw my message about giving what I have in my
+branches a go, but if you could try what's in the riscv-soc-for-next
+branch, that'd be great. Just to make sure that I have all the bits in
+place.
 
-Tuple order is:
-Host Lane 0, [Host Lane 1], Device Lane 0, [Device Lane 1]
+Cheers,
+Conor.
 
-Accept 2..4 tuples (6..12 u32 values) to cover x1/x2 lane configs. These
-patternProperties carry board-level SI characterization data used as
-static TX Equalization settings for each High Speed Gear.
+--Af5l50mgOj8YPBBG
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/ufs/ufs-common.yaml | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-index ed97f5682509..bc83948fc168 100644
---- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-+++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-@@ -105,6 +105,17 @@ properties:
-       Restricts the UFS controller to rate-a or rate-b for both TX and
-       RX directions.
- 
-+patternProperties:
-+  "^txeq-settings-g[1-6]$":
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 6
-+    maxItems: 12
-+    description: |
-+      Static TX Equalization settings for High Speed (HS) gears.
-+      The settings are specified as an array of tuples (PreShoot, DeEmphasis, PrecodeEn).
-+      The array must contain these tuples in the following order:
-+      Host Lane 0, [Host Lane 1], Device Lane 0, [Device Lane 1].
-+
- dependencies:
-   freq-table-hz: [ clocks ]
-   operating-points-v2: [ clocks, clock-names ]
--- 
-2.34.1
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahGzcwAKCRB4tDGHoIJi
+0it2AP9Odv1YYkRltRYXt+7xWjYef8Cn7xzyCA9K0jeiEUz5NAD/QpwJMe7lZfjs
+MZXMsNIopZd++T2/Iw93irRUB71e7wo=
+=XTJn
+-----END PGP SIGNATURE-----
 
+--Af5l50mgOj8YPBBG--
