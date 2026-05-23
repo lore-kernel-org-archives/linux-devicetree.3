@@ -1,67 +1,66 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E5E2C11E2
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 13:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5719919004A
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 13:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779542748; cv=none; b=Xj8xKvDqVui+cY9SfuFs0W+dfVlIhRr9bXq2PaNntDDprQZLlCPSTxpZxXrakpOtcUy6306PPUuItxnandzwLTBnx1QmuLCNkH7xNlLmUxSNRy9yqDNjM4wuuGLzUVBls7d4U6CzkutrAkfy9dHqvvlwg1AekzVqfbz3WnI6/jE=
+	t=1779542864; cv=none; b=jLGq/l7O9ZejW76QElcsN7eACaXqJR4Iog4Qj5udhNAivUjRIReP4u4dBStyz7NP7yWTkPcX4YPd73xm9RapQO5xenoLS2EZM9TyzramY8XMxkbqhxJPbVyh8KMGskJs7pnFVvrPAdJ+bUX08VaSauabezxcdbpOAgBYRvGdPLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779542748; c=relaxed/simple;
-	bh=UX0IP7xihBChjrpo/odkCL1ZyaibPxjek6niLQhTmaU=;
+	s=arc-20240116; t=1779542864; c=relaxed/simple;
+	bh=g1gBUbPtcSqTkL+3avMM5tCJfJORfueUXMTX1uJTBx4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QV5ZObRu4pjfk5KD4rFZZk8+qgpJGZkXfKzCqi4cAnB6Fmo+bZxuE4DjLax4c4ApwscRoTkX1V/f1jKr/LX9OiN1DbAtNt77286/lYT2MMYdD78Q/lUQ2+KocJ1ky0CoD7yaS2qNp35vfiy7IBSejFybhTEUndSegSDgPZV4jqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERV2CRVH; arc=none smtp.client-ip=209.85.210.182
+	 In-Reply-To:Content-Type; b=Tj5o/dMrfATgbZdHT67EIfjgm1E/rzFX1fKEO/9jBKGUDo2lq4roLFFxO5wag+f+08fFFPZEv61R/66HgVeQ3YQbq1M2mJPlg8/9lXTnApaaJIqv7637dajDEPYaB9F7QtCWSVTfpDPrweoDK1JSww6nFiTl7T1IUQK3agHoUKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CYGfakcX; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERV2CRVH"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8353fd1cb5fso4083289b3a.0
-        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 06:25:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CYGfakcX"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-82fbdd60b64so6917350b3a.3
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 06:27:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779542746; x=1780147546; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779542862; x=1780147662; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=blQr2jWp+450CTW4x1TpNt48UncOkO2+EXLbv7JseiU=;
-        b=ERV2CRVHLou94P2R2vyp5FbeD9KTy9ssEssylunJVRMhVEQB9jQ9V4cuwz37v+TMR4
-         ZxQmkclFuvoGtZSXyiZaJYsVUuuyCnGoaw4k2g3t1J3i5tSWziT1j0RsAjlhSZThlpQP
-         NbQRY5tUHjXR3YJj8BrsoPvrBeehjVQJyN2mUxiU0/GJvr5TcqQBSHeoLqZ1v79cJ40A
-         9YDk/1i7H1l2n9iq5ZX2GXV9anK6brjmvU4jDo1maap5MFanCdnh4sIzPLxLNh7Yhc7c
-         PmZGftb5Dp3PJJWzTpI1KHZiVnRQovp9n/WLgwPFfgaaMWT7VB/o5jUAd13V7tLGFrfq
-         UJOQ==
+        bh=v0orZyohJ22FZsdiMg1zqHmw8fWkBbihvBgEUA5cYKI=;
+        b=CYGfakcX5QJ6Sisab06IKbR4+2UeP+sc1c2j9EkCN3XtE6+0Y18TzKX556bohZ99xG
+         B1KFiCE7bexM85BVslP5wbItNTYbyNDEK7stiqEtldquqrFdIJ1GKOMvid1GVJ1CZ3e2
+         Moe2EZY6dG0hrcdzAp5sC6pVvsgLYT4HfkjiLATwZQL5YGz4JWNaf3CGxVErOMvnpRX6
+         QUeWf3PF3eeM/N6a5YxwJLXM19ZG+5UjzsZvklLwUPEAohAUz7g5PPYKLPiPxGkYIXwT
+         ARvF0poraUjsxLQu46vWIdD7JF+/DZgSsXxP9g3lAAkgW1Q/3sCbM0sfuyGL6AcIIRYO
+         DYqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779542746; x=1780147546;
+        d=1e100.net; s=20251104; t=1779542862; x=1780147662;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=blQr2jWp+450CTW4x1TpNt48UncOkO2+EXLbv7JseiU=;
-        b=V5idCpvRYJ5EENDgSif07sYBCcOQb9FdgvbxZ0VwhU92g11C1vSgJ8QwBdUCQt4Bus
-         fMg3M7+7evkCVocOzDkEnBFITN0tztzerXvLDRxiLJD2N/PFnkwn9UyU5a53cvjnmWuK
-         3zl6ENWVxA8T0nVfP0u/Y5smWQ4+4tIPHaUCh+xfoGbHh/PgHRBs5T+Oq6Vp4IjegInA
-         d5qal1HGJWJFF1KSj8su76eole8QdaeGoCDRi6JamdXBcDP1SJ1RI+DAousdgUHUIMIw
-         ozbTThjXC1J4J7TqPpW2fGbnWyqUhPaIAsKYmyaRldYixhmAFFftDCi1eiq/+iCYxbB/
-         YegA==
-X-Forwarded-Encrypted: i=1; AFNElJ+yDJqUqD3Eh1wzcqSmZwRuXrPakGC/SMhrdiFXMbJdcALSPMMyFivSokFixDM6TIiaKF9gyIknxaTs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz31ZcLalA6LrGXWkerA2ybzZe05YS4Ax3QTiC/gS+9IRgAWvoX
-	3lGugHFT9khR80DdjbMcuaAWzhPn4sxBfqDZcytlmLkbyXXcCXmOLM9A
-X-Gm-Gg: Acq92OHmPiqIrDGOevY1mE+sDYARyhD+mXUeje48BDKwayqKTEnYgYn6J9QpWxsZuh6
-	pe6dXrbI2B+uaXmso2hUklvN7Cl78amUqivr83KbWiIRx5jExBAhU9DZ1Z8nxdx5kv/kpRI3g+A
-	TqSUM7r1d/RkLvRt4AnxZL/spBcLR3uWNafMpX3iOS0wtW7hL1pXatDAwD2S7T4oPEric6VJ2GV
-	eUEqFsQXh9o8OUKFhDtWyB9vE9E/CqUAhcnRfifGIaw+ZG8tFXhoh4SlIWz5ega2pZMp1okZ7jK
-	T1gSGa8Lb2Ed25pacxDMRvdRcI3qaVH/aJVueRuTZzFrV/sCMLVyPzUDCO8VGbZpMUuStsYRTWd
-	3l8HOZjP63cDXE+OLGBQpcteNvIgCnEgUfCrmeoMSsCmVNxyvjnHmgOQFQlrOD8NRqzuhySfVXw
-	XF2Xs3fZdANscmgDkC9t2KfngFdyj2A5XrX3q6Xf17J5pfffyHChhx/6iy5kW3P8ZhX56x+grO
-X-Received: by 2002:a05:6a00:a96:b0:82f:6cb3:645a with SMTP id d2e1a72fcca58-8414b5956bemr9259342b3a.31.1779542746451;
-        Sat, 23 May 2026 06:25:46 -0700 (PDT)
+        bh=v0orZyohJ22FZsdiMg1zqHmw8fWkBbihvBgEUA5cYKI=;
+        b=dw1sIelsBQ6Z2lsWsQ2Y66cVPqw2sQzQ2KkxEFRx9R0ctAV9mzFivfUS8T69DnDEgj
+         x5dMq8uTGiFpxzvZE/wkuTLd6Q1GBLhDlMJzPA+phiCUZOPyUcoRlqaD3r6pyHZz4UCx
+         BNZKBuOJ5E2nLr36/LB7tBK2Wv6KMlmdF8bIn4vzjUAhr57yLzwk2sOe7GPliyljWURh
+         SwxFfthsrsP9rt2kTZ+T7B59Rv94JH6Uti/fbuSWxBuymgk3BRxfEi8k2IOMB71S6kYs
+         3wA4KajeIpDolPpY0Vmw6jioIE+qiS6LZN83RDlPuYb5d4HdmgOGXN4smrlXBON2grPo
+         wDRg==
+X-Gm-Message-State: AOJu0YxofHXSDlyd3RLdUePIW0yf6ez5Q0wnY4a+Y2r9TumDrjwIalJF
+	Md3I3K+iP/iZsmHAsghcmJHwKGa1shzMhJk2FDrJ08EfMTe3A6eHfL+I
+X-Gm-Gg: Acq92OG7L/O7fXfTpiI7Yw54SUGWSQgjr65MAayeJO96vMaQ0H/3CSnQ2yLwpBBn/Gh
+	RycLowmrO1xOFMK2ATrOPMuDpwYzplaqKfKcG7ya51po5S/EBZcTTh3AWyJ4Auzn5Ask4TK7IZD
+	OmBvCcnYgmqL+JSGOOeT/gNhSRawcGi6pBJNYnhEN3hHwC9rog1eP6QRQPGNDGYcgXcFKAy1cpv
+	VF1G+1bd+zMFshNjZ6Bk1mkftZrxLgWWtycyCOQLgxWcbuWne32lsuIpFKgaEnrTgF9kkQRl/4I
+	hpWFx5YzJjP79y8ESTQMHOMxqk8PfyYtY9OKJb9G/ueNVWAhq5MHFyYAm+fVg2RopB7qY4jkPEB
+	DpCqD8B5pxPxNcfrgdsSfRDCLXS5PDmbsF9flDX9/utD/WEYLMcNbBPYxMBNm8fUDNw9/Qmq6mt
+	f7X6JSrDf8x8qYzBb/fHTBkfMbLV778bQfJ1aOtbLhAhx6G3yn1nCUeCho+Pk57KIgVvtSN3Ie
+X-Received: by 2002:a05:6a00:3004:b0:82f:721f:10ea with SMTP id d2e1a72fcca58-8415f17de74mr7614071b3a.18.1779542862553;
+        Sat, 23 May 2026 06:27:42 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164fb00b6sm5846609b3a.40.2026.05.23.06.25.45
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164ff71c4sm5576354b3a.55.2026.05.23.06.27.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 23 May 2026 06:25:45 -0700 (PDT)
+        Sat, 23 May 2026 06:27:41 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e2586cf3-85b3-44e9-a2e7-10910d53f535@roeck-us.net>
-Date: Sat, 23 May 2026 06:25:44 -0700
+Message-ID: <ac052c47-45cd-4081-967c-6f649e422571@roeck-us.net>
+Date: Sat, 23 May 2026 06:27:40 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,15 +68,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] hwmon: (pmbus) Add and export direct conversion
- calculation helpers
-To: Stoyan Bogdanov <sbogdanov@baylibre.com>, jbrunet@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260522082349.2749970-1-sbogdanov@baylibre.com>
- <20260522082349.2749970-2-sbogdanov@baylibre.com>
+Subject: Re: [PATCH v4 2/4] hwmon: (pmbus/tps25990): Rework TPS25990 direct
+ conversion handling
+To: sashiko-reviews@lists.linux.dev, Stoyan Bogdanov <sbogdanov@baylibre.com>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20260522082349.2749970-3-sbogdanov@baylibre.com>
+ <20260522091252.9E5C01F00A3D@smtp.kernel.org>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -123,29 +120,178 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260522082349.2749970-2-sbogdanov@baylibre.com>
+In-Reply-To: <20260522091252.9E5C01F00A3D@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/22/26 01:23, Stoyan Bogdanov wrote:
-> TPS25990 and upcoming TPS1689 need common computation APIs but
-> the current implementation is static to TPS25990. As a preparation for
-> TPS1689 support, split the math-only parts of pmbus_reg2data_direct() and
-> pmbus_data2reg_direct() into separate helper functions:
+On 5/22/26 02:12, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
 > 
-> - pmbus_reg2data_direct_calc()
-> - pmbus_data2reg_direct_calc()
+> New issues:
+> - [Critical] The custom conversion functions incorrectly retrieve I2C client data, leading to severe type confusion and out-of-bounds heap reads.
+> - [High] Replacing ratio-based math with direct conversion helpers inside `read_word_data` and `write_word_data` introduces a double-conversion bug that completely corrupts sysfs output and configuration limits.
+> - [High] Calling `pmbus_reg2data_direct_calc()` directly with negative `R` coefficients and small register values leads to a total loss of precision due to premature integer division.
+> - [High] The patch silently drops the correct translation ratios for the Over-Current Fault Limit (`PMBUS_IIN_OC_FAULT_LIMIT`) and bypasses dynamic resistor scaling.
+> - [Low] Spelling mistakes in the newly introduced `tps25990_parameters` enum comments.
 > 
-> export them so the upcoming TPS1689 can use the same APIs.
+> Pre-existing issues:
+> - [High] When setting fault limits, an integer underflow on low user inputs leads to an unsigned wrap-around, causing `clamp_val()` to clamp to the maximum limit instead of the minimum limit, dangerously defeating hardware protection.
+> --
 > 
-> This has no behavioral change on TPS25990 while allowing TPS1689
-> to use the same.
+> commit 11131ea034ce953233470df60e4f6a1c34cca609
+> Author: Stoyan Bogdanov <sbogdanov@baylibre.com>
+> Date:   Fri May 22 08:23:37 2026 +0000
 > 
-> Signed-off-by: Stoyan Bogdanov <sbogdanov@baylibre.com>
+>      hwmon: (pmbus/tps25990): Rework TPS25990 direct conversion handling
+>      
+>      Rework the existing implementation of direct format conversion for
+>      TPS25990 non-standard parameters to improve code reusability and
+>      integration with the PMBus direct conversion helpers.
+> 
+>> diff --git a/drivers/hwmon/pmbus/tps25990.c b/drivers/hwmon/pmbus/tps25990.c
+>> index 05c6288ecafcc..1e252844217b8 100644
+>> --- a/drivers/hwmon/pmbus/tps25990.c
+>> +++ b/drivers/hwmon/pmbus/tps25990.c
+> 
+> [ ... ]
+> 
+>> +enum tps25990_parameters {
+>> +	TPS25990_VIN_OVF = 0, /* VIN over volatage fault */
+>> +	TPS25990_IIN_OCF, /* IIN Over currect fault */
+> 
+> [Severity: Low]
+> This isn't a bug, but there are minor typos in the comments: volatage and
+> currect.
+> 
+>> +	TPS25990_DIRECT_VALUES_COUNT,
+>> +};
+> 
+> [ ... ]
+> 
+>> +static s64 tps25990_reg2data_direct(struct i2c_client *client, int param, s32 raw)
+>> +{
+>> +	struct pmbus_driver_info *info = i2c_get_clientdata(client);
+>> +	struct tps25990_data *data = container_of(info, struct tps25990_data, info);
+> 
+> [Severity: Critical]
+> Does this correctly retrieve the driver info?
+> 
+> Looking at pmbus_do_probe(), i2c_get_clientdata(client) is set to a
+> struct pmbus_data * object, not a struct pmbus_driver_info * object.
+> 
+> Using container_of() on the wrong type calculates a 0 offset, but improperly
+> casts the pmbus_data object into a struct tps25990_data pointer, causing the
+> subsequent read of info_local to fetch completely out-of-bounds heap memory.
+> 
+> Should this use pmbus_get_driver_info(client) instead?
+> 
 
-Please do not introduce new API functions without discussing it first.
-Keep this in the driver.
+Did you even test this code ?
 
-Thanks,
 Guenter
+
+>> +	struct tps25990_local_direct_value *info_local = &data->info_local;
+>> +	s64 b, val;
+>> +	s32 m, R;
+>> +
+>> +	val = (s16)raw;
+>> +	m = info_local->m[param];
+>> +	b = info_local->b[param];
+>> +	R = info_local->R[param];
+>> +
+>> +	return pmbus_reg2data_direct_calc(val, b, m, R);
+> 
+> [Severity: High]
+> Can this result in a total loss of precision due to integer division?
+> 
+> For TPS25990_VIN_OVF, R is -4 and the raw register value is a small 4-bit
+> integer (0 to 15). The generic pmbus_reg2data_direct_calc() handles negative
+> R by dividing the input by 10 for each R:
+> 
+> pmbus_core.c:pmbus_reg2data_direct_calc() {
+>      ...
+>      while (R < 0) {
+>          val = div_s64(val + 5LL, 10L);
+>          R++;
+>      }
+>      ...
+> }
+> 
+> Dividing a small value like 15 by 10000 via integer division would truncate
+> it to 0, permanently destroying the underlying data. Does this need
+> pre-scaling before the calculation loop?
+> 
+> [ ... ]
+> 
+>> @@ -184,9 +230,7 @@ static int tps25990_read_word_data(struct i2c_client *client,
+>>   		ret = pmbus_read_word_data(client, page, phase, reg);
+>>   		if (ret < 0)
+>>   			break;
+>> -		ret = DIV_ROUND_CLOSEST(ret * TPS25990_VIN_OVF_NUM,
+>> -					TPS25990_VIN_OVF_DIV);
+>> -		ret += TPS25990_VIN_OVF_OFF;
+>> +		ret = tps25990_reg2data_direct(client, TPS25990_VIN_OVF, ret);
+> 
+> [Severity: High]
+> Does this introduce a double-conversion bug?
+> 
+> The driver's .read_word_data hook is expected to convert between the
+> chip-specific raw register value and the standard PMBus raw format (Y_std).
+> The PMBus core then converts Y_std to physical units.
+> 
+> By calling pmbus_reg2data_direct_calc() directly here, does it return the
+> physical value (e.g. milliVolts) rather than Y_std, causing the PMBus core
+> to apply its standard conversion a second time to an already converted value?
+> 
+> [ ... ]
+> 
+>> @@ -246,17 +288,13 @@ static int tps25990_write_word_data(struct i2c_client *client,
+>>   		break;
+>>   
+>>   	case PMBUS_VIN_OV_FAULT_LIMIT:
+>> -		value -= TPS25990_VIN_OVF_OFF;
+>> -		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_VIN_OVF_DIV,
+>> -					  TPS25990_VIN_OVF_NUM);
+>> +		value = tps25990_data2reg_direct(client, TPS25990_VIN_OVF, value);
+>>   		value = clamp_val(value, 0, 0xf);
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does this lead to an integer underflow
+> that defeats hardware protection?
+> 
+> The value parameter in tps25990_write_word_data() is an unsigned u16. If a
+> sufficiently low limit (like 0) is converted, the mathematical result could
+> be negative. This would wrap around the unsigned u16 to a large value
+> (e.g., 65530).
+> 
+> Since clamp_val() compares using the type of the passed variable, it would see
+> the wrapped value as much greater than 15 and incorrectly clamp it to the
+> maximum hardware limit (0xf) instead of the minimum limit.
+> 
+>>   		ret = pmbus_write_word_data(client, page, reg, value);
+>>   		break;
+>>   
+>>   	case PMBUS_IIN_OC_FAULT_LIMIT:
+>> -		value -= TPS25990_IIN_OCF_OFF;
+>> -		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_IIN_OCF_DIV,
+>> -					  TPS25990_IIN_OCF_NUM);
+>> +		value = tps25990_data2reg_direct(client, TPS25990_IIN_OCF, value);
+> 
+> [Severity: High]
+> Are we losing the dynamic resistor scaling here?
+> 
+> The original code mapped TPS25990_VIREF to the standard Y_std format,
+> allowing the PMBus core to dynamically convert it using the PSC_CURRENT_IN
+> coefficients, which are adjusted in tps25990_probe() based on the
+> ti,rimon-micro-ohms property.
+> 
+> The new tps25990_data2reg_direct() call uses static coefficients from
+> tps25990_local_info which are never updated by the rimon logic. Will this
+> break the over-current limits for boards using a non-default rimon
+> configuration?
+> 
+>>   		value = clamp_val(value, 0, 0x3f);
+>>   		ret = pmbus_write_byte_data(client, page, TPS25990_VIREF, value);
+>>   		break;
+> 
 
