@@ -1,76 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2231F37FF4E
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590F137F8D0
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:59:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779526670; cv=none; b=gf0McrsjuklOC49eKQt+DJbAblPLg/LSa4ef1reEu/Ef68A9DsPhsswdDlt37mW+GEBp2+bOUP5UZw8wVLGkVy3SDyMyf/uD1NmZhXKwAbNjpuptuUBW6xXvqCK2vdica81DwPE364mc6+Rkpozts6T9uNJsV0nj6snDiPjnJ2A=
+	t=1779526791; cv=none; b=OjqEa/hwS20fYBPMdUrD11VLLZh0pNipe4CPm6qfihxHPNMSVoY99N/HeRFfgbUpQoiTt2hdFcZ0/74SBms0lmFjSGRZWLJUrDgaHtgoM0dHd7XL84W07vQmEseJ+U55CRF2xN5lJSEyeChu526KhIpcusw2dRnUPtBb5DUJT38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779526670; c=relaxed/simple;
-	bh=d5reBSpZYfHYOBAARbzQGnZEuGxGm9RjCM30/rreUD0=;
+	s=arc-20240116; t=1779526791; c=relaxed/simple;
+	bh=qbX/u0YvILlswAD20c2Nb16wHxkRKuf6rWkIOztP9mg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mk5dYdayz93nggJiSOT9QmWUEbuRB9AaNAmXiMhnBkPkorsgQN/dHkSUMRXwVsUeiwviJ8gCx4KhDkJ+IdB1lTfk+CcJIysawO0usP4wfWZfsDTMqffdbWpLXpIb5wN4psJuxaJH6dLbbGgRE96XXrzgJPQWs5eiXwCQuzST7v8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hL/J0l2H; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=fnk1Y5zRMMbSsqgoGcvoUrtm2lnsPaH08/uJNvgJ2Xydmhv8VIYHnG5h5PEuMoWEQuCyeAc4yotvSvj9fyVvgqHckMrp7MUlKVo0LxWSH04ef1aIneNtPm2M0YKBPmiSCbSfVk09Nc250TChIrO81f518LmRQP/iNI5iuycH0G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sh97Pd4r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hL/J0l2H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AEC1F00ADF
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:57:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sh97Pd4r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBE21F00A3A
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779526668;
-	bh=d5reBSpZYfHYOBAARbzQGnZEuGxGm9RjCM30/rreUD0=;
+	s=k20260515; t=1779526790;
+	bh=qbX/u0YvILlswAD20c2Nb16wHxkRKuf6rWkIOztP9mg=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hL/J0l2HFZ1MBive/kEFmPTNoQsxc2FMBpUr8VECJHDoUFL/ZBEyFPG3zxunH67sw
-	 u+RyMjqZ8Y7jTomFDmtNLySOLzKAr0fgHKqgfuqhrLsKPH+dEdO72QAYtBHglbwcK1
-	 9TQW0UZg1bRZrEO41KNtiudNz+OVjIb2fG76SyCGWGuSr1CkTK4vNKmZ2qRfDO+TM2
-	 dIkaFjG57ClEahXITeU3qIJe9VRa3dfTRhxyhbmfAwz9h3ENf4fQIWxeYSBoKnaR8J
-	 gSIhL00fcT/DbPtusNLC8WrpbbOgfcL6dNLPMDE2iNzWKu1aRlldlYvnM8nHs31hx0
-	 zszWaiVX1Kcuw==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a88db610ccso8338427e87.2
-        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 01:57:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9nEmS031HYDzNyhSw9Ye8IXscPbzevziy3l6QZXdSCRK1QViafUkcVYC+vnfSze6CITYHZ8LrGvp7u@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAstf9SXeBnTZaW9ZjBmdwOk42c67i9dulTOuWo5qSCp+A9VG/
-	kzar6D/we8jWeC+M74od9b4YnqY9I8AZEZ4OIq8hy10InPI2IUDbu2mrTmlNKj3TB97mV4ZHfrr
-	Ci4E5A4oK2Hga3PyyzDS7D3TEYvebecM=
-X-Received: by 2002:a05:6512:24db:b0:5a8:f8b3:6c8 with SMTP id
- 2adb3069b0e04-5aa323b83e7mr1440644e87.37.1779526667654; Sat, 23 May 2026
- 01:57:47 -0700 (PDT)
+	b=Sh97Pd4rC9Iw7hEt+aYcJxtxh3NCQBnvhR2MNf3CpOy+/pYI4LijnchZCBTUaGlEA
+	 t10izqgfqkncdc+rUWlHo8gaM98FryM/Uh3CgCpeR4+RymfjXRr3xlJzdndLG4cpCH
+	 3KECiAVgoq/PQcUmBMo0tYpoGq3wGSfjplf27AkrJ5kEXgcbBAOjt7uvI0+vvKUPbo
+	 XBuBbtc0Y4R1kv6BJ5eEnaq1qAcRxIDk5hGEUQrq4L+TfcIut9oxX/GbEn8s3hWVr9
+	 mIzyPN7yNmOXU8ZCGKiyWc5Lmn5/bkd30L4KBk2YgcffzgbiPAZuCfaxHNmaYRNd0U
+	 iDiiXyja5GkkQ==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a884815606so9075176e87.0
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 01:59:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/fBe9OCo2hEInQ0n+8Ts9FlnMNKfL+rJsGaOXERlzWRN2N0KX0/gWaQ6eLMb+hAXHW6who/TNRZ9Vl@vger.kernel.org
+X-Gm-Message-State: AOJu0YxD49rhdaZkbLHO4d4Gj12fYZwdt9paxfODZeiKZwW5/GvgPviD
+	CXa9ZBiXVTdEunTXTplwrhUcH+LisoyDJoY4+xLYKUNs2ktdJyfXCQ6e2uzRs8Rr5/92gcHO9PZ
+	tbXsa7qkI0uyCdHe81LTB67PGEUi9Pz0=
+X-Received: by 2002:a05:6512:10c5:b0:5a8:9756:f6b8 with SMTP id
+ 2adb3069b0e04-5aa323cd97emr2082906e87.35.1779526788895; Sat, 23 May 2026
+ 01:59:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260507-pm8010_gpio-v1-0-3bce9da8d2ba@oss.qualcomm.com>
-In-Reply-To: <20260507-pm8010_gpio-v1-0-3bce9da8d2ba@oss.qualcomm.com>
+References: <20260512060917.2096456-1-shubhrajyoti.datta@amd.com> <20260512060917.2096456-4-shubhrajyoti.datta@amd.com>
+In-Reply-To: <20260512060917.2096456-4-shubhrajyoti.datta@amd.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 23 May 2026 10:57:35 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=0ptkGc9tvG3Zt17Ync3FvaLkBeo+KvzEXZs-+zAd-jA@mail.gmail.com>
-X-Gm-Features: AVHnY4LlZNji26qFzLJ3wDa2Vsfu-sPHqlTEglKS0rv0xnzhkn2xVLlCketOAoE
-Message-ID: <CAD++jL=0ptkGc9tvG3Zt17Ync3FvaLkBeo+KvzEXZs-+zAd-jA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] pinctrl: qcom: spmi-gpio: Add pm8010 GPIO support
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, 
-	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Collins <david.collins@oss.qualcomm.com>, kamal.wadhwa@oss.qualcomm.com, 
-	kernel@oss.qualcomm.com
+Date: Sat, 23 May 2026 10:59:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=iCJpKirfc0GqUuKjrLjeEyWMvcmDx26+hTFtcYz0uPw@mail.gmail.com>
+X-Gm-Features: AVHnY4JF7lnezv7m1tQlOKAjlmVpjnjJD07jbsl29OKRAreK5EuKH4xjhiad3wk
+Message-ID: <CAD++jL=iCJpKirfc0GqUuKjrLjeEyWMvcmDx26+hTFtcYz0uPw@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] gpio: zynq: Add eio gpio support
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Cc: linux-kernel@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com, 
+	Srinivas Neeli <srinivas.neeli@amd.com>, Michal Simek <michal.simek@amd.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 8, 2026 at 7:34=E2=80=AFAM Fenglin Wu <fenglin.wu@oss.qualcomm.=
-com> wrote:
+On Tue, May 12, 2026 at 8:09=E2=80=AFAM Shubhrajyoti Datta
+<shubhrajyoti.datta@amd.com> wrote:
 
-> Add compatible string for pm8010 GPIO in the binding and driver. Also
-> add GPIO device nodes in the existing pm8010*.dtsi files.
+> Add support for the EIO GPIO controller found on
+> xa2ve3288 silicon.
 >
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+> The EIO GPIO block provides access to multiplexed I/O pins exposed
+> through the EIO interface. Only bank 0 and bank 1 are connected to
+> external MIO pins, with 26 GPIOs per bank (52 GPIOs total). This
+> change extends the Zynq GPIO driver to support the EIO GPIO
+> variant.
+>
+> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-Patches 1 & 2 applied to the pinctrl tree!
-
-Take patch 3 through the SoC qcom tree (Bjorn) please.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
 Linus Walleij
