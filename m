@@ -1,59 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219A82F9D89;
-	Sat, 23 May 2026 02:04:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5252298CC4;
+	Sat, 23 May 2026 02:19:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779501872; cv=none; b=A8XuX/4UPh9n3vD4nkEN+dJT7ZqIx2PCnPBp6BT1/v5qqT7OgPe9rZGnLmb/Z2HY7bXFyRR06EKLzd7IP0T7+WeHb0lw57+zjw9PAFR1BUXfKshvamXypGfaVoaXOlqM3pXX5TjzlP5gNEFulUtH9r6+VVyN0qJf44vGpAaj7HY=
+	t=1779502795; cv=none; b=nfOSyHCuhIalw0NdHwF/NMf19BVEMLANIjcieZMtbd82ULx36t3P0/KCanS6c3W5UZEICLe12NIYL1nZxrtF88Jf02Mx+RerXntkxawpPsi7b8rmi41O5wk4S3pUAd1/s/xjF5vo2iIp1TghyfYVg1iuDmnbP3ia5BDjk6CM+ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779501872; c=relaxed/simple;
-	bh=fGi9yGlZ0q5byT9au7IMWauGYrYhzbWbLQITkJV6E7w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=txT+OlAL0Sqvg31usy3zZBy7AmcE+VsPCfJFL6zzropTJdgRarz/p0iw+MTwGtd+F21AtpeA//YH4CvmDDrQT2+e8+xTE5lmTYPCkfjFdRM5gtY3pu0A5f9lH2SQBvny3LMTR0JjGSiJLXLJNmwyhv+D5V+fSTG8xbeeGwR1I6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7t6sf+F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779502795; c=relaxed/simple;
+	bh=Jb1cgXT+m6qIvAxiKPlYy7OzW8pI8/acTYwcZKsEHx8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kYrPUf1WgwKdEHqNRF17CybK5emW8FS/NmOsOJEteCpDQotBgQh9yGV7F4jVlz+YSni5aqRDK6XWhw2nL7TF8q0hepV1r2cP3Mg5QijPaQFZyraSx0rOKK9lkkPhDJKPZcz87GHXNh2PAPQI3RnujukUIWlAC/wMtlHH/eV7xBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkxAT6Vj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7t6sf+F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E24E1F000E9;
-	Sat, 23 May 2026 02:04:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkxAT6Vj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DD831F000E9;
+	Sat, 23 May 2026 02:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779501859;
-	bh=fGi9yGlZ0q5byT9au7IMWauGYrYhzbWbLQITkJV6E7w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=n7t6sf+FE3vP8YoQyqI6cQjY5Xwhy43e2uYq3BJAYWWXOGE6+nwl9RpZ4/d11+jg0
-	 oHM7ek+V4xerdzyfgCeYhSONxgfJDY6c/d6pS8re2du9BKaZ5c+mopSUlfUVwqyNoB
-	 DLuutO7wOMbiLEjXQNxt0ANC/droPABZD/gIkqJjCl1l/7XSDXwguZJtPRbboGcmxj
-	 VFWfXARJtbOALWWHl8xNA7D6H6NaCLVCt11VNAnTfTEhOpdilGPDGlR9BlK3umhHSq
-	 3HQHYJfKMaYxfrNEA4OZbSmChQ7x4/Z+dJDHHB+r0iynHRWY4MQn8ghaUJeFZkMNWe
-	 hBrE0HvxITvOA==
-Date: Fri, 22 May 2026 19:04:17 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jens Emil Schulz =?UTF-8?B?w5hzdGVyZ2FhcmQ=?=
- <jensemil.schulzostergaard@microchip.com>
-Cc: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
- Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung
- Huh <woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>,
- Steen Hegelund <Steen.Hegelund@microchip.com>, Daniel Machon
- <daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH net-next v5 0/9] net: dsa: add DSA support for the
- LAN9645x switch chip family
-Message-ID: <20260522190417.53ab9cc4@kernel.org>
-In-Reply-To: <20260518-dsa_lan9645x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com>
-References: <20260518-dsa_lan9645x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com>
+	s=k20260515; t=1779502794;
+	bh=JVGNEIcFBWgqs/FdAqSiZ9HCjBSKwe8iBDty/6CjCCQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZkxAT6VjaOhMWRAPlaC4dFNisHa84ZoMZL/gVSC4VI9EF3DDfeNCJPlMN2HMtuSCa
+	 7Ti8SY1qXj0C1qQOyUbYoxkAuR/gyO2qa6AXEIJY8XHP3e1tKxt90OZfLa9sOZtR93
+	 Cq3MbYlAmpf/Q2dWAsa9nWP4vIcE9aspplb3nS8sjdajtxcKnrjr8CNTaZkVCSxwCa
+	 r5c7KGtcvzQhMkZFAzW9bhhfwkUjM9qda5v19JgPGua2lkPFIZY2RyPfsYeg38R+55
+	 /ohGRiSYKyNMZAQaKqk5Xre542IKyG/1jn0sPmQyDz7F+S6oZBE159ydVaG+O//01z
+	 xEfoGypCJXSWg==
+Date: Fri, 22 May 2026 21:19:50 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, bjorn.andersson@oss.qualcomm.com, 
+	dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, prasad.sodagudi@oss.qualcomm.com, 
+	aniket.randive@oss.qualcomm.com, chandana.chiluveru@oss.qualcomm.com, 
+	jyothi.seerapu@oss.qualcomm.com, chiluka.harish@oss.qualcomm.com
+Subject: Re: [PATCH v6 00/13] Enable I2C on SA8255p Qualcomm platforms
+Message-ID: <ahEObi9ubGaTEcwK@baldur>
+References: <20260227061544.1785978-1-praveen.talari@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260227061544.1785978-1-praveen.talari@oss.qualcomm.com>
 
-On Mon, 18 May 2026 14:24:55 +0200 Jens Emil Schulz =C3=98stergaard wrote:
-> This series provides the Microchip LAN9645X Switch driver.
+On Fri, Feb 27, 2026 at 11:45:31AM +0530, Praveen Talari wrote:
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM.
+> The driver requests resources operations over SCMI using power
+> and performance protocols.
+> 
+> The SCMI power protocol enables or disables resources like clocks,
+> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+> such as resume/suspend, to control power states(on/off).
+> 
+> The SCMI performance protocol manages I2C frequency, with each
+> frequency rate represented by a performance level. The driver uses
+> geni_se_set_perf_opp() API to request the desired frequency rate..
+> 
+> As part of geni_se_set_perf_opp(), the OPP for the requested frequency
+> is obtained using dev_pm_opp_find_freq_floor() and the performance
+> level is set using dev_pm_opp_set_opp().
+> 
 
-Looks like this needs a rebase.
+@Andi, I've merged the soc-patches through an immutable branch into the
+qcom-tree for 7.2, please find this at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260227061544.1785978-1-praveen.talari@oss.qualcomm.com
+
+Regards,
+Bjorn
+
+> Praveen Talari (13):
+>   soc: qcom: geni-se: Refactor geni_icc_get() and make qup-memory ICC
+>     path optional
+>   soc: qcom: geni-se: Add geni_icc_set_bw_ab() function
+>   soc: qcom: geni-se: Introduce helper API for resource initialization
+>   soc: qcom: geni-se: Handle core clk in geni_se_clks_off() and
+>     geni_se_clks_on()
+>   soc: qcom: geni-se: Add resources activation/deactivation helpers
+>   soc: qcom: geni-se: Introduce helper API for attaching power domains
+>   soc: qcom: geni-se: Introduce helper APIs for performance control
+>   dt-bindings: i2c: Describe SA8255p
+>   i2c: qcom-geni: Isolate serial engine setup
+>   i2c: qcom-geni: Move resource initialization to separate function
+>   i2c: qcom-geni: Use resources helper APIs in runtime PM functions
+>   i2c: qcom-geni: Store of_device_id data in driver private struct
+>   i2c: qcom-geni: Enable I2C on SA8255p Qualcomm platforms
+> ---
+> v3->v4
+> - Added a new patch(4/13) to handle core clk as part of
+>   geni_se_clks_off/on().
+> 
+>  .../bindings/i2c/qcom,sa8255p-geni-i2c.yaml   |  64 ++++
+>  drivers/i2c/busses/i2c-qcom-geni.c            | 324 +++++++++---------
+>  drivers/soc/qcom/qcom-geni-se.c               | 270 ++++++++++++++-
+>  include/linux/soc/qcom/geni-se.h              |  19 +
+>  4 files changed, 491 insertions(+), 186 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
+> 
+> 
+> base-commit: 7d6661873f6b54c75195780a40d66bad3d482d8f
+> -- 
+> 2.34.1
+> 
