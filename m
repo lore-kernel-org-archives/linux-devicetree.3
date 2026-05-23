@@ -1,70 +1,64 @@
 Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB29932B107;
-	Sat, 23 May 2026 03:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7618D3064B5;
+	Sat, 23 May 2026 03:15:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779506133; cv=none; b=DR9mu/uA2eoPh73TFNSRZ/01oO+NTsFpxfZMyjD05azZ4bcBJ4tSf8YGFIzXO21ExMwWN2OpmlhEo2QxSqoWQpX8iv9OHFjGL5OpN/CHmnmQ6YWt8gB+mEkUIVZN6td6dy/0okggCxmIkj+lqMH84CgAatLkKq1N2Fmda+Amuw8=
+	t=1779506158; cv=none; b=IxrQcnEEbq2ERQbgZfB4twXAJ2eY+OlqTUpNwRy3dPGD5iV2wJv4SJ30mgwTopHH7r9jn9VKH99QiFdmBwakWUTp+62boekYXGxJEpIHWk0ft0LjuSj+wci0UaY38SCG9UA+4ouhMJ+tQeV4uNMx884DmpnlLzXk9g6wJTJZNco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779506133; c=relaxed/simple;
-	bh=cYmNgJif3MBctwCNz7r10/ugSuy7ZEM2QzwgNXh1UTI=;
+	s=arc-20240116; t=1779506158; c=relaxed/simple;
+	bh=6QdnE50gKD+tD0QjrDjYqrv+GzTNJTCVGiBEnMarYUg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mN/i1IP/uWuwtymep/tm50kurGrQFXTRalKhulT/IXkL+lKjOCIKXeLdJkowKGJdmpau476/9AEFbQj/G8BqbLO2QY4cY+tEirSFDE0EsrNKChY30+bluhTS0T9LGalTjSVvKWEGPcy/Sa5MnanqKIQOX6r1wyicbKxq1Ai05zQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=JJSFbYbf; arc=none smtp.client-ip=205.220.165.32
+	 MIME-Version:Content-Type; b=VZDa0qqtCdViZGZpg4UBYx2LleMG5da8u36/lE1pi0Byf1CQoC7YLuNLG6b1TW672WNtSFeAGGVE2GIXPNzVzipDhxzTd7Qu4nV2XI9SDY1v+N8mJJqjDOQfbjgqZ08FF0k2QLN/yLUCnMHsYmpvQOZ9K0tUfaY88RnsGXyQCYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=Bs4hWhIM; arc=none smtp.client-ip=205.220.165.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="JJSFbYbf"
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64N1hc2Z771545;
-	Sat, 23 May 2026 03:15:26 GMT
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="Bs4hWhIM"
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64N25WfF2306715;
+	Sat, 23 May 2026 03:15:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=W1qTmqz+ukB8nZk0DsEoX8bnLpw96qTX6w9LOPBiuuI=; b=
-	JJSFbYbf845+iBQSo1SRyZYS+jUL9yBlKUsb0wOS/nC7g8X1QqjZvTMCBoFBSlYP
-	DMeHskrd0FWU7sGkTfQ11rXxOxKnEJ5dQnwq6sVlNy/PwyYORn6hyVdMvKSq+a9y
-	2CKQXAVfrG1bBA0coN1yzmW3p3Ax61LQl7SlvJVlSkXiSIxqToYDUtm+OQBm9pdZ
-	PXbM8nMQ33lx+1XeSrlm+XcxQg2TVOcbjv2Hwhbw3HnphGOeKH/zu//euAAsgTMF
-	4Ssw8kxEARFLhTvu07YJBfRAqW1QXcIgPE1xaTArcXQh4a2Do/LFXmc9/sKk1VSg
-	PAFoc5MJ5Gwn8YJnWFg/cQ==
+	corp-2025-04-25; bh=ktEyyfLRRFdMxrVEwuRXgkrGd6j3WoLUViZhfjdpIzI=; b=
+	Bs4hWhIMzslsm+RWhy+hphFROIoTOhhATkMRnqvyaqITdVIvhR9bJfYiYa8UYX77
+	6GSACDcuiS3lu3uKJ8Io/MABzTlN3P76qgtOpvomfmpHvPUn2E7WtSl4Rxc7NgSc
+	dae6MCdu7wps4FaEu6vo3InaL21uX4AAyqKiWjT5pH/0n9lqGtqLfxacPqySusUv
+	UwDFXg7PWLxNAIF5UHY3ijDhHVQkiCmBzWsaSc7lIvdLAGfpryKtTfCIlouTtJj9
+	IqeJRUGHuucnmw7QdtUHdoEE7PQuj9dBy2HL275QfxpUzQdmeMuUegSCf8pmZssZ
+	mK4fg2/dtXqmVSFbAweEqA==
 Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4eb2tyg72d-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4eb35904mf-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 23 May 2026 03:15:25 +0000 (GMT)
+	Sat, 23 May 2026 03:15:11 +0000 (GMT)
 Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 64N3F68j032371;
-	Sat, 23 May 2026 03:15:25 GMT
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 64N3F7ai032598;
+	Sat, 23 May 2026 03:15:10 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4eb2p6hsjt-1
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4eb2p6hsbw-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 23 May 2026 03:15:25 +0000 (GMT)
+	Sat, 23 May 2026 03:15:10 +0000 (GMT)
 Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64N3F9eK032824;
-	Sat, 23 May 2026 03:15:24 GMT
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64N3F9ds032824;
+	Sat, 23 May 2026 03:15:09 GMT
 Received: from ca-mkp2.ca.oracle.com.com (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com [100.100.251.135])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4eb2p6hs6k-14;
-	Sat, 23 May 2026 03:15:24 +0000 (GMT)
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4eb2p6hs6k-1;
+	Sat, 23 May 2026 03:15:09 +0000 (GMT)
 From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] scsi: ufs: dt-bindings: Add compatibles for Nord UFS controller
-Date: Fri, 22 May 2026 23:14:28 -0400
-Message-ID: <177913641751.1181900.7719645023341396564.b4-ty@oracle.com>
+To: avri.altman@wdc.com, bvanassche@acm.org, robh@kernel.org,
+        krzk+dt@kernel.org, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, sowon.na@samsung.com,
+        peter.griffin@linaro.org, linux-scsi@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/4] add ufs support for Exynosautov920 SoC
+Date: Fri, 22 May 2026 23:14:15 -0400
+Message-ID: <177913641756.1181900.3954359823694090087.b4-ty@oracle.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260427013115.231731-1-shengchao.guo@oss.qualcomm.com>
-References: <20260427013115.231731-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260417121452.827054-1-alim.akhtar@samsung.com>
+References: <CGME20260417115813epcas5p40234b872c221ce28981b17e42ca48139@epcas5p4.samsung.com> <20260417121452.827054-1-alim.akhtar@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,46 +72,43 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2026-05-23_01,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  suspectscore=0 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- mlxlogscore=790 bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ mlxlogscore=999 bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.19.0-2605130000 definitions=main-2605230029
-X-Authority-Analysis: v=2.4 cv=SoCgLvO0 c=1 sm=1 tr=0 ts=6a111bcd cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIzMDAyOSBTYWx0ZWRfXyFX+vTF4Zt7F
+ 18aqXksxvYMFfeQCkjwTt4Mlpg/XYFyGL0L5m/TCFSryNhK1EXwpVpmsdUtH7kO9dgvokGiZHAb
+ vIrX1sEtmS9IZxBAKSkWqch24Qd2cH9iNlacmlSQ69mEjRKAX1OQuTN/9kGnplx1jDcWPPs/gBY
+ PYLV3MsxTIboJN7tARSbW0g2IT6rnLreR+/JU9+S/qyGhAlbVSNU+WmOJe3e2cu3r+tfGoiymbc
+ T0OVsm9u5nsfCCC1Lje5gUcwEM06YXO8/WzcAap3uKE2d5dBampn2l15L+RSykJxBIqvKx3COaS
+ tJvHv3rOuay09xSVKZfZolpNsDTV40rAMclpJoqaLXQjTy4opq+O/drHlGXQz0n7rprZs8/azFf
+ j6kZp37LmcMNgHBBuCQyNR7jzAnAqlu+rsXxRz5H03zrgdyn0zdrKw3SzP2Vm/H/jkAydS/00xb
+ +3tKnqom5140bel3Cwg==
+X-Proofpoint-GUID: QrLFBChcJdRLJx10MBLFfMdrcPYcSPO9
+X-Proofpoint-ORIG-GUID: QrLFBChcJdRLJx10MBLFfMdrcPYcSPO9
+X-Authority-Analysis: v=2.4 cv=TJJ1jVla c=1 sm=1 tr=0 ts=6a111bbf cx=c_pps
  a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=VwQbUJbxAAAA:8
- a=ZC9mcO7Xf2SOoCrdTL8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: Uy00OdLTBUayyDaM-tM0EIugTWm-V_9i
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIzMDAyOSBTYWx0ZWRfX0lEhNU12WDa4
- iNx5UlkdjiSQuiTJJ7X1jDNWlXNywJmESOpr4REz6zQ3Q2wsItQng9OG8dc6LmmrliZfGzZS7Zu
- dpbnU3kCJlXGwAtDKXV36tXnLHT9GXkoLLpDucD33wB4Da89+QCXFUK35siSJ4D6nZsP4QiJSYA
- ZA2u1oCGBpyMsw0oJ+ozIWo4IKBsSFnQWu/k5H6awnd3ZsJjHAaasij0Y73+ljgQY4ddUqEq0uq
- GalPFnBbo5gY27McrlPhGb9GtREdmDet7vSAT/ffP2jUpxL5PAnkfw6oODPFbR04RJe7TQESZEG
- 9fRClquDNODekBh9ApzkLDRedxuIJQkyvGg+T1zqqF7x67gvI1VL4PLhdCdSUzCOcoCNhToSqXK
- UJYx/ro+rpFfABE2ieQ0X+pvZ7J4Qw+HrzxTRYj92tXoNkvn0Lar+66TFD18g+CJjysxbhZAJDs
- Fw+zO+Mt7LIQNYnhdnQ==
-X-Proofpoint-GUID: Uy00OdLTBUayyDaM-tM0EIugTWm-V_9i
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=x0eKOSpe3m1H3M0S9YoZ:22 a=VwQbUJbxAAAA:8
+ a=UCUsExACdNoqk4LCDqkA:9 a=QEXdDO2ut3YA:10
 
-On Mon, 27 Apr 2026 09:31:13 +0800, Shawn Guo wrote:
+On Fri, 17 Apr 2026 17:44:48 +0530, Alim Akhtar wrote:
 
-> This series documents the UFS host controller on Qualcomm Nord SoC.
+> This series adds ufs driver support for ExynosAutov920,
+> ExynosAutov920 has the UFSHCI 3.1 compliant UFS controller.
 > 
-> Nord is a Qualcomm SoC series. Its UFS controller has a multi-queue
-> command (MCQ) register range in addition to the standard one,
-> both of which are required.
+> ExynosAutov920 has a different mask of UFS sharability from ExynosAutov9,
+> so this series provide flexible parameter for the mask.
 > 
-> Nord also has an automotive variant, SA8797P, where the platform
-> firmware implements an SCMI server and manages UFS resources such as
-> the PHY, clocks, regulators and resets. As a result, SA8797P shares
-> the minimal OS-visible DT interface of SA8255P and uses it as the
-> fallback compatible
+> With this series applied, UFS is functional and basic I/O operations are
+> known to be working.
 > 
 > [...]
 
 Applied to 7.2/scsi-queue, thanks!
 
-[1/2] scsi: ufs: dt-bindings: Add compatible for Nord UFS Host Controller
-      https://git.kernel.org/mkp/scsi/c/c9ee94c7e2fb
-[2/2] scsi: ufs: dt-bindings: Add compatible for SA8797P UFS Host Controller
-      https://git.kernel.org/mkp/scsi/c/7030e16247dc
+[2/4] dt-bindings: ufs: exynos: add ExynosAutov920 compatible string
+      https://git.kernel.org/mkp/scsi/c/45c9dee6d653
+[3/4] scsi: ufs: exynos: add support for ExynosAutov920 SoC
+      https://git.kernel.org/mkp/scsi/c/50349bd5d0ab
 
 -- 
 Martin K. Petersen
