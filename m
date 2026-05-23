@@ -1,111 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D781F2C11E2
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1385837F8BD
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779526042; cv=none; b=oPRBeHBts+wC6gn8v7+OHp3oNqoE7rtcPvqutowxqRrj4/0FKIIuqWSwLUB1M6kKHIJwLoMFmxbrkzr/kSdUxEuYfSvWQQmva5M89cq8xcfMPYr4DrEiMM3U/m5pkj8tccf1cavMR8Kt7BGRFt1F95RAsWuEkbTy9c3SF1Tmjsc=
+	t=1779526281; cv=none; b=Zw/GbcmRMvoL+DOV3rkwEoJej49QOtGr9qgFhLTbEfFIL3zXZHTBxoLTmgKwcZZRyqzeMw7HNEGPZ6JDlrDAjvXC23mk/c9CmKyLXwD+vCfNmDAgAwGgxmsjat8o6/lYnYNlQ2QhAe5KL20GpbaHiAjbBvYRCmWTD3EMJSMxSmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779526042; c=relaxed/simple;
-	bh=D6ocNxoANwuQmDHB/k6WeiFMIlv7v6w0RJ6wfDY7gtM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AC71PkLE7XxTcICA+b4Lh70aMvaxxQwaufgpyUXT0eaGaNGL2qWBLqh5JZd6D8yCFZ4TFxq6vq/GXI7FIwxYVruycSO92vnXm2M4j7Wpx3PFA/9Nr5AM4ezQrwvrOuLJ9VMuD5VF7ZPTpuqq3EZhQyeR1fiEdbAGraB5gJngtm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzzH7osr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779526281; c=relaxed/simple;
+	bh=YlpVUBY7qjHm3/ZERt7CV3iv2qn0LVcIMaSVXRO4BdY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=czU43iIKjZuOYZyR9azsU3ZBHkONQWyzAQVYJvyJ4j70lz084JYuzJU88xTDovUleWEkJwu6ROxNx2QtyTqSABhWPKhK1HPh57nG3Q32pqQJOaz3Ewzb4USOpkUZbFm3/2PM1NdxzYS4Oi7kdR4H1ChC/AhdykOpdXcjWNADliM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rheejzAD; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzzH7osr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8ED1F000E9;
-	Sat, 23 May 2026 08:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779526041;
-	bh=PQQDPpVbcbrXc6lSQcUyXa0t4BA4LI74sgMNE5LdFfY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HzzH7osr70oFZhvAtpMzu7KSfx20A/nIpaEFgsad4KYD2fsLz/8yO8i1sMEwleSzU
-	 /YV/hfwnfCU9KB9eYDTXRxiZpQ4hAVFfpKQkuWjW7P6HLAUHR2lmyzknJmxPzZUy81
-	 Ep7toE1BWfr+nQfm7SpehJlRDVE/WkSY9V40EyqhwBVf81lzWpdEoXZSk8zNKrPRbx
-	 5HeQHk4HKPyacGin8KTaED3ADgaA2JF5Bervq3upqZN2lDbGIgtoFXvOj/Uz05WJ5I
-	 AX12qGs+trX16dHfGAEXoBH6yWVspa2j+wFKnBRtPcro/usUNumLPuLJ49Avec+869
-	 AeA8yIMIStxFQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: usb: chipidea,usb2-tegra: Document
- nvidia,external-control property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260523083013.46372-3-clamor95@gmail.com>
-References: <20260523083013.46372-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 23 May 2026 08:47:20 +0000
-Message-Id: <20260523084721.4C8ED1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rheejzAD"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-67179ed133dso9374709a12.2
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 01:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779526278; x=1780131078; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=DMVVhkCyi3BTFhYWA2PfziVCVQZjQefJnSrFOyQ7TOs=;
+        b=rheejzADHtw1ekI6ea1X3SUvldIzI4pCz+KFP/YnAucbaT5V1S9SGi60tYrUocBqbu
+         G6F12JB+2YkiIPnvVqnecRWlGPCHMDykEYl34Kk1wFy9XvOGd8t7Mh5x1D+ixGtztaDy
+         LxkSO0EFyW5ZHh1pRN5LQ0qWIe6g3nMjSBrMTmns/jT8SiHeN1nNT7mqaUQTu7OO+gj/
+         Vd4mslHtrrtLDdUN88IzykX/MnhkZzEJGGLjc1ltlCE1WTTUw7/aOX4xPARjsiKQAGpo
+         VMkoDhT+LlVZCy0NZow3e4FsT8lokAwprsDqTPnTphIpgdBmpoxpc6XCTjFB4wZ65SwS
+         10Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779526278; x=1780131078;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DMVVhkCyi3BTFhYWA2PfziVCVQZjQefJnSrFOyQ7TOs=;
+        b=BMovMMlle63p4VFl5saKw6xsHzG2nbGLpHZQ2CmXd7wCJ7Q5pjQ+Jrp8b/p6wJEPIl
+         y1UO/ZK88A9KqLVK89FPkUrdlG/Kemob1B6hG8ZukN9BukSSRIgKvL80ohKD42t8fm+a
+         HfTslrUKUZIhC9auv4gWYvIAFIb1lPloh8GnfkyExB47INIL+6BQDXpb8jZ6hZli+e5u
+         qBqLrhX1QXAi4nZb5rSvYQi4yjH+6WtvVJ+7SkDuc8bE1bfiY9OKv38XTjE2a5ePujFh
+         zPnfsL0SI8SE/LOGbr1ZqKA3NB4UFkcff00Qe3zYtBicUVhHEvzjxq0zW8AB31MrYwNj
+         TAog==
+X-Gm-Message-State: AOJu0YwMqbtwAm1AoA/adqQIhHraUpSMGjIhO5H1Rhz5j2bbh53dN41A
+	xamneVJRCImX+IbsV0pBNTje15wQW0mAMfar7bhzPg1BnKAtaoQQNSVuppDIrA==
+X-Gm-Gg: Acq92OEl2VUDCP4QpKMJc7KQTH5VE+tdOAthqdbe153C6jPZMzBABlDJeLxV56G5s3H
+	y6UWrqcKYsSLke5uhzEF3F46s/A+GrlkDC/lx/m0fVPDqodCVcAWeumkLi5xWaJBrxSVvGRYrH9
+	Wdz3lFD58XZGHP0bN3wkxYSaSAn9XsyHZiVGDcWAK+4xiwn9LIVHdgyTnA7wwd0FNG9vbbpJh2A
+	MW6XsAYBpvLHQu5rNNIx54B4oOQ30mgHqyw1Lt2W/aGeAoG5v2pvn9GdxAGexWKaaq23cDLwut8
+	M+k4HGlue/1SREpEO2A9C8deqJ2lZzuQRBEM6T/sfRuWZbIWk6LaRLKS2Q12sAUdMAizuU6tfXH
+	lUq3Y0x3YSRnEEH46FGOaETV/e9AqHTrWw+RiSANxvAwJ81d8nxHjtnCYpf9LapCiVzfnzZu7g6
+	vn2gU5QMYge3BTNBtM5I5p0SA=
+X-Received: by 2002:a05:6402:40d4:b0:687:cfde:ddaf with SMTP id 4fb4d7f45d1cf-6889c440492mr3668932a12.7.1779526278408;
+        Sat, 23 May 2026 01:51:18 -0700 (PDT)
+Received: from xeon ([188.163.112.61])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-688baf1f0afsm1642658a12.17.2026.05.23.01.51.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 23 May 2026 01:51:16 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v2 0/2] power: sequencing: Add support for Nvidia Tegra modem pwrseq
+Date: Sat, 23 May 2026 11:51:00 +0300
+Message-ID: <20260523085102.51000-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Adding `nvidia,external-control` to prevent the host from access=
-ing the controller is an architectural anti-pattern that duplicates the pur=
-pose of the standard `status` property and misattributes resource ownership.
---
+Patchset implements support for the Tegra-specific modem powerseqence,
+which handles the registration and unregistration of the USB controller.
 
-commit ba773e6bd558f2861c226bd39627e8f4363d1a0d
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+This patchset is a part of larger series aiming to bring XMM6260 modem
+support for Tegra devices:
+https://lore.kernel.org/lkml/20260511135703.62470-1-clamor95@gmail.com/
 
-dt-bindings: usb: chipidea,usb2-tegra: Document nvidia,external-control pro=
-perty
+---
+Changes in v2:
+- previous phy driver reshaped into pwrseq driver
+---
 
-This commit documents the nvidia,external-control property for USB controll=
-ers.
-It indicates that the controller is configured externally, typically for a
-modem requiring precise control over the USB bus in HSIC mode.
+Svyatoslav Ryhel (2):
+  dt-bindings: soc: tegra: Document Nvidia Tegra modem pwrseq
+  power: sequencing: Add support for Nvidia Tegra modem pwrseq
 
-> diff --git a/Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.ya=
-ml b/Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.yaml
-> index 78046f8a63ad5..d99a18900b5a8 100644
-> --- a/Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.yaml
-> +++ b/Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.yaml
-[ ... ]
-> @@ -40,6 +40,13 @@ properties:
->      type: boolean
->      deprecated: true
-> =20
-> +  nvidia,external-control:
-> +    description:
-> +      Indicates that the controller is configured externally and that th=
-e host
-> +      should not attempt to access it. This is usually used by a modem t=
-hat
-> +      requires precise bus configuration.
-> +    type: boolean
-> +
+ .../soc/tegra/nvidia,tegra-modem-pwrseq.yaml  |  49 ++++
+ drivers/power/sequencing/Kconfig              |  12 +
+ drivers/power/sequencing/Makefile             |   1 +
+ drivers/power/sequencing/pwrseq-tegra-modem.c | 209 ++++++++++++++++++
+ 4 files changed, 271 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-modem-pwrseq.yaml
+ create mode 100644 drivers/power/sequencing/pwrseq-tegra-modem.c
 
-[Severity: Medium]
-Does this new property duplicate the purpose of the standard status property
-and misattribute resource ownership?
+-- 
+2.51.0
 
-Device tree is intended to describe hardware, not software workarounds. If
-the hardware block is exclusively controlled by an external entity like a
-modem and should not be accessed by the host OS, standard semantics general=
-ly
-dictate using status =3D "disabled" or status =3D "reserved".
-
-If the modem relies on the host to provide shared resources like clocks or
-resets to bring the bus up before enumeration, could those resources be
-modeled via a power-sequencer or assigned directly to the modem hardware
-node?=20
-
-Modeling the resources this way might avoid using the USB controller node a=
-s a
-silent resource enabler, which would help keep the hardware description
-decoupled from software policy.
-
->  required:
->    - compatible
->    - reg
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523083013.4637=
-2-1-clamor95@gmail.com?part=3D2
