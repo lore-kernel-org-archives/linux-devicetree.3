@@ -1,146 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C4B23FC41
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 11:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779535504; cv=none; b=RF7s1Pwbz4hg2nvs+hHGc/xR0bySLL2b/EkdGuqjpL1r+SuaW1QykcBxATPjvc5zuw4QYuKMHROVEmSkqHMUo3AEWsholIZggNLZ/9upBGVqcUlvq413sSVI0+9OHI3Sx3yOOJm+j1Xo/iLLzGzLvn0OvF/cW2viNJdkLybtg8Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779535504; c=relaxed/simple;
-	bh=hwqZ1g/0v+AoZa3nBtQm1kDiJoWBAlcUs72xfuUJoz4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oGXUjzHODG5dc5tFT9dVMBZltqng0UiUj97T7nbXFJngrH1UOWyfOVTXQPrEnutiUVZGvs8ENHLF4lZkl5xMXFTYbU7z54iROpv3AqbTKhu1s1lm3FLp4hyVJbTDKflclHU7MR92rImlT+WjKuJlyhj6QSa5iTX+AzSa4gDH8cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7zuKBzV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6543637CD4A;
+	Sat, 23 May 2026 11:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779536138; cv=pass; b=XS1qe/OJrcuvw8D2JxP0O10admo4eeALk3lX6jwjpVfcz2wst1z12twaIWm0WHHv++HyLkoUZleKUGx2hpxBK8EUNkyCLIzGmYNe4IArwDP/HMoBNjR1UiIB83kD2yDKkuoZK7Fjm3rnQ+P9kkc14o6OtaxA+2uTqtvxRxrQuGc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779536138; c=relaxed/simple;
+	bh=9QRq7jclMuNWn9Vh8tU2pRFwzZcNSXgh1tNB/oN5sWE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=Q+Y1ifLrkYOGPinRJst3fFehALfbVQLLf/yM1D7Q2ataD31FO8ActAtIB/B4XVpZTSGc11Oqq5FkYIyuk3qgN/+WRfc6fRdTosQezA9EXOp2Cw+7ySSv9CsK7ZeluGMMddUXXiPxlPkxUCMjMeR/t3Y6MjSKvqVbD2L9ae02/Bc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=nX4hMzv0; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7zuKBzV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C7D1F000E9;
-	Sat, 23 May 2026 11:25:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779535503;
-	bh=Smk951sGRnnev2XeGwit69Ee0DjVrfdAgfDXwwb39hs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P7zuKBzVvElBS/EeYT1+4BfAxE9MQmQp41t8ADVYDdpqAkMy/k2U1owaj3AOXeS9v
-	 BLGGbFL/f5RD6odBBow0dbMZLwJS9L6VMAHQhmqINjtwIVpJQLR/f9GLAouJh8Mstc
-	 bAz6AB5uje3yLEIUE0EzPOqdomQuOLj759Yi41iJrR7gjZAIgPPHJcAYGmJC0+O3PA
-	 Xia4sD6uBZBOxrSGGQMqfxa9Oi6IZv/AABE8zROVNUjrna/LtKluBiR6a4c7TVTROK
-	 MaHANmmWVYnQVwTAGpjpNBcmCtediVV8kKj9UuHWz775Xk23xvq2amLJcXMWn4kBA4
-	 p2ZPVGSy6cbyw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V9 3/3] arm64: dts: qcom: glymur-crd: add Audio sound
- card node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sibi Sankar" <sibi.sankar@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260523085511.2532669-4-sibi.sankar@oss.qualcomm.com>
-References: <20260523085511.2532669-4-sibi.sankar@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 23 May 2026 11:25:02 +0000
-Message-Id: <20260523112502.B8C7D1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="nX4hMzv0"
+ARC-Seal: i=1; a=rsa-sha256; t=1779536100; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=KSzNKYuaa3e5J0d/DeX783yiDZ/NWeJPP/+Z0y/tlwWr1lDVevfIk8Ozo/8/qlzJCdCfTu2n36rGw3+Ggda7yq1liMhrUG9GY3VupqvNJ0PMze5wxmhCMVe10W/iiu28VBTFVB7isyoRUiOFla5A6koPvDr1SHuoQKFgkLGMdOI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1779536100; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=RZDnaCsGlJVcUOKkn0LRGIu9RjSAcTOtBk9/WDFjI7Q=; 
+	b=foGzF455x/cc4KvIT51DKucrW3ls6kPNh/XySDe+aWsw2jc8X+9z/CX05khi3gz7pOxsqqzePtu1anV51EGAlD+Nfu0g6QsI7JEAqfs+DjOkcXWbfjgUVN9VgndLXa8dbhGdQtrjwEOQMiAtQyg+Sh6O3moGPVj3zjAjsoDgqpw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779536100;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:References:In-Reply-To:Reply-To;
+	bh=RZDnaCsGlJVcUOKkn0LRGIu9RjSAcTOtBk9/WDFjI7Q=;
+	b=nX4hMzv0OnrUIn2pzrseG8O/TYO5+1XuS1pjAP9FHYYTWIwAiMDuRVsmsLR61uvW
+	pj4SPW8HpPNKolM92Sey9VAcqKFKwIToZbPevzF2XDVjwYSCjTeP6/GFfkla0Dx0X5U
+	s/g8QgmLFRSVNM7dDQiND6S7BuYQizdOjkklTdR4=
+Received: by mx.zohomail.com with SMTPS id 1779536097814357.8361509975906;
+	Sat, 23 May 2026 04:34:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 23 May 2026 19:34:40 +0800
+Message-Id: <DIQ0W5OTB6DK.17PPFYJ2J5XS9@pigmoral.tech>
+To: "Junhui Liu" <junhui.liu@pigmoral.tech>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan" <dlan@kernel.org>, "Vivian
+ Wang" <wangruikang@iscas.ac.cn>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Guodong Xu" <guodong@riscstar.com>, "Yangyu Chen" <cyy@cyyself.name>
+Cc: <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO
+ board
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.21.0
+References: <20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech>
+ <20260522-bpi-cm6-v1-3-707ef1917a30@pigmoral.tech>
+In-Reply-To: <20260522-bpi-cm6-v1-3-707ef1917a30@pigmoral.tech>
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The WSA8845 speaker nodes incorrectly use the `reset-gpios` proper=
-ty and directly share GPIO lines, which will result in ignored resets and p=
-robe failures.
-- [High] The `&lpass_vamacro` node is missing the `vdd-micb-supply` propert=
-y, which is required by the defined audio routing and will cause DMIC recor=
-ding to fail silently.
---
+On Fri May 22, 2026 at 6:01 PM CST, Junhui Liu wrote:
+> The Banana Pi BPI-CM6 IO board combines the BPI-CM6 compute module with
+> an IO carrier board. The core module integrates the SpacemiT K1 SoC,
+> PMIC, DDR, eMMC, the eth0 PHY, and wireless connectivity. The companion
+> IO carrier board extends it by providing the eth1 PHY and exposing
+> standard interfaces, including dual Gigabit Ethernet, MicroSD, two USB-A
+> ports, a USB Type-C port, two PCIe M.2 slots, and a serial console.
+>
+> The board also has two I2C EEPROMs. One is on the core module, which
+> stores factory manufacturing data and is marked read-only. The other is
+> on the carrier board, which is shipped unprogrammed and left writable
+> for evaluation purposes.
+>
+> Add initial support for UART console, eMMC, SD card, I2C, EEPROMs,
+> PCIe, USB, and dual Ethernet interfaces.
+>
+> Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  arch/riscv/boot/dts/spacemit/Makefile              |   1 +
+>  .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 215 +++++++++++++++=
+++++
+>  arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 227 +++++++++++++++=
+++++++
+>  3 files changed, 443 insertions(+)
+>
 
-commit 2f0fde1acdca88bc05fbbb5ed700dfb37ffa6d5c
-Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+[...]
 
-arm64: dts: qcom: glymur-crd: add Audio sound card node
-
-Add the sound card of Glymur-crd board with the routing for speakers,
-including playback via WSA884x smart speakers and recording via DMIC
-microphones.
-
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
-ts/qcom/glymur-crd.dtsi
-> index e784b538f42e1..6c272fb6081a8 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-
-[ ... ]
-
-> @@ -444,6 +492,12 @@ vreg_l4h_e0_1p2: ldo4 {
->  	};
->  };
-> =20
-> +&lpass_vamacro {
-> +	pinctrl-0 =3D <&dmic01_default>, <&dmic23_default>;
-> +	pinctrl-names =3D "default";
-> +	qcom,dmic-sample-rate =3D <4800000>;
+> +
+> +&pcie1_port {
+> +	phys =3D <&pcie1_phy>;
+> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
 > +};
+> +
+> +&pcie1 {
+> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
 
-[Severity: High]
-The audio routing explicitly maps the Digital Microphones to the vdd-micb
-widget, but is this lpass_vamacro node missing the vdd-micb-supply property?
+Thanks for the reminder from Sashiko AI.
 
-The lpass-va-macro driver uses DAPM to manage the power state for this widg=
-et.
-Without the vdd-micb-supply property here, the regulator framework will sil=
-ently
-substitute a dummy regulator.
+The vpcie3v3-supply property should be removed from the PCIe host
+controller node here. According to the binding, this supply belongs to
+the PCIe root port child node.
 
-This will cause DAPM to report success while the hardware won't receive the
-required microphone bias voltage, resulting in silent audio recordings on t=
-he
-DMIC capture path.
+I have checked the driver side: devm_regulator_get_enable() eventually
+calls of_get_regulator(), which first looks up the supply in the current
+device node and then falls back to searching child nodes if it is not
+found there. I also verified on hardware that keeping vpcie3v3-supply
+only in the port node still lets the driver resolve the regulator
+correctly.
 
-[ ... ]
+So I will drop the duplicate vpcie3v3-supply property here in the next
+version.
 
-> +&swr0 {
 > +	status =3D "okay";
+> +};
 > +
-> +	/* WSA8845, Left Woofer */
-> +	left_woofer: speaker@0,0 {
-> +		compatible =3D "sdw20217020400";
-> +		reg =3D <0 0>;
-> +		reset-gpios =3D <&lpass_tlmm 12 GPIO_ACTIVE_LOW>;
-
-[Severity: High]
-Is reset-gpios the correct property name for this codec?
-
-The wsa884x codec driver expects either a reset controller via the resets
-property or powerdown-gpios. Using reset-gpios will result in the driver
-finding neither, leaving the speakers in hardware reset and failing to
-enumerate on the SoundWire bus.
-
-Additionally, if this were renamed to powerdown-gpios, would the shared GPIO
-line cause a probe failure?=20
-
-The left_tweeter node below also uses GPIO 12, which would cause the second
-speaker's probe to fail with -EBUSY because devm_gpiod_get_optional requests
-exclusive access.
-
-Should this use a gpio-reset controller defined and referenced via the rese=
-ts
-property instead to properly share the line?
-
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "WooferLeft";
-> +		vdd-1p8-supply =3D <&vreg_l15b_e0_1p8>;
-> +		vdd-io-supply =3D <&vreg_l18b_e0_1p2>;
-> +		qcom,port-mapping =3D <1 2 3 7 12 14>;
-> +	};
+> +&pcie2_phy {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pcie2_4_cfg>;
+> +	status =3D "okay";
+> +};
 > +
-> +	/* WSA8845, Left Tweeter */
-> +	left_tweeter: speaker@0,1 {
-> +		compatible =3D "sdw20217020400";
-> +		reg =3D <0 1>;
-> +		reset-gpios =3D <&lpass_tlmm 12 GPIO_ACTIVE_LOW>;
+> +&pcie2_port {
+> +	phys =3D <&pcie2_phy>;
+> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
+> +};
+> +
+> +&pcie2 {
+> +	vpcie3v3-supply =3D <&pcie_vcc_3v3>;
 
-[ ... ]
+Same here.
+
+> +	status =3D "okay";
+> +};
+> +
+
+[...]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523085511.2532=
-669-1-sibi.sankar@oss.qualcomm.com?part=3D3
+Best regards,
+Junhui Liu
+
