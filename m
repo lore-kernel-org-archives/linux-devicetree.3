@@ -1,297 +1,151 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5719919004A
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 13:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06AA36C9EE;
+	Sat, 23 May 2026 13:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779542864; cv=none; b=jLGq/l7O9ZejW76QElcsN7eACaXqJR4Iog4Qj5udhNAivUjRIReP4u4dBStyz7NP7yWTkPcX4YPd73xm9RapQO5xenoLS2EZM9TyzramY8XMxkbqhxJPbVyh8KMGskJs7pnFVvrPAdJ+bUX08VaSauabezxcdbpOAgBYRvGdPLk=
+	t=1779544064; cv=none; b=ojA5XHmVZzlEh62cCo/hlMWttJdVOYggW6qxayDNQI42dcDa1NuKYOMQouhMe0pnlTkEY8NF1uabgdl0ovs2ALmIMQRDGcHClU/eRVhYtDVTOuGkdf+y2yL4oE6qYrA4rtnp5n41Uz1pm33AdDlddg4F+lTVPck7QSr478EPXAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779542864; c=relaxed/simple;
-	bh=g1gBUbPtcSqTkL+3avMM5tCJfJORfueUXMTX1uJTBx4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tj5o/dMrfATgbZdHT67EIfjgm1E/rzFX1fKEO/9jBKGUDo2lq4roLFFxO5wag+f+08fFFPZEv61R/66HgVeQ3YQbq1M2mJPlg8/9lXTnApaaJIqv7637dajDEPYaB9F7QtCWSVTfpDPrweoDK1JSww6nFiTl7T1IUQK3agHoUKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CYGfakcX; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779544064; c=relaxed/simple;
+	bh=B4gm9pP+88IyVqw9AfTTIVVlGJusAq/2/0b2EiHNMzQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=V4kF0Rbwz7yJCm9WDYXDtf1YjeVfHqY44DgwYzDcNebxRJOlGJtrXCPvwGD1zCAGIJblF977qRTZwWiql0TVSwRFNy9cM3P8wBGdoffLLSvPfMSs/bwHUkE7/lcIiySb9GziLu6nv6NZ/R2/S155ldosNcnBxOMuml8d6SpmD1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EkwcMPf6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CYGfakcX"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-82fbdd60b64so6917350b3a.3
-        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 06:27:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779542862; x=1780147662; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=v0orZyohJ22FZsdiMg1zqHmw8fWkBbihvBgEUA5cYKI=;
-        b=CYGfakcX5QJ6Sisab06IKbR4+2UeP+sc1c2j9EkCN3XtE6+0Y18TzKX556bohZ99xG
-         B1KFiCE7bexM85BVslP5wbItNTYbyNDEK7stiqEtldquqrFdIJ1GKOMvid1GVJ1CZ3e2
-         Moe2EZY6dG0hrcdzAp5sC6pVvsgLYT4HfkjiLATwZQL5YGz4JWNaf3CGxVErOMvnpRX6
-         QUeWf3PF3eeM/N6a5YxwJLXM19ZG+5UjzsZvklLwUPEAohAUz7g5PPYKLPiPxGkYIXwT
-         ARvF0poraUjsxLQu46vWIdD7JF+/DZgSsXxP9g3lAAkgW1Q/3sCbM0sfuyGL6AcIIRYO
-         DYqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779542862; x=1780147662;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=v0orZyohJ22FZsdiMg1zqHmw8fWkBbihvBgEUA5cYKI=;
-        b=dw1sIelsBQ6Z2lsWsQ2Y66cVPqw2sQzQ2KkxEFRx9R0ctAV9mzFivfUS8T69DnDEgj
-         x5dMq8uTGiFpxzvZE/wkuTLd6Q1GBLhDlMJzPA+phiCUZOPyUcoRlqaD3r6pyHZz4UCx
-         BNZKBuOJ5E2nLr36/LB7tBK2Wv6KMlmdF8bIn4vzjUAhr57yLzwk2sOe7GPliyljWURh
-         SwxFfthsrsP9rt2kTZ+T7B59Rv94JH6Uti/fbuSWxBuymgk3BRxfEi8k2IOMB71S6kYs
-         3wA4KajeIpDolPpY0Vmw6jioIE+qiS6LZN83RDlPuYb5d4HdmgOGXN4smrlXBON2grPo
-         wDRg==
-X-Gm-Message-State: AOJu0YxofHXSDlyd3RLdUePIW0yf6ez5Q0wnY4a+Y2r9TumDrjwIalJF
-	Md3I3K+iP/iZsmHAsghcmJHwKGa1shzMhJk2FDrJ08EfMTe3A6eHfL+I
-X-Gm-Gg: Acq92OG7L/O7fXfTpiI7Yw54SUGWSQgjr65MAayeJO96vMaQ0H/3CSnQ2yLwpBBn/Gh
-	RycLowmrO1xOFMK2ATrOPMuDpwYzplaqKfKcG7ya51po5S/EBZcTTh3AWyJ4Auzn5Ask4TK7IZD
-	OmBvCcnYgmqL+JSGOOeT/gNhSRawcGi6pBJNYnhEN3hHwC9rog1eP6QRQPGNDGYcgXcFKAy1cpv
-	VF1G+1bd+zMFshNjZ6Bk1mkftZrxLgWWtycyCOQLgxWcbuWne32lsuIpFKgaEnrTgF9kkQRl/4I
-	hpWFx5YzJjP79y8ESTQMHOMxqk8PfyYtY9OKJb9G/ueNVWAhq5MHFyYAm+fVg2RopB7qY4jkPEB
-	DpCqD8B5pxPxNcfrgdsSfRDCLXS5PDmbsF9flDX9/utD/WEYLMcNbBPYxMBNm8fUDNw9/Qmq6mt
-	f7X6JSrDf8x8qYzBb/fHTBkfMbLV778bQfJ1aOtbLhAhx6G3yn1nCUeCho+Pk57KIgVvtSN3Ie
-X-Received: by 2002:a05:6a00:3004:b0:82f:721f:10ea with SMTP id d2e1a72fcca58-8415f17de74mr7614071b3a.18.1779542862553;
-        Sat, 23 May 2026 06:27:42 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164ff71c4sm5576354b3a.55.2026.05.23.06.27.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 23 May 2026 06:27:41 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <ac052c47-45cd-4081-967c-6f649e422571@roeck-us.net>
-Date: Sat, 23 May 2026 06:27:40 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EkwcMPf6"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64N51oPk492201;
+	Sat, 23 May 2026 13:47:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=QDmQ9U+JNxb
+	EO0gcsaYLF8lGo8oTH0HPmPD+4YMUfCY=; b=EkwcMPf6inEwYbaKvwtbOgVAWUb
+	eBBck14FEaoSpeCmbbXR9dPmL16JJF9PfdERjXJItlLRhQLpSUo/cP3MakT55jTa
+	/QSP25cHUJWScHywQROaaCCRnKn79B1pLZYv3xI5K2hWgT6O+s9jGKCpjvvZ4eWn
+	KXPdlpdmQN9r7ZxZP14lX1vruAkmuzGkLeNu8fgfGzC73gDWrjbcWQtb7JZ920WW
+	+9UaWmmGpAcHdCUJAJIsl39DkI1SR6twqxwoOfdONXpmeOHGLpLFKmljYujCFepP
+	OefCqJqHqyfnJ6gN21CYDYx3BE+KBNj3a1GVbIXvlLQwj9Ix2yF4ARDOLNg==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4ass1je-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 23 May 2026 13:47:20 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA02.qualcomm.com [127.0.0.1])
+	by NALASPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64NDlJ3m026938;
+	Sat, 23 May 2026 13:47:19 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 4eb5ahjyvh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 23 May 2026 13:47:19 +0000 (GMT)
+Received: from NALASPPMTA02.qualcomm.com (NALASPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64NDlI9I026932;
+	Sat, 23 May 2026 13:47:18 GMT
+Received: from hu-devc-lv-u22-c.qualcomm.com (hu-cang-lv.qualcomm.com [10.81.25.255])
+	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 64NDlIik026931
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 23 May 2026 13:47:18 +0000 (GMT)
+Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 359480)
+	id 9B90C61F; Sat, 23 May 2026 06:47:18 -0700 (PDT)
+From: Can Guo <can.guo@oss.qualcomm.com>
+To: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
+        martin.petersen@oracle.com, mani@kernel.org
+Cc: linux-scsi@vger.kernel.org, Can Guo <can.guo@oss.qualcomm.com>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
+        Zhaoming Luo <zhml@posteo.com>,
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2 1/2] dt-bindings: ufs: Document static TX Equalization settings properties
+Date: Sat, 23 May 2026 06:47:10 -0700
+Message-Id: <20260523134711.323425-2-can.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260523134711.323425-1-can.guo@oss.qualcomm.com>
+References: <20260523134711.323425-1-can.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] hwmon: (pmbus/tps25990): Rework TPS25990 direct
- conversion handling
-To: sashiko-reviews@lists.linux.dev, Stoyan Bogdanov <sbogdanov@baylibre.com>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20260522082349.2749970-3-sbogdanov@baylibre.com>
- <20260522091252.9E5C01F00A3D@smtp.kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260522091252.9E5C01F00A3D@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIzMDE0MSBTYWx0ZWRfX60Tww3EPf5nK
+ pBkG40fRZWFFV+gWKH3kk5V0A5V0T5zqSlqu6Tw67Ow2Ehtp0UVCwJ67ZbUdR5Fds0c3GN272uC
+ l0bOxxg57SRQ3QMYnhK46SgtS7+6RRHwAa9tw8NzMcIabFAbECniwj0NUwfTd+7OTvP06zinZ5N
+ a1CfBZWqhcLEz8+RQlQ1xhgTjyoFcOwV244qCh22DzsOjfXORz34RfFHv5TQluUUJ2SToJOzcbK
+ vyEq1LoYpxIMmbmLp7FRYwFhKN2/+qspgFeL5ZsNdoR16ZtqFT1PAbzCqCafmA7q7oLSQUCJuSi
+ HroObotGwLG0oV4EoSYL93sC+9ezDTdQbgdfSobfHZgoCXEi0SrLYkamhU9UQGOqmngYzb2t/pZ
+ bfjL7GXSVeAPJOqKdZZN4vX+f+iU+ouh8DAg0/QdELWggZQE/Tw7s6rH4inByE3v4l5UpMMzjnn
+ oEPkTKx4c+Wz4ZlqG0g==
+X-Proofpoint-ORIG-GUID: OAzdKCJNzJU62l1N5GPqv1UiaZ7C_VYA
+X-Proofpoint-GUID: OAzdKCJNzJU62l1N5GPqv1UiaZ7C_VYA
+X-Authority-Analysis: v=2.4 cv=c6ebhx9l c=1 sm=1 tr=0 ts=6a11afe8 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=I_qBOUeEE_endWPDY1kA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-23_04,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 spamscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605230141
 
-On 5/22/26 02:12, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> 
-> New issues:
-> - [Critical] The custom conversion functions incorrectly retrieve I2C client data, leading to severe type confusion and out-of-bounds heap reads.
-> - [High] Replacing ratio-based math with direct conversion helpers inside `read_word_data` and `write_word_data` introduces a double-conversion bug that completely corrupts sysfs output and configuration limits.
-> - [High] Calling `pmbus_reg2data_direct_calc()` directly with negative `R` coefficients and small register values leads to a total loss of precision due to premature integer division.
-> - [High] The patch silently drops the correct translation ratios for the Over-Current Fault Limit (`PMBUS_IIN_OC_FAULT_LIMIT`) and bypasses dynamic resistor scaling.
-> - [Low] Spelling mistakes in the newly introduced `tps25990_parameters` enum comments.
-> 
-> Pre-existing issues:
-> - [High] When setting fault limits, an integer underflow on low user inputs leads to an unsigned wrap-around, causing `clamp_val()` to clamp to the maximum limit instead of the minimum limit, dangerously defeating hardware protection.
-> --
-> 
-> commit 11131ea034ce953233470df60e4f6a1c34cca609
-> Author: Stoyan Bogdanov <sbogdanov@baylibre.com>
-> Date:   Fri May 22 08:23:37 2026 +0000
-> 
->      hwmon: (pmbus/tps25990): Rework TPS25990 direct conversion handling
->      
->      Rework the existing implementation of direct format conversion for
->      TPS25990 non-standard parameters to improve code reusability and
->      integration with the PMBus direct conversion helpers.
-> 
->> diff --git a/drivers/hwmon/pmbus/tps25990.c b/drivers/hwmon/pmbus/tps25990.c
->> index 05c6288ecafcc..1e252844217b8 100644
->> --- a/drivers/hwmon/pmbus/tps25990.c
->> +++ b/drivers/hwmon/pmbus/tps25990.c
-> 
-> [ ... ]
-> 
->> +enum tps25990_parameters {
->> +	TPS25990_VIN_OVF = 0, /* VIN over volatage fault */
->> +	TPS25990_IIN_OCF, /* IIN Over currect fault */
-> 
-> [Severity: Low]
-> This isn't a bug, but there are minor typos in the comments: volatage and
-> currect.
-> 
->> +	TPS25990_DIRECT_VALUES_COUNT,
->> +};
-> 
-> [ ... ]
-> 
->> +static s64 tps25990_reg2data_direct(struct i2c_client *client, int param, s32 raw)
->> +{
->> +	struct pmbus_driver_info *info = i2c_get_clientdata(client);
->> +	struct tps25990_data *data = container_of(info, struct tps25990_data, info);
-> 
-> [Severity: Critical]
-> Does this correctly retrieve the driver info?
-> 
-> Looking at pmbus_do_probe(), i2c_get_clientdata(client) is set to a
-> struct pmbus_data * object, not a struct pmbus_driver_info * object.
-> 
-> Using container_of() on the wrong type calculates a 0 offset, but improperly
-> casts the pmbus_data object into a struct tps25990_data pointer, causing the
-> subsequent read of info_local to fetch completely out-of-bounds heap memory.
-> 
-> Should this use pmbus_get_driver_info(client) instead?
-> 
+UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
+and M-PHY v6.0. In these specs, TX Equalization is defined for all High
+Speed Gears (not only HS-G6) to compensate channel loss and improve signal
+integrity at high speed operation.
 
-Did you even test this code ?
+For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
+required depending on channel characteristics.
 
-Guenter
+Add vendor-neutral DT patternProperties:
+txeq-settings-g[1-6]
 
->> +	struct tps25990_local_direct_value *info_local = &data->info_local;
->> +	s64 b, val;
->> +	s32 m, R;
->> +
->> +	val = (s16)raw;
->> +	m = info_local->m[param];
->> +	b = info_local->b[param];
->> +	R = info_local->R[param];
->> +
->> +	return pmbus_reg2data_direct_calc(val, b, m, R);
-> 
-> [Severity: High]
-> Can this result in a total loss of precision due to integer division?
-> 
-> For TPS25990_VIN_OVF, R is -4 and the raw register value is a small 4-bit
-> integer (0 to 15). The generic pmbus_reg2data_direct_calc() handles negative
-> R by dividing the input by 10 for each R:
-> 
-> pmbus_core.c:pmbus_reg2data_direct_calc() {
->      ...
->      while (R < 0) {
->          val = div_s64(val + 5LL, 10L);
->          R++;
->      }
->      ...
-> }
-> 
-> Dividing a small value like 15 by 10000 via integer division would truncate
-> it to 0, permanently destroying the underlying data. Does this need
-> pre-scaling before the calculation loop?
-> 
-> [ ... ]
-> 
->> @@ -184,9 +230,7 @@ static int tps25990_read_word_data(struct i2c_client *client,
->>   		ret = pmbus_read_word_data(client, page, phase, reg);
->>   		if (ret < 0)
->>   			break;
->> -		ret = DIV_ROUND_CLOSEST(ret * TPS25990_VIN_OVF_NUM,
->> -					TPS25990_VIN_OVF_DIV);
->> -		ret += TPS25990_VIN_OVF_OFF;
->> +		ret = tps25990_reg2data_direct(client, TPS25990_VIN_OVF, ret);
-> 
-> [Severity: High]
-> Does this introduce a double-conversion bug?
-> 
-> The driver's .read_word_data hook is expected to convert between the
-> chip-specific raw register value and the standard PMBus raw format (Y_std).
-> The PMBus core then converts Y_std to physical units.
-> 
-> By calling pmbus_reg2data_direct_calc() directly here, does it return the
-> physical value (e.g. milliVolts) rather than Y_std, causing the PMBus core
-> to apply its standard conversion a second time to an already converted value?
-> 
-> [ ... ]
-> 
->> @@ -246,17 +288,13 @@ static int tps25990_write_word_data(struct i2c_client *client,
->>   		break;
->>   
->>   	case PMBUS_VIN_OV_FAULT_LIMIT:
->> -		value -= TPS25990_VIN_OVF_OFF;
->> -		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_VIN_OVF_DIV,
->> -					  TPS25990_VIN_OVF_NUM);
->> +		value = tps25990_data2reg_direct(client, TPS25990_VIN_OVF, value);
->>   		value = clamp_val(value, 0, 0xf);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does this lead to an integer underflow
-> that defeats hardware protection?
-> 
-> The value parameter in tps25990_write_word_data() is an unsigned u16. If a
-> sufficiently low limit (like 0) is converted, the mathematical result could
-> be negative. This would wrap around the unsigned u16 to a large value
-> (e.g., 65530).
-> 
-> Since clamp_val() compares using the type of the passed variable, it would see
-> the wrapped value as much greater than 15 and incorrectly clamp it to the
-> maximum hardware limit (0xf) instead of the minimum limit.
-> 
->>   		ret = pmbus_write_word_data(client, page, reg, value);
->>   		break;
->>   
->>   	case PMBUS_IIN_OC_FAULT_LIMIT:
->> -		value -= TPS25990_IIN_OCF_OFF;
->> -		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_IIN_OCF_DIV,
->> -					  TPS25990_IIN_OCF_NUM);
->> +		value = tps25990_data2reg_direct(client, TPS25990_IIN_OCF, value);
-> 
-> [Severity: High]
-> Are we losing the dynamic resistor scaling here?
-> 
-> The original code mapped TPS25990_VIREF to the standard Y_std format,
-> allowing the PMBus core to dynamically convert it using the PSC_CURRENT_IN
-> coefficients, which are adjusted in tps25990_probe() based on the
-> ti,rimon-micro-ohms property.
-> 
-> The new tps25990_data2reg_direct() call uses static coefficients from
-> tps25990_local_info which are never updated by the rimon logic. Will this
-> break the over-current limits for boards using a non-default rimon
-> configuration?
-> 
->>   		value = clamp_val(value, 0, 0x3f);
->>   		ret = pmbus_write_byte_data(client, page, TPS25990_VIREF, value);
->>   		break;
-> 
+Each property is a uint32 array of per-lane tuples:
+(PreShoot, DeEmphasis, PrecodeEn)
+
+Tuple order is:
+Host Lane 0, [Host Lane 1], Device Lane 0, [Device Lane 1]
+
+Accept 2..4 tuples (6..12 u32 values) to cover x1/x2 lane configs. These
+patternProperties carry board-level SI characterization data used as
+static TX Equalization settings for each High Speed Gear.
+
+Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/ufs/ufs-common.yaml | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+index ed97f5682509..bc83948fc168 100644
+--- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
++++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+@@ -105,6 +105,17 @@ properties:
+       Restricts the UFS controller to rate-a or rate-b for both TX and
+       RX directions.
+ 
++patternProperties:
++  "^txeq-settings-g[1-6]$":
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 6
++    maxItems: 12
++    description: |
++      Static TX Equalization settings for High Speed (HS) gears.
++      The settings are specified as an array of tuples (PreShoot, DeEmphasis, PrecodeEn).
++      The array must contain these tuples in the following order:
++      Host Lane 0, [Host Lane 1], Device Lane 0, [Device Lane 1].
++
+ dependencies:
+   freq-table-hz: [ clocks ]
+   operating-points-v2: [ clocks, clock-names ]
+-- 
+2.34.1
 
