@@ -1,120 +1,107 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BA12E6CCD
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 10:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9E830E84B
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 10:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779531564; cv=none; b=bJIGnedSXO866XT3JAj5hOE88kK5GqrqTUDvTViEEW3jvFJFF3TVOsxMjM19TRdqrWU0guOsritNL/e00CP5UBxcR5vBmDflCyj+b21UeDeBKZu2QOQRVAIUh3f5A/E1UnK3YL5hy9psz3YNvo6UjMaCYTgXe5xSIWaGRZW65yM=
+	t=1779532624; cv=none; b=gfN6HS9SH37PT3s/BE4JZRoClgqZizBlmmln2XPOxNUYDI6oSDccbj+7wrfEoD3NYvDN2ZpRFzZdIL8H9olg+l3Ldw+KQVMj0pHMxhtWtqc3iJmoxfyPM+ML6mK23qOGqrkHqo4RJ8dD/wHmrUMdlZIakPcU4TMm5tGa9ythb7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779531564; c=relaxed/simple;
-	bh=E5trW6IlGiz51UkrLqUQkt2ug4VkMqXrFn0uMVDofcM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VtxO5vbH0MrwNBKkp3JPNJFxXeWahsvDhtQTFfu5+av367MS87VyfrbK/XJXxk/5bM1S8CJI9v9IbnObQ7ypvMBib6Lwp158uGSgLPTYfJ4ZELDxP7x/OoDbVhaQ7NINl6rgspugYgKdiw/sCcn4GBBQYzGN5pV7QQVnueXE58Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=fiVVcg0y; arc=none smtp.client-ip=212.77.101.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	s=arc-20240116; t=1779532624; c=relaxed/simple;
+	bh=6o+rg5jp2+audactB5iSTqcDwKLnHcvMgPA6mGJcWcA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cOJa2gSdT4dx7tCyZEiR7/ZaLdH7dsfmvf5L/dhYSHNmEgZBEfnN5itTUgD3d0xUVKdzxBofKlAAEELn2euK7JxAP40Des6g87++ZSk6hf3k6l1DKfA4I/Ioa/ufGDVByNb/6q+PHSvhazIFuUT7g81IoHzkIJdWT306SJavNuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dokzOuCF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="fiVVcg0y"
-Received: (wp-smtpd smtp.wp.pl 42262 invoked from network); 23 May 2026 12:19:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1779531553; bh=081I3uGh9xMy+jangEiaAfSrrsCOcyEM7Q7SYywZ4YI=;
-          h=From:To:Cc:Subject;
-          b=fiVVcg0yphzYqnPILR2CLP8PxPbR9pYBXBODa6XY0EZ07IvYmSoChVuXgwuw1dHZ7
-           TGupX97dbcs2Wzy95dcFgxGI4kC9QsUKK+zcF9Zie5sOkoHh0MwsApMiwgTLMSpPqb
-           yjPIDqiD3dZMPam5K05HYU2KU9XkJmp8g+YLG437Mik9nmOXi/s25ejfSaJnVr0vec
-           ywkFwm0+XHEwiZKTP5JpZ7NYChvbGz5pfaHvCTkeM38ZyyU15RCo6M7Hi48b+5S9KV
-           9rdR6FnUMYFL9WGaXLuHUiKEVzmf1YGBYTUW2w9XERLx58kysMG1qPqEozSVfkad1O
-           gof1r+6OxdkuA==
-Received: from 83.24.127.64.ipv4.supernova.orange.pl (HELO abajkowski.lan) (olek2@wp.pl@[83.24.127.64])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <robh@kernel.org>; 23 May 2026 12:19:13 +0200
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Subject: [PATCH RESEND] arm64: dts: mediatek: add LED and key support on Xiaomi AX3000T
-Date: Sat, 23 May 2026 12:18:55 +0200
-Message-ID: <20260523101904.293215-1-olek2@wp.pl>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dokzOuCF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A49F1F000E9;
+	Sat, 23 May 2026 10:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779532623;
+	bh=rTzpUiNfqGsCwBw2uCkWeWNUYBdxzwHYifKLnMSBfWs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dokzOuCF/bhfnwu4bhx7A7WCnBUYOEN+sXSyA+AHdW7vtJNj0mtoyczuYb/gI3UAA
+	 unIYlDcqWY5nhxz+L5Gc8asmA0CfmFeEf0SD+NxjfkVtnTfYVCnh7NRPgTmj1/1K6k
+	 YEBwTFLth7rEeV4bpdNHUoXhNNwsOYjhCKy/iatnD15MjH7Qh3q78H66fgzQzPB4+N
+	 5xbsmbACcwIPuBUqeNvjiP+VC12OIbquK9//NMS6zyf+/JKW6ixYtpCgJL7wxZQ9OZ
+	 fsnjxBumCa8+QXniwm5g5Vpeungs3qpBzm8pWQBz2QCDPU2H7cU2mgMcnpFkHbUU/8
+	 DxuUhrN5Bm+nw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND] arm64: dts: mediatek: add LED and key support on
+ Xiaomi AX3000T
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aleksander Jan Bajkowski" <olek2@wp.pl>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260523101904.293215-1-olek2@wp.pl>
+References: <20260523101904.293215-1-olek2@wp.pl>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 23 May 2026 10:37:02 +0000
+Message-Id: <20260523103703.5A49F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-WP-DKIM-Status: good (id: wp.pl)                                                      
-X-WP-MailID: 4ff0eba6bf8edec8983f8b295cbbf876
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [wVOE]                               
 
-This patch adds support for keys and LEDs on the Xiaomi AX3000T.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `key-mesh` node incorrectly pairs `linux,code =3D <BTN_9>` w=
+ith `linux,input-type =3D <EV_SW>`. Since `BTN_9` (265) exceeds `SW_MAX`, t=
+he input subsystem rejects the capability, causing a kernel error splat on =
+boot and rendering the button completely non-functional.
+--
 
-Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
----
- .../dts/mediatek/mt7981b-xiaomi-ax3000t.dts   | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
+commit b3e6ab558b15225bf59d262cc68b446d232036a9
+Author: Aleksander Jan Bajkowski <olek2@wp.pl>
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts b/arch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts
-index a314c3e05e50..db399cb3ead7 100644
---- a/arch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts
-@@ -1,6 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only OR MIT
- 
- /dts-v1/;
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
- 
- #include "mt7981b.dtsi"
- 
-@@ -12,4 +15,37 @@ memory@40000000 {
- 		reg = <0 0x40000000 0 0x10000000>;
- 		device_type = "memory";
- 	};
-+
-+	keys {
-+		compatible = "gpio-keys";
-+
-+		key-mesh {
-+			label = "MESH";
-+			gpios = <&pio 0 GPIO_ACTIVE_LOW>;
-+			linux,code = <BTN_9>;
-+			linux,input-type = <EV_SW>;
-+		};
-+
-+		key-reset {
-+			label = "RESET";
-+			gpios = <&pio 1 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_RESTART>;
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			function = LED_FUNCTION_STATUS;
-+			gpios = <&pio 9 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		led-1 {
-+			color = <LED_COLOR_ID_YELLOW>;
-+			function = LED_FUNCTION_STATUS;
-+			gpios = <&pio 10 GPIO_ACTIVE_LOW>;
-+		};
-+	};
- };
--- 
-2.53.0
+arm64: dts: mediatek: add LED and key support on Xiaomi AX3000T
 
+This commit adds device tree support for the physical buttons and
+status LEDs present on the Xiaomi AX3000T router.
+
+> diff --git a/arch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts b/ar=
+ch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts
+> index a314c3e05e500..db399cb3ead73 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts
+> +++ b/arch/arm64/boot/dts/mediatek/mt7981b-xiaomi-ax3000t.dts
+
+[ ... ]
+
+> @@ -12,4 +15,37 @@ memory@40000000 {
+>  		reg =3D <0 0x40000000 0 0x10000000>;
+>  		device_type =3D "memory";
+>  	};
+> +
+> +	keys {
+> +		compatible =3D "gpio-keys";
+> +
+> +		key-mesh {
+> +			label =3D "MESH";
+> +			gpios =3D <&pio 0 GPIO_ACTIVE_LOW>;
+> +			linux,code =3D <BTN_9>;
+> +			linux,input-type =3D <EV_SW>;
+
+[Severity: Medium]
+Will this combination of EV_SW and BTN_9 cause a capability rejection
+during boot?
+
+During the gpio-keys driver probe, input_set_capability() is called to
+register the button capability. This function strictly bounds-checks the
+event code against the maximum for the given type.
+
+For EV_SW, input_max_code is SW_MAX (17). Since BTN_9 (265) exceeds SW_MAX,
+the check fails, causing the kernel to print an error splat and return
+early without registering the switch capability.
+
+Does this leave the mesh button completely non-functional when pressed?
+
+> +		};
+> +
+> +		key-reset {
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523101904.2932=
+15-1-olek2@wp.pl?part=3D1
