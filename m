@@ -1,63 +1,63 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517E32E62A9
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 17:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAC72D1F44
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 17:33:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779557594; cv=none; b=Zx/+boc7m6S6/TfBPr7ZrhkT3oMUj3T7T6FTPPXArplHzpVv5A5zPcu3mT2unHCdsh7XAzrLChPvglQ752WkKoX6D4V938TcHWpgck+AJVGyxLAeWnPOFbcMQQ9O9VVrLZSxbprNkCtkh7OoKUxALoYjx0SEbcBJe3NMTQq3C8g=
+	t=1779557602; cv=none; b=QwcoubaKfZbOV4Sh3la67XkKp0gYa2JTT40oL/qgm8t5TndZxsv4KUi43aRCQvGS73QDMnH7ReKIfmKiNw8jw6+zjYuhaBrA8ZtIt/8525Yizsv1j/2yjlU0Kejy/JhzUpvO7/3EdbV6ptgJteYOTCh5Luc4dCUtcabRZbKOta0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779557594; c=relaxed/simple;
-	bh=Saljt8+lEfAQzopPhIMcOHAZd977tUe/WQSEWbNCEBM=;
+	s=arc-20240116; t=1779557602; c=relaxed/simple;
+	bh=WFHJB0zVU9aeCuRj8HDI9lHMmorAHtWcYiuIgtuUY9Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a3Bv7U0g0NtkV940iI71EFaw3JeBcMPi9ptxKwbL7idxRhnyplI37pT2aJc7ojiQ/l1kE2zNrOUmY526BENF6kHgRHHi1bKTmh0NGXj/grvMuMSh+5sXswIlP/yvLLULYfmO0s3tegxd/CWkqXTz30Pres9NLVhmMbCjuonj8kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KfmtIxXF; arc=none smtp.client-ip=209.85.215.169
+	 MIME-Version:Content-Type; b=bwLfDCFUyAnecJ9pTBUKSHS97Dd3BUAIy8DRoothSKn2e/solgOdG7txTJ56wZ3R3JWELed03pMwSVCQ8iXyrydpOtbRlgfZ0Bqb4MV40VN0uH8iXMJYWlE/cGHV+jbQ3cpSnWsmM5HdyU/ZGzx5PVuFNwslJ1/Ni98fpkMc0go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JhMA0BMT; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KfmtIxXF"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c796163fac5so6857574a12.1
-        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 10:33:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JhMA0BMT"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8383fb7143aso3752205b3a.3
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 10:33:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779557592; x=1780162392; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779557600; x=1780162400; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eCj8+oLwvPOIbmY+qV1+VohiIFMiRIVX9QeRtC1IOt0=;
-        b=KfmtIxXFGbV0QbEgYoygEmc+NlXWDQ0TFzvMxTIGo20VyRs/jGIZv6vmQQB+AY33DM
-         1FbeBOO8b9lTN+3PJp5b4fYBveojpf7FiXU+ru0xkHbcPdP7pWxpJFqHiYAVaUTxrPJd
-         oHdBntqMW7rp8UdFPok8MZM1jhsV8eU0BeTglKAd+07STEYrIiVF1/w2NR8xtYvyvTPH
-         F8AkGRL8sgh46yAc/AdK/iVrdrZxUpjWz7mc7Eo3HHtC6d6jXPNaaKNbIjCFqHK8Z4Zr
-         t7TO+Xx5FJgdmApm2SardsLvYpCb6+c9ley0BgyFI2QA3bl0TWp/5zzifa1E5QZ8+l8I
-         t9fw==
+        bh=t3F79MqG9jAX2CXiKWut0k15rC5yK9KJ27umq50B/zo=;
+        b=JhMA0BMTJSsce+livwjHUt8JWOv5n0h9Crt/89w4uPRQ3CzwZgf/0ttitRAoskd+F0
+         EKVVy9Ilnt5DpUGUoNY/kGfXA23LyPmsnakowR22NOJCUKZ7rYfydsqwt0zUkja/q/eY
+         /X2h1mo5YsPSU6Aogm66LL/qF2OjANtT7HWSz/oDXtw2+fbssBm8LrToVQ3fsMF0deLw
+         U0OwvZN9Pzl01hSPmApZWJJbbjlVN0wr5HpL1gZrpONdvD0qPhFL/zvHefgt7dkcaJYz
+         Y4hjVNSDbR+ZBnNQ3SbGHxh3NkTEzFte/labaR51TdBGuyKkWzmLzfGJ9wi7bn4h+lC9
+         u0Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779557592; x=1780162392;
+        d=1e100.net; s=20251104; t=1779557600; x=1780162400;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=eCj8+oLwvPOIbmY+qV1+VohiIFMiRIVX9QeRtC1IOt0=;
-        b=qoQoORNpKWazDMbEu+9qmyCLylQByW6Z5QuEgi57aCezWIRBFMZf6kMgQWjGrPgcgD
-         2BsLUHu9zsC2or4x57tK0oL/9JzvxTNkrSye594uisOlZ+skjUf71DEjPhzmY4f1LjrQ
-         EpjvccUB6RKEe4ohgpTEfqvgMXhF3nn44RDZY46XhJywQMCqcDkOw0jGWLeQ1sR7Z1pY
-         HiBsck1bE8dlGBn/Nvjqhmuhn0sQS0I/nJg9P89bgSXxBtDBmjYhcHxlhEWNBUqGXHv2
-         PH20d0NG9d/kYp6q4hFmXh7qxiNO06RLbpfKPSJvT0CvhEzq33z1hAlvZJlsXaLbP/P0
-         Hk9w==
-X-Forwarded-Encrypted: i=1; AFNElJ8xVEi3h+Ubekb/jUqrN8j0O8Jt86ExIrcfFxYfV9AjXlNGEkI+aSkIzlPCB3L3UwwZfG13pQkzEXH2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9iVOu0wYVTt/CJzXIajeOwbNlpViu6UQDz4J2k5yQNJbxHYAX
-	xZ/88NM8U0beuqjGnmjeCO4CZLSudUs5BKKC/Vfvi29LO0KJQiB9LjQm
-X-Gm-Gg: Acq92OE9CxiCHWiCSy7s8vM1fWQl3a6+3H9YJ7y6G/11UWPLoxoz6y6KDooBl2hVJDp
-	XMMFf+uz+o1dV58RV23cUU92f//9DF0DxP4+vWusbIxmcsy3M37aXNVYvsrBsxotlJF641ZzjA8
-	pMfo8MpTH/tUZzLBq+7QYwcXYZIT3UCoAaCg3cGqi48Q/OsLEDhF4kGtnsyFByS1U62z2G+9ehA
-	A51X+fd+YG25OzAeBLfUG8PiJeDYneCT7+xx4REgFBGY2TyC17G+U+mBssj4RZkyOnWxO89UJNa
-	Z/2gR44ZL2aQg0ZWkASg6KNIPwgZ+RECfhM9Ca9siCxIaXSrj3jK6BTKhsoxCvZse8Z8Vm3R4Uj
-	8KzvegDFuiQoBg0l9RjdDLZcdwSdWNt33pXuhExnOIrSuAa2G7bPr2ik5upPsEZNpg9gE8NmK2I
-	MMjTIXFloCoEW0UHIUNFKDZPYKYFvwTG8UF8a65b4ccpR3LoXxa6YTP7CVO09IMXremA==
-X-Received: by 2002:a05:6a21:594:b0:3a7:1d55:b634 with SMTP id adf61e73a8af0-3b328f562bemr8292242637.38.1779557592547;
-        Sat, 23 May 2026 10:33:12 -0700 (PDT)
+        bh=t3F79MqG9jAX2CXiKWut0k15rC5yK9KJ27umq50B/zo=;
+        b=ZRbMmv+KiJnnjtGwdJabaQF7pk9W8uCoYSCGR6SmsNtFnj5D3cOlF0MQAkTF2huVa0
+         fisT5bPjXFiq9SV4KPUXSxHIMQ9LZSCb8RgKGtf8hIu4zZ3lsUYbAizFZWLRtpnAD+g/
+         cWbfGgzqdgML3VDabcU5cqB8tF5mr0Drpqgz+MsFkAiH2UWyl7p19aEo6c18MZM1TM5d
+         Nt3/vuoqdgPfO2zX9WQoVB2qZnvJCfyNQKkDurgVxftF4xOt/SJbL1u3seFvd5O9a33z
+         P3KJdgus0cfHJ7JLAb9X8eBuby9QdqhOMsRXDiRa4dWyHTESaDSHIPmb9xhAPjpixWHo
+         nkHA==
+X-Forwarded-Encrypted: i=1; AFNElJ+mchHOu9S+ZFcFlOCBAg8h8dZlAVueS7ItHJyBpdmDIQqyXRCwG/oXS0LqW44E0XwPLCVsD9Q41vQA@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPqZYBgf+C44/3bDmHmgTqwkjhH9x+ks5Js7J0SbqHW2WleV6s
+	ZRxMbqpgZMUc32m7/zcIB9jK1UVQ7WtW2FZnkVMMzjRI6/XHNqAFZK9o
+X-Gm-Gg: Acq92OHBHs6iA7V3itbwd9r+gwk5BM/JmBgBbK0jU4nD+MbkG5MSSqcNH/emabCZ+Ja
+	I3bnXgWFcHgtEBFyW0EvTWzUI5k1tOZEjXL1mvHj1Az5HWB4meeHHrtSk0OakyyFtIIjjxy7MkP
+	salNmPzKu794LNx4YphkGZMJeNUOOcJc0d2iARqDxKRXjpTjpW/h/7PdXgEx3IV77pF8fxmVTt8
+	nxrz5dCvZkroDJWdhJ5UCkwrW+O2Z+tG22yJTQgmfTgCX7spJiJ4khQT8zarUmah0HC5GtfqkcB
+	j5u39iN4RFtCQ//JfPUtveoK4tb5a1RsFqIlWBKAz/t9NSM+Xfaq0E+4mgoIkduP23prSXEMIYM
+	Vy/a8o+Pk9iSedEYb2Q4tzhAtHTvG2KsTtQQkPi/oYciRDZW+R+4u8s1WNK2PUkNLhp2ynPdFq/
+	e7/D7rpM8EpOuc9fDmpMGMTxW3cNRiAS4MybgM1yJHxMbrZvE48cZnG9/isUogdJ5FTg==
+X-Received: by 2002:a05:6a00:4483:b0:82a:780f:a187 with SMTP id d2e1a72fcca58-8415f5e6690mr8305636b3a.36.1779557600057;
+        Sat, 23 May 2026 10:33:20 -0700 (PDT)
 Received: from Ubuntu.. ([49.37.171.12])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164fc646bsm5162945b3a.46.2026.05.23.10.33.07
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164fc646bsm5162945b3a.46.2026.05.23.10.33.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 23 May 2026 10:33:11 -0700 (PDT)
+        Sat, 23 May 2026 10:33:19 -0700 (PDT)
 From: Manish Baing <manishbaing2789@gmail.com>
 To: lee@kernel.org,
 	ukleinek@kernel.org,
@@ -74,9 +74,9 @@ Cc: linux-pwm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	manishbaing2789@gmail.com,
 	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v4 1/2] dt-bindings: mfd: st,stmpe: Add missing properties for PWM subnode
-Date: Sat, 23 May 2026 17:32:50 +0000
-Message-ID: <20260523173251.72540-2-manishbaing2789@gmail.com>
+Subject: [PATCH v4 2/2] dt-bindings: pwm: stmpe: drop legacy binding
+Date: Sat, 23 May 2026 17:32:51 +0000
+Message-ID: <20260523173251.72540-3-manishbaing2789@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260523173251.72540-1-manishbaing2789@gmail.com>
 References: <20260523173251.72540-1-manishbaing2789@gmail.com>
@@ -89,37 +89,42 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The st,stmpe-pwm binding is already covered by the MFD schema in
-Documentation/devicetree/bindings/mfd/st,stmpe.yaml. However, the
-PWM subnode was missing a 'required' properties block. This allowed
-Device Tree nodes to pass validation even if the 'compatible'
-string was omitted. This omission could lead to probe failures
-at runtime.
-
-Fix the schema by adding the missing 'required' block.
+The st,stmpe-pwm binding is already covered by the MFD schema
+Documentation/devicetree/bindings/mfd/st,stmpe.yaml. Remove the
+obsolete and redundant text binding file.
 
 Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Acked-by: Uwe Kleine-König <ukleinek@kernel.org>
+Reviewed-by: Uwe Kleine-König <ukleinek@kernel.org>
 ---
- Documentation/devicetree/bindings/mfd/st,stmpe.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../devicetree/bindings/pwm/st,stmpe-pwm.txt   | 18 ------------------
+ 1 file changed, 18 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
 
-diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-index df43878fbe18..4bb05d544901 100644
---- a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-+++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-@@ -127,6 +127,10 @@ properties:
-       "#pwm-cells":
-         const: 2
- 
-+    required:
-+      - compatible
-+      - "#pwm-cells"
-+
-   touchscreen:
-     type: object
-     $ref: /schemas/input/touchscreen/touchscreen.yaml#
+diff --git a/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt b/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
+deleted file mode 100644
+index f401316e0248..000000000000
+--- a/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-== ST STMPE PWM controller ==
+-
+-This is a PWM block embedded in the ST Microelectronics STMPE
+-(ST Multi-Purpose Expander) chips. The PWM is registered as a
+-subdevices of the STMPE MFD device.
+-
+-Required properties:
+-- compatible: should be:
+-  - "st,stmpe-pwm"
+-- #pwm-cells: should be 2. See pwm.yaml in this directory for a description of
+-  the cells format.
+-
+-Example:
+-
+-pwm0: pwm {
+-	compatible = "st,stmpe-pwm";
+-	#pwm-cells = <2>;
+-};
 -- 
 2.43.0
 
