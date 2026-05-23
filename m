@@ -1,61 +1,63 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2A7373C04
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5711F372B3B
+	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 08:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779525867; cv=none; b=rdYnB3KZf6Fa1hvYySi4BLzwSdDUVcU7nXT6mN3H3I2UtRn/GPV+vG4EyG2WGJl8pCW9pqj8u3+3PRqcVWQDbmm5ID5qoeETqFVnb3U8O26+z8ujKtJ9xOAxntHiPOeIoM75s877NxouJ78s1wlCrlZMXIQFw8UsaWskMm8Y93c=
+	t=1779525869; cv=none; b=W0u8t1qJ2IVCgiprrrFM0RSiSP8FTXJMEExLHeHfrAy1wsHzGNIV90QsozPbPDad+HkE1zkYnhWq1MJmgaFYs0jfrbw5mAVPG7eN0NEkXjuGcTvc70f3b+kA1xyLsML4FzH7JpRbEcEiuu7w48r957jNjQpjYENI3nKuVFdN64w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779525867; c=relaxed/simple;
-	bh=LOuv6LBODqsvsKQfWfPMlLqdey26ht+cHZM6a96wiWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hva49wnPF8sbgwPdtwb/ZutiO2R0cUDHr/d6qke2XmqpNp8zop0mZXwyQuo3AGlI6CD2BM7j7oQ50qUfnHLeLpVDofOR4l3QuITtuItol8n7Xh4MmhrEdjpb+qC9DCfDH+Wb5Et9anppWZK70t3vIZluIdbwlVBH4aTsHM3EFJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qFrKywnq; arc=none smtp.client-ip=209.85.218.48
+	s=arc-20240116; t=1779525869; c=relaxed/simple;
+	bh=aCRvYddBbXrODXAsigivXkpsnAI8V+yb5mlCXcskyT4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HqDbicXZzMiQv3Y8iX8mCmEAiK67z6Rrrt6qcYLVp9vrK/msm6qDIFNcy08lBMp/n5fqf/SEk5hH0HCdyF0YoZKB5gKlSZjJlvUY3OazJ5s0ocsDvtJ6qqLQ4OI7ySBIXHjFDTzHltXG++U7dtIh1RhHotxRtbX0hjEK55a3JXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OAwhHM5J; arc=none smtp.client-ip=209.85.218.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qFrKywnq"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bcd3c190f71so1323827966b.0
-        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 01:44:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OAwhHM5J"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-bd5047a2a4cso1226311666b.3
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 01:44:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779525865; x=1780130665; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=AjESINGZXo1FbNpnq3OQ+lE96hLtibEqkNb3ouXLoxs=;
-        b=qFrKywnqpoA6uaR+iYUoP7HzrifrDFpwWipmEtWG8Y2Vbwv+2ZLOYRCQXc36tBKPsz
-         L6kk1xXEgo6yrif3r0m4Y2GWzjClniGOPtduoTpDVOnpskfb28HlOjYy8gQrgJcap55J
-         SXcOZaxEPO+EByuOCGP7u8LAgZnj9MHf8HOYpeGG+Dwtav1jWgStduumtQnFf0i+sTuJ
-         qFW85cGA7KcyxmcrPdsf/auV9vxgn6d4O5VrsTYARCT4AQ1+lESb2Qb5LAE80YNxEYL0
-         kwTslOWJK1RVZzmtc81HHawpflNHLUwr3Lq4MtKVXxrbVqwEI+rnHkvyA0a+MbvDDgko
-         85Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779525865; x=1780130665;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1779525866; x=1780130666; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AjESINGZXo1FbNpnq3OQ+lE96hLtibEqkNb3ouXLoxs=;
-        b=KpZG4YbmaZAcasmOFtv27ueZhZofg30NE+lXMNDkG8E3afIb+LzJgx/NIY9Z2Qp8Vx
-         EAvsIdciVbgTccJXSC8AhSJhXy8dchp+zceCow/SjBF2yfDsL06F7s6SR8tQvOh2uNrN
-         QvUayNkOZfSJSLc5W5jf5DD0Hxklvo3VNACoecby8cFIztpOh5R9nahMo9y059lUmwx8
-         XxldQ/Taj2HyPwZQuM1PNl11eDsGL6oX+ywrtpTh2EjWx6On+t+uc/yzt4zrd2Y52Uh3
-         CBGH6DyQwekJ/Dh/TFpbroRYaKaoShWM6tcfn/j9p8smbQkjsRgB2vN2OU3l0wLyUaLJ
-         2KdQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+cEr/nE6L1/AXBkfxlMtr8c7+BDIJ6t4PVusCkQZYXcs6TEDWQXr1ZGMKZLyAKE4z1k1sa/wkvdq7i@vger.kernel.org
-X-Gm-Message-State: AOJu0YyqXv6UDdrgodU4LhU/uxpLFo5n969oglGAik9DutyM3X0nQXMU
-	EtjFtcrpQl31JUie4GN9lYBHu6gM9qtU1c294witTcUFECcpe5yYaTGO
-X-Gm-Gg: Acq92OEeC/16/W9TXrzfgb/3KOla08U5uIrQtNLqEKTy4ewJ1ygTpaErvT94wuGB2OJ
-	Wt+d//VzHl3wEwK+UguG3ubpp6/9QZTrtRcozIpY5RuabrvHaJ0vyeEd/wnGhZG6mXWk4oHdoYG
-	qG3Y0dqQJaAc8YoJdpzQGCv0rIifVuJ19p9sUsVVqQkPwjPoofQLGKJR80U0b3OdVh52bfLRpD1
-	W3cBSaXQyZTSkSWy3Tvpkqmeis1HT+dQcg0hUFDwLcUscVzu/kGuH1Tw0kEYooMiNSmXB/Z+fiY
-	yRtsLO4Ndkt3bAlSZ/RVsIjxanpVtTHQbzp5NMHhFIBUwuC1ORVTpgGRODbw2Fbm/l/RNS5pmRB
-	a6qomIoX11Tmjuir4O+N+KQq0Gt7BWg5B4Lel5g3El66bY6mc3GvO7zEwYA6Mpl61pIuCCQ9c2p
-	AB99gYm/t7yYTB
-X-Received: by 2002:a17:907:75dc:b0:bd5:27b7:adaf with SMTP id a640c23a62f3a-bdd272cf2efmr313030066b.33.1779525864367;
-        Sat, 23 May 2026 01:44:24 -0700 (PDT)
+        bh=7Qhj6rHOiahWvbVZuWT+FMPoy+y8UQ9yLqxFehsJ6oo=;
+        b=OAwhHM5JqncDKe3JqEBG7ormYizSPXPfTRN/XxD0Wb1zPwzmhsedfWfsUSZ0Dgj7aL
+         m3J3NFciv3Hj69N9HGgbmOkF6MA32KdzaEPMSY4mFDY6cyCVvDDuxaelUzM99TA2RmhS
+         y3ompCB63rhwCR4EO257saawhyedKo3QZ8NaiPTmyFA9J5A8tzuqqXWLm8O3jg1TySFP
+         ZIhSqUsVnFVmq+gYxDrlviTnxpAiWJNemtkKZKPvs1njM7ZB9Zlg+uPoSBk/2ynz45Wc
+         SFRNiNgKyUiB6Sf7dDoyI+N/wp5vjHbzjslCONm5q7lgDj1Txd9tfpE+2oyYLWWbTR9B
+         yOmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779525866; x=1780130666;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=7Qhj6rHOiahWvbVZuWT+FMPoy+y8UQ9yLqxFehsJ6oo=;
+        b=FfW1nH5VXnKReFl1265BVqV/5vot5Pw2SWNmlV1z7hXmZuKY+0DiduEXmhjfxLgugt
+         jTEAIp4xmj8d8hICISk7UNOl09GpKI1v+MFF08L2OEyo5Q/th96se8bDElVSz6vGpVW8
+         iM7qb0wOiYuo5DKW8KH3kr/90qo0i1iN/RVjbKrjz7zQQTJ0hHQvwjwT2WaeI6JWaQA9
+         hh3lBd24gsjAuvvm7MMTDQ9dPt1RVo30Gy3Qff2NpkSLDxl6YzH7eWmbWRTurutVtq8c
+         vrq6a+qnHHY5YyZFoMdVrvom9U4rm+lE4PGzkRrUWfclXkKTSsvKX0Niyk4N87Jg6YKx
+         g4EQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9bIZGSkRyRNPWh+vi5bs8FLUsryOr+nI6o/kwK4bA3JIsKxA4L0IQDSjHEeidV+VM8OqdGSYFm5Bi6@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBCZZblhBBQeOvgqLUm/+Mh7NyoqiUNDDlROIgurKBsAC+W53i
+	mvWxD7fJF3mx8urB2suqykGtxg0ItSECPXmBVVmehLtF41HU66X0GHX/
+X-Gm-Gg: Acq92OE4ghZNTW2h2aRwL0EkZ05PB+kLSkcy63JWzUhIJP47E1R+RPGOqJDs5T/Cm9K
+	fBn+qTC9G1x55YDKILn33k9sl/tk+CYESTwz+2jdz8nnz+chimZ8Cergl3tAIJYxnaI1+lWR7uE
+	4GOo4QOJge2uholUW4NX9+J3ZF3nVG2jebIktzkWMCiLCRumRP/TTK2/PlF7qSUq5evWt5nF/4B
+	I6qMgTORPO8FC9onKhpqKJglQx+n+ABs2uyyJPGWkH92bPOFSGm7MFWJM4mDHEDFxUu5DY8JWdp
+	wXBsmVuaokUHKcfdNUD45kb1UvP0Mdxe94RdGNcsrd0tkNTmoo9hYkbyJ5r3fhXtm052qWwg7ky
+	u5YYFmt1Dc/eVirGm4A0oHB1bL94qv+Z6b7Jd1LdUGZ1xGfyRK5bhYlf+dbRoUk4Iefe4jMEgmc
+	GTJntmaFHoQaMM
+X-Received: by 2002:a17:906:4594:b0:b9d:e301:20db with SMTP id a640c23a62f3a-bdd274c9a91mr321047766b.25.1779525865586;
+        Sat, 23 May 2026 01:44:25 -0700 (PDT)
 Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc62d70a5sm154042966b.48.2026.05.23.01.44.20
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc62d70a5sm154042966b.48.2026.05.23.01.44.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 23 May 2026 01:44:22 -0700 (PDT)
+        Sat, 23 May 2026 01:44:25 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -70,10 +72,12 @@ Cc: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-usb@vger.kernel.org
-Subject: [PATCH v2 0/2] Add support for Infineon/Intel XMM6260 modem
-Date: Sat, 23 May 2026 11:44:05 +0300
-Message-ID: <20260523084408.50346-1-clamor95@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: net: Document Infineon/Intel XMM6260 modem
+Date: Sat, 23 May 2026 11:44:06 +0300
+Message-ID: <20260523084408.50346-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260523084408.50346-1-clamor95@gmail.com>
+References: <20260523084408.50346-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,75 +86,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Infineon/Intel XMM6260 is a 3G-focused, slim modem platform designed
-for smartphones, data cards, and Machine-to-Machine (M2M) applications.
+Describe the Infineon/Intel XMM6260, a 3G-focused, slim modem platform
+designed for smartphones, data cards, and Machine-to-Machine (M2M)
+applications.
 
-The modem is typically connected via the application processor's USB line
-in HSIC mode. To function correctly, the modem must control this line, as
-it requires precise timing to initiate or de-initialize the USB connection.
-This control is necessary to successfully enumerate the next stage of the
-USB device loader (moving from firmware loading to the actual device
-interface for example).
-
-Patchset adds support for the generic portion of the Infineon XMM6260
-baseband modem, which was used in many Tegra-, OMAP-, and Exynos-based
-devices circa 2012. This driver provides generic power sequences,
-manages initial communication with the application processor, handles the
-SoC-specific modem powersequence, and verifies that the modem USB device
-appears correctly.
-
-While current support is relatively basic, this configuration already
-allows the modem device to appear in the dmesg of my device
-(LG Optimus Vu (P895)):
-
-[    9.427014] ci_hdrc ci_hdrc.1: EHCI Host Controller
-[    9.431488] ci_hdrc ci_hdrc.1: new USB bus registered, assigned bus number 1
-[    9.457197] ci_hdrc ci_hdrc.1: USB 2.0 started, EHCI 1.00
-[    9.460370] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.16
-[    9.468470] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
-[    9.475597] usb usb1: Product: EHCI Host Controller
-[    9.480508] usb usb1: Manufacturer: Linux 6.16.0+ ehci_hcd
-[    9.485913] usb usb1: SerialNumber: ci_hdrc.1
-[    9.490862] hub 1-0:1.0: USB hub found
-[    9.494005] hub 1-0:1.0: 1 port detected
-[    9.657191] usb 1-1: new high-speed USB device number 2 using ci_hdrc
-[    9.844726] usb 1-1: New USB device found, idVendor=1519, idProduct=0020, bcdDevice=12.74
-[    9.850530] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
-[    9.857594] usb 1-1: Product: HSIC Device
-[    9.861606] usb 1-1: Manufacturer: Comneon
-[    9.865627] usb 1-1: SerialNumber: 0123456789
-[    9.908739] cdc_acm 1-1:1.0: ttyACM0: USB ACM device
-
-This patchset is a part of larger series aiming to bring XMM6260 modem
-support for Tegra devices:
-https://lore.kernel.org/lkml/20260511135703.62470-1-clamor95@gmail.com/
-
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-Changes in v2:
-- changed phy to pwrseq in schema
-- adjusted Kconfig dependencies
-- implemented bitmap for modem state tracking
-- switched from phy to power sequencing
-- in notifier added chech to filter only USB events
-- in notifier added USB_DEVICE_REMOVE
-- added tracking for regulator, rfkill access, usb device
-  presence and poweroff calls using bitops
-- moved pseq on call from work to irq handler
-- improved rfkill registration logic
----
-
-Svyatoslav Ryhel (2):
-  dt-bindings: net: Document Infineon/Intel XMM6260 modem
-  net: usb: Add Infineon XMM6260 Baseband modem support
-
- .../bindings/net/infineon,xmm6260.yaml        |  74 ++++
- drivers/net/usb/Kconfig                       |  15 +
- drivers/net/usb/Makefile                      |   1 +
- drivers/net/usb/baseband-xmm6260.c            | 378 ++++++++++++++++++
- 4 files changed, 468 insertions(+)
+ .../bindings/net/infineon,xmm6260.yaml        | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/net/infineon,xmm6260.yaml
- create mode 100644 drivers/net/usb/baseband-xmm6260.c
 
+diff --git a/Documentation/devicetree/bindings/net/infineon,xmm6260.yaml b/Documentation/devicetree/bindings/net/infineon,xmm6260.yaml
+new file mode 100644
+index 000000000000..ffff58e479ef
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/infineon,xmm6260.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/infineon,xmm6260.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Infineon/Intel XMM6260 embedded USB modem
++
++description:
++  The Infineon/Intel XMM6260 is a 3G-focused, slim modem platform designed
++  for smartphones, data cards, and Machine-to-Machine (M2M) applications.
++  The modem is usually connected via the application processor's USB line
++  in HSIC mode; however, to work properly, the modem must control this line.
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    const: infineon,xmm6260
++
++  interrupts:
++    maxItems: 1
++
++  enable-gpios:
++    description: GPIO connected to the ON1 pin
++    maxItems: 1
++
++  reset-gpios:
++    description: GPIO connected to the RESET_PWRDWN_N pin
++    maxItems: 1
++
++  ap-wake-gpios:
++    description: GPIO connected to the EINT3 pin
++    maxItems: 1
++
++  cp-wake-gpios:
++    description: GPIO connected to the EINT2 pin
++    maxItems: 1
++
++  vbat-supply:
++    description: Supply connected to the VBAT lines.
++
++  infineon,modem-pwrseq:
++    description:
++      Contains phandle pointing to the modem's power sequence.
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++required:
++  - compatible
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    modem {
++        compatible = "infineon,xmm6260";
++
++        interrupt-parent = <&gpio>;
++        interrupts = <168 IRQ_TYPE_EDGE_BOTH>;
++
++        enable-gpios = <&gpio 112 GPIO_ACTIVE_HIGH>;
++        reset-gpios = <&gpio 169 GPIO_ACTIVE_LOW>;
++
++        cp-wake-gpios = <&gpio 151 GPIO_ACTIVE_HIGH>;
++        ap-wake-gpios = <&gpio 168 GPIO_ACTIVE_HIGH>;
++
++        infineon,modem-pwrseq = <&xmm6260_modem_pwrseq>;
++        vbat-supply = <&vdd_3v3_vbat>;
++    };
 -- 
 2.51.0
 
