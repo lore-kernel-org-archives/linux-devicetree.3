@@ -1,61 +1,63 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9172D3148B4
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 19:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4B7314D0D
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 19:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779651903; cv=none; b=azryJni0SVsZ4J4NlhQ9jpulX13+BlwozPxAGCksxa8EdoZeGv9godO69vVQnWVLHZJfIdp0ZSlq3MAPQ9pbJRpN2xw/oRitaL81TKwhWga7yB1keVtfIwdRF1gr0x+EMf1fChCL6Xbi4UHTi9uhz3q5X/xZ/gjCzAbcxmwOOOc=
+	t=1779651903; cv=none; b=fCUMwOFcIM0mrkwI08FxdDqg1LHf9vliLWDftF7fdtvgPc1WnEN7pw3/bN7ZZYMlqM/DOAI2mJzeSsYJBSJkh9vQb6iC/x2Scsx5s43pPPIhzR2f9ch89zGV6DpC08X6tm8bYllxhJGq3bnY4Pymsyu1qwUhP6AsauwF8Zcc/P4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779651903; c=relaxed/simple;
-	bh=VHJdmXIvUpWwCeBmW1hqX+xjDz63irSbS7pW8W3Xxj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t9DbQ9QnZtler+xD/pIRy56jjuO6/4R4NbLxxQPLLiFbN3U+uMy8lUEU2il/3C74pE/Pcz+jcoz8zmM3KxD3zPoryabk8p0SdB+/XhRDwLR7cgckOOS+n0frs5sk2PSkDXTXnYnDoyhaXqVkTlzbbq74IP+rSVPif+4pJR5tNWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OL1Q9+fl; arc=none smtp.client-ip=209.85.128.42
+	bh=S9yv0ppDny13+PFHIZntF7i0NLLrmOWsJlGQ0136268=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tKYVVm1dYpkatKQzFBpS+sI52hf+ee/A5CeiqzOp2ng98BeLrNt0oNQqi8y5uogQbO+WNQnxaDX5qPUbnjhrPmQQbVnP4T61fbdOkmzMDBXrJmnzAdbTwO0UHwLpmHK0XBat6fkovEDvhnmSEegW5J6cgRXyTFZLdyDz8dAb2QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HlfEX2kB; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OL1Q9+fl"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4903f7a90d1so23132115e9.2
-        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 12:45:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HlfEX2kB"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-48fde648a71so58779045e9.0
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 12:45:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779651900; x=1780256700; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=j/qe6eXcru11RESfUWXlWO5BzYgzjlHFDTWv1yJEsy8=;
-        b=OL1Q9+fl/6pqwHIvmoGv7LxGPMIMbCyrLB7KDKRK26KQgYoSWHVl4GvMG28kscAB8l
-         FVrDEEJnsU+sj1JK17ofpA0bCaOsaPxWcivvjxLPcJIPiYFxQ+7KByNJ4AvJ4xxPvsnT
-         15oP642LYvxtQkJfsewpmF2GHDjjShu0lx8VqUzHgMyQCKv9tiSr2j68sMxXle0tleB8
-         BpBuhSRWY/jSBEvSOP238Z8IrdGyqJG36wJDy4K0X4tqAXUEEgcKTyWTtOa7qj2rDrsa
-         t0pQ0SVDuCA9j5u1YSzmkaHr51jQ0wcdVvlVEUqQKZIJlRk0T1wi1vzN+dx3YbOSow5P
-         1oyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779651900; x=1780256700;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1779651901; x=1780256701; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=j/qe6eXcru11RESfUWXlWO5BzYgzjlHFDTWv1yJEsy8=;
-        b=KUDMCJ1QvohrgP5GkVsdDsChcd3LdMX0m1JU4KvDSTphYUQDHy9fsjRFsgYPXdhnWY
-         o35L8E1gNCy+ht9ujFocXyDqttAQegCALVGoB/MiSApfgdl821rmt5Fc/WL07ZvBDVxa
-         zMFhoQuZHAYxSeoM1rfSYfPAGBjPSZ8uDl0RnOK8n1xmWYWd3WTdkbtiiqvJOCTYSmLF
-         gA2jGbW1roqp5n535VwX9teYr+cloROJU27w3uLGdIdFhgKGCbdKDAOB33c+5quzMgBz
-         FDcgTu2+0+xCC2zx1MOlE1gB3RqIHP4Erh9WbYaFi87u4mxRQ6xLtJp+JyZ3CyD8034A
-         1CBQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+rQGLL4KP3DnB19TEEMC0iTT5x58Gm7pFDGez2mtO9dpAiDb8IdPPyezqw7BsPvz6iDKVYhk3AaSBt@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/xxHcMyvxtj3bM9txQZnEfo/0wvPBowp/7meroA4MQi4lE/0D
-	/ErF1SUJjCiUAt/5RXo3UKJRc3MyhEfI8uX4KdXKsgkti37V3wHq/QmY
-X-Gm-Gg: Acq92OFe8PFbnCVpuZp51vZKJhlNmyIiScgVJNi68sPD8sJRfbv5THBT4Kn4jBxXECf
-	CMs1YXglNOoZNchFk9fWNMPeH+rxbJUP2IHd9/g3A2h44ZNmfeEkgLsBX2I2lqyI6rQ3sTfsdkW
-	VYuGvqdmU19h1OLbF/UNxxg7haO8zCgX063QeCzen+TGXPXAV74FhHk87wFEnPBSW/f7eqki68w
-	1dsMJ91CGF3yjSXYFccnOw9Blz329+W5IRGsul28Iu54NlnHW3oamgpHqTIseHpPE23Q3h/L1BM
-	+JsDj5UQHQYgzR149VTncSsWlIYNP3smBNncjsrKIn4cKWKt6VmVqVNhUpeIRKJ/P7QOioPgVSj
-	Ptvx/QoVzJECB1EHU+rqaeB6QBcjxsoi+14ZEiIHha4O+rhaJAr37VWFU8s9c1fQVkODaxB+sF+
-	koGbtNk/tRVcavXeyOA+O93P+NybPlKpFrsp3SvVVD7g==
-X-Received: by 2002:a05:600c:1f87:b0:48a:8905:a500 with SMTP id 5b1f17b1804b1-490424ad9abmr182880265e9.12.1779651899732;
-        Sun, 24 May 2026 12:44:59 -0700 (PDT)
+        bh=+Y9GPXTLGAUIBWqeRqyMnJLPiEzYcwSV+9lPF8ht34M=;
+        b=HlfEX2kB7WoIYFpXFN45JFc/yGSSoSp2kc91/cjtTj7lmKm6N36iUsD3jvzHS9ZyNq
+         2SLg6r4tGrYSe53AGIAwMB62VJ+PdBFYeJ4oqmU6keyvkRWEKtLcj5Yre8YXr5c3K9fH
+         bxPVB8W8z0WJxBt6pYtsX8dm8XNJMt5wwRCqXktyw54qnuRSxUETq0DaaLHygbyRvHnJ
+         uqBYtFuH+PaELqNmtP0Y+hokULAvR+VUIzp+NtIzT4/k43CVqjqg52OcWwkPK8Gkr6So
+         n0HlbYHVQCF4jV4cD9h0r4pquQ6l7AWz7CmCLmPsqqTuyls7/OpJqsfGqpzlKvt3KBWC
+         1WNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779651901; x=1780256701;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=+Y9GPXTLGAUIBWqeRqyMnJLPiEzYcwSV+9lPF8ht34M=;
+        b=BlRthDYyo4kTwtocqKRz+OLC6/hUAAfZbG8zlWdJ+eMWdSBLj+HIwdSkJdL3BP14PJ
+         VdeAAGOBSDW1g+YeKwEzdCPsRImNbLx5uhmGPhidmgfxe7I82ODs7t6wrirFUZka/JS1
+         w4QhRDPabEx0jHOq6VC5Hd3pbSMzPCqcdYbwe36WtTCil/mUfOgFipukxJfRYsaToFJ1
+         Wok7daA2lIF3axISJBeVa8piNz+Q4OyfwraxfD9wWIAVS3zDLvpJU8Li+TvcKBHhizIA
+         XUwt3+IO2+fSNWGuXVuVZBwUHoEBLymevMP5iljvkfNkFnOtI1X537B3Uvzvn06iyesu
+         AG0g==
+X-Forwarded-Encrypted: i=1; AFNElJ+iIaV2urBXgmzB1gG3X4rUCm0fCxX8pK4AOli3ZMhm1B/YnTjBei8y3nOw2Nb2An6MCsphn6X821iZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5WG2MVNINVHloPTXxtZQbf9mDlTj3IDXExhkMvVIrnEZP57k2
+	a14I6sKzfgTBZ2afwldJOBXryLQJIEZx/4RMTw34CXBlazJ+g1sTQmuf
+X-Gm-Gg: Acq92OHyEw/SNTk1J/s6YMXFtbT8U/ywEAEnhMaeWtqWncQ8KpqAFBq5UTP8LpK4b/V
+	Syu9T+2Gix27OhQni2ho2djlqZugmGypuuorlOi293sbFcMcc7xTm1XDuVrh5jQDh71tT9CVNBI
+	t0BamM4wm5loAPOxsNYBvrS9bl6zqOkVcC8Ew4vvd61nv2GjHtRGmpLQnzZsK/CzoIjzNhgninR
+	URhSkSV/VaB4rqUhRjE4sYbUskL9iOjmV3z/Pd00EhCjNWku+bgxA1SMgEBHjT/bCwVBXomoH4k
+	OgNyJlFhIcnSYAzzKiFESFjWJ+0QCHguGURJ3fXUwR/3tKPxkBOZmrX8r5Ak22PV0oGCxdg5AY5
+	rknLR/zRT6eGY1TYpe+7NfP7Vs6XRzQvVQV8eWnR/1yJdvl74bXhOM2CV9KnWf722ZphUb+DwJK
+	PqRZKyPXy9YNeTf6cNPDJCjwU4MQvqirs=
+X-Received: by 2002:a05:600c:46cb:b0:48f:e044:927d with SMTP id 5b1f17b1804b1-49042480f2dmr161584355e9.10.1779651900589;
+        Sun, 24 May 2026 12:45:00 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a700:7301:ae73:a12b:ca55:91be])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49042cde62csm68224515e9.32.2026.05.24.12.44.58
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49042cde62csm68224515e9.32.2026.05.24.12.44.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 May 2026 12:44:59 -0700 (PDT)
+        Sun, 24 May 2026 12:45:00 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -63,7 +65,6 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Robert Foss <rfoss@kernel.org>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
@@ -83,11 +84,14 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	linux-kernel@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 0/2] Add support for Renesas RZ/G3L LVDS encoder
-Date: Sun, 24 May 2026 20:44:49 +0100
-Message-ID: <20260524194457.479681-1-biju.das.jz@bp.renesas.com>
+	Biju Das <biju.das.au@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v2 1/2] dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
+Date: Sun, 24 May 2026 20:44:50 +0100
+Message-ID: <20260524194457.479681-2-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260524194457.479681-1-biju.das.jz@bp.renesas.com>
+References: <20260524194457.479681-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,50 +102,158 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add support for the RZ/G3L LVDS encoder driver. It operates in single-link
-mode with 4 lanes (Data) + 1 lane (Clock) and supports pixel clock rates
-from 25 to 87 MHz. The LVDS module cannot be used at the same time as
-MIPI-DSI. However, LVDS and the DSI interface share a peripheral clock and
-the MIPI_DSI_PRESET_N reset signal. Also, the MIPI_DSI_CMN_RSTB and
-MIPI_DSI_ARESET_N reset signals must be asserted before using the LVDS
-module.
+Document the LVDS encoder IP found on the RZ/G3L SoC. It supports
+single-link mode. LVDS and the DSI interface share a peripheral clock and
+the MIPI_DSI_PRESET_N reset signal. However, the LVDS module cannot be
+used at the same time as MIPI-DSI.
 
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
 v2->v3:
- * Dropped patch#1 as it is accepted.
- * Replace drm_atomic_state with drm_atomic_commit in
-   rzg3l_lvds_atomic_{en,dis}able().
- * Drop local variable ret and dev_err() messages in
-   rzg3l_lvds_atomic_enable(); use WARN_ON() instead to
-   capture unexpected failures since atomic_enable should not fail.
- * Drop local variable next_bridge from rzg3l_lvds_probe().
+ * No change.
 v1->v2:
- * Collected the tags for binding patches.
- * Dropped unused function rzg3l_lvds_is_connected() and removed the 
-   corresponding header file rzg3l_lvds.h
- * Dropped next_bridge from struct rzg3l_lvds instead using bridge's
-   next_bridge.
- * Replaced pm_runtime_resume_and_get()->pm_runtime_get_sync() as
-   atomic_enable doesn't fail and for each enable there always will be an
-   atomic_disable() call.
- * Started using DEFINE_RUNTIME_DEV_PM_OPS for PM callback.
- * Replaced rzg3l_lvds_parse_dt() with devm_drm_of_get_bridge() in probe()
- * Started using reset_control_bulk_*() in rzg3l_lvds_pm_runtime_{suspend,
-   resume}().
-
-Biju Das (2):
-  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
-  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
-
- .../bridge/renesas,r9a08g046-lvds.yaml        | 128 ++++++++
- drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
- drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
- drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 277 ++++++++++++++++++
- .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  26 ++
- 5 files changed, 445 insertions(+)
+ * Collected tag.
+---
+ .../bridge/renesas,r9a08g046-lvds.yaml        | 128 ++++++++++++++++++
+ 1 file changed, 128 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
 
+diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+new file mode 100644
+index 000000000000..b1f6d020ae7b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+@@ -0,0 +1,128 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/renesas,r9a08g046-lvds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Renesas RZ/G3L LVDS Encoder
++
++maintainers:
++  - Biju Das <biju.das.jz@bp.renesas.com>
++  - Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
++
++description: |
++  This binding describe the LVDS encoder embedded in the Renesas RZ/G3L
++  SoC. The encoder can operate in LVDS Single-link mode with 4 lanes
++  (Data) + 1 lane (Clock).
++
++properties:
++  compatible:
++    const: renesas,r9a08g046-lvds
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Peripheral clock
++      - description: PHY clock
++      - description: Dot clock
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: phyclk
++      - const: dotclk
++
++  resets:
++    items:
++      - description: LVDS_RESET_N
++      - description: MIPI_DSI_PRESET_N
++      - description: MIPI_DSI_CMN_RSTB
++      - description: MIPI_DSI_ARESET_N
++
++  reset-names:
++    items:
++      - const: lvdrst
++      - const: prst
++      - const: rst
++      - const: arst
++
++  power-domains:
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Input channel, directly connected to the Display Unit.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: |
++          Output channel, directly connected to the LVDS panel or bridge.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - power-domains
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/renesas,r9a08g046-cpg.h>
++
++    lvds-cmn@108a0000 {
++        compatible = "renesas,r9a08g046-lvds-cmn",
++                     "simple-mfd", "syscon";
++        reg = <0x108a0000 0x10000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        lvds0: lvds@10 {
++            compatible = "renesas,r9a08g046-lvds";
++            reg = <0x10 0x8>;
++            clocks = <&cpg CPG_MOD R9A08G046_MIPI_DSI_PCLK>,
++                     <&cpg CPG_MOD R9A08G046_LVDS_PLLCLK>,
++                     <&cpg CPG_MOD R9A08G046_LVDS_CLK_DOT0>;
++            clock-names = "pclk", "phyclk", "dotclk";
++            resets = <&cpg R9A08G046_LVDS_RESET_N>,
++                     <&cpg R9A08G046_MIPI_DSI_PRESET_N>,
++                     <&cpg R9A08G046_MIPI_DSI_CMN_RSTB>,
++                     <&cpg R9A08G046_MIPI_DSI_ARESET_N>;
++            reset-names = "lvdrst", "prst", "rst", "arst";
++            power-domains = <&cpg>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    lvds0_in: endpoint {
++                        remote-endpoint = <&du_out_lvds0>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    lvds0_out: endpoint {
++                        remote-endpoint = <&panel_in>;
++                    };
++                };
++            };
++        };
++    };
++...
 -- 
 2.43.0
 
