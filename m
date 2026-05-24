@@ -1,91 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.58.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994C32D3EC7
-	for <devicetree@vger.kernel.org>; Sat, 23 May 2026 19:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA502AD37;
+	Sun, 24 May 2026 01:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.132.58.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779565249; cv=none; b=OkEoh24x8oUiXsh2UgIxOwAfrl6mui5ordmfzpXRDGBeJD5wgVr9YxTviueovPAXm7kcxj0lTn8kiAXgCpqV+lSgaaBg3BliHwLK3iXszIT8c97PH2Sq1GEJ7lKManZG+4N3I43zzKHiMZCVrpUT6zuKD5MSrv9ET5NeZsMKCSY=
+	t=1779587932; cv=none; b=PJSWJGAmO9YchmvLnLO59nYTNPAuw/Uinq3Igrw+7t+jIYOf9xu3b4/U5V0eW/sgeKXxpAIVfv2HGAWVcGdmKghDETk1moN6+QtdzqKjg0mrK4Bj560PBF/JVaRnVoY15QxbqC2leIuymCc+QXr7GVTFpEJvCQ3n5ITjjrpkfLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779565249; c=relaxed/simple;
-	bh=gCdtbYd19czep8B9qhxe1IDEN6hiuwOvIPYf2T1mEjw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K9T/ad0zOpIZNIHSoo0oZYqW+vJ4xUTMHV5kEwXldLfDrSojlkhRX7rrKnyRtGCL2Nnk21NA9jxmuGvyD4gcdXSsDR1PoJsIyRsFp2COlLlBgA475Kvj4ijUIXCttklo2t/nroekw3gBd/FHbPYx4kkX0Uh89cxXwKyTePfrhPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5sW90x7; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5sW90x7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7CA1F00A3A;
-	Sat, 23 May 2026 19:40:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779565247;
-	bh=vQYJJI99vi/asrvc/dUOuBTndZ5EEQCHVxaF1s3lxvg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R5sW90x711ke498qxG0MVB/euoAFQxLys4oKt0HHwbgt7FklyHMuifaNoV+/u59Ao
-	 hwbJg8/N5aTgp2uq8B9M84nlQRoT6bN5K6jxZEyHVW71X5loVMynGZtWK9sz8HZvAk
-	 0s1WnfRk3rsw34nxsRUGDSVaeYFO6QTchvpbxT0p71gJ0uchHQ9wTV+gxEKGTx9aiY
-	 wy4lGWxLwTJ5z5ousSSjU+HxW+62Pt0A7fzEgECEryYtCNPxKS+I1LQIMYZ1yanCtg
-	 SYVPwdX6Hi7yA3/VXjJUFR0g8mZrVT0J6CIrJ4t8Fc4lYflSklqQv9mXQt223aZAcp
-	 PvtLgIZ73PDdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: clock: renesas: div6: Use ZT/ZTR trace
- clock in R-Mobile APE6 example
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
-References: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 23 May 2026 19:40:47 +0000
-Message-Id: <20260523194047.AB7CA1F00A3A@smtp.kernel.org>
+	s=arc-20240116; t=1779587932; c=relaxed/simple;
+	bh=LJX3UDJEBWZclugIo9wnVCMsvrUIFevLdZMRx0Wn/qs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jD2XvfQPHZpOi2ywfasDuPNPNTvLNdcXNJKMLtn0zJFUfqNlup6kAqhumFwh3Nrw9XpVFg5OTW1uB/qJGvFqMyRC3BpeKbCoJU545gR0sYLZe8DDAKjPjuBsRj8Prf926eCvccFehMQSDyRfhLXVs+8fXY3lmIsyJZT5yW9q0X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=114.132.58.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: esmtpgz15t1779587905t55917f99
+X-QQ-Originating-IP: +CMkYgQkelm3p4bzQbNBKmYcwd2gel7t9keJU6p+mwY=
+Received: from [127.0.0.1] ( [116.234.26.110])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 24 May 2026 09:58:22 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 1059293555878524542
+Message-ID: <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
+Date: Sun, 24 May 2026 09:58:23 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
+ Dragon Q6A
+To: Graham O'Connor <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
+References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ <20260522101323.31911-1-graham.oconnor@gmail.com>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <20260522101323.31911-1-graham.oconnor@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: M6krYJmOiHLv/R2v9jrvO0PzDoHLyIBWgyO/RJ0v5jsQyqDerRgxMyXC
+	Vu9my88aNPK0Xxuw9HI2Rb1g/hh7f40gvYPzoDBRMTcgkeMi7Lr5qiNSBgC+nuWjSCKWkU0
+	aDzdIiInMYdpHEHR/oVOCr/rF/OEIi1g4u7MBsu9sKMaagIuuvJVeDvATLfZMHuBQtFpZqx
+	yVXpgP1hc07ktb+xrSNJFSG+xzjQznbLI5d6JKSJYdtgjSCXxqVvIvHNdTCLHdZHT3yQzlp
+	gSVPr/75LMbonlINqtColP1nuZhxhIFvpV0aNbXKJ0WYyrbPt+9sIcqmQp6B1H7AeXfnwiL
+	UqwncV7iUBWsPKyaATZJJvy5OL1WURScVPOIHl9/iMCau3YaSeEGRtsWMKjEbyWjaPevhBk
+	/OIKO0YCGatMC2HBv1U8CNZK+SgcBALZpLD+07UNQ0+VhdAnZlXTibPpSh9mv+bv5PpCZD1
+	pZv92z5hcJJA88b8EpYPubLCdoEyKsP0wLf39KTvjaUCMafv4wtcLM2xSoSvh4CoikCXOz4
+	4jzgjzANQCUi3zuOJ3nngEglDha2+6tyofrEeM6/ltPkV1m8tHLOI2Ex7yvGuGVzPrsNasR
+	7kfwTvIGtlTwMTAHIFOtgfyOXx7ANUHoncHof4JN2SVIV0NMGZz7i4AcBjbbuBdEFfgZyzW
+	DWgrPU/qvKU1aXaSpTOsTwnEMVJKDf9o3g//+Rx3e/nJYxsFd6aLvmf86rz0Qkv8N1FjvPA
+	6xZDfw8D95/64Qe8EuETbO2DGVMewFZXK1ZSN9oTlYwOkAE2M+uAH4+0OXn9lnGpi8IYfvU
+	Z2JJwIN3G4yi/cdqKVLsfiNYy0YnkBsRrNKv0QMFtj99s1micpl855nQU8OTgBdeQALesHu
+	R8/GoQ3pXlD//+iBkFlA1/EVcWSPb5hG0gvq/Jvgy6dBXMd1sK1Dq+JIUqkHC1zXiRWR5pZ
+	7jBIu2NdEyqRK/BaLR4gMnQna6WxIip02k6uomn7cNl1iFuGN2J12Ul3f3C98x6l3qWU5Mw
+	hT5KL8/Q7OrbcJa3kZXPMUJB2zoxYUP+k+vmy4wts7AXqQb1fn912i6ixmj6oUnhZSxmO8u
+	g==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Adding 18 items to `clock-output-names` in the example triggers a `=
-dt_binding_check` schema validation error due to an un-updated top-level co=
-nstraint in `renesas,cpg-clocks.yaml`.
---
+On 5/22/2026 6:13 PM, Graham O'Connor wrote:
+> Thank you to Konrad, Neil, and others for the very prompt and helpful reviews.
+> 
+> Based on the feedback received, I think it best to withdraw this series to
+> address the issues raised, most notobly:
+> 
+> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
+>     devices using the Qualcomm MSM DP driver rather than being specific to
+>     the RA620 bridge. A proper fix should be implemented at the bridge
+>     level. This is going to take more investigation.
+> 
+> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
+>     string per the existing Radxa upstream series from Xilin Wu, and the
+>     lane ordering needs correcting.
+> 
+> 3. The rpmh-rsc early return (patch 1) needs further review regarding
+>     the implications of returning before full driver initialization.
+> 
+> 4. DTS patch label dependency issue (sorry)
+> 
+> I'll integrate with the Radxa upstream effort, re-evaluate the other areas
+> and resubmit corrected patches addressing these concerns at a later date.
+> 
+> Thanks for the feedback.
+> 
+> Cheers
+> 
+> Graham
 
-commit aaa0ff6ae07f5974071a547fef4a5b41bc484428
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Hi Graham,
 
-dt-bindings: clock: renesas: div6: Use ZT/ZTR trace clock in R-Mobile APE6 =
-example
+Thanks for working on the additional hardware bring-up for Q6A upstream 
+support. I'm really glad to see someone pushing this forward.
 
-This commit updates the R-Mobile APE6 clock node example to include
-the "zt" and "ztr" clock-output-names entries. This aligns the example
-with the expectations documented in a previous commit.
+I actually posted a patch series [1] last month, and it is generally in 
+good shape. Unfortunately, I got busy with other work and haven't had a 
+chance to send v2 yet.
 
-> diff --git a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clo=
-ck.yaml b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.ya=
-ml
-> index 2197c952e21df..b6ee8c8efd46d 100644
-> --- a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml
-> +++ b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.yaml
-> @@ -60,7 +60,7 @@ examples:
->              clock-output-names =3D "main", "pll0", "pll1", "pll2",
->                                    "pll2s", "pll2h", "z", "z2",
->                                    "i", "m3", "b", "m1", "m2",
-> -                                  "zx", "zs", "hp";
-> +                                  "zx", "zs", "hp", "ztr", "zt";
+If it helps, please feel free to take over that series and fold your 
+additional patches into it. I think that would be a good way to move 
+things forward.
 
-[Severity: Low]
-Does adding these two items cause a schema validation failure during
-dt_binding_check?
+Also, I believe patches 10-12 in my series are no longer needed and can 
+be dropped.
 
-The top-level clock-output-names property in renesas,cpg-clocks.yaml has a
-maxItems constraint of 17. Adding "ztr" and "zt" here brings the total
-item count to 18.
+Thank you again for the work you have done.
 
-While the underlying limit omission occurred in the earlier commit
-2abdc3dcf978, modifying this example to 18 items will now directly
-trigger the overarching validation limit error.
+[1] 
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=1078242&state=%2A&archive=both
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260523192622.5660=
-5-1-marek.vasut+renesas@mailbox.org?part=3D1
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
