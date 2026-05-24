@@ -1,77 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4401C30C14B;
-	Sun, 24 May 2026 19:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CE218DB2A
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 19:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779651377; cv=none; b=T0RDDDdDT3jYGBaM2/Cej34bjvEdg7cwt3K3/NqypmmxY6cw3aqv3kBIVKYerQCQEqN46SxUSYrg68kgFyoDj561sT3Sb1fM9FqTv+FXig7/Moa2sGVVeToOOzmUi7fDcE6e7b4hO/FopQjdcazMoiXNOQh38n1mPf2mWBfqN90=
+	t=1779651544; cv=none; b=Htv1qBkBUPD39f3x34xKkwOo/TqmlaxusFncRqYqwvaZGS/QDRctNKLxCLInvw9eIt0XFIg+bux91Boj1EjsBe5f1dbnADeBHG6mPtZsrfxNL8eZp5BLLni3JDw7ou6nImYtBwB/rBDxUbw00OiySIQ6qTxYmuYMsFCZAShKmRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779651377; c=relaxed/simple;
-	bh=pwoE/4OdPgY3kOKcEkMurBcwFJF93A8G8YsharzaYcM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TSTuxNIA1v66AAj+MpmAYJAymBhu0L5dh6hQqqaxAMPqeTnxbIQMLeA+/ZH3hk91hwNgnB+LmhY2tTY/nM6+oeEaQmcf2gEseJcRMGE8P3KBnhoizY5Sl/IVm0gGhRd2L9uFXNfn7jbMNUU6kAc+TavuNM1dmr6G7Mng9FrmybA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3kATJU5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779651544; c=relaxed/simple;
+	bh=VSfUQScx7QWLQqMmGGwCCytcYQammq9ExKnodB/hLYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=COAIU6bdPw1C2B1DVxxf8Oop+cOl+XCNq6u/jeyGWbB0rrXK6wrkq1cCs5ipV+tTeH/2RqE0bl8dR+N5kCwmcn9QmqAS3w9Ufk/34kUNTw2MrtiL2kzsTPEYH873SKfZxyY0/ZKlIf4MDrgJK9KMb5V4sB0+0AXeLY2w9vV0Hqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RABauvP9; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3kATJU5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E931F000E9;
-	Sun, 24 May 2026 19:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779651375;
-	bh=r0Kn4NGTEBvYvSppdtEhlAPBMULs4K0n5D5V+p+MP10=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=e3kATJU5wCp1elAKPsF+pwI0r3IZPzNvgIXNIWYUQhOReywzbnaOAZm3PYjIQdBUO
-	 nE0WX/tkZ8B/qFkILHvUKtC18Z43nLt8RgW+nAvRXmux1/ZHca7h3cOQeGCJ3qqgJr
-	 JIZbVO7YdqsrRlhpgn4pGXk+BXerbTPWej0LjnRXg8yIk6pn0WcPdOi+WKfwq1pF1Q
-	 1PMB4TCxtxF/w26OAP8Eu6afoMxz/t2VTpnmBo98BJGf5CoOiLnvxDelQNP1Mx7ZiS
-	 lmTwfnlviaFrfdO1qGmkfiO7c8aSLQoitMLJ5DEM1uxz2LLrB590/CIIRuK4nsAoGi
-	 dCOAzxhYtlwNg==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Paul Kocialkowski <paulk@sys-base.io>
-Cc: Yong Deng <yong.deng@magewell.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Maxime Ripard <mripard@kernel.org>
-In-Reply-To: <20260518153339.619947-1-paulk@sys-base.io>
-References: <20260518153339.619947-1-paulk@sys-base.io>
-Subject: Re: (subset) [PATCH v9 0/9] Allwinner A31/A83T MIPI CSI-2 and A31
- ISP / Platform Support
-Message-Id: <177965137265.112804.8792823661852323201.b4-ty@kernel.org>
-Date: Mon, 25 May 2026 03:36:12 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RABauvP9"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490426d72f7so22321105e9.3
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 12:39:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779651540; x=1780256340; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CEDGJFNI0AFFSxtRQsKCVjO7L22n5qBzI1DnBki3h14=;
+        b=RABauvP9Bs7wH8pGNVCcARtUDLZ0qLA8FKlXK7f0j5nRId+KkqTr+u+Bc8ZiNvmjZT
+         NOkQKpbZDyUc8nn+k8coCaIEKTFIc61rf217JrGbaHMsGg7Ntn6WHLgervv8KJyIY4t/
+         8FUbQLx7JHXDSj5SGDJMspKqkaf8riiBID8MdAOrFzO1trmo1jrv3R1C1E55FL317jCn
+         r2YXs4Y5eajbR4H5eWdYhsVBrWro7MHUKwBHkccKjhEzd7SZaeDzF4YiBd5PFM8qGsUD
+         FU2lhp/aDHIHVUH7dyYIenkD4mFA3htWtBy8+fJo+fkgdpWFiVr9SfMZfLgHBx1wY2jt
+         h0GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779651540; x=1780256340;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CEDGJFNI0AFFSxtRQsKCVjO7L22n5qBzI1DnBki3h14=;
+        b=FRlX0BcUy9/zEigF7YerN/fLrxoJDuiKHWX/uDkFoSCemHsrYKqwDSk/r8kw618OZR
+         OE8k8mi77pEe3BI84J+Q8+VqEx0n3f1wgu06yXC6WTtytnRQ8REaEV/Q+vGvdM/CyrT+
+         0bEhRlJXPnJUO3cIZO2GkSSmBirjriO1wokyPshErlkOFKTpKx07RWuvbgqwwlLL6vkd
+         kBFbct3u1m18cYT0KiY8UKBQmAnoipNlyeVUXI8+dIhT7HJE4WwuNCvo1R4IkrEw8cZA
+         2e7By+gEuZDK/lrMn1TlXi/37CufmbMk0PxI01dSvLqlSXbEhpq7xTvqCfv5kxXcrVXD
+         yBSQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+FHSKkZg7cx3b5DtSlS35+BQ3+4E0OKP6C52C47dpWI0NEUhl+IR3XQRV+UGQADcvbxVBwJt6NXLLu@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7mIbyt5YgR9Cey0ZM7liznyQ4j2XA5ekBHK8Jv+SAIFX7Wdec
+	7y3CmHFje8U/F+8ak1jH+ZEw00fZ5/QFwNdPGuCsjuU05lerceOniV4x
+X-Gm-Gg: Acq92OG/eTBJ3LBXs3bD7NIuu23aDi2UEqfxkhKSIEYOttDnT9fcZZJrJkPpOn2QJ82
+	gK6YbS2oBWccLgaCSNrbThK/ke+19qPVPr6FLUXLP3euQ2eC85NdxO4FsBzqnbVKv0CbQCn3MVW
+	Zcflv83EUWIFXyBvTrLw5uJnbxqaQd3pDtE2f/n0tNQG+bsagLnadMxzAl0PM/GK80tUtef/y3w
+	aXak16vHUK7N5F8XsFn4pC1XIqAqH7KLj2V6QxgVDFf8tKtMCMOiv92BNVSjHSFbPfjbSNP+iXp
+	KFDpyWO+3SuqJLKljL0riioqgDBciKVvkUEtn3i76GyAuRYQAOIv1RBIQcWoLWxZIDE4CuYdtAB
+	AfikccqG+ORS84Y4kOFeJAMSBwOVN9exUTLK0GuR8dO76e+Z2RdLdNydIJeZHxEMEpQSyATfjJo
+	wyrUhuV4dGXzujPpM=
+X-Received: by 2002:a7b:cde1:0:b0:489:1f04:96c3 with SMTP id 5b1f17b1804b1-4904248b137mr118732875e9.2.1779651540266;
+        Sun, 24 May 2026 12:39:00 -0700 (PDT)
+Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6c9ba2esm22339674f8f.8.2026.05.24.12.38.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 24 May 2026 12:38:58 -0700 (PDT)
+From: Wadim Mueller <wafgo01@gmail.com>
+To: wbg@kernel.org
+Cc: krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wadim Mueller <wafgo01@gmail.com>
+Subject: [PATCH v5 0/3] counter: add GPIO-based counter driver
+Date: Sun, 24 May 2026 21:38:43 +0200
+Message-ID: <20260524193846.19216-1-wafgo01@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260515153616.157605-1-wafgo01@gmail.com>
+References: <20260515153616.157605-1-wafgo01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-On Mon, 18 May 2026 17:33:29 +0200, Paul Kocialkowski wrote:
-> This series adds platform support for the V3s/V3/S3 MIPI CSI-2 and ISP units
-> as well the as A83T MIPI CSI-2 unit in the respective device-trees.
-> Overlays for the BananaPi M3 cameras are also provided as actual users of the
-> camera pipeline on A83T.
-> 
-> The corresponding drivers and dt bindings were merged a long time ago but this
-> series was never actually picked up. It seems more than ready to be merged!
-> 
-> [...]
+This series adds a counter subsystem driver that does quadrature
+encoder position tracking with plain GPIO pins and edge interrupts.
+Compared to interrupt-cnt.c (pulse-only) it provides full A/B/Index
+decoding and exposes the counter sysfs ABI.  Target hardware is
+low- to medium-speed rotary encoders on SoCs without a free eQEP /
+FTM / etc.  Benchmark rig: github.com/wafgo/qenc-bench.
 
-Applied to sunxi/shared-clk-dt-ids-for-7.2 in sunxi, thanks!
+Changes in v5
+-------------
 
-[3/9] clk: sunxi-ng: v3s: Export MBUS and DRAM clocks to the public header
-      https://git.kernel.org/sunxi/linux/c/356a74a9325d
+Following William's v4 review the driver and binding are renamed
+from "gpio-quadrature-encoder" to "gpio-counter" -- the name now
+reflects what the hardware is, not one of its functions.  This
+renames the source file, Kconfig symbol, compatible string, binding
+file and DT properties (encoder-{a,b}-gpios -> signal-{a,b}-gpios,
+encoder-index-gpios -> index-gpios).  Out-of-tree users on v1-v4
+will need to update their DTs.
 
-Best regards,
+Conor's v4 Acked-by on the binding was dropped because of these
+rename changes -- a fresh Ack would be appreciated.
+
+Driver fixes from William's review:
+  - X4 decoder rewritten using the 2-bit Gray-code parity trick
+    (STATE_CHANGED = pa^pb^ca^cb, DIRECTION via pb^ca) -- no more
+    16-entry lookup table.
+  - X1_A / X1_B now count on rising-when-forward / falling-when-
+    backward in the per-edge ISRs, with the X1 direction caveat
+    documented in the source.
+  - action_read holds priv->lock while reading function/direction
+    and returns from each case directly.
+  - ceiling_write no longer touches priv->count (matches intel-qep,
+    ti-eqep, stm32-timer-cnt); the >= guard in the update path
+    prevents further growth.
+  - Dropped the redundant functions_list check in function_write
+    and the !!val rewrite in preset_enable_write.
+
+Sashiko AI [1] flagged seven issues on v4, all addressed:
+  1. Normalise GPIO reads (a = !!a; b = !!b;) so negative error
+     codes from gpiod_get_value() cannot index the state tables.
+  2. priv->enabled tracked under priv->lock -- enable_write is
+     now idempotent.
+  3. preset/ceiling TOCTOU closed by moving the check under
+     priv->lock; index ISR clamps after preset load.
+  4. probe rejects sleepable GPIOs via gpiod_cansleep().
+  5. action_read reports RISING/FALLING based on current direction,
+     matching what the ISR counts on.
+  6. action_read holds priv->lock (same fix as William's review).
+  7. IRQF_NO_AUTOEN replaces irq_set_status_flags(IRQ_NOAUTOEN).
+
+MAINTAINERS: section renamed to "GPIO COUNTER DRIVER" and resorted
+alphabetically between "GPIO AGGREGATOR" and "GPIO IR Transmitter".
+
+Thanks to William for the patient review and to the Sashiko bot
+for the extra finds.
+
+[1] https://sashiko.dev/#/patchset/20260515153616.157605-1-wafgo01@gmail.com?part=2
+
+Wadim Mueller (3):
+  dt-bindings: counter: add gpio-counter binding
+  counter: add GPIO-based counter driver
+  MAINTAINERS: add entry for GPIO counter driver
+
+ .../bindings/counter/gpio-counter.yaml        |  59 ++
+ MAINTAINERS                                   |   7 +
+ drivers/counter/Kconfig                       |  17 +
+ drivers/counter/Makefile                      |   1 +
+ drivers/counter/gpio-counter.c                | 744 ++++++++++++++++++
+ 5 files changed, 828 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/counter/gpio-counter.yaml
+ create mode 100644 drivers/counter/gpio-counter.c
+
+
+base-commit: 3cd8b194bf3428dfa53120fee47e827a7c495815
 -- 
-Chen-Yu Tsai <wens@kernel.org>
+2.52.0
 
