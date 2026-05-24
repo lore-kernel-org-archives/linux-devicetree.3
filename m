@@ -1,123 +1,148 @@
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.58.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA502AD37;
-	Sun, 24 May 2026 01:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.132.58.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779587932; cv=none; b=PJSWJGAmO9YchmvLnLO59nYTNPAuw/Uinq3Igrw+7t+jIYOf9xu3b4/U5V0eW/sgeKXxpAIVfv2HGAWVcGdmKghDETk1moN6+QtdzqKjg0mrK4Bj560PBF/JVaRnVoY15QxbqC2leIuymCc+QXr7GVTFpEJvCQ3n5ITjjrpkfLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779587932; c=relaxed/simple;
-	bh=LJX3UDJEBWZclugIo9wnVCMsvrUIFevLdZMRx0Wn/qs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jD2XvfQPHZpOi2ywfasDuPNPNTvLNdcXNJKMLtn0zJFUfqNlup6kAqhumFwh3Nrw9XpVFg5OTW1uB/qJGvFqMyRC3BpeKbCoJU545gR0sYLZe8DDAKjPjuBsRj8Prf926eCvccFehMQSDyRfhLXVs+8fXY3lmIsyJZT5yW9q0X8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=114.132.58.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpgz15t1779587905t55917f99
-X-QQ-Originating-IP: +CMkYgQkelm3p4bzQbNBKmYcwd2gel7t9keJU6p+mwY=
-Received: from [127.0.0.1] ( [116.234.26.110])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 24 May 2026 09:58:22 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1059293555878524542
-Message-ID: <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
-Date: Sun, 24 May 2026 09:58:23 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26A82192F9
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 02:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779590574; cv=pass; b=IOQFxQKcPmAUzYFTg4lDJksG8oai7n6YnrT9PKbJAPnZ67xlf3ukYIXffpYbwnMiR6pMUjwNmr34z4hxX/IPo7RIDRGAEhHcpoc8RzQdLjv+YzxDVU9BKAGPtu+PH57eO+MKzlT3u5Mv+NOc+plytLilGB0K7VeuddyJsn/CaRM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779590574; c=relaxed/simple;
+	bh=Uazk3xK9wPBFQkKZppbojFNdUVou2Ob2+/OEgBGJQQI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BFdS0Jjv9Tp9scu2jLpBb38jRQAwiHS+CfnwSbLSPX/D/ShJ5/K1FhC+XFo+dnaQZn3oCnF8/2u02Q2zcDhyl0gXXDfaYgKuxOd73FBtBX3HutzAb16B1lRWTBCdqAM4yFIK+f+AOrtCZU7FuED6jezf+gBH/X0zs7lnYq1r6Wc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ensqr8gy; arc=pass smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ensqr8gy"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a884815606so9486649e87.0
+        for <devicetree@vger.kernel.org>; Sat, 23 May 2026 19:42:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779590571; cv=none;
+        d=google.com; s=arc-20240605;
+        b=H//CId+/qLlX9jgdckITH85ctUOdBlDKMJYSoQIQwKRTmEJyAl1xlkhlJYvo9tyUz/
+         kGLDk6DkwBloj0IoZp8+ENn3m+FLtLt7C4mt7Mni/dmI6Cuyk0YDq9wCbIrmgDs439ME
+         FGyXBag9jiY/CQCUgomM/NOrQxVHyzqqn2vcz6QAMRvasq0qNtLVcnM7m4807qpd60+h
+         7WJR9RuMoVnM5b10Pf2de6Bak6eM277l7DikEoQly/IPXE8NKFHOVEixg5OEBTwnU5st
+         Fj9xAaQoUb9sd9vghgYWZ4cJx6E2avBBsYzBsxsn/5JnOo/xHqE8eu+Vs+gYulc9rIk1
+         6u+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=triryNx+ggLH9l2yeoXzdiA8OekP3cVQgbIoDK/NrA8=;
+        fh=8NDnWrGGFyVFCoSd+wev0xSf/hTjXo6KiD2eSLNZ9Hw=;
+        b=lVxNxlcH5SewDyPJM4xiCqPQsbjTJZM4lOKby1FWg8eRvjzN88lmUZIbp3tCExNxBx
+         P0ujyz6xUHyl5aK2eeu3AAOUuGba4FZXdxDZoK3V4Ody3yEu1nszgbbPf3a4UlYQSXo/
+         wuJ+9ax7sPrqSRVsKMyXrnsJdDn0nq4JwC98VNpaLLVLwUiylyVpsZHjWTWYXt3xcHW5
+         WjHWcUdLTSvo0BPHaQztFADhLh2sF09qwwopNzUFWhdDWwYQIz30zG/akKIMPnM/8jxq
+         EQWWmfZXI4DZExwulJiD+DMDe34RvItfjY5M9qaSSQ9/ajwoZWJmqjtwZ7JfNy1TSAnc
+         Ihig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779590571; x=1780195371; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=triryNx+ggLH9l2yeoXzdiA8OekP3cVQgbIoDK/NrA8=;
+        b=Ensqr8gyjeNcASciiKepYpn8r1y3sIW0UmqLRsnlpWb7+XvRXiT5mBgj5YkBV9io7z
+         ZmCLRkkGEtxzWgNhi6kipkD1SDcBG6YkQ4UEO0bNQNQoLpCc2dFXuV3irjesIUJ2Ays0
+         psOWVdOE3ZncDal9viX/ErT1D+P2fJUfUui/H+6UeQrhV/0DN8Si+dSM37zrZUkBEMW6
+         YVetdjyczw4DVRCptTE1atQ3Umy81KdBE8jUWGorRZymXTl/ja90i9+xqoMnHmHnoMgM
+         irkRBgqOSXY7H/nWB5TDNH1z+msKEpM+KDpVDJ91rGofiEADf6Y8vkoH96/D5Mcduccz
+         F4DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779590571; x=1780195371;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=triryNx+ggLH9l2yeoXzdiA8OekP3cVQgbIoDK/NrA8=;
+        b=NoeQWnMNfvqDNdEk+LI/fGNaIqvM1xg6ep/75b2rLR3C/tt/wK8gjWT6p+O/Ei5jIS
+         KSGy5rxcjRZw4pm7mhOc+NgFmCXsKPMhwl+y0TSv1CwFJ/90BybxbvGZXLp93vqAyvP9
+         qwqDOVWvQYg163P+r25qZgeB5TFxP2gmIh/Tez2ohyZ0OD/sfQEYYEPp1ZSZ/fujVmQ3
+         4O6qZZAX1+hZVa/VpMzT9HRdytqXFagHy39uhXi/FDrQpXnong/Pn4VhmcT7X/N3fbRI
+         ZSbG01jeHMRglcfEoUXz4WpNNtD+yMcXJSOaG29bPWOQXSv/HSKnSblTTzWBOK2T4Mm8
+         R1nw==
+X-Forwarded-Encrypted: i=1; AFNElJ+99cvTbRdfuimv+mm/Fh8wmvMQfjrIOf4nPvxm0dlRieQL7XIQfbO/z2SeKyCp7qzYAuiKvN1ylP7y@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqspfggCw/w03IHNi8B3Db1KEih0fGl1pMA5E9dLMWgxigkp5m
+	OFV2U3HFS5aPv4ewqzwbqzRa/wZBHi7Bjlk0ex5888eG/ZzXPr1fdayvYWn1ZxlbU7uRez0DvJ6
+	DfJKCZng9PFQcH49ioRHmFY5BdbmkKXk=
+X-Gm-Gg: Acq92OHcWgTbt6Dn/75kyNS96JqYKZlRR5AwMSNfx1Axsl72FudjAQLz5VGRp5NzEy0
+	cla1J5FN5UaXOShWvofGqr52TatVcdYOcxoDC15zdCWiioPGD1mBkDKf1z+Htszt4Ag85ejEMg1
+	87iTcOSVomFv0pQy5DWRFlo0qq1E8etgdYH0X6EMNmjJ0LzTGTkY6EunkXY+q/6QJIlcwAqcPO8
+	68+DxyMBsEp12qzRaW5Uh7homkWKlfVtH1iD2LlT7rhYa/aEqJw3OFW9wz6kBFxXjI4rqWKVx9q
+	cuJ27KYD6NDfXo3UCv9ttWz4754LEzxZdKiginWSlOyvz9CngwywG0DjShXmTw==
+X-Received: by 2002:a05:6512:33c1:b0:5a8:88f8:9ed4 with SMTP id
+ 2adb3069b0e04-5aa323cb975mr2733941e87.30.1779590570698; Sat, 23 May 2026
+ 19:42:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
- Dragon Q6A
-To: Graham O'Connor <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
-References: <20260522060645.4399-1-graham.oconnor@gmail.com>
- <20260522101323.31911-1-graham.oconnor@gmail.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <20260522101323.31911-1-graham.oconnor@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: M6krYJmOiHLv/R2v9jrvO0PzDoHLyIBWgyO/RJ0v5jsQyqDerRgxMyXC
-	Vu9my88aNPK0Xxuw9HI2Rb1g/hh7f40gvYPzoDBRMTcgkeMi7Lr5qiNSBgC+nuWjSCKWkU0
-	aDzdIiInMYdpHEHR/oVOCr/rF/OEIi1g4u7MBsu9sKMaagIuuvJVeDvATLfZMHuBQtFpZqx
-	yVXpgP1hc07ktb+xrSNJFSG+xzjQznbLI5d6JKSJYdtgjSCXxqVvIvHNdTCLHdZHT3yQzlp
-	gSVPr/75LMbonlINqtColP1nuZhxhIFvpV0aNbXKJ0WYyrbPt+9sIcqmQp6B1H7AeXfnwiL
-	UqwncV7iUBWsPKyaATZJJvy5OL1WURScVPOIHl9/iMCau3YaSeEGRtsWMKjEbyWjaPevhBk
-	/OIKO0YCGatMC2HBv1U8CNZK+SgcBALZpLD+07UNQ0+VhdAnZlXTibPpSh9mv+bv5PpCZD1
-	pZv92z5hcJJA88b8EpYPubLCdoEyKsP0wLf39KTvjaUCMafv4wtcLM2xSoSvh4CoikCXOz4
-	4jzgjzANQCUi3zuOJ3nngEglDha2+6tyofrEeM6/ltPkV1m8tHLOI2Ex7yvGuGVzPrsNasR
-	7kfwTvIGtlTwMTAHIFOtgfyOXx7ANUHoncHof4JN2SVIV0NMGZz7i4AcBjbbuBdEFfgZyzW
-	DWgrPU/qvKU1aXaSpTOsTwnEMVJKDf9o3g//+Rx3e/nJYxsFd6aLvmf86rz0Qkv8N1FjvPA
-	6xZDfw8D95/64Qe8EuETbO2DGVMewFZXK1ZSN9oTlYwOkAE2M+uAH4+0OXn9lnGpi8IYfvU
-	Z2JJwIN3G4yi/cdqKVLsfiNYy0YnkBsRrNKv0QMFtj99s1micpl855nQU8OTgBdeQALesHu
-	R8/GoQ3pXlD//+iBkFlA1/EVcWSPb5hG0gvq/Jvgy6dBXMd1sK1Dq+JIUqkHC1zXiRWR5pZ
-	7jBIu2NdEyqRK/BaLR4gMnQna6WxIip02k6uomn7cNl1iFuGN2J12Ul3f3C98x6l3qWU5Mw
-	hT5KL8/Q7OrbcJa3kZXPMUJB2zoxYUP+k+vmy4wts7AXqQb1fn912i6ixmj6oUnhZSxmO8u
-	g==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+References: <20260518220228.63322-1-piyushpatle228@gmail.com>
+ <20260518220228.63322-3-piyushpatle228@gmail.com> <20260520110948.167c8e14@jic23-huawei>
+In-Reply-To: <20260520110948.167c8e14@jic23-huawei>
+From: Piyush Patle <piyushpatle228@gmail.com>
+Date: Sun, 24 May 2026 08:12:13 +0530
+X-Gm-Features: AVHnY4KGBDlPvL31bQmSmt-ZqeZ2ql2ufzbcRWI3PNEFr6Hx3R0iNdLqT5g0tew
+Message-ID: <CAMB+xka2uJqf3E69r7XhB0LEkT0bWy4XCW2rCztTST9JX+KYaA@mail.gmail.com>
+Subject: Re: [PATCH v9 02/11] dt-bindings: iio: adc: hx711: add VSUP supply property
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Andreas Klinger <ak@it-klinger.de>, 
+	Andy Shevchenko <andy@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/22/2026 6:13 PM, Graham O'Connor wrote:
-> Thank you to Konrad, Neil, and others for the very prompt and helpful reviews.
-> 
-> Based on the feedback received, I think it best to withdraw this series to
-> address the issues raised, most notobly:
-> 
-> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
->     devices using the Qualcomm MSM DP driver rather than being specific to
->     the RA620 bridge. A proper fix should be implemented at the bridge
->     level. This is going to take more investigation.
-> 
-> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
->     string per the existing Radxa upstream series from Xilin Wu, and the
->     lane ordering needs correcting.
-> 
-> 3. The rpmh-rsc early return (patch 1) needs further review regarding
->     the implications of returning before full driver initialization.
-> 
-> 4. DTS patch label dependency issue (sorry)
-> 
-> I'll integrate with the Radxa upstream effort, re-evaluate the other areas
-> and resubmit corrected patches addressing these concerns at a later date.
-> 
-> Thanks for the feedback.
-> 
-> Cheers
-> 
-> Graham
+On Wed, May 20, 2026 at 3:39=E2=80=AFPM Jonathan Cameron <jic23@kernel.org>=
+ wrote:
+>
+> On Tue, 19 May 2026 03:32:18 +0530
+> Piyush Patle <piyushpatle228@gmail.com> wrote:
+>
+> > Document the optional VSUP supply used by the HX711 on-chip regulator.
+> >
+> > Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
+> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> See my reply to v8 around dvdd needing (I think) to be in this patch
+> for the hx711 not later in the series.
+>
+> > ---
+> > No change from v8. Already applied to iio.git testing branch.
+> >  Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml =
+b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> > index 1ea60dff98d5..a8eaa1f18de5 100644
+> > --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> > +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> > @@ -33,6 +33,10 @@ properties:
+> >      description:
+> >        Analog supply voltage (AVDD).
+> >
+> > +  vsup-supply:
+> > +    description:
+> > +      Supply voltage for the on-chip regulator (VSUP).
+> > +
+> >    clock-frequency:
+> >      description:
+> >        Controls the SCK bit-bang timing. The value is used to derive th=
+e
+>
+Acknowledged, and sorry for not acting on this in v9. In v10,
+I will add dvdd-supply in patch 02/11 alongside vsup-supply with a
+description that makes clear it is the digital input supply of the
+HX711 (and not just a bypass capacitor point).
 
-Hi Graham,
+The description will read something like:
 
-Thanks for working on the additional hardware bring-up for Q6A upstream 
-support. I'm really glad to see someone pushing this forward.
-
-I actually posted a patch series [1] last month, and it is generally in 
-good shape. Unfortunately, I got busy with other work and haven't had a 
-chance to send v2 yet.
-
-If it helps, please feel free to take over that series and fold your 
-additional patches into it. I think that would be a good way to move 
-things forward.
-
-Also, I believe patches 10-12 in my series are no longer needed and can 
-be dropped.
-
-Thank you again for the work you have done.
-
-[1] 
-https://patchwork.kernel.org/project/linux-arm-msm/list/?series=1078242&state=%2A&archive=both
-
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+   dvdd-supply:
+     description:
+       Digital supply voltage (DVDD). On the HX711 DVDD is a board-
+       supplied digital rail, distinct from VSUP; they may be tied to
+       the same supply or driven separately.
