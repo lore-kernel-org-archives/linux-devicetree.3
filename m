@@ -1,266 +1,262 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED90330149F
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 20:14:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B0E31E827
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 20:24:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779653677; cv=none; b=UFLWtu4e7ZW6TJN2jhbw6hqdMbqD+OSOSvseahIBUUjqJdvAPO71SkTuREP8kICqYEb7lg8enL8mU1MZAT4/Kje5uif9QmWf8NMsQFRcgQx5UzdoYf1MZ7LiqDsey3pv9lEAGii5/TxLMpjRiGtSZ6C29Q5Wu/E8WoQrAjmfEo4=
+	t=1779654258; cv=none; b=adFKk+SWAYsYruCZuxnaeeoc1fMGXoAuGFoNf+rjuTmzFhz4UjPks/E2+PAKKBcnz0uQ7/XJ9ywt8PZQlqsMhFbM91RCVeX2UyOSlJFWT+ogps3EZ2c+OQLahTM9WT2GlWDH799fngukPaQAm3YspGupfgOqLkMofFpEWTdBXBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779653677; c=relaxed/simple;
-	bh=lMtnUgO+5+QrMxUSBmO16IeF4VQLa4lCd9LIOTA1KBU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SsZRAmMr2uK4ZMv5xzzmO2zrbdO4sk7Di6VEGW6lj8HlmGwJT6RLDBl3KqUOc242ReDtK56JUPab/8CmRKlMnHfw9r4D/Z02JnEP+DEHwzwBvebyS9eIU3AgWWn/jlbL+BAlCgGzmMS64qIYZN0V1Cz8GUUBFGj2Untny4hqJFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akwAoa7z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779654258; c=relaxed/simple;
+	bh=5m2ynUlv29/CRCMqZ0YAToZhJK3uFgMuk+eYo1BnwjM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ji//SvDKG5NXG4EBFMnu9Z+S3QiXW8/fQO4D6Qar0CTJEh+cNaUjhHhdG1jG0uLzqDduEBY5jz9SjWB0cksbFhcM83Wg0ptsyF+jiT4rBgrRN7BMldHsnUQLNOk0NiBahJG3YHOEvvc9S2B/+wnLO9yIU+VbyJ0WrjLallG+YeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HisCkmrZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akwAoa7z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6721F00A3A;
-	Sun, 24 May 2026 20:14:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HisCkmrZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B6621F00ADE
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 20:24:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779653675;
-	bh=5eckRXvwfwNx/O/cTdLIztqbYLlmvRQd+M+DQ5RxHF0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=akwAoa7zdNOrNKv7M4hG/n7dnmFlZx0b4rsnQzGZARxDpxn/QfQymrtQcSGPVqweG
-	 OxkNC6UAmqasq9UBpCo+nXpdlf9T+w1nb4f34WDRzhTKhChEAdJVtkJam5GafRV5H7
-	 ifug2wlrbvSbDm8sOgcyvKF1kO1pQM/sk7xlhkw42kdqCA8O+ScGBEwtUhVJC2af9M
-	 GSai27LecrHAySg48kbfAUyyWV5fCQfGpmOw4w0yvHgcQ+lzK3njlznfCXvRmzUcxi
-	 zZoHn8QtqA5LFk0NgEhoIisvVm3k5U4sAGMjmamwiUWS/V2TBV7wSmRTcv+7lSpH1a
-	 prGCN6Y05+3pg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] counter: add GPIO-based counter driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wadim Mueller" <wafgo01@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260524193846.19216-3-wafgo01@gmail.com>
-References: <20260524193846.19216-3-wafgo01@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 May 2026 20:14:35 +0000
-Message-Id: <20260524201435.AD6721F00A3A@smtp.kernel.org>
+	s=k20260515; t=1779654256;
+	bh=qF2ENtSHxpeUd+ayXyc4puyf9CPxrGQ63HI8vKzfFlk=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=HisCkmrZAlCCAeVfzBL2isa35vgLvuT0HgrzBt2TzrnVMu4MkmHTcpR3IYBE0KaNm
+	 XQ8oaTnb1+vSUkFNauo+3VBD0f4eTEFgyJc9RA3YcwPsLepvmtRjP8PZtPc9kpQVfw
+	 r7pPlyS/b8PxAyROKyzYiEGJ8XI8mfwI49EPm/Wi6lT9OH0ClVIyJ6vBd1eLilBEWH
+	 yAwYC5uOrIg+sDhN35LEC/HYroeaYzXk2OCcTjPLavolEgBFQ5sEdSi7bWpKfAC76U
+	 3EpLjM12ugD9lnmqxQDTlrMO1KsnpDni/Iio5+17CYQrjq2fWN/ifM7OlFZkqRCdKA
+	 BkHMUSMPqRtUg==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-393da8f389bso77142461fa.1
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 13:24:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9yVCScWy1fDrK/ePQHU0uHr7t+3s5H1wVeiDyGz9z1JbpGjUtN9An+5weNLK70yz+TKoZHtgpmPOr6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzg6MMA3xiL1NCktpxFqra2JWWmo6wuo1mqX8M3Wh7gXoAhIHaS
+	zUO0i2P0VUnXgGyXqJxKWlVD79LUhR8BVjbL5gx4pMEJn7pQvEXx3ZzQMtflxSwSk3XSnO8r5Sg
+	ShK/ylX+szBHf/7Td4vu/3JaEDNhT3n8=
+X-Received: by 2002:a2e:8957:0:b0:38d:e220:8dc2 with SMTP id
+ 38308e7fff4ca-395d8cef4abmr31227691fa.20.1779654254895; Sun, 24 May 2026
+ 13:24:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260518153339.619947-1-paulk@sys-base.io> <20260518153339.619947-9-paulk@sys-base.io>
+In-Reply-To: <20260518153339.619947-9-paulk@sys-base.io>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 24 May 2026 23:24:02 +0300
+X-Gmail-Original-Message-ID: <CAGb2v65g5pRfamiGXDzf1e3tDOC3hKKpN42zsehyV5kH64mqvA@mail.gmail.com>
+X-Gm-Features: AVHnY4JZ91o4upme6W15C4GgmvRnJJM3a9BrnhW1qst5pC5WhUcG5wXpq_KeV7k
+Message-ID: <CAGb2v65g5pRfamiGXDzf1e3tDOC3hKKpN42zsehyV5kH64mqvA@mail.gmail.com>
+Subject: Re: [PATCH v9 8/9] ARM: dts: sun8i-a83t: Add BananaPi M3 OV5640
+ camera overlay
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Yong Deng <yong.deng@magewell.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Maxime Ripard <mripard@kernel.org>, 
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Concurrent sysfs writes to the 'enable' attribute cause unbalanced=
- IRQ enables and desynchronize the hardware state.
-- [High] The Quadrature X1_A and X1_B modes are fundamentally broken and fo=
-rm a directional feedback loop, failing to decode direction.
-- [High] GPIO states are sampled outside the spinlock in ISRs, causing stat=
-e machine desynchronization under rapid concurrent edges.
-- [Medium] Negative error codes from gpiod_get_value() are masked and incor=
-rectly converted into logical HIGH states.
-- [Medium] The counter saturates at bounds instead of wrapping around, viol=
-ating Counter subsystem `ceiling` semantics.
-- [Medium] The previous GPIO states are not synchronized when the counter i=
-s re-enabled, causing missed edges or spurious counts.
-- [Medium] The Quadrature X2_A and X2_B modes do not verify if the triggeri=
-ng signal actually changed state, leading to false counts on noisy lines.
---
+On Mon, May 18, 2026 at 6:15=E2=80=AFPM Paul Kocialkowski <paulk@sys-base.i=
+o> wrote:
+>
+> From: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+>
+> Add an overlay supporting the OV5640 from the BananaPi Camera v3
+> peripheral board. The board has two sensors (OV5640 and OV8865)
 
-commit 9297ee567bedc28c8a463a9a4d24d31a9d00cc62
-Author: Wadim Mueller <wafgo01@gmail.com>
+> which cannot be supported in parallel as they share the same reset
+> pin and the kernel currently has no support for this case.
 
-counter: add GPIO-based counter driver
+This part is no longer true. The kernel recently gained shared GPIO
+support. I've tried it on Chromebooks to describe a USB 2/3 hub.
+(This is actually one chip and one pin, but has two device nodes
+to model the USB 2.0 and USB 3.1 portions.)
 
-Add a platform driver that turns plain GPIOs into a counter device.
-Edge interrupts on the signal-a, signal-b (and optional index) lines
-are decoded in software using a 2-bit Gray-code parity trick for the
-quadrature X4 mode and direct edge checks for the other modes.
 
-> diff --git a/drivers/counter/gpio-counter.c b/drivers/counter/gpio-counte=
-r.c
+> Signed-off-by: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+> ---
+>  arch/arm/boot/dts/allwinner/Makefile          |   3 +
+>  .../sun8i-a83t-bananapi-m3-camera-ov5640.dtso | 115 ++++++++++++++++++
+>  2 files changed, 118 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-ca=
+mera-ov5640.dtso
+>
+> diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/all=
+winner/Makefile
+> index f71392a55df8..6975df9d7b46 100644
+> --- a/arch/arm/boot/dts/allwinner/Makefile
+> +++ b/arch/arm/boot/dts/allwinner/Makefile
+> @@ -221,6 +221,7 @@ dtb-$(CONFIG_MACH_SUN8I) +=3D \
+>         sun8i-a33-vstar.dtb \
+>         sun8i-a83t-allwinner-h8homlet-v2.dtb \
+>         sun8i-a83t-bananapi-m3.dtb \
+> +       sun8i-a83t-bananapi-m3-camera-ov5640.dtb \
+>         sun8i-a83t-cubietruck-plus.dtb \
+>         sun8i-a83t-tbs-a711.dtb \
+>         sun8i-h2-plus-bananapi-m2-zero.dtb \
+> @@ -270,6 +271,8 @@ dtb-$(CONFIG_MACH_SUN8I) +=3D \
+>         sun8i-v3s-licheepi-zero-dock.dtb \
+>         sun8i-v3s-netcube-kumquat.dtb \
+>         sun8i-v40-bananapi-m2-berry.dtb
+> +sun8i-a83t-bananapi-m3-camera-ov5640-dtbs +=3D \
+> +       sun8i-a83t-bananapi-m3.dtb sun8i-a83t-bananapi-m3-camera-ov5640.d=
+tbo
+>  sun8i-h2-plus-orangepi-zero-interface-board-dtbs +=3D \
+>         sun8i-h2-plus-orangepi-zero.dtb sun8i-orangepi-zero-interface-boa=
+rd.dtbo
+>  sun8i-h3-orangepi-zero-plus2-interface-board-dtbs +=3D \
+> diff --git a/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov=
+5640.dtso b/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov564=
+0.dtso
 > new file mode 100644
-> index 0000000000000..f50cec33ae366
+> index 000000000000..0d4de0027fea
 > --- /dev/null
-> +++ b/drivers/counter/gpio-counter.c
-[ ... ]
-> +static void gpio_counter_update(struct gpio_counter_priv *priv, int delt=
-a)
-> +{
-> +	if (delta > 0) {
-> +		priv->direction =3D COUNTER_COUNT_DIRECTION_FORWARD;
-> +		if (priv->count >=3D priv->ceiling)
-> +			return;
-> +		priv->count++;
-> +	} else if (delta < 0) {
-> +		priv->direction =3D COUNTER_COUNT_DIRECTION_BACKWARD;
-> +		if (priv->count =3D=3D 0)
-> +			return;
-> +		priv->count--;
-> +	}
-> +}
-
-[Severity: Medium]
-Will saturating the counter at its limits break compatibility with the Coun=
-ter
-subsystem semantics?
-
-The Counter ABI defines 'ceiling' as a wraparound limit for cyclic counters,
-where counting past the ceiling wraps to 0, and counting below 0 wraps to t=
-he
-ceiling. Saturating at the limits might cause issues for userspace
-applications relying on cyclic tracking.
-
-[ ... ]
-> +static int gpio_counter_a_delta(struct gpio_counter_priv *priv, int a, i=
-nt b,
-> +				int prev_a, int prev_b)
-> +{
-> +	enum counter_count_direction dir;
+> +++ b/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov5640.dt=
+so
+> @@ -0,0 +1,115 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR X11
+> +/*
+> + * Copyright 2022 Bootlin
+> + * Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+> + */
 > +
-> +	switch (priv->function) {
-> +	case COUNTER_FUNCTION_QUADRATURE_X4:
-> +		if (!GPIO_COUNTER_STATE_CHANGED(prev_a, prev_b, a, b))
-> +			return 0;
-> +		dir =3D GPIO_COUNTER_GET_DIRECTION(prev_b, a);
-> +		return (dir =3D=3D COUNTER_COUNT_DIRECTION_FORWARD) ? 1 : -1;
+> +/dts-v1/;
+> +/plugin/;
 > +
-> +	case COUNTER_FUNCTION_QUADRATURE_X2_A:
-> +		return (a =3D=3D b) ? -1 : 1;
+> +#include <dt-bindings/clock/sun8i-a83t-ccu.h>
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +&{/} {
+> +       /*
+> +        * These regulators actually have DLDO4 tied to their EN pin, whi=
+ch is
+> +        * described as input supply here for lack of a better representa=
+tion.
+> +        * Their actual supply is PS, which is always-on.
+> +        */
+> +
+> +       ov5640_avdd: ov5640-avdd {
 
-[Severity: Medium]
-How does the X2_A mode handle noisy lines or contact bounce?
+You should fix the device node names, as Sashiko mentioned for patch 9.
 
-Unlike the X4 mode which checks for a state change, this mode unconditional=
-ly
-returns 1 or -1 based on (a =3D=3D b). If the signal line bounces, causing =
-the ISR
-to fire twice for the same logical state (where a =3D=3D prev_a), it appear=
-s the
-ISR will incorrectly register an additional count in the same direction.
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "ov5640-avdd";
+> +               regulator-min-microvolt =3D <2800000>;
+> +               regulator-max-microvolt =3D <2800000>;
+> +               vin-supply =3D <&reg_dldo4>;
+> +       };
+> +
+> +       ov5640_dovdd: ov5640-dovdd {
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "ov5640-dovdd";
+> +               regulator-min-microvolt =3D <2800000>;
+> +               regulator-max-microvolt =3D <2800000>;
+> +               vin-supply =3D <&reg_dldo4>;
+> +       };
+> +
+> +       ov5640_dvdd: ov5640-dvdd {
 
-Should there be a check to verify that the interrupted signal has actually
-toggled?
+This one as well.
+
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "ov5640-dvdd";
+> +               regulator-min-microvolt =3D <1500000>;
+> +               regulator-max-microvolt =3D <1500000>;
+> +               vin-supply =3D <&reg_dldo4>;
+> +       };
+> +};
+> +
+> +&csi {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&csi_8bit_parallel_pins>;
+> +       status =3D "okay";
+> +
+> +       ports {
+> +               #address-cells =3D <1>;
+> +               #size-cells =3D <0>;
+> +
+> +               port@0 {
+> +                       reg =3D <0>;
+> +
+> +                       csi_in_ov5640: endpoint {
+> +                               remote-endpoint =3D <&ov5640_out_csi>;
+> +                               bus-width =3D <8>;
+> +                               data-shift =3D <2>;
+> +                               hsync-active =3D <1>;
+> +                               vsync-active =3D <1>;
+> +                               pclk-sample =3D <1>;
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +&i2c2 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&i2c2_pe_pins>;
+> +       status =3D "okay";
+> +
+> +       #address-cells =3D <1>;
+> +       #size-cells =3D <0>;
+> +
+> +       ov5640: camera@3c {
+> +               pinctrl-names =3D "default";
+> +               pinctrl-0 =3D <&csi_mclk_pin>;
+> +
+> +               compatible =3D "ovti,ov5640";
+> +               reg =3D <0x3c>;
+
+Per the "new" DT coding style guide, the compatible property is always
+the first oen, and reg, if present, is always the second.
+
+Same comments also apply to patch 9.
+
+
+Thanks
+ChenYu
+
 
 > +
-> +	case COUNTER_FUNCTION_QUADRATURE_X1_A:
-> +		if (a && priv->direction =3D=3D COUNTER_COUNT_DIRECTION_FORWARD)
-> +			return 1;
-> +		if (!a && priv->direction =3D=3D COUNTER_COUNT_DIRECTION_BACKWARD)
-> +			return -1;
-> +		return 0;
-
-[Severity: High]
-Is it possible for the X1_A and X1_B modes to correctly decode direction?
-
-The logic relies on checking the state against priv->direction. Since
-priv->direction is initialized to forward, and only flips to backward if
-delta < 0, but delta can only be < 0 if the direction is already backward,
-this looks like a positive feedback loop. It seems the counter will only
-ever count upward.
-
-Should the state of the opposite phase signal be used to determine direction
-instead?
-
-[ ... ]
-> +static irqreturn_t gpio_counter_a_isr(int irq, void *dev_id)
-> +{
-> +	struct counter_device *counter =3D dev_id;
-> +	struct gpio_counter_priv *priv =3D counter_priv(counter);
-> +	unsigned long flags;
-> +	int a, b, delta;
+> +               clocks =3D <&ccu CLK_CSI_MCLK>;
+> +               clock-names =3D "xclk";
+> +               assigned-clocks =3D <&ccu CLK_CSI_MCLK>;
+> +               assigned-clock-parents =3D <&osc24M>;
+> +               assigned-clock-rates =3D <24000000>;
 > +
-> +	/* !! normalises away negative gpiod_get_value() errors. */
-> +	a =3D !!gpiod_get_value(priv->gpio_a);
-
-[Severity: Medium]
-What happens if gpiod_get_value() returns a negative error code?
-
-The comment explicitly states this normalizes away errors, but treating
-hardware read failures (like -EINVAL) as valid logical HIGH states could
-inject phantom edges into the quadrature decoder, corrupting the absolute
-count value.
-
-Should the ISR explicitly check for negative returns and exit instead of
-masking the error?
-
-> +	b =3D !!gpiod_get_value(priv->gpio_b);
+> +               AVDD-supply =3D <&ov5640_avdd>;
+> +               DOVDD-supply =3D <&ov5640_dovdd>;
+> +               DVDD-supply =3D <&ov5640_dvdd>;
 > +
-> +	spin_lock_irqsave(&priv->lock, flags);
-
-[Severity: High]
-If A and B edges occur in quick succession on an SMP system, could different
-CPUs handle the interrupts concurrently and sample the GPIOs out-of-order
-relative to when they acquire the spinlock?
-
-This could cause the internal software state machine to evaluate transitions
-that are out of sequence with the actual hardware, leading to missed counts=
- or
-interpreting forward motion as backwards counting.
-
-Since these are non-sleeping GPIOs, should the reads be moved inside the lo=
-ck
-to ensure atomic transition evaluation?
-
-[ ... ]
-> +static int gpio_counter_enable_write(struct counter_device *counter,
-> +				     struct counter_count *count, u8 enable)
-> +{
-> +	struct gpio_counter_priv *priv =3D counter_priv(counter);
-> +	unsigned long flags;
-> +	bool want =3D enable;
-> +	bool changed;
+> +               powerdown-gpios =3D <&pio 3 15 GPIO_ACTIVE_HIGH>; /* PD15=
+ */
+> +               reset-gpios =3D <&pio 4 16 GPIO_ACTIVE_LOW>; /* PE16 */
 > +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	changed =3D priv->enabled !=3D want;
-> +	if (changed)
-> +		priv->enabled =3D want;
-> +	spin_unlock_irqrestore(&priv->lock, flags);
+> +               rotation =3D <180>;
 > +
-> +	if (!changed)
-> +		return 0;
+> +               port {
+> +                       ov5640_out_csi: endpoint {
+> +                               remote-endpoint =3D <&csi_in_ov5640>;
+> +                               bus-width =3D <8>;
+> +                               data-shift =3D <2>;
+> +                               hsync-active =3D <1>;
+> +                               vsync-active =3D <1>;
+> +                               pclk-sample =3D <1>;
+> +                       };
+> +               };
+> +       };
+> +};
 > +
-> +	if (want) {
-> +		enable_irq(priv->irq_a);
-
-[Severity: High]
-If two threads write to the 'enable' attribute concurrently, could the
-hardware toggles be reordered relative to the lock acquisitions?
-
-Thread A writes 0 and Thread B writes 1. Both check the state under the loc=
-k,
-but Thread B could call enable_irq() before Thread A calls disable_irq(). T=
-his
-would trigger an 'Unbalanced enable for IRQ' warning since enable_irq() is
-called on an already-enabled IRQ.
-
-Should the physical enable_irq() and disable_irq() calls be moved inside the
-spinlock, or should another synchronization mechanism be used to prevent th=
-is
-race?
-
-[Severity: Medium]
-Are the previous GPIO states synchronized when the counter is re-enabled?
-
-priv->prev_a and priv->prev_b are initialized during probe(). If the hardwa=
-re
-moves while the counter is disabled, the first edge interrupt after re-enab=
-ling
-will compare the new GPIO levels against stale 'prev' states. This could le=
-ad
-to misinterpreting the first transition, resulting in false direction
-evaluations or dropped counts.
-
-Should priv->prev_a and priv->prev_b be sampled and updated inside this
-function before enabling the IRQs?
-
-> +		enable_irq(priv->irq_b);
-> +		if (priv->irq_index)
-> +			enable_irq(priv->irq_index);
-> +	} else {
-> +		disable_irq(priv->irq_a);
-> +		disable_irq(priv->irq_b);
-> +		if (priv->irq_index)
-> +			disable_irq(priv->irq_index);
-> +	}
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524193846.1921=
-6-1-wafgo01@gmail.com?part=3D2
+> +&reg_dldo4 {
+> +       regulator-min-microvolt =3D <2800000>;
+> +       regulator-max-microvolt =3D <2800000>;
+> +};
+> --
+> 2.54.0
+>
