@@ -1,103 +1,103 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2B4204F93
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 12:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CF02D8DBB;
+	Sun, 24 May 2026 12:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779626710; cv=none; b=qzzOud8Qo04y5z5AVHYnQ9XxIoprRKpBzsSuemdIV/Q6SClqcYsBfTjEKeUUSKwz3E7zJX3FyKpp5+HCu8G4+8PtafQihcPGNUEvPRPyuyHq3w8M8YTwfstseIde4etcYyamdOyNt9frFe/WfDCio7ITeJhEqg6577KrL+pzdMw=
+	t=1779627306; cv=none; b=M/Y1w/IXsGTnJJX3mVAItOEXsTl1yShr8UYrpcNSmRe5T2zJz51kw7B9onjAzsjjjODmGbw6gitd6YZ7jjPXe4WVD+HDBVDF9JcOidDqwEF1TtY+PjfPT6rTK239QRONMQJ7jV/G//CvumV3oFVUkq39GclXLPmXXfJN4+Ti+M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779626710; c=relaxed/simple;
-	bh=bVQYpTAyM56qnH7jLL3hJYgRlduEJJ/6ogDW0E+EtdQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EgYOkSj4BDr9EC1zmNZ/ly/pXiKgjklxb/E0aidZyf+5U2eFU6NIiZFgU28Q5eeiV5JNkKMuPfWZG1veXqGLoU7zfpEAdEhdl5xxlieQUXgjnJgSIB0I3p3sDx/ZmV0KcB+hVTTtMr3hEnf6ESFNKesKCG4Bw+3OLI5Bt2X5Vxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=FeIfMi3P; arc=none smtp.client-ip=212.77.101.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	s=arc-20240116; t=1779627306; c=relaxed/simple;
+	bh=2MmTYYmNMdoy9YDoTAuniLeIxG02J7j8NpdTUNIlBN0=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=NwOGEZlThJpFQRlLfrXPdvDR2CaVUAB2/zsmlQVen3GryLGgOfwiEXJQSvE98a6s88jxeE/jY4e3inXVQhKDpT9Rhnhn3xxc+kPSmG/A9EbDKa5SPcffjAD1or7msMDeR64eWzytAgsxp9k9zMWdpsn7r4TPhzK3O61Lx4XphXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5zD2G5M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="FeIfMi3P"
-Received: (wp-smtpd smtp.wp.pl 45103 invoked from network); 24 May 2026 14:44:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1779626698; bh=0iifLvTx2I1NvbTVPkxTfIoIccnSTeVcgYfAe87Lp9E=;
-          h=From:To:Cc:Subject;
-          b=FeIfMi3PI53+q04ACVXWYEVdeHMiTTAFgMOGjqkR9ZIXAxIP9c61E7znW9XbxB/TG
-           uKR3ijiyJHxCDnPuT5ptDeHvdRBlusqrm55pZEoHnr7GTAIrqyhCSX3PCpF0bpMgFr
-           CfMBRCjFFFaXM+7CbYcqh8NIE4W8gsWEh3jYxJ35XLCwtFODx7irQf1H44HfHIaAmN
-           AXh1hPSrl/rUD7k3ZDDaaoZuURkK3AmZdYr8mjW8u1RMUIPg70lxcl3t0phBB0eunH
-           IixxOqQuGIvffCIDeqF+Q1heK5KpsWD++92Rtd4kSR36NYgM3vE7f4k+nI170zSzcC
-           vZD8zzPniwoyw==
-Received: from 83.24.127.64.ipv4.supernova.orange.pl (HELO abajkowski.lan) (olek2@wp.pl@[83.24.127.64])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <andrew@lunn.ch>; 24 May 2026 14:44:57 +0200
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-To: andrew@lunn.ch,
-	gregory.clement@bootlin.com,
-	sebastian.hesselbarth@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Subject: [PATCH] arm64: dts: marvell: armada-37xx: mark EIP97 as dma-coherent
-Date: Sun, 24 May 2026 14:44:53 +0200
-Message-ID: <20260524124456.350659-1-olek2@wp.pl>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5zD2G5M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062211F000E9;
+	Sun, 24 May 2026 12:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779627305;
+	bh=JiuDywnm3igzdQQaVPLFAQ64QuF8vXCtXGCdgupz9Ro=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=l5zD2G5MSuD2wRs+oGzjg/O5h57w0+02gobon5o9WMW0CREXLHDjB7sKo6E3RPlP7
+	 MpNK6N8KUypIcWKhum5KjXT87zcFrwMvq5aAetYLYQn/gOoEfSHUOrJbygIG0UXv4N
+	 m9A7/sOfmtNlZvuOvBh+Sl/5PsjOUATrj1Sq48FS54C2kNtblZB2t8xVIa0dh61adk
+	 gKp9CXabFHioesBDOFDabidd/ic6HTQYuvgDlPi2dhgIYFDn2VGxBVdlTnv9aNTpGg
+	 nzRL5ILSuc3XtsS8cbwuVZ3l3dtnWlwEE1E3nZozohh+2hn8zRnj9qh0pr5pXqmb6w
+	 gLmZ8Qvmkip5A==
+Date: Sun, 24 May 2026 07:55:04 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-WP-DKIM-Status: good (id: wp.pl)                                                      
-X-WP-MailID: b0c944afc73a131fdd57242ef64c7d1a
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [YRPE]                               
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: mturquette@baylibre.com, conor+dt@kernel.org, krzk+dt@kernel.org, 
+ linux-kernel@vger.kernel.org, skhan@linuxfoundation.org, 
+ devicetree@vger.kernel.org, sboyd@kernel.org, linux-rtc@vger.kernel.org, 
+ me@brighamcampbell.com
+To: Udaya Kiran Challa <challauday369@gmail.com>
+In-Reply-To: <20260524111813.39810-1-challauday369@gmail.com>
+References: <20260524111813.39810-1-challauday369@gmail.com>
+Message-Id: <177962730423.2180503.17189385178806268512.robh@kernel.org>
+Subject: Re: [PATCH v3] dt-bindings: clock: via,vt8500: Convert to DT
+ Schema
 
-Armada 37xx has coherent bus, similar to Armada 7k/8k. Cache
-synchronization consumes a lot of CPU cycles. Enabling coherent DMA
-increases IOPS performance up to 4 times. Some numbers:
-					Data length
-Algo		MB	   16	  64	 128	 256	1024	1424	4096
-DES-ECB		1	+21 %	+5 %	+5 %	+7 %	+7 %	+3 %	+20 %
-AES-ECB-128	1	+21 %	+6 %	+6 %	+6 %	+9 %	+8 %	+22 %
-AES-CBC-128	1	+21 %	+5 %	+5 %	+5 %	+6 %	+7 %	+23 %
-AES-CBC-256	1	+23 %	+7 %	+8 %	+6 %	+11 %	+13 %	+20 %
 
-					Data length
-Algo		MB	    16	    64	   256	  512	  1024	 1420	 4096	 8192
-AES-GCM-128	1	 +44 %	 +42 %	 +31 %	 +32 %	 +27 %	+30 %	+32 %	+30 %
-AES-GCM-128	8	+319 %	+326 %	+163 %	+148 %	 +75 %	+72 %	+74 %	+41 %
-AES-GCM-128	4096	+123 %	+128 %	 +90 %	 +83 %	+116 %	+59 %	+38 %	+28 %
+On Sun, 24 May 2026 16:47:57 +0530, Udaya Kiran Challa wrote:
+> Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
+> controller binding from the legacy text format to DT schema.
+> 
+> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+> ---
+> Changelog:
+> Changes since v2:
+> - Drop redundant description for clocks
+> - Disable reg property for device clocks
+> - Fix schema hierarchy to match actual DTS structure
+> 
+> Link to v2:https://lore.kernel.org/all/20260521170810.19702-1-challauday369@gmail.com/
+> 
+> Changes since v1:
+> - Add default value for divisor-mask
+> - Add required properties compatible and model
+> - Fix example node name
+> - Update example size cells and reg value
+> 
+> Link to v1:https://lore.kernel.org/all/20260520025131.17772-1-challauday369@gmail.com/
+> ---
+>  .../bindings/clock/via,vt8500-clock.yaml      | 179 ++++++++++++++++++
+>  .../devicetree/bindings/clock/vt8500.txt      |  74 --------
+>  2 files changed, 179 insertions(+), 74 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/clock/vt8500.txt
+> 
 
-					Data length
-Algo		MB	   16	   64	  256	 1024	 2048	 4096	 8192
-MD5		1	+21 %	+15 %	+29 %	+25 %	+50 %	+16 %	+20 %
-SHA1		1	+24 %	+22 %	+27 %	+22 %	+18 %	+20 %	+20 %
-SHA256		1	+30 %	+24 %	+25 %	+26 %	+21 %	+41 %	+19 %
-SHA512		1	 +4 %	 +3 %	 +8 %	+10 %	+24 %	+10 %	+11 %
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Tested on Armada 3720. Platform passes testmgr selftests.
+yamllint warnings/errors:
 
-Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
----
- arch/arm64/boot/dts/marvell/armada-37xx.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/clock/via,vt8500-clock.example.dtb: /example-0/pmc@d8130000: failed to match any schema with compatible: ['via,vt8500-pmc']
 
-diff --git a/arch/arm64/boot/dts/marvell/armada-37xx.dtsi b/arch/arm64/boot/dts/marvell/armada-37xx.dtsi
-index 360fc24fdde2..8418777042b8 100644
---- a/arch/arm64/boot/dts/marvell/armada-37xx.dtsi
-+++ b/arch/arm64/boot/dts/marvell/armada-37xx.dtsi
-@@ -437,6 +437,7 @@ crypto: crypto@90000 {
- 				interrupt-names = "ring0", "ring1", "ring2",
- 						  "ring3", "eip", "mem";
- 				clocks = <&nb_periph_clk 15>;
-+				dma-coherent;
- 			};
- 
- 			rwtm: mailbox@b0000 {
--- 
-2.53.0
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260524111813.39810-1-challauday369@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
