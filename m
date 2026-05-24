@@ -1,150 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5239274B39
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 10:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099A82E65D
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 10:59:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779620249; cv=none; b=KPQR4covL+rpEMPzE74jamZ7PH/Ntm1/tFOa+kDHBMi5OQ0g8LhQU1Wr4mj0hU457KX/2W8Vgf/AgEUUWLLAqrAmUI5/qW84AOONmn0yAbLFthdWRhqirP9nFWWD3Q6wDjP0jYfZHxosB7nQ7elI0f5V2EA6erIak/h8SGDhrk4=
+	t=1779620358; cv=none; b=cVIpf/qlR9YUICd31g14rgwxXtj2Tig3gWpL2FwAuUy9aogd9bsTd/wg2ZWW0DuGbZKu0Lr6HJTqCsJR/7bQCTuHv4L6lkYxsrq+LZGOAH16yawHmDMaPpC6lwcjfrD7cJWMUVXLpHSRA0P3nr0Mk4428q6b7Un4lTUiM388Hbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779620249; c=relaxed/simple;
-	bh=qpwEfo8YjgB6oLSca0Cquih6PbsuhW8NRMvrwgO28CA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j3Mjtyc9oDb0qi+72Zm4h01xF1/m/k8BlXnsJ3yqsdoo9NPX7FYvgesKbzrmHkRRtopgKqJvcIhY3t80uIN/1CVqrhw18YQcEuXt5gQfVYC4j5+dkPFsgkG8glGkseXqDMNqE15Mx+/CogoNuSfe7lVQmcvdpyD49eXsZXBQkm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mti/O02L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779620358; c=relaxed/simple;
+	bh=qbAAMj8v0Vzlk6IsntMTRvq/WtpyYsXlahFNXLVZADw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qlMWrmZClcMO6vLRuX+LmCHleIKM8T/i+fvyqJ5kAXOvQoYKOeseI5d37T9NdW2WDK9hJrNbz5BmlEETvinTKj6oupJ6xNYKuT9NSH473c6RadX4IwiiuJV9fOMp1n8eahxPrqbhFCp+QfADU8oyYagsLgdbbn+aXbV8RVNjy9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lNKRBOKU; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mti/O02L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51FA81F000E9;
-	Sun, 24 May 2026 10:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779620247;
-	bh=VdYDIOjuP/nz5LyFa8skv3Hs4axtbRYZWDIap7zRFZ8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Mti/O02LNrKW7JdWFLjm99mqkS46xdHRGIPhqZ3UrluU9SplrWMDiB9H7kPl4Q5Lj
-	 BCHh33HBhI1fGMzITrlomb6XkUnd/UI0s8aW3/f09Vs2y0u7PtCbMroUBoHUESAywn
-	 N3krlVjGButiGaxp/svb57xfbSAEdgUZna8mowSIBGKFrHp/TBMIWl7COqcEVODbaV
-	 eorj8kx344t/vwOBXaJ39nYAjP1ynXvDueJHqHIJdTKkVO0NE0V9ZFyAvJ0qlmREw9
-	 3N3Ja8H6wo8I0QFG1HKWStnDW34g0NZCwxJ5DI1xMnYa5loKu9eCdVtG1hBBtN/sO5
-	 Uxq4sddXQfQtw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 6/7] iio: osf: register IIO devices from
- capabilities
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinseob Kim" <kimjinseob88@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260524085312.15369-7-kimjinseob88@gmail.com>
-References: <20260524085312.15369-7-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 May 2026 10:57:26 +0000
-Message-Id: <20260524105727.51FA81F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lNKRBOKU"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-48984d29fe3so91021995e9.0
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 03:59:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779620355; x=1780225155; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7s/WuWNL9ddRgnnG+HfLCLif5sg1VJxBqglIWP1cQXQ=;
+        b=lNKRBOKUFg23ALYEkoMYO6yLq1vZSF1+2xbGqtPsNy4EizZSNZoIsRj8nf0PE9+7Yt
+         zRfMksz3DQsFJKMp5Y0Ckz+NR4fAVFHoNQXoI+roGlsBz8qFZVFxQs8Qa6Qig2VaczTw
+         7hCn4UeJ6sx27AENt4JttGChsPCPIwb3R7WHdZFWiaX7sLoiW0Wp7MWj4QnNwdMR8dK/
+         Xov7cWZilQtuR59TUAFWZvESL6yT7YNdbCVS+qTRWxrmCu8ZpsBz5JK0XtiGLNFrN7C4
+         uLqNsc0WFnGOhLILrpBb4920zRWct3eEY8wdt2uNbT4mFJCNfhpDMlC57cxHlE0AfxNU
+         BLJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779620355; x=1780225155;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7s/WuWNL9ddRgnnG+HfLCLif5sg1VJxBqglIWP1cQXQ=;
+        b=Fh39PcoKVgactFunLOvQ5bCd72dYkKet7xz+G44nZRDQZu4adCUIDLebZdn2dkhHHR
+         LM9r0XlVEduKrQZC1xTBrkDjKI6T23dTygkKrYfEHANBSoatm8KXntUTVASGNtsjW7FF
+         TDMXPBormieoTmV4wXHir0kDjVLwN38OEQGJGScrjMn7Nk9L+yOH4yl1rp5xfYyWjZEO
+         7tSlHGcRoNiHbFzZfrUs7s0kC84uggjhYzWN2HdCNTgzAgr2Hq+07uWGZu+1KQ9s32tr
+         U+ORV13v52U/LDYlCiwrLLPAm1JqgEI4ADHu7g49ArewpFDkE6uaU4UDWX6v1HoldRAe
+         MEsg==
+X-Forwarded-Encrypted: i=1; AFNElJ9JJU83g0wH3lJHSdUOLCIEdepMPLgKNq5uM58Rqx/a1GwqIqcqpo/weXUfPBNmxpUYsTdQd7Pi6KRC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yza4TUEpYCQV3PMlbLNExwg5NssUeKu7tzY1QYb+QWbNz29iCKc
+	UpLVC2KOs2QjGuPhlMzaBd6UsTov8tuCf30LXrgI9rx6qlDDsa3Nw2AfSg51NMcMjcc=
+X-Gm-Gg: Acq92OHNQT3dmjE6yD1TpgvjKX0iQy0XbbQCvvTYGoVSnI+0QX1L9lSvO/lWQTPvsh7
+	HjPZjzVl9/9GgZeExe7Aj0viAz/5L7oWiAjPArI1I/7iWUPJfsRhUW0DjzUaT+OFyLdm+4NRRhD
+	nLHgHrS3sAktwSdd/7x1H9Cfy0+LayOBhcCmAHOj/htXI/Yt96/SD6cwFhFdbBplzjiKxJexsNx
+	zJ2h4iMVpTYTopSU3bB7tC6eKKpRgLdbSHMoHwushTHeTKxAtkkk3K3cTLfOiY7XaB5rjMvOTM1
+	Jzt8FlCf0vZpVNE8V3SzwAffFMuD6SDZMPhktaQeM41VzDJNF5Im4vXexrtj89a3lrSt05Q5e3s
+	5iwdlGmTgNdbiWo5xxj8O6xYm9NQII8Sk0x29EQk70dzklqRSNzY+mv/SLYO9pspT4O30CSEYMd
+	5Gop/2vDMXtTuwxAGtmp9AlD5ywnai0PyyibzrU/vKirE=
+X-Received: by 2002:a05:600c:3b0a:b0:490:60cb:560b with SMTP id 5b1f17b1804b1-49060cb57b1mr22246205e9.28.1779620354935;
+        Sun, 24 May 2026 03:59:14 -0700 (PDT)
+Received: from [172.20.52.45] ([89.101.53.26])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490428e5adcsm66212625e9.21.2026.05.24.03.59.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 24 May 2026 03:59:14 -0700 (PDT)
+Message-ID: <8f19b1c2-8469-4699-980b-fbd3b3354169@linaro.org>
+Date: Sun, 24 May 2026 11:59:09 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: sashiko-reviews@lists.linux.dev
+Cc: neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org,
+ linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org,
+ conor+dt@kernel.org
+References: <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <20260523030420.045501F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260523030420.045501F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The OPEN_SENSOR_FUSION Kconfig entry selects IIO_KFIFO_BUF without=
- satisfying its IIO_BUFFER dependency.
-- [High] Uninitialized kernel heap memory is leaked to userspace via the II=
-O buffer due to an unvalidated channel count.
-- [High] Concurrent access to the shared `latest_samples` array without loc=
-king or memory barriers.
---
+On 23/05/2026 04:04, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [Medium] Using the literal `endpoint:` property name inside ports bypasses constraint validation for endpoints with unit addresses.
+> - [Medium] The `data-lanes` property on `port@1` is overly restricted to `maxItems: 1`, which will break multi-lane DPHY split-mode configurations.
+> - [Low] The example uses a non-generic device tree node name `csiphy@...` instead of the standard `phy@...`.
+> - [Low] Mismatch between the `vdda-0p9-supply` property name and the actual 0.8V hardware supply used on the x1e80100 platform.
+> --
+> 
+> commit 10936c65e44aeea784cc13676d51700996cf6559
+> Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> 
+> dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+> 
+> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+> PHY devices.
+> 
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>> new file mode 100644
+>> index 0000000000000..270375f949880
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> [ ... ]
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: mmcx
+>> +      - const: mx
+>> +
+>> +  vdda-0p9-supply:
+>> +    description: Phandle to a 0.9V regulator supply to a PHY.
+> 
+> [Severity: Low]
+> Does this property name mismatch the actual hardware supply voltage for the
+> x1e80100 platform?
+> 
+> The example later in this schema uses <&vreg_l2c_0p8>, which indicates an
+> 0.8V rail. Should this be updated to reflect the 0.8V voltage?
 
-commit 699c891149ed43c06353cf9d1622dbd226109bd7
-Author: Jinseob Kim <kimjinseob88@gmail.com>
+This was feedback I forgot to implement yes.
 
-iio: osf: register IIO devices from capabilities
+>> +
+>> +  vdda-1p2-supply:
+>> +    description: Phandle to 1.2V regulator supply to a PHY.
+>> +
+>> +  ports:
+>> +    $ref: /schemas/graph.yaml#/properties/ports
+>> +
+>> +    properties:
+>> +      port@0:
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        description: Sensor input. Always present.
+>> +        unevaluatedProperties: false
+>> +
+>> +        properties:
+>> +          endpoint:
+> 
+> [Severity: Medium]
+> Will using the literal endpoint: key bypass constraint validation if an
+> endpoint with a unit address (e.g., endpoint@0) is used?
+> 
+> Because the port references port-base, such an endpoint will pass the
+> unevaluatedProperties: false check, but its specific constraints wouldn't
+> be validated. Could this use patternProperties: "^endpoint(@[0-9a-f]+)?$":
+> instead?
 
-Register supported IIO devices from the first valid capability report.
+Not sure about the answer to that. Also feels like the tool could have 
+made this suggestion at v7, definitely room for improvement.
 
-> diff --git a/drivers/iio/opensensorfusion/Kconfig b/drivers/iio/opensenso=
-rfusion/Kconfig
-> index 360f25b4fe60b..004d2aa8ae10b 100644
-> --- a/drivers/iio/opensensorfusion/Kconfig
-> +++ b/drivers/iio/opensensorfusion/Kconfig
-> @@ -5,11 +5,11 @@ config OPEN_SENSOR_FUSION
->  	depends on IIO
->  	depends on SERIAL_DEV_BUS
->  	select CRC32
-> +	select IIO_KFIFO_BUF
+> 
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+>> +            unevaluatedProperties: false
+> [ ... ]
+>> +      port@1:
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        description:
+>> +          Second sensor input. When present, indicates DPHY split mode.
+>> +        unevaluatedProperties: false
+>> +
+>> +        properties:
+>> +          endpoint:
+> 
+> [Severity: Medium]
+> As with port@0, should this use patternProperties: "^endpoint(@[0-9a-f]+)?$":
+> to ensure endpoints with unit addresses are properly validated?
+> 
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+>> +            unevaluatedProperties: false
+>> +            properties:
+>> +              data-lanes:
+>> +                maxItems: 1
+> 
+> [Severity: Medium]
+> Is maxItems: 1 too restrictive for multi-lane DPHY split-mode configurations?
+> 
+> Split-mode typically divides a 4-lane PHY into two independent 2-lane
+> interfaces (e.g., data-lanes = <2 3>). This configuration would fail
+> dt_binding_check validation with a single item limit.
 
-[Severity: High]
-Does this config also need to select or depend on IIO_BUFFER?
+Not sure where Sashiko is getting this "typically" stuff from since 
+split-mode is a qcomism.
 
-Since IIO_KFIFO_BUF is defined within an 'if IIO_BUFFER' block in the Kconf=
-ig
-hierarchy, selecting it without having IIO_BUFFER enabled can cause unmet
-direct dependency warnings and build failures if core IIO buffer support is
-disabled.
+But no in split mode port@1 is specifically restricted this way.
 
->  	help
-> -	  Build the Open Sensor Fusion UART receive path.
-[ ... ]
-> diff --git a/drivers/iio/opensensorfusion/osf_core.c b/drivers/iio/opense=
-nsorfusion/osf_core.c
-> index c867b315865d2..a1e20ede9b149 100644
-> --- a/drivers/iio/opensensorfusion/osf_core.c
-> +++ b/drivers/iio/opensensorfusion/osf_core.c
-[ ... ]
-> +static int osf_core_handle_sensor_sample(struct osf_device *osf,
-> +					 const struct osf_frame *frame)
->  {
-> +	struct osf_latest_sample *latest;
-[ ... ]
-> +	latest->sensor_type =3D sample.sensor_type;
-> +	latest->sensor_index =3D sample.sensor_index;
-> +	latest->channel_count =3D sample.channel_count;
-> +	latest->sample_format =3D sample.sample_format;
-> +	latest->scale_nano =3D sample.scale_nano;
-> +	latest->sequence =3D frame->sequence;
-> +	latest->timestamp_us =3D frame->timestamp_us;
-> +	latest->valid =3D true;
+Is there a way to give definitive feedback - with a meta comment perhaps 
+- that stops the tool continually giving the same feedback ?
 
-[Severity: High]
-Can this array update cause data corruption for concurrent readers?
+> 
+>> +              clock-lanes:
+>> +                maxItems: 1
+> [ ... ]
+>> +      port@2:
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        description: Output to CAMSS controller.
+>> +        unevaluatedProperties: false
+>> +
+>> +        properties:
+>> +          endpoint:
+> 
+> [Severity: Medium]
+> As above, should this use patternProperties: "^endpoint(@[0-9a-f]+)?$":?
+> 
+>> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+>> +            unevaluatedProperties: false
+> [ ... ]
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+>> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+>> +
+>> +    csiphy4: csiphy@ace4000 {
+> 
+> [Severity: Low]
+> Does this node name violate the standard naming convention for PHY providers?
 
-osf_core_handle_sensor_sample() updates the latest_samples array from the
-serdev receive context, while osf_core_read_latest_sample() reads these
-values from process context when userspace accesses sysfs attributes.
+In the example does that matter ? Passes the dt checker anyway.
 
-Since there is no synchronization like a mutex or seqlock protecting the
-array, is it possible for readers to experience torn reads, partially
-updated states, or see valid =3D=3D true before the payload data is fully
-committed?
+> The core phy-provider.yaml schema expects node names to match the generic
+> pattern ^phy(@.*)?$. The current name csiphy@ace4000 will likely trigger a
+> dt_binding_check warning.
+> 
+>> +        compatible = "qcom,x1e80100-csi2-phy";
+>> +        reg = <0x0ace4000 0x2000>;
+>> +        #phy-cells = <1>;
+> 
 
-> +	osf->last_sequence =3D frame->sequence;
-> +
-> +	indio_dev =3D osf_core_find_iio_dev(osf, sample.sensor_type,
-> +					  sample.sensor_index);
-> +	if (indio_dev) {
-> +		ret =3D osf_iio_push_sample(indio_dev, latest->values,
-> +					  latest->channel_count);
-
-[Severity: High]
-Could this leak uninitialized kernel heap memory to userspace?
-
-The channel_count is assigned directly from the incoming network frame. If a
-frame arrives with a smaller channel_count than the sensor's expected
-num_channels, calling osf_iio_push_sample() ->
-iio_push_to_buffers_with_ts_unaligned() allocates a bounce buffer using
-devm_krealloc(..., GFP_KERNEL) which does not zero memory.
-
-It then copies only channel_count * sizeof(s32) bytes into it. The remaining
-space in the bounce buffer would be left uninitialized before being pushed =
-to
-the kfifo, potentially exposing kernel heap memory to userspace readers.
-
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524085312.1536=
-9-1-kimjinseob88@gmail.com?part=3D6
