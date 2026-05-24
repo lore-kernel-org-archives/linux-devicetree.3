@@ -1,134 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B5E3955D4
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 15:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4173331237
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 15:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779636194; cv=none; b=eDDdZgQ7B44Wca21DfZNQtFoAz9Kc0A9vdbwxaTgFfuQ8Qi/pcXlIyCNLYtDtL8bP4DlC556MnDnwcZ25vbJCuS3tHq4jyfvCPKaTo2XJ6UbFAwFKH1u43NN+9Pn1fqQ4CoZHbeOV2cxoajDyUK6OJDiiYtNG+T85q1xEjmptM0=
+	t=1779636534; cv=none; b=gi8nD0P3VzhXmyJMrocqdzDv++Km3eGb8txWDj5Opmw0GwcmFSnCJBs46KX92X/ZZ/SigJwFMI+M7+ip++sP8yaSy8Wy6YWQAikZFOrZLWYsGyRT9xOvKMVcvp3fiU6oW7x/D84PrVg8zTHpMZmf2oZ3Tv64UL15duh+BNQw+kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779636194; c=relaxed/simple;
-	bh=5nGYyyDqDBFR1dXA/5DT76VZzCrhZXHkyJXWKVcFooc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lQXHJ0FVsPTGixWxZnV2HzIIk0oS3yKfjC23cl9J/UjrvNFJoMvExanSX4EsRHn+hTzyw9rMwIDAclP45NCsKCFt3+Q5z4zp7Fihlrde7/C+8wffNGtFZS0Xu4YUGavtGevzWYisxipCftZdKfq/mwJJUiqhQwzPTHjySGEVVwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mf602wzZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779636534; c=relaxed/simple;
+	bh=LOTnnJjEfjgYhK9mTHRLydScQOQIdkcxoYCOiNnNjio=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=npAm8USS5pGLiJlRMDgVnojNKpDLYya6YC1zB1Dwiltp8hf4i75UjWpm3N6LOXoycNRiUp6lSQPmfKxgi+ohIlDWAaKCWCC8TLjKkciUcTWT+b3BRsYTPEOvMFa+ccOJCGeYGEtSolwPFcW2ExbRPqe0B6xWro3TBhNKkN+IZq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D5/smh9K; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mf602wzZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C741E1F000E9;
-	Sun, 24 May 2026 15:23:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779636193;
-	bh=EyH4MXiIOWzKm859w14kDQucpYwlERVTcs8ywUWkJeM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mf602wzZ4wUV06Gpnmghsd8S3zs1izoy0Tr8AVyEZh/pgpflkZBGOz70IWUZkBODJ
-	 NJN2GN1+C5F+r5xexQapZ3UlhVGITpoEYMMMAlbMOQyG3s18ufbjXcxr1SHobcSzxc
-	 N38i/ddB7bgXT93iWH0/w8I6lT+1NtzDaYCfDOM/AbBjIWqQIbAqGyZ/1ahtsowT03
-	 wFPMPyzMCgFK4SgKoWW4UBUdvEz/xuhi9w1pKYxHBdXv7RgljBFBuirJMNLK8wydar
-	 1HdpVUqgk7sjGvSy0FN9x21nWR2Sh8oFms0+lUflPx84HFmMUivQgC8as4UPBBcrhy
-	 sv192JmSPxsxw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] dt-bindings: clock: via,vt8500: Convert to DT Schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Udaya Kiran Challa" <challauday369@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260524151110.21277-1-challauday369@gmail.com>
-References: <20260524151110.21277-1-challauday369@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 May 2026 15:23:12 +0000
-Message-Id: <20260524152312.C741E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D5/smh9K"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3684a6f3b0bso4382764a91.1
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 08:28:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779636532; x=1780241332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W210ympgJYEgFlBfWOamMTnDBMwWQEx0ZM4PLQE0EHo=;
+        b=D5/smh9KJ5A/sBpqvx7F/KcXSjN8LQnB3yIuaTtSp7Wk9hqLtIr29naQdOAyBP/O9E
+         e6lzLi6EgB+8BBOWHdbVPb3Kcr0It6SRDJy96GWVEusveC2y/N3HqwrVhfm+ro5Wrs84
+         C6gNfKdzmmGmwI1RwrlQrhIPOHOSv4ylNecvSyP0UuNclWk5AxnUgqPRRsI9WAz3YlfN
+         wVdW7A5MLG5cY6KMQ9XBk+tedth9L1lMyEpYozyldeij7YBikmHfesOGkbHbe+WVzMQo
+         yd7jCA6w97TgqZfTbGGPWHIj9Ez0z8gJpUPUodo+1ifKGoFysiqbqmv/wqJMV5FVtKGf
+         /azw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779636532; x=1780241332;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=W210ympgJYEgFlBfWOamMTnDBMwWQEx0ZM4PLQE0EHo=;
+        b=bwwtTiuYdA2Fg7ECIZWPhf0jUN1+nnJsd9qIzX+eUjnccf2jEHHIWG2f3qU+F1Bhhg
+         wp9BjG7n7J9nGxOsRTv7eeuSmOcOhKGn2+WA4n1QbqKt7Tn2hZvU/5vWVncBmOh/sUWZ
+         R2cnG/k8LUuF+QuGocFGvQvX6QjV3tSesPxLBiVbrElWfNXEUd7e1POsmp0wen86kR75
+         PV32LY8c5x9Xblnsw80UjBo9sHAEaJJFP2SLmySGu0Ce8L7zJzsQZ4yIJ6TnGBSdYKBD
+         jrjkVO5sr4tEllz/d6xQ4OiWF99aDynLaWFamUQ51TVh3AvthvLpdEZfJvNJJeErLMnO
+         pZWQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+NpMKVPK4gM8b6q876KjSrpvMlC/hqtnrXRnIr9fT8Ekyrv5sRakuUvsM9E6Jpc+oDEPipJQW4lshv@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMAawvsDnhPG2UhkNFjIT48O6KygMhsbToh/nFTZLDLI7FNwNh
+	cKlN2CtHyF1fHpkK80U2U3WKqNlvXpm797W4yb0WtgSJIakV9D3p1sfS
+X-Gm-Gg: Acq92OFpxiFgvxxWp6yPR5sU11lhYhOLCBpaGsEFRUa/8pybWYWahE55Y6+NqPZAxeI
+	0DxsyjUnSoiQovQY4vTVwK6KDdBhaTs+n5YZXSdNpU35KguG88aaLt0EpSQw+KSJYpzPuL60wZI
+	oA7tHlcY8pr2Bb5hl5R5OYariqpig4THuo57SUpGxSXElnuXTa8LLs89TfnkPiZjZmmi03Kor7T
+	3QzdnwaofOipUC+pTqUWV3cvMJjHNOH63q3Hjh+INSB7bHSIn9DZbjlSrzZ+KtgwJ/ivyLx77Eb
+	ydPnZ9cBK9t4nLHTxwYFRZASYqkT5zs3hfo5aIl4K9mnJrvhaXzWI31Ui5VTtA/YKrLN+Tclg7O
+	NNKQuO+HMqH8Z6Co9szGKCcyAma/N7FNYNpkXbBn6ASvNkG3bzJuAgP7W3FmU+GIqMTcx1kEWwt
+	EmrrFcY5d1bwy8QT0VuMJl/+smap8qu4SPsUKJrpKsSNcg6OUhRw==
+X-Received: by 2002:a17:90b:560b:b0:35b:d795:cf5d with SMTP id 98e67ed59e1d1-36a6bb5b91dmr8168182a91.5.1779636532194;
+        Sun, 24 May 2026 08:28:52 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a5f:4fa1:cc65:18c0:209b:38a4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36adc0a6e94sm465904a91.4.2026.05.24.08.28.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 24 May 2026 08:28:51 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: lee@kernel.org
+Cc: conor+dt@kernel.org,
+	daniel@zonque.org,
+	devicetree@vger.kernel.org,
+	jerrysteve1101@gmail.com,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	luccafachinetti@gmail.com,
+	pzalewski@thegoodpenguin.co.uk,
+	robh@kernel.org
+Subject: Re: [PATCH v5 4/5] leds: is31fl32xx: Add powerdown pin to exit hardware shutdown mode
+Date: Sun, 24 May 2026 23:28:46 +0800
+Message-ID: <20260524152846.381844-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260520141259.GD2767592@google.com>
+References: <20260520141259.GD2767592@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `patternProperties` regex enforces strictly lowercase node nam=
-es, inadvertently rejecting standard `fixed-clock` nodes unless they violat=
-e DT naming conventions by including uppercase letters to bypass validation.
-- [Medium] The patch defines a new schema for `via,vt8500-pmc` but fails to=
- delete the existing legacy text binding for the same compatible string.
-- [Low] The `divisor-mask` property lacks a `dependentRequired` constraint =
-to enforce that it can only be used when `divisor-reg` is also present.
---
+> On Fri, 08 May 2026, Jun Yan wrote:
+> 
+> > The IS31FL32XX series features an SDB shutdown pin.
+> > Driving it low (active low) places the chip into hardware shutdown
+> > mode for power saving, while all register contents are preserved
+> > and registers are not reset.
+> > 
+> > Drive the pin logic low during probe() to exit hardware shutdown
+> > mode.
+> > 
+> > Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> > ---
+> >  drivers/leds/leds-is31fl32xx.c | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> > 
+> > diff --git "a/drivers/leds/leds-is31fl32xx.c" "b/drivers/leds/leds-is31fl32xx.c"
+> > index fe07acbb103a..57d779e07a62 100644
+> > --- "a/drivers/leds/leds-is31fl32xx.c"
+> > +++ "b/drivers/leds/leds-is31fl32xx.c"
+> > @@ -10,6 +10,7 @@
+> >   */
+> >  
+> >  #include <linux/device.h>
+> > +#include <linux/gpio.h>
+> 
+> <linux/gpio/consumer.h>?
 
-commit f63cd62ab71a54ca61f786bce852286bf98a7852
-Author: Udaya Kiran Challa <challauday369@gmail.com>
+Got it.
 
-dt-bindings: clock: via,vt8500: Convert to DT Schema
-   =20
-Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
-controller binding from the legacy text format to DT schema.
+> 
+> >  #include <linux/i2c.h>
+> >  #include <linux/kernel.h>
+> >  #include <linux/leds.h>
+> > @@ -60,6 +61,7 @@ struct is31fl32xx_led_data {
+> >  struct is31fl32xx_priv {
+> >  	const struct is31fl32xx_chipdef *cdef;
+> >  	struct i2c_client *client;
+> > +	struct gpio_desc *powerdown_gpio;
+> >  	unsigned int num_leds;
+> >  	struct is31fl32xx_led_data leds[];
+> >  };
+> > @@ -421,6 +423,11 @@ static int is31fl32xx_parse_dt(struct device *dev,
+> >  	const struct is31fl32xx_chipdef *cdef = priv->cdef;
+> >  	int ret = 0;
+> >  
+> > +	priv->powerdown_gpio = devm_gpiod_get_optional(dev, "powerdown", GPIOD_OUT_LOW);
+> > +	if (IS_ERR(priv->powerdown_gpio))
+> > +		return dev_err_probe(dev, PTR_ERR(priv->powerdown_gpio),
+> > +				"Failed to get powerdown gpio\n");
+> > +
+> 
+> "Failed to get 'powerdown' GPIO".
+> 
+> Shows that powerdown is the name of the pin and correctly capitalises
+> GPIO.
 
-> diff --git a/Documentation/devicetree/bindings/clock/via,vt8500-clock.yam=
-l b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
-> new file mode 100644
-> index 0000000000000..51a68df6c2f30
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+Okay, I'll fix this.
 
-[Severity: Medium]
-Should this patch also delete the existing text binding for this compatible
-located at Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.txt?
-Leaving the old text binding intact causes duplicate and fragmented
-documentation for the exact same compatible string.
+> 
+> >  	if ((cdef->output_frequency_setting_reg != IS31FL32XX_REG_NONE) &&
+> >  	    of_property_read_bool(dev_of_node(dev), "issi,22khz-pwm")) {
+> >  
+> > -- 
+> > 2.53.0
+> > 
+> > 
+> 
+> -- 
+> Lee Jones
 
-[ ... ]
-> +    patternProperties:
-> +      "^[a-z0-9-]+(@[0-9a-f]+)?$":
-> +        type: object
-> +
-> +        properties:
-> +          compatible:
-> +            enum:
-> +              - via,vt8500-pll-clock
-> +              - wm,wm8650-pll-clock
-> +              - wm,wm8750-pll-clock
-> +              - wm,wm8850-pll-clock
-> +              - via,vt8500-device-clock
-
-[Severity: High]
-Does this regex unintentionally restrict compliant lowercase node names?
-
-Any standard child node with a compliant lowercase name (like "ref24") will
-match this pattern and be strictly restricted to the compatibles above, fai=
-ling
-if it contains properties like clock-frequency.
-
-It appears the fixed-clock examples in this patch only pass validation beca=
-use
-their node names include uppercase letters (e.g., "ref24M"), which evades t=
-he
-regex entirely and falls through to additionalProperties.
-
-[ ... ]
-> +          divisor-reg:
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            description:
-> +              Offset of the clock divisor register within the PMC
-> +              register space.
-> +
-> +          divisor-mask:
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            default: 0x1f
-> +            description:
-> +              Bitmask describing the divisor field inside divisor-reg.
-> +
-> +        dependentRequired:
-> +          enable-reg:
-> +            - enable-bit
-> +
-> +          enable-bit:
-> +            - enable-reg
-
-[Severity: Low]
-Should this section also include a constraint to enforce that divisor-mask
-can only be used when divisor-reg is present? The legacy text binding indic=
-ates
-the mask is semantically tied to the divisor register.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524151110.2127=
-7-1-challauday369@gmail.com?part=3D1
