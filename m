@@ -1,81 +1,76 @@
 Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EB3258CD0
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 15:50:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C7438F957
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 16:02:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779637816; cv=none; b=ldyjsUPoGID9Gea+xJG8Na7tbYMZYbRqAgynmhxF6IZIhBlAQKeoIWQr+YoKfRaE5Dq6ttxDTbBlDwgN6TOxU6YPxq+MZT155GPnKEYEPCKF450lUjPuIeoPqZkKIoU9dNg2GDYCEiCXNuQdV1UgvVFhD0CtuIpzgtkme7Rv+Nw=
+	t=1779638531; cv=none; b=mLjfYk6YknEjGbgevQDY30EJToq1J49AG+Qhucz1MZtQaKuEH9ZXb/y5Jj7WWbUu2p1/ykZCm/Q4vHKnGdbY9oIWYmbSULppkBYKXpS95dv+NHPOl3FwdCiyKt6V2o6PhdzQ99d0wr1NZaWvNccFuH+Ac72AjFuNaYIotYvCvOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779637816; c=relaxed/simple;
-	bh=8/mjomMcL/tL01rBMy4OoB6MPyHJ2iOSUQhMgcRC5yk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X+mzPNsyWDDv81Vz/byjO197m1g1l+QYIX1AA/PQdE0xm/XuTXZFpeIpBHVPVewZDNHcbq52g/e5k+lHEgbD8/Wj6XEmVLcHuMJJL8efT+DIYa4EpL2Asgu4hkxx9MCvqNVTFalmP5huMztAdLPkHfGV45buv5AAKhfO2Q8ZEGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CGmD2IDo; arc=none smtp.client-ip=209.85.210.171
+	s=arc-20240116; t=1779638531; c=relaxed/simple;
+	bh=/2FowBmTffQSv3oYiUq4wpxtR5RlTC/ynBBcs2MAq7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MTx2fh8k2AG9p+HyBdW+++aL+j9/RdpaHM50FWAl1x2qQjjOEDqyWgWpJh1acxrQ2sAWikJfdohrAsXQHJv2UgqDGZILbzDORkNaV4XLYPXR2kbbvrwBM4SE0bDrwwAGMrDIaL4dFu886P3R3s41i8712hk5s8J/RSyYdeJ57gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IREI6N8g; arc=none smtp.client-ip=209.85.210.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CGmD2IDo"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-835386ff122so9075339b3a.3
-        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 08:50:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IREI6N8g"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-83659d38e38so3547210b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 09:02:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779637815; x=1780242615; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779638529; x=1780243329; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ReOkgoPLdCaHd6CcEsCAqea7Z9/lGvf+pkF1enOHLhw=;
-        b=CGmD2IDoKBnonh8gG3rhE30QTkqJGjNlPViueoMlrfByHWL/C3F61i6RuG5eN5Pt3C
-         j62OveBck8dtdEpuLt1CenCkuOEVYrPgKQtAF+n8GLk4VSQWU9UE0xE4tFBZBaiOqzGe
-         Mmx3Y7YWEOnSAveptf6ZFkuVGwWuxYMD0r+HGqXhlhCnAailqrFDDOnCFDJ0BJlY3InP
-         Vysva+BLyCedNTmFDzWXySJD77pZbsTeEDIGO9Bekw4YjBv/9OhlL81JJvYKX9ylfTpN
-         m4T2NcVaKhfHkSeeT34eubdvx5glmZMxsqKPCKFkRZKPSX2Q5FBQ68Hb1kfDysoY+o3K
-         ntQA==
+        bh=o9VbgS0e1D8hUKDDSe/YNkcF3i1Zf23UEsIw2M9+xHI=;
+        b=IREI6N8gMrmxKQ0AxJM2yz4R+2fMipRgkdeaFqgRiLQBVAdXqg4u8PJbr9L1c2kBho
+         chHY6+vw8j/e3rYWijmBVuioUQ9Ofl0U+lc7ZKwYoeBT7y4lQ9+7er5cpYDAcqNZWDq1
+         Iu0gZVPJ34xm/D8s3873oFeS/h2csujJgzbSTC2Vjq5gEqSTsTkurIHHXGNnuJFqsiF+
+         lFFjagDWGV1j+4sPPCIzW5fHecMcJkt+dMdQF2MOGM0L+WeHjcS4IOVsWio/uFb5qFPC
+         CJWD31sUkauNZtmaPSYjvO0Oc0b5sSgMyD2LZVXz9joy1R2FKGV3mNfur2ypfx0iT53j
+         Uobg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779637815; x=1780242615;
+        d=1e100.net; s=20251104; t=1779638529; x=1780243329;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ReOkgoPLdCaHd6CcEsCAqea7Z9/lGvf+pkF1enOHLhw=;
-        b=PIpmbEIp23VQgtYBFoLQsgeLB9HoIze0nftu4t42YavTPjIe6miN6viG0+3uxAwJ7J
-         rwECeONyCqR7oE3ikJrjIW2b76HTDamzyb8BLegTeZowO4iC9YAUEyXooXcvgSlLt91s
-         QIsO22vsUz3ltjfQdEmNRxMD44SKQb2PLyLFBfa0GUVjSLdS0D88yNXmq9gsH6r8RXDU
-         OBqapO1l4eqzOpiHygnEaOsBh9vCSy9i+5iirmkhpU9saq2/CPxNRoAdf7s0qvRvE5v/
-         37KLHAP+YtwXKqGqw9H/6IBYjOOeMAzPgVnzhoiskYb0bkdHstSAiDQoIo7VHtOe29s5
-         vn1A==
-X-Forwarded-Encrypted: i=1; AFNElJ83HFTYsi6Iq9JUt/+MdnlGKlO/D+ZCuebLXqmjw8TMRi58jL9BxHu3zCZcbzMKkOXqc7nnkFVbDwIG@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyw4HCzh2A1kLvxeJ5qiwQ1S/h2+GEk8vUYKEG3M+I2Br7yPeLm
-	L88BtQiqxN+HsUObAJfWMVh71M4z4b//FS1jeWBCnmmZY02yWmTbu0aF
-X-Gm-Gg: Acq92OFKMig6PVJBCpRMYn/CmyTeIMY5tZjQvCOmzjvSaSlH/zyt144QWS93zfivoIf
-	Md5JEnBqi/1P/esFC79raSmOnN9h0/fksHDh4amYrkd63UloHTQpdhQG7C4OVVMt+49IPLTaIz+
-	gNFwnGWut47wi7r7HdBo2czwGS4szidG4yaDTxklu8My2X1F6o9WCl9Ey8S3vW6P8+5KT2Q/F1D
-	h5UarStSCuQtWyqhZvD3TA3w26jUmoDwPSzptZukjsGnGsoKWQPbWEfGWlWV/Nw5L5EREl2Z1MA
-	dgJ12IFDLnJ4pH8Zq8wrZt5POr+Eex2OQW9N0fzDVUBVLNJdgCkzcbISiqMgzG7nmBaFo0vMy0n
-	DtSiqQSc/y7BZS5EoifpYhyK+0e5jZ1Raq5UcR8ZU2yMJyxoI9APYKQ9RG4ym4BhtXGgaYRZeSM
-	W2/Ybk8dj5j5k31GeNTANGI/4Ijcyxu3O8+Y1LG+qciXlpLa8i/w==
-X-Received: by 2002:a05:6a00:2d25:b0:82f:5051:f024 with SMTP id d2e1a72fcca58-8415f5dcc6fmr10442376b3a.27.1779637814974;
-        Sun, 24 May 2026 08:50:14 -0700 (PDT)
-Received: from arch.localdomain ([2409:8a28:a5f:4fa1:cc65:18c0:209b:38a4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164ac9b74sm6997716b3a.3.2026.05.24.08.50.10
+        bh=o9VbgS0e1D8hUKDDSe/YNkcF3i1Zf23UEsIw2M9+xHI=;
+        b=bDlNBNUKVVjD5y0pFeY1/quV/JxVhSPKbPu4ji1qibLU/SVK12M0lXWrmlxM4OW+zd
+         8lqJfh6/OAdsiTzvUxU3XHbBpzoFM2EPl7nvA1TJxemtax1A19p6hSUwOScz9+F6bHAr
+         My0Q5X0wfqMehD2PHXX9DZ/nA7COLsTaouYZGrwyH25YQ6FXZgJ2k6Fp7YWxHRyOUcdh
+         awTuxkRAOQkU5p+iNF8o/pnhQbIpQXn80qVlMtTtusJh1JMaQGNxQM/T+xJAj18aJLYK
+         tSMhJWqC2kNSDeUNhaaTsE2wIdzSBPyFlcmf21YDh5HVS1LsQILNM7bz7HlgO11tTGxf
+         zA+w==
+X-Forwarded-Encrypted: i=1; AFNElJ8LUZM8H1TPLkrVzLwkwX7CCeRCfZ48j19Q23jur7PbpUWzQg8Y+CvsafH+TdBCq/AfHBX1fM9+POgB@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIveTeGkbt9nkZmoMK+PONIaMg2F5G84oS7FbmQj6ijiuFDDRi
+	9jfkvYVOJLkqXTg8zChUqKvQrELkCE0yKc/qrnnxj+EibPjCO9lGy8B5
+X-Gm-Gg: Acq92OH68lmwOtUGw6qqlCn5wCXLCNLa2ggZu/GX+ZGQnFJUUFN2/EHiDU7adDuPdLw
+	IMQ8EPjwXyf4Ve+RrhK+J/wNJ2stRR9T2EkzIsQW8A9Qhoy3oApN3mSB57p8yp/P7LEnqLnJ4Lz
+	CxtKKe4U0oVRWZwOtCPlDIsZfNhV4MiAH3dlyQ5htzYUUnwUh8TVkvAZxSK89IPN4bN7QvugREM
+	P9XueI9UCwDuk6ATofLJLutCTeFV77/hE7fjwOthi6H0lfG2tBNypS/6mP6FRV+z9R1pXBQjN0O
+	KWM/b78bk+t+6b/jd9jVSATcw9gsi7iRQvwfIwlXOT+as7qxvJxYg5XcPuzzw+cw677tO/CKn+K
+	WSD9dRJpWXgLZ4ajFTXQRYxWvfK6AxRHNbNEUhxep5aTz/Iy9Bxj996aKG+q9FJKxeIw9LnA7ar
+	mQap01AHuQeM9MVzWkgQu4A4FUJILfB7/SyT8IvzmYPJ9bdsmhkMVQZ6mCpmmzrn/TtKo=
+X-Received: by 2002:a05:6a00:138c:b0:83a:a55f:c3f9 with SMTP id d2e1a72fcca58-8415f376933mr10139833b3a.20.1779638529093;
+        Sun, 24 May 2026 09:02:09 -0700 (PDT)
+Received: from Ubuntu.. ([49.37.169.210])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164ea09a9sm8128372b3a.31.2026.05.24.09.02.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 May 2026 08:50:14 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	linux-gpio@vger.kernel.org,
+        Sun, 24 May 2026 09:02:07 -0700 (PDT)
+From: Manish Baing <manishbaing2789@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	zonque@gmail.com
+Cc: linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: gpio: meson-axg: Fix whitespace issue
-Date: Sun, 24 May 2026 23:49:53 +0800
-Message-ID: <20260524154954.385778-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	linux-kernel@vger.kernel.org,
+	manishbaing2789@gmail.com
+Subject: [PATCH] ASoC: dt-bindings: sound: asahi-kasei,ak5386: Convert DT schema
+Date: Sun, 24 May 2026 16:01:58 +0000
+Message-ID: <20260524160158.109983-1-manishbaing2789@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,35 +79,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Clean up whitespace misalignment in meson-axg-gpio.h
+Convert the Asahi Kasei AK5386 ADC binding from text format
+to YAML schema.
 
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
 ---
- include/dt-bindings/gpio/meson-axg-gpio.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/sound/ak5386.txt      | 23 ----------
+ .../bindings/sound/asahi-kasei,ak5386.yaml    | 44 +++++++++++++++++++
+ 2 files changed, 44 insertions(+), 23 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/ak5386.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/asahi-kasei,ak5386.yaml
 
-diff --git a/include/dt-bindings/gpio/meson-axg-gpio.h b/include/dt-bindings/gpio/meson-axg-gpio.h
-index 25bb1fffa97a..a0d42bcd9bd3 100644
---- a/include/dt-bindings/gpio/meson-axg-gpio.h
-+++ b/include/dt-bindings/gpio/meson-axg-gpio.h
-@@ -23,7 +23,7 @@
- #define GPIOAO_11	11
- #define GPIOAO_12	12
- #define GPIOAO_13	13
--#define GPIO_TEST_N 14
-+#define GPIO_TEST_N	14
- 
- /* Second GPIO chip */
- #define GPIOZ_0		0
-@@ -52,7 +52,7 @@
- #define BOOT_12		23
- #define BOOT_13		24
- #define BOOT_14		25
--#define GPIOA_0	    26
-+#define GPIOA_0		26
- #define GPIOA_1		27
- #define GPIOA_2		28
- #define GPIOA_3		29
+diff --git a/Documentation/devicetree/bindings/sound/ak5386.txt b/Documentation/devicetree/bindings/sound/ak5386.txt
+deleted file mode 100644
+index ec3df3abba0c..000000000000
+--- a/Documentation/devicetree/bindings/sound/ak5386.txt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-AK5386 Single-ended 24-Bit 192kHz delta-sigma ADC
+-
+-This device has no control interface.
+-
+-Required properties:
+-
+-  - compatible : "asahi-kasei,ak5386"
+-
+-Optional properties:
+-
+-  - reset-gpio : a GPIO spec for the reset/power down pin.
+-		 If specified, it will be deasserted at probe time.
+-  - va-supply : a regulator spec, providing 5.0V
+-  - vd-supply : a regulator spec, providing 3.3V
+-
+-Example:
+-
+-spdif: ak5386@0 {
+-	compatible = "asahi-kasei,ak5386";
+-	reset-gpio = <&gpio0 23>;
+-	va-supply = <&vdd_5v0_reg>;
+-	vd-supply = <&vdd_3v3_reg>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak5386.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak5386.yaml
+new file mode 100644
+index 000000000000..df896f3a5e08
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak5386.yaml
+@@ -0,0 +1,44 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/asahi-kasei,ak5386.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Asahi Kasei AK5386 ADC
++
++maintainers:
++  - Daniel Mack <zonque@gmail.com>
++
++description:
++  The Asahi Kasei AK5386 is a single-ended 24-Bit 192kHz delta-sigma
++  analog-to-digital converter (ADC).This device has no control interface.
++
++properties:
++  compatible:
++    const: asahi-kasei,ak5386
++
++  reset-gpios:
++    maxItems: 1
++    description: A GPIO spec for the reset/power down pin.
++
++  va-supply:
++    description: Power supply for the analog section.
++
++  vd-supply:
++    description: Power supply for the digital section.
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    adc {
++        compatible = "asahi-kasei,ak5386";
++        reset-gpios = <&gpio0 23 GPIO_ACTIVE_LOW>;
++        va-supply = <&vdd_5v0_reg>;
++        vd-supply = <&vdd_3v3_reg>;
++    };
 -- 
-2.54.0
+2.43.0
 
