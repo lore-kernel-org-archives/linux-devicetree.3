@@ -1,415 +1,140 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC75399019
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 15:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C092D8DBB;
+	Sun, 24 May 2026 15:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779635490; cv=none; b=Jo2iCSwbqfFAvGoW657J2BKE6WP6cOaTA9SQ5Mywv2RewNWGMIqWEXxpgcW+rP52dg62FCBCs3nBSzKJdXDn8Jsk+RCA3n5j09J//zDdd0J3Mu1g39QY7JyV7Yjzaf6BqXZ+0/aKAIcRKGAftOGUWOazzlBwJQuvmRQJxwHEoUY=
+	t=1779635629; cv=none; b=G/tdSC8qxCzaMQZ31ngQ67S2ZPUednOQOFpgmMHRd1sS2Z/RYAnT4LT+rFMYBXC8Lp7GDJjf35BO9CxvSFNJvvMMN/NfeTq/s5t54UA0EvHRmVrn5VQB2bi8GRKlP6TDoMn25bKm6zEymN60qOPVIYWD4WqMCrWFRP9n3MVlUcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779635490; c=relaxed/simple;
-	bh=OUtAOVwne9bvsXDe3iQGcZBu/tBOqt/Kf3mXhe2EU1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=US5aKO64Z90Vj5tTCbDy2Hr4ZVt61jQ5XTWxAXeZueVr3nzc4HM4iRLeqjvTkFDTKX00py6msR7cyCdiJQ7IInFPRRTjCOa2YIEs8+kxu7PyWVmX7Moyr7G93JpYeHNCvg7KyjUvZTBEuwHx2OnkmTjMPT9iKoMjKSxVlDv15p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LMXQD5jB; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779635629; c=relaxed/simple;
+	bh=OyPiwTZFtMQvKOgGaBaDIAqhhgjYSld/o6LZ0tORrJ4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=N4mifvnie1P7fXMEFxMA8d6ft9cubRJN/K9jae4KmRweeFrWKlhbfu8Hu1yLh1xzt4CEiKbA3CPEWLDd8/9i6uicUO1KA6zgvKkgX0QlamTsGj6rTQn2hGjm+nhGFldLzlmMM9hRkLeuIlD/g4vcl1JimodG7BHbl6WXPDxF2VI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S9HcMBJz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LMXQD5jB"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2b4650d5f5cso36339545ad.0
-        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 08:11:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779635488; x=1780240288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=xx4kXC0gPV4SZPi2HPcoBpfpiipwhrpU54HmKY1vzdQ=;
-        b=LMXQD5jBAWO9D4PrP9aCIDdZ6Lyz4ioyR4kiCuN9+OwQYXfChHQsYkAgg/HtVqgxFE
-         X2inUcvJSd82SnU5DEfEX1J+VlibSPV+JC7ZNrF1BrDb8oWUlm6+iH9UBGUq4tnlnpa5
-         eR/YKGf26iUBuW15CO8MakJW1bMjulpIfQ7IYwnM5JUk59JTZffFFjlxvcxodyXPiKvw
-         ZPsl1jXVCfC5nWu46o34AIussMO/qsWnAXCT2sy3d+/4f93KUoPinw89r2yw0pmAF1bz
-         X4XGvuq+pf/A4iN5pp3VtvLxe14CfkO7CBy+PMd5QOwaNlKzraHGxVpN15JoQWMW4p7E
-         4g+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779635488; x=1780240288;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xx4kXC0gPV4SZPi2HPcoBpfpiipwhrpU54HmKY1vzdQ=;
-        b=VT4VMfkzf4uDYgJonwKj1Q9hsXhZuLuycWZs4S3WaUTPYUJA70/hF7ke0sklPWA1MH
-         kiCRvOHtcH30G7nwQG3q2BsgZnBjimDe/hizmqQ8w+r8bo2kTQgiTaj/dLMaU/8DRyYL
-         SaaJ0fgLATa4P32A4/wI50cEnhIBVfEsPxxX+EyrnVYCkyr/dnG1bvzHTSA13BxxQzh6
-         Ei/76il8jlEednk9DogbYS8tVEEBFIUKsOs60Kkh/0aOtUSs56leOqEWJMr14rfzFb4j
-         jOgyJWL4A6XQcndItA/WH8ypfC3KdAqgmxjP9KOFlEiOTcoU8K/epEcS1GtfOubwtyKo
-         G8mQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8TG0BrMp7yjc3t1tck/kX/MyqlEqmink28nakb7yDvY4DSkic8pupTLqbYWfKdAgWRjdO+YOhbhA/v@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0i/4hAwKbz7CjIG7bw7SCt4+SJAyduVCLZcmObhd3VhmSRs5f
-	e/ziIIZYf56GgWHC8zdNKxg9BbJua6sCkZpilo4cBAPyJx5QkIagOmEx
-X-Gm-Gg: Acq92OHcQYER8dRbyL2ZY8RcQPdk6Yw6IFxpg337N3Gc30cJd9ouxnYvspejhZPvwBq
-	tn7+zc7B63WKP84NYF5vj1M1CnkQ8zkpbCc/EOI1TpWuuAKFujoxloMpJXTRF2QNp+0d85Gfbpq
-	yGi9kHQBMl6tSX4az7SC6Q0QVcORrjv1bb+cIJ51amm7S1CiSotUT3UB+MrVJOApRvdYfF2m9NC
-	f9pA4MPQCXljNmhQCNAC1SCio+875Ssfbbf1aoZIRAjL/DU/Pt+dkgNoIZJo24lV5SrBBca6N3C
-	f1qSAr+CV7L+Qbt/RBwdODE4ICMf78vX/+N/K1CjQoPP5Ow2xUiRtF6uVaI0F+z8JyJXJyOWKSq
-	hY5dyWdJX7gvras5We4sJQNki4pnDaPvK2+jTxQ7+smCJN248Vhb4sxgW80Jqk5cwHoDvHsZFj+
-	h9nyDWgRRAiupHEMA/0at3zixWbaqVSubIIn2KBA==
-X-Received: by 2002:a17:902:f78b:b0:2bd:7684:34b0 with SMTP id d9443c01a7336-2beb057fd79mr137000465ad.15.1779635487568;
-        Sun, 24 May 2026 08:11:27 -0700 (PDT)
-Received: from ultimate.. ([58.84.60.222])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb591f63dsm90061775ad.83.2026.05.24.08.11.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 May 2026 08:11:27 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: mturquette@baylibre.com,
-	sboyd@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH v4] dt-bindings: clock: via,vt8500: Convert to DT Schema
-Date: Sun, 24 May 2026 20:40:26 +0530
-Message-ID: <20260524151110.21277-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S9HcMBJz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD92A1F000E9;
+	Sun, 24 May 2026 15:13:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779635628;
+	bh=6bZN8ocWjBwQYAvhPss9YboT5CzawSLi/7j7owFEg/A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=S9HcMBJzayvHIx2xfQNVSLrOH1ZFCpyj9lnRIaGGkELEkdKXBdj4K0pARvODMWQnc
+	 REG6ErBZ5cVNGE4aLV6GBG8zm6QeH6dE2WotY2ZvtdY/zQ7RBCjzIUccFQyhmTDJqy
+	 DEitdC9KUuRs0bvXA9tyffrje1kmQxWsOcxC5bZmq83oHl8P2lCAHdIp4n9IdfB+Og
+	 4jCMk6tqI9z4ONMvGafJWFCcBhIpYxQCRU8iqMaR6tkLMI+J/vVWZKTzlzi4Q6tjV4
+	 a4m5TK6COnuterSIlUHQF/FlOXf3TVi5ijpdTBvTQvJYAaAxRoUXlb4YC6R95W8T1a
+	 t1UrqPq75as3A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/9] arm64: dts: lx2160a-rev2: extend 32-bit, and add
+ 64-bit pci regions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Josua Mayer" <josua@solid-run.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
+References: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 24 May 2026 15:13:47 +0000
+Message-Id: <20260524151347.BD92A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
-controller binding from the legacy text format to DT schema.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Expanding the 32-bit PCI outbound window to 3GB causes it to overl=
+ap with the inbound system memory address space, breaking DMA.
+- [High] The introduction of the 64-bit PCI memory range causes existing U-=
+Boot bootloaders to fail device tree patching, breaking MSI and IOMMU.
+--
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
-Changelog:
-Changes since v3
-- Add schema select matching for via,vt8500-pmc
-- Allow hyphen in node names under patternProperties
-- Add dependentRequired validation for enable-reg/enable-bit
-- Fix example validation against PMC schema
+commit a80e2e3f97808fdad781240469c5e07e019191e9
+Author: Josua Mayer <josua@solid-run.com>
 
-Link to v3:https://lore.kernel.org/all/20260524111813.39810-1-challauday369@gmail.com/
+arm64: dts: lx2160a-rev2: extend 32-bit, and add 64-bit pci regions
 
-Changes since v2:
-- Drop redundant description for clocks
-- Disable reg property for device clocks
-- Fix schema hierarchy to match actual DTS structure
+This commit extends the 32-bit PCIe memory regions to 3GB and adds 64-bit
+PCIe memory regions for LX2160A rev2. This allows allocation of large BARs
+requested by graphics processors or AI accelerators.
 
-Link to v2:https://lore.kernel.org/all/20260521170810.19702-1-challauday369@gmail.com/
+> [4] pci bootloaderp atching related errors with IORESOURCE_MEM_64 flag:
+> [    0.967809] layerscape-pcie 3800000.pcie: host bridge /soc/pcie@380000=
+0 ranges:
+> [    0.967830] layerscape-pcie 3800000.pcie:      MEM 0xa400000000..0xa7f=
+fffffff -> 0xa400000000
+> [    0.967842] layerscape-pcie 3800000.pcie:      MEM 0xa040000000..0xa0f=
+fffffff -> 0x0040000000
+> [    0.967849] layerscape-pcie 3800000.pcie:       IO 0xa000010000..0xa00=
+001ffff -> 0x0000000000
+> [    1.169315] pci 0000:01:00.0: [8086:1572] type 00 class 0x020000 PCIe =
+Endpoint
+> [    1.169733] pci 0000:01:00.0: BAR 0 [mem 0x00000000-0x00ffffff 64bit p=
+ref]
+> [    1.169771] pci 0000:01:00.0: BAR 3 [mem 0x00000000-0x00007fff 64bit p=
+ref]
+> [    1.169796] pci 0000:01:00.0: ROM [mem 0x00000000-0x0007ffff pref]
+> [    1.173389] OF: /soc/pcie@3800000: no msi-map translation for id 0x100=
+ on (null)
+> [    1.173515] OF: /soc/pcie@3800000: no iommu-map translation for id 0x1=
+00 on (null)
 
-Changes since v1:
-- Add default value for divisor-mask
-- Add required properties compatible and model
-- Fix example node name
-- Update example size cells and reg value
+[Severity: High]
+Does adding the 64-bit PCI memory range cause existing U-Boot bootloaders to
+fail device tree patching?
 
-Link to v1:https://lore.kernel.org/all/20260520025131.17772-1-challauday369@gmail.com/
----
- .../bindings/clock/via,vt8500-clock.yaml      | 209 ++++++++++++++++++
- .../devicetree/bindings/clock/vt8500.txt      |  74 -------
- 2 files changed, 209 insertions(+), 74 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
- delete mode 100644 Documentation/devicetree/bindings/clock/vt8500.txt
+When U-Boot encounters the 64-bit range, it appears fdt_fixup_pcie() aborts
+and fails to append the msi-map and iommu-map properties.
 
-diff --git a/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
-new file mode 100644
-index 000000000000..51a68df6c2f3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
-@@ -0,0 +1,209 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/via,vt8500-clock.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: VIA/Wondermedia VT8500 Clock Controller
-+
-+maintainers:
-+  - Michael Turquette <mturquette@baylibre.com>
-+  - Stephen Boyd <sboyd@kernel.org>
-+
-+description:
-+  Clock controller bindings for VIA/Wondermedia VT8500 and Wondermedia WM8xxx
-+  series SoCs.
-+
-+select:
-+  properties:
-+    compatible:
-+      const: via,vt8500-pmc
-+
-+  required:
-+    - compatible
-+
-+properties:
-+  compatible:
-+    const: via,vt8500-pmc
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      "#address-cells":
-+        const: 1
-+
-+      "#size-cells":
-+        const: 0
-+
-+    required:
-+      - "#address-cells"
-+      - "#size-cells"
-+
-+    patternProperties:
-+      "^[a-z0-9-]+(@[0-9a-f]+)?$":
-+        type: object
-+
-+        properties:
-+          compatible:
-+            enum:
-+              - via,vt8500-pll-clock
-+              - wm,wm8650-pll-clock
-+              - wm,wm8750-pll-clock
-+              - wm,wm8850-pll-clock
-+              - via,vt8500-device-clock
-+
-+          reg:
-+            maxItems: 1
-+            description:
-+              Offset of the PLL register within the PMC register space.
-+
-+          clocks:
-+            maxItems: 1
-+
-+          "#clock-cells":
-+            const: 0
-+
-+          enable-reg:
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            description:
-+              Offset of the clock enable register within the PMC
-+              register space.
-+
-+          enable-bit:
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            maximum: 31
-+            description:
-+              Bit index controlling clock enable.
-+
-+          divisor-reg:
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            description:
-+              Offset of the clock divisor register within the PMC
-+              register space.
-+
-+          divisor-mask:
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            default: 0x1f
-+            description:
-+              Bitmask describing the divisor field inside divisor-reg.
-+
-+        dependentRequired:
-+          enable-reg:
-+            - enable-bit
-+
-+          enable-bit:
-+            - enable-reg
-+
-+        required:
-+          - compatible
-+          - "#clock-cells"
-+
-+        allOf:
-+          - if:
-+              properties:
-+                compatible:
-+                  enum:
-+                    - via,vt8500-pll-clock
-+                    - wm,wm8650-pll-clock
-+                    - wm,wm8750-pll-clock
-+                    - wm,wm8850-pll-clock
-+            then:
-+              required:
-+                - reg
-+                - clocks
-+
-+          - if:
-+              properties:
-+                compatible:
-+                  const: via,vt8500-device-clock
-+            then:
-+              properties:
-+                reg: false
-+
-+              required:
-+                - clocks
-+
-+              anyOf:
-+                - required:
-+                    - enable-reg
-+                    - enable-bit
-+
-+                - required:
-+                    - divisor-reg
-+
-+        additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    pmc@d8130000 {
-+        compatible = "via,vt8500-pmc";
-+        reg = <0xd8130000 0x1000>;
-+
-+        clocks {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            ref24: ref24M {
-+                compatible = "fixed-clock";
-+                #clock-cells = <0>;
-+                clock-frequency = <24000000>;
-+            };
-+
-+            ref25: ref25M {
-+                compatible = "fixed-clock";
-+                #clock-cells = <0>;
-+                clock-frequency = <25000000>;
-+            };
-+
-+            plla: clock@200 {
-+                compatible = "wm,wm8650-pll-clock";
-+                #clock-cells = <0>;
-+                clocks = <&ref25>;
-+                reg = <0x200>;
-+            };
-+
-+            pllb: clock@204 {
-+                compatible = "wm,wm8650-pll-clock";
-+                #clock-cells = <0>;
-+                clocks = <&ref25>;
-+                reg = <0x204>;
-+            };
-+
-+            clkarm: arm {
-+                compatible = "via,vt8500-device-clock";
-+                #clock-cells = <0>;
-+                clocks = <&plla>;
-+                divisor-reg = <0x300>;
-+            };
-+
-+            clkuart0: uart0 {
-+                compatible = "via,vt8500-device-clock";
-+                #clock-cells = <0>;
-+                clocks = <&ref24>;
-+                enable-reg = <0x250>;
-+                enable-bit = <1>;
-+            };
-+
-+            clksdhc: sdhc {
-+                compatible = "via,vt8500-device-clock";
-+                #clock-cells = <0>;
-+                clocks = <&pllb>;
-+                divisor-reg = <0x328>;
-+                divisor-mask = <0x3f>;
-+                enable-reg = <0x254>;
-+                enable-bit = <18>;
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/clock/vt8500.txt b/Documentation/devicetree/bindings/clock/vt8500.txt
-deleted file mode 100644
-index 91d71cc0314a..000000000000
---- a/Documentation/devicetree/bindings/clock/vt8500.txt
-+++ /dev/null
-@@ -1,74 +0,0 @@
--Device Tree Clock bindings for arch-vt8500
--
--This binding uses the common clock binding[1].
--
--[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--Required properties:
--- compatible : shall be one of the following:
--	"via,vt8500-pll-clock" - for a VT8500/WM8505 PLL clock
--	"wm,wm8650-pll-clock" - for a WM8650 PLL clock
--	"wm,wm8750-pll-clock" - for a WM8750 PLL clock
--	"wm,wm8850-pll-clock" - for a WM8850 PLL clock
--	"via,vt8500-device-clock" - for a VT/WM device clock
--
--Required properties for PLL clocks:
--- reg : shall be the control register offset from PMC base for the pll clock.
--- clocks : shall be the input parent clock phandle for the clock. This should
--	be the reference clock.
--- #clock-cells : from common clock binding; shall be set to 0.
--
--Required properties for device clocks:
--- clocks : shall be the input parent clock phandle for the clock. This should
--	be a pll output.
--- #clock-cells : from common clock binding; shall be set to 0.
--
--
--Device Clocks
--
--Device clocks are required to have one or both of the following sets of
--properties:
--
--
--Gated device clocks:
--
--Required properties:
--- enable-reg : shall be the register offset from PMC base for the enable
--	register.
--- enable-bit : shall be the bit within enable-reg to enable/disable the clock.
--
--
--Divisor device clocks:
--
--Required property:
--- divisor-reg : shall be the register offset from PMC base for the divisor
--	register.
--Optional property:
--- divisor-mask : shall be the mask for the divisor register. Defaults to 0x1f
--	if not specified.
--
--
--For example:
--
--ref25: ref25M {
--	#clock-cells = <0>;
--	compatible = "fixed-clock";
--	clock-frequency = <25000000>;
--};
--
--plla: plla {
--	#clock-cells = <0>;
--	compatible = "wm,wm8650-pll-clock";
--	clocks = <&ref25>;
--	reg = <0x200>;
--};
--
--sdhc: sdhc {
--	#clock-cells = <0>;
--	compatible = "via,vt8500-device-clock";
--	clocks = <&pllb>;
--	divisor-reg = <0x328>;
--	divisor-mask = <0x3f>;
--	enable-reg = <0x254>;
--	enable-bit = <18>;
--};
--- 
-2.43.0
+Without iommu-map, the kernel will not attach the SMMU to the PCIe devices.
+Without msi-map, the kernel cannot translate PCIe Requester IDs to ITS
+Device IDs, which breaks MSI/MSI-X allocations.
 
+Could this prevent devices like NVMe drives from initializing and break
+compatibility with existing deployed bootloaders?
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi b/arch/a=
+rm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+> index f54005e37924b..db1ebee53f6f0 100644
+> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+> @@ -14,8 +14,9 @@ &pcie1 {
+>  	      0x80 0x00000000 0x0 0x00002000>; /* configuration space */
+>  	reg-names =3D "regs", "config";
+> =20
+> -	ranges =3D <0x81000000 0x0 0x00000000 0x80 0x00010000 0x0 0x00010000
+> -		  0x82000000 0x0 0x40000000 0x80 0x40000000 0x0 0x40000000>;
+> +	ranges =3D <0x81000000 0x00 0x00000000 0x80 0x00010000 0x00 0x00010000>=
+, /* 16-Bit IO Window */
+> +		 <0x82000000 0x00 0x40000000 0x80 0x40000000 0x00 0xc0000000>, /* 32-B=
+it - non-prefetchable */
+> +		 <0xC3000000 0x84 0x00000000 0x84 0x00000000 0x04 0x00000000>; /* 64-B=
+it - prefetchable - 16GB */
+
+[Severity: High]
+Does expanding the 32-bit PCI outbound window to 3GB (0xc0000000) cause it =
+to
+overlap with inbound system memory?
+
+System memory starts at physical address 0x80000000. Since there isn't a
+dma-ranges property mapping inbound DMA to a different bus address, system
+memory uses a 1:1 mapping, meaning inbound DMA targets 0x80000000 and above.
+
+If a PCIe device requests a large 32-bit BAR, the kernel might allocate it
+within this 0x40000000-0xffffffff range. This causes the Root Port's
+downstream bridge Memory Limit register to be programmed to a value >=3D
+0x80000000.
+
+A Root Port won't forward upstream memory transactions if the address falls
+within its programmed downstream window, as it assumes it is peer-to-peer
+traffic.
+
+Could this intercept endpoint DMA targeting system memory in the overlapped
+range and cause system hangs?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524-lx2160-pci=
+-v7-0-09370c23b952@solid-run.com?part=3D1
