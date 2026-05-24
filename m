@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A02D1E1E16;
-	Sun, 24 May 2026 18:20:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75503090C6;
+	Sun, 24 May 2026 18:23:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779646858; cv=none; b=JDnl0XfPW5rPZPA2jL050i/FrlqbH6HOxGP6ycE96aS4Yi0zmR+HSfT8CJpG0RaLfn/xN1dhyuGz+EDpEZZI4qHv20vWHDhqKSa3YXFqXFdykKNEWFo8ig3Fz1CgB68kTkKm0KSP1FHeYk500mdc2v973gW3r84MFTCJ1VXu+Lw=
+	t=1779647006; cv=none; b=BSky8pXnvrSPsupqH3ImvncBPtqz/Izpartmqj8sh8bQmsS6FbhkKLaeUAO1z3Y7eph+SxOr9Q3Wgj0o/SxIDld1H9FnoTI/3c9Xi4ZH1KqnfBVsK8VQcXFnpqs5g+dkoM6YY/I03yJpwi61C823MxXLbC4b1Kb9DLgHPZ1CNcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779646858; c=relaxed/simple;
-	bh=1lOzmvtqA2Sa8jOHX43PmPT+2J9Ysw9MUcZ4ZGJmxW8=;
+	s=arc-20240116; t=1779647006; c=relaxed/simple;
+	bh=61vma2EcoifwcyBr+lIjzTa5nYyd/rnvIJlytmPzj9s=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WBzoKIRNL3focLjmMIF92wP7IV8/r3Tk25O8ZdqHhU2VrlhHgW+HnuAptkDO6kNHsQ7xnpnx6IevJNDj4OQbuQneZirKeQk1JNBRNq4qL+RDCAEwtGxNzlg4FkyKvvh3G2bSqbR2MYwchuFkKfamQSBu04DYMjJk6lXr8tg1rog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=amOuWBZR; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Ho1QFg7cT2A2++ofVvWLPN6yFGuMgpUxteVqFZmNLHdLwXZK8z95E9XAddAw29yqtKUi1gfdZNlV6jSmU0sDZIaRn7FDXu5Ulq4sO1mo3+COsAUJ2E6F0h9W3chO+Qm1DVLKQxubKreh4N5S9cyCNWzaENNRiSRn/4tHcfC0B5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7h+M6ok; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="amOuWBZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D8C1F000E9;
-	Sun, 24 May 2026 18:20:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7h+M6ok"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A03C1F000E9;
+	Sun, 24 May 2026 18:23:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779646856;
-	bh=ti+0QCXGT7ETl1POeyETi1M8HN2lZW4xpw/OVCjE8eQ=;
+	s=k20260515; t=1779647005;
+	bh=cdRFPHuGugLSaiWwmHoaI+iYoeLkYCWY9qj5dYQBZFc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=amOuWBZRkpbbzWRXSo0gLh2BW8aM/+huZFF2HgwpnPIrHiaifu58+cgFfxhkF4Yu9
-	 4tjk0xP50i8CFEvfYatq3JDxwCU7iykVppJ/J1PD5sD7WMqceQ0YtJhWw36nQTdFxF
-	 rEp77CXtuolc9w+Gcc+YkxFjC3WnAt0U9VWh5Y4QsOHBMryussGc2P09HAdmAuAM56
-	 znOWGWHlv/Q9JcIRiqSdAUKHZFQUtaxuKOJLBjj4Q7YwRb4VYtWE8Seiu22Gqw0h2D
-	 HVMbttNmUIiRokX5YHhFZLOoU6u0/5xCymzbnz+Wg4HV6KEh/c1PGtP1UXD/dNuFnz
-	 OlRdFgjSuZykQ==
-Message-ID: <74eb56fb-546d-4b2c-9bbc-01a40937f5d3@kernel.org>
-Date: Sun, 24 May 2026 20:20:52 +0200
+	b=j7h+M6okoB+43HaV6uDqKk0O9HpoI6lBpCY8f0taGPJP1ZxMNQml0q2bz6kvHnkmn
+	 r2wBBRyIZYPpK+1S+NglbhtC4XmdukK2PHPWKBKXhRr2uFFfNmDS9IIIWlMNc9rkux
+	 8yWou7gsaWpj/rUOFUJlefxwTIw3mXYTXJS4CHXyeC4jAq/peb7MpSAg7+EJqpb152
+	 LfjzR/UmBcDPAQRnWQF/xpTG9ktl79JT9i2/1z1eupwDrpIsAEsj78w1FY0G5hWwr/
+	 iaDCO8JAu5bXXncDCaQgKoDHztdDlETyrYs90c/wpzA1KaoGEISLyrN3CzeYuSw/1T
+	 ntX8raJ/UoQfg==
+Message-ID: <c07d2798-95e4-4e50-9385-7adfc5791e3b@kernel.org>
+Date: Sun, 24 May 2026 20:23:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,33 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector binding
-To: Frank Li <Frank.li@nxp.com>
-Cc: "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>,
- Chancel Liu <chancel.liu@nxp.com>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "mturquette@baylibre.com" <mturquette@baylibre.com>,
- "sboyd@kernel.org" <sboyd@kernel.org>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
-References: <20260509024846.2094049-1-chancel.liu@nxp.com>
- <20260509024846.2094049-3-chancel.liu@nxp.com>
- <20260515-resourceful-singing-roadrunner-ce25ec@quoll>
- <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
- <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <20260519-macho-degu-from-nibiru-960af2@quoll>
- <AM9PR04MB8353B563519EBC1AD6C5BFE1E3012@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <e23a610f-e1ad-4536-80fb-8b5707e77f39@kernel.org>
- <ag3GMdmxw60B15Oe@lizhi-Precision-Tower-5810>
+Subject: Re: [PATCH] arm64: dts: qcom: Move board nodes to common DTSI
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sibi.sankar@oss.qualcomm.com, rajendra.nayak@oss.qualcomm.com
+References: <20260326-glymur-mahua-common-nodes-v1-1-12bb26920ea4@oss.qualcomm.com>
+ <03996c07-f9f3-4586-96ae-075927da2577@kernel.org>
+ <83c78333-4db9-4943-b90f-164981bb68d8@oss.qualcomm.com>
+ <hc3bkodsdzq3to4aaax7vaeahhlrisk3iytuaxu46bjm37p75w@4e7c4a3gh3lb>
+ <05c377ab-33ef-44e7-8708-575647de088e@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,106 +95,49 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <ag3GMdmxw60B15Oe@lizhi-Precision-Tower-5810>
+In-Reply-To: <05c377ab-33ef-44e7-8708-575647de088e@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20/05/2026 16:33, Frank Li wrote:
-> On Wed, May 20, 2026 at 09:08:42AM +0200, Krzysztof Kozlowski wrote:
->> On 20/05/2026 07:02, Chancel Liu (OSS) wrote:
->>>>>>>>> +description:
->>>>>>>>> +  The NXP I/O connector represents a physically present I/O
->>>>>>>>> +connector on the
->>>>>>>>> +  base board. It acts as a nexus that exposes a constrained set
->>>> of
->>>>>>>>> +I/O
->>>>>>>>> +  resources, such as GPIOs, clocks, PWMs and interrupts, through
->>>>>>>>> +fixed
->>>>>>>>> +  electrical wiring. All actual hardware providers reside on the
->>>> base
->>>>>> board.
->>>>>>>>> +  The connector node only defines index-based mappings to those
->>>>>>>> providers.
->>>>>>>>> +
->>>>>>>>> +properties:
->>>>>>>>> +  compatible:
->>>>>>>>> +    const: fsl,io-connector
->>>>>>>>
->>>>>>>> Everything is IO. Everything is connector, so your compatible does
->>>>>>>> not match requirements from writing bindings.
->>>>>>>>
->>>>>>>
->>>>>>> Yes, this compatible is too generic. I will rename the compatible to
->>>>>>> fsl,aud-io-connector.
->>>>>>
->>>>>> aud is not much better. Which boards have it? What's the pinout?
->>>> What's
->>>>>> standard? Is it described anywhere? If so, provide reference to
->>>> spec/docs.
->>>>>>
+On 15/05/2026 11:14, Pankaj Patil wrote:
+> On 3/29/2026 4:27 PM, Dmitry Baryshkov wrote:
+>> On Fri, Mar 27, 2026 at 06:16:59PM +0530, Gopikrishna Garmidi wrote:
+>>>
+>>>
+>>> On 3/26/2026 7:55 PM, Krzysztof Kozlowski wrote:
+>>>> On 26/03/2026 15:21, Gopikrishna Garmidi wrote:
+>>>>> The display, peripherals (touchpad/touchscreen/keypad), usb and their
+>>>>> dependent device nodes are common to both Glymur and Mahua CRDs,
+>>>>> so move them from glymur-crd.dts to glymur-crd.dtsi to enable code
+>>>>> reuse.
 >>>>>
->>>>> This is not an industry standard electrical interface. This connector
 >>>>
->>>> Then if you do not have standard, then you have board specific layouts
->>>> thus you need board-specific compatibles. You can use fallbacks. Generic
->>>> fallback could work, but both io-connector and aud-io-connector are just
->>>> too generic. Every connector is "connector" and "io", thus absolutely
->>>> anything can be "io-connector". "aud" improves it only a bit, thus
->>>> honestly I would go with board specific fallback as well.
+>>>> Same questions as for earlier tries (why this has to be repeated?), e.g.
+>>>> x1-crd: Please describe here what is the actual common hardware. In
+>>>> terms of physical hardware, not what you want to share.
 >>>>
 >>>
->>> How about board specific + common fallback compatible like this:
->>>   compatible:
->>>     items:
->>>       - enum:
->>>           - fsl,imx95-19x19-evk-aud-io-connector
->>>           - fsl,imx952-evk-aud-io-connector
->>>       - const: fsl,imx-aud-io-connector
->>> Since the daughter board is named “IMX-AUD-IO” in publicly available
->>
->> I don't think it is named like that.
->>
->> git grep -i imx-aud-io
->>
->>> documentation, common compatible clearly indicates that this connector
->>> is intended for that.
+>>> Hi krzysztof,
 >>>
->>> Also, I want to talk about the topic of generic connector. It's a common
->>> design that daughter board is connected to base board through a
->>> connector. This connector more often acts as a nexus that exposes a
->>> constrained subset of GPIO, clock, PWM and interrupt resources to the
->>> daughter board. Can we document this kind of connector as a generic
->>> binding?
+>>> Thanks for the review,
+>>>
+>>> Will update the commit message in the next re-spin.
 >>
->> So this binding is the connector between carrier and some addon? Then
->> you don't get a compatible for that at all, because it is not necessary,
->> not useful and NEVER used. Do you see socket LGA "connector" bindings? No.
+>> Before you respin, you can actually respond to the question. Do Glymur
+>> and Mahua CRD actually share those devices (in case of USB that would
+>> mean having the same baseboard with different SoCs being wired) or is it
+>> just "oh, this looks similar enough, let's create a common file".
+>>
 > 
-> Not exactly. Any connector connects a carrier board with an add-on board.
-> The key point here is that this connector type is reused across different
-> boards, even though it is not an industry-standard connector. Both the
-> signal definitions and the mechanical layout are defined.
-> 
-> The same add-on boards can therefore be reused across different base boards
-> that use this type of connector.
-> 
-> There are also GPIO mappings involved. For example, pin 1 on the connector
-> may represent reset-gpios, but it could be connected to GPIO0 on board A
-> and GPIO1 on board B.
-> 
-> Without a connector definition layer, this would create an N × M
-> combination problem. The Nexus node discussion already covered this topic:
-> https://osseu2025.sched.com/event/25Vrw
-> 
-> An LGA socket is a CPU socket, where the signals are completely transparent
-> to software, so it is not a good comparison. A PCIe M.2 Key-M/E connector
-> would be a more appropriate comparison.
->
+> Hello,
+> Yes we've verified across glymur crd and mahua crd schematics, the regulator supply 
+> and data lines are common across both targets for the nodes in the patch
 
-So the terminology of daughter and carrier boards was confusing. If this
-is a hat, mezzanine or other addon, it's fine.
+That's not an answer to the question. Or rather you just confirmed -
+they are similar, so let's create a common file.
 
-I still insist on board specific compatibles - fallback and specific.
+That's not a valid reason. Don't create common parts just because a few
+nodes are the same.
 
 Best regards,
 Krzysztof
