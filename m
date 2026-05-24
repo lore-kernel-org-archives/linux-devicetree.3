@@ -1,153 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E75D1F4CB3
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 20:46:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742A831E827
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 20:51:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779655579; cv=none; b=iWWhIF1UsDR0cfGkwz/+KqHmc1lbpGNJ3HsqLKjG7LS+YaKMAxEqvPDeT8G+B4b3WVBiNcBejkaLCaj5ue0BGq6TNEjSsCBsMSgRDi6FbZiLcSlKSMl1AGyEKZEyHqx2AOQ8RgfhQtf3BCaf5h4zuGWs4azm7apk8XAftMLITzo=
+	t=1779655878; cv=none; b=W/TjDsb6i4V6ZFQCNcaiAWHGRyIDi37kSj7PfYwqUcW+i9DasvL8vExKG6kTxSNz6eG7FLa4qX9jeMfexnKxx9dB/adoscbeGlAwAz1V/yqHrQtUXZN+t9DYD5nxIGBmh7qRv/tBzc6p7BwdJfvTkL9FjyEyAp7lPngc667UtY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779655579; c=relaxed/simple;
-	bh=z916saKk+Bibhk8li2KvcNhAv1Ate3JvIJh3qFvDy4o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PVqOFCD9TC+BOTAPV3PbEhIdHtMu+V9crqMkGgt7s9vVbmLceFo1+8dbH3cY9UR1DrhI+vModM3FpgqXSsNbtzDxjcPl9aJX93P9FUlE3n0DwPi+j+oYvjoR3vx2sYG2Wo5SV2Ye6BKloF+MGUQOa81450WDalpsyKO0NhGdkW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jmp3uHrJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779655878; c=relaxed/simple;
+	bh=dNi42FK/NcyBNyc7vhbWfVt8kE8yHM+UM1QYHU+lAl8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DVGWLImTC5eOH7m4/vaArRYIS6k2lfrSFEs6XcNAX6FgRRCa3XY1a8Bm/nA/A+IwiyvMUbzV8fFWdUmkbkpUlQTVk6O8aLcFBMcDO+NZZYOHECONwVtHgWdv1IPf//PLYnZ0JRdX3afq1ia9yc3p3AelRtykxtrVBfCiB9RwzfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q9Fmnecj; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jmp3uHrJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229D71F0155A
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 20:46:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779655578;
-	bh=XdF14EN2gaQGUPUIlCL2/+2xdkR1iD92W761e0Tt4JU=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=Jmp3uHrJalMuK97geIL59g/5n7B65j4S+VeBKj4DmDnWAQAOqouhdvFbo252rKe1N
-	 EUpcyyD86pld7FFWuHYj2qi8ttslywQ2YFv76xk/LlUttVGuoD9e4xgAb2hVLHFodp
-	 u6Q1IXTDm6SolrO1KWjZicEZWW5RynXVu/f7bW8JdKQU1niaxHUcErr+5GtJ0J//7M
-	 tS3zfKpjQBSUnWPA00aobrjTTMyxvZ/TVTOv9zHAI180OLjHC+Dvj5SdsgPFJNu5mY
-	 JaZH7oDTDHlAfcxE3VboyLjNP0h0O1pur4E3J7GfrvSc94tGzLkq5ydvaUoftCMZrX
-	 zBlUfe1hiS8dg==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39393c1b5aaso29023421fa.3
-        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 13:46:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8ljeb2PcPVAkbbrJlLjjsmaogkxMlHnHS/CyptbEIl9xjt4d0BIBFGSbD+3BrXeWMDg5/Xvuvcp9K6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQcFzNLesao5zuyDu43Gq2xhT3fSGqB8OMy8mLK5ynEOreweoD
-	9GEDSy8X0tYf3B/UCMmicoSKgfe5pUIX8Hfo8ia2NGOlfNAGHvCcT/r3NjSjfIiekhpJjM3LK+/
-	wdpBWuA6rhTxlQrs7xs/duSX74niuP/s=
-X-Received: by 2002:a05:651c:222c:b0:394:942:9bb6 with SMTP id
- 38308e7fff4ca-395d8c129fbmr37366311fa.6.1779655576527; Sun, 24 May 2026
- 13:46:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q9Fmnecj"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-44b330c5cc6so6855214f8f.1
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 13:51:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779655875; x=1780260675; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1karFQ40n6F55itqMEfrSq330zSkOURgW7UaPlHcGsI=;
+        b=Q9Fmnecj7ByL1HBIA83n5UN8/S+q/8rb1VtQRYBzBmq0Ux5iSKTciUXN2FTotXlTug
+         I73bQyFmH4Ku9qwFKCUBuzavB3MZt+DTo/2zpGU3IkjMgKEUSzirZv8NAJava/GCvqIC
+         aks2D7a1F4ay+rZuOrykm01mYxpM4P3oZtlbB+u8LCZSzDfcl9YmDbVtxWdTXoGANVc1
+         MqWvBxvmhq/pMxgagKYgJSdBtP0t86b4XPvajg7Pft3i3zxb6F40TEdaZBQB+H+KuDAu
+         AyZamWVu24sgLLYtu6XBtHfIed9OQ61p6V0vvZLgjCP6LgB75X/ztpW7eseU590U+nfq
+         m4kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779655875; x=1780260675;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1karFQ40n6F55itqMEfrSq330zSkOURgW7UaPlHcGsI=;
+        b=UgGwgheDvq8Fg0L9mY2cScUQHVKr8qPimbJrKqApmomT4nzoTqgQbou6rGxjaDvROb
+         z77ukmJcx9WaGtJo/aBzy+8cripNgOYDwPlO7D4KWBs5Zt5GEp8xJCVgZMXOksHfq5nl
+         zBq3wZTZy4dKg2buEX/7w4sw+Fg8cv/LFDg4cDWCK+zgy6vFVDW3hO804vcxy1dwrU5v
+         v3OwMumphJafVF3HYwHEhX2ZzEJiaXbX8mC8kXGsleGURgrJShq/0s8lqOYsC4P/ZFGj
+         yxXFdrkoVbUa/3aFfSS5d7D0bV4ySyBI3sAsO6Op8DcfWP3jUgktWosU5nr9Od01vmtH
+         B+zQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/gdr48qFSU781KkvABbxd+2/p7ajeCrdLwFrBZz4qy+tUWVaEZUBuI5lYaCa16cAQPI3n32JitelMh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNHQa/ZsWYmaHqN/G3IDKCYcwYjzE6iS+Y1nxwcvqd1P7RDzMa
+	NYk22TMpIcplfzp8pK4jr3TPsqy6kZh/Wot/WzZH0q0tIc9oQ3W0RRdM
+X-Gm-Gg: Acq92OG0RYkz8BZMjwgaA2eVE7tupuExZa+iqbAGxZXgYwAfjho2jrMn2a2NQAHv4c5
+	sILpbZuzPGU7koZCxm/7vW3ZVZr7WeWaxONWx6iJeVZAVge+06yF0iTWERpxlsrM2hqdKFvoGDB
+	y+j/jXSrEdFGKvldL44t2k1BZQY8hdI/4lnvEcrnXVSGBy/zVgQ44oJvvNL/C8MvNs0/1n+g2tq
+	XNPD5zSgg29afoQWznXpr87Yd2AzTiUTXZduAUfoGtyE3Psr8V6Q2By3bcWEhRzWRboJOJtIrGq
+	ck4R6CLaywH0rUH6MxBnaud12DaCzXNqyFmMQP0rc8P6EtbuoSpnQfd/R7HafDftDf2ZtB36I/R
+	61SuoeqwSujLke+sDbQaL1gtVLZ+5z48L5fcX0vsqbTlDdEmQzDf4mEEyHgXj+qBhfKf2m6fksQ
+	y0Q3rr
+X-Received: by 2002:a05:6000:29d7:b0:43f:e721:76b8 with SMTP id ffacd0b85a97d-45eb38be82amr14334500f8f.37.1779655874668;
+        Sun, 24 May 2026 13:51:14 -0700 (PDT)
+Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d6ebf0sm22738588f8f.34.2026.05.24.13.51.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 24 May 2026 13:51:14 -0700 (PDT)
+From: Wadim Mueller <wafgo01@gmail.com>
+To: jic23@kernel.org
+Cc: lars@metafoo.de,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	jdelvare@suse.com,
+	ak@it-klinger.de,
+	linux-iio@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v1 0/4] iio: add Sensirion SLF3x liquid flow sensor support
+Date: Sun, 24 May 2026 22:49:35 +0200
+Message-ID: <20260524205112.26638-1-wafgo01@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505134812.408316-1-wens@kernel.org> <20260505134812.408316-6-wens@kernel.org>
- <afpUiupOgPhLksM8@shepard>
-In-Reply-To: <afpUiupOgPhLksM8@shepard>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 24 May 2026 23:46:04 +0300
-X-Gmail-Original-Message-ID: <CAGb2v64Ln=2RnOf_WKHJTGphofe-+iUddenu7H4FNFx03tJoOw@mail.gmail.com>
-X-Gm-Features: AVHnY4LzB_OhmZqGSHcQSdeKCJP6XONAvy9GHgQqfzYfXCQHIhPSMFyqiHhyTFc
-Message-ID: <CAGb2v64Ln=2RnOf_WKHJTGphofe-+iUddenu7H4FNFx03tJoOw@mail.gmail.com>
-Subject: Re: [PATCH 5/7] arm64: dts: allwinner: sun50i-h6: Add missing SRAM
- region for video engine
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Maxime Ripard <mripard@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, May 5, 2026 at 10:35=E2=80=AFPM Paul Kocialkowski <paulk@sys-base.i=
-o> wrote:
->
-> Hi Chen-Yu,
->
-> On Tue 05 May 26, 21:48, Chen-Yu Tsai wrote:
-> > The SRAM C region contains a partial alias to the VE SRAM already
-> > referenced by the video engine. To avoid access through this alias
-> > window, the region should also be claimed by the video engine.
-> >
-> > Add a reference to the SRAM C region to the video engine node.
->
-> It feels very weird to have a reference to the DE2 SRAM region in the
-> VE node. It seems unlikely that the same region would be used by both DE2=
- and
-> VE and I am pretty sure can have both running at the same time without
-> overstepping.
->
-> From what I can see we have so far assumed that the SRAM C and SRAM C1
-> are two different physical SRAM areas, but this is most likely not the ca=
-se.
-> My guess would be that SRAM C1 is actually a part of SRAM C and the DE2 i=
-s
+From: Wadim Mueller <wadim.mueller@cmblu.de>
 
-No. It's the opposite. 0x28000 maps to the same SRAM block at 0x1a00000.
-If you write to one, you see the results in both. However the alias at
-028000 can be disabled while retaining access to 0x1a00000. I don't
-remember how much of the alias points to VE SRAM (0x1a00000). Maybe it
-was the whole alias on the H6.
+Hi all,
 
-Also, I can't remember if this was tested on the H6 or H616, but the
-VE indeed writes to VE SRAM (0x1a00000), so that part is indeed used
-by the video engine.
+this RFC adds support for the Sensirion SLF3x family of liquid-flow
+sensors (SLF3S-0600F and SLF3S-4000B).  Before I send it as a normal
+patch I'd like to ask three things:
 
-> using another part of it. The syscon block probably allows switching acce=
-ss
-> to these different parts of SRAM C.
+1. Subsystem.  Liquid-flow sensors don't seem to have a home in
+   mainline yet.  iio/ feels like the natural place for me, but
+   please correct me if hwmon (or somewhere else) is prefered.
 
-From what I've seen in the vendor BSP, both drivers toggle the switch.
-I believe the goal is to prevent the CPU from having access, rather than
-either peripheral claiming it as its own. And that is also what our SRAM
-driver does. It claims the SRAM from the CPU. That's all. The toggle bit
-pattern used by both drivers is the same.
+2. Channel type.  IIO has no flow channel type so far.  The series
+   adds IIO_VOLUMEFLOW with _scale in litres per second per LSB,
+   so drivers reporting smaller units only need a fractional scale.
+   IIO_MASSFLOW (for gas-flow sensors) was left out on purpose --
+   happy to add it in the same series if that's more usefull.
 
-> Also the sram_c1 node implies it's 2 MiB, which sounds quite unlikely.
+3. Subdirectory.  I put the driver in a new drivers/iio/flow/
+   since there is no flow subsytem in iio yet.  If colocating with
+   drivers/iio/pressure/ (next to sdp500) is preferred I'll respin.
 
-That is what the memory map says. Calling it SRAM C1 is probably wrong.
+Patches:
+
+  1/4  iio: types: add IIO_VOLUMEFLOW channel type
+  2/4  dt-bindings: iio: flow: add sensirion,slf3s binding
+  3/4  iio: flow: add Sensirion SLF3x driver
+  4/4  MAINTAINERS: add entry
+
+Tested with a SLF3S-0600F on a TI AM64x platform.
+
+Thanks,
+Wadim
+
+Wadim Mueller (4):
+  iio: types: add IIO_VOLUMEFLOW channel type
+  dt-bindings: iio: flow: add Sensirion SLF3x liquid flow sensor
+  iio: flow: add Sensirion SLF3x liquid flow sensor driver
+  MAINTAINERS: add entry for Sensirion SLF3x flow sensor driver
+
+ Documentation/ABI/testing/sysfs-bus-iio       |  17 ++
+ .../bindings/iio/flow/sensirion,slf3s.yaml    |  49 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/Kconfig                           |   1 +
+ drivers/iio/Makefile                          |   1 +
+ drivers/iio/flow/Kconfig                      |  22 ++
+ drivers/iio/flow/Makefile                     |   7 +
+ drivers/iio/flow/slf3x.c                      | 264 ++++++++++++++++++
+ drivers/iio/industrialio-core.c               |   1 +
+ include/uapi/linux/iio/types.h                |   1 +
+ tools/iio/iio_event_monitor.c                 |   2 +
+ 11 files changed, 372 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
+ create mode 100644 drivers/iio/flow/Kconfig
+ create mode 100644 drivers/iio/flow/Makefile
+ create mode 100644 drivers/iio/flow/slf3x.c
 
 
-ChenYu
+base-commit: 3cd8b194bf3428dfa53120fee47e827a7c495815
+-- 
+2.52.0
 
-> All the best,
->
-> Paul
->
-> >
-> > Fixes: b542570e5605 ("arm64: dts: allwinner: h6: Add Video Engine node"=
-)
-> > Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
-> > ---
-> >  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun50i-h6.dtsi
-> > index 72ce1a75647b..88c6e3e105c0 100644
-> > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > @@ -205,7 +205,7 @@ video-codec@1c0e000 {
-> >                       clock-names =3D "ahb", "mod", "ram";
-> >                       resets =3D <&ccu RST_BUS_VE>;
-> >                       interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
-> > -                     allwinner,sram =3D <&ve_sram 1>;
-> > +                     allwinner,sram =3D <&ve_sram 1>, <&de2_sram 1>;
-> >                       iommus =3D <&iommu 3>;
-> >               };
-> >
-> > --
-> > 2.47.3
-> >
->
-> --
-> Paul Kocialkowski,
->
-> Independent contractor - sys-base - https://www.sys-base.io/
-> Free software developer - https://www.paulk.fr/
->
-> Expert in multimedia, graphics and embedded hardware support with Linux.
