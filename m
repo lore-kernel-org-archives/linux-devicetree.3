@@ -1,112 +1,377 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8760038E12D
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 11:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED123911DD
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 11:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779621339; cv=none; b=NLFN1ujHJHGoDmK1X63aIZtf6aNLmaXOG207Wi1MYOa6/2ysuddZAqNbq3AYhBZK8Mx5VG3uXXx5tVnpCD7SQfmnyRgUiVYWkyQ39CMzYjWvU+SkGxsjBBp09KG7Fkkf0XCzkkD2hJ6j0sAIs2Tyi9MFz6zPMwt7oy7vdHZX80Q=
+	t=1779621516; cv=none; b=A38IxFx99dnlmyQ4E3SLnuBKs12oUIkmeGbzKH1oErKrSaDklhPKaCSApahnhSJALeRuFhDmrgvu/NUDJ2RRbmOZhXB221qtOETJ6xTluzMJ/1NUASeFuPi/MyD3h25oB73OFskHkH+d1NtODPCpTUAqypdEQknazlxCn0H4ufk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779621339; c=relaxed/simple;
-	bh=Eet/GGdyW6G9V6iSJeupRXURL+4pO7UA7poCAgWNUUM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lie0X84bSKUrdSrUXPrcS0bU5WneVyMM56oNbjKqFJu4MQclwT49b4Mxvm/BpZbmbf5BJwB4jpLyovdyfK2BVXlV6l3SvgC+8gM4jjoNuHAUkF3f/7mwtireSbQuPWzhJWj42M7NOrKSIEC10VwRfRFA0ql/aC2GLRWnFA3bGVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UF6pPDXr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779621516; c=relaxed/simple;
+	bh=CHATorjyQpgQ/fhEozlEM6x0MvgyFf4iyz8arn020Bo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uujyO0YG4Te+R2DUvSwuBSWP2pJ2DczYbKmH/u821hrd3+I1oR9EQAoGVh/IIqXXG/B1vgmpLhz8IUylqUXtVBuY2hXJSWlwOKwwZI+oMpse4KaIavF6Cnm/XDf1jlM6ooezPCTN9Aki8EMsNIKQwrjVnBC7ZTX/vDtImL8mFCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZrHWjKA9; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UF6pPDXr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DA51F000E9;
-	Sun, 24 May 2026 11:15:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779621338;
-	bh=0YRGT2J+MtL9DQr1bHUczELTToH51sVYUwogtixSp1s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UF6pPDXrr7kF1BbsnH+Pp4UnssD35UElRRrPqoZCD5vT7xXGJf9tiu4lAOSHgKTFp
-	 UsLUo3giUrkg3vKqNN59KHKtBcNe9QYs8kATKZBH/r2fqSYmGT1GkQ++4aVZZDYtOU
-	 J4jq1DRs5ytlWPfNNMTUfhA0vBqCTwIud9n8Z6KbWl7tZB1oHyG1gnhUUhkQQEQ5Gr
-	 fza0oWGH9/aWPHmM9i/81ECABrQGDiB4iapvFOMZx39TsbKqVYZgzvOuqGgZ7SdYGy
-	 CHUp9THVPvpjeWviCTROPUMoKQ1ZCoJGz8jGX4gVB1iqBE+aqgsT7ZbExU7jJ8Fm/c
-	 QTwlLLpcDEhVg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 10/12] iio: frequency: adf41513: features on
- frequency change
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260524-adf41513-iio-driver-v14-10-06824d9c15f4@analog.com>
-References: <20260524-adf41513-iio-driver-v14-10-06824d9c15f4@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 May 2026 11:15:37 +0000
-Message-Id: <20260524111537.E0DA51F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZrHWjKA9"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2b788a98557so55629105ad.2
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 04:18:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779621514; x=1780226314; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eU0+SkmrbUn90zbLT84Dxx/HgkuMHPwIrdZYYepcKqU=;
+        b=ZrHWjKA9BwRbj9bEcm1x9qa+gzTHiwKOKsEa5KAEOmhQN5dBLsbVybvUZkDzKo2j32
+         tUchYF9eNy7xC4ka9vZdi7/Who1fbWu4b4rmGgv1g2350zK1PadDduBCsSuJcUufom5X
+         8P2pK6Fo4dMFsKAzjORQrKorJ/HVVc3pQsNORBxhsqYlbUSFqz64U1JM9rTzuhIgJnw/
+         4QYutgz36K2TIMa1/HKc+STha5fUUagY91bosARauOC+ayO6759GLDXU2iROqcUrc9uI
+         pOGVPEmvAO/hwbDpS1O/XgUa3gCbIq8fMsSaDYGLpwTcqnHCoUQ2q9W1/u34SGd+sciu
+         QTow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779621514; x=1780226314;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eU0+SkmrbUn90zbLT84Dxx/HgkuMHPwIrdZYYepcKqU=;
+        b=oYfbuyl0PtTJTA2ALqPWYeANFKkIigdfgg4INziqpi9OdcS85wdqSgRL4j5Pj20swx
+         bdG1kyzqO6OpZug0liB3uH4xISfMr0Cb1ktmI5FMgB0MiYsktiiaVumu54AokELF+ZPe
+         3zSuqT3+mzYArCpjAZNEzU0+OZdVNr4P3cVHn3vDgnybmrbSNCjmZS15oMEJkAAKq2FG
+         0lGmkURlgpViglSeT5STotGbl1Cnbym60Wajk0NfnYEI3OX4DBby6JKJeJpRiuAr5RZF
+         XZ4cewJduQwWLhJoVx8DzMJcmzZ7a65PmgSwc1Z3qP39ExdYw2/zBteA6y2u/cfdFCoR
+         75Tw==
+X-Forwarded-Encrypted: i=1; AFNElJ9Tygm5LiDu8X5ftf74oTa/P5yTOdhsbCYDO21JZ9g3uPliis4pr4Rc0uOk15w/ND0IYw84QbSsTJyw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjjrYwonzC6M0LKSqtVfNd9pTVOy7gAVdu5eZb1NA9ELZaQvtx
+	dPoKLJdQtdwgs96xhTqqDsW8WzGYGr/1orlwR/oX2Jt0jqj0AGIj56GGYrzkmJo8
+X-Gm-Gg: Acq92OFYVApAN0boIggJ7xKkdQpWxv33cbMDEQnmgC+gqBq8DqpMM7LUiMwvG7FKRx7
+	k4bj6gX5jElnC4zxmekPfcGYwLWq5mcltVWC3gD93CaC70pMHuZx1VhMoFThCa9iacxl7tip/Rp
+	gEHjv2kASU7YsllhYK2BUhgXWxJpy3TUJ+aLe99jO7AxnZEHOcZ6o2w5SwFTMFgTbmYjayWRsQd
+	1RUc1WjffyJ8CbkIfa9JB5J3xBgfaAsOSB7nEylJzG0ZPUnXDMBXVJH53WuzIRHfapNLwbjkVSH
+	ctbOvp8GuBWQ35XYX6azlaqGodwY6XJ5APGaKUnpZWiYa3jUsiGjM5o78i1FPMPfW2wCr5yZuFB
+	lakrn5V60VJl30ZmWYntAcOtsqcYURpWm7db6Sf++JBD4sOSK+bL1bY8emlgh5tEo06an8icpZt
+	8HGEf4f3bhFtrJVwXuv4baglxUWleL71QPi3rmC6h6RP9JpBZC
+X-Received: by 2002:a17:902:d48e:b0:2ba:5a20:1d94 with SMTP id d9443c01a7336-2beb059944cmr114950745ad.13.1779621514232;
+        Sun, 24 May 2026 04:18:34 -0700 (PDT)
+Received: from ultimate.. ([58.84.60.222])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56958c8sm62453205ad.13.2026.05.24.04.18.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 24 May 2026 04:18:33 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH v3] dt-bindings: clock: via,vt8500: Convert to DT Schema
+Date: Sun, 24 May 2026 16:47:57 +0530
+Message-ID: <20260524111813.39810-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Bleed current is not computed or updated when switching from Integ=
-er-N to Fractional-N mode if the PFD frequency remains unchanged.
---
+Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
+controller binding from the legacy text format to DT schema.
 
-commit 299bd27511dd5b2a2354c749631d53bcff158e2b
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v2:
+- Drop redundant description for clocks
+- Disable reg property for device clocks
+- Fix schema hierarchy to match actual DTS structure
 
-iio: frequency: adf41513: features on frequency change
+Link to v2:https://lore.kernel.org/all/20260521170810.19702-1-challauday369@gmail.com/
 
-This commit adds bleed current configuration, lock detector window adjustme=
-nts,
-and phase resync support to the ADF41513 driver when changing the PFD
-frequency.
+Changes since v1:
+- Add default value for divisor-mask
+- Add required properties compatible and model
+- Fix example node name
+- Update example size cells and reg value
 
-> diff --git a/drivers/iio/frequency/adf41513.c b/drivers/iio/frequency/adf=
-41513.c
-> --- a/drivers/iio/frequency/adf41513.c
-> +++ b/drivers/iio/frequency/adf41513.c
+Link to v1:https://lore.kernel.org/all/20260520025131.17772-1-challauday369@gmail.com/
+---
+ .../bindings/clock/via,vt8500-clock.yaml      | 179 ++++++++++++++++++
+ .../devicetree/bindings/clock/vt8500.txt      |  74 --------
+ 2 files changed, 179 insertions(+), 74 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+ delete mode 100644 Documentation/devicetree/bindings/clock/vt8500.txt
 
-[ ... ]
+diff --git a/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+new file mode 100644
+index 000000000000..035925969655
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+@@ -0,0 +1,179 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/via,vt8500-clock.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: VIA/Wondermedia VT8500 Clock Controller
++
++maintainers:
++  - Michael Turquette <mturquette@baylibre.com>
++  - Stephen Boyd <sboyd@kernel.org>
++
++description:
++  Clock controller bindings for VIA/Wondermedia VT8500 and Wondermedia WM8xxx
++  series SoCs.
++
++properties:
++  clocks:
++    type: object
++    additionalProperties: true
++
++    properties:
++      "#address-cells":
++        const: 1
++
++      "#size-cells":
++        const: 0
++
++    required:
++      - "#address-cells"
++      - "#size-cells"
++
++    patternProperties:
++      "^[a-z0-9]+(@[0-9a-f]+)?$":
++        type: object
++
++        properties:
++          compatible:
++            enum:
++              - via,vt8500-pll-clock
++              - wm,wm8650-pll-clock
++              - wm,wm8750-pll-clock
++              - wm,wm8850-pll-clock
++              - via,vt8500-device-clock
++
++          reg:
++            maxItems: 1
++            description:
++              Offset of the PLL register within the PMC register space.
++
++          clocks:
++            maxItems: 1
++
++          "#clock-cells":
++            const: 0
++
++          enable-reg:
++            $ref: /schemas/types.yaml#/definitions/uint32
++            description:
++              Offset of the clock enable register within the PMC
++              register space.
++
++          enable-bit:
++            $ref: /schemas/types.yaml#/definitions/uint32
++            maximum: 31
++            description:
++              Bit index controlling clock enable.
++
++          divisor-reg:
++            $ref: /schemas/types.yaml#/definitions/uint32
++            description:
++              Offset of the clock divisor register within the PMC
++              register space.
++
++          divisor-mask:
++            $ref: /schemas/types.yaml#/definitions/uint32
++            default: 0x1f
++            description:
++              Bitmask describing the divisor field inside divisor-reg.
++
++        required:
++          - compatible
++          - "#clock-cells"
++
++        allOf:
++          - if:
++              properties:
++                compatible:
++                  enum:
++                    - via,vt8500-pll-clock
++                    - wm,wm8650-pll-clock
++                    - wm,wm8750-pll-clock
++                    - wm,wm8850-pll-clock
++            then:
++              required:
++                - reg
++                - clocks
++
++          - if:
++              properties:
++                compatible:
++                  const: via,vt8500-device-clock
++            then:
++              properties:
++                reg: false
++
++              required:
++                - clocks
++
++              anyOf:
++                - required:
++                    - enable-reg
++                    - enable-bit
++
++                - required:
++                    - divisor-reg
++
++        additionalProperties: false
++
++required:
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    pmc@d8130000 {
++        compatible = "via,vt8500-pmc";
++        reg = <0xd8130000 0x1000>;
++
++        clocks {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ref24: clock-24000000 {
++                compatible = "fixed-clock";
++                #clock-cells = <0>;
++                clock-frequency = <24000000>;
++            };
++
++            ref25: clock-25000000 {
++                compatible = "fixed-clock";
++                #clock-cells = <0>;
++                clock-frequency = <25000000>;
++            };
++
++            plla: clock@200 {
++                compatible = "wm,wm8650-pll-clock";
++                #clock-cells = <0>;
++                clocks = <&ref25>;
++                reg = <0x200>;
++            };
++
++            clkarm: arm {
++                compatible = "via,vt8500-device-clock";
++                #clock-cells = <0>;
++                clocks = <&plla>;
++                divisor-reg = <0x300>;
++            };
++
++            clkuart0: uart0 {
++                compatible = "via,vt8500-device-clock";
++                #clock-cells = <0>;
++                clocks = <&ref24>;
++                enable-reg = <0x250>;
++                enable-bit = <1>;
++            };
++
++            clksdhc: sdhc {
++                compatible = "via,vt8500-device-clock";
++                #clock-cells = <0>;
++                clocks = <&plla>;
++                divisor-reg = <0x328>;
++                divisor-mask = <0x3f>;
++                enable-reg = <0x254>;
++                enable-bit = <18>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/clock/vt8500.txt b/Documentation/devicetree/bindings/clock/vt8500.txt
+deleted file mode 100644
+index 91d71cc0314a..000000000000
+--- a/Documentation/devicetree/bindings/clock/vt8500.txt
++++ /dev/null
+@@ -1,74 +0,0 @@
+-Device Tree Clock bindings for arch-vt8500
+-
+-This binding uses the common clock binding[1].
+-
+-[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+-
+-Required properties:
+-- compatible : shall be one of the following:
+-	"via,vt8500-pll-clock" - for a VT8500/WM8505 PLL clock
+-	"wm,wm8650-pll-clock" - for a WM8650 PLL clock
+-	"wm,wm8750-pll-clock" - for a WM8750 PLL clock
+-	"wm,wm8850-pll-clock" - for a WM8850 PLL clock
+-	"via,vt8500-device-clock" - for a VT/WM device clock
+-
+-Required properties for PLL clocks:
+-- reg : shall be the control register offset from PMC base for the pll clock.
+-- clocks : shall be the input parent clock phandle for the clock. This should
+-	be the reference clock.
+-- #clock-cells : from common clock binding; shall be set to 0.
+-
+-Required properties for device clocks:
+-- clocks : shall be the input parent clock phandle for the clock. This should
+-	be a pll output.
+-- #clock-cells : from common clock binding; shall be set to 0.
+-
+-
+-Device Clocks
+-
+-Device clocks are required to have one or both of the following sets of
+-properties:
+-
+-
+-Gated device clocks:
+-
+-Required properties:
+-- enable-reg : shall be the register offset from PMC base for the enable
+-	register.
+-- enable-bit : shall be the bit within enable-reg to enable/disable the clock.
+-
+-
+-Divisor device clocks:
+-
+-Required property:
+-- divisor-reg : shall be the register offset from PMC base for the divisor
+-	register.
+-Optional property:
+-- divisor-mask : shall be the mask for the divisor register. Defaults to 0x1f
+-	if not specified.
+-
+-
+-For example:
+-
+-ref25: ref25M {
+-	#clock-cells = <0>;
+-	compatible = "fixed-clock";
+-	clock-frequency = <25000000>;
+-};
+-
+-plla: plla {
+-	#clock-cells = <0>;
+-	compatible = "wm,wm8650-pll-clock";
+-	clocks = <&ref25>;
+-	reg = <0x200>;
+-};
+-
+-sdhc: sdhc {
+-	#clock-cells = <0>;
+-	compatible = "via,vt8500-device-clock";
+-	clocks = <&pllb>;
+-	divisor-reg = <0x328>;
+-	divisor-mask = <0x3f>;
+-	enable-reg = <0x254>;
+-	enable-bit = <18>;
+-};
+-- 
+2.43.0
 
-> +static void adf41513_set_bleed_val(struct adf41513_state *st)
-> +{
-> +	u32 bleed_value, cp_index;
-> +
-> +	if (!(st->regs[ADF41513_REG6] & ADF41513_REG6_BLEED_ENABLE_MSK))
-> +		return;
-
-[ ... ]
-
-> @@ -630,6 +725,14 @@ static int adf41513_set_frequency(struct adf41513_st=
-ate *st, u64 freq_uhz, u16 s
->  		st->regs[ADF41513_REG6] |=3D ADF41513_REG6_BLEED_ENABLE_MSK;
->  	}
-> =20
-> +	if (pfd_change) {
-> +		adf41513_set_bleed_val(st);
-
-[Severity: High]
-Will the bleed current be properly configured if the device switches
-from Integer-N to Fractional-N mode without changing the PFD frequency?
-
-In adf41513_set_bleed_val(), if the device is previously in Integer-N mode,
-ADF41513_REG6_BLEED_ENABLE_MSK is cleared. If the PFD frequency changes
-while in Integer-N mode, adf41513_set_bleed_val() returns early without
-updating the register.
-
-If a subsequent frequency change switches the PLL to Fractional-N mode but
-maintains the exact same PFD frequency, pfd_change will be false. Since
-adf41513_set_bleed_val() is only called when pfd_change is true, the bleed
-value configuration gets skipped entirely.
-
-Could this leave the bleed circuit enabled with a stale or uninitialized
-current value, potentially preventing the PLL from locking?
-
-> +		adf41513_set_phase_resync(st);
-> +	}
-> +
-> +	if (pfd_change || mode_change)
-> +		adf41513_set_ld_window(st);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524-adf41513-i=
-io-driver-v14-0-06824d9c15f4@analog.com?part=3D10
