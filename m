@@ -1,117 +1,123 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815F539021D
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 08:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B3F27A12F
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 09:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779612846; cv=none; b=oeLwuUgP6tg9qLfwNuakbBGIRKgPOF2qtFSUfWXla4GL9eFGxMmEPkLCzrYDxwxReWuwwIWlk8lUgZCd1yG843C3VtMXDJPbDstX6nvmtmfDPwY1WRuOwgKWBNepH8P4w1oZo72HE0MBROOhQzWfHiAseSNSevuCMvF34rjEa98=
+	t=1779613431; cv=none; b=oYmisMJ3VfsTaxbTYEmQYLfFMtYa72XOfhOUcJ7qpRFQQUGCNGPPq60ftJQZf4PCV9TU9lQSmgo8g/nJnfVuxm0FNGwL9dSm/Q83Z1adVx8k79S4mpP1EFlaJ9Svt/Bn6pgTcrHBtkBoE1tUFl08rUpQeKnXkF+qpQDFMXKyoGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779612846; c=relaxed/simple;
-	bh=KoZohLAP7FkG0DiqRHfnK9gUGT1fB3petwusbNr1K2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rH+ZBVohYopWKTJknebbY8hzSFLNpUcpnUsh2FBnuv2SKJISjqEPxPpWAyRbbK2sIEiwn2oAXR61qFQlb9Bp6XdUQmTkFDE5h9cfaSjE5s5SgV28TIwDX35zpzR3JCvK6GSbEEhfjlT2IDfSc1K4ZhK60zhdViR2ietO6W1TFsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cVypAtYq; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779613431; c=relaxed/simple;
+	bh=e8hb3h8YsLYpnOZbDdRPWiuVd8wbD+JISLBftwWgDvM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UBsVUK0kYXAmcX6vZfzFEmiBuPVo/MJwmdmEbwBipO9qLjsP4wfPpJLfj5IDaFmB1uQ6tUgKD3CftIQE4dTCA9ZkDxv0a0p/O3EragudveyU75V6bz6VqZxK8EAJvKoK8BTKHtPC/HEi+4k4Je2pljvXMeXsbZmgEp2bXLVfYXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7nr5fq/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cVypAtYq"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-835c98b659eso7334453b3a.0
-        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 01:54:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779612844; x=1780217644; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LU/cOHKYJiwHIi210zVuGwmaJ7REyB2Sgsxuvm9SfTg=;
-        b=cVypAtYq0H3iaxgMjzULJipOh4J4C4aXmwdu/PiyIyQmy8YS5xAAS/DT8/cxh2bBu6
-         qrexfovdHBXPynz2/3RsSvwC9ZwNp1XvC4INqbmMhXPLieyl0kKIJ+KDOgGycTKagDby
-         V4tMF//E+2h+I2LrEMdr1zlxLTxeAFTU0Ad9ALCLQgvZKDyEf9gMCzzpwposYHQi4l3y
-         GE2LXKakOgbH6WqK8w8nEUBzGd39L60jmXCLsSk9pBBaxWrcdX4nauSzuV6clgqXXEaJ
-         gb1pdH7Q+zriQQ9DhEouz+zUYEfpqjwB4hsJDaSAQ/b+PSe+Zmlq+G5Ds0Yem9bJ9+uH
-         mI3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779612844; x=1780217644;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LU/cOHKYJiwHIi210zVuGwmaJ7REyB2Sgsxuvm9SfTg=;
-        b=NqkZxbEWlNoVrddEv3FureM+YfouYESidNyUhvj/ErQMu815mhtCvN+XEV+W6pD2HS
-         5qLjOgSt572ZMl6US5t1IzeUWXNugP02A5f/HDOH0VV+8xy06eLOgddTasP9MHlSWPal
-         aEy1g5GOiwmFBJJ6ZSU7qVsMkPtfv5N8jZB26RvGEAxzNsLTO6FpNT0yEQbcRTulFiJs
-         xlZNtFAscCNgNXfcejhu46KQ8HtZwHKP7V0rkzRxJn7r4qln5nHomVlX2uaVo5GGNF2b
-         4xWxiD0RpvoOGPfP0/OZyKWFk+OqfFdGI5TTgRhHU+f0IQ301C52fgM04PhKoS9wCqEB
-         pIIA==
-X-Forwarded-Encrypted: i=1; AFNElJ8ll24rHHFQL6np34XbB4HXmbEgOikz1oRRmm5zv3l8Rdyl9r1f8FkaRDY5MZGLaZDDwokNF+8wFirb@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIW6jVf6N2SJRqvHXqqx4LVNwFVjt3y91X42evWjK/f1r1fiqQ
-	BMBxhS9tnEe7pDQdADyu0JxoY7DfwqdikifSDsI9E7H6yrg2jy4wT0opqRixt+leb9c=
-X-Gm-Gg: Acq92OHAafb7P611M3RPjBv/hkf0uzXZypeh3rfu4zSEZoIdCxKsn6j0E9ECwAhSLgR
-	e+A1xXEY91GDIGZnbaF0aoSXXvT5denh5E94digkDbESqjme9fps03s6FiqYqSRPg0lTc4begEy
-	kPEvvEcU8QfvFhB8aCJTsawZPQvdnJV+dwLf+8eflHbVOeCAlLYe04k3gdYiND+AEw+r9L53pA1
-	c0UH6cU1ysNCXxBsBLoUsq3pmOkYxbGKdm2PxQbmcz+ZRfqrsIkZtHxDdetBvM8chpfZmX0N4l+
-	kBQs/t247D+yDgkLgY8pF6mOIwEq5lmoxJjSdgg9De4+/XZLV5WLSNmR9E/MbEtpbVVDl9f9xnD
-	JcgVcUsgWPflRxZemk58CoEw0P7gV59j8YtUqVIo3wT/EvU2QVRGQqK43k7ce4Y+fQIJJdRlbw0
-	UxE8CouhaHCtErtsChNEnnyODoPapVcFu0nocx04Tzkl9ID0vtU8tU7YiLYhn1uRFQF1HmhnwY3
-	8KR9Fs0BPVfgDP0BBR//KJ+AbC1ZHfwZgs0TQ==
-X-Received: by 2002:a05:6a00:3d11:b0:839:dd77:3501 with SMTP id d2e1a72fcca58-8415f11f2d9mr10041656b3a.1.1779612843893;
-        Sun, 24 May 2026 01:54:03 -0700 (PDT)
-Received: from DESKTOP-G3E0OSP.localdomain ([112.172.255.242])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164ea4de4sm6353116b3a.35.2026.05.24.01.54.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 May 2026 01:54:03 -0700 (PDT)
-From: Jinseob Kim <kimjinseob88@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jinseob Kim <kimjinseob88@gmail.com>
-Subject: [PATCH RFC v2 7/7] MAINTAINERS: add Open Sensor Fusion IIO driver
-Date: Sun, 24 May 2026 17:53:12 +0900
-Message-ID: <20260524085312.15369-8-kimjinseob88@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260524085312.15369-1-kimjinseob88@gmail.com>
-References: <20260524085312.15369-1-kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7nr5fq/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E43C1F000E9;
+	Sun, 24 May 2026 09:03:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779613430;
+	bh=xgRdl7N4TnLwGPcab8XBKDFbITxtsPKfVlIg0VzyO4U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c7nr5fq/rWkiqbDSlXf1WoKPX38WMMNi/OiP+0hppUwVYwfF8+kunihJD8IXN3tmN
+	 GDw+nEjMMlli8W276wm3C+sAtruhtkJWFgsCsZc+i73IgJJniOOrYbYNUB1Uv4F9uF
+	 JYMjmTI1VslnWgo4cBBjz8efyV7jKvhA6Qqw5bVotK1PR/8uBX8B42H3Xe4OMj5mJB
+	 xM4Shnmn5bFQSlIDZ5e6y6Ih7WgmPHv0E15uubZ1Sz75+Qlk2Go6bfXyO8NeFiDKYE
+	 qiblEnrus1CXcTSkDh0x/5pRKMX0i4BD0hlp2Uv7Ve6CfKzo4NPKJD3uiJ8GyKFJhs
+	 ikS/cYCOIMxNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 1/7] dt-bindings: iio: add Open Sensor Fusion
+ UART device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinseob Kim" <kimjinseob88@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260524085312.15369-2-kimjinseob88@gmail.com>
+References: <20260524085312.15369-2-kimjinseob88@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 24 May 2026 09:03:49 +0000
+Message-Id: <20260524090350.0E43C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add file patterns for the driver, binding, and protocol reference.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The binding lacks a reference to standard serial peripheral prop=
+erties, restricting valid UART configurations.
+- [Low] The new vendor prefix 'opensensorfusion' is inserted out of alphabe=
+tical order in vendor-prefixes.yaml.
+- [Low] The device tree example uses a specific, non-generic node name ('os=
+f').
+--
 
-Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+commit d7438989beeea74dd5628fa3759c1cbb1ffb5900
+Author: Jinseob Kim <kimjinseob88@gmail.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2c6d7927..9238701f4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19977,6 +19977,15 @@ F:	Documentation/networking/oa-tc6-framework.rst
- F:	drivers/net/ethernet/oa_tc6.c
- F:	include/linux/oa_tc6.h
- 
-+OPEN SENSOR FUSION IIO DRIVER
-+M:	Jinseob Kim <kimjinseob88@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+L:	devicetree@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart.yaml
-+F:	Documentation/iio/open-sensor-fusion-protocol-v0.rst
-+F:	drivers/iio/opensensorfusion/
-+
- OPEN FIRMWARE AND FLATTENED DEVICE TREE
- M:	Rob Herring <robh@kernel.org>
- M:	Saravana Kannan <saravanak@kernel.org>
--- 
-2.43.0
+dt-bindings: iio: add Open Sensor Fusion UART device
 
+This commit adds a device tree binding for the OSF0 UART-attached sensor
+aggregation device. The device communicates capability, status, and sample
+frames to the host via a serial connection.
+
+> diff --git a/Documentation/devicetree/bindings/iio/imu/opensensorfusion,o=
+sf-uart.yaml b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,o=
+sf-uart.yaml
+> new file mode 100644
+> index 0000000000000..d4a8f68192e9b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart=
+.yaml
+[ ... ]
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Since this is a UART-attached device, will board device trees need to speci=
+fy
+standard serial properties like current-speed? Without a $ref to
+/schemas/serial/serial-peripheral-props.yaml and setting
+unevaluatedProperties: false instead, setting standard UART properties will
+cause schema validation to fail.
+
+> +
+> +examples:
+> +  - |
+> +    serial {
+> +        osf {
+
+[Severity: Low]
+This isn't a bug, but does this follow the devicetree specification for gen=
+eric
+node names? Usually, node names should reflect the primary function of the
+device, such as sensor or imu, rather than the specific product name.
+
+> +            compatible =3D "opensensorfusion,osf-uart";
+> +        };
+> +    };
+> +
+> +...
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index 28784d66ae7ba..121b83f7046ad 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1239,6 +1239,8 @@ patternProperties:
+>      description: OpenRISC.io
+>    "^openwrt,.*":
+>      description: OpenWrt
+> +  "^opensensorfusion,.*":
+> +    description: Open Sensor Fusion project
+
+[Severity: Low]
+This isn't a bug, but is this vendor prefix inserted out of alphabetical
+order? "opensensorfusion" should alphabetically come before "openwrt".
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524085312.1536=
+9-1-kimjinseob88@gmail.com?part=3D1
