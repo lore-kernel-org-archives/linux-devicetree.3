@@ -1,96 +1,118 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B821917F0
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 15:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EB3258CD0
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 15:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779637049; cv=none; b=VB1HADaPIT4OZgvCLwhG6ovrY2U/7bgkB0Bx4d3JncUOKGsupMwbsfzGkH0mfzraAv1w+VKWQagHKiT7kGugb1sHrRU8k5kBQN8kL3Bye2RpMiyjJGETwJaLwBasl99ZBpu0ZlqM3PKxIZULiYdiJZuwqCsOnBehyQpAfbjTjPA=
+	t=1779637816; cv=none; b=ldyjsUPoGID9Gea+xJG8Na7tbYMZYbRqAgynmhxF6IZIhBlAQKeoIWQr+YoKfRaE5Dq6ttxDTbBlDwgN6TOxU6YPxq+MZT155GPnKEYEPCKF450lUjPuIeoPqZkKIoU9dNg2GDYCEiCXNuQdV1UgvVFhD0CtuIpzgtkme7Rv+Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779637049; c=relaxed/simple;
-	bh=yM51uPAWbCZkgTKU43lQPRqsYdSsABpsKVsRDiRWNaM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QYUD4ql+IzdhlGT7JGhQn8ogBlcj+Bwe+/0BKmVJ5Kgyyzq4Q0o79SOXo8y1qvzw0NBm3GnUITIm6SPeTFaL8ta1U3c5b3CswtcGmXMgDsGOhaHlkeCiKuVSbuNhxHV7ww65iD8LQFWJChFmVwb21anLfmo19FLSFm3/wlzflRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bKCfVHCq; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779637816; c=relaxed/simple;
+	bh=8/mjomMcL/tL01rBMy4OoB6MPyHJ2iOSUQhMgcRC5yk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X+mzPNsyWDDv81Vz/byjO197m1g1l+QYIX1AA/PQdE0xm/XuTXZFpeIpBHVPVewZDNHcbq52g/e5k+lHEgbD8/Wj6XEmVLcHuMJJL8efT+DIYa4EpL2Asgu4hkxx9MCvqNVTFalmP5huMztAdLPkHfGV45buv5AAKhfO2Q8ZEGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CGmD2IDo; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bKCfVHCq"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-48fde648a71so58197715e9.0
-        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 08:37:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CGmD2IDo"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-835386ff122so9075339b3a.3
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 08:50:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779637046; x=1780241846; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Y9w10kDWoHcF1zCIEhfuXbWfL8gd+AUbKivXCljEU78=;
-        b=bKCfVHCqzGQy7RknhigTI/YA1JYhCmzE7erdPFNWSrwBPSWcU3zDVJXmKiCTPvLmPu
-         WP/FV0IdFzJZ/KAWY7LY4qj+yLrTDd/7Mm7i6/3c/bbcwD/oxcAjrmhHTQWlM70qUSeD
-         5cc7aULKxHdItMEZSwSfL2+pHUQCZXVXSnL79C+Y43Rm15twoL62k3rDNtRjEr3tjTOK
-         39NZbqdYK/dz4SQOZTCmy/UcJNZ4sq/Kq+9MtrxiVPYxe2vrMoLgaKLQF3sMPUZEWcT0
-         xPH7PaCGp2WTyVhYuRw2f0G01dU5pXlzrrR7OtKPLGRfDIKUEcBT8/QsBP9Y92OqZ14z
-         dOcw==
+        d=gmail.com; s=20251104; t=1779637815; x=1780242615; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ReOkgoPLdCaHd6CcEsCAqea7Z9/lGvf+pkF1enOHLhw=;
+        b=CGmD2IDoKBnonh8gG3rhE30QTkqJGjNlPViueoMlrfByHWL/C3F61i6RuG5eN5Pt3C
+         j62OveBck8dtdEpuLt1CenCkuOEVYrPgKQtAF+n8GLk4VSQWU9UE0xE4tFBZBaiOqzGe
+         Mmx3Y7YWEOnSAveptf6ZFkuVGwWuxYMD0r+HGqXhlhCnAailqrFDDOnCFDJ0BJlY3InP
+         Vysva+BLyCedNTmFDzWXySJD77pZbsTeEDIGO9Bekw4YjBv/9OhlL81JJvYKX9ylfTpN
+         m4T2NcVaKhfHkSeeT34eubdvx5glmZMxsqKPCKFkRZKPSX2Q5FBQ68Hb1kfDysoY+o3K
+         ntQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779637046; x=1780241846;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Y9w10kDWoHcF1zCIEhfuXbWfL8gd+AUbKivXCljEU78=;
-        b=PV2UoDPlV/JTXP/0YgjVO1NojpIIHtvWa/3p7gTDX617mvAJmWj8Mt4pKX9lvNKxl1
-         RKyaoCpmf60N92fkHxprnBNk2YEareJhcc9ktXD4+6h150ZU2B9TEgCd25TG3Y9LgRMH
-         cjxmg0V0jgACbmXB4bdb9RC+9p4NkZUTTZfTWRdGR6VbdEKZ7vFEeYL2Dou5IqdxUP9D
-         LoF1VlDodY6UJUw8wjrFvW/mJWYGRaLj9TaaOhYZ0m4dZrtaOLYZkEhDDRdf4T+Qie1R
-         ygNAwTt4QI1jQ/A4nNLX4vkHN8LCYyc9Rdebwnxw+V882H2pp7o/pe2jYGJeTqgR05C0
-         Z4xw==
-X-Forwarded-Encrypted: i=1; AFNElJ+vAKXN/TlSTfgnk/J4Bari3gyiFagQr6PNNyHoY8y5UOBDmwbnDiyvyn5yld/Q0Fory6fFHSyPNIIC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0ljIhM67YkPC0M+t9ZskDFBfr1ZQA9o/ibTInJmwmiC6R+/s9
-	kGWg5HS/s7Tn3+Xk9GIJGuGh0i0AX3yi3b3YoZmU3RAxi1MPWXFfPqgfm2LscaQL6o0=
-X-Gm-Gg: Acq92OFEBTr77dpDpI+Q7748ROEx2PUidgUTYdOZxasPP0apRTYYDbyxodJw5r4DGEF
-	2Nc08QHI59neunCFI1XHXsfEzCwb8uw6ra+LcpwNTlrGA/7IF9ZidQ/MlJlA1hAXN3er90bJfx6
-	0KTJ05mmSFQ1Fi3Lo4rlDtYIk8+JThqLayVMMGIT8WSELjUDorhwAikHgvVeWr8fAm6JmY91cIk
-	5yLX//YIed0gF0r41TgZ/ByB5aQgPW0hzdW5KLol1U0TANLRoOsNPAEUTBDMvKAP9G8Oof/BUzQ
-	zaXenZTd55gkRfzfOktB/t0X7g9TqBAuL2rXX4uc+x/H41+3Zz/iBcgM5NQy28xHM7jT22Z7kv8
-	ECUOcqUxc+v1scbbt8doyrU3CRLSERay7S3lsaxSGqYQH1NYIMvEM4r2PoyjVmkT4vi7nKPnThW
-	Woisaug2FAfeINvDqfZlgR6KBnPuDd8n8OBuTRenJCai5BD4lGqlSpI8PQl5D/EL0dn+RgEMV2a
-	8aaNOOq
-X-Received: by 2002:a05:600c:4506:b0:490:3838:1548 with SMTP id 5b1f17b1804b1-49038381676mr217241985e9.13.1779637046483;
-        Sun, 24 May 2026 08:37:26 -0700 (PDT)
-Received: from ?IPV6:2a01:cb1d:8ee:8600:662f:d52b:3b78:6113? ([2a01:cb1d:8ee:8600:662f:d52b:3b78:6113])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d493dfsm20504579f8f.23.2026.05.24.08.37.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 24 May 2026 08:37:25 -0700 (PDT)
-Message-ID: <6c8a3b03-457a-40e6-bd2e-d0e5f2766ae8@linaro.org>
-Date: Sun, 24 May 2026 16:37:25 +0100
+        d=1e100.net; s=20251104; t=1779637815; x=1780242615;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ReOkgoPLdCaHd6CcEsCAqea7Z9/lGvf+pkF1enOHLhw=;
+        b=PIpmbEIp23VQgtYBFoLQsgeLB9HoIze0nftu4t42YavTPjIe6miN6viG0+3uxAwJ7J
+         rwECeONyCqR7oE3ikJrjIW2b76HTDamzyb8BLegTeZowO4iC9YAUEyXooXcvgSlLt91s
+         QIsO22vsUz3ltjfQdEmNRxMD44SKQb2PLyLFBfa0GUVjSLdS0D88yNXmq9gsH6r8RXDU
+         OBqapO1l4eqzOpiHygnEaOsBh9vCSy9i+5iirmkhpU9saq2/CPxNRoAdf7s0qvRvE5v/
+         37KLHAP+YtwXKqGqw9H/6IBYjOOeMAzPgVnzhoiskYb0bkdHstSAiDQoIo7VHtOe29s5
+         vn1A==
+X-Forwarded-Encrypted: i=1; AFNElJ83HFTYsi6Iq9JUt/+MdnlGKlO/D+ZCuebLXqmjw8TMRi58jL9BxHu3zCZcbzMKkOXqc7nnkFVbDwIG@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyw4HCzh2A1kLvxeJ5qiwQ1S/h2+GEk8vUYKEG3M+I2Br7yPeLm
+	L88BtQiqxN+HsUObAJfWMVh71M4z4b//FS1jeWBCnmmZY02yWmTbu0aF
+X-Gm-Gg: Acq92OFKMig6PVJBCpRMYn/CmyTeIMY5tZjQvCOmzjvSaSlH/zyt144QWS93zfivoIf
+	Md5JEnBqi/1P/esFC79raSmOnN9h0/fksHDh4amYrkd63UloHTQpdhQG7C4OVVMt+49IPLTaIz+
+	gNFwnGWut47wi7r7HdBo2czwGS4szidG4yaDTxklu8My2X1F6o9WCl9Ey8S3vW6P8+5KT2Q/F1D
+	h5UarStSCuQtWyqhZvD3TA3w26jUmoDwPSzptZukjsGnGsoKWQPbWEfGWlWV/Nw5L5EREl2Z1MA
+	dgJ12IFDLnJ4pH8Zq8wrZt5POr+Eex2OQW9N0fzDVUBVLNJdgCkzcbISiqMgzG7nmBaFo0vMy0n
+	DtSiqQSc/y7BZS5EoifpYhyK+0e5jZ1Raq5UcR8ZU2yMJyxoI9APYKQ9RG4ym4BhtXGgaYRZeSM
+	W2/Ybk8dj5j5k31GeNTANGI/4Ijcyxu3O8+Y1LG+qciXlpLa8i/w==
+X-Received: by 2002:a05:6a00:2d25:b0:82f:5051:f024 with SMTP id d2e1a72fcca58-8415f5dcc6fmr10442376b3a.27.1779637814974;
+        Sun, 24 May 2026 08:50:14 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a5f:4fa1:cc65:18c0:209b:38a4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164ac9b74sm6997716b3a.3.2026.05.24.08.50.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 24 May 2026 08:50:14 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: gpio: meson-axg: Fix whitespace issue
+Date: Sun, 24 May 2026 23:49:53 +0800
+Message-ID: <20260524154954.385778-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: sashiko-reviews@lists.linux.dev
-Cc: neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org,
- linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org,
- conor+dt@kernel.org
-References: <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <20260523030420.045501F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20260523030420.045501F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/05/2026 04:04, sashiko-bot@kernel.org wrote:
->> +  vdda-0p9-supply:
->> +    description: Phandle to a 0.9V regulator supply to a PHY.
-> [Severity: Low]
-> Does this property name mismatch the actual hardware supply voltage for the
-> x1e80100 platform?
+Clean up whitespace misalignment in meson-axg-gpio.h
 
-Yes and I'm realising I forgot to make some small changes Krzysztof left 
-@v3.
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ include/dt-bindings/gpio/meson-axg-gpio.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-----
-bod
+diff --git a/include/dt-bindings/gpio/meson-axg-gpio.h b/include/dt-bindings/gpio/meson-axg-gpio.h
+index 25bb1fffa97a..a0d42bcd9bd3 100644
+--- a/include/dt-bindings/gpio/meson-axg-gpio.h
++++ b/include/dt-bindings/gpio/meson-axg-gpio.h
+@@ -23,7 +23,7 @@
+ #define GPIOAO_11	11
+ #define GPIOAO_12	12
+ #define GPIOAO_13	13
+-#define GPIO_TEST_N 14
++#define GPIO_TEST_N	14
+ 
+ /* Second GPIO chip */
+ #define GPIOZ_0		0
+@@ -52,7 +52,7 @@
+ #define BOOT_12		23
+ #define BOOT_13		24
+ #define BOOT_14		25
+-#define GPIOA_0	    26
++#define GPIOA_0		26
+ #define GPIOA_1		27
+ #define GPIOA_2		28
+ #define GPIOA_3		29
+-- 
+2.54.0
+
