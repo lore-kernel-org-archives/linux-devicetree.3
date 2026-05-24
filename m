@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7E72F6577;
-	Sun, 24 May 2026 18:38:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538793438A3;
+	Sun, 24 May 2026 18:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779647908; cv=none; b=uG8u4wMELLEUpWnMHTQHGS/JOmkSHkxU2xbvYfDrD/vAi5tO2SaC3SY4xllkg1AfgOhVM9RcoNy08Zm7XuHBE1F4awRHGcFZnIyjZJFXVBB5wtgwQ/oKSaLcKM9mr/m0mNIwLA4egzN4wgdq3B4b0OBb5hYea3Kbc5hNowGicow=
+	t=1779648102; cv=none; b=eoCkY6/CVYAwaamG/O6TmZOjVCedsWx8MDYv7pqENGzkUIF66gohhC1NUB5g3sKbnx/8MvYv7MDHR8228wpbYUq0McbfvccbF9M4ufd5ob/lvd1Pb2JQWOvw8tKdqH/jb1pBH/f3Cfa5ZDQj2kvr31AB1oUBLfUdW9gfSld9mDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779647908; c=relaxed/simple;
-	bh=IO+dfqOPU1OQnZl0EDdGJfT4DX140il3RMsKNnHZZ/Y=;
+	s=arc-20240116; t=1779648102; c=relaxed/simple;
+	bh=ySjLaWDOy1EM5PBOqIwAIJrU+WJYdajY8nG32g42TM8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XtEVLx5gh225BgqOYnK3qSo4SXs0AnaKeADQ7X6+c58GSSrsKOa+99cmtCoo4o0iTXhA0BmqcKUO8/djvKNetvmRVqXmML4ZseM7oDIKfxpKnPHHgwKSyF4Ff+Cy+rKAF0PGRh5SqaB1vaQYFPyCzptlRHJfLakFAwHQoMzZt2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yxr9A7PG; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=jhqdL9C1N5KYzjsdVOmz0sK2JSNacprbEmeeoWTetCTvUi6UMqpoDtZr3/lqa8MMVwuLYSJ7/xhWiszTDQpyd4rl3D7y+Hyhk+hg/W0bHsh14BNU833KeI9PFJVVf39e6ko4HduetNG9JzuWSXPiUwgOjB9yN03QCxHrBaPgiM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPiDBQdk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yxr9A7PG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5831F000E9;
-	Sun, 24 May 2026 18:38:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPiDBQdk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE93B1F000E9;
+	Sun, 24 May 2026 18:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779647906;
-	bh=8m48+eL9JfN/Id0suNsmlDaRpKXkarKgtM7T17ZOtWo=;
+	s=k20260515; t=1779648101;
+	bh=4v1cmbQ3gqGecJ/U80Ih5SD4Gtt7JLsThU+5XdpiST4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Yxr9A7PGh5/t2la/4HVorvBsDsG6fTvkZVJkkNPLrJyHv65KXWt/jwXyTCf1PrjmI
-	 l1fGaAZmY4QCMapG9D07QCJ8gqx+0A0ChnrKwlQQ4ZWbDez49bycNPIUqPXnIzIO9X
-	 TZwGC20i9rlDeODY0cr1e4nmSs1SIwBqveHJg7kTQmRtCRQCE1AKDoj+9N+uyKae4l
-	 +7Yzy2wCYeMi8iedndO1heLKNzRmzpsSUZmo80uVRlN3+KqFyy7TapIf+2xsjQfn9t
-	 xYmjmOJq50eZ9UDPDe8szxRmewwvoTwjSW3DfXMlN0WxdtJjYO/kcntnc4qs3rfuNS
-	 cxp4RNrYJ5UfA==
-Message-ID: <12dc00e8-98be-4386-b2d0-25e525cabdc6@kernel.org>
-Date: Sun, 24 May 2026 20:38:21 +0200
+	b=gPiDBQdkJq4fcJyMWF3ImTrvjOp8QNVDM23ZY09v6vGeWNQkEbZ2BHYPxr9saW8LS
+	 bGP/aGLQFI6F+NfyYvR/kW+9ugx1lRikacKoqjEtOduH1fLXp52MWbsMdNuYoUMyEz
+	 g9mf4jtGpowgiZ/K7Opugw8OdownFpwUg88LLzkrY0UvNwWobWIwM7QylmIQdUNSnt
+	 AFemExAp5jj1+o0vGfdDcI5r2g4pIxtUNGuYHIBSiBAxu9ILujDSNXdsrv3W3HcjIf
+	 6kA1uW/gcjzFxcydyD9LJXeZcpsziKQ8xUtTbkCo3VXHEng7uLf5Ce8FKnXPeG/pTK
+	 v6h/IEMCT1Wrw==
+Message-ID: <05b2547c-535c-4beb-882f-d424f135acc4@kernel.org>
+Date: Sun, 24 May 2026 20:41:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,28 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dt-bindings: clock: qcom: Add QREF regulator
- supplies for glymur
-To: Manivannan Sadhasivam <mani@kernel.org>,
- Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Taniya Das
- <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- krishna.chundru@oss.qualcomm.com
-References: <20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com>
- <20260506-qref_vote_0506-v3-1-5ab71d2e6f16@oss.qualcomm.com>
- <20260514-outgoing-literate-dove-2e2a73@quoll>
- <aglUmonGmr2goyOI@hu-qianyu-lv.qualcomm.com>
- <408f587b-76c2-4fdd-bbe1-89414270b4ee@kernel.org>
- <agqMgkRwKqr05rms@hu-qianyu-lv.qualcomm.com>
- <bbd5e74d-99c0-4a18-bc80-b3658b235bf6@kernel.org>
- <agq/Hl8qWn6wpbF4@hu-qianyu-lv.qualcomm.com>
- <4byxm3ybi5eqrsqmqi6u4abd37uxliagyolsqs6rtrexut6p5f@uotbli3vh6ja>
+Subject: Re: [PATCH v3 1/4] i3c: dw: Remove core reset "_rst" suffix
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260519055105.13079-1-jszhang@kernel.org>
+ <20260519055105.13079-2-jszhang@kernel.org>
+ <20260520-scrupulous-notorious-ibis-ab6cbc@quoll> <ag2eUlweJdgWRKUG@xhacker>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -102,139 +91,53 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <4byxm3ybi5eqrsqmqi6u4abd37uxliagyolsqs6rtrexut6p5f@uotbli3vh6ja>
+In-Reply-To: <ag2eUlweJdgWRKUG@xhacker>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/05/2026 13:25, Manivannan Sadhasivam wrote:
-> On Mon, May 18, 2026 at 12:26:22AM -0700, Qiang Yu wrote:
->> On Mon, May 18, 2026 at 09:00:33AM +0200, Krzysztof Kozlowski wrote:
->>> On 18/05/2026 05:50, Qiang Yu wrote:
->>>> On Sun, May 17, 2026 at 10:27:39AM +0200, Krzysztof Kozlowski wrote:
->>>>> On 17/05/2026 07:39, Qiang Yu wrote:
->>>>>> On Thu, May 14, 2026 at 12:22:17PM +0200, Krzysztof Kozlowski wrote:
->>>>>>> On Wed, May 06, 2026 at 01:43:51AM -0700, Qiang Yu wrote:
->>>>>>>> Add regulator supply properties for the Glymur TCSR QREF/REFGEN blocks
->>>>>>>> required by clkref clocks.
->>>>>>>>
->>>>>>>> The vdda-qreftx*, vdda-qrefrpt*, and vdda-qrefrx* supplies map to common
->>>>>>>> QREF TX/RPT/RX components, while SoC-specific topology and instance count
->>>>>>>> differ. Document them here for qcom,glymur-tcsr.
->>>>>>>>
->>>>>>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
->>>>>>>> ---
->>>>>>>>  .../bindings/clock/qcom,sm8550-tcsr.yaml           | 57 ++++++++++++++++++++++
->>>>>>>>  1 file changed, 57 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
->>>>>>>> index 1ccdf4b0f5dd..57921cb63230 100644
->>>>>>>> --- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
->>>>>>>> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
->>>>>>>> @@ -51,6 +51,63 @@ properties:
->>>>>>>>    '#reset-cells':
->>>>>>>>      const: 1
->>>>>>>>  
->>>>>>>> +  vdda-refgen-0p9-supply: true
->>>>>>>> +  vdda-refgen-1p2-supply: true
->>>>>>>> +  vdda-qrefrx0-0p9-supply: true
->>>>>>>> +  vdda-qrefrx1-0p9-supply: true
->>>>>>>> +  vdda-qrefrx2-0p9-supply: true
->>>>>>>> +  vdda-qrefrx4-0p9-supply: true
->>>>>>>> +  vdda-qrefrx5-0p9-supply: true
->>>>>>>> +  vdda-qreftx0-0p9-supply: true
->>>>>>>> +  vdda-qreftx0-1p2-supply: true
->>>>>>>> +  vdda-qreftx1-0p9-supply: true
->>>>>>>> +  vdda-qrefrpt0-0p9-supply: true
->>>>>>>> +  vdda-qrefrpt1-0p9-supply: true
->>>>>>>> +  vdda-qrefrpt2-0p9-supply: true
->>>>>>>> +  vdda-qrefrpt3-0p9-supply: true
->>>>>>>> +  vdda-qrefrpt4-0p9-supply: true
->>>>>>>
->>>>>>> Either I do not understand your previous explanation:
->>>>>>> CXO -> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 -> PCIe4_PHY
->>>>>>>
->>>>>>> or this is still wrong. There is no TCSR here, so this proves nothing.
->>>>>>> If TCSR is TX0, then you do not have five of them...
->>>>>>>
->>>>>>> My previous comment stay - you are not describing the actual hardware
->>>>>>> here.
->>>>>>>
->>>>>> The CXO network "-> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 ->" is referred to
->>>>>> as the QREF block, and each component is controlled by the tcsr_clkref_en
->>>>>> registers.
->>>>>
->>>>> Still no clue what this -> relation is. Again, describe the hardware.
->>>>>
->>>>>>
->>>>>> If a PHY receives its reference clock from QREF, it will have a clkref_en
->>>>>> register. However, this register may be located in different regions
->>>>>> depending on the target. On glymur it resides in TCSR, so I added these
->>>>>> LDOs QREF required in tcsr yaml.
->>>>> Registers are not described as supplies.
->>>>
->>>> I'm not descirbing register as supply.
->>>>
->>>>     tx0-0p9/1p2  rpt0-0p9   rpt1-0p9    rpt2-0p9    rx2-0p9
->>>>        |             |           |        |           |
->>>>        |             |           |        |           |
->>>> CXO -> TX0 -------> RPT0 ------> RPT1 -> RPT2 -----> RX2 -> PCIe4_PHY
->>>>        |             |           |        |           |
->>>>        |             |           |        |           |
->>>>        ---------------------------------------------------tcsr_clkref_en
->>>>
->>>> These components(TX/RTP/RX) can be disabled/enabled by tcsr_clkref_en
->>>> register, and they require power supplies.
+On 20/05/2026 13:43, Jisheng Zhang wrote:
+> On Wed, May 20, 2026 at 09:13:58AM +0200, Krzysztof Kozlowski wrote:
+>> On Tue, May 19, 2026 at 01:51:02PM +0800, Jisheng Zhang wrote:
+>>> It's redundant. This suffix has been in the code from day1, fortunately
+>>> there's no such dt property usage in all dw i3c users after grepping all
+>>> dts files, so we can remove it.
+>>
+>> Hm, how could you grep all 3rd party / out of tree users of this?
+>>
 >>>
->>> So I told you more than once - none of these are supplies to the TCSR.
->>> You clearly misunderstand what a supply is.
+>>> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+>>> ---
+>>>  drivers/i3c/master/dw-i3c-master.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
 >>>
+>>> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
+>>> index 655693a2187e..c4a848cc978a 100644
+>>> --- a/drivers/i3c/master/dw-i3c-master.c
+>>> +++ b/drivers/i3c/master/dw-i3c-master.c
+>>> @@ -1587,7 +1587,7 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
+>>>  		return PTR_ERR(master->pclk);
+>>>  
+>>>  	master->core_rst = devm_reset_control_get_optional_exclusive_deasserted(&pdev->dev,
+>>> -										"core_rst");
+>>> +										"core");
 >>
->> The TCSR binding here describes the tcsr_clkref_en clock gate, not the
->> TCSR register block itself. The clock gate controls whether the reference
->> clock is forwarded through the QREF chain to the PHY.
+>> ABI impact for something released since 2018. Cleanup of name is not
+>> really worth affecting users. core_rst is not the best name but it is
+>> not incorrect, either.
 >>
->> The QREF components (TX/RPT/RX) sit between the clock gate and the PHY.
->> They require LDO supplies to operate, and those supplies must be enabled
->> before the clock gate is asserted and disabled after it is deasserted.
->> This enable/disable sequencing is the responsibility of the clock gate
->> driver, not the PHY driver.
->>
->> Since the supplies are managed as part of the clock gate operation, they
->> are modeled as properties of the clock gate node. The node happens to live
->> in TCSR on glymur, but the supplies describe what the clock gate needs to
->> do its job, not what TCSR itself needs.
->>
-> 
-> Just to add a bit more context:
-> 
-> The QREF block supplies the reference clock to the PHY IPs. But the digital
-> logic (register interface) to control this QREF block lives inside TCSR in some
-> SoCs like Glymur. But AFAIK, the analog QREF circuitry is not inside TCSR, but
-> somewhere near to PHYs.
-> 
-> Also, QREF needs its own LDOs to operate and supply reference clocks to PHYs.
-> Initially, we tried to add these QREF supplies to PHY node itself. But that was
-> pushed back by Johan [1]. His argument was that since these LDOs power QREFs,
-> not the PHY IPs, these supplies should not be added to the PHY nodes. And since
-> we do not have a dedicated QREF DT node due to the fact that the QREF registers
-> gets moved between various IPs based on the available space in the RTL. (It used
-> to live in GCC, but now it is in TCSR and in the future it could be in some
-> other IPs. Unfortunately, we cannot control this design)
-> 
-> So he suggested to add these supplies to TCSR node which acts as a control
-> interface to QREF, even though it is not an accurate hw representation either.
-> 
-> And this patchset is based on that feedback only.
-> 
-> But your argument is also valid that these supplies are not supplying the TCSR
-> block in hw, but just the QREF analog circuitry living close to PHY.
-> 
-> We are open to suggestions here as we do not know what is the accurate hardware
-> description for these supplies/QREF.
+> Hmm make sense.
+> Two questions: if the ABI is introduced but never used by any intree
+> users, is modifying the ABI taken as "ABI breakage"?
 
-As I understood these are real supplies to QREF which on these SoCs is
-part of TCSR, so in general it is fine. Should be in its own binding
-file, though.
+Yes. The out of tree user was working before. Now it is not working. How
+is it not a "breakage"?
+
+> 
+> if the ABI is only used by outtree users, can we modify the ABI?
+
+Yes and no. Depends. It's up to platform maintainer and you need
+reasons. The reasons MUST be documented. See writing-bindings. I do not
+see here a good reason.
 
 Best regards,
 Krzysztof
