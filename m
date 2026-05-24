@@ -1,140 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C092D8DBB;
-	Sun, 24 May 2026 15:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B5E3955D4
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 15:23:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779635629; cv=none; b=G/tdSC8qxCzaMQZ31ngQ67S2ZPUednOQOFpgmMHRd1sS2Z/RYAnT4LT+rFMYBXC8Lp7GDJjf35BO9CxvSFNJvvMMN/NfeTq/s5t54UA0EvHRmVrn5VQB2bi8GRKlP6TDoMn25bKm6zEymN60qOPVIYWD4WqMCrWFRP9n3MVlUcc=
+	t=1779636194; cv=none; b=eDDdZgQ7B44Wca21DfZNQtFoAz9Kc0A9vdbwxaTgFfuQ8Qi/pcXlIyCNLYtDtL8bP4DlC556MnDnwcZ25vbJCuS3tHq4jyfvCPKaTo2XJ6UbFAwFKH1u43NN+9Pn1fqQ4CoZHbeOV2cxoajDyUK6OJDiiYtNG+T85q1xEjmptM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779635629; c=relaxed/simple;
-	bh=OyPiwTZFtMQvKOgGaBaDIAqhhgjYSld/o6LZ0tORrJ4=;
+	s=arc-20240116; t=1779636194; c=relaxed/simple;
+	bh=5nGYyyDqDBFR1dXA/5DT76VZzCrhZXHkyJXWKVcFooc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N4mifvnie1P7fXMEFxMA8d6ft9cubRJN/K9jae4KmRweeFrWKlhbfu8Hu1yLh1xzt4CEiKbA3CPEWLDd8/9i6uicUO1KA6zgvKkgX0QlamTsGj6rTQn2hGjm+nhGFldLzlmMM9hRkLeuIlD/g4vcl1JimodG7BHbl6WXPDxF2VI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S9HcMBJz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lQXHJ0FVsPTGixWxZnV2HzIIk0oS3yKfjC23cl9J/UjrvNFJoMvExanSX4EsRHn+hTzyw9rMwIDAclP45NCsKCFt3+Q5z4zp7Fihlrde7/C+8wffNGtFZS0Xu4YUGavtGevzWYisxipCftZdKfq/mwJJUiqhQwzPTHjySGEVVwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mf602wzZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S9HcMBJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD92A1F000E9;
-	Sun, 24 May 2026 15:13:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mf602wzZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C741E1F000E9;
+	Sun, 24 May 2026 15:23:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779635628;
-	bh=6bZN8ocWjBwQYAvhPss9YboT5CzawSLi/7j7owFEg/A=;
+	s=k20260515; t=1779636193;
+	bh=EyH4MXiIOWzKm859w14kDQucpYwlERVTcs8ywUWkJeM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S9HcMBJzayvHIx2xfQNVSLrOH1ZFCpyj9lnRIaGGkELEkdKXBdj4K0pARvODMWQnc
-	 REG6ErBZ5cVNGE4aLV6GBG8zm6QeH6dE2WotY2ZvtdY/zQ7RBCjzIUccFQyhmTDJqy
-	 DEitdC9KUuRs0bvXA9tyffrje1kmQxWsOcxC5bZmq83oHl8P2lCAHdIp4n9IdfB+Og
-	 4jCMk6tqI9z4ONMvGafJWFCcBhIpYxQCRU8iqMaR6tkLMI+J/vVWZKTzlzi4Q6tjV4
-	 a4m5TK6COnuterSIlUHQF/FlOXf3TVi5ijpdTBvTQvJYAaAxRoUXlb4YC6R95W8T1a
-	 t1UrqPq75as3A==
+	b=mf602wzZ4wUV06Gpnmghsd8S3zs1izoy0Tr8AVyEZh/pgpflkZBGOz70IWUZkBODJ
+	 NJN2GN1+C5F+r5xexQapZ3UlhVGITpoEYMMMAlbMOQyG3s18ufbjXcxr1SHobcSzxc
+	 N38i/ddB7bgXT93iWH0/w8I6lT+1NtzDaYCfDOM/AbBjIWqQIbAqGyZ/1ahtsowT03
+	 wFPMPyzMCgFK4SgKoWW4UBUdvEz/xuhi9w1pKYxHBdXv7RgljBFBuirJMNLK8wydar
+	 1HdpVUqgk7sjGvSy0FN9x21nWR2Sh8oFms0+lUflPx84HFmMUivQgC8as4UPBBcrhy
+	 sv192JmSPxsxw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/9] arm64: dts: lx2160a-rev2: extend 32-bit, and add
- 64-bit pci regions
+Subject: Re: [PATCH v4] dt-bindings: clock: via,vt8500: Convert to DT Schema
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
-References: <20260524-lx2160-pci-v7-1-09370c23b952@solid-run.com>
+To: "Udaya Kiran Challa" <challauday369@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260524151110.21277-1-challauday369@gmail.com>
+References: <20260524151110.21277-1-challauday369@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 May 2026 15:13:47 +0000
-Message-Id: <20260524151347.BD92A1F000E9@smtp.kernel.org>
+Date: Sun, 24 May 2026 15:23:12 +0000
+Message-Id: <20260524152312.C741E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Expanding the 32-bit PCI outbound window to 3GB causes it to overl=
-ap with the inbound system memory address space, breaking DMA.
-- [High] The introduction of the 64-bit PCI memory range causes existing U-=
-Boot bootloaders to fail device tree patching, breaking MSI and IOMMU.
+- [High] The `patternProperties` regex enforces strictly lowercase node nam=
+es, inadvertently rejecting standard `fixed-clock` nodes unless they violat=
+e DT naming conventions by including uppercase letters to bypass validation.
+- [Medium] The patch defines a new schema for `via,vt8500-pmc` but fails to=
+ delete the existing legacy text binding for the same compatible string.
+- [Low] The `divisor-mask` property lacks a `dependentRequired` constraint =
+to enforce that it can only be used when `divisor-reg` is also present.
 --
 
-commit a80e2e3f97808fdad781240469c5e07e019191e9
-Author: Josua Mayer <josua@solid-run.com>
+commit f63cd62ab71a54ca61f786bce852286bf98a7852
+Author: Udaya Kiran Challa <challauday369@gmail.com>
 
-arm64: dts: lx2160a-rev2: extend 32-bit, and add 64-bit pci regions
+dt-bindings: clock: via,vt8500: Convert to DT Schema
+   =20
+Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
+controller binding from the legacy text format to DT schema.
 
-This commit extends the 32-bit PCIe memory regions to 3GB and adds 64-bit
-PCIe memory regions for LX2160A rev2. This allows allocation of large BARs
-requested by graphics processors or AI accelerators.
+> diff --git a/Documentation/devicetree/bindings/clock/via,vt8500-clock.yam=
+l b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
+> new file mode 100644
+> index 0000000000000..51a68df6c2f30
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
 
-> [4] pci bootloaderp atching related errors with IORESOURCE_MEM_64 flag:
-> [    0.967809] layerscape-pcie 3800000.pcie: host bridge /soc/pcie@380000=
-0 ranges:
-> [    0.967830] layerscape-pcie 3800000.pcie:      MEM 0xa400000000..0xa7f=
-fffffff -> 0xa400000000
-> [    0.967842] layerscape-pcie 3800000.pcie:      MEM 0xa040000000..0xa0f=
-fffffff -> 0x0040000000
-> [    0.967849] layerscape-pcie 3800000.pcie:       IO 0xa000010000..0xa00=
-001ffff -> 0x0000000000
-> [    1.169315] pci 0000:01:00.0: [8086:1572] type 00 class 0x020000 PCIe =
-Endpoint
-> [    1.169733] pci 0000:01:00.0: BAR 0 [mem 0x00000000-0x00ffffff 64bit p=
-ref]
-> [    1.169771] pci 0000:01:00.0: BAR 3 [mem 0x00000000-0x00007fff 64bit p=
-ref]
-> [    1.169796] pci 0000:01:00.0: ROM [mem 0x00000000-0x0007ffff pref]
-> [    1.173389] OF: /soc/pcie@3800000: no msi-map translation for id 0x100=
- on (null)
-> [    1.173515] OF: /soc/pcie@3800000: no iommu-map translation for id 0x1=
-00 on (null)
+[Severity: Medium]
+Should this patch also delete the existing text binding for this compatible
+located at Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.txt?
+Leaving the old text binding intact causes duplicate and fragmented
+documentation for the exact same compatible string.
 
-[Severity: High]
-Does adding the 64-bit PCI memory range cause existing U-Boot bootloaders to
-fail device tree patching?
-
-When U-Boot encounters the 64-bit range, it appears fdt_fixup_pcie() aborts
-and fails to append the msi-map and iommu-map properties.
-
-Without iommu-map, the kernel will not attach the SMMU to the PCIe devices.
-Without msi-map, the kernel cannot translate PCIe Requester IDs to ITS
-Device IDs, which breaks MSI/MSI-X allocations.
-
-Could this prevent devices like NVMe drives from initializing and break
-compatibility with existing deployed bootloaders?
-
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi b/arch/a=
-rm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
-> index f54005e37924b..db1ebee53f6f0 100644
-> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
-> @@ -14,8 +14,9 @@ &pcie1 {
->  	      0x80 0x00000000 0x0 0x00002000>; /* configuration space */
->  	reg-names =3D "regs", "config";
-> =20
-> -	ranges =3D <0x81000000 0x0 0x00000000 0x80 0x00010000 0x0 0x00010000
-> -		  0x82000000 0x0 0x40000000 0x80 0x40000000 0x0 0x40000000>;
-> +	ranges =3D <0x81000000 0x00 0x00000000 0x80 0x00010000 0x00 0x00010000>=
-, /* 16-Bit IO Window */
-> +		 <0x82000000 0x00 0x40000000 0x80 0x40000000 0x00 0xc0000000>, /* 32-B=
-it - non-prefetchable */
-> +		 <0xC3000000 0x84 0x00000000 0x84 0x00000000 0x04 0x00000000>; /* 64-B=
-it - prefetchable - 16GB */
+[ ... ]
+> +    patternProperties:
+> +      "^[a-z0-9-]+(@[0-9a-f]+)?$":
+> +        type: object
+> +
+> +        properties:
+> +          compatible:
+> +            enum:
+> +              - via,vt8500-pll-clock
+> +              - wm,wm8650-pll-clock
+> +              - wm,wm8750-pll-clock
+> +              - wm,wm8850-pll-clock
+> +              - via,vt8500-device-clock
 
 [Severity: High]
-Does expanding the 32-bit PCI outbound window to 3GB (0xc0000000) cause it =
-to
-overlap with inbound system memory?
+Does this regex unintentionally restrict compliant lowercase node names?
 
-System memory starts at physical address 0x80000000. Since there isn't a
-dma-ranges property mapping inbound DMA to a different bus address, system
-memory uses a 1:1 mapping, meaning inbound DMA targets 0x80000000 and above.
+Any standard child node with a compliant lowercase name (like "ref24") will
+match this pattern and be strictly restricted to the compatibles above, fai=
+ling
+if it contains properties like clock-frequency.
 
-If a PCIe device requests a large 32-bit BAR, the kernel might allocate it
-within this 0x40000000-0xffffffff range. This causes the Root Port's
-downstream bridge Memory Limit register to be programmed to a value >=3D
-0x80000000.
+It appears the fixed-clock examples in this patch only pass validation beca=
+use
+their node names include uppercase letters (e.g., "ref24M"), which evades t=
+he
+regex entirely and falls through to additionalProperties.
 
-A Root Port won't forward upstream memory transactions if the address falls
-within its programmed downstream window, as it assumes it is peer-to-peer
-traffic.
+[ ... ]
+> +          divisor-reg:
+> +            $ref: /schemas/types.yaml#/definitions/uint32
+> +            description:
+> +              Offset of the clock divisor register within the PMC
+> +              register space.
+> +
+> +          divisor-mask:
+> +            $ref: /schemas/types.yaml#/definitions/uint32
+> +            default: 0x1f
+> +            description:
+> +              Bitmask describing the divisor field inside divisor-reg.
+> +
+> +        dependentRequired:
+> +          enable-reg:
+> +            - enable-bit
+> +
+> +          enable-bit:
+> +            - enable-reg
 
-Could this intercept endpoint DMA targeting system memory in the overlapped
-range and cause system hangs?
+[Severity: Low]
+Should this section also include a constraint to enforce that divisor-mask
+can only be used when divisor-reg is present? The legacy text binding indic=
+ates
+the mask is semantically tied to the divisor register.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524-lx2160-pci=
--v7-0-09370c23b952@solid-run.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524151110.2127=
+7-1-challauday369@gmail.com?part=3D1
