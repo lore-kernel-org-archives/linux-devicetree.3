@@ -1,103 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC9C1CD1E4;
-	Sun, 24 May 2026 21:33:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F86B31F9A7;
+	Sun, 24 May 2026 21:37:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779658436; cv=none; b=cgdSffNM3zm+6vsJsOJZSCDxMLviAVMII3j1Cm4BqzyCX/QGJ2Llu8q5LsztCrrWn8OCTG8c/P+PCnNOnqZVfoPdzpWIPSn9lV7o5H5T8K2pNezdnLfMlQJwN0maOvIE4CSU9GaiOfLLEVS+fhjGILLmHuMrOJcgpQrrZlCygJ0=
+	t=1779658636; cv=none; b=RIXCTflM40UIylGUB3o5F0mJ05CsmY+5h4A3+o03y8/+l8ucfUJYFkETWqF0zHHLeE9B8DY49byvJ8O6Q85diTVais86R8kP4SjMNhakAA/thvPF9GmASCu60ilLEXCg4BTBiu3VccYAe8AO+hVTOjpw8vlHAde4fdnOzViDxf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779658436; c=relaxed/simple;
-	bh=U2bgs3hxq/b6hYch8osYnasgSoV5kG2hhrESAk4/vdE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MTLRmjS1BkjjIyL+dF7h7/txj68e6UPC4fAZh4WTlx/DjFGx1OTsJ/cv8AIUolBfQ+DJCsFATW0KgF96cs7/k+Rm8slIfa/zsD/Cj+7+ou0thFnOvKwrDYcAoTHjJgp8G5Nz4fQXbeoYbWZTuLu+tgHm4U1iqWynE0ZVfAEMkh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwP2+gD5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779658636; c=relaxed/simple;
+	bh=j2QPNcxSh4BS75E5BSKw8B084oAtPnSbhFBD9LTiEFA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=W/9XSr/cUzTNGO/ydcQgWgKzk89QYbOG/2osiPpxr3LyVK8x5l4qfhx8YzHjSbAmpBqBA0pjfyaU2zA56WH5614nrUsyXQuiWQFBSMQBFnLNdMGeHML2sbcwLQ9vpxCbi+A6g1ClrNCv76qFYMruNNRXZJ/q+Q1pQg/sJyU/Nis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRks5jvp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwP2+gD5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BF51F000E9;
-	Sun, 24 May 2026 21:33:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRks5jvp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4084A1F000E9;
+	Sun, 24 May 2026 21:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779658431;
-	bh=U2bgs3hxq/b6hYch8osYnasgSoV5kG2hhrESAk4/vdE=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=XwP2+gD5BnemlPnX9mfPqISPgLuz7K/mdva6FOhU10kHMPA7wU+BjcLE6qQ6jUro/
-	 vDbZZzK4MFzWmZUQYPGDXZY558lp/RLoEvLVDvUdGhLph5yod5Vtb5wi7LmXYIZQJJ
-	 Iyn0kffNxLwXBCezu26RN0q5OpR8qvwO/ROjyIZGap6h3j3L1pUECK0x3DxBoa0u3U
-	 JHoFFMp+WQYlf/63ct6pAy45hXVPWF9ZGz/JVOxkB64PXxxsLTyyWQKrkmVWll0yfG
-	 hTjVFYMfxdHzZmioqFcPIan6qaUUjqrkFSVV3rZ0i69iEgVxiDFGjF0O5kJG/fVS5T
-	 1xwt/y0klJuuA==
-Date: Mon, 25 May 2026 05:33:45 +0800
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, samuel@sholland.org,
-	mripard@kernel.org, maarten.lankhorst@linux.intel.com,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	mturquette@baylibre.com, sboyd@kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-Message-ID: <ahNuuaVlDl0KvOSj@home.wens.tw>
-Reply-To: wens@kernel.org
-References: <20260509190015.79086-1-jernej.skrabec@siol.net>
- <20260509190015.79086-8-jernej.skrabec@siol.net>
- <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
+	s=k20260515; t=1779658634;
+	bh=UxreL2xCDAvofEAynAn+CGiECFVDKCrcBodPDP6h6uU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KRks5jvpv+bonwdybSRGBachdUCi4bpfJkegm6QEbh/wTNaDkVmK7iyNx79zKNFWL
+	 AG2rARQ/cqpQzVQJYKC2Tx54L/XVLLEAsqWRGfFisa9Jaz9F7oP5NYtlHW3inkjK0X
+	 4FJCTg+tmaooLVlvYcUeqNmzzox2f7TAMRyEzd6kSDwSjOM4Jk7Mk/Yn0pMDc3PpED
+	 Y/KxPHM2/WBeqpFrGoRyjCtv1zADTBaJgtzbk/XBqbQYQmMOl46i/F0ptzfi3vHxvc
+	 gyFEdiE4QQjXYMKyPrFquiI0f5LK7bLs+OzJ5H/MeOg738eircx29zu7odYP6XD9RE
+	 Zz/H9/wejj6yw==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v1 3/4] iio: flow: add Sensirion SLF3x liquid flow
+ sensor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wadim Mueller" <wafgo01@gmail.com>
+Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260524205112.26638-4-wafgo01@gmail.com>
+References: <20260524205112.26638-4-wafgo01@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 24 May 2026 21:37:13 +0000
+Message-Id: <20260524213714.4084A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The fractional scale for the SLF3S-4000B variant evaluates to exac=
+tly 0.0 in sysfs due to IIO formatting logic, permanently zeroing out flow =
+readings for userspace.
+- [Medium] Concurrent initialization of the shared global `slf3x_crc_table`=
+ in `probe()` causes a data race.
+- [Medium] Continuous measurement mode is not restarted after a system susp=
+end/resume cycle.
+--
 
-(resent from new email)
+commit 2a3dbf69e1c64c32d26f6f97455487233c63c7c0
+Author: Wadim Mueller <wadim.mueller@cmblu.de>
 
-On Thu, May 14, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
-> > From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> >
-> > As it turns out, current H616 DE33 binding was written based on
-> > incomplete understanding of DE33 design. Namely, planes are shared
-> > resource and not tied to specific mixer, which was the case for previous
-> > generations of Display Engine (DE3 and earlier).
-> >
-> > This means that current DE33 binding doesn't properly reflect HW and
-> > using it would mean that second mixer (used for second display output)
-> > can't be supported.
-> >
-> > Remove layer register space, which will be represented with additional
-> > node, and replace it with phandle, which will point to that new, shared
-> > node. That way, all mixers can share same layers.
-> >
-> > There is no user of this binding yet, so changes can be made safely,
-> > without breaking any backward compatibility.
->
-> There is user. git grep gives me:
-> drivers/gpu/drm/sun4i/sun8i_mixer.c
->
-> which means this is a released ABI. As I understood, the old code was
+iio: flow: add Sensirion SLF3x liquid flow sensor driver
 
-We held off on merging the DT changes so that we could rework this.
-I can't find the actual request though. It was probably over IRC.
+Add an IIO driver for the Sensirion SLF3S family of digital
+liquid-flow sensors. The supported sub-types (SLF3S-0600F,
+SLF3S-4000B) share the same register map and command set and are
+distinguished only by the flow scale.
 
-> working fine but just did not support all use cases. Why this cannot be
-> kept backwards compatible?
+> diff --git a/drivers/iio/flow/slf3x.c b/drivers/iio/flow/slf3x.c
+> new file mode 100644
+> index 0000000000000..e4ee1a04a46d7
+> --- /dev/null
+> +++ b/drivers/iio/flow/slf3x.c
 
-AFAIK the "planes" block is shared between two display mixers. As the
-commit message explains, this prevents using the second mixer, since
-only one of them can claim and map the register space. And on the H700
-(which is the same die as the H616 discussed here but with more exposed
-interfaces), there could actually be a use case for the second mixer.
+[ ... ]
 
-Hope that explains things.
+> +static const struct slf3x_variant slf3x_variants[] =3D {
+> +	{ .sub_type =3D 0x03, .name =3D "slf3s-0600f",
+> +	  .scale_num =3D 1, .scale_den =3D 6000000 },
+> +	{ .sub_type =3D 0x05, .name =3D "slf3s-4000b",
+> +	  .scale_num =3D 1, .scale_den =3D 1666680000 },
 
+[Severity: High]
+Will the fractional scale for the SLF3S-4000B variant permanently zero out
+flow readings for userspace?
 
-ChenYu
+The driver returns IIO_VAL_FRACTIONAL with val =3D 1 and val2 =3D 166668000=
+0.
+The IIO core formats fractional values for sysfs up to nanounit precision
+(9 decimal places) using the calculation (val * 1000000000LL) / val2.
+
+Because the denominator (1,666,680,000) is strictly larger than the 10^9
+multiplier, the integer division computes to exactly 0. As a result, the
+string emitted to sysfs will be 0.000000000.
+
+Userspace applications rely on this sysfs attribute to convert raw readings
+into physical units, meaning any flow rate reading will be multiplied by 0.=
+0,
+rendering the sensor's flow channel completely non-functional.
+
+> +};
+
+[ ... ]
+
+> +static int slf3x_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct slf3x_data *sf;
+> +	int ret;
+> +
+> +	ret =3D devm_regulator_get_enable_optional(dev, "vdd");
+> +	if (ret < 0 && ret !=3D -ENODEV)
+> +		return dev_err_probe(dev, ret, "failed to enable vdd\n");
+> +
+> +	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*sf));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	sf =3D iio_priv(indio_dev);
+> +	sf->client =3D client;
+> +	crc8_populate_msb(slf3x_crc_table, SLF3X_CRC8_POLY);
+
+[Severity: Medium]
+Can this concurrent initialization of the shared global slf3x_crc_table cau=
+se
+a data race?
+
+The driver defines a global static array slf3x_crc_table and dynamically
+populates it by calling crc8_populate_msb() unconditionally during
+slf3x_probe().
+
+If multiple SLF3x sensors are present and probed concurrently on different =
+I2C
+buses, or if a newly plugged sensor is probed while an already-registered
+sensor is handling an active read, multiple threads will concurrently modify
+or read the global table without synchronization.
+
+This could result in transient -EIO errors or Kernel Concurrency Sanitizer
+warnings.
+
+> +
+> +	ret =3D slf3x_read_product_info(sf);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "product info read failed\n");
+
+[ ... ]
+
+> +static struct i2c_driver slf3x_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "slf3x",
+> +		.of_match_table =3D slf3x_of_match,
+> +	},
+> +	.probe =3D slf3x_probe,
+> +	.id_table =3D slf3x_id,
+> +};
+> +module_i2c_driver(slf3x_driver);
+
+[Severity: Medium]
+Will continuous measurement mode fail to restart after a system suspend/res=
+ume
+cycle?
+
+The driver initiates the sensor's continuous measurement mode (0x36 0x08)
+exclusively in probe() and assumes the device stays in this mode indefinite=
+ly
+to fetch samples on demand in read_raw().
+
+However, the driver does not implement power management suspend and resume
+callbacks. If the system suspends and the sensor loses power (e.g., via
+regulator cutoff), it will wake up in its default idle state.
+
+Without a resume callback to re-issue the continuous measurement command,
+subsequent read operations in read_raw() will return invalid data, silently
+breaking the driver after a suspend/resume cycle.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524205112.2663=
+8-1-wafgo01@gmail.com?part=3D3
