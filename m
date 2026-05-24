@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AA2168BD;
-	Sun, 24 May 2026 18:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654DA212566;
+	Sun, 24 May 2026 19:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779649197; cv=none; b=qJvkuLDFyXqtDq3rtWr4RGML/8Jz7zlx7L1U+r2aFEyb0aITuaNv5MxdbgWsunpun7q5Ha6zReUPyVUFBpEXks64tdm1Yy+0YYVRmkKe7XyikV1qZoiMsNNTmOdWOAHx6/iN/qYtyE3rX9njgL44si6VBqm1B8biZBshkt80LD8=
+	t=1779649721; cv=none; b=cfq2reBfsVUpgHbBW6aV6kg15a7qeiVPKW2ZZFdIyeXQz8g7/Rdth5r+zh/zP4gqn2kE8ma9NzQ2X+t8GZbc2mZ6+OATIFa4N4RxXDI97svH2CFBy53Z3VhTDcOM61pph2QUWcGtQDBj3tBOpYce9i5rhQmhb9sWuycnSljZ/Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779649197; c=relaxed/simple;
-	bh=6I4ZCSMAJ7iQtpK76gcdXEbJdcgNHzNSzs1S5ulmoLg=;
+	s=arc-20240116; t=1779649721; c=relaxed/simple;
+	bh=KAhDqm0j8XX4wZhPAqq1yA0xoWy0iEaA69359oL9CvA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VnJn2y3+am4jZVWJfBxcNxHtusd/TbT9VJC7RY9vGrSqObY5tTYz0zYTbeVmjg4YeCfmlKH5fJg1LlQvk4PLfygI8xIPKLm0CV3MBGFHtT9UQ7fsdccRtvmB5IjG5dQoOCvVh+RANJgnniZcNSr1n4ynnkEKLPXz37Cx13JaSfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lAwJYsut; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=SfoKJfwzefspJpI9rrcCDBRf00biJc/A4HsAA50GCv9e/Hsok2gizQxSzDVGRTXnwSiv09PYcpvocmryeq2YX2vU4aR1rb2m+err/fZ6xgal0PeFP+3xPyvZlW7SJsxbWFnsl7n29qJlsLXMvT3TwLbm22OeA9i4ztiG5oyXDrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n/7/oLOE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lAwJYsut"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114321F000E9;
-	Sun, 24 May 2026 18:59:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n/7/oLOE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991341F000E9;
+	Sun, 24 May 2026 19:08:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779649196;
-	bh=c+QuToO6bKhvGIN86vmichQVbmiWTb4MzyAjSQ5uLNE=;
+	s=k20260515; t=1779649720;
+	bh=KLRQ2wACRuipMVnIkUKL2r6pZUOgBEEve1ZZpHIHskM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lAwJYsutI/8sUCK+NLsIWlt6ESlOsb+8mQFRGqhDyGJgT7HBZxE8kpZsdQWuH2ah9
-	 HzFbSuMHnv/3JAQw7G8fmpLm+Q5EiRniuiBUtIEiZJWpdcY8ktv8wVXdc1wcn+Pwb9
-	 VfcC4XhX+m5ce4PMKyENHzUWpsv+TX62d3FqtreIuEatkaUYxeRrQsQTUQWlgMQRYv
-	 osWY31jkEiv1axo+7MqEHc49l7Oqt7oFFMYHLoqm+DOAeydv2TxY46dLrJ9U4DHto/
-	 Qdoynn5S28EjntB+32flUH4SgslaNy3HlJehDZq9zdCi3/zQ4GcVzPvbyIDgLtVKMl
-	 bJ71CwEoqz1rw==
-Message-ID: <15b94878-d562-4e74-b0c1-cfa5d94692d4@kernel.org>
-Date: Sun, 24 May 2026 20:59:52 +0200
+	b=n/7/oLOEv+z4+YBMo7iLr1qDDwBbqDZx0/+21SVPQ8MjnRNQ2kRyNBNHtdkJqsxO5
+	 UCphTz5rjChomuGjjw7Alujmzz16yQF9e/dOuUJHZClq6z5bXKorZQLsnskc5i3xLe
+	 NyEr3uinVD+mp2udqEpQTj2HaPlrwC8PnhRWs/ZbgJLD53PXk+8hXQLjmtvFuWnJf3
+	 1vDk2I2UtqR5/z/e+R6L8KnzA42iHlpYOopzIoHNCQJje4twutgbqNlOoF4NHRiL7f
+	 EtpSG86SYs1lytdf9iK0ppVZlrw3cAA4MhZObcKwMltzOOwND/3HGh2bvtTdUAQmYS
+	 hIZ/GZQJE7P7Q==
+Message-ID: <50e53fd9-4cca-4cac-9f8d-868de3a8a7bc@kernel.org>
+Date: Sun, 24 May 2026 21:08:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,17 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 1/7] dt-bindings: iio: add Open Sensor Fusion UART
- device
-To: Jinseob Kim <kimjinseob88@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, linux-iio@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260524085312.15369-1-kimjinseob88@gmail.com>
- <20260524085312.15369-2-kimjinseob88@gmail.com>
+Subject: Re: [RESEND,v2 1/2] dt-bindings: memory-controllers: mtk-smi: Add
+ support for mt8189
+To: mtk20898 <zhengnan.chen@mediatek.com>, Yong Wu <yong.wu@mediatek.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com
+References: <20260427070444.20247-1-zhengnan.chen@mediatek.com>
+ <20260427070444.20247-2-zhengnan.chen@mediatek.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,72 +91,32 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260524085312.15369-2-kimjinseob88@gmail.com>
+In-Reply-To: <20260427070444.20247-2-zhengnan.chen@mediatek.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24/05/2026 10:53, Jinseob Kim wrote:
-> Add a binding for the OSF0 UART-attached sensor aggregation device.
+On 27/04/2026 09:04, mtk20898 wrote:
+> From: Zhengnan Chen <zhengnan.chen@mediatek.com>
 > 
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-> ---
->  .../iio/imu/opensensorfusion,osf-uart.yaml    | 33 +++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |  2 ++
->  2 files changed, 35 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart.yaml
+> Add binding description for mt8189.
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart.yaml b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart.yaml
-> new file mode 100644
-> index 000000000..d4a8f6819
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-uart.yaml
-> @@ -0,0 +1,33 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/imu/opensensorfusion,osf-uart.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Open Sensor Fusion UART sensor aggregation device
-> +
-> +maintainers:
-> +  - Jinseob Kim <kimjinseob88@gmail.com>
-> +
-> +description:
-> +  UART-attached sensor aggregation device using the OSF0 frame format.
-> +  The device sends capability, status, and sample frames to the host.
-> +
-> +properties:
-> +  compatible:
-> +    const: opensensorfusion,osf-uart
+> The clocks number of mt8189 smi-sub common has a bit difference.
+> Its clock count is 2, while mt8195 has 3. Therefore, the minimum
+> number of clocks is changed to 2, with the third one being optional.
 
-1. No such vendor. You need to test against entire bindings.
-2. Looks heavily incomplete - no resources. Compatible and hardware
-description looks also incomplete - what is osf? It's exactly ONE
-device? Why do you use bus suffix? Please start with writing bindings or
-DTS101 slides.
+Then why does the binding say that mt8195 has two clocks? You already
+received exactly this question.
 
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    serial {
-> +        osf {
-
-Node names should be generic. See also an explanation and list of
-examples (not exhaustive) in DT specification:
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
-If you cannot find a name matching your device, please check in kernel
-sources for similar cases or you can grow the spec (via pull request to
-DT spec repo).
-
-> +            compatible = "opensensorfusion,osf-uart";
+> 
+> About what smi-sub-common is, please check the below diagram,
+> we add it in mediatek,smi-common.yaml file.
+> 
+> Signed-off-by: Zhengnan Chen <zhengnan.chen@mediatek.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
 
+No need to resend this. You received comments at v2 and you should have
+implemented them.
 
 Best regards,
 Krzysztof
