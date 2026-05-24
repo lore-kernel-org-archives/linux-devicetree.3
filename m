@@ -1,125 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3062DCF45
-	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 09:17:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44D1346AC1
+	for <devicetree@vger.kernel.org>; Sun, 24 May 2026 09:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779614222; cv=none; b=Oa5lfqfntwoSY4OsMkROWMIreBSDsiBNSO0Ow7RdjGm0z+5rv72jsN3t7/CPInnh88NTsOEt+cVTgThVzMXcvRFZR9jwtjJtNyYY0Kqh/BubBRUj/44bwLzrwlTZ5dyqy9rxxxVT3bbrL/6dVD6FQ+pK+pUT6YqLIFtHYo3w498=
+	t=1779614423; cv=none; b=YAfei9r2SEh8yDAPklJd5X98UANTn4wh7nugPlnSHSrRn0PBAlaS978wtmmn6J+JINymtzo3LScMAYVP6HH35lPNiS/Zpint7IsDq3obUk2W+ui88mFG9H5ncyMB+rERQ08ndSVcEjCV/VWHa85WqruNMotWEBkePTPzeTNsWVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779614222; c=relaxed/simple;
-	bh=BcW1yxIPo0AQzjke5wsDu/mVVqOW7M26UJLw704xFeA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ebH+JP228FAwruzXgGKdWSQWR4jSI1Zkyyg77l31Xd5TZvK2fUBklPq5sVD3IcR/xOKMuH8VmMgOiTIzjhV8dhRwIvpW72u8N7zByuadjfq+GOhC4Urirpp9JIWk+6s5UynzC0Ql9vhZvZwQj2ocLz0FCffRtY9V/hFEWUo+2KI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4Jdo70j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779614423; c=relaxed/simple;
+	bh=m5MldW8/rj/cmWsdxos1cei2w4g8s18jCasI/5xDt9k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s104CwbjgH5G6upodwHpuCDErpUA2Yw+iWrqa81NAqTPnVJ98J0+1B0vChTDECHAHptVc+ORgoAo0pkOCOUSFXcILF6faCJQvLMS+LPmFG5okFx3CXCLGaWmJxW/idG2HTs5VzpRfE9trSLoruuPPjsFKCfzUBemXVb2BF+Y2Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=duOQWtjP; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4Jdo70j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D15B1F000E9;
-	Sun, 24 May 2026 09:17:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779614220;
-	bh=+tEyJL3HoVRqOP/MuifunGy0g3RaWsdhuMxr4wOIZJQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J4Jdo70j9Ibagpxok5wEw1BeWKRa9xQVhFwy1JEG+vSx3vV8Fz/wKomi+TnvEVKwS
-	 U3UzI1ai1Nkljk74MpH1fKm4GNmYc4gNoAR4HCOEEIruDo66CshMDhOs5ZeaAsmK3N
-	 +6FJRx4dAldENL8IDEwQWhJ5hnyB2IsvTB2fJpg7cqtD+w1WsAZDMrkxLPLcCBAaKL
-	 JQrAwaTtSuowYrRnyiholeqGkmT+OW1/qfk/NtBgXmURhEo40zmhzeZrdOGOlQA4Le
-	 NuqhCGGD60OafHXQFx0Wmm1GYOhA/5sQ2JElXUe0WLwGBUiAusdSjLNOR37fzlU83k
-	 qt9uzm0DP0olg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 3/7] iio: osf: add protocol v0 decoding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinseob Kim" <kimjinseob88@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260524085312.15369-4-kimjinseob88@gmail.com>
-References: <20260524085312.15369-4-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 May 2026 09:16:59 +0000
-Message-Id: <20260524091700.5D15B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="duOQWtjP"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49041e84237so18145625e9.1
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 02:20:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779614420; x=1780219220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fBUAhsBB20qNgqheJcG9wI7Ac9cNCmknHQW+c+a7mQ0=;
+        b=duOQWtjPGifffMgAK0gY9fpvEt8ziUtsyPGUF1k2NAC8kgSDWKZnZx+lZRqxIstHek
+         B/dgmu2N15UpbeSDwHdJFjhqA8L4NE/d54wUQTM8GBBo9otbi3YcKcmUwjR3jAk2J+yc
+         yQzDShDbvY19QqVKnbx8exL/fz0N1DNuHALqef9S1CmG4gmnTfi0YVZfj5+5jyHwWstQ
+         I0MYecraj5PI4ogX2PM5Yjn+ckiF7FSafM07ggMwvv1Opa6Mx1NIpGJpTuiht3k2jCUU
+         jKvza3v8v+ZmcFUfUSX5YJJJuP8rnAat4epbNEYUS5a5fH+ehhoFLuAqTa1z/P+jutLJ
+         OB3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779614420; x=1780219220;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fBUAhsBB20qNgqheJcG9wI7Ac9cNCmknHQW+c+a7mQ0=;
+        b=kTv3grj9VfyXlSPRMecjVb6+gjZhL0JmvfTnRsZJ1kq0cmpp1PF8mn0yRGJ8ZB11n7
+         5A2mL8TdpcgmurQIcTvOebFwvqa9cXe5uee/YXiRTAWp7UNe7dj9Hb/rYyRjC3973MLA
+         DcaPRLoky1soVm2BCc7swftUc4PJlqZQtdb3DeeIvh5Vz00B80Pa0jsMhZBvTvp9b8bH
+         VZpLKV/A+PsKtAgEdlnziFpWvBCIIzpYPNLPMdYjtv0LfceNAAeD+ybszKvfL8yibIPh
+         j32y6i0DhwIefGJGa/Sx1Nle+bz/nlkuo1fdr2u3DoD7Uh1YvBh6JPBwItnuBGpEZu/W
+         oCsA==
+X-Forwarded-Encrypted: i=1; AFNElJ+SC8dORMTKQlJPmGDqH5bhiXK3m+jyFrKJf7S+AA3zj7fumeEJ0D1fDz7oIoeud6iAK1EEWhuckDUX@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXU0zfHu6G2lSuNjAKEQ9vW8tYhvFKkwnFkloJi4liBopZF6eq
+	dakls7peFP71zOxIC9HzjfOpAukUqf+1nOcB27kstkE6qHP/idIbKx+/
+X-Gm-Gg: Acq92OH3XbngILEk/HMsCWdgU7GUv958mMiknSG/2RrP9oTDFSoiZ70m2uXCfgyJ6A3
+	uXUM7epKJ9cfpCREx3fk4Syxa2ohPn9w43GOqAaeyYhtHMQeIoNHoyvJOBf2S8oNu5qWApqMkLI
+	iu8dnbumNmB0vlDchzLmu97iHoax8a5Km9O+iSa+7G190gGRdHzOkEKJ3x87QzIjf248XOqgjiS
+	0FPVSUf6QlsVwFKf/N9fmpvXV+tC+xXZkYwYJEr++cZSpXBX3AA+gmxAPBeKpHSGC3Ulp7S3OTn
+	n2NEoa7Bv65qv2m4xhEGyzw3tu+1LgrJL48ElSXIkWoobPxUtMnoYUqzTO05SUwsY12OUXmMpsz
+	KjD0GUD6AB1j1AjN/ylx3/qsWAK851CMXUEnxtMxJBkR0bqxgxJqr5iYABxK4uCzHHO9wYLsBWB
+	Vn23sSUGRq1QnSqm/BAuhSd4Q5zqWjqYA6Sglp0saFTAkB2MpEvZA3cC//+as=
+X-Received: by 2002:a05:600c:1992:b0:48a:79d8:a8d6 with SMTP id 5b1f17b1804b1-4904245f54cmr129956015e9.7.1779614419836;
+        Sun, 24 May 2026 02:20:19 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a700:7301:ae73:a12b:ca55:91be])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4904179c615sm59140785e9.4.2026.05.24.02.20.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 24 May 2026 02:20:19 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH] arm64: dts: renesas: rzg3e-smarc-som: Sort pinmux entries and fix blank line
+Date: Sun, 24 May 2026 10:20:11 +0100
+Message-ID: <20260524092016.46346-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The function `osf_protocol_decode_sensor_sample` fails to valida=
-te the untrusted `sensor_type` field from the payload.
---
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-commit 771f82b33a67fcd96de20b3ff22ae83721808219
-Author: Jinseob Kim <kimjinseob88@gmail.com>
+Sort the pinmux entries for both GMAC ctrl nodes in port order (A/B/C and
+D/E/F respectively) and remove the extra blank line before the second
+pinmux assignment.
 
-iio: osf: add protocol v0 decoding
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+ .../boot/dts/renesas/rzg3e-smarc-som.dtsi     | 49 +++++++++----------
+ 1 file changed, 24 insertions(+), 25 deletions(-)
 
-This commit introduces the OSF0 protocol frame and payload decoders for
-device-to-host messages.
+diff --git a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
+index d978619155d2..2e1d9686df88 100644
+--- a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
++++ b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
+@@ -193,20 +193,20 @@ clk {
+ 		};
+ 
+ 		ctrl {
+-			pinmux = <RZG3E_PORT_PINMUX(A, 1, 1)>, /* MDC */
+-				 <RZG3E_PORT_PINMUX(A, 0, 1)>, /* MDIO */
+-				 <RZG3E_PORT_PINMUX(C, 2, 15)>, /* PHY_INTR (IRQ2) */
+-				 <RZG3E_PORT_PINMUX(C, 1, 1)>, /* RXD3 */
+-				 <RZG3E_PORT_PINMUX(C, 0, 1)>, /* RXD2 */
+-				 <RZG3E_PORT_PINMUX(B, 7, 1)>, /* RXD1 */
+-				 <RZG3E_PORT_PINMUX(B, 6, 1)>, /* RXD0 */
+-				 <RZG3E_PORT_PINMUX(B, 0, 1)>, /* RXC */
++			pinmux = <RZG3E_PORT_PINMUX(A, 0, 1)>, /* MDIO */
++				 <RZG3E_PORT_PINMUX(A, 1, 1)>, /* MDC */
+ 				 <RZG3E_PORT_PINMUX(A, 2, 1)>, /* RX_CTL */
+-				 <RZG3E_PORT_PINMUX(B, 5, 1)>, /* TXD3 */
+-				 <RZG3E_PORT_PINMUX(B, 4, 1)>, /* TXD2 */
+-				 <RZG3E_PORT_PINMUX(B, 3, 1)>, /* TXD1 */
++				 <RZG3E_PORT_PINMUX(A, 3, 1)>, /* TX_CTL */
++				 <RZG3E_PORT_PINMUX(B, 0, 1)>, /* RXC */
+ 				 <RZG3E_PORT_PINMUX(B, 2, 1)>, /* TXD0 */
+-				 <RZG3E_PORT_PINMUX(A, 3, 1)>; /* TX_CTL */
++				 <RZG3E_PORT_PINMUX(B, 3, 1)>, /* TXD1 */
++				 <RZG3E_PORT_PINMUX(B, 4, 1)>, /* TXD2 */
++				 <RZG3E_PORT_PINMUX(B, 5, 1)>, /* TXD3 */
++				 <RZG3E_PORT_PINMUX(B, 6, 1)>, /* RXD0 */
++				 <RZG3E_PORT_PINMUX(B, 7, 1)>, /* RXD1 */
++				 <RZG3E_PORT_PINMUX(C, 0, 1)>, /* RXD2 */
++				 <RZG3E_PORT_PINMUX(C, 1, 1)>, /* RXD3 */
++				 <RZG3E_PORT_PINMUX(C, 2, 15)>; /* PHY_INTR (IRQ2) */
+ 		};
+ 	};
+ 
+@@ -217,21 +217,20 @@ clk {
+ 		};
+ 
+ 		ctrl {
+-
+-			pinmux = <RZG3E_PORT_PINMUX(D, 1, 1)>, /* MDC */
+-				 <RZG3E_PORT_PINMUX(D, 0, 1)>, /* MDIO */
+-				 <RZG3E_PORT_PINMUX(F, 2, 15)>, /* PHY_INTR (IRQ15) */
+-				 <RZG3E_PORT_PINMUX(F, 1, 1)>, /* RXD3 */
+-				 <RZG3E_PORT_PINMUX(F, 0, 1)>, /* RXD2 */
+-				 <RZG3E_PORT_PINMUX(E, 7, 1)>, /* RXD1 */
+-				 <RZG3E_PORT_PINMUX(E, 6, 1)>, /* RXD0 */
+-				 <RZG3E_PORT_PINMUX(E, 0, 1)>, /* RXC */
++			pinmux = <RZG3E_PORT_PINMUX(D, 0, 1)>, /* MDIO */
++				 <RZG3E_PORT_PINMUX(D, 1, 1)>, /* MDC */
+ 				 <RZG3E_PORT_PINMUX(D, 2, 1)>, /* RX_CTL */
+-				 <RZG3E_PORT_PINMUX(E, 5, 1)>, /* TXD3 */
+-				 <RZG3E_PORT_PINMUX(E, 4, 1)>, /* TXD2 */
+-				 <RZG3E_PORT_PINMUX(E, 3, 1)>, /* TXD1 */
++				 <RZG3E_PORT_PINMUX(D, 3, 1)>, /* TX_CTL */
++				 <RZG3E_PORT_PINMUX(E, 0, 1)>, /* RXC */
+ 				 <RZG3E_PORT_PINMUX(E, 2, 1)>, /* TXD0 */
+-				 <RZG3E_PORT_PINMUX(D, 3, 1)>; /* TX_CTL */
++				 <RZG3E_PORT_PINMUX(E, 3, 1)>, /* TXD1 */
++				 <RZG3E_PORT_PINMUX(E, 4, 1)>, /* TXD2 */
++				 <RZG3E_PORT_PINMUX(E, 5, 1)>, /* TXD3 */
++				 <RZG3E_PORT_PINMUX(E, 6, 1)>, /* RXD0 */
++				 <RZG3E_PORT_PINMUX(E, 7, 1)>, /* RXD1 */
++				 <RZG3E_PORT_PINMUX(F, 0, 1)>, /* RXD2 */
++				 <RZG3E_PORT_PINMUX(F, 1, 1)>, /* RXD3 */
++				 <RZG3E_PORT_PINMUX(F, 2, 15)>; /* PHY_INTR (IRQ15) */
+ 		};
+ 	};
+ 
+-- 
+2.43.0
 
-> diff --git a/drivers/iio/opensensorfusion/osf_protocol.c b/drivers/iio/op=
-ensensorfusion/osf_protocol.c
-> new file mode 100644
-> index 0000000000000..ac3c37ae28f32
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_protocol.c
-
-[ ... ]
-
-> +int osf_protocol_decode_sensor_sample(const struct osf_frame *frame,
-> +				      struct osf_sensor_sample *sample)
-> +{
-> +	u16 channel_count;
-> +	u16 sample_format;
-> +	u32 expected_len;
-> +	const u8 *payload;
-> +
-> +	if (!frame || !sample || !frame->payload)
-> +		return -EINVAL;
-> +
-> +	if (frame->message_type !=3D OSF_MSG_SENSOR_SAMPLE)
-> +		return -EPROTO;
-> +
-> +	if (frame->payload_len < OSF_SENSOR_SAMPLE_BASE_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	payload =3D frame->payload;
-> +	channel_count =3D get_unaligned_le16(payload + 4);
-> +	sample_format =3D get_unaligned_le16(payload + 6);
-> +
-> +	if (sample_format !=3D OSF_SAMPLE_FORMAT_S32)
-> +		return -EPROTO;
-> +
-> +	expected_len =3D OSF_SENSOR_SAMPLE_BASE_LEN + channel_count * sizeof(s3=
-2);
-> +	if (frame->payload_len !=3D expected_len)
-> +		return -EMSGSIZE;
-> +
-> +	sample->sensor_type =3D get_unaligned_le16(payload);
-
-[Severity: Medium]
-Should this code validate the untrusted sensor_type field?
-
-The parser validates the sample format but assigns sample->sensor_type
-directly from the untrusted device payload without calling the available
-osf_sensor_type_valid() function.
-
-If an invalid sensor type is accepted and passed to the core handler, it
-could be stored in the latest_samples cache. Since the cache has a fixed
-limit (OSF_MAX_CAPABILITIES), storing invalid sensor types from a malformed
-payload could exhaust the available slots, causing legitimate future sensor
-samples to be permanently dropped with -E2BIG.
-
-> +	sample->sensor_index =3D get_unaligned_le16(payload + 2);
-> +	sample->channel_count =3D channel_count;
-> +	sample->sample_format =3D sample_format;
-> +	sample->scale_nano =3D get_unaligned_le32(payload + 8);
-> +	sample->reserved =3D get_unaligned_le32(payload + 12);
-> +	sample->samples =3D payload + OSF_SENSOR_SAMPLE_BASE_LEN;
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524085312.1536=
-9-1-kimjinseob88@gmail.com?part=3D3
