@@ -1,143 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACFF305676
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB09B37E2FA;
+	Mon, 25 May 2026 12:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779710391; cv=none; b=X/SDU8QusKiymNrVPxRFyJLV1qbrj5ZioF4ped5FBjlMqLwppidGTItSXou6Dd94zQmEkrXlSOBSrRccikr65RBQkcFn/LfhhM7/v4M08aaUNuA1DWgMcBFJDblMZZru1IOKC87O3G+9A85mvtLnUSjRlHhcR5UHL8KN4iMLtrA=
+	t=1779710507; cv=none; b=uZZaxwCzewciT917n3wL/GfiyWbbqvyzR4y5deW40bIMTQRsD8EKUBCm5GPFrUrDEPaS8/SkJ7Fuo5Cz8XHnEw/uHAy+R9tQWhKlMbuEkBYnXGE520lNDRj8sAxiffYIh2Q24zBmwBZyxafp7rY+tXrmA2+ZuWcbv7HZf6c8Or0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779710391; c=relaxed/simple;
-	bh=lf1FODyXIpSOdR+Qrm3h8HrB/tg/rDpoB6/udtWzrOA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pVQrp6fgNWmSO7cBjuozyW1k+9fo92+pPDTJ4xKWwSEFM66JW+Pnfq232cHPoBLn5kH+23xLK2O77mXiQ0nUnGQi6AAHQyqwA72RuQQguzt6/pHm8b2L3TdDVGn0oAI+6v4nC116QlYweqpc7vAmSTGEHHpoOG1ZktvZs1AxMTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kzj34Buz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779710507; c=relaxed/simple;
+	bh=fE4uY3q8XgLmlfS1YC8jOwm91Bf9KcN2Z9riMvyK3kA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GMecYpynK7eyq61Ck0iQ1ICfgWX41jwTOSZL+R9We3MxStdSTNqVuMgUtT6sHa4mh7jodQF1TL2R4z001T7zqvjQsxQ6f/19VcV1VR51ZkYWyYzDhVJfvu2E154YJfNWZVgM1hbT7p2LNQFZX7ZqV6zy5SqDRigYs1LC90YmhvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R2cWH0Gj; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kzj34Buz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381FE1F000E9;
-	Mon, 25 May 2026 11:59:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779710390;
-	bh=cmirufJNEPBz9kvtsD8Dg+fAc/n5iEBdLhcx35/BqFA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kzj34BuzDn9gvfJEOwBu5CzQoMHMysl6hTjRBQsor8Lll5K+Rjcim35HqmZz0UjX9
-	 tG0CXHubnNvllQaHIxexTZ9Y7p/AnrCJBsV+lDrasEhI1m7Rleq1zIaQCj6nelPfjR
-	 iHKQeiYrTlxF646Kx/aZTxNzBKj0Bb4OL4iRFTweovdjVIPGze/GzAbYOod/FG8Lqe
-	 P86bu8vqkvQkFYinMve7CirDElV+CsNfAiSggIibhoOBfJDGI/+qqVphmybIYopbQf
-	 64geQw9IFsPPZUgYGD+es8nRzVS0Cj3CmnC8Ukvh3dIIOHG30o07BX4h35FOpQJ9N1
-	 WTJ13/SMDHo8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/7] clk: qcom: videocc: Add video clock controller
- driver for Eliza
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525-eliza_mm_cc_v2-v5-4-a1d125619a5a@oss.qualcomm.com>
-References: <20260525-eliza_mm_cc_v2-v5-4-a1d125619a5a@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:59:49 +0000
-Message-Id: <20260525115950.381FE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R2cWH0Gj"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64P83s6a1861470;
+	Mon, 25 May 2026 12:01:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=bxk3pD0ZCTu3OZhP0VIKb275
+	cuvSZ1qse+aBd99wy8A=; b=R2cWH0Gj/QP0GJPUc9jU0a2rvDrwGpO+Od1oSMV+
+	NqBUcn5IRZWH5EmkPNhcKKJrxsEDgJ5jHvWo7HTlMBqov7BJs+NWd8PsAyeTbTVr
+	1oBeMF4g+WO+3spOpz5jEvD/HLRuLBqt3RZIoCDaA7Uo4eqegLxaO6zTaiEB8qjd
+	622dMQx5sOFG4neK69lf9z6ixov8Sqgxkw7A8GNi2UDKKSru7e2uuRo9QafZyN12
+	uSVH6HLtoHTgYr6Q3Y1/w0skTcIPu0x4vZ48itTOXrSxOHxv16tNbk7SeypWgCPd
+	GnVYKgtAScl2Xu2MD6jw/MR7E7DXcgqbzGPeJTJmCGS6PQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb88w603x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 25 May 2026 12:01:43 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64PC1er9025119;
+	Mon, 25 May 2026 12:01:40 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4eb5ahunfd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 25 May 2026 12:01:40 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64PC1e1b025114;
+	Mon, 25 May 2026 12:01:40 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 64PC1emO025113
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 25 May 2026 12:01:40 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 8D254B2D; Mon, 25 May 2026 17:31:39 +0530 (+0530)
+Date: Mon, 25 May 2026 17:31:39 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        jishnu.prakash@oss.qualcomm.com,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
+ batteryless property
+Message-ID: <20260525120139.dyfnm6nwfzuoxd7p@hu-kotarake-hyd.qualcomm.com>
+References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
+ <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
+ <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
+ <20260519082526.odmn5dqi2jftwnln@hu-kotarake-hyd.qualcomm.com>
+ <20260519-first-wine-bulldog-a6a4c7@quoll>
+ <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
+ <86f76a81-832d-4ba5-81d5-38b46b7dc0a7@kernel.org>
+ <6c595a5f-b979-4e8b-ae77-d28d24700588@oss.qualcomm.com>
+ <e07085c5-0fe8-4ea7-8e51-ebe104e7aa2d@kernel.org>
+ <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=S/jpBosP c=1 sm=1 tr=0 ts=6a143a28 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=m1Cw-gmve29VV5GRw0cA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDEyMyBTYWx0ZWRfX1fQb06NpEbfC
+ QCV+S+WfDKVP79OtWkrFP4v6ZlMKx978TV0mqM9NthgjXRFuTsuzNZ8xvnVGkV1EvWmKshxxTuM
+ REkYLrg4W4XxsgHEke07X8BaZvWYJQYp6dli1Ft2+bD+Ik6Q/afbZknvvc8Bb/itmd3/KWYx5Z7
+ sCWN0e6izbl22DvRUDmiHp437MbnY81sQfi4rASGWOYIdKmTBBOv6NHs6/S62DsYKrq4Y0msBNV
+ xbv2sVZq3LsPrB+B7lnuvUVD9n8UL2MlEz1T7bL24MZUx8B46ZEFRruG+g0FeDuxGruC466YPik
+ 4nkDYGAJIZ+u683R7dSEMhrd8gUV0ssHk98H9W47QBiF3uh/IbABcwh2vRbCjJ6gXc2XTd5LSFr
+ jMXYdrluBHEi7rj9r3quyf0m7b+fZZVOmKy4KFHCoyg8/Os/KqbTvxWFl4XEbJQrKh7rAC35STn
+ WWvB3baen8ZwC3pMUsQ==
+X-Proofpoint-ORIG-GUID: qpuvh93ksfHCibfx-0cX0hBMb4gbCf78
+X-Proofpoint-GUID: qpuvh93ksfHCibfx-0cX0hBMb4gbCf78
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 adultscore=0 phishscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605250123
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `video_cc_eliza_desc` structure omits the `.use_rpm =3D true` =
-flag (or explicit PM runtime enablement), leading to unpowered register acc=
-ess during probe.
-- [Low] CLK_ELIZA_VIDEOCC sets 'default m if ARCH_QCOM', which is inconsist=
-ent with Kconfig conventions for Eliza clock controllers.
-- [Low] CLK_ELIZA_VIDEOCC implements GDSCs but lacks an explicit 'select QC=
-OM_GDSC' dependency.
---
+On Fri, May 22, 2026 at 11:24:19AM +0200, Konrad Dybcio wrote:
+> On 5/21/26 11:58 AM, Krzysztof Kozlowski wrote:
+> > On 21/05/2026 10:46, Konrad Dybcio wrote:
+> >> On 5/21/26 9:20 AM, Krzysztof Kozlowski wrote:
+> >>>> Since firmware does not have a way to dynamically tell if it on a
+> >>>> debug-board powered device or a DCIN powered device, We are required to
+> >>>> add this new DT property.
+> >>>
+> >>> Neither debug-board powered device nor battery-less will have
+> >>> monitored-battery, thus again, why lack of that property cannot tell you
+> >>> what you need?
+> >>
+> >> A device with a battery will not have a monitored-battery either
+> > But why? If for such device property "no battery" is suitable, then for
+> > me "monitored-battery" is suitable as well. IOW, if you say that having
+> > a property describing batter is not a accurate hardware property here,
+> > then neither saying "no battery" is, because no batter is basically some
+> > sort of battery (just like empty set is still a set, empty array is
+> > still an array).
+> 
+> The battmgr service running on one of the remoteprocs already has all
+> the information about the battery and it also handles all the type-c,
+> PD and charger configuration, only letting the OS know about the
+> results.
+> 
+> Hence, unless there's some other hardware at play (e.g. for custom
+> 200 W charging), which wasn't fully implemented in the QC firmware,
+> there is no reason to describe a battery separately, since the OS
+> can't do anything useful with that information
+> 
+> In some abstract way, perhaps monitored_battery = <&pmic_glink> could
+> be thought of as valid (since that's the data source the OS gets to
+> see)
 
-commit 7f851311a4cc00578bd0ab62871977440dcab6e4
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+Should we use monitored-battery = <&pmic_glink>; If so, would it be
+incorrect to mark pmic_glink as simple-battery, as that may cause the
+schema validation to fail?
 
-clk: qcom: videocc: Add video clock controller driver for Eliza
-
-Add support for the video clock controller for video clients to be able
-to request for videocc clocks on Eliza platform.
-
-> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
-> --- a/drivers/clk/qcom/Kconfig
-> +++ b/drivers/clk/qcom/Kconfig
-[ ... ]
-> @@ -45,6 +45,16 @@ config CLK_ELIZA_TCSRCC
->  	  Support for the TCSR clock controller on Eliza devices.
->  	  Say Y if you want to use peripheral devices such as USB/PCIe/UFS.
-> =20
-> +config CLK_ELIZA_VIDEOCC
-> +	tristate "Eliza Video Clock Controller"
-> +	depends on ARM64 || COMPILE_TEST
-> +	select CLK_ELIZA_GCC
-
-[Severity: Low]
-Since this driver implements GDSCs (video_cc_mvs0_gdsc and
-video_cc_mvs0c_gdsc), shouldn't it explicitly select QCOM_GDSC here?
-
-While it may compile by transitively inheriting the dependency from
-CLK_ELIZA_GCC, could this cause Kconfig unmet dependency warnings if the
-GCC configuration changes in the future?
-
-> +	default m if ARCH_QCOM
-
-[Severity: Low]
-Is this default configuration intentional?
-
-This deviates from Kconfig conventions for the rest of the Eliza clock
-controllers (like CLK_ELIZA_DISPCC, CLK_ELIZA_GCC, and CLK_ELIZA_TCSRCC)
-which do not set default values and instead rely on defconfig for enablemen=
-t.
-
-> +	help
-> +	  Support for the video clock controller on Eliza devices.
-> +	  Say Y if you want to support video devices and functionality such as
-> +	  video encode and decode.
-> +
-[ ... ]
-> diff --git a/drivers/clk/qcom/videocc-eliza.c b/drivers/clk/qcom/videocc-=
-eliza.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/clk/qcom/videocc-eliza.c
-[ ... ]
-> +static const struct qcom_cc_desc video_cc_eliza_desc =3D {
-> +	.config =3D &video_cc_eliza_regmap_config,
-> +	.clks =3D video_cc_eliza_clocks,
-> +	.num_clks =3D ARRAY_SIZE(video_cc_eliza_clocks),
-> +	.resets =3D video_cc_eliza_resets,
-> +	.num_resets =3D ARRAY_SIZE(video_cc_eliza_resets),
-> +	.gdscs =3D video_cc_eliza_gdscs,
-> +	.num_gdscs =3D ARRAY_SIZE(video_cc_eliza_gdscs),
-> +	.driver_data =3D &video_cc_eliza_driver_data,
-
-[Severity: High]
-Will omitting the .use_rpm flag (or explicit PM runtime enablement) cause a
-synchronous external abort and hang the system during boot?
-
-Multimedia clock controllers usually require their hardware power domains
-(such as MMCX) to be enabled via PM runtime before their registers can be r=
-ead
-or written.
-
-Without .use_rpm =3D true, qcom_cc_really_probe() skips calling
-devm_pm_runtime_enable() and pm_runtime_resume_and_get(), which would cause
-the subsequent initialization of PLLs and CBCRs to attempt register access =
-on
-unpowered hardware.
-
-> +};
-> +
-> +static const struct of_device_id video_cc_eliza_match_table[] =3D {
-> +	{ .compatible =3D "qcom,eliza-videocc" },
-> +	{ }
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-eliza_mm_c=
-c_v2-v5-0-a1d125619a5a@oss.qualcomm.com?part=3D4
+regards
+Rakesh 
