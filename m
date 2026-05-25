@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7578F17BA2
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 10:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386C6305685
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 10:30:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779705031; cv=none; b=GDsHgBzf53eu0esIuln4k8cK4VNH4zQBvo5bBGHMEWB4Baip6hJEHABmiqh4mNKRpcQobsrr5pEfN2hcWPkwLKze01oiIg0isWEVQMRPdDav2MVI1wQpcu+L01TaaPt5nTBFfTPyLZF0LlySdUcsUVVZimAatQ6AnLRO9/sLFvw=
+	t=1779705058; cv=none; b=mhHGMLPKomLXnw33nt8DT75D/M1u5RZ/Pxwlogj3z+2960F9pKZ8poiBC05UmshjaXRKEd3+bxfG5rL2uOfLvRHYKPUB7vziheDGNjXZmyBy+oMoxaJohd14sfzsH5XzOlZV5EO46+NO4DabQC63rawEFw7BV43jkz9rhldP/D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779705031; c=relaxed/simple;
-	bh=BkUEbcQoId0aCXkK0bB4LlyHZPF+3GnCJg6n1jzoHk8=;
+	s=arc-20240116; t=1779705058; c=relaxed/simple;
+	bh=PX+jWtEMNHNbpIa0u8FEmZaj7Rc4tWJkdoqAa/jzzpw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l1GVB4kwd/4wVBo/+zuDvm3JeDEMR7VBboconl5VGJ2cDlLnCjFOOVPCf7RV99/OHZdMUNVY9XJPal+CFzHK/QM6gjOJuX6g+Rm6fjMwPm49+88IjsxCso9xGAC8GsQx9F4Ae/Eb5a8jieM1/TF2FJot8/B8HkZxPUuPiYE1xt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQ43GHZ5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=psG/8TwkAm/BHyn+251NQcc2tbtGj01LzDMtrADgz8SlMMk64gQylMDYLIlxrE2is3dR8onrEPKZzsARs97gCCnvKGswnHZ9Vauz51JuIm5ZhBN3Jr2ugVpLE2aXI/VQIOdoKW0+kkWhYHJPuvHt6a/eZhzYK/qB6sL86/BylTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iXxrM1rT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQ43GHZ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46451F000E9;
-	Mon, 25 May 2026 10:30:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iXxrM1rT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C2C1F000E9;
+	Mon, 25 May 2026 10:30:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779705030;
-	bh=YcuEzsmVAWwrmspf6eK5QHSgxUAjrdmjgGIFVDAHATQ=;
+	s=k20260515; t=1779705056;
+	bh=1zAl0UInbh5u+DhbiChKG4Sc3oBGe/unJUK6VjVRZoA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AQ43GHZ5iZ51YIv3rAhepFHEyXhmMqn3GenPo2927mZylVAaoBmyAg7cTY/5MpmsL
-	 4dl4+em4vZPq0RkEz1Rvz11TntkPbdO7sojS45dlsp1/9qdT5u9vptNm9XixYhxDsU
-	 zPkWjhcjWdU9Td2+jFb6LSxsrZ9FVG42QUO5pe7nm72ekLJ3DmhuiYd8/qjcEXOyGx
-	 jhk5aw6QZWjSQ5n/cQ9u31rUVxcxae2ljGtQXYZlW5fX0S9KTqYrzEfn0kO3efGbZX
-	 nWUjziDEnJKcqHP+9ShP33KsfUT8oV0a7kuc94a08VAMx0H5s6hk/1E3uK2LENJpHs
-	 4JozlU0Bv119Q==
+	b=iXxrM1rTLx0p5qnX0r8rjl5swLXn8W7awK5tEFTi5d3OVOfYQXfxaFyDjnBXBXEJg
+	 2FxnU3CW8Wnq0S2unxVnHPtKSY6qncaBNcHZ/xeKJif+cj6bMQ8+LB9FTlHmlUmhNW
+	 qchSNZmbSI04w6afvUHfhvi+HFX0TcfBEJ2SO8aZdDqjEcOTP++2mAoF6bF8H4Dnab
+	 vrPZ2R52+yyy2QcjY/1wQJRXKaqu/Fcpa6r45BzFCsN6pwgCtWD6jQPxpS1iLN6Nna
+	 pBU38+H6K7H59uE3EtXFibECV6gpz0k4d7CIEBscyDbgO+zbJ1wwIwHTkrXg11zoT9
+	 TmSsntWxZ4hcw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: describe PCIe Ethernet
- controllers on NanoPC-T6
+Subject: Re: [PATCH v7 4/5] ARM: dts: microchip: add I3C controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ricardo Pardini via B4 Relay" <devnull+ricardo.pardini.net@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525-rk3588-dts-rtl-eth-describe-dt-alias-v1-1-a6fcda563ac7@pardini.net>
-References: <20260525-rk3588-dts-rtl-eth-describe-dt-alias-v1-1-a6fcda563ac7@pardini.net>
+To: "Manikandan Muralidharan" <manikandan.m@microchip.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260525092405.1514213-5-manikandan.m@microchip.com>
+References: <20260525092405.1514213-5-manikandan.m@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 10:30:29 +0000
-Message-Id: <20260525103029.E46451F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 10:30:56 +0000
+Message-Id: <20260525103056.67C2C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,60 +45,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Incorrect PCI bus address and bus range assignment for the `pcie=
-2x1l1` root port and its subordinate Ethernet child node due to a copy-past=
-e error.
+- [Low] Missing '#address-cells' and '#size-cells' in I3C controller DT node
 --
 
-commit 156420583537dc113009b35ecedada60caabe190
-Author: Ricardo Pardini <ricardo@pardini.net>
+commit 6a4a77f4bd5c6126a185a06e30b920a5e43d4eb6
+Author: Durai Manickam KR <durai.manickamkr@microchip.com>
 
-arm64: dts: rockchip: describe PCIe Ethernet controllers on NanoPC-T6
+ARM: dts: microchip: add I3C controller
 
-This commit describes the fixed PCI function nodes for the two on-board
-Realtek RTL8125BG NICs on the FriendlyElec NanoPC-T6. It attaches
-ethernet0/ethernet1 aliases to provide the kernel with DT handles for
-the two NICs.
+This commit adds the I3C controller device tree node for the sama7d65 SoC.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/ar=
-m64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-> index 84b6b53f016ab..5d28c74847c58 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+> diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dt=
+s/microchip/sama7d65.dtsi
+> --- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
+> +++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
+> @@ -1055,5 +1055,13 @@ gic: interrupt-controller@e8c11000 {
 [ ... ]
-> @@ -643,6 +645,20 @@ &pcie2x1l1 {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pcie2_1_rst>;
->  	status =3D "okay";
-> +
-> +	pcie@0,0 {
-> +		reg =3D <0x200000 0 0 0 0>;
+> +		i3c: i3c@e9000000 {
+> +			compatible =3D "microchip,sama7d65-i3c-hci";
+> +			reg =3D <0xe9000000 0x300>;
+> +			interrupts =3D <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&pmc PMC_TYPE_PERIPHERAL 105>, <&pmc PMC_TYPE_GCK 105>;
 
-[Severity: Medium]
-Is this the correct bus range and register address for the pcie2x1l1
-controller?
+[Severity: Low]
+Are the #address-cells and #size-cells properties missing for this node?
+The MIPI I3C HCI schema inherits from the core I3C schema, which typically
+requires #address-cells to be 3 and #size-cells to be 0.
 
-In rk3588-base.dtsi, the pcie2x1l1 host bridge is defined with
-bus-range =3D <0x30 0x3f>. It looks like this node uses bus 0x20
-and 0x21 (<0x200000 0 0 0 0>, <0x210000 0 0 0 0>, and
-bus-range =3D <0x20 0x2f>), which corresponds to pcie2x1l0.
+Without these properties, dtbs_check validation might fail, and the OF core
+could have trouble parsing addresses for any child devices added when this
+controller is enabled in a board file.
 
-Will this mismatch cause the PCI core to fail to match the DT nodes with
-the enumerated devices, leaving the Realtek NIC without its DT node?
-
-> +		#address-cells =3D <3>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +		device_type =3D "pci";
-> +		bus-range =3D <0x20 0x2f>;
-> +
-> +		rtl_eth0: ethernet@0,0 {
-> +			compatible =3D "pci10ec,8125";
-> +			reg =3D <0x210000 0 0 0 0>;
+> +			status =3D "disabled";
 > +		};
-> +	};
+>  	};
 >  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-rk3588-dts=
--rtl-eth-describe-dt-alias-v1-1-a6fcda563ac7@pardini.net?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525092405.1514=
+213-1-manikandan.m@microchip.com?part=3D4
