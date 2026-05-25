@@ -1,93 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AE72D94A0
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779719777; cv=none; b=MXwK2h0t8vZxEQ+Ktq82sr6s0HbEbDILBSa24f5RMe046Y8wOKlKiF4hHULPMede9iXx6e7UjA2zprpbEO8G+CQ3cmh6/MFEwApeinXwpb5NNqoNqsZF0g3dAvO+8FHRGin0obsQ4FxEk3sAhWbtXYNAaZbQj7Ch5eLdQoE4WmA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779719777; c=relaxed/simple;
-	bh=/V4pmKo5pdZ2AX8UlqZuBuhi0wd0f2X5XL9XKMCBpm0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=A+L1q6oPK26NwRG/YOrO71QLRaoBOrb5FZ8prINE1ODE3O4qMh7g0GEKK/6kTXs8syAiO/6VhAygd4QSeZoHeWLjJ/fcIsFJklKomVW/EQ9FWPVVKKZNqEfRpA+guQ5lrlfoOM/ySbs3GvDmPWaLEXFmX/2s2Ns897oTGyuQ6E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MaVTf6za; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF8B3F0AB1
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779720236; cv=pass; b=bigEd8+YfmwZl5/dN2qGI+zo7Tt8YTHcqVUMa6Vt4UJV4th4ig015i3dWt378h8SioHMZci4Y91cNxq3LOzuIXj/mQIYbzqginwrE/iaPgp9QJF/Wey3FlTxOJ3BliBLLyDfu3IRQB767GN0Rjtr6pyND92UyMGiqOhS1350dpo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779720236; c=relaxed/simple;
+	bh=P0e9QPe2YCkGR4KhiV4PcnTIW8nV8j6ZmRvQc7zuxx4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W24WsBFENz03fgaus1ZpMgfgaL9roxEGYFAHc84OCt1U7V3xHIUZpJiFkjQeRDPvOF/QIzI8+aKSVwFzatidrOAkSuUCai44pWIGjvsXOY+CWT2XuM7fEpbWYSScARGtRns9XfhVku2aLI8P0m9u0xXj+ZECDL2LKA8HlYrD0es=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/o1+SZV; arc=pass smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MaVTf6za"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AFEC1F000E9;
-	Mon, 25 May 2026 14:36:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779719776;
-	bh=mVORZIMHSjn0rBAziTOy+nvibeC86/ynkPZuMqIwdRU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MaVTf6za8jSvTVKN1DhJjjQkQrGJKPsu1Rbq3ygq/YSSGH8V13tVr3oFkrr6bYTqu
-	 RR8hdZPZqQeEqISd5IXspLvbiNojDgtxXp3ScuEdmD4/RRN5Y1M5z1Uhu0y4S1cKse
-	 F5j/pAz0KHDAohpq8xLuq7Tv0kTBJiIf9kgRK0NM5bfawskcwg7B9fTIMkI89ByvcS
-	 yPx0x0m+tTCvKLszcE5z9tS0MuFx1WawBAQIQiyShCh4aTMz/M1B9bf/hMLnF0x4S8
-	 HQanz4wUEhUVlOyTKJ0KML0kwlvtZZ0t/NiXlQzSRG9Xw/tqQX6Pi90lYfBZgTsscx
-	 XdeZXUGfwKX3g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525140018.19598-3-jszhang@kernel.org>
-References: <20260525140018.19598-3-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 14:36:15 +0000
-Message-Id: <20260525143616.1AFEC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/o1+SZV"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3044857f09aso4706653eec.1
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:43:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779720234; cv=none;
+        d=google.com; s=arc-20240605;
+        b=IXZdfZWLrCDXvnM2K6NEyX6Ft9mKWCkigBmUZeFI1VXv6mnXFvxXee8oGfG+ct3Rku
+         XXPmgjmYrYfvqq9y68x78EDJ3B1qrtocpzGVpBII5oz+yVO2Q1A3PKZekLD1xJNxvnWY
+         7+ItzTgv+ilp3jw/wPjElXrvbf33+EWBehY9Hqc7Ev8WLfrWXEqpG0FRgXb4eqp0dbHI
+         8XZ4bcovPb8V5ev1IRsaDe4cUSWSqbOTlu9fPyDccH8NSRL5CUApS+XLdz+WFjorXIDZ
+         GNz8y0OXGrzWZ6Gk3icaVp4P3BaMdZMJiCDS0ZElXaGEr655/yLOzFJA6D8atgtVxzOz
+         nA5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=71wO09jVP9qmCd1Qkiubx2/BEe+jWKIUN5BAIH24AdA=;
+        fh=shwLRFEtdn6Jm1mt1ohTqMj0sUBW3P4d9elQJ869Q1o=;
+        b=M5txJ0MMeuSjrVX54HHv7lJm4vHJUKdh7/T6960VyV2vIagk7lH0h7iEgQ72U6PGGB
+         h0qQ4C8ZKKcHIRNamYugbFkIETy9vdyXpZ/5GodPFsQ01dZAmYUu4jf1VglxkIGwXmL2
+         DjOGSjt/fYOe1JKNDTrD761JMj6mTa3xh6JlmCjhCpk7krpD6aId5H9t+F04AJZ32rq9
+         qSfU0k4xplJ853d/NMyF2Xs1Hvz4EUJ/ZOUTHNGo1sfBFcPsFV3j76LhollZBTjLad15
+         SbbK4I26TRJ33okF6EnMbNhToNQaLLVgrz1Q9a2fss3pKB7HD8Y65nlLQ9pO/j2DUN5O
+         iOHA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779720234; x=1780325034; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=71wO09jVP9qmCd1Qkiubx2/BEe+jWKIUN5BAIH24AdA=;
+        b=b/o1+SZVxx8jCQlCjooQ9+G1SIGr3V4E3+7dNCUDIHfz0BgsN8hSO5dfnKP39CVdNq
+         Segiyvt4Y9J2ftQjoxYIz63NnQ/KqAuwr0KxZU8XeI2KQcTehxG0d5a1AB1j9V4oOqEw
+         F9wOKzoSE/n9i7A14JD3SXmR2erEMoftfgfgsjEDqcCibXwy1rf+1SeMXOUKmy4vTE2D
+         6EZoobGsRQ9RBSPhnKWe/AuCg1Jbm7Fw7pkvnQ1enWE9L9NrKHq6skBUedIl5vwQubE1
+         tk0OakPVOS79iSIa+P1ekohDOXKFIu4LasK1GSNbqlOxv9WKjTynNB9LM097Dylpw5DJ
+         fuMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779720234; x=1780325034;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=71wO09jVP9qmCd1Qkiubx2/BEe+jWKIUN5BAIH24AdA=;
+        b=TdT7Qajs8mBluqtf5pQc0T83hf4/xyvZE0t/YJdFEg+I5R5+HSVxsnRtRrIzIJBGCM
+         XVjX92si39t3/2aXOYRR3/KtwobltlVd5AFiEQfpy+j0ryKQ/o1Vpa32hy++6AXaaYQb
+         tEIdbdksLxq9LQ2mZzKqwFdY8qKVjaTmJ2oTdp5/r47UdFh9eIweyG/A//HZ3qshjumG
+         52gLe251HTU5mfAkQRZlcPZ4Wx+Se1GXn/88Uwwdtc7BT8OWd2mFCR9jEDuXK8GlcN9D
+         i39okanNG+Uz47BDDHYWyTCWqgDOioKRw8prbZMacuOqD1nzbqfNtXVptaYz05pbfO6X
+         2s+A==
+X-Forwarded-Encrypted: i=1; AFNElJ+ZLlVR5p10YOko3YBMXNPUvBWTAqx23sNjRVPsCEN099COwile5dNVdEwvBhZYj0eHHKHq8Z7ys1KQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzE3n6OtuRzcHgdwwAYbUdXnRYFpMMK1FB1lFWZdBBOi7FEYQKL
+	IBxs12ox21zBvmE11DYlLgWuffwqYAlM58knWLFP3crhamTwDlKwJFZF3mJZ8da18eanqX7Hg4U
+	wK/5b02GDEg0lDGg8vsCWboFfi1La+Jc=
+X-Gm-Gg: Acq92OEGkMtBX0PdssN/WuL1w3K8EDJo7TDZNEBIpVhTnJnwOXTus2h78GsZdjPaGHC
+	nGztdk7Q22u9AaXM6+PbGIvRC/+XKv0LRj+iB33tFUW+TNZWJ/xvLyjDeQrjJbmbAbmEWGsX9Z4
+	llDwDIoCXbc46Wxb4h1H/ov5CXMr2aInOnWLaNRuotHxAg5aIQ1DEqKlIV6ZVYED4yMjcuYDq20
+	pSBKcONa0USgK9FhZlyQAIVueoS+ENrkHQbyY4nXTl9K7sOPV/j1e3xIQFTLzjfD2GYp+dowzF/
+	MCN8LRuf
+X-Received: by 2002:a05:7301:198a:b0:2d8:7302:d3d with SMTP id
+ 5a478bee46e88-30448f4b600mr7027108eec.8.1779720233893; Mon, 25 May 2026
+ 07:43:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260523083013.46372-1-clamor95@gmail.com> <20260523083013.46372-4-clamor95@gmail.com>
+In-Reply-To: <20260523083013.46372-4-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 25 May 2026 17:43:42 +0300
+X-Gm-Features: AVHnY4JqJNzX6TKO-WM02HYhrKkr3o1HkibMA_XK5sGKWAX5Jy68yUCNtw6-GnE
+Message-ID: <CAPVz0n0jpnPFh0f=CWHufzZ+e24xsem5DFTKdFu6sczCLk08Fg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] usb: chipidea: tegra: Avoid controller/PHY init if
+ bus is externally controlled
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Peter Chen <peter.chen@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>, Xu Yang <xu.yang_2@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Adding a second item to `resets` and `reset-names` without speci=
-fying `minItems: 1` makes the new reset mandatory, breaking validation for =
-device trees that only provide the core reset.
---
+=D1=81=D0=B1, 23 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:3=
+0 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> If the USB controller and PHY are externally controlled, then the
+> registration of the controller and the PHY initialization should be
+> skipped, since these configurations must be done by the device that
+> controls the bus to work correctly.
+>
+> Since USB PHY in Tegra controls clock gates required by the controller
+> itself, Chipidea core PHY management is not suitable for Tegra.
+>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/usb/chipidea/ci_hdrc_tegra.c | 32 ++++++++++++++++++----------
+>  1 file changed, 21 insertions(+), 11 deletions(-)
+>
 
-commit 620ece5c39191636270140b0c99ea8ddfa402c6f
-Author: Jisheng Zhang <jszhang@kernel.org>
+Hello there!
 
-dt-bindings: i3c: dw: Add apb reset
+This patch is required because I could not find an acceptable way to
+manually remove and add a platform device. I will explain the details
+below and hope that someone can give me some suggestions on how to
+handle this situation.
 
-Add dt-binding for support of apb reset which is to reset the APB
-interface.
+The Tegra USB controller is the root node, and it is bound and probed
+automatically. This is perfectly fine for ordinary use cases. On the
+other hand, the modem used in Tegra 3 devices requires the USB
+controller to be registered at the exact moment when the modem is
+ready to handle USB. If this window is not respected, the modem will
+not expose the USB device, and all you get is a cascade of enumeration
+failures.
 
-> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yam=
-l b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> index 613dce7757bc3..2575442b28ff4 100644
-> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> @@ -38,10 +38,12 @@ properties:
->    resets:
->      items:
->        - description: Reset signal
-> +      - description: APB interface reset signal
-> =20
->    reset-names:
->      items:
->        - const: core_rst
-> +      - const: apb_rst
+The solution as I see it right now: The modem has a power sequencing
+driver, and the USB controller can either be autoprobed and
+unregistered in the pseq probe and then registered/unregistered in the
+on/off sequences, or it can have a status =3D "reserved" set in the USB
+node and manually register/unregister it during the pseq on/off
+sequences. This would eliminate the need for this patch.
 
-[Severity: Medium]
-Does adding a second item to resets and reset-names without minItems: 1
-make the new reset mandatory?
+The problem I have faced is that I cannot properly and manually
+control the USB controller driver to bind -> probe it and remove ->
+unbind it from within powerseq.
 
-In dt-schema, when items is defined as a list, the minItems and maxItems
-properties implicitly default to the number of items in the list. By adding
-apb_rst as a second item without specifying minItems: 1, the binding now
-strictly requires exactly two items whenever the resets property is present.
+Help is appreciated. Thanks!
 
-This breaks backward compatibility for existing device trees that supply on=
-ly
-core_rst, causing them to fail make dtbs_check. To fix this schema issue,
-minItems: 1 must be explicitly added to both resets and reset-names.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525140018.1959=
-8-1-jszhang@kernel.org?part=3D2
+Best regards,
+Svyatoslav R.
