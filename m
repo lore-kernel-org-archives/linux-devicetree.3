@@ -1,108 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m822136210.xmail.ntesmail.com (mail-m822136210.xmail.ntesmail.com [8.221.36.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A2E320CD9;
-	Mon, 25 May 2026 08:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9A8320CD9;
+	Mon, 25 May 2026 08:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=8.221.36.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779697253; cv=none; b=c24xTmMBQTu1ZxyiLUg/7j9BWR/hKtAVOIvO+5aMVysFV9CUzenlbVY1RcJXG2uYJpCYe59vTKWYm9JEizIDbs75v/eVgwZx8BghOj7DxOmjC7r+pMt+ViA07rBXYgXXgGHtoBoxMy33mwFT/U+ql3OTXj+wxw0grFLK0h0MOVo=
+	t=1779697261; cv=none; b=XK2nDZlAPdta+t+D9J0h2QkF9dHR4a6qTUPhSTHJsh/JkCesE9wTpeP0Ee1VKYUU9XHh1SlZCuU/R+qC7blUfJyjjgyQTiqCymz8srMZtJE5aVtDyF5j7T8HchyzNKp5Kgt8gEwUzOMWG2YyoTyG+p5tzXcMTs7ynICjPGuSFrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779697253; c=relaxed/simple;
-	bh=JLqZsFxWNay9MgAX7saAx6mmIZ6ZLZ0VWDvf3itMnuQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rLIN41Pfo+HaPVu/xA9rNnvaVEBGNq7bTYnb2Br0wr54xZoobCFU8mlhHKQbPdkTlpwwdQJyOy6xx7SBJv7q893MixqAz9EeXr0sr326eUKN+bIk1puiNphIzQoXzLySeFqEWHgaQSVDjaWdpg1Xq+9kZmA3Pg0XluiHvJSDg/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FxRZ+rA2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779697261; c=relaxed/simple;
+	bh=aImzPp5uJDeNYOZPbMkK9KrLifDngJZZGhFpbhEHKgs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZwloDPQWJIRSFl+KH02QxQJDSJ9EepwB4lJa4p6XHG+mxVO6E7KcrBKe/NePDeYsM96azpVdrs0a/34UQjyluQRcam1BLl+DrafIo9/NInZk8VxgveZ5JIY5siwCkcdZELCjZbMPoCu6ryZ6IcR6/5y7Rv2gxDYEazlUsn67uDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=C5sQewRA; arc=none smtp.client-ip=8.221.36.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FxRZ+rA2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833E51F00A3A;
-	Mon, 25 May 2026 08:20:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779697251;
-	bh=6Fa2pBUFY1lIaLQnMdcZGk5OEdHSBm5oQKcFOT5SloE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FxRZ+rA2mf9vABdcCxi02TaVOVNhFFb5hOyHtJzYKt0YPUfjn4KUqSdVV6YjNOa1u
-	 dIco1awhmG33mzmY0u0lKTjGBOn2LVqV/XI1G5S4FJbdWw3gv43ukIkkNoRxNInN+m
-	 5zZZjgvyYanpzGfMjwX05xQnvuahW8FQvTtMNUvg6Qj15qChHV0/J7T8i2763gq6Py
-	 F5OdeDV1WKyvddAVvKpY9Le0lSiFwENTuJkoPLzJBXIjEhw50jUl7246hqugjJHOSX
-	 30LphQ0o5YTSKKAA18zFGrtbZLaKWjl/Quk6L7zv6h9T8LxODHu2sgVtZZH4dDPe+9
-	 Aj96AV0+9a8SA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/2] media: dt-bindings: Add CSI Pixel Formatter DT
- bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
-Cc: conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525-csi_formatter-v8-1-6b646231224b@oss.nxp.com>
-References: <20260525-csi_formatter-v8-1-6b646231224b@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 08:20:51 +0000
-Message-Id: <20260525082051.833E51F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="C5sQewRA"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3fb20c035;
+	Mon, 25 May 2026 16:20:44 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v7 00/10] Add eDP support for RK3576
+Date: Mon, 25 May 2026 16:20:23 +0800
+Message-Id: <20260525082033.117569-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e5e38da2e03a3kunmb64b9821102624
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQhodVhhOH0sYSR4fGB8aSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=C5sQewRAnMjyhO8i7jz9e+eZiQT8w2+caF8SYEbiYmvGVtHFbn0e6EQ1MlGvbJzMBYEH7qDMqbuqWa0BbJOupqr+1NDJLLnDO7buAkXqtCBqDcRVTuFuPg/FHYxz9ZMexMvq3ujst3vBgC3o+te6owUBElXDmkot9jUO6QeG9/Q=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=G8Irmm9w/Y+LCXjqIi95SZWGWB2D1HdFHteTuohbRNw=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The dt-binding example will fail `dt_binding_check` due to an inval=
-id `reg` property length and unit address mismatch in the parent `syscon` n=
-ode.
-- [Low] Misleading indentation of the closing braces for the `endpoint` nod=
-e within `port@0` in the dt-binding example.
---
+Patch 1-5 are to add missing clock "hclk" for RK3588 eDP nodes.
+Patch 6-7 are to add the RK3576 eDP node.
+Patch 8-10 are to support the RK3576 Analogix DP controller.
 
-commit 6a7b1f87ea2dd192a60ffaf87f2da35cb030c9a0
-Author: Guoniu Zhou <guoniu.zhou@nxp.com>
+Damon Ding (10):
+  dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock
+    for RK3588
+  dt-bindings: display: rockchip: analogix-dp: Add per-clock
+    descriptions
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
+  drm/rockchip: analogix_dp: Enable hclk for RK3588
+  dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
+  arm64: dts: rockchip: Add eDP node for RK3576
+  drm/bridge: analogix_dp: Rename and simplify is_rockchip()
+  drm/bridge: analogix_dp: Add support for RK3576
+  drm/rockchip: analogix_dp: Add support for RK3576
 
-media: dt-bindings: Add CSI Pixel Formatter DT bindings
+ .../rockchip/rockchip,analogix-dp.yaml        | 41 ++++++++++++++++++-
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 28 +++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  4 +-
+ .../arm64/boot/dts/rockchip/rk3588-extra.dtsi |  4 +-
+ .../drm/bridge/analogix/analogix_dp_core.c    |  3 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 18 ++++----
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 15 +++++++
+ include/drm/bridge/analogix_dp.h              | 13 +++++-
+ 8 files changed, 108 insertions(+), 18 deletions(-)
 
-This commit adds the device tree bindings for the i.MX95 CSI pixel
-formatting module. The module reformats packet info and data from the
-CSI-2 host controller to match the Pixel Link definition.
+---
 
-> diff --git a/Documentation/devicetree/bindings/media/fsl,imx95-csi-format=
-ter.yaml b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.=
-yaml
-> new file mode 100644
-> index 0000000000000..bc2f5d448fe58
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
-[ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
-> +
-> +    syscon@4ac10000 {
-> +        compatible =3D "nxp,imx95-camera-csr", "syscon";
-> +        reg =3D <0x0 0x4ac10000 0x0 0x10000>;
+Changes in v2:
+- Split out separate patches to add the "hclk" clock reference.
+- Split out separate patches to enable the "hclk" clock.
+- Add Reviewed-by tag.
 
-[Severity: Low]
-Will this example successfully pass dt_binding_check?
+Changes in v3:
+- Add a patch to expand descriptions for clocks of the eDP node.
+- Add Reviewed-by tag.
 
-The syscon node uses a 4-cell reg property, which requires a parent node
-configured with #address-cells =3D <2> and #size-cells =3D <2>. Since this =
-node
-is placed at the root of the example, the implicit root node defaults to 1
-for both cells, which can trigger a dtc warning due to an invalid property
-length.
+Changes in v4:
+- Modify commit msg.
 
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
-[ ... ]
-> +                port@0 {
-> +                    reg =3D <0>;
-> +
-> +                    endpoint {
-> +                        remote-endpoint =3D <&mipi_csi_0_out>;
-> +                };
-> +            };
+Changes in v5:
+- Enforce the correct third clock name on a per-compatible basis.
+- Modify the commit msg simultaneously.
+- Add Acked-by tag.
 
-[Severity: Low]
-This isn't a bug, but the closing braces for the endpoint and port@0 nodes
-have misleading indentation.
+Changes in v6:
+- Expand more detail commit msg about using hclk instead of grf clock.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-csi_format=
-ter-v8-0-6b646231224b@oss.nxp.com?part=3D1
+Changes in v7:
+- List all valid clock names at the top level, and constrain the clock
+  count for each platform with minItems/maxItems in allOf.
+
+-- 
+2.34.1
+
