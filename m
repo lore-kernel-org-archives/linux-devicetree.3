@@ -1,152 +1,110 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC5137F734
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D8E349CDD
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779707635; cv=none; b=QvurNbO8OL+sCNYxSXIRS7pm36DegMXML89gsRcCK6bC7y6C+Gw8EEJWNDPkkBNYnaEINx4Z/UQqYvG+q/hlpRK2l6FvfivVx3JzMUK7rrCyZM2GY2BLq3KuuUsP2p2+7+Eap9FtzqfaPMtbZnI+o6HNZ0MHgMz+yM01malfQIg=
+	t=1779707963; cv=none; b=UdoJWFvi4E/T3yJVFTF2Wb2neFuwXkpqMXJKe04Rx6XQzt5hATWJfvUqmoDyK6UWH3TQIscrC+TCDDhbhAkQHlB+wVOYvl7fgeV93IhPt5abwfqth+WfuQFlIaVhPkWpdalW9GTZc0Oixuqau3DYjWBcCzsPX7tTWtV8tBY85J4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779707635; c=relaxed/simple;
-	bh=FSL4P7O0X1xNtnH7ooNyT/DRDEXy9s/ZlSMFqEbPEDE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gE5T4P72jtGxGC/AJ8Em/27YP7bxwuqyJu6odAYc6JO87WoGCwdFPDpmvgXZ+Vq4u+F7g6rQK/2RsJzD6zzRTShnwlOjgsVqR0zOwT6KoWRjVxTtraiunJOfYOcUlrCgA4QevtZtxg1rmN0hXuIN/EziuV8+7BIZMEiKtp993vI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i5Gfb5//; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IB2Xj8pg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779707963; c=relaxed/simple;
+	bh=T4mvEjDBF32etTEH1Rm5AVcbmWA6alSBfMXsbB4Fcks=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rP7vA+rxT1BS3EWaEmARlJ4lA5l9M31lkkhMhWIMUsDKYX7ESGISthBAC34ii8kWwNtAly6QEABT16YYcj+gn7ejGVC5jaxGvbZd6LBQqZkDlrE5UfVMR1n4CPuTEPo8JJrbw+BpaViB+2VmwMw2WVZDE4+2Wi0cXayWV1QreAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FqMsENFt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i5Gfb5//";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IB2Xj8pg"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64P7QNO73063423
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:13:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1c/8HKj+BHzZE5YaarXghzDZ
-	Q9RCYcyLQSuiliCSSg8=; b=i5Gfb5//OFq2kUm54IF3leCGsAoRElFaOmqzTqHE
-	4LdtnZmd/ImQSr30gS/SNbn+Dp/cUywi/+Mf7K1rMAcXzU1A7HLlx5cIpHhLn9pC
-	JxGVl5a5sMslXTuiuyjFswNF1MZkMPGekUGZ+1QV+e1CtTprcBICJyMDHB29wlFV
-	ZJUyLUt6oS1tVc6U5N7svrc/Aly3z8dgck8ZM7OR4t98HW9rAWStQsJrBGby+qog
-	XimCGYGLkeFSXEg/Tk5FoqKe2If2mthXyPGkHsDv2DULtWBp1YThMgS3n3DijFHU
-	Uyrhsq6iuadSl0OqK4daKp4OPCxaFv2BvA/dRaq7Er6cFA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecj1ggukr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:13:52 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-516e0846095so40718601cf.0
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 04:13:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779707632; x=1780312432; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1c/8HKj+BHzZE5YaarXghzDZQ9RCYcyLQSuiliCSSg8=;
-        b=IB2Xj8pgYT2kWJYtAg9x9PfdUcQC0MiUOU9FrVT3nflY5KH5sLdyP3A3NXZKVZKQBj
-         PmHK5NSBnYsM4Hr34YnfjoiI6ENlLfMN0tQMGDL1DZXOB9TJ0qUvMy+5TjVorg6smd1n
-         LiYn1V4Wr1ERsw/vQhyAByiXcasNfitt3K6OelObHwAkezHlfzvBJF466HlIFa1O8PbS
-         UH1BK6+N3ig+8GGx4BFBrJHLZ9UPDC6Mdzp4vzqMUG78Y7UhtQ5g5y4NriccwPAi9+CT
-         GlZzAqpztRZ6kuofDvw7U41KVqvE0ZqlyJMBwdabbf322iDQ1x0y5ISF4cG+DRTTEZcV
-         X8/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779707632; x=1780312432;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1c/8HKj+BHzZE5YaarXghzDZQ9RCYcyLQSuiliCSSg8=;
-        b=DcW9WIOf4UWWxYfn/XiaMs/pAhgP7NRn4G6RvwxDC339qm/0wr47aT/8H9y5NQad42
-         jsB4VHnGpa8gBSMNhCrJDdgUC0Qq0ZhmcmMb2+uKHCaNfrUwux+XvWFhwqfonMKNUnmW
-         dVYFav1yMizZPSxU40B9MfYm0l0vnc3ll3S00/TuAX68jLtFRVbQu6KXz5TtbI3fjJAm
-         24q0EV3xel7m4xmObDrr5KRPMjOWe9Ylp7a3r0eTapcyp8/FTdol2yYNIx7u44sSeBOJ
-         7LTiQWsKHI7jPXY2/z3c9QZu6QdkvaOoseTE6r4qlyapM92g8S+UC8QPBRPwQj5TfyqW
-         DiUA==
-X-Forwarded-Encrypted: i=1; AFNElJ8vB4N02hk4fYQJQzFzeTSOMXgsmU3YPfvS55BiL6swQLlSt4oL5qWPWAvUzfNdiXIqUYP1BWdQEouE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6VuX1ZdORglnHBo+9fy5khzuDVXmFBnW0C8xxkDEpm82ncy52
-	zUUaKR8hiKkUrysLrMmRZWtR87XFg+QOidPaUvi+Bqs1hKO0goJFgw8PZJmXJPvZjphuxEvS0Nh
-	Pkj1viFiEuSkpVtHDyPBQQlxBMxx+Nlr7AqPVAk6oF3TEoYcD1zPQ3YQ+ep8z5t/+
-X-Gm-Gg: Acq92OE/mm+BdVaMW1Se/SmKbxQI5qBjmi9fSmWwlvGeSwgfZJmFdyXlKIj7sTdc9WF
-	eJ4SyQj1zbEylEJ9FzoBTS/vxr5Fr5YgpHhx9jGjQaZDaQ72yY+snAAP/FIS9RJ4VBkfUP+EtP7
-	TFHy/Cag7P1N2pUuUTtQzOrhv99KVdOi4tHwFcXdIcdkYkydRzQv8tSZ2k8m8qZfdGGQlCc3oKD
-	aZUu7JVgW7yoegCA6HYO6WdOsgacN7wCP0PbIRCBRSbckFrS9hc/CBi26qP93/517WtA7afH458
-	pIOC/S9cK9ZYBLLTONW2AA9SYHX1sQa+gG0oKyKWzEr0v79c9h7O2TatucXtH/qDV4RiHgglRot
-	RWvxPjzLeYdInK/k6291SUmiZOj0clecebL285EaC4su0SrlvETOWOcanl69sbm9qABM1ZmRja0
-	dglPJj+l3Bkb/oWBZV31A39kBVPdqzJj9tyw8=
-X-Received: by 2002:a05:622a:2513:b0:516:d4b1:48cd with SMTP id d75a77b69052e-516d4b14c3amr180285691cf.2.1779707632294;
-        Mon, 25 May 2026 04:13:52 -0700 (PDT)
-X-Received: by 2002:a05:622a:2513:b0:516:d4b1:48cd with SMTP id d75a77b69052e-516d4b14c3amr180285331cf.2.1779707631854;
-        Mon, 25 May 2026 04:13:51 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395dca7853esm22973391fa.14.2026.05.25.04.13.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 04:13:50 -0700 (PDT)
-Date: Mon, 25 May 2026 14:13:48 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 7/7] arm64: dts: qcom: eliza: Add support for MM clock
- controllers
-Message-ID: <u42lv62h7ps35zwqzxxmk727rmnd4ql4zmhb65q4bkjfwhi4f2@ihis7lc7zm62>
-References: <20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com>
- <20260525-eliza_mm_cc_v2-v5-7-a1d125619a5a@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FqMsENFt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15F771F000E9;
+	Mon, 25 May 2026 11:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779707960;
+	bh=EyX1ZMr5bQ1yURG/3xfON+6RF9CsLcDCCbZL6+FeTe8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FqMsENFtuuXj2rx0m/H6aW82PpYTxyGalgvLG5GE2Mqnqbze/gv1qsuFql/EIaf4O
+	 RcWo/lwfM/6crid/rnZnoMderCtzGRCvdZKF1lZKthiAADTrjyZVyPizZKuj3fptoN
+	 cTn2v7iHT1wKFP8KECYlDaeIxf/yi6oVWDCe2vtp0PJ8Wyj/8B8hYnH1TFhFi1/xm8
+	 sFka2Fpc0U7Syad37hyBD6AYBFv+dyJYdblZ0AZ7FTNCEpZw7WCMtcP2VCXlRgO6AV
+	 vU8rQlxoDzbyo5lSn8N7qzo6PF+GD8B8aEpu8XKq/zZ9/yFRG5/8VAJxSOrRzSPXHx
+	 TUOYENCZ69GTw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/8] dt-bindings: clock: renesas: Add audio clock
+ inputs for RZ/V2H family
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260525110603.4018170-2-john.madieu.xa@bp.renesas.com>
+References: <20260525110603.4018170-2-john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 11:19:19 +0000
+Message-Id: <20260525111920.15F771F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260525-eliza_mm_cc_v2-v5-7-a1d125619a5a@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: e2laDvphBnXS-TxNv_qVvQzLlarZ5gMI
-X-Proofpoint-GUID: e2laDvphBnXS-TxNv_qVvQzLlarZ5gMI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDExNSBTYWx0ZWRfX9tCBk5Bi26IY
- We8u/PFjRXpwUc8DfWH6/DPVkxBlRjpFU5z2fOxx/SX2ITSazJhWCfSOvlSutdbbbE76MvxVxeF
- mGCHOXFVe2ZG4Rg95//OkzoIe6ZJ2mVsAA0YvAKpNReqr0RL/zekxwf2WHprTFBwo3Ak/iXUWJF
- uX6/WYBktJy7GmYZqJcxi5h8RrESuZhATMG+KJZQFDXh2G8VYSsn8bJ2RZzJRlaUuuslQOFrDfI
- e+3oacBkS14Qb/DZFr1spGO8OJ5t6gtGgqvVMP2CMFbdB4MtGqSissMLdVoMrefdaRKh00hPffp
- wPof9CzXXbEDuCNdHs/G0RdVweaKF1nVMybcSyhwSjenL4spoqqE5jEb9tJ8j4YXwI7pYAbkozJ
- F5gytoOhHRu2b/XumwE57871U1dYFa2rAG9kJo6eqxsA/ftDjQgoGW62nw98Hi3py9MwMjexnaQ
- lT6jdGVgRY6aSIMKDnQ==
-X-Authority-Analysis: v=2.4 cv=D8F37PRj c=1 sm=1 tr=0 ts=6a142ef0 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=h40nfcmH4B8cT1TSTS0A:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-25_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605250115
 
-On Mon, May 25, 2026 at 04:16:09PM +0530, Taniya Das wrote:
-> Add the device nodes for the multimedia clock controllers (cambistmclkcc,
-> camcc, videocc, gpucc) for Qualcomm Eliza SoC.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/eliza.dtsi | 61 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 61 insertions(+)
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Strict array ordering prevents the independent use of newly adde=
+d optional clocks.
+--
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit 3723d06ba80fe72a3e7492af52e5e54aa0f36b03
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
+dt-bindings: clock: renesas: Add audio clock inputs for RZ/V2H family
 
--- 
-With best wishes
-Dmitry
+This commit updates the clock bindings for the RZ/V2H family SoCs to include
+the optional external audio clock inputs AUDIO_CLKB and AUDIO_CLKC. The
+AUDIO_CLKA input is fed internally and thus does not require a binding entr=
+y.
+
+> diff --git a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.ya=
+ml b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> --- a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> +++ b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> @@ -26,16 +26,22 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> +    minItems: 3
+>      items:
+>        - description: AUDIO_EXTAL clock input
+>        - description: RTXIN clock input
+>        - description: QEXTAL clock input
+> +      - description: AUDIO_CLKB clock input
+> +      - description: AUDIO_CLKC clock input
+> =20
+>    clock-names:
+> +    minItems: 3
+>      items:
+>        - const: audio_extal
+>        - const: rtxin
+>        - const: qextal
+> +      - const: audio_clkb
+> +      - const: audio_clkc
+
+[Severity: Medium]
+Will this strict array ordering prevent the independent use of the newly
+added optional clocks?
+
+Because JSON schema validates arrays strictly by position based on the items
+list, if a hardware board connects AUDIO_CLKC but does not connect AUDIO_CL=
+KB,
+the device tree node would provide an array of 4 clocks where the 4th name
+is audio_clkc.
+
+When dt_binding_check evaluates this, won't it check the 4th element against
+the schema's expectation of audio_clkb and fail, incorrectly rejecting a va=
+lid
+hardware configuration?
+
+Should this use an anyOf block enumerating the valid permutations of option=
+al
+clocks to avoid forcing users to write incorrect device trees to pass
+validation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110603.4018=
+170-1-john.madieu.xa@bp.renesas.com?part=3D1
