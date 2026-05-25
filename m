@@ -1,113 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EA730569B
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:33:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2B0335555;
+	Mon, 25 May 2026 11:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779708830; cv=none; b=DZgMNDY/QChRc2OgW83ZVAd6y7swTgoq/YaxMcNfL9EpLMyxEQNzBwdFFv5yACUlz/QkUp3PIwheDIDI9bcH9vE+IJbYgF8yrZtj9kjNP5U6fmqg/Un6U6p8TrXqKZAh6/IyyCcP5r7RpoanVhSXKwHKgMAmKafO7N/PUsC3Qts=
+	t=1779708831; cv=none; b=YNI2pbH016fXzzxnDuxJbt0IzPd8smCYDyKiI2jyKJ+V1/poBndm0AZPlSTcn04wXmvlGJSvOMPDvor9nOr3RS6ZxojW+LCo06CYwDpGwJcdOOE9KaNGbHEI3B2pSVlhOwxtUCAvfzV7VeLb8qfc9g4OLPTcL3h5EELDw2BtcAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779708830; c=relaxed/simple;
-	bh=+2rjWY7cBjgTz2QnQYitp+pNSIj6nykEBIeyXCeR1mQ=;
+	s=arc-20240116; t=1779708831; c=relaxed/simple;
+	bh=Laov1FUjobcUTu/tQOih70AjqKBWirqKflwXsTQLhlQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OE1uio0mKWtx2g7I4TIqhh1hbbmi6YvPhiUCcznZw+j0Zz6j08Kr+7YmrequDJhUIKJnU63BnIS7nR2RpPpzx3xkMueeAReEIuxt4+UpVgyNXEEHW8yVswBjn9dxfrhjmWciZm7N7ybPZhwBn2vgZA6BTURC4kKLfwm3mbtrhOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7nbkpGV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dZcrCYtqciVFdziOVOG4sBMkmvRjERqh6Sit7uuxI0lQAnfQVLaR4K/MqwkCUuoGF23Yf/uNhIAkoDjzrYFGLT/TWl7vQSCvg/i6ntB3UBOI7+HBEnIZsZ0z8mZmbLqR94/HbsT6onK0k/GS5PH81/qnDEXrhI2k5wyIRBjRyxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSjNbcHw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7nbkpGV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79B21F000E9;
-	Mon, 25 May 2026 11:33:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSjNbcHw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D6E1F00A3D;
+	Mon, 25 May 2026 11:33:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1779708829;
-	bh=7bLSAuwIJslZ/7hULYbVkozdRhuGUXqDl5sE5P8Rdm4=;
+	bh=VCjaGzAn78vEBMsChjUib0AiS3nKSv5EcGC4aMT3l6w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g7nbkpGVIZ6bFm+zNtH0NiAXJJiJpON1WIW6KsaZZNVN+dBwBHZuOuZav8fq+kyBe
-	 6wUf8vloR0eQ9EascLi6y/fV/wiHYE/SAWFjiqMcWuZI2gK+JUfmQZOaC8OK+gB2AR
-	 EL1xcpXtp4pp1A0DRw8At2l2rIfj1GZY0TN18nhMp4XNhIjdpBMGdJ3pHkg5ZhMez6
-	 UtVBUX8zccFsa5sRF2OoPmXfnDNOMEC+aB8Rg0IVwcEClJSMmDYuTTwaiYIIZhG/NU
-	 iokqN2RsC+rnxbeDgum5mZqXKEeqeNhZj9omXVrrBVhKoBlrwnhaK0l02At9yjoAwI
-	 GUZCC6QKQjUxg==
+	b=PSjNbcHw6OgwTSGOhMKNCRFFfjmL8aXZ9Vab2ek42E5Jyt8iXN8fSU5hwp+KdGgEF
+	 RYj/1VkysRA+DEq4Y/Nsj5yvFOsoM4X8Ehx+lrADRo1kiKEoqzY9utqi+1qoiHo5s3
+	 hN+3SRoXgIjdg8zCpmQvJy7Zrp2PgJn5DZg3Wvv3JkkP9lEER3k9MBlTOOi4xs1FYM
+	 3XeSUYsyVu5GI4EXhcSq4W0d7/VxRK/24sVRF1Xsi/OB2gbQCPSwAifBmT3eaNM7AX
+	 THGpaYv//z0tpJFBy7Wk88eGzJyL6DUNvO+aUgt5Y6bgPx1mAf6ekGWGgn3XOeEeZu
+	 Tbr4HJCtZbU6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 11/11] iio: adc: hx711: add support for HX710B
+Subject: Re: [PATCH 2/2] dmaengine: zynqmp_dma: Add per-channel reset
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Piyush Patle" <piyushpatle228@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260525105127.180156-12-piyushpatle228@gmail.com>
-References: <20260525105127.180156-12-piyushpatle228@gmail.com>
+To: "Golla Nagendra" <nagendra.golla@amd.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260525105042.2249542-3-nagendra.golla@amd.com>
+References: <20260525105042.2249542-3-nagendra.golla@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:33:48 +0000
-Message-Id: <20260525113348.C79B21F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 11:33:49 +0000
+Message-Id: <20260525113349.68D6E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing iio_device_claim_direct_mode() in hx711_read_raw and hx711=
-_write_raw allows sysfs access to race with triggered buffer scans, causing=
- data corruption for the HX711 variant.
+- [High] The probe error path leaks a runtime PM usage counter reference, p=
+ermanently breaking runtime PM and leaving hardware clocks enabled.
+- [High] Dropping the spinlock inside `list_for_each_entry_safe` allows con=
+current modification of the list, leading to memory corruption.
+- [High] Hardware registers are accessed in the IRQ handler without verifyi=
+ng if the device is active, risking a kernel panic on spurious interrupts.
 --
 
-commit b65710cec2d2223666cdb19d42f5604d7de0dec1
-Author: Piyush Patle <piyushpatle228@gmail.com>
+commit b2d2a678f48614c7188f8d81cbc70143b2bdfc0f
+Author: Golla Nagendra <nagendra.golla@amd.com>
+Subject: dmaengine: zynqmp_dma: Add per-channel reset support
 
-iio: adc: hx711: add support for HX710B
+This commit introduces per-channel reset support for Versal Gen 2 and
+Versal Net SoCs. It adds reset handling in the channel probe path using
+device_reset_optional() to trigger a reset pulse during initialization.
+Platforms without per-channel reset are unaffected.
 
-This commit adds support for the AVIA HX710B ADC, which shares the HX711
-GPIO interface but uses trailing PD_SCK pulses to select the active mode.
-It models the HX710B with variant-specific channel tables and tracks the
-active channel across conversions.
-
-> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-> index 5c326f01c5543..1dac9cc8b63fe 100644
-> --- a/drivers/iio/adc/hx711.c
-> +++ b/drivers/iio/adc/hx711.c
-
+> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_=
+dma.c
+> index f6a812e49ddca..51c831760372c 100644
+> --- a/drivers/dma/xilinx/zynqmp_dma.c
+> +++ b/drivers/dma/xilinx/zynqmp_dma.c
 [ ... ]
-
-> @@ -322,6 +383,9 @@ static int hx711_read_raw(struct iio_dev *indio_dev,
->  		if (*val < 0)
->  			return *val;
->  		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*val =3D hx711_data->samp_freq;
-> +		return IIO_VAL_INT;
->  	case IIO_CHAN_INFO_SCALE:
->  		*val =3D 0;
->  		mutex_lock(&hx711_data->lock);
+> @@ -916,6 +917,11 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_d=
+evice *zdev,
+>  	if (IS_ERR(chan->regs))
+>  		return PTR_ERR(chan->regs);
+> =20
+> +	err =3D device_reset_optional(&pdev->dev);
+> +	if (err)
+> +		return dev_err_probe(&pdev->dev, err,
+> +				     "failed to reset channel\n");
+> +
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is it possible for sysfs acc=
-ess
-to race with triggered buffer scans here?
+This isn't a bug introduced by this patch, but does this error path leak a
+runtime PM usage counter reference?
 
-It looks like hx711_read_raw() and the corresponding hx711_write_raw() do n=
-ot
-call iio_device_claim_direct_mode(), which allows sysfs reads and writes to
-execute concurrently with an active triggered buffer session (serialized on=
-ly
-by the internal lock).
+In zynqmp_dma_probe(), pm_runtime_resume_and_get() is called to increment
+the runtime PM usage counter and enable the device clocks. If a subsequent
+initialization step fails, such as the newly added device_reset_optional()
+returning -EPROBE_DEFER, the code jumps to the err_disable_pm label:
 
-For the HX711 variant, changing the channel or gain consumes a hardware sam=
-ple
-and sets the mode for the next conversion without doing a dummy read and wa=
-it.
-If a sysfs read or write intercepts the triggered buffer, it alters the
-trailing-pulse state machine. When the buffer trigger next executes, it wou=
-ld
-receive the data converted under the sysfs operation's mode, potentially
-causing data corruption in the sample sequence stream.
+zynqmp_dma_probe()
+    ...
+	ret =3D pm_runtime_resume_and_get(zdev->dev);
+    ...
+	ret =3D zynqmp_dma_chan_probe(zdev, pdev);
+	if (ret) {
+		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
+		goto err_disable_pm;
+	}
+    ...
+err_disable_pm:
+	if (!pm_runtime_enabled(zdev->dev))
+		zynqmp_dma_runtime_suspend(zdev->dev);
+	pm_runtime_disable(zdev->dev);
+	return ret;
 
-The newly added HX710B variant seems to handle channel switching robustly v=
-ia
-dummy reads and waits, but the HX711 variant appears to remain vulnerable to
-this stream corruption. Does the original code need an update to use
-iio_device_claim_direct_mode() to prevent these races?
+Since the device is still runtime PM enabled, it skips
+zynqmp_dma_runtime_suspend() and fails to drop the usage counter with
+pm_runtime_put_noidle().
+
+Because -EPROBE_DEFER is a normal occurrence during boot, this path can
+be hit multiple times. Will this permanently leave the usage counter above
+zero, preventing the device from ever entering runtime suspend and leaving
+its clocks enabled indefinitely?
+
+>  	chan->bus_width =3D ZYNQMP_DMA_BUS_WIDTH_64;
+>  	chan->dst_burst_len =3D ZYNQMP_DMA_MAX_DST_BURST_LEN;
+
+[Severity: High]
+This is a pre-existing issue, but does dropping the spinlock inside
+list_for_each_entry_safe() in zynqmp_dma_chan_desc_cleanup() allow concurre=
+nt
+modification of the list, leading to memory corruption?
+
+When zynqmp_dma_chan_desc_cleanup() temporarily drops the lock to invoke
+the DMA callback:
+
+zynqmp_dma_chan_desc_cleanup()
+    ...
+	list_for_each_entry_safe(desc, next, &chan->done_list, node) {
+        ...
+		if (dmaengine_desc_callback_valid(&cb)) {
+			spin_unlock_irqrestore(&chan->lock, irqflags);
+			dmaengine_desc_callback_invoke(&cb, NULL);
+			spin_lock_irqsave(&chan->lock, irqflags);
+		}
+
+A client driver can concurrently invoke dmaengine_terminate_sync(), which
+calls zynqmp_dma_device_terminate_all() and executes
+zynqmp_dma_free_descriptors(). This moves all remaining elements, including
+the prefetched next pointer, from done_list to free_list.
+
+When zynqmp_dma_chan_desc_cleanup() reacquires the lock, won't it continue
+iterating using the corrupted next pointer that now resides in free_list,
+eventually interpreting the list head &chan->free_list as a struct
+zynqmp_dma_desc_sw and resulting in out-of-bounds memory accesses?
+
+[Severity: High]
+This is a pre-existing issue, but are hardware registers accessed in the
+IRQ handler without verifying if the device is active, risking a kernel
+panic on spurious interrupts?
+
+The IRQ handler zynqmp_dma_irq_handler() directly reads the ISR and IMR
+hardware registers:
+
+zynqmp_dma_irq_handler()
+    ...
+	isr =3D readl(chan->regs + ZYNQMP_DMA_ISR);
+	imr =3D readl(chan->regs + ZYNQMP_DMA_IMR);
+
+According to the Power Management Subsystem guidelines, IRQ handlers must
+use pm_runtime_get_if_active() before accessing hardware registers.
+
+Although this IRQ is not shared, spurious interrupts can still occur. If a
+spurious interrupt fires while the device is in a suspended state with its
+clocks disabled via zynqmp_dma_runtime_suspend(), could this unprotected
+register read lead to a synchronous external abort and crash the kernel?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525105127.1801=
-56-1-piyushpatle228@gmail.com?part=3D11
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525105042.2249=
+542-1-nagendra.golla@amd.com?part=3D2
