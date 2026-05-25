@@ -1,194 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCEE17993
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1470818872A
 	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 00:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779668964; cv=none; b=BWi7tMvh+K59HGhfeC1AxEG84rNOq4TgoZ1CLAyilNsbI8J8XnSFJBJqtTcjl5mAE4sgsKHPD+cFp4DfI9hTw5f/APvYDbRkhwlOQQkj0XJG9Fn9AQFrj/NIgmToV8TUd7lfVFp6A0o8kxEu2ExZpKKz8NHxs7pEd1/WzCdpUgY=
+	t=1779668965; cv=none; b=RMXdzGRk61yNzM8P8chTTKXJhIKZlAK4KVUvYg+w6vSsW7rQdsNyjH/Mot2UDx/PsjWB46PRHUieUC5jS33NFIiKRuKuWOpNPi4o3y3nI5o0LFbAv7Z+DZZYdXJ/X8U3YDpUjzZX5eywBczxBIQA09pzcGgBtm1jNR8zdWHQydE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779668964; c=relaxed/simple;
-	bh=UaScykWEqibAAUvUw5unGy6k9B1WUv3te/7olwEtFag=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gEA0STS1QVrp4jgZSlYw8fhkzMkrhtzCue6NNHagC3xa1f2UxumiEjfgsgoY7PXa6Rk8y0ZYV9aCm0UdWLGNzp/lL5vlVWWmOSLdS0XwEDjeoJ2uJXkn8tqBKpm7l3mOWw1ggpkB2uDKA+V1u8xlcGdSRG1+HdxZSinPfSNvPyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V12sOnNf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779668965; c=relaxed/simple;
+	bh=F/KWhKY9me5A2Sa/I7jFBd9C4AXQZ5ECUYFiuLrbMMQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=pcBJ0rBa7+AYRJLsxlX+BbMY9LPtVymP/sDv7OxhiuVNsK7GnfkQcQ7+Kq5Nm5zc+27YvuVL10azlc0gazpGSX5tG5l1yyyQhvb0VmDuQDmoU3lwmKNeaS2HloBh8FucVXJxWR5OatWdoyYxcCGt680yzZlRlmbIQF4ctMDcxB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njSlvOcT; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V12sOnNf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B257D1F000E9;
-	Mon, 25 May 2026 00:29:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779668962;
-	bh=nbEM149atX0fgfU8wP4FE48NEIPPbU7hLG8HDEoh5Ss=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V12sOnNfRHvY+tLS8Q+ywDieB3dOt2z9B9lkSpUCACk31jNynAVtgQat2NlEmhBfM
-	 zUR3FsDEQPJePNWQrQ394w2DdiHYXjxnR9cbU1ppRJwK+IVqS+NQ3svT/0u9onJR6C
-	 +VbB6ddbP5bbfVXVsWjwr/8Mc1PGGLX+uzEAd9mkLTPyPIe/okRc1Z3q0sSlsDG/Iy
-	 HT4jZ/ej3NB5n1KXJgNa45vh4hYvrfHzFBHaBu5a/Pz/D2taxJ0I3ItzzHXLlO7q56
-	 taS4BtWsjI+08aw4/mImFeWiOb2Ht7zhkCpaWVIdOb3d/GRB7P/q/zamFBay73h8yp
-	 rG3sl3eftaA7g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v5 08/18] riscv_cbqri: Add capacity controller
- monitoring device ops
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-8-78d3a7ba9dbe@kernel.org>
-References: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-8-78d3a7ba9dbe@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 00:29:22 +0000
-Message-Id: <20260525002922.B257D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njSlvOcT"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4891d7164ddso43762245e9.3
+        for <devicetree@vger.kernel.org>; Sun, 24 May 2026 17:29:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779668962; x=1780273762; darn=vger.kernel.org;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XZPN3CbJBUZQrnFfjLJre9HEteqTWcy5zl2bMbcjDkg=;
+        b=njSlvOcTMaJzh/zljeLFXBSUPdIrpRShLzdYhcpomqIHZbBHSZNF2cbUB/hWwKFfJW
+         VEnngQdWAqweJ8I9beXWhEmcGjIPX/fksjzOb3XpVXk6Xx8FhaqQpHlYFthUhtXELjiL
+         FjSKtp7PkOD5ETTanEL12wU67o3ZvkQGS9ioOL8Su26JxO0RlPsl2aUy3LyBV7DbgiSd
+         iz6chJ5E2l6Hs/5ovhd6s7IAYsFWoAWNn+gdy3MSO7cC+pZEJTlx55IoelhFWiGSaaDl
+         8e8nFlqidiBZEB0y7ZUNUatTP3VjAueYQwdgAiO28Nzas25jm1Y1hw3TRzA09z4oQOXO
+         BviA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779668962; x=1780273762;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XZPN3CbJBUZQrnFfjLJre9HEteqTWcy5zl2bMbcjDkg=;
+        b=ZX+B8Nu+iCR2OPcsvB60O9LhoSO34EGrrDEFGrpbzNq4cy63BEeVfHjMl/fQGZ+qDB
+         x/Ja9/cD/hIGcQrDMuAOFlI+JFtBj6fo7PzwcbvIYCDf9YXyLjBCM8AKxTisgLx/m6Nr
+         1vvJo5XWhlqgylURn3GBfi6PuWZfDTcty5K0kf7niJXjtYkFS4beJZWtY2b5ZwszKvaU
+         lMRiIsccl1II9p+OWlG2zcaN3mZwBFV6WIDkVE+7cBfexj0AlRre3uclTEM01MJfRHmP
+         hxQTLrPkyAkK346aVPxax/de1M58uor4tRxW1LOwc1hazX4TdGhllsmzBDI09aQMfwxm
+         JKsA==
+X-Forwarded-Encrypted: i=1; AFNElJ/0Pgm5TrnXBUq2E6bV5nJEZc5Baz/HzAbx9I9rhnPMBobU93FzO7gZC1tvseOlZ/Oyxgc0ASAE9kiK@vger.kernel.org
+X-Gm-Message-State: AOJu0YyX6/MH0gtBEmb08DFV+lER5j94oEXVVLakoBP5PPGuO7UgZ3Cz
+	PyHVD2z5a0RryBDKC9R7tz6ObLTzPY2Fafbdc/IWmOACGNMywfiRnamR62b7pQ==
+X-Gm-Gg: Acq92OGNcmSTo5BG5xt9P+RqMmjXaxqKK34soxFBf8G4KbG60VG8vDtxuVOlbaqbh4G
+	q8m/6yli9NYQfU3pKRL7Udcl25OUP37xcKhDjMGXFAvCj/VbvZ4CjfsOoxnyu1NeJFFGoaFKkVW
+	J/6VcimaYvAJ8Jv/au0dIKjvScOyJ66zimJs9qnZvL8UDjYF9NZIWyti8DaO4uNZo/9JNi417dc
+	FBIaCDDQSX6OI6AylJC6WlHNDxe4ZM0fHxx0B49C+ZqPCkx2W7QZSiHhPN0m2NPB2qfVkKSvL1r
+	F6ncmG27xNblGq3Y4K+Wxe/lROw8CKhys/ovrvBXHv43MiqOIPC//+M+i6GBfAJGAU4FULarvwC
+	kZDbxr6rtgsAXk+MBs4/M60Tf+N9K0ZnJL+q8S1LDgXUi7vfoJQ4nR3HiAdx4ycCikIk8ddbUE8
+	CPRcW2yO1iPtLJc3DYYhHRSRp0576h4+qJhAZBLEBkaXtLnYLngKlLaYOrdrq1qeDcBHIjpyhFd
+	I67Mg==
+X-Received: by 2002:a05:600c:4ecc:b0:490:3d62:f5e1 with SMTP id 5b1f17b1804b1-490426cbba2mr204504635e9.22.1779668962188;
+        Sun, 24 May 2026 17:29:22 -0700 (PDT)
+Received: from localhost (213-225-2-150.nat.highway.a1.net. [213.225.2.150])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490428d44f6sm98033265e9.8.2026.05.24.17.29.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 24 May 2026 17:29:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 25 May 2026 02:29:18 +0200
+Message-Id: <DIRBZSWW96SV.3CWW1CXJWD1S6@gmail.com>
+Subject: Re: [PATCH v3 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+To: <sashiko-reviews@lists.linux.dev>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260524-veml6031x00-v3-2-29165609b2b5@gmail.com>
+ <20260524225336.450AF1F000E9@smtp.kernel.org>
+In-Reply-To: <20260524225336.450AF1F000E9@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Using GENMASK() instead of GENMASK_ULL() for 64-bit register field=
-s causes the upper 32 bits of the register to be unintentionally cleared on=
- 32-bit architectures.
-- [High] Monitoring support is incorrectly probed by issuing a READ_COUNTER=
- operation for an invalid event on an unconfigured slot, which may falsely =
-fail and disable monitoring.
-- [Medium] Probing monitoring capabilities reuses cbqri_probe_feature() on =
-MON_CTL, illegally writing to reserved (WPRI) bits to test for Access Type =
-(AT) support.
-- [Medium] Lack of bounds checking on mcid_count allows arbitrarily large l=
-oops that can block the CPU during hotplug, and causes implicit hardware ID=
- aliasing.
---
+On Mon May 25, 2026 at 12:53 AM CEST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential issu=
+e(s) to consider:
+> - [High] Mixing `devm_pm_runtime_get_noresume()` with manual `pm_runtime_=
+put_autosuspend()` causes a PM usage counter underflow.
+> - [High] `veml6031x00_write_raw()` modifies hardware registers over I2C w=
+ithout acquiring a runtime PM reference.
+> - [High] The shutdown devres action performs I2C writes without ensuring =
+the device and its parent are resumed.
+> - [Medium] Missing locks in `veml6031x00_read_raw()` for `IIO_CHAN_INFO_S=
+CALE` and `IIO_CHAN_INFO_INT_TIME` allow torn reads of configuration fields=
+.
+> - [Medium] Incorrect scale attribute exposure for the IR channel and fail=
+ure to mark shared hardware attributes.
+> - [Medium] The driver unconditionally sleeps for the integration time on =
+every raw read, introducing unnecessary latency.
+> --
 
-commit 1c3fe5b330888927a5ac94480749c86c852d54d3
-Author: Drew Fustini <fustini@kernel.org>
-Subject: riscv_cbqri: Add capacity controller monitoring device ops
+...
 
-This commit introduces capacity monitoring operations for the RISC-V capaci=
-ty
-controller. It provides functions to pre-arm hardware slots with monitoring
-events and execute monitoring register operations. It also updates the probe
-sequence to detect capacity and bandwidth monitoring capabilities.
+>> +static int veml6031x00_write_raw(struct iio_dev *iio,
+>> +				 struct iio_chan_spec const *chan,
+>> +				 int val, int val2, long mask)
+>> +{
+>> +	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
+>> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+>> +		return -EBUSY;
+>> +
+>> +	switch (mask) {
+>> +	case IIO_CHAN_INFO_INT_TIME:
+>> +		return veml6031x00_set_it(iio, val, val2);
+>> +	case IIO_CHAN_INFO_SCALE:
+>> +		return veml6031x00_set_scale(iio, val, val2);
+>
+> [Severity: High]
+> Does this code modify hardware registers over I2C without acquiring a run=
+time
+> PM reference?
+>
+> Unlike veml6031x00_single_read(), this function directly writes to the
+> sensor's configuration registers without a PM reference. Because the regm=
+ap is
+> not configured with .pm_runtime =3D true, I2C transactions may be attempt=
+ed
+> while the client device (or its parent controller) is runtime suspended, =
+which
+> can trigger bus transfer errors.
+>
 
-> diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devi=
-ces.c
-> index a97511825eedf..90a95fd111909 100644
-> --- a/drivers/resctrl/cbqri_devices.c
-> +++ b/drivers/resctrl/cbqri_devices.c
-[ ... ]
-> @@ -369,6 +407,28 @@ static int cbqri_probe_cc(struct cbqri_controller *c=
-trl)
->  	}
->  	cpus_read_unlock();
-> =20
-> +	/* Probe monitoring features */
-> +	err =3D cbqri_probe_feature(ctrl, CBQRI_CC_MON_CTL_OFF,
-> +				  CBQRI_CC_MON_CTL_OP_READ_COUNTER, &status,
-> +				  &has_mon_at_code);
+The registers are always accessible as long as the device is powered,
+both in normal operation and power down. Therefore, this function cannot
+be compared to veml6031x00_single_read() that acquires a PM reference to
+carry out a measurement, and the write operations work fine.
 
-[Severity: Medium]
-Is it safe to reuse cbqri_probe_feature() for the MON_CTL register here?
+>> +static int veml6031x00_probe(struct i2c_client *i2c)
+>> +{
+>
+> [ ... ]
+>
+>> +	ret =3D devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action,=
+ data);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to add shutdown action\n");
+>
+> [Severity: High]
+> Can this shutdown devres action perform I2C writes while the device is
+> suspended?
+>
+> Because this devres action is registered before
+> devm_pm_runtime_set_active_enabled(), on driver unbind, PM is disabled an=
+d the
+> device state is forced to suspended before the shutdown action executes d=
+ue to
+> devres LIFO execution order.
+>
+> The shutdown action then attempts to perform I2C writes to the shutdown
+> register. Accessing the I2C bus while the device state is suspended can c=
+ause
+> bus errors or hangs.
+>
+> [ ... ]
+>
+>> +	ret =3D devm_pm_runtime_set_active_enabled(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+>> +
+>> +	ret =3D devm_pm_runtime_get_noresume(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to get runtime PM\n");
+>
+> [ ... ]
+>
+>> +	ret =3D veml6031x00_hw_init(iio);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	pm_runtime_put_autosuspend(dev);
+>
+> [Severity: High]
+> Does mixing devm_pm_runtime_get_noresume() with manual
+> pm_runtime_put_autosuspend() cause a PM usage counter underflow?
+>
+> The devm_pm_runtime_get_noresume(dev) call increments the PM usage counte=
+r
+> and registers a devres action to decrement it on driver unbind.
+>
+> However, the explicit pm_runtime_put_autosuspend(dev) decrements the usag=
+e
+> counter to its pre-get state. When the driver is subsequently removed (or=
+ if
+> probe fails after the put), the devres action will blindly decrement the
+> counter a second time, resulting in an underflow.
 
-cbqri_probe_feature() attempts to verify Access Type (AT) support by writing
-to the AT field bits. However, the MON_CTL register does not define an AT
-field, which means this implicitly writes to reserved (WPRI) bits. Could
-this helper be updated to conditionally skip the AT probe sequence for
-monitoring registers?
+I believe Sashiko is misinterpreting how this pattern works (not
+introduced by me, it is already available upstream in
+drivers/spi/atmel-quadspi.c). Decrementing the usage counter is fine
+because the devres action uses pm_runtime_put_noidle(), which in turns
+uses atomic_add_unless(usage_count, -1, 0) to avoid decrementing the
+usage_count if it is already 0. Sashiko has reported the same issue in
+other patches of this series.
 
-[Severity: High]
-Will this probe sequence falsely disable monitoring on hardware?
-
-This invokes cbqri_probe_feature() using the READ_COUNTER operation, which
-zeroes out all other fields including EVT_ID. This sends a read command for
-the NONE event (EVT_ID=3D0) to an unconfigured slot, which the hardware may
-reject with an error status. If the hardware returns an error, this check
-will fail and disable monitoring. Could this probe instead use
-CONFIG_EVENT or handle expected failure codes?
-
-> +	if (err)
-> +		return err;
-> +
-[ ... ]
-> @@ -436,6 +496,28 @@ static int cbqri_probe_controller(struct cbqri_contr=
-oller *ctrl)
->  	return err;
->  }
-> =20
-> +/*
-> + * Pre-arm every MCID with the Occupancy event so a subsequent READ_COUN=
-TER
-> + * just snapshots the live counter rather than re-configuring the slot.
-> + * Called once per CC during resctrl-side cpuhp online for the L3 monito=
-ring
-> + * domain.
-> + */
-> +int cbqri_init_mon_counters(struct cbqri_controller *ctrl)
-> +{
-> +	int i, err;
-> +
-> +	for (i =3D 0; i < ctrl->mcid_count; i++) {
-> +		mutex_lock(&ctrl->lock);
-> +		err =3D cbqri_mon_op(ctrl, CBQRI_CC_MON_CTL_OFF,
-> +				   CBQRI_CC_MON_CTL_OP_CONFIG_EVENT,
-> +				   i, CBQRI_CC_EVT_ID_OCCUPANCY, NULL);
-
-[Severity: Medium]
-Does mcid_count need bounds checking against the physical hardware limit?
-
-The ctrl->mcid_count value is used as the loop boundary, but if firmware
-supplies an erroneously large value, this loop could block the CPU for an
-extended period during hotplug.=20
-
-Additionally, because the MCID field mask is 12 bits, any mcid_count larger
-than 4096 will be truncated in cbqri_mon_op(), causing logical MCIDs to
-incorrectly alias to the same physical hardware slot. Should an upper bound=
- be
-enforced on mcid_count?
-
-> +		mutex_unlock(&ctrl->lock);
-> +		if (err)
-> +			return err;
-> +	}
-> +	return 0;
-> +}
-> +
->  void cbqri_controller_destroy(struct cbqri_controller *ctrl)
->  {
->  	/*
-> diff --git a/drivers/resctrl/cbqri_internal.h b/drivers/resctrl/cbqri_int=
-ernal.h
-> index cce13026a11ed..e776b0267837a 100644
-> --- a/drivers/resctrl/cbqri_internal.h
-> +++ b/drivers/resctrl/cbqri_internal.h
-[ ... ]
-> @@ -39,6 +41,20 @@
->  #define CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT   2
->  #define CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS  1
-> =20
-> +#define CBQRI_CC_MON_CTL_OP_CONFIG_EVENT 1
-> +#define CBQRI_CC_MON_CTL_OP_READ_COUNTER 2
-> +
-> +/* mon_ctl field masks (CC and BC share an identical OP/MCID/EVT_ID/STAT=
-US layout) */
-> +#define CBQRI_MON_CTL_OP_MASK        GENMASK(4, 0)
-> +#define CBQRI_MON_CTL_MCID_MASK      GENMASK(19, 8)
-> +#define CBQRI_MON_CTL_EVT_ID_MASK    GENMASK(27, 20)
-
-[Severity: High]
-Will using GENMASK() here inadvertently clear the upper 32 bits of the 64-b=
-it
-control register on 32-bit architectures?
-
-When used with FIELD_MODIFY(), ~(_mask) will evaluate to a 32-bit unsigned
-value which gets zero-extended to 64 bits. When this is bitwise ANDed with
-the 64-bit register variable, it will wipe out the upper 32 bits, corrupting
-the STATUS field before the register is written back. Should these 64-bit
-field masks be defined with GENMASK_ULL() instead?
-
-> +#define CBQRI_MON_CTL_STATUS_MASK    GENMASK_ULL(38, 32)
-> +#define CBQRI_MON_CTL_STATUS_SUCCESS 1
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524-ssqosid-cb=
-qri-rqsc-v7-0-v5-0-78d3a7ba9dbe@kernel.org?part=3D8
+Best,
+Javier
