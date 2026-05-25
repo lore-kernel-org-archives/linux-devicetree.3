@@ -1,127 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m3290.qiye.163.com (mail-m3290.qiye.163.com [220.197.32.90])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2247B384CCA
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979393F44C5;
+	Mon, 25 May 2026 15:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.90
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779720560; cv=none; b=PnudRTDjZGWujpivkBkmByHjtnibXjl+0EKb5fKYLK4F6uW0W5JVI2vZCB6VUaOP4mjH0B4RUTyb2+bsjGswUoWQt6ifMRg+Pa8SkpubAP2hsD/hHmw/XfNa6ioCUAXAgEDZzdQZuYZ8+vvhgPlYXvpYHy6S41enKpOnCVVSABQ=
+	t=1779722197; cv=none; b=KavpEbGroulIkUpteRNl9qSCRpkp0u9LLfjntvELaZ4bXkDJwErhVZnmp9vXy0oYHcgLis+Pn+Z1JyFo/CZLBSeQ0Q/K0vbBuJ4OSYstrIvke7bux3liJ0jH6iMwmIzSJvaByvHONmR4HjFCcME1CzpDTiibSCTl8Ee+lV9dbdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779720560; c=relaxed/simple;
-	bh=UrFSRVdGBmh9DUklZmSwUJeubdTX7wcI+aVIJWzATz8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E747BtpGoEeMhe6oI4tbA/+VEQ3SN2Bkp75K2THr/L3zn+aV/D9ac5avJOhA86qbeUFDs24gAPamY02zTasvC9m5fC9hIuC0FdWy6aA4IbOrjUJYgt836gzzSxdIZ80MfYwWLhuqWp68mB3+RJbsX59+YRrz442lFwcV4RJ4Vf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXEqcm/I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779722197; c=relaxed/simple;
+	bh=hC2PiAnL7iVsUhwI37Obo54ip1RzK2jZF6PcsE73xCY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JjxPN4m9ULmXCUf40boCZGCjftKsGpA+NtvoINkLl/JGdjy8VpRt3yV1NX5Ep1boD07L5AiUGgvptFMdsEz7mhg+JpztB2czC+UwNKfGjSrm7jyvnMN4OC4ZpmPNrpMjYr02Wf6hWnVKpxVgX+2y+wCr9+onvEJWknX5VMD1PcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Unbu8r8i; arc=none smtp.client-ip=220.197.32.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXEqcm/I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B711F000E9;
-	Mon, 25 May 2026 14:49:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779720558;
-	bh=xLbBhNBtrcAFocX5iciV8jU+JEM2do+MXCyw+GJwDGY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KXEqcm/I5bAV+alAyW2RnL93aVrR5pdvtnDTeOBpWyuizCS3HGSZZxFQAgr/QcIv5
-	 vrSGaUIQUP2/CiEtmwriL077rZ9j3NNAEzlx/jLPE9nNC6Vpw0sjib8bkdUjDfc+pf
-	 4W3iiakhbRc0CBvqrlfOXo+By3Ik1HBhfIfmkCbS3qkuJ/jh+R4WKEcsX/3dF9l3Va
-	 wuY1PEPN+pW9ocF+mVAte9c27QLxUchI44gWeJZk6+x1TJYWyZUtVleQbQ2fNysn8V
-	 DKZLRBDrT6zKdCFRJg7zD2sfp3TveOm09aQNyd6HGl0xcmBhRbrntIf2L6q4UjMs5q
-	 t8V+S0n4ZrMtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] i3c: dw: Add apb reset support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525140018.19598-4-jszhang@kernel.org>
-References: <20260525140018.19598-4-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 14:49:18 +0000
-Message-Id: <20260525144918.86B711F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Unbu8r8i"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3fbb28c33;
+	Mon, 25 May 2026 20:53:51 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v8 00/10] Add eDP support for RK3576
+Date: Mon, 25 May 2026 20:53:21 +0800
+Message-Id: <20260525125331.140059-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e5f32e6b203a8kunm7b8971f5af5ca0
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkIZVk9PHUhCHk5OSUtJGFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Unbu8r8icwtrjcO9bJWbgyedDBWLtIQMcJ/L7/Fu8f7fEzaQTTRhR5S9GA+bptIqGqeKVRmj8E8HRavqsTn4KT8Q24RZXo7j8iDwup7+eTmC1EvQi/soT2/NbDpyaAdY07kVagckD7cr+vhRS28XTsDImhf7zDtNM3BeXUK10ho=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=1chQECBbO/WhCQ59gb6Beg7H8hoog+2uyixWh6CVuXg=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Patch 1-5 are to add missing clock "hclk" for RK3588 eDP nodes.
+Patch 6-7 are to add the RK3576 eDP node.
+Patch 8-10 are to support the RK3576 Analogix DP controller.
 
-New issues:
-- [High] Asymmetric reset assertion/deassertion order for APB and Core rese=
-ts violates hardware sequencing rules.
+Damon Ding (10):
+  dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock
+    for RK3588
+  dt-bindings: display: rockchip: analogix-dp: Add per-clock
+    descriptions
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
+  drm/rockchip: analogix_dp: Enable hclk for RK3588
+  dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
+  arm64: dts: rockchip: Add eDP node for RK3576
+  drm/bridge: analogix_dp: Rename and simplify is_rockchip()
+  drm/bridge: analogix_dp: Add support for RK3576
+  drm/rockchip: analogix_dp: Add support for RK3576
 
-Pre-existing issues:
-- [High] Missing error handling for clock enablement and reset deassertion =
-in runtime resume leads to potential kernel panics.
---
+ .../rockchip/rockchip,analogix-dp.yaml        | 41 ++++++++++++++++++-
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 28 +++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  4 +-
+ .../arm64/boot/dts/rockchip/rk3588-extra.dtsi |  4 +-
+ .../drm/bridge/analogix/analogix_dp_core.c    |  3 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 18 ++++----
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 15 +++++++
+ include/drm/bridge/analogix_dp.h              | 13 +++++-
+ 8 files changed, 108 insertions(+), 18 deletions(-)
 
-commit f0e43b6549a854c56bb22e329a26e4ad0bcd7e1c
-Author: Jisheng Zhang <jszhang@kernel.org>
-Subject: i3c: dw: Add apb reset support
+---
 
-This commit adds support for an APB interface reset in the DesignWare I3C
-master driver. It fetches the optional reset during probe and updates the
-runtime power management callbacks to assert and deassert it alongside the
-core reset.
+Changes in v2:
+- Split out separate patches to add the "hclk" clock reference.
+- Split out separate patches to enable the "hclk" clock.
+- Add Reviewed-by tag.
 
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
-3c-master.c
-> index a7593d6efac5a..03efd46db8d0c 100644
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-[ ... ]
-> @@ -1784,6 +1789,7 @@ static int __maybe_unused dw_i3c_master_runtime_sus=
-pend(struct device *dev)
->  	dw_i3c_master_disable(master);
-> =20
->  	reset_control_assert(master->core_rst);
-> +	reset_control_assert(master->apb_rst);
->  	dw_i3c_master_disable_clks(master);
->  	pinctrl_pm_select_sleep_state(dev);
->  	return 0;
-> @@ -1796,6 +1802,7 @@ static int __maybe_unused dw_i3c_master_runtime_res=
-ume(struct device *dev)
->  	pinctrl_pm_select_default_state(dev);
->  	dw_i3c_master_enable_clks(master);
->  	reset_control_deassert(master->core_rst);
-> +	reset_control_deassert(master->apb_rst);
+Changes in v3:
+- Add a patch to expand descriptions for clocks of the eDP node.
+- Add Reviewed-by tag.
 
-[Severity: High]
-Should the reset deassertion order in resume be reversed to follow standard
-hardware sequencing?
+Changes in v4:
+- Modify commit msg.
 
-Currently, the resets are asserted in the suspend path as core_rst followed
-by apb_rst, and they are deasserted in the resume path in the exact same
-order. Standard practice usually requires a last-in, first-out sequence.
+Changes in v5:
+- Enforce the correct third clock name on a per-compatible basis.
+- Modify the commit msg simultaneously.
+- Add Acked-by tag.
 
-Additionally, dw_i3c_common_probe() requests these resets in core_rst then
-apb_rst order. This means the automatic devres teardown will assert them as
-apb_rst then core_rst, which is the opposite of the manual runtime suspend
-logic introduced here.
+Changes in v6:
+- Expand more detail commit msg about using hclk instead of grf clock.
 
-Could this asymmetric sequencing cause bus hangs or IP initialization
-failures if a core is released from reset while its APB bus interface
-remains in reset?
+Changes in v7:
+- List all valid clock names at the top level, and constrain the clock
+  count for each platform with minItems/maxItems in allOf.
 
-[Severity: High]
-This is a pre-existing issue, but this patch extends the pattern to the new=
-ly
-added apb_rst. Are we missing error handling for the clock enablement and
-reset deassertion?
+Changes in v8:
+- Fix indentation to 10 for enum in clock-names property.
 
-The return values from dw_i3c_master_enable_clks() and both calls to
-reset_control_deassert() are being discarded. If any of these operations
-fail, the driver will proceed to configure the hardware by calling
-dw_i3c_master_set_intr_regs().
+-- 
+2.34.1
 
-Would it be safer to check these return values and return an error code to
-the PM framework to avoid potential synchronous external aborts when
-accessing inactive IP registers?
-
-> =20
->  	dw_i3c_master_set_intr_regs(master);
->  	dw_i3c_master_restore_timing_regs(master);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525140018.1959=
-8-1-jszhang@kernel.org?part=3D3
