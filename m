@@ -1,28 +1,28 @@
 Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3D33A7D98;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1717361DC1;
 	Mon, 25 May 2026 06:42:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779691353; cv=none; b=HgTK/6PAxjuWwd+Lql9x/oB1SUyRS7ONgm7BTo1g+Tf32qVhXxvLWmybOhpTzCmuQNcezjaWp+mPSLL86C5trwSne2jvOj8zlnAjXxbU6eka0SB7WsDztmFrXruoL+BRuSUxs9Go36OcI7HpfME/d3rJfrwvAoE4jyvfqN98m0Q=
+	t=1779691355; cv=none; b=jUmKIUiEQBIVvVk/DPFjAliwiGMVh9esjMixp+6nHt3j7U+KekFGXJT6MpW/68Jr8kYZ5MrszCpYDGSMqkR8wveZgp9wQaiRwREQZxZi8drpbJi8iZ3GLMJjy1+ocU9vg7238qy7g8vvvGk2KJKNsndET9vXQnng/jtaTlis0DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779691353; c=relaxed/simple;
-	bh=tjqSH3CWXVS0luHZfoZm0G1Yp242RpUiLf7cNnnb+VA=;
+	s=arc-20240116; t=1779691355; c=relaxed/simple;
+	bh=KmPb81x8xnYHT3EpLDA51n/PaRQ3KeLNtY7rQVXQbRQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=k6wB7dKNpYbH4F44MrNnRgE7Pd9+twVrMPg4FENWCHHnGCFmBZxd+VZ+EfCuq8gs6elHKAA2eL7cr1Tj2Q38nvB6h9TYW1xH13LyB0E6XTbURskEy+K/Fw8rKe02PmLn7PuqEsdIUMJ2fB9Vxga1hxx+YKOK+YYm1/m/IZY5kjw=
+	 MIME-Version; b=o45VVa/1Nhi8C97dIkx1kmWGFurjSBdk+dsD0pI9YX9DOCKJgmNoTBu2lbAufAK6B9qLrE3r1W67qfdIS3AogCtlcE4OKG3sHVpuj9CqfRy3yLkXPANINkSAWVqOu2tnbGORB081Dd7Jt2LR1ad+xrJOpycfZWUjNkKDqRHfzbY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E01161A3EA4;
-	Mon, 25 May 2026 08:42:29 +0200 (CEST)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 31BE91A2CD8;
+	Mon, 25 May 2026 08:42:25 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id CA4761A3F13;
-	Mon, 25 May 2026 08:42:28 +0200 (CEST)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E92C61A2CD6;
+	Mon, 25 May 2026 08:42:24 +0200 (CEST)
 Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 75EE61800087;
-	Mon, 25 May 2026 14:42:27 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 977AD1800086;
+	Mon, 25 May 2026 14:42:23 +0800 (+08)
 From: Lakshay Piplani <lakshay.piplani@nxp.com>
 To: linux-kernel@vger.kernel.org,
 	linux-i3c@lists.infradead.org,
@@ -38,11 +38,10 @@ To: linux-kernel@vger.kernel.org,
 Cc: vikash.bansal@nxp.com,
 	priyanka.jain@nxp.com,
 	aman.kumarpandey@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>,
-	Frank Li <frank.li@nxp.com>
-Subject: [PATCH v10 6/9] regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x i3c hub
-Date: Mon, 25 May 2026 12:12:06 +0530
-Message-Id: <20260525064209.2263045-7-lakshay.piplani@nxp.com>
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v10 3/9] i3c: master: Add APIs for I3C hub support
+Date: Mon, 25 May 2026 12:12:03 +0530
+Message-Id: <20260525064209.2263045-4-lakshay.piplani@nxp.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260525064209.2263045-1-lakshay.piplani@nxp.com>
 References: <20260525064209.2263045-1-lakshay.piplani@nxp.com>
@@ -57,18 +56,26 @@ X-Virus-Scanned: ClamAV using ClamSMTP
 
 From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-The NXP P3H2x4x family integrates on-die regulators alongside I3C hub
-functionality. This driver registers the regulators using the MFD
-framework and exposes them via the regulator subsystem.
+Add helpers for attaching and detaching I3C devices and CCC helpers
+to check CCC support and send CCC commands. These additions prepare
+for I3C hub support.
+
+The attach and detach helpers must be called with the bus lock held in
+write mode.
+
+1) i3c_master_direct_attach_i3c_dev_locked()
+2) i3c_master_direct_detach_i3c_dev_locked()
+3) i3c_master_send_ccc_cmd()
+4) i3c_master_supports_ccc_cmd()
 
 Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
 Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-Reviewed-by: Frank Li <frank.li@nxp.com>
 
 ---
 Changes in v10:
- - No change
+ - Rename i3c_master_direct_attach_i3c_dev and i3c_master_direct_detach_i3c_dev
+   APIs to *_locked, as these APIs must be called with the bus lock held in
+   write mode
 
 Changes in v9:
  - No change
@@ -77,296 +84,161 @@ Changes in v8:
  - No change
 
 Changes in v7:
- - No change, added Reviewed-By tag
+ - Update commit message to clarify purpose (prepare for I3C hub support)
 
 Changes in v6:
- - Use DEFINE_LOCK_GUARD_1 for reg lock/unlock
-
-Changes in v5:
- - Updated dev_err_probe() for regmap_init failure.
- - Updated module description
-
-Changes in v4:
- - Split the driver into three separate patches (mfd, regulator and I3C hub)
- - Introduced driver for on-die regulators in NXP P3H2x4x I3C hub
+ - Split the patch into two parts:
+        1) expose the existing API
+        2) add new APIs.
 ---
 ---
- MAINTAINERS                                   |   1 +
- drivers/regulator/Kconfig                     |  10 +
- drivers/regulator/Makefile                    |   1 +
- drivers/regulator/p3h2840_i3c_hub_regulator.c | 218 ++++++++++++++++++
- 4 files changed, 230 insertions(+)
- create mode 100644 drivers/regulator/p3h2840_i3c_hub_regulator.c
+ drivers/i3c/master.c       | 107 +++++++++++++++++++++++++++++++++++++
+ include/linux/i3c/master.h |   7 +++
+ 2 files changed, 114 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 25e578dd74dd..da698b34873b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19312,6 +19312,7 @@ L:	linux-i3c-owner@lists.infradead.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
- F:	drivers/mfd/p3h2840.c
-+F:	drivers/regulator/p3h2840_i3c_hub_regulator.c
- F:	include/linux/mfd/p3h2840.h
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 0636e3e21758..4e659435df72 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -1652,6 +1652,63 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
+ 	return 0;
+ }
  
- NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index d71dac9436e3..88809f493fd4 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1019,6 +1019,16 @@ config REGULATOR_MTK_DVFSRC
- 	  of Mediatek. It allows for voting on regulator state
- 	  between multiple users.
- 
-+config REGULATOR_P3H2X4X
-+       tristate "NXP P3H2X4X regulator support"
-+       depends on MFD_P3H2X4X
-+       help
-+         This driver provides support for the voltage regulators of the
-+         P3H244x/P3H284x multi-function I3C Hub device.
-+
-+         Say M here if you want to include support for this regulator as
-+         a module. The module will be named "p3h2840_i3c_hub_regulator".
-+
- config REGULATOR_PALMAS
- 	tristate "TI Palmas PMIC Regulators"
- 	depends on MFD_PALMAS
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 35639f3115fd..46f586ccde63 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -128,6 +128,7 @@ obj-$(CONFIG_REGULATOR_QCOM_RPMH) += qcom-rpmh-regulator.o
- obj-$(CONFIG_REGULATOR_QCOM_SMD_RPM) += qcom_smd-regulator.o
- obj-$(CONFIG_REGULATOR_QCOM_SPMI) += qcom_spmi-regulator.o
- obj-$(CONFIG_REGULATOR_QCOM_USB_VBUS) += qcom_usb_vbus-regulator.o
-+obj-$(CONFIG_REGULATOR_P3H2X4X) += p3h2840_i3c_hub_regulator.o
- obj-$(CONFIG_REGULATOR_PALMAS) += palmas-regulator.o
- obj-$(CONFIG_REGULATOR_PCA9450) += pca9450-regulator.o
- obj-$(CONFIG_REGULATOR_PF0900) += pf0900-regulator.o
-diff --git a/drivers/regulator/p3h2840_i3c_hub_regulator.c b/drivers/regulator/p3h2840_i3c_hub_regulator.c
-new file mode 100644
-index 000000000000..4f2514d4d928
---- /dev/null
-+++ b/drivers/regulator/p3h2840_i3c_hub_regulator.c
-@@ -0,0 +1,218 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2025-2026 NXP
-+ * This P3H2X4X driver file contain functions for enable/disable regulator and voltage set/get.
++/**
++ * i3c_master_direct_attach_i3c_dev_locked() - attach an I3C device to a master
++ * @master: I3C master controller to attach the device to
++ * @dev: I3C device descriptor representing the device
++ *
++ * This function attaches an I3C device to its master controller once the
++ * device has a valid address on the bus. Devices without an assigned address
++ * are ignored. The master device itself is never attached through this bus.
++ *
++ * Context: Caller must hold master->bus.lock in write mode.
++ *
++ * Return: 0 on success, or a negative error code if the attach operation
++ *         fails in the master controller driver.
 + */
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/mfd/p3h2840.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/driver.h>
-+
-+#define P3H2X4X_LDO_AND_PULLUP_CONF				0x19
-+#define P3H2X4X_LDO_ENABLE_DISABLE_MASK				GENMASK(3, 0)
-+#define P3H2X4X_CP0_EN_LDO				        BIT(0)
-+#define P3H2X4X_CP1_EN_LDO				        BIT(1)
-+#define P3H2X4X_TP0145_EN_LDO					BIT(2)
-+#define P3H2X4X_TP2367_EN_LDO					BIT(3)
-+
-+#define P3H2X4X_NET_OPER_MODE_CONF				0x15
-+#define P3H2X4X_VCCIO_LDO_CONF					0x16
-+#define P3H2X4X_CP0_VCCIO_LDO_VOLTAGE_MASK			GENMASK(1, 0)
-+#define P3H2X4X_CP0_VCCIO_LDO_VOLTAGE(x)	\
-+		FIELD_PREP(P3H2X4X_CP0_VCCIO_LDO_VOLTAGE_MASK, x)
-+#define P3H2X4X_CP1_VCCIO_LDO_VOLTAGE_MASK			GENMASK(3, 2)
-+#define P3H2X4X_CP1_VCCIO_LDO_VOLTAGE(x)	\
-+		FIELD_PREP(P3H2X4X_CP1_VCCIO_LDO_VOLTAGE_MASK, x)
-+#define P3H2X4X_TP0145_VCCIO_LDO_VOLTAGE_MASK			GENMASK(5, 4)
-+#define P3H2X4X_TP0145_VCCIO_LDO_VOLTAGE(x)	\
-+		FIELD_PREP(P3H2X4X_TP0145_VCCIO_LDO_VOLTAGE_MASK, x)
-+#define P3H2X4X_TP2367_VCCIO_LDO_VOLTAGE_MASK			GENMASK(7, 6)
-+#define P3H2X4X_TP2367_VCCIO_LDO_VOLTAGE(x)	\
-+		FIELD_PREP(P3H2X4X_TP2367_VCCIO_LDO_VOLTAGE_MASK, x)
-+#define P3H2X4X_LDO_COUNT					4
-+
-+struct p3h2x4x_regulator_dev {
-+	struct regulator_dev *rp3h2x4x_dev[P3H2X4X_LDO_COUNT];
-+	struct regmap *regmap;
-+};
-+
-+struct p3h2x4x_reg_state {
-+	unsigned int orig;
-+	bool restore;
-+};
-+
-+static void p3h2x4x_reg_guard_enter(struct regulator_dev *rdev,
-+				    struct p3h2x4x_reg_state *state)
++int i3c_master_direct_attach_i3c_dev_locked(struct i3c_master_controller *master,
++					    struct i3c_dev_desc *dev)
 +{
-+	state->restore = false;
++	int ret = 0;
 +
-+	if (regmap_read(rdev->regmap,
-+			P3H2X4X_DEV_REG_PROTECTION_CODE,
-+			&state->orig))
-+		return;
++	/*
++	 * We don't attach devices to the controller until they are
++	 * addressable on the bus.
++	 */
 +
-+	if (state->orig != P3H2X4X_REGISTERS_UNLOCK_CODE) {
-+		regmap_write(rdev->regmap,
-+			     P3H2X4X_DEV_REG_PROTECTION_CODE,
-+			     P3H2X4X_REGISTERS_UNLOCK_CODE);
-+		state->restore = true;
-+	}
++	if (!dev->info.static_addr && !dev->info.dyn_addr)
++		return -EINVAL;
++
++	/* Do not attach the master device itself. */
++	if (master->this != dev && master->ops->attach_i3c_dev)
++		ret = master->ops->attach_i3c_dev(dev);
++
++	return ret;
 +}
++EXPORT_SYMBOL_GPL(i3c_master_direct_attach_i3c_dev_locked);
 +
-+static void p3h2x4x_reg_guard_exit(struct regulator_dev *rdev,
-+				   struct p3h2x4x_reg_state *state)
++/**
++ * i3c_master_direct_detach_i3c_dev_locked() - Detach an I3C device from its
++ * master controller.
++ * @dev: I3C device descriptor to be detached
++ *
++ * This function detaches an I3C device from its master controller.
++ * It ensures that the master itself is not detached. If the device is not
++ * the master and the master controller provides a detach operation,
++ * the detach callback is invoked to perform the actual removal.
++ *
++ * Context: Caller must hold master->bus.lock in write mode.
++ */
++void i3c_master_direct_detach_i3c_dev_locked(struct i3c_dev_desc *dev)
 +{
-+	if (state->restore)
-+		regmap_write(rdev->regmap,
-+			     P3H2X4X_DEV_REG_PROTECTION_CODE,
-+			     state->orig);
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
++
++	/* Do not detach the master device itself. */
++	if (master->this != dev && master->ops->detach_i3c_dev)
++		master->ops->detach_i3c_dev(dev);
 +}
++EXPORT_SYMBOL_GPL(i3c_master_direct_detach_i3c_dev_locked);
 +
-+DEFINE_LOCK_GUARD_1(p3h2x4x_reg, struct regulator_dev,
-+		    p3h2x4x_reg_guard_enter(_T->lock, &_T->state),
-+		    p3h2x4x_reg_guard_exit(_T->lock, &_T->state),
-+		    struct p3h2x4x_reg_state state);
-+
-+static int p3h2x4x_regulator_enable(struct regulator_dev *rdev)
+ /**
+  * i3c_master_reattach_i3c_dev_locked() - reattach an I3C device with a new address
+  * @dev: I3C device descriptor to reattach
+@@ -1816,6 +1873,56 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
+ 	}
+ }
+ 
++/**
++ * i3c_master_supports_ccc_cmd() - check CCC command support
++ * @master: I3C master controller
++ * @cmd: CCC command to verify
++ *
++ * This function verifies whether the given I3C master controller supports
++ * the specified Common Command Code (CCC).
++ *
++ * Return: 0 if the CCC command is supported and executed successfully,
++ *         -EINVAL if arguments are invalid,
++ *         -EOPNOTSUPP if the master does not support CCC commands,
++ *         or another negative error code from the master's operation.
++ */
++int i3c_master_supports_ccc_cmd(struct i3c_master_controller *master,
++				const struct i3c_ccc_cmd *cmd)
 +{
-+	guard(p3h2x4x_reg)(rdev);
-+	return regulator_enable_regmap(rdev);
-+}
++	if (!cmd || !master)
++		return -EINVAL;
 +
-+static int p3h2x4x_regulator_disable(struct regulator_dev *rdev)
++	if (!master->ops->supports_ccc_cmd)
++		return -EOPNOTSUPP;
++
++	return master->ops->supports_ccc_cmd(master, cmd);
++}
++EXPORT_SYMBOL_GPL(i3c_master_supports_ccc_cmd);
++
++/**
++ * i3c_master_send_ccc_cmd() - send a CCC command
++ * @master: I3C master controller issuing the command
++ * @cmd: CCC command to be sent
++ *
++ * This function sends a Common Command Code (CCC) command to devices on the
++ * I3C bus. It acquires the bus maintenance lock, executes the command, and
++ * then releases the lock to ensure safe access to the bus.
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int i3c_master_send_ccc_cmd(struct i3c_master_controller *master,
++			    struct i3c_ccc_cmd *cmd)
 +{
-+	guard(p3h2x4x_reg)(rdev);
-+	return regulator_disable_regmap(rdev);
++	int ret;
++
++	i3c_bus_maintenance_lock(&master->bus);
++	ret = i3c_master_send_ccc_cmd_locked(master, cmd);
++	i3c_bus_maintenance_unlock(&master->bus);
++
++	return ret;
 +}
++EXPORT_SYMBOL_GPL(i3c_master_send_ccc_cmd);
 +
-+static int p3h2x4x_regulator_set_voltage_sel(struct regulator_dev *rdev,
-+					     unsigned int sel)
-+{
-+	guard(p3h2x4x_reg)(rdev);
-+	return regulator_set_voltage_sel_regmap(rdev, sel);
-+}
-+
-+static const struct regulator_ops p3h2x4x_ldo_ops = {
-+	.list_voltage = regulator_list_voltage_table,
-+	.map_voltage = regulator_map_voltage_iterate,
-+	.set_voltage_sel = p3h2x4x_regulator_set_voltage_sel,
-+	.get_voltage_sel = regulator_get_voltage_sel_regmap,
-+	.enable = p3h2x4x_regulator_enable,
-+	.disable = p3h2x4x_regulator_disable,
-+	.is_enabled = regulator_is_enabled_regmap,
-+};
-+
-+static const unsigned int p3h2x4x_voltage_table[] = {
-+	1000000,
-+	1100000,
-+	1200000,
-+	1800000,
-+};
-+
-+static struct regulator_desc p3h2x4x_regulators[] = {
-+	{
-+		.name = "ldo-cp0",
-+		.of_match = of_match_ptr("ldo-cp0"),
-+		.regulators_node = of_match_ptr("regulators"),
-+		.volt_table = p3h2x4x_voltage_table,
-+		.n_voltages = ARRAY_SIZE(p3h2x4x_voltage_table),
-+		.ops = &p3h2x4x_ldo_ops,
-+		.type = REGULATOR_VOLTAGE,
-+		.owner = THIS_MODULE,
-+		.enable_reg = P3H2X4X_LDO_AND_PULLUP_CONF,
-+		.enable_mask = P3H2X4X_CP0_EN_LDO,
-+		.vsel_reg = P3H2X4X_VCCIO_LDO_CONF,
-+		.vsel_mask = P3H2X4X_CP0_VCCIO_LDO_VOLTAGE_MASK,
-+	},
-+	{
-+		.name = "ldo-cp1",
-+		.of_match = of_match_ptr("ldo-cp1"),
-+		.regulators_node = of_match_ptr("regulators"),
-+		.volt_table = p3h2x4x_voltage_table,
-+		.n_voltages = ARRAY_SIZE(p3h2x4x_voltage_table),
-+		.ops = &p3h2x4x_ldo_ops,
-+		.type = REGULATOR_VOLTAGE,
-+		.owner = THIS_MODULE,
-+		.enable_reg = P3H2X4X_LDO_AND_PULLUP_CONF,
-+		.enable_mask = P3H2X4X_CP1_EN_LDO,
-+		.vsel_reg = P3H2X4X_VCCIO_LDO_CONF,
-+		.vsel_mask = P3H2X4X_CP1_VCCIO_LDO_VOLTAGE_MASK,
-+	},
-+	{
-+		.name = "ldo-tpg0",
-+		.of_match = of_match_ptr("ldo-tpg0"),
-+		.regulators_node = of_match_ptr("regulators"),
-+		.volt_table = p3h2x4x_voltage_table,
-+		.n_voltages = ARRAY_SIZE(p3h2x4x_voltage_table),
-+		.ops = &p3h2x4x_ldo_ops,
-+		.type = REGULATOR_VOLTAGE,
-+		.owner = THIS_MODULE,
-+		.enable_reg = P3H2X4X_LDO_AND_PULLUP_CONF,
-+		.enable_mask = P3H2X4X_TP0145_EN_LDO,
-+		.vsel_reg = P3H2X4X_VCCIO_LDO_CONF,
-+		.vsel_mask = P3H2X4X_TP0145_VCCIO_LDO_VOLTAGE_MASK,
-+	},
-+	{
-+		.name = "ldo-tpg1",
-+		.of_match = of_match_ptr("ldo-tpg1"),
-+		.regulators_node = of_match_ptr("regulators"),
-+		.volt_table = p3h2x4x_voltage_table,
-+		.n_voltages = ARRAY_SIZE(p3h2x4x_voltage_table),
-+		.ops = &p3h2x4x_ldo_ops,
-+		.type = REGULATOR_VOLTAGE,
-+		.owner = THIS_MODULE,
-+		.enable_reg = P3H2X4X_LDO_AND_PULLUP_CONF,
-+		.enable_mask = P3H2X4X_TP2367_EN_LDO,
-+		.vsel_reg = P3H2X4X_VCCIO_LDO_CONF,
-+		.vsel_mask = P3H2X4X_TP2367_VCCIO_LDO_VOLTAGE_MASK,
-+	},
-+};
-+
-+static int p3h2x4x_regulator_probe(struct platform_device *pdev)
-+{
-+	struct p3h2x4x_dev *p3h2x4x = dev_get_drvdata(pdev->dev.parent);
-+	struct p3h2x4x_regulator_dev *p3h2x4x_regulator;
-+	struct regulator_config rcfg = { };
-+	struct device *dev = &pdev->dev;
-+	struct regulator_dev *rdev;
-+	int i;
-+
-+	p3h2x4x_regulator = devm_kzalloc(dev, sizeof(*p3h2x4x_regulator), GFP_KERNEL);
-+	if (!p3h2x4x_regulator)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, p3h2x4x_regulator);
-+
-+	p3h2x4x_regulator->regmap = p3h2x4x->regmap;
-+
-+	rcfg.dev = dev->parent;
-+	rcfg.regmap = p3h2x4x_regulator->regmap;
-+	rcfg.driver_data = p3h2x4x_regulator;
-+
-+	for (i = 0; i < ARRAY_SIZE(p3h2x4x_regulators); i++) {
-+		rdev = devm_regulator_register(&pdev->dev, &p3h2x4x_regulators[i], &rcfg);
-+		if (IS_ERR(rdev))
-+			return dev_err_probe(dev, PTR_ERR(rdev), "Failed to register %s\n",
-+					     p3h2x4x_regulators[i].name);
-+		p3h2x4x_regulator->rp3h2x4x_dev[i] = rdev;
-+	}
-+	return 0;
-+}
-+
-+static struct platform_driver p3h2x4x_regulator_driver = {
-+	.driver = {
-+		.name = "p3h2x4x-regulator",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+	.probe = p3h2x4x_regulator_probe,
-+};
-+module_platform_driver(p3h2x4x_regulator_driver);
-+
-+MODULE_AUTHOR("Aman Kumar Pandey <aman.kumarpandey@nxp.com>");
-+MODULE_AUTHOR("Vikash Bansal <vikash.bansal@nxp.com>");
-+MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
-+MODULE_DESCRIPTION("NXP P3H2X4X I3C HUB Regulator driver");
-+MODULE_LICENSE("GPL");
+ /**
+  * i3c_master_do_daa_ext() - Dynamic Address Assignment (extended version)
+  * @master: controller
+diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
+index 355e9b3d9ae3..1829f2e08bfb 100644
+--- a/include/linux/i3c/master.h
++++ b/include/linux/i3c/master.h
+@@ -615,6 +615,13 @@ DEFINE_FREE(i3c_master_dma_unmap_single, void *,
+ 
+ int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
+ 				       u8 old_dyn_addr);
++int i3c_master_direct_attach_i3c_dev_locked(struct i3c_master_controller *master,
++					    struct i3c_dev_desc *dev);
++void i3c_master_direct_detach_i3c_dev_locked(struct i3c_dev_desc *dev);
++int i3c_master_send_ccc_cmd(struct i3c_master_controller *master,
++			    struct i3c_ccc_cmd *cmd);
++int i3c_master_supports_ccc_cmd(struct i3c_master_controller *master,
++				const struct i3c_ccc_cmd *cmd);
+ int i3c_master_set_info(struct i3c_master_controller *master,
+ 			const struct i3c_device_info *info);
+ 
 -- 
 2.25.1
 
