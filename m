@@ -1,134 +1,106 @@
-Received: from mail-m49228.qiye.163.com (mail-m49228.qiye.163.com [45.254.49.228])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD843CFF6A;
-	Mon, 25 May 2026 08:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EF83E2ABE
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 08:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779697578; cv=none; b=Ppzwnl/Apoahz/WxC3KBzvWohO7TEmk7crSeLKdIRR++m7Tb0vfBZV/FbXLBaFYYXzW/0XYjtFBOLH4Qdx4SVcxUegmocoIBi/UXhuwi4iSNTXrg7RcGUay+edlRgP83BhISIBG7QpczpkaN3NzQcxfAFiZN+7oemxC3gWQ+cVg=
+	t=1779698084; cv=none; b=KrDqHacDTRiWmGJcL+RnwHCbbMtkZsn/9S1b6KWWpYq+vXDC1J4rFghpp6gRKbhktJSAvE8fuE3tp1vcr2U46HZWd0B//1Z/IKDa+3FnKkkbcz3M+5m5UoEHfof1o3h2fAycvzzlcHZIt6zv6mxhRGsptTeEYbP217A7RnTThgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779697578; c=relaxed/simple;
-	bh=52aGuBysztm7C/lZOPWUUGAQiFJ5sqeIqjrIhPDdS7A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=D0p2sJvw3E580CGc8Ea795cKT+2pMmoQMWQlFlg8UzzIqNAMo7v6nCqjNAZnt3bmMehP7xSYa47l6pbO01xldZuZyU9VJpA5eSzNMQr3BkU412+II1X8eEsBpBP+f++J/tQp7/yytQAIrTxYISHRiwXu/rRJBiToE1UYcetq6z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=PHhdzCew; arc=none smtp.client-ip=45.254.49.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1779698084; c=relaxed/simple;
+	bh=MVBBHE8SWv91mQiaPGPsaKwZoGbikp5M5b0Fg3fB22E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jRQIppBcUy428eyRftP1WWRRM8rkThdk4q61fTaQE8J4Ns7iNm5WjYrqDjKokfCloKznFb/AJRZLvP14xuX0BBTiYet5n67COSxL+JjaYmRsTqFrURg+EEKAZSUztwalNygIWgz8HZVzezcFz7vzsUwDCvf5O9LhjL9kU3NoC2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jL1Cyur0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="PHhdzCew"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3fb20c091;
-	Mon, 25 May 2026 16:20:58 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v7 10/10] drm/rockchip: analogix_dp: Add support for RK3576
-Date: Mon, 25 May 2026 16:20:33 +0800
-Message-Id: <20260525082033.117569-11-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260525082033.117569-1-damon.ding@rock-chips.com>
-References: <20260525082033.117569-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jL1Cyur0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CE41F000E9;
+	Mon, 25 May 2026 08:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779698082;
+	bh=9kakHKwxuA/qioHkLSZ7sGtjQFBNbcwLo9T+lTz4Ht8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jL1Cyur0+exKFBfzHqk6oO8M/1CA0dkKVPixsCuPm7m0+BWEXB1IWBGnOPmBgXDn4
+	 TWt1tvMof15QCWZ3UJsWE5Zp/bSYRxBqGqpk0Q8kdJhXMRJTLMWiSuzR3pAtp0SFZk
+	 //NG9repbwbPFGUF8TSfLyD8twdag5s5y1K3gkdw8rIRKsbQZL4i2UCwOA7uy4C9BJ
+	 1rVth+jwkmHbqGArkTRvzGjkSTDJ1siBHMWKDuf/AYsjuDZFE/HZubDLMgRwrIi3Fi
+	 Y2P6IoQ8u1uy7CocvnR/iWKDWTTJcbh9GRUPWmNSE3WEbdUPGdFYsu5daZ3XzdE+lY
+	 /Rapf7s4hwb+g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 08/10] drm/bridge: analogix_dp: Rename and simplify
+ is_rockchip()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260525082033.117569-9-damon.ding@rock-chips.com>
+References: <20260525082033.117569-9-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 08:34:42 +0000
+Message-Id: <20260525083442.74CE41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e5e39103803a3kunmb64b982110269b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxofVkhDSEMYHxgYS0seGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=PHhdzCewlIMpVZRjr/4foXDnrdDW/D7asVQFD/sOwZ8X3oT59F22iv5RI+MtXg6TH5kjNs8IJpLZlcqHZOPl0ehsIl3JidxkWY6M6/mSPO/20uIEWQ0Qt9XEqsYjxwPC9LjMk9uPS8uuzksGwbh10qx1bRqBzrs9scF3UqjozCQ=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=1rwBuI0cZbyqqOuJPZchZLjHCX6v5TeUOe9K2mvsrfM=;
-	h=date:mime-version:subject:message-id:from;
 
-RK3576 integrates Analogix eDP 1.3 TX and Samsung combo PHY
-hardware blocks that fully match the proven RK3588 design.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Add dedicated chip data table and device tree matching entry
-to bring up basic eDP functionality for the RK3576 platform.
+Pre-existing issues:
+- [High] The atomic_check callback mutates the global connector->display_in=
+fo structure instead of the proposed atomic state.
+--
 
-Support is limited to RGB output up to 4K@60Hz for now; audio,
-PSR and other advanced eDP 1.3 features remain unvalidated.
+commit 5fc8c5d4b78e6b76c23cdd9ac4c790dbc7cd793d
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+drm/bridge: analogix_dp: Rename and simplify is_rockchip()
 
----
+This commit renames the helper is_rockchip() to analogix_dp_is_rockchip() to
+align with the driver's namespace convention. It also refactors the internal
+comparisons into a switch-case statement to improve readability and make fu=
+ture
+additions easier.
 
-Changes in v2:
-- Split out a separate patch to enable the "hclk" clock.
-- Add Reviewed-by tag.
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 8cf6b73bceac0..116de3bd83a30 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -870,7 +870,7 @@ static int analogix_dp_bridge_atomic_check(struct drm=
+_bridge *bridge,
+>  	struct drm_display_info *di =3D &conn_state->connector->display_info;
+>  	u32 mask =3D BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) | BIT(DRM_OUTPUT_COL=
+OR_FORMAT_YCBCR422);
+> =20
+> -	if (is_rockchip(dp->plat_data->dev_type)) {
+> +	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
+>  		if ((di->color_formats & mask)) {
+>  			DRM_DEBUG_KMS("Swapping display color format from YUV to RGB\n");
+>  			di->color_formats &=3D ~mask;
+>  			di->color_formats |=3D BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
+>  			di->bpc =3D 8;
 
-Changes in v3:
-- Add Reviewed-by tag.
+[Severity: High]
+This is a pre-existing issue, but does mutating the global
+connector->display_info structure inside an atomic_check callback violate t=
+he
+atomic API contracts?
 
-Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Since atomic_check is designed as a dry-run validation without side effects,
+particularly for TEST_ONLY commits, modifying di->color_formats and di->bpc
+permanently alters the connector's recorded physical capabilities. This str=
+ips
+YUV support from the connector entirely upon the first atomic check, which
+seems like it would lead to incorrect behavior for all subsequent commits.
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index d2af5eb29dbb..d4c5dd61e95b 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3576_edp[] = {
-+	{
-+		.chip_type = RK3576_EDP,
-+		.reg = 0x27dc0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3588_edp[] = {
- 	{
- 		.edp_mode = GRF_REG_FIELD(0x0000, 0, 0),
-@@ -539,6 +547,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
- };
--- 
-2.34.1
+Could format selection and fallbacks be tracked within the connector_state =
+or
+bridge_state instead of overwriting the global display_info?
 
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525082033.1175=
+69-1-damon.ding@rock-chips.com?part=3D8
